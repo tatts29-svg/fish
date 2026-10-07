@@ -347,5 +347,9 @@ geo['frame'] = {'pdf_sha256': OLD_SHA, 'issued': '17 Sep 2026', 'note': 'Both re
 geo['date_frame_note'] = '7 Oct 2026'
 json.dump(geo, open(A / 'georeferencing.json', 'w'), indent=1)
 report['georeferencing'] = {'main_transform_unchanged': True, 'inset_transform_unchanged': True}
+# the live assets this release does not change travel with the set unchanged
+import shutil
+for name in ('register.json', 'google_logo_white.png'):
+    if os.path.exists(os.path.join(LIVE, name)): shutil.copy(os.path.join(LIVE, name), A / name)
 json.dump(report, open(OUT / 'report.json', 'w'), indent=1, ensure_ascii=False)
 log('done; report at', OUT / 'report.json')

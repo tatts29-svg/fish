@@ -6,7 +6,7 @@
 set -euo pipefail
 ASSETS="$1"; OUT="$2"; PASS="$3"
 mkdir -p "$OUT"; tmp="$(mktemp -d -p "$OUT")"
-( cd "$ASSETS" && tar -cf "$tmp/assets890.tar" drawing-scene.bin original-preview.webp sheet-overview.webp underlay vt --exclude='vt/boot.json' )
+( cd "$ASSETS" && tar --exclude='vt/boot.json' -cf "$tmp/assets890.tar" drawing-scene.bin original-preview.webp sheet-overview.webp underlay vt )
 sha256sum "$tmp/assets890.tar" | cut -c1-64 > "$tmp/assets890.tar.sha256"
 openssl enc -aes-256-cbc -pbkdf2 -iter 300000 -salt -pass "file:$PASS" -in "$tmp/assets890.tar" -out "$tmp/assets890.tar.enc"
 ( cd "$tmp" && split -b 85m -d -a 2 assets890.tar.enc assets890.tar.enc.part )

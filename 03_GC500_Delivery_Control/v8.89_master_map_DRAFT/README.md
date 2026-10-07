@@ -56,6 +56,15 @@ What follows from the new positions:
 
 The service refuses a page whose media list differs from a registered manifest. My recalculation of the live manifest matches the page's `7155f6eb…` exactly.
 
+## The western edge of the 2 Oct sheet
+
+The drawing moved 9 mm on the paper, but its viewport did not. The 2 Oct sheet therefore shows 9 mm less of the Main Beach end.
+- **On the aligned picture,** that strip (columns 53–70 of 2,600) is blank.
+- **Labels only in the strip on 17 Sep:** G7, G8, MAIN BEACH TOWER, CRONIN AVE, PEARL, ER, OP11, WC69's other tag and seven HOUSE labels. They are not on the 2 Oct sheet.
+- **Pins:** none of the page's 165 pins lies in the strip (checked). WC69's pin is on the tag the 2 Oct sheet keeps, at (168, 1143) pt.
+
+If the strip matters, iEDM would need to reissue the sheet with the viewport back where it was. Found while building v8.90 (the Map explorer's drawing).
+
 ## Left as it is, on purpose
 
 - **Fencing tracing records:** 193 `master_sha256` and 6 anchor `source_sha256` fields still name the 17 Sep issue. They record which drawing the fence lines were traced on, which remains true, and the alignment keeps those lines exact on the new sheet.

@@ -1,3 +1,14 @@
+**v8.90 MAP EXPLORER DRAWS THE 2 OCT MASTER — READY (machine set, with v8.87), 8 Oct 2026 02:30 AEST.** Author: Andrew Fisher. Claude source [`v8.90_explorer_master_DRAFT/`](v8.90_explorer_master_DRAFT/README.md). It is the explorer's half of Andrew's "over write the current master".
+- **Converter proven exact.** The live explorer drawing is MuPDF's SVG cut into records. The converter rebuilt the 17 Sep scene from the old PDF with all 254,316 records identical, and its tiles are pixel-identical to the live pyramid (20/20 at L0, 247/247 at L2). It was then run on the 2 Oct PDF.
+- **Aligned in the live frame:**
+  - Main plan moved −25.50 pt (9.00 mm), measured from matched vectors and agreeing with the page's 28 px. Inset and legend unmoved.
+  - Georeferences and the 17 Sep fencing geometry stay exact; the per-tile residual against live is under 0.02 pt (p95).
+- **Rebuilt:** scene `5c6a6ae3…`, 919 labels, 64 aerial patches, a 26-level pyramid (files named by scene hash), overview, classification and plan items. The fencing hash check reads the new frame; attribution reads "issued 2 Oct".
+- **Changed references:** P45, WC51, WC38 and WC39 moved; WC10 is new; WC32 and WC40a are gone; WC69 has one tag. Every v8.89 page pin lands in its new label box.
+- **The western strip:** the 2 Oct sheet shows 9 mm less of the Main Beach end, and that strip is blank, as on the page picture. No page pin lies in it.
+- **Checks:** explorer890 17/17 on laptop and phone, 0 writes; 88 before/after shots.
+- **Publish:** compose with v8.87 in one machine-set registration, steps in the README. The encrypted assets are in `archive/` (2 parts, papers password).
+
 **v8.88 COSTS RECONCILE + TRANSPORT VIEW — READY (to ship in the combined build), 8 Oct 2026 02:10 AEST.** Author: Andrew Fisher. Claude source [`v8.88_costs_transport_DRAFT/`](v8.88_costs_transport_DRAFT/README.md). Andrew, 7 Oct: "in costing we need to ensure everything in here talks … another tab in costings to do with transport … right down to the branch".
 - **One transport model.** It replaces three separate loops that each worked out "the loads". These P&L figures are unchanged to the cent: moneySummary, Costs to job end, the P&L lines, the Additional transport forecast and the Finance handover cost total. 554 of 587 compared values are identical; the 33 that differ are the intended fixes below.
 - **Fixed:**

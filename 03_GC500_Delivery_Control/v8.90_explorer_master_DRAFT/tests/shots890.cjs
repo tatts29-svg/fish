@@ -1,7 +1,7 @@
 // Author: Andrew Fisher. Before-and-after pictures of the Map explorer at the places the 2 Oct issue changes, inside the
 // dashboard, read-only. Run once with the live explorer files (CODE/ASSETS = live) and once with the v8.90 candidate.
 //   PAGE=<dashboard build> CODE=<explorer code folder> ASSETS=<assets folder> OUT=<dir> TAG=<before|after> [MOB=1] node tests/shots890.cjs
-const {openMap} = require('./xembed890'); const fs = require('fs'), path = require('path');
+const {openMap} = require('./xembed890.cjs'); const fs = require('fs'), path = require('path');
 const OUT = process.env.OUT || '.', TAG = process.env.TAG || 'shot'; fs.mkdirSync(OUT, {recursive: true});
 const SPOTS = {   // sheet rectangles (17 Sep frame): each changed reference with room around it, and two unchanged places
   P45_old_place: [1250, 280, 1410, 380], P45_new_place: [1130, 280, 1290, 380], WC51: [1880, 210, 2040, 310], WC38_WC39: [420, 1090, 580, 1190],

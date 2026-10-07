@@ -34,6 +34,8 @@ async function open({pageFile, hash = '', W = 1440, H = 900, dpr = 1, mobile = f
     try { return await route.fulfill(res); } catch (e) { if (process.env.GC500_DEBUG) console.error('FULFILLFAIL', u.slice(0, 120), String(e && e.message).slice(0, 200)); } });
   const page = await ctx.newPage(); const errors = []; page.on('pageerror', e => errors.push(e.message.slice(0, 200)));
   const consoleErrors = []; page.on('console', m => { if (m.type() === 'error') consoleErrors.push(m.text().slice(0, 200)); });
+  const badResponses = []; page.on('response', r => { if (r.status() >= 400) badResponses.push(r.status() + ' ' + r.url().slice(0, 160)); });
+  counts.badResponses = badResponses;
   await page.goto(HOST + '/v/Coates-GC500-2026/' + hash, {waitUntil: 'load', timeout: 180000}); return {browser, page, errors, consoleErrors, counts};
 }
 /* the dashboard's Map tab with the explorer ready inside it */

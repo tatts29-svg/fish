@@ -123,7 +123,7 @@ The compass sits in the top-right corner (bottom-right on a phone):
   service's policy already admits tile.googleapis.com.
 - Google's logo and imagery credit are shown whenever its tiles are.
 - If Google's session cannot be had, or the tiles are refused, Mapbox takes over automatically.
-- Cost: each tile is one billable event. There are 100,000 free a month, then US$0.60 per 1,000.
+- Cost: each tile is one billable event; a monthly free allowance, then Google's published per-thousand rate.
 - Google marks its highest-zoom tiles with a faint "© 2026 Google".
 
 ### The Google Maps feel
