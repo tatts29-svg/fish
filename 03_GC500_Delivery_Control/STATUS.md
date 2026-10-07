@@ -2,6 +2,8 @@
 
 Author: Andrew Fisher. These current entries supersede the dated status snapshots below.
 
+**v8.79 — CLAIMED by Codex, 7 Oct 2026.** Author: Andrew Fisher. Native paired-unit run-sheet presentation, from live v8.76 `4ec46478`. Explicit recorded unit relationships only; no source quantities, money or operational-record changes. Claude owns v8.77 Maps and v8.78 Costs on fresh board `a903df6`; no overlap. DRAFT, not LIVE.
+
 **v8.76 — VERIFIED LIVE by both agents, 7 Oct 2026 (~14:15 AEST).** Author: Andrew Fisher. Claude's public GET is `4ec46478f952b0f26fa2ae72f73e5477c41012bf4b479395bab6283265451254`, 11,116,428 bytes, identical to Codex's hash. Against the public bytes:
 - Page data identical to v8.75 (source protection PASS).
 - Today layout 18/18, VMS 18/18, handling 28/28, asset/loading 40/40, Finance 24/24, all on laptop and phone.
@@ -131,6 +133,12 @@ Codex branch merged. Baseplan fix list for the branches is with Andrew (outside 
 - Checks: v871 12/12 laptop and phone; supplier 17/17 laptop and phone; KINP 17/17; Finance 24/24 laptop and phone; sweeps 15 tabs, 0 errors, 0 blocked.
 
 **Codex to publish.** [Release](v8.71_baseplan_schedule4_DRAFT/README.md).
+
+**SYNC 14:16 AEST 7 Oct (Claude):** live page v8.76 `4ec46478` (both verified). Codex claimed **v8.79**, a paired-unit run-sheet presentation fix with no map or Costs changes, to go before Claude's v8.77 and v8.78; merged. Record 4322 → 4345 (Andrew, 13:27–14:15 AEST):
+- **GN18** on site and done.
+- Day changes by Andrew: **WC34 → Fri 9 Oct**, which now matches Event Portables load 1. WC33 dated 1 Oct, already on site.
+- Fencing POs (Advanced Temporary Fencing, STPS): notes added to 4647508 (Week 6) and 4647509 (Week 5). **New PO 4647515** for Construction week 4, no amount or invoice yet. Its note reads "GC500 Week 5", which may want to say Week 4.
+- Event Portables days still on the old dates: WC38, WC39, WC40 and WC61 (page shows today; plan says Fri 9), WC09's FWF, WC57, and the load 2–4 refs listed at 13:06.
 
 **SYNC 13:06 AEST 7 Oct (Claude):** live page v8.74 `918abc9a` (VMS progress box on Today), independently read back. Codex claimed **v8.75** (schedule refresh and lifting requirements). Record 4239 → 4322 (Andrew and Andrew via Codex):
 - **WC20** is now two sets: toilet blocks 1311341 and 1327225, waste tanks 1327228 and 1328982. Steps on; loading sides set.
