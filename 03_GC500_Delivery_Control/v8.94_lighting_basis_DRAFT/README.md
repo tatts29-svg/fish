@@ -37,12 +37,12 @@ manager on 8 Oct 2026" and "(confirmed 8 Oct 2026)". The words themselves are qu
 ## What the page shows now
 
 **Lighting = towers credited ÷ the map's 6.** On today's records that is **4 of 6 = 66.67%**:
-- BSF storage yard, Molendinar: D024 keys 4; T0002 delivered 5, credited 4, 1 surplus to the plan.
+- BSF storage yard, Molendinar: D024 keys 4; T0002's 5 are verified complete (complete on the record, a known quantity, no conflict), credited 4, 1 surplus to the plan.
 - Seaway car park transporter compound: D024 keys 2; LT05 and LT06 are not on site, credited 0.
 
 The reading is "Confirmed complete against the map's scope", kind `confirmed`, no ≥ and no range. The Lighting card's counts
 read Done 4 · Left 2 · 6 total. The card carries one scope note (the 6 keyed towers by location, confirmed) and one surplus
-note: "T0002 delivered 5 towers to the BSF storage yard, Molendinar; D024 needs 4, so 1 is surplus to the plan." The card's
+note: "T0002 has 5 towers on record for the BSF storage yard, Molendinar; D024 needs 4, so 1 is surplus to the plan." The card's
 fold has one "Lighting scope" note with the per-location workings and the 7 towers on record.
 
 **The whole job is back** under v8.85's seven-group rule, with Lighting confirmed on the map's scope: today ≥60.53% (the ≥

@@ -10,8 +10,13 @@ const figures = async (pageFile, MOB) => { const s = await open({pageFile, W: MO
     const strip = o => JSON.parse(JSON.stringify(o, (k, v) => (k === 'asAt' || k === 'at' || k === 'now' || k === 'generated') ? undefined : v));
     return JSON.stringify({M: strip(M), X: strip(X), H: strip(H), P: strip(P), B: strip(B), V: {tot: V.tot, byBranch: V.byBranch, byCarrier: V.byCarrier, revenueTotal: V.revenueTotal, provisionalTotal: V.provisionalTotal, lines: V.lines.length}, R: R.ties.map(t => ({what: t.what, ok: t.ok, parts: t.parts})), RH: strip(RH), LP: {all: LP.all}}); }));
   const version = await p.evaluate(() => (document.getElementById('footL') || {}).textContent || ''), has892 = await p.evaluate(() => !!document.getElementById('aplus892-script') && !!document.getElementById('aplus892-style'));
-  return {J, version, has892, errors: s.errors, blocked: s.counts.blocked}; } finally { await s.browser.close(); } };
-(async () => { const MOB = !!process.env.MOB; const a = await figures(process.env.BASE, MOB); const b = await figures(process.env.PAGE, MOB);
+  /* the shared record this page read: both pages must have read the same version, or the comparison is inconclusive */
+  const ver = await p.evaluate(() => { try { return SYNC.backend.readVersion821(); } catch (e) { return null; } }), day = await p.evaluate(() => todayIso());
+  return {J, version, has892, ver, day, errors: s.errors, blocked: s.counts.blocked}; } finally { await s.browser.close(); } };
+(async () => { const MOB = !!process.env.MOB; let a = await figures(process.env.BASE, MOB), b = await figures(process.env.PAGE, MOB), tries = 0;
+  /* the live record can move between the two reads; read again (twice at most) until both pages hold the same version */
+  while ((a.ver == null || a.ver !== b.ver || a.day !== b.day) && tries++ < 2) { a = await figures(process.env.BASE, MOB); if (a.ver !== b.ver || a.day !== b.day) b = await figures(process.env.PAGE, MOB); }
+  if (a.ver == null || a.ver !== b.ver || a.day !== b.day) { console.log('INCONCLUSIVE the shared record moved between the two reads (record ' + a.ver + ' and ' + b.ver + ', days ' + a.day + ' and ' + b.day + '); nothing compared'); process.exitCode = 2; return; }
   /* the figures: every number in the models, in order, must be the same number; the words may differ only by the v8.92 vocabulary
      (sub-hired, Costs & P&L, Customer rates & charges, oversized, Rate 1, the Rehire stream names, the Equipment tab) */
   const nums = s => (s.match(/-?\d+(?:\.\d+)?/g) || []); const na = nums(a.J), nb = nums(b.J);
@@ -22,6 +27,7 @@ const figures = async (pageFile, MOB) => { const s = await open({pageFile, W: MO
   ok('every figure on Costs & P&L is identical to the base (' + na.length + ' numbers compared, ' + Math.round(a.J.length / 1024) + ' KB of models)', sameNums, sameNums ? {} : {numbers: [na.length, nb.length], firstDiff: na.findIndex((x, i) => x !== nb[i])});
   ok('the models read the same apart from the v8.92 words', same, same ? {} : {diffAt: [...words(a.J)].findIndex((c, i) => c !== words(b.J)[i])});
   ok('the candidate carries v8.92 (its style and script) and the base does not', b.has892 && !a.has892, {base: a.has892, cand: b.has892, baseFooter: a.version.slice(-30), candFooter: b.version.slice(-30)});
+  ok('both pages read the same shared record (version ' + a.ver + ', ' + a.day + ')', a.ver != null && a.ver === b.ver && a.day === b.day, {base: a.ver, cand: b.ver});
   ok('no page errors on either', a.errors.length === 0 && b.errors.length === 0, {base: a.errors.slice(0, 3), cand: b.errors.slice(0, 3)});
   ok('no writes attempted', a.blocked === 0 && b.blocked === 0, {});
   if (!same) { const A = words(a.J), B = words(b.J); const i = [...A].findIndex((c, k) => c !== B[k]); console.log('first difference near:', A.slice(Math.max(0, i - 160), i + 160).replace(/\$\s?[0-9][0-9,]*(\.[0-9]+)?/g, '$—'), '\n   vs', B.slice(Math.max(0, i - 160), i + 160).replace(/\$\s?[0-9][0-9,]*(\.[0-9]+)?/g, '$—')); }

@@ -9,7 +9,8 @@
  *
  * The scope is the map (Andrew, 8 Oct 2026: "What ever the map says. If its 6 its 6"): the 6 lighting towers D024 keys,
  * 4 at the BSF storage yard, Molendinar, and 2 at the Seaway car park transporter compound. Each location credits the
- * towers delivered to it, up to the number D024 keys there, so the fifth tower at Molendinar is surplus to the plan
+ * towers verified complete at it (complete on the record, a known quantity, no conflict), up to the number D024 keys there, so the
+ * fifth tower on record at Molendinar is surplus to the plan
  * (Andrew, 8 Oct 2026: "Lets go by d024") and is said, not counted. Lighting = credited ÷ 6; today 4 of 6.
  *
  * The projection (the v8.82 audit, rebased): drawing-only D024 symbols and source-row copies leave the equipment register
@@ -253,17 +254,18 @@ if (typeof module !== 'undefined' && module.exports) module.exports = {lighting8
   places: a => a.groups.map(g => g.scope + ' at the ' + g.name).join('; '),
   keys: g => g.records.map(r => r.key).join(', '),
   group: g => g.records.some(r => r.review) ? W.keys(g) + ' requires review, ' + g.credited + ' verified complete credited'
-   : g.delivered > 0 ? W.keys(g) + ' delivered ' + g.delivered + ', credited ' + g.credited + (g.surplus ? ', ' + g.surplus + ' surplus to the plan' : '')
+   : g.delivered > 0 ? W.keys(g) + ': ' + g.delivered + ' verified complete, credited ' + g.credited + (g.surplus ? ', ' + g.surplus + ' surplus to the plan' : '')
    : g.records.some(r => r.onSite) ? W.keys(g) + ' on site, not yet complete, credited 0'
    : g.records.every(r => !r.present) ? 'no record on the register yet, credited 0'
    : W.keys(g) + (g.records.length === 1 ? ' is' : ' are') + ' not on site, credited 0',
   place: g => g.records.some(r => r.review) ? W.keys(g) + ' at the ' + g.name + ' requires review, ' + g.credited + ' verified complete credited'
-   : g.delivered > 0 ? W.keys(g) + ' delivered ' + g.delivered + ' to the ' + g.name + ', credited ' + g.credited + (g.surplus ? ', ' + g.surplus + ' surplus to the plan' : '')
+   : g.delivered > 0 ? W.keys(g) + ': ' + g.delivered + ' verified complete at the ' + g.name + ', credited ' + g.credited + (g.surplus ? ', ' + g.surplus + ' surplus to the plan' : '')
    : g.records.some(r => r.onSite) ? W.keys(g) + ' at the ' + g.name + ' on site, not yet complete, credited 0'
    : g.records.every(r => !r.present) ? 'no record yet at the ' + g.name + ', credited 0'
    : W.keys(g) + ' at the ' + g.name + (g.records.length === 1 ? ' is' : ' are') + ' not on site, credited 0',
   today: a => 'today ' + a.credited + ' of ' + a.scope + ' (' + a.groups.map(W.place).join('; ') + ')',
-  surplusNote: g => W.keys(g) + (g.delivered > g.scope ? ' delivered ' + plural(g.delivered, 'tower', 'towers') + ' to the ' + g.name : ' has ' + plural(g.recorded, 'tower', 'towers') + ' on record for the ' + g.name) + '; D024 needs ' + g.scope + ', so ' + g.surplus + (g.surplus === 1 ? ' is' : ' are') + ' surplus to the plan.',
+  /* the surplus is a quantity on record against the map's scope, apart from completion */
+  surplusNote: g => W.keys(g) + ' has ' + plural(g.recorded, 'tower', 'towers') + ' on record for the ' + g.name + '; D024 needs ' + g.scope + ', so ' + g.surplus + (g.surplus === 1 ? ' is' : ' are') + ' surplus to the plan.',
   surplusWords: a => a.surplus.map(W.surplusNote).join(' '),
   tag: a => a.confirmed ? 'Counted against the map’s ' + a.scope + ' towers' : 'Complete in recorded scope · scope unconfirmed',
   chipTitle: a => a.confirmed ? 'Counted against the map’s scope: the ' + a.scope + ' lighting towers keyed on D024 (' + W.places(a) + '), confirmed ' + W.who(a) + '. ' + a.credited + ' of ' + a.scope + ' credited today.'
@@ -275,7 +277,7 @@ if (typeof module !== 'undefined' && module.exports) module.exports = {lighting8
   whole: 'Whole job unavailable until the Lighting scope is confirmed',
   lights: 'Whole job unavailable until the Lighting scope is confirmed. No milestone lights are lit.',
   basis: a => a.confirmed
-   ? ' Lighting is counted against the map’s scope: the ' + a.scope + ' lighting towers keyed on D024 (' + W.places(a) + '), confirmed ' + W.who(a) + W.quote(a) + '. Each location credits the towers delivered to it, up to the number D024 keys there: ' + W.today(a) + '.'
+   ? ' Lighting is counted against the map’s scope: the ' + a.scope + ' lighting towers keyed on D024 (' + W.places(a) + '), confirmed ' + W.who(a) + W.quote(a) + '. Each location credits the towers verified complete at it (complete on the record, a known quantity, no conflict), up to the number D024 keys there: ' + W.today(a) + '.'
     + (a.surplus.length ? ' ' + W.surplusWords(a) + (a.confirmation.surplus && a.confirmation.surplus.words ? ' (' + day(a.confirmation.surplus.on || a.confirmation.on) + ': “' + text(a.confirmation.surplus.words) + '”)' : '') : '')
     + ' The ' + W.symbols(a).replace(/^the /, '') + ' ' + W.boq(a)
    : ' Lighting counts complete towers over unique recorded equipment: ' + W.rows(a) + ' — ' + a.recorded + ' towers, ' + a.complete + ' complete. D024 keys ' + a.keyed + ' lighting callouts; ' + W.symbols(a) + ' ' + W.boq(a)
@@ -285,7 +287,7 @@ if (typeof module !== 'undefined' && module.exports) module.exports = {lighting8
     + ' ' + a.recorded + ' towers on current equipment references (' + W.rows(a) + '). ' + W.symbols(a).replace(/^./, ch => ch.toUpperCase()) + ' ' + W.boq(a)
    : 'Lighting scope: ' + a.recorded + ' towers on current equipment references (' + W.rows(a) + '); D024 keys ' + a.keyed + ' lighting callouts. ' + W.boq(a) + ' ' + W.symbols(a).replace(/^./, ch => ch.toUpperCase())
     + ' The scope is unconfirmed, so the percentage covers recorded equipment only.' + W.invalid(a),
-  summaryBasis: a => a.confirmed ? ' Counted against the map’s scope: the ' + a.scope + ' lighting towers keyed on D024, confirmed ' + W.who(a) + '; each location credits what was delivered to it, up to the number D024 keys there.' + (a.surplus.length ? ' ' + W.surplusWords(a) : '')
+  summaryBasis: a => a.confirmed ? ' Counted against the map’s scope: the ' + a.scope + ' lighting towers keyed on D024, confirmed ' + W.who(a) + '; each location credits the towers verified complete at it, up to the number D024 keys there.' + (a.surplus.length ? ' ' + W.surplusWords(a) : '')
    : ' The job’s lighting scope is unconfirmed: ' + a.recorded + ' towers on record, D024 keys ' + a.keyed + '; ' + W.boq(a) + ' This percentage covers unique recorded equipment only.' + W.invalid(a)
  };
 
