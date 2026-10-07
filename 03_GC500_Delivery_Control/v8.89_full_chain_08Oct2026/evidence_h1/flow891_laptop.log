@@ -24,3 +24,22 @@ PASS drag and drop reorders (desktop pointer drag left it; the drop rule itself 
 PASS people on sets the day’s numbers: 3 people on → 1 unload at a time (2 people each); blank → not set
 PASS Main Beach: two trucks planned 09:00–09:30 are flagged (limit 1) with the fix — stagger the later one to 09:30, or hold it at Helen Park; an Area full chip sits on the line
 FAIL one tap staggers the later load to 09:30 through the crew record (planned unloading window 09:30–10:00) and the flag clears {"iso":"2026-10-09","loads":[2,6],"peak":2,"conflicts":[{"at":540,"loads":[2,6],"to":570}],"flagged":true,"chip":["Area full","Area full"],"to":570,"after":0,"movedStart":"09:00","movedFinish":"09:30","cleared":true}
+PASS 7 Oct: the oversized buildings loaded 08:30 (P57, P52) are flagged curfew-first; the 05:00 loads are on the earliest run; WC60 (1 Oct, loaded 08:30) reads the same
+PASS one tap makes a flagged load Load 1 (the day’s order), and the lines carry a Curfew first chip
+PASS Printed by needs a first and last name: one word is “name not recorded”; the operator’s full name counts; the remembered name counts, with the 24-hour stamp
+PASS the Drivers and Install sheets carry Printed by once, under the sheet title, and the four tick boxes as a row of the hero’s facts (no line of their own, so the photographs keep their room)
+PASS the Drivers sheet’s header carries the allocated order and the arrival window, and its rules line the Helen Park holding instruction; the Install sheet does not repeat them
+PASS the location signs and the drop sheet carry Printed by; the pre-dispatch check’s snapshot of the signs stays clean (no stamp, so a minute ticking over cannot fail a print)
+PASS the pre-dispatch check lists “Site is aware of the status of the trucks” and “The loads are all ready”, wants a first AND last name, and Escape closes it
+PASS the name prompt has Close (×), Not now and Escape; one word is not enough; nothing prints until a name is given
+PASS a first and last name continues to the PDFs (the panel has Close), is remembered on the device and is not asked again
+PASS a message needs the sender’s first and last name in Recording as; with it the text says “Sent by Andrew Fisher.” and stays under the texting limit
+PASS every reference in the message model carries its load’s order, arrival window and the Helen Park holding words; the daily page says Prepared by and the arrival order
+PASS the local record is put back byte for byte and the link is view-only again
+PASS no money figure changed through any of it (moneySummary and the Finance handover model identical)
+PASS layout: no horizontal overflow, the card fits its pane, every control is at least 40 px tall, rows keep two columns
+PASS the Drivers sheet as laid out for the PDF: one A4, header under 19 mm with Printed by inside it, the tick boxes inside the 47 mm hero, the footer on the page, no empty picture left to stop the PDF maker
+PASS the Install sheet as laid out for the PDF: one A4, header under 19 mm with Printed by inside it, the tick boxes inside the 47 mm hero, the footer on the page, no empty picture left to stop the PDF maker
+PASS no page errors
+PASS no attempted live writes
+flow891 laptop: 40/43
