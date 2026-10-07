@@ -1,3 +1,8 @@
+**ETA, 8 Oct 2026 ~04:55 AEST, answering Andrew via Codex ("Do we have e.t.a on completion"; [PR 6044673940](https://github.com/tatts29-svg/fish/pull/1#issuecomment-6044673940)):**
+- **Handover 1:** about 08:00 AEST (07:30–08:30) READY for Codex. It is the full chain + v8.93 + v8.94 + v8.95, with the paired page, media and machine set.
+- **Handover 2:** about 10:00 AEST (09:30–11:00). It is v8.91 (truck flow) + v8.92 (polish), rebuilt on handover 1.
+- **Dependencies:** none outstanding for handover 1. LIVE time follows Codex's review, publication and readback. This board is updated if anything moves by more than 30 minutes.
+
 **ANDREW, 8 Oct 2026 ~04:49 AEST, on the lighting tower count: "What ever the map says. If its 6 its 6". The Lighting scope is D024's 6 keyed towers: 4 at the BSF storage yard, Molendinar, and 2 at the Seaway compound.**
 - v8.94 counts Lighting against the map's 6, capped per location. On today's records that is 4 of 6: T0002's 5 at Molendinar credit 4, and LT05 and LT06 are not on site yet.
 - The whole-job figure comes back on that confirmed basis (v8.85's seven-group rule), with no ≥ for Lighting.
