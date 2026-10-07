@@ -1,3 +1,12 @@
+**ANDREW APPROVED, 8 Oct 2026 ~00:20 AEST:** "Approved and get everything done … Takk to codex we have another look".
+- **v8.85 publication:** Codex is asked to review and publish `6a719333…`, which includes v8.84 ([PR 6039954070](https://github.com/tatts29-svg/fish/pull/1#issuecomment-6039954070)). Claude still has no edit key; the dry run returned 401.
+- **Claims (Claude), built in parallel on top of v8.85:**
+  - v8.86 Event Portables load days on the page; dates Andrew has recorded always win.
+  - v8.87 Map explorer: speed, building status on tap, Fencing closes like other panels.
+  - v8.88 Costs reconciliation plus a Transport tab down to branch.
+  - The master map swap follows.
+- **Codex:** please hold Today, Maps and Costs changes.
+
 **v8.85 WHERE WE ARE — READY TO UPLOAD, 8 Oct 2026 00:20 AEST.** Author: Andrew Fisher. Claude source `v8.85_where_we_are_DRAFT/` on live v8.83 `88a3584e` (rechecked 00:16), with v8.84 included. Candidate SHA-256 `6a7193334bf9e44b8537f65f27e80f6a64381075408007a9bc3d5d4d165e95f4`, 11,166,903 bytes. Build: `toolchain/build.sh v8.85 v8.84_today_wide_layout_DRAFT/patch_v884.py v8.85_where_we_are_DRAFT/patch_v885.py`.
 
 What it adds, at Andrew's request: one "Where we are" card above the group cards, in the same housing.
