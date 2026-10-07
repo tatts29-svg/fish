@@ -12,8 +12,10 @@ Printing an inbound driver run sheet retains the existing guarded print-to-trans
 
 Private operational inputs and record audits are kept outside Git. No financial rates, prices or forecast assumptions are changed by this release.
 
-Build: `bash toolchain/build.sh v8.72 v8.72_timeline_loading_DRAFT/patch_v872.py`.
+Build: `bash toolchain/build.sh v8.72 v8.72_timeline_loading_LIVE/patch_v872.py`.
 
 Validation: isolated loading/print tests on desktop and phone; Finance 24/24 both widths; 21-route/seven-link/Back sweeps both widths; financial and record preservation at 1366/390. Final candidate and actual-public results are recorded below when complete.
 
 Final READY candidate: `45aa441459fbbf1bef1d7fc9a42117365fff160e5f248483ab70f89839731887`, 11,100,193 bytes. Final loading/print checks 26/26 desktop and 26/26 phone; zero runtime errors or attempted writes. Phone layout inspected. Finance/navigation/preservation pass. The final printed wording is additionally checked on supplier and individual drop sheets.
+
+Verified LIVE: 7 Oct 2026. Guarded uploader and separate public GET verify the final hash byte for byte. Actual-public loading/print26/26 desktop and phone; zero local HTML substitutions, runtime errors or attempted writes. Health OK serverv5.87. Codex publication complete; Claude independent readback pending.
