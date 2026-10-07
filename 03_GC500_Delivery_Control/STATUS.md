@@ -1,3 +1,11 @@
+**HANDOVER RECEIVED by Claude, 7 Oct 2026 23:35 AEST.** Author: Andrew Fisher. Codex handover `084b3dec` read and merged into `claude/ampol-reporting-suite-access-h2hy90`. Claude now owns all remaining implementation, testing and publication. Verified live is still v8.83 `88a3584e`, 11,138,554 bytes (Claude public GET 23:19 AEST). Claims, in order:
+- **v8.84 Today wide layout (Claude; the old v8.80 claim, renumbered).** Rebuilt on live v8.83 `88a3584e`, not on v8.79. Candidate `707eac42…`, 11,140,543 bytes. Final checks running.
+- **v8.85 overall progress hero (Claude).** Andrew asked for a whole-job percentage with large animated five lights, above the group cards and styled like them. Built from Codex's staged `v8.81_progress_scene_DRAFT` source after v8.84.
+- **Maps/Costs (Claude):** new master D001-26003-03, explorer speed, building status on tap, Fencing close, Costs reconciliation, Transport tab. Inputs in `inputs_07Oct2026/`.
+- **Lighting audit (Claude):** `v8.82_lighting_scope_DRAFT`. Stays compile-only until the private workbook guard is confirmed.
+
+**Publishing blocker:** this Claude session has no edit key; the uploader dry run returns 401, so nothing has been written. READY builds wait for Andrew. Either Codex publishes the exact READY hash, or Andrew adds the edit key to the Claude environment settings and opens a new session. No live record writes.
+
 **ALL REMAINING IMPLEMENTATION/RELEASE WORK — TRANSFERRED TO CLAUDE, 7 Oct 2026.** Author: Andrew Fisher. Direct instruction in current Codex chat: “Claude is now doing all the work. Make sure he is updated”. Codex releases remaining Today/scene, lighting and Maps/Costs implementation/testing/publication claims and stops work on them. This supersedes older ownership snapshots and resolves the pending Today ownership question in favour of Claude. Verified live remains v8.83 `88a3584e`, 11,138,554 bytes; no new build or operational records published by this handover. Drafts are not READY; rebuild from then-current live and complete checks. Current Claude branch checked `faa69ba2`. [Exact handover, sources and dependencies](handover_07Oct2026_claude/README.md). Claude receipt and recurring-check status are not assumed; separate coordination/privacy instructions remain in force.
 
 **v8.83 CREW PLANNING — VERIFIED LIVE, 7 Oct 2026 18:37 AEST.** Author: Andrew Fisher. Source `018c0894`, READY `ee79878c`; exact public SHA-256 `88a3584e919d8acd32ac3905099c1d606ec2fe5c1da2793363e8ff870f212457`, 11,138,554 bytes. Actual-public crew34/34 desktop/phone PASS, no HTML substitution/errors/attempted operational writes; phone inspected. Candidate crew34/34, unloading34/34 and Finance24/24 both, both route/Back sweeps, preservation1366/390 and DATA identity PASS. Optional names/combined roles, availability and overlaps, editable30-minute future windows, planned order and historical-time safeguards, native sheets/checklists and transport planning flags. No live crew assignments or monetary records entered. Codex complete; Claude independent review not claimed. Hero/lighting drafts remain unreleased. [Release](v8.83_crew_planning_LIVE/README.md).
@@ -24,7 +32,7 @@ Author: Andrew Fisher. **v8.81 CLAIMED by Codex, DRAFT.** Overall centred progre
 
 Author: Andrew Fisher. These current entries supersede the dated status snapshots below.
 
-**v8.80 — CLAIMED by Claude, 7 Oct 2026 ~14:45 AEST.** Author: Andrew Fisher. Andrew sent a screenshot of Today on his wide screen: "you need to fix the layout mate". Today layout only, built on live v8.79 `8196587d`:
+**v8.80 — CLAIMED by Claude, 7 Oct 2026 ~14:45 AEST. Renumbered v8.84 and rebuilt on live v8.83; see the top of this board.** Author: Andrew Fisher. Andrew sent a screenshot of Today on his wide screen: "you need to fix the layout mate". Today layout only, built on live v8.79 `8196587d`:
 - Today was capped at 1760 px with large empty side margins on wide screens.
 - The banner was capped narrower (1400 px) than the boxes below it.
 - A thin dark focus outline showed down both edges of the pane.
