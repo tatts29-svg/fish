@@ -152,7 +152,7 @@ unjoined = sorted(k for k, r in nrow.items() if r['asset_no_is_plant_number'] an
 check('the only recorded numbers whose line is not joined are the two-line numbers v8.71 holds (9961265/12, 9968726/10, 9968862/110)',
       unjoined == [('9961265', 12), ('9968726', 10), ('9968862', 110)], unjoined)
 check('the register\'s WC07 carries no numbers of its own (his are on the as-supplied record and the shared record, which the page reads live)', next(a for a in ND['assets'] if a['key'] == 'WC07')['asset_numbers'] == [] and next(a for a in BD['assets'] if a['key'] == 'WC07')['asset_numbers'] == [])
-check('the supplement records the P52 correction with Andrew\'s words', sup[-1].get('register_corrected') and [x['was'] for x in sup[-1]['register_corrected']] == [WRONG] * 4 and all(x['now'] == RIGHT and x['ref'] == 'P52' for x in sup[-1]['register_corrected']) and '1327211 is correct' in (sup[-1].get('register_correction_basis') or ''), sup[-1].get('register_corrected'))
+check('the supplement records the P52 correction with Andrew\'s words, without repeating the wrong digits', sup[-1].get('register_corrected') and len(sup[-1]['register_corrected']) == 4 and all(x['now'] == RIGHT and x['ref'] == 'P52' and 'was' not in x for x in sup[-1]['register_corrected']) and '1327211 is correct' in (sup[-1].get('register_correction_basis') or ''), sup[-1].get('register_corrected'))
 
 # ---- 5. what v8.71 derives: contracts, assignments, summary - recomputed here from the candidate's rows
 TABS = {str(c['rental_contract']): (c['branch_code'], c['tab']) for c in NR['contracts']}

@@ -105,8 +105,9 @@ R['supplements'] = list(R.get('supplements') or []) + [{
     'lines_added': [x['line'] for x in LOG['added']], 'lines_removed': [x['line'] for x in LOG['removed']],
     'lines_changed': len(LOG['changed']), 'lines_rejoined': [x['line'] for x in LOG['rejoined']], 'lines_held': [x['line'] for x in LOG['held']],
     'lines_joined_from_record': [x['line'] for x in LOG['record_joined']],
-    'register_corrected': [{'ref': x['ref'], 'was': x['was'], 'now': x['now'], 'path': x['path']} for x in LOG_REG],
-    'register_correction_basis': 'Andrew Fisher, 8 Oct 2026: "1327211 is correct" - the register wrote P52 as 13227211',
+    # the page carries the right number only; the exact old value is in evidence/changes_v895.json (register_corrected)
+    'register_corrected': [{'ref': x['ref'], 'now': x['now'], 'path': x['path']} for x in LOG_REG],
+    'register_correction_basis': "the register wrote P52's building number with one digit too many; Andrew Fisher, 8 Oct 2026: \"1327211 is correct\"",
     'recorded_matches': 'shared record version 4370 (7 Oct 2026) and the as-supplied record of 22 Sep 2026; his record is the authority over Baseplan (6 Oct 2026)',
     'basis': "Every line refreshed from the export field by field with v8.71's rules; joins kept where the number did not change, re-made by Andrew's recorded number, then the register's number, then the delivery docket where it did."}]
 
@@ -126,7 +127,9 @@ assert {x['line']: x['now'] for x in LOG['record_joined']} == RECORD_JOINS and n
 log_text = json.dumps(LOG, ensure_ascii=False, default=str)
 assert not re.search(r'\$\s?\d', log_text) and not re.search(r'"rate_\d"', log_text), 'the change log carries no money'
 
+assert WRONG not in json.dumps(D, ensure_ascii=False), 'the wrong number must appear nowhere in DATA, the supplement included - stopping'
 out = s[:m.start(1)] + json.dumps(D, ensure_ascii=False, separators=(',', ':')) + s[m.end(1):]
+assert WRONG not in out, 'the wrong number must appear nowhere on the page - stopping'
 out = rep(out, marks[0], ' · v8.95', 'release footer', str(p))
 p.write_bytes((b'\xef\xbb\xbf' if bom else b'') + out.encode('utf-8'))
 log = Path(os.environ.get('V895_LOG') or (here / 'evidence' / 'changes_v895.json'))

@@ -1,4 +1,6 @@
 PASS no DATA key added or removed
+PASS the base carried 13227211 in exactly the four P52 places and nowhere else
+PASS the candidate carries 1327211 in those four places and 13227211 nowhere in DATA
 PASS DATA.fence_ccb_review847 identical
 PASS DATA.event_staffing833 identical
 PASS DATA.transport_forecast831 identical
@@ -41,7 +43,7 @@ PASS DATA.authority identical
 PASS DATA.accessory_authority identical
 PASS DATA.pricing_authority identical
 PASS DATA.summary identical
-PASS DATA.assets identical
+PASS DATA.assets identical beyond the P52 correction (DATA.assets[P52].asset_numbers[0], DATA.assets[P52].events[0].booking801.asset_text, DATA.assets[P52].events[0].booking801.loads[0].asset_numbers[0])
 PASS DATA.orphan_rows identical
 PASS DATA.unreferenced identical
 PASS DATA.plant_lines identical
@@ -58,7 +60,7 @@ PASS DATA.states_legend identical
 PASS DATA.transport identical
 PASS DATA.driver_rules identical
 PASS DATA.open_items identical
-PASS DATA.ops identical
+PASS DATA.ops identical beyond the P52 correction (DATA.ops.rows[P52].asset_numbers_scheduled[0])
 PASS DATA.cost_categories identical
 PASS DATA.team identical
 PASS DATA.branches identical
@@ -78,6 +80,7 @@ PASS DATA.hzmap identical
 PASS DATA.aerial_mid identical
 PASS DATA.aerial_mid_px identical
 PASS DATA.schedule_review875 identical
+PASS 13227211 appears nowhere on the candidate page; 1327211 is P52's number on the register and on its contract line
 PASS MASTER_LOC identical
 PASS outside DATA the page differs only in the release footer
 PASS the footer reads v8.95 once
@@ -113,6 +116,7 @@ PASS every line's carried fields equal the 7 Oct export's cells (323 lines)
 PASS no line joins a reference that contradicts Andrew's record (shared record 4370 or the as-supplied record)
 PASS the only recorded numbers whose line is not joined are the two-line numbers v8.71 holds (9961265/12, 9968726/10, 9968862/110)
 PASS the register's WC07 carries no numbers of its own (his are on the as-supplied record and the shared record, which the page reads live)
+PASS the supplement records the P52 correction with Andrew's words, without repeating the wrong digits
 PASS 11 contracts, the same eleven
 PASS every contract summary is exactly what its lines give, and its other fields are the base's
 PASS only 9961976, 9968862 and 9968955 change their summary
@@ -130,4 +134,4 @@ PASS the summary counts are exactly what the lines give
 PASS the summary's other fields are the base's
 PASS summary: 323 lines, 164 plant numbers, 142 delivered lines, 137 joined by number, 30 by docket, 149 unjoined
 PASS plant_lines identical (no plant line carries a changed contract line)
-identity895: PASS - DATA identical to the base except DATA.rental_on_hire, and there only the 7 Oct export's 25 changed and 2 added lines, the 2 joins from Andrew's record, and what v8.71 derives from them
+identity895: PASS - DATA identical to the base except DATA.rental_on_hire (the 7 Oct export's 25 changed and 2 added lines, the 2 joins from Andrew's record, and what v8.71 derives from them) and P52's number corrected to 1327211 in its four places

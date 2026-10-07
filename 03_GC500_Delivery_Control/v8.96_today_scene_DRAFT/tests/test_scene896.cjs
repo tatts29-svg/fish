@@ -128,17 +128,18 @@ const KINDS = ['sun', 'part', 'cloud', 'fog', 'rain', 'pour', 'storm', 'sleet'];
  /* 8. five redraws and tab changes leave nothing behind: one sky, one weather line, one fold, the same animations, one observer of each kind, no timers of its own */
  const K = await p.evaluate(async () => {
   const counts = () => ({skies: document.querySelectorAll('.s896-sky').length, lines: document.querySelectorAll('.s896-wx').length, parks: document.querySelectorAll('#pane-today .dsnband.s896-park').length, folds: document.querySelectorAll('#pane-today .s896-showcase').length, bands: document.querySelectorAll('#pane-today .dsnband').length, styles: document.querySelectorAll('#scene896-atlas').length, anims: document.getAnimations().length, basis: (document.querySelector('#where885 .w885-basis p')?.textContent.match(/rendered illustrations/g) || []).length});
-  const before = counts();
+  const before = counts(), sky0 = Scene896.report().animations;
   for (let i = 0; i < 5; i++) renderToday();
   await new Promise(r => setTimeout(r, 300)); const mid = counts();
   go('timeline'); await new Promise(r => setTimeout(r, 500)); const away = {skies: document.querySelectorAll('.s896-sky').length, r: Scene896.report()};
   go('today'); await new Promise(r => setTimeout(r, 500)); go('plant'); await new Promise(r => setTimeout(r, 500)); go('today'); await new Promise(r => setTimeout(r, 800));
-  return {before, mid, away, after: counts(), r: Scene896.report()};
+  return {before, sky0, mid, away, after: counts(), r: Scene896.report()};
  });
  await scrollTo('#where885'); await p.waitForTimeout(300);
  const K2 = await p.evaluate(() => Scene896.report());
- ok('five redraws keep one sky, one weather line, one fold and the same animations', K.mid.skies === 1 && K.mid.lines === 1 && K.mid.parks === 1 && K.mid.folds === 1 && K.mid.bands === 1 && K.mid.styles === 1 && K.mid.basis === 1 && K.mid.anims === K.before.anims, K);
- ok('tab changes leave nothing behind: away from Today the sky is not running; back on Today one sky, one line, one fold, the same animations, one observer of each kind and no timers', !K.away.r.running && K.after.skies === 1 && K.after.lines === 1 && K.after.parks === 1 && K.after.folds === 1 && K.after.anims === K.before.anims && K.r.observers.intersection === 1 && K.r.observers.mutation === 1 && K.r.timers === 0 && K2.running, {K, K2});
+ ok('five redraws keep one sky, one weather line, one fold and the same animations on the page', K.mid.skies === 1 && K.mid.lines === 1 && K.mid.parks === 1 && K.mid.folds === 1 && K.mid.bands === 1 && K.mid.styles === 1 && K.mid.basis === 1 && K.mid.anims === K.before.anims, K);
+ // the page's own instruments start and stop with what is on screen, so after a change of tab only the scene's own footprint is compared
+ ok('tab changes leave nothing behind: away from Today no sky and nothing running; back on Today one sky, one line, one fold, the same sky animations, one observer of each kind and no timers', !K.away.r.running && K.away.skies === 0 && K.after.skies === 1 && K.after.lines === 1 && K.after.parks === 1 && K.after.folds === 1 && K.after.bands === 1 && K.after.styles === 1 && K.after.basis === 1 && K2.animations === K.sky0 && K.r.observers.intersection === 1 && K.r.observers.mutation === 1 && K.r.timers === 0 && K2.running, {K, K2});
 
  /* 9. the group cards keep their folds, links and keyboard focus; the chips still jump to their cards */
  await p.evaluate(() => document.getElementById('tw840-card-generators').scrollIntoView({block: 'start'})); await p.waitForTimeout(300);
@@ -166,7 +167,7 @@ const KINDS = ['sun', 'part', 'cloud', 'fog', 'rain', 'pour', 'storm', 'sleet'];
  const B = await p.evaluate(() => {
   const pane = document.getElementById('pane-today'), band = pane.querySelector(':scope > .dsnband'), d = band && band.querySelector(':scope > details.s896-showcase'), fig = d && d.querySelector('.bhero'), v = fig && fig.querySelector('video'), board = document.getElementById('gc500-work-board840'), w = document.getElementById('where885');
   const after = (a, b) => !!(a && b && (a.compareDocumentPosition(b) & Node.DOCUMENT_POSITION_FOLLOWING));
-  return {parked: !!fig, closed: !!d && !d.open, afterBoard: after(board, band), afterHero: after(w, band), last: band === pane.lastElementChild, hidden: !!fig && fig.getBoundingClientRect().height === 0, video: !!v, paused: !v || v.paused, autoplay: !!v && v.autoplay, preload: v ? v.preload : null, play: !!(fig && fig.querySelector('.bplay')), summary: d ? d.querySelector('summary').textContent.replace(/\s+/g, ' ').trim() : '', bands: pane.querySelectorAll('.dsnband').length, heroes: pane.querySelectorAll('.bhero').length, firstBlock: (pane.querySelector(':scope > *:not(.panehead)') || {}).className || ''};
+  return {parked: !!fig, closed: !!d && !d.open, afterBoard: after(board, band), afterHero: after(w, band), last: band === pane.lastElementChild, hidden: !!fig && !fig.checkVisibility() && (d.getBoundingClientRect().height < 90), heightClosed: d ? Math.round(d.getBoundingClientRect().height) : null, video: !!v, paused: !v || v.paused, autoplay: !!v && v.autoplay, preload: v ? v.preload : null, play: !!(fig && fig.querySelector('.bplay')), summary: d ? d.querySelector('summary').textContent.replace(/\s+/g, ' ').trim() : '', bands: pane.querySelectorAll('.dsnband').length, heroes: pane.querySelectorAll('.bhero').length, firstBlock: (pane.querySelector(':scope > *:not(.panehead)') || {}).className || ''};
  });
  ok('the banner and clip sit in a closed fold at the foot of Today, after the plate and the cards, and Today opens on the plate', B.parked && B.closed && B.afterBoard && B.afterHero && B.last && B.hidden && B.bands === 1 && B.heroes === 1 && /^Event banner and clip/.test(B.summary) && !/dsnband/.test(B.firstBlock), B);
  ok('the clip does not autoplay: paused, no autoplay, preload none, its own Play with sound button kept', !B.video || (B.paused && !B.autoplay && B.preload === 'none' && B.play), B);
