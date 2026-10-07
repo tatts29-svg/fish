@@ -66,12 +66,12 @@ See `evidence/hashes887.txt`.
 - Page base: live v8.83 `88a3584e919d8acd32ac3905099c1d606ec2fe5c1da2793363e8ff870f212457`.
 - Page candidate: `33c6501f8e52aeca15df4bb902b14ecf3b1d747038bcedc58066eb94851a8f3d`, 11,173,489 bytes (`build/GC500_v8.87/GC500_Delivery_Control_hosted.html`).
 - Machine base: set `b469a99c43a30a6d165ce126c4983d0c92204c8f548f0636a008f43de60e95d8` (231 files, `v8.64-map-explorer`).
-- Machine candidate: set `7a457a494a9d19fb7bce533b34374a7b6d0a00fcb0732834d9341ce3e0e16626` (233 files, `v8.87-map-explorer`), i.e. the live set with these seven descriptors:
+- Machine candidate: set `c96c1d1baedf38228264a0adec32c38d758dddf3430e8baa68ba8eaf82b71d45` (233 files, `v8.87-map-explorer`), i.e. the live set with these seven descriptors:
 
 | file | bytes | sha256 |
 |---|---|---|
-| `explorer/index.html` | 28,023 | `2ce77cd5d396262836cb52e88eb5a45029bd5c8027b68205219dcf196cd844b8` |
-| `explorer/explorer.js` | 142,532 | `ff489a429abbdf14a37dff08d6e48ebf0bb36d76717f8c1968e598e5b81224f4` |
+| `explorer/index.html` | 28,023 | `c2b68066f5d908e92394761fdacea5ecb5070553bf353c3bd5573306dd2b167f` |
+| `explorer/explorer.js` | 142,543 | `a3bd8a13f227e405c7130f761f2d309939061ab8f624bb98517226238012edbf` |
 | `explorer/explorer-merge.js` | 27,134 | `161dabb105c15f5efca5a199c625191ed54343237f6af2d8c327c6d365921679` |
 | `explorer/fencing-map-explorer.js` | 51,564 | `e3a4bef6c17d7288f0a51c14732129fba32f1f5bbf849d113c3124dc5b55739f` |
 | `explorer/explorer-fix864.js` | 7,399 | `d7041320fc3ff63a133cc8e3ce859bbce3e6dc669e2a990bb0fc5f7b27a7ac3b` |
@@ -99,7 +99,7 @@ of these files; its anchors (the master-drawing hash check and the attribution s
    ```
    The dry run is GET-only: it checks the seven files against `machine/prepared887.json`, rebuilds the candidate manifest, confirms
    the key is the edit key, that the live set is `b469a99c` and that every preserved blob is on the volume. The publish PUTs the
-   seven blobs under their SHA-256, POSTs the manifest once, reads `/api/machine` back (`7a457a49…`) and GETs each changed public
+   seven blobs under their SHA-256, POSTs the manifest once, reads `/api/machine` back (`c96c1d1b…`) and GETs each changed public
    asset to prove the bytes, then writes `publication887.json` beside the explorer folder. The five unlisted private blobs the
    server protects (`SERVER_FILE`, `SERVER_FILE_KEEP`) are untouched by a registration.
 4. Read back with the public checks: `LOCAL` unset, `node tests/test_explorer887.cjs` laptop and phone against the live page.
@@ -111,40 +111,41 @@ The headline numbers (laptop 1440×900 and phone 390×844 emulation, headless Ch
 machine was shared with other agents' browsers, so the frame intervals carry noise from run to run, while the fencing layer's own
 paint time, the resize counts, the poll counts and the pointer state are exact):
 
-- **Fencing on, zooming:** the fencing layer's paint per frame falls from 3.8–4.0 ms (p95 5.4–6.6) to 0.5–0.6 ms (p95 1.6–1.9); frames over 50 ms from 1–2 to 0–10 of about 200.
-- **Fencing on, panning (phone):** paint per frame 3.9 → 0.8 ms; frames over 50 ms 1 → 0; canvas resizes 2 → 2; main-thread time over the gesture 902 → 674 ms. The live files re-sized the canvas dozens of times in one pan because every slow frame ended the "interaction" and the store flipped back and forth; v8.87 changes size at most once each way, and only after the device is measured slow.
-- **Fencing off, panning (phone):** the live layer still cleared and re-sized its full-screen overlay on every frame; v8.87 does not touch it (0 paints). The pan's worst frame goes from 117 ms to 133 ms, frames over 50 ms 2 → 1, canvas resizes 2 → 2.
+- **The fencing layer's own paint per frame** (the per-frame rebuild that was the slowness): zooming 3.4–3.8 ms (p95 5.6–6.8) → 0.3–0.5 ms (p95 0.6–1.0); panning 3.3–3.5 → 0.7–0.8 ms. With Fencing off it is not painted at all (0 paints; the live layer still cleared and re-sized its full-screen overlay every frame).
+- **Main-thread time over a pan with Fencing on:** laptop 951 → 663 ms, phone 815 → 720 ms; frames over 50 ms on the phone 0 → 0, zooming 1 → 0.
+- **Canvas resizes per gesture (the hitch):** 2 → 2 on a phone pan, 14 → 2 on a laptop zoom in this run. In an earlier run under heavy machine load (8 Oct 2026, about 15:10 UTC, the log since overwritten by the paired re-run) the live files re-sized the canvas 58 times in one phone pan with a worst frame of 6.2 s, because every frame over 160 ms ended the "interaction" and the store flipped back and forth; v8.87's rest rule (no glide, fling, pending frame or moving hand) is written for that case, and the final paired run at lower load shows the plain two resizes each.
 - **Stuck pointer:** reproduced on the live files (the map followed the mouse after a fence tap; 1 pointer left in the map's table, the gesture still open); in v8.87 the table is empty (0) and the next drag pans normally.
 - **Escape with a fence pick:** 2 presses to leave Fencing → 1.
 - **Hidden (another tab for 10 s):** Done polls 3 → 0 (laptop), 3 → 0 (phone), frames drawn 0. **Idle in Fencing for 10 s:** snapshot builds 2 → 0.
+- **Frame intervals (rAF)** in the table are soft: headless Chromium without a GPU paints every frame in software and the machine was shared with other agents' browsers, so they vary run to run by more than the difference between the two builds on a laptop. The exact counts above are what to read.
 - No page errors and no write attempted in any run.
 
 ### Before and after (headless Chromium, no GPU; `tests/perf887.cjs`; live = the registered v8.64 explorer files, v8.87 = the prepared files; one browser at a time)
 
 | Measure | Laptop live | Laptop v8.87 | Phone live | Phone v8.87 |
 |---|---|---|---|---|
-| Wheel zoom, Fencing off: frame interval (rAF) | mean 27.42 · p95 66.6 · max 266.6 ms | mean 24.52 · p95 50 · max 316.6 ms | mean 17.28 · p95 16.8 · max 66.5 ms | mean 21.45 · p95 33.4 · max 83.4 ms |
-| Wheel zoom, Fencing off: frames over 50 ms / over 33 ms | 18 / 95 of 265 | 16 / 62 of 350 | 1 / 5 of 216 | 4 / 49 of 209 |
-| Wheel zoom, Fencing off: main-thread task time over the gesture | 5955 ms | 6592 ms | 2110 ms | 3623 ms |
-| Wheel zoom, Fencing off: canvas backing-store resizes | 8 | 14 | 2 | 2 |
-| Drag pan, Fencing off: frame interval (rAF) | mean 16.77 · p95 16.7 · max 33.3 ms | mean 17.06 · p95 16.8 · max 50 ms | mean 17.82 · p95 16.8 · max 116.7 ms | mean 17.96 · p95 16.8 · max 133.4 ms |
-| Drag pan, Fencing off: frames over 50 ms / over 33 ms | 0 / 1 of 154 | 0 / 2 of 169 | 2 / 4 of 145 | 1 / 4 of 142 |
-| Drag pan, Fencing off: main-thread task time over the gesture | 733 ms | 987 ms | 954 ms | 1001 ms |
+| Wheel zoom, Fencing off: frame interval (rAF) | mean 55.67 · p95 266.6 · max 566.7 ms | mean 21.53 · p95 50 · max 116.7 ms | mean 17.41 · p95 16.8 · max 83.4 ms | mean 20.11 · p95 33.4 · max 66.6 ms |
+| Wheel zoom, Fencing off: frames over 50 ms / over 33 ms | 33 / 83 of 185 | 8 / 37 of 209 | 2 / 5 of 223 | 2 / 32 of 189 |
+| Wheel zoom, Fencing off: main-thread task time over the gesture | 8675 ms | 3833 ms | 2494 ms | 2957 ms |
+| Wheel zoom, Fencing off: canvas backing-store resizes | 14 | 2 | 2 | 2 |
+| Drag pan, Fencing off: frame interval (rAF) | mean 17.1 · p95 16.8 · max 49.9 ms | mean 16.88 · p95 16.7 · max 33.3 ms | mean 18.06 · p95 16.8 · max 166.8 ms | mean 17.63 · p95 16.7 · max 133.3 ms |
+| Drag pan, Fencing off: frames over 50 ms / over 33 ms | 0 / 3 of 154 | 0 / 2 of 157 | 1 / 4 of 143 | 1 / 2 of 138 |
+| Drag pan, Fencing off: main-thread task time over the gesture | 764 ms | 807 ms | 920 ms | 840 ms |
 | Drag pan, Fencing off: canvas backing-store resizes | 2 | 2 | 2 | 2 |
-| Wheel zoom, Fencing on: frame interval (rAF) | mean 22.01 · p95 33.4 · max 66.7 ms | mean 29.93 · p95 50.1 · max 100 ms | mean 17.15 · p95 16.8 · max 50.1 ms | mean 17.22 · p95 16.8 · max 50 ms |
-| Wheel zoom, Fencing on: frames over 50 ms / over 33 ms | 2 / 50 of 181 | 10 / 87 of 152 | 1 / 5 of 205 | 0 / 6 of 211 |
-| Wheel zoom, Fencing on: main-thread task time over the gesture | 2739 ms | 3364 ms | 2459 ms | 2067 ms |
-| Wheel zoom, Fencing on: fencing layer paint per frame | mean 3.78 · p95 5.4 · max 8.7 ms, total 560 ms over 148 frames | mean 0.47 · p95 1.9 · max 5.2 ms, total 57.1 ms over 121 frames | mean 4 · p95 6.6 · max 8.8 ms, total 684.6 ms over 171 frames | mean 0.63 · p95 1.6 · max 5 ms, total 111.1 ms over 176 frames |
+| Wheel zoom, Fencing on: frame interval (rAF) | mean 19.74 · p95 33.4 · max 50 ms | mean 18.49 · p95 33.3 · max 50 ms | mean 17.65 · p95 16.8 · max 66.6 ms | mean 17.07 · p95 16.8 · max 33.4 ms |
+| Wheel zoom, Fencing on: frames over 50 ms / over 33 ms | 0 / 31 of 190 | 0 / 18 of 201 | 1 / 9 of 203 | 0 / 5 of 208 |
+| Wheel zoom, Fencing on: main-thread task time over the gesture | 2732 ms | 2239 ms | 2574 ms | 1828 ms |
+| Wheel zoom, Fencing on: fencing layer paint per frame | mean 3.39 · p95 5.6 · max 11.3 ms, total 532.3 ms over 157 frames | mean 0.28 · p95 0.6 · max 2.5 ms, total 46.8 ms over 166 frames | mean 3.75 · p95 6.8 · max 10.3 ms, total 645.8 ms over 172 frames | mean 0.53 · p95 1 · max 2.9 ms, total 91.8 ms over 173 frames |
 | Wheel zoom, Fencing on: canvas backing-store resizes | 2 | 2 | 2 | 2 |
-| Drag pan, Fencing on: frame interval (rAF) | mean 17.93 · p95 33.3 · max 50.1 ms | mean 17.94 · p95 33.3 · max 33.4 ms | mean 17.22 · p95 16.8 · max 50.1 ms | mean 17.13 · p95 16.7 · max 33.4 ms |
-| Drag pan, Fencing on: frames over 50 ms / over 33 ms | 1 / 10 of 145 | 0 / 12 of 157 | 1 / 4 of 150 | 0 / 4 of 143 |
-| Drag pan, Fencing on: main-thread task time over the gesture | 914 ms | 911 ms | 902 ms | 674 ms |
-| Drag pan, Fencing on: fencing layer paint per frame | mean 3.56 · p95 5.6 · max 7.1 ms, total 149.6 ms over 42 frames | mean 0.99 · p95 2.6 · max 11.6 ms, total 41.5 ms over 42 frames | mean 3.86 · p95 5.8 · max 9.6 ms, total 158.4 ms over 41 frames | mean 0.79 · p95 1.5 · max 2.5 ms, total 32.4 ms over 41 frames |
+| Drag pan, Fencing on: frame interval (rAF) | mean 17.51 · p95 16.8 · max 66.8 ms | mean 18.17 · p95 33.3 · max 33.4 ms | mean 17.31 · p95 16.8 · max 49.9 ms | mean 17.22 · p95 16.8 · max 33.4 ms |
+| Drag pan, Fencing on: frames over 50 ms / over 33 ms | 1 / 6 of 158 | 0 / 12 of 133 | 0 / 5 of 154 | 0 / 5 of 151 |
+| Drag pan, Fencing on: main-thread task time over the gesture | 951 ms | 663 ms | 815 ms | 720 ms |
+| Drag pan, Fencing on: fencing layer paint per frame | mean 3.54 · p95 5.4 · max 11.1 ms, total 148.5 ms over 42 frames | mean 0.65 · p95 1.2 · max 2.4 ms, total 27.3 ms over 42 frames | mean 3.27 · p95 5.3 · max 6.6 ms, total 134.1 ms over 41 frames | mean 0.76 · p95 1.2 · max 2.8 ms, total 31.3 ms over 41 frames |
 | Drag pan, Fencing on: canvas backing-store resizes | 2 | 2 | 2 | 2 |
 | Tap a fence line, then move the mouse: map follows (stuck pointer) | yes (pointers left 1) | no (pointers left 0) | no (pointers left 1) | no (pointers left 0) |
 | Escape presses to leave Fencing with a pick | 2 | 1 | 2 | 1 |
-| 10 s on another tab: Done polls / fencing snapshots / frames drawn / main-thread ms | 3 / 0 / 0 / 279 | 0 / 0 / 0 / 146 | 3 / 0 / 0 / 207 | 0 / 0 / 0 / 269 |
-| 10 s idle in Fencing on the map: snapshot builds / main-thread ms | 2 / 208 | 0 / 210 | 2 / 200 | 0 / 184 |
+| 10 s on another tab: Done polls / fencing snapshots / frames drawn / main-thread ms | 3 / 0 / 0 / 329 | 0 / 0 / 0 / 345 | 3 / 0 / 0 / 286 | 0 / 0 / 0 / 280 |
+| 10 s idle in Fencing on the map: snapshot builds / main-thread ms | 2 / 196 | 0 / 141 | 2 / 257 | 0 / 122 |
 | Page errors / writes attempted | 0 / 0 | 0 / 0 | 0 / 0 | 0 / 0 |
 
 ### Checks on the candidate (page `33c6501f…` with the prepared explorer served from `explorer/`)
