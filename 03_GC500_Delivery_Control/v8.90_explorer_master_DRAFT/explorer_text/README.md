@@ -19,8 +19,8 @@ remove the current and use this one instead and update all records".
 - What the 2 Oct issue changes on the ground: P45 moved about 85 m west into the supply compound; WC51 about 18 m;
   WC38 about 13 m; WC39 about 9 m; WC10 is new; WC32 and the second tag WC40a are not drawn; WC69 carries one tag.
 - The 2 Oct sheet shows 9 mm less of the western edge of the main plan (Main Beach end); that strip is blank here, as it
-  is on the dashboard's picture. The 17 Sep labels that sat in it (CRONIN AVE, ER, G7, G8, HOUSE, MAIN BEACH TOWER, OP11, PEARL, WC69) are not on the 2 Oct sheet.
-- Search labels: 809 of the 17 Sep issue's 958 labels kept, 88 moved, 61 removed, 27 added — 924 labels on the 2 Oct sheet.
+  is on the dashboard's picture. The 17 Sep labels that sat in it (CRONIN AVE, ER, G7, G8, HOUSE, MAIN BEACH TOWER, OP11, PEARL, SE, USE, WC69) are not on the 2 Oct sheet.
+- Search labels: 809 of the 17 Sep issue's 958 labels kept, 86 moved, 63 removed, 24 added — 919 labels on the 2 Oct sheet.
 - Aerial underlay: the same 64 patches of the same photograph, re-exported from the 2 Oct issue with soft mask and viewport
   clip as alpha, placed in the 17 Sep frame. Tile pyramid re-rendered with the explorer's own renderer; tiles away from
   the changed places are pixel-identical to the 17 Sep pyramid (`review/alignment_02oct2026.json`).
@@ -83,7 +83,7 @@ Evidence: `review/proof_pit_island.jpg`, `review/proof_beachfront.jpg`, `review/
 sheet's aerial, and a checkerboard of the two, after registration), `review/match_main.jpg`, `review/georef_*.json`.
 
 ## What is kept and what is lifted
-`review/content_retention_and_alignment.json`. In short (17 Sep issue; the 2 Oct issue has 300,658 vector records, 531 raster symbols and lettering and 924 labels): 253,697 vector records, 555 raster symbols and lettering,
+`review/content_retention_and_alignment.json`. In short (17 Sep issue; the 2 Oct issue has 300,658 vector records, 531 raster symbols and lettering and 919 labels): 253,697 vector records, 555 raster symbols and lettering,
 958 labels and the legend are kept in every mode; 64 aerial patches (each proven against the PDF's image placements)
 and the white backdrop are lifted in the satellite modes; nothing is removed by colour; no large white fills were
 found; nothing is unclassified.

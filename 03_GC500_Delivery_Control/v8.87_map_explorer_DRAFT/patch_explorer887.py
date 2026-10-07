@@ -92,7 +92,7 @@ def patch_explorer(s):
              "  restTimer = setTimeout(function rest887() {\n"
              "    /* v8.87 - a glide, a fling or a hand still moving is not rest, however slow the frames: one frame over 160 ms used to end the\n"
              "       \"interaction\" mid-gesture and flip the backing store back and forth (dozens of resizes in one pan on a slow phone) */\n"
-             "    if (zAnim || flingRAF || gotoAnim887 || rotAnim || (pointers.size && performance.now() - lastInput < 500)) { restTimer = setTimeout(rest887, 160); return; }\n"
+             "    if (zAnim || flingRAF || gotoAnim887 || rotAnim || paintID || (pointers.size && performance.now() - lastInput < 500)) { restTimer = setTimeout(rest887, 160); return; }\n"
              "    interacting = false; lightNext887 = lightMoving887 || lightWent887; lightMoving887 = false; lightPending887 = true; if (!zAnim) { vtGoal.clear(); goalWanted.clear(); } dropVTQueue(); requestPaint(); }, 160); }", 'touchInteraction')
     s = once(s, "function requestPaint() { if (!paintID && !document.hidden && !under3d()) paintID = requestAnimationFrame(draw); }",
              "/* v8.87 - nothing is drawn, and the Done list is not asked for, while the map is hidden or parked by the dashboard (the frame is\n"
