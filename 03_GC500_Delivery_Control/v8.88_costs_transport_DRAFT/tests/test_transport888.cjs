@@ -95,13 +95,13 @@ const fs = require('fs'), {open} = require('../../toolchain/harness/open_page');
     await p.evaluate(() => { financeHome857(); state.financeView857 = 'transport'; render(); }); await p.waitForTimeout(1200); }
   /* 6. an injected mismatch is flagged, never hidden: a transport figure is altered in memory on a copy of the model's result and the reconciliation re-read */
   const I = await p.evaluate(() => holdAssets(() => { const before = recon888Model(); const orig = window.transport888View;
-    window.transport888View = function(){ const V = orig(); V.tot = Object.assign({}, V.tot, {actual: V.tot.actual + 1234.56}); return V; };
+    window.transport888View = function(){ const V = orig(); return Object.assign({}, V, {tot: Object.assign({}, V.tot, {actual: V.tot.actual + 1234.56})}); }; /* a copy: the view is memoised within a draw and must not be altered */
     let after; try { after = recon888Model(); } finally { window.transport888View = orig; }
     const again = recon888Model();
     const summaryText = (() => { const html = recon888Html(); const d = document.createElement('div'); d.innerHTML = html; return (d.querySelector('summary') || {}).textContent || ''; })();
     return {beforeOk: before.ok, afterBad: after.bad, afterOk: after.ok, flagged: after.ties.filter(t => !t.ok).map(t => t.what), againOk: again.ok, summaryText}; }));
   ok('an injected mismatch is flagged on the exact tie-out, and the real figures tie again afterwards', I.beforeOk && !I.afterOk && I.afterBad >= 1 && I.flagged.includes('Transport (cartage) to date') && I.againOk && /all tied/.test(I.summaryText), I);
-  const I2 = await p.evaluate(() => holdAssets(() => { const orig = window.transport888View; window.transport888View = function(){ const V = orig(); V.tot = Object.assign({}, V.tot, {actual: V.tot.actual + 1}); return V; };
+  const I2 = await p.evaluate(() => holdAssets(() => { const orig = window.transport888View; window.transport888View = function(){ const V = orig(); return Object.assign({}, V, {tot: Object.assign({}, V.tot, {actual: V.tot.actual + 1})}); };
     let html; try { html = recon888Html(); } finally { window.transport888View = orig; } const d = document.createElement('div'); d.innerHTML = html;
     return {open: d.querySelector('details').hasAttribute('open'), flag: d.querySelector('details').classList.contains('recon888-flag'), words: (d.querySelector('summary') || {}).textContent || '', badRows: d.querySelectorAll('tr.recon888-bad').length}; }));
   ok('the line opens itself and says how many do not tie', I2.open && I2.flag && /do not tie/.test(I2.words) && I2.badRows >= 1, I2);

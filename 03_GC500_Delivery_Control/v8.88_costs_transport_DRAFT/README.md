@@ -93,7 +93,28 @@ toolchain/build.sh v8.88 v8.84_today_wide_layout_DRAFT/patch_v884.py v8.85_where
 
 `tests/test_transport888.cjs` checks: the reconciliation line under At a glance, all 17 tie-outs tied; the Costs nav keeps five sections and adds Transport; the view mounts from the button; every reference with a transport fact, every fencing semi and every no-reference row is on it; every carrier and every branch in the source has a row, plus the unconfirmed loads; one row per load; the grand total to date equals the P&L, Costs to job end, the business's lines and the handover; the branches, the carriers and the loads each add to it; the forecast equals Costs to job end, the business's lines and the handover and adds by branch and by load; the handover column is the handover's split branch for branch; Transport Revenue equals the P&L and the by-branch table line for line; provisional revenue to come equals Costs to job end and the forecast by branch; the load counts agree; demob transport is the P&L's cut; the words; a reference link opens the drawer; a Timeline link opens the day; the filters; the phone layout stacks with no horizontal overflow; an injected mismatch is flagged on the exact tie-out and the line opens itself; a redraw changes no figure; no errors; no writes. No $ amount is printed.
 
-RESULTS_TABLE
+| Check | Laptop | Wide (2560) | Phone |
+|---|---|---|---|
+| DATA identity (test_source875.py) | PASS | — | — |
+| test_transport888 (new) | TRANSPORT_LAPTOP | TRANSPORT_WIDE | TRANSPORT_PHONE |
+| v8.85 model881 | 12/12 | — | — |
+| v8.85 where885 | 24/24 | — | 24/24 |
+| v8.84 wide884 | — | 21/21 | 21/21 |
+| v8.65 costs865 | 33/33 | — | 33/33 |
+| v8.66 finance866 | 24/24 | — | 24/24 |
+| v8.76 layout876 | 18/18 | — | 18/18 |
+| v8.83 crew883 | 34/34 | — | 34/34 |
+| v8.74 vms874 | 18/18 | — | 18/18 |
+| v8.73 asset873 | 40/40 | — | 40/40 |
+| v8.72 loading872 | 26/26 | — | 26/26 |
+| v8.81 unloading881 | 34/34 | — | 34/34 |
+| v8.81 paired881 | 18/18 | — | 18/18 |
+| v8.75 handling875 (out of date, v8.81 wording; identical on live) | 22/28 | — | 22/28 |
+| v8.79 paired879 (out of date, P52 recorded as Franna; identical on live) | 17/18 | — | 17/18 |
+| sweep (15 tabs) | 15 tabs shown, 0 errors, 0 blocked (2 console lines: HTTP 429 rate-limit answers from the weather service, not page errors) | — | 15 tabs shown, 0 errors, 0 console, 0 blocked |
+| v8.71 test_v871 | 12/12 | — | — |
+| v8.70 supplier870 | 17/17 | — | — |
+| v8.69 kinp869 | 17/17 | — | — |
 
 Screenshots (`evidence/shots/transport-1440-*.png`, `transport-2560-*.png`, `transport-phone-*.png`, `reconciles-*.png`) are kept out of the repository because they show the figures; they stay local for the lead to review. Every dollar figure in the evidence logs is replaced with `$—` before the folder is committed.
 
