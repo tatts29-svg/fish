@@ -1,7 +1,7 @@
 **ANDREW, 8 Oct 2026 ~04:49 AEST, on the lighting tower count: "What ever the map says. If its 6 its 6". The Lighting scope is D024's 6 keyed towers: 4 at the BSF storage yard, Molendinar, and 2 at the Seaway compound.**
 - v8.94 counts Lighting against the map's 6, capped per location. On today's records that is 4 of 6: T0002's 5 at Molendinar credit 4, and LT05 and LT06 are not on site yet.
 - The whole-job figure comes back on that confirmed basis (v8.85's seven-group rule), with no ≥ for Lighting.
-- T0002's fifth tower at Molendinar is beyond the map's scope. It is shown as a note, and Andrew is asked whether it's a spare or comes off hire. No money changes.
+- T0002's fifth tower at Molendinar is beyond the map's scope. Andrew's answer, ~04:55 AEST: "Lets go by d024". The page shows it as 1 surplus to the plan; whether to off-hire or redeploy it is a site call. No hire line or money changes.
 
 **ANDREW, 8 Oct 2026 ~04:48 AEST, on the 13 D024 circuit fans (LTC01–LTC12, LTC14): "Yes they big screens not light's".** They are big screens, not Coates lighting towers, and v8.94 records them as such, citing his words. One lighting question is still open: is the job 7 towers (on record) or 6 (D024 keys 4 at the BSF storage yard, Molendinar, and 2 at the Seaway compound)? T0002 delivered 5 to Molendinar.
 
