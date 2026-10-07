@@ -566,6 +566,30 @@
    "source": "the register"
   }
  ],
+ "record_joined": [
+  {
+   "line": "9968862/50",
+   "was": null,
+   "now": "P37",
+   "via": "asset number",
+   "source": "the shared record",
+   "asset_no": "1105053",
+   "status": "Delivered",
+   "description": "P37 Portable Building Shell 6.0M x 3.0M",
+   "why": "Andrew's record carries this number on P37 (6 Oct 2026: \"What I have matched up and completed is correct\"); the export did not touch the line"
+  },
+  {
+   "line": "9968862/79",
+   "was": null,
+   "now": "P52",
+   "via": "asset number",
+   "source": "the shared record",
+   "asset_no": "1327211",
+   "status": "Del Req",
+   "description": "P52 Portable Building Shell 12.0M x 3.0M - Cyclonic Rated",
+   "why": "Andrew's record carries this number on P52 (6 Oct 2026: \"What I have matched up and completed is correct\"); the export did not touch the line"
+  }
+ ],
  "held": [
   {
    "line": "9968955/38",
@@ -620,24 +644,5 @@
    "why": "one number on two priced lines: two machines with one misnumbered, or one machine charged twice"
   }
  ],
- "record_would_move": [
-  {
-   "line": "9968862/50",
-   "asset_no": "1105053",
-   "status": "Delivered",
-   "description": "P37 Portable Building Shell 6.0M x 3.0M",
-   "page_join": null,
-   "record": "P37",
-   "source": "the shared record"
-  },
-  {
-   "line": "9968862/79",
-   "asset_no": "1327211",
-   "status": "Del Req",
-   "description": "P52 Portable Building Shell 12.0M x 3.0M - Cyclonic Rated",
-   "page_join": null,
-   "record": "P52",
-   "source": "the shared record"
-  }
- ]
+ "record_would_move": []
 }

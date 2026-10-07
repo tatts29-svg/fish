@@ -293,13 +293,17 @@ function flow891HeadLines(d, g, doc, i, n){
  const win = x ? x.win : flow891Window(d, g), area = x && x.area && x.area.key ? x.area : null, A = area ? FLOW891.areas[area.key] : null;
  const lim = A ? (area.key === 'pitLane' ? flow891PitLaneMax(d.iso).words : A.words) : '';
  return out + '<span class="dp891-rl"><b>Arrive in your allocated order — load ' + i + ' of ' + n + '</b>; out of order delays everyone · Arrival window <b>' + esc(flow891Span(win)) + '</b>' + (win.known ? '' : ' — agree it with site') +
-  (area ? ' · ' + esc(area.name) + (lim ? ' (' + esc(lim) + ')' : '') : '') + ' · If early or the area is full, hold at <b>' + esc(FLOW891.holding.short) + '</b> (up to ' + FLOW891.holding.max + ' trucks)</span>';
+  (area ? ' · ' + esc(area.name) + (lim ? ' (' + esc(lim) + ')' : '') : '') + '</span>';
 }
+/* the holding instruction is a site rule, so it joins the driver sheet's rules line (PPE · site hours · meet point · if unsure …) */
+function flow891HoldRule(){ return '<i>·</i><span class="dp891-hold">If early or the area is full, hold at <b>' + esc(FLOW891.holding.short) + '</b> (up to ' + FLOW891.holding.max + ' trucks)</span>'; }
 function flow891FactRow(){ return '<div class="dp-f dp891-f"><label>Before it leaves</label><span class="dp891-ck">' + FLOW891.checklist.map(c => '<span>' + dpBx() + esc(c) + '</span>').join('') + '</span></div>'; }
 const dpPageBefore891 = dpPage;
 dpPage = function(d, g, doc, i, n){ let h = dpPageBefore891(d, g, doc, i, n);
  try { h = h.replace('</h1></div>', '</h1>' + flow891HeadLines(d, g, doc, i, n) + '</div>'); /* the header's middle block: kick, title, then these */
-  const k = h.indexOf('<div class="dp-facts">'); if (k >= 0) { const e = h.indexOf('</div></div>', k); if (e > k) h = h.slice(0, e + 6) + flow891FactRow() + h.slice(e + 6); } /* after the last fact's own closing tag, inside the facts column */ } catch (e) {}
+  const k = h.indexOf('<div class="dp-facts">'); if (k >= 0) { const e = h.indexOf('</div></div>', k); if (e > k) h = h.slice(0, e + 6) + flow891FactRow() + h.slice(e + 6); } /* after the last fact's own closing tag, inside the facts column */
+  if (doc === 'drv') { const r = h.indexOf('<div class="dp-rline">'); if (r >= 0) { const e = h.indexOf('</div>', r); if (e > r) h = h.slice(0, e) + flow891HoldRule() + h.slice(e); }
+   else h = h.replace('<h2>Safety</h2>', '<h2>Safety</h2><div class="dp-rline">' + flow891HoldRule().replace(/^<i>·<\/i>/, '') + '</div>'); } } catch (e) {}
  return h; };
 /* a photograph with no room on a full page is left off and said so, instead of an empty picture stopping the PDF maker */
 const dpCutBefore891 = dpCut;
@@ -346,7 +350,7 @@ daily821Model = function(iso){ const m = daily821ModelBefore891(iso);
 const daily821HtmlBefore891 = daily821Html;
 daily821Html = function(model, team, version){ let h = daily821HtmlBefore891(model, team, version); const who = (model && model.sender) || flow891Sender();
  if (who) h = h.replace('<p class="issued">Issued', '<p class="issued">Prepared by ' + esc(who) + ' · Issued');
- return h.replace('<p>In load order</p>', '<p>In load order — the trucks arrive in this order. ' + esc(FLOW891.holding.words) + '</p>'); };
+ return h.replace('<p>In load order</p>', '<p>In load order — arrive in this order</p>'); }; /* the holding words are on every load's notes, where the driver reads them */
 const daily861BodyBefore891 = daily861Body;
 daily861Body = function(iso, team, url, weather){ const who = flow891Sender(); if (!who) throw Error('Enter your first and last name in Recording as (Tools) — every message to an install team carries the sender’s full name.');
  return daily861BodyBefore891(iso, team, url, weather).replace('\n\nYour daily runs:', '\nSent by ' + daily861Gsm(who) + '.\n\nYour daily runs:'); };

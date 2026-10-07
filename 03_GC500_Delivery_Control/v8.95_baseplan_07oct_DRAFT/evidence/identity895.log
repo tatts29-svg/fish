@@ -89,11 +89,11 @@ PASS rental_on_hire.notes identical
 PASS rental_on_hire.columns identical
 PASS rental_on_hire.differences identical
 PASS the source is the 7 Oct export
-PASS one supplement added, for v8.95, bound to the export by SHA-256
+PASS one supplement added, for v8.95, bound to the export by SHA-256, naming the two joins from his record
 PASS 323 lines: the 321 of the 6 Oct export and the two the 7 Oct export adds
 PASS the lines are in contract and line order
-PASS every line outside the export's 25 is identical, field for field
-PASS the 25 changed lines change only in the export's fields and what v8.71 derives from them
+PASS every line outside the export's 25 and the record's 2 is identical, field for field
+PASS the 25 changed lines change only in the export's fields and what v8.71 derives from them; the record's 2 only in their join
 PASS row shape unchanged: every kept line has the base's keys in the base's order, every added line the standard keys
 PASS WC07's 20 FWF lines (9968955/24-43): Delivered on 22 Sep, each with its Baseplan asset number, docket 26081411 kept
 PASS the 20 WC07 lines keep their rates (the export did not change them)
@@ -106,25 +106,28 @@ PASS WC09 toilet blocks (9968955/103, 105): Pending -> Del Req on dockets 261153
 PASS NVAC forklift (9961976/27): the description typo is fixed and the thing reads Forklift 3.5t Diesel
 PASS two new NVAC lines 42 and 43: 200 kVA Concert generators 1316182 and 1316183, Pending, booked 12-26 Oct, no rate, joined to GN? by the register's numbers
 PASS the new lines carry every field a line has (the v8.71 skeleton), with no money on them
+PASS Andrew's record joins 9968862/50 (1105053, Delivered 17 Sep) to P37 and 9968862/79 (1327211, Del Req) to P52 by his number; both were unjoined; nothing else on the lines moved
 PASS a Pending line is not on hire: no start date, not delivered (v8.71's rule)
 PASS no rate of 0 anywhere (a 0 is no rate) and every delivered line is on hire from a date
 PASS every line's carried fields equal the 7 Oct export's cells (323 lines)
 PASS no line joins a reference that contradicts Andrew's record (shared record 4370 or the as-supplied record)
-PASS the recorded numbers whose line is not joined are the two-line numbers v8.71 holds (9961265/12, 9968726/10, 9968862/110) and the two lines his record moved after 6 Oct (9968862/50, 9968862/79)
+PASS the only recorded numbers whose line is not joined are the two-line numbers v8.71 holds (9961265/12, 9968726/10, 9968862/110)
 PASS the register's WC07 carries no numbers of its own (his are on the as-supplied record and the shared record, which the page reads live)
 PASS 11 contracts, the same eleven
 PASS every contract summary is exactly what its lines give, and its other fields are the base's
 PASS only 9961976, 9968862 and 9968955 change their summary
 PASS 9961976: 36 lines, 30 matched, two more plant numbers
-PASS 9968862: only the new delivered date 7 Oct
+PASS 9968862: the new delivered date 7 Oct and two more matched lines (P37, P52 from his record)
 PASS 9968955: 22 more matched lines, 22 Sep among its delivered dates, the three new dockets, the 20 numbers
-PASS assignments: the same references, only GN?, WC07, WC09 and WC31 change
+PASS assignments: the same references, only GN?, WC07, WC09, WC31 (the export) and P37, P52 (his record) change
 PASS each changed assignment is exactly what its joined lines give
 PASS WC07: KINP, contract 9968955, 19 lines, delivered 22 Sep on docket 26081411 (was by kind of item)
 PASS GN?: NVAC, contract 9961976, lines 42 and 43, not delivered (was by kind of item)
 PASS WC09 and WC31 keep KINP and 9968955, now by their dockets, not delivered
+PASS P37: KINP, contract 9968862, line 50, delivered 17 Sep on docket 26077069 (was by kind of item)
+PASS P52: KINP, contract 9968862, now lines 79 (his number) and 81 (its docket), not delivered
 PASS the summary counts are exactly what the lines give
 PASS the summary's other fields are the base's
-PASS summary: 323 lines, 164 plant numbers, 142 delivered lines, 135 joined by number, 30 by docket, 151 unjoined
+PASS summary: 323 lines, 164 plant numbers, 142 delivered lines, 137 joined by number, 30 by docket, 149 unjoined
 PASS plant_lines identical (no plant line carries a changed contract line)
-identity895: PASS - DATA identical to the base except DATA.rental_on_hire, and there only the 7 Oct export's 25 changed and 2 added lines with what v8.71 derives from them
+identity895: PASS - DATA identical to the base except DATA.rental_on_hire, and there only the 7 Oct export's 25 changed and 2 added lines, the 2 joins from Andrew's record, and what v8.71 derives from them

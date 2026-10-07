@@ -18,7 +18,9 @@
 # typed on the shared record, the numbers recorded on site on the shared record, and the numbers recorded as supplied on
 # the committed as-supplied record (DATA.ops, recorded by him). The shared record wins where the two disagree, as v8.71
 # applied it. A Baseplan number he has recorded on a reference joins that reference and no other; one he has not
-# recorded goes where the register puts it, or stays unjoined.
+# recorded goes where the register puts it, or stays unjoined. The same rule re-makes the join of a numbered line his record
+# carries on a reference the page does not yet join it to (rejoin_record): his record is the authority over Baseplan, so
+# the line follows his number even when the export did not touch it; those joins are logged apart (record_joined).
 import datetime, re
 from pathlib import Path
 
@@ -164,11 +166,11 @@ def validate_matches(D, matches):
     assert len(numbers) == len(set(numbers)), 'one recorded number has multiple owners'
 
 
-def apply(D, NEW, TABS, record_matches, rejoin_record=False):
+def apply(D, NEW, TABS, record_matches, rejoin_record=True):
     """Refresh D['rental_on_hire'] (and the plant lines' copies of their contract lines) from an export, with v8.71's
     rules. Returns the change log. D is changed in place; nothing outside rental_on_hire and plant_lines is touched."""
     R = D['rental_on_hire']
-    LOG = {'added': [], 'removed': [], 'changed': [], 'rejoined': [], 'held': [], 'plant_line_copies': [], 'flags': [],
+    LOG = {'added': [], 'removed': [], 'changed': [], 'rejoined': [], 'record_joined': [], 'held': [], 'plant_line_copies': [], 'flags': [],
            'record_would_move': []}
     OLDROWS = R['rows']
     OLD = {(str(r['rental_contract']), int(r['line'])): r for r in OLDROWS}
@@ -258,16 +260,24 @@ def apply(D, NEW, TABS, record_matches, rejoin_record=False):
             if r['what'] != was_what:
                 diffs['what'] = [was_what, r['what']]
         old_m = r.get('match') or {}
-        # v8.71 also re-made the join of every numbered line Andrew had recorded (its one-off clean-up of the files'
-        # contrary allocations). Re-running that against a newer record would move lines the export did not touch, so it
-        # is off unless asked for; what it would move is listed instead (record_would_move).
+        # ANDREW'S RECORD RE-MAKES A JOIN TOO (v8.71's own step, kept on): a numbered line whose number he has recorded on
+        # a reference joins that reference even when the export did not touch the line. With rejoin_record off, what it
+        # would move is listed instead (record_would_move) and nothing moves.
         record_says = r.get('asset_no_is_plant_number') and str(r.get('asset_no')) in ANDREW_OF
-        if 'asset_no' in diffs or 'delivery_number' in diffs or (rejoin_record and record_says):
+        trigger_export = 'asset_no' in diffs or 'delivery_number' in diffs
+        trigger_record = bool(rejoin_record and record_says)
+        if trigger_export or trigger_record:
             j = join(r)
             if j and (j.get('key'), j.get('task_id')) != (old_m.get('key'), old_m.get('task_id')):
                 r['match'] = j
-                LOG['rejoined'].append({'line': f'{k[0]}/{k[1]}', 'was': old_m.get('key') or old_m.get('task_id'), 'now': j.get('key') or j.get('task_id'), 'via': j['via'],
-                                        'source': ANDREW_SRC.get(str(r.get('asset_no'))) if j['via'] == 'asset number' and str(r.get('asset_no')) in ANDREW_OF else 'the register'})
+                entry = {'line': f'{k[0]}/{k[1]}', 'was': old_m.get('key') or old_m.get('task_id'), 'now': j.get('key') or j.get('task_id'), 'via': j['via'],
+                         'source': ANDREW_SRC.get(str(r.get('asset_no'))) if j['via'] == 'asset number' and str(r.get('asset_no')) in ANDREW_OF else 'the register'}
+                if trigger_export:
+                    LOG['rejoined'].append(entry)
+                else:
+                    entry.update({'asset_no': r['asset_no'], 'status': r.get('status_as_written'), 'description': r.get('description'),
+                                  'why': "Andrew's record carries this number on " + str(entry['now']) + ' (6 Oct 2026: "What I have matched up and completed is correct"); the export did not touch the line'})
+                    LOG['record_joined'].append(entry)
             elif not j and 'asset_no' in diffs and old_m.get('via') == 'asset number':
                 r['match'] = {'state': 'unmatched', 'to': None, 'key': None, 'task_id': None, 'via': None, 'basis': UNMATCHED_HELD}
                 LOG['rejoined'].append({'line': f'{k[0]}/{k[1]}', 'was': old_m.get('key') or old_m.get('task_id'), 'now': None, 'via': None})
@@ -275,7 +285,7 @@ def apply(D, NEW, TABS, record_matches, rejoin_record=False):
                 LOG['held'].append({'line': f'{k[0]}/{k[1]}', 'asset_no': r['asset_no'], 'serial_in_export': txt(NEW[k].get('Serial Number')), 'description': r.get('description'), 'status': r.get('status_as_written'),
                                     'why': 'no reference carries this number - not on the shared record, not on the as-supplied record, not in the register; the line keeps its join by kind',
                                     'join': old_m.get('key') or old_m.get('task_id')})
-        elif record_says and (old_m.get('key') or old_m.get('task_id')) != ANDREW_OF[str(r['asset_no'])] and andrew_takes(r):
+        elif record_says and not rejoin_record and (old_m.get('key') or old_m.get('task_id')) != ANDREW_OF[str(r['asset_no'])] and andrew_takes(r):
             LOG['record_would_move'].append({'line': f'{k[0]}/{k[1]}', 'asset_no': r['asset_no'], 'status': r.get('status_as_written'), 'description': r.get('description'),
                                              'page_join': old_m.get('key') or old_m.get('task_id'), 'record': ANDREW_OF[str(r['asset_no'])], 'source': ANDREW_SRC[str(r['asset_no'])]})
         if diffs:
@@ -350,7 +360,8 @@ def apply(D, NEW, TABS, record_matches, rejoin_record=False):
     R['contracts'] = contracts
 
     AS = R['assignments']
-    touched = {x['now'] for x in LOG['rejoined'] if x['now']} | {x['was'] for x in LOG['rejoined'] if x['was']} | {x['joined_to'] for x in LOG['added'] if x['joined_to']}
+    moved = LOG['rejoined'] + LOG['record_joined']
+    touched = {x['now'] for x in moved if x['now']} | {x['was'] for x in moved if x['was']} | {x['joined_to'] for x in LOG['added'] if x['joined_to']}
     for key in sorted(k for k in touched if k in A):
         lines = [r for r in rows_out if r.get('match') and r['match'].get('to') == 'asset' and r['match'].get('key') == key]
         old = AS.get(key)

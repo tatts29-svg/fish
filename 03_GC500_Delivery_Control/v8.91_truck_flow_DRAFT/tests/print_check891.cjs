@@ -4,7 +4,9 @@
 const fs = require('fs'), path = require('path'), {open} = require('../../toolchain/harness/open_page');
 (async () => { let s; try { const OUT = process.env.OUT; fs.mkdirSync(OUT, {recursive: true});
   s = await open({pageFile: process.env.PAGE, hash: '#timeline', W: 1440, H: 900}); const p = s.page;
-  await p.waitForFunction(() => typeof go === 'function' && typeof SYNC !== 'undefined' && SYNC.status === 'live' && typeof flow891Build === 'function', null, {timeout: 150000}); await p.waitForTimeout(2500);
+  await p.waitForFunction(() => typeof go === 'function' && typeof SYNC !== 'undefined' && SYNC.status === 'live' && typeof dpLoads === 'function', null, {timeout: 150000}); await p.waitForTimeout(2500);
+  /* runs on the base page too (for the before pictures): the v8.91 helpers are optional there */
+  await p.evaluate(() => { if (typeof flow891Remember !== 'function') window.flow891Remember = n => { try { localStorage.setItem('gc500.printedBy', n); } catch (e) {} }; });
   const day = process.env.DAY || await p.evaluate(() => { const t0 = todayIso(); const d = programmeDays().find(x => x.iso >= t0 && dpLoads(x).filter(g => g.kind === 'deliveries').length >= 4) || programmeDays().find(x => x.iso >= t0 && dpLoads(x).length >= 2); return d ? d.iso : t0; });
   console.log('day', day);
   /* the edit stubs: the pre-dispatch check needs an edit link to be meaningful, the PDFs do not; the record is never written */

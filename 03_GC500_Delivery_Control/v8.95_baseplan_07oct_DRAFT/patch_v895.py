@@ -22,10 +22,12 @@ BASEPLAN_SHA = '8a18bd1f0df331d339d0fa27d81bdf22b238b1de0f1f5f5c342b208eed4b3bd7
 MATCHES_SHA = hashlib.sha256((here / 'andrew_4370.json').read_bytes()).hexdigest()
 EXPORT_DAY = '2026-10-07'
 WORKBOOK = 'Baseplan_SuperCars_07Oct.xlsx'
-# v8.71 also re-made the join of every numbered line Andrew had recorded (its one-off clean-up of the files' contrary
-# allocations). Against the record of 7 Oct that would move two lines the export did not touch (9968862/50 to P37,
-# 9968862/79 to P52); they are listed in the change log instead of moved. Set True to move them.
-REJOIN_RECORD = False
+# ANDREW'S RECORD IS THE AUTHORITY OVER BASEPLAN (Andrew, 6 Oct 2026: "What I have matched up and completed is correct").
+# v8.71's record step stays on: a numbered line his record carries on a reference joins that reference even where the
+# export did not touch the line. Against the record of 7 Oct that is two lines - 9968862/50 (1105053) to P37 and
+# 9968862/79 (1327211) to P52 - and the patch refuses to run if the record step would move anything else.
+REJOIN_RECORD = True
+RECORD_JOINS = {'9968862/50': 'P37', '9968862/79': 'P52'}
 
 p = Path(sys.argv[1]); raw = p.read_bytes(); bom = raw.startswith(b'\xef\xbb\xbf'); s = raw.decode('utf-8-sig')
 
@@ -69,7 +71,8 @@ R['supplements'] = list(R.get('supplements') or []) + [{
     'source': WORKBOOK + ' (export of ' + EXPORT_DAY + ')', 'sha256': BASEPLAN_SHA, 'supplied_on': EXPORT_DAY, 'applied': 'v8.95',
     'lines_added': [x['line'] for x in LOG['added']], 'lines_removed': [x['line'] for x in LOG['removed']],
     'lines_changed': len(LOG['changed']), 'lines_rejoined': [x['line'] for x in LOG['rejoined']], 'lines_held': [x['line'] for x in LOG['held']],
-    'recorded_matches': 'shared record version 4370 (7 Oct 2026) and the as-supplied record of 22 Sep 2026',
+    'lines_joined_from_record': [x['line'] for x in LOG['record_joined']],
+    'recorded_matches': 'shared record version 4370 (7 Oct 2026) and the as-supplied record of 22 Sep 2026; his record is the authority over Baseplan (6 Oct 2026)',
     'basis': "Every line refreshed from the export field by field with v8.71's rules; joins kept where the number did not change, re-made by Andrew's recorded number, then the register's number, then the delivery docket where it did."}]
 
 # only the contract source and the plant lines' copies may change; the register, the schedule rows and everything else are identical
@@ -78,6 +81,7 @@ for k in D:
         assert D[k] == ORIG[k], 'DATA.' + k + ' changed - stopping'
 assert set(D) == set(ORIG)
 assert len(R['rows']) == 323 and len(LOG['added']) == 2 and not LOG['removed'], 'the 7 Oct export adds two lines and takes none off'
+assert {x['line']: x['now'] for x in LOG['record_joined']} == RECORD_JOINS and not LOG['record_would_move'], 'the record step must join exactly 9968862/50 to P37 and 9968862/79 to P52: ' + json.dumps([(x['line'], x['now']) for x in LOG['record_joined']])
 log_text = json.dumps(LOG, ensure_ascii=False, default=str)
 assert not re.search(r'\$\s?\d', log_text) and not re.search(r'"rate_\d"', log_text), 'the change log carries no money'
 
@@ -88,5 +92,5 @@ log = Path(os.environ.get('V895_LOG') or (here / 'evidence' / 'changes_v895.json
 log.parent.mkdir(parents=True, exist_ok=True)
 log.write_text(json.dumps(LOG, indent=1, ensure_ascii=False, default=str))
 print(f"v8.95 applied: contracts {len(TABS)}, lines {len(R['rows'])} (+{len(LOG['added'])} -{len(LOG['removed'])}, {len(LOG['changed'])} changed, "
-      f"{len(LOG['rejoined'])} rejoined, {len(LOG['held'])} held); record would move {len(LOG['record_would_move'])} (not applied); flags {len(LOG['flags'])}; "
+      f"{len(LOG['rejoined'])} rejoined, {len(LOG['held'])} held); joined from Andrew's record {len(LOG['record_joined'])}; flags {len(LOG['flags'])}; "
       f"matches {MATCHES_SHA[:12]}; footer {marks[0].strip()} -> v8.95")
