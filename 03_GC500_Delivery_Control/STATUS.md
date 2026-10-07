@@ -1,3 +1,20 @@
+**CONTINGENCY HANDOVER: if Claude stops, Codex picks up from here.** Andrew, 8 Oct 2026 ~06:00 AEST: "If you run out of usage. Let codex help so before you do assess and get him to help". Claude keeps this block current. Each folder's README is the full detail. Nothing here is READY until the combined suite passes.
+
+| Release | Folder | State at ~06:00 AEST | Next step |
+|---|---|---|---|
+| v8.93 maps aligned | `v8.93_maps_aligned_DRAFT/` | Builder in final checks; README still has TBD rows | Alignment tests, explorer test, regression. The archive parts `archive/assets893.tar.enc.part00/01` (~148 MB) are held out of git until final; their hashes are in `assets893_parts.sha256` |
+| v8.94 lighting audit | `v8.94_lighting_basis_DRAFT/` | **Finished.** Chain + v8.94 = `950b42b8…`; lighting894 35/35 on laptop and phone; where885 24/24 unchanged | Combined suite |
+| v8.95 Baseplan 7 Oct | `v8.95_baseplan_07oct_DRAFT/` | Finished on the old v8.94; rerunning on the new v8.94 with the P52 register fix | Needs `V895_BASEPLAN` = the 7 Oct export from `inputs_07Oct2026/inputs_07oct.zip.enc` (papers password, held by Andrew) |
+| v8.91 truck flow | `v8.91_truck_flow_DRAFT/` | Building | Review, then handover 2 |
+| v8.92 polish | `v8.92_a_plus_pass_DRAFT/` | Building | Review, then handover 2 |
+| v8.96 Today scene | `v8.96_today_scene_DRAFT/` | Building | Handover 3 |
+| v8.97 map completion | `v8.97_map_completion_DRAFT/` | Mock-up for Andrew in progress | Build only after Andrew's yes |
+
+- **How to build and check:** `v8.89_full_chain_08Oct2026/tools/build_final.sh <label>` builds the chain in this order: 884, 885, 886, 887, 888, 889, 893, 894, 895, then 891 and 892 with `with891892`. `tools/run_all.sh <build dir> <evidence dir> [<identity base>]` runs every suite, one browser at a time. It needs `MEDIA889` and `EXPLORER_DIR` as its header says.
+- **Open questions with Andrew:**
+  - WC07 line 38: 1317643 or 1317743?
+  - The NVAC Concert generators: their GN number and rate.
+
 **ANDREW (relayed by Codex, [PR 6045529948](https://github.com/tatts29-svg/fish/pull/1#issuecomment-6045529948)): "Need to come up with a clean way to show completions on maps when we search for things example buildings. We still want to show but something to highlight completion keeping in reference to same look as how its highlighted." CLAIMED by Claude as v8.97, Completion on the maps ([PR 6045544557](https://github.com/tatts29-svg/fish/pull/1#issuecomment-6045544557)).**
 - **What it shows:** every result stays visible with its ring and label. A completed result gets one small static green tick on its ring, and "✓ Complete" on its result row and card.
 - **What counts as complete:** the same verified completion as the Timeline. On site alone doesn't count, and a conflict shows nothing.
