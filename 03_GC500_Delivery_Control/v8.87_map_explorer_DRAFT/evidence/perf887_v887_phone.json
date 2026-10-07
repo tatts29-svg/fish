@@ -4,22 +4,22 @@
   "device": "phone",
   "measure": "zoom_fencingOff",
   "raf": {
-   "n": 203,
-   "mean": 22.08,
+   "n": 207,
+   "mean": 21.74,
    "p50": 16.7,
-   "p95": 50,
+   "p95": 33.4,
    "max": 83.3,
-   "over50": 6,
-   "over33": 46
+   "over50": 5,
+   "over33": 49
   },
   "draw": {
-   "n": 153,
-   "mean": 1.99,
-   "p50": 0.5,
-   "p95": 7.1,
-   "max": 47.2,
+   "n": 160,
+   "mean": 2.23,
+   "p50": 0.6,
+   "p95": 7.3,
+   "max": 49.5,
    "over50": 0,
-   "over33": 2
+   "over33": 4
   },
   "fencePaint": {
    "n": 0
@@ -30,29 +30,29 @@
    "moving": false,
    "next": true
   },
-  "taskMs": 3421
+  "taskMs": 3478
  },
  {
   "tag": "v887",
   "device": "phone",
   "measure": "pan_fencingOff",
   "raf": {
-   "n": 125,
-   "mean": 18.4,
+   "n": 146,
+   "mean": 18.04,
    "p50": 16.7,
    "p95": 16.8,
-   "max": 133.4,
-   "over50": 1,
-   "over33": 6
+   "max": 116.7,
+   "over50": 2,
+   "over33": 5
   },
   "draw": {
-   "n": 42,
-   "mean": 3.53,
+   "n": 45,
+   "mean": 3.19,
    "p50": 0.5,
-   "p95": 27.4,
-   "max": 40,
+   "p95": 21,
+   "max": 34,
    "over50": 0,
-   "over33": 2
+   "over33": 1
   },
   "fencePaint": {
    "n": 0
@@ -63,85 +63,85 @@
    "moving": false,
    "next": true
   },
-  "taskMs": 836
+  "taskMs": 982
  },
  {
   "tag": "v887",
   "device": "phone",
   "measure": "zoom_fencingOn",
   "raf": {
-   "n": 215,
-   "mean": 17.05,
+   "n": 210,
+   "mean": 16.9,
    "p50": 16.7,
    "p95": 16.8,
-   "max": 33.4,
+   "max": 33.3,
    "over50": 0,
-   "over33": 5
+   "over33": 3
   },
   "draw": {
-   "n": 179,
-   "mean": 1.02,
+   "n": 173,
+   "mean": 0.86,
    "p50": 0.3,
-   "p95": 1.9,
-   "max": 38.9,
-   "over50": 0,
-   "over33": 2
-  },
-  "fencePaint": {
-   "n": 180,
-   "mean": 0.59,
-   "p50": 0.6,
-   "p95": 0.9,
-   "max": 2.5,
+   "p95": 1,
+   "max": 30,
    "over50": 0,
    "over33": 0
   },
-  "fencePaintTotalMs": 105.6,
+  "fencePaint": {
+   "n": 174,
+   "mean": 0.56,
+   "p50": 0.5,
+   "p95": 0.8,
+   "max": 5.3,
+   "over50": 0,
+   "over33": 0
+  },
+  "fencePaintTotalMs": 97.3,
   "canvasResizes": 2,
   "light": {
    "moving": false,
    "next": true
   },
-  "taskMs": 1871
+  "taskMs": 1643
  },
  {
   "tag": "v887",
   "device": "phone",
   "measure": "pan_fencingOn",
   "raf": {
-   "n": 153,
-   "mean": 17.32,
+   "n": 139,
+   "mean": 17.15,
    "p50": 16.7,
    "p95": 16.8,
-   "max": 49.9,
+   "max": 33.4,
    "over50": 0,
-   "over33": 5
+   "over33": 4
   },
   "draw": {
    "n": 40,
-   "mean": 3.68,
+   "mean": 3.26,
    "p50": 0.4,
-   "p95": 36.5,
-   "max": 37.2,
-   "over50": 0,
-   "over33": 2
-  },
-  "fencePaint": {
-   "n": 41,
-   "mean": 0.7,
-   "p50": 0.5,
-   "p95": 1.1,
-   "max": 2.8,
+   "p95": 27.3,
+   "max": 32.2,
    "over50": 0,
    "over33": 0
   },
-  "fencePaintTotalMs": 28.9,
+  "fencePaint": {
+   "n": 41,
+   "mean": 0.69,
+   "p50": 0.6,
+   "p95": 1.1,
+   "max": 2.5,
+   "over50": 0,
+   "over33": 0
+  },
+  "fencePaintTotalMs": 28.1,
   "canvasResizes": 2,
   "light": {
    "moving": false,
    "next": true
   },
-  "taskMs": 775
+  "taskMs": 685
  },
  {
   "tag": "v887",
@@ -165,18 +165,18 @@
   "tag": "v887",
   "device": "phone",
   "measure": "hidden10s",
-  "taskMs": 142,
+  "taskMs": 104,
   "doneCalls": 0,
   "snapCalls": 0,
   "framesDrawn": 0,
   "parked": false,
-  "frameLogLen": 524
+  "frameLogLen": 520
  },
  {
   "tag": "v887",
   "device": "phone",
   "measure": "fencingIdle10s",
-  "taskMs": 411,
+  "taskMs": 312,
   "snapCalls": 0
  },
  {

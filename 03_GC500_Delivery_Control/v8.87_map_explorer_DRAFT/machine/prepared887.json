@@ -1,7 +1,7 @@
 {
  "index.html": {
   "bytes": 28023,
-  "sha256": "938d3fec592382863896498946e56d9884b9604c5315c3e7a5bf3e448def6854"
+  "sha256": "c4f2c650b3ed7b3f2c377709e83290e5f53f2e1dbcfa19f70f51d7b23d24a0e7"
  },
  "explorer.js": {
   "bytes": 142098,
@@ -12,8 +12,8 @@
   "sha256": "161dabb105c15f5efca5a199c625191ed54343237f6af2d8c327c6d365921679"
  },
  "fencing-map-explorer.js": {
-  "bytes": 51654,
-  "sha256": "edf5b903f4a0321098cb9a2c3fbef0bb0da13ac6b2cfbbb24b485c3ce019bd0b"
+  "bytes": 51564,
+  "sha256": "e3a4bef6c17d7288f0a51c14732129fba32f1f5bbf849d113c3124dc5b55739f"
  },
  "explorer-fix864.js": {
   "bytes": 7399,

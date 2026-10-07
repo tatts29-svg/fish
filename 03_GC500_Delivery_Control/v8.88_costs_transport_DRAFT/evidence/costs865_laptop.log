@@ -13,9 +13,9 @@ PASS glance has a Labour we charge tile {"tiles":["Revenue","Direct costs","Labo
 PASS Labour tile shows total charged so far and total forecast = P&L Installation now/job {"nums":["$—","$—","$—","$—","$—"],"instNow":57852.5,"instJob":107373.46}
 PASS glance wages note splits Job Connect from the salary allowance {"snippet":"Priced wages: $— — Job Connect $— + salary allowance forecast $—. 1,294 h of Coates wages remain unpriced. The job-end difference deducts priced wages."}
 PASS P&L card names the ledger gross margin as such {}
-PASS one place: Forecast P&L header tiles and its Difference line are gone {"kpis":0,"diffLine":0,"metrics":["Ledger gross margin — to job end, before"],"revCount":6,"rev":"$—","flag":true}
+PASS one place: Forecast P&L header tiles and its Difference line are gone {"kpis":0,"diffLine":0,"metrics":["Ledger gross margin — to job end, before"],"revCount":2,"rev":"$—","flag":true}
 PASS one place: the P&L-lines card keeps only the ledger gross margin card ["Ledger gross margin — to job end, before"]
-FAIL one place: revenue on the record is printed at most 3 times on the page (glance, two table totals) {"revCount":6,"rev":"$—"}
+PASS one place: revenue on the record is printed at most 3 times on the page (glance, two table totals) {"revCount":2,"rev":"$—"}
 PASS labour card: total labour we charge = P&L Installation, now and to job end {"head":[["Total labour we will charge, to job end","$—"],["What the labour costs us, priced to job end","$—"],["Labour charged less labour cost priced","$—"]],"chargeNow":"$—","chargeJob":"$—","costJob":"$—","raceRow":"24 shifts, 283 h paid, 8 peopl
 PASS labour card: total labour cost priced = wages priced to job end {"costJob":"$—","wagesJob":"$—"}
 PASS labour card: headline "Total labour we will charge, to job end" equals the P&L Installation to job end {"head":[["Total labour we will charge, to job end","$—"],["What the labour costs us, priced to job end","$—"],["Labour charged less labour cost priced","$—"]],"instJob":"$—"}
@@ -30,5 +30,5 @@ PASS no money on plant {"n":0}
 PASS no money on demob {"n":0}
 PASS no money on coatesway {"n":0}
 PASS no page errors []
-PASS no writes attempted {"page":1,"live":64,"blocked":0}
-desktop: 32/33 pass
+PASS no writes attempted {"page":1,"live":65,"blocked":0}
+desktop: 33/33 pass

@@ -335,8 +335,8 @@ function setActive(on,id){
  if(on===active){if(on){refresh(true);if(id)revealTraceTarget837(id);}return;}
  active=on;document.body.classList.toggle('fencing-map',on);$('navBtn').textContent=on?'Tasks':'Find';$('navBtn').setAttribute('aria-label',on?'Open fencing tasks':'Find a reference or adjust the map');button.setAttribute('aria-pressed',String(on));clearTimeout(timer);timer=0;
  if(on){hostVisible=parentCall('gc500FencingMapIsActive')!==false;previousMode=A.state.mode;if(A.mode3d)A.mode3d(false);adapter.clearSelection();adapter.setMode('satellite');$('fmPlan').checked=false;
-  /* v8.87 - on a phone the map stays in view: the list is a tap away (List) and a fence line gets its card at the foot of the map */
-  if(!matchMedia('(max-width:900px)').matches)adapter.panel(true);else adapter.toast('Fencing: tap a fence line for its details · List for the plan sources · Close or Escape to leave',5500);
+  /* v8.87 - on a phone the map stays in view: the bar on the map says what to do, the list is a tap away (List) and a fence line gets its card at the foot of the map */
+  if(!matchMedia('(max-width:900px)').matches)adapter.panel(true);
   refresh(true);if(id&&model)revealTraceTarget837(id);schedule();}
  else{selected=null;visCache=null;clearOverlay();if(fcard)fcard.hidden=true;if(matchMedia('(max-width:900px)').matches)adapter.panel(false);if(previousMode)adapter.setMode(previousMode);adapter.requestPaint();}  /* v8.87 - one press leaves Fencing whole: the pick goes with it */
 }

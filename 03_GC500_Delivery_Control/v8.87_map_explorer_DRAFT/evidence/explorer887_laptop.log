@@ -1,0 +1,24 @@
+PASS the prepared explorer is the one running (close bar, hits(), setHostShown, local files served) {"local":7}
+PASS a placed unit with a recorded delivery exists to tap {"key":"P45","label":"Off site","stage":1,"why":"Recorded not on site.","recorded":true,"hire":false,"done":false}
+PASS tap on P45 with no chip on shows its card {"chipOn0":false,"card":{"code":"P45","st":"Off site"}}
+PASS the card's stage is the Timeline's own (timeline841State label) {"card":"Off site","timeline":"Off site"}
+PASS the card shows the five lamps with the reached ones lit, the why, who/when lines, due and what is left {"lamps":["*Off site","Transit","Location","Installed","Finished"],"lines":["· Not on site · when recorded","· Levelled","· Steps","· Finished"],"left":"Still to come: In transit → On site → At location → Installed → Finished","due":"Due Mon 12 Oct 2026"}
+PASS on hire, delivery unconfirmed reads as the Timeline does (no such unit on the record today) {}
+PASS every placed unit's card reads as its Timeline stage (160 of 160) []
+PASS the card stays through a pan and a zoom, and a tap on the map closes it {"afterPan":true,"afterWheel":true,"afterTap":false}
+PASS entering Fencing leaves no category chip pressed {"chipAfter":false}
+PASS Fencing shows a close bar with × Close on the map {"barVis":true,"drawerOnPhone":true}
+PASS × Close leaves Fencing {}
+PASS Escape with the focus in the dashboard closes Fencing {"hostFocus":true}
+PASS a tap on the map (not on a line) closes the fencing details and keeps Fencing open {"picked":{"selected":"cw2-20261002:site-closed"},"afterMapTap":{"selected":null,"on":true,"details":false}}
+PASS Escape in the frame with a fence pick closes Fencing in one press, and the pick goes with it {"on":false,"selected":null}
+PASS a fence line is on the screen to tap {"x":847.8558501674515,"y":591.324408200838,"id":"cw2-20261002:club-creek"}
+PASS tapping a fence line selects it (cw2-20261002:club-creek) {"sel":"cw2-20261002:club-creek"}
+PASS after the tap the map does not follow the mouse (no stuck pointer) {"cam0":{"cx":875.5,"cy":536,"z":3.2476,"rot":0,"pointers":0,"gesture":false,"pinch":false},"cam1":{"cx":875.5,"cy":536,"z":3.2476,"rot":0,"pointers":0,"gesture":false,"pinch":false}}
+PASS the next drag pans normally {"camA":{"cx":875.5,"cy":536,"z":3.2476,"rot":0,"pointers":0,"gesture":false,"pinch":false},"camB":{"cx":988.43,"cy":498.36,"z":3.2476,"rot":0,"pointers":0,"gesture":false,"pinch":false}}
+PASS 10 s on another tab: no Done poll, no fencing snapshot, no frames drawn {"hidden":{"calls":{"done":0,"snap":0},"parked":false,"moveBefore":true},"frames0":173,"frames1":173}
+PASS back on Map the explorer draws again and the Done poll resumes {"shown":true,"frames":175,"ready":true}
+PASS the frame log is capped (600, not 30,000) {}
+PASS no page errors (dashboard or explorer) []
+PASS no writes attempted {"page":1,"live":177,"blocked":0,"local":7}
+laptop: 23/23 pass

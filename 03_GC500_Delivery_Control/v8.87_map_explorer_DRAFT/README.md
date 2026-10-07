@@ -66,17 +66,17 @@ See `evidence/hashes887.txt`.
 - Page base: live v8.83 `88a3584e919d8acd32ac3905099c1d606ec2fe5c1da2793363e8ff870f212457`.
 - Page candidate: `33c6501f8e52aeca15df4bb902b14ecf3b1d747038bcedc58066eb94851a8f3d`, 11,173,489 bytes (`build/GC500_v8.87/GC500_Delivery_Control_hosted.html`).
 - Machine base: set `b469a99c43a30a6d165ce126c4983d0c92204c8f548f0636a008f43de60e95d8` (231 files, `v8.64-map-explorer`).
-- Machine candidate: set `d18aeb73edd13a419f88cec6c7b5663de67fb4910c47bfb4fc1266a5341c361f` (233 files, `v8.87-map-explorer`), i.e. the live set with these seven descriptors:
+- Machine candidate: set `ecfd9bbab31074417c9cc5882c6765ce6d41172cecefa909a5187e92f56c99e6` (233 files, `v8.87-map-explorer`), i.e. the live set with these seven descriptors:
 
 | file | bytes | sha256 |
 |---|---|---|
-| `explorer/index.html` | 28,023 | `e906b2493dd8f35842e0740e006f9a096b247787dd21e1d66f523908338ea175` |
+| `explorer/index.html` | 28,023 | `938d3fec592382863896498946e56d9884b9604c5315c3e7a5bf3e448def6854` |
 | `explorer/explorer.js` | 142,098 | `f03844a3492e6738a7504adac9270860b2e1076d2516229971ab06c94b873b9d` |
 | `explorer/explorer-merge.js` | 27,134 | `161dabb105c15f5efca5a199c625191ed54343237f6af2d8c327c6d365921679` |
 | `explorer/fencing-map-explorer.js` | 51,654 | `edf5b903f4a0321098cb9a2c3fbef0bb0da13ac6b2cfbbb24b485c3ce019bd0b` |
 | `explorer/explorer-fix864.js` | 7,399 | `d7041320fc3ff63a133cc8e3ce859bbce3e6dc669e2a990bb0fc5f7b27a7ac3b` |
-| `explorer/explorer-fix887.js` (new) | 3,090 | `3af256abeedefaec23bb7f247bc490bc39cdb32060285efcb5490a9120b9ee29` |
-| `explorer/explorer-fix887.css` (new) | 4,241 | `7064bc5327bb9aa160a19523e1b3fdd387c0066f6ac52019d0e95f9b4fa22a4e` |
+| `explorer/explorer-fix887.js` (new) | 3,240 | `6996471a6a0f568d9136d1165cccba84b411af85638674420fe360d223a44543` |
+| `explorer/explorer-fix887.css` (new) | 4,481 | `b64b6341ee142e33e21ef41651d8c0f9e2aeda4661b9f2621ff5b3895e52eb99` |
 
 Every other file of the set (`fencing-map-core.js`, `fencing-map.css`, `explorer-fix864.css`, the assets, the machine, poc3d) stays
 exactly as registered.
@@ -99,7 +99,7 @@ of these files; its anchors (the master-drawing hash check and the attribution s
    ```
    The dry run is GET-only: it checks the seven files against `machine/prepared887.json`, rebuilds the candidate manifest, confirms
    the key is the edit key, that the live set is `b469a99c` and that every preserved blob is on the volume. The publish PUTs the
-   seven blobs under their SHA-256, POSTs the manifest once, reads `/api/machine` back (`d18aeb73…`) and GETs each changed public
+   seven blobs under their SHA-256, POSTs the manifest once, reads `/api/machine` back (`ecfd9bba…`) and GETs each changed public
    asset to prove the bytes, then writes `publication887.json` beside the explorer folder. The five unlisted private blobs the
    server protects (`SERVER_FILE`, `SERVER_FILE_KEEP`) are untouched by a registration.
 4. Read back with the public checks: `LOCAL` unset, `node tests/test_explorer887.cjs` laptop and phone against the live page.
