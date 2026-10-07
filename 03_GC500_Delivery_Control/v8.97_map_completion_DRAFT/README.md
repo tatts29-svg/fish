@@ -79,7 +79,7 @@ local explorer file is a failure, never silently replaced with the live version.
 The three targeted browser runs passed 12/12 each on page SHA-256
 `af2a20ba27befb87880171667c5c66f2fe4f97878cfffa12a439f1e87ba0a6d8` (11,397,220 bytes), using v8.90 drawing code plus the current
 v8.97 patch and the exact v8.90 assets. Every run recorded zero page errors, console errors, write attempts, missing local
-files and live explorer fallbacks. The page patch was also proven to differ from the final v8.96 page only by its appended
+files and live explorer fallbacks. The page patch was also proven to differ from its corresponding v8.96 base only by its appended
 script/style and footer. These checks validate completion behaviour, not final v8.93 drawing alignment or tile identity.
 
 The early phone mock-up produced eight screenshots with zero page errors, console errors, missing local files, live explorer

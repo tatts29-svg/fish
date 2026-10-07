@@ -2,8 +2,8 @@ Author: Andrew Fisher
 v8.91 correction proposal — DRAFT, NOT READY TO UPLOAD, NOT LIVE.
 
 Owner adoption changes flow891_src.js and patch_v891.py only. The claimed files
-have not been modified. No commit, push, service request or operational record
-write was made for this proposal.
+have not been modified. The proposal is shared as review code; no service request,
+live publication or operational record write was made for its validation.
 
 The patch saves stagger windows under one canonical stable load ID, preserves
 historical Crew windows as fallback, and updates existing Crew order fields

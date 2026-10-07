@@ -2,8 +2,8 @@ Author: Andrew Fisher
 
 Proposed v8.94 completion and drilldown correction — 8 Oct 2026 AEST.
 
-This is a review proposal for the claimed draft’s owner to adopt. It has not been
-committed, published or applied to the owned draft. The correction keeps native
+This is a shared review proposal for the claimed draft’s owner to adopt. It has not
+been applied to the owned draft or published to the live app. The correction keeps native
 work metrics, equipment records, delivery history and financial readers intact.
 
 The Lighting audit now consumes the native work rows’ verified completion instead
