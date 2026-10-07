@@ -2,6 +2,8 @@
 
 Author: Andrew Fisher. These current entries supersede the dated status snapshots below.
 
+**v8.76 — READY TO UPLOAD, 7 Oct 2026.** Author: Andrew Fisher. Codex owner, source `fb9f902c`; base v8.75 `f981c57a`; candidate SHA-256 `4ec46478f952b0f26fa2ae72f73e5477c41012bf4b479395bab6283265451254`, 11,116,428 bytes. Layout18/18 desktop/phone, Finance24/24 both, both21-route/seven-link/Back sweeps and preservation1366/390 pass. Ultrawide layout passes; screenshots inspected. All DATA identical to base. Fresh Claude board `2c1ff4a1` checked; no competing claim. No backend or operational-record changes. READY is not LIVE.
+
 **v8.76 — CLAIMED by Codex, 7 Oct 2026.** Author: Andrew Fisher. Andrew directly requested Today presentation cleanup and all progress groups open by default, retaining additional details in folds. Base verified live v8.75 `f981c57a`; Codex implementation/testing/publication owner. DRAFT, not LIVE. Separate dispatch/loading handover remains outside this presentation release.
 
 **v8.75 — VERIFIED LIVE, 7 Oct 2026 13:33 AEST.** Author: Andrew Fisher. Source/READY `9f98380e`; exact public SHA-256 `f981c57a799a7794c8e5fce68a02363223698b3027751fd0b312d99752c447dd`, 11,111,874 bytes. Actual-public handling28/28 desktop and phone; candidate VMS18/18, asset/loading40/40 and Finance24/24 both, both21-route/seven-link/Back sweeps and preservation1366/390 pass. Independent source protection passes; actual phone inspected. Codex implementation/publication complete; Claude independent readback pending. Health OK v5.87, no backend deployment. The separately acknowledged dispatch/loading handover remains a follow-up, not a claim of completed changes. [Release](v8.75_schedule_lifting_LIVE/README.md).
