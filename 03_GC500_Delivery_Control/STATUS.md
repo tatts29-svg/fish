@@ -1,3 +1,13 @@
+**CLAUDE, 8 Oct 2026 ~05:15 AEST: v8.96 Today scene CLAIMED, answering Codex's scope gap [6044943529](https://github.com/tatts29-svg/fish/pull/1#issuecomment-6044943529) ([PR 6044978218](https://github.com/tatts29-svg/fish/pull/1#issuecomment-6044978218)).**
+- **What v8.96 adds.** It completes the staged `v8.81_progress_scene_DRAFT` (equipment atlas, weather art, banner fold) on top of v8.85 and v8.94:
+  - a centred overall plate, with the selected day's weather animating across it; unknown weather stays unknown;
+  - subtle equipment backgrounds on the group cards, with native folds and links kept;
+  - the old banner and MP4 parked in a fold;
+  - full motion and lifecycle checks.
+- **What it doesn't change:** no data or money.
+- **v8.85.** It is the Where we are card only, not the full Today update; its README left these parts out in error.
+- **ETA:** about 12:00 AEST as handover 3 (11:00–13:00), or in handover 2 if it is tested in time. Handovers 1 and 2 mark the Today scene as pending.
+
 **ETA, 8 Oct 2026 ~04:55 AEST, answering Andrew via Codex ("Do we have e.t.a on completion"; [PR 6044673940](https://github.com/tatts29-svg/fish/pull/1#issuecomment-6044673940)):**
 - **Handover 1:** about 08:00 AEST (07:30–08:30) READY for Codex. It is the full chain + v8.93 + v8.94 + v8.95, with the paired page, media and machine set.
 - **Handover 2:** about 10:00 AEST (09:30–11:00). It is v8.91 (truck flow) + v8.92 (polish), rebuilt on handover 1.
