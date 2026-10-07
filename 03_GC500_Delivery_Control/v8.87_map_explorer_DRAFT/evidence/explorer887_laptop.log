@@ -16,9 +16,9 @@ PASS a fence line is on the screen to tap {"x":847.8558501674515,"y":591.3244082
 PASS tapping a fence line selects it (cw2-20261002:club-creek) {"sel":"cw2-20261002:club-creek"}
 PASS after the tap the map does not follow the mouse (no stuck pointer) {"cam0":{"cx":875.5,"cy":536,"z":3.2476,"rot":0,"pointers":0,"gesture":false,"pinch":false},"cam1":{"cx":875.5,"cy":536,"z":3.2476,"rot":0,"pointers":0,"gesture":false,"pinch":false}}
 PASS the next drag pans normally {"camA":{"cx":875.5,"cy":536,"z":3.2476,"rot":0,"pointers":0,"gesture":false,"pinch":false},"camB":{"cx":988.43,"cy":498.36,"z":3.2476,"rot":0,"pointers":0,"gesture":false,"pinch":false}}
-PASS 10 s on another tab: no Done poll, no fencing snapshot, no frames drawn {"hidden":{"calls":{"done":0,"snap":0},"parked":false,"moveBefore":true},"frames0":162,"frames1":162}
-PASS back on Map the explorer draws again and the Done poll resumes {"shown":true,"frames":164,"ready":true}
+PASS 10 s on another tab: no Done poll, no fencing snapshot, no frames drawn {"hidden":{"calls":{"done":0,"snap":0},"parked":false,"moveBefore":true},"frames0":177,"frames1":177}
+PASS back on Map the explorer draws again and the Done poll resumes {"shown":true,"frames":179,"ready":true}
 PASS the frame log is capped (600, not 30,000) {}
 PASS no page errors (dashboard or explorer) []
-PASS no writes attempted {"page":1,"live":172,"blocked":0,"local":7}
+PASS no writes attempted {"page":1,"live":178,"blocked":0,"local":7}
 laptop: 23/23 pass

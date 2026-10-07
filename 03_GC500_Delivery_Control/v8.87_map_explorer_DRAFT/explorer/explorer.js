@@ -626,7 +626,7 @@ function touchInteraction() { lastInput = performance.now(); clearTimeout(restTi
   restTimer = setTimeout(function rest887() {
     /* v8.87 - a glide, a fling or a hand still moving is not rest, however slow the frames: one frame over 160 ms used to end the
        "interaction" mid-gesture and flip the backing store back and forth (dozens of resizes in one pan on a slow phone) */
-    if (zAnim || flingRAF || gotoAnim887 || rotAnim || (pointers.size && performance.now() - lastInput < 500)) { restTimer = setTimeout(rest887, 160); return; }
+    if (zAnim || flingRAF || gotoAnim887 || rotAnim || paintID || (pointers.size && performance.now() - lastInput < 500)) { restTimer = setTimeout(rest887, 160); return; }
     interacting = false; lightNext887 = lightMoving887 || lightWent887; lightMoving887 = false; lightPending887 = true; if (!zAnim) { vtGoal.clear(); goalWanted.clear(); } dropVTQueue(); requestPaint(); }, 160); }
 /* hosted under /w/<token>/explorer/ the page passes the link's own token to the service; anywhere else the stand-in answers */
 function hostedToken() { const m = /^\/w\/([A-Za-z0-9_-]{16,128})\//.exec(location.pathname); return m ? '?t=' + encodeURIComponent(m[1]) : ''; }

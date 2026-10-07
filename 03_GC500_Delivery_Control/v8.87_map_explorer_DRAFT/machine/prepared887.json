@@ -1,11 +1,11 @@
 {
  "index.html": {
   "bytes": 28023,
-  "sha256": "2ce77cd5d396262836cb52e88eb5a45029bd5c8027b68205219dcf196cd844b8"
+  "sha256": "c2b68066f5d908e92394761fdacea5ecb5070553bf353c3bd5573306dd2b167f"
  },
  "explorer.js": {
-  "bytes": 142532,
-  "sha256": "ff489a429abbdf14a37dff08d6e48ebf0bb36d76717f8c1968e598e5b81224f4"
+  "bytes": 142543,
+  "sha256": "a3bd8a13f227e405c7130f761f2d309939061ab8f624bb98517226238012edbf"
  },
  "explorer-merge.js": {
   "bytes": 27134,

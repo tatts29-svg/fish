@@ -16,9 +16,9 @@ PASS a fence line is on the screen to tap {"x":186.77206588744315,"y":571.289455
 PASS tapping a fence line selects it (cw2-20261002:club-creek) {"sel":"cw2-20261002:club-creek"}
 PASS after the tap the map does not follow the mouse (no stuck pointer) {"cam0":{"cx":875.5,"cy":536,"z":2.7848,"rot":0,"pointers":0,"gesture":false,"pinch":false},"cam1":{"cx":875.5,"cy":536,"z":2.7848,"rot":0,"pointers":0,"gesture":false,"pinch":false}}
 PASS phone: the tapped line gets its card at the foot of the map, not the drawer {"pc":true}
-PASS the next drag pans normally {"camA":{"cx":875.5,"cy":536,"z":2.7848,"rot":0,"pointers":0,"gesture":false,"pinch":false},"camB":{"cx":1293.8,"cy":396.57,"z":2.7848,"rot":0,"pointers":0,"gesture":false,"pinch":false}}
-PASS 10 s on another tab: no Done poll, no fencing snapshot, no frames drawn {"hidden":{"calls":{"done":0,"snap":0},"parked":false,"moveBefore":true},"frames0":226,"frames1":226}
-PASS back on Map the explorer draws again and the Done poll resumes {"shown":true,"frames":228,"ready":true}
+PASS the next drag pans normally {"camA":{"cx":875.5,"cy":536,"z":2.7848,"rot":0,"pointers":0,"gesture":false,"pinch":false},"camB":{"cx":1294.53,"cy":396.32,"z":2.7848,"rot":0,"pointers":0,"gesture":false,"pinch":false}}
+PASS 10 s on another tab: no Done poll, no fencing snapshot, no frames drawn {"hidden":{"calls":{"done":0,"snap":0},"parked":false,"moveBefore":true},"frames0":223,"frames1":223}
+PASS back on Map the explorer draws again and the Done poll resumes {"shown":true,"frames":225,"ready":true}
 PASS the frame log is capped (600, not 30,000) {}
 PASS no page errors (dashboard or explorer) []
 PASS no writes attempted {"page":1,"live":176,"blocked":0,"local":7}
