@@ -1,0 +1,12 @@
+PASS Lighting chip says its scope is not yet confirmed (once)
+PASS Lighting group card carries the same note (once)
+PASS the whole-job basis explains the Lighting scope
+PASS Where we are lists Lighting as provisional
+PASS the Lighting reading is unchanged (row = record, chip = card)
+PASS the whole-job number is unchanged (53.86 = 53.86)
+PASS all five lights cannot turn green on an unconfirmed scope
+PASS redraws keep one note in each place
+PASS no horizontal overflow
+PASS no runtime errors
+PASS no attempted live writes
+phone: 11/11

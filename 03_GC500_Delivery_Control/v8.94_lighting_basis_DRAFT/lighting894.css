@@ -1,0 +1,6 @@
+/* Author: Andrew Fisher. v8.94: the Lighting basis note, in the card's own type and colours. */
+#where885 .w885-group .w894-scope {grid-column:1 / -1;margin:2px 0 0;color:#ffcf9f;font:500 12px/1.3 Inter,"Segoe UI",Arial,sans-serif;letter-spacing:.01em;}
+#gc500-work-board840 .w894-card-scope {margin:-10px 0 14px;color:#ffcf9f;font-size:12px;line-height:1.45;}
+@media print {
+ #where885 .w885-group .w894-scope, #gc500-work-board840 .w894-card-scope {color:#7a4b12;}
+}
