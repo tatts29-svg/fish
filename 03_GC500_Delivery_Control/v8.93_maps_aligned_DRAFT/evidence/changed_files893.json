@@ -1,6 +1,6 @@
 {
  "base": "b469a99c43a30a6d165ce126c4983d0c92204c8f548f0636a008f43de60e95d8",
- "candidate": "5342f2a5705fa2340ced55945c7a4a76e49c75b88e731bca1bc515e5f0243450",
+ "candidate": "96dee047a785117e0f96aa1365a391d38a72904c42c67dcd76e6bc7ca40325da",
  "files": [
   {
    "path": "explorer/README.md",
@@ -59,8 +59,8 @@
   {
    "path": "explorer/assets/vt/manifest.json",
    "state": "changed",
-   "sha256": "86493313d1b3d6b7a25c5c3cdbbc7bcddcf82b708f88a0d9541b2964a99bc432",
-   "bytes": 113371
+   "sha256": "06437801844c717fd001adc5f8357b4e90a2a560a5dcae6085a1622c2cf02b6f",
+   "bytes": 113597
   },
   {
    "path": "explorer/explorer-fix864.js",
