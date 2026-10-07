@@ -99,17 +99,15 @@ function transport888Build(){
  const avg = schedT.counted_refs ? cents(schedT.counted / schedT.counted_refs) : null, avgPart = avg != null ? cents(avg * loadsNoFigNoCard) : null;
  rows.forEach(r => { if (r.forecast && r.forecast.kind === 'average') { r.forecast.raw = avg != null ? avg : 0; r.forecast.amount = avg != null ? avg : 0; } if (!r.forecast) r.forecast = {kind: r.inPl ? 'figure' : 'none', raw: 0, amount: 0}; });
  const forecast = {cardCost, cardRefs, loadsNoFig, loadsNoFigNoCard, nonLoadTasks, avg, avgPart, total: cents(cardCost + (avgPart || 0))};
+ /* the loads add to the P&L's figure exactly: each reference's card figure is rounded to the cent on its own, so the cents the rounding leaves land on the largest card load (the way the P&L's own columns are split to the dollar) */
+ { const fc = rows.filter(r => r.forecast && (r.forecast.kind === 'card' || r.forecast.kind === 'average') && r.forecast.amount), sum = cents(fc.reduce((s, r) => s + r.forecast.amount, 0)), left = cents(forecast.total - sum);
+  if (left && fc.length) { const top = fc.slice().sort((x, y) => y.forecast.amount - x.forecast.amount)[0]; top.forecast.amount = cents(top.forecast.amount + left); top.forecast.rounding = left; } }
  /* the branch weights the Finance handover splits on: what each branch's loads carry, to date and to come */
  const weights = {toDate: {}, toCome: {}, toDateNone: 0, toComeNone: 0};
  const bump = (o, k, v) => { o[k] = cents((o[k] || 0) + v); };
  rows.forEach(r => { if (r.counted && r.actual) { if (r.branch) bump(weights.toDate, r.branch, r.actual); else weights.toDateNone = cents(weights.toDateNone + r.actual); } });
  OCL.filter(c => c.amount != null).forEach(c => { const b = (costBranchOf(c) || {}).code; if (b) bump(weights.toDate, b, c.amount); else weights.toDateNone = cents(weights.toDateNone + c.amount); });
- /* the forecast by branch: a reference's card cost on its branch, the average loads at the average each; the cents the rounding leaves land on the largest branch, so the branches add to the P&L's figure exactly */
- const rawCome = {}; let rawNone = 0;
- rows.forEach(r => { const f = r.forecast; if (!f || !(f.kind === 'card' || f.kind === 'average') || !f.raw) return; if (r.branch) rawCome[r.branch] = (rawCome[r.branch] || 0) + f.raw; else rawNone += f.raw; });
- Object.keys(rawCome).forEach(k => { weights.toCome[k] = cents(rawCome[k]); }); weights.toComeNone = cents(rawNone);
- { const sum = cents(Object.values(weights.toCome).reduce((s, v) => s + v, 0) + weights.toComeNone), left = cents(forecast.total - sum);
-  if (left) { const top = Object.keys(weights.toCome).sort((x, y) => weights.toCome[y] - weights.toCome[x])[0]; if (top) weights.toCome[top] = cents(weights.toCome[top] + left); else weights.toComeNone = cents(weights.toComeNone + left); } }
+ rows.forEach(r => { const f = r.forecast; if (!f || !(f.kind === 'card' || f.kind === 'average') || !f.amount) return; if (r.branch) bump(weights.toCome, r.branch, f.amount); else weights.toComeNone = cents(weights.toComeNone + f.amount); });
  /* a schedule row with no reference that its stand-in also carries is one load, shown once: the stand-in's facts, the row's figure and forecast; two figures for one row are flagged, never added quietly */
  xUnrefRows.forEach(u => { const ar = rows.find(r => r.src === 'asset' && r.key === u.task && r.task === u.task); if (!ar) return;
   if (ar.t && u.t && ar.counted && u.counted) { ar.doubleCounted = true; u.doubleCounted = true; return; }
@@ -145,7 +143,7 @@ function transport888View(){
  T.rows.forEach(r => { if (r.branch && !codes.includes(r.branch)) codes.push(r.branch); });
  const hRow = H.costs.find(r => r.kind === 'transport') || {by: {}, toDate: 0, toCome: 0, job: 0};
  const prov = Object.fromEntries((BT.byBranch || []).map(b => [b.branch || '—', b.uncoveredAdditional || 0]));
- const live = T.rows.filter(r => !r.cancelled && !r.off);
+ const live = T.rows.filter(r => !r.cancelled); /* a row taken off its day stays listed, flagged: the P&L still reads its figure */
  const mk = code => { const rs = live.filter(r => (r.branch || '—') === code);
   const actual = cents(rs.reduce((s, r) => s + (r.counted ? r.actual : 0), 0) + T.OCL.filter(c => c.amount != null && ((costBranchOf(c) || {}).code || '—') === code).reduce((s, c) => s + c.amount, 0));
   const toCome = cents(code === '—' ? (T.weights.toComeNone || 0) : (T.weights.toCome[code] || 0));

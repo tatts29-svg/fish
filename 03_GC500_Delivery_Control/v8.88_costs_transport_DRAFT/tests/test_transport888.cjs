@@ -21,7 +21,7 @@ const fs = require('fs'), {open} = require('../../toolchain/harness/open_page');
   await p.evaluate(() => { document.querySelector('#pane-costs [data-finance888="transport"]').click(); }); await p.waitForFunction(() => !!document.getElementById('transport888'), null, {timeout: 30000}); await p.waitForTimeout(800);
   const B = await p.evaluate(() => holdAssets(() => { const sec = document.getElementById('transport888'), T = transport888Core(), V = transport888View(), M = moneySummary(), X = cj764Model(), H = fh866Model(), P = pl770Model(), B = pl752Rows(), BT = buildingTransportModel831();
     const r2 = v => Math.round((v + Number.EPSILON) * 100) / 100, txt = sec ? sec.innerText : '';
-    const live = T.rows.filter(r => !r.cancelled && !r.off);
+    const live = T.rows.filter(r => !r.cancelled);
     /* the source: every load with a transport fact, every carrier named, every branch on a load */
     const srcLoads = []; allAssets().forEach(a => { if (a._cancelled || rowOff(a.key)) return; (a.events || []).forEach(e => { if (e.carrier || e.dd || e.transport_cost || e.load_time) srcLoads.push({key: a.key, task: String(e.task_id || '').toUpperCase(), carrier: e.carrier || ''}); }); });
     const fenceTasks = (((DATA.plant_lines || {}).fencing_rows_not_plant) || []).filter(r => !rowOff(r.task_id)).map(r => String(r.task_id).toUpperCase());
@@ -82,7 +82,7 @@ const fs = require('fs'), {open} = require('../../toolchain/harness/open_page');
   ok('coming back to Costs opens the summary whole, and the Transport button reopens the view', back.summary && !back.transport && back.view === 'summary', back);
   /* 4. a filter narrows the rows and the shown total follows */
   await p.evaluate(() => { document.querySelector('#transport888 [data-tr888f="figure"]').click(); }); await p.waitForTimeout(900);
-  const F = await p.evaluate(() => holdAssets(() => { const T = transport888Core(), live = T.rows.filter(r => !r.cancelled && !r.off && r.counted); return {rows: document.querySelectorAll('#transport888 tr[data-tr888-row]').length, expect: live.length, pressed: document.querySelector('#transport888 [data-tr888f="figure"]').getAttribute('aria-pressed')}; }));
+  const F = await p.evaluate(() => holdAssets(() => { const T = transport888Core(), live = T.rows.filter(r => !r.cancelled && r.counted); return {rows: document.querySelectorAll('#transport888 tr[data-tr888-row]').length, expect: live.length, pressed: document.querySelector('#transport888 [data-tr888f="figure"]').getAttribute('aria-pressed')}; }));
   ok('the With a figure filter shows exactly the loads with a figure', F.rows === F.expect && F.pressed === 'true' && F.rows > 0, F);
   await p.evaluate(() => { document.querySelector('#transport888 [data-tr888f="all"]').click(); }); await p.waitForTimeout(600);
   /* 5. the phone layout */

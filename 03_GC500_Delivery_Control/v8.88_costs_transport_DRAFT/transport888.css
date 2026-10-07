@@ -35,18 +35,27 @@
 .recon888-bad td{background:#fff0eb}
 .recon888-state{white-space:nowrap}
 @media (max-width:760px){
+ .tr888-table,.recon888-table{overflow-x:visible}
+ .tr888-stack,.tr888-stack tbody,.tr888-stack tr,.tr888-stack td,.tr888-stack th{display:block;width:100%;box-sizing:border-box}
  .tr888-stack thead{display:none}
- .tr888-stack tbody,.tr888-stack tr{display:block}
- .tr888-stack tr{border:1px solid #d2dce1;border-radius:8px;margin:0 0 8px;padding:4px 8px;background:#fff}
+ .tr888-stack tr{border:1px solid #d2dce1;border-radius:8px;margin:0 0 8px;padding:4px 10px;background:#fff}
  .tr888-stack tr.tr888-day{border:0;padding:0;background:none;margin:12px 0 6px}
- .tr888-stack tr.tr888-day th{display:block;border-radius:8px}
- .tr888-stack td{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;padding:6px 0;border:0;border-bottom:1px dashed #e4e9ec;text-align:right}
+ .tr888-stack tr.tr888-day th{border-radius:8px;white-space:normal}
+ .tr888-stack td{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;padding:6px 0;border:0;border-bottom:1px dashed #e4e9ec;text-align:right;min-width:0}
+ .tr888-stack td>.tr888-v{flex:1 1 auto;min-width:0}
  .tr888-stack td:last-child{border-bottom:0}
- .tr888-stack td[data-l]::before{content:attr(data-l);flex:0 0 38%;font-size:11px;font-weight:700;color:#52636e;text-align:left;text-transform:uppercase;letter-spacing:.04em}
+ .tr888-stack td[data-l]::before{content:attr(data-l);flex:0 0 36%;max-width:36%;font-size:11px;font-weight:700;color:#52636e;text-align:left;text-transform:uppercase;letter-spacing:.04em}
  .tr888-stack td:not([data-l]){display:block;text-align:left}
- .tr888-stack td.num{text-align:right}
  .tr888-stack tr.acc761-tot td{display:block;text-align:left}
+ .tr888-stack td.num{text-align:right}
+ .tr888-register td .acc761-w{display:block}
+ .tr888-stack td.num .tr888-v{text-align:right}
  .tr888-table table{min-width:0}
- .recon888-part{white-space:normal}
+ .recon888-table table,.recon888-table tbody,.recon888-table tr,.recon888-table td{display:block;width:100%;box-sizing:border-box}
+ .recon888-table thead{display:none}
+ .recon888-table tr{border:1px solid #d2dce1;border-radius:8px;margin:0 0 8px;padding:4px 10px;background:#fff}
+ .recon888-table td{padding:5px 0;border:0}
+ .recon888-part{display:block;white-space:normal;margin:0 0 4px}
+ .recon888-card{padding:10px}
 }
 @media print{.tr888-filters,.tr888 .fin745-tools,.recon888 .linkish{display:none}}

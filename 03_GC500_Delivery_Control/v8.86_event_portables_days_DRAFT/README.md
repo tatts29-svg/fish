@@ -113,7 +113,30 @@ If v8.84 or v8.85 goes live first, drop the patch that is already live from the 
 
 ## Results
 
-RESULTS_TABLE
+Candidate `9a279ba1…` on base `88a3584e`, run 8 Oct 2026 ~00:50–01:40 AEST, one browser at a time, every write aborted by the harness (`evidence/summary.log`, one log per run). Every suite gives the result the v8.85 candidate gave; the two out-of-date suites fail on the same lines as on live v8.83.
+
+| suite | laptop | phone | note |
+|---|---|---|---|
+| data886 (narrow DATA identity) | PASS | — | DATA identical to live except the 20 plan rows and their references' span fields |
+| source875 (old DATA identity) | stops | — | stops at the first intended date change, by design (`source_identity875.log`) |
+| model881 | 12/12 | — | |
+| **ep886 (new)** | **31/31** at 1440 px | **31/31** | screenshots in `evidence/shots/` |
+| where885 | 24/24 at 2560, 1600 and 1440 px | 24/24 | |
+| wide884 | 21/21 at 2560, 1600 and 1440 px | 21/21 | |
+| layout876 | 18/18 | 18/18 | |
+| crew883 | 34/34 | 34/34 | |
+| vms874 | 18/18 | 18/18 | |
+| finance866 | 24/24 | 24/24 | |
+| asset873 | 40/40 | 40/40 | |
+| loading872 | 26/26 | 26/26 | |
+| unloading881 | 34/34 | 34/34 | |
+| paired881 | 18/18 | 18/18 | |
+| handling875 | 22/28 | 22/28 | the same six lines fail as on live v8.83 and the v8.85 candidate (v8.81 wording; P52 recorded as Franna) |
+| paired879 | 17/18 | 17/18 | the same line fails as on live v8.83 and the v8.85 candidate |
+| sweep | 15 tabs shown, 0 errors, 0 writes attempted | 15 tabs shown, 0 errors, 0 writes attempted | |
+| v871 · supplier870 · kinp869 | 12/12 · 17/17 · 17/17 | — | |
+
+Looked at (`evidence/shots/`): the Fri 9 Oct day view with the WC57 card open, laptop and phone — "09/10/2026 · Fri · moved from 12 Oct · Event Portables plan v10, 3 Oct · Load 1, Fri 09 Oct"; the WC09 drawer, laptop and phone — "In Thu 8 Oct · on the plan · 4 × FWF, 6 × Pee Panel Fri 09 Oct, Event Portables plan v10, 3 Oct". Dollar figures in the inherited v871 log are redacted in the evidence copy.
 
 ## Open for Andrew
 
