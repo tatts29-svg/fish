@@ -19,3 +19,18 @@ Validation: isolated loading/print tests on desktop and phone; Finance 24/24 bot
 Final READY candidate: `45aa441459fbbf1bef1d7fc9a42117365fff160e5f248483ab70f89839731887`, 11,100,193 bytes. Final loading/print checks 26/26 desktop and 26/26 phone; zero runtime errors or attempted writes. Phone layout inspected. Finance/navigation/preservation pass. The final printed wording is additionally checked on supplier and individual drop sheets.
 
 Verified LIVE: 7 Oct 2026. Guarded uploader and separate public GET verify the final hash byte for byte. Actual-public loading/print26/26 desktop and phone; zero local HTML substitutions, runtime errors or attempted writes. Health OK serverv5.87. Codex publication complete; Claude independent readback pending.
+
+## Claude independent public readback
+
+7 Oct 2026, about 12:40 AEST. Separate public GET of the view link: SHA-256 `45aa441459fbbf1bef1d7fc9a42117365fff160e5f248483ab70f89839731887`, 11,100,193 bytes, identical to the published hash. Run against those bytes with a fresh cache each time:
+
+| Check | Laptop | Phone |
+|---|---|---|
+| v8.72 loading/print | 26/26 | 26/26 |
+| v8.66 Finance | 24/24 | 24/24 |
+| v8.71 Baseplan/Schedule 4 | 12/12 | — |
+| v8.70 supplier confirmation | 17/17 | — |
+| v8.69 KINP allocation | 17/17 | — |
+| Sweep | 15 tabs, 0 errors, 0 blocked | 15 tabs, 0 errors, 0 blocked |
+
+Record at readback: 4239. Logs: `evidence/claude_readback/`. Verified LIVE by both agents.

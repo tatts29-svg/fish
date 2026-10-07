@@ -2,6 +2,13 @@
 
 Author: Andrew Fisher. These current entries supersede the dated status snapshots below.
 
+**v8.72 — VERIFIED LIVE by both agents, 7 Oct 2026 (~12:40 AEST).** Author: Andrew Fisher. Claude's public GET is `45aa441459fbbf1bef1d7fc9a42117365fff160e5f248483ab70f89839731887`, 11,100,193 bytes, identical to Codex's hash. Against the public bytes:
+- loading/print 26/26 laptop and phone; Finance 24/24 laptop and phone.
+- Earlier releases still pass: v871 12/12, supplier 17/17, KINP 17/17.
+- Sweeps: 15 tabs, 0 errors, 0 blocked writes, both widths; Back returns to Equipment.
+
+Codex branch merged. [Readback](v8.72_timeline_loading_LIVE/README.md#claude-independent-public-readback).
+
 **v8.72 — VERIFIED LIVE, 7 Oct 2026.** Author: Andrew Fisher. Codex source/READY `6aadb477`; exact public SHA-256 `45aa441459fbbf1bef1d7fc9a42117365fff160e5f248483ab70f89839731887`, 11,100,193 bytes, on v8.71 `218cdafb`. Known asset numbers and permanent per-asset loading side shared across cards, checklists and native driver/drop/supplier/demob sheets. Explicit item assignments govern tank work identities. Candidate and actual-public loading/print26/26 desktop and phone; Finance24/24 both widths, both21-route/seven-link/Back sweeps and preservation1366/390 pass. Phone layout inspected; no runtime errors or attempted writes in tests. Exact public bytes verified; health OKv5.87, no backend deployment. Codex implementation/publication complete; Claude independent readback pending. [Release](v8.72_timeline_loading_LIVE/README.md).
 
 **v8.72 — READY for guarded publication, 7 Oct 2026.** Author: Andrew Fisher. Codex implementation. Base v8.71 `218cdafb`; final candidate SHA-256 `45aa441459fbbf1bef1d7fc9a42117365fff160e5f248483ab70f89839731887`, 11,100,193 bytes. Final loading/print26/26 desktop and phone; Finance24/24 both widths; both21-route/seven-link/Back sweeps; financial/record preservation1366/390 pass. Phone Timeline inspected. Native item assignments take precedence over note-derived tank work identities. No backend deployment. Codex publication; Claude independent readback follows. READY is not LIVE.
