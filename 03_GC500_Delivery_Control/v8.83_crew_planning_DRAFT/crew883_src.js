@@ -30,3 +30,4 @@ const crew883Driver=driverModel826;driverModel826=function(day,only){const m=cre
 const crew883Demob=demobModel826;demobModel826=function(day,...args){const m=crew883Demob(day,...args);return crew883Checks(m,day,selectedDemob826(day,...args).flatMap(L=>L.stops.map(s=>assetOf(s.r.key))));};
 
 document.addEventListener('change',e=>{if(!e.target.matches('[data-crew883-start]'))return;const box=e.target.closest('.crew883');box.querySelector('[data-crew883-finish]').value=crew883Finish(e.target.value);});
+const crew883Drop=dropPage;dropPage=function(a,events,n,total,d,kind){const before=crew883PrintDay;crew883PrintDay=d&&d.iso||before;try{return crew883Drop(a,events,n,total,d,kind);}finally{crew883PrintDay=before;}};
