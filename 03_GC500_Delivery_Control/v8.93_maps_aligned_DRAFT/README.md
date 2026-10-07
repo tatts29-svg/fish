@@ -123,7 +123,9 @@ check_page: PASS all checks.
   `evidence/scene_fix893.json`); `meta.window_clip` says so. Records, labels, styles, images unchanged (301,253 records).
 - `explorer/assets/vt/`: the pyramid re-packed with the 277 tiles over the western edge rendered again from the fixed
   scene (`tools/strip_tiles893.py`); 8 tiles there are blank now and are not written; every other tile is v8.90's render.
-  Level files `L<level>-84e7872ac157.bin`, manifest with the boot block. TBD_PACK
+  Level files `L<level>-84e7872ac157.bin` and `Llow-84e7872ac157.bin`: 131,874,562 bytes in 18 files, 26 levels, 4,795
+  tiles; `vt/manifest.json` 113,597 bytes with the boot block rebuilt from this scene (`tools/boot893.py`: meta with the
+  window-clip note, 301,253 records, 595 images).
 - `explorer/assets/original-preview.webp`, `sheet-overview.webp`: re-made by the packer from the new tiles.
 - `explorer/assets/plan_items.json`: the v8.93 page's `gc500PlanItems()` snapshot (161 items, 8 layers; the inset trio at
   17 Sep, WC10 placed, WC32 not placed) — `tools/plansnap893.cjs`.
@@ -135,8 +137,41 @@ check_page: PASS all checks.
 - `explorer/README.md`: the served review package note with a v8.93 section (`explorer_text/README.md`).
 
 Candidate: base `b469a99c43a30a6d165ce126c4983d0c92204c8f548f0636a008f43de60e95d8` (the live set, 231 files) →
-TBD_CANDIDATE. `evidence/candidate_manifest893.json` is the full manifest; `evidence/changed_files893.json` lists every
-changed, added and removed file with its SHA-256.
+`96dee047a785117e0f96aa1365a391d38a72904c42c67dcd76e6bc7ca40325da`, 233 files, 169,673,361 bytes: 16 files changed,
+84 added, 82 removed, 6 sent again with the same bytes; 100 new blobs to upload. `evidence/candidate_manifest893.json`
+is the full manifest (`tools/publish_machine893.py --offline --write-manifest`); `evidence/changed_files893.json` lists
+every changed, added and removed file with its SHA-256. The 16 changed files:
+
+| File | SHA-256 (first 16) | Bytes |
+|---|---|---|
+| explorer/README.md | 4e9acb2b478456c8 | 16,489 |
+| explorer/assets/classification.json | f84c3cf9b9bde807 | 180,174 |
+| explorer/assets/drawing-scene.bin | 84e7872ac15766e3 | 14,340,982 |
+| explorer/assets/georeferencing.json | 2487feea8f15fb94 | 3,055 |
+| explorer/assets/original-preview.webp | 6b40fae56cdcde58 | 1,114,988 |
+| explorer/assets/plan_items.json | 5e0ff2eeeade8b98 | 42,166 |
+| explorer/assets/sheet-overview.webp | 859b6c27219d1d7a | 178,792 |
+| explorer/assets/source-labels.json | b6ce83a52bfea9d7 | 40,207 |
+| explorer/assets/underlay/manifest.json | ad65696d0c24acf7 | 14,426 |
+| explorer/assets/vt/manifest.json | 06437801844c717f | 113,597 |
+| explorer/explorer-fix864.js | d7041320fc3ff63a | 7,399 |
+| explorer/explorer-merge.js | 161dabb105c15f5e | 27,134 |
+| explorer/explorer.js | eba8f3b8828644c8 | 143,186 |
+| explorer/fencing-map-explorer.js | e3a4bef6c17d7288 | 51,564 |
+| explorer/index.html | b99c48b16d4414dd | 28,136 |
+| poc3d/units3d.json | e7e642f8de49ddc2 | 33,517 |
+
+Added: the 64 underlay patches (`underlay/x<xref>-02oct.webp`, v8.90's), the 18 level files, `explorer-fix887.css` and
+`explorer-fix887.js` (v8.87's); removed: the 64 17 Sep underlay patches and the 18 17 Sep level files. The classification,
+georeferencing, labels, underlay manifest, fix864/merge/fencing-map-explorer code are v8.90's and v8.87's files, unchanged
+since those releases; they count as changed only against the live set.
+
+Archive (`archive/`): `assets893.tar` 148,398,080 bytes, SHA-256
+`7a1825ddd095de84f0020aa5e1911a675ae9583904c404dfdf450e71713ab4b2` (drawing-scene.bin, original-preview.webp,
+sheet-overview.webp, underlay/, vt/ without boot.json), encrypted with the papers password (AES-256-CBC, PBKDF2
+300,000 iterations) and split: `assets893.tar.enc.part00` 89,128,960 bytes, `part01` 59,269,152 bytes
+(`assets893_parts.sha256`); round trip proved by `tools/archive893.sh`. With `assets_small/` laid over the untarred
+folder, the asset tree is exactly the candidate's `explorer/assets/`.
 
 ## Checks
 
