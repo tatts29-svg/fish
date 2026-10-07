@@ -6,9 +6,10 @@
    Kingston load rule and no-travel windows (v7.82) and the pre-dispatch checks (v8.26). It writes only through the crew
    planning record (S.loads, kind crew883) and only on the edit link. No pin is moved. */
 
-/* ---------- THE RULES, in one place (Andrew Fisher, Shutdown Manager, 8 Oct 2026 ~03:40 AEST) - edit here, nowhere else */
+/* ---------- THE RULES, in one place (Andrew Fisher, Shutdown Manager, 8 Oct 2026 ~03:40 AEST) - edit here, nowhere else.
+   On the page he is "the project manager" (v5.97, his own rule of 25 Sep 2026: no "Andrew Fisher said" in the page's words). */
 const FLOW891 = {
- source: 'Andrew Fisher, 8 Oct 2026, 03:40 AEST',
+ source: 'the project manager, 8 Oct 2026, 03:40 AEST',
  areas: {
   mainBeach: {name: 'Main Beach', max: 1, words: 'one truck at a time', said: '"Anything on Main Beach only one truck at a time."',
    mp: ['MAIN_BEACH', 'MBP_LANDSIDE', 'SEASIDE_NORTH', 'HILL_A47'], zones: ['mbp', 'surfers']},
@@ -241,7 +242,7 @@ function flow891Card(d){
     (can ? ' <button type="button" class="btn flow891-act" data-flow891-stagger="' + esc(x.id) + '" data-flow891-day="' + iso + '" data-flow891-to="' + c.to + '" data-flow891-len="' + c.len + '">Stagger to ' + flow891Clock(c.to) + '</button>' : '')); });
   return row(esc(a.name), bits.join('<br>'), a.conflicts.length ? 'flag' : ''); }).join('');
  const unknown = M.unknownWindows ? '<p class="flow891-note">' + M.unknownWindows + ' load' + (M.unknownWindows === 1 ? ' has' : 's have') + ' no arrival window yet — a Kingston load time on the schedule, or a planned unloading window in Crew (on the load), puts ' + (M.unknownWindows === 1 ? 'it' : 'them') + ' in the area check.</p>' : '';
- const ov = row('Oversized', M.oversized.count ? M.oversized.count + ' load' + (M.oversized.count === 1 ? '' : 's') + ' today' + (M.oversized.peak ? ' · busiest ' + M.oversized.peak + ' at any one time' : '') + (M.oversized.untimed ? ' · ' + M.oversized.untimed + ' without an arrival window' : '') + ' · guide: up to ' + FLOW891.oversized.total + ' at any one time (' + FLOW891.oversized.split + ') — Andrew: not necessarily the way we do it' + (M.oversized.peak > FLOW891.oversized.total ? '<br><span class="flow891-flag">More than ' + FLOW891.oversized.total + ' oversized at one time — hold some at Helen Park or stagger.</span>' : '') : 'none today', M.oversized.peak > FLOW891.oversized.total ? 'flag' : '');
+ const ov = row('Oversized', M.oversized.count ? M.oversized.count + ' load' + (M.oversized.count === 1 ? '' : 's') + ' today' + (M.oversized.peak ? ' · busiest ' + M.oversized.peak + ' at any one time' : '') + (M.oversized.untimed ? ' · ' + M.oversized.untimed + ' without an arrival window' : '') + ' · guide: up to ' + FLOW891.oversized.total + ' at any one time (' + FLOW891.oversized.split + ') — the project manager: not necessarily the way we do it' + (M.oversized.peak > FLOW891.oversized.total ? '<br><span class="flow891-flag">More than ' + FLOW891.oversized.total + ' oversized at one time — hold some at Helen Park or stagger.</span>' : '') : 'none today', M.oversized.peak > FLOW891.oversized.total ? 'flag' : '');
  /* curfew */
  const curfew = M.curfew.length ? M.curfew.map(x => { const c = x.curfew; return '<span class="flow891-cf ' + c.state + '">' + loadWord(x) + ': ' + (c.state === 'late' ? '<span class="flow891-flag">' + esc(c.words) + '.</span>' : esc(c.words) + '.') +
    (c.state !== 'ok' && x.n > 1 && can ? ' <button type="button" class="btn flow891-act" data-flow891-first="' + esc(x.id) + '" data-flow891-day="' + iso + '">Make it Load 1</button>' : '') + (c.state === 'late' && x.n === 1 ? ' Already Load 1 — give the carrier a ' + clock782(LOAD_BY782) + ' load time.' : '') + (c.state === 'late' && x.n > 1 && !can ? ' Fix: ' + esc(c.fix) + '.' : '') + '</span>'; }).join('<br>')
@@ -252,7 +253,7 @@ function flow891Card(d){
   (shareNo.length ? ' <span class="flow891-note">Same day and area, not oversized: ' + shareNo.slice(0, 3).map(s => loadWord(s.a) + ' + ' + loadWord(s.b) + ' (' + esc(s.area) + ')').join('; ') + (shareNo.length > 3 ? ' and ' + (shareNo.length - 3) + ' more' : '') + ' — weights and dimensions are not on the page, so nothing is suggested; check the <a href="' + GUIDE826 + '" target="_blank" rel="noopener">Coates Load Restraint Guide 2023</a> before combining.</span>' : '');
  /* rules */
  const H = FLOW891.holding, nav = navUrl({lat: H.ll[0], lon: H.ll[1]});
- const rules = '<details class="flow891-rules"><summary>Rules · ' + esc(FLOW891.source) + '<span class="flow891-x" aria-hidden="true"></span></summary><table><thead><tr><th>Area</th><th>Limit</th><th>Andrew’s words</th></tr></thead><tbody>' +
+ const rules = '<details class="flow891-rules"><summary>Rules · ' + esc(FLOW891.source) + '<span class="flow891-x" aria-hidden="true"></span></summary><table><thead><tr><th>Area</th><th>Limit</th><th>The project manager’s words</th></tr></thead><tbody>' +
   [['Main Beach', FLOW891.areas.mainBeach.words, FLOW891.areas.mainBeach.said], ['Pit lane', FLOW891.areas.pitLane.words + ' · this day: ' + flow891PitLaneMax(d.iso).words, FLOW891.areas.pitLane.said], ['Helen Park', FLOW891.areas.helenPark.words, FLOW891.areas.helenPark.said], ['Oversized', 'up to ' + FLOW891.oversized.total + ' at any one time — ' + FLOW891.oversized.split + ' (a planning guide)', FLOW891.oversized.said], ['Curfew first', 'oversized or curfew loads on the earliest run: away from Kingston by ' + clock782(LOAD_BY782) + ', on site before 07:00 (no travel 07:00–09:00 or 16:00–18:00)', FLOW891.curfew.said], ['Order', 'drivers arrive in their allocated order', FLOW891.order.said]]
    .map(r => '<tr><td>' + esc(r[0]) + '</td><td>' + esc(r[1]) + '</td><td>' + esc(r[2]) + '</td></tr>').join('') + '</tbody></table>' +
   '<p>' + esc(H.name) + ': ' + H.ll[0].toFixed(6) + ', ' + H.ll[1].toFixed(6) + ' (a 50 m strip, ' + esc(H.approx) + ') · <a href="' + esc(nav) + '" target="_blank" rel="noopener">Navigate</a> · fixed from the master D001 and the page’s own unit tags; no pin was moved.</p>' +

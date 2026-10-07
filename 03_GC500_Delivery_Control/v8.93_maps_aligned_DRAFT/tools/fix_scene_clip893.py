@@ -9,13 +9,15 @@ SRC, OUT, REP = sys.argv[1:4]
 raw = gzip.decompress(open(SRC, 'rb').read()); S = json.loads(raw)
 assert json.dumps(S, separators=(',', ':')).encode('utf-8') == raw, 'the scene must round-trip before it is edited'
 MAIN = re.compile(r'^M24244 (\d+)V(\d+)H38667V(\d+)H591V(\d+)H24244$')
-n = 0
+LIKE = re.compile(r'^M24244 \d+V\d+H38667V\d+H\d+V\d+H24244$')   # the main window's L shape, whatever its west edge
+n = like = 0
 for k, d in S['d'].items():
     if not k.startswith('clip'): continue
     m = re.search(r' d="([^"]+)"', d[0])
+    if m and LIKE.match(m.group(1)): like += 1
     if m and MAIN.match(m.group(1)):
         S['d'][k][0] = d[0].replace(m.group(1), m.group(1).replace('H591V', 'H1016V')); n += 1
-assert n == 1109, n
+assert n == like and n > 1000, (n, like)      # every copy of the window clip, and nothing else
 S['meta']['window_clip'] = 'v8.93: the main plan window clips its content at 74.96 pt on this frame (the 2 Oct paper shows 9 mm less of the west); the frame lines stay where the paper draws them'
 js = json.dumps(S, separators=(',', ':')).encode('utf-8'); gz = gzip.compress(js, 9, mtime=0)
 open(OUT, 'wb').write(gz)
