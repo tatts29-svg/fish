@@ -2,7 +2,20 @@
 
 Author: Andrew Fisher. These current entries supersede the dated status snapshots below.
 
+**v8.75 — VERIFIED LIVE by both agents, 7 Oct 2026 (~13:50 AEST).** Author: Andrew Fisher. Claude's public GET is `f981c57a799a7794c8e5fce68a02363223698b3027751fd0b312d99752c447dd`, 11,111,874 bytes, identical to Codex's hash. Against the public bytes:
+- Source protection v8.74 → v8.75: PASS (protected sections and unrelated fields identical).
+- Handling 28/28, VMS 18/18, asset/loading 40/40, Finance 24/24, all on laptop and phone.
+- Earlier releases still pass: v871 12/12, supplier 17/17. Sweeps: 15 tabs, 0 errors, 0 blocked, both widths.
+
+Codex branch merged. Logs: `v8.75_schedule_lifting_LIVE/evidence/claude_readback/`. Still open with Codex: Event Portables delivery days and WC09 per-unit loading.
+
+**v8.75 — VERIFIED LIVE, 7 Oct 2026 13:33 AEST.** Author: Andrew Fisher. Source/READY `9f98380e`; exact public SHA-256 `f981c57a799a7794c8e5fce68a02363223698b3027751fd0b312d99752c447dd`, 11,111,874 bytes. Actual-public handling28/28 desktop and phone; candidate VMS18/18, asset/loading40/40 and Finance24/24 both, both21-route/seven-link/Back sweeps and preservation1366/390 pass. Independent source protection passes; actual phone inspected. Codex implementation/publication complete; Claude independent readback pending. Health OK v5.87, no backend deployment. The separately acknowledged dispatch/loading handover remains a follow-up, not a claim of completed changes. [Release](v8.75_schedule_lifting_LIVE/README.md).
+
+**v8.75 — READY TO UPLOAD, 7 Oct 2026.** Author: Andrew Fisher. Codex owner; source `24efc999`. Base v8.74 `918abc9a`; candidate SHA-256 `f981c57a799a7794c8e5fce68a02363223698b3027751fd0b312d99752c447dd`, 11,111,874 bytes. Handling28/28, VMS18/18, asset/loading40/40 and Finance24/24 on desktop/phone; both21-route/seven-link/Back sweeps and preservation1366/390 pass. Independent source protection passes; phone inspected. No backend changes. Fresh Claude board `2c1ff4a1` reconciled. Additional dispatch/loading handover acknowledged in [6030209711](https://github.com/tatts29-svg/fish/pull/1#issuecomment-6030209711); assessed separately, not claimed fixed by this release. READY is not LIVE.
+
 **v8.75 — CLAIMED by Codex, 7 Oct 2026.** Author: Andrew Fisher. Schedule source refresh preserving recorded allocations/completion, and permanent reference lifting requirements shared with run sheets. Base live v8.74 `918abc9a`; fresh Claude branch `c53a26d8` and readback6029923542 reviewed; no competing claim. Codex implementation/testing/publication. DRAFT, not LIVE.
+
+**v8.74 — VERIFIED LIVE, 7 Oct 2026 13:04 AEST.** Author: Andrew Fisher. Source/READY `7e149c9d`; exact public SHA-256 `918abc9a1234210c5fd48c8896ffe48101a6ff158ae0eadc8a94380009707e13`, 11,102,947 bytes. Actual-public VMS/ownership/guide18/18 desktop and phone; candidate Finance24/24 both, both21-route/seven-link/Back sweeps and preservation1366/390 pass. Codex implementation/publication complete; Claude independently verified the same public hash in [6030197398](https://github.com/tatts29-svg/fish/pull/1#issuecomment-6030197398), board `2c1ff4a1`. No backend deployment.
 
 **v8.74 — VERIFIED LIVE by both agents, 7 Oct 2026 (~13:20 AEST).** Author: Andrew Fisher. Claude's public GET is `918abc9a1234210c5fd48c8896ffe48101a6ff158ae0eadc8a94380009707e13`, 11,102,947 bytes, identical to Codex's hash. Against the public bytes:
 - VMS Today 18/18, v8.73 asset/loading 40/40, v8.72 loading/print 26/26, Finance 24/24, all on laptop and phone.
