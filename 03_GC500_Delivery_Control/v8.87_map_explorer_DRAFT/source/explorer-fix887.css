@@ -4,7 +4,9 @@ body:not(.fencing-map) #fenceOverlay{display:none}
 body.fencing-map #x887FenceBar{display:flex}
 body.in3d #x887FenceBar{display:none}
 #x887FenceBar span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
+#x887FenceBar .x887s{display:none}
 #x887FenceBar button{flex:none}
+@media(max-width:900px){#x887FenceBar .x887l{display:none}#x887FenceBar .x887s{display:inline}}
 #x887FenceBar button{display:inline-flex;align-items:center;gap:5px;min-height:36px;min-width:36px;padding:0 12px 0 10px;border-radius:999px;border:0;background:#ff6a13;color:#1b1207;font:800 13px Inter,system-ui,sans-serif;cursor:pointer}
 #x887FenceBar button:hover,#x887FenceBar button:focus-visible{background:#ff9a4d;outline:none}
 body.fencing-map .hud{display:none}   /* the view-name pill gives its corner to the close bar; the fencing badge at the foot names the view */
@@ -26,4 +28,5 @@ body.fencing-map .hud{display:none}   /* the view-name pill gives its corner to 
 #xcard .xc-left{margin-top:6px;font-size:12px;color:#ffcf73}
 #xcard .xc-a{display:flex;gap:8px;flex-wrap:wrap}#xcard .xc-prog{background:#2a2f33;color:#f3f1ee;border:1px solid rgba(255,255,255,.18);border-radius:8px;padding:7px 12px;font:700 13px Inter,system-ui,sans-serif;cursor:pointer}
 #xcard .xc-open,#xcard .xc-prog,#xcard .xc-x{min-height:36px}
-@media(max-width:640px){#xcard{max-height:58%}#xcard img{display:none}#xcard .xc-open,#xcard .xc-prog{min-height:44px}#xcard .xc-x{min-width:44px;min-height:44px}}   /* a phone gives the words the room: the plan close-up is in the record */
+/* a phone gives the words the room: the plan close-up is in the record. #stage #xcard outranks the card's own stylesheet, which is appended at run time after this one. */
+@media(max-width:640px){#stage #xcard{max-height:58%}#stage #xcard img{display:none}#xcard .xc-open,#xcard .xc-prog{min-height:44px}#xcard .xc-x{min-width:44px;min-height:44px}}

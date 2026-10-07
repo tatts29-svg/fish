@@ -22,9 +22,9 @@ PASS  a Timeline link opens that day on the Timeline
 PASS  coming back to Costs opens the summary whole, and the Transport button reopens the view
 PASS  the With a figure filter shows exactly the loads with a figure
 PASS  phone: the register stacks into cards, two metric tiles across, no page-wide horizontal overflow
-PASS  an injected mismatch is flagged on the exact tie-out, and the real figures tie again afterwards
+FAIL  an injected mismatch is flagged on the exact tie-out, and the real figures tie again afterwards  {"beforeOk":true,"afterBad":1,"afterOk":false,"flagged":["Transport (cartage) to date"],"againOk":false,"summaryText":"1 of 17 tie-outs do not tie open to see which figure disagrees with which"}
 PASS  the line opens itself and says how many do not tie
 PASS  a redraw changes no figure
 PASS  no page errors
 PASS  no writes attempted
-phone: 29/29
+phone: 28/29

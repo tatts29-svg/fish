@@ -44,7 +44,7 @@ v8.90 anchors still apply).
 | `machine/retained_manifest_v864_b469a99c.json` | the live set's full manifest, 231 files: rebuilt from `v8.09_coates_way_machine_LIVE/evidence/manifest_v809.json` plus the v8.28, v8.37 and v8.64 deltas; its canonical digest equals the registered `b469a99c…`, and every descriptor was confirmed against the live service by ETag and length (`evidence/live_set_verify_b469a99c.json`) |
 | `machine/candidate_manifest887.json`, `machine/prepared887.json` | the candidate set (233 files) and the seven descriptors the publisher asserts |
 | `machine/publish_machine887.py` | the guarded publisher (below) |
-| `tests/` | `test_explorer887.cjs` (the new checks), `perf887.cjs` (before/after), `lib887.cjs`, `xembed.js` (the harness that serves the explorer from disk) |
+| `tests/` | `test_explorer887.cjs` (the new checks), `perf887.cjs` (before/after), `lib887.cjs`, `xembed.js` (the harness that serves the explorer from disk), `run887.sh` (the full regression chain as it was run, adapted from v8.85's) |
 | `evidence/` | logs, measurements, screenshots, hashes |
 
 ## Build and check

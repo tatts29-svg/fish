@@ -16,7 +16,8 @@
   const stage = $('stage'), main = stage && stage.parentElement;
   if (main && !$('x887FenceBar')) {
     const bar = document.createElement('div'); bar.id = 'x887FenceBar'; bar.setAttribute('role', 'group'); bar.setAttribute('aria-label', 'Fencing view');
-    bar.innerHTML = `<span>${matchMedia('(max-width:900px)').matches ? 'Fencing · tap a line for details' : 'Fencing view · tap a fence line for its details'}</span><button type="button" id="x887FenceClose" aria-label="Close the fencing view and return to the map">${icon(CLOSE, '<span>Close</span>')}</button>`;
+    /* the long and the short wording are both in the bar; the stylesheet shows one, so the choice follows the screen, not the moment of loading */
+    bar.innerHTML = `<span><span class="x887l">Fencing view · tap a fence line for its details</span><span class="x887s">Fencing · tap a line for details</span></span><button type="button" id="x887FenceClose" aria-label="Close the fencing view and return to the map">${icon(CLOSE, '<span>Close</span>')}</button>`;
     bar.querySelector('button').onclick = () => { if (F()) F().close(); const st = $('stage'); if (st) st.focus({preventScroll: true}); };
     main.appendChild(bar);
   }
