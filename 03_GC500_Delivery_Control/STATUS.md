@@ -2,6 +2,8 @@
 
 Author: Andrew Fisher. These current entries supersede the dated status snapshots below.
 
+**v8.79 — CLAIMED by Codex, 7 Oct 2026.** Author: Andrew Fisher. Native paired-unit run-sheet presentation, from live v8.76 `4ec46478`. Explicit recorded unit relationships only; no source quantities, money or operational-record changes. Claude owns v8.77 Maps and v8.78 Costs on fresh board `a903df6`; no overlap. DRAFT, not LIVE.
+
 **v8.76 — VERIFIED LIVE, 7 Oct 2026 13:57 AEST.** Author: Andrew Fisher. Source/READY `e0e9a181`; exact public SHA-256 `4ec46478f952b0f26fa2ae72f73e5477c41012bf4b479395bab6283265451254`, 11,116,428 bytes. Actual-public layout18/18 desktop/phone; candidate Finance24/24 both, both21-route/seven-link/Back sweeps and preservation1366/390 pass. Ultrawide layout and all-DATA preservation pass; screenshots inspected. All progress groups open by default, details retained in folds, consistent Today rail and full-width contacts. Codex implementation/publication complete; Claude independent readback pending. Health OK v5.87, no backend or operational-record changes. Separate dispatch/loading handover remains outside this presentation release. [Release](v8.76_today_layout_LIVE/README.md).
 
 **v8.76 — READY TO UPLOAD, 7 Oct 2026.** Author: Andrew Fisher. Codex owner, source `fb9f902c`; base v8.75 `f981c57a`; candidate SHA-256 `4ec46478f952b0f26fa2ae72f73e5477c41012bf4b479395bab6283265451254`, 11,116,428 bytes. Layout18/18 desktop/phone, Finance24/24 both, both21-route/seven-link/Back sweeps and preservation1366/390 pass. Ultrawide layout passes; screenshots inspected. All DATA identical to base. Fresh Claude board `2c1ff4a1` checked; no competing claim. No backend or operational-record changes. READY is not LIVE.
