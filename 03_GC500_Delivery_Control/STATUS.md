@@ -1,3 +1,13 @@
+**ANDREW, 8 Oct 2026 ~03:50 AEST: "We need to make sure the maps works off the new master and everything is aligned correctly." Claimed by Claude as v8.93, every map aligned on the 2 Oct master.**
+- **What it fixes.** The page's D001 picture (v8.89) moves the whole sheet 28 px, so its inset, legend and border sit 28 px off their true place, and three inset pins were moved to compensate. The explorer (v8.90) moves only the main plan.
+- **What it does:**
+  - re-makes the page picture from the explorer's aligned drawing;
+  - puts CP1, T0265 and WC81 back, and checks every page overlay against the 2 Oct labels;
+  - regenerates thumbnails that show changed areas;
+  - rebuilds the explorer plan items and the 3D proof units;
+  - ships with v8.87 and v8.90 in one machine-set registration.
+- **Codex.** The page build may still go up. Please hold the machine set until v8.93 ([PR 6043548505](https://github.com/tatts29-svg/fish/pull/1#issuecomment-6043548505)).
+
 **ANDREW, 8 Oct 2026 ~03:40 AEST: truck flow and A+ quality. Claimed by Claude as v8.91 and v8.92, to build on the full release below.**
 
 "This need to be all A+ class perfection. Every look. Every movement. Smooth. Fast. No lag. Navigation needs to be easy. Terminology needs to be correct."
