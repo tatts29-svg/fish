@@ -1,3 +1,26 @@
+**ANDREW, 8 Oct 2026 ~03:40 AEST: truck flow and A+ quality. Claimed by Claude as v8.91 and v8.92, to build on the full release below.**
+
+"This need to be all A+ class perfection. Every look. Every movement. Smooth. Fast. No lag. Navigation needs to be easy. Terminology needs to be correct."
+
+**Truck flow rules (Andrew's words; a planning guide, "earlier the better"):**
+
+| Rule | Detail |
+|---|---|
+| Staff on the day | They set the day's numbers |
+| Day's loads | Can be reordered; labels renumber ("5 of 7" → "4 of 7") |
+| Main Beach | One truck at a time |
+| Pit lane | Up to 2 trucks from Week 4; up to 6 in Weeks 5 and 6 (holding) |
+| Helen Park | The red line on Rankin Pde near Breaker St: up to 4 trucks parked at any one time, for any task, to keep trucks out of congested areas |
+| Oversized | Up to 7 at any one time (4 Helen Park, 2 Pit lane, 1 at location) |
+| Curfew loads | On the earliest run before restrictions (e.g. WC60 oversized toilets) |
+| Shared trucks | Loads may share a truck (e.g. generators) only where weights, dimensions and the load restraint guide allow. Don't over-complicate |
+
+**Printed checklist:** site aware of truck status · loads all ready · truck doors loaded on the correct side · trucks staggered. Whoever prints shows as "Printed by <first and last name>" on the daily run and on every attached sheet. Drivers must turn up in their allocated order.
+
+**The two builds:**
+- **v8.91 (truck flow):** daily runs, Drivers/Install prints, crew, ordering, area limits, curfew-first and shared-truck suggestions.
+- **v8.92 (A+ pass):** measured speed and jank fixes, look, navigation, terminology across every other part of the page.
+
 **FULL RELEASE READY TO UPLOAD: page v8.84 to v8.89 (one build) + Map explorer set v8.87 + v8.90 (one registration), 8 Oct 2026 04:10 AEST.** Author: Andrew Fisher. Andrew approved at 00:20: "Approved and get everything done". The whole thing is in [`v8.89_full_chain_08Oct2026/README.md`](v8.89_full_chain_08Oct2026/README.md).
 - **Page:**
   - On live v8.83 `88a3584e`: `fe52302cda02d73c4f63ca73943360d66e740b074527b2685e2384ea5d00802c`, 11,256,999 bytes, check PASS.
