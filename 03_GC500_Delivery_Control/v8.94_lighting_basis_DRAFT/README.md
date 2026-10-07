@@ -143,6 +143,15 @@ models compared key by key (values masked):
 
 So the recorded position is preserved to the cent; the job-end forecasts stop counting towers the job does not have.
 
+## Correction after Codex's review (8 Oct 2026, adopted unchanged)
+
+Codex reproduced three faults ([PR 6045955855](https://github.com/tatts29-svg/fish/pull/1#issuecomment-6045955855)) and supplied the fix (`lighting894.js.diff` and `patch_v894.py.diff`), adopted unchanged:
+1. **A conflicted completion earned credit.** A Complete tick with a short delivery is held for review on Today and the Timeline, but Lighting still credited it. Lighting now takes completion only from the page's own verified work rows (complete, done and a known quantity, with no conflict). A held row gets no credit, and Lighting then reads as a minimum (≥), because the review can only add.
+2. **A drawing callout that becomes a real tower.** If LT01 (say) gets real equipment and completion evidence, it rejoins the register, but the fixed records list could not credit it. Real keyed callouts now join the location the confirmed scope assigns them. A repeated asset number adds no second tower, and a partial overlap or two competing locations is held for review with no credit.
+3. **The breakdowns did not add up.** The Done, Total and Left views now use the same scope allocation as the headline, so their rows add up to it. A reference shows its recorded quantity and any surplus separately, and map scope with no tower recorded yet is labelled as map scope, with no link and no record action.
+
+The native work rows, equipment records, delivery history and money readers are untouched. Checked with Codex's `check_lighting894_proposal.cjs` on the combined candidate: **24/24** (projection, native work rows in a VM, native drawer HTML). The combined suite re-runs `test_lighting894.cjs`.
+
 ## Checks
 
 Candidate: the full chain (v8.84 to v8.89) plus this patch on live v8.83 `88a3584e`: **`950b42b8691cac9b810d43c3b79465689da1786614f3a400db75c7c6bf24a704`**, 11,287,033 bytes.

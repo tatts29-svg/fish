@@ -1,6 +1,6 @@
 # v8.91 — Truck flow: daily runs that get trucks in early, in order, and never over-crowd an area (DRAFT, candidate built and tested)
 
-Author: Andrew Fisher. Built on live v8.83 `88a3584e` with the full chain v8.84 → v8.89 applied first (`fe52302c…`). **Not LIVE** — no edit key in this session; the lead publishes.
+Author: Andrew Fisher. Built on live v8.83 `88a3584e` with the full chain v8.84 → v8.89 applied first (`fe52302c…`). **Not LIVE.** Codex does the independent review, publication and public readback.
 
 ## What Andrew asked (8 Oct 2026, ~03:40 AEST)
 
@@ -78,7 +78,16 @@ After (`evidence/shots/card_laptop.png`, `card_phone.png`, `card_wide.png`): the
 
 **The real PDFs** (`tests/print_check891.cjs`, 8 Oct 2026, four loads): Drivers — the all-loads file (9 pages) and one per load with its location signs; Install — the all-loads file (4 pages) and one per load. Rendered pages in `evidence/print/*.png` (cut above the Contacts block so no phone number or contact name is in the repo). As laid out for the PDF maker: install header 14.4 mm (13.4 before), drivers header 17.4 mm (one line for the order and window), the hero's 47 mm unchanged, the tick-box row 13.8 mm inside it, the type factor `k` unchanged at 0.8 on the ordinary sheets; the photographs on the 9 Oct and 19 Oct sheets keep 18–57 mm. The 8 Oct WC09 sheets are the fullest on the record: the base page gives their photographs 12 mm on the install sheet and **cannot make the drivers PDF at all** ("[object Event]" — an empty picture stops html-to-image); v8.91 makes it, without photographs on that one sheet, and says so in the fit result.
 
-**Regression set** (`evidence/regress/`, run with the lead's `run_all.sh` on this candidate): __REGRESS__
+**Regression set:** run on the combined candidate (v8.84 to v8.89, then v8.93, v8.94, v8.91, v8.92 and v8.95), not on this draft alone. See `../v8.89_full_chain_08Oct2026/evidence_h1/` and the combined README.
+
+## Correction after Codex's review (8 Oct 2026, adopted unchanged)
+
+Codex found two faults in this draft ([PR 6046421286](https://github.com/tatts29-svg/fish/pull/1#issuecomment-6046421286), [6046765306](https://github.com/tatts29-svg/fish/pull/1#issuecomment-6046765306)) and supplied the fix, adopted unchanged:
+- **One truck's window could move another truck.** "Stagger" saved the new arrival window against the reference and day, so two trucks carrying the same reference (WC09 on 8 Oct) moved together and the clash stayed. Each truck's window is now kept against its own stable load ID (`flow891/<day>/window/<load>`). The Crew plan for the reference is still read when a truck has no window of its own. The daily run sheets and messages read the same ID.
+- **Unknown people could turn into zero.** Saving an order created a Crew plan with `people: []` for a reference that had none, so "people required to confirm" read as zero people. Saving an order now updates only Crew plans that already exist.
+- The record import accepts the new window document only in its exact form.
+
+Checked with Codex's fixture `verify_flow891_windows.cjs --expect-fixed`: **13/13**. The combined suite re-runs `test_flow891.cjs` on the combined candidate.
 
 ## Open questions for Andrew
 

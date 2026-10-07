@@ -1,6 +1,6 @@
 # v8.92 — the A+ pass: smooth, fast, easy to get around, the right words
 
-Author: Andrew Fisher. Built 8 Oct 2026. **DRAFT — ready to upload once the lead has the edit key** (see the results table at the end).
+Author: Andrew Fisher. Built 8 Oct 2026. **DRAFT.** It goes up as part of the combined handover; Codex does the independent review, publication and public readback (see the results table at the end).
 
 Andrew, 8 Oct 2026 about 03:40 AEST: *"This need to be all A+ class perfection. Every look. Every movement. Smooth. Fast. No lag.
 Navigation needs to be easy. Terminology needs to be correct with words in every part."* And at 04:00 on what good looks like:
@@ -94,6 +94,14 @@ loading lines (2.9:1).
 - **In v8.91's area**, listed in the terminology report and the audit notes: the "driver sheet" words, the drop sheet's
   "Subhired", the Demob run sheets' "Sub-hire", "oversize" in the sign-off and the crew category, and two orange-on-white links
   in the loading lines.
+
+## Correction after Codex's review (8 Oct 2026, adopted unchanged)
+
+Codex found two faults ([PR 6046421286](https://github.com/tatts29-svg/fish/pull/1#issuecomment-6046421286)) and supplied the fix (`v892-correction.patch`), adopted unchanged:
+- **The group lights after a Today redraw.** A shortcut skipped the controls when "the same card" was still running, but a redraw replaces the card. The new card showed Play and lacked the running look while the motion still ran. The shortcut is gone, and the controls are rewritten on every check.
+- **A scroll from the last tab.** A delayed scroll restore from the previous tab could scroll the new tab as it grew. Any pending restore is now cancelled on a new render, on Back, on a link change, on page hide, on print and on resize, and it checks that the tab and pane are still the ones it captured before it writes.
+
+Checked with Codex's fixture `repro_aplus892.cjs --expect-fixed`: pass. The combined suite re-runs `test_aplus892.cjs` and `test_money892.cjs`.
 
 ## For Andrew
 
