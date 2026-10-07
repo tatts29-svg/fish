@@ -41,13 +41,22 @@ try:
     a52['asset_numbers'][0] = RIGHT; bk['asset_text'] = RIGHT; bk['loads'][0]['asset_numbers'][0] = RIGHT; o52['asset_numbers_scheduled'][0] = RIGHT
 except Exception as e:
     found = [repr(e)]
+WRONG2, RIGHT2 = '1317743', '1317643'
+try:
+    o7 = next(i for i, r in enumerate(BX['ops']['rows']) if r['key'] == 'WC07'); sup7 = BX['ops']['rows'][o7]['asset_numbers_supplied']
+    found7 = sup7.count(WRONG2); sup7[sup7.index(WRONG2)] = RIGHT2
+except Exception as e:
+    found7 = repr(e)
+check('the base carried 1317743 once, on WC07\'s as-supplied record, and nowhere else', found7 == 1 and json.dumps(BD, ensure_ascii=False).count(WRONG2) == 1, found7)
+check('the candidate carries 1317643 on WC07\'s as-supplied record and 1317743 nowhere in DATA or on the page (Andrew, 8 Oct: "1317643 is the correct number Remove 1317743")',
+      WRONG2 not in json.dumps(ND, ensure_ascii=False) and NS.count(WRONG2) == 0 and RIGHT2 in next(r for r in ND['ops']['rows'] if r['key'] == 'WC07')['asset_numbers_supplied'])
 check('the base carried 13227211 in exactly the four P52 places and nowhere else', found == [WRONG] * 4 and json.dumps(BD, ensure_ascii=False).count(WRONG) == 4, found)
 check('the candidate carries 1327211 in those four places and 13227211 nowhere in DATA', WRONG not in json.dumps(ND, ensure_ascii=False)
       and next(a for a in ND['assets'] if a['key'] == 'P52')['asset_numbers'] == [RIGHT] and next(r for r in ND['ops']['rows'] if r['key'] == 'P52')['asset_numbers_scheduled'] == [RIGHT]
       and next(a for a in ND['assets'] if a['key'] == 'P52')['events'][0]['booking801']['asset_text'] == RIGHT and next(a for a in ND['assets'] if a['key'] == 'P52')['events'][0]['booking801']['loads'][0]['asset_numbers'] == [RIGHT])
 for k in BD:
     if k in ('assets', 'ops'):
-        check('DATA.' + k + ' identical beyond the P52 correction (' + ', '.join(p for p in P52_PATHS if k in p.split('.')[1]) + ')', BX[k] == ND.get(k))
+        check('DATA.' + k + ' identical beyond the P52 and WC07 corrections (' + ', '.join(p for p in P52_PATHS if k in p.split('.')[1]) + (', DATA.ops.rows[WC07].asset_numbers_supplied' if k == 'ops' else '') + ')', BX[k] == ND.get(k))
     elif k != 'rental_on_hire':
         check('DATA.' + k + ' identical', BD[k] == ND.get(k))
 check('13227211 appears nowhere on the candidate page; 1327211 is P52\'s number on the register and on its contract line', NS.count(WRONG) == 0 and BS.count(WRONG) == 4)
@@ -108,9 +117,9 @@ check('lines 24 and 39: the WC07 prefix came off the description, the thing itse
 j = lambda r: (r.get('match') or {})
 # the page says "matched on site by the project manager": the v5.97 rule lifts the name out of every sentence the page shows (toolchain/scrub_attributions.py)
 MATCHED = re.compile(r'matched on site by (the project manager|Andrew Fisher)')
-check('19 WC07 lines join WC07 by the number Andrew recorded (as supplied, 22 Sep 2026); their old join was none',
-      all(j(R('9968955', l))['key'] == 'WC07' and j(R('9968955', l))['via'] == 'asset number' and j(R('9968955', l))['state'] == 'same asset number' and MATCHED.search(j(R('9968955', l))['basis']) and j(brow[('9968955', l)])['key'] is None for l in WC07 if l != 38))
-check('line 38 (1317643) joins nothing: Andrew\'s WC07 record carries 1317743, not 1317643 - held for him', j(R('9968955', 38))['key'] is None and j(R('9968955', 38)) == j(brow[('9968955', 38)]))
+check('all 20 WC07 lines join WC07 by the number Andrew recorded (as supplied, 22 Sep 2026; line 38 by his corrected 1317643); their old join was none',
+      all(j(R('9968955', l))['key'] == 'WC07' and j(R('9968955', l))['via'] == 'asset number' and j(R('9968955', l))['state'] == 'same asset number' and MATCHED.search(j(R('9968955', l))['basis']) and j(brow[('9968955', l)])['key'] is None for l in WC07))
+check('line 38 (1317643, serial F4790) joins WC07: Andrew confirmed 1317643 (8 Oct) and his as-supplied record now carries it', j(R('9968955', 38))['key'] == 'WC07' and j(brow[('9968955', 38)])['key'] is None)
 check('P56 building (9968862/89): Delivered, on hire from 7 Oct (was Del Req, booked 14 Sep); its join to P56 unchanged', R('9968862', 89)['status_as_written'] == 'Delivered' and R('9968862', 89)['delivered'] is True and R('9968862', 89)['start_date'] == '2026-10-07' and R('9968862', 89)['booked_delivery_date'] == '2026-10-07' and j(R('9968862', 89))['key'] == 'P56' and j(R('9968862', 89)) == j(brow[('9968862', 89)]))
 check('WC31 accessible toilet (9968955/97): Pending -> Del Req on docket 26115307, joined to WC31 by that docket', R('9968955', 97)['status_as_written'] == 'Del Req' and R('9968955', 97)['delivery_number'] == '26115307' and R('9968955', 97)['delivered'] is False and R('9968955', 97)['start_date'] is None and j(R('9968955', 97))['key'] == 'WC31' and j(R('9968955', 97))['via'] == 'delivery docket')
 check('WC09 toilet blocks (9968955/103, 105): Pending -> Del Req on dockets 26115312 and 26115316, joined to WC09 by those dockets', all(R('9968955', l)['status_as_written'] == 'Del Req' and R('9968955', l)['delivered'] is False and j(R('9968955', l))['key'] == 'WC09' and j(R('9968955', l))['via'] == 'delivery docket' for l in (103, 105)) and R('9968955', 103)['delivery_number'] == '26115312' and R('9968955', 105)['delivery_number'] == '26115316')
@@ -152,7 +161,7 @@ unjoined = sorted(k for k, r in nrow.items() if r['asset_no_is_plant_number'] an
 check('the only recorded numbers whose line is not joined are the two-line numbers v8.71 holds (9961265/12, 9968726/10, 9968862/110)',
       unjoined == [('9961265', 12), ('9968726', 10), ('9968862', 110)], unjoined)
 check('the register\'s WC07 carries no numbers of its own (his are on the as-supplied record and the shared record, which the page reads live)', next(a for a in ND['assets'] if a['key'] == 'WC07')['asset_numbers'] == [] and next(a for a in BD['assets'] if a['key'] == 'WC07')['asset_numbers'] == [])
-check('the supplement records the P52 correction with Andrew\'s words, without repeating the wrong digits', sup[-1].get('register_corrected') and len(sup[-1]['register_corrected']) == 4 and all(x['now'] == RIGHT and x['ref'] == 'P52' and 'was' not in x for x in sup[-1]['register_corrected']) and '1327211 is correct' in (sup[-1].get('register_correction_basis') or ''), sup[-1].get('register_corrected'))
+check('the supplement records the P52 and WC07 corrections with Andrew\'s words, without repeating the wrong digits', sup[-1].get('register_corrected') and len(sup[-1]['register_corrected']) == 5 and sum(1 for x in sup[-1]['register_corrected'] if x['now'] == RIGHT and x['ref'] == 'P52') == 4 and sum(1 for x in sup[-1]['register_corrected'] if x['now'] == RIGHT2 and x['ref'] == 'WC07') == 1 and all('was' not in x for x in sup[-1]['register_corrected']) and '1327211 is correct' in (sup[-1].get('register_correction_basis') or '') and '1317643 is the correct number' in (sup[-1].get('register_correction_basis') or ''), sup[-1].get('register_corrected'))
 
 # ---- 5. what v8.71 derives: contracts, assignments, summary - recomputed here from the candidate's rows
 TABS = {str(c['rental_contract']): (c['branch_code'], c['tab']) for c in NR['contracts']}
@@ -174,7 +183,7 @@ check('every contract summary is exactly what its lines give, and its other fiel
 check('only 9961976, 9968862 and 9968955 change their summary', {con for con in nc if nc[con] != bc[con]} == {'9961976', '9968862', '9968955'})
 check('9961976: 36 lines, 30 matched, two more plant numbers', nc['9961976']['lines'] == 36 and nc['9961976']['matched'] == 30 and set(nc['9961976']['plant_numbers']) - set(bc['9961976']['plant_numbers']) == {'1316182', '1316183'})
 check('9968862: the new delivered date 7 Oct and two more matched lines (P37, P52 from his record)', {k for k in nc['9968862'] if nc['9968862'][k] != bc['9968862'][k]} == {'delivered_dates', 'matched'} and set(nc['9968862']['delivered_dates']) - set(bc['9968862']['delivered_dates']) == {'2026-10-07'} and nc['9968862']['matched'] - bc['9968862']['matched'] == 2)
-check('9968955: 22 more matched lines, 22 Sep among its delivered dates, the three new dockets, the 20 numbers', nc['9968955']['matched'] - bc['9968955']['matched'] == 22 and '2026-09-22' in nc['9968955']['delivered_dates'] and set(nc['9968955']['delivery_numbers']) - set(bc['9968955']['delivery_numbers']) == {'26115307', '26115312', '26115316'} and set(nc['9968955']['plant_numbers']) - set(bc['9968955']['plant_numbers']) == set(WC07.values()))
+check('9968955: 23 more matched lines, 22 Sep among its delivered dates, the three new dockets, the 20 numbers', nc['9968955']['matched'] - bc['9968955']['matched'] == 23 and '2026-09-22' in nc['9968955']['delivered_dates'] and set(nc['9968955']['delivery_numbers']) - set(bc['9968955']['delivery_numbers']) == {'26115307', '26115312', '26115316'} and set(nc['9968955']['plant_numbers']) - set(bc['9968955']['plant_numbers']) == set(WC07.values()))
 
 BA, NA = BR['assignments'], NR['assignments']
 check('assignments: the same references, only GN?, WC07, WC09, WC31 (the export) and P37, P52 (his record) change', set(BA) == set(NA) and {k for k in NA if NA[k] != BA.get(k)} == {'GN?', 'WC07', 'WC09', 'WC31', 'P37', 'P52'})
@@ -187,7 +196,7 @@ for key in ('GN?', 'WC07', 'WC09', 'WC31', 'P37', 'P52'):
             'all_contracts': sorted({str(r['rental_contract']) for r in lines}), 'delivered': {'date': dl['start_date'], 'delivery_number': dl['delivery_number']} if dl else None}
     if NA[key] != want: abad.append(key)
 check('each changed assignment is exactly what its joined lines give', not abad, abad)
-check('WC07: KINP, contract 9968955, 19 lines, delivered 22 Sep on docket 26081411 (was by kind of item)', NA['WC07']['branch_code'] == 'KINP' and NA['WC07']['rental_contract'] == '9968955' and len(NA['WC07']['lines']) == 19 and NA['WC07']['delivered'] == {'date': '2026-09-22', 'delivery_number': '26081411'} and BA['WC07']['via'] == 'kind of item')
+check('WC07: KINP, contract 9968955, 20 lines, delivered 22 Sep on docket 26081411 (was by kind of item)', NA['WC07']['branch_code'] == 'KINP' and NA['WC07']['rental_contract'] == '9968955' and len(NA['WC07']['lines']) == 20 and NA['WC07']['delivered'] == {'date': '2026-09-22', 'delivery_number': '26081411'} and BA['WC07']['via'] == 'kind of item')
 check('GN?: NVAC, contract 9961976, lines 42 and 43, not delivered (was by kind of item)', NA['GN?']['branch_code'] == 'NVAC' and NA['GN?']['lines'] == ['9961976/42', '9961976/43'] and NA['GN?']['delivered'] is None and BA['GN?']['via'] == 'kind of item')
 check('WC09 and WC31 keep KINP and 9968955, now by their dockets, not delivered', all(NA[k]['branch_code'] == 'KINP' and NA[k]['rental_contract'] == '9968955' and NA[k]['via'] == 'delivery docket' and NA[k]['delivered'] is None and BA[k]['branch_code'] == 'KINP' and BA[k]['rental_contract'] == '9968955' for k in ('WC09', 'WC31')))
 check('P37: KINP, contract 9968862, line 50, delivered 17 Sep on docket 26077069 (was by kind of item)', NA['P37']['branch_code'] == 'KINP' and NA['P37']['rental_contract'] == '9968862' and NA['P37']['lines'] == ['9968862/50'] and NA['P37']['via'] == 'asset number' and NA['P37']['delivered'] == {'date': '2026-09-17', 'delivery_number': '26077069'} and BA['P37']['via'] == 'kind of item')
@@ -208,5 +217,5 @@ check('summary: 323 lines, 164 plant numbers, 142 delivered lines, 137 joined by
 # ---- 6. the plant lines' copies of their contract lines follow the rows (no copy is of a changed line, so they are identical)
 check('plant_lines identical (no plant line carries a changed contract line)', BD['plant_lines'] == ND['plant_lines'])
 
-print('identity895: ' + ('PASS - DATA identical to the base except DATA.rental_on_hire (the 7 Oct export\'s 25 changed and 2 added lines, the 2 joins from Andrew\'s record, and what v8.71 derives from them) and P52\'s number corrected to 1327211 in its four places' if not fails else 'FAIL - %d finding(s)' % len(fails)))
+print('identity895: ' + ('PASS - DATA identical to the base except DATA.rental_on_hire (the 7 Oct export\'s 25 changed and 2 added lines, the 2 joins from Andrew\'s record, and what v8.71 derives from them) and P52\'s number corrected to 1327211 in its four places and WC07\'s as-supplied 1317743 corrected to 1317643' if not fails else 'FAIL - %d finding(s)' % len(fails)))
 sys.exit(1 if fails else 0)
