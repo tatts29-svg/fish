@@ -1,6 +1,74 @@
-**SOURCE CORRECTION — paired publication still HELD, 8 Oct 2026 AEST.** Author: Andrew Fisher. Claude [6043879766](https://github.com/tatts29-svg/fish/pull/1#issuecomment-6043879766), updated 7 Oct 18:06:52 UTC, source `dc20a92`, reinstates the original master-derived location chain `fe52302c` and withdraws the navigation-only intermediate `adc967ab`. This supersedes earlier source-status entries below. No intermediate uploaded. Codex holds page/media/machine publication pending a single v8.93/v8.94 READY handover with source-validation disposition; Claude retains moving implementation. The repository's settled master-plan rule applies. Private original source review remains private; no operational record writes. Independent review evidence: `review_08Oct2026_ready_chain/README.md`.
+**CODEX BUILD OWNERSHIP — 8 Oct 2026 AEST.** Author: Andrew Fisher. Andrew directly instructed in the Codex chat: “I need you to do the build too help him”. Taking the v8.96 Today scene and v8.97 map completion implementation handover from Claude [6045839392](https://github.com/tatts29-svg/fish/pull/1#issuecomment-6045839392), updated 7 Oct 20:04:09 UTC, source `c85b79c35778134ea88ecfd6d3d6f6da47c6e091`. Codex owns completing those patches, build integration, tests and guarded publication/readback. Claude retains v8.91–v8.95 corrections and their frozen handover. Codex may correct build portability and fail-closed validation in a separate shared release runner, without changing Claude’s moving scripts. Exact v8.94/v8.95 candidates `950b42b8` / `388292e5` independently reproduced; review and edge checks under way. All new work remains DRAFT, not READY or LIVE. The map mock-up will be shown on the real page; the approved Today scene scope remains included. Paired page/explorer publication waits for corrected, tested sources and complete assets. No operational record writes.
 
-**CODEX REVIEW/PUBLICATION — HELD pending corrected READY sources, 8 Oct 2026 AEST.** Author: Andrew Fisher. Direct Codex chat instructions: “Release updates”, “We need everything at a+ perfection” and “Make sure both you and claude stay in sync”. Codex owns independent review and guarded publication/readback; Claude keeps v8.91/v8.92/v8.93 and lighting implementation. Frozen `487c0de` page `fe52302c` is WITHDRAWN; no media/page/machine/record writes have been made. Corrected READY source `9d3a267` expected page `adc967ab` received; independent rebuild/review pending, paired v8.93 still held. Andrew's no-presentation/navigation-issues requirement means Codex also holds the page until the known page/explorer inset mismatch is resolved by paired v8.93. Unresolved lighting basis must be dispositioned before the overall index is claimed verified; cost forecast/allocation gaps remain explicit. Existing navigation coordinates must be preserved. Coordination: [claim](https://github.com/tatts29-svg/fish/pull/1#issuecomment-6043623345), [withdrawal acknowledgement](https://github.com/tatts29-svg/fish/pull/1#issuecomment-6043728901), [paired alignment release gate](https://github.com/tatts29-svg/fish/pull/1#issuecomment-6043752075). Fresh board `06475b52` reconciled below; claims do not authorise modifying moving Claude drafts.
+**CONTINGENCY HANDOVER: if Claude stops, Codex picks up from here.** At 06:02 AEST Andrew showed this session's usage at 100% and the builders' weekly allowance at 90%, so v8.96 and v8.97 now pass to Codex. Andrew, 8 Oct 2026 ~06:00 AEST: "If you run out of usage. Let codex help so before you do assess and get him to help". Claude keeps this block current. Each folder's README is the full detail. Nothing here is READY until the combined suite passes.
+
+| Release | Folder | State at ~06:00 AEST | Next step |
+|---|---|---|---|
+| v8.93 maps aligned | `v8.93_maps_aligned_DRAFT/` | Builder in final checks; README still has TBD rows | Alignment tests, explorer test, regression. The archive parts `archive/assets893.tar.enc.part00/01` (~148 MB) are held out of git until final; their hashes are in `assets893_parts.sha256` |
+| v8.94 lighting audit | `v8.94_lighting_basis_DRAFT/` | **Finished.** Chain + v8.94 = `950b42b8…`; lighting894 35/35 on laptop and phone; where885 24/24 unchanged | Combined suite |
+| v8.95 Baseplan 7 Oct | `v8.95_baseplan_07oct_DRAFT/` | **Finished.** Chain + v8.94 + v8.95 = `388292e5…`; identity895 136 PASS; contracts895 26/26 on laptop and phone; P52 corrected to 1327211 everywhere | Combined suite. Needs `V895_BASEPLAN` = the 7 Oct export from `inputs_07Oct2026/inputs_07oct.zip.enc` (papers password, held by Andrew) |
+| v8.91 truck flow | `v8.91_truck_flow_DRAFT/` | Building | Review, then handover 2 |
+| v8.92 polish | `v8.92_a_plus_pass_DRAFT/` | Building | Review, then handover 2 |
+| v8.96 Today scene | `v8.96_today_scene_DRAFT/` | **Passed to Codex at ~06:05** (Andrew's usage instruction). 34/34 at 1600 on its final build | Codex: run the other sizes and the regression, fill the README results, confirm the media route |
+| v8.97 map completion | `v8.97_map_completion_DRAFT/` | **Passed to Codex at ~06:05.** Draft patches done; the laptop mock-up run was clean | Codex: phone shots and the mock-up to Andrew; build after his yes |
+
+- **How to build and check:** `v8.89_full_chain_08Oct2026/tools/build_final.sh <label>` builds the chain in this order: 884, 885, 886, 887, 888, 889, 893, 894, 895, then 891 and 892 with `with891892`. `tools/run_all.sh <build dir> <evidence dir> [<identity base>]` runs every suite, one browser at a time. It needs `MEDIA889` and `EXPLORER_DIR` as its header says.
+- **Open questions with Andrew:**
+  - WC07 line 38: 1317643 or 1317743?
+  - The NVAC Concert generators: their GN number and rate.
+
+**ANDREW (relayed by Codex, [PR 6045529948](https://github.com/tatts29-svg/fish/pull/1#issuecomment-6045529948)): "Need to come up with a clean way to show completions on maps when we search for things example buildings. We still want to show but something to highlight completion keeping in reference to same look as how its highlighted." CLAIMED by Claude as v8.97, Completion on the maps ([PR 6045544557](https://github.com/tatts29-svg/fish/pull/1#issuecomment-6045544557)).**
+- **What it shows:** every result stays visible with its ring and label. A completed result gets one small static green tick on its ring, and "✓ Complete" on its result row and card.
+- **What counts as complete:** the same verified completion as the Timeline. On site alone doesn't count, and a conflict shows nothing.
+- **Order:** a real-page mock-up goes to Andrew first, about 07:30 AEST. It's built after his yes, on v8.93's explorer. Target: handover 3.
+
+**ANDREW, 8 Oct 2026 ~05:40 AEST, on P52's asset number: "1327211 is correct".**
+- The register's 13227211 is a typo, and v8.95 corrects it to his number.
+- v8.95 also joins the contract lines his record carries: 9968862/50 to P37 and 9968862/79 to P52, under his 6 Oct rule. No money moves.
+- Still open with Andrew:
+  - WC07 line 38: is it 1317643 (Baseplan) or 1317743 (his record)?
+  - The two NVAC Concert 200 kVA generators (1316182, 1316183): their GN number and rate, and whether both go in.
+
+**CLAUDE, 8 Oct 2026 ~05:15 AEST: v8.96 Today scene CLAIMED, answering Codex's scope gap [6044943529](https://github.com/tatts29-svg/fish/pull/1#issuecomment-6044943529) ([PR 6044978218](https://github.com/tatts29-svg/fish/pull/1#issuecomment-6044978218)).**
+- **What v8.96 adds.** It completes the staged `v8.81_progress_scene_DRAFT` (equipment atlas, weather art, banner fold) on top of v8.85 and v8.94:
+  - a centred overall plate, with the selected day's weather animating across it; unknown weather stays unknown;
+  - subtle equipment backgrounds on the group cards, with native folds and links kept;
+  - the old banner and MP4 parked in a fold;
+  - full motion and lifecycle checks.
+- **What it doesn't change:** no data or money.
+- **v8.85.** It is the Where we are card only, not the full Today update; its README left these parts out in error.
+- **ETA:** about 12:00 AEST as handover 3 (11:00–13:00), or in handover 2 if it is tested in time. Handovers 1 and 2 mark the Today scene as pending.
+
+**ETA, 8 Oct 2026 ~04:55 AEST, answering Andrew via Codex ("Do we have e.t.a on completion"; [PR 6044673940](https://github.com/tatts29-svg/fish/pull/1#issuecomment-6044673940)):**
+- **Handover 1:** about 08:00 AEST (07:30–08:30) READY for Codex. It is the full chain + v8.93 + v8.94 + v8.95, with the paired page, media and machine set.
+- **Handover 2:** about 10:00 AEST (09:30–11:00). It is v8.91 (truck flow) + v8.92 (polish), rebuilt on handover 1.
+- **Dependencies:** none outstanding for handover 1. LIVE time follows Codex's review, publication and readback. This board is updated if anything moves by more than 30 minutes.
+
+**ANDREW, 8 Oct 2026 ~04:49 AEST, on the lighting tower count: "What ever the map says. If its 6 its 6". The Lighting scope is D024's 6 keyed towers: 4 at the BSF storage yard, Molendinar, and 2 at the Seaway compound.**
+- v8.94 counts Lighting against the map's 6, capped per location. On today's records that is 4 of 6: T0002's 5 at Molendinar credit 4, and LT05 and LT06 are not on site yet.
+- The whole-job figure comes back on that confirmed basis (v8.85's seven-group rule), with no ≥ for Lighting.
+- T0002's fifth tower at Molendinar is beyond the map's scope. Andrew's answer, ~04:55 AEST: "Lets go by d024". The page shows it as 1 surplus to the plan; whether to off-hire or redeploy it is a site call. No hire line or money changes.
+
+**ANDREW, 8 Oct 2026 ~04:48 AEST, on the 13 D024 circuit fans (LTC01–LTC12, LTC14): "Yes they big screens not light's".** They are big screens, not Coates lighting towers, and v8.94 records them as such, citing his words. One lighting question is still open: is the job 7 towers (on record) or 6 (D024 keys 4 at the BSF storage yard, Molendinar, and 2 at the Seaway compound)? T0002 delivered 5 to Molendinar.
+
+**CLAUDE, 8 Oct 2026 ~04:45 AEST: Lighting disposition and Costs source freshness, answering Codex [6043837383](https://github.com/tatts29-svg/fish/pull/1#issuecomment-6043837383) and [6043918810](https://github.com/tatts29-svg/fish/pull/1#issuecomment-6043918810) ([PR 6044146109](https://github.com/tatts29-svg/fish/pull/1#issuecomment-6044146109)).**
+- **Lighting.** The page counts 25 towers, but only 7 are unique recorded equipment (T0002 ×5 on site, plus LT05 and LT06 on hire). The rest are drawing symbols or a copy:
+  - 13 are D024 circuit fans beside big-screen callouts 001–014;
+  - 4 are D024 callouts to the BSF storage yard at Molendinar;
+  - 1 is a copy of T0002.
+
+  None of the 18 carries money.
+- **v8.94 now carries the v8.82 projection, rebased.** Lighting reads "Complete in recorded scope" (5 of 7), and the whole-job value is unavailable until Andrew confirms the lighting scope. Financial preservation is proven before and after. Building now.
+- **Andrew, one question:** how many lighting towers does the job need? 7 are on record; D024 keys 6.
+- **v8.95, claimed by Claude.** The contract source is refreshed to the 7 Oct Baseplan export through the v8.71 pipeline; Andrew's recorded asset numbers win. Building now.
+- **Schedule (5).** Codex holds the authorised original. Claude implements the lighting audit.
+- **Next READY:** the full chain + v8.93 + v8.94 + v8.95, as one handover with exact sources and checks. v8.91 and v8.92 follow.
+
+**ANDREW, 8 Oct 2026 ~04:30 AEST: "The master I have given you is the new correct locations. The master I gave you is the new truth." The full chain `fe52302c…` is REINSTATED and `adc967ab…` is withdrawn.**
+- v8.89's navigation pins follow the 2 Oct master again: P45 about 85 m, WC51 18 m, WC38 13 m and WC39 9 m to their 2 Oct positions, and WC10 is new.
+- It rebuilds **byte-identical**: v8.89 `8522cbfd…` and the full chain **`fe52302cda02d73c4f63ca73943360d66e740b074527b2685e2384ea5d00802c`**, 11,256,999 bytes. That is the candidate Codex rebuilt and checked.
+- The identity test still guards every navigation pin outside the change list.
+- The page and the machine set are still held until v8.93 (maps aligned) and v8.94 (Lighting basis), and go together.
 
 **CODEX CLAIM, 8 Oct 2026 ~03:51 AEST (copied from Codex branch commit `6d854cf`; [PR 6043623345](https://github.com/tatts29-svg/fish/pull/1#issuecomment-6043623345)): independent review, guarded publication and public readback of the READY chain.** Codex quotes Andrew in the Codex chat: "Release updates", "We need everything at a+ perfection" and "Make sure both you and claude stay in sync". Claude keeps v8.91, v8.92 and v8.93.
 
@@ -9,7 +77,7 @@
 - The expected page is **`adc967ab…`**, not the withdrawn `fe52302c…`. The media are unchanged.
 - The machine set stays on hold until v8.93.
 
-**ANDREW, 8 Oct 2026 ~04:00 AEST: "All navigation pin points are correct." The page candidate `fe52302c…` is WITHDRAWN. Do not publish it ([PR 6043628007](https://github.com/tatts29-svg/fish/pull/1#issuecomment-6043628007)).**
+**(Superseded at ~04:30 by the entry at the top.) ANDREW, 8 Oct 2026 ~04:00 AEST: "All navigation pin points are correct." The page candidate `fe52302c…` was withdrawn. Do not publish it ([PR 6043628007](https://github.com/tatts29-svg/fish/pull/1#issuecomment-6043628007)).**
 - **Why.** Its v8.89 had moved four navigation pins to the 2 Oct drawing's labels: P45 about 85 m, WC51 18 m, WC38 13 m, WC39 9 m.
 - **The fix.** v8.89 now keeps every existing navigation pin (`ll`) exactly as live, and the identity test proves it for every pin. Only the drawing position (`pt`), the pictures and a card note follow the 2 Oct sheet. WC10, which is new, has a pin read off the drawing, marked "not yet checked on site". Media unchanged (`1aa4a3b1…`).
 - **Corrected full chain, READY for Codex review and publication** ([PR 6043742576](https://github.com/tatts29-svg/fish/pull/1#issuecomment-6043742576), source `9d3a267`): `adc967ab0bcab45c78f952711386e94f3e34eaf8196923206911bdbc0881a113`, 11,257,271 bytes. v8.89 alone on v8.84 + v8.85: `bf5d4279…`.
