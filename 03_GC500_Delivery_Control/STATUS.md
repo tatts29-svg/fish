@@ -1,3 +1,191 @@
+**COMBINED READY RELEASE — CLAIMED FOR INDEPENDENT REVIEW AND PUBLICATION BY CODEX, 8 Oct 2026 AEST.** Author: Andrew Fisher. Andrew directly instructed in the current Codex chat: “Release updates”, “We need everything at a+ perfection”, and “Make sure both you and claude stay in sync”. Taking frozen Claude source `487c0de0313ec17dabc580b140cfaa3fa00624f5`, final handover [6043199265](https://github.com/tatts29-svg/fish/pull/1#issuecomment-6043199265) updated 7 Oct 17:28:19 UTC. Page candidate `fe52302cda02d73c4f63ca73943360d66e740b074527b2685e2384ea5d00802c` on live v8.83 `88a3584e`; paired v8.87/v8.90 machine set must preserve its full manifest. Codex owns independent source review, navigation/scroll/presentation/print/Finance checks, guarded publication and public readback of this READY chain only. Claude retains moving v8.91/v8.92 and lighting/scene implementation. This supersedes the earlier Codex publication stop only for the frozen READY chain. NOT LIVE; unresolved source or costing gaps must remain explicit. No operational record changes or messages to suppliers.
+
+**ANDREW, 8 Oct 2026 ~03:40 AEST: truck flow and A+ quality. Claimed by Claude as v8.91 and v8.92, to build on the full release below.**
+
+"This need to be all A+ class perfection. Every look. Every movement. Smooth. Fast. No lag. Navigation needs to be easy. Terminology needs to be correct."
+
+**Truck flow rules (Andrew's words; a planning guide, "earlier the better"):**
+
+| Rule | Detail |
+|---|---|
+| Staff on the day | They set the day's numbers |
+| Day's loads | Can be reordered; labels renumber ("5 of 7" → "4 of 7") |
+| Main Beach | One truck at a time |
+| Pit lane | Up to 2 trucks from Week 4; up to 6 in Weeks 5 and 6 (holding) |
+| Helen Park | The red line on Rankin Pde near Breaker St: up to 4 trucks parked at any one time, for any task, to keep trucks out of congested areas |
+| Oversized | Up to 7 at any one time (4 Helen Park, 2 Pit lane, 1 at location) |
+| Curfew loads | On the earliest run before restrictions (e.g. WC60 oversized toilets) |
+| Shared trucks | Loads may share a truck (e.g. generators) only where weights, dimensions and the load restraint guide allow. Don't over-complicate |
+
+**Printed checklist:** site aware of truck status · loads all ready · truck doors loaded on the correct side · trucks staggered. Whoever prints shows as "Printed by <first and last name>" on the daily run and on every attached sheet. Drivers must turn up in their allocated order.
+
+**The two builds:**
+- **v8.91 (truck flow):** daily runs, Drivers/Install prints, crew, ordering, area limits, curfew-first and shared-truck suggestions.
+- **v8.92 (A+ pass):** measured speed and jank fixes, look, navigation, terminology across every other part of the page.
+
+**FULL RELEASE READY TO UPLOAD: page v8.84 to v8.89 (one build) + Map explorer set v8.87 + v8.90 (one registration), 8 Oct 2026 04:10 AEST.** Author: Andrew Fisher. Andrew approved at 00:20: "Approved and get everything done". The whole thing is in [`v8.89_full_chain_08Oct2026/README.md`](v8.89_full_chain_08Oct2026/README.md).
+- **Page:**
+  - On live v8.83 `88a3584e`: `fe52302cda02d73c4f63ca73943360d66e740b074527b2685e2384ea5d00802c`, 11,256,999 bytes, check PASS.
+  - Media manifest `1aa4a3b1ac15…` (1,958 files).
+  - It supersedes the separate v8.85 and v8.89 candidates.
+- **Map explorer set:** the v8.87 final files with the v8.90 patch (`machine_code_v887_v890/` and its SHA-256s), plus the v8.90 drawing assets (encrypted archive). The base must be the live `b469a99c`.
+- **Publish order:**
+  1. v8.89 media and manifest;
+  2. the page;
+  3. the machine set (v8.90 README → Publish).
+
+  Then read back.
+- **Full-chain checks (laptop and phone):**
+  - **Data:** DATA accounting PASS. Live → v8.84–v8.88 changes only v8.86's 20 rows; v8.88 chain → full chain changes only v8.89's master.
+  - **New checks:** ep886 31/31; explorer887 23/23 laptop and 24/24 phone; transport888 29/29 (also 29/29 at 2560); costs865 33/33; master889 16/16; where885 24/24 ×4; wide884 21/21 ×4.
+  - **Standing checks:** layout 18, crew 34, VMS 18, Finance 24, asset 40, loading 26, unloading 34, paired881 18; sweeps 15 tabs, 0 errors, 0 writes.
+  - **Final explorer pair:** explorer890 17/17 laptop and phone with this page.
+  - handling875 and paired879 match live.
+- **Waiting on:** the edit key. Codex is asked to take a second look and publish (PR comment below).
+
+**v8.90 MAP EXPLORER DRAWS THE 2 OCT MASTER — READY (machine set, with v8.87), 8 Oct 2026 02:30 AEST.** Author: Andrew Fisher. Claude source [`v8.90_explorer_master_DRAFT/`](v8.90_explorer_master_DRAFT/README.md). It is the explorer's half of Andrew's "over write the current master".
+- **Converter proven exact.** The live explorer drawing is MuPDF's SVG cut into records. The converter rebuilt the 17 Sep scene from the old PDF with all 254,316 records identical, and its tiles are pixel-identical to the live pyramid (20/20 at L0, 247/247 at L2). It was then run on the 2 Oct PDF.
+- **Aligned in the live frame:**
+  - Main plan moved −25.50 pt (9.00 mm), measured from matched vectors and agreeing with the page's 28 px. Inset and legend unmoved.
+  - Georeferences and the 17 Sep fencing geometry stay exact; the per-tile residual against live is under 0.02 pt (p95).
+- **Rebuilt:** scene `5c6a6ae3…`, 919 labels, 64 aerial patches, a 26-level pyramid (files named by scene hash), overview, classification and plan items. The fencing hash check reads the new frame; attribution reads "issued 2 Oct".
+- **Changed references:** P45, WC51, WC38 and WC39 moved; WC10 is new; WC32 and WC40a are gone; WC69 has one tag. Every v8.89 page pin lands in its new label box.
+- **The western strip:** the 2 Oct sheet shows 9 mm less of the Main Beach end, and that strip is blank, as on the page picture. No page pin lies in it.
+- **Checks:** explorer890 17/17 on laptop and phone, 0 writes; 88 before/after shots.
+- **Publish:** compose with v8.87 in one machine-set registration, steps in the README. The encrypted assets are in `archive/` (2 parts, papers password).
+
+**v8.87 MAP EXPLORER: FAST, SAYS WHAT'S DONE, FENCING CLOSES — READY (page part in the combined build; explorer files in the machine set with v8.90), 8 Oct 2026 03:55 AEST.** Author: Andrew Fisher. Claude source [`v8.87_map_explorer_DRAFT/`](v8.87_map_explorer_DRAFT/README.md). Andrew, 7 Oct: "very very clunky … slow … click on a building nothing is clearly saying what has been done … tap fencing or close fencing to close that".
+- **Speed (paired live vs v8.87 measurements):**
+  - Fencing paint per frame: 3.4–3.8 ms → 0.3–0.5 ms. With Fencing off: painted every frame → never.
+  - Canvas resizes per zoom: 14 → 2.
+  - Hidden-tab polling: 3 polls in 10 s → 0.
+  - Main-thread time when zooming with Fencing on: down about 18% on laptop and 29% on phone.
+- **Behaviour:**
+  - The stuck pointer after a fence tap was reproduced on live and is now gone.
+  - Tap any unit, no chip needed. Its card shows the Timeline stage (Off site → … → Finished), who and when, the due day and what's left, and it stays through a pan.
+  - Fencing closes with ×, with Escape from anywhere (one press) or with a map tap, on laptop and phone.
+- **Candidates:**
+  - Page part on v8.84 + v8.85: `33c6501f…`.
+  - Explorer set `c96c1d1b…` (233 files); its seven files are in `explorer/` with hashes.
+- **Checks:** test_explorer887 23/23 laptop and 24/24 phone; every standing suite matches v8.85.
+
+**v8.88 COSTS RECONCILE + TRANSPORT VIEW — READY (to ship in the combined build), 8 Oct 2026 02:10 AEST.** Author: Andrew Fisher. Claude source [`v8.88_costs_transport_DRAFT/`](v8.88_costs_transport_DRAFT/README.md). Andrew, 7 Oct: "in costing we need to ensure everything in here talks … another tab in costings to do with transport … right down to the branch".
+- **One transport model.** It replaces three separate loops that each worked out "the loads". These P&L figures are unchanged to the cent: moneySummary, Costs to job end, the P&L lines, the Additional transport forecast and the Finance handover cost total. 554 of 587 compared values are identical; the 33 that differ are the intended fixes below.
+- **Fixed:**
+  - The Finance handover spread about a third of transport across branches by proportion. It now uses each load's own recorded branch.
+  - Its demob transport row claimed to be inside the P&L but was not. It is now the P&L's true figure, and the unforecast pickup legs are named, not added.
+  - Card rounding remainders now land on one load, so loads add exactly to the forecast.
+- **"Everything reconciles":** 17 tie-outs under At a glance, all tied. A mismatch opens the panel in red and names the figure (tested).
+- **Transport view (new Costs section):** every load, carrier, docket and charge, by branch and reference, with a CSV export.
+- **Candidate:** on live v8.83 with v8.84 and v8.85 chained: `bd4bcbcc7c43a49bf50d5e9ff911ed6a23f397b23107550ef9d3ee35f9279885`, 11,232,477 bytes. DATA identical to live.
+- **Checks:**
+  - transport888 29/29 on laptop, 2560 and phone; costs865 33/33; Finance 24/24;
+  - every standing suite matches v8.85; sweeps 15 tabs with 0 errors.
+  - Screenshots stay local because they show the figures.
+- **For Andrew:**
+  1. Do the 51 demob pickup legs (29 references) join the forecast?
+  2. Which branch carries the 11 fencing semis?
+  3. Six November rows with no reference stay "branch unconfirmed".
+  4. Should "Kev" read as a Coates truck?
+- **Full-chain trial build:** v8.84 to v8.89 apply together cleanly (11,256,999 bytes, check PASS). The final build follows v8.87.
+
+**v8.86 EVENT PORTABLES LOAD DAYS — READY (to ship in the combined build), 8 Oct 2026 01:45 AEST.** Author: Andrew Fisher. Claude source [`v8.86_event_portables_days_DRAFT/`](v8.86_event_portables_days_DRAFT/README.md). Andrew, 7 Oct: "we had deliveries days for these from Event Portables".
+- **The rule:** the supplier's load day, from Event Portables plan v10 of 3 Oct, becomes the page's planned day. It is written in as the page's existing "schedule correction", so a day Andrew records on the record still wins.
+- **20 rows move:**
+  - Load 1, Fri 9 Oct: WC09 (FWF and pee panels; its two 6 m toilet blocks stay on Thu 8 Oct with their SFL dockets) and WC57. WC34, WC38, WC39, WC40 and WC61 already read Fri 9 from Andrew's record dates.
+  - Load 2, Tue 13 Oct: WC67's second drop, WC68, WC72 and WC29.
+  - Load 3, Thu 15 Oct: WC46 and WC55.
+  - Load 4, Mon 19 Oct: PG01, PG03, PG05, PG29, WC85 and T0176.
+- **Not moved:** 23 drops already on their load day. WC32 and WC66 (cancelled) and T0089 (off the plan on the record) are untouched. The supplier card says Load 1 is 23 FWF.
+- **Candidate:** on live v8.83 with v8.84 and v8.85 chained: `9a279ba14c7f929d64545e79cfc798377a5eb8fadf4eb9a0cdb3734519f21640`, 11,183,528 bytes. Lead spot-check of the moved dates in DATA PASS.
+- **Checks:**
+  - narrow DATA identity PASS; new ep886 31/31 on laptop and phone;
+  - every standing suite matches v8.85; sweeps 15 tabs, 0 errors, 0 writes.
+- **Open for Andrew:**
+  - Brad Jones Racing and Shell V-Power (Load 4) have no WC number, so the page cannot carry their day.
+  - A plan v11 from Event Portables would drop T0089 from the card.
+
+**v8.89 MASTER MAP — READY TO UPLOAD (MEDIA FIRST), 8 Oct 2026 01:00 AEST.** Author: Andrew Fisher. Claude source [`v8.89_master_map_DRAFT/`](v8.89_master_map_DRAFT/README.md). D001-26003-03 issued 2 Oct replaces the 17 Sep master on the page.
+- **What changes:** the D001 sheet picture, its register entry, and the 11 pins the new issue changes:
+  - P45 moves about 85 m west; WC51, WC38 and WC39 move 18, 13 and 9 m; WC10 is new;
+  - WC69 and WC40 now have one tag each; the three inset pins get their new sheet positions;
+  - WC32 is not on the 2 Oct issue. Its pin stays, marked, until Andrew decides.
+- **Candidate:** on live v8.83 `88a3584e` with v8.84 and v8.85 chained: `8522cbfd84372ed90e28b93951de656cc4a727ff67e0328fa3305b4dc80fb289`, 11,168,214 bytes. Media manifest `1aa4a3b1ac15…` (1,958 files).
+- **Build:** `toolchain/build.sh v8.89 v8.84_today_wide_layout_DRAFT/patch_v884.py v8.85_where_we_are_DRAFT/patch_v885.py v8.89_master_map_DRAFT/patch_v889.py`.
+- **Publish order (the service refuses the page until its media manifest is registered):**
+  1. Decrypt `media889.zip.enc`.
+  2. `upload_media889.py --dry-run`, then the real run (11 pictures, then the manifest).
+  3. `upload_page.py`.
+- **Checks:**
+  - DATA identity PASS: +11/−9 media and the 11 listed pins only;
+  - new master 16/16 on laptop and phone;
+  - where885 24/24 and wide884 21/21 at every size;
+  - all other suites match v8.85; sweeps 15 tabs with 0 errors and 0 attempted writes.
+- **Still to follow:** the Map explorer draws D001 from its own assets in the machine bundle. That swap is claimed as v8.90 below.
+
+**ANDREW APPROVED, 8 Oct 2026 ~00:20 AEST:** "Approved and get everything done … Takk to codex we have another look".
+- **v8.85 publication:** Codex is asked to review and publish `6a719333…`, which includes v8.84 ([PR 6039954070](https://github.com/tatts29-svg/fish/pull/1#issuecomment-6039954070)). Claude still has no edit key; the dry run returned 401.
+- **Claims (Claude), built in parallel on top of v8.85:**
+  - v8.86 Event Portables load days on the page; dates Andrew has recorded always win.
+  - v8.87 Map explorer: speed, building status on tap, Fencing closes like other panels.
+  - v8.88 Costs reconciliation plus a Transport tab down to branch.
+  - v8.89 master map: READY, above.
+  - **v8.90 Map explorer draws the 2 Oct master (claimed 01:00).** It ships the machine bundle drawing assets, aligned in the existing frame, in the same machine set as v8.87.
+- **Codex:** please hold Today, Maps and Costs changes.
+
+**v8.85 WHERE WE ARE — READY TO UPLOAD, 8 Oct 2026 00:20 AEST.** Author: Andrew Fisher. Claude source `v8.85_where_we_are_DRAFT/` on live v8.83 `88a3584e` (rechecked 00:16), with v8.84 included. Candidate SHA-256 `6a7193334bf9e44b8537f65f27e80f6a64381075408007a9bc3d5d4d165e95f4`, 11,166,903 bytes. Build: `toolchain/build.sh v8.85 v8.84_today_wide_layout_DRAFT/patch_v884.py v8.85_where_we_are_DRAFT/patch_v885.py`.
+
+What it adds, at Andrew's request: one "Where we are" card above the group cards, in the same housing.
+- Five large race lights (85 px on a laptop, about 118 px on a wide screen).
+- The whole-job figure: seven groups counted equally, never adding metres to units, minimums shown as ≥. On 7 Oct it reads ≥53.86%, with 2 lights.
+- The programme panel moves inside unchanged.
+- The seven group readings sit underneath, each linking to its card.
+- Lights come on as the count passes each 20% step, then the reflection runs.
+- Pause, replay, reduced motion, print and redraws are all handled.
+
+Checks, all on laptop and phone:
+- DATA identical to live; model 12/12.
+- New card test 24/24 at 2560, 1600 and 1440 px and on phone.
+- v8.84 wide layout 21/21 at all four sizes.
+- Layout 18, crew 34, VMS 18, Finance 24, asset 40, loading 26, unloading 34, paired881 18.
+- Sweeps: 15 tabs, 0 errors, 0 attempted writes. v871/870/869: 12/17/17.
+- handling875 and paired879 give the same results as live.
+- `test_wide884` caught a 38 px scroll jump on redraw in the first build. It was fixed by enhancing the moved programme panel during the redraw.
+
+Presentation only. Not LIVE: no edit key in this session. If v8.84 goes live first, rebuild with patch_v885 alone and rerun.
+
+**MAPS, 8 Oct 00:15 — analysis, no changes.**
+- [Master D001 2 Oct issue](v8.89_master_map_DRAFT/README.md): it lines up exactly after a 28 px shift. WC32 removed, WC10 added and P45 moved need Andrew's call.
+- [Map explorer findings](v8.89_master_map_DRAFT/explorer_findings.md): the explorer is in the machine bundle; causes of the slowness, building card and Fencing close are listed with fixes.
+- Picture and bundle releases need the edit key.
+
+**v8.84 TODAY WIDE LAYOUT — READY TO UPLOAD, 7 Oct 2026 23:55 AEST.** Author: Andrew Fisher. Claude source `v8.84_today_wide_layout_DRAFT/` on live v8.83 `88a3584e` (rechecked 23:54). Candidate SHA-256 `707eac42da308ce5557325d26f897540bbf1ec23f52b175d3d41cf69ea446551`, 11,140,543 bytes. Build: `toolchain/build.sh v8.84 v8.84_today_wide_layout_DRAFT/patch_v884.py`.
+
+What it fixes:
+- Today uses the full width.
+- The banner sits in a dark band, held to 42% of screen height.
+- Three cards across from 1960 px, with equal heights.
+- No outline around the pane.
+- Gauge names never break mid-word; this also fixes "GENERATOR / S" at 1600 px on live.
+
+Checks, all on laptop and phone:
+- DATA identical to live.
+- New wide-screen test: 21/21 at 2560, 1600 and 1440 px and on phone. Live fails 7/21 at 2560 px.
+- Layout 18/18, crew 34/34, VMS 18/18, Finance 24/24, asset 40/40, loading 26/26, unloading 34/34, paired881 18/18.
+- Sweeps: 15 tabs, 0 errors, 0 attempted writes.
+- v871/870/869: 12/17/17.
+- handling875 22/28 and paired879 17/18 are identical on live v8.83. They are out of date (v8.81 wording; P52 recorded as Franna), not faults.
+
+Presentation only. Not LIVE: Claude has no edit key in this session.
+
+**HANDOVER RECEIVED by Claude, 7 Oct 2026 23:35 AEST.** Author: Andrew Fisher. Codex handover `084b3dec` read and merged into `claude/ampol-reporting-suite-access-h2hy90`. Claude now owns all remaining implementation, testing and publication. Verified live is still v8.83 `88a3584e`, 11,138,554 bytes (Claude public GET 23:19 AEST). Claims, in order:
+- **v8.84 Today wide layout (Claude; the old v8.80 claim, renumbered).** Rebuilt on live v8.83 `88a3584e`, not on v8.79. Candidate `707eac42…`, 11,140,543 bytes. Final checks running.
+- **v8.85 overall progress hero (Claude).** Andrew asked for a whole-job percentage with large animated five lights, above the group cards and styled like them. Built from Codex's staged `v8.81_progress_scene_DRAFT` source after v8.84.
+- **Maps/Costs (Claude):** new master D001-26003-03, explorer speed, building status on tap, Fencing close, Costs reconciliation, Transport tab. Inputs in `inputs_07Oct2026/`.
+- **Lighting audit (Claude):** `v8.82_lighting_scope_DRAFT`. Stays compile-only until the private workbook guard is confirmed.
+
+**Publishing blocker:** this Claude session has no edit key; the uploader dry run returns 401, so nothing has been written. READY builds wait for Andrew. Either Codex publishes the exact READY hash, or Andrew adds the edit key to the Claude environment settings and opens a new session. No live record writes.
+
 **ALL REMAINING IMPLEMENTATION/RELEASE WORK — TRANSFERRED TO CLAUDE, 7 Oct 2026.** Author: Andrew Fisher. Direct instruction in current Codex chat: “Claude is now doing all the work. Make sure he is updated”. Codex releases remaining Today/scene, lighting and Maps/Costs implementation/testing/publication claims and stops work on them. This supersedes older ownership snapshots and resolves the pending Today ownership question in favour of Claude. Verified live remains v8.83 `88a3584e`, 11,138,554 bytes; no new build or operational records published by this handover. Drafts are not READY; rebuild from then-current live and complete checks. Current Claude branch checked `faa69ba2`. [Exact handover, sources and dependencies](handover_07Oct2026_claude/README.md). Claude receipt and recurring-check status are not assumed; separate coordination/privacy instructions remain in force.
 
 **v8.83 CREW PLANNING — VERIFIED LIVE, 7 Oct 2026 18:37 AEST.** Author: Andrew Fisher. Source `018c0894`, READY `ee79878c`; exact public SHA-256 `88a3584e919d8acd32ac3905099c1d606ec2fe5c1da2793363e8ff870f212457`, 11,138,554 bytes. Actual-public crew34/34 desktop/phone PASS, no HTML substitution/errors/attempted operational writes; phone inspected. Candidate crew34/34, unloading34/34 and Finance24/24 both, both route/Back sweeps, preservation1366/390 and DATA identity PASS. Optional names/combined roles, availability and overlaps, editable30-minute future windows, planned order and historical-time safeguards, native sheets/checklists and transport planning flags. No live crew assignments or monetary records entered. Codex complete; Claude independent review not claimed. Hero/lighting drafts remain unreleased. [Release](v8.83_crew_planning_LIVE/README.md).
@@ -24,6 +212,14 @@ Author: Andrew Fisher. **v8.81 CLAIMED by Codex, DRAFT.** Overall centred progre
 
 Author: Andrew Fisher. These current entries supersede the dated status snapshots below.
 
+**v8.80 — CLAIMED by Claude, 7 Oct 2026 ~14:45 AEST. Renumbered v8.84 and rebuilt on live v8.83; see the top of this board.** Author: Andrew Fisher. Andrew sent a screenshot of Today on his wide screen: "you need to fix the layout mate". Today layout only, built on live v8.79 `8196587d`:
+- Today was capped at 1760 px with large empty side margins on wide screens.
+- The banner was capped narrower (1400 px) than the boxes below it.
+- A thin dark focus outline showed down both edges of the pane.
+- Paired progress cards had uneven heights.
+
+No data, record or other-tab changes. Claude builds and tests; Codex publishes. Codex, please hold any Today CSS changes until this is READY.
+
 **v8.79 — VERIFIED LIVE, 7 Oct 2026 14:21 AEST.** Author: Andrew Fisher. Source `9701b04e`, READY `d5f6ca0d`; exact public SHA-256 `8196587d7beebfce88d8ee01ebd58d25ce24cf32ff2bef165318f3d0652c7e26`, 11,120,816 bytes. Actual-public paired-sheet18/18 desktop/phone and screenshots inspected. Candidate allocation40/40, lifting28/28, Finance24/24 desktop/phone; both21-route/seven-link/Back sweeps and preservation1366/390 pass. All DATA identical. Explicit paired reference setups, separate booked cargo counts, readable bordered print table. Health OK, record4354. No backend or operational-record changes. Codex complete; Claude independent readback pending; Claude map/Costs ownership remains. [Release](v8.79_paired_run_sheets_LIVE/README.md).
 
 **v8.79 — READY, 7 Oct 2026.** Author: Andrew Fisher. Codex source `9701b04e`, base v8.76 `4ec46478`; candidate SHA-256 `8196587d7beebfce88d8ee01ebd58d25ce24cf32ff2bef165318f3d0652c7e26`, 11,120,816 bytes. Paired-sheet18/18, allocation40/40, lifting28/28, Finance24/24 desktop/phone; both21-route/seven-link/Back sweeps and preservation1366/390 pass. All DATA identical. No backend or operational-record changes. Claude retains map/Costs ownership. READY is not LIVE.
@@ -32,11 +228,32 @@ Author: Andrew Fisher. These current entries supersede the dated status snapshot
 
 **v8.79 — CLAIMED by Codex, 7 Oct 2026.** Author: Andrew Fisher. Native paired-unit run-sheet presentation, from live v8.76 `4ec46478`. Explicit recorded unit relationships only; no source quantities, money or operational-record changes. Claude owns v8.77 Maps and v8.78 Costs on fresh board `a903df6`; no overlap. DRAFT, not LIVE.
 
+**v8.76 — VERIFIED LIVE by both agents, 7 Oct 2026 (~14:15 AEST).** Author: Andrew Fisher. Claude's public GET is `4ec46478f952b0f26fa2ae72f73e5477c41012bf4b479395bab6283265451254`, 11,116,428 bytes, identical to Codex's hash. Against the public bytes:
+- Page data identical to v8.75 (source protection PASS).
+- Today layout 18/18, VMS 18/18, handling 28/28, asset/loading 40/40, Finance 24/24, all on laptop and phone.
+- Earlier releases still pass: v871 12/12, supplier 17/17. Sweeps: 15 tabs, 0 errors, 0 blocked, both widths.
+
+Codex branch merged. Claude's v8.77 (maps) and v8.78 (costs) build from `4ec46478`.
+
 **v8.76 — VERIFIED LIVE, 7 Oct 2026 13:57 AEST.** Author: Andrew Fisher. Source/READY `e0e9a181`; exact public SHA-256 `4ec46478f952b0f26fa2ae72f73e5477c41012bf4b479395bab6283265451254`, 11,116,428 bytes. Actual-public layout18/18 desktop/phone; candidate Finance24/24 both, both21-route/seven-link/Back sweeps and preservation1366/390 pass. Ultrawide layout and all-DATA preservation pass; screenshots inspected. All progress groups open by default, details retained in folds, consistent Today rail and full-width contacts. Codex implementation/publication complete; Claude independent readback pending. Health OK v5.87, no backend or operational-record changes. Separate dispatch/loading handover remains outside this presentation release. [Release](v8.76_today_layout_LIVE/README.md).
 
 **v8.76 — READY TO UPLOAD, 7 Oct 2026.** Author: Andrew Fisher. Codex owner, source `fb9f902c`; base v8.75 `f981c57a`; candidate SHA-256 `4ec46478f952b0f26fa2ae72f73e5477c41012bf4b479395bab6283265451254`, 11,116,428 bytes. Layout18/18 desktop/phone, Finance24/24 both, both21-route/seven-link/Back sweeps and preservation1366/390 pass. Ultrawide layout passes; screenshots inspected. All DATA identical to base. Fresh Claude board `2c1ff4a1` checked; no competing claim. No backend or operational-record changes. READY is not LIVE.
 
 **v8.76 — CLAIMED by Codex, 7 Oct 2026.** Author: Andrew Fisher. Andrew directly requested Today presentation cleanup and all progress groups open by default, retaining additional details in folds. Base verified live v8.75 `f981c57a`; Codex implementation/testing/publication owner. DRAFT, not LIVE. Separate dispatch/loading handover remains outside this presentation release.
+
+**v8.77 / v8.78 — HANDED TO CODEX, 7 Oct 2026 ~14:35 AEST.** Andrew: "codex continues your work will be when i tell you later". Claude releases the maps and costs claim; Claude resumes only when Andrew says so. Andrew's new files (master map issued 2 Oct, Baseplan 7 Oct, CW2 fencing plan, GC600 fencing programme, P003-26003 programme) are saved encrypted with the master diff and his requests in [inputs_07Oct2026](inputs_07Oct2026/README.md). Codex: v8.79 independent Claude readback was not run (Andrew pausing Claude for credits). Earlier claim text kept below for context.
+
+**v8.77 / v8.78 — (released) claimed by Claude, 7 Oct 2026.** Author: Andrew Fisher. Andrew's direct request (13:46 AEST). Builds from whatever is live after Codex's Today tidy-up, which goes first; no overlap with Codex's Today or dispatch/loading work.
+- **v8.77 Maps.** Replace the master with the new **D001-26003-03-MASTER.pdf issued 2 Oct** (sha256 `8753d875…`), replacing the 17 Sep issue `37792f0a…`, and re-derive every position and record that uses it. First diff: the whole sheet is shifted 9 mm. Real changes: P45 moved (~43 mm on paper), WC69 now one label (was two), WC38 and WC39 nudged, **WC10 added**, **WC32 and WC40a gone**. Map explorer: faster and smoother; tapping a building shows clearly what's done; Fencing closes like every other panel.
+- **v8.78 Costs.** Every cost figure reconciles across tabs. New **Transport** tab in Costs covering every transport fact (Schedule 4 TPORT COST, carriers, dockets, load times, still-to-come forecast, internal vs external), down to branch.
+- Claude builds, tests and writes READY; Codex publishes; Claude reads back. DRAFT, not LIVE.
+
+**v8.75 — VERIFIED LIVE by both agents, 7 Oct 2026 (~13:50 AEST).** Author: Andrew Fisher. Claude's public GET is `f981c57a799a7794c8e5fce68a02363223698b3027751fd0b312d99752c447dd`, 11,111,874 bytes, identical to Codex's hash. Against the public bytes:
+- Source protection v8.74 → v8.75: PASS (protected sections and unrelated fields identical).
+- Handling 28/28, VMS 18/18, asset/loading 40/40, Finance 24/24, all on laptop and phone.
+- Earlier releases still pass: v871 12/12, supplier 17/17. Sweeps: 15 tabs, 0 errors, 0 blocked, both widths.
+
+Codex branch merged. Logs: `v8.75_schedule_lifting_LIVE/evidence/claude_readback/`. Still open with Codex: Event Portables delivery days and WC09 per-unit loading.
 
 **v8.75 — VERIFIED LIVE, 7 Oct 2026 13:33 AEST.** Author: Andrew Fisher. Source/READY `9f98380e`; exact public SHA-256 `f981c57a799a7794c8e5fce68a02363223698b3027751fd0b312d99752c447dd`, 11,111,874 bytes. Actual-public handling28/28 desktop and phone; candidate VMS18/18, asset/loading40/40 and Finance24/24 both, both21-route/seven-link/Back sweeps and preservation1366/390 pass. Independent source protection passes; actual phone inspected. Codex implementation/publication complete; Claude independent readback pending. Health OK v5.87, no backend deployment. The separately acknowledged dispatch/loading handover remains a follow-up, not a claim of completed changes. [Release](v8.75_schedule_lifting_LIVE/README.md).
 
@@ -46,11 +263,25 @@ Author: Andrew Fisher. These current entries supersede the dated status snapshot
 
 **v8.74 — VERIFIED LIVE, 7 Oct 2026 13:04 AEST.** Author: Andrew Fisher. Source/READY `7e149c9d`; exact public SHA-256 `918abc9a1234210c5fd48c8896ffe48101a6ff158ae0eadc8a94380009707e13`, 11,102,947 bytes. Actual-public VMS/ownership/guide18/18 desktop and phone; candidate Finance24/24 both, both21-route/seven-link/Back sweeps and preservation1366/390 pass. Codex implementation/publication complete; Claude independently verified the same public hash in [6030197398](https://github.com/tatts29-svg/fish/pull/1#issuecomment-6030197398), board `2c1ff4a1`. No backend deployment.
 
+**v8.74 — VERIFIED LIVE by both agents, 7 Oct 2026 (~13:20 AEST).** Author: Andrew Fisher. Claude's public GET is `918abc9a1234210c5fd48c8896ffe48101a6ff158ae0eadc8a94380009707e13`, 11,102,947 bytes, identical to Codex's hash. Against the public bytes:
+- VMS Today 18/18, v8.73 asset/loading 40/40, v8.72 loading/print 26/26, Finance 24/24, all on laptop and phone.
+- Earlier releases still pass: v871 12/12, supplier 17/17, KINP 17/17.
+- Sweeps: 15 tabs, 0 errors, 0 blocked writes, both widths.
+
+Codex branch merged. Logs: `v8.74_vms_today_LIVE/evidence/claude_readback/`.
+
 **v8.74 — LIVE, 7 Oct 2026 13:04 AEST.** Author: Andrew Fisher. Source/READY `7e149c9d`; exact public SHA-256 `918abc9a1234210c5fd48c8896ffe48101a6ff158ae0eadc8a94380009707e13`, 11,102,947 bytes. Guarded publication verified exact public bytes; actual-public functional readback running. Candidate VMS/ownership checks, Finance24/24 both widths, both21-route/seven-link/Back sweeps and preservation1366/390 pass. Codex owner; Claude independent readback pending. [Release](v8.74_vms_today_LIVE/README.md).
 
 **v8.74 — READY for guarded publication, 7 Oct 2026.** Author: Andrew Fisher. Codex owner. Base v8.73 `7921eeb4`; candidate SHA-256 `918abc9a1234210c5fd48c8896ffe48101a6ff158ae0eadc8a94380009707e13`, 11,102,947 bytes. VMS/native scope and Documents checks pass desktop/phone; Finance24/24 both, both21-route/seven-link/Back sweeps and preservation1366/390 pass. Phone inspected. No record edits or backend changes. READY is not LIVE.
 
 **v8.74 — CLAIMED by Codex, 7 Oct 2026.** Author: Andrew Fisher. Separate Today VMS progress card using native scope and completion, with per-type details and plan position. Base v8.73 `7921eeb4`; Claude board `d393d713` checked, no competing claim. Codex implementation/testing/publication. DRAFT, not LIVE.
+
+**v8.73 — VERIFIED LIVE by both agents, 7 Oct 2026 (~13:00 AEST).** Author: Andrew Fisher. Claude's public GET is `7921eeb4e061198d0919f44ea5cec9e24a2d35c61b7a4f157f6b441ca2762fa7`, 11,102,652 bytes, identical to Codex's hash. Against the public bytes:
+- asset/loading 40/40, v8.72 loading/print 26/26, Finance 24/24, all on laptop and phone.
+- Earlier releases still pass: v871 12/12, supplier 17/17, KINP 17/17.
+- Sweeps: 15 tabs, 0 errors, 0 blocked writes, both widths.
+
+Codex branch merged. [Readback](v8.73_asset_priority_LIVE/README.md#claude-independent-public-readback).
 
 **v8.73 — VERIFIED LIVE, 7 Oct 2026 12:45 AEST.** Author: Andrew Fisher. Codex source/READY `52af4b9f`; exact public SHA-256 `7921eeb4e061198d0919f44ea5cec9e24a2d35c61b7a4f157f6b441ca2762fa7`, 11,102,652 bytes. Candidate and actual-public asset/loading40/40 desktop and phone. Candidate Finance24/24 both, both21-route/seven-link/Back sweeps and preservation1366/390 pass. No backend deployment or record edits. Claude independent v8.73 readback pending. [Release](v8.73_asset_priority_LIVE/README.md).
 
@@ -58,23 +289,40 @@ Author: Andrew Fisher. These current entries supersede the dated status snapshot
 
 **v8.73 — CLAIMED by Codex, 7 Oct 2026.** Author: Andrew Fisher. Current allocated asset identifiers take priority over booking identifiers in cards and sheets; explicit Not applicable loading option. Base verified live v8.72 `45aa4414`. Claude board `d393d713` and readback6029655209 reviewed; no competing claim. Codex implementation, testing and publication. DRAFT, not LIVE.
 
+**v8.72 — VERIFIED LIVE by both agents, 7 Oct 2026 (~12:40 AEST).** Author: Andrew Fisher. Claude's public GET is `45aa441459fbbf1bef1d7fc9a42117365fff160e5f248483ab70f89839731887`, 11,100,193 bytes, identical to Codex's hash. Against the public bytes:
+- loading/print 26/26 laptop and phone; Finance 24/24 laptop and phone.
+- Earlier releases still pass: v871 12/12, supplier 17/17, KINP 17/17.
+- Sweeps: 15 tabs, 0 errors, 0 blocked writes, both widths; Back returns to Equipment.
+
+Codex branch merged. [Readback](v8.72_timeline_loading_LIVE/README.md#claude-independent-public-readback).
+
 **v8.72 — VERIFIED LIVE, 7 Oct 2026.** Author: Andrew Fisher. Codex source/READY `6aadb477`; exact public SHA-256 `45aa441459fbbf1bef1d7fc9a42117365fff160e5f248483ab70f89839731887`, 11,100,193 bytes, on v8.71 `218cdafb`. Known asset numbers and permanent per-asset loading side shared across cards, checklists and native driver/drop/supplier/demob sheets. Explicit item assignments govern tank work identities. Candidate and actual-public loading/print26/26 desktop and phone; Finance24/24 both widths, both21-route/seven-link/Back sweeps and preservation1366/390 pass. Phone layout inspected; no runtime errors or attempted writes in tests. Exact public bytes verified; health OKv5.87, no backend deployment. Codex implementation/publication complete; Claude independent readback pending. [Release](v8.72_timeline_loading_LIVE/README.md).
 
 **v8.72 — READY for guarded publication, 7 Oct 2026.** Author: Andrew Fisher. Codex implementation. Base v8.71 `218cdafb`; final candidate SHA-256 `45aa441459fbbf1bef1d7fc9a42117365fff160e5f248483ab70f89839731887`, 11,100,193 bytes. Final loading/print26/26 desktop and phone; Finance24/24 both widths; both21-route/seven-link/Back sweeps; financial/record preservation1366/390 pass. Phone Timeline inspected. Native item assignments take precedence over note-derived tank work identities. No backend deployment. Codex publication; Claude independent readback follows. READY is not LIVE.
 
 **v8.72 — CLAIMED by Codex, 7 Oct 2026.** Author: Andrew Fisher. Timeline known-asset identifiers; toilet door-side loading choice shared with checklist and driver sheets; verify print-to-transit scope. Base verified live v8.71 `218cdafb`. Codex implementation, testing and publication. Claude branch `5b20429a` and public readback6010482523 reviewed; no competing claim. DRAFT, not LIVE.
 
+**v8.71 — VERIFIED LIVE by both agents, 6 Oct 2026 (~16:05 AEST).** Author: Andrew Fisher. Claude's public GET is `218cdafb9b24ff63981252833ba09a2e6367a174a51788f201abe4a5817e390c`, 11,091,765 bytes, identical to Codex's final candidate. Against the public bytes:
+- v871 12/12 laptop and phone; supplier 17/17; KINP 17/17; Finance 24/24 laptop and phone.
+- Sweeps: 15 tabs, 0 errors, 0 blocked, both widths.
+- Asset numbers contradicting Andrew's record (4126): 0.
+- Money as built: revenue to job end $980,552, costs to job end $505,959, transport still to come $109,690.
+
+Codex branch merged. Baseplan fix list for the branches is with Andrew (outside the repo: it carries rates). [Release](v8.71_baseplan_schedule4_LIVE/README.md).
 **v8.71 — VERIFIED LIVE, 6 Oct 2026.** Author: Andrew Fisher. Claude source `8ce6a9ac`, Codex correction `45dca29b`, READY `edf7cbdc`. Exact public SHA-256 `218cdafb9b24ff63981252833ba09a2e6367a174a51788f201abe4a5817e390c`, 11,091,765 bytes, on v8.70 `b6475604`. Baseplan and Schedule 4 source refresh with current recorded matches respected. Independent 6,420 source-field checks; candidate release12/12 and Finance24/24 desktop/phone; both navigation/Back sweeps and preservation checks pass. Guarded uploader verified exact public bytes; actual-public release12/12 desktop/phone, zero runtime errors or attempted writes. Health OK serverv5.87. Codex publication complete; Claude independent public readback pending. [Release](v8.71_baseplan_schedule4_LIVE/README.md).
 
 **v8.71 — READY for guarded publication.** Author: Andrew Fisher. Claude source `8ce6a9ac`, Codex integration `36c06e73` and correction `45dca29b`. Final candidate SHA-256 `218cdafb9b24ff63981252833ba09a2e6367a174a51788f201abe4a5817e390c`, 11,091,765 bytes, on v8.70 `b6475604`. Supersedes earlier candidates. Independent source review: 6,420 field checks; release 12/12 and Finance 24/24 desktop/phone; both route/Back sweeps and financial preservation pass. Current recorded matches take precedence through an optional private build input. No operational writes or backend changes. Codex publication; Claude independent public readback follows. READY is not LIVE.
 
 **v8.71 — PUBLICATION CLAIMED by Codex, 6 Oct 2026.** Author: Andrew Fisher. Andrew directly requested the new ready updates live. Claude revised READY source `8ce6a9ac`, PR comments 6009612073 (updated 2026-10-06T04:55:06Z) and 6009988830 (updated 2026-10-06T05:27:14Z), supersedes original candidate. Base v8.70 `b6475604`; expected candidate `4cf2b81951057498e4fe3506295d990ef05719fbc736b8c4eb16f6819f91334c`, 11,091,670 bytes. Codex owns source/input review, independent final checks, guarded publication and actual-public verification; Claude implementation and subsequent independent readback. No operational record edits or backend deployment. Checking, not LIVE.
+**v8.70 — VERIFIED LIVE by both agents, 6 Oct 2026.** Author: Andrew Fisher. Claude public GET `b6475604…643e`, 11,064,981 bytes — identical to Codex's hash. Supplier 17/17 laptop and phone; v8.69 allocation 17/17 and v8.66 Finance 24/24 still pass; sweep 15 tabs, 0 errors, 0 blocked writes. Codex branch merged. Record read back on v8.70: home branches in; Kyle still $52.53, no labour-hire POs (9 POs, none labour), 2 Oct papers not entered — these wait on Andrew's direct word to Codex. [Readback](v8.70_supplier_confirmation_LIVE/README.md).
 
 **v8.70 — VERIFIED LIVE, 6 Oct 2026 at 11:57 AEST.** Author: Andrew Fisher. Source `e317102e`, READY `64678fda`; base v8.69 `c54b33b59a11472a5375111872241f5b516d507b74f1960e296b3994a2811d81`. Exact public SHA-256 `b6475604c95adcf0399735db292d26815c8a0101caee73131801bcb55977643e`, 11,064,981 bytes. Central supplier scope confirmation flows through Timeline, Equipment, Today scope details, Costs and native inventory/load PDFs. Original quote, reference requirements, recorded arrivals and financial models preserved. Candidate and actual-public 17/17 desktop and phone, both candidate 21-route/seven-link/Back sweeps pass; native PDFs and phone layout inspected. Zero runtime errors or attempted operational writes in tests. Exact public bytes independently fetched; health OK v5.87, record 4080; machine manifest unchanged. Codex implementation/publication complete; Claude independent v8.70 public readback pending. [Release](v8.70_supplier_confirmation_LIVE/README.md).
 
 **v8.70 — READY for guarded publication.** Author: Andrew Fisher. Source `e317102e`; base v8.69 `c54b33b59a11472a5375111872241f5b516d507b74f1960e296b3994a2811d81`. Exact candidate SHA-256 `b6475604c95adcf0399735db292d26815c8a0101caee73131801bcb55977643e`, 11,064,981 bytes. Supplier confirmation 17/17 desktop and phone; both 21-route/seven-link/Back sweeps pass without errors or operational writes. Native supplier inventory and load PDFs generated and inspected; phone layout inspected. Original quotes, reference requirements, arrivals and financial models preserved. Codex owns publication; Claude independent public readback follows. v8.69 independently verified by Claude in PR comment 6007595523. READY is not LIVE.
 
 **v8.69 — VERIFIED LIVE, 6 Oct2026 at11:38 AEST.** Author: Andrew Fisher. Source `b3d2ee56`, READY `55b0fe02`; exact public SHA-256 `c54b33b59a11472a5375111872241f5b516d507b74f1960e296b3994a2811d81`, 11,061,793 bytes, on v8.68 `8a447a82`. KINP Installation is the labour allocation destination in Finance, Costs by branch, demob and exports. Candidate17/17 allocation and24/24 Finance laptop/phone; both21-route/seven-link/Back sweeps; financial preservation1366/390; phone layout and model reconciliation pass. Actual-public17/17 laptop/phone, zero substitutions/errors/attempted writes. Codex implementation, checks and publication; Claude independent readback pending. This summary does not post an accounting journal.
+
+**v8.69 — VERIFIED LIVE by both agents, 6 Oct 2026.** Author: Andrew Fisher. Claude public GET `c54b33b5…1d81`, 11,061,793 bytes — identical to Codex's hash. Allocation 17/17 and Finance 24/24, laptop and phone, against the public bytes; 0 errors, 0 attempted writes. Wages $48,614.85 (Labour $33,914.85 + Salary allowance $14,700) all to KINP Installation and equal to wages by person to the cent; demob wages $9,524.70 KINP. Codex branch merged. Claude holds page work while Codex has v8.70. Record read back: all nine home branches are on the record. Still not on it: Kyle $53.05 (record holds $52.53), the three labour-hire POs 4657010/4660565/4661783 (9 POs, none labour), and the six 2 Oct papers (36569–36572, 24466–24467). These wait on Andrew's direct word to Codex. [Readback](v8.69_kinp_installation_LIVE/README.md).
 
 **v8.70 — CLAIMED by Codex.** Author: Andrew Fisher. Central supplier quantity confirmation used by delivery plan, supplier inventory and PDFs; preserve reference requirements and received units. Base v8.69 `c54b33b5`. Codex implementation/testing/publication. DRAFT, not LIVE.
 
@@ -101,6 +349,114 @@ Author: Andrew Fisher. These current entries supersede the dated status snapshot
 **v8.66 combined Costs release — PUBLICATION CLAIMED by Codex.** Author: Andrew Fisher. Andrew directly requested “Update live”. Claude implementation `1a7ff8e4`, including v8.65 source `2005e51`; current branch and fresh PR handovers verified. Combined candidate `9407ed75ae25deeff8662dadc94453f7e90c04072d22218c22bea122bc6151ae`, 11,052,274 bytes, reproduced on current live v8.64 `d725d9ac`. Codex owns independent final checks, guarded page publication and public readback; Claude owns implementation. No operational-record changes or machine/server deployment in this release. Checking, not LIVE.
 
 **Shared build and publication authority — Andrew, 5 Oct 2026, current Codex chat.** Andrew directly instructed: "stop blocking claude from uploading builds" and "You both build he needs the code". Both Claude and Codex are authorised to build and publish ready, tested GC500 releases. This supersedes historical Codex-only ownership and Claude's work pause for this shared implementation/publication scope. Coordinate the version and exact source, test the final candidate, and use the same guarded uploader against the current live base. The build/upload code is in `toolchain/` on `codex/gc500-current-release-03oct`; setup is documented in `toolchain/README.md`. No claim is made that Claude's environment or hourly routine has been enabled. Credentials remain private environment settings; shared code must not contain them.
+
+**Andrew, 6 Oct 2026 ~07:15 AEST (Claude chat): "P47 is cancelled. correct order next time.. p46 . Then p51 then p08".** Commodore Park is **3 buildings, not 4**: P46, P51, P08, delivered in that order. P47 is cancelled. Record changes for Codex (edit key): cancel P47 as WC32 was (deleted/row + note), and correct the Tue 06 Oct Commodore Park note on P08/P46/P51 from "4x buildings" to 3 buildings with the order P46 → P51 → P08. Not on the record yet (3854); requested on PR #1.
+
+**v8.71 — READY (rebuilt) for guarded publication.** Author: Andrew Fisher. Candidate `4cf2b81951057498e4fe3506295d990ef05719fbc736b8c4eb16f6819f91334c`, 11,091,670 bytes, on live v8.70 `b6475604`. This supersedes `7b72f561`.
+- Andrew: "good chance baseplan and spreadsheet allocation of asset numbers are wrong. What i have matched up and completed is correct."
+- His recorded numbers (record 4126) are now the authority in the page's sources: contradictions with his record go from 10 to 0, and the forecast holds on P41/P65 clear.
+- Revenue to job end −$27,504; costs to job end +$2,723.
+- Checks: v871 12/12 laptop and phone; supplier 17/17 laptop and phone; KINP 17/17; Finance 24/24 laptop and phone; sweeps 15 tabs, 0 errors, 0 blocked.
+
+**Codex to publish.** [Release](v8.71_baseplan_schedule4_DRAFT/README.md).
+
+**SYNC 14:16 AEST 7 Oct (Claude):** live page v8.76 `4ec46478` (both verified). Codex claimed **v8.79**, a paired-unit run-sheet presentation fix with no map or Costs changes, to go before Claude's v8.77 and v8.78; merged. Record 4322 → 4345 (Andrew, 13:27–14:15 AEST):
+- **GN18** on site and done.
+- Day changes by Andrew: **WC34 → Fri 9 Oct**, which now matches Event Portables load 1. WC33 dated 1 Oct, already on site.
+- Fencing POs (Advanced Temporary Fencing, STPS): notes added to 4647508 (Week 6) and 4647509 (Week 5). **New PO 4647515** for Construction week 4, no amount or invoice yet. Its note reads "GC500 Week 5", which may want to say Week 4.
+- Event Portables days still on the old dates: WC38, WC39, WC40 and WC61 (page shows today; plan says Fri 9), WC09's FWF, WC57, and the load 2–4 refs listed at 13:06.
+
+**SYNC 13:06 AEST 7 Oct (Claude):** live page v8.74 `918abc9a` (VMS progress box on Today), independently read back. Codex claimed **v8.75** (schedule refresh and lifting requirements). Record 4239 → 4322 (Andrew and Andrew via Codex):
+- **WC20** is now two sets: toilet blocks 1311341 and 1327225, waste tanks 1327228 and 1328982. Steps on; loading sides set.
+- Loading sides set: P52, P54, P55, P56 passenger; T0258 and WC86 not applicable.
+- **Andrew asked (13:15):** (1) Event Portables delivery days are not on the page. It still uses schedule dates for loads 1–4, so WC38, WC39, WC40 and WC61 show today rather than Fri 9 Oct. (2) WC09's two 6 m toilet blocks tomorrow need a door side each. They share one now because they have no numbers. Both relayed to Codex for v8.75 ([comment](https://github.com/tatts29-svg/fish/pull/1#issuecomment-6030181757)). Only the Event Portables items move; WC09's Coates blocks stay Thu 8 Oct.
+
+**SYNC 12:06 AEST 7 Oct (Claude):** live page still v8.71 `218cdafb`. Codex claimed **v8.72** (`55736a6`: Timeline known-asset identifiers, toilet door-side loading choice, print-to-transit check), merged here, no competing claim. Claude reads back after Codex publishes. Record 4214 → 4239 (Andrew, 11:21–11:23 AEST): **WC20 on site, levelled and done**, so Helen Park is complete.
+- WC20 number: Andrew kept **1327228**. He removed 1311341 ("a wrong number, never on the job") and removed **1327225**.
+- The register listed WC20 as a 6 m toilet block plus waste tank with both 1327228 and 1327225. If 1327225 is the waste tank, it now has no number on the record. Andrew to confirm.
+- Toilet plan unaffected.
+
+**SYNC 11:07 AEST 7 Oct (Claude):** live page still v8.71 `218cdafb`; no Codex commits or comments. Record 4139 → 4214 (Andrew, 10:39–11:00 AEST): Helen Park complete apart from WC20.
+- **P52, P57** now on site. **P52, P54, P55, P56, P57** levelled, steps on and done. T0258 and WC86 done.
+- Numbers: P52 corrected to **1327211** (register had 13227211). T0258 **1134386**.
+- Accessories: P52 A/C 1327951 and 1327952, fridge 1328953. P54 A/C 1327937. P55 A/C 1320175. P56 A/C 1270437. P57 A/C 1270478 and 1270479, fridge 1280688.
+- Still open: WC20 not on site. P55's register number reads **172114** (six digits), so it may be a typo for Andrew to check.
+- Toilet plan unaffected.
+
+**SYNC 09:07 AEST 7 Oct (Claude):** live page still v8.71 `218cdafb`; no Codex commits or comments. Record 4131 → 4139 (Andrew, 08:32–08:36 AEST): Helen Park crane-in under way. Set **on site**: P54, P55, P56, T0258 (3.0 m container) and WC86. Still not on site from the Wed 07 note: P52, P57 and WC20 (WC20 goes in after Helen Park). Toilet plan unaffected: WC86 and WC20 are not on the Event Portables plan.
+
+**SYNC 06:07 AEST 7 Oct (Claude):** live page still v8.71 `218cdafb`; no Codex commits or comments since the v8.71 readback. Record 4126 → 4131 (Andrew, 05:23 AEST 7 Oct): **T0089** (1 FWF, Event Elec) taken off its day. Its asset was already deleted on 6 Oct as "Not on this job", so it is now off the plan entirely.
+- Toilet plan: T0089 was stop 1 (Pit lane) on load 1, Fri 9 Oct, so that load drops from 24 FWF to **23**. Event Elec also comes off the "no WC number yet" list.
+- Tue 06 / Wed 07 Oct delivery notes: confirmed on the record (P47 Commodore Park; P52, P54–P57, T0258, WC20 Helen Park, all entered 3 Oct). Nothing outstanding.
+
+**SYNC 14:50 AEST 6 Oct (Claude):** live page still v8.70 `b6475604`; v8.71 READY `7b72f561` and waiting on Codex to publish; no Codex commits or comments since 12:01. Record 4109 → 4126 (Andrew, 13:26–13:56):
+- T0085 (Supply forklift) set on site with asset number **1272166**; 1262224 taken off.
+- T0089 (FWF, Event Elec, 6 Oct) deleted, "Not on this job".
+- P51 levelled.
+
+1272166 is the unit on both MEAD lines (9987005/1 and 9968726/10). v8.71 question 1 stands: one machine priced twice over 19–27 Oct.
+
+**v8.71 — READY for guarded publication.** Author: Andrew Fisher. Candidate `7b72f561310cb337267be80a89d90e74337279f34beaeee23f2f6c6bb6c58df8`, 11,091,853 bytes, on live v8.70 `b6475604`.
+- Contracts are now the 6 Oct Baseplan export: 11 contracts, 321 lines (+15, −2, 88 changed, 19 re-joined).
+- Schedule 4 transport on the Week 3 and Week 2 loads (+$11,709 to date), four fencing semi loads, dockets, and the generator numbers.
+- Checks: v871 12/12 laptop and phone; supplier 17/17 both widths; KINP 17/17; Finance 24/24 both widths; finance862 1366/390; sweeps 15 tabs, 0 errors, 0 blocked.
+- Money: revenue to job end −$32,484 (VMS now sub-hired 19–28 Oct); costs to job end +$2,723.
+
+Inputs are encrypted in the release folder with the 2 Oct papers' password. Six questions for Andrew are in the README. Claude built and tested it; **Codex to publish**, then Claude reads it back. [Release](v8.71_baseplan_schedule4_DRAFT/README.md).
+
+**v8.71 — CLAIMED by Claude, 6 Oct 2026.** Author: Andrew Fisher. Andrew (6 Oct, Claude chat), with `Baseplan_SuperCars.xlsx` (6 Oct export, 11 contracts, 321 lines) and `GC500_26_Schedule_4.xlsx`: "Please review and Update and go Live when done". Scope:
+- Refresh the embedded contract source (`DATA.rental_on_hire`, now the 24 Sep export) to the 6 Oct export: 15 lines added, including new MEAD contract 9987005; 2 gone; 247 line changes (statuses, dockets, VMS to KINP-SUB sub-hire, generator units).
+- Add Schedule 4's new per-load transport figures (Weeks 3 and 2, fencing semis).
+
+Base v8.70 `b6475604`. Claude builds and tests. Codex, please hold page publication until this claim closes.
+
+**SYNC 13:06 AEST 6 Oct (Claude):** live page v8.70 `b6475604`, machine v8.64 unchanged, no Codex commits or comments. Record 4080 → 4109 (12:09–12:27 AEST). Read back, each matching the handover exactly:
+- **Kyle Gover $53.05** (via Codex).
+- **Jayden Paul set to Coates wages** (Andrew), so his hours now split.
+- **POs 4657010 $3,023.70, 4660565 $1,299.74, 4661783 (amount open)**, all labour.
+- **Six 2 Oct papers**: F-AFV-0011..0014 (36569–36572, quantities as `papers.json`) and N-AFV-0006/0007 (24466 0.5 h, 24467 0.25 h), Week 3.
+- **P47 cancelled**: "No longer needed", 12:27.
+
+Open:
+- The docket photographs are not visible from the record API. They need Codex's confirmation on the Documents tab, then the encrypted file can be removed.
+- Daniel's PO 4661783 has no amount yet.
+- The Commodore Park note count is not rechecked.
+- Event Portables FWF confirmed at 194 against 190 allocated.
+
+**SYNC 12:06 AEST 6 Oct (Claude):** live page v8.70 `b6475604` (both agents verified), machine v8.64 unchanged; no Codex commits or comments since the v8.70 LIVE post. Record 4048 → 4080:
+- Jayden Paul's planned shifts 12–16 Oct taken off with Did not work (11:14 AEST).
+- The nine home branches entered (11:29).
+- Event Portables FWF confirmed by Andrew at a supplier total of **194** (11:42). The repo toilet plan (record 3675) allocates 190 FWF to WCs, against quote Q6845's 246; the 4-unit gap needs a home on the plan.
+
+Still not on the record: Kyle $53.05, labour-hire POs 4657010/4660565/4661783, six 2 Oct papers, P47 cancellation.
+
+**SYNC 11:07 AEST 6 Oct (Claude):** live page v8.67 `5a2dd218`, machine v8.64 `b469a99c`. No Codex commits or comments since the v8.67 publication (09:45); v8.68, the home-branch / PO / pay-rate entries and the six 2 Oct papers are all waiting on Codex. Record 4043 → 4048: Andrew used **Did not work** on Jayden Paul's planned shifts 5–9 Oct (10:06–10:07 AEST), so they are off the roster, the Finance review and the forecast. No branch, PO or pay-rate entry on the record yet; P47 still not cancelled.
+
+**Andrew, 6 Oct ~11:00 AEST — "get Codex to go live after this is all updated".** Order for Codex: (1) publish v8.68 `8a447a82`; (2) enter the nine home branches and the three labour-hire purchase orders in `record_06Oct2026_home_branch_and_labour_hire_pos/entries.json` — Kyle Gover w/e 20 Sep PO 4657010, w/e 27 Sep PO 4660565; Daniel Gough w/e 4 Oct PO 4661783; supplier Job Connect, stream labour, costed KINP, revenue KINP, value blank until known (running-sheet cost given there for reference: $2,994.20, $1,287.00, $3,230.60); (3) Kyle Gover's pay rate $52.53 → **$53.05** (Andrew: "i want his hourly rate to match the invoice"; Job Connect invoice w/e 20 Sep $3,023.70 for 57 equivalent hours; at $53.05 the week reads $3,023.85); (4) PO values from the Job Connect invoices: **4657010 $3,023.70** (all GC500); **4660565 $1,299.74** — the GC500 share of invoice $3,044.97 for w/e 27 Sep (Andrew: "Kyle was not with us for the whole week, so not all should be for us"; 24.5 h with us × $53.05; balance $1,745.23 not GC500); (5) the six 2 Oct fencing papers (password with Codex). Claude reads back each.
+
+**v8.69 — CLAIMED by Codex, 6 Oct 2026 ~11:32 AEST, on live v8.68.** Labour allocation correction: the Finance handover, Costs by branch, demob wages and exports put wages on a single Installation destination instead of spreading them by revenue proportions (PR #1 comment 6007495120). Claude: no parallel page work until Codex closes it; asked Codex to keep the v8.68 home-to-revenue wages table on the same destination and to name the branch; will test and read back.
+
+**v8.68 Home branch — VERIFIED LIVE by both agents, 6 Oct 2026 11:19 AEST (Codex upload), Claude public readback ~11:25 AEST.** Public page `8a447a82c709225bd7b30b80d5648fcd64d1e51f7e81fefbda6a79d23517343c`, 11,061,532 B, on v8.67 `5a2dd218`, byte-identical to Claude's candidate. Claude readback: `test_homebranch868.cjs` 16/16 desktop and phone, `test_handover866.cjs` 24/24, against the public bytes. Folder `v8.68_home_branch_LIVE/`; `_DRAFT` retired; Codex's branch merged. **Record batch still proposed, not entered** (`record_06Oct2026_home_branch_and_labour_hire_pos/entries.json`): nine home branches, Kyle Gover $53.05, POs 4657010 $3,023.70 / 4660565 $1,299.74 / 4661783 — Codex needs Andrew's direct word, or Andrew enters them on the edit link.
+
+**SYNC 10:07 AEST 6 Oct (Claude):** live page v8.67 `5a2dd218`, machine v8.64 `b469a99c`, no new Codex commits or comments since the v8.67 publication (09:45). Record 3959 → 4043 (Andrew, 09:27–10:07): asset numbers, accessories and drop photos recorded for the Commodore Park buildings P08, P46, P51. Toilet plan unaffected. Tue 06 and Wed 07 Oct delivery notes are on the record. Still open: the six 2 Oct papers (Andrew has given Codex the password; not yet entered — latest docket 36568, note 24465); P47 still not cancelled and the Commodore Park note still says 4 buildings.
+
+**v8.67 — VERIFIED LIVE by both agents, 6 Oct 2026 09:44 AEST (Codex upload), Claude public readback ~09:50 AEST.** Public page `5a2dd2183464b488bc1c04577d4831c78f2e898846e0af9c5464953318bbd6a5`, 11,054,519 B, on v8.66 `6fa8a9f3`, byte-identical to Claude's candidate. Workforce costs now has **Did not work** / **Put back** on each day row for the edit link; a shift taken off leaves the day, the roster table, the Finance review and the forecast together. Claude readback: `test_didnotwork867.cjs` 11/11 desktop and phone against the public bytes; machine unchanged `b469a99c`. Folder `v8.67_did_not_work_LIVE/` (Codex's review + Claude's evidence); `_DRAFT` retired; Codex's branch merged. Still open: P47 cancellation / Commodore Park note (Andrew's word); the six 2 Oct papers (password with Andrew, for Codex).
+
+**Record 3858 → 3951 (09:21–09:26 AEST, Andrew):** Alfie Harris accommodation nights 6–9 Oct entered; Commodore Park buildings (P08/P46/P51) ticked done and levelled. P47 still not cancelled; the note still says 4 buildings.
+
+**v8.66 — VERIFIED LIVE by both agents, 6 Oct 2026 08:45 AEST (Codex upload), Claude public readback ~08:55 AEST.** Public page `6fa8a9f3b71191b3e268272aa80a052cdf1855188e86348642da9f03adef16e4`, 11,052,320 B, on v8.64 `d725d9ac`; v8.65 inside it, no separate upload. One Codex correction over Claude's `9407ed75`: the outstanding PO value counts the unreceipted balance of a part-receipted order. Claude readback: `test_handover866.cjs` 23/23 and `test_costs865.cjs` 33/33 against the public bytes, desktop and phone; machine unchanged `b469a99c`. Folder `v8.66_finance_handover_LIVE/` (Codex's review + Claude's evidence); `v8.66_finance_handover_DRAFT` retired. Codex's branch merged. Still open on the record: P47 cancellation / Commodore Park note (needs Andrew's word on PR #1 or his own edit); the six 2 Oct papers for Codex.
+
+**SYNC 08:40 AEST 6 Oct (Claude):** Codex (PR #1 comment 6004621226, commit `4809d57` on `codex/gc500-current-release-03oct`) has reproduced the combined v8.66 candidate `9407ed75` byte for byte on live v8.64 and is running its checks before a guarded upload — v8.65 goes live inside it, no intermediate publication. Codex will not enter the P47 cancellation / Commodore Park note on my relay alone: it wants Andrew's word on PR #1, or Andrew makes the change on his edit link. Six 2 Oct papers handed over for after v8.66. Live page, machine and record (3854) unchanged at this check.
+
+**Six more signed fencing papers, 2 Oct 2026 — for Codex to enter and attach (Claude, 6 Oct ~08:50 AEST).** Andrew: "Have more fencing dockets.. these are also to be attached to please." Hire agreements 36569 (Event - ELEC, 82.5 m clean + scrim), 36570 (Telstra COW, scrim 25 m from note 24466, bracing only on the paper), 36571 (Triangle to Gate 6 beach run, 337.5 m clean), 36572 (S14 construction zone, 15 m clean); service notes 24466 (0.5 h) and 24467 (0.25 h). Transcription `record_06Oct2026_fencing_papers_36569_36572/papers.json`; photographs encrypted in `signed_papers_6.zip.enc` (password with Andrew, not in the repo or on GitHub), to upload on Documents as Fencing dockets named by number, as the 15 were. Next ids F-AFV-0011..0014, N-AFV-0006..0007; week sheet "Week 3" (2 Oct falls between the sheets — to confirm). Effect at the card as transcribed: charged $9,774.38, paid $7,048.00 incl. $75 labour; $2,744.48 of the charge rests on the two scrim items marked to_confirm. Record unchanged (3854); nothing entered yet.
+
+**v8.66 Finance handover — READY TO UPLOAD after v8.65 (Claude), 6 Oct 2026 ~10:10 AEST. Not live.** Author: Andrew Fisher. Andrew: "Lets do it"; then "we don't want stories with these numbers … having those notes looks sloppy" and "I've given you all the hire contracts and their related branch" — so the view is numbers by branch from the contracts, one basis line per table, no notes or requests. A fifth Costs & P&L button, **Finance handover**: (1) every purchase order with what it is for, branch costed, branch of revenue, value, receipt ID and receipted status (full / part + amount / not / not confirmed), editable per row through `setPo`, plus Add PO for any supplier — the fencing card, fencing trace and fencing accrual keep reading the fencing contractor's orders only (`poFencing866`); (2) costs by branch to job end (KINP $213,980 · STPS $270,953 · NVAC $12,684 = $497,617.01, To job end's costs + wages priced to the cent; fencing on STPS, toilets on KINP, transport by each reference's contract branch, the people's costs by the labour per piece on each branch, KINP 76 / NVAC 13 / STPS 11); (3) demob forecast by branch (KINP $22,498 · STPS $1,058 · NVAC $3,024 = $26,580; fencing removal not forecast, no dated programme); (4) invoice by 31 Oct by branch with billed per the 24 Sep export and not yet billed per branch (adds to Revenue $612,654.37 / $999,492.87 to the cent); Copy for Finance and CSV. Record unchanged by the build; new PO fields written only when an editor saves. Base **the v8.65 candidate `4ad46aa4…`**; **candidate `9407ed75ae25deeff8662dadc94453f7e90c04072d22218c22bea122bc6151ae` (11,052,274 B; supersedes ec09a62b)**, `toolchain/build.sh v8.66 v8.65_costs_one_source_DRAFT/patch_v865.py v8.66_finance_handover_DRAFT/patch_v866.py` (or patch_v866.py alone once v8.65 is live — same bytes). Checks: `tests/test_handover866.cjs` 23/23 desktop and phone; test_costs865 33/33 both; Codex `test_finance862.cjs` PASS 1366/390; flicker 24/24 both; sweeps 15 tabs, 0 errors/console/writes; check_page PASS; secrets 0. Codex: publish v8.65, then v8.66 (or the combined build as v8.66). [README](v8.66_finance_handover_DRAFT/README.md).
+
+**Finance feedback from GC500 2025 — gap check against Costs, 6 Oct 2026 ~08:15 AEST (Claude, read-only).** Andrew shared last year's Finance feedback (screenshot in his chat): costs only hit the P&L once the purchase order is receipted; every cost sent to Finance needs its PO number and the branch it is costed to; temp labour and transport should be costed to the branch the revenue sits in (some POs costed NOIS); demob costs (sub-hire fencing, transport, labour, other) forecast by branch so Finance can place them in October; invoice by 31 Oct, or tell Finance what to accrue for which branch; accruals are messy, get the admin right first. Checked against live v8.64 and the v8.65 candidate. **Covered:** fencing POs carry period, receipt ID and value with a confirmed/receipted count; 196 of 196 schedule references carry a branch; rehire revenue and cost by branch to job end; fencing, transport and labour costs to job end; Month-end for Finance by work month (revenue earned not billed, costs to accrue, supplier invoices recorded) with the review CSV. **Not on the page yet, and the record does not hold the data:** receipted / part-receipted status per PO outside fencing; the branch each PO is costed to beside the branch the revenue sits in (to catch costs on the wrong branch); demob cost forecast cut by branch; the 31 Oct invoicing deadline with owner and status; accruals by branch, not only by month. Proposed as v8.66 "Finance handover" for Andrew's yes; nobody builds it until he says. No record change, no upload.
+
+**Hourly check 07:07 AEST 6 Oct (Claude):** live page v8.64 `d725d9ac` (11,006,214 B); machine v8.64 `b469a99c` 231 files; **record 3851 → 3854** at 06:17–06:18 AEST by andrew fisher: P08, P46, P51 (Commodore Park buildings) set to *in transit*, each carrying the Tue 06 Oct Commodore Park note (tight area, watch the light poles); P47 still *not on site*. Toilet plan unaffected. No Codex commits or comments since 04:48 AEST; v8.65 awaits Codex review and upload.
+
+**v8.65 Costs & P&L, one source for each figure — READY TO UPLOAD (Claude), 6 Oct 2026 ~07:40 AEST, on live v8.64. Not live.** Author: Andrew Fisher. Andrew (Claude chat): "review costings ... so much conflicting information. Or doubling up ... What is the forecast for all the labour if it was ticked. Whats the actual now ... it needs to be correct"; "We dont want to double up by showing the same info multiple times in this area. We need to be clear." Found on live: F1 two answers to labour-if-all-ticked ($71,318.91 P&L vs $70,434.06 Accruals; relocation T0159 counted twice in one, not at all in the other); F2 half-cent line totals → $19,825.85 vs $19,825.84 and a phantom 'Relocated or moved units · $0.01' row; F3 glance said labour to tick was excluded from Revenue to job end while $51,493 of it was in; F4 '$49,249.83 (Job Connect)' includes the $14,700 salary allowance; F5 revenue on the record printed 8×, costs 4×, difference 4×; F6 two Difference tiles (61%/58%) unlabelled; F7 wages sentence twice in one card; F8 'runsheet —' heading; F9 phone breaks dollar figures. Fix: one relocation rule in both forecasts (install in, demob out — Andrew to confirm); `labourCents865` one rounding rule for labourMoney/pl760Ticks/labourRevenue858/labourPlan; glance notes corrected and a fifth tile 'Labour per piece' (ticked so far $19,825.88 · if every line were ticked $70,877.12 · still to tick $51,051.24); one place per headline figure (Forecast P&L header tiles and Difference line removed, P&L-lines card keeps only 'Ledger gross margin — before travel, accommodation, meals and wages'); sub-view headings; phone tiles stack; **a Labour, the whole job card** under the glance, headlined 'Total labour we will charge, to job end $107,592.08' (Andrew: 'really easy to understand'), glance tile 'Labour we charge' with the same total, (what we charge: per piece + race-weekend people = P&L 1047 $107,592.08 to job end; what it costs: running sheet race weekend $6,228.25 (283 h, 180 h unpriced) + rest $28,321.58 + salary allowance $14,700 = wages priced $49,249.83; 1,414.5 h with no rate named) with the Event crew card moved into the working; plain words on the six fold titles. Presentation and labour arithmetic only; record untouched; moneySummary structure unchanged. Base live v8.64 `d725d9acd069a208be3e3ecc757f3b914c9b98bff67a5432475dde6e2ae7a7d2`; **candidate `4ad46aa4da2acf270bfb013d25817312ff9b74f554e6c562dbf83de9112f4ebf` (11,018,927 B; supersedes 5a408923, 7c659fe5)**, `toolchain/build.sh v8.65 v8.65_costs_one_source_DRAFT/patch_v865.py`. Checks: `tests/test_costs865.cjs` 33/33 desktop and phone (13/24 fail on live v8.64 = the faults); Codex `test_finance862.cjs` PASS 1366/390; flicker 24/24; sweeps 15 tabs, 0 errors/console/writes; check_page PASS. Revenue on the record moves +3c (cents), to job end −$442.43 (relocation demob). Decisions for Andrew in the README (relocation rule; Job Connect's P&L line; which race-weekend hours; deeper cuts). Claude has no `GC500_EDIT_TOKEN`; Codex please publish. [README](v8.65_costs_one_source_DRAFT/README.md).
 
 **v8.64 — VERIFIED LIVE, both components, 6 Oct2026 at04:45 AEST.** Claude implementation `99ec7082`, Codex integration `cd017766`, READY `3a64421f`. Dashboard SHA-256 `d725d9acd069a208be3e3ecc757f3b914c9b98bff67a5432475dde6e2ae7a7d2`,11,006,214 bytes, on v8.63 `4b3a61e3`. Machine full231-path SHA-256 `b469a99c43a30a6d165ce126c4983d0c92204c8f548f0636a008f43de60e95d8`, on `e1c9f62d`;228 unrelated descriptors and all five private blobs preserved. Clearer Search/Fencing labels, panel close and Clear selection controls, lighter moving canvas with full resolution at rest, and fresh fencing snapshots with one index per build.43 offline publisher guards, candidate desktop15/15 and phone16/16, both3D round trips, both24/24 flicker tests, source preservation and both21-route/seven-link/Back sweeps pass. Guarded machine registration posted once and verified three exact public assets; page uploader verified exact bytes. Actual-public desktop15/15 and phone16/16 plus both3D round trips pass, zero local substitutions/errors/attempted writes. Phone captures inspected. Serverv5.87 and record3851 preserved; no backend deployment. Claude owns implementation; Codex completed paired publication. Claude independent post-release readback pending. [Release](v8.64_map_explorer_LIVE/README.md).
 
