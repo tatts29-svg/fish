@@ -136,7 +136,12 @@ function transport888Build(){
  return {rows: shown, planned, tRows, tcs, tFig, tCounted, schedT, OCL, ourRefs, forecast, weights, demob, doubleCounted: shown.filter(r => r.doubleCounted).length, toDate: cents((OCL.filter(c => !c.awaiting && c.amount != null).reduce((s, c) => s + c.amount, 0)) + schedT.counted)};
 }
 /* the revenue side and the other transport facts the Transport tab shows beside the loads - read from the models that already carry them */
-function transport888View(){
+function transport888View(){ return heldMemo('transport888View', transport888ViewBuild); }
+/* the Demob tab's truck plan, in counts - read only when the Transport view is drawn */
+function transport888DemobPlan(){
+ try { const D = demob816(); const plan = {days: D.days.map(iso => { const L = trucks816(iso, 'all'); return {iso, trucks: L.length, supplier: L.filter(x => x.kind === 'supplier').length, toilets: L.filter(x => x.kind === 'toilets').length, branch: L.filter(x => x.kind === 'single' || x.kind === 'normal').length, oversize: L.filter(x => x.ov).length}; })}; plan.trucks = plan.days.reduce((s, d) => s + d.trucks, 0); return plan; } catch (e) { return null; }
+}
+function transport888ViewBuild(){
  const T = transport888Core(), cents = n => Math.round(n * 100) / 100, M = moneySummary(), X = cj764Model(), H = fh866Model(), P = pl770Model(), BT = buildingTransportModel831(), B = pl752Rows(), CF = contractFigures(ONHIRE_ROWS);
  const codes = []; (BRANCHES.branches || []).forEach(b => { if (b.code && !codes.includes(b.code)) codes.push(b.code); });
  B.forEach(b => { if (b.code && b.code !== 'no branch' && !codes.includes(b.code)) codes.push(b.code); });
@@ -165,10 +170,8 @@ function transport888View(){
   docket: ((ONHIRE_ROWS || []).find(r => String(r.rental_contract) === String(l.contract) && r.line === l.line) || {}).delivery_number || null, covers: [...(covered.get(String(l.contract) + '|' + l.line) || [])].sort()}));
  /* the carrier plan of 7 Sep and the pairings the record holds against it */
  const plan = (((DATA.transport || {}).carrier || {}).loads || []).map(l => { const o = loadOf(l); return {id: loadId(l), n: l.n, date: l.date, time: l.time, item: l.item, product: l.product, early: !!l.early, eta: l.site_eta || null, keys: o.keys || [], where: o.where || null, by: o.by || null}; });
- /* the demob plan, as the Demob tab lays it out */
- let demobPlan = null; try { const D = demob816(); demobPlan = {days: D.days.map(iso => { const L = trucks816(iso, 'all'); return {iso, trucks: L.length, supplier: L.filter(x => x.kind === 'supplier').length, toilets: L.filter(x => x.kind === 'toilets').length, branch: L.filter(x => x.kind === 'single' || x.kind === 'normal').length, oversize: L.filter(x => x.ov).length}; })}; demobPlan.trucks = demobPlan.days.reduce((s, d) => s + d.trucks, 0); } catch (e) { demobPlan = null; }
  const pos = poAll().filter(o => o.stream === 'transport');
- return {T, M, X, H, P, BT, codes, byBranch, tot, byCarrier, lines, revenueTotal: cents(CF.transport.charge || 0), provisionalTotal: cents(BT.uncoveredAdditional || 0), plan, demobPlan, pos, hRow,
+ return {T, M, X, H, P, BT, codes, byBranch, tot, byCarrier, lines, revenueTotal: cents(CF.transport.charge || 0), provisionalTotal: cents(BT.uncoveredAdditional || 0), plan, pos, hRow,
   checks: {toDate: Math.abs(tot.actual - (Number(M.cost.transport.amount) || 0)) < 0.005, toCome: Math.abs(tot.toCome - (T.forecast.total || 0)) < 0.005, revenue: Math.abs(tot.revenue - (Number(M.charge.delivery) || 0)) < 0.005, provisional: Math.abs(tot.provisional - (Number(X.revenue.transportToCome) || 0)) < 0.005}};
 }
 /* EVERYTHING TALKS. Each figure the Costs tab shows, read where it is shown and where else it is shown; a mismatch is flagged, never hidden. */
