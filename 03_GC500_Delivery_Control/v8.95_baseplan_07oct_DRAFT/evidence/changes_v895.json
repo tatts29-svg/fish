@@ -644,5 +644,55 @@
    "why": "one number on two priced lines: two machines with one misnumbered, or one machine charged twice"
   }
  ],
- "record_would_move": []
+ "record_would_move": [],
+ "register_corrected": [
+  {
+   "path": "DATA.assets[73].asset_numbers[0]",
+   "ref": "P52",
+   "was": "13227211",
+   "now": "1327211",
+   "andrew": {
+    "by": "Andrew Fisher",
+    "on": "2026-10-08",
+    "at": "about 05:40 AEST",
+    "words": "1327211 is correct"
+   }
+  },
+  {
+   "path": "DATA.assets[73].events[0].booking801.asset_text",
+   "ref": "P52",
+   "was": "13227211",
+   "now": "1327211",
+   "andrew": {
+    "by": "Andrew Fisher",
+    "on": "2026-10-08",
+    "at": "about 05:40 AEST",
+    "words": "1327211 is correct"
+   }
+  },
+  {
+   "path": "DATA.assets[73].events[0].booking801.loads[0].asset_numbers[0]",
+   "ref": "P52",
+   "was": "13227211",
+   "now": "1327211",
+   "andrew": {
+    "by": "Andrew Fisher",
+    "on": "2026-10-08",
+    "at": "about 05:40 AEST",
+    "words": "1327211 is correct"
+   }
+  },
+  {
+   "path": "DATA.ops.rows[73].asset_numbers_scheduled[0]",
+   "ref": "P52",
+   "was": "13227211",
+   "now": "1327211",
+   "andrew": {
+    "by": "Andrew Fisher",
+    "on": "2026-10-08",
+    "at": "about 05:40 AEST",
+    "words": "1327211 is correct"
+   }
+  }
+ ]
 }

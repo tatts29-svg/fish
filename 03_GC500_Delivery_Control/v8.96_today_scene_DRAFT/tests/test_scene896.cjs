@@ -26,7 +26,7 @@ const KINDS = ['sun', 'part', 'cloud', 'fog', 'rain', 'pour', 'storm', 'sleet'];
  const scrollTo = sel => p.evaluate(sel => { const h = document.querySelector(sel), main = document.querySelector('main'); main.scrollTop += h.getBoundingClientRect().top - main.getBoundingClientRect().top - 10; }, sel);
 
  /* 1. the release is in */
- const A1 = await p.evaluate(() => ({style: !!document.getElementById('scene896-style'), script: !!document.getElementById('scene896-script'), footer: clean((document.getElementById('footL') || {}).textContent || ''), r: Scene896.report(), atlas: !!document.getElementById('scene896-atlas')}));
+ const A1 = await p.evaluate(() => ({style: !!document.getElementById('scene896-style'), script: !!document.getElementById('scene896-script'), footer: ((document.getElementById('footL') || {}).textContent || '').replace(/\s+/g, ' ').trim(), r: Scene896.report(), atlas: !!document.getElementById('scene896-atlas')}));
  ok('v8.96 style, script and atlas stylesheet are in; the footer ends in v8.96', A1.style && A1.script && A1.atlas && /v8\.96$/.test(A1.footer) && A1.r.version === 'v8.96' && A1.r.mounted);
 
  /* 2. the plate: its lights, title and figure are centred on it; the plate is centred in the card when it stands alone */
@@ -189,16 +189,21 @@ const KINDS = ['sun', 'part', 'cloud', 'fog', 'rain', 'pour', 'storm', 'sleet'];
   // glyphs made transparent, their backgrounds kept; the lightest pixel under each text box is read back from a screenshot
   const info = await p.evaluate(([rootSel, textSel]) => {
    const root = document.querySelector(rootSel), rr = root.getBoundingClientRect(), items = [];
-   root.querySelectorAll(textSel).forEach((n, i) => { if (!n.textContent.trim()) return; const r = n.getBoundingClientRect(); if (r.width < 2 || r.height < 2) return; const cs = getComputedStyle(n); const m = cs.color.match(/\d+(\.\d+)?/g).map(Number); n.dataset.s896c = n.style.color || '-'; n.style.color = 'transparent'; items.push({i, sel: n.className || n.tagName, text: n.textContent.trim().slice(0, 24), color: m.slice(0, 3), x: r.left - rr.left, y: r.top - rr.top, w: r.width, h: r.height}); });
-   return {clip: {x: rr.left, y: rr.top, width: rr.width, height: rr.height}, items};
+   // the clip is the part of the root inside the viewport; text boxes are measured from that clip's corner
+   const x0 = Math.max(0, rr.left), y0 = Math.max(0, rr.top), x1 = Math.min(innerWidth, rr.right), y1 = Math.min(innerHeight, rr.bottom);
+   root.querySelectorAll(textSel).forEach((n, i) => { if (!n.textContent.trim()) return; const r = n.getBoundingClientRect(); if (r.width < 2 || r.height < 2 || r.top < y0 || r.bottom > y1) return; const cs = getComputedStyle(n); const m = cs.color.match(/\d+(\.\d+)?/g).map(Number); n.dataset.s896c = n.style.color || '-'; n.style.color = 'transparent'; items.push({i, sel: n.className || n.tagName, text: n.textContent.trim().slice(0, 24), color: m.slice(0, 3), x: r.left - x0, y: r.top - y0, w: r.width, h: r.height}); });
+   return {clip: {x: x0, y: y0, width: Math.max(0, x1 - x0), height: Math.max(0, y1 - y0)}, viewport: [innerWidth, innerHeight], items};
   }, [rootSel, textSel]);
+  if (info.clip.width < 2 || info.clip.height < 2 || !info.items.length) { await p.evaluate(rootSel => { document.querySelectorAll(rootSel + ' [data-s896c]').forEach(n => { n.style.color = n.dataset.s896c === '-' ? '' : n.dataset.s896c; delete n.dataset.s896c; }); }, rootSel); return [{label, sel: 'clip', text: JSON.stringify(info.clip) + ' ' + JSON.stringify(info.viewport), ratio: null, bg: null}]; }
   const shot = await p.screenshot({clip: info.clip});
   const got = await p.evaluate(([b64, items, dpr]) => new Promise(res => { const im = new Image(); im.onload = () => { const c = document.createElement('canvas'); c.width = im.naturalWidth; c.height = im.naturalHeight; const cx = c.getContext('2d'); cx.drawImage(im, 0, 0); const out = items.map(it => { const x0 = Math.max(0, Math.floor(it.x * dpr)), y0 = Math.max(0, Math.floor(it.y * dpr)), w = Math.min(c.width - x0, Math.ceil(it.w * dpr)), h = Math.min(c.height - y0, Math.ceil(it.h * dpr)); if (w <= 0 || h <= 0) return Object.assign({}, it, {max: null}); const d = cx.getImageData(x0, y0, w, h).data; let best = null, bl = -1; for (let k = 0; k < d.length; k += 4) { const l = .2126 * d[k] + .7152 * d[k + 1] + .0722 * d[k + 2]; if (l > bl) { bl = l; best = [d[k], d[k + 1], d[k + 2]]; } } return Object.assign({}, it, {max: best}); }); res(out); }; im.src = 'data:image/png;base64,' + b64; }), [shot.toString('base64'), info.items, dpr]);
   await p.evaluate(rootSel => { document.querySelectorAll(rootSel + ' [data-s896c]').forEach(n => { n.style.color = n.dataset.s896c === '-' ? '' : n.dataset.s896c; delete n.dataset.s896c; }); }, rootSel);
   return got.map(it => ({label, sel: it.sel, text: it.text, ratio: it.max ? Math.round(ratio(lum(it.color), lum(it.max)) * 100) / 100 : null, bg: it.max}));
  };
  const plateText = '.w885-title, .w885-reading > span[aria-hidden] > span, .w885-reading small, .w885-caption, .w885-note, .s896-wx .wxw, .s896-wx strong, .s896-wx small, .s896-wx > span:not(.w885-sr), .w885-lights .tl841-unit small';
- const results = [], kindsSeen = [];
+ const results = [], kindsSeen = [], cardResults = [];
+ let worstPlate = [], worstCard = [];
+ try {
  for (const k of ['actual'].concat(KINDS)) {
   const set = await p.evaluate(k => { const g = document.querySelector('#where885 .w885-gauge'), sky = g.querySelector('.s896-sky'); if (k !== 'actual') { sky.dataset.kind = k; g.dataset.weather = k; } return sky.dataset.kind; }, k);
   if (k !== 'actual' && kindsSeen.includes(set)) continue; kindsSeen.push(set);
@@ -211,15 +216,15 @@ const KINDS = ['sun', 'part', 'cloud', 'fog', 'rain', 'pour', 'storm', 'sleet'];
   }
  }
  await p.evaluate(() => { document.querySelector('#where885 .s896-sky').getAnimations({subtree: true}).forEach(a => { try { a.play(); } catch (e) {} }); Scene896.weather(); Scene896.sync(); });
- const worstPlate = results.filter(r => r.ratio !== null).sort((a, b) => a.ratio - b.ratio);
- ok('every word on the plate keeps at least 4.5:1 over every sky (worst ' + (worstPlate[0] ? worstPlate[0].ratio + ':1 ' + worstPlate[0].label + ' ' + worstPlate[0].text : '-') + '; ' + results.length + ' readings over ' + kindsSeen.length + ' skies)', worstPlate.length > 20 && worstPlate.every(r => r.ratio >= 4.5), worstPlate.slice(0, 8));
+ worstPlate = results.filter(r => r.ratio !== null).sort((a, b) => a.ratio - b.ratio);
+ ok('every word on the plate keeps at least 4.5:1 over every sky (worst ' + (worstPlate[0] ? worstPlate[0].ratio + ':1 ' + worstPlate[0].label + ' ' + worstPlate[0].text : '-') + '; ' + results.length + ' readings over ' + kindsSeen.length + ' skies)', worstPlate.length > 20 && worstPlate.every(r => r.ratio >= 4.5), worstPlate.slice(0, 8).concat(results.filter(r => r.ratio === null).slice(0, 3)));
  await p.evaluate(() => document.getElementById('tw840-card-generators').scrollIntoView({block: 'start'})); await p.waitForTimeout(300);
  const cardText = '.tw846-title, .tw840-reading > span, .tw840-reading small, .tw840-caption, .tw846-counts button > span, .tw846-counts strong, .tw846-counts .tw840-count-link, .tw846-lights .tl841-unit small';
- const cardResults = [];
  for (const id of ['generators', 'buildings', 'toilets']) { await p.evaluate(id => document.getElementById('tw840-card-' + id).scrollIntoView({block: 'start'}), id); await p.waitForTimeout(200); cardResults.push(...await measure('#tw840-card-' + id + ' .tw846-summary', cardText, id)); }
- const worstCard = cardResults.filter(r => r.ratio !== null).sort((a, b) => a.ratio - b.ratio);
- ok('every word on the cards keeps at least 4.5:1 over its picture (worst ' + (worstCard[0] ? worstCard[0].ratio + ':1 ' + worstCard[0].label + ' ' + worstCard[0].text : '-') + '; ' + cardResults.length + ' readings)', worstCard.length > 10 && worstCard.every(r => r.ratio >= 4.5), worstCard.slice(0, 8));
+ worstCard = cardResults.filter(r => r.ratio !== null).sort((a, b) => a.ratio - b.ratio);
+ ok('every word on the cards keeps at least 4.5:1 over its picture (worst ' + (worstCard[0] ? worstCard[0].ratio + ':1 ' + worstCard[0].label + ' ' + worstCard[0].text : '-') + '; ' + cardResults.length + ' readings)', worstCard.length > 10 && worstCard.every(r => r.ratio >= 4.5), worstCard.slice(0, 8).concat(cardResults.filter(r => r.ratio === null).slice(0, 3)));
  if (process.env.OUT) { const c = p.locator('#tw840-card-generators'); if (!money(await c.innerText())) await c.screenshot({path: process.env.OUT + '/card-generators-' + (mob ? 'phone' : W) + '.png'}); }
+ } catch (err) { ok('contrast measured', false, String(err && err.message || err).slice(0, 300)); }
  if (needH > oldH) await p.setViewportSize({width: W, height: oldH});
 
  /* 12. print holds a still frame; overflow; errors; writes */

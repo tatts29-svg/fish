@@ -1,0 +1,2 @@
+TIMING A/B {"iso":"2026-10-19","loads":30,"withFlow":[802,1082,505,463,1050,446],"without":[874,691,503,650,442,547],"medianWith":802,"medianWithout":650,"lines":35,"cardPresent":true}
+errors 0 blocked 0

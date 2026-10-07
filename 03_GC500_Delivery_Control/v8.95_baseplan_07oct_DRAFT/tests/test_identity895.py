@@ -26,11 +26,31 @@ def check(name, ok, detail=''):
     print(('PASS ' if ok else 'FAIL ') + name + ('' if ok or not detail else '  ' + str(detail)[:600]))
     if not ok: fails.append(name)
 
-# ---- 1. the whole page: only DATA.rental_on_hire differs; MASTER_LOC and the rest of the script are untouched
+# ---- 1. the whole page: only DATA.rental_on_hire differs, plus Andrew's one correction to P52's register number
+# (8 Oct 2026: "1327211 is correct"; the register wrote 13227211) in exactly these four places; MASTER_LOC and the rest of
+# the script are untouched
+WRONG, RIGHT = '13227211', '1327211'
+P52_PATHS = ['DATA.assets[P52].asset_numbers[0]', 'DATA.assets[P52].events[0].booking801.asset_text', 'DATA.assets[P52].events[0].booking801.loads[0].asset_numbers[0]', 'DATA.ops.rows[P52].asset_numbers_scheduled[0]']
 check('no DATA key added or removed', set(BD) == set(ND))
+import copy
+BX = copy.deepcopy(BD)   # the base with the four corrected values written in: everything else must be identical
+try:
+    ai = next(i for i, a in enumerate(BX['assets']) if a['key'] == 'P52'); oi = next(i for i, r in enumerate(BX['ops']['rows']) if r['key'] == 'P52')
+    a52 = BX['assets'][ai]; bk = a52['events'][0]['booking801']; o52 = BX['ops']['rows'][oi]
+    found = [a52['asset_numbers'][0], bk['asset_text'], bk['loads'][0]['asset_numbers'][0], o52['asset_numbers_scheduled'][0]]
+    a52['asset_numbers'][0] = RIGHT; bk['asset_text'] = RIGHT; bk['loads'][0]['asset_numbers'][0] = RIGHT; o52['asset_numbers_scheduled'][0] = RIGHT
+except Exception as e:
+    found = [repr(e)]
+check('the base carried 13227211 in exactly the four P52 places and nowhere else', found == [WRONG] * 4 and json.dumps(BD, ensure_ascii=False).count(WRONG) == 4, found)
+check('the candidate carries 1327211 in those four places and 13227211 nowhere in DATA', WRONG not in json.dumps(ND, ensure_ascii=False)
+      and next(a for a in ND['assets'] if a['key'] == 'P52')['asset_numbers'] == [RIGHT] and next(r for r in ND['ops']['rows'] if r['key'] == 'P52')['asset_numbers_scheduled'] == [RIGHT]
+      and next(a for a in ND['assets'] if a['key'] == 'P52')['events'][0]['booking801']['asset_text'] == RIGHT and next(a for a in ND['assets'] if a['key'] == 'P52')['events'][0]['booking801']['loads'][0]['asset_numbers'] == [RIGHT])
 for k in BD:
-    if k != 'rental_on_hire':
+    if k in ('assets', 'ops'):
+        check('DATA.' + k + ' identical beyond the P52 correction (' + ', '.join(p for p in P52_PATHS if k in p.split('.')[1]) + ')', BX[k] == ND.get(k))
+    elif k != 'rental_on_hire':
         check('DATA.' + k + ' identical', BD[k] == ND.get(k))
+check('13227211 appears nowhere on the candidate page; 1327211 is P52\'s number on the register and on its contract line', NS.count(WRONG) == 0 and BS.count(WRONG) == 4)
 check('MASTER_LOC identical', BL == NL)
 strip = lambda s: re.sub(r'const DATA = \{.*?\};\n', 'DATA', s, count=1).replace(' · v8.95', ' · vX').replace(' · v8.94', ' · vX').replace(' · v8.93', ' · vX').replace(' · v8.92', ' · vX').replace(' · v8.91', ' · vX').replace(' · v8.90', ' · vX').replace(' · v8.89', ' · vX')
 check('outside DATA the page differs only in the release footer', strip(BS) == strip(NS))
@@ -132,6 +152,7 @@ unjoined = sorted(k for k, r in nrow.items() if r['asset_no_is_plant_number'] an
 check('the only recorded numbers whose line is not joined are the two-line numbers v8.71 holds (9961265/12, 9968726/10, 9968862/110)',
       unjoined == [('9961265', 12), ('9968726', 10), ('9968862', 110)], unjoined)
 check('the register\'s WC07 carries no numbers of its own (his are on the as-supplied record and the shared record, which the page reads live)', next(a for a in ND['assets'] if a['key'] == 'WC07')['asset_numbers'] == [] and next(a for a in BD['assets'] if a['key'] == 'WC07')['asset_numbers'] == [])
+check('the supplement records the P52 correction with Andrew\'s words', sup[-1].get('register_corrected') and [x['was'] for x in sup[-1]['register_corrected']] == [WRONG] * 4 and all(x['now'] == RIGHT and x['ref'] == 'P52' for x in sup[-1]['register_corrected']) and '1327211 is correct' in (sup[-1].get('register_correction_basis') or ''), sup[-1].get('register_corrected'))
 
 # ---- 5. what v8.71 derives: contracts, assignments, summary - recomputed here from the candidate's rows
 TABS = {str(c['rental_contract']): (c['branch_code'], c['tab']) for c in NR['contracts']}
@@ -187,5 +208,5 @@ check('summary: 323 lines, 164 plant numbers, 142 delivered lines, 137 joined by
 # ---- 6. the plant lines' copies of their contract lines follow the rows (no copy is of a changed line, so they are identical)
 check('plant_lines identical (no plant line carries a changed contract line)', BD['plant_lines'] == ND['plant_lines'])
 
-print('identity895: ' + ('PASS - DATA identical to the base except DATA.rental_on_hire, and there only the 7 Oct export\'s 25 changed and 2 added lines, the 2 joins from Andrew\'s record, and what v8.71 derives from them' if not fails else 'FAIL - %d finding(s)' % len(fails)))
+print('identity895: ' + ('PASS - DATA identical to the base except DATA.rental_on_hire (the 7 Oct export\'s 25 changed and 2 added lines, the 2 joins from Andrew\'s record, and what v8.71 derives from them) and P52\'s number corrected to 1327211 in its four places' if not fails else 'FAIL - %d finding(s)' % len(fails)))
 sys.exit(1 if fails else 0)

@@ -4,7 +4,8 @@
 # (the independent review asked for a "source-freshness disposition"); Andrew: "all cost align and correct", "everything must talk".
 #
 # Data only: DATA.rental_on_hire and what v8.71's logic derives from it (the contract lines, the per-contract summaries,
-# the assignments, the summary counts, the plant lines' copies of their contract lines). The builder is baseplan895.py -
+# the assignments, the summary counts, the plant lines' copies of their contract lines), plus Andrew's one correction to the
+# register (P52's number 13227211 -> 1327211, in the four places DATA holds it). The builder is baseplan895.py -
 # v8.71's own logic as a module - run on the 7 Oct export; the same builder on the 6 Oct export reproduces the live DATA
 # exactly (tests/test_identity895.py proves the delta). Nothing else on the page changes: no code, no MASTER_LOC, no media.
 #
@@ -61,6 +62,38 @@ assert len(marks) == 1 and s.count(marks[0]) == 1, 'expected one footer marker o
 matches_path = os.environ.get('V895_MATCHES')
 MATCHES = json.loads(Path(matches_path).read_text()) if matches_path else json.loads((here / 'andrew_4370.json').read_text())
 
+# ANDREW'S CORRECTION TO THE REGISTER (8 Oct 2026, about 05:40 AEST: "1327211 is correct"). The schedule's register wrote
+# P52's building as 13227211 - one digit too many; the contract line (9968862/79) and his typed number carry 1327211. The
+# four places the page's DATA holds the wrong number, all on P52, are corrected before the contract source is rebuilt, and
+# each must read exactly 13227211 as found, or the patch refuses.
+WRONG, RIGHT, REF = '13227211', '1327211', 'P52'
+ANDREW_SAID = {'by': 'Andrew Fisher', 'on': '2026-10-08', 'at': 'about 05:40 AEST', 'words': '1327211 is correct'}
+LOG_REG = []
+
+
+def correct(container, index, path, owner_key):
+    got = container[index]
+    assert got == WRONG, f'{path}: expected {WRONG!r} as found, got {got!r} - stopping'
+    assert owner_key == REF, f'{path}: belongs to {owner_key}, not {REF} - stopping'
+    container[index] = RIGHT
+    LOG_REG.append({'path': path, 'ref': REF, 'was': WRONG, 'now': RIGHT, 'andrew': ANDREW_SAID})
+
+
+a_i = [i for i, a in enumerate(D['assets']) if a['key'] == REF]
+o_i = [i for i, r in enumerate(D['ops']['rows']) if r['key'] == REF]
+assert len(a_i) == 1 and len(o_i) == 1, 'P52 must be one register row and one as-supplied row'
+A52, O52 = D['assets'][a_i[0]], D['ops']['rows'][o_i[0]]
+assert A52['asset_numbers'] == [WRONG] and len(A52['events']) >= 1, 'P52 register row is not as found'
+bk = A52['events'][0].get('booking801') or {}
+assert bk.get('asset_text') == WRONG and bk.get('loads') and bk['loads'][0].get('asset_numbers') == [WRONG], 'P52 booking is not as found'
+assert O52.get('asset_numbers_scheduled') == [WRONG], 'P52 as-supplied row is not as found'
+correct(A52['asset_numbers'], 0, f'DATA.assets[{a_i[0]}].asset_numbers[0]', A52['key'])
+correct(bk, 'asset_text', f'DATA.assets[{a_i[0]}].events[0].booking801.asset_text', A52['key'])
+correct(bk['loads'][0]['asset_numbers'], 0, f'DATA.assets[{a_i[0]}].events[0].booking801.loads[0].asset_numbers[0]', A52['key'])
+correct(O52['asset_numbers_scheduled'], 0, f'DATA.ops.rows[{o_i[0]}].asset_numbers_scheduled[0]', O52['key'])
+assert WRONG not in json.dumps(D, ensure_ascii=False), 'the wrong number is still somewhere in DATA - stopping'
+assert json.dumps(ORIG, ensure_ascii=False).count(WRONG) == 4, 'the base carries the wrong number other than in the four places - stopping'
+
 NEW, TABS = B.read_export(BP)
 assert len(TABS) == 11 and len(NEW) == 323, f'the 7 Oct export should carry 11 contracts and 323 lines, read {len(TABS)} and {len(NEW)}'
 LOG = B.apply(D, NEW, TABS, MATCHES, rejoin_record=REJOIN_RECORD)
@@ -72,14 +105,22 @@ R['supplements'] = list(R.get('supplements') or []) + [{
     'lines_added': [x['line'] for x in LOG['added']], 'lines_removed': [x['line'] for x in LOG['removed']],
     'lines_changed': len(LOG['changed']), 'lines_rejoined': [x['line'] for x in LOG['rejoined']], 'lines_held': [x['line'] for x in LOG['held']],
     'lines_joined_from_record': [x['line'] for x in LOG['record_joined']],
+    'register_corrected': [{'ref': x['ref'], 'was': x['was'], 'now': x['now'], 'path': x['path']} for x in LOG_REG],
+    'register_correction_basis': 'Andrew Fisher, 8 Oct 2026: "1327211 is correct" - the register wrote P52 as 13227211',
     'recorded_matches': 'shared record version 4370 (7 Oct 2026) and the as-supplied record of 22 Sep 2026; his record is the authority over Baseplan (6 Oct 2026)',
     'basis': "Every line refreshed from the export field by field with v8.71's rules; joins kept where the number did not change, re-made by Andrew's recorded number, then the register's number, then the delivery docket where it did."}]
 
-# only the contract source and the plant lines' copies may change; the register, the schedule rows and everything else are identical
+# only the contract source and the plant lines' copies may change, plus Andrew's one correction to P52's number: with the
+# four corrected values put back, the register and the as-supplied record are identical to the base; everything else is identical
+import copy
+CHK = copy.deepcopy(D)
+CHK['assets'][a_i[0]]['asset_numbers'][0] = WRONG; CHK['assets'][a_i[0]]['events'][0]['booking801']['asset_text'] = WRONG
+CHK['assets'][a_i[0]]['events'][0]['booking801']['loads'][0]['asset_numbers'][0] = WRONG; CHK['ops']['rows'][o_i[0]]['asset_numbers_scheduled'][0] = WRONG
 for k in D:
     if k not in ('rental_on_hire', 'plant_lines'):
-        assert D[k] == ORIG[k], 'DATA.' + k + ' changed - stopping'
+        assert CHK[k] == ORIG[k], 'DATA.' + k + ' changed beyond the P52 correction - stopping'
 assert set(D) == set(ORIG)
+LOG['register_corrected'] = LOG_REG
 assert len(R['rows']) == 323 and len(LOG['added']) == 2 and not LOG['removed'], 'the 7 Oct export adds two lines and takes none off'
 assert {x['line']: x['now'] for x in LOG['record_joined']} == RECORD_JOINS and not LOG['record_would_move'], 'the record step must join exactly 9968862/50 to P37 and 9968862/79 to P52: ' + json.dumps([(x['line'], x['now']) for x in LOG['record_joined']])
 log_text = json.dumps(LOG, ensure_ascii=False, default=str)
@@ -92,5 +133,5 @@ log = Path(os.environ.get('V895_LOG') or (here / 'evidence' / 'changes_v895.json
 log.parent.mkdir(parents=True, exist_ok=True)
 log.write_text(json.dumps(LOG, indent=1, ensure_ascii=False, default=str))
 print(f"v8.95 applied: contracts {len(TABS)}, lines {len(R['rows'])} (+{len(LOG['added'])} -{len(LOG['removed'])}, {len(LOG['changed'])} changed, "
-      f"{len(LOG['rejoined'])} rejoined, {len(LOG['held'])} held); joined from Andrew's record {len(LOG['record_joined'])}; flags {len(LOG['flags'])}; "
+      f"{len(LOG['rejoined'])} rejoined, {len(LOG['held'])} held); joined from Andrew's record {len(LOG['record_joined'])}; register corrected {len(LOG_REG)} (P52); flags {len(LOG['flags'])}; "
       f"matches {MATCHES_SHA[:12]}; footer {marks[0].strip()} -> v8.95")
