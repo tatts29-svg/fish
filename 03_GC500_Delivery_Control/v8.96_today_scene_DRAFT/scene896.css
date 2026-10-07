@@ -9,38 +9,40 @@
 #where885 .s896-sky > * {position:absolute;display:none;}
 /* the middle of the plate keeps the plate's own dark, whatever the sky does, so the figure, its caption and its notes keep their
    contrast; the weather plays around them. The shield is the last layer, over every other */
-#where885 .s896-shield {display:block;inset:0;background:radial-gradient(ellipse 58% 62% at 50% 58%,#07171c 0%,#07171cf4 42%,#07171c00 78%);}
+#where885 .s896-shield {display:block;inset:0;background:radial-gradient(ellipse 70% 58% at 50% 60%,#07171ccc 0%,#07171caa 45%,#07171c00 82%);}
 
-/* the yard: the rendered equipment picture as the ground, faint, fading up into the sky */
-#where885 .s896-yard {display:block;left:0;right:0;bottom:0;height:58%;background:50% 100% / cover no-repeat;opacity:.13;
+/* Every layer is built dark: at its brightest, over the plate's own #07171c, no layer composites past a relative luminance of about
+   0.10, so any word on the plate (the dimmest is #ffcf9f) keeps 4.5:1 wherever it falls, shield or no shield. */
+/* the yard: the rendered equipment picture as the ground, faint, darkened and fading up into the sky */
+#where885 .s896-yard {display:block;left:0;right:0;bottom:0;height:58%;background:50% 100% / cover no-repeat;opacity:.24;
  -webkit-mask-image:linear-gradient(180deg,#0000 0%,#000 60%,#000 100%);mask-image:linear-gradient(180deg,#0000 0%,#000 60%,#000 100%);}
 
 /* sun: a warm glow in the top corner, breathing, and a slow shaft of light across the plate */
-#where885 .s896-glow {inset:-30% -20% 20% -20%;background:radial-gradient(ellipse at 78% 18%,#ffd9a3 0%,#ffbe72 9%,#ffbe7200 42%);opacity:.18;transform-origin:78% 18%;animation:s896-breathe 9s ease-in-out infinite alternate;}
+#where885 .s896-glow {inset:-30% -20% 20% -20%;background:radial-gradient(ellipse at 78% 18%,#ffd9a3 0%,#ffbe72 9%,#ffbe7200 42%);opacity:.14;transform-origin:78% 18%;animation:s896-breathe 9s ease-in-out infinite alternate;}
 #where885 .s896-shaft {inset:-40%;background:linear-gradient(118deg,#ffd08200 40%,#ffd08226 50%,#ffd08200 60%);animation:s896-shaft 18s ease-in-out infinite alternate;}
 /* cloud: three soft masses drifting at different speeds */
-#where885 .s896-cloud {width:62%;height:48%;border-radius:50%;background:radial-gradient(closest-side,#c7dbe1 0%,#c7dbe1d0 30%,#c7dbe160 62%,#c7dbe100 100%);opacity:.12;}
+#where885 .s896-cloud {width:62%;height:48%;border-radius:50%;background:radial-gradient(closest-side,#8fa6b0 0%,#8fa6b0d0 30%,#8fa6b060 62%,#8fa6b000 100%);opacity:.2;}
 #where885 .s896-c1 {left:-14%;top:-12%;animation:s896-drift-a 26s ease-in-out infinite alternate;}
 #where885 .s896-c2 {right:-18%;top:4%;width:58%;height:40%;animation:s896-drift-b 34s ease-in-out infinite alternate;}
-#where885 .s896-c3 {left:24%;top:40%;width:70%;height:40%;opacity:.07;animation:s896-drift-c 40s ease-in-out infinite alternate;}
+#where885 .s896-c3 {left:24%;top:40%;width:70%;height:40%;opacity:.12;animation:s896-drift-c 40s ease-in-out infinite alternate;}
 /* mist and fog: two bands of haze sliding past each other */
-#where885 .s896-mist {inset:0 -20%;background:repeating-linear-gradient(180deg,#d7ece300 0 14%,#d7ece324 20% 27%,#d7ece300 33% 50%);animation:s896-mist 24s ease-in-out infinite alternate;}
-#where885 .s896-mist2 {inset:8% -20% -8%;background:repeating-linear-gradient(180deg,#d7ece300 0 22%,#d7ece31c 28% 34%,#d7ece300 40% 50%);animation:s896-mist 31s ease-in-out infinite alternate-reverse;}
+#where885 .s896-mist {inset:0 -20%;background:repeating-linear-gradient(180deg,#b9d1c900 0 14%,#b9d1c926 20% 27%,#b9d1c900 33% 50%);animation:s896-mist 24s ease-in-out infinite alternate;}
+#where885 .s896-mist2 {inset:8% -20% -8%;background:repeating-linear-gradient(180deg,#b9d1c900 0 22%,#b9d1c91e 28% 34%,#b9d1c900 40% 50%);animation:s896-mist 31s ease-in-out infinite alternate-reverse;}
 /* rain: two sheets of thin short streaks (one narrow ellipse per tile), near and far, falling on a 12 degree slant; the travel is
    a whole number of tile rows, so the loop never jumps */
 #where885 .s896-rain {inset:-320px -40% -40%;transform:rotate(12deg);background-repeat:repeat;}
-#where885 .s896-r1 {background-image:radial-gradient(1.1px 11px at 50% 62%,#cfe6f5 0 55%,#cfe6f500 100%);background-size:22px 48px;opacity:.5;animation:s896-rain 1.3s linear infinite;}
-#where885 .s896-r2 {background-image:radial-gradient(.9px 8px at 40% 55%,#cfe6f5 0 55%,#cfe6f500 100%);background-size:16px 40px;opacity:.32;animation:s896-rain 1.9s -.7s linear infinite;}
-#where885 .s896-sky:is([data-kind=pour],[data-kind=storm]) .s896-r1 {opacity:.65;animation-duration:.95s;}
-#where885 .s896-sky:is([data-kind=pour],[data-kind=storm]) .s896-r2 {opacity:.45;animation-duration:1.4s;}
-#where885 .s896-sky:is([data-kind=pour],[data-kind=storm]) .s896-cloud {background:radial-gradient(closest-side,#8fa6b0 0%,#8fa6b0d0 30%,#8fa6b060 62%,#8fa6b000 100%);opacity:.16;}
-#where885 .s896-sky[data-kind=storm] .s896-cloud {background:radial-gradient(closest-side,#7d929c 0%,#7d929cd0 30%,#7d929c60 62%,#7d929c00 100%);}
+#where885 .s896-r1 {background-image:radial-gradient(1.1px 11px at 50% 62%,#6f93a8 0 55%,#6f93a800 100%);background-size:22px 48px;opacity:.36;animation:s896-rain 1.3s linear infinite;}
+#where885 .s896-r2 {background-image:radial-gradient(.9px 8px at 40% 55%,#6f93a8 0 55%,#6f93a800 100%);background-size:16px 40px;opacity:.26;animation:s896-rain 1.9s -.7s linear infinite;}
+#where885 .s896-sky:is([data-kind=pour],[data-kind=storm]) .s896-r1 {opacity:.38;animation-duration:.95s;}
+#where885 .s896-sky:is([data-kind=pour],[data-kind=storm]) .s896-r2 {opacity:.3;animation-duration:1.4s;}
+#where885 .s896-sky:is([data-kind=pour],[data-kind=storm]) .s896-cloud {background:radial-gradient(closest-side,#7a919c 0%,#7a919cd0 30%,#7a919c60 62%,#7a919c00 100%);opacity:.24;}
+#where885 .s896-sky[data-kind=storm] .s896-cloud {background:radial-gradient(closest-side,#6a808b 0%,#6a808bd0 30%,#6a808b60 62%,#6a808b00 100%);opacity:.28;}
 /* storm: a bolt in the top corner now and then, and the briefest brightening of the whole sky with it */
-#where885 .s896-bolt {top:24%;right:1%;width:min(18%,150px);height:56%;opacity:0;filter:drop-shadow(0 0 6px #98d8fc);animation:s896-bolt 13s 4s linear infinite;}
+#where885 .s896-bolt {top:5%;right:2%;width:min(16%,140px);height:44%;opacity:0;filter:drop-shadow(0 0 6px #98d8fc);animation:s896-bolt 13s 4s linear infinite;}
 #where885 .s896-flash {inset:0;background:#9fc8e0;opacity:0;animation:s896-flash 13s 4s linear infinite;}
 /* sleet and snow: two depths of flakes, drifting as they fall */
-#where885 .s896-sleet {inset:-200px -20% -20%;background-image:radial-gradient(circle,#e4f1f5 0 1.3px,#e4f1f500 2px);background-size:20px 20px;opacity:.45;animation:s896-sleet 6.5s linear infinite;}
-#where885 .s896-s2 {background-size:18px 18px;opacity:.28;animation:s896-sleet 9s -3s linear infinite;}
+#where885 .s896-sleet {inset:-200px -20% -20%;background-image:radial-gradient(circle,#9fb9c6 0 1.3px,#9fb9c600 2px);background-size:20px 20px;opacity:.22;animation:s896-sleet 6.5s linear infinite;}
+#where885 .s896-s2 {background-size:18px 18px;opacity:.16;animation:s896-sleet 9s -3s linear infinite;}
 
 /* which layers each kind of day shows; a day with no forecast shows none */
 #where885 .s896-sky[data-kind=sun] :is(.s896-glow,.s896-shaft),
@@ -51,9 +53,9 @@
 #where885 .s896-sky[data-kind=pour] :is(.s896-c1,.s896-c2,.s896-c3,.s896-r1,.s896-r2),
 #where885 .s896-sky[data-kind=storm] :is(.s896-c1,.s896-c2,.s896-c3,.s896-r1,.s896-r2,.s896-bolt,.s896-flash),
 #where885 .s896-sky[data-kind=sleet] :is(.s896-c1,.s896-c2,.s896-s1,.s896-s2) {display:block;}
-#where885 .s896-sky[data-kind=part] .s896-glow {opacity:.13;}
+#where885 .s896-sky[data-kind=part] .s896-glow {opacity:.1;}
 
-@keyframes s896-breathe {from {transform:scale(.96);opacity:.15;} to {transform:scale(1.06);opacity:.2;}}
+@keyframes s896-breathe {from {transform:scale(.96);opacity:.11;} to {transform:scale(1.06);opacity:.15;}}
 @keyframes s896-shaft {from {transform:translateX(-8%) rotate(-2deg);} to {transform:translateX(9%) rotate(3deg);}}
 @keyframes s896-drift-a {from {transform:translate(-4%,0);} to {transform:translate(6%,3%);}}
 @keyframes s896-drift-b {from {transform:translate(5%,2%);} to {transform:translate(-6%,-2%);}}
@@ -61,7 +63,7 @@
 @keyframes s896-mist {from {transform:translateX(-7%);} to {transform:translateX(7%);}}
 @keyframes s896-rain {from {transform:rotate(12deg) translateY(0);} to {transform:rotate(12deg) translateY(240px);}}
 @keyframes s896-sleet {0% {transform:translate(0,0);} 50% {transform:translate(7px,90px);} 100% {transform:translate(0,180px);}}
-@keyframes s896-bolt {0%,30%,36%,100% {opacity:0;} 32%,33% {opacity:.7;} 34% {opacity:.2;}}
+@keyframes s896-bolt {0%,30%,36%,100% {opacity:0;} 32%,33% {opacity:.55;} 34% {opacity:.18;}}
 @keyframes s896-flash {0%,31.5%,34.5%,100% {opacity:0;} 32.3% {opacity:.09;} 33.5% {opacity:.04;}}
 
 /* the sky plays only while the plate is on screen and allowed to (the script sets s896-run); otherwise it holds its frame */

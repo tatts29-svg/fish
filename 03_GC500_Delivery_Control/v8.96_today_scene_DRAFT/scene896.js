@@ -15,7 +15,7 @@ const Scene896 = (() => {
  const WAPI = new Set([1000, 1003, 1006, 1009, 1030, 1063, 1066, 1069, 1072, 1087, 1114, 1117, 1135, 1147, 1150, 1153, 1168, 1171, 1180, 1183, 1186, 1189, 1192, 1195, 1198, 1201, 1204, 1207, 1210, 1213, 1216, 1219, 1222, 1225, 1237, 1240, 1243, 1246, 1249, 1252, 1255, 1258, 1261, 1264, 1273, 1276, 1279, 1282]);
  let io = null, mo = null, moFrame = 0, visible = false, printing = false, showcaseOpen = false, asked = 0;
  const num = v => typeof v === 'number' && Number.isFinite(v);
- const fn = name => typeof window[name] === 'function';
+ const fn = name => typeof window[name] === 'function'; /* the page's function declarations; its const helpers (todayIso, esc) are read by name */
  const gauge = () => document.querySelector('#pane-today #where885 .w885-gauge');
  const still = () => fn('motionOff') ? !!motionOff() : matchMedia('(prefers-reduced-motion: reduce)').matches;
  /* the card's own Pause (v8.85) settles its figure and lights; the sky follows it */
@@ -47,7 +47,7 @@ const Scene896 = (() => {
    if (html) return {kind: got.kind, html, title: fn('wxWords') ? wxWords(got.f) : ''};
   }
   const why = fn('wxNoneWhy') ? wxNoneWhy(day) : '';
-  const past = fn('todayIso') && day < todayIso();
+  const past = typeof todayIso === 'function' && day < todayIso();
   return {kind: 'unknown', html: '<strong>' + (past ? 'No forecast' : 'No forecast yet') + '</strong>' + (why ? '<span>' + esc(why) + '</span>' : ''), title: ''};
  }
  const sky = () => '<div class="s896-sky" data-kind="unknown" aria-hidden="true"><i class="s896-yard"></i><i class="s896-glow"></i><i class="s896-shaft"></i>'
@@ -56,7 +56,7 @@ const Scene896 = (() => {
   + '<svg class="s896-bolt" viewBox="0 0 200 400" aria-hidden="true" focusable="false"><path d="M130 4L44 173L98 158L60 276L150 118L103 132L161 4" fill="#e9f8ff"/></svg><i class="s896-shield"></i></div>';
  function weather() {
   const g = gauge(); if (!g) return;
-  const day = fn('todayWorkDay841') ? todayWorkDay841() : (fn('todayIso') ? todayIso() : '');
+  const day = fn('todayWorkDay841') ? todayWorkDay841() : (typeof todayIso === 'function' ? todayIso() : '');
   const w = line(day), sig = (fn('wxSig') ? wxSig(day) : '') + '|' + day + '|' + w.kind;
   const s = g.querySelector('.s896-sky'); if (s && s.dataset.kind !== w.kind) s.dataset.kind = w.kind;
   if (g.dataset.weather !== w.kind) g.dataset.weather = w.kind;
@@ -72,8 +72,8 @@ const Scene896 = (() => {
   if (document.getElementById('scene896-atlas') || typeof DATA === 'undefined' || !DATA.media) return;
   const rules = [];
   for (const id of Object.keys(ATLAS)) {
-   const u = DATA.media[ATLAS[id]]; if (typeof u !== 'string' || !/^[\w./:-]+$/.test(u)) continue;
-   if (id === 'yard') rules.push('#pane-today #where885 .s896-yard{background-image:url("' + u + '")}');
+   const u = DATA.media[ATLAS[id]]; if (typeof u !== 'string' || !/^[\w./:?=&-]+$/.test(u)) continue;
+   if (id === 'yard') rules.push('#pane-today #where885 .s896-yard{background-image:linear-gradient(#07171c8c,#07171c8c),url("' + u + '")}');
    else rules.push('#gc500-work-board840 #tw840-card-' + id + ' .tw846-summary::before{background-image:linear-gradient(#0b1419a6,#0b1419a6),url("' + u + '")}');
   }
   if (!rules.length) return;

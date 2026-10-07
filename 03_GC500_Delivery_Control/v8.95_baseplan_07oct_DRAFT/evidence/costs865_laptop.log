@@ -2,15 +2,15 @@ PASS labour ticked: pl760Ticks total equals the P&L charge to the cent {"ticks":
 PASS labour ticked: every line total is whole cents {"halfCents":0}
 PASS labour ticked: no phantom "Relocated or moved units" row {"row":"none"}
 PASS labour ticked: Accruals card charged equals the P&L charge {"acc":21137.54,"plan":21137.54,"charge":21137.54}
-PASS one labour forecast: labourRevenue858 job equals the Accruals Labour Install total {"rev858":70658.5,"accInstall":70658.5,"planInstallGroup":70658.5}
-PASS one labour forecast: P&L Installation to job end = labour if all ticked + event people {"instJob":107373.46,"sum":107373.45999999999}
+PASS one labour forecast: labourRevenue858 job equals the Accruals Labour Install total {"rev858":67472.86,"accInstall":67472.86,"planInstallGroup":67472.86}
+PASS one labour forecast: P&L Installation to job end = labour if all ticked + event people {"instJob":104187.82,"sum":104187.82}
 PASS one labour forecast: P&L Installation on the record = labour ticked + event people {"instNow":57852.5}
 PASS relocation rule: install forecast on a relocation, demob not {"relocInstall":1,"relocDemob":0}
 PASS P&L reconciles: revenue, costs, job end {"revenue":true,"revenueJob":true,"costs":true,"costsJob":true,"quotes":true}
-PASS glance revenue to job end equals the P&L {"revJob":983093.01,"glance":983093.01}
-PASS glance says labour to tick is inside Revenue to job end, with its amount {"labourToCome":49520.96}
+PASS glance revenue to job end equals the P&L {"revJob":981407.37,"glance":981407.37}
+PASS glance says labour to tick is inside Revenue to job end, with its amount {"labourToCome":46335.32}
 PASS glance has a Labour we charge tile {"tiles":["Revenue","Direct costs","Labour we charge","Difference so far","Month-end for Finance"]}
-PASS Labour tile shows total charged so far and total forecast = P&L Installation now/job {"nums":["$—","$—","$—","$—","$—"],"instNow":57852.5,"instJob":107373.46}
+PASS Labour tile shows total charged so far and total forecast = P&L Installation now/job {"nums":["$—","$—","$—","$—","$—"],"instNow":57852.5,"instJob":104187.82}
 PASS glance wages note splits Job Connect from the salary allowance {"snippet":"Priced wages: $— — Job Connect $— + salary allowance forecast $—. 1,294 h of Coates wages remain unpriced. The job-end difference deducts priced wages."}
 PASS P&L card names the ledger gross margin as such {}
 PASS one place: Forecast P&L header tiles and its Difference line are gone {"kpis":0,"diffLine":0,"metrics":["Ledger gross margin — to job end, before"],"revCount":2,"rev":"$—","flag":true}
@@ -30,5 +30,5 @@ PASS no money on plant {"n":0}
 PASS no money on demob {"n":0}
 PASS no money on coatesway {"n":0}
 PASS no page errors []
-PASS no writes attempted {"page":1,"live":65,"blocked":0}
+PASS no writes attempted {"page":1,"live":64,"blocked":0}
 desktop: 33/33 pass

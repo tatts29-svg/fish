@@ -1,3 +1,13 @@
+# third re-run: the chain moved when the new v8.94 (lighting scope projection) landed at 19:51 - candidate rebuilt on it (388292e5...)
+candidate 388292e5947916e3 11292269 bytes (chain through the new v8.94)
+contracts895_laptop exit 0 desktop: 26/26 pass
+contracts895_phone exit 0 phone: 26/26 pass
+finance866_laptop exit 0 pass 24 fail 0 24/24
+costs865_laptop exit 0 pass 33 fail 0 33/33
+transport888_laptop exit 0 1440 px: 29/29
+  redacted dollar figures in costs865_laptop.log
+DONE
+
 # second re-run, after the P52 correction (candidate 8e1a17cf...)
 candidate 8e1a17cf051fcff6 11266843 bytes
 contracts895_laptop exit 0 desktop: 26/26 pass

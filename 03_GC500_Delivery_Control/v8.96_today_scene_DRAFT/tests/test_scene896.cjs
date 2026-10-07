@@ -14,11 +14,12 @@ const KINDS = ['sun', 'part', 'cloud', 'fog', 'rain', 'pour', 'storm', 'sleet'];
  s = await open({pageFile: process.env.PAGE, W, H, mobile: mob, dpr}); const p = s.page, R = []; const ok = (n, v, d) => R.push({name: n, pass: !!v, detail: d});
  const cons = []; p.on('console', m => { if (m.type() === 'error' && !/Failed to load resource|ERR_FAILED|net::/.test(m.text())) cons.push(m.text().slice(0, 160)); });
  const dir = process.env.ATLAS896 || path.join(__dirname, '..', 'assets'); let served = 0;
- for (const c of A.cells) { const f = path.join(dir, c.file); if (fs.existsSync(f)) await p.route('**/m/Coates-GC500-2026/' + c.file, r => { served++; r.fulfill({status: 200, contentType: c.type, body: fs.readFileSync(f)}); }); }
+ for (const c of A.cells) { const f = path.join(dir, c.file); if (fs.existsSync(f)) await p.route(new RegExp('/m/Coates-GC500-2026/' + c.file + '(\\?.*)?$'), r => { served++; r.fulfill({status: 200, contentType: c.type, body: fs.readFileSync(f)}); }); }
  await p.waitForFunction(() => typeof Scene896 === 'object' && typeof Where885 === 'object' && SYNC.status === 'live' && todayWorkHealth840().ready, null, {timeout: 150000});
  await p.evaluate(() => go('today')); await p.waitForTimeout(1200);
  // the pictures may have been asked for before the local route was in place: ask again, then let both forecast sources answer
- await p.evaluate(() => { document.getElementById('scene896-atlas')?.remove(); Scene896.mount(); });
+ // (the browser may already hold a failed fetch of the hosted addresses from before the route was in place, so each address is given a fresh query)
+ await p.evaluate(shas => { shas.forEach(sha => { if (typeof DATA.media[sha] === 'string' && !/\?/.test(DATA.media[sha])) DATA.media[sha] += '?s896=' + Date.now(); }); document.getElementById('scene896-atlas')?.remove(); Scene896.mount(); }, A.cells.map(c => c.sha256));
  await p.waitForFunction(() => !['loading', 'idle'].includes(WXF.state) && !['loading', 'idle'].includes(WXO.state), null, {timeout: 30000}).catch(() => {});
  await p.waitForTimeout(400);
  const clean = t => String(t || '').replace(/\s+/g, ' ').trim();
@@ -53,7 +54,7 @@ const KINDS = ['sun', 'part', 'cloud', 'fog', 'rain', 'pour', 'storm', 'sleet'];
  ok('the sky shows the forecast kind for the day shown (' + X.day + ': ' + X.expect + (X.src.srcTag ? ', ' + X.src.srcTag : '') + ')', X.kind === X.expect && X.skyKind === X.expect, X);
  ok(X.valid ? 'the weather line is the page\'s own day line, with its full words as the title' : 'no forecast reached this run (WeatherAPI ' + X.src.wapi + ', Open-Meteo ' + X.src.om + '): the plate says so in the page\'s words',
   X.valid ? X.words.includes(X.pageLine) && X.title.length > 10 : /No forecast/.test(X.words) && X.words.includes(X.why) && !X.title, X.words);
- ok('the layers shown match the kind (' + X.layers.length + ')', X.expect === 'unknown' ? X.layers.every(c => /s896-yard/.test(c)) : X.layers.length >= 3 && X.layers.some(c => /s896-yard/.test(c)), X.layers);
+ ok('the layers shown match the kind (' + X.layers.length + ')', X.expect === 'unknown' ? X.layers.every(c => /s896-(yard|shield)/.test(c)) : X.layers.length >= 4 && X.layers.some(c => /s896-yard/.test(c)) && X.layers.some(c => /s896-shield/.test(c)), X.layers);
 
  /* 4. the day picker drives the sky: another forecast day, through the page's own date control, then a day that has passed */
  const D = await p.evaluate(() => {
@@ -73,7 +74,7 @@ const KINDS = ['sun', 'part', 'cloud', 'fog', 'rain', 'pour', 'storm', 'sleet'];
  });
  ok(D.other ? 'changing the day (' + D.other.d + ' via the ' + D.control + ') changes the sky to that day\'s forecast (' + D.other.k + ')' : 'only one forecast day is known this run; the day change is checked on the past day below',
   !D.other || (D.otherShown.kind === D.other.k && D.otherShown.skyKind === D.other.k && D.otherDay === D.other.d && (D.other.k !== D.k0 || D.otherShown.words !== D.w0)), D);
- ok('a day with no forecast stays unknown: plain words, no sky, nothing guessed', D.past.kind === 'unknown' && D.past.skyKind === 'unknown' && /No forecast/.test(D.past.words) && D.past.words.includes(D.pastWhy) && !D.past.title && D.past.layers.every(c => /s896-yard/.test(c)) && /As of/.test(D.past.notes), D.past);
+ ok('a day with no forecast stays unknown: plain words, no sky, nothing guessed', D.past.kind === 'unknown' && D.past.skyKind === 'unknown' && /No forecast/.test(D.past.words) && D.past.words.includes(D.pastWhy) && !D.past.title && D.past.layers.every(c => /s896-(yard|shield)/.test(c)) && /As of/.test(D.past.notes), D.past);
  ok('back on today the sky is today\'s again', D.back === D.k0);
 
  /* 5. the lamps */
@@ -130,19 +131,19 @@ const KINDS = ['sun', 'part', 'cloud', 'fog', 'rain', 'pour', 'storm', 'sleet'];
   const counts = () => ({skies: document.querySelectorAll('.s896-sky').length, lines: document.querySelectorAll('.s896-wx').length, parks: document.querySelectorAll('#pane-today .dsnband.s896-park').length, folds: document.querySelectorAll('#pane-today .s896-showcase').length, bands: document.querySelectorAll('#pane-today .dsnband').length, styles: document.querySelectorAll('#scene896-atlas').length, anims: document.getAnimations().length, basis: (document.querySelector('#where885 .w885-basis p')?.textContent.match(/rendered illustrations/g) || []).length});
   const before = counts(), sky0 = Scene896.report().animations;
   for (let i = 0; i < 5; i++) renderToday();
-  await new Promise(r => setTimeout(r, 300)); const mid = counts();
+  await new Promise(r => setTimeout(r, 300)); const mid = counts(), midSky = Scene896.report().animations;
   go('timeline'); await new Promise(r => setTimeout(r, 500)); const away = {skies: document.querySelectorAll('.s896-sky').length, r: Scene896.report()};
   go('today'); await new Promise(r => setTimeout(r, 500)); go('plant'); await new Promise(r => setTimeout(r, 500)); go('today'); await new Promise(r => setTimeout(r, 800));
-  return {before, sky0, mid, away, after: counts(), r: Scene896.report()};
+  return {before, sky0, mid, midSky, away, after: counts(), r: Scene896.report()};
  });
  await scrollTo('#where885'); await p.waitForTimeout(300);
  const K2 = await p.evaluate(() => Scene896.report());
- ok('five redraws keep one sky, one weather line, one fold and the same animations on the page', K.mid.skies === 1 && K.mid.lines === 1 && K.mid.parks === 1 && K.mid.folds === 1 && K.mid.bands === 1 && K.mid.styles === 1 && K.mid.basis === 1 && K.mid.anims === K.before.anims, K);
+ ok('five redraws keep one sky, one weather line, one fold, one atlas stylesheet, one basis sentence and the same sky animations', K.mid.skies === 1 && K.mid.lines === 1 && K.mid.parks === 1 && K.mid.folds === 1 && K.mid.bands === 1 && K.mid.styles === 1 && K.mid.basis === 1 && K.midSky === K.sky0, K);
  // the page's own instruments start and stop with what is on screen, so after a change of tab only the scene's own footprint is compared
  ok('tab changes leave nothing behind: away from Today no sky and nothing running; back on Today one sky, one line, one fold, the same sky animations, one observer of each kind and no timers', !K.away.r.running && K.away.skies === 0 && K.after.skies === 1 && K.after.lines === 1 && K.after.parks === 1 && K.after.folds === 1 && K.after.bands === 1 && K.after.styles === 1 && K.after.basis === 1 && K2.animations === K.sky0 && K.r.observers.intersection === 1 && K.r.observers.mutation === 1 && K.r.timers === 0 && K2.running, {K, K2});
 
  /* 9. the group cards keep their folds, links and keyboard focus; the chips still jump to their cards */
- await p.evaluate(() => document.getElementById('tw840-card-generators').scrollIntoView({block: 'start'})); await p.waitForTimeout(300);
+ await p.evaluate(() => document.querySelector('#tw840-card-generators .tw846-counts').scrollIntoView({block: 'center'})); await p.waitForTimeout(300);
  const C = await p.evaluate(() => {
   const card = document.getElementById('tw840-card-generators'), sum = card.querySelector('.tw846-summary'), cs = getComputedStyle(sum, '::before');
   const btn = card.querySelector('.tw846-counts button'), r = btn.getBoundingClientRect(), hit = document.elementFromPoint(r.left + r.width / 2, r.top + r.height / 2);
@@ -183,10 +184,10 @@ const KINDS = ['sun', 'part', 'cloud', 'fog', 'rain', 'pour', 'storm', 'sleet'];
  /* 11. contrast: at least 4.5:1 for every word on the plate over every sky (at three moments of each), and on a card over its picture */
  const lum = c => { const f = v => { v /= 255; return v <= .03928 ? v / 12.92 : Math.pow((v + .055) / 1.055, 2.4); }; return .2126 * f(c[0]) + .7152 * f(c[1]) + .0722 * f(c[2]); };
  const ratio = (a, b) => (Math.max(a, b) + .05) / (Math.min(a, b) + .05);
- const oldH = H; const needH = await p.evaluate(() => Math.ceil(document.querySelector('#where885 .w885-gauge').getBoundingClientRect().height) + 260);
- if (needH > H) await p.setViewportSize({width: W, height: needH});
- await scrollTo('#where885'); await p.waitForTimeout(300);
- const measure = async (rootSel, textSel, label) => {
+ // a root taller than the screen is read in two passes: top-aligned, then bottom-aligned; each pass reads only the text boxes it shows whole
+ const bring = (rootSel, end) => p.evaluate(([rootSel, end]) => { const root = document.querySelector(rootSel), main = document.querySelector('main'), mr = main.getBoundingClientRect(), r = root.getBoundingClientRect(); main.scrollTop += end ? (r.bottom - mr.bottom + 6) : (r.top - mr.top - 6); }, [rootSel, end]);
+ const measure = async (rootSel, textSel, label) => { const out = []; for (const end of [false, true]) { await bring(rootSel, end); await p.waitForTimeout(120); out.push(...await measureOnce(rootSel, textSel, label)); } return out; };
+ const measureOnce = async (rootSel, textSel, label) => {
   // glyphs made transparent, their backgrounds kept; the lightest pixel under each text box is read back from a screenshot
   const info = await p.evaluate(([rootSel, textSel]) => {
    const root = document.querySelector(rootSel), rr = root.getBoundingClientRect(), items = [];
@@ -213,7 +214,7 @@ const KINDS = ['sun', 'part', 'cloud', 'fog', 'rain', 'pour', 'storm', 'sleet'];
    await p.waitForTimeout(60);
    const got = await measure('#where885 .w885-gauge', plateText, set + '@' + t);
    results.push(...got);
-   if (process.env.OUT && t === .325 && ['rain', 'storm', 'sun', 'actual'].includes(k)) { const g = p.locator('#where885'); if (!money(await g.innerText())) await g.screenshot({path: process.env.OUT + '/plate-' + (k === 'actual' ? 'today-' + set : k) + '-' + (mob ? 'phone' : W) + '.png'}); }
+   if (process.env.OUT && t === .325 && ['rain', 'storm', 'sun', 'actual'].includes(k)) { await bring('#where885 .w885-gauge', false); await p.waitForTimeout(100); const g = p.locator(mob ? '#where885 .w885-gauge' : '#where885'); if (!money(await g.innerText())) await g.screenshot({path: process.env.OUT + '/plate-' + (k === 'actual' ? 'today-' + set : k) + '-' + (mob ? 'phone' : W) + '.png'}); }
   }
  }
  await p.evaluate(() => { document.querySelector('#where885 .s896-sky').getAnimations({subtree: true}).forEach(a => { try { a.play(); } catch (e) {} }); Scene896.weather(); Scene896.sync(); });
@@ -224,9 +225,8 @@ const KINDS = ['sun', 'part', 'cloud', 'fog', 'rain', 'pour', 'storm', 'sleet'];
  for (const id of ['generators', 'buildings', 'toilets']) { await p.evaluate(id => document.getElementById('tw840-card-' + id).scrollIntoView({block: 'start'}), id); await p.waitForTimeout(200); cardResults.push(...await measure('#tw840-card-' + id + ' .tw846-summary', cardText, id)); }
  worstCard = cardResults.filter(r => r.ratio !== null).sort((a, b) => a.ratio - b.ratio);
  ok('every word on the cards keeps at least 4.5:1 over its picture (worst ' + (worstCard[0] ? worstCard[0].ratio + ':1 ' + worstCard[0].label + ' ' + worstCard[0].text : '-') + '; ' + cardResults.length + ' readings)', worstCard.length > 10 && worstCard.every(r => r.ratio >= 4.5), worstCard.slice(0, 8).concat(cardResults.filter(r => r.ratio === null).slice(0, 3)));
- if (process.env.OUT) { const c = p.locator('#tw840-card-generators'); if (!money(await c.innerText())) await c.screenshot({path: process.env.OUT + '/card-generators-' + (mob ? 'phone' : W) + '.png'}); }
+ if (process.env.OUT) { await bring(mob ? '#tw840-card-generators .tw846-summary' : '#tw840-card-generators', false); await p.waitForTimeout(150); const c = p.locator(mob ? '#tw840-card-generators .tw846-summary' : '#tw840-card-generators'); if (!money(await c.innerText())) await c.screenshot({path: process.env.OUT + '/card-generators-' + (mob ? 'phone' : W) + '.png'}); }
  } catch (err) { ok('contrast measured', false, String(err && err.message || err).slice(0, 300)); }
- if (needH > oldH) await p.setViewportSize({width: W, height: oldH});
 
  /* 12. print holds a still frame; overflow; errors; writes */
  await scrollTo('#where885'); await p.waitForTimeout(200);

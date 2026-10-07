@@ -50,7 +50,7 @@ Both new lines **join the Concert generator reference** the schedule writes as *
 
 ## What that does to the money
 
-Measured on the live record (version 4370) with the chain through v8.94 as the base and this candidate against it — figures as direction or percentage only.
+Measured on the live record (version 4370) with the chain through v8.94 as the base and this candidate against it — figures as direction or percentage only. Measured twice: on the chain through the earlier v8.94 and again on the chain through the new v8.94 (the lighting scope projection, landed 8 Oct 19:51); v8.95 moves the same 35 figures on both, by the same amounts.
 
 | View | Effect |
 |---|---|
@@ -59,7 +59,7 @@ Measured on the live record (version 4370) with the chain through v8.94 as the b
 | **P&L — Transport Revenue, labour, servicing** | same |
 | **In the business's lines** | 1005 Hire Revenue up 1.45%; 1010, 1030 · 1031, 1032, 1047 and every cost line: same |
 | **Costs to job end** | Direct costs known today: same. Direct costs to job end: same (every cost row and the wages: same). Revenue to job end: **up 0.22%** (the two generators and nothing else). Transport still to come: same |
-| **Finance handover** | Costs by branch: same, every branch. Invoice by branch: **NVAC on the record up 4.71%, to job end up 4.00%**; KINP, STPS, MEAD, the event labour scope and provisional transport: same. Its checks (costs, invoice, people) hold |
+| **Finance handover** | Costs by branch: same, every branch. Invoice by branch: **NVAC on the record up 4.71%, to job end up 4.24%** (4.00% on the chain through the earlier v8.94, whose NVAC "to come" was larger); KINP, STPS, MEAD, the event labour scope and provisional transport: same. Its checks (costs, invoice, people) hold |
 | **Transport view (v8.88)** | every figure same: to date, still to come, by branch, by carrier, the 132 loads, Transport Revenue, provisional revenue, demob. All **17 tie-outs tied** before and after |
 | **The two joins from Andrew's record (P37, P52)** | **no money effect at all**: the candidate with those joins and the one without agree on every figure the models give (contract charges, by branch, Costs to job end, the handover, the business's lines, Transport) — both are whole-event building lines whose charge does not depend on their join |
 | **The P52 register correction** | **no money effect at all**: the candidate before and after the correction agree on every figure the models give; a reference's number is never a charge |
@@ -114,8 +114,8 @@ toolchain/build.sh v8.95 v8.84_today_wide_layout_DRAFT/patch_v884.py v8.85_where
   v8.89_master_map_DRAFT/patch_v889.py v8.94_lighting_basis_DRAFT/patch_v894.py v8.95_baseplan_07oct_DRAFT/patch_v895.py
 ```
 
-- **Candidate `8e1a17cf051fcff6de9d2a53ebf3c77f884f8a167b9580d7ca93035e2e9ededc`, 11,266,843 bytes.** `check_page.py` PASS (16 inline scripts, no new key). It supersedes `37f9af68…` (the same page before the P52 correction) and `82e09276…` (before the two record joins).
-- Identity base for these checks: the chain through v8.94 as it stood on 8 Oct 2026 (`737c1966…`, 11,261,607 bytes). **That base is about to move:** v8.94 is being replaced by the lighting audit. The patch does not depend on v8.94's internals or on any base hash — its only base checks are the contract source (v8.71's 6 Oct export) and the single ` · v8.89` … ` · v8.94` footer marker, which it makes ` · v8.95` — and the tests read whatever base and candidate they are given. The combined suite on the final chain is the coordinator's run.
+- **Candidate `388292e5947916e35f8d7b8fbb2fc3edf59b1388c56016d0e72456c346c36b54`, 11,292,269 bytes**, on the chain through the new v8.94 (the lighting scope projection, landed 8 Oct 2026 19:51). `check_page.py` PASS (16 inline scripts, no new key).
+- Identity base for these checks: the chain through that v8.94, `950b42b8691cac9b810d43c3b79465689da1786614f3a400db75c7c6bf24a704`, 11,287,033 bytes. **The base moved while this release was being checked:** the chain through the earlier v8.94 was `737c1966…` and the candidate on it `8e1a17cf…` (and, before the P52 correction and the two record joins, `37f9af68…` and `82e09276…`). The patch applied cleanly on the new v8.94 without a change: it does not depend on v8.94's internals or on any base hash — its only base checks are the contract source (v8.71's 6 Oct export), P52's four values as found and the single ` · v8.89` … ` · v8.94` footer marker, which it makes ` · v8.95` — and the tests read whatever base and candidate they are given. The identity test and the 6 Oct rebuild proof were re-run on the new base and pass (the new v8.94 changes the register's lighting rows, `docs`, `sheets` and media; `rental_on_hire` is identical between the two chains). The combined suite on the final chain is the coordinator's run.
 - v8.93 may sit before this patch and v8.91/v8.92 after it; the patch is data-only on `rental_on_hire`, so it touches no code, `MASTER_LOC` or media.
 - The patch refuses to run twice (the v8.95 supplement), refuses a base whose contract source is not v8.71's 6 Oct export, refuses if the record step would move any line other than the two named above, and refuses unless P52's four values read exactly the wrong number as found (and none remains anywhere on the page after).
 - Every change is listed in `evidence/changes_v895.json` (field names, statuses, dates, asset numbers and joins; `record_joined` for the two from his record; `register_corrected` for P52 with his words and the date; no rates, no money).
@@ -125,20 +125,21 @@ toolchain/build.sh v8.95 v8.84_today_wide_layout_DRAFT/patch_v884.py v8.85_where
 
 `tests/test_contracts895.cjs` (26 checks) reads: the contracts are the 7 Oct export (323 lines, 11 contracts, the v8.95 supplement bound by SHA-256); the two new NVAC lines are on the page, Pending, no rate, joined to GN?; a Pending line is off hire and the generators are charged at the card's 200 kVA line once for the three event days; the two are a small share of NVAC and of the contracts; WC07's 20 lines are Delivered from 22 Sep with their numbers; Andrew's numbers win (19 join, line 38 does not, the page shows his 20 with 1317743 and never 1317643, WC07 on hire from 22 Sep by the rental system); the toilet charge did not move; P56 on hire from 7 Oct; the three Del Req lines join WC31 and WC09 by docket and are not on hire; the forklift line reads Forklift 3.5t Diesel and still goes by the day rate; no contract line contradicts his record; **his record's two joins: 9968862/50 to P37 (on hire from 17 Sep), 9968862/79 to P52 beside its docket line, both whole-event with no card fill**; **P52 shows 1327211 everywhere — register, booking, as-supplied row, its contract line, the page's own number list and its drawer — and the wrong digits nowhere in DATA or on the page**; every Pending line is off hire; all 17 tie-outs tied; the P&L and the Finance handover's checks hold; Revenue on the record and to job end, Transport to date, to come and Transport Revenue read the same wherever shown; the branches add to the contracts charge; the Costs tab names the 7 Oct export; WC07's drawer shows Rental 9968955 and his numbers; no overflow; a redraw changes no figure; no errors; no writes.
 
-**Re-run on the candidate `8e1a17cf…`** (`evidence/rerun895.log`, second block):
+**Re-run on the candidate `388292e5…`, on the new chain** (`evidence/rerun895.log`, first block):
 
 | Check | Laptop | Phone | Other |
 |---|---|---|---|
-| v8.95 identity (`identity895`, chain through v8.94 → candidate) | PASS (136 checks) | — | the 6 Oct rebuild proof PASS on the chain and on live (10 checks each) |
+| v8.95 identity (`identity895`, chain through the new v8.94 `950b42b8…` → candidate) | PASS (136 checks) | — | the 6 Oct rebuild proof PASS on the new chain base and on live (10 checks each) |
 | v8.95 contracts (`contracts895`, new) | 26/26 | 26/26 | |
 | v8.66 Finance handover (`finance866`) | 24/24 | — | 24/24 on phone on `37f9af68…` |
 | v8.65 Costs (`costs865`) | 33/33 | — | 33/33 on phone on `37f9af68…` |
 | v8.88 Transport view (`transport888`) | 29/29 | — | 29/29 on phone and at 2560 px on `37f9af68…` |
 | v8.71 (`test_v871`) | 11/12 on `37f9af68…` | — | its first check still asks for the 6 Oct export, which v8.95 supersedes; every other check passes |
+| 17 tie-outs | all tied | | on every candidate, before and after |
 
-`37f9af68…` is this page before the P52 correction, which moves no figure and no line (`evidence/rerun895.log`, first block).
+The same set passed on `8e1a17cf…` (this page on the earlier chain; second block) and `37f9af68…` (before the P52 correction; third block), which differ from `388292e5…` only in v8.94's code and in that correction — neither moves a figure or a contract line.
 
-**The standing regression, run on the earlier candidate `82e09276…`** (`evidence/run_all895.log`; it differs from `8e1a17cf…` only in the two record joins and the P52 correction, which move no figure):
+**The standing regression, run on the earlier candidate `82e09276…`** (`evidence/run_all895.log`; on the earlier chain, and without the two record joins and the P52 correction, which move no figure):
 
 | Check | Laptop | Phone | Other |
 |---|---|---|---|
