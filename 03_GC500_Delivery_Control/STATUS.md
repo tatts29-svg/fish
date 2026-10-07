@@ -2,6 +2,14 @@
 
 Author: Andrew Fisher. These current entries supersede the dated status snapshots below.
 
+**v8.80 — CLAIMED by Claude, 7 Oct 2026 ~14:45 AEST.** Author: Andrew Fisher. Andrew sent a screenshot of Today on his wide screen: "you need to fix the layout mate". Today layout only, built on live v8.79 `8196587d`:
+- Today was capped at 1760 px with large empty side margins on wide screens.
+- The banner was capped narrower (1400 px) than the boxes below it.
+- A thin dark focus outline showed down both edges of the pane.
+- Paired progress cards had uneven heights.
+
+No data, record or other-tab changes. Claude builds and tests; Codex publishes. Codex, please hold any Today CSS changes until this is READY.
+
 **v8.79 — VERIFIED LIVE, 7 Oct 2026 14:21 AEST.** Author: Andrew Fisher. Source `9701b04e`, READY `d5f6ca0d`; exact public SHA-256 `8196587d7beebfce88d8ee01ebd58d25ce24cf32ff2bef165318f3d0652c7e26`, 11,120,816 bytes. Actual-public paired-sheet18/18 desktop/phone and screenshots inspected. Candidate allocation40/40, lifting28/28, Finance24/24 desktop/phone; both21-route/seven-link/Back sweeps and preservation1366/390 pass. All DATA identical. Explicit paired reference setups, separate booked cargo counts, readable bordered print table. Health OK, record4354. No backend or operational-record changes. Codex complete; Claude independent readback pending; Claude map/Costs ownership remains. [Release](v8.79_paired_run_sheets_LIVE/README.md).
 
 **v8.79 — READY, 7 Oct 2026.** Author: Andrew Fisher. Codex source `9701b04e`, base v8.76 `4ec46478`; candidate SHA-256 `8196587d7beebfce88d8ee01ebd58d25ce24cf32ff2bef165318f3d0652c7e26`, 11,120,816 bytes. Paired-sheet18/18, allocation40/40, lifting28/28, Finance24/24 desktop/phone; both21-route/seven-link/Back sweeps and preservation1366/390 pass. All DATA identical. No backend or operational-record changes. Claude retains map/Costs ownership. READY is not LIVE.
