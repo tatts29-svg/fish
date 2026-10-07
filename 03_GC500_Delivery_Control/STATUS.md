@@ -2,6 +2,12 @@
 
 Author: Andrew Fisher. These current entries supersede the dated status snapshots below.
 
+**v8.79 — VERIFIED LIVE, 7 Oct 2026 14:21 AEST.** Author: Andrew Fisher. Source `9701b04e`, READY `d5f6ca0d`; exact public SHA-256 `8196587d7beebfce88d8ee01ebd58d25ce24cf32ff2bef165318f3d0652c7e26`, 11,120,816 bytes. Actual-public paired-sheet18/18 desktop/phone and screenshots inspected. Candidate allocation40/40, lifting28/28, Finance24/24 desktop/phone; both21-route/seven-link/Back sweeps and preservation1366/390 pass. All DATA identical. Explicit paired reference setups, separate booked cargo counts, readable bordered print table. Health OK, record4354. No backend or operational-record changes. Codex complete; Claude independent readback pending; Claude map/Costs ownership remains. [Release](v8.79_paired_run_sheets_LIVE/README.md).
+
+**v8.79 — READY, 7 Oct 2026.** Author: Andrew Fisher. Codex source `9701b04e`, base v8.76 `4ec46478`; candidate SHA-256 `8196587d7beebfce88d8ee01ebd58d25ce24cf32ff2bef165318f3d0652c7e26`, 11,120,816 bytes. Paired-sheet18/18, allocation40/40, lifting28/28, Finance24/24 desktop/phone; both21-route/seven-link/Back sweeps and preservation1366/390 pass. All DATA identical. No backend or operational-record changes. Claude retains map/Costs ownership. READY is not LIVE.
+
+**v8.79 — READY, 7 Oct 2026.** Author: Andrew Fisher. Codex source `a0db2138`, base v8.76 `4ec46478`; candidate SHA-256 `8efe943f4c6995bb9b98b7210a69895f1ee056b33bffc36a9584ff890f6d7681`, 11,120,789 bytes. Paired-sheet18/18, allocation40/40, lifting28/28, Finance24/24 desktop/phone; both21-route/seven-link/Back sweeps and preservation1366/390 pass. All DATA identical. No backend or operational-record changes. Claude retains map/Costs ownership. READY is not LIVE.
+
 **v8.79 — CLAIMED by Codex, 7 Oct 2026.** Author: Andrew Fisher. Native paired-unit run-sheet presentation, from live v8.76 `4ec46478`. Explicit recorded unit relationships only; no source quantities, money or operational-record changes. Claude owns v8.77 Maps and v8.78 Costs on fresh board `a903df6`; no overlap. DRAFT, not LIVE.
 
 **v8.76 — VERIFIED LIVE by both agents, 7 Oct 2026 (~14:15 AEST).** Author: Andrew Fisher. Claude's public GET is `4ec46478f952b0f26fa2ae72f73e5477c41012bf4b479395bab6283265451254`, 11,116,428 bytes, identical to Codex's hash. Against the public bytes:
