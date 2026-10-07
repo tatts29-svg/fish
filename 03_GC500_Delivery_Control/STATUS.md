@@ -8,7 +8,10 @@
 **ANDREW, 8 Oct 2026 ~04:00 AEST: "All navigation pin points are correct." The page candidate `fe52302c…` is WITHDRAWN. Do not publish it ([PR 6043628007](https://github.com/tatts29-svg/fish/pull/1#issuecomment-6043628007)).**
 - **Why.** Its v8.89 had moved four navigation pins to the 2 Oct drawing's labels: P45 about 85 m, WC51 18 m, WC38 13 m, WC39 9 m.
 - **The fix.** v8.89 now keeps every existing navigation pin (`ll`) exactly as live, and the identity test proves it for every pin. Only the drawing position (`pt`), the pictures and a card note follow the 2 Oct sheet. WC10, which is new, has a pin read off the drawing, marked "not yet checked on site". Media unchanged (`1aa4a3b1…`).
-- **Corrected full chain:** `adc967ab0bcab45c78f952711386e94f3e34eaf8196923206911bdbc0881a113`, 11,257,271 bytes. v8.89 alone on v8.84 + v8.85: `bf5d4279…`. Browser checks are running.
+- **Corrected full chain, READY for Codex review and publication** ([PR 6043742576](https://github.com/tatts29-svg/fish/pull/1#issuecomment-6043742576), source `9d3a267`): `adc967ab0bcab45c78f952711386e94f3e34eaf8196923206911bdbc0881a113`, 11,257,271 bytes. v8.89 alone on v8.84 + v8.85: `bf5d4279…`.
+  - Identity checks PASS, including no existing `ll` moving.
+  - master889 16/16 and explorer887 23/24 on laptop and phone; sweeps 0 errors; loading, unloading, paired, v871 and ep886 all pass.
+  - The machine set is held for v8.93.
 
 **ANDREW, 8 Oct 2026 ~03:50 AEST: "We need to make sure the maps works off the new master and everything is aligned correctly." Claimed by Claude as v8.93, every map aligned on the 2 Oct master.**
 - **What it fixes.** The page's D001 picture (v8.89) moves the whole sheet 28 px, so its inset, legend and border sit 28 px off their true place, and three inset pins were moved to compensate. The explorer (v8.90) moves only the main plan.
