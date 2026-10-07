@@ -84,11 +84,12 @@ toolchain/build.sh v8.88 v8.84_today_wide_layout_DRAFT/patch_v884.py v8.85_where
 ```
 
 - Base live v8.83 `88a3584e919d8acd32ac3905099c1d606ec2fe5c1da2793363e8ff870f212457`.
-- Candidate SHA-256 `a5a6a2a9e0d74528e490d70c802ca5e6807c9455ad6df63776a818c8d7e9049a`, 11,232,237 bytes.
+- Candidate SHA-256 `bd4bcbcc7c43a49bf50d5e9ff911ed6a23f397b23107550ef9d3ee35f9279885`, 11,232,477 bytes.
 - `check_page.py` PASS (13 inline scripts, no new key). DATA identical to live (`test_source875.py` PASS).
+- Draw time, laptop (median of five redraws on the live record): the P&L summary 0.86 s against 0.70 s on v8.85 — the reconciliation line reads the Finance handover model and the programme days once per draw; the Transport view 0.44 s.
 - Files: `patch_v888.py`, `transport888_model.js` (inserted into the page's main script just above `moneySummary_`, because the first draw calls it before the end-of-body scripts run), `transport888_view.js` and `transport888.css` (before the last `</body>` and the first `</head>`), `tests/test_transport888.cjs`, `evidence/`.
 
-## 5. Checks (candidate `a5a6a2a9…`; every write aborted; fresh cache each run)
+## 5. Checks (candidate `bd4bcbcc…`; every write aborted; fresh cache each run)
 
 `tests/test_transport888.cjs` checks: the reconciliation line under At a glance, all 17 tie-outs tied; the Costs nav keeps five sections and adds Transport; the view mounts from the button; every reference with a transport fact, every fencing semi and every no-reference row is on it; every carrier and every branch in the source has a row, plus the unconfirmed loads; one row per load; the grand total to date equals the P&L, Costs to job end, the business's lines and the handover; the branches, the carriers and the loads each add to it; the forecast equals Costs to job end, the business's lines and the handover and adds by branch and by load; the handover column is the handover's split branch for branch; Transport Revenue equals the P&L and the by-branch table line for line; provisional revenue to come equals Costs to job end and the forecast by branch; the load counts agree; demob transport is the P&L's cut; the words; a reference link opens the drawer; a Timeline link opens the day; the filters; the phone layout stacks with no horizontal overflow; an injected mismatch is flagged on the exact tie-out and the line opens itself; a redraw changes no figure; no errors; no writes. No $ amount is printed.
 
