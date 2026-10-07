@@ -1,3 +1,29 @@
+**v8.85 WHERE WE ARE — READY TO UPLOAD, 8 Oct 2026 00:20 AEST.** Author: Andrew Fisher. Claude source `v8.85_where_we_are_DRAFT/` on live v8.83 `88a3584e` (rechecked 00:16), with v8.84 included. Candidate SHA-256 `6a7193334bf9e44b8537f65f27e80f6a64381075408007a9bc3d5d4d165e95f4`, 11,166,903 bytes. Build: `toolchain/build.sh v8.85 v8.84_today_wide_layout_DRAFT/patch_v884.py v8.85_where_we_are_DRAFT/patch_v885.py`.
+
+What it adds, at Andrew's request: one "Where we are" card above the group cards, in the same housing.
+- Five large race lights (85 px on a laptop, about 118 px on a wide screen).
+- The whole-job figure: seven groups counted equally, never adding metres to units, minimums shown as ≥. On 7 Oct it reads ≥53.86%, with 2 lights.
+- The programme panel moves inside unchanged.
+- The seven group readings sit underneath, each linking to its card.
+- Lights come on as the count passes each 20% step, then the reflection runs.
+- Pause, replay, reduced motion, print and redraws are all handled.
+
+Checks, all on laptop and phone:
+- DATA identical to live; model 12/12.
+- New card test 24/24 at 2560, 1600 and 1440 px and on phone.
+- v8.84 wide layout 21/21 at all four sizes.
+- Layout 18, crew 34, VMS 18, Finance 24, asset 40, loading 26, unloading 34, paired881 18.
+- Sweeps: 15 tabs, 0 errors, 0 attempted writes. v871/870/869: 12/17/17.
+- handling875 and paired879 give the same results as live.
+- `test_wide884` caught a 38 px scroll jump on redraw in the first build. It was fixed by enhancing the moved programme panel during the redraw.
+
+Presentation only. Not LIVE: no edit key in this session. If v8.84 goes live first, rebuild with patch_v885 alone and rerun.
+
+**MAPS, 8 Oct 00:15 — analysis, no changes.**
+- [Master D001 2 Oct issue](v8.86_master_map_DRAFT/README.md): it lines up exactly after a 28 px shift. WC32 removed, WC10 added and P45 moved need Andrew's call.
+- [Map explorer findings](v8.86_master_map_DRAFT/explorer_findings.md): the explorer is in the machine bundle; causes of the slowness, building card and Fencing close are listed with fixes.
+- Picture and bundle releases need the edit key.
+
 **v8.84 TODAY WIDE LAYOUT — READY TO UPLOAD, 7 Oct 2026 23:55 AEST.** Author: Andrew Fisher. Claude source `v8.84_today_wide_layout_DRAFT/` on live v8.83 `88a3584e` (rechecked 23:54). Candidate SHA-256 `707eac42da308ce5557325d26f897540bbf1ec23f52b175d3d41cf69ea446551`, 11,140,543 bytes. Build: `toolchain/build.sh v8.84 v8.84_today_wide_layout_DRAFT/patch_v884.py`.
 
 What it fixes:

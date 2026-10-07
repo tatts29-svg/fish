@@ -1,6 +1,6 @@
 # v8.86 (draft) — new master map D001-26003-03, issued 2 Oct
 
-Author: Andrew Fisher. Claude analysis, 8 Oct 2026 00:30 AEST. Andrew, 7 Oct: "the attached is the latest map document this is to over write the current master so we need to remove the current and use this one instead and update all records."
+Author: Andrew Fisher. Claude analysis, 8 Oct 2026 00:06 AEST. Andrew, 7 Oct: "the attached is the latest map document this is to over write the current master so we need to remove the current and use this one instead and update all records."
 
 DRAFT: analysis only. No page, media or record changes yet.
 

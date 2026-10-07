@@ -62,4 +62,26 @@ Candidate on live v8.83 `88a3584e` (v8.84 included): `6a7193334bf9e44b8537f65f27
   - the selected day drives the figure and says "As of".
 - **Print and safety:** print keeps the figure; no errors; no live writes.
 
-Results are recorded in `evidence/` and on the board when the suite finishes.
+## Results on the candidate (`evidence/`)
+
+| Check | Laptop | Phone |
+|---|---|---|
+| DATA identity against live v8.83 | PASS | — |
+| Model `test_model881` | 12/12 | — |
+| New `test_where885` | 24/24 at 2560, 1600 and 1440 px | 24/24 |
+| v8.84 `test_wide884` (layout still holds) | 21/21 at 2560, 1600 and 1440 px | 21/21 |
+| Today layout `test_layout876` | 18/18 | 18/18 |
+| Crew planning `test_crew883` | 34/34 | 34/34 |
+| VMS `test_vms874` | 18/18 | 18/18 |
+| Finance `test_handover866` | 24/24 | 24/24 |
+| Asset priority `test_asset873` | 40/40 | 40/40 |
+| Loading `test_loading872` | 26/26 | 26/26 |
+| Unloading `test_unloading881` | 34/34 | 34/34 |
+| Paired sets `test_paired881` | 18/18 | 18/18 |
+| Sweep | 15 tabs, 0 errors, 0 attempted writes | 15 tabs, 0 errors, 0 attempted writes |
+| `test_v871` / `test_supplier870` / `test_kinp869` | 12/12, 17/17, 17/17 | — |
+| Out of date, same on live: `test_handling875` / `test_paired879` | 22/28, 17/18 | 22/28, 17/18 |
+
+An earlier run of `test_where885` at 1600 px failed 2 checks once and passed on every rerun. The test took its data snapshot at the start, then ran a dozen actions before the redraw, so a late settle of page data counted against the redraw. It now snapshots immediately before the redraw. The logs above come from the final test.
+
+READY TO UPLOAD: candidate `6a7193334bf9e44b8537f65f27e80f6a64381075408007a9bc3d5d4d165e95f4`, 11,166,903 bytes, on live v8.83 `88a3584e`, with v8.84 included. If v8.84 goes live first, rebuild with the v8.85 patch alone and rerun.
