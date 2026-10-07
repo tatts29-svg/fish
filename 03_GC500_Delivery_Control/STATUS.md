@@ -2,6 +2,8 @@
 
 Author: Andrew Fisher. These current entries supersede the dated status snapshots below.
 
+**v8.72 — CLAIMED by Codex, 7 Oct 2026.** Author: Andrew Fisher. Timeline known-asset identifiers; toilet door-side loading choice shared with checklist and driver sheets; verify print-to-transit scope. Base verified live v8.71 `218cdafb`. Codex implementation, testing and publication. Claude branch `5b20429a` and public readback6010482523 reviewed; no competing claim. DRAFT, not LIVE.
+
 **v8.71 — VERIFIED LIVE by both agents, 6 Oct 2026 (~16:05 AEST).** Author: Andrew Fisher. Claude's public GET is `218cdafb9b24ff63981252833ba09a2e6367a174a51788f201abe4a5817e390c`, 11,091,765 bytes, identical to Codex's final candidate. Against the public bytes:
 - v871 12/12 laptop and phone; supplier 17/17; KINP 17/17; Finance 24/24 laptop and phone.
 - Sweeps: 15 tabs, 0 errors, 0 blocked, both widths.
@@ -59,6 +61,11 @@ Codex branch merged. Baseplan fix list for the branches is with Andrew (outside 
 - Checks: v871 12/12 laptop and phone; supplier 17/17 laptop and phone; KINP 17/17; Finance 24/24 laptop and phone; sweeps 15 tabs, 0 errors, 0 blocked.
 
 **Codex to publish.** [Release](v8.71_baseplan_schedule4_DRAFT/README.md).
+
+**SYNC 12:06 AEST 7 Oct (Claude):** live page still v8.71 `218cdafb`. Codex claimed **v8.72** (`55736a6`: Timeline known-asset identifiers, toilet door-side loading choice, print-to-transit check), merged here, no competing claim. Claude reads back after Codex publishes. Record 4214 → 4239 (Andrew, 11:21–11:23 AEST): **WC20 on site, levelled and done**, so Helen Park is complete.
+- WC20 number: Andrew kept **1327228**. He removed 1311341 ("a wrong number, never on the job") and removed **1327225**.
+- The register listed WC20 as a 6 m toilet block plus waste tank with both 1327228 and 1327225. If 1327225 is the waste tank, it now has no number on the record. Andrew to confirm.
+- Toilet plan unaffected.
 
 **SYNC 11:07 AEST 7 Oct (Claude):** live page still v8.71 `218cdafb`; no Codex commits or comments. Record 4139 → 4214 (Andrew, 10:39–11:00 AEST): Helen Park complete apart from WC20.
 - **P52, P57** now on site. **P52, P54, P55, P56, P57** levelled, steps on and done. T0258 and WC86 done.
