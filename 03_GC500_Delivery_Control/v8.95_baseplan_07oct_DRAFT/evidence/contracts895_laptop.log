@@ -9,6 +9,7 @@ PASS  P56 (9968862/89): Delivered, on hire from 7 Oct by the rental system, stil
 PASS  the three Del Req lines carry their dockets and join WC31 and WC09 by them, not yet on hire
 PASS  the NVAC forklift line (9961976/27) now reads Forklift 3.5t Diesel and still goes by the card's day rate
 PASS  no contract line joins a reference that contradicts a number on Andrew's record (28 references with typed numbers)
+PASS  Andrew's record joins two more lines under his rule: 9968862/50 (1105053) to P37, on hire from 17 Sep by the rental system; 9968862/79 (1327211) to P52 beside its docket line; both charged once (whole event), no card fill
 PASS  every Pending line is off hire (v8.71's rule): none has a start date or is delivered (130 Pending lines)
 PASS  Everything reconciles: all 17 tie-outs tied
 PASS  the P&L reconciles (revenue, costs, job end) and the Finance handover's checks hold (costs, invoice, people)
@@ -21,4 +22,4 @@ PASS  laptop: no page-wide horizontal overflow on Costs or Equipment
 PASS  a redraw changes no figure
 PASS  no page errors
 PASS  no writes attempted
-desktop: 23/23 pass
+desktop: 24/24 pass
