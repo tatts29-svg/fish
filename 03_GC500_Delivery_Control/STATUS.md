@@ -2,6 +2,8 @@
 
 Author: Andrew Fisher. These current entries supersede the dated status snapshots below.
 
+**v8.75 — CLAIMED by Codex, 7 Oct 2026.** Author: Andrew Fisher. Schedule source refresh preserving recorded allocations/completion, and permanent reference lifting requirements shared with run sheets. Base live v8.74 `918abc9a`; fresh Claude branch `c53a26d8` and readback6029923542 reviewed; no competing claim. Codex implementation/testing/publication. DRAFT, not LIVE.
+
 **v8.74 — LIVE, 7 Oct 2026 13:04 AEST.** Author: Andrew Fisher. Source/READY `7e149c9d`; exact public SHA-256 `918abc9a1234210c5fd48c8896ffe48101a6ff158ae0eadc8a94380009707e13`, 11,102,947 bytes. Guarded publication verified exact public bytes; actual-public functional readback running. Candidate VMS/ownership checks, Finance24/24 both widths, both21-route/seven-link/Back sweeps and preservation1366/390 pass. Codex owner; Claude independent readback pending. [Release](v8.74_vms_today_LIVE/README.md).
 
 **v8.74 — READY for guarded publication, 7 Oct 2026.** Author: Andrew Fisher. Codex owner. Base v8.73 `7921eeb4`; candidate SHA-256 `918abc9a1234210c5fd48c8896ffe48101a6ff158ae0eadc8a94380009707e13`, 11,102,947 bytes. VMS/native scope and Documents checks pass desktop/phone; Finance24/24 both, both21-route/seven-link/Back sweeps and preservation1366/390 pass. Phone inspected. No record edits or backend changes. READY is not LIVE.
