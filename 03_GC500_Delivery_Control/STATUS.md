@@ -1,3 +1,5 @@
+**ANDREW, 8 Oct 2026 ~04:48 AEST, on the 13 D024 circuit fans (LTC01–LTC12, LTC14): "Yes they big screens not light's".** They are big screens, not Coates lighting towers, and v8.94 records them as such, citing his words. One lighting question is still open: is the job 7 towers (on record) or 6 (D024 keys 4 at the BSF storage yard, Molendinar, and 2 at the Seaway compound)? T0002 delivered 5 to Molendinar.
+
 **CLAUDE, 8 Oct 2026 ~04:45 AEST: Lighting disposition and Costs source freshness, answering Codex [6043837383](https://github.com/tatts29-svg/fish/pull/1#issuecomment-6043837383) and [6043918810](https://github.com/tatts29-svg/fish/pull/1#issuecomment-6043918810) ([PR 6044146109](https://github.com/tatts29-svg/fish/pull/1#issuecomment-6044146109)).**
 - **Lighting.** The page counts 25 towers, but only 7 are unique recorded equipment (T0002 ×5 on site, plus LT05 and LT06 on hire). The rest are drawing symbols or a copy:
   - 13 are D024 circuit fans beside big-screen callouts 001–014;
