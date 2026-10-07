@@ -275,24 +275,23 @@ const dayPanelsBefore891 = dayPanels;
 dayPanels = function(d){ let card = ''; try { card = flow891Card(d); } catch (e) { card = ''; } return dayPanelsBefore891(d) + card; };
 
 /* ---------- the prints: the checklist and the printer's name on every sheet. The sheets are full (the fit already shrinks their type
-   to keep the photographs), so nothing here takes a line of its own: Printed by and the four tick boxes sit in the header's right block,
-   under the sheet's id, in the room the Coates mark already gives the header; the driver's order, window and holding words join the
-   sheet's own rules line. */
-function flow891HeadBlock(){ return '<span class="dp891-by">' + esc(flow891PrintedBy()) + '</span><span class="dp891-ck">' + FLOW891.checklist.map(c => '<span>' + dpBx() + esc(c) + '</span>').join('') + '</span>'; }
-function flow891RuleWords(d, g, i, n){
+   to keep the photographs), so nothing here takes a line of its own: Printed by, and the driver's order, window and holding words, go
+   under the sheet's title in the room the Coates mark already gives the header; the four tick boxes are one more row of the hero's
+   facts column, whose height is fixed. */
+function flow891HeadLines(d, g, doc, i, n){
+ let out = '<span class="dp891-by">' + esc(flow891PrintedBy()) + '</span>';
+ if (doc !== 'drv') return out;
  let x = null; try { x = flow891Day(d).deliveries.find(y => y.id === ldId(d, g)) || null; } catch (e) { x = null; }
  const win = x ? x.win : flow891Window(d, g), area = x && x.area && x.area.key ? x.area : null, A = area ? FLOW891.areas[area.key] : null;
  const lim = A ? (area.key === 'pitLane' ? flow891PitLaneMax(d.iso).words : A.words) : '';
- return '<i>·</i><span class="dp891-rl"><b>Arrive in your allocated order — load ' + i + ' of ' + n + '</b>; a truck out of order delays everyone</span>' +
-  '<i>·</i><span class="dp891-rl">Arrival window <b>' + esc(flow891Span(win)) + '</b>' + (win.known ? (win.planned ? ' (planned)' : ' (from the load time)') : ' — agree it with site') + '</span>' +
-  (area ? '<i>·</i><span class="dp891-rl">' + esc(area.name) + (lim ? ': ' + esc(lim) : '') + '</span>' : '') +
-  '<i>·</i><span class="dp891-rl">If early or the area is full, hold at <b>' + esc(FLOW891.holding.short) + '</b> (up to ' + FLOW891.holding.max + ' trucks)</span>';
+ return out + '<span class="dp891-rl"><b>Arrive in your allocated order — load ' + i + ' of ' + n + '</b>; out of order delays everyone · Arrival window <b>' + esc(flow891Span(win)) + '</b>' + (win.known ? '' : ' — agree it with site') +
+  (area ? ' · ' + esc(area.name) + (lim ? ' (' + esc(lim) + ')' : '') : '') + ' · If early or the area is full, hold at <b>' + esc(FLOW891.holding.short) + '</b> (up to ' + FLOW891.holding.max + ' trucks)</span>';
 }
+function flow891FactRow(){ return '<div class="dp-f dp891-f"><label>Before it leaves</label><span class="dp891-ck">' + FLOW891.checklist.map(c => '<span>' + dpBx() + esc(c) + '</span>').join('') + '</span></div>'; }
 const dpPageBefore891 = dpPage;
 dpPage = function(d, g, doc, i, n){ let h = dpPageBefore891(d, g, doc, i, n);
- try { h = h.replace('</span></div></header>', '</span>' + flow891HeadBlock() + '</div></header>');
-  if (doc === 'drv') { const k = h.indexOf('<div class="dp-rline">'); if (k >= 0) { const e = h.indexOf('</div>', k); if (e > k) h = h.slice(0, e) + flow891RuleWords(d, g, i, n) + h.slice(e); }
-   else h = h.replace('<h2>Safety</h2>', '<h2>Safety</h2><div class="dp-rline">' + flow891RuleWords(d, g, i, n).replace(/^<i>·<\/i>/, '') + '</div>'); } } catch (e) {}
+ try { h = h.replace('</h1></div>', '</h1>' + flow891HeadLines(d, g, doc, i, n) + '</div>'); /* the header's middle block: kick, title, then these */
+  const k = h.indexOf('<div class="dp-facts">'); if (k >= 0) { const e = h.indexOf('</div></div>', k); if (e > k) h = h.slice(0, e) + flow891FactRow() + h.slice(e); } } catch (e) {}
  return h; };
 /* a photograph with no room on a full page is left off and said so, instead of an empty picture stopping the PDF maker */
 const dpCutBefore891 = dpCut;
