@@ -67,7 +67,18 @@ After (`evidence/shots/card_laptop.png`, `card_phone.png`, `card_wide.png`): the
 
 ## Results
 
-__RESULTS__
+**Candidate:** on live v8.83 `88a3584e` with v8.84 → v8.89 chained (`fe52302c…`), then v8.91: SHA-256 `076839ea39dbf06b14754c358271a1409a80ee503ab07d78e2864f3e787cb86e`, 11,312,797 bytes, `check_page.py` PASS (16 inline scripts, no keys). DATA untouched (the patch adds style and script only; the identity check against the chain is in the regression set). No money figure changes (moneySummary and the Finance handover model identical before and after every action in the test).
+
+| Check | Laptop 1440 | Phone 390 | Wide 2560 |
+|---|---|---|---|
+| `tests/test_flow891.cjs` — every point above: rules and source, pit lane by week, Helen Park strip, order unchanged until saved, oversized/curfew/window rules, the card, view-only refusal, ▼ swap renumbering everything, record documents and merge, no scroll jump and focus kept, Alt+↑, drag/drop rule, people on, Main Beach conflict and one-tap stagger, 7 Oct and 1 Oct curfew flags and Make it Load 1, prints (checklist, Printed by, order, window, holding, snapshot clean), the check dialog (two names, Escape), the name prompt (×, Not now, Escape, remembered, asked once), messages (sender, notes, daily page), record restored, money identical, layout, the sheets as laid out for the PDF | **43/43** | **41/41** (the two PDF layout checks are laptop-only) | **43/43** |
+| Page errors / attempted live writes | 0 / 0 | 0 / 0 | 0 / 0 |
+
+**Render time of the Timeline day view (19 Oct, 30 loads, the busiest coming day).** Whole-render medians on this machine swing ±30 % run to run (base alone: 452, 449, 603, 1240 ms across four runs), so the honest measure is the instrumented cost of the v8.91 code inside one render (`evidence/profile891.json`): the truck-flow model 1.0 ms, the card 1.2 ms, the order sort over 78 `dpLoads` calls 1.0 ms, the load-line wrapper within noise (226.6 ms with it, 210.9 ms without, across the page's own 30 line draws), the area cache warm after the first draw (the first costs about 130 ms, once per record version). Whole renders in the same session: 476, 467, 669, 596, 479 ms with the code, 437, 493, 506, 482, 501 ms without. `timing_ab891.cjs` (alternating six times in one session) gave medians 802 ms with and 650 ms without, with pairs on both sides (505/503, 463/650, 1050/442) — noise, not a cost. The test's own render medians: laptop 488 ms, phone 511 ms, wide 524 ms.
+
+**The real PDFs** (`tests/print_check891.cjs`, 8 Oct 2026, four loads): Drivers — the all-loads file (9 pages) and one per load with its location signs; Install — the all-loads file (4 pages) and one per load. Rendered pages in `evidence/print/*.png` (cut above the Contacts block so no phone number or contact name is in the repo). As laid out for the PDF maker: install header 14.4 mm (13.4 before), drivers header 17.4 mm (one line for the order and window), the hero's 47 mm unchanged, the tick-box row 13.8 mm inside it, the type factor `k` unchanged at 0.8 on the ordinary sheets; the photographs on the 9 Oct and 19 Oct sheets keep 18–57 mm. The 8 Oct WC09 sheets are the fullest on the record: the base page gives their photographs 12 mm on the install sheet and **cannot make the drivers PDF at all** ("[object Event]" — an empty picture stops html-to-image); v8.91 makes it, without photographs on that one sheet, and says so in the fit result.
+
+**Regression set** (`evidence/regress/`, run with the lead's `run_all.sh` on this candidate): __REGRESS__
 
 ## Open questions for Andrew
 
