@@ -46,8 +46,10 @@
   W.fin745History = function (kind, key) { return ASSETS_HELD ? held('fin745History:' + kind + '|' + key, () => rawHist(kind, key)) : rawHist(kind, key); };
  }
 
- /* 4. the labour plan once per draw (the drawer, the P&L cards and the Finance handover each asked for it) */
+ /* 4. the labour plan once per draw (the drawer, the P&L cards and the Finance handover each asked for it), and the Finance
+    month-end rows once per day asked for (Costs & P&L asked for them six times a draw) */
  if (typeof labourPlan === 'function') { const raw = labourPlan; W.labourPlan = function () { return held('labourPlan', raw); }; }
+ if (typeof fin745Rows === 'function') { const raw = fin745Rows; W.fin745Rows = function (asOf) { if (!ASSETS_HELD) return raw(asOf); const day = asOf || todayIso(); return held('fin745Rows:' + day, () => raw(day)); }; }
 
  /* 5. after a draw: every table's width read first, every attribute written after (one layout, not one per table) */
  if (typeof tblFocusSoon === 'function') W.tblFocusSoon = function () {
@@ -90,5 +92,5 @@
   }
   return r; }; }
 
- W.aplus892 = {version: 'v8.92', held: ['dropFileIndex', 'bookNumbers', 'docketNoInName', 'fin745Events', 'fin745History', 'labourPlan'], batched: ['tblFocusSoon', 'timeline841Motion'], keeps: ['render scroll']};
+ W.aplus892 = {version: 'v8.92', held: ['dropFileIndex', 'bookNumbers', 'docketNoInName', 'fin745Events', 'fin745History', 'fin745Rows', 'labourPlan'], batched: ['tblFocusSoon', 'timeline841Motion'], keeps: ['render scroll']};
 })();

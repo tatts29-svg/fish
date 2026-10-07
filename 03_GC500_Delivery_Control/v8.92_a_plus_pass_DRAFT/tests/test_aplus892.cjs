@@ -18,7 +18,7 @@ const fs = require('fs'), {open} = require('../../toolchain/harness/open_page');
   ok('the Today travelling light, the LED sheen, the plate gloss and the toggle sheen animate transform, not left', Object.values(KF).every(k => k && k.transform && !k.left), KF);
   /* 2. the memos: one answer per draw, the same answer as the original reading */
   const M = await p.evaluate(() => { const out = {};
-    out.inHold = holdAssets(() => ({ev: fin745Events() === fin745Events(), book: bookNumbers() === bookNumbers(), plan: labourPlan() === labourPlan(), idx: dropFileIndex() === dropFileIndex(), idxNull: dropFileIndex() === null}));
+    out.inHold = holdAssets(() => ({ev: fin745Events() === fin745Events(), book: bookNumbers() === bookNumbers(), plan: labourPlan() === labourPlan(), rows: fin745Rows() === fin745Rows() && fin745Rows() === fin745Rows(todayIso()), idx: dropFileIndex() === dropFileIndex(), idxNull: dropFileIndex() === null}));
     out.outside = {ev: fin745Events() !== fin745Events()};
     /* docketNoInName: the original reading, written out again here, must agree on every file name the service holds and on a few shapes */
     const raw = nm => { const s = String(nm || ''); if (!s) return null; const got = bookNumbers().find(n => { const no = String(n || '').trim(); if (!/^\d{4,7}$/.test(no)) return false; if (allAssets().some(a => (a.asset_numbers || []).some(x => String(x).trim() === no))) return false; return new RegExp('(^|\\D)' + no + '(\\D|$)').test(s); }); return got ? String(got).trim() : null; };
@@ -26,7 +26,7 @@ const fs = require('fs'), {open} = require('../../toolchain/harness/open_page');
     out.names = names.length; out.agree = holdAssets(() => names.every(n => docketNoInName(n) === raw(n))); out.matched = holdAssets(() => names.filter(n => docketNoInName(n)).length);
     out.heldKeys = holdAssets(() => { docketNoInName('36503.jpg'); dropFileIndex(); fin745History('rate', 'x'); return [...HELD_MEMO.keys()].filter(k => k.startsWith('aplus892:')).length; });
     out.cleared = HELD_MEMO.size; return out; });
-  ok('inside a draw each model is worked out once (file index, book numbers, labour plan, Finance events); outside a draw nothing is kept', M.inHold.ev && M.inHold.book && M.inHold.plan && M.inHold.idx && M.outside.ev && M.heldKeys >= 4 && M.cleared === 0, M);
+  ok('inside a draw each model is worked out once (file index, book numbers, labour plan, Finance events); outside a draw nothing is kept', M.inHold.ev && M.inHold.book && M.inHold.plan && M.inHold.rows && M.inHold.idx && M.outside.ev && M.heldKeys >= 4 && M.cleared === 0, M);
   ok('a paper’s docket number is read exactly as before for every file name on the service (' + M.names + ' names, ' + M.matched + ' carry a number)', M.agree && M.names > 20, {agree: M.agree, names: M.names, matched: M.matched});
   /* 3. the Timeline lamps after a scroll */
   await openTab('timeline'); await p.evaluate(() => { document.querySelector('main').scrollTop = 600; }); await p.waitForTimeout(400); await paint();

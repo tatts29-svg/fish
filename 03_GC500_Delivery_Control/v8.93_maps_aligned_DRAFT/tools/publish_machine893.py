@@ -29,7 +29,7 @@ VERSION, LABEL = 'v8.93-maps-aligned', 'The Coates Way machine and GC500 Map exp
 TYPES = {'html': 'text/html; charset=utf-8', 'css': 'text/css; charset=utf-8', 'js': 'text/javascript; charset=utf-8', 'json': 'application/json; charset=utf-8',
          'md': 'text/plain; charset=utf-8', 'bin': 'application/octet-stream', 'webp': 'image/webp', 'png': 'image/png', 'jpg': 'image/jpeg'}
 MAX_FILE, MAX_TOTAL, MAX_FILES = 48 * 1024 * 1024, 192 * 1024 * 1024, 600
-SKIP = {'boot.json', 'build_report.json', 'thumbs893.json'}
+SKIP = {'boot.json', 'build_report.json', 'build_report893.json', 'thumbs893.json'}   # build intermediates and evidence, not assets
 sha = lambda b: hashlib.sha256(b).hexdigest()
 
 
