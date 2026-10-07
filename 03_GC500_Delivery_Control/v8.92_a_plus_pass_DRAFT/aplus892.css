@@ -1,0 +1,32 @@
+/* Author: Andrew Fisher. v8.92 A+ pass — the look: contrast, tap targets and a steady reading position.
+   Every component keeps its design; these are the touch-ups the three-size audit found (phone 390, laptop 1440, wide 2560). */
+
+/* the page keeps its own reading position on a redraw; the browser's guess at an anchor fought it (+47 px on the Timeline) */
+main{overflow-anchor:none}
+
+/* contrast (WCAG AA). The Demob day tiles reuse the dark island tile's grey words on a light tile — 1.9:1 and 1.6:1. */
+#pane-demob .cside .ctile .ctk,#pane-demob .cside .ctile span{color:#4b5560}
+#pane-demob .cside .ctile .dled i{color:inherit}
+/* the fold heading written for a dark drawer, drawn on the light Demob card — 1.9:1 */
+#pane-demob details.dsect>summary{color:var(--orange-ink)}
+/* Today: the small print under the circuit map was 4.3:1; the first jump pill was white on #ff6a13 (2.9:1), the same fix the
+   primary button had in v5.49 — the darker orange keeps the brand and clears 4.5:1 */
+#pane-today .maphint{color:#5f6a75}
+#pane-today .jb95:first-child{background:var(--orange-ink);border-color:var(--orange-ink)}
+
+/* the Transport view's explanation, folded so the four figures lead (lead's note, 8 Oct 2026) */
+.tr888-how{margin:4px 0 12px}
+.tr888-how>summary small{display:block;font-weight:400;color:var(--mute);font-size:12px;margin-top:2px}
+.tr888-how p{margin:8px 0 0}
+.tr888-tie{margin:6px 0 0}
+
+/* tap targets on a touch screen. The small controls keep their size and their look; each gains a 44 px tall hit area
+   centred on it, and a × gets a 44 px square. Fold headings get the room a thumb needs. */
+@media (pointer:coarse){
+ .btn.sm,.btn.tiny,.linkish,.invn,a.chip,.filters button,.jb95,#bOpen,.bplay,.hubgo[data-go],#searchBtn,#moreBtn,#navBack,.tabmoremenu button{position:relative}
+ .btn.sm::after,.btn.tiny::after,.linkish::after,.invn::after,a.chip::after,.filters button::after,.jb95::after,#bOpen::after,.bplay::after,.hubgo[data-go]::after,#searchBtn::after,#moreBtn::after,#navBack::after{content:'';position:absolute;left:-6px;right:-6px;top:50%;height:44px;transform:translateY(-50%)}
+ .close{min-width:44px;min-height:44px;display:inline-flex;align-items:center;justify-content:center}
+ summary{box-sizing:border-box;padding-top:max(0px,calc((44px - 1.6em)/2));padding-bottom:max(0px,calc((44px - 1.6em)/2))}
+ input[type=checkbox],input[type=radio]{min-width:22px;min-height:22px}
+}
+@media print{.tr888-how{display:block}.tr888-how>summary{display:none}}
