@@ -1,0 +1,46 @@
+/* Author: Andrew Fisher. Crisp native instruments, aligned spacing and compact support content. */
+@media screen {
+ #pane-today.today876 {max-width:1760px;width:100%;margin-inline:auto;box-sizing:border-box;padding:0 20px 28px;}
+ #pane-today.today876 > .acts793 {margin:16px 0 24px;padding:16px 20px;border:1px solid #d6dedc;border-top:3px solid #ff6b16;border-radius:12px;box-shadow:0 2px 7px #10262b0a;}
+ #pane-today.today876 > .acts793 .head {display:flex;flex-direction:row;align-items:center;flex-wrap:wrap;gap:12px 20px;margin:0;padding:0;border:0;box-shadow:none;background:transparent;border-radius:0;}
+ #pane-today.today876 > .acts793 .head > h2 {margin:0;font:700 24px/1.2 Inter,"Segoe UI",Arial,sans-serif;}
+ #pane-today.today876 > .acts793 .hacts {display:flex;flex-wrap:wrap;align-items:center;gap:8px;order:2;margin:0 0 0 auto;}
+ #pane-today.today876 .jump95 {flex-basis:100%;order:3;margin:0;padding:10px 0 0;border-top:1px solid #e1e6e4;display:flex;gap:8px;flex-wrap:wrap;}
+ #pane-today.today876 .jump95 .jb95 {min-height:36px;padding:6px 13px;border-radius:7px;}
+ #pane-today.today876 .today876-who {font-size:12px;order:1;flex-basis:auto;color:#51666a;margin:0;}
+ #pane-today.today876 > .hubhead {display:none!important;}
+ #pane-today.today876 #gc500-work-board840 {margin:0;}
+ #pane-today.today876 .tw840-heading {margin:0 0 16px;gap:12px;align-items:center;}
+ #pane-today.today876 .tw840-heading h2 {font:700 26px/1.2 Inter,"Segoe UI",Arial,sans-serif;margin:0 0 6px;}
+ #pane-today.today876 .tw840-heading > span {font-size:13px;color:#53686e;}
+ #pane-today.today876 .tw840-nav {margin-bottom:20px;border-radius:10px;background:#edf2f0;border:1px solid #c9d8d4;box-shadow:none;}
+ #pane-today.today876 .tw840-nav button {min-height:48px;font-size:14px;}
+ #pane-today.today876 .tw840-grid {grid-template-columns:repeat(2,minmax(0,1fr));gap:22px;align-items:start;}
+ #pane-today.today876 .tw848-group[open] > .tw848-group-toggle .tw848-group-name {font-size:27px;}
+ #pane-today.today876 .tw840-card.tw846-card {padding:24px;border-radius:16px;box-shadow:0 3px 9px #10262b12;}
+ #pane-today.today876 .tw840-basis {font-size:12px;line-height:1.5;margin:14px 0 24px;color:#5c6c70;}
+ #pane-today.today876 > .today-work-programme840 {margin:0 0 22px;}
+ #pane-today.today876 > .sec793 h3.sec {margin:0 0 12px;font-size:20px;}
+ #pane-today.today876 > .sec793 h3.sec > span {display:none;}
+ #pane-today.today876 > .hub {display:block;height:auto!important;margin:0 0 22px;padding:0;}
+ #pane-today.today876 > .hub > .card {position:static!important;width:auto!important;height:auto!important;grid-row:auto!important;margin:0 0 16px;transform:none!important;}
+ #pane-today.today876 .teamhub {border-radius:12px;padding:20px;border:1px solid #d0dcd7;border-top:3px solid #ff6b16;box-shadow:0 2px 7px #10262b0a;}
+ #pane-today.today876 .teamhub .tm-list {display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0 24px;margin:12px 0;}
+ #pane-today.today876 .teamhub .tm-list > li {min-width:0;padding:12px 0;}
+ #pane-today.today876 .teamhub .hubtitle h3 {font-size:20px;}
+ #pane-today.today876 .maphint {font-size:12px;color:#68787c;margin:12px 0;}
+}
+@media screen and (max-width:1050px) {
+ #pane-today.today876 .teamhub .tm-list {grid-template-columns:repeat(2,minmax(0,1fr));}
+}
+@media screen and (max-width:720px) {
+ #pane-today.today876 {padding:0 12px 24px;}
+ #pane-today.today876 > .acts793 {padding:14px;margin:12px 0 20px;}
+ #pane-today.today876 > .acts793 .hacts {margin:0;flex-basis:100%;}
+ #pane-today.today876 .tw840-grid {grid-template-columns:minmax(0,1fr);gap:18px;}
+ #pane-today.today876 .tw840-heading > span {display:none;}
+ #pane-today.today876 .tw840-card.tw846-card {padding:18px;}
+ #pane-today.today876 .tw848-group[open] > .tw848-group-toggle .tw848-group-name {font-size:24px;}
+ #pane-today.today876 .teamhub .tm-list {grid-template-columns:minmax(0,1fr);}
+ #pane-today.today876 .teamhub {padding:16px;}
+}
