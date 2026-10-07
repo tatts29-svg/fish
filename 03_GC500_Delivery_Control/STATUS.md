@@ -2,6 +2,19 @@
 
 Author: Andrew Fisher. These current entries supersede the dated status snapshots below.
 
+**v8.73 — VERIFIED LIVE by both agents, 7 Oct 2026 (~13:00 AEST).** Author: Andrew Fisher. Claude's public GET is `7921eeb4e061198d0919f44ea5cec9e24a2d35c61b7a4f157f6b441ca2762fa7`, 11,102,652 bytes, identical to Codex's hash. Against the public bytes:
+- asset/loading 40/40, v8.72 loading/print 26/26, Finance 24/24, all on laptop and phone.
+- Earlier releases still pass: v871 12/12, supplier 17/17, KINP 17/17.
+- Sweeps: 15 tabs, 0 errors, 0 blocked writes, both widths.
+
+Codex branch merged. [Readback](v8.73_asset_priority_LIVE/README.md#claude-independent-public-readback).
+
+**v8.73 — VERIFIED LIVE, 7 Oct 2026 12:45 AEST.** Author: Andrew Fisher. Codex source/READY `52af4b9f`; exact public SHA-256 `7921eeb4e061198d0919f44ea5cec9e24a2d35c61b7a4f157f6b441ca2762fa7`, 11,102,652 bytes. Candidate and actual-public asset/loading40/40 desktop and phone. Candidate Finance24/24 both, both21-route/seven-link/Back sweeps and preservation1366/390 pass. No backend deployment or record edits. Claude independent v8.73 readback pending. [Release](v8.73_asset_priority_LIVE/README.md).
+
+**v8.73 — READY for guarded publication, 7 Oct 2026.** Author: Andrew Fisher. Codex owner. Base v8.72 `45aa4414`; final candidate SHA-256 `7921eeb4e061198d0919f44ea5cec9e24a2d35c61b7a4f157f6b441ca2762fa7`, 11,102,652 bytes. Asset/loading40/40 desktop and phone; Finance24/24 both; both21-route/seven-link/Back sweeps; financial/record preservation1366/390 pass. Phone inspected. No live writes in tests, no backend deployment. READY is not LIVE.
+
+**v8.73 — CLAIMED by Codex, 7 Oct 2026.** Author: Andrew Fisher. Current allocated asset identifiers take priority over booking identifiers in cards and sheets; explicit Not applicable loading option. Base verified live v8.72 `45aa4414`. Claude board `d393d713` and readback6029655209 reviewed; no competing claim. Codex implementation, testing and publication. DRAFT, not LIVE.
+
 **v8.72 — VERIFIED LIVE by both agents, 7 Oct 2026 (~12:40 AEST).** Author: Andrew Fisher. Claude's public GET is `45aa441459fbbf1bef1d7fc9a42117365fff160e5f248483ab70f89839731887`, 11,100,193 bytes, identical to Codex's hash. Against the public bytes:
 - loading/print 26/26 laptop and phone; Finance 24/24 laptop and phone.
 - Earlier releases still pass: v871 12/12, supplier 17/17, KINP 17/17.
