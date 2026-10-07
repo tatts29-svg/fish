@@ -1,3 +1,23 @@
+**v8.88 COSTS RECONCILE + TRANSPORT VIEW — READY (to ship in the combined build), 8 Oct 2026 02:10 AEST.** Author: Andrew Fisher. Claude source [`v8.88_costs_transport_DRAFT/`](v8.88_costs_transport_DRAFT/README.md). Andrew, 7 Oct: "in costing we need to ensure everything in here talks … another tab in costings to do with transport … right down to the branch".
+- **One transport model.** It replaces three separate loops that each worked out "the loads". These P&L figures are unchanged to the cent: moneySummary, Costs to job end, the P&L lines, the Additional transport forecast and the Finance handover cost total. 554 of 587 compared values are identical; the 33 that differ are the intended fixes below.
+- **Fixed:**
+  - The Finance handover spread about a third of transport across branches by proportion. It now uses each load's own recorded branch.
+  - Its demob transport row claimed to be inside the P&L but was not. It is now the P&L's true figure, and the unforecast pickup legs are named, not added.
+  - Card rounding remainders now land on one load, so loads add exactly to the forecast.
+- **"Everything reconciles":** 17 tie-outs under At a glance, all tied. A mismatch opens the panel in red and names the figure (tested).
+- **Transport view (new Costs section):** every load, carrier, docket and charge, by branch and reference, with a CSV export.
+- **Candidate:** on live v8.83 with v8.84 and v8.85 chained: `bd4bcbcc7c43a49bf50d5e9ff911ed6a23f397b23107550ef9d3ee35f9279885`, 11,232,477 bytes. DATA identical to live.
+- **Checks:**
+  - transport888 29/29 on laptop, 2560 and phone; costs865 33/33; Finance 24/24;
+  - every standing suite matches v8.85; sweeps 15 tabs with 0 errors.
+  - Screenshots stay local because they show the figures.
+- **For Andrew:**
+  1. Do the 51 demob pickup legs (29 references) join the forecast?
+  2. Which branch carries the 11 fencing semis?
+  3. Six November rows with no reference stay "branch unconfirmed".
+  4. Should "Kev" read as a Coates truck?
+- **Full-chain trial build:** v8.84 to v8.89 apply together cleanly (11,256,999 bytes, check PASS). The final build follows v8.87.
+
 **v8.86 EVENT PORTABLES LOAD DAYS — READY (to ship in the combined build), 8 Oct 2026 01:45 AEST.** Author: Andrew Fisher. Claude source [`v8.86_event_portables_days_DRAFT/`](v8.86_event_portables_days_DRAFT/README.md). Andrew, 7 Oct: "we had deliveries days for these from Event Portables".
 - **The rule:** the supplier's load day, from Event Portables plan v10 of 3 Oct, becomes the page's planned day. It is written in as the page's existing "schedule correction", so a day Andrew records on the record still wins.
 - **20 rows move:**

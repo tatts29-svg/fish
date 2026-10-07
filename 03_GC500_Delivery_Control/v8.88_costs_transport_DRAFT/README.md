@@ -96,7 +96,7 @@ toolchain/build.sh v8.88 v8.84_today_wide_layout_DRAFT/patch_v884.py v8.85_where
 | Check | Laptop | Wide (2560) | Phone |
 |---|---|---|---|
 | DATA identity (test_source875.py) | PASS | — | — |
-| test_transport888 (new) | TRANSPORT_LAPTOP | TRANSPORT_WIDE | TRANSPORT_PHONE |
+| test_transport888 (new) | 29/29 | 29/29 | 29/29 |
 | v8.85 model881 | 12/12 | — | — |
 | v8.85 where885 | 24/24 | — | 24/24 |
 | v8.84 wide884 | — | 21/21 | 21/21 |
