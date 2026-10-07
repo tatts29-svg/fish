@@ -1,3 +1,19 @@
+**v8.86 EVENT PORTABLES LOAD DAYS — READY (to ship in the combined build), 8 Oct 2026 01:45 AEST.** Author: Andrew Fisher. Claude source [`v8.86_event_portables_days_DRAFT/`](v8.86_event_portables_days_DRAFT/README.md). Andrew, 7 Oct: "we had deliveries days for these from Event Portables".
+- **The rule:** the supplier's load day, from Event Portables plan v10 of 3 Oct, becomes the page's planned day. It is written in as the page's existing "schedule correction", so a day Andrew records on the record still wins.
+- **20 rows move:**
+  - Load 1, Fri 9 Oct: WC09 (FWF and pee panels; its two 6 m toilet blocks stay on Thu 8 Oct with their SFL dockets) and WC57. WC34, WC38, WC39, WC40 and WC61 already read Fri 9 from Andrew's record dates.
+  - Load 2, Tue 13 Oct: WC67's second drop, WC68, WC72 and WC29.
+  - Load 3, Thu 15 Oct: WC46 and WC55.
+  - Load 4, Mon 19 Oct: PG01, PG03, PG05, PG29, WC85 and T0176.
+- **Not moved:** 23 drops already on their load day. WC32 and WC66 (cancelled) and T0089 (off the plan on the record) are untouched. The supplier card says Load 1 is 23 FWF.
+- **Candidate:** on live v8.83 with v8.84 and v8.85 chained: `9a279ba14c7f929d64545e79cfc798377a5eb8fadf4eb9a0cdb3734519f21640`, 11,183,528 bytes. Lead spot-check of the moved dates in DATA PASS.
+- **Checks:**
+  - narrow DATA identity PASS; new ep886 31/31 on laptop and phone;
+  - every standing suite matches v8.85; sweeps 15 tabs, 0 errors, 0 writes.
+- **Open for Andrew:**
+  - Brad Jones Racing and Shell V-Power (Load 4) have no WC number, so the page cannot carry their day.
+  - A plan v11 from Event Portables would drop T0089 from the card.
+
 **v8.89 MASTER MAP — READY TO UPLOAD (MEDIA FIRST), 8 Oct 2026 01:00 AEST.** Author: Andrew Fisher. Claude source [`v8.89_master_map_DRAFT/`](v8.89_master_map_DRAFT/README.md). D001-26003-03 issued 2 Oct replaces the 17 Sep master on the page.
 - **What changes:** the D001 sheet picture, its register entry, and the 11 pins the new issue changes:
   - P45 moves about 85 m west; WC51, WC38 and WC39 move 18, 13 and 9 m; WC10 is new;
