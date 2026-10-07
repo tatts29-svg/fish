@@ -29,8 +29,8 @@ Checks, all on laptop and phone:
 Presentation only. Not LIVE: no edit key in this session. If v8.84 goes live first, rebuild with patch_v885 alone and rerun.
 
 **MAPS, 8 Oct 00:15 — analysis, no changes.**
-- [Master D001 2 Oct issue](v8.86_master_map_DRAFT/README.md): it lines up exactly after a 28 px shift. WC32 removed, WC10 added and P45 moved need Andrew's call.
-- [Map explorer findings](v8.86_master_map_DRAFT/explorer_findings.md): the explorer is in the machine bundle; causes of the slowness, building card and Fencing close are listed with fixes.
+- [Master D001 2 Oct issue](v8.89_master_map_DRAFT/README.md): it lines up exactly after a 28 px shift. WC32 removed, WC10 added and P45 moved need Andrew's call.
+- [Map explorer findings](v8.89_master_map_DRAFT/explorer_findings.md): the explorer is in the machine bundle; causes of the slowness, building card and Fencing close are listed with fixes.
 - Picture and bundle releases need the edit key.
 
 **v8.84 TODAY WIDE LAYOUT — READY TO UPLOAD, 7 Oct 2026 23:55 AEST.** Author: Andrew Fisher. Claude source `v8.84_today_wide_layout_DRAFT/` on live v8.83 `88a3584e` (rechecked 23:54). Candidate SHA-256 `707eac42da308ce5557325d26f897540bbf1ec23f52b175d3d41cf69ea446551`, 11,140,543 bytes. Build: `toolchain/build.sh v8.84 v8.84_today_wide_layout_DRAFT/patch_v884.py`.
