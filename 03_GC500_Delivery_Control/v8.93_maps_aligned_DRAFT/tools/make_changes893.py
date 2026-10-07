@@ -1,9 +1,10 @@
 # Author: Andrew Fisher. v8.93: the change list patch_v893.py applies - the new master picture, the three inset pins back on
 # their 17 Sep positions (the inset did not move on the paper), and the re-made pin pictures.
-#   python3 make_changes893.py <v8.89 page html> <new sheet webp> <thumbs893.json> <pt overrides json> <media out dir> <out changes893.json>
+#   python3 make_changes893.py <v8.89 page html> <new sheet webp> <thumbs893.json> <pt overrides json> <media out dir> <out changes893.json> <v8.93 drawing-scene.bin>
 import hashlib, json, re, shutil, sys
 from pathlib import Path
-PAGE, SHEET, THUMBS, OVER, MEDIA, OUT = sys.argv[1:7]
+PAGE, SHEET, THUMBS, OVER, MEDIA, OUT, SCENE = sys.argv[1:8]
+scene_sha = hashlib.sha256(Path(SCENE).read_bytes()).hexdigest()
 MEDIA = Path(MEDIA); MEDIA.mkdir(parents=True, exist_ok=True)
 s = Path(PAGE).read_text()
 D = json.loads(re.search(r'const DATA = (\{.*?\});\n', s).group(1))
@@ -25,6 +26,7 @@ media = [sheet] + T['media']
 for x in T['media']: assert (MEDIA / x['file']).exists(), x['file']
 out = {'author': 'Andrew Fisher', 'what': 'v8.93: every map on the 2 Oct master, aligned the same way everywhere',
        'pdf_sha256': '8753d875cf90682e09afefae8c774144d9e9725ece87f726707882fb3711c56d', 'frame_pdf_sha256': '37792f0a9d32e829f34d28ab41197fd2cf689fb62cd60a755aa89106cb5a0a2f',
+       'scene_sha256': scene_sha, 'explorer_token': scene_sha[:12],
        'previous_sheet_sha256': prev, 'sheet_media': sheet, 'media': media, 'master_loc': changes,
        'pictures_kept_from_17_sep': T['kept_17_sep_pictures'], 'pins_with_new_pictures': len(T['pins']),
        'inset_pins_back_to_17_sep': sorted(over)}

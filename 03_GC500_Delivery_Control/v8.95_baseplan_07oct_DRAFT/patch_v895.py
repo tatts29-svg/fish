@@ -1,0 +1,92 @@
+# Author: Andrew Fisher. v8.95 - the page's contract source moves from the 6 Oct Baseplan export (v8.71) to the 7 Oct export.
+#
+# Andrew supplied Baseplan_SuperCars_07Oct.xlsx on 7 Oct 2026 (inputs_07Oct2026/). The costs must read the latest source
+# (Codex's independent review: a "source-freshness disposition"); Andrew: "all cost align and correct", "everything must talk".
+#
+# Data only: DATA.rental_on_hire and what v8.71's logic derives from it (the contract lines, the per-contract summaries,
+# the assignments, the summary counts, the plant lines' copies of their contract lines). The builder is baseplan895.py -
+# v8.71's own logic as a module - run on the 7 Oct export; the same builder on the 6 Oct export reproduces the live DATA
+# exactly (tests/test_identity895.py proves the delta). Nothing else on the page changes: no code, no MASTER_LOC, no media.
+#
+# Chains after v8.94 (or any of v8.89 .. v8.93):
+#   V895_BASEPLAN=<path to Baseplan_SuperCars_07Oct.xlsx> toolchain/build.sh v8.95 <the full chain ... patch_v894.py> v8.95_baseplan_07oct_DRAFT/patch_v895.py
+import hashlib, json, os, re, sys
+from pathlib import Path
+here = Path(__file__).resolve().parent
+sys.path.insert(0, str(here.parent / 'toolchain'))
+sys.path.insert(0, str(here))
+from rep import rep
+import baseplan895 as B
+
+BASEPLAN_SHA = '8a18bd1f0df331d339d0fa27d81bdf22b238b1de0f1f5f5c342b208eed4b3bd7'   # Baseplan_SuperCars_07Oct.xlsx, 7 Oct 2026
+MATCHES_SHA = hashlib.sha256((here / 'andrew_4370.json').read_bytes()).hexdigest()
+EXPORT_DAY = '2026-10-07'
+WORKBOOK = 'Baseplan_SuperCars_07Oct.xlsx'
+# v8.71 also re-made the join of every numbered line Andrew had recorded (its one-off clean-up of the files' contrary
+# allocations). Against the record of 7 Oct that would move two lines the export did not touch (9968862/50 to P37,
+# 9968862/79 to P52); they are listed in the change log instead of moved. Set True to move them.
+REJOIN_RECORD = False
+
+p = Path(sys.argv[1]); raw = p.read_bytes(); bom = raw.startswith(b'\xef\xbb\xbf'); s = raw.decode('utf-8-sig')
+
+
+def bound(env, sha):
+    q = Path(os.environ.get(env) or '')
+    if not q.is_file():
+        sys.exit(f'{env} must name the workbook (SHA-256 {sha[:16]}...)')
+    got = hashlib.sha256(q.read_bytes()).hexdigest()
+    if got != sha:
+        sys.exit(f'{env}: checksum mismatch ({got[:16]}...)')
+    return q
+
+
+BP = bound('V895_BASEPLAN', BASEPLAN_SHA)
+
+# the base: the page's contract source is v8.71's 6 Oct export; v8.95 not applied already; the footer carries one of v8.89 .. v8.94
+m = re.search(r'const DATA = (\{.*?\});\n', s); assert m, 'DATA not found'
+D = json.loads(m.group(1)); ORIG = json.loads(m.group(1))
+assert json.dumps(D, ensure_ascii=False, separators=(',', ':')) == m.group(1), 'DATA must round-trip exactly - stopping'
+R = D['rental_on_hire']
+assert R['record_id'] == 'baseplan-contracts-2026-10-06' and R['supplied_on'] == '2026-10-06', 'the base must carry the 6 Oct export (v8.71)'
+assert not any(x.get('applied') == 'v8.95' for x in R.get('supplements') or []), 'v8.95 is already applied'
+marks = re.findall(r' · v8\.(?:89|9[0-4])\b', s)
+assert len(marks) == 1 and s.count(marks[0]) == 1, 'expected one footer marker once, found %r' % marks
+
+# ANDREW'S MATCHES WIN (Andrew, 6 Oct 2026). The numbers he has typed or recorded on the shared record, as it stood at
+# version 4370 (7 Oct 2026 22:40 AEST), read back read-only through the page's own functions; a fresher snapshot may be
+# given as V895_MATCHES (a reference -> numbers map), as v8.71 allowed. The as-supplied record he committed on 22 Sep is
+# read from DATA.ops by the builder.
+matches_path = os.environ.get('V895_MATCHES')
+MATCHES = json.loads(Path(matches_path).read_text()) if matches_path else json.loads((here / 'andrew_4370.json').read_text())
+
+NEW, TABS = B.read_export(BP)
+assert len(TABS) == 11 and len(NEW) == 323, f'the 7 Oct export should carry 11 contracts and 323 lines, read {len(TABS)} and {len(NEW)}'
+LOG = B.apply(D, NEW, TABS, MATCHES, rejoin_record=REJOIN_RECORD)
+
+R.update({'record_id': 'baseplan-contracts-' + EXPORT_DAY, 'supplied_on': EXPORT_DAY, 'workbook': WORKBOOK,
+          'source': f'The {len(TABS)} hire contracts exported from Baseplan by the project manager on {EXPORT_DAY}, one tab per contract; the tab name is the contract number and the branch code.'})
+R['supplements'] = list(R.get('supplements') or []) + [{
+    'source': WORKBOOK + ' (export of ' + EXPORT_DAY + ')', 'sha256': BASEPLAN_SHA, 'supplied_on': EXPORT_DAY, 'applied': 'v8.95',
+    'lines_added': [x['line'] for x in LOG['added']], 'lines_removed': [x['line'] for x in LOG['removed']],
+    'lines_changed': len(LOG['changed']), 'lines_rejoined': [x['line'] for x in LOG['rejoined']], 'lines_held': [x['line'] for x in LOG['held']],
+    'recorded_matches': 'shared record version 4370 (7 Oct 2026) and the as-supplied record of 22 Sep 2026',
+    'basis': "Every line refreshed from the export field by field with v8.71's rules; joins kept where the number did not change, re-made by Andrew's recorded number, then the register's number, then the delivery docket where it did."}]
+
+# only the contract source and the plant lines' copies may change; the register, the schedule rows and everything else are identical
+for k in D:
+    if k not in ('rental_on_hire', 'plant_lines'):
+        assert D[k] == ORIG[k], 'DATA.' + k + ' changed - stopping'
+assert set(D) == set(ORIG)
+assert len(R['rows']) == 323 and len(LOG['added']) == 2 and not LOG['removed'], 'the 7 Oct export adds two lines and takes none off'
+log_text = json.dumps(LOG, ensure_ascii=False, default=str)
+assert not re.search(r'\$\s?\d', log_text) and not re.search(r'"rate_\d"', log_text), 'the change log carries no money'
+
+out = s[:m.start(1)] + json.dumps(D, ensure_ascii=False, separators=(',', ':')) + s[m.end(1):]
+out = rep(out, marks[0], ' · v8.95', 'release footer', str(p))
+p.write_bytes((b'\xef\xbb\xbf' if bom else b'') + out.encode('utf-8'))
+log = Path(os.environ.get('V895_LOG') or (here / 'evidence' / 'changes_v895.json'))
+log.parent.mkdir(parents=True, exist_ok=True)
+log.write_text(json.dumps(LOG, indent=1, ensure_ascii=False, default=str))
+print(f"v8.95 applied: contracts {len(TABS)}, lines {len(R['rows'])} (+{len(LOG['added'])} -{len(LOG['removed'])}, {len(LOG['changed'])} changed, "
+      f"{len(LOG['rejoined'])} rejoined, {len(LOG['held'])} held); record would move {len(LOG['record_would_move'])} (not applied); flags {len(LOG['flags'])}; "
+      f"matches {MATCHES_SHA[:12]}; footer {marks[0].strip()} -> v8.95")

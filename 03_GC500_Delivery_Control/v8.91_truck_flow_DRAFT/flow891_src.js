@@ -113,11 +113,13 @@ function flow891Build(d){
  /* the areas: who is where, when; the busiest moment against the limit */
  const areas = Object.keys(FLOW891.areas).map(k => { const A = FLOW891.areas[k], mine = X.filter(x => x.area.key === k);
   const lim = k === 'pitLane' ? flow891PitLaneMax(d.iso) : {max: A.max, words: A.words};
-  const timed = mine.filter(x => x.win.known).sort((a, b) => a.win.start - b.win.start || a.n - b.n), conflicts = [];
+  const timed = mine.filter(x => x.win.known).sort((a, b) => a.win.start - b.win.start || a.n - b.n), conflicts = [], seenAt = new Set();
   let peak = 0, peakAt = null;
-  timed.forEach(x => { const active = timed.filter(y => y.win.start <= x.win.start && x.win.start < y.win.finish); if (active.length > peak) { peak = active.length; peakAt = x.win.start; }
-   if (lim.max != null && active.length > lim.max) { const others = active.filter(y => y !== x), free = Math.min(...others.map(y => y.win.finish));
-    conflicts.push({at: x.win.start, loads: active.map(y => y.n), move: x, to: free, len: x.win.finish - x.win.start}); } });
+  timed.forEach(x => { const at = x.win.start, active = timed.filter(y => y.win.start <= at && at < y.win.finish); if (active.length > peak) { peak = active.length; peakAt = at; }
+   if (lim.max == null || active.length <= lim.max || seenAt.has(at)) return; seenAt.add(at);
+   /* the truck to stagger: the one that arrives into the full area last (the latest start; the later load in the day's order on a tie) */
+   const move = active.slice().sort((a, b) => b.win.start - a.win.start || b.n - a.n)[0], others = active.filter(y => y !== move), free = Math.min(...others.map(y => y.win.finish));
+   conflicts.push({at, loads: active.map(y => y.n).sort((a, b) => a - b), move, to: free, len: move.win.finish - move.win.start}); });
   return {key: k, name: A.name, max: lim.max, limitWords: lim.words, loads: mine, timed: timed.length, untimed: mine.length - timed.length, peak, peakAt, conflicts}; });
  const helen = areas.find(a => a.key === 'helenPark');
  const ov = X.filter(x => x.oversize), ovTimed = ov.filter(x => x.win.known); let ovPeak = 0;
@@ -133,33 +135,40 @@ function flow891Build(d){
   curfew: X.filter(x => x.curfew), unknownWindows: X.filter(x => !x.win.known).length};
 }
 
-/* ---------- the day's order: the planned arrival order on the crew record decides the Load numbers everywhere */
+/* ---------- the day's order. It lives on the crew planning record (the loads collection, merged by stamp like every other document
+   there): one document per day holding the loads in order (a reference can be on two trucks on one day - WC09 on 8 Oct - so the
+   order belongs to the load, not the reference), and each reference's planned arrival order (crew883) set to match, so Crew reads
+   "planned order N" as before. An order typed in Crew still counts where no day document exists. */
+function flow891OrderKey(iso){ return 'flow891/' + iso + '/order'; }
+function flow891OrderDoc(iso){ const x = (S.loads || {})[flow891OrderKey(iso)]; return x && x.kind === 'flow891' && Array.isArray(x.ids) ? x : null; }
 function flow891OrderOf(iso, g){ const SL = S.loads || {}; let best = null;
  for (const r of (g.rows || [])) { const sv = SL[crew883Key(iso, r.a.key)], o = sv && Number.isInteger(sv.order) ? sv.order : null; if (o != null && (best == null || o < best)) best = o; } return best; }
 function flow891Sort(d, L){
  if (!d || !Array.isArray(L) || L.length < 2 || typeof S === 'undefined' || !S.loads) return L;
- let any = false; const ord = L.map(g => { if (g.kind !== 'deliveries') return null; const o = flow891OrderOf(d.iso, g); if (o != null) any = true; return o; });
+ const doc = flow891OrderDoc(d.iso), pos = new Map(); if (doc) doc.ids.forEach((id, i) => pos.set(id, i));
+ let any = !!doc; const ord = L.map(g => { if (g.kind !== 'deliveries') return null; if (doc) { const k = pos.get(ldId(d, g)); return k == null ? null : k; } const o = flow891OrderOf(d.iso, g); if (o != null) any = true; return o; });
  if (!any) return L;
  return L.map((g, i) => ({g, i, o: ord[i]})).sort((x, y) => { const kx = x.g.kind === 'removals' ? 1 : 0, ky = y.g.kind === 'removals' ? 1 : 0; if (kx !== ky) return kx - ky;
   const ox = x.o == null ? Infinity : x.o, oy = y.o == null ? Infinity : y.o; return ox - oy || x.i - y.i; }).map(x => x.g);
 }
 const dpLoadsBefore891 = dpLoads;
 dpLoads = function(d){ return flow891Sort(d, dpLoadsBefore891(d)); };
-/* save a new order for the day: every delivery load gets its position as the planned arrival order on each of its references
-   (the crew planning record, kind crew883, merged by its stamp like every other crew plan); one save, one redraw */
+/* save a new order for the day: the day document, and each reference's planned arrival order; one save, one redraw */
 function flow891SaveOrder(iso, ids){
  const d = programmeDays().find(x => x.iso === iso); if (!d) return false;
  if (!mayWrite('the day’s load order')) return false; const by = whoAmI(); if (!by) return false;
  const L = dpLoads(d).filter(g => g.kind === 'deliveries'), byId = new Map(L.map(g => [ldId(d, g), g]));
  if (!ids.every(id => byId.has(id)) || new Set(ids).size !== L.length) { flash('The day’s loads changed — the order was not saved. Try again.'); return false; }
- S.loads = S.loads || {}; const seen = new Set(); let k = 0;
- ids.forEach(id => { const g = byId.get(id); k++; g.rows.forEach(r => { const ref = r.a.key; if (seen.has(ref) || !assetOf(ref)) return; seen.add(ref);
-  const key = crew883Key(iso, ref), old = S.loads[key], base = old ? Object.assign({}, old) : {people: [], start: '', finish: '', location: ''};
-  S.loads[key] = Object.assign(base, {order: k, kind: 'crew883', day: iso, ref, by, at: new Date(Math.max(Date.now(), old && old.at ? Date.parse(old.at) + 1 : 0)).toISOString()}); }); });
+ S.loads = S.loads || {}; const stamp = old => new Date(Math.max(Date.now(), old && old.at ? Date.parse(old.at) + 1 : 0)).toISOString();
+ const key = flow891OrderKey(iso), oldDoc = S.loads[key];
+ S.loads[key] = {kind: 'flow891', day: iso, ref: '', ids: ids.slice(), by, at: stamp(oldDoc)};
+ const seen = new Set(); ids.forEach((id, i) => byId.get(id).rows.forEach(r => { const ref = r.a.key; if (seen.has(ref) || !assetOf(ref)) return; seen.add(ref);
+  const k = crew883Key(iso, ref), old = S.loads[k], base = old ? Object.assign({}, old) : {people: [], start: '', finish: '', location: ''};
+  S.loads[k] = Object.assign(base, {order: i + 1, kind: 'crew883', day: iso, ref, by, at: stamp(old)}); }));
  bump(); flash('Load order saved — the Load numbers now read this way on the Drivers and Install PDFs, the messages and this day.'); return true;
 }
 function flow891Ids(iso){ const d = programmeDays().find(x => x.iso === iso); return d ? dpLoads(d).filter(g => g.kind === 'deliveries').map(g => ldId(d, g)) : []; }
-function flow891Move(iso, id, dir){ const ids = flow891Ids(iso), i = ids.indexOf(id); if (i < 0) return false;
+function flow891Move(iso, id, dir){ const ids = flow891Ids(iso), i = ids.indexOf(id); if (i < 0) { flash('Clear the search or filter to change the order of the day’s loads.'); return false; }
  const j = dir === 'first' ? 0 : i + (dir === 'up' ? -1 : 1); if (j < 0 || j >= ids.length || j === i) return false; ids.splice(i, 1); ids.splice(j, 0, id); return flow891Flip(iso, () => flow891SaveOrder(iso, ids)); }
 function flow891Drop(iso, id, targetId, before){ const ids = flow891Ids(iso); if (!ids.includes(id) || !ids.includes(targetId) || id === targetId) return false;
  ids.splice(ids.indexOf(id), 1); let j = ids.indexOf(targetId) + (before ? 0 : 1); ids.splice(j, 0, id); return flow891Flip(iso, () => flow891SaveOrder(iso, ids)); }
@@ -258,7 +267,7 @@ function flow891Card(d){
    .map(r => '<tr><td>' + esc(r[0]) + '</td><td>' + esc(r[1]) + '</td><td>' + esc(r[2]) + '</td></tr>').join('') + '</tbody></table>' +
   '<p>' + esc(H.name) + ': ' + H.ll[0].toFixed(6) + ', ' + H.ll[1].toFixed(6) + ' (a 50 m strip, ' + esc(H.approx) + ') · <a href="' + esc(nav) + '" target="_blank" rel="noopener">Navigate</a> · fixed from the master D001 and the page’s own unit tags; no pin was moved.</p>' +
   '<p>Weeks are the programme’s own sheets (Week 6 is 7 Sep, Week 1 is 12 Oct, then Event Week). Arrival windows come from the planned unloading window in Crew, else the Kingston load time plus the run; unloading takes at least ' + UNLOAD_MIN782 + ' min. Each driver sheet and message carries the allocated order, the window and the holding instruction.</p></details>';
- return '<section class="card flow891" data-flow891="' + iso + '" aria-label="Truck flow, ' + esc(fmtDate(d.iso)) + '"><div class="flow891-hd"><div><span class="flow891-k">Truck flow</span><h3>' + esc(peopleWords) + ' · ' + M.loads + ' load' + (M.loads === 1 ? '' : 's') + '</h3><p class="sub">' + esc(allow) + '</p></div>' +
+ return '<section class="card nosfold flow891" data-flow891="' + iso + '" aria-label="Truck flow, ' + esc(fmtDate(d.iso)) + '"><div class="flow891-hd"><div><span class="flow891-k">Truck flow</span><h3>' + esc(peopleWords) + ' · ' + M.loads + ' load' + (M.loads === 1 ? '' : 's') + '</h3><p class="sub">' + esc(allow) + '</p></div>' +
   '<label class="flow891-people"><span>People on</span><input type="number" min="0" max="50" inputmode="numeric" data-flow891-people value="' + (P.count == null ? '' : P.count) + '"' + (can ? '' : ' disabled') + ' aria-label="People on for ' + esc(fmtDate(d.iso)) + '">' + (can ? '<button type="button" class="btn" data-flow891-people-save>Save</button>' : '') + '</label></div>' +
   '<div class="flow891-rows">' + row('Order', order + orderNote) + areas + unknown + ov + row('Curfew first', curfew, M.curfew.some(x => x.curfew.state === 'late') ? 'flag' : '') + row('Could share a truck', share) + '</div>' + rules + '</section>';
 }

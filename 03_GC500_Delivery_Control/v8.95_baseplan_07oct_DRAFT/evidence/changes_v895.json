@@ -1,0 +1,642 @@
+{
+ "added": [
+  {
+   "line": "9961976/42",
+   "branch": "NVAC",
+   "item": "1316182",
+   "description": "GN CONCERT Generator - 200kVA (Diesel)",
+   "what": "Generator - 200kVA (Diesel)",
+   "kind": "generator",
+   "register_type": "200kva",
+   "status": "Pending",
+   "booked_delivery_date": "2026-10-12",
+   "demob_date": "2026-10-26",
+   "has_rate": false,
+   "joined_to": "GN?",
+   "via": "asset number"
+  },
+  {
+   "line": "9961976/43",
+   "branch": "NVAC",
+   "item": "1316183",
+   "description": "GN CONCERT-Generator - 200kVA (Diesel)",
+   "what": "Generator - 200kVA (Diesel)",
+   "kind": "generator",
+   "register_type": "200kva",
+   "status": "Pending",
+   "booked_delivery_date": "2026-10-12",
+   "demob_date": "2026-10-26",
+   "has_rate": false,
+   "joined_to": "GN?",
+   "via": "asset number"
+  }
+ ],
+ "removed": [],
+ "changed": [
+  {
+   "line": "9961976/27",
+   "fields": [
+    "description",
+    "what"
+   ],
+   "status": null
+  },
+  {
+   "line": "9968862/89",
+   "fields": [
+    "booked_delivery_date",
+    "delivered",
+    "start_date",
+    "status_as_written"
+   ],
+   "status": [
+    "Del Req",
+    "Delivered"
+   ]
+  },
+  {
+   "line": "9968955/24",
+   "fields": [
+    "asset_no",
+    "asset_no_is_plant_number",
+    "booked_delivery_date",
+    "delivered",
+    "description",
+    "item",
+    "start_date",
+    "status_as_written"
+   ],
+   "status": [
+    "Del Req",
+    "Delivered"
+   ]
+  },
+  {
+   "line": "9968955/25",
+   "fields": [
+    "asset_no",
+    "asset_no_is_plant_number",
+    "booked_delivery_date",
+    "delivered",
+    "item",
+    "start_date",
+    "status_as_written"
+   ],
+   "status": [
+    "Del Req",
+    "Delivered"
+   ]
+  },
+  {
+   "line": "9968955/26",
+   "fields": [
+    "asset_no",
+    "asset_no_is_plant_number",
+    "booked_delivery_date",
+    "delivered",
+    "item",
+    "start_date",
+    "status_as_written"
+   ],
+   "status": [
+    "Del Req",
+    "Delivered"
+   ]
+  },
+  {
+   "line": "9968955/27",
+   "fields": [
+    "asset_no",
+    "asset_no_is_plant_number",
+    "booked_delivery_date",
+    "delivered",
+    "item",
+    "start_date",
+    "status_as_written"
+   ],
+   "status": [
+    "Del Req",
+    "Delivered"
+   ]
+  },
+  {
+   "line": "9968955/28",
+   "fields": [
+    "asset_no",
+    "asset_no_is_plant_number",
+    "booked_delivery_date",
+    "delivered",
+    "item",
+    "start_date",
+    "status_as_written"
+   ],
+   "status": [
+    "Del Req",
+    "Delivered"
+   ]
+  },
+  {
+   "line": "9968955/29",
+   "fields": [
+    "asset_no",
+    "asset_no_is_plant_number",
+    "booked_delivery_date",
+    "delivered",
+    "item",
+    "start_date",
+    "status_as_written"
+   ],
+   "status": [
+    "Del Req",
+    "Delivered"
+   ]
+  },
+  {
+   "line": "9968955/30",
+   "fields": [
+    "asset_no",
+    "asset_no_is_plant_number",
+    "booked_delivery_date",
+    "delivered",
+    "item",
+    "start_date",
+    "status_as_written"
+   ],
+   "status": [
+    "Del Req",
+    "Delivered"
+   ]
+  },
+  {
+   "line": "9968955/31",
+   "fields": [
+    "asset_no",
+    "asset_no_is_plant_number",
+    "booked_delivery_date",
+    "delivered",
+    "item",
+    "start_date",
+    "status_as_written"
+   ],
+   "status": [
+    "Del Req",
+    "Delivered"
+   ]
+  },
+  {
+   "line": "9968955/32",
+   "fields": [
+    "asset_no",
+    "asset_no_is_plant_number",
+    "booked_delivery_date",
+    "delivered",
+    "item",
+    "start_date",
+    "status_as_written"
+   ],
+   "status": [
+    "Del Req",
+    "Delivered"
+   ]
+  },
+  {
+   "line": "9968955/33",
+   "fields": [
+    "asset_no",
+    "asset_no_is_plant_number",
+    "booked_delivery_date",
+    "delivered",
+    "item",
+    "start_date",
+    "status_as_written"
+   ],
+   "status": [
+    "Del Req",
+    "Delivered"
+   ]
+  },
+  {
+   "line": "9968955/34",
+   "fields": [
+    "asset_no",
+    "asset_no_is_plant_number",
+    "booked_delivery_date",
+    "delivered",
+    "item",
+    "start_date",
+    "status_as_written"
+   ],
+   "status": [
+    "Del Req",
+    "Delivered"
+   ]
+  },
+  {
+   "line": "9968955/35",
+   "fields": [
+    "asset_no",
+    "asset_no_is_plant_number",
+    "booked_delivery_date",
+    "delivered",
+    "item",
+    "start_date",
+    "status_as_written"
+   ],
+   "status": [
+    "Del Req",
+    "Delivered"
+   ]
+  },
+  {
+   "line": "9968955/36",
+   "fields": [
+    "asset_no",
+    "asset_no_is_plant_number",
+    "booked_delivery_date",
+    "delivered",
+    "item",
+    "start_date",
+    "status_as_written"
+   ],
+   "status": [
+    "Del Req",
+    "Delivered"
+   ]
+  },
+  {
+   "line": "9968955/37",
+   "fields": [
+    "asset_no",
+    "asset_no_is_plant_number",
+    "booked_delivery_date",
+    "delivered",
+    "item",
+    "start_date",
+    "status_as_written"
+   ],
+   "status": [
+    "Del Req",
+    "Delivered"
+   ]
+  },
+  {
+   "line": "9968955/38",
+   "fields": [
+    "asset_no",
+    "asset_no_is_plant_number",
+    "booked_delivery_date",
+    "delivered",
+    "item",
+    "start_date",
+    "status_as_written"
+   ],
+   "status": [
+    "Del Req",
+    "Delivered"
+   ]
+  },
+  {
+   "line": "9968955/39",
+   "fields": [
+    "asset_no",
+    "asset_no_is_plant_number",
+    "booked_delivery_date",
+    "delivered",
+    "description",
+    "item",
+    "start_date",
+    "status_as_written"
+   ],
+   "status": [
+    "Del Req",
+    "Delivered"
+   ]
+  },
+  {
+   "line": "9968955/40",
+   "fields": [
+    "asset_no",
+    "asset_no_is_plant_number",
+    "booked_delivery_date",
+    "delivered",
+    "item",
+    "start_date",
+    "status_as_written"
+   ],
+   "status": [
+    "Del Req",
+    "Delivered"
+   ]
+  },
+  {
+   "line": "9968955/41",
+   "fields": [
+    "asset_no",
+    "asset_no_is_plant_number",
+    "booked_delivery_date",
+    "delivered",
+    "item",
+    "start_date",
+    "status_as_written"
+   ],
+   "status": [
+    "Del Req",
+    "Delivered"
+   ]
+  },
+  {
+   "line": "9968955/42",
+   "fields": [
+    "asset_no",
+    "asset_no_is_plant_number",
+    "booked_delivery_date",
+    "delivered",
+    "item",
+    "start_date",
+    "status_as_written"
+   ],
+   "status": [
+    "Del Req",
+    "Delivered"
+   ]
+  },
+  {
+   "line": "9968955/43",
+   "fields": [
+    "asset_no",
+    "asset_no_is_plant_number",
+    "booked_delivery_date",
+    "delivered",
+    "item",
+    "start_date",
+    "status_as_written"
+   ],
+   "status": [
+    "Del Req",
+    "Delivered"
+   ]
+  },
+  {
+   "line": "9968955/97",
+   "fields": [
+    "delivery_number",
+    "status_as_written"
+   ],
+   "status": [
+    "Pending",
+    "Del Req"
+   ]
+  },
+  {
+   "line": "9968955/103",
+   "fields": [
+    "delivery_number",
+    "status_as_written"
+   ],
+   "status": [
+    "Pending",
+    "Del Req"
+   ]
+  },
+  {
+   "line": "9968955/105",
+   "fields": [
+    "delivery_number",
+    "status_as_written"
+   ],
+   "status": [
+    "Pending",
+    "Del Req"
+   ]
+  }
+ ],
+ "rejoined": [
+  {
+   "line": "9968955/24",
+   "was": null,
+   "now": "WC07",
+   "via": "asset number",
+   "source": "the as-supplied record, 2026-09-22"
+  },
+  {
+   "line": "9968955/25",
+   "was": null,
+   "now": "WC07",
+   "via": "asset number",
+   "source": "the as-supplied record, 2026-09-22"
+  },
+  {
+   "line": "9968955/26",
+   "was": null,
+   "now": "WC07",
+   "via": "asset number",
+   "source": "the as-supplied record, 2026-09-22"
+  },
+  {
+   "line": "9968955/27",
+   "was": null,
+   "now": "WC07",
+   "via": "asset number",
+   "source": "the as-supplied record, 2026-09-22"
+  },
+  {
+   "line": "9968955/28",
+   "was": null,
+   "now": "WC07",
+   "via": "asset number",
+   "source": "the as-supplied record, 2026-09-22"
+  },
+  {
+   "line": "9968955/29",
+   "was": null,
+   "now": "WC07",
+   "via": "asset number",
+   "source": "the as-supplied record, 2026-09-22"
+  },
+  {
+   "line": "9968955/30",
+   "was": null,
+   "now": "WC07",
+   "via": "asset number",
+   "source": "the as-supplied record, 2026-09-22"
+  },
+  {
+   "line": "9968955/31",
+   "was": null,
+   "now": "WC07",
+   "via": "asset number",
+   "source": "the as-supplied record, 2026-09-22"
+  },
+  {
+   "line": "9968955/32",
+   "was": null,
+   "now": "WC07",
+   "via": "asset number",
+   "source": "the as-supplied record, 2026-09-22"
+  },
+  {
+   "line": "9968955/33",
+   "was": null,
+   "now": "WC07",
+   "via": "asset number",
+   "source": "the as-supplied record, 2026-09-22"
+  },
+  {
+   "line": "9968955/34",
+   "was": null,
+   "now": "WC07",
+   "via": "asset number",
+   "source": "the as-supplied record, 2026-09-22"
+  },
+  {
+   "line": "9968955/35",
+   "was": null,
+   "now": "WC07",
+   "via": "asset number",
+   "source": "the as-supplied record, 2026-09-22"
+  },
+  {
+   "line": "9968955/36",
+   "was": null,
+   "now": "WC07",
+   "via": "asset number",
+   "source": "the as-supplied record, 2026-09-22"
+  },
+  {
+   "line": "9968955/37",
+   "was": null,
+   "now": "WC07",
+   "via": "asset number",
+   "source": "the as-supplied record, 2026-09-22"
+  },
+  {
+   "line": "9968955/39",
+   "was": null,
+   "now": "WC07",
+   "via": "asset number",
+   "source": "the as-supplied record, 2026-09-22"
+  },
+  {
+   "line": "9968955/40",
+   "was": null,
+   "now": "WC07",
+   "via": "asset number",
+   "source": "the as-supplied record, 2026-09-22"
+  },
+  {
+   "line": "9968955/41",
+   "was": null,
+   "now": "WC07",
+   "via": "asset number",
+   "source": "the as-supplied record, 2026-09-22"
+  },
+  {
+   "line": "9968955/42",
+   "was": null,
+   "now": "WC07",
+   "via": "asset number",
+   "source": "the as-supplied record, 2026-09-22"
+  },
+  {
+   "line": "9968955/43",
+   "was": null,
+   "now": "WC07",
+   "via": "asset number",
+   "source": "the as-supplied record, 2026-09-22"
+  },
+  {
+   "line": "9968955/97",
+   "was": null,
+   "now": "WC31",
+   "via": "delivery docket",
+   "source": "the register"
+  },
+  {
+   "line": "9968955/103",
+   "was": null,
+   "now": "WC09",
+   "via": "delivery docket",
+   "source": "the register"
+  },
+  {
+   "line": "9968955/105",
+   "was": null,
+   "now": "WC09",
+   "via": "delivery docket",
+   "source": "the register"
+  }
+ ],
+ "held": [
+  {
+   "line": "9968955/38",
+   "asset_no": "1317643",
+   "description": "WC07 Toilet Portable - Fresh Water Flush",
+   "status": "Delivered",
+   "why": "no reference carries this number - not on the shared record, not on the as-supplied record, not in the register; the line keeps its join by kind",
+   "join": null
+  }
+ ],
+ "plant_line_copies": [],
+ "flags": [
+  {
+   "asset_no": "1189410",
+   "lines": [
+    "9968862/93 Delivered 2026-09-14..2026-11-13 P36 Portable Building Shell 6.0M x 3.0M - Cyclonic Rated",
+    "9968862/108 Pending 2026-09-14..2026-11-13 P67 Commentary Booth 6.0M x 3.0M"
+   ],
+   "why": "one number on two priced lines: two machines with one misnumbered, or one machine charged twice"
+  },
+  {
+   "asset_no": "1189412",
+   "lines": [
+    "9968862/63 Delivered 2026-09-23..2026-11-13 P41 Portable Building Shell 6.0M x 3.0M",
+    "9968862/110 Pending 2026-09-14..2026-11-13 P65 Commentary Booth 6.0M x 3.0M"
+   ],
+   "why": "one number on two priced lines: two machines with one misnumbered, or one machine charged twice"
+  },
+  {
+   "asset_no": "1211404",
+   "lines": [
+    "9961265/1 Delivered 2026-09-07..2026-11-13 Variable Message Board Senior",
+    "9961265/12 Pending 2026-10-08..2026-10-27 VMS09 Variable Message Board Senior"
+   ],
+   "why": "one number on two priced lines: two machines with one misnumbered, or one machine charged twice"
+  },
+  {
+   "asset_no": "1272166",
+   "lines": [
+    "9968726/10 Del Req 2026-10-19..2026-10-27 Forklift 5.0t Diesel",
+    "9987005/1 Delivered 2026-10-05..2026-10-30 Supply Forklift 5.0t Diesel"
+   ],
+   "why": "one number on two priced lines: two machines with one misnumbered, or one machine charged twice"
+  },
+  {
+   "asset_no": "1327213",
+   "lines": [
+    "9968862/7 Delivered 2026-09-14..2026-11-13 P04 Portable Building Shell 12.0M x 3.0M - Cyclonic Rated",
+    "9968862/94 Del Req 2026-09-14..2026-11-13 P46 Portable Building Shell 12.0M x 3.0M - Cyclonic Rated"
+   ],
+   "why": "one number on two priced lines: two machines with one misnumbered, or one machine charged twice"
+  }
+ ],
+ "record_would_move": [
+  {
+   "line": "9968862/50",
+   "asset_no": "1105053",
+   "status": "Delivered",
+   "description": "P37 Portable Building Shell 6.0M x 3.0M",
+   "page_join": null,
+   "record": "P37",
+   "source": "the shared record"
+  },
+  {
+   "line": "9968862/79",
+   "asset_no": "1327211",
+   "status": "Del Req",
+   "description": "P52 Portable Building Shell 12.0M x 3.0M - Cyclonic Rated",
+   "page_join": null,
+   "record": "P52",
+   "source": "the shared record"
+  }
+ ]
+}

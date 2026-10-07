@@ -20,5 +20,10 @@ for p in sorted(SRC.iterdir()):
     else: n = 0
     (OUT / p.name).write_bytes(b); out['files'][p.name] = {'sha256': hashlib.sha256(b).hexdigest(), 'bytes': len(b), 'tokens_replaced': n}
 assert total >= 8, total
+# a fresh content-hash token for explorer.js in index.html, as v8.90 set it (the file changed, so its token must)
+js_tok = out['files']['explorer.js']['sha256'][:12]; html = (OUT / 'index.html').read_text(encoding='utf-8')
+html, k = re.subn(r'src="explorer\.js\?v=[0-9a-f]{12}"', 'src="explorer.js?v=' + js_tok + '"', html); assert k == 1, k
+b = html.encode('utf-8'); (OUT / 'index.html').write_bytes(b); out['files']['index.html'] = {'sha256': hashlib.sha256(b).hexdigest(), 'bytes': len(b), 'tokens_replaced': out['files']['index.html']['tokens_replaced'] + 1}
+out['explorer_js_token'] = js_tok
 (OUT / 'prepared893.json').write_text(json.dumps(out, indent=1))
-print('token', old_tok, '->', new_tok, '| replaced', total, 'in', sum(1 for f in out['files'].values() if f['tokens_replaced']), 'files |', len(out['files']), 'files written')
+print('token', old_tok, '->', new_tok, '| replaced', total, 'in', sum(1 for f in out['files'].values() if f['tokens_replaced']), 'files | explorer.js token', js_tok, '|', len(out['files']), 'files written')

@@ -1,0 +1,360 @@
+
+##### open costs: wall 2329 ms, sampled 3119 ms
+-- self --
+178 ms  (anon) @49820
+117 ms  fin745History @25640
+106 ms  fin745Events @25639
+53 ms  gradeOurs @24255
+41 ms  (anon) @25639
+40 ms  (anon) @24314
+37 ms  (anon) @51537
+37 ms  fin745Fingerprint @25634
+32 ms  renderCosts_held @27724
+27 ms  fmtStamp @12003
+27 ms  ourCosts @24303
+26 ms  labourTicked @36374
+22 ms  t @24235
+21 ms  labourWho @36392
+20 ms  money @9604
+17 ms  (anon) @25640
+16 ms  fin745Plain @25618
+16 ms  (anon) @25657
+-- inclusive --
+3119 ms  (root) @-1
+1201 ms  holdAssets @10367
+1201 ms  go @12605
+1201 ms  (anon) @0
+1201 ms  evaluate @304
+1190 ms  (anon) @12605
+1188 ms  go776Held @12616
+1163 ms  renderPass @51491
+1163 ms  render @49817
+1112 ms  renderCosts @68705
+1111 ms  renderCosts @68560
+1110 ms  renderCosts @68526
+1107 ms  renderCosts @27715
+1106 ms  renderCosts_held @27724
+491 ms  fin745Rows @25655
+413 ms  (anon) @25657
+285 ms  fin745Latest @25645
+276 ms  recon888Html @69193
+
+##### open docs: wall 1744 ms, sampled 1805 ms
+-- self --
+279 ms  (anon) @20293
+90 ms  (anon) @20159
+78 ms  (anon) @20291
+65 ms  (anon) @20157
+61 ms  (anon) @20166
+30 ms  docketNoInName @20288
+21 ms  (anon) @21548
+20 ms  fmtStamp @12003
+14 ms  (anon) @12591
+14 ms  (anon) @20118
+12 ms  docketProblems @20141
+11 ms  costDocket @20116
+10 ms  serviceNoteRows @20180
+10 ms  (anon) @10492
+9 ms  allDockets @20154
+7 ms  deliveryOf @11070
+7 ms  setAttribute @-1
+7 ms  (anon) @20182
+-- inclusive --
+1805 ms  (root) @-1
+819 ms  holdAssets @10367
+819 ms  go @12605
+819 ms  (anon) @0
+819 ms  evaluate @304
+811 ms  (anon) @12605
+809 ms  go776Held @12616
+773 ms  renderPass @51491
+773 ms  render @49817
+764 ms  (anon) @42447
+764 ms  renderDocs @42447
+764 ms  renderDocs815 @42301
+660 ms  docCollection @41894
+655 ms  (anon) @41898
+652 ms  docketNoInName @20288
+358 ms  (anon) @20291
+281 ms  allDockets @20154
+279 ms  (anon) @20293
+
+##### open fencing: wall 2095 ms, sampled 2215 ms
+-- self --
+612 ms  dropFileIndex @35644
+147 ms  docketPapersByName @20310
+42 ms  (anon) @49820
+34 ms  fmtStamp @12003
+33 ms  focus @-1
+23 ms  renderFencing_held @22273
+18 ms  fencePrivateApply @22222
+16 ms  querySelectorAll @-1
+16 ms  (anon) @12591
+12 ms  URL @-1
+11 ms  allDockets @20154
+9 ms  fenceReviewContext836 @21943
+9 ms  (anon) @20159
+9 ms  fencingReview836 @21917
+8 ms  (anon) @20321
+8 ms  fenceReviewCanonical836 @21886
+8 ms  setAttribute @-1
+7 ms  photoFor @41704
+-- inclusive --
+2215 ms  (root) @-1
+1147 ms  holdAssets @10367
+1147 ms  go @12605
+1147 ms  (anon) @0
+1147 ms  evaluate @304
+1140 ms  (anon) @12605
+1139 ms  go776Held @12616
+1066 ms  renderPass @51491
+1066 ms  render @49817
+1047 ms  (anon) @21691
+1047 ms  renderFencing @21691
+729 ms  fencePrivateApply @22222
+630 ms  photoFor @41704
+614 ms  dropPhotoMatch @35663
+612 ms  dropFileIndex @68679
+612 ms  dropFileIndex @35644
+317 ms  renderFencing_held @22273
+275 ms  fencePrivatePaperState @22207
+
+##### open timeline: wall 1317 ms, sampled 1430 ms
+-- self --
+57 ms  (anon) @41424
+35 ms  get scrollTop @-1
+23 ms  deliveryOf @11070
+20 ms  o.getLostPoint @9480
+18 ms  step @12595
+14 ms  querySelectorAll @-1
+13 ms  renderTimeline_held @41289
+11 ms  setAttribute @-1
+7 ms  stamped @11039
+7 ms  (anon) @12591
+7 ms  f.isDark @9480
+6 ms  fmtDate @28097
+6 ms  (anon) @49820
+6 ms  fmtStamp @12003
+6 ms  (anon) @38761
+4 ms  timeline841CompletionConflict @38672
+4 ms  (anon) @37801
+4 ms  (anon) @9480
+-- inclusive --
+1430 ms  (root) @-1
+343 ms  holdAssets @10367
+343 ms  go @12605
+343 ms  (anon) @0
+343 ms  evaluate @304
+335 ms  (anon) @12605
+334 ms  go776Held @12616
+296 ms  renderPass @51491
+296 ms  render @49817
+282 ms  renderTimeline @41287
+278 ms  renderTimeline_held @41289
+97 ms  dayBlock @38873
+85 ms  ldList @38812
+84 ms  timeline846Line @38787
+84 ms  ldLine @38801
+84 ms  (anon) @38816
+57 ms  (anon) @41424
+49 ms  ldGo751 @38632
+
+##### open plant: wall 1150 ms, sampled 1242 ms
+-- self --
+45 ms  (anon) @49820
+40 ms  (anon) @12591
+35 ms  (anon) @10389
+35 ms  fmtStamp @12003
+33 ms  rentalOf_ @10634
+27 ms  querySelectorAll @-1
+18 ms  insertAdjacentHTML @-1
+17 ms  eq796 @33235
+12 ms  setAttribute @-1
+11 ms  deliveryOf @11070
+10 ms  contentsType @10303
+10 ms  (anon) @10637
+10 ms  fixParse @32630
+8 ms  step @12595
+8 ms  focus @-1
+7 ms  renderPlant_held @19871
+7 ms  deliveryAsOf @44705
+6 ms  (anon) @10307
+-- inclusive --
+1242 ms  (root) @-1
+411 ms  holdAssets @10367
+238 ms  go @12605
+238 ms  (anon) @0
+238 ms  evaluate @304
+226 ms  (anon) @12605
+225 ms  go776Held @12616
+173 ms  step @12574
+146 ms  renderPass @51491
+146 ms  render @49817
+131 ms  renderPlant_held @19871
+131 ms  renderPlant @19870
+126 ms  buildAllAssets @10372
+120 ms  (anon) @10389
+93 ms  eq796 @68469
+88 ms  eq796 @33235
+67 ms  invHtml @13926
+58 ms  (anon) @12577
+
+##### search typing WC12 on Today: wall 1403 ms, sampled 1799 ms
+-- self --
+108 ms  querySelectorAll @-1
+99 ms  (anon) @35654
+76 ms  add @35648
+59 ms  dropFileIndex @35644
+44 ms  deliveryOf @11070
+43 ms  visibleMotionTarget @17702
+25 ms  size @46249
+19 ms  renderToday_held @18148
+18 ms  scrollIntoView @-1
+16 ms  (anon) @10389
+16 ms  rentalOf_ @10634
+16 ms  query @5718
+15 ms  (anon) @49820
+15 ms  fin745Events @25639
+14 ms  (anon) @44300
+14 ms  (anon) @20159
+13 ms  typeCount @17474
+12 ms  docketPapersByName @20310
+-- inclusive --
+1799 ms  (root) @-1
+841 ms  holdAssets @10367
+729 ms  render @49817
+729 ms  (anon) @44442
+708 ms  renderPass @51491
+696 ms  renderToday @51768
+695 ms  renderToday @18147
+693 ms  (anon) @18147
+620 ms  renderToday_held @68897
+600 ms  renderToday_held @18148
+345 ms  build @17673
+345 ms  todayWorkBoard840 @18144
+327 ms  card @17650
+300 ms  renderFenceComponents849 @17124
+285 ms  fenceComponentLinks849 @17032
+241 ms  photoFor @41704
+237 ms  dropFileIndex @68679
+237 ms  dropPhotoMatch @35663
+
+##### drawer open WC01: wall 957 ms, sampled 1060 ms
+-- self --
+40 ms  focus @-1
+27 ms  pushState @-1
+14 ms  querySelectorAll @-1
+13 ms  deliveryOf @11070
+12 ms  fmtStamp @12003
+12 ms  fin745Events @25639
+10 ms  set innerHTML @-1
+9 ms  (anon) @20159
+8 ms  rowOff @37657
+7 ms  unitKey @35215
+7 ms  openAssetDraw @30132
+7 ms  dropFileIndex @35644
+6 ms  gradeOurs @24255
+5 ms  ourCosts @24303
+5 ms  fin745Fingerprint @25634
+5 ms  branchesUsed @22992
+4 ms  (anon) @50096
+4 ms  fin745Leaves @25641
+-- inclusive --
+1060 ms  (root) @-1
+330 ms  holdAssets @10367
+330 ms  openAsset @29899
+330 ms  (anon) @0
+330 ms  evaluate @304
+323 ms  openAsset_held @30091
+323 ms  (anon) @29899
+321 ms  openAssetDraw @30132
+117 ms  labourTicksHtml @36572
+117 ms  (anon) @36585
+115 ms  labourPlan @36817
+95 ms  moneySummary @24659
+95 ms  moneySummary_ @24889
+55 ms  drawer816 @50702
+40 ms  focus @-1
+39 ms  fin745Summary @25678
+39 ms  labourNote753 @24663
+38 ms  fin745Rows @25655
+
+##### redraw today: wall 1026 ms, sampled 1235 ms
+-- self --
+146 ms  dropFileIndex @35644
+117 ms  querySelectorAll @-1
+69 ms  fin745Events @25639
+52 ms  deliveryOf @11070
+33 ms  visibleMotionTarget @17702
+26 ms  (anon) @49820
+25 ms  size @46249
+22 ms  set innerHTML @-1
+14 ms  percentage @17425
+12 ms  stamped @11039
+12 ms  docketPapersByName @20310
+11 ms  getBoundingClientRect @-1
+10 ms  effectiveDates @11681
+10 ms  scheduleHealth @17825
+10 ms  dayStampOf @42975
+10 ms  querySelector @-1
+8 ms  setAttribute @-1
+8 ms  raceStrip @12763
+-- inclusive --
+1235 ms  (root) @-1
+630 ms  evaluate @304
+630 ms  (anon) @0
+629 ms  render @49817
+607 ms  holdAssets @10367
+596 ms  renderPass @51491
+578 ms  renderToday @18147
+578 ms  renderToday @51768
+577 ms  (anon) @18147
+439 ms  renderToday_held @68897
+416 ms  renderToday_held @18148
+232 ms  todayWorkBoard840 @18144
+231 ms  build @17673
+215 ms  card @17650
+188 ms  renderFenceComponents849 @17124
+176 ms  fenceComponentLinks849 @17032
+154 ms  checkMotion @17739
+149 ms  photoFor @41704
+
+##### redraw timeline: wall 523 ms, sampled 661 ms
+-- self --
+63 ms  (anon) @41424
+24 ms  deliveryOf @11070
+22 ms  querySelectorAll @-1
+19 ms  set innerHTML @-1
+7 ms  fmtStamp @12003
+6 ms  o.getLostPoint @9480
+6 ms  f.isDark @9480
+5 ms  stamped @11039
+4 ms  querySelector @-1
+3 ms  (anon) @51537
+2 ms  (anon) @10389
+2 ms  rentalOf_ @10634
+2 ms  (anon) @37801
+2 ms  rowOff @37657
+2 ms  (anon) @49820
+2 ms  mod @9480
+2 ms  (anon) @37826
+2 ms  insertAdjacentHTML @-1
+-- inclusive --
+661 ms  (root) @-1
+209 ms  holdAssets @10367
+209 ms  render @49817
+209 ms  (anon) @0
+209 ms  evaluate @304
+200 ms  renderPass @51491
+183 ms  renderTimeline @41287
+182 ms  renderTimeline_held @41289
+64 ms  (anon) @41424
+39 ms  dayBlock @38873
+33 ms  ldList @38812
+32 ms  timeline846Line @38787
+32 ms  ldLine @38801
+32 ms  (anon) @38816
+30 ms  deliveryOf @11070
+28 ms  programmeDays @37824
+24 ms  programmeDaysBefore801 @37906
+22 ms  (anon) @37910
