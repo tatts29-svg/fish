@@ -623,7 +623,11 @@ let lastInput = 0;
 function whenQuiet(f, quiet = 2000) { const go = () => { const idle = performance.now() - lastInput; if (interacting || zAnim || flingRAF || idle < quiet || under3d()) return setTimeout(go, Math.max(250, quiet - idle)); (window.requestIdleCallback ? requestIdleCallback(f, {timeout: 2000}) : f()); }; setTimeout(go, 0); }
 function touchInteraction() { lastInput = performance.now(); clearTimeout(restTimer);
   if (!interacting) { interacting = true; slow887.length = 0; lightWent887 = false; lightMoving887 = lightNext887 && (++lightTrials887 % 6 !== 0); lightPending887 = true; }
-  restTimer = setTimeout(() => { interacting = false; lightNext887 = lightMoving887 || lightWent887; lightMoving887 = false; lightPending887 = true; if (!zAnim) { vtGoal.clear(); goalWanted.clear(); } dropVTQueue(); requestPaint(); }, 160); }
+  restTimer = setTimeout(function rest887() {
+    /* v8.87 - a glide, a fling or a hand still moving is not rest, however slow the frames: one frame over 160 ms used to end the
+       "interaction" mid-gesture and flip the backing store back and forth (dozens of resizes in one pan on a slow phone) */
+    if (zAnim || flingRAF || gotoAnim887 || rotAnim || (pointers.size && performance.now() - lastInput < 500)) { restTimer = setTimeout(rest887, 160); return; }
+    interacting = false; lightNext887 = lightMoving887 || lightWent887; lightMoving887 = false; lightPending887 = true; if (!zAnim) { vtGoal.clear(); goalWanted.clear(); } dropVTQueue(); requestPaint(); }, 160); }
 /* hosted under /w/<token>/explorer/ the page passes the link's own token to the service; anywhere else the stand-in answers */
 function hostedToken() { const m = /^\/w\/([A-Za-z0-9_-]{16,128})\//.exec(location.pathname); return m ? '?t=' + encodeURIComponent(m[1]) : ''; }
 /* v8.87 - nothing is drawn, and the Done list is not asked for, while the map is hidden or parked by the dashboard (the frame is

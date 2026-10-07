@@ -4,144 +4,144 @@
   "device": "phone",
   "measure": "zoom_fencingOff",
   "raf": {
-   "n": 255,
-   "mean": 26.47,
+   "n": 224,
+   "mean": 17.26,
    "p50": 16.7,
-   "p95": 100,
-   "max": 250.1,
-   "over50": 22,
-   "over33": 38
+   "p95": 16.8,
+   "max": 83.4,
+   "over50": 1,
+   "over33": 4
   },
   "draw": {
-   "n": 180,
-   "mean": 2.63,
+   "n": 188,
+   "mean": 1.35,
    "p50": 0.5,
-   "p95": 3.2,
-   "max": 106.7,
-   "over50": 3,
-   "over33": 3
+   "p95": 1.6,
+   "max": 71,
+   "over50": 1,
+   "over33": 2
   },
   "fencePaint": {
-   "n": 186,
-   "mean": 0.08,
+   "n": 189,
+   "mean": 0.04,
    "p50": 0,
    "p95": 0.1,
-   "max": 2.7,
+   "max": 3.4,
    "over50": 0,
    "over33": 0
   },
-  "fencePaintTotalMs": 15.4,
-  "canvasResizes": 10,
+  "fencePaintTotalMs": 7.8,
+  "canvasResizes": 2,
   "light": null,
-  "taskMs": 4558
+  "taskMs": 2284
  },
  {
   "tag": "live",
   "device": "phone",
   "measure": "pan_fencingOff",
   "raf": {
-   "n": 872,
-   "mean": 32.24,
+   "n": 139,
+   "mean": 18.22,
    "p50": 16.7,
-   "p95": 83.4,
-   "max": 6166.4,
-   "over50": 66,
-   "over33": 99
+   "p95": 16.8,
+   "max": 150,
+   "over50": 1,
+   "over33": 5
   },
   "draw": {
-   "n": 43,
-   "mean": 74.59,
-   "p50": 74.5,
-   "p95": 226.9,
-   "max": 276.7,
-   "over50": 24,
-   "over33": 27
+   "n": 44,
+   "mean": 3.9,
+   "p50": 0.6,
+   "p95": 34.2,
+   "max": 37.6,
+   "over50": 0,
+   "over33": 3
   },
   "fencePaint": {
-   "n": 71,
-   "mean": 1.73,
-   "p50": 1,
-   "p95": 7.1,
-   "max": 9.3,
+   "n": 45,
+   "mean": 0.08,
+   "p50": 0,
+   "p95": 0.1,
+   "max": 2.2,
    "over50": 0,
    "over33": 0
   },
-  "fencePaintTotalMs": 122.8,
-  "canvasResizes": 58,
+  "fencePaintTotalMs": 3.6,
+  "canvasResizes": 2,
   "light": null,
-  "taskMs": 7994
+  "taskMs": 939
  },
  {
   "tag": "live",
   "device": "phone",
   "measure": "zoom_fencingOn",
   "raf": {
-   "n": 209,
-   "mean": 21.37,
+   "n": 210,
+   "mean": 18.49,
    "p50": 16.7,
-   "p95": 33.4,
-   "max": 283.3,
-   "over50": 6,
-   "over33": 23
+   "p95": 33.3,
+   "max": 116.7,
+   "over50": 1,
+   "over33": 16
   },
   "draw": {
-   "n": 163,
+   "n": 175,
    "mean": 1.31,
    "p50": 0.3,
-   "p95": 1.9,
-   "max": 56.6,
+   "p95": 1.5,
+   "max": 89.3,
    "over50": 1,
-   "over33": 1
+   "over33": 2
   },
   "fencePaint": {
-   "n": 164,
-   "mean": 4.06,
-   "p50": 3.4,
-   "p95": 8.7,
-   "max": 16.5,
+   "n": 176,
+   "mean": 4.11,
+   "p50": 3.3,
+   "p95": 8.3,
+   "max": 17.3,
    "over50": 0,
    "over33": 0
   },
-  "fencePaintTotalMs": 665.7,
+  "fencePaintTotalMs": 722.5,
   "canvasResizes": 2,
   "light": null,
-  "taskMs": 3104
+  "taskMs": 2909
  },
  {
   "tag": "live",
   "device": "phone",
   "measure": "pan_fencingOn",
   "raf": {
-   "n": 384,
-   "mean": 22.92,
+   "n": 167,
+   "mean": 17.36,
    "p50": 16.7,
-   "p95": 66.7,
-   "max": 133.4,
-   "over50": 26,
-   "over33": 49
+   "p95": 16.8,
+   "max": 50,
+   "over50": 0,
+   "over33": 6
   },
   "draw": {
-   "n": 42,
-   "mean": 39.05,
-   "p50": 28.2,
-   "p95": 106.9,
-   "max": 111.8,
-   "over50": 20,
-   "over33": 20
-  },
-  "fencePaint": {
-   "n": 62,
-   "mean": 5.25,
-   "p50": 4.8,
-   "p95": 9.4,
-   "max": 19.8,
+   "n": 40,
+   "mean": 3.26,
+   "p50": 0.4,
+   "p95": 29.2,
+   "max": 31.1,
    "over50": 0,
    "over33": 0
   },
-  "fencePaintTotalMs": 325.5,
-  "canvasResizes": 40,
+  "fencePaint": {
+   "n": 41,
+   "mean": 3.58,
+   "p50": 3.2,
+   "p95": 5.1,
+   "max": 8.2,
+   "over50": 0,
+   "over33": 0
+  },
+  "fencePaintTotalMs": 146.8,
+  "canvasResizes": 2,
   "light": null,
-  "taskMs": 4184
+  "taskMs": 1028
  },
  {
   "tag": "live",
@@ -165,18 +165,18 @@
   "tag": "live",
   "device": "phone",
   "measure": "hidden10s",
-  "taskMs": 172,
-  "doneCalls": 2,
+  "taskMs": 202,
+  "doneCalls": 3,
   "snapCalls": 0,
   "framesDrawn": 0,
   "parked": false,
-  "frameLogLen": 530
+  "frameLogLen": 504
  },
  {
   "tag": "live",
   "device": "phone",
   "measure": "fencingIdle10s",
-  "taskMs": 174,
+  "taskMs": 253,
   "snapCalls": 2
  },
  {

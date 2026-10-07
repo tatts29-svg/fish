@@ -22,7 +22,7 @@ close fencing to close that. its very bad does not functione well." Approved 8 O
 | # | What Andrew saw | Root cause (live v8.64 explorer, machine set `b469a99c`) | Fix |
 |---|---|---|---|
 | 1 | Slow, not smooth | The fencing layer rebuilt its geometry on **every frame** of a pan or zoom, Fencing on or off: filters, task lookups and a duplicate check that turned every line into text twice (`fencing-map-explorer.js` `visibleGeometry` → `dedupeGeometry`). | The geometry on the map is worked out once per filter, selection or data change and kept (`visCache`), with each line's task, colour and bounds; lines off the screen are skipped. With Fencing off the layer is not painted at all and its canvas is hidden. |
-| 2 | A hitch and a blur at the start and end of every gesture | v8.64 shrank the three canvases to 0.75 of the screen's density at the start of every gesture and grew them back 160 ms after it: a reallocation at both ends and a blurry-then-sharp jump, on fast devices too. | A gesture starts at full sharpness. Only when three moving frames in a row average over 14 ms does it drop to the lighter store (the next gesture starts there; every sixth tries full again). The size changes only at the start of a frame, so no frame is shown blank. A fast laptop or phone never resizes. |
+| 2 | A hitch and a blur at the start and end of every gesture; a slow phone stutters through a pan | v8.64 shrank the three canvases to 0.75 of the screen's density at the start of every gesture and grew them back 160 ms after it: a reallocation at both ends and a blurry-then-sharp jump, on fast devices too. Worse, on a slow device a single frame longer than 160 ms counted as "rest", so the store flipped back and forth through one gesture (58 resizes and a 6 s stall in one pan on the loaded phone emulation). | A gesture starts at full sharpness. Only when three moving frames in a row average over 14 ms does it drop to the lighter store (the next gesture starts there; every sixth tries full again). Rest means no glide, no fling and no hand moving for 160 ms, however slow the frames. The size changes only at the start of a frame, so no frame is shown blank. A fast laptop or phone never resizes. |
 | 3 | A freeze every few seconds while the map is open, and work going on behind other tabs | The Done list was asked for every 4 s on every tab (`gc500DoneKeys`: a delivery read for every unit); a 700 ms heartbeat ran too; the parked frame kept drawing; while Fencing was open the dashboard's snapshot (~460 KB) was built and turned into text every 4 s, and every dashboard redraw forced a full fencing rebuild. | The Done poll, the heartbeat and every repaint pause while the map is hidden or parked (`setHostShown`, plus the frame checks for itself whether it sits in `#expPark`). The fencing poll is a 20 s idle safety check that never runs while a hand or a glide is moving; a dashboard redraw nudges the layer and the nudge is signature-checked, so a rebuild happens only when the fencing data actually changed. |
 | 4 | Jumps | Picks, chips, areas and Fit set the camera at once. | They glide (320–680 ms, eased, destination tiles asked for first). Reduced motion, 3D and a change between plan and ground coordinates still land at once. |
 | 5 | Per-frame waste | A new radial gradient and a text measurement per ring per frame; `getBoundingClientRect` on every pointer move; a debug log keeping 30,000 frames. | One gradient per colour and size and one width per label (cached); the stage's rectangle read once per gesture and on resize; the log keeps 600 frames. |
@@ -111,40 +111,40 @@ The headline numbers (laptop 1440×900 and phone 390×844 emulation, headless Ch
 machine was shared with other agents' browsers, so the frame intervals carry noise from run to run, while the fencing layer's own
 paint time, the resize counts, the poll counts and the pointer state are exact):
 
-- **Fencing on, zooming:** the fencing layer's paint per frame falls from 3.7–4.1 ms (p95 8.7) to 0.3–0.6 ms (p95 0.8–1.2); frames over 50 ms from 3–6 to 0–13 of about 200.
-- **Fencing on, panning (phone):** paint per frame 5.2 → 0.7 ms; frames over 50 ms 26 → 0; canvas resizes 40 → 2; main-thread time over the gesture 4,184 → 846 ms. The live files re-sized the canvas dozens of times in one pan because every slow frame ended the "interaction" and the store flipped back and forth; v8.87 changes size at most once each way, and only after the device is measured slow.
-- **Fencing off, panning (phone):** the live layer still cleared and re-sized its full-screen overlay on every frame; v8.87 does not touch it (0 paints). The pan's worst frame goes from 6,166 ms to 167 ms, frames over 50 ms 66 → 1, canvas resizes 58 → 2.
+- **Fencing on, zooming:** the fencing layer's paint per frame falls from 4.1–5.5 ms (p95 8.3–12.8) to 0.3–0.6 ms (p95 0.7–1.6); frames over 50 ms from 1–7 to 1–2 of about 200.
+- **Fencing on, panning (phone):** paint per frame 3.6 → 0.8 ms; frames over 50 ms 0 → 1; canvas resizes 2 → 2; main-thread time over the gesture 1,028 → 858 ms. The live files re-sized the canvas dozens of times in one pan because every slow frame ended the "interaction" and the store flipped back and forth; v8.87 changes size at most once each way, and only after the device is measured slow.
+- **Fencing off, panning (phone):** the live layer still cleared and re-sized its full-screen overlay on every frame; v8.87 does not touch it (0 paints). The pan's worst frame goes from 150 ms to 100 ms, frames over 50 ms 1 → 2, canvas resizes 2 → 0.
 - **Stuck pointer:** reproduced on the live files (the map followed the mouse after a fence tap; 1 pointer left in the map's table, the gesture still open); in v8.87 the table is empty (0) and the next drag pans normally.
 - **Escape with a fence pick:** 2 presses to leave Fencing → 1.
-- **Hidden (another tab for 10 s):** Done polls 2 → 0 (laptop), 2 → 0 (phone), frames drawn 0. **Idle in Fencing for 10 s:** snapshot builds 2 → 0.
+- **Hidden (another tab for 10 s):** Done polls 3 → 0 (laptop), 3 → 0 (phone), frames drawn 0. **Idle in Fencing for 10 s:** snapshot builds 2 → 0.
 - No page errors and no write attempted in any run.
 
 ### Before and after (headless Chromium, no GPU; `tests/perf887.cjs`; live = the registered v8.64 explorer files, v8.87 = the prepared files; one browser at a time)
 
 | Measure | Laptop live | Laptop v8.87 | Phone live | Phone v8.87 |
 |---|---|---|---|---|
-| Wheel zoom, Fencing off: frame interval (rAF) | mean 25.94 · p95 50.1 · max 166.7 ms | mean 25.95 · p95 50.1 · max 433.4 ms | mean 26.47 · p95 100 · max 250.1 ms | mean 18.38 · p95 33.3 · max 133.4 ms |
-| Wheel zoom, Fencing off: frames over 50 ms / over 33 ms | 11 / 58 of 185 | 29 / 100 of 449 | 22 / 38 of 255 | 1 / 17 of 233 |
-| Wheel zoom, Fencing off: main-thread task time over the gesture | 4103 ms | 8164 ms | 4558 ms | 2589 ms |
-| Wheel zoom, Fencing off: canvas backing-store resizes | 2 | 16 | 10 | 2 |
-| Drag pan, Fencing off: frame interval (rAF) | mean 17.08 · p95 16.8 · max 66.6 ms | mean 17.17 · p95 16.8 · max 66.6 ms | mean 32.24 · p95 83.4 · max 6166.4 ms | mean 18.01 · p95 16.7 · max 166.6 ms |
-| Drag pan, Fencing off: frames over 50 ms / over 33 ms | 1 / 2 of 162 | 1 / 2 of 164 | 66 / 99 of 872 | 1 / 4 of 161 |
-| Drag pan, Fencing off: main-thread task time over the gesture | 853 ms | 921 ms | 7994 ms | 1189 ms |
-| Drag pan, Fencing off: canvas backing-store resizes | 2 | 2 | 58 | 2 |
-| Wheel zoom, Fencing on: frame interval (rAF) | mean 21.11 · p95 33.4 · max 66.8 ms | mean 29.77 · p95 50.1 · max 116.6 ms | mean 21.37 · p95 33.4 · max 283.3 ms | mean 17.21 · p95 16.8 · max 50 ms |
-| Wheel zoom, Fencing on: frames over 50 ms / over 33 ms | 3 / 42 of 195 | 13 / 95 of 173 | 6 / 23 of 209 | 0 / 6 of 213 |
-| Wheel zoom, Fencing on: main-thread task time over the gesture | 3132 ms | 3550 ms | 3104 ms | 2214 ms |
-| Wheel zoom, Fencing on: fencing layer paint per frame | mean 3.68 · p95 8.7 · max 24.4 ms, total 588 ms over 160 frames | mean 0.33 · p95 0.8 · max 4.4 ms, total 42.3 ms over 130 frames | mean 4.06 · p95 8.7 · max 16.5 ms, total 665.7 ms over 164 frames | mean 0.57 · p95 1.2 · max 5.1 ms, total 100.1 ms over 177 frames |
+| Wheel zoom, Fencing off: frame interval (rAF) | mean 26.58 · p95 50.1 · max 283.2 ms | mean 25.6 · p95 50 · max 383.4 ms | mean 17.26 · p95 16.8 · max 83.4 ms | mean 23.78 · p95 49.9 · max 449.9 ms |
+| Wheel zoom, Fencing off: frames over 50 ms / over 33 ms | 19 / 97 of 363 | 12 / 70 of 265 | 1 / 4 of 224 | 17 / 81 of 504 |
+| Wheel zoom, Fencing off: main-thread task time over the gesture | 7355 ms | 5835 ms | 2284 ms | 7551 ms |
+| Wheel zoom, Fencing off: canvas backing-store resizes | 22 | 2 | 2 | 12 |
+| Drag pan, Fencing off: frame interval (rAF) | mean 16.77 · p95 16.8 · max 33.4 ms | mean 17 · p95 16.7 · max 33.4 ms | mean 18.22 · p95 16.8 · max 150 ms | mean 18.31 · p95 33.3 · max 100.1 ms |
+| Drag pan, Fencing off: frames over 50 ms / over 33 ms | 0 / 1 of 162 | 0 / 3 of 150 | 1 / 5 of 139 | 2 / 14 of 213 |
+| Drag pan, Fencing off: main-thread task time over the gesture | 807 ms | 747 ms | 939 ms | 1706 ms |
+| Drag pan, Fencing off: canvas backing-store resizes | 2 | 2 | 2 | 0 |
+| Wheel zoom, Fencing on: frame interval (rAF) | mean 26.63 · p95 50 · max 83.4 ms | mean 20.12 · p95 33.4 · max 100 ms | mean 18.49 · p95 33.3 · max 116.7 ms | mean 17.36 · p95 16.8 · max 66.7 ms |
+| Wheel zoom, Fencing on: frames over 50 ms / over 33 ms | 7 / 70 of 169 | 2 / 32 of 193 | 1 / 16 of 210 | 1 / 7 of 215 |
+| Wheel zoom, Fencing on: main-thread task time over the gesture | 3529 ms | 2393 ms | 2909 ms | 2359 ms |
+| Wheel zoom, Fencing on: fencing layer paint per frame | mean 5.45 · p95 12.8 · max 38 ms, total 746.8 ms over 137 frames | mean 0.3 · p95 0.7 · max 3.1 ms, total 49 ms over 166 frames | mean 4.11 · p95 8.3 · max 17.3 ms, total 722.5 ms over 176 frames | mean 0.62 · p95 1.6 · max 6.6 ms, total 111.2 ms over 179 frames |
 | Wheel zoom, Fencing on: canvas backing-store resizes | 2 | 2 | 2 | 2 |
-| Drag pan, Fencing on: frame interval (rAF) | mean 18.37 · p95 33.4 · max 66.6 ms | mean 19.38 · p95 33.4 · max 50 ms | mean 22.92 · p95 66.7 · max 133.4 ms | mean 17.18 · p95 16.8 · max 33.5 ms |
-| Drag pan, Fencing on: frames over 50 ms / over 33 ms | 1 / 14 of 156 | 0 / 20 of 141 | 26 / 49 of 384 | 0 / 5 of 163 |
-| Drag pan, Fencing on: main-thread task time over the gesture | 1056 ms | 839 ms | 4184 ms | 846 ms |
-| Drag pan, Fencing on: fencing layer paint per frame | mean 3.8 · p95 7 · max 19.6 ms, total 159.8 ms over 42 frames | mean 0.78 · p95 2.5 · max 2.8 ms, total 32.7 ms over 42 frames | mean 5.25 · p95 9.4 · max 19.8 ms, total 325.5 ms over 62 frames | mean 0.73 · p95 1.5 · max 4.6 ms, total 30 ms over 41 frames |
-| Drag pan, Fencing on: canvas backing-store resizes | 2 | 2 | 40 | 2 |
+| Drag pan, Fencing on: frame interval (rAF) | mean 18.31 · p95 33.3 · max 33.4 ms | mean 18.41 · p95 33.3 · max 33.4 ms | mean 17.36 · p95 16.8 · max 50 ms | mean 17.62 · p95 16.8 · max 66.7 ms |
+| Drag pan, Fencing on: frames over 50 ms / over 33 ms | 0 / 16 of 162 | 0 / 15 of 143 | 0 / 6 of 167 | 1 / 7 of 158 |
+| Drag pan, Fencing on: main-thread task time over the gesture | 1145 ms | 733 ms | 1028 ms | 858 ms |
+| Drag pan, Fencing on: fencing layer paint per frame | mean 4.44 · p95 7.8 · max 8.7 ms, total 186.6 ms over 42 frames | mean 0.71 · p95 1.4 · max 2.2 ms, total 30 ms over 42 frames | mean 3.58 · p95 5.1 · max 8.2 ms, total 146.8 ms over 41 frames | mean 0.78 · p95 2 · max 3.2 ms, total 34.3 ms over 44 frames |
+| Drag pan, Fencing on: canvas backing-store resizes | 2 | 2 | 2 | 2 |
 | Tap a fence line, then move the mouse: map follows (stuck pointer) | yes (pointers left 1) | no (pointers left 0) | no (pointers left 1) | no (pointers left 0) |
 | Escape presses to leave Fencing with a pick | 2 | 1 | 2 | 1 |
-| 10 s on another tab: Done polls / fencing snapshots / frames drawn / main-thread ms | 2 / 0 / 0 / 282 | 0 / 0 / 0 / 309 | 2 / 0 / 0 / 172 | 0 / 0 / 0 / 479 |
-| 10 s idle in Fencing on the map: snapshot builds / main-thread ms | 2 / 212 | 0 / 142 | 2 / 174 | 0 / 130 |
+| 10 s on another tab: Done polls / fencing snapshots / frames drawn / main-thread ms | 3 / 0 / 1 / 387 | 0 / 0 / 0 / 120 | 3 / 0 / 0 / 202 | 0 / 0 / 0 / 291 |
+| 10 s idle in Fencing on the map: snapshot builds / main-thread ms | 2 / 220 | 0 / 193 | 2 / 253 | 0 / 137 |
 | Page errors / writes attempted | 0 / 0 | 0 / 0 | 0 / 0 | 0 / 0 |
 
 ### Checks on the candidate (page `33c6501f…` with the prepared explorer served from `explorer/`)

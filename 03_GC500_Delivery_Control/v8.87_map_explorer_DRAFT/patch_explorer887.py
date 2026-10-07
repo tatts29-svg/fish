@@ -89,7 +89,11 @@ def patch_explorer(s):
     s = once(s, "function touchInteraction() { lastInput = performance.now(); clearTimeout(restTimer); if (!interacting) { interacting = true; applyDpr(); } restTimer = setTimeout(() => { interacting = false; applyDpr(); if (!zAnim) { vtGoal.clear(); goalWanted.clear(); } dropVTQueue(); requestPaint(); }, 160); }",
              "function touchInteraction() { lastInput = performance.now(); clearTimeout(restTimer);\n"
              "  if (!interacting) { interacting = true; slow887.length = 0; lightWent887 = false; lightMoving887 = lightNext887 && (++lightTrials887 % 6 !== 0); lightPending887 = true; }\n"
-             "  restTimer = setTimeout(() => { interacting = false; lightNext887 = lightMoving887 || lightWent887; lightMoving887 = false; lightPending887 = true; if (!zAnim) { vtGoal.clear(); goalWanted.clear(); } dropVTQueue(); requestPaint(); }, 160); }", 'touchInteraction')
+             "  restTimer = setTimeout(function rest887() {\n"
+             "    /* v8.87 - a glide, a fling or a hand still moving is not rest, however slow the frames: one frame over 160 ms used to end the\n"
+             "       \"interaction\" mid-gesture and flip the backing store back and forth (dozens of resizes in one pan on a slow phone) */\n"
+             "    if (zAnim || flingRAF || gotoAnim887 || rotAnim || (pointers.size && performance.now() - lastInput < 500)) { restTimer = setTimeout(rest887, 160); return; }\n"
+             "    interacting = false; lightNext887 = lightMoving887 || lightWent887; lightMoving887 = false; lightPending887 = true; if (!zAnim) { vtGoal.clear(); goalWanted.clear(); } dropVTQueue(); requestPaint(); }, 160); }", 'touchInteraction')
     s = once(s, "function requestPaint() { if (!paintID && !document.hidden && !under3d()) paintID = requestAnimationFrame(draw); }",
              "/* v8.87 - nothing is drawn, and the Done list is not asked for, while the map is hidden or parked by the dashboard (the frame is\n"
              "   moved into a 1 px park when another tab is shown, where its frames and timers used to run on); the first sharp view is still\n"
