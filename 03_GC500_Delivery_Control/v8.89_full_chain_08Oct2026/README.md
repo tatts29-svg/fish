@@ -12,7 +12,7 @@ and tested. Nothing is published yet, because publishing needs the edit key.
 | v8.86 | Event Portables load days (plan v10) become the planned delivery days. A day recorded on the record still wins | [`v8.86_event_portables_days_DRAFT/`](../v8.86_event_portables_days_DRAFT/README.md) |
 | v8.87 | Map explorer: fast and smooth; tapping a unit shows its Timeline stage, who and when, and what's left; Fencing closes like any panel (× / Escape / map tap) | [`v8.87_map_explorer_DRAFT/`](../v8.87_map_explorer_DRAFT/README.md) |
 | v8.88 | Costs: one transport model, so the P&L, Costs to job end and the Finance handover agree (17 tie-outs, all tied). New Transport view down to the branch | [`v8.88_costs_transport_DRAFT/`](../v8.88_costs_transport_DRAFT/README.md) |
-| v8.89 | The master is D001-26003-03 issued 2 Oct: the page's sheet picture, register entry and where the drawing prints 11 units. Navigation pins unchanged (Andrew: "All navigation pin points are correct") | [`v8.89_master_map_DRAFT/`](../v8.89_master_map_DRAFT/README.md) |
+| v8.89 | The master is D001-26003-03 issued 2 Oct, the new truth for locations (Andrew): the page's sheet picture, register entry and the 11 pins it moves, including navigation | [`v8.89_master_map_DRAFT/`](../v8.89_master_map_DRAFT/README.md) |
 | v8.90 | The Map explorer draws the 2 Oct master too, lined up in the same frame | [`v8.90_explorer_master_DRAFT/`](../v8.90_explorer_master_DRAFT/README.md) |
 
 ## The page: one build
@@ -24,8 +24,8 @@ toolchain/build.sh v8.89 v8.84_today_wide_layout_DRAFT/patch_v884.py v8.85_where
 ```
 
 - **Base:** live v8.83 `88a3584e919d8acd32ac3905099c1d606ec2fe5c1da2793363e8ff870f212457` (11,138,554 bytes).
-- **Candidate:** `adc967ab0bcab45c78f952711386e94f3e34eaf8196923206911bdbc0881a113`, 11,257,271 bytes. The build label does not change the bytes. `check_page` PASS.
-- **Withdrawn:** the earlier `fe52302c…` moved four navigation pins. Andrew, 8 Oct ~04:00 AEST: "All navigation pin points are correct", so v8.89 now keeps every existing navigation pin exactly as live.
+- **Candidate:** `fe52302cda02d73c4f63ca73943360d66e740b074527b2685e2384ea5d00802c`, 11,256,999 bytes. The build label does not change the bytes. `check_page` PASS.
+- **History:** at about 04:00 Andrew wrote "All navigation pin points are correct", and for an hour the four moved pins were held at their 17 Sep places (`adc967ab…`, withdrawn). At about 04:30 he confirmed: "The master I gave you is the new truth." The pins follow the 2 Oct master, and the build is byte-identical to the original `fe52302c…` again.
 - **Media manifest:** `1aa4a3b1ac15fab6f2f7dfb77c8358cf1353451e958cb47b794035b9224551de`, 1,958 files. It is the same manifest as v8.89 alone, because v8.86–v8.88 change no media.
 - **If live moves first,** rebuild on it. Drop the patches already live. Each footer step accepts the release before it.
 

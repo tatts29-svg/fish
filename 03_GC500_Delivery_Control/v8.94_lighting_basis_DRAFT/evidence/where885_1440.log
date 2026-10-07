@@ -5,7 +5,7 @@ PASS whole job matches the seven group records (53.86 = 53.86)
 PASS lights match the 20% steps (2 lit)
 PASS lights describe the reading for screen readers
 PASS each group reading matches its card
-PASS lights are much larger than the group lights (85 vs 44 px)
+PASS lights are much larger than the group lights (75 vs 44 px)
 PASS heading and unique identifiers
 PASS group strip columns (7)
 PASS no page-wide horizontal overflow
@@ -22,4 +22,4 @@ PASS reduced motion shows the final figure without motion
 PASS print keeps the figure and drops the lights and control
 PASS no runtime errors
 PASS no attempted live writes
-1600 px: 24/24
+1440 px: 24/24

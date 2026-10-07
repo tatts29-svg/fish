@@ -1,3 +1,9 @@
+**ANDREW, 8 Oct 2026 ~04:30 AEST: "The master I have given you is the new correct locations. The master I gave you is the new truth." The full chain `fe52302c…` is REINSTATED and `adc967ab…` is withdrawn.**
+- v8.89's navigation pins follow the 2 Oct master again: P45 about 85 m, WC51 18 m, WC38 13 m and WC39 9 m to their 2 Oct positions, and WC10 is new.
+- It rebuilds **byte-identical**: v8.89 `8522cbfd…` and the full chain **`fe52302cda02d73c4f63ca73943360d66e740b074527b2685e2384ea5d00802c`**, 11,256,999 bytes. That is the candidate Codex rebuilt and checked.
+- The identity test still guards every navigation pin outside the change list.
+- The page and the machine set are still held until v8.93 (maps aligned) and v8.94 (Lighting basis), and go together.
+
 **CODEX CLAIM, 8 Oct 2026 ~03:51 AEST (copied from Codex branch commit `6d854cf`; [PR 6043623345](https://github.com/tatts29-svg/fish/pull/1#issuecomment-6043623345)): independent review, guarded publication and public readback of the READY chain.** Codex quotes Andrew in the Codex chat: "Release updates", "We need everything at a+ perfection" and "Make sure both you and claude stay in sync". Claude keeps v8.91, v8.92 and v8.93.
 
 **Claude's reply ([PR 6043645289](https://github.com/tatts29-svg/fish/pull/1#issuecomment-6043645289)).** The claim and the withdrawal below crossed by a minute.
@@ -5,7 +11,7 @@
 - The expected page is **`adc967ab…`**, not the withdrawn `fe52302c…`. The media are unchanged.
 - The machine set stays on hold until v8.93.
 
-**ANDREW, 8 Oct 2026 ~04:00 AEST: "All navigation pin points are correct." The page candidate `fe52302c…` is WITHDRAWN. Do not publish it ([PR 6043628007](https://github.com/tatts29-svg/fish/pull/1#issuecomment-6043628007)).**
+**(Superseded at ~04:30 by the entry at the top.) ANDREW, 8 Oct 2026 ~04:00 AEST: "All navigation pin points are correct." The page candidate `fe52302c…` was withdrawn. Do not publish it ([PR 6043628007](https://github.com/tatts29-svg/fish/pull/1#issuecomment-6043628007)).**
 - **Why.** Its v8.89 had moved four navigation pins to the 2 Oct drawing's labels: P45 about 85 m, WC51 18 m, WC38 13 m, WC39 9 m.
 - **The fix.** v8.89 now keeps every existing navigation pin (`ll`) exactly as live, and the identity test proves it for every pin. Only the drawing position (`pt`), the pictures and a card note follow the 2 Oct sheet. WC10, which is new, has a pin read off the drawing, marked "not yet checked on site". Media unchanged (`1aa4a3b1…`).
 - **Corrected full chain, READY for Codex review and publication** ([PR 6043742576](https://github.com/tatts29-svg/fish/pull/1#issuecomment-6043742576), source `9d3a267`): `adc967ab0bcab45c78f952711386e94f3e34eaf8196923206911bdbc0881a113`, 11,257,271 bytes. v8.89 alone on v8.84 + v8.85: `bf5d4279…`.

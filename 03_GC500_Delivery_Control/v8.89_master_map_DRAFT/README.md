@@ -23,29 +23,27 @@ Page data only: the master picture, its register entry, the pins the new issue m
 
 ## Pins that change
 
-**Navigation pins do not move.** Andrew, 8 Oct 2026 ~04:00 AEST: "All navigation pin points are correct." Every unit that already had a navigation pin keeps it exactly. The test proves it for all of them. That includes:
-- the `ll` value behind the drive, walk and Earth links;
-- the directions text;
-- the day list;
-- the satellite pins.
+**The 2 Oct master is the truth for locations.** Andrew, 8 Oct 2026: "The master I have given you is the new correct locations. The master I gave you is the new truth."
 
-What follows the 2 Oct sheet is where the drawing prints each label (`pt`) and its pictures. The labels were re-read off the 2 Oct sheet, the label on the unit, as v6.85 did. Where a label moved, the card says how far the drawing now puts the unit from its confirmed pin. The distance is measured through the 12 nearest unit tags, as v7.82 did, and every fit holds within 0.12 m.
+The pins were re-read off the 2 Oct sheet, the label on the unit, as v6.85 did. They were converted to GPS through the 12 nearest unit tags, as v7.82 did, and every fit holds within 0.12 m. A unit the 2 Oct master moves gets its new navigation pin. That covers the drive, walk and Earth links, directions, the day list and satellite pins. Every other navigation pin stays exactly as it is, and the identity test proves it.
 
-| Ref | On the 2 Oct drawing | Navigation pin |
+(At about 04:00 Andrew wrote "All navigation pin points are correct". For an hour these four pins were held at their 17 Sep places, until he confirmed the 2 Oct master is the new truth. The release is back to its original v8.89 content, `fe52302c…` in the full chain.)
+
+| Ref | Change | Moved on the ground |
 |---|---|---|
-| P45 (St John First Aid, Building 6m) | Drawn in the supply compound beside MED and P69, about 85 m west of its pin | Unchanged |
-| WC51 | Drawn about 18 m west along the esplanade path | Unchanged |
-| WC38 | Drawn about 13 m away, within its Commodore compound | Unchanged |
-| WC39 | Drawn about 9 m away, within its Commodore compound | Unchanged |
-| WC10 | New on this issue; gets a master position, section and pin | New, read off the drawing; not yet checked on site |
-| WC69 | One tag now, so the stale second tag is dropped | Unchanged |
-| WC40 | The second tag (WC40a) is gone from the 2 Oct issue | Unchanged |
-| WC32 | Not drawn on the 2 Oct issue. Already cancelled on the record; the pin stays, marked as from the 17 Sep issue | Unchanged |
-| CP1, T0265, WC81 | The bottom-right inset did not move on the paper; their sheet position moves 28 px with this picture (v8.93 re-makes the picture so the inset needs no shift) | Unchanged |
+| P45 (St John First Aid, Building 6m) | Now in the supply compound beside MED and P69 | about 85 m west |
+| WC51 | Further west along the esplanade path | about 18 m |
+| WC38 | Within its Commodore compound | about 13 m |
+| WC39 | Within its Commodore compound | about 9 m |
+| WC10 | New on this issue; gets a master position, section and pin | — |
+| WC69 | One tag now, so the stale second tag is dropped | 0 |
+| WC40 | The second tag (WC40a) is gone from the 2 Oct issue | 0 |
+| WC32 | Not drawn on the 2 Oct issue; already cancelled on the record. The pin stays, marked as from the 17 Sep issue, until Andrew says otherwise | 0 |
+| CP1, T0265, WC81 | The bottom-right inset did not move on the paper; their sheet position moves 28 px with this picture. v8.93 re-makes the picture so the inset needs no shift | 0 |
 
-What follows:
-- **Directions:** unchanged for every existing unit. P45, WC51, WC38 and WC39 still navigate to their confirmed pins. If Andrew later says a unit has moved to where the 2 Oct drawing shows it, that is a one-line change.
-- **Thumbnails:** the moved and new references get fresh close-up and context thumbnails from the 2 Oct sheet. They match the originals' 6.4× and 1.64× crops and the red ring, and show where the drawing prints the label.
+What follows from the new positions:
+- **Directions:** drive, walk and Earth links, the day list and satellite pins all follow `MASTER_LOC`, so P45's directions go to its 2 Oct position.
+- **Thumbnails:** the moved and new references get fresh close-up and context thumbnails from the 2 Oct sheet, matching the originals' 6.4× and 1.64× crops and the red ring.
 
 ## Also changed
 
@@ -102,10 +100,10 @@ Publish in this order. Each step needs the edit key:
 - **Data identity:** `tests/test_identity889.py` proves only these changed:
   - the picture, the register entry, the media list (+11/−9) and the 11 listed pins;
   - the manifest hash, which must equal the page's own media list;
-  - no existing navigation pin (`ll`) moves (added 8 Oct, after Andrew's "All navigation pin points are correct").
+  - no navigation pin outside the change list moves (added 8 Oct).
 - **Page test:** `tests/test_master889.cjs` (16 checks, laptop and phone) covers:
   - the sheet, the register entry and every pin;
-  - P45's navigation pin and drive/walk links unchanged;
+  - P45's map fix and its drive/walk links at the 2 Oct position;
   - WC10, WC32 and the single-tag references;
   - the inset;
   - the new pictures, which load at their sizes when served locally;
