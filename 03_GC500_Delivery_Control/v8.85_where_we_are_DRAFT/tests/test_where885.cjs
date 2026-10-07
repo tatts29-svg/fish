@@ -2,9 +2,9 @@
 // W sets the desktop width (default 1600); MOB=1 runs the phone.
 const fs=require('fs'),{open}=require('../../toolchain/harness/open_page');
 (async()=>{let s;try{const mob=!!process.env.MOB,W=mob?390:Number(process.env.W||1600),H=mob?844:Number(process.env.H||1000);s=await open({pageFile:process.env.PAGE,W,H,mobile:mob,dpr:mob?2:1});const p=s.page,R=[];const ok=(n,v)=>R.push({name:n,pass:!!v});
-await p.waitForFunction(()=>typeof Where885==='object'&&SYNC.status==='live'&&todayWorkHealth840().ready);await p.evaluate(()=>go('today'));await p.waitForTimeout(500);
+await p.waitForFunction(()=>typeof Where885==='object'&&SYNC.status==='live'&&todayWorkHealth840().ready);await p.evaluate(()=>go('today'));await p.waitForTimeout(1200);
 const clean=t=>String(t||'').replace(/\s+/g,'');
-const m=await p.evaluate(()=>{window.__before885=JSON.stringify([S,moneySummary(),fh866Model()]);
+const m=await p.evaluate(()=>{
  const pane=document.getElementById('pane-today'),el=document.getElementById('where885'),board=document.getElementById('gc500-work-board840');
  const day=todayWorkDay841(),sum=todayWorkSummary848(day),fence=fenceOverall853(day,sum),ids=['buildings','toilets','fencing','generators','lighting','vms','equipment'];
  const parts=ids.map(id=>id==='fencing'?{min:fence.pct?.min,lower:(fence.pct?.max??fence.pct?.min)>fence.pct?.min}:{min:sum.byId[id].pct,lower:sum.byId[id].pctKind==='lower-bound'});
@@ -49,11 +49,11 @@ await p.click('#w885-jump-generators');await p.waitForTimeout(900);
 ok('group tap goes to its card',await p.evaluate(()=>{const c=document.getElementById('tw840-card-generators').getBoundingClientRect(),mr=document.querySelector('main').getBoundingClientRect();return c.top<mr.bottom&&c.bottom>mr.top;}));
 // redraw keeps place, focus and data, and does not replay
 await p.evaluate(()=>{const h=document.getElementById('where885'),main=document.querySelector('main');main.scrollTop+=h.getBoundingClientRect().top-main.getBoundingClientRect().top-10;});await p.waitForTimeout(200);
-await p.focus('#w885-motion');const before=await p.evaluate(()=>document.querySelector('main').scrollTop);await p.evaluate(()=>renderToday());await p.waitForTimeout(350);
-const red=await p.evaluate(()=>({top:document.querySelector('main').scrollTop,focus:document.activeElement?.id,intro:Where885.report().intro,same:window.__before885===JSON.stringify([S,moneySummary(),fh866Model()]),cards:document.querySelectorAll('#where885').length}));
+await p.focus('#w885-motion');await p.waitForTimeout(400);const before=await p.evaluate(()=>{window.__before885=JSON.stringify([S,moneySummary(),fh866Model()]);window.__key885=document.getElementById('where885').dataset.key;return document.querySelector('main').scrollTop;});await p.evaluate(()=>renderToday());await p.waitForTimeout(350);
+const red=await p.evaluate(()=>({top:document.querySelector('main').scrollTop,focus:document.activeElement?.id,intro:Where885.report().intro,same:window.__before885===JSON.stringify([S,moneySummary(),fh866Model()]),cards:document.querySelectorAll('#where885').length,key:document.getElementById('where885').dataset.key===window.__key885}));
 ok('redraw keeps scroll position',Math.abs(red.top-before)<4);
 ok('redraw keeps focus on the card control',red.focus==='w885-motion');
-ok('redraw does not replay or duplicate the card',!red.intro&&red.cards===1);
+ok('redraw does not replay or duplicate the card',!red.intro&&red.cards===1&&red.key);
 ok('redraw does not change data or money',red.same);
 // another day: the figure follows the selected day and says so
 const other=await p.evaluate(()=>{const keep=state.asOf;state.asOf='2026-10-05';renderToday();const el=document.getElementById('where885'),mm=progress881Model('2026-10-05');const out={note:[...el.querySelectorAll('.w885-note')].map(n=>n.textContent).join(' '),shown:el.querySelector('[data-w885-pct]').dataset.text,model:mm.ready?(mm.pct.max-mm.pct.min>.005?Math.floor((mm.pct.min+1e-9)*100)/100:mm.pct.min).toLocaleString('en-AU',{maximumFractionDigits:2}):'—'};state.asOf=keep;renderToday();return out;});
