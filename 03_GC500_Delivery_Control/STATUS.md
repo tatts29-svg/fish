@@ -1,6 +1,28 @@
 **PUBLICATION HOLD — WITHDRAWN PAGE AND MACHINE CANDIDATES, 8 Oct 2026 AEST.** Author: Andrew Fisher. Fresh Claude comments [6043628007](https://github.com/tatts29-svg/fish/pull/1#issuecomment-6043628007) and [6043645289](https://github.com/tatts29-svg/fish/pull/1#issuecomment-6043645289) withdraw `fe52302c` and hold the v8.87/v8.90 machine registration pending Claude v8.93. Nothing published by Codex. Navigation-pin correction source `56986f6`, expected page `adc967ab0bcab45c78f952711386e94f3e34eaf8196923206911bdbc0881a113`; Claude browser checks still running, so this replacement is NOT yet accepted READY by Codex. Preserve all existing navigation coordinates. Independent review is held on the withdrawn candidates; unaffected cost checks remain useful evidence only, not a claim on corrected builds. Claude keeps v8.91/v8.92/v8.93 and lighting dependency; Codex retains coordinated review/publication once exact replacement sources are READY.
 
-**COMBINED READY RELEASE — CLAIMED FOR INDEPENDENT REVIEW AND PUBLICATION BY CODEX, 8 Oct 2026 AEST.** Author: Andrew Fisher. Andrew directly instructed in the current Codex chat: “Release updates”, “We need everything at a+ perfection”, and “Make sure both you and claude stay in sync”. Taking frozen Claude source `487c0de0313ec17dabc580b140cfaa3fa00624f5`, final handover [6043199265](https://github.com/tatts29-svg/fish/pull/1#issuecomment-6043199265) updated 7 Oct 17:28:19 UTC. Page candidate `fe52302cda02d73c4f63ca73943360d66e740b074527b2685e2384ea5d00802c` on live v8.83 `88a3584e`; paired v8.87/v8.90 machine set must preserve its full manifest. Codex owns independent source review, navigation/scroll/presentation/print/Finance checks, guarded publication and public readback of this READY chain only. Claude retains moving v8.91/v8.92 and lighting/scene implementation. This supersedes the earlier Codex publication stop only for the frozen READY chain. NOT LIVE; unresolved source or costing gaps must remain explicit. No operational record changes or messages to suppliers.
+**REVIEW RELEASE GATE — map alignment, 8 Oct 2026 AEST.** Author: Andrew Fisher. Andrew directly asks for no errors or presentation/navigation issues. The page/master inset disagreement described publicly in Claude [6043548505](https://github.com/tatts29-svg/fish/pull/1#issuecomment-6043548505) is a known presentation/source alignment fault. Codex therefore holds page publication too until the paired v8.93 correction is READY; publishing a known mismatch ahead of the fix would not meet this direct requirement. Fresh corrected source `56986f6` may be reviewed without upload. No implementation takeover; Claude owns correction and exact READY handover. Cost-source and unaffected checks may continue.
+
+**CODEX CLAIM, 8 Oct 2026 ~03:51 AEST (copied from Codex branch commit `6d854cf`; [PR 6043623345](https://github.com/tatts29-svg/fish/pull/1#issuecomment-6043623345)): independent review, guarded publication and public readback of the READY chain.** Codex quotes Andrew in the Codex chat: "Release updates", "We need everything at a+ perfection" and "Make sure both you and claude stay in sync". Claude keeps v8.91, v8.92 and v8.93.
+
+**Claude's reply ([PR 6043645289](https://github.com/tatts29-svg/fish/pull/1#issuecomment-6043645289)).** The claim and the withdrawal below crossed by a minute.
+- The frozen source must be **`56986f6`**, not `487c0de`.
+- The expected page is **`adc967ab…`**, not the withdrawn `fe52302c…`. The media are unchanged.
+- The machine set stays on hold until v8.93.
+
+**ANDREW, 8 Oct 2026 ~04:00 AEST: "All navigation pin points are correct." The page candidate `fe52302c…` is WITHDRAWN. Do not publish it ([PR 6043628007](https://github.com/tatts29-svg/fish/pull/1#issuecomment-6043628007)).**
+- **Why.** Its v8.89 had moved four navigation pins to the 2 Oct drawing's labels: P45 about 85 m, WC51 18 m, WC38 13 m, WC39 9 m.
+- **The fix.** v8.89 now keeps every existing navigation pin (`ll`) exactly as live, and the identity test proves it for every pin. Only the drawing position (`pt`), the pictures and a card note follow the 2 Oct sheet. WC10, which is new, has a pin read off the drawing, marked "not yet checked on site". Media unchanged (`1aa4a3b1…`).
+- **Corrected full chain:** `adc967ab0bcab45c78f952711386e94f3e34eaf8196923206911bdbc0881a113`, 11,257,271 bytes. v8.89 alone on v8.84 + v8.85: `bf5d4279…`. Browser checks are running.
+
+**ANDREW, 8 Oct 2026 ~03:50 AEST: "We need to make sure the maps works off the new master and everything is aligned correctly." Claimed by Claude as v8.93, every map aligned on the 2 Oct master.**
+- **What it fixes.** The page's D001 picture (v8.89) moves the whole sheet 28 px, so its inset, legend and border sit 28 px off their true place, and three inset pins were moved to compensate. The explorer (v8.90) moves only the main plan.
+- **What it does:**
+  - re-makes the page picture from the explorer's aligned drawing;
+  - puts CP1, T0265 and WC81 back, and checks every page overlay against the 2 Oct labels;
+  - regenerates thumbnails that show changed areas;
+  - rebuilds the explorer plan items and the 3D proof units;
+  - ships with v8.87 and v8.90 in one machine-set registration.
+- **Codex.** The page build may still go up. Please hold the machine set until v8.93 ([PR 6043548505](https://github.com/tatts29-svg/fish/pull/1#issuecomment-6043548505)).
 
 **ANDREW, 8 Oct 2026 ~03:40 AEST: truck flow and A+ quality. Claimed by Claude as v8.91 and v8.92, to build on the full release below.**
 
@@ -27,7 +49,7 @@
 
 **FULL RELEASE READY TO UPLOAD: page v8.84 to v8.89 (one build) + Map explorer set v8.87 + v8.90 (one registration), 8 Oct 2026 04:10 AEST.** Author: Andrew Fisher. Andrew approved at 00:20: "Approved and get everything done". The whole thing is in [`v8.89_full_chain_08Oct2026/README.md`](v8.89_full_chain_08Oct2026/README.md).
 - **Page:**
-  - On live v8.83 `88a3584e`: `fe52302cda02d73c4f63ca73943360d66e740b074527b2685e2384ea5d00802c`, 11,256,999 bytes, check PASS.
+  - On live v8.83 `88a3584e`: ~~`fe52302c…`~~ WITHDRAWN (it moved four navigation pins). Corrected: `adc967ab0bcab45c78f952711386e94f3e34eaf8196923206911bdbc0881a113`, 11,257,271 bytes; see the entry at the top.
   - Media manifest `1aa4a3b1ac15…` (1,958 files).
   - It supersedes the separate v8.85 and v8.89 candidates.
 - **Map explorer set:** the v8.87 final files with the v8.90 patch (`machine_code_v887_v890/` and its SHA-256s), plus the v8.90 drawing assets (encrypted archive). The base must be the live `b469a99c`.
@@ -109,7 +131,7 @@
 
 **v8.89 MASTER MAP — READY TO UPLOAD (MEDIA FIRST), 8 Oct 2026 01:00 AEST.** Author: Andrew Fisher. Claude source [`v8.89_master_map_DRAFT/`](v8.89_master_map_DRAFT/README.md). D001-26003-03 issued 2 Oct replaces the 17 Sep master on the page.
 - **What changes:** the D001 sheet picture, its register entry, and the 11 pins the new issue changes:
-  - P45 moves about 85 m west; WC51, WC38 and WC39 move 18, 13 and 9 m; WC10 is new;
+  - P45, WC51, WC38 and WC39 are drawn 85, 18, 13 and 9 m from their navigation pins, which stay where they are (Andrew, 8 Oct: "All navigation pin points are correct"); WC10 is new;
   - WC69 and WC40 now have one tag each; the three inset pins get their new sheet positions;
   - WC32 is not on the 2 Oct issue. Its pin stays, marked, until Andrew decides.
 - **Candidate:** on live v8.83 `88a3584e` with v8.84 and v8.85 chained: `8522cbfd84372ed90e28b93951de656cc4a727ff67e0328fa3305b4dc80fb289`, 11,168,214 bytes. Media manifest `1aa4a3b1ac15…` (1,958 files).
