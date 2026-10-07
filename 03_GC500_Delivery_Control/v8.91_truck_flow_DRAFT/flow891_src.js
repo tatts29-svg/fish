@@ -207,7 +207,7 @@ ldLine = function(d, g, n, open, timed){ const h = ldLineBefore891(d, g, n, open
   '<button type="button" class="flow891-grip" draggable="true" data-flow891-grip="' + eid + '" title="Drag to change the order (or Alt + ↑ / ↓)" aria-label="Load ' + n + ' of ' + D + ' — drag to change the order, or press Alt with the up and down arrows"><i></i><i></i><i></i></button>' +
   '<button type="button" class="flow891-mv" data-flow891-move="up" data-flow891-id="' + eid + '" aria-label="Move load ' + n + ' earlier"' + (n <= 1 ? ' disabled' : '') + '>▲</button>' +
   '<button type="button" class="flow891-mv" data-flow891-move="down" data-flow891-id="' + eid + '" aria-label="Move load ' + n + ' later"' + (n >= D ? ' disabled' : '') + '>▼</button>' +
-  '<span class="flow891-ordw">Load <b>' + n + '</b> of ' + D + '</span>' + chips + '</div>';
+  '<span class="flow891-ordw vh">Load ' + n + ' of ' + D + '</span>' + chips + '</div>'; /* the line already shows its Load number; the words stay for screen readers */
  return h.replace('<div class="tl846-controls">', '<div class="tl846-controls">' + ctl);
 };
 document.addEventListener('click', e => {
@@ -279,13 +279,12 @@ function flow891Strip(d, g, doc, i, n){
  let x = null; try { x = flow891Day(d).deliveries.find(y => y.id === ldId(d, g)) || null; } catch (e) { x = null; }
  const win = x ? x.win : flow891Window(d, g), area = x ? x.area : null, A = area && area.key ? FLOW891.areas[area.key] : null;
  const lim = A ? (area.key === 'pitLane' ? flow891PitLaneMax(d.iso).words : A.words) : '';
- const f = (k, v, w) => '<div class="dp-f"><label>' + k + '</label><b>' + esc(v) + '</b>' + (w ? '<span>' + esc(w) + '</span>' : '') + '</div>';
- return '<section class="dp-sec dp-flow891"><h2>Truck flow</h2><div class="dp-flow891-g">' +
-  f('Allocated order', 'Arrive in your order — this is load ' + i + ' of ' + n, 'A truck out of order delays everyone') +
-  f('Arrival window', flow891Span(win), win.known ? (win.planned ? 'planned unloading window' : 'from the Kingston load time') : 'agree it with site') +
-  f('Area', area ? area.name : 'see Where it goes', lim) +
-  f('If early or the area is full', 'Hold at ' + FLOW891.holding.short, 'up to ' + FLOW891.holding.max + ' trucks at any one time') + '</div>' +
-  '<div class="dp-flow891-ck">' + FLOW891.checklist.map(c => '<span>' + dpBx() + esc(c) + '</span>').join('') + '</div></section>';
+ /* two lines above the footer, so the photographs keep their room: the order, the window, the area and the holding instruction; then the four tick boxes */
+ return '<div class="dp-flow891"><div class="dp-flow891-l"><b>Arrive in your allocated order — load ' + i + ' of ' + n + '.</b> A truck out of order delays everyone. ' +
+  '<span>Arrival window <b>' + esc(flow891Span(win)) + '</b>' + (win.known ? (win.planned ? ' (planned)' : ' (from the load time)') : ' — agree it with site') + '</span> · ' +
+  '<span>Area <b>' + esc(area && area.key ? area.name : 'see Where it goes') + '</b>' + (lim ? ' — ' + esc(lim) : '') + '</span> · ' +
+  '<span>If early or the area is full, hold at <b>' + esc(FLOW891.holding.short) + '</b> (up to ' + FLOW891.holding.max + ' trucks).</span></div>' +
+  '<div class="dp-flow891-ck">' + FLOW891.checklist.map(c => '<span>' + dpBx() + esc(c) + '</span>').join('') + '</div></div>';
 }
 const dpPageBefore891 = dpPage;
 dpPage = function(d, g, doc, i, n){ let h = dpPageBefore891(d, g, doc, i, n);

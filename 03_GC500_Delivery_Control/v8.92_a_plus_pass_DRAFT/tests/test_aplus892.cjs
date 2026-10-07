@@ -13,6 +13,9 @@ const fs = require('fs'), {open} = require('../../toolchain/harness/open_page');
   /* 1. the release is in */
   const A = await p.evaluate(() => ({style: !!document.getElementById('aplus892-style'), script: !!document.getElementById('aplus892-script'), api: window.aplus892 && window.aplus892.version, footer: (document.getElementById('footL') || {}).textContent || '', coarse: matchMedia('(pointer:coarse)').matches}));
   ok('v8.92 style and script are in and the footer says v8.92', A.style && A.script && A.api === 'v8.92' && / · v8\.92\b/.test(A.footer) && !/ · v8\.(89|91|93|94)\b/.test(A.footer), A);
+  /* 1b. the four decorative sweeps run on transform, not left (the last keyframes of each name is the one the page uses) */
+  const KF = await p.evaluate(() => { const out = {}; for (const name of ['tw841-travel', 'tw843-sheen', 'plateGloss', 'wipSheen']) { let last = null; for (const sh of document.styleSheets) { let rules; try { rules = sh.cssRules; } catch (e) { continue; } for (const r of rules) if (r.type === CSSRule.KEYFRAMES_RULE && r.name === name) last = r; } out[name] = last ? {transform: /transform/.test(last.cssText), left: /\bleft\s*:/.test(last.cssText), frames: last.cssRules.length} : null; } return out; });
+  ok('the Today travelling light, the LED sheen, the plate gloss and the toggle sheen animate transform, not left', Object.values(KF).every(k => k && k.transform && !k.left), KF);
   /* 2. the memos: one answer per draw, the same answer as the original reading */
   const M = await p.evaluate(() => { const out = {};
     out.inHold = holdAssets(() => ({ev: fin745Events() === fin745Events(), book: bookNumbers() === bookNumbers(), plan: labourPlan() === labourPlan(), idx: dropFileIndex() === dropFileIndex(), idxNull: dropFileIndex() === null}));

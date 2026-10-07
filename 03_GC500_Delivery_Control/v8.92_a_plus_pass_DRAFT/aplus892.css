@@ -29,3 +29,12 @@ main{overflow-anchor:none}
  summary{box-sizing:border-box;padding-top:max(0px,calc((44px - 1.6em)/2));padding-bottom:max(0px,calc((44px - 1.6em)/2))}
 }
 @media print{.tr888-how{display:block}.tr888-how>summary{display:none}}
+
+/* smooth: four decorative sweeps animated `left` — a layout on every frame, two of them running the whole time a Today instrument
+   is lit. The same travel as a transform (compositor only). Each sweep's width is a share of its track and its `left` was a share
+   of the same track, so the distance below is the original to the pixel (travel 0→80% of a track on a 20%-wide light = 400% of
+   itself; the LED sheen −22%→102% on 20% = 620%; the plate gloss −60%→130% on 40% = 475%, skew kept; the toggle sheen on 50% = 380%). */
+@keyframes tw841-travel{0%,100%{transform:translateX(0);opacity:.8}50%{transform:translateX(400%);opacity:1}}
+@keyframes tw843-sheen{0%,100%{transform:translateX(0);opacity:0}15%,85%{opacity:1}95%{transform:translateX(620%);opacity:0}}
+@keyframes plateGloss{0%{transform:translateX(0) skewX(-18deg);opacity:0}15%{opacity:1}100%{transform:translateX(475%) skewX(-18deg);opacity:0}}
+@keyframes wipSheen{0%{transform:translateX(0) skewX(-20deg);opacity:1}100%{transform:translateX(380%) skewX(-20deg);opacity:0}}

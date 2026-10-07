@@ -1,0 +1,124 @@
+# v8.95 — the 7 Oct Baseplan export on the page (DRAFT, candidate)
+
+Author: Andrew Fisher · 8 Oct 2026
+
+Andrew supplied a fresh Baseplan export on 7 Oct 2026 (`Baseplan_SuperCars_07Oct.xlsx`, in the encrypted `inputs_07Oct2026/`). The page's contract source (`DATA.rental_on_hire`) was still the 6 Oct export, applied by v8.71. Codex's independent review asked for a source-freshness disposition: the costs must read the latest source. Andrew: "all cost align and correct" and "everything must talk".
+
+This release is **data only**: the contract source moves from the 6 Oct export to the 7 Oct export, with v8.71's own rules, and nothing else on the page changes — no code, no register, no master, no media. Every figure the costs views show comes from the same page logic as before, reading the new lines.
+
+## What changed, contract by contract
+
+The two exports were compared cell by cell. **Eight contracts are identical.** Three change:
+
+### 9961976-NVAC — two lines added, one description fixed
+
+| Line | What | Change |
+|---|---|---|
+| **42** (new) | GN CONCERT Generator 200 kVA, asset **1316182** | **Pending**, booked in Mon 12 Oct, out Mon 26 Oct, no rate on the line ("no rates") |
+| **43** (new) | GN CONCERT Generator 200 kVA, asset **1316183** | as line 42 |
+| 27 | SUPPLY forklift 3.5 t, asset 1210921 | the description typo is fixed ("orklift" → "Forklift"); the page now calls it **Forklift 3.5t Diesel**. Nothing else on the line moved |
+
+Both new lines **join the Concert generator reference** the schedule writes as **GN?**, because the register already carries 1316182 and 1316183 on it ("brand new units"). GN? is still the schedule's placeholder, not a resolved reference — see the decisions below.
+
+**How the page treats a Pending line (v8.71's rule, unchanged).** Baseplan has booked it; it has not gone out. So the line is *not delivered* and has *no start date*: it puts nothing on site and nothing on the Timeline or Today. Its demob is the booked pick-up date (26 Oct). It is still a contract line, so it is **charged by the contract rule**: a generator with no rate on the line goes at **the card's line for what was asked for, once, for the three event days** (23, 24 and 25 Oct, both ends billed — the branch's rule). The card has a 200 kVA line, so no size-down applies. The two lines are marked **"card"** (an estimate until the branch puts a rate on the line) and appear on the Costs card *Contract lines with no rate — charged from the card*. The Status column itself is never evidence; the page reads delivered and start date, as it always has.
+
+### 9968862-KINP — one line delivered
+
+| Line | What | Change |
+|---|---|---|
+| 89 | P56 Gate 1 Ticket BOH — building 3.6 m, asset 1268865 | **Del Req → Delivered**; booked delivery **14 Sep → 7 Oct**. The rental system now puts P56 on hire from 7 Oct (a light set on the ground still overrides it). Still joined to P56. Charged once (whole event), as before |
+
+### 9968955-KINP — 23 lines move
+
+| Lines | What | Change |
+|---|---|---|
+| **24–43** (20 lines) | WC07 Toilets – Merch Area, 20 FWF | **Del Req → Delivered**; booked delivery **14 Sep → 22 Sep**; each line now carries an **asset number** (and a serial) where it had none; docket 26081411 unchanged. Lines 24 and 39 lose the "WC07" prefix in the description; the thing itself reads the same |
+| 97 | WC31 Toilet – Accessible | **Pending → Del Req** on docket **26115307** |
+| 103, 105 | WC09 Toilet Block 6 m × 2 | **Pending → Del Req** on dockets **26115312** and **26115316** |
+
+- **WC07 — Andrew's matches win.** Andrew recorded 20 asset numbers on WC07 on 22 Sep (the as-supplied record, in his name). Baseplan's 20 numbers agree with his on **19** lines; on **one** they differ: Baseplan puts **1317643** on line 38 (serial F4790 in the export), his record has **1317743**. His number stays on the page; the 19 agreeing lines join WC07; **line 38 joins nothing** and is held for him (decision 1). WC07's drawer now shows Rental 9968955 and "on hire from 22 Sep" in the rental system's name — the schedule had already placed it on 22 Sep, so nothing moves on the Timeline.
+- **WC31 and WC09.** The three dockets are the 8 Oct SFL dockets the register already carries on WC31 (T0096) and WC09 (T0102), so the lines join those references by docket. Del Req is not delivered: nothing goes on hire until the next export says Delivered.
+- **Charges.** Every toilet and building line is charged once at its whole-event rate, so a status or date change moves no money on these 23 lines, nor on P56.
+
+### What did not change
+
+- No line removed; **no rate changed on any line**; no transport or delivery charge line changed.
+- The five numbers Baseplan writes on two priced lines are the same five v8.71 flagged (1189410, 1189412, 1211404, 1272166, 1327213); the two-line numbers rule keeps those lines where they were.
+- The refresh carries the same fields v8.71's refresh carried; the lines' other columns are as v8.71 left them.
+
+## What that does to the money
+
+Measured on the live record (version 4370) with the chain through v8.94 as the base and this candidate against it — figures as direction or percentage only.
+
+| View | Effect |
+|---|---|
+| **P&L — Revenue on the record** | **up 0.37%**. Of which the contracts: up 0.88%. **Hire Revenue by branch: NVAC up 4.79%** — the two Concert generators at the card's 200 kVA line for the three event days, 4.57% of NVAC's contract revenue, 0.87% of the contracts total. KINP, STPS and MEAD: same to the cent |
+| **P&L — Rehire Revenue** | same. The toilet lines (Event Portables rehire at our rates) are whole-event lines and did not move; WC07's 20 lines are 1.28% of KINP's contract revenue, unchanged. KINP's toilet lines carrying a Coates plant number: 38 → 58, all still counted as Event Portables rehire under the toilets rule |
+| **P&L — Transport Revenue, labour, servicing** | same |
+| **In the business's lines** | 1005 Hire Revenue up 1.45%; 1010, 1030 · 1031, 1032, 1047 and every cost line: same |
+| **Costs to job end** | Direct costs known today: same. Direct costs to job end: same (every cost row and the wages: same). Revenue to job end: **up 0.22%** (the two generators and nothing else). Transport still to come: same |
+| **Finance handover** | Costs by branch: same, every branch. Invoice by branch: **NVAC on the record up 4.71%, to job end up 4.00%**; KINP, STPS, MEAD, the event labour scope and provisional transport: same. Its checks (costs, invoice, people) hold |
+| **Transport view (v8.88)** | every figure same: to date, still to come, by branch, by carrier, the 132 loads, Transport Revenue, provisional revenue, demob. All **17 tie-outs tied** before and after |
+
+Why the money moves only on NVAC: the export adds two lines with no rate, and the page charges them from the card as an estimate. Every other change is a status, a date, a docket or an asset number on a line whose charge does not depend on them.
+
+## Andrew's matches win
+
+Andrew (6 Oct, Claude chat): "good chance baseplan and spreadsheet allocation of asset numbers are wrong. What I have matched up and completed is correct."
+
+The patch reads his recorded numbers from three places, in this order: the numbers he typed on the shared record and the numbers recorded on site on the shared record (`andrew_4370.json` — record version 4370, 7 Oct 2026 22:40 AEST, read back read-only through the page's own functions; a fresher snapshot may be given as `V895_MATCHES`), then the as-supplied record he committed on 22 Sep (`DATA.ops`, already on the page), which is where WC07's 20 numbers are. A Baseplan number he has recorded on a reference joins that reference and no other; one he has not recorded goes where the register puts it (the two Concert generators), or stays unjoined (1317643). A number Baseplan writes on two lines follows only the delivered line. A numbered line never joins by docket; only a line with no plant number does.
+
+Checks on the candidate: no contract line joins a reference that contradicts a number on his record (0 contradictions, as on v8.71). Of his recorded numbers whose line is not joined, three are the two-line numbers v8.71 holds (9961265/12, 9968726/10, 9968862/110) and two are lines his record moved after 6 Oct — decision 3.
+
+## The identity proof
+
+`baseplan895.py` is v8.71's contract builder lifted into one module, step for step: reading the export, refreshing the lines field by field, adding new lines, the join (Andrew's number, then the register's number, then the docket), the per-contract summaries, the assignments, the summary counts and the plant lines' copies of their contract lines.
+
+1. **The same builder on the 6 Oct export reproduces the live DATA exactly.** `tests/test_rebuild6oct895.py` runs it on a page with `Baseplan_SuperCars_2026-10-06.xlsx` (SHA-256 `5f9e83aa…`, asserted) and Andrew's recorded numbers, and asserts nothing changes. On the chain through v8.94 and on live v8.83 itself: 0 differences across every row, contract summary, assignment, summary count and plant line; no line added, removed, changed or re-joined; the same five two-line numbers (`evidence/rebuild6oct895_chain.log`, `evidence/rebuild6oct895_live.log`). On the v8.95 candidate it refuses, because the source there is the 7 Oct export.
+2. **Run on the 7 Oct export it changes only what the export changes.** `tests/test_identity895.py` compares the base (the chain through v8.94) with the candidate field by field: every DATA key other than `rental_on_hire` identical (register, schedule rows, plant lines, ops, media, `MASTER_LOC`); outside DATA the page differs only in the footer; inside `rental_on_hire` only the 25 changed lines and the 2 added ones differ, and only in the export's fields and what v8.71 derives from them (join, delivered, start date, the word for the thing); the three contract summaries, the four assignments (GN?, WC07, WC09, WC31) and the summary counts are recomputed from the candidate's lines in the test and match; the source record and its supplement name the 7 Oct export and its SHA-256. With `V895_BASEPLAN` set, every line's carried fields are also checked against the export's cells (323 lines). **129 checks PASS.** Run against an unchanged page it fails (26 findings), so it detects the release.
+
+Only `rental_on_hire` changed. `plant_lines` is identical because no plant line carries a changed contract line.
+
+## Inputs (private, bound by SHA-256)
+
+The export carries contract rates, so it is not in this public repository in the clear. It is in `inputs_07Oct2026/inputs_07oct.zip.enc` (the papers password).
+
+| File | SHA-256 |
+|---|---|
+| Baseplan_SuperCars_07Oct.xlsx | `8a18bd1f0df331d339d0fa27d81bdf22b238b1de0f1f5f5c342b208eed4b3bd7` |
+| andrew_4370.json (his recorded numbers, record 4370) | `aa78dedb7075…` (asserted by the patch) |
+
+## Build
+
+On live v8.83 `88a3584e`, after the READY full chain and v8.94:
+
+```
+V895_BASEPLAN=/path/to/Baseplan_SuperCars_07Oct.xlsx \
+toolchain/build.sh v8.95 v8.84_today_wide_layout_DRAFT/patch_v884.py v8.85_where_we_are_DRAFT/patch_v885.py \
+  v8.86_event_portables_days_DRAFT/patch_v886.py v8.87_map_explorer_DRAFT/patch_v887.py v8.88_costs_transport_DRAFT/patch_v888.py \
+  v8.89_master_map_DRAFT/patch_v889.py v8.94_lighting_basis_DRAFT/patch_v894.py v8.95_baseplan_07oct_DRAFT/patch_v895.py
+```
+
+- Chain through v8.94 without this patch (the identity base): `737c19660e9bdfe6bee5ce192f6780b7d136750a922c9341d816cc4274b2d5e7`, 11,261,607 bytes.
+- **Candidate `82e092760262ff3f91e245654d640f8dfe2a581374dc4e5ac1aa541a0422f785`, 11,266,188 bytes.** `check_page.py` PASS (16 inline scripts, no new key). The build is deterministic: rebuilt twice to the same hash.
+- The footer step takes the single ` · v8.89` … ` · v8.94` marker and makes it ` · v8.95`. v8.93 may sit before this patch and v8.91/v8.92 after it; the patch is data-only on `rental_on_hire`, so it does not touch their code, `MASTER_LOC` or media.
+- The patch refuses to run twice (the v8.95 supplement) and refuses a base whose contract source is not v8.71's 6 Oct export.
+- Every change is listed in `evidence/changes_v895.json` (field names, statuses, dates, asset numbers and joins; no rates, no money).
+- Files: `patch_v895.py`, `baseplan895.py` (the builder), `andrew_4370.json`, `tests/test_rebuild6oct895.py`, `tests/test_identity895.py`, `tests/test_contracts895.cjs`, `evidence/`.
+
+## Checks on the candidate `82e09276…` (every write aborted, fresh cache each run, one browser at a time)
+
+`tests/test_contracts895.cjs` checks: the contracts are the 7 Oct export (323 lines, 11 contracts, the v8.95 supplement bound by SHA-256); the two new NVAC lines are on the page, Pending, no rate, joined to GN?; a Pending line is off hire and the generators are charged at the card's 200 kVA line once for the three event days; the two are a small share of NVAC and of the contracts; WC07's 20 lines are Delivered from 22 Sep with their numbers; Andrew's numbers win (19 join, line 38 does not, the page shows his 20 with 1317743 and never 1317643, WC07 on hire from 22 Sep by the rental system); the toilet charge did not move; P56 on hire from 7 Oct; the three Del Req lines join WC31 and WC09 by docket and are not on hire; the forklift line reads Forklift 3.5t Diesel and still goes by the day rate; no contract line contradicts his record; every Pending line is off hire; all 17 tie-outs tied; the P&L and the Finance handover's checks hold; Revenue on the record and to job end, Transport to date, to come and Transport Revenue read the same wherever shown; the branches add to the contracts charge; the Costs tab names the 7 Oct export; WC07's drawer shows Rental 9968955 and his numbers; no overflow; a redraw changes no figure; no errors; no writes.
+
+RESULTS_TABLE
+
+Screenshots (WC07's drawer and the Everything reconciles line, laptop and phone) stay local because they show figures.
+
+## For Andrew to settle (the page holds these; it does not guess)
+
+1. **WC07, line 38: 1317643 or 1317743?** Baseplan writes **1317643** (serial F4790); your record of 22 Sep has **1317743**. One digit apart. If Baseplan is right, change the number on WC07 and the line joins it in the next build; if yours is right, the branch should fix the contract line. Until then the page shows your 20 numbers and the line is held unjoined.
+2. **The Concert generators (GN?).** Two 200 kVA generators, 1316182 and 1316183, Pending for 12–26 Oct on NVAC with no rate. The page charges them at the card's 200 kVA line for the three event days as an estimate. The reference GN? is still the schedule's placeholder: which GN number is it, is the rate right, and do both go in?
+3. **Your record since 6 Oct would move two more lines.** You have typed 1105053 on P37 and 1327211 on P52 since the 6 Oct export; the contract lines carrying them (9968862/50, Delivered, and 9968862/79, Del Req) are not joined to anything. v8.95 changes only what the export changes, so they stay as they are and the page still shows your numbers live. Say yes and the builder's `REJOIN_RECORD` switch joins them (listed in the change log as `record_would_move`).
+4. **WC31 and WC09 on Thu 8 Oct.** Their lines are Del Req with the SFL dockets; once Baseplan has them Delivered, the next export puts them on hire from their booked date.
+
+Not LIVE: this session has no edit key. If the chain goes live first, build with `patch_v895.py` alone on the live page; the patch's base check is the contract source, not the footer.

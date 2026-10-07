@@ -75,12 +75,9 @@ html[data-motion="off"] .ld.flow891-flip{transition:none}
 #flow891name .b-go:disabled{opacity:.45;cursor:not-allowed}
 #flow891name .b-no{background:transparent;color:inherit;border:1.5px solid rgba(0,0,0,.2)!important}
 /* on the printed sheets: the truck flow strip and the printer's name */
-#dayprint .dp-flow891 .dp-flow891-g{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1.6mm 3mm;margin-bottom:1.4mm}
-#dayprint .dp-flow891 .dp-f{flex:none;display:flex;flex-direction:column;align-items:flex-start;justify-content:flex-start;gap:.3mm;border:0;border-left:.6mm solid var(--acc);padding-left:1.8mm}
-#dayprint .dp-flow891 .dp-f label{font-size:.76em;letter-spacing:.1em;text-transform:uppercase;color:var(--mute);font-weight:700}
-#dayprint .dp-flow891 .dp-f b{font-size:.95em;line-height:1.2}
-#dayprint .dp-flow891 .dp-f span{font-size:.8em;color:var(--mute);line-height:1.2}
-#dayprint .dp-flow891-ck{display:flex;flex-wrap:wrap;gap:1.2mm 5mm;padding:1.4mm 2mm;border:.4mm solid var(--ink);border-radius:1mm;font-weight:700;font-size:.9em}
+#dayprint .dp-flow891{flex:0 0 auto;display:flex;flex-direction:column;gap:.9mm;padding:1.3mm 2.2mm;border:.45mm solid var(--ink);border-left:1.4mm solid var(--acc);border-radius:1mm;font-size:.88em;line-height:1.25;color:var(--ink)}
+#dayprint .dp-flow891-l b{font-weight:800}
+#dayprint .dp-flow891-ck{display:flex;flex-wrap:wrap;gap:.6mm 5mm;font-weight:700}
 #dayprint .dp-flow891-ck span{display:inline-flex;align-items:center}
 #dayprint .dp891-by{white-space:nowrap;color:var(--ink);font-weight:700}
 #dayprint .pl891-by{position:absolute;left:7mm;bottom:3mm;font:600 7pt/1.2 Inter,Arial,sans-serif;color:#15181a}

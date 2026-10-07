@@ -1,7 +1,7 @@
 # Author: Andrew Fisher. v8.95 - the page's contract source moves from the 6 Oct Baseplan export (v8.71) to the 7 Oct export.
 #
 # Andrew supplied Baseplan_SuperCars_07Oct.xlsx on 7 Oct 2026 (inputs_07Oct2026/). The costs must read the latest source
-# (Codex's independent review: a "source-freshness disposition"); Andrew: "all cost align and correct", "everything must talk".
+# (the independent review asked for a "source-freshness disposition"); Andrew: "all cost align and correct", "everything must talk".
 #
 # Data only: DATA.rental_on_hire and what v8.71's logic derives from it (the contract lines, the per-contract summaries,
 # the assignments, the summary counts, the plant lines' copies of their contract lines). The builder is baseplan895.py -
