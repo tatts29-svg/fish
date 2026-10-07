@@ -1,3 +1,5 @@
+**v8.81 UNLOADING — READY TO UPLOAD, 7 Oct 2026.** Author: Andrew Fisher. Codex source `2326abcc`; base live v8.79 `8196587d`; candidate SHA-256 `e540f978a47f15a5fcf75d6084bee2a1e244c8ae1fcdfb195a4740185b2a4e84`, 11,124,564 bytes. Unloading34/34, allocation40/40, paired18/18, Finance24/24 desktop/phone; both21-route/seven-link/Back sweeps and preservation1366/390 PASS; all DATA identical, phone inspected. Only unloading patch is READY. Staged hero/cards/weather source remains DRAFT awaiting Claude v8.80 Today handover or direct ownership clarification. No operational record writes.
+
 ## New presentation release — 7 Oct 2026
 
 Author: Andrew Fisher. **v8.81 CLAIMED by Codex, DRAFT.** Overall centred progress hero, seven subtle equipment-background cards, whole-plate weather/motion, parked Event showcase and permanent unloading options. Today integration waits for Claude v8.80 READY (fresh board faa69ba); independent asset/unloading preparation may proceed. No operational data or financial changes. v8.77/v8.78 ownership handover acknowledged; separate map/Costs scope is not claimed completed here.
