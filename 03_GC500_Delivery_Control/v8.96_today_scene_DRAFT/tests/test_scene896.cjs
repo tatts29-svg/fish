@@ -11,7 +11,7 @@ const WAPI = [1000, 1003, 1006, 1009, 1030, 1063, 1066, 1069, 1072, 1087, 1114, 
 const KINDS = ['sun', 'part', 'cloud', 'fog', 'rain', 'pour', 'storm', 'sleet'];
 (async () => { let s; try {
  const mob = !!process.env.MOB, W = mob ? 390 : Number(process.env.W || 1600), H = mob ? 844 : Number(process.env.H || (W >= 2560 ? 1370 : 1000)), dpr = mob ? 2 : 1;
- s = await open({pageFile: process.env.PAGE, W, H, mobile: mob, dpr}); const p = s.page, R = []; const ok = (n, v, d) => R.push({name: n, pass: !!v, detail: d});
+ s = await open({pageFile: process.env.PAGE, W, H, mobile: mob, dpr}); const p = s.page, R = []; const ok = (n, v, d) => { R.push({name: n, pass: !!v, detail: d}); if (!v) console.log('FAIL early: ' + n + ' ' + JSON.stringify(d)); };
  const cons = []; p.on('console', m => { if (m.type() === 'error' && !/Failed to load resource|ERR_FAILED|net::/.test(m.text())) cons.push(m.text().slice(0, 160)); });
  const dir = process.env.ATLAS896 || path.join(__dirname, '..', 'assets'); let served = 0;
  for (const c of A.cells) { const f = path.join(dir, c.file); if (fs.existsSync(f)) await p.route(new RegExp('/m/Coates-GC500-2026/' + c.file + '(\\?.*)?$'), r => { served++; r.fulfill({status: 200, contentType: c.type, body: fs.readFileSync(f)}); }); }
@@ -25,21 +25,57 @@ const KINDS = ['sun', 'part', 'cloud', 'fog', 'rain', 'pour', 'storm', 'sleet'];
  const clean = t => String(t || '').replace(/\s+/g, ' ').trim();
  const money = t => /\$\s?\d/.test(t || '');
  const scrollTo = sel => p.evaluate(sel => { const h = document.querySelector(sel), main = document.querySelector('main'); main.scrollTop += h.getBoundingClientRect().top - main.getBoundingClientRect().top - 10; }, sel);
+ const motionElapsed = () => p.evaluate(async () => {
+  const a = document.querySelector('#where885 .s896-sky').getAnimations({subtree: true})[0];
+  if (!a) return null; const t = a.currentTime; await new Promise(r => setTimeout(r, 160)); return a.currentTime - t;
+ });
 
  /* 1. the release is in */
  const A1 = await p.evaluate(() => ({style: !!document.getElementById('scene896-style'), script: !!document.getElementById('scene896-script'), footer: ((document.getElementById('footL') || {}).textContent || '').replace(/\s+/g, ' ').trim(), r: Scene896.report(), atlas: !!document.getElementById('scene896-atlas')}));
- ok('v8.96 style, script and atlas stylesheet are in; the footer ends in v8.96', A1.style && A1.script && A1.atlas && /v8\.96$/.test(A1.footer) && A1.r.version === 'v8.96' && A1.r.mounted);
+ ok('v8.96 style, script and atlas stylesheet are in; the footer names this or a later integrated release', A1.style && A1.script && A1.atlas && /v8\.9[6-9]$/.test(A1.footer) && A1.r.version === 'v8.96' && A1.r.mounted);
 
- /* 2. the plate: its lights, title and figure are centred on it; the plate is centred in the card when it stands alone */
+ /* 2. the approved overall hero: full width, centred, with the programme underneath at every viewport */
  const M = await p.evaluate(() => {
   const el = document.getElementById('where885'), g = el.querySelector('.w885-gauge'), gr = g.getBoundingClientRect(), card = el.getBoundingClientRect(), body = g.parentElement;
   const centred = r => Math.abs((r.left - gr.left) - (gr.right - r.right)) <= 2.5;
   const cols = getComputedStyle(body).gridTemplateColumns.split(' ').length;
   const parts = ['.w885-lights', '.w885-title', '.w885-reading', '.w885-caption', '.s896-wx'].map(sel => { const n = g.querySelector(sel); return {sel, centred: !!n && centred(n.getBoundingClientRect())}; });
-  return {cols, plateW: Math.round(gr.width), parts, alone: cols === 1, inCard: cols === 1 ? Math.abs((gr.left - card.left) - (card.right - gr.right)) <= 3 : gr.left >= card.left && gr.right <= card.right,
+  const br = body.getBoundingClientRect(), pr = el.querySelector('.w885-programme').getBoundingClientRect();
+  return {cols, plateW: Math.round(gr.width), parts, fullWidth: Math.abs(gr.width - br.width) <= 2,
+   programmeBelow: pr.top >= gr.bottom + 16 && Math.abs(pr.width - gr.width) <= 2,
+   figureSize: parseFloat(getComputedStyle(g.querySelector('.w885-reading')).fontSize),
+   inCard: Math.abs((gr.left - card.left) - (card.right - gr.right)) <= 3,
    skyFits: (() => { const sk = g.querySelector('.s896-sky').getBoundingClientRect(); return Math.abs(sk.left - gr.left) <= 2 && Math.abs(sk.right - gr.right) <= 2 && Math.abs(sk.top - gr.top) <= 4 && Math.abs(sk.bottom - gr.bottom) <= 2; })()};
  });
- ok('the lights, title, figure, caption and weather line are centred on the plate' + (M.alone ? ', and the plate on the card' : ' (' + M.cols + ' columns: the plate fills its column)'), M.parts.every(x => x.centred) && M.inCard && M.skyFits, M);
+ ok('the hero fills the card, with a large centred figure, weather across the whole plate and the programme below', M.cols === 1 && M.fullWidth && M.programmeBelow && M.parts.every(x => x.centred) && M.inCard && M.skyFits && M.figureSize >= (mob ? 64 : 150), M);
+
+ // A rotated rain rectangle can have a large bounding box while leaving a corner bare. Map each plate corner back into
+ // each sheet at both travel limits and between them, so overscan changes must preserve actual coverage on tall phones too.
+ const rainCoverage = await p.evaluate(() => {
+  const sky = document.querySelector('#where885 .s896-sky'), was = sky.dataset.kind, results = [];
+  try {
+   sky.dataset.kind = 'rain';
+   for (const n of sky.querySelectorAll('.s896-rain')) {
+    const a = n.getAnimations()[0]; a.pause();
+    for (const phase of [0, .25, .5, .75, .999999]) {
+     const tm = a.effect.getComputedTiming(); a.currentTime = (tm.delay || 0) + tm.duration * phase;
+     const cs = getComputedStyle(n), origin = cs.transformOrigin.split(' ').map(Number.parseFloat), inv = new DOMMatrix(cs.transform).inverse();
+     const w = parseFloat(cs.width), h = parseFloat(cs.height), left = parseFloat(cs.left), top = parseFloat(cs.top);
+     const corners = [[0, 0], [sky.clientWidth, 0], [0, sky.clientHeight], [sky.clientWidth, sky.clientHeight]].map(([x, y]) => {
+      const q = new DOMPoint(x - left - origin[0], y - top - origin[1]).matrixTransform(inv);
+      return q.x + origin[0] >= -.1 && q.x + origin[0] <= w + .1 && q.y + origin[1] >= -.1 && q.y + origin[1] <= h + .1;
+     });
+     results.push({sheet: n.className, phase, covered: corners.every(Boolean), width: w, height: h});
+    }
+   }
+  } finally {
+   // Recreate CSS animations so sampled WAAPI clocks cannot override the page's own pause class.
+   sky.dataset.kind = 'unknown'; void sky.offsetWidth;
+   sky.dataset.kind = was; Scene896.sync();
+  }
+  return results;
+ });
+ ok('both rain sheets cover every plate corner throughout their travel', rainCoverage.length === 10 && rainCoverage.every(x => x.covered), rainCoverage);
 
  /* 3. the sky is the forecast for the day shown */
  const X = await p.evaluate(WAPI => {
@@ -55,6 +91,31 @@ const KINDS = ['sun', 'part', 'cloud', 'fog', 'rain', 'pour', 'storm', 'sleet'];
  ok(X.valid ? 'the weather line is the page\'s own day line, with its full words as the title' : 'no forecast reached this run (WeatherAPI ' + X.src.wapi + ', Open-Meteo ' + X.src.om + '): the plate says so in the page\'s words',
   X.valid ? X.words.includes(X.pageLine) && X.title.length > 10 : /No forecast/.test(X.words) && X.words.includes(X.why) && !X.title, X.words);
  ok('the layers shown match the kind (' + X.layers.length + ')', X.expect === 'unknown' ? X.layers.every(c => /s896-(yard|shield)/.test(c)) : X.layers.length >= 4 && X.layers.some(c => /s896-yard/.test(c)) && X.layers.some(c => /s896-shield/.test(c)), X.layers);
+ if (process.env.OUT) {
+  fs.mkdirSync(process.env.OUT, {recursive: true}); await scrollTo('#where885'); await p.waitForTimeout(2800);
+  await p.screenshot({path: process.env.OUT + '/today-live-weather-' + (mob ? 'phone' : W) + '.png'});
+ }
+
+ /* Controlled forecast rows exercise all weather paths even when either public service is unavailable. No record is changed. */
+ await p.evaluate(() => {
+  const first = todayWorkDay841(), dt = new Date(first + 'T12:00:00Z'); dt.setUTCDate(dt.getUTCDate() + 1);
+  const second = dt.toISOString().slice(0, 10);
+  window.__s896Forecast = {day: wxfDay, dates: wxfDates, first, second};
+  wxfDay = day => day === first || day === second ? {date: day, src: 'wapi', code: day === first ? 1000 : 1183,
+   text: day === first ? 'Sunny' : 'Light rain', max_c: 24, min_c: 18, rain_pc: day === first ? 0 : 70, wind_kph: 20} : null;
+  wxfDates = () => [first, second]; Scene896.weather();
+ });
+ const invalidForecasts = await p.evaluate(() => {
+  const keep = wxfDay, day = todayWorkDay841(), good = keep(day), results = [];
+  for (const row of [null, {...good, date: '1999-01-01'}, {...good, code: 9999}, {...good, code: '1000'}, {...good, src: 'om', code: 999}]) {
+   wxfDay = () => row; Scene896.weather(); const r = Scene896.report();
+   results.push(r.kind === 'unknown' && /No forecast/.test(r.words) && !document.querySelector('.s896-wx').title);
+  }
+  wxfDay = keep; const selected = state.asOf; state.asOf = '2050-01-01'; renderToday();
+  results.push(Scene896.report().kind === 'unknown' && /No forecast/.test(Scene896.report().words));
+  state.asOf = selected; renderToday(); return results;
+ });
+ ok('missing, mismatched, unsupported and non-numeric forecast rows and a day beyond the outlook remain unknown', invalidForecasts.length === 6 && invalidForecasts.every(Boolean), invalidForecasts);
 
  /* 4. the day picker drives the sky: another forecast day, through the page's own date control, then a day that has passed */
  const D = await p.evaluate(() => {
@@ -72,8 +133,8 @@ const KINDS = ['sun', 'part', 'cloud', 'fog', 'rain', 'pour', 'storm', 'sleet'];
   state.asOf = keep; renderToday(); out.back = read().kind;
   return out;
  });
- ok(D.other ? 'changing the day (' + D.other.d + ' via the ' + D.control + ') changes the sky to that day\'s forecast (' + D.other.k + ')' : 'only one forecast day is known this run; the day change is checked on the past day below',
-  !D.other || (D.otherShown.kind === D.other.k && D.otherShown.skyKind === D.other.k && D.otherDay === D.other.d && (D.other.k !== D.k0 || D.otherShown.words !== D.w0)), D);
+ ok('changing the day through the native date control changes the sky to that day\'s controlled forecast',
+  D.other && D.control === 'date control' && D.otherShown.kind === D.other.k && D.otherShown.skyKind === D.other.k && D.otherDay === D.other.d && D.other.k !== D.k0, D);
  ok('a day with no forecast stays unknown: plain words, no sky, nothing guessed', D.past.kind === 'unknown' && D.past.skyKind === 'unknown' && /No forecast/.test(D.past.words) && D.past.words.includes(D.pastWhy) && !D.past.title && D.past.layers.every(c => /s896-(yard|shield)/.test(c)) && /As of/.test(D.past.notes), D.past);
  ok('back on today the sky is today\'s again', D.back === D.k0);
 
@@ -98,20 +159,30 @@ const KINDS = ['sun', 'part', 'cloud', 'fog', 'rain', 'pour', 'storm', 'sleet'];
  await p.click('#w885-motion'); await p.waitForTimeout(200);
  const P = await settled();
  ok('Pause settles the whole-job figure, the chips and the card readings at once, and stops the sky', P.w.paused && P.figure && P.chipsMatch && P.cardsMatch && !P.r.running && P.r.animating === 0 && P.r.paused && /Play/.test(P.label), P);
+ const pauseTime = await motionElapsed();
  await p.click('#w885-motion'); await p.waitForTimeout(300);
  const P2 = await p.evaluate(() => Scene896.report());
  ok('Play starts the sky again', P2.running && P2.animating > 0 && !P2.paused, P2);
+ const playTime = await motionElapsed();
+ ok('the actual animation clock holds while paused and advances after Play', pauseTime !== null && Math.abs(pauseTime) < 2 && playTime > 50, {pauseTime, playTime});
  await p.emulateMedia({reducedMotion: 'reduce'}); await p.evaluate(() => renderToday()); await p.waitForTimeout(400);
  const RM = await settled();
  ok('reduced motion shows every number settled with no sky motion', RM.r.still && !RM.r.running && RM.r.animations === 0 && RM.figure && RM.chipsMatch && RM.cardsMatch && !RM.w.intro, RM);
  await p.emulateMedia({reducedMotion: 'no-preference'}); await p.evaluate(() => renderToday()); await p.waitForTimeout(400);
+ const motionOff = await p.evaluate(async () => {
+  motionToggle(); await new Promise(r => requestAnimationFrame(() => requestAnimationFrame(r)));
+  const off = Scene896.report(); motionToggle(); await new Promise(r => requestAnimationFrame(() => requestAnimationFrame(r)));
+  return {off, on: Scene896.report()};
+ });
+ ok('Motion off holds a still frame and switching it back restores the sky', motionOff.off.still && !motionOff.off.running && motionOff.off.animations === 0 && motionOff.on.running, motionOff);
 
  /* 7. offscreen, a hidden page, a dialog and the drawer pause the sky; back on, it runs */
  await p.evaluate(() => { document.querySelector('main').scrollTop = document.querySelector('main').scrollHeight; }); await p.waitForTimeout(400);
  const off = await p.evaluate(() => Scene896.report());
+ const offTime = await motionElapsed();
  await scrollTo('#where885'); await p.waitForTimeout(400);
  const on = await p.evaluate(() => Scene896.report());
- ok('the sky pauses when the plate is scrolled off screen and plays again when it is back', !off.visible && !off.running && off.animating === 0 && on.visible && on.running && on.animating > 0, {off, on});
+ ok('the sky pauses when the plate is scrolled off screen and plays again when it is back', !off.visible && !off.running && off.animating === 0 && offTime !== null && Math.abs(offTime) < 2 && on.visible && on.running && on.animating > 0, {off, on, offTime});
  const hid = await p.evaluate(async () => { Object.defineProperty(document, 'hidden', {configurable: true, get: () => true}); document.dispatchEvent(new Event('visibilitychange')); const a = Scene896.report(); delete document.hidden; document.dispatchEvent(new Event('visibilitychange')); await new Promise(r => requestAnimationFrame(() => requestAnimationFrame(r))); return {a, b: Scene896.report()}; });
  ok('a hidden page pauses the sky; showing it again plays', !hid.a.running && hid.a.animating === 0 && hid.b.running, hid);
  await p.evaluate(() => { document.querySelector('#tw840-card-generators [data-tw840-detail][data-tw840-mode="done"]').click(); }); await p.waitForTimeout(400);
@@ -125,20 +196,34 @@ const KINDS = ['sun', 'part', 'cloud', 'fog', 'rain', 'pour', 'storm', 'sleet'];
  await p.evaluate(() => { if (state.drawerClose) state.drawerClose(); }); await p.waitForTimeout(600);
  const dr2 = await p.evaluate(() => ({on: document.getElementById('drawer').classList.contains('on'), r: Scene896.report()}));
  ok('the reference drawer pauses the sky; closing it plays again', dr.on && !dr.r.running && dr.r.animating === 0 && !dr2.on && dr2.r.running, {dr, dr2});
+ const overlays = await p.evaluate(async () => {
+  const settle = () => new Promise(r => requestAnimationFrame(() => requestAnimationFrame(r))), out = [];
+  for (const id of ['showcase', 'machine']) {
+   const el = document.getElementById(id), hidden = el.hidden; el.hidden = false; await settle(); const open = Scene896.report();
+   el.hidden = hidden; await settle(); out.push({id, open, closed: Scene896.report()});
+  }
+  const el = document.createElement('div'); el.setAttribute('aria-modal', 'true'); el.setAttribute('role', 'dialog');
+  el.style.cssText = 'position:fixed;inset:0;z-index:9999'; document.body.appendChild(el); await settle(); const open = Scene896.report();
+  const animation = document.querySelector('#where885 .s896-sky').getAnimations({subtree: true})[0], before = animation.currentTime;
+  await new Promise(r => setTimeout(r, 160)); const elapsed = animation.currentTime - before;
+  el.remove(); await settle(); out.push({id: 'inserted overlay', open, closed: Scene896.report(), elapsed}); return out;
+ });
+ ok('showcase, machine and inserted overlays pause the sky; closing or removing them resumes it', overlays.every(x => x.open.modal && !x.open.running && x.open.animating === 0 && !x.closed.modal && x.closed.running) && Math.abs(overlays[2].elapsed) < 2, overlays);
 
  /* 8. five redraws and tab changes leave nothing behind: one sky, one weather line, one fold, the same animations, one observer of each kind, no timers of its own */
  const K = await p.evaluate(async () => {
   const counts = () => ({skies: document.querySelectorAll('.s896-sky').length, lines: document.querySelectorAll('.s896-wx').length, parks: document.querySelectorAll('#pane-today .dsnband.s896-park').length, folds: document.querySelectorAll('#pane-today .s896-showcase').length, bands: document.querySelectorAll('#pane-today .dsnband').length, styles: document.querySelectorAll('#scene896-atlas').length, anims: document.getAnimations().length, basis: (document.querySelector('#where885 .w885-basis p')?.textContent.match(/rendered illustrations/g) || []).length});
-  const before = counts(), sky0 = Scene896.report().animations;
+  const before = counts(), sky0 = Scene896.report().animations, detached = [];
+  detached.push(document.querySelector('.s896-sky'));
   for (let i = 0; i < 5; i++) renderToday();
   await new Promise(r => setTimeout(r, 300)); const mid = counts(), midSky = Scene896.report().animations;
   go('timeline'); await new Promise(r => setTimeout(r, 500)); const away = {skies: document.querySelectorAll('.s896-sky').length, r: Scene896.report()};
   go('today'); await new Promise(r => setTimeout(r, 500)); go('plant'); await new Promise(r => setTimeout(r, 500)); go('today'); await new Promise(r => setTimeout(r, 800));
-  return {before, sky0, mid, midSky, away, after: counts(), r: Scene896.report()};
+  return {before, sky0, mid, midSky, away, after: counts(), r: Scene896.report(), detachedStopped: detached.every(n => !n.isConnected && n.getAnimations({subtree: true}).length === 0)};
  });
  await scrollTo('#where885'); await p.waitForTimeout(300);
  const K2 = await p.evaluate(() => Scene896.report());
- ok('five redraws keep one sky, one weather line, one fold, one atlas stylesheet, one basis sentence and the same sky animations', K.mid.skies === 1 && K.mid.lines === 1 && K.mid.parks === 1 && K.mid.folds === 1 && K.mid.bands === 1 && K.mid.styles === 1 && K.mid.basis === 1 && K.midSky === K.sky0, K);
+ ok('five redraws stop detached animations and keep one sky, one weather line, one fold, one atlas stylesheet, one basis sentence and the same sky animations', K.detachedStopped && K.mid.skies === 1 && K.mid.lines === 1 && K.mid.parks === 1 && K.mid.folds === 1 && K.mid.bands === 1 && K.mid.styles === 1 && K.mid.basis === 1 && K.midSky === K.sky0, K);
  // the page's own instruments start and stop with what is on screen, so after a change of tab only the scene's own footprint is compared
  ok('tab changes leave nothing behind: away from Today no sky and nothing running; back on Today one sky, one line, one fold, the same sky animations, one observer of each kind and no timers', !K.away.r.running && K.away.skies === 0 && K.after.skies === 1 && K.after.lines === 1 && K.after.parks === 1 && K.after.folds === 1 && K.after.bands === 1 && K.after.styles === 1 && K.after.basis === 1 && K2.animations === K.sky0 && K.r.observers.intersection === 1 && K.r.observers.mutation === 1 && K.r.timers === 0 && K2.running, {K, K2});
 
@@ -151,9 +236,20 @@ const KINDS = ['sun', 'part', 'cloud', 'fog', 'rain', 'pour', 'storm', 'sleet'];
   return {pic: /url\(/.test(cs.backgroundImage), opacity: parseFloat(cs.opacity), z: cs.zIndex, pe: cs.pointerEvents, pics, reviews: card.querySelectorAll('[data-tw840-detail]').length, hitInsideButton: !!hit && !!hit.closest('.tw846-counts button'), fold: !!card.querySelector('[data-tw848-group-fold]'), motion: !!card.querySelector('[data-tw840-motion]'), toggle: !!card.querySelector('.tw848-group-toggle')};
  });
  ok('every group card carries its picture behind the instrument (faint, behind, taking no clicks), with its Review links, fold and Play control as before', C.pic && C.pics.every(Boolean) && C.opacity > 0 && C.opacity <= .3 && C.z === '-1' && C.pe === 'none' && C.reviews >= 3 && C.hitInsideButton && C.fold && C.motion && C.toggle, C);
+ const names = await p.evaluate(() => {
+  const cards = [...document.querySelectorAll('#gc500-work-board840 .tw848-card')];
+  return {unique: new Set([...document.querySelectorAll('#pane-today [id]')].map(n => n.id)).size === document.querySelectorAll('#pane-today [id]').length,
+   cards: cards.map(card => { const title = card.querySelector('.tw846-title'), fold = card.querySelector('.tw848-toggle-title'), reading = card.querySelector('.tw840-reading');
+    const toggle = card.querySelector('.tw848-group-toggle').getBoundingClientRect(), header = card.querySelector('.tw840-top').getBoundingClientRect(), body = card.querySelector('.tw848-group').getBoundingClientRect(), instrument = card.querySelector('.tw846-summary').getBoundingClientRect(), scope = card.querySelector('.tw840-scope'), clean = x => String(x || '').trim().replace(/\s+/g, ' ').toLocaleLowerCase('en-AU');
+    return {name: title?.textContent.trim(), sameName: title?.textContent.trim() === fold?.textContent.trim(), nativeFocus: title?.getAttribute('tabindex') === '-1', sharedRow: Math.abs(toggle.top - header.top) <= 2 && toggle.height <= Math.max(80, header.height + 2), fullInstrument: Math.abs(instrument.width - body.width) <= 2,
+     large: title && parseFloat(getComputedStyle(title).fontSize) >= 28, above: title && reading && title.getBoundingClientRect().bottom <= reading.getBoundingClientRect().top,
+     scopeCorrect: (getComputedStyle(scope).display === 'none') === (clean(scope.textContent) === clean(title.textContent)),
+     duplicateClipped: fold && getComputedStyle(fold).clipPath === 'inset(50%)' && fold.getBoundingClientRect().width <= 1}; })};
+ });
+ ok('each group name stays large above its percentage, without a visible duplicate, empty label row, narrowed instrument or duplicate identifiers', names.unique && names.cards.length === 7 && names.cards.every(x => x.sameName && x.nativeFocus && x.large && x.above && x.duplicateClipped && x.sharedRow && x.fullInstrument && x.scopeCorrect), names);
  const foldSel = '#tw840-card-generators [data-tw848-group-fold]';
  await p.click(foldSel + ' > summary'); await p.waitForTimeout(250);
- const closed = await p.evaluate(sel => !document.querySelector(sel).open, foldSel);
+ const closed = await p.evaluate(sel => { const d = document.querySelector(sel); return !d.open && getComputedStyle(d.querySelector('.tw848-toggle-title')).clipPath === 'none'; }, foldSel);
  await p.click(foldSel + ' > summary'); await p.waitForTimeout(250);
  const reopened = await p.evaluate(sel => document.querySelector(sel).open, foldSel);
  ok('the group fold still closes and opens', closed && reopened);
@@ -172,9 +268,9 @@ const KINDS = ['sun', 'part', 'cloud', 'fog', 'rain', 'pour', 'storm', 'sleet'];
  });
  ok('the banner and clip sit in a closed fold at the foot of Today, after the plate and the cards, and Today opens on the plate', B.parked && B.closed && B.afterBoard && B.afterHero && B.last && B.hidden && B.compact && B.bands === 1 && B.heroes === 1 && /^Event banner and clip/.test(B.summary) && !/dsnband/.test(B.firstBlock), B);
  ok('the clip does not autoplay: paused, no autoplay, preload none, its own Play with sound button kept', !B.video || (B.paused && !B.autoplay && B.preload === 'none' && B.play), B);
- await p.evaluate(() => { const d = document.querySelector('#pane-today .s896-showcase'); d.open = true; d.scrollIntoView({block: 'start'}); }); await p.waitForTimeout(700);
+ await p.focus('#pane-today .s896-showcase > summary'); await p.keyboard.press('Enter'); await p.waitForTimeout(700);
  const O = await p.evaluate(() => { const band = document.querySelector('#pane-today > .dsnband.s896-park'), fig = band.querySelector('.bhero'), win = fig.querySelector('.bwin') || fig, br = band.getBoundingClientRect(), hr = fig.getBoundingClientRect(), v = fig.querySelector('video'); return {shown: hr.height > 50, centred: Math.abs((hr.left - br.left) - (br.right - hr.right)) <= 2, cap: win.getBoundingClientRect().height <= innerHeight * .42 + 2 && hr.width <= 1762, inBand: hr.left >= br.left - 1 && hr.right <= br.right + 1, paused: !v || v.paused, board: !!fig.querySelector('.vmsb'), remembered: Scene896.report().showcaseOpen, dark: /linear-gradient/.test(getComputedStyle(band).backgroundImage)}; });
- ok('opened, the banner shows whole in its dark band, centred and capped at 42% of the screen (as v8.84 had it), and the clip is still paused', O.shown && O.centred && O.cap && O.inBand && O.paused && O.board && O.remembered && O.dark, O);
+ ok('keyboard activation opens the banner whole in its dark band, centred and capped at 42% of the screen, with the clip still paused', O.shown && O.centred && O.cap && O.inBand && O.paused && O.board && O.remembered && O.dark, O);
  if (process.env.OUT) { fs.mkdirSync(process.env.OUT, {recursive: true}); const band = p.locator('#pane-today > .dsnband.s896-park'); if (!money(await band.innerText())) await band.screenshot({path: process.env.OUT + '/banner-fold-open-' + (mob ? 'phone' : W) + '.png'}); }
  await p.evaluate(() => renderToday()); await p.waitForTimeout(400);
  const O2 = await p.evaluate(() => ({open: document.querySelector('#pane-today .s896-showcase').open, bands: document.querySelectorAll('#pane-today .dsnband').length, paused: [...document.querySelectorAll('#pane-today video')].every(v => v.paused)}));
@@ -185,14 +281,15 @@ const KINDS = ['sun', 'part', 'cloud', 'fog', 'rain', 'pour', 'storm', 'sleet'];
  const lum = c => { const f = v => { v /= 255; return v <= .03928 ? v / 12.92 : Math.pow((v + .055) / 1.055, 2.4); }; return .2126 * f(c[0]) + .7152 * f(c[1]) + .0722 * f(c[2]); };
  const ratio = (a, b) => (Math.max(a, b) + .05) / (Math.min(a, b) + .05);
  // a root taller than the screen is read in two passes: top-aligned, then bottom-aligned; each pass reads only the text boxes it shows whole
- const bring = (rootSel, end) => p.evaluate(([rootSel, end]) => { const root = document.querySelector(rootSel), main = document.querySelector('main'), mr = main.getBoundingClientRect(), r = root.getBoundingClientRect(); main.scrollTop += end ? (r.bottom - mr.bottom + 6) : (r.top - mr.top - 6); }, [rootSel, end]);
+ const bring = (rootSel, end) => p.evaluate(([rootSel, end]) => { const root = document.querySelector(rootSel), main = document.querySelector('main'), mr = main.getBoundingClientRect(), r = root.getBoundingClientRect(), nav = root.closest('#gc500-work-board840')?.querySelector('.tw840-nav'), inset = nav ? nav.getBoundingClientRect().height : 0; main.scrollTop += end ? (r.bottom - mr.bottom + 6) : (r.top - mr.top - inset - 6); }, [rootSel, end]);
  const measure = async (rootSel, textSel, label) => { const out = []; for (const end of [false, true]) { await bring(rootSel, end); await p.waitForTimeout(120); out.push(...await measureOnce(rootSel, textSel, label)); } return out; };
  const measureOnce = async (rootSel, textSel, label) => {
   // glyphs made transparent, their backgrounds kept; the lightest pixel under each text box is read back from a screenshot
   const info = await p.evaluate(([rootSel, textSel]) => {
    const root = document.querySelector(rootSel), rr = root.getBoundingClientRect(), items = [];
    // the clip is the part of the root inside the viewport; text boxes are measured from that clip's corner
-   const x0 = Math.max(0, rr.left), y0 = Math.max(0, rr.top), x1 = Math.min(innerWidth, rr.right), y1 = Math.min(innerHeight, rr.bottom);
+   const mr = document.querySelector('main').getBoundingClientRect(), nav = root.closest('#gc500-work-board840')?.querySelector('.tw840-nav')?.getBoundingClientRect();
+   const x0 = Math.max(0, rr.left), y0 = Math.max(0, rr.top, mr.top, nav && nav.top <= mr.top + 2 ? nav.bottom : mr.top), x1 = Math.min(innerWidth, rr.right), y1 = Math.min(innerHeight, rr.bottom, mr.bottom);
    root.querySelectorAll(textSel).forEach((n, i) => { if (!n.textContent.trim()) return; const r = n.getBoundingClientRect(); if (r.width < 2 || r.height < 2 || r.top < y0 || r.bottom > y1) return; const cs = getComputedStyle(n); const m = cs.color.match(/\d+(\.\d+)?/g).map(Number); n.dataset.s896c = n.style.color || '-'; n.style.color = 'transparent'; items.push({i, sel: n.className || n.tagName, text: n.textContent.trim().slice(0, 24), color: m.slice(0, 3), x: r.left - x0, y: r.top - y0, w: r.width, h: r.height}); });
    return {clip: {x: x0, y: y0, width: Math.max(0, x1 - x0), height: Math.max(0, y1 - y0)}, viewport: [innerWidth, innerHeight], items};
   }, [rootSel, textSel]);
@@ -225,7 +322,7 @@ const KINDS = ['sun', 'part', 'cloud', 'fog', 'rain', 'pour', 'storm', 'sleet'];
  for (const id of ['generators', 'buildings', 'toilets']) { await p.evaluate(id => document.getElementById('tw840-card-' + id).scrollIntoView({block: 'start'}), id); await p.waitForTimeout(200); cardResults.push(...await measure('#tw840-card-' + id + ' .tw846-summary', cardText, id)); }
  worstCard = cardResults.filter(r => r.ratio !== null).sort((a, b) => a.ratio - b.ratio);
  ok('every word on the cards keeps at least 4.5:1 over its picture (worst ' + (worstCard[0] ? worstCard[0].ratio + ':1 ' + worstCard[0].label + ' ' + worstCard[0].text : '-') + '; ' + cardResults.length + ' readings)', worstCard.length > 10 && worstCard.every(r => r.ratio >= 4.5), worstCard.slice(0, 8).concat(cardResults.filter(r => r.ratio === null).slice(0, 3)));
- if (process.env.OUT) { await bring(mob ? '#tw840-card-generators .tw846-summary' : '#tw840-card-generators', false); await p.waitForTimeout(150); const c = p.locator(mob ? '#tw840-card-generators .tw846-summary' : '#tw840-card-generators'); if (!money(await c.innerText())) await c.screenshot({path: process.env.OUT + '/card-generators-' + (mob ? 'phone' : W) + '.png'}); }
+ if (process.env.OUT) { await bring('#tw840-card-generators', false); await p.waitForTimeout(150); await p.screenshot({path: process.env.OUT + '/card-generators-' + (mob ? 'phone' : W) + '.png'}); }
  } catch (err) { ok('contrast measured', false, String(err && err.message || err).slice(0, 300)); }
 
  /* 12. print holds a still frame; overflow; errors; writes */
@@ -237,6 +334,7 @@ const KINDS = ['sun', 'part', 'cloud', 'fog', 'rain', 'pour', 'storm', 'sleet'];
  ok('no page-wide horizontal overflow', await p.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 2 && document.querySelector('main').scrollWidth <= document.querySelector('main').clientWidth + 2));
  ok('no runtime errors' + (cons.length ? ' (console: ' + cons.length + ')' : ''), s.errors.length === 0 && cons.length === 0, {errors: s.errors, cons});
  ok('no attempted live writes', s.counts.blocked === 0);
+ await p.evaluate(() => { wxfDay = window.__s896Forecast.day; wxfDates = window.__s896Forecast.dates; delete window.__s896Forecast; Scene896.weather(); });
  R.forEach(r => console.log((r.pass ? 'PASS ' : 'FAIL ') + r.name));
  R.filter(r => !r.pass && r.detail !== undefined).forEach(r => console.log('  detail: ' + JSON.stringify(r.detail).slice(0, 1600)));
  console.log('contrast worst plate ' + JSON.stringify(worstPlate.slice(0, 3)) + ' cards ' + JSON.stringify(worstCard.slice(0, 3)));

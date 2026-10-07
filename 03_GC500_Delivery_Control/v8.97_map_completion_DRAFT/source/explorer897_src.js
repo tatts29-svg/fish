@@ -17,13 +17,16 @@ function complete897Keys() {
   if (!w) return null;
   try {
     if (typeof w.gc500CompleteKeys897 === 'function') { const k = w.gc500CompleteKeys897(); return Array.isArray(k) ? k : null; }
-    /* a dashboard without the v8.97 page part: the record's Complete tick, read against the Timeline stage the v8.87 card reads */
-    if (typeof w.gc500DoneKeys === 'function' && typeof w.gc500PlanProgress887 === 'function') { const d = w.gc500DoneKeys(); if (!Array.isArray(d)) return null;
-      return d.filter(k => { const p = w.gc500PlanProgress887(k); return !!(p && p.stage && p.stage.n === 5); }); }
   } catch (e) {}
   return null;
 }
-function complete897Pull() { const keys = complete897Keys(); if (!Array.isArray(keys)) return; const sig = keys.slice().sort().join(','); if (sig === complete897Sig) return; complete897Sig = sig; COMPLETE897 = new Set(keys.map(norm)); complete897Sync(); }
+function complete897Pull() {
+  const raw = complete897Keys();
+  /* Completion is a current verified reading. If the host becomes unavailable, remove the claim until it can be read again. */
+  const keys = Array.isArray(raw) ? [...new Set(raw.filter(k => typeof k === 'string' && k.trim()).map(norm))].sort() : [];
+  const sig = JSON.stringify(keys); if (sig === complete897Sig) return;
+  complete897Sig = sig; COMPLETE897 = new Set(keys); complete897Sync();
+}
 function isComplete897(it) { return !!(it && it.cat && it.cat.host === 'trade' && COMPLETE897.has(it.code)); }
 function ok897(it, where) { return isComplete897(it) ? `<em class="ok897${where ? ' ' + where : ''}" title="Complete: recorded complete on the record, and Finished on the Timeline">✓ Complete</em>` : ''; }
 /* the rows and the card follow the set without a re-render or a camera move */
@@ -31,7 +34,10 @@ function complete897Sync() {
   const put = (host, where) => { if (!host) return; const b = host.querySelector('b'); if (!b) return; const code = norm(b.textContent || ''), it = ITEMS.find(x => x.code === code), on = isComplete897(it), el = host.querySelector('.ok897');
     if (on && !el) b.insertAdjacentHTML('afterend', ok897(it, where)); else if (!on && el) el.remove(); };
   document.querySelectorAll('#results [data-code], #findList [data-code]').forEach(b => put(b, ''));
-  const card = $('xcard'); if (card && !card.hidden) put(card.querySelector('.xc-t'), 'card');
+  const card = $('xcard'); if (card && !card.hidden) {
+    if (typeof window.GC500ExplorerRefreshCard897 === 'function') window.GC500ExplorerRefreshCard897();
+    else put(card.querySelector('.xc-t'), 'card');
+  }
   requestPaint();
 }
 /* one small static tick on the ring's lower-right edge; a dark rim so it reads on a green ring (toilets) as well as any other colour */

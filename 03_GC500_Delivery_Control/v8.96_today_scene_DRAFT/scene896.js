@@ -83,6 +83,15 @@ const Scene896 = (() => {
   const p = document.querySelector('#where885 .w885-basis p');
   if (p && !p.dataset.s896) { p.textContent += ' The equipment pictures behind the group cards and the plate are rendered illustrations, not photographs of this job. The sky on the plate is the forecast for the day shown, from the same source as the Timeline’s day cards; a day with no forecast shows none.'; p.dataset.s896 = '1'; }
  }
+ /* Keep the large name above the reading. A native scope line that says exactly the same thing adds no information;
+    distinct descriptions stay visible, and the original text remains in the DOM for native redraws and print. */
+ function scopes(pane) {
+  const clean = s => String(s || '').trim().replace(/\s+/g, ' ').toLocaleLowerCase('en-AU');
+  pane.querySelectorAll('.tw848-card').forEach(card => {
+   const scope = card.querySelector('.tw840-scope'), title = card.querySelector('.tw846-title');
+   if (scope) scope.toggleAttribute('data-s896-duplicate-scope', !!title && !!clean(scope.textContent) && clean(scope.textContent) === clean(title.textContent));
+  });
+ }
  /* the banner the page draws at the top of Today goes into a fold at the foot, closed unless it was open; the board keeps its own
     wiring (it was wired before the move) and its own clip control; a hidden board stops its own paging and clip */
  function park(pane) {
@@ -122,7 +131,7 @@ const Scene896 = (() => {
   const g = gauge(); if (!g) { if (io) io.disconnect(); visible = false; return; }
   if (!g.querySelector('.s896-sky')) g.insertAdjacentHTML('afterbegin', sky());
   if (!g.querySelector('.s896-wx')) g.insertAdjacentHTML('beforeend', '<p class="s896-wx" data-s896-wx data-kind="unknown"></p>');
-  atlas(); basis(); weather(); watch(g); sync(); ask();
+  atlas(); basis(); scopes(pane); weather(); watch(g); sync(); ask();
  }
  /* mounted inside the Today redraw, after the Where we are card (v8.85) and its notes (v8.94), before scroll and focus are put back */
  if (fn('renderToday_held')) { const held = renderToday_held; renderToday_held = function (...args) { const r = held.apply(this, args); try { mount(); } catch (err) { console.error('Today scene', err); } return r; }; }
@@ -139,10 +148,18 @@ const Scene896 = (() => {
  window.addEventListener('afterprint', () => { printing = false; sync(); });
  window.addEventListener('pagehide', () => { if (io) io.disconnect(); visible = false; sync(); });
  window.addEventListener('pageshow', () => { const g = gauge(); if (g) { watch(g); sync(); } });
- /* a dialog opening or the drawer sliding in has no event of its own; one observer watches the open attributes and the drawer */
- mo = new MutationObserver(() => { if (moFrame) return; moFrame = requestAnimationFrame(() => { moFrame = 0; sync(); }); });
- mo.observe(document.body, {attributes: true, subtree: true, attributeFilter: ['open']});
- const drawer = document.getElementById('drawer'); if (drawer) mo.observe(drawer, {attributes: true, attributeFilter: ['class', 'aria-hidden']});
+ /* Native dialogs, the drawer, hidden showcase/machine surfaces and inserted PDF overlays use different lifecycles. Watch
+    their visibility changes through one filtered observer; number animation and scene class changes never schedule a frame. */
+ const modalSelector = 'dialog,[aria-modal],#drawer';
+ const hasModal = n => n.nodeType === 1 && (n.matches(modalSelector) || n.querySelector(modalSelector));
+ mo = new MutationObserver(records => {
+  if (moFrame || !records.some(r => r.type === 'attributes'
+   ? r.target.matches(modalSelector) || (r.target === document.documentElement && r.attributeName === 'data-motion')
+   : [...r.addedNodes, ...r.removedNodes].some(hasModal))) return;
+  moFrame = requestAnimationFrame(() => { moFrame = 0; sync(); });
+ });
+ mo.observe(document.documentElement, {attributes: true, childList: true, subtree: true,
+  attributeFilter: ['open', 'hidden', 'aria-hidden', 'aria-modal', 'class', 'style', 'data-motion']});
  function report() {
   const g = gauge(), s = g && g.querySelector('.s896-sky'), p = g && g.querySelector('.s896-wx');
   const anims = s ? s.getAnimations({subtree: true}) : [];

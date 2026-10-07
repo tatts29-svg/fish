@@ -1,0 +1,155 @@
+--- a/03_GC500_Delivery_Control/v8.91_truck_flow_DRAFT/flow891_src.js
++++ b/03_GC500_Delivery_Control/v8.91_truck_flow_DRAFT/flow891_src.js
+@@ -2,9 +2,9 @@
+    Andrew, 8 Oct 2026 ~03:40 AEST: "The whole point of this is to better understand the flow and improve how trucks roll in,
+    not over-crowding areas, and ensuring drivers are aware they are going, and they must turn up in their allocated order."
+    Everything here reads the page's own record and rules: the day's loads (dpLoads), the crew planning record (crew883 - day
+-   availability, planned arrival order and the 30-minute unloading windows), the meet points and zones (v8.19, v8.16), the
++   availability and legacy planned windows), stable load IDs for Truck flow order and windows, the meet points and zones (v8.19, v8.16), the
+    Kingston load rule and no-travel windows (v7.82) and the pre-dispatch checks (v8.26). It writes only through the crew
+-   planning record (S.loads, kind crew883) and only on the edit link. No pin is moved. */
++   planning record (S.loads, kinds crew883 and flow891) and only on the edit link. No pin is moved. */
+ 
+ /* ---------- THE RULES, in one place (Andrew Fisher, Shutdown Manager, 8 Oct 2026 ~03:40 AEST) - edit here, nowhere else.
+    On the page he is "the project manager" (v5.97, his own rule of 25 Sep 2026: no "Andrew Fisher said" in the page's words). */
+@@ -82,9 +82,13 @@
+  if (iFrom >= 0 && i >= iFrom) return {max: P.maxFrom, words: 'max ' + P.maxFrom + ' trucks (' + P.from + ' onwards; this day is ' + wk.sheet + ')', sheet: wk.sheet};
+  return {max: null, words: 'not set (' + wk.sheet + ')', sheet: wk.sheet};
+ }
+-/* a load's arrival window on its day: the planned unloading window on the crew record, else the Kingston load time plus the run */
+-function flow891WindowOf(iso, time, keys, booking){
+- let start = null, finish = null; const SL = S.loads || {};
++/* A stagger belongs to one stable load ID, even when another truck carries the same reference. Existing Crew windows
++   remain the fallback for loads with no dedicated window; no Crew requirement is created by planning a truck's arrival. */
++function flow891WindowKey(iso, id){ return 'flow891/' + iso + '/window/' + encodeURIComponent(id); }
++function flow891WindowOf(iso, time, keys, booking, id){
++ let start = null, finish = null; const SL = S.loads || {}, own = id ? SL[flow891WindowKey(iso, id)] : null;
++ if (own && own.kind === 'flow891' && own.day === iso && own.loadId === id) { const s = hhmm782(own.start), f = hhmm782(own.finish);
++  if (s != null && f != null && f > s) return {start: s, finish: f, known: true, basis: 'planned unloading window (Truck flow)', planned: true}; }
+  for (const key of (keys || [])) { const sv = SL[crew883Key(iso, key)]; if (!sv || !sv.start || !sv.finish) continue; const s = hhmm782(sv.start), f = hhmm782(sv.finish);
+   if (s != null && f != null && f > s && (start == null || s < start)) { start = s; finish = f; } }
+  if (start != null) return {start, finish, known: true, basis: 'planned unloading window (Crew)', planned: true};
+@@ -92,7 +96,7 @@
+   return {start: arr, finish: arr + UNLOAD_MIN782, known: true, basis: 'from the ' + time + ' Kingston load time (about ' + run + ' min run, ' + UNLOAD_MIN782 + ' min to unload)', planned: false}; }
+  return {start: null, finish: null, known: false, basis: 'not known — no planned unloading window (Crew) and no Kingston load time'};
+ }
+-function flow891Window(d, g){ return flow891WindowOf(d.iso, g.time, (g.rows || []).map(r => r.a.key), !!g.booking801); }
++function flow891Window(d, g){ return flow891WindowOf(d.iso, g.time, (g.rows || []).map(r => r.a.key), !!g.booking801, ldId(d, g)); }
+ /* curfew first: an oversized load belongs on the earliest run - loaded and away from Kingston by 05:00, on site before 07:00 (the page's
+    own rule, LOAD782), before the 07:00-09:00 no-travel window */
+ function flow891Curfew(g, x){
+@@ -145,7 +149,7 @@
+ 
+ /* ---------- the day's order. It lives on the crew planning record (the loads collection, merged by stamp like every other document
+    there): one document per day holding the loads in order (a reference can be on two trucks on one day - WC09 on 8 Oct - so the
+-   order belongs to the load, not the reference), and each reference's planned arrival order (crew883) set to match, so Crew reads
++   order belongs to the load, not the reference), and each existing Crew record's planned arrival order (crew883) set to match, so Crew reads
+    "planned order N" as before. An order typed in Crew still counts where no day document exists. */
+ function flow891OrderKey(iso){ return 'flow891/' + iso + '/order'; }
+ function flow891OrderDoc(iso){ const x = (S.loads || {})[flow891OrderKey(iso)]; return x && x.kind === 'flow891' && Array.isArray(x.ids) ? x : null; }
+@@ -161,18 +165,18 @@
+ }
+ const dpLoadsBefore891 = dpLoads;
+ dpLoads = function(d){ return flow891Sort(d, dpLoadsBefore891(d)); };
+-/* save a new order for the day: the day document, and each reference's planned arrival order; one save, one redraw */
++/* Save the day order and update existing Crew plans only: an absent plan still means people required to confirm. */
+ function flow891SaveOrder(iso, ids){
+  const d = programmeDays().find(x => x.iso === iso); if (!d) return false;
+  if (!mayWrite('the day’s load order')) return false; const by = whoAmI(); if (!by) return false;
+  const L = dpLoads(d).filter(g => g.kind === 'deliveries'), byId = new Map(L.map(g => [ldId(d, g), g]));
+- if (!ids.every(id => byId.has(id)) || new Set(ids).size !== L.length) { flash('The day’s loads changed — the order was not saved. Try again.'); return false; }
+- S.loads = S.loads || {}; const stamp = old => new Date(Math.max(Date.now(), old && old.at ? Date.parse(old.at) + 1 : 0)).toISOString();
++ if (!Array.isArray(ids) || ids.length !== L.length || !ids.every(id => byId.has(id)) || new Set(ids).size !== L.length) { flash('The day’s loads changed — the order was not saved. Try again.'); return false; }
++ S.loads = S.loads || {}; const stamp = old => { const t = old && old.at ? Date.parse(old.at) : NaN; return new Date(Math.max(Date.now(), Number.isFinite(t) ? t + 1 : 0)).toISOString(); };
+  const key = flow891OrderKey(iso), oldDoc = S.loads[key];
+  S.loads[key] = {kind: 'flow891', day: iso, ref: '', ids: ids.slice(), by, at: stamp(oldDoc)};
+  const seen = new Set(); ids.forEach((id, i) => byId.get(id).rows.forEach(r => { const ref = r.a.key; if (seen.has(ref) || !assetOf(ref)) return; seen.add(ref);
+-  const k = crew883Key(iso, ref), old = S.loads[k], base = old ? Object.assign({}, old) : {people: [], start: '', finish: '', location: ''};
+-  S.loads[k] = Object.assign(base, {order: i + 1, kind: 'crew883', day: iso, ref, by, at: stamp(old)}); }));
++  const k = crew883Key(iso, ref), old = S.loads[k]; if (!old) return;
++  S.loads[k] = Object.assign({}, old, {order: i + 1, kind: 'crew883', day: iso, ref, by, at: stamp(old)}); }));
+  bump(); flash('Load order saved — the Load numbers now read this way on the Drivers and Install PDFs, the messages and this day.'); return true;
+ }
+ function flow891Ids(iso){ const d = programmeDays().find(x => x.iso === iso); return d ? dpLoads(d).filter(g => g.kind === 'deliveries').map(g => ldId(d, g)) : []; }
+@@ -180,14 +184,15 @@
+  const j = dir === 'first' ? 0 : i + (dir === 'up' ? -1 : 1); if (j < 0 || j >= ids.length || j === i) return false; ids.splice(i, 1); ids.splice(j, 0, id); return flow891Flip(iso, () => flow891SaveOrder(iso, ids)); }
+ function flow891Drop(iso, id, targetId, before){ const ids = flow891Ids(iso); if (!ids.includes(id) || !ids.includes(targetId) || id === targetId) return false;
+  ids.splice(ids.indexOf(id), 1); let j = ids.indexOf(targetId) + (before ? 0 : 1); ids.splice(j, 0, id); return flow891Flip(iso, () => flow891SaveOrder(iso, ids)); }
+-/* a planned unloading window for a load's references (stagger later), through the same record */
++/* A dedicated planned window for the selected truck; historical per-reference Crew plans stay unchanged. */
+ function flow891SetWindow(iso, id, start, len){
+- const d = programmeDays().find(x => x.iso === iso); if (!d) return false; const g = dpLoads(d).find(x => ldId(d, x) === id); if (!g) return false;
++ const d = programmeDays().find(x => x.iso === iso); if (!d) return false; const matches = dpLoads(d).filter(x => x.kind === 'deliveries' && ldId(d, x) === id); if (matches.length !== 1) return false;
+  if (!mayWrite('the planned unloading window')) return false; const by = whoAmI(); if (!by) return false;
+- if (start == null || start + len >= 1440) { flash('That window would run past midnight — set it in Crew instead.'); return false; }
+- S.loads = S.loads || {};
+- g.rows.forEach(r => { const ref = r.a.key; if (!assetOf(ref)) return; const key = crew883Key(iso, ref), old = S.loads[key], base = old ? Object.assign({}, old) : {people: [], order: null, location: (whereText(r.a) || {}).main || ''};
+-  S.loads[key] = Object.assign(base, {start: clock782(start), finish: clock782(start + len), kind: 'crew883', day: iso, ref, by, at: new Date(Math.max(Date.now(), old && old.at ? Date.parse(old.at) + 1 : 0)).toISOString()}); });
++ if (!Number.isInteger(start) || !Number.isInteger(len) || start < 0 || len <= 0 || start + len >= 1440) { flash('Set a valid unloading window that finishes before midnight.'); return false; }
++ const key = flow891WindowKey(iso, id); if (docIdOf(key).length >= 180) { flash('That load identity is too long to save a separate window.'); return false; }
++ S.loads = S.loads || {}; const old = S.loads[key], priorAt = old && old.at ? Date.parse(old.at) : NaN;
++ S.loads[key] = Object.assign({}, old, {kind: 'flow891', day: iso, ref: '', loadId: id, start: clock782(start), finish: clock782(start + len), by,
++  at: new Date(Math.max(Date.now(), Number.isFinite(priorAt) ? priorAt + 1 : 0)).toISOString()});
+  bump(); flash('Planned unloading window saved — ' + clock782(start) + '–' + clock782(start + len) + '.'); return true;
+ }
+ /* the list moves smoothly: the lines slide from where they were to where they are (transform only; none with reduced motion) */
+@@ -258,7 +263,7 @@
+    bits.push('<span class="flow891-flag">' + c.loads.length + ' trucks at ' + flow891Clock(c.at) + ' (loads ' + c.loads.join(', ') + ') — over the limit of ' + a.max + '.</span> Fix: stagger ' + loadWord(x) + ' to ' + flow891Clock(c.to) + (hold ? ', or hold it at ' + esc(FLOW891.holding.short) + ' until ' + flow891Clock(c.to) : '') + '.' +
+     (can ? ' <button type="button" class="btn flow891-act" data-flow891-stagger="' + esc(x.id) + '" data-flow891-day="' + iso + '" data-flow891-to="' + c.to + '" data-flow891-len="' + c.len + '">Stagger to ' + flow891Clock(c.to) + '</button>' : '')); });
+   return row(esc(a.name), bits.join('<br>'), a.conflicts.length ? 'flag' : ''); }).join('');
+- const unknown = M.unknownWindows ? '<p class="flow891-note">' + M.unknownWindows + ' load' + (M.unknownWindows === 1 ? ' has' : 's have') + ' no arrival window yet — a Kingston load time on the schedule, or a planned unloading window in Crew (on the load), puts ' + (M.unknownWindows === 1 ? 'it' : 'them') + ' in the area check.</p>' : '';
++ const unknown = M.unknownWindows ? '<p class="flow891-note">' + M.unknownWindows + ' load' + (M.unknownWindows === 1 ? ' has' : 's have') + ' no arrival window yet — a Kingston load time on the schedule, a saved Truck flow window, or a planned unloading window in Crew puts ' + (M.unknownWindows === 1 ? 'it' : 'them') + ' in the area check.</p>' : '';
+  const ov = row('Oversized', M.oversized.count ? M.oversized.count + ' load' + (M.oversized.count === 1 ? '' : 's') + ' today' + (M.oversized.peak ? ' · busiest ' + M.oversized.peak + ' at any one time' : '') + (M.oversized.untimed ? ' · ' + M.oversized.untimed + ' without an arrival window' : '') + ' · guide: up to ' + FLOW891.oversized.total + ' at any one time (' + FLOW891.oversized.split + ') — the project manager: not necessarily the way we do it' + (M.oversized.peak > FLOW891.oversized.total ? '<br><span class="flow891-flag">More than ' + FLOW891.oversized.total + ' oversized at one time — hold some at Helen Park or stagger.</span>' : '') : 'none today', M.oversized.peak > FLOW891.oversized.total ? 'flag' : '');
+  /* curfew */
+  const curfew = M.curfew.length ? M.curfew.map(x => { const c = x.curfew; return '<span class="flow891-cf ' + c.state + '">' + loadWord(x) + ': ' + (c.state === 'late' ? '<span class="flow891-flag">' + esc(c.words) + '.</span>' : esc(c.words) + '.') +
+@@ -274,7 +279,7 @@
+   [['Main Beach', FLOW891.areas.mainBeach.words, FLOW891.areas.mainBeach.said], ['Pit lane', FLOW891.areas.pitLane.words + ' · this day: ' + flow891PitLaneMax(d.iso).words, FLOW891.areas.pitLane.said], ['Helen Park', FLOW891.areas.helenPark.words, FLOW891.areas.helenPark.said], ['Oversized', 'up to ' + FLOW891.oversized.total + ' at any one time — ' + FLOW891.oversized.split + ' (a planning guide)', FLOW891.oversized.said], ['Curfew first', 'oversized or curfew loads on the earliest run: away from Kingston by ' + clock782(LOAD_BY782) + ', on site before 07:00 (no travel 07:00–09:00 or 16:00–18:00)', FLOW891.curfew.said], ['Order', 'drivers arrive in their allocated order', FLOW891.order.said]]
+    .map(r => '<tr><td>' + esc(r[0]) + '</td><td>' + esc(r[1]) + '</td><td>' + esc(r[2]) + '</td></tr>').join('') + '</tbody></table>' +
+   '<p>' + esc(H.name) + ': ' + H.ll[0].toFixed(6) + ', ' + H.ll[1].toFixed(6) + ' (a 50 m strip, ' + esc(H.approx) + ') · <a href="' + esc(nav) + '" target="_blank" rel="noopener">Navigate</a> · fixed from the master D001 and the page’s own unit tags; no pin was moved.</p>' +
+-  '<p>Weeks are the programme’s own sheets (Week 6 is 7 Sep, Week 1 is 12 Oct, then Event Week). Arrival windows come from the planned unloading window in Crew, else the Kingston load time plus the run; unloading takes at least ' + UNLOAD_MIN782 + ' min. Each driver sheet and message carries the allocated order, the window and the holding instruction.</p></details>';
++  '<p>Weeks are the programme’s own sheets (Week 6 is 7 Sep, Week 1 is 12 Oct, then Event Week). Arrival windows come from the load’s saved Truck flow window, then the planned unloading window in Crew, else the Kingston load time plus the run; unloading takes at least ' + UNLOAD_MIN782 + ' min. Each driver sheet and message carries the allocated order, the window and the holding instruction.</p></details>';
+  return '<section class="card nosfold flow891" data-flow891="' + iso + '" aria-label="Truck flow, ' + esc(fmtDate(d.iso)) + '"><div class="flow891-hd"><div><span class="flow891-k">Truck flow</span><h3>' + esc(peopleWords) + ' · ' + M.loads + ' load' + (M.loads === 1 ? '' : 's') + '</h3><p class="sub">' + esc(allow) + '</p></div>' +
+   '<label class="flow891-people"><span>People on</span><input type="number" min="0" max="50" inputmode="numeric" data-flow891-people value="' + (P.count == null ? '' : P.count) + '"' + (can ? '' : ' disabled') + ' aria-label="People on for ' + esc(fmtDate(d.iso)) + '">' + (can ? '<button type="button" class="btn" data-flow891-people-save>Save</button>' : '') + '</label></div>' +
+   '<div class="flow891-rows">' + row('Order', order + orderNote) + areas + unknown + ov + row('Curfew first', curfew, M.curfew.some(x => x.curfew.state === 'late') ? 'flag' : '') + row('Could share a truck', share) + '</div>' + rules + '</section>';
+@@ -342,7 +347,7 @@
+ const daily821ModelBefore891 = daily821Model;
+ daily821Model = function(iso){ const m = daily821ModelBefore891(iso);
+  try { if (m && Array.isArray(m.loads)) { const n = m.loads.length;
+-  m.loads.forEach(l => { const w = flow891WindowOf(iso, l.time, (l.rows || []).map(r => r.key), !!l.booking);
++  m.loads.forEach(l => { const w = flow891WindowOf(iso, l.time, (l.rows || []).map(r => r.key), !!l.booking, l.id);
+    const line = 'Load ' + l.n + ' of ' + n + ' — the trucks arrive in this order; a truck out of order delays everyone. Arrival window ' + flow891Span(w) + '. ' + FLOW891.holding.words;
+    (l.rows || []).forEach(r => { r.notes = (Array.isArray(r.notes) ? r.notes : []).concat([line]); }); });
+   m.sender = flow891Sender(); } } catch (e) {}
+--- a/03_GC500_Delivery_Control/v8.91_truck_flow_DRAFT/patch_v891.py
++++ b/03_GC500_Delivery_Control/v8.91_truck_flow_DRAFT/patch_v891.py
+@@ -33,7 +33,29 @@
+         """<input id="drv782n" autocomplete="name" placeholder="First and last name" value="'+esc(flow891FullName(name)?name:(flow891FullName(S.operator||'')?String(S.operator).trim():name))+'"><small>Your first and last name and the time print on every sheet (Checked by · Printed by). Manual check; no slot or crew reservation.</small>""",
+         'check dialog: name field', str(p))
+ 
+-# 3. style before the first </head>, script before the last </body> (every function it wraps is defined by then)
++# 3. Keep the native daily-run model's exact stable load identity through filtering and ordering.
++# Matching references, times or array positions cannot distinguish two trucks carrying the same reference.
++s = rep(s, "loads:groups.map((g,i)=>({n:i+1,iso,time:g.time||'',carrier:g.carrier||'',",
++        "loads:groups.map((g,i)=>({id:ldId(clean,g),n:i+1,iso,time:g.time||'',carrier:g.carrier||'',",
++        'daily run: stable load identity', str(p))
++
++# 3a. Only this exact new metadata schema bypasses the legacy day#number load-key rule.
++# Existing Crew/day-order import compatibility is a separate pre-existing issue.
++legacy_load = " if (!/^\\d{4}-\\d{2}-\\d{2}#\\d{1,4}$/.test(id)) bad.push('load ' + id + ' is not a load id (a day and a number)');"
++window_load = r""" const window891 = /^flow891\/(\d{4}-\d{2}-\d{2})\/window\/(.+)$/.exec(id);
++ if (window891) {
++  const fields = ['kind', 'day', 'ref', 'loadId', 'start', 'finish', 'by', 'at'];
++  let encoded891 = null; if (typeof r.loadId === 'string') { try { encoded891 = encodeURIComponent(r.loadId); } catch (e) {} }
++  const ident = encoded891 != null && typeof r.loadId === 'string' && r.loadId.startsWith(window891[1] + '|deliveries|') && r.loadId.length > 22 && !/[\u0000-\u001f\u007f]/.test(r.loadId);
++  const times = typeof r.start === 'string' && typeof r.finish === 'string' && /^\d{2}:[0-5]\d$/.test(r.start) && /^\d{2}:[0-5]\d$/.test(r.finish) && hhmm782(r.start) != null && hhmm782(r.finish) != null && hhmm782(r.finish) > hhmm782(r.start);
++  if (r.kind !== 'flow891' || r.ref !== '' || r.day !== window891[1] || !day(r.day) || !ident || (ident && encoded891 !== window891[2]) || docIdOf(id).length >= 180 || !times || typeof r.by !== 'string' || !r.by.trim() || typeof r.at !== 'string' || !iso(r.at) || Object.keys(r).some(k => !fields.includes(k))) bad.push('load ' + id + ' is not a valid Truck flow window');
++  text(r.loadId, 'load ' + id + ' identity'); text(r.by, 'load ' + id + ' by');
++  return;
++ }
++""" + legacy_load
++s = rep(s, legacy_load, window_load, 'record import: validated load window metadata', str(p))
++
++# 4. style before the first </head>, script before the last </body> (every function it wraps is defined by then)
+ s = s.replace('</head>', '<style id="flow891-style">' + (here / 'flow891.css').read_text() + '</style>\n</head>', 1)
+ js = (here / 'flow891_src.js').read_text()
+ assert '</script' not in js

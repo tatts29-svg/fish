@@ -60,3 +60,74 @@ python3 toolchain/upload_page.py build/GC500_v8.NN/GC500_Delivery_Control_hosted
 ```
 
 The dry run must report that the service grants edit access. Merely saving the environment does not prove access. The unchanged-base guard and exact public-byte check still apply; never bypass them. Without working credential injection the dry run stops without a write. Start a session with the saved environment selected.
+
+## Portable combined candidate runner (build and checks only)
+
+`release_candidate.sh` resolves the toolchain from its own location and calls the existing `build.sh`. It never uploads,
+registers media, changes READY/LIVE state or treats a selected draft as approved. Choose the exact patches after coordinating
+their source. The current supported order is **884, 885, 886, 887, 888, 889, 893, 894, 891, 892, 895, 896, 897**:
+v8.91 currently accepts v8.94's footer but not v8.95's. Select only the needed versions, in that order; each patch still
+asserts its own prerequisites. Alternatively repeat `--patch /absolute/path/to/patch.py` in the required order.
+
+Run from any directory, using the actual checkout path:
+
+```bash
+bash /path/to/fish/03_GC500_Delivery_Control/toolchain/release_candidate.sh \
+  --versions 884,885,886,887,888,889,893,894,891,892,895,896,897 \
+  --label v8.97-review-1 --evidence-dir /workspace/private-gc500-review-1 \
+  --regression --wide
+```
+
+Use a fresh label and a new private evidence directory **outside every Git checkout**. Raw logs, screenshots, caches,
+before/after stage pages and the v8.95 source-change log stay there with private permissions; the terminal prints only
+check names and status. Do not copy raw evidence into a commit: inherited tests may print private contract figures.
+The page and generated media manifests remain in the normal ignored `build/GC500_<label>/` directory.
+
+Set the inputs needed by the selected patches/tests in the environment. `NODE_PATH` and `CHROMIUM_PATH` are respected;
+without them, Node modules default to `toolchain/node_modules` and Playwright chooses its installed Chromium.
+For v8.95, `V895_BASEPLAN` must name the authorised 7 Oct workbook. All browser runs require `CODE` and `ASSETS` for the
+complete local explorer code and restored assets, so the final sweep checks the paired candidate. The v8.93 checks also
+require `MEDIA893` and `POC3D` for the decrypted picture folder and 3D proof folder.
+`MEDIA` defaults to `MEDIA893`; `LOCAL` defaults to `CODE`. `ATLAS896` can name a private atlas folder; otherwise
+the v8.96 test uses its release's `assets/`. Before v8.93, the master test needs `MEDIA889`. Missing inputs or selected tests
+stop the run; hardcoded checkout paths in inherited selected tests are reported for their owner to correct.
+
+All browser processes run serially under `flock`, including desktop/phone and optional 1600/2560 px checks. Other runners
+must use the same lock to share this guarantee: default `/tmp/gc500-browser.lock`, configurable with `GC500_BROWSER_LOCK`.
+Every normal check run includes final-page sweeps of the 21 routes, seven deep links and browser Back on desktop and phone.
+The sweep reports intentional public aliases by their visible destination, and fails on a wrong destination, console/page
+errors or attempted writes. Nonzero exits, timeouts, printed FAIL/assertion errors, false JSON assertions, malformed JSON
+and empty assertion output all fail the runner. No generic expected-failure bypass exists.
+
+Check scope is explicit in the private `result.json` and each log name:
+
+- Identity tests use snapshots immediately before and after their own patch, including required media sidecars.
+- The v8.93 master suite replaces v8.89's old picture expectations; v8.94 replaces v8.85's old Lighting basis.
+- With v8.96 selected, v8.84/v8.85 layout checks run on their stage pages; the final Today layout is checked by v8.96's suite.
+- v8.92's inherited UI/money tests assert its own footer, so they run on the v8.92 stage. This does not establish that its
+  complete UI suite passed on a later final page.
+- With v8.95 selected, its identity and final contract tests replace v8.71's obsolete 6 Oct source expectation.
+- `--regression` adds the active standing suites. Handling875 and Paired879 remain excluded because the full-chain README
+  records identical baseline failures on live; adding either explicitly with `--test` preserves its real failure result.
+
+`--build-only` builds and runs static identity checks without opening a browser. Its result says browser checks were not
+run. Resume that exact candidate later with `--page /absolute/build/GC500_Delivery_Control_hosted.html`, the same patch
+selection, `--snapshots /workspace/private-gc500-review-1/snapshots` and a fresh `--evidence-dir`. The resume path verifies
+the candidate, base, selected patch, bounded source inputs and stage/sidecar hashes against `snapshots/build.json`;
+it rejects changed evidence. The source binding includes Python, JS, CSS, JSON, shell and HTML files under selected draft
+folders and the toolchain, including local uncommitted source changes. README files and evidence, archive, generated,
+build, cache and dependency directories are excluded. Direct inputs used by this chain are added explicitly: the v8.86
+plan, v8.94 keyed-tower evidence and optional schedule workbook, v8.95 workbook/matches, and v8.96's eight atlas pictures.
+Source hashes are checked before and after building/checking. This binds the documented source scope; it does not hash
+restored media archives or claim to discover arbitrary custom imports. For a custom patch's dependencies outside that
+scope, repeat `--source-input /absolute/path/to/input` on both build and resume. Old snapshots without this source binding
+require a fresh build; the runner never labels a later source snapshot as the original build source.
+Repeat `--test /absolute/path/to/test.cjs` for extra final-page suites. Custom patches without a known check mapping require
+an explicit test unless using `--build-only`.
+
+Runner-only verification (fixture processes, no browser or network):
+
+```bash
+PYTHONDONTWRITEBYTECODE=1 python3 -m unittest discover \
+  -s /path/to/fish/03_GC500_Delivery_Control/toolchain/tests -p test_release_candidate.py -v
+```

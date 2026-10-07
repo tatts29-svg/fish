@@ -20,7 +20,10 @@ import hashlib, json, re, shutil, sys
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
-SRC, OUT = (Path(p) for p in sys.argv[1:3])
+if len(sys.argv) != 3: sys.exit('usage: patch_explorer897.py <v8.93 explorer code> <empty output dir>')
+SRC, OUT = (Path(p).resolve() for p in sys.argv[1:3])
+if SRC == OUT or (OUT.exists() and (not OUT.is_dir() or any(OUT.iterdir()))): sys.exit('output must be a new or empty directory, separate from the source')
+if not SRC.is_dir() or any(p.is_dir() for p in SRC.iterdir()): sys.exit('input must be the flat explorer code directory')
 sha = lambda b: hashlib.sha256(b).hexdigest()
 
 
@@ -52,15 +55,26 @@ js = once(js, 'placed.map(it => `<button data-code="${esc(it.code)}"><b>${esc(it
 js = once(js, 'unplaced.map(it => `<button data-code="${esc(it.code)}" class="dim"><b>${esc(it.code)}</b>', 'unplaced.map(it => `<button data-code="${esc(it.code)}" class="dim"><b>${esc(it.code)}</b>${ok897(it)}', 'category rows (unplaced)')
 # 5. the card's title
 merge = once(merge, '<div class="xc-t"><b>${escH(code)}</b>', '<div class="xc-t"><b>${escH(code)}</b>${typeof ok897 === \'function\' ? ok897(it, \'card\') : \'\'}', 'card title')
+# The visible card's Timeline detail follows the same completion change as its title badge, without moving the camera.
+merge = once(merge, '  /* ---------------- one search, one set of chips, for both 2D and 3D */', '''  window.GC500ExplorerRefreshCard897 = () => {
+    const el = $$('xcard'); if (!el || el.hidden || !lastCode) return false;
+    const focus = document.activeElement, scroll = el.scrollTop;
+    const keep = document.hasFocus() && focus && el.contains(focus) ? ['data-xopen', 'data-xprog', 'data-xclose'].find(a => focus.hasAttribute(a)) : null;
+    card(lastCode); el.scrollTop = scroll;
+    if (keep) { const next = el.querySelector('[' + keep + ']'); if (next) next.focus({preventScroll: true}); }
+    return true;
+  };
+
+  /* ---------------- one search, one set of chips, for both 2D and 3D */''', 'refresh visible card')
 # 6. write, with fresh content tokens for the two changed scripts
+for name, content in (('explorer.js', js), ('explorer-merge.js', merge)):
+    tok = sha(content.encode('utf-8'))[:12]
+    html, k = re.subn(r'src="' + re.escape(name) + r'\?v=[0-9a-f]{12}"', 'src="' + name + '?v=' + tok + '"', html)
+    if k != 1: sys.exit(f'index.html: expected one script tag for {name}, found {k}')
 OUT.mkdir(parents=True, exist_ok=True)
 for f in sorted(SRC.iterdir()):
     if f.is_file() and not f.name.startswith('prepared') and f.name not in ('explorer.js', 'explorer-merge.js', 'index.html'): shutil.copy(f, OUT / f.name)
 (OUT / 'explorer.js').write_text(js, encoding='utf-8'); (OUT / 'explorer-merge.js').write_text(merge, encoding='utf-8')
-for name in ('explorer.js', 'explorer-merge.js'):
-    tok = sha((OUT / name).read_bytes())[:12]
-    html, k = re.subn(r'src="' + re.escape(name) + r'\?v=[0-9a-f]{12}"', 'src="' + name + '?v=' + tok + '"', html)
-    if k != 1: sys.exit(f'index.html: expected one script tag for {name}, found {k}')
 (OUT / 'index.html').write_text(html, encoding='utf-8')
 out = {'author': 'Andrew Fisher', 'release': 'v8.97', 'base': {f.name: sha(f.read_bytes()) for f in sorted(SRC.iterdir()) if f.is_file()},
        'files': {f.name: {'sha256': sha(f.read_bytes()), 'bytes': f.stat().st_size} for f in sorted(OUT.iterdir()) if f.is_file() and not f.name.startswith('prepared')}}

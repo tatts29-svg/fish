@@ -1,11 +1,19 @@
 /* Author: Andrew Fisher. v8.96 Today scene: the selected day's weather across the Where we are plate, a faint picture of each
    group's equipment behind its card, and the race-day banner parked in a fold at the foot of Today. Nothing here redraws a
-   component: the plate, the lights, the figure, the cards, the banner and its controls are the page's own; these rules only add
-   layers behind them and a fold around the banner. Every animation moves a transform or an opacity (compositor only). */
+   component: the plate, the lights, the figure, the cards, the banner and its controls are the page's own. The overall plate
+   spans the card, with the programme underneath. Every animation moves a transform or an opacity (compositor only). */
+
+/* The approved overall hero spans the card at every width; the existing programme follows at its natural height. */
+#pane-today #where885 .w885-body {grid-template-columns:minmax(0,1fr);align-items:start;}
+#pane-today #where885 .w885-gauge {width:100%;padding:clamp(20px,3cqi,40px) clamp(12px,3cqi,40px);}
+#pane-today #where885 .w885-reading {font-size:clamp(64px,14cqi,176px);}
+@container w885 (max-width:560px) {
+ #pane-today #where885 .w885-gauge {padding:18px 12px 20px;}
+}
 
 /* ---- the plate: the sky sits behind the lights and the figure, inside the plate's own rounded edge ---- */
 #pane-today #where885 .w885-gauge {position:relative;isolation:isolate;}
-#where885 .s896-sky {position:absolute;inset:0;z-index:-1;overflow:hidden;border-radius:inherit;pointer-events:none;}
+#where885 .s896-sky {position:absolute;inset:0;z-index:-1;overflow:hidden;border-radius:inherit;pointer-events:none;container-type:size;}
 #where885 .s896-sky > * {position:absolute;display:none;}
 /* the middle of the plate keeps the plate's own dark, whatever the sky does, so the figure, its caption and its notes keep their
    contrast; the weather plays around them. The shield is the last layer, over every other */
@@ -14,7 +22,7 @@
 /* Every layer is built dark: at its brightest, over the plate's own #07171c, no layer composites past a relative luminance of about
    0.10, so any word on the plate (the dimmest is #ffcf9f) keeps 4.5:1 wherever it falls, shield or no shield. */
 /* the yard: the rendered equipment picture as the ground, faint, darkened and fading up into the sky */
-#where885 .s896-yard {display:block;left:0;right:0;bottom:0;height:58%;background:50% 100% / cover no-repeat;opacity:.24;
+#where885 .s896-yard {display:block;inset:0;background:50% 54% / cover no-repeat;opacity:.3;
  -webkit-mask-image:linear-gradient(180deg,#0000 0%,#000 60%,#000 100%);mask-image:linear-gradient(180deg,#0000 0%,#000 60%,#000 100%);}
 
 /* sun: a warm glow in the top corner, breathing, and a slow shaft of light across the plate */
@@ -29,8 +37,9 @@
 #where885 .s896-mist {inset:0 -20%;background:repeating-linear-gradient(180deg,#b9d1c900 0 14%,#b9d1c926 20% 27%,#b9d1c900 33% 50%);animation:s896-mist 24s ease-in-out infinite alternate;}
 #where885 .s896-mist2 {inset:8% -20% -8%;background:repeating-linear-gradient(180deg,#b9d1c900 0 22%,#b9d1c91e 28% 34%,#b9d1c900 40% 50%);animation:s896-mist 31s ease-in-out infinite alternate-reverse;}
 /* rain: two sheets of thin short streaks (one narrow ellipse per tile), near and far, falling on a 12 degree slant; the travel is
-   a whole number of tile rows, so the loop never jumps */
-#where885 .s896-rain {inset:-320px -40% -40%;transform:rotate(12deg);background-repeat:repeat;}
+   a whole number of tile rows, so the loop never jumps. Overscan follows the opposite sky dimension: 11% exceeds half the sine
+   of 12 degrees, covering every rotated corner even on a tall phone, without two needlessly wide desktop layers. */
+#where885 .s896-rain {inset:calc(-120px - 11cqw) -11cqh;transform:rotate(12deg);background-repeat:repeat;}
 #where885 .s896-r1 {background-image:radial-gradient(1.1px 11px at 50% 62%,#6f93a8 0 55%,#6f93a800 100%);background-size:22px 48px;opacity:.36;animation:s896-rain 1.3s linear infinite;}
 #where885 .s896-r2 {background-image:radial-gradient(.9px 8px at 40% 55%,#6f93a8 0 55%,#6f93a800 100%);background-size:16px 40px;opacity:.26;animation:s896-rain 1.9s -.7s linear infinite;}
 #where885 .s896-sky:is([data-kind=pour],[data-kind=storm]) .s896-r1 {opacity:.38;animation-duration:.95s;}
@@ -61,7 +70,7 @@
 @keyframes s896-drift-b {from {transform:translate(5%,2%);} to {transform:translate(-6%,-2%);}}
 @keyframes s896-drift-c {from {transform:translate(-5%,1%);} to {transform:translate(4%,-2%);}}
 @keyframes s896-mist {from {transform:translateX(-7%);} to {transform:translateX(7%);}}
-@keyframes s896-rain {from {transform:rotate(12deg) translateY(0);} to {transform:rotate(12deg) translateY(240px);}}
+@keyframes s896-rain {from {transform:rotate(12deg) translateY(-120px);} to {transform:rotate(12deg) translateY(120px);}}
 @keyframes s896-sleet {0% {transform:translate(0,0);} 50% {transform:translate(7px,90px);} 100% {transform:translate(0,180px);}}
 @keyframes s896-bolt {0%,30%,36%,100% {opacity:0;} 32%,33% {opacity:.55;} 34% {opacity:.18;}}
 @keyframes s896-flash {0%,31.5%,34.5%,100% {opacity:0;} 32.3% {opacity:.09;} 33.5% {opacity:.04;}}
@@ -86,6 +95,19 @@
 #where885 .s896-wx[data-kind=unknown] span {color:#aec3c3;font-weight:500;}
 
 /* ---- the group cards: a faint rendered picture of the group's equipment behind the instrument and the counts ---- */
+/* Open cards keep the large native name above the percentage. The fold retains its accessible name and native control without
+   repeating that name above the card; closing the fold shows its own name again. */
+@media screen {
+ /* Share the native scope/Play row with Close group instead of retaining an empty label row above it. */
+ #gc500-work-board840 .tw848-group[open] {display:grid;grid-template-columns:minmax(0,1fr) auto;column-gap:14px;}
+ #gc500-work-board840 .tw848-group[open]::details-content {display:contents;}
+ #gc500-work-board840 .tw848-group[open] > .tw848-group-toggle {display:flex;grid-column:2;grid-row:1;justify-content:flex-end;align-self:stretch;min-height:44px;margin:0;padding:0 0 17px;}
+ #gc500-work-board840 .tw848-group[open] > .tw848-group-toggle .tw848-toggle-title {position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap;}
+ #gc500-work-board840 .tw848-group[open] > .tw848-group-body {display:contents;}
+ #gc500-work-board840 .tw848-group[open] > .tw848-group-body > * {grid-column:1/-1;}
+ #gc500-work-board840 .tw848-group[open] > .tw848-group-body > .tw840-top {grid-column:1;grid-row:1;}
+ #gc500-work-board840 .tw848-group[open] .tw840-scope[data-s896-duplicate-scope] {display:none;}
+}
 #gc500-work-board840 .tw846-summary {position:relative;isolation:isolate;}
 #gc500-work-board840 .tw846-summary::before {content:'';position:absolute;inset:-6px -30px -10px;z-index:-1;pointer-events:none;background-size:cover;background-position:50% 62%;background-repeat:no-repeat;opacity:.22;
  -webkit-mask-image:linear-gradient(90deg,#0000 0%,#000a 30%,#000 60%,#000 100%);mask-image:linear-gradient(90deg,#0000 0%,#000a 30%,#000 60%,#000 100%);}

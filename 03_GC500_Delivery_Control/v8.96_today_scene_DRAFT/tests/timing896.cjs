@@ -12,8 +12,13 @@ const A = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'atlas896.json')
  s = await open({pageFile: process.env.PAGE, W, H, mobile: mob, dpr: mob ? 2 : 1}); const p = s.page;
  const loadMs = Date.now() - t0;
  const dir = process.env.ATLAS896 || path.join(__dirname, '..', 'assets');
- for (const c of A.cells) { const f = path.join(dir, c.file); if (fs.existsSync(f)) await p.route('**/m/Coates-GC500-2026/' + c.file, r => r.fulfill({status: 200, contentType: c.type, body: fs.readFileSync(f)})); }
+ for (const c of A.cells) { const f = path.join(dir, c.file); if (fs.existsSync(f)) await p.route(new RegExp('/m/Coates-GC500-2026/' + c.file + '(\\?.*)?$'), r => r.fulfill({status: 200, contentType: c.type, body: fs.readFileSync(f)})); }
  await p.waitForFunction(() => typeof go === 'function' && typeof SYNC !== 'undefined' && SYNC.status === 'live' && typeof todayWorkHealth840 === 'function' && todayWorkHealth840().ready, null, {timeout: 150000});
+ await p.evaluate(shas => {
+  if (typeof Scene896 !== 'object') return;
+  shas.forEach(sha => { if (typeof DATA.media[sha] === 'string') DATA.media[sha] = DATA.media[sha].split('?')[0] + '?timing896=' + Date.now(); });
+  document.getElementById('scene896-atlas')?.remove(); Scene896.mount();
+ }, A.cells.map(c => c.sha256));
  await p.waitForTimeout(2500);
  const T = await p.evaluate(async () => {
   const paint = {}; performance.getEntriesByType('paint').forEach(e => { paint[e.name] = Math.round(e.startTime); });
@@ -34,8 +39,9 @@ const A = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'atlas896.json')
   let heavy = null, scene = null;
   if (typeof Scene896 === 'object') { scene = Scene896.report(); const sky = document.querySelector('#where885 .s896-sky'); if (sky) { const was = sky.dataset.kind; sky.dataset.kind = 'storm'; await settle(200); heavy = await frames(90); sky.dataset.kind = was; } }
   // the pictures Today fetched
-  const media = performance.getEntriesByType('resource').filter(r => /\/m\/[^/]+\//.test(r.name)).map(r => ({name: r.name.slice(-20), bytes: r.decodedBodySize || r.encodedBodySize || r.transferSize || 0, ms: Math.round(r.duration)}));
-  const scenePics = media.filter(m => /\.webp$/.test(m.name) && typeof Scene896 === 'object' && Object.values(JSON.parse(document.getElementById('scene896-script')?.textContent.match(/const ATLAS = (\{[^}]*\})/)?.[1] || '{}')).some(sha => m.name.includes(sha.slice(-16))));
+  const media = performance.getEntriesByType('resource').filter(r => /\/m\/[^/]+\//.test(r.name)).map(r => ({name: new URL(r.name).pathname.split('/').pop(), local: /[?&]timing896=/.test(r.name), bytes: r.decodedBodySize || r.encodedBodySize || r.transferSize || 0, ms: Math.round(r.duration)}));
+  const sceneShas = Object.values(JSON.parse(document.getElementById('scene896-script')?.textContent.match(/const ATLAS = (\{[^}]*\})/)?.[1] || '{}'));
+  const scenePics = media.filter(m => m.local && sceneShas.includes(m.name.replace(/\.webp$/, '')));
   // five redraws: what they make
   const made = {io: 0, mo: 0, ro: 0, timeouts: 0, intervals: 0};
   const IO = window.IntersectionObserver, MO = window.MutationObserver, RO = window.ResizeObserver, ST = window.setTimeout, SI = window.setInterval;

@@ -2,19 +2,19 @@
 // The page (local build) is served at the live address; the explorer's code and assets, and the page's not-yet-uploaded pictures, from disk.
 // Every write the page tries is aborted. No $ figure is on a map view; the script checks the visible text of every shot for one.
 //   PAGE=<v8.97 build> CODE=<patched explorer code> ASSETS=<v8.93 assets> MEDIA=<v8.93 pictures dir> OUT=<dir> [MOB=1] [REDUCED=1] node tools/mockup897.cjs
-const {openMap} = require('/home/user/fish/03_GC500_Delivery_Control/v8.90_explorer_master_DRAFT/tests/xembed890.cjs');
+const {openMap} = require('../tests/open_map897.cjs');
 const fs = require('fs'), path = require('path');
-const OUT = process.env.OUT || '.', MOB = !!process.env.MOB, REDUCED = !!process.env.REDUCED, W = MOB ? 'phone' : 'laptop'; fs.mkdirSync(OUT, {recursive: true});
-const log = [];
+const OUT = process.env.OUT || path.join(require('os').tmpdir(), 'gc500-map897-preview'), MOB = !!process.env.MOB, REDUCED = !!process.env.REDUCED, W = MOB ? 'phone' : 'laptop'; fs.mkdirSync(OUT, {recursive: true});
+const log = []; let session;
 (async () => {
-  const s = await openMap({settle: 4000}); const {page: p, f} = s;
+  const s = session = await openMap({settle: 4000}); const {page: p, f} = s;
   if (REDUCED) await p.emulateMedia({reducedMotion: 'reduce'});
-  let mediaServed = 0;
-  await p.route('**/m/Coates-GC500-2026/*.webp', async route => { const file = path.join(process.env.MEDIA || '', path.basename(new URL(route.request().url()).pathname));
-    if (process.env.MEDIA && fs.existsSync(file)) { mediaServed++; return route.fulfill({status: 200, contentType: 'image/webp', body: fs.readFileSync(file)}); } return route.fallback(); });
-  await f.waitForFunction(() => window.GC500Explorer897 && GC500Explorer897.keys().length > 0, null, {timeout: 30000}).catch(() => {});
+  await f.waitForFunction(() => window.GC500Explorer897, null, {timeout: 30000});
+  await f.evaluate(() => GC500Explorer897.pull());
   const money = async () => { const a = await p.evaluate(() => document.body.innerText), b = await f.evaluate(() => document.body.innerText); return /\$\s?\d/.test(a + b); };
-  const shot = async (name, note) => { const file = path.join(OUT, `mockup897_${W}${REDUCED ? '_reduced' : ''}_${name}.png`); await p.screenshot({path: file}); const dollars = await money();
+  const shot = async (name, note) => { const file = path.join(OUT, `mockup897_${W}${REDUCED ? '_reduced' : ''}_${name}.png`); const dollars = await money();
+    if (dollars) throw new Error('Screenshot refused: visible financial figure');
+    await p.screenshot({path: file});
     const st = await f.evaluate(() => ({complete: GC500Explorer897.state, marks: __marksCount(), chip: (document.querySelector('#chips .chip[aria-pressed="true"]') || {}).textContent || '', q: document.getElementById('q').value}));
     log.push({shot: path.basename(file), note, dollars, ...st}); console.log(path.basename(file), dollars ? 'HAS $ FIGURE' : 'no $', JSON.stringify(st).slice(0, 300)); };
   const chip = async name => { await f.evaluate(name => { document.querySelectorAll('#chips .chip').forEach(x => x.setAttribute('aria-pressed', 'false')); const b = [...document.querySelectorAll('#chips .chip[data-cat]')].find(x => x.textContent.trim().startsWith(name)); b.setAttribute('aria-pressed', 'true'); showCategory(b.dataset.cat); }, name); await p.waitForTimeout(MOB ? 3500 : 3000); };
@@ -26,6 +26,10 @@ const log = [];
   await shot('buildings_all', 'Portable buildings chip on: every building ringed, ticks on the complete ones');
   await pick('P12'); if (MOB) await drawer(false); await p.waitForTimeout(800);
   await shot('buildings_P12_selected', 'P12 (complete) picked: stronger ring and pulse, tick, card with ✓ Complete');
+  if (MOB) {
+    await f.evaluate(() => document.querySelector('#xcard [data-xclose]')?.click());
+    await shot('buildings_P12_ring', 'P12 selected with its card closed: category rings retained, lower-right completion tick and selection pulse');
+  }
   if (!REDUCED) {
     // 2. a not-complete result for comparison (P45, Off site)
     await pick('P45'); if (MOB) await drawer(false); await p.waitForTimeout(800);
@@ -54,8 +58,8 @@ const log = [];
     const light = await f.evaluate(() => { const q = document.getElementById('q'); q.value = 'light'; search(); const rows = [...document.querySelectorAll('#results [data-code]')].map(b => b.textContent.trim().slice(0, 80)); const chips = [...document.querySelectorAll('#chips .chip[data-cat]')].map(b => b.textContent.trim()); q.value = ''; search(); return {rows, chips}; });
     log.push({lighting: light}); console.log('lighting search rows:', JSON.stringify(light.rows), 'chips:', JSON.stringify(light.chips));
   }
-  const errors = s.errors.slice(0, 5); const result = {width: W, reduced: REDUCED, shots: log, mediaServed, blocked: s.counts.blocked, local: s.counts.local, liveExplorer: s.counts.liveExplorer, missing: s.counts.missing.slice(0, 5), errors};
+  const errors = s.errors.slice(0, 5), mediaServed = s.counts.mediaServed; const result = {author: 'Andrew Fisher', width: W, reduced: REDUCED, shots: log, mediaServed, blocked: s.counts.blocked, local: s.counts.local, liveExplorer: s.counts.liveExplorer, missing: s.counts.missing.slice(0, 5), errors, consoleErrors: s.consoleErrors};
   fs.writeFileSync(path.join(OUT, `mockup897_${W}${REDUCED ? '_reduced' : ''}.json`), JSON.stringify(result, null, 1));
   console.log('done', W, REDUCED ? 'reduced motion' : '', 'media served', mediaServed, 'blocked', s.counts.blocked, 'errors', errors.length, 'live explorer requests', s.counts.liveExplorer, 'dollars in any shot:', log.some(x => x.dollars));
-  await s.browser.close(); process.exit(errors.length || log.some(x => x.dollars) ? 1 : 0);
-})().catch(e => { console.error('FAIL', e.stack); process.exit(2); });
+  process.exitCode = errors.length || s.consoleErrors.length || s.counts.blocked || s.counts.liveExplorer || s.counts.missing.length || log.some(x => x.dollars) ? 1 : 0;
+})().catch(e => { console.error('FAIL', e.stack); process.exitCode = 2; }).finally(async () => { if (session) await session.browser.close(); });

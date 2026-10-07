@@ -1,0 +1,9 @@
+{
+  "author": "Andrew Fisher",
+  "mode": "original-defects-reproduced",
+  "candidate_sha256": "af2a20ba27befb87880171667c5c66f2fe4f97878cfffa12a439f1e87ba0a6d8",
+  "checks": [
+    "Shared-reference stagger moves both trucks",
+    "Order changes unknown people to zero"
+  ]
+}

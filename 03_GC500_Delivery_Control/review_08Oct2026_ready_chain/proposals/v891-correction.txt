@@ -1,0 +1,56 @@
+Author: Andrew Fisher
+v8.91 correction proposal — DRAFT, NOT READY TO UPLOAD, NOT LIVE.
+
+Owner adoption changes flow891_src.js and patch_v891.py only. The claimed files
+have not been modified. No commit, push, service request or operational record
+write was made for this proposal.
+
+The patch saves stagger windows under one canonical stable load ID, preserves
+historical Crew windows as fallback, and updates existing Crew order fields
+without creating an empty people requirement. Native daily821Model gains the
+same load ID so message windows remain correct after filtering and renumbering.
+Existing Crew people, notes, times and location are preserved. Independent
+window records retain native document serialization and later-stamp merging.
+
+Import validation accepts only the new window namespace with the exact window
+fields, matching valid day/load ID, canonical encoded key, increasing valid
+times, author and timestamp. Invalid values and oversized document keys are
+rejected. The original legacy load-key validator otherwise remains in force.
+
+Verification on combined base af2a20ba27befb87880171667c5c66f2fe4f97878cfffa12a439f1e87ba0a6d8:
+- Original fixture mode reproduces both reported defects.
+- --expect-fixed passes 13 check groups on the private corrected combined page.
+- The same 13 checks pass after running the proposed patch_v891.py on the actual
+  pre-v891 snapshot. This proves builder edits are included, not just JS injection.
+- git apply --check passes against the unmodified claimed source.
+- All 20 inline scripts parse; standard page/author/no-new-secret checks pass.
+- The fixtures execute extracted native identity, booking/grouping, Crew, order,
+  daily-message, import, serialization and merge functions using fictional data.
+  Presentation and environment helpers are stubbed. No embedded record is run.
+
+From the repository root:
+  git apply --check 03_GC500_Delivery_Control/review_08Oct2026_ready_chain/proposals/v891-correction.diff
+  node 03_GC500_Delivery_Control/review_08Oct2026_ready_chain/tests/verify_flow891_windows.cjs /path/to/adopted/candidate.html --expect-fixed
+
+Limitations and owner follow-up:
+- Browser interaction, phone layout, native PDF layout, complete release sweeps
+  and the final rebuilt integration remain required after adoption. Earlier
+  v891 browser tests that expect every order/stagger to create or update a Crew
+  record must change to assert dedicated load windows and preserved unknowns.
+- File import already rejects existing Crew and day-order metadata keys. This
+  proposal fixes import compatibility for the new window schema only. An import
+  containing those older Crew/order records still fails; this is explicitly
+  asserted and must be resolved separately before claiming full record-import
+  acceptance. Native shared document sync does not use that import validator.
+- Native booked IDs remain stable across order changes. Native unbooked IDs
+  follow the group's first reference; regrouping falls back to existing Crew or
+  schedule windows, rather than guessing another truck's identity.
+- This is a reviewable owner proposal. It does not transfer the version claim.
+
+Source hashes (SHA-256):
+03_GC500_Delivery_Control/v8.91_truck_flow_DRAFT/flow891_src.js
+  73ee60aa555a2e4f6dea1b027f1088a7841d48f155f52ea1e48c06a599ffef96
+03_GC500_Delivery_Control/v8.91_truck_flow_DRAFT/patch_v891.py
+  200e80a86aaa099265171c55620f474c75c9a3a5b2aa9b5910551af6376dd01c
+Private corrected combined SHA-256: 7eb8e20e37e7efc31abf68f11be8980446f69f229e08224447a8c923836a1a02
+Portable diff SHA-256: 44fb31c32c7cd5adc90fc83a6a1a229f1df32d6ebc12313b77471ac8931afed4
