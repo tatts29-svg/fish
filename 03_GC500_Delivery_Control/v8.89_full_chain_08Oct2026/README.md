@@ -86,6 +86,28 @@ Run on 8 Oct 2026, 03:05–04:00 AEST, on candidate `fe52302c…`. Logs are in `
 - deep zoom draws from the new scene;
 - no page errors, and no writes.
 
+## Re-checks on the corrected page `adc967ab…` (navigation pins as live), 8 Oct 2026 ~04:00–04:20 AEST
+
+Logs are in `evidence_rev_nav/`.
+
+- **Identity checks:** `test_identity889` PASS, both v8.85 → v8.89 and v8.88 chain → full chain. This includes the new check that no existing navigation pin (`ll`) moves.
+- **Master map** (`master889`, with "P45 navigation pin unchanged"): 16/16 on laptop and phone.
+- **Explorer card** (`explorer887`): 23/23 on laptop and 24/24 on phone.
+- **Sweeps:** 15 tabs, 0 errors, 0 attempted writes, on laptop and phone.
+- **Other suites:** loading872 26/26 · unloading881 34/34 · paired881 18/18 · v871 12/12 · ep886 31/31.
+
+Every check from the full run above that this change cannot affect stands as recorded: DATA outside MASTER_LOC is identical, and no code changed.
+
+## Review points from Codex (PR 6043702034) and where they stand
+
+- **The lighting basis behind the whole-job figure.**
+  - v8.85 takes the Lighting reading unchanged from `todayWorkSummary848`. That is the same reading the live Today group card already shows: confirmed completion over the register's lighting towers. v8.85 makes no new lighting claim.
+  - The pending lighting scope audit (v8.82; it needs the "Schedule (5)" workbook, which Andrew has been asked to resend) could change that group's total.
+  - Until it does, no one claims the whole-job figure is independently verified. v8.92 labels the Lighting basis on the card and treats it as a lower bound, so the whole figure reads as a minimum.
+- **Transport forecast and allocation gaps:** they stay explicit on the page (v8.88 "Decisions for Andrew"). Nothing is guessed.
+- **Phone Transport heading:** v8.92 folds the explanation under a disclosure so the figures lead.
+- **`xembed890.cjs` portability:** the harness import is now relative (`4e7e111`). It is a test-only change; candidate bytes are unchanged.
+
 ## Decisions for Andrew (the page holds all of these and guesses none)
 
 1. **WC32** is already cancelled on the record and is not on the 2 Oct master. The page keeps its old pin, marked as from the 17 Sep issue. Say if you want the pin gone.
