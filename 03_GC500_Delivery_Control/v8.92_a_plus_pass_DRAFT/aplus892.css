@@ -26,7 +26,7 @@ main{overflow-anchor:none}
  .btn.sm,.btn.tiny,.linkish,.invn,a.chip,.filters button,.jb95,#bOpen,.bplay,.hubgo[data-go],#searchBtn,#moreBtn,#navBack,.tabmoremenu button{position:relative}
  .btn.sm::after,.btn.tiny::after,.linkish::after,.invn::after,a.chip::after,.filters button::after,.jb95::after,#bOpen::after,.bplay::after,.hubgo[data-go]::after,#searchBtn::after,#moreBtn::after,#navBack::after{content:'';position:absolute;left:-6px;right:-6px;top:50%;height:44px;transform:translateY(-50%)}
  .close{min-width:44px;min-height:44px;display:inline-flex;align-items:center;justify-content:center}
- summary{box-sizing:border-box;padding-top:max(0px,calc((44px - 1.6em)/2));padding-bottom:max(0px,calc((44px - 1.6em)/2))}
+ summary{box-sizing:border-box;min-height:44px;padding-top:max(0px,calc((44px - 1.6em)/2));padding-bottom:max(0px,calc((44px - 1.6em)/2))}
 }
 @media print{.tr888-how{display:block}.tr888-how>summary{display:none}}
 

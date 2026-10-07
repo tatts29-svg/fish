@@ -6,7 +6,8 @@ Andrew's words on 8 Oct: *"Terminology needs to be correct with words in every p
 How it was found: every user-visible string on the built page — the HTML text, the title/aria-label/placeholder/alt attributes and
 every string literal in the page's scripts with the comments stripped — was scanned for (a) the words the table says not to use,
 (b) a second spelling of one of Andrew's words and (c) American spellings and 12-hour times (`evidence/terminology_scan_raw.md`,
-347 raw hits). Each hit was then read in its place. Strings inside DATA (the record: schedule notes, supplier plans, the
+347 raw hits on the base chain; `evidence/terminology_scan_after.md`, 334 on this build — the rest are the quoted documents in
+DATA, Finance's own words and the kept cases below). Each hit was then read in its place. Strings inside DATA (the record: schedule notes, supplier plans, the
 rental system's own words) are quoted documents and are never changed by a release.
 
 ## Fixed in v8.92 (labels, headings, hints, tooltips, chips)

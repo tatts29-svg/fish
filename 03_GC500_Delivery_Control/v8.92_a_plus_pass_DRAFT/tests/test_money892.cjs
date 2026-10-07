@@ -12,13 +12,19 @@ const figures = async (pageFile, MOB) => { const s = await open({pageFile, W: MO
   const version = await p.evaluate(() => (document.getElementById('footL') || {}).textContent || '');
   return {J, version, errors: s.errors, blocked: s.counts.blocked}; } finally { await s.browser.close(); } };
 (async () => { const MOB = !!process.env.MOB; const a = await figures(process.env.BASE, MOB); const b = await figures(process.env.PAGE, MOB);
-  const same = a.J === b.J; const R = [];
+  /* the figures: every number in the models, in order, must be the same number; the words may differ only by the v8.92 vocabulary
+     (sub-hired, Costs & P&L, Customer rates & charges, oversized, Rate 1, the Rehire stream names, the Equipment tab) */
+  const nums = s => (s.match(/-?\d+(?:\.\d+)?/g) || []); const na = nums(a.J), nb = nums(b.J);
+  const sameNums = na.length === nb.length && na.every((x, i) => x === nb[i]);
+  const words = s => s.replace(/\bsub-hired\b/gi, m => m[0] === 'S' ? 'Subhired' : 'subhired').replace(/\bsub-hire\b/gi, 'subhired').replace(/Costs & P&L/g, 'Costs & charges').replace(/Customer rates & charges/g, 'Pricing tab').replace(/\boversized\b/gi, m => m[0] === 'O' ? 'Oversize' : 'oversize').replace(/\bRate ([123])\b/g, 'rate $1').replace(/— Rehire\b/g, '— subhired').replace(/Equipment tab/g, 'Register tab');
+  const same = words(a.J) === words(b.J); const R = [];
   const ok = (name, pass, detail) => R.push({name, pass: !!pass, detail});
-  ok('every money figure on Costs & P&L is identical to the base (' + Math.round(a.J.length / 1024) + ' KB of figures compared)', same, same ? {} : {diffAt: [...a.J].findIndex((c, i) => c !== b.J[i])});
+  ok('every figure on Costs & P&L is identical to the base (' + na.length + ' numbers compared, ' + Math.round(a.J.length / 1024) + ' KB of models)', sameNums, sameNums ? {} : {numbers: [na.length, nb.length], firstDiff: na.findIndex((x, i) => x !== nb[i])});
+  ok('the models read the same apart from the v8.92 words', same, same ? {} : {diffAt: [...words(a.J)].findIndex((c, i) => c !== words(b.J)[i])});
   ok('the candidate footer says v8.92 and the base does not', /v8\.92/.test(b.version) && !/v8\.92/.test(a.version), {base: a.version.slice(-30), cand: b.version.slice(-30)});
   ok('no page errors on either', a.errors.length === 0 && b.errors.length === 0, {base: a.errors.slice(0, 3), cand: b.errors.slice(0, 3)});
   ok('no writes attempted', a.blocked === 0 && b.blocked === 0, {});
-  if (!same) { const i = [...a.J].findIndex((c, k) => c !== b.J[k]); console.log('first difference near:', a.J.slice(Math.max(0, i - 160), i + 160).replace(/\$\s?[0-9][0-9,]*(\.[0-9]+)?/g, '$—'), '\n   vs', b.J.slice(Math.max(0, i - 160), i + 160).replace(/\$\s?[0-9][0-9,]*(\.[0-9]+)?/g, '$—')); }
+  if (!same) { const A = words(a.J), B = words(b.J); const i = [...A].findIndex((c, k) => c !== B[k]); console.log('first difference near:', A.slice(Math.max(0, i - 160), i + 160).replace(/\$\s?[0-9][0-9,]*(\.[0-9]+)?/g, '$—'), '\n   vs', B.slice(Math.max(0, i - 160), i + 160).replace(/\$\s?[0-9][0-9,]*(\.[0-9]+)?/g, '$—')); }
   R.forEach(r => console.log(`${r.pass ? 'PASS' : 'FAIL'}  ${r.name}${r.pass ? '' : '  ' + JSON.stringify(r.detail).slice(0, 300)}`));
   const fails = R.filter(r => !r.pass).length; console.log(`${MOB ? 'phone' : 'laptop'}: ${R.length - fails}/${R.length}`); process.exitCode = fails ? 1 : 0;
 })().catch(e => { console.error('TEST FAIL', e); process.exit(2); });

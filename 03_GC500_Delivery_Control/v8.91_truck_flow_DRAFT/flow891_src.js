@@ -274,23 +274,29 @@ function flow891Card(d){
 const dayPanelsBefore891 = dayPanels;
 dayPanels = function(d){ let card = ''; try { card = flow891Card(d); } catch (e) { card = ''; } return dayPanelsBefore891(d) + card; };
 
-/* ---------- the prints: the checklist and the printer's name on every sheet */
-function flow891Strip(d, g, doc, i, n){
+/* ---------- the prints: the checklist and the printer's name on every sheet. The sheets are full (the fit already shrinks their type
+   to keep the photographs), so nothing here takes a line of its own: Printed by and the four tick boxes sit in the header's right block,
+   under the sheet's id, in the room the Coates mark already gives the header; the driver's order, window and holding words join the
+   sheet's own rules line. */
+function flow891HeadBlock(){ return '<span class="dp891-by">' + esc(flow891PrintedBy()) + '</span><span class="dp891-ck">' + FLOW891.checklist.map(c => '<span>' + dpBx() + esc(c) + '</span>').join('') + '</span>'; }
+function flow891RuleWords(d, g, i, n){
  let x = null; try { x = flow891Day(d).deliveries.find(y => y.id === ldId(d, g)) || null; } catch (e) { x = null; }
- const win = x ? x.win : flow891Window(d, g), area = x ? x.area : null, A = area && area.key ? FLOW891.areas[area.key] : null;
+ const win = x ? x.win : flow891Window(d, g), area = x && x.area && x.area.key ? x.area : null, A = area ? FLOW891.areas[area.key] : null;
  const lim = A ? (area.key === 'pitLane' ? flow891PitLaneMax(d.iso).words : A.words) : '';
- /* two lines above the footer, so the photographs keep their room: the order, the window, the area and the holding instruction; then the four tick boxes */
- return '<div class="dp-flow891"><div class="dp-flow891-l"><b>Arrive in your allocated order — load ' + i + ' of ' + n + '.</b> A truck out of order delays everyone. ' +
-  '<span>Arrival window <b>' + esc(flow891Span(win)) + '</b>' + (win.known ? (win.planned ? ' (planned)' : ' (from the load time)') : ' — agree it with site') + '</span> · ' +
-  '<span>Area <b>' + esc(area && area.key ? area.name : 'see Where it goes') + '</b>' + (lim ? ' — ' + esc(lim) : '') + '</span> · ' +
-  '<span>If early or the area is full, hold at <b>' + esc(FLOW891.holding.short) + '</b> (up to ' + FLOW891.holding.max + ' trucks).</span></div>' +
-  '<div class="dp-flow891-ck">' + FLOW891.checklist.map(c => '<span>' + dpBx() + esc(c) + '</span>').join('') + '</div></div>';
+ return '<i>·</i><span class="dp891-rl"><b>Arrive in your allocated order — load ' + i + ' of ' + n + '</b>; a truck out of order delays everyone</span>' +
+  '<i>·</i><span class="dp891-rl">Arrival window <b>' + esc(flow891Span(win)) + '</b>' + (win.known ? (win.planned ? ' (planned)' : ' (from the load time)') : ' — agree it with site') + '</span>' +
+  (area ? '<i>·</i><span class="dp891-rl">' + esc(area.name) + (lim ? ': ' + esc(lim) : '') + '</span>' : '') +
+  '<i>·</i><span class="dp891-rl">If early or the area is full, hold at <b>' + esc(FLOW891.holding.short) + '</b> (up to ' + FLOW891.holding.max + ' trucks)</span>';
 }
 const dpPageBefore891 = dpPage;
 dpPage = function(d, g, doc, i, n){ let h = dpPageBefore891(d, g, doc, i, n);
- try { const strip = flow891Strip(d, g, doc, i, n), k = h.lastIndexOf('<div class="dp-ft">'); if (k >= 0) h = h.slice(0, k) + strip + h.slice(k);
-  h = h.replace('A ruled line means not yet recorded</span>', 'A ruled line means not yet recorded</span><span class="dp891-by">' + esc(flow891PrintedBy()) + '</span>'); } catch (e) {}
+ try { h = h.replace('</span></div></header>', '</span>' + flow891HeadBlock() + '</div></header>');
+  if (doc === 'drv') { const k = h.indexOf('<div class="dp-rline">'); if (k >= 0) { const e = h.indexOf('</div>', k); if (e > k) h = h.slice(0, e) + flow891RuleWords(d, g, i, n) + h.slice(e); }
+   else h = h.replace('<h2>Safety</h2>', '<h2>Safety</h2><div class="dp-rline">' + flow891RuleWords(d, g, i, n).replace(/^<i>·<\/i>/, '') + '</div>'); } } catch (e) {}
  return h; };
+/* a photograph with no room on a full page is left off and said so, instead of an empty picture stopping the PDF maker */
+const dpCutBefore891 = dpCut;
+dpCut = function(root){ try { root.querySelectorAll('.dp-win').forEach(w => { const b = w.getBoundingClientRect(), im = w.querySelector('img'); if (im && !im.getAttribute('src') && !(b.width > 0 && b.height > 0)) dpFail(w, 'No room for this picture on the page'); }); } catch (e) {} return dpCutBefore891(root); };
 const pl782PagesBefore891 = pl782Pages;
 pl782Pages = function(d, g, i, n){ const h = pl782PagesBefore891(d, g, i, n); if (!n) return h; /* n = 0 is the check's snapshot, not a print */
  return h.split('</section>').join('<div class="pl891-by">' + esc(flow891PrintedBy()) + '</div></section>'); };

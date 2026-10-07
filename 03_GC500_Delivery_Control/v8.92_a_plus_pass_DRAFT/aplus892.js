@@ -39,6 +39,23 @@
   };
  }
 
+ /* 2b. a docket's papers by name: Fencing tested every file's name and title against every docket's number (90 dockets x 390
+    files x 2 regular expressions a draw). The files are indexed once per draw by every whole number in their names and titles;
+    a docket then looks its number up. The original test — the number standing on its own, not inside a longer one — is exactly
+    "a maximal run of digits equal to the number", which is what the index holds; the filters and the order of the files are kept. */
+ if (typeof docketPapersByName === 'function' && typeof photoIndex === 'function' && typeof docketPapersOf === 'function') {
+  const raw = docketPapersByName;
+  W.docketPapersByName = function (d) {
+   if (!ASSETS_HELD) return raw(d);
+   const no = String((d && d.docket_no) || '').trim(); if (!/^\d{4,7}$/.test(no)) return [];
+   const idx = photoIndex(); const files = idx.state === 'ready' ? idx.files : (idx.state === 'none' ? DOCS.files : null); if (!files) return [];
+   const byNo = held('papersByNo:' + idx.state, () => { const m = new Map(); Object.values(files).forEach(f => { if (!f) return; const runs = new Set((String(f.name || '').match(/\d+/g) || []).concat(String(f.title || '').match(/\d+/g) || [])); runs.forEach(r => { const l = m.get(r) || []; l.push(f); m.set(r, l); }); }); return m; });
+   const assetNos = held('assetNos', () => { const s = new Set(); allAssets().forEach(a => (a.asset_numbers || []).forEach(n => s.add(String(n).trim()))); return s; });
+   const isAssetNo = assetNos.has(no), linked = new Set(docketPapersOf(d.id).map(p => p.id));
+   return (byNo.get(no) || []).filter(f => !linked.has(f.id) && (f.kind === 'docket' || !isAssetNo)).map(f => ({id: f.id, by: f.by || null, at: f.uploaded || null, byName: true, filedAs: f.kind && f.kind !== 'docket' ? f.kind : null}));
+  };
+ }
+
  /* 3. the Finance month-end events: the list once per draw, each key's history once */
  if (typeof fin745Events === 'function' && typeof fin745History === 'function') {
   const rawEv = fin745Events, rawHist = fin745History;
@@ -83,14 +100,14 @@
   if (m && !GO_CHANGED && y > 0 && Math.abs(m.scrollTop - y) > 1) {
    m.scrollTop = y;
    /* a pane that fills in behind (the Equipment register draws its rows in batches) is shorter for a few frames, so the
-      position is clamped; it is put back as the height returns, for up to 600 ms or until the person scrolls */
+      position is clamped; it is put back as the height returns, for up to 1500 ms or until the person scrolls */
    if (Math.abs(m.scrollTop - y) > 1) { if (keep892) keep892();
-    const until = performance.now() + 600, evs = ['wheel', 'touchstart', 'pointerdown', 'keydown']; let frame = 0;
+    const until = performance.now() + 1500, evs = ['wheel', 'touchstart', 'pointerdown', 'keydown']; let frame = 0;
     const stop = () => { cancelAnimationFrame(frame); evs.forEach(n => W.removeEventListener(n, stop, true)); if (keep892 === stop) keep892 = null; };
     const tick = () => { if (performance.now() > until || !m.isConnected) return stop(); if (m.scrollHeight - m.clientHeight >= y) { m.scrollTop = y; if (Math.abs(m.scrollTop - y) <= 1) return stop(); } frame = requestAnimationFrame(tick); };
     keep892 = stop; evs.forEach(n => W.addEventListener(n, stop, {capture: true, passive: true})); frame = requestAnimationFrame(tick); }
   }
   return r; }; }
 
- W.aplus892 = {version: 'v8.92', held: ['dropFileIndex', 'bookNumbers', 'docketNoInName', 'fin745Events', 'fin745History', 'fin745Rows', 'labourPlan'], batched: ['tblFocusSoon', 'timeline841Motion'], keeps: ['render scroll']};
+ W.aplus892 = {version: 'v8.92', held: ['dropFileIndex', 'bookNumbers', 'docketNoInName', 'docketPapersByName', 'fin745Events', 'fin745History', 'fin745Rows', 'labourPlan'], batched: ['tblFocusSoon', 'timeline841Motion'], keeps: ['render scroll']};
 })();
