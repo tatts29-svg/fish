@@ -2,6 +2,19 @@
 
 Author: Andrew Fisher. These current entries supersede the dated status snapshots below.
 
+**v8.76 — VERIFIED LIVE by both agents, 7 Oct 2026 (~14:15 AEST).** Author: Andrew Fisher. Claude's public GET is `4ec46478f952b0f26fa2ae72f73e5477c41012bf4b479395bab6283265451254`, 11,116,428 bytes, identical to Codex's hash. Against the public bytes:
+- Page data identical to v8.75 (source protection PASS).
+- Today layout 18/18, VMS 18/18, handling 28/28, asset/loading 40/40, Finance 24/24, all on laptop and phone.
+- Earlier releases still pass: v871 12/12, supplier 17/17. Sweeps: 15 tabs, 0 errors, 0 blocked, both widths.
+
+Codex branch merged. Claude's v8.77 (maps) and v8.78 (costs) build from `4ec46478`.
+
+**v8.76 — VERIFIED LIVE, 7 Oct 2026 13:57 AEST.** Author: Andrew Fisher. Source/READY `e0e9a181`; exact public SHA-256 `4ec46478f952b0f26fa2ae72f73e5477c41012bf4b479395bab6283265451254`, 11,116,428 bytes. Actual-public layout18/18 desktop/phone; candidate Finance24/24 both, both21-route/seven-link/Back sweeps and preservation1366/390 pass. Ultrawide layout and all-DATA preservation pass; screenshots inspected. All progress groups open by default, details retained in folds, consistent Today rail and full-width contacts. Codex implementation/publication complete; Claude independent readback pending. Health OK v5.87, no backend or operational-record changes. Separate dispatch/loading handover remains outside this presentation release. [Release](v8.76_today_layout_LIVE/README.md).
+
+**v8.76 — READY TO UPLOAD, 7 Oct 2026.** Author: Andrew Fisher. Codex owner, source `fb9f902c`; base v8.75 `f981c57a`; candidate SHA-256 `4ec46478f952b0f26fa2ae72f73e5477c41012bf4b479395bab6283265451254`, 11,116,428 bytes. Layout18/18 desktop/phone, Finance24/24 both, both21-route/seven-link/Back sweeps and preservation1366/390 pass. Ultrawide layout passes; screenshots inspected. All DATA identical to base. Fresh Claude board `2c1ff4a1` checked; no competing claim. No backend or operational-record changes. READY is not LIVE.
+
+**v8.76 — CLAIMED by Codex, 7 Oct 2026.** Author: Andrew Fisher. Andrew directly requested Today presentation cleanup and all progress groups open by default, retaining additional details in folds. Base verified live v8.75 `f981c57a`; Codex implementation/testing/publication owner. DRAFT, not LIVE. Separate dispatch/loading handover remains outside this presentation release.
+
 **v8.77 / v8.78 — CLAIMED by Claude for tonight, 7 Oct 2026.** Author: Andrew Fisher. Andrew's direct request (13:46 AEST). Builds from whatever is live after Codex's Today tidy-up, which goes first; no overlap with Codex's Today or dispatch/loading work.
 - **v8.77 Maps.** Replace the master with the new **D001-26003-03-MASTER.pdf issued 2 Oct** (sha256 `8753d875…`), replacing the 17 Sep issue `37792f0a…`, and re-derive every position and record that uses it. First diff: the whole sheet is shifted 9 mm. Real changes: P45 moved (~43 mm on paper), WC69 now one label (was two), WC38 and WC39 nudged, **WC10 added**, **WC32 and WC40a gone**. Map explorer: faster and smoother; tapping a building shows clearly what's done; Fencing closes like every other panel.
 - **v8.78 Costs.** Every cost figure reconciles across tabs. New **Transport** tab in Costs covering every transport fact (Schedule 4 TPORT COST, carriers, dockets, load times, still-to-come forecast, internal vs external), down to branch.
