@@ -1,0 +1,86 @@
+/* Author: Andrew Fisher. v8.91 Truck flow - the day's card, the order controls on the loads list, the name prompt, the printed strip.
+   Motion only on transform and opacity; none with reduced motion. */
+.flow891{margin:12px 0 4px;padding:12px 14px 10px;border:1px solid var(--rule);border-left:5px solid var(--orange,#ff6a13);border-radius:12px;background:var(--tint2,#fcfbfa);color:var(--ink)}
+.flow891.flow891-lit{box-shadow:0 0 0 3px rgba(255,106,19,.35)}
+.flow891-hd{display:flex;flex-wrap:wrap;align-items:flex-start;justify-content:space-between;gap:8px 16px;margin-bottom:8px}
+.flow891-k{display:block;font:700 10.5px/1 Inter,var(--sans,system-ui,sans-serif);letter-spacing:.16em;text-transform:uppercase;color:var(--orange-ink,#c2570c);margin-bottom:5px}
+.flow891-hd h3{margin:0;font:italic 800 24px/1 'Barlow Condensed','Arial Narrow',var(--sans,system-ui,sans-serif);letter-spacing:.01em}
+.flow891-hd .sub{margin:4px 0 0;color:var(--slate,#5d6468);font-size:12.5px;max-width:62ch}
+.flow891-people{display:flex;align-items:center;gap:8px;font-size:12.5px;font-weight:600;color:var(--slate,#5d6468)}
+.flow891-people input{width:72px;padding:8px 10px;border:1px solid var(--rule);border-radius:8px;background:#fff;font:inherit;font-variant-numeric:tabular-nums;min-height:40px}
+.flow891-people .btn{min-height:40px}
+.flow891-rows{display:flex;flex-direction:column}
+.flow891-row{display:grid;grid-template-columns:150px minmax(0,1fr);gap:4px 14px;padding:8px 0;border-top:1px solid var(--rule);font-size:13px;line-height:1.45}
+.flow891-row > b{font-weight:800;color:var(--ink)}
+.flow891-row.flag > b{color:#b42318}
+.flow891-row.flag > b::before{content:'';display:inline-block;width:8px;height:8px;border-radius:50%;background:#b42318;margin-right:6px;vertical-align:1px}
+.flow891-flag{color:#b42318;font-weight:700}
+.flow891-note{margin:5px 0 0;color:var(--slate,#5d6468);font-size:12px}
+.flow891-seq{display:inline-flex;align-items:baseline;gap:5px;white-space:nowrap}
+.flow891-seq b{font:italic 800 17px/1 'Barlow Condensed','Arial Narrow',var(--sans,system-ui,sans-serif);color:var(--orange-ink,#c2570c)}
+.flow891-seq em{font-style:normal;color:var(--slate,#5d6468);font-size:12px;font-variant-numeric:tabular-nums}
+.flow891-arrow{font-style:normal;margin:0 7px;color:var(--mute);font-weight:700}
+.flow891-cf.late .flow891-flag{display:inline}
+.flow891-act{margin-left:6px;padding:5px 10px;font-size:12px;min-height:34px}
+.flow891-rules{margin-top:8px;border-top:1px solid var(--rule);padding-top:6px;font-size:12.5px}
+.flow891-rules summary{display:flex;align-items:center;gap:8px;cursor:pointer;font-weight:700;list-style:none;padding:6px 0;min-height:40px}
+.flow891-rules summary::-webkit-details-marker{display:none}
+.flow891-x{margin-left:auto;width:10px;height:10px;border-right:2px solid var(--mute);border-bottom:2px solid var(--mute);transform:rotate(45deg);transition:transform .18s}
+.flow891-rules[open] .flow891-x{transform:rotate(-135deg)}
+.flow891-rules table{width:100%;border-collapse:collapse;margin:4px 0 8px}
+.flow891-rules th,.flow891-rules td{text-align:left;vertical-align:top;padding:6px 8px 6px 0;border-top:1px solid var(--rule);font-size:12.5px;line-height:1.4}
+.flow891-rules th{font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--slate,#5d6468);border-top:0}
+.flow891-rules p{margin:4px 0;color:var(--slate,#5d6468)}
+/* the order controls on each delivery load line */
+.flow891-ord{display:flex;align-items:center;gap:6px;flex-wrap:wrap;min-height:40px}
+.flow891-ord button{font:inherit;color:var(--ld-ink,#f4f1ec);background:rgba(255,255,255,.06);border:1px solid var(--ld-edge,#2d353b);border-radius:9px;min-width:40px;min-height:40px;cursor:pointer;display:grid;place-items:center;transition:background .12s,border-color .12s,opacity .12s}
+.flow891-ord button:hover{background:rgba(255,106,19,.18);border-color:#ff8a3d}
+.flow891-ord button:focus-visible{outline:2px solid var(--ld-or,#ff6a13);outline-offset:2px}
+.flow891-ord button:disabled{opacity:.35;cursor:default;background:transparent}
+.flow891-grip{cursor:grab;flex-direction:column;gap:3px;padding:0 10px}
+.flow891-grip:active{cursor:grabbing}
+.flow891-grip i{display:block;width:16px;height:2px;border-radius:1px;background:currentColor;opacity:.8}
+.flow891-mv{font-size:13px}
+.flow891-ordw{font:600 12px/1.2 Inter,var(--sans,system-ui,sans-serif);color:var(--ld-mute,#aab3ba);letter-spacing:.04em}
+.flow891-ordw b{font:italic 800 18px/1 'Barlow Condensed','Arial Narrow',var(--sans,system-ui,sans-serif);color:var(--ld-ink,#f4f1ec);margin:0 2px}
+.flow891-chip{font:700 11px/1 Inter,var(--sans,system-ui,sans-serif);letter-spacing:.06em;text-transform:uppercase;padding:0 10px;border-radius:999px;cursor:pointer}
+.flow891-ord .flow891-chip.crit{color:#fff;background:#b42318;border-color:#b42318;min-width:0}
+.ld.flow891-flip{transition:transform .25s cubic-bezier(.2,.7,.2,1)}
+.ld.flow891-drag{opacity:.55}
+.ld.flow891-over-before{box-shadow:0 -3px 0 0 var(--ld-or,#ff6a13)}
+.ld.flow891-over-after{box-shadow:0 3px 0 0 var(--ld-or,#ff6a13)}
+@media (prefers-reduced-motion: reduce){ .ld.flow891-flip{transition:none} .flow891-x{transition:none} .flow891-ord button{transition:none} }
+html[data-motion="off"] .ld.flow891-flip{transition:none}
+@media (max-width:640px){
+ .flow891{padding:10px 12px 8px;margin:10px 0 2px}
+ .flow891-row{grid-template-columns:1fr;gap:2px 0}
+ .flow891-hd h3{font-size:21px}
+ .flow891-seq{white-space:normal}
+ .flow891-rules th:last-child,.flow891-rules td:last-child{display:none}
+ .flow891-people{width:100%}
+}
+@media (min-width:1900px){ .flow891-row{grid-template-columns:190px minmax(0,1fr);font-size:14px} .flow891-hd h3{font-size:27px} }
+/* who is printing - the one prompt, remembered on the device */
+#flow891name{position:fixed;inset:0;z-index:2147483000;display:grid;place-items:center;padding:16px;background:rgba(12,14,16,.55)}
+#flow891name .box{position:relative;width:min(460px,100%);max-height:calc(100dvh - 32px);overflow:auto;background:var(--card,#fff);color:var(--ink,#15181a);border-radius:14px;box-shadow:0 12px 40px rgba(0,0,0,.35);padding:18px 18px 14px;border-top:6px solid var(--orange,#ff6a13);font:400 14px/1.45 Inter,system-ui,sans-serif}
+#flow891name h2{margin:0 36px 4px 0;font:800 20px/1.2 "Barlow Condensed",Inter,sans-serif;letter-spacing:.01em}
+#flow891name .lead{margin:0 0 12px;color:var(--mute,#5d6468)}
+#flow891name .x{position:absolute;right:10px;top:10px;width:40px;height:40px;border-radius:10px;border:1.5px solid rgba(0,0,0,.15);background:transparent;color:inherit;font:400 24px/1 Inter,sans-serif;cursor:pointer}
+#flow891name label{display:block;margin:8px 0 4px}
+#flow891name input{width:100%;font:inherit;padding:10px 12px;border-radius:8px;border:1.5px solid rgba(0,0,0,.2);min-height:44px}
+#flow891name small{display:block;margin-top:5px;color:var(--mute,#5d6468)}
+#flow891name .row{display:flex;gap:10px;justify-content:flex-end;margin-top:14px;flex-wrap:wrap}
+#flow891name .row button{font:700 15px Inter,sans-serif;padding:10px 16px;border-radius:10px;border:0;cursor:pointer;min-height:44px}
+#flow891name .b-go{background:var(--orange,#ff6a13);color:#fff}
+#flow891name .b-go:disabled{opacity:.45;cursor:not-allowed}
+#flow891name .b-no{background:transparent;color:inherit;border:1.5px solid rgba(0,0,0,.2)!important}
+/* on the printed sheets: the truck flow strip and the printer's name */
+#dayprint .dp-flow891 .dp-flow891-g{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1.6mm 3mm;margin-bottom:1.4mm}
+#dayprint .dp-flow891 .dp-f{flex:none;display:flex;flex-direction:column;align-items:flex-start;justify-content:flex-start;gap:.3mm;border:0;border-left:.6mm solid var(--acc);padding-left:1.8mm}
+#dayprint .dp-flow891 .dp-f label{font-size:.76em;letter-spacing:.1em;text-transform:uppercase;color:var(--mute);font-weight:700}
+#dayprint .dp-flow891 .dp-f b{font-size:.95em;line-height:1.2}
+#dayprint .dp-flow891 .dp-f span{font-size:.8em;color:var(--mute);line-height:1.2}
+#dayprint .dp-flow891-ck{display:flex;flex-wrap:wrap;gap:1.2mm 5mm;padding:1.4mm 2mm;border:.4mm solid var(--ink);border-radius:1mm;font-weight:700;font-size:.9em}
+#dayprint .dp-flow891-ck span{display:inline-flex;align-items:center}
+#dayprint .dp891-by{white-space:nowrap;color:var(--ink);font-weight:700}
+#dayprint .pl891-by{position:absolute;left:7mm;bottom:3mm;font:600 7pt/1.2 Inter,Arial,sans-serif;color:#15181a}

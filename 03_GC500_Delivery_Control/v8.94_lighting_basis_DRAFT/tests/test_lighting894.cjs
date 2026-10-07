@@ -21,24 +21,24 @@ const {open} = require('../../toolchain/harness/open_page');
    basis: el?.querySelector('.w885-basis p')?.textContent || '',
    notes: [...(el?.querySelectorAll('.w885-note') || [])].map(n => n.textContent),
    shown: el?.querySelector('[data-w885-pct]')?.dataset.text, expected, bound: !!el?.querySelector('.w885-reading .w885-bound'), lower,
-   rowProvisional: row?.provisional, rowBasis: row?.basis || '', rowPct: [row?.min, row?.max], sumPct: sum.byId.lighting.pct, sumKind: sum.byId.lighting.pctKind,
+   rowProvisional: row?.provisional, rowScope: row?.scope894, rowBasis: row?.basis || '', rowPct: [row?.min, row?.max], sumPct: sum.byId.lighting.pct, sumKind: sum.byId.lighting.pctKind,
    allGreen: m.allGreen, provisional: m.provisional,
    overflow: document.documentElement.scrollWidth <= innerWidth + 2
   };
  });
  const a = await read();
- ok('Lighting chip says its scope is not yet confirmed (once)', a.chipTag === 1 && /Lighting scope not yet confirmed: lighting audit pending/.test(a.chipLabel) && a.chipTitle.includes('audit pending'));
- ok('Lighting group card carries the same note (once)', a.cardNote === 1 && /lighting audit pending/.test(a.cardNoteText));
- ok('the whole-job basis explains the Lighting scope', /Lighting counts confirmed completion over the register’s lighting towers/.test(a.basis) && /provisional until that audit is confirmed/.test(a.basis));
- ok('Where we are lists Lighting as provisional', a.notes.some(n => /Provisional:.*Lighting/.test(n)));
- ok('the Lighting reading is unchanged (row = record, chip = card)', a.rowPct[0] === a.sumPct && a.rowProvisional === true && a.chipValue === a.cardValue);
+ ok('Lighting chip says it is unconfirmed, and why (once)', a.chipTag === 1 && /Lighting unconfirmed: scope audit pending/.test(a.chipLabel) && a.chipTitle.includes('scope audit pending'));
+ ok('Lighting group card carries the same note (once)', a.cardNote === 1 && /Lighting unconfirmed: scope audit pending/.test(a.cardNoteText));
+ ok('the whole-job basis explains the Lighting scope', /Lighting counts confirmed completion over the register’s lighting towers/.test(a.basis) && /unconfirmed until that audit is done/.test(a.basis));
+ ok('Where we are says the whole job is unconfirmed until the Lighting scope audit is done (once)', a.notes.filter(n => /Whole job unconfirmed until the Lighting scope audit is done/.test(n)).length === 1);
+ ok('the Lighting reading is unchanged (row = record, chip = card)', a.rowPct[0] === a.sumPct && a.rowScope === 'pending' && a.chipValue === a.cardValue);
  ok('the whole-job number is unchanged (' + a.shown + ' = ' + a.expected + ')', a.shown === a.expected && a.bound === a.lower);
  ok('all five lights cannot turn green on an unconfirmed scope', a.allGreen === false && a.provisional === true);
  // a Today redraw keeps exactly one note in each place
  await p.evaluate(() => { renderToday(); renderToday(); });
  await p.waitForTimeout(800);
  const b = await read();
- ok('redraws keep one note in each place', b.chipTag === 1 && b.cardNote === 1 && (b.basis.match(/Lighting counts confirmed completion/g) || []).length === 1);
+ ok('redraws keep one note in each place', b.chipTag === 1 && b.cardNote === 1 && b.notes.filter(n => /Whole job unconfirmed/.test(n)).length === 1 && (b.basis.match(/Lighting counts confirmed completion/g) || []).length === 1);
  ok('no horizontal overflow', b.overflow);
  ok('no runtime errors', s.errors.length === 0);
  ok('no attempted live writes', s.counts.blocked === 0);

@@ -10,14 +10,20 @@ LIVE, NEW, V889, OLDR, OUT = sys.argv[1:6]
 W, H, PW, PH = 2600, 1837, 2384.0, 1684.0
 sx, sy = W / PW, H / PH
 def px(x0, y0, x1, y1): return (slice(int(round(y0 * sy)), int(round(y1 * sy))), slice(int(round(x0 * sx)), int(round(x1 * sx))))
-# the paper's windows in points (clip paths, plot grid 0.06 pt, origin (14, 1656), y up)
-MAIN_L = (49.46, 41.46, 1468.64, 1464.24)      # the left arm of the main L
-MAIN_T = (1468.64, 41.46, 2334.02, 859.26)     # the top arm over the inset
-INSET = (1473.0, 866.0, 2334.02, 1464.24)      # the inset window
-LEGEND = (49.46, 1468.0, 2334.02, 1656.0)      # legend, key plan and title strip
-BORDER_T = (0, 0, PW, 41.46)                   # the paper above the main window (border line, crop marks)
-BORDER_L = (0, 0, 49.46, PH)
-REGIONS = {'main_left': MAIN_L, 'main_top': MAIN_T, 'inset': INSET, 'legend_title': LEGEND, 'border_top': BORDER_T, 'border_left': BORDER_L}
+# the paper's windows in points, read off the sheet's own clip paths (plot grid 0.06 pt, origin (14, 1656), y up):
+#   main plan   M24244 3196 V13279 H38667 V26909 H591 V3196   -> the L shape 49.46..2334.02 x 41.46..1464.24 less the inset's corner
+#   inset       M38667 3196 V13042 H24481 V3196                -> 1482.86..2334.02 x 873.48..1464.24
+#   legend      M591 267 H19359 V2958 H591 V267                -> 49.46..1175.54 x 1478.52..1639.98
+#   border      M424 37 H38836 V27080 H424 V37                 -> 39.44..2344.16 x 31.20..1653.78
+REGIONS = {'main_left': (49.46, 41.46, 1468.64, 1464.24),        # the left arm of the main L
+           'main_top': (1468.64, 41.46, 2334.02, 859.26),        # the top arm, over the inset
+           'inset': (1482.86, 873.48, 2334.02, 1464.24),
+           'legend': (49.46, 1478.52, 1175.54, 1639.98),
+           'title_block': (1175.54, 1478.52, 2344.16, 1653.78),  # key plan, client, project, drawing number
+           'border_top': (0, 0, PW, 41.46),                      # border line and crop marks above the main window
+           'border_left': (0, 0, 49.46, PH),
+           'border_right': (2334.02, 0, PW, PH),
+           'border_bottom': (0, 1639.98, PW, PH)}
 def L(p): return np.asarray(Image.open(p).convert('L'), dtype=np.float32)
 def phase(a, b):
     a = a - a.mean(); b = b - b.mean(); F = np.fft.fft2(a) * np.conj(np.fft.fft2(b)); F /= np.abs(F) + 1e-9

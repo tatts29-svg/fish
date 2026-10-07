@@ -1,6 +1,6 @@
 # Author: Andrew Fisher. v8.94: the Lighting group's basis is stated wherever its reading is shown (Where we are card,
 # its Lighting chip and basis note, and the Lighting group card). The lighting scope audit is pending, so Lighting and the
-# whole-job figure are labelled provisional; no number, record, DATA or money changes.
+# whole-job figure are labelled unconfirmed (never ≥: the audit could move the total either way); no number, record, DATA or money changes.
 # Needs v8.85 (the Where we are card). Chains after v8.89, v8.90, v8.91, v8.92 or v8.93:
 #   toolchain/build.sh v8.94 <full chain> [v8.93_maps_aligned_DRAFT/patch_v893.py] v8.94_lighting_basis_DRAFT/patch_v894.py
 import re, sys
