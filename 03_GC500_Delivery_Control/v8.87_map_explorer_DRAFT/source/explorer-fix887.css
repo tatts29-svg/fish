@@ -1,0 +1,29 @@
+/* Author: Andrew Fisher. v8.87 Map explorer: the Fencing close bar, the phone's fencing card, the unit card's progress. */
+body:not(.fencing-map) #fenceOverlay{display:none}
+#x887FenceBar{position:absolute;left:12px;top:12px;z-index:9;display:none;align-items:center;gap:10px;background:rgba(15,13,12,.93);border:1px solid #ff6a13;border-radius:999px;padding:4px 5px 4px 14px;color:#fff;font:600 13px Inter,system-ui,sans-serif;box-shadow:0 6px 20px rgba(0,0,0,.4);max-width:calc(100% - 24px)}
+body.fencing-map #x887FenceBar{display:flex}
+body.in3d #x887FenceBar{display:none}
+#x887FenceBar span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
+#x887FenceBar button{flex:none}
+#x887FenceBar button{display:inline-flex;align-items:center;gap:5px;min-height:36px;min-width:36px;padding:0 12px 0 10px;border-radius:999px;border:0;background:#ff6a13;color:#1b1207;font:800 13px Inter,system-ui,sans-serif;cursor:pointer}
+#x887FenceBar button:hover,#x887FenceBar button:focus-visible{background:#ff9a4d;outline:none}
+body.fencing-map .hud{display:none}   /* the view-name pill gives its corner to the close bar; the fencing badge at the foot names the view */
+@media(max-width:900px){#x887FenceBar{top:62px;left:8px;right:8px;max-width:none;justify-content:space-between;padding-left:12px}#x887FenceBar button{min-height:44px;min-width:44px}}
+/* the phone's fencing card: the tapped line's name, state and planned day at the foot of the map, with the drawer a tap away */
+#fmCard887{position:absolute;left:8px;right:8px;bottom:8px;z-index:8;background:#15181a;color:#f3f1ee;border:1px solid rgba(255,255,255,.14);border-radius:12px;padding:8px 12px 10px;box-shadow:0 10px 30px rgba(0,0,0,.45);font:13px/1.4 Inter,system-ui,sans-serif;max-height:42%;overflow:auto}
+#fmCard887[hidden]{display:none}
+@media(min-width:901px){#fmCard887{display:none}}
+.fm-card-t{display:flex;align-items:center;gap:8px}.fm-card-t b{flex:1;font-size:15px;min-width:0;overflow-wrap:anywhere}
+.fm-card-x{margin-left:auto;background:none;border:0;color:#c9cfd2;font-size:26px;line-height:1;cursor:pointer;padding:0 4px;min-width:44px;min-height:44px}
+.fm-card-s{margin-top:3px;color:#d9d3cc;font-size:12px}
+.fm-card-a{margin-top:8px;display:flex;gap:8px}.fm-card-a button{min-height:44px;font:700 13px Inter,system-ui,sans-serif;padding:7px 12px;border:1px solid #73563e;border-radius:8px;background:#34281e;color:#ffd1a9;cursor:pointer}
+/* the unit card's progress: the Timeline's five stages, who and when, the due day and what is left */
+#xcard .xc-st{margin-top:7px;display:flex;align-items:center;gap:6px;font-weight:700;color:#f3f1ee}#xcard .xc-st i{width:10px;height:10px;border-radius:50%;display:inline-block;flex:none;box-shadow:0 0 0 1px rgba(0,0,0,.5) inset}
+#xcard .xc-lamps{display:flex;gap:4px;margin:6px 0 2px}#xcard .xc-lamps span{flex:1;min-width:0;text-align:center;font-size:10px;color:#8a949a;line-height:1.1}#xcard .xc-lamps span i{display:block;height:6px;border-radius:3px;background:#2b3236;margin-bottom:3px}
+#xcard .xc-lamps span.on{color:#e6e2dd}#xcard .xc-lamps span.on i{background:#39e07a}#xcard .xc-lamps span.on.amber i{background:#ffb000}#xcard .xc-lamps span.on.red i{background:#ff4d4d}#xcard .xc-lamps span.on.none i{background:#9aa3ad}
+#xcard .xc-why{margin-top:4px;color:#c9cfd2;font-size:12px}
+#xcard .xc-lines{margin:6px 0 0;padding:0;list-style:none;font-size:12px}#xcard .xc-lines li{display:flex;gap:6px;padding:2px 0;color:#aab2b6;align-items:baseline}#xcard .xc-lines li b{color:#c9cfd2;font-weight:600;flex:none;min-width:84px}#xcard .xc-lines li.done{color:#e6e2dd}#xcard .xc-lines li.done b{color:#39e07a}
+#xcard .xc-left{margin-top:6px;font-size:12px;color:#ffcf73}
+#xcard .xc-a{display:flex;gap:8px;flex-wrap:wrap}#xcard .xc-prog{background:#2a2f33;color:#f3f1ee;border:1px solid rgba(255,255,255,.18);border-radius:8px;padding:7px 12px;font:700 13px Inter,system-ui,sans-serif;cursor:pointer}
+#xcard .xc-open,#xcard .xc-prog,#xcard .xc-x{min-height:36px}
+@media(max-width:640px){#xcard{max-height:58%}#xcard img{display:none}#xcard .xc-open,#xcard .xc-prog{min-height:44px}#xcard .xc-x{min-width:44px;min-height:44px}}   /* a phone gives the words the room: the plan close-up is in the record */

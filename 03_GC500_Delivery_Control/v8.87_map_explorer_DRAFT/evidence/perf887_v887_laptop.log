@@ -1,0 +1,8 @@
+{"tag":"v887","device":"laptop","measure":"zoom_fencingOff","raf":{"n":204,"mean":24.1,"p50":16.7,"p95":50,"max":116.6,"over50":8,"over33":62},"draw":{"n":172,"mean":4.8,"p50":0.5,"p95":34.1,"max":96.8,"over50":3,"over33":9},"taskMs":4368}
+{"tag":"v887","device":"laptop","measure":"pan_fencingOff","raf":{"n":159,"mean":16.9,"p50":16.7,"p95":16.7,"max":33.3,"over50":0,"over33":2},"draw":{"n":41,"mean":0.8,"p50":0.4,"p95":1.5,"max":14.7,"over50":0,"over33":0},"taskMs":788}
+{"tag":"v887","device":"laptop","measure":"zoom_fencingOn","raf":{"n":175,"mean":24.2,"p50":16.7,"p95":50,"max":133.4,"over50":6,"over33":57},"draw":{"n":139,"mean":2.3,"p50":0.3,"p95":19.1,"max":67.7,"over50":1,"over33":2},"taskMs":2785}
+{"tag":"v887","device":"laptop","measure":"pan_fencingOn","raf":{"n":138,"mean":18.7,"p50":16.7,"p95":33.4,"max":50,"over50":0,"over33":16},"draw":{"n":41,"mean":0.7,"p50":0.3,"p95":0.8,"max":15.8,"over50":0,"over33":0},"taskMs":758}
+{"tag":"v887","device":"laptop","measure":"stuckPointer","tapped":true,"selected":"cw3-p11-x53-median-south-red-run","mapFollowedMouse":false,"pointersLeft":0,"gestureLeft":false}
+{"tag":"v887","device":"laptop","measure":"escapePressesToCloseFencing","pick":true,"presses":1,"closed":true}
+FAIL page.waitForTimeout: Target page, context or browser has been closed
+    at /home/user/fish/03_GC500_Delivery_Control/v8.87_map_explorer_DRAFT/tests/perf887.cjs:41:241

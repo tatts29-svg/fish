@@ -1,0 +1,3 @@
+FAIL page.waitForTimeout: Target page, context or browser has been closed
+    at Object.openMap (/home/user/fish/03_GC500_Delivery_Control/v8.87_map_explorer_DRAFT/tests/lib887.cjs:12:11)
+    at async /home/user/fish/03_GC500_Delivery_Control/v8.87_map_explorer_DRAFT/tests/test_explorer887.cjs:6:13

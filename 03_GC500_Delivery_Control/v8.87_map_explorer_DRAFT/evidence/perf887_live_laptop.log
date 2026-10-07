@@ -1,0 +1,9 @@
+{"tag":"live","device":"laptop","measure":"zoom_fencingOff","raf":{"n":233,"mean":25.2,"p50":16.7,"p95":50.1,"max":216.7,"over50":12,"over33":65},"draw":{"n":167,"mean":4.4,"p50":0.6,"p95":33,"max":95.8,"over50":4,"over33":8},"taskMs":5144}
+{"tag":"live","device":"laptop","measure":"pan_fencingOff","raf":{"n":163,"mean":16.9,"p50":16.7,"p95":16.8,"max":50,"over50":0,"over33":1},"draw":{"n":41,"mean":0.9,"p50":0.4,"p95":1.4,"max":16.4,"over50":0,"over33":0},"taskMs":850}
+{"tag":"live","device":"laptop","measure":"zoom_fencingOn","raf":{"n":176,"mean":22.2,"p50":16.7,"p95":50,"max":66.6,"over50":4,"over33":45},"draw":{"n":148,"mean":2.2,"p50":0.3,"p95":13.8,"max":56.5,"over50":1,"over33":4},"taskMs":2896}
+{"tag":"live","device":"laptop","measure":"pan_fencingOn","raf":{"n":157,"mean":18.7,"p50":16.7,"p95":33.4,"max":33.4,"over50":0,"over33":19},"draw":{"n":41,"mean":0.7,"p50":0.3,"p95":0.7,"max":17.1,"over50":0,"over33":0},"taskMs":1105}
+{"tag":"live","device":"laptop","measure":"stuckPointer","tapped":true,"selected":"cw3-p11-x53-median-south-red-run","mapFollowedMouse":true,"pointersLeft":1,"gestureLeft":true}
+{"tag":"live","device":"laptop","measure":"escapePressesToCloseFencing","pick":true,"presses":2,"closed":true}
+{"tag":"live","device":"laptop","measure":"hidden10s","taskMs":525,"doneCalls":3,"snapCalls":0,"framesDrawn":1,"parked":false,"frameLogLen":449}
+{"tag":"live","device":"laptop","measure":"fencingIdle10s","taskMs":204,"snapCalls":2}
+{"tag":"live","device":"laptop","measure":"errors","pageErrors":0,"blocked":0,"local":8}

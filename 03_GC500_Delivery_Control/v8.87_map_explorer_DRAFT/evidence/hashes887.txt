@@ -1,0 +1,45 @@
+v8.87 Map explorer - candidate hashes (Author: Andrew Fisher), 8 Oct 2026 01:04 AEST
+
+Page (build/GC500_v8.87, toolchain/build.sh v8.87 patch_v884 patch_v885 patch_v887 on live v8.83):
+88a3584e919d8acd32ac3905099c1d606ec2fe5c1da2793363e8ff870f212457  base_live.html
+33c6501f8e52aeca15df4bb902b14ecf3b1d747038bcedc58066eb94851a8f3d  GC500_Delivery_Control_hosted.html
+11173489 GC500_Delivery_Control_hosted.html
+
+Live explorer files (machine set b469a99c, read-only GET, 8 Oct 2026):
+f75f8f4ff9b11cc7af0d373dc0484cdfb4874d0bca72ed6d85367ececb04a158  index.html
+65749fbe601b1ae6cd2e99fc2c317e6cdcb985f10dac8c1b0b3ba98ff223a61c  explorer.js
+261238402f3c4bf3dc94a661b3dc8378bb789b01cdfd77b4cfc9810d1236b67c  explorer-merge.js
+31418b528009e4ec5e8eb23884f27fcf40b2114673f1b1bef297a1d7eeda3e53  fencing-map-explorer.js
+0c26c3b7777f99573326123e264d4fb4e53196ee0a1882aaa6dd6aa7ea5393ff  fencing-map-core.js
+a4f3e8688702c8dd80fc9522d039aab0c4ea4938f97b3384a8ae8134f18ced46  fencing-map.css
+2b0cfadb0b2b68b9516408e1458f22def3cb2100612579a63ad40a2206ad09f2  explorer-fix864.js
+c37afd30491161c7d2d50e792b8d96c022050a513abe93d5f4ef0c9f24303024  explorer-fix864.css
+
+Prepared explorer files (v8.87_map_explorer_DRAFT/explorer, patch_explorer887.py):
+e906b2493dd8f35842e0740e006f9a096b247787dd21e1d66f523908338ea175  index.html
+f03844a3492e6738a7504adac9270860b2e1076d2516229971ab06c94b873b9d  explorer.js
+161dabb105c15f5efca5a199c625191ed54343237f6af2d8c327c6d365921679  explorer-merge.js
+edf5b903f4a0321098cb9a2c3fbef0bb0da13ac6b2cfbbb24b485c3ce019bd0b  fencing-map-explorer.js
+d7041320fc3ff63a133cc8e3ce859bbce3e6dc669e2a990bb0fc5f7b27a7ac3b  explorer-fix864.js
+3af256abeedefaec23bb7f247bc490bc39cdb32060285efcb5490a9120b9ee29  explorer-fix887.js
+7064bc5327bb9aa160a19523e1b3fdd387c0066f6ac52019d0e95f9b4fa22a4e  explorer-fix887.css
+ 28023 index.html
+142098 explorer.js
+ 27134 explorer-merge.js
+ 51654 fencing-map-explorer.js
+  7399 explorer-fix864.js
+  3090 explorer-fix887.js
+  4241 explorer-fix887.css
+263639 total
+
+Machine sets:
+  retained (live)   b469a99c43a30a6d165ce126c4983d0c92204c8f548f0636a008f43de60e95d8 231 files 172422899 bytes v8.64-map-explorer
+  candidate v8.87   d18aeb73edd13a419f88cec6c7b5663de67fb4910c47bfb4fc1266a5341c361f 233 files 172445399 bytes v8.87-map-explorer
+
+Patch scripts:
+1f6342a0e17d3a9e4db7599925032a77bfc1e000c2c865666e5b395236d0f73e  patch_v887.py
+47ce4310b98611899490599eac72f417ec6c00d664cabc87dc44bde92af4dcb0  patch_explorer887.py
+3af256abeedefaec23bb7f247bc490bc39cdb32060285efcb5490a9120b9ee29  source/explorer-fix887.js
+4fce9023c01ebf886aeb194667118f4fdf95f7e8a45cb802f7be2f1cdd91ebf9  source/map887.js
+7064bc5327bb9aa160a19523e1b3fdd387c0066f6ac52019d0e95f9b4fa22a4e  source/explorer-fix887.css
+1ef15d71431ed4ed801d9e1b5894e09a34dacb0f97b6d4f35f9eda1e2017bcf2  machine/publish_machine887.py

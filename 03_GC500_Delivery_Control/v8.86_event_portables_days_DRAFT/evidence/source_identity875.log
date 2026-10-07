@@ -1,0 +1,7 @@
+Traceback (most recent call last):
+  File "/home/user/fish/03_GC500_Delivery_Control/v8.75_schedule_lifting_LIVE/tests/test_source875.py", line 23, in <module>
+    protected(a,b,{'name','events','charge_lines'})
+  File "/home/user/fish/03_GC500_Delivery_Control/v8.75_schedule_lifting_LIVE/tests/test_source875.py", line 16, in protected
+    assert {k:v for k,v in left.items() if k not in allowed}=={k:v for k,v in right.items() if k not in allowed}
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError
