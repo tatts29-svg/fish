@@ -94,6 +94,6 @@ toolchain/build.sh v8.88 v8.84_today_wide_layout_DRAFT/patch_v884.py v8.85_where
 
 RESULTS_TABLE
 
-Screenshots: `evidence/shots/transport-1440-*.png`, `transport-2560-*.png`, `transport-phone-*.png`, `reconciles-*.png`.
+Screenshots (`evidence/shots/transport-1440-*.png`, `transport-2560-*.png`, `transport-phone-*.png`, `reconciles-*.png`) are kept out of the repository because they show the figures; they stay local for the lead to review. Every dollar figure in the evidence logs is replaced with `$—` before the folder is committed.
 
 Not LIVE: this session has no edit key. If v8.85 goes live first, build with `patch_v888.py` alone; if v8.86 or v8.87 go ahead of it, chain them before this patch.
