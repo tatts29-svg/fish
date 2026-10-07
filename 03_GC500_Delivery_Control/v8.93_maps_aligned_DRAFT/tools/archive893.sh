@@ -5,8 +5,8 @@
 #   archive893.sh <assets dir> <out dir> <password file>
 # The password is read from the file by openssl only; it is never printed, copied or stored here.
 set -euo pipefail
-ASSETS="$1"; OUT="$2"; PASS="$3"
-mkdir -p "$OUT"; tmp="$(mktemp -d -p "$OUT")"
+mkdir -p "$2"; ASSETS="$(cd "$1" && pwd)"; OUT="$(cd "$2" && pwd)"; PASS="$(cd "$(dirname "$3")" && pwd)/$(basename "$3")"   # absolute: tar runs inside the assets folder
+tmp="$(mktemp -d -p "$OUT")"
 ( cd "$ASSETS" && tar --exclude='vt/boot.json' -cf "$tmp/assets893.tar" drawing-scene.bin original-preview.webp sheet-overview.webp underlay vt )
 sha256sum "$tmp/assets893.tar" | cut -c1-64 > "$tmp/assets893.tar.sha256"
 openssl enc -aes-256-cbc -pbkdf2 -iter 300000 -salt -pass "file:$PASS" -in "$tmp/assets893.tar" -out "$tmp/assets893.tar.enc"
