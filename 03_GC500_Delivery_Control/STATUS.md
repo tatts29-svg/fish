@@ -4,7 +4,7 @@
 |---|---|---|---|
 | v8.93 maps aligned | `v8.93_maps_aligned_DRAFT/` | Builder in final checks; README still has TBD rows | Alignment tests, explorer test, regression. The archive parts `archive/assets893.tar.enc.part00/01` (~148 MB) are held out of git until final; their hashes are in `assets893_parts.sha256` |
 | v8.94 lighting audit | `v8.94_lighting_basis_DRAFT/` | **Finished.** Chain + v8.94 = `950b42b8…`; lighting894 35/35 on laptop and phone; where885 24/24 unchanged | Combined suite |
-| v8.95 Baseplan 7 Oct | `v8.95_baseplan_07oct_DRAFT/` | Finished on the old v8.94; rerunning on the new v8.94 with the P52 register fix | Needs `V895_BASEPLAN` = the 7 Oct export from `inputs_07Oct2026/inputs_07oct.zip.enc` (papers password, held by Andrew) |
+| v8.95 Baseplan 7 Oct | `v8.95_baseplan_07oct_DRAFT/` | **Finished.** Chain + v8.94 + v8.95 = `388292e5…`; identity895 136 PASS; contracts895 26/26 on laptop and phone; P52 corrected to 1327211 everywhere | Combined suite. Needs `V895_BASEPLAN` = the 7 Oct export from `inputs_07Oct2026/inputs_07oct.zip.enc` (papers password, held by Andrew) |
 | v8.91 truck flow | `v8.91_truck_flow_DRAFT/` | Building | Review, then handover 2 |
 | v8.92 polish | `v8.92_a_plus_pass_DRAFT/` | Building | Review, then handover 2 |
 | v8.96 Today scene | `v8.96_today_scene_DRAFT/` | Building | Handover 3 |
