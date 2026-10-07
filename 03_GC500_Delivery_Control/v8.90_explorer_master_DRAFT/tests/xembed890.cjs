@@ -3,7 +3,7 @@
 //   CODE=<folder with index.html, explorer.js, ...>   ASSETS=<folder with drawing-scene.bin, vt/, underlay/, ...>
 // Byte-range requests (the tile pyramid) are honoured. Every write the page tries (PUT, POST, DELETE) is still aborted.
 const {chromium, devices} = require('playwright'); const fs = require('fs'), path = require('path');
-const {curlFetch} = require('/home/user/fish/03_GC500_Delivery_Control/toolchain/harness/curlfetch');
+const {curlFetch} = require('../../toolchain/harness/curlfetch');
 const XB = 'https://gc500-production.up.railway.app/w/Coates-GC500-2026/explorer/', HOST = 'https://gc500-production.up.railway.app';
 const TYPES = {'.js': 'text/javascript; charset=utf-8', '.css': 'text/css; charset=utf-8', '.html': 'text/html; charset=utf-8', '.json': 'application/json; charset=utf-8', '.bin': 'application/octet-stream', '.webp': 'image/webp', '.png': 'image/png', '.jpg': 'image/jpeg'};
 async function open({pageFile, hash = '', W = 1440, H = 900, dpr = 1, mobile = false, gl = false}) {
