@@ -570,6 +570,7 @@
   {
    "line": "9968955/38",
    "asset_no": "1317643",
+   "serial_in_export": "F4790",
    "description": "WC07 Toilet Portable - Fresh Water Flush",
    "status": "Delivered",
    "why": "no reference carries this number - not on the shared record, not on the as-supplied record, not in the register; the line keeps its join by kind",
