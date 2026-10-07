@@ -27,8 +27,8 @@ ok('D001 sheet is the 2 Oct issue',X.sheet&&/\/m\/Coates-GC500-2026\//.test(X.me
 ok('old sheet picture leaves the media list',X.oldGone);
 ok('drawing register shows the 2 Oct issue and what it replaces',X.register);
 ok('every changed pin carries the 2 Oct position',X.pins.every(x=>x.same));
-ok('P45 position used by the map and pins',X.p45Fix);
-ok('P45 drive and walk links go to the new spot',X.p45Drive);
+ok('P45 navigation pin unchanged (Andrew 8 Oct: all navigation pin points are correct)',X.p45Fix);
+ok('P45 drive and walk links still go to its confirmed pin',X.p45Drive);
 ok('WC10 has a master position, a sector and a pin on the master sheet',X.wc10);
 ok('WC32 keeps its pin, noted as not on the 2 Oct issue',X.wc32);
 ok('WC69 and WC40 carry one tag each',X.single);

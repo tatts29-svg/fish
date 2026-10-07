@@ -92,10 +92,10 @@
  "master_loc": {
   "P45": {
    "ll": [
-    -27.988119,
-    153.4300493
+    -27.988891,
+    153.430071
    ],
-   "how": "tag on the unit, master D001 issued 2 Oct (moved about 85 m from the 17 Sep issue)",
+   "how": "tag on the unit, master D001 issued 2 Oct (drawn about 85 m from its navigation pin, which stays where it is: confirmed by Andrew 8 Oct)",
    "prec": "unit",
    "img": [
     "5b1002f0eb3125eddda5a4f4f8c5f1f2e5e6fb6cf6a1206b38ac894da0ac9566",
@@ -108,10 +108,10 @@
   },
   "WC38": {
    "ll": [
-    -27.9835978,
-    153.4241101
+    -27.983631,
+    153.424238
    ],
-   "how": "tag on the unit, master D001 issued 2 Oct (moved about 13 m from the 17 Sep issue)",
+   "how": "tag on the unit, master D001 issued 2 Oct (drawn about 13 m from its navigation pin, which stays where it is: confirmed by Andrew 8 Oct)",
    "near": [
     "Gate 2 (~30 m)",
     "Commodore (~55 m)"
@@ -136,10 +136,10 @@
   },
   "WC39": {
    "ll": [
-    -27.9836022,
-    153.423968
+    -27.983559,
+    153.423886
    ],
-   "how": "tag on the unit, master D001 issued 2 Oct (moved about 9 m from the 17 Sep issue)",
+   "how": "tag on the unit, master D001 issued 2 Oct (drawn about 9 m from its navigation pin, which stays where it is: confirmed by Andrew 8 Oct)",
    "near": [
     "Gate 2 (~55 m)",
     "Park (~35 m)"
@@ -164,10 +164,10 @@
   },
   "WC51": {
    "ll": [
-    -27.9928571,
-    153.4304602
+    -27.993005,
+    153.430532
    ],
-   "how": "tag on the unit, master D001 issued 2 Oct (moved about 18 m from the 17 Sep issue)",
+   "how": "tag on the unit, master D001 issued 2 Oct (drawn about 18 m from its navigation pin, which stays where it is: confirmed by Andrew 8 Oct)",
    "near": [
     "Gate 6 (~30 m)"
    ],
@@ -193,7 +193,7 @@
     -27.9845026,
     153.4277044
    ],
-   "how": "tag on the unit, master D001 issued 2 Oct (new on this issue)",
+   "how": "tag on the unit, master D001 issued 2 Oct (new on this issue; navigation pin read off the drawing, not yet checked on site)",
    "prec": "unit",
    "img": [
     "89e4eb467cf2c065001444f07cdd853bb0ee42ee0676387e109d983f0d978241",
@@ -332,8 +332,8 @@
     0.19555
    ],
    "ll": [
-    -27.988119,
-    153.4300493
+    -27.988891,
+    153.430071
    ]
   },
   {
@@ -345,8 +345,8 @@
     0.68542
    ],
    "ll": [
-    -27.9835978,
-    153.4241101
+    -27.983631,
+    153.424238
    ]
   },
   {
@@ -358,8 +358,8 @@
     0.69716
    ],
    "ll": [
-    -27.9836022,
-    153.423968
+    -27.983559,
+    153.423886
    ]
   },
   {
@@ -371,8 +371,8 @@
     0.1626
    ],
    "ll": [
-    -27.9928571,
-    153.4304602
+    -27.993005,
+    153.430532
    ]
   },
   {

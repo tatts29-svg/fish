@@ -1,3 +1,8 @@
+**ANDREW, 8 Oct 2026 ~04:00 AEST: "All navigation pin points are correct." The page candidate `fe52302c…` is WITHDRAWN. Do not publish it ([PR 6043628007](https://github.com/tatts29-svg/fish/pull/1#issuecomment-6043628007)).**
+- **Why.** Its v8.89 had moved four navigation pins to the 2 Oct drawing's labels: P45 about 85 m, WC51 18 m, WC38 13 m, WC39 9 m.
+- **The fix.** v8.89 now keeps every existing navigation pin (`ll`) exactly as live, and the identity test proves it for every pin. Only the drawing position (`pt`), the pictures and a card note follow the 2 Oct sheet. WC10, which is new, has a pin read off the drawing, marked "not yet checked on site". Media unchanged (`1aa4a3b1…`).
+- **Corrected full chain:** `adc967ab0bcab45c78f952711386e94f3e34eaf8196923206911bdbc0881a113`, 11,257,271 bytes. v8.89 alone on v8.84 + v8.85: `bf5d4279…`. Browser checks are running.
+
 **ANDREW, 8 Oct 2026 ~03:50 AEST: "We need to make sure the maps works off the new master and everything is aligned correctly." Claimed by Claude as v8.93, every map aligned on the 2 Oct master.**
 - **What it fixes.** The page's D001 picture (v8.89) moves the whole sheet 28 px, so its inset, legend and border sit 28 px off their true place, and three inset pins were moved to compensate. The explorer (v8.90) moves only the main plan.
 - **What it does:**
@@ -33,7 +38,7 @@
 
 **FULL RELEASE READY TO UPLOAD: page v8.84 to v8.89 (one build) + Map explorer set v8.87 + v8.90 (one registration), 8 Oct 2026 04:10 AEST.** Author: Andrew Fisher. Andrew approved at 00:20: "Approved and get everything done". The whole thing is in [`v8.89_full_chain_08Oct2026/README.md`](v8.89_full_chain_08Oct2026/README.md).
 - **Page:**
-  - On live v8.83 `88a3584e`: `fe52302cda02d73c4f63ca73943360d66e740b074527b2685e2384ea5d00802c`, 11,256,999 bytes, check PASS.
+  - On live v8.83 `88a3584e`: ~~`fe52302c…`~~ WITHDRAWN (it moved four navigation pins). Corrected: `adc967ab0bcab45c78f952711386e94f3e34eaf8196923206911bdbc0881a113`, 11,257,271 bytes; see the entry at the top.
   - Media manifest `1aa4a3b1ac15…` (1,958 files).
   - It supersedes the separate v8.85 and v8.89 candidates.
 - **Map explorer set:** the v8.87 final files with the v8.90 patch (`machine_code_v887_v890/` and its SHA-256s), plus the v8.90 drawing assets (encrypted archive). The base must be the live `b469a99c`.
@@ -115,7 +120,7 @@
 
 **v8.89 MASTER MAP — READY TO UPLOAD (MEDIA FIRST), 8 Oct 2026 01:00 AEST.** Author: Andrew Fisher. Claude source [`v8.89_master_map_DRAFT/`](v8.89_master_map_DRAFT/README.md). D001-26003-03 issued 2 Oct replaces the 17 Sep master on the page.
 - **What changes:** the D001 sheet picture, its register entry, and the 11 pins the new issue changes:
-  - P45 moves about 85 m west; WC51, WC38 and WC39 move 18, 13 and 9 m; WC10 is new;
+  - P45, WC51, WC38 and WC39 are drawn 85, 18, 13 and 9 m from their navigation pins, which stay where they are (Andrew, 8 Oct: "All navigation pin points are correct"); WC10 is new;
   - WC69 and WC40 now have one tag each; the three inset pins get their new sheet positions;
   - WC32 is not on the 2 Oct issue. Its pin stays, marked, until Andrew decides.
 - **Candidate:** on live v8.83 `88a3584e` with v8.84 and v8.85 chained: `8522cbfd84372ed90e28b93951de656cc4a727ff67e0328fa3305b4dc80fb289`, 11,168,214 bytes. Media manifest `1aa4a3b1ac15…` (1,958 files).

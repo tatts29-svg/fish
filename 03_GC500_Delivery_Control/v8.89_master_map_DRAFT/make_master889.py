@@ -77,13 +77,17 @@ def moved(ref, how_note):
     pt = [round(pt[0], 5), round(pt[1], 5)]
     ll, fit = to_ll(pt, skip=(ref,))
     away = round(metres(v['ll'], ll)) if v.get('ll') else None
-    v.update({'pt': pt, 'll': ll, 'how': 'tag on the unit, master D001 issued 2 Oct' + how_note(away), 'prec': 'unit'})
+    # Andrew, 8 Oct 2026 ~04:00 AEST: "All navigation pin points are correct." A unit that already has a navigation pin keeps
+    # it (ll, so the drive/walk/Earth links, directions and satellite pin are unchanged); only where the drawing prints the
+    # label (pt) and its pictures follow the 2 Oct sheet. A unit new on this issue takes its pin from the drawing.
+    if v.get('ll'): ll = v['ll']
+    v.update({'pt': pt, 'll': ll, 'how': 'tag on the unit, master D001 issued 2 Oct' + how_note(away), 'prec': v.get('prec') or 'unit'})
     v.pop('pts', None)
     imgs = thumbs(pt); v['img'] = imgs; media.extend({'file': s + '.webp', 'sha256': s, 'type': 'image/webp', 'bytes': (OUT / (s + '.webp')).stat().st_size, 'scope': 'view'} for s in imgs)
     changes[ref] = v; notes.append({'ref': ref, 'moved_m': away, 'fit_worst_m': fit, 'pt': pt, 'll': ll})
 for ref in ('P45', 'WC38', 'WC39', 'WC51'):
-    moved(ref, lambda d: '' if d is None else ' (moved about %d m from the 17 Sep issue)' % d)
-moved('WC10', lambda d: ' (new on this issue)')
+    moved(ref, lambda d: '' if d is None else ' (drawn about %d m from its navigation pin, which stays where it is: confirmed by Andrew 8 Oct)' % d)
+moved('WC10', lambda d: ' (new on this issue; navigation pin read off the drawing, not yet checked on site)')
 # the bottom-right inset stayed on the paper while the drawing moved: its tags move 28 px on the picture, not on the ground
 for ref in ('WC81', 'CP1', 'T0265'):
     v = dict(ML[ref]); v['pt'] = [round(v['pt'][0] + SHIFT / W, 5), v['pt'][1]]; changes[ref] = v
