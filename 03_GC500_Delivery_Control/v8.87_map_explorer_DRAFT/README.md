@@ -107,7 +107,72 @@ of these files; its anchors (the master-drawing hash check and the attribution s
 
 ## Results
 
-RESULTS_TABLE
+The headline numbers (phone and laptop, paired runs on the same machine, one browser at a time; the laptop pair was run twice,
+the second time under a lighter load, and the second pair is shown):
+
+- **Fencing on, zooming:** the fencing layer's own paint per frame falls from about 3.7–4.1 ms (p95 8.7) to 0.3–0.6 ms (p95 0.7–0.9);
+  frames over 50 ms from 3–6 to 0–1 of about 200; main-thread time over the gesture down 29–40 %.
+- **Fencing on, panning (phone):** paint per frame 5.3 → 0.7 ms; frames over 50 ms 26 → 0; canvas resizes 40 → 2; main-thread time
+  4,184 → 775 ms. The live files re-sized the canvas 40–58 times in one pan because every slow frame ended the "interaction" and
+  the store flipped back and forth; v8.87 changes size at most once each way, and only after the device is measured slow.
+- **Fencing off, panning (phone):** the live layer still cleared and re-sized its full-screen overlay every frame; v8.87 does not
+  touch it (0 paints), and the pan's worst frame goes from 6.2 s to 133 ms.
+- **Stuck pointer:** reproduced on the live files (the map followed the mouse after a fence tap, one pointer left in the table);
+  gone in v8.87.
+- **Escape with a fence pick:** two presses to leave Fencing → one.
+- **Hidden (another tab for 10 s):** Done polls 2 → 0, frames drawn 0; **idle in Fencing for 10 s:** snapshot builds 2 → 0.
+- No page errors and no write attempted in any run.
+
+### Before and after (headless Chromium, no GPU; `tests/perf887.cjs`; live = the registered v8.64 explorer files, v8.87 = the prepared files; one browser at a time)
+
+| Measure | Laptop live | Laptop v8.87 | Phone live | Phone v8.87 |
+|---|---|---|---|---|
+| Wheel zoom, Fencing off: frame interval (rAF) | mean 25.94 · p95 50.1 · max 166.7 ms | mean 20.9 · p95 33.5 · max 133.3 ms | mean 26.47 · p95 100 · max 250.1 ms | mean 22.08 · p95 50 · max 83.3 ms |
+| Wheel zoom, Fencing off: frames over 50 ms / over 33 ms | 11 / 58 of 185 | 5 / 31 of 193 | 22 / 38 of 255 | 6 / 46 of 203 |
+| Wheel zoom, Fencing off: main-thread task time over the gesture | 4103 ms | 3411 ms | 4558 ms | 3421 ms |
+| Wheel zoom, Fencing off: canvas backing-store resizes | 2 | 2 | 10 | 2 |
+| Drag pan, Fencing off: frame interval (rAF) | mean 17.08 · p95 16.8 · max 66.6 ms | mean 16.9 · p95 16.8 · max 33.3 ms | mean 32.24 · p95 83.4 · max 6166.4 ms | mean 18.4 · p95 16.8 · max 133.4 ms |
+| Drag pan, Fencing off: frames over 50 ms / over 33 ms | 1 / 2 of 162 | 0 / 2 of 140 | 66 / 99 of 872 | 1 / 6 of 125 |
+| Drag pan, Fencing off: main-thread task time over the gesture | 853 ms | 681 ms | 7994 ms | 836 ms |
+| Drag pan, Fencing off: canvas backing-store resizes | 2 | 2 | 58 | 2 |
+| Wheel zoom, Fencing on: frame interval (rAF) | mean 21.11 · p95 33.4 · max 66.8 ms | mean 18.17 · p95 33.3 · max 50.1 ms | mean 21.37 · p95 33.4 · max 283.3 ms | mean 17.05 · p95 16.8 · max 33.4 ms |
+| Wheel zoom, Fencing on: frames over 50 ms / over 33 ms | 3 / 42 of 195 | 1 / 16 of 199 | 6 / 23 of 209 | 0 / 5 of 215 |
+| Wheel zoom, Fencing on: main-thread task time over the gesture | 3132 ms | 2220 ms | 3104 ms | 1871 ms |
+| Wheel zoom, Fencing on: fencing layer paint per frame | mean 3.68 · p95 8.7 · max 24.4 ms, total 588 ms over 160 frames | mean 0.31 · p95 0.7 · max 6.5 ms, total 51.1 ms over 166 frames | mean 4.06 · p95 8.7 · max 16.5 ms, total 665.7 ms over 164 frames | mean 0.59 · p95 0.9 · max 2.5 ms, total 105.6 ms over 180 frames |
+| Wheel zoom, Fencing on: canvas backing-store resizes | 2 | 2 | 2 | 2 |
+| Drag pan, Fencing on: frame interval (rAF) | mean 18.37 · p95 33.4 · max 66.6 ms | mean 18.52 · p95 33.4 · max 50 ms | mean 22.92 · p95 66.7 · max 133.4 ms | mean 17.32 · p95 16.8 · max 49.9 ms |
+| Drag pan, Fencing on: frames over 50 ms / over 33 ms | 1 / 14 of 156 | 0 / 14 of 135 | 26 / 49 of 384 | 0 / 5 of 153 |
+| Drag pan, Fencing on: main-thread task time over the gesture | 1056 ms | 717 ms | 4184 ms | 775 ms |
+| Drag pan, Fencing on: fencing layer paint per frame | mean 3.8 · p95 7 · max 19.6 ms, total 159.8 ms over 42 frames | mean 0.68 · p95 0.8 · max 3.2 ms, total 28.4 ms over 42 frames | mean 5.25 · p95 9.4 · max 19.8 ms, total 325.5 ms over 62 frames | mean 0.7 · p95 1.1 · max 2.8 ms, total 28.9 ms over 41 frames |
+| Drag pan, Fencing on: canvas backing-store resizes | 2 | 2 | 40 | 2 |
+| Tap a fence line, then move the mouse: map follows (stuck pointer) | yes (pointers left 1) | no (pointers left 0) | no (pointers left 1) | no (pointers left 0) |
+| Escape presses to leave Fencing with a pick | 2 | 1 | 2 | 1 |
+| 10 s on another tab: Done polls / fencing snapshots / frames drawn / main-thread ms | 2 / 0 / 0 / 282 | 0 / 0 / 0 / 249 | 2 / 0 / 0 / 172 | 0 / 0 / 0 / 142 |
+| 10 s idle in Fencing on the map: snapshot builds / main-thread ms | 2 / 212 | 0 / 157 | 2 / 174 | 0 / 411 |
+| Page errors / writes attempted | 0 / 0 | 0 / 0 | 0 / 0 | 0 / 0 |
+
+### Checks on the candidate (page `33c6501f…` with the prepared explorer served from `explorer/`)
+
+| Check | Laptop | Phone |
+|---|---|---|
+| New: Map explorer (`test_explorer887.cjs`) | 23/23 | 24/24 |
+| Today layout 876 | 18/18 | 18/18 |
+| Crew 883 | 34/34 | 34/34 |
+| VMS 874 | 18/18 | 18/18 |
+| Finance 866 | 24/24 | 24/24 |
+| Asset 873 | 40/40 | 40/40 |
+| Loading 872 | 26/26 | 26/26 |
+| Unloading 881 | 34/34 | 34/34 |
+| Paired 881 | 18/18 | 18/18 |
+| Handling 875 (known out of date; same on live) | 22/28 | 22/28 |
+| Paired 879 (known out of date; same on live) | 17/18 | 17/18 |
+| 15-tab sweep | 15 tabs, 0 errors, 0 blocked | 15 tabs, 0 errors, 0 blocked |
+| Where we are 885 (2560 / 1600 / 1440 / phone) | 24/24 / 24/24 / 24/24 | 24/24 |
+| Wide layout 884 (2560 / 1600 / 1440 / phone) | 21/21 / 21/21 / 21/21 | 21/21 |
+| v871 / supplier 870 / KINP 869 | 12/12 / 17/17 / 17/17 | — |
+| DATA identity (`test_source875.py`) | PASS all protected source sections and unrelated item/event fields remain identical | |
+| Progress model 881 | 12/12 passed | |
+
 
 ## Not done, and Andrew's calls
 

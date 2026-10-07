@@ -4,47 +4,71 @@
   "device": "laptop",
   "measure": "zoom_fencingOff",
   "raf": {
-   "n": 195,
-   "mean": 61.2,
-   "p50": 33.2,
-   "p95": 266.7,
-   "max": 566.7,
-   "over50": 50,
-   "over33": 100
+   "n": 185,
+   "mean": 25.94,
+   "p50": 16.7,
+   "p95": 50.1,
+   "max": 166.7,
+   "over50": 11,
+   "over33": 58
   },
   "draw": {
-   "n": 132,
-   "mean": 8.4,
-   "p50": 0.7,
-   "p95": 46.3,
-   "max": 122,
-   "over50": 5,
-   "over33": 11
+   "n": 143,
+   "mean": 6.69,
+   "p50": 0.6,
+   "p95": 39.1,
+   "max": 131.7,
+   "over50": 6,
+   "over33": 10
   },
-  "taskMs": 9770
+  "fencePaint": {
+   "n": 144,
+   "mean": 0.05,
+   "p50": 0,
+   "p95": 0.1,
+   "max": 3.3,
+   "over50": 0,
+   "over33": 0
+  },
+  "fencePaintTotalMs": 7.8,
+  "canvasResizes": 2,
+  "light": null,
+  "taskMs": 4103
  },
  {
   "tag": "live",
   "device": "laptop",
   "measure": "pan_fencingOff",
   "raf": {
-   "n": 148,
-   "mean": 19.7,
+   "n": 162,
+   "mean": 17.08,
    "p50": 16.7,
-   "p95": 33.2,
-   "max": 216.6,
-   "over50": 2,
-   "over33": 8
+   "p95": 16.8,
+   "max": 66.6,
+   "over50": 1,
+   "over33": 2
   },
   "draw": {
    "n": 41,
-   "mean": 1,
+   "mean": 0.88,
    "p50": 0.4,
-   "p95": 1.7,
-   "max": 21.2,
+   "p95": 1.1,
+   "max": 17.7,
    "over50": 0,
    "over33": 0
   },
+  "fencePaint": {
+   "n": 42,
+   "mean": 0.09,
+   "p50": 0,
+   "p95": 0.1,
+   "max": 2,
+   "over50": 0,
+   "over33": 0
+  },
+  "fencePaintTotalMs": 3.9,
+  "canvasResizes": 2,
+  "light": null,
   "taskMs": 853
  },
  {
@@ -52,48 +76,72 @@
   "device": "laptop",
   "measure": "zoom_fencingOn",
   "raf": {
-   "n": 126,
-   "mean": 55.4,
-   "p50": 33.3,
-   "p95": 166.6,
-   "max": 1133.2,
-   "over50": 26,
-   "over33": 89
+   "n": 195,
+   "mean": 21.11,
+   "p50": 16.7,
+   "p95": 33.4,
+   "max": 66.8,
+   "over50": 3,
+   "over33": 42
   },
   "draw": {
-   "n": 105,
-   "mean": 4.1,
+   "n": 159,
+   "mean": 2.08,
    "p50": 0.3,
-   "p95": 31.7,
-   "max": 69.4,
-   "over50": 2,
-   "over33": 5
+   "p95": 15.7,
+   "max": 55.5,
+   "over50": 1,
+   "over33": 2
   },
-  "taskMs": 4061
+  "fencePaint": {
+   "n": 160,
+   "mean": 3.68,
+   "p50": 2.6,
+   "p95": 8.7,
+   "max": 24.4,
+   "over50": 0,
+   "over33": 0
+  },
+  "fencePaintTotalMs": 588,
+  "canvasResizes": 2,
+  "light": null,
+  "taskMs": 3132
  },
  {
   "tag": "live",
   "device": "laptop",
   "measure": "pan_fencingOn",
   "raf": {
-   "n": 145,
-   "mean": 21.3,
+   "n": 156,
+   "mean": 18.37,
    "p50": 16.7,
    "p95": 33.4,
-   "max": 200,
-   "over50": 3,
-   "over33": 20
+   "max": 66.6,
+   "over50": 1,
+   "over33": 14
   },
   "draw": {
    "n": 41,
-   "mean": 0.9,
+   "mean": 0.73,
    "p50": 0.3,
-   "p95": 1,
-   "max": 22.2,
+   "p95": 0.7,
+   "max": 17.5,
    "over50": 0,
    "over33": 0
   },
-  "taskMs": 1388
+  "fencePaint": {
+   "n": 42,
+   "mean": 3.8,
+   "p50": 2.7,
+   "p95": 7,
+   "max": 19.6,
+   "over50": 0,
+   "over33": 0
+  },
+  "fencePaintTotalMs": 159.8,
+  "canvasResizes": 2,
+  "light": null,
+  "taskMs": 1056
  },
  {
   "tag": "live",
@@ -117,18 +165,18 @@
   "tag": "live",
   "device": "laptop",
   "measure": "hidden10s",
-  "taskMs": 450,
-  "doneCalls": 5,
+  "taskMs": 282,
+  "doneCalls": 2,
   "snapCalls": 0,
-  "framesDrawn": 1,
+  "framesDrawn": 0,
   "parked": false,
-  "frameLogLen": 378
+  "frameLogLen": 439
  },
  {
   "tag": "live",
   "device": "laptop",
   "measure": "fencingIdle10s",
-  "taskMs": 334,
+  "taskMs": 212,
   "snapCalls": 2
  },
  {

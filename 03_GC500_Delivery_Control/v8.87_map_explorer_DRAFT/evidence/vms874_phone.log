@@ -16,4 +16,4 @@ PASS no horizontal overflow
 PASS guide in Transport
 PASS no runtime errors
 PASS no attempted live writes
-desktop: 18/18
+phone: 18/18
