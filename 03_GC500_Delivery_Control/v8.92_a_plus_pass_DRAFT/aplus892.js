@@ -94,17 +94,18 @@
     its own rule (a tab remembers where you were on it). */
  let keep892 = null;
  if (typeof render === 'function') { const raw = render; W.render = function () {
+  if (keep892) keep892(); /* a new render or tab change retires any earlier restoration */
   if (GO_CHANGED) return raw.apply(this, arguments); /* a change of tab sets its own position (a tab remembers where you were); reading the scroll here would only force a layout of the half-changed page */
-  const m = document.querySelector('main'), y = m ? m.scrollTop : 0;
+  const m = document.querySelector('main'), y = m ? m.scrollTop : 0, tab892 = state.tab, pane892 = document.querySelector('.pane.on');
   const r = raw.apply(this, arguments);
   if (m && !GO_CHANGED && y > 0 && Math.abs(m.scrollTop - y) > 1) {
    m.scrollTop = y;
    /* a pane that fills in behind (the Equipment register draws its rows in batches) is shorter for a few frames, so the
       position is clamped; it is put back as the height returns, for up to 1500 ms or until the person scrolls */
    if (Math.abs(m.scrollTop - y) > 1) { if (keep892) keep892();
-    const until = performance.now() + 1500, evs = ['wheel', 'touchstart', 'pointerdown', 'keydown']; let frame = 0;
+    const until = performance.now() + 1500, evs = ['wheel', 'touchstart', 'pointerdown', 'keydown', 'hashchange', 'popstate', 'pagehide', 'beforeprint', 'resize']; let frame = 0;
     const stop = () => { cancelAnimationFrame(frame); evs.forEach(n => W.removeEventListener(n, stop, true)); if (keep892 === stop) keep892 = null; };
-    const tick = () => { if (performance.now() > until || !m.isConnected) return stop(); if (m.scrollHeight - m.clientHeight >= y) { m.scrollTop = y; if (Math.abs(m.scrollTop - y) <= 1) return stop(); } frame = requestAnimationFrame(tick); };
+    const tick = () => { if (performance.now() > until || !m.isConnected || state.tab !== tab892 || document.querySelector('.pane.on') !== pane892) return stop(); if (m.scrollHeight - m.clientHeight >= y) { m.scrollTop = y; if (Math.abs(m.scrollTop - y) <= 1) return stop(); } frame = requestAnimationFrame(tick); };
     keep892 = stop; evs.forEach(n => W.addEventListener(n, stop, {capture: true, passive: true})); frame = requestAnimationFrame(tick); }
   }
   return r; }; }
