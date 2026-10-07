@@ -1,3 +1,7 @@
+## New presentation release — 7 Oct 2026
+
+Author: Andrew Fisher. **v8.81 CLAIMED by Codex, DRAFT.** Overall centred progress hero, seven subtle equipment-background cards, whole-plate weather/motion, parked Event showcase and permanent unloading options. Today integration waits for Claude v8.80 READY (fresh board faa69ba); independent asset/unloading preparation may proceed. No operational data or financial changes. v8.77/v8.78 ownership handover acknowledged; separate map/Costs scope is not claimed completed here.
+
 ## Current release and ownership — 6 Oct 2026
 
 Author: Andrew Fisher. These current entries supersede the dated status snapshots below.
