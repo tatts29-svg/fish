@@ -4,144 +4,144 @@
   "device": "phone",
   "measure": "zoom_fencingOff",
   "raf": {
-   "n": 216,
-   "mean": 17.28,
+   "n": 223,
+   "mean": 17.41,
    "p50": 16.7,
    "p95": 16.8,
-   "max": 66.5,
-   "over50": 1,
+   "max": 83.4,
+   "over50": 2,
    "over33": 5
   },
   "draw": {
-   "n": 180,
-   "mean": 1.4,
+   "n": 185,
+   "mean": 1.63,
    "p50": 0.5,
-   "p95": 2.2,
-   "max": 72.2,
-   "over50": 1,
+   "p95": 2.3,
+   "max": 70.5,
+   "over50": 2,
    "over33": 2
   },
   "fencePaint": {
-   "n": 181,
-   "mean": 0.03,
+   "n": 186,
+   "mean": 0.04,
    "p50": 0,
    "p95": 0.1,
-   "max": 1.9,
+   "max": 2.5,
    "over50": 0,
    "over33": 0
   },
-  "fencePaintTotalMs": 5.5,
+  "fencePaintTotalMs": 8.1,
   "canvasResizes": 2,
   "light": null,
-  "taskMs": 2110
+  "taskMs": 2494
  },
  {
   "tag": "live",
   "device": "phone",
   "measure": "pan_fencingOff",
   "raf": {
-   "n": 145,
-   "mean": 17.82,
+   "n": 143,
+   "mean": 18.06,
    "p50": 16.7,
    "p95": 16.8,
-   "max": 116.7,
-   "over50": 2,
+   "max": 166.8,
+   "over50": 1,
    "over33": 4
   },
   "draw": {
-   "n": 44,
-   "mean": 3.04,
-   "p50": 0.5,
-   "p95": 16.5,
-   "max": 44.9,
-   "over50": 0,
-   "over33": 1
-  },
-  "fencePaint": {
-   "n": 47,
-   "mean": 0.08,
-   "p50": 0,
-   "p95": 0.1,
-   "max": 1.9,
+   "n": 41,
+   "mean": 3.29,
+   "p50": 0.6,
+   "p95": 23.7,
+   "max": 30.5,
    "over50": 0,
    "over33": 0
   },
-  "fencePaintTotalMs": 3.8,
+  "fencePaint": {
+   "n": 43,
+   "mean": 0.1,
+   "p50": 0,
+   "p95": 0.1,
+   "max": 2.6,
+   "over50": 0,
+   "over33": 0
+  },
+  "fencePaintTotalMs": 4.5,
   "canvasResizes": 2,
   "light": null,
-  "taskMs": 954
+  "taskMs": 920
  },
  {
   "tag": "live",
   "device": "phone",
   "measure": "zoom_fencingOn",
   "raf": {
-   "n": 205,
-   "mean": 17.15,
+   "n": 203,
+   "mean": 17.65,
    "p50": 16.7,
    "p95": 16.8,
-   "max": 50.1,
+   "max": 66.6,
    "over50": 1,
-   "over33": 5
+   "over33": 9
   },
   "draw": {
-   "n": 170,
-   "mean": 0.93,
-   "p50": 0.3,
-   "p95": 0.9,
-   "max": 35,
-   "over50": 0,
-   "over33": 2
-  },
-  "fencePaint": {
    "n": 171,
-   "mean": 4,
-   "p50": 4.1,
-   "p95": 6.6,
-   "max": 8.8,
+   "mean": 0.82,
+   "p50": 0.3,
+   "p95": 1.1,
+   "max": 28.7,
    "over50": 0,
    "over33": 0
   },
-  "fencePaintTotalMs": 684.6,
+  "fencePaint": {
+   "n": 172,
+   "mean": 3.75,
+   "p50": 3.3,
+   "p95": 6.8,
+   "max": 10.3,
+   "over50": 0,
+   "over33": 0
+  },
+  "fencePaintTotalMs": 645.8,
   "canvasResizes": 2,
   "light": null,
-  "taskMs": 2459
+  "taskMs": 2574
  },
  {
   "tag": "live",
   "device": "phone",
   "measure": "pan_fencingOn",
   "raf": {
-   "n": 150,
-   "mean": 17.22,
+   "n": 154,
+   "mean": 17.31,
    "p50": 16.7,
    "p95": 16.8,
-   "max": 50.1,
-   "over50": 1,
-   "over33": 4
+   "max": 49.9,
+   "over50": 0,
+   "over33": 5
   },
   "draw": {
    "n": 40,
-   "mean": 3.22,
-   "p50": 0.5,
-   "p95": 27.3,
-   "max": 34.9,
-   "over50": 0,
-   "over33": 1
-  },
-  "fencePaint": {
-   "n": 41,
-   "mean": 3.86,
-   "p50": 2.9,
-   "p95": 5.8,
-   "max": 9.6,
+   "mean": 2.96,
+   "p50": 0.4,
+   "p95": 25.7,
+   "max": 28.2,
    "over50": 0,
    "over33": 0
   },
-  "fencePaintTotalMs": 158.4,
+  "fencePaint": {
+   "n": 41,
+   "mean": 3.27,
+   "p50": 2.8,
+   "p95": 5.3,
+   "max": 6.6,
+   "over50": 0,
+   "over33": 0
+  },
+  "fencePaintTotalMs": 134.1,
   "canvasResizes": 2,
   "light": null,
-  "taskMs": 902
+  "taskMs": 815
  },
  {
   "tag": "live",
@@ -165,18 +165,18 @@
   "tag": "live",
   "device": "phone",
   "measure": "hidden10s",
-  "taskMs": 207,
+  "taskMs": 286,
   "doneCalls": 3,
   "snapCalls": 0,
   "framesDrawn": 0,
   "parked": false,
-  "frameLogLen": 496
+  "frameLogLen": 494
  },
  {
   "tag": "live",
   "device": "phone",
   "measure": "fencingIdle10s",
-  "taskMs": 200,
+  "taskMs": 257,
   "snapCalls": 2
  },
  {

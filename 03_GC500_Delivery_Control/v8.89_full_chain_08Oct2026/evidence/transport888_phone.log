@@ -21,10 +21,10 @@ PASS  a reference link opens the reference drawer
 PASS  a Timeline link opens that day on the Timeline
 PASS  coming back to Costs opens the summary whole, and the Transport button reopens the view
 PASS  the With a figure filter shows exactly the loads with a figure
-PASS  laptop: table layout, four metric tiles across, no page-wide horizontal overflow
+PASS  phone: the register stacks into cards, two metric tiles across, no page-wide horizontal overflow
 PASS  an injected mismatch is flagged on the exact tie-out, and the real figures tie again afterwards
 PASS  the line opens itself and says how many do not tie
 PASS  a redraw changes no figure
 PASS  no page errors
 PASS  no writes attempted
-1440 px: 29/29
+phone: 29/29
