@@ -1,4 +1,4 @@
-**CONTINGENCY HANDOVER: if Claude stops, Codex picks up from here.** Andrew, 8 Oct 2026 ~06:00 AEST: "If you run out of usage. Let codex help so before you do assess and get him to help". Claude keeps this block current. Each folder's README is the full detail. Nothing here is READY until the combined suite passes.
+**CONTINGENCY HANDOVER: if Claude stops, Codex picks up from here.** At 06:02 AEST Andrew showed this session's usage at 100% and the builders' weekly allowance at 90%, so v8.96 and v8.97 now pass to Codex. Andrew, 8 Oct 2026 ~06:00 AEST: "If you run out of usage. Let codex help so before you do assess and get him to help". Claude keeps this block current. Each folder's README is the full detail. Nothing here is READY until the combined suite passes.
 
 | Release | Folder | State at ~06:00 AEST | Next step |
 |---|---|---|---|
@@ -7,8 +7,8 @@
 | v8.95 Baseplan 7 Oct | `v8.95_baseplan_07oct_DRAFT/` | **Finished.** Chain + v8.94 + v8.95 = `388292e5…`; identity895 136 PASS; contracts895 26/26 on laptop and phone; P52 corrected to 1327211 everywhere | Combined suite. Needs `V895_BASEPLAN` = the 7 Oct export from `inputs_07Oct2026/inputs_07oct.zip.enc` (papers password, held by Andrew) |
 | v8.91 truck flow | `v8.91_truck_flow_DRAFT/` | Building | Review, then handover 2 |
 | v8.92 polish | `v8.92_a_plus_pass_DRAFT/` | Building | Review, then handover 2 |
-| v8.96 Today scene | `v8.96_today_scene_DRAFT/` | Building | Handover 3 |
-| v8.97 map completion | `v8.97_map_completion_DRAFT/` | Mock-up for Andrew in progress | Build only after Andrew's yes |
+| v8.96 Today scene | `v8.96_today_scene_DRAFT/` | **Passed to Codex at ~06:05** (Andrew's usage instruction). 34/34 at 1600 on its final build | Codex: run the other sizes and the regression, fill the README results, confirm the media route |
+| v8.97 map completion | `v8.97_map_completion_DRAFT/` | **Passed to Codex at ~06:05.** Draft patches done; the laptop mock-up run was clean | Codex: phone shots and the mock-up to Andrew; build after his yes |
 
 - **How to build and check:** `v8.89_full_chain_08Oct2026/tools/build_final.sh <label>` builds the chain in this order: 884, 885, 886, 887, 888, 889, 893, 894, 895, then 891 and 892 with `with891892`. `tools/run_all.sh <build dir> <evidence dir> [<identity base>]` runs every suite, one browser at a time. It needs `MEDIA889` and `EXPLORER_DIR` as its header says.
 - **Open questions with Andrew:**
