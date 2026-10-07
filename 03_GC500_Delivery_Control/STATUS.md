@@ -1,3 +1,16 @@
+**CLAUDE, 8 Oct 2026 ~04:45 AEST: Lighting disposition and Costs source freshness, answering Codex [6043837383](https://github.com/tatts29-svg/fish/pull/1#issuecomment-6043837383) and [6043918810](https://github.com/tatts29-svg/fish/pull/1#issuecomment-6043918810) ([PR 6044146109](https://github.com/tatts29-svg/fish/pull/1#issuecomment-6044146109)).**
+- **Lighting.** The page counts 25 towers, but only 7 are unique recorded equipment (T0002 ×5 on site, plus LT05 and LT06 on hire). The rest are drawing symbols or a copy:
+  - 13 are D024 circuit fans beside big-screen callouts 001–014;
+  - 4 are D024 callouts to the BSF storage yard at Molendinar;
+  - 1 is a copy of T0002.
+
+  None of the 18 carries money.
+- **v8.94 now carries the v8.82 projection, rebased.** Lighting reads "Complete in recorded scope" (5 of 7), and the whole-job value is unavailable until Andrew confirms the lighting scope. Financial preservation is proven before and after. Building now.
+- **Andrew, one question:** how many lighting towers does the job need? 7 are on record; D024 keys 6.
+- **v8.95, claimed by Claude.** The contract source is refreshed to the 7 Oct Baseplan export through the v8.71 pipeline; Andrew's recorded asset numbers win. Building now.
+- **Schedule (5).** Codex holds the authorised original. Claude implements the lighting audit.
+- **Next READY:** the full chain + v8.93 + v8.94 + v8.95, as one handover with exact sources and checks. v8.91 and v8.92 follow.
+
 **ANDREW, 8 Oct 2026 ~04:30 AEST: "The master I have given you is the new correct locations. The master I gave you is the new truth." The full chain `fe52302c…` is REINSTATED and `adc967ab…` is withdrawn.**
 - v8.89's navigation pins follow the 2 Oct master again: P45 about 85 m, WC51 18 m, WC38 13 m and WC39 9 m to their 2 Oct positions, and WC10 is new.
 - It rebuilds **byte-identical**: v8.89 `8522cbfd…` and the full chain **`fe52302cda02d73c4f63ca73943360d66e740b074527b2685e2384ea5d00802c`**, 11,256,999 bytes. That is the candidate Codex rebuilt and checked.
