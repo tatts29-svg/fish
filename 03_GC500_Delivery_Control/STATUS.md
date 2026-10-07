@@ -2,6 +2,21 @@
 
 Author: Andrew Fisher. These current entries supersede the dated status snapshots below.
 
+**v8.75 — CLAIMED by Codex, 7 Oct 2026.** Author: Andrew Fisher. Schedule source refresh preserving recorded allocations/completion, and permanent reference lifting requirements shared with run sheets. Base live v8.74 `918abc9a`; fresh Claude branch `c53a26d8` and readback6029923542 reviewed; no competing claim. Codex implementation/testing/publication. DRAFT, not LIVE.
+
+**v8.74 — VERIFIED LIVE by both agents, 7 Oct 2026 (~13:20 AEST).** Author: Andrew Fisher. Claude's public GET is `918abc9a1234210c5fd48c8896ffe48101a6ff158ae0eadc8a94380009707e13`, 11,102,947 bytes, identical to Codex's hash. Against the public bytes:
+- VMS Today 18/18, v8.73 asset/loading 40/40, v8.72 loading/print 26/26, Finance 24/24, all on laptop and phone.
+- Earlier releases still pass: v871 12/12, supplier 17/17, KINP 17/17.
+- Sweeps: 15 tabs, 0 errors, 0 blocked writes, both widths.
+
+Codex branch merged. Logs: `v8.74_vms_today_LIVE/evidence/claude_readback/`.
+
+**v8.74 — LIVE, 7 Oct 2026 13:04 AEST.** Author: Andrew Fisher. Source/READY `7e149c9d`; exact public SHA-256 `918abc9a1234210c5fd48c8896ffe48101a6ff158ae0eadc8a94380009707e13`, 11,102,947 bytes. Guarded publication verified exact public bytes; actual-public functional readback running. Candidate VMS/ownership checks, Finance24/24 both widths, both21-route/seven-link/Back sweeps and preservation1366/390 pass. Codex owner; Claude independent readback pending. [Release](v8.74_vms_today_LIVE/README.md).
+
+**v8.74 — READY for guarded publication, 7 Oct 2026.** Author: Andrew Fisher. Codex owner. Base v8.73 `7921eeb4`; candidate SHA-256 `918abc9a1234210c5fd48c8896ffe48101a6ff158ae0eadc8a94380009707e13`, 11,102,947 bytes. VMS/native scope and Documents checks pass desktop/phone; Finance24/24 both, both21-route/seven-link/Back sweeps and preservation1366/390 pass. Phone inspected. No record edits or backend changes. READY is not LIVE.
+
+**v8.74 — CLAIMED by Codex, 7 Oct 2026.** Author: Andrew Fisher. Separate Today VMS progress card using native scope and completion, with per-type details and plan position. Base v8.73 `7921eeb4`; Claude board `d393d713` checked, no competing claim. Codex implementation/testing/publication. DRAFT, not LIVE.
+
 **v8.73 — VERIFIED LIVE by both agents, 7 Oct 2026 (~13:00 AEST).** Author: Andrew Fisher. Claude's public GET is `7921eeb4e061198d0919f44ea5cec9e24a2d35c61b7a4f157f6b441ca2762fa7`, 11,102,652 bytes, identical to Codex's hash. Against the public bytes:
 - asset/loading 40/40, v8.72 loading/print 26/26, Finance 24/24, all on laptop and phone.
 - Earlier releases still pass: v871 12/12, supplier 17/17, KINP 17/17.
@@ -85,6 +100,11 @@ Codex branch merged. Baseplan fix list for the branches is with Andrew (outside 
 - Checks: v871 12/12 laptop and phone; supplier 17/17 laptop and phone; KINP 17/17; Finance 24/24 laptop and phone; sweeps 15 tabs, 0 errors, 0 blocked.
 
 **Codex to publish.** [Release](v8.71_baseplan_schedule4_DRAFT/README.md).
+
+**SYNC 13:06 AEST 7 Oct (Claude):** live page v8.74 `918abc9a` (VMS progress box on Today), independently read back. Codex claimed **v8.75** (schedule refresh and lifting requirements). Record 4239 → 4322 (Andrew and Andrew via Codex):
+- **WC20** is now two sets: toilet blocks 1311341 and 1327225, waste tanks 1327228 and 1328982. Steps on; loading sides set.
+- Loading sides set: P52, P54, P55, P56 passenger; T0258 and WC86 not applicable.
+- **Andrew asked (13:15):** (1) Event Portables delivery days are not on the page. It still uses schedule dates for loads 1–4, so WC38, WC39, WC40 and WC61 show today rather than Fri 9 Oct. (2) WC09's two 6 m toilet blocks tomorrow need a door side each. They share one now because they have no numbers. Both relayed to Codex for v8.75 ([comment](https://github.com/tatts29-svg/fish/pull/1#issuecomment-6030181757)). Only the Event Portables items move; WC09's Coates blocks stay Thu 8 Oct.
 
 **SYNC 12:06 AEST 7 Oct (Claude):** live page still v8.71 `218cdafb`. Codex claimed **v8.72** (`55736a6`: Timeline known-asset identifiers, toilet door-side loading choice, print-to-transit check), merged here, no competing claim. Claude reads back after Codex publishes. Record 4214 → 4239 (Andrew, 11:21–11:23 AEST): **WC20 on site, levelled and done**, so Helen Park is complete.
 - WC20 number: Andrew kept **1327228**. He removed 1311341 ("a wrong number, never on the job") and removed **1327225**.
