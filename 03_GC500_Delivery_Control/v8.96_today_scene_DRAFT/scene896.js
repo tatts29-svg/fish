@@ -53,7 +53,7 @@ const Scene896 = (() => {
  const sky = () => '<div class="s896-sky" data-kind="unknown" aria-hidden="true"><i class="s896-yard"></i><i class="s896-glow"></i><i class="s896-shaft"></i>'
   + '<i class="s896-cloud s896-c1"></i><i class="s896-cloud s896-c2"></i><i class="s896-cloud s896-c3"></i><i class="s896-mist"></i><i class="s896-mist s896-mist2"></i>'
   + '<i class="s896-rain s896-r1"></i><i class="s896-rain s896-r2"></i><i class="s896-sleet s896-s1"></i><i class="s896-sleet s896-s2"></i><i class="s896-flash"></i>'
-  + '<svg class="s896-bolt" viewBox="0 0 200 400" aria-hidden="true" focusable="false"><path d="M130 4L44 173L98 158L60 276L150 118L103 132L161 4" fill="#e9f8ff"/></svg></div>';
+  + '<svg class="s896-bolt" viewBox="0 0 200 400" aria-hidden="true" focusable="false"><path d="M130 4L44 173L98 158L60 276L150 118L103 132L161 4" fill="#e9f8ff"/></svg><i class="s896-shield"></i></div>';
  function weather() {
   const g = gauge(); if (!g) return;
   const day = fn('todayWorkDay841') ? todayWorkDay841() : (fn('todayIso') ? todayIso() : '');
@@ -113,7 +113,7 @@ const Scene896 = (() => {
   io.disconnect(); visible = inView(g); io.observe(g);
  }
  function sync() {
-  const g = gauge(); if (!g) return;
+  const g = gauge(); if (!g) { visible = false; return; }
   g.classList.toggle('s896-run', !still() && !printing && !paused() && visible && !document.hidden && state.tab === 'today' && !modal());
  }
  function mount() {

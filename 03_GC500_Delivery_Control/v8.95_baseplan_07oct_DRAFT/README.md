@@ -62,8 +62,9 @@ Measured on the live record (version 4370) with the chain through v8.94 as the b
 | **Finance handover** | Costs by branch: same, every branch. Invoice by branch: **NVAC on the record up 4.71%, to job end up 4.00%**; KINP, STPS, MEAD, the event labour scope and provisional transport: same. Its checks (costs, invoice, people) hold |
 | **Transport view (v8.88)** | every figure same: to date, still to come, by branch, by carrier, the 132 loads, Transport Revenue, provisional revenue, demob. All **17 tie-outs tied** before and after |
 | **The two joins from Andrew's record (P37, P52)** | **no money effect at all**: the candidate with those joins and the one without agree on every figure the models give (contract charges, by branch, Costs to job end, the handover, the business's lines, Transport) — both are whole-event building lines whose charge does not depend on their join |
+| **The P52 register correction** | **no money effect at all**: the candidate before and after the correction agree on every figure the models give; a reference's number is never a charge |
 
-Why the money moves only on NVAC: the export adds two lines with no rate, and the page charges them from the card as an estimate. Every other change is a status, a date, a docket, an asset number or a join on a line whose charge does not depend on them.
+Why the money moves only on NVAC: the export adds two lines with no rate, and the page charges them from the card as an estimate. Every other change is a status, a date, a docket, an asset number, a join or a register number whose charge does not depend on them.
 
 ## Andrew's matches win
 
@@ -122,20 +123,22 @@ toolchain/build.sh v8.95 v8.84_today_wide_layout_DRAFT/patch_v884.py v8.85_where
 
 ## Checks on the candidate (every write aborted, fresh cache each run, one browser at a time)
 
-`tests/test_contracts895.cjs` (24 checks) reads: the contracts are the 7 Oct export (323 lines, 11 contracts, the v8.95 supplement bound by SHA-256); the two new NVAC lines are on the page, Pending, no rate, joined to GN?; a Pending line is off hire and the generators are charged at the card's 200 kVA line once for the three event days; the two are a small share of NVAC and of the contracts; WC07's 20 lines are Delivered from 22 Sep with their numbers; Andrew's numbers win (19 join, line 38 does not, the page shows his 20 with 1317743 and never 1317643, WC07 on hire from 22 Sep by the rental system); the toilet charge did not move; P56 on hire from 7 Oct; the three Del Req lines join WC31 and WC09 by docket and are not on hire; the forklift line reads Forklift 3.5t Diesel and still goes by the day rate; no contract line contradicts his record; **his record's two joins: 9968862/50 to P37 (on hire from 17 Sep), 9968862/79 to P52 beside its docket line, both whole-event with no card fill**; every Pending line is off hire; all 17 tie-outs tied; the P&L and the Finance handover's checks hold; Revenue on the record and to job end, Transport to date, to come and Transport Revenue read the same wherever shown; the branches add to the contracts charge; the Costs tab names the 7 Oct export; WC07's drawer shows Rental 9968955 and his numbers; no overflow; a redraw changes no figure; no errors; no writes.
+`tests/test_contracts895.cjs` (26 checks) reads: the contracts are the 7 Oct export (323 lines, 11 contracts, the v8.95 supplement bound by SHA-256); the two new NVAC lines are on the page, Pending, no rate, joined to GN?; a Pending line is off hire and the generators are charged at the card's 200 kVA line once for the three event days; the two are a small share of NVAC and of the contracts; WC07's 20 lines are Delivered from 22 Sep with their numbers; Andrew's numbers win (19 join, line 38 does not, the page shows his 20 with 1317743 and never 1317643, WC07 on hire from 22 Sep by the rental system); the toilet charge did not move; P56 on hire from 7 Oct; the three Del Req lines join WC31 and WC09 by docket and are not on hire; the forklift line reads Forklift 3.5t Diesel and still goes by the day rate; no contract line contradicts his record; **his record's two joins: 9968862/50 to P37 (on hire from 17 Sep), 9968862/79 to P52 beside its docket line, both whole-event with no card fill**; **P52 shows 1327211 everywhere — register, booking, as-supplied row, its contract line, the page's own number list and its drawer — and the wrong digits nowhere in DATA or on the page**; every Pending line is off hire; all 17 tie-outs tied; the P&L and the Finance handover's checks hold; Revenue on the record and to job end, Transport to date, to come and Transport Revenue read the same wherever shown; the branches add to the contracts charge; the Costs tab names the 7 Oct export; WC07's drawer shows Rental 9968955 and his numbers; no overflow; a redraw changes no figure; no errors; no writes.
 
-**Re-run on the candidate `37f9af68…`** (`evidence/rerun895.log`):
+**Re-run on the candidate `8e1a17cf…`** (`evidence/rerun895.log`, second block):
 
 | Check | Laptop | Phone | Other |
 |---|---|---|---|
-| v8.95 identity (`identity895`, chain through v8.94 → candidate) | PASS (132 checks) | — | the 6 Oct rebuild proof PASS on the chain and on live (10 checks each) |
-| v8.95 contracts (`contracts895`, new) | 24/24 | 24/24 | |
-| v8.66 Finance handover (`finance866`) | 24/24 | 24/24 | |
-| v8.65 Costs (`costs865`) | 33/33 | 33/33 | |
-| v8.88 Transport view (`transport888`) | 29/29 | 29/29 | 29/29 at 2560 px |
-| v8.71 (`test_v871`) | 11/12 | — | its first check still asks for the 6 Oct export, which v8.95 supersedes; every other check passes |
+| v8.95 identity (`identity895`, chain through v8.94 → candidate) | PASS (136 checks) | — | the 6 Oct rebuild proof PASS on the chain and on live (10 checks each) |
+| v8.95 contracts (`contracts895`, new) | 26/26 | 26/26 | |
+| v8.66 Finance handover (`finance866`) | 24/24 | — | 24/24 on phone on `37f9af68…` |
+| v8.65 Costs (`costs865`) | 33/33 | — | 33/33 on phone on `37f9af68…` |
+| v8.88 Transport view (`transport888`) | 29/29 | — | 29/29 on phone and at 2560 px on `37f9af68…` |
+| v8.71 (`test_v871`) | 11/12 on `37f9af68…` | — | its first check still asks for the 6 Oct export, which v8.95 supersedes; every other check passes |
 
-**The standing regression, run on the previous candidate `82e09276…`** (`evidence/run_all895.log`; it differs from `37f9af68…` only in the two record joins, which move no figure):
+`37f9af68…` is this page before the P52 correction, which moves no figure and no line (`evidence/rerun895.log`, first block).
+
+**The standing regression, run on the earlier candidate `82e09276…`** (`evidence/run_all895.log`; it differs from `8e1a17cf…` only in the two record joins and the P52 correction, which move no figure):
 
 | Check | Laptop | Phone | Other |
 |---|---|---|---|

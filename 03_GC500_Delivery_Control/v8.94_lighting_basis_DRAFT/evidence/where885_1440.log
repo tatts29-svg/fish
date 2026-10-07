@@ -1,8 +1,8 @@
 PASS card sits directly above the group cards
 PASS programme panel moved inside, once
 PASS programme controls kept (10 week buttons, rail, Where we are link)
-PASS whole job matches the seven group records (53.86 = 53.86)
-PASS lights match the 20% steps (2 lit)
+PASS whole job matches the seven group records (60.53 = 60.53)
+PASS lights match the 20% steps (3 lit)
 PASS lights describe the reading for screen readers
 PASS each group reading matches its card
 PASS lights are much larger than the group lights (75 vs 44 px)
@@ -17,7 +17,7 @@ PASS redraw keeps scroll position
 PASS redraw keeps focus on the card control
 PASS redraw does not replay or duplicate the card
 PASS redraw does not change data or money
-PASS selected day drives the figure, labelled "As of" (47.95)
+PASS selected day drives the figure, labelled "As of" (54.61)
 PASS reduced motion shows the final figure without motion
 PASS print keeps the figure and drops the lights and control
 PASS no runtime errors

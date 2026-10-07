@@ -8,8 +8,8 @@
 #where885 .s896-sky {position:absolute;inset:0;z-index:-1;overflow:hidden;border-radius:inherit;pointer-events:none;}
 #where885 .s896-sky > * {position:absolute;display:none;}
 /* the middle of the plate keeps the plate's own dark, whatever the sky does, so the figure, its caption and its notes keep their
-   contrast; the weather plays around them */
-#where885 .s896-sky::after {content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 64% at 50% 58%,#07171c 0%,#07171cf2 40%,#07171c00 76%);}
+   contrast; the weather plays around them. The shield is the last layer, over every other */
+#where885 .s896-shield {display:block;inset:0;background:radial-gradient(ellipse 58% 62% at 50% 58%,#07171c 0%,#07171cf4 42%,#07171c00 78%);}
 
 /* the yard: the rendered equipment picture as the ground, faint, fading up into the sky */
 #where885 .s896-yard {display:block;left:0;right:0;bottom:0;height:58%;background:50% 100% / cover no-repeat;opacity:.13;
@@ -26,17 +26,17 @@
 /* mist and fog: two bands of haze sliding past each other */
 #where885 .s896-mist {inset:0 -20%;background:repeating-linear-gradient(180deg,#d7ece300 0 14%,#d7ece324 20% 27%,#d7ece300 33% 50%);animation:s896-mist 24s ease-in-out infinite alternate;}
 #where885 .s896-mist2 {inset:8% -20% -8%;background:repeating-linear-gradient(180deg,#d7ece300 0 22%,#d7ece31c 28% 34%,#d7ece300 40% 50%);animation:s896-mist 31s ease-in-out infinite alternate-reverse;}
-/* rain: two sheets of short streaks, near and far, falling on a 12 degree slant; the travel is a whole number of streak rows,
-   so the loop never jumps */
+/* rain: two sheets of thin short streaks (one narrow ellipse per tile), near and far, falling on a 12 degree slant; the travel is
+   a whole number of tile rows, so the loop never jumps */
 #where885 .s896-rain {inset:-320px -40% -40%;transform:rotate(12deg);background-repeat:repeat;}
-#where885 .s896-r1 {background-image:linear-gradient(180deg,#cfe6f500 0 62%,#cfe6f54d 76% 100%);background-size:22px 48px;opacity:.55;animation:s896-rain 1.3s linear infinite;}
-#where885 .s896-r2 {background-image:linear-gradient(180deg,#cfe6f500 0 60%,#cfe6f538 74% 100%);background-size:16px 40px;opacity:.4;animation:s896-rain 1.9s -.7s linear infinite;}
-#where885 .s896-sky:is([data-kind=pour],[data-kind=storm]) .s896-r1 {opacity:.7;animation-duration:.95s;}
-#where885 .s896-sky:is([data-kind=pour],[data-kind=storm]) .s896-r2 {opacity:.5;animation-duration:1.4s;}
+#where885 .s896-r1 {background-image:radial-gradient(1.1px 11px at 50% 62%,#cfe6f5 0 55%,#cfe6f500 100%);background-size:22px 48px;opacity:.5;animation:s896-rain 1.3s linear infinite;}
+#where885 .s896-r2 {background-image:radial-gradient(.9px 8px at 40% 55%,#cfe6f5 0 55%,#cfe6f500 100%);background-size:16px 40px;opacity:.32;animation:s896-rain 1.9s -.7s linear infinite;}
+#where885 .s896-sky:is([data-kind=pour],[data-kind=storm]) .s896-r1 {opacity:.65;animation-duration:.95s;}
+#where885 .s896-sky:is([data-kind=pour],[data-kind=storm]) .s896-r2 {opacity:.45;animation-duration:1.4s;}
 #where885 .s896-sky:is([data-kind=pour],[data-kind=storm]) .s896-cloud {background:radial-gradient(closest-side,#8fa6b0 0%,#8fa6b0d0 30%,#8fa6b060 62%,#8fa6b000 100%);opacity:.16;}
 #where885 .s896-sky[data-kind=storm] .s896-cloud {background:radial-gradient(closest-side,#7d929c 0%,#7d929cd0 30%,#7d929c60 62%,#7d929c00 100%);}
 /* storm: a bolt in the top corner now and then, and the briefest brightening of the whole sky with it */
-#where885 .s896-bolt {top:-4%;right:9%;width:min(22%,180px);height:60%;opacity:0;filter:drop-shadow(0 0 6px #98d8fc);animation:s896-bolt 13s 4s linear infinite;}
+#where885 .s896-bolt {top:24%;right:1%;width:min(18%,150px);height:56%;opacity:0;filter:drop-shadow(0 0 6px #98d8fc);animation:s896-bolt 13s 4s linear infinite;}
 #where885 .s896-flash {inset:0;background:#9fc8e0;opacity:0;animation:s896-flash 13s 4s linear infinite;}
 /* sleet and snow: two depths of flakes, drifting as they fall */
 #where885 .s896-sleet {inset:-200px -20% -20%;background-image:radial-gradient(circle,#e4f1f5 0 1.3px,#e4f1f500 2px);background-size:20px 20px;opacity:.45;animation:s896-sleet 6.5s linear infinite;}

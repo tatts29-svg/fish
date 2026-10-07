@@ -1,4 +1,14 @@
-candidate 37f9af68c2fe88be 11266360 bytes
+# second re-run, after the P52 correction (candidate 8e1a17cf...)
+candidate 8e1a17cf051fcff6 11266843 bytes
+contracts895_laptop exit 0 desktop: 26/26 pass
+contracts895_phone exit 0 phone: 26/26 pass
+finance866_laptop exit 0 pass 24 fail 0 24/24
+costs865_laptop exit 0 pass 33 fail 0 33/33
+transport888_laptop exit 0 1440 px: 29/29
+  redacted dollar figures in costs865_laptop.log
+DONE
+
+# first re-run, after the two record joins (candidate 37f9af68...)
 contracts895_laptop exit 0 desktop: 24/24 pass
 finance866_laptop exit 0 pass 24 fail 0 24/24
 costs865_laptop exit 0 pass 33 fail 0 33/33

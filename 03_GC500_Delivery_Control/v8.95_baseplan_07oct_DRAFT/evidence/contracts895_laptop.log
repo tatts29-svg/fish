@@ -10,6 +10,7 @@ PASS  the three Del Req lines carry their dockets and join WC31 and WC09 by them
 PASS  the NVAC forklift line (9961976/27) now reads Forklift 3.5t Diesel and still goes by the card's day rate
 PASS  no contract line joins a reference that contradicts a number on Andrew's record (28 references with typed numbers)
 PASS  Andrew's record joins two more lines under his rule: 9968862/50 (1105053) to P37, on hire from 17 Sep by the rental system; 9968862/79 (1327211) to P52 beside its docket line; both charged once (whole event), no card fill
+PASS  P52 shows 1327211 everywhere (register, booking, as-supplied, its contract line, the page's numbers) and never 13227211 (Andrew, 8 Oct 2026: "1327211 is correct")
 PASS  every Pending line is off hire (v8.71's rule): none has a start date or is delivered (130 Pending lines)
 PASS  Everything reconciles: all 17 tie-outs tied
 PASS  the P&L reconciles (revenue, costs, job end) and the Finance handover's checks hold (costs, invoice, people)
@@ -18,8 +19,9 @@ PASS  Transport to date, still to come and Transport Revenue read the same on th
 PASS  the branches' contract revenue (By branch) adds to the P&L's contracts charge, and their charge lines to Transport Revenue
 PASS  the Costs tab names the 7 Oct export and no longer the 6 Oct one; no phone number; the author line stands
 PASS  WC07's drawer opens on Equipment: on site since 22 Sep, Rental 9968955, his 20 asset numbers with 1317743, and never 1317643
+PASS  P52's drawer names 1327211 and never 13227211
 PASS  laptop: no page-wide horizontal overflow on Costs or Equipment
 PASS  a redraw changes no figure
 PASS  no page errors
 PASS  no writes attempted
-desktop: 24/24 pass
+desktop: 26/26 pass
