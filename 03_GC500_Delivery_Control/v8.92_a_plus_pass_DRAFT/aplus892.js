@@ -75,6 +75,7 @@
     its own rule (a tab remembers where you were on it). */
  let keep892 = null;
  if (typeof render === 'function') { const raw = render; W.render = function () {
+  if (GO_CHANGED) return raw.apply(this, arguments); /* a change of tab sets its own position (a tab remembers where you were); reading the scroll here would only force a layout of the half-changed page */
   const m = document.querySelector('main'), y = m ? m.scrollTop : 0;
   const r = raw.apply(this, arguments);
   if (m && !GO_CHANGED && y > 0 && Math.abs(m.scrollTop - y) > 1) {
