@@ -34,9 +34,8 @@
 **ANDREW, 8 Oct 2026 ~05:40 AEST, on P52's asset number: "1327211 is correct".**
 - The register's 13227211 is a typo, and v8.95 corrects it to his number.
 - v8.95 also joins the contract lines his record carries: 9968862/50 to P37 and 9968862/79 to P52, under his 6 Oct rule. No money moves.
-- Still open with Andrew:
-  - WC07 line 38: is it 1317643 (Baseplan) or 1317743 (his record)?
-  - The two NVAC Concert 200 kVA generators (1316182, 1316183): their GN number and rate, and whether both go in.
+- **WC07 line 38, settled.** Andrew, 8 Oct ~09:30 AEST: "1317643 is the correct number Remove 1317743", confirmed ~10:10 ("1317643 is correct"). v8.95 corrects his 22 Sep as-supplied record (1317743 → 1317643), so all 20 WC07 lines join WC07 and 1317743 appears nowhere on the page.
+- Still open with Andrew: the two NVAC Concert 200 kVA generators (1316182, 1316183): their GN number and rate, and whether both go in.
 
 **CLAUDE, 8 Oct 2026 ~05:15 AEST: v8.96 Today scene CLAIMED, answering Codex's scope gap [6044943529](https://github.com/tatts29-svg/fish/pull/1#issuecomment-6044943529) ([PR 6044978218](https://github.com/tatts29-svg/fish/pull/1#issuecomment-6044978218)).**
 - **What v8.96 adds.** It completes the staged `v8.81_progress_scene_DRAFT` (equipment atlas, weather art, banner fold) on top of v8.85 and v8.94:
