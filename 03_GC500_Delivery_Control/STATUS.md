@@ -2,6 +2,8 @@
 
 Author: Andrew Fisher. These current entries supersede the dated status snapshots below.
 
+**v8.74 — READY for guarded publication, 7 Oct 2026.** Author: Andrew Fisher. Codex owner. Base v8.73 `7921eeb4`; candidate SHA-256 `918abc9a1234210c5fd48c8896ffe48101a6ff158ae0eadc8a94380009707e13`, 11,102,947 bytes. VMS/native scope and Documents checks pass desktop/phone; Finance24/24 both, both21-route/seven-link/Back sweeps and preservation1366/390 pass. Phone inspected. No record edits or backend changes. READY is not LIVE.
+
 **v8.74 — CLAIMED by Codex, 7 Oct 2026.** Author: Andrew Fisher. Separate Today VMS progress card using native scope and completion, with per-type details and plan position. Base v8.73 `7921eeb4`; Claude board `d393d713` checked, no competing claim. Codex implementation/testing/publication. DRAFT, not LIVE.
 
 **v8.73 — VERIFIED LIVE, 7 Oct 2026 12:45 AEST.** Author: Andrew Fisher. Codex source/READY `52af4b9f`; exact public SHA-256 `7921eeb4e061198d0919f44ea5cec9e24a2d35c61b7a4f157f6b441ca2762fa7`, 11,102,652 bytes. Candidate and actual-public asset/loading40/40 desktop and phone. Candidate Finance24/24 both, both21-route/seven-link/Back sweeps and preservation1366/390 pass. No backend deployment or record edits. Claude independent v8.73 readback pending. [Release](v8.73_asset_priority_LIVE/README.md).
