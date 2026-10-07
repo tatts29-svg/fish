@@ -42,6 +42,8 @@ toolchain/build.sh v8.89 v8.84_today_wide_layout_DRAFT/patch_v884.py v8.85_where
    - decrypt the v8.90 asset archive (papers password);
    - run `tools/publish_machine890.py --dry-run`, then the real run.
 
+   The patch output must equal `machine_code_v887_v890/` here, file for file (`machine_code_v887_v890.sha256`). Use `--code` on that folder and `--assets` on the decrypted archive plus `v8.90_explorer_master_DRAFT/assets_small/`.
+
    The live set must still be `b469a99c`. Each part also works on its own, so the page and the set can go in either order once the media is in.
 4. **Read back:**
    - the public page's SHA-256 equals the candidate's;
@@ -51,7 +53,31 @@ toolchain/build.sh v8.89 v8.84_today_wide_layout_DRAFT/patch_v884.py v8.85_where
 
 ## Checks on the full chain (one browser at a time, every write aborted)
 
-RESULTS_TABLE
+Run on 8 Oct 2026, 03:05–04:00 AEST, on candidate `fe52302c…`. Logs are in `evidence/`.
+
+**Data accounting for the whole chain:**
+- Live → v8.84–v8.88: only v8.86's 20 Event Portables rows and their spans change (`data886` PASS). v8.87 and v8.88 change no DATA.
+- v8.88 chain → full chain: only v8.89's master changes, meaning the picture, the register entry, +11/−9 media and the 11 pins (`identity889` PASS).
+
+| Check | Laptop | Phone | Other |
+|---|---|---|---|
+| v8.86 Event Portables days (`ep886`) | 31/31 | 31/31 | |
+| v8.87 Map explorer (`explorer887`, v8.87 final files) | 23/23 | 24/24 | |
+| v8.88 Transport view (`transport888`) | 29/29 | 29/29 | 29/29 at 2560 px |
+| v8.65 Costs (`costs865`) | 33/33 | 33/33 | |
+| v8.89 master (`master889`, new pictures served locally) | 16/16 | 16/16 | |
+| v8.85 Where we are (`where885`) | 24/24 at 1600 and 1440 | 24/24 | 24/24 at 2560 |
+| v8.84 wide layout (`wide884`) | 21/21 at 1600 and 1440 | 21/21 | 21/21 at 2560 |
+| Layout 876 · VMS 874 · Equipment 873 | 18 · 18 · 40 | 18 · 18 · 40 | |
+| Crew 883 · Finance 866 | 34/34 · 24/24 | 34/34 · 24/24 | |
+| Loading 872 · Unloading 881 · Paired 881 | 26 · 34 · 18 | 26 · 34 · 18 | |
+| v8.71 · Supplier 870 · KINP 869 | 12 · 17 · 17 | | |
+| 15-tab sweep | 0 errors, 0 blocked | 0 errors, 0 blocked | |
+| Handling 875 · Paired 879 (out of date) | 22/28 · 17/18 | 22/28 · 17/18 | identical on live v8.83 |
+
+**The final Map explorer pair:** v8.87's final files with the v8.90 patch on top, in `machine_code_v887_v890/` with SHA-256s, plus the v8.90 drawing assets (`explorer890_final_*`). Results:
+
+FINAL890
 
 ## Decisions for Andrew (the page holds all of these and guesses none)
 
