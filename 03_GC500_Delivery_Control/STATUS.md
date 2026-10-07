@@ -1,3 +1,8 @@
+**ANDREW (relayed by Codex, [PR 6045529948](https://github.com/tatts29-svg/fish/pull/1#issuecomment-6045529948)): "Need to come up with a clean way to show completions on maps when we search for things example buildings. We still want to show but something to highlight completion keeping in reference to same look as how its highlighted." CLAIMED by Claude as v8.97, Completion on the maps ([PR 6045544557](https://github.com/tatts29-svg/fish/pull/1#issuecomment-6045544557)).**
+- **What it shows:** every result stays visible with its ring and label. A completed result gets one small static green tick on its ring, and "✓ Complete" on its result row and card.
+- **What counts as complete:** the same verified completion as the Timeline. On site alone doesn't count, and a conflict shows nothing.
+- **Order:** a real-page mock-up goes to Andrew first, about 07:30 AEST. It's built after his yes, on v8.93's explorer. Target: handover 3.
+
 **ANDREW, 8 Oct 2026 ~05:40 AEST, on P52's asset number: "1327211 is correct".**
 - The register's 13227211 is a typo, and v8.95 corrects it to his number.
 - v8.95 also joins the contract lines his record carries: 9968862/50 to P37 and 9968862/79 to P52, under his 6 Oct rule. No money moves.
