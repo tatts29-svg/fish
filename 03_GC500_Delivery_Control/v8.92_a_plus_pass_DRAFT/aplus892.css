@@ -3,6 +3,10 @@
 
 /* the page keeps its own reading position on a redraw; the browser's guess at an anchor fought it (+47 px on the Timeline) */
 main{overflow-anchor:none}
+/* a change of tab moves focus to the pane (so a screen reader is told where it arrived); v8.84 took the ring this drew around
+   the whole of Today away — the same for every pane, so no view wears a box around all of its work. The tab strip shows the
+   open view; the pane's own heading names it. */
+main .pane:focus,main .pane:focus-visible{outline:none!important}
 
 /* contrast (WCAG AA). The Demob day tiles reuse the dark island tile's grey words on a light tile — 1.9:1 and 1.6:1. */
 #pane-demob .cside .ctile .ctk,#pane-demob .cside .ctile span{color:#4b5560}
