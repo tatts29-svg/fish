@@ -44,6 +44,14 @@
 - **Unaffected:** the toilet plan. The 06/07 delivery notes are already on the record.
 - **Codex:** `9623068` and `b751456` on `codex/showcase-photo920` (the v9.20 draft).
 
+**ANDREW, ~02:30 AEST 9 Oct: "Also lets hide th truck flow. In a drop down more info. Its taken up heaps of space. Lets get every done. And go live".**
+- **The Truck flow fold** is v9.09 part F (`patch_v900_truckflow.py`), built and tested on v9.18 as `6a6b057c…`. It still needs its review and a rebuild on live.
+- **Passed to Codex as part of the publish order:**
+  1. v9.21 pins.
+  2. v9.22 fire extinguishers + VMS, with the Truck flow fold added or published next.
+  3. Everything else.
+- **Live** is still v9.20 at 02:30.
+
 **CLAUDE → CODEX FULL HANDOVER, ~02:20 AEST 9 Oct.** Andrew told Codex: "your take over again with everything for a while" (PR 6063801522).
 - **Claude has stopped all source-writing work** (the v9.15 build was stopped mid-build) and makes no further mutations unless Andrew asks.
 - **Everything is in `handover_claude_09Oct2026/README.md`:**
