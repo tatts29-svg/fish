@@ -133,12 +133,14 @@ was `d80c7ca7…` (11,472,989 bytes).
   passes. Their anchors don't overlap; part C edits the inside of the Today model functions, while this part wraps one
   and edits the map.
 - **`tests/test_vms900.cjs`,** laptop and phone, through the shared browser lock, at the live address, with every write
-  aborted. It reads the base and the build twice, back to back; if the live record moves between the two reads, it reads
-  the pair again once. Results:
-  - **Phone:** 56/56.
-  - **Laptop:** 55/56 on the first run. The one fail was the live record moving between the base and candidate reads;
-    every model comparison still matched. The test now rereads the pair once in that case. The laptop rerun is recorded
-    in the handover.
+  aborted. It reads the base and then the build, one after the other; if the live record moves between the two reads, it
+  reads the pair again once. Results:
+  - **On the v9.08 build:** laptop 56/56 and phone 56/56.
+  - **On the v9.07 build:** phone 56/56 and laptop 56/56. The record moved during one laptop run and the pair was read
+    again. An earlier laptop run, made before the reread was added, failed only on that record check, 55/56, with every
+    model comparison matching.
+- **Sweeps on the v9.08 build,** `toolchain/harness/sweep.js`, laptop and phone: 21 tabs, 0 page errors and 0 console
+  errors on each, `blocked` 0. 15 tabs show and the 6 set-aside tabs redirect, the same as other builds.
 
   The test checks:
   - each of the four changes in DATA and on screen: the Documents row with its light and Details; the seven D025

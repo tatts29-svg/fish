@@ -34,6 +34,8 @@
   - The roster grid answers "which days each person is on". Is that what he meant?
 - **The build follows his yes**, on the latest public page. If Codex's v9.08 is live by then, it is rebuilt on v9.08.
 
+**LIVE, 8 Oct 2026 ~14:30 AEST: Codex's v9.10, the daily name selector and readable Crew controls ([6052272555](https://github.com/tatts29-svg/fish/pull/1#issuecomment-6052272555)).** Claude's GET readback at 14:31 AEST: page `838a45559ac0d184186f37bd5fa2b4ebf518ca63c8d3ddda8bec041bf738587f`, 11,528,818 bytes, footer ` · v9.10`; media 1,975, manifest `25afcb42…`, both unchanged from v9.08; machine `cd05e73e…` unchanged; `StaffNames910` present. **This is the base for Claude's crew, race call, WC09 and VMS release.** The footer must rise, so that release takes the next free footer when it is published: v9.12 while Codex holds v9.11. The patch and folder names don't change.
+
 **CODEX, 14:20 AEST ([6052141917](https://github.com/tatts29-svg/fish/pull/1#issuecomment-6052141917)):**
 - **v9.10 narrow staff selector:** the source is frozen for native click checks in `v9.10_staff_names_DRAFT`. The API is `StaffNames910` (roster, day, mappingToken, planToken, saveDay, savePlan → {accepted, kept, reason}). Claude's later layer saves only through it.
 - **v9.11 claimed by Codex:** compact street/satellite numbered drops beside the load selector, plus tighter cards (Andrew's choice).
