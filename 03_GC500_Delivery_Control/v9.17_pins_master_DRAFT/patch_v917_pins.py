@@ -25,6 +25,9 @@
 #     on the same fence). The master carries no generator tags: each "how" says the identity follows his instruction.
 #   - 28 near moves toward 10/10 (1.3 - 2.9 m), each from the pin on the printed tag to the middle of the toilets drawn.
 #   Every one re-derived from the PDF (tests/derive917_add.py -> evidence/derive917_add.json, same tolerances).
+#   r4 (9 Oct, after the independent check): GN18 and GN13 sit exactly on the area centre of the symbol's outline (they
+#   were listed about 0.2 pt west of it); the area pictures of the 11 pins whose window runs past the sheet or the inset
+#   frame are padded white at the full window's scale instead of stretched (tests/make_thumbs917.py).
 # PART 1, third round (8 Oct about 23:20 AEST, the project manager's answers: "the long row"; "Wc13 qty 2"; "Wc69 qty 12"):
 #   - WC59 to the middle of the 7-toilet long row the master labels WC57; WC57 to the middle of the 2-toilet pair inside the
 #     SUPPLY fence (its 2 toilets, due 13 Oct). Counts are unchanged.

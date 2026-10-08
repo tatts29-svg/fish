@@ -41,6 +41,7 @@ LISTED = {
  'WC56': ((-27.9898200, 153.4300769), (0.61938, 0.19358)), 'WC61': ((-27.9841222, 153.4298238), (0.24422, 0.21326)),
  'WC67': ((-27.9813908, 153.4241664), (0.06359, 0.68013)), 'WC71': ((-27.9812828, 153.4234837), (0.05638, 0.73651)),
  'WC72': ((-27.9821291, 153.4240067), (0.11217, 0.69347)), 'WC73': ((-27.9869615, 153.4281016), (0.43090, 0.35617))}
+# r4 (9 Oct): GN18 and GN13 are listed at the area centre of the symbol's outline (the independent check; 0.005 / 0.014 m from its values)
 GENS = ('GN18', 'GN13')
 # the project manager's figures for the two generators (8 Oct, STATUS.md): move and direction
 GEN_SAID = {'GN18': (17.1, 'south-east'), 'GN13': (11.6, 'north')}

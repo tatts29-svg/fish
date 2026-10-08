@@ -110,10 +110,14 @@ Each point below was worked out again from the PDF before it was written (`tests
   diagonal). The point is the centre of the symbol's outline. **The master carries no generator tags**, so which symbol is
   GN18 or GN13 follows Andrew's "follow the master"; each one's "how" says so on the page. GN18: the only symbol within
   25 m of the old pin is this one, 17.1 m south-east, beside P08 and WC38; the old spot now has a 2.5 × 6.1 m container
-  drawn on it. GN13: the only symbol within 25 m, 11.6 m north on the same fence, with nothing drawn at the old spot. No
-  other generator pin is within 5 m of either symbol (the next nearest are 160 m and 210 m away). Listed vs PDF: GN18
-  0.18 m / 0.22 pt, GN13 0.13 m / 0.15 pt — inside the limits; the listed points sit about 0.2 pt west of the symbol's
-  outline centre, which is a little under the registration error (0.7 m).
+  drawn on it. GN13: the only symbol within 25 m, 11.6 m (11.55 m) north on the same fence, with nothing drawn at the old
+  spot. No other generator pin is within 5 m of either symbol (the next nearest are 160 m and 210 m away).
+  **r4 (9 Oct): both now sit exactly on the area centre of the symbol's outline.** Until r3 the listed points sat about
+  0.2 pt west of it (0.18 m and 0.13 m, inside the limits). Re-derived here from the PDF (orange 0.72 pt rectangle with its
+  diagonal, area centre of the outline, main transform): **GN18 -27.9836216, 153.4241707** (sheet 476.198, 1145.685 pt; page
+  pt 0.21044, 0.68025; drawing 162600), **GN13 -27.9883915, 153.4300855** (sheet 1226.887, 324.226 pt; page pt 0.52533,
+  0.19256; drawing 162244). The independent check's values are 0.005 m and 0.014 m from these (its sheet x for GN18,
+  476.21, is the vertex mean; the area centre is 476.198). Listed vs PDF now 0.005 m / 0.009 pt and 0.003 m / 0.001 pt.
 - **The four Andrew answered (8 Oct about 23:20).** Same method as `derive917.py` (the audit's outlines matched vertex for
   vertex to PDF shapes, the touching shapes counted, area centre, main transform; none is in the inset), then each derived
   point checked against the audit's point and refused if more than 0.3 pt or 0.2 m apart. None was refused: WC59 0.005 m /
@@ -134,8 +138,8 @@ Each point below was worked out again from the PDF before it was written (`tests
 
 | Ref | Drawn on the master | Pin now | New pin | Moves (list → measured) | New pt (MASTER_LOC frame) | PDF check |
 |---|---|---|---|---|---|---|
-| GN18 | generator symbol (no tag; follow the master) | -27.983493, 153.424075 | -27.9836203, 153.4241719 | 17.1 → 17.06 m south-east | 0.21036, 0.68031 | 0.18 m / 0.22 pt |
-| GN13 | generator symbol (no tag; follow the master) | -27.988495, 153.430095 | -27.9883906, 153.4300864 | 11.6 → 11.64 m north | 0.52527, 0.19253 | 0.13 m / 0.15 pt |
+| GN18 | generator symbol (no tag; follow the master) | -27.983493, 153.424075 | -27.9836216, 153.4241707 | 17.1 → 17.11 m south-east | 0.21044, 0.68025 | 0.005 m / 0.009 pt (r4) |
+| GN13 | generator symbol (no tag; follow the master) | -27.988495, 153.430095 | -27.9883915, 153.4300855 | 11.6 → 11.55 m north | 0.52533, 0.19256 | 0.003 m / 0.001 pt (r4) |
 | WC06 | 2 toilets | -27.984688, 153.426541 | -27.9846989, 153.4265318 | 1.5 → 1.51 m south-west | 0.28171, 0.48539 | 0.00 m / 0.01 pt |
 | WC10 | 3 toilets | -27.984503, 153.427704 | -27.9844829, 153.4277142 | 2.4 → 2.39 m north-east | 0.26767, 0.38765 | 0.01 m / 0.01 pt |
 | WC11 | 2 toilets | -27.984901, 153.426559 | -27.9848882, 153.4265754 | 2.1 → 2.15 m north-east | 0.29418, 0.48183 | 0.00 m / 0.01 pt |
@@ -194,6 +198,34 @@ None of the four carries "rev 02", so no "Drawings differ" line appears or goes.
 (the 53's 106 come out byte for byte as before; the 4 answered get 8 new ones, each looked at: the ring sits on the long row,
 the pair inside the SUPPLY fence, the row of 3 and the row of 9). The 55 pins that had pictures lose their old 110. **GN18 and GN13 had no pictures**; they now carry the same two, ringed on the generator symbol, so
 their drawer shows the symbol like every other moved pin. That is the one addition beyond moving a point.
+
+**Pictures at the sheet edge (r4, 9 Oct — the independent check's blocking finding on r3).** The area window (523.6 ×
+342.5 pt) of 11 pins runs off the drawing: past the sheet's left edge for WC71, WC67, WC65, WC68, WC69, WC70, WC62, WC35
+and WC72, and past the Cypress inset's frame for CP1 and WC81. pymupdf renders only the part inside, and r3 then resized
+that part to 937 × 613, so the paper was stretched sideways and the ring (at the picture's centre) sat 7–54 m off the unit.
+`make_thumbs917.py` now renders the inside part at the full window's scale and pastes it onto a white 937 × 613 canvas at
+its own offset (no resize), ring at the centre = on the unit — the way the live page's own pictures are padded white past
+the edge. The window's "inside" is the sheet for the main plan and **the inset's own frame** (`sheet_region_pts`) for CP1
+and WC81 (past it is the sheet margin or the main plan at another scale); a main-plan window that would take in the inset
+is refused (none does). A window wholly inside is rendered exactly as before. All 114 were remade through the one path:
+**exactly the 11 area pictures changed; the other 103 are byte for byte r3's** (close-ups never reach an edge). Each of the
+11 was checked against an independent render (the sheet, or only the inset frame, placed on a larger white page with
+`show_pdf_page`): best match at the expected sub-pixel rounding, never more than 1 px. Looked at: the 11, plus WC09, WC59,
+WC57, WC13, GN18 and GN13 (area and close-up) — every ring is on its unit, nothing stretched, 937 × 613 and 771 × 491.
+
+| Ref | r3 area picture (stretched; ring off by) | r4 area picture | drawing inside the window |
+|---|---|---|---|
+| WC71 | `e5c67cb3…` (~54 m) | `bd82c2c8…` | 71 % (left edge) |
+| WC67 | `5dfb48dd…` (~48 m) | `80e0f6b2…` | 74 % |
+| WC65 | `4a69cb7f…` (~43 m) | `e0f28606…` | 77 % |
+| WC68 | `f9850f3a…` (~42 m) | `5da1ad50…` | 77 % |
+| WC69 | `58c084a1…` (~42 m) | `ccdb0f80…` | 77 % |
+| WC70 | `cd231403…` (~33 m) | `bd8cc778…` | 82 % |
+| WC62 | `02c96248…` (~32 m) | `c7bdfa5b…` | 83 % |
+| WC35 | `3d8928f9…` (~25 m) | `cb24a929…` | 87 % |
+| WC81 | `2c9e0ced…` (~15 m) | `5bb0965a…` | 83 % (inset frame, right) |
+| CP1 | `c7252efe…` (~14 m) | `39dc85da…` | 83 % (inset frame, right) |
+| WC72 | `90059620…` (~7 m) | `3a4ab11b…` | 96 % |
 
 ## Part 2 — one point per reference
 
@@ -325,7 +357,7 @@ GN18 and GN13 are answered ("follow the master") and applied in this build (seco
 | `tests/derive917.py` | re-derives the 23 from the PDF → `evidence/derive917.json` (needs the audit's outlines `pins/geom/geom.json`, read only) |
 | `tests/derive917_add.py` | second round: re-derives GN18, GN13 and the 28 near moves from the PDF → `evidence/derive917_add.json`, `.log` (needs the near list `near37.json` and the audit's outlines `rows.json`, read only) |
 | `tests/derive917_held.py` | third set: re-derives WC59, WC57, WC13 and WC69 (Andrew's answers, about 23:20) from the PDF and checks each against the audit's point (refused over 0.3 pt / 0.2 m); measures WC69's column of 3 on the ground → `evidence/derive917_held.json`, `.log` (needs the audit's outlines `pins/geom/geom.json`, read only) |
-| `tests/make_thumbs917.py` | the 114 pictures for the 57 → `evidence/media917/` + `evidence/thumbs917.json` (deterministic: the 53's 106 unchanged) |
+| `tests/make_thumbs917.py` | the 114 pictures for the 57 → `evidence/media917/` + `evidence/thumbs917.json` (deterministic; r4: windows past the sheet or the inset frame padded white, not stretched — `padded_past_the_edge` lists the 11; args: PDF, page, media dir, thumbs json, `georeferencing.json`, the derive files) |
 | `tests/test_identity917.py` | test 1, identity → `evidence/identity917.log`, `evidence/identity917_code.diff` |
 | `tests/collect_pins917.cjs` + `tests/compare_pins917.py` | tests 3 and 4, every row, laptop and phone, including (after the review) the printed drop sheet, the driver card's Ground position, the email's pins, the aerial pictures and every load's driver page picture → `evidence/compare917_*.json/.log` |
 | `tests/shots917.cjs` | phone screenshots of the WC09 and WC59 drawers ("Where it is"; `REFS=`) and their printed drop sheets (`SHEETS=`) → `evidence/phone_*.png`, `shots917_phone.json` (the CP1 frames are from the first round) |
@@ -336,10 +368,10 @@ GN18 and GN13 are answered ("follow the master") and applied in this build (seco
 ## Build and publish (publisher, on Andrew's yes)
 
 ```
-toolchain/build.sh v917_r3 v9.17_pins_master_DRAFT/patch_v917_pins.py    # plus the footer step the publisher uses
-python3 v8.89_master_map_DRAFT/upload_media889.py v9.17_pins_master_DRAFT/evidence/media917 build/GC500_v917_r3/media_manifest_v917.json --dry-run
-python3 v8.89_master_map_DRAFT/upload_media889.py v9.17_pins_master_DRAFT/evidence/media917 build/GC500_v917_r3/media_manifest_v917.json
-python3 toolchain/upload_page.py build/GC500_v917_r3/GC500_Delivery_Control_hosted.html
+toolchain/build.sh v917_r4 v9.17_pins_master_DRAFT/patch_v917_pins.py    # plus the footer step the publisher uses
+python3 v8.89_master_map_DRAFT/upload_media889.py v9.17_pins_master_DRAFT/evidence/media917 build/GC500_v917_r4/media_manifest_v917.json --dry-run
+python3 v8.89_master_map_DRAFT/upload_media889.py v9.17_pins_master_DRAFT/evidence/media917 build/GC500_v917_r4/media_manifest_v917.json
+python3 toolchain/upload_page.py build/GC500_v917_r4/GC500_Delivery_Control_hosted.html
 ```
 
 `upload_media889.py` is generic: it uploads only the files the manifest names that the service does not already hold,
