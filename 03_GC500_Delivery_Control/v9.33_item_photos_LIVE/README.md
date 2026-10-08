@@ -1,8 +1,10 @@
+**VERIFIED LIVE — 9 Oct 2026 05:51 AEST, combined v9.34.** Author: Andrew Fisher. The full served page matches SHA256 `b881e8890e8a590fea79ac63657fd43254c5ccdd11735d7f70a1b4874773c33c` (12,295,093 bytes). All 22 tab routes, eight direct links and Back passed on phone and desktop. Final public 390px/1440px checks passed for the supplier route, product information, two VMS units and per-item photo targets; operational record remains 4633. Detailed component evidence below includes the earlier scope candidates. Final combined evidence: `../v9.34_navigation_LIVE/evidence/combined_release.json`.
+
 # v9.33 — individual equipment and photographs
 
 Author: Andrew Fisher.
 
-READY for combined integration; not LIVE. Root owns the final combined build, financial checks, navigation sweeps and publication. Starts from public v9.28 (`592e73b38e8c5fb1d5bf98d00915c49550ab860b322f82fb957a99acc0369093`); production patch accepts v9.32 as well. It refuses another application or a different base.
+Released with the tested combined v9.34 page. Starts from public v9.28 (`592e73b38e8c5fb1d5bf98d00915c49550ab860b322f82fb957a99acc0369093`); production patch accepts v9.32 as well. It refuses another application or a different base.
 
 Andrew asked for the mixed VMS location to show the two actual boards and for each item, including the WC09 toilets, to have clear ownership and its own photographs. T0103 now projects Coates 1211404 / VMS09 and PremAir Hire 120T / VMS10, registration V14221. The superseded physical placeholder is resolved through its exact contract and line, never by a global fleet-code replacement. Original contract rows, stored units, work, quotes and financial inputs are untouched.
 

@@ -1,3 +1,5 @@
+**VERIFIED LIVE — 9 Oct 2026 05:51 AEST, combined v9.34.** Author: Andrew Fisher. The full served page matches SHA256 `b881e8890e8a590fea79ac63657fd43254c5ccdd11735d7f70a1b4874773c33c` (12,295,093 bytes). All 22 tab routes, eight direct links and Back passed on phone and desktop. Final public 390px/1440px checks passed for the supplier route, product information, two VMS units and per-item photo targets; operational record remains 4633. Detailed component evidence below includes the earlier scope candidates. Final combined evidence: `../v9.34_navigation_LIVE/evidence/combined_release.json`.
+
 # v9.29 Unload-order icons in Arrange loads
 
 Author: Andrew Fisher
@@ -8,7 +10,7 @@ Author: Andrew Fisher
 |---|---|
 | **Base (live v9.28)** | `592e73b38e8c5fb1d5bf98d00915c49550ab860b322f82fb957a99acc0369093` |
 | **Candidate** | `2fa3fa3fcc9601979b393229376a038050568fb0243797d43a5c0f4b53a60556`, 12,273,073 bytes, footer ` · v9.29` |
-| **Build** | `toolchain/build.sh v9.29 v9.29_unload_icons_DRAFT/patch_v929_unload_icons.py` |
+| **Build** | `toolchain/build.sh v9.29 v9.29_unload_icons_LIVE/patch_v929_unload_icons.py` |
 
 ## What Andrew asked
 

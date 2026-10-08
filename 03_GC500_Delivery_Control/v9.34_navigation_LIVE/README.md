@@ -1,8 +1,10 @@
+**VERIFIED LIVE — 9 Oct 2026 05:51 AEST, combined v9.34.** Author: Andrew Fisher. The full served page matches SHA256 `b881e8890e8a590fea79ac63657fd43254c5ccdd11735d7f70a1b4874773c33c` (12,295,093 bytes). All 22 tab routes, eight direct links and Back passed on phone and desktop. Final public 390px/1440px checks passed for the supplier route, product information, two VMS units and per-item photo targets; operational record remains 4633. Detailed component evidence below includes the earlier scope candidates. Final combined evidence: `../v9.34_navigation_LIVE/evidence/combined_release.json`.
+
 # Navigation exits — v9.34
 
 Author: Andrew Fisher
 
-Frozen for final integration, not published by this task. Requested in the shared chat: “After done. bug check. navigation across all tabs check every area has a close button. and back button.” The main header retains its native Back control. Dialogs covering it gain a visible Back beside the existing Close, using the same native dismissal.
+Released with the combined v9.34 page. Requested in the shared chat: “After done. bug check. navigation across all tabs check every area has a close button. and back button.” The main header retains its native Back control. Dialogs covering it gain a visible Back beside the existing Close, using the same native dismissal.
 
 The actual v9.33 page confirmed Inventory and daily PDF previews survived Escape/browser Back, a nested Text drawer ignored Escape, and Today's toilet supplier link still opened Timeline after Event Portables moved to Sub-hired. This patch fixes those exits, focuses a surviving opener or current pane, confines keyboard focus to the upper overlay, and opens the correct supplier company while preserving Back to breakdown. Native Showcase and Machine history/keyboard handling remain in charge. Transient overlays close when a route changes; no extra history entries are introduced.
 

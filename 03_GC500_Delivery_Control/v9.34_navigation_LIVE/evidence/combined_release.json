@@ -1,6 +1,6 @@
 {
   "author": "Andrew Fisher",
-  "status": "READY TO UPLOAD",
+  "status": "VERIFIED LIVE",
   "candidateSha256": "b881e8890e8a590fea79ac63657fd43254c5ccdd11735d7f70a1b4874773c33c",
   "bytes": 12295093,
   "baseSha256": "592e73b38e8c5fb1d5bf98d00915c49550ab860b322f82fb957a99acc0369093",
@@ -72,5 +72,21 @@
     "finalSweepMissingTileErrors": 0
   },
   "operationalWrites": 0,
-  "review": "Integrated and tested by Codex with independent sub-agent source reviews. v929 was supplied frozen by Claude. No claim of Claude reviewing the final combined release."
+  "review": "Integrated and tested by Codex with independent sub-agent source reviews. v929 was supplied frozen by Claude. No claim of Claude reviewing the final combined release.",
+  "publishedAt": "2026-10-09 05:51 AEST",
+  "publicPageExactBytes": true,
+  "publicFlows": {
+    "views": [
+      390,
+      1440
+    ],
+    "correctTwoVmsUnits": true,
+    "itemPhotoTargets": true,
+    "supplierHomeAndTimeline": true,
+    "automaticReadOnlyLoading": true,
+    "wasteTankEmptyingGuidance": true,
+    "recordUnchanged": true,
+    "runtimeErrors": 0
+  },
+  "recordVersion": 4633
 }

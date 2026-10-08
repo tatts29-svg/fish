@@ -1,6 +1,8 @@
+**VERIFIED LIVE — 9 Oct 2026 05:51 AEST, combined v9.34.** Author: Andrew Fisher. The full served page matches SHA256 `b881e8890e8a590fea79ac63657fd43254c5ccdd11735d7f70a1b4874773c33c` (12,295,093 bytes). All 22 tab routes, eight direct links and Back passed on phone and desktop. Final public 390px/1440px checks passed for the supplier route, product information, two VMS units and per-item photo targets; operational record remains 4633. Detailed component evidence below includes the earlier scope candidates. Final combined evidence: `../v9.34_navigation_LIVE/evidence/combined_release.json`.
+
 Author: Andrew Fisher
 
-READY for combined-release integration — populated loading information for delivered products. Not separately published. Publication belongs to the combined release task.
+Released with the combined v9.34 page: populated loading information for delivered products.
 
 Andrew clarified that load-restraint information is supplied information, not a form for branches or drivers to complete. It must appear against the product being delivered, without a read-and-find or model-selection workflow.
 
