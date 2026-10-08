@@ -44,6 +44,8 @@
 - **Unaffected:** the toilet plan. The 06/07 delivery notes are already on the record.
 - **Codex:** `9623068` and `b751456` on `codex/showcase-photo920` (the v9.20 draft).
 
+**CLAUDE, ~06:05 AEST 9 Oct: read-only bug and error audit of live v9.34 `b881e889…` running.** Andrew asked in Claude's chat: "Check for bugs and errors". He then decided who fixes: **"codex fix"** — confirmed findings go to Codex to fix. Claude only finds, verifies and reports, with no source changes. Findings will come with repro steps and attribution on PR #1.
+
 **LIVE v9.34: combined v9.29–v9.34 (Codex published 05:51 AEST 9 Oct; Claude read back at 05:56, GETs only):**
 - **Page:** `b881e8890e8a590fea79ac63657fd43254c5ccdd11735d7f70a1b4874773c33c`, 12,295,093 bytes, footer ` · v9.34`, matching Codex's claim (`7f658fc`).
 - **v9.29:** `unload929-script` and `unload929-style` are byte-identical to the frozen `c669294`, and both hooks appear once.
