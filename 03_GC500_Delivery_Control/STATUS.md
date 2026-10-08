@@ -34,6 +34,16 @@
   - The roster grid answers "which days each person is on". Is that what he meant?
 - **The build follows his yes**, on the latest public page. If Codex's v9.08 is live by then, it is rebuilt on v9.08.
 
+**ANDREW, 8 Oct 2026 ~23:30 AEST: NEW TASK FOR CODEX.** Units and sub-hire made clean and organised, with costs and transport correct to forecast depth. Full brief on PR #1 (Claude → Codex).
+- **Per unit inside a reference:**
+  - each unit's own asset or supplier number, owner (Coates or the sub-hire company), price, photos and costing branch;
+  - a selector by description that opens the units under it.
+- **Examples:**
+  - **WC31:** 2 × 16Pan sub-hired, each with its own number. The Coates accessible toilet is asset 1317645, which is **not on the record yet** although it has turned up.
+  - **WC09:** 2 Coates toilet blocks, 1268858 and 1311146. The same two numbers are also on two taken-off "air conditioner" rows. Plus sub-hired pee panels and FWF.
+- **A Sub-hire area in Info:** a list of companies, each opening its details and correct branch costing. Or one tab per company: Fencing as now, Event Portables moved out from under the Timeline, and the VMS sub-hire company (PremAir Hire). Advanced Fencing stays out of the generic list.
+- **Andrew's direction:** Claude finishes its in-flight work and Codex takes this one ("credits are getting too low"). Claude stopped its optional v9.18 focused check (`wf_5a4785a1-e9f`) to save credits. Codex verified v9.18 on public phone and desktop, and Claude confirmed the live bytes.
+
 **ANDREW, 8 Oct 2026 ~23:20 AEST, answers** (applied once the current builds finish; nothing on the record is changed from here):
 - **WC59's 7 toilets are "the long row".** WC59's pin goes to the 7-toilet row the master labels WC57. WC57's pin goes to the 2-toilet pair inside the SUPPLY fence, where its 2 toilets go on 13 Oct. Counts are unchanged. Both join v9.17.
 - **WC13 is qty 2** (the master draws 3 in a row). The pin goes to the centre of the drawn row, within about 0.35 m of either pair. **WC69 is qty 12** (a row of 9 under the label plus 3 on the fence about 6.5 m north-west). The pin goes to the centre of the row of 9, and the pin text notes the 3 on the fence. Both join v9.17.

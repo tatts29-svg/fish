@@ -1,6 +1,6 @@
 # Author: Andrew Fisher. v9.17 - compare what the base and the candidate hand a driver, for every reference.
 #   python3 tests/compare_pins917.py <base collect json> <candidate collect json> <out json>
-# (3) every row: the 23 move by the listed metres (+-0.1 m) on Navigate, the Navigate button, the drop message (Directions
+# (3) every row: the 53 (the 23, GN18 and GN13, the 28 near moves) move by the listed metres (+-0.1 m) on Navigate, the Navigate button, the drop message (Directions
 #     and "Or key in"), the job sheet lines, dpPos and the driver card, and stay "master plan"; every other row moves 0.0 m
 #     and keeps its kind; CP1 and WC81 stay in the inset; the record version is the same before and after both runs.
 # (4) Part 2, candidate: every surface's point equals Navigate's (dest782) to 0.0 m, for every reference - including, after
@@ -11,12 +11,18 @@ import json, math, sys
 from pathlib import Path
 here = Path(__file__).resolve().parent
 A, B = (json.loads(Path(x).read_text()) for x in sys.argv[1:3])
-DER = json.loads((here.parent / 'evidence' / 'derive917.json').read_text())['rows']
+DER = dict(json.loads((here.parent / 'evidence' / 'derive917.json').read_text())['rows'], **json.loads((here.parent / 'evidence' / 'derive917_add.json').read_text())['rows'])
 # the "Moves" column of the audit table the project manager was given (metres)
 TABLE = {'WC09': 6.6, 'CP1': 15.9, 'T0243': 5.4, 'WC24': 5.6, 'WC35': 5.6, 'WC81': 5.7, 'WC65': 5.5, 'WC26': 5.2, 'WC68': 5.1, 'WC86': 5.1,
          'WC25': 5.0, 'WC34': 5.0, 'WC70': 4.8, 'WC19': 4.4, 'WC16': 4.1, 'WC17': 4.1, 'WC44': 4.0, 'WC39': 3.6, 'WC62': 3.2, 'WC04': 3.2,
-         'WC02': 3.1, 'WC28': 3.1, 'WC50': 3.1}
-assert set(TABLE) == set(DER)
+         'WC02': 3.1, 'WC28': 3.1, 'WC50': 3.1,
+         # second round: the project manager's figures for the generators (8 Oct) and the near list's metres (near37.json)
+         'GN18': 17.1, 'GN13': 11.6,
+         'WC06': 1.5, 'WC10': 2.4, 'WC11': 2.1, 'WC12': 2.4, 'WC21': 2.7, 'WC23': 2.0, 'WC29': 2.8, 'WC30': 1.4, 'WC33': 2.6, 'WC38': 2.0,
+         'WC40': 1.9, 'WC41': 2.2, 'WC42': 2.2, 'WC43': 1.6, 'WC45': 1.9, 'WC46': 1.9, 'WC47': 2.2, 'WC48': 2.6, 'WC49': 1.9, 'WC53': 2.2,
+         'WC54': 2.3, 'WC55': 1.6, 'WC56': 2.0, 'WC61': 2.0, 'WC67': 1.3, 'WC71': 2.4, 'WC72': 2.9, 'WC73': 1.9}
+assert set(TABLE) == set(DER) and len(TABLE) == 53
+HELD = ['WC57', 'WC59', 'WC13', 'WC69', 'P08', 'P44', 'P51', 'WC20', 'P27', 'P29', 'P34', 'WC51', 'WC01', 'P26', 'P28', 'T0022', 'T0023', 'P47', 'WC32']
 def hav(a, b):
     la1, lo1, la2, lo2 = map(math.radians, (a[0], a[1], b[0], b[1]))
     h = math.sin((la2 - la1) / 2) ** 2 + math.cos(la1) * math.cos(la2) * math.sin((lo2 - lo1) / 2) ** 2
@@ -61,11 +67,12 @@ for k in sorted(BB):
         P = pts_of(b['sf'])
         for sname, lst in P.items():
             for ll in lst:
-                check(r1(hav(ll, R6(db['ll']))) == 0.0, '%s: %s is %.2f m from Navigate' % (k, sname, hav(ll, db['ll'])))
+                # equal to Navigate exactly, or to Navigate as a link prints it (6 decimals): the second round's points have 7
+                check(r1(min(hav(ll, db['ll']), hav(ll, R6(db['ll'])))) == 0.0, '%s: %s is %.2f m from Navigate' % (k, sname, hav(ll, db['ll'])))
         Pa = pts_of(a['sf'])
         for sname in Pa:
             for ll in Pa[sname]:
-                check(abs(hav(ll, R6(da['ll']))) < 0.1, '%s base: %s not on the old point' % (k, sname))
+                check(min(hav(ll, da['ll']), hav(ll, R6(da['ll']))) < 0.1, '%s base: %s not on the old point' % (k, sname))
         check('master plan' in (b['sf'].get('dropText') or {}).get('keyin', ''), k + ': drop message does not say master plan')
         if k in ('CP1', 'WC81'):
             fx, fy = b['master']['pt']
@@ -173,7 +180,15 @@ lo_b, ln_b = loads_off(B); lo_a, ln_a = loads_off(A)
 check(not lo_b and ln_b > 0, 'driver page pictures: %d of %d not on Navigate: %s' % (len(lo_b), ln_b, lo_b[:4]))
 # Navigate itself does not move because of Part 2: only the 23 change (checked above), and the base's surfaces that disagreed are now fixed
 refs_fixed = sorted({x['ref'] for x in bad_a})
-out = {'driver_card_brought_onto_navigate_by_part2': part2_moved, 'rows': len(BB), 'record_version': B['version_end'], 'footer': B['footer'], 'moved_23': rows3,
+held_seen = []
+for k in HELD:
+    a, b = BA.get(k), BB.get(k)
+    if not (a and b): continue
+    da, db = a['dest'] or {}, b['dest'] or {}
+    check(da.get('ll') == db.get('ll') and da.get('kind') == db.get('kind'), k + ': a held reference moved')
+    held_seen.append(k)
+check(len(held_seen) >= 18, 'held references not all read: ' + str(sorted(set(HELD) - set(held_seen))))
+out = {'held_not_moved': held_seen, 'driver_card_brought_onto_navigate_by_part2': part2_moved, 'rows': len(BB), 'record_version': B['version_end'], 'footer': B['footer'], 'moved_53': rows3,
        'part2': {'candidate_points_checked': nb, 'candidate_not_on_navigate': bad_b, 'per_building_pins_shown_not_counted': bp_b, 'per_surface': per_b,
                  'candidate_words_not_navigate': wb_b, 'email_unverified_master_notes': nt_b, 'report_kind_pictures_keep_drawn_spot': ra_b,
                  'driver_page_pictures': {'candidate_checked': ln_b, 'candidate_off': lo_b, 'base_checked': ln_a, 'base_off': len(lo_a), 'base_worst': sorted([x for x in lo_a if 'm' in x], key=lambda x: -x['m'])[:8]},
@@ -182,7 +197,8 @@ out = {'driver_card_brought_onto_navigate_by_part2': part2_moved, 'rows': len(BB
                  'base_worst': sorted(bad_a, key=lambda x: -x['m'])[:15]},
        'fails': fails}
 Path(sys.argv[3]).write_text(json.dumps(out, indent=1))
-print('rows', len(BB), '| record', A['version_start'], '->', B['version_end'], '| the 23:', ', '.join('%s %.1f m' % (x['ref'], x['moved_m']) for x in rows3))
+print('rows', len(BB), '| record', A['version_start'], '->', B['version_end'], '| moved %d:' % len(rows3), ', '.join('%s %.1f m' % (x['ref'], x['moved_m']) for x in rows3))
+print('held, Navigate unchanged (0.0 m, same kind):', ', '.join(held_seen))
 print('Part 2: candidate %d points, %d off Navigate; base %d points off Navigate on %d references' % (nb, len(bad_b), len(bad_a), len(refs_fixed)))
 print('  per surface (candidate):', ', '.join('%s %d' % kv for kv in sorted(per_b.items())))
 print('  driver page pictures: candidate %d checked, %d off; base %d off' % (ln_b, len(lo_b), len(lo_a)))

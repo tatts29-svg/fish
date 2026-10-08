@@ -1,4 +1,4 @@
-// Author: Andrew Fisher. v9.17 - phone screenshots of the WC09 and CP1 drawers: "Where it is" (pin, links, the two new
+// Author: Andrew Fisher. v9.17 - phone screenshots of the WC09, GN18, WC56 and CP1 drawers: "Where it is" (pin, links, the two new
 // close-ups) and the satellite panel's position line. Read only; the 46 new pictures are served from evidence/media917
 // until they are uploaded. After the 8 Oct review it also renders the printed drop sheet for both (its "How to get there"
 // block and its pictures, cut by the page's own cropFit) and fails unless its Sat nav is Navigate's point.
@@ -17,11 +17,14 @@ const MEDIA = path.join(__dirname, '..', 'evidence', 'media917');
     for (const m of TH.media) { const f = path.join(MEDIA, m.file); await p.route('**/m/Coates-GC500-2026/' + m.file, r => { served++; r.fulfill({status: 200, contentType: m.type, body: fs.readFileSync(f)}); }); }
     await p.waitForFunction(() => typeof SYNC !== 'undefined' && SYNC.status === 'live' && typeof openAsset === 'function', null, {timeout: 180000});
     await p.waitForTimeout(2500);
-    for (const ref of ['WC09', 'CP1']) {
+    // second round: also GN18 (the generator symbol, "follow the master") and WC56 (a near move, two rows of six)
+    for (const ref of ['WC09', 'GN18', 'WC56', 'CP1']) {
       await p.evaluate(k => openAsset(k), ref); await p.waitForTimeout(2500);
       // The satellite panel (satelliteBlock) is not shown in the drawer since v8.16: its folds keep five rows of the record
       // section and drop the rest, the panel with them. Its points are proven from the function itself (collect_pins917.cjs).
-      for (const [part, sel] of [['where', '.where816']]) {
+      // second round: also the drawer's "Where it is — master plan" block (.pinblock): the pin's coordinates and the two
+      // re-made close-ups, ringed on the unit
+      for (const [part, sel] of [['where', '.where816'], ['pins', '.pinblock']]) {
         if (part === 'satellite') { await p.evaluate(() => { const d = document.getElementById('dsectRecord'); if (d && !d.open) d.querySelector('summary').click(); }); await p.waitForTimeout(1500); }
         const found = await p.evaluate(sel => { const dr = document.getElementById('drawer'); const all = [...(dr ? dr.querySelectorAll(sel) : [])]; /* the drawer's own block only */
           let el = all.find(x => x.offsetParent);
@@ -42,7 +45,8 @@ const MEDIA = path.join(__dirname, '..', 'evidence', 'media917');
         const file = path.join(process.env.OUT, `${mob ? 'phone' : 'laptop'}_${ref}_${part}.png`);
         await p.screenshot({path: file});
         const dollars = /\$\s?\d/.test(info.text);
-        R.push({ref, part, found, file: path.basename(file), dollars, imgs: info.imgs, text: info.text.slice(0, 600)});
+        const want = await p.evaluate(k => MASTER_LOC[k] ? MASTER_LOC[k].ll[0].toFixed(6) + ', ' + MASTER_LOC[k].ll[1].toFixed(6) : null, ref);
+        R.push({ref, part, found, file: path.basename(file), dollars, imgs: info.imgs, pinShown: !!want && info.text.includes(want), want, text: info.text.slice(0, 600)});
       }
       await p.keyboard.press('Escape'); await p.waitForTimeout(800);
     }
@@ -66,7 +70,8 @@ const MEDIA = path.join(__dirname, '..', 'evidence', 'media917');
     }
     // the drop sheet's Sat nav is Navigate's point, to the printed 6 decimals
     const satOk = R.filter(r => r.part === 'dropsheet_go').every(r => r.satnav && r.nav && Math.abs(r.satnav[0] - r.nav[0]) < 6e-7 && Math.abs(r.satnav[1] - r.nav[1]) < 6e-7);
-    const ok = R.every(r => r.found === true && !r.dollars) && satOk && s.counts.blocked === 0 && !s.errors.length;
+    const pinsOk = R.filter(r => r.part === 'pins').every(r => r.pinShown && (r.imgs || []).filter(i => i.w > 0).length >= 2);
+    const ok = R.every(r => r.found === true && !r.dollars) && satOk && pinsOk && s.counts.blocked === 0 && !s.errors.length;
     fs.writeFileSync(path.join(process.env.OUT, `shots917_${mob ? 'phone' : 'laptop'}.json`), JSON.stringify({R, counts: s.counts, errors: s.errors, served}, null, 1));
     R.forEach(r => console.log(r.ref, r.part, r.found ? 'shown' : 'NOT FOUND', r.dollars ? 'DOLLARS IN FRAME' : 'no dollar figures', JSON.stringify(r.imgs || {satnav: r.satnav, nav: r.nav, rings: r.rings})));
     console.log((ok ? 'PASS' : 'FAIL') + ' shots, counts ' + JSON.stringify(s.counts) + ', errors ' + s.errors.length + ', pictures served locally ' + served);

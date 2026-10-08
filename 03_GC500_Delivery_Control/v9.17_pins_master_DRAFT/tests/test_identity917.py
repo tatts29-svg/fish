@@ -1,9 +1,12 @@
 # Author: Andrew Fisher. v9.17 identity: the candidate differs from its base only where the release says it does.
 #   python3 tests/test_identity917.py <base page> <candidate page> [media_manifest_v917.json]
-#   - DATA: identical except media (+46 / -46: the 23 pins' old pictures out, the 46 re-made pictures in) and
+#   - DATA: identical except media (+106 / -102: the moved pins' old pictures out - GN18 and GN13 had none - and two
+#     re-made pictures per moved pin in) and
 #     hostedMedia.manifest, which must be the canonical digest of the page's own media, before and after, and equal the
 #     manifest file written beside the page;
-#   - MASTER_LOC: identical except the 23, and for them only ll, pt, how and img, each equal to the release's list;
+#   - MASTER_LOC: identical except the 53 moved (the 23, GN18 and GN13, the 28 near moves), and for them only ll, pt, how
+#     and img, each equal to the release's list; the held references (WC57, WC59, WC13, WC69, the 7 LEAVE, WC51, WC01,
+#     P26, P28, T0022, T0023, P47, WC32) byte for byte the same;
 #   - MASTER_LAYERS: identical except the 23 "Entry point" labels, now "Emergency egress point (E.P)";
 #   - every other byte: identical except the Part 2 code (the navPoint917 and aerialNav917 helpers and the surfaces that
 #     read them: 38 base lines out, 64 in, each one named below),
@@ -15,6 +18,8 @@ here = Path(__file__).resolve().parent
 BASE, CAND = sys.argv[1:3]
 MANI = Path(sys.argv[3]) if len(sys.argv) > 3 else Path(CAND).parent / 'media_manifest_v917.json'
 DER = json.loads((here.parent / 'evidence' / 'derive917.json').read_text())
+DER2 = json.loads((here.parent / 'evidence' / 'derive917_add.json').read_text())
+HELD = ['WC57', 'WC59', 'WC13', 'WC69', 'P08', 'P44', 'P51', 'WC20', 'P27', 'P29', 'P34', 'WC51', 'WC01', 'P26', 'P28', 'T0022', 'T0023', 'P47', 'WC32']
 TH = json.loads((here.parent / 'evidence' / 'thumbs917.json').read_text())
 fails = []
 def check(c, what):
@@ -49,22 +54,24 @@ MF = json.loads(MANI.read_text()) if MANI.exists() else None
 check(MF == MC, 'media_manifest_v917.json is not the candidate media list and digest')
 added = set(CD['media']) - set(BD['media']); removed = set(BD['media']) - set(CD['media'])
 old_imgs = {x for ref in TH['pins'] for x in TH['pins'][ref]['old_img']}; new_imgs = {x['sha256'] for x in TH['media']}
-check(len(added) == 46 and added == new_imgs, 'media added is not the 46 re-made pictures')
-check(len(removed) == 46 and removed == old_imgs, 'media removed is not the 23 pins\' 92... old pictures (46)')
+check(len(added) == 106 and added == new_imgs, 'media added is not the 106 re-made pictures')
+check(len(removed) == 102 and removed == old_imgs, 'media removed is not the moved pins\' old pictures (102)')
 check(all(BD['media'][k] == CD['media'][k] for k in set(BD['media']) & set(CD['media'])), 'an existing media entry changed')
 check(all(CD['media'][x['sha256']] == {k: x[k] for k in ('file', 'sha256', 'type', 'bytes', 'scope')} for x in TH['media']), 'a new media entry differs from thumbs917.json')
 check(all(c.count(sha) == 0 for sha in removed), 'a removed picture is still named on the page')
 # MASTER_LOC
 BL, CL = B['MASTER_LOC'][2], C['MASTER_LOC'][2]
-MOV = DER['rows']
+MOV = dict(DER['rows'], **DER2['rows']); assert len(MOV) == 53 and not DER['fails'] and not DER2['fails']
 check(set(BL) == set(CL), 'MASTER_LOC keys changed')
 changed = {k for k in BL if BL[k] != CL.get(k)}
-check(changed == set(MOV), 'MASTER_LOC changed outside the 23: ' + str(sorted(changed ^ set(MOV))))
+check(changed == set(MOV), 'MASTER_LOC changed outside the 53: ' + str(sorted(changed ^ set(MOV))))
+# (T0022 and T0023 are not in MASTER_LOC: their pins are phone pins on the record, which the page does not carry)
+check(all(json.dumps(BL.get(k), sort_keys=True) == json.dumps(CL.get(k), sort_keys=True) for k in HELD) and sum(k in BL for k in HELD) == 17, 'a held reference changed')
 for k in MOV:
     bk, ck = BL[k], CL[k]
     check({x for x in set(bk) | set(ck) if bk.get(x) != ck.get(x)} <= {'ll', 'pt', 'how', 'img'}, k + ': a field other than ll/pt/how/img changed')
     check(ck['ll'] == MOV[k]['listed_ll'] and ck['pt'] == MOV[k]['listed_pt'], k + ': ll/pt is not the listed point')
-    check(ck['img'] == TH['pins'][k]['img'] and bk['img'] == TH['pins'][k]['old_img'], k + ': pictures not as made')
+    check(ck['img'] == TH['pins'][k]['img'] and (bk.get('img') or []) == TH['pins'][k]['old_img'], k + ': pictures not as made')
     check(bk['ll'] == MOV[k]['page_now_ll'], k + ': base ll is not what the audit read')
 # MASTER_LAYERS
 BY, CY = B['MASTER_LAYERS'][2], C['MASTER_LAYERS'][2]
@@ -116,7 +123,7 @@ check(len(plus) == 64, 'expected 64 candidate lines, found %d' % len(plus))
 fb, fc = re.findall(r' · v9\.\d+', b), re.findall(r' · v9\.\d+', c)
 check(fb == fc, 'the footer changed')
 print(('FAIL ' + '; '.join(fails)) if fails else
-      'PASS identity: DATA only media +%d/-%d and the manifest (%s, %d assets, = media_manifest_v917.json); MASTER_LOC only the 23 (ll, pt, how, img); '
+      'PASS identity: DATA only media +%d/-%d and the manifest (%s, %d assets, = media_manifest_v917.json); MASTER_LOC only the 53 (ll, pt, how, img), the 19 held the same; '
       'MASTER_LAYERS only the 23 E.P labels; code: %d lines out, %d in, all Part 2; footer %s unchanged'
       % (len(added), len(removed), MC['sha256'][:16], len(MC['assets']), len(minus), len(plus), fc[-1] if fc else None))
 sys.exit(1 if fails else 0)

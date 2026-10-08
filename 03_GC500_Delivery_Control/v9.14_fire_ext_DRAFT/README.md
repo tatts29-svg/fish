@@ -4,10 +4,10 @@ Author: Andrew Fisher
 
 **The project manager, on site, about 16:25 AEST, 8 Oct 2026:** "also on another note i see no option to add fire extinguishers. these dont have a asset no a remember they have a charge also"
 
-**State:** DRAFT, review findings fixed (see "Review findings" below). Nothing was uploaded, committed or written to the record.
+**State:** DRAFT, review findings fixed (see "Review findings" below), and the project manager's 8 Oct answers on the rate applied (see "8 Oct: the rate answered" below). Nothing was uploaded, committed or written to the record.
 
-- **Base.** The task named live v9.11 (`408ae6ac…`). Live had moved to footer **v9.18** (`c547a6de…`) and was still there at the last build (8 Oct, about 21:15 AEST). The patch is built on v9.18; every anchor matched once.
-- **Build:** `toolchain/build.sh v914_fire v9.14_fire_ext_DRAFT/patch_v914_fire_ext.py` gives `18638084…` (11,626,615 bytes). `check_page.py` reports PASS all checks. Running the patch a second time stops with "v9.14 is already applied".
+- **Base.** The task named live v9.11 (`408ae6ac…`). Live had moved to footer **v9.18** (`c547a6de…`) and was still there at the last build (8 Oct, about 23:25 AEST). The patch is built on v9.18; every anchor matched once.
+- **Build:** `toolchain/build.sh v914_fire v9.14_fire_ext_DRAFT/patch_v914_fire_ext.py` gives `10593ecd…` (11,627,370 bytes). `check_page.py` reports PASS all checks. Running the patch a second time stops with "v9.14 is already applied". The previous candidate was `18638084…` (11,626,615 bytes); the only change since is the wording below.
 - **Not claimed.** No version is claimed on `STATUS.md`. The footer is untouched; the next free number is for whoever publishes.
 
 ## Why there was no option (live v9.11, read only)
@@ -46,7 +46,7 @@ Author: Andrew Fisher
   - the Equipment row, beside "N inside it", in the same muted style;
   - the Drivers and Install sheets, in the accessories column, with a tick box on the Install sheet.
 - **Kept out of the ordinary accessories** (list, count, accessory hire pricing, the Pricing accessory table), so each fact shows once and nothing is priced twice.
-- **The charge wording.** Editors read the full sentence (the card's Fire Ext. figure for the item type, the column's 2025 heading, or "rate to confirm … until the project manager gives a rate"). The view link reads only "Charged per piece." or "Charge: rate to confirm."
+- **The charge wording.** Editors read the full sentence: "Charged per piece (one-off) at the card's Fire Ext. rate for Building 6m." (or, before any are added, "Each one is charged per piece (one-off) at …"), or "Charge: rate to confirm … until the project manager gives a rate". The view link reads only "Charged per piece." or "Charge: rate to confirm." No year is said with a fire extinguisher anywhere on the page.
 - **The per-building tick.** Where a quantity is added, the fire_ext tick in "Contract & charges" is disabled. The reason now shows as text beside it as well as on hover: "— not ticked here: counted by the Fire extinguisher × 2 added under Inside it".
 
 ## The charge
@@ -59,7 +59,7 @@ Author: Andrew Fisher
 
   Each reads the pieces once. `labourRevenue858` already takes fire out of recorded install, so install labour is unchanged. The page books fire extinguishers as a hire charge, so on the Forecast P&L they sit in **Hire Revenue (1005)**.
 - **Rate:**
-  - **Where the card prices it:** the card's Fire Ext. figure for the location's item type, the same figure the per-building tick uses. Today that is the portable buildings and ticket boxes.
+  - **Where the card prices it:** the card's Fire Ext. figure for the location's item type, the same figure the per-building tick uses, charged once per piece (one-off). The project manager confirmed this basis on 8 Oct (see the questions below). Today that is the portable buildings and ticket boxes.
   - **Everywhere else:** "rate to confirm". That covers 0.00, no column, "N/A" and "Included" (toilets, generators, towers, VMS and other plant, containers, furniture). The money is unknown, never nought. Every known figure on that location stays as it was. What each page says:
     - **the drawer:** "Charge: rate to confirm";
     - **the P&L "Fire extinguishers, per piece" line:** counts pieces and locations ("6 fire extinguishers added on 3 locations · 4 pieces at a rate to confirm"). Its amount reads "rate to confirm" when nothing on it is priced, otherwise the priced amount "+ 4 at a rate to confirm". The same rule now applies to the other ticked lines on that card, which also showed nought when nothing on them was priced. The By branch table's fire cell adds "rate to confirm";
@@ -80,13 +80,27 @@ Author: Andrew Fisher
 
 ## For the project manager (nothing is asked on the page)
 
-1. **Rate basis.** The card's Fire Ext. column is headed **2025**. Is that the figure to charge in 2026, or is there a 2026 figure?
-2. **One-off or weekly?** The page treats it as a one-off hire charge per piece, as the card's labour block does. Should it be charged weekly or daily instead?
+1. **Rate basis — answered, 8 Oct 2026.** The card's Fire Ext. column is headed with the card's earlier year. About 18:00 AEST he said: "use 2025 for now if need to we edit at a later date". About 18:10 AEST: "don't mention anything about 2025". So the page charges the card's Fire Ext. figure as it stands and says no year with it anywhere (see "8 Oct: the rate answered").
+2. **One-off or weekly — answered, 8 Oct 2026.** About 18:15 AEST he confirmed it is a one-off charge per piece: "one off charge i'm sure". The page already charged it once per piece; the editors' sentence now says "(one-off)".
 3. **The rate where the card has none.** What should toilets, generators, light towers, VMS and other plant, containers and furniture be charged? The card writes 0.00 or has no column there. Until a rate is given, those read "rate to confirm".
 4. **Where he expects them.** Which locations, and how many on each? The page does not pre-fill any.
 5. Also noticed, not changed here:
    - WC09's two air conditioners added today are both currently "taken off".
    - On the view link the accessories form is visible with enabled inputs. A save there is refused by `mayWrite`.
+
+## 8 Oct: the rate answered (what changed in this candidate)
+
+The project manager's answers above (rate basis, one-off) changed wording only. No money figure moved (money rerun below).
+
+- **Editors' drawer sentence:** "Charged per piece (one-off) at the card's Fire Ext. rate for Building 6m." The year in brackets that followed it is gone, with the code that put it there.
+- **View link:** unchanged, "Charged per piece." / "Charge: rate to confirm."
+- **The charges fold** (editors) says "Fire extinguisher × 2: <amount> at the card's Fire Ext. rate (one-off)". The year it added in brackets is gone.
+- **The card's own Fire Ext. line, as the page already showed it.** These said the card's column year too:
+  - the per-building tick's hover text in "Contract & charges" (the column heading and its year note);
+  - the "<year> card" source chip on the Fire extinguisher row of the labour card.
+
+  They now read "Fire Ext." with no year, and the chip is not shown on that row. This is done by a small wrapper over `labourLinesFor` that clears the heading's year and the year note for the `fire_ext` line only. The rate and every other labour line are as before.
+- **Kept as it is:** the card's data (DATA) still holds its own column heading, year included, untouched and asserted byte for byte. The page never shows it with a fire extinguisher; the year check below reads every tab to prove it.
 
 ## Before uploading
 
@@ -124,7 +138,7 @@ Author: Andrew Fisher
 
 ## Checks
 
-All checks were run on the `18638084…` build (base live v9.18) through the harness.
+All checks were run on the `10593ecd…` build (base live v9.18) through the harness.
 
 - **Practice tests:** `tests/test_fire_ext914.cjs`, laptop 1440 **58/58** and phone 390 **58/58**. Logs: `evidence/test_fire_ext914_laptop.log` and `_phone.log`.
 - **Sweeps:** `evidence/sweep_laptop.json` and `sweep_phone.json`.
@@ -136,10 +150,12 @@ All checks were run on the `18638084…` build (base live v9.18) through the har
 | The record holds no fire extinguisher rows and no fire_ext ticks before the test | pass |
 | View link: no control or prompt on a building (AA), a generator (GN01) or a plant line (T0001) | pass |
 | Editor (practice capability): "Add fire extinguisher" with − / + (44 px) in "Inside it and asset numbers" on AA, GN01, T0001, WC09 (toilet), T0023 (container); the fold title says "add fire extinguishers" | pass |
-| The charge in words, no dollar figure: "the card's Fire Ext. figure for Building 6m (the card heads that column 2025)" on AA; "rate to confirm … never nought" on GN01, T0001, WC09, T0023 | pass |
+| The charge in words, no dollar figure and no year: "Each one is charged per piece (one-off) at the card's Fire Ext. rate for Building 6m." on AA; "rate to confirm … never nought" on GN01, T0001, WC09, T0023 | pass |
 | + sets 2 without saving; one Add then writes **exactly one document**, `accessories/AA` (captured in page.route and aborted). The page sent it more than once with the same body, as its outbox retries | pass |
 | The document holds one fire row: qty 2, `asset_no: null`, "not numbered — counted by quantity", added_by + added_at. (AA's document had no other rows.) | pass |
 | After the save: "Fire extinguisher × 2", Save quantity, Take off; the ordinary accessories list is unchanged | pass |
+| With 2 saved, AA reads exactly "Charged per piece (one-off) at the card's Fire Ext. rate for Building 6m." | pass |
+| **Year check, editor (practice):** every line, hover title, aria label and list option mentioning a fire extinguisher or the card's Fire Ext. line, on all 21 tabs, the drawers of AA (2 added), a building with only the per-building tick, and GN01 with every fold open, and the money cards (P&L, labour plan, Costs margin card, Finance handover, labour card): none carries the card's column year | pass |
 | Save quantity quiet when unchanged; + makes it the main button with "Not saved yet: 3 set, 2 on the record"; − back makes it quiet again | pass |
 | The accessories type list offers "Fire extinguisher — no asset number, counted below"; picking it resets the list and focuses the fire extinguisher button, in view | pass |
 | Take off writes exactly one document, `accessories/AA`: qty 0, off_qty 2, taken_off_by, taken_off_at; the add stamp kept | pass |
@@ -151,6 +167,7 @@ All checks were run on the `18638084…` build (base live v9.18) through the har
 | Existing ticks unchanged: 0 fire_ext ticks; every other building's fire_ext forecast identical; AA's forecast replaced by one charged slot of 2; no "Relocated or moved units" row; AA's tick box disabled | pass |
 | View link: AA's drawer "Fire extinguisher × 2", no control; Equipment row "Fire extinguisher × 2"; Drivers and Install sheets carry it once, with a tick box on the Install sheet | pass |
 | **No card figure, simulated record of 2 on GN01 and 2 on WC09**: no money figure moves at all; Costs 2 lines unknown, P&L fire_ext 2 unknown, labour plan "rate to confirm" 4 pieces (its "no qty" count does not move); Accruals group incomplete | pass |
+| **Year check, view link** (2 on AA priced, 2 on GN01 and 2 on WC09 at a rate to confirm): the same reading of all 21 tabs, the drawers of AA, GN01 and WC09, and the money cards: none carries the card's column year | pass |
 | The same, **as the pages say it**: P&L line, Pricing rows (no "labour" of nought), labour plan chip, Costs line, costs to job end (11 items not priced → 12), Forecast P&L Hire Revenue basis, Finance handover note | pass |
 | **Taken off, simulated record**: GN01 at qty 0 (off_qty 2) and 2 on WC09, nothing on AA: no money figure moves against nothing recorded; the P&L fire amount reads "rate to confirm" | pass |
 | View link and editor: GN01's "Taken off · was Fire extinguisher × 2 · Practice Taker · when"; the editor's stepper at 2; nothing written | pass |
