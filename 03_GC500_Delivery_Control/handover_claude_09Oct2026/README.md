@@ -149,3 +149,15 @@ was never made.
   Claude's session.
 - **Scope:** it is GET-only plus board and PR notes, and changes no source.
 - **Owner:** Andrew decides whether to keep it.
+
+## 10. v9.09 crew + race call: private inputs (added 9 Oct ~02:10 at Codex's request)
+
+**Where:** `v900_crew_and_race_take_08oct.zip.enc` (papers password), sha256 `e6fd36ef7b6edbb9…`. It holds:
+- **`v900_fencing_addition.json`:** the crew member Andrew added on 8 Oct, name and company only.
+  - sha256 `ee576e40…`, the value `patch_v900_crew.py` and `patch_v900_broadcast.py` bind to through env `V900_TEAM`.
+  - The same file is also in `inputs_08Oct2026`.
+- **`c1f29637….mp3`:** the approved slot-17 race take.
+  - 16.03 s, MP3, 48 kHz mono, 96 kbps, approved by Andrew on 8 Oct.
+  - This is `V900_TAKE`. Upload it to the media store under its sha256 name before the page.
+
+**How to use them:** see `v9.00_crew_vms_counts_DRAFT/README_broadcast_part.md`, sections "The take" and "Build".
