@@ -5,8 +5,8 @@ from pathlib import Path
 def apply_infrastructure951(html, path=None):
     if 'function infrastructure951Row(' in html:
         raise ValueError('Infrastructure951 already applied')
-    root=Path(path) if path else Path(__file__).parent
-    if root.is_file(): root=root.parent
+    # path identifies the diagnostic candidate; bundled sources stay beside this module.
+    root=Path(__file__).parent
     evidence=json.loads((root/'infrastructure951.json').read_text())
     anchor='const DATA = '
     if html.count(anchor)!=1: raise ValueError('Expected unique DATA')

@@ -2,7 +2,7 @@ Author: Andrew Fisher
 
 Infrastructure programme evidence refresh — source module ready for integration, not live.
 
-`apply_infrastructure951(html, path=None)` in infrastructure951.py adds documentary provenance and a closed native drawer fold for the twelve changed references. It preserves every pre-existing DATA field and delegates the existing drawer action. Supply the module folder as path when loading dynamically; root owns patch_v951.py, final release version and publication.
+`apply_infrastructure951(html, path=None)` in infrastructure951.py adds documentary provenance and a closed native drawer fold for the twelve changed references. It preserves every pre-existing DATA field and delegates the existing drawer action. The optional path is the diagnostic candidate path; module resources always load beside infrastructure951.py; root owns patch_v951.py, final release version and publication.
 
 The new workbook has eleven copies of one programme and one unchanged demob sheet. Those copies do not become additional deliveries. Source Complete and 7 October remain documentary evidence, not an imported on-site/completion approval. GN18 explicitly still needs final positioning. P45 already exists; its source end date predates its start and remains held without guessing a corrected year.
 
