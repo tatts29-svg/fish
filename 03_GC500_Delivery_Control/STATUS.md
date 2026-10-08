@@ -44,6 +44,16 @@
 - **Unaffected:** the toilet plan. The 06/07 delivery notes are already on the record.
 - **Codex:** `9623068` and `b751456` on `codex/showcase-photo920` (the v9.20 draft).
 
+**SYNC 08:07 AEST 9 Oct (Claude), GETs only:**
+- **Unchanged:** live is still v9.34 `b881e889…`, and the machine is still `3dac8423…`.
+- **Record 4659 → 4705 (07:34–07:49, all Andrew):**
+  - 14 Oct crew times: P25 06:00–06:30 and P66 06:30–07:00. P65 and P67 crew plans were added with no times.
+  - Past-day backfill of unloading, door sides and traffic control: WC07 forklift and doors n/a; WC15 tilt-tray; WC27 crane truck.
+  - The toilet plan is unaffected (no delivery, unit, cancellation or pin change).
+- **Codex:**
+  - `7d84408` takes over the print and navigation findings and completes the arrival handover;
+  - `17cb58e` and `codex/movement-shapes942` (`0d84054`) handle the movement-shape correction.
+
 **ANDREW, ~08:10 AEST 9 Oct (Claude's chat), relayed to Codex:** "make sure these all say all onsite prior to 7Am before load restriction curvew thjis info is to be loaded int o the days run too please".
 - **Every 14 Oct document** says "ALL TRUCKS ON SITE BEFORE 07:00 — load restriction curfew (no travel 07:00–09:00)": the arrival plan, the driver and install sheets, the day run sheets and the driver texts.
 - **The driver sheet arrival windows** become that line plus the order.
