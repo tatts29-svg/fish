@@ -2,7 +2,7 @@
 
 Author: Andrew Fisher
 
-State: DRAFT; final combined checks running. Nothing is published by this folder.
+State: READY TO UPLOAD. Source and page are frozen for the coordinating publisher; this folder has not published anything.
 
 Andrew approved the extinguisher and VMS changes on 9 Oct and then directed that Truck flow sit behind a closed dropdown. This combines those three completed source parts on the v9.21 pins page.
 
@@ -12,7 +12,7 @@ Andrew approved the extinguisher and VMS changes on 9 Oct and then directed that
 
 Sources copied from frozen upstream `822b06a8`: v9.14 fire extinguishers, v9.13 VMS register and v9.00 part F. The composition wrapper requires v9.21, advances the footer and refuses repeat application. Operational records, DATA, master geometry, media and machine assets are unchanged by the build.
 
-Build once v9.21 is live:
+Build from the live v9.21 page:
 
 ```sh
 toolchain/build.sh v9.22 v9.22_fire_vms_takeover_DRAFT/patch_v922.py
@@ -20,4 +20,13 @@ toolchain/build.sh v9.22 v9.22_fire_vms_takeover_DRAFT/patch_v922.py
 
 The VMS and fire tests exercise read-only and simulated editing, capture and abort every proposed save, and compare a fresh shared record afterwards. `money922.cjs` includes the upstream scenario audit, with corrected expectations for derived percentages, balanced reconciliation parts and the separate rate-to-confirm quantity. No currency amounts are written into its results. The fold comparison uses the combined candidate with only the fold removed as its baseline, so VMS presentation changes are not mistaken for fold changes.
 
-Required before READY: both feature suites on phone/desktop, fold controls and phone layout, finance identity/scenarios, both navigation sweeps, phone screenshot review and final source/base/candidate hashes. Private rendered evidence stays outside Git.
+The final candidate passed fire 61/61 on desktop and phone; VMS 68/68 on both; Truck flow 27/27 desktop and 29/29 dark phone; and all 27 finance scenarios. Both full sweeps exercised 21 routes, seven deep links and Back with zero page or console errors. The existing six redirects match v9.21. Fourteen source identity checks passed, all 29 inline scripts parse, and phone fire/VMS/fold screenshots were reviewed. Record version stayed 4599 throughout the read-only checks.
+
+The fold test now waits for the existing same-origin explorer's one-time hint flag to finish initializing before taking its storage snapshot. Its full local/session-storage and record comparisons then pass; no storage key is ignored. Tests use the shared GET-only harness with software WebGL and answer vendor telemetry locally. Private rendered evidence stays outside Git.
+
+- Frozen implementation checkpoint: `2861f996` (no page changes after its source).
+- Base v9.21 SHA-256: `7138c402c8827056524d6b1ebbd2c50cd7c7e8a549b0d1dbea91184ec6cc8774`.
+- Candidate SHA-256: `7e3fe251373c97582119f41002cbda0cfacb71bd23ec5fe1fdf2c3dde3d46abc` — 11,696,428 bytes.
+- Validation: `evidence/validation.json`.
+
+The release changes only the HTML page. Media and the paired machine file remain the live v9.21 assets. The coordinating publisher must use the normal live-base guard and verify the served bytes before recording LIVE.
