@@ -222,388 +222,9 @@
    }
   },
   {
-   "name": "MASTER markers sit where MASTER_LOC puts them, within 0.3 px of the 2600 px picture (26 references read from the page's own layout)",
-   "pass": false,
-   "detail": {
-    "WC81": {
-     "marker": [
-      0.9066265060240963,
-      0.7426330252966138
-     ],
-     "sheet_pt": [
-      2161.4,
-      1250.6
-     ],
-     "label_boxes": 1,
-     "off_pt": 0,
-     "off_m": 0,
-     "on_label": true,
-     "tag": true,
-     "read": "transform",
-     "matches_data": false,
-     "drawn": true
-    },
-    "T0265": {
-     "marker": [
-      0.8930722891566265,
-      0.8526211541866978
-     ],
-     "sheet_pt": [
-      2129.1,
-      1435.8
-     ],
-     "label_boxes": 0,
-     "off_pt": null,
-     "off_m": null,
-     "on_label": null,
-     "tag": false,
-     "read": "transform",
-     "matches_data": false,
-     "drawn": true
-    },
-    "P60": {
-     "marker": [
-      0.8981927710843373,
-      0.15048763371395216
-     ],
-     "sheet_pt": [
-      2141.3,
-      253.4
-     ],
-     "label_boxes": 2,
-     "off_pt": 0,
-     "off_m": 0,
-     "on_label": true,
-     "tag": true,
-     "read": "transform",
-     "matches_data": false,
-     "drawn": true
-    },
-    "P62": {
-     "marker": [
-      0.888855421686747,
-      0.15091394429104552
-     ],
-     "sheet_pt": [
-      2119,
-      254.1
-     ],
-     "label_boxes": 2,
-     "off_pt": 0,
-     "off_m": 0,
-     "on_label": true,
-     "tag": true,
-     "read": "transform",
-     "matches_data": false,
-     "drawn": true
-    },
-    "P63": {
-     "marker": [
-      0.8843373493975905,
-      0.15134025486813885
-     ],
-     "sheet_pt": [
-      2108.3,
-      254.9
-     ],
-     "label_boxes": 2,
-     "off_pt": 0,
-     "off_m": 0,
-     "on_label": true,
-     "tag": true,
-     "read": "transform",
-     "matches_data": false,
-     "drawn": true
-    },
-    "WC48": {
-     "marker": [
-      0.8777108433734939,
-      0.16071908756419254
-     ],
-     "sheet_pt": [
-      2092.5,
-      270.7
-     ],
-     "label_boxes": 2,
-     "off_pt": 0,
-     "off_m": 0,
-     "on_label": true,
-     "tag": true,
-     "read": "transform",
-     "matches_data": false,
-     "drawn": true
-    },
-    "WC51": {
-     "marker": [
-      0.8192771084337349,
-      0.16242432987256594
-     ],
-     "sheet_pt": [
-      1953.2,
-      273.5
-     ],
-     "label_boxes": 1,
-     "off_pt": 0,
-     "off_m": 0,
-     "on_label": true,
-     "tag": true,
-     "read": "transform",
-     "matches_data": false,
-     "drawn": true
-    },
-    "P45": {
-     "marker": [
-      0.5075301204819277,
-      0.19567655488584715
-     ],
-     "sheet_pt": [
-      1210,
-      329.5
-     ],
-     "label_boxes": 1,
-     "off_pt": 0,
-     "off_m": 0,
-     "on_label": true,
-     "tag": true,
-     "read": "transform",
-     "matches_data": false,
-     "drawn": true
-    },
-    "WC38": {
-     "marker": [
-      0.20903614457831327,
-      0.6855074079661051
-     ],
-     "sheet_pt": [
-      498.3,
-      1154.4
-     ],
-     "label_boxes": 1,
-     "off_pt": 0,
-     "off_m": 0,
-     "on_label": true,
-     "tag": true,
-     "read": "transform",
-     "matches_data": false,
-     "drawn": true
-    },
-    "WC39": {
-     "marker": [
-      0.20903614457831327,
-      0.6970177935476255
-     ],
-     "sheet_pt": [
-      498.3,
-      1173.8
-     ],
-     "label_boxes": 1,
-     "off_pt": 0,
-     "off_m": 0,
-     "on_label": true,
-     "tag": true,
-     "read": "transform",
-     "matches_data": false,
-     "drawn": true
-    },
-    "WC10": {
-     "marker": [
-      0.26897590361445783,
-      0.38836893573204084
-     ],
-     "sheet_pt": [
-      641.2,
-      654
-     ],
-     "label_boxes": 1,
-     "off_pt": 0,
-     "off_m": 0,
-     "on_label": true,
-     "tag": true,
-     "read": "transform",
-     "matches_data": false,
-     "drawn": true
-    },
-    "AA": {
-     "marker": [
-      0.42078313253012045,
-      0.34403263571433257
-     ],
-     "sheet_pt": [
-      1003.1,
-      579.4
-     ],
-     "label_boxes": 1,
-     "off_pt": 0,
-     "off_m": 0,
-     "on_label": true,
-     "tag": true,
-     "read": "transform",
-     "matches_data": false,
-     "drawn": true
-    },
-    "P10": {
-     "marker": [
-      0.40722891566265057,
-      0.3538377789874796
-     ],
-     "sheet_pt": [
-      970.8,
-      595.9
-     ],
-     "label_boxes": 1,
-     "off_pt": 0,
-     "off_m": 0,
-     "on_label": true,
-     "tag": true,
-     "read": "transform",
-     "matches_data": false,
-     "drawn": true
-    },
-    "P39": {
-     "marker": [
-      0.2780120481927711,
-      0.4011582530448413
-     ],
-     "sheet_pt": [
-      662.8,
-      675.6
-     ],
-     "label_boxes": 1,
-     "off_pt": 0,
-     "off_m": 0,
-     "on_label": true,
-     "tag": true,
-     "read": "transform",
-     "matches_data": false,
-     "drawn": true
-    },
-    "P54": {
-     "marker": [
-      0.058734939759036146,
-      0.6991493464330922
-     ],
-     "sheet_pt": [
-      140,
-      1177.4
-     ],
-     "label_boxes": 1,
-     "off_pt": 0,
-     "off_m": 0,
-     "on_label": true,
-     "tag": true,
-     "read": "transform",
-     "matches_data": false,
-     "drawn": true
-    },
-    "P66": {
-     "marker": [
-      0.7268072289156627,
-      0.16498219333512604
-     ],
-     "sheet_pt": [
-      1732.7,
-      277.8
-     ],
-     "label_boxes": 1,
-     "off_pt": 0,
-     "off_m": 0,
-     "on_label": true,
-     "tag": true,
-     "read": "transform",
-     "matches_data": false,
-     "drawn": true
-    },
-    "WC20": {
-     "marker": [
-      0.4641566265060241,
-      0.3500009837936394
-     ],
-     "sheet_pt": [
-      1106.5,
-      589.4
-     ],
-     "label_boxes": 1,
-     "off_pt": 0,
-     "off_m": 0,
-     "on_label": true,
-     "tag": true,
-     "read": "transform",
-     "matches_data": false,
-     "drawn": true
-    },
-    "WC30": {
-     "marker": [
-      0.12981927710843374,
-      0.3764322395734271
-     ],
-     "sheet_pt": [
-      309.5,
-      633.9
-     ],
-     "label_boxes": 1,
-     "off_pt": 0,
-     "off_m": 0,
-     "on_label": true,
-     "tag": true,
-     "read": "transform",
-     "matches_data": false,
-     "drawn": true
-    },
-    "WC41": {
-     "marker": [
-      0.2897590361445783,
-      0.5239356992477259
-     ],
-     "sheet_pt": [
-      690.8,
-      882.3
-     ],
-     "label_boxes": 1,
-     "off_pt": 0,
-     "off_m": 0,
-     "on_label": true,
-     "tag": true,
-     "read": "transform",
-     "matches_data": false,
-     "drawn": true
-    },
-    "WC50": {
-     "marker": [
-      0.6156626506024097,
-      0.2135815991237678
-     ],
-     "sheet_pt": [
-      1467.7,
-      359.7
-     ],
-     "label_boxes": 1,
-     "off_pt": 0,
-     "off_m": 0,
-     "on_label": true,
-     "tag": true,
-     "read": "transform",
-     "matches_data": false,
-     "drawn": true
-    },
-    "WC61": {
-     "marker": [
-      0.24457831325301205,
-      0.21486053085504783
-     ],
-     "sheet_pt": [
-      583.1,
-      361.8
-     ],
-     "label_boxes": 1,
-     "off_pt": 0,
-     "off_m": 0,
-     "on_label": true,
-     "tag": true,
-     "read": "transform",
-     "matches_data": false,
-     "drawn": true
-    }
-   }
+   "name": "MASTER markers sit where MASTER_LOC puts them, within the page's own 0.05 CSS px rounding of the data position at this stage width (26 references read from the page's own layout; worst 0.05 px)",
+   "pass": true,
+   "detail": {}
   },
   {
    "name": "every checked tag pin is on its 2 Oct tag (24 with a tag: the inset pins, the flagged set, the moved set and every 9th tag pin)",
@@ -629,7 +250,12 @@
      "on_label": true,
      "tag": true,
      "read": "transform",
-     "matches_data": false,
+     "stage_px": 332,
+     "off_css_px": [
+      0.012,
+      0.041
+     ],
+     "matches_data": true,
      "drawn": true
     },
     "CP1": {
@@ -647,6 +273,11 @@
      "on_label": null,
      "tag": false,
      "read": "transform",
+     "stage_px": 332,
+     "off_css_px": [
+      0.031,
+      0.01
+     ],
      "matches_data": true,
      "drawn": true
     },
@@ -665,7 +296,12 @@
      "on_label": null,
      "tag": false,
      "read": "transform",
-     "matches_data": false,
+     "stage_px": 332,
+     "off_css_px": [
+      0.011,
+      0.026
+     ],
+     "matches_data": true,
      "drawn": true
     },
     "P68_from_WC81_pt": 8.5
@@ -690,7 +326,12 @@
      "on_label": true,
      "tag": true,
      "read": "transform",
-     "matches_data": false,
+     "stage_px": 332,
+     "off_css_px": [
+      0.016,
+      0.03
+     ],
+     "matches_data": true,
      "drawn": true
     },
     "P62": {
@@ -708,7 +349,12 @@
      "on_label": true,
      "tag": true,
      "read": "transform",
-     "matches_data": false,
+     "stage_px": 332,
+     "off_css_px": [
+      0.032,
+      0.037
+     ],
+     "matches_data": true,
      "drawn": true
     },
     "P63": {
@@ -726,7 +372,12 @@
      "on_label": true,
      "tag": true,
      "read": "transform",
-     "matches_data": false,
+     "stage_px": 332,
+     "off_css_px": [
+      0.034,
+      0.007
+     ],
+     "matches_data": true,
      "drawn": true
     },
     "WC48": {
@@ -744,7 +395,12 @@
      "on_label": true,
      "tag": true,
      "read": "transform",
-     "matches_data": false,
+     "stage_px": 332,
+     "off_css_px": [
+      0.046,
+      0.021
+     ],
+     "matches_data": true,
      "drawn": true
     },
     "WC49": {
@@ -762,6 +418,11 @@
      "on_label": true,
      "tag": true,
      "read": "transform",
+     "stage_px": 332,
+     "off_css_px": [
+      0.024,
+      0.018
+     ],
      "matches_data": true,
      "drawn": true
     },
@@ -780,7 +441,12 @@
      "on_label": true,
      "tag": true,
      "read": "transform",
-     "matches_data": false,
+     "stage_px": 332,
+     "off_css_px": [
+      0.037,
+      0.041
+     ],
+     "matches_data": true,
      "drawn": true
     },
     "WC81": {
@@ -798,7 +464,12 @@
      "on_label": true,
      "tag": true,
      "read": "transform",
-     "matches_data": false,
+     "stage_px": 332,
+     "off_css_px": [
+      0.012,
+      0.041
+     ],
+     "matches_data": true,
      "drawn": true
     }
    }
@@ -1010,7 +681,7 @@
     "blocked": 0,
     "liveExplorer": 0,
     "missing": [],
-    "local": 163,
+    "local": 156,
     "mediaServed": 18
    }
   }
@@ -1031,6 +702,11 @@
    "on_label": null,
    "tag": false,
    "read": "transform",
+   "stage_px": 332,
+   "off_css_px": [
+    0.031,
+    0.01
+   ],
    "matches_data": true,
    "drawn": true
   },
@@ -1049,7 +725,12 @@
    "on_label": true,
    "tag": true,
    "read": "transform",
-   "matches_data": false,
+   "stage_px": 332,
+   "off_css_px": [
+    0.012,
+    0.041
+   ],
+   "matches_data": true,
    "drawn": true
   },
   "T0265": {
@@ -1067,7 +748,12 @@
    "on_label": null,
    "tag": false,
    "read": "transform",
-   "matches_data": false,
+   "stage_px": 332,
+   "off_css_px": [
+    0.011,
+    0.026
+   ],
+   "matches_data": true,
    "drawn": true
   },
   "P60": {
@@ -1085,7 +771,12 @@
    "on_label": true,
    "tag": true,
    "read": "transform",
-   "matches_data": false,
+   "stage_px": 332,
+   "off_css_px": [
+    0.016,
+    0.03
+   ],
+   "matches_data": true,
    "drawn": true
   },
   "P62": {
@@ -1103,7 +794,12 @@
    "on_label": true,
    "tag": true,
    "read": "transform",
-   "matches_data": false,
+   "stage_px": 332,
+   "off_css_px": [
+    0.032,
+    0.037
+   ],
+   "matches_data": true,
    "drawn": true
   },
   "P63": {
@@ -1121,7 +817,12 @@
    "on_label": true,
    "tag": true,
    "read": "transform",
-   "matches_data": false,
+   "stage_px": 332,
+   "off_css_px": [
+    0.034,
+    0.007
+   ],
+   "matches_data": true,
    "drawn": true
   },
   "WC48": {
@@ -1139,7 +840,12 @@
    "on_label": true,
    "tag": true,
    "read": "transform",
-   "matches_data": false,
+   "stage_px": 332,
+   "off_css_px": [
+    0.046,
+    0.021
+   ],
+   "matches_data": true,
    "drawn": true
   },
   "WC49": {
@@ -1157,6 +863,11 @@
    "on_label": true,
    "tag": true,
    "read": "transform",
+   "stage_px": 332,
+   "off_css_px": [
+    0.024,
+    0.018
+   ],
    "matches_data": true,
    "drawn": true
   },
@@ -1175,7 +886,12 @@
    "on_label": true,
    "tag": true,
    "read": "transform",
-   "matches_data": false,
+   "stage_px": 332,
+   "off_css_px": [
+    0.037,
+    0.041
+   ],
+   "matches_data": true,
    "drawn": true
   },
   "P45": {
@@ -1193,7 +909,12 @@
    "on_label": true,
    "tag": true,
    "read": "transform",
-   "matches_data": false,
+   "stage_px": 332,
+   "off_css_px": [
+    0.05,
+    0.03
+   ],
+   "matches_data": true,
    "drawn": true
   },
   "WC38": {
@@ -1211,7 +932,12 @@
    "on_label": true,
    "tag": true,
    "read": "transform",
-   "matches_data": false,
+   "stage_px": 332,
+   "off_css_px": [
+    0.049,
+    0.021
+   ],
+   "matches_data": true,
    "drawn": true
   },
   "WC39": {
@@ -1229,7 +955,12 @@
    "on_label": true,
    "tag": true,
    "read": "transform",
-   "matches_data": false,
+   "stage_px": 332,
+   "off_css_px": [
+    0.038,
+    0.033
+   ],
+   "matches_data": true,
    "drawn": true
   },
   "WC10": {
@@ -1247,7 +978,12 @@
    "on_label": true,
    "tag": true,
    "read": "transform",
-   "matches_data": false,
+   "stage_px": 332,
+   "off_css_px": [
+    0.005,
+    0.042
+   ],
+   "matches_data": true,
    "drawn": true
   },
   "AA": {
@@ -1265,7 +1001,12 @@
    "on_label": true,
    "tag": true,
    "read": "transform",
-   "matches_data": false,
+   "stage_px": 332,
+   "off_css_px": [
+    0.008,
+    0.05
+   ],
+   "matches_data": true,
    "drawn": true
   },
   "P10": {
@@ -1283,7 +1024,12 @@
    "on_label": true,
    "tag": true,
    "read": "transform",
-   "matches_data": false,
+   "stage_px": 332,
+   "off_css_px": [
+    0.037,
+    0.023
+   ],
+   "matches_data": true,
    "drawn": true
   },
   "P19": {
@@ -1301,6 +1047,11 @@
    "on_label": true,
    "tag": true,
    "read": "transform",
+   "stage_px": 332,
+   "off_css_px": [
+    0.012,
+    0.02
+   ],
    "matches_data": true,
    "drawn": true
   },
@@ -1319,7 +1070,12 @@
    "on_label": true,
    "tag": true,
    "read": "transform",
-   "matches_data": false,
+   "stage_px": 332,
+   "off_css_px": [
+    0.011,
+    0.05
+   ],
+   "matches_data": true,
    "drawn": true
   },
   "P54": {
@@ -1337,7 +1093,12 @@
    "on_label": true,
    "tag": true,
    "read": "transform",
-   "matches_data": false,
+   "stage_px": 332,
+   "off_css_px": [
+    0.012,
+    0.033
+   ],
+   "matches_data": true,
    "drawn": true
   },
   "P66": {
@@ -1355,7 +1116,12 @@
    "on_label": true,
    "tag": true,
    "read": "transform",
-   "matches_data": false,
+   "stage_px": 332,
+   "off_css_px": [
+    0.014,
+    0.037
+   ],
+   "matches_data": true,
    "drawn": true
   },
   "WC09": {
@@ -1373,6 +1139,11 @@
    "on_label": true,
    "tag": true,
    "read": "transform",
+   "stage_px": 332,
+   "off_css_px": [
+    0.009,
+    0.003
+   ],
    "matches_data": true,
    "drawn": true
   },
@@ -1391,7 +1162,12 @@
    "on_label": true,
    "tag": true,
    "read": "transform",
-   "matches_data": false,
+   "stage_px": 332,
+   "off_css_px": [
+    0.034,
+    0
+   ],
+   "matches_data": true,
    "drawn": true
   },
   "WC30": {
@@ -1409,7 +1185,12 @@
    "on_label": true,
    "tag": true,
    "read": "transform",
-   "matches_data": false,
+   "stage_px": 332,
+   "off_css_px": [
+    0.026,
+    0.025
+   ],
+   "matches_data": true,
    "drawn": true
   },
   "WC41": {
@@ -1427,7 +1208,12 @@
    "on_label": true,
    "tag": true,
    "read": "transform",
-   "matches_data": false,
+   "stage_px": 332,
+   "off_css_px": [
+    0.026,
+    0.044
+   ],
+   "matches_data": true,
    "drawn": true
   },
   "WC50": {
@@ -1445,7 +1231,12 @@
    "on_label": true,
    "tag": true,
    "read": "transform",
-   "matches_data": false,
+   "stage_px": 332,
+   "off_css_px": [
+    0.047,
+    0.024
+   ],
+   "matches_data": true,
    "drawn": true
   },
   "WC61": {
@@ -1463,7 +1254,12 @@
    "on_label": true,
    "tag": true,
    "read": "transform",
-   "matches_data": false,
+   "stage_px": 332,
+   "off_css_px": [
+    0.044,
+    0.009
+   ],
+   "matches_data": true,
    "drawn": true
   },
   "WC73": {
@@ -1481,6 +1277,11 @@
    "on_label": true,
    "tag": true,
    "read": "transform",
+   "stage_px": 332,
+   "off_css_px": [
+    0.019,
+    0
+   ],
    "matches_data": true,
    "drawn": true
   }
@@ -1627,12 +1428,12 @@
  },
  "counts": {
   "page": 1,
-  "live": 53,
+  "live": 54,
   "blocked": 0,
-  "local": 163,
-  "ranges": 76,
+  "local": 156,
+  "ranges": 69,
   "missing": [],
-  "localPaths": 93,
+  "localPaths": 92,
   "liveExplorer": 0,
   "badResponses": []
  }

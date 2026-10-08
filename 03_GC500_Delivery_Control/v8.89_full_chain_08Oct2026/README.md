@@ -66,7 +66,7 @@ write aborted, the live record read fresh at every open — version 4414 at the 
 | v8.92 the A+ pass (`aplus892`) | 21/21 | 22/22 | |
 | v8.92 money against the chain without v8.92 (`money892`) | 6/6 | 6/6 | both reads on record 4414 |
 | v8.95 contracts (`contracts895`) | 26/26 | 26/26 | |
-| v8.93 alignment (`align893`) | 21/21 | 20/21, then **TBD_ALIGN_PHONE** with the corrected bound | the one failing check was the test's fixed 1e-4 picture fraction against the page's `toFixed(1)` CSS px (Codex found the same, [6049323871](https://github.com/tatts29-svg/fish/pull/1#issuecomment-6049323871)); the bound is now the page's own 0.05 px rounding |
+| v8.93 alignment (`align893`) | 21/21 | 20/21 on the suite's run, **21/21** re-run with the corrected bound | the one failing check was the test's fixed 1e-4 picture fraction against the page's `toFixed(1)` CSS px (Codex found the same, [6049323871](https://github.com/tatts29-svg/fish/pull/1#issuecomment-6049323871)); the bound is now the page's own 0.05 px rounding, and both widths pass on the same bytes |
 | v8.86 Event Portables (`ep886`) | 31/31 | 31/31 | WC57 and WC67 on the Tue 13 Oct Andrew recorded |
 | v8.88 Transport view (`transport888`) | 29/29 | 29/29 | 29/29 at 2560 px |
 | v8.65 Costs (`costs865`) | 33/33 | 33/33 | |
@@ -77,11 +77,21 @@ write aborted, the live record read fresh at every open — version 4414 at the 
 | Layout 876 · VMS 874 · Equipment 873 | 18 · 18 · 40 | 18 · 18 · 40 | |
 | Crew 883 · Finance 866 | 34/34 · 24/24 | 34/34 · 24/24 | |
 | Loading 872 · Unloading 881 · Paired 881 | 26 · 34 · 18 | 26 · 34 · 18 | |
-| v8.71 · Supplier 870 · KINP 869 | 11/12 · 17/17 · 17/17 | — | v871's first check asks for the 6 Oct export, which v8.95 supersedes on page B; on page A: **TBD_V871_A** |
+| v8.71 · Supplier 870 · KINP 869 | 11/12 · 17/17 · 17/17 | — | v871's first check asks for the 6 Oct export, which v8.95 supersedes on page B; on page A it is 12/12 |
 | 15-tab sweep | 15 shown, 0 errors, 0 blocked | 15 shown, 0 errors, 0 blocked | |
 | Handling 875 · Paired 879 (out of date) | 22/28 · 17/18 | 22/28 · 17/18 | the same lines fail on live v8.83 (`handling875_live.log`, `paired879_live.log`) |
-| **v8.95's money effect, A against B** (`compare_money895`) | **TBD_MONEY_AB** | — | every money model read from both pages on one record version; differing figures by path, direction and percentage |
-| **Page A** (sweeps, costs865, finance866, transport888, v871) | **TBD_PAGE_A** | **TBD_PAGE_A_PHONE** | `evidence_h1final_pageA/` |
+| **v8.95's money effect, A against B** (`compare_money895`) | measured: 4,062 figures the same, **58 differ**, all revenue-side (below) | — | every money model read from both pages on record 4414; the business's lines, the Transport view, the labour plan and all **17 tie-outs (17/17 on both)** identical; 0 errors, 0 writes |
+| **Page A** (sweeps, costs865, finance866, transport888, v871) | 15 tabs 0 errors 0 blocked · 33/33 · 24/24 · 29/29 · 12/12 | 15 tabs, 0 errors, 0 blocked | `evidence_h1final_pageA/` |
+
+**What v8.95 does to the money, measured on these bytes** (`compare_money895_laptop.log`; direction and percentage only — it agrees with
+the v8.95 README's table): P&L summary — contracts charge up 0.88%, NVAC's branch charge up 4.79% (34 → 36 lines), total up 0.37%,
+break-even up 0.70%, and the one stream carrying the two generator lines up 18.73% (24 → 26 lines); Costs to job end — revenue on the
+record up 0.37%, to job end up 0.22%; Finance handover — NVAC's invoice up 4.71% on the record and 4.24% to job end, the totals up
+0.37% / 0.22%; P&L — Hire Revenue to job end up 1.45%, gross margin to job end up 0.40%; Rehire by branch — its share down 0.22–0.37%
+because the whole is larger. Every cost figure is the same. The 8 structural differences are the contract-line keys that v8.95 joins
+to four references' transport rows (WC07's 20 lines among them) — joins, not charges. The two Concert generators (1316182, 1316183),
+which the export adds with no rate, are charged from the card's 200 kVA line as an estimate; their GN number and rate from Andrew
+would replace that estimate.
 
 **The record at the run.** Andrew recorded Tue 13 Oct on WC57 and WC67 at about 05:23 AEST, so the Event Portables test reads
 them there — the release's own rule (a day recorded on the record wins over the plan, for the whole reference). On WC67 that
@@ -107,7 +117,8 @@ against the hash, `/api/machine` against `96dee047…`, and record LIVE on `STAT
 4. A small gap for a later release, not this one: the "moved off this day" fold on Mon 12 Oct still names the plan's Fri 9 Oct for
    WC57 while the record has it on 13 Oct (everything else reads 13 Oct).
 
-**Source:** TBD_H1_COMMIT on `claude/ampol-reporting-suite-access-h2hy90`. Evidence: `evidence_h1final/` (one log per run).
+**Source:** the READY commit on `claude/ampol-reporting-suite-access-h2hy90` named in the READY comment on PR #1 (8 Oct 2026, ~11:00
+AEST); it carries this README. Evidence: `evidence_h1final/` and `evidence_h1final_pageA/` (one log per run; dollar figures redacted).
 
 ## What Andrew gets
 
