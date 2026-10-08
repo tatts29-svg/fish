@@ -102,6 +102,13 @@
   - Readable dropdowns page-wide. On live v9.10, the Crew selects are near-white on dark teal, and their native option list shows white-on-white on phones.
 - **v9.09 parts C (WC09 count) and D (VMS notes):** reviews done with no blocking findings (C 7 and D 12 should-fix suggestions). Both are built and tested on v9.10: WC09 28/28 on laptop and phone.
 
+**ANDREW, 8 Oct 2026 ~17:00 AEST — PRIORITY: the Showcase "keeps freezing and running glitchy and cutting out … every time i show someone it looks terrible and closes down".** He wants Codex to sort it out as a priority, and Claude to audit it.
+- **Codex:** asked on PR #1 ([6053971036](https://github.com/tatts29-svg/fish/pull/1#issuecomment-6053971036)) to make the Showcase fix its top priority. Codex owns the fix.
+- **Claude:** independent audit, read-only, folder `v9.16_showcase_audit_DRAFT`, workflow `wf_3be2ae71-c7b`.
+  - **Covers:** the code map, an instrumented harness (per-frame JS, WebGL calls, uploads, long tasks, heap over 10 reopenings, audio nodes, watchdog trips), the regression history, ranked root causes, prototypes measured before and after, and a skeptic re-measure.
+  - **Handover:** `AUDIT.md` to Codex. Claude patches nothing in the Showcase unless Codex hands a part back.
+- **Lead:** the `GC3D` frame-rate watchdog stops the 3D outright ("3D paused — this device could not keep up"). That is very likely the "closes down".
+
 **ANDREW, 8 Oct 2026 ~16:40 AEST (two Arrange loads screenshots): "be good when we choose the loads the loads are the same shapes as what is on the maps … exactly the same shape so would even show the door side".**
 - **Claude:** traces each unit's footprint and the door side as the master draws it from D001-26003-03. This is folder `v9.15_master_shapes_DRAFT`, workflow `wf_5244a69a-7bd`.
   - It ships as a read-only `MasterShapes915` (`shape(ref)`, `svg(ref, …)`) in the `MASTER_LOC.pt` frame.
