@@ -19,4 +19,8 @@ check('explicit SUB supplier preserved',()=>assert.equal(F.owner({subhired:true,
 check('unidentified toilet is not assumed supplier',()=>assert.equal(F.owner({},[]).owner,'unknown'));
 check('repeated same-leg quantities cannot double the reference demand',()=>assert(F.loadDemands([{leg:'inbound',e:{item:'Accessible Toilet',quantity_raw:1}},{leg:'inbound',e:{item:'Accessible Toilet',quantity_raw:1}}],lines).every(x=>!x.known)));
 check('different transport legs retain their own demand',()=>assert(F.loadDemands([{leg:'inbound',e:{item:'Accessible Toilet',quantity_raw:1}},{leg:'demob',e:{item:'Accessible Toilet',quantity_raw:1}}],lines).every(x=>x.known)));
+const pending={leg:'inbound',e:{item:'16Pan Block',quantity_raw:1}},actual={leg:'inbound',e:{item:'16Pan Block',quantity_raw:1,transport_cost:{amount:100}}};
+check('partial actual plus pending allocation fits exact total',()=>assert.equal(F.loadDemands([pending],lines,[actual,pending])[0].known,true));
+check('actual quantities consume the same-leg allocation bound',()=>assert.equal(F.loadDemands([pending],[{item:'16Pan Block',qty:1,transport_cost:329}],[actual,pending])[0].known,false));
+check('unknown actual quantity prevents guessed remaining allocation',()=>assert.equal(F.loadDemands([pending],lines,[{leg:'inbound',e:{item:'16Pan Block',transport_cost:{amount:100}}},pending])[0].known,false));
 console.log(n+' meaningful assertions passed');

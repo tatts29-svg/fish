@@ -25,13 +25,14 @@ function finance928Demand(event,lines){
  if(typeof l.qty==='number'&&quantity>l.qty)return {known:false,amount:0,reason:'Load quantity exceeds the reference demand'};
  return {known:true,amount:rate*quantity,reason:'Card transport cost for this load’s item and quantity'};
 }
-function finance928LoadDemands(rows,lines){
- const plans=rows.map(r=>finance928Demand(r.e,lines)),groups=new Map();
+function finance928LoadDemands(rows,lines,contextRows){
+ const plans=rows.map(r=>finance928Demand(r.e,lines)),groups=new Map(),context=contextRows||rows;
  rows.forEach((r,i)=>{const key=JSON.stringify([r.leg,r.e.item||'']),g=groups.get(key)||[];g.push(i);groups.set(key,g);});
  for(const ids of groups.values()){
   const item=rows[ids[0]].e.item,l=(lines||[]).find(l=>l.item===item);
-  const quantity=ids.reduce((n,i)=>n+Number(rows[i].e.quantity_raw!=null?rows[i].e.quantity_raw:rows[i].e.quantity_display),0);
-  if(ids.length>1&&l&&typeof l.qty==='number'&&(!Number.isFinite(quantity)||quantity>l.qty))for(const i of ids)plans[i]={known:false,amount:0,reason:'Overlapping or ambiguous load quantities need allocation'};
+  const scope=context.filter(r=>r.leg===rows[ids[0]].leg&&r.e.item===item);
+  const quantity=scope.reduce((n,r)=>{const raw=r.e.quantity_raw!=null?r.e.quantity_raw:r.e.quantity_display;return n+(raw!=null&&/^\d+(?:\.\d+)?$/.test(String(raw).trim())?Number(raw):NaN);},0);
+  if(scope.length>1&&l&&typeof l.qty==='number'&&(!Number.isFinite(quantity)||quantity>l.qty))for(const i of ids)plans[i]={known:false,amount:0,reason:'Overlapping or ambiguous load quantities need allocation'};
  }
  return plans;
 }

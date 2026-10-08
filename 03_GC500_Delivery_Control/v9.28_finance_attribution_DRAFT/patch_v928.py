@@ -15,7 +15,7 @@ old="""  const cc = cardOf(a), mine = rows.filter(r => r.src === 'asset' && r.a 
   else { loadsNoFigNoCard += nf.length; mine.forEach(r => { r.forecast = {kind: 'average'}; }); } });"""
 new="""  const mine = rows.filter(r => r.src === 'asset' && r.a === a && nf.includes(r.e)), lines=assetTotal(a).lines||[];
   let known=false;loadsNoFig+=nf.length;
-  const demands=finance928LoadDemands(mine,lines);
+  const demands=finance928LoadDemands(mine,lines,rows.filter(r=>r.src==='asset'&&r.a===a&&ev.includes(r.e)));
   mine.forEach((r,i)=>{const demand=demands[i];if(demand.known){known=true;cardCost+=demand.amount;r.forecast={kind:'card',raw:demand.amount,amount:cents(demand.amount),ref:cents(demand.amount),loads:1,scope928:'load',reason928:demand.reason};}else r.forecast={kind:'held',raw:0,amount:0,reason928:demand.reason};});
   if(known)cardRefs++; });"""
 s=rep(s,old,new,'load scoped forecast, unknown held',p)
