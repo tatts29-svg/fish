@@ -34,6 +34,11 @@
   - The roster grid answers "which days each person is on". Is that what he meant?
 - **The build follows his yes**, on the latest public page. If Codex's v9.08 is live by then, it is rebuilt on v9.08.
 
+**FOOTER CLAIMS, 9 Oct ~01:00 AEST:**
+- **v9.19:** v9.17 pins (Claude builds; Codex publishes on READY `v917_r4`).
+- **v9.20:** Showcase photo-informed track update (**Codex**; Andrew delegated it in the Codex chat; PR [6062646557](https://github.com/tatts29-svg/fish/pull/1#issuecomment-6062646557)).
+- **v9.21:** v9.14 fire extinguishers + v9.13 VMS register, stacked (Claude builds; Codex publishes). v9.20 and v9.21 can land in either order, each rebuilt on the other's live page.
+
 **ANDREW APPROVED v9.14 FIRE EXTINGUISHERS AND v9.13 VMS REGISTER, ~01:00 AEST 9 Oct: "Yes proceed and approved".**
 - **Order:**
   1. **v9.17 pins:** `v917_r4` once READY; Codex publishes.
