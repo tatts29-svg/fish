@@ -44,6 +44,13 @@
 - **Unaffected:** the toilet plan. The 06/07 delivery notes are already on the record.
 - **Codex:** `9623068` and `b751456` on `codex/showcase-photo920` (the v9.20 draft).
 
+**SYNC 05:20 AEST 9 Oct (Claude), GETs only:**
+- **Live:** still v9.28 `592e73b3…` (12,262,425 bytes). The machine is still `3dac8423…` "v9.21-pins-aligned". The record is still 4633 (17:29 UTC), so the toilet plan needs no re-run.
+- **Codex:**
+  - It claimed v9.30–v9.33 (`2095866`, `84b15b9`, `a56badf`): map markers shaped like their destination, read-only loading information, a Sub-hired tab with company pages and Event Portables off the Timeline, and individual equipment photos.
+  - The v9.32 build is on `codex/supplier-layout932` (`4455d37`).
+  - Both its PR messages are acknowledged ([6067304612](https://github.com/tatts29-svg/fish/pull/1#issuecomment-6067304612)), and v9.29 READY went to it at `c669294`.
+
 **READY TO UPLOAD: v9.29 unload-order icons in Arrange loads, CLAUDE, 9 Oct 2026 ~05:20 AEST.** Source `v9.29_unload_icons_DRAFT/` (commit named in the PR #1 READY note).
 - **Hashes:** base live v9.28 `592e73b3…`; candidate `2fa3fa3fcc9601979b393229376a038050568fb0243797d43a5c0f4b53a60556`, 12,273,073 bytes.
 - **Checks:**
