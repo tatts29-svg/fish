@@ -344,18 +344,26 @@ const MasterShapes915 = (() => {
       if (c.role === 'tank-under') c.poly.forEach(q => grow([q[0] + tankOff, q[1] + tankOff]));
       if (pk === 'master') c.doors.forEach(d => { d.arc.forEach(grow); d.leaf.forEach(grow); grow([d.mid[0] + d.out[0] * 20, d.mid[1] + d.out[1] * 20]); });
     });
-    // "+ WASTE TANK" tag beside each block that has its tank under it (map view); "WASTE TANK" on the tank drawn alone
+    // "+ WASTE TANK" under each block that has its tank under it (map view); "WASTE TANK" on the tank drawn alone (Arrange loads):
+    // along the tank, inside it, when it fits and the number badge is not in its middle, else in a tag just below it
+    const badgeR = +o.badgeR > 0 ? +o.badgeR : 11, shortNow = shortPx == null ? 0 : shortPx * k;
+    const badgeIn = o.number != null && o.number !== '' && shortNow >= 2 * badgeR + 6;
     comps.forEach(c => {
       if (c.role !== 'tank-under' && c.role !== 'tank') return;
-      const bb = c.poly.reduce((b, q) => [Math.min(b[0], q[0]), Math.min(b[1], q[1]), Math.max(b[2], q[0]), Math.max(b[3], q[1])], [1e9, 1e9, -1e9, -1e9]);
+      const off = c.role === 'tank-under' ? tankOff : 0, Q = c.poly.map(q => [q[0] + off, q[1] + off]);
       const text = c.role === 'tank' ? 'WASTE TANK' : '+ WASTE TANK', fs = 10, w = text.length * fs * 0.62 + 8, h = fs + 6;
-      const fits = c.role === 'tank' && (bb[2] - bb[0]) >= w + 4 && (bb[3] - bb[1]) >= h + 2;
-      const t = fits ? {x: (bb[0] + bb[2]) / 2 - w / 2, y: (bb[1] + bb[3]) / 2 - h / 2, w, h, text, fs, inside: true, of: c.i}
-                     : {x: bb[2] + (c.role === 'tank-under' ? tankOff : 0) + 2, y: bb[3] + (c.role === 'tank-under' ? tankOff : 0) + 2, w, h, text, fs, inside: false, of: c.i};
-      tags.push(t); grow([t.x, t.y]); grow([t.x + t.w, t.y + t.h]);
+      const cx = c.centroid[0] + off, cy = c.centroid[1] + off;
+      if (c.role === 'tank' && Q.length === 4 && !badgeIn) {
+        const e0 = len(Q[0], Q[1]), e1 = len(Q[1], Q[2]), E = e0 >= e1 ? [Q[0], Q[1]] : [Q[1], Q[2]], lng = Math.max(e0, e1), sht = Math.min(e0, e1);
+        let ang = Math.atan2(E[1][1] - E[0][1], E[1][0] - E[0][0]) * 180 / Math.PI; if (ang > 90) ang -= 180; if (ang < -90) ang += 180;
+        const fsi = Math.min(11, sht * 0.42);
+        if (fsi >= 7 && text.length * fsi * 0.62 <= lng * 0.88) { tags.push({x: cx, y: cy, rot: Math.round(ang * 100) / 100, fs: Math.round(fsi * 100) / 100, text, inside: true, of: c.i}); return; }
+      }
+      let x = cx - w / 2, y = Math.max(...Q.map(q => q[1])) + 3;
+      while (tags.some(t => !t.inside && x < t.x + t.w && x + w > t.x && y < t.y + t.h && y + h > t.y)) y += h + 2;
+      tags.push({x, y, w, h, text, fs, inside: false, of: c.i}); grow([x, y]); grow([x + w, y + h]);
     });
     if (chosen) grow([chosen.mid[0] + chosen.out[0] * 16, chosen.mid[1] + chosen.out[1] * 16]);
-    const badgeR = +o.badgeR > 0 ? +o.badgeR : 11, shortNow = shortPx == null ? 0 : shortPx * k;
     let badge = null;
     if (o.number != null && o.number !== '') {
       const inside = shortNow >= 2 * badgeR + 6;
@@ -443,6 +451,7 @@ const MasterShapes915 = (() => {
         if (c.kind === 'generator' && c.standard) out += '<line class="ms915-glyph" data-glyph="generator" x1="' + r2(P[0][0]) + '" y1="' + r2(P[0][1]) + '" x2="' + r2(P[2][0]) + '" y2="' + r2(P[2][1]) + '" stroke="#ff7f00" stroke-width="1.2"/>';
         let tg = TAG[c.kind] || '';
         if (c.kind === 'trakmat' && c.pieces) tg = 'MAT x' + c.pieces;
+        if (c.kind === 'generator' && !c.standard) tg = '';   // the master's own generator marks already say what it is
         if (tg && c.kind !== 'toilet') {
           const fs = Math.min(10, sd * 0.55);
           if (fs >= 6 && tg.length * fs * 0.62 <= ld * 0.9) out += '<text class="ms915-glyph" data-glyph="tag" x="' + r2(q[0]) + '" y="' + r2(q[1]) + '" text-anchor="middle" dominant-baseline="central" font-family="system-ui,-apple-system,Segoe UI,Roboto,sans-serif" font-size="' + r2(fs) + '" font-weight="800" fill="' + ink + '">' + esc(tg) + '</text>';
@@ -453,8 +462,11 @@ const MasterShapes915 = (() => {
     out += '</g>';
     // WASTE TANK in clear text wherever a tank is drawn
     L.tags.forEach(t => {
-      out += '<g class="ms915-tank-tag" data-of="' + t.of + '" data-inside="' + t.inside + '"><rect x="' + r2(t.x) + '" y="' + r2(t.y) + '" width="' + r2(t.w) + '" height="' + r2(t.h) + '" rx="3" fill="' + (t.inside ? 'none' : '#eef1f2') + '" stroke="' + (t.inside ? 'none' : '#6b767c') + '" stroke-width="1"/>' +
-        '<text x="' + r2(t.x + t.w / 2) + '" y="' + r2(t.y + t.h / 2) + '" text-anchor="middle" dominant-baseline="central" font-family="system-ui,-apple-system,Segoe UI,Roboto,sans-serif" font-size="' + t.fs + '" font-weight="800" fill="#2f3a40">' + esc(t.text) + '</text></g>';
+      const font = '" text-anchor="middle" dominant-baseline="central" font-family="system-ui,-apple-system,Segoe UI,Roboto,sans-serif" font-size="' + t.fs + '" font-weight="800" fill="#2f3a40">';
+      out += '<g class="ms915-tank-tag" data-of="' + t.of + '" data-inside="' + t.inside + '">' + (t.inside
+        ? '<text x="' + r2(t.x) + '" y="' + r2(t.y) + '" transform="rotate(' + t.rot + ' ' + r2(t.x) + ' ' + r2(t.y) + ')' + font + esc(t.text) + '</text></g>'
+        : '<rect x="' + r2(t.x) + '" y="' + r2(t.y) + '" width="' + r2(t.w) + '" height="' + r2(t.h) + '" rx="3" fill="#eef1f2" stroke="#6b767c" stroke-width="1"/>' +
+          '<text x="' + r2(t.x + t.w / 2) + '" y="' + r2(t.y + t.h / 2) + font + esc(t.text) + '</text></g>');
     });
     if (L.door === 'master') {
       L.components.forEach(c => c.doors.forEach(d => {
