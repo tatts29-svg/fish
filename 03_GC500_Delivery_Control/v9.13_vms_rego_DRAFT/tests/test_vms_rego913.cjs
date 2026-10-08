@@ -119,7 +119,7 @@ async function sessionA() {
       ok('screenshot of the T0103 load card, no dollar figure in frame', !sh3.dollars, sh3); }
     await p.evaluate(() => go('today')); await p.waitForTimeout(2000);
     const today = await p.evaluate(() => ({cards: document.querySelectorAll('#pane-today [data-vms913-load="T0103"]').length, listed: /T0103/.test((document.getElementById('pane-today') || {}).innerText || '')}));
-    console.log('INFO Today: T0103 load cards drawn on Today now: ' + today.cards + ' (T0103 is recorded complete, so Today lists it only in its "What went in today" log; Today draws loads with the same card renderers checked above)');
+    console.log('INFO Today: boards lines drawn on Today for T0103 now: ' + today.cards + '. Today does not draw delivery cards with the renderers wrapped here (those are the Timeline\'s); T0103 is recorded complete and appears on Today only in its "What went in today" log, which is left as it is. Today\'s own delivery list is NOT DONE in this release.');
     // the day's drop sheets (Print the day) are one dropPage per delivery: T0103 must be one of 8 Oct's deliveries
     const day = await p.evaluate(W => { const d = programmeDays().find(x => x.iso === '2026-10-08');
       const r = d && d.deliveries.find(x => x.a.key === 'T0103'); return {inDay: !!r, sheet: r ? String(dropPage(r.a, r.events, 1, d.deliveries.length, d, 'deliveries')).replace(/<[^>]+>/g, ' ').replace(/&#39;/g, "'").replace(/\s+/g, ' ').includes('Boards: ' + W) : false}; }, W103);
