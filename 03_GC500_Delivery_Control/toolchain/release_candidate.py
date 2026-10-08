@@ -333,10 +333,11 @@ def browser_checks(versions, snapshots, page, extra=(), regression=False):
             continue  # Replaced by the version-specific master / Lighting-basis checks below.
         for name in BROWSER[v]:
             script = CONTROL / FOLDERS[v] / 'tests' / (name + '.cjs')
-            if name in ('test_ep886', 'test_lighting894', 'test_money892'):
+            if name in ('test_ep886', 'test_lighting894', 'test_money892', 'test_align893'):
                 replacement = {'test_ep886': 'test_ep886_fixtures.cjs',
                                'test_lighting894': 'test_lighting894_verified.cjs',
-                               'test_money892': 'test_money892_pinned.cjs'}[name]
+                               'test_money892': 'test_money892_pinned.cjs',
+                               'test_align893': 'test_align893_css_pixels.cjs'}[name]
                 script = CONTROL / 'review_08Oct2026_ready_chain/tests' / replacement
             # Scene896 deliberately supersedes the earlier banner/geometry assertions.
             # Aplus892 accepts later footers; money checks the same pinned input on final.

@@ -228,7 +228,7 @@ const KINDS = ['sun', 'part', 'cloud', 'fog', 'rain', 'pour', 'storm', 'sleet'];
  ok('tab changes leave nothing behind: away from Today no sky and nothing running; back on Today one sky, one line, one fold, the same sky animations, one observer of each kind and no timers', !K.away.r.running && K.away.skies === 0 && K.after.skies === 1 && K.after.lines === 1 && K.after.parks === 1 && K.after.folds === 1 && K.after.bands === 1 && K.after.styles === 1 && K.after.basis === 1 && K2.animations === K.sky0 && K.r.observers.intersection === 1 && K.r.observers.mutation === 1 && K.r.timers === 0 && K2.running, {K, K2});
 
  /* 9. the group cards keep their folds, links and keyboard focus; the chips still jump to their cards */
- await p.evaluate(() => document.querySelector('#tw840-card-generators .tw846-counts').scrollIntoView({block: 'center'})); await p.waitForTimeout(300);
+ await scrollTo('#tw840-card-generators .tw846-counts'); await p.waitForTimeout(300);
  const C = await p.evaluate(() => {
   const card = document.getElementById('tw840-card-generators'), sum = card.querySelector('.tw846-summary'), cs = getComputedStyle(sum, '::before');
   const btn = card.querySelector('.tw846-counts button'), r = btn.getBoundingClientRect(), hit = document.elementFromPoint(r.left + r.width / 2, r.top + r.height / 2);
@@ -317,9 +317,9 @@ const KINDS = ['sun', 'part', 'cloud', 'fog', 'rain', 'pour', 'storm', 'sleet'];
  await p.evaluate(() => { document.querySelector('#where885 .s896-sky').getAnimations({subtree: true}).forEach(a => { try { a.play(); } catch (e) {} }); Scene896.weather(); Scene896.sync(); });
  worstPlate = results.filter(r => r.ratio !== null).sort((a, b) => a.ratio - b.ratio);
  ok('every word on the plate keeps at least 4.5:1 over every sky (worst ' + (worstPlate[0] ? worstPlate[0].ratio + ':1 ' + worstPlate[0].label + ' ' + worstPlate[0].text : '-') + '; ' + results.length + ' readings over ' + kindsSeen.length + ' skies)', worstPlate.length > 20 && worstPlate.every(r => r.ratio >= 4.5), worstPlate.slice(0, 8).concat(results.filter(r => r.ratio === null).slice(0, 3)));
- await p.evaluate(() => document.getElementById('tw840-card-generators').scrollIntoView({block: 'start'})); await p.waitForTimeout(300);
+ await scrollTo('#tw840-card-generators'); await p.waitForTimeout(300);
  const cardText = '.tw846-title, .tw840-reading > span, .tw840-reading small, .tw840-caption, .tw846-counts button > span, .tw846-counts strong, .tw846-counts .tw840-count-link, .tw846-lights .tl841-unit small';
- for (const id of ['generators', 'buildings', 'toilets']) { await p.evaluate(id => document.getElementById('tw840-card-' + id).scrollIntoView({block: 'start'}), id); await p.waitForTimeout(200); cardResults.push(...await measure('#tw840-card-' + id + ' .tw846-summary', cardText, id)); }
+ for (const id of ['generators', 'buildings', 'toilets']) { await scrollTo('#tw840-card-' + id); await p.waitForTimeout(200); cardResults.push(...await measure('#tw840-card-' + id + ' .tw846-summary', cardText, id)); }
  worstCard = cardResults.filter(r => r.ratio !== null).sort((a, b) => a.ratio - b.ratio);
  ok('every word on the cards keeps at least 4.5:1 over its picture (worst ' + (worstCard[0] ? worstCard[0].ratio + ':1 ' + worstCard[0].label + ' ' + worstCard[0].text : '-') + '; ' + cardResults.length + ' readings)', worstCard.length > 10 && worstCard.every(r => r.ratio >= 4.5), worstCard.slice(0, 8).concat(cardResults.filter(r => r.ratio === null).slice(0, 3)));
  if (process.env.OUT) { await bring('#tw840-card-generators', false); await p.waitForTimeout(150); await p.screenshot({path: process.env.OUT + '/card-generators-' + (mob ? 'phone' : W) + '.png'}); }

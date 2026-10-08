@@ -290,7 +290,9 @@ class ProcessChecks(unittest.TestCase):
             self.assertEqual(names[name], ({'PAGE': '/private/final.html'}, 'final'))
         for name in ('test_ep886.cjs', 'test_lighting894.cjs', 'test_layout876.cjs'):
             self.assertNotIn(name, names)
-        self.assertEqual(names['test_aplus892.cjs'][1], 'stage')
+        self.assertEqual(names['test_aplus892.cjs'], ({'PAGE': '/private/final.html'}, 'final'))
+        self.assertEqual(names['test_money892_pinned.cjs'],
+                         ({'PAGE': '/private/final.html', 'BASE': '/private/snapshots/v892.before.html'}, 'final'))
 
     def test_shell_wrapper_works_outside_checkout(self):
         run = subprocess.run(['bash', str(runner.HERE / 'release_candidate.sh'), '--help'],
