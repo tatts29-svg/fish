@@ -1,0 +1,10 @@
+{
+  "checks": 134,
+  "passed": 134,
+  "catalogueRows": 274,
+  "actualSourceExamples": {
+    "generator": "G2023-P045-R20",
+    "toilet": "G2023-P053-R01"
+  },
+  "note": "Truck fixture is synthetic; no GC500 truck capacity or load approval asserted."
+}
