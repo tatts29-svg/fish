@@ -79,3 +79,30 @@ start base sweeps 2026-10-08T15:14:56Z base c547a6debe1dea90
 sweep base laptop exit 0
 sweep base phone exit 0
 end 2026-10-08T15:17:51Z
+
+r5, candidate d8bb1311… on live v9.20 (9 Oct; base 93c3bab1; same run script as r4, TMPDIR left default):
+start 2026-10-08T15:36:28Z cand d8bb13116dffa2a0 base 93c3bab1f0e0e21b
+rows 200 footer · v9.20 record 4599 -> 4599 counts {"page":1,"live":77,"blocked":0} errors 0
+rows 200 footer · v9.20 record 4599 -> 4599 counts {"page":1,"live":77,"blocked":0} errors 0
+rows 200 footer · v9.20 record 4599 -> 4599 counts {"page":1,"live":78,"blocked":0} errors 0
+rows 200 footer · v9.20 record 4599 -> 4599 counts {"page":1,"live":79,"blocked":0} errors 0
+end collect 2026-10-08T15:40:08Z
+sweep laptop exit 0
+sweep phone exit 0
+end sweeps 2026-10-08T15:43:08Z
+WC09 where shown no dollar figures [{"w":771,"src":"9a601ea712d5055.webp"},{"w":937,"src":"34a181398d9c275.webp"},{"w":480,"src":"d828fb81baa00f4ed000"}]
+WC09 pins shown no dollar figures [{"w":771,"src":"9a601ea712d5055.webp"},{"w":937,"src":"34a181398d9c275.webp"},{"w":480,"src":"d828fb81baa00f4ed000"}]
+WC59 where shown no dollar figures [{"w":771,"src":"3a190b7d91b2911.webp"},{"w":937,"src":"7738ea7f6272b36.webp"},{"w":800,"src":"04ca8af550e76d0.webp"}]
+WC59 pins shown no dollar figures [{"w":771,"src":"3a190b7d91b2911.webp"},{"w":937,"src":"7738ea7f6272b36.webp"},{"w":800,"src":"04ca8af550e76d0.webp"}]
+WC09 dropsheet_go shown no dollar figures {"satnav":[-27.984717,153.428026],"nav":[-27.984717,153.428026,"master plan"],"rings":3}
+WC09 dropsheet_pics shown no dollar figures {"satnav":[-27.984717,153.428026],"nav":[-27.984717,153.428026,"master plan"],"rings":3}
+WC59 dropsheet_go shown no dollar figures {"satnav":[-27.988183,153.430169],"nav":[-27.9881826,153.4301687,"master plan"],"rings":3}
+WC59 dropsheet_pics shown no dollar figures {"satnav":[-27.988183,153.430169],"nav":[-27.9881826,153.4301687,"master plan"],"rings":3}
+PASS shots, counts {"page":1,"live":168,"blocked":0}, errors 0, pictures served locally 4
+shots exit 0
+end 2026-10-08T15:43:38Z
+start base sweeps 2026-10-08T15:43:38Z base 93c3bab1f0e0e21b
+sweep base laptop exit 0
+sweep base phone exit 0
+end base sweeps 2026-10-08T15:46:36Z
+exit 0

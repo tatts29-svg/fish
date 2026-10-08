@@ -1,23 +1,34 @@
 # v9.17 — every navigation pin on the unit the 2 Oct master draws (DRAFT)
 
-Author: Andrew Fisher · 8–9 Oct 2026 · state: **APPROVED by Andrew (9 Oct about 00:25 AEST, "yes to pins, proceed and
-approved"). Candidate `v917_r4` built on live v9.18 and every test rerun (results below). Not uploaded, not committed.** 57
-pins: the 23 moves, GN18 and GN13 ("follow the master"), 28 near moves toward 10/10, and the four Andrew answered at about
-23:20 (WC59, WC57, WC13, WC69). `v917_r4` replaces `v917_r3` (`4001406a…`, DO NOT PUBLISH): r3's area pictures for 11 pins
-were stretched at the sheet edge with the ring 7–54 m off the unit (the independent check's blocking finding), fixed here,
-and GN18 / GN13 now sit exactly on their symbol centres. The publisher sets the next free footer (this patch leaves it).
+Author: Andrew Fisher · 8–9 Oct 2026 · state: **READY TO UPLOAD as v9.21 — APPROVED by Andrew (9 Oct about 00:25 AEST,
+"yes to pins, proceed and approved"). Candidate `v917_r5`, built on live v9.20, every test rerun on it (results below). Not
+uploaded, not committed.** 57 pins: the 23 moves, GN18 and GN13 ("follow the master"), 28 near moves toward 10/10, and the
+four Andrew answered at about 23:20 (WC59, WC57, WC13, WC69). `v917_r5` is the same patch as `v917_r4` (`8a963fe0…`, built on
+v9.18), rebuilt on the page now live; r4 and r3 (`4001406a…`) are not to be published. The publisher sets the footer to
+` · v9.21` (this patch leaves the footer as it finds it).
 
-## READY — `v917_r4` (approved by Andrew; not uploaded)
+## READY TO UPLOAD as v9.21 — `v917_r5` (approved by Andrew; not uploaded)
 
 | | |
 |---|---|
-| Base (live v9.18) | `c547a6debe1dea9009b50466d3c1028ec9c3a800e6c591ea258b61490b14b762`, 11,605,879 bytes, fetched for this build at about 00:50 AEST on 9 Oct. **Live has since moved:** at the end of the checks (about 01:19 AEST) it was v9.20 (`93c3bab1f0e0e21bf63a0ae65e394b74503a738591fec859cea1b640d84e1eda`, 11,607,819 bytes, Codex's photos release). r4 must be rebuilt on v9.20 and its checks rerun before upload: a trial of the patch on v9.20 (scratch, not tested) applied cleanly, `check_page` PASS, with the same media manifest `680bd788…` / `76a2a1b2…` |
-| Candidate | `8a963fe0e663ad78cb991ee50e8c9734086e61e8d934dbeb49e74cac24560f1d`, 11,616,810 bytes, `build/GC500_v917_r4/GC500_Delivery_Control_hosted.html` (label `v917_r4`). Replaces r3 `4001406a…` (do not publish r3) |
-| Footer | ` · v9.18`, unchanged; the publisher sets the next free one |
-| Media manifest | `media_manifest_v917.json` (copy in `evidence/`, same bytes), file sha256 `680bd788e98ee300d38b4af38169d31c3d772083250b3a0706e78c00dc7d1a6f`, manifest digest `76a2a1b20a3eb6c87a3f2aea6e4296faa1a32e501e9eb5e6f5b327dd4dd6b4d7` (= the page's `hostedMedia.manifest`, the canonical digest of its media, re-computed independently), 1,979 assets: 114 pictures in (`evidence/media917/`, 9,065,392 bytes), 110 out. Against r3: the 11 re-made area pictures in, r3's 11 out, nothing else |
-| Patch | `patch_v917_pins.py` (57 pins, Part 2 one point per reference, Part 3 E.P labels); refuses a second run, a base whose 57 pins are not where the audit found them, or evidence that does not pass |
-| Checks (r4) | PDF re-derivation 57/57 · identity PASS · every row (200 references) laptop and phone PASS, the 57 move by the expected metres (GN18 17.11 m, GN13 11.55 m), everything else 0.0 m · Part 2 5,388 points, 0 off Navigate · record 4599 before and after every run, 0 writes · sweeps laptop and phone 21 tabs, 0 page errors, 0 deep-link errors; the only console messages are the service's explorer `vt/L*.bin` 404s, which the base v9.18 shows the same way · the 17 pictures looked at · phone WC09 and WC59 PASS |
-| Implemented and tested by | Claude. r3 had one independent check (its blocking finding is fixed here); r4 itself has not had an independent re-check yet. Codex has not reviewed it |
+| Base (live v9.20) | `93c3bab1f0e0e21bf63a0ae65e394b74503a738591fec859cea1b640d84e1eda`, 11,607,819 bytes, footer ` · v9.20` (Codex's Showcase photos release). Fetched by `toolchain/build.sh v917_r5` at about 01:35 AEST on 9 Oct and re-read at about 01:37: unchanged |
+| Candidate | `d8bb13116dffa2a0c7635a1b68013d948076294532a6edc1753f61addcce6533`, 11,618,750 bytes, `build/GC500_v917_r5/GC500_Delivery_Control_hosted.html` (label `v917_r5`). The independent checker's own rebuild on v9.20 gave the same hash. Do not publish r4 (`8a963fe0…`, on v9.18) or r3 (`4001406a…`) |
+| Footer | ` · v9.20` in the candidate, unchanged by the patch; **the publisher sets ` · v9.21`** |
+| Media manifest | `media_manifest_v917.json` (the build's copy and the one in `evidence/` are the same bytes), file sha256 `680bd788e98ee300d38b4af38169d31c3d772083250b3a0706e78c00dc7d1a6f`, manifest digest `76a2a1b20a3eb6c87a3f2aea6e4296faa1a32e501e9eb5e6f5b327dd4dd6b4d7` (= the page's `hostedMedia.manifest`), 1,979 assets: the 114 pictures in `evidence/media917/` in, 110 out. Identical to r4's: v9.20 did not change the media list |
+| Patch | `patch_v917_pins.py`, unchanged since r4 (57 pins, Part 2 one point per reference, Part 3 E.P labels); refuses a second run, a base whose 57 pins are not where the audit found them, or evidence that does not pass. It applied cleanly to v9.20; `check_page` PASS (27 inline scripts parse, no new keys, author line present) |
+| Checks (r5, on v9.20) | identity PASS · every row (200 references) laptop and phone PASS: the 57 move by the expected metres, everything else 0.0 m · Part 2 5,388 points, 0 off Navigate, laptop and phone · record 4599 before and after every run, 0 writes, 0 blocked · sweeps laptop and phone 21 tabs, 0 page errors, 0 deep-link errors; the only console lines are the explorer `vt/L*.bin` 404s, which the base v9.20 shows the same way · phone WC09 and WC59 PASS and looked at |
+| Implemented and tested by | Claude. r4 had an independent re-check on v9.18 (PASS); the independent checker also rebuilt on v9.20 and got this same candidate hash and manifest, with identity PASS. Codex has not reviewed it |
+
+**Publish note for Codex (v9.21).** Andrew's yes is given (9 Oct about 00:25). WC09 delivers today (Fri 9 Oct). Take
+`v917_r5` only, built from this folder's `patch_v917_pins.py` on live v9.20 (`93c3bab1…`); if live has moved past v9.20,
+rebuild and rerun the checks first (the patch refuses if any of the 57 pins moved). Order:
+1. **Media first:** upload the 114 pictures in `evidence/media917/` and register `media_manifest_v917.json`
+   (file `680bd788…`, digest `76a2a1b2…`). The service refuses a page whose media list has no registered manifest.
+2. **Then the page,** with the footer set to ` · v9.21`. Setting the footer changes the page bytes, so the uploaded hash is
+   not `d8bb1311…`; the footer is the only difference.
+3. **Read back** the view link: page bytes = the uploaded file, footer ` · v9.21`, and the 114 pictures served.
+The commands are under "Build and publish" below. The Map explorer's machine set still draws the 57 at their old spots
+until it is rebuilt (open question 8); navigation is not affected.
 
 **What Andrew says yes to.** 57 navigation pins move off their printed labels onto the units the 2 Oct master draws (the 23,
 GN18 and GN13 by "follow the master", the 28 near moves, and WC59 to the long row, WC57 to the pair inside the SUPPLY fence,
@@ -25,12 +36,6 @@ WC13 to the middle of its row of 3, WC69 to the middle of its row of 9). Every s
 walk to gives Navigate's point. The E.P items read "Emergency egress point (E.P)". No counts, money or record entries change.
 One correction he should see: WC69's 3 on the fence are about 9 m **north-east** of the row's middle, not "6.5 m north-west"
 as the question said (the paper is not drawn north-up); the page says north-east.
-
-**Publish note for Codex.** Andrew's yes is given (9 Oct about 00:25). Take `v917_r4` only from this folder at the commit
-that carries this README, never r3. Rebuild on live if live has moved past v9.18 (`c547a6de…`): the patch refuses if any of the 57 pins moved. Media
-first, then the page (the commands are under "Build and publish" below). After upload,
-read back the view link. The Map explorer's machine set still draws the 57 at their old spots until it is rebuilt (open
-question 8).
 
 ## What Andrew asked
 
@@ -225,7 +230,7 @@ WC57, WC13, GN18 and GN13 (area and close-up) — every ring is on its unit, not
 | WC70 | `cd231403…` (~33 m) | `bd8cc778…` | 82 % |
 | WC62 | `02c96248…` (~32 m) | `c7bdfa5b…` | 83 % |
 | WC35 | `3d8928f9…` (~25 m) | `cb24a929…` | 87 % |
-| WC81 | `2c9e0ced…` (~15 m) | `5bb0965a…` | 83 % (inset frame, right) |
+| WC81 | `2c9e0ced…` (~15 m) | `5bb0965a…` | 82 % (inset frame, right) |
 | CP1 | `c7252efe…` (~14 m) | `39dc85da…` | 83 % (inset frame, right) |
 | WC72 | `90059620…` (~7 m) | `3a4ab11b…` | 96 % |
 
@@ -307,7 +312,7 @@ entry point (E.P) drawn on the master." This was left alone because the release 
    unit. WC04: Andrew's 24 Sep phone pin was 11.5 m from this toilet. If the toilet went in somewhere else, his pin is the
    truth on the ground and the master should be corrected.
 4. **WC59 and WC57 (Tue 13 Oct).** WC59's Navigate ends in the middle of the long row of 7 on the seaside path (the row
-   printed WC57); WC57's ends in the middle of the pair inside the SUPPLY fence, about 12 m south-west of the row's old
+   printed WC57); WC57's ends in the middle of the pair inside the SUPPLY fence, about 12 m west (west-south-west) of the row's old
    WC57 pin. **WC69:** the middle of the row of 9; the other 3 of its 12 are the column on the fence about 9 m north-east.
 5. A registration error of about 0.7 m (main plan) and 0.9 m (inset) remains. It is an image registration, not a survey.
 
@@ -374,18 +379,43 @@ GN18 and GN13 are answered ("follow the master") and applied in this build (seco
 ## Build and publish (publisher, on Andrew's yes)
 
 ```
-toolchain/build.sh v917_r4 v9.17_pins_master_DRAFT/patch_v917_pins.py    # plus the footer step the publisher uses
-python3 v8.89_master_map_DRAFT/upload_media889.py v9.17_pins_master_DRAFT/evidence/media917 build/GC500_v917_r4/media_manifest_v917.json --dry-run
-python3 v8.89_master_map_DRAFT/upload_media889.py v9.17_pins_master_DRAFT/evidence/media917 build/GC500_v917_r4/media_manifest_v917.json
-python3 toolchain/upload_page.py build/GC500_v917_r4/GC500_Delivery_Control_hosted.html
+toolchain/build.sh v917_r5 v9.17_pins_master_DRAFT/patch_v917_pins.py    # then the publisher's footer step: · v9.21
+python3 v8.89_master_map_DRAFT/upload_media889.py v9.17_pins_master_DRAFT/evidence/media917 build/GC500_v917_r5/media_manifest_v917.json --dry-run
+python3 v8.89_master_map_DRAFT/upload_media889.py v9.17_pins_master_DRAFT/evidence/media917 build/GC500_v917_r5/media_manifest_v917.json
+python3 toolchain/upload_page.py build/GC500_v917_r5/GC500_Delivery_Control_hosted.html
 ```
 
 `upload_media889.py` is generic: it uploads only the files the manifest names that the service does not already hold,
 checks each one's hash, then registers the manifest. Media goes first, because the service refuses a page whose media list
-has no registered manifest. If live has moved past v9.18, rebuild: the patch refuses if any of the 57 pins is no longer
+has no registered manifest. If live has moved past v9.20, rebuild: the patch refuses if any of the 57 pins is no longer
 where the audit found it.
 
-## Results, r4 (9 Oct 2026, about 01:20 AEST) — the current candidate
+## Results, r5 on live v9.20 (9 Oct 2026, about 01:35–01:47 AEST) — the current candidate
+
+**Why r5.** Live moved to v9.20 (`93c3bab1…`, Codex's Showcase photos) after r4 was built on v9.18. r5 is the same patch,
+rebuilt on v9.20, with every check rerun on it. Nothing in the patch, the derivations or the pictures changed.
+
+- **Candidate:** `d8bb13116dffa2a0c7635a1b68013d948076294532a6edc1753f61addcce6533`, 11,618,750 bytes (r4 + 1,940 bytes,
+  the same as v9.20 − v9.18). The independent checker's own rebuild on v9.20 gave the same hash. Footer ` · v9.20`, unchanged.
+- **Media manifest:** file `680bd788…`, digest `76a2a1b2…`, 1,979 assets, byte for byte r4's.
+
+| # | Check | Laptop | Phone |
+|---|---|---|---|
+| 1 | Identity (`test_identity917.py`, base v9.20): DATA only media +114/−110 and the manifest (`76a2a1b2…`, = the manifest file); MASTER_LOC only the 57 (ll, pt, how, img), the 15 left the same; MASTER_LAYERS only the 23 E.P labels; code 38 lines out, 64 in, all Part 2; footer ` · v9.20` unchanged → `evidence/identity917.log` | PASS | — |
+| 2 | PDF re-derivation: not rerun. The derivations read the PDF, not the page, and the patch checks the base's 57 pins against them before it writes (it applied cleanly on v9.20) | — | — |
+| 3 | Every row (`collect_pins917.cjs` + `compare_pins917.py`, base = the v9.20 page): 200 references; record 4599 before and after all four runs; 0 writes, 0 blocked. The 57 move by the expected metres (GN18 17.1, GN13 11.5, WC09 6.5, CP1 15.9, WC57 11.8, WC59 5.6 m) and stay "master plan"; every other reference 0.0 m and the same kind; the 15 left unchanged → `evidence/compare917_*.json/.log` | PASS | PASS |
+| 4 | Part 2: 5,388 surface points, 0 off Navigate (base v9.20: 1,593 off on 133 references); driver page pictures 30 checked, 0 off | PASS | PASS |
+| 5 | Sweeps (`harness/sweep.js`): 21 tabs (15 shown on the view link), 0 page errors, 0 deep-link errors (7), 0 blocked writes. Console: 75 (laptop) and 81 (phone) lines, **every one** a 404 for the service's explorer assets `vt/L*.bin`. The base v9.20, swept in the same session, shows the same (68 and 79 lines, all the same 404s), so they come with live and are not this release's → `evidence/sweep_*917.json` | PASS | PASS |
+| 6 | Phone, WC09 and WC59 (`shots917.cjs`): PASS, looked at. Drawers "Where it is": aerial ring, Goes to, meet point, Navigate (master plan); both close-ups load (771 and 937 px); the pin's coordinates read from its block. Printed drop sheets: Sat nav = Navigate (WC09 -27.984717, 153.428026; WC59 -27.988183, 153.430169), "the same point as Navigate (master plan)". The drop sheet frames are byte for byte r4's. No dollar figures in any frame; 0 writes, 0 errors | — | PASS |
+
+**Looked at, and one note.** In the drop sheets' picture frames the rig paints only a blurred patch of the aerial (WC09) or
+a plain one (WC59), as it did on r4: the rig does not load the aerial tiles at that zoom. The ring's position on those
+pictures is proven by test 4 (drop sheet picture ring: 360 points, 0 off Navigate), not by the frame.
+
+**Runs.** One script, all browser runs one after another under the shared browser lock, TMPDIR left at the default
+(`evidence/browser_runs917.log`, r5 block). No launch failures.
+
+## Results, r4 on v9.18 (9 Oct 2026, about 01:20 AEST) — superseded by r5 (same patch, base v9.18)
 
 **Why r4.** The independent check of r3 (`4001406a…`) found one blocking defect: the area picture of 11 pins was stretched at
 the sheet edge, ring 7–54 m off the unit (see "Pictures at the sheet edge" above). Fixed in `tests/make_thumbs917.py`. Also

@@ -44,6 +44,23 @@
 - **Unaffected:** the toilet plan. The 06/07 delivery notes are already on the record.
 - **Codex:** `9623068` and `b751456` on `codex/showcase-photo920` (the v9.20 draft).
 
+**v9.21 PINS: READY TO UPLOAD (Claude, ~01:50 AEST 9 Oct). Andrew approved at ~00:25 ("yes ti pins, proceed and approved").**
+- **Base:** live v9.20 `93c3bab1f0e0e21bf63a0ae65e394b74503a738591fec859cea1b640d84e1eda`, re-read at the start and end of the run and again at 01:50.
+- **Candidate:** `d8bb13116dffa2a0c7635a1b68013d948076294532a6edc1753f61addcce6533`, 11,618,750 bytes. Build with `toolchain/build.sh v917_r5 v9.17_pins_master_DRAFT/patch_v917_pins.py`; the footer is still " · v9.20", and the publisher sets " · v9.21".
+- **Media:** manifest file `v9.17_pins_master_DRAFT/evidence/media_manifest_v917.json` (`680bd788…`, digest `76a2a1b2…` = the page's `hostedMedia.manifest`), 1,979 assets (+114/−110). The 114 pictures are in `evidence/media917/`. **Upload the media first, then the page.**
+- **In this release:**
+  - 57 pins on the unit the 2 Oct master draws, including WC09, CP1, GN18 and GN13 on their symbol centres, and Andrew's WC59/WC57/WC13/WC69;
+  - every surface uses Navigate's point;
+  - the 23 E.P labels.
+- **Checks:**
+  - **Pins:** 23 + 30 + 4 PDF re-derivations pass, plus an independent PDF re-derivation (≤ 0.2 m).
+  - **Identity:** passes against v9.20.
+  - **Laptop and phone:** 200 references; the 57 move by the expected metres and every other reference by 0.0 m; Part 2 has 5,388 points, 0 off Navigate; record 4599 before and after, 0 writes.
+  - **Pictures:** independent check of all 114 (rings ≤ 1.2 m, no stretch; the r3 fault is fixed).
+  - **Sweeps:** 21 tabs, 0 page errors. The explorer `vt/L*.bin` 404s are already on v9.20.
+  - **Phone:** WC09 and WC59 screens checked.
+- **Superseded, do not publish:** r3 `4001406a` and r4 `8a963fe0` (v9.18 base).
+
 **CODEX ASKS, 01:21 AEST ([6063135645](https://github.com/tatts29-svg/fish/pull/1#issuecomment-6063135645)), Claude's answer ([6063149063](https://github.com/tatts29-svg/fish/pull/1#issuecomment-6063149063)):**
 - **Load restraint:** v9.15 shapes are geometry only. They are not load specs: no `FLOW891.specs` change, no masses, axle or deck data, and no combined-load suggestions. Claude checks this before READY.
 - **Event Portables quotes Q6844–Q6847:** neither agent has the original PDFs. Only the page's embedded transcriptions exist. **Andrew:** originals or current revisions come from you or Event Portables. Q6845 covers one 16Pan only, so the second WC31 block has no quote line yet.
