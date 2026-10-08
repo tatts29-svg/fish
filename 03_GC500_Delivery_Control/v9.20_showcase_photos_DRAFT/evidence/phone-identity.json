@@ -1,0 +1,172 @@
+{
+  "author": "Andrew Fisher",
+  "phone": true,
+  "checks": [
+    {
+      "name": "unchanged outer",
+      "pass": true
+    },
+    {
+      "name": "unchanged inner",
+      "pass": true
+    },
+    {
+      "name": "unchanged centre",
+      "pass": true
+    },
+    {
+      "name": "unchanged grid",
+      "pass": true
+    },
+    {
+      "name": "unchanged pit",
+      "pass": true
+    },
+    {
+      "name": "unchanged concrete",
+      "pass": true
+    },
+    {
+      "name": "unchanged wire",
+      "pass": true
+    },
+    {
+      "name": "unchanged kerb",
+      "pass": true
+    },
+    {
+      "name": "unchanged buildings",
+      "pass": true
+    },
+    {
+      "name": "unchanged vegetation",
+      "pass": true
+    },
+    {
+      "name": "unchanged labels",
+      "pass": true
+    },
+    {
+      "name": "photo detail installed",
+      "pass": true
+    },
+    {
+      "name": "pale concrete and galvanised frames",
+      "pass": true
+    },
+    {
+      "name": "lifting recesses bounded",
+      "pass": true
+    },
+    {
+      "name": "frame plates sparse",
+      "pass": true
+    },
+    {
+      "name": "concrete and wire triangle count unchanged",
+      "pass": true
+    },
+    {
+      "name": "added metal triangles exactly budgeted",
+      "pass": true
+    },
+    {
+      "name": "added recess triangles exactly budgeted",
+      "pass": true
+    },
+    {
+      "name": "no new resources draw calls or frame work",
+      "pass": true
+    },
+    {
+      "name": "no landmark placement",
+      "pass": true
+    },
+    {
+      "name": "Balanced and loop retained",
+      "pass": true
+    },
+    {
+      "name": "cleanup",
+      "pass": true
+    },
+    {
+      "name": "no renderer failure",
+      "pass": true
+    },
+    {
+      "name": "no errors or writes",
+      "pass": true
+    }
+  ],
+  "base": {
+    "source": {
+      "outer": "89228b1d399ebea81ebaf00110ee3ce89c56139b3bee4579814dbb56dbf869e9",
+      "inner": "8bc7dfade48385a01b3db0eb6909fb3cc0132e63c66ff1a837bc286bdf42d72b",
+      "centre": "cc1de8e20b1792bd9d24f0e641ca5c0eeb5782e587361134511d35d72fd04ff0",
+      "grid": "fa49598de2e1c157ddfeed6279dbe9c10a8fe5ae36dec54596bfba009ea1339c",
+      "pit": "698880fd31fc73d6a13d44533d0f79e5cde71e341868e90176ca6d16513fe912",
+      "concrete": "e9f90a4f4afc4ea2dd3bfc62ce93a232067df5c5268c733ba78f0a91b7239b35",
+      "wire": "6bcceeafb4d4bb29578fdfd7fef1513006961bce91e127606caf5b64a19a8b1d",
+      "kerb": "266cde987e54ab5e8272929b7802b98f98d370010a6a2c241988e8ebfdb05109",
+      "buildings": "8ae660e70863c13be7fadbf093cc1390aa67d9b0c06846d5a6f74e42206ca8c6",
+      "vegetation": "55d37e95358031d9a8b4297b1e66b0212f14385eedd3f792c1336f5bdd3b4fb5",
+      "labels": "b8090bfb1dcd8fb3b72eb3dec57354fe88e751fe53f8bae0027c0fa6f5aee6c3"
+    },
+    "photo": null,
+    "barrierModules": 1822,
+    "concreteTriangles": 36440,
+    "metalTriangles": 153048,
+    "wireTriangles": 7288,
+    "scuffTriangles": 4858,
+    "errors": [],
+    "writes": 0,
+    "closed": true
+  },
+  "candidate": {
+    "source": {
+      "outer": "89228b1d399ebea81ebaf00110ee3ce89c56139b3bee4579814dbb56dbf869e9",
+      "inner": "8bc7dfade48385a01b3db0eb6909fb3cc0132e63c66ff1a837bc286bdf42d72b",
+      "centre": "cc1de8e20b1792bd9d24f0e641ca5c0eeb5782e587361134511d35d72fd04ff0",
+      "grid": "fa49598de2e1c157ddfeed6279dbe9c10a8fe5ae36dec54596bfba009ea1339c",
+      "pit": "698880fd31fc73d6a13d44533d0f79e5cde71e341868e90176ca6d16513fe912",
+      "concrete": "e9f90a4f4afc4ea2dd3bfc62ce93a232067df5c5268c733ba78f0a91b7239b35",
+      "wire": "6bcceeafb4d4bb29578fdfd7fef1513006961bce91e127606caf5b64a19a8b1d",
+      "kerb": "266cde987e54ab5e8272929b7802b98f98d370010a6a2c241988e8ebfdb05109",
+      "buildings": "8ae660e70863c13be7fadbf093cc1390aa67d9b0c06846d5a6f74e42206ca8c6",
+      "vegetation": "55d37e95358031d9a8b4297b1e66b0212f14385eedd3f792c1336f5bdd3b4fb5",
+      "labels": "b8090bfb1dcd8fb3b72eb3dec57354fe88e751fe53f8bae0027c0fa6f5aee6c3"
+    },
+    "photo": {
+      "author": "the project manager",
+      "source": "Andrew\u2019s circuit photos 21016\u201321162, visual construction character",
+      "referenceExamples": [
+        "21016.jpg",
+        "21044.jpg",
+        "21080.jpg",
+        "21154.jpg",
+        "21157.jpg"
+      ],
+      "paleConcrete": true,
+      "galvanisedFrames": true,
+      "liftingRecesses": 3644,
+      "framePlates": 457,
+      "sourceBoundariesUnchanged": true,
+      "roadWidthUnchanged": true,
+      "signageUnchanged": true,
+      "newLandmarkPlacements": 0,
+      "newGPUResources": 0,
+      "newDrawCalls": 0,
+      "perFrameWork": 0,
+      "surveyedReconstruction": false
+    },
+    "barrierModules": 1822,
+    "concreteTriangles": 36440,
+    "metalTriangles": 153962,
+    "wireTriangles": 7288,
+    "scuffTriangles": 12146,
+    "errors": [],
+    "writes": 0,
+    "closed": true
+  }
+}
