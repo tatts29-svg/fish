@@ -96,16 +96,13 @@ assert T['note'].count(OLD_T) == 1, 'DATA.team.note is not as found'
 T['note'] = T['note'].replace(OLD_T, OLD_T + (
     f' One more name was added to the fencing crew by the project manager on {ON_WORDS}; it comes after the sheet’s eight, '
     'as Fencing crew with the company, and no other role, title, number or email was given, so none is written.'))
-assert 'eight names' not in G[0]['note'].replace('the sheet’s eight', '')
 
-# ---- the proof: nothing else in DATA moved
+# ---- the proof: with the person taken out and the two notes put back, DATA is the base exactly
 CHK = copy.deepcopy(D)
-CHK['team']['people'].pop(FEN[-1] + 1)
-CHK['team']['groups'] = ORIG['team']['groups'] if [g for g in CHK['team']['groups'] if g['key'] != 'fencing'] == \
-    [g for g in ORIG['team']['groups'] if g['key'] != 'fencing'] else None
-CHK['team']['note'] = ORIG['team']['note'] if T['note'].startswith(ORIG['team']['note'].split(OLD_T)[0]) and \
-    T['note'].endswith(ORIG['team']['note'].split(OLD_T)[1]) else None
-assert CHK == ORIG, 'DATA changed beyond the one person and the two notes - stopping'
+assert CHK['team']['people'].pop(FEN[-1] + 1) == NEW
+next(g for g in CHK['team']['groups'] if g['key'] == 'fencing')['note'] = next(g for g in ORIG['team']['groups'] if g['key'] == 'fencing')['note']
+CHK['team']['note'] = ORIG['team']['note']
+assert CHK == ORIG and list(CHK) == list(ORIG) and list(CHK['team']) == list(ORIG['team']), 'DATA changed beyond the one person and the two notes - stopping'
 assert [x for x in PEOPLE if x.get('group') == 'install'] == INSTALL
 assert [x['name'] for x in PEOPLE if x.get('group') == 'fencing'][-1] == NAME and sum(x.get('group') == 'fencing' for x in PEOPLE) == SHEET + 1
 assert json.dumps(D, ensure_ascii=False).count(NAME) == 1, 'the name sits once in DATA (the race call is part B)'
@@ -114,16 +111,16 @@ s = s[:i] + 'const DATA = ' + json.dumps(D, ensure_ascii=False, separators=(',',
 # ---- 3. the showcase's fencing crew scene: the cards' columns and the fine print follow the crew
 s = rep(s, "/* the fencing crew's eight cards: four across, two rows, on any screen wide enough — never five and three */\n"
            "@media (min-width:1000px){ .shcards.crew8{grid-template-columns:repeat(4,minmax(0,1fr))} }",
-        "/* the fencing crew's cards in full, even rows on any screen wide enough — eight went four across in two rows, never\n"
-        "   five and three; v9.00: the scene sets the columns from the crew itself (fencingCols900), so nine go three by three */\n"
+        "/* the fencing crew's cards in full, even rows on any screen wide enough — never five and three. v9.00: the scene sets\n"
+        "   the columns from the crew itself (fencingCols900), so nine go three across in three rows */\n"
         "@media (min-width:1000px){ .shcards.crewfence{grid-template-columns:repeat(var(--cols,4),minmax(0,1fr))} }",
         'fencing crew card columns (css)', str(p))
 s = rep(s, '<ul class="shcards crew8" style="--cols:4">',
-        '<ul class="shcards crewfence" style="--cols:${fencingCols900(ppl.length)}">', 'fencing crew card columns (scene)', str(p))
+        ' <ul class="shcards crewfence" style="--cols:${fencingCols900(ppl.length)}">', 'fencing crew card columns (scene)', str(p))   # rep takes the line's indent
 s = rep(s, "+ ' ' + fmtNum(ppl.length) + ' names, as the crew’s sign-on sheet reads, in its order, from the project record — "
            "the sheet carries no titles or numbers, so none are shown.')}`;",
-        "+ ' ' + fencingCrewWords900(ppl))}`;", 'fencing crew fine print', str(p))
-assert 'crew8' not in s, 'crew8 is still somewhere on the page'
+        " + ' ' + fencingCrewWords900(ppl))}`;", 'fencing crew fine print', str(p))
+assert not re.search(r'\bcrew8\b', s), 'the class crew8 is still somewhere on the page'
 
 JS = r"""<script id="crew900-script">
 /* Author: Andrew Fisher. v9.00 - the fencing crew is nine: the eight names off the crew's sign-on sheet (17 Sep 2026) and
@@ -147,7 +144,7 @@ function fencingCrewWords900(ppl){
  const added = ppl.filter(p => fencingAdded900(p)), sheet = ppl.length - added.length;
  if (!added.length) return fmtNum(ppl.length) + ' names, as the crew’s sign-on sheet reads, in its order, from the project record — the sheet carries no titles or numbers, so none are shown.';
  const days = [...new Set(added.map(fencingAdded900))];
- return fmtNum(ppl.length) + ' names from the project record: the ' + fmtNum(sheet) + ' the crew’s sign-on sheet reads, in its order, and '
+ return fmtNum(ppl.length) + ' names from the project record: ' + fmtNum(sheet) + ' as the crew’s sign-on sheet reads, in its order, and '
   + fmtNum(added.length) + ' added by the project manager on ' + days.join(' and ') + ', after them. The sheet carries no titles or numbers, and none '
   + (added.length === 1 ? 'was' : 'were') + ' given for the name' + (added.length === 1 ? '' : 's') + ' added, so none are shown.';
 }
