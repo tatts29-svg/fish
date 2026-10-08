@@ -2,7 +2,7 @@
 
 Author: Andrew Fisher
 
-State: DRAFT; built, source checks passed, browser checks pending.
+State: READY for the combined release; all five focused desktop and phone suites pass. Publication is coordinated with the final combined page.
 
 This integrates the remaining five parts of the handed-over v9.09 work on v9.22: the added fencing crew member, the approved replacement race-call take, split-delivery progress, WC09's separate Coates toilet blocks, and the VMS plan's document/cross-reference notes. It preserves the existing daily staff picker and Showcase stability code.
 
@@ -12,6 +12,10 @@ WC09's two Coates numbers belong to the two six-metre blocks; each block receive
 
 The original 17-page VMS001 plan was read after the private handover. It supplies cross-reference words only; governing-drawing and relocation differences stay open. Two questions in the older draft are now answered by the approved VMS register, so R30 records those answers instead of asking them again. The board 21 Staghorn/Ocean Avenue and board 17* T10/T11 caption conflicts stay explicit; board 18* remains assigned to Roadtek in the plan. No new VMS position or board count is inferred from the plan.
 
-Source parts are copied from frozen upstream `822b06a8`, with the narrow R30 reconciliation in `patch_v900_vms.py`. Browser and financial comparisons are still required before READY. No operational record has been changed.
+Source parts are copied from frozen upstream `822b06a8`, with the narrow R30 reconciliation in `patch_v900_vms.py`. Focused browser comparisons preserve the surrounding record, navigation and money models, except the explicitly approved WC09 unit/count behavior. No operational record has been changed.
 
 The split, line and VMS tests compare against a page with just that part omitted, retaining the final footer and other parts. `tests/build_baselines.py <candidate>` regenerates those comparison pages with the same private inputs as the build. Broadcast testing follows the natural end of the new take and checks that the v9.18 reusable player advances to the next slot.
+
+The ten focused suites pass: crew 28/28, broadcast 18/18, split 28/28, WC09 lines 43/43 and VMS 56/56 on both desktop and phone. Runtime checks used the immutable first combined v9.27 candidate (`3d2c6985…`). `evidence/source_scope_chain.json` carries the checks through the isolated accessory editor fix and finance/Transport changes to combined v9.28 (`592e73b3…`); DATA, styles and the v9.23 feature scripts are identical. Final combined navigation and finance checks remain with release coordination. Full portable totals and comparison hashes are in `evidence/validation.json`.
+
+`tests/build_combined_baselines.py` first requires a byte-identical replay of the complete supplied patch chain, then produces one comparison page for each omitted part while preserving all later changes. The VMS test reads models and document collections inside the same `holdAssets` scope as native rendering; this avoids repeating the full asset build for each document.

@@ -98,7 +98,8 @@ const bText = fileText(BASE), cText = fileText(PAGE), B = dataOf(bText), C = dat
 }
 
 /* ---- B. the live page, base then candidate ---- */
-const SNAP = () => {
+// Match the native render scope: reuse one asset list while reading related models.
+const SNAP = () => holdAssets(() => {
  const day = todayIso(), J = v => { try { return JSON.parse(JSON.stringify(v, (k, x) => typeof x === 'function' ? undefined : x)); } catch (e) { return 'unserialisable: ' + e.message; } };
  const h = t => { let x = 2166136261; for (let i = 0; i < t.length; i++) { x ^= t.charCodeAt(i); x = Math.imul(x, 16777619); } return (x >>> 0).toString(16) + ':' + t.length; };
  const areas = todayWorkMetrics840(day), groups = J(todayGroupDetails841(day, areas)), line = /^Schedule \d+ · iEDM plan VMS001-26003-01: /;
@@ -114,13 +115,13 @@ const SNAP = () => {
   progress: call(() => progress881Model(day)),
   money: {summary: call(() => moneySummary(day)), fh866: call(() => fh866Model()), pl770: call(() => pl770Model()), labour: call(() => labourRevenue858())},
   questions: J(questionsList().filter(q => q.id !== 'oi-R30')), r30: J(questionsList().filter(q => q.id === 'oi-R30'))};
-};
+});
 const READY = () => typeof go === 'function' && typeof SYNC !== 'undefined' && SYNC.status === 'live' && typeof todayWorkHealth840 === 'function'
  && todayWorkHealth840().ready && typeof todayGroupHealth841 === 'function' && todayGroupHealth841().ready && typeof DOCS !== 'undefined';
 async function session(file, label, fn) {
  const s = await open({pageFile: file, W, H, mobile: MOB, dpr: MOB ? 2 : 1}), p = s.page, cons = [];
  p.on('console', m => { if (m.type() === 'error' && !/Failed to load resource|ERR_FAILED|net::/.test(m.text())) cons.push(m.text().slice(0, 200)); });
- try { await p.waitForFunction(READY, null, {timeout: 180000}); await p.waitForTimeout(1500); return await fn(p, s, cons); }
+ try { console.log('Opened ' + label); await p.waitForFunction(READY, null, {timeout: 60000}); console.log('Ready ' + label); await p.waitForTimeout(1500); return await fn(p, s, cons); }
  finally { await s.browser.close(); }
 }
 const openD025 = async p => { await p.evaluate(() => go('map')); await p.waitForTimeout(800);
@@ -135,7 +136,7 @@ async function pair() {
  const base = await session(BASE, 'base', async (p, s, cons) => {
   const snap = await p.evaluate(SNAP); await openD025(p); const markers = await markerView(p);
   await p.evaluate(() => go('docs')); await p.waitForTimeout(2500);
-  const unhosted = await p.evaluate(() => docCollection().unhosted);
+  const unhosted = await p.evaluate(() => holdAssets(() => docCollection().unhosted));
   await p.evaluate(() => go('today')); await p.waitForTimeout(1500);
   const notes875 = await p.evaluate(() => [...document.querySelectorAll('[data-tw841-group-card="vms"] ul.tw841-group-notes li')].map(li => li.textContent));
   return {snap, markers, unhosted, notes875, errors: s.errors.slice(), cons: cons.slice(), blocked: s.counts.blocked};
@@ -170,8 +171,8 @@ async function pair() {
   ok('Today: no horizontal overflow', await overflow(p));
   // 1. Documents
   await p.evaluate(() => go('docs')); await p.waitForTimeout(2500);
-  const docs = await p.evaluate(id => { const C = docCollection(), d = C.items.find(x => x.id === id);
-   const t = document.querySelector('[data-tile815="maps"]'); if (t) t.click(); return {availability: d && d.availability, unhosted: C.unhosted, href: d ? docHref(d) : 'none', inMaps: !!d && d.category === 'Maps and drawings'}; }, PLAN_FILE);
+  const docs = await p.evaluate(id => holdAssets(() => { const C = docCollection(), d = C.items.find(x => x.id === id);
+   const t = document.querySelector('[data-tile815="maps"]'); if (t) t.click(); return {availability: d && d.availability, unhosted: C.unhosted, href: d ? docHref(d) : 'none', inMaps: !!d && d.category === 'Maps and drawings'}; }), PLAN_FILE);
   await p.waitForTimeout(800);
   const row = await p.evaluate(id => { const r = document.querySelector('[data-doc815="' + CSS.escape(id) + '"]'); if (!r) return null;
    const b = r.querySelector('[data-note815]'); if (b) b.click(); const n = r.querySelector('.note815'); r.scrollIntoView({block: 'center'});

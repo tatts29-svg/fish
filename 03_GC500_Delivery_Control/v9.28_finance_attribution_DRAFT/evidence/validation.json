@@ -1,0 +1,54 @@
+{
+  "author": "Andrew Fisher",
+  "candidateSha256": "592e73b38e8c5fb1d5bf98d00915c49550ab860b322f82fb957a99acc0369093",
+  "pureModelAssertions": 23,
+  "native": {
+    "desktop": {
+      "reconciliationTieouts": 17,
+      "allPass": true,
+      "moneyContractQuoteCostBranchPreserved": true,
+      "nativeRecordUnchanged": true,
+      "externalWritesSent": 0,
+      "expectedDeniedMappingSetup": 1,
+      "transportViewportPass": true,
+      "heldAllocationDisclosureVisible": true
+    },
+    "phone": {
+      "reconciliationTieouts": 17,
+      "allPass": true,
+      "moneyContractQuoteCostBranchPreserved": true,
+      "nativeRecordUnchanged": true,
+      "externalWritesSent": 0,
+      "expectedDeniedMappingSetup": 1,
+      "transportViewportPass": true,
+      "heldAllocationDisclosureVisible": true
+    }
+  },
+  "sweeps": {
+    "desktop": {
+      "tabs": 21,
+      "deepLinks": 7,
+      "backPass": true,
+      "pageErrors": 0,
+      "rawConsoleErrors": 1,
+      "unexpectedConsoleErrors": 0,
+      "expectedConsoleError": "Intentionally denied Google mapping createSession POST under strict GET-only harness",
+      "externalWritesSent": 0
+    },
+    "phone": {
+      "tabs": 21,
+      "deepLinks": 7,
+      "backPass": true,
+      "pageErrors": 0,
+      "rawConsoleErrors": 1,
+      "unexpectedConsoleErrors": 0,
+      "expectedConsoleError": "Intentionally denied Google mapping createSession POST under strict GET-only harness",
+      "externalWritesSent": 0
+    }
+  },
+  "screenshotsInspected": [
+    "transport-phone.png",
+    "transport-desktop.png"
+  ],
+  "privateFinancialDeltaRetainedOutsideRepository": true
+}

@@ -1,0 +1,23 @@
+{
+  "author": "Andrew Fisher",
+  "state": "READY FOR COMBINED RELEASE",
+  "source_commit": "9d77b758",
+  "runtime_candidate_sha256": "04b40af60cf151b4a0c4467abcdabc31d9a688f01e8197b355e3a3d64ccb0a09",
+  "final_candidate_sha256": "592e73b38e8c5fb1d5bf98d00915c49550ab860b322f82fb957a99acc0369093",
+  "evidence_scope": "Schedule6 compared to exact preceding26 source. Subsequent28 changes only finance projections; Schedule6 DATA remains byte-identical. Final financial and navigation checks are in28.",
+  "source_hash": "228801df246f21b29e6da196fa9c7c3a5ef492dc6b9aa814df0aceead67e2558",
+  "changed_source_cells": 40,
+  "changed_existing_tasks": 5,
+  "record_version": 4599,
+  "record_state_unchanged": true,
+  "actual_transport_unchanged": true,
+  "transport_revenue_unchanged": true,
+  "known_costs_and_revenue_unchanged": true,
+  "reconciliation_failures": 0,
+  "double_counted_loads": 0,
+  "monday_docketed_loads_in_verified_order": 4,
+  "gn13_carrier_verified": true,
+  "t0266_clock_verified_in_timeline": true,
+  "page_errors": 0,
+  "private_evidence_sha256": "18fc5e05024b2e91c4960a9a53c29e801a65548228b7eef9f40f4dfd9a95ceba"
+}

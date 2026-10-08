@@ -1,0 +1,69 @@
+{
+  "author": "Andrew Fisher",
+  "state": "READY TO UPLOAD",
+  "page_sha256": "592e73b38e8c5fb1d5bf98d00915c49550ab860b322f82fb957a99acc0369093",
+  "bytes": 12262425,
+  "base_sha256": "7e3fe251373c97582119f41002cbda0cfacb71bd23ec5fe1fdf2c3dde3d46abc",
+  "inline_scripts_parsed": 36,
+  "patch_order": [
+    "v9.23 crew, audio, WC09, split deliveries, VMS notes",
+    "v9.24 guide and per-unit loading evidence",
+    "v9.25 units, suppliers and original quote links",
+    "v9.26 sourced master shapes and native loading side",
+    "v9.27 Schedule6 dispatch details",
+    "v9.28 scoped transport and Hire/Rehire attribution"
+  ],
+  "source_commits": {
+    "23": "05d70474",
+    "24": "482201c4",
+    "25": "351cfc4a",
+    "26": "e29f0d8a",
+    "27": "9d77b758",
+    "28": "6d34a421"
+  },
+  "source_scope_evidence": [
+    "../../v9.23_crew_wc09_integration_DRAFT/evidence/source_scope_chain.json",
+    "source_scope.json"
+  ],
+  "runtime_attribution": "Component checks retain their exact tested candidate hashes. Source-scope proofs carry unchanged component behaviour forward; final navigation and finance checks run on this exact release candidate.",
+  "media": {
+    "file": "c1f296379a281e22516d8f86a7d7f24097f7e5b47b4c6aa135dcb6e0dc352893.mp3",
+    "bytes": 192428,
+    "sha256": "c1f296379a281e22516d8f86a7d7f24097f7e5b47b4c6aa135dcb6e0dc352893",
+    "public_full_bytes_verified": true,
+    "manifest": "c20165af0f02dd0e1d20a9a73eb4c14d86cab1c020b3a1bfd8324251134881bd",
+    "record_version": 4599
+  },
+  "machine_unchanged": "3dac8423d878d8a24eb9a0a6b771adc48862ff86bb42c8394d8d2d413c2db9e2",
+  "operational_record_before": 4599,
+  "quote_originals_verified": 4,
+  "actual_unit_specs_verified": 0,
+  "automatic_restraint_approval": false,
+  "physical_device_frame_rate": "Not measured; prior track/car control tests and unchanged rendering scope retained.",
+  "final_navigation": {
+    "desktop": {
+      "routes": 21,
+      "deep_links": 7,
+      "back": true,
+      "page_errors": 0,
+      "unexpected_console_errors": 0,
+      "expected_blocked_mapping_setup_console": 1
+    },
+    "phone": {
+      "routes": 21,
+      "deep_links": 7,
+      "back": true,
+      "page_errors": 0,
+      "unexpected_console_errors": 0,
+      "expected_blocked_mapping_setup_console": 1
+    }
+  },
+  "finance": {
+    "reconciliation_checks_per_view": 17,
+    "desktop_passed": true,
+    "phone_passed": true,
+    "contracts_unchanged": true,
+    "supplier_quotes_unchanged": true,
+    "approved_supplier_cost_branches_unchanged": true
+  }
+}
