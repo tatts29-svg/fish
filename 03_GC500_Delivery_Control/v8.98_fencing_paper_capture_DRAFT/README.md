@@ -27,7 +27,9 @@ All records use native author/stamp, sync, export/import, merge and set-aside/re
 
 `node v8.98_fencing_paper_capture_DRAFT/test_capture898.cjs <candidate-page>`: **30/30 pass**, including native sync/merge/restore, full and envelope-only export, the actual hosted Export button's payload, duplicate conflicts, component-only accounting boundaries and broken service-source quarantine. All page scripts compile. Embedded DATA equality is separately checked.
 
-`PAGE=<candidate> [MOB=1] node v8.98_fencing_paper_capture_DRAFT/test_capture898_browser.cjs`: prepared and syntax checked; **not run by this author yet**. It uses the shared read-only harness, exercises native controls and the actual export handler with synchronous temporary fixtures, then restores the record. Root coordinates browser runs.
+`PAGE=<candidate> [MOB=1] EVIDENCE_DIR=<private-output-directory> node v8.98_fencing_paper_capture_DRAFT/test_capture898_browser.cjs`: **15/15 laptop and 15/15 phone pass** on the combined candidate SHA-256 `09bf240301316f4a619d6ed6d60a8f29d8d914a081a553b9fc5794a1ae4e45d2`. It uses the shared read-only harness, exercises the visible native collection form's save button and actual Export handler with synchronous temporary fixtures, then restores the record. It also opens the paper fold and Collection form through their real controls and verifies the form stays visible after native redraw. Both screenshots were inspected; no browser errors or attempted remote writes. Detailed evidence and screenshots remain private.
+
+The browser checks prove UI and export behaviour; the native tests cover sync serialization, merge and restoration. No test creates a live collection or makes a server-persistence claim. Publication and live readback remain separate.
 
 ## Export boundary
 
