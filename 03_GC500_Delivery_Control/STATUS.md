@@ -34,6 +34,10 @@
   - The roster grid answers "which days each person is on". Is that what he meant?
 - **The build follows his yes**, on the latest public page. If Codex's v9.08 is live by then, it is rebuilt on v9.08.
 
+**ANDREW, 8 Oct 2026 ~16:10 AEST,** with a screenshot of the Truck flow card for 14 Oct: "almost like your making this the hero and it now takes up all the room need to be gone or get rid of it".
+- **Claimed as part F of v9.09** (publishes v9.12), `patch_v900_truckflow.py`, workflow `wf_4b751804-ce5`. The card becomes one closed line ("Truck flow · N loads · N to check ›") and everything stays inside.
+- **Andrew's reminder:** "we match the invoice against the papers". The CW3 check (`wf_66c9aef9-d7d`) matches each invoice row to its signed paper, and the paper is the primary evidence.
+
 **ANDREW, 8 Oct 2026 ~16:05 AEST, on v9.11 Arrange loads:** "the load arrangemnet is good wehen in here can we select which way the door need to go too pleaae". Passed to Codex, who owns that workspace, with a suggested design ([6053515113](https://github.com/tatts29-svg/fish/pull/1#issuecomment-6053515113)):
 - a "Door faces" choice per building and per unit, shown on the master plan;
 - "Drawing shows: …" as a suggestion only;
