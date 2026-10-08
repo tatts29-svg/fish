@@ -29,11 +29,13 @@ async function run(){
   const interactions=await p.evaluate(async()=>{
    const before=JSON.stringify(S),report=()=>Drops911.report();
    const first=report().model.loads[0],button=()=>[...document.querySelectorAll('[data-drop911-select]')].find(x=>x.dataset.drop911Select===first.id);
+   document.querySelector('.drops911-order').scrollTop=180;
    button().click();const card=()=>[...document.querySelectorAll('.ldlist[aria-label^="Due in"] .ldl')].find(b=>+b.querySelector('.ld-n b').textContent===first.n),opened=card().getAttribute('aria-expanded')==='true';button().click();const idempotent=card().getAttribute('aria-expanded')==='true';
+   const row=button().closest('li').getBoundingClientRect(),nav=document.querySelector('.drops911-order').getBoundingClientRect(),selectedRowVisible=row.top>=nav.top-1&&row.bottom<=nav.bottom+1;
    const canvas=document.querySelector('.drops911-map canvas'),order=document.querySelector('.drops911-order');order.scrollTop=100;order.dispatchEvent(new Event('scroll'));render();await new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r)));const persistent=canvas===document.querySelector('.drops911-map canvas'),listScroll=document.querySelector('.drops911-order').scrollTop===100;
    document.querySelector('[data-drop911-clear]').click();render();const clearStable=report().selected===null;
    const count=report().model.loads.length;state.q='nothing_should_match_911';render();const retained=report().model.loads.length===count&&report().model.loads.every(l=>l.hiddenByFilter);document.querySelector('[data-drop911-select]').click();const show=!!document.querySelector('[data-drop911-show]');document.querySelector('[data-drop911-show]').click();const revealed=state.q===''&&!!document.querySelector('.ldlist[aria-label^="Due in"] .ldl[aria-expanded="true"]');
-   return {opened,idempotent,persistent,listScroll,clearStable,retained,show,revealed,unchanged:before===JSON.stringify(S)};
+   return {opened,idempotent,selectedRowVisible,persistent,listScroll,clearStable,retained,show,revealed,unchanged:before===JSON.stringify(S)};
   });
   for(const [k,v] of Object.entries(interactions))check('native interaction: '+k,v);
   await p.locator('[data-drop911-focus]').click();

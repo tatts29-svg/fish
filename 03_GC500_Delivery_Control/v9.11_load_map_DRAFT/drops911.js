@@ -114,6 +114,15 @@
   return '<section class="drops911" aria-label="Delivery map and load order" data-drop911-day="' + h(model.day) + '"><header class="drops911-head"><div><h3>Load order</h3><span>' + model.loads.length + ' load' + (model.loads.length === 1 ? '' : 's') + ' · numbers match the run sheet</span></div><div class="drops911-tools" role="group" aria-label="Delivery map controls"><button type="button" data-drop911-style="street" aria-pressed="' + (ui.style === 'street') + '">Street</button><button type="button" data-drop911-style="satellite" aria-pressed="' + (ui.style === 'satellite') + '">Satellite</button><button type="button" data-drop911-fit>Fit all</button></div></header><div class="drops911-layout"><nav class="drops911-order" aria-label="Select a load in arrival order"><ol>' + rows + '</ol></nav><div class="drops911-map-slot"><div class="drops911-view" role="region" tabindex="0" aria-label="Numbered delivery locations on street or satellite map"><div class="drops911-map"></div><svg class="drops911-leaders" aria-hidden="true"></svg><div class="drops911-pins"></div><div class="drops911-map-note" role="status">Loading map…</div></div></div></div><div class="drops911-detail" aria-live="polite"></div></section>';
  }
  function note(text) { if (!view) return; const el = view.querySelector('.drops911-map-note'); el.textContent = text; el.hidden = !text; }
+ function revealSelectedRow() {
+  const el = root(), order = el && el.querySelector('.drops911-order');
+  const button = order && [...order.querySelectorAll('[data-drop911-select]')].find(b => b.dataset.drop911Select === ui.selected);
+  if (!button) return;
+  const row = button.closest('li').getBoundingClientRect(), box = order.getBoundingClientRect();
+  if (row.top < box.top) order.scrollTop -= box.top - row.top;
+  else if (row.bottom > box.bottom) order.scrollTop += row.bottom - box.bottom;
+  ui.listTop = order.scrollTop;
+ }
  function paint() {
   const el = root(); if (!el || !current) return;
   el.querySelectorAll('[data-drop911-select]').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.drop911Select === ui.selected)));
@@ -200,7 +209,7 @@
   resize.observe(view);
   const order = el.querySelector('.drops911-order'), desiredTop = ui.listTop; let restoringOrder = true;
   order.scrollTop = desiredTop;
-  requestAnimationFrame(() => { if (order.isConnected) { order.scrollTop = desiredTop; restoringOrder = false; } });
+  requestAnimationFrame(() => { if (order.isConnected) { order.scrollTop = ui.listTop; restoringOrder = false; } });
   order.addEventListener('scroll', () => { if (!restoringOrder && order.isConnected && root() && root().contains(order)) ui.listTop = order.scrollTop; }, {passive: true});
   const open = current && current.loads.find(l => { const b = cardFor(l); return b && b.getAttribute('aria-expanded') === 'true'; });
   if (open && !ui.cleared && !ui.selected) ui.selected = open.id;
@@ -222,7 +231,7 @@
    state.tlLoad = b.dataset.ld; render(); scroller.scrollTop = top;
    const choice = root() && [...root().querySelectorAll('[data-drop911-select]')].find(x => x.dataset.drop911Select === id); if (choice) choice.focus({preventScroll: true});
   }
-  paint(); scheduleDraw();
+  paint(); revealSelectedRow(); scheduleDraw();
  }
  const api = {location, validLL, project, markers, labels, report: () => ({day: ui.day, selected: ui.selected, style: ui.style, status: mapStatus, model: current, tilesReady: !!map && map.areTilesLoaded(), styleReady: !!map && map.isStyleLoaded()})};
  if (typeof window !== 'undefined') window.Drops911 = api;
@@ -255,7 +264,7 @@
    if (!current || !current.loads.some(l => l.id === id)) return;
    ui.selected = id; ui.cleared = false;
    const accepted = flow891Move(current.day, id, dir);
-   paint(); scheduleDraw();
+   paint(); revealSelectedRow(); scheduleDraw();
    const next = root() && [...root().querySelectorAll('[data-drop911-move]')].find(x => x.dataset.drop911Id === id && x.dataset.drop911Move === dir && !x.disabled);
    if (next) next.focus({preventScroll: true});
    if (accepted && bump.kept === false) flash('The new order is not saved yet. Check the unsaved record notice.');

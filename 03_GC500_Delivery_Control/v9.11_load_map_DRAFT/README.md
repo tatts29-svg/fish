@@ -1,6 +1,8 @@
 Author: Andrew Fisher
 
-DRAFT — compact Timeline and geographic load-order map.
+DRAFT — placement revision requested; do not publish the current daily map position.
+
+Andrew rejected the map position above the loads. The map is being moved into the load-order workflow; the revised placement needs its own preview and affected checks. The existing numbering, location, native-save and contrast work remains available for that revision.
 
 The map sits beside the complete daily delivery order. Each load keeps its native identity; numbers follow the current arrival sequence. Separate labels identify nearby drops and loads sharing a destination. Visible labels remain tied to the original confirmed ground positions. References with only a report point, approximate drawing position or inset callout remain explicitly unplaced.
 
