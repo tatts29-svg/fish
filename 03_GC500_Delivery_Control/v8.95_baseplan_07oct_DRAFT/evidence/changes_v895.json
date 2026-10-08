@@ -510,6 +510,13 @@
    "source": "the as-supplied record, 2026-09-22"
   },
   {
+   "line": "9968955/38",
+   "was": null,
+   "now": "WC07",
+   "via": "asset number",
+   "source": "the as-supplied record, 2026-09-22"
+  },
+  {
    "line": "9968955/39",
    "was": null,
    "now": "WC07",
@@ -590,17 +597,7 @@
    "why": "Andrew's record carries this number on P52 (6 Oct 2026: \"What I have matched up and completed is correct\"); the export did not touch the line"
   }
  ],
- "held": [
-  {
-   "line": "9968955/38",
-   "asset_no": "1317643",
-   "serial_in_export": "F4790",
-   "description": "WC07 Toilet Portable - Fresh Water Flush",
-   "status": "Delivered",
-   "why": "no reference carries this number - not on the shared record, not on the as-supplied record, not in the register; the line keeps its join by kind",
-   "join": null
-  }
- ],
+ "held": [],
  "plant_line_copies": [],
  "flags": [
   {
@@ -692,6 +689,18 @@
     "on": "2026-10-08",
     "at": "about 05:40 AEST",
     "words": "1327211 is correct"
+   }
+  },
+  {
+   "path": "DATA.ops.rows[138].asset_numbers_supplied[13]",
+   "ref": "WC07",
+   "was": "1317743",
+   "now": "1317643",
+   "andrew": {
+    "by": "Andrew Fisher",
+    "on": "2026-10-08",
+    "at": "about 09:30 AEST",
+    "words": "1317643 is the correct number Remove 1317743"
    }
   }
  ]

@@ -29,6 +29,9 @@ for m in "" 1; do
  T contracts895 "$m" OUT=$S/c895 timeout 600 node v8.95_baseplan_07oct_DRAFT/tests/test_contracts895.cjs
  T align893 "$m" ASSETS=$ASSETS893 MEDIA=$MEDIA893 POC3D=$PWD/v8.93_maps_aligned_DRAFT/assets_small/poc3d CODE=$PWD/v8.93_maps_aligned_DRAFT/machine_code_v887_v890_v893 OUT=$E/align timeout 900 node v8.93_maps_aligned_DRAFT/tests/test_align893.cjs
 done
+# the two legacy suites that read out-of-date expectations (v8.75 handling, v8.79 paired run sheets) are run on live v8.83 itself as well:
+# the same failures on live prove they are the tests' age, not this release
+for t in v8.75_schedule_lifting_LIVE/tests/test_handling875.cjs v8.79_paired_run_sheets_LIVE/tests/test_paired879.cjs; do n=$(basename $t .cjs | sed 's/test_//'); env GC500_CACHE=$(mktemp -d -p $S) PAGE=$PWD/build/GC500_$L/base_live.html timeout 600 node $t > $E/${n}_live.log 2>&1; echo "${n}_live exit $? pass $(grep -c '^PASS' $E/${n}_live.log) fail $(grep -c '^FAIL' $E/${n}_live.log) $(grep -o '[0-9]*/[0-9]*$' $E/${n}_live.log | tail -1)"; done
 # the standing regression set on the same candidate (the chain-identity checks there are for the v8.89 chain only, so skipped)
 SKIP_CHAIN_IDENTITY=1 S=$S MEDIA889=$MEDIA893 MASTER889_TEST=v8.93_maps_aligned_DRAFT/tests/test_master889_v893.cjs EXPLORER_DIR=v8.93_maps_aligned_DRAFT/machine_code_v887_v890_v893 bash v8.89_full_chain_08Oct2026/tools/run_all.sh build/GC500_$L $E
 echo SUITE DONE

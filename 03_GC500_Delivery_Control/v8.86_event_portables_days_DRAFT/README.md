@@ -111,6 +111,17 @@ If v8.84 or v8.85 goes live first, drop the patch that is already live from the 
 - `tests/test_ep886.cjs` (laptop 1440 px and phone) — every plan reference listed on its load day or its recorded day; no moved row left on the day as written; WC34's recorded day with the recorder's chip; WC57, WC67, WC09 and T0089 as above; T0176 on Mon 19 Oct; the Fri 9, Tue 13, Thu 15 and Mon 19 Oct lists; the supplier card and Load 1 run sheet record line; the moved-off folds; the drop sheet for Fri 9 Oct; the installer text; the delivery cards, in the page and as drawn; the WC09 drawer; Today's pod and the programme panel's next-milestone counts against the same day list the Timeline draws; the Timeline's due in / due out for the four load days against that list; redraws of the Timeline and Today; no errors, no live writes.
 - The full regression set of v8.85, rerun on this candidate (`evidence/`): model881, where885 at 2560/1600/1440 px and phone, wide884 at three widths and phone, layout876, crew883, vms874, finance866, asset873, loading872, unloading881, paired881, handling875, paired879, the 15-tab sweep, v871, supplier870 and kinp869 — laptop and phone.
 
+**The record at the run (8 Oct 2026).** `test_ep886.cjs` reads the live record, so WC57 and WC67 are checked on the day the
+record has for them at the run, or on the plan's load day when it has none — the rule the release states ("a day recorded on
+the record still wins, the way it beats the plan", for the whole reference). On the morning of 8 Oct Andrew recorded Tue 13 Oct
+on both WC57 and WC67, so on the combined candidate the test expects, and the page shows: WC57 on Tue 13 Oct (moved from 12 Oct,
+the plan's Fri 9 Oct named beside it), off Fri 9 Oct and off its drop sheet; the supplier card's Load 1 line "Record shows
+Tue 13 Oct for WC57 – this plan has Fri 9 Oct"; and WC67's four FWF all on Tue 13 Oct — the two on site since 1 Oct included,
+because a recorded day moves every row of the reference. When the record has no day for them the original expectations apply
+unchanged (WC57 on Fri 9 Oct by the plan; WC67's first two on 1 Oct). The test's own checks that stay the same whatever the
+record says: no moved row left on the day as written, the lists and counts agreeing between Today and the Timeline, the WC09
+split, T0089 off the plan, the redraws, no errors and no writes.
+
 ## Results
 
 Candidate `9a279ba1…` on base `88a3584e`, run 8 Oct 2026 ~00:50–01:40 AEST, one browser at a time, every write aborted by the harness (`evidence/summary.log`, one log per run). Every suite gives the result the v8.85 candidate gave; the two out-of-date suites fail on the same lines as on live v8.83.
@@ -120,7 +131,7 @@ Candidate `9a279ba1…` on base `88a3584e`, run 8 Oct 2026 ~00:50–01:40 AEST, 
 | data886 (narrow DATA identity) | PASS | — | DATA identical to live except the 20 plan rows and their references' span fields |
 | source875 (old DATA identity) | stops | — | stops at the first intended date change, by design (`source_identity875.log`) |
 | model881 | 12/12 | — | |
-| **ep886 (new)** | **31/31** at 1440 px | **31/31** | screenshots in `evidence/shots/` |
+| **ep886 (new)** | **31/31** at 1440 px | **31/31** | screenshots in `evidence/shots/`; **31/31 and 31/31 again on the combined candidate `5e786047…` of 8 Oct 2026 ~11:30 AEST** with WC57 and WC67 recorded on Tue 13 Oct (`../v8.89_full_chain_08Oct2026/evidence_h1final/ep886_*.log`) |
 | where885 | 24/24 at 2560, 1600 and 1440 px | 24/24 | |
 | wide884 | 21/21 at 2560, 1600 and 1440 px | 21/21 | |
 | layout876 | 18/18 | 18/18 | |
@@ -144,3 +155,5 @@ Looked at (`evidence/shots/`): the Fri 9 Oct day view with the WC57 card open, l
 2. Brad Jones Racing (1 FWF) and Shell V-Power (1 FWF) on Load 4 have no WC number and no schedule row; the page cannot carry a day for them until one is given.
 3. WC09's own In day reads Thu 8 Oct (the Coates toilet blocks) with the FWF and pee panels on Fri 9 Oct. If the whole of WC09 should read Fri 9 Oct, recording Fri 9 on WC09 does that — and moves the toilet blocks with it.
 4. If Andrew records a day on any of these that differs from the plan's, his day shows and the plan's day sits beside it as "moved from", with the plan named — the page does not argue.
+5. **WC67, recorded Tue 13 Oct on 8 Oct.** A recorded day applies to the whole reference, so WC67's first two FWF — on site since 1 Oct — now read Tue 13 Oct on the Timeline as well as Load 2's second two. If only the second drop was meant, clearing the date on WC67 puts the first two back on 1 Oct and the second two on the plan's Tue 13 Oct.
+6. **A small gap to close in a later release, not in this one:** the "moved off this day" fold on Mon 12 Oct still says WC57 moved to Fri 9 Oct (the plan's correction, which is what the fold documents), while the record has since put WC57 on Tue 13 Oct. The row itself, its card, the lists, the counts, the drop sheet and the supplier card all read Tue 13 Oct. The fold should name the record's day when there is one ("moved to Tue 13 Oct on the record; the plan had Fri 9 Oct"). No data or money is involved.

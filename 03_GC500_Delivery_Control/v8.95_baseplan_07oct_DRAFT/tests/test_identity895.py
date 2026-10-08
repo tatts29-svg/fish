@@ -87,7 +87,7 @@ RECORD = {('9968862', 50): 'P37', ('9968862', 79): 'P52'}
 for k in RECORD:
     EXPECT[k] = {'match'}
 for l in WC07:
-    EXPECT[('9968955', l)] = BASE | ({'match'} if l != 38 else set()) | ({'description'} if l in (24, 39) else set())
+    EXPECT[('9968955', l)] = BASE | {'match'} | ({'description'} if l in (24, 39) else set())   # line 38 joins too, by Andrew's corrected 1317643 (8 Oct 2026)
 ADDED = {('9961976', 42), ('9961976', 43)}
 brow = {(str(r['rental_contract']), int(r['line'])): r for r in BR['rows']}; nrow = {(str(r['rental_contract']), int(r['line'])): r for r in NR['rows']}
 check('323 lines: the 321 of the 6 Oct export and the two the 7 Oct export adds', len(NR['rows']) == 323 and set(nrow) == set(brow) | ADDED and set(brow) - set(nrow) == set())
@@ -161,7 +161,14 @@ unjoined = sorted(k for k, r in nrow.items() if r['asset_no_is_plant_number'] an
 check('the only recorded numbers whose line is not joined are the two-line numbers v8.71 holds (9961265/12, 9968726/10, 9968862/110)',
       unjoined == [('9961265', 12), ('9968726', 10), ('9968862', 110)], unjoined)
 check('the register\'s WC07 carries no numbers of its own (his are on the as-supplied record and the shared record, which the page reads live)', next(a for a in ND['assets'] if a['key'] == 'WC07')['asset_numbers'] == [] and next(a for a in BD['assets'] if a['key'] == 'WC07')['asset_numbers'] == [])
-check('the supplement records the P52 and WC07 corrections with Andrew\'s words, without repeating the wrong digits', sup[-1].get('register_corrected') and len(sup[-1]['register_corrected']) == 5 and sum(1 for x in sup[-1]['register_corrected'] if x['now'] == RIGHT and x['ref'] == 'P52') == 4 and sum(1 for x in sup[-1]['register_corrected'] if x['now'] == RIGHT2 and x['ref'] == 'WC07') == 1 and all('was' not in x for x in sup[-1]['register_corrected']) and '1327211 is correct' in (sup[-1].get('register_correction_basis') or '') and '1317643 is the correct number' in (sup[-1].get('register_correction_basis') or ''), sup[-1].get('register_corrected'))
+# the page carries the right number, the path and the reason, and no more: the wrong digits stay off it, and the build's
+# scrub (v5.97, Andrew's rule of 25 Sep 2026: no "Andrew Fisher said" on the page) lifts the attribution and his quoted words
+# from every string, so they are on the evidence log (evidence/changes_v895.json), not in the supplement
+basis = sup[-1].get('register_correction_basis') or ''
+check('the supplement records the P52 and WC07 corrections (reference, right number, path) and says why, without the wrong digits and without the attribution the build scrubs', sup[-1].get('register_corrected') and len(sup[-1]['register_corrected']) == 5 and sum(1 for x in sup[-1]['register_corrected'] if x['now'] == RIGHT and x['ref'] == 'P52') == 4 and sum(1 for x in sup[-1]['register_corrected'] if x['now'] == RIGHT2 and x['ref'] == 'WC07') == 1 and all(set(x) == {'ref', 'now', 'path'} for x in sup[-1]['register_corrected']) and "P52's building number with one digit too many" in basis and 'one digit out where Baseplan carries 1317643' in basis and 'Andrew Fisher' not in basis and WRONG not in basis and WRONG2 not in basis, sup[-1].get('register_corrected'))
+EVID = here.parent / 'evidence' / 'changes_v895.json'
+ereg = (json.loads(EVID.read_text(encoding='utf-8')).get('register_corrected') or []) if EVID.exists() else []
+check('Andrew\'s words are on the evidence log, not the page: evidence/changes_v895.json carries the five corrections with the wrong digit and his quote', len(ereg) == 5 and sum(1 for x in ereg if x.get('was') == WRONG and x.get('now') == RIGHT and '1327211 is correct' in ((x.get('andrew') or {}).get('words') or '')) == 4 and sum(1 for x in ereg if x.get('was') == WRONG2 and x.get('now') == RIGHT2 and '1317643 is the correct number' in ((x.get('andrew') or {}).get('words') or '')) == 1, [(x.get('ref'), x.get('was'), x.get('now')) for x in ereg])
 
 # ---- 5. what v8.71 derives: contracts, assignments, summary - recomputed here from the candidate's rows
 TABS = {str(c['rental_contract']): (c['branch_code'], c['tab']) for c in NR['contracts']}
@@ -212,7 +219,7 @@ want = {'lines': 323, 'contracts': sorted(TABS), 'branches': sorted({b for b, _ 
         'assets_assigned': len(NA), 'delivered_lines': sum(1 for r in NR['rows'] if r.get('delivered')), 'assigned_by': dict(sorted(by.items(), key=lambda x: str(x[0])))}
 check('the summary counts are exactly what the lines give', all(NSM.get(k) == v for k, v in want.items()), {k: (NSM.get(k), v) for k, v in want.items() if NSM.get(k) != v})
 check('the summary\'s other fields are the base\'s', {k: v for k, v in NSM.items() if k not in want} == {k: v for k, v in BSM.items() if k not in want})
-check('summary: 323 lines, 164 plant numbers, 142 delivered lines, 137 joined by number, 30 by docket, 149 unjoined', NSM['lines'] == 323 and NSM['plant_numbers'] == 164 and NSM['delivered_lines'] == 142 and NSM['same_asset_number'] == 137 and NSM['same_delivery_docket'] == 30 and NSM['unmatched'] == 149)
+check('summary: 323 lines, 164 plant numbers, 142 delivered lines, 138 joined by number (WC07\'s line 38 among them, by Andrew\'s 1317643), 30 by docket, 148 unjoined', NSM['lines'] == 323 and NSM['plant_numbers'] == 164 and NSM['delivered_lines'] == 142 and NSM['same_asset_number'] == 138 and NSM['same_delivery_docket'] == 30 and NSM['unmatched'] == 148)
 
 # ---- 6. the plant lines' copies of their contract lines follow the rows (no copy is of a changed line, so they are identical)
 check('plant_lines identical (no plant line carries a changed contract line)', BD['plant_lines'] == ND['plant_lines'])

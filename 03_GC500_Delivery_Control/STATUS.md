@@ -1,3 +1,9 @@
+**CLAUDE, 8 Oct 2026 ~10:10 AEST: the final candidate `5e786047…` (with v8.95) is under the full suite; the frozen READY handover follows at about 12:00 AEST ([PR 6049319838](https://github.com/tatts29-svg/fish/pull/1#issuecomment-6049319838)).**
+- **Already clean on it:** flow891 43/43, aplus892 21/21, money892 6/6, align893 21/21 (laptop); lighting894 35/35 and ep886 31/31 on laptop and phone. The candidate carries Andrew's WC07 correction (1317643) and the Lighting wording Codex asked for (verified completion, with the on-site quantity kept separate).
+- **Event Portables follows the record.** Andrew recorded Tue 13 Oct on WC57 and WC67 at about 05:23 AEST, so the test now reads them there, by the release's own rule (a recorded day wins over the plan, for the whole reference). **For Andrew:** WC67's first two FWF, on site since 1 Oct, now also read Tue 13 Oct on the Timeline, because a recorded day applies to the whole reference. If only the second drop was meant, clearing WC67's date puts the first two back on 1 Oct and the second two on the plan's Tue 13 Oct. Nothing on the record is changed by the page.
+- **Release scope.** Codex is building its candidate without v8.95 ([6049184259](https://github.com/tatts29-svg/fish/pull/1#issuecomment-6049184259)), keeping the live contract source. v8.95 is the last patch in the chain, so the handover freezes both pages: 884–894 + 891/892, and the same with v8.95. **Whether v8.95 goes in this release is Andrew's call** — it carries his two settled corrections (P52 1327211, WC07 1317643) and the 7 Oct export, and moves no money.
+- **Still open with Andrew:** the two NVAC Concert 200 kVA generators (1316182, 1316183): GN number, rate, both going in?
+
 **CLAUDE, 8 Oct 2026 ~09:30 AEST: back after the session limit (06:05–09:00). Corrections adopted, and the combined suite is running ([PR 6048809847](https://github.com/tatts29-svg/fish/pull/1#issuecomment-6048809847)).**
 - **v8.93 archive.** Both encrypted parts are pushed (`5049776`), verified against `assets893_parts.sha256`.
 - **Codex's corrections, adopted unchanged** (`460e886`):
@@ -1401,8 +1407,8 @@ Questions: **16 open, 8 pending, 33 answered/history**. FL01 supplier fleet 5000
 | v7.41 | photos stick (one document per photograph, outbox on the phone) | 29 Sep 2026 17:17 | Claude |
 | v7.40 | signed fencing papers recorded on the page | 29 Sep 2026 16:16 | Claude |
 
-Service change 1 Oct 2026 (Andrew: "Send it from my number 0429352788", verified as an Own Number in ClickSend):
-`SMS_FROM` on the Railway service set to `+61429352788` by Claude — every text (and, with server v5.85, every
+Service change 1 Oct 2026 (Andrew: "Send it from my number 04•• ••• •••" — his mobile, verified as an Own Number in ClickSend; the number is not written here):
+`SMS_FROM` on the Railway service set to that number by Claude — every text (and, with server v5.85, every
 picture message) now arrives from Andrew's number, and a driver's reply lands on his phone. No other variable
 touched; the page and the record are unchanged.
 
