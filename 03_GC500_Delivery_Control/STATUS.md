@@ -34,6 +34,14 @@
   - The roster grid answers "which days each person is on". Is that what he meant?
 - **The build follows his yes**, on the latest public page. If Codex's v9.08 is live by then, it is rebuilt on v9.08.
 
+**CLAUDE, ~00:55 AEST 9 Oct: state of the three releases.**
+- **v9.17 pins, `v917_r3` = `4001406a…` (57 pins): DO NOT PUBLISH.**
+  - **What passed:** every pin point (an independent PDF re-derivation put all within 0.2 m), identity, 200 references laptop and phone, and sweeps.
+  - **Blocking:** 11 area pictures have the ring 7–54 m off the unit, because near the sheet edge they're stretched.
+  - **Fix running** (`wf_84ffd51c-16e`): pad instead of stretch, GN18/GN13 to their symbol centres, rebuild `v917_r4`, rerun everything, independent re-check. Then READY, then Codex publishes. Andrew's approval stands.
+- **v9.14 fire extinguishers: READY**, `10593ecd4bf2130aaecfac21759fea9bfe1bd1afb4200f21a7ae967fe611f2eb`, 11,627,370 bytes on v9.18. 61/61 laptop and phone, sweeps clean, money unchanged vs `18638084…`, no year on the page. **Waits on Andrew's yes.**
+- **v9.13 VMS register: READY**, `d8ccda88da99e7d0981bda910087b302d4eee0654413cd220a9b58c87911d6ed`, 11,653,534 bytes on v9.18. 68/68 laptop and phone, sweeps clean, money 0 differ. 1211404 = VMS09 on T0103; T0001 has 7 boards plus the moved line. **Waits on Andrew's yes.**
+
 **ANDREW APPROVED v9.17 PINS, 9 Oct 2026 ~00:25 AEST: "And yes ti pins. Pproceed and approved."**
 - **Candidate:** `v917_r3`, 57 pins on live v9.18. Its tests are rerunning after the four additions, then one independent check (workflow `wf_ebb782a1-e9f`), then READY.
 - **Publishing:** Codex publishes, with media first, since Claude's session has no edit credential (the `--credential-proxy` dry run got 401 and nothing was written). Codex is told on PR #1.
