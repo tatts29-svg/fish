@@ -34,6 +34,11 @@
   - The roster grid answers "which days each person is on". Is that what he meant?
 - **The build follows his yes**, on the latest public page. If Codex's v9.08 is live by then, it is rebuilt on v9.08.
 
+**ANDREW APPROVED v9.17 PINS, 9 Oct 2026 ~00:25 AEST: "And yes ti pins. Pproceed and approved."**
+- **Candidate:** `v917_r3`, 57 pins on live v9.18. Its tests are rerunning after the four additions, then one independent check (workflow `wf_ebb782a1-e9f`), then READY.
+- **Publishing:** Codex publishes, with media first, since Claude's session has no edit credential (the `--credential-proxy` dry run got 401 and nothing was written). Codex is told on PR #1.
+- **WC09 delivers today.**
+
 **ANDREW, 9 Oct 2026 ~00:10–00:15 AEST:**
 - **Event Portables pricing:** "We are going off what their price is. Thats all i have." The cost basis is Event Portables' approved quotes Q6844 to Q6847 (`costs_audit_01Oct2026/README.md` line 34, "the final total may change"). Passed to Codex on PR #1.
 - **"Water barrier have shapes theirs is the white and yellow long lines."** The WB references are traced from the master's white and yellow lines, as line shapes. This corrects v9.15's "not drawn".
