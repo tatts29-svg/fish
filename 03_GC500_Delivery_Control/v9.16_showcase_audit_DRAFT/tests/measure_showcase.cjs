@@ -79,7 +79,7 @@ function summarise(d) {
   process.on('SIGTERM', () => bail('SIGTERM')); process.on('SIGINT', () => bail('SIGINT'));
   p.on('crash', () => { R.crashed = {at: rel(), lastAction: R.actions[R.actions.length - 1] || null}; log('RENDERER CRASHED'); });
   p.on('console', m => { const t = m.type(); if (t === 'error' || t === 'warning') consoleLog.push({at: rel(), type: t, text: m.text().slice(0, 240)}); });
-  const ev = (fn, arg, ms = 90000, what = 'evaluate') => withTimeout(p.evaluate(fn, arg), ms, what);
+  const ev = (fn, arg, ms = 240000, what = 'evaluate') => withTimeout(p.evaluate(fn, arg), ms, what);
   let cdp;
   try {
     cdp = await p.context().newCDPSession(p);
@@ -105,7 +105,10 @@ function summarise(d) {
       let at = null;
       try { at = await ev(sel => { const b = document.querySelector(sel); if (!b) return null; b.scrollIntoView({block: 'nearest'}); const r = b.getBoundingClientRect();
         const x = r.left + r.width / 2, y = r.top + r.height / 2, top = document.elementFromPoint(x, y); return {x, y, hit: !!top && (top === b || b.contains(top)), w: r.width}; }, sel, 60000, 'locate ' + sel); } catch (e) {}
-      if (at && at.hit && at.w > 0) { await withTimeout(p.mouse.click(at.x, at.y), 60000, 'click ' + sel); R.actions.push({at: rel(), press: sel, via: 'click'}); return 'click'; }
+      if (at && at.hit && at.w > 0) { const t0 = Date.now();
+        // a click is acknowledged only once the page's main thread takes it; a Back press that blocks for a long time is itself a finding
+        try { await withTimeout(p.mouse.click(at.x, at.y), 240000, 'click ' + sel); } catch (e) { R.notes.push('click ' + sel + ' not acknowledged: ' + e.message.slice(0, 80)); }
+        R.actions.push({at: rel(), press: sel, via: 'click', ackMs: Date.now() - t0}); return 'click'; }
       if (fallback) { await ev(fallback, null, 90000, 'fallback ' + sel); R.actions.push({at: rel(), press: sel, via: 'script', why: at ? (at.hit ? 'zero size' : 'covered') : 'missing'}); return 'script'; }
       R.actions.push({at: rel(), press: sel, via: 'none', why: at ? 'covered' : 'missing'}); return 'none';
     };
@@ -227,6 +230,13 @@ function summarise(d) {
           const radio = await withTimeout(fr.evaluate(() => { const els = [...document.querySelectorAll('button,[role=button],[data-act],[data-action]')].filter(e => /radio|coates fm/i.test((e.textContent || '') + ' ' + (e.getAttribute('aria-label') || '') + ' ' + (e.id || '') + ' ' + (e.title || '')));
             const b = els[0]; if (!b) return {found: false}; b.click(); return {found: true, tag: b.tagName, label: (b.getAttribute('aria-label') || b.textContent || '').trim().slice(0, 30)}; }), 60000, 'machine radio').catch(e => ({error: e.message}));
           R.actions.push({at: rel(), machineRadio: radio});
+          if (radio && !radio.found) { // the radio lives in the cockpit: open "The cockpit", then look again
+            const ck = await withTimeout(fr.evaluate(() => { const b = [...document.querySelectorAll('button,[role=button]')].find(e => /^\s*the cockpit\s*$/i.test(e.textContent || '')); if (b) b.click(); return !!b; }), 120000, 'cockpit').catch(() => false);
+            await sleep(8000);
+            const radio2 = await withTimeout(fr.evaluate(() => { const els = [...document.querySelectorAll('button,[role=button],[data-act],[data-action]')].filter(e => /radio|coates fm/i.test((e.textContent || '') + ' ' + (e.getAttribute('aria-label') || '') + ' ' + (e.id || '') + ' ' + (e.title || '')));
+              const b = els[0]; if (!b) return {found: false, controls: [...document.querySelectorAll('button,[role=button]')].map(x => (x.getAttribute('aria-label') || x.textContent || '').trim().slice(0, 20)).filter(Boolean).slice(0, 80)}; b.click(); return {found: true, tag: b.tagName, label: (b.getAttribute('aria-label') || b.textContent || '').trim().slice(0, 30)}; }), 120000, 'machine radio 2').catch(e => ({error: e.message}));
+            R.actions.push({at: rel(), cockpit: ck, machineRadio2: radio2});
+          }
           await sleep(10000);
           try { R.machineState = await withTimeout(fr.evaluate(() => window.__M ? Object.assign(__M.state(), {drain: (d => ({frames: d.frames.length, jsMed: d.frames.length ? d.frames.map(f => f[1]).sort((a, b) => a - b)[d.frames.length >> 1] : null, draws: d.frames.length ? d.frames.map(f => f[3]).sort((a, b) => a - b)[d.frames.length >> 1] : null, verts: d.frames.length ? d.frames.map(f => f[4]).sort((a, b) => a - b)[d.frames.length >> 1] : null, longtasks: d.longtasks.length, ltMax: Math.max(0, ...d.longtasks.map(x => x[1])), cDelta: d.cDelta}))(__M.drain())}) : null), 60000, 'machine state'); } catch (e) { R.notes.push('machine state: ' + e.message); }
         } else R.actions.push({at: rel(), machineRadio: 'no frame'});

@@ -34,6 +34,12 @@
   - The roster grid answers "which days each person is on". Is that what he meant?
 - **The build follows his yes**, on the latest public page. If Codex's v9.08 is live by then, it is rebuilt on v9.08.
 
+**CODEX, 18:32 AEST ([6055968764](https://github.com/tatts29-svg/fish/pull/1#issuecomment-6055968764)): Showcase implementation CLAIMED as `v9.18_showcase_stability_DRAFT`** on current live, after Andrew asked Codex directly.
+- **Codex's scope:** the stop and quality shutdown, the initial graphics cost, clean-up, the background redraw and controls. Codex measures, then publishes once checked.
+- **Claude's v9.16 stays a read-only audit.** Claude shared the harness and the interim regression numbers ([PR #1](https://github.com/tatts29-svg/fish/pull/1)). Since v6.40: vertices per frame 3.4 M → 5.7 M, upload on open 76 → 178 MB, heap after open 164 → 383 MB, page 6.2 → 11.1 MB.
+- **Codex acknowledged the 14 Sep ordering bug** and is taking it as a separate follow-up.
+- **Folders:** Claude's pin release keeps `v9.17_pins_master_DRAFT`. The footer goes to whichever is published first.
+
 **ANDREW, 8 Oct 2026 ~18:10 AEST, an idea:** "if things have multiple items in example wc50 can't we have like wc50 1|5 … this helps to ensure we get labour costs on everything".
 - **Claude's view: yes.** Number the units within a reference ("WC50 1/5 … 5/5"), but only where a reference has more than one unit that carries labour. Each unit then gets its own Install, Levelling and Steps, and later Demob, whether or not its asset number is recorded yet. A number recorded later attaches to a slot.
 - **Sizing** (read only, workflow `wf_a46cee28-c9b`): a survey of every reference for labour that can't be charged today, a design (keys, how existing ticks are kept without double counting, sheets and phones), and a skeptic review. The build follows Andrew's yes. It builds on v9.09 part E (the WC09 per-block lines).

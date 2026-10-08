@@ -1,0 +1,46 @@
+--- base
++++ candidate
+@@ -19993,2 +19993,5 @@
+- const t = navTargetFor(a); if (!t || !t.ll) return null;
+- const words = t.pinned ? 'the pin ' + ((t.fix && t.fix.by) || 'somebody') + ' took standing at it' + (t.fix && t.fix.at ? ' (' + fmtStamp(t.fix.at) + ')' : '')
++ const t0 = navTargetFor(a), D917 = navPoint917(a); /* v9.17 - Navigate's point */
++ if (!D917 && (!t0 || !t0.ll)) return null;
++ const ll = D917 ? D917.ll : t0.ll, t = t0 && t0.ll ? t0 : {ll: ll, pinned: false, key: a.key, fix: null};
++ const words = navOwn917(D917) || !(t0 && t0.ll) ? (D917.nav || D917.sms || D917.label)
++ : t.pinned ? 'the pin ' + ((t.fix && t.fix.by) || 'somebody') + ' took standing at it' + (t.fix && t.fix.at ? ' (' + fmtStamp(t.fix.at) + ')' : '')
+@@ -19997 +20000 @@
+- return {a, t, lat: t.ll.lat, lon: t.ll.lon, words};
++ return {a, t, lat: ll.lat, lon: ll.lon, words};
+@@ -29514 +29517 @@
+- const pt = aerialPointFor(a), ll = pt ? lonLatOf(pt.ax, pt.ay) : null;
++ const pt = aerialPointFor(a), D917 = navPoint917(a), ll = D917 ? D917.ll : pt ? lonLatOf(pt.ax, pt.ay) : null; /* v9.17 - Navigate's point */
+@@ -29669 +29672 @@
+- <span style="color:${MUTE}">— it drops you at the area, not on the spot.</span>` : ''}${
++<span style="color:${MUTE}">— ${D917 ? 'the same point as the button below (' + e(D917.sms) + '); a satnav stops at the nearest road' : 'it drops you at the area, not on the spot'}.</span>` : ''}${
+@@ -29722 +29725 @@
+- const to = pf && pf.lat != null ? {lat: pf.lat, lon: pf.lon} : ll;
++ const to = D917 ? D917.ll : pf && pf.lat != null ? {lat: pf.lat, lon: pf.lon} : ll, pinned917 = !navOwn917(D917) && pf && pf.lat != null;
+@@ -29726 +29729 @@
+- color:#ffffff;text-decoration:none;letter-spacing:.01em">${pf && pf.lat != null ? 'Open the pinned spot in maps' : 'Open it in maps'} &nbsp;&rarr;</a>
++ color:#ffffff;text-decoration:none;letter-spacing:.01em">${pinned917 ? 'Open the pinned spot in maps' : 'Open it in maps'} &nbsp;&rarr;</a>
+@@ -29860,0 +29864,6 @@
++/* v9.17 - one point per reference (Author: Andrew Fisher). Every surface that hands somebody a point to drive or walk to
++   reads the one Navigate uses: dest782. The drop email's Sat nav line and button, the drawer's satellite panel and its
++   "Where it is" links, and the map pin / search spot used to read the drawing callout (aerialPointFor, the older rev 02
++   sheets) or their own pin, so the same reference could carry two points. */
++function navPoint917(a){ let D = null; try { D = dest782(a); } catch (e) { D = null; } return D && D.ll && Number.isFinite(D.ll.lat) && Number.isFinite(D.ll.lon) ? D : null; }
++function navOwn917(D){ return !!D && (D.kind === 'report' || D.kind === 'desc'); }
+@@ -30996 +31005,2 @@
+- if (mu) { const ll = {lat: mu.ll[0], lon: mu.ll[1]}, others = (mu.pts || []).filter(p => p[0] !== mu.ll[0] || p[1] !== mu.ll[1]);
++ if (mu) { const D917 = navPoint917(a), ll = D917 ? {lat: D917.ll.lat, lon: D917.ll.lon} : {lat: mu.ll[0], lon: mu.ll[1]}, others = (mu.pts || []).filter(p => p[0] !== mu.ll[0] || p[1] !== mu.ll[1]);
++  const away917 = D917 ? haversineKm(ll, {lat: mu.ll[0], lon: mu.ll[1]}) * 1000 : 0;
+@@ -31001 +31011,2 @@
+- <div class="pinwhat"><span class="mono">${ll.lat.toFixed(6)}, ${ll.lon.toFixed(6)}</span>
++ <div class="pinwhat"><span class="mono">${mu.ll[0].toFixed(6)}, ${mu.ll[1].toFixed(6)}</span>
++ ${away917 > 0.5 ? `<span class="w">Drive there, Walk to it and Earth go where Navigate goes: ${esc(D917.nav || D917.sms || D917.label)}.</span>` : ''}
+@@ -37391 +37402 @@
+- ${(() => { const ll = lonLatOf(pt.ax, pt.ay); const g = DATA.georef; return ll ? `<p class="satcap pos">
++ ${(() => { const D917 = navPoint917(a), ll = D917 ? D917.ll : lonLatOf(pt.ax, pt.ay); const g = DATA.georef; return ll ? `<p class="satcap pos">
+@@ -37402 +37413 @@
+- <span class="sub">— the callout's spot on the drawing through a ±${esc(String(g.fit_worst_m))} m registration:
++ <span class="sub">— ${D917 ? 'the same point as Navigate (' + esc(D917.label) + ')' : 'the callout\'s spot on the drawing through a ±' + esc(String(g.fit_worst_m)) + ' m registration'}:

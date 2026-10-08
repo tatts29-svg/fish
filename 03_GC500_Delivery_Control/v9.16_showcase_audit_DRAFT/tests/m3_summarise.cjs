@@ -66,3 +66,20 @@ for (const prof of [...new Set(keys.map(k => k.split('|')[0]))]) {
   console.log('\n=== ' + prof + '   ' + ks.map(k => k.split('|')[1] + ' (n=' + out.groups[k].repeats + ')').join('   '));
   for (const name of Object.keys(metrics)) console.log(name.padEnd(42) + ks.map(k => fmt(out.groups[k].metrics[name]).padEnd(30)).join(''));
 }
+
+// ---- the counts sweep (FIXQ: one detail level held by hand, the quality ladder held) across more builds, in release order
+const sweep = fs.readdirSync(DIR).filter(f => /^fixq-[a-z]+_.+\.json$/.test(f)).map(f => JSON.parse(fs.readFileSync(path.join(DIR, f), 'utf8')));
+if (sweep.length) {
+  const vkey = t => t.replace(/^v/, '').split('.').map(Number).reduce((a, b) => a * 1000 + b, 0);
+  sweep.sort((a, b) => vkey(a.tag) - vkey(b.tag));
+  const rows = sweep.map(R => { const o = ph(R, 'open') || {up3d: {vertsPerFrame: {}, drawsPerFrame: {}, glCallsPerFrame: {}}, cdp: {}};
+    const prog = (R.captured && R.captured.byProgram || []).slice(0, 4).map(p => p.program + ':' + Math.round(p.vertsPerFrame / 1000) + 'k');
+    return {tag: R.tag, sha: R.page.sha256.slice(0, 12), quality: R.fixQuality, fixq: R.fixq, frames: o.framesWith3dUp, draws: o.up3d.drawsPerFrame.med, verts: o.up3d.vertsPerFrame.med,
+      glCalls: o.up3d.glCallsPerFrame.med, heapMB: o.cdp.heapUsedMB1, bufMB: o.glTotals ? r(o.glTotals.bufB / 1048576) : null, texMB: o.glTotals ? r(o.glTotals.texB / 1048576) : null,
+      showOpenMs: R.showOpenMs, openBufMB: R.openGl ? r(R.openGl.bufB / 1048576) : null, compilesAtOpen: R.openGl ? R.openGl.compiles : null,
+      cv: R.final && R.final.cv, samples: R.final && R.final.samples, byProgram: prog.join(' '), blocked: R.counts && R.counts.blocked, errors: (R.pageErrors || []).length}; });
+  out.sweep = rows; fs.writeFileSync(path.join(DIR, 'summary.json'), JSON.stringify(out, null, 1));
+  console.log('\n=== counts sweep (laptop 1440x900 DPR1, detail held at ' + rows[0].quality + ', ladder held)');
+  console.log(['build', 'frames', 'draws/f', 'verts/f', 'glCalls/f', 'heapMB', 'openBufMB', 'showOpen ms', 'canvas', 'MSAA', 'top programs (k verts/frame)'].join(' | '));
+  for (const x of rows) console.log([x.tag, x.frames, x.draws, x.verts, x.glCalls, x.heapMB, x.openBufMB, x.showOpenMs, (x.cv || []).join('x'), x.samples, x.byProgram].join(' | '));
+}
