@@ -94,8 +94,10 @@ async function read(pageFile, tag) {
       return {boxes, unitHeads, n1: per(N1), n2: per(N2), tbRef: boxes.filter(b => b.startsWith(KEY + '|' + DISC + '|' + TB + '|')),
         peeUnits: boxes.filter(b => b.startsWith(KEY + '/u') && b.includes('|Pee Panel|')), fwfUnits: boxes.filter(b => b.startsWith(KEY + '/u') && b.includes('|FWF|')), dph: [...new Set(dph)]};
     }, {KEY, N1, N2, TB, DISC});
-    if (OUT && tag === 'built') { try { const el = await p.$('input[data-lab^="' + KEY + '/u' + N1 + '"]'); if (el) { await el.scrollIntoViewIfNeeded(); await p.waitForTimeout(400);
-      fs.mkdirSync(OUT, {recursive: true}); await p.screenshot({path: path.join(OUT, 'wc09_labour_' + (MOB ? 'phone' : 'laptop') + '.png')}); } } catch (e) { r.shot = String(e.message).slice(0, 120); } }
+    if (OUT && tag === 'built') { try { const sel = 'input[data-lab^="' + KEY + '/u' + N1 + '"]';
+      await p.evaluate(sel => { const e = document.querySelector(sel), d = e && e.closest('details'); if (d) d.open = true; }, sel);   /* the fold, opened on screen only */
+      const el = await p.$(sel); if (el) { await el.evaluate(e => (e.closest('.labunits') || e).scrollIntoView({block: 'start'})); await p.waitForTimeout(400);
+      fs.mkdirSync(OUT, {recursive: true}); await p.screenshot({path: path.join(OUT, 'wc09_labour_' + (MOB ? 'phone' : 'laptop') + '.png')}); } else r.shot = 'no tick box found'; } catch (e) { r.shot = String(e.message).slice(0, 120); } if (r.shot) console.log('screenshot: ' + r.shot); }
     await p.keyboard.press('Escape').catch(() => {});
     await p.evaluate(() => go('costs'));
     await p.waitForFunction(() => { try { return moneySummary().charge.labour >= 0 && !!document.getElementById('recon888'); } catch (e) { return false; } }, null, {timeout: 60000});
