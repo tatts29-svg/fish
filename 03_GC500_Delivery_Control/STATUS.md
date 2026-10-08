@@ -34,6 +34,13 @@
   - The roster grid answers "which days each person is on". Is that what he meant?
 - **The build follows his yes**, on the latest public page. If Codex's v9.08 is live by then, it is rebuilt on v9.08.
 
+**ANDREW, 8 Oct 2026 ~15:30 AEST: "for the 00th time where is the selection of my workers on the roster its missing still. also your selection boxes here are still all whited out".** Then: "sorry Continue with the pin fix … needs to be 10/10".
+- **Pin audit:** resumed as workflow `wf_7b2231c9-64c`, run `wru6s59qb`.
+- **Roster — CLAIMED `v9.12_roster_DRAFT`** ([6053037807](https://github.com/tatts29-svg/fish/pull/1#issuecomment-6053037807)), workflow `wf_124fed41-560`:
+  - A "Staff on" roster at the top of each Timeline day: tick workers in one tap, "Use roster" and "Enter a name". It saves through `StaffNames910.saveDay`.
+  - Readable dropdowns page-wide. On live v9.10, the Crew selects are near-white on dark teal, and their native option list shows white-on-white on phones.
+- **v9.09 parts C (WC09 count) and D (VMS notes):** reviews done with no blocking findings (C 7 and D 12 should-fix suggestions). Both are built and tested on v9.10: WC09 28/28 on laptop and phone.
+
 **ANDREW, 8 Oct 2026 ~15:25 AEST:** "i need you to work on pin locations on the master your pinned locations and where you have things needs to be 100% accurate with locations are so when people navigate your information is 100 % accurate at all times workimhg off the new master sheet we need toi pin things right to where things need to go".
 - **Claude is auditing every navigation pin** against D001-26003-03, workflow `wf_7b2231c9-64c`, read-only. It compares where the page sends a driver (`dest782`/`dpPos`/`MASTER_LOC`) with where the master draws the unit: the unit's own shape, or the arrow tip of a callout, not the label. Site pins are checked against both.
 - **Classes:** EXACT ≤1 m, CLOSE 1–3 m, OFF >3 m, AREA-ONLY, NOT-ON-MASTER, SITE-DISAGREES. Three skeptics check every discrepancy.

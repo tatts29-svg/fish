@@ -116,8 +116,9 @@ function vms913Save(key, co, fleet, rego){
  S.vmsboard = S.vmsboard || {};
  S.vmsboard[b.key] = {co: c.co, fleet: c.fleet, rego: c.rego, line: b.contract + '/' + b.line, by: who, at: new Date().toISOString()};
  stampIt('vmsboard', b.key, who);
- bump();
  const v = vms913Of(b);
+ vms913St().draft = {key: b.key, co: v.co || '', fleet: v.fleet || '', rego: v.rego || ''}; /* the form shows what was saved */
+ bump();
  flash(b.name + ' saved: ' + v.co + ' · fleet no. ' + (v.fleet || 'not given') + ' · rego ' + (v.rego || 'not given') + '. By ' + who + '.');
  return true;
 }
@@ -153,7 +154,7 @@ function vms913Html(bs){
  return `<p class="vms913note">One row per VMS line on contract ${esc(contracts.join(', '))} - ${bs.length} lines, ${given} rego${given === 1 ? '' : 's'} given.
  Whose it is and the fleet number come from the contract unless the project manager or an editor has given them; a rego is shown only where somebody has given one.
  Nothing here changes a rate, a hire date, a count or a position, and the VMS plan's own numbering is still being reconciled with the project manager.</p>
- ${form}<div class="vms913list"><div class="vms913row head" aria-hidden="true"><span>Board</span><span>Whose</span><span>Fleet no.</span><span>Rego</span><span>Source</span>${ed ? '<span></span>' : ''}</div>${rows}</div>`;
+ ${form}<div class="vms913list${ed ? ' ed' : ''}"><div class="vms913row head" aria-hidden="true"><span>Board</span><span>Whose</span><span>Fleet no.</span><span>Rego</span><span>Source</span>${ed ? '<span></span>' : ''}</div>${rows}</div>`;
 }
 function vms913Bind(root){
  const st = vms913St(), $f = id => root.querySelector('#' + id);
@@ -223,7 +224,8 @@ CSS = '''
 .vms913form .act .btn{width:100%}
 .vms913msg{min-height:1em;margin:0 0 8px;font-size:13px;color:var(--red);font-weight:600}
 .vms913list{border-top:1px solid var(--rule)}
-.vms913row{display:grid;grid-template-columns:minmax(120px,1.2fr) minmax(110px,1.2fr) minmax(80px,.8fr) minmax(80px,.8fr) minmax(140px,1.6fr) auto;gap:8px;align-items:center;padding:7px 2px;border-bottom:1px solid var(--rule2);font-size:13px;min-width:0}
+.vms913row{display:grid;grid-template-columns:minmax(120px,1.2fr) minmax(110px,1.2fr) minmax(80px,.8fr) minmax(80px,.8fr) minmax(140px,1.6fr);gap:8px;align-items:center;padding:7px 2px;border-bottom:1px solid var(--rule2);font-size:13px;min-width:0}
+.vms913list.ed .vms913row{grid-template-columns:minmax(120px,1.2fr) minmax(110px,1.2fr) minmax(80px,.8fr) minmax(80px,.8fr) minmax(140px,1.6fr) 96px}
 .vms913row.head{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--mute);font-weight:700;padding:8px 2px}
 .vms913row:not(.head)[data-src="word"],.vms913row:not(.head)[data-src="record"]{background:var(--orange-soft)}
 .vms913c{min-width:0;overflow-wrap:anywhere}
@@ -234,7 +236,7 @@ CSS = '''
 .vms913src.word,.vms913src.rec{color:var(--orange-ink);font-weight:700}
 .vms913chip{display:inline-block;max-width:100%;white-space:normal;overflow-wrap:anywhere;font-size:12px;color:var(--orange-ink);font-weight:600}
 @media (max-width:720px){
- .vms913row{grid-template-columns:1fr 1fr;gap:4px 10px;padding:10px 2px}
+ .vms913row,.vms913list.ed .vms913row{grid-template-columns:1fr 1fr;gap:4px 10px;padding:10px 2px}
  .vms913row.head{display:none}
  .vms913c.b,.vms913c.s{grid-column:1 / -1}
  .vms913c.e{grid-column:1 / -1}

@@ -17,10 +17,10 @@
 //      plan's number of tick sets (all.n), five more for WC09's second block, with the same money behind them;
 //   8. Codex's StaffNames910 is in the page byte for byte as on the base, and reads the same day model on both (read-only);
 //   9. both pages read the same record version, no page or console errors, no writes attempted (counts.blocked 0).
-//   PAGE=<build> [BASE=<base page; default base_live.html beside PAGE>] [MOB=1] [OUT=<dir for a screenshot>]
+//   PAGE=<build> [BASE=<base page; default base_live.html beside PAGE>] [MOB=1]
 //   node v9.00_crew_vms_counts_DRAFT/tests/test_lines900.cjs
 const fs = require('fs'), path = require('path'), {open} = require('../../toolchain/harness/open_page');
-const PAGE = process.env.PAGE, BASE = process.env.BASE || path.join(path.dirname(PAGE), 'base_live.html'), MOB = !!process.env.MOB, OUT = process.env.OUT;
+const PAGE = process.env.PAGE, BASE = process.env.BASE || path.join(path.dirname(PAGE), 'base_live.html'), MOB = !!process.env.MOB;
 const W = MOB ? 390 : 1440, H = MOB ? 844 : 900;
 const KEY = 'WC09', N1 = '1268858', N2 = '1311146', TB = 'Toilet Block 6m', DISC = 'Toilets & amenities';
 
@@ -91,13 +91,10 @@ async function read(pageFile, tag) {
       const unitHeads = [...document.querySelectorAll('.labunit .labunith')].map(x => x.textContent.trim());
       const per = n => ['install', 'steps', 'levelling', 'cleaning', 'demob'].filter(l => boxes.includes(KEY + '/u' + n + '|' + DISC + '|' + TB + '|' + l));
       const dph = [...document.querySelectorAll('[data-dphunit]')].map(x => x.dataset.dphunit);
+      const fold = (document.querySelector('input[data-lab^="' + KEY + '"]') || {closest: () => null}).closest('details[data-f816]');
       return {boxes, unitHeads, n1: per(N1), n2: per(N2), tbRef: boxes.filter(b => b.startsWith(KEY + '|' + DISC + '|' + TB + '|')),
-        peeUnits: boxes.filter(b => b.startsWith(KEY + '/u') && b.includes('|Pee Panel|')), fwfUnits: boxes.filter(b => b.startsWith(KEY + '/u') && b.includes('|FWF|')), dph: [...new Set(dph)]};
+        peeUnits: boxes.filter(b => b.startsWith(KEY + '/u') && b.includes('|Pee Panel|')), fwfUnits: boxes.filter(b => b.startsWith(KEY + '/u') && b.includes('|FWF|')), dph: [...new Set(dph)], fold: fold ? fold.dataset.f816 : null};
     }, {KEY, N1, N2, TB, DISC});
-    if (OUT && tag === 'built') { try { const sel = 'input[data-lab^="' + KEY + '/u' + N1 + '"]';
-      await p.evaluate(sel => { const e = document.querySelector(sel), d = e && e.closest('details'); if (d) d.open = true; }, sel);   /* the fold, opened on screen only */
-      const el = await p.$(sel); if (el) { await el.evaluate(e => (e.closest('.labunits') || e).scrollIntoView({block: 'start'})); await p.waitForTimeout(400);
-      fs.mkdirSync(OUT, {recursive: true}); await p.screenshot({path: path.join(OUT, 'wc09_labour_' + (MOB ? 'phone' : 'laptop') + '.png')}); } else r.shot = 'no tick box found'; } catch (e) { r.shot = String(e.message).slice(0, 120); } if (r.shot) console.log('screenshot: ' + r.shot); }
     await p.keyboard.press('Escape').catch(() => {});
     await p.evaluate(() => go('costs'));
     await p.waitForFunction(() => { try { return moneySummary().charge.labour >= 0 && !!document.getElementById('recon888'); } catch (e) { return false; } }, null, {timeout: 60000});
@@ -132,8 +129,8 @@ async function read(pageFile, tag) {
   ok(invOf(built, TB).coates === 2 && !invOf(built, 'Pee Panel').coates && invOf(base, 'Pee Panel').coates === 2 && !invOf(base, TB).coates,
     'Equipment counts WC09\'s two numbers as Toilet Block 6m (base: Pee Panel)', {base: base.inv, built: built.inv});
   const d = built.drawer;
-  ok(eq(d.n1, ['install', 'steps', 'levelling', 'cleaning', 'demob']) && eq(d.n2, ['install', 'steps', 'levelling', 'cleaning', 'demob']) && !d.tbRef.length,
-    'drawer: two blocks, each with its own Install, Steps, Levelling (and Cleaning, Demob)', d);
+  ok(eq(d.n1, ['install', 'steps', 'levelling', 'cleaning', 'demob']) && eq(d.n2, ['install', 'steps', 'levelling', 'cleaning', 'demob']) && !d.tbRef.length && d.fold === base.drawer.fold,
+    `drawer: two blocks, each with its own Install, Steps, Levelling (and Cleaning, Demob), in the same fold as the base (${d.fold})`, d);
   ok(d.unitHeads.some(h => h.startsWith(N1)) && d.unitHeads.some(h => h.startsWith(N2)), 'drawer: each block headed by its number', d.unitHeads);
   ok(!d.peeUnits.length && !d.fwfUnits.length && base.drawer.tbRef.length > 0 && !base.drawer.n1.length && !base.drawer.n2.length,
     'drawer: no per-number ticks under Pee Panel or FWF; the base had one set for the reference under the blocks', {built: [d.peeUnits, d.fwfUnits], base: base.drawer.tbRef});

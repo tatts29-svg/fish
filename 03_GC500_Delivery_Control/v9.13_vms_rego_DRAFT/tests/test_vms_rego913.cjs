@@ -20,7 +20,8 @@ const rowsOf = p => p.evaluate(() => [...document.querySelectorAll('[data-vms913
 const shot = async (p, file, anchor) => { /* the frame is the register only, cut to what is on screen, with the anchor in view */
   await p.evaluate(a => { const f = document.querySelector('#flash'); if (f) { f.hidden = true; f.style.display = 'none'; } const el = document.querySelector(a); if (el) el.scrollIntoView({block: 'center'}); }, anchor);
   await p.waitForTimeout(500);
-  const box = await p.evaluate(() => { const r = document.querySelector('[data-vms913]').getBoundingClientRect(), top = Math.max(0, r.top), bottom = Math.min(innerHeight, r.bottom);
+  const box = await p.evaluate(() => { const r = document.querySelector('[data-vms913]').getBoundingClientRect(), m = document.querySelector('main').getBoundingClientRect(), fb = (document.getElementById('footL') || {}).parentElement, ft = fb ? fb.getBoundingClientRect().top : innerHeight;
+    const top = Math.max(0, r.top, m.top), bottom = Math.min(innerHeight, r.bottom, m.bottom, ft > top ? ft : innerHeight);
     const inFrame = [...document.querySelectorAll('[data-vms913] *')].filter(e => { const q = e.getBoundingClientRect(); return q.bottom > top && q.top < bottom && e.children.length === 0; }).map(e => e.textContent).join(' ');
     return {x: Math.max(0, r.left), y: top, width: Math.min(innerWidth, r.right) - Math.max(0, r.left), height: bottom - top, dollars: /\$/.test(inFrame)}; });
   await p.screenshot({path: path.join(EVID, file), clip: {x: box.x, y: box.y, width: box.width, height: box.height}, animations: 'disabled'});
@@ -108,6 +109,7 @@ async function sessionA() {
     const otherColls = [...new Set(captured.map(c => decodeURIComponent(c.url).split('/')[3]))];
     const otherIds = [...new Set(captured.filter(c => !/\/vmsboard\//.test(c.url)).map(c => decodeURIComponent(c.url)))];
     ok('the only other writes are the page\'s own stamp and name for that document', quietWrites === 0 && preWrites === 0 && otherIds.every(u => /^\/api\/doc\/(stamps|by)\/vmsboard~2f~VMS12$/.test(u)), {quietWrites, preWrites, otherColls, otherIds});
+    ok('after the save the form shows what was saved, rego in capitals', await p.evaluate(() => document.querySelector('#vms913Rego').value === 'ABC123' && document.querySelector('#vms913Board').value === 'VMS12'));
     const after = await rowsOf(p), r12 = (after.find(r => r.key === 'VMS12') || {cells: []}).cells.join(' | ');
     ok('the register shows the saved board as recorded, with who', /F12/.test(r12) && /ABC123/.test(r12) && /recorded by Practice Editor/.test(r12), r12);
     const sh2 = await shot(p, MOB ? 'register_editor_phone.png' : 'register_editor_laptop.png', '[data-vms913-form]');
