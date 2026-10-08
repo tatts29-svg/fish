@@ -2,7 +2,7 @@
 
 Author: Andrew Fisher
 
-**The project manager, on site, about 16:25 AEST, 8 Oct 2026:** "also on another note i see no option to add fire extinguishers. these dont have a asset no a remember they have a charge also"
+**Andrew, on site, about 16:25 AEST, 8 Oct 2026:** "also on another note i see no option to add fire extinguishers. these dont have a asset no a remember they have a charge also"
 
 **State:** DRAFT, review findings fixed (see "Review findings" below), and the project manager's 8 Oct answers on the rate applied (see "8 Oct: the rate answered" below). Nothing was uploaded, committed or written to the record.
 
@@ -59,7 +59,7 @@ Author: Andrew Fisher
 
   Each reads the pieces once. `labourRevenue858` already takes fire out of recorded install, so install labour is unchanged. The page books fire extinguishers as a hire charge, so on the Forecast P&L they sit in **Hire Revenue (1005)**.
 - **Rate:**
-  - **Where the card prices it:** the card's Fire Ext. figure for the location's item type, the same figure the per-building tick uses, charged once per piece (one-off). The project manager confirmed this basis on 8 Oct (see the questions below). Today that is the portable buildings and ticket boxes.
+  - **Where the card prices it:** the card's Fire Ext. figure for the location's item type, the same figure the per-building tick uses, charged once per piece (one-off). Andrew confirmed this basis on 8 Oct (Q1 and Q2 below). Today that is the portable buildings and ticket boxes.
   - **Everywhere else:** "rate to confirm". That covers 0.00, no column, "N/A" and "Included" (toilets, generators, towers, VMS and other plant, containers, furniture). The money is unknown, never nought. Every known figure on that location stays as it was. What each page says:
     - **the drawer:** "Charge: rate to confirm";
     - **the P&L "Fire extinguishers, per piece" line:** counts pieces and locations ("6 fire extinguishers added on 3 locations · 4 pieces at a rate to confirm"). Its amount reads "rate to confirm" when nothing on it is priced, otherwise the priced amount "+ 4 at a rate to confirm". The same rule now applies to the other ticked lines on that card, which also showed nought when nothing on them was priced. The By branch table's fire cell adds "rate to confirm";
@@ -78,10 +78,15 @@ Author: Andrew Fisher
 
   The other choice was "adds only beyond the ticks". It was not used because a tick and a quantity on the same location would have to be reconciled by hand.
 
-## For the project manager (nothing is asked on the page)
+## Questions for Andrew (nothing is asked on the page)
 
-1. **Rate basis — answered, 8 Oct 2026.** The card's Fire Ext. column is headed with the card's earlier year. About 18:00 AEST he said: "use 2025 for now if need to we edit at a later date". About 18:10 AEST: "don't mention anything about 2025". So the page charges the card's Fire Ext. figure as it stands and says no year with it anywhere (see "8 Oct: the rate answered").
-2. **One-off or weekly — answered, 8 Oct 2026.** About 18:15 AEST he confirmed it is a one-off charge per piece: "one off charge i'm sure". The page already charged it once per piece; the editors' sentence now says "(one-off)".
+1. **Q1, rate basis — answered by Andrew, 8 Oct 2026** (his chat with Claude, about the fire extinguisher rate). The card's Fire Ext. column is headed with the card's earlier year.
+   - About 18:00 AEST: "use 2025 for now if need to we edit at a later date".
+   - About 18:10 AEST: "don't mention anything about 2025".
+   - So the page charges the card's Fire Ext. figure as it stands and says no year with it anywhere (see "8 Oct: the rate answered"). If he gives another rate later, it is a change to that figure.
+2. **Q2, one-off or weekly — answered by Andrew, 8 Oct 2026** (same chat, about the same charge).
+   - About 18:15 AEST: "one off charge i'm sure".
+   - So it is a one-off charge per piece at the card's Fire Ext. rate. The page already charged it once per piece; the editors' sentence now says "(one-off)".
 3. **The rate where the card has none.** What should toilets, generators, light towers, VMS and other plant, containers and furniture be charged? The card writes 0.00 or has no column there. Until a rate is given, those read "rate to confirm".
 4. **Where he expects them.** Which locations, and how many on each? The page does not pre-fill any.
 5. Also noticed, not changed here:
@@ -90,7 +95,7 @@ Author: Andrew Fisher
 
 ## 8 Oct: the rate answered (what changed in this candidate)
 
-The project manager's answers above (rate basis, one-off) changed wording only. No money figure moved (money rerun below).
+Andrew's answers above (Q1 rate basis, Q2 one-off) changed wording only. No money figure moved (money rerun below).
 
 - **Editors' drawer sentence:** "Charged per piece (one-off) at the card's Fire Ext. rate for Building 6m." The year in brackets that followed it is gone, with the code that put it there.
 - **View link:** unchanged, "Charged per piece." / "Charge: rate to confirm."

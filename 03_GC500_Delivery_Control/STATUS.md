@@ -34,6 +34,13 @@
   - The roster grid answers "which days each person is on". Is that what he meant?
 - **The build follows his yes**, on the latest public page. If Codex's v9.08 is live by then, it is rebuilt on v9.08.
 
+**CLAIM: v9.15 master shapes, every item, CLAUDE, 9 Oct 2026 ~00:10 AEST.** Claude takes v9.15 back from the 23:45 handover; Codex had not claimed it.
+- **Andrew, ~00:05:** "Remember every item has a shape even a fwf has a shape. Disabled toilet. Generator too."
+- **Scope:** every physical item at every reference gets its own shape, including FWF, accessible toilets, generators, waste tanks, pee panels, VMS boards, light towers, barriers, containers and trailers.
+  - Where the 2 Oct master draws the item, the shape is traced from it.
+  - Where it doesn't, the item gets its true footprint from a cited source and is marked as "not drawn on the master".
+- **Also in scope:** the lost door-side check, and wiring the shapes into Arrange loads' markers as a separate part that can be dropped. Codex is told on PR #1.
+
 **CLAUDE, ~23:45 AEST: container restarted; background work stopped.** The scratchpad and `/dev/shm` survived. Work is now split:
 - **Claude finishes (workflow `wf_ebb782a1-e9f`):**
   - **v9.17 pins:** the 53-pin candidate `64ef007b…` on v9.18 had passed every check (PDF, identity, 200 references laptop and phone, Part 2 0 off Navigate, sweeps). Andrew's four (WC59, WC57, WC13, WC69) are now being added, then one independent check, giving 57.
