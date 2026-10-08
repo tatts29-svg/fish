@@ -69,6 +69,28 @@ const blockState = (p, key) => p.evaluate(k => { const f = document.querySelecto
     buttons: f ? [...f.querySelectorAll('button')].filter(v).map(b => ({t: b.textContent.trim(), h: Math.round(b.getBoundingClientRect().height)})) : [],
     controls: f ? f.querySelectorAll('button, input, select').length : 0, cap: capability()}; }, key);
 
+// THE YEAR CHECK (the project manager, 8 Oct 2026: no year is mentioned with fire extinguishers anywhere on the page). Every line of
+// text, hover title, aria label and list option that mentions a fire extinguisher (or the card's Fire Ext. line) is collected from
+// every tab, the given drawers with every fold open, and the money cards drawn on screen; dollar figures are masked before they
+// leave the page. Fails on the card's column year; any other four-digit year on such a line is printed for a person to read.
+const SCAN = sel => { const root = document.querySelector(sel); if (!root) return [];
+  const fire = /fire ?ext|extinguisher/i, out = [], mask = s => s.replace(/\$\s?[\d,]+(\.\d+)?/g, '$#');
+  const add = (kind, s) => { s = String(s || '').replace(/\s+/g, ' ').trim(); if (s && fire.test(s)) out.push({w: sel + ' ' + kind, s: mask(s).slice(0, 400)}); };
+  (root.innerText || '').split('\n').forEach(l => add('text', l));
+  root.querySelectorAll('[title],[aria-label]').forEach(e => { add('title', e.getAttribute('title')); add('aria', e.getAttribute('aria-label')); });
+  root.querySelectorAll('option').forEach(o => add('option', o.textContent));
+  return out; };
+const SCANCARDS = () => { RENDER_MEMO.clear(); return holdAssets(() => { const box = document.createElement('div'); box.id = 'yr914'; box.style.cssText = 'position:fixed;left:-20000px;top:0;width:1200px'; document.body.appendChild(box);
+  const parts = {pl752Card: () => pl752Card(), labourPlanHtml: () => labourPlanHtml(), marginCard: () => marginCard(), fh866Html: () => fh866Html(), labourCard: () => labourCard(allAssets())}; const done = [];
+  Object.entries(parts).forEach(([k, f]) => { try { box.innerHTML += '<section data-part="' + k + '">' + f() + '</section>'; done.push(k); } catch (e) { done.push(k + ' (error ' + e.message + ')'); } });
+  return {done}; }); };
+const yearScan = async (p, keys) => { const found = [], tabs = await p.evaluate(() => TABS.map(t => t[0]));
+  for (const k of tabs) { await p.evaluate(t => { try { go(t); } catch (e) {} }, k); await p.waitForTimeout(k === 'map' ? 4000 : 1500); found.push(...await p.evaluate(SCAN, '#pane-' + k)); }
+  for (const k of keys) { await p.evaluate(key => { openAsset(key); document.querySelectorAll('#drawer details').forEach(d => { d.open = true; }); }, k); await p.waitForTimeout(600); found.push(...await p.evaluate(SCAN, '#drawer')); }
+  const cards = await p.evaluate(SCANCARDS); found.push(...await p.evaluate(SCAN, '#yr914')); await p.evaluate(() => { const b = document.getElementById('yr914'); if (b) b.remove(); });
+  const y2025 = found.filter(x => /2025/.test(x.s)), other = found.filter(x => !/2025/.test(x.s) && /\b(19|20)\d\d\b/.test(x.s));
+  return {tabs: tabs.length, keys, cards: cards.done, lines: found.length, y2025, other}; };
+
 async function sessionA() {
   const before = recordNow();
   ok('the record holds no fire extinguisher rows before the test', fireRowsIn(before).length === 0, {version: before.version});
@@ -98,8 +120,8 @@ async function sessionA() {
     ok('editor: "Add fire extinguisher" with - and + (44 px taps) in "Inside it and asset numbers" on a building, a generator and a plant line', ['AA', 'GN01', 'T0001'].every(k => shows(ed.find(e => e.key === k))), ed.slice(0, 3));
     ok('editor: the same control on a toilet and a container', ['WC09', 'T0023'].every(k => shows(ed.find(e => e.key === k))), ed.slice(3));
     const ch = Object.fromEntries(ed.map(e => [e.key, e.charge]));
-    ok("the charge is said in words, no dollar figure: the card's Fire Ext. figure on AA (headed 2025); rate to confirm on GN01, T0001, WC09, T0023",
-      /charged per piece at the card’s Fire Ext\. figure for Building 6m \(the card heads that column 2025\)/.test(ch.AA) && ['GN01', 'T0001', 'WC09', 'T0023'].every(k => /rate to confirm/.test(ch[k]) && /never nought/.test(ch[k])) && !Object.values(ch).some(t => /\$/.test(t)), ch);
+    ok("the charge is said in words, no dollar figure and no year: one-off, at the card's Fire Ext. rate on AA; rate to confirm on GN01, T0001, WC09, T0023",
+      ch.AA === 'Each one is charged per piece (one-off) at the card’s Fire Ext. rate for Building 6m.' && !Object.values(ch).some(t => /\b(19|20)\d\d\b/.test(t || '')) && ['GN01', 'T0001', 'WC09', 'T0023'].every(k => /rate to confirm/.test(ch[k]) && /never nought/.test(ch[k])) && !Object.values(ch).some(t => /\$/.test(t)), ch);
     // add 2 on AA: + once, then the one save
     await openContents(p, 'AA');
     const accBefore = await p.evaluate(() => JSON.stringify(S.accessories.AA || []));
@@ -122,8 +144,14 @@ async function sessionA() {
     const after = await blockState(p, 'AA');
     ok('after the save the drawer reads "Fire extinguisher × 2" with Save quantity and Take off', after.words === 'Fire extinguisher × 2' && after.save === 'Save quantity' && after.buttons.some(b => b.t === 'Take off') && /Fire extinguisher × 2/.test(after.sum || '') && !/\d+ inside/.test((after.sum || '').replace('3 inside', '')), after);
     ok('the ordinary accessories list on AA is unchanged (still its 3 inside, no fire row in it)', await p.evaluate(() => { const a = assetOf('AA'); return (a.accessories || []).length === 3 && !(a.accessories || []).some(fire914Is) && ![...document.querySelectorAll('#drawer .acc b')].some(b => /Fire/.test(b.textContent)); }));
+    ok('editor: with 2 saved, AA reads "Charged per piece (one-off) at the card’s Fire Ext. rate for Building 6m." - no year', after.charge === 'Charged per piece (one-off) at the card’s Fire Ext. rate for Building 6m.', after.charge);
     const sh0 = await shotEl(p, 'drawer_editor_AA_' + TAG + '.png', '#drawer details[data-f816="contents"]');
     ok('screenshot: the editor drawer part on AA with 2 saved (practice capability), no dollar figure in frame', sh0 && !sh0.missing && !sh0.dollars, sh0);
+    const otherB = await p.evaluate(() => (allAssets().find(a => a.key !== 'AA' && !a._cancelled && !a.rest_of && chargeLines(a).some(l => labourLinesFor(a.key, l.discipline, l.item, a.key).lines.some(L => L.key === 'fire_ext'))) || {}).key);
+    const ysA = await yearScan(p, ['AA', otherB, 'GN01']);
+    console.log('INFO year check, editor (practice): ' + ysA.lines + ' fire extinguisher lines on ' + ysA.tabs + ' tabs, drawers ' + ysA.keys.join(', ') + ' (every fold open) and the cards ' + ysA.cards.join(', '));
+    ysA.other.forEach(x => console.log('INFO   another year on a fire extinguisher line (' + x.w + '): ' + x.s));
+    ok('editor (practice): no fire extinguisher text anywhere carries the card\'s column year - every tab, the drawers of AA (2 added), ' + otherB + ' (a building with only the per-building tick, hover text read) and GN01 with every fold open, and the money cards', ysA.lines > 0 && ysA.y2025.length === 0, ysA.y2025.slice(0, 6));
     await openContents(p, 'AA');
     const ghost = await p.evaluate(() => { const b = document.querySelector('#drawer [data-fire914-save]'); return {ghost: b.classList.contains('ghost'), primary: b.classList.contains('primary'), note: document.querySelector('#drawer [data-fire914-unsaved]').textContent}; });
     await p.click('#drawer [data-fire914-plus]'); await p.waitForTimeout(150);
@@ -192,9 +220,9 @@ async function sessionB() {
     await route.fulfill({status: res.status, headers: res.headers, body}); });
   try {
     await ready(p); await p.waitForTimeout(3000);
-    const F0 = await p.evaluate(() => { const l = chargeLines(assetOf('AA'))[0]; const L = fire914CardLine(l, 'AA'); window.__F = L ? L.rate : null; return {has: !!L, item: l.item, heading: L && L.heading};
+    const F0 = await p.evaluate(() => { const l = chargeLines(assetOf('AA'))[0]; const L = fire914CardLine(l, 'AA'); window.__F = L ? L.rate : null; return {has: !!L, item: l.item};
     });
-    ok("AA's item (Building 6m) has a card Fire Ext. figure (headed 2025); GN01 and WC09 have none", F0.has && F0.heading === 'Fire Ext. 2025' && await p.evaluate(() => !chargeLines(assetOf('GN01')).some(l => fire914CardLine(l, 'GN01')) && !chargeLines(assetOf('WC09')).some(l => fire914CardLine(l, 'WC09'))), F0);
+    ok("AA's item (Building 6m) has a card Fire Ext. figure; GN01 and WC09 have none", F0.has && await p.evaluate(() => !chargeLines(assetOf('GN01')).some(l => fire914CardLine(l, 'GN01')) && !chargeLines(assetOf('WC09')).some(l => fire914CardLine(l, 'WC09'))), F0);
     const pre = await p.evaluate(() => { const LP = labourPlan(); return {aaForecast: LP.slots.filter(x => x.ref === 'AA' && x.key === 'fire_ext').reduce((n, x) => n + (x.qty || 0), 0), aaStates: LP.slots.filter(x => x.ref === 'AA' && x.key === 'fire_ext').map(x => x.state),
       others: JSON.stringify(LP.slots.filter(x => x.ref !== 'AA' && x.key === 'fire_ext').map(x => [x.ref, x.item, x.unit, x.qty, x.state, x.value != null])), fireTicks: Object.keys(S.labour || {}).filter(k => /\|fire_ext$/.test(k) && S.labour[k]).length, gaps: cj764Model().gaps.length}; });
     const s0 = await p.evaluate(MONEY_SNAP);
@@ -287,6 +315,10 @@ async function sessionB() {
     await openContents(p, 'WC09');
     const wv = await blockState(p, 'WC09');
     ok('view link: WC09 (toilet, the card writes 0.00) shows "Fire extinguisher × 2" and "rate to confirm"', wv.words === 'Fire extinguisher × 2' && /rate to confirm/.test(wv.charge || '') && wv.controls === 0, wv);
+    const ysB = await yearScan(p, ['AA', 'GN01', 'WC09']);
+    console.log('INFO year check, view link (AA 2 priced, GN01 2 and WC09 2 at a rate to confirm): ' + ysB.lines + ' fire extinguisher lines on ' + ysB.tabs + ' tabs, drawers ' + ysB.keys.join(', ') + ' and the cards ' + ysB.cards.join(', '));
+    ysB.other.forEach(x => console.log('INFO   another year on a fire extinguisher line (' + x.w + '): ' + x.s));
+    ok('view link: no fire extinguisher text anywhere carries the card\'s column year - every tab, the drawers of AA, GN01 and WC09, and the money cards', ysB.lines > 0 && ysB.y2025.length === 0, ysB.y2025.slice(0, 6));
     // phase 3: GN01's 2 are taken off (qty 0, off_qty 2), WC09 keeps 2 with no card figure, AA has none - every piece unpriced
     phase = 3;
     await p.waitForFunction(() => fire914Qty('AA') === 0 && fire914Qty('GN01') === 0 && fire914Rows('GN01').length === 1 && fire914Qty('WC09') === 2, null, {timeout: 40000}); await p.waitForTimeout(1500);

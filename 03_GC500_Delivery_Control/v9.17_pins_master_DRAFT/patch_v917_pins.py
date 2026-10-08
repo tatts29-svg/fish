@@ -19,7 +19,16 @@
 #   No Navigate point changes because of this part.
 # PART 3 - wording: the 23 map-layer items labelled "Entry point" read "Emergency egress point (E.P)", as the master's
 #   legend says ("E.P = EMERGENCY EGRESS POINTS"). Their buttons are unchanged.
-# Media: +46 / -46 pictures; the media manifest is rewritten and written beside the page (media_manifest_v917.json).
+# PART 1, second round (8 Oct, the project manager's decisions):
+#   - GN18 and GN13, "follow the master" (about 18:05): each to the centre of the orange generator symbol the 2 Oct master
+#     draws (GN18 17.1 m south-east, beside P08 / WC38, where the 17 Sep spot now has a container drawn; GN13 11.6 m north
+#     on the same fence). The master carries no generator tags: each "how" says the identity follows his instruction.
+#   - 28 near moves toward 10/10 (1.3 - 2.9 m), each from the pin on the printed tag to the middle of the toilets drawn.
+#   Every one re-derived from the PDF (tests/derive917_add.py -> evidence/derive917_add.json, same tolerances).
+#   Not moved (held or left): WC57 / WC59, WC13, WC69, P08, P44, P51, WC20, P27, P29, P34, WC51, WC01, P26, P28, the T0022
+#   and T0023 pins, P47, WC32 and everything the master does not draw.
+# Media: two pictures per moved pin (53 pins, 106 in; the 51 that had pictures lose their old 102); the media manifest is
+#   rewritten and written beside the page (media_manifest_v917.json).
 # Not touched: every other pin, the record, the footer, money. No record writes.
 #
 #   toolchain/build.sh v917_pins v9.17_pins_master_DRAFT/patch_v917_pins.py
@@ -48,16 +57,42 @@ MOVES = {
  'WC02': ([-27.983618, 153.425700], [0.21045, 0.55392]), 'WC28': ([-27.983401, 153.429161], [0.19664, 0.26785]),
  'WC50': ([-27.989786, 153.429821], [0.61709, 0.21476])}
 assert len(MOVES) == 23
+FIRST23 = set(MOVES)
+# THE ASK, second round (8 Oct 2026): GN18 and GN13 ("follow the master") and the 28 near moves
+ADD = {
+ 'GN18': ([-27.9836203, 153.4241719], [0.21036, 0.68031]), 'GN13': ([-27.9883906, 153.4300864], [0.52527, 0.19253]),
+ 'WC06': ([-27.9846989, 153.4265318], [0.28171, 0.48539]), 'WC10': ([-27.9844829, 153.4277142], [0.26767, 0.38765]),
+ 'WC11': ([-27.9848882, 153.4265754], [0.29418, 0.48183]), 'WC12': ([-27.9854611, 153.4273218], [0.33201, 0.42028]),
+ 'WC21': ([-27.9891589, 153.4286192], [0.57564, 0.31388]), 'WC23': ([-27.9895044, 153.4291988], [0.59847, 0.26607]),
+ 'WC29': ([-27.9835607, 153.4285729], [0.20708, 0.31650]), 'WC30': ([-27.9823908, 153.4278300], [0.12995, 0.37763]),
+ 'WC33': ([-27.9861074, 153.4295240], [0.37488, 0.23846]), 'WC38': ([-27.9835934, 153.4241296], [0.20859, 0.68364]),
+ 'WC40': ([-27.9836590, 153.4244496], [0.21295, 0.65721]), 'WC41': ([-27.9848352, 153.4260544], [0.29062, 0.52486]),
+ 'WC42': ([-27.9832804, 153.4248399], [0.18808, 0.62489]), 'WC43': ([-27.9863713, 153.4272242], [0.39192, 0.42854]),
+ 'WC45': ([-27.9907105, 153.4283913], [0.67776, 0.33305]), 'WC46': ([-27.9922233, 153.4293799], [0.77751, 0.25169]),
+ 'WC47': ([-27.9901828, 153.4283807], [0.64302, 0.33381]), 'WC48': ([-27.9937499, 153.4304576], [0.87818, 0.16297]),
+ 'WC49': ([-27.9939764, 153.4306756], [0.89312, 0.14501]), 'WC53': ([-27.9926637, 153.4302899], [0.80664, 0.17659]),
+ 'WC54': ([-27.9915876, 153.4304584], [0.73581, 0.16244]), 'WC55': ([-27.9912419, 153.4298320], [0.71296, 0.21412]),
+ 'WC56': ([-27.9898200, 153.4300769], [0.61938, 0.19358]), 'WC61': ([-27.9841222, 153.4298238], [0.24422, 0.21326]),
+ 'WC67': ([-27.9813908, 153.4241664], [0.06359, 0.68013]), 'WC71': ([-27.9812828, 153.4234837], [0.05638, 0.73651]),
+ 'WC72': ([-27.9821291, 153.4240067], [0.11217, 0.69347]), 'WC73': ([-27.9869615, 153.4281016], [0.43090, 0.35617])}
+assert len(ADD) == 30 and not set(ADD) & FIRST23
+HELD = {'WC57', 'WC59', 'WC13', 'WC69', 'P08', 'P44', 'P51', 'WC20', 'P27', 'P29', 'P34', 'WC51', 'WC01', 'P26', 'P28', 'T0022', 'T0023', 'P47', 'WC32'}
+assert not HELD & (FIRST23 | set(ADD)), 'a held reference is in the move list - stopping'
+MOVES.update(ADD)
 
 DER = json.loads((here / 'evidence' / 'derive917.json').read_text())
+DER2 = json.loads((here / 'evidence' / 'derive917_add.json').read_text())
 TH = json.loads((here / 'evidence' / 'thumbs917.json').read_text())
-assert DER['pdf_sha256'].startswith('8753d875') and TH['pdf_sha256'] == DER['pdf_sha256'], 'the evidence must come from the 2 Oct master'
-assert not DER['fails'] and set(DER['rows']) == set(MOVES) == set(TH['pins']), 'the PDF re-derivation must pass for exactly the 23'
+assert DER['pdf_sha256'].startswith('8753d875') and TH['pdf_sha256'] == DER['pdf_sha256'] == DER2['pdf_sha256'], 'the evidence must come from the 2 Oct master'
+assert not DER['fails'] and set(DER['rows']) == FIRST23, 'the PDF re-derivation must pass for exactly the 23'
+assert not DER2['fails'] and set(DER2['rows']) == set(ADD), 'the PDF re-derivation must pass for exactly the 30 added'
+ROWS = dict(DER['rows'], **DER2['rows'])
+assert set(ROWS) == set(MOVES) == set(TH['pins'])
 for ref, (ll, pt) in MOVES.items():
-    r = DER['rows'][ref]
+    r = ROWS[ref]
     assert r['listed_ll'] == ll and r['listed_pt'] == pt and r['within_tolerance'], ref + ': the listed point is not the one the PDF re-derivation checked'
     assert r['listed_vs_derived_m'] <= 0.2 and r['listed_vs_derived_pt'] <= 0.3, ref + ': outside tolerance'
-assert len(TH['media']) == 46
+assert len(TH['media']) == 2 * len(MOVES) == 106
 
 # what each pin now says about itself (MASTER_LOC.how; the drawer reads it after "Read off the master plan D001-26003-03:")
 KIND = {'toilet': ('toilet', 'toilets'), 'accessible': ('accessible toilet', 'accessible toilets'), 'block': ('toilet block', 'toilet blocks'), 'pee': ('pee panel', 'pee panels')}
@@ -79,21 +114,40 @@ def how_for(ref, r):
     (kind, cnt), = k.items()
     extra = ' (it moved about 9 m from the 17 Sep issue)' if ref == 'WC39' else ''
     return 'the middle of the %d %s drawn on the master D001 issued 2 Oct%s%s' % (cnt, KIND[kind][1], extra, tag)
+# the second round: what each added pin now says about itself (the drawer: "Read off the master plan D001-26003-03: ...")
+KEEP = {'WC10': ' (new on this issue)', 'WC38': ' (moved about 13 m from the 17 Sep issue)', 'WC40': '; the 2 Oct issue drops the second tag (WC40a)'}
+def how_add(ref, r):
+    if ref == 'GN18':
+        return ('the orange generator symbol drawn on the master D001 issued 2 Oct, at its centre, beside P08 and WC38; the master'
+                ' tags no generator, so this symbol is GN18 on the project manager\'s instruction to follow the master (8 Oct);'
+                ' a container is drawn where the pin was')
+    if ref == 'GN13':
+        return ('the orange generator symbol drawn on the master D001 issued 2 Oct, at its centre, on the same fence about %d m %s of'
+                ' the old pin; the master tags no generator, so this symbol is GN13 on the project manager\'s instruction to follow'
+                ' the master (8 Oct)' % (round(r['moves_m']), r['moves_dir']))
+    n = r['n_parts']; assert r['unit_kinds'] == {'toilet': n}
+    tag = '' if r['tag_to_unit_m'] is None or r['tag_to_unit_m'] < 1.5 else '; its %s tag is printed about %d m from it' % (ref, max(1, round(r['tag_to_unit_m'])))
+    head = ('the toilet drawn on the master D001 issued 2 Oct, at its centre' if n == 1 else
+            'the middle of the %d toilets drawn on the master D001 issued 2 Oct' % n) + KEEP.get(ref, '') + tag
+    if ref == 'WC33':   # the older D023 (rev 02) arrow, measured from the new point on the page's own registration: 47.3 m
+        head += ' — the newer master (rev 03) is used; the older D023 (rev 02) arrow points about 47 m away'
+    return head
 OPP = {'north': 'south', 'north-east': 'south-west', 'east': 'west', 'south-east': 'north-west', 'south': 'north', 'south-west': 'north-east', 'west': 'east', 'north-west': 'south-east'}
 
-# 1. MASTER_LOC: the 23, nothing else
+# 1. MASTER_LOC: the 53 (the 23, GN18, GN13 and the 28), nothing else
 m = re.search(r'const MASTER_LOC = ', s); assert m and s.count('const MASTER_LOC = ') == 1
 ML, end = json.JSONDecoder().raw_decode(s[m.end():]); orig = s[m.end():m.end() + end]
 fmt = next((f for f in (dict(ensure_ascii=a, separators=sep) for a in (True, False) for sep in ((',', ':'), (', ', ': '))) if json.dumps(ML, **f) == orig), None)
 assert fmt, 'MASTER_LOC must round-trip exactly - stopping'
 OLD_ML = json.loads(orig)
 for ref, (ll, pt) in MOVES.items():
-    v = ML[ref]; r = DER['rows'][ref]
+    v = ML[ref]; r = ROWS[ref]
     # the base must be the page the audit read: each pin exactly where the audit found it
-    assert v['ll'] == r['page_now_ll'] and v['pt'] == r['page_now_pt'] and v['img'] == TH['pins'][ref]['old_img'], ref + ': the base pin is not as audited - stopping'
+    assert v['ll'] == r['page_now_ll'] and v['pt'] == r['page_now_pt'] and (v.get('img') or []) == TH['pins'][ref]['old_img'], ref + ': the base pin is not as audited - stopping'
     assert 'pts' not in v and not v.get('confirmed') and not v.get('unverified'), ref + ': unexpected fields'
-    v['ll'] = list(ll); v['pt'] = list(pt); v['how'] = how_for(ref, r); v['img'] = list(TH['pins'][ref]['img'])
+    v['ll'] = list(ll); v['pt'] = list(pt); v['how'] = how_for(ref, r) if ref in FIRST23 else how_add(ref, r); v['img'] = list(TH['pins'][ref]['img'])
     assert not re.search(r'^[^—]*\(.*rev 02', v['how']), ref + ': a bracket before the dash would cut the drawer\'s "Drawings differ" line'
+    assert ('rev 02' in v['how']) == ('rev 02' in (r['page_now_how'] or '') or ref in ('CP1', 'T0243')), ref + ': a "Drawings differ" line would appear or go'
 s = s[:m.end()] + json.dumps(ML, **fmt) + s[m.end() + end:]
 assert {k: v for k, v in ML.items() if k not in MOVES} == {k: v for k, v in OLD_ML.items() if k not in MOVES}
 
@@ -107,7 +161,7 @@ assert len(ep) == 23 and all(x['layer'] == 'ep' and x['face'] == 'EP' for x in e
 for x in ep: x['label'] = 'Emergency egress point (E.P)'
 s = s[:m.end()] + json.dumps(LAY, **fmt2) + s[m.end() + end:]
 
-# 3. DATA: media +46 / -46 and the manifest; nothing else in DATA changes
+# 3. DATA: media +106 / -102 and the manifest; nothing else in DATA changes
 m = re.search(r'const DATA = (\{.*?\});\n', s); assert m
 D = json.loads(m.group(1)); assert json.dumps(D, ensure_ascii=False, separators=(',', ':')) == m.group(1), 'DATA must round-trip exactly - stopping'
 ORIG_KEYS = {k: json.dumps(v, ensure_ascii=False, sort_keys=True) for k, v in D.items() if k not in ('media', 'hostedMedia')}
@@ -122,13 +176,13 @@ def manifest_of(D):
 assert manifest_of(D)['sha256'] == D['hostedMedia']['manifest'], "the base page's manifest is not the canonical digest of its own media - stopping"
 n0 = len(D['media']); dropped = []
 for ref in MOVES:
-    for sha in OLD_ML[ref]['img']:
+    for sha in OLD_ML[ref].get('img') or []:
         assert sha in D['media'] and s.count(sha) == 3, ref + ': old picture ' + sha[:12] + ' is still used elsewhere - stopping'
         D['media'].pop(sha); dropped.append(sha)
 for x in TH['media']:
     assert x['sha256'] not in D['media'] and x['file'] == x['sha256'] + '.webp'
     D['media'][x['sha256']] = {k: x[k] for k in ('file', 'sha256', 'type', 'bytes', 'scope')}
-assert len(dropped) == 46 and len(D['media']) == n0
+assert len(dropped) == 102 and len(D['media']) == n0 + 4   # GN18 and GN13 had no pictures
 MAN = manifest_of(D); D['hostedMedia']['manifest'] = MAN['sha256']
 assert {k: json.dumps(v, ensure_ascii=False, sort_keys=True) for k, v in D.items() if k not in ('media', 'hostedMedia')} == ORIG_KEYS
 s = s[:m.start(1)] + json.dumps(D, ensure_ascii=False, separators=(',', ':')) + s[m.end(1):]
@@ -286,5 +340,5 @@ s = rep(s, "const gate = heavyGate(), pt = a ? aerialPointFor(a) : null;", "cons
 s = rep(s, "const pt = aerialPointFor(a), link = (a.drawing_links || [])[0], gate = heavyGate();",
         "const pt = aerialNav917(a), link = (a.drawing_links || [])[0], gate = heavyGate(); /* v9.17 */", 'reference mail bearing', str(p))
 p.write_bytes((b'\xef\xbb\xbf' if bom else b'') + s.encode('utf-8'))
-print('v9.17 pins: MASTER_LOC 23 moved (ll, pt, how, img) | layers 23 E.P labels | media +46/-46 (%d) manifest %s | Part 2: drop email, drop sheet, driver card, satellite panel, drawer links, map spot, pictures -> dest782 | footer unchanged'
+print('v9.17 pins: MASTER_LOC 53 moved (23 + GN18, GN13 + 28 near; ll, pt, how, img) | layers 23 E.P labels | media +106/-102 (%d) manifest %s | Part 2: drop email, drop sheet, driver card, satellite panel, drawer links, map spot, pictures -> dest782 | footer unchanged'
       % (len(D['media']), MAN['sha256'][:16]))

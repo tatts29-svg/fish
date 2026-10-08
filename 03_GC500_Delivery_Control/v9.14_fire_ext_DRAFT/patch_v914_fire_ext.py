@@ -34,6 +34,11 @@
 #    location (its tick box is disabled with the reason). A location with no added quantity works exactly as before.
 #    On the record of 8 Oct 2026 no fire_ext tick is recorded anywhere, so no existing money moves.
 #
+# The project manager's answers, 8 Oct 2026: the rate is the card's Fire Ext. figure for now, a one-off charge per piece, and
+# no year is mentioned for fire extinguishers anywhere on the page. So the editors' sentence reads "Charged per piece (one-off)
+# at the card's Fire Ext. rate for <item>.", the view link keeps "Charged per piece." / "Charge: rate to confirm.", and the
+# card's Fire Ext. line (tick hover text, the labour card's source chip, the charges fold) is said without its column year.
+#
 #   python3 patch_v914_fire_ext.py <page>
 import os, re, sys, json
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'toolchain'))
@@ -120,8 +125,18 @@ function fire914Of(a){
  const L = idx >= 0 ? fire914CardLine(lines[idx], a.key) : null;
  if (idx < 0) idx = lines.length ? 0 : -1;
  const rate = L ? L.rate : null;
- return {n, idx, host: idx >= 0 ? lines[idx] : null, rate, heading: L ? L.heading : null, year: L ? L.year : null,
-  of_this_year: L ? !!L.of_this_year : false, amount: rate != null ? Math.round(rate * n * 100) / 100 : null, last: fire914Last(a.key)};
+ return {n, idx, host: idx >= 0 ? lines[idx] : null, rate, heading: L ? fire914NoYear(L.heading) : null,
+  amount: rate != null ? Math.round(rate * n * 100) / 100 : null, last: fire914Last(a.key)};
+}
+/* The project manager, 8 Oct 2026: the rate is the card's Fire Ext. figure as it stands, a one-off charge per piece, and no year
+   is said with it. So no fire extinguisher text on the page carries a year: the card's column heading is read without one. */
+function fire914NoYear(s){ return s == null ? s : String(s).replace(/\s*\b(19|20)\d\d\b/g, '').replace(/\s+/g, ' ').trim(); }
+/* the card's own Fire Ext. line (the per-building tick's hover text, the labour card's source chip) is said the same way: the
+   heading without its year, and no year note. The rate and every other line are as the page's own function gives them. */
+function labourLinesFor(ref, disc, item, key, unit, asset){
+ const r = labourLinesFor914base(ref, disc, item, key, unit, asset);
+ (r.lines || []).forEach(L => { if (L.key === 'fire_ext') { L.heading = fire914NoYear(L.heading); L.year = null; L.year_note = null; } });
+ return r;
 }
 function fire914Host(a, l, F){
  const lines = chargeLines(a); let i = lines.indexOf(l);
@@ -137,7 +152,7 @@ function labourMoney(ref, l, key, asset){
  const F = fire914Of(a);
  if (!F || !F.host || !fire914Host(a, l, F)) return m;
  const entry = {key: 'fire_ext', name: 'Fire extinguishers', heading: F.heading || 'no Fire Ext. figure on the card for this item',
-  rate: F.rate, year: F.year, of_this_year: F.of_this_year, money: F.rate != null ? 'rate' : 'to confirm',
+  rate: F.rate, money:F.rate != null ? 'rate' : 'to confirm',
   money_note: F.rate != null ? 'per piece, the card’s Fire Ext. figure × ' + F.n : 'rate to confirm - the card carries no Fire Ext. figure for this item',
   ticked: true, by: F.last.by, at: F.last.at, n: F.n, fire914: true};
  const out = Object.assign({}, m, {ticked: (m.ticked || []).concat([entry]), fire914: {n: F.n, rate: F.rate, amount: F.amount, entry: entry}});
@@ -149,7 +164,7 @@ function labourMoney(ref, l, key, asset){
 function fire914Said(m){
  if (!m || !m.fire914) return '';
  const f = m.fire914;
- return ' · ' + esc(fire914Words(f.n)) + ': ' + (f.amount != null ? esc(money(f.amount)) + ' at the card’s Fire Ext. figure' + (f.entry && f.entry.year ? ' (headed ' + esc(String(f.entry.year)) + ' on the card)' : '') : 'rate to confirm');
+ return ' · ' + esc(fire914Words(f.n)) + ': ' + (f.amount != null ? esc(money(f.amount)) + ' at the card’s Fire Ext. rate (one-off)' : 'rate to confirm');
 }
 /* Equipment: the count on the location's row */
 function fire914Equip(a){ const n = a ? fire914Qty(a.key) : 0; return n ? `<div class="w" data-fire914-equip="${esc(a.key)}" style="font-size:11px;color:var(--mute)">${esc(fire914Words(n))}</div>` : ''; }
@@ -172,11 +187,12 @@ function fire914Block(a){
  const lines = chargeLines(a), Lr = lines.map(l => fire914CardLine(l, key)), i = Lr.findIndex(Boolean);
  const item = i >= 0 ? lines[i].item : (lines[0] || {}).item || (a.item_types || [])[0] || 'this item';
  const last = fire914Last(key);
- /* the full sentence (the card's column year, who gives a rate) is for editors; the view link reads the short one */
+ /* the full sentence (one-off, the card's rate for the item type, who gives a rate) is for editors; the view link reads the short
+    one. No year is said with a fire extinguisher, on either link. */
  const charge = a.rest_of ? 'A follow-up delivery of ' + a.rest_of + ': fire extinguishers are added and charged on ' + a.rest_of + '.'
   : a._cancelled ? 'Cancelled: nothing is charged here.'
   : !ed ? (i >= 0 ? 'Charged per piece.' : 'Charge: rate to confirm.')
-  : i >= 0 ? (n ? 'Charged per piece' : 'Each one is charged per piece') + ' at the card’s Fire Ext. figure for ' + item + (Lr[i].year ? ' (the card heads that column ' + Lr[i].year + ')' : '') + '.'
+  : i >= 0 ? (n ? 'Charged per piece' : 'Each one is charged per piece') + ' (one-off) at the card’s Fire Ext. rate for ' + item + '.'
   : 'Charge: rate to confirm. The card carries no Fire Ext. figure for ' + item + ', so the money reads unknown, never nought, until the project manager gives a rate.';
  const d = FIRE914_DRAFT[key] != null ? FIRE914_DRAFT[key] : (n || (off && off.was) || 1);
  const can = ed && !a.rest_of && !a._cancelled, changed = !!n && d !== n;
@@ -241,6 +257,9 @@ function fire914Wire(a){
 }
 '''
 
+# 0. labourLinesFor becomes the wrapper (in JS below) that says the card's Fire Ext. line without its year (8 Oct 2026);
+#    renamed first, before the wrapper lands, so the rename matches exactly once
+text = rep(text, 'function labourLinesFor(ref, disc, item, key, unit, asset){', 'function labourLinesFor914base(ref, disc, item, key, unit, asset){', 'labourLinesFor wrapper', path)
 # 1. the helpers, and labourMoney becomes the wrapper over the page's own (renamed, unchanged)
 text = rep(text, 'function labourMoney(ref, l, key, asset){', JS.strip('\n') + '\nfunction labourMoney914base(ref, l, key, asset){', 'labourMoney wrapper', path)
 # 2. the replace rule: where a location has an added quantity, its fire_ext ticks do not count

@@ -165,7 +165,7 @@ async function browserTests() {
   const norm = t => t.replace(/\d{1,2}:\d{2}(:\d{2})?(\s?(am|pm|AEST))?/gi, '#:#').replace(/\b\d+\s?(s|sec|secs|seconds?|min|mins|minutes?|h|hrs?|hours?)\s+ago\b/gi, '# ago').replace(/\s+/g, ' ').trim();
   const runOne = async (file, label) => {
     const s = await open(Object.assign({pageFile: file}, geo)), p = s.page, cons = [];
-    p.on('console', m => { if (m.type() === 'error') cons.push(m.text().slice(0, 200)); });
+    p.on('console', m => { if (m.type() === 'error') cons.push(m.text().slice(0, 200) + ((m.location() || {}).url ? ' @ ' + m.location().url.replace(/[?#].*$/, '').slice(0, 120) : '')); });
     await p.waitForFunction(() => typeof go === 'function' && typeof TABS !== 'undefined', null, {timeout: 180000});
     await p.waitForTimeout(4000);
     return {s, p, cons, label};

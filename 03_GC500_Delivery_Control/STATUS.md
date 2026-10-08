@@ -34,6 +34,14 @@
   - The roster grid answers "which days each person is on". Is that what he meant?
 - **The build follows his yes**, on the latest public page. If Codex's v9.08 is live by then, it is rebuilt on v9.08.
 
+**ANDREW, 8 Oct 2026 ~23:20 AEST, answers** (applied once the current builds finish; nothing on the record is changed from here):
+- **WC59's 7 toilets are "the long row".** WC59's pin goes to the 7-toilet row the master labels WC57. WC57's pin goes to the 2-toilet pair inside the SUPPLY fence, where its 2 toilets go on 13 Oct. Counts are unchanged. Both join v9.17.
+- **WC13 is qty 2** (the master draws 3 in a row). The pin goes to the centre of the drawn row, within about 0.35 m of either pair. **WC69 is qty 12** (a row of 9 under the label plus 3 on the fence about 6.5 m north-west). The pin goes to the centre of the row of 9, and the pin text notes the 3 on the fence. Both join v9.17.
+- **Event Portables: "Yes we still charge v8s".** Coates labour on Event Portables units is charged to the V8s. Event Portables' own rates have their labour built in on the cost side. This puts the Event Portables lines in scope for unit slots.
+- **VMS 1211404 (VMS09): "take off that location and put on new location".** It's off T0001 and on T0103. v9.13 shows it as Andrew's word (the record still overrides), and T0001 reads 7 boards on site.
+  - **For Andrew to do on the page:** remove 1211404 from T0001's asset numbers on the Change form.
+  - **Flagged for billing:** contract 9961265 lists the same board on line 1 (T0001, from 7 Sep) and line 12 (VMS09). Check line 1 was off-hired or transferred, or the V8s may be charged twice for one board.
+
 **SYNC 23:15 AEST 8 Oct (Claude), GETs only.** This is a catch-up: the session was paused from about 19:30, so it covers the missed 20:07–23:07 checks.
 - **Live:** v9.18 `c547a6de…`. The machine is still `cd05e73e…`.
 - **Record:** still 4581, last changed 17:37, so the toilet plan is unaffected.

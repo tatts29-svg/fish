@@ -1,0 +1,1985 @@
+{
+ "author": "Andrew Fisher",
+ "what": "v9.17 second round - the 30 added pins re-derived from the 2 Oct master PDF",
+ "pdf_sha256": "8753d875cf90682e09afefae8c774144d9e9725ece87f726707882fb3711c56d",
+ "page_sha256": "c547a6debe1dea9009b50466d3c1028ec9c3a800e6c591ea258b61490b14b762",
+ "georeferencing": {
+  "main_rms_m": 0.669719671487297,
+  "inset_rms_m": 0.9221830663153832
+ },
+ "frame": "2 Oct paper -> 17 Sep frame (main +25.50/+0.12 pt, inset +0/+0.06 pt) -> main or inset sheet_to_z18px; pt = x17/2384, y17*(2600/2384)/1837",
+ "rule": "toilets: area centre of the drawn group (one toilet = its centre); generator: centre of the symbol outline; tolerance ll 0.2 m, pt 0.3 pt",
+ "shapes_scanned": 8041,
+ "unit_shapes": 787,
+ "generator_symbols": 19,
+ "rows": {
+  "GN18": {
+   "kind": "generator",
+   "unit_kinds": {
+    "generator": 1
+   },
+   "n_parts": 1,
+   "drawings": [
+    162600
+   ],
+   "paper_pt": [
+    476.198,
+    1145.685
+   ],
+   "inset": false,
+   "derived_ll": [
+    -27.9836216,
+    153.4241707
+   ],
+   "derived_pt": [
+    0.21044,
+    0.68025
+   ],
+   "listed_ll": [
+    -27.9836203,
+    153.4241719
+   ],
+   "listed_pt": [
+    0.21036,
+    0.68031
+   ],
+   "listed_vs_derived_m": 0.183,
+   "listed_vs_derived_pt": 0.224,
+   "within_tolerance": true,
+   "page_now_ll": [
+    -27.983493,
+    153.424075
+   ],
+   "page_now_pt": [
+    0.202,
+    0.6883
+   ],
+   "page_now_how": "the orange generator symbol on the master D001, at the end of callout 018's line on D024 (corrected 2 Oct 2026: it was 13.5 m off, at the arrow's end)",
+   "page_now_img": null,
+   "moves_m": 17.06,
+   "moves_dir": "south-east",
+   "moves_bearing": 146,
+   "m_per_pt": 0.707,
+   "symbol_sides_m": [
+    1.21,
+    2.89
+   ],
+   "symbol_ops": "lllll",
+   "symbol_vs_listed_pt": 0.224,
+   "said": [
+    17.1,
+    "south-east"
+   ],
+   "said_ok": true,
+   "generator_symbols_within_25m_of_old_pin": [
+    {
+     "paper_pt": [
+      476.2,
+      1145.69
+     ],
+     "m_from_old_pin": 17.2,
+     "is_this": true,
+     "nearest_gn_pins": [
+      [
+       "GN18",
+       17.1
+      ],
+      [
+       "GN19",
+       160.1
+      ]
+     ]
+    }
+   ],
+   "old_pin_to_nearest_generator_symbol_m": 17.2,
+   "drawn_at_old_pin": [
+    {
+     "sides_m": [
+      2.5,
+      6.1
+     ],
+     "color": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "drawing": 144580
+    }
+   ]
+  },
+  "GN13": {
+   "kind": "generator",
+   "unit_kinds": {
+    "generator": 1
+   },
+   "n_parts": 1,
+   "drawings": [
+    162244
+   ],
+   "paper_pt": [
+    1226.887,
+    324.226
+   ],
+   "inset": false,
+   "derived_ll": [
+    -27.9883915,
+    153.4300855
+   ],
+   "derived_pt": [
+    0.52533,
+    0.19256
+   ],
+   "listed_ll": [
+    -27.9883906,
+    153.4300864
+   ],
+   "listed_pt": [
+    0.52527,
+    0.19253
+   ],
+   "listed_vs_derived_m": 0.132,
+   "listed_vs_derived_pt": 0.152,
+   "within_tolerance": true,
+   "page_now_ll": [
+    -27.988495,
+    153.430095
+   ],
+   "page_now_pt": [
+    0.53212,
+    0.19189
+   ],
+   "page_now_how": "the orange generator symbol on the master D001, at the end of callout 013's line on D024 (corrected 2 Oct 2026: it was 8.7 m off, at the arrow's end)",
+   "page_now_img": null,
+   "moves_m": 11.64,
+   "moves_dir": "north",
+   "moves_bearing": 356,
+   "m_per_pt": 0.707,
+   "symbol_sides_m": [
+    1.0,
+    2.51
+   ],
+   "symbol_ops": "ql",
+   "symbol_vs_listed_pt": 0.152,
+   "said": [
+    11.6,
+    "north"
+   ],
+   "said_ok": true,
+   "generator_symbols_within_25m_of_old_pin": [
+    {
+     "paper_pt": [
+      1226.89,
+      324.23
+     ],
+     "m_from_old_pin": 11.5,
+     "is_this": true,
+     "nearest_gn_pins": [
+      [
+       "GN13",
+       11.5
+      ],
+      [
+       "GN03",
+       210.7
+      ]
+     ]
+    }
+   ],
+   "old_pin_to_nearest_generator_symbol_m": 11.5,
+   "drawn_at_old_pin": []
+  },
+  "WC06": {
+   "kind": "toilet",
+   "unit_kinds": {
+    "toilet": 2
+   },
+   "n_parts": 2,
+   "drawings": [
+    120602,
+    120612
+   ],
+   "paper_pt": [
+    646.1,
+    817.47
+   ],
+   "inset": false,
+   "derived_ll": [
+    -27.9846989,
+    153.4265318
+   ],
+   "derived_pt": [
+    0.28171,
+    0.48539
+   ],
+   "listed_ll": [
+    -27.9846989,
+    153.4265318
+   ],
+   "listed_pt": [
+    0.28171,
+    0.48539
+   ],
+   "listed_vs_derived_m": 0.002,
+   "listed_vs_derived_pt": 0.006,
+   "within_tolerance": true,
+   "page_now_ll": [
+    -27.984688,
+    153.426541
+   ],
+   "page_now_pt": [
+    0.281,
+    0.48468
+   ],
+   "page_now_how": "tag on the unit, master D001",
+   "page_now_img": [
+    "239ad0ba8c06005a3cba1317af08e8830c6c1d213ef2c8160237f0cf86d14b82",
+    "d27622a2e44ff3ba42136a57d0311522d8936e2ad006369984120a2811fe5941"
+   ],
+   "moves_m": 1.51,
+   "moves_dir": "south-west",
+   "moves_bearing": 217,
+   "m_per_pt": 0.707,
+   "touching_extra": 0,
+   "drawn_twice": 0,
+   "tag_to_unit_m": 1.6,
+   "list_metres": 1.5,
+   "list_to_pt_other_frame": [
+    0.28171,
+    0.4855
+   ],
+   "list_to_pt_other_frame_vs_derived_pt": 0.18
+  },
+  "WC10": {
+   "kind": "toilet",
+   "unit_kinds": {
+    "toilet": 3
+   },
+   "n_parts": 3,
+   "drawings": [
+    190480,
+    190490,
+    190500
+   ],
+   "paper_pt": [
+    612.618,
+    652.827
+   ],
+   "inset": false,
+   "derived_ll": [
+    -27.9844829,
+    153.4277142
+   ],
+   "derived_pt": [
+    0.26767,
+    0.38765
+   ],
+   "listed_ll": [
+    -27.9844829,
+    153.4277142
+   ],
+   "listed_pt": [
+    0.26767,
+    0.38765
+   ],
+   "listed_vs_derived_m": 0.006,
+   "listed_vs_derived_pt": 0.009,
+   "within_tolerance": true,
+   "page_now_ll": [
+    -27.9845026,
+    153.4277044
+   ],
+   "page_now_pt": [
+    0.26896,
+    0.38855
+   ],
+   "page_now_how": "tag on the unit, master D001 issued 2 Oct (new on this issue)",
+   "page_now_img": [
+    "124d6af4f40167fee6ac4e9e62ef3cdd2e5338cd1f0780114c03d948151e370c",
+    "2af5974556e38ad674a80198d33d09d8c4de66d824cdc28b0a217e4511e3c9cf"
+   ],
+   "moves_m": 2.39,
+   "moves_dir": "north-east",
+   "moves_bearing": 24,
+   "m_per_pt": 0.707,
+   "touching_extra": 0,
+   "drawn_twice": 0,
+   "tag_to_unit_m": 2.4,
+   "list_metres": 2.4,
+   "list_to_pt_other_frame": [
+    0.26767,
+    0.38774
+   ],
+   "list_to_pt_other_frame_vs_derived_pt": 0.158
+  },
+  "WC11": {
+   "kind": "toilet",
+   "unit_kinds": {
+    "toilet": 2
+   },
+   "n_parts": 2,
+   "drawings": [
+    120582,
+    120592
+   ],
+   "paper_pt": [
+    675.83,
+    811.47
+   ],
+   "inset": false,
+   "derived_ll": [
+    -27.9848882,
+    153.4265754
+   ],
+   "derived_pt": [
+    0.29418,
+    0.48183
+   ],
+   "listed_ll": [
+    -27.9848882,
+    153.4265754
+   ],
+   "listed_pt": [
+    0.29418,
+    0.48183
+   ],
+   "listed_vs_derived_m": 0.002,
+   "listed_vs_derived_pt": 0.005,
+   "within_tolerance": true,
+   "page_now_ll": [
+    -27.984901,
+    153.426559
+   ],
+   "page_now_pt": [
+    0.29501,
+    0.48331
+   ],
+   "page_now_how": "tag on the unit, master D001",
+   "page_now_img": [
+    "035023263bdd46248e1ef59e4bfd354fe19794777335c5231f44bdb614793809",
+    "82c8084743056c9552b9b9e6b94733dd21106986b9d2edbb9d21505c1cd32d49"
+   ],
+   "moves_m": 2.15,
+   "moves_dir": "north-east",
+   "moves_bearing": 49,
+   "m_per_pt": 0.707,
+   "touching_extra": 0,
+   "drawn_twice": 0,
+   "tag_to_unit_m": 2.2,
+   "list_metres": 2.1,
+   "list_to_pt_other_frame": [
+    0.29418,
+    0.48194
+   ],
+   "list_to_pt_other_frame_vs_derived_pt": 0.184
+  },
+  "WC12": {
+   "kind": "toilet",
+   "unit_kinds": {
+    "toilet": 4
+   },
+   "n_parts": 4,
+   "drawings": [
+    118380,
+    118390,
+    118400,
+    118680
+   ],
+   "paper_pt": [
+    766.005,
+    707.797
+   ],
+   "inset": false,
+   "derived_ll": [
+    -27.9854611,
+    153.4273218
+   ],
+   "derived_pt": [
+    0.33201,
+    0.42028
+   ],
+   "listed_ll": [
+    -27.9854611,
+    153.4273218
+   ],
+   "listed_pt": [
+    0.33201,
+    0.42028
+   ],
+   "listed_vs_derived_m": 0.002,
+   "listed_vs_derived_pt": 0.007,
+   "within_tolerance": true,
+   "page_now_ll": [
+    -27.985457,
+    153.427346
+   ],
+   "page_now_pt": [
+    0.33175,
+    0.41835
+   ],
+   "page_now_how": "tag on the unit, master D001",
+   "page_now_img": [
+    "e5ff78a1a56d0e394f92648e8b3349685420fc331638d6f9c408e43edad7aeff",
+    "6e88f564056de2ee84cbd0d22ce7665eccc17ac730db24b1f8373e7ec979f79e"
+   ],
+   "moves_m": 2.42,
+   "moves_dir": "west",
+   "moves_bearing": 259,
+   "m_per_pt": 0.707,
+   "touching_extra": 0,
+   "drawn_twice": 0,
+   "tag_to_unit_m": 2.4,
+   "list_metres": 2.4,
+   "list_to_pt_other_frame": [
+    0.33201,
+    0.42038
+   ],
+   "list_to_pt_other_frame_vs_derived_pt": 0.166
+  },
+  "WC21": {
+   "kind": "toilet",
+   "unit_kinds": {
+    "toilet": 6
+   },
+   "n_parts": 6,
+   "drawings": [
+    118310,
+    118320,
+    118330,
+    118640,
+    118650,
+    118740
+   ],
+   "paper_pt": [
+    1346.825,
+    528.571
+   ],
+   "inset": false,
+   "derived_ll": [
+    -27.9891589,
+    153.4286192
+   ],
+   "derived_pt": [
+    0.57564,
+    0.31388
+   ],
+   "listed_ll": [
+    -27.9891589,
+    153.4286192
+   ],
+   "listed_pt": [
+    0.57564,
+    0.31388
+   ],
+   "listed_vs_derived_m": 0.006,
+   "listed_vs_derived_pt": 0.005,
+   "within_tolerance": true,
+   "page_now_ll": [
+    -27.989162,
+    153.428592
+   ],
+   "page_now_pt": [
+    0.57584,
+    0.31621
+   ],
+   "page_now_how": "tag on the unit, master D001",
+   "page_now_img": [
+    "5335b5d252fb2ca52ac097d03d25abe05e6bcd41f8f2a37f9a2333ffc7f17206",
+    "c7673630fdb5497f8f6851d440ed76ddb9a092cb427f02ad90a3d0d29206c4f2"
+   ],
+   "moves_m": 2.69,
+   "moves_dir": "east",
+   "moves_bearing": 83,
+   "m_per_pt": 0.707,
+   "touching_extra": 0,
+   "drawn_twice": 0,
+   "tag_to_unit_m": 2.7,
+   "list_metres": 2.7,
+   "list_to_pt_other_frame": [
+    0.57564,
+    0.31395
+   ],
+   "list_to_pt_other_frame_vs_derived_pt": 0.123
+  },
+  "WC23": {
+   "kind": "toilet",
+   "unit_kinds": {
+    "toilet": 5
+   },
+   "n_parts": 5,
+   "drawings": [
+    121724,
+    121734,
+    121744,
+    121754,
+    121764
+   ],
+   "paper_pt": [
+    1401.255,
+    448.038
+   ],
+   "inset": false,
+   "derived_ll": [
+    -27.9895044,
+    153.4291988
+   ],
+   "derived_pt": [
+    0.59847,
+    0.26607
+   ],
+   "listed_ll": [
+    -27.9895044,
+    153.4291988
+   ],
+   "listed_pt": [
+    0.59847,
+    0.26607
+   ],
+   "listed_vs_derived_m": 0.004,
+   "listed_vs_derived_pt": 0.008,
+   "within_tolerance": true,
+   "page_now_ll": [
+    -27.989492,
+    153.429184
+   ],
+   "page_now_pt": [
+    0.59765,
+    0.26734
+   ],
+   "page_now_how": "tag on the unit, master D001",
+   "page_now_img": [
+    "29d7dabc14a6cf6fff253fa5706144e1da27cb54e095c9b710d4a348b61fae8d",
+    "36a44090b790c34c7e65de6e3d77b8a62387888533863d633280e0c99231e8fa"
+   ],
+   "moves_m": 2.0,
+   "moves_dir": "south-east",
+   "moves_bearing": 133,
+   "m_per_pt": 0.707,
+   "touching_extra": 0,
+   "drawn_twice": 0,
+   "tag_to_unit_m": 2.1,
+   "list_metres": 2.0,
+   "list_to_pt_other_frame": [
+    0.59847,
+    0.26613
+   ],
+   "list_to_pt_other_frame_vs_derived_pt": 0.108
+  },
+  "WC29": {
+   "kind": "toilet",
+   "unit_kinds": {
+    "toilet": 7
+   },
+   "n_parts": 7,
+   "drawings": [
+    119628,
+    119638,
+    119648,
+    119658,
+    121865,
+    122493,
+    122503
+   ],
+   "paper_pt": [
+    468.177,
+    532.986
+   ],
+   "inset": false,
+   "derived_ll": [
+    -27.9835607,
+    153.4285729
+   ],
+   "derived_pt": [
+    0.20708,
+    0.3165
+   ],
+   "listed_ll": [
+    -27.9835607,
+    153.4285729
+   ],
+   "listed_pt": [
+    0.20708,
+    0.3165
+   ],
+   "listed_vs_derived_m": 0.005,
+   "listed_vs_derived_pt": 0.003,
+   "within_tolerance": true,
+   "page_now_ll": [
+    -27.983537,
+    153.428563
+   ],
+   "page_now_pt": [
+    0.20554,
+    0.3174
+   ],
+   "page_now_how": "tag on the unit, master D001",
+   "page_now_img": [
+    "57d1dd49a7a264ef8cce09a57ec2059a6fd9e030108608fd0f7b6d752f1cf714",
+    "1097a56b914da539e29f77ab22a5fcaaeccae57d32029d81caa202fe7987f34b"
+   ],
+   "moves_m": 2.81,
+   "moves_dir": "south",
+   "moves_bearing": 160,
+   "m_per_pt": 0.707,
+   "touching_extra": 0,
+   "drawn_twice": 0,
+   "tag_to_unit_m": 2.8,
+   "list_metres": 2.8,
+   "list_to_pt_other_frame": [
+    0.20708,
+    0.31657
+   ],
+   "list_to_pt_other_frame_vs_derived_pt": 0.12
+  },
+  "WC30": {
+   "kind": "toilet",
+   "unit_kinds": {
+    "toilet": 8
+   },
+   "n_parts": 8,
+   "drawings": [
+    118600,
+    118610,
+    118620,
+    118630,
+    119446,
+    122463,
+    122473,
+    122483
+   ],
+   "paper_pt": [
+    284.297,
+    635.949
+   ],
+   "inset": false,
+   "derived_ll": [
+    -27.9823908,
+    153.42783
+   ],
+   "derived_pt": [
+    0.12995,
+    0.37763
+   ],
+   "listed_ll": [
+    -27.9823908,
+    153.42783
+   ],
+   "listed_pt": [
+    0.12995,
+    0.37763
+   ],
+   "listed_vs_derived_m": 0.004,
+   "listed_vs_derived_pt": 0.007,
+   "within_tolerance": true,
+   "page_now_ll": [
+    -27.982388,
+    153.427844
+   ],
+   "page_now_pt": [
+    0.12974,
+    0.37654
+   ],
+   "page_now_how": "tag on the unit, master D001",
+   "page_now_img": [
+    "5902d6e7c927e3eb1f652071698894ea94c99bc6ecf080c5d983a352d9bad922",
+    "47cbb98172b6561a1f9981e7cfce2aabad667ee4e3251966428d393de31bbd81"
+   ],
+   "moves_m": 1.41,
+   "moves_dir": "west",
+   "moves_bearing": 257,
+   "m_per_pt": 0.707,
+   "touching_extra": 0,
+   "drawn_twice": 0,
+   "tag_to_unit_m": 1.4,
+   "list_metres": 1.4,
+   "list_to_pt_other_frame": [
+    0.12995,
+    0.37771
+   ],
+   "list_to_pt_other_frame_vs_derived_pt": 0.141
+  },
+  "WC33": {
+   "kind": "toilet",
+   "unit_kinds": {
+    "toilet": 17
+   },
+   "n_parts": 17,
+   "drawings": [
+    118070,
+    118170,
+    118180,
+    118190,
+    118200,
+    118210,
+    118220,
+    118230,
+    119183,
+    119193,
+    119203,
+    119213,
+    119243,
+    119678,
+    119688,
+    119698,
+    119708
+   ],
+   "paper_pt": [
+    868.202,
+    401.541
+   ],
+   "inset": false,
+   "derived_ll": [
+    -27.9861074,
+    153.429524
+   ],
+   "derived_pt": [
+    0.37488,
+    0.23846
+   ],
+   "listed_ll": [
+    -27.9861074,
+    153.429524
+   ],
+   "listed_pt": [
+    0.37488,
+    0.23846
+   ],
+   "listed_vs_derived_m": 0.001,
+   "listed_vs_derived_pt": 0.012,
+   "within_tolerance": true,
+   "page_now_ll": [
+    -27.986092,
+    153.429504
+   ],
+   "page_now_pt": [
+    0.37387,
+    0.2402
+   ],
+   "page_now_how": "tag on the unit, master D001 \u2014 the newer master (rev 03) is used; the older D023 (rev 02) arrow points about 45 m away",
+   "page_now_img": [
+    "8285ced4563c8180f044c2a8fb975eef2077a3b88fcf5114ec11029500dc84db",
+    "7bdc26cc4b40b5c36ced878949be68e866993fa98482e43fb347d3b96d111e27"
+   ],
+   "moves_m": 2.61,
+   "moves_dir": "south-east",
+   "moves_bearing": 131,
+   "m_per_pt": 0.707,
+   "touching_extra": 0,
+   "drawn_twice": 0,
+   "tag_to_unit_m": 2.7,
+   "list_metres": 2.6,
+   "list_to_pt_other_frame": [
+    0.37488,
+    0.23852
+   ],
+   "list_to_pt_other_frame_vs_derived_pt": 0.1
+  },
+  "WC38": {
+   "kind": "toilet",
+   "unit_kinds": {
+    "toilet": 1
+   },
+   "n_parts": 1,
+   "drawings": [
+    119568
+   ],
+   "paper_pt": [
+    471.77,
+    1151.4
+   ],
+   "inset": false,
+   "derived_ll": [
+    -27.9835934,
+    153.4241296
+   ],
+   "derived_pt": [
+    0.20859,
+    0.68364
+   ],
+   "listed_ll": [
+    -27.9835934,
+    153.4241296
+   ],
+   "listed_pt": [
+    0.20859,
+    0.68364
+   ],
+   "listed_vs_derived_m": 0.005,
+   "listed_vs_derived_pt": 0.01,
+   "within_tolerance": true,
+   "page_now_ll": [
+    -27.9835978,
+    153.4241101
+   ],
+   "page_now_pt": [
+    0.20889,
+    0.68542
+   ],
+   "page_now_how": "tag on the unit, master D001 issued 2 Oct (moved about 13 m from the 17 Sep issue)",
+   "page_now_img": [
+    "adfce73f0f5e66a62f2941cb60dedae0109b0af5177bf059f6c9c02bb8909a72",
+    "cdf6829aa0bbc800b3c860eb5d9a4593697f73e58cac4f488f00370fbc0008bf"
+   ],
+   "moves_m": 1.98,
+   "moves_dir": "east",
+   "moves_bearing": 76,
+   "m_per_pt": 0.707,
+   "touching_extra": 0,
+   "drawn_twice": 0,
+   "tag_to_unit_m": 2.2,
+   "list_metres": 2.0,
+   "list_to_pt_other_frame": [
+    0.20859,
+    0.6838
+   ],
+   "list_to_pt_other_frame_vs_derived_pt": 0.264
+  },
+  "WC40": {
+   "kind": "toilet",
+   "unit_kinds": {
+    "toilet": 5
+   },
+   "n_parts": 5,
+   "drawings": [
+    119548,
+    119558,
+    119588,
+    119598,
+    119608
+   ],
+   "paper_pt": [
+    482.169,
+    1106.876
+   ],
+   "inset": false,
+   "derived_ll": [
+    -27.983659,
+    153.4244496
+   ],
+   "derived_pt": [
+    0.21295,
+    0.65721
+   ],
+   "listed_ll": [
+    -27.983659,
+    153.4244496
+   ],
+   "listed_pt": [
+    0.21295,
+    0.65721
+   ],
+   "listed_vs_derived_m": 0.004,
+   "listed_vs_derived_pt": 0.004,
+   "within_tolerance": true,
+   "page_now_ll": [
+    -27.983644,
+    153.424458
+   ],
+   "page_now_pt": [
+    0.21195,
+    0.65665
+   ],
+   "page_now_how": "tag on the unit, master D001; the 2 Oct issue drops the second tag (WC40a)",
+   "page_now_img": [
+    "7e8c6ae77c72c29adcf8cd8af459d6fc5734a53ddfdcd9ddb7bc45168d1ba99a",
+    "8c566917ff1c0cfb3a13ccd6d51fc010a87200fb3db5b6a673853ec16ca4e8cd"
+   ],
+   "moves_m": 1.86,
+   "moves_dir": "south-west",
+   "moves_bearing": 206,
+   "m_per_pt": 0.707,
+   "touching_extra": 0,
+   "drawn_twice": 0,
+   "tag_to_unit_m": 1.9,
+   "list_metres": 1.9,
+   "list_to_pt_other_frame": [
+    0.21295,
+    0.65736
+   ],
+   "list_to_pt_other_frame_vs_derived_pt": 0.253
+  },
+  "WC41": {
+   "kind": "toilet",
+   "unit_kinds": {
+    "toilet": 10
+   },
+   "n_parts": 10,
+   "drawings": [
+    118080,
+    118340,
+    118350,
+    118360,
+    118370,
+    119803,
+    119813,
+    119823,
+    119833,
+    119843
+   ],
+   "paper_pt": [
+    667.336,
+    883.956
+   ],
+   "inset": false,
+   "derived_ll": [
+    -27.9848352,
+    153.4260544
+   ],
+   "derived_pt": [
+    0.29062,
+    0.52487
+   ],
+   "listed_ll": [
+    -27.9848352,
+    153.4260544
+   ],
+   "listed_pt": [
+    0.29062,
+    0.52486
+   ],
+   "listed_vs_derived_m": 0.006,
+   "listed_vs_derived_pt": 0.009,
+   "within_tolerance": true,
+   "page_now_ll": [
+    -27.984821,
+    153.42607
+   ],
+   "page_now_pt": [
+    0.28968,
+    0.52375
+   ],
+   "page_now_how": "tag on the unit, master D001",
+   "page_now_img": [
+    "2ee0a4377c6a89fabac245e40d46a29a2320c81bf549d6470306ef573a12d780",
+    "769f241fef0164fc4a17e0da2395f1efecab9583921c86f6a97f8a83381861e2"
+   ],
+   "moves_m": 2.2,
+   "moves_dir": "south-west",
+   "moves_bearing": 224,
+   "m_per_pt": 0.707,
+   "touching_extra": 0,
+   "drawn_twice": 0,
+   "tag_to_unit_m": 2.2,
+   "list_metres": 2.2,
+   "list_to_pt_other_frame": [
+    0.29062,
+    0.52499
+   ],
+   "list_to_pt_other_frame_vs_derived_pt": 0.21
+  },
+  "WC42": {
+   "kind": "toilet",
+   "unit_kinds": {
+    "toilet": 1
+   },
+   "n_parts": 1,
+   "drawings": [
+    119538
+   ],
+   "paper_pt": [
+    422.89,
+    1052.431
+   ],
+   "inset": false,
+   "derived_ll": [
+    -27.9832804,
+    153.4248399
+   ],
+   "derived_pt": [
+    0.18808,
+    0.62489
+   ],
+   "listed_ll": [
+    -27.9832804,
+    153.4248399
+   ],
+   "listed_pt": [
+    0.18808,
+    0.62489
+   ],
+   "listed_vs_derived_m": 0.005,
+   "listed_vs_derived_pt": 0.01,
+   "within_tolerance": true,
+   "page_now_ll": [
+    -27.983295,
+    153.424824
+   ],
+   "page_now_pt": [
+    0.18905,
+    0.62637
+   ],
+   "page_now_how": "tag on the unit, master D001",
+   "page_now_img": [
+    "b9a4f30690b52be963d12970161619027ad4ad70418f02428a12ce7751403cdb",
+    "3efd10cf96348a2037232ce7a14493d5faa479a365d2441834a5ea1d6de8a236"
+   ],
+   "moves_m": 2.25,
+   "moves_dir": "north-east",
+   "moves_bearing": 44,
+   "m_per_pt": 0.707,
+   "touching_extra": 0,
+   "drawn_twice": 0,
+   "tag_to_unit_m": 2.3,
+   "list_metres": 2.2,
+   "list_to_pt_other_frame": [
+    0.18808,
+    0.62503
+   ],
+   "list_to_pt_other_frame_vs_derived_pt": 0.242
+  },
+  "WC43": {
+   "kind": "toilet",
+   "unit_kinds": {
+    "toilet": 10
+   },
+   "n_parts": 10,
+   "drawings": [
+    118090,
+    118100,
+    118110,
+    118120,
+    118130,
+    118160,
+    119283,
+    119293,
+    119413,
+    119423
+   ],
+   "paper_pt": [
+    908.833,
+    721.709
+   ],
+   "inset": false,
+   "derived_ll": [
+    -27.9863714,
+    153.4272242
+   ],
+   "derived_pt": [
+    0.39192,
+    0.42854
+   ],
+   "listed_ll": [
+    -27.9863713,
+    153.4272242
+   ],
+   "listed_pt": [
+    0.39192,
+    0.42854
+   ],
+   "listed_vs_derived_m": 0.006,
+   "listed_vs_derived_pt": 0.004,
+   "within_tolerance": true,
+   "page_now_ll": [
+    -27.986363,
+    153.427238
+   ],
+   "page_now_pt": [
+    0.39136,
+    0.42743
+   ],
+   "page_now_how": "tag on the unit, master D001",
+   "page_now_img": [
+    "9bc627f62c27fa48f9fab168466bc9ad2d8afabf9a9424432fd068f597c12628",
+    "a1861a822f4dc4373ace938b6027c0bd929fdd6f51ac7260b36a49f37b0fe61c"
+   ],
+   "moves_m": 1.64,
+   "moves_dir": "south-west",
+   "moves_bearing": 236,
+   "m_per_pt": 0.707,
+   "touching_extra": 0,
+   "drawn_twice": 0,
+   "tag_to_unit_m": 1.7,
+   "list_metres": 1.6,
+   "list_to_pt_other_frame": [
+    0.39192,
+    0.42864
+   ],
+   "list_to_pt_other_frame_vs_derived_pt": 0.167
+  },
+  "WC45": {
+   "kind": "toilet",
+   "unit_kinds": {
+    "toilet": 7
+   },
+   "n_parts": 7,
+   "drawings": [
+    118690,
+    118700,
+    118710,
+    118720,
+    118730,
+    119160,
+    119170
+   ],
+   "paper_pt": [
+    1590.29,
+    560.862
+   ],
+   "inset": false,
+   "derived_ll": [
+    -27.9907105,
+    153.4283913
+   ],
+   "derived_pt": [
+    0.67776,
+    0.33305
+   ],
+   "listed_ll": [
+    -27.9907105,
+    153.4283913
+   ],
+   "listed_pt": [
+    0.67776,
+    0.33305
+   ],
+   "listed_vs_derived_m": 0.004,
+   "listed_vs_derived_pt": 0.011,
+   "within_tolerance": true,
+   "page_now_ll": [
+    -27.990704,
+    153.428409
+   ],
+   "page_now_pt": [
+    0.67735,
+    0.33165
+   ],
+   "page_now_how": "tag on the unit, master D001",
+   "page_now_img": [
+    "b6f14d46a20597e03eea2905c3bab6376e443b5fccbe50d96bbee9c03e549146",
+    "6ea224c77d7c761690f9e02c4557f1564ba7afa08d2ee8a08447ad2a03f13965"
+   ],
+   "moves_m": 1.88,
+   "moves_dir": "south-west",
+   "moves_bearing": 247,
+   "m_per_pt": 0.707,
+   "touching_extra": 0,
+   "drawn_twice": 0,
+   "tag_to_unit_m": 1.9,
+   "list_metres": 1.9,
+   "list_to_pt_other_frame": [
+    0.67776,
+    0.33312
+   ],
+   "list_to_pt_other_frame_vs_derived_pt": 0.121
+  },
+  "WC46": {
+   "kind": "toilet",
+   "unit_kinds": {
+    "toilet": 1
+   },
+   "n_parts": 1,
+   "drawings": [
+    118570
+   ],
+   "paper_pt": [
+    1828.078,
+    423.827
+   ],
+   "inset": false,
+   "derived_ll": [
+    -27.9922233,
+    153.4293799
+   ],
+   "derived_pt": [
+    0.77751,
+    0.25169
+   ],
+   "listed_ll": [
+    -27.9922233,
+    153.4293799
+   ],
+   "listed_pt": [
+    0.77751,
+    0.25169
+   ],
+   "listed_vs_derived_m": 0.004,
+   "listed_vs_derived_pt": 0.007,
+   "within_tolerance": true,
+   "page_now_ll": [
+    -27.992227,
+    153.429399
+   ],
+   "page_now_pt": [
+    0.77773,
+    0.25012
+   ],
+   "page_now_how": "tag on the unit, master D001",
+   "page_now_img": [
+    "bd17c75a4274ce0d94a94327fb55dc8e0a9fabc430f4e31bed3e3c0a90b42c58",
+    "6e59d62861d6dfef8801e01591589682142f30eb34912eb624b4ad64af20c9c0"
+   ],
+   "moves_m": 1.92,
+   "moves_dir": "west",
+   "moves_bearing": 282,
+   "m_per_pt": 0.707,
+   "touching_extra": 0,
+   "drawn_twice": 0,
+   "tag_to_unit_m": 1.9,
+   "list_metres": 1.9,
+   "list_to_pt_other_frame": [
+    0.77751,
+    0.25175
+   ],
+   "list_to_pt_other_frame_vs_derived_pt": 0.098
+  },
+  "WC47": {
+   "kind": "toilet",
+   "unit_kinds": {
+    "toilet": 1
+   },
+   "n_parts": 1,
+   "drawings": [
+    119468
+   ],
+   "paper_pt": [
+    1507.46,
+    562.14
+   ],
+   "inset": false,
+   "derived_ll": [
+    -27.9901828,
+    153.4283807
+   ],
+   "derived_pt": [
+    0.64302,
+    0.33381
+   ],
+   "listed_ll": [
+    -27.9901828,
+    153.4283807
+   ],
+   "listed_pt": [
+    0.64302,
+    0.33381
+   ],
+   "listed_vs_derived_m": 0.003,
+   "listed_vs_derived_pt": 0.005,
+   "within_tolerance": true,
+   "page_now_ll": [
+    -27.990189,
+    153.428359
+   ],
+   "page_now_pt": [
+    0.64341,
+    0.33563
+   ],
+   "page_now_how": "tag on the unit, master D001",
+   "page_now_img": [
+    "038c732e568fa1736800531d7b5c0c330f2319855b0241820ec401c49fd2465c",
+    "0c3c5faf5734a1265ed0e9b6a026bee3239879e69860d5404405e0406bf404cc"
+   ],
+   "moves_m": 2.24,
+   "moves_dir": "east",
+   "moves_bearing": 72,
+   "m_per_pt": 0.707,
+   "touching_extra": 0,
+   "drawn_twice": 0,
+   "tag_to_unit_m": 2.2,
+   "list_metres": 2.2,
+   "list_to_pt_other_frame": [
+    0.64302,
+    0.33388
+   ],
+   "list_to_pt_other_frame_vs_derived_pt": 0.123
+  },
+  "WC48": {
+   "kind": "toilet",
+   "unit_kinds": {
+    "toilet": 4
+   },
+   "n_parts": 4,
+   "drawings": [
+    119393,
+    119403,
+    120696,
+    120706
+   ],
+   "paper_pt": [
+    2068.07,
+    274.382
+   ],
+   "inset": false,
+   "derived_ll": [
+    -27.9937499,
+    153.4304576
+   ],
+   "derived_pt": [
+    0.87818,
+    0.16297
+   ],
+   "listed_ll": [
+    -27.9937499,
+    153.4304576
+   ],
+   "listed_pt": [
+    0.87818,
+    0.16297
+   ],
+   "listed_vs_derived_m": 0.005,
+   "listed_vs_derived_pt": 0.012,
+   "within_tolerance": true,
+   "page_now_ll": [
+    -27.993745,
+    153.430484
+   ],
+   "page_now_pt": [
+    0.87785,
+    0.16081
+   ],
+   "page_now_how": "tag on the unit, master D001",
+   "page_now_img": [
+    "2e72d220b3dde78e7b94f8ee62152897e07d05d0891349f39183a0d619883417",
+    "36345e97be543d011675701bec7cb5e18de5df3215d67fda5a8b6c05036e6e21"
+   ],
+   "moves_m": 2.65,
+   "moves_dir": "west",
+   "moves_bearing": 258,
+   "m_per_pt": 0.7069,
+   "touching_extra": 0,
+   "drawn_twice": 0,
+   "tag_to_unit_m": 2.7,
+   "list_metres": 2.6,
+   "list_to_pt_other_frame": [
+    0.87818,
+    0.16301
+   ],
+   "list_to_pt_other_frame_vs_derived_pt": 0.071
+  },
+  "WC49": {
+   "kind": "toilet",
+   "unit_kinds": {
+    "toilet": 3
+   },
+   "n_parts": 3,
+   "drawings": [
+    121070,
+    121080,
+    121090
+   ],
+   "paper_pt": [
+    2103.699,
+    244.13
+   ],
+   "inset": false,
+   "derived_ll": [
+    -27.9939764,
+    153.4306756
+   ],
+   "derived_pt": [
+    0.89312,
+    0.14501
+   ],
+   "listed_ll": [
+    -27.9939764,
+    153.4306756
+   ],
+   "listed_pt": [
+    0.89312,
+    0.14501
+   ],
+   "listed_vs_derived_m": 0.005,
+   "listed_vs_derived_pt": 0.003,
+   "within_tolerance": true,
+   "page_now_ll": [
+    -27.99397,
+    153.430693
+   ],
+   "page_now_pt": [
+    0.8927,
+    0.14359
+   ],
+   "page_now_how": "tag on the unit, master D001",
+   "page_now_img": [
+    "fe1f07593286fd64aec8e4ed639cd0df9b676c709fb649f8ce003cdc825a5af6",
+    "cc0788d5c1304eb7f5a09da0b1a0d3c967701a60bbfb6a8e0d35706129027832"
+   ],
+   "moves_m": 1.85,
+   "moves_dir": "south-west",
+   "moves_bearing": 247,
+   "m_per_pt": 0.7069,
+   "touching_extra": 0,
+   "drawn_twice": 0,
+   "tag_to_unit_m": 1.9,
+   "list_metres": 1.9,
+   "list_to_pt_other_frame": [
+    0.89312,
+    0.14504
+   ],
+   "list_to_pt_other_frame_vs_derived_pt": 0.053
+  },
+  "WC53": {
+   "kind": "toilet",
+   "unit_kinds": {
+    "toilet": 3
+   },
+   "n_parts": 3,
+   "drawings": [
+    118750,
+    119436,
+    119618
+   ],
+   "paper_pt": [
+    1897.521,
+    297.33
+   ],
+   "inset": false,
+   "derived_ll": [
+    -27.9926637,
+    153.4302899
+   ],
+   "derived_pt": [
+    0.80664,
+    0.17659
+   ],
+   "listed_ll": [
+    -27.9926637,
+    153.4302899
+   ],
+   "listed_pt": [
+    0.80664,
+    0.17659
+   ],
+   "listed_vs_derived_m": 0.004,
+   "listed_vs_derived_pt": 0.009,
+   "within_tolerance": true,
+   "page_now_ll": [
+    -27.992683,
+    153.430294
+   ],
+   "page_now_pt": [
+    0.80793,
+    0.17637
+   ],
+   "page_now_how": "tag on the unit, master D001",
+   "page_now_img": [
+    "2a6d3fae23628b9154a9150d94c79b4ff316dec69118327ad5a2c3ce63bfc130",
+    "11302ecb33ecf5f8ad3046357562fb4f72bc49686be85b18f8fd96864316549e"
+   ],
+   "moves_m": 2.18,
+   "moves_dir": "north",
+   "moves_bearing": 349,
+   "m_per_pt": 0.707,
+   "touching_extra": 0,
+   "drawn_twice": 0,
+   "tag_to_unit_m": 2.1,
+   "list_metres": 2.2,
+   "list_to_pt_other_frame": [
+    0.80664,
+    0.17663
+   ],
+   "list_to_pt_other_frame_vs_derived_pt": 0.064
+  },
+  "WC54": {
+   "kind": "toilet",
+   "unit_kinds": {
+    "toilet": 6
+   },
+   "n_parts": 6,
+   "drawings": [
+    119040,
+    119050,
+    119060,
+    119130,
+    119140,
+    119150
+   ],
+   "paper_pt": [
+    1728.676,
+    273.49
+   ],
+   "inset": false,
+   "derived_ll": [
+    -27.9915876,
+    153.4304584
+   ],
+   "derived_pt": [
+    0.73581,
+    0.16244
+   ],
+   "listed_ll": [
+    -27.9915876,
+    153.4304584
+   ],
+   "listed_pt": [
+    0.73581,
+    0.16244
+   ],
+   "listed_vs_derived_m": 0.004,
+   "listed_vs_derived_pt": 0.005,
+   "within_tolerance": true,
+   "page_now_ll": [
+    -27.991578,
+    153.430438
+   ],
+   "page_now_pt": [
+    0.73515,
+    0.16419
+   ],
+   "page_now_how": "tag on the unit, master D001",
+   "page_now_img": [
+    "7fc4b16ef5b513e2b186993fcaf7b65cb583b3aca782039751bcf3a89d18b779",
+    "ae001998d28e510698bf6d19258073392eb754513edb20877879b1071dcfbf4f"
+   ],
+   "moves_m": 2.27,
+   "moves_dir": "south-east",
+   "moves_bearing": 118,
+   "m_per_pt": 0.707,
+   "touching_extra": 0,
+   "drawn_twice": 0,
+   "tag_to_unit_m": 2.3,
+   "list_metres": 2.3,
+   "list_to_pt_other_frame": [
+    0.73581,
+    0.16248
+   ],
+   "list_to_pt_other_frame_vs_derived_pt": 0.07
+  },
+  "WC55": {
+   "kind": "toilet",
+   "unit_kinds": {
+    "toilet": 1
+   },
+   "n_parts": 1,
+   "drawings": [
+    118460
+   ],
+   "paper_pt": [
+    1674.2,
+    360.54
+   ],
+   "inset": false,
+   "derived_ll": [
+    -27.9912419,
+    153.429832
+   ],
+   "derived_pt": [
+    0.71296,
+    0.21412
+   ],
+   "listed_ll": [
+    -27.9912419,
+    153.429832
+   ],
+   "listed_pt": [
+    0.71296,
+    0.21412
+   ],
+   "listed_vs_derived_m": 0.006,
+   "listed_vs_derived_pt": 0.003,
+   "within_tolerance": true,
+   "page_now_ll": [
+    -27.991245,
+    153.429848
+   ],
+   "page_now_pt": [
+    0.71317,
+    0.21283
+   ],
+   "page_now_how": "tag on the unit, master D001",
+   "page_now_img": [
+    "83ba8f9dbb1ff1c5bf482f76fbef4fc081b9cbaac5ab35d4436630396221698e",
+    "5df26e33995dd3169123a520a08f638a703290053893a2e45e96bc231e7b70a0"
+   ],
+   "moves_m": 1.61,
+   "moves_dir": "west",
+   "moves_bearing": 282,
+   "m_per_pt": 0.707,
+   "touching_extra": 0,
+   "drawn_twice": 0,
+   "tag_to_unit_m": 1.6,
+   "list_metres": 1.6,
+   "list_to_pt_other_frame": [
+    0.71296,
+    0.21417
+   ],
+   "list_to_pt_other_frame_vs_derived_pt": 0.085
+  },
+  "WC56": {
+   "kind": "toilet",
+   "unit_kinds": {
+    "toilet": 12
+   },
+   "n_parts": 12,
+   "drawings": [
+    118980,
+    118990,
+    119000,
+    119010,
+    119020,
+    119030,
+    119070,
+    119080,
+    119090,
+    119100,
+    119110,
+    119120
+   ],
+   "paper_pt": [
+    1451.099,
+    325.937
+   ],
+   "inset": false,
+   "derived_ll": [
+    -27.98982,
+    153.4300769
+   ],
+   "derived_pt": [
+    0.61938,
+    0.19358
+   ],
+   "listed_ll": [
+    -27.98982,
+    153.4300769
+   ],
+   "listed_pt": [
+    0.61938,
+    0.19358
+   ],
+   "listed_vs_derived_m": 0.003,
+   "listed_vs_derived_pt": 0.008,
+   "within_tolerance": true,
+   "page_now_ll": [
+    -27.98982,
+    153.430057
+   ],
+   "page_now_pt": [
+    0.61942,
+    0.19531
+   ],
+   "page_now_how": "tag on the unit, master D001",
+   "page_now_img": [
+    "cda1f99ba9f546ebd2fd92a1b5d7fa447afc6ec91aaf6da5ab96e452ce9d248d",
+    "0323e509a2d92dd68daf2363c0f8c2a84220fa6422eca8f7db4a39f50eb7903a"
+   ],
+   "moves_m": 1.95,
+   "moves_dir": "east",
+   "moves_bearing": 90,
+   "m_per_pt": 0.707,
+   "touching_extra": 0,
+   "drawn_twice": 0,
+   "tag_to_unit_m": 2.0,
+   "list_metres": 2.0,
+   "list_to_pt_other_frame": [
+    0.61938,
+    0.19362
+   ],
+   "list_to_pt_other_frame_vs_derived_pt": 0.074
+  },
+  "WC61": {
+   "kind": "toilet",
+   "unit_kinds": {
+    "toilet": 8
+   },
+   "n_parts": 8,
+   "drawings": [
+    118760,
+    118770,
+    118780,
+    118790,
+    118800,
+    118810,
+    118820,
+    118830
+   ],
+   "paper_pt": [
+    556.727,
+    359.087
+   ],
+   "inset": false,
+   "derived_ll": [
+    -27.9841222,
+    153.4298238
+   ],
+   "derived_pt": [
+    0.24422,
+    0.21326
+   ],
+   "listed_ll": [
+    -27.9841222,
+    153.4298238
+   ],
+   "listed_pt": [
+    0.24422,
+    0.21326
+   ],
+   "listed_vs_derived_m": 0.005,
+   "listed_vs_derived_pt": 0.009,
+   "within_tolerance": true,
+   "page_now_ll": [
+    -27.984129,
+    153.429805
+   ],
+   "page_now_pt": [
+    0.24471,
+    0.2149
+   ],
+   "page_now_how": "tag on the unit, master D001",
+   "page_now_img": [
+    "0b80008a23ff23f3da654022d1988832b1984792dd922aef1f666c3f3682a732",
+    "7ea33f94edd111ebb18e48222022fdf65b61e27c6037ab87a63307a19d378a9e"
+   ],
+   "moves_m": 1.99,
+   "moves_dir": "east",
+   "moves_bearing": 68,
+   "m_per_pt": 0.707,
+   "touching_extra": 0,
+   "drawn_twice": 0,
+   "tag_to_unit_m": 2.0,
+   "list_metres": 2.0,
+   "list_to_pt_other_frame": [
+    0.24422,
+    0.21331
+   ],
+   "list_to_pt_other_frame_vs_derived_pt": 0.09
+  },
+  "WC67": {
+   "kind": "toilet",
+   "unit_kinds": {
+    "toilet": 2
+   },
+   "n_parts": 2,
+   "drawings": [
+    121774,
+    121784
+   ],
+   "paper_pt": [
+    126.087,
+    1145.477
+   ],
+   "inset": false,
+   "derived_ll": [
+    -27.9813908,
+    153.4241664
+   ],
+   "derived_pt": [
+    0.06359,
+    0.68013
+   ],
+   "listed_ll": [
+    -27.9813908,
+    153.4241664
+   ],
+   "listed_pt": [
+    0.06359,
+    0.68013
+   ],
+   "listed_vs_derived_m": 0.004,
+   "listed_vs_derived_pt": 0.012,
+   "within_tolerance": true,
+   "page_now_ll": [
+    -27.981388,
+    153.424153
+   ],
+   "page_now_pt": [
+    0.06342,
+    0.68135
+   ],
+   "page_now_how": "tag on the unit, master D001",
+   "page_now_img": [
+    "43f363183f23a168eb133e082452de9747814abfca8eb739fdedb00e4d0108bc",
+    "7ba062e8a5c983ab1757f0f4938567ea977fcc60abb6c79833fbd15670887399"
+   ],
+   "moves_m": 1.35,
+   "moves_dir": "east",
+   "moves_bearing": 103,
+   "m_per_pt": 0.707,
+   "touching_extra": 0,
+   "drawn_twice": 0,
+   "tag_to_unit_m": 1.3,
+   "list_metres": 1.3,
+   "list_to_pt_other_frame": [
+    0.06359,
+    0.68028
+   ],
+   "list_to_pt_other_frame_vs_derived_pt": 0.258
+  },
+  "WC71": {
+   "kind": "toilet",
+   "unit_kinds": {
+    "toilet": 8
+   },
+   "n_parts": 8,
+   "drawings": [
+    118410,
+    118420,
+    118430,
+    118440,
+    119333,
+    119343,
+    119353,
+    119363
+   ],
+   "paper_pt": [
+    108.907,
+    1240.452
+   ],
+   "inset": false,
+   "derived_ll": [
+    -27.9812828,
+    153.4234837
+   ],
+   "derived_pt": [
+    0.05638,
+    0.73651
+   ],
+   "listed_ll": [
+    -27.9812828,
+    153.4234837
+   ],
+   "listed_pt": [
+    0.05638,
+    0.73651
+   ],
+   "listed_vs_derived_m": 0.005,
+   "listed_vs_derived_pt": 0.005,
+   "within_tolerance": true,
+   "page_now_ll": [
+    -27.981269,
+    153.423502
+   ],
+   "page_now_pt": [
+    0.05549,
+    0.73515
+   ],
+   "page_now_how": "tag on the unit, master D001",
+   "page_now_img": [
+    "aaf74bd6208638eb55ea4fd664de62716753f47a80d4f3694411d7253848fa58",
+    "e3cd0fd154bd7a1ef31900506343c1fcad7849e73055a7cda3ae07300cf5679a"
+   ],
+   "moves_m": 2.36,
+   "moves_dir": "south-west",
+   "moves_bearing": 230,
+   "m_per_pt": 0.707,
+   "touching_extra": 0,
+   "drawn_twice": 0,
+   "tag_to_unit_m": 2.4,
+   "list_metres": 2.4,
+   "list_to_pt_other_frame": [
+    0.05638,
+    0.73668
+   ],
+   "list_to_pt_other_frame_vs_derived_pt": 0.282
+  },
+  "WC72": {
+   "kind": "toilet",
+   "unit_kinds": {
+    "toilet": 1
+   },
+   "n_parts": 1,
+   "drawings": [
+    119528
+   ],
+   "paper_pt": [
+    241.91,
+    1167.96
+   ],
+   "inset": false,
+   "derived_ll": [
+    -27.9821291,
+    153.4240067
+   ],
+   "derived_pt": [
+    0.11217,
+    0.69347
+   ],
+   "listed_ll": [
+    -27.9821291,
+    153.4240067
+   ],
+   "listed_pt": [
+    0.11217,
+    0.69347
+   ],
+   "listed_vs_derived_m": 0.005,
+   "listed_vs_derived_pt": 0.008,
+   "within_tolerance": true,
+   "page_now_ll": [
+    -27.982154,
+    153.423999
+   ],
+   "page_now_pt": [
+    0.11376,
+    0.6943
+   ],
+   "page_now_how": "tag on the unit, master D001",
+   "page_now_img": [
+    "7f15ede7a1b57633b36ec300714ea4a3099b82564152d48301a3a827c7512730",
+    "3d59fe293644bbb5815942dacf57e7ebcef63d83d1a15499b70a422da644e9b6"
+   ],
+   "moves_m": 2.87,
+   "moves_dir": "north",
+   "moves_bearing": 15,
+   "m_per_pt": 0.707,
+   "touching_extra": 0,
+   "drawn_twice": 0,
+   "tag_to_unit_m": 2.8,
+   "list_metres": 2.9,
+   "list_to_pt_other_frame": [
+    0.11217,
+    0.69363
+   ],
+   "list_to_pt_other_frame_vs_derived_pt": 0.262
+  },
+  "WC73": {
+   "kind": "toilet",
+   "unit_kinds": {
+    "toilet": 2
+   },
+   "n_parts": 2,
+   "drawings": [
+    119263,
+    119273
+   ],
+   "paper_pt": [
+    1001.758,
+    599.815
+   ],
+   "inset": false,
+   "derived_ll": [
+    -27.9869615,
+    153.4281016
+   ],
+   "derived_pt": [
+    0.4309,
+    0.35617
+   ],
+   "listed_ll": [
+    -27.9869615,
+    153.4281016
+   ],
+   "listed_pt": [
+    0.4309,
+    0.35617
+   ],
+   "listed_vs_derived_m": 0.003,
+   "listed_vs_derived_pt": 0.01,
+   "within_tolerance": true,
+   "page_now_ll": [
+    -27.986964,
+    153.428121
+   ],
+   "page_now_pt": [
+    0.43108,
+    0.35469
+   ],
+   "page_now_how": "tag on the unit, master D001",
+   "page_now_img": [
+    "22311d67436ed18a9726dc476437789ff38ab6a69085f95d087b97c55ff5b7cb",
+    "011723210716de1b6ea5220edc1b433bf2d075a0d31d71da993293a632bcd5af"
+   ],
+   "moves_m": 1.93,
+   "moves_dir": "west",
+   "moves_bearing": 278,
+   "m_per_pt": 0.707,
+   "touching_extra": 0,
+   "drawn_twice": 2,
+   "tag_to_unit_m": 1.9,
+   "list_metres": 1.9,
+   "list_to_pt_other_frame": [
+    0.4309,
+    0.35626
+   ],
+   "list_to_pt_other_frame_vs_derived_pt": 0.145
+  }
+ },
+ "fails": []
+}
