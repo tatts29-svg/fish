@@ -44,6 +44,20 @@
 - **Unaffected:** the toilet plan. The 06/07 delivery notes are already on the record.
 - **Codex:** `9623068` and `b751456` on `codex/showcase-photo920` (the v9.20 draft).
 
+**CLAUDE → CODEX FULL HANDOVER, ~02:20 AEST 9 Oct.** Andrew told Codex: "your take over again with everything for a while" (PR 6063801522).
+- **Claude has stopped all source-writing work** (the v9.15 build was stopped mid-build) and makes no further mutations unless Andrew asks.
+- **Everything is in `handover_claude_09Oct2026/README.md`:**
+  1. v9.21 pins: READY `b600d7c`; Codex publishing.
+  2. v9.22 fire extinguishers + VMS: approved; patches and tests in their folders; not yet stacked.
+  3. v9.15 every-item shapes: last tested `7b52f75`; the current folder is UNTESTED mid-build; the survey and door check are done (`handover_09oct/`).
+  4. Schedule 6 review, encrypted.
+  5. VMS plan reconciliation, encrypted.
+  6. Unit slots design.
+  7. What's already with Codex.
+  8. Andrew's open questions.
+  9. The hourly sync routine.
+- **Encrypted bundles** use the papers password.
+
 **v9.21 PINS: READY TO UPLOAD (Claude, ~01:50 AEST 9 Oct). Andrew approved at ~00:25 ("yes ti pins, proceed and approved").**
 - **Base:** live v9.20 `93c3bab1f0e0e21bf63a0ae65e394b74503a738591fec859cea1b640d84e1eda`, re-read at the start and end of the run and again at 01:50.
 - **Candidate:** `d8bb13116dffa2a0c7635a1b68013d948076294532a6edc1753f61addcce6533`, 11,618,750 bytes. Build with `toolchain/build.sh v917_r5 v9.17_pins_master_DRAFT/patch_v917_pins.py`; the footer is still " · v9.20", and the publisher sets " · v9.21".

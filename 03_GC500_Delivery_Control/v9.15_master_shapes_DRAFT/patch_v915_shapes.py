@@ -338,7 +338,7 @@ const MasterShapes915 = (() => {
     const tankOff = shortPx != null ? Math.max(3, Math.min(6, shortPx * k * 0.18)) : 4;
     const tags = [];
     comps.forEach(c => {
-      if (c.geometry === 'point') { grow([c.centroid[0] - 10, c.centroid[1] - 10]); grow([c.centroid[0] + 10, c.centroid[1] + 10]); return; }
+      if (c.geometry === 'point') { grow([c.centroid[0] - 12, c.centroid[1] - 10]); grow([c.centroid[0] + 12, c.centroid[1] + 10]); return; }
       const w = c.geometry === 'polyline' ? c.lineWidthPx / 2 + 2 : 0;
       c.poly.forEach(q => { grow([q[0] - w, q[1] - w]); grow([q[0] + w, q[1] + w]); });
       if (c.role === 'tank-under') c.poly.forEach(q => grow([q[0] + tankOff, q[1] + tankOff]));
@@ -351,7 +351,7 @@ const MasterShapes915 = (() => {
     comps.forEach(c => {
       if (c.role !== 'tank-under' && c.role !== 'tank') return;
       const off = c.role === 'tank-under' ? tankOff : 0, Q = c.poly.map(q => [q[0] + off, q[1] + off]);
-      const text = c.role === 'tank' ? 'WASTE TANK' : '+ WASTE TANK', fs = 10, w = text.length * fs * 0.62 + 8, h = fs + 6;
+      const text = c.role === 'tank' ? 'WASTE TANK' : '+ WASTE TANK', fs = 10, w = text.length * fs * 0.72 + 10, h = fs + 6;
       const cx = c.centroid[0] + off, cy = c.centroid[1] + off;
       if (c.role === 'tank' && Q.length === 4 && !badgeIn) {
         const e0 = len(Q[0], Q[1]), e1 = len(Q[1], Q[2]), E = e0 >= e1 ? [Q[0], Q[1]] : [Q[1], Q[2]], lng = Math.max(e0, e1), sht = Math.min(e0, e1);
@@ -428,8 +428,8 @@ const MasterShapes915 = (() => {
           '<polyline class="ms915-piece-w" points="' + pts(c.poly) + '" fill="none" stroke="#fafafa" stroke-width="' + r2(w) + '" stroke-dasharray="' + r2(pl) + ' ' + r2(pl) + '" stroke-dashoffset="' + r2(pl) + '"/>';
       } else {
         const q = c.centroid;
-        out += '<rect class="ms915-comp ms915-point" data-i="' + c.i + '" x="' + r2(q[0] - 8) + '" y="' + r2(q[1] - 8) + '" width="16" height="16" rx="2" fill="' + fill + '" fill-opacity="0.62" stroke="' + edge + '" stroke-width="1.4" stroke-dasharray="3 2"/>' +
-          '<text x="' + r2(q[0]) + '" y="' + r2(q[1]) + '" text-anchor="middle" dominant-baseline="central" font-family="system-ui,-apple-system,Segoe UI,Roboto,sans-serif" font-size="8" font-weight="800" fill="' + ink + '">' + esc(TAG[c.kind] || '?') + '?</text>';
+        out += '<rect class="ms915-comp ms915-point" data-i="' + c.i + '" x="' + r2(q[0] - 11) + '" y="' + r2(q[1] - 9) + '" width="22" height="18" rx="2" fill="' + fill + '" fill-opacity="0.62" stroke="' + edge + '" stroke-width="1.4" stroke-dasharray="3 2"/>' +
+          '<text x="' + r2(q[0]) + '" y="' + r2(q[1]) + '" text-anchor="middle" dominant-baseline="central" font-family="system-ui,-apple-system,Segoe UI,Roboto,sans-serif" font-size="7.5" font-weight="800" fill="' + ink + '">' + esc(TAG[c.kind] || '') + '?</text>';
       }
       // the master's own marks (chevrons, generator diagonals and triangles, container doors)
       c.marks.forEach(m => {
