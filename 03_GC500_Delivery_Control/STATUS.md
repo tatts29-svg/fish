@@ -52,7 +52,7 @@
 - **~18:00, Andrew on the fire extinguisher rate: "use 2025 for now if need to we edit at a later date".**
   - v9.14 charges the card's Fire Ext. figure per piece.
   - **~18:10, Andrew: "don't mention anything about 2025".** The page shows no year anywhere on fire extinguishers; it reads "Charged per piece at the card's Fire Ext. rate".
-  - It's still a one-off charge per piece, as the page treats it.
+  - **~18:15, Andrew confirms it's a one-off charge per piece** ("one off charge i'm sure"), as the page already treats it.
   - Item types with no 2025 figure (0.00) stay "rate to confirm", never nought.
   - This gets applied when the v9.14 build finishes (workflow `wf_a76078bc-be0`).
 - **~17:50, pin audit finished** (`wf_7b2231c9-64c`, read only, against live v9.11 and record 4508). The proof page went to Andrew.
