@@ -34,6 +34,22 @@
   - The roster grid answers "which days each person is on". Is that what he meant?
 - **The build follows his yes**, on the latest public page. If Codex's v9.08 is live by then, it is rebuilt on v9.08.
 
+**CLAUDE, 8 Oct 2026 ~15:50 AEST: fencing CW3 invoice checked for Andrew** ("can i get you to access this one we all good").
+- **The invoice:** Advanced's Week 3 (CW3, 28 Sep–2 Oct) commercial-approval sheet, one page, a private input kept out of git.
+- **Verdict: approve once two things are fixed.** The PO number printed doesn't match the record, and docket 36532 should be 36562 (36532 is a CW5 docket already billed).
+- **Checks out:**
+  - every total and line;
+  - 20 of the 21 CW3 papers by number, plus 36562 under the wrong number;
+  - metres less 2.5 m a wheel, and the 34 gates;
+  - 8 of the 9 rates against the tracker.
+- **His calls:**
+  - the pedestrian gate rate (the tracker rate is lower than billed);
+  - whether the Pit Building bracing (36566, planned in CON WK3/WK5) and Event Elec (36569, "not billed to iEDM / SC" in the programme) are charged to the V8s;
+  - accepting team leaders and vehicle gates, which have no charge line;
+  - confirming in writing that fitting scrim on the 36560 north run is inside the braced rate.
+- **Minor, mark up at signing:** 36568 is the south strip, 24465 is Thu 1 Oct, tick STD, write "ex GST".
+- **Page follow-up:** the page models Advanced's braced-for-scrim billing differently from how Advanced bill, so its CW3 cost is lower than the invoice.
+
 **ANDREW, 8 Oct 2026 ~15:35 AEST:** "T0103 this is VMS09 and VMS10 VMS is the number i gave you and the VMS10 is the subhire number i gave you . vms boards have number plates too i told you this".
 - **This answers one VMS reconciliation question,** which boards T0103 brings today: VMS09 (Coates, contract 9961265 line 12) and VMS10 (PremAir Hire sub-hire, line 13, fleet 120T, rego given).
 - **The VMS rego release is extended** (workflow `wf_8ac04b4e-59b`; the first run was stopped before review, and the new builder starts from its files):
