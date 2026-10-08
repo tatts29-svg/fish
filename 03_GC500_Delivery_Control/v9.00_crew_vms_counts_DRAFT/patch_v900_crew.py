@@ -82,20 +82,23 @@ assert not any(ADDED.search(x.get('about') or '') for x in PEOPLE if x.get('grou
 NEW = {k: P[k] for k in KEYS}
 PEOPLE.insert(FEN[-1] + 1, NEW)
 
-# ---- 2. the notes stay true: the sheet's eight, and one added by the project manager on 8 Oct 2026
+# ---- 2. the notes stay true: the sheet's eight, and one added by the project manager on 8 Oct 2026. Both notes are bound by
+# SHA-256 as found (so no name from them needs spelling out here); the old words stay, the new ones are added beside them.
 G = [g for g in T['groups'] if g['key'] == 'fencing']; assert len(G) == 1
-OLD_G = 'so none is written for the seven; Wayne Woods keeps the email iEDM’s schedule email gave for him.'
-assert G[0]['note'].count(OLD_G) == 1 and G[0]['note'].endswith(OLD_G), 'the fencing group note is not as found'
-G[0]['note'] = G[0]['note'][:-len(OLD_G)] + (
-    'so none is written for the other seven on the sheet; Wayne Woods keeps the email iEDM’s schedule email gave for him. '
-    f'Nine names since {ON_WORDS}: the sheet’s eight, in its order, and one added by the project manager on {ON_WORDS}, '
-    'listed last, as Fencing crew with the company — no other role, title, number or email was given, so none is written.')
-OLD_T = ('The eight names and the company are as the sheet reads, in the sheet’s order; Wayne Woods is marked supervisor on it; '
-         'no other role, title, number or email is on the sheet, so none is written.')
-assert T['note'].count(OLD_T) == 1, 'DATA.team.note is not as found'
-T['note'] = T['note'].replace(OLD_T, OLD_T + (
-    f' One more name was added to the fencing crew by the project manager on {ON_WORDS}; it comes after the sheet’s eight, '
-    'as Fencing crew with the company, and no other role, title, number or email was given, so none is written.'))
+def sha(t): return hashlib.sha256(t.encode('utf-8')).hexdigest()
+assert sha(G[0]['note']) == 'cbd6709edd5c08d2ebc43cb19c80ca4ea77a83b258690ac19d3908ce12efc63e', 'the fencing group note is not as found'
+assert sha(T['note']) == 'bf33734cf447be893b070b5df6d3c0960a97d174398684a71b8d03e68f36af5d', 'DATA.team.note is not as found'
+G_ADD = (f'Nine names since {ON_WORDS}: the sheet’s eight, in its order, and one added by the project manager on {ON_WORDS}, '
+         'listed last, as Fencing crew with the company — no other role, title, number or email was given, so none is written.')
+assert G[0]['note'].count('for the seven;') == 1 and G[0]['note'].endswith('.')
+G[0]['note'] = G[0]['note'].replace('for the seven;', 'for the other seven on the sheet;') + ' ' + G_ADD
+T_AT = 'The eight names and the company are as the sheet reads, in the sheet’s order;'
+T_END = 'so none is written.'
+assert T['note'].count(T_AT) == 1, 'DATA.team.note is not as found'
+k = T['note'].index(T_AT); e = T['note'].index(T_END, k) + len(T_END)          # the end of the sheet's sentence
+T_ADD = (f' One more name was added to the fencing crew by the project manager on {ON_WORDS}; it comes after the sheet’s eight, '
+         'as Fencing crew with the company, and no other role, title, number or email was given, so none is written.')
+T['note'] = T['note'][:e] + T_ADD + T['note'][e:]
 
 # ---- the proof: with the person taken out and the two notes put back, DATA is the base exactly
 CHK = copy.deepcopy(D)
