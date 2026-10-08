@@ -32,7 +32,7 @@ const fs=require('fs'),path=require('path'),{open}=require('../toolchain/harness
    S.loads[key]={kind:'anotherKind',day,loadId:id};results.collision=!traffic903Save(day,id,'required');S.loads[key]=valid;
    const earlier={...valid,status:'required',at:'2025-01-01T00:00:00.000Z'};traffic903Save(day,id,'unknown');const reset=S.loads[key];
    results.reset=[mergeRecords({loads:{[key]:earlier}},{loads:{[key]:reset}}),mergeRecords({loads:{[key]:reset}},{loads:{[key]:earlier}})].every(x=>x.merged.loads[key].status==='unknown');
-   results.words=Object.keys(TRAFFIC903_STATUS).every(status=>{S.loads[key]={...valid,status};const h=traffic903Sheet(day,a)+traffic903Editor(day,a)+traffic903DayHtml(day);return h.includes(TRAFFIC903_STATUS[status])&&!/no charge|V8s|Provided through|type="number"/i.test(h);});
+   results.words=Object.keys(TRAFFIC903_STATUS).every(status=>{S.loads[key]={...valid,status};const h=traffic903Sheet(day,a)+traffic903Editor(day,a);return h.includes(TRAFFIC903_STATUS[status])&&!/no charge|V8s|Provided through|type="number"/i.test(h);});
    bump=()=>{bump.kept=false;};render=()=>{};const beforeFail=JSON.stringify(S.loads);results.saveFailure=!traffic903Save(day,id,'required')&&JSON.stringify(S.loads)===beforeFail;
   }finally{S=JSON.parse(before);programmeDays=original.programmeDays;dpLoads=original.dpLoads;bump=original.bump;whoAmI=original.whoAmI;mayWrite=original.mayWrite;flash=original.flash;render=original.render;}
   results.restored=JSON.stringify(S)===before;return results;
@@ -43,6 +43,7 @@ const fs=require('fs'),path=require('path'),{open}=require('../toolchain/harness
    return ['drv','ins'].map(doc=>{const w=document.createElement('div');w.innerHTML=dpPage(d,g,doc,1,5);return {doc,count:w.querySelectorAll('.traffic903-sheet').length,text:w.querySelector('.traffic903-sheet')?.textContent};});
   }finally{S=JSON.parse(before);}
  });ok('driver and install sheets show one simple traffic status per load',paper.every(x=>x.count===1&&x.text==='Traffic control · Required'));
+ ok('day card has no traffic count summary',await p.evaluate(()=>{const d=programmeDays().find(x=>x.iso==='2026-10-12');return !/traffic903-day|Traffic control/.test(flow891Card(d));}));
  const geometry=[];
  for(const width of (process.env.MODEL_ONLY?[]:[1440,2560,3840,390])){
   await p.setViewportSize({width,height:width===390?844:1100});

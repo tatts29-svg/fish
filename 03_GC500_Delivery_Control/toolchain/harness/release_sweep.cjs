@@ -336,6 +336,8 @@ async function main() {
     stage = 'startup';
     await page.goto(HOST + VIEW, {waitUntil: 'load', timeout: 180000});
     await page.waitForFunction(() => typeof go === 'function' && typeof TABS !== 'undefined', null, {timeout: 150000});
+    await page.waitForFunction(() => !window.GC500Refresh904 || window.GC500Refresh904.report().settled,
+      null, {timeout: 45000});
     await page.waitForTimeout(3000);
     const declaredTabs = await page.evaluate(() => TABS.map(tab => tab[0]));
     result.declaredTabs = declaredTabs;

@@ -32,18 +32,10 @@ function traffic903Editor(day,load){
  return '<details class="loading872 traffic903" data-traffic903-day="'+esc(day)+'" data-traffic903-load="'+esc(id)+'"><summary>'+esc(traffic903Summary(day,id))+'</summary><div class="traffic903-body"><label>Status <select data-traffic903-status'+(can?'':' disabled')+'>'+Object.entries(TRAFFIC903_STATUS).map(([k,w])=>'<option value="'+k+'"'+(p.status===k?' selected':'')+'>'+esc(w)+'</option>').join('')+'</select></label>'+(can?'<button type="button" class="btn" data-traffic903-save>Save traffic control</button>':'')+(p.review?'<p>Saved service record needs review.</p>':'')+'</div></details>';
 }
 function traffic903Sheet(day,load){return '<div class="loading872-sheet traffic903-sheet"><b>'+esc(traffic903Summary(day,load))+'</b></div>';}
-function traffic903DayHtml(day){
- const m=traffic903Day(day);if(!m.total)return '';
- const part=(n,word)=>n?n+' load'+(n===1?'':'s')+' '+word:'';
- const parts=[part(m.required,'required'),part(m.arranged,'arranged'),part(m.unknown,'to confirm'),part(m.notRequired,'not required')].filter(Boolean);
- return '<div class="flow891-row traffic903-day"><b>Traffic control</b><div>'+esc(parts.join(' · '))+'</div></div>';
-}
 const timeline841ActionsBefore903=timeline841Actions;
 timeline841Actions=function(d,g,n){const h=timeline841ActionsBefore903(d,g,n),extra=traffic903Editor(d.iso,g);return h?h.replace('<button type="button" class="btn" data-tl841-print=',extra+'<button type="button" class="btn" data-tl841-print='):extra;};
 const dpPageBefore903=dpPage;
 dpPage=function(d,g,doc,i,n){const h=dpPageBefore903(d,g,doc,i,n);return h.replace('<h2>Safety</h2>','<h2>Safety</h2>'+traffic903Sheet(d.iso,g));};
-const flow891CardBefore903=flow891Card;
-flow891Card=function(d){return flow891CardBefore903(d).replace('<div class="flow891-rows">','<div class="flow891-rows">'+traffic903DayHtml(d.iso));};
 document.addEventListener('click',e=>{
  const b=e.target.closest&&e.target.closest('[data-traffic903-save]');if(!b)return;e.preventDefault();
  const box=b.closest('[data-traffic903-day]'),day=box.dataset.traffic903Day,id=box.dataset.traffic903Load,status=box.querySelector('[data-traffic903-status]').value;

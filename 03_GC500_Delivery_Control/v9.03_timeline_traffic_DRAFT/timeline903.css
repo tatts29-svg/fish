@@ -26,7 +26,6 @@
 .traffic903-body p{margin:0;color:inherit;font-size:13px}
 .traffic903-body label{display:grid;gap:7px;font-size:13px;font-weight:600}
 .traffic903-body select{width:100%;max-width:100%;min-width:0;font:inherit;min-height:44px}
-.traffic903-note{display:block;margin-top:4px;font-size:.9em;color:var(--muted,#64747b)}
 @media(min-width:2200px){
  #pane-timeline .tl846-layout{grid-template-columns:minmax(0,1.15fr) minmax(600px,1fr)}
  #pane-timeline .tl846-controls .loading872 summary,#pane-timeline .traffic903-body label{font-size:16px}
