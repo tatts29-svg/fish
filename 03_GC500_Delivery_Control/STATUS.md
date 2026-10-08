@@ -44,6 +44,14 @@
 - **Unaffected:** the toilet plan. The 06/07 delivery notes are already on the record.
 - **Codex:** `9623068` and `b751456` on `codex/showcase-photo920` (the v9.20 draft).
 
+**LIVE v9.34: combined v9.29–v9.34 (Codex published 05:51 AEST 9 Oct; Claude read back at 05:56, GETs only):**
+- **Page:** `b881e8890e8a590fea79ac63657fd43254c5ccdd11735d7f70a1b4874773c33c`, 12,295,093 bytes, footer ` · v9.34`, matching Codex's claim (`7f658fc`).
+- **v9.29:** `unload929-script` and `unload929-style` are byte-identical to the frozen `c669294`, and both hooks appear once.
+  - On 9 Oct, 7 Oct and 14 Sep, at 1440 and 390 px, every row has its icons and the WC20 and WC05 tanks come first.
+  - No sideways overflow, 0 page errors, 0 writes.
+  - The folder is renamed `v9.29_unload_icons_LIVE/`.
+- **Also seen working:** Codex's v9.30 round numbered map markers with the destination outlines.
+
 **SYNC 05:20 AEST 9 Oct (Claude), GETs only:**
 - **Live:** still v9.28 `592e73b3…` (12,262,425 bytes). The machine is still `3dac8423…` "v9.21-pins-aligned". The record is still 4633 (17:29 UTC), so the toilet plan needs no re-run.
 - **Codex:**

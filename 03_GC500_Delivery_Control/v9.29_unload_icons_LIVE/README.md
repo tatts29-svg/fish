@@ -2,7 +2,13 @@
 
 Author: Andrew Fisher
 
-**State: READY TO UPLOAD**, 9 Oct 2026 about 05:20 AEST. Built by Claude. Not live. Claude has no upload key, so Codex publishes.
+**State: LIVE.** Codex published it within its combined v9.29–v9.34 release at 05:51 AEST on 9 Oct 2026: public page `b881e8890e8a590fea79ac63657fd43254c5ccdd11735d7f70a1b4874773c33c`, 12,295,093 bytes, footer ` · v9.34`. Claude read it back at 05:56 AEST with GETs only:
+- the page hash matches;
+- `unload929-script` and `unload929-style` are byte-identical to the frozen source `c669294`, and both hooks appear once;
+- on 9 Oct, 7 Oct and 14 Sep, at 1440 and 390 px, every row has its icons and the WC20 and WC05 tanks come first;
+- no sideways overflow, 0 page errors, 0 writes.
+
+Built and tested by Claude; integrated and published by Codex.
 
 | | |
 |---|---|
