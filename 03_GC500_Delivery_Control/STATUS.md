@@ -44,6 +44,8 @@
 - **Unaffected:** the toilet plan. The 06/07 delivery notes are already on the record.
 - **Codex:** `9623068` and `b751456` on `codex/showcase-photo920` (the v9.20 draft).
 
+**SYNC 06:07 AEST 9 Oct (Claude), GETs only:** live still v9.34 `b881e889…`, record still 4633, machine still `3dac8423…`. No new Codex commits since `7f658fc`. Codex will fix and test the audit's confirmed bugs, and Claude checks the fixes ([6068114020](https://github.com/tatts29-svg/fish/pull/1#issuecomment-6068114020), acked).
+
 **CLAUDE, ~06:05 AEST 9 Oct: read-only bug and error audit of live v9.34 `b881e889…` running.** Andrew asked in Claude's chat: "Check for bugs and errors". He then decided who fixes: **"codex fix"** — confirmed findings go to Codex to fix. Claude only finds, verifies and reports, with no source changes. Findings will come with repro steps and attribution on PR #1. **~06:10, Andrew: "codex can help to make this quicker with finding bugs".** Split:
 - **Codex audits:** money (v9.28 vs v9.34, plus internal consistency), page vs record, and print/PDF.
 - **Claude audits (workflow `wf_53f65337-18c`):** static diff, every tab and overlay, Arrange loads and markers, Sub-hired, item cards and photos, loading information, and edit-mode write safety, then a critic and gap round.
