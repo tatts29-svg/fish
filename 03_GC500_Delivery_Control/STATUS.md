@@ -44,6 +44,17 @@
 - **Unaffected:** the toilet plan. The 06/07 delivery notes are already on the record.
 - **Codex:** `9623068` and `b751456` on `codex/showcase-photo920` (the v9.20 draft).
 
+**READY TO UPLOAD: v9.29 unload-order icons in Arrange loads, CLAUDE, 9 Oct 2026 ~05:20 AEST.** Source `v9.29_unload_icons_DRAFT/` (commit named in the PR #1 READY note).
+- **Hashes:** base live v9.28 `592e73b3…`; candidate `2fa3fa3fcc9601979b393229376a038050568fb0243797d43a5c0f4b53a60556`, 12,273,073 bytes.
+- **Checks:**
+  - `check_page.py` PASS.
+  - Pure test 13/13.
+  - Real-page test on all 31 delivery days at 1440 and 390 px. All 172 rows have a strip, stops are in order, tanks come before blocks, and the rows are byte-identical to live apart from the icons. 0 page errors, 0 writes.
+  - Both sweeps: 21 tabs, 0 page errors, 0 blocked.
+- **Map explorer 404s:** the explorer vector-tile 404s (`/w/…/explorer/assets/vt/L*.bin`) show the same on live, so they come from before this release.
+- **Review:** Claude implemented and tested this alone; Codex hasn't reviewed it.
+- **Fits with Codex's v9.30–v9.33** claims (fetched `a56badf`): v9.29 touches only the arrival-order rows.
+
 **CLAIM: v9.29 unload-order icons in Arrange loads, CLAUDE, 9 Oct 2026 ~04:55 AEST.** Andrew asked Claude directly in chat: "icons for unload order". Folder `v9.29_unload_icons_DRAFT/`, built on live v9.28 `592e73b3…`. **Scope:**
 - **What it adds:** on each row of Arrange loads' arrival order, a small icon for each item that comes off that truck, with its count.
 - **Unload order:** stops follow the load's own order; at one stop a waste tank goes before the toilet block that sits on it.
