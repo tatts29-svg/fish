@@ -71,6 +71,7 @@ write aborted, the live record read fresh at every open — version 4414 at the 
 | v8.88 Transport view (`transport888`) | 29/29 | 29/29 | 29/29 at 2560 px |
 | v8.65 Costs (`costs865`) | 33/33 | 33/33 | |
 | Map explorer card on the v8.93 code and assets (`explorer887`) | 23/23 | 24/24 | |
+| v8.90's explorer test on the v8.93 code and assets (`explorer890_v893`) | 17/17 | 17/17 | the 2 Oct scene, the pyramid by byte range, P45 / WC10 / WC51 / WC38 / WC39 at their 2 Oct places, the fencing layer, deep zoom |
 | v8.89 master read against v8.93 (`master889_v893`) | 17/17 | 17/17 | |
 | v8.85 Where we are (`where885`) | 24/24 at 1600 and 1440 | 24/24 | 24/24 at 2560 |
 | v8.84 wide layout (`wide884`) | 21/21 at 1600 and 1440 | 21/21 | 21/21 at 2560 |
