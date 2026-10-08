@@ -1,6 +1,6 @@
 {
   "author": "Andrew Fisher",
-  "state": "READY TO UPLOAD",
+  "state": "VERIFIED LIVE",
   "candidateSha256": "62ac34d8036731a941d60bda31aed759950929095a8503966354902ab6635df1",
   "candidateBytes": 12583842,
   "baseSha256": "968cd3a850584736fcfa28b403e9b7fd2d280557e86984c8be87c2b5bf8c0ca1",
@@ -63,5 +63,10 @@
     "fencing": "80121895",
     "infrastructure": "3917ac87"
   },
-  "operationalRecordVersion": 4761
+  "operationalRecordVersion": 4761,
+  "liveAest": "2026-10-09 09:30 AEST",
+  "publicPageBytesVerified": true,
+  "publicPhoneAndDesktopPassed": true,
+  "publicNativeReconciliationsPerViewport": 17,
+  "publicRecordUnchanged": true
 }

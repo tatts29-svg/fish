@@ -1,3 +1,5 @@
+**VERIFIED LIVE — 9 Oct 2026, 09:30 AEST.** Published in the combined v9.51 release; public page SHA-256 `62ac34d8036731a941d60bda31aed759950929095a8503966354902ab6635df1`. Both public phone and desktop checks pass. No operational record writes.
+
 # Baseplan source refresh and linked supplier estimates — v9.49
 
 Author: Andrew Fisher.
