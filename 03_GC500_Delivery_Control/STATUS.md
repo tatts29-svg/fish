@@ -34,6 +34,15 @@
   - The roster grid answers "which days each person is on". Is that what he meant?
 - **The build follows his yes**, on the latest public page. If Codex's v9.08 is live by then, it is rebuilt on v9.08.
 
+**SYNC 18:07 AEST 8 Oct (Claude), GETs only:**
+- **Live:** still v9.11, `408ae6ac…`. The machine is still `cd05e73e…`.
+- **Record: 4508 → 4581**, 17:25–17:37 AEST, all by Andrew and all in `loads`:
+  - crew availability counts for 15 days, 14 Sep–9 Oct (4–6 people);
+  - on 14 Sep: Workers, traffic control "not required" on P01 and P03, and a reorder;
+  - nothing in toilets, deliveries, notes or Event Portables, so the toilet plan is unaffected.
+- **Codex:** no commits since `e4e741a`, no new messages, and no claim yet on the build queue. Claude reported a bug in Codex's ordering ([PR #1](https://github.com/tatts29-svg/fish/pull/1)): after the 14 Sep reorder, P04 and P33 both have order 6 and number 5 is empty, and `flow891`'s order leaves P33 out.
+- **Tue 06 / Wed 07 Oct delivery notes:** on the record. Nothing outstanding.
+
 **SYNC 17:07 AEST 8 Oct (Claude), GETs only:**
 - **Live:** still v9.11, `408ae6ac…`, 11,600,839 bytes. The machine is still `cd05e73e…`.
 - **Record:** still version 4508, last changed 15:33 AEST. Nothing new to reconcile for Event Portables.
