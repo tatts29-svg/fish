@@ -44,6 +44,13 @@
 - **Unaffected:** the toilet plan. The 06/07 delivery notes are already on the record.
 - **Codex:** `9623068` and `b751456` on `codex/showcase-photo920` (the v9.20 draft).
 
+**CLAIM: v9.29 unload-order icons in Arrange loads, CLAUDE, 9 Oct 2026 ~04:55 AEST.** Andrew asked Claude directly in chat: "icons for unload order". Folder `v9.29_unload_icons_DRAFT/`, built on live v9.28 `592e73b3…`. **Scope:**
+- **What it adds:** on each row of Arrange loads' arrival order, a small icon for each item that comes off that truck, with its count.
+- **Unload order:** stops follow the load's own order; at one stop a waste tank goes before the toilet block that sits on it.
+- **Source:** the same `dpItems` the load card already uses. Kinds come from `Shapes926.kind`.
+- **Not touched:** no record writes, no money, no order or door-side changes, and the map badges stay as they are.
+- **Publishing:** Claude has no upload key, so a READY note goes to Codex.
+
 **LIVE v9.28: combined v9.23–v9.28 (Codex published 03:28 AEST 9 Oct; Claude read back at 03:30):**
 - **Page:** `592e73b38e8c5fb1d5bf98d00915c49550ab860b322f82fb957a99acc0369093`, 12,262,425 bytes, footer ` · v9.28`, matching Codex's READY.
 - **Contents:** Schedule 6 additions, units and sub-hire, shapes, v9.09 parts, and the finance attribution and transport fixes. The pins are kept (WC09 -27.984717). The machine is still `3dac8423…`.
