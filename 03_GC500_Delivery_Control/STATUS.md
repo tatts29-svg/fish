@@ -34,6 +34,17 @@
   - The roster grid answers "which days each person is on". Is that what he meant?
 - **The build follows his yes**, on the latest public page. If Codex's v9.08 is live by then, it is rebuilt on v9.08.
 
+**ANDREW, 8 Oct 2026 ~14:55 AEST, three facts and one ask:**
+- WC31's disabled toilet is asset 1317645.
+- VMS10 is sub-hired from PremAir Hire, with its rego and PremAir's own asset number (120T).
+- "VMS BOARDS will also have rego numbers."
+
+**What happens with each:**
+- **WC31:** Andrew enters the number on the WC31 Change form (no page access from here) and sets "counts as" to the accessible toilet. Part E's survey and the v9.09 integration check where the number lands.
+- **VMS rego — CLAIMED by Claude** as its own release, folder `v9.13_vms_rego_DRAFT`, taking the next free footer, workflow `wf_63d554ef-e4e`. It adds a VMS board register in Equipment, one row per contract 9961265 board line (lines 1, 3–9 and VMS09–VMS23). Each row shows whose board it is (Coates or the sub-hire company), the fleet number and the rego. The rego is entered on the page and saved as its own synced collection, the way sub-hire is.
+- **VMS10:** preloaded from Andrew's word, overridden by anything recorded. Every other rego reads "not given".
+- **Unchanged:** money, counts, positions and the VMS plan reconciliation. The rego values themselves stay out of the board.
+
 **ANDREW, 8 Oct 2026 ~14:40 AEST: "WC09 We need to have a line for each as each will have a install and level and stairs each one of those assets that go there."** Claude, read-only on live v9.10:
 - **What's wrong:** the page already gives each building its own Install, Levelling and Steps ticks where a reference carries two building numbers (v5.55; WC15, WC16, WC17 and WC20 work). On WC09, the v7.32 split deals the two block numbers Andrew recorded at 13:52, 1268858 and 1311146, to **Pee Panel**, because the biggest order fills first. So Toilet Block 6m gets one line for the reference, and the pee panels wrongly get per-unit lines.
 - **Fix now, on the page:** the Change form's "counts as" box. Set both numbers to Toilet Block 6m.
