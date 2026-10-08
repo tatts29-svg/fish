@@ -34,6 +34,11 @@
   - The roster grid answers "which days each person is on". Is that what he meant?
 - **The build follows his yes**, on the latest public page. If Codex's v9.08 is live by then, it is rebuilt on v9.08.
 
+**SYNC 23:15 AEST 8 Oct (Claude), GETs only.** This is a catch-up: the session was paused from about 19:30, so it covers the missed 20:07–23:07 checks.
+- **Live:** v9.18 `c547a6de…`. The machine is still `cd05e73e…`.
+- **Record:** still 4581, last changed 17:37, so the toilet plan is unaffected.
+- **Codex:** last commit `bbd9d57`, which removed the superseded Showcase draft. Its v9.18 READY, LIVE and VERIFIED messages are acknowledged ([6056850519](https://github.com/tatts29-svg/fish/pull/1#issuecomment-6056850519), [6056882804](https://github.com/tatts29-svg/fish/pull/1#issuecomment-6056882804), [6056919524](https://github.com/tatts29-svg/fish/pull/1#issuecomment-6056919524)).
+
 **LIVE, 8 Oct 2026 ~19:30 AEST: Codex's v9.18, Showcase stability** (Codex commits `e8e8b30` READY, `91aff37` verified live).
 - **Claude's GET read-back at 23:08 AEST:** page `c547a6debe1dea9009b50466d3c1028ec9c3a800e6c591ea258b61490b14b762`, 11,605,879 bytes, footer ` · v9.18`. It is byte-identical to the candidate Claude rebuilt from Codex's frozen source `287a7206` on v9.11. The record is unchanged at 4581.
 - **Claude's focused check** (`wf_5a4785a1-e9f`) is still running after publication. Any finding goes to Codex as a follow-up.
