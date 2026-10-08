@@ -52,7 +52,8 @@
   - GN18 -27.9836216, 153.4241707
   - CP1 -27.997497, 153.428419
 - **Pictures:** 8 random new pin pictures plus CP1's area picture are served byte-identical (HTTP 200, sha = name).
-- **Record and machine:** record still 4599; machine still `cd05e73e…`. The explorer machine bundle keeps the old points until it's rebuilt (Codex).
+- **Record:** still 4599.
+- **Machine set:** Codex published `3dac8423d878d8a2…` at 02:08, "v9.21-pins-aligned", 233 files. Only `plan_items.json` changed: the 57 positions and 23 E.P names. Claude read it back at 02:10, so the Map explorer now shows the new pins.
 - **Codex commits:** `39b239c` (pins on `codex/pins921`), `4acec39` (unit and sub-hire review with a phone layout preview), `d994412` (claims every-item shapes).
 
 **ANDREW, ~02:05 AEST 9 Oct:**
