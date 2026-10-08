@@ -1,0 +1,196 @@
+base  · v9.18 record 4581 (2026-10-09) cap view | candidate  · v9.18 record 4581 (2026-10-09) cap view
+record: 0 fire extinguisher rows, 0 fire_ext ticks, 173 labour ticks of any kind; 49 fire_ext tick keys the card offers (every building / unit)
+PASS both pages read the same record version and day {"a":4581,"b":4581}
+PASS both pages are on the view link (nothing can send) ["view","view"]
+PASS AA has a card Fire Ext. figure (F) to measure against
+-- base vs candidate, the record as it is: 5143 numbers the same, 0 differ, 0 structural
+PASS base vs candidate with the record as it is: every money figure identical (compare_money895 semantics)
+-- base vs candidate, a fire_ext tick on every building/unit the card offers it (no quantities added): 5152 numbers the same, 0 differ, 0 structural
+PASS existing per-building ticks count exactly as before: base and candidate identical with every fire_ext tick set
+   (the ticks themselves move 64 figures on both pages alike - the rule the candidate keeps)
+-- base (record as it is) vs candidate with 2 fire extinguishers on AA: 5082 numbers the same, 62 differ, 1 structural
+   .M.charge.labour  +2 x F (up 0.49%)
+   .M.charge.labour_ticks  count +1
+   .M.charge.total  +2 x F (up 0.02%)
+   .M.difference  +2 x F (up 0.03%)
+   .M.difference0  +1.9981 x F (up 0.03%)
+   .M.streams[7].charge  +2 x F (up 0.14%)
+   .M.streams[7].difference  +2 x F (up 0.19%)
+   .M.streams[7].charge0  +1.9981 x F (up 0.14%)
+   .M.streams[7].difference0  +1.9981 x F (up 0.19%)
+   .M.breakeven  +0.0008 x F (up 0.03%)
+   .X.revenue.record  +2 x F (up 0.02%)
+   .X.revenue.job  +2 x F (up 0.01%)
+   .H.inv[0].onRecord  +2 x F (up 0.04%)
+   .H.inv[0].job  +2 x F (up 0.04%)
+   .H.inv[0].unbilled  +2 x F (up 0.04%)
+   .H.invTotal.onRecord  +2 x F (up 0.02%)
+   .H.invTotal.job  +2 x F (up 0.01%)
+   .H.invTotal.unbilled  +2 x F (up 0.02%)
+   .H.revenueRecord  +2 x F (up 0.02%)
+   .H.revenueJob  +2 x F (up 0.01%)
+   .P.rev[0].job  +2 x F (up 0.07%)
+   .P.rev[0].basis  a text carrying figures differs
+   .P.revNow  +2 x F (up 0.02%)
+   .P.revJob  +2 x F (up 0.01%)
+   .P.gm.job  +2 x F (up 0.02%)
+   .P.gm.pcNow  0 x F (up 0.01%)
+   .P.gm.pcJob  0 x F (up 0.01%)
+   .P.diff.job  +2 x F (up 0.02%)
+   .P.diff.pcNow  0 x F (up 0.02%)
+   .R[0].parts[0].v  +2 x F (up 0.02%)
+   .R[0].parts[1].v  +2 x F (up 0.02%)
+   .R[0].parts[2].v  +2 x F (up 0.02%)
+   .R[0].parts[3].v  +2 x F (up 0.02%)
+   .R[1].parts[0].v  +2 x F (up 0.01%)
+   .R[1].parts[1].v  +2 x F (up 0.01%)
+   .R[1].parts[2].v  +2 x F (up 0.01%)
+   .R[6].parts[0].v  +2 x F (up 0.49%)
+   .R[6].parts[1].v  +2 x F (up 0.49%)
+   .RH.totals.share  0 x F (down 0.01%)
+   .RH.totals.shareNow  0 x F (down 0.02%)
+   .RH.revenueJob  +2 x F (up 0.01%)
+   .RH.revenueNow  +2 x F (up 0.02%)
+   .LP.all.charged  +2 x F (up 0.49%)
+   .LP.all.expected  -1 x F (down 0.44%)
+   .LP.all.n.charged  count +1
+   .LP.all.n.expected  count -1
+   .LP.fire914Slots  count +1
+   .TK.fire_ext.ticks  count +1
+   .TK.fire_ext.amount  +2 x F (from nil)
+   .TK.byBranch.KINP.fire_ext.ticks  count +1
+   .TK.byBranch.KINP.fire_ext.amount  +2 x F (from nil)
+   .TK.byBranch.KINP.amount  +2 x F (up 0.51%)
+   .TK.total  +2 x F (up 0.49%)
+   .TK.ticks  count +1
+   .AL.groups.fire_ext.charged  +2 x F (from nil)
+   .AL.groups.fire_ext.expected  -1 x F (down 2.50%)
+   .AL.groups.fire_ext.total  +1 x F (up 2.04%)
+   .AL.per.charged  +2 x F (up 0.49%)
+   .AL.per.expected  -1 x F (down 0.44%)
+   .AL.per.total  +1 x F (up 0.07%)
+   .AL.packageTotal  +1 x F (up 0.04%)
+   .A[0].revenueTotal  +2 x F (up 0.06%)
+   structural: .A[0].fire length 0 -> 1
+FAIL AA x2: every money figure that moved moved by +2F (charged), -1F (AA's one forecast piece) or +1F (charged + forecast together); whole-dollar copies within a dollar {"odd":[".P.gm.pcNow 0",".P.gm.pcJob 0",".P.diff.pcNow 0"]}
+PASS AA x2: the fire_ext group and the totals carrying it move by exactly +2F [".M.charge.labour:2",".M.charge.total:2",".TK.fire_ext.amount:2",".TK.total:2",".AL.groups.fire_ext.charged:2"]
+FAIL AA x2: no hire, rehire, transport, cost or tie-out figure moves [".R[0].parts[0].v",".R[0].parts[1].v",".R[0].parts[2].v",".R[0].parts[3].v",".R[1].parts[0].v",".R[1].parts[1].v",".R[1].parts[2].v",".R[6].parts[0].v",".R[6].parts[1].v",".RH.totals.share",".RH.totals.shareNow",".RH.revenueJob",".RH.revenueNow"]
+-- candidate: every fire_ext tick set, then 2 fire extinguishers added on AA: 5099 numbers the same, 54 differ, 0 structural
+   .M.charge.labour  +1 x F (up 0.22%)
+   .M.charge.total  +1 x F (up 0.01%)
+   .M.difference  +1 x F (up 0.02%)
+   .M.difference0  +0.999 x F (up 0.02%)
+   .M.streams[7].charge  +1 x F (up 0.07%)
+   .M.streams[7].difference  +1 x F (up 0.09%)
+   .M.streams[7].charge0  +0.999 x F (up 0.07%)
+   .M.streams[7].difference0  +0.999 x F (up 0.09%)
+   .M.breakeven  +0.0004 x F (up 0.02%)
+   .X.revenue.record  +1 x F (up 0.01%)
+   .X.revenue.job  +1 x F (up 0.01%)
+   .H.inv[0].onRecord  +1 x F (up 0.02%)
+   .H.inv[0].job  +1 x F (up 0.02%)
+   .H.inv[0].unbilled  +1 x F (up 0.02%)
+   .H.invTotal.onRecord  +1 x F (up 0.01%)
+   .H.invTotal.job  +1 x F (up 0.01%)
+   .H.invTotal.unbilled  +1 x F (up 0.01%)
+   .H.revenueRecord  +1 x F (up 0.01%)
+   .H.revenueJob  +1 x F (up 0.01%)
+   .P.rev[0].job  +1 x F (up 0.03%)
+   .P.rev[0].basis  a text carrying figures differs
+   .P.revNow  +1 x F (up 0.01%)
+   .P.revJob  +1 x F (up 0.01%)
+   .P.gm.job  +1 x F (up 0.01%)
+   .P.gm.pcNow  0 x F (up 0.01%)
+   .P.gm.pcJob  0 x F (up 0.00%)
+   .P.diff.job  +1 x F (up 0.01%)
+   .P.diff.pcNow  0 x F (up 0.01%)
+   .R[0].parts[0].v  +1 x F (up 0.01%)
+   .R[0].parts[1].v  +1 x F (up 0.01%)
+   .R[0].parts[2].v  +1 x F (up 0.01%)
+   .R[0].parts[3].v  +1 x F (up 0.01%)
+   .R[1].parts[0].v  +1 x F (up 0.01%)
+   .R[1].parts[1].v  +1 x F (up 0.01%)
+   .R[1].parts[2].v  +1 x F (up 0.01%)
+   .R[6].parts[0].v  +1 x F (up 0.22%)
+   .R[6].parts[1].v  +1 x F (up 0.22%)
+   .RH.totals.share  0 x F (down 0.01%)
+   .RH.totals.shareNow  0 x F (down 0.01%)
+   .RH.revenueJob  +1 x F (up 0.01%)
+   .RH.revenueNow  +1 x F (up 0.01%)
+   .LP.all.charged  +1 x F (up 0.22%)
+   .LP.fire914Slots  count +1
+   .TK.fire_ext.amount  +1 x F (up 2.04%)
+   .TK.byBranch.KINP.fire_ext.amount  +1 x F (up 2.04%)
+   .TK.byBranch.KINP.amount  +1 x F (up 0.23%)
+   .TK.total  +1 x F (up 0.22%)
+   .AL.groups.fire_ext.charged  +1 x F (up 2.04%)
+   .AL.groups.fire_ext.total  +1 x F (up 2.04%)
+   .AL.per.charged  +1 x F (up 0.22%)
+   .AL.per.total  +1 x F (up 0.07%)
+   .AL.packageTotal  +1 x F (up 0.04%)
+   .A[0].revenueTotal  +1 x F (up 0.03%)
+   .A[0].fire[0].amount  +1 x F (up 3.13%)
+PASS replace rule: with AA's tick already counted (1 piece(s) at F), adding 2 moves the charged totals by exactly 1 x F, never +2F on top [".M.charge.labour 1",".TK.fire_ext.amount 1",".TK.byBranch.KINP.fire_ext.amount 1"]
+-- candidate: 1 fire extinguisher on EVERY location; with vs without every fire_ext tick also set: 5187 numbers the same, 0 differ, 0 structural
+PASS replace rule everywhere: with a quantity on every location, setting every fire_ext tick changes no figure at all
+   locations: 182 in the list, 176 live, 6 cancelled / follow-up / moved; 49 priced at the card, 127 rate to confirm, 0 with NO charge line to carry them
+   live locations whose charge lines repeat a discipline+item: 0 []; added in this page: 2
+PASS every live location carries its fire extinguishers on exactly one charge line (no line counts them twice) {"multiHost":[],"entryMismatch":[]}
+PASS no fire_ext tick survives on a location with a quantity (reference-level and per-building unit lists) []
+PASS each priced location charges exactly its pieces x its card figure []
+PASS cancelled, follow-up and moved-away locations charge nothing []
+PASS P&L ticks: fire_ext amount = the sum of every priced location's pieces x card figure; one tick per location; unknown = the rate-to-confirm locations {"amountOk":true,"ticks":176,"nHost":176,"unknown":127,"nUnk":127}
+PASS Costs labour and the labour plan's charged move by that same sum, once
+PASS labour plan: no fire_ext forecast left anywhere, one charged slot per location {"fireSlots":176,"fire914Slots":176,"nHost":176}
+PASS Accruals labour: fire_ext charged = the P&L ticks; nothing expected, to come or later {"charged":true,"expected":0,"tocome":0,"later":0,"complete":false}
+PASS Accruals revenue (Sep-Nov): fire extinguisher streams + their unallocated rows carry the same sum once {"dated":true}
+PASS labourRevenue858 (install recorded) does not move
+PASS three on every location charges exactly three times one on every location
+-- candidate: 2 on GN01 (generator) and 2 on WC09 (toilet), no card figure: 5125 numbers the same, 32 differ, 7 structural
+   .M.charge.labour_ticks  count +2
+   .M.charge.labour_unknown  count +2
+   .X.gaps[2].what  a text carrying figures differs
+   .X.gaps[3].what  a text carrying figures differs
+   .X.gaps[3].why  a text carrying figures differs
+   .X.gaps[4].what  a text carrying figures differs
+   .X.gaps[4].why  a text carrying figures differs
+   .X.gaps[5].what  a text carrying figures differs
+   .X.gaps[5].why  a text carrying figures differs
+   .X.gaps[6].what  a text carrying figures differs
+   .X.gaps[6].why  a text carrying figures differs
+   .X.gaps[7].what  a text carrying figures differs
+   .X.gaps[8].what  a text carrying figures differs
+   .X.gaps[9].what  a text carrying figures differs
+   .X.gaps[10].why  a text carrying figures differs
+   .P.rev[0].basis  a text carrying figures differs
+   .LP.fireSlots  count +2
+   .LP.fire914Slots  count +2
+   .TK.fire_ext.ticks  count +2
+   .TK.fire_ext.unknown  count +2
+   .TK.byBranch.KINP.fire_ext.ticks  count +1
+   .TK.byBranch.KINP.fire_ext.unknown  count +1
+   .TK.byBranch.NVAC.fire_ext.ticks  count +1
+   .TK.byBranch.NVAC.fire_ext.unknown  count +1
+   .TK.ticks  count +2
+   .TK.unknown  count +2
+   .AL.groups.fire_ext.n  count +2
+   .AL.groups.fire_ext.unpriced  count +2
+   .AL.groups.fire_ext.unpricedByState.charged  count +2
+   .AL.per.n  count +2
+   .AL.per.unpriced  count +2
+   .AL.per.unpricedByState.charged  count +2
+   structural: .X.gaps length 11 -> 12
+   structural: .LP.all.toConfirm added
+   structural: .AL.groups.fire_ext.complete changed (boolean -> boolean)
+   structural: .AL.per.complete changed (boolean -> boolean)
+   structural: .AL.packageComplete changed (boolean -> boolean)
+   structural: .A[0].fire length 0 -> 1
+   structural: .A[1].fire length 0 -> 1
+PASS no card figure: no money figure moves (nothing is charged at nought or at a guess) []
+FAIL no card figure: Costs labour_unknown +2, P&L fire_ext unknown +2, labour plan unpriced +2, Accruals fire group incomplete {"lu":2,"tk":2,"lp":0,"al":false}
+PASS taken off (rows kept at quantity 0): every figure identical to nothing recorded []
+PASS two rows on AA (2 and 1, as two devices could leave it) count as 3 pieces, on one line [".M.charge.labour 3",".TK.fire_ext.amount 3"]
+PASS the simulations were put back: no fire row or fire tick left in the page's record {"fireRows":0,"fireTicks":0}
+PASS no page errors; the harness blocked no write on either page {"errA":[],"errB":[],"blocked":[0,0]}
+console errors: base 0, candidate 0
+RESULT 3 FAILED

@@ -1,11 +1,12 @@
 {
+ "candidate": "4001406ab35556e7",
  "tabs": 21,
  "shown": 15,
  "page_errors": [],
  "console_errors": [],
  "counts": {
   "page": 1,
-  "live": 177,
+  "live": 144,
   "blocked": 0
  },
  "deep_links": {

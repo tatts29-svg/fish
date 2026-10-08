@@ -19,6 +19,13 @@
 #  - the project manager's word shown as his word until something is entered on the record, field by field: VMS10 is
 #    PremAir Hire, fleet number 120T, rego V14221; T0103 carries VMS09 and VMS10. Every other rego reads "not given".
 #    Nothing is written on opening, viewing or printing;
+#  - 8 Oct 2026, about 13:50 AEST: "1211404 is VMS09", and about 23:20 AEST: "take off that location and put on new
+#    location". Board 1211404 IS VMS09 and is on T0103 by his word (the record still overrides): contract line 1 (on T0001
+#    since 7 Sep) and line 12 (VMS09) carry the same number, so they are one board and one register row. T0001 shows its
+#    7 Coates boards and one line "1211404 moved to T0103 (VMS09) — the project manager, 8 Oct". Editors only see what is
+#    left to do: the record still lists 1211404 among T0001's asset numbers (remove it on T0001's Change form), and the
+#    contract still lists the board on line 1 and line 12 (check line 1 was off-hired or transferred). Nothing on the
+#    record is changed;
 #  - a board is on a delivery by (in this order) the record, the project manager's word, or the contract (the line's match
 #    by asset number or delivery docket). Nothing is guessed: a VMS delivery no board is linked to says "boards not named yet";
 #  - the boards BY NAME, with fleet number and rego, wherever a VMS delivery is shown: the Timeline load card and its
@@ -78,8 +85,11 @@ const VMS913_WORD = "the project manager's word";
 const VMS913_WAIT = 'Wait a moment - the shared record is still loading. Save works once it has arrived.';
 function vms913St(){ return vms913St.s || (vms913St.s = {draft: null, opened: false, said: ''}); }
 /* the project manager's word, shown as his word; anything entered on the record replaces it, field by field */
+/* VMS09 (8 Oct 2026): "1211404 is VMS09" (about 13:50 AEST) and, of 1211404 on T0001, "take off that location and put on
+   new location" (about 23:20 AEST). 'asset' says the Coates asset number IS this board, so any other contract line carrying
+   it is the same board, folded into its row; 'from' is the delivery it was taken off. */
 function vms913Word(){ return {
- VMS09: {on: 'T0103', said: '8 Oct 2026', at: 'about 15:35 AEST'},
+ VMS09: {on: 'T0103', said: '8 Oct 2026', at: 'about 15:35 AEST', day: '8 Oct', asset: '1211404', from: 'T0001'},
  VMS10: {co: 'PremAir Hire', fleet: '120T', rego: 'V14221', on: 'T0103', said: '8 Oct 2026', at: 'about 14:55 AEST'}}; }
 function vms913WordOf(key){ const w = vms913Word(); return Object.prototype.hasOwnProperty.call(w, key) ? w[key] : {}; }
 function vms913CoOf(r){
@@ -102,12 +112,23 @@ function vms913Boards(){
   const mt = r.match || {}, via = mt.task_id ? (mt.via === 'delivery docket' ? 'delivery docket' : mt.via === 'asset number' ? 'asset number' : (mt.via || 'matched')) : null;
   return {key, vms, name: vms || (own ? String(r.asset_no) : 'line ' + r.line), contract: String(r.rental_contract || ''), line: r.line,
    branch: r.branch_code || '', co: own ? 'Coates' : vms913CoOf(r), coates: own, asset: own ? String(r.asset_no) : null,
-   load: mt.task_id || null, via, docket: r.delivery_number ? String(r.delivery_number) : null, what: r.what || r.description || ''};
+   load: mt.task_id || null, via, docket: r.delivery_number ? String(r.delivery_number) : null, what: r.what || r.description || '',
+   start: r.start_date || r.contract_start || null, ended: !!(r.term_date || r.return_number)};
  });
- /* the same Coates asset number on two lines is said, never resolved here (the VMS plan reconciliation is open) */
+ /* the project manager's word that a Coates asset number IS a named board ("1211404 is VMS09", 8 Oct): every other contract
+    line carrying that number is the same board, folded into the named board's row - one board, one row, never two */
+ const W = vms913Word();
+ Object.keys(W).forEach(k => { const w = W[k], b = w.asset ? out.find(x => x.key === k) : null; if (!b || b.asset !== w.asset) return;
+  const same = out.filter(x => x !== b && x.asset === w.asset); if (!same.length) return;
+  b.folded = same.map(x => ({key: x.key, line: x.line, docket: x.docket, load: x.load, via: x.via, start: x.start, ended: x.ended}));
+  same.forEach(x => out.splice(out.indexOf(x), 1)); });
+ /* any other Coates asset number on two lines is said, never resolved here (the VMS plan reconciliation is open) */
  out.forEach(b => { if (b.asset) b.twin = out.filter(x => x !== b && x.asset === b.asset).map(x => x.line); });
  return (vms913Boards.b = out);
 }
+/* every contract line the register covers: a board's own line and any line folded into it */
+function vms913LineCount(){ return vms913Boards().reduce((n, b) => n + 1 + (b.folded || []).length, 0); }
+function vms913Day(iso){ const m = String(iso || '').match(/^\d{4}-(\d{2})-(\d{2})/); return m ? (+m[2]) + ' ' + ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'][+m[1] - 1] : ''; }
 function vms913Rec(key){ const v = S.vmsboard; return v && typeof v === 'object' && Object.prototype.hasOwnProperty.call(v, key) && v[key] && typeof v[key] === 'object' ? v[key] : null; }
 /* what the page shows for one board, field by field: the record, else the project manager's word, else the contract */
 function vms913Of(b){
@@ -148,13 +169,25 @@ function vms913OnOf(b){
 }
 /* the link without the record: what the page would show if nothing were recorded */
 function vms913OnBase(b){ const w = vms913WordOf(b.key); if (w.on && vms913Line(w.on)) return w.on; if (b.load && vms913Line(b.load)) return b.load; return vms913ByDocket(b); }
-/* the boards a VMS delivery carries; null when the reference is not a VMS delivery at all */
-function vms913BoardsOn(a){
+/* the VMS delivery a reference is; null when it is not a VMS delivery at all */
+function vms913TidOf(a){
  if (!a || !a.key) return null;
  const pl = typeof plantLineOf === 'function' ? plantLineOf(a.key) : null, tid = pl ? pl.key : (a.task_id || a.key);
- if (!vms913Line(tid)) return null;
- return vms913Boards().filter(b => vms913OnOf(b).on === tid);
+ return vms913Line(tid) ? tid : null;
 }
+/* the boards a VMS delivery carries; null when the reference is not a VMS delivery at all */
+function vms913BoardsOn(a){ const tid = vms913TidOf(a); return tid ? vms913Boards().filter(b => vms913OnOf(b).on === tid) : null; }
+/* a board taken off a delivery its folded contract line still names (1211404 off T0001, now VMS09 on T0103): said once on
+   the delivery it left, "1211404 moved to T0103 (VMS09) — the project manager, 8 Oct" */
+function vms913MovedOff(tid){
+ const out = [];
+ vms913Boards().forEach(b => (b.folded || []).forEach(f => { if (f.load !== tid) return; const o = vms913OnOf(b); if (o.on === tid) return;
+  const w = vms913WordOf(b.key), by = o.src === 'word' ? 'the project manager, ' + (w.day || w.said) : o.src === 'record' ? 'on the record' : '';
+  out.push({key: b.key, asset: b.asset, text: (b.asset || 'line ' + f.line) + (o.on ? ' moved to ' + vms913ShownKey(o.on) : ' moved off ' + vms913ShownKey(tid)) + ' (' + b.name + ')' + (by ? ' — ' + by : '')}); }));
+ return out;
+}
+/* texts keep to plain characters (a dash, not a long dash) */
+function vms913Plain(s){ return String(s).replace(/ — /g, ' - '); }
 /* one board in words. Screens and sheets: "VMS09 (Coates 1211404 · rego not given)", "VMS10 (PremAir Hire 120T · rego
    V14221)". Texts leave out what is not given: 'sms' "VMS10 PremAir Hire 120T rego V14221", 'short' "VMS10 rego V14221" */
 function vms913Say(b, mode){
@@ -186,11 +219,12 @@ function vms913LoadOf(a, known){
  const word = bs.some(b => vms913Of(b).src === 'word' || vms913OnOf(b).src === 'word');
  const rep = bs.filter(b => vms913Repeat(b, known)), parts = bs.filter(b => !rep.includes(b)).map(b => vms913Say(b));
  if (rep.length) parts.push(rep.length + ' Coates board' + (rep.length === 1 ? ' by the asset no.' : 's by the asset nos.') + ' shown (rego not given)');
- return {key: a.key, boards: bs, word, text: bs.length ? parts.join(' · ') : 'boards not named yet'};
+ const mv = vms913MovedOff(vms913TidOf(a));
+ return {key: a.key, boards: bs, word, text: bs.length ? parts.join(' · ') : 'boards not named yet', moved: mv.map(m => m.text), movedNos: mv.map(m => m.asset).filter(Boolean)};
 }
 function vms913LoadHtml(a, cls, known){
  const L = vms913LoadOf(a, known); if (!L) return '';
- return `<span class="vms913load${cls ? ' ' + cls : ''}" data-vms913-load="${esc(a.key)}">${L.boards.length ? '<b>Boards</b> ' + esc(L.text) : '<b>VMS boards not named yet</b>'}${L.word ? ' <small>(' + VMS913_WORD + ')</small>' : ''}</span>`;
+ return `<span class="vms913load${cls ? ' ' + cls : ''}" data-vms913-load="${esc(a.key)}">${L.boards.length ? '<b>Boards</b> ' + esc(L.text) : '<b>VMS boards not named yet</b>'}${L.word ? ' <small>(' + VMS913_WORD + ')</small>' : ''}${L.moved.map(m => `<span class="vms913mv" data-vms913-moved>${esc(m)}</span>`).join('')}</span>`;
 }
 /* is a board's document on the shared record yet? 'shared' when the store holds exactly it and nothing is travelling;
    'pending' while it waits or travels; 'refused' when the link lost its right to write; 'local' with no shared record */
@@ -317,10 +351,24 @@ function vms913OrphansHtml(){
   const f = [r.co ? 'whose ' + r.co : '', r.fleet ? 'fleet no. ' + r.fleet : '', r.rego ? 'rego ' + r.rego : '', r.on ? 'on delivery ' + r.on : ''].filter(Boolean).join(' · ');
   return `<div data-vms913-orphan="${esc(k)}">${esc(k)}${r.line ? ' · line ' + esc(String(r.line)) : ''}${f ? ' · ' + esc(f) : ''}<small>${esc(vms913ByWords(k, r.by, r.at))}</small></div>`; }).join('')}</div>`;
 }
+/* EDITORS ONLY: what is left to do after a board was moved by the project manager's word, while it is still left to do -
+   the record still lists the number on the delivery it left, and the contract still lists the board on both lines */
+function vms913EdNotes(){
+ const out = [];
+ vms913Boards().forEach(b => (b.folded || []).forEach(f => {
+  if (!f.load || vms913OnOf(b).on === f.load) return;
+  const from = vms913ShownKey(f.load), a = vms913AssetOf(from) || vms913AssetOf(f.load);
+  let nos = []; try { nos = ((a && a.asset_numbers) || []).concat((a && typeof dpNums === 'function' && dpNums(a)) || []).map(String); } catch (e) { nos = []; }
+  if (b.asset && nos.includes(b.asset)) out.push('The record still lists ' + b.asset + ' among ' + from + "'s asset numbers — remove it on " + from + "'s Change form.");
+  if (!f.ended) out.push('Contract ' + b.contract + ' lists the board on line ' + f.line + ' (' + from + (f.start ? ', from ' + vms913Day(f.start) : '') + ') and line ' + b.line + ' (' + b.name + ') — check line ' + f.line + ' was off-hired or transferred.');
+ }));
+ return out;
+}
 function vms913Html(bs){
  const ed = typeof capability === 'function' && capability() === 'edit';
- const rows = bs.map(b => { const v = vms913Of(b);
-  const sub = 'line ' + b.line + (b.docket ? ' · docket ' + b.docket : '') + (b.twin && b.twin.length ? ' · asset no. also on line ' + b.twin.join(', ') : '');
+ const rows = bs.map(b => { const v = vms913Of(b), on = vms913OnOf(b).on;
+  const fold = (b.folded || []).map(f => f.load && on !== f.load ? ' · moved from ' + vms913ShownKey(f.load) + ' (line ' + f.line + ')' : ' · and line ' + f.line).join('');
+  const sub = 'line ' + b.line + (b.docket ? ' · docket ' + b.docket : '') + fold + (b.twin && b.twin.length ? ' · asset no. also on line ' + b.twin.join(', ') : '');
   return `<div class="vms913row" data-vms913-row="${esc(b.key)}" data-src="${v.src}">
  <span class="vms913c b" data-l="Board"><b>${esc(b.name)}</b><small>${esc(sub)}</small></span>
  <span class="vms913c" data-l="Whose">${esc(v.co)}${b.coates && v.co === 'Coates' ? '' : ' <small>sub-hire</small>'}</span>
@@ -344,8 +392,10 @@ function vms913Html(bs){
  <div class="f act"><button type="button" class="btn primary" data-vms913-save${ready ? '' : ' disabled title="' + esc(VMS913_WAIT) + '"'}>Save to the record</button></div>
  </div><p class="vms913msg" role="alert" aria-live="polite">${esc(d.msg || (ready ? '' : VMS913_WAIT))}</p>`;
  }
+ const notes = ed ? vms913EdNotes() : [];
+ const edNote = notes.length ? `<div class="vms913ed" data-vms913-ednote><b>For editors</b>${notes.map(n => '<p>' + esc(n) + '</p>').join('')}</div>` : '';
  return `<p class="vms913note">From the contract unless a row says otherwise. A rego shows only where somebody has given one, and a board is on a delivery only where the record, the project manager or the contract puts it.</p>
- ${form}<div class="vms913list${ed ? ' ed' : ''}"><div class="vms913row head" aria-hidden="true"><span>Board</span><span>Whose</span><span>Fleet no.</span><span>Rego</span><span>On delivery</span><span>Source</span>${ed ? '<span></span>' : ''}</div>${rows}</div>${vms913OrphansHtml()}`;
+ ${form}${edNote}<div class="vms913list${ed ? ' ed' : ''}"><div class="vms913row head" aria-hidden="true"><span>Board</span><span>Whose</span><span>Fleet no.</span><span>Rego</span><span>On delivery</span><span>Source</span>${ed ? '<span></span>' : ''}</div>${rows}</div>${vms913OrphansHtml()}`;
 }
 function vms913Bind(root){
  const st = vms913St(), $f = id => root.querySelector('#' + id), F = [['vms913Co', 'co'], ['vms913Fleet', 'fleet'], ['vms913Rego', 'rego'], ['vms913On', 'on']];
@@ -376,14 +426,15 @@ function vms913Mount(){
  if (!st.opened && g === 'VMS boards' && typeof eq796s === 'function') { st.opened = true; eq796s().open.add(name); }
  const given = bs.filter(b => vms913Of(b).rego).length;
  const box = document.createElement('div'); box.className = 'vms913'; box.innerHTML = vms913Html(bs);
- const fold = eq796Fold(name, bs.length + ' contract lines · whose, fleet number, rego and delivery · ' + given + ' rego' + (given === 1 ? '' : 's') + ' given', [box]);
+ const fold = eq796Fold(name, vms913LineCount() + ' contract lines · whose, fleet number, rego and delivery · ' + given + ' rego' + (given === 1 ? '' : 's') + ' given', [box]);
  fold.setAttribute('data-vms913', ''); fold.classList.add('vms913fold');
  const refs = pane.querySelector(':scope > details.eqrefs'), rs = pane.querySelector(':scope > .regsum');
  if (refs) refs.after(fold); else if (rs) rs.before(fold); else pane.appendChild(fold);
  vms913Bind(fold);
 }
 /* FOR THE DRIVER AND THE INSTALLER: the boards a delivery carries, by name, with fleet number and rego */
-function vms913BoardOfLine(x){ return x ? vms913Boards().find(b => b.contract === String(x.rental_contract || '') && b.line === x.line) || null : null; }
+function vms913BoardOfLine(x){ if (!x) return null; const c = String(x.rental_contract || '');
+ return vms913Boards().find(b => b.contract === c && (b.line === x.line || (b.folded || []).some(f => f.line === x.line))) || null; }
 /* a rental line's own board (only where no Boards line is drawn in the same card); the asset number is never repeated as
    a fleet number */
 function vms913LineHtml(x){
@@ -394,25 +445,26 @@ function vms913LineHtml(x){
 function vms913PillsHtml(a){
  const L = vms913LoadOf(a); if (!L) return '';
  const said = L.boards.filter(b => vms913Of(b).src === 'word' || vms913OnOf(b).src === 'word').map(b => b.name);
- return L.boards.length ? L.boards.map(b => `<span class="pill plan" data-vms913-pill="${esc(b.key)}">${esc(vms913Say(b))}</span>`).join('')
+ const moved = L.moved.map(m => `<small class="vms913pnote" data-vms913-pill data-vms913-moved>${esc(m)}</small>`).join('');
+ return (L.boards.length ? L.boards.map(b => `<span class="pill plan" data-vms913-pill="${esc(b.key)}">${esc(vms913Say(b))}</span>`).join('')
   + (said.length ? `<small class="vms913pnote" data-vms913-pill>${esc(said.length > 1 ? said.slice(0, -1).join(', ') + ' and ' + said[said.length - 1] : said[0])}: ${VMS913_WORD}</small>` : '')
-  : '<span class="pill none" data-vms913-pill>VMS boards not named yet</span>';
+  : '<span class="pill none" data-vms913-pill>VMS boards not named yet</span>') + moved;
 }
-/* the driver drop card's plain asset pills leave out a number a board pill already carries */
+/* the driver drop card's plain asset pills leave out a number a board pill already carries, or the moved line names */
 function vms913Rest(a, nums){
- let L = null; try { L = vms913LoadOf(a); } catch (e) { L = null; } if (!L || !L.boards.length) return nums;
- const named = new Set(); L.boards.forEach(b => { named.add(b.name); if (b.asset) named.add(b.asset); const f = vms913Of(b).fleet; if (f) named.add(f); });
+ let L = null; try { L = vms913LoadOf(a); } catch (e) { L = null; } if (!L || !(L.boards.length || L.movedNos.length)) return nums;
+ const named = new Set(L.movedNos.map(String)); L.boards.forEach(b => { named.add(b.name); if (b.asset) named.add(b.asset); const f = vms913Of(b).fleet; if (f) named.add(f); });
  return nums.filter(n => !named.has(String(n)));
 }
 function vms913SheetHtml(a, shown){
  const L = vms913LoadOf(a, vms913KnownOf(a, shown)); if (!L) return '';
- return `<br><span class="rs-sup" data-vms913-sheet>${L.boards.length ? 'Boards: ' + esc(L.text) + (L.word ? ' (' + VMS913_WORD + ')' : '') : 'VMS boards not named yet'}</span>`;
+ return `<br><span class="rs-sup" data-vms913-sheet>${L.boards.length ? 'Boards: ' + esc(L.text) + (L.word ? ' (' + VMS913_WORD + ')' : '') : 'VMS boards not named yet'}${L.moved.map(m => '<br>' + esc(m)).join('')}</span>`;
 }
 /* the Drivers and Install PDFs: in the booked / recorded numbers cell a driver reads */
 function vms913CellHtml(a){
  let shown = []; try { shown = dpNums(a) || []; } catch (e) { shown = []; }
  const L = vms913LoadOf(a, vms913KnownOf(a, shown.join(' '))); if (!L) return '';
- return `<span class="dp-sub vms913cell" data-vms913-truck="${esc(a.key)}">${L.boards.length ? 'Boards: ' + esc(L.text) + (L.word ? ' (' + VMS913_WORD + ')' : '') : 'VMS boards not named yet'}</span>`;
+ return `<span class="dp-sub vms913cell" data-vms913-truck="${esc(a.key)}">${L.boards.length ? 'Boards: ' + esc(L.text) + (L.word ? ' (' + VMS913_WORD + ')' : '') : 'VMS boards not named yet'}${L.moved.map(m => '<br>' + esc(m)).join('')}</span>`;
 }
 function vms913AssetOf(key){ try { return (typeof assetOf === 'function' && assetOf(key)) || allAssets().find(x => x.key === key) || null; } catch (e) { return null; } }
 /* import: the collection is checked like the others - the key is a board, a rego is 1 to 9 letters or digits, a fleet
@@ -472,13 +524,13 @@ LATE = r'''<script id="vms913-script">
   return h; } catch (e) { return h; } };
  /* the driver's full details: a Boards line after the asset numbers */
  const dt = dropText; dropText = function(a){ const h = dt.apply(this, arguments); try { const L = vms913LoadOf(a, vms913KnownOf(a, h)); if (!L) return h; const P = String(h).split('\n'), i = P.findIndex(x => /^Map location: /.test(x));
-  P.splice(i >= 0 ? Math.min(P.length, i + 2) : 1, 0, L.boards.length ? 'Boards: ' + L.text + (L.word ? ' (' + VMS913_WORD + ')' : '') : 'VMS boards not named yet'); return P.join('\n'); } catch (e) { return h; } };
+  P.splice(i >= 0 ? Math.min(P.length, i + 2) : 1, 0, L.boards.length ? 'Boards: ' + L.text + (L.word ? ' (' + VMS913_WORD + ')' : '') : 'VMS boards not named yet', ...L.moved.map(vms913Plain)); return P.join('\n'); } catch (e) { return h; } };
  /* a write the shared record refused (the link lost its right to write): the register is drawn again at once, so a board
     saved only here says so instead of keeping the edit-link wording */
  const se = syncError; syncError = function(e, what){ const r = se.apply(this, arguments); try { if (SYNC.readonly && /^(save|remove) vmsboard /.test(String(what || ''))) { const f = document.querySelector('#pane-plant [data-vms913]'); if (f) { f.remove(); vms913Mount(); } } } catch (x) {} return r; };
  /* the installers' daily page: the boards as the first note on the delivery */
  const dm = daily821Model; daily821Model = function(iso){ const m = dm.apply(this, arguments); try { ((m && m.loads) || []).forEach(l => (l.rows || []).forEach(r => { const a = vms913AssetOf(r.key), L = a && vms913LoadOf(a, vms913KnownOf(a, r.assets || ''));
-  if (L) { r.boards913 = L.text; r.notes = [L.boards.length ? 'Boards: ' + L.text + (L.word ? ' (' + VMS913_WORD + ')' : '') : 'VMS boards not named yet'].concat(Array.isArray(r.notes) ? r.notes : []); } })); } catch (e) {} return m; };
+  if (L) { r.boards913 = L.text; r.notes = [L.boards.length ? 'Boards: ' + L.text + (L.word ? ' (' + VMS913_WORD + ')' : '') : 'VMS boards not named yet'].concat(L.moved, Array.isArray(r.notes) ? r.notes : []); } })); } catch (e) {} return m; };
 })();
 </script>
 '''
@@ -517,6 +569,9 @@ CSS = '''
 .vms913load b{font-weight:700}
 .vms913load small{font-size:11px;opacity:.8}
 .vms913load.tl913{margin-top:4px}
+.vms913mv{display:block}
+.vms913ed{margin:0 0 10px;padding:8px 10px;border-left:3px solid var(--orange);background:var(--tint2);font-size:12.5px;line-height:1.45;color:var(--ink)}
+.vms913ed p{margin:4px 0 0}
 .ld:has(.vms913load.tl913) .vms913load.dc913{display:none}
 .vms913dcl{margin:6px 0 0;color:var(--orange-ink)}
 .vms913cell{overflow-wrap:anywhere}
@@ -530,7 +585,7 @@ CSS = '''
 /* the Equipment tab's skin keeps its folds white in dark mode; the register's own fold takes light-panel tokens, the way
    .fin745/.pl752/.cj765 do, so its text stays readable. No other component is restyled. */
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]) #pane-plant.refresh-equipment details.vms913fold{--paper:#fff;--tint2:#fcfbfa;--ink:#14181d;--ink2:#2f3841;--mute:#4b535b;--slate:#4a5560;--rule:#e4e0dc;--rule2:#f1eeec;--orange-ink:#9a3f0a;--orange-soft:#fdf0e6;--red:#b42318;color:var(--ink)}}
-body.viewonly [data-vms913-form],body.viewonly [data-vms913-edit]{display:none!important}
+body.viewonly [data-vms913-form],body.viewonly [data-vms913-edit],body.viewonly [data-vms913-ednote]{display:none!important}
 '''
 
 

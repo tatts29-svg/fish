@@ -1,9 +1,5 @@
 {
  "held_not_moved": [
-  "WC57",
-  "WC59",
-  "WC13",
-  "WC69",
   "P08",
   "P44",
   "P51",
@@ -38,7 +34,7 @@
  "rows": 200,
  "record_version": 4581,
  "footer": "\u00b7 v9.18",
- "moved_53": [
+ "moved_57": [
   {
    "ref": "CP1",
    "kind": "master",
@@ -174,6 +170,19 @@
    "kind": "master",
    "moved_m": 2.4,
    "table_m": 2.4,
+   "surfaces": [
+    "dpPos",
+    "driverCard",
+    "dropText",
+    "navBtn",
+    "text747"
+   ]
+  },
+  {
+   "ref": "WC13",
+   "kind": "master",
+   "moved_m": 2.0,
+   "table_m": 2.0,
    "surfaces": [
     "dpPos",
     "driverCard",
@@ -586,6 +595,32 @@
    ]
   },
   {
+   "ref": "WC57",
+   "kind": "master",
+   "moved_m": 11.8,
+   "table_m": 11.8,
+   "surfaces": [
+    "dpPos",
+    "driverCard",
+    "dropText",
+    "navBtn",
+    "text747"
+   ]
+  },
+  {
+   "ref": "WC59",
+   "kind": "master",
+   "moved_m": 5.6,
+   "table_m": 5.6,
+   "surfaces": [
+    "dpPos",
+    "driverCard",
+    "dropText",
+    "navBtn",
+    "text747"
+   ]
+  },
+  {
    "ref": "WC61",
    "kind": "master",
    "moved_m": 2.0,
@@ -642,6 +677,19 @@
    "kind": "master",
    "moved_m": 5.1,
    "table_m": 5.1,
+   "surfaces": [
+    "dpPos",
+    "driverCard",
+    "dropText",
+    "navBtn",
+    "text747"
+   ]
+  },
+  {
+   "ref": "WC69",
+   "kind": "master",
+   "moved_m": 2.3,
+   "table_m": 2.3,
    "surfaces": [
     "dpPos",
     "driverCard",

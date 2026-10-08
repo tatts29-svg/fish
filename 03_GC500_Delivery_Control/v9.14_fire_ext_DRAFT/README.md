@@ -1,14 +1,59 @@
-# v9.14 fire extinguishers — DRAFT (not uploaded, not committed)
+# v9.14 fire extinguishers — READY TO UPLOAD (not uploaded, not committed, not claimed)
 
 Author: Andrew Fisher
 
 **Andrew, on site, about 16:25 AEST, 8 Oct 2026:** "also on another note i see no option to add fire extinguishers. these dont have a asset no a remember they have a charge also"
 
-**State:** DRAFT, review findings fixed (see "Review findings" below), and the project manager's 8 Oct answers on the rate applied (see "8 Oct: the rate answered" below). Nothing was uploaded, committed or written to the record.
+## READY TO UPLOAD — 9 Oct 2026, 00:10 AEST
 
-- **Base.** The task named live v9.11 (`408ae6ac…`). Live had moved to footer **v9.18** (`c547a6de…`) and was still there at the last build (8 Oct, about 23:25 AEST). The patch is built on v9.18; every anchor matched once.
-- **Build:** `toolchain/build.sh v914_fire v9.14_fire_ext_DRAFT/patch_v914_fire_ext.py` gives `10593ecd…` (11,627,370 bytes). `check_page.py` reports PASS all checks. Running the patch a second time stops with "v9.14 is already applied". The previous candidate was `18638084…` (11,626,615 bytes); the only change since is the wording below.
-- **Not claimed.** No version is claimed on `STATUS.md`. The footer is untouched; the next free number is for whoever publishes.
+Scope and checks are complete on this candidate. Nothing was uploaded, committed or written to the record.
+
+- **Base:** live footer **v9.18**, sha256 `c547a6debe1dea9009b50466d3c1028ec9c3a800e6c591ea258b61490b14b762` (11,605,879 bytes). Fetched by the rebuild at 23:57 AEST, 8 Oct.
+- **Candidate:** `build/GC500_v914_fire/GC500_Delivery_Control_hosted.html`.
+  - sha256 `10593ecd4bf2130aaecfac21759fea9bfe1bd1afb4200f21a7ae967fe611f2eb`, **11,627,370 bytes**.
+  - Built by `toolchain/build.sh v914_fire v9.14_fire_ext_DRAFT/patch_v914_fire_ext.py`. The rebuild after the container restart gave the same sha as before it.
+  - The previous candidate was `18638084…` (11,626,615 bytes). The only change since is wording: no year, and "(one-off)".
+- **Source in this folder (not committed):**
+  - `patch_v914_fire_ext.py`, sha256 `6dbc9ef4ddb04a7cb6bd32f3e15b076238f8215e2bfce6578f86b621debb744c`;
+  - `tests/test_fire_ext914.cjs`, sha256 `83d93af647715db5d456ab15c9daec19dbcd34f6528b7888d0db9442e72e7ecb`.
+- **Footer:** still " · v9.18". The patch does not touch it; the publisher sets the next free number.
+- **Who:** implemented and tested by Claude. Two review passes (UI and money) were run on the earlier `b3f796b3…` build, and their findings are fixed (table below). No Codex review is recorded.
+
+### Results on `10593ecd…` (8–9 Oct 2026, through the harness, read only)
+
+| check | result |
+|---|---|
+| Rebuild from live, 23:57 AEST 8 Oct | base `c547a6de…` (v9.18); candidate `10593ecd…`, the same sha as before the restart. `check_page.py`: PASS all checks |
+| Practice tests, laptop 1440 (`tests/test_fire_ext914.cjs`) | **61/61**, 00:03–00:06 AEST 9 Oct. Log: `evidence/test_fire_ext914_laptop.log` |
+| Practice tests, phone 390 | **61/61**, 00:00–00:03 AEST 9 Oct. Log: `evidence/test_fire_ext914_phone.log` |
+| The first laptop run, which straddled midnight | 60/61. It is not counted. The one fail was the clock moving to 9 Oct between two money snapshots: wages and accommodation moved from "to come" to "to date", and days left and the fencing week moved. No fire extinguisher, labour tick or charge figure was in it. The rerun above passes. Log kept: `evidence/test_fire_ext914_laptop_midnight_run.log` |
+| Sweep, laptop (`harness/sweep.js`) | 21 tabs: **0 page errors, 0 console errors, 0 hash-route errors, 0 blocked**. 15 shown; the same 6 hidden as before (register, journal, breakdowns, variances, edit, add). `evidence/sweep_laptop.json` |
+| Sweep, phone (`MOB=1`) | the same: 21 tabs, 0 / 0 / 0, **0 blocked**. `evidence/sweep_phone.json` |
+| Money rerun (`review_money914.cjs`, base v9.18 against this build), 00:09 AEST 9 Oct | **No money change against `18638084…`.** Every PASS and FAIL line and every moved figure (as multiples of F) is the same as that candidate's run. The result is "3 FAILED", the same three too-strict checks as before (see "Money rerun" below). The only differences are the record day (8 → 9 Oct), and 2 fewer numbers compared in each scenario, on both pages alike (0 differ). `evidence/money_rerun_914.log` |
+| Grep of the built page for the year | **No 2025 in any fire extinguisher string.** No code string carries a fire extinguisher word and 2025. All 97 fire extinguisher mentions within 160 characters of a 2025 are inside DATA, the card's own column headings and notes. DATA is byte-identical to the base (the patch asserts it), and the base page has exactly the same mentions. The patch itself has no 2025 |
+| Year check on the rendered page (in the tests) | editor: 68 fire extinguisher lines on 21 tabs, three drawers and five money cards; view link: 77 lines. None carries the year |
+| Screenshots | each one kept was looked at: no dollar figure, no real name (test stamps read "Practice …"). The two phone frames that cannot show the line (Equipment, Install sheet) are not kept |
+
+### What Andrew is saying yes to
+
+- **An "Add fire extinguisher" control on every location's drawer** (editors only), under "Fire extinguishers" in "Inside it and asset numbers".
+  - The count is set with − / +, with **no asset number**, and saved with who and when.
+  - **Take off** keeps the row and shows "Taken off · was …".
+  - The view link shows the count and no control.
+- **Shown as "Fire extinguisher × n"** on the drawer, the Equipment row and the Drivers and Install sheets.
+- **Charged as a one-off per piece, at the card's Fire Ext. rate**, where the card prices it (portable buildings and ticket boxes). Q1 and Q2 below are his answers. **No year is shown** with a fire extinguisher anywhere.
+- **Where the card has no figure, it reads "rate to confirm"** (toilets, generators, towers, VMS and other plant, containers, furniture). The money there is unknown, never nought, until he gives a rate (Q3).
+- **An added quantity replaces that location's per-building fire_ext tick**, so nothing is counted twice.
+- **Money:** on today's record nothing moves (0 fire extinguisher rows, 0 fire_ext ticks). Once pieces are added they land in Hire Revenue (1005), and Costs, the P&L, Pricing, Accruals and the Finance handover each count them once.
+
+### Publish note
+
+- **Claim first.** Claim the next free footer on `STATUS.md` and set it. That changes the sha, so re-hash the page and rerun `check_page.py`; the footer must be the only change.
+- **If live has moved** off `c547a6de…`, `upload_page.py` refuses. Rebuild with the command above on the new live, then rerun the tests (laptop and phone), both sweeps and the money rerun.
+- **Upload** with `python3 toolchain/upload_page.py build/GC500_v914_fire/GC500_Delivery_Control_hosted.html`. It proves the view link serves the build byte for byte.
+- **Record it.** Rename this folder `v9.14_fire_ext_LIVE`, add the LIVE time, and update `STATUS.md`: its v9.14 line still says the tests are being rerun. Then commit and push.
+- **Rollback hazard.** Once fire extinguisher rows exist on the record, never upload a build without v9.14 over them (see "Before uploading").
+- **Open but not blocking:** Q3 (the rate where the card has none) and Q4 (where and how many). The page reads "rate to confirm" and pre-fills nothing.
 
 ## Why there was no option (live v9.11, read only)
 
@@ -132,6 +177,12 @@ Andrew's answers above (Q1 rate basis, Q2 one-off) changed wording only. No mone
 
 **Money rerun.** The money reviewer's own script (`review_money914.cjs`, base v9.18 against this build) gives the same results as on `b3f796b3…`. The only difference is by design: the labour plan's "unpriced" count no longer moves for fire extinguishers, because they are now counted as "rate to confirm". The two too-strict asserts the reviewer explained (ratios, tie-out parts moving on both sides) fail the same way. In the "no card figure" scenario no money figure moves. The extra differences it lists are the costs-to-job-end list gaining one item, which shifts the later items' positions.
 
+- **Rerun on `10593ecd…`, 00:09 AEST 9 Oct:** "3 FAILED", the same three checks with the same detail.
+  - the ratio check (`P.gm.pcNow`, `P.gm.pcJob`, `P.diff.pcNow`);
+  - the tie-out parts that move on both sides;
+  - the labour plan's "unpriced" count, which does not move by design (`lp: 0`).
+- Every other line, and every moved figure as a multiple of F, matches the run on `18638084…`. The only differences are the record day and 2 fewer numbers compared in each scenario, on both pages alike. Log: `evidence/money_rerun_914.log`.
+
 ## Files
 
 - `patch_v914_fire_ext.py` is the patch.
@@ -139,14 +190,14 @@ Andrew's answers above (Q1 rate basis, Q2 one-off) changed wording only. No mone
   - Every replacement matches exactly once.
   - It refuses to run twice.
 - `tests/test_fire_ext914.cjs` runs the practice tests on laptop and phone (`PAGE=<build> [MOB=1] node tests/test_fire_ext914.cjs`).
-- `evidence/` holds the test logs, the sweeps and the screenshots. No dollar figure is in any frame or any log; money moves are given as multiples of the card's Fire Ext. figure (F) and as counts, and rendered page text is masked (`$#`).
+- `evidence/` holds the test logs, the sweeps, the money rerun log and the screenshots. No dollar figure is in any frame or any log; money moves are given as multiples of the card's Fire Ext. figure (F) and as counts, and rendered page text is masked (`$#`).
 
 ## Checks
 
-All checks were run on the `10593ecd…` build (base live v9.18) through the harness.
+All checks were run on the `10593ecd…` build (base live v9.18) through the harness, last on 9 Oct 2026, 00:00–00:10 AEST (results at the top).
 
-- **Practice tests:** `tests/test_fire_ext914.cjs`, laptop 1440 **58/58** and phone 390 **58/58**. Logs: `evidence/test_fire_ext914_laptop.log` and `_phone.log`.
-- **Sweeps:** `evidence/sweep_laptop.json` and `sweep_phone.json`.
+- **Practice tests:** `tests/test_fire_ext914.cjs`, laptop 1440 **61/61** and phone 390 **61/61**. Logs: `evidence/test_fire_ext914_laptop.log` and `_phone.log`.
+- **Sweeps:** `evidence/sweep_laptop.json` and `sweep_phone.json` (9 Oct, 00:06–00:09 AEST).
   - 21 tabs: 0 page errors, 0 console errors, 0 hash-route errors, **0 blocked writes**.
   - 15 tabs show; the same 6 are hidden from the nav as on the v9.13 baseline sweep (register, journal, breakdowns, variances, edit, add).
 

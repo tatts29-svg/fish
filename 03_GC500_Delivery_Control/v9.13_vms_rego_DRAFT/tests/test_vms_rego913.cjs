@@ -19,8 +19,13 @@ const info = (name, detail) => console.log('INFO ' + name + (detail !== undefine
 const W = MOB ? 390 : 1440, H = MOB ? 844 : 900;
 const recordNow = () => JSON.parse(execFileSync('curl', ['-sS', '--max-time', '60', '-H', 'x-gc500-token: Coates-GC500-2026', HOST + '/api/state'], {maxBuffer: 1 << 28}).toString());
 const vmsDocs = r => (r.docs && r.docs.vmsboard) ? Object.keys(r.docs.vmsboard) : [];
-const W103 = 'VMS09 (Coates 1211404 · rego not given · asset no. also on T0001 - to confirm) · VMS10 (PremAir Hire 120T · rego V14221)';
+// 8 Oct 2026 (the project manager): "1211404 is VMS09" (~13:50) and "take off that location and put on new location" (~23:20):
+// 1211404 is VMS09 on T0103 by his word; T0001 carries its other 7 Coates boards and says the board moved.
+const W103 = 'VMS09 (Coates 1211404 · rego not given) · VMS10 (PremAir Hire 120T · rego V14221)';
 const WORD = "the project manager's word";
+const MOVED = '1211404 moved to T0103 (VMS09) — the project manager, 8 Oct';
+const ED1 = "The record still lists 1211404 among T0001's asset numbers — remove it on T0001's Change form.";
+const ED2 = 'Contract 9961265 lists the board on line 1 (T0001, from 7 Sep) and line 12 (VMS09) — check line 1 was off-hired or transferred.';
 
 /* one browser with a controllable service in front of it (edit level, an incoming record, a refusal) */
 async function rig(opts) {
@@ -74,15 +79,16 @@ async function sessionA() {
     await showVms(p);
     const rows = await rowsOf(p);
     const lines = await p.evaluate(() => ONHIRE_ROWS.filter(r => r.family === 'vms').map(r => r.rental_contract + '/' + r.line));
-    const boardLines = await p.evaluate(() => vms913Boards().map(b => b.contract + '/' + b.line));
-    ok('every VMS contract line has exactly one register row', rows.length === lines.length && lines.length === 23 && new Set(boardLines).size === lines.length && lines.every(l => boardLines.includes(l)) && new Set(rows.map(r => r.key)).size === rows.length, {rows: rows.length, lines: lines.length});
+    const boardLines = await p.evaluate(() => vms913Boards().flatMap(b => [b.contract + '/' + b.line].concat((b.folded || []).map(f => b.contract + '/' + f.line))));
+    const summ = await p.evaluate(() => document.querySelector('[data-vms913] > summary').textContent.replace(/\s+/g, ' '));
+    ok('every VMS contract line is on exactly one register row: 23 lines, 22 boards (line 1 is VMS09\'s, by the project manager\'s word)', rows.length === 22 && lines.length === 23 && boardLines.length === 23 && new Set(boardLines).size === 23 && lines.every(l => boardLines.includes(l)) && new Set(rows.map(r => r.key)).size === rows.length && /23 contract lines/.test(summ), {rows: rows.length, lines: lines.length, summ});
     const R = Object.fromEntries(rows.map(r => [r.key, r]));
     const t10 = R.VMS10.cells.join(' | ');
     ok("VMS10 shows PremAir Hire, fleet 120T, rego V14221 as the project manager's word, said once in the row", R.VMS10.src === 'word' && /PremAir Hire/.test(t10) && /120T/.test(t10) && /V14221/.test(t10) && t10.split(WORD).length === 2, t10);
     const others = rows.filter(r => r.key !== 'VMS10');
-    ok('every other board reads rego "not given" (no rego invented)', others.length === 22 && others.every(r => /not given/.test(r.cells[3]) && r.src === 'contract'), others.filter(r => !/not given/.test(r.cells[3])).map(r => r.key));
-    ok('whose: Coates boards say Coates, sub-hire boards name the contract company', /^Coates$/.test(R['1211404'].cells[1]) && /^Coates$/.test(R.VMS12.cells[1]) && /^Premiair/.test(R.VMS11.cells[1]) && /^RPM/.test(R.VMS13.cells[1]) && /^Premiair/.test(R.VMS23.cells[1]));
-    const coatesNoVms = ['1211404', '1211370', '1211354', '1182999', '1191877', '1211359', '1211383', '1271129'];
+    ok('every other board reads rego "not given" (no rego invented)', others.length === 21 && others.every(r => /not given/.test(r.cells[3]) && r.src === 'contract'), others.filter(r => !/not given/.test(r.cells[3])).map(r => r.key));
+    ok('whose: Coates boards say Coates, sub-hire boards name the contract company', /^Coates$/.test(R['1211370'].cells[1]) && /^Coates$/.test(R.VMS09.cells[1]) && /^Coates$/.test(R.VMS12.cells[1]) && /^Premiair/.test(R.VMS11.cells[1]) && /^RPM/.test(R.VMS13.cells[1]) && /^Premiair/.test(R.VMS23.cells[1]));
+    const coatesNoVms = ['1211370', '1211354', '1182999', '1191877', '1211359', '1211383', '1271129'];
     ok('an asset number is not repeated in its own row: Fleet no. reads "same as board", On delivery reads "by asset number" with no number', coatesNoVms.every(k => R[k].cells[2] === 'same as board' && R[k].cells[4] === 'T0001by asset number' && R[k].cells.join(' ').split(k).length === 2), coatesNoVms.map(k => R[k].cells.join(' | ')).slice(0, 2));
     ok('fleet number: the Coates asset number where the board has a VMS number, not given for sub-hire boards without one', /1211404/.test(R.VMS09.cells[2]) && /not given/.test(R.VMS13.cells[2]), {VMS09: R.VMS09.cells[2], VMS13: R.VMS13.cells[2]});
     ok("On delivery: VMS09 on T0103 as the project manager's word; VMS10 on T0103 with the word said once in Source; the rest not named yet",
@@ -90,10 +96,11 @@ async function sessionA() {
     ok('the contract source is said once, in the note, not on every row', rows.filter(r => r.src === 'contract').every(r => r.cells[5] === '') && /From the contract unless a row says otherwise/.test(await p.evaluate(() => document.querySelector('.vms913note').textContent)));
     const note = await p.evaluate(() => document.querySelector('.vms913note').textContent.replace(/\s+/g, ' '));
     ok('the note carries no counts and does not talk about the VMS plan reconciliation', !/\d/.test(note) && !/reconcil|plan/i.test(note), note);
-    ok('the same Coates asset number on two lines is said, not resolved (1211404 on lines 1 and 12)', /also on line 12/.test(R['1211404'].cells[0]) && /also on line 1\b/.test(R.VMS09.cells[0]));
+    ok("1211404 is VMS09: one row for the board (line 1 has no row of its own), 'moved from T0001 (line 1)', no 'also on line', On delivery T0103 (the project manager's word)",
+      !R['1211404'] && /^VMS09\s*line 12 · moved from T0001 \(line 1\)$/.test(R.VMS09.cells[0]) && !rows.some(r => /also on line/.test(r.cells[0])) && R.VMS09.cells[4] === "T0103the project manager's word" && R.VMS09.cells[2] === '1211404', {VMS09: R.VMS09.cells});
     const view = await p.evaluate(() => { const f = document.querySelector('[data-vms913]'); const vis = el => { const r = el.getBoundingClientRect(), cs = getComputedStyle(el); return r.width > 0 && r.height > 0 && cs.display !== 'none' && cs.visibility !== 'hidden'; };
-      return {form: !!f.querySelector('[data-vms913-form]'), edits: f.querySelectorAll('[data-vms913-edit]').length, visibleControls: [...f.querySelectorAll('input,select,textarea,button')].filter(vis).length, cap: capability(), dollars: /\$/.test(f.textContent)}; });
-    ok('a view link shows no controls on the register, and no dollar figure', view.cap !== 'edit' && !view.form && view.edits === 0 && view.visibleControls === 0 && !view.dollars, view);
+      return {form: !!f.querySelector('[data-vms913-form]'), edits: f.querySelectorAll('[data-vms913-edit]').length, ednote: !!f.querySelector('[data-vms913-ednote]') || /off-hired|Change form/.test(f.textContent), visibleControls: [...f.querySelectorAll('input,select,textarea,button')].filter(vis).length, cap: capability(), dollars: /\$/.test(f.textContent)}; });
+    ok('a view link shows no controls on the register, no editor note, and no dollar figure', view.cap !== 'edit' && !view.form && view.edits === 0 && !view.ednote && view.visibleControls === 0 && !view.dollars, view);
     const fit = await p.evaluate(() => ({page: document.documentElement.scrollWidth <= innerWidth + 1, fold: (() => { const f = document.querySelector('[data-vms913]'); return f.scrollWidth <= f.clientWidth + 1; })()}));
     ok('the register fits the screen (no sideways scroll)', fit.page && fit.fold, fit);
     const sh1 = await viewShot(p, `register_${TAG}.png`, '[data-vms913-row="VMS09"]');
@@ -124,7 +131,7 @@ async function sessionA() {
         cell: has(cell) && /Booked \/ recorded numbers/.test(dpTruck(g, 'drv')), oldTruckLines: /dp-lines" data-vms913-truck/.test(dpTruck(g, 'drv')),
         daily: !!row && row.notes[0] === 'Boards: ' + W + ' (' + WORD + ')' && has(daily821Html(m, {name: 'Practice'}, 1)),
         sms: dropSmsText(a), what: text747What(a), longText: dropText(a, {}).split('\n').find(l => /^Boards: /.test(l)) || null,
-        t0001load: strip(loading872AssetHtml(t1)), t0001drop: strip(dropText(t1, {})).match(/Boards: [^\n]*?(?= Due|$)/) && dropText(t1, {}).split('\n').find(l => /^Boards/.test(l)),
+        t0001load: ((new DOMParser().parseFromString(loading872AssetHtml(t1), 'text/html').querySelector('[data-vms913-load]') || {}).textContent || '').replace(/\s+/g, ' '), t0001nos: strip(loading872AssetHtml(t1)), t0001text: dropText(t1, {}).split('\n').filter(l => /^Boards|moved to/.test(l)), t0001cell: strip(vms913CellHtml(t1)), t0001rest: vms913Rest(t1, dpNums(t1)),
         t0158: /VMS boards not named yet/.test(strip(loading872AssetHtml(t158))) && /VMS boards not named yet/.test(strip(driverCard(t158))) && /Boards: not named yet/.test(dropSmsText(t158)),
         others: !/vms913|Boards:/.test(loading872AssetHtml(wc) + bookingNosLine801(wc) + driverCard(wc) + deliveryCard(wc) + dropText(wc, {}) + dropSmsText(wc) + dpTruck(gw, 'drv')) && !/^Boards/.test((roww && roww.notes[0]) || '')};
     }, [W103, WORD]);
@@ -133,8 +140,9 @@ async function sessionA() {
     ok('the Timeline\'s "Every day" row for T0103 names both boards (WC09\'s rows untouched)', sur.everyDay);
     ok("drawer Delivery card names both boards in its own class (dcl913, not the page's .dcard), and its rental lines carry no repeat chip", sur.drawer && sur.drawerChip === 0, {drawer: sur.drawer, chips: sur.drawerChip});
     ok("driver drop card (T0103): one pill per board, his word as one small note naming the boards, the remaining asset pill kept",
-      sur.pills103[0] === 'VMS09 (Coates 1211404 · rego not given · asset no. also on T0001 - to confirm)' && sur.pills103[1] === 'VMS10 (PremAir Hire 120T · rego V14221)' && sur.pills103[2] === "VMS09 and VMS10: " + WORD && sur.pills103.includes('Asset sub-17093'), sur.pills103);
-    ok('driver drop card (T0001): no plain asset pill repeats a board pill, and no wrong "and N more"', sur.pills1.filter(x => /^Asset /.test(x)).length === 0 && !sur.pills1.some(x => /and \d+ more/.test(x)) && sur.pills1.filter(x => /\(Coates · rego not given/.test(x)).length === 8, sur.pills1);
+      sur.pills103[0] === 'VMS09 (Coates 1211404 · rego not given)' && sur.pills103[1] === 'VMS10 (PremAir Hire 120T · rego V14221)' && sur.pills103[2] === "VMS09 and VMS10: " + WORD && sur.pills103.includes('Asset sub-17093') && !sur.pills103.some(x => /T0001|to confirm/.test(x)), sur.pills103);
+    ok('driver drop card (T0001): 7 Coates board pills and the moved line; no plain asset pill repeats a board pill or the moved 1211404, and no wrong "and N more"',
+      sur.pills1.filter(x => /^Asset /.test(x)).length === 0 && !sur.pills1.some(x => /and \d+ more/.test(x)) && sur.pills1.filter(x => /^\d{7} \(Coates · rego not given\)$/.test(x)).length === 7 && !sur.pills1.some(x => /^1211404 \(/.test(x)) && sur.pills1.filter(x => x === MOVED).length === 1 && sur.t0001rest.length === 0, {pills: sur.pills1, rest: sur.t0001rest});
     ok('printed drop sheet (run sheet) names both boards', sur.dropSheet);
     await p.evaluate(() => openAsset('T0103')); await p.waitForTimeout(1200);
     const pw = await p.evaluate(() => { const vw = document.documentElement.clientWidth; return [...document.querySelectorAll('#drawer [data-vms913-pill]')].filter(e => e.getBoundingClientRect().width > 0).map(e => { const r = e.getBoundingClientRect(), c = e.closest('.dcpills').getBoundingClientRect(); return {t: e.textContent.slice(0, 30), right: Math.round(r.right), box: Math.round(c.right), vw}; }); });
@@ -145,8 +153,10 @@ async function sessionA() {
     ok('driver text (short): the boards on their own line, rego only where given, the Delivery details link kept; the map-picture title (text747What) untouched',
       /\nBoards: VMS09[^\n]*VMS10[^\n]*V14221/.test(sur.sms) && !/rego not given/.test(sur.sms) && /Delivery details: /.test(sur.sms) && !/Boards|VMS09/.test(sur.what), {sms: sur.sms.split('\n').slice(0, 3), what: sur.what});
     ok('driver text (full details) carries a Boards line', sur.longText === 'Boards: ' + W103 + ' (' + WORD + ')', sur.longText);
-    ok('T0001: the load card counts its eight Coates boards against the asset numbers shown instead of repeating them; the twin board is named',
-      /Boards 1211404 \(Coates · rego not given · asset no\. also on T0103 - to confirm\) · 7 Coates boards by the asset nos\. shown \(rego not given\)/.test(sur.t0001load), sur.t0001load);
+    ok("T0001: the load card counts its 7 Coates boards against the asset numbers shown, plus one line '1211404 moved to T0103 (VMS09) — the project manager, 8 Oct'; 1211404 is not a board there",
+      /^Boards 7 Coates boards by the asset nos\. shown \(rego not given\) ?1211404 moved to T0103 \(VMS09\) — the project manager, 8 Oct$/.test(sur.t0001load.trim()) && !/1211404 \(Coates/.test(sur.t0001nos), {load: sur.t0001load, nos: sur.t0001nos});
+    ok('T0001: the full details text and the run sheet cell say the same, the text with a plain dash',
+      sur.t0001text.length === 2 && sur.t0001text[0] === 'Boards: 7 Coates boards by the asset nos. shown (rego not given)' && sur.t0001text[1] === MOVED.replace(' — ', ' - ') && sur.t0001cell.includes(MOVED) && /7 Coates boards/.test(sur.t0001cell), {text: sur.t0001text, cell: sur.t0001cell});
     ok('a VMS delivery with no board linked says "boards not named yet" (T0158) - nothing guessed', sur.t0158);
     ok('a delivery that is not VMS (WC09) is untouched on every surface', sur.others);
     // the driver's short text for every VMS delivery, today and with each delivery's full count of boards linked (in memory only)
@@ -165,7 +175,8 @@ async function sessionA() {
       const vis = [...box.querySelectorAll('[data-vms913-load]')].filter(e => getComputedStyle(e).display !== 'none' && e.getBoundingClientRect().height > 0).length, all = box.querySelectorAll('[data-vms913-load]').length; box.remove(); return {vis, all}; });
     ok('an opened Timeline load shows the boards line once (the delivery card\'s copy is hidden inside the load)', once.all === 2 && once.vis === 1, once);
     // the Timeline as drawn: the T0103 load card on 8 Oct
-    await p.evaluate(() => go('timeline')); await p.waitForTimeout(2500);
+    // the Timeline opens on today; T0103's load is Thu 8 Oct, so that day is chosen (the page's own day choice, in memory)
+    await p.evaluate(() => { go('timeline'); state.day = '2026-10-08'; state.tlView = 'day'; render(); }); await p.waitForTimeout(2500);
     const tlDom = await p.evaluate(() => { const e = document.querySelector('#pane-timeline [data-vms913-load="T0103"]'); return e ? e.textContent.replace(/\s+/g, ' ') : null; });
     ok('the Timeline shows the boards on the T0103 load card', tlDom && tlDom.includes(W103), tlDom);
     if (tlDom) { const sh3 = await viewShot(p, `timeline_T0103_${TAG}.png`, '#pane-timeline [data-vms913-load="T0103"]'); ok('screenshot of the T0103 load card, no dollar figure in frame', !sh3.dollars); }
@@ -215,8 +226,16 @@ async function sessionEdit() {
       return {heights: hs, on: !!on && [...on.options].map(o => o.value).join(',') === ',T0001,T0103,T0128,T0158,T0159,T0169,T0170', opts: [...on.options].map(o => o.textContent), edits: document.querySelectorAll('[data-vms913-edit]').length,
         editsShown: [...document.querySelectorAll('[data-vms913-edit]')].filter(vis).map(e => Math.round(e.getBoundingClientRect().height)), save: !f.querySelector('[data-vms913-save]').disabled}; });
     ok('the edit link shows one small form with 44 px taps (board, whose, fleet no., rego, On delivery, save); Change per board on a laptop, the board picker alone on a phone',
-      form && form.heights.length === 6 && form.heights.every(h => h >= 44) && form.on && form.edits === 23 && (MOB ? form.editsShown.length === 0 : form.editsShown.length === 23 && form.editsShown.every(h => h >= 44)) && form.save, form);
+      form && form.heights.length === 6 && form.heights.every(h => h >= 44) && form.on && form.edits === 22 && (MOB ? form.editsShown.length === 0 : form.editsShown.length === 22 && form.editsShown.every(h => h >= 44)) && form.save, form);
     ok('the On delivery options are short (no year) and say a relocation', form.opts.every(o => !/2026/.test(o)) && form.opts.some(o => /T0159 - 19 Oct - VMS × 5 · Relocate/.test(o)), form.opts);
+    // editors only: what is left to do after the move, said only while it is left to do (in memory only; nothing written)
+    const ed = await p.evaluate(() => { const n = document.querySelector('[data-vms913-ednote]'), txt = n ? [...n.querySelectorAll('p')].map(x => x.textContent) : null;
+      /* T0001's Change form takes a number off with a tombstone in S.deleted; set one in memory, read the notes, put it back - in one step, so nothing can travel */
+      const id = 'num/' + vms913ShownKey('T0001') + '/1211404'; S.deleted = S.deleted || {}; const had = Object.prototype.hasOwnProperty.call(S.deleted, id), was = S.deleted[id]; let after = null, still = null;
+      S.deleted[id] = new Date().toISOString(); try { after = vms913EdNotes(); still = dpNums(assetOf(vms913ShownKey('T0001'))).map(String).includes('1211404'); } finally { if (had) S.deleted[id] = was; else delete S.deleted[id]; }
+      return {txt, after, still, vis: !!n && n.getBoundingClientRect().height > 0}; });
+    ok("editors only: the record still lists 1211404 among T0001's asset numbers (remove it on T0001's Change form), and contract 9961265 lists the board on lines 1 and 12 (check line 1); once T0001 no longer lists it, only the contract line is left",
+      ed.vis && !!ed.txt && ed.txt.length === 2 && ed.txt[0] === ED1 && ed.txt[1] === ED2 && !!ed.after && ed.after.length === 1 && ed.after[0] === ED2 && ed.still === false, ed);
     // Save waits for the shared record
     const wait = await p.evaluate(() => { const keep = SYNC.first; SYNC.first = new Set([...keep].filter(x => x !== 'vmsboard')); const ready = vms913Ready(), d = document.createElement('div'); d.innerHTML = vms913Html(vms913Boards());
       const dis = d.querySelector('[data-vms913-save]').disabled, ret = vms913Save('VMS12', '', 'F12', 'ABC12', ''), rec = JSON.stringify(S.vmsboard || {}); SYNC.first = keep; return {ready, dis, ret, rec, readyAfter: vms913Ready()}; });
@@ -279,8 +298,8 @@ async function sessionOther() {
     ok('the open form refills from the record and says the board was changed on another device', formBefore.fleet === '' && formBefore.rego === '' && formAfter.board === 'VMS13' && formAfter.fleet === 'R13' && formAfter.rego === 'RPM13' && /VMS13 was changed on another device by Other Device/.test(formAfter.msg), {formBefore, formAfter});
     const t10 = await rowText(p, 'VMS10'), t13 = await rowText(p, 'VMS13');
     ok("a record document overrides the project manager's word and shows as recorded (it is on the shared record)", /Practice Co/.test(t10) && /P913/.test(t10) && /PRAC913/.test(t10) && !/V14221|120T|PremAir/.test(t10) && /recorded by Other Device/.test(t10) && /^.*RPM.*R13.*RPM13/.test(t13), {t10, t13});
-    const links = await p.evaluate(() => { const A = k => allAssets().find(x => x.key === k); return {t103: vms913LoadOf(A('T0103')).text, on09: (document.querySelector('[data-vms913-row="VMS09"] .vms913c.o') || {}).textContent}; });
-    ok("a record's On delivery wins: VMS09 taken off T0103 by the record; every surface follows", links.t103 === 'VMS10 (Practice Co P913 · rego PRAC913)' && /not named yet/.test(links.on09 || '') && /taken off by the record/.test(links.on09 || ''), links);
+    const links = await p.evaluate(() => { const A = k => allAssets().find(x => x.key === k); return {t103: vms913LoadOf(A('T0103')).text, t0001: vms913LoadOf(A('T0001')).moved.join(' | '), on09: (document.querySelector('[data-vms913-row="VMS09"] .vms913c.o') || {}).textContent}; });
+    ok("a record's On delivery wins: VMS09 taken off T0103 by the record; every surface follows, and T0001 says it moved off on the record", links.t103 === 'VMS10 (Practice Co P913 · rego PRAC913)' && links.t0001 === '1211404 moved off T0001 (VMS09) — on the record' && /not named yet/.test(links.on09 || '') && /taken off by the record/.test(links.on09 || ''), links);
     // the editor now changes only On delivery to T0158 and saves: the other device's fleet number and rego are kept
     await p.evaluate(() => { const c = document.querySelector('#dclose'); if (c) c.click(); });
     await p.selectOption('#vms913On', 'T0158');

@@ -20,29 +20,81 @@
      "src": "d828fb81baa00f4ed000"
     }
    ],
-   "text": "GC500 Delivery Control Coates Industrial Solutions GC500 2026 Gold Coast · AEST 21 : 48 : 18 Thu 08 Oct 2026 Gold Coast time, 21:48. Race day · Fri 23 Oct 14 DAYS 02:11:41 Week 2 · Build LIVE last confirmed 21:48 Today Timeline Equip ment Demob Map explorer Coates Way Tools View only. This link shows the shared record and cannot change it — everything here can be read, searched, printed and exported. Today — Boost Mobile Gold Coast 500 Today View date Email this Print Start showcase 10 scenes Today Site contacts Work progress On site Trade by trade Where we are Build phase Thu 08 Oct 2026 Paus"
+   "pinShown": false,
+   "want": "-27.984717, 153.428026",
+   "text": "GC500 Delivery Control Coates Industrial Solutions GC500 2026 Gold Coast · AEST 00 : 15 : 01 Fri 09 Oct 2026 Gold Coast time, 00:14. Race day · Fri 23 Oct 13 DAYS 23:44:58 Build phase · day 33 of 68 LIVE last confirmed 00:15 Today Timeline Equip ment Demob Map explorer Coates Way Tools View only. This link shows the shared record and cannot change it — everything here can be read, searched, printed and exported. Today — Boost Mobile Gold Coast 500 Today View date Email this Print Start showcase 10 scenes Today Site contacts Work progress On site Trade by trade Where we are Build phase Fri 09 O"
   },
   {
-   "ref": "CP1",
-   "part": "where",
+   "ref": "WC09",
+   "part": "pins",
    "found": true,
-   "file": "phone_CP1_where.png",
+   "file": "phone_WC09_pins.png",
    "dollars": false,
    "imgs": [
     {
      "w": 771,
-     "src": "2ba614951ddc1e2.webp"
+     "src": "9a601ea712d5055.webp"
     },
     {
      "w": 937,
-     "src": "b6ff5daa2a9cb43.webp"
+     "src": "34a181398d9c275.webp"
     },
     {
-     "w": 560,
-     "src": "e2fe7fbf2e27cd9.webp"
+     "w": 480,
+     "src": "d828fb81baa00f4ed000"
     }
    ],
-   "text": "GC500 Delivery Control Coates Industrial Solutions GC500 2026 Gold Coast · AEST 21 : 48 : 24 Thu 08 Oct 2026 Gold Coast time, 21:48. Race day · Fri 23 Oct 14 DAYS 02:11:35 Week 2 · Build LIVE last confirmed 21:48 Today Timeline Equip ment Demob Map explorer Coates Way Tools View only. This link shows the shared record and cannot change it — everything here can be read, searched, printed and exported. Today — Boost Mobile Gold Coast 500 Today View date Email this Print Start showcase 10 scenes Today Site contacts Work progress On site Trade by trade Where we are Build phase Thu 08 Oct 2026 Paus"
+   "pinShown": false,
+   "want": "-27.984717, 153.428026",
+   "text": "GC500 Delivery Control Coates Industrial Solutions GC500 2026 Gold Coast · AEST 00 : 15 : 03 Fri 09 Oct 2026 Gold Coast time, 00:14. Race day · Fri 23 Oct 13 DAYS 23:44:56 Build phase · day 33 of 68 LIVE last confirmed 00:15 Today Timeline Equip ment Demob Map explorer Coates Way Tools View only. This link shows the shared record and cannot change it — everything here can be read, searched, printed and exported. Today — Boost Mobile Gold Coast 500 Today View date Email this Print Start showcase 10 scenes Today Site contacts Work progress On site Trade by trade Where we are Build phase Fri 09 O"
+  },
+  {
+   "ref": "WC59",
+   "part": "where",
+   "found": true,
+   "file": "phone_WC59_where.png",
+   "dollars": false,
+   "imgs": [
+    {
+     "w": 771,
+     "src": "3a190b7d91b2911.webp"
+    },
+    {
+     "w": 937,
+     "src": "7738ea7f6272b36.webp"
+    },
+    {
+     "w": 800,
+     "src": "04ca8af550e76d0.webp"
+    }
+   ],
+   "pinShown": false,
+   "want": "-27.988183, 153.430169",
+   "text": "GC500 Delivery Control Coates Industrial Solutions GC500 2026 Gold Coast · AEST 00 : 15 : 08 Fri 09 Oct 2026 Gold Coast time, 00:14. Race day · Fri 23 Oct 13 DAYS 23:44:51 Build phase · day 33 of 68 LIVE last confirmed 00:15 Today Timeline Equip ment Demob Map explorer Coates Way Tools View only. This link shows the shared record and cannot change it — everything here can be read, searched, printed and exported. Today — Boost Mobile Gold Coast 500 Today View date Email this Print Start showcase 10 scenes Today Site contacts Work progress On site Trade by trade Where we are Build phase Fri 09 O"
+  },
+  {
+   "ref": "WC59",
+   "part": "pins",
+   "found": true,
+   "file": "phone_WC59_pins.png",
+   "dollars": false,
+   "imgs": [
+    {
+     "w": 771,
+     "src": "3a190b7d91b2911.webp"
+    },
+    {
+     "w": 937,
+     "src": "7738ea7f6272b36.webp"
+    },
+    {
+     "w": 800,
+     "src": "04ca8af550e76d0.webp"
+    }
+   ],
+   "pinShown": false,
+   "want": "-27.988183, 153.430169",
+   "text": "GC500 Delivery Control Coates Industrial Solutions GC500 2026 Gold Coast · AEST 00 : 15 : 10 Fri 09 Oct 2026 Gold Coast time, 00:14. Race day · Fri 23 Oct 13 DAYS 23:44:49 Build phase · day 33 of 68 LIVE last confirmed 00:15 Today Timeline Equip ment Demob Map explorer Coates Way Tools View only. This link shows the shared record and cannot change it — everything here can be read, searched, printed and exported. Today — Boost Mobile Gold Coast 500 Today View date Email this Print Start showcase 10 scenes Today Site contacts Work progress On site Trade by trade Where we are Build phase Fri 09 O"
   },
   {
    "ref": "WC09",
@@ -83,47 +135,47 @@
    "text": "The ring is where the plan puts it, not a GPS fix. Check the exact spot with the supervisor before you set it down."
   },
   {
-   "ref": "CP1",
+   "ref": "WC59",
    "part": "dropsheet_go",
    "found": true,
-   "file": "phone_CP1_dropsheet_go.png",
+   "file": "phone_WC59_dropsheet_go.png",
    "dollars": false,
    "satnav": [
-    -27.997497,
-    153.428419
+    -27.988183,
+    153.430169
    ],
    "nav": [
-    -27.997497,
-    153.428419,
+    -27.9881826,
+    153.4301687,
     "master plan"
    ],
-   "rings": 0,
-   "cap": "No aerial photo for this one. Callout CP1 is drawn in the Cypress inset — a separate small plan in the corner of the sheet, not on the main plan, so this sheet does not say where it is on the ground. The Sat nav point below is the one Navigate uses (master plan). Ring the supervisor for the exact spot before you leave the yard. The drawing above is right — that is the callout as iEDM drew it.",
-   "text": "How to get there\nFrom Coates Kingston — about 55 km by road, about 64 min. Sat nav: -27.997497, 153.428419 — the same point as Navigate (master plan).\nCome over the Sundale Bridge. That is the way in for trucks on this job.\nCome in here: TEDDER AVE ACCESS POINT, HEAVY VEHICLE ENTRY ONLY, LIGHT VEHICLE EXIT ONLY.\nDo not drive through the park unescorted. Pull up at the gate and wait.\nIt goes at Signevent Crib Room.\nRing the supervisor before you leave the yard. Callout CP1 is drawn in the Cypress"
+   "rings": 3,
+   "cap": "The ring is where the plan puts it, not a GPS fix. Check the exact spot with the supervisor before you set it down.",
+   "text": "How to get there\nFrom Coates Kingston — about 55 km by road, about 64 min. Sat nav: -27.988183, 153.430169 — the same point as Navigate (master plan).\nCome over the Sundale Bridge. That is the way in for trucks on this job.\nCome in here: TEDDER AVE ACCESS POINT, HEAVY VEHICLE ENTRY ONLY, LIGHT VEHICLE EXIT ONLY.\nDo not drive through the park unescorted. Pull up at the gate and wait.\nFrom that gate, head south-east about 950 m. The wide photo is what you are looking at.\nIt goes at Toilets. The cl"
   },
   {
-   "ref": "CP1",
+   "ref": "WC59",
    "part": "dropsheet_pics",
    "found": true,
-   "file": "phone_CP1_dropsheet_pics.png",
+   "file": "phone_WC59_dropsheet_pics.png",
    "dollars": false,
    "satnav": [
-    -27.997497,
-    153.428419
+    -27.988183,
+    153.430169
    ],
    "nav": [
-    -27.997497,
-    153.428419,
+    -27.9881826,
+    153.4301687,
     "master plan"
    ],
-   "rings": 0,
-   "cap": "No aerial photo for this one. Callout CP1 is drawn in the Cypress inset — a separate small plan in the corner of the sheet, not on the main plan, so this sheet does not say where it is on the ground. The Sat nav point below is the one Navigate uses (master plan). Ring the supervisor for the exact spot before you leave the yard. The drawing above is right — that is the callout as iEDM drew it.",
-   "text": "No aerial photo for this one. Callout CP1 is drawn in the Cypress inset — a separate small plan in the corner of the sheet, not on the main plan, so this sheet does not say where it is on the ground. The Sat nav point below is the one Navigate uses (master plan). Ring the supervisor for the exact spot before you leave the yard. The drawing above is right — that is the callout as iEDM drew it."
+   "rings": 3,
+   "cap": "The ring is where the plan puts it, not a GPS fix. Check the exact spot with the supervisor before you set it down.",
+   "text": "The ring is where the plan puts it, not a GPS fix. Check the exact spot with the supervisor before you set it down."
   }
  ],
  "counts": {
   "page": 1,
-  "live": 88,
+  "live": 90,
   "blocked": 0
  },
  "errors": [],

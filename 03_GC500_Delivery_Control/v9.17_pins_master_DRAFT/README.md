@@ -1,9 +1,34 @@
 # v9.17 — every navigation pin on the unit the 2 Oct master draws (DRAFT)
 
-Author: Andrew Fisher · 8 Oct 2026 · state: **DRAFT, second round: the 23 moves, plus GN18 and GN13 ("follow the master")
-and 28 near moves toward 10/10 — 53 pins in all. Rebuilt on live v9.18 and every test rerun (results at the end). Waiting
-on Andrew's yes. Not uploaded, not committed.** The publisher uploads once Andrew says yes and sets the next free footer
-(this patch leaves the footer alone).
+Author: Andrew Fisher · 8 Oct 2026 · state: **DRAFT, second round: the 23 moves, plus GN18 and GN13 ("follow the master"),
+28 near moves toward 10/10, and the four Andrew answered at about 23:20 (WC59, WC57, WC13, WC69) — 57 pins in all. Built on
+live v9.18 and every test rerun (results at the end). Waiting on Andrew's yes. Not uploaded, not committed.** The publisher
+uploads once Andrew says yes and sets the next free footer (this patch leaves the footer alone).
+
+## READY for Andrew's yes (not uploaded)
+
+| | |
+|---|---|
+| Base (live v9.18) | `c547a6debe1dea9009b50466d3c1028ec9c3a800e6c591ea258b61490b14b762`, 11,605,879 bytes, fetched for this build at about 00:07 AEST on 9 Oct |
+| Candidate | `4001406ab35556e7e0dc72c3c5f466318070fe435ee7bd08b158ebf0a268674b`, 11,616,813 bytes, `build/GC500_v917_r3/GC500_Delivery_Control_hosted.html` (label `v917_r3`) |
+| Footer | ` · v9.18`, unchanged; the publisher sets the next free one |
+| Media manifest | `media_manifest_v917.json` (copy in `evidence/`), file sha256 `16360702…04aa`, manifest digest `c582d796ca5981c2…`, 1,979 assets: 114 pictures in (`evidence/media917/`, 9.0 MB), 110 out |
+| Patch | `patch_v917_pins.py` (57 pins, Part 2 one point per reference, Part 3 E.P labels); refuses a second run, a base whose 57 pins are not where the audit found them, or evidence that does not pass |
+| Checks | PDF re-derivation 57/57 · identity PASS · every row (200 references) laptop and phone PASS, the 57 move by the expected metres, everything else 0.0 m · Part 2 5,388 points, 0 off Navigate · record 4581 before and after, 0 writes · sweeps laptop and phone 21 tabs, 0 errors · phone drawers WC09 and WC59 looked at (see results; one check in the shots script is a test defect, explained there) |
+| Implemented and tested by | Claude, alone. Codex has not reviewed this candidate |
+
+**What Andrew says yes to.** 57 navigation pins move off their printed labels onto the units the 2 Oct master draws (the 23,
+GN18 and GN13 by "follow the master", the 28 near moves, and WC59 to the long row, WC57 to the pair inside the SUPPLY fence,
+WC13 to the middle of its row of 3, WC69 to the middle of its row of 9). Every surface that hands out a point to drive or
+walk to gives Navigate's point. The E.P items read "Emergency egress point (E.P)". No counts, money or record entries change.
+One correction he should see: WC69's 3 on the fence are about 9 m **north-east** of the row's middle, not "6.5 m north-west"
+as the question said (the paper is not drawn north-up); the page says north-east.
+
+**Publish note for Codex.** Take the candidate only on Andrew's yes, and only from this folder at the commit that carries
+this README. Rebuild on live if live has moved past v9.18 (`c547a6de…`): the patch refuses if any of the 57 pins moved. Media
+first, then the page (the commands are under "Build and publish" below). After upload,
+read back the view link. The Map explorer's machine set still draws the 57 at their old spots until it is rebuilt (open
+question 8).
 
 ## What Andrew asked
 
@@ -19,7 +44,10 @@ out again from the PDF here. **WC09 delivers Fri 9 Oct.** Its pin today sits on 
 Then, the same evening (recorded on `STATUS.md`):
 - about 18:05, on the generators the 2 Oct master moved: **"follow the master"** — GN18 and GN13 are added;
 - toward **10/10**: the 28 pins that sit on their printed tag 1.3–2.9 m from the toilets the master draws (the near list,
-  checked two ways) are added. The ones that need his word (WC57/WC59, WC13, WC69) are held.
+  checked two ways) are added. The ones that needed his word (WC57/WC59, WC13, WC69) were held;
+- about 23:20, his answers (recorded on `STATUS.md`): **"the long row"** (WC59's 7 toilets are the 7-toilet row the master
+  labels WC57; WC57's 2 toilets go in the pair inside the SUPPLY fence), **"Wc13 qty 2"** and **"Wc69 qty 12"**. The four
+  are added.
 
 ## What moves, and why
 
@@ -68,10 +96,11 @@ off it is.
 **Pictures.** The 46 close-up and area pictures for the 23 pins are re-made from the PDF with the red ring on the unit. They
 use the same windows, sizes, ring and WebP settings as today's pictures. The 46 old pictures leave the media list.
 
-## Second round — GN18, GN13 and the 28 near moves
+## Second round — GN18, GN13, the 28 near moves and the four Andrew answered (57 pins in all)
 
 Each point below was worked out again from the PDF before it was written (`tests/derive917_add.py` →
-`evidence/derive917_add.json`), with the same limits as the 23 (0.2 m and 0.3 pt):
+`evidence/derive917_add.json`; for the four answered at about 23:20, `tests/derive917_held.py` →
+`evidence/derive917_held.json`), with the same limits as the 23 (0.2 m and 0.3 pt):
 
 - **Toilets (28).** Every outline the near list names must be a shape in the PDF (vertex for vertex, ≤ 0.3 pt), all
   1.2 m toilet symbols and as many as the list says. The same-size shapes touching the group are counted too, so a group
@@ -85,6 +114,21 @@ Each point below was worked out again from the PDF before it was written (`tests
   other generator pin is within 5 m of either symbol (the next nearest are 160 m and 210 m away). Listed vs PDF: GN18
   0.18 m / 0.22 pt, GN13 0.13 m / 0.15 pt — inside the limits; the listed points sit about 0.2 pt west of the symbol's
   outline centre, which is a little under the registration error (0.7 m).
+- **The four Andrew answered (8 Oct about 23:20).** Same method as `derive917.py` (the audit's outlines matched vertex for
+  vertex to PDF shapes, the touching shapes counted, area centre, main transform; none is in the inset), then each derived
+  point checked against the audit's point and refused if more than 0.3 pt or 0.2 m apart. None was refused: WC59 0.005 m /
+  0.007 pt, WC57 0.005 m / 0.005 pt, WC13 0.000 m / 0.001 pt, WC69 0.000 m / 0.000 pt. The point written is the PDF's own
+  (7 decimals; pt in the page frame — the audit's WC59/WC57 pt were in the y17/1684 frame, 0.04 thousandths different).
+  - **WC59 → the long row.** The 7 toilets drawn under the WC57 label, 5.62 m east of WC59's old pin. Counts unchanged.
+  - **WC57 → the pair inside the SUPPLY fence** (nearest the WC59 label), 11.77 m west of WC57's old pin, where its 2
+    toilets go on 13 Oct. Counts unchanged.
+  - **WC13 → the middle of the drawn row of 3** (the schedule and Andrew: 2 toilets). Each pair's middle is 0.66 m and
+    0.68 m from the row's middle (the board's "about 0.35 m" was not borne out; 0.7 m is the figure).
+  - **WC69 → the middle of the row of 9.** **The question to Andrew said the 3 on the fence stand "about 6.5 m north-west";
+    on the ground they do not.** That figure was written off the paper, and the master is not drawn north-up (up the page is
+    east). Measured through the registration, the column of 3 (touching each other, nearest the WC-BSF label) has its middle
+    8.8 m north-east of the row's middle; its nearest toilet is 3.2 m from the row's end toilet (1.8 m edge to edge). They
+    are the same 3 toilets the question meant; the page says "about 9 m north-east". Nothing else changes for WC69.
 - **The near list's `to_pt`** is written in a slightly different y frame (y17 / 1684) from the page's (y17 × 2600/2384 /
   1837). The page frame value (`to_pt_page_convention`) is the one written; the two differ by 0.05–0.28 pt.
 
@@ -120,6 +164,10 @@ Each point below was worked out again from the PDF before it was written (`tests
 | WC71 | 8 toilets | -27.981269, 153.423502 | -27.9812828, 153.4234837 | 2.4 → 2.36 m south-west | 0.05638, 0.73651 | 0.01 m / 0.01 pt |
 | WC72 | toilet | -27.982154, 153.423999 | -27.9821291, 153.4240067 | 2.9 → 2.87 m north | 0.11217, 0.69347 | 0.01 m / 0.01 pt |
 | WC73 | 2 toilets | -27.986964, 153.428121 | -27.9869615, 153.4281016 | 1.9 → 1.93 m west | 0.43090, 0.35617 | 0.00 m / 0.01 pt |
+| WC59 | 7 toilets, the long row the master labels WC57 ("the long row") | -27.988171, 153.430113 | -27.9881826, 153.4301687 | 5.6 → 5.62 m east | 0.51159, 0.18564 | 0.005 m / 0.007 pt (vs audit) |
+| WC57 | 2 toilets inside the SUPPLY fence, nearest the WC59 label (due 13 Oct) | -27.988177, 153.430191 | -27.9882058, 153.4300756 | 11.8 → 11.77 m west | 0.51310, 0.19334 | 0.005 m / 0.005 pt (vs audit) |
+| WC13 | 3 toilets in a row (2 on the schedule and Andrew's word) | -27.990939, 153.429512 | -27.9909565, 153.4295185 | 2.0 → 2.05 m south | 0.69412, 0.23996 | 0.000 m / 0.001 pt (vs audit) |
+| WC69 | row of 9 toilets (12 with the column of 3 on the fence) | -27.981495, 153.424185 | -27.9814958, 153.4241619 | 2.3 → 2.27 m west | 0.07050, 0.68052 | 0.000 m / 0.000 pt (vs audit) |
 
 **What each says on the page** (`how`, read after "Read off the master plan D001-26003-03:"): a toilet group reads "the
 middle of the N toilets drawn on the master D001 issued 2 Oct; its WCnn tag is printed about 2 m from it" (the tag phrase
@@ -129,11 +177,22 @@ only where the tag is 1.5 m or more away, as for the 23). What the old text said
 about 47 m away" (47.3 m on the page's own registration; it said 45 m from the old pin). GN18: "the orange generator
 symbol drawn on the master D001 issued 2 Oct, at its centre, beside P08 and WC38; the master tags no generator, so this
 symbol is GN18 on the project manager's instruction to follow the master (8 Oct); a container is drawn where the pin
-was". GN13 reads the same way ("on the same fence about 12 m north of the old pin").
+was". GN13 reads the same way ("on the same fence about 12 m north of the old pin"). The four answered:
+- WC59: "the middle of the 7 toilets drawn on the master D001 issued 2 Oct, the long row the master labels WC57; the
+  project manager, 8 Oct: WC59's 7 toilets are the long row";
+- WC57: "the middle of the 2 toilets drawn inside the SUPPLY fence on the master D001 issued 2 Oct, the pair nearest the
+  WC59 label; its 2 toilets are due 13 Oct (the project manager, 8 Oct: WC59's 7 toilets are the long row)";
+- WC13: "2 toilets (the project manager); the master draws 3 in a row — the pin is the middle of the row; its WC13 tag is
+  printed about 2 m from it";
+- WC69: "the middle of the row of 9 toilets drawn on the master D001 issued 2 Oct; its WC69 tag is printed about 2 m from
+  it. WC69 is 12 toilets (the project manager): the row of 9 and 3 more in a column on the fence about 9 m north-east of
+  the middle of the row, by the WC-BSF label".
+None of the four carries "rev 02", so no "Drawings differ" line appears or goes. Only ll, pt, how and img change: WC59's
+"next to MED, SUPPLY — beside OP40, P69, WC57" and WC57's "beside P69, WC59" (from the labels) are left as they were.
 
-**Pictures.** Two per moved pin, the same windows, sizes, ring and WebP settings as before, ring on the unit: 106 in all
-(the 23's 46 come out byte for byte as in the first round; two runs give the same bytes). The 51 pins that had pictures
-lose their old 102. **GN18 and GN13 had no pictures**; they now carry the same two, ringed on the generator symbol, so
+**Pictures.** Two per moved pin, the same windows, sizes, ring and WebP settings as before, ring on the unit: 114 in all
+(the 53's 106 come out byte for byte as before; the 4 answered get 8 new ones, each looked at: the ring sits on the long row,
+the pair inside the SUPPLY fence, the row of 3 and the row of 9). The 55 pins that had pictures lose their old 110. **GN18 and GN13 had no pictures**; they now carry the same two, ringed on the generator symbol, so
 their drawer shows the symbol like every other moved pin. That is the one addition beyond moving a point.
 
 ## Part 2 — one point per reference
@@ -190,9 +249,8 @@ entry point (E.P) drawn on the master." This was left alone because the release 
 
 ## What is not touched
 
-- **WC57 and WC59 — on hold.** The record has WC59 on site since 1 Oct with 7 Event Portables units, while the master
-  draws the 7-toilet row under the WC57 label. Andrew is asked which (below). Neither pin moves and no count changes.
-- **WC13 and WC69 — need his word** (below).
+- **Held: none now.** WC59, WC57, WC13 and WC69 were held for Andrew's word; he answered at about 23:20 and they move
+  in this build (second round, above). No count changes for any of them.
 - **The 7 left as they are** (each pin already inside the drawn unit, within drawing precision): P08, P44, P51, WC20, P27,
   P29, P34.
 - WC51, WC01, P26 and P28: left as they are.
@@ -212,23 +270,22 @@ entry point (E.P) drawn on the master." This was left alone because the release 
 3. **The others.** Each pin is on the toilet, not on its printed number. The drawer's close-up shows the red ring on the
    unit. WC04: Andrew's 24 Sep phone pin was 11.5 m from this toilet. If the toilet went in somewhere else, his pin is the
    truth on the ground and the master should be corrected.
-4. A registration error of about 0.7 m (main plan) and 0.9 m (inset) remains. It is an image registration, not a survey.
+4. **WC59 and WC57 (Tue 13 Oct).** WC59's Navigate ends in the middle of the long row of 7 on the seaside path (the row
+   printed WC57); WC57's ends in the middle of the pair inside the SUPPLY fence, about 12 m south-west of the row's old
+   WC57 pin. **WC69:** the middle of the row of 9; the other 3 of its 12 are the column on the fence about 9 m north-east.
+5. A registration error of about 0.7 m (main plan) and 0.9 m (inset) remains. It is an image registration, not a survey.
 
 ## Open questions for Andrew
 
 GN18 and GN13 are answered ("follow the master") and applied in this build (second round, above).
 
-1. **WC57 / WC59 — on hold.** The record has WC59 on site since 1 Oct with 7 Event Portables units recorded; the master
-   draws the 7-toilet row under the **WC57** label and a 2-toilet pair under WC59. By the labels, WC59 is the pair (5.3 m
-   from its pin); by the schedule and the record (WC59 = 7, WC57 = 2), WC59 is the row under the WC57 label, and WC57
-   would then be 11.8 m from its unit. Where do WC59's 7 toilets stand, in the row or in the pair? Until he answers,
-   neither pin moves and no count changes. Both deliver Tue 13 Oct.
-2. **WC13.** The master draws 3 toilets in one row; the schedule has 2. The centre of the 3 and the centre of the 2
-   nearest the tag differ by 0.7 m (0.96 pt, outside the 0.3 pt limit). The pin is on the label, 2.0 m from the
-   3-toilet centre. Which 2 toilets, or is it 3?
-3. **WC69.** The master draws a row of 9 toilets under the WC69 label; the schedule has 12. Three more stand in a column
-   on the fence about 6.5 m north-west, nearest the WC-BSF label. The two centres differ by 2.2 m. The pin is on the
-   label, 2.3 m from the 9-row centre. Are the 3 on the fence part of WC69?
+1. **WC57 / WC59 — answered** (about 23:20, "the long row"): WC59 goes to the long row, WC57 to the pair. Applied.
+2. **WC13 — answered** ("Wc13 qty 2"): the pin goes to the middle of the drawn row of 3. Applied.
+3. **WC69 — answered** ("Wc69 qty 12"): the pin goes to the middle of the row of 9; its text names the 3 on the fence.
+   Applied. **Correction to the question as asked:** it said the 3 stand "about 6.5 m north-west". Measured on the ground
+   (through the registration) their middle is about 9 m (8.8 m) **north-east** of the row's middle; the paper is not drawn
+   north-up. They are the same 3 toilets (the column nearest the WC-BSF label), so his answer stands; the page says
+   north-east.
 4. **T0022's two pins.** T0022 is not on the master. Its drawer lists two phone pins, its own (-27.983238, 153.426491,
    where Navigate goes) and a per-building pin 13.4 m away (-27.983131, 153.426427). Which is the drop? Neither was touched.
    (T0023 has its own pin, about 17 m from T0022's.)
@@ -242,7 +299,7 @@ GN18 and GN13 are answered ("follow the master") and applied in this build (seco
    most T-numbered transport and plant jobs, the water barriers from their descriptions) have no unit on the 2 Oct master.
    They go to the pit lane, a described spot or a pin. Does iEDM draw them on a later issue, or do they stay as they are?
 8. **The explorer (machine bundle).** `plan_items.json` in the machine set carries its own copy of each pin's `pt`, so
-   the Map explorer will draw the 53 at their old spots until the machine set is rebuilt. Navigation is not affected:
+   the Map explorer will draw the 57 at their old spots until the machine set is rebuilt. Navigation is not affected:
    every link reads the page. That needs a machine release, which is the publisher's call.
 9. **E.P notes.** The 23 E.P items' notes still say "Pedestrian entry point". Should they also read emergency egress?
 
@@ -255,39 +312,70 @@ GN18 and GN13 are answered ("follow the master") and applied in this build (seco
   machine set's assets). The base v9.18 shows them the same way, so they are not this release's; that is for the
   publisher.
 - **Map explorer (machine set).** `plan_items.json` in the machine bundle carries its own copy of each pin's `pt`, so the
-  explorer will still draw the 53 at their old spots until the machine set is rebuilt. Navigation is not affected: every
+  explorer will still draw the 57 at their old spots until the machine set is rebuilt. Navigation is not affected: every
   link reads the page. That needs a machine release, which is the publisher's call.
 
 ## Files
 
 | file | what |
 |---|---|
-| `patch_v917_pins.py` | the patch (refuses a second run; refuses a base whose 53 pins are not as audited, a held reference in the move list, or evidence that does not pass) |
+| `patch_v917_pins.py` | the patch (refuses a second run; refuses a base whose 57 pins are not as audited, a held reference in the move list, or evidence that does not pass) |
 | `tests/derive917.py` | re-derives the 23 from the PDF → `evidence/derive917.json` (needs the audit's outlines `pins/geom/geom.json`, read only) |
 | `tests/derive917_add.py` | second round: re-derives GN18, GN13 and the 28 near moves from the PDF → `evidence/derive917_add.json`, `.log` (needs the near list `near37.json` and the audit's outlines `rows.json`, read only) |
-| `tests/make_thumbs917.py` | the 106 pictures for the 53 → `evidence/media917/` + `evidence/thumbs917.json` (deterministic: two runs, same bytes; the 23's 46 unchanged) |
+| `tests/derive917_held.py` | third set: re-derives WC59, WC57, WC13 and WC69 (Andrew's answers, about 23:20) from the PDF and checks each against the audit's point (refused over 0.3 pt / 0.2 m); measures WC69's column of 3 on the ground → `evidence/derive917_held.json`, `.log` (needs the audit's outlines `pins/geom/geom.json`, read only) |
+| `tests/make_thumbs917.py` | the 114 pictures for the 57 → `evidence/media917/` + `evidence/thumbs917.json` (deterministic: the 53's 106 unchanged) |
 | `tests/test_identity917.py` | test 1, identity → `evidence/identity917.log`, `evidence/identity917_code.diff` |
 | `tests/collect_pins917.cjs` + `tests/compare_pins917.py` | tests 3 and 4, every row, laptop and phone, including (after the review) the printed drop sheet, the driver card's Ground position, the email's pins, the aerial pictures and every load's driver page picture → `evidence/compare917_*.json/.log` |
-| `tests/shots917.cjs` | phone screenshots of the WC09, GN18, WC56 and CP1 drawers ("Where it is") and the WC09 and CP1 printed drop sheets → `evidence/phone_*.png`, `shots917_phone.json` |
+| `tests/shots917.cjs` | phone screenshots of the WC09 and WC59 drawers ("Where it is"; `REFS=`) and their printed drop sheets (`SHEETS=`) → `evidence/phone_*.png`, `shots917_phone.json` (the CP1 frames are from the first round) |
 | `evidence/sweep_*917.json` | the sweeps on the candidate, and on the base v9.18 (`sweep_base_*`) for comparison |
 | `evidence/rings917_WC09_GN06.png` | base ring, v9.17 ring and Navigate's point on the page's aerial |
-| `evidence/media917/` | the 106 pictures, named by sha256. They are view-scope crops of the master the page already shows. Not encrypted: the papers password is held by Andrew and is not in this session; encrypt them like `media893.zip.enc` before committing if wanted |
+| `evidence/media917/` | the 114 pictures, named by sha256. They are view-scope crops of the master the page already shows. Not encrypted: the papers password is held by Andrew and is not in this session; encrypt them like `media893.zip.enc` before committing if wanted |
 
 ## Build and publish (publisher, on Andrew's yes)
 
 ```
-toolchain/build.sh v917 v9.17_pins_master_DRAFT/patch_v917_pins.py    # plus the footer step the publisher uses
-python3 v8.89_master_map_DRAFT/upload_media889.py v9.17_pins_master_DRAFT/evidence/media917 build/GC500_v917/media_manifest_v917.json --dry-run
-python3 v8.89_master_map_DRAFT/upload_media889.py v9.17_pins_master_DRAFT/evidence/media917 build/GC500_v917/media_manifest_v917.json
-python3 toolchain/upload_page.py build/GC500_v917/GC500_Delivery_Control_hosted.html
+toolchain/build.sh v917_r3 v9.17_pins_master_DRAFT/patch_v917_pins.py    # plus the footer step the publisher uses
+python3 v8.89_master_map_DRAFT/upload_media889.py v9.17_pins_master_DRAFT/evidence/media917 build/GC500_v917_r3/media_manifest_v917.json --dry-run
+python3 v8.89_master_map_DRAFT/upload_media889.py v9.17_pins_master_DRAFT/evidence/media917 build/GC500_v917_r3/media_manifest_v917.json
+python3 toolchain/upload_page.py build/GC500_v917_r3/GC500_Delivery_Control_hosted.html
 ```
 
 `upload_media889.py` is generic: it uploads only the files the manifest names that the service does not already hold,
 checks each one's hash, then registers the manifest. Media goes first, because the service refuses a page whose media list
-has no registered manifest. If live has moved past v9.18, rebuild: the patch refuses if any of the 53 pins is no longer
+has no registered manifest. If live has moved past v9.18, rebuild: the patch refuses if any of the 57 pins is no longer
 where the audit found it.
 
-## Results, first round (8 Oct 2026, about 21:50 AEST, after the review) — superseded by the second round below
+## Results, second round with the four answered (9 Oct 2026, about 00:20 AEST) — the current candidate
+
+**Base.** Live was still v9.18 (`c547a6de…`, 11,605,879 bytes) when `toolchain/build.sh v917_r3` fetched it. The 53-pin
+candidate `64ef007b…` (which had passed every check) is replaced by this one; the only change is the four pins.
+
+- **Candidate:** `4001406ab35556e7e0dc72c3c5f466318070fe435ee7bd08b158ebf0a268674b`, 11,616,813 bytes. `check_page`: PASS
+  (27 inline scripts parse, no new keys, author line present). Footer unchanged (` · v9.18`).
+- **Media manifest:** digest `c582d796ca5981c2…`, 1,979 assets (114 in, 110 out), file `media_manifest_v917.json` sha256
+  `1636070204bfb2ef…`.
+
+| # | Check | Laptop | Phone |
+|---|---|---|---|
+| 1 | Identity (`test_identity917.py`): DATA only media +114/−110 and the manifest; MASTER_LOC only the 57 (ll, pt, how, img), the 15 left byte for byte the same; MASTER_LAYERS only the 23 E.P labels; code 38 lines out, 64 in, all Part 2; footer unchanged | PASS | — |
+| 2 | PDF re-derivation, all 57, rerun on this base: `derive917.py` 23/23, `derive917_add.py` 30/30, `derive917_held.py` 4/4 (vs the audit: worst 0.005 m / 0.007 pt); the three outputs are byte for byte the ones the patch read | PASS | — |
+| 3 | Every row (200 references; record 4581 before and after; 0 writes): the 57 move by the expected metres ±0.1 m on Navigate, the button, the drop message, the job sheet, dpPos and the driver card, and stay "master plan" (WC59 5.6, WC57 11.8, WC13 2.0, WC69 2.3 m); every other reference 0.0 m and the same kind; the 15 left unchanged | PASS | PASS |
+| 4 | Part 2: 5,388 surface points, 0 off Navigate (same surfaces as before, including the drop sheet, Ground position, email pins, aerial, 3D fly-to, day card map and 30 driver page pictures); the words say "the same point as Navigate" | PASS | PASS |
+| 5 | Sweeps: 21 tabs (15 shown on the view link), 0 page errors, 0 console errors, 0 deep-link errors (7), 0 blocked writes | PASS | PASS |
+| 6 | Phone, looked at: WC09 and WC59 drawers ("Where it is": aerial ring, Goes to, meet point, Navigate master plan), WC59's printed drop sheet (Sat nav -27.988183, 153.430169 = Navigate, "the same point as Navigate (master plan)"); the re-made close-ups load (771 and 937 px wide; WC59's are the new pictures); no dollar figures in any frame; 0 writes, 0 errors | — | PASS (see note) |
+
+**Note on 6.** `shots917.cjs` printed FAIL, and only on the check the second round added for the drawer's "Where it is —
+master plan" block (`.pinblock`): on the phone that block sits in a closed fold and is never in the viewport, so its
+coordinates are not in the frame. It had not been run before tonight (the restart came first). One more run that shot the
+block as an element timed out ("element is not visible") and is not kept. The block's links are proven by test 4 (drawer
+driving, walking and Earth: 143 references each, 0 off Navigate). Every other shots check passed. Kept frames:
+`phone_WC09_where.png`, `phone_WC59_where.png`, `phone_WC59_dropsheet_go.png` (and the first round's WC09 and CP1 drop
+sheets). The WC59 drop sheet's picture frame was blank in the rig (the aerial did not paint) and is not kept.
+
+**Runs.** The base collectors are the second round's (same base `c547a6de…`, same collector, record 4581 in both); the
+candidate collectors, both sweeps and the shots ran once each on `4001406a…` (`evidence/browser_runs917.log`).
+
+## Results, first round (8 Oct 2026, about 21:50 AEST, after the review) — superseded by the results above
 
 **Base.** Live was still v9.18 (`c547a6de…`, 11,605,879 bytes) when this build fetched it at about 21:40 AEST: a
 code-only change from v9.11 (the first build's base), with DATA, MASTER_LOC, MASTER_LAYERS and the media manifest the
