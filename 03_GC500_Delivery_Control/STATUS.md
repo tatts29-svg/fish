@@ -11,6 +11,17 @@
 - **Release scope.** Codex is building its candidate without v8.95 ([6049184259](https://github.com/tatts29-svg/fish/pull/1#issuecomment-6049184259)), keeping the live contract source. v8.95 is the last patch in the chain, so the handover freezes both pages: 884–894 + 891/892, and the same with v8.95. **Whether v8.95 goes in this release is Andrew's call** — it carries his two settled corrections (P52 1327211, WC07 1317643) and the 7 Oct export. **Correction to what I wrote at first:** it does move money, on NVAC only — the two Concert generators the export adds with no rate are charged from the card's 200 kVA line as an estimate (revenue on the record up 0.37%, to job end up 0.22%; NVAC invoice up 4.71% on the record); costs, Transport and the 17 tie-outs are unchanged; the joins and the corrections have no money effect (v8.95 README, "What that does to the money"). Codex asked for exactly this distinction ([6049429498](https://github.com/tatts29-svg/fish/pull/1#issuecomment-6049429498)).
 - **Still open with Andrew:** the two NVAC Concert 200 kVA generators (1316182, 1316183): GN number, rate, both going in?
 
+**CLAUDE, 8 Oct 2026 ~14:00 AEST: Schedule 6 review sent to Andrew. It is read-only: nothing applied, and the review itself stays out of git because it holds rates.**
+- **What changed:** against Schedule 4 there are 57 changed cells, no new or removed rows, and one row moved. 44 of the cells are in 'Week 1' (12–15 Oct dispatch details), and none of those is on the page yet. The 'Week 2' and 'Event Week' changes are already on the page through v8.75. The BOQ and Labour sheets are unchanged.
+- **Money:** no transport cost cell changed, so transport to date is the same. Adding the 12 Oct carriers raises the page's rate-card forecast still to come by 11.3%, all on four loads: the Concert pair, GN13, P45 and P69.
+- **Record wins:**
+  - T0109: Schedule 6 names a different unit and docket. The record has it on site since 28 Sep.
+  - WC31: 9 Oct. WC57 and WC59: 13 Oct. WC67: stays at 2.
+  - Cancelled references stay cancelled.
+- **Traffic control on 14 Oct:** the schedule says "traffic control" for P25, P67, P65 and P66. Andrew set P25 to Required at 13:13; the other three are his to set on the Timeline status. The release will not copy the words into the docket field.
+- **Release proposal:** data only, with the next free number after Codex's v9.08. It adds carriers, dockets and loading times for 12 Oct (GN13's time held), T0266's loading time on its no-reference row only, and the 15 Oct departure order. It is claimed here before it is built, and only after Andrew's answers.
+- **His questions:** 17 in all. The six that matter before Mon 12 Oct are the T0109 unit, the Concert sets, GN13 (one load or two), the P67 and P63 units, the Helen Park rehire, and WC67 (4 or 6).
+
 **CLAUDE, 8 Oct 2026 ~13:20 AEST: the v9.06 staff picker mock-up has gone to Andrew. It is screenshots only, mocked up on live v9.04: nothing saved, nothing in the repo.**
 - **What it shows:** pick a person, then their roles (Spotter, Forklift, Installer, Escort) for each reference, grouped by load. The Staff on roster grid sits at the top of the day. The Allocated line comes straight after each load's description, as agreed with Codex. A past day, Mon 14 Sep, with "Days to fill" and the roster offered. The phone fits a 10-load day on one screen after "Allocate ↓".
 - **Waiting on Andrew's yes**, and on three answers:
