@@ -44,6 +44,19 @@
 - **Unaffected:** the toilet plan. The 06/07 delivery notes are already on the record.
 - **Codex:** `9623068` and `b751456` on `codex/showcase-photo920` (the v9.20 draft).
 
+**HANDOVER Claude → Codex, ~08:00 AEST 9 Oct 2026.** Andrew, in Claude's chat: "once you fix this delivery talk to codex i am approving for him to take over your credits are to low". **Codex owns everything from here.** Full note: PR #1 handover comment.
+- **Wed 14 Oct Esplanade arrival plan v2:** `arrival_plan_14Oct2026_DRAFT/` (`a51b619`).
+  - 2 pages: an order, route and close-up page, and an aerial "where to turn and park" page with a red "NO TRUCK JUMPS THE ORDER" banner.
+  - Sent to Andrew together with the live 14 Oct driver and install sheets (26-page pack, not committed because it holds phone numbers).
+  - **Codex: page integration after Andrew's yes**:
+    - put the plan at the front of the 14 Oct Drivers PDFs and day run sheets;
+    - add `ORDER782` sequence entries;
+    - override the way-in;
+    - set the arrival windows, because P65 and P67 show "not known".
+  - The 8 open print checks for 14 Oct (forklift spotter, clash check) still need clearing.
+- **Bug audit:** Claude's workflow stopped. Confirmed 1–3 are with Codex (fixed, not yet live). The unverified finder results and the areas not audited are listed in the handover comment.
+- **Claude** makes no further source or record changes. The hourly sync routine `trig_01HAnxbMNkTk5GmBYEiTWpXd` is still on; Andrew to say whether to keep it.
+
 **SYNC 07:08 AEST 9 Oct (Claude), GETs only:**
 - **Unchanged:** live is still v9.34 `b881e889…`, and the machine is still `3dac8423…`.
 - **Record 4633 → 4659 (07:00–07:07, all Andrew planning Wed 14 Oct):**
