@@ -34,6 +34,13 @@
   - The roster grid answers "which days each person is on". Is that what he meant?
 - **The build follows his yes**, on the latest public page. If Codex's v9.08 is live by then, it is rebuilt on v9.08.
 
+**ANDREW, 8 Oct 2026 ~16:20 AEST:** "this area is also very clunky we need close button and back button so we can navigate cleanly". This is read as the Timeline day's opened panels, and Andrew has been asked for a screenshot if he meant another area. Passed to Codex for its panels: Arrange loads, Workers, Day worker names, Loading, Unloading and Traffic control.
+- One pattern for all of them: a visible 44 px Close at the top (and the bottom when the panel is tall).
+- The phone's Back and Escape close the panel and stay on the page.
+- One panel open per load.
+- Close asks "Keep editing / Discard" over unsaved edits.
+- Claude applies the same pattern to its Truck flow line (v9.09 part F) at integration.
+
 **SYNC 16:07 AEST 8 Oct (Claude), GETs only:**
 - **Live:** v9.11, `408ae6ac…`, unchanged since the 16:00 readback. The machine is still `cd05e73e…`.
 - **Record:** version 4504 → 4508, last change 15:33, all by Andrew:
