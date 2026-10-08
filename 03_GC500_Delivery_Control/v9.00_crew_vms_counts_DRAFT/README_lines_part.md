@@ -127,7 +127,7 @@ rebuild and rerun it.
   Cleaning, Demob). By line: Install, Steps, Levelling, Cleaning and Demob +1 each. By branch: KINP expected +3, later +2.
 - **Labour line counts in the accounting view (`acc761Labour`, not money):** install group +4, cleaning +1, demob +1,
   per-piece lines +5.
-- **Effort tally's "offered" count:** up 5.
+- **Effort tally's "offered" count:** up 5 (measured in the review on record 4508; not re-measured on this build).
 - **WC09's loading row ids:** `item:FWF`, `item:Pee Panel`, `u1268858`, `u1311146` (base: `item:FWF`, `u1268858`,
   `u1311146`, `item:Toilet Block 6m`). The record is not changed; the line's side reads for both blocks.
 
