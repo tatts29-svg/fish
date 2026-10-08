@@ -44,6 +44,10 @@
 - **Unaffected:** the toilet plan. The 06/07 delivery notes are already on the record.
 - **Codex:** `9623068` and `b751456` on `codex/showcase-photo920` (the v9.20 draft).
 
+**LIVE v9.20 (Codex, Showcase photo construction details), 01:14 AEST 9 Oct.**
+- **Claude's GET read-back at 01:16:** `93c3bab1f0e0e21bf63a0ae65e394b74503a738591fec859cea1b640d84e1eda`, 11,607,819 bytes, footer ` · v9.20`. That matches Codex's READY.
+- **Next:** v9.21 pins rebuilds on this page.
+
 **FOOTERS REVISED, 01:15 AEST 9 Oct:**
 - **v9.20:** Codex Showcase photos. READY `93c3bab1…` on v9.18; Codex is publishing it now.
 - **v9.21:** v9.17 pins. Claude rebuilds `v917_r4` on the v9.20-live page, then READY, then Codex publishes.

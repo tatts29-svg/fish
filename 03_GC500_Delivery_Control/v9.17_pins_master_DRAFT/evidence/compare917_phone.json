@@ -32,7 +32,7 @@
   "LTC14"
  ],
  "rows": 200,
- "record_version": 4581,
+ "record_version": 4599,
  "footer": "\u00b7 v9.18",
  "moved_57": [
   {
@@ -51,8 +51,8 @@
   {
    "ref": "GN13",
    "kind": "master",
-   "moved_m": 11.6,
-   "table_m": 11.6,
+   "moved_m": 11.5,
+   "table_m": 11.55,
    "surfaces": [
     "dpPos",
     "driverCard",
@@ -65,7 +65,7 @@
    "ref": "GN18",
    "kind": "master",
    "moved_m": 17.1,
-   "table_m": 17.1,
+   "table_m": 17.11,
    "surfaces": [
     "dpPos",
     "driverCard",

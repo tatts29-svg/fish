@@ -18,7 +18,8 @@ TABLE = {'WC09': 6.6, 'CP1': 15.9, 'T0243': 5.4, 'WC24': 5.6, 'WC35': 5.6, 'WC81
          'WC25': 5.0, 'WC34': 5.0, 'WC70': 4.8, 'WC19': 4.4, 'WC16': 4.1, 'WC17': 4.1, 'WC44': 4.0, 'WC39': 3.6, 'WC62': 3.2, 'WC04': 3.2,
          'WC02': 3.1, 'WC28': 3.1, 'WC50': 3.1,
          # second round: the project manager's figures for the generators (8 Oct) and the near list's metres (near37.json)
-         'GN18': 17.1, 'GN13': 11.6,
+         # r4 (9 Oct): GN18 and GN13 on the symbol's outline centre; measured from the PDF derivation (derive917_add: 17.11 m, 11.55 m)
+         'GN18': 17.11, 'GN13': 11.55,
          'WC06': 1.5, 'WC10': 2.4, 'WC11': 2.1, 'WC12': 2.4, 'WC21': 2.7, 'WC23': 2.0, 'WC29': 2.8, 'WC30': 1.4, 'WC33': 2.6, 'WC38': 2.0,
          'WC40': 1.9, 'WC41': 2.2, 'WC42': 2.2, 'WC43': 1.6, 'WC45': 1.9, 'WC46': 1.9, 'WC47': 2.2, 'WC48': 2.6, 'WC49': 1.9, 'WC53': 2.2,
          'WC54': 2.3, 'WC55': 1.6, 'WC56': 2.0, 'WC61': 2.0, 'WC67': 1.3, 'WC71': 2.4, 'WC72': 2.9, 'WC73': 1.9,
