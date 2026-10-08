@@ -76,6 +76,7 @@ def poly_area_centroid(P):
         x0, y0 = P[i]; x1, y1 = P[(i + 1) % len(P)]; c = x0 * y1 - x1 * y0
         A += c; cx += (x0 + x1) * c; cy += (y0 + y1) * c
     A /= 2
+    if abs(A) < 1e-9: return 0.0, (0.0, 0.0)
     return abs(A), (cx / (6 * A), cy / (6 * A))
 def order(P):  # a quad's corners in ring order
     mx = sum(p[0] for p in P) / len(P); my = sum(p[1] for p in P) / len(P)

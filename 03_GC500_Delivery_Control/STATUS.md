@@ -47,8 +47,12 @@
 - **~18:05, Andrew on the pins that needed his word: "follow the master".** These are added to v9.17 once its current build finishes. Each is re-derived from the PDF first.
   - **GN18:** 17.1 m south-east, to the 2 Oct generator symbol by P08/WC38. A container is now drawn at the old spot.
   - **GN13:** 11.6 m north, to the new symbol on the same fence.
-  - **WC57 and WC59:** the master's labels win. WC57 goes to the 7-toilet row (2.3 m) and WC59 to the 2-toilet pair inside the SUPPLY fence (5.3 m).
-  - **Flagged to Andrew:** the schedule's counts are the reverse of what the master draws (WC57 = 2, WC59 = 7). The delivery counts still come from the schedule.
+  - **WC57 and WC59: ON HOLD (18:20).** Andrew followed up with "we go off new master", but the record (the authority) conflicts with the master's labels:
+    - **The record:** WC59 has been on site since 1 Oct with **7 Event Portables units recorded** (0492, 0935, 0497, 0633, 0064, 0066, 0533).
+    - **The master:** it draws the 7-toilet row under the **WC57** label and a 2-toilet pair under WC59.
+    - So the master's labels look swapped against our names.
+    - **Andrew asked:** where do WC59's 7 toilets stand, in the row or in the pair? If the row, WC59's pin goes to the row centre and WC57's to the pair, with counts unchanged.
+    - **Until he answers:** neither pin moves, and no count changes.
 - **~18:00, Andrew on the fire extinguisher rate: "use 2025 for now if need to we edit at a later date".**
   - v9.14 charges the card's Fire Ext. figure per piece.
   - **~18:10, Andrew: "don't mention anything about 2025".** The page shows no year anywhere on fire extinguishers; it reads "Charged per piece at the card's Fire Ext. rate".
