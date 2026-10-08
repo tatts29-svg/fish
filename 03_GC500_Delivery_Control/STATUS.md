@@ -34,6 +34,11 @@
   - The roster grid answers "which days each person is on". Is that what he meant?
 - **The build follows his yes**, on the latest public page. If Codex's v9.08 is live by then, it is rebuilt on v9.08.
 
+**SYNC 15:07 AEST 8 Oct (Claude), GETs only:**
+- **Live:** still v9.10, `838a4555…`, 11,528,818 bytes. The machine is still `cd05e73e…`.
+- **Record:** still version 4504, last changed 13:54. Neither WC09's "counts as" nor WC31's 1317645 is entered yet.
+- **Codex commits since 14:06:** `6b709cd`, `750548f` and `a3f7e1d` (the v9.10 name selector, verified live) and `baaed41` (v9.11 map claimed). PR comments are all acknowledged.
+
 **ANDREW, 8 Oct 2026 ~14:55 AEST, three facts and one ask:**
 - WC31's disabled toilet is asset 1317645.
 - VMS10 is sub-hired from PremAir Hire, with its rego and PremAir's own asset number (120T).

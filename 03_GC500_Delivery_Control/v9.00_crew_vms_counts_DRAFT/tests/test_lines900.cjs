@@ -13,7 +13,8 @@
 //      to Pee Panel for 1268858, that number is the pee panels' and 1311146 stays the blocks'; and with both set to FWF, both FWF;
 //   6. nothing recorded is lost: every labour tick on the record for these references is still read, on the same unit, as on the base;
 //   7. money identical: moneySummary, cj764Model, fh866Model, pl770Model, pl752Rows, the Transport view, the tie-outs, Rehire by
-//      branch and the labour plan read the same, as JSON, on both pages;
+//      branch and the labour plan read the same, as JSON, on both pages - every figure; the one count that moves is the labour
+//      plan's number of tick sets (all.n), five more for WC09's second block, with the same money behind them;
 //   8. Codex's StaffNames910 is in the page byte for byte as on the base, and reads the same day model on both (read-only);
 //   9. both pages read the same record version, no page or console errors, no writes attempted (counts.blocked 0).
 //   PAGE=<build> [BASE=<base page; default base_live.html beside PAGE>] [MOB=1] [OUT=<dir for a screenshot>]
@@ -151,8 +152,13 @@ async function read(pageFile, tag) {
     if (x && y && typeof x === 'object' && typeof y === 'object') { for (const k of new Set([...Object.keys(x), ...Object.keys(y)])) { if (!(k in x) || !(k in y)) mdiff.push(at + '.' + k + (k in x ? ' removed' : ' added')); else walk(x[k], y[k], at + '.' + k); } return; }
     if (x !== y) mdiff.push(at + (typeof x === 'string' && typeof y === 'string' ? ' text: ' + JSON.stringify(x.replace(/\d/g, '#')).slice(0, 160) + ' -> ' + JSON.stringify(y.replace(/\d/g, '#')).slice(0, 160) : ' changed'));
   };
-  walk(JSON.parse(base.money), JSON.parse(built.money), '');
-  ok(!mdiff.length && base.money.length > 1000, 'money identical: P&L summary, Costs to job end, Finance handover, P&L, business lines, Transport, tie-outs, Rehire by branch, labour plan', mdiff.slice(0, 20));
+  const MA = JSON.parse(base.money), MB = JSON.parse(built.money);
+  /* the labour plan's all.n counts tick sets, not money: WC09's blocks are now two sets of five where they were one set of five */
+  const nA = MA.LP.all.n, nB = MB.LP.all.n; delete MA.LP.all.n; delete MB.LP.all.n;
+  walk(MA, MB, '');
+  ok(!mdiff.length && base.money.length > 1000, 'money identical: P&L summary, Costs to job end, Finance handover, P&L, business lines, Transport, tie-outs, Rehire by branch, labour plan (every figure)', mdiff.slice(0, 20));
+  const dn = Object.keys(nA).reduce((t, k) => t + (nB[k] - nA[k]), 0);
+  ok(dn === 5 && nB.charged === nA.charged, 'labour plan tick sets: five more (WC09\'s second block: Install, Steps, Levelling, Cleaning, Demob), none charged', {base: nA, built: nB});
   ok(built.staff && built.staff.api && built.staff.api.includes('day') && built.staff.day && built.staff.day === base.staff.day, 'StaffNames910 present and reads the same day model (read-only)', [base.staff, built.staff].map(x => x && (x.error || (x.api || []).join(','))));
   const blk = f => { const t = fs.readFileSync(f, 'utf8'), i = t.indexOf('const StaffNames910 = '), j = t.indexOf('module.exports = StaffNames910;', i); return i > 0 && j > i ? t.slice(i, j) : null; };
   const sb = blk(BASE), sp = blk(PAGE);
