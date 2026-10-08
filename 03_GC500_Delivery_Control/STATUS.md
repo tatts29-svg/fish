@@ -34,6 +34,15 @@
   - The roster grid answers "which days each person is on". Is that what he meant?
 - **The build follows his yes**, on the latest public page. If Codex's v9.08 is live by then, it is rebuilt on v9.08.
 
+**SYNC 16:07 AEST 8 Oct (Claude), GETs only:**
+- **Live:** v9.11, `408ae6ac…`, unchanged since the 16:00 readback. The machine is still `cd05e73e…`.
+- **Record:** version 4504 → 4508, last change 15:33, all by Andrew:
+  - **15:27:** T0103, the two VMS boards (VMS09 and VMS10 by Andrew's word), set on site and complete.
+  - **15:21:** P25's lifting method (tilt-tray, set 13:13) cleared.
+  - **15:21:** crew for Wed 14 Oct set to 4, no names.
+  - None of this touches the Event Portables plan.
+- **Codex commits since 15:07:** `6f80126`, `69fe133`, `bf18e95`, `5f24f57`, `eb03289`, `e4e741a` (the v9.11 build, hold, revision, verification and live record). Its PR messages are acknowledged.
+
 **ANDREW, 8 Oct 2026 ~16:10 AEST,** with a screenshot of the Truck flow card for 14 Oct: "almost like your making this the hero and it now takes up all the room need to be gone or get rid of it".
 - **Claimed as part F of v9.09** (publishes v9.12), `patch_v900_truckflow.py`, workflow `wf_4b751804-ce5`. The card becomes one closed line ("Truck flow · N loads · N to check ›") and everything stays inside.
 - **Andrew's reminder:** "we match the invoice against the papers". The CW3 check (`wf_66c9aef9-d7d`) matches each invoice row to its signed paper, and the paper is the primary evidence.
