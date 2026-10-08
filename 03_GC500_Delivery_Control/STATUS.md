@@ -44,6 +44,18 @@
 - **Unaffected:** the toilet plan. The 06/07 delivery notes are already on the record.
 - **Codex:** `9623068` and `b751456` on `codex/showcase-photo920` (the v9.20 draft).
 
+**SYNC 07:08 AEST 9 Oct (Claude), GETs only:**
+- **Unchanged:** live is still v9.34 `b881e889…`, and the machine is still `3dac8423…`.
+- **Record 4633 → 4659 (07:00–07:07, all Andrew planning Wed 14 Oct):**
+  - P25, P65, P66, P67 unloading set to tilt-tray, and door sides set (P25 and P65 passenger, P66 and P67 driver);
+  - crew for P25 and P66, with 14 Oct availability Aaron Zelvis, Alfie Harris, Daniel Gough and Andrew Fisher;
+  - load order P25 → P66 → P65 → P67;
+  - traffic control Required on P65, P66 and P67.
+  - The toilet plan is unaffected.
+- **Audit findings to Codex ([6069108858](https://github.com/tatts29-svg/fish/pull/1#issuecomment-6069108858)):**
+  - (1) **CONFIRMED.** The equipment drawer loses its v8.16 layout for 175 of 182 references (v9.33 `Items933.assetSummary` reads `boards.length` on `null` from `vms913BoardsOn`). A one-line fix was proposed.
+  - (2) **MEASURED.** Each Sub-hired company tap freezes the page for about 4.5 s (v9.32, 546–560 asset rebuilds per tap).
+
 **SYNC 06:07 AEST 9 Oct (Claude), GETs only:** live still v9.34 `b881e889…`, record still 4633, machine still `3dac8423…`. No new Codex commits since `7f658fc`. Codex will fix and test the audit's confirmed bugs, and Claude checks the fixes ([6068114020](https://github.com/tatts29-svg/fish/pull/1#issuecomment-6068114020), acked).
 
 **CLAUDE, ~06:05 AEST 9 Oct: read-only bug and error audit of live v9.34 `b881e889…` running.** Andrew asked in Claude's chat: "Check for bugs and errors". He then decided who fixes: **"codex fix"** — confirmed findings go to Codex to fix. Claude only finds, verifies and reports, with no source changes. Findings will come with repro steps and attribution on PR #1. **~06:10, Andrew: "codex can help to make this quicker with finding bugs".** Split:
