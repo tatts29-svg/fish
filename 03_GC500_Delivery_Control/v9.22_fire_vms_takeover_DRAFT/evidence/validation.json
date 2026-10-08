@@ -1,0 +1,93 @@
+{
+  "author": "Andrew Fisher",
+  "state": "READY TO UPLOAD",
+  "source_code_commit": "2861f996",
+  "upstream_source": "822b06a8",
+  "base_sha256": "7138c402c8827056524d6b1ebbd2c50cd7c7e8a549b0d1dbea91184ec6cc8774",
+  "candidate_sha256": "7e3fe251373c97582119f41002cbda0cfacb71bd23ec5fe1fdf2c3dde3d46abc",
+  "bytes": 11696428,
+  "scripts_parsed": 29,
+  "features": {
+    "fire-desktop": {
+      "passed": 61,
+      "failed": 0
+    },
+    "fire-phone": {
+      "passed": 61,
+      "failed": 0
+    },
+    "vms-final-desktop": {
+      "passed": 68,
+      "failed": 0
+    },
+    "vms-final-phone": {
+      "passed": 68,
+      "failed": 0
+    },
+    "fold-final-desktop": {
+      "passed": 27,
+      "failed": 0
+    },
+    "fold-final-phone": {
+      "passed": 29,
+      "failed": 0
+    },
+    "money": {
+      "passed": 27,
+      "failed": 0
+    }
+  },
+  "navigation": {
+    "desktop": {
+      "routes": 21,
+      "deep_links": 7,
+      "back_correct": true,
+      "legacy_redirects_match_live_base": true,
+      "errors": 0,
+      "console_errors": 0
+    },
+    "phone": {
+      "routes": 21,
+      "deep_links": 7,
+      "back_correct": true,
+      "legacy_redirects_match_live_base": true,
+      "errors": 0,
+      "console_errors": 0
+    }
+  },
+  "identity": {
+    "author": "Andrew Fisher",
+    "base": "7138c402c8827056524d6b1ebbd2c50cd7c7e8a549b0d1dbea91184ec6cc8774",
+    "candidate": "7e3fe251373c97582119f41002cbda0cfacb71bd23ec5fe1fdf2c3dde3d46abc",
+    "passed": 14,
+    "checks": [
+      "DATA byte identity",
+      "MASTER_LOC byte identity",
+      "MASTER_LAYERS byte identity",
+      "staff910-script byte identity",
+      "drops911-script byte identity",
+      "flow891-script byte identity",
+      "today907-script byte identity",
+      "timeline908-script byte identity",
+      "scene896-script byte identity",
+      "map897-script byte identity",
+      "BC.player918 retained",
+      "showStability918 retained",
+      "photoTrack920 retained",
+      "all approved parts and release footer present"
+    ]
+  },
+  "record_version_before_after": [
+    4599,
+    4599
+  ],
+  "screenshots_reviewed": [
+    "fire quantity phone editor",
+    "VMS phone register",
+    "closed Truck flow phone dark"
+  ],
+  "browser_notes": "Shared GET-only harness, software WebGL, vendor telemetry locally answered with 204. Fold snapshots await the existing explorer hint initialization; no storage keys are excluded. All captured editing fixtures are aborted locally.",
+  "media_unchanged": true,
+  "machine_unchanged": true,
+  "private_evidence": "Kept outside Git; no quote amounts or private inputs in this report."
+}
