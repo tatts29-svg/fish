@@ -130,8 +130,8 @@ marked "(the project manager's word)".
 
 | run | result | evidence |
 |---|---|---|
-| Laptop, on the v9.11 build | RESULT_LAPTOP | `evidence/test_vms_rego913_laptop.log` |
-| Phone, on the v9.11 build | RESULT_PHONE | `evidence/test_vms_rego913_phone.log` |
+| Laptop, on the v9.11 build | 51/51 (run with TMPDIR on /dev/shm) | `evidence/test_vms_rego913_laptop.log` |
+| Phone, on the v9.11 build | 51/51 (run with TMPDIR on /dev/shm) | `evidence/test_vms_rego913_phone.log` |
 | v9.10 build (earlier) | 51/51 on laptop and phone | — |
 
 **Sweep (`toolchain/harness/sweep.js`) on the v9.11 build:**
@@ -145,6 +145,7 @@ marked "(the project manager's word)".
 **Money (`v8.95_baseplan_07oct_DRAFT/tests/compare_money895.cjs`, A = live v9.11, B = this build, laptop and phone):**
 
 - 4,113 numbers are the same, 0 differ, and there are 0 structural differences. The tie-outs are 17/17 on both pages.
+  Both pages read the same record, version 4508. The final test runs read version 4581; the record had moved by then.
 - Evidence: `evidence/compare_money_laptop.log` and `evidence/compare_money_phone.log`.
 
 **Other checks:**

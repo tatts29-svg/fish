@@ -2378,6 +2378,54 @@
    "byProgram": "2:3500k 7:541k 1:232k 0:215k",
    "blocked": 0,
    "errors": 0
+  },
+  {
+   "tag": "v6.72",
+   "sha": "091d17f70f8c",
+   "quality": "ultra",
+   "fixq": "ultra",
+   "frames": 5,
+   "draws": 93,
+   "verts": 5638850,
+   "glCalls": 1524,
+   "heapMB": 233.65,
+   "bufMB": 1.75,
+   "texMB": 0,
+   "showOpenMs": 2546,
+   "openBufMB": 110.01,
+   "compilesAtOpen": 16,
+   "cv": [
+    1800,
+    733
+   ],
+   "samples": 4,
+   "byProgram": "2:4651k 7:541k 1:232k 0:215k",
+   "blocked": 0,
+   "errors": 0
+  },
+  {
+   "tag": "v7.86",
+   "sha": "0513542de21e",
+   "quality": "ultra",
+   "fixq": "ultra",
+   "frames": 5,
+   "draws": 93,
+   "verts": 5638850,
+   "glCalls": 1554,
+   "heapMB": 237.18,
+   "bufMB": 1.75,
+   "texMB": 0,
+   "showOpenMs": 2797,
+   "openBufMB": 110.01,
+   "compilesAtOpen": 16,
+   "cv": [
+    1800,
+    733
+   ],
+   "samples": 4,
+   "byProgram": "2:4651k 7:541k 1:232k 0:215k",
+   "blocked": 0,
+   "errors": 0
   }
  ]
 }

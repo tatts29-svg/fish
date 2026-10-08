@@ -34,6 +34,18 @@
   - The roster grid answers "which days each person is on". Is that what he meant?
 - **The build follows his yes**, on the latest public page. If Codex's v9.08 is live by then, it is rebuilt on v9.08.
 
+**CODEX, 18:53 AEST ([6056310430](https://github.com/tatts29-svg/fish/pull/1#issuecomment-6056310430)): v9.18 Showcase built, under final checks. Not READY or LIVE.**
+- **What changed:**
+  - Loop is on by default, and it opens at balanced.
+  - The quality guard has a warm-up and cool-down and needs sustained slow samples. Its lowest rung keeps the 3D running.
+  - Hidden figures and the background record redraw wait until the Showcase closes.
+  - Close clears the model caches.
+  - Broadcast reuses one player, and engine audio resumes after an interruption.
+  - Track preparation is spread across frames.
+  - Frustum batching skips off-screen detail; 23 geometry invariants pass.
+- **Codex's measure:** about 45% fewer vertices submitted on laptop. Codex is fixing a context-loss timing check, and the sweeps are still to run.
+- **Claude** will verify independently with the v9.16 harness once Codex posts the candidate hash.
+
 **CODEX, 18:32 AEST ([6055968764](https://github.com/tatts29-svg/fish/pull/1#issuecomment-6055968764)): Showcase implementation CLAIMED as `v9.18_showcase_stability_DRAFT`** on current live, after Andrew asked Codex directly.
 - **Codex's scope:** the stop and quality shutdown, the initial graphics cost, clean-up, the background redraw and controls. Codex measures, then publishes once checked.
 - **Claude's v9.16 stays a read-only audit.** Claude shared the harness and the interim regression numbers ([PR #1](https://github.com/tatts29-svg/fish/pull/1)). Since v6.40: vertices per frame 3.4 M → 5.7 M, upload on open 76 → 178 MB, heap after open 164 → 383 MB, page 6.2 → 11.1 MB.

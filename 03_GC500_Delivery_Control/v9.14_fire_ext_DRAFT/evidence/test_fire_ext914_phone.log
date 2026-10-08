@@ -1,0 +1,128 @@
+PASS the record holds no fire extinguisher rows before the test {"version":4581}
+PASS sample locations: AA building, GN01 generator, T0001 plant line (VMS), WC09 toilet, T0023 container; no fire ticks or rows on the record {"cap":"view","kinds":["AA:building","GN01:generator","T0001:other:plant line","WC09:toilet","T0023:building:plant line"],"fireTicks":0,"fireRows":0}
+PASS view link: no fire extinguisher control or prompt on a building, a generator or a plant line [{"key":"AA","block":false,"fold":"contents","sum":"INSIDE IT AND ASSET NUMBERS 3 inside · 1 asset number","words":null,"charge":null,"save":null,"buttons":[],"controls":0,"cap":"view"},{"key":"GN01","block":false,"fold":null,"sum":null,"words":null,"charge":null,"save":null,"buttons":[],"controls":0,"cap":"view"},{"key":"T0001","block":false,"fold":"contents","sum":"INSIDE IT AND ASSET NUMBERS 8 asset numbers","words":null,"charge":null,"save":null,"buttons":[],"controls":0,"cap":"view"}]
+PASS editor: "Add fire extinguisher" with - and + (44 px taps) in "Inside it and asset numbers" on a building, a generator and a plant line [{"key":"AA","block":true,"fold":"contents","sum":"INSIDE IT AND ASSET NUMBERS 3 inside · + fire extinguisher · 1 asset number","words":null,"charge":"Each one is charged per piece at the card’s Fire Ext. figure for Building 6m (the card heads that column 2025).","save":"Add fire extinguisher","buttons":[{"t":"−","h":44},{"t":"+","h":44},{"t":"Add fire extinguisher","h":44}],"controls":3,"cap":"edit"},{"key":"GN01","block":true,"fold":"contents","sum":"INSIDE IT AND ASSET NUMBERS + fire extinguisher · 1 asset number","words":null,"charge":"Charge: rate to confirm. The card carries no Fire Ext. figure for 60kva, so the money reads unknown, never nought, until the project manager gives a rate.","save":"Add fire extinguisher","buttons":[{"t":"−","h":44},{"t":"+","h":44},{"t":"Add fire extinguisher","h":44}],"controls":3,"cap":"edit"},{"key":"T0001","block":true,"fold":"contents","sum":"INSIDE IT AND ASSET NUMBERS + fire extinguisher · 8 asset numbers","words":null,"charge":"Charge: rate to confirm. The card carries no Fire Ext. figure for VMS, so the money reads unknown, never nought, until the project manager gives a rate.","save":"Add fire extinguisher","buttons":[{"t":"−","h":44},{"t":"+","h":44},{"t":"Add fire extinguisher","h":44}],"controls":3,"cap":"edit"}]
+PASS editor: the same control on a toilet and a container [{"key":"WC09","block":true,"fold":"contents","sum":"INSIDE IT AND ASSET NUMBERS + fire extinguisher · 2 asset numbers","words":null,"charge":"Charge: rate to confirm. The card carries no Fire Ext. figure for FWF, so the money reads unknown, never nought, until the project manager gives a rate.","save":"Add fire extinguisher","buttons":[{"t":"−","h":44},{"t":"+","h":44},{"t":"Add fire extinguisher","h":44}],"controls":3,"cap":"edit"},{"key":"T0023","block":true,"fold":"contents","sum":"INSIDE IT AND ASSET NUMBERS + fire extinguisher · 1 asset number","words":null,"charge":"Charge: rate to confirm. The card carries no Fire Ext. figure for Event Container, so the money reads unknown, never nought, until the project manager gives a rate.","save":"Add fire extinguisher","buttons":[{"t":"−","h":44},{"t":"+","h":44},{"t":"Add fire extinguisher","h":44}],"controls":3,"cap":"edit"}]
+PASS the charge is said in words, no dollar figure: the card's Fire Ext. figure on AA (headed 2025); rate to confirm on GN01, T0001, WC09, T0023 {"AA":"Each one is charged per piece at the card’s Fire Ext. figure for Building 6m (the card heads that column 2025).","GN01":"Charge: rate to confirm. The card carries no Fire Ext. figure for 60kva, so the money reads unknown, never nought, until the project manager gives a rate.","T0001":"Charge: rate to confirm. The card carries no Fire Ext. figure for VMS, so the money reads unknown, never nought, until the project manager gives a rate.","WC09":"Charge: rate to confirm. The card carries no Fire Ext. figure for FWF, so the money reads unknown, never nought, until the project manager gives a rate.","T0023":"Charge: rate to confirm. The card carries no Fire Ext. figure for Event Container, so the money reads unknown, never nought, until the project manager gives a rate."}
+PASS + sets the quantity to 2 without saving ("Add fire extinguisher × 2") {"n":"2","save":"Add fire extinguisher × 2"}
+PASS adding 2 on AA writes exactly one document, accessories/AA (captured and aborted), and nothing else {"quietWrites":0,"urls":["/api/doc/accessories/AA"],"sends":2}
+PASS the document holds one fire extinguisher row: quantity 2, no asset number, with who and when; the other rows unchanged {"keys":["_added","added_at","added_by","as_written","asset_no","asset_no_state","origin","qty","qty_stated","source_task","type"],"qty":2,"asset_no":null,"asset_no_state":"not numbered - counted by quantity","by":"Practice Editor","others":0}
+PASS after the save the drawer reads "Fire extinguisher × 2" with Save quantity and Take off {"key":"AA","block":true,"fold":"contents","sum":"INSIDE IT AND ASSET NUMBERS 3 inside · Fire extinguisher × 2 · 1 asset number","words":"Fire extinguisher × 2","charge":"Charged per piece at the card’s Fire Ext. figure for Building 6m (the card heads that column 2025).","save":"Save quantity","buttons":[{"t":"−","h":44},{"t":"+","h":44},{"t":"Save quantity","h":44},{"t":"Take off","h":44}],"controls":4,"cap":"edit"}
+PASS the ordinary accessories list on AA is unchanged (still its 3 inside, no fire row in it)
+PASS screenshot: the editor drawer part on AA (practice capability), no dollar figure in frame {"x":14,"y":0,"width":362,"height":844,"dollars":false}
+PASS screenshot: the editor control on a generator (GN01), rate to confirm, no dollar figure in frame {"x":14,"y":370.09375,"width":362,"height":104.171875,"dollars":false}
+PASS the drawer fits the screen (no sideways scroll) {"page":true,"drawer":true}
+PASS the captured save never reached the service (fresh read has no fire extinguisher row) {"version":4581}
+PASS no page errors []
+PASS no console errors other than the aborted practice save ["Failed to load resource: net::ERR_FAILED","Failed to load resource: net::ERR_FAILED","Failed to load resource: net::ERR_FAILED"]
+PASS the harness blocked nothing (the only write was captured and aborted in page.route); viewing wrote nothing {"page":1,"live":135,"blocked":0}
+INFO the browser disconnected
+PASS AA's item (Building 6m) has a card Fire Ext. figure (headed 2025); GN01 and WC09 have none {"has":true,"item":"Building 6m","heading":"Fire Ext. 2025"}
+INFO phase 1 (AA: 2) - AA had 1 fire_ext piece(s) in the forecast (expected); every figure that moved, as a multiple of F:
+INFO   M.charge.labour  +2 x F
+INFO   M.charge.total  +2 x F
+INFO   M.difference  +2 x F
+INFO   M.difference0  +2 x F (a whole-dollar figure: the same move, rounded)
+INFO   M.streams[7].charge  +2 x F
+INFO   M.streams[7].difference  +2 x F
+INFO   M.streams[7].charge0  +2 x F (a whole-dollar figure: the same move, rounded)
+INFO   M.streams[7].difference0  +2 x F (a whole-dollar figure: the same move, rounded)
+INFO   M.breakeven  +0.0008 x F (a ratio derived from revenue, not a charge)
+INFO   P.rev[0].job  +2 x F
+INFO   P.revNow  +2 x F
+INFO   P.revJob  +2 x F
+INFO   P.gm.job  +2 x F
+INFO   P.diff.job  +2 x F
+INFO   H.inv[0].onRecord  +2 x F
+INFO   H.inv[0].job  +2 x F
+INFO   H.inv[0].unbilled  +2 x F
+INFO   H.invTotal.onRecord  +2 x F
+INFO   H.invTotal.job  +2 x F
+INFO   H.invTotal.unbilled  +2 x F
+INFO   H.revenueRecord  +2 x F
+INFO   H.revenueJob  +2 x F
+INFO   X.revenue.record  +2 x F
+INFO   X.revenue.job  +2 x F
+INFO   TK.fire_ext.amount  +2 x F
+INFO   TK.byBranch.KINP.fire_ext.amount  +2 x F
+INFO   TK.byBranch.KINP.amount  +2 x F
+INFO   TK.total  +2 x F
+INFO   LP.all.charged  +2 x F
+INFO   LP.all.expected  -1 x F
+INFO   LP.fire.charged  +2 x F
+INFO   LP.fire.expected  -1 x F
+INFO   AL.groups.fire_ext.charged  +2 x F
+INFO   AL.groups.fire_ext.expected  -1 x F
+INFO   AL.groups.fire_ext.total  +1 x F
+INFO   AL.per.charged  +2 x F
+INFO   AL.per.expected  -1 x F
+INFO   AL.per.total  +1 x F
+INFO   AL.packageTotal  +1 x F
+INFO   A761.revenueTotal  +2 x F
+INFO   A761.fire[0].amount  +2 x F
+INFO   AT.AA.known  +2 x F
+INFO   AT.AA.total  +2 x F
+INFO   AT.AA.labour  +2 x F
+INFO   RH.revenueJob  +2 x F
+INFO   RH.revenueNow  +2 x F
+INFO   M.charge.labour_ticks  count +1
+INFO   TK.fire_ext.ticks  count +1
+INFO   TK.byBranch.KINP.fire_ext.ticks  count +1
+INFO   TK.ticks  count +1
+INFO   LP.all.n.charged  count +1
+INFO   LP.all.n.expected  count -1
+INFO   LP.fire.n.charged  count +1
+INFO   LP.fire.n.expected  count -1
+INFO   A761.fire[0].n  count +1
+PASS the fire_ext group and every total that carries it move by exactly +2 x F: Costs charge (labour, total), the P&L ticks (fire_ext, total), the labour plan charged, AA's own charge ["M.charge.labour:2","M.charge.total:2","TK.fire_ext.amount:2","TK.total:2","LP.all.charged:2","AT.AA.known:2","AT.AA.labour:2","AT.AA.total:2"]
+PASS nothing else moves: every money figure that moved moved by +2 x F (charged), -1 x F (AA's forecast piece replaced) or 1 x F (the two together) {"odd":[],"n":46}
+PASS no hire, rehire, transport, cost or tie-out figure moves []
+PASS labour recorded for install (labourRevenue858) does not move: fire is taken out of it once []
+PASS the Accruals/Finance schedule (Sep + Oct) carries the 2 pieces once: +2 x F on its revenue, one Fire extinguishers stream [{"k":"A761.revenueTotal","xF":2},{"k":"A761.fire[0].amount","xF":2}]
+PASS counts: one more charged entry (the 2 pieces as one line) on Costs and the P&L [{"k":"M.charge.labour_ticks","count":1},{"k":"TK.fire_ext.ticks","count":1},{"k":"TK.byBranch.KINP.fire_ext.ticks","count":1},{"k":"TK.ticks","count":1},{"k":"LP.all.n.charged","count":1},{"k":"LP.all.n.expected","count":-1},{"k":"LP.fire.n.charged","count":1},{"k":"LP.fire.n.expected","count":-1},{"k":"A761.fire[0].n","count":1}]
+PASS existing ticks unchanged: 0 fire_ext ticks on the record; every other building's fire_ext forecast identical; AA's forecast replaced by one charged slot of 2; no "Relocated or moved units" row {"aa":[{"state":"charged","qty":2,"fire914":true}],"moved":false,"sameOthers":true}
+PASS AA's per-building fire_ext tick box is disabled while a quantity is added (the replace rule) {"tickOff":true}
+PASS view link: AA's drawer shows "Fire extinguisher × 2", with no control {"key":"AA","block":true,"fold":"contents","sum":"INSIDE IT AND ASSET NUMBERS 3 inside · Fire extinguisher × 2 · 1 asset number","words":"Fire extinguisher × 2","charge":"Charged per piece at the card’s Fire Ext. figure for Building 6m (the card heads that column 2025).","save":null,"buttons":[],"controls":0,"cap":"view"}
+PASS screenshot: the view link drawer on AA, no dollar figure in frame {"x":14,"y":0,"width":362,"height":844,"dollars":false}
+PASS Equipment: AA's row shows "Fire extinguisher × 2" "Fire extinguisher × 2"
+PASS screenshot: AA's Equipment row, no dollar figure in frame {"x":0,"y":474.125,"width":390,"height":112.78125,"dollars":false}
+PASS Drivers and Install sheets for AA's truck carry "Fire extinguisher × 2" (with a tick box on the Install sheet), once {"day":"2026-09-17","kind":"deliveries","drv":true,"ins":true,"insBox":true,"once":1}
+PASS screenshot: the Install sheet row for AA (tick box, "Fire extinguisher × 2"), no dollar figure in frame {"x":0,"y":291.28125,"width":390,"height":261.46875,"dollars":false}
+INFO phase 2 (GN01: 2, WC09: 2, no card figure) - every figure that changed:
+INFO   M.charge.labour_ticks  count 2
+INFO   M.charge.labour_unknown  count 2
+INFO   TK.fire_ext.ticks  count 2
+INFO   TK.fire_ext.unknown  count 2
+INFO   TK.byBranch.KINP.fire_ext.ticks  count 1
+INFO   TK.byBranch.KINP.fire_ext.unknown  count 1
+INFO   TK.byBranch.NVAC.fire_ext.ticks  count 1
+INFO   TK.byBranch.NVAC.fire_ext.unknown  count 1
+INFO   TK.ticks  count 2
+INFO   TK.unknown  count 2
+INFO   LP.all.unpriced  count 2
+INFO   LP.fire.unpriced  count 2
+INFO   AL.groups.fire_ext.n  count 2
+INFO   AL.groups.fire_ext.unpriced  count 2
+INFO   AL.groups.fire_ext.unpricedByState.charged  count 2
+INFO   AL.groups.fire_ext.complete  true -> false
+INFO   AL.per.n  count 2
+INFO   AL.per.unpriced  count 2
+INFO   AL.per.unpricedByState.charged  count 2
+INFO   AL.per.complete  true -> false
+INFO   AL.packageComplete  true -> false
+INFO   A761.fire[0].n  count 2
+INFO   A761.fire[0].unpriced  count 2
+INFO   AT.GN01.total  number -> null
+INFO   AT.GN01.labour  number -> null
+INFO   AT.WC09.labour  number -> null
+PASS no card figure: no money figure moves at all (never nought added, never a guess) []
+PASS no card figure: the money reads unknown - Costs labour_unknown +2, P&L fire_ext unknown +2, labour plan unpriced +2 [{"k":"M.charge.labour_ticks","count":2},{"k":"M.charge.labour_unknown","count":2},{"k":"TK.fire_ext.ticks","count":2},{"k":"TK.fire_ext.unknown","count":2},{"k":"TK.byBranch.KINP.fire_ext.ticks","count":1},{"k":"TK.byBranch.KINP.fire_ext.unknown","count":1},{"k":"TK.byBranch.NVAC.fire_ext.ticks","count":1},{"k":"TK.byBranch.NVAC.fire_ext.unknown","count":1},{"k":"TK.ticks","count":2},{"k":"TK.unknown","count":2},{"k":"LP.all.unpriced","count":2},{"k":"LP.fire.unpriced","count":2},{"k":"AL.groups.fire_ext.n","count":2},{"k":"AL.groups.fire_ext.unpriced","count":2},{"k":"AL.groups.fire_ext.unpricedByState.charged","count":2},{"k":"AL.per.n","count":2},{"k":"AL.per.unpriced","count":2},{"k":"AL.per.unpricedByState.charged","count":2},{"k":"A761.fire[0].n","count":2},{"k":"A761.fire[0].unpriced","count":2}]
+PASS no card figure: GN01's total and both locations' labour turn unknown (number -> null); WC09's total stays unknown; what is known on them does not move [{"k":"AL.groups.fire_ext.complete","from":"true","to":"false"},{"k":"AL.per.complete","from":"true","to":"false"},{"k":"AL.packageComplete","from":"true","to":"false"},{"k":"AT.GN01.total","from":"number","to":"null"},{"k":"AT.GN01.labour","from":"number","to":"null"},{"k":"AT.WC09.labour","from":"number","to":"null"}]
+PASS no card figure: the Accruals labour group for fire extinguishers is marked incomplete {"complete":false,"unpriced":2}
+PASS view link: GN01 shows "Fire extinguisher × 2" and "rate to confirm", no control {"key":"GN01","block":true,"fold":"contents","sum":"INSIDE IT AND ASSET NUMBERS Fire extinguisher × 2 · 1 asset number","words":"Fire extinguisher × 2","charge":"Charge: rate to confirm. The card carries no Fire Ext. figure for 60kva, so the money reads unknown, never nought, until the project manager gives a rate.","save":null,"buttons":[],"controls":0,"cap":"view"}
+PASS screenshot: GN01 on the view link (rate to confirm), no dollar figure in frame {"x":14,"y":374.40625,"width":362,"height":94.765625,"dollars":false}
+PASS view link: WC09 (toilet, the card writes 0.00) shows "Fire extinguisher × 2" and "rate to confirm" {"key":"WC09","block":true,"fold":"contents","sum":"INSIDE IT AND ASSET NUMBERS Fire extinguisher × 2 · 2 asset numbers","words":"Fire extinguisher × 2","charge":"Charge: rate to confirm. The card carries no Fire Ext. figure for FWF, so the money reads unknown, never nought, until the project manager gives a rate.","save":null,"buttons":[],"controls":0,"cap":"view"}
+PASS session B: no page errors, no console errors, nothing written (0 blocked) {"errors":[],"cons":[],"counts":{"page":1,"live":97,"blocked":0}}
+INFO the browser disconnected
+RESULT 41/41 phone
+exit 0
