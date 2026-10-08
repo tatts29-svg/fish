@@ -1,0 +1,23 @@
+/* Author: Andrew Fisher. Compact item cards retain the existing palette and controls. */
+.units925 .item933-card{padding:12px;overflow-wrap:anywhere}
+.item933-head{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
+.item933-head h4{font-size:15px;margin:0 0 5px}
+.item933-head .item933-number{font-weight:750;font-size:17px}
+.item933-owner{display:block;font-size:11px;font-weight:700;margin:7px 0;color:var(--mute,#536873)}
+.item933-owner.sub{color:#975018}
+.item933-actions,.item933-photo-tools{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.item933-add{position:relative;display:inline-flex!important;align-items:center;justify-content:center;min-height:44px;cursor:pointer;overflow:hidden}
+.item933-add input{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%;padding:0!important}
+.item933-add:focus-within{outline:3px solid #ef842f;outline-offset:2px}
+.item933-actions .btn{font-size:12px}
+.item933-gallery[hidden]{display:none}
+.item933-gallery figure,.item933-location figure{margin:0;min-width:0}
+.item933-gallery figcaption,.item933-location figcaption{font-size:11px;line-height:1.4;margin:4px 0}
+.units925 .item933-gallery .units925-photos img,.units925 .item933-location .units925-photos img{object-fit:contain;background:#10272f;height:150px;max-height:none}
+.item933-photo-tools .btn{font-size:11px;padding:7px 9px}
+.item933-status:empty{display:none}
+@media(max-width:480px){.units925 .item933-card{padding:10px}.item933-head{display:block}.item933-actions>.btn,.item933-actions>.item933-add{flex:1}.item933-photo-tools{gap:4px}.item933-photo-tools .btn{width:100%}}
+/* Drawer text inherits the drawer theme; Timeline Workers styling stays intact. */
+body #drawer .crew883>summary,body #drawer .crew883 .workers911-task>b{color:var(--ink)}
+body #drawer .crew883 :is(.workers911-hint,.workers911-setup p,.staff910-name small,.staff910-names p){color:var(--mute)}
+body #drawer .crew883 .staff910-message{color:var(--orange-ink)}

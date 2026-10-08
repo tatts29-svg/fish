@@ -1,0 +1,98 @@
+{
+  "author": "Andrew Fisher",
+  "checks": [
+    {
+      "width": 1440,
+      "references": [
+        {
+          "ref": "T0103",
+          "physicalUnits": 2,
+          "photoTargets": 2,
+          "overflow": false,
+          "recordUnchanged": true
+        },
+        {
+          "ref": "WC09",
+          "physicalUnits": 2,
+          "photoTargets": 3,
+          "overflow": false,
+          "recordUnchanged": true
+        },
+        {
+          "ref": "WC20",
+          "physicalUnits": 4,
+          "photoTargets": 4,
+          "overflow": false,
+          "recordUnchanged": true
+        }
+      ],
+      "nativePhotoCapture": {
+        "unit": "[\"WC09\",\"coates\",\"asset\",\"1268858\"]",
+        "slot": 2,
+        "previousId": null,
+        "recordUnchanged": true,
+        "bumps": 0
+      },
+      "errors": [],
+      "requests": {
+        "page": 1,
+        "live": 72,
+        "blocked": 1,
+        "denied": [
+          {
+            "method": "POST",
+            "origin": "https://tile.googleapis.com",
+            "path": "/v1/createSession"
+          }
+        ]
+      }
+    },
+    {
+      "width": 390,
+      "references": [
+        {
+          "ref": "T0103",
+          "physicalUnits": 2,
+          "photoTargets": 2,
+          "overflow": false,
+          "recordUnchanged": true
+        },
+        {
+          "ref": "WC09",
+          "physicalUnits": 2,
+          "photoTargets": 3,
+          "overflow": false,
+          "recordUnchanged": true
+        },
+        {
+          "ref": "WC20",
+          "physicalUnits": 4,
+          "photoTargets": 4,
+          "overflow": false,
+          "recordUnchanged": true
+        }
+      ],
+      "nativePhotoCapture": {
+        "unit": "[\"WC09\",\"coates\",\"asset\",\"1268858\"]",
+        "slot": 2,
+        "previousId": null,
+        "recordUnchanged": true,
+        "bumps": 0
+      },
+      "errors": [],
+      "requests": {
+        "page": 1,
+        "live": 69,
+        "blocked": 1,
+        "denied": [
+          {
+            "method": "POST",
+            "origin": "https://tile.googleapis.com",
+            "path": "/v1/createSession"
+          }
+        ]
+      }
+    }
+  ],
+  "note": "Captured native file/outbox path; no live uploads. Final source adds only missing historical-item fold and friendly native remove confirmation; isolated regressions cover those changes."
+}
