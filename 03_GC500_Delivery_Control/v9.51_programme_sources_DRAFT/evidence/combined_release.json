@@ -1,0 +1,67 @@
+{
+  "author": "Andrew Fisher",
+  "state": "READY TO UPLOAD",
+  "candidateSha256": "62ac34d8036731a941d60bda31aed759950929095a8503966354902ab6635df1",
+  "candidateBytes": 12583842,
+  "baseSha256": "968cd3a850584736fcfa28b403e9b7fd2d280557e86984c8be87c2b5bf8c0ca1",
+  "inlineScripts": 46,
+  "viewports": [
+    {
+      "width": 390,
+      "contractRows": 320,
+      "supplierForecastScopes": 9,
+      "nativeReconciliations": 17,
+      "nativeReconciliationsPassed": 17,
+      "infrastructureReferences": 12,
+      "arrivalMapCurrent": true,
+      "recordUnchanged": true,
+      "errors": 0,
+      "writes": 0
+    },
+    {
+      "width": 1440,
+      "contractRows": 320,
+      "supplierForecastScopes": 9,
+      "nativeReconciliations": 17,
+      "nativeReconciliationsPassed": 17,
+      "infrastructureReferences": 12,
+      "arrivalMapCurrent": true,
+      "recordUnchanged": true,
+      "errors": 0,
+      "writes": 0
+    }
+  ],
+  "lifecycle": "Assertions follow full refresh readiness and the normal Costs render; initial hidden-view memo timing was independently checked against live v9.48 on the same record and did not reproduce after settled readiness.",
+  "sourceFactsOnly": true,
+  "nativeWrites": 0,
+  "navigation": [
+    {
+      "viewport": "desktop",
+      "routes": 22,
+      "deepLinks": 8,
+      "runtimeErrors": 0,
+      "unexpectedConsoleErrors": 0,
+      "intentionalGooglePostDenied": 1,
+      "back": "Equipment",
+      "aliasesOrReadOnlyRedirects": 6
+    },
+    {
+      "viewport": "phone",
+      "routes": 22,
+      "deepLinks": 8,
+      "runtimeErrors": 0,
+      "unexpectedConsoleErrors": 0,
+      "intentionalGooglePostDenied": 1,
+      "back": "Equipment",
+      "aliasesOrReadOnlyRedirects": 6
+    }
+  ],
+  "readiness": "All 17 reconciliations pass after full record readiness and native Costs rendering on both viewports.",
+  "sourceComponents": {
+    "baseplan": "9458deed",
+    "schedule": "e1a0bf5d",
+    "fencing": "80121895",
+    "infrastructure": "3917ac87"
+  },
+  "operationalRecordVersion": 4761
+}

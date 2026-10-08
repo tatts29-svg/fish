@@ -2,7 +2,7 @@
 
 Author: Andrew Fisher
 
-DRAFT — integrated source is prepared; final combined release checks and publication are pending.
+READY TO UPLOAD — exact combined candidate 62ac34d8036731a941d60bda31aed759950929095a8503966354902ab6635df1 on verified live v9.48. All 46 scripts parse; phone and desktop pass 17 native financial reconciliations, the source/drawer checks and the 22-route/eight-link/Back sweeps. Only the intentionally blocked Google map-session POST is an expected console error. No operational record writes. Exact sanitised evidence is in evidence/combined_release.json.
 
 The four-workbook update is applied in order: v9.49 Baseplan and supplier cost forecasts, v9.50 Schedule 7, then this programme reconciliation. Every release starts from the current live page. The original private workbooks and detailed commercial evidence remain outside this repository.
 
