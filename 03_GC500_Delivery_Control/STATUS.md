@@ -50,7 +50,8 @@
   - **WC57 and WC59:** the master's labels win. WC57 goes to the 7-toilet row (2.3 m) and WC59 to the 2-toilet pair inside the SUPPLY fence (5.3 m).
   - **Flagged to Andrew:** the schedule's counts are the reverse of what the master draws (WC57 = 2, WC59 = 7). The delivery counts still come from the schedule.
 - **~18:00, Andrew on the fire extinguisher rate: "use 2025 for now if need to we edit at a later date".**
-  - v9.14 charges the card's 2025 Fire Ext. figure per piece. The page states the basis instead of asking.
+  - v9.14 charges the card's Fire Ext. figure per piece.
+  - **~18:10, Andrew: "don't mention anything about 2025".** The page shows no year anywhere on fire extinguishers; it reads "Charged per piece at the card's Fire Ext. rate".
   - It's still a one-off charge per piece, as the page treats it.
   - Item types with no 2025 figure (0.00) stay "rate to confirm", never nought.
   - This gets applied when the v9.14 build finishes (workflow `wf_a76078bc-be0`).
