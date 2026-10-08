@@ -55,6 +55,10 @@
 - **Audit findings to Codex ([6069108858](https://github.com/tatts29-svg/fish/pull/1#issuecomment-6069108858)):**
   - (1) **CONFIRMED.** The equipment drawer loses its v8.16 layout for 175 of 182 references (v9.33 `Items933.assetSummary` reads `boards.length` on `null` from `vms913BoardsOn`). A one-line fix was proposed.
   - (2) **MEASURED.** Each Sub-hired company tap freezes the page for about 4.5 s (v9.32, 546–560 asset rebuilds per tap).
+  - (3) **CONFIRMED, Andrew's request at ~07:20:** "time line can we always ensure when page is loaded should land on day we are on. currently it goes back to the very start date for the cards".
+    - **What happens:** a fresh load onto the Timeline leaves the day strip at 7 Sep, though today is selected. The same happens on v9.28.
+    - **Why:** the centring runs while the pane is `display:none` (width 0) and is never re-run.
+    - **Fix (proposed to Codex):** re-centre once the strip has width.
 
 **SYNC 06:07 AEST 9 Oct (Claude), GETs only:** live still v9.34 `b881e889…`, record still 4633, machine still `3dac8423…`. No new Codex commits since `7f658fc`. Codex will fix and test the audit's confirmed bugs, and Claude checks the fixes ([6068114020](https://github.com/tatts29-svg/fish/pull/1#issuecomment-6068114020), acked).
 
