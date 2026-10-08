@@ -1,5 +1,6 @@
 // Author: Andrew Fisher. Native compact-card integration checks; all network requests are GET-only.
 // PAGE=/absolute/final.html EVIDENCE_DIR=/absolute/private/output node tests/test_compact911.cjs
+// FULL_TIMELINE_SLICES=1 additionally captures every native scrolling viewport; top/card/workspace shots are always kept.
 // Run under flock /tmp/gc500-browser.lock. No printing, record writes or provider-session POSTs are allowed.
 const fs = require('fs'), path = require('path'), Module = require('module'), crypto = require('crypto');
 const pageFile = process.env.PAGE, out = process.env.EVIDENCE_DIR;
@@ -46,7 +47,7 @@ async function fieldContrast(locator) {
    const background=parse(s.backgroundColor),foreground=parse(s.webkitTextFillColor||s.color),opacity=+s.opacity;
    background[3]*=opacity;const paintedBackground=over(background,backdrop);foreground[3]*=opacity;const paintedForeground=over(foreground,paintedBackground);
    const a=lum(paintedForeground),b=lum(paintedBackground);
-   return {tag:n.tagName,type:n.type,disabled:!!n.disabled,colour:s.color,textFill:s.webkitTextFillColor,background:s.backgroundColor,opacity,contrast:(Math.max(a,b)+.05)/(Math.min(a,b)+.05),text:(n.tagName==='SELECT'?n.selectedOptions[0]?.textContent:n.value||n.textContent||'').trim().slice(0,100)};
+   return {tag:n.tagName,type:n.type,id:n.id,attributes:[...n.attributes].filter(a=>a.name.startsWith('data-')).map(a=>[a.name,a.value]),disabled:!!n.disabled,colour:s.color,textFill:s.webkitTextFillColor,background:s.backgroundColor,opacity,contrast:(Math.max(a,b)+.05)/(Math.min(a,b)+.05),text:(n.tagName==='SELECT'?n.selectedOptions[0]?.textContent:n.value||n.textContent||'').trim().slice(0,100)};
   });
  });
 }
@@ -59,12 +60,14 @@ async function wholePageScene(page,width) {
  });
  ok(width+'px: whole Timeline keeps native cards within the page',!layout.pageOverflow&&layout.cards.length>0&&layout.cards.every(r=>r.x>=-1&&r.right<=width+1),layout);
  ok(width+'px: the map stays hidden until Arrange loads is opened',!layout.map&&layout.arrangeButtons.every(n=>n===1),layout);
+ const menus=(await fieldContrast(page.locator('#pane-timeline'))).filter(f=>f.tag==='SELECT');
+ ok(width+'px: visible Timeline selection menus retain 4.5:1 contrast',menus.every(f=>f.contrast>=4.5),menus);
  const gaps=layout.cards.slice(1).map((r,i)=>r.y-layout.cards[i].bottom);
  ok(width+'px: native load cards retain compact vertical spacing',gaps.every(g=>g>=-1&&g<=32),gaps);
  await page.screenshot({path:path.join(out,'timeline-top-'+width+'.png')});
  // Record real viewport slices of the native scroll container; no layout CSS is changed for screenshots.
  const total=await page.evaluate(()=>{const e=document.querySelector('main');return {height:e.clientHeight,max:e.scrollHeight-e.clientHeight};});
- for(let top=Math.min(Math.max(1,total.height-100),total.max),part=1;top>0&&part<=30;top=Math.min(top+Math.max(1,total.height-100),total.max),part++){
+ for(let top=Math.min(Math.max(1,total.height-100),total.max),part=1;process.env.FULL_TIMELINE_SLICES==='1'&&top>0&&part<=30;top=Math.min(top+Math.max(1,total.height-100),total.max),part++){
   await page.evaluate(top=>{document.querySelector('main').scrollTop=top;},top);await settle(page);
   await page.screenshot({path:path.join(out,'timeline-page-'+width+'-'+String(part).padStart(2,'0')+'.png')});
   if(top===total.max)break;
@@ -187,6 +190,8 @@ async function trialControls(card) {
    await card.locator('.ldl').click();await settle(p);
    const expanded=await geometry(card);
    ok(width+'px: native expanded delivery cards remain inside the page',await card.locator('.ldl').getAttribute('aria-expanded')==='true'&&!expanded.pageOverflow&&!expanded.cardOverflow,expanded);
+   const expandedMenus=(await fieldContrast(card)).filter(f=>f.tag==='SELECT');
+   ok(width+'px: native expanded delivery selection menus remain readable',expandedMenus.every(f=>f.contrast>=4.5),expandedMenus);
    const preserved=await card.evaluate(e=>{
     const button=e.querySelector('.ldl'),id=button.dataset.ld,sc=ldScroller(button),top=sc.scrollTop,order=dpLoads(calendarDays().find(d=>d.iso===state.day)).map(g=>ldId({iso:state.day},g));
     render();const replacement=[...document.querySelectorAll('#pane-timeline .ldl[data-ld]')].find(n=>n.dataset.ld===id);

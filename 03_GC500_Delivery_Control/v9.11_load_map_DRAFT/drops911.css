@@ -66,6 +66,8 @@
 #pane-timeline .ld.tl846>.drops911{clear:both;min-width:0;margin:12px 0 0;box-shadow:none}
 #pane-timeline .ld.tl846>.drops911+.ldb{margin-top:12px}
 #pane-timeline .timeline908-utility .drops911-open{white-space:nowrap;flex:0 0 auto;min-height:44px;min-width:104px}
+#pane-timeline .timeline908-utility .flow891-ord:has(.drops911-open)>.flow891-grip,
+#pane-timeline .timeline908-utility .flow891-ord:has(.drops911-open)>.flow891-mv{display:none}
 #pane-timeline .timeline908-utility>.drops911-open{grid-column:1/-1;justify-self:end}
 #pane-timeline .drops911-open[aria-expanded="true"]{color:#132b33!important;background:#ff964f!important;border-color:#ffad70!important}
 #pane-timeline .drops911-fallback{margin:8px 0}

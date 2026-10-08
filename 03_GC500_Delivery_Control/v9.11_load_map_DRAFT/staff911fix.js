@@ -86,6 +86,7 @@ const Workers911 = (() => {
     const personBefore=crew883PersonHtml;crew883PersonHtml=function(d,p,i,can){
       const template=document.createElement('template');template.innerHTML=personBefore(d,p,i,can);const select=template.content.querySelector('[data-crew883-slot]');
       if(select)select.innerHTML=options(StaffNames910.day(d),StaffNames910.day(d).names,p.slot);
+      if(p.slot===null&&!p.roles.length)template.content.querySelector('[data-crew883-person]')?.setAttribute('data-workers911-placeholder','');
       return template.innerHTML;
     };
     document.addEventListener('toggle',event=>{const editor=event.target;if(editor.matches&&editor.matches('.crew883[data-workers911]')&&editor.open)updateOptions(editor);},true);
@@ -106,7 +107,7 @@ const Workers911 = (() => {
       note(editor,'Ready to assign '+name+'. Save workers to keep the day name and this task assignment.');
     },true);
     window.addEventListener('click',event=>{
-      const add=event.target.closest&&event.target.closest('[data-crew883-add]');if(add){const box=add.closest('.crew883[data-workers911]');if(box)queueMicrotask(()=>{if(box.isConnected)updateOptions(box);});}
+      const add=event.target.closest&&event.target.closest('[data-crew883-add]');if(add){const box=add.closest('.crew883[data-workers911]');if(box)setTimeout(()=>{if(box.isConnected)updateOptions(box);},0);}
       const use=event.target.closest&&event.target.closest('[data-staff910-use-roster]');
       if(use&&use.closest('.workers911-setup')){
         event.preventDefault();event.stopImmediatePropagation();if(!mayWrite('crew planning'))return;
@@ -118,6 +119,9 @@ const Workers911 = (() => {
       }
       const button=event.target.closest&&event.target.closest('[data-crew883-save]'),editor=button&&button.closest('.crew883[data-workers911]');
       if(!editor)return;
+      for(const row of editor.querySelectorAll('[data-workers911-placeholder]'))if(!row.querySelector('[data-crew883-slot]').value&&!row.querySelector('[data-crew883-role]:checked'))row.remove();
+      // A task timer runs after native document listeners; a microtask can run between capture listeners.
+      setTimeout(()=>{const list=editor.querySelector('[data-crew883-people]');if(editor.isConnected&&list&&!list.children.length&&capability()==='edit'&&!SYNC.readonly){list.innerHTML=crew883PersonHtml(editor.dataset.crew883Day,{slot:null,roles:[]},0,true);updateOptions(editor);}},0);
       const d=editor.dataset.crew883Day,ref=editor.dataset.crew883Ref,occurrence=matches(d,ref).indexOf(editor),model=StaffNames910.day(d),values=StaffNames910.captureTask(editor),names=readNames(editor),dayValues={count:model.count,names};
       const staged=JSON.stringify(names)!==JSON.stringify(model.names);
       const selectedStaged=values.people.some(p=>p.slot&&key(names[p.slot-1])!==key(model.names[p.slot-1]));
