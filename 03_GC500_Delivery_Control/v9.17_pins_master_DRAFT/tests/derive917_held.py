@@ -12,7 +12,7 @@
 #   WC59 -> the 7-toilet long row the master labels WC57 ("WC59's 7 toilets are the long row");
 #   WC57 -> the 2-toilet pair inside the SUPPLY fence (its 2 toilets, due 13 Oct);
 #   WC13 -> the middle of the drawn row of 3 (the schedule and the project manager: 2 toilets);
-#   WC69 -> the middle of the row of 9 under the WC69 label (12 = the 9 + 3 on the fence about 6.5 m north-west).
+#   WC69 -> the middle of the row of 9 under the WC69 label (12 = the 9 + the column of 3 on the fence, measured below).
 # Each derived point is checked against the audit's point: more than 0.3 pt (or 0.2 m) apart is refused (listed in
 # "fails"; the patch will not run while there is one).
 import hashlib, json, math, re, sys
@@ -174,14 +174,26 @@ for ref, ask in ASK.items():
     if ref == 'WC13':   # the two pairs inside the drawn row of 3, and how far each pair's middle is from the row's middle
         srt = sorted(found, key=lambda u: (u['c'][1], u['c'][0]))
         row['pairs_middle_to_row_middle_m'] = [round(math.hypot(centre(p)[0] - cx, centre(p)[1] - cy) * k, 2) for p in (srt[:2], srt[1:])]
-    if ref == 'WC69':   # the 3 more toilets on the fence, north-west of the row (12 = 9 + 3)
-        near = [u for u in UNITS if u['kind'] == 'toilet' and u['i'] not in ids and math.hypot(u['c'][0] - cx, u['c'][1] - cy) * k <= 12]
-        if len(near) != 3: fails.append(f'WC69: {len(near)} other toilets within 12 m of the row, expected the 3 on the fence')
+    if ref == 'WC69':   # the 3 more toilets in a column on the fence (12 = 9 + 3), measured on the ground, not on the paper
+        # the sheet is not drawn north-up (up the page is east), so a direction is read off the GPS points, never the paper
+        near = [u for u in UNITS if u['kind'] == 'toilet' and u['i'] not in ids and math.hypot(u['c'][0] - cx, u['c'][1] - cy) * k <= 10]
+        groups = []
+        for u in near:   # touching groups among them
+            g = [x for x in groups if any(touch(u['P'], v['P']) for v in x)]
+            merged = [u] + [v for x in g for v in x]; groups = [x for x in groups if x not in g] + [merged]
+        three = [x for x in groups if len(x) == 3]
+        if len(three) != 1: fails.append(f'WC69: expected one column of 3 touching toilets within 10 m of the row, found groups of {sorted(len(x) for x in groups)}')
         else:
-            fx, fy = centre(near); fll = ll_of(fx, fy); fb, fw = bearing(lst_ll, fll)
-            row['fence_three'] = {'n': len(near), 'paper_pt': [round(fx, 3), round(fy, 3)], 'll': [round(fll[0], 7), round(fll[1], 7)], 'from_row_middle_m': round(hav(lst_ll, fll), 2),
-                                  'direction': fw, 'bearing': round(fb), 'touch_each_other': all(any(touch(u['P'], v['P']) for v in near if v is not u) for u in near)}
-            if not (6.0 <= row['fence_three']['from_row_middle_m'] <= 7.0 and fw == 'north-west'): fails.append('WC69: the 3 on the fence are not about 6.5 m north-west: ' + str(row['fence_three']))
+            col = three[0]; fx, fy = centre(col); fll = ll_of(fx, fy); fb, fw = bearing(lst_ll, fll)
+            ends = sorted(found, key=lambda u: min(hav(ll_of(*u['c']), ll_of(*v['c'])) for v in col))[0]
+            reft = [(w[4], (w[0] + w[2]) / 2, (w[1] + w[3]) / 2) for w in WORDS if re.fullmatch(r'WC[-\w]*', w[4].strip())]
+            nt = sorted(((t[0], round(math.hypot(t[1] - fx, t[2] - fy) * k, 1)) for t in reft), key=lambda x: x[1])[:2]
+            row['fence_three'] = {'n': 3, 'drawings': sorted(u['i'] for u in col), 'paper_pt': [round(fx, 3), round(fy, 3)], 'll': [round(fll[0], 7), round(fll[1], 7)],
+                                  'middle_to_row_middle_m': round(hav(lst_ll, fll), 2), 'direction_from_row_middle': fw, 'bearing': round(fb),
+                                  'nearest_to_row_end_toilet_m': round(min(hav(ll_of(*ends['c']), ll_of(*v['c'])) for v in col), 2),
+                                  'edge_gap_to_row_m': round(min(math.hypot(p[0] - q[0], p[1] - q[1]) for u in found for v in col for p in u['P'] for q in v['P']) * k, 2),
+                                  'nearest_wc_labels': nt, 'other_lone_toilets_within_10m': [{'drawing': u['i'], 'm': round(math.hypot(u['c'][0] - cx, u['c'][1] - cy) * k, 1)} for x in groups if len(x) != 3 for u in x],
+                                  'question_said': 'about 6.5 m north-west (written off the paper; the paper is not north-up)'}
     rows[ref] = row
 json.dump({'author': 'Andrew Fisher', 'what': 'v9.17 third round - WC59, WC57, WC13 and WC69 (the project manager, 8 Oct about 23:20) re-derived from the 2 Oct master PDF',
            'pdf_sha256': PDF_SHA, 'page_sha256': PAGE_SHA, 'georeferencing': {'main_rms_m': GEO['main']['check']['rms_m']},
@@ -192,5 +204,6 @@ for ref, r in rows.items():
     print(f"{ref:5s} {str(r['unit_kinds']):14s} derived {r['listed_ll']} pt {r['listed_pt']} | vs audit {r['derived_vs_audit_m']:.3f} m / {r['derived_vs_audit_pt']:.3f} pt"
           f" | moves {r['moves_m']:5.2f} m {r['moves_dir']} (audit ~{r['audit_moves_m']}) | tag {r['tag_to_unit_m']} m"
           + (f" | pairs {r['pairs_middle_to_row_middle_m']} m" if 'pairs_middle_to_row_middle_m' in r else '')
-          + (f" | fence 3: {r['fence_three']['from_row_middle_m']} m {r['fence_three']['direction']}" if 'fence_three' in r else ''))
+          + (f" | fence 3: middle {r['fence_three']['middle_to_row_middle_m']} m {r['fence_three']['direction_from_row_middle']} of the row's middle,"
+             f" {r['fence_three']['nearest_to_row_end_toilet_m']} m from its end toilet, labels {r['fence_three']['nearest_wc_labels']}" if 'fence_three' in r else ''))
 print('FAILS' if fails else 'PASS', len(fails), fails[:12])
