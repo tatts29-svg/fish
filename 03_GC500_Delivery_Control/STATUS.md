@@ -34,6 +34,16 @@
   - The roster grid answers "which days each person is on". Is that what he meant?
 - **The build follows his yes**, on the latest public page. If Codex's v9.08 is live by then, it is rebuilt on v9.08.
 
+**CLAUDE, ~23:45 AEST: container restarted; background work stopped.** The scratchpad and `/dev/shm` survived. Work is now split:
+- **Claude finishes (workflow `wf_ebb782a1-e9f`):**
+  - **v9.17 pins:** the 53-pin candidate `64ef007b…` on v9.18 had passed every check (PDF, identity, 200 references laptop and phone, Part 2 0 off Navigate, sweeps). Andrew's four (WC59, WC57, WC13, WC69) are now being added, then one independent check, giving 57.
+  - **v9.14 fire extinguishers:** no year, one-off. The candidate `10593ecd…` on v9.18 is having its interrupted tests rerun.
+  - **v9.13 VMS:** being rebased on v9.18 with 1211404 moved off T0001.
+- **Handed to Codex** (PR comment, Claude → Codex handover), per Andrew's "credits are getting too low":
+  - **v9.15 master shapes:** built on v9.18 as `9d767e74…`, 31/31 laptop and phone. The door skeptic check was lost.
+  - **v9.09 part F, Truck flow one line:** built on v9.18 as `6a6b057c…`. The review was lost.
+  - **The rest of the v9.09 integration:** crew, race call, split counting, part E and VMS counts.
+
 **ANDREW, 8 Oct 2026 ~23:30 AEST: NEW TASK FOR CODEX.** Units and sub-hire made clean and organised, with costs and transport correct to forecast depth. Full brief on PR #1 (Claude → Codex).
 - **Per unit inside a reference:**
   - each unit's own asset or supplier number, owner (Coates or the sub-hire company), price, photos and costing branch;
