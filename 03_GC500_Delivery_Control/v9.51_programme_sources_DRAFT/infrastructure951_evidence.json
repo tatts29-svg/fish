@@ -15,12 +15,18 @@
     "repeatSafeAndDoublePatchRejected": true,
     "GN18FinalPositionCaveat": true,
     "P45ReversedYearHeld": true,
-    "noOperationalWrites": true
+    "noOperationalWrites": true,
+    "humanFieldLabelsAndExcelDates": true,
+    "diagnosticCandidatePathGuard": true,
+    "nativeDesktopPhoneDrawerCloseBackReopen": true,
+    "nativeStateUnchangedAfterDrawerChecks": true,
+    "phoneGN18CaveatVisualInspected": true
   },
   "limits": [
     "No workbook completion status imported into site readiness or operational delivery records.",
     "No additional deliveries created from cloned worksheets; no P45 duplicate or guessed date correction.",
     "Original workbook files and private aligned source audit are not included in this module.",
-    "Final combined page parse and real desktop/phone drawer verification are the integration owner's remaining checks."
-  ]
+    "Final combined v950/v951 page parsing and integration-owner release checks remain; module desktop/phone actual drawers passed."
+  ],
+  "browserContext": "Strict GET before initial navigation; explicit offline cached native4705 snapshot on v9.48 preview plus infrastructure module. No network fallback or operational writes."
 }

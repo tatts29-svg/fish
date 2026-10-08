@@ -1,9 +1,15 @@
 /* Author: Andrew Fisher. Documentary infrastructure programme evidence only. */
 function infrastructure951Row(key){return (DATA.infrastructure_review951.rows||[]).find(r=>r.reference===key)||null;}
+function infrastructure951Date(value){
+ if(value==null)return 'Not stated';
+ if(/^\d{5}$/.test(String(value))){const d=new Date(Date.UTC(1899,11,30)+Number(value)*86400000);return d.getUTCDate()+' '+['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][d.getUTCMonth()]+' '+d.getUTCFullYear();}
+ return String(value);
+}
 function infrastructure951Html(key){
  const r=infrastructure951Row(key);if(!r)return '';
- const changes=Object.entries(r.changes).map(([column,v])=>`${column}: ${v.before==null?'not stated':String(v.before)} → ${v.after==null?'not stated':String(v.after)}`);
- return '<details class="inst" data-infrastructure951><summary>Infrastructure workbook evidence · '+esc(key)+'</summary><p>Received workbook · reviewed 9 Oct 2026 · '+esc(r.sourceSheet)+' row '+r.row+'. Source evidence only; current site records remain authoritative.</p>'+(r.caveat?'<p><strong>'+esc(r.caveat)+'</strong></p>':'')+'<ul>'+changes.map(x=>'<li>'+esc(x)+'</li>').join('')+'</ul><p>Source “Complete” is not an imported delivery, installation or final-position approval. Repeated worksheet copies do not create additional deliveries.</p></details>';
+ const labels={A:'Facility',B:'Delivery type',C:'Equipment',D:'Install start',E:'Install end',F:'Notes',G:'Delivery notes',I:'Source status',J:'Source completion date',K:'Site notes'};
+ const changes=Object.entries(r.changes).map(([column,v])=>{const date=column==='D'||column==='E';const val=x=>date?infrastructure951Date(x):(x==null?'Not stated':String(x));return '<li><strong>'+esc(labels[column]||column)+':</strong> '+esc(val(v.before))+' → '+esc(val(v.after))+'</li>';});
+ return '<details class="inst" data-infrastructure951><summary>Infrastructure workbook evidence · '+esc(key)+'</summary><p>'+esc(r.facility)+'</p>'+(r.caveat?'<p><strong>'+esc(r.caveat)+'</strong></p>':'')+'<ul>'+changes.join('')+'</ul><p>Source status only; current site records remain authoritative. Reviewed 9 Oct 2026 · '+esc(r.sourceSheet)+' · row '+r.row+'.</p></details>';
 }
 const infrastructure951OpenAsset=openAsset;
 openAsset=function(key,opts){

@@ -4,7 +4,7 @@ from pathlib import Path
 from infrastructure951 import apply_infrastructure951
 source=Path(sys.argv[1]).read_text()
 def data(h):return json.JSONDecoder().raw_decode(h.split('const DATA = ',1)[1])[0]
-before=data(source);patched=apply_infrastructure951(source);after=data(patched);review=after.pop('infrastructure_review951')
+before=data(source);patched=apply_infrastructure951(source, "/nonexistent/build/candidate.html");after=data(patched);review=after.pop('infrastructure_review951')
 assert before==after, 'No existing DATA field may change, including schedule/photos/IDs/finance/ops'
 assert len(review['rows'])==12 and len({x['reference'] for x in review['rows']})==12
 rows={x['reference']:x for x in review['rows']}
@@ -19,3 +19,7 @@ try:apply_infrastructure951(patched)
 except ValueError:pass
 else:raise AssertionError('Double application must fail')
 print(json.dumps({'pass':True,'uniqueChanges':12,'allExistingDataExactlyPreserved':True,'duplicateSheetsNotImported':True,'P45InvalidDateHeld':True,'GN18CaveatRetained':True,'sourceHtmlSha256':hashlib.sha256(source.encode()).hexdigest()}))
+
+try:apply_infrastructure951('missing DATA', '/nonexistent/candidate.html')
+except ValueError:pass
+else:raise AssertionError('Missing source guard')
