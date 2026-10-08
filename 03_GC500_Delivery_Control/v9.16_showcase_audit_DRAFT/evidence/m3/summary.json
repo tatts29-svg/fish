@@ -2260,6 +2260,30 @@
  },
  "sweep": [
   {
+   "tag": "v6.40",
+   "sha": "66eb590b85d4",
+   "quality": "ultra",
+   "fixq": "ultra",
+   "frames": 5,
+   "draws": 90,
+   "verts": 3364014,
+   "glCalls": 1465,
+   "heapMB": 164.1,
+   "bufMB": 0.69,
+   "texMB": 0,
+   "showOpenMs": 1956,
+   "openBufMB": 73.08,
+   "compilesAtOpen": 16,
+   "cv": [
+    1800,
+    733
+   ],
+   "samples": 4,
+   "byProgram": "2:2378k 7:541k 1:232k 0:213k",
+   "blocked": 0,
+   "errors": 0
+  },
+  {
    "tag": "v6.51",
    "sha": "9bb1618ee541",
    "quality": "ultra",
@@ -2424,6 +2448,78 @@
    ],
    "samples": 4,
    "byProgram": "2:4651k 7:541k 1:232k 0:215k",
+   "blocked": 0,
+   "errors": 0
+  },
+  {
+   "tag": "v7.92",
+   "sha": "476f0dcca3d9",
+   "quality": "ultra",
+   "fixq": "ultra",
+   "frames": 4,
+   "draws": 94,
+   "verts": 5618326,
+   "glCalls": 1574,
+   "heapMB": 315.12,
+   "bufMB": 1.31,
+   "texMB": 0,
+   "showOpenMs": 2363,
+   "openBufMB": 146.71,
+   "compilesAtOpen": 20,
+   "cv": [
+    1800,
+    733
+   ],
+   "samples": 4,
+   "byProgram": "2:4207k 7:541k 1:232k 9:232k",
+   "blocked": 0,
+   "errors": 0
+  },
+  {
+   "tag": "v8.07",
+   "sha": "35024d434059",
+   "quality": "ultra",
+   "fixq": "ultra",
+   "frames": 3,
+   "draws": 94,
+   "verts": 5687778,
+   "glCalls": 1617,
+   "heapMB": 379.99,
+   "bufMB": 0.88,
+   "texMB": 0,
+   "showOpenMs": 2699,
+   "openBufMB": 175.11,
+   "compilesAtOpen": 20,
+   "cv": [
+    1800,
+    771
+   ],
+   "samples": 4,
+   "byProgram": "2:4301k 7:456k 9:245k 8:232k",
+   "blocked": 0,
+   "errors": 0
+  },
+  {
+   "tag": "v8.12",
+   "sha": "cd3159be30b7",
+   "quality": "ultra",
+   "fixq": "ultra",
+   "frames": 3,
+   "draws": 94,
+   "verts": 5687778,
+   "glCalls": 1617,
+   "heapMB": 376.24,
+   "bufMB": 0.88,
+   "texMB": 0,
+   "showOpenMs": 2990,
+   "openBufMB": 175.11,
+   "compilesAtOpen": 20,
+   "cv": [
+    1800,
+    835
+   ],
+   "samples": 4,
+   "byProgram": "2:4301k 7:456k 9:245k 8:232k",
    "blocked": 0,
    "errors": 0
   }

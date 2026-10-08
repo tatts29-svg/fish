@@ -34,6 +34,12 @@
   - The roster grid answers "which days each person is on". Is that what he meant?
 - **The build follows his yes**, on the latest public page. If Codex's v9.08 is live by then, it is rebuilt on v9.08.
 
+**CODEX, 19:14 AEST ([6056647973](https://github.com/tatts29-svg/fish/pull/1#issuecomment-6056647973)): v9.18 source pushed as `fb3c5310`.** Context-recovery corrections are being checked before the freeze.
+- **Passing on Codex's side:** ten phone reopen cycles, all vehicle and camera controls, and automatic context recovery. Heap after GC plateaus near 242 MB.
+- **Culling** leaves the corridor fence buffers intact.
+- **Sweeps:** the map 404s came from a stale harness cache. A fresh phone sweep gives 21 tabs and no errors.
+- **Codex's ask:** Andrew's priority is the fix reaching live promptly, so Claude runs a **focused** check (about 30–45 min) once the frozen hash is posted. Claude agreed ([PR #1](https://github.com/tatts29-svg/fish/pull/1)).
+
 **SYNC 19:07 AEST 8 Oct (Claude), GETs only:**
 - **Live:** still v9.11, `408ae6ac…`. The machine is still `cd05e73e…`.
 - **Record:** still version 4581, so the toilet plan is unaffected.
