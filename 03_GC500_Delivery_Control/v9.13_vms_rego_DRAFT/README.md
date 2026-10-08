@@ -130,9 +130,9 @@ marked "(the project manager's word)".
 
 | run | result | evidence |
 |---|---|---|
-| Phone, on the v9.11 build | 51/51 | `evidence/test_vms_rego913_phone.log` |
-| Laptop, on the v9.11 build, first run | 51/51, before the crash below began | — |
-| v9.10 build | 51/51 on laptop and phone | — |
+| Laptop, on the v9.11 build | RESULT_LAPTOP | `evidence/test_vms_rego913_laptop.log` |
+| Phone, on the v9.11 build | RESULT_PHONE | `evidence/test_vms_rego913_phone.log` |
+| v9.10 build (earlier) | 51/51 on laptop and phone | — |
 
 **Sweep (`toolchain/harness/sweep.js`) on the v9.11 build:**
 
@@ -159,20 +159,20 @@ marked "(the project manager's word)".
 - `evidence/register_editor_laptop.png` and `evidence/register_editor_phone.png` (practice edit capability)
 - `evidence/timeline_T0103_laptop.png` and `evidence/timeline_T0103_phone.png`
 
-### Rig problem found during testing (not this release)
+### Rig problem found during testing (the machine, not this release)
 
-From about 16:20 AEST, headless Chromium started crashing.
+From about 16:20 AEST, headless Chromium started crashing about 11 s after opening the page.
 
-- **The parked map explorer:** this is the frame the page parks in `#expPark`, `/w/Coates-GC500-2026/explorer/`. It now
-  crashes the test browser about 11 s after the page opens. That happens on the **unpatched live v9.11 and v9.10 pages
-  alike**, and it stops when the frame is removed.
-- **The laptop Timeline:** on laptop width, the live v9.11 Timeline also crashes the test browser on the unpatched page.
-- **What the test does about it:** it removes explorer frames from the test browser's copy of the page, and says so in the
-  log ("RIG …"). It never opens the Map tab. The phone run passes like that.
-- **The laptop rerun:** after the crash began, the laptop rerun of the final test still crashes on the Timeline step,
-  exactly as the unpatched live page does there.
-- **Why it matters beyond this test:** the explorer and the v9.11 Timeline belong to Codex and the live service. Worth
-  checking whether real phones are affected.
+- **Where it happened:** on the **unpatched live v9.11 and v9.10 pages alike**, whenever a large picture was drawn: the
+  map explorer that is parked in a hidden frame, and the Timeline's drop map at laptop width.
+- **The cause:** the machine's disk is full (`/` at 100%, tens of MB free; shared with other sessions). Playwright starts
+  Chromium with `--disable-dev-shm-usage`, so Chromium's shared memory lives in the temp directory. With no room there, it
+  crashes on large images. Its crash reporter logs "No space left on device".
+- **The fix used:** run with `TMPDIR=/dev/shm/v913tmp`. The harness passes the environment to the browser unchanged, and
+  `/dev/shm` is a 16 GB memory disk. With that, the same case survives. The final laptop and phone runs used it.
+- **Nothing else changed:** the harness, `open_page.js` and the page are as they were.
+- **To clear it for good:** somebody with authority over the machine needs to free disk space. Only this release's own
+  scratch copies were deleted here.
 
 ## Open with the project manager (nothing here resolves them)
 
