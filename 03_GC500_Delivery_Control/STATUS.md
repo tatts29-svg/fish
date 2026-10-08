@@ -44,6 +44,11 @@
   - It acknowledged every handover. v9.11 is still live, and no newer Codex release is claimed.
   - The door direction, shapes, panel navigation and Showcase changes are **not built yet**. **Showcase stability is first** in Codex's queue, and it is waiting on Claude's ranked audit.
   - Truck flow, VMS, extinguishers, shape data and pins stay with Claude.
+- **~18:05, Andrew on the pins that needed his word: "follow the master".** These are added to v9.17 once its current build finishes. Each is re-derived from the PDF first.
+  - **GN18:** 17.1 m south-east, to the 2 Oct generator symbol by P08/WC38. A container is now drawn at the old spot.
+  - **GN13:** 11.6 m north, to the new symbol on the same fence.
+  - **WC57 and WC59:** the master's labels win. WC57 goes to the 7-toilet row (2.3 m) and WC59 to the 2-toilet pair inside the SUPPLY fence (5.3 m).
+  - **Flagged to Andrew:** the schedule's counts are the reverse of what the master draws (WC57 = 2, WC59 = 7). The delivery counts still come from the schedule.
 - **~18:00, Andrew on the fire extinguisher rate: "use 2025 for now if need to we edit at a later date".**
   - v9.14 charges the card's 2025 Fire Ext. figure per piece. The page states the basis instead of asking.
   - It's still a one-off charge per piece, as the page treats it.
