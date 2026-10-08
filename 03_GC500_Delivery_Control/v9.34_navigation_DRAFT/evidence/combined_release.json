@@ -1,0 +1,76 @@
+{
+  "author": "Andrew Fisher",
+  "status": "READY TO UPLOAD",
+  "candidateSha256": "b881e8890e8a590fea79ac63657fd43254c5ccdd11735d7f70a1b4874773c33c",
+  "bytes": 12295093,
+  "baseSha256": "592e73b38e8c5fb1d5bf98d00915c49550ab860b322f82fb957a99acc0369093",
+  "components": {
+    "929": "c669294b",
+    "930": "82ad98d1",
+    "931": "d7e83ba0",
+    "932": "4455d37f",
+    "933": "c148c15d",
+    "934": "118a7e4a"
+  },
+  "finalNavigation": {
+    "desktop": {
+      "tabRoutes": 22,
+      "directLinks": 8,
+      "backRestoresEquipment": true,
+      "pageErrors": 0,
+      "unexpectedConsoleErrors": 0,
+      "intentionalMapSessionPostDenied": 1,
+      "legacyHiddenRoutes": [
+        "register",
+        "journal",
+        "breakdowns",
+        "variances",
+        "edit",
+        "add"
+      ]
+    },
+    "phone": {
+      "tabRoutes": 22,
+      "directLinks": 8,
+      "backRestoresEquipment": true,
+      "pageErrors": 0,
+      "unexpectedConsoleErrors": 0,
+      "intentionalMapSessionPostDenied": 1,
+      "legacyHiddenRoutes": [
+        "register",
+        "journal",
+        "breakdowns",
+        "variances",
+        "edit",
+        "add"
+      ]
+    }
+  },
+  "finance": {
+    "nativeTieoutsPassed": 17,
+    "views": [
+      "desktop",
+      "phone"
+    ],
+    "recordedMoneyUnchanged": true,
+    "contractsUnchanged": true,
+    "quotesUnchanged": true,
+    "approvedCostBranchUnchanged": true,
+    "testedCandidate": "cf3af701607eae858c4009cd0bbd4da48f7572b9de027d6c9a661a186c0c6a82"
+  },
+  "boundedCarryForward": "Final page differs from navigation-tested 9d79d107 only by adding sewage to the waste-tank classifier. The 66-check loading regression covers that real source description and print text. The 929/930/932/933 modules and all financial inputs remain unchanged. Final 40-script parse and desktop/phone sweeps ran on the exact final bytes.",
+  "nativePhotoChecks": {
+    "desktop": true,
+    "phone": true,
+    "wrongUnitReassignment": false,
+    "originalStateUnchanged": true,
+    "testedCandidate": "cf3af701607eae858c4009cd0bbd4da48f7572b9de027d6c9a661a186c0c6a82"
+  },
+  "mapAssets": {
+    "currentLoaderAndManifestMatchPublishedMachine": true,
+    "all18PackedTilesRangeReadable": true,
+    "finalSweepMissingTileErrors": 0
+  },
+  "operationalWrites": 0,
+  "review": "Integrated and tested by Codex with independent sub-agent source reviews. v929 was supplied frozen by Claude. No claim of Claude reviewing the final combined release."
+}

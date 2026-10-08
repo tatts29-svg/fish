@@ -1,0 +1,11 @@
+{
+  "author": "Andrew Fisher",
+  "final_sha256": "b881e8890e8a590fea79ac63657fd43254c5ccdd11735d7f70a1b4874773c33c",
+  "bytes": 12295093,
+  "navigation_candidate_sha256": "9d79d107f726811424aa1d6bf0dabd05ad4288804f0a998682f3b4d4d3cf777d",
+  "source_proof": {
+    "unload929-script": true,
+    "items933-script": true,
+    "navigation934-script": true
+  }
+}
