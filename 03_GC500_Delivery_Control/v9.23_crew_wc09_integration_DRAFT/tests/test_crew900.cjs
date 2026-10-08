@@ -109,6 +109,7 @@ const B = dataOf(BASE).team;
    overX: wrap.scrollWidth > wrap.clientWidth + 1, overY: body.scrollHeight > body.clientHeight + 1, has: body.innerText.split(NAME).length - 1};
  }, [key, NAME]); };
  const F = await scene('fencing');
+ if (process.env.OUT) { fs.mkdirSync(process.env.OUT, {recursive:true}); await p.screenshot({path:path.join(process.env.OUT, 'crew900-' + (mob ? 'phone' : 'desktop') + '.png')}); }
  ok('showcase "' + F.title + '": 9 cards, the sheet\'s eight then the new name, once', F.names.length === 9 && F.names[8] === NAME && JSON.stringify(F.names.slice(0, 8)) === JSON.stringify(fenB.map(x => x.name)) && F.has === 1, F.names.length);
  ok('showcase fine print: "9 names from the project record: 8 as the crew’s sign-on sheet reads, in its order, and 1 added by the project manager on 8 Oct 2026"',
   /\b9 names from the project record: 8 as the crew’s sign-on sheet reads, in its order, and 1 added by the project manager on 8 Oct 2026, after them\./.test(F.text) && /none was given for the name added, so none are shown/.test(F.text) && !EIGHT.test(F.text), F.text.slice(-420));

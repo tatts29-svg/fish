@@ -144,6 +144,7 @@ async function read(pageFile, tag) {
       return {boxes, unitHeads, n1: per(N1), n2: per(N2), tbRef: boxes.filter(b => b.startsWith(KEY + '|' + DISC + '|' + TB + '|')),
         peeUnits: boxes.filter(b => b.startsWith(KEY + '/u') && b.includes('|Pee Panel|')), fwfUnits: boxes.filter(b => b.startsWith(KEY + '/u') && b.includes('|FWF|')), dph: [...new Set(dph)], fold: fold ? fold.dataset.f816 : null};
     }, {KEY, N1, N2, TB, DISC});
+    if (process.env.OUT) { fs.mkdirSync(process.env.OUT, {recursive:true}); await p.screenshot({path:path.join(process.env.OUT, 'lines900-' + tag + '-' + (MOB ? 'phone' : 'desktop') + '.png')}); }
     await p.keyboard.press('Escape').catch(() => {});
     await p.evaluate(() => go('costs'));
     await p.waitForFunction(() => { try { return moneySummary().charge.labour >= 0 && !!document.getElementById('recon888'); } catch (e) { return false; } }, null, {timeout: 60000});
