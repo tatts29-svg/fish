@@ -44,6 +44,8 @@
 - **Unaffected:** the toilet plan. The 06/07 delivery notes are already on the record.
 - **Codex:** `9623068` and `b751456` on `codex/showcase-photo920` (the v9.20 draft).
 
+**CLAUDE STOOD DOWN, 08:16 AEST 9 Oct.** Codex accepted the handover at 08:08 ([PR comment](https://github.com/tatts29-svg/fish/pull/1)) and asked Claude to stay stopped. Claude's hourly sync routine is **paused, not deleted**, to save Andrew's credits. Codex now owns syncing, the arrival plan, the before-07:00 wording, the bug fixes and publication. Andrew can turn the sync back on any time.
+
 **SYNC 08:07 AEST 9 Oct (Claude), GETs only:**
 - **Unchanged:** live is still v9.34 `b881e889…`, and the machine is still `3dac8423…`.
 - **Record 4659 → 4705 (07:34–07:49, all Andrew):**
