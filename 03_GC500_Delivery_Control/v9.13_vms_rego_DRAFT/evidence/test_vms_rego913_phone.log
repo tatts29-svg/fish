@@ -38,3 +38,16 @@ PASS the only other writes are the page's own stamp and name for that document {
 PASS after the save the form shows what was saved, rego in capitals
 PASS the register shows the saved board as recorded, with who "VMS12 line 16 | Coates | F12 | ABC123 | not named yet | recorded by Practice Editor · 08 Oct 15:59 | Change"
 PASS screenshot of the editor form (practice capability), no dollar figure in frame {"x":18,"y":254.59375,"width":354,"height":551.40625,"dollars":false}
+PASS money identical before and after the save (P&L, costs to job end, Finance, transport, tie-outs, rehire, labour) {"len":271588}
+PASS the captured save never reached the service (fresh read has no vmsboard) {"version":4508}
+PASS no page errors []
+PASS no refused request concerns the register: the only 404s are the map explorer's own tile files, which this release does not touch {"n":15,"sample":["404 GET /w/Coates-GC500-2026/explorer/assets/vt/L-0.25.bin","404 GET /w/Coates-GC500-2026/explorer/assets/vt/L0.bin","404 GET /w/Coates-GC500-2026/explorer/assets/vt/L0.25.bin"]}
+PASS no console errors other than those refusals and the aborted practice writes ["Failed to load resource: the server responded with a status of 404 (Not Found)","Failed to load resource: the server responded with a status of 404 (Not Found)","Failed to load resource: the server responded with a status of 404 (Not Found)","Failed to load resource: the server responded with a status of 404 (Not Found)","Failed to load resource: the server responded with a status of 404 (Not Found)"]
+PASS the harness blocked nothing (the only writes were captured and aborted in page.route) {"page":1,"live":160,"blocked":0}
+PASS session B opens with the preload on VMS10
+PASS an incoming record syncs in like subhire, and a record document overrides the project manager's word "VMS10 line 13 · docket 26115373 | Practice Co sub-hire | P913 | PRAC913 | T0103 recorded | recorded by Practice Recorder · 08 Oct 15:10"
+PASS a record with no company keeps the contract company and shows its rego "VMS13 line 18 | RPM sub-hire | R13 | RPM13 | T0158 recorded | recorded by Practice Recorder · 08 Oct 15:11"
+PASS the delivery card follows the record "Practice Co · fleet no. P913 · rego PRAC913"
+PASS a record's On delivery wins: VMS09 taken off T0103 by the record, VMS13 put on T0158; each surface follows {"t103":"VMS10 (Practice Co P913 · rego PRAC913)","t158":"VMS13 (RPM R13 · rego RPM13)","sms158":"T0158 - Variable message signs (VMS) x 9: VMS13 (RPM R13, rego RPM13)","card158":" Boards VMS13 (RPM R13 · rego RPM13) ","on09":"not named yet\ntaken off by the record"}
+PASS session B: no page errors, nothing written {"errors":[],"counts":{"page":1,"live":102,"blocked":0}}
+RESULT 51/51 phone

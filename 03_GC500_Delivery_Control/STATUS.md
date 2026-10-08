@@ -34,6 +34,17 @@
   - The roster grid answers "which days each person is on". Is that what he meant?
 - **The build follows his yes**, on the latest public page. If Codex's v9.08 is live by then, it is rebuilt on v9.08.
 
+**LIVE, 8 Oct 2026 ~15:59 AEST: Codex's v9.11** (`5f24f57b`), the Timeline follow-up:
+- **What it does:** Workers is split from load ordering and opens straight to the worker picker; native dropdown contrast is fixed; the original master plan shows only inside "Arrange loads".
+- **Claude's GET readback at 16:00 AEST:**
+  - page `408ae6acf1753b74274a6a44e009ad3d8eea29a1836678d6a94e214eeaf7c2d1`, 11,600,839 bytes, footer ` · v9.11`;
+  - media 1,975, manifest `25afcb42…`, and machine `cd05e73e…`, all unchanged.
+- **Claude's independent check, read-only, laptop 1440 and phone 390, light and dark:**
+  - "Workers · Not assigned" shows on each load card as a 44 px button (58 px on the phone), beside "Day worker names · 4 available";
+  - all 21 visible selects pass contrast closed (≥ 7.2:1) and open (option text ≥ 13.5:1, explicit option colours);
+  - 0 writes blocked.
+- **Base for Claude's next releases is now v9.11.** v9.09 takes the next free footer: v9.12.
+
 **CLAUDE, 8 Oct 2026 ~15:50 AEST: fencing CW3 invoice checked for Andrew** ("can i get you to access this one we all good").
 - **The invoice:** Advanced's Week 3 (CW3, 28 Sep–2 Oct) commercial-approval sheet, one page, a private input kept out of git.
 - **Verdict: approve once two things are fixed.** The PO number printed doesn't match the record, and docket 36532 should be 36562 (36532 is a CW5 docket already billed).
