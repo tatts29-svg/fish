@@ -15,7 +15,7 @@ Identity and storage
 - Unnamed physical units require an explicitly created UUID slot. When Units925 exists, that is the single creation entry point. Existing restraint slots remain readable. Unallocated slots never bypass split-booking filters.
 - Per-unit and per-load documents use the existing `S.loads` / native per-document save path, bounded hash keys, and the full identity checked inside each document. No financial or operational source records are rewritten by this patch.
 - Failed native saves restore the prior in-memory document or delete the new one. No false success message is returned.
-- Load scope fingerprints include all safety-relevant values and their verification/source details, not just timestamps. Same-stamp imports invalidate earlier checks. Stale forms clear acknowledgements; mid-edit unit changes prevent rescoping an old assessment.
+- Load scope fingerprints include all safety-relevant values and their verification/source details, not just timestamps. Same-stamp imports invalidate earlier checks. Stale unit identities clear both specification and method acknowledgements. Unit and load forms capture their full source scopes and reject concurrent changes at Save, preventing old evidence being rebound to corrected equipment or a revised arrangement.
 - Demob identities depend on their source contents, not displayed load numbers. Partial collections without exact individual allocations remain explicitly unresolved.
 
 Original-source audit
@@ -24,7 +24,7 @@ The original 140-page PDF SHA-256 is `67c2d6442f6b22c7a0cc5f933275cf56463686a967
 
 Validation
 
-- 134 model/source assertions: catalogue provenance; nulls and genuinely unknown values; namespace identity; split booking slots; invalid/nonfinite dimensions and positions; payload/height/overlap; same-stamp specification imports; stale confirmation clearing; method maxima and named-model scope; longitudinal/central/paired skid constraints; and no automatic approval for all 16 method families.
+- 138 model/source assertions: catalogue provenance; nulls and genuinely unknown values; namespace identity; split booking slots; invalid/nonfinite dimensions and positions; payload/height/overlap; same-stamp specification imports; stale confirmation clearing; method maxima and named-model scope; longitudinal/central/paired skid constraints; and no automatic approval for all 16 method families.
 - Eight injected persistence checks: native refusal and exception rollback, read-only refusal, identity collision, successful named/stamped capture, advancing stamps and truncating key refusal.
 - Targeted actual-page phone run passed on candidate `ad77fca300afe22ca1ebabb0ecc96830835ee31a695e28695f291e0c09f0f2b3`, based on 9.23: readable original model reference, no horizontal drawer overflow, searchable catalogue in a view-only link, Timeline/driver/Demob integration, stable Demob IDs, unchecked source copying, native per-document capture and failed-save rollback; zero runtime errors, 70 reads and zero HTTP writes. This was before the final source-only method-bound/citation, split-slot and touch-target refinements.
 - Final exact combined-release browser verification remains required. `tests/browser924.cjs` additionally checks actual load-form saves, mid-edit freshness rejection and A4 supplement overflow. The root task owns the final combined phone/desktop sweeps and guarded publication. No live records have been written by these tests.

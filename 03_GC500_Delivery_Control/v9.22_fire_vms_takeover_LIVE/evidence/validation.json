@@ -1,6 +1,6 @@
 {
   "author": "Andrew Fisher",
-  "state": "READY TO UPLOAD",
+  "state": "VERIFIED LIVE",
   "source_code_commit": "2861f996",
   "upstream_source": "822b06a8",
   "base_sha256": "7138c402c8827056524d6b1ebbd2c50cd7c7e8a549b0d1dbea91184ec6cc8774",
@@ -89,5 +89,9 @@
   "browser_notes": "Shared GET-only harness, software WebGL, vendor telemetry locally answered with 204. Fold snapshots await the existing explorer hint initialization; no storage keys are excluded. All captured editing fixtures are aborted locally.",
   "media_unchanged": true,
   "machine_unchanged": true,
-  "private_evidence": "Kept outside Git; no quote amounts or private inputs in this report."
+  "private_evidence": "Kept outside Git; no quote amounts or private inputs in this report.",
+  "published_utc": "2026-10-08T16:57:26.880Z",
+  "published_aest": "9 Oct 2026 02:57 AEST",
+  "public_bytes_verified": true,
+  "record_version_at_publication": 4599
 }

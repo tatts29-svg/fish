@@ -2,7 +2,7 @@
 
 Author: Andrew Fisher
 
-State: READY TO UPLOAD. Source and page are frozen for the coordinating publisher; this folder has not published anything.
+State: VERIFIED LIVE — 9 Oct 2026 02:57 AEST. The guarded publisher verified that the public view serves the candidate byte for byte. Implemented, tested and published by Codex; upstream source by Claude.
 
 Andrew approved the extinguisher and VMS changes on 9 Oct and then directed that Truck flow sit behind a closed dropdown. This combines those three completed source parts on the v9.21 pins page.
 
@@ -15,7 +15,7 @@ Sources copied from frozen upstream `822b06a8`: v9.14 fire extinguishers, v9.13 
 Build from the live v9.21 page:
 
 ```sh
-toolchain/build.sh v9.22 v9.22_fire_vms_takeover_DRAFT/patch_v922.py
+toolchain/build.sh v9.22 v9.22_fire_vms_takeover_LIVE/patch_v922.py
 ```
 
 The VMS and fire tests exercise read-only and simulated editing, capture and abort every proposed save, and compare a fresh shared record afterwards. `money922.cjs` includes the upstream scenario audit, with corrected expectations for derived percentages, balanced reconciliation parts and the separate rate-to-confirm quantity. No currency amounts are written into its results. The fold comparison uses the combined candidate with only the fold removed as its baseline, so VMS presentation changes are not mistaken for fold changes.
@@ -29,4 +29,4 @@ The fold test now waits for the existing same-origin explorer's one-time hint fl
 - Candidate SHA-256: `7e3fe251373c97582119f41002cbda0cfacb71bd23ec5fe1fdf2c3dde3d46abc` — 11,696,428 bytes.
 - Validation: `evidence/validation.json`.
 
-The release changes only the HTML page. Media and the paired machine file remain the live v9.21 assets. The coordinating publisher must use the normal live-base guard and verify the served bytes before recording LIVE.
+The release changes only the HTML page. Media and the paired machine file remain the live v9.21 assets. Publication used the normal live-base guard and verified all served bytes.
