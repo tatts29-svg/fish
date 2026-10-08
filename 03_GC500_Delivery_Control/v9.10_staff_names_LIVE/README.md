@@ -1,6 +1,6 @@
 Author: Andrew Fisher
 
-READY TO UPLOAD. Implemented and independently reviewed in this task. Native form, roster/slot, persistence-failure, phone contrast and desktop/phone navigation checks passed. Existing page source/data preservation and script/secret checks passed. Claude received the reusable API handover; this does not claim his independent code review. Detailed evidence remains private.
+VERIFIED LIVE — 8 Oct 2026, 14:28 AEST. The guarded uploader confirmed exact public bytes. Implemented and independently reviewed in this task. Native form, roster/slot, persistence-failure, phone contrast and desktop/phone navigation checks passed. Existing page source/data preservation and script/secret checks passed. Claude received the reusable API handover; this does not claim his independent code review. Detailed evidence remains private.
 
 The existing Crew form now offers names from the selected date’s labour forecast. Day availability is saved explicitly, then each task selects a person and their roles. Picking a task name never changes the available headcount.
 
