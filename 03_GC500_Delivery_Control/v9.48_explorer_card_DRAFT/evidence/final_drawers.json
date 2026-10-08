@@ -1,0 +1,39 @@
+{
+  "author": "Andrew Fisher",
+  "candidateSha256": "968cd3a850584736fcfa28b403e9b7fd2d280557e86984c8be87c2b5bf8c0ca1",
+  "passed": true,
+  "mode": "Live GET for reference and gallery checks; authenticated fresh state held only for captured actions",
+  "references": 182,
+  "modernDrawers": 182,
+  "allUnitCardIdsMatchNativeSource": true,
+  "duplicateCanonicalLegacyPhotoGroups": 0,
+  "visibleReadOnlyPhotoEditControls": 0,
+  "keyboardGalleryChecks": {
+    "preservedLegacyPhotos": 2,
+    "separateUnassignedItem": true,
+    "canonicalAndLegacyFixturePhotos": 3
+  },
+  "capturedNativeCaptionRemoveExactHomes": true,
+  "capturedNativeUploadExactUnitAndFreeSlot": true,
+  "capturedActionsRecordUnchanged": true,
+  "serviceRecordVersionsObserved": [
+    4726,
+    4727,
+    4728
+  ],
+  "externalReadPhaseChanges": [
+    "loads"
+  ],
+  "practiceRecordVersion": 4728,
+  "runtimeErrors": 0,
+  "caughtDrawerWarnings": 0,
+  "existingIframeWarning": true,
+  "deliberatelyBlockedGoogleSessionPost": 1,
+  "operationalServiceWrites": 0,
+  "visualWidthsInspected": [
+    390,
+    1440
+  ],
+  "correctionNotes947FrozenSourceIncludedUnchanged": true,
+  "earlierAttempt": "All182 drawers and gallery checks passed; concurrent external delivery changes invalidated a whole-session state equality assertion. Authenticated snapshot isolation during captured actions resolved test interference; no product edit."
+}

@@ -1,0 +1,46 @@
+{
+  "author": "Andrew Fisher",
+  "state": "READY TO UPLOAD",
+  "candidateSha256": "968cd3a850584736fcfa28b403e9b7fd2d280557e86984c8be87c2b5bf8c0ca1",
+  "candidateBytes": 12329144,
+  "baseSha256": "b881e8890e8a590fea79ac63657fd43254c5ccdd11735d7f70a1b4874773c33c",
+  "inlineScripts": 45,
+  "navigation": {
+    "exitChecks": 50,
+    "routesPerViewport": 22,
+    "deepLinksPerViewport": 8,
+    "phoneDesktop": true,
+    "runtimeErrors": 0
+  },
+  "drawers": {
+    "references": 182,
+    "modernAll": true,
+    "canonicalAndLegacyPhotoBindingsPreserved": true,
+    "nativeUploadCaptionRemoveCapturedOnly": true,
+    "externalRecordUpdatesPreserved": true
+  },
+  "financial": {
+    "checksPerViewport": 1823,
+    "models": 16,
+    "nativeTiesPerViewport": 17,
+    "frozenRecord": 4705,
+    "testedCombinedVersion": "9.47",
+    "v948OnlyFrameLayoutAndVersion": true,
+    "onlyApprovedHireRehireTransfer": true
+  },
+  "print": {
+    "fourNativeRegressionCases": true,
+    "arrivalDriverAndInstallerBothViewports": true,
+    "correctedFinalMapDriverPrint": true
+  },
+  "arrivalFiles": {
+    "publicByteExact": 3,
+    "supersededOwnDraftsRemoved": 2,
+    "existingFilesUnchanged": 405,
+    "operationalWritesSent": 0
+  },
+  "limitations": [
+    "No physical-device GPU/frame-rate guarantee; headless software graphics constrained full3D observation."
+  ],
+  "implementedReviewedTestedBy": "Codex with independent sibling reviews; no claim of additional Claude review"
+}

@@ -1,0 +1,49 @@
+{
+  "author": "Andrew Fisher",
+  "mode": "LIVE GET-only native record; local exact release candidate",
+  "candidate_sha256": "968cd3a850584736fcfa28b403e9b7fd2d280557e86984c8be87c2b5bf8c0ca1",
+  "sweeps": {
+    "desktop": {
+      "routes_attempted": 22,
+      "routes_passed": true,
+      "native_alias_or_set_aside_redirects": 6,
+      "deep_links": 8,
+      "deep_links_passed": true,
+      "browser_back_passed": true,
+      "runtime_errors": 0,
+      "application_console_errors": 0,
+      "expected_denied_google_tile_session_console_errors": 1,
+      "boot_warnings": 5,
+      "boot_warnings_classified": true,
+      "blocked_requests": 1,
+      "blocked_expected_only": true
+    },
+    "phone": {
+      "routes_attempted": 22,
+      "routes_passed": true,
+      "native_alias_or_set_aside_redirects": 6,
+      "deep_links": 8,
+      "deep_links_passed": true,
+      "browser_back_passed": true,
+      "runtime_errors": 0,
+      "application_console_errors": 0,
+      "expected_denied_google_tile_session_console_errors": 1,
+      "boot_warnings": 5,
+      "boot_warnings_classified": true,
+      "blocked_requests": 1,
+      "blocked_expected_only": true
+    }
+  },
+  "focused_navigation": {
+    "author": "Andrew Fisher",
+    "mode": "live GET-only native record",
+    "candidate_sha256": "968cd3a850584736fcfa28b403e9b7fd2d280557e86984c8be87c2b5bf8c0ca1",
+    "navigation_checks": 50,
+    "navigation_passed": 50,
+    "page_errors": 0,
+    "native_record_unchanged": true,
+    "operational_writes": 0,
+    "blocked_tile_session_only": true
+  },
+  "passed": true
+}
