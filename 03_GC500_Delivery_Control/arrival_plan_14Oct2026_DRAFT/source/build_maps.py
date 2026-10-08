@@ -159,8 +159,9 @@ O.add(f'<path d="{rd}" fill="none" stroke="#fff" stroke-width="15" stroke-lineca
 O.add(f'<path d="{rd}" fill="none" stroke="{ORANGE}" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>')
 RL = length_m(route)
 chevrons(O, route, [RL * f for f in (0.06, 0.27, 0.40, 0.55, 0.70, 0.85)], 6, '#fff', 3)
-ex, ey = O.P(*esp[-1]); sx, sy = O.P(*esp[0])
-O.add(f'<rect x="{min(ex, sx) - 16:.1f}" y="{sy - 14:.1f}" width="{abs(ex - sx) + 32:.1f}" height="{ey - sy + 28:.1f}" rx="7" fill="{ORANGE}" fill-opacity=".18" stroke="{INK}" stroke-width="3" stroke-dasharray="7 5"/>')
+ex, ey = O.P(*HOLDING[-1]); sx, sy = O.P(*HOLDING[0])
+# The overview uses the same marked island edge as the close-up and aerial, not the full road segment.
+O.add(f'<path d="{O.d(HOLDING)}" fill="none" stroke="{ORANGE}" stroke-width="12" stroke-opacity=".45" stroke-linecap="butt"/>')
 for txt, la, lo, a in [('SOUTHPORT', -27.97290, 153.41500, 0), ('MAIN BEACH', -27.98000, 153.42620, 0), ('NARROWNECK', -27.98880, 153.42380, 0), ('Broadwater', -27.97260, 153.42520, 0), ('Nerang River', -27.98380, 153.41940, -60), ('Pacific Ocean', -27.98250, 153.43400, -84)]:
     x, y = O.P(la, lo); O.add(f'<text x="{x:.1f}" y="{y:.1f}" class="t-place" transform="rotate({a} {x:.1f} {y:.1f})">{txt}</text>')
 def near(la, lo): return min(route, key=lambda p: math.dist(p, (la, lo)))
@@ -187,7 +188,7 @@ C.add(f'<path d="{sd}" fill="none" stroke="url(#hatch)" stroke-width="{lane_w:.1
 for n,f in enumerate([0.88,0.64,0.40,0.16],1):
     cx,cy=C.P(*at_m(strip,SL*f)[0])
     C.add(f'<circle cx="{cx:.1f}" cy="{cy:.1f}" r="16" fill="#fff" stroke="{ORANGE}" stroke-width="4"/><text x="{cx:.1f}" y="{cy + 7:.1f}" text-anchor="middle" class="t-slot">{n}</text>')
-chevrons(C, strip, [3, 9], 9, INK, 4.5)
+chevrons(C, strip, [1], 9, INK, 4.5)
 DROP = [('P25', -27.991486, 153.430428), ('P66', -27.991452, 153.430425), ('P65', -27.991376, 153.430418), ('P67', -27.991346, 153.430415)]
 xs = [C.P(la, lo) for _, la, lo in DROP]
 mx, my = sum(x for x, _ in xs) / 4, sum(y for _, y in xs) / 4
