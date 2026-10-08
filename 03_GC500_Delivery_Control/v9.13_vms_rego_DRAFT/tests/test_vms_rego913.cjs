@@ -109,7 +109,7 @@ async function sessionA() {
     ok('the captured save never reached the service (fresh read has no vmsboard)', !(rec.docs && rec.docs.vmsboard && Object.keys(rec.docs.vmsboard).length), {version: rec.version});
     ok('no page errors', s.errors.length === 0, s.errors);
     const fails = [...new Set(bad4)];
-    ok('every refused request is the service refusing an edit-link-only read to this view token, never the register', fails.every(u => /^40[34] GET \/api\/(reports|files|map-key|mapkey|keys)/.test(u) || /^40[34] GET \/api\/[a-z-]+$/.test(u)) && !fails.some(u => /vmsboard/.test(u)), fails);
+    ok('no refused request concerns the register: the only 404s are the map explorer\'s own tile files, which this release does not touch', fails.every(u => /^404 GET \/w\/Coates-GC500-2026\/explorer\/assets\//.test(u)) && !fails.some(u => /vmsboard|\/api\/doc/.test(u)), {n: fails.length, sample: fails.slice(0, 3)});
     ok('no console errors other than those refusals and the aborted practice writes', cons.filter(t => !/status of 40[34]|net::ERR_FAILED/.test(t)).length === 0 && cons.filter(t => /status of 40[34]/.test(t)).length <= bad4.length, cons.slice(0, 5));
     ok('the harness blocked nothing (the only writes were captured and aborted in page.route)', s.counts.blocked === 0, s.counts);
   } finally { await s.browser.close(); }

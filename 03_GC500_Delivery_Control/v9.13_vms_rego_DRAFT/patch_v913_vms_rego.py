@@ -176,7 +176,7 @@ function vms913Mount(){
  const pane = document.getElementById('pane-plant'); if (!pane || pane.querySelector('[data-vms913]')) return;
  const g = state.plantGroup; if (g && g !== 'VMS boards') return;
  const bs = vms913Boards(); if (!bs.length) return;
- const name = 'VMS boards, board by board', st = vms913St();
+ const name = 'VMS board register', st = vms913St();
  if (!st.opened && g === 'VMS boards' && typeof eq796s === 'function') { st.opened = true; eq796s().open.add(name); }
  const given = bs.filter(b => vms913Of(b).rego).length;
  const box = document.createElement('div'); box.className = 'vms913'; box.innerHTML = vms913Html(bs);
@@ -212,6 +212,7 @@ function vms913SheetHtml(a){
 
 CSS = '''
 /* v9.13 - VMS boards: whose, fleet number and rego. Author: Andrew Fisher. */
+#pane-plant details.vms913fold > summary{flex-wrap:wrap;row-gap:2px}
 .vms913{padding:0 0 12px}
 .vms913note{font-size:12.5px;color:var(--mute);margin:0 0 10px;line-height:1.5}
 .vms913form{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px;align-items:end;border:1px solid var(--orange);border-radius:10px;padding:12px;margin:0 0 6px;background:var(--tint2)}
