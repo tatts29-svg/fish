@@ -93,14 +93,21 @@ const B = dataOf(BASE).team;
 
  /* 7. the showcase: the fencing crew's own card, the work behind it, the install team, the org chart */
  await p.evaluate(() => { go('today'); showOpen(); }); await p.waitForTimeout(4200);
- const scene = key => p.evaluate(([key, NAME]) => { SHOW.playing = false; clearTimeout(SHOW.timer); SHOW.i = SHOW_ORDER.indexOf(key); showRender(); clearTimeout(SHOW.timer);
+ /* the showcase opens on the car, with the figures hidden behind it (.show.car-focus .shscene); a viewer presses the page's own
+    "Show figures" button to see the scenes - it sets a preference in this browser only and writes nothing to the record */
+ const focus = await p.evaluate(() => { const show = document.getElementById('showcase'), b = document.getElementById('showCarFocus');
+  const was = show.classList.contains('car-focus'); if (was && b && !b.hidden) b.click(); return {was, now: show.classList.contains('car-focus')}; });
+ ok('showcase: the figures are on show (car focus ' + (focus.was ? 'turned off with the page\'s own "Show figures" button' : 'was off') + ')', !focus.now, focus);
+ const scene = async key => { await p.evaluate(key => { SHOW.playing = false; clearTimeout(SHOW.timer); SHOW.i = SHOW_ORDER.indexOf(key); showRender(); clearTimeout(SHOW.timer); }, key);
+  await p.waitForTimeout(900);   /* the scene's type unit and fonts settle; then the page's own fitter runs, as a resize would */
+  return p.evaluate(([key, NAME]) => { clearTimeout(SHOW.timer); showFit();
   const body = document.getElementById('showBody'), wrap = body.querySelector('.shwrap'), ul = body.querySelector('.shcards');
   const lis = ul ? [...ul.children] : [], tops = [...new Set(lis.map(li => Math.round(li.getBoundingClientRect().top)))];
   const perRow = tops.map(t => lis.filter(li => Math.round(li.getBoundingClientRect().top) === t).length);
-  return {title: document.getElementById('showChapter').textContent, text: body.innerText.replace(/\s+/g, ' ').trim(), names: lis.map(li => (li.querySelector('.shpn') || {}).textContent),
+  return {title: document.getElementById('showChapter').textContent, key: SHOW_ORDER[SHOW.i], visible: getComputedStyle(body).visibility, text: body.innerText.replace(/\s+/g, ' ').trim(), names: lis.map(li => (li.querySelector('.shpn') || {}).textContent),
    cls: ul ? ul.className : null, cols: ul ? getComputedStyle(ul).gridTemplateColumns.split(' ').length : 0, perRow, zoom: SHOW.zoom,
    overX: wrap.scrollWidth > wrap.clientWidth + 1, overY: body.scrollHeight > body.clientHeight + 1, has: body.innerText.split(NAME).length - 1};
- }, [key, NAME]);
+ }, [key, NAME]); };
  const F = await scene('fencing');
  ok('showcase "' + F.title + '": 9 cards, the sheet\'s eight then the new name, once', F.names.length === 9 && F.names[8] === NAME && JSON.stringify(F.names.slice(0, 8)) === JSON.stringify(fenB.map(x => x.name)) && F.has === 1, F.names.length);
  ok('showcase fine print: "9 names from the project record: 8 as the crew’s sign-on sheet reads, in its order, and 1 added by the project manager on 8 Oct 2026"',
