@@ -34,6 +34,16 @@
   - The roster grid answers "which days each person is on". Is that what he meant?
 - **The build follows his yes**, on the latest public page. If Codex's v9.08 is live by then, it is rebuilt on v9.08.
 
+**SYNC 14:06 AEST 8 Oct (Claude), GETs only:**
+- **Live page:** v9.08, `aa1480bd…`, unchanged since its 13:56 publication. The machine is still `cd05e73e…`.
+- **Record:** version 4465 → 4504 (last change 13:54 AEST), all by Andrew:
+  - **WC09:** asset numbers 1268858 and 1311146 recorded. Four drop photos added (two for the reference, two for unit 1268858). Two air-conditioner entries were added and then deleted (13:47–13:52).
+  - **Today's truck order:** the two WC09 trucks are swapped. Docket 26115316 now runs before 26115312, then T0103.
+  - **P25 (Wed 14 Oct):** traffic control set to Required, and lifting set to tilt-tray (13:13).
+  - None of this changes the Event Portables plan.
+- **Codex commits since 13:06:** `3496527`/`8cf7a3c` (v9.07 live), `a8a610f`/`6ee91c3` (v9.08 live), and `8ffcf70` (synthetic crew-planning save review cases under `review_v901_forecast/`).
+- **Tue 6 and Wed 7 Oct delivery notes:** already on the record.
+
 **SYNC 13:06 AEST 8 Oct (Claude), GETs only:**
 - **Live page:** still v9.04, `d0d63004…`, 11,450,666 bytes. The machine is still `cd05e73e…` (233 files).
 - **Record:** version 4462 → 4465 (last change 12:25 AEST), two changes by Andrew:
