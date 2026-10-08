@@ -20,7 +20,7 @@ const PAGES = (process.env.PAGES || '').split(',').filter(Boolean).map(x => { co
 const PROFILE = process.env.PROFILE || 'laptop', PHONE = PROFILE === 'phone';
 const DPR = +(process.env.DPR || (PHONE ? 3 : 1)), THROTTLE = +(process.env.THROTTLE || (PHONE ? 4 : 1));
 const OPEN_S = +(process.env.OPEN_S || 60), BEFORE_S = +(process.env.BEFORE_S || 15), ROUND = process.env.ROUND || '1';
-const OUT_DIR = process.env.OUT_DIR, SHOTS = process.env.SHOTS || '';
+const OUT_DIR = process.env.OUT_DIR, SHOTS = process.env.SHOTS || '', FIXQ = process.env.FIXQ || '';
 if (!PAGES.length || !OUT_DIR) { console.error('PAGES and OUT_DIR are required'); process.exit(2); }
 fs.mkdirSync(OUT_DIR, {recursive: true}); if (SHOTS) fs.mkdirSync(SHOTS, {recursive: true});
 const origLaunch = pw.chromium.launch.bind(pw.chromium);
@@ -95,6 +95,11 @@ async function measureOne({tag, file}) {
     // ---- open: showOpen() and leave it
     R.showOpenMs = await ev(() => { if (typeof moreClose === 'function') try { moreClose(); } catch (e) {} window.__P.reset(); window.__P.cap.left = 0; const a = performance.now(); showOpen(); return Math.round(performance.now() - a); }, null, 180000, 'showOpen').catch(e => { R.notes.push('showOpen: ' + e.message); return null; });
     R.openGl = await ev(() => { const C = window.__P.C, c0 = window.__P.c0; return {compiles: C.compiles - c0.compiles, links: C.links - c0.links, bufB: C.bufB - c0.bufB, texB: C.texB - c0.texB, draws: C.draws - c0.draws}; }).catch(() => null);
+    if (FIXQ) { // counts sweep: hold one detail level by hand (the page's own Detail choice), so builds compare like for like
+      await sleep(3000);
+      R.fixq = await ev(q => { const G = window.GC3D; if (!G || !G.setQuality || !G.S) return 'no scene'; G.noGuard = true; const r = G.setQuality(q, false); window.__P.reset(); return r && r.quality || String(r); }, FIXQ, 180000, 'fixq').catch(e => 'err ' + e.message);
+      log('fixq', JSON.stringify(R.fixq));
+    }
     m0 = await metrics(); t0 = Date.now(); const tOpen = Date.now(); let captured = false, cut = null, mCut = null;
     while (Date.now() - tOpen < OPEN_S * 1000) {
       const sNow = await state(); sNow.at = r2((Date.now() - tOpen) / 1000); R.poll.push(sNow);
@@ -116,10 +121,10 @@ async function measureOne({tag, file}) {
       const nf = Math.max(1, cap.frames.length);
       R.captured = {frames: cap.frames.length, byProgram: Object.entries(by).sort((a, b) => b[1].verts - a[1].verts).slice(0, 14).map(([k, v]) => ({program: +k, drawsPerFrame: r2(v.draws / nf), vertsPerFrame: Math.round(v.verts / nf), vs: k >= 0 && cap.progs[k] ? sig(cap.progs[k]) : null}))}; }
     R.final = await state();
-    if (SHOTS) { const f = path.join(SHOTS, `${PROFILE}${DPR}_${tag}_r${ROUND}.png`); try { await withTimeout(p.screenshot({path: f, timeout: 90000}), 100000, 'shot'); R.shot = f; } catch (e) { R.notes.push('shot: ' + e.message.slice(0, 80)); } }
+    if (SHOTS) { const f = path.join(SHOTS, `${FIXQ ? 'fixq-' + FIXQ + '_' : ''}${PROFILE}${DPR}_${tag}_r${ROUND}.png`); try { await withTimeout(p.screenshot({path: f, timeout: 90000}), 100000, 'shot'); R.shot = f; } catch (e) { R.notes.push('shot: ' + e.message.slice(0, 80)); } }
   } catch (e) { R.error = String(e && e.stack || e).slice(0, 400); log('ERROR', R.error); }
   R.counts = s.counts; R.pageErrors = s.errors.slice(0, 20); R.consoleErrors = consoleErr.slice(0, 20); R.totalS = r2((Date.now() - tStart) / 1000);
-  const out = path.join(OUT_DIR, `${PROFILE}${DPR}_${tag}_r${ROUND}.json`); fs.writeFileSync(out, JSON.stringify(R));
+  const out = path.join(OUT_DIR, `${FIXQ ? 'fixq-' + FIXQ + '_' : ''}${PROFILE}${DPR}_${tag}_r${ROUND}.json`); R.fixQuality = FIXQ || null; fs.writeFileSync(out, JSON.stringify(R));
   log('wrote', path.basename(out), 'blocked', s.counts.blocked, 'pageErrors', s.errors.length, R.totalS + 's');
   await withTimeout(s.browser.close(), 60000, 'close').catch(() => {});
   return R;
