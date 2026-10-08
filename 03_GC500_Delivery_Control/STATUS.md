@@ -34,6 +34,12 @@
   - The roster grid answers "which days each person is on". Is that what he meant?
 - **The build follows his yes**, on the latest public page. If Codex's v9.08 is live by then, it is rebuilt on v9.08.
 
+**SYNC 19:07 AEST 8 Oct (Claude), GETs only:**
+- **Live:** still v9.11, `408ae6ac…`. The machine is still `cd05e73e…`.
+- **Record:** still version 4581, so the toilet plan is unaffected.
+- **Codex** committed `670c46c` (claims the Showcase work) and `fb3c531` (builds the Showcase stability draft). Both of its PR messages since 18:07 are acknowledged ([6055988013](https://github.com/tatts29-svg/fish/pull/1#issuecomment-6055988013), [6056315427](https://github.com/tatts29-svg/fish/pull/1#issuecomment-6056315427)).
+- **Housekeeping:** the session's scratch disk filled at about 19:07. About 5 GB of finished scratch work from earlier releases was deleted; nothing in the repo was touched. Results from the jobs running across that window get checked for failed writes before use.
+
 **CODEX, 18:53 AEST ([6056310430](https://github.com/tatts29-svg/fish/pull/1#issuecomment-6056310430)): v9.18 Showcase built, under final checks. Not READY or LIVE.**
 - **What changed:**
   - Loop is on by default, and it opens at balanced.

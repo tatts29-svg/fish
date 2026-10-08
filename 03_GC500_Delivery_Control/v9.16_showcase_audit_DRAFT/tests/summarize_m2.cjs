@@ -91,6 +91,12 @@ for (const r of runs.filter(r => r.script === 'demo')) {
   if (r.machineState) L.push('Machine frame at its 20 s mark: ' + JSON.stringify({webgl: r.machineState.webgl && {made: r.machineState.webgl.made, alive: r.machineState.webgl.alive}, audio: r.machineState.audio && r.machineState.audio.made, intervals: r.machineState.intervals && r.machineState.intervals.live, dom: r.machineState.dom}), '');
   const acts = (r.actions || []).filter(a => a.machineRadio || a.broadcast || a.sound || a.openShowcase || a.vehicle); L.push('Actions: ' + acts.map(a => JSON.stringify(a)).join(' '), '');
 }
+// ---------- the page underneath: timer callbacks that block for 100 ms or more, whatever the phase
+L.push('## 8. Timer callbacks of 100 ms or more (the page under the Showcase included)', '', '| run | timer (label = function name or its first 60 characters) | phases | calls | total ms | longest ms |', '|---|---|---|---|---|---|');
+for (const r of runs) { const agg = {};
+  for (const p of (r.phases || [])) for (const [k, v] of Object.entries(p.raw.timerBy || {})) { if (v.max < 100) continue; const a = agg[k] || (agg[k] = {phases: [], n: 0, ms: 0, max: 0}); a.phases.push(p.summary.phase); a.n += v.n; a.ms += v.ms; a.max = Math.max(a.max, v.max); }
+  for (const [k, a] of Object.entries(agg).sort((x, y) => y[1].max - x[1].max).slice(0, 6)) L.push(`| ${r.tag} | ${k.replace(/\|/g, '/').slice(0, 80)} | ${[...new Set(a.phases)].slice(0, 4).join(', ')}${a.phases.length > 4 ? ' …' : ''} | ${a.n} | ${n0(a.ms)} | ${n0(a.max)} |`); }
+L.push('');
 L.push('## 7. Run integrity', '', '| run | load s | WebGL renderer | blocked writes | page errors | console errors/warnings | error |', '|---|---|---|---|---|---|---|');
 for (const r of runs) L.push(`| ${r.tag} | ${n0(r.loadS)} | ${(r.env && r.env.renderer || '').slice(0, 40)} | ${r.counts ? r.counts.blocked : '—'} | ${(r.pageErrors || []).length} | ${r.consoleCount || 0} | ${r.error ? String(r.error).slice(0, 80) : ''} |`);
 fs.writeFileSync(outMd, L.join('\n') + '\n');
