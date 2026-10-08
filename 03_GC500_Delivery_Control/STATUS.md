@@ -34,6 +34,11 @@
   - The roster grid answers "which days each person is on". Is that what he meant?
 - **The build follows his yes**, on the latest public page. If Codex's v9.08 is live by then, it is rebuilt on v9.08.
 
+**ANDREW, 8 Oct 2026 ~18:10 AEST, an idea:** "if things have multiple items in example wc50 can't we have like wc50 1|5 … this helps to ensure we get labour costs on everything".
+- **Claude's view: yes.** Number the units within a reference ("WC50 1/5 … 5/5"), but only where a reference has more than one unit that carries labour. Each unit then gets its own Install, Levelling and Steps, and later Demob, whether or not its asset number is recorded yet. A number recorded later attaches to a slot.
+- **Sizing** (read only, workflow `wf_a46cee28-c9b`): a survey of every reference for labour that can't be charged today, a design (keys, how existing ticks are kept without double counting, sheets and phones), and a skeptic review. The build follows Andrew's yes. It builds on v9.09 part E (the WC09 per-block lines).
+- **Housekeeping found on the 18:07 sync:** crew members' names sit in about 20 older committed files, including this board. They need redacting going forward, without rewriting history. No new names have been added.
+
 **SYNC 18:07 AEST 8 Oct (Claude), GETs only:**
 - **Live:** still v9.11, `408ae6ac…`. The machine is still `cd05e73e…`.
 - **Record: 4508 → 4581**, 17:25–17:37 AEST, all by Andrew and all in `loads`:

@@ -13,15 +13,10 @@ const HOST = 'https://gc500-production.up.railway.app';
 const checks = []; const ok = (name, pass, detail) => { checks.push({name, pass: !!pass}); console.log((pass ? 'PASS ' : 'FAIL ') + name + (detail !== undefined ? ' ' + JSON.stringify(detail).slice(0, 900) : '')); };
 const W = MOB ? 390 : 1440, H = MOB ? 844 : 900;
 const recordNow = () => JSON.parse(execFileSync('curl', ['-sS', '--max-time', '60', '-H', 'x-gc500-token: Coates-GC500-2026', HOST + '/api/state'], {maxBuffer: 1 << 28}).toString());
-// RIG NOTE (8 Oct 2026, from about 16:20 AEST): the live map explorer that the page parks in a hidden frame (#expPark) crashes
-// headless Chromium about 11 s after opening - reproduced on the unpatched live v9.11 and v9.10 pages, and gone when that
-// frame is removed. This release does not touch the explorer, and these checks never open the Map tab, so explorer frames
-// are taken out of the test browser's copy of the page as they appear (nothing is sent anywhere; the page file is not changed).
-const unpark = async p => { const n = await p.evaluate(() => { const kill = () => { const f = [...document.querySelectorAll('iframe')].filter(x => /\/explorer\//.test(x.getAttribute('src') || '')); f.forEach(x => x.remove()); return f.length; };
-    if (!window.__rig913) { window.__rig913 = new MutationObserver(kill); window.__rig913.observe(document.body, {childList: true, subtree: true}); } return kill(); });
-  console.log('RIG explorer frames removed in the test browser: ' + n + ' (and any later one, as it appears)'); };
-const ready = async p => { await p.waitForFunction(() => typeof vms913Mount === 'function' && typeof SYNC !== 'undefined' && SYNC.status === 'live' && SYNC.first && SYNC.first.has('vmsboard') && typeof go === 'function', null, {timeout: 240000});
-  await p.waitForFunction(() => document.querySelector('#expPark iframe'), null, {timeout: 8000}).catch(() => {}); await unpark(p); };
+// RIG NOTE (8 Oct 2026, from about 16:20 AEST): the machine's disk filled up, and headless Chromium (which Playwright starts
+// with --disable-dev-shm-usage, so its shared memory lives in the temp directory) then crashed on any large picture. Run
+// with TMPDIR on a memory disk, e.g. TMPDIR=/dev/shm/v913tmp; the harness passes the environment to the browser unchanged.
+const ready = p => p.waitForFunction(() => typeof vms913Mount === 'function' && typeof SYNC !== 'undefined' && SYNC.status === 'live' && SYNC.first && SYNC.first.has('vmsboard') && typeof go === 'function', null, {timeout: 240000});
 const showVms = async p => { await p.evaluate(() => { go('plant'); state.plantGroup = 'VMS boards'; render(); }); await p.waitForSelector('[data-vms913]', {timeout: 30000});
   await p.evaluate(() => { const d = document.querySelector('[data-vms913]'); d.open = true; }); await p.waitForTimeout(400); };
 const rowsOf = p => p.evaluate(() => [...document.querySelectorAll('[data-vms913] .vms913row:not(.head)')].map(r => ({key: r.dataset.vms913Row, src: r.dataset.src,
@@ -120,12 +115,12 @@ async function sessionA() {
     ok('a VMS delivery with no board linked says "boards not named yet" (T0158) - nothing guessed', sur.t0158);
     ok('a delivery that is not VMS (WC09) is untouched on every surface', sur.others);
     // the Timeline as drawn: the T0103 load card on 8 Oct
-    await p.evaluate(() => { const c = document.querySelector('#dclose'); if (c) c.click(); go('timeline'); }); await unpark(p); await p.waitForTimeout(2500);
+    await p.evaluate(() => { const c = document.querySelector('#dclose'); if (c) c.click(); go('timeline'); }); await p.waitForTimeout(2500);
     const tlDom = await p.evaluate(() => { const e = document.querySelector('#pane-timeline [data-vms913-load="T0103"]'); return e ? e.innerText.replace(/\s+/g, ' ') : null; });
     ok('the Timeline shows the boards on the T0103 load card', tlDom && tlDom.includes(W103), tlDom);
     if (tlDom) { const sh3 = await shotEl(p, MOB ? 'timeline_T0103_phone.png' : 'timeline_T0103_laptop.png', '#pane-timeline [data-vms913-load="T0103"]', '.ld');
       ok('screenshot of the T0103 load card, no dollar figure in frame', !sh3.dollars, sh3); }
-    await p.evaluate(() => go('today')); await unpark(p); await p.waitForTimeout(2000);
+    await p.evaluate(() => go('today')); await p.waitForTimeout(2000);
     const today = await p.evaluate(() => ({cards: document.querySelectorAll('#pane-today [data-vms913-load="T0103"]').length, listed: /T0103/.test((document.getElementById('pane-today') || {}).innerText || '')}));
     console.log('INFO Today: boards lines drawn on Today for T0103 now: ' + today.cards + '. Today does not draw delivery cards with the renderers wrapped here (those are the Timeline\'s); T0103 is recorded complete and appears on Today only in its "What went in today" log, which is left as it is. Today\'s own delivery list is NOT DONE in this release.');
     // the day's drop sheets (Print the day) are one dropPage per delivery: T0103 must be one of 8 Oct's deliveries
