@@ -2,7 +2,7 @@
 (function(){
 'use strict';
 const G=window.GC3D;if(!G||G.visibility918)return;
-const names=['crowdMesh','trackFencePosts','trackConcrete','trackFenceWire','trackScuffs','dayTrees','dayTreeTrunks','trees'];
+const names=['crowdMesh','dayTrees','dayTreeTrunks','trees'];
 const CELL=8;
 let prepared=0,submitted=0,total=0;
 function prepare(mesh){
@@ -43,7 +43,7 @@ function prepare(mesh){
  };
 }
 const render=G.render;
-G.render=function(){const S=G.S;if(S&&!S.lost){for(const name of names)prepare(S[name]);}return render.apply(this,arguments);};
+G.render=function(){const S=G.S;if(S&&S.gl&&S.gl.isContextLost())return;if(S&&!S.lost){for(const name of names)prepare(S[name]);}return render.apply(this,arguments);};
 const mount=G.mount;
 G.mount=function(){
  const args=Array.from(arguments),result=mount.apply(this,args),S=G.S;

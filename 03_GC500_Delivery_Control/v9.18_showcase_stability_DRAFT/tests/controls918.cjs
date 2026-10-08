@@ -28,7 +28,7 @@ const {open}=require(path.resolve(__dirname,'../../toolchain/harness/open_page.j
  await new Promise(r=>setTimeout(r,8000));
  check('still open and playing',await evaluate(()=>SHOW.open&&SHOW.playing&&!!GC3D.S&&!GC3D.failed));
  const vis=await evaluate(()=>GC3D.visibility918());check('visibility preparation active',vis.prepared>0&&vis.total>0&&vis.submitted<vis.total);R.visibility=vis;
- if(process.env.SHOT)await p.screenshot({path:process.env.SHOT});
+ if(process.env.SHOT){await evaluate(()=>{if(SHOW.playing)showPause();});await p.screenshot({path:process.env.SHOT,timeout:120000});await evaluate(()=>{if(!SHOW.playing)showPause();});}
  await evaluate(()=>{const e=GC3D.S.gl.getExtension('WEBGL_lose_context');e.loseContext();});
  let seen=false;for(let i=0;i<30;i++){await new Promise(r=>setTimeout(r,200));if(await evaluate(()=>!document.getElementById('show3dNote').hidden)){seen=true;break;}}
  console.log('loss diagnostic',await evaluate(()=>({lost:GC3D.S&&GC3D.S.lost,note:document.getElementById('show3dNote').outerHTML,back:document.getElementById('showcase').dataset.back})));

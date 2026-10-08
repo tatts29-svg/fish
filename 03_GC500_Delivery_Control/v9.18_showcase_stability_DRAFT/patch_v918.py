@@ -6,6 +6,9 @@ from rep import rep
 p=sys.argv[1];s=Path(p).read_text()
 assert 'showStability918' not in s and 'drops911' in s
 changes=[
+("const audio=BC.el=new Audio(take.audio);audio.preload='auto';", "const audio=BC.el=BC.player918||(BC.player918=new Audio());audio.src=take.audio;audio.preload='auto';", 'reuse active race Broadcast player'),
+("if(S.bMesh)S.bMesh.draw();if(trees)trees.draw();if(S.dayTreeTrunks)S.dayTreeTrunks.draw();", "const cameraVP918=S.visibilityVP918;S.visibilityVP918=R.vp;\n try{if(S.bMesh)S.bMesh.draw();if(trees)trees.draw();if(S.dayTreeTrunks)S.dayTreeTrunks.draw();}finally{S.visibilityVP918=cameraVP918;}", 'sunlight uses its own visibility matrix'),
+("if(S&&(S.lost||document.hidden)){S.last=null;S.needsRender=true;return;}", "if(S&&S.gl&&S.gl.isContextLost()){S.contextState792=G.captureContextState792(S);S.lost=true;}\n if(S&&(S.lost||document.hidden)){S.last=null;S.needsRender=true;return;}", 'stop GPU uploads before context-loss event'),
 ("if (is3dBack(back) && G.failed && !G.S)", "if(is3dBack(back)&&G.S&&G.S.lost)return {which:'3d',why:'the graphics context was lost; restoring the scene'};\n if (is3dBack(back) && G.failed && !G.S)", 'immediate context-loss explanation'),
 ("const dist=V.len(V.sub(cam.eye,cam.tgt)),fog=", "S.visibilityVP918=VP;\n const dist=V.len(V.sub(cam.eye,cam.tgt)),fog=", 'camera visibility matrix'),
 ("+ ' · v9.11'; /* v8.19", "+ ' · v9.18'; /* v8.19", 'release footer'),
