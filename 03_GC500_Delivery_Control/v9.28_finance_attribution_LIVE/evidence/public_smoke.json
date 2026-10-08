@@ -1,0 +1,55 @@
+{
+  "author": "Andrew Fisher",
+  "page_sha256": "592e73b38e8c5fb1d5bf98d00915c49550ab860b322f82fb957a99acc0369093",
+  "bytes": 12262425,
+  "record_version": 4633,
+  "actual_public_page": true,
+  "views": {
+    "desktop": {
+      "passed": true,
+      "viewport": {
+        "W": 1440,
+        "H": 1000,
+        "dpr": 1,
+        "mobile": false
+      },
+      "record": 4633,
+      "native_record_unchanged": true,
+      "original_quote_links_full_bytes_verified": 4,
+      "wc20_correct_units_pairs_work_loading_verified": true,
+      "page_errors": 0,
+      "http_writes": 0,
+      "blocked_requests": [
+        {
+          "method": "POST",
+          "origin": "https://tile.googleapis.com",
+          "path": "/v1/createSession"
+        }
+      ],
+      "private_evidence_sha256": "bdf36c7ef577cc491d3f225914f51b270d3786bbfef1ff3029c0dfd2d7cef2dc"
+    },
+    "phone": {
+      "passed": true,
+      "viewport": {
+        "W": 390,
+        "H": 844,
+        "dpr": 2,
+        "mobile": true
+      },
+      "record": 4633,
+      "native_record_unchanged": true,
+      "original_quote_links_full_bytes_verified": 4,
+      "wc20_correct_units_pairs_work_loading_verified": true,
+      "page_errors": 0,
+      "http_writes": 0,
+      "blocked_requests": [
+        {
+          "method": "POST",
+          "origin": "https://tile.googleapis.com",
+          "path": "/v1/createSession"
+        }
+      ],
+      "private_evidence_sha256": "582218252a676e07306fa0c7edee6d217eeffac6cdc8ee73f2e34848c884eb33"
+    }
+  }
+}

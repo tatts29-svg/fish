@@ -1,6 +1,6 @@
 {
   "author": "Andrew Fisher",
-  "state": "READY TO UPLOAD",
+  "state": "VERIFIED LIVE",
   "page_sha256": "592e73b38e8c5fb1d5bf98d00915c49550ab860b322f82fb957a99acc0369093",
   "bytes": 12262425,
   "base_sha256": "7e3fe251373c97582119f41002cbda0cfacb71bd23ec5fe1fdf2c3dde3d46abc",
@@ -22,7 +22,7 @@
     "28": "6d34a421"
   },
   "source_scope_evidence": [
-    "../../v9.23_crew_wc09_integration_DRAFT/evidence/source_scope_chain.json",
+    "../../v9.23_crew_wc09_integration_LIVE/evidence/source_scope_chain.json",
     "source_scope.json"
   ],
   "runtime_attribution": "Component checks retain their exact tested candidate hashes. Source-scope proofs carry unchanged component behaviour forward; final navigation and finance checks run on this exact release candidate.",
@@ -65,5 +65,13 @@
     "contracts_unchanged": true,
     "supplier_quotes_unchanged": true,
     "approved_supplier_cost_branches_unchanged": true
-  }
+  },
+  "published_utc": "2026-10-08T17:28:06.977Z",
+  "published_aest": "9 Oct 2026 03:28 AEST",
+  "public_full_bytes_verified": true,
+  "operational_record_at_publication": 4599,
+  "ready_checkpoint": "eacdc421",
+  "final_public_smoke": "public_smoke.json",
+  "record_after_authorised_wc20_correction": 4633,
+  "independent_public_readback": "Claude confirmed identical public page and WC20 record in PR1 comment6065448666"
 }

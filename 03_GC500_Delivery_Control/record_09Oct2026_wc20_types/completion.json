@@ -1,0 +1,17 @@
+{
+  "author": "Andrew Fisher",
+  "at": "2026-10-08T17:29:14.888Z",
+  "success": true,
+  "nativeWritesAcknowledged": 34,
+  "recordBefore": 4599,
+  "recordAfter": 4633,
+  "allOtherDocumentsUnchanged": true,
+  "financialExact": true,
+  "finishedStage": 5,
+  "workTicks": 10,
+  "unit925Verified": true,
+  "unit925FollowupRequired": false,
+  "sourcePageSha256": "592e73b38e8c5fb1d5bf98d00915c49550ab860b322f82fb957a99acc0369093",
+  "helperSha256": "2d4a54d7b03681c8936d87bbdd6c5c6d4b27ae7bdee68f9b03f8a853897bb467",
+  "pageErrors": 0
+}

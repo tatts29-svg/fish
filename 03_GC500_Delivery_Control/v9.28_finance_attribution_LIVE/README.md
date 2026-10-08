@@ -1,8 +1,10 @@
-# Finance attribution correction — READY TO UPLOAD
+# Finance attribution correction — LIVE
 
-Author: Andrew Fisher.
+Author: Andrew Fisher
 
-Root owns v9.28 publication. This draft follows the reviewed unit identity module and the integrated v9.27 base. READY: product source commit 6d34a421; root independently reproduced the final full-chain candidate SHA592e73b38e8c5fb1d5bf98d00915c49550ab860b322f82fb957a99acc0369093 (12,262,425 bytes) from the exact integrated base04b40af60cf151b4a0c4467abcdabc31d9a688f01e8197b355e3a3d64ccb0a09. Root owns guarded publication and live readback.
+State: VERIFIED LIVE within v9.28 — 9 Oct 2026 03:28 AEST. Public page SHA256 `592e73b38e8c5fb1d5bf98d00915c49550ab860b322f82fb957a99acc0369093` (12,262,425 bytes). The guarded upload verified the full served bytes. Combined evidence is in `../v9.28_finance_attribution_LIVE/evidence/combined_release.json`.
+
+Product source commit `6d34a421` follows the reviewed unit identity module and the integrated v9.27 comparison base `04b40af6…`. The publisher independently reproduced the complete chain from the live v9.22 page, then verified guarded publication and full public-byte readback.
 
 Partial transport demand uses only the schedule event’s explicit item and quantity at that item’s existing transport cost. Missing rates or ambiguous demand stay held, rather than inheriting the whole location or an average. Confirmed physical-unit ownership takes precedence over broad toilet-family classification; explicit contract SUB suppliers remain intact. Unresolved toilet ownership is not asserted as Event Portables. Both branch and job forecast models share this rule. Approved supplier quote totals, servicing and their established costing branch remain unchanged; no per-unit supplier quote cost is invented.
 

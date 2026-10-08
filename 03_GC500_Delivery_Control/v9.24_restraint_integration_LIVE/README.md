@@ -1,6 +1,8 @@
 Author: Andrew Fisher
 
-Transport specifications and original Load Restraint Guide references, integrated into existing equipment drawers, Timeline load actions, shared-load proposals, driver sheets, Demob and Documents. Source is ready for final combined-release integration; publication belongs to the root release task.
+State: VERIFIED LIVE within v9.28 — 9 Oct 2026 03:28 AEST. Public page SHA256 `592e73b38e8c5fb1d5bf98d00915c49550ab860b322f82fb957a99acc0369093` (12,262,425 bytes). The guarded upload verified the full served bytes. Combined evidence is in `../v9.28_finance_attribution_LIVE/evidence/combined_release.json`.
+
+Transport specifications and original Load Restraint Guide references, integrated into existing equipment drawers, Timeline load actions, shared-load proposals, driver sheets, Demob and Documents. The integration is included in the verified combined v9.28 release.
 
 The complete 274-row reference catalogue retains original page provenance and unknown values. Guide weights and dimensions are candidates until a named user explicitly matches actual equipment and its travelling configuration. Lifting capacities and method scope maxima are never imported as actual equipment mass. Copying a guide row produces an unchecked draft. Generator skid dimensions are not offered as trailer assembly dimensions.
 
@@ -33,8 +35,8 @@ Validation
 
 Commands (from repository root)
 
-    node 03_GC500_Delivery_Control/v9.24_restraint_integration_DRAFT/tests/model924.cjs
-    node 03_GC500_Delivery_Control/v9.24_restraint_integration_DRAFT/tests/persistence924.cjs
-    python 03_GC500_Delivery_Control/v9.24_restraint_integration_DRAFT/patch_v924.py <candidate.html>
+    node 03_GC500_Delivery_Control/v9.24_restraint_integration_LIVE/tests/model924.cjs
+    node 03_GC500_Delivery_Control/v9.24_restraint_integration_LIVE/tests/persistence924.cjs
+    python 03_GC500_Delivery_Control/v9.24_restraint_integration_LIVE/patch_v924.py <candidate.html>
 
 For the browser test set `PAGE` to the exact combined candidate, `NODE_PATH` to the installed toolchain dependencies and `CHROMIUM_PATH` to the installed browser. The standard read-only harness aborts every HTTP write. Isolated synthetic captures replace the native saver and restore in-memory state.

@@ -2,7 +2,9 @@
 
 Author: Andrew Fisher
 
-State: READY for the combined release; all five focused desktop and phone suites pass. Publication is coordinated with the final combined page.
+State: VERIFIED LIVE within v9.28 — 9 Oct 2026 03:28 AEST. Public page SHA256 `592e73b38e8c5fb1d5bf98d00915c49550ab860b322f82fb957a99acc0369093` (12,262,425 bytes). The guarded upload verified the full served bytes. Combined evidence is in `../v9.28_finance_attribution_LIVE/evidence/combined_release.json`.
+
+All five focused desktop and phone suites passed before the combined publication.
 
 This integrates the remaining five parts of the handed-over v9.09 work on v9.22: the added fencing crew member, the approved replacement race-call take, split-delivery progress, WC09's separate Coates toilet blocks, and the VMS plan's document/cross-reference notes. It preserves the existing daily staff picker and Showcase stability code.
 

@@ -1,8 +1,10 @@
-# Master shapes in Arrange loads — v9.26 DRAFT
+# Master shapes in Arrange loads — v9.26
 
 Author: Andrew Fisher
 
-State: source frozen at `e29f0d8a`; scoped source and real-page checks complete on root’s combined v9.27 candidate. No upload or operational record change. The guarded patch advances v9.25 → v9.26; root owns final combined release checks, READY declaration and publication.
+State: VERIFIED LIVE within v9.28 — 9 Oct 2026 03:28 AEST. Public page SHA256 `592e73b38e8c5fb1d5bf98d00915c49550ab860b322f82fb957a99acc0369093` (12,262,425 bytes). The guarded upload verified the full served bytes. Combined evidence is in `../v9.28_finance_attribution_LIVE/evidence/combined_release.json`.
+
+Source frozen at `e29f0d8a`; scoped source and real-page checks completed on the combined v9.27 comparison candidate, then were carried forward through explicit source-scope checks. The final combined v9.28 navigation checks and publication passed. This component changes no operational records.
 
 Andrew requested the actual shapes from the master when choosing loads, including door sides, FWFs, accessible toilets and generators. White/yellow lines represent the water barriers. Waste tanks share their toilet block footprint and position underneath, grey and labelled. Truck loading direction can be chosen here using the existing loading-direction record.
 
