@@ -1,3 +1,5 @@
+LIVE as part of combined v9.48 — 9 Oct 2026 08:48 AEST. Exact public page SHA256968cd3a850584736fcfa28b403e9b7fd2d280557e86984c8be87c2b5bf8c0ca1. Component notes below retain their implementation history.
+
 # Movement-specific loading shapes — v9.42
 
 Author: Andrew Fisher. Ready for integration; not live. Root owns publication and final combined sweeps.

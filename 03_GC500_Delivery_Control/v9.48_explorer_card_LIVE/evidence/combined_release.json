@@ -1,6 +1,6 @@
 {
   "author": "Andrew Fisher",
-  "state": "READY TO UPLOAD",
+  "state": "VERIFIED LIVE",
   "candidateSha256": "968cd3a850584736fcfa28b403e9b7fd2d280557e86984c8be87c2b5bf8c0ca1",
   "candidateBytes": 12329144,
   "baseSha256": "b881e8890e8a590fea79ac63657fd43254c5ccdd11735d7f70a1b4874773c33c",
@@ -42,5 +42,8 @@
   "limitations": [
     "No physical-device GPU/frame-rate guarantee; headless software graphics constrained full3D observation."
   ],
-  "implementedReviewedTestedBy": "Codex with independent sibling reviews; no claim of additional Claude review"
+  "implementedReviewedTestedBy": "Codex with independent sibling reviews; no claim of additional Claude review",
+  "liveAest": "9 Oct 2026 08:48 AEST",
+  "publicPhoneDesktop": true,
+  "publicOperationalWritesSent": 0
 }

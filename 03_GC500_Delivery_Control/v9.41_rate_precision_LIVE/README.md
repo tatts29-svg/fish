@@ -1,3 +1,5 @@
+LIVE as part of combined v9.48 — 9 Oct 2026 08:48 AEST. Exact public page SHA256968cd3a850584736fcfa28b403e9b7fd2d280557e86984c8be87c2b5bf8c0ca1. Component notes below retain their implementation history.
+
 # Displayed daily-rate precision — v9.41
 
 Author: Andrew Fisher
@@ -24,8 +26,8 @@ Use the shared build tool with `patch_v941.py` after v9.40. The patch refuses th
 Run synthetic and guard checks:
 
 ```sh
-node v9.41_rate_precision_DRAFT/tests/model941.cjs
-BASE941=/private/base937.html python3 v9.41_rate_precision_DRAFT/tests/patch941.py
+node v9.41_rate_precision_LIVE/tests/model941.cjs
+BASE941=/private/base937.html python3 v9.41_rate_precision_LIVE/tests/patch941.py
 ```
 
 Run the focused browser proof with `BASE941`, `PAGE`, `FROZEN_STATE941`, `CLOCK941` and `OUT941`. `BASE941` and `PAGE` must be exact before/after files; the frozen snapshot and ISO clock must be from the same audit. Take the shared browser lock. Configure `NODE_PATH`, `CHROMIUM_PATH` and optionally `GC500_CACHE` as for the shared harness. All service writes are blocked; only the deliberately denied Google map-session setup request is an accepted denial.
@@ -40,7 +42,7 @@ FROZEN_STATE941=/private/frozen-state.json \
 CLOCK941=/private/clock.json \
 OUT941=/private/final-model-proof \
 flock -w 60 /tmp/gc500-browser.lock \
-node v9.41_rate_precision_DRAFT/tests/browser941.cjs
+node v9.41_rate_precision_LIVE/tests/browser941.cjs
 ```
 
 The model-only mode verifies that the native shared state remains unchanged and emits only counts, hashes and pass/fail metadata. Financial results and failure detail are written only inside the private output directory. The release owner runs the final combined-page native tie-outs and navigation checks.

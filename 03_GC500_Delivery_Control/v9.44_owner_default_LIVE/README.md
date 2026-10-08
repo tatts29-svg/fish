@@ -1,3 +1,5 @@
+LIVE as part of combined v9.48 — 9 Oct 2026 08:48 AEST. Exact public page SHA256968cd3a850584736fcfa28b403e9b7fd2d280557e86984c8be87c2b5bf8c0ca1. Component notes below retain their implementation history.
+
 # Coates ownership default — v9.44
 
 Author: Andrew Fisher
@@ -26,13 +28,13 @@ The patch requires v9.43 and refuses reapplication. `--preview-base-941` is only
 The evidence file contains counts and hashes only. Detailed financial snapshots, original records, affected-reference lists and screenshots remain private.
 
 ```sh
-node v9.44_owner_default_DRAFT/tests/model944.cjs
+node v9.44_owner_default_LIVE/tests/model944.cjs
 BASE944=/private/base941.html PAGE=/private/candidate.html \
-  node v9.44_owner_default_DRAFT/tests/identity944.cjs
+  node v9.44_owner_default_LIVE/tests/identity944.cjs
 PAGE=/private/candidate.html \
-  node v9.44_owner_default_DRAFT/tests/contract944.cjs
+  node v9.44_owner_default_LIVE/tests/contract944.cjs
 BASE944=/private/base941.html \
-  python3 v9.44_owner_default_DRAFT/tests/patch944.py
+  python3 v9.44_owner_default_LIVE/tests/patch944.py
 ```
 
 For the paired native browser proof, set `BASE944`, `PAGE`, `FROZEN_STATE944`, `CLOCK944` and `OUT944`. Use the shared harness's `NODE_PATH`, `CHROMIUM_PATH` and optional `GC500_CACHE`, then take `/tmp/gc500-browser.lock` before running `tests/browser944.cjs`. `CAPTURE944=1` captures a fresh authenticated native GET into the specified private snapshot file before freezing both pages to it. Without that flag, the supplied snapshot is reused.
