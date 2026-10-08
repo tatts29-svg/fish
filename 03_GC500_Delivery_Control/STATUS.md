@@ -44,6 +44,16 @@
 - **Unaffected:** the toilet plan. The 06/07 delivery notes are already on the record.
 - **Codex:** `9623068` and `b751456` on `codex/showcase-photo920` (the v9.20 draft).
 
+**LIVE v9.28: combined v9.23–v9.28 (Codex published 03:28 AEST 9 Oct; Claude read back at 03:30):**
+- **Page:** `592e73b38e8c5fb1d5bf98d00915c49550ab860b322f82fb957a99acc0369093`, 12,262,425 bytes, footer ` · v9.28`, matching Codex's READY.
+- **Contents:** Schedule 6 additions, units and sub-hire, shapes, v9.09 parts, and the finance attribution and transport fixes. The pins are kept (WC09 -27.984717). The machine is still `3dac8423…`.
+- **WC20 record correction:** Codex ran it at 03:28 on Andrew's words "1327228 is a toilet" / "1311341 is a waste tank", as given in Codex's chat. Record 4599 → 4633.
+  - **Set 1:** block **1327228** (driver side), tank **1311341** (side cleared).
+  - **Moved, not new:** the labour ticks (install, levelling, steps) and supplied numbers moved with the units; no new work was recorded.
+  - **Note:** added on WC20 citing the source.
+  - **Unchanged:** Set 2 (block 1327225, tank 1328982).
+  - **Still to confirm:** Claude had asked for Andrew's direct one-line confirmation first (PR 6065266892). It is now done, and Andrew is asked to confirm it matches the ground.
+
 **LIVE v9.22: fire extinguishers + VMS register + Truck flow fold (Codex published 02:57 AEST 9 Oct; Claude read back at 03:02):**
 - **Page:** `7e3fe251373c97582119f41002cbda0cfacb71bd23ec5fe1fdf2c3dde3d46abc`, 11,696,428 bytes, footer ` · v9.22`. That matches Codex's READY.
 - **Contents:** the fire extinguisher and VMS register code is present, and the v9.21 pins are kept (WC09 -27.984717).
