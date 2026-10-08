@@ -1,0 +1,2 @@
+base DATA 3,354,109 chars, MASTER_LOC 166 pins; candidate DATA 3,354,109 chars, MASTER_LOC 166 pins
+PASS DATA, MASTER_LOC and EP886 identical to the base
