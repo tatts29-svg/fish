@@ -24,7 +24,7 @@ const KINDS = ['sun', 'part', 'cloud', 'fog', 'rain', 'pour', 'storm', 'sleet'];
  await p.waitForTimeout(400);
  const clean = t => String(t || '').replace(/\s+/g, ' ').trim();
  const money = t => /\$\s?\d/.test(t || '');
- const scrollTo = sel => p.evaluate(sel => { const h = document.querySelector(sel), main = document.querySelector('main'); main.scrollTop += h.getBoundingClientRect().top - main.getBoundingClientRect().top - 10; }, sel);
+ const scrollTo = (sel, centre = false) => p.evaluate(({sel, centre}) => { const h = document.querySelector(sel), main = document.querySelector('main'), r = h.getBoundingClientRect(), m = main.getBoundingClientRect(); main.scrollTop += r.top - m.top - (centre ? (m.height - r.height) / 2 : 10); }, {sel, centre});
  const motionElapsed = () => p.evaluate(async () => {
   const a = document.querySelector('#where885 .s896-sky').getAnimations({subtree: true})[0];
   if (!a) return null; const t = a.currentTime; await new Promise(r => setTimeout(r, 160)); return a.currentTime - t;
@@ -228,7 +228,8 @@ const KINDS = ['sun', 'part', 'cloud', 'fog', 'rain', 'pour', 'storm', 'sleet'];
  ok('tab changes leave nothing behind: away from Today no sky and nothing running; back on Today one sky, one line, one fold, the same sky animations, one observer of each kind and no timers', !K.away.r.running && K.away.skies === 0 && K.after.skies === 1 && K.after.lines === 1 && K.after.parks === 1 && K.after.folds === 1 && K.after.bands === 1 && K.after.styles === 1 && K.after.basis === 1 && K2.animations === K.sky0 && K.r.observers.intersection === 1 && K.r.observers.mutation === 1 && K.r.timers === 0 && K2.running, {K, K2});
 
  /* 9. the group cards keep their folds, links and keyboard focus; the chips still jump to their cards */
- await scrollTo('#tw840-card-generators .tw846-counts'); await p.waitForTimeout(300);
+ // Centre the click target inside main: start alignment places it beneath the sticky group navigation.
+ await scrollTo('#tw840-card-generators .tw846-counts', true); await p.waitForTimeout(300);
  const C = await p.evaluate(() => {
   const card = document.getElementById('tw840-card-generators'), sum = card.querySelector('.tw846-summary'), cs = getComputedStyle(sum, '::before');
   const btn = card.querySelector('.tw846-counts button'), r = btn.getBoundingClientRect(), hit = document.elementFromPoint(r.left + r.width / 2, r.top + r.height / 2);

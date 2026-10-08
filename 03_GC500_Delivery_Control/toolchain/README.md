@@ -65,7 +65,8 @@ The dry run must report that the service grants edit access. Merely saving the e
 
 `release_candidate.sh` resolves the toolchain from its own location and calls the existing `build.sh`. It never uploads,
 registers media, changes READY/LIVE state or treats a selected draft as approved. Choose the exact patches after coordinating
-their source. The current supported order is **884, 885, 886, 887, 888, 889, 893, 894, 891, 892, 895, 896, 897**:
+their source. The supported order is **884, 885, 886, 887, 888, 889, 893, 894, 891, 892, 895, 896, 897**.
+The current upgrade omits v8.95 while the separate contract audit is parked:
 v8.91 currently accepts v8.94's footer but not v8.95's. Select only the needed versions, in that order; each patch still
 asserts its own prerequisites. Alternatively repeat `--patch /absolute/path/to/patch.py` in the required order.
 
@@ -73,7 +74,7 @@ Run from any directory, using the actual checkout path:
 
 ```bash
 bash /path/to/fish/03_GC500_Delivery_Control/toolchain/release_candidate.sh \
-  --versions 884,885,886,887,888,889,893,894,891,892,895,896,897 \
+  --versions 884,885,886,887,888,889,893,894,891,892,896,897 \
   --label v8.97-review-1 --evidence-dir /workspace/private-gc500-review-1 \
   --regression --wide
 ```
@@ -85,7 +86,7 @@ The page and generated media manifests remain in the normal ignored `build/GC500
 
 Set the inputs needed by the selected patches/tests in the environment. `NODE_PATH` and `CHROMIUM_PATH` are respected;
 without them, Node modules default to `toolchain/node_modules` and Playwright chooses its installed Chromium.
-For v8.95, `V895_BASEPLAN` must name the authorised 7 Oct workbook. All browser runs require `CODE` and `ASSETS` for the
+If v8.95 is explicitly selected after source reconciliation, `V895_BASEPLAN` must name its exact pinned workbook. All browser runs require `CODE` and `ASSETS` for the
 complete local explorer code and restored assets, so the final sweep checks the paired candidate. The v8.93 checks also
 require `MEDIA893` and `POC3D` for the decrypted picture folder and 3D proof folder.
 `MEDIA` defaults to `MEDIA893`; `LOCAL` defaults to `CODE` and must resolve to that same directory. `ATLAS896` can name a private atlas folder; otherwise
@@ -128,9 +129,13 @@ Check scope is explicit in the private `result.json` and each log name:
 - With v8.96 selected, v8.84/v8.85 layout checks run on their stage pages; the final Today layout is checked by v8.96's suite.
 - The owned v8.86/v8.94 fixtures replace record-dependent historical assertions on the final candidate; their source
   is also captured. v8.96's final scene/scope suites replace v8.76's superseded width/column assumptions.
-- v8.92's inherited UI/money tests assert its own footer, so they run on the v8.92 stage. This does not establish that its
-  complete UI suite passed on a later final page. The final page additionally runs the owned corrected-behaviour
-  reproduction for redraw, scroll and cache invalidation, with exact embedded-source matching.
+- The inherited v8.92 UI suite accepts the later footer and runs on the final page. The owned money wrapper compares
+  that final page with v8.92's immediate base, sharing one clock and capturing native record content/version atomically
+  with model values. Drift is inconclusive; model excerpts stay out of logs. The final page also runs the corrected
+  redraw/scroll reproduction with exact embedded-source matching.
+- The owned alignment wrapper keeps upstream tag, navigation, inset, search and image-correlation checks. Its marker
+  rounding assertion uses the native 0.1 CSS-pixel rendering precision (0.051 px per axis), with fixtures rejecting a
+  deliberate 1 px displacement at phone and desktop widths. No map positions change for that test correction.
 - With v8.95 selected, its identity and final contract tests replace v8.71's obsolete 6 Oct source expectation.
 - `--regression` adds the active standing suites. Handling875 and Paired879 remain excluded because the full-chain README
   records identical baseline failures on live; adding either explicitly with `--test` preserves its real failure result.
