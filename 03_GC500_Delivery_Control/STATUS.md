@@ -34,6 +34,12 @@
   - The roster grid answers "which days each person is on". Is that what he meant?
 - **The build follows his yes**, on the latest public page. If Codex's v9.08 is live by then, it is rebuilt on v9.08.
 
+**ANDREW, 9 Oct 2026 ~00:10–00:15 AEST:**
+- **Event Portables pricing:** "We are going off what their price is. Thats all i have." The cost basis is Event Portables' approved quotes Q6844 to Q6847 (`costs_audit_01Oct2026/README.md` line 34, "the final total may change"). Passed to Codex on PR #1.
+- **"Water barrier have shapes theirs is the white and yellow long lines."** The WB references are traced from the master's white and yellow lines, as line shapes. This corrects v9.15's "not drawn".
+- **"Waste tank almost need to be same shape as the toilet block greyed. Clearly to say waste tank."** Each waste tank takes its block's footprint, greyed out, labelled "WASTE TANK", beside its block.
+- **What Claude did:** stopped the v9.15 run after 5 minutes, put all three into it and relaunched it as `wf_ee607042-8cf`.
+
 **CLAIM: v9.15 master shapes, every item, CLAUDE, 9 Oct 2026 ~00:10 AEST.** Claude takes v9.15 back from the 23:45 handover; Codex had not claimed it.
 - **Andrew, ~00:05:** "Remember every item has a shape even a fwf has a shape. Disabled toilet. Generator too."
 - **Scope:** every physical item at every reference gets its own shape, including FWF, accessible toilets, generators, waste tanks, pee panels, VMS boards, light towers, barriers, containers and trailers.

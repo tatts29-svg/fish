@@ -25,9 +25,16 @@
 #     on the same fence). The master carries no generator tags: each "how" says the identity follows his instruction.
 #   - 28 near moves toward 10/10 (1.3 - 2.9 m), each from the pin on the printed tag to the middle of the toilets drawn.
 #   Every one re-derived from the PDF (tests/derive917_add.py -> evidence/derive917_add.json, same tolerances).
-#   Not moved (held or left): WC57 / WC59, WC13, WC69, P08, P44, P51, WC20, P27, P29, P34, WC51, WC01, P26, P28, the T0022
-#   and T0023 pins, P47, WC32 and everything the master does not draw.
-# Media: two pictures per moved pin (53 pins, 106 in; the 51 that had pictures lose their old 102); the media manifest is
+# PART 1, third round (8 Oct about 23:20 AEST, the project manager's answers: "the long row"; "Wc13 qty 2"; "Wc69 qty 12"):
+#   - WC59 to the middle of the 7-toilet long row the master labels WC57; WC57 to the middle of the 2-toilet pair inside the
+#     SUPPLY fence (its 2 toilets, due 13 Oct). Counts are unchanged.
+#   - WC13 (2 toilets; the master draws 3 in a row) to the middle of the drawn row of 3.
+#   - WC69 (12 toilets: the row of 9 under its tag and a column of 3 on the fence) to the middle of the row of 9.
+#   Each re-derived from the PDF (tests/derive917_held.py -> evidence/derive917_held.json; refused if more than 0.3 pt or
+#   0.2 m from the audit's point).
+#   Not moved (left): P08, P44, P51, WC20, P27, P29, P34, WC51, WC01, P26, P28, the T0022 and T0023 pins, P47, WC32 and
+#   everything the master does not draw.
+# Media: two pictures per moved pin (57 pins, 114 in; the 55 that had pictures lose their old 110); the media manifest is
 #   rewritten and written beside the page (media_manifest_v917.json).
 # Not touched: every other pin, the record, the footer, money. No record writes.
 #
@@ -76,23 +83,31 @@ ADD = {
  'WC67': ([-27.9813908, 153.4241664], [0.06359, 0.68013]), 'WC71': ([-27.9812828, 153.4234837], [0.05638, 0.73651]),
  'WC72': ([-27.9821291, 153.4240067], [0.11217, 0.69347]), 'WC73': ([-27.9869615, 153.4281016], [0.43090, 0.35617])}
 assert len(ADD) == 30 and not set(ADD) & FIRST23
-HELD = {'WC57', 'WC59', 'WC13', 'WC69', 'P08', 'P44', 'P51', 'WC20', 'P27', 'P29', 'P34', 'WC51', 'WC01', 'P26', 'P28', 'T0022', 'T0023', 'P47', 'WC32'}
-assert not HELD & (FIRST23 | set(ADD)), 'a held reference is in the move list - stopping'
-MOVES.update(ADD)
+# THE ASK, third round (the project manager, 8 Oct about 23:20 AEST): the four that waited on his word
+ANSWERED = {
+ 'WC59': ([-27.9881826, 153.4301687], [0.51159, 0.18564]), 'WC57': ([-27.9882058, 153.4300756], [0.51310, 0.19334]),
+ 'WC13': ([-27.9909565, 153.4295185], [0.69412, 0.23996]), 'WC69': ([-27.9814958, 153.4241619], [0.07050, 0.68052])}
+assert len(ANSWERED) == 4 and not set(ANSWERED) & (FIRST23 | set(ADD))
+HELD = {'P08', 'P44', 'P51', 'WC20', 'P27', 'P29', 'P34', 'WC51', 'WC01', 'P26', 'P28', 'T0022', 'T0023', 'P47', 'WC32'}
+assert not HELD & (FIRST23 | set(ADD) | set(ANSWERED)), 'a held reference is in the move list - stopping'
+MOVES.update(ADD); MOVES.update(ANSWERED)
 
 DER = json.loads((here / 'evidence' / 'derive917.json').read_text())
 DER2 = json.loads((here / 'evidence' / 'derive917_add.json').read_text())
+DER3 = json.loads((here / 'evidence' / 'derive917_held.json').read_text())
 TH = json.loads((here / 'evidence' / 'thumbs917.json').read_text())
-assert DER['pdf_sha256'].startswith('8753d875') and TH['pdf_sha256'] == DER['pdf_sha256'] == DER2['pdf_sha256'], 'the evidence must come from the 2 Oct master'
+assert DER['pdf_sha256'].startswith('8753d875') and TH['pdf_sha256'] == DER['pdf_sha256'] == DER2['pdf_sha256'] == DER3['pdf_sha256'], 'the evidence must come from the 2 Oct master'
 assert not DER['fails'] and set(DER['rows']) == FIRST23, 'the PDF re-derivation must pass for exactly the 23'
 assert not DER2['fails'] and set(DER2['rows']) == set(ADD), 'the PDF re-derivation must pass for exactly the 30 added'
-ROWS = dict(DER['rows'], **DER2['rows'])
-assert set(ROWS) == set(MOVES) == set(TH['pins'])
+assert not DER3['fails'] and set(DER3['rows']) == set(ANSWERED), 'the PDF re-derivation must pass for exactly the 4 answered'
+assert all(r['derived_vs_audit_pt'] <= 0.3 and r['derived_vs_audit_m'] <= 0.2 for r in DER3['rows'].values()), 'a derived point disagrees with the audit - refused'
+ROWS = dict(DER['rows'], **DER2['rows'], **DER3['rows'])
+assert set(ROWS) == set(MOVES) == set(TH['pins']) and len(MOVES) == 57
 for ref, (ll, pt) in MOVES.items():
     r = ROWS[ref]
     assert r['listed_ll'] == ll and r['listed_pt'] == pt and r['within_tolerance'], ref + ': the listed point is not the one the PDF re-derivation checked'
     assert r['listed_vs_derived_m'] <= 0.2 and r['listed_vs_derived_pt'] <= 0.3, ref + ': outside tolerance'
-assert len(TH['media']) == 2 * len(MOVES) == 106
+assert len(TH['media']) == 2 * len(MOVES) == 114
 
 # what each pin now says about itself (MASTER_LOC.how; the drawer reads it after "Read off the master plan D001-26003-03:")
 KIND = {'toilet': ('toilet', 'toilets'), 'accessible': ('accessible toilet', 'accessible toilets'), 'block': ('toilet block', 'toilet blocks'), 'pee': ('pee panel', 'pee panels')}
@@ -133,6 +148,26 @@ def how_add(ref, r):
     if ref == 'WC33':   # the older D023 (rev 02) arrow, measured from the new point on the page's own registration: 47.3 m
         head += ' — the newer master (rev 03) is used; the older D023 (rev 02) arrow points about 47 m away'
     return head
+# the third round: the four the project manager answered (8 Oct about 23:20 AEST)
+def how_held(ref, r):
+    if ref == 'WC59':
+        assert r['unit_kinds'] == {'toilet': 7} and r['outline_of_audit_row'] == 'WC57'
+        return ('the middle of the 7 toilets drawn on the master D001 issued 2 Oct, the long row the master labels WC57;'
+                ' the project manager, 8 Oct: WC59\'s 7 toilets are the long row')
+    if ref == 'WC57':
+        assert r['unit_kinds'] == {'toilet': 2} and r['outline_of_audit_row'] == 'WC59'
+        return ('the middle of the 2 toilets drawn inside the SUPPLY fence on the master D001 issued 2 Oct, the pair nearest the'
+                ' WC59 label; its 2 toilets are due 13 Oct (the project manager, 8 Oct: WC59\'s 7 toilets are the long row)')
+    if ref == 'WC13':
+        assert r['unit_kinds'] == {'toilet': 3}
+        return ('2 toilets (the project manager); the master draws 3 in a row — the pin is the middle of the row; its WC13 tag is'
+                ' printed about %d m from it' % max(1, round(r['tag_to_unit_m'])))
+    if ref == 'WC69':
+        f = r['fence_three']; assert r['unit_kinds'] == {'toilet': 9} and f['n'] == 3
+        return ('the middle of the row of 9 toilets drawn on the master D001 issued 2 Oct; its WC69 tag is printed about %d m from it.'
+                ' WC69 is 12 toilets (the project manager): the row of 9 and 3 more in a column on the fence about %d m %s of'
+                ' the middle of the row, by the WC-BSF label' % (max(1, round(r['tag_to_unit_m'])), round(f['middle_to_row_middle_m']), f['direction_from_row_middle']))
+    raise AssertionError(ref)
 OPP = {'north': 'south', 'north-east': 'south-west', 'east': 'west', 'south-east': 'north-west', 'south': 'north', 'south-west': 'north-east', 'west': 'east', 'north-west': 'south-east'}
 
 # 1. MASTER_LOC: the 53 (the 23, GN18, GN13 and the 28), nothing else

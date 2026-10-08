@@ -16,15 +16,15 @@ PASS editor (practice): no fire extinguisher text anywhere carries the card's co
 PASS Save quantity is quiet (ghost) when nothing changed; + makes it the main button and says "Not saved yet"; − back makes it quiet again; nothing is written {"ghost":{"ghost":true,"primary":false,"note":""},"changed":{"primary":true,"note":"Not saved yet: 3 set, 2 on the record."},"back":{"ghost":true,"note":""}}
 PASS the accessories type list offers "Fire extinguisher — no asset number, counted below"; picking it resets the list and brings the fire extinguisher button into view with focus {"has":true,"text":"Fire extinguisher — no asset number, counted below","reset":true,"focus":true,"inView":true}
 PASS Take off writes exactly one document, accessories/AA: the row stays at quantity 0 with off_qty 2, taken_off_by and taken_off_at; the add stamp is kept {"offUrls":["/api/doc/accessories/AA"],"qty":0,"off_qty":2,"by":"Practice Editor","keys":["_added","added_at","added_by","as_written","asset_no","asset_no_state","edited_at","edited_by","off_qty","origin","qty","qty_stated","source_task","taken_off_at","taken_off_by","type"]}
-PASS after Take off the drawer says "Taken off · was Fire extinguisher × 2 · Practice Editor · <when>", the stepper starts at 2 and "Add fire extinguisher × 2" puts them back {"line":"Taken off · was Fire extinguisher × 2 · Practice Editor · 08 Oct 23:30","n":"2","save":"Add fire extinguisher × 2","sum":"INSIDE IT AND ASSET NUMBERS\n3 inside · fire extinguishers taken off · 1 asset number"}
+PASS after Take off the drawer says "Taken off · was Fire extinguisher × 2 · Practice Editor · <when>", the stepper starts at 2 and "Add fire extinguisher × 2" puts them back {"line":"Taken off · was Fire extinguisher × 2 · Practice Editor · 09 Oct 00:04","n":"2","save":"Add fire extinguisher × 2","sum":"INSIDE IT AND ASSET NUMBERS\n3 inside · fire extinguishers taken off · 1 asset number"}
 PASS adding 1 on WC09 writes exactly one document, accessories/WC09; its other rows (the air conditioners added today) are kept exactly {"wcUrls":["/api/doc/accessories/WC09"],"otherRows":2,"types":["Air conditioner","Air conditioner"],"fire":[1]}
 PASS screenshot: the editor drawer part on AA after Take off (practice capability), no dollar figure in frame {"x":996,"y":387.59375,"width":428,"height":137.375,"dollars":false}
 PASS screenshot: the editor control on a generator (GN01), rate to confirm, no dollar figure in frame {"x":996,"y":400.28125,"width":428,"height":112.171875,"dollars":false}
 PASS the drawer fits the screen (no sideways scroll) {"page":true,"drawer":true}
 PASS the captured save never reached the service (fresh read has no fire extinguisher row) {"version":4581}
 PASS no page errors []
-PASS no console errors other than the aborted practice save ["Failed to load resource: the server responded with a status of 429 (Too Many Requests)","Failed to load resource: net::ERR_FAILED","Failed to load resource: net::ERR_FAILED","Failed to load resource: net::ERR_FAILED","Failed to load resource: net::ERR_FAILED"]
-PASS the harness blocked nothing (the only write was captured and aborted in page.route); viewing wrote nothing {"page":1,"live":242,"blocked":0}
+PASS no console errors other than the aborted practice save ["Failed to load resource: net::ERR_FAILED","Failed to load resource: net::ERR_FAILED","Failed to load resource: net::ERR_FAILED","Failed to load resource: net::ERR_FAILED","Failed to load resource: net::ERR_FAILED"]
+PASS the harness blocked nothing (the only write was captured and aborted in page.route); viewing wrote nothing {"page":1,"live":244,"blocked":0}
 INFO the browser disconnected
 PASS AA's item (Building 6m) has a card Fire Ext. figure; GN01 and WC09 have none {"has":true,"item":"Building 6m"}
 INFO phase 1 (AA: 2) - AA had 1 fire_ext piece(s) in the forecast (expected); every figure that moved, as a multiple of F:
@@ -146,6 +146,6 @@ PASS P&L: with every piece unpriced the fire extinguisher amount reads "rate to 
 PASS view link: GN01's taken-off row shows on the drawer: "Taken off · was Fire extinguisher × 2 · Practice Taker · <when>", no control {"fold":true,"line":"Taken off · was Fire extinguisher × 2 · Practice Taker · 08 Oct 16:45","controls":0,"sum":"INSIDE IT AND ASSET NUMBERS\nfire extinguishers taken off · 1 asset number","cap":"view"}
 PASS screenshot: GN01 taken off on the view link, no dollar figure in frame {"x":996,"y":569.046875,"width":428,"height":59.984375,"dollars":false}
 PASS editor (practice): GN01 shows the same taken-off line; the stepper starts at 2 and reads "Add fire extinguisher × 2"; nothing was written {"gOffEd":{"line":"Taken off · was Fire extinguisher × 2 · Practice Taker · 08 Oct 16:45","n":"2","save":"Add fire extinguisher × 2"},"writes":0}
-PASS session B: no page errors, no console errors, nothing written (0 blocked) {"errors":[],"cons":[],"counts":{"page":1,"live":163,"blocked":0}}
+PASS session B: no page errors, no console errors, nothing written (0 blocked) {"errors":[],"cons":[],"counts":{"page":1,"live":167,"blocked":0}}
 INFO the browser disconnected
 RESULT 61/61 laptop
