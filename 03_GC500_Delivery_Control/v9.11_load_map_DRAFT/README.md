@@ -1,15 +1,15 @@
 Author: Andrew Fisher
 
-DRAFT — placement revision requested; do not publish the current daily map position.
+DRAFT — final combined checks in progress; not yet published.
 
-Andrew rejected the map position above the loads. The map is being moved into the load-order workflow; the revised placement needs its own preview and affected checks. The existing numbering, location, native-save and contrast work remains available for that revision.
+Andrew selected “Open beside the order controls only when arranging loads”, requested the master plan at very close zoom to see buildings and door symbols, and directed that load order be separate from worker selection. These instructions supersede the rejected permanent map and earlier street/satellite direction.
 
-The map sits beside the complete daily delivery order. Each load keeps its native identity; numbers follow the current arrival sequence. Separate labels identify nearby drops and loads sharing a destination. Visible labels remain tied to the original confirmed ground positions. References with only a report point, approximate drawing position or inset callout remain explicitly unplaced.
+Arrange loads opens one workspace beneath the invoking load’s controls. The complete day’s ordered list sits beside the existing original vector master-plan viewer. A 16,000% control shows drawing detail; Fit all restores the day. Separate numbered reference labels distinguish nearby drops, with leader lines to the unchanged drawing positions. Approximate or missing positions remain explicitly unplaced. Door symbols come from the actual drawing, never from truck-loading orientation.
 
-Order controls use the existing day-order save. Selecting a map label alone does not change the order. Search filtering never silently renumbers or removes loads from the day’s order list. A selected building stays selected by its stable load identity after reordering.
+Ordering uses the existing guarded native save and stable load identities. Selection alone never reorders a day. Filtering keeps the complete day in the arranging list. Close and Escape return to the compact Timeline. The viewer preserves selection and camera across normal refreshes; browsers lacking atomic iframe movement recreate and restore the view.
 
-The street/satellite view reuses the application’s configured map provider. It is independent of the main map and keeps the load list usable if imagery is unavailable. No new key, coordinate, road route or operational record is embedded by the patch.
+Workers is visible on every task. Opening it shows the picker immediately, with that day’s forecast names and saved person slots. Explicit saves use StaffNames910’s existing guarded day/task paths, preserving manual availability, unnamed slots, saved assignments and historical times. Unset days have an explicit Use today’s forecast action. Load-order fields are hidden in Workers without clearing stored values. Selects use dark text on light controls and explicit native option colours.
 
-Native load cards are arranged more compactly, keeping references, arrival facts, asset details, progress lights and existing actions. Crew and Traffic control fields remain readable in both editing and viewing modes. Today imagery/weather, header panels and existing navigation remain.
+The additive patch preserves existing source and embedded data exactly apart from its footer. Today artwork/weather, the header, financial calculations, operational records, media and machine assets are retained. The master-plan iframe uses the existing verified machine set.
 
-Build with `patch_v911.py BASE OUTPUT` from the current staff-selector release. Tests cover source preservation, location/order semantics, captured native reorders, provider imagery, nearby labels, responsive card layout and existing navigation. Detailed evidence remains in the private release folder. This folder is not yet approved for publication.
+Build with `patch_v911.py BASE OUTPUT` from the live v9.10 base. Checks cover source preservation, master coordinates and labels, native order saves, deep zoom and refresh lifecycle, worker saves and stale drafts, phone/desktop field contrast and existing navigation. Detailed browser records and screenshots remain in the private release folder. Implemented and independently reviewed within Codex; Claude receives source and the publication result, rather than being represented as a reviewer of this release.

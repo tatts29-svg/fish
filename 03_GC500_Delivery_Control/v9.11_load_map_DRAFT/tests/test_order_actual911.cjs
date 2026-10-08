@@ -17,6 +17,7 @@ async function run() {
  if (hardened === originalHarness) throw Error('Harness non-GET guard was not found; refusing to open practice session');
  const strict = new Module(harness, module); strict.filename = harness; strict.paths = Module._nodeModulePaths(path.dirname(harness)); strict._compile(hardened, harness);
  const s = await strict.exports.open({pageFile, hash: '#timeline', W: 1440, H: 1100, gl: true}), p = s.page;
+ const assetChecks = await require('./assets911.cjs')(s);
  const blocked = []; let context;
  try {
   // This second guard records attempted writes after startup without exposing URL query credentials.
@@ -81,6 +82,8 @@ async function run() {
    state.day = t.day; state.tlView = 'day'; state.q = ''; state.disc = ''; state.light = ''; state.tlLoad = ''; go('timeline'); render();
    return {day: t.day, loadCount: native.length, references: refs.length};
   });
+  check('ordering map is closed until explicitly opened',await p.locator('.drops911:visible').count()===0);
+  await p.locator('[data-drop911-open]').first().click();
   await p.waitForFunction(() => { const ids=[...document.querySelectorAll('[data-drop911-marker]')].map(e=>e.dataset.drop911Marker), expected=Drops911.markers(Drops911.report().model); return expected.length > 0 && expected.every(m=>ids.includes(m.id)); }, null, {timeout: 120000});
   await p.waitForTimeout(150);
   const readonly = await p.evaluate(() => {
@@ -96,9 +99,9 @@ async function run() {
    t.target = load.id; t.startIds = t.snapshot().ids; t.startIndex = t.startIds.indexOf(t.target);
    [...document.querySelectorAll('[data-drop911-marker]')].find(e => e.dataset.drop911Marker === t.target).click();
    const snapshot = t.snapshot();
-   return {noCalls: !t.moves.length && !t.saves.length && !t.bumps.length, unchanged: before === JSON.stringify(S.loads), selected: snapshot.selected === t.target, open: snapshot.cards.some(g => g.id === t.target && g.open)};
+   return {noCalls: !t.moves.length && !t.saves.length && !t.bumps.length, unchanged: before === JSON.stringify(S.loads), selected: snapshot.selected === t.target, workspace: Drops911.report().open};
   });
-  check('pin selection opens the native card without an order write', Object.values(selection).every(Boolean), selection);
+  check('pin selection identifies the load inside arranging without an order write', Object.values(selection).every(Boolean), selection);
   await p.evaluate(() => { capability = () => 'edit'; mayWrite = () => true; SYNC.readonly = false; SYNC.level = 'edit'; render(); });
   const clickMove = async direction => {
    await p.evaluate(direction => {
@@ -115,7 +118,7 @@ async function run() {
   };
   const down = await clickMove('down');
   check('down delegates once each to native Move, SaveOrder and bump', down.calls.moves === 1 && down.calls.saves === 1 && down.calls.bumps === 1, down.calls);
-  check('down moves exactly one place and keeps the stable selected load ID', down.snapshot.ids.indexOf(down.target) === down.startIndex + 1 && down.snapshot.selected === down.target && down.snapshot.cards.some(g => g.id === down.target && g.open && g.selected));
+  check('down moves exactly one place and keeps the stable selected load ID', down.snapshot.ids.indexOf(down.target) === down.startIndex + 1 && down.snapshot.selected === down.target && down.snapshot.cards.some(g => g.id === down.target && g.selected));
   check('after down all native card, list and marker numbers match dpLoads', down.snapshot.numbersAgree);
   check('native order updates only the day order and existing Crew order fields', !down.integrity.unexpected.length && down.integrity.plansExpected && down.integrity.orderExpected, down.integrity);
   check('historical times, availability and every non-load record remain unchanged', down.integrity.historyUnchanged && down.integrity.availabilityUnchanged && down.integrity.nonLoadsUnchanged);
@@ -131,7 +134,7 @@ async function run() {
   await p.locator('.drops911').screenshot({path: path.join(output, 'native-order-1440.png')});
   const previouslyOpen = await p.evaluate(() => {
    const t = ORDER_ACTUAL911, before = t.snapshot(), previous = t.target;
-   // Reorder another row while the original native card is still open.
+   // Reorder another row while the original native card is selected.
    t.target = before.ids.find((id, index) => id !== previous && index > 0);
    if (!t.target) throw Error('Need a second load with an earlier position available');
    t.startIds = before.ids; t.startIndex = before.ids.indexOf(t.target);
@@ -164,6 +167,7 @@ async function run() {
   check('original in-memory record is restored exactly; persistence was captured throughout', restored.same && restored.capturedOnly, restored);
   check('no application-service write was attempted', blocked.every(request => request.host !== 'gc500-production.up.railway.app'), blocked);
   check('no browser JavaScript errors', s.errors.length === 0, s.errors);
+  check('all master plan assets match the existing manifest',assetChecks.failures.length===0,assetChecks.failures);
   fs.writeFileSync(path.join(output, 'result.json'), JSON.stringify({author: 'Andrew Fisher', sha256: crypto.createHash('sha256').update(source).digest('hex'), context, checks, readonly, selection, down, up, crossRow, failed, failure, restored, counts: s.counts, blocked}, null, 2));
  } finally { await s.browser.close(); }
  console.log(checks.filter(check => check.pass).length + '/' + checks.length + ' checks passed');

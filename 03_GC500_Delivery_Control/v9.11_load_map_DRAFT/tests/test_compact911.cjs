@@ -55,9 +55,10 @@ async function wholePageScene(page,width) {
  const layout=await page.evaluate(()=>{
   const rect=n=>{if(!n)return null;const r=n.getBoundingClientRect();return {x:r.x,y:r.y,w:r.width,h:r.height,right:r.right,bottom:r.bottom};};
   const pane=document.querySelector('#pane-timeline'),map=pane.querySelector('.drops911'),cards=[...pane.querySelectorAll('.ldlist[aria-label^="Due in"] .ld.compact908')];
-  return {main:rect(document.querySelector('main')),pane:rect(pane),map:rect(map),firstCard:rect(cards[0]),cards:cards.map(rect),pageOverflow:document.documentElement.scrollWidth>innerWidth+1};
+  return {main:rect(document.querySelector('main')),pane:rect(pane),map:rect(map),arrangeButtons:cards.map(c=>c.querySelectorAll('[data-drop911-open]').length),firstCard:rect(cards[0]),cards:cards.map(rect),pageOverflow:document.documentElement.scrollWidth>innerWidth+1};
  });
- ok(width+'px: whole Timeline keeps map and native cards within the page',!layout.pageOverflow&&!!layout.map&&layout.map.x>=-1&&layout.map.right<=width+1&&layout.cards.length>0&&layout.cards.every(r=>r.x>=-1&&r.right<=width+1),layout);
+ ok(width+'px: whole Timeline keeps native cards within the page',!layout.pageOverflow&&layout.cards.length>0&&layout.cards.every(r=>r.x>=-1&&r.right<=width+1),layout);
+ ok(width+'px: the map stays hidden until Arrange loads is opened',!layout.map&&layout.arrangeButtons.every(n=>n===1),layout);
  const gaps=layout.cards.slice(1).map((r,i)=>r.y-layout.cards[i].bottom);
  ok(width+'px: native load cards retain compact vertical spacing',gaps.every(g=>g>=-1&&g<=32),gaps);
  await page.screenshot({path:path.join(out,'timeline-top-'+width+'.png')});
@@ -79,7 +80,10 @@ async function nativeIdentity(page) {
   const rows = cards.map(card => {
    const b=card.querySelector('.ldl'),n=+b.querySelector('.ld-n b').textContent,entry=entries.find(x=>x.n===n),g=entry&&entry.g;
    if(!g)return {n,matched:false};
-   const t=document.createElement('template');t.innerHTML=ldLine(d,g,n,b.getAttribute('aria-expanded')==='true',entries.some(x=>x.g.time||x.g.carrier));applyCapability(t.content);
+   const t=document.createElement('template');t.innerHTML=ldLine(d,g,n,b.getAttribute('aria-expanded')==='true',entries.some(x=>x.g.time||x.g.carrier));
+   // Native Workers refreshes picker labels when its fold opens; compare the same native enhancement on the detached expected form.
+   if(window.Workers911)t.content.querySelectorAll('.crew883[data-workers911]').forEach(editor=>Workers911.updateOptions(editor));
+   applyCapability(t.content);
    const expected=[...t.content.querySelectorAll('button,a,input,select,textarea,summary')].map(sign);
    const actual=[...card.querySelectorAll('button,a,input,select,textarea,summary')].map(sign);
    const counts=list=>list.reduce((m,k)=>(m.set(k,(m.get(k)||0)+1),m),new Map()),a=counts(actual),e=counts(expected);
@@ -91,7 +95,7 @@ async function nativeIdentity(page) {
  });
 }
 async function trialControls(card) {
- const selectors=['.ldl','[data-tl841-open]','[data-tl841-print]','.ld-nav','.ld-qr','.flow891-chip', '.flow891-grip','.flow891-mv:not(:disabled)', '.timeline908-plans > details > summary'];
+ const selectors=['.ldl','[data-tl841-open]','[data-tl841-print]','.ld-nav','.ld-qr','.flow891-chip', '.flow891-grip','.flow891-mv:not(:disabled)', '[data-drop911-open]', '.timeline908-plans > details > summary'];
  const results=[];
  for(const selector of selectors){
   const targets=card.locator(selector), count=await targets.count();
@@ -107,7 +111,7 @@ async function trialControls(card) {
 (async()=>{
  let session, failure;
  try{
-  session=await strict.exports.open({pageFile,hash:'#timeline',W:1440,H:1100,gl:true});const p=session.page;
+  session=await strict.exports.open({pageFile,hash:'#timeline',W:1440,H:1100,gl:true});await require('./assets911.cjs')(session);const p=session.page;
   await p.waitForFunction(()=>window.GC500Refresh904?.report().settled&&SYNC.status==='live'&&SYNC.first.size===Object.keys(SYNC_COLLS).length,null,{timeout:180000});
   const day=process.env.DAY||'2026-10-08';
   await p.evaluate(day=>{state.day=day;state.tlView='day';state.q='';state.tlLoad=null;go('timeline');render();},day);
@@ -131,6 +135,20 @@ async function trialControls(card) {
    await card.scrollIntoViewIfNeeded();await settle(p);
    await card.screenshot({path:path.join(out,'collapsed-'+width+'.png')});
 
+   const arrange=card.locator('[data-drop911-open]');await arrange.click();await settle(p);
+   await p.waitForFunction(()=>Drops911.report().status==='ready'||Drops911.report().status==='unavailable',null,{timeout:120000});await settle(p);
+   const workspace=await card.locator('.drops911').evaluate(e=>{
+    const r=e.getBoundingClientRect(),card=e.closest('.ld'),layout=card.querySelector('.tl846-layout').getBoundingClientRect(),report=Drops911.report();
+    const day=calendarDays().find(d=>d.iso===state.day),all=dpLoads(day).filter(g=>g.kind==='deliveries');
+    return {count:document.querySelectorAll('#pane-timeline .drops911').length,open:report.open,anchor:report.anchor,x:r.x,right:r.right,width:r.width,top:r.top,summaryBottom:layout.bottom,insideCard:!!card,rows:e.querySelectorAll('[data-drop911-select]').length,expectedRows:all.length,overflow:e.scrollWidth>e.clientWidth+1,ids:report.model.loads.map(l=>l.id),expectedIds:all.map(g=>ldId(day,g))};
+   });
+   ok(width+'px: Arrange loads opens one workspace beneath this card’s controls',workspace.open&&workspace.count===1&&workspace.insideCard&&workspace.top>=workspace.summaryBottom-1&&workspace.x>=-1&&workspace.right<=width+1&&!workspace.overflow,workspace);
+   ok(width+'px: the arranging workspace retains the complete native daily load order',workspace.rows===workspace.expectedRows&&JSON.stringify(workspace.ids)===JSON.stringify(workspace.expectedIds),workspace);
+   await card.locator('.drops911').scrollIntoViewIfNeeded();await settle(p);await p.screenshot({path:path.join(out,'arrange-'+width+'.png')});
+   await card.locator('[data-drop911-close]').click();await settle(p);
+   const closed=await arrange.evaluate(e=>({open:Drops911.report().open,remaining:document.querySelectorAll('#pane-timeline .drops911').length,expanded:e.getAttribute('aria-expanded'),focus:document.activeElement===e}));
+   ok(width+'px: closing restores compact cards and focus to Arrange loads',!closed.open&&closed.remaining===0&&closed.expanded==='false'&&closed.focus,closed);
+
    const folds=[];
    for(const cls of ['loading872:not(.handling875):not(.crew883):not(.traffic903)', 'handling875', 'crew883', 'traffic903']){
     const fold=card.locator('.timeline908-plans > details.'+cls).first();
@@ -144,7 +162,15 @@ async function trialControls(card) {
     });
     ok(width+'px: '+cls+' opens at full planning-row width without overflow',panel.open&&!panel.bodyOverflow&&Math.abs(panel.width-panel.parentWidth)<=3&&panel.left>=-1&&panel.right<=width+1,panel);
     ok(width+'px: '+cls+' fields are legible inside the panel',panel.fields.every(f=>f.left>=panel.left-1&&f.right<=panel.right+1&&f.font>=11.9),panel.fields);
-    if(cls==='crew883')ok(width+'px: Crew retains day availability, roles and planned times',/Crew/.test(panel.text)&&/Planned unloading starts/.test(panel.text)&&/Planned unloading finishes/.test(panel.text)&&/People available/.test(panel.text));
+    if(cls==='crew883'){
+     const workers=await fold.evaluate(e=>{
+      const plan=crew883Plan(e.dataset.crew883Day,e.dataset.crew883Ref),day=crew883Day(e.dataset.crew883Day),value=attr=>e.querySelector('['+attr+']')?.value;
+      const rows=[...e.querySelectorAll('[data-crew883-person]')],actual=rows.map(row=>({slot:row.querySelector('[data-crew883-slot]').value===''?null:Number(row.querySelector('[data-crew883-slot]').value),roles:[...row.querySelectorAll('[data-crew883-role]:checked')].map(n=>n.dataset.crew883Role).sort()}));
+      const expected=(plan.people||[]).map(p=>({slot:p.slot,roles:p.roles.slice().sort()}));
+      return {heading:e.querySelector(':scope > summary')?.textContent,availability:!!e.querySelector('[data-staff910-availability]')&&value('data-crew883-count')===(day.count===null?'':String(day.count)),start:value('data-crew883-start'),finish:value('data-crew883-finish'),expectedStart:plan.start,expectedFinish:plan.finish,roleChoices:rows.every(row=>JSON.stringify([...row.querySelectorAll('[data-crew883-role]')].map(n=>n.dataset.crew883Role).sort())===JSON.stringify(Object.keys(crew883Roles).sort())),actual,expected};
+     });
+     ok(width+'px: Workers retains native day availability, role choices, assignments and planned times',/Workers/.test(workers.heading)&&workers.availability&&workers.start===workers.expectedStart&&workers.finish===workers.expectedFinish&&workers.roleChoices&&JSON.stringify(workers.actual)===JSON.stringify(workers.expected),workers);
+    }
     if(cls==='crew883'||cls==='traffic903'){
      const contrast=await fieldContrast(fold);
      ok(width+'px: actual readonly '+cls+' disabled fields retain 4.5:1 contrast',contrast.some(f=>f.disabled)&&contrast.filter(f=>f.disabled).every(f=>f.contrast>=4.5),contrast);
@@ -170,7 +196,7 @@ async function trialControls(card) {
    await card.locator('.ldl').click();await settle(p);
    const after=await p.evaluate(()=>({record:JSON.stringify(S),order:dpLoads(calendarDays().find(d=>d.iso===state.day)).map(g=>ldId({iso:state.day},g))}));
    ok(width+'px: expansion and planning review do not change records or order',before.record===after.record&&JSON.stringify(before.order)===JSON.stringify(after.order));
-   scenes.push({width,pageLayout,collapsed,expanded,targets,trial,folds,preserved});
+   scenes.push({width,pageLayout,collapsed,workspace,closed,expanded,targets,trial,folds,preserved});
   }
 
   const actions=await p.evaluate(()=>{

@@ -16,8 +16,8 @@ def patch(s):
         nonlocal s
         s = rep(s, old, new, 'v911 compact delivery map', 'page.html')
     replace("+ ' · v9.10'; /* v8.19", "+ ' · v9.11'; /* v8.19")
-    css = '\n'.join((HERE / name).read_text() for name in ['compact911.css', 'drops911.css'])
-    js = (HERE / 'drops911.js').read_text()
+    css = '\n'.join((HERE / name).read_text() for name in ['compact911.css', 'drops911.css', 'plan911.css', 'staff911fix.css'])
+    js = '\n'.join((HERE / name).read_text() for name in ['plan911.js', 'drops911.js', 'staff911fix.js'])
     if '</script' in js or '</style' in css:
         raise ValueError('Unsafe source boundary')
     replace('</head>\n<body>', '<style id="drops911-style">' + css + '</style>\n</head>\n<body>')

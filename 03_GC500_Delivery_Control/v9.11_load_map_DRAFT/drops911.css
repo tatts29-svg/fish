@@ -1,4 +1,4 @@
-/* Author: Andrew Fisher. Compact map beside the complete numbered load order. */
+/* Author: Andrew Fisher. Arrange the whole day only from a load's order controls. */
 #pane-timeline .drops908{display:none!important}
 #pane-timeline .drops911{--drop-ink:#f1f6f7;--drop-muted:#b8cbd0;background:#13272f;color:var(--drop-ink);border:1px solid #48636b;border-top:3px solid #ff822d;border-radius:12px;margin:10px 0 14px;overflow:hidden;box-shadow:0 3px 10px #0712181a}
 #pane-timeline .drops911-head{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:9px 12px;background:linear-gradient(110deg,#263e47,#14272e);border-bottom:1px solid #48636b}
@@ -62,3 +62,33 @@
 @media(max-width:700px){#pane-timeline .drops911-layout{grid-template-columns:minmax(150px,40%) minmax(0,1fr)}}
 @media(max-width:520px){#pane-timeline .drops911-layout{grid-template-columns:1fr}#pane-timeline .drops911-order{height:auto;max-height:195px;border-right:0;border-bottom:1px solid #48636b;order:2}#pane-timeline .drops911-order ol{grid-template-columns:repeat(2,minmax(0,1fr))}#pane-timeline .drops911-view{height:340px}}
 @media(max-width:760px){#pane-timeline .drops911-layout{grid-template-columns:1fr}#pane-timeline .drops911-order{height:auto;max-height:195px;border-right:0;border-bottom:1px solid #48636b;order:2}#pane-timeline .drops911-order ol{grid-template-columns:repeat(2,minmax(0,1fr))}#pane-timeline .drops911-view{height:340px}}
+/* One optional workspace sits below its invoking load's summary, never above the daily cards. */
+#pane-timeline .ld.tl846>.drops911{clear:both;min-width:0;margin:12px 0 0;box-shadow:none}
+#pane-timeline .ld.tl846>.drops911+.ldb{margin-top:12px}
+#pane-timeline .timeline908-utility .drops911-open{white-space:nowrap;flex:0 0 auto;min-height:44px;min-width:104px}
+#pane-timeline .timeline908-utility>.drops911-open{grid-column:1/-1;justify-self:end}
+#pane-timeline .drops911-open[aria-expanded="true"]{color:#132b33!important;background:#ff964f!important;border-color:#ffad70!important}
+#pane-timeline .drops911-fallback{margin:8px 0}
+#pane-timeline .drops911-fallback>.drops911-open{min-height:44px}
+#pane-timeline .drops911-tools{flex-wrap:wrap;justify-content:flex-end}
+#pane-timeline .drops911-tools [data-drop911-close]{margin-left:5px;border-color:#ffad70}
+#pane-timeline .drops911-order-row:has(.drops911-load[aria-pressed="true"]){display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center}
+#pane-timeline .drops911-order-row:has(.drops911-load[aria-pressed="true"]) .drops911-order-actions{padding:7px 7px 7px 0;align-self:stretch;align-items:center}
+#pane-timeline .drops911-order-row:has(.drops911-load[aria-pressed="true"]) .drops911-load{min-width:0;height:100%}
+@media(max-width:760px){
+ #pane-timeline .ld.tl846>.drops911{margin-top:10px}
+ #pane-timeline .timeline908-utility>.drops911-open{justify-self:start}
+ #pane-timeline .drops911-order{max-height:250px}
+ #pane-timeline .drops911-order ol{grid-template-columns:1fr}
+ #pane-timeline .drops911-tools button{flex:1 1 auto}
+ #pane-timeline .drops911-tools [data-drop911-close]{margin-left:0}
+}
+@media print{#pane-timeline .drops911-open{display:none!important}}
+
+/* Original plan detail is shown only while arranging; keep the canvas and controls legible. */
+#pane-timeline .drops911 .drops911-map{position:absolute;inset:0}
+#pane-timeline .drops911-tools{flex-wrap:wrap}
+#pane-timeline .drops911-tools output{min-width:65px;align-content:center;text-align:center;color:#f1f6f7;font-size:12px;font-weight:700}
+#pane-timeline .drops911-order{height:420px}
+#pane-timeline .drops911-view{height:420px}
+@media(max-width:760px){#pane-timeline .drops911-order{height:auto;max-height:240px}}

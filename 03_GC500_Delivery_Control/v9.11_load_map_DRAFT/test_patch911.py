@@ -7,8 +7,8 @@ mod = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(mod)
 base = Path(sys.argv[1]).read_text()
 candidate = mod.patch(base)
-css = '\n'.join((here / name).read_text() for name in ['compact911.css', 'drops911.css'])
-js = (here / 'drops911.js').read_text()
+css = '\n'.join((here / name).read_text() for name in ['compact911.css', 'drops911.css', 'plan911.css', 'staff911fix.css'])
+js = '\n'.join((here / name).read_text() for name in ['plan911.js', 'drops911.js', 'staff911fix.js'])
 reverse = candidate.replace('<style id="drops911-style">' + css + '</style>\n', '').replace('<script id="drops911-script">\n' + js + '\n</script>\n', '').replace("+ ' · v9.11'; /* v8.19", "+ ' · v9.10'; /* v8.19")
 assert reverse == base, 'Existing source/data changed unexpectedly'
 for label, value in [('repeat', candidate), ('older', base.replace("+ ' · v9.10'; /* v8.19", "+ ' · v9.08'; /* v8.19")), ('missing model', base.replace('window.Drops908', 'window.Removed908'))]:
