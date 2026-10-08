@@ -1,0 +1,50 @@
+/* Author: Andrew Fisher. Pack existing Timeline controls around a centred, readable load identity. */
+#pane-timeline .tl846-layout{grid-template-columns:minmax(0,1.25fr) minmax(360px,1fr);align-items:center;gap:clamp(24px,3vw,64px);max-width:2200px;margin-inline:auto}
+#pane-timeline .ld.tl846,#pane-timeline .ld.go.tl846{padding:22px clamp(16px,2vw,44px)}
+#pane-timeline .ld.tl846 .ldl,#pane-timeline .ldlist.timed .ld.tl846 .ldl{align-items:center}
+#pane-timeline .ld.tl846 .ld-n{align-self:start}
+#pane-timeline .tl846-identity{justify-content:center;align-items:center}
+#pane-timeline .ld.tl846 .ld-c{justify-content:center;flex:1 1 100%;text-align:center}
+#pane-timeline .ld.tl846 .tl841-status{margin:3px 0}
+#pane-timeline .ld.tl846 .ld-w{justify-content:center;text-align:center;margin:9px 0}
+#pane-timeline .tl846-ticks,#pane-timeline .tl846-qualification{text-align:center}
+#pane-timeline .tl846-ticks .ld-tks{justify-content:center}
+#pane-timeline .ld.tl846 .tl841-gantry{width:100%;max-width:940px;margin-inline:auto;box-sizing:border-box}
+#pane-timeline .tl846-controls{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;align-content:center;align-items:start}
+#pane-timeline .ld.tl846 .tl841-actions{display:contents}
+#pane-timeline .tl846-controls>*,#pane-timeline .tl846-controls .tl841-actions>*{grid-area:auto}
+#pane-timeline .asset872{justify-content:center;text-align:center}
+#pane-timeline .tl846-controls>.ld-t{align-self:center;justify-content:flex-end;padding:0}
+#pane-timeline .tl846-controls>.ld-go{grid-column:1/-1;max-width:500px;width:100%;justify-self:center}
+#pane-timeline .tl846-controls .loading872{width:auto;min-width:0;max-width:100%;margin:0;box-sizing:border-box}
+#pane-timeline .tl846-controls .loading872 summary{min-height:26px;display:flex;align-items:center;box-sizing:border-box;overflow-wrap:anywhere}
+#pane-timeline .tl846-controls .loading872[open]{grid-column:1/-1}
+#pane-timeline .tl846-controls .btn[data-tl841-print]{grid-column:1/-1}
+#pane-timeline .ld.tl846 .tl841-actions>.btn{min-width:0;width:100%;box-sizing:border-box}
+#pane-timeline .ld.tl846 .ldb{margin:20px 0 0;padding:18px 0 0}
+.traffic903-body{display:grid;gap:10px;padding:12px}
+.traffic903-body p{margin:0;color:inherit;font-size:13px}
+.traffic903-body label{display:grid;gap:7px;font-size:13px;font-weight:600}
+.traffic903-body select{width:100%;max-width:100%;min-width:0;font:inherit;min-height:44px}
+.traffic903-note{display:block;margin-top:4px;font-size:.9em;color:var(--muted,#64747b)}
+@media(min-width:2200px){
+ #pane-timeline .tl846-layout{grid-template-columns:minmax(0,1.15fr) minmax(600px,1fr)}
+ #pane-timeline .tl846-controls .loading872 summary,#pane-timeline .traffic903-body label{font-size:16px}
+ #pane-timeline .ld.tl846 .ld-go{grid-template-columns:76px minmax(0,1fr)}
+ #pane-timeline .ld.tl846 .ld-qr{width:76px;height:76px}
+ #pane-timeline .ld.tl846 .ld-qr svg{width:68px;height:68px}
+}
+@media(max-width:1000px){#pane-timeline .tl846-layout{grid-template-columns:minmax(0,1fr) minmax(280px,.85fr);gap:20px}}
+@media(max-width:760px){
+ #pane-timeline .tl846-layout{grid-template-columns:minmax(0,1fr);gap:18px}
+ #pane-timeline .ld.tl846,#pane-timeline .ld.go.tl846{padding:16px 12px}
+ #pane-timeline .ld.tl846 .ldl,#pane-timeline .ldlist.timed .ld.tl846 .ldl{align-items:start}
+ #pane-timeline .tl846-controls{grid-template-columns:minmax(0,1fr)}
+ #pane-timeline .tl846-controls>.ld-t{justify-content:center}
+ #pane-timeline .tl846-controls>.flow891-ord{justify-content:center}
+ #pane-timeline .ld.tl846 .ld-c{gap:5px 9px}
+ #pane-timeline .tl846-name{font-size:21px}
+ #pane-timeline .ld.tl846 .ld-refs .ld-w{margin:7px 0}
+ #pane-timeline .ld.tl846 .tl841-lamp{width:42px}
+ #pane-timeline .ld.tl846 .ldb{margin:16px 0 0;padding-top:14px}
+}
