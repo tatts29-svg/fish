@@ -83,7 +83,7 @@ async function measureOne({tag, file}) {
       intervals: [...P.intervals.values()].map(x => [x.l.slice(0, 70), x.ms, x.at])}; return out; }, null, 180000, 'collect');
     const state = () => ev(() => { const G = window.GC3D, S = G && G.S; const n = document.getElementById('show3dNote');
       return {open: typeof SHOW !== 'undefined' ? !!SHOW.open : null, failed: G ? (G.failed || null) : 'no GC3D', up: !!S, q: S && S.quality ? S.quality.name : null, step: S ? (S.qualityStep || null) : null,
-        fps: S && S.fps ? Math.round(S.fps * 10) / 10 : null, cv: S && S.cv ? [S.cv.width, S.cv.height] : null, vehicle: G ? (G.vehicle || null) : null, geoUp: !!(G && G.geo && G.geo.S),
+        fps: S && S.fps ? Math.round(S.fps * 10) / 10 : null, cv: S && S.cv ? [S.cv.width, S.cv.height] : null, samples: S && S.rt ? (S.rt.samples || 1) : null, shadow: S && S.sunShadow ? (S.sunShadow.ok ? S.sunShadow.size : 0) : null, vehicle: G ? (G.vehicle || null) : null, geoUp: !!(G && G.geo && G.geo.S),
         note: n && !n.hidden ? n.textContent.replace(/\s+/g, ' ').slice(0, 110) : '', heapMB: performance.memory ? Math.round(performance.memory.usedJSHeapSize / 1048576) : null,
         nodes: document.getElementsByTagName('*').length, intervals: window.__P.intervals.size}; }, null, 120000, 'state').catch(e => ({err: e.message}));
     // ---- before: the page with the Showcase shut

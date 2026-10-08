@@ -170,12 +170,16 @@ async function browserTests() {
     await p.waitForTimeout(4000);
     return {s, p, cons, label};
   };
-  const B = await runOne(PAGE, 'build'), A = await runOne(BASE, 'base');
+  // one browser at a time (the machine is short of disk): the build first, then the base page
+  const tabText = async (P) => { const tabs = await P.evaluate(() => TABS.map(t => t[0])), out = {};
+    for (const t of tabs) { await P.evaluate(k => { try { go(k); } catch (e) { window.__goerr = String(e && e.message); } }, t); await P.waitForTimeout(t === 'map' ? 6000 : 1800);
+      out[t] = await P.evaluate(k => { const pane = document.getElementById('pane-' + k); return pane ? pane.innerText : ''; }, t); }
+    return out; };
+  const B = await runOne(PAGE, 'build'); let textB, errsB, consB, countsB;
   try {
     const g = await B.p.evaluate(() => ({has: typeof window.MasterShapes915 === 'object' && window.MasterShapes915 === MasterShapes915, n: MasterShapes915.refs().length, meta: MasterShapes915.meta(), p67: MasterShapes915.shape('P67')}));
     ok('B1 window.MasterShapes915 is on the page', g.has && g.n === 126 && g.meta.shapes === 126 && g.meta.none === 54, {n: g.n, meta: g.meta});
     ok('B1 P67 is the master\'s 6 x 3 m building with its door', g.p67 && g.p67.components.length === 1 && g.p67.components[0].size_m[0] === 6 && g.p67.components[0].door && g.p67.components[0].door.faces === 'north');
-    ok('B1 the base page has no MasterShapes915', !(await A.p.evaluate(() => typeof window.MasterShapes915 !== 'undefined')));
     // every marker parses as SVG in the browser and renders with the computed geometry (test-only container, removed after)
     const r = await B.p.evaluate(() => {
       const host = document.createElement('div'); host.style.cssText = 'position:fixed;left:0;top:0;opacity:0;pointer-events:none'; document.body.appendChild(host);
@@ -191,7 +195,6 @@ async function browserTests() {
       return {bad, worst, n, left: document.querySelectorAll('.ms915-marker').length};
     });
     ok('B2 every marker parses and renders in the browser with the computed geometry', r.bad.length === 0 && r.worst < 0.01 && r.n > 3000 && r.left === 0, r);
-    // a picture for review: the 14 Oct loads and a few others at three zooms, plain, selected, chosen door
     const shot = path.join(HERE, 'evidence', 'markers_' + (phone ? 'phone' : 'laptop') + '.png');
     await B.p.evaluate(() => {
       const host = document.createElement('div'); host.id = 'ms915-test-sheet';
@@ -209,26 +212,29 @@ async function browserTests() {
     await B.p.screenshot({path: shot, fullPage: false});
     await B.p.evaluate(() => document.getElementById('ms915-test-sheet').remove());
     ok('B3 marker picture saved for review', fs.existsSync(shot), shot);
-    // every tab: same visible text on the base page and the build
-    const tabs = await B.p.evaluate(() => TABS.map(t => t[0])), tabsA = await A.p.evaluate(() => TABS.map(t => t[0]));
-    ok('B4 same tabs', JSON.stringify(tabs) === JSON.stringify(tabsA), tabs.length);
-    const diffs = [];
-    for (const t of tabs) {
-      const txt = async (P) => { await P.evaluate(k => { try { go(k); } catch (e) { window.__goerr = String(e && e.message); } }, t); await P.waitForTimeout(t === 'map' ? 6000 : 1800);
-        return P.evaluate(k => { const pane = document.getElementById('pane-' + k); return pane ? pane.innerText : ''; }, t); };
-      const [tb, ta] = [await txt(B.p), await txt(A.p)];
-      if (norm(tb) !== norm(ta)) {
-        const lb = norm(tb).split(/(?<=[.!?])\s|\s{2,}/), la = norm(ta).split(/(?<=[.!?])\s|\s{2,}/);
-        diffs.push({tab: t, build_len: tb.length, base_len: ta.length, first: lb.findIndex((x, i) => x !== la[i]), sampleBuild: lb.find((x, i) => x !== la[i]), sampleBase: la.find((x, i) => x !== lb[i])});
-      }
+    textB = await tabText(B.p);
+  } finally { errsB = B.s.errors.slice(); consB = B.cons.slice(); countsB = Object.assign({}, B.s.counts); await B.s.browser.close(); }
+  const A = await runOne(BASE, 'base'); let textA, errsA, consA, countsA;
+  try {
+    ok('B1 the base page has no MasterShapes915', !(await A.p.evaluate(() => typeof window.MasterShapes915 !== 'undefined')));
+    textA = await tabText(A.p);
+  } finally { errsA = A.s.errors.slice(); consA = A.cons.slice(); countsA = Object.assign({}, A.s.counts); await A.s.browser.close(); }
+  const tabs = Object.keys(textB);
+  ok('B4 same tabs', JSON.stringify(tabs) === JSON.stringify(Object.keys(textA)), tabs.length);
+  const diffs = [];
+  for (const t of tabs) {
+    const tb = textB[t], ta = textA[t] || '';
+    if (norm(tb) !== norm(ta)) {
+      const lb = tb.split('\n').map(norm), la = ta.split('\n').map(norm);
+      const onlyB = lb.filter(x => !la.includes(x)), onlyA = la.filter(x => !lb.includes(x));
+      diffs.push({tab: t, build_len: tb.length, base_len: ta.length, only_build: onlyB.slice(0, 4), only_base: onlyA.slice(0, 4)});
     }
-    ok('B4 visible text of every tab is the same on base and build', diffs.length === 0, {tabs: tabs.length, diffs});
-    const errsB = B.s.errors, errsA = A.s.errors;
-    ok('B5 no page errors on the build', errsB.length === 0, errsB.slice(0, 5));
-    const newCons = B.cons.filter(c => !A.cons.includes(c));
-    ok('B5 no console errors the base page does not also show', newCons.length === 0, {build: B.cons.length, base: A.cons.length, new: newCons.slice(0, 5)});
-    ok('B6 0 blocked writes (nothing tried to change the record)', B.s.counts.blocked === 0 && A.s.counts.blocked === 0, {build: B.s.counts, base: A.s.counts});
-  } finally { await B.s.browser.close(); await A.s.browser.close(); }
+  }
+  ok('B4 visible text of every tab is the same on base and build', diffs.length === 0, {tabs: tabs.length, diffs});
+  ok('B5 no page errors on the build', errsB.length === 0, {build: errsB.slice(0, 5), base: errsA.slice(0, 5)});
+  const newCons = consB.filter(c => !consA.includes(c));
+  ok('B5 no console errors the base page does not also show', newCons.length === 0, {build: consB.length, base: consA.length, new: newCons.slice(0, 5)});
+  ok('B6 0 blocked writes (nothing tried to change the record)', countsB.blocked === 0 && countsA.blocked === 0, {build: countsB, base: countsA});
 }
 
 (async () => {

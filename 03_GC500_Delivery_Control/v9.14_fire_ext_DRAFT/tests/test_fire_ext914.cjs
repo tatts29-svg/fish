@@ -175,7 +175,7 @@ async function sessionB() {
     const sh1 = await shotEl(p, 'drawer_view_AA_' + TAG + '.png', '#drawer details[data-f816="contents"]');
     ok('screenshot: the view link drawer on AA, no dollar figure in frame', sh1 && !sh1.missing && !sh1.dollars, sh1);
     await p.evaluate(() => { const c = document.querySelector('#dclose'); if (c) c.click(); const a = assetOf('AA'); state.plantGroup = PLANT_GROUP_WORDS[a.product] || a.product || a.discipline; state.light = null; state.q = ''; go('plant'); render(); }); await p.waitForTimeout(3500);
-    const eq = await p.evaluate(() => { const e = document.querySelector('#pane-plant [data-fire914-equip="AA"]'); return e ? e.innerText.trim() : null; });
+    const eq = await p.evaluate(() => { const e = document.querySelector('#pane-plant [data-fire914-equip="AA"]'); if (!e) return null; let d = e.closest('details'); while (d) { d.open = true; d = d.parentElement && d.parentElement.closest('details'); } return e.innerText.trim(); });
     ok('Equipment: AA\'s row shows "Fire extinguisher × 2"', eq === 'Fire extinguisher × 2', eq);
     if (eq) { const sh2 = await shotEl(p, 'equipment_AA_' + TAG + '.png', '#pane-plant [data-fire914-equip="AA"]'); await p.evaluate(() => { const e = document.querySelector('#pane-plant [data-fire914-equip="AA"]'); e.closest('tr').setAttribute('data-fire914-row', '1'); });
       const sh3 = await shotEl(p, 'equipment_AA_row_' + TAG + '.png', '#pane-plant tr[data-fire914-row]');
@@ -186,12 +186,12 @@ async function sessionB() {
         return {day: d.iso, kind: g.kind, drv: strip(drv).includes('Fire extinguisher × 2'), ins: strip(ins).includes('Fire extinguisher × 2'), insBox: /dp-acc[^>]*>[\s\S]{0,400}?Fire extinguisher × 2/.test(ins), once: strip(ins).split('Fire extinguisher × 2').length - 1}; }
       return null; });
     ok('Drivers and Install sheets for AA\'s truck carry "Fire extinguisher × 2" (with a tick box on the Install sheet), once', sheets && sheets.drv && sheets.ins && sheets.insBox && sheets.once === 1, sheets);
-    if (sheets) { await p.evaluate(iso => { location.hash = '#print/install/' + iso; }, sheets.day); await p.waitForTimeout(9000);
-      const tagged = await p.evaluate(() => { const all = [...document.querySelectorAll('body *')].filter(x => x.offsetParent !== null && /Fire extinguisher × 2/.test(x.textContent));
-        const e = all.filter(x => ![...x.children].some(c => /Fire extinguisher × 2/.test(c.textContent))).map(x => x.closest('tr') || x)[0]; if (!e) return false; e.setAttribute('data-fire914-sheet', '1'); return true; });
-      if (tagged) { const sh4 = await shotEl(p, 'install_sheet_AA_' + TAG + '.png', '[data-fire914-sheet]'); ok('screenshot: the Install sheet row for AA, no dollar figure in frame', sh4 && !sh4.missing && !sh4.dollars, sh4); }
-      else console.log('INFO the printed Install sheet for ' + sheets.day + ' was not drawn on screen here; the sheet HTML check above stands');
-      await p.evaluate(() => { const x = document.querySelector('#dpbar [data-dpbar-x]'); if (x) x.click(); location.hash = '#today'; }); await p.waitForTimeout(2500); }
+    if (sheets) { /* the Install sheet page for AA's truck, drawn into an overlay on screen for the picture only (the print route draws nothing on screen here) */
+      await p.evaluate(iso => { const d = programmeDays().find(x => x.iso === iso), loads = dpLoads(d), g = loads.find(x => (x.rows || []).some(r => r.a.key === 'AA'));
+        const o = document.createElement('div'); o.id = 'fire914sheet'; o.style.cssText = 'position:fixed;inset:0;z-index:99999;overflow:auto;background:#fff;color:#000;padding:12px'; o.innerHTML = dpPage(d, g, 'ins', 1, loads.length); document.body.appendChild(o);
+        const e = [...o.querySelectorAll('*')].filter(x => /Fire extinguisher × 2/.test(x.textContent) && ![...x.children].some(c => /Fire extinguisher × 2/.test(c.textContent))).map(x => x.closest('tr') || x)[0]; if (e) e.setAttribute('data-fire914-sheet', '1'); }, sheets.day);
+      const sh4 = await shotEl(p, 'install_sheet_AA_' + TAG + '.png', '[data-fire914-sheet]'); ok('screenshot: the Install sheet row for AA (tick box, "Fire extinguisher × 2"), no dollar figure in frame', sh4 && !sh4.missing && !sh4.dollars, sh4);
+      await p.evaluate(() => { const o = document.getElementById('fire914sheet'); if (o) o.remove(); }); }
     // phase 2: GN01 (generator) and WC09 (toilet) arrive with 2 each - no card figure
     phase = 2;
     await p.waitForFunction(() => fire914Qty('GN01') === 2 && fire914Qty('WC09') === 2, null, {timeout: 40000}); await p.waitForTimeout(1500);

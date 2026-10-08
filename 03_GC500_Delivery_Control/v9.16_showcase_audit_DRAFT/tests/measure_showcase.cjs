@@ -73,8 +73,10 @@ function summarise(d) {
   const p = s.page, consoleLog = [], R = {author: 'Andrew Fisher', tool: 'v9.16 measure_showcase.cjs', tag: TAG, profile: PROFILE, dpr: DPR, cpuThrottle: THROTTLE, script: SCRIPT,
     page: {file: path.basename(PAGE), sha256: crypto.createHash('sha256').update(fs.readFileSync(PAGE)).digest('hex')}, startedAt: new Date().toISOString(), phases: [], snapshots: [], actions: [], notes: []};
   const MAX_S = +(process.env.MAX_S || 1080); // the whole run stays under 20 minutes: at MAX_S it writes what it has and stops
-  setTimeout(() => { R.error = 'deadline ' + MAX_S + ' s reached; partial result'; R.counts = s.counts; R.pageErrors = s.errors.slice(0, 50); R.totalS = rel();
-    try { fs.mkdirSync(path.dirname(OUT), {recursive: true}); fs.writeFileSync(OUT, JSON.stringify(R)); } catch (e) {} log('DEADLINE, wrote partial', OUT); s.browser.close().catch(() => {}).finally(() => process.exit(3)); setTimeout(() => process.exit(3), 20000); }, MAX_S * 1000).unref();
+  const bail = why => { R.error = why + '; partial result'; R.counts = s.counts; R.pageErrors = s.errors.slice(0, 50); R.totalS = rel();
+    try { fs.mkdirSync(path.dirname(OUT), {recursive: true}); fs.writeFileSync(OUT, JSON.stringify(R)); } catch (e) {} log('STOPPED (' + why + '), wrote partial', OUT); s.browser.close().catch(() => {}).finally(() => process.exit(3)); setTimeout(() => process.exit(3), 20000); };
+  setTimeout(() => bail('deadline ' + MAX_S + ' s reached'), MAX_S * 1000).unref();
+  process.on('SIGTERM', () => bail('SIGTERM')); process.on('SIGINT', () => bail('SIGINT'));
   p.on('crash', () => { R.crashed = {at: rel(), lastAction: R.actions[R.actions.length - 1] || null}; log('RENDERER CRASHED'); });
   p.on('console', m => { const t = m.type(); if (t === 'error' || t === 'warning') consoleLog.push({at: rel(), type: t, text: m.text().slice(0, 240)}); });
   const ev = (fn, arg, ms = 90000, what = 'evaluate') => withTimeout(p.evaluate(fn, arg), ms, what);

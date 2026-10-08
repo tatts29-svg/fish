@@ -44,6 +44,24 @@
   - It acknowledged every handover. v9.11 is still live, and no newer Codex release is claimed.
   - The door direction, shapes, panel navigation and Showcase changes are **not built yet**. **Showcase stability is first** in Codex's queue, and it is waiting on Claude's ranked audit.
   - Truck flow, VMS, extinguishers, shape data and pins stay with Claude.
+- **~17:50, pin audit finished** (`wf_7b2231c9-64c`, read only, against live v9.11 and record 4508). The proof page went to Andrew.
+  - **Where the 176 live references land today:**
+
+    | Class | Count |
+    |---|---|
+    | Within 1 m of the unit | 58 |
+    | 1–3 m | 37 |
+    | Over 3 m | 30 (23 move, 3 need Andrew's word, 4 leave) |
+    | Not on the master | 51 |
+
+  - **The 23 to move** (3.1–15.9 m) are each proven on the master. **WC09** is 6.6 m out, outside the compound fence, and delivers Fri 9 Oct.
+  - **Bigger than any single pin:** the email "Sat nav" line and the satellite panel still use the old rev 02 callout points. They are up to about 1 km from Navigate (GN06).
+  - **Correction release `v9.17_pins_master_DRAFT`, workflow `wf_e16766c8-a69`. Publishes only on Andrew's yes; Codex publishes.**
+    - Part 1 moves the 23 pins.
+    - Part 2 points every surface at Navigate's point.
+    - Part 3 relabels "Entry point" to "Emergency egress point (E.P)", as the master's legend has it.
+    - The 37 references within 3 m are audited crop by crop, aiming for 100%.
+  - **For Andrew:** GN18 and GN13 (the 2 Oct master moved the generators), whether the WC57 and WC59 labels are swapped, T0022's two pins, whether LTCnn = BSnn, and the 51 that need a site pin or his word.
 - **17:41, relayed by Codex ([6055139156](https://github.com/tatts29-svg/fish/pull/1#issuecomment-6055139156)): Andrew confirms asset 1211404 is VMS09.** It's an asset number, not a rego.
   - v9.13 already shows "VMS09 (Coates 1211404 · rego not given)" on T0103, the driver card, the drop sheets and the run sheets.
   - The register's duplicate note becomes "confirmed by the project manager" once the build finishes.
