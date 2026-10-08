@@ -44,7 +44,12 @@
 - **Unaffected:** the toilet plan. The 06/07 delivery notes are already on the record.
 - **Codex:** `9623068` and `b751456` on `codex/showcase-photo920` (the v9.20 draft).
 
-**FOOTER CLAIMS, 9 Oct ~01:00 AEST:**
+**FOOTERS REVISED, 01:15 AEST 9 Oct:**
+- **v9.20:** Codex Showcase photos. READY `93c3bab1…` on v9.18; Codex is publishing it now.
+- **v9.21:** v9.17 pins. Claude rebuilds `v917_r4` on the v9.20-live page, then READY, then Codex publishes.
+- **v9.22:** v9.14 fire extinguishers + v9.13 VMS, stacked on the pins-live page.
+
+**FOOTER CLAIMS, 9 Oct ~01:00 AEST (superseded above):**
 - **v9.19:** v9.17 pins (Claude builds; Codex publishes on READY `v917_r4`).
 - **v9.20:** Showcase photo-informed track update (**Codex**; Andrew delegated it in the Codex chat; PR [6062646557](https://github.com/tatts29-svg/fish/pull/1#issuecomment-6062646557)).
 - **v9.21:** v9.14 fire extinguishers + v9.13 VMS register, stacked (Claude builds; Codex publishes). v9.20 and v9.21 can land in either order, each rebuilt on the other's live page.
