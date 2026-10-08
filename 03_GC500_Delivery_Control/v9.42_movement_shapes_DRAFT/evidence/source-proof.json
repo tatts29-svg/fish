@@ -1,0 +1,11 @@
+{
+  "author": "Andrew Fisher",
+  "baseSHA256": "c9142184568cf1311f709fecf077d2a923774df933abbede66ef2e2b871b4d7f",
+  "candidateSHA256": "8dce2c52838bbaa4abf3c17b8b0c059c71c7aa0b7b9c8650a7f3b517763ddfb4",
+  "adapterSHA256": "53600dd7281a43880215a389293405a6e244a9bae2932bc17d6ff346100acf84",
+  "onlyChanges": [
+    "physical shape adapter",
+    "version footer"
+  ],
+  "allOtherPageBytesIdentical": true
+}
