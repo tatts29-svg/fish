@@ -1,21 +1,23 @@
 # v9.17 — every navigation pin on the unit the 2 Oct master draws (DRAFT)
 
-Author: Andrew Fisher · 8 Oct 2026 · state: **DRAFT, second round: the 23 moves, plus GN18 and GN13 ("follow the master"),
-28 near moves toward 10/10, and the four Andrew answered at about 23:20 (WC59, WC57, WC13, WC69) — 57 pins in all. Built on
-live v9.18 and every test rerun (results at the end). Waiting on Andrew's yes. Not uploaded, not committed.** The publisher
-uploads once Andrew says yes and sets the next free footer (this patch leaves the footer alone).
+Author: Andrew Fisher · 8–9 Oct 2026 · state: **APPROVED by Andrew (9 Oct about 00:25 AEST, "yes to pins, proceed and
+approved"). Candidate `v917_r4` built on live v9.18 and every test rerun (results below). Not uploaded, not committed.** 57
+pins: the 23 moves, GN18 and GN13 ("follow the master"), 28 near moves toward 10/10, and the four Andrew answered at about
+23:20 (WC59, WC57, WC13, WC69). `v917_r4` replaces `v917_r3` (`4001406a…`, DO NOT PUBLISH): r3's area pictures for 11 pins
+were stretched at the sheet edge with the ring 7–54 m off the unit (the independent check's blocking finding), fixed here,
+and GN18 / GN13 now sit exactly on their symbol centres. The publisher sets the next free footer (this patch leaves it).
 
-## READY for Andrew's yes (not uploaded)
+## READY — `v917_r4` (approved by Andrew; not uploaded)
 
 | | |
 |---|---|
-| Base (live v9.18) | `c547a6debe1dea9009b50466d3c1028ec9c3a800e6c591ea258b61490b14b762`, 11,605,879 bytes, fetched for this build at about 00:07 AEST on 9 Oct |
-| Candidate | `4001406ab35556e7e0dc72c3c5f466318070fe435ee7bd08b158ebf0a268674b`, 11,616,813 bytes, `build/GC500_v917_r3/GC500_Delivery_Control_hosted.html` (label `v917_r3`) |
+| Base (live v9.18) | `c547a6debe1dea9009b50466d3c1028ec9c3a800e6c591ea258b61490b14b762`, 11,605,879 bytes, fetched for this build at about 00:50 AEST on 9 Oct. **Live has since moved:** at the end of the checks (about 01:19 AEST) it was v9.20 (`93c3bab1f0e0e21bf63a0ae65e394b74503a738591fec859cea1b640d84e1eda`, 11,607,819 bytes, Codex's photos release). r4 must be rebuilt on v9.20 and its checks rerun before upload: a trial of the patch on v9.20 (scratch, not tested) applied cleanly, `check_page` PASS, with the same media manifest `680bd788…` / `76a2a1b2…` |
+| Candidate | `8a963fe0e663ad78cb991ee50e8c9734086e61e8d934dbeb49e74cac24560f1d`, 11,616,810 bytes, `build/GC500_v917_r4/GC500_Delivery_Control_hosted.html` (label `v917_r4`). Replaces r3 `4001406a…` (do not publish r3) |
 | Footer | ` · v9.18`, unchanged; the publisher sets the next free one |
-| Media manifest | `media_manifest_v917.json` (copy in `evidence/`), file sha256 `16360702…04aa`, manifest digest `c582d796ca5981c2…`, 1,979 assets: 114 pictures in (`evidence/media917/`, 9.0 MB), 110 out |
+| Media manifest | `media_manifest_v917.json` (copy in `evidence/`, same bytes), file sha256 `680bd788e98ee300d38b4af38169d31c3d772083250b3a0706e78c00dc7d1a6f`, manifest digest `76a2a1b20a3eb6c87a3f2aea6e4296faa1a32e501e9eb5e6f5b327dd4dd6b4d7` (= the page's `hostedMedia.manifest`, the canonical digest of its media, re-computed independently), 1,979 assets: 114 pictures in (`evidence/media917/`, 9,065,392 bytes), 110 out. Against r3: the 11 re-made area pictures in, r3's 11 out, nothing else |
 | Patch | `patch_v917_pins.py` (57 pins, Part 2 one point per reference, Part 3 E.P labels); refuses a second run, a base whose 57 pins are not where the audit found them, or evidence that does not pass |
-| Checks | PDF re-derivation 57/57 · identity PASS · every row (200 references) laptop and phone PASS, the 57 move by the expected metres, everything else 0.0 m · Part 2 5,388 points, 0 off Navigate · record 4581 before and after, 0 writes · sweeps laptop and phone 21 tabs, 0 errors · phone drawers WC09 and WC59 looked at (see results; one check in the shots script is a test defect, explained there) |
-| Implemented and tested by | Claude, alone. Codex has not reviewed this candidate |
+| Checks (r4) | PDF re-derivation 57/57 · identity PASS · every row (200 references) laptop and phone PASS, the 57 move by the expected metres (GN18 17.11 m, GN13 11.55 m), everything else 0.0 m · Part 2 5,388 points, 0 off Navigate · record 4599 before and after every run, 0 writes · sweeps laptop and phone 21 tabs, 0 page errors, 0 deep-link errors; the only console messages are the service's explorer `vt/L*.bin` 404s, which the base v9.18 shows the same way · the 17 pictures looked at · phone WC09 and WC59 PASS |
+| Implemented and tested by | Claude. r3 had one independent check (its blocking finding is fixed here); r4 itself has not had an independent re-check yet. Codex has not reviewed it |
 
 **What Andrew says yes to.** 57 navigation pins move off their printed labels onto the units the 2 Oct master draws (the 23,
 GN18 and GN13 by "follow the master", the 28 near moves, and WC59 to the long row, WC57 to the pair inside the SUPPLY fence,
@@ -24,8 +26,8 @@ walk to gives Navigate's point. The E.P items read "Emergency egress point (E.P)
 One correction he should see: WC69's 3 on the fence are about 9 m **north-east** of the row's middle, not "6.5 m north-west"
 as the question said (the paper is not drawn north-up); the page says north-east.
 
-**Publish note for Codex.** Take the candidate only on Andrew's yes, and only from this folder at the commit that carries
-this README. Rebuild on live if live has moved past v9.18 (`c547a6de…`): the patch refuses if any of the 57 pins moved. Media
+**Publish note for Codex.** Andrew's yes is given (9 Oct about 00:25). Take `v917_r4` only from this folder at the commit
+that carries this README, never r3. Rebuild on live if live has moved past v9.18 (`c547a6de…`): the patch refuses if any of the 57 pins moved. Media
 first, then the page (the commands are under "Build and publish" below). After upload,
 read back the view link. The Map explorer's machine set still draws the 57 at their old spots until it is rebuilt (open
 question 8).
@@ -358,9 +360,13 @@ GN18 and GN13 are answered ("follow the master") and applied in this build (seco
 | `tests/derive917_add.py` | second round: re-derives GN18, GN13 and the 28 near moves from the PDF → `evidence/derive917_add.json`, `.log` (needs the near list `near37.json` and the audit's outlines `rows.json`, read only) |
 | `tests/derive917_held.py` | third set: re-derives WC59, WC57, WC13 and WC69 (Andrew's answers, about 23:20) from the PDF and checks each against the audit's point (refused over 0.3 pt / 0.2 m); measures WC69's column of 3 on the ground → `evidence/derive917_held.json`, `.log` (needs the audit's outlines `pins/geom/geom.json`, read only) |
 | `tests/make_thumbs917.py` | the 114 pictures for the 57 → `evidence/media917/` + `evidence/thumbs917.json` (deterministic; r4: windows past the sheet or the inset frame padded white, not stretched — `padded_past_the_edge` lists the 11; args: PDF, page, media dir, thumbs json, `georeferencing.json`, the derive files) |
+| `tests/xcheck_pad917.py` | r4: independent check of the 11 padded area pictures (the sheet, or only the inset frame, on a larger white page via `show_pdf_page`; best-matching shift per picture) |
+| `tests/gen_centre917.py` | r4: GN18 / GN13 symbol centres three ways (area centre, vertex mean, bbox middle) and their ground points |
+| `tests/wc09_bearings917.py` | r4: WC09's on-site directions — ground bearing and distance from the pin to its toilets, pee panels and blocks |
+| `evidence/pictures_r4/` | r4: the contact sheets looked at (the 11 area pictures, the six named pins' area and close-up pictures, and a zoom on every ring) |
 | `tests/test_identity917.py` | test 1, identity → `evidence/identity917.log`, `evidence/identity917_code.diff` |
 | `tests/collect_pins917.cjs` + `tests/compare_pins917.py` | tests 3 and 4, every row, laptop and phone, including (after the review) the printed drop sheet, the driver card's Ground position, the email's pins, the aerial pictures and every load's driver page picture → `evidence/compare917_*.json/.log` |
-| `tests/shots917.cjs` | phone screenshots of the WC09 and WC59 drawers ("Where it is"; `REFS=`) and their printed drop sheets (`SHEETS=`) → `evidence/phone_*.png`, `shots917_phone.json` (the CP1 frames are from the first round) |
+| `tests/shots917.cjs` | phone screenshots of the WC09 and WC59 drawers ("Where it is"; `REFS=`) and their printed drop sheets (`SHEETS=`) → `evidence/phone_*.png`, `shots917_phone.json` (the CP1 frames are from the first round; r4: the pin block is read from its own text, as it sits in a closed fold on the phone) |
 | `evidence/sweep_*917.json` | the sweeps on the candidate, and on the base v9.18 (`sweep_base_*`) for comparison |
 | `evidence/rings917_WC09_GN06.png` | base ring, v9.17 ring and Navigate's point on the page's aerial |
 | `evidence/media917/` | the 114 pictures, named by sha256. They are view-scope crops of the master the page already shows. Not encrypted: the papers password is held by Andrew and is not in this session; encrypt them like `media893.zip.enc` before committing if wanted |
@@ -379,7 +385,49 @@ checks each one's hash, then registers the manifest. Media goes first, because t
 has no registered manifest. If live has moved past v9.18, rebuild: the patch refuses if any of the 57 pins is no longer
 where the audit found it.
 
-## Results, second round with the four answered (9 Oct 2026, about 00:20 AEST) — the current candidate
+## Results, r4 (9 Oct 2026, about 01:20 AEST) — the current candidate
+
+**Why r4.** The independent check of r3 (`4001406a…`) found one blocking defect: the area picture of 11 pins was stretched at
+the sheet edge, ring 7–54 m off the unit (see "Pictures at the sheet edge" above). Fixed in `tests/make_thumbs917.py`. Also
+done: GN18 and GN13 to their symbol's outline centre (above), and the WC09 on-site directions in ground bearings (below).
+
+**Base.** Live was still v9.18 (`c547a6de…`, 11,605,879 bytes) when `toolchain/build.sh v917_r4` fetched it (about 00:50
+AEST). By the end of the checks (about 01:19) live was v9.20 (`93c3bab1…`): r4 is rebuilt on v9.20 and rechecked before it
+goes up (the board has pins as v9.21).
+
+- **Candidate:** `8a963fe0e663ad78cb991ee50e8c9734086e61e8d934dbeb49e74cac24560f1d`, 11,616,810 bytes. `check_page`: PASS
+  (27 inline scripts parse, no new keys, author line present). Footer unchanged (` · v9.18`).
+- **Media manifest:** file `media_manifest_v917.json` sha256 `680bd788e98ee300d38b4af38169d31c3d772083250b3a0706e78c00dc7d1a6f`,
+  digest `76a2a1b20a3eb6c87a3f2aea6e4296faa1a32e501e9eb5e6f5b327dd4dd6b4d7`, 1,979 assets (114 in, 110 out), assets sorted by
+  file, written compact; the digest re-computed from the file's own body matches it and the page's `hostedMedia.manifest`.
+- **Changes from r3:** the 11 area pictures (11 in, 11 out of the media list and the manifest); GN18 and GN13's ll and pt
+  (their pictures were already centred on the symbol, so they are byte for byte r3's); nothing else.
+
+| # | Check | Laptop | Phone |
+|---|---|---|---|
+| 1 | Identity (`test_identity917.py`): DATA only media +114/−110 and the manifest (`76a2a1b2…`, = the manifest file); MASTER_LOC only the 57 (ll, pt, how, img), the 15 left byte for byte the same; MASTER_LAYERS only the 23 E.P labels; code 38 lines out, 64 in, all Part 2; footer unchanged | PASS | — |
+| 2 | PDF re-derivation, all 57, on this base: `derive917.py` 23/23, `derive917_add.py` 30/30 (GN18 0.005 m / 0.009 pt, GN13 0.003 m / 0.001 pt), `derive917_held.py` 4/4; `derive917.json` and `derive917_held.json` identical to r3's; in `derive917_add.json` only GN18 and GN13's rows changed | PASS | — |
+| 3 | Every row (200 references; record 4599 before and after every run; 0 writes): the 57 move by the expected metres ±0.1 m on Navigate, the button, the drop message, the job sheet, dpPos and the driver card, and stay "master plan" (GN18 17.11 m, GN13 11.55 m, WC09 6.51 m); every other reference 0.0 m and the same kind; the 15 left unchanged; CP1 and WC81 stay in the inset | PASS | PASS |
+| 4 | Part 2: 5,388 surface points, 0 off Navigate (base: 1,593 off on 133 references); driver page pictures 30 checked, 0 off; the words say "the same point as Navigate" | PASS | PASS |
+| 5 | Sweeps: 21 tabs (15 shown on the view link), 0 page errors, 0 deep-link errors (7), 0 blocked writes. Console: 76 (laptop) and 71 (phone) messages, **every one** a 404 for the service's explorer assets `/w/Coates-GC500-2026/explorer/assets/vt/L*.bin`; the base v9.18 swept in the same session shows the same (72 and 78, all the same 404s). Not this release's (the machine set; see "Also found") | PASS (no page or console error of the page's own) | PASS (same) |
+| 6 | Phone, WC09 and WC59 (`shots917.cjs`, PASS): drawers "Where it is" (aerial ring, Goes to, meet point, Navigate master plan), the pin's coordinates and both close-ups in the drawer (771 and 937 px), the printed drop sheets (Sat nav = Navigate to the printed 6 decimals, "the same point as Navigate (master plan)"); no dollar figures in any frame; 0 writes, 0 errors | — | PASS |
+| 7 | Pictures looked at: the 11 re-made area pictures and WC09, WC59, WC57, WC13, GN18, GN13 (area and close-up): ring on the unit, nothing stretched, 937 × 613 / 771 × 491; `tests/xcheck_pad917.py` (independent render) agrees with each of the 11 to the expected sub-pixel rounding | PASS | — |
+
+**The shots check (fixed in the test, not the page).** On r3, `shots917.cjs` failed only because the drawer's "Where it is
+— master plan" block (`.pinblock`) sits in a closed fold on the phone and is never in the viewport. The test now reads the
+pin's coordinates from that block's own text (and still records whether it was in view: it is not); everything else it
+checks is unchanged.
+
+**Runs.** Base and candidate collectors, laptop and phone, both candidate sweeps and the shots ran once each on `8a963fe0…`,
+and the base sweeps after them, all under the shared browser lock (`evidence/browser_runs917.log`). Two earlier attempts in
+this round stopped at Chromium's launch (SIGTRAP, a long TMPDIR) before any page opened; nothing ran in them.
+
+**On-site check for WC09 (Fri 9 Oct), verified here.** From the pin, measured from the middle of each group the master
+draws, through the registration (`tests/wc09_bearings917.py`): the four-toilet row 13.5 m at bearing 354° (north), the six
+pee panels 8.8 m at bearing 159° (south-south-east), the two blocks' middle 0.5 m away. The README's earlier "13 m west" and
+"9 m east" were read off the paper (not drawn north-up) and are corrected under "How to check it on site".
+
+## Results, second round with the four answered (9 Oct 2026, about 00:20 AEST) — candidate r3, superseded (DO NOT PUBLISH: its 11 area pictures were stretched at the sheet edge)
 
 **Base.** Live was still v9.18 (`c547a6de…`, 11,605,879 bytes) when `toolchain/build.sh v917_r3` fetched it. The 53-pin
 candidate `64ef007b…` (which had passed every check) is replaced by this one; the only change is the four pins.

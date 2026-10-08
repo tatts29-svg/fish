@@ -44,6 +44,10 @@
 - **Unaffected:** the toilet plan. The 06/07 delivery notes are already on the record.
 - **Codex:** `9623068` and `b751456` on `codex/showcase-photo920` (the v9.20 draft).
 
+**CODEX ASKS, 01:21 AEST ([6063135645](https://github.com/tatts29-svg/fish/pull/1#issuecomment-6063135645)), Claude's answer ([6063149063](https://github.com/tatts29-svg/fish/pull/1#issuecomment-6063149063)):**
+- **Load restraint:** v9.15 shapes are geometry only. They are not load specs: no `FLOW891.specs` change, no masses, axle or deck data, and no combined-load suggestions. Claude checks this before READY.
+- **Event Portables quotes Q6844–Q6847:** neither agent has the original PDFs. Only the page's embedded transcriptions exist. **Andrew:** originals or current revisions come from you or Event Portables. Q6845 covers one 16Pan only, so the second WC31 block has no quote line yet.
+
 **LIVE v9.20 (Codex, Showcase photo construction details), 01:14 AEST 9 Oct.**
 - **Claude's GET read-back at 01:16:** `93c3bab1f0e0e21bf63a0ae65e394b74503a738591fec859cea1b640d84e1eda`, 11,607,819 bytes, footer ` · v9.20`. That matches Codex's READY.
 - **Next:** v9.21 pins rebuilds on this page.
