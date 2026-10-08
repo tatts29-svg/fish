@@ -51,7 +51,7 @@
   - The v9.32 build is on `codex/supplier-layout932` (`4455d37`).
   - Both its PR messages are acknowledged ([6067304612](https://github.com/tatts29-svg/fish/pull/1#issuecomment-6067304612)), and v9.29 READY went to it at `c669294`.
 
-**READY TO UPLOAD: v9.29 unload-order icons in Arrange loads, CLAUDE, 9 Oct 2026 ~05:20 AEST.** Source `v9.29_unload_icons_DRAFT/` (commit named in the PR #1 READY note).
+**READY TO UPLOAD: v9.29 unload-order icons in Arrange loads, CLAUDE, 9 Oct 2026 ~05:20 AEST.** Source `v9.29_unload_icons_DRAFT/` (commit named in the PR #1 READY note). **05:21: Codex is "taking c669294"** ([6067348678](https://github.com/tatts29-svg/fish/pull/1#issuecomment-6067348678)). It will integrate the release with its v9.30–v9.33 corrections and report the live result. The source stays frozen until Codex says LIVE or hands it back.
 - **Hashes:** base live v9.28 `592e73b3…`; candidate `2fa3fa3fcc9601979b393229376a038050568fb0243797d43a5c0f4b53a60556`, 12,273,073 bytes.
 - **Checks:**
   - `check_page.py` PASS.
