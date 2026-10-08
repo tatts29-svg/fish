@@ -211,4 +211,4 @@ assert s.count('function split900(') == 1 and [s.count(c) for c in ('split900(a,
     'split900 is defined once and read once at each of the three model places'
 open(p, 'w', encoding='utf-8').write(('﻿' if bom else '') + s)
 print(f'v9.00 split part on base v{FOOT[0][0]}.{FOOT[0][1]}: split references {sorted(SPLIT)}; '
-      f'3 model functions read split900 (8 page edits), 1 script; DATA and footer unchanged')
+      f'3 model functions read split900 (10 page edits), 1 script; DATA and footer unchanged')

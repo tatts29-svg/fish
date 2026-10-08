@@ -4,8 +4,8 @@ Author: Andrew Fisher · 8 Oct 2026 · state: **DRAFT**. Not uploaded, and not c
 
 ## What Andrew sent
 
-Andrew sent the iEDM VMS plan VMS001-26003-01 at about 11:00 AEST on 8 Oct 2026, in the v9.00 chat: "please see attached
-update of vms boards". It is 17 pages, a PowerPoint export dated 2 Sep 2026, with no title block or revision box printed
+Andrew sent the iEDM VMS plan VMS001-26003-01 at about 11:00 AEST on 8 Oct 2026, about the VMS boards: "please see
+attached update of vms boards". The source is STATUS.md, SYNC 11:08 AEST 8 Oct. It is 17 pages, a PowerPoint export dated 2 Sep 2026, with no title block or revision box printed
 on it. It was reconciled board by board against D025 Rev 02, the schedule rows and the record. Three independent reviews
 checked that work, and where a review refuted the reconciliation, the review wins. Andrew has **not yet said whether the
 plan replaces D025 Rev 02**, so this part changes words only. It moves no position, count or money, and writes nothing to
