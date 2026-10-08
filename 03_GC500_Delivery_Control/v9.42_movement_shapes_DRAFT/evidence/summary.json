@@ -1,0 +1,38 @@
+{
+  "sha": "8dce2c52838bbaa4abf3c17b8b0c059c71c7aa0b7b9c8650a7f3b517763ddfb4",
+  "recordVersion": 4705,
+  "days": 43,
+  "deliveryDays": 31,
+  "deliveryLoads": 172,
+  "removalLoads": 49,
+  "products": 238,
+  "markers": 134,
+  "refs": 182,
+  "issueCounts": {},
+  "stateUnchanged": true,
+  "financeUnchanged": true,
+  "errors": [],
+  "denied": [
+    {
+      "method": "POST",
+      "origin": "https://tile.googleapis.com",
+      "path": "/v1/createSession"
+    }
+  ],
+  "author": "Andrew Fisher",
+  "syntheticChecks": 28,
+  "phoneAndDesktopVisuallyInspected": true,
+  "visibleSampleDays": [
+    "2026-09-17",
+    "2026-10-07",
+    "2026-10-09",
+    "2026-10-19"
+  ],
+  "nativeDriverProductScopePassed": true,
+  "noNewPrintLayout": true,
+  "notes": [
+    "All original master geometry and non-adapter page bytes are unchanged.",
+    "Current physical source IDs, owner API and native door records are retained.",
+    "A first visible-test assertion counted product diagrams as physical units; corrected to the native unit data attribute. Final assertions pass."
+  ]
+}
