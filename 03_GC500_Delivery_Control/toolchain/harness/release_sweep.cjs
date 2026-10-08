@@ -293,6 +293,13 @@ function tabHashMatches(tab, hash) {
   return hash === '#' + (ALIASES[tab] || tab);
 }
 
+function deepLinkHashMatches(requested, actual) {
+  // The live v6.99 one-map route deliberately canonicalises the legacy 3D link.
+  // Its async explorer startup can leave either supported hash at the snapshot.
+  return actual === requested ||
+    (requested === '#sheet/__satellite3d' && actual === '#sheet/__explorer');
+}
+
 async function main() {
   const result = {
     author: 'Andrew Fisher', mobile: !!process.env.MOB,
@@ -370,10 +377,10 @@ async function main() {
       const pane = hash.startsWith('#change/') ? 'change'
         : hash.startsWith('#sheet/') ? 'map'
           : hash === '#plant' ? 'plant' : hash === '#today' ? 'today' : 'timeline';
-      row.ok = row.shown && row.pane === 'pane-' + pane && row.hash === hash &&
+      row.ok = row.shown && row.pane === 'pane-' + pane && deepLinkHashMatches(hash, row.hash) &&
         row.bar === hash.startsWith('#print/') && row.errors.length === 0 && row.console.length === 0;
       check(row.shown && row.pane === 'pane-' + pane, stage + ': expected visible canonical pane');
-      check(row.hash === hash, stage + ': unexpected hash ' + row.hash);
+      check(deepLinkHashMatches(hash, row.hash), stage + ': unexpected hash ' + row.hash);
       check(row.bar === hash.startsWith('#print/'), stage + ': incorrect print toolbar state');
       await page.evaluate(() => {
         const close = document.querySelector('#dpbar [data-dpbar-x]');
@@ -426,7 +433,7 @@ async function main() {
   assert.equal(result.success, true, 'Release sweep failed; see the JSON failures, allErrors and cons');
 }
 
-module.exports = {prepareMachine, machineAsset, prepareMedia, installAssets};
+module.exports = {prepareMachine, machineAsset, prepareMedia, installAssets, deepLinkHashMatches};
 if (require.main === module) main().catch(error => {
   process.stderr.write(String(error.stack || error) + '\n');
   process.exitCode = 1;

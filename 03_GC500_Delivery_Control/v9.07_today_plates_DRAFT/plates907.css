@@ -1,0 +1,84 @@
+/* Author: Andrew Fisher. Keep one overall reading, one category navigation and one detailed plate per category. */
+@media screen {
+ #pane-today #where885 {margin-bottom:14px;}
+ #pane-today #where885 .w885-groups {display:none;}
+ #pane-today #where885 .w885-basis {margin-top:6px;}
+ #pane-today #where885 .w885-body {gap:14px;}
+ #pane-today #where885 .p907-programme {width:100%;min-width:0;border-top:1px solid #ffffff24;padding-top:10px;}
+ #pane-today #where885 .p907-programme > summary {display:flex;align-items:center;justify-content:space-between;gap:20px;min-height:44px;list-style:none;cursor:pointer;}
+ #pane-today #where885 .p907-programme > summary::-webkit-details-marker {display:none;}
+ #pane-today #where885 .p907-programme > summary::marker {content:'';}
+ #pane-today #where885 .p907-programme > summary:focus-visible {outline:2px solid #ffbd85;outline-offset:4px;border-radius:6px;}
+ #pane-today #where885 .p907-name {display:flex;align-items:center;gap:12px;color:#ffbd85;font-size:14px;font-weight:650;}
+ #pane-today #where885 .p907-name::after {content:'⌄';font-size:19px;}
+ #pane-today #where885 .p907-programme[open] .p907-name::after {content:'⌃';}
+ #pane-today #where885 .p907-programme > summary .pstats {width:min(52%,680px);margin:0;}
+ #pane-today #where885 .p907-programme > summary .pstat {display:grid;grid-template-columns:auto 1fr;column-gap:5px;align-items:baseline;padding-right:14px;}
+ #pane-today #where885 .p907-programme > summary .pstat + .pstat {padding-left:20px;}
+ #pane-today #where885 .p907-programme > summary .pstat b {grid-row:1/3;align-self:center;font:700 32px/1 'Barlow Condensed','Arial Narrow',sans-serif;color:#fff;}
+ #pane-today #where885 .p907-programme > summary .pstat b + span {font-size:11px;margin:0;color:#b9cdce;}
+ #pane-today #where885 .p907-programme > summary .pstat em {margin:1px 0 0;font-size:12px;color:#d5e2e3;}
+ #pane-today #where885 .p907-programme > summary .pstat i {grid-column:2;font-size:11px;margin-top:1px;color:#b0c4c7;}
+ #pane-today #where885 .p907-body {padding-top:14px;}
+ #pane-today #where885 .p907-body .inst > .today-enhanced.racecard {grid-template-columns:minmax(0,1.15fr) minmax(240px,.75fr) minmax(0,1fr);}
+ #pane-today #where885 .p907-body .inst > .today-enhanced.racecard > .pgm {grid-column:auto;}
+ /* The section remains labelled for assistive technology. The visible category bar already names its contents. */
+ #pane-today #gc500-work-board840 .tw840-heading {position:absolute;width:1px;height:1px;padding:0;margin:0;overflow:hidden;clip-path:inset(50%);white-space:nowrap;}
+ #pane-today #gc500-work-board840 .tw840-nav {margin-bottom:14px;}
+ #pane-today #gc500-work-board840 .tw840-grid {align-items:start;}
+ #pane-today #gc500-work-board840 .tw840-grid > .tw848-card {height:auto;}
+ #pane-today #gc500-work-board840 .tw848-card {padding:20px;}
+ #pane-today #gc500-work-board840 .tw848-group[open] {column-gap:12px;}
+ #pane-today #gc500-work-board840 .tw848-group[open] > .tw848-group-toggle {padding:0 0 12px;margin:0;min-height:44px;}
+ #pane-today #gc500-work-board840 .tw840-top {padding:0 0 12px;margin:0;min-height:44px;}
+ #pane-today #gc500-work-board840 .tw840-scope {font-size:13px;line-height:1.4;}
+ #pane-today #gc500-work-board840 .tw840-motion {width:48px;height:48px;min-width:48px;min-height:48px;margin:0;}
+ #pane-today #gc500-work-board840 .tw840-name {gap:9px;}
+ #pane-today #gc500-work-board840 .tw840-name > svg {width:19px;height:19px;padding:6px;}
+ #pane-today #gc500-work-board840 .tw846-summary {overflow:hidden;border-radius:12px;padding:16px;margin:12px 0 8px;border:1px solid #49656d;gap:20px;}
+ #pane-today #gc500-work-board840 .tw846-summary::before {inset:0;opacity:1;mask-image:none;-webkit-mask-image:none;--p907-shade:#00000000;background-position:50% 60%;}
+ #pane-today #gc500-work-board840 .tw846-summary::after {content:'';position:absolute;inset:0;z-index:-1;pointer-events:none;background:linear-gradient(90deg,#06191d24 0%,#06191d00 70%),linear-gradient(0deg,#06191d1a,#06191d00 45%);}
+ #pane-today #gc500-work-board840 .tw846-display {background:#07171cb3;box-shadow:0 2px 0 #375155;text-shadow:0 1px 3px #0009;}
+ #pane-today #gc500-work-board840 .tw846-counts {padding:14px 6px;border:1px solid #82969266;border-radius:10px;background:#081b22a6;text-shadow:0 1px 3px #0009;}
+ #pane-today #gc500-work-board840 .tw846-counts button[data-tw840-mode] {min-height:44px;}
+ #pane-today #gc500-work-board840 .tw853-readings {padding:14px;border-radius:10px;background:#081b22b0;text-shadow:0 1px 3px #0009;}
+ #pane-today #gc500-work-board840 .tw853-readings .tw846-counts {border:0;background:none;padding:10px 0;}
+ #pane-today #gc500-work-board840 .tw840-footer {margin-top:10px;padding-top:10px;}
+ #pane-today #gc500-work-board840 [data-p907-redundant] {display:none;}
+ @container w885 (max-width:800px) {
+  #pane-today #where885 .p907-programme > summary {flex-wrap:wrap;gap:12px;}
+  #pane-today #where885 .p907-programme > summary .pstats {width:100%;}
+  #pane-today #where885 .p907-body .inst > .today-enhanced.racecard {grid-template-columns:minmax(0,1fr);}
+ }
+ @container w885 (max-width:450px) {
+  #pane-today #where885 .p907-programme > summary .pstat {grid-template-columns:auto 1fr;}
+  #pane-today #where885 .p907-programme > summary .pstat + .pstat {padding-left:12px;}
+  #pane-today #where885 .p907-programme > summary .pstat em {font-size:11px;}
+  #pane-today #where885 .p907-programme > summary .pstat i {font-size:10px;}
+ }
+ @container tw846group (min-width:560px) {
+  #pane-today #gc500-work-board840 .tw846-summary {grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:16px;}
+  #pane-today #gc500-work-board840 .tw846-title {font-size:clamp(26px,4.8cqi,38px);overflow-wrap:normal;word-break:keep-all;}
+  #pane-today #gc500-work-board840 .tw846-indicator .tw840-reading {font-size:clamp(48px,8.4cqi,68px);}
+ }
+ @container tw846group (max-width:559px) {
+  #pane-today #gc500-work-board840 .tw846-summary {padding:14px;gap:16px;}
+  #pane-today #gc500-work-board840 .tw846-display {background:#07171ca6;}
+  #pane-today #gc500-work-board840 .tw841-fence-card .tw846-summary::before {background-size:auto 145%;background-position:70% 100%;}
+ }
+ @container tw846group (max-width:450px) {
+  /* Give the native scope the card width; the two existing controls share the next row. */
+  #pane-today #gc500-work-board840 .tw848-group[open] > .tw848-group-body > .tw840-top {display:contents;}
+  #pane-today #gc500-work-board840 .tw848-group[open] .tw840-top > .tw840-name {grid-column:1/-1;grid-row:1;padding:0 0 10px;}
+  #pane-today #gc500-work-board840 .tw848-group[open] .tw840-name:has(.tw840-scope[data-s896-duplicate-scope]) {display:none;}
+  #pane-today #gc500-work-board840 .tw848-group[open] .tw840-scope {margin:0;}
+  #pane-today #gc500-work-board840 .tw848-group[open] .tw840-top > .tw840-motion {grid-column:1;grid-row:2;justify-self:start;}
+  #pane-today #gc500-work-board840 .tw848-group[open] > .tw848-group-toggle {grid-column:2;grid-row:2;padding:0;border-bottom:0;min-height:48px;}
+ }
+}
+@media print {
+ #where885 .p907-programme > summary {display:block;list-style:none;}
+ #where885 .p907-name {display:none;}
+ #where885 .p907-programme::details-content {display:contents;}
+ #where885 .p907-body {display:block!important;}
+}

@@ -1,0 +1,9 @@
+/* Author: Andrew Fisher. Match the native planning fields, with room for explicit AM/PM. */
+select.time907{max-width:100%;min-width:0;box-sizing:border-box;font:inherit;color:var(--ink);background:var(--paper);border:1px solid var(--rule);border-radius:7px;padding:6px 8px;min-height:36px}
+select.time907:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
+.daytbl td.t select.time907{width:8.5rem;background:var(--tint2)}
+.dctd select.time907{font-size:20px;font-weight:800;letter-spacing:-.02em;border-radius:9px}
+.crew883 select.time907{width:100%;min-height:40px}
+body.viewonly select.time907[data-eta]{display:none!important}
+@media(max-width:640px){.dctd select.time907{font-size:16px}}
+@media(prefers-color-scheme:dark){.dctd select.time907{background:var(--tint2,rgba(255,255,255,.04))}}

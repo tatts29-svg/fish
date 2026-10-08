@@ -1,0 +1,84 @@
+{
+  "cells": [
+    {
+      "id": "yard",
+      "file": "aa27ccc4d1dcc5ffb5b1b547c442d5b494322db7bca5c1eed19806032ee30a0c.webp",
+      "sha256": "aa27ccc4d1dcc5ffb5b1b547c442d5b494322db7bca5c1eed19806032ee30a0c",
+      "type": "image/webp",
+      "bytes": 447988,
+      "scope": "view",
+      "width": 2164,
+      "height": 727
+    },
+    {
+      "id": "buildings",
+      "file": "f90b75df66c8959113cb0531b87f3f8181646452b3c6c2098818564bb9a3fa61.webp",
+      "sha256": "f90b75df66c8959113cb0531b87f3f8181646452b3c6c2098818564bb9a3fa61",
+      "type": "image/webp",
+      "bytes": 394034,
+      "scope": "view",
+      "width": 1672,
+      "height": 941
+    },
+    {
+      "id": "toilets",
+      "file": "37df0400c8a2076a151e8a01c02a1b26114bc14c4cc41c5e03ddeb2762b78357.webp",
+      "sha256": "37df0400c8a2076a151e8a01c02a1b26114bc14c4cc41c5e03ddeb2762b78357",
+      "type": "image/webp",
+      "bytes": 343212,
+      "scope": "view",
+      "width": 1672,
+      "height": 941
+    },
+    {
+      "id": "fencing",
+      "file": "f45a555e319cb041acff7f26336c8ec26f69720de5ee7e8d88fb6bfe27c70c18.webp",
+      "sha256": "f45a555e319cb041acff7f26336c8ec26f69720de5ee7e8d88fb6bfe27c70c18",
+      "type": "image/webp",
+      "bytes": 423522,
+      "scope": "view",
+      "width": 1672,
+      "height": 941
+    },
+    {
+      "id": "generators",
+      "file": "d7b2b4b75ec9a5d089d8b85ba79de00dc2ec7e78e64a2ab010944368993a062b.webp",
+      "sha256": "d7b2b4b75ec9a5d089d8b85ba79de00dc2ec7e78e64a2ab010944368993a062b",
+      "type": "image/webp",
+      "bytes": 390058,
+      "scope": "view",
+      "width": 1672,
+      "height": 941
+    },
+    {
+      "id": "lighting",
+      "file": "9db5898db07d53f8fca0871778e0d6aaf2575e0f62aaf21140e2d280425dc081.webp",
+      "sha256": "9db5898db07d53f8fca0871778e0d6aaf2575e0f62aaf21140e2d280425dc081",
+      "type": "image/webp",
+      "bytes": 332516,
+      "scope": "view",
+      "width": 1672,
+      "height": 941
+    },
+    {
+      "id": "vms",
+      "file": "d9902d7ed878819a81b19d79d32b4d2e587c549be2e818e904aa3a83fce3da53.webp",
+      "sha256": "d9902d7ed878819a81b19d79d32b4d2e587c549be2e818e904aa3a83fce3da53",
+      "type": "image/webp",
+      "bytes": 364300,
+      "scope": "view",
+      "width": 1672,
+      "height": 941
+    },
+    {
+      "id": "equipment",
+      "file": "1821fe8f8f6ef0fa45b21f2929061023ff856f9787e457bebc6f315ccc9bbaba.webp",
+      "sha256": "1821fe8f8f6ef0fa45b21f2929061023ff856f9787e457bebc6f315ccc9bbaba",
+      "type": "image/webp",
+      "bytes": 382176,
+      "scope": "view",
+      "width": 1672,
+      "height": 941
+    }
+  ]
+}
