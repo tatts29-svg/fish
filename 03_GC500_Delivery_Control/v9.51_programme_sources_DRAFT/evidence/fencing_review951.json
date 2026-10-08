@@ -1,0 +1,206 @@
+{
+  "author": "Andrew Fisher",
+  "source_sha256": "836a3e1036c660caa89b1b36d4b821e2f84df7a8d8b977068b13a4f07602d9db",
+  "native_write_count": 0,
+  "outside_fencing_DATA_changed": false,
+  "source_checks": 39,
+  "native_consumer_checks": 32,
+  "source_rows": 380,
+  "weekly_active_total_deltas": [
+    {
+      "sheet": "CON WK6",
+      "first_day": "2026-09-09",
+      "last_day": "2026-09-11",
+      "held_source_rows": [],
+      "changed_quantities": {},
+      "existing_plan_update_unchanged": true
+    },
+    {
+      "sheet": "CON WK5",
+      "first_day": "2026-09-14",
+      "last_day": "2026-09-18",
+      "held_source_rows": [
+        22
+      ],
+      "changed_quantities": {
+        "Crowd Control Barriers (m) \u2014 Demarcation": {
+          "before": 80.0,
+          "after": 300
+        },
+        "Temporary Fence (m) \u2014 Braced for Scrim": {
+          "before": 1031.0,
+          "after": 1170
+        },
+        "Temporary Fence (m) \u2014 Clean": {
+          "before": 917.5,
+          "after": 942.5
+        },
+        "Temporary Fence (m) \u2014 Relocation": {
+          "before": 0,
+          "after": 35
+        },
+        "Temporary Fence (m) \u2014 Removal": {
+          "before": 0,
+          "after": 20
+        },
+        "Vehicle Gates": {
+          "before": 25,
+          "after": 27
+        }
+      },
+      "existing_plan_update_unchanged": true
+    },
+    {
+      "sheet": "CON WK4",
+      "first_day": "2026-09-21",
+      "last_day": "2026-09-25",
+      "held_source_rows": [],
+      "changed_quantities": {
+        "Crowd Control Barriers (m) \u2014 Demarcation": {
+          "before": 730,
+          "after": 1432
+        },
+        "Crowd Control Barriers (m) \u2014 Event": {
+          "before": 0,
+          "after": 55
+        },
+        "Temporary Fence (m) \u2014 Braced for Scrim": {
+          "before": 476,
+          "after": 330
+        },
+        "Temporary Fence (m) \u2014 Clean": {
+          "before": 296,
+          "after": 967
+        },
+        "Temporary Fence (m) \u2014 Relocation": {
+          "before": 117,
+          "after": 162
+        },
+        "Temporary Fence (m) \u2014 Removal": {
+          "before": 0,
+          "after": 145
+        },
+        "Vehicle Gates": {
+          "before": 7,
+          "after": 5
+        }
+      },
+      "existing_plan_update_unchanged": true
+    },
+    {
+      "sheet": "CON WK3",
+      "first_day": "2026-09-28",
+      "last_day": "2026-10-02",
+      "held_source_rows": [
+        21,
+        29
+      ],
+      "changed_quantities": {},
+      "existing_plan_update_unchanged": true
+    },
+    {
+      "sheet": "CON WK2",
+      "first_day": "2026-10-05",
+      "last_day": "2026-10-09",
+      "held_source_rows": [
+        40,
+        41,
+        42,
+        43,
+        44,
+        45,
+        46
+      ],
+      "changed_quantities": {},
+      "existing_plan_update_unchanged": true
+    },
+    {
+      "sheet": "CON WK1",
+      "first_day": "2026-10-12",
+      "last_day": "2026-10-16",
+      "held_source_rows": [
+        24
+      ],
+      "changed_quantities": {
+        "Crowd Control Barriers (m) \u2014 Event": {
+          "before": 670,
+          "after": 430
+        }
+      },
+      "existing_plan_update_unchanged": true
+    },
+    {
+      "sheet": "EVENT WEEK",
+      "first_day": "2026-10-19",
+      "last_day": "2026-10-22",
+      "held_source_rows": [],
+      "changed_quantities": {},
+      "existing_plan_update_unchanged": true
+    },
+    {
+      "sheet": "DECON WK1",
+      "first_day": "2026-10-25",
+      "last_day": "2026-10-30",
+      "held_source_rows": [],
+      "changed_quantities": {
+        "Temporary Fence (m) \u2014 Removal": {
+          "before": 5026,
+          "after": 5244
+        }
+      },
+      "existing_plan_update_unchanged": true
+    },
+    {
+      "sheet": "DECON WK2",
+      "first_day": "2026-11-02",
+      "last_day": "2026-11-06",
+      "held_source_rows": [
+        65,
+        66,
+        67
+      ],
+      "changed_quantities": {
+        "Crowd Control Barriers (m) \u2014 Removal": {
+          "before": 3191,
+          "after": 3550
+        },
+        "Temporary Fence (m) \u2014 Relocation": {
+          "before": 265,
+          "after": 662
+        },
+        "Temporary Fence (m) \u2014 Removal": {
+          "before": 3597,
+          "after": 3890
+        },
+        "Vehicle Gates": {
+          "before": 0,
+          "after": 2
+        }
+      },
+      "existing_plan_update_unchanged": true
+    },
+    {
+      "sheet": "DECON WK3",
+      "first_day": "2026-11-09",
+      "last_day": "2026-11-13",
+      "held_source_rows": [
+        6
+      ],
+      "changed_quantities": {
+        "Temporary Fence (m) \u2014 Removal": {
+          "before": 2290,
+          "after": 2186
+        }
+      },
+      "existing_plan_update_unchanged": true
+    }
+  ],
+  "source_files": {
+    "fencing_README.md": "84988862312a84894ae0e6c792a522cb6e86b07ab48e0c299465d20938319694",
+    "fencing_zip951.py": "59218523fb29c3b0c3c97075f35bf93c53a5e5675f57db703e7fe225e112db5a",
+    "fencing_source951.json": "547a3443f1678bb5aa32f2b0f29b61cc32aadb6ef25241e13e6d53993048fada",
+    "fencing_notes951.js": "9ff63bb6d5680b671670c23874d1f5e976a6d5ce32d8382681dd041311767b46",
+    "fencing_extract951.py": "baf00982afb16259d8ce067aa4dee6a6b0c854143932ff8c339cb6b7d15ea147",
+    "fencing951.py": "224d0e1b9874aab1bc83c703c68d7ee6b4d997fbd53e7a22c7f4102709b72296"
+  }
+}
