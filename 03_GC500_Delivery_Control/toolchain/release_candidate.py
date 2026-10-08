@@ -5,7 +5,7 @@ import fcntl
 import hashlib
 import json
 import os
-from pathlib import Path
+from pathlib import Path, PurePosixPath
 import re
 import signal
 import subprocess
@@ -62,10 +62,96 @@ def file_hash(path):
     return digest.hexdigest()
 
 
+def machine_binding(env):
+    """Verify the exact frozen machine manifest and every local byte it declares; no network."""
+    if not env.get('MACHINE_MANIFEST'):
+        raise ValueError('browser checks require MACHINE_MANIFEST for the exact final machine set')
+    manifest_path = resolved(env['MACHINE_MANIFEST'])
+    raw = manifest_path.read_bytes()
+    manifest = json.loads(raw)
+    if manifest.get('schema') != 'gc500-machine-v1' or not isinstance(manifest.get('files'), list):
+        raise ValueError('invalid final machine manifest')
+    # Same recursive key order and UTF-8 representation used by the machine publisher/service.
+    canonical = json.dumps({k: manifest[k] for k in ('schema', 'entry', 'files')},
+                           sort_keys=True, ensure_ascii=False, separators=(',', ':')).encode('utf-8')
+    digest = hashlib.sha256(canonical).hexdigest()
+    if manifest.get('sha256') != digest:
+        raise ValueError('final machine manifest does not reproduce its claimed digest')
+    roots = {key: str(resolved(env[key])) for key in ('CODE', 'ASSETS', 'POC3D', 'MACHINE_ROOT') if env.get(key)}
+    if env.get('LOCAL') and resolved(env['LOCAL']) != resolved(env.get('CODE', '')):
+        raise ValueError('LOCAL must resolve to CODE; browser inputs must use the same bound explorer')
+    for key, root in roots.items():
+        if not Path(root).is_dir():
+            raise ValueError('missing machine input directory ' + key)
+    files = {}
+    for descriptor in manifest['files']:
+        name = descriptor.get('path') if isinstance(descriptor, dict) else None
+        if (not isinstance(name, str) or not name or '\\' in name or
+                PurePosixPath(name).is_absolute() or
+                any(part in ('', '.', '..') for part in name.split('/')) or name in files):
+            raise ValueError('invalid or duplicate machine manifest path: ' + str(name))
+        if (not re.fullmatch('[a-f0-9]{64}', str(descriptor.get('sha256', ''))) or
+                type(descriptor.get('bytes')) is not int or descriptor['bytes'] <= 0 or
+                not isinstance(descriptor.get('type'), str) or not descriptor['type']):
+            raise ValueError('invalid machine file descriptor: ' + name)
+        choices = []
+        for prefix, key in (('explorer/assets/', 'ASSETS'), ('explorer/', 'CODE'), ('poc3d/', 'POC3D')):
+            if name.startswith(prefix) and key in roots:
+                choices.append((roots[key], name[len(prefix):]))
+                break
+        if 'MACHINE_ROOT' in roots:
+            choices.append((roots['MACHINE_ROOT'], name))
+        source = None
+        for root, relative in choices:
+            proposed = Path(root) / relative
+            if not proposed.exists():
+                continue
+            target = proposed.resolve()
+            if not target.is_relative_to(Path(root)) or not target.is_file():
+                raise ValueError('machine input escapes its root or is not a file: ' + name)
+            source = target
+            break
+        if source is None:
+            raise ValueError('missing local machine file: ' + name)
+        if source.stat().st_size != descriptor['bytes'] or file_hash(source) != descriptor['sha256']:
+            raise ValueError('machine bytes differ from the frozen manifest: ' + name)
+        files[name] = dict(descriptor, source=str(source))
+    if not files or manifest.get('entry') not in files:
+        raise ValueError('machine manifest entry is missing from its files')
+    return {'schema': 'gc500-machine-inputs-v1', 'manifest': str(manifest_path),
+            'manifest_sha256': hashlib.sha256(raw).hexdigest(), 'machine_sha256': digest,
+            'roots': roots, 'files': files}
+
+
+def require_same_machine(captured, current):
+    if captured != current:
+        raise ValueError('machine inputs differ from the captured browser attempt; prepare a fresh reviewed candidate')
+
+
+def bind_browser_inputs(path, build, current):
+    """A build-only snapshot can acquire one binding; resume must match it exactly."""
+    bound = {'schema': 'gc500-browser-inputs-v1',
+             'build': {key: build[key] for key in ('candidate_sha256', 'base_sha256', 'patches', 'sources')},
+             'machine': current}
+    if path.exists():
+        previous = json.loads(path.read_text())
+        if previous != bound:
+            raise ValueError('machine/browser inputs differ from the captured browser attempt')
+    else:
+        # Exclusive creation prevents two first attempts silently rebinding the same build.
+        with path.open('x') as stream:
+            stream.write(json.dumps(bound, indent=2) + '\n')
+    return bound
+
+
 def source_binding(patches, env, extra=()):
     """Bind the selected source trees and known direct build inputs, not restored media archives."""
     files = {p.resolve() for _, p in patches}
     roots = {p.parent.resolve() for _, p in patches} | {HERE.resolve()}
+    # Owned final-candidate review suites replace stale, live-record-dependent
+    # assertions. Their source must be bound even though it is outside a draft.
+    if any(v is not None for v, _ in patches):
+        roots.add(CONTROL / 'review_08Oct2026_ready_chain/tests')
     if env.get('GC500_TOOLCHAIN'):
         roots.add(resolved(env['GC500_TOOLCHAIN']))
     for root in roots:
@@ -113,6 +199,17 @@ def validate_output(output, kind='assertions'):
         raise ValueError('reported a failed assertion or exception')
     if kind == 'command':
         return
+    if kind == 'review':
+        try:
+            data = json.loads(output.strip())
+        except json.JSONDecodeError:
+            raise ValueError('review fixture did not produce valid JSON') from None
+        if (not isinstance(data, dict) or data.get('pass') is not True or
+                data.get('sourceMatchesCandidate') is not True or
+                data.get('expected') != 'corrected behaviour' or
+                not isinstance(data.get('results'), list) or not data['results']):
+            raise ValueError('review fixture did not prove corrected behaviour against the selected source')
+        return
     if kind in ('json', 'sweep'):
         try:
             data = json.loads(output)
@@ -141,6 +238,13 @@ def validate_output(output, kind='assertions'):
             raise ValueError('browser Back did not restore Equipment')
         if data.get('counts', {}).get('blocked') != 0:
             raise ValueError('sweep did not prove zero attempted writes')
+        assets = data.get('assets', {})
+        if (not all(re.fullmatch('[a-f0-9]{64}', str(assets.get(key, '')))
+                    for key in ('machineSha256', 'manifestSha256')) or
+                type(assets.get('machineFiles')) is not int or assets['machineFiles'] < 1 or
+                type(assets.get('explorerRequests')) is not int or assets['explorerRequests'] < 1 or
+                assets.get('failures') != []):
+            raise ValueError('sweep did not prove verified local machine inputs and explorer requests')
         for errors in (data.get('allErrors'), data.get('cons'), data.get('failures')):
             if errors != []:
                 raise ValueError('sweep reported errors or omitted its error evidence')
@@ -229,8 +333,14 @@ def browser_checks(versions, snapshots, page, extra=(), regression=False):
             continue  # Replaced by the version-specific master / Lighting-basis checks below.
         for name in BROWSER[v]:
             script = CONTROL / FOLDERS[v] / 'tests' / (name + '.cjs')
-            # These tests assert their release's footer. Keep their scope explicit.
-            stage = v == 892 or 896 in versions and (v in (884, 885) or name == 'test_where885_894')
+            if name in ('test_ep886', 'test_lighting894', 'test_money892'):
+                replacement = {'test_ep886': 'test_ep886_fixtures.cjs',
+                               'test_lighting894': 'test_lighting894_verified.cjs',
+                               'test_money892': 'test_money892_pinned.cjs'}[name]
+                script = CONTROL / 'review_08Oct2026_ready_chain/tests' / replacement
+            # Scene896 deliberately supersedes the earlier banner/geometry assertions.
+            # Aplus892 accepts later footers; money checks the same pinned input on final.
+            stage = 896 in versions and (v in (884, 885) or name == 'test_where885_894')
             target = snapshots / f'v{v}.after.html' if stage else page
             environment = {'PAGE': str(target)}
             if name == 'test_money892':
@@ -238,10 +348,13 @@ def browser_checks(versions, snapshots, page, extra=(), regression=False):
             checks.append((script, environment, 'stage' if stage else 'final'))
     if 893 in versions:
         checks.append((CONTROL / 'v8.90_explorer_master_DRAFT/tests/test_explorer890.cjs', {'PAGE': str(page)}, 'final'))
+    if 896 in versions:
+        checks.append((CONTROL / FOLDERS[896] / 'tests/test_scope896.cjs', {'PAGE': str(page)}, 'final'))
     checks += [(resolved(p), {'PAGE': str(page)}, 'final') for p in extra]
     if regression:
         checks += [(CONTROL / p, {'PAGE': str(page)}, 'final') for p in REGRESSION
-                   if not (895 in versions and p.endswith('/test_v871.cjs'))]
+                   if not (895 in versions and p.endswith('/test_v871.cjs'))
+                   and not (896 in versions and p.endswith('/test_layout876.cjs'))]
     return checks
 
 
@@ -254,7 +367,7 @@ def main(argv=None):
                     help='additional direct build input file outside the captured source trees; repeat as needed')
     ap.add_argument('--label', help='new build label (must not already exist)')
     ap.add_argument('--page', type=resolved, help='check an existing candidate instead of building')
-    ap.add_argument('--snapshots', type=resolved, help='before/after directory from a previous runner build')
+    ap.add_argument('--snapshots', type=resolved, help='previous build snapshots; first browser attempt also captures its machine binding here')
     ap.add_argument('--build-only', action='store_true', help='build and static identities only; no browser checks')
     ap.add_argument('--test', action='append', default=[], help='additional final-candidate .cjs/.js assertion suite')
     ap.add_argument('--regression', action='store_true', help='also run the active standing regression set')
@@ -265,7 +378,7 @@ def main(argv=None):
     if args.timeout < 1 or args.page and args.build_only:
         ap.error('use a positive timeout, and do not combine --page with --build-only')
     if args.snapshots and not args.page:
-        ap.error('--snapshots is read-only input for --page; new builds keep snapshots under their private evidence')
+        ap.error('--snapshots is for --page; new builds keep snapshots under their private evidence')
     if not args.page and (not args.label or not re.fullmatch(r'[A-Za-z0-9][A-Za-z0-9._-]*', args.label)):
         ap.error('a new build requires a plain --label')
     patches = select_patches(args)
@@ -298,6 +411,7 @@ def main(argv=None):
                NODE_PATH=env.get('NODE_PATH') or str(HERE / 'node_modules'))
     # Relative asset/dependency paths stay tied to the caller, not the runner's cwd.
     for key in ('CODE', 'ASSETS', 'MEDIA', 'MEDIA889', 'MEDIA893', 'POC3D', 'LOCAL', 'ATLAS896',
+                'MACHINE_MANIFEST', 'MACHINE_ROOT',
                 'V895_BASEPLAN', 'V895_MATCHES', 'V882_SCHEDULE', 'GC500_TOOLCHAIN', 'CHROMIUM_PATH'):
         if env.get(key):
             env[key] = str(resolved(env[key]))
@@ -314,8 +428,10 @@ def main(argv=None):
         'v889_master': 'replaced by v893 master/alignment checks' if 893 in versions else 'selected source suite',
         'v885_basis': 'replaced by v894 Lighting-basis checks' if 894 in versions else 'selected source suite',
         'v884_v885_layout': 'stage pages; final Today layout covered by scene896' if 896 in versions else 'final page',
-        'v892': 'stage page: inherited tests assert the v8.92 footer; final sweep still required',
+        'v892': 'final page: upstream polish accepts later footer; owned money wrapper pins clock and compares identical native record content against v892.before',
         'v871': 'replaced by identity895 and final contracts895 (7 Oct export)' if 895 in versions else 'included with --regression',
+        'v876_layout': 'superseded by final scene896, scope896 and sweep geometry' if 896 in versions else 'included with --regression',
+        'v886_v894': 'owned final fixtures; source and shared operational record remain unchanged',
         'legacy_875_879': 'not in active regression set: known unchanged baseline failures documented in full-chain README',
     }
     def step(name, command, overrides=None, kind='assertions'):
@@ -352,6 +468,9 @@ def main(argv=None):
                 step('identity' + str(v), command)
         if 897 in versions:
             step('semantics897', ['node', str(CONTROL / FOLDERS[897] / 'tests/test_semantics897.cjs')])
+        if 892 in versions:
+            step('aplus892_final', ['node', str(CONTROL / 'review_08Oct2026_ready_chain/tests/repro_aplus892.cjs'),
+                                   str(page), '--expect-fixed'], kind='review')
         require_same_sources(report['sources'], source_binding(patches, env, args.source_input))
         if args.build_only:
             report['state'] = 'built; browser checks not run'
@@ -369,6 +488,20 @@ def main(argv=None):
         for key in required:
             if not env.get(key) or not Path(env[key]).is_dir():
                 raise ValueError('selected checks require the local directory ' + key)
+        report['machine'] = machine_binding(env)
+        machine_inputs = snapshots / 'machine-inputs.json'
+        bind_browser_inputs(machine_inputs, binding, report['machine'])
+        machine_inputs_sha = file_hash(machine_inputs)
+        env['MACHINE_BINDING'] = str(machine_inputs)
+        def recheck_inputs():
+            require_same_sources(report['sources'], source_binding(patches, env, args.source_input))
+            require_same_machine(report['machine'], machine_binding(env))
+            if file_hash(machine_inputs) != machine_inputs_sha:
+                raise ValueError('captured machine/browser input binding changed during checks')
+            if (file_hash(page) != report['candidate_sha256'] or
+                    file_hash(page.parent / 'base_live.html') != report['base_sha256'] or
+                    any(file_hash(snapshots / f) != digest for f, digest in binding['snapshots'].items())):
+                raise ValueError('candidate/base/stage bytes changed during checks')
         lockpath = resolved(env.get('GC500_BROWSER_LOCK', '/tmp/gc500-browser.lock'))
         lockpath.parent.mkdir(parents=True, exist_ok=True)
         with lockpath.open('a') as lock:
@@ -380,6 +513,7 @@ def main(argv=None):
                                                 'test_transport888', 'test_flow891', 'test_aplus892', 'test_scene896'):
                     devices += ['1600', '2560']
                 for device in devices:
+                    recheck_inputs()
                     name = f'{index + 1:02d}_{script.stem}_{scope}_{device}'
                     private = evidence / name
                     private.mkdir()
@@ -389,7 +523,8 @@ def main(argv=None):
                                     GC500_EDIT_TOKEN='')
                     kind = 'sweep' if script.name == 'release_sweep.cjs' else 'json' if script.stem == 'test_crew883' else 'assertions'
                     step(name, ['node', str(script)], settings, kind)
-        require_same_sources(report['sources'], source_binding(patches, env, args.source_input))
+                    recheck_inputs()
+        recheck_inputs()
         report['state'] = 'selected checks passed; review and release decision still required'
         print('Selected checks passed. No publication attempted; inspect stage/final scope in the private report.', flush=True)
         return 0
@@ -402,7 +537,10 @@ def main(argv=None):
 
 if __name__ == '__main__':
     try:
-        sys.exit(main())
+        if sys.argv[1:] == ['--verify-machine']:
+            print(json.dumps(machine_binding(os.environ)))
+        else:
+            sys.exit(main())
     except (ValueError, OSError, subprocess.TimeoutExpired) as exc:
         print('STOP: ' + str(exc), file=sys.stderr)
         sys.exit(1)

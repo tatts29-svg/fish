@@ -3,7 +3,7 @@
 // and assets, the page's new pictures and the 3D proof's files served from disk. Every write the page tries is aborted.
 //   PAGE=<v8.93 build> CODE=<v8.93 explorer code> ASSETS=<v8.93 assets> MEDIA=<v8.93 media dir> POC3D=<dir with units3d.json>
 //   OUT=<evidence dir> [MOB=1] node tests/test_align893.cjs
-const {open} = require('/home/user/fish/03_GC500_Delivery_Control/v8.90_explorer_master_DRAFT/tests/xembed890.cjs');
+const {open} = require('../../v8.90_explorer_master_DRAFT/tests/xembed890.cjs');
 const fs = require('fs'), path = require('path');
 const here = __dirname, OUT = process.env.OUT || '.'; fs.mkdirSync(OUT, {recursive: true});
 const C93 = JSON.parse(fs.readFileSync(path.join(here, '..', 'changes893.json'), 'utf8'));
@@ -40,18 +40,25 @@ function offPt(pt, boxes) {   // distance (sheet pt) from a picture fraction to 
     out.pins = Object.keys(MASTER_LOC).length; out.imgKnown = Object.values(MASTER_LOC).every(v => (v.img || []).every(sha => typeof DATA.media[sha] === 'string'));
     out.oldSheetGone = !(C93.previous_sheet_sha256 in DATA.media) && !('d0df399ee0f4adb179772cddaec164db1be0c026aac10473883d1211a5afc567' in DATA.media);
     const thumbs = {}; for (const k of ['P45', 'WC81', 'CP1', 'WC51', 'P60']) { const im = MASTER_LOC[k].img || []; thumbs[k] = [await load(DATA.media[im[0]]), await load(DATA.media[im[1]])]; } out.thumbs = thumbs;
-    const nav = {}; for (const k of ['P45', 'WC51', 'WC38', 'WC39', 'WC10', 'CP1', 'WC81', 'T0265', 'P60', 'WC48']) { const f = masterFixFor(k); nav[k] = {ll: MASTER_LOC[k].ll, fix: f ? [f.lat, f.lon] : null}; } out.nav = nav;
+    const nav = {}; for (const k of ['P45', 'WC51', 'WC38', 'WC39', 'WC10', 'CP1', 'WC81', 'T0265', 'P60', 'WC48']) { const f = masterFixFor(k); nav[k] = {ll: MASTER_LOC[k].ll, fix: f ? [f.lat, f.lon] : null, unit: MASTER_LOC[k].prec === 'unit'}; } out.nav = nav;
     const snap = gc500FencingMapSnapshot(); out.fencing = {geometry: (snap.geometry || []).length, masters: [...new Set((snap.geometry || []).map(g => String(g.master_sha256).slice(0, 12)))]};
     return out; }, {C93, SEP17});
   ok('D001 picture is the v8.93 render of the aligned scene (2600 x 1837) and the v8.89 / 17 Sep pictures left the media list', pg.sheet && pg.sheetPx && pg.sheetPx[0] === 2600 && pg.sheetPx[1] === 1837 && pg.oldSheetGone, {sheet: pg.sheet, px: pg.sheetPx, url: pg.sheetUrl.slice(-30)});
   ok('CP1, T0265 and WC81 are back on their 17 Sep positions (the inset did not move on the paper)', Object.values(pg.inset).every(x => x.back), pg.inset);
   ok('every pin picture is in the media list; close-ups 771 x 491 and context pictures 937 x 613 load', pg.imgKnown && Object.values(pg.thumbs).every(t => t[0] && t[0][0] === 771 && t[0][1] === 491 && t[1] && t[1][0] === 937 && t[1][1] === 613), {thumbs: pg.thumbs, served: mediaServed});
-  ok('navigation pins as v8.89 set them: P45, WC51, WC38, WC39 and WC10 on the 2 Oct master, every other pin as live (masterFixFor = ll)', Object.entries(pg.nav).every(([k, v]) => v.fix && v.fix[0] === v.ll[0] && v.fix[1] === v.ll[1]) && MOVED.every(k => JSON.stringify(pg.nav[k].ll) === JSON.stringify(C89.master_loc[k].ll)), pg.nav);
+  ok('navigation pins as v8.89 set them: P45, WC51, WC38, WC39 and WC10 on the 2 Oct master, every other pin as live (masterFixFor = ll for every unit-tagged pin; T0265 is a label, not a tag, so it has no master fix, as on live)', Object.entries(pg.nav).every(([k, v]) => v.unit ? (v.fix && v.fix[0] === v.ll[0] && v.fix[1] === v.ll[1]) : v.fix === null) && MOVED.every(k => JSON.stringify(pg.nav[k].ll) === JSON.stringify(C89.master_loc[k].ll)), pg.nav);
   ok('page-side fencing geometry still binds to the 17 Sep frame (37792f0a...)', pg.fencing.geometry > 0 && pg.fencing.masters.length === 1 && pg.fencing.masters[0] === '37792f0a9d32', pg.fencing);
   // ---- 2. the MASTER sheet: every marker where the page draws it, read against the 2 Oct tags
   await p.evaluate(() => { go('map'); state.sheet = 'MASTER'; state.zoom = 1; state.ox = 0; state.oy = 0; renderMap(); }); await p.waitForTimeout(MOB ? 3500 : 2500);
-  const readMarkers = () => p.evaluate(() => { const out = {}; document.querySelectorAll('#pane-map button.mk[data-label]').forEach(b => { const lab = b.dataset.label; const fx = parseFloat(b.style.left) / 100, fy = parseFloat(b.style.top) / 100; const r = b.getBoundingClientRect(); const par = b.offsetParent ? b.offsetParent.getBoundingClientRect() : null;
-      out[lab] = out[lab] || []; out[lab].push({fx, fy, shown: r.width > 0, dom: par && par.width > 0 ? [(r.left + r.width / 2 - par.left) / par.width, (r.top + r.height / 2 - par.top) / par.height] : null, cls: b.className}); }); return {sheet: state.sheet, markers: out}; });
+  // the map keeps every marker as a floater: after layout it is positioned by transform (translate(X px, Y px) on the overlay,
+  // then translate(-50%,-50%)), so the template's left/top % are stale. With zoom 1 and no offset, X = fx * stage width and
+  // Y = fy * stage width * picture ratio (2600 x 1837). The bounding box gives an independent reading of the same position.
+  const readMarkers = () => p.evaluate(() => { const out = {}; const RATIO = 1837 / 2600, TR = /translate\(\s*(-?[\d.]+)px,\s*(-?[\d.]+)px\)/;
+    document.querySelectorAll('#pane-map button.mk[data-label]').forEach(b => { const lab = b.dataset.label; const r = b.getBoundingClientRect(); const op = b.offsetParent; const par = op ? op.getBoundingClientRect() : null;
+      const tr = TR.exec(b.style.transform || ''), ptr = op ? TR.exec(op.style.transform || '') : null; let fx, fy, how;
+      if (tr && par && par.width > 0) { const X = parseFloat(tr[1]) + (ptr ? parseFloat(ptr[1]) : 0), Y = parseFloat(tr[2]) + (ptr ? parseFloat(ptr[2]) : 0); fx = X / par.width; fy = Y / (par.width * RATIO); how = 'transform'; }
+      else { fx = parseFloat(b.style.left) / 100; fy = parseFloat(b.style.top) / 100; how = 'style'; }
+      out[lab] = out[lab] || []; out[lab].push({fx, fy, how, shown: r.width > 0, dom: par && par.width > 0 ? [(r.left + r.width / 2 - par.left) / par.width, (r.top + r.height / 2 - par.top) / (par.width * RATIO)] : null, cls: b.className}); }); return {sheet: state.sheet, markers: out}; });
   const master = await readMarkers(); await shot('master_sheet');
   const tagPins = Object.entries(C89.master_loc).map(([k]) => k);
   const refs = {}; const allTag = await p.evaluate(() => Object.entries(MASTER_LOC).filter(([k, v]) => String(v.how || '').startsWith('tag on the unit')).map(([k]) => k).sort());
@@ -65,10 +72,10 @@ function offPt(pt, boxes) {   // distance (sheet pt) from a picture fraction to 
     const off = boxes.length ? offPt([m.fx, m.fy], boxes) : null;
     if (m.dom) { domSeen++; if (Math.abs(m.dom[0] - m.fx) < 0.004 && Math.abs(m.dom[1] - m.fy) < 0.004) domAgree++; }
     refs[k] = {marker: [m.fx, m.fy], sheet_pt: [Math.round(m.fx * PW * 10) / 10, Math.round(m.fy * PH * 10) / 10], label_boxes: boxes.length, off_pt: off === null ? null : Math.round(off * 100) / 100, off_m: off === null ? null : Math.round(off * M_PER_PT * 10) / 10,
-      on_label: off !== null ? off <= 1.0 : null, tag: isTag, matches_data: Math.abs(m.fx - info.pt[0]) < 1e-5 && Math.abs(m.fy - info.pt[1]) < 1e-5, drawn: m.shown};
+      on_label: off !== null ? off <= 1.0 : null, tag: isTag, read: m.how, matches_data: Math.abs(m.fx - info.pt[0]) < 1e-4 && Math.abs(m.fy - info.pt[1]) < 1e-4, drawn: m.shown};
   }
   const tagRefs = Object.entries(refs).filter(([k, r]) => r.tag && r.label_boxes > 0 && k !== 'WC32');
-  ok(`MASTER markers sit exactly where MASTER_LOC puts them (${checkList.length} references read from the DOM)`, Object.values(refs).every(r => !r.missing && r.matches_data), Object.fromEntries(Object.entries(refs).filter(([k, r]) => r.missing || !r.matches_data)));
+  ok(`MASTER markers sit where MASTER_LOC puts them, within 0.3 px of the 2600 px picture (${checkList.length} references read from the page's own layout)`, Object.values(refs).every(r => !r.missing && r.matches_data), Object.fromEntries(Object.entries(refs).filter(([k, r]) => r.missing || !r.matches_data)));
   ok(`every checked tag pin is on its 2 Oct tag (${tagRefs.length} with a tag: the inset pins, the flagged set, the moved set and every 9th tag pin)`, tagRefs.every(([k, r]) => r.on_label), Object.fromEntries(tagRefs.filter(([k, r]) => !r.on_label)));
   ok('the inset cluster: WC81 on its tag, P68 tag beside it, CP1 (leader line from D022, no tag) and T0265 (OP42 label) back where the 17 Sep issue had them', refs.WC81 && refs.WC81.on_label && offPt(refs.WC81.marker, labelBoxes('P68')) < 15 && offPt(refs.T0265.marker, labelBoxes('OP42')) <= 1.0 && refs.CP1 && refs.CP1.matches_data, {WC81: refs.WC81, CP1: refs.CP1, T0265: refs.T0265, P68_from_WC81_pt: Math.round(offPt(refs.WC81.marker, labelBoxes('P68')) * 10) / 10});
   ok('the first diff\'s flagged references (P60, P62, P63, WC48, WC49, WC51, WC81) each sit on their 2 Oct tag', FLAGGED.every(k => refs[k] && refs[k].on_label), Object.fromEntries(FLAGGED.map(k => [k, refs[k]])));

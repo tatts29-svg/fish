@@ -33,7 +33,29 @@ s = rep(s, """<input id="drv782n" autocomplete="name" placeholder="Your name" va
         """<input id="drv782n" autocomplete="name" placeholder="First and last name" value="'+esc(flow891FullName(name)?name:(flow891FullName(S.operator||'')?String(S.operator).trim():name))+'"><small>Your first and last name and the time print on every sheet (Checked by · Printed by). Manual check; no slot or crew reservation.</small>""",
         'check dialog: name field', str(p))
 
-# 3. style before the first </head>, script before the last </body> (every function it wraps is defined by then)
+# 3. Keep the native daily-run model's exact stable load identity through filtering and ordering.
+# Matching references, times or array positions cannot distinguish two trucks carrying the same reference.
+s = rep(s, "loads:groups.map((g,i)=>({n:i+1,iso,time:g.time||'',carrier:g.carrier||'',",
+        "loads:groups.map((g,i)=>({id:ldId(clean,g),n:i+1,iso,time:g.time||'',carrier:g.carrier||'',",
+        'daily run: stable load identity', str(p))
+
+# 3a. Only this exact new metadata schema bypasses the legacy day#number load-key rule.
+# Existing Crew/day-order import compatibility is a separate pre-existing issue.
+legacy_load = " if (!/^\\d{4}-\\d{2}-\\d{2}#\\d{1,4}$/.test(id)) bad.push('load ' + id + ' is not a load id (a day and a number)');"
+window_load = r""" const window891 = /^flow891\/(\d{4}-\d{2}-\d{2})\/window\/(.+)$/.exec(id);
+ if (window891) {
+  const fields = ['kind', 'day', 'ref', 'loadId', 'start', 'finish', 'by', 'at'];
+  let encoded891 = null; if (typeof r.loadId === 'string') { try { encoded891 = encodeURIComponent(r.loadId); } catch (e) {} }
+  const ident = encoded891 != null && typeof r.loadId === 'string' && r.loadId.startsWith(window891[1] + '|deliveries|') && r.loadId.length > 22 && !/[\u0000-\u001f\u007f]/.test(r.loadId);
+  const times = typeof r.start === 'string' && typeof r.finish === 'string' && /^\d{2}:[0-5]\d$/.test(r.start) && /^\d{2}:[0-5]\d$/.test(r.finish) && hhmm782(r.start) != null && hhmm782(r.finish) != null && hhmm782(r.finish) > hhmm782(r.start);
+  if (r.kind !== 'flow891' || r.ref !== '' || r.day !== window891[1] || !day(r.day) || !ident || (ident && encoded891 !== window891[2]) || docIdOf(id).length >= 180 || !times || typeof r.by !== 'string' || !r.by.trim() || typeof r.at !== 'string' || !iso(r.at) || Object.keys(r).some(k => !fields.includes(k))) bad.push('load ' + id + ' is not a valid Truck flow window');
+  text(r.loadId, 'load ' + id + ' identity'); text(r.by, 'load ' + id + ' by');
+  return;
+ }
+""" + legacy_load
+s = rep(s, legacy_load, window_load, 'record import: validated load window metadata', str(p))
+
+# 4. style before the first </head>, script before the last </body> (every function it wraps is defined by then)
 s = s.replace('</head>', '<style id="flow891-style">' + (here / 'flow891.css').read_text() + '</style>\n</head>', 1)
 js = (here / 'flow891_src.js').read_text()
 assert '</script' not in js

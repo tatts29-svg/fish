@@ -2,8 +2,13 @@
 // machine has. Static GETs (pictures, tiles, the page's own files) are cached on disk to keep a sweep quick; anything
 // under /api/ is always fetched fresh. Set GC500_CACHE to move the cache; delete it to start clean.
 const {execFile} = require('child_process'), fs = require('fs'), path = require('path'), os = require('os'), crypto = require('crypto');
+const resolveCandidateMedia = require('./candidate_media.cjs').fromEnvironment();
 const CACHE = process.env.GC500_CACHE || path.join(os.tmpdir(), 'gc500-fetch-cache'); fs.mkdirSync(CACHE, {recursive: true}); let n = 0;
 function curlFetch(url, headers, method, body) {
+  // Resolve reviewed candidate pictures before disk/network cache, including the initial page load.
+  // Both open_page and xembed use this route; APIs and non-GET requests bypass it.
+  try { const local = resolveCandidateMedia(url, headers, method); if (local) return Promise.resolve(local); }
+  catch (error) { if (error.code === 'GC500_CANDIDATE_MEDIA') console.error('FAIL candidate media: ' + error.message); return Promise.reject(error); }
   const cacheable = method === 'GET' && !/\/api\/|createSession|session=|googleapis\.com|\/v\/Coates-GC500-2026\/?(\?|#|$)|\/e\//.test(url), key = crypto.createHash('sha1').update(url).digest('hex'), cf = path.join(CACHE, key);
   if (cacheable && fs.existsSync(cf + '.json')) return Promise.resolve({...JSON.parse(fs.readFileSync(cf + '.json', 'utf8')), body: fs.readFileSync(cf + '.body')});
   const id = ++n, hf = path.join(os.tmpdir(), 'gc_h' + process.pid + '_' + id), bf = path.join(os.tmpdir(), 'gc_b' + process.pid + '_' + id);
@@ -20,6 +25,6 @@ function curlFetch(url, headers, method, body) {
    failed - otherwise a sweep reports the test rig's network as a fault in the page */
 const once = curlFetch;
 function curlFetchRetry(url, headers, method, body) {
-  return once(url, headers, method, body).catch(e => method === 'GET' ? new Promise(r => setTimeout(r, 700)).then(() => once(url, headers, method, body)) : Promise.reject(e));
+  return once(url, headers, method, body).catch(e => method === 'GET' && e.code !== 'GC500_CANDIDATE_MEDIA' ? new Promise(r => setTimeout(r, 700)).then(() => once(url, headers, method, body)) : Promise.reject(e));
 }
 module.exports = {curlFetch: curlFetchRetry};

@@ -1,12 +1,13 @@
 #!/usr/bin/env python3
 """Author: Andrew Fisher. One registration of the machine set carrying v8.87 (explorer fixes), v8.90 (the explorer draws the
 2 Oct master) and v8.93 (the page and the explorer place every pin the same way on that drawing): the patched explorer code,
-the v8.90 drawing assets, and the v8.93 files laid over them (plan_items.json from the v8.93 page, poc3d/units3d.json with
+the v8.93 drawing assets (the whole explorer asset set: archive/assets893.tar, untarred), and the v8.93 files laid over them (plan_items.json from the v8.93 page, poc3d/units3d.json with
 WC10 added, the explorer README). Every other file of the set stays exactly as it is. Guarded, and GET-only unless asked to
 publish.
 
     python3 publish_machine893.py --base-manifest <json of the set that is live now> --code <patched explorer code folder>
-        --assets <v8.90 assets folder> --over <v8.93 assets_small folder> [--readme <explorer README.md>] --dry-run
+        --assets <v8.93 assets folder: archive/assets893.tar untarred> --over <v8.93 assets_small folder> [--readme <explorer README.md>]
+        --expect-candidate 96dee047a785117e0f96aa1365a391d38a72904c42c67dcd76e6bc7ca40325da --dry-run
     ... the same without --dry-run                                        # uploads the new blobs, registers, reads back
 
 In the admin page's order (server v5.87, gc500-machine-v1):
@@ -20,6 +21,9 @@ In the admin page's order (server v5.87, gc500-machine-v1):
   4. (publish only) PUT each new blob under its SHA-256, POST the manifest, read back /api/machine and GET each changed public
      asset to prove the bytes; writes a private publication893.json beside --over.
 The edit key is read from GC500_EDIT_TOKEN and never printed, logged or written. No operational record is touched.
+Fails closed (Codex review, 8 Oct 2026): a missing or stale --assets folder is refused before any plan is made; every file the
+published tile manifest (vt/manifest.json) and the scene reference must be in the candidate set; and with --expect-candidate the
+candidate digest must equal the reviewed one (96dee047, the set in evidence/candidate_manifest893.json), or nothing proceeds.
 """
 import argparse, hashlib, json, os, sys, time, urllib.error, urllib.request
 from pathlib import Path
@@ -51,6 +55,10 @@ def call(method, path, body=None, ctype='application/json', token=None, timeout=
 
 def plan(base_manifest, code, assets, over, readme=None):
     """the candidate manifest and the local bytes of every new blob; pure, no network"""
+    for name, folder in (('--code', code), ('--assets', assets), ('--over', over)):
+        if not Path(folder).is_dir(): sys.exit(name + ' is not a folder: ' + str(folder))
+    if not (Path(assets) / 'drawing-scene.bin').is_file() or not (Path(assets) / 'vt').is_dir():
+        sys.exit('--assets is not the v8.93 asset set (no drawing-scene.bin or vt/): untar archive/assets893.tar')
     base = json.loads(Path(base_manifest).read_text())
     if digest_of(base['entry'], base['files']) != base['sha256']: sys.exit('the base manifest does not reproduce its own digest')
     files = {f['path']: dict(f) for f in base['files']}; local = {}
@@ -72,6 +80,15 @@ def plan(base_manifest, code, assets, over, readme=None):
             put(rel, p.read_bytes())
         else: put('explorer/assets/' + rel, p.read_bytes())
     if readme: put('explorer/README.md', Path(readme).read_bytes())
+    # the reference closure: every file the published tile manifest names, and the scene it is cut from, is in the set
+    vt = json.loads(local['explorer/assets/vt/manifest.json']) if 'explorer/assets/vt/manifest.json' in local else None
+    if vt is None: sys.exit('the v8.93 tile manifest (vt/manifest.json) is not in the --over folder')
+    need = sorted({'explorer/assets/vt/' + L['file'] for L in vt.get('levels', []) if L.get('file')} | {'explorer/assets/drawing-scene.bin'})
+    missing = [r for r in need if r not in files]
+    if missing: sys.exit('the tile manifest names files the set does not carry (stale or incomplete --assets): ' + ', '.join(missing[:6]) + (' and %d more' % (len(missing) - 6) if len(missing) > 6 else ''))
+    scene_tag = vt.get('levels', [{}])[0].get('file', '').rsplit('-', 1)[-1].split('.')[0]
+    if scene_tag and not files['explorer/assets/drawing-scene.bin']['sha256'].startswith(scene_tag):
+        sys.exit('drawing-scene.bin is not the scene the tiles were cut from (' + scene_tag + ')')
     arr = [files[p] for p in sorted(files)]
     total = sum(f['bytes'] for f in arr)
     if len(arr) > MAX_FILES or total > MAX_TOTAL: sys.exit(f'set too large: {len(arr)} files, {total / 1048576:.1f} MB')
@@ -92,8 +109,12 @@ def main():
     ap.add_argument('--base-manifest', required=True); ap.add_argument('--code', required=True); ap.add_argument('--assets', required=True); ap.add_argument('--over', required=True)
     ap.add_argument('--readme'); ap.add_argument('--dry-run', action='store_true'); ap.add_argument('--write-manifest'); ap.add_argument('--write-changes')
     ap.add_argument('--offline', action='store_true', help='plan only: no network at all')
+    ap.add_argument('--expect-candidate', help='the reviewed candidate digest; anything else stops before any network call')
     a = ap.parse_args()
     base, manifest, local, delta = plan(a.base_manifest, a.code, a.assets, a.over, a.readme)
+    if a.expect_candidate and manifest['sha256'] != a.expect_candidate:
+        sys.exit(f"STOP: the candidate is {manifest['sha256'][:12]}, not the reviewed {a.expect_candidate[:12]} - check --assets, --over and --code")
+    if not a.offline and not a.expect_candidate: sys.exit('give --expect-candidate (the reviewed digest) before any network step')
     print(f"base set {base['sha256'][:12]} ({len(base['files'])} files) -> candidate {manifest['sha256'][:12]}: {delta['files']} files, {delta['bytes']:,} bytes")
     print(f"  changed {len(delta['changed'])}, added {len(delta['added'])}, removed {len(delta['removed'])}, same bytes {len(delta['same_bytes'])}; new blobs to send: {len([p for p in local if p in delta['changed'] or p in delta['added']])}")
     if a.write_manifest: Path(a.write_manifest).write_text(json.dumps(manifest, indent=1)); print('candidate manifest written', a.write_manifest)

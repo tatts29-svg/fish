@@ -2,7 +2,33 @@
 
 Author: Andrew Fisher.
 
-## Current integrated build review — 8 Oct 2026 AEST
+## Current integration scope — 8 Oct 2026 AEST
+
+The contract-by-contract audit is parked. The selected chain omits v8.95:
+`884,885,886,887,888,889,893,894,891,892,896,897`. The current live contract source is retained; this upgrade does not
+claim to resolve or apply the private contract review. See [6049184259](https://github.com/tatts29-svg/fish/pull/1#issuecomment-6049184259).
+
+Claude adopted the correction proposals at `460e886`, supplied the exact archive at `5049776`, corrected the inherited
+891/892/893 tests at `72bd6678`, and fixed Lighting terminology at `697746c3`. Those changes are imported for review;
+Claude's frozen READY handover remains required before publication. The archive dependency is resolved: exact tar
+`7a1825ddd095de84f0020aa5e1911a675ae9583904c404dfdf450e71713ab4b2`, all 93 explorer asset descriptors verified.
+The v8.93 offline machine plan reproduces `96dee047a785117e0f96aa1365a391d38a72904c42c67dcd76e6bc7ca40325da`.
+With v8.97 completion code, the final 233-file machine plan is `cd05e73e45b7c5afe1add67e12f595591ecc19c1e5adda3ccc4c9a948e0a6a49`.
+All files are present locally and match their descriptor SHA and byte lengths.
+
+The shared runner now binds all machine bytes and selected source/test inputs through each test and final navigation
+sweep. Candidate media is resolved and checked before the first page load. The publication wrapper in `publication/`
+stages content-addressed blobs separately and checks the full frozen manifest metadata before registration. Its 11
+mock-network tests pass; the media resolver's 15 network-free tests pass. Neither test publishes anything.
+
+A preceding combined page `fac3f01c…` passed phone Today/weather 40/40, phone final map completion 12/12,
+transport 29/29 at four sizes, and the native correction fixtures. Its first alignment run stopped on stale test position
+readings and unavailable candidate image routes. These test-harness findings are corrected; final selected-source checks
+must be rerun. The prior page included v8.95 and is not the release selected above.
+
+No READY or LIVE declaration is made here. Evidence and screenshots containing operational data remain private.
+
+## Earlier integrated build review — 8 Oct 2026 AEST
 
 Andrew directly asked Codex to help with implementation and the build. Claude transferred v8.96/v8.97 in
 [6045839392](https://github.com/tatts29-svg/fish/pull/1#issuecomment-6045839392), updated 7 Oct 20:04:09 UTC.

@@ -1,6 +1,6 @@
 # v8.92 — the A+ pass: smooth, fast, easy to get around, the right words
 
-Author: Andrew Fisher. Built 8 Oct 2026. **DRAFT — ready to upload once the lead has the edit key** (see the results table at the end).
+Author: Andrew Fisher. Built 8 Oct 2026. **DRAFT.** It goes up as part of the combined handover; Codex does the independent review, publication and public readback (see the results table at the end).
 
 Andrew, 8 Oct 2026 about 03:40 AEST: *"This need to be all A+ class perfection. Every look. Every movement. Smooth. Fast. No lag.
 Navigation needs to be easy. Terminology needs to be correct with words in every part."* And at 04:00 on what good looks like:
@@ -95,6 +95,14 @@ loading lines (2.9:1).
   "Subhired", the Demob run sheets' "Sub-hire", "oversize" in the sign-off and the crew category, and two orange-on-white links
   in the loading lines.
 
+## Correction after Codex's review (8 Oct 2026, adopted unchanged)
+
+Codex found two faults ([PR 6046421286](https://github.com/tatts29-svg/fish/pull/1#issuecomment-6046421286)) and supplied the fix (`v892-correction.patch`), adopted unchanged:
+- **The group lights after a Today redraw.** A shortcut skipped the controls when "the same card" was still running, but a redraw replaces the card. The new card showed Play and lacked the running look while the motion still ran. The shortcut is gone, and the controls are rewritten on every check.
+- **A scroll from the last tab.** A delayed scroll restore from the previous tab could scroll the new tab as it grew. Any pending restore is now cancelled on a new render, on Back, on a link change, on page hide, on print and on resize, and it checks that the tab and pane are still the ones it captured before it writes.
+
+Checked with Codex's fixture `repro_aplus892.cjs --expect-fixed`: pass. The combined suite re-runs `test_aplus892.cjs` and `test_money892.cjs`.
+
 ## For Andrew
 
 1. The Map explorer tab's sheet button (and the machine's page) say **Plan on satellite**; the tab says **Map explorer**. One
@@ -119,3 +127,8 @@ release's, so its overrides land last), and proves DATA and MASTER_LOC are the o
 ## Results
 
 [filled in below once every run is in]
+
+**A note on `ep886` (Event Portables load days):** on 8 Oct from about 05:30 AEST it reads 24/31 on this build **and the same
+24/31 on the base chain**, with the same seven lines (WC57, WC67 and T0089). The live record moved between the full-chain run
+and this one — a day recorded on the record wins over the plan, which is v8.86's rule — so the difference is the record, not the
+release (`evidence/tests/ep886_base_laptop.log` beside the candidate's log).

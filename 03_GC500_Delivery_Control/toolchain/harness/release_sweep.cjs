@@ -6,18 +6,82 @@ const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
 const crypto = require('node:crypto');
-const {open} = require('./open_page');
 
 const CONTROL = path.resolve(__dirname, '../..');
 const HOST = 'https://gc500-production.up.railway.app';
 const VIEW = '/v/Coates-GC500-2026/';
 const EXPLORER = '/w/Coates-GC500-2026/explorer/';
+const MACHINE = '/w/Coates-GC500-2026/';
 const MEDIA = '/m/Coates-GC500-2026/';
 const POC_UNITS = '/w/Coates-GC500-2026/poc3d/units3d.json';
 const TYPES = {'.html': 'text/html; charset=utf-8', '.js': 'text/javascript; charset=utf-8',
   '.css': 'text/css; charset=utf-8', '.json': 'application/json; charset=utf-8',
   '.bin': 'application/octet-stream', '.webp': 'image/webp', '.png': 'image/png', '.jpg': 'image/jpeg'};
 const sha256 = body => crypto.createHash('sha256').update(body).digest('hex');
+
+function prepareMachine(environment) {
+  assert.ok(environment.MACHINE_MANIFEST, 'MACHINE_MANIFEST must name the exact final machine set');
+  const manifestPath = fs.realpathSync(environment.MACHINE_MANIFEST);
+  const raw = fs.readFileSync(manifestPath);
+  const manifest = JSON.parse(raw);
+  assert.equal(manifest.schema, 'gc500-machine-v1', 'Invalid machine manifest schema');
+  assert.ok(Array.isArray(manifest.files), 'Invalid machine file list');
+  const canonical = value => Array.isArray(value) ? '[' + value.map(canonical).join(',') + ']'
+    : value !== null && typeof value === 'object'
+      ? '{' + Object.keys(value).sort().map(key => JSON.stringify(key) + ':' + canonical(value[key])).join(',') + '}'
+      : JSON.stringify(value);
+  const digest = sha256(Buffer.from(canonical({schema: manifest.schema, entry: manifest.entry, files: manifest.files})));
+  assert.equal(manifest.sha256, digest, 'Machine manifest does not reproduce its claimed digest');
+  const roots = {};
+  for (const key of ['CODE', 'ASSETS', 'POC3D', 'MACHINE_ROOT']) {
+    if (environment[key]) {
+      roots[key] = fs.realpathSync(environment[key]);
+      assert.ok(fs.statSync(roots[key]).isDirectory(), key + ' must be a directory');
+    }
+  }
+  if (environment.LOCAL) assert.equal(fs.realpathSync(environment.LOCAL), roots.CODE, 'LOCAL must resolve to CODE');
+  const files = {};
+  for (const descriptor of manifest.files) {
+    const name = descriptor && descriptor.path;
+    assert.ok(typeof name === 'string' && name && !name.includes('\\') &&
+      !name.split('/').some(part => !part || part === '.' || part === '..') &&
+      !Object.hasOwn(files, name), 'Invalid or duplicate machine manifest path');
+    assert.ok(/^[a-f0-9]{64}$/.test(descriptor.sha256) && Number.isSafeInteger(descriptor.bytes) &&
+      descriptor.bytes > 0 && typeof descriptor.type === 'string' && descriptor.type,
+      'Invalid machine descriptor: ' + name);
+    const choices = [];
+    for (const [prefix, key] of [['explorer/assets/', 'ASSETS'], ['explorer/', 'CODE'], ['poc3d/', 'POC3D']]) {
+      if (name.startsWith(prefix) && roots[key]) { choices.push([roots[key], name.slice(prefix.length)]); break; }
+    }
+    if (roots.MACHINE_ROOT) choices.push([roots.MACHINE_ROOT, name]);
+    let source;
+    for (const [root, relative] of choices) {
+      if (fs.existsSync(path.resolve(root, relative))) { source = localFile(root, relative); break; }
+    }
+    assert.ok(source, 'Missing local machine file: ' + name);
+    // Define a data property even for a literal __proto__ filename.
+    Object.defineProperty(files, name, {value: {...descriptor, source}, enumerable: true});
+    machineAsset({files}, name);
+  }
+  assert.ok(Object.hasOwn(files, manifest.entry), 'Machine entry is missing from its files');
+  const binding = {schema: 'gc500-machine-inputs-v1', manifest: manifestPath,
+    manifest_sha256: sha256(raw), machine_sha256: digest, roots, files};
+  if (environment.MACHINE_BINDING) {
+    const captured = JSON.parse(fs.readFileSync(environment.MACHINE_BINDING, 'utf8'));
+    assert.equal(captured.schema, 'gc500-browser-inputs-v1', 'Unknown browser-input binding');
+    assert.deepEqual(binding, captured.machine, 'Machine inputs changed since the captured browser attempt');
+  }
+  return binding;
+}
+
+function machineAsset(binding, name) {
+  const descriptor = Object.hasOwn(binding.files, name) && binding.files[name];
+  assert.ok(descriptor, 'Machine dependency is absent from the frozen manifest: ' + name);
+  const body = fs.readFileSync(descriptor.source);
+  assert.equal(body.length, descriptor.bytes, 'Wrong machine asset length: ' + name);
+  assert.equal(sha256(body), descriptor.sha256, 'Wrong machine asset SHA-256: ' + name);
+  return {body, type: descriptor.type};
+}
 
 function candidateData(filename) {
   const match = /const DATA = (\{.*?\});\r?\n/s.exec(fs.readFileSync(filename, 'utf8'));
@@ -48,6 +112,7 @@ function verifiedFile(root, descriptor) {
 }
 
 function prepareAssets(pageFile, environment) {
+  const machine = prepareMachine(environment);
   const candidate = candidateData(pageFile);
   const base = candidateData(path.join(path.dirname(pageFile), 'base_live.html'));
   const read = relative => JSON.parse(fs.readFileSync(path.join(CONTROL, relative), 'utf8'));
@@ -107,7 +172,7 @@ function prepareAssets(pageFile, environment) {
     }
     poc = {body, type: TYPES['.json']};
   }
-  return {code, assets, media, poc, tileFiles: tiles.size};
+  return {code, assets, media, poc, machine, tileFiles: tiles.size};
 }
 
 async function fulfillLocal(route, asset) {
@@ -128,7 +193,9 @@ async function fulfillLocal(route, asset) {
 
 async function installAssets(session, assets, result) {
   result.assets = {newMedia: assets.media.size, tileFiles: assets.tileFiles,
-    explorerRequests: 0, mediaRequests: 0, pocRequests: 0, failures: []};
+    machineSha256: assets.machine.machine_sha256, manifestSha256: assets.machine.manifest_sha256,
+    machineFiles: Object.keys(assets.machine.files).length,
+    machineRequests: 0, explorerRequests: 0, mediaRequests: 0, pocRequests: 0, failures: []};
   const cache = new Map();
   await session.page.context().route(HOST + '/**', async route => {
     const request = route.request();
@@ -136,23 +203,24 @@ async function installAssets(session, assets, result) {
     try {
       relative = decodeURIComponent(new URL(request.url()).pathname);
       const explorer = relative.startsWith(EXPLORER);
+      const machine = relative.startsWith(MACHINE) || relative === MACHINE.slice(0, -1);
       const media = assets.media.get(relative);
       const poc = relative === POC_UNITS && assets.poc;
-      if (!explorer && !media && !poc) return route.fallback();
+      if (!machine && !media) return route.fallback();
       if (request.method() !== 'GET') {
         session.counts.blocked++;
         return route.abort('blockedbyclient');
       }
-      let asset = media || poc;
-      if (explorer) {
-        const file = relative.slice(EXPLORER.length) || 'index.html';
-        const filename = file.startsWith('assets/')
-          ? localFile(assets.assets, file.slice(7)) : localFile(assets.code, file);
-        if (!cache.has(filename)) cache.set(filename, {body: fs.readFileSync(filename), type: TYPES[path.extname(filename)]});
-        asset = cache.get(filename);
-        result.assets.explorerRequests++;
-      } else if (media) result.assets.mediaRequests++;
-      else result.assets.pocRequests++;
+      let asset = media;
+      if (machine) {
+        let file = relative.slice(MACHINE.length);
+        if (!file || file.endsWith('/')) file += 'index.html';
+        if (!cache.has(file)) cache.set(file, machineAsset(assets.machine, file));
+        asset = cache.get(file);
+        result.assets.machineRequests++;
+        if (explorer) result.assets.explorerRequests++;
+        if (poc) result.assets.pocRequests++;
+      } else result.assets.mediaRequests++;
       return await fulfillLocal(route, asset);
     } catch (error) {
       const failure = {asset: relative || 'invalid local asset URL', message: String(error.message || error)};
@@ -205,13 +273,14 @@ function tabHashMatches(tab, hash) {
   return hash === '#' + (ALIASES[tab] || tab);
 }
 
-(async () => {
+async function main() {
   const result = {
     author: 'Andrew Fisher', mobile: !!process.env.MOB,
     tabs: {}, hashes: {}, back: null, counts: null,
     allErrors: [], cons: [], failures: [], success: false
   };
   let session;
+  let assets;
   let stage = 'open';
   const check = (condition, message) => {
     if (!condition) result.failures.push(message);
@@ -223,8 +292,9 @@ function tabHashMatches(tab, hash) {
     assert.ok(process.env.PAGE, 'PAGE must name the local release candidate');
     assert.ok(fs.statSync(process.env.PAGE).isFile(), 'PAGE must be a file');
     stage = 'local asset preflight';
-    const assets = prepareAssets(process.env.PAGE, process.env);
+    assets = prepareAssets(process.env.PAGE, process.env);
     stage = 'open';
+    const {open} = require('./open_page');
     session = await open(result.mobile
       ? {pageFile: process.env.PAGE, W: 390, H: 844, dpr: 2, mobile: true}
       : {pageFile: process.env.PAGE, W: 1440, H: 900});
@@ -316,6 +386,12 @@ function tabHashMatches(tab, hash) {
       result.allErrors = [...session.errors];
       result.counts = {...session.counts};
     }
+    if (assets) {
+      stage = 'final machine input check';
+      try {
+        assert.deepEqual(prepareMachine(process.env), assets.machine, 'Machine inputs changed during the sweep');
+      } catch (error) { recordException(error); }
+    }
     check(Object.keys(result.tabs).length === TABS.length, 'All 21 tab routes must complete');
     check(Object.keys(result.hashes).length === HASHES.length, 'All seven deep links must complete');
     check(result.back !== null, 'Browser Back check must complete');
@@ -326,7 +402,10 @@ function tabHashMatches(tab, hash) {
     process.stdout.write(JSON.stringify(result) + '\n');
   }
   assert.equal(result.success, true, 'Release sweep failed; see the JSON failures, allErrors and cons');
-})().catch(error => {
+}
+
+module.exports = {prepareMachine, machineAsset, installAssets};
+if (require.main === module) main().catch(error => {
   process.stderr.write(String(error.stack || error) + '\n');
   process.exitCode = 1;
 });

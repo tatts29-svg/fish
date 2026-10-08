@@ -32,19 +32,7 @@ s = rep(s, marks[0], ' · v8.92', 'release footer', str(p))
 s = rep(s, "window.addEventListener('scroll', checkMotion, {passive:true, capture:true});",
         "window.addEventListener('scroll', (() => { let f = 0; return () => { if (!f) f = requestAnimationFrame(() => { f = 0; checkMotion(); }); }; })(), {passive:true, capture:true}); /* v8.92 - one check per frame while scrolling, not one per scroll event */",
         'Today motion scroll listener', str(p))
-s = rep(s, """    if (chosen) {
-      if (selected !== chosen.dataset.tw840Area) motionMode = 'auto';
-      selected = chosen.dataset.tw840Area; running = selected;
-    } else running = null;
-    controls();
-  }""", """    const was892 = running;
-    if (chosen) {
-      if (selected !== chosen.dataset.tw840Area) motionMode = 'auto';
-      selected = chosen.dataset.tw840Area; running = selected;
-    } else running = null;
-    if (running && running === was892 && runningInstrument && runningInstrument.cardId === running) return; /* v8.92 - the same instrument still running: nothing on the cards changes, so nothing is rewritten */
-    controls();
-  }""", 'Today motion check', str(p))
+
 
 # 3. the Transport view (Costs & P&L): the explanation folds under the four figures, closed, so the figures lead (lead, 8 Oct)
 s = rep(s, "<p>Every truck movement the schedule carries, with what Coates pays the carrier (Transport (cartage), a direct cost) and what is charged on (Transport Revenue, the contracts’ delivery and pickup lines). The figures are the Forecast P&amp;L’s, read from one model; the loads are the Timeline’s; the references are Equipment’s. A fact the record does not carry stays unconfirmed.</p></div>",

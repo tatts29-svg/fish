@@ -13,7 +13,7 @@ R(){ GC500_CACHE=$(mktemp -d -p $S) MOB=$2 timeout 600 node $1 > $3 2>&1; echo "
 [ -f "$HERE/run_all_extra.sh" ] && source "$HERE/run_all_extra.sh"
 # --- v8.89
 if [ -n "$IDBASE" ]; then python3 v8.89_master_map_DRAFT/tests/test_identity889.py $IDBASE $PAGE > $E/identity889.log 2>&1; echo "identity889 exit $? $(tail -1 $E/identity889.log)"; fi
-for m in "" 1; do w=$([ -n "$m" ] && echo phone || echo laptop); GC500_CACHE=$(mktemp -d -p $S) MOB=$m MEDIA889=${MEDIA889:-$S/mm/out889} timeout 600 node v8.89_master_map_DRAFT/tests/test_master889.cjs > $E/master889_$w.log 2>&1; echo "master889_$w exit $? $(tail -1 $E/master889_$w.log)"; done
+for m in "" 1; do w=$([ -n "$m" ] && echo phone || echo laptop); GC500_CACHE=$(mktemp -d -p $S) MOB=$m MEDIA889=${MEDIA889:-$S/mm/out889} timeout 600 node ${MASTER889_TEST:-v8.89_master_map_DRAFT/tests/test_master889.cjs} > $E/master889_$w.log 2>&1; echo "master889_$w exit $? $(tail -1 $E/master889_$w.log)"; done
 # --- v8.85 / v8.84
 for w in 2560 1600 1440; do GC500_CACHE=$(mktemp -d -p $S) W=$w H=$([ $w = 2560 ] && echo 1370 || echo 1000) timeout 600 node v8.85_where_we_are_DRAFT/tests/test_where885.cjs > $E/where885_$w.log 2>&1; echo "where885_$w exit $? $(tail -1 $E/where885_$w.log)"; done
 GC500_CACHE=$(mktemp -d -p $S) MOB=1 timeout 600 node v8.85_where_we_are_DRAFT/tests/test_where885.cjs > $E/where885_phone.log 2>&1; echo "where885_phone exit $? $(tail -1 $E/where885_phone.log)"

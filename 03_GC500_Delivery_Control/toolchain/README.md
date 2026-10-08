@@ -88,9 +88,31 @@ without them, Node modules default to `toolchain/node_modules` and Playwright ch
 For v8.95, `V895_BASEPLAN` must name the authorised 7 Oct workbook. All browser runs require `CODE` and `ASSETS` for the
 complete local explorer code and restored assets, so the final sweep checks the paired candidate. The v8.93 checks also
 require `MEDIA893` and `POC3D` for the decrypted picture folder and 3D proof folder.
-`MEDIA` defaults to `MEDIA893`; `LOCAL` defaults to `CODE`. `ATLAS896` can name a private atlas folder; otherwise
+`MEDIA` defaults to `MEDIA893`; `LOCAL` defaults to `CODE` and must resolve to that same directory. `ATLAS896` can name a private atlas folder; otherwise
 the v8.96 test uses its release's `assets/`. Before v8.93, the master test needs `MEDIA889`. Missing inputs or selected tests
 stop the run; hardcoded checkout paths in inherited selected tests are reported for their owner to correct.
+
+Browser/release checks also require `MACHINE_MANIFEST` naming the frozen **final** `gc500-machine-v1` JSON, including
+the v8.97 explorer code when selected. `MACHINE_ROOT` supplies a complete local tree for retained files such as the
+Coates Way machine and 3D dependencies. `CODE`, `ASSETS` and `POC3D` override their corresponding subtrees; any missing
+file can resolve from `MACHINE_ROOT`, but a present file with wrong bytes fails immediately. Every declared file must
+exist locally and match its SHA-256 and size, and the manifest must reproduce its own canonical digest. For example:
+
+```bash
+export MACHINE_MANIFEST=/workspace/private-review/machine897.json
+export MACHINE_ROOT=/workspace/private-review/machine897
+export CODE="$MACHINE_ROOT/explorer"
+export ASSETS="$MACHINE_ROOT/explorer/assets"
+export POC3D="$MACHINE_ROOT/poc3d"
+```
+
+The first browser attempt writes `snapshots/machine-inputs.json`, binding the manifest's exact bytes, canonical digest,
+resolved roots and all declared file hashes to that candidate/base/source. A resumed attempt must match it. Inputs are
+rehashed before and after every suite and at final acceptance; changed code, tiles, proof files, retained dependencies,
+candidate pages or captured stages stop the run. The final sweep serves every machine URL from verified local manifest
+bytes and aborts undeclared/missing machine requests; it does not fall back to the live machine. The report records both
+manifest and machine hashes. This proves the tested local set; publication still needs its own unchanged-base/readback
+checks. `--build-only` deliberately needs no machine assets and cannot establish release acceptance.
 
 All browser processes run serially under `flock`, including desktop/phone and optional 1600/2560 px checks. Other runners
 must use the same lock to share this guarantee: default `/tmp/gc500-browser.lock`, configurable with `GC500_BROWSER_LOCK`.
@@ -104,8 +126,11 @@ Check scope is explicit in the private `result.json` and each log name:
 - Identity tests use snapshots immediately before and after their own patch, including required media sidecars.
 - The v8.93 master suite replaces v8.89's old picture expectations; v8.94 replaces v8.85's old Lighting basis.
 - With v8.96 selected, v8.84/v8.85 layout checks run on their stage pages; the final Today layout is checked by v8.96's suite.
+- The owned v8.86/v8.94 fixtures replace record-dependent historical assertions on the final candidate; their source
+  is also captured. v8.96's final scene/scope suites replace v8.76's superseded width/column assumptions.
 - v8.92's inherited UI/money tests assert its own footer, so they run on the v8.92 stage. This does not establish that its
-  complete UI suite passed on a later final page.
+  complete UI suite passed on a later final page. The final page additionally runs the owned corrected-behaviour
+  reproduction for redraw, scroll and cache invalidation, with exact embedded-source matching.
 - With v8.95 selected, its identity and final contract tests replace v8.71's obsolete 6 Oct source expectation.
 - `--regression` adds the active standing suites. Handling875 and Paired879 remain excluded because the full-chain README
   records identical baseline failures on live; adding either explicitly with `--test` preserves its real failure result.

@@ -206,8 +206,13 @@ served from disk, so the checks ran on the exact bytes in this folder and in the
      `openssl enc -d -aes-256-cbc -pbkdf2 -iter 300000 -pass file:<papers password file> -in assets893.tar.enc -out assets893.tar`
      (tar SHA-256 in `archive/assets893.tar.sha256`), untar into an assets folder and copy `assets_small/*.json`,
      `assets_small/vt/*`, `assets_small/*.png` over it (not `assets_small/poc3d/`);
-   - `python3 tools/publish_machine893.py --base-manifest <the live set's manifest json> --code machine_code_v887_v890_v893
-     --assets <that assets folder> --over assets_small --readme explorer_text/README.md --dry-run` (GET-only preflight:
+   - `python3 tools/publish_machine893.py --base-manifest ../v8.87_map_explorer_DRAFT/machine/retained_manifest_v864_b469a99c.json
+     --code machine_code_v887_v890_v893 --assets <that assets folder> --over assets_small --readme explorer_text/README.md
+     --expect-candidate 96dee047a785117e0f96aa1365a391d38a72904c42c67dcd76e6bc7ca40325da --dry-run`. The publisher fails
+     closed (Codex review, 8 Oct): a missing folder, an asset set without the v8.93 scene, any tile file the published
+     `vt/manifest.json` names but the set lacks, or any candidate digest other than the reviewed `96dee047…` stops it before
+     any network step; checked offline: the right inputs reproduce `96dee047…` (233 files), v8.90's assets are refused
+     (GET-only preflight:
      the key is the edit key, the live set is still `b469a99c…`, every preserved blob is on the volume);
    - the same without `--dry-run`: uploads the new blobs, registers the manifest, reads back `/api/machine` and every
      changed public asset; writes a private `publication893.json`.
