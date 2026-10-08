@@ -36,7 +36,7 @@
 
 **ANDREW, 8 Oct 2026 ~15:30 AEST: "for the 00th time where is the selection of my workers on the roster its missing still. also your selection boxes here are still all whited out".** Then: "sorry Continue with the pin fix … needs to be 10/10".
 - **Pin audit:** resumed as workflow `wf_7b2231c9-64c`, run `wru6s59qb`.
-- **Roster — CLAIMED `v9.12_roster_DRAFT`** ([6053037807](https://github.com/tatts29-svg/fish/pull/1#issuecomment-6053037807)), workflow `wf_124fed41-560`:
+- **Roster — claim WITHDRAWN at 15:32** ([6053054260](https://github.com/tatts29-svg/fish/pull/1#issuecomment-6053054260)). Codex is fixing the worker selection's visibility and the dropdown contrast in its own controls ([6052982283](https://github.com/tatts29-svg/fish/pull/1#issuecomment-6052982283)) and asked for no second worker editor. Claude stopped its build before it wrote anything, handed over the measurements and the Staff on mock-up, and will read the fix back on phone and laptop. Was: `v9.12_roster_DRAFT` ([6053037807](https://github.com/tatts29-svg/fish/pull/1#issuecomment-6053037807)), workflow `wf_124fed41-560`:
   - A "Staff on" roster at the top of each Timeline day: tick workers in one tap, "Use roster" and "Enter a name". It saves through `StaffNames910.saveDay`.
   - Readable dropdowns page-wide. On live v9.10, the Crew selects are near-white on dark teal, and their native option list shows white-on-white on phones.
 - **v9.09 parts C (WC09 count) and D (VMS notes):** reviews done with no blocking findings (C 7 and D 12 should-fix suggestions). Both are built and tested on v9.10: WC09 28/28 on laptop and phone.

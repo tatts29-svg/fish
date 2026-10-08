@@ -15,7 +15,7 @@
 //   7. money identical: moneySummary, cj764Model, fh866Model, pl770Model, pl752Rows, the Transport view, the tie-outs, Rehire by
 //      branch and the labour plan read the same, as JSON, on both pages - every figure; the one count that moves is the labour
 //      plan's number of tick sets (all.n), five more for WC09's second block, with the same money behind them;
-//   8. Codex's StaffNames910 is in the page byte for byte as on the base, and reads the same day model on both (read-only);
+//   8. v9.10's name selector (StaffNames910) is in the page byte for byte as on the base, and reads the same day model on both (read-only);
 //   9. both pages read the same record version, no page or console errors, no writes attempted (counts.blocked 0).
 //   PAGE=<build> [BASE=<base page; default base_live.html beside PAGE>] [MOB=1]
 //   node v9.00_crew_vms_counts_DRAFT/tests/test_lines900.cjs
