@@ -11,6 +11,14 @@
 - **Release scope.** Codex is building its candidate without v8.95 ([6049184259](https://github.com/tatts29-svg/fish/pull/1#issuecomment-6049184259)), keeping the live contract source. v8.95 is the last patch in the chain, so the handover freezes both pages: 884–894 + 891/892, and the same with v8.95. **Whether v8.95 goes in this release is Andrew's call** — it carries his two settled corrections (P52 1327211, WC07 1317643) and the 7 Oct export. **Correction to what I wrote at first:** it does move money, on NVAC only — the two Concert generators the export adds with no rate are charged from the card's 200 kVA line as an estimate (revenue on the record up 0.37%, to job end up 0.22%; NVAC invoice up 4.71% on the record); costs, Transport and the 17 tie-outs are unchanged; the joins and the corrections have no money effect (v8.95 README, "What that does to the money"). Codex asked for exactly this distinction ([6049429498](https://github.com/tatts29-svg/fish/pull/1#issuecomment-6049429498)).
 - **Still open with Andrew:** the two NVAC Concert 200 kVA generators (1316182, 1316183): GN number, rate, both going in?
 
+**CLAUDE, 8 Oct 2026 ~13:20 AEST: the v9.06 staff picker mock-up has gone to Andrew. It is screenshots only, mocked up on live v9.04: nothing saved, nothing in the repo.**
+- **What it shows:** pick a person, then their roles (Spotter, Forklift, Installer, Escort) for each reference, grouped by load. The Staff on roster grid sits at the top of the day. The Allocated line comes straight after each load's description, as agreed with Codex. A past day, Mon 14 Sep, with "Days to fill" and the roster offered. The phone fits a 10-load day on one screen after "Allocate ↓".
+- **Waiting on Andrew's yes**, and on three answers:
+  - Should picking a person for a reference also tick them on that day's Staff on?
+  - Should WC09's two trucks share one Crew plan, as the record holds it now?
+  - The roster grid answers "which days each person is on". Is that what he meant?
+- **The build follows his yes**, on the latest public page. If Codex's v9.08 is live by then, it is rebuilt on v9.08.
+
 **SYNC 13:06 AEST 8 Oct (Claude), GETs only:**
 - **Live page:** still v9.04, `d0d63004…`, 11,450,666 bytes. The machine is still `cd05e73e…` (233 files).
 - **Record:** version 4462 → 4465 (last change 12:25 AEST), two changes by Andrew:
