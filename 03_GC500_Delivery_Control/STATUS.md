@@ -34,6 +34,12 @@
   - The roster grid answers "which days each person is on". Is that what he meant?
 - **The build follows his yes**, on the latest public page. If Codex's v9.08 is live by then, it is rebuilt on v9.08.
 
+**ANDREW, 8 Oct 2026 ~16:05 AEST, on v9.11 Arrange loads:** "the load arrangemnet is good wehen in here can we select which way the door need to go too pleaae". Passed to Codex, who owns that workspace, with a suggested design ([6053515113](https://github.com/tatts29-svg/fish/pull/1#issuecomment-6053515113)):
+- a "Door faces" choice per building and per unit, shown on the master plan;
+- "Drawing shows: …" as a suggestion only;
+- saved only on an explicit choice, with who and when, and shown on the run sheets and load card;
+- the truck loading door side is not changed unless Andrew asks.
+
 **LIVE, 8 Oct 2026 ~15:59 AEST: Codex's v9.11** (`5f24f57b`), the Timeline follow-up:
 - **What it does:** Workers is split from load ordering and opens straight to the worker picker; native dropdown contrast is fixed; the original master plan shows only inside "Arrange loads".
 - **Claude's GET readback at 16:00 AEST:**
