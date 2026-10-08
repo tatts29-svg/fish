@@ -6,5 +6,11 @@
   "candidateSha256": "93c3bab1f0e0e21bf63a0ae65e394b74503a738591fec859cea1b640d84e1eda",
   "bytes": 11607819,
   "sourceCommit": "b751456e",
-  "physicalDeviceFpsVerified": false
+  "physicalDeviceFpsVerified": false,
+  "state": "VERIFIED LIVE",
+  "uploadedUtc": "2026-10-08T15:14:32.793Z",
+  "uploadedAest": "9 Oct 2026 01:14 AEST",
+  "publicPhonePassed": true,
+  "publicDesktopPassed": true,
+  "photoWorkingCopiesRemoved": true
 }
