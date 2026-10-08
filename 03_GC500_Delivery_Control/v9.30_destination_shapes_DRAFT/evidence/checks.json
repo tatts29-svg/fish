@@ -1,0 +1,11 @@
+{
+  "base_sha256": "592e73b38e8c5fb1d5bf98d00915c49550ab860b322f82fb957a99acc0369093",
+  "candidate_sha256": "618e21a53ac67a305506fc2fedfe7ff949898ea0f8d147e87ec7e882c0e4b9eb",
+  "candidate_bytes": 12270006,
+  "changed_scope": "Only destination marker draw, source collision bounds, scoped presentation and footer; exact reverse equality verified after normalising two adjacent indentations",
+  "shape_data_unchanged": true,
+  "native_locations_and_financial_code_unchanged": true,
+  "accepts_v928_v929": true,
+  "rejects_repeat_and_v927": true,
+  "model_checks": 18
+}
