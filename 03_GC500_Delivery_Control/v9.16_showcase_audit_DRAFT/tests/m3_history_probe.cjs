@@ -121,6 +121,15 @@ async function measureOne({tag, file}) {
       const nf = Math.max(1, cap.frames.length);
       R.captured = {frames: cap.frames.length, byProgram: Object.entries(by).sort((a, b) => b[1].verts - a[1].verts).slice(0, 14).map(([k, v]) => ({program: +k, drawsPerFrame: r2(v.draws / nf), vertsPerFrame: Math.round(v.verts / nf), vs: k >= 0 && cap.progs[k] ? sig(cap.progs[k]) : null}))}; }
     R.final = await state();
+    // a record change while the Showcase is open: 250 ms after every new record version the page runs syncRedraw(), which
+    // calls render() for the tab under the Showcase (no check that the Showcase is open). Timed here directly, three
+    // times, 3 s apart, with the Showcase still open (render() only draws; any write would be aborted and counted).
+    if (!FIXQ) { R.renderUnderShow = [];
+      for (let i = 0; i < 3; i++) { const x = await ev(() => { const a = performance.now(); let err = null;
+          try { render(); } catch (e) { err = String(e && e.message || e).slice(0, 80); }
+          return {ms: Math.round(performance.now() - a), err, tab: typeof state !== 'undefined' && state ? state.tab : null, showOpen: typeof SHOW !== 'undefined' ? !!SHOW.open : null}; }, null, 120000, 'render').catch(e => ({err: e.message}));
+        R.renderUnderShow.push(x); await sleep(3000); }
+      log('render() under the Showcase ms', JSON.stringify(R.renderUnderShow.map(x => x.ms)), R.renderUnderShow[0] && R.renderUnderShow[0].tab); }
     if (SHOTS) { const f = path.join(SHOTS, `${FIXQ ? 'fixq-' + FIXQ + '_' : ''}${PROFILE}${DPR}_${tag}_r${ROUND}.png`); try { await withTimeout(p.screenshot({path: f, timeout: 90000}), 100000, 'shot'); R.shot = f; } catch (e) { R.notes.push('shot: ' + e.message.slice(0, 80)); } }
   } catch (e) { R.error = String(e && e.stack || e).slice(0, 400); log('ERROR', R.error); }
   R.counts = s.counts; R.pageErrors = s.errors.slice(0, 20); R.consoleErrors = consoleErr.slice(0, 20); R.totalS = r2((Date.now() - tStart) / 1000);

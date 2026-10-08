@@ -13,9 +13,22 @@ const sleep = ms => new Promise(r => setTimeout(r, ms));
   const p = s.page, R = {author: 'Andrew Fisher', profile: PHONE ? 'phone' : 'laptop'};
   try {
     const cdp = await p.context().newCDPSession(p); await cdp.send('Performance.enable'); await cdp.send('HeapProfiler.enable');
+    const ctxs = []; cdp.on('Runtime.executionContextCreated', e => ctxs.push(e.context)); await cdp.send('Runtime.enable');
     const heap = async () => { await cdp.send('HeapProfiler.collectGarbage'); const m = await cdp.send('Performance.getMetrics'); return +(m.metrics.find(x => x.name === 'JSHeapUsedSize').value / 1048576).toFixed(1); };
     for (let i = 0; i < 240; i++) { if (await p.evaluate(() => typeof showOpen === 'function' && !!window.GC3D && typeof SYNC !== 'undefined' && SYNC.status === 'live').catch(() => false)) break; await sleep(1000); }
+    const typed = async () => {
+    // every typed array still alive, by type (CDP Runtime.queryObjects over each prototype), and its bytes
+    const out = {};
+    const mainCtx = R.mainContextId ||  (ctxs.find(c => c.auxData && c.auxData.isDefault && c.auxData.frameId === (ctxs.find(x => x.auxData && x.auxData.isDefault) || {auxData: {}}).auxData.frameId) || {}).id;
+    R.mainContextId = mainCtx;
+    for (const t of ['Float32Array', 'Uint16Array', 'Uint32Array', 'Uint8Array', 'Int16Array', 'Float64Array', 'ArrayBuffer', 'WebGLBuffer', 'WebGLTexture', 'WebGL2RenderingContext', 'HTMLCanvasElement', 'AudioBuffer']) {
+      try { const proto = await cdp.send('Runtime.evaluate', {expression: t + '.prototype', contextId: mainCtx});
+        const q = await cdp.send('Runtime.queryObjects', {prototypeObjectId: proto.result.objectId});
+        const r = await cdp.send('Runtime.callFunctionOn', {objectId: q.objects.objectId, functionDeclaration: 'function(){let b=0,big=0;for(const a of this){const L=a.byteLength||a.length*4*(a.numberOfChannels||0)||0;b+=L;if(L>1048576)big++;}return {n:this.length,mb:+(b/1048576).toFixed(1),over1MB:big};}', returnByValue: true});
+        out[t] = r.result.value; } catch (e) { out[t] = String(e.message).slice(0, 80); } }
+      return out; };
     R.heapBeforeMB = await heap();
+    R.typedBefore = await typed();
     R.walkBefore = await p.evaluate(walk);
     await p.evaluate(() => showOpen());
     await sleep(25000);
@@ -24,13 +37,7 @@ const sleep = ms => new Promise(r => setTimeout(r, ms));
     await sleep(3000);
     R.heapAfterCloseMB = await heap();
     R.walkAfter = await p.evaluate(walk);
-    // every typed array still alive, by type (CDP Runtime.queryObjects over each prototype), and its bytes
-    R.typedAfter = {};
-    for (const t of ['Float32Array', 'Uint16Array', 'Uint32Array', 'Uint8Array', 'Int16Array', 'Float64Array', 'ArrayBuffer']) {
-      try { const proto = await cdp.send('Runtime.evaluate', {expression: t + '.prototype'});
-        const q = await cdp.send('Runtime.queryObjects', {prototypeObjectId: proto.result.objectId});
-        const r = await cdp.send('Runtime.callFunctionOn', {objectId: q.objects.objectId, functionDeclaration: 'function(){let b=0,big=0;for(const a of this){b+=a.byteLength;if(a.byteLength>1048576)big++;}return {n:this.length,mb:+(b/1048576).toFixed(1),over1MB:big};}', returnByValue: true});
-        R.typedAfter[t] = r.result.value; } catch (e) { R.typedAfter[t] = String(e.message).slice(0, 80); } }
+    R.typedAfter = await typed();
     R.blocked = s.counts.blocked;
   } catch (e) { R.error = String(e && e.stack || e).slice(0, 500); }
   fs.writeFileSync(OUT, JSON.stringify(R, null, 1)); console.log(JSON.stringify({before: R.heapBeforeMB, open: R.heapOpenMB, afterClose: R.heapAfterCloseMB, top: R.walkAfter && R.walkAfter.top.slice(0, 12), blocked: R.blocked, error: R.error}, null, 1));

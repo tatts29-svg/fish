@@ -1,32 +1,102 @@
 {
  "author": "Andrew Fisher",
  "profile": "laptop",
- "heapBeforeMB": 13.3,
+ "heapBeforeMB": 12.2,
  "walkBefore": {
-  "top": [],
-  "totalMB": 0,
+  "top": [
+   [
+    "DATA",
+    3.55
+   ],
+   [
+    "SYNC",
+    0.89
+   ],
+   [
+    "localStorage",
+    0.83
+   ],
+   [
+    "RENDER_MEMO",
+    0.83
+   ]
+  ],
+  "totalMB": 6.1,
   "sceneUp": false,
   "extra": {
    "DATA.surrounds": 0
   }
  },
- "heapOpenMB": 373.7,
- "heapAfterCloseMB": 311,
+ "heapOpenMB": 374.6,
+ "heapAfterCloseMB": 312,
  "walkAfter": {
   "top": [
    [
-    "_raceCarModels",
+    "GC3D._raceCarModels",
     4.65
    ],
    [
-    "_raceCarDecals",
+    "DATA",
+    3.55
+   ],
+   [
+    "0",
+    1.79
+   ],
+   [
+    "RENDER_MEMO",
+    0.93
+   ],
+   [
+    "SYNC",
+    0.89
+   ],
+   [
+    "GC3D._raceCarDecals",
     0.34
    ]
   ],
-  "totalMB": 5,
+  "totalMB": 12.2,
   "sceneUp": false,
   "extra": {
    "DATA.surrounds": 0
+  }
+ },
+ "typedAfter": {
+  "Float32Array": {
+   "n": 0,
+   "mb": 0,
+   "over1MB": 0
+  },
+  "Uint16Array": {
+   "n": 0,
+   "mb": 0,
+   "over1MB": 0
+  },
+  "Uint32Array": {
+   "n": 0,
+   "mb": 0,
+   "over1MB": 0
+  },
+  "Uint8Array": {
+   "n": 0,
+   "mb": 0,
+   "over1MB": 0
+  },
+  "Int16Array": {
+   "n": 0,
+   "mb": 0,
+   "over1MB": 0
+  },
+  "Float64Array": {
+   "n": 0,
+   "mb": 0,
+   "over1MB": 0
+  },
+  "ArrayBuffer": {
+   "n": 0,
+   "mb": 0,
+   "over1MB": 0
   }
  },
  "blocked": 0

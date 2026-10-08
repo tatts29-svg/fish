@@ -196,7 +196,8 @@ function summarise(d) {
         await phase('demo.machine', 40, async () => {
           await ev(() => machineOpen('machine')); R.actions.push({at: rel(), machine: 'open'});
           await sleep(20000);
-          const fr = p.frames().find(f => f !== p.mainFrame() && /\/machine|machine\//i.test(f.url()) && !/explorer|poc3d/.test(f.url())) || p.frames().find(f => f !== p.mainFrame());
+          // the machine's own frame is the iframe inside #machineFrame (the page also keeps a warmed explorer iframe)
+          let fr = null; try { const h = await withTimeout(p.$('#machineFrame iframe'), 60000, 'machine iframe'); fr = h ? await h.contentFrame() : null; } catch (e) { R.notes.push('machine frame: ' + e.message); }
           if (fr) {
             const radio = await withTimeout(fr.evaluate(() => { const els = [...document.querySelectorAll('button,[role=button],a,div,span')].filter(e => /^\s*radio\s*$/i.test(e.textContent || '') || /radio/i.test(e.getAttribute('aria-label') || '') || /radio/i.test(e.id || ''));
               const b = els[0]; if (!b) return {found: false, n: document.querySelectorAll('*').length, url: location.pathname.slice(-40)};
@@ -210,6 +211,26 @@ function summarise(d) {
       } else R.notes.push('machine not hosted on this page');
       await phase('demo.reopen', 20, async () => { await openShow(); });
       await phase('close', 5, closeShow);
+      await phase('after', AFTER_S);
+      await snapshot('after-end', true);
+    } else if (SCRIPT === 'machine') {
+      // the Coates Way machine alone: open it over the page, look for its cockpit radio, read its frame, close it
+      await phase('machine.open', 45, async () => {
+        await ev(() => machineOpen('machine')); R.actions.push({at: rel(), machine: 'open'});
+        await sleep(25000);
+        let fr = null; try { const h = await withTimeout(p.$('#machineFrame iframe'), 60000, 'machine iframe'); fr = h ? await h.contentFrame() : null; } catch (e) { R.notes.push('machine frame: ' + e.message); }
+        if (fr) {
+          R.machineUrlTail = fr.url().replace(/^https?:\/\/[^/]+/, '').slice(0, 60);
+          R.machineControls = await withTimeout(fr.evaluate(() => [...document.querySelectorAll('button,[role=button]')].map(b => (b.getAttribute('aria-label') || b.textContent || b.id || '').trim().slice(0, 24)).filter(Boolean).slice(0, 60)), 60000, 'controls').catch(e => e.message);
+          const radio = await withTimeout(fr.evaluate(() => { const els = [...document.querySelectorAll('button,[role=button],[data-act],[data-action]')].filter(e => /radio|coates fm/i.test((e.textContent || '') + ' ' + (e.getAttribute('aria-label') || '') + ' ' + (e.id || '') + ' ' + (e.title || '')));
+            const b = els[0]; if (!b) return {found: false}; b.click(); return {found: true, tag: b.tagName, label: (b.getAttribute('aria-label') || b.textContent || '').trim().slice(0, 30)}; }), 60000, 'machine radio').catch(e => ({error: e.message}));
+          R.actions.push({at: rel(), machineRadio: radio});
+          await sleep(10000);
+          try { R.machineState = await withTimeout(fr.evaluate(() => window.__M ? Object.assign(__M.state(), {drain: (d => ({frames: d.frames.length, jsMed: d.frames.length ? d.frames.map(f => f[1]).sort((a, b) => a - b)[d.frames.length >> 1] : null, draws: d.frames.length ? d.frames.map(f => f[3]).sort((a, b) => a - b)[d.frames.length >> 1] : null, verts: d.frames.length ? d.frames.map(f => f[4]).sort((a, b) => a - b)[d.frames.length >> 1] : null, longtasks: d.longtasks.length, ltMax: Math.max(0, ...d.longtasks.map(x => x[1])), cDelta: d.cDelta}))(__M.drain())}) : null), 60000, 'machine state'); } catch (e) { R.notes.push('machine state: ' + e.message); }
+        } else R.actions.push({at: rel(), machineRadio: 'no frame'});
+        await shot('machine');
+      });
+      await phase('machine.close', 10, async () => { await ev(() => machineClose()); });
       await phase('after', AFTER_S);
       await snapshot('after-end', true);
     } else if (SCRIPT === 'reopen10') {

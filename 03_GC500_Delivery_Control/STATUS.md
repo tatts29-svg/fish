@@ -44,6 +44,22 @@
   - It acknowledged every handover. v9.11 is still live, and no newer Codex release is claimed.
   - The door direction, shapes, panel navigation and Showcase changes are **not built yet**. **Showcase stability is first** in Codex's queue, and it is waiting on Claude's ranked audit.
   - Truck flow, VMS, extinguishers, shape data and pins stay with Claude.
+- **17:30, Andrew: "make sure codex has work and building he needs to do more".** Claude gave Codex a four-item build queue it can start now, on live v9.11 ([6055146129](https://github.com/tatts29-svg/fish/pull/1#issuecomment-6055146129)):
+  1. **Showcase stability.** Ten code-proven causes from the audit's code map, each with a fix:
+     - the designed stop after lap 1 reads as a freeze and a cut-out;
+     - the one-way quality ladder unmounts the 3D (the "closes down");
+     - it opens on ultra;
+     - about 450 MB of heap on open is never released;
+     - the record redraw and `showScene` run under it;
+     - work behind it is never paused;
+     - Broadcast and engine audio;
+     - context loss;
+     - Escape and Back close it.
+
+     Measured numbers and prototypes follow.
+  2. **Arrange loads:** the door picker plus true shapes, built against `MasterShapes915` (draft data in `v9.15_master_shapes_DRAFT`).
+  3. **Timeline panels:** Close and Back.
+  4. **New offer:** the fencing cost model to match how Advanced bill (braced instead of clean, clean credits for bracing existing fence, vehicle-gate and team-leader lines). The page expects about 12% less than CW3 billed.
 - **Tue 06 / Wed 07 Oct delivery notes:** already on the record, as confirmed on 7 Oct. Nothing outstanding.
 
 **ANDREW, 8 Oct 2026 ~17:00 AEST — PRIORITY: the Showcase "keeps freezing and running glitchy and cutting out … every time i show someone it looks terrible and closes down".** He wants Codex to sort it out as a priority, and Claude to audit it.

@@ -22,14 +22,13 @@ const SHEET = [2384, 1684];
 const toPdf = (f, inset) => [f[0] * 2384 - (inset ? 0 : 25.5), f[1] * 1684 - (inset ? 0.06 : 0.12)];
 
 function blocks(t) {
-  const d = t.match(/\n<script type="application\/json" id="shapes915-data" data-sha256="([0-9a-f]{64})">([\s\S]*?)<\/script>\n<script id="shapes915-script">([\s\S]*?)<\/script>/);
+  const d = t.match(/\n<script id="shapes915-data" data-sha256="([0-9a-f]{64})">const MASTER_SHAPES915_DATA = ([\s\S]*?);<\/script>\n<script id="shapes915-script">([\s\S]*?)<\/script>/);
   return d ? {whole: d[0], sha: d[1], json: d[2], js: d[3]} : null;
 }
 function loadApi(t) {
   const b = blocks(t); if (!b) return null;
-  const doc = {getElementById: id => id === 'shapes915-data' ? {textContent: b.json} : null};
-  const ctx = {document: doc, window: {}, JSON, Math, Object, Number, String, Array, Infinity, isNaN};
-  vm.createContext(ctx); vm.runInContext(b.js + '\n;this.__api = MasterShapes915;', ctx);
+  const ctx = {window: {}, JSON, Math, Object, Number, String, Array, Infinity, isNaN};
+  vm.createContext(ctx); vm.runInContext('const MASTER_SHAPES915_DATA = ' + b.json + ';\n' + b.js + '\n;this.__api = MasterShapes915;', ctx);
   return ctx.__api;
 }
 const parsePts = s => s.trim().split(/\s+/).map(p => p.split(',').map(Number));
@@ -53,7 +52,7 @@ function staticTests() {
   if (base) ok('S1 removing them gives the base page byte for byte (DATA, MASTER_LOC, money, footer, every screen unchanged)', t.replace(b.whole, '') === base, {build: t.length, base: base.length});
   ok('S2 embedded data matches its recorded sha256', sha(b.json) === b.sha, b.sha.slice(0, 16));
   const srcSha = sha(fs.readFileSync(path.join(HERE, 'shapes_v915.json')));
-  const data = JSON.parse(b.json);
+  const data = JSON.parse(b.json.replace(/<\\\//g, '</'));
   ok('S2 page data names the source file it came from', data.source_sha256 === srcSha, srcSha.slice(0, 16));
   ok('S2 no agent or model names, no author name in the page data', !/Claude|Codex|Opus|GPT|Andrew|Fisher/.test(b.json + b.js.replace(/^\s*\/\*[\s\S]*?\*\//, '')));
   const api = loadApi(t);

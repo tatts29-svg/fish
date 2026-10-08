@@ -5,7 +5,7 @@
 # same shape so would even show the door side".
 #
 # This patch only ADDS a read-only global, MasterShapes915 (and window.MasterShapes915), in two new blocks at the end of
-# the page: the traced shapes as JSON (<script type="application/json" id="shapes915-data">) and the helper
+# the page: the traced shapes (<script id="shapes915-data">, const MASTER_SHAPES915_DATA, its sha256 on the tag) and the helper
 # (<script id="shapes915-script">). It changes nothing else: no DATA, no MASTER_LOC, no money, no record, no screen, no
 # footer. Arrange loads (drops911) is not touched; whoever owns it wires svg() in, with the master's door as the door
 # picker's default and the chosen side winning.
@@ -115,14 +115,14 @@ BLOB_SHA = hashlib.sha256(blob.encode('utf-8')).hexdigest()
 JS = r'''
 /* Author: Andrew Fisher. v9.15 master shapes: each reference's footprint and door side exactly as the 2 Oct master
    (D001-26003-03) draws it, in the MASTER_LOC.pt frame, plus a drawing helper for map markers. Read only: it reads its
-   own JSON block and nothing else, and writes nothing. */
+   own data block (MASTER_SHAPES915_DATA) and nothing else, and writes nothing. */
 const MasterShapes915 = (() => {
   'use strict';
   const SHEET = [2384, 1684];
   let D = null;
   function data() {
     if (D) return D;
-    try { const el = document.getElementById('shapes915-data'); D = JSON.parse(el ? el.textContent : '{}') || {}; } catch (e) { D = {}; }
+    try { D = typeof MASTER_SHAPES915_DATA === 'object' && MASTER_SHAPES915_DATA ? MASTER_SHAPES915_DATA : {}; } catch (e) { D = {}; }
     D.shapes = D.shapes || {}; D.none = D.none || {}; D.sym = D.sym || []; D.notes = D.notes || [];
     return D;
   }
@@ -282,7 +282,7 @@ if (typeof window !== 'undefined') window.MasterShapes915 = MasterShapes915;
 '''
 assert 'Claude' not in JS and 'Codex' not in JS
 
-INSERT = ('\n<script type="application/json" id="shapes915-data" data-sha256="' + BLOB_SHA + '">' + blob + '</script>\n'
+INSERT = ('\n<script id="shapes915-data" data-sha256="' + BLOB_SHA + '">const MASTER_SHAPES915_DATA = ' + blob + ';</script>\n'
           '<script id="shapes915-script">' + JS + '</script>')
 ANCHOR = "if(typeof module!=='undefined'&&module.exports)module.exports=Workers911;\n\n</script>\n</body></html>"
 assert s.count(ANCHOR) == 1, 'end-of-page anchor not found exactly once - stopping'

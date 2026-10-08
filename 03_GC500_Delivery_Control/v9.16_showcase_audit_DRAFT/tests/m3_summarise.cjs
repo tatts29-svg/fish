@@ -30,6 +30,8 @@ const metrics = {
   'open: texture upload MB (phase)': R => ph(R, 'open') && ph(R, 'open').glTotals ? ph(R, 'open').glTotals.texB / 1048576 : null,
   'open: shader compiles (phase)': R => ph(R, 'open') && ph(R, 'open').glTotals ? ph(R, 'open').glTotals.compiles : null,
   'showOpen() ms (sync)': R => R.showOpenMs,
+  'render() under the Showcase ms (med of 3)': R => R.renderUnderShow ? med(R.renderUnderShow.map(x => x.ms)) : null,
+  'open: biggest timer callback ms': R => ph(R, 'open') && (ph(R, 'open').timerTop || []).reduce((m, x) => Math.max(m, x.maxMs), 0),
   'open: heap MB at end': R => ph(R, 'open') && ph(R, 'open').cdp.heapUsedMB1,
   'open: DOM nodes at end': R => ph(R, 'open') && ph(R, 'open').cdp.nodes1,
   'open: live intervals': R => ph(R, 'open') && (ph(R, 'open').intervals || []).length,
