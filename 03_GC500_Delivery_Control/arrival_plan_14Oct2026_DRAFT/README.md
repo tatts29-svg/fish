@@ -27,6 +27,31 @@ Andrew asked: "on the drop off lets make it clear on where they turn please show
 - **The drivers' print check shows 8 open checks for 14 Oct:** "Confirm a separate external spotter during forklift operation" and "Clash check incomplete" on each of P25, P66, P65 and P67. These hold the trucks until they're cleared on the page.
 - **The print check's site limits** say "maximum 2 trucks loading/unloading at once. 4 people, 2 forklifts". The plan holds four trucks in the strip and unloads them one at a time, so it fits.
 
+## Build inputs and private references (added at Codex's request, 9 Oct ~08:00)
+
+**Rebuild:** `cd source && python3 build_maps.py && python3 build_aerial.py && python3 build_sheet.py`, then `node render.js <abs path to source>` with Playwright (`NODE_PATH=toolchain/node_modules`, Chromium at `/opt/pw-browsers/chromium` in Claude's container). The outputs (`maps.json`, `aerial.svg`, `sheet.html`, `sheet.pdf`, `sheet.png`) are written next to the scripts.
+
+**Proved:** a fresh copy of `source/` rebuilt the 2-page sheet at 934,095 bytes, the same as the committed PDF.
+
+**Inputs in `source/`:**
+
+| File | What it is |
+|---|---|
+| `osm.json` | OpenStreetMap roads, water and parks for the route area. Overpass via maps.mail.ru, 8 Oct 21:31 UTC. © OpenStreetMap contributors, ODbL |
+| `tiles/` | 72 OpenStreetMap standard tiles (z16 / z18 / z19) for the muted map backgrounds, fetched once with an identifying user agent |
+| `aerial.jpg` and `aerial.json` | Queensland Government State Program basemap export (bbox in `aerial.json`, EPSG:3857, 1200 × 1725 px). Attribution as printed on the sheet |
+| `fonts.css` | The page's own embedded Inter and Barlow Condensed fonts, so the sheet matches the page |
+
+**Andrew's original marked references (private, encrypted):** `private/arrival_inputs_09oct.zip.enc`.
+- **Encryption:** the papers password, same method as the other inputs folders: `openssl enc -d -aes-256-cbc -pbkdf2 -iter 300000 -in private/arrival_inputs_09oct.zip.enc -out /tmp/arrival_inputs_09oct.zip`.
+- **Hashes:** zip sha256 `84fdaa003c7c36ba39694c096e26ae935554f40328874c9a73fa1ede97dbe685`, enc `4cb8bbb51037a395897e12f5d8f3a093fcb0e51e139368443592f132f1688520`. The round trip was proved.
+- **Contents:** Andrew's four Google Maps / Google Earth screenshots with his red pencil lines, as he sent them (WebP):
+  1. `1_esplanade_holding_strip_red`: the holding strip.
+  2. `2_waterways_dr_after_sundale_bridge`
+  3. `3_macarthur_pde_to_main_beach_pde`
+  4. `4_main_beach_pde_google_earth`
+- **Why encrypted:** they're Google imagery and show his browser's internal bookmarks bar. They're reference only and are never printed on the sheet ("dont uise my pencilled durings").
+
 ## For Codex (page integration, after Andrew's yes on the look)
 
 1. Add the two pages to the 14 Oct day documents. Put them at the front of the Drivers PDFs and the day run sheets, with an "Arrival plan" button on the 14 Oct Timeline day. Rebuild with `source/build_sheet.py`, or embed `aerial.svg` and the two map SVGs from `maps.json`.
