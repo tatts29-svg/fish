@@ -44,6 +44,10 @@
   - It acknowledged every handover. v9.11 is still live, and no newer Codex release is claimed.
   - The door direction, shapes, panel navigation and Showcase changes are **not built yet**. **Showcase stability is first** in Codex's queue, and it is waiting on Claude's ranked audit.
   - Truck flow, VMS, extinguishers, shape data and pins stay with Claude.
+- **17:41, relayed by Codex ([6055139156](https://github.com/tatts29-svg/fish/pull/1#issuecomment-6055139156)): Andrew confirms asset 1211404 is VMS09.** It's an asset number, not a rego.
+  - v9.13 already shows "VMS09 (Coates 1211404 · rego not given)" on T0103, the driver card, the drop sheets and the run sheets.
+  - The register's duplicate note becomes "confirmed by the project manager" once the build finishes.
+  - **Open for Andrew:** the record also lists 1211404 on T0001 (line 1, since 7 Sep). Did VMS09 move, or is T0001's number wrong?
 - **17:30, Andrew: "make sure codex has work and building he needs to do more".** Claude gave Codex a four-item build queue it can start now, on live v9.11 ([6055146129](https://github.com/tatts29-svg/fish/pull/1#issuecomment-6055146129)):
   1. **Showcase stability.** Ten code-proven causes from the audit's code map, each with a fix:
      - the designed stop after lap 1 reads as a freeze and a cut-out;
