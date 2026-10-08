@@ -39,3 +39,10 @@ G. Hours-only dated shift => name can be suggested with time window unknown; do 
 H. Viewing, changing date or opening a task editor => zero writes. Saving planning => only intended planning documents; no payroll/Finance changes.
 I. Existing manual day count with blank names => preserve the count and blank slots until the user assigns names.
 J. A raw named-person record with no dated labour row => not shown as rostered for that date.
+
+Native save review aid
+- `PAGE=/path/to/page.html node native_save_characterisation.cjs` executes only the extracted crew save functions in an isolated VM with synthetic records; no service or browser writes.
+- These checks describe existing behaviour, including known hazards. Passing is not evidence that those hazards are fixed, and this file is not a new release acceptance gate.
+- Day Save and task Save are separate writes; validate a combined operation before either begins or keep the explicit two-step workflow. Day Save triggers a full render, so preserve or avoid discarding unsaved task fields.
+- Saved blank slots, explicit zero/unknown counts and legacy out-of-count assignments must remain visible. Slot identity cannot be inferred from changing roster order.
+- Guard introducing duplicate names into separate slots and stale editor mappings. Preserve unchanged historic data for explicit review. Native success alone is not a promise that the shared service has confirmed the change.

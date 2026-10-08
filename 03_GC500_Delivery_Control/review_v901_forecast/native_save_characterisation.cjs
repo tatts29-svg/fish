@@ -1,0 +1,20 @@
+// Author: Andrew Fisher. Synthetic review fixture: documents current native behaviour, not a fix.
+const fs=require('fs'),vm=require('vm'),assert=require('node:assert/strict');
+const file=process.env.PAGE;if(!file)throw Error('Set PAGE to the local HTML under review');
+const source=fs.readFileSync(file,'utf8');
+const native=name=>{const rows=source.split('\n').filter(x=>x.startsWith('function '+name+'('));if(rows.length!==1)throw Error('Native anchor changed: '+name);return rows[0];};
+const sandbox={S:{loads:{}},assetOf:ref=>({key:ref}),mayWrite:()=>true,whoAmI:()=> 'Synthetic review',flash:()=>{},crew883Roles:{spotter:'Spotter',forklift:'Forklift operator',installer:'Installer',escort:'Escort'},bump:()=>{}};
+vm.createContext(sandbox);vm.runInContext(['crew883Key','crew883ValidDay','crew883Write','crew883SaveDay','crew883SavePlan'].map(native).join('\n'),sandbox);
+const day='2026-10-12',key=sandbox.crew883Key(day),copy=v=>JSON.parse(JSON.stringify(v)),fresh=()=>{sandbox.S={loads:{}};sandbox.bump=()=>{sandbox.bump.kept=true;};};
+const checks=[];function check(name,fn){try{fn();checks.push({name,pass:true});}catch(e){checks.push({name,pass:false,error:e.message});}}
+check('native SaveDay preserves interior blanks and order',()=>{fresh();sandbox.crew883SaveDay(day,4,['Bea Example','','Alex Example','']);assert.deepEqual(copy(sandbox.S.loads[key].names),['Bea Example','','Alex Example','']);});
+check('native SaveDay truncates names above count: adapter must guard shrink',()=>{fresh();sandbox.crew883SaveDay(day,1,['Bea Example','Alex Example']);assert.deepEqual(copy(sandbox.S.loads[key].names),['Bea Example']);});
+check('native count zero is explicit and count null clears names',()=>{fresh();sandbox.crew883SaveDay(day,0,['Alex Example']);assert.equal(sandbox.S.loads[key].count,0);assert.deepEqual(copy(sandbox.S.loads[key].names),[]);sandbox.crew883SaveDay(day,null,['Bea Example']);assert.equal(sandbox.S.loads[key].count,null);assert.deepEqual(copy(sandbox.S.loads[key].names),[]);});
+check('KNOWN HAZARD: native Write returns true and mutates local record when bump.kept is false',()=>{fresh();sandbox.crew883SaveDay(day,4,[]);sandbox.bump=()=>{sandbox.bump.kept=false;};const returned=sandbox.crew883SaveDay(day,4,['Alex Example']);assert.equal(returned,true);assert.equal(sandbox.bump.kept,false);assert.equal(sandbox.S.loads[key].names[0],'Alex Example');});
+check('KNOWN HAZARD: day save can succeed while subsequent task save fails',()=>{fresh();assert.equal(sandbox.crew883SaveDay(day,1,['Alex Example']),true);assert.equal(sandbox.crew883SavePlan(day,'P01',{order:null,people:[{slot:1,roles:[]}],start:'',finish:'',location:''}),false);assert.equal(sandbox.S.loads[key].names[0],'Alex Example');assert.equal(sandbox.S.loads[sandbox.crew883Key(day,'P01')],undefined);});
+check('native task save preserves intentional blank historical times and manual order',()=>{fresh();assert.equal(sandbox.crew883SavePlan(day,'P01',{order:7,people:[{slot:null,roles:['spotter','installer']}],start:'',finish:'',location:''}),true);const p=sandbox.S.loads[sandbox.crew883Key(day,'P01')];assert.equal(p.order,7);assert.equal(p.start,'');assert.equal(p.finish,'');assert.equal(p.people.length,1);});
+check('native slot identity is not name identity: duplicate named slots are accepted',()=>{fresh();sandbox.crew883SaveDay(day,2,['Alex Example','Alex Example']);assert.equal(sandbox.crew883SavePlan(day,'P01',{order:null,people:[{slot:1,roles:['spotter']},{slot:2,roles:['installer']}],start:'',finish:'',location:''}),true);});
+check('native out-of-count saved slot is allowed, so editor must keep it visible',()=>{fresh();sandbox.crew883SaveDay(day,0,[]);assert.equal(sandbox.crew883SavePlan(day,'P01',{order:null,people:[{slot:3,roles:['installer']}],start:'',finish:'',location:''}),true);assert.equal(sandbox.S.loads[sandbox.crew883Key(day,'P01')].people[0].slot,3);});
+checks.forEach(c=>console.log((c.pass?'PASS ':'FAIL ')+c.name+(c.error?' · '+c.error:'')));
+console.log(checks.filter(c=>c.pass).length+'/'+checks.length+' native behaviour characterised');
+if(checks.some(c=>!c.pass))process.exitCode=1;
