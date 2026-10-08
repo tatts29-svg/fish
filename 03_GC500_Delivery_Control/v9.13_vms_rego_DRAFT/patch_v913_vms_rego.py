@@ -19,8 +19,8 @@
 #    opening, viewing or printing;
 #  - a board is on a delivery by (in this order) the record, the project manager's word, or the contract (the line's match
 #    by asset number or delivery docket). Nothing is guessed: a VMS delivery no board is linked to says "boards not named yet";
-#  - the boards BY NAME, with fleet number and rego, wherever a VMS delivery is shown: the Timeline load card, the delivery
-#    cards (Timeline and Today), the drawer's Delivery card, the driver drop card, the printed drop sheet, the Drivers and
+#  - the boards BY NAME, with fleet number and rego, wherever a VMS delivery is shown: the Timeline load card and its
+#    "Every day" row, the delivery cards (Timeline and Today), the drawer's Delivery card, the driver drop card, the printed drop sheet, the Drivers and
 #    Install PDFs (run sheets), the installers' daily page, and the driver's text (short and full).
 # The VMS plan reconciliation (VMS001-26003-01, 24 numbered boards) stays open with the project manager; nothing is renumbered.
 #
@@ -35,7 +35,7 @@ if 'function vms913Mount(' in text or 'vmsboard' in text:
     sys.exit('v9.13 is already applied - stopping')
 for need in ('function subhire744One(', 'function eq796(', 'function eq796Fold(', 'const SYNC_COLLS = {', 'function mergeRecords(',
              'function plantLineOf(', 'function text747What(', 'function dropText(', 'function deliveryCard(', 'function daily821Model(',
-             'function bookingNosLine801(', 'function loading872AssetHtml(', 'function dpTruckBefore801(', 'StaffNames910'):
+             'function bookingNosLine801(', 'function loading872AssetHtml(', 'function dpTruckBefore801(', 'function dayRows(', 'StaffNames910'):
     if need not in text:
         sys.exit('the base is missing ' + need + ' - stopping')
 
@@ -312,9 +312,14 @@ LATE = r'''<script id="vms913-script">
  const tl = loading872AssetHtml; loading872AssetHtml = function(a){ const h = tl.apply(this, arguments); try { return h + vms913LoadHtml(a, 'tl'); } catch (e) { return h; } };
  /* the delivery cards (Timeline loads opened, Today): under "Asset no." */
  const nos = bookingNosLine801; bookingNosLine801 = function(a){ const h = nos.apply(this, arguments); try { const L = vms913LoadHtml(a, 'dc'); return L ? (h || '<span class="todo">none supplied</span>') + '<br>' + L : h; } catch (e) { return h; } };
- /* the drawer's Delivery card, under its heading */
- const dc = deliveryCard; deliveryCard = function(a){ const h = dc.apply(this, arguments); try { const L = vms913LoadHtml(a, 'dcard'), k = '<h3>Delivery</h3>', i = h.indexOf(k);
-  return L && i >= 0 && h.indexOf(k, i + 1) < 0 ? h.slice(0, i + k.length) + '<p class="vms913dcard">' + L + '</p>' + h.slice(i + k.length) : h; } catch (e) { return h; } };
+ /* the drawer's Delivery card: under its rental lines (the part of the card the drawer keeps); a VMS delivery with no
+    rental line is named on the drawer's Driver drop card instead */
+ const dc = deliveryCard; deliveryCard = function(a){ const h = dc.apply(this, arguments); try { const L = vms913LoadHtml(a, 'dcard'), k = 'On hire — Coates rental system</div>', i = h.indexOf(k), j = i >= 0 ? h.indexOf('</ul>', i) : -1;
+  return L && j > i && h.indexOf(k, i + 1) < 0 ? h.slice(0, j + 5) + '<p class="vms913dcard">' + L + '</p>' + h.slice(j + 5) : h; } catch (e) { return h; } };
+ /* the Timeline's "Every day" rows: under the asset numbers in the GC500 ID cell */
+ const dr = dayRows; dayRows = function(rows){ let h = dr.apply(this, arguments); try { (rows || []).forEach(r => { const L = r && r.a && vms913LoadHtml(r.a, 'row'); if (!L) return;
+  const i = h.indexOf('data-k="' + esc(r.a.key) + '"'), j = i >= 0 ? h.indexOf('<div class="anos">', i) : -1, k = j >= 0 ? h.indexOf('</div>', j) : -1;
+  if (k > j && j > i) h = h.slice(0, k) + L + h.slice(k); }); } catch (e) {} return h; };
  /* the Drivers and Install PDFs (the run sheets): a line per VMS delivery on the truck */
  const tr = dpTruck; dpTruck = function(g){ const h = tr.apply(this, arguments); try { return h + ((g && g.rows) || []).map(r => vms913TruckHtml(r.a)).join(''); } catch (e) { return h; } };
  /* the driver's text: the boards after what it is (plain characters, so it stays three texts) */
@@ -357,7 +362,7 @@ CSS = '''
 .vms913load b{font-weight:700}
 .vms913load small{font-size:11px;opacity:.8}
 .vms913load.tl{margin-top:4px}
-.vms913dcard{margin:0 0 10px;color:var(--orange-ink)}
+.vms913dcard{margin:6px 0 0;color:var(--orange-ink)}
 @media (max-width:720px){
  .vms913row,.vms913list.ed .vms913row{grid-template-columns:1fr 1fr;gap:4px 10px;padding:10px 2px}
  .vms913row.head{display:none}

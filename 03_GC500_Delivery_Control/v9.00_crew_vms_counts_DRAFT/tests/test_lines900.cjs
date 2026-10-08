@@ -16,7 +16,16 @@
 //      branch and the labour plan read the same, as JSON, on both pages - every figure; the one count that moves is the labour
 //      plan's number of tick sets (all.n), five more for WC09's second block, with the same money behind them;
 //   8. v9.10's name selector (StaffNames910) is in the page byte for byte as on the base, and reads the same day model on both (read-only);
-//   9. both pages read the same record version, no page or console errors, no writes attempted (counts.blocked 0).
+//   9. both pages read the same record version, no page or console errors, no writes attempted (counts.blocked 0);
+//  10. door sides (v8.72): WC09's "Toilet Block 6m: passenger side", recorded against the line on 7 Oct, reads for both numbered
+//      blocks on the built page (rows, compact, truck/demob sheet, the driver and demob checks); a unit's own side, set or cleared
+//      in memory, wins; every other reference with a side on the record (WC86 included) reads exactly as on the base;
+//  11. demob (v8.16 owner816): WC09's 2 Coates units move to "owner to confirm" (8 -> 10) and Tue 10 Nov's Coates toilet load
+//      drops WC09 (4 units -> 2, WC01 only); nothing else on the demob plan moves;
+//  12. what-ifs in memory, put back in the same run: a third Coates number on WC09, an Event Portables fleet number typed as an
+//      asset number, the blocks counted as none, and WC67 given an Accessible Toilet line beside its mixed FWF line - none
+//      hands a block more numbers than its order while another line has room, and WC67 reads exactly as on the base;
+//  13. all 182 references: lineNumbersOf and labour units as on the base, WC09 the only one that moves.
 //   PAGE=<build> [BASE=<base page; default base_live.html beside PAGE>] [MOB=1]
 //   node v9.00_crew_vms_counts_DRAFT/tests/test_lines900.cjs
 const fs = require('fs'), path = require('path'), {open} = require('../../toolchain/harness/open_page');
@@ -63,8 +72,48 @@ function inPage({KEY, N1, N2, TB}) {
   out.simPee = sim([{asked: 'Pee Panel', nums: [N1]}]);
   out.simFwf = sim([{asked: 'FWF', nums: [N1, N2]}]);
   out.recordAfter = JSON.stringify(S.supplied[KEY] === undefined ? null : S.supplied[KEY]) === before && had === Object.prototype.hasOwnProperty.call(S.supplied, KEY);
-  /* demob runs for WC09 (reported, not asserted) */
-  try { const d = demobOf816(KEY); out.demob = d ? plain({streams: d.streams, ownerUnk: d.ownerUnk}) : null; } catch (e) { out.demob = String(e && e.message || e); }
+  /* door sides (v8.72): every reference with a side on the record, and WC09 */
+  const lk = new Set(Object.keys(S.delivery || {}).filter(k => (S.delivery[k] || {}).loading872)); lk.add(KEY);
+  try { CROW.forEach((v, k) => { if (v && v.delivery && v.delivery.loading872) lk.add(k); }); } catch (e) {}
+  out.l872 = {}; holdAssets(() => [...lk].sort().forEach(k => { const a = assetOf(k); if (!a) return; const rec = loading872Record(k);
+    out.l872[k] = {rec: Object.fromEntries(Object.entries(rec).map(([id, x]) => [id, x.side])), rows: loading872Rows(a).map(r => [r.id, r.item, loading872Side(a, r.id)]),
+      compact: loading872Compact(a), sheet: loading872Sheet(a).replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim()}; }));
+  out.l872checks = holdAssets(() => { const c = loading872Checks({checks: [], report: [], warnings: []}, [assetOf(KEY)]); return {report: c.report.slice(), warnings: c.warnings.map(w => w.text)}; });
+  /* a unit's own side, simulated in memory (S.delivery[WC09] copied, changed, read, put back in this run) */
+  S.delivery = S.delivery || {};
+  const dHad = Object.prototype.hasOwnProperty.call(S.delivery, KEY), dOrig = S.delivery[KEY], dJ = JSON.stringify(dOrig === undefined ? null : dOrig);
+  const simSide = rec => { const b = JSON.parse(dJ) || {}; b.loading872 = Object.assign({}, b.loading872 || {}, rec); S.delivery[KEY] = b;
+    try { return holdAssets(() => { const a = assetOf(KEY); return loading872Rows(a).map(r => [r.id, loading872Side(a, r.id)]); }); }
+    finally { if (dHad) S.delivery[KEY] = dOrig; else delete S.delivery[KEY]; } };
+  const far = '2099-01-01T00:00:00.000Z';
+  out.sideOwn = simSide({['u' + N1]: {side: 'driver', by: 'in-memory check', at: far}});
+  out.sideCleared = simSide({['u' + N1]: {side: '', by: 'in-memory check', at: far}});
+  out.deliveryAfter = JSON.stringify(S.delivery[KEY] === undefined ? null : S.delivery[KEY]) === dJ && dHad === Object.prototype.hasOwnProperty.call(S.delivery, KEY);
+  /* what-ifs, in memory, each put back in the same run */
+  S.assetNumbers = S.assetNumbers || {};
+  const sa = S.assetNumbers[KEY], saCopy = sa ? sa.slice() : undefined, supOrig = S.supplied[KEY], supJ = JSON.stringify(supOrig === undefined ? null : supOrig);
+  const a67 = (DATA.assets || []).find(x => x.key === 'WC67'), cl67 = a67 && a67.charge_lines, an67 = S.assetNumbers.WC67;
+  const whatIf = (mut, rest, k) => { try { mut(); return holdAssets(() => { const a = allAssets().find(x => x.key === k);
+      return plain({ln: lineNumbersOf(a), u: Object.fromEntries(chargeLines(a).filter(l => l.item).map(l => [l.item, labourUnits(a, l.item)]))}); }); }
+    catch (e) { return String(e && e.message || e); } finally { rest(); } };
+  const putN = () => { if (saCopy === undefined) delete S.assetNumbers[KEY]; else S.assetNumbers[KEY] = saCopy.slice(); };
+  const putS = () => { if (supOrig === undefined) delete S.supplied[KEY]; else S.supplied[KEY] = supOrig; };
+  out.whatIf = {
+    third: whatIf(() => { S.assetNumbers[KEY] = (sa || []).concat(['1999999']); }, putN, KEY),
+    fleet: whatIf(() => { S.assetNumbers[KEY] = (sa || []).concat(['12']); }, putN, KEY),
+    none: whatIf(() => { const x = JSON.parse(supJ) || {}; x.items = (x.items || []).filter(i => i.asked !== TB).concat([{asked: TB, supplied: TB, qty_supplied: 0}]); S.supplied[KEY] = x; }, putS, KEY),
+    wc67: a67 ? whatIf(() => { a67.charge_lines = cl67.concat([Object.assign({}, cl67[0], {item: 'Accessible Toilet', quantity: 1})]); S.assetNumbers.WC67 = (an67 || []).concat(['1211111', '1211112']); },
+      () => { a67.charge_lines = cl67; if (an67 === undefined) delete S.assetNumbers.WC67; else S.assetNumbers.WC67 = an67; }, 'WC67') : null,
+    wc67plan: a67 ? (a67.events || []).filter(e => e && e.movement !== 'remove').map(e => [e.task_id, e.item, !!(e.date_correction && e.date_correction.plan886)]) : null};
+  out.whatIfRestored = JSON.stringify(S.assetNumbers[KEY]) === JSON.stringify(saCopy) && JSON.stringify(S.supplied[KEY] === undefined ? null : S.supplied[KEY]) === supJ
+    && (!a67 || a67.charge_lines === cl67) && S.assetNumbers.WC67 === an67;
+  /* all references: the split and the labour units */
+  out.all = holdAssets(() => Object.fromEntries(allAssets().map(a => [a.key, plain({ln: lineNumbersOf(a), u: Object.fromEntries(chargeLines(a).filter(l => l.item).map(l => [l.item, labourUnits(a, l.item)]))})])));
+  /* demob (v8.16): every reference's streams, and every load */
+  try { const D = holdAssets(() => demob816());
+    out.demob = plain({refs: D.refs.map(r => ({key: r.key, iso: r.iso, streams: r.streams, ownerUnk: r.ownerUnk, portions: r.portions || null})),
+      loads: Object.entries(D.day).flatMap(([iso, d]) => d.loads.map(L => ({iso, id: L.id, stream: L.stream, units: L.units, rows: L.rows.map(x => [x.r.key, x.n])})))}); }
+  catch (e) { out.demob = String(e && e.message || e); }
   /* StaffNames910, read-only */
   try { const S9 = window.StaffNames910; out.staff = {api: S9 ? Object.keys(S9).sort() : null, day: S9 ? JSON.stringify(plain(S9.day(todayIso()))) : null}; }
   catch (e) { out.staff = {error: String(e && e.message || e)}; }
@@ -144,6 +193,47 @@ async function read(pageFile, tag) {
   ok(eq(built.simFwf.lineNumbersOf, {FWF: [N1, N2], 'Pee Panel': [], [TB]: []}), 'a person\'s choice wins: both counted as FWF go to FWF', built.simFwf);
   ok(built.recordAfter && base.recordAfter && eq(base.wc09Choices, built.wc09Choices), 'the simulated choices were put back; the record\'s choices are unchanged', [built.wc09Choices]);
   ok(eq(base.ticks, built.ticks) && built.ticks.every(t => t.read && t.offered), `every labour tick on these references still read on its unit (${built.ticks.length}; WC09 has ${built.wc09Ticks.length})`, {base: base.ticks, built: built.ticks});
+  /* 10. door sides */
+  const LA = base.l872, LB = built.l872, sideOf = (L, id) => (L.rows.find(r => r[0] === id) || [])[2];
+  ok(LA[KEY] && LA[KEY].rec['item:' + TB] === 'passenger' && eq(LA[KEY].rows.map(r => r[0]), ['item:FWF', 'u' + N1, 'u' + N2, 'item:' + TB]) && sideOf(LA[KEY], 'item:' + TB) === 'passenger',
+    'base: WC09\'s door side is recorded against the Toilet Block 6m line (passenger) and read on that row', LA[KEY]);
+  ok(eq(LB[KEY].rows, [['item:FWF', 'FWF', LA[KEY].rows[0][2]], ['item:Pee Panel', 'Pee Panel', ''], ['u' + N1, TB, 'passenger'], ['u' + N2, TB, 'passenger']]) && eq(LB[KEY].rec, LA[KEY].rec),
+    'built: WC09\'s two blocks are their own loading rows and both read the recorded passenger side', LB[KEY].rows);
+  ok(LB[KEY].compact.includes('Asset ' + N1 + ': Door to passenger side') && LB[KEY].compact.includes('Asset ' + N2 + ': Door to passenger side') && LA[KEY].compact.includes(TB + ': Door to passenger side'),
+    'built: WC09\'s loading summary reads passenger side for each block (base: for the line)', [LA[KEY].compact, LB[KEY].compact]);
+  ok(new RegExp(TB + ' · Asset nos\\. ' + N1 + ' · ' + N2 + ' ☐ Door to driver side · ☑ Door to passenger side').test(LB[KEY].sheet),
+    'built: the truck and demob sheet shows both blocks ticked passenger side', LB[KEY].sheet);
+  ok([N1, N2].every(n => built.l872checks.report.includes(KEY + ' · Asset ' + n + ': Door to passenger side')) && !built.l872checks.warnings.some(w => w.includes(N1) || w.includes(N2)),
+    'built: the driver and demob checks report both blocks as passenger side, no "not set" warning for them', built.l872checks);
+  ok(eq(built.sideOwn, [['item:FWF', LA[KEY].rows[0][2]], ['item:Pee Panel', ''], ['u' + N1, 'driver'], ['u' + N2, 'passenger']]) && eq(built.sideCleared, [['item:FWF', LA[KEY].rows[0][2]], ['item:Pee Panel', ''], ['u' + N1, ''], ['u' + N2, 'passenger']]) && built.deliveryAfter && base.deliveryAfter,
+    'a unit\'s own door side wins, set or cleared (in memory, put back)', [built.sideOwn, built.sideCleared]);
+  const lOthers = Object.keys(LA).filter(k => k !== KEY), lDiff = lOthers.filter(k => !eq(LA[k], LB[k]));
+  ok(eq(Object.keys(LA).sort(), Object.keys(LB).sort()) && !lDiff.length && LA.WC86 && eq(LA.WC86, LB.WC86),
+    `every other reference with a door side on the record reads as on the base (${lOthers.length}, WC86 included)`, {lDiff, WC86: [LA.WC86, LB.WC86]});
+  /* 11. demob */
+  const dA = base.demob, dB = built.demob, dref = (D, k) => D.refs.find(r => r.key === k) || {};
+  ok(eq(dref(dA, KEY).streams, [{s: 'coates', n: 2}]) && dref(dA, KEY).ownerUnk === 8 && eq(dref(dB, KEY).streams, []) && dref(dB, KEY).ownerUnk === 10,
+    'demob: WC09\'s two Coates units (taken for pee panels) are now "owner to confirm" (8 -> 10)', [dref(dA, KEY), dref(dB, KEY)]);
+  const refDiff = dA.refs.filter(r => r.key !== KEY && !eq(r, dref(dB, r.key))).map(r => r.key);
+  const ldA = dA.loads.filter(L => !dB.loads.some(M => eq(L, M))), ldB = dB.loads.filter(L => !dA.loads.some(M => eq(L, M)));
+  ok(!refDiff.length && dA.refs.length === dB.refs.length && ldA.length === 1 && ldB.length === 1 && ldA[0].iso === '2026-11-10' && ldA[0].stream === ldB[0].stream && ldA[0].id === ldB[0].id
+    && ldA[0].units === 4 && ldB[0].units === 2 && eq(ldA[0].rows.map(r => r[0]), ['WC01', KEY]) && eq(ldB[0].rows.map(r => r[0]), ['WC01']),
+    'demob: Tue 10 Nov\'s Coates toilet load drops WC09 (4 units -> 2, WC01 only); no other reference or load moves', {refDiff, ldA, ldB});
+  /* 12. what-ifs */
+  const wA = base.whatIf, wB = built.whatIf;
+  ok(eq(wB.third.ln, {FWF: [], 'Pee Panel': ['1999999'], [TB]: [N1, N2]}) && eq(wB.third.u[TB], [N1, N2]),
+    'what-if, a third Coates number: the blocks keep their two (order 2); the third goes by v7.32\'s room order (Pee Panel)', wB.third);
+  ok(eq(wB.fleet.ln, {FWF: [], 'Pee Panel': ['12'], [TB]: [N1, N2]}),
+    'what-if, an Event Portables fleet number typed ("12"): it is not a Coates number, so it is not dealt to the blocks', wB.fleet);
+  ok(eq(wB.none.ln, wA.none.ln) && eq(wB.none.ln[TB], []),
+    'what-if, the blocks counted as none: they take none, as on the base (v7.32 room order)', [wA.none, wB.none]);
+  ok(wB.wc67 && eq(wB.wc67, wA.wc67) && eq(wB.wc67.ln.FWF, ['1211111', '1211112']) && eq(wB.wc67.u.FWF, ['1211111', '1211112'])
+    && wB.wc67plan.some(r => r[1] === 'FWF' && r[2]) && wB.wc67plan.some(r => r[1] === 'FWF' && !r[2]),
+    'what-if, WC67 with an Accessible Toilet beside its FWF (a Coates row and an Event Portables row): read as on the base, FWF keeps its per-unit ticks', {plan: wB.wc67plan, base: wA.wc67, built: wB.wc67});
+  ok(built.whatIfRestored && base.whatIfRestored, 'every what-if put back in the same run', [base.whatIfRestored, built.whatIfRestored]);
+  /* 13. every reference */
+  const allDiff = Object.keys(base.all).filter(k => !eq(base.all[k], built.all[k]));
+  ok(eq(Object.keys(base.all).sort(), Object.keys(built.all).sort()) && eq(allDiff, [KEY]), `all ${Object.keys(base.all).length} references: the split and labour units as on the base, WC09 the only one that moves`, allDiff);
   /* where the two differ: the path and the kind of change only, never an amount (compare_money895.cjs's walk) */
   const mdiff = []; const walk = (x, y, at) => {
     if (typeof x === 'number' && typeof y === 'number') { if (x !== y) mdiff.push(at + ' ' + (y > x ? 'up' : 'down')); return; }
@@ -157,14 +247,14 @@ async function read(pageFile, tag) {
   walk(MA, MB, '');
   ok(!mdiff.length && base.money.length > 1000, 'money identical: P&L summary, Costs to job end, Finance handover, P&L, business lines, Transport, tie-outs, Rehire by branch, labour plan (every figure)', mdiff.slice(0, 20));
   const dn = Object.keys(nA).reduce((t, k) => t + (nB[k] - nA[k]), 0);
-  ok(dn === 5 && nB.charged === nA.charged, 'labour plan tick sets: five more (WC09\'s second block: Install, Steps, Levelling, Cleaning, Demob), none charged', {base: nA, built: nB});
+  ok(dn === 5 && nB.expected - nA.expected === 3 && nB.later - nA.later === 2 && nB.charged === nA.charged,
+    'labour plan line counts (all.n, not money): expected +3 (Install, Steps, Levelling), later +2 (Cleaning, Demob) for WC09\'s second block, none charged', {base: nA, built: nB});
   ok(built.staff && built.staff.api && built.staff.api.includes('day') && built.staff.day && built.staff.day === base.staff.day, 'StaffNames910 present and reads the same day model (read-only)', [base.staff, built.staff].map(x => x && (x.error || (x.api || []).join(','))));
   const blk = f => { const t = fs.readFileSync(f, 'utf8'), i = t.indexOf('const StaffNames910 = '), j = t.indexOf('module.exports = StaffNames910;', i); return i > 0 && j > i ? t.slice(i, j) : null; };
   const sb = blk(BASE), sp = blk(PAGE);
   ok(sb && sp && sb === sp, 'StaffNames910 script byte for byte as on the base', [!!sb, !!sp]);
   ok(!base.errors.length && !built.errors.length && !base.console.length && !built.console.length, 'no page or console errors', {base: [base.errors, base.console], built: [built.errors, built.console]});
   ok(base.counts.blocked === 0 && built.counts.blocked === 0, 'no writes attempted (counts.blocked 0)', [base.counts, built.counts]);
-  console.log('demob runs for WC09 (reported): base ' + JSON.stringify(base.demob) + ' / built ' + JSON.stringify(built.demob));
   const pass = res.filter(Boolean).length; console.log(`${pass}/${res.length} ${MOB ? 'phone' : 'laptop'}`);
   process.exitCode = pass === res.length ? 0 : 1;
 })().catch(e => { console.error('TEST FAIL', e); process.exit(2); });
