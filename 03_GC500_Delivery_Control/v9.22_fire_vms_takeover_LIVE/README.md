@@ -2,7 +2,7 @@
 
 Author: Andrew Fisher
 
-State: VERIFIED LIVE — 9 Oct 2026 02:57 AEST. The guarded publisher verified that the public view serves the candidate byte for byte. Implemented, tested and published by Codex; upstream source by Claude.
+State: VERIFIED LIVE — 9 Oct 2026 02:57 AEST. The guarded publisher verified that the public view serves the candidate byte for byte. Implementation and publication ownership are recorded on the shared status board.
 
 Andrew approved the extinguisher and VMS changes on 9 Oct and then directed that Truck flow sit behind a closed dropdown. This combines those three completed source parts on the v9.21 pins page.
 

@@ -1,0 +1,15 @@
+{
+  "author": "Andrew Fisher",
+  "baseSha256": "04b40af60cf151b4a0c4467abcdabc31d9a688f01e8197b355e3a3d64ccb0a09",
+  "candidateSha256": "592e73b38e8c5fb1d5bf98d00915c49550ab860b322f82fb957a99acc0369093",
+  "candidateBytes": 12262425,
+  "dataPayloadByteEquivalent": true,
+  "stylesUnchanged": true,
+  "scriptCount": 36,
+  "changedScriptIndicesZeroBased": [
+    2,
+    15
+  ],
+  "allOtherFeatureScriptsUnchanged": true,
+  "changes": "Main finance projections/helpers/footer and transport-view explanations; newline normalization only elsewhere"
+}
