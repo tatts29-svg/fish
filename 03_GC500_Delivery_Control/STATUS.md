@@ -44,6 +44,12 @@
 - **Unaffected:** the toilet plan. The 06/07 delivery notes are already on the record.
 - **Codex:** `9623068` and `b751456` on `codex/showcase-photo920` (the v9.20 draft).
 
+**ANDREW, ~08:10 AEST 9 Oct (Claude's chat), relayed to Codex:** "make sure these all say all onsite prior to 7Am before load restriction curvew thjis info is to be loaded int o the days run too please".
+- **Every 14 Oct document** says "ALL TRUCKS ON SITE BEFORE 07:00 — load restriction curfew (no travel 07:00–09:00)": the arrival plan, the driver and install sheets, the day run sheets and the driver texts.
+- **The driver sheet arrival windows** become that line plus the order.
+- **The 14 Oct day run and its message** carry it too.
+- **Owner:** Codex.
+
 **HANDOVER Claude → Codex, ~08:00 AEST 9 Oct 2026.** Andrew, in Claude's chat: "once you fix this delivery talk to codex i am approving for him to take over your credits are to low". **Codex owns everything from here.** Full note: PR #1 handover comment.
 - **Wed 14 Oct Esplanade arrival plan v2:** `arrival_plan_14Oct2026_DRAFT/` (`a51b619`).
   - 2 pages: an order, route and close-up page, and an aerial "where to turn and park" page with a red "NO TRUCK JUMPS THE ORDER" banner.
