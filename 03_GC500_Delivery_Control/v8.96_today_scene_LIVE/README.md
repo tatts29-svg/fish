@@ -66,8 +66,8 @@ Apply after the agreed base chain. The current integrated order is 884, 885, 886
 then 896. The current v8.91 patch must precede v8.95 because its footer guard does not accept v8.95.
 
 ```sh
-python3 v8.96_today_scene_DRAFT/patch_v896.py <candidate.html>
-python3 v8.96_today_scene_DRAFT/tests/test_identity896.py <same-chain-without-896.html> <candidate.html>
+python3 v8.96_today_scene_LIVE/patch_v896.py <candidate.html>
+python3 v8.96_today_scene_LIVE/tests/test_identity896.py <same-chain-without-896.html> <candidate.html>
 python3 toolchain/check_page.py <candidate.html> --base <same-chain-without-896.html>
 ```
 
@@ -78,8 +78,8 @@ This folder does not itself claim paired page/explorer publication readiness.
 missing files, checks their SHA-256 names and registers the manifest last:
 
 ```sh
-python3 v8.96_today_scene_DRAFT/upload_media896.py <media_manifest_v896.json> v8.96_today_scene_DRAFT/assets <other-picture-folders> --dry-run
-python3 v8.96_today_scene_DRAFT/upload_media896.py <media_manifest_v896.json> v8.96_today_scene_DRAFT/assets <other-picture-folders>
+python3 v8.96_today_scene_LIVE/upload_media896.py <media_manifest_v896.json> v8.96_today_scene_LIVE/assets <other-picture-folders> --dry-run
+python3 v8.96_today_scene_LIVE/upload_media896.py <media_manifest_v896.json> v8.96_today_scene_LIVE/assets <other-picture-folders>
 python3 toolchain/upload_page.py <candidate.html>
 ```
 
@@ -99,13 +99,13 @@ The shared read-only browser harness blocks operational writes. Tests serve the 
 publication. Run one browser at a time using the shared browser lock:
 
 ```sh
-PAGE=<candidate.html> W=2560 node v8.96_today_scene_DRAFT/tests/test_scene896.cjs
-PAGE=<candidate.html> W=1600 node v8.96_today_scene_DRAFT/tests/test_scene896.cjs
-PAGE=<candidate.html> W=1440 node v8.96_today_scene_DRAFT/tests/test_scene896.cjs
-PAGE=<candidate.html> MOB=1 node v8.96_today_scene_DRAFT/tests/test_scene896.cjs
-PAGE=<candidate.html> node v8.96_today_scene_DRAFT/tests/test_scope896.cjs
-PAGE=<base.html> LABEL=base node v8.96_today_scene_DRAFT/tests/timing896.cjs
-PAGE=<candidate.html> LABEL=v896 node v8.96_today_scene_DRAFT/tests/timing896.cjs
+PAGE=<candidate.html> W=2560 node v8.96_today_scene_LIVE/tests/test_scene896.cjs
+PAGE=<candidate.html> W=1600 node v8.96_today_scene_LIVE/tests/test_scene896.cjs
+PAGE=<candidate.html> W=1440 node v8.96_today_scene_LIVE/tests/test_scene896.cjs
+PAGE=<candidate.html> MOB=1 node v8.96_today_scene_LIVE/tests/test_scene896.cjs
+PAGE=<candidate.html> node v8.96_today_scene_LIVE/tests/test_scope896.cjs
+PAGE=<base.html> LABEL=base node v8.96_today_scene_LIVE/tests/timing896.cjs
+PAGE=<candidate.html> LABEL=v896 node v8.96_today_scene_LIVE/tests/timing896.cjs
 ```
 
 The timing test compares the same chain with and without v8.96, measures seven warm Today openings and frame time, and

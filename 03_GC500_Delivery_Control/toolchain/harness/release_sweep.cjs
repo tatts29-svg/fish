@@ -118,12 +118,12 @@ function prepareAssets(pageFile, environment) {
   const read = relative => JSON.parse(fs.readFileSync(path.join(CONTROL, relative), 'utf8'));
   const changes889 = read('v8.89_master_map_DRAFT/changes889.json');
   const changes893 = read('v8.93_maps_aligned_DRAFT/changes893.json');
-  const atlas = read('v8.96_today_scene_DRAFT/atlas896.json');
+  const atlas = read('v8.96_today_scene_LIVE/atlas896.json');
   const sources = new Map();
   for (const [rows, directory, name] of [
     [changes889.media, environment.MEDIA889, 'MEDIA889'],
     [changes893.media, environment.MEDIA893 || environment.MEDIA, 'MEDIA893'],
-    [atlas.cells, environment.ATLAS896 || path.join(CONTROL, 'v8.96_today_scene_DRAFT/assets'), 'ATLAS896']
+    [atlas.cells, environment.ATLAS896 || path.join(CONTROL, 'v8.96_today_scene_LIVE/assets'), 'ATLAS896']
   ]) {
     for (const descriptor of rows) sources.set(descriptor.sha256, {descriptor, directory, name});
   }

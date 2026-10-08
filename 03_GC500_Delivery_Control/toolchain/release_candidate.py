@@ -20,6 +20,7 @@ NAMES = ('today_wide_layout', 'where_we_are', 'event_portables_days', 'map_explo
          'costs_transport', 'master_map', 'maps_aligned', 'lighting_basis',
          'truck_flow', 'a_plus_pass', 'baseplan_07oct', 'today_scene', 'map_completion')
 FOLDERS = {v: f'v8.{v % 100:02d}_{n}_DRAFT' for v, n in zip(CHAIN, NAMES)}
+FOLDERS.update({896: 'v8.96_today_scene_LIVE', 897: 'v8.97_map_completion_LIVE'})
 BROWSER = {884: ['test_wide884'], 885: ['test_where885'], 886: ['test_ep886'],
            887: ['test_explorer887'], 888: ['test_transport888'], 889: ['test_master889'],
            893: ['test_master889_v893', 'test_align893'],

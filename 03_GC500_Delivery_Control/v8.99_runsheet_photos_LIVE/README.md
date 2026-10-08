@@ -2,7 +2,7 @@
 
 Author: Andrew Fisher
 
-DRAFT — targeted laptop and phone checks complete; final navigation sweeps and guarded publication remain with the release owner. Not live.
+**VERIFIED LIVE — 8 Oct 2026 11:35 AEST.** Guarded upload confirmed the previous live base, then exact public-byte readback verified the candidate below. Source implementation was shared at `98756fc0`.
 
 Additional loading and transport instructions could reduce the flexible photograph area to a narrow strip while the old page-fit check still passed. This patch reserves at least 36 mm of actual image height, keeps every supplied photograph, and proportionately compacts the existing loading blocks while retaining at least 8 pt text. The reference band retains its full height so arrival and loading checks remain readable.
 
@@ -40,4 +40,4 @@ GC500_EDIT_TOKEN= PAGE="$CANDIDATE_PAGE" EVIDENCE_DIR="$PRIVATE_EVIDENCE" ASSERT
 GC500_EDIT_TOKEN= MOB=1 PAGE="$CANDIDATE_PAGE" EVIDENCE_DIR="$PRIVATE_PHONE_EVIDENCE" ASSERT_LOADS=5 flock /tmp/gc500-browser.lock node test_runsheet899.cjs
 ```
 
-The release owner runs both required navigation sweeps and guarded publication/readback. This folder remains DRAFT until those checks and the release handover are recorded.
+Both final navigation sweeps passed all 21 routes, seven deep links and Browser Back with zero runtime errors, console errors or operational writes. Guarded publication and byte-exact public readback passed. Media `d01b619abe6fac3d56d077abaf8a2cdcbbc4c9e69bd725a4a84c01849c83fa1f` and machine `cd05e73e45b7c5afe1add67e12f595591ecc19c1e5adda3ccc4c9a948e0a6a49` are unchanged. Detailed browser and publication evidence remains private.
