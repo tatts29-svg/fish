@@ -1,5 +1,5 @@
-GN18  {'generator': 1}    0.183 m  0.224 pt  moves 17.06 m south-east symbol [1.21, 2.89] m  old pin->nearest symbol 17.2 m  at old pin [{'sides_m': [2.5, 6.1], 'color': (0.0, 0.0, 0.0), 'drawing': 144580}]
-GN13  {'generator': 1}    0.132 m  0.152 pt  moves 11.64 m north      symbol [1.0, 2.51] m  old pin->nearest symbol 11.5 m  at old pin []
+GN18  {'generator': 1}    0.005 m  0.009 pt  moves 17.11 m south-east symbol [1.21, 2.89] m  old pin->nearest symbol 17.2 m  at old pin [{'sides_m': [2.5, 6.1], 'color': (0.0, 0.0, 0.0), 'drawing': 144580}]
+GN13  {'generator': 1}    0.003 m  0.001 pt  moves 11.55 m north      symbol [1.0, 2.51] m  old pin->nearest symbol 11.5 m  at old pin []
 WC06  {'toilet': 2}       0.002 m  0.006 pt  moves  1.51 m south-west tag 1.6 m  (list's to_pt in its own y-frame: 0.18 pt)
 WC10  {'toilet': 3}       0.006 m  0.009 pt  moves  2.39 m north-east tag 2.4 m  (list's to_pt in its own y-frame: 0.158 pt)
 WC11  {'toilet': 2}       0.002 m  0.005 pt  moves  2.15 m north-east tag 2.2 m  (list's to_pt in its own y-frame: 0.184 pt)

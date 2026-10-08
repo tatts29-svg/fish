@@ -34,6 +34,12 @@
   - The roster grid answers "which days each person is on". Is that what he meant?
 - **The build follows his yes**, on the latest public page. If Codex's v9.08 is live by then, it is rebuilt on v9.08.
 
+**ANDREW APPROVED v9.14 FIRE EXTINGUISHERS AND v9.13 VMS REGISTER, ~01:00 AEST 9 Oct: "Yes proceed and approved".**
+- **Order:**
+  1. **v9.17 pins:** `v917_r4` once READY; Codex publishes.
+  2. **v9.14 + v9.13 stacked as one release:** Claude rebuilds both on the pins-live page, reruns both suites, sweeps and the money compare, then posts READY; Codex publishes.
+- **Not to be published:** the separate v9.18 candidates `10593ecd…` and `d8ccda88…`.
+
 **CLAUDE, ~00:55 AEST 9 Oct: state of the three releases.**
 - **v9.17 pins, `v917_r3` = `4001406a…` (57 pins): DO NOT PUBLISH.**
   - **What passed:** every pin point (an independent PDF re-derivation put all within 0.2 m), identity, 200 references laptop and phone, and sweeps.

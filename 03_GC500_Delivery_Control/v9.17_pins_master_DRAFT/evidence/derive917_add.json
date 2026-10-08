@@ -36,15 +36,15 @@
     0.68025
    ],
    "listed_ll": [
-    -27.9836203,
-    153.4241719
+    -27.9836216,
+    153.4241707
    ],
    "listed_pt": [
-    0.21036,
-    0.68031
+    0.21044,
+    0.68025
    ],
-   "listed_vs_derived_m": 0.183,
-   "listed_vs_derived_pt": 0.224,
+   "listed_vs_derived_m": 0.005,
+   "listed_vs_derived_pt": 0.009,
    "within_tolerance": true,
    "page_now_ll": [
     -27.983493,
@@ -56,16 +56,16 @@
    ],
    "page_now_how": "the orange generator symbol on the master D001, at the end of callout 018's line on D024 (corrected 2 Oct 2026: it was 13.5 m off, at the arrow's end)",
    "page_now_img": null,
-   "moves_m": 17.06,
+   "moves_m": 17.11,
    "moves_dir": "south-east",
-   "moves_bearing": 146,
+   "moves_bearing": 147,
    "m_per_pt": 0.707,
    "symbol_sides_m": [
     1.21,
     2.89
    ],
    "symbol_ops": "lllll",
-   "symbol_vs_listed_pt": 0.224,
+   "symbol_vs_listed_pt": 0.009,
    "said": [
     17.1,
     "south-east"
@@ -130,15 +130,15 @@
     0.19256
    ],
    "listed_ll": [
-    -27.9883906,
-    153.4300864
+    -27.9883915,
+    153.4300855
    ],
    "listed_pt": [
-    0.52527,
-    0.19253
+    0.52533,
+    0.19256
    ],
-   "listed_vs_derived_m": 0.132,
-   "listed_vs_derived_pt": 0.152,
+   "listed_vs_derived_m": 0.003,
+   "listed_vs_derived_pt": 0.001,
    "within_tolerance": true,
    "page_now_ll": [
     -27.988495,
@@ -150,16 +150,16 @@
    ],
    "page_now_how": "the orange generator symbol on the master D001, at the end of callout 013's line on D024 (corrected 2 Oct 2026: it was 8.7 m off, at the arrow's end)",
    "page_now_img": null,
-   "moves_m": 11.64,
+   "moves_m": 11.55,
    "moves_dir": "north",
-   "moves_bearing": 356,
+   "moves_bearing": 355,
    "m_per_pt": 0.707,
    "symbol_sides_m": [
     1.0,
     2.51
    ],
    "symbol_ops": "ql",
-   "symbol_vs_listed_pt": 0.152,
+   "symbol_vs_listed_pt": 0.001,
    "said": [
     11.6,
     "north"

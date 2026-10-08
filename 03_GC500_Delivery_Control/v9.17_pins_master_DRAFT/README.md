@@ -263,8 +263,10 @@ entry point (E.P) drawn on the master." This was left alone because the release 
 ## How to check it on site
 
 1. **WC09 (Fri 9 Oct).** Navigate now ends between the two 6 m toilet blocks inside the new compound, not on the path
-   outside the fence. Standing there, the four-toilet row is about 13 m to the west (inside the west fence) and the six pee
-   panels about 9 m to the east. Drop a phone pin there with the page's "Pin where it stands"; it should land within a few metres of the new point.
+   outside the fence. Standing there, on the ground (true north, measured through the registration from the middle of each
+   group drawn on the master): the four-toilet row is about **13.5 m north (bearing 354°)** and the six pee panels about
+   **8.8 m south-south-east (bearing 159°)**. (The first draft said "13 m west" and "9 m east": that was read off the paper,
+   which is not drawn north-up.) Drop a phone pin there with the page's "Pin where it stands"; it should land within a few metres of the new point.
 2. **CP1 (P68 crib room).** In the Cypress Ave car park, Navigate goes to the 6 m building, not to the car-park fence about
    16 m west of it. WC81 is the toilet just north of the building.
 3. **The others.** Each pin is on the toilet, not on its printed number. The drawer's close-up shows the red ring on the
