@@ -37,7 +37,7 @@ const NOTES = {'2A': 'plan 02a', '5A': 'plan 05a', '7A': 'plan 07a', '04A': 'pla
  '15': 'plan 15* — installed at the conclusion of track activity, stored T2 runoff', '18': 'plan 18* — Roadtek to remove/install Fri/Sat/Sun',
  '1O': 'D025 itself types 1O'};
 const R30_TITLE = 'VMS plan VMS001-26003-01 vs D025 Rev 02 — to confirm';
-const R30_POINTS = ['which drawing governs', '03a vs 04A', '4 or 5 moves on 19 Oct', 'boards 21–24'];
+const R30_POINTS = ['which drawing governs', '03a vs 04A', '4 or 5 moves on 19 Oct', 'boards 21–24', 'board 21 Staghorn Avenue', 'Ocean Avenue', 'board 17*', 'storage T10', 'map depicts T11', 'Roadtek'];
 const lineFor = (total, boq) => 'Schedule ' + total + ' · iEDM plan ' + PLAN + ': 24 boards + 4 moves · BOQ ' + boq + ' · the project manager\'s 1 Oct answer: 22';
 // names the page must never carry (agents, models, people from the plan's file details are not listed here at all): held encoded
 // so this file does not carry them either; the check is that the build carries no more of each than its base

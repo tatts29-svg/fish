@@ -45,6 +45,10 @@ async function boot(file) {
      so the base and the build draw the day with the same weather (a service that answered on one page and not on the other
      shows in the pane comparison as a weather difference, not a Truck flow one - the detail then names both states) */
   await s.page.waitForFunction(() => { try { return [WXF, WXO].every(x => x.state !== 'loading' && x.state !== 'idle'); } catch (e) { return true; } }, null, {timeout: 30000}).catch(() => {});
+  /* The parked same-origin explorer writes its one-time hint flag after its map is ready.
+     Await that existing background write before the no-write snapshot; otherwise WebGL
+     startup can race the fold interaction. No storage keys are excluded from comparison. */
+  if (!process.env.NOEXPLORER) await s.page.waitForFunction(() => localStorage.getItem('gc500.explorer.hint887') === '1', null, {timeout: 60000});
   await s.page.waitForTimeout(2500); return s;
 }
 const show = (p, iso) => p.evaluate(iso => { state.day = iso; state.tlView = 'day'; go('timeline'); render(); }, iso).then(() => p.waitForTimeout(700));
@@ -70,7 +74,7 @@ function grab(iso) {
 async function snapshot() {
   const h = async t => [...new Uint8Array(await crypto.subtle.digest('SHA-256', new TextEncoder().encode(t)))].map(b => b.toString(16).padStart(2, '0')).join('');
   const st = k => { try { return JSON.stringify(Object.entries(window[k]).sort()); } catch (e) { return 'n/a'; } };
-  return {S: await h(JSON.stringify(S)), ls: await h(st('localStorage')), ss: await h(st('sessionStorage'))};
+  return {S: await h(JSON.stringify(S)), ls: await h(st('localStorage')), ss: await h(st('sessionStorage')), keys: Object.fromEntries(await Promise.all(Object.entries(localStorage).map(async ([k,v])=>[k,await h(v)])))};
 }
 /* independent count, run in the BASE page on the base card's own rendered rows (nothing from the day model or the patch):
    red = Curfew first rows marked unknown / late, the loads named in an area row over its limit, and - when the Oversized row is
@@ -190,7 +194,7 @@ async function shot(p, sel, file) {
       const keptShut = await p.evaluate(iso => { const d = document.querySelector('details.flow909[data-flow909="' + iso + '"]'); return !!d && !d.open; }, iso);
       ok(iso + ': an opened fold stays open through a redraw; closed again, it stays closed', keptOpen && keptShut, {keptOpen, keptShut});
       const after = await p.evaluate(snapshot);
-      ok(iso + ': opening, closing and redrawing wrote nothing (local record, localStorage and sessionStorage identical; blocked writes ' + s.counts.blocked + ')', after.S === before.S && after.ls === before.ls && after.ss === before.ss && s.counts.blocked === 0, {S: after.S === before.S, ls: after.ls === before.ls, ss: after.ss === before.ss, blocked: s.counts.blocked});
+      ok(iso + ': opening, closing and redrawing wrote nothing (local record, localStorage and sessionStorage identical; blocked writes ' + s.counts.blocked + ')', after.S === before.S && after.ls === before.ls && after.ss === before.ss && s.counts.blocked === 0, {S: after.S === before.S, ls: after.ls === before.ls, ss: after.ss === before.ss, blocked: s.counts.blocked, changedKeys: [...new Set([...Object.keys(before.keys), ...Object.keys(after.keys)])].filter(k => before.keys[k] !== after.keys[k])});
       /* the rest of the pane is the base's */
       ok(iso + ': the rest of the Timeline pane is the base’s byte for byte with the fold unwrapped — load cards, Workers, dropdowns (' + G.selects + '), order controls (' + G.ords + '), Arrange loads (' + G.arrange + ')',
         G.version === B[iso].version && norm(G.pane) === norm(B[iso].pane),   /* a record that moved between the two reads fails here: rerun */ {version: [B[iso].version, G.version], weather: [B[iso].wx, G.wx], same: norm(G.pane) === norm(B[iso].pane), len: [B[iso].pane.length, G.pane.length]});

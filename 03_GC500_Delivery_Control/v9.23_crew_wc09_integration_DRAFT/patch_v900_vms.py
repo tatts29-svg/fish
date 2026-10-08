@@ -23,7 +23,7 @@
 #     4 moves · BOQ 23 · the project manager's 1 Oct answer: 22" - with the schedule total and the BOQ figure read where the
 #     v8.75 note reads them (a wrap of todayGroupDetails841, as v8.75 and v8.94 do). On v9.04 that note still lives in the VMS
 #     card's "View details" fold (ul.tw841-group-notes); v9.02's widescreen Today is screen styling and did not move it.
-#  4. DATA.open_items: R30 "VMS plan VMS001-26003-01 vs D025 Rev 02 — to confirm" with the six open points; R16 and R23
+#  4. DATA.open_items: R30 "VMS plan VMS001-26003-01 vs D025 Rev 02 — to confirm" with the four open points and source-caption conflicts; R16 and R23
 #     gain one sentence each. The Questions page asks an open item the 1 Oct review table (QHIST) does not carry as an open
 #     question (a wrap of questionsList_753) - on this base that is R30 alone.
 #
@@ -80,7 +80,10 @@ R30 = {'id': 'R30', 'title': 'VMS plan VMS001-26003-01 vs D025 Rev 02 — to con
                    'position, count or charge has moved for it. Open points: (1) which drawing governs, the plan or D025 Rev 02; '
                    '(2) 03a vs 04A: the plan moves board 03 to the highway outside Gate 1 and has no 04a, where D025 moves board 04 '
                    'there as 04A; (3) 4 or 5 moves on 19 Oct: the plan moves four boards (02, 03, 05, 07), the schedule\'s T0159 '
-                   'says five; (4) boards 21–24 are in the plan and not on D025. Confirmed by the project manager on 8 Oct: '
+                   'says five; (4) boards 21–24 are in the plan and not on D025. Two source-caption conflicts also need confirmation: '
+                   'page 17 labels board 21 Staghorn Avenue, but its map/photo depicts Ocean Avenue; page 15 labels board 17* '
+                   'storage T10, but its map depicts T11. Page 15 assigns board 18* removal/installation to Roadtek; do not '
+                   'count it as Coates event crew work without a confirmed reassignment. Confirmed by the project manager on 8 Oct: '
                    'T0103 carries VMS09 and VMS10; asset 1211404 is VMS09, moved from T0001. The VMS register carries those '
                    'answers and any later record changes. The branch still needs to check that contract line 1 was off-hired '
                    'or transferred; the same board also appears on line 12.'),

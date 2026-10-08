@@ -123,7 +123,7 @@ function report(R, label) {
     const started = await p.evaluate(() => ({on: BC.on, i: BC.i, pressed: document.getElementById('showBroadcast').getAttribute('aria-pressed')}));
     ok('Broadcast starts from a press on its button (programme on, aria-pressed true)', started.on && started.pressed === 'true' && started.i >= 1,
       Object.assign({via, framesPerSecondBeforeShowOpen: framesBefore, framesPerSecondAfterShowOpen: framesAfter}, started));
-    const jump = await p.evaluate(() => { bcStop(); BC.on = true; bcPlay(17); window.__bc900 = BC.el; return {on: BC.on, i: BC.i, src: BC.el ? BC.el.src : ''}; });
+    const jump = await p.evaluate(() => { bcStop(); BC.on = true; bcPlay(17); window.__bc900 = BC.el; window.__endedSlot17 = false; BC.el.addEventListener('ended', () => { window.__endedSlot17 = true; }, {once:true}); return {on: BC.on, i: BC.i, src: BC.el ? BC.el.src : ''}; });
     await until('slot 17 playing', () => p.evaluate(() => !!(window.__bc900 && window.__bc900.currentTime > 1.5 && !window.__bc900.paused))).catch(() => {});
     const playing = await p.evaluate(() => { const a = window.__bc900; return {i: BC.i, t: a.currentTime, paused: a.paused, dur: a.duration, err: a.error ? a.error.code : null, ready: a.readyState}; });
     ok('slot 17 plays from the new media: the programme is on slot 17, the take is the local copy, it is playing with no media error and its length is 16.03 s',
@@ -131,8 +131,8 @@ function report(R, label) {
       {src: jump.src.slice(-24), t: +playing.t.toFixed(2), dur: playing.dur, err: playing.err, ready: playing.ready, served: served[NEW + '.mp3'] || 0});
     if (OUT) await p.screenshot({path: path.join(OUT, `broadcast900_${MOB ? 'phone' : 'laptop'}_slot17.png`)});
     await until('slot 17 ended', () => p.evaluate(() => !!(window.__bc900.ended || BC.i !== 17)), 40000).catch(() => {});
-    const after = await p.evaluate(() => { const a = window.__bc900; return {ended: a.ended, err: a.error ? a.error.code : null, i: BC.i, on: BC.on, t: a.currentTime}; });
-    ok('the take plays to its end (ended, no error) and the programme moves on to slot 18', after.ended && after.err === null && after.on && after.i === 18 && after.t > NEW_SECS - 0.2, after);
+    const after = await p.evaluate(() => { const a = window.__bc900; return {ended: window.__endedSlot17, reused: a === BC.el && a === BC.player918, err: a.error ? a.error.code : null, i: BC.i, on: BC.on, src: a.src, t: a.currentTime}; });
+    ok('the take ends naturally and the reused v9.18 player advances to slot 18 without error', after.ended && after.reused && after.err === null && after.on && after.i === 18, after);
     await p.evaluate(() => { bcStop(); });
     ok("the base's slot-17 take was never asked for", !Object.keys(served).includes(OLD + '.mp3') && !fellBack.includes(OLD.slice(0, 12)), {fellBack: fellBack.length});
     ok('no script errors and no console errors', s.errors.length === 0 && consoleErrors.length === 0, {errors: s.errors, console: consoleErrors});
