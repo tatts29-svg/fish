@@ -34,6 +34,11 @@
   - The roster grid answers "which days each person is on". Is that what he meant?
 - **The build follows his yes**, on the latest public page. If Codex's v9.08 is live by then, it is rebuilt on v9.08.
 
+**ANDREW, 8 Oct 2026 ~14:40 AEST: "WC09 We need to have a line for each as each will have a install and level and stairs each one of those assets that go there."** Claude, read-only on live v9.10:
+- **What's wrong:** the page already gives each building its own Install, Levelling and Steps ticks where a reference carries two building numbers (v5.55; WC15, WC16, WC17 and WC20 work). On WC09, the v7.32 split deals the two block numbers Andrew recorded at 13:52, 1268858 and 1311146, to **Pee Panel**, because the biggest order fills first. So Toilet Block 6m gets one line for the reference, and the pee panels wrongly get per-unit lines.
+- **Fix now, on the page:** the Change form's "counts as" box. Set both numbers to Toilet Block 6m.
+- **Fix in the release:** part E of v9.09, `patch_v900_lines.py`, workflow `wf_d835631b-342`. Lines the page knows are Event Portables or sub-hire take no Coates number, and add-on lines (pee panels, tanks, steps) are dealt last. Every multi-item reference is surveyed before and after; only corrections ship.
+
 **ANDREW, 8 Oct 2026 ~14:38 AEST: "Race clip all good".** He approved race-call turn 17 with the new fencing crew name after hearing turns 16 → 17 → 18 back to back. The take is `c1f29637…mp3`, 16.03 s, outside git. The race-call part is approved for the release.
 
 **LIVE, 8 Oct 2026 ~14:30 AEST: Codex's v9.10, the daily name selector and readable Crew controls ([6052272555](https://github.com/tatts29-svg/fish/pull/1#issuecomment-6052272555)).** Claude's GET readback at 14:31 AEST: page `838a45559ac0d184186f37bd5fa2b4ebf518ca63c8d3ddda8bec041bf738587f`, 11,528,818 bytes, footer ` · v9.10`; media 1,975, manifest `25afcb42…`, both unchanged from v9.08; machine `cd05e73e…` unchanged; `StaffNames910` present. **This is the base for Claude's crew, race call, WC09 and VMS release.** The footer must rise, so that release takes the next free footer when it is published: v9.12 while Codex holds v9.11. The patch and folder names don't change.

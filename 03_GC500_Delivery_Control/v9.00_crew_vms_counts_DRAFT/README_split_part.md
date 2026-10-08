@@ -66,7 +66,7 @@ dates, the footer (the footer step does it), every pin, `MASTER_LOC` entry and m
 
 ## The references the rule touches, on the live record today
 
-Found by reading every reference on the built page (record 4469, `evidence`: enumeration below), and on 8, 9, 13 and 20 Oct:
+Found by reading every reference on the built page (record 4469; the enumeration in the results below), on 8, 9, 13 and 20 Oct:
 
 | reference | rows on the plan | record | Today work row, before → after (8 Oct) |
 |---|---|---|---|
@@ -76,9 +76,9 @@ Found by reading every reference on the built page (record 4469, `evidence`: enu
 
 No other reference has split rows. **Nothing moved unexpectedly.** Only WC09 holds anything back, on every day checked.
 
-What follows from WC09, on 8 Oct (same record on both pages):
+What follows from WC09, on 8 Oct (same record on both pages; the same figures on the v9.07, v9.08 and v9.10 bases):
 
-| reading | base (live v9.07) | candidate |
+| reading | base (live) | candidate |
 |---|---|---|
 | Toilets work: confirmed complete | 139 of 254 toilet units, at least 54.72% | 129 of 254, at least 50.78% (the "at least" comes from other references' reviews, unchanged) |
 | Toilets group card, item types | FWF and Pee Panel include WC09's 4 and 6 as complete | FWF −4, Pee Panel −6; 6 m blocks unchanged |
@@ -93,16 +93,18 @@ line on the page is 2 FWF. If WC67 is 4 FWF, the order quantity is its own quest
 
 `cd 03_GC500_Delivery_Control && toolchain/build.sh v905_split v9.00_crew_vms_counts_DRAFT/patch_v900_split.py`
 
-**Live moved during the work:** the base named for this part was v9.04 (`d0d63004…`); by the build, **v9.07** (Today
-clean-up) was live, and this part is built on it. The patch applies unchanged to both (on v9.04 it was applied to a scratch
-copy: `check_page` PASS).
+**Live moved three times during the work**, and each time this part was rebuilt on the new live page and the tests rerun:
+the base named for it was v9.04 (`d0d63004…`); then v9.07 (Today clean-up), v9.08 (Timeline centred cards) and v9.10
+(the name selector) went live. The patch applies unchanged to all four (on v9.04 to a scratch copy, `check_page` PASS). The
+current build:
 
 | | |
 |---|---|
-| base (live at build, v9.07) | `25826d5e30c935beb2aea127f2a014ab654a402e8715e4817dc7d7c647eb95f3`, 11,466,903 bytes, footer ` · v9.07` (re-fetched before the final runs: unchanged) |
-| candidate | `a99e098ce463f76ab9a0f9b9a080593bd337636e4467e61fd9a3a4c4354a4265`, 11,473,073 bytes, footer ` · v9.07` (untouched) |
-| check_page | PASS: 24 inline scripts parse, no new keys, author line present |
+| base (live at build, v9.10) | `838a45559ac0d184186f37bd5fa2b4ebf518ca63c8d3ddda8bec041bf738587f`, 11,528,818 bytes, footer ` · v9.10` |
+| candidate | `3c92d176e4c39b1665edc83da1e2517964e644b314b0fd4ae676320f3adeeb48`, 11,534,988 bytes, footer ` · v9.10` (untouched) |
+| check_page | PASS: 26 inline scripts parse, no new keys, author line present; the scrub's code-mention count rises by one (this script's Author line) |
 | patch run twice | refused: "v9.00 split part already applied" |
+| earlier builds | on v9.07 `25826d5e…` → `a99e098c…`; on v9.08 `aa1480bd…` → `34edd058…` (re-applying the final patch to the v9.08 base reproduced `34edd058…` byte for byte) |
 
 ## Tests
 
@@ -123,12 +125,14 @@ breakdown shows WC09 with 10 not confirmed complete, the reason once, no "Requir
 12); money identical (`moneySummary()`, `cj764Model()`, `fh866Model()`, `pl770Model()` as JSON); same record version on
 both; no page or console errors; no writes.
 
-| run | laptop 1440 | phone (MOB=1) |
-|---|---|---|
-| test_split900, record 4469 | **28/28** | **28/28** |
-| test_split900, record 4471 (final) | **28/28** | **28/28** |
-| sweep (`harness/sweep.js`) | 21 tabs, 15 shown (as usual), 0 page errors, 0 console errors, 0 writes | 21 tabs, 15 shown, 0 page errors, 0 writes; SWEEP_PHONE_NOTE |
-| enumeration (every reference, 8/9/13/20 Oct) | only WC09 holds rows back; split references WC09 and WC67 | — |
+| base | record | test_split900 laptop 1440 | test_split900 phone (MOB=1) | sweep laptop | sweep phone |
+|---|---|---|---|---|---|
+| v9.07 | 4469, then 4471 | **28/28**, **28/28** | **28/28**, **28/28** | 21 tabs, 15 shown, 0 errors, 0 console, 0 writes | 21 tabs, 15 shown, 0 errors, 0 writes; one console line, a failed fetch to the public weather service (the rig's network; it did not recur) |
+| v9.08 | 4504 | **28/28** | **28/28** | 21 / 15 shown, 0 / 0 / 0 | 21 / 15 shown, 0 / 0 / 0 (base page the same) |
+| **v9.10 (current)** | 4504 | **28/28** | **28/28** | SWEEP910_LAPTOP | SWEEP910_PHONE |
+
+The enumeration (every reference on the built page, 8, 9, 13 and 20 Oct, record 4469): split references WC09 and WC67;
+only WC09 holds rows back.
 
 Looked at: the Toilets "not confirmed complete" breakdown with WC09's row, laptop and phone — "10 toilet units not confirmed
 complete · Recorded complete for the rows due by Thu 8 Oct · 2 of 12 · 4 FWF, 6 Pee Panel due Fri 9 Oct (Event Portables
