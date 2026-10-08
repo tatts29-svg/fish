@@ -16,7 +16,7 @@ It updates only `DATA.fencing`, its source explanations/evidence fold and two bo
 - A wrong week code on an otherwise correctly dated row is a warning; the explicit date is retained, not silently changed.
 - TBC quantities remain identified, not converted into zero. Arithmetic task formulas are safely evaluated; formula caches/subtotal ranges are not used.
 - Source completion words are audit counts only. No native completion or “arranged” traffic-control state is inferred.
-- Source notes retain gate, access, traffic-control timing, supplier-scope and cost-allocation instructions. The native folded evidence table is read-only.
+- Source notes retain gate, access, traffic-control timing, supplier-scope and cost-allocation instructions. The native folded evidence table is read-only and is moved into the existing Planning & commercial detail section by the native fencing layout.
 - CON WK6's erroneous Date Completed Excel serial is no longer a quantity. Its legitimate totals remain identical, preserving the reviewed native compound allowance.
 - `progressAsOf` uses actual first task dates when earlier than a mapped week label: Sunday 25 October removals are included before the Monday demob label. It does not move tasks/dockets or change the week map.
 - Installation completion reports exclude DECON reuse, matching the current Today scope. Demob's 950 m clean-fence movements stay in their own plan.
@@ -42,7 +42,7 @@ Owned files are `fencing*`, `tests/test_fencing*` and `evidence/fencing*` only. 
 
 ## Validation
 
-- **39 Python source/model/exact-HTML checks** on final v9.48 input pass. They cover explicit quantity columns, circular/invalid expression rejection, source/date/scope guards, retained unknowns, copied-status exclusion, active PDF precedence, no input mutation, unchanged other DATA/native committed literals and duplicate patch refusal.
+- **40 Python source/model/exact-HTML checks** on final v9.48 input pass. They cover explicit quantity columns, circular/invalid expression rejection, source/date/scope guards, retained unknowns, copied-status exclusion, active PDF precedence, no input mutation, unchanged other DATA/native committed literals and duplicate patch refusal.
 - **32 isolated native JavaScript consumer checks** pass. They run the page's actual `plannedToDay`, `progressAsOf`, `fenceTypes`, `fenceByWeek` and `cj764Fencing` functions against the changed source with explicit synthetic rates and no network/storage. Sunday 25 October contains 806 m removal; cumulative planned removal is 1,939 m. Installation clean-fence denominator is 8,090.5 m, excluding demob's retained 950 m reuse.
 - Native forecast changes are independently reconciled per week/category × explicit fixture rate; the fixture values are **not actual commercial amounts**. Native actual-rate/financial checks belong to final integration, alongside the other workbook changes.
 - The notes renderer escapes source text, contains no inputs/selects/buttons/write handlers and retains held rows.

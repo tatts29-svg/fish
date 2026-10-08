@@ -122,6 +122,8 @@ class HTMLTests(unittest.TestCase):
         with self.assertRaises(ValueError):apply_fencing951(self.after)
     def test_source_and_notes_hooks_once(self):
         self.assertEqual(self.after.count('function fencingNotes951('),1);self.assertEqual(self.after.count('${fencingNotes951()}'),1)
+    def test_source_notes_moved_into_existing_planning_section(self):
+        self.assertIn("const sourceNotes951=children.find(e=>e.id==='fencing-source951'); if(sourceNotes951) working.append(sourceNotes951);",self.after)
     def test_no_stale_demob_claim_in_renderers(self):
         self.assertNotIn('the removal weeks in that file still carry 2025 dates',self.after)
     def test_native_record_literals_unchanged(self):

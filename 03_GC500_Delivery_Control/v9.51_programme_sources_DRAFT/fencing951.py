@@ -72,6 +72,7 @@ def apply_fencing951(html, path='<candidate>'):
     html=rep(html,'<th>Stated totals</th></tr></thead><tbody>${','<th>Planned work quantities</th></tr></thead><tbody>${','quantity basis heading',path)
     html=rep(html,'const started = weeks.filter(w => w.start <= asOf);','const started = weeks.filter(w => fencingWeekStarted951(w, asOf));','respect Sunday source task date',path)
     html=rep(html,'const W = ((DATA.fencing || {}).week_sheets || []).filter(w => w.year === 2026 || w.rolled_forward);','const W = ((DATA.fencing || {}).week_sheets || []).filter(w => (w.year === 2026 || w.rolled_forward) && !/decon|deconstruction/i.test(`${w.sheet} ${w.phase}`));','installation denominator excludes demob reuse',path)
+    html=rep(html,"const working=root.querySelector('.fp-working');", "const working=root.querySelector('.fp-working');\n const sourceNotes951=children.find(e=>e.id==='fencing-source951'); if(sourceNotes951) working.append(sourceNotes951);",'keep source notes in native planning folds',path)
     anchor='function fenceEstimateSources829(model){'
     html=rep(html,anchor,(BASE/'fencing_notes951.js').read_text()+'\n'+anchor,'native folded programme evidence',path)
     return html
