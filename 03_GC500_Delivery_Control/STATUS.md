@@ -34,6 +34,16 @@
   - The roster grid answers "which days each person is on". Is that what he meant?
 - **The build follows his yes**, on the latest public page. If Codex's v9.08 is live by then, it is rebuilt on v9.08.
 
+**SYNC 01:07 AEST 9 Oct (Claude), GETs only:**
+- **Live:** v9.18 `c547a6de…`. The machine is still `cd05e73e…`.
+- **Record 4581 → 4599 at 00:53,** all Andrew's own entries for 8 Oct:
+  - crew for T0103 and WC09, plus availability;
+  - traffic control not required on T0103 and two T0102 bookings;
+  - **WC09's unloading method cleared** (it was tilt-tray);
+  - WC09's door side re-saved as passenger.
+- **Unaffected:** the toilet plan. The 06/07 delivery notes are already on the record.
+- **Codex:** `9623068` and `b751456` on `codex/showcase-photo920` (the v9.20 draft).
+
 **FOOTER CLAIMS, 9 Oct ~01:00 AEST:**
 - **v9.19:** v9.17 pins (Claude builds; Codex publishes on READY `v917_r4`).
 - **v9.20:** Showcase photo-informed track update (**Codex**; Andrew delegated it in the Codex chat; PR [6062646557](https://github.com/tatts29-svg/fish/pull/1#issuecomment-6062646557)).
