@@ -1,7 +1,8 @@
 # v9.00 part C — the WC09 count: split rows count from their own day (DRAFT)
 
 Author: Andrew Fisher · 8 Oct 2026 · state: **DRAFT**, built and tested, not uploaded, not committed by this part ·
-publishes in the next release of this folder (agreed as v9.05; the footer step takes the next free number after the live page)
+publishes in the next release of this folder (agreed as v9.05; renumbered on the board as the live page moved; the footer
+step takes the next free number after the live page)
 
 ## What happened, and what Andrew said
 
@@ -25,7 +26,7 @@ day (AEST)**.
 - A row due after that day is **not** counted when its day comes. It counts once a record made **on or after its day** says
   so: the reference set on site again, or ticked Complete again, that day or later. Until then it reads as **due**, never done.
 - **The page keeps no delivered record of its own for an Event Portables load**, so nothing else counts for them. Checked on
-  v9.04 and v9.07: the shared `loads` collection holds drop cards (`keys`, `drop`, `card`), crew planning (`crew883`),
+  v9.04, v9.07 and v9.10: the shared `loads` collection holds drop cards (`keys`, `drop`, `card`), crew planning (`crew883`),
   unloading windows and load order (`flow891`) and the traffic-control status (`traffic903`: To confirm / Not required /
   Required / Arranged). None says a load was delivered. The page's `delivered` flag belongs to the Coates rental contract
   lines, which do not carry Event Portables rehire.
@@ -129,7 +130,7 @@ both; no page or console errors; no writes.
 |---|---|---|---|---|---|
 | v9.07 | 4469, then 4471 | **28/28**, **28/28** | **28/28**, **28/28** | 21 tabs, 15 shown, 0 errors, 0 console, 0 writes | 21 tabs, 15 shown, 0 errors, 0 writes; one console line, a failed fetch to the public weather service (the rig's network; it did not recur) |
 | v9.08 | 4504 | **28/28** | **28/28** | 21 / 15 shown, 0 / 0 / 0 | 21 / 15 shown, 0 / 0 / 0 (base page the same) |
-| **v9.10 (current)** | 4504 | **28/28** | **28/28** | SWEEP910_LAPTOP | SWEEP910_PHONE |
+| **v9.10 (current; still live at 15:02 AEST)** | 4504 | **28/28** | **28/28** | 21 tabs, 15 shown, 0 errors, 0 console, 0 writes | 21 tabs, 15 shown, 0 errors, 0 console, 0 writes |
 
 The enumeration (every reference on the built page, 8, 9, 13 and 20 Oct, record 4469): split references WC09 and WC67;
 only WC09 holds rows back.
