@@ -1,0 +1,28 @@
+{
+  "author": "Andrew Fisher",
+  "passed": true,
+  "candidateSha256": "d5d784d800243b5e1f0d67078955328cd710cdac372c5077b59675e816d3c4f7",
+  "record": 4705,
+  "financial": {
+    "ok": true,
+    "checks": 1823,
+    "passed": 1823,
+    "failed": 0,
+    "modelsCompared": 16,
+    "reclassifiedContracts": 2,
+    "reviewItems": 2
+  },
+  "correctedUnits": 30,
+  "canonicalPhotoBindingsUnchanged": true,
+  "unitIdsUnchanged": true,
+  "sourceRecordsUnchanged": true,
+  "desktopAndPhone": true,
+  "pageErrors": 0,
+  "operationalWrites": 0,
+  "syntheticChecks": 32,
+  "identityPhotoChecks": 10,
+  "contractOwnershipChecks": 7,
+  "patchChecks": 8,
+  "inlineScriptsParsed": 43,
+  "phoneScreenshotsReviewed": true
+}
