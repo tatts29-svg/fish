@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Author: Andrew Fisher. Page 2 of the Wed 14 Oct arrival plan: where to turn and where to park, on Queensland Government
 aerial imagery, turned so the trucks' direction of travel (south) is up. Writes aerial.svg."""
+from holding943 import HOLDING, TURN
 import base64, io, json, math, os
 from PIL import Image, ImageEnhance
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -48,7 +49,7 @@ esp = geom(115940239)                 # one-way Esplanade, split -> Higman St en
 mbp_in = geom(1452178841)[-6:] + geom(1452178842)[1:]   # Main Beach Pde, the last stretch before the split
 mbp_on = geom(1452178843)             # Main Beach Pde straight on past the split (not this way)
 L = length_m(esp)
-lane = offset(esp, 2.3); strip = sub_m(lane, 9, L - 6); SL = length_m(strip)
+strip=HOLDING; SL=length_m(strip)
 S = []
 X0 = 150; VW = round(H * 0.5053)
 S.append(f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="{X0} 0 {VW} {H}" class="aer" preserveAspectRatio="xMidYMid slice">')
@@ -56,8 +57,8 @@ S.append(f'<image href="data:image/jpeg;base64,{B64}" width="{W}" height="{H}"/>
 S.append(f'<defs><marker id="ah" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="3.2" markerHeight="3.2" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="{ORANGE}"/></marker>'
          f'<pattern id="h2" width="16" height="16" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="16" height="16" fill="{ORANGE}" fill-opacity=".30"/><line x1="0" y1="0" x2="0" y2="16" stroke="{ORANGE}" stroke-width="6" stroke-opacity=".75"/></pattern></defs>')
 # approach along Main Beach Pde, then the turn onto the Esplanade
-appr = mbp_in[-5:]
-turn = [at_m(mbp_in, length_m(mbp_in) - 1)[0]] + sub_m(esp, 2, 26)
+appr = mbp_in[-5:] + TURN[:1]
+turn=TURN
 S.append(f'<path d="{d(appr)}" fill="none" stroke="#fff" stroke-width="22" stroke-linecap="round" stroke-linejoin="round" stroke-opacity=".9"/><path d="{d(appr)}" fill="none" stroke="{ORANGE}" stroke-width="13" stroke-linecap="round" stroke-linejoin="round"/>')
 S.append(f'<path d="{d(turn)}" fill="none" stroke="#fff" stroke-width="22" stroke-linecap="round" stroke-linejoin="round" stroke-opacity=".9"/><path d="{d(turn)}" fill="none" stroke="{ORANGE}" stroke-width="13" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#ah)"/>')
 # straight on along Main Beach Pde is NOT the way
@@ -67,13 +68,9 @@ S.append(f'<g transform="translate({nx + 42},{ny - 28})"><rect width="330" heigh
 # the holding strip and the truck slots, truck 1 at the front (Higman St end)
 S.append(f'<path d="{d(strip)}" fill="none" stroke="#fff" stroke-width="{3.2 / MPP + 12:.1f}" stroke-linecap="butt" stroke-linejoin="round" stroke-opacity=".9"/>')
 S.append(f'<path d="{d(strip)}" fill="none" stroke="url(#h2)" stroke-width="{3.2 / MPP:.1f}" stroke-linecap="butt" stroke-linejoin="round"/>')
-truck_len, gap = 13.0, 3.0; end = SL - 1.5; tw = 2.5 / MPP
-for k in range(4):
-    seg = sub_m(strip, end - truck_len, end); end -= truck_len + gap
-    (ax, ay), (bx, by) = P(*seg[0]), P(*seg[-1])
-    a = math.degrees(math.atan2(by - ay, bx - ax)); cx, cy = (ax + bx) / 2, (ay + by) / 2; ln = math.hypot(bx - ax, by - ay); cab = 2.4 / MPP
-    S.append(f'<g transform="translate({cx:.1f},{cy:.1f}) rotate({a:.1f})"><rect x="{-ln / 2:.1f}" y="{-tw / 2:.1f}" width="{ln - cab - 3:.1f}" height="{tw:.1f}" rx="4" fill="{INK}" stroke="#fff" stroke-width="2"/>'
-             f'<rect x="{ln / 2 - cab:.1f}" y="{-tw / 2 + 2:.1f}" width="{cab:.1f}" height="{tw - 4:.1f}" rx="7" fill="{INK}" stroke="#fff" stroke-width="2"/></g>')
+# Queue-order markers only; actual truck positioning is directed by traffic control.
+for k,f in enumerate([0.88,0.64,0.40,0.16]):
+    cx,cy=P(*at_m(strip,SL*f)[0])
     S.append(f'<circle cx="{cx:.1f}" cy="{cy:.1f}" r="27" fill="#fff" stroke="{ORANGE}" stroke-width="6"/><text x="{cx:.1f}" y="{cy + 11:.1f}" text-anchor="middle" class="a-slot">{k + 1}</text>')
 # the drop area (master plan positions of the four buildings)
 DROP = [(-27.991486, 153.430428), (-27.991452, 153.430425), (-27.991376, 153.430418), (-27.991346, 153.430415)]
@@ -82,8 +79,9 @@ S.append(f'<ellipse cx="{mx_:.1f}" cy="{my_:.1f}" rx="{13 / MPP:.1f}" ry="{16 / 
 for x, y in pts: S.append(f'<rect x="{x - 9:.1f}" y="{y - 9:.1f}" width="18" height="18" rx="3" fill="{ORANGE}" stroke="#fff" stroke-width="3"/>')
 # labels (all upright on the turned photo)
 def box(x, y, title, sub, fill, ink, w):
+    x=max(X0+10,min(x,X0+VW-w-10))
     S.append(f'<g transform="translate({x:.1f},{y:.1f})"><rect width="{w}" height="{96 if sub else 58}" rx="12" fill="{fill}" stroke="#fff" stroke-width="3"/><text x="18" y="42" class="a-t" fill="{ink}">{title}</text>' + (f'<text x="18" y="78" class="a-s" fill="{ink}">{sub}</text>' if sub else '') + '</g>')
-tx, ty = P(*esp[0])
+tx, ty = P(*TURN[2])
 box(tx + 22, ty + 30, 'TURN LEFT HERE', 'at the red crossing', ORANGE, '#fff', 372)
 S.append(f'<line x1="{tx + 40:.1f}" y1="{ty + 60:.1f}" x2="{tx + 8:.1f}" y2="{ty + 6:.1f}" stroke="#fff" stroke-width="5"/>')
 t1x, t1y = P(*at_m(strip, SL - 8)[0])
@@ -94,7 +92,7 @@ box(X0 + 14, m4y + 60, 'HOLDING STRIP', '2, 3, 4 close behind', '#fff', INK, 340
 S.append(f'<line x1="{X0 + 354:.1f}" y1="{m4y + 108:.1f}" x2="{m4x - 18:.1f}" y2="{m4y + 8:.1f}" stroke="#fff" stroke-width="5"/>')
 box(X0 + 14, my_ - 230, 'DROP AREA', 'P25 · P66 · P65 · P67', '#fff', INK, 330)
 S.append(f'<line x1="{X0 + 170:.1f}" y1="{my_ - 134:.1f}" x2="{mx_ - 10:.1f}" y2="{my_ - 16 / MPP:.1f}" stroke="#fff" stroke-width="5"/>')
-for txt, way, f, dy in [('Main Beach Pde', 1452178841, 0.94, 0), ('Higman St', 27768094, 0.70, 34), ('Esplanade', 115940223, 0.55, -30)]:
+for txt, way, f, dy in [('Main Beach Pde', 1452178841, 0.94, 0), ('Esplanade', 115940223, 0.55, -30)]:
     g = geom(way); (la, lo), i = at_m(g, length_m(g) * f); x, y = P(la, lo); xa, ya = P(*g[i]); xb, yb = P(*g[i + 1])
     a = math.degrees(math.atan2(yb - ya, xb - xa)); a = a - 180 if a > 90 else a + 180 if a < -90 else a
     S.append(f'<text x="{x:.1f}" y="{y + dy:.1f}" text-anchor="middle" class="a-road" transform="rotate({a:.1f} {x:.1f} {y:.1f})">{txt}</text>')
