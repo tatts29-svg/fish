@@ -1,4 +1,27 @@
-# v9.01 staff picker — reconciled design (DRAFT, before Andrew's yes on the mock-up) (8 Oct 2026, ~12:15 AEST)
+# v9.01 staff picker — reconciled design (DRAFT, before Andrew's yes on the mock-up) (8 Oct 2026, ~12:15 AEST; UPDATED ~12:25 by Andrew's own words below)
+
+## ANDREW'S UPDATE, 8 Oct ~12:25 AEST — this OVERRIDES section 3 wherever they differ
+> "so based off roster they are the selection of people we can use. So select person and then select roles he will play.. As in
+> spotter/Forklift for that Reference.. i want to go back through past history too and look at it and assign people to each reference"
+
+1. **The roster is the pick list for each date** (section 1): the people rostered that day (plus the regulars, marked if not
+   rostered) are the people offered.
+2. **Allocation is per REFERENCE, with roles.** For each reference on the day (grouped under its load, in run order): tap a person
+   chip, then tap the role chips that person plays for that reference — Spotter · Forklift · Installer · Escort (the existing
+   crew883 roles; one or more; one person with several roles is ONE person). Show it as one row per reference: "Load 3 · WC29 ·
+   [<name>: Spotter, Forklift] [<name>: Installer] [+ person]". This writes the EXISTING crew883 per-reference plan
+   (`crew883SavePlan(day, ref, {people:[{slot, roles}], …})`) with each person's slot = their position in that day's `names`
+   (appended if new, never reordered) — no new per-load document is needed. The load-level view just summarises its references.
+3. **Past history:** the same works on any earlier date. Opening a past day offers that date's roster (the labour rows recorded
+   for it) and lets him assign people and roles to each reference that was delivered or removed that day. Past arrival times are
+   never inferred (v8.83 rule) — only who and which roles. A "Days to fill" list (past days with references but no crew) makes it
+   quick to work back through history.
+4. Everything else in this spec stands (Staff on roster grid, roster suggestions only on tap, words, checks, traffic-control
+   service status read-only, no money, no writes on viewing).
+
+The mock-up must show: (a) the roster grid; (b) one day's references with a person picked and the role chips open for them;
+(c) a PAST day (e.g. Mon 14 Sep 2026 — the record already has crew plans P01, P03, P04, P05, P33, WC05 for that day with
+unnamed Spotter/Installer rows) with its roster names offered and one reference assigned; (d) the phone layout of (b).
 
 Author: Andrew Fisher. Inputs: Andrew's words (8 Oct ~11:25 AEST: "also with days if there 9 loads for that day. need a easier
 selection on what days are set for these each one.. section of people know staff onsite with installers and me so selection of
