@@ -25,6 +25,14 @@ const canonical = v => Array.isArray(v) ? '[' + v.map(canonical).join(',') + ']'
 const manifestOf = media => { const assets = Object.values(media).map(x => ({bytes: x.bytes, file: x.file, scope: x.scope, sha256: x.sha256, type: x.type}))
   .sort((a, b) => a.file < b.file ? -1 : a.file > b.file ? 1 : 0); return sha(canonical({schema: 'gc500-media-v1', assets})); };
 
+function report(R, label) {
+  const pass = R.filter(r => r.pass).length;
+  for (const r of R) console.log((r.pass ? 'PASS ' : 'FAIL ') + r.name + (r.pass ? '' : '  ' + JSON.stringify(r.detail)));
+  console.log(`broadcast900 ${label}: ${pass}/${R.length}`);
+  if (OUT) fs.writeFileSync(path.join(OUT, `broadcast900_${label}.json`), JSON.stringify({author: 'Andrew Fisher', page: sha(fs.readFileSync(process.env.PAGE)), results: R}, null, 1));
+  process.exitCode = pass === R.length ? 0 : 1;
+}
+
 (async () => {
   // ---- the inputs
   const teamRaw = fs.readFileSync(process.env.V900_TEAM || '/nonexistent-V900_TEAM');
@@ -54,7 +62,8 @@ const manifestOf = media => { const assets = Object.values(media).map(x => ({byt
     {assets: man.assets.length, media: Object.keys(D.media).length, digest: man.sha256.slice(0, 12)});
   ok('manifest digest on the page equals media_manifest_v900.json and has moved off the live one', D.hostedMedia.manifest === man.sha256 && man.sha256 !== LIVE_MANIFEST, {page: D.hostedMedia.manifest.slice(0, 12), file: man.sha256.slice(0, 12)});
 
-  // ---- 2. the page in a browser, at the live address, the take served from MEDIA
+  // ---- 2. the page in a browser, at the live address, the take served from MEDIA (STATIC_ONLY=1 stops before the browser)
+  if (process.env.STATIC_ONLY) { report(R, 'static'); return; }
   const s = await open(MOB ? {pageFile: process.env.PAGE, W: 390, H: 844, dpr: 2, mobile: true} : {pageFile: process.env.PAGE, W: 1440, H: 900});
   const p = s.page, served = {}, fellBack = [], consoleErrors = [];
   p.on('console', m => { if (m.type() === 'error') consoleErrors.push(m.text().slice(0, 200)); });
@@ -96,10 +105,5 @@ const manifestOf = media => { const assets = Object.values(media).map(x => ({byt
     ok('no script errors and no console errors', s.errors.length === 0 && consoleErrors.length === 0, {errors: s.errors, console: consoleErrors});
     ok('no writes: every non-GET the page tried was counted, and there were none', s.counts.blocked === 0, s.counts);
   } finally { await s.browser.close(); }
-
-  const pass = R.filter(r => r.pass).length;
-  for (const r of R) console.log((r.pass ? 'PASS ' : 'FAIL ') + r.name + (r.pass ? '' : '  ' + JSON.stringify(r.detail)));
-  console.log(`broadcast900 ${MOB ? 'phone' : 'laptop'}: ${pass}/${R.length}`);
-  if (OUT) fs.writeFileSync(path.join(OUT, `broadcast900_${MOB ? 'phone' : 'laptop'}.json`), JSON.stringify({author: 'Andrew Fisher', page: sha(fs.readFileSync(process.env.PAGE)), results: R}, null, 1));
-  process.exitCode = pass === R.length ? 0 : 1;
+  report(R, MOB ? 'phone' : 'laptop');
 })().catch(e => { console.error('TEST FAIL', String(e && e.stack || e).slice(0, 600)); process.exit(2); });

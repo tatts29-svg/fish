@@ -60,7 +60,7 @@ assert m and m.group(1) == ON_WORDS, 'the record line must say "added by the pro
 assert 'Andrew Fisher' not in json.dumps(P, ensure_ascii=False), 'the page says "the project manager" (v5.97)'
 assert not re.search(r'@|\$|\d{4} ?\d{3} ?\d{3}', json.dumps(P, ensure_ascii=False)), 'no email, money or number goes on the page'
 
-# ---- the base: one DATA line that round-trips; the live v8.99 footer; not applied already
+# ---- the base: one DATA line that round-trips; one release footer, read from the base itself (this part never touches it); not applied already
 assert s.count('const DATA = ') == 1, 'expected one DATA declaration'
 i = s.find('const DATA = '); j = s.find('\n', i); line = s[i:j]; assert line.endswith(';'), 'DATA must be one line ending ;'
 body = line[len('const DATA = '):-1]
@@ -69,7 +69,8 @@ assert json.dumps(D, ensure_ascii=False, separators=(',', ':')) == body, 'DATA d
 T = D['team']; PEOPLE = T['people']
 if any(x.get('name') == NAME for x in PEOPLE) or 'function fencingCols900' in s:
     sys.exit('v9.00 crew part already applied')
-assert re.findall(r" · v\d+\.\d+'; /\* v8\.19", s) == [" · v8.99'; /* v8.19"], 'the base must be live v8.99 (footer " · v8.99")'
+FOOT = re.findall(r" · v(\d+)\.(\d+)'; /\* v8\.19", s)   # the base's own release marker, e.g. " · v9.04"; the footer part bumps it, not this one
+assert len(FOOT) == 1 and (int(FOOT[0][0]), int(FOOT[0][1])) >= (8, 99), f'the base must carry one release footer, v8.99 or later (found {FOOT})'
 FEN = [n for n, x in enumerate(PEOPLE) if x.get('group') == 'fencing']
 assert len(FEN) == SHEET and FEN == list(range(FEN[0], FEN[0] + SHEET)), 'the base must carry the sheet\'s eight, together'
 INSTALL = [x for x in PEOPLE if x.get('group') == 'install']
@@ -156,5 +157,5 @@ function fencingCrewWords900(ppl){
 k = s.rfind('</body>'); assert k > 0 and s[k:].strip() == '</body></html>', 'the page must end </body></html>'
 s = s[:k] + JS + s[k:]
 open(p, 'w', encoding='utf-8').write(('﻿' if bom else '') + s)
-print(f'v9.00 crew: fencing crew {SHEET} -> {SHEET + 1} (new name last, {ON_WORDS}); people {len(PEOPLE) - 1} -> {len(PEOPLE)}; '
+print(f'v9.00 crew on base v{FOOT[0][0]}.{FOOT[0][1]}: fencing crew {SHEET} -> {SHEET + 1} (new name last, {ON_WORDS}); people {len(PEOPLE) - 1} -> {len(PEOPLE)}; '
       f'install {len(INSTALL)} unchanged; 2 notes, 3 page edits, 1 script')

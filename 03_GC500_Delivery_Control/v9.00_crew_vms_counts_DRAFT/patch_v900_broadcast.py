@@ -10,7 +10,14 @@
 #
 # Data only: slot 17's text, take, bytes, sha256, secs and measured_s; the new take in DATA.media; the old slot-17 take out
 # of DATA.media when nothing else names it; DATA.broadcast.revision; DATA.hostedMedia.manifest. Nothing outside the DATA
-# line changes; no money, no record, no pin, no MASTER_LOC, no marker.
+# line changes; no money, no record, no pin, no MASTER_LOC, no marker. No footer change (patch_v900_footer.py does that).
+#
+# THE BASE IS READ, NOT ASSUMED. Whatever live page build.sh fetched (v9.04 when this was written; v8.99 before it), the
+# patch takes from that page: slot 17's current take (its sha256, which must be its audio.media and a media entry), its
+# current roll call (the name is appended after the last name called, which must occur once and end the text), DATA.media
+# and DATA.hostedMedia.manifest. Before anything changes it proves the base's manifest digest is v7.22's canonical form of
+# the base's own DATA.media; then it writes the new manifest and sets the digest. Only the new take is pinned (by SHA-256,
+# size and measured length), because it is the input, not the base.
 #
 # Inputs, each bound by SHA-256 so the patch refuses anything else:
 #   V900_TEAM   the private input naming the new crew member (the name is never written into this folder)
@@ -19,23 +26,21 @@
 #
 #   V900_TEAM=... V900_TAKE=... V900_FFMPEG=... toolchain/build.sh v900_x <crew patch> v9.00_crew_vms_counts_DRAFT/patch_v900_broadcast.py ...
 #
-# Writes the media manifest the service checks the page against next to the built page, and keeps the reviewed copy
-# media_manifest_v900.json beside this file (written when absent; when present it must match byte for byte).
+# Writes the media manifest (media_manifest_v900.json) next to the built page and beside this file, each build: it follows
+# the base. A later part that changes DATA.media must write the manifest again (tests/test_broadcast900.cjs checks the final
+# page's digest against the file and against its own DATA.media).
 import copy, hashlib, json, os, re, shutil, subprocess, sys
 from pathlib import Path
 here = Path(__file__).resolve().parent
 sys.path.insert(0, str(here.parent / 'toolchain'))
-from rep import rep   # the shared helper: the slot-17 text edit must match exactly once; the DATA line is sliced, asserted once
+from rep import rep   # the shared helper: the slot-17 text edit must match exactly once
 
 TEAM_SHA = 'ee576e40d18d144038d3e0eefe0b1013042c72e05f47d51fff20888def84154a'   # private input, 8 Oct 2026
 TAKE_SHA = 'c1f296379a281e22516d8f86a7d7f24097f7e5b47b4c6aa135dcb6e0dc352893'   # turn 17, page-ready take
 TAKE_BYTES = 192428
 TAKE_SECS = 16.03                                                                  # ffmpeg -i on the page-ready file
-OLD_SHA = '91ddb4349a2ffa075f7b6cd2b9f6ee99f2e8967df81723d6d346cd44366adb50'    # the live slot-17 take (v6.70)
-OLD_TEXT_SHA = '4c0ac428cc398d1657d911694e55b5a36932e137ab12bea03489efc4623fd0ac'  # sha256 of the live slot-17 text (UTF-8):
-#   the roll call ending on the last of the crew's names, so the new name is appended after it and nowhere else
-LIVE_MANIFEST = 'd01b619abe6fac3d56d077abaf8a2cdcbbc4c9e69bd725a4a84c01849c83fa1f'  # live hostedMedia.manifest (v8.98 / v8.99)
-SLOT = 17
+SLOT, TURN = 17, '15'
+ROLL_CALL = 'Those metres are people!'      # the roll call's opening words: the slot is the fencing crew's roll call
 MEDIA_KEYS = ('bytes', 'file', 'scope', 'sha256', 'type')
 MANIFEST_NAME = 'media_manifest_v900.json'
 
@@ -58,9 +63,6 @@ def bound(env, sha):
     raw = q.read_bytes(); got = hashlib.sha256(raw).hexdigest()
     if got != sha: sys.exit(f'{env}: checksum mismatch ({got[:16]}...)')
     return raw
-
-
-def sha_text(t): return hashlib.sha256(t.encode('utf-8')).hexdigest()
 
 
 p = Path(sys.argv[1]); raw_page = p.read_bytes(); bom = raw_page.startswith(b'\xef\xbb\xbf'); s = raw_page.decode('utf-8-sig')
@@ -95,23 +97,28 @@ B = D['broadcast']; T = B['turns']
 assert len(T) == 35 and [t['slot'] for t in T] == list(range(1, 36)), 'the race call must carry 35 turns, slots 1..35'
 if TAKE_SHA in D['media'] or TAKE_SHA in body or NAME in json.dumps(B, ensure_ascii=False):
     sys.exit('v9.00 broadcast part already applied')
-t17 = next(t for t in T if t['slot'] == SLOT)
-assert t17['turn'] == '15' and t17['sha256'] == OLD_SHA and t17['audio'] == {'media': OLD_SHA}, 'slot 17 is not the live take - wrong base'
-assert sha_text(t17['text']) == OLD_TEXT_SHA, 'slot 17 text is not the live roll call - wrong base'
-assert t17['text'].endswith('!') and t17['secs'] == t17['measured_s'] == 13.82, 'slot 17 is not as found'
 
-# ---- the proof: the live manifest is exactly DATA.media, before anything changes
+# ---- slot 17 as the base has it: the roll call, on a take the media list carries
+t17 = next(t for t in T if t['slot'] == SLOT)
+OLD = t17['sha256']
+assert t17['turn'] == TURN and ROLL_CALL in t17['text'], 'slot 17 is not the fencing crew roll call - wrong base'
+assert t17['audio'] == {'media': OLD} and re.fullmatch(r'[0-9a-f]{64}', OLD), 'slot 17 must play its own take by SHA-256'
+assert D['media'].get(OLD, {}).get('type') == 'audio/mpeg' and D['media'][OLD]['bytes'] == t17['bytes'], 'slot 17 take not in DATA.media as found'
+assert t17['secs'] == t17['measured_s'], 'slot 17 secs and measured_s differ as found'
+
+# ---- the proof: the base's manifest digest is v7.22's canonical form of the base's own DATA.media, before anything changes
 for k, x in D['media'].items():
     assert set(x) == set(MEDIA_KEYS) and x['sha256'] == k and x['file'].startswith(k + '.'), 'media entry not as expected: ' + k
+BASE_MANIFEST = D['hostedMedia']['manifest']
 was = manifest_of(D['media'])
-assert was['sha256'] == D['hostedMedia']['manifest'] == LIVE_MANIFEST, \
-    f'the base media list ({was["sha256"][:12]}) is not the live manifest ({D["hostedMedia"]["manifest"][:12]}, want {LIVE_MANIFEST[:12]}) - stopping'
+assert was['sha256'] == BASE_MANIFEST, \
+    f'the base media list ({was["sha256"][:12]}) does not give the base hostedMedia.manifest ({BASE_MANIFEST[:12]}) - stopping'
 
-# ---- 1. the text: the new name is called last, in Andrew's spelling
+# ---- 1. the text: the new name is called last, after the last name the base calls, in Andrew's spelling
 old_text = t17['text']
-LAST = old_text.rsplit('! ', 1)[-1]                     # the last name called, with its "!" (the text is bound by hash above)
-assert LAST.endswith('!') and len(LAST.split()) == 2 and old_text.endswith(LAST)
-t17['text'] = rep(old_text, ' ' + LAST, ' ' + LAST + ' ' + NAME + '!', 'slot 17 roll call', str(p))   # rep() takes the leading space too
+LAST = old_text.rsplit('! ', 1)[-1]                     # the last name called, with its "!"
+assert LAST.endswith('!') and len(LAST.split()) >= 2 and old_text.endswith(' ' + LAST), 'the roll call must end on a name'
+t17['text'] = rep(old_text, ' ' + LAST, ' ' + LAST + ' ' + NAME + '!', 'slot 17 roll call', str(p))   # once, or stop
 assert t17['text'] == old_text + ' ' + NAME + '!' and t17['text'].count(NAME) == 1
 
 # ---- 2. the take, by SHA-256, and the slot's measures
@@ -119,11 +126,11 @@ fn = TAKE_SHA + '.mp3'
 D['media'][TAKE_SHA] = {'file': fn, 'sha256': TAKE_SHA, 'type': 'audio/mpeg', 'bytes': TAKE_BYTES, 'scope': 'view'}
 t17.update({'audio': {'media': TAKE_SHA}, 'bytes': TAKE_BYTES, 'sha256': TAKE_SHA, 'secs': SECS, 'measured_s': SECS})
 
-# ---- 3. the old take leaves the media list when nothing else names it (DATA beyond its entry and slot 17, or the page)
+# ---- 3. the old take leaves the media list when nothing else names it (the rest of DATA, other media entries, the page code)
 others = json.dumps({k: v for k, v in D.items() if k != 'media'}, ensure_ascii=False) + s[:i] + s[j:]
 dropped = []
-if OLD_SHA not in others and not any(OLD_SHA in json.dumps(x) for k, x in D['media'].items() if k != OLD_SHA):
-    D['media'].pop(OLD_SHA); dropped.append(OLD_SHA)
+if OLD not in others and not any(OLD in json.dumps(x) for k, x in D['media'].items() if k != OLD):
+    D['media'].pop(OLD); dropped.append(OLD)
 
 # ---- 4. the revision, dated, naming no one but the call
 B['revision'] += f'; turn 17 re-voiced 8 Oct 2026 in the same voice, flow and mix to add {NAME} to the fencing crew as named in the call'
@@ -131,14 +138,11 @@ B['revision'] += f'; turn 17 re-voiced 8 Oct 2026 in the same voice, flow and mi
 # ---- 5. the manifest
 man = manifest_of(D['media'])
 assert len(man['assets']) == len(D['media']) == len(ORIG['media']) + 1 - len(dropped)
+assert man['sha256'] != BASE_MANIFEST
 D['hostedMedia']['manifest'] = man['sha256']
 man_text = json.dumps(man, ensure_ascii=False, separators=(',', ':'))
-(p.parent / MANIFEST_NAME).write_text(man_text, encoding='utf-8')
-kept = here / MANIFEST_NAME
-if kept.exists():
-    assert kept.read_text(encoding='utf-8') == man_text, f'{MANIFEST_NAME} beside the patch differs from this build - stopping'
-else:
-    kept.write_text(man_text, encoding='utf-8')
+for target in (p.parent / MANIFEST_NAME, here / MANIFEST_NAME):
+    target.write_text(man_text, encoding='utf-8')
 
 # ---- what changed, and nothing else
 for k in D:
@@ -148,7 +152,7 @@ assert {k: v for k, v in D['hostedMedia'].items() if k != 'manifest'} == {k: v f
 assert {k: v for k, v in B.items() if k not in ('turns', 'revision')} == {k: v for k, v in ORIG['broadcast'].items() if k not in ('turns', 'revision')}
 for a, b in zip(T, ORIG['broadcast']['turns']):
     if a['slot'] != SLOT: assert a == b, 'turn %s changed - stopping' % a['slot']
-    else: assert set(a) == set(b) and {k for k in a if a[k] != b[k]} == {'text', 'audio', 'bytes', 'sha256', 'secs', 'measured_s'}
+    else: assert set(a) == set(b) and {k for k in a if a[k] != b[k]} <= {'text', 'audio', 'bytes', 'sha256', 'secs', 'measured_s'}
 assert {k for k in D['media']} == ({k for k in ORIG['media']} - set(dropped)) | {TAKE_SHA}
 for t in T:   # every turn resolves to its take in the media list
     m = D['media'].get(t['audio']['media'])
@@ -159,5 +163,6 @@ assert 'Andrew Fisher' not in t17['text'] + B['revision']
 out = s[:i] + 'const DATA = ' + json.dumps(D, ensure_ascii=False, separators=(',', ':')) + ';' + s[j:]
 assert out[:i] == s[:i] and out.endswith(s[j:])
 p.write_bytes((b'\xef\xbb\xbf' if bom else b'') + out.encode('utf-8'))
-print(f'v9.00 broadcast: slot 17 re-voiced ({SECS} s, {TAKE_BYTES} bytes, {TAKE_SHA[:12]}) | old take dropped {len(dropped)} | '
-      f'media {len(ORIG["media"])} -> {len(D["media"])} | manifest {LIVE_MANIFEST[:12]} -> {man["sha256"][:12]} | {len(s)} -> {len(out)} chars')
+print(f'v9.00 broadcast: slot 17 re-voiced ({SECS} s, {TAKE_BYTES} bytes, {TAKE_SHA[:12]}) | old take {OLD[:12]} dropped {len(dropped)} | '
+      f'media {len(ORIG["media"])} -> {len(D["media"])} | base manifest {BASE_MANIFEST[:12]} proven from DATA.media -> {man["sha256"][:12]} | '
+      f'{len(s)} -> {len(out)} chars')
