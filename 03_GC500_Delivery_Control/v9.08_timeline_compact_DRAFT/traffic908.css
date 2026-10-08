@@ -1,0 +1,18 @@
+/* Author: Andrew Fisher. Explicit native select colours on the dark traffic-control card. */
+.traffic903 select{
+  color-scheme:dark;
+  color:#f3f9fa;
+  background-color:#10262d;
+  border:1px solid #68848b;
+  border-radius:7px;
+  padding:9px 12px;
+  box-sizing:border-box;
+}
+.traffic903 select option{color:#f3f9fa;background-color:#10262d}
+.traffic903 select option:checked{color:#ffffff;background-color:#29454f}
+.traffic903 select:focus-visible{outline:2px solid #ffad70;outline-offset:2px}
+.traffic903 select:disabled{color:#c3d2d6;background-color:#183038;opacity:1}
+.traffic903 .btn[data-traffic903-save]{color:#132b33;background:#ff964f;border:1px solid #ff964f;min-height:44px;padding:9px 12px;font-weight:700}
+.traffic903 .btn[data-traffic903-save]:hover{color:#132b33;background:#ffad75;border-color:#ffad75}
+.traffic903 .btn[data-traffic903-save]:focus-visible{outline:2px solid #ffad70;outline-offset:3px}
+.traffic903 .btn[data-traffic903-save]:disabled{color:#edf5f7;background:#435b66;border-color:#68848b;opacity:1}

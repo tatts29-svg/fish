@@ -1,10 +1,15 @@
 #!/usr/bin/env python3
-"""Author: Andrew Fisher. Compact Timeline presentation. DRAFT awaiting preview approval."""
+"""Author: Andrew Fisher. Numbered delivery map, compact Timeline and roomier header."""
 import argparse,re,sys
 from pathlib import Path
 HERE=Path(__file__).resolve().parent
 sys.path.insert(0,str(HERE.parent/'toolchain'))
 from rep import rep
+CSS_FILES=('timeline908.css','drops908.css','header908.css','traffic908.css')
+JS_FILES=('timeline908.js','drops908.js')
+
+def css():return '\n'.join((HERE/name).read_text() for name in CSS_FILES)
+def js():return '\n'.join((HERE/name).read_text() for name in JS_FILES)
 
 def patch(s):
     if 'function timeline908Arrange(' in s:raise ValueError('v908 already applied')
@@ -16,10 +21,10 @@ def patch(s):
     footer=re.search(r"\+ ' · v9\.0[4-7]'; /\* v8\.19",s)
     if not footer:raise ValueError('v908 requires current v9.04–v9.07 base')
     replace(footer.group(),"+ ' · v9.08'; /* v8.19")
-    replace('</head>\n<body>','<style id="timeline908-style">'+(HERE/'timeline908.css').read_text()+'</style>\n</head>\n<body>')
-    js=(HERE/'timeline908.js').read_text()
-    if '</script' in js:raise ValueError('Unsafe script boundary')
-    replace('</script>\n</body></html>','</script>\n<script id="timeline908-script">\n'+js+'\n</script>\n</body></html>')
+    replace('</head>\n<body>','<style id="timeline908-style">'+css()+'</style>\n</head>\n<body>')
+    source=js()
+    if '</script' in source:raise ValueError('Unsafe script boundary')
+    replace('</script>\n</body></html>','</script>\n<script id="timeline908-script">\n'+source+'\n</script>\n</body></html>')
     return s
 
 if __name__=='__main__':
