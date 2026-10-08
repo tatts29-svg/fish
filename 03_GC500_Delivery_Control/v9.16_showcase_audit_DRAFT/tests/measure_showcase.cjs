@@ -75,6 +75,7 @@ function summarise(d) {
   const MAX_S = +(process.env.MAX_S || 1080); // the whole run stays under 20 minutes: at MAX_S it writes what it has and stops
   setTimeout(() => { R.error = 'deadline ' + MAX_S + ' s reached; partial result'; R.counts = s.counts; R.pageErrors = s.errors.slice(0, 50); R.totalS = rel();
     try { fs.mkdirSync(path.dirname(OUT), {recursive: true}); fs.writeFileSync(OUT, JSON.stringify(R)); } catch (e) {} log('DEADLINE, wrote partial', OUT); s.browser.close().catch(() => {}).finally(() => process.exit(3)); setTimeout(() => process.exit(3), 20000); }, MAX_S * 1000).unref();
+  p.on('crash', () => { R.crashed = {at: rel(), lastAction: R.actions[R.actions.length - 1] || null}; log('RENDERER CRASHED'); });
   p.on('console', m => { const t = m.type(); if (t === 'error' || t === 'warning') consoleLog.push({at: rel(), type: t, text: m.text().slice(0, 240)}); });
   const ev = (fn, arg, ms = 90000, what = 'evaluate') => withTimeout(p.evaluate(fn, arg), ms, what);
   let cdp;
@@ -140,6 +141,7 @@ function summarise(d) {
       sum.cdp = {wallS: r2(wall), taskS: md('TaskDuration'), scriptS: md('ScriptDuration'), layoutS: md('LayoutDuration'), styleS: md('RecalcStyleDuration'),
         mainThreadBusyPct: r2(100 * md('TaskDuration') / wall), heapEndMB: r2(m1.JSHeapUsedSize / 1048576), nodesEnd: m1.Nodes, listenersEnd: m1.JSEventListeners};
       if (cpu) sum.cpuProfile = cpu;
+      try { R.watch = await ev(() => __M.watch(), null, 60000, 'watch'); R.lastState = await ev(() => __M.state(), null, 60000, 'state'); } catch (e) {}
       R.programs = d.programs; R.phases.push({summary: sum, raw: {frameCols: d.frameCols, frames: d.frames, events: d.events, captures: d.captures, longtasks: d.longtasks, loaf: d.loaf, rafBy: d.rafBy, timerBy: d.timerBy}});
       log('phase', name, 'frames', sum.frames, 'js med/p95', sum.jsMsPerFrame.med, sum.jsMsPerFrame.p95, 'draws med', sum.drawsPerFrame.med, 'verts med', sum.vertsPerFrame.med, 'busy%', sum.cdp.mainThreadBusyPct, 'lt', sum.longTasks.n);
       return sum;

@@ -1,0 +1,33 @@
+{
+ "author": "Andrew Fisher",
+ "profile": "laptop",
+ "heapBeforeMB": 13.3,
+ "walkBefore": {
+  "top": [],
+  "totalMB": 0,
+  "sceneUp": false,
+  "extra": {
+   "DATA.surrounds": 0
+  }
+ },
+ "heapOpenMB": 373.7,
+ "heapAfterCloseMB": 311,
+ "walkAfter": {
+  "top": [
+   [
+    "_raceCarModels",
+    4.65
+   ],
+   [
+    "_raceCarDecals",
+    0.34
+   ]
+  ],
+  "totalMB": 5,
+  "sceneUp": false,
+  "extra": {
+   "DATA.surrounds": 0
+  }
+ },
+ "blocked": 0
+}

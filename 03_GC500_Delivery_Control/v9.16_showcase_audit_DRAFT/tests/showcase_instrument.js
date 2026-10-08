@@ -209,7 +209,7 @@
         const el = this, src = () => { try { return new URL(el.currentSrc || el.src, location.href).pathname.slice(-24); } catch (e) { return ''; } };
         const on = (type, key) => nAdd.call(el, type, () => { C[key]++; ev('media ' + type, {src: src(), t: +(el.currentTime || 0).toFixed(2), rs: el.readyState}); if (mediaLog.length < 400) mediaLog.push([+(now() - M.t0).toFixed(0), type, src()]); });
         on('waiting', 'mediaWaiting'); on('stalled', 'mediaStalled'); on('error', 'mediaError'); on('ended', 'mediaEnded');
-        nAdd.call(el, 'playing', () => { if (mediaLog.length < 400) mediaLog.push([+(now() - M.t0).toFixed(0), 'playing', src()]); });
+        nAdd.call(el, 'playing', () => { ev('media playing', {src: src(), t: +(el.currentTime || 0).toFixed(2)}); if (mediaLog.length < 400) mediaLog.push([+(now() - M.t0).toFixed(0), 'playing', src()]); });
       }
       return play.apply(this, arguments);
     };

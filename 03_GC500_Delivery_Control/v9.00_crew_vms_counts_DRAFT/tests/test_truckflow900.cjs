@@ -15,9 +15,18 @@
 //      order controls (down / up) inside and beside the card call the same functions with the same arguments as on the base;
 //   7. a load's "Curfew first" / "Area full" jump opens the fold; a print opens every fold and closes it after, the line never prints;
 //   8. money identical (moneySummary, fh866Model); no page errors.
-//   PAGE=<build> [BASE=<base; default base_live.html beside PAGE>] [MOB=1] [DARK=1] [SHOTS=<dir>] [OUT=<json>]
+//   PAGE=<build> [BASE=<base; default base_live.html beside PAGE>] [MOB=1] [DARK=1] [SHOTS=<dir>] [OUT=<json>] [NOEXPLORER=1]
 //   node v9.00_crew_vms_counts_DRAFT/tests/test_truckflow900.cjs
 const fs = require('fs'), path = require('path'), {open} = require('../../toolchain/harness/open_page');
+/* NOEXPLORER=1: the page parks the map explorer in an iframe (/explorer/index.html, served by the live service) a few seconds after
+   load. On 8 Oct 2026 from about 16:30 AEST that iframe crashed this headless rig's renderer within about 12 s of opening, on the
+   live base page (v9.10 and v9.11) exactly as on the build. With NOEXPLORER=1 the test's own browser leaves that one GET unanswered;
+   nothing is written, the Timeline and the Truck flow card are untouched, and both pages are opened the same way. */
+if (process.env.NOEXPLORER) { const pw = require('../../toolchain/node_modules/playwright'), proto = Object.getPrototypeOf(pw.chromium), launch = proto.launch;
+  proto.launch = async function (...a) { const b = await launch.apply(this, a), nc = b.newContext.bind(b);
+    b.newContext = async (...c) => { const ctx = await nc(...c), np = ctx.newPage.bind(ctx);
+      ctx.newPage = async (...d) => { const pg = await np(...d); await pg.route(/\/explorer\/index\.html/, r => r.abort()); return pg; }; return ctx; };
+    return b; }; }
 const PAGE = process.env.PAGE, BASE = process.env.BASE || path.join(path.dirname(PAGE), 'base_live.html'), MOB = !!process.env.MOB, DARK = !!process.env.DARK;
 const W = MOB ? 390 : 1440, H = MOB ? 844 : 900, SHOTS = process.env.SHOTS || '', tag = (MOB ? 'phone' : 'laptop') + '_' + (DARK ? 'dark' : 'light');
 const DAY = '2026-10-14';

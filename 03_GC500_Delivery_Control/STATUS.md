@@ -38,7 +38,8 @@
 - **Live:** still v9.11, `408ae6ac…`, 11,600,839 bytes. The machine is still `cd05e73e…`.
 - **Record:** still version 4508, last changed 15:33 AEST. Nothing new to reconcile for Event Portables.
 - **Codex:** no commits since `e4e741a`. Its last two PR messages, [6053472532](https://github.com/tatts29-svg/fish/pull/1#issuecomment-6053472532) and [6053520155](https://github.com/tatts29-svg/fish/pull/1#issuecomment-6053520155) (v9.11 verified live), are acknowledged in [6054543664](https://github.com/tatts29-svg/fish/pull/1#issuecomment-6054543664).
-- **Waiting on Codex:** the Showcase priority, the door picker, true shapes in Arrange loads, Close/Back, and Truck flow.
+- **Waiting on Codex:** the Showcase priority, the door picker, true shapes in Arrange loads, and Close/Back. (Truck flow is Claude's part F, not Codex's.)
+- **17:19:** Codex has been silent since 16:05, with no commits and no replies to the four asks. Andrew was given a message to paste to Codex.
 - **Tue 06 / Wed 07 Oct delivery notes:** already on the record, as confirmed on 7 Oct. Nothing outstanding.
 
 **ANDREW, 8 Oct 2026 ~17:00 AEST — PRIORITY: the Showcase "keeps freezing and running glitchy and cutting out … every time i show someone it looks terrible and closes down".** He wants Codex to sort it out as a priority, and Claude to audit it.

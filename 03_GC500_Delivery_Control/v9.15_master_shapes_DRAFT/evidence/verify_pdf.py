@@ -1,0 +1,70 @@
+# Author: Andrew Fisher. v9.15 independent re-read of the 2 Oct master for the shapes test.
+# For every traced part in shapes_v915.json it opens the PDF afresh, takes the drawing(s) the part names (checking the
+# drawing's sequence number), and writes that drawing's own corner points and their centroid in PDF points. The node
+# test (tests/test_shapes915.cjs) compares the page's shapes, moved back from the MASTER_LOC frame, against these.
+#   python3 -I evidence/verify_pdf.py <master.pdf> > evidence/pdf_check.json
+import sys, json, hashlib, math
+from pathlib import Path
+import pymupdf
+here = Path(__file__).resolve().parent.parent
+pdf = sys.argv[1]
+sha = hashlib.sha256(open(pdf, 'rb').read()).hexdigest()
+J = json.loads((here / 'shapes_v915.json').read_text())
+assert sha == J['meta']['master']['sha256'], 'not the 2 Oct master'
+page = pymupdf.open(pdf)[0]; drs = page.get_drawings()
+
+def pts(d):
+    out = []
+    for it in d['items']:
+        if it[0] == 're':
+            r = it[1]; out += [(r.x0, r.y0), (r.x1, r.y0), (r.x1, r.y1), (r.x0, r.y1)]
+        elif it[0] == 'qu':
+            q = it[1]; out += [(q.ul.x, q.ul.y), (q.ur.x, q.ur.y), (q.lr.x, q.lr.y), (q.ll.x, q.ll.y)]
+        else:
+            out += [(v.x, v.y) for v in it[1:] if isinstance(v, pymupdf.Point)]
+    return out
+
+def hull(P):
+    P = sorted(set((round(x, 4), round(y, 4)) for x, y in P))
+    cr = lambda o, a, b: (a[0] - o[0]) * (b[1] - o[1]) - (a[1] - o[1]) * (b[0] - o[0])
+    lo, up = [], []
+    for p in P:
+        while len(lo) >= 2 and cr(lo[-2], lo[-1], p) <= 1e-9: lo.pop()
+        lo.append(p)
+    for p in reversed(P):
+        while len(up) >= 2 and cr(up[-2], up[-1], p) <= 1e-9: up.pop()
+        up.append(p)
+    return lo[:-1] + up[:-1]
+
+def centroid(poly):
+    A = cx = cy = 0.0
+    for i in range(len(poly)):
+        x0, y0 = poly[i]; x1, y1 = poly[(i + 1) % len(poly)]; c = x0 * y1 - x1 * y0
+        A += c; cx += (x0 + x1) * c; cy += (y0 + y1) * c
+    A /= 2
+    return [cx / (6 * A), cy / (6 * A)]
+
+out = {'master_sha256': sha, 'drawings_on_page': len(drs), 'refs': {}}
+for ref, e in J['refs'].items():
+    sh = e['shape']
+    if not sh:
+        continue
+    rows = []
+    for c in sh['components']:
+        ids = c['pdf'].get('drawings') or [c['pdf']['drawing']]
+        seqs = c['pdf'].get('seqnos') or [c['pdf']['seqno']]
+        ok = all(drs[i]['seqno'] == s for i, s in zip(ids, seqs))
+        P = [q for i in ids for q in pts(drs[i])]
+        H = hull(P)
+        # every vertex the page carries must be one of this drawing's own points
+        verr = max(min(math.hypot(v[0] - q[0], v[1] - q[1]) for q in P) for v in c['poly_pt'])
+        doors = []
+        for d in c['doors']:
+            a = drs[d['pdf']['arc_drawing']]; l = drs[d['pdf']['leaf_drawing']]
+            cs = [it for it in a['items'] if it[0] == 'c'][0]
+            doors.append({'arc_seq_ok': a['seqno'] == d['pdf']['arc_seqno'] and l['seqno'] == d['pdf']['leaf_seqno'],
+                          'arc_pt': [[round(v.x, 4), round(v.y, 4)] for v in cs[1:5]]})
+        rows.append({'kind': c['kind'], 'drawings': ids, 'seq_ok': ok, 'corners_pt': [[round(x, 4), round(y, 4)] for x, y in H],
+                     'centroid_pt': [round(v, 4) for v in centroid(H)], 'vertex_err_pt': round(verr, 5), 'inset': c['inset'], 'doors': doors})
+    out['refs'][ref] = rows
+print(json.dumps(out, separators=(',', ':')))

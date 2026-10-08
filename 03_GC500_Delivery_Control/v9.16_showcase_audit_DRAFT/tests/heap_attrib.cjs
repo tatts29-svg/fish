@@ -24,6 +24,13 @@ const sleep = ms => new Promise(r => setTimeout(r, ms));
     await sleep(3000);
     R.heapAfterCloseMB = await heap();
     R.walkAfter = await p.evaluate(walk);
+    // every typed array still alive, by type (CDP Runtime.queryObjects over each prototype), and its bytes
+    R.typedAfter = {};
+    for (const t of ['Float32Array', 'Uint16Array', 'Uint32Array', 'Uint8Array', 'Int16Array', 'Float64Array', 'ArrayBuffer']) {
+      try { const proto = await cdp.send('Runtime.evaluate', {expression: t + '.prototype'});
+        const q = await cdp.send('Runtime.queryObjects', {prototypeObjectId: proto.result.objectId});
+        const r = await cdp.send('Runtime.callFunctionOn', {objectId: q.objects.objectId, functionDeclaration: 'function(){let b=0,big=0;for(const a of this){b+=a.byteLength;if(a.byteLength>1048576)big++;}return {n:this.length,mb:+(b/1048576).toFixed(1),over1MB:big};}', returnByValue: true});
+        R.typedAfter[t] = r.result.value; } catch (e) { R.typedAfter[t] = String(e.message).slice(0, 80); } }
     R.blocked = s.counts.blocked;
   } catch (e) { R.error = String(e && e.stack || e).slice(0, 500); }
   fs.writeFileSync(OUT, JSON.stringify(R, null, 1)); console.log(JSON.stringify({before: R.heapBeforeMB, open: R.heapOpenMB, afterClose: R.heapAfterCloseMB, top: R.walkAfter && R.walkAfter.top.slice(0, 12), blocked: R.blocked, error: R.error}, null, 1));
@@ -48,7 +55,12 @@ function walk() {
     return b;
   };
   const G = window.GC3D || {}; const out = [];
-  for (const k of Object.keys(G)) { let v; try { v = G[k]; } catch (e) { continue; } if (v && typeof v === 'object') out.push([k, +(size(v, 0) / 1048576).toFixed(2)]); }
+  for (const k of Object.keys(G)) { let v; try { v = G[k]; } catch (e) { continue; } if (v && typeof v === 'object') out.push(['GC3D.' + k, +(size(v, 0) / 1048576).toFixed(2)]); }
+  // and every other global the page keeps (window properties and the top-level const/let the page script declares)
+  const names = Object.keys(window).concat(['DATA', 'SHOW', 'LAPS', 'FX', 'CLIP', 'BC', 'MACHINE', 'EXP', 'S', 'state', 'DOCS', 'SYNC', 'RENDER_MEMO', 'WATCH', 'NAV']);
+  for (const k of [...new Set(names)]) { if (k === 'GC3D' || k === 'window' || k === 'self' || k === 'top' || k === 'parent' || k === 'frames' || k === 'globalThis' || k === 'document') continue;
+    let v; try { v = k in window ? window[k] : (0, eval)('typeof ' + k + ' !== "undefined" ? ' + k + ' : undefined'); } catch (e) { continue; }
+    if (v && typeof v === 'object') { const mb = +(size(v, 0) / 1048576).toFixed(2); if (mb > 0.5) out.push([k, mb]); } }
   out.sort((a, b) => b[1] - a[1]);
   const extra = {}; for (const k of ['DATA']) { try { extra[k + '.surrounds'] = +(size(window.DATA && DATA.surrounds, 0) / 1048576).toFixed(2); } catch (e) {} }
   return {top: out.filter(x => x[1] > 0.05).slice(0, 25), totalMB: +out.reduce((a, x) => a + x[1], 0).toFixed(1), sceneUp: !!G.S, extra};
