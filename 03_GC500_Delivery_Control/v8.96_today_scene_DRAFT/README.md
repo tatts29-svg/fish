@@ -1,3 +1,5 @@
+**Published in integrated v8.98 on 8 Oct 2026 at 11:18 AEST.** Page `09bf240301316f4a619d6ed6d60a8f29d8d914a081a553b9fc5794a1ae4e45d2`; matching machine `cd05e73e45b7c5afe1add67e12f595591ecc19c1e5adda3ccc4c9a948e0a6a49`. Public bytes verified. Earlier DRAFT statements below describe pre-publication checks. Author: Andrew Fisher.
+
 # v8.96 — Today scene
 
 Author: Andrew Fisher. Built 8 Oct 2026. **DRAFT — not live.**
