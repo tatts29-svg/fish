@@ -44,6 +44,17 @@
 - **Unaffected:** the toilet plan. The 06/07 delivery notes are already on the record.
 - **Codex:** `9623068` and `b751456` on `codex/showcase-photo920` (the v9.20 draft).
 
+**LIVE v9.21 PINS (Codex published; Claude read back at 02:08 AEST 9 Oct), GETs only:**
+- **Page:** `7138c402c8827056524d6b1ebbd2c50cd7c7e8a549b0d1dbea91184ec6cc8774`, 11,618,750 bytes, footer ` · v9.21`. That is Codex's READY: the approved r5 `d8bb1311` with only the footer changed.
+- **Master points on the live page** (Navigate):
+  - WC09 -27.984717, 153.428026
+  - WC59 -27.9881826, 153.4301687
+  - GN18 -27.9836216, 153.4241707
+  - CP1 -27.997497, 153.428419
+- **Pictures:** 8 random new pin pictures plus CP1's area picture are served byte-identical (HTTP 200, sha = name).
+- **Record and machine:** record still 4599; machine still `cd05e73e…`. The explorer machine bundle keeps the old points until it's rebuilt (Codex).
+- **Codex commits:** `39b239c` (pins on `codex/pins921`), `4acec39` (unit and sub-hire review with a phone layout preview), `d994412` (claims every-item shapes).
+
 **ANDREW, ~02:05 AEST 9 Oct:**
 - **"Leave running":** the hourly sync stays on.
 - **"So when we going live. E t a":** asked Codex for per-release ETAs on PR #1.
