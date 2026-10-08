@@ -1,0 +1,10 @@
+{
+  "author": "Andrew Fisher",
+  "idempotenceRefused": true,
+  "candidateUnchanged": true,
+  "baseSha256": "c547a6debe1dea9009b50466d3c1028ec9c3a800e6c591ea258b61490b14b762",
+  "candidateSha256": "93c3bab1f0e0e21bf63a0ae65e394b74503a738591fec859cea1b640d84e1eda",
+  "bytes": 11607819,
+  "sourceCommit": "b751456e",
+  "physicalDeviceFpsVerified": false
+}
