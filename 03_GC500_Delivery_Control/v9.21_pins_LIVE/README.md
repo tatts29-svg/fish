@@ -11,3 +11,7 @@ Published9Oct2026,02:07AEST. Shared guarded uploader verified exact public final
 Paired machine update: oldcd05e73e45b7c5afe1add67e12f595591ecc19c1e5adda3ccc4c9a948e0a6a49 →3dac8423d878d8a24eb9a0a6b771adc48862ff86bb42c8394d8d2d413c2db9e2. Exactly one233-file descriptor changed: explorer/assets/plan_items.json.57point fields match approvedfinalMASTER_LOC;23E.Pnames match approvedpage. All57oldpoints matchbase exactly. Reversing only80fields restoresoldsnapshotdeep-equal, including operationaldata/timestamps/notes.232otherdescriptors unchanged; retainedblobsha/sizepresence verified. Existing canonical publisher functions reused with baseguard,editcheck,PUToneblob,POSTmanifest and exact publicsnapshotreadback. No operationalrecord writes.
 
 Fresh WC09/WC59 phone drawer/print checks passedzero errors/blockedwrites; printedSatnavmatchesNavigate. Phoneactualpublicmastercloseups anddesktopactualpublicsmoke follow publication (private evidence). No additional photo deletion.
+
+Guarded one-file alignment tool preserved in tools/align_explorer.py (23f1577f); offline reconstruction reproduces machine3dac8423 exactly. It reuses checked-in v8.93 canonical/call functions and requires reviewed expected digest before publication.
+
+Final actual public desktop and phone smoke passed: page served live (no local page or media substitution), correct v9.21 footer, WC09/WC59 close-ups decoded and visually reviewed, snapshot points match page and all23E.P names match. Zero page errors or blocked writes (desktop79GETs, phone83GETs). Screenshots remain private.
