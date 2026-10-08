@@ -44,7 +44,12 @@
 - **Unaffected:** the toilet plan. The 06/07 delivery notes are already on the record.
 - **Codex:** `9623068` and `b751456` on `codex/showcase-photo920` (the v9.20 draft).
 
-**ANDREW, ~02:30 AEST 9 Oct: "Also lets hide th truck flow. In a drop down more info. Its taken up heaps of space. Lets get every done. And go live".**
+**ANDREW, ~02:05 AEST 9 Oct:**
+- **"Leave running":** the hourly sync stays on.
+- **"So when we going live. E t a":** asked Codex for per-release ETAs on PR #1.
+- **Codex** claimed the remaining releases (`376504a`, 01:59). Live is v9.20 at 02:01.
+
+**ANDREW, ~02:00 AEST 9 Oct: "Also lets hide th truck flow. In a drop down more info. Its taken up heaps of space. Lets get every done. And go live".**
 - **The Truck flow fold** is v9.09 part F (`patch_v900_truckflow.py`), built and tested on v9.18 as `6a6b057c…`. It still needs its review and a rebuild on live.
 - **Passed to Codex as part of the publish order:**
   1. v9.21 pins.
