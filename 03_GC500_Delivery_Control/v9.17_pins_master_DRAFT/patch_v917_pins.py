@@ -115,7 +115,8 @@ def how_for(ref, r):
     extra = ' (it moved about 9 m from the 17 Sep issue)' if ref == 'WC39' else ''
     return 'the middle of the %d %s drawn on the master D001 issued 2 Oct%s%s' % (cnt, KIND[kind][1], extra, tag)
 # the second round: what each added pin now says about itself (the drawer: "Read off the master plan D001-26003-03: ...")
-KEEP = {'WC10': ' (new on this issue)', 'WC38': ' (moved about 13 m from the 17 Sep issue)', 'WC40': '; the 2 Oct issue drops the second tag (WC40a)'}
+KEEP = {'WC10': ' (new on this issue)', 'WC38': ' (moved about 13 m from the 17 Sep issue)'}
+KEEP_AFTER = {'WC40': '; the 2 Oct issue drops the second tag (WC40a)'}
 def how_add(ref, r):
     if ref == 'GN18':
         return ('the orange generator symbol drawn on the master D001 issued 2 Oct, at its centre, beside P08 and WC38; the master'
@@ -128,7 +129,7 @@ def how_add(ref, r):
     n = r['n_parts']; assert r['unit_kinds'] == {'toilet': n}
     tag = '' if r['tag_to_unit_m'] is None or r['tag_to_unit_m'] < 1.5 else '; its %s tag is printed about %d m from it' % (ref, max(1, round(r['tag_to_unit_m'])))
     head = ('the toilet drawn on the master D001 issued 2 Oct, at its centre' if n == 1 else
-            'the middle of the %d toilets drawn on the master D001 issued 2 Oct' % n) + KEEP.get(ref, '') + tag
+            'the middle of the %d toilets drawn on the master D001 issued 2 Oct' % n) + KEEP.get(ref, '') + tag + KEEP_AFTER.get(ref, '')
     if ref == 'WC33':   # the older D023 (rev 02) arrow, measured from the new point on the page's own registration: 47.3 m
         head += ' — the newer master (rev 03) is used; the older D023 (rev 02) arrow points about 47 m away'
     return head
