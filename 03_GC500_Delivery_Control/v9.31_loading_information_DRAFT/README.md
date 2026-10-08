@@ -1,6 +1,6 @@
 Author: Andrew Fisher
 
-DRAFT — populated loading information for delivered products. Publication belongs to the combined release task.
+READY for combined-release integration — populated loading information for delivered products. Not separately published. Publication belongs to the combined release task.
 
 Andrew clarified that load-restraint information is supplied information, not a form for branches or drivers to complete. It must appear against the product being delivered, without a read-and-find or model-selection workflow.
 
@@ -20,6 +20,10 @@ No operational documents, financial models, loading-side records or catalogue so
 
 Original source: Coates Load Restraint Guide 2023, 140 pages, SHA-256 `67c2d6442f6b22c7a0cc5f933275cf56463686a96763bf977a9713a40a96ccb0`. The existing 274-row source catalogue is reused. Hire-contract descriptions were checked against the original source workbook by the parallel source audit; source-specific evidence remains private.
 
-Validation in progress: 45 owned model assertions and 21 independent model assertions pass. The intermediate live-v9.28-plus-v9.31 candidate passes the shared page parser/secret checks. Focused actual-page phone and native A4 checks follow before release. Tests read production only; stored-evidence fixtures are isolated memory.
+Validation: 62 owned model assertions and 23 independent assertions pass. The actual-page phone review confirmed correct WC09 movement scope, WC20 blocks/tanks, read-only view and edit rendering, unchanged native state and financial outputs. Its original GN19 classification finding was corrected: native bare `60kva` now resolves the source-supplied 80 kVA. A focused follow-up on candidate `71437b728ca42f0ba7e1592cf750f5f5007a1a0dd29e3f8243624457c0fda7c7` verified that correction, exact supplier labels, strict VMS/tower exclusions and readable 390 px Timeline captions. Zero runtime errors and no operational writes; state remained byte-identical in memory.
+
+The native driver-print pipeline produced two loading-information supplements for a four-product load. Its complete nine-page output includes the existing driver sheets and photographs; every information page and footer fits A4. The PDF was rendered and visually inspected, alongside the corrected phone-width screenshots. The separate phone review used true mobile emulation; the follow-up used a 390 px viewport in the native PDF-capable context. Private evidence: `/workspace/private-loading931-final/` and `/workspace/private-loading931-independent/`.
+
+Four bounded final source corrections after that browser candidate are explicitly covered by model checks and independent source review: movement-event scope on drop sheets; correct links for disjoint guide pages; Porta Lisa/accessible exclusions from generic small-FWF numbers/method; and unknown Demob quantities staying quantity-free rather than displaying zero or allocating a retained count. The combined release owns the final exact-page navigation checks. Tests read production only; stored-evidence fixtures are isolated memory.
 
 Files: `core924.js` retains existing identity/assessment semantics; `information931.js` resolves products and source facts; `runtime931.js` renders read-only information; `patch_v931.py` replaces exactly one old module and accepts release bases v9.28–v9.30.

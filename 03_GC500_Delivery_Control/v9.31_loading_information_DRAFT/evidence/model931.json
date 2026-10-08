@@ -1,6 +1,6 @@
 {
-  "checks": 55,
-  "passed": 55,
+  "checks": 62,
+  "passed": 62,
   "catalogueRows": 274,
   "note": "Synthetic saved-evidence fixtures only. Source dimensions and catalogue figures are provenance-labelled; no operational writes."
 }
