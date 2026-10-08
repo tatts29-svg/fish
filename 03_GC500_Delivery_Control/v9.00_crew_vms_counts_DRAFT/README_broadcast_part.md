@@ -82,4 +82,22 @@ both this file and the page's own `DATA.media`.
   - the old take is never requested
   - no script or console errors, and no write (`counts.blocked` 0)
 
-Results are in the hand-off report for this part.
+## Results (8 Oct 2026, ~13:15 AEST, on live v9.04)
+
+- Base `d0d630046090…` (live v9.04, re-fetched read-only after the runs, unchanged). Built page `3b14ae4c7d64…`
+  (broadcast part alone; `check_page` PASS). Crew + broadcast chain `1da8bdf4c1b8…`, which gives the same manifest.
+- Manifest proof: the canonical digest of v9.04's own `DATA.media` (1,967 assets) = `752a49a945bf…` = its
+  `hostedMedia.manifest`. New manifest `85c6747f74d73c3914ebb04e2a87426a79012784a9b0c4b28f0288fd00d41ff3`, 1,967 assets
+  (one take in, one out).
+- `test_broadcast900.cjs`: laptop 18/18, phone 18/18 (the phone reaches Broadcast through Options); static 10/10 on
+  the chain build. The unpatched base fails the six checks it should.
+- Money, read-only, with v8.95's `compare_money895.cjs` (A = base, B = build, record 4465): 4,113 figures the same,
+  0 differ, 0 structural differences. Tie-outs 17/17 on both, 0 errors, 0 writes.
+- The patch refuses a second run ("already applied").
+
+**Why the Broadcast button "did not show".** It did show. A probe found it visible (100 × 44 px) 0.5 s after
+`showOpen()`. The showcase's 3D scene starves headless Chromium of animation frames: the test measured 58 frames per
+second before `showOpen()` and 1 after on a laptop, and 47 then 2 on a phone. The page's own watchdog then says "3D paused
+— this device could not keep up". Playwright's `waitForFunction` polling, selector polling and click checks all wait on
+frames, so they timed out with the button on screen. The test now waits with node-side loops and presses with a real mouse
+click at the button's centre, after checking that the button is what is there.
