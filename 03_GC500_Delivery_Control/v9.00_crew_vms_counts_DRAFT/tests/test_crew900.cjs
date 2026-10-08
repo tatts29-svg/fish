@@ -116,7 +116,8 @@ const B = dataOf(BASE).team;
   mob ? F.cols === 1 && F.perRow.every(n => n === 1) : F.cols === 3 && F.perRow.length === 3 && F.perRow.every(n => n === 3) && !F.overX && !F.overY && F.cls === 'shcards crewfence', F);
  const E = await scene('effort'); const inst = B.people.filter(x => x.group === 'install').length;
  ok('showcase "' + E.title + '": ' + (inst + 9) + ' people across the two crews — ' + inst + ' installers, 9 Advanced Temporary Fencing',
-  new RegExp('\\b' + (inst + 9) + ' people across the two crews\\b').test(E.text) && new RegExp('Installers ' + inst + '\\b').test(E.text) && /Advanced Temporary Fencing 9\b/.test(E.text) && !EIGHT.test(E.text), E.text.slice(0, 300));
+  /* the big figure and its words sit in one line with no space between them in the page's text ("13people ...") */
+  new RegExp('\\b' + (inst + 9) + '\\s*people across the two crews\\b').test(E.text) && new RegExp('Installers\\s*' + inst + '\\b').test(E.text) && /Advanced Temporary Fencing\s*9\b/.test(E.text) && !EIGHT.test(E.text), E.text.slice(0, 300));
  const I = await scene('crew');
  ok('showcase "' + I.title + '": the install team\'s ' + inst + ' cards, without the name', I.names.length === inst && I.has === 0 && JSON.stringify(I.names) === JSON.stringify(B.people.filter(x => x.group === 'install').map(x => x.name)), I.names.length);
  const L = await scene('lead');

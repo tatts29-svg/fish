@@ -16,7 +16,7 @@ const NEW = 'c1f296379a281e22516d8f86a7d7f24097f7e5b47b4c6aa135dcb6e0dc352893', 
 const PAGE = process.env.PAGE, BASE = process.env.BASE || path.join(path.dirname(PAGE || '.'), 'base_live.html');
 const MEDIA = process.env.MEDIA || '', MANIFEST = process.env.MANIFEST || path.join(here, '..', 'media_manifest_v900.json');
 const OUT = process.env.OUT || ''; if (OUT) fs.mkdirSync(OUT, {recursive: true});
-const MOB = !!process.env.MOB, POLL = {timeout: 30000, polling: 250};
+const MOB = !!process.env.MOB;
 const sha = b => crypto.createHash('sha256').update(b).digest('hex');
 const R = [], ok = (name, pass, detail) => { R.push({name, pass: !!pass, detail}); };
 // v7.22's canonical form (Python json.dumps(ensure_ascii=False) for scalars; keys sorted; no spaces)
@@ -95,25 +95,42 @@ function report(R, label) {
     ok('in the browser the manifest digest equals media_manifest_v900.json', rt.manifest === man.sha256, {page: String(rt.manifest).slice(0, 12)});
 
     // the Broadcast, started by a press on its button (a phone folds it behind Options), then put on slot 17
-    await p.evaluate(() => showOpen());
+    const diag = () => p.evaluate(() => { const d = id => { const b = document.getElementById(id); if (!b) return null; const r = b.getBoundingClientRect(), cs = getComputedStyle(b);
+      return {hidden: b.hidden, w: Math.round(r.width), h: Math.round(r.height), x: Math.round(r.x), y: Math.round(r.y), display: cs.display, vis: cs.visibility}; };
+      return {open: SHOW.open, launch: SHOW.launch, reduced: SHOW.reduced, motionOff: motionOff(), sc: d('showcase'), bc: d('showBroadcast'), opt: d('showOptions794'), cls: (document.getElementById('showcase') || {}).className}; });
     const visible = sel => p.evaluate(sel => { const b = document.querySelector(sel); if (!b || b.hidden) return false; const r = b.getBoundingClientRect(), cs = getComputedStyle(b);
       return r.width > 0 && r.height > 0 && cs.display !== 'none' && cs.visibility !== 'hidden'; }, sel);
-    await p.waitForFunction(() => { const v = b => { if (!b || b.hidden) return false; const r = b.getBoundingClientRect(); return r.width > 0 && getComputedStyle(b).display !== 'none'; };
-      return v(document.getElementById('showBroadcast')) || v(document.getElementById('showOptions794')); }, null, POLL);
+    // WAITS AND PRESSES NEVER DEPEND ON A FRAME. With the showcase's 3D scene running, headless Chromium may deliver few or no
+    // animation frames, and Playwright's waitForFunction polling, selector polling and click actionability checks all wait on
+    // frames - so they time out with the button plainly on screen (8 Oct: three runs failed that way). Waits here are node-side
+    // loops over evaluate; a press is a real mouse click at the button's centre, after checking the button is what is there.
+    const frames = () => p.evaluate(() => new Promise(res => { let n = 0; const f = () => { n++; requestAnimationFrame(f); }; requestAnimationFrame(f); setTimeout(() => res(n), 1000); }));
+    const until = async (what, cond, ms = 30000) => { const t0 = Date.now(); while (Date.now() - t0 < ms) { if (await cond()) return true; await p.waitForTimeout(250); }
+      throw new Error(what + ' not reached in ' + ms + ' ms: ' + JSON.stringify(await diag())); };
+    const press = async sel => { const at = await p.evaluate(sel => { const b = document.querySelector(sel); b.scrollIntoView({block: 'nearest'}); const r = b.getBoundingClientRect();
+      const x = r.left + r.width / 2, y = r.top + r.height / 2, top = document.elementFromPoint(x, y); return {x, y, hit: !!top && (top === b || b.contains(top))}; }, sel);
+      if (!at.hit) throw new Error(sel + ' is covered at its centre: ' + JSON.stringify(await diag()));
+      await p.mouse.click(at.x, at.y); return at; };
+    const framesBefore = await frames();
+    await p.evaluate(() => showOpen());
+    const framesAfter = await frames();
+    await until('Broadcast or Options button shown', async () => (await visible('#showBroadcast')) || (await visible('#showOptions794')));
     let via = 'button';
-    if (!(await visible('#showBroadcast')) && await visible('#showOptions794')) { await p.click('#showOptions794'); via = 'Options, then button'; }
-    await p.waitForFunction(() => { const b = document.getElementById('showBroadcast'); if (!b || b.hidden) return false; const r = b.getBoundingClientRect(); return r.width > 0 && getComputedStyle(b).display !== 'none'; }, null, POLL);
-    await p.click('#showBroadcast', {timeout: 15000});
+    if (!(await visible('#showBroadcast')) && await visible('#showOptions794')) { await press('#showOptions794'); via = 'Options, then button'; }
+    await until('Broadcast button shown', () => visible('#showBroadcast'));
+    await press('#showBroadcast');
+    await until('Broadcast on', () => p.evaluate(() => BC.on), 10000).catch(() => {});
     const started = await p.evaluate(() => ({on: BC.on, i: BC.i, pressed: document.getElementById('showBroadcast').getAttribute('aria-pressed')}));
-    ok('Broadcast starts from its button (programme on, aria-pressed true)', started.on && started.pressed === 'true' && started.i >= 1, Object.assign({via}, started));
+    ok('Broadcast starts from a press on its button (programme on, aria-pressed true)', started.on && started.pressed === 'true' && started.i >= 1,
+      Object.assign({via, framesPerSecondBeforeShowOpen: framesBefore, framesPerSecondAfterShowOpen: framesAfter}, started));
     const jump = await p.evaluate(() => { bcStop(); BC.on = true; bcPlay(17); window.__bc900 = BC.el; return {on: BC.on, i: BC.i, src: BC.el ? BC.el.src : ''}; });
-    await p.waitForFunction(() => window.__bc900 && window.__bc900.currentTime > 1.5 && !window.__bc900.paused, null, POLL).catch(() => {});
+    await until('slot 17 playing', () => p.evaluate(() => !!(window.__bc900 && window.__bc900.currentTime > 1.5 && !window.__bc900.paused))).catch(() => {});
     const playing = await p.evaluate(() => { const a = window.__bc900; return {i: BC.i, t: a.currentTime, paused: a.paused, dur: a.duration, err: a.error ? a.error.code : null, ready: a.readyState}; });
     ok('slot 17 plays from the new media: the programme is on slot 17, the take is the local copy, it is playing with no media error and its length is 16.03 s',
       jump.on && jump.i === 17 && jump.src.endsWith('/m/Coates-GC500-2026/' + NEW + '.mp3') && playing.i === 17 && playing.t > 1.5 && !playing.paused && playing.err === null && Math.abs(playing.dur - NEW_SECS) < 0.15 && (served[NEW + '.mp3'] || 0) >= 1,
       {src: jump.src.slice(-24), t: +playing.t.toFixed(2), dur: playing.dur, err: playing.err, ready: playing.ready, served: served[NEW + '.mp3'] || 0});
     if (OUT) await p.screenshot({path: path.join(OUT, `broadcast900_${MOB ? 'phone' : 'laptop'}_slot17.png`)});
-    await p.waitForFunction(() => window.__bc900.ended || BC.i !== 17, null, {timeout: 40000, polling: 250}).catch(() => {});
+    await until('slot 17 ended', () => p.evaluate(() => !!(window.__bc900.ended || BC.i !== 17)), 40000).catch(() => {});
     const after = await p.evaluate(() => { const a = window.__bc900; return {ended: a.ended, err: a.error ? a.error.code : null, i: BC.i, on: BC.on, t: a.currentTime}; });
     ok('the take plays to its end (ended, no error) and the programme moves on to slot 18', after.ended && after.err === null && after.on && after.i === 18 && after.t > NEW_SECS - 0.2, after);
     await p.evaluate(() => { bcStop(); });
