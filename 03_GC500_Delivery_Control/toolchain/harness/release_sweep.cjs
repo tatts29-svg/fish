@@ -6,6 +6,7 @@ const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
 const crypto = require('node:crypto');
+const {createCandidateMedia} = require('./candidate_media.cjs');
 
 const CONTROL = path.resolve(__dirname, '../..');
 const HOST = 'https://gc500-production.up.railway.app';
@@ -111,10 +112,41 @@ function verifiedFile(root, descriptor) {
   return {body, type: descriptor.type || TYPES[path.extname(descriptor.file)]};
 }
 
+function prepareMedia(pageFile, environment, sources = new Map()) {
+  const candidate = candidateData(pageFile);
+  const baseFile = path.join(path.dirname(pageFile), 'base_live.html');
+  const base = candidateData(baseFile);
+  const resolve = createCandidateMedia({pageFile, baseFile, directories: [environment.MEDIA]});
+  const media = new Map();
+  for (const [sha, descriptor] of Object.entries(candidate.media)) {
+    const previous = base.media[sha];
+    if (previous && ['file', 'sha256', 'bytes', 'type', 'scope'].every(key => descriptor[key] === previous[key])) continue;
+    const source = sources.get(sha);
+    if (source) {
+      // A reviewed release descriptor remains authoritative even when MEDIA also has a copy.
+      assert.ok(source.directory, source.name + ' is required for new candidate media');
+      for (const key of ['file', 'sha256', 'bytes', 'type', 'scope']) {
+        assert.equal(descriptor[key], source.descriptor[key], 'Candidate media differs from its release descriptor: ' + sha);
+      }
+      assert.equal(sha, descriptor.sha256, 'Candidate media key does not match its SHA-256');
+      media.set(MEDIA + descriptor.file, verifiedFile(source.directory, descriptor));
+      continue;
+    }
+    assert.ok(environment.MEDIA, 'MEDIA is required for new candidate media without a release descriptor: ' + sha);
+    assert.ok(descriptor && typeof descriptor.file === 'string' && /^[a-f0-9]{64}$/.test(sha) &&
+      new RegExp('^' + sha + '\\.(webp|png|jpe?g|gif|avif)$').test(descriptor.file),
+      'New candidate image must have a single SHA-256 filename: ' + sha);
+    // Resolve eagerly: unsupported, missing or corrupt new media must fail before the browser opens.
+    // The shared resolver checks the descriptor, MIME, size, content hash and realpath containment.
+    const response = resolve(HOST + MEDIA + descriptor.file, {}, 'GET');
+    assert.ok(response && response.status === 200, 'New candidate media was not resolved locally: ' + sha);
+    media.set(MEDIA + descriptor.file, {body: response.body, type: response.headers['content-type']});
+  }
+  return {candidate, media};
+}
+
 function prepareAssets(pageFile, environment) {
   const machine = prepareMachine(environment);
-  const candidate = candidateData(pageFile);
-  const base = candidateData(path.join(path.dirname(pageFile), 'base_live.html'));
   const read = relative => JSON.parse(fs.readFileSync(path.join(CONTROL, relative), 'utf8'));
   const changes889 = read('v8.89_master_map_DRAFT/changes889.json');
   const changes893 = read('v8.93_maps_aligned_DRAFT/changes893.json');
@@ -127,19 +159,7 @@ function prepareAssets(pageFile, environment) {
   ]) {
     for (const descriptor of rows) sources.set(descriptor.sha256, {descriptor, directory, name});
   }
-  const media = new Map();
-  for (const [sha, descriptor] of Object.entries(candidate.media)) {
-    const previous = base.media[sha];
-    if (previous && ['file', 'sha256', 'bytes', 'type', 'scope'].every(key => descriptor[key] === previous[key])) continue;
-    const source = sources.get(sha);
-    assert.ok(source, 'No known local source for new candidate media: ' + sha);
-    assert.ok(source.directory, source.name + ' is required for new candidate media');
-    for (const key of ['file', 'sha256', 'bytes', 'type', 'scope']) {
-      assert.equal(descriptor[key], source.descriptor[key], 'Candidate media differs from its release descriptor: ' + sha);
-    }
-    assert.equal(sha, descriptor.sha256, 'Candidate media key does not match its SHA-256');
-    media.set(MEDIA + descriptor.file, verifiedFile(source.directory, descriptor));
-  }
+  const {candidate, media} = prepareMedia(pageFile, environment, sources);
   // Every explorer request is local, including files absent from a supplied set.
   // Validate the scene and all tile references before opening a browser.
   const code = environment.CODE, assets = environment.ASSETS;
@@ -404,7 +424,7 @@ async function main() {
   assert.equal(result.success, true, 'Release sweep failed; see the JSON failures, allErrors and cons');
 }
 
-module.exports = {prepareMachine, machineAsset, installAssets};
+module.exports = {prepareMachine, machineAsset, prepareMedia, installAssets};
 if (require.main === module) main().catch(error => {
   process.stderr.write(String(error.stack || error) + '\n');
   process.exitCode = 1;
