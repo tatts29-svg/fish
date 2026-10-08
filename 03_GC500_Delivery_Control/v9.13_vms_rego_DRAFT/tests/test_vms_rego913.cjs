@@ -17,6 +17,14 @@ const showVms = async p => { await p.evaluate(() => { go('plant'); state.plantGr
   await p.evaluate(() => { const d = document.querySelector('[data-vms913]'); d.open = true; }); await p.waitForTimeout(400); };
 const rowsOf = p => p.evaluate(() => [...document.querySelectorAll('[data-vms913] .vms913row:not(.head)')].map(r => ({key: r.dataset.vms913Row, src: r.dataset.src,
   cells: [...r.querySelectorAll('.vms913c')].map(c => c.innerText.replace(/\s+/g, ' ').trim())})));
+const shot = async (p, file, anchor) => { /* the frame is the register only, cut to what is on screen, with the anchor in view */
+  await p.evaluate(a => { const f = document.querySelector('#flash'); if (f) { f.hidden = true; f.style.display = 'none'; } const el = document.querySelector(a); if (el) el.scrollIntoView({block: 'center'}); }, anchor);
+  await p.waitForTimeout(500);
+  const box = await p.evaluate(() => { const r = document.querySelector('[data-vms913]').getBoundingClientRect(), top = Math.max(0, r.top), bottom = Math.min(innerHeight, r.bottom);
+    const inFrame = [...document.querySelectorAll('[data-vms913] *')].filter(e => { const q = e.getBoundingClientRect(); return q.bottom > top && q.top < bottom && e.children.length === 0; }).map(e => e.textContent).join(' ');
+    return {x: Math.max(0, r.left), y: top, width: Math.min(innerWidth, r.right) - Math.max(0, r.left), height: bottom - top, dollars: /\$/.test(inFrame)}; });
+  await p.screenshot({path: path.join(EVID, file), clip: {x: box.x, y: box.y, width: box.width, height: box.height}, animations: 'disabled'});
+  return box; };
 const MONEY = () => holdAssets(() => { const strip = o => JSON.parse(JSON.stringify(o, (k, v) => (k === 'asAt' || k === 'at' || k === 'now' || k === 'generated') ? undefined : v));
   const V = transport888View(), R = recon888Model();
   return JSON.stringify({M: strip(moneySummary()), X: strip(cj764Model()), H: strip(fh866Model()), P: strip(pl770Model()), B: strip(pl752Rows()),
@@ -52,9 +60,8 @@ async function sessionA() {
       return {form: !!f.querySelector('[data-vms913-form]'), edits: f.querySelectorAll('[data-vms913-edit]').length, visibleControls: [...f.querySelectorAll('input,select,textarea,button')].filter(vis).length, cap: capability(), dollars: /\$/.test(f.innerText)}; });
     ok('a view link shows no controls on the register', view.cap !== 'edit' && !view.form && view.edits === 0 && view.visibleControls === 0, view);
     ok('no dollar figure in the register', !view.dollars);
-    await p.evaluate(() => { const f = document.querySelector('#flash'); if (f) { f.hidden = true; f.style.display = 'none'; } const d = document.querySelector('[data-vms913]'); d.scrollIntoView({block: 'start'}); });
-    await p.waitForTimeout(500);
-    await p.locator('[data-vms913]').screenshot({path: path.join(EVID, MOB ? 'register_phone.png' : 'register_laptop.png'), animations: 'disabled'});
+    const sh = await shot(p, MOB ? 'register_phone.png' : 'register_laptop.png', '[data-vms913-row="VMS10"]');
+    ok('screenshot of the register, VMS10 in frame, no dollar figure in frame', !sh.dollars && sh.height > 200, sh);
     const fit = await p.evaluate(() => ({page: document.documentElement.scrollWidth <= innerWidth + 1, fold: (() => { const f = document.querySelector('[data-vms913]'); return f.scrollWidth <= f.clientWidth + 1; })()}));
     ok('the register fits the screen (no sideways scroll)', fit.page && fit.fold, fit);
     // FOR THE DRIVER: the delivery card in the drawer, the driver drop card, the printed drop sheet
@@ -103,6 +110,8 @@ async function sessionA() {
     ok('the only other writes are the page\'s own stamp and name for that document', quietWrites === 0 && preWrites === 0 && otherIds.every(u => /^\/api\/doc\/(stamps|by)\/vmsboard~2f~VMS12$/.test(u)), {quietWrites, preWrites, otherColls, otherIds});
     const after = await rowsOf(p), r12 = (after.find(r => r.key === 'VMS12') || {cells: []}).cells.join(' | ');
     ok('the register shows the saved board as recorded, with who', /F12/.test(r12) && /ABC123/.test(r12) && /recorded by Practice Editor/.test(r12), r12);
+    const sh2 = await shot(p, MOB ? 'register_editor_phone.png' : 'register_editor_laptop.png', '[data-vms913-form]');
+    ok('screenshot of the editor form (practice capability), no dollar figure in frame', !sh2.dollars, sh2);
     const money1 = await p.evaluate(MONEY);
     ok('money identical before and after the save (P&L, costs to job end, Finance, transport, tie-outs, rehire, labour)', money0 === money1, {len: money0.length});
     const rec = recordNow();

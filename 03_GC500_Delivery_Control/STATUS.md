@@ -34,6 +34,13 @@
   - The roster grid answers "which days each person is on". Is that what he meant?
 - **The build follows his yes**, on the latest public page. If Codex's v9.08 is live by then, it is rebuilt on v9.08.
 
+**ANDREW, 8 Oct 2026 ~15:25 AEST:** "i need you to work on pin locations on the master your pinned locations and where you have things needs to be 100% accurate with locations are so when people navigate your information is 100 % accurate at all times workimhg off the new master sheet we need toi pin things right to where things need to go".
+- **Claude is auditing every navigation pin** against D001-26003-03, workflow `wf_7b2231c9-64c`, read-only. It compares where the page sends a driver (`dest782`/`dpPos`/`MASTER_LOC`) with where the master draws the unit: the unit's own shape, or the arrow tip of a callout, not the label. Site pins are checked against both.
+- **Classes:** EXACT ≤1 m, CLOSE 1–3 m, OFF >3 m, AREA-ONLY, NOT-ON-MASTER, SITE-DISAGREES. Three skeptics check every discrepancy.
+- **Starting point:** v8.89 placed 165 pins on the unit labels; 23 are area-only and 31 are on no drawing.
+- **Next:** a verified list and a proof page go to Andrew. Corrections then become a release, built only with master evidence and published on his yes.
+- **Codex's v9.11 map uses the same destination resolver,** so corrected pins carry through to it automatically.
+
 **SYNC 15:07 AEST 8 Oct (Claude), GETs only:**
 - **Live:** still v9.10, `838a4555…`, 11,528,818 bytes. The machine is still `cd05e73e…`.
 - **Record:** still version 4504, last changed 13:54. Neither WC09's "counts as" nor WC31's 1317645 is entered yet.

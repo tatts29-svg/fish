@@ -1,0 +1,35 @@
+PASS the record holds no vmsboard documents before the test {"version":4504}
+PASS vmsboard is a synced collection like subhire (map), read on opening {"inList":true,"kind":"map","likeSub":"map","first":true,"all":true,"readonly":true,"rec":"{}"}
+PASS every VMS contract line has exactly one register row {"rows":23,"lines":23}
+PASS VMS10 shows PremAir Hire, fleet 120T, rego V14221 as the project manager's word "VMS10 line 13 · T0103 · docket 26115373 | PremAir Hire sub-hire | 120T | V14221 | the project manager's word · 8 Oct 2026"
+PASS every other board reads rego "not given" (no rego invented) []
+PASS whose: Coates boards say Coates, sub-hire boards name the contract company {"1182999":"Coates","1191877":"Coates","1211354":"Coates","1211359":"Coates","1211370":"Coates","1211383":"Coates","1211404":"Coates","1271129":"Coates","VMS09":"Coates","VMS10":"PremAir Hire sub-hire","VMS11":"Premiair sub-hire","VMS12":"Coates","VMS13":"RPM sub-hire","VMS14":"RPM sub-hire","VMS15":"RPM sub-hire","VMS16":"RPM sub-hire","VMS17":"RPM sub-hire","VMS18":"Premiair sub-hire","VMS19":"Premiair sub-hire","VMS20":"Premiair sub-hire","VMS21":"Premiair sub-hire","VMS22":"Premiair sub-hire","VMS23":"Premiair sub-hire"}
+PASS fleet number: the Coates asset number for Coates boards, not given for sub-hire boards without one {"VMS09":"1211404","VMS13":"not given"}
+PASS a view link shows no controls on the register {"form":false,"edits":0,"visibleControls":0,"cap":"view","dollars":false}
+PASS no dollar figure in the register
+PASS screenshot of the register, VMS10 in frame, no dollar figure in frame {"x":34,"y":0,"width":1372,"height":900,"dollars":false}
+PASS the register fits the screen (no sideways scroll) {"page":true,"fold":true}
+PASS delivery card (drawer) for the plant line carrying VMS10 shows its fleet number and rego {"key":"T0103","li":"PremAir Hire · fleet no. 120T · rego V14221 (the project manager's word)","card":true,"card1":true,"sheet":true}
+PASS driver drop card shows VMS10 fleet and rego; Coates boards on T0001 say rego not given {"key":"T0103","li":"PremAir Hire · fleet no. 120T · rego V14221 (the project manager's word)","card":true,"card1":true,"sheet":true}
+PASS printed drop sheet (drivers) names VMS10 with fleet and rego {"key":"T0103","li":"PremAir Hire · fleet no. 120T · rego V14221 (the project manager's word)","card":true,"card1":true,"sheet":true}
+PASS 8 Oct's drop sheets (Print the day) carry VMS10's fleet and rego on T0103's page {"inDay":true,"sheet":true}
+PASS opening, viewing and printing wrote nothing {"blocked":0,"vmsboard":"{}"}
+PASS no dialog stands over the register in edit mode
+PASS the edit link shows one small form with 44 px taps and a Change button per board {"heights":[44,44,44,44,44],"edits":23}
+PASS validation refuses bad input and records nothing [{"why":"rego with a dash","msg":"A rego is 1 to 9 letters or digits - no spaces, dashes or other marks.","rec":"{}"},{"why":"rego of 11","msg":"A rego is 1 to 9 letters or digits - no spaces, dashes or other marks.","rec":"{}"},{"why":"rego with a space","msg":"A rego is 1 to 9 letters or digits - no spaces, dashes or other marks.","rec":"{}"},{"why":"fleet with marks","msg":"A Coates fleet number is 3 to 12 letters, digits or hyphens.","rec":"{}"},{"why":"fleet of 13","msg":"A Coates fleet number is 3 to 12 letters, digits or hyphens.","rec":"{}"},{"why":"company with markup","msg":"A company name is up to 40 letters, digits, spaces and & . ' ( ) / - only.","rec":"{}"},{"why":"nothing given","msg":"Give a company, a fleet number or a rego for VMS12.","rec":"{}"},{"why":"rego already on VMS10","msg":"Rego V14221 is already on VMS10 - change it there first.","rec":"{}"}]
+PASS a simulated editor save writes exactly one document to vmsboard, with who and when {"ids":["/api/doc/vmsboard/VMS12"],"body":{"co":null,"fleet":"F12","rego":"ABC123","line":"9961265/16","by":"Practice Editor","at":"2026-10-08T05:21:05.548Z","_k":"VMS12"},"attempts":2}
+PASS the only other writes are the page's own stamp and name for that document {"quietWrites":0,"preWrites":0,"otherColls":["stamps","by","vmsboard"],"otherIds":["/api/doc/stamps/vmsboard~2f~VMS12","/api/doc/by/vmsboard~2f~VMS12"]}
+PASS the register shows the saved board as recorded, with who "VMS12 line 16 | Coates | F12 | ABC123 | recorded by Practice Editor · 08 Oct 15:21 | Change"
+PASS screenshot of the editor form (practice capability), no dollar figure in frame {"x":34,"y":322.203125,"width":1372,"height":577.796875,"dollars":false}
+PASS money identical before and after the save (P&L, costs to job end, Finance, transport, tie-outs, rehire, labour) {"len":271577}
+PASS the captured save never reached the service (fresh read has no vmsboard) {"version":4504}
+PASS no page errors []
+PASS no refused request concerns the register: the only 404s are the map explorer's own tile files, which this release does not touch {"n":18,"sample":["404 GET /w/Coates-GC500-2026/explorer/assets/vt/Llow.bin","404 GET /w/Coates-GC500-2026/explorer/assets/vt/L-0.75.bin","404 GET /w/Coates-GC500-2026/explorer/assets/vt/L-0.5.bin"]}
+PASS no console errors other than those refusals and the aborted practice writes ["Failed to load resource: the server responded with a status of 404 (Not Found)","Failed to load resource: the server responded with a status of 404 (Not Found)","Failed to load resource: the server responded with a status of 404 (Not Found)","Failed to load resource: the server responded with a status of 404 (Not Found)","Failed to load resource: the server responded with a status of 404 (Not Found)"]
+PASS the harness blocked nothing (the only writes were captured and aborted in page.route) {"page":1,"live":156,"blocked":0}
+PASS session B opens with the preload on VMS10
+PASS an incoming record syncs in like subhire, and a record document overrides the project manager's word "VMS10 line 13 · T0103 · docket 26115373 | Practice Co sub-hire | P913 | PRAC913 | recorded by Practice Recorder · 08 Oct 15:10"
+PASS a record with no company keeps the contract company and shows its rego "VMS13 line 18 | RPM sub-hire | R13 | RPM13 | recorded by Practice Recorder · 08 Oct 15:11"
+PASS the delivery card follows the record "Practice Co · fleet no. P913 · rego PRAC913"
+PASS session B: no page errors, nothing written {"errors":[],"counts":{"page":1,"live":105,"blocked":0}}
+RESULT 34/34 laptop
