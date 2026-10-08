@@ -17,4 +17,6 @@ check('other reference cannot transfer ownership',()=>assert.equal(F.owner(row,[
 check('placeholder supplier is not confirmation',()=>assert.equal(F.owner({asset_no:'12'},[{assetNo:'12',owner:'other:supplier-not-named',physical:true}]).owner,'unknown'));
 check('explicit SUB supplier preserved',()=>assert.equal(F.owner({subhired:true,supplier_sub_rental:'Supplier A'},[]).rehire,true));
 check('unidentified toilet is not assumed supplier',()=>assert.equal(F.owner({},[]).owner,'unknown'));
+check('repeated same-leg quantities cannot double the reference demand',()=>assert(F.loadDemands([{leg:'inbound',e:{item:'Accessible Toilet',quantity_raw:1}},{leg:'inbound',e:{item:'Accessible Toilet',quantity_raw:1}}],lines).every(x=>!x.known)));
+check('different transport legs retain their own demand',()=>assert(F.loadDemands([{leg:'inbound',e:{item:'Accessible Toilet',quantity_raw:1}},{leg:'demob',e:{item:'Accessible Toilet',quantity_raw:1}}],lines).every(x=>x.known)));
 console.log(n+' meaningful assertions passed');

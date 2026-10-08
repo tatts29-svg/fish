@@ -25,8 +25,18 @@ function finance928Demand(event,lines){
  if(typeof l.qty==='number'&&quantity>l.qty)return {known:false,amount:0,reason:'Load quantity exceeds the reference demand'};
  return {known:true,amount:rate*quantity,reason:'Card transport cost for this load’s item and quantity'};
 }
+function finance928LoadDemands(rows,lines){
+ const plans=rows.map(r=>finance928Demand(r.e,lines)),groups=new Map();
+ rows.forEach((r,i)=>{const key=JSON.stringify([r.leg,r.e.item||'']),g=groups.get(key)||[];g.push(i);groups.set(key,g);});
+ for(const ids of groups.values()){
+  const item=rows[ids[0]].e.item,l=(lines||[]).find(l=>l.item===item);
+  const quantity=ids.reduce((n,i)=>n+Number(rows[i].e.quantity_raw!=null?rows[i].e.quantity_raw:rows[i].e.quantity_display),0);
+  if(ids.length>1&&l&&typeof l.qty==='number'&&(!Number.isFinite(quantity)||quantity>l.qty))for(const i of ids)plans[i]={known:false,amount:0,reason:'Overlapping or ambiguous load quantities need allocation'};
+ }
+ return plans;
+}
 function finance928LegacyToiletBranch(){
  const counts={};ONHIRE_ROWS.forEach(r=>{if(r.family==='toilet'&&!r.subhired){const k=r.branch_code||'no branch';counts[k]=(counts[k]||0)+1;}});
  return Object.keys(counts).sort((a,b)=>counts[b]-counts[a])[0]||'KINP';
 }
-if(typeof module!=='undefined'&&module.exports)module.exports={owner:finance928Owner,demand:finance928Demand};
+if(typeof module!=='undefined'&&module.exports)module.exports={owner:finance928Owner,demand:finance928Demand,loadDemands:finance928LoadDemands};

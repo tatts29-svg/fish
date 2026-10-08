@@ -15,7 +15,8 @@ old="""  const cc = cardOf(a), mine = rows.filter(r => r.src === 'asset' && r.a 
   else { loadsNoFigNoCard += nf.length; mine.forEach(r => { r.forecast = {kind: 'average'}; }); } });"""
 new="""  const mine = rows.filter(r => r.src === 'asset' && r.a === a && nf.includes(r.e)), lines=assetTotal(a).lines||[];
   let known=false;loadsNoFig+=nf.length;
-  mine.forEach(r=>{const demand=finance928Demand(r.e,lines);if(demand.known){known=true;cardCost+=demand.amount;r.forecast={kind:'card',raw:demand.amount,amount:cents(demand.amount),ref:cents(demand.amount),loads:1,scope928:'load',reason928:demand.reason};}else r.forecast={kind:'held',raw:0,amount:0,reason928:demand.reason};});
+  const demands=finance928LoadDemands(mine,lines);
+  mine.forEach((r,i)=>{const demand=demands[i];if(demand.known){known=true;cardCost+=demand.amount;r.forecast={kind:'card',raw:demand.amount,amount:cents(demand.amount),ref:cents(demand.amount),loads:1,scope928:'load',reason928:demand.reason};}else r.forecast={kind:'held',raw:0,amount:0,reason928:demand.reason};});
   if(known)cardRefs++; });"""
 s=rep(s,old,new,'load scoped forecast, unknown held',p)
 s=rep(s,"if (r.family === 'toilet' && !r.subhired) { b.rehireLines++;","if (r.family === 'toilet' && !r.subhired && finance928ContractOwner(r).rehire) { b.rehireLines++;",'source ownership classification',p)
