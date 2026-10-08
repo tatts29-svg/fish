@@ -1,0 +1,187 @@
+{
+ "R": [
+  {
+   "ref": "WC09",
+   "part": "where",
+   "found": true,
+   "file": "phone_WC09_where.png",
+   "dollars": false,
+   "imgs": [
+    {
+     "w": 771,
+     "src": "9a601ea712d5055.webp"
+    },
+    {
+     "w": 937,
+     "src": "34a181398d9c275.webp"
+    },
+    {
+     "w": 480,
+     "src": "d828fb81baa00f4ed000"
+    }
+   ],
+   "pinInViewport": false,
+   "pinShown": false,
+   "want": "-27.984717, 153.428026",
+   "text": "GC500 Delivery Control Coates Industrial Solutions GC500 2026 Gold Coast · AEST 01 : 43 : 18 Fri 09 Oct 2026 Gold Coast time, 01:43. Race day · Fri 23 Oct 13 DAYS 22:16:41 Build phase · day 33 of 68 LIVE last confirmed 01:43 Today Timeline Equip ment Demob Map explorer Coates Way Tools View only. This link shows the shared record and cannot change it — everything here can be read, searched, printed and exported. Today — Boost Mobile Gold Coast 500 Today View date Email this Print Start showcase 10 scenes Today Site contacts Work progress On site Trade by trade Where we are Build phase Fri 09 O"
+  },
+  {
+   "ref": "WC09",
+   "part": "pins",
+   "found": true,
+   "file": "phone_WC09_pins.png",
+   "dollars": false,
+   "imgs": [
+    {
+     "w": 771,
+     "src": "9a601ea712d5055.webp"
+    },
+    {
+     "w": 937,
+     "src": "34a181398d9c275.webp"
+    },
+    {
+     "w": 480,
+     "src": "d828fb81baa00f4ed000"
+    }
+   ],
+   "pinInViewport": false,
+   "pinShown": true,
+   "want": "-27.984717, 153.428026",
+   "text": "GC500 Delivery Control Coates Industrial Solutions GC500 2026 Gold Coast · AEST 01 : 43 : 20 Fri 09 Oct 2026 Gold Coast time, 01:43. Race day · Fri 23 Oct 13 DAYS 22:16:39 Build phase · day 33 of 68 LIVE last confirmed 01:43 Today Timeline Equip ment Demob Map explorer Coates Way Tools View only. This link shows the shared record and cannot change it — everything here can be read, searched, printed and exported. Today — Boost Mobile Gold Coast 500 Today View date Email this Print Start showcase 10 scenes Today Site contacts Work progress On site Trade by trade Where we are Build phase Fri 09 O"
+  },
+  {
+   "ref": "WC59",
+   "part": "where",
+   "found": true,
+   "file": "phone_WC59_where.png",
+   "dollars": false,
+   "imgs": [
+    {
+     "w": 771,
+     "src": "3a190b7d91b2911.webp"
+    },
+    {
+     "w": 937,
+     "src": "7738ea7f6272b36.webp"
+    },
+    {
+     "w": 800,
+     "src": "04ca8af550e76d0.webp"
+    }
+   ],
+   "pinInViewport": false,
+   "pinShown": false,
+   "want": "-27.988183, 153.430169",
+   "text": "GC500 Delivery Control Coates Industrial Solutions GC500 2026 Gold Coast · AEST 01 : 43 : 26 Fri 09 Oct 2026 Gold Coast time, 01:43. Race day · Fri 23 Oct 13 DAYS 22:16:33 Build phase · day 33 of 68 LIVE last confirmed 01:43 Today Timeline Equip ment Demob Map explorer Coates Way Tools View only. This link shows the shared record and cannot change it — everything here can be read, searched, printed and exported. Today — Boost Mobile Gold Coast 500 Today View date Email this Print Start showcase 10 scenes Today Site contacts Work progress On site Trade by trade Where we are Build phase Fri 09 O"
+  },
+  {
+   "ref": "WC59",
+   "part": "pins",
+   "found": true,
+   "file": "phone_WC59_pins.png",
+   "dollars": false,
+   "imgs": [
+    {
+     "w": 771,
+     "src": "3a190b7d91b2911.webp"
+    },
+    {
+     "w": 937,
+     "src": "7738ea7f6272b36.webp"
+    },
+    {
+     "w": 800,
+     "src": "04ca8af550e76d0.webp"
+    }
+   ],
+   "pinInViewport": false,
+   "pinShown": true,
+   "want": "-27.988183, 153.430169",
+   "text": "GC500 Delivery Control Coates Industrial Solutions GC500 2026 Gold Coast · AEST 01 : 43 : 29 Fri 09 Oct 2026 Gold Coast time, 01:43. Race day · Fri 23 Oct 13 DAYS 22:16:30 Build phase · day 33 of 68 LIVE last confirmed 01:43 Today Timeline Equip ment Demob Map explorer Coates Way Tools View only. This link shows the shared record and cannot change it — everything here can be read, searched, printed and exported. Today — Boost Mobile Gold Coast 500 Today View date Email this Print Start showcase 10 scenes Today Site contacts Work progress On site Trade by trade Where we are Build phase Fri 09 O"
+  },
+  {
+   "ref": "WC09",
+   "part": "dropsheet_go",
+   "found": true,
+   "file": "phone_WC09_dropsheet_go.png",
+   "dollars": false,
+   "satnav": [
+    -27.984717,
+    153.428026
+   ],
+   "nav": [
+    -27.984717,
+    153.428026,
+    "master plan"
+   ],
+   "rings": 3,
+   "cap": "The ring is where the plan puts it, not a GPS fix. Check the exact spot with the supervisor before you set it down.",
+   "text": "How to get there\nFrom Coates Kingston — about 55 km by road, about 64 min. Sat nav: -27.984717, 153.428026 — the same point as Navigate (master plan).\nCome over the Sundale Bridge. That is the way in for trucks on this job.\nCome in here: TEDDER AVE ACCESS POINT, HEAVY VEHICLE ENTRY ONLY, LIGHT VEHICLE EXIT ONLY.\nDo not drive through the park unescorted. Pull up at the gate and wait.\nFrom that gate, head south-east about 515 m. The wide photo is what you are looking at.\nIt goes at Toilets. The cl"
+  },
+  {
+   "ref": "WC09",
+   "part": "dropsheet_pics",
+   "found": true,
+   "file": "phone_WC09_dropsheet_pics.png",
+   "dollars": false,
+   "satnav": [
+    -27.984717,
+    153.428026
+   ],
+   "nav": [
+    -27.984717,
+    153.428026,
+    "master plan"
+   ],
+   "rings": 3,
+   "cap": "The ring is where the plan puts it, not a GPS fix. Check the exact spot with the supervisor before you set it down.",
+   "text": "The ring is where the plan puts it, not a GPS fix. Check the exact spot with the supervisor before you set it down."
+  },
+  {
+   "ref": "WC59",
+   "part": "dropsheet_go",
+   "found": true,
+   "file": "phone_WC59_dropsheet_go.png",
+   "dollars": false,
+   "satnav": [
+    -27.988183,
+    153.430169
+   ],
+   "nav": [
+    -27.9881826,
+    153.4301687,
+    "master plan"
+   ],
+   "rings": 3,
+   "cap": "The ring is where the plan puts it, not a GPS fix. Check the exact spot with the supervisor before you set it down.",
+   "text": "How to get there\nFrom Coates Kingston — about 55 km by road, about 64 min. Sat nav: -27.988183, 153.430169 — the same point as Navigate (master plan).\nCome over the Sundale Bridge. That is the way in for trucks on this job.\nCome in here: TEDDER AVE ACCESS POINT, HEAVY VEHICLE ENTRY ONLY, LIGHT VEHICLE EXIT ONLY.\nDo not drive through the park unescorted. Pull up at the gate and wait.\nFrom that gate, head south-east about 950 m. The wide photo is what you are looking at.\nIt goes at Toilets. The cl"
+  },
+  {
+   "ref": "WC59",
+   "part": "dropsheet_pics",
+   "found": true,
+   "file": "phone_WC59_dropsheet_pics.png",
+   "dollars": false,
+   "satnav": [
+    -27.988183,
+    153.430169
+   ],
+   "nav": [
+    -27.9881826,
+    153.4301687,
+    "master plan"
+   ],
+   "rings": 3,
+   "cap": "The ring is where the plan puts it, not a GPS fix. Check the exact spot with the supervisor before you set it down.",
+   "text": "The ring is where the plan puts it, not a GPS fix. Check the exact spot with the supervisor before you set it down."
+  }
+ ],
+ "counts": {
+  "page": 1,
+  "live": 168,
+  "blocked": 0
+ },
+ "errors": [],
+ "served": 4
+}
