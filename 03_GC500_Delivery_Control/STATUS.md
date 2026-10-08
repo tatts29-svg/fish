@@ -34,6 +34,14 @@
   - The roster grid answers "which days each person is on". Is that what he meant?
 - **The build follows his yes**, on the latest public page. If Codex's v9.08 is live by then, it is rebuilt on v9.08.
 
+**ANDREW, 8 Oct 2026 ~15:35 AEST:** "T0103 this is VMS09 and VMS10 VMS is the number i gave you and the VMS10 is the subhire number i gave you . vms boards have number plates too i told you this".
+- **This answers one VMS reconciliation question,** which boards T0103 brings today: VMS09 (Coates, contract 9961265 line 12) and VMS10 (PremAir Hire sub-hire, line 13, fleet 120T, rego given).
+- **The VMS rego release is extended** (workflow `wf_8ac04b4e-59b`; the first run was stopped before review, and the new builder starts from its files):
+  - T0103 names its boards everywhere it shows or prints: Timeline card, Today, the sheets, the messages.
+  - Every board's number plate shows wherever the board is named, "rego not given" until one is entered.
+  - The register editor gains an "On delivery" field.
+  - Other plant lines name boards only where the contract or the record does. Otherwise they read "boards not named yet".
+
 **ANDREW, 8 Oct 2026 ~15:30 AEST: "for the 00th time where is the selection of my workers on the roster its missing still. also your selection boxes here are still all whited out".** Then: "sorry Continue with the pin fix … needs to be 10/10".
 - **Pin audit:** resumed as workflow `wf_7b2231c9-64c`, run `wru6s59qb`.
 - **Roster — claim WITHDRAWN at 15:32** ([6053054260](https://github.com/tatts29-svg/fish/pull/1#issuecomment-6053054260)). Codex is fixing the worker selection's visibility and the dropdown contrast in its own controls ([6052982283](https://github.com/tatts29-svg/fish/pull/1#issuecomment-6052982283)) and asked for no second worker editor. Claude stopped its build before it wrote anything, handed over the measurements and the Staff on mock-up, and will read the fix back on phone and laptop. Was: `v9.12_roster_DRAFT` ([6053037807](https://github.com/tatts29-svg/fish/pull/1#issuecomment-6053037807)), workflow `wf_124fed41-560`:
