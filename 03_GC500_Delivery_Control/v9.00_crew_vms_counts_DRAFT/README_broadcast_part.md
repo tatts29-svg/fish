@@ -45,8 +45,9 @@ media, manifest `752a49a9…`) during the work, and the patch now applies to eit
 The mixing job's report (`bcast/final/REPORT.md`, outside git) passes every check and reports no failed one. It proves the last
 step byte for byte (re-making old turns 16–18 from their v6.70 mixed takes gives the page's own files). The new take matches its
 neighbours on loudness (page file −15.4 LUFS, mean −16.9 dB against −16.8 to −17.0), on the bed under the voice (17.89 dB
-against 17.69–18.69) and on the speech spectrum within 1.5 sd of the 34 old takes. **Nobody has listened to it yet.** Andrew's
-ear on 16 → 17 → 18 is the real check.
+against 17.69–18.69) and on the speech spectrum within 1.5 sd of the 34 old takes. **Andrew listened and approved it on 8 Oct 2026 at
+about 14:38 AEST** ("Race clip all good"), after hearing a 41 s clip of turns 16 → 17 → 18 back to back, built from the live
+files for 16 and 18 and the new take.
 
 **Before upload** the take must be on the service's media store under that file name. The view link serves
 `/m/<token>/<sha>.mp3` and checks the page against the manifest.
