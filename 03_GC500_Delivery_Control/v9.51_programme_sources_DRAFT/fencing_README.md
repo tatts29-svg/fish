@@ -2,7 +2,7 @@
 
 Author: Andrew Fisher
 
-Fencing-only component of the parent v9.51 release. **Source frozen for integration; not independently published.** The parent owns `patch_v951.py`, infrastructure source changes, footer/version guards, final integrated browser checks and publication.
+Fencing-only component of the parent v9.51 release. **Fencing component READY for parent integration; not independently published.** The parent owns `patch_v951.py`, infrastructure source changes, footer/version guards, final integrated browser checks and publication.
 
 ## Result
 
@@ -44,9 +44,10 @@ Owned files are `fencing*`, `tests/test_fencing*` and `evidence/fencing*` only. 
 
 - **40 Python source/model/exact-HTML checks** on final v9.48 input pass. They cover explicit quantity columns, circular/invalid expression rejection, source/date/scope guards, retained unknowns, copied-status exclusion, active PDF precedence, no input mutation, unchanged other DATA/native committed literals and duplicate patch refusal.
 - **32 isolated native JavaScript consumer checks** pass. They run the page's actual `plannedToDay`, `progressAsOf`, `fenceTypes`, `fenceByWeek` and `cj764Fencing` functions against the changed source with explicit synthetic rates and no network/storage. Sunday 25 October contains 806 m removal; cumulative planned removal is 1,939 m. Installation clean-fence denominator is 8,090.5 m, excluding demob's retained 950 m reuse.
-- Native forecast changes are independently reconciled per week/category × explicit fixture rate; the fixture values are **not actual commercial amounts**. Native actual-rate/financial checks belong to final integration, alongside the other workbook changes.
+- Native forecast changes are independently reconciled per week/category × explicit fixture rate; the fixture values are **not actual commercial amounts**. The actual-page suite below also proves the current native rates; parent release integration checks the final combination with the other workbook changes.
 - The notes renderer escapes source text, contains no inputs/selects/buttons/write handlers and retains held rows.
-- Final integrated phone source-fold screenshot and runtime/record checks remain assigned to the final candidate, before parent publication.
+- **57 actual-page checks pass** on the v9.51 programme preview SHA `ef12ad094f85d3022453ab3529d14c95d445c37f8bca409815cde7e1faa740d8`, using native record 4761 captured by a fresh GET then frozen only in the test harness. Actual commercial forecast amounts reconcile independently per week/category at native customer/supplier rates and issued-card extras. Recorded money, dockets, rates, completion and the entire native record stay unchanged. The Sunday and installation-scope native checks pass.
+- Both 390px phone screenshots were visually inspected: source notes sit in the existing Planning & commercial detail folds; all 380 task rows are retained, no operational controls are added, and document width remains 390px. No runtime errors; the sole denied request is the expected Google tile-session POST. Detailed commercial evidence and screenshots remain private.
 
 Run exact HTML tests with:
 
@@ -57,3 +58,9 @@ PAGE=/absolute/base.html python tests/test_fencing951.py
 `test_fencing_consumers951.cjs` reads a JSON envelope on stdin with `before`, `after` HTML and an absolute `notes` path. The parent can reuse this without live operations. Sanitised native-model evidence is in `evidence/fencing_consumers951.json`.
 
 No operational writes or publication were performed by this component.
+
+Actual-page check (strict GET; private output):
+
+```sh
+CHROMIUM_PATH=/usr/bin/chromium BASE_PAGE=/absolute/pre951.html PAGE=/absolute/combined951.html OUT=/absolute/private-evidence flock /tmp/gc500-browser.lock node tests/test_fencing_actual951.cjs
+```
