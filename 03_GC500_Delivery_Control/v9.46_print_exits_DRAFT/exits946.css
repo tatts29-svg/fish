@@ -1,0 +1,22 @@
+/* Author: Andrew Fisher. Native print exits stay reachable while the content scrolls. */
+#drv782 .exit946,.printask .exit946{position:sticky;z-index:2;display:flex;justify-content:flex-end;align-items:center;gap:8px;background:var(--card,var(--paper,#fff));border-bottom:1px solid var(--rule,#d7dbde)}
+#drv782 .exit946{top:-18px;margin:-18px -18px 12px;padding:10px 12px}
+.printask .exit946{top:-20px;margin:-20px -22px 12px;padding:10px 12px}
+#drv782 .exit946 button,.printask .exit946 button{position:static;min-height:40px;max-width:100%;padding:8px 12px;font:600 14px/1.2 Inter,system-ui,sans-serif;color:var(--ink,#15181a);background:var(--paper,#fff);border:1px solid var(--rule,#d7dbde);border-radius:7px;cursor:pointer}
+#drv782 .exit946 button:focus-visible,.printask .exit946 button:focus-visible{outline:2px solid var(--orange,#ff6a13);outline-offset:2px}
+#drv782 .box,.printask .printask-box{min-width:0;overflow-wrap:anywhere}
+@media screen{
+ /* A4 content retains its dimensions for preflight; its screen container cannot widen the phone. */
+ body.printing-day:not(.dpbar-on) #dayprint:has(> .rs-page){max-width:100vw!important;overflow-x:clip}
+ body.printing-day:not(.dpbar-on) #dayprint > .rs-page{width:190mm;max-width:none}
+ .printask{max-width:100vw;max-height:100dvh}
+ .printask .printask-box{width:min(520px,100%);max-height:calc(100dvh - 32px)}
+}
+@media(max-width:640px){
+ nav.tabs{height:50px;min-height:50px}
+ /* Give Tools the same compact column budget as a tab; keep every caption and native route. */
+ nav.tabs .tools{flex:0 0 48px;min-width:0;margin-left:0;padding:0;align-self:stretch}
+ nav.tabs .tools .hmore{width:100%;min-width:0;height:auto;min-height:44px;padding:4px 1px 0;font-size:10.5px;line-height:1.05}
+}
+@media(max-width:374px){nav.tabs [data-tab],nav.tabs [data-tab] .tw{font-size:9.5px}}
+@media(max-width:339px){nav.tabs{padding:0}nav.tabs .tools{flex-basis:38px}nav.tabs [data-tab],nav.tabs [data-tab] .tw{font-size:9px}}

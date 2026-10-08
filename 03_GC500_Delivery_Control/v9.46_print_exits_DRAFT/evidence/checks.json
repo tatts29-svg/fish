@@ -1,0 +1,32 @@
+{
+  "author": "Andrew Fisher",
+  "state": "READY for parent integration; not published",
+  "base_sha256": "c9142184568cf1311f709fecf077d2a923774df933abbede66ef2e2b871b4d7f",
+  "candidate_sha256": "40ec8b66b48defa26adaf561f8e41547850b6d3ff21e19e6889b6a0a8def2418",
+  "candidate_bytes": 12308235,
+  "scripts_parsed": 43,
+  "actual_passed": 46,
+  "actual_total": 46,
+  "patch_passed": 12,
+  "runtime_errors": 0,
+  "operational_writes": 0,
+  "native_record_unchanged": true,
+  "actual_widths": [
+    390,
+    1440
+  ],
+  "selected_caption_widths": [
+    320,
+    360,
+    390,
+    1440
+  ],
+  "phone_before_document_width": 718,
+  "phone_after_document_width": 390,
+  "measured_sheet_width": 718.109375,
+  "native_preflight_unchanged": true,
+  "source_files": {
+    "patch_v946.py": "cbbe8ca0c49a47b34993509b3692ba71fe3c2605c12e14681ba3a3220a1f7839",
+    "exits946.css": "b752ef2643ed041e96f02378870cc499e87cb636c9049c72b5f89d48f4723296"
+  }
+}
