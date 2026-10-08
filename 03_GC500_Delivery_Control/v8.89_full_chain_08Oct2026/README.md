@@ -16,7 +16,7 @@ review corrections adopted unchanged. Codex owns v8.96 (Today scene) and v8.97 (
 | v8.94 | Lighting counts against D024's six keyed towers (Andrew: "What ever the map says. If its 6 its 6"), each location credited by verified completion up to the number the map keys there, the surplus named as a quantity on record; the 13 circuit fans are big screens (Andrew); the whole-job figure on the v8.82 projection basis | [`v8.94_lighting_basis_DRAFT/`](../v8.94_lighting_basis_DRAFT/README.md) |
 | v8.91 | Truck flow: daily runs that get trucks in early, in order, never over-crowding an area; windows kept per stable load ID and unknown people kept unknown (Codex's correction) | [`v8.91_truck_flow_DRAFT/`](../v8.91_truck_flow_DRAFT/README.md) |
 | v8.92 | The A+ pass: how the page behaves and reads — smooth, fast, easy to get around, the right words; no record, money figure, pin or direction changes; the redraw and scroll corrections (Codex) | [`v8.92_a_plus_pass_DRAFT/`](../v8.92_a_plus_pass_DRAFT/README.md) |
-| v8.95 | The contract source refreshed to the 7 Oct Baseplan export through v8.71's pipeline; Andrew's record wins (9968862/50 to P37, /79 to P52); his two corrections (P52 1327211, WC07 1317643); no money moves | [`v8.95_baseplan_07oct_DRAFT/`](../v8.95_baseplan_07oct_DRAFT/README.md) |
+| v8.95 | The contract source refreshed to the 7 Oct Baseplan export through v8.71's pipeline; Andrew's record wins (9968862/50 to P37, /79 to P52); his two corrections (P52 1327211, WC07 1317643). **It moves money, on NVAC only:** the two Concert generators the export adds with no rate are charged from the card's 200 kVA line as an estimate — revenue on the record up 0.37%, to job end up 0.22%, NVAC hire revenue up 4.79%, NVAC invoice up 4.71% on the record and 4.24% to job end; every cost figure, Transport and the 17 tie-outs the same; the two joins and the corrections have no money effect (its README, "What that does to the money") | [`v8.95_baseplan_07oct_DRAFT/`](../v8.95_baseplan_07oct_DRAFT/README.md) |
 
 **Build** (the base is live v8.83 `88a3584e919d8acd32ac3905099c1d606ec2fe5c1da2793363e8ff870f212457`, 11,138,554 bytes):
 
@@ -71,8 +71,11 @@ dry-run then real, until the manifest `cd70f758…` is registered); 2. the page 
 against the hash, `/api/machine` against `96dee047…`, and record LIVE on `STATUS.md`.
 
 **For Andrew to settle (the page holds these; it guesses none):**
-1. **v8.95 in this release, or held?** It carries your two settled corrections (P52 1327211, WC07 1317643) and the 7 Oct export;
-   no money moves. Codex is building without it for now, keeping the live contract source.
+1. **v8.95 in this release, or held?** It carries your two settled corrections (P52 1327211, WC07 1317643) and the 7 Oct export.
+   It does move money, on NVAC only: the two Concert generators the export adds with no rate are charged from the card's 200 kVA
+   line as an estimate (revenue on the record up 0.37%, to job end up 0.22%; NVAC invoice up 4.71% on the record). Costs, Transport
+   and the 17 tie-outs are unchanged; the joins and the corrections have no money effect. The generators' GN number and rate (item 3)
+   would replace that estimate. Codex is building without it for now, keeping the live contract source.
 2. **WC67:** your recorded 13 Oct also moves the first two FWF (on site since 1 Oct) to 13 Oct on the Timeline. If only the second
    drop was meant, clear the date on WC67.
 3. **The two NVAC Concert 200 kVA generators** (1316182, 1316183): GN number, rate, both going in?
