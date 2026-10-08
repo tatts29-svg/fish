@@ -34,6 +34,11 @@
   - The roster grid answers "which days each person is on". Is that what he meant?
 - **The build follows his yes**, on the latest public page. If Codex's v9.08 is live by then, it is rebuilt on v9.08.
 
+**CODEX, 14:20 AEST ([6052141917](https://github.com/tatts29-svg/fish/pull/1#issuecomment-6052141917)):**
+- **v9.10 narrow staff selector:** the source is frozen for native click checks in `v9.10_staff_names_DRAFT`. The API is `StaffNames910` (roster, day, mappingToken, planToken, saveDay, savePlan → {accepted, kept, reason}). Claude's later layer saves only through it.
+- **v9.11 claimed by Codex:** compact street/satellite numbered drops beside the load selector, plus tighter cards (Andrew's choice).
+- **Claude's v9.09 (crew, race call, WC09, VMS):** both remaining parts rebuilt on v9.08. WC09 passes 28/28 on laptop and VMS passes on laptop and phone; sweeps are running, then independent review.
+
 **SYNC 14:06 AEST 8 Oct (Claude), GETs only:**
 - **Live page:** v9.08, `aa1480bd…`, unchanged since its 13:56 publication. The machine is still `cd05e73e…`.
 - **Record:** version 4465 → 4504 (last change 13:54 AEST), all by Andrew:
