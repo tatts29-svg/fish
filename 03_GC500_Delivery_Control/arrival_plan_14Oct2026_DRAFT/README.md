@@ -2,7 +2,38 @@
 
 Author: Andrew Fisher
 
-**State: DRAFT.** It goes to Andrew for his yes on the look. It's not on the page yet. Once he says yes, it becomes part of the 14 Oct run sheet and driver sheets as a page release.
+**State: DRAFT v2, handed to Codex on 9 Oct 2026 at about 08:00 AEST.** Andrew in Claude's chat: "once you fix this delivery talk to codex i am approving for him to take over your credits are to low". It's not on the page yet.
+
+## v2 changes (Andrew, about 07:45 AEST 9 Oct)
+
+Andrew asked: "on the drop off lets make it clear on where they turn please show me all run sheets that go with this day too. show them a satteitte image on where they are parking. no trucks arte to jump order"
+- **New page 2, "Where to turn & where to park":**
+  - Queensland Government aerial imagery, turned so the trucks' direction of travel is up the page.
+  - TURN LEFT HERE at the red pedestrian crossing (the Main Beach Pde / Esplanade split).
+  - A red ✕ "Not straight on here" on Main Beach Pde past the split.
+  - The holding strip with trucks 1–4, and "Truck 1 stops here" at the Higman St end.
+  - The drop area.
+  - Three steps (Turn, Park, Drop) and a key.
+  - The imagery is the public State Program basemap (`spatial-img.information.qld.gov.au … LatestStateProgram_AllUsers/ImageServer/exportImage`). Its attribution is printed on the sheet.
+- **Order banner on both pages**, in red: "NO TRUCK JUMPS THE ORDER · 1 P25 → 2 P66 → 3 P65 → 4 P67 · out of order = you wait".
+- **The day's run sheets:** produced from the live page (v9.34) through its own print flow in a GET-only harness, then sent to Andrew as one 26-page day pack: this plan, then 16 pages of driver sheets, then 8 pages of install sheets. The pack isn't committed because the run sheets carry site phone numbers. Regenerate it from the page: Timeline → Wed 14 Oct → Drivers / Install.
+
+## Found while doing it (for Codex and Andrew)
+
+- **The 14 Oct driver sheets' arrival windows come from the crew times.**
+  - P25 is 06:00–06:30 and P66 is 06:30–07:00.
+  - P65 and P67 say "Arrival window not known — agree it with site", because their crew start and finish aren't set.
+  - Andrew's plan needs all four parked before 07:00. Either Andrew sets the P65 and P67 times, or the page integration makes the arrival plan set the arrival window for that day (all four arrive 06:00–07:00, in order).
+- **The drivers' print check shows 8 open checks for 14 Oct:** "Confirm a separate external spotter during forklift operation" and "Clash check incomplete" on each of P25, P66, P65 and P67. These hold the trucks until they're cleared on the page.
+- **The print check's site limits** say "maximum 2 trucks loading/unloading at once. 4 people, 2 forklifts". The plan holds four trucks in the strip and unloads them one at a time, so it fits.
+
+## For Codex (page integration, after Andrew's yes on the look)
+
+1. Add the two pages to the 14 Oct day documents. Put them at the front of the Drivers PDFs and the day run sheets, with an "Arrival plan" button on the 14 Oct Timeline day. Rebuild with `source/build_sheet.py`, or embed `aerial.svg` and the two map SVGs from `maps.json`.
+2. Add `ORDER782` entries for P25, P66, P65 and P67 (truck n of 4, `after` the previous one, `seq: true`). Give the 14 Oct sequence its own text, so `SEQ782` (the 14 Sep Macintosh Island text) isn't reused. The rules then flow into texts, Full details, the drawer and the run sheet.
+3. Override the way-in for these four on 14 Oct with Andrew's route: Sundale Bridge, left Waterways Dr, MacArthur Pde, Main Beach Pde, keep left onto the Esplanade at the red crossing, and the holding strip.
+4. Set the arrival window for the day to 06:00–07:00, in order (see above).
+5. No record changes are needed for any of this.
 
 ## Andrew's words (to Claude in chat, about 07:30 AEST 9 Oct 2026, with four Google Earth screenshots marked in red)
 

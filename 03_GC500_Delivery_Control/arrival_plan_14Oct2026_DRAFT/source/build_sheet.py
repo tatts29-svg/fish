@@ -14,6 +14,7 @@ ORDER = [  # from the page record, 9 Oct 2026 (record 4659): flow891 order, load
 rows = ''.join(f'''<tr><td class="n"><span>{n}</span></td><td class="ref">{ref}</td><td><b>{what}</b><small>{name}{(' · ' + asset) if asset else ''}</small></td>
 <td class="door"><span class="{ 'drv' if door.startswith('Driver') else 'pas'}">Door to<br><b>{door}</b></span></td><td class="un">Tilt-tray</td></tr>''' for n, ref, name, what, asset, door in ORDER)
 
+AER = open(os.path.join(HERE, 'aerial.svg')).read()
 html = f'''<!doctype html><html lang="en-AU"><head><meta charset="utf-8"><title>Wed 14 Oct · Esplanade arrival plan</title>
 <style>{FONTS}
 @page {{ size: A4 portrait; margin: 0 }}
@@ -43,7 +44,7 @@ td.un {{ width: 20mm; font-weight: 700; font-size: 8.4pt }}
 .maps {{ display: grid; grid-template-columns: 1fr 1.12fr; gap: 3mm }}
 figure {{ margin: 0; display: flex; flex-direction: column; min-height: 0 }}
 figcaption {{ font: 700 7.4pt/1.2 Inter, sans-serif; letter-spacing: .1em; text-transform: uppercase; color: #5b6f75; margin-bottom: 1.4mm }}
-.frame {{ height: 93mm; border-radius: 2.5mm; overflow: hidden; border: .4mm solid #c9d4d7; background: #eef2f3 }}
+.frame {{ height: 80mm; border-radius: 2.5mm; overflow: hidden; border: .4mm solid #c9d4d7; background: #eef2f3 }}
 svg.map {{ width: 100%; height: 100%; display: block }}
 .t-num {{ font: 800 19px Inter, sans-serif; fill: #fff }} .t-step {{ font: 700 21px Inter, sans-serif; fill: #13272f }}
 .t-hold {{ font: italic 700 26px 'Barlow Condensed', sans-serif; fill: #13272f; paint-order: stroke; stroke: #fff; stroke-width: 5px }}
@@ -53,11 +54,26 @@ svg.map {{ width: 100%; height: 100%; display: block }}
 .t-box {{ font: italic 700 24px 'Barlow Condensed', sans-serif; fill: #13272f }} .t-boxs {{ font: 700 15px Inter, sans-serif; fill: #13272f }}
 .t-boxw {{ font: italic 700 24px 'Barlow Condensed', sans-serif; fill: #fff }} .t-boxws {{ font: 600 13.5px Inter, sans-serif; fill: #fff }}
 .t-road {{ font: 700 16px Inter, sans-serif; fill: #13272f; paint-order: stroke; stroke: #fff; stroke-width: 5px }}
+.nojump {{ background: #d7263d; color: #fff; border-radius: 2.2mm; padding: 2.4mm 4mm; font: italic 700 15pt/1.1 'Barlow Condensed', sans-serif; letter-spacing: .02em; text-align: center }}
 .rules {{ display: grid; grid-template-columns: 1fr 1fr; gap: 1.6mm 5mm; margin: 0; padding: 0; list-style: none; counter-reset: r }}
 .rules li {{ position: relative; padding-left: 7mm; font-size: 8.6pt; line-height: 1.3 }}
 .rules li::before {{ counter-increment: r; content: counter(r); position: absolute; left: 0; top: .2mm; width: 5mm; height: 5mm; border-radius: 50%; background: #ff6a13; color: #fff; font: 800 7.5pt/5mm Inter, sans-serif; text-align: center }}
 .rules b {{ font-weight: 800 }}
 h2 {{ margin: 0 0 1.6mm; font: italic 700 13pt/1 'Barlow Condensed', sans-serif; text-transform: uppercase; letter-spacing: .02em }}
+.aerframe {{ flex: 1; min-height: 0; border-radius: 2.5mm; overflow: hidden; border: .4mm solid #c9d4d7 }}
+svg.aer {{ width: 100%; height: 100%; display: block }}
+.a-t {{ font: italic 700 40px 'Barlow Condensed', sans-serif }} .a-s {{ font: 700 25px Inter, sans-serif }}
+.a-no {{ font: 800 27px Inter, sans-serif; fill: #d7263d }} .a-slot {{ font: 800 31px Inter, sans-serif; fill: #13272f }}
+.a-road {{ font: 800 26px Inter, sans-serif; fill: #fff; paint-order: stroke; stroke: #13272f; stroke-width: 7px }}
+.a-n {{ font: 800 20px Inter, sans-serif; fill: #13272f }} .a-cap {{ font: 700 23px Inter, sans-serif; fill: #fff }} .a-sc {{ font: 800 21px Inter, sans-serif; fill: #13272f }}
+.p2body {{ flex: 1; min-height: 0; display: grid; grid-template-columns: 1.7fr 1fr; gap: 4mm }}
+.steps3 {{ display: flex; flex-direction: column; gap: 3mm }}
+.key {{ display: grid; gap: 1.6mm; border-top-color: #13272f !important }} .key span {{ display: flex; align-items: center; gap: 2mm; font-size: 8pt }}
+.key i {{ display: inline-grid; place-items: center; width: 7mm; height: 4mm; border-radius: 1mm; font-style: normal; flex: none }}
+.k-or {{ background: #ff6a13 }} .k-st {{ background: repeating-linear-gradient(45deg, #ff6a13 0 2px, #ffd3b8 2px 5px) }} .k-dr {{ border: .5mm dashed #13272f }} .k-x {{ background: #d7263d; color: #fff; font-weight: 800; font-size: 8pt }}
+.steps3 div {{ background: #f2f6f7; border-radius: 2.2mm; padding: 3mm 3.4mm; font-size: 9.4pt; line-height: 1.3; border-top: 1.2mm solid #ff6a13 }}
+.steps3 div > b:first-child {{ display: block; font: italic 700 14pt/1 'Barlow Condensed', sans-serif; text-transform: uppercase; margin-bottom: 1mm }}
+.page + .page {{ break-before: page }}
 footer {{ display: flex; justify-content: space-between; gap: 4mm; border-top: .3mm solid #c9d4d7; padding-top: 1.8mm; font-size: 6.6pt; color: #5b6f75 }}
 </style></head><body><div class="page">
 <header><div><div class="kick">GC500 · Coates · Driver arrival plan · run sheet insert</div><h1>Esplanade drop — <em>arrive in order</em></h1></div>
@@ -68,6 +84,7 @@ footer {{ display: flex; justify-content: space-between; gap: 4mm; border-top: .
 <div><b>TC from 06:00</b>Traffic controllers on site from 06:00. Follow their directions.</div>
 <div><b>Doors right</b>Building door on the side shown below, for tilt-tray unloading.</div>
 </div>
+<div class="nojump">NO TRUCK JUMPS THE ORDER · 1 P25 → 2 P66 → 3 P65 → 4 P67 · out of order = you wait</div>
 <section><h2>Arrival order</h2>
 <table><thead><tr><th>Truck</th><th>Ref</th><th>Load</th><th>Building door (as loaded)</th><th>Unload</th></tr></thead><tbody>{rows}</tbody></table></section>
 <div class="maps">
@@ -85,6 +102,16 @@ footer {{ display: flex; justify-content: space-between; gap: 4mm; border-top: .
 <li><b>All four parked before 07:00.</b> No travel to the Gold Coast 07:00–09:00.</li>
 </ol></section>
 <footer><span>Author: Andrew Fisher · Order, doors and unloading from the GC500 Delivery Control record (9 Oct 2026); drop positions from master plan D001-26003-03 (2 Oct 2026).</span><span>Map data © OpenStreetMap contributors</span></footer>
+</div>
+<div class="page p2"><header><div><div class="kick">GC500 · Coates · Driver arrival plan · page 2 of 2</div><h1>Where to <em>turn</em> &amp; where to <em>park</em></h1></div>
+<div class="date">Wednesday 14 Oct 2026<small>Narrowneck · Esplanade at Higman St</small></div></header>
+<div class="nojump">NO TRUCK JUMPS THE ORDER · 1 P25 → 2 P66 → 3 P65 → 4 P67</div>
+<div class="p2body"><div class="aerframe">{AER}</div>
+<div class="steps3"><div><b>1 · Turn</b>Coming south on Main Beach Pde, <b>keep LEFT onto the Esplanade at the red pedestrian crossing</b>. Do not carry straight on.</div>
+<div><b>2 · Park</b>Truck 1 drives to the <b>front of the strip</b> (Higman St end). Trucks 2, 3 and 4 pull up close behind <b>in order</b>. Nobody overtakes.</div>
+<div><b>3 · Drop</b>Stay in the strip. Move to the <b>drop area</b> only when <b>traffic control</b> calls you. Traffic control on site from 06:00.</div>
+<div class="key"><b>On the photo</b><span><i class="k-or"></i>Your route and the turn</span><span><i class="k-st"></i>Holding strip, trucks 1–4</span><span><i class="k-dr"></i>Drop area (master plan)</span><span><i class="k-x">✕</i>Not this way</span></div></div></div>
+<footer><span>Author: Andrew Fisher · Aerial imagery: Queensland Government State Program basemap. Includes material © State of Queensland (Department of Natural Resources and Mines, Manufacturing and Regional and Rural Development). Road lines © OpenStreetMap contributors.</span></footer>
 </div></body></html>'''
 open(os.path.join(HERE, 'sheet.html'), 'w').write(html)
 print('sheet.html', len(html))
