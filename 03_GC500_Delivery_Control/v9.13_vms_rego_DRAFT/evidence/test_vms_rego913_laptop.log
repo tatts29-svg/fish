@@ -1,4 +1,5 @@
 PASS the record holds no vmsboard documents before the test {"version":4508}
+RIG explorer frames removed in the test browser: 1 (and any later one, as it appears)
 PASS vmsboard is a synced collection like subhire (map), read on opening {"inList":true,"kind":"map","likeSub":"map","first":true,"all":true,"readonly":true,"rec":"{}"}
 PASS every VMS contract line has exactly one register row {"rows":23,"lines":23}
 PASS VMS10 shows PremAir Hire, fleet 120T, rego V14221 as the project manager's word "VMS10 line 13 · docket 26115373 | PremAir Hire sub-hire | 120T | V14221 | T0103 the project manager's word | the project manager's word · 8 Oct 2026"
@@ -24,11 +25,7 @@ PASS driver text (full details) carries a Boards line "Boards: VMS09 (Coates 121
 PASS T0001 names its eight Coates boards by asset number (the contract's own match)
 PASS a VMS delivery with no board linked says "boards not named yet" (T0158) - nothing guessed
 PASS a delivery that is not VMS (WC09) is untouched on every surface
-PASS the Timeline shows the boards on the T0103 load card "Boards VMS09 (Coates 1211404 · rego not given) · VMS10 (PremAir Hire 120T · rego V14221) (the project manager's word)"
-PASS screenshot of the T0103 load card, no dollar figure in frame {"x":34,"y":224.421875,"width":1372,"height":289.03125,"dollars":false}
-INFO Today: boards lines drawn on Today for T0103 now: 0. Today does not draw delivery cards with the renderers wrapped here (those are the Timeline's); T0103 is recorded complete and appears on Today only in its "What went in today" log, which is left as it is. Today's own delivery list is NOT DONE in this release.
-PASS 8 Oct's drop sheets (Print the day) carry both boards on T0103's page {"inDay":true,"sheet":true}
-PASS opening, viewing and printing wrote nothing {"blocked":0,"vmsboard":"{}"}
+RIG explorer frames removed in the test browser: 0 (and any later one, as it appears)
 FAIL page.waitForTimeout: Page crashed
-    at sessionA (/home/user/fish/03_GC500_Delivery_Control/v9.13_vms_rego_DRAFT/tests/test_vms_rego913.cjs:136:13)
-    at async /home/user/fish/03_GC500_Delivery_Control/v9.13_vms_rego_DRAFT/tests/test_vms_rego913.cjs:208:3
+    at sessionA (/home/user/fish/03_GC500_Delivery_Control/v9.13_vms_rego_DRAFT/tests/test_vms_rego913.cjs:123:138)
+    at async /home/user/fish/03_GC500_Delivery_Control/v9.13_vms_rego_DRAFT/tests/test_vms_rego913.cjs:216:3

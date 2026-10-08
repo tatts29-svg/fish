@@ -34,6 +34,48 @@
   - The roster grid answers "which days each person is on". Is that what he meant?
 - **The build follows his yes**, on the latest public page. If Codex's v9.08 is live by then, it is rebuilt on v9.08.
 
+**SYNC 17:07 AEST 8 Oct (Claude), GETs only:**
+- **Live:** still v9.11, `408ae6ac…`, 11,600,839 bytes. The machine is still `cd05e73e…`.
+- **Record:** still version 4508, last changed 15:33 AEST. Nothing new to reconcile for Event Portables.
+- **Codex:** no commits since `e4e741a`. Its last two PR messages, [6053472532](https://github.com/tatts29-svg/fish/pull/1#issuecomment-6053472532) and [6053520155](https://github.com/tatts29-svg/fish/pull/1#issuecomment-6053520155) (v9.11 verified live), are acknowledged in [6054543664](https://github.com/tatts29-svg/fish/pull/1#issuecomment-6054543664).
+- **Waiting on Codex:** the Showcase priority, the door picker, true shapes in Arrange loads, Close/Back, and Truck flow.
+- **Tue 06 / Wed 07 Oct delivery notes:** already on the record, as confirmed on 7 Oct. Nothing outstanding.
+
+**ANDREW, 8 Oct 2026 ~17:00 AEST — PRIORITY: the Showcase "keeps freezing and running glitchy and cutting out … every time i show someone it looks terrible and closes down".** He wants Codex to sort it out as a priority, and Claude to audit it.
+- **Codex:** asked on PR #1 ([6053971036](https://github.com/tatts29-svg/fish/pull/1#issuecomment-6053971036)) to make the Showcase fix its top priority. Codex owns the fix.
+- **Claude:** independent audit, read-only, folder `v9.16_showcase_audit_DRAFT`, workflow `wf_3be2ae71-c7b`.
+  - **Covers:** the code map, an instrumented harness (per-frame JS, WebGL calls, uploads, long tasks, heap over 10 reopenings, audio nodes, watchdog trips), the regression history, ranked root causes, prototypes measured before and after, and a skeptic re-measure.
+  - **Handover:** `AUDIT.md` to Codex. Claude patches nothing in the Showcase unless Codex hands a part back.
+- **Lead:** the `GC3D` frame-rate watchdog stops the 3D outright ("3D paused — this device could not keep up"). That is very likely the "closes down".
+
+**ANDREW, 8 Oct 2026 ~16:40 AEST (two Arrange loads screenshots): "be good when we choose the loads the loads are the same shapes as what is on the maps … exactly the same shape so would even show the door side".**
+- **Claude:** traces each unit's footprint and the door side as the master draws it from D001-26003-03. This is folder `v9.15_master_shapes_DRAFT`, workflow `wf_5244a69a-7bd`.
+  - It ships as a read-only `MasterShapes915` (`shape(ref)`, `svg(ref, …)`) in the `MASTER_LOC.pt` frame.
+  - It builds on the pin audit's vector outlines.
+  - Every door is checked by independent reviewers.
+  - Where the master draws no door, it says so; no door is guessed.
+- **Codex** owns Arrange loads (`drops911`) and the door picker. Claude proposed on PR #1 ([6053912657](https://github.com/tatts29-svg/fish/pull/1#issuecomment-6053912657)) that Codex wires the shapes in, with the master's door as the picker's default and Andrew's choice winning. If Codex would rather Claude wire it, Claude fits in.
+
+**Fencing CW3, the invoice matched against the 21 signed papers (scan of 7 Oct), done 8 Oct ~16:50 AEST, read only.** All 21 papers (14 hire agreements and 7 service notes) are on the invoice, and every docket row has a paper. On Advanced's way of counting braced metres, no row bills more than its paper.
+- **Differences the papers prove:**
+  - The invoice's 36532 is printed 36562 on the paper.
+  - 24465's work date is Thu 1 Oct; the invoice used the 2 Oct sign-off date.
+  - 36568 reads "North plus South" on the paper; the record has South.
+  - The team-leader days are on no paper.
+- **Still for Advanced:** 36568's brace count. The clamp count favours the lower reading. Also: whether its shade cloth covers the north run, the smoking zones against 36567, and the S18 relocation on 29 Sep.
+- **Record fixes for Andrew (nothing written from here):**
+  - 36560 is missing its ped gate.
+  - 24465's installer did sign and date it.
+  - 36568's notes need adding.
+- Figures went to Andrew in chat only.
+
+**ANDREW, 8 Oct 2026 ~16:25 AEST:** "i see no option to add fire extinguishers. these dont have a asset no a remember they have a charge also".
+- **CLAIMED by Claude** as its own release, folder `v9.14_fire_ext_DRAFT`, taking the next free footer, workflow `wf_a76078bc-be0`. It first finds why there's no option today, with evidence. Lead suspect: the v5.81 rule only offers lines with a priced 2026 figure, and the card's Fire Ext. column is headed 2025.
+- **What it adds:** an "Add fire extinguisher" control wherever accessories are added, on any location. It takes a quantity (− / +) with **no asset number**, saved with who and when, and can be removed. It shows as "Fire extinguisher × n" on the drawer, Equipment and the sheets.
+- **Charge:** per piece through the page's existing fire extinguisher money path, so Costs, the P&L, customer charges and Finance each count it once. Where the card has no figure, it reads "rate to confirm", never nought. Existing per-building ticks can't double count with added quantities.
+- **For Andrew to confirm:** whether the 2025-headed card figure is the 2026 rate, and whether it's a one-off hire charge per piece or weekly.
+- **Codex:** this touches the accessories form and the fire extinguisher money lines only, with no Timeline markup.
+
 **ANDREW, 8 Oct 2026 ~16:20 AEST:** "this area is also very clunky we need close button and back button so we can navigate cleanly". This is read as the Timeline day's opened panels, and Andrew has been asked for a screenshot if he meant another area. Passed to Codex for its panels: Arrange loads, Workers, Day worker names, Loading, Unloading and Traffic control.
 - One pattern for all of them: a visible 44 px Close at the top (and the bottom when the panel is tall).
 - The phone's Back and Escape close the panel and stay on the page.
@@ -101,41 +143,6 @@
   - A "Staff on" roster at the top of each Timeline day: tick workers in one tap, "Use roster" and "Enter a name". It saves through `StaffNames910.saveDay`.
   - Readable dropdowns page-wide. On live v9.10, the Crew selects are near-white on dark teal, and their native option list shows white-on-white on phones.
 - **v9.09 parts C (WC09 count) and D (VMS notes):** reviews done with no blocking findings (C 7 and D 12 should-fix suggestions). Both are built and tested on v9.10: WC09 28/28 on laptop and phone.
-
-**ANDREW, 8 Oct 2026 ~17:00 AEST — PRIORITY: the Showcase "keeps freezing and running glitchy and cutting out … every time i show someone it looks terrible and closes down".** He wants Codex to sort it out as a priority, and Claude to audit it.
-- **Codex:** asked on PR #1 ([6053971036](https://github.com/tatts29-svg/fish/pull/1#issuecomment-6053971036)) to make the Showcase fix its top priority. Codex owns the fix.
-- **Claude:** independent audit, read-only, folder `v9.16_showcase_audit_DRAFT`, workflow `wf_3be2ae71-c7b`.
-  - **Covers:** the code map, an instrumented harness (per-frame JS, WebGL calls, uploads, long tasks, heap over 10 reopenings, audio nodes, watchdog trips), the regression history, ranked root causes, prototypes measured before and after, and a skeptic re-measure.
-  - **Handover:** `AUDIT.md` to Codex. Claude patches nothing in the Showcase unless Codex hands a part back.
-- **Lead:** the `GC3D` frame-rate watchdog stops the 3D outright ("3D paused — this device could not keep up"). That is very likely the "closes down".
-
-**ANDREW, 8 Oct 2026 ~16:40 AEST (two Arrange loads screenshots): "be good when we choose the loads the loads are the same shapes as what is on the maps … exactly the same shape so would even show the door side".**
-- **Claude:** traces each unit's footprint and the door side as the master draws it from D001-26003-03. This is folder `v9.15_master_shapes_DRAFT`, workflow `wf_5244a69a-7bd`.
-  - It ships as a read-only `MasterShapes915` (`shape(ref)`, `svg(ref, …)`) in the `MASTER_LOC.pt` frame.
-  - It builds on the pin audit's vector outlines.
-  - Every door is checked by independent reviewers.
-  - Where the master draws no door, it says so; no door is guessed.
-- **Codex** owns Arrange loads (`drops911`) and the door picker. Claude proposed on PR #1 ([6053912657](https://github.com/tatts29-svg/fish/pull/1#issuecomment-6053912657)) that Codex wires the shapes in, with the master's door as the picker's default and Andrew's choice winning. If Codex would rather Claude wire it, Claude fits in.
-
-**Fencing CW3, the invoice matched against the 21 signed papers (scan of 7 Oct), done 8 Oct ~16:50 AEST, read only.** All 21 papers (14 hire agreements and 7 service notes) are on the invoice, and every docket row has a paper. On Advanced's way of counting braced metres, no row bills more than its paper.
-- **Differences the papers prove:**
-  - The invoice's 36532 is printed 36562 on the paper.
-  - 24465's work date is Thu 1 Oct; the invoice used the 2 Oct sign-off date.
-  - 36568 reads "North plus South" on the paper; the record has South.
-  - The team-leader days are on no paper.
-- **Still for Advanced:** 36568's brace count. The clamp count favours the lower reading. Also: whether its shade cloth covers the north run, the smoking zones against 36567, and the S18 relocation on 29 Sep.
-- **Record fixes for Andrew (nothing written from here):**
-  - 36560 is missing its ped gate.
-  - 24465's installer did sign and date it.
-  - 36568's notes need adding.
-- Figures went to Andrew in chat only.
-
-**ANDREW, 8 Oct 2026 ~16:25 AEST:** "i see no option to add fire extinguishers. these dont have a asset no a remember they have a charge also".
-- **CLAIMED by Claude** as its own release, folder `v9.14_fire_ext_DRAFT`, taking the next free footer, workflow `wf_a76078bc-be0`. It first finds why there's no option today, with evidence. Lead suspect: the v5.81 rule only offers lines with a priced 2026 figure, and the card's Fire Ext. column is headed 2025.
-- **What it adds:** an "Add fire extinguisher" control wherever accessories are added, on any location. It takes a quantity (− / +) with **no asset number**, saved with who and when, and can be removed. It shows as "Fire extinguisher × n" on the drawer, Equipment and the sheets.
-- **Charge:** per piece through the page's existing fire extinguisher money path, so Costs, the P&L, customer charges and Finance each count it once. Where the card has no figure, it reads "rate to confirm", never nought. Existing per-building ticks can't double count with added quantities.
-- **For Andrew to confirm:** whether the 2025-headed card figure is the 2026 rate, and whether it's a one-off hire charge per piece or weekly.
-- **Codex:** this touches the accessories form and the fire extinguisher money lines only, with no Timeline markup.
 
 **ANDREW, 8 Oct 2026 ~15:25 AEST:** "i need you to work on pin locations on the master your pinned locations and where you have things needs to be 100% accurate with locations are so when people navigate your information is 100 % accurate at all times workimhg off the new master sheet we need toi pin things right to where things need to go".
 - **Claude is auditing every navigation pin** against D001-26003-03, workflow `wf_7b2231c9-64c`, read-only. It compares where the page sends a driver (`dest782`/`dpPos`/`MASTER_LOC`) with where the master draws the unit: the unit's own shape, or the arrow tip of a callout, not the label. Site pins are checked against both.
