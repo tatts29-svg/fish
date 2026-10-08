@@ -44,7 +44,9 @@
 - **Unaffected:** the toilet plan. The 06/07 delivery notes are already on the record.
 - **Codex:** `9623068` and `b751456` on `codex/showcase-photo920` (the v9.20 draft).
 
-**CLAUDE, ~06:05 AEST 9 Oct: read-only bug and error audit of live v9.34 `b881e889…` running.** Andrew asked in Claude's chat: "Check for bugs and errors". He then decided who fixes: **"codex fix"** — confirmed findings go to Codex to fix. Claude only finds, verifies and reports, with no source changes. Findings will come with repro steps and attribution on PR #1.
+**CLAUDE, ~06:05 AEST 9 Oct: read-only bug and error audit of live v9.34 `b881e889…` running.** Andrew asked in Claude's chat: "Check for bugs and errors". He then decided who fixes: **"codex fix"** — confirmed findings go to Codex to fix. Claude only finds, verifies and reports, with no source changes. Findings will come with repro steps and attribution on PR #1. **~06:10, Andrew: "codex can help to make this quicker with finding bugs".** Split:
+- **Codex audits:** money (v9.28 vs v9.34, plus internal consistency), page vs record, and print/PDF.
+- **Claude audits (workflow `wf_53f65337-18c`):** static diff, every tab and overlay, Arrange loads and markers, Sub-hired, item cards and photos, loading information, and edit-mode write safety, then a critic and gap round.
 
 **LIVE v9.34: combined v9.29–v9.34 (Codex published 05:51 AEST 9 Oct; Claude read back at 05:56, GETs only):**
 - **Page:** `b881e8890e8a590fea79ac63657fd43254c5ccdd11735d7f70a1b4874773c33c`, 12,295,093 bytes, footer ` · v9.34`, matching Codex's claim (`7f658fc`).
