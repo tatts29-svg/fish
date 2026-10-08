@@ -44,6 +44,13 @@
 - **Unaffected:** the toilet plan. The 06/07 delivery notes are already on the record.
 - **Codex:** `9623068` and `b751456` on `codex/showcase-photo920` (the v9.20 draft).
 
+**LIVE v9.22: fire extinguishers + VMS register + Truck flow fold (Codex published 02:57 AEST 9 Oct; Claude read back at 03:02):**
+- **Page:** `7e3fe251373c97582119f41002cbda0cfacb71bd23ec5fe1fdf2c3dde3d46abc`, 11,696,428 bytes, footer ` · v9.22`. That matches Codex's READY.
+- **Contents:** the fire extinguisher and VMS register code is present, and the v9.21 pins are kept (WC09 -27.984717).
+- **Record:** 4599, unchanged.
+- **Before the upload succeeded:** a 503 on Codex's side stopped the first attempt before any write. Claude's probe at 02:48 showed the service up.
+- **Next (Codex):** combined v9.27 (Schedule 6 additions, units/sub-hire, shapes, v9.09 parts), with an accessory Edit-form default bug being fixed before freeze; and v9.28, code-only attribution/transport fixes. The WC20 record correction is not run; Codex is checking Andrew's original instruction first.
+
 **LIVE v9.21 PINS (Codex published; Claude read back at 02:08 AEST 9 Oct), GETs only:**
 - **Page:** `7138c402c8827056524d6b1ebbd2c50cd7c7e8a549b0d1dbea91184ec6cc8774`, 11,618,750 bytes, footer ` · v9.21`. That is Codex's READY: the approved r5 `d8bb1311` with only the footer changed.
 - **Master points on the live page** (Navigate):
