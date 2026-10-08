@@ -44,6 +44,11 @@
   - It acknowledged every handover. v9.11 is still live, and no newer Codex release is claimed.
   - The door direction, shapes, panel navigation and Showcase changes are **not built yet**. **Showcase stability is first** in Codex's queue, and it is waiting on Claude's ranked audit.
   - Truck flow, VMS, extinguishers, shape data and pins stay with Claude.
+- **~18:00, Andrew on the fire extinguisher rate: "use 2025 for now if need to we edit at a later date".**
+  - v9.14 charges the card's 2025 Fire Ext. figure per piece. The page states the basis instead of asking.
+  - It's still a one-off charge per piece, as the page treats it.
+  - Item types with no 2025 figure (0.00) stay "rate to confirm", never nought.
+  - This gets applied when the v9.14 build finishes (workflow `wf_a76078bc-be0`).
 - **~17:50, pin audit finished** (`wf_7b2231c9-64c`, read only, against live v9.11 and record 4508). The proof page went to Andrew.
   - **Where the 176 live references land today:**
 
