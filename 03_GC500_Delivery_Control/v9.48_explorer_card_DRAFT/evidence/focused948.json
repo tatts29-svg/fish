@@ -1,0 +1,75 @@
+{
+  "author": "Andrew Fisher",
+  "state": "READY for final integration; not published",
+  "baseSha256": "c9142184568cf1311f709fecf077d2a923774df933abbede66ef2e2b871b4d7f",
+  "candidateSha256": "28a745119a3c1ad4f064e610459a0efdee735697063a5e9440e3ee6df1961208",
+  "sourceSha256": "8cd8655a3215b53e8894327fe4e4291096520401966870ab02582106e85b7d94",
+  "exactReversal": true,
+  "machineSha256": "3dac8423d878d8a24eb9a0a6b771adc48862ff86bb42c8394d8d2d413c2db9e2",
+  "machineChanged": false,
+  "fixture": "Authentic captured native record; machine responses SHA-checked against current served manifest. Network proxy unavailable during focused tests.",
+  "devices": [
+    {
+      "device": "desktop",
+      "passed": true,
+      "checks": 14,
+      "checkNames": [
+        "WC20",
+        "WC20 normal Close",
+        "GN19",
+        "GN19 normal Close",
+        "WC20 selected",
+        "scrolled Close",
+        "minimap hidden",
+        "minimap restored",
+        "resized selected card",
+        "restored viewport",
+        "reopen 0",
+        "reopen 1",
+        "reopen 2",
+        "idle observer loop"
+      ],
+      "savedStateAndFinancialModelsUnchanged": true,
+      "nativeWrites": 0,
+      "pageErrors": 0,
+      "blockedRequests": [
+        {
+          "method": "POST",
+          "origin": "https://tile.googleapis.com",
+          "path": "/v1/createSession"
+        }
+      ]
+    },
+    {
+      "device": "phone",
+      "passed": true,
+      "checks": 14,
+      "checkNames": [
+        "WC20",
+        "WC20 normal Close",
+        "GN19",
+        "GN19 normal Close",
+        "WC20 selected",
+        "phone scroll return",
+        "minimap hidden",
+        "minimap restored",
+        "resized selected card",
+        "restored viewport",
+        "reopen 0",
+        "reopen 1",
+        "reopen 2",
+        "idle observer loop"
+      ],
+      "savedStateAndFinancialModelsUnchanged": true,
+      "nativeWrites": 0,
+      "pageErrors": 0,
+      "blockedRequests": [
+        {
+          "method": "POST",
+          "origin": "https://tile.googleapis.com",
+          "path": "/v1/createSession"
+        }
+      ]
+    }
+  ]
+}
