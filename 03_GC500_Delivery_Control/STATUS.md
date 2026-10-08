@@ -20,7 +20,8 @@
 - **The race call:** Andrew, ~11:25 AEST: "Hayden Mcavoy he will need to be added to the broadcast too". Turn 17 (the fencing crew roll call) re-voiced in the GC500 Race Caller voice (ElevenLabs flow `W7a20xwIayc6JFewVxvl`, eleven_v3, one take, 202 credits): the same words with "…Scott Hildebrand! Hayden McAvoy!" at the end (spoken spelling; the page's text keeps Andrew's spelling). Raw take 15.9 s; the broadcast mix and the media follow v7.22's method.
 - **The VMS plan VMS001-26003-01**, if the reconciliation running now shows the page needs it (board-by-board table to Andrew first).
 - **v9.01, the staff picker** (Andrew, ~11:25 AEST): a section with the known on-site staff (the installers and Andrew) to pick from, an easy way to set the days each is on, and each load on a day (e.g. 9 loads) given its people with a tap. Design under way; a real-page mock-up goes to Andrew before anything is built.
-- **ETA for the integrated release (Andrew asked, ~11:10 AEST):** Claude's estimate is 12:30–13:30 AEST; Codex has been asked for its own ([PR 6050135373](https://github.com/tatts29-svg/fish/pull/1#issuecomment-6050135373)).
+- ~~ETA for the integrated release: 12:30–13:30 AEST~~ — superseded: it went LIVE at 11:18 AEST (above).
+- **Base for v9.00 and v9.01:** Codex's v8.99 (run-sheet photo readability, candidate `f7f4a3fe…` on live `09bf2403…`) is about to publish; Claude's builds start from the published v8.99 page after Codex's readback, with its paired assets ([6050344829](https://github.com/tatts29-svg/fish/pull/1#issuecomment-6050344829)).
 
 **SYNC 11:08 AEST 8 Oct (Claude):** live page, machine set and record (4439) unchanged since 11:05; no new PR comments. Codex pushed `1f8ac9b` on its branch: the v8.98 DRAFT (native fencing collections and component-only entries — `capture898.js`, `patch_v898.py` and two tests), separate from the handover.
 
