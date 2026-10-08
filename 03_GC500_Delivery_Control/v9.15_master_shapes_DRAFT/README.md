@@ -131,7 +131,7 @@ MasterShapes915.svg('P25', {number: 1, project: frac => [x, y]})   // or project
 | test | laptop (1440 x 900) | phone (390 x 844) |
 |---|---|---|
 | static (`evidence/test_static.json`) | 21/21 | 21/21 |
-| browser (`evidence/test_browser_*.json`) | see below | see below |
+| browser (`evidence/test_browser_*.json`) | 31/31 (static included) | 31/31 (static included) |
 
 **What the static checks cover:**
 - removing the two blocks gives the base byte for byte;
@@ -150,6 +150,12 @@ MasterShapes915.svg('P25', {number: 1, project: frac => [x, y]})   // or project
 - the visible text of all 21 tabs, identical on base and build;
 - page and console errors;
 - blocked writes.
+
+**An earlier run on this build was not clean, for reasons outside this patch:**
+- Laptop: one console error, a 429 (Too Many Requests) from an outside service.
+- Phone: the same 429, and the Timeline weather strip differed because the forecast failed to load on that run.
+
+The rerun was clean on both. The results above are the rerun.
 
 **Test rig notes:**
 - Chromium's temporary profile was put in `/dev/shm` because the machine's disk was full (at times under 5 MB free).
