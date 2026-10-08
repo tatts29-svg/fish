@@ -107,6 +107,51 @@ MasterShapes915.svg('P25', {number: 1, project: frac => [x, y]})   // or project
    - The whole block is the shape for P26, P27, P28, P29 and P34.
 4. **P25:** it is a Building 4.8m on the record, but the master draws it 6.05 x 3.0 m. The shape follows the master.
 
-## Checks
+## Build and checks (8 Oct 2026)
 
-See `evidence/test_*.json`. The build and test status is at the end of this file.
+**Built on live v9.18.**
+- The base was live v9.11 (`408ae6ac…`) when this work started. Live moved to v9.18 (`c547a6de…`, the Showcase release) while it was being tested.
+- The patch was rebuilt on v9.18. It now inserts before the page's final `</body></html>`, so it no longer depends on which release's script comes last.
+- `MASTER_LOC` is identical on v9.11 and v9.18 (166 entries).
+
+| item | value |
+|---|---|
+| command | `toolchain/build.sh v915_shapes v9.15_master_shapes_DRAFT/patch_v915_shapes.py` |
+| base | `c547a6debe1dea9009b50466d3c1028ec9c3a800e6c591ea258b61490b14b762` (v9.18) |
+| build | `9d767e74083b24c111108e58aa58e005e3ae7265e56f5c56ea57512a769450b7`, 11,772,569 bytes |
+| footer | unchanged |
+| `check_page.py` | pass |
+| embedded data | 152,171 bytes, sha256 `b063278f…` |
+| `shapes_v915.json` | `c53e21d5…` |
+
+**The patch refuses a second run.**
+
+**Tests**
+
+| test | laptop (1440 x 900) | phone (390 x 844) |
+|---|---|---|
+| static (`evidence/test_static.json`) | 21/21 | 21/21 |
+| browser (`evidence/test_browser_*.json`) | see below | see below |
+
+**What the static checks cover:**
+- removing the two blocks gives the base byte for byte;
+- the checksums;
+- all 180 references are answered;
+- 318 parts are compared with a fresh PDF read: the worst centroid is 0.0001 m, the worst vertex 0.0002 pt, and the 117 door arcs are under 0.0002 m;
+- rotation and aspect: 5,076 edges, worst 0.07 degrees and 0.1% (rounding to 0.01 px);
+- uniform scaling and minPx;
+- the door mark on the right edge (468 marks);
+- a chosen edge overrides the master's door;
+- the projected mode equals the explorer camera.
+
+**The browser checks cover:**
+- the global;
+- every marker parsed and rendered in Chromium, with its geometry within 0.007 px;
+- the visible text of all 21 tabs, identical on base and build;
+- page and console errors;
+- blocked writes.
+
+**Test rig notes:**
+- Chromium's temporary profile was put in `/dev/shm` because the machine's disk was full (at times under 5 MB free).
+- The fetch cache was a fresh folder under the scratchpad, trimmed while the tests ran.
+- Every request was a GET, and no write reached the record.

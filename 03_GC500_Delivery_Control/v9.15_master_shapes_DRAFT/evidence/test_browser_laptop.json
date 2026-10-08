@@ -2,8 +2,8 @@
  "mode": "browser",
  "device": "laptop",
  "page": "GC500_Delivery_Control_hosted.html",
- "page_sha256": "afe0e5f582f1c65a6bf6c821b736c150d0d12e3ee64a16982d064fa064b38593",
- "pass": 31,
+ "page_sha256": "9d767e74083b24c111108e58aa58e005e3ae7265e56f5c56ea57512a769450b7",
+ "pass": 30,
  "total": 31,
  "results": [
   {
@@ -15,8 +15,8 @@
    "name": "S1 removing them gives the base page byte for byte (DATA, MASTER_LOC, money, footer, every screen unchanged)",
    "pass": true,
    "info": {
-    "build": 11746301,
-    "base": 11579611
+    "build": 11751341,
+    "base": 11584651
    }
   },
   {
@@ -207,11 +207,13 @@
   },
   {
    "name": "B5 no console errors the base page does not also show",
-   "pass": true,
+   "pass": false,
    "info": {
-    "build": 0,
+    "build": 1,
     "base": 0,
-    "new": []
+    "new": [
+     "Failed to load resource: the server responded with a status of 429 (Too Many Requests)"
+    ]
    }
   },
   {
@@ -220,12 +222,12 @@
    "info": {
     "build": {
      "page": 1,
-     "live": 111,
+     "live": 119,
      "blocked": 0
     },
     "base": {
      "page": 1,
-     "live": 111,
+     "live": 110,
      "blocked": 0
     }
    }

@@ -1,11 +1,15 @@
 // Author: Andrew Fisher. v9.00 truck flow part - the Timeline's Truck flow card folds to one closed line. Opens the base page and
 // the built page, one after the other, at the live address, reading the live record (every write the page tries is aborted by
 // open_page; nothing here sends anything), on Wed 14 Oct (the project manager's screenshot) and today, and checks:
-//   1. the built page draws, in the card's place, one closed line "Truck flow · N loads · K to check" (or "nothing to check"),
-//      K counted independently here from the day model (loads with Curfew first not ok, in an area over its limit, oversized at a
-//      moment over the guide, or with no arrival window - each load once); the card inside is not shown while closed;
+//   1. the built page draws, in the card's place, one closed line "Truck flow · N loads · K to check · W need a time" (either
+//      part only when it is not 0; "nothing to check" when both are), K and W read independently here from the BASE card's own
+//      rendered rows, not from the day model: K = the loads named in red - Curfew first rows marked unknown or late ("Load n"),
+//      the "(loads a, b)" of an area row over its limit, and, when the Oversized row is flagged, the oversized loads (the Curfew
+//      first list) whose Order windows overlap more than the guide; W = the Order entries with no window (no <em>) that are not
+//      already in K. Every programme day is checked; the card inside is not shown while closed;
 //   2. the line is compact: laptop at most 44 px tall; phone one line, a tap target of at least 44 px, no horizontal overflow at
-//      390 px; light and dark (DARK=1) read from the page's own colour tokens;
+//      390 px, "N loads" left out on screen (it sits right under the line), the longest line of the programme drawn and nothing
+//      cut off, and no hover colour left on the line after a tap; light and dark (DARK=1) read from the page's own colour tokens;
 //   3. opening it shows the card exactly as the base draws it: the card's markup byte for byte and its text the same;
 //   4. the rest of the Timeline pane - the load cards, v9.11's Workers picker, the dropdowns and the Arrange loads control - is
 //      byte for byte the base's once the fold is unwrapped;
@@ -18,10 +22,11 @@
 //   PAGE=<build> [BASE=<base; default base_live.html beside PAGE>] [MOB=1] [DARK=1] [SHOTS=<dir>] [OUT=<json>] [NOEXPLORER=1]
 //   node v9.00_crew_vms_counts_DRAFT/tests/test_truckflow900.cjs
 const fs = require('fs'), path = require('path'), {open} = require('../../toolchain/harness/open_page');
-/* NOEXPLORER=1: the page parks the map explorer in an iframe (/explorer/index.html, served by the live service) a few seconds after
-   load. On 8 Oct 2026 from about 16:30 AEST that iframe crashed this headless rig's renderer within about 12 s of opening, on the
-   live base page (v9.10 and v9.11) exactly as on the build. With NOEXPLORER=1 the test's own browser leaves that one GET unanswered;
-   nothing is written, the Timeline and the Truck flow card are untouched, and both pages are opened the same way. */
+/* Rig note (8 Oct 2026, from about 16:30 AEST): the machine's disk filled, and headless Chromium then crashed its renderer within
+   seconds of opening, on the live base page (v9.10, v9.11) exactly as on the build - first when the page's parked map explorer
+   iframe loaded. Run with TMPDIR on a disk with room (the runs recorded used TMPDIR=/dev/shm/...). NOEXPLORER=1 is kept as a
+   fallback: the test's own browser leaves that one GET (/explorer/index.html) unanswered; nothing is written, the Timeline and
+   the Truck flow card are untouched, and both pages are opened the same way. The recorded runs did not need it. */
 if (process.env.NOEXPLORER) { const pw = require('../../toolchain/node_modules/playwright'), proto = Object.getPrototypeOf(pw.chromium), launch = proto.launch;
   proto.launch = async function (...a) { const b = await launch.apply(this, a), nc = b.newContext.bind(b);
     b.newContext = async (...c) => { const ctx = await nc(...c), np = ctx.newPage.bind(ctx);
@@ -36,14 +41,19 @@ async function boot(file) {
   const s = await open({pageFile: file, hash: '#timeline', W, H, mobile: MOB, dpr: MOB ? 2 : 1});
   if (DARK) await s.page.emulateMedia({colorScheme: 'dark'}); else await s.page.emulateMedia({colorScheme: 'light'});
   await s.page.waitForFunction(() => typeof go === 'function' && typeof SYNC !== 'undefined' && SYNC.status === 'live' && typeof flow891Day === 'function', null, {timeout: 150000});
+  /* the two weather services answer in their own time (Open-Meteo gives up after 9 s): wait until both have answered or given up,
+     so the base and the build draw the day with the same weather (a service that answered on one page and not on the other
+     shows in the pane comparison as a weather difference, not a Truck flow one - the detail then names both states) */
+  await s.page.waitForFunction(() => { try { return [WXF, WXO].every(x => x.state !== 'loading' && x.state !== 'idle'); } catch (e) { return true; } }, null, {timeout: 30000}).catch(() => {});
   await s.page.waitForTimeout(2500); return s;
 }
 const show = (p, iso) => p.evaluate(iso => { state.day = iso; state.tlView = 'day'; go('timeline'); render(); }, iso).then(() => p.waitForTimeout(700));
 
-/* what differs between two draws and is not content: SVG ids numbered from a running counter on every draw (the weather art
-   wx818-<n>, the load gantry tl841-<n>), the gantry's tl841-live class (set while the lamps are on screen), the weather's
-   "fetched hh:mm", and an empty style attribute */
-const norm = h => h == null ? h : h.replace(/ tl841-live\b/g, '').replace(/\b(wx818-|tl841-)\d+/g, '$1#').replace(/(fetched )\d\d:\d\d/g, '$1#').replace(/ style=""/g, '');
+/* what differs between two draws and is not content: ids and names numbered from a running counter on every draw (the weather
+   art wx818-<n>, the load gantry tl841-<n>, the Lifting radios handling875-<load>-<n>), the gantry's tl841-live class (set while
+   the lamps are on screen), the weather's "fetched hh:mm", and an empty style attribute */
+const norm = h => h == null ? h : h.replace(/ tl841-live\b/g, '').replace(/\b(wx818-|tl841-)\d+/g, (m, a) => a + '#').replace(/\b(handling875-[\w.:-]*-)\d+\b/g, (m, a) => a + '#')
+  .replace(/(fetched )\d\d:\d\d/g, (m, a) => a + '#').replace(/ style=""/g, '');
 /* in the page: the pane with every Truck flow fold unwrapped (the card put back where the fold was), the card, the day model */
 function grab(iso) {
   const pane = document.getElementById('pane-timeline'), clone = pane.cloneNode(true);
@@ -53,7 +63,8 @@ function grab(iso) {
   return {version: (() => { try { return SYNC.backend.readVersion821(); } catch (e) { return null; } })(), pane: clone.innerHTML, card: card ? card.outerHTML : null,
     cardText: card ? card.textContent.replace(/\s+/g, ' ').trim() : null, loads: M ? M.loads : 0, money: JSON.stringify([moneySummary(), fh866Model()]),
     workers: pane.querySelectorAll('[data-workers911], .workers911, [class*="workers911"]').length, arrange: pane.querySelectorAll('.drops911-open').length,
-    selects: pane.querySelectorAll('select').length, ords: pane.querySelectorAll('.flow891-ord').length};
+    selects: pane.querySelectorAll('select').length, ords: pane.querySelectorAll('.flow891-ord').length,
+    wx: (() => { try { return [WXF.state, WXO.state]; } catch (e) { return null; } })()};
 }
 /* the local record and browser storage, as SHA-256 digests worked out in the page (the record is large; only the digest comes back) */
 async function snapshot() {
@@ -61,16 +72,38 @@ async function snapshot() {
   const st = k => { try { return JSON.stringify(Object.entries(window[k]).sort()); } catch (e) { return 'n/a'; } };
   return {S: await h(JSON.stringify(S)), ls: await h(st('localStorage')), ss: await h(st('sessionStorage'))};
 }
-/* independent count of the loads with a check needing action */
-function expected(iso) {
-  const d = programmeDays().find(x => x.iso === iso); if (!d) return null; const M = flow891Day(d); if (!M.loads) return {loads: 0, n: 0};
-  const flag = new Set();
-  M.deliveries.forEach(x => { if (x.curfew && x.curfew.state !== 'ok') flag.add(x.n); if (!x.win.known) flag.add(x.n); });
-  M.areas.forEach(a => a.conflicts.forEach(c => c.loads.forEach(n => flag.add(n))));
-  const ov = M.deliveries.filter(x => x.oversize && x.win.known), cap = FLOW891.oversized.total;
-  ov.forEach(x => { const on = ov.filter(y => y.win.start <= x.win.start && x.win.start < y.win.finish); if (on.length > cap) on.forEach(y => flag.add(y.n)); });
-  return {loads: M.loads, n: flag.size, unknown: M.curfew.filter(x => x.curfew.state === 'unknown').length, noWindow: M.unknownWindows};
+/* independent count, run in the BASE page on the base card's own rendered rows (nothing from the day model or the patch):
+   red = Curfew first rows marked unknown / late, the loads named in an area row over its limit, and - when the Oversized row is
+   flagged - the oversized loads (the Curfew first list) whose Order windows overlap more than the guide; wait = Order entries
+   with no window that are not red */
+function baseCounts(isos) {
+  const out = {};
+  programmeDays().filter(d => !isos || isos.includes(d.iso)).forEach(d => {
+    let html = ''; try { html = flow891Card(d); } catch (e) { html = ''; }
+    if (!html) { out[d.iso] = {loads: 0}; return; }
+    const t = document.createElement('template'); t.innerHTML = html; const c = t.content.querySelector('section.flow891');
+    const loads = +((/(\d+) loads?$/.exec(c.querySelector('.flow891-hd h3').textContent.trim()) || [0, 0])[1]);
+    const red = new Map(), add = (n, why) => { n = +n; if (!red.has(n)) red.set(n, []); red.get(n).push(why); };
+    c.querySelectorAll('.flow891-cf.unknown, .flow891-cf.late').forEach(r => { const m = /^Load (\d+)\b/.exec(r.textContent.trim()); if (m) add(m[1], r.classList.contains('late') ? 'late' : 'time'); });
+    c.querySelectorAll('.flow891-flag').forEach(f => { const m = /\(loads ([\d, ]+)\) — over the limit/.exec(f.textContent); if (m) m[1].split(',').forEach(n => add(n.trim(), 'area')); });
+    const seq = [...c.querySelectorAll('.flow891-seq')].map(x => { const em = x.querySelector('em'), w = em && /(\d\d):(\d\d)–(\d\d):(\d\d)/.exec(em.textContent);
+      return {n: +x.querySelector('b').textContent, win: w ? {start: +w[1] * 60 + +w[2], finish: +w[3] * 60 + +w[4]} : null, em: !!em}; });
+    const ovFlag = [...c.querySelectorAll('.flow891-flag')].some(f => /^More than \d+ oversized at one time/.test(f.textContent.trim()));
+    if (ovFlag) { const cap = +((/guide: up to (\d+) at any one time/.exec(c.textContent) || [0, 0])[1]);
+      const ovN = new Set([...c.querySelectorAll('.flow891-cf')].map(r => +((/^Load (\d+)\b/.exec(r.textContent.trim()) || [0, 0])[1])));
+      const ov = seq.filter(x => ovN.has(x.n) && x.win);
+      ov.forEach(x => { const on = ov.filter(y => y.win.start <= x.win.start && x.win.start < y.win.finish); if (on.length > cap) on.forEach(y => add(y.n, 'oversized')); }); }
+    const noWin = seq.filter(x => !x.em).map(x => x.n), wait = noWin.filter(n => !red.has(n));
+    out[d.iso] = {loads, n: red.size, wait: wait.length, unknown: c.querySelectorAll('.flow891-cf.unknown').length, ovFlag,
+      why: {time: [...red.values()].filter(v => v.includes('time')).length, late: [...red.values()].filter(v => v.includes('late')).length,
+        area: [...red.values()].filter(v => v.includes('area')).length, oversized: [...red.values()].filter(v => v.includes('oversized')).length, noWindow: noWin.length}};
+  });
+  return out;
 }
+const want = e => 'Truck flow · ' + e.loads + ' load' + (e.loads === 1 ? '' : 's') + ' · ' +
+  ([e.n ? e.n + ' to check' : '', e.wait ? e.wait + ' need' + (e.wait === 1 ? 's' : '') + ' a time' : ''].filter(Boolean).join(' · ') || 'nothing to check');
+/* on the phone the line leaves out "N loads" (it is repeated right under it, DUE IN (n) · n LOADS) */
+const shownWant = e => MOB ? want(e).replace(/^Truck flow · \d+ loads? · /, 'Truck flow · ') : want(e);
 /* edit practice: capture what the card's buttons and the order controls call; nothing is saved */
 function practise(iso) {
   window.__keep900 = {flow891Move, flow891SetWindow, crew883SaveDay, mayWrite, capability, readonly: SYNC.readonly};
@@ -90,6 +123,7 @@ function practise(iso) {
   } finally { const k = window.__keep900; window.flow891Move = k.flow891Move; window.flow891SetWindow = k.flow891SetWindow; window.crew883SaveDay = k.crew883SaveDay;
     window.mayWrite = k.mayWrite; window.capability = k.capability; SYNC.readonly = k.readonly; render(); }
 }
+const press = (p, sel) => MOB ? p.tap(sel) : p.click(sel);
 async function shot(p, sel, file) {
   if (!SHOTS) return; fs.mkdirSync(SHOTS, {recursive: true});
   /* the day's figures above the card stay in frame: the element goes about a fifth of the way down the screen */
@@ -105,6 +139,7 @@ async function shot(p, sel, file) {
     s = await boot(BASE); let p = s.page;
     const today = await p.evaluate(() => todayIso()), days = [...new Set([DAY, today])];
     const B = {}; let baseErr = [], baseBlocked = 0;
+    const E = await p.evaluate(baseCounts, null), Ever = await p.evaluate(() => { try { return SYNC.backend.readVersion821(); } catch (e) { return null; } });
     for (const iso of days) { if (!s) { s = await boot(BASE); p = s.page; }
       await show(p, iso); B[iso] = await p.evaluate(grab, iso); B[iso].practice = B[iso].card ? await p.evaluate(practise, iso) : null;
       if (iso === DAY) await shot(p, 'section.flow891[data-flow891="' + iso + '"]', 'before_' + tag + '_14oct.png');
@@ -118,25 +153,25 @@ async function shot(p, sel, file) {
       await show(p, iso);
       const G = await p.evaluate(grab, iso);   /* straight after the first draw, as on the base */
       const before = await p.evaluate(snapshot);
-      const exp = await p.evaluate(expected, iso);
+      const exp = E[iso] || {loads: 0};
       const closed = await p.evaluate(iso => { const f = [...document.querySelectorAll('details.flow909')], d = f.find(x => x.dataset.flow909 === iso); if (!d) return {folds: f.length, none: true};
         const sm = d.querySelector(':scope > summary'), w = sm.querySelector('.flow909-w'), r = sm.getBoundingClientRect(), dr = d.getBoundingClientRect(), card = d.querySelector(':scope > section.flow891'), cs = getComputedStyle(sm);
         const lh = parseFloat(getComputedStyle(w).lineHeight) || 16;
-        return {folds: f.length, open: d.open, text: sm.textContent.replace(/\s+/g, ' ').trim(), h: Math.round(r.height), dh: Math.round(dr.height), wH: Math.round(w.getBoundingClientRect().height), lh,
+        return {folds: f.length, open: d.open, text: sm.textContent.replace(/\s+/g, ' ').trim(), shown: (sm => { const c = sm.cloneNode(true), cl = [...c.querySelectorAll('*')]; [...sm.querySelectorAll('*')].forEach((e, i) => { if (getComputedStyle(e).display === 'none') cl[i].remove(); }); return c.textContent.replace(/\s+/g, ' ').trim(); })(sm), h: Math.round(r.height), dh: Math.round(dr.height), wH: Math.round(w.getBoundingClientRect().height), lh,
           wClip: w.scrollWidth > w.clientWidth + 1, smOver: sm.scrollWidth > sm.clientWidth + 1, pageOver: document.documentElement.scrollWidth > innerWidth, right: Math.round(r.right), vw: innerWidth,
           cardShown: card ? card.checkVisibility() : null, bg: cs.backgroundColor, ink: cs.color, firstChildOfDay: true}; }, iso);
       C[iso] = {exp, closed};
       if (closed.none) { ok(iso + ': no Truck flow fold where the base has no card', !B[iso].card && exp.loads === 0, {base: !!B[iso].card, exp}); continue; }
-      const want = 'Truck flow · ' + exp.loads + ' load' + (exp.loads === 1 ? '' : 's') + ' · ' + (exp.n ? exp.n + ' to check' : 'nothing to check');
-      ok(iso + ': one closed line in the card’s place, “' + closed.text + '” (expected ' + exp.n + ' to check: ' + JSON.stringify(exp) + ')', closed.folds === 1 && !closed.open && closed.text === want && closed.cardShown === false, {closed, want});
-      if (iso === DAY) ok('14 Oct: the four loads with no Kingston load time read “4 loads · 4 to check”', exp.loads === 4 ? closed.text === 'Truck flow · 4 loads · 4 to check' : true, {text: closed.text, exp});
+      const wantText = want(exp), wantShown = shownWant(exp);
+      ok(iso + ': one closed line in the card’s place, “' + closed.shown + '” on screen (read from the base card: ' + JSON.stringify(exp) + ')', closed.folds === 1 && !closed.open && closed.text === wantText && closed.shown === wantShown && closed.cardShown === false, {closed, want: wantText, wantShown});
+      if (iso === DAY) ok('14 Oct: the four loads with no Kingston load time read “4 loads · 4 to check”', exp.loads === 4 ? closed.text === 'Truck flow · 4 loads · 4 to check' && closed.shown === (MOB ? 'Truck flow · 4 to check' : closed.text) : true, {text: closed.text, exp});
       ok(iso + ': compact — ' + (MOB ? 'one line, tap target ≥ 44 px, no sideways overflow at 390 px' : 'at most 44 px tall') + ' (summary ' + closed.h + ' px, fold ' + closed.dh + ' px)',
         MOB ? (closed.h >= 44 && closed.dh <= 48 && closed.wH <= closed.lh * 1.5 && !closed.smOver && !closed.pageOver && closed.right <= closed.vw && !closed.wClip) : (closed.dh <= 44 && closed.h <= 44 && !closed.wClip), closed);
       const lum = c => { const m = c.match(/\d+(\.\d+)?/g) || [0, 0, 0]; return (0.2126 * m[0] + 0.7152 * m[1] + 0.0722 * m[2]) / 255; };
       ok(iso + ': ' + (DARK ? 'dark' : 'light') + ' — the line takes the page’s paper and ink (' + closed.bg + ' on ' + closed.ink + ')', DARK ? lum(closed.bg) < 0.25 && lum(closed.ink) > 0.6 : lum(closed.bg) > 0.85 && lum(closed.ink) < 0.35, {bg: closed.bg, ink: closed.ink});
       if (iso === DAY) await shot(p, 'details.flow909[data-flow909="' + iso + '"]', 'after_closed_' + tag + '_14oct.png');
-      /* open it with a real press on the line */
-      await p.click('details.flow909[data-flow909="' + iso + '"] > summary'); await p.waitForTimeout(300);
+      /* open it with a real press on the line (a tap on the phone) */
+      await press(p, 'details.flow909[data-flow909="' + iso + '"] > summary'); await p.waitForTimeout(300);
       const opened = await p.evaluate(iso => { const d = document.querySelector('details.flow909[data-flow909="' + iso + '"]'), card = d.querySelector(':scope > section.flow891');
         return {open: d.open, shown: card.checkVisibility(), html: card.outerHTML, text: card.textContent.replace(/\s+/g, ' ').trim(), inner: card.innerText}; }, iso);
       ok(iso + ': a press opens the card exactly as the base draws it (markup byte for byte, ' + opened.text.length + ' characters of text the same)', opened.open && opened.shown && norm(opened.html) === norm(B[iso].card) && opened.text === B[iso].cardText,
@@ -145,7 +180,12 @@ async function shot(p, sel, file) {
       if (iso === DAY) await shot(p, 'details.flow909[data-flow909="' + iso + '"]', 'after_open_' + tag + '_14oct.png');
       await p.evaluate(() => { render(); }); await p.waitForTimeout(400);
       const keptOpen = await p.evaluate(iso => { const d = document.querySelector('details.flow909[data-flow909="' + iso + '"]'); return !!d && d.open; }, iso);
-      await p.click('details.flow909[data-flow909="' + iso + '"] > summary'); await p.waitForTimeout(300);
+      await press(p, 'details.flow909[data-flow909="' + iso + '"] > summary'); await p.waitForTimeout(300);
+      if (MOB) { /* no sticky hover: after a tap the line keeps the rule colour on its edge (the hover colour is for a mouse only) */
+        const hv = await p.evaluate(iso => { const sm = document.querySelector('details.flow909[data-flow909="' + iso + '"] > summary'), pr = document.createElement('div');
+          pr.style.cssText = 'border-top:1px solid var(--rule)'; document.body.appendChild(pr); const rule = getComputedStyle(pr).borderTopColor; pr.remove();
+          return {top: getComputedStyle(sm).borderTopColor, rule, hoverDevice: matchMedia('(hover:hover)').matches}; }, iso);
+        ok(iso + ': phone — after a tap the line’s edge stays the rule colour (' + hv.top + '), no hover colour left behind', !hv.hoverDevice && hv.top === hv.rule, hv); }
       await p.evaluate(() => { render(); }); await p.waitForTimeout(400);
       const keptShut = await p.evaluate(iso => { const d = document.querySelector('details.flow909[data-flow909="' + iso + '"]'); return !!d && !d.open; }, iso);
       ok(iso + ': an opened fold stays open through a redraw; closed again, it stays closed', keptOpen && keptShut, {keptOpen, keptShut});
@@ -153,12 +193,12 @@ async function shot(p, sel, file) {
       ok(iso + ': opening, closing and redrawing wrote nothing (local record, localStorage and sessionStorage identical; blocked writes ' + s.counts.blocked + ')', after.S === before.S && after.ls === before.ls && after.ss === before.ss && s.counts.blocked === 0, {S: after.S === before.S, ls: after.ls === before.ls, ss: after.ss === before.ss, blocked: s.counts.blocked});
       /* the rest of the pane is the base's */
       ok(iso + ': the rest of the Timeline pane is the base’s byte for byte with the fold unwrapped — load cards, Workers, dropdowns (' + G.selects + '), order controls (' + G.ords + '), Arrange loads (' + G.arrange + ')',
-        G.version === B[iso].version ? norm(G.pane) === norm(B[iso].pane) : 'record moved', {version: [B[iso].version, G.version], same: norm(G.pane) === norm(B[iso].pane), len: [B[iso].pane.length, G.pane.length]});
+        G.version === B[iso].version && norm(G.pane) === norm(B[iso].pane),   /* a record that moved between the two reads fails here: rerun */ {version: [B[iso].version, G.version], weather: [B[iso].wx, G.wx], same: norm(G.pane) === norm(B[iso].pane), len: [B[iso].pane.length, G.pane.length]});
       const firstDiff = (a, b, what) => { a = norm(a) || ''; b = norm(b) || ''; if (a === b) return; let k = 0; while (k < a.length && a[k] === b[k]) k++; console.log('  ' + what + ': first difference at', k, JSON.stringify(a.slice(k - 160, k + 160)), JSON.stringify(b.slice(k - 160, k + 160))); };
       firstDiff(B[iso].pane, G.pane, 'pane'); firstDiff(B[iso].card, opened.html, 'card');
       ok(iso + ': money identical (moneySummary, fh866Model)', G.money === B[iso].money, null);
-      /* a second fresh page for the edit practice, the jump and the print: the headless renderer here crashes after about ten
-         Timeline redraws in one page on the base (v9.10 and v9.11) as on the build, so no page in this test draws more than four times */
+      /* a second fresh page for the edit practice, the jump and the print, so no page in this test draws more than four times
+         (short pages kept the rig steady on 8 Oct, when long sessions crashed on the base as on the build - see the rig note above) */
       buildErr = buildErr.concat(s.errors); buildBlocked += s.counts.blocked; await s.browser.close(); s = null; s = await boot(PAGE); p = s.page; await show(p, iso);
       /* edit practice */
       const P = await p.evaluate(practise, iso);
@@ -179,15 +219,29 @@ async function shot(p, sel, file) {
     }
     /* every day of the programme, on a fresh page: the line's count and the independent count agree; days with nothing to check */
     buildErr = buildErr.concat(s.errors); buildBlocked += s.counts.blocked; await s.browser.close(); s = null; s = await boot(PAGE); p = s.page;
-    const all = await p.evaluate(fn => { const exp = eval('(' + fn + ')'); const out = []; programmeDays().forEach(d => { const html = flow891Card(d); const e = exp(d.iso); if (!e || !e.loads) { out.push({iso: d.iso, html: !!html, loads: 0}); return; }
-      const m = /<summary[^>]*>([\s\S]*?)<\/summary>/.exec(html || ''); const t = m ? m[1].replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim() : null; out.push({iso: d.iso, loads: e.loads, n: e.n, text: t, closed: !/<details class="flow909"[^>]* open>/.test(html || '')}); }); return out; }, expected.toString());
-    const withLoads = all.filter(x => x.loads), bad = withLoads.filter(x => x.text !== 'Truck flow · ' + x.loads + ' load' + (x.loads === 1 ? '' : 's') + ' · ' + (x.n ? x.n + ' to check' : 'nothing to check') || !x.closed);
-    ok('every programme day with loads (' + withLoads.length + ') reads the right line and draws closed; nothing to check on ' + withLoads.filter(x => !x.n).map(x => x.iso).join(', '), bad.length === 0 && all.filter(x => !x.loads).every(x => !x.html), {bad: bad.slice(0, 5)});
-    const quiet = withLoads.find(x => !x.n && x.iso >= today) || withLoads.find(x => !x.n);
+    const Cver = await p.evaluate(() => { try { return SYNC.backend.readVersion821(); } catch (e) { return null; } });
+    const all = await p.evaluate(() => programmeDays().map(d => { let html = ''; try { html = flow891Card(d); } catch (e) { html = ''; }
+      const m = /<summary[^>]*>([\s\S]*?)<\/summary>/.exec(html || ''); const t = m ? m[1].replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim() : null;
+      return {iso: d.iso, html: !!html, text: t, closed: !/<details class="flow909"[^>]* open>/.test(html || '')}; }));
+    all.forEach(x => { const e = E[x.iso] || {loads: 0}; Object.assign(x, {loads: e.loads, n: e.n, wait: e.wait, why: e.why}); });
+    const withLoads = all.filter(x => x.loads), bad = withLoads.filter(x => x.text !== want(x) || !x.closed);
+    ok('every programme day with loads (' + withLoads.length + ') reads the line worked out from the base card’s own rows and draws closed (record ' + Ever + ' / ' + Cver + '); nothing to check on ' + withLoads.filter(x => !x.n && !x.wait).map(x => x.iso).join(', '),
+      bad.length === 0 && all.filter(x => !x.loads).every(x => !x.html), {bad: bad.slice(0, 5).map(x => ({iso: x.iso, text: x.text, want: want(x)})), versions: [Ever, Cver]});
+    console.log('  per day: ' + withLoads.map(x => x.iso.slice(5) + ' ' + x.loads + '/' + (x.n || 0) + '/' + (x.wait || 0)).join(', '));
+    /* the longest line on any day, drawn on screen: still one line, nothing cut off, no sideways scroll */
+    const longest = withLoads.slice().sort((a, b) => (b.text || '').length - (a.text || '').length)[0];
+    if (longest) { await show(p, longest.iso);
+      const L = await p.evaluate(iso => { const d = document.querySelector('details.flow909[data-flow909="' + iso + '"]'); if (!d) return null; const sm = d.querySelector(':scope > summary'), w = sm.querySelector('.flow909-w');
+        return {text: sm.textContent.replace(/\s+/g, ' ').trim(), shown: (sm => { const c = sm.cloneNode(true), cl = [...c.querySelectorAll('*')]; [...sm.querySelectorAll('*')].forEach((e, i) => { if (getComputedStyle(e).display === 'none') cl[i].remove(); }); return c.textContent.replace(/\s+/g, ' ').trim(); })(sm), h: Math.round(sm.getBoundingClientRect().height), wClip: w.scrollWidth > w.clientWidth + 1, pageOver: document.documentElement.scrollWidth > innerWidth}; }, longest.iso);
+      ok('the longest line of the programme (' + longest.iso + ', “' + (L && L.shown) + '” on screen) fits: one line, nothing cut off, no sideways scroll', L && !L.wClip && !L.pageOver && L.h <= 48, L);
+      await shot(p, 'details.flow909[data-flow909="' + longest.iso + '"]', 'after_closed_' + tag + '_longest_' + longest.iso + '.png'); }
+    const quiet = withLoads.find(x => !x.n && !x.wait && x.iso >= today) || withLoads.find(x => !x.n && !x.wait);
+    const waitOnly = withLoads.find(x => !x.n && x.wait && x.iso >= today);
     if (quiet) { await show(p, quiet.iso); await shot(p, 'details.flow909[data-flow909="' + quiet.iso + '"]', 'after_closed_' + tag + '_nothing_' + quiet.iso + '.png'); }
+    if (waitOnly) { await show(p, waitOnly.iso); await shot(p, 'details.flow909[data-flow909="' + waitOnly.iso + '"]', 'after_closed_' + tag + '_needtime_' + waitOnly.iso + '.png'); }
     buildErr = buildErr.concat(s.errors); buildBlocked += s.counts.blocked;
     ok('no page errors (base ' + baseErr.length + ', build ' + buildErr.length + '); no write attempted on either (blocked ' + baseBlocked + ', ' + buildBlocked + ')', buildErr.length === 0 && baseErr.length === 0 && baseBlocked === 0 && buildBlocked === 0, {base: baseErr, build: buildErr});
-    if (process.env.OUT) fs.writeFileSync(process.env.OUT, JSON.stringify({tag, days, results: R, perDay: all.filter(x => x.loads).map(x => ({iso: x.iso, text: x.text})), C}, null, 1));
+    if (process.env.OUT) fs.writeFileSync(process.env.OUT, JSON.stringify({tag, days, versions: [Ever, Cver], results: R, perDay: all.filter(x => x.loads).map(x => ({iso: x.iso, text: x.text, base: {loads: x.loads, n: x.n, wait: x.wait, why: x.why}})), C}, null, 1));
     await s.browser.close(); s = null;
     const fail = R.filter(x => !x.pass).length; console.log((fail ? 'FAILED ' : 'ALL PASS ') + (R.length - fail) + '/' + R.length + ' (' + tag + ')'); process.exit(fail ? 1 : 0);
   } catch (e) { console.error('ERROR', e && e.stack || e); if (s) await s.browser.close().catch(() => {}); process.exit(2); }

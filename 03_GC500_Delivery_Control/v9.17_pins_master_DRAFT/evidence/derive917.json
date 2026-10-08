@@ -2,7 +2,7 @@
  "author": "Andrew Fisher",
  "what": "v9.17 - the 23 pins re-derived from the 2 Oct master PDF",
  "pdf_sha256": "8753d875cf90682e09afefae8c774144d9e9725ece87f726707882fb3711c56d",
- "page_sha256": "408ae6acf1753b74274a6a44e009ad3d8eea29a1836678d6a94e214eeaf7c2d1",
+ "page_sha256": "c547a6debe1dea9009b50466d3c1028ec9c3a800e6c591ea258b61490b14b762",
  "georeferencing": {
   "main_rms_m": 0.669719671487297,
   "inset_rms_m": 0.9221830663153832

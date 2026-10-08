@@ -24,6 +24,12 @@
 #    figure for the location's item type where the card prices it; where it does not (0.00, no column, N/A, Included) the
 #    charge reads "rate to confirm" - money unknown, never nought - and the location's total is marked incomplete while every
 #    other figure on it stays as it was;
+#  - money pages never show an unpriced piece as nought: the P&L's ticks line reads "rate to confirm" (counting pieces and
+#    locations), Pricing counts fire extinguishers apart from the labour ticks, the labour plan chips "N rate to confirm"
+#    (not "no qty"), Costs says the lines not priced, and costs to job end / the Finance handover list the pieces as a gap;
+#  - Take off keeps the rows at quantity 0 with the count they had (off_qty) and who took them off and when; the drawer
+#    shows "Taken off · was Fire extinguisher × n" on both links. The accessories type list offers "Fire extinguisher",
+#    which takes the editor to the Fire extinguishers part;
 #  - THE ONE RULE THAT CANNOT DOUBLE COUNT: an added quantity REPLACES the per-building fire_ext ticks and forecast for that
 #    location (its tick box is disabled with the reason). A location with no added quantity works exactly as before.
 #    On the record of 8 Oct 2026 no fire_ext tick is recorded anywhere, so no existing money moves.
@@ -72,6 +78,29 @@ function fire914Words(n){ return FIRE914 + ' × ' + n; }
 function fire914Last(key){
  const rows = fire914Rows(key).slice().sort((p, q) => String(q.edited_at || q.added_at || '').localeCompare(String(p.edited_at || p.added_at || '')));
  const r = rows[0] || {}; return {by: r.edited_by || r.added_by || null, at: r.edited_at || r.added_at || null};
+}
+/* a location whose fire extinguishers were all taken off: the rows stay on the record at quantity 0, the count they had kept
+   in off_qty, with who took them off and when - shown on the drawer on both links, never hidden */
+function fire914Off(key){
+ const rows = fire914Rows(key); if (!rows.length || fire914Qty(key)) return null;
+ const when = x => String(x.taken_off_at || x.edited_at || x.added_at || '');
+ const r = rows.slice().sort((p, q) => when(q).localeCompare(when(p)))[0];
+ const was = rows.reduce((n, x) => { const q = Number(x.off_qty); return n + (Number.isSafeInteger(q) && q > 0 ? q : 0); }, 0);
+ return {was: was || null, by: r.taken_off_by || r.edited_by || r.added_by || null, at: r.taken_off_at || r.edited_at || r.added_at || null};
+}
+/* every location's added fire extinguishers that carry a charge, and those whose rate is to confirm (pieces, not entries) */
+function fire914Stats(){
+ const xs = allAssets().map(fire914Of).filter(F => F && F.host), unk = xs.filter(F => F.rate == null);
+ return {refs: xs.length, pieces: xs.reduce((n, F) => n + F.n, 0), unkRefs: unk.length, unkPieces: unk.reduce((n, F) => n + F.n, 0)};
+}
+/* the words for the pieces whose rate is to confirm, where a money page lists what is not in its figure */
+function fire914Gap(){ const S = fire914Stats(); return S.unkPieces ? ` · ${S.unkPieces} fire extinguisher${S.unkPieces === 1 ? '' : 's'} on ${S.unkRefs} location${S.unkRefs === 1 ? '' : 's'}: rate to confirm, not in the figure` : ''; }
+/* the Finance handover's invoice block: the pieces at a rate to confirm are named, since its figures cannot carry them */
+function fire914FhNote(){ const S = fire914Stats(); return S.unkPieces ? `<p class="fin745-basis" data-fire914-fh>Not in the invoice figures: ${S.unkPieces} fire extinguisher${S.unkPieces === 1 ? '' : 's'} on ${S.unkRefs} location${S.unkRefs === 1 ? '' : 's'}, rate to confirm — charged per piece, and the card carries no Fire Ext. figure for the item type.</p>` : ''; }
+/* Pricing: what the fire extinguishers on one item type come to, said apart from the labour ticks */
+function fire914PriceWords(n, unk, amt){
+ const known = n - unk;
+ return esc(n + ' fire extinguisher' + (n === 1 ? '' : 's')) + (known ? ' ' + esc(money(Math.round(amt * 100) / 100)) : '') + (unk ? (known ? ', ' + esc(String(unk)) + ' at a rate to confirm' : ', rate to confirm') : '');
 }
 /* the card's Fire Ext. line for one charge line, only where the card prices it */
 function fire914CardLine(l, key){
@@ -123,11 +152,11 @@ function fire914Said(m){
  return ' · ' + esc(fire914Words(f.n)) + ': ' + (f.amount != null ? esc(money(f.amount)) + ' at the card’s Fire Ext. figure' + (f.entry && f.entry.year ? ' (headed ' + esc(String(f.entry.year)) + ' on the card)' : '') : 'rate to confirm');
 }
 /* Equipment: the count on the location's row */
-function fire914Equip(a){ const n = a ? fire914Qty(a.key) : 0; return n ? `<div class="w" data-fire914-equip="${esc(a.key)}" style="font-size:11px;margin-top:2px"><b>${esc(fire914Words(n))}</b></div>` : ''; }
+function fire914Equip(a){ const n = a ? fire914Qty(a.key) : 0; return n ? `<div class="w" data-fire914-equip="${esc(a.key)}" style="font-size:11px;color:var(--mute)">${esc(fire914Words(n))}</div>` : ''; }
 /* Drivers / Install sheets: one accessory line (a booking piece split over several trucks carries no accessories, as now) */
 function fire914Dp(a){ if (!a || a._cancelled || Object.prototype.hasOwnProperty.call(a, '_bookingUnassignedAccessories801')) return []; const n = fire914Qty(a.key); return n ? [{t: fire914Words(n), q: 1, no: ''}] : []; }
 /* the drawer's "Inside it" fold title */
-function fire914Sub(key, ed){ const n = fire914Qty(key); if (n) return fire914Words(n); const a = ed ? assetOf(key) : null; return ed && a && !a.rest_of && !a._cancelled ? '+ fire extinguisher' : ''; }
+function fire914Sub(key, ed){ const n = fire914Qty(key); if (n) return fire914Words(n); if (fire914Rows(key).length) return 'fire extinguishers taken off'; const a = ed ? assetOf(key) : null; return ed && a && !a.rest_of && !a._cancelled ? 'add fire extinguishers' : ''; }
 /* the labour card: fire extinguishers added where the card has no figure, said as one row */
 function fire914CardRow(live){
  const xs = live.map(a => fire914Of(a)).filter(F => F && F.host && F.rate == null);
@@ -138,58 +167,77 @@ function fire914CardRow(live){
 /* the drawer part: every kind of location */
 function fire914Block(a){
  if (!a || !a.key) return '';
- const key = a.key, n = fire914Qty(key), ed = canEdit();
- if (!n && !ed) return '';
+ const key = a.key, n = fire914Qty(key), ed = canEdit(), off = fire914Off(key);
+ if (!n && !ed && !off) return '';
  const lines = chargeLines(a), Lr = lines.map(l => fire914CardLine(l, key)), i = Lr.findIndex(Boolean);
  const item = i >= 0 ? lines[i].item : (lines[0] || {}).item || (a.item_types || [])[0] || 'this item';
  const last = fire914Last(key);
+ /* the full sentence (the card's column year, who gives a rate) is for editors; the view link reads the short one */
  const charge = a.rest_of ? 'A follow-up delivery of ' + a.rest_of + ': fire extinguishers are added and charged on ' + a.rest_of + '.'
   : a._cancelled ? 'Cancelled: nothing is charged here.'
+  : !ed ? (i >= 0 ? 'Charged per piece.' : 'Charge: rate to confirm.')
   : i >= 0 ? (n ? 'Charged per piece' : 'Each one is charged per piece') + ' at the card’s Fire Ext. figure for ' + item + (Lr[i].year ? ' (the card heads that column ' + Lr[i].year + ')' : '') + '.'
   : 'Charge: rate to confirm. The card carries no Fire Ext. figure for ' + item + ', so the money reads unknown, never nought, until the project manager gives a rate.';
- const d = FIRE914_DRAFT[key] != null ? FIRE914_DRAFT[key] : (n || 1);
- const can = ed && !a.rest_of && !a._cancelled;
- return `<div class="sect contents fire914h">Fire extinguishers</div>
+ const d = FIRE914_DRAFT[key] != null ? FIRE914_DRAFT[key] : (n || (off && off.was) || 1);
+ const can = ed && !a.rest_of && !a._cancelled, changed = !!n && d !== n;
+ return `<div class="sect contents fire914h" id="fire914h">Fire extinguishers</div>
  <div class="fire914" data-fire914="${esc(key)}" style="margin:2px 0 10px">
- ${n ? `<div class="f914line"><b data-fire914-words>${esc(fire914Words(n))}</b> <span class="w" style="color:var(--mute)">no asset number - counted by quantity${last.by ? ' · ' + esc(last.by) : ''}${last.at ? ' · ' + esc(fmtStamp(last.at)) : ''}</span></div>` : ''}
+ ${n ? `<div class="f914line"><b data-fire914-words>${esc(fire914Words(n))}</b> <span class="w" style="color:var(--mute)">no asset number — counted by quantity${last.by ? ' · ' + esc(last.by) : ''}${last.at ? ' · ' + esc(fmtStamp(last.at)) : ''}</span></div>` : ''}
+ ${off ? `<div class="f914off w" data-fire914-off-line style="color:var(--mute)">Taken off${off.was ? ' · was ' + esc(fire914Words(off.was)) : ''}${off.by ? ' · ' + esc(off.by) : ''}${off.at ? ' · ' + esc(fmtStamp(off.at)) : ''}</div>` : ''}
  <div class="w" data-fire914-charge style="font-size:12px;color:var(--mute);margin-top:2px">${esc(charge)}</div>
  ${can ? `<div class="f914row editonly" style="display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:8px">
  <span style="display:inline-flex;align-items:center;gap:6px"><button type="button" class="btn" data-fire914-minus aria-label="One fewer fire extinguisher" style="min-width:44px;min-height:44px;font-size:20px;line-height:1">−</button><output data-fire914-n aria-live="polite" style="min-width:2.2em;text-align:center;font-weight:700;font-size:18px">${esc(String(d))}</output><button type="button" class="btn" data-fire914-plus aria-label="One more fire extinguisher" style="min-width:44px;min-height:44px;font-size:20px;line-height:1">+</button></span>
- <button type="button" class="btn primary" data-fire914-save style="min-height:44px">${n ? 'Save quantity' : 'Add fire extinguisher' + (d > 1 ? ' × ' + esc(String(d)) : '')}</button>
- ${n ? '<button type="button" class="btn ghost" data-fire914-off style="min-height:44px">Take off</button>' : ''}
+ <button type="button" class="btn ${n && !changed ? 'ghost' : 'primary'}" data-fire914-save style="min-height:44px">${n ? 'Save quantity' : 'Add fire extinguisher' + (d > 1 ? ' × ' + esc(String(d)) : '')}</button>
+ ${n ? '<button type="button" class="btn ghost" data-fire914-off style="min-height:44px;margin-left:auto">Take off</button>' : ''}
+ <span class="w" data-fire914-unsaved style="font-size:12px;color:var(--mute);flex-basis:100%">${changed ? 'Not saved yet: ' + esc(String(d)) + ' set, ' + esc(String(n)) + ' on the record.' : ''}</span>
  </div>` : ''}
  </div>`;
 }
-/* the one save: the location's own accessories document, nothing else (no stamp, no tombstone) */
+/* the accessories form's type list: a fire extinguisher is not attached there (no asset number); picking it takes the editor
+   to the Fire extinguishers part */
+function fire914Opt(){ return canEdit() ? '<option value="__fire914">Fire extinguisher — no asset number, counted below</option>' : ''; }
+/* the one save: the location's own accessories document, nothing else (no stamp, no tombstone). Taking them off keeps the
+   rows at quantity 0, with the count they had (off_qty) and who took them off and when, so the record still shows them */
 function fire914Save(key, q){
  if (!mayWrite('a fire extinguisher')) return false;
- if (!Number.isSafeInteger(q) || q < 0 || q > 99) { flash('A fire extinguisher count is a whole number from 0 to 99 - nothing saved.'); return false; }
+ if (!Number.isSafeInteger(q) || q < 0 || q > 99) { flash('A fire extinguisher count is a whole number from 0 to 99 — nothing saved.'); return false; }
  const a = allAssets().find(x => x.key === key);
- if (!a || a.rest_of || a._cancelled) { flash('Fire extinguishers are not recorded on ' + key + ' - nothing saved.'); return false; }
+ if (!a || a.rest_of || a._cancelled) { flash('Fire extinguishers are not recorded on ' + key + ' — nothing saved.'); return false; }
  const n = fire914Qty(key);
- if (q === n) { flash(key + ' already has ' + (n ? fire914Words(n) : 'no fire extinguishers') + ' - nothing to save.'); return false; }
+ if (q === n) { flash(key + ' already has ' + (n ? fire914Words(n) : 'no fire extinguishers') + ' — nothing to save.'); return false; }
  const who = whoAmI(); if (!who) return false;
  S.accessories = S.accessories || {};
  const rows = S.accessories[key] = S.accessories[key] || [];
  const mine = rows.filter(fire914Is), at = new Date().toISOString();
  if (!mine.length) rows.push({type: FIRE914, qty: q, qty_stated: true, as_written: FIRE914, asset_no: null,
-  asset_no_state: 'not numbered - counted by quantity', origin: 'added in this page', source_task: null, _added: true, added_at: at, added_by: who});
- else mine.forEach((r, i) => { const v = i === 0 ? q : 0; if (Number(r.qty) !== v) { r.qty = v; r.qty_stated = true; r.edited_at = at; r.edited_by = who; } });
+  asset_no_state: 'not numbered — counted by quantity', origin: 'added in this page', source_task: null, _added: true, added_at: at, added_by: who});
+ else mine.forEach((r, i) => { const v = i === 0 ? q : 0, had = Number(r.qty);
+  if (had === v) return;
+  if (v === 0 && Number.isSafeInteger(had) && had > 0) { r.off_qty = had; r.taken_off_at = at; r.taken_off_by = who; }
+  r.qty = v; r.qty_stated = true; r.edited_at = at; r.edited_by = who; });
  delete FIRE914_DRAFT[key];
  bump();
- flash(q ? fire914Words(q) + ' on ' + key + ' - recorded by ' + who + '.' : 'Fire extinguishers taken off ' + key + ' by ' + who + '. Add puts them back.');
+ flash(q ? fire914Words(q) + ' on ' + key + ' — recorded by ' + who + '.' : 'Fire extinguishers taken off ' + key + ' by ' + who + ' — the count stays on the record; Add puts them back.');
  return true;
 }
 function fire914Wire(a){
  const box = document.querySelector('#drawer [data-fire914]'); if (!box || !a) return;
- const key = a.key, n = fire914Qty(key), out = box.querySelector('[data-fire914-n]'), save = box.querySelector('[data-fire914-save]');
+ const key = a.key, n = fire914Qty(key), out = box.querySelector('[data-fire914-n]'), save = box.querySelector('[data-fire914-save]'), note = box.querySelector('[data-fire914-unsaved]');
  const cur = () => { const v = Number(out && out.textContent); return Number.isSafeInteger(v) ? v : (n || 1); };
- const set = v => { FIRE914_DRAFT[key] = v; if (out) out.textContent = String(v); if (save && !n) save.textContent = 'Add fire extinguisher' + (v > 1 ? ' × ' + v : ''); };
+ const set = v => { FIRE914_DRAFT[key] = v; if (out) out.textContent = String(v);
+  if (save && !n) save.textContent = 'Add fire extinguisher' + (v > 1 ? ' × ' + v : '');
+  if (save && n) { save.classList.toggle('primary', v !== n); save.classList.toggle('ghost', v === n); }
+  if (note) note.textContent = n && v !== n ? 'Not saved yet: ' + v + ' set, ' + n + ' on the record.' : ''; };
  const mi = box.querySelector('[data-fire914-minus]'), pl = box.querySelector('[data-fire914-plus]'), off = box.querySelector('[data-fire914-off]');
  if (mi) mi.onclick = () => set(Math.max(n ? 0 : 1, cur() - 1));
  if (pl) pl.onclick = () => set(Math.min(99, cur() + 1));
  if (save) save.onclick = () => fire914Save(key, cur());
  if (off) off.onclick = () => fire914Save(key, 0);
+ /* the accessories type list: picking "Fire extinguisher" resets the list and brings the Add button into view */
+ const sel = document.querySelector('#drawer #accType');
+ if (sel) sel.addEventListener('change', () => { if (sel.value !== '__fire914') return; sel.selectedIndex = 0;
+  const h = document.querySelector('#drawer #fire914h') || box; h.scrollIntoView({block: 'start', behavior: 'smooth'});
+  if (save) setTimeout(() => save.focus({preventScroll: true}), 350); });
 }
 '''
 
@@ -236,16 +284,16 @@ text = rep(text, 'const lm = labourMoney(a.key, l, a.key, a);',
            'labourCard fire row', path)
 text = rep(text, 'const lp = CB && CB.labour_per_piece;', "{ const fr = fire914CardRow(live); if (fr) rows.push(fr); } /* v9.14 */\n const lp = CB && CB.labour_per_piece;", 'labourCard unpriced fire row', path)
 # 10. the charges fold: the per-building tick is disabled where a quantity is added, and the line says what the pieces come to
-text = rep(text, "${L.ticked ? 'checked' : ''}>",
-           "${L.ticked ? 'checked' : ''}${L.key === 'fire_ext' && fire914Qty(a.key) ? ' disabled title=\"counted by the fire extinguishers added on this location\"' : ''}>",
-           'fire tick disabled', path)
+text = rep(text, "${L.ticked ? 'checked' : ''}>\n ${esc(L.name)}",
+           "${L.ticked ? 'checked' : ''}${L.key === 'fire_ext' && fire914Qty(a.key) ? ' disabled title=\"counted by the fire extinguishers added on this location\"' : ''}>\n ${esc(L.name)}${L.key === 'fire_ext' && fire914Qty(a.key) ? ' <span class=\"w\" data-fire914-tickoff style=\"color:var(--mute)\">— not ticked here: counted by the ' + esc(fire914Words(fire914Qty(a.key))) + ' added under Inside it</span>' : ''}",
+           'fire tick disabled, with the reason in words', path)
 text = rep(text, '${said}${expWords}', '${said}${fire914Said(m)}${expWords}', 'charges fold words', path)
 # 11. the drawer: the part, its wiring, and the fold that holds it
 UF = re.findall(r'\n( <details class="sfold" id="unitsFold"[^\n]*</details>)\n', text)
 assert len(UF) == 1, 'the unitsFold line must be found once - stopping'
 text = rep(text, UF[0], UF[0] + '\n ${fire914Block(a)}', 'drawer fire part', path)
 text = rep(text, "if ($('#accAdd')) $('#accAdd').onclick = () => {", "fire914Wire(a); /* v9.14 */\n if ($('#accAdd')) $('#accAdd').onclick = () => {", 'drawer wiring', path)
-text = rep(text, 'const showContents = ed || accN || unitN || nos.length > 1;', 'const showContents = ed || accN || unitN || nos.length > 1 || fire914Qty(key) > 0; /* v9.14 */', 'contents fold shown', path)
+text = rep(text, 'const showContents = ed || accN || unitN || nos.length > 1;', 'const showContents = ed || accN || unitN || nos.length > 1 || fire914Rows(key).length > 0; /* v9.14 - taken-off rows too */', 'contents fold shown', path)
 text = rep(text, "['contents', 'Inside it and asset numbers', [accN ? accN + ' inside' : '', nos.length ?",
            "['contents', 'Inside it and asset numbers', [accN ? accN + ' inside' : '', fire914Sub(key, ed), nos.length ?", 'contents fold title', path)
 # 12. Equipment: the count on the row
@@ -254,6 +302,50 @@ text = rep(text, "+ (acc.length ? `<div class=\"w\" style=\"font-size:11px;color
            'Equipment row', path)
 # 13. the Drivers / Install sheets
 text = rep(text, 'function dpAcc(a){ return (a.accessories || [])', 'function dpAcc(a){ return dpAcc914base(a).concat(fire914Dp(a)); } /* v9.14 */\nfunction dpAcc914base(a){ return (a.accessories || [])', 'sheets', path)
+
+# 14. the accessories type list: a "Fire extinguisher" choice that takes the editor to the Fire extinguishers part
+text = rep(text, "'Heater','Water cooler','Other'].map(t=>`<option>${t}</option>`).join('')}</select></div>",
+           "'Heater','Water cooler','Other'].map(t=>`<option>${t}</option>`).join('')}${fire914Opt()}</select></div>", 'accessory type list', path)
+# 15. the P&L ticks lines: an amount with nothing priced reads "rate to confirm", never nought; a part-priced one says how many
+#     are still to confirm; the fire extinguisher line counts pieces and locations, not entries
+text = rep(text, "const tl = (g, label, sub) => g.ticks ? line(label, `${pl(g.ticks, 'tick')} on references${g.unknown ? ` · ${pl(g.unknown, 'tick')} the card carries no figure for` : ''}${sub ? ' · ' + sub : ''}`, m0(g.amount), CONTRACT) : '';",
+           "const tl = (g, label, sub, fx) => { if (!g.ticks) return ''; /* v9.14 */ const F = fx ? fire914Stats() : {refs: 0, pieces: 0, unkRefs: 0, unkPieces: 0}, t = g.ticks - F.refs, u = g.unknown - F.unkRefs, todo = Math.max(0, u) + F.unkPieces;\n return line(label, [t > 0 ? `${pl(t, 'tick')} on references` : '', F.pieces ? `${pl(F.pieces, 'fire extinguisher')} added on ${pl(F.refs, 'location')}` : '', u > 0 ? `${pl(u, 'tick')} the card carries no figure for` : '', F.unkPieces ? `${pl(F.unkPieces, 'piece')} at a rate to confirm` : '', sub].filter(Boolean).join(' · '), g.unknown >= g.ticks ? '<span class=\"pl-todo\">rate to confirm</span>' : m0(g.amount) + (todo ? ` <span class=\"pl-todo\">+ ${esc(fmtNum(todo))} at a rate to confirm</span>` : ''), CONTRACT); };",
+           'P&L ticks lines', path)
+text = rep(text, "tl(TK.fire_ext, 'Fire extinguishers, per piece', 'a hire charge, not labour')", "tl(TK.fire_ext, 'Fire extinguishers, per piece', 'a hire charge, not labour', true)", 'P&L fire line', path)
+# 16. the P&L By branch table: the fire extinguisher cell flags pieces at a rate to confirm
+text = rep(text, "${showFire ? `<td class=\"num\">${fire ? esc(money0(fire)) : '—'}</td>` : ''}",
+           "${showFire ? `<td class=\"num\">${fire ? esc(money0(fire)) : '—'}${tk.fire_ext.unknown ? '<br><span class=\"w pl-todo\">rate to confirm</span>' : ''}</td>` : ''}", 'P&L branch fire cell', path)
+# 17. Pricing (customer charges): fire extinguishers are counted apart from the labour ticks, and an unpriced one never reads as nought
+text = rep(text, 'const dl = []; let floored = 0, noEnd = 0, ticks = 0, labourSub = 0;', 'const dl = []; let floored = 0, noEnd = 0, ticks = 0, labourSub = 0, fire = 0, fireUnk = 0, fireSub = 0; /* v9.14 */', 'Pricing counters', path)
+text = rep(text, 'if (l.labour && l.labour.ticked.length) { ticks += l.labour.ticked.length; if (l.labour.total != null) labourSub += l.labour.total; }',
+           'if (l.labour && l.labour.ticked.length) { const f9 = l.labour.fire914; ticks += l.labour.ticked.length - (f9 ? 1 : 0); if (l.labour.total != null) labourSub += l.labour.total; if (f9) { fire += f9.n; if (f9.amount == null) fireUnk += f9.n; else fireSub += f9.amount; } /* v9.14 */ }', 'Pricing fire apart', path)
+text = rep(text, 'return {r, c, sub, anyPriced, tr, trKnown, prov, unres, unresWhy, dl, floored, noEnd, ticks, labourSub, charge: sub + labourSub};',
+           'return {r, c, sub, anyPriced, tr, trKnown, prov, unres, unresWhy, dl, floored, noEnd, ticks, labourSub, fire, fireUnk, fireSub, charge: sub + labourSub};', 'Pricing figures out', path)
+text = rep(text, 'const {r, c, sub, anyPriced, tr, trKnown, prov, unres, unresWhy, dl, floored, noEnd, ticks, labourSub} = f;',
+           'const {r, c, sub, anyPriced, tr, trKnown, prov, unres, unresWhy, dl, floored, noEnd, ticks, labourSub, fire, fireUnk, fireSub} = f;', 'Pricing figures in', path)
+text = rep(text, '<td class="num">${anyPriced || (ticks && labourSub) ? `', '<td class="num">${anyPriced || ((ticks || fire) && labourSub) ? `', 'Pricing charge shown', path)
+text = rep(text, " ticks ? `<div class=\"w\" style=\"font-size:11px;color:var(--mute)\">${anyPriced ? 'hire ' + esc(money(sub)) + ' · ' : 'hire not priced · '}labour ${esc(money(labourSub))}, ${ticks} tick${ticks === 1 ? '' : 's'}</div>` : ''}`",
+           " (ticks || fire) ? `<div class=\"w\" style=\"font-size:11px;color:var(--mute)\">${anyPriced ? 'hire ' + esc(money(sub)) + ' · ' : 'hire not priced · '}${[ticks ? 'labour ' + esc(money(Math.round((labourSub - fireSub) * 100) / 100)) + ', ' + ticks + ' tick' + (ticks === 1 ? '' : 's') : '', fire ? fire914PriceWords(fire, fireUnk, fireSub) : ''].filter(Boolean).join(' · ')}</div>` : ''}`",
+           'Pricing row words', path)
+text = rep(text, "c.state === 'no rate line' ? 'no line' : 'not priced'}</span>`}</td>",
+           "c.state === 'no rate line' ? 'no line' : 'not priced'}</span>${fire ? `<div class=\"w\" style=\"font-size:11px;color:var(--mute)\">${fire914PriceWords(fire, fireUnk, fireSub)}</div>` : ''}`}</td>", 'Pricing not-priced row', path)
+# 18. the labour plan: pieces at a rate to confirm are their own chip, not "no qty" (and not in the "labour quantities" check)
+text = rep(text, 'const add = (o, s) => { if (s.value == null) { o.unpriced++; return; } o[s.state] += s.value; o.n[s.state]++; };',
+           'const add = (o, s) => { if (s.fire914 && s.value == null) { o.toConfirm = (o.toConfirm || 0) + (s.qty || 0); return; } /* v9.14 */ if (s.value == null) { o.unpriced++; return; } o[s.state] += s.value; o.n[s.state]++; };', 'labourPlan rate to confirm', path)
+text = rep(text, "} no qty</span>` : ''}</td></tr>`;",
+           "} no qty</span>` : ''}${o.toConfirm ? ` <span class=\"chip act\" title=\"fire extinguishers added where the card carries no Fire Ext. figure: the money is unknown until a rate is given\">${o.toConfirm} rate to confirm</span>` : ''}</td></tr>`;", 'labourPlan row chip', path)
+# 19. Costs: labour lines with no figure are said, not hidden
+text = rep(text, "(c.labour_ticks ? pl(c.labour_ticks, 'tick') : 'nothing ticked yet') + ` · not in the total yet:",
+           "(c.labour_ticks ? pl(c.labour_ticks, 'tick') : 'nothing ticked yet') + (c.labour_unknown ? ` · ${pl(c.labour_unknown, 'line')} not priced yet, not in the figure (rate or quantity to confirm)` : '') + fire914Gap() + ` · not in the total yet:", 'Costs labour line', path)
+# 20. the Finance handover's Hire Revenue line: the pieces at a rate to confirm are named
+text = rep(text, "' · fire extinguishers ticked per piece ' + money0(fire) + ' (a hire charge)' : ''}",
+           "' · fire extinguishers ticked per piece ' + money0(fire) + ' (a hire charge)' : ''}${fire914Gap()}", 'Finance handover hire basis', path)
+# 21. costs to job end (and the Finance handover's list of what is not priced): the pieces at a rate to confirm
+text = rep(text, "gap('Event Portables: Q6846’s hire dates; the invoice and PO'",
+           "{ const fx = allAssets().map(fire914Of).filter(F => F && F.host && F.rate == null); /* v9.14 */\n if (fx.length) gap(`${fx.reduce((n, F) => n + F.n, 0)} fire extinguisher${fx.reduce((n, F) => n + F.n, 0) === 1 ? '' : 's'} on ${fx.length} location${fx.length === 1 ? '' : 's'}: rate to confirm`, 'charged per piece; the card carries no Fire Ext. figure for the item type, so the money is unknown, not nought', 'the project manager — a rate'); }\n gap('Event Portables: Q6846’s hire dates; the invoice and PO'", 'costs to job end gap', path)
+
+# 22. the Finance handover: the same pieces, named under its invoice block
+text = rep(text, '<p class="fin745-basis">Billed per the contract export', '${fire914FhNote()}<p class="fin745-basis">Billed per the contract export', 'Finance handover note', path)
 
 # nothing else moved
 m2 = re.search(r'const DATA = (\{.*?\});\n', text)

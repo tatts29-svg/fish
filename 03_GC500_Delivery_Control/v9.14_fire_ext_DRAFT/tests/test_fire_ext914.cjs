@@ -39,8 +39,21 @@ const DIFF = ([s0, s1, F]) => { const out = []; new Set(Object.keys(s0).concat(O
       const near = [2, -1, -2, 1, 0].find(r => Math.abs(d - r * F) <= 1.0001); /* a figure shown to the whole dollar moves by the same multiple, rounded */
       out.push(/breakeven|pct|percent|ratio|share/i.test(k) ? {k, derived: true, xF: Math.round(d / F * 10000) / 10000} : near !== undefined && Math.abs(d - near * F) > 0.004 ? {k, xF: near, dollarRounded: true} : {k, xF: Math.round(d / F * 10000) / 10000}); } }
   else if (a !== b) out.push({k, from: a === undefined ? 'absent' : a === null ? 'null' : typeof a === 'number' ? 'number' : String(a), to: b === undefined ? 'absent' : b === null ? 'null' : typeof b === 'number' ? 'number' : String(b)}); }); return out; };
+// what the money pages say about fire extinguishers, read off the rendered HTML; dollar figures are never returned, only whether one is there
+const RENDERED = () => { RENDER_MEMO.clear(); return holdAssets(() => {
+  const dom = h => { const d = document.createElement('div'); d.innerHTML = h; d.querySelectorAll('br').forEach(b => b.replaceWith(' ')); return d; }, txt = e => (e ? e.textContent : '').replace(/\s+/g, ' ').trim(), mask = s => s.replace(/\$\s?[\d,]+(\.\d+)?/g, '$#');
+  const P = dom(pl752Card()); const ln = [...P.querySelectorAll('.pl-ln')].find(e => /Fire extinguishers, per piece/.test(txt(e.querySelector('.pl-lb'))));
+  const pl = ln ? {sub: txt(ln.querySelector('.pl-lb small')), amt: mask(txt(ln.querySelector('.pl-amt'))), dollar: /\$\s?\d/.test(txt(ln.querySelector('.pl-amt')))} : {sub: '', amt: '', dollar: false};
+  renderPricing(); const pr = {};
+  ['AA', 'GN01', 'WC09'].forEach(k => { const item = chargeLines(assetOf(k))[0].item; const tr = [...document.querySelectorAll('#pane-pricing tr')].find(r => r.cells[1] && r.cells[1].querySelector('b') && txt(r.cells[1].querySelector('b')) === item && r.cells.length > 6);
+    const cell = tr ? [...tr.cells].find(c => /fire extinguisher/.test(c.textContent)) : null; pr[k] = cell ? mask(txt(cell)) : null; pr[k + 'LabourNought'] = cell ? /labour \$0(\.00)?(?![\d.,])/.test(txt(cell)) : null; });
+  const L = dom(labourPlanHtml()); const lr = [...L.querySelectorAll('tr')].find(r => r.cells[0] && txt(r.cells[0]) === 'Fire extinguisher');
+  const C = mask(txt(dom(marginCard())).match(/Labour ticked on references.{0,400}/) ? txt(dom(marginCard())).match(/Labour ticked on references.{0,400}/)[0] : '');
+  const X = cj764Model(), g = X.gaps.find(x => /fire extinguishers? on \d+ locations?: rate to confirm/.test(x.what));
+  const hire = JSON.stringify(pl770Model()), fh = dom(fh866Html()).querySelector('[data-fire914-fh]');
+  return {pl, pr, lp: {row: lr ? mask(txt(lr)) : null}, costs: C, gap: g ? g.what : null, gaps: X.gaps.length, hireBasis: /fire extinguishers? on \d+ locations?: rate to confirm/.test(hire), fh: fh ? txt(fh) : null}; }); };
 const shotEl = async (p, file, sel) => { /* one element, cut to the screen; reports whether a dollar figure is in frame */
-  await p.evaluate(s => { const f = document.querySelector('#flash'); if (f) { f.hidden = true; f.style.display = 'none'; } const el = document.querySelector(s); if (el) el.scrollIntoView({block: 'center'}); }, sel);
+  await p.evaluate(s => { const f = document.querySelector('#flash'); if (f) { f.hidden = true; f.style.display = 'none'; } const el = document.querySelector(s); if (el) el.scrollIntoView({block: 'center', inline: 'nearest'}); }, sel);
   await p.waitForTimeout(700);
   const box = await p.evaluate(s => { const e = document.querySelector(s); if (!e) return null; const r = e.getBoundingClientRect(); const top = Math.max(0, r.top), bottom = Math.min(innerHeight, r.bottom);
     return {x: Math.max(0, r.left), y: top, width: Math.min(innerWidth, r.right) - Math.max(0, r.left), height: bottom - top, dollars: /\$\s?\d/.test(e.innerText)}; }, sel);
@@ -81,7 +94,7 @@ async function sessionA() {
     const quietWrites = captured.length;
     const ed = [];
     for (const k of ['AA', 'GN01', 'T0001', 'WC09', 'T0023']) { await openContents(p, k); ed.push(await blockState(p, k)); }
-    const shows = e => e.block && e.fold === 'contents' && e.save === 'Add fire extinguisher' && e.buttons.length === 3 && e.buttons.every(b => b.h >= 44) && /\+ fire extinguisher/.test(e.sum || '');
+    const shows = e => e.block && e.fold === 'contents' && e.save === 'Add fire extinguisher' && e.buttons.length === 3 && e.buttons.every(b => b.h >= 44) && /add fire extinguishers/.test(e.sum || '');
     ok('editor: "Add fire extinguisher" with - and + (44 px taps) in "Inside it and asset numbers" on a building, a generator and a plant line', ['AA', 'GN01', 'T0001'].every(k => shows(ed.find(e => e.key === k))), ed.slice(0, 3));
     ok('editor: the same control on a toilet and a container', ['WC09', 'T0023'].every(k => shows(ed.find(e => e.key === k))), ed.slice(3));
     const ch = Object.fromEntries(ed.map(e => [e.key, e.charge]));
@@ -101,7 +114,7 @@ async function sessionA() {
     const v = Array.isArray(body.v) ? body.v : [];
     const fire = v.filter(r => r.type === 'Fire extinguisher'), row = fire[0] || {};
     ok('adding 2 on AA writes exactly one document, accessories/AA (captured and aborted), and nothing else', quietWrites === 0 && urls.length === 1 && urls[0] === '/api/doc/accessories/AA' && puts.every(c => c.body === puts[0].body), {quietWrites, urls, sends: puts.length});
-    ok('the document holds one fire extinguisher row: quantity 2, no asset number, with who and when; the other rows unchanged',
+    ok('the document holds one fire extinguisher row: quantity 2, no asset number, with who and when (AA\'s document had no other rows; WC09 below proves other rows survive)',
       body._k === 'AA' && fire.length === 1 && row.qty === 2 && row.qty_stated === true && row.asset_no === null && row.as_written === 'Fire extinguisher' && row.origin === 'added in this page' && row._added === true
       && row.added_by === 'Practice Editor' && !isNaN(Date.parse(row.added_at)) && /not numbered/.test(row.asset_no_state) && JSON.stringify(v.filter(r => r.type !== 'Fire extinguisher')) === accBefore,
       {keys: Object.keys(row).sort(), qty: row.qty, asset_no: row.asset_no, asset_no_state: row.asset_no_state, by: row.added_by, others: v.length - fire.length});
@@ -109,8 +122,50 @@ async function sessionA() {
     const after = await blockState(p, 'AA');
     ok('after the save the drawer reads "Fire extinguisher × 2" with Save quantity and Take off', after.words === 'Fire extinguisher × 2' && after.save === 'Save quantity' && after.buttons.some(b => b.t === 'Take off') && /Fire extinguisher × 2/.test(after.sum || '') && !/\d+ inside/.test((after.sum || '').replace('3 inside', '')), after);
     ok('the ordinary accessories list on AA is unchanged (still its 3 inside, no fire row in it)', await p.evaluate(() => { const a = assetOf('AA'); return (a.accessories || []).length === 3 && !(a.accessories || []).some(fire914Is) && ![...document.querySelectorAll('#drawer .acc b')].some(b => /Fire/.test(b.textContent)); }));
-    const sh = await shotEl(p, 'drawer_editor_AA_' + TAG + '.png', '#drawer details[data-f816="contents"]');
-    ok('screenshot: the editor drawer part on AA (practice capability), no dollar figure in frame', sh && !sh.missing && !sh.dollars, sh);
+    const sh0 = await shotEl(p, 'drawer_editor_AA_' + TAG + '.png', '#drawer details[data-f816="contents"]');
+    ok('screenshot: the editor drawer part on AA with 2 saved (practice capability), no dollar figure in frame', sh0 && !sh0.missing && !sh0.dollars, sh0);
+    await openContents(p, 'AA');
+    const ghost = await p.evaluate(() => { const b = document.querySelector('#drawer [data-fire914-save]'); return {ghost: b.classList.contains('ghost'), primary: b.classList.contains('primary'), note: document.querySelector('#drawer [data-fire914-unsaved]').textContent}; });
+    await p.click('#drawer [data-fire914-plus]'); await p.waitForTimeout(150);
+    const changed = await p.evaluate(() => { const b = document.querySelector('#drawer [data-fire914-save]'); return {primary: b.classList.contains('primary'), note: document.querySelector('#drawer [data-fire914-unsaved]').textContent}; });
+    await p.click('#drawer [data-fire914-minus]'); await p.waitForTimeout(150);
+    const back = await p.evaluate(() => { const b = document.querySelector('#drawer [data-fire914-save]'); return {ghost: b.classList.contains('ghost'), note: document.querySelector('#drawer [data-fire914-unsaved]').textContent}; });
+    ok('Save quantity is quiet (ghost) when nothing changed; + makes it the main button and says "Not saved yet"; − back makes it quiet again; nothing is written', ghost.ghost && !ghost.primary && !ghost.note && changed.primary && /Not saved yet: 3 set, 2 on the record/.test(changed.note) && back.ghost && !back.note, {ghost, changed, back});
+    // the accessories type list: "Fire extinguisher" takes the editor to the Add / Save button
+    const pick = await p.evaluate(async () => { const sel = document.querySelector('#drawer #accType'); if (!sel) return null; const opt = [...sel.options].find(o => o.value === '__fire914');
+      sel.value = '__fire914'; sel.dispatchEvent(new Event('change', {bubbles: true})); await new Promise(r => setTimeout(r, 900));
+      const ae = document.activeElement; return {has: !!opt, text: opt ? opt.textContent : null, reset: sel.value !== '__fire914', focus: !!(ae && ae.matches && ae.matches('[data-fire914-save]')), inView: (() => { const r = document.querySelector('#drawer [data-fire914]').getBoundingClientRect(); return r.top < innerHeight && r.bottom > 0; })()}; });
+    ok('the accessories type list offers "Fire extinguisher — no asset number, counted below"; picking it resets the list and brings the fire extinguisher button into view with focus', pick && pick.has && pick.reset && pick.focus && pick.inView, pick);
+    // Take off: one document, the count kept (off_qty), who and when; the drawer still shows it
+    const beforeOff = captured.length;
+    await p.click('#drawer [data-fire914-off]'); await p.waitForTimeout(7000);
+    const offPuts = captured.slice(beforeOff).filter(c => c.method === 'PUT' || c.method === 'POST' || c.method === 'DELETE');
+    const offUrls = [...new Set(offPuts.map(c => decodeURIComponent(c.url)))];
+    let offBody = {}; try { offBody = JSON.parse(offPuts[offPuts.length - 1].body); } catch (e) {}
+    const offRow = ((offBody.v || []).filter(r => r.type === 'Fire extinguisher'))[0] || {};
+    ok('Take off writes exactly one document, accessories/AA: the row stays at quantity 0 with off_qty 2, taken_off_by and taken_off_at; the add stamp is kept',
+      offUrls.length === 1 && offUrls[0] === '/api/doc/accessories/AA' && offRow.qty === 0 && offRow.off_qty === 2 && offRow.taken_off_by === 'Practice Editor' && !isNaN(Date.parse(offRow.taken_off_at)) && offRow.added_by === 'Practice Editor' && offRow.asset_no === null,
+      {offUrls, qty: offRow.qty, off_qty: offRow.off_qty, by: offRow.taken_off_by, keys: Object.keys(offRow).sort()});
+    await openContents(p, 'AA');
+    const offState = await p.evaluate(() => { const f = document.querySelector('#drawer [data-fire914]'); const l = f && f.querySelector('[data-fire914-off-line]');
+      return {line: l ? l.textContent.replace(/\s+/g, ' ').trim() : null, n: f && f.querySelector('[data-fire914-n]') ? f.querySelector('[data-fire914-n]').textContent : null, save: f && f.querySelector('[data-fire914-save]') ? f.querySelector('[data-fire914-save]').textContent.trim() : null,
+        sum: (document.querySelector('#drawer details[data-f816="contents"] summary') || {}).innerText || null}; });
+    ok('after Take off the drawer says "Taken off · was Fire extinguisher × 2 · Practice Editor · <when>", the stepper starts at 2 and "Add fire extinguisher × 2" puts them back', /^Taken off · was Fire extinguisher × 2 · Practice Editor · \S/.test(offState.line || '') && offState.n === '2' && offState.save === 'Add fire extinguisher × 2' && /fire extinguishers taken off/.test(offState.sum || ''), offState);
+    // WC09: its document holds today's air conditioners - a fire save keeps every other row exactly
+    await openContents(p, 'WC09');
+    const wcBefore = await p.evaluate(() => JSON.stringify(S.accessories.WC09 || []));
+    const beforeWc = captured.length;
+    await p.click('#drawer [data-fire914-save]'); await p.waitForTimeout(7000);
+    const wcPuts = captured.slice(beforeWc).filter(c => c.method === 'PUT' || c.method === 'POST' || c.method === 'DELETE');
+    const wcUrls = [...new Set(wcPuts.map(c => decodeURIComponent(c.url)))].filter(u => u !== '/api/doc/accessories/AA'); /* AA's aborted save may still be retried by the outbox */
+    let wcBody = {}; try { wcBody = JSON.parse(wcPuts.filter(c => /accessories\/WC09/.test(decodeURIComponent(c.url))).pop().body); } catch (e) {}
+    const wcOthers = (wcBody.v || []).filter(r => r.type !== 'Fire extinguisher'), wcFire = (wcBody.v || []).filter(r => r.type === 'Fire extinguisher');
+    const wcOld = JSON.parse(wcBefore);
+    ok('adding 1 on WC09 writes exactly one document, accessories/WC09; its other rows (the air conditioners added today) are kept exactly', wcUrls.length === 1 && wcUrls[0] === '/api/doc/accessories/WC09' && wcOld.length >= 2 && JSON.stringify(wcOthers) === wcBefore && wcFire.length === 1 && wcFire[0].qty === 1 && wcFire[0].asset_no === null,
+      {wcUrls, otherRows: wcOthers.length, types: wcOthers.map(r => r.type), fire: wcFire.map(r => r.qty)});
+    await openContents(p, 'AA');
+    const sh = await shotEl(p, 'drawer_editor_AA_takenoff_' + TAG + '.png', '#drawer [data-fire914]');
+    ok('screenshot: the editor drawer part on AA after Take off (practice capability), no dollar figure in frame', sh && !sh.missing && !sh.dollars, sh);
     const gnShot = await (async () => { await openContents(p, 'GN01'); return shotEl(p, 'drawer_editor_GN01_' + TAG + '.png', '#drawer [data-fire914]'); })();
     ok('screenshot: the editor control on a generator (GN01), rate to confirm, no dollar figure in frame', gnShot && !gnShot.missing && !gnShot.dollars, gnShot);
     const fit = await p.evaluate(() => ({page: document.documentElement.scrollWidth <= innerWidth + 1, drawer: (() => { const d = document.getElementById('drawer'); return d.scrollWidth <= d.clientWidth + 1; })()}));
@@ -127,7 +182,9 @@ async function sessionB() {
   const s = await open({pageFile: PAGE, mobile: MOB, W, H, dpr: MOB ? 2 : 1}); const p = s.page; let phase = 0; const cons = [];
   p.on('console', m => { if (m.type() === 'error') cons.push(m.text().slice(0, 200)); }); p.on('crash', () => console.log('INFO the page crashed (renderer)')); s.browser.on('disconnected', () => console.log('INFO the browser disconnected'));
   const row = (n, at) => ({type: 'Fire extinguisher', qty: n, qty_stated: true, as_written: 'Fire extinguisher', asset_no: null, asset_no_state: 'not numbered - counted by quantity', origin: 'added in this page', source_task: null, _added: true, added_at: at, added_by: 'Practice Recorder'});
-  const ADD = {1: {AA: row(2, '2026-10-08T06:30:00.000Z')}, 2: {AA: row(2, '2026-10-08T06:30:00.000Z'), GN01: row(2, '2026-10-08T06:31:00.000Z'), WC09: row(2, '2026-10-08T06:32:00.000Z')}};
+  const offRow = Object.assign(row(0, '2026-10-08T06:31:00.000Z'), {off_qty: 2, taken_off_at: '2026-10-08T06:45:00.000Z', taken_off_by: 'Practice Taker', edited_at: '2026-10-08T06:45:00.000Z', edited_by: 'Practice Taker'});
+  const ADD = {1: {AA: row(2, '2026-10-08T06:30:00.000Z')}, 2: {AA: row(2, '2026-10-08T06:30:00.000Z'), GN01: row(2, '2026-10-08T06:31:00.000Z'), WC09: row(2, '2026-10-08T06:32:00.000Z')},
+    3: {GN01: offRow, WC09: row(2, '2026-10-08T06:32:00.000Z')}};
   await p.route(/\/api\/(version|state)(\?|$)/, async route => { const r = route.request(); const res = await curlFetch(r.url(), r.headers(), 'GET');
     let body = res.body; if (phase && res.status === 200) { const j = JSON.parse(body.toString()); j.version = j.version + 1000000 * phase;
       if (j.docs) { const acc = j.docs.accessories = j.docs.accessories || {}; Object.entries(ADD[phase]).forEach(([k, x]) => { const id = Object.keys(acc).find(i => acc[i] && acc[i]._k === k) || k; const d = acc[id] = acc[id] || {_k: k, v: []}; d.v = (d.v || []).filter(y => y.type !== 'Fire extinguisher').concat([x]); }); }
@@ -139,7 +196,7 @@ async function sessionB() {
     });
     ok("AA's item (Building 6m) has a card Fire Ext. figure (headed 2025); GN01 and WC09 have none", F0.has && F0.heading === 'Fire Ext. 2025' && await p.evaluate(() => !chargeLines(assetOf('GN01')).some(l => fire914CardLine(l, 'GN01')) && !chargeLines(assetOf('WC09')).some(l => fire914CardLine(l, 'WC09'))), F0);
     const pre = await p.evaluate(() => { const LP = labourPlan(); return {aaForecast: LP.slots.filter(x => x.ref === 'AA' && x.key === 'fire_ext').reduce((n, x) => n + (x.qty || 0), 0), aaStates: LP.slots.filter(x => x.ref === 'AA' && x.key === 'fire_ext').map(x => x.state),
-      others: JSON.stringify(LP.slots.filter(x => x.ref !== 'AA' && x.key === 'fire_ext').map(x => [x.ref, x.item, x.unit, x.qty, x.state, x.value != null])), fireTicks: Object.keys(S.labour || {}).filter(k => /\|fire_ext$/.test(k) && S.labour[k]).length}; });
+      others: JSON.stringify(LP.slots.filter(x => x.ref !== 'AA' && x.key === 'fire_ext').map(x => [x.ref, x.item, x.unit, x.qty, x.state, x.value != null])), fireTicks: Object.keys(S.labour || {}).filter(k => /\|fire_ext$/.test(k) && S.labour[k]).length, gaps: cj764Model().gaps.length}; });
     const s0 = await p.evaluate(MONEY_SNAP);
     // phase 1: a record of 2 on AA arrives
     phase = 1;
@@ -177,8 +234,11 @@ async function sessionB() {
     await p.evaluate(() => { const c = document.querySelector('#dclose'); if (c) c.click(); const a = assetOf('AA'); state.plantGroup = PLANT_GROUP_WORDS[a.product] || a.product || a.discipline; state.light = null; state.q = ''; go('plant'); render(); }); await p.waitForTimeout(3500);
     const eq = await p.evaluate(() => { const e = document.querySelector('#pane-plant [data-fire914-equip="AA"]'); if (!e) return null; let d = e.closest('details'); while (d) { d.open = true; d = d.parentElement && d.parentElement.closest('details'); } return e.innerText.trim(); });
     ok('Equipment: AA\'s row shows "Fire extinguisher × 2"', eq === 'Fire extinguisher × 2', eq);
-    if (eq) { const sh2 = await shotEl(p, 'equipment_AA_' + TAG + '.png', '#pane-plant [data-fire914-equip="AA"]'); await p.evaluate(() => { const e = document.querySelector('#pane-plant [data-fire914-equip="AA"]'); e.closest('tr').setAttribute('data-fire914-row', '1'); });
-      const sh3 = await shotEl(p, 'equipment_AA_row_' + TAG + '.png', '#pane-plant tr[data-fire914-row]');
+    if (eq) { await p.evaluate(() => { const e = document.querySelector('#pane-plant [data-fire914-equip="AA"]'), td = e.closest('td'); e.closest('tr').setAttribute('data-fire914-row', '1'); td.setAttribute('data-fire914-cell', '1');
+        let s = td.parentElement; while (s && !(s.scrollWidth > s.clientWidth + 2 && /auto|scroll/.test(getComputedStyle(s).overflowX))) s = s.parentElement; /* the phone table scrolls sideways: bring AA's asset cell into view */
+        if (s) s.scrollLeft = Math.max(0, td.getBoundingClientRect().left - s.getBoundingClientRect().left + s.scrollLeft - 120); });
+      const sh2 = await shotEl(p, 'equipment_AA_' + TAG + '.png', '#pane-plant td[data-fire914-cell]');
+      const sh3 = MOB ? sh2 : await shotEl(p, 'equipment_AA_row_' + TAG + '.png', '#pane-plant tr[data-fire914-row]');
       ok('screenshot: AA\'s Equipment row, no dollar figure in frame', sh3 && !sh3.missing && !sh3.dollars, sh3); }
     const sheets = await p.evaluate(() => { const strip = h => String(h).replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ');
       for (const d of programmeDays()) { const loads = dpLoads(d) || []; const g = loads.find(x => (x.rows || []).some(r => r.a.key === 'AA')); if (!g) continue;
@@ -201,7 +261,19 @@ async function sessionB() {
     console.log('INFO phase 2 (GN01: 2, WC09: 2, no card figure) - every figure that changed:'); d2.forEach(x => console.log('INFO   ' + x.k + '  ' + (x.xF !== undefined ? x.xF + ' x F' : x.count !== undefined ? 'count ' + x.count : x.from + ' -> ' + x.to)));
     ok('no card figure: no money figure moves at all (never nought added, never a guess)', money2.length === 0, money2);
     const c2 = kk => (counts2.find(x => x.k === kk) || {}).count;
-    ok('no card figure: the money reads unknown - Costs labour_unknown +2, P&L fire_ext unknown +2, labour plan unpriced +2', c2('M.charge.labour_unknown') === 2 && c2('TK.fire_ext.unknown') === 2 && c2('TK.unknown') === 2 && c2('LP.all.unpriced') === 2, counts2);
+    const lpc = await p.evaluate(() => { const A = labourPlan().all; return {toConfirm: A.toConfirm || 0, unpriced: A.unpriced}; });
+    ok('no card figure: the money reads unknown - Costs labour_unknown +2 lines, P&L fire_ext unknown +2, labour plan "rate to confirm" 4 pieces (not "no qty": its unpriced count does not move)', c2('M.charge.labour_unknown') === 2 && c2('TK.fire_ext.unknown') === 2 && c2('TK.unknown') === 2 && c2('LP.all.unpriced') === undefined && lpc.toConfirm === 4, {counts2, lpc});
+    // what the money pages SAY (rendered), never nought for the 4 pieces at a rate to confirm
+    const said2 = await p.evaluate(RENDERED);
+    console.log('INFO phase 2 rendered (no dollar figures): ' + JSON.stringify(said2));
+    ok('P&L: the fire extinguisher line counts pieces and locations ("6 fire extinguishers added on 3 locations", "4 pieces at a rate to confirm") and its amount adds "+ 4 at a rate to confirm"',
+      /6 fire extinguishers added on 3 locations/.test(said2.pl.sub) && /4 pieces at a rate to confirm/.test(said2.pl.sub) && /\+ 4 at a rate to confirm/.test(said2.pl.amt) && said2.pl.dollar && !/ticks?\b/.test(said2.pl.sub.replace(/a hire charge, not labour/, '')), said2.pl);
+    ok('Pricing: GN01\'s and WC09\'s item rows say "2 fire extinguishers, rate to confirm" and never a labour of nought; AA\'s row says its 2 fire extinguishers with a figure',
+      said2.pr.GN01 && /2 fire extinguishers, rate to confirm/.test(said2.pr.GN01) && said2.pr.GN01LabourNought === false && said2.pr.WC09 && /2 fire extinguishers, rate to confirm/.test(said2.pr.WC09) && said2.pr.WC09LabourNought === false && /2 fire extinguishers \$#/.test(said2.pr.AA || ''), said2.pr);
+    ok('labour plan: the Fire extinguisher row chips "4 rate to confirm", and no "no qty" appears for them', /4 rate to confirm/.test(said2.lp.row || '') && !/no qty/.test(said2.lp.row || ''), said2.lp);
+    ok('Costs: the labour line names "2 lines not priced yet" and "4 fire extinguishers on 2 locations: rate to confirm"', /2 lines not priced yet/.test(said2.costs) && /4 fire extinguishers on 2 locations: rate to confirm/.test(said2.costs), said2.costs);
+    ok('costs to job end lists "4 fire extinguishers on 2 locations: rate to confirm" as an item not priced (one more than before), and the P&L model\'s Hire Revenue basis names them', said2.gap && said2.gaps === pre.gaps + 1 && said2.hireBasis, {gap: said2.gap, gaps: said2.gaps, before: pre.gaps, hireBasis: said2.hireBasis});
+    ok('the Finance handover names them under its invoice block: "Not in the invoice figures: 4 fire extinguishers on 2 locations, rate to confirm"', /^Not in the invoice figures: 4 fire extinguishers on 2 locations, rate to confirm/.test(said2.fh || ''), {fh: said2.fh});
     const t2 = kk => types2.find(x => x.k === kk);
     const wcTot = await p.evaluate(() => assetTotal(assetOf('WC09')).total);
     ok("no card figure: GN01's total and both locations' labour turn unknown (number -> null); WC09's total stays unknown; what is known on them does not move", t2('AT.GN01.total') && t2('AT.GN01.total').to === 'null' && t2('AT.GN01.labour').to === 'null' && t2('AT.WC09.labour').to === 'null' && wcTot === null && !money2.some(x => /^AT\./.test(x.k)), types2);
@@ -215,6 +287,28 @@ async function sessionB() {
     await openContents(p, 'WC09');
     const wv = await blockState(p, 'WC09');
     ok('view link: WC09 (toilet, the card writes 0.00) shows "Fire extinguisher × 2" and "rate to confirm"', wv.words === 'Fire extinguisher × 2' && /rate to confirm/.test(wv.charge || '') && wv.controls === 0, wv);
+    // phase 3: GN01's 2 are taken off (qty 0, off_qty 2), WC09 keeps 2 with no card figure, AA has none - every piece unpriced
+    phase = 3;
+    await p.waitForFunction(() => fire914Qty('AA') === 0 && fire914Qty('GN01') === 0 && fire914Rows('GN01').length === 1 && fire914Qty('WC09') === 2, null, {timeout: 40000}); await p.waitForTimeout(1500);
+    const s3 = await p.evaluate(MONEY_SNAP);
+    const d3 = await p.evaluate(DIFF, [s0, s3, await p.evaluate(() => window.__F)]);
+    ok('a taken-off row (quantity 0) and pieces with no card figure move no money figure against nothing recorded', d3.filter(x => x.xF !== undefined).length === 0, d3.filter(x => x.xF !== undefined));
+    const said3 = await p.evaluate(RENDERED);
+    console.log('INFO phase 3 rendered (no dollar figures): ' + JSON.stringify(said3));
+    ok('P&L: with every piece unpriced the fire extinguisher amount reads "rate to confirm", never nought', /^rate to confirm$/.test(said3.pl.amt) && !said3.pl.dollar && /2 fire extinguishers added on 1 location/.test(said3.pl.sub), said3.pl);
+    await openContents(p, 'GN01');
+    const gOff = await p.evaluate(() => { const f = document.querySelector('#drawer [data-fire914]'); const l = f && f.querySelector('[data-fire914-off-line]'); return {fold: !!document.querySelector('#drawer details[data-f816="contents"]'), line: l ? l.textContent.replace(/\s+/g, ' ').trim() : null, controls: f ? f.querySelectorAll('button').length : null, sum: (document.querySelector('#drawer details[data-f816="contents"] summary') || {}).innerText || null, cap: capability()}; });
+    ok('view link: GN01\'s taken-off row shows on the drawer: "Taken off · was Fire extinguisher × 2 · Practice Taker · <when>", no control', gOff.fold && /^Taken off · was Fire extinguisher × 2 · Practice Taker · \S/.test(gOff.line || '') && gOff.controls === 0 && gOff.cap !== 'edit' && /fire extinguishers taken off/.test(gOff.sum || ''), gOff);
+    const sh6 = await shotEl(p, 'drawer_view_GN01_takenoff_' + TAG + '.png', '#drawer [data-fire914]');
+    ok('screenshot: GN01 taken off on the view link, no dollar figure in frame', sh6 && !sh6.missing && !sh6.dollars, sh6);
+    // the editor sees the same line, and the stepper starts at the count it had (nothing is clicked, so nothing is written)
+    const capB = [];
+    await p.route('**/api/doc/**', async route => { capB.push(route.request().url()); await route.abort(); });
+    await p.evaluate(() => { window.capability = () => 'edit'; SYNC.readonly = false; SYNC.level = 'edit'; document.body.classList.remove('viewonly'); });
+    await openContents(p, 'GN01');
+    const gOffEd = await p.evaluate(() => { const f = document.querySelector('#drawer [data-fire914]'); const l = f && f.querySelector('[data-fire914-off-line]'); return {line: l ? l.textContent.replace(/\s+/g, ' ').trim() : null, n: f && f.querySelector('[data-fire914-n]') ? f.querySelector('[data-fire914-n]').textContent : null, save: f && f.querySelector('[data-fire914-save]') ? f.querySelector('[data-fire914-save]').textContent.trim() : null}; });
+    await p.evaluate(() => { window.capability = () => 'view'; SYNC.readonly = true; SYNC.level = 'view'; document.body.classList.add('viewonly'); });
+    ok('editor (practice): GN01 shows the same taken-off line; the stepper starts at 2 and reads "Add fire extinguisher × 2"; nothing was written', /^Taken off · was Fire extinguisher × 2/.test(gOffEd.line || '') && gOffEd.n === '2' && gOffEd.save === 'Add fire extinguisher × 2' && capB.length === 0, {gOffEd, writes: capB.length});
     ok('session B: no page errors, no console errors, nothing written (0 blocked)', s.errors.length === 0 && cons.filter(t => !/status of 404|Failed to load resource/.test(t)).length === 0 && s.counts.blocked === 0, {errors: s.errors, cons: cons.slice(0, 4), counts: s.counts});
   } finally { await s.browser.close(); }
 }

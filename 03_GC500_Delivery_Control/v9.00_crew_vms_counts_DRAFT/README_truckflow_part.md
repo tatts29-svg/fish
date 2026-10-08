@@ -1,7 +1,9 @@
 # v9.00 truck flow part — the Truck flow card folds to one closed line (DRAFT)
 
 Author: Andrew Fisher · 8 Oct 2026 · state: **DRAFT**, built and tested, not uploaded, not committed by this part ·
-base: live **v9.11** (sha256 `408ae6ac…7c2d1`) · the footer step takes the next free number when it publishes
+base: live **v9.18** (sha256 `c547a6de…b14b762`; the work started on v9.11, `408ae6ac…7c2d1`, and live moved while it was
+being tested, so it was rebuilt and retested on v9.18) · built page sha256 `524a45b8…5450c160` · the footer is untouched; the
+footer step takes the next free number when it publishes
 
 ## What Andrew said
 
@@ -46,7 +48,7 @@ In its place each day shows **one thin closed line**:
 
 `patch_v900_truckflow.py` adds **one style** (before the first `</head>`) and **one script** (before the last
 `</body>`). The script wraps the card's own render function, `flow891Card`, by name. The `dayPanels` override that calls
-it is not edited, and no markup Codex owns is touched.
+it is not edited, and no markup another release owns is touched.
 
 The patch refuses to run twice (it looks for `flow909-script`). It refuses a base without v8.91's card, or before v9.11.
 It proves DATA is byte-identical and round-trips, the footer is untouched, and nothing but the style and the script
@@ -56,19 +58,57 @@ was added.
     toolchain/build.sh v909_truckflow v9.00_crew_vms_counts_DRAFT/patch_v900_truckflow.py
 
 Not touched: DATA, the record (read-only), money, the footer, v9.11's Workers picker on each load, the readable
-dropdowns, the Arrange loads workspace and its order controls, the load cards, every other script.
+dropdowns, the Arrange loads workspace and its order controls, the load cards, every other script. Between v9.11 and v9.18
+the Truck flow script (`flow891-script`) and its styles are byte-identical, so the patch lands the same way on both.
 
 ## Checks (record 4508, read-only)
 
-RESULTS_PLACEHOLDER
+`tests/test_truckflow900.cjs` opens the live base page and the built page one after the other, at the live address, reading
+the live record (record 4581). Every write the page tries is aborted by the harness. It checks Wed 14 Oct (the project
+manager's screenshot) and today, Thu 8 Oct. It was run four ways: laptop 1440 × 900 and phone 390 × 844, each in light
+and dark. **All four pass, 26 of 26 each** (`evidence_truckflow/test_*.log` and `.json`).
+
+| check | result |
+|---|---|
+| the card's place shows one closed line | 14 Oct: "Truck flow · 4 loads · 4 to check" (the four loads with no Kingston load time and no arrival window). 8 Oct: "Truck flow · 3 loads · 2 to check". The card inside is not shown while the fold is closed. |
+| the count is right on every day | all 40 programme days with loads match an independent count in the test, and all draw closed. "Nothing to check" on 22 and 27 Sep, 25, 27, 28, 29 and 30 Oct, 6, 12 and 13 Nov |
+| compact | laptop: the line is 40 px tall. Phone: a 44 px tap target, one line, no sideways overflow at 390 px |
+| light and dark | the line takes the page's paper and ink tokens in both (checked by colour, and looked at) |
+| opening shows the card as it is today | a real press opens it. The card's markup is byte-for-byte the base's and its text is the same (3,343 characters on 14 Oct). Order, People on, the areas, Oversized, Curfew first, Could share a truck and Rules are all there |
+| the rest of the Timeline is untouched | with the fold unwrapped, the whole Timeline pane is byte-for-byte the base's: the load cards, the Workers picker, the dropdowns (29 on 14 Oct), the order controls, Arrange loads. The comparison ignores only what differs between any two draws: SVG ids numbered by a running counter, the gantry's on-screen class, the weather's "fetched hh:mm", and an empty style attribute |
+| the buttons inside still work the same way | in edit practice (stubs only, captured, never saved), the three Make it Load 1 buttons on 14 Oct, the People on Save and the order controls (▼ / ▲) call the same functions with the same arguments as on the base: `flow891Move(day, load, "first")` and so on |
+| nothing is written | the local record, localStorage and sessionStorage are identical (SHA-256) before and after opening, closing and redrawing. Blocked writes: 0 |
+| it stays the way it was left | an opened fold stays open through a redraw; a closed one stays closed |
+| the jump and the print | a load's Curfew first / Area full jump opens the fold. A print opens every fold and closes it afterwards. The line has a print rule that hides it |
+| money | `moneySummary` and `fh866Model` are identical on both pages |
+| errors | no page errors on either page, and no write attempted |
+
+**Sweeps** (`toolchain/harness/sweep.js`, record 4581, `evidence_truckflow/sweep_*.json`):
+
+| run | tabs | page errors | console errors | blocked writes |
+|---|---|---|---|---|
+| build, laptop | 21 (15 shown) | 0 | 0 | 0 |
+| build, phone | 21 (15 shown) | 0 | 0 | 0 |
+| base, laptop | 21 (15 shown) | 0 | 0 | 0 |
+| base, phone | 21 (15 shown) | 0 | 0 | 0 |
+
+On both pages the six tabs not shown are the same ones the page hides on purpose (add, breakdowns, edit, journal, register,
+variances). The deep links and back/forward behave the same on both.
+
+**Rig note.** From about 16:30 AEST on 8 Oct the machine's disk was full. Headless Chromium then crashed within seconds
+of opening, on the live base page (v9.10 and v9.11) exactly as on the build, first when the page's parked map explorer
+loaded. The recorded runs put the browser's temporary files on `/dev/shm` (`TMPDIR`) and needed nothing else.
+`NOEXPLORER=1` in the test is kept as a fallback only. The same tests also passed on the v9.11 build earlier, before live
+moved (`evidence_truckflow/on_v911/`).
 
 ## Evidence
 
-`evidence_truckflow/`:
-- before and after screenshots for 14 Oct: laptop and phone, light and dark, the card as it is (before), the line closed
-  (after), and the line opened (after);
-- one day with nothing to check;
-- the JSON results of each test run, and both sweeps.
+`evidence_truckflow/` (on v9.18; `on_v911/` holds the same set from the v9.11 build):
+- `before_*_14oct.png`: the card as it is today, on laptop and phone, light and dark;
+- `after_closed_*_14oct.png`: the line, closed, in its place;
+- `after_open_*_14oct.png`: the line opened, with the card below it exactly as before;
+- `after_closed_*_nothing_2026-10-25.png`: a day with nothing to check;
+- `test_*.log` / `.json`: the four test runs; `sweep_*.json`: both sweeps on the build and on the base.
 
 Each screenshot was looked at. No dollar figure is in frame.
 
@@ -77,5 +117,9 @@ Each screenshot was looked at. No dollar figure is in frame.
 - **This is a layout change.** The rule from 2 Oct says to show a mock-up on the real page and get Andrew's yes before
   building a new layout. This draft is that mock-up: the screenshots show it on the real page, and it goes live only on
   his yes.
-- "to check" counts a load with no Kingston load time as needing action, as the card's own Curfew first row does. If
-  Andrew wants only red flags counted (late runs, areas over their limit), that is a one-line change.
+- "to check" counts a load with no arrival window, or no Kingston load time on an oversized load, as needing action, as
+  the brief asked. Right now that is most coming loads (19 Oct: 29 of 30), so the count stays high until load times are
+  given. If Andrew wants only red flags counted (late runs, areas over their limit, oversized over the guide), that is a
+  small change.
+- "N loads" is the card's own load count (deliveries and pickups). "to check" looks at delivery loads, because the card's
+  checks are about delivery loads; 26 Oct reads "7 loads · 1 to check".

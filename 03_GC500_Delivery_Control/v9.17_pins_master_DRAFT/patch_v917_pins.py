@@ -11,6 +11,11 @@
 # PART 2 - one point per reference: the drop email's "Sat nav" line and button, the drawer's satellite panel (Approx.
 #   position, Copy, Street View, Google Earth, From Coates Kingston), the drawer's "Where it is" links and the map pin /
 #   search spot read the point Navigate uses (dest782) instead of the drawing callout (aerialPointFor) or their own pin.
+#   After the 8 Oct review, the rest of it too: the printed drop sheet's "Sat nav" and its pictures, the driver card's
+#   "Ground position", the drop email's "Pinned on site" (no second, unverified master position for the big screens), and
+#   every picture or map pin that rings the point (Today's day cards, the banner map, the drop email and driver page
+#   pictures, the search aerial, the drawer's satellite window, the 3D fly-to, the gate bearing in the two mail-outs) -
+#   through aerialNav917(a), the callout's frame point with Navigate's point put in its place.
 #   No Navigate point changes because of this part.
 # PART 3 - wording: the 23 map-layer items labelled "Entry point" read "Emergency egress point (E.P)", as the master's
 #   legend says ("E.P = EMERGENCY EGRESS POINTS"). Their buttons are unchanged.
@@ -136,10 +141,22 @@ s = rep(s, "function destOwn782(a){", """/* v9.17 - one point per reference (Aut
    sheets) or their own pin, so the same reference could carry two points. */
 function navPoint917(a){ let D = null; try { D = dest782(a); } catch (e) { D = null; } return D && D.ll && Number.isFinite(D.ll.lat) && Number.isFinite(D.ll.lon) ? D : null; }
 function navOwn917(D){ return !!D && (D.kind === 'report' || D.kind === 'desc'); }
+/* v9.17 - the same point on the aerial photograph, for every picture and map pin that rings "where it goes": the
+   drawing callout's frame point with Navigate's point put in its place. Only where the picture already had a point (a
+   reference with no callout keeps no picture); the pit lane (no drop-off set) is where the driver reports, not where
+   the thing goes, so a picture of it keeps the drawn spot; Navigate's point off the photograph gives no picture. */
+function aerialNav917(a){
+ let pt = null; try { pt = aerialPointFor(a); } catch (e) { pt = null; }
+ if (!pt) return null;
+ const D = navPoint917(a); if (!D || D.kind === 'report') return pt;
+ const f = frameOf(D.ll.lat, D.ll.lon);
+ if (!f || !(f.ax >= 0 && f.ax <= 1 && f.ay >= 0 && f.ay <= 1)) return null;
+ return Object.assign({}, pt, {ax: f.ax, ay: f.ay, fromArrow: false, nav917: D});
+}
 function destOwn782(a){""", 'v9.17 helper', str(p))
 # the drop email: Sat nav line, From Coates Kingston and the button
 s = rep(s, "const pt = aerialPointFor(a), ll = pt ? lonLatOf(pt.ax, pt.ay) : null;\n const op = pt ? null : offPlanFor(a);",
-        " const pt = aerialPointFor(a), D917 = navPoint917(a), ll = D917 ? D917.ll : pt ? lonLatOf(pt.ax, pt.ay) : null; /* v9.17 - Navigate's point */\n const op = pt ? null : offPlanFor(a);",
+        " const D917 = navPoint917(a), pt = aerialNav917(a), ll = D917 ? D917.ll : pt ? lonLatOf(pt.ax, pt.ay) : null; /* v9.17 - Navigate's point */\n const op = pt ? null : offPlanFor(a);",
         'drop email point', str(p))
 s = rep(s, "<span style=\"color:${MUTE}\">— it drops you at the area, not on the spot.</span>",
         "<span style=\"color:${MUTE}\">— ${D917 ? 'the same point as the button below (' + e(D917.sms) + '); a satnav stops at the nearest road' : 'it drops you at the area, not on the spot'}.</span>",
@@ -184,7 +201,90 @@ s = rep(s, """function spotOf(a){
  : 'the drawing\\'s area for it — a callout registered to the ground, not a survey';
  return {a, t, lat: ll.lat, lon: ll.lon, words};
 }""", 'map pin spot', str(p))
-assert 'function haversineKm(' in s
+assert 'function haversineKm(' in s and 'function frameOf(' in s
+
+# 5. Part 2, the rest of it (review of 8 Oct 2026): every remaining surface that prints a point, or rings one on a picture
+#    or a map, reads Navigate's point too.
+# 5a. the printed drop sheet: "Sat nav" and the steps' bearing from the gate; its pictures (below) ring the same point
+s = rep(s, """function dropSteps(a, pt){
+ const acc = DATA.access || {}, rules_c = DATA.driver_rules || {};
+ const gate = heavyGate();
+ const ll = pt ? lonLatOf(pt.ax, pt.ay) : null;""", """function dropSteps(a, pt){
+ const acc = DATA.access || {}, rules_c = DATA.driver_rules || {};
+ const gate = heavyGate();
+ const D917 = navPoint917(a), ll = D917 ? D917.ll : pt ? lonLatOf(pt.ax, pt.ay) : null; /* v9.17 - the drop sheet: Navigate's point */""",
+        'drop sheet point', str(p))
+s = rep(s, """ll ? ` <b>Sat nav:</b> <span class="mono">${esc(ll.text)}</span> — it drops you at the area, not on the spot.` : ''}</div>` : ''}""",
+        """ll ? ` <b>Sat nav:</b> <span class="mono">${esc(ll.text)}</span> — ${D917 ? 'the same point as Navigate (' + esc(D917.sms || D917.label) + ')' : 'it drops you at the area, not on the spot'}.` : ''}</div>` : ''}""",
+        'drop sheet words', str(p))
+s = rep(s, "${dropSteps(a, aerialPointFor(a))}", "${dropSteps(a, aerialNav917(a))}", 'drop sheet steps point', str(p))
+# 5b. the drop sheet's four pictures (the ring and the bearing) and its words where there is no picture but there is a point
+s = rep(s, "const pt = aerialPointFor(a);\n const onGround = pt && DATA.aerial_hi;",
+        "const pt = aerialNav917(a); /* v9.17 - the ring is on Navigate's point */\n const onGround = pt && DATA.aerial_hi;", 'drop sheet pictures', str(p))
+s = rep(s, "No aerial photo and no sat nav point for this one.</b> ${esc(offPlanWords(op))}",
+        "${navPoint917(a) ? 'No aerial photo for this one.</b> ' + esc(offPlanWords(op)) + ' The Sat nav point below is the one Navigate uses (' + esc(navPoint917(a).label) + ').' : 'No aerial photo and no sat nav point for this one.</b> ' + esc(offPlanWords(op))}",
+        'drop sheet no-photo words', str(p))
+# and where the callout is off the main plan (CP1, in the Cypress inset) but Navigate has the master's point, the steps say
+# which point the Sat nav line is instead of "the spot on the ground is not on it" (the drop sheet and the drop email)
+s = rep(s, "' The drawing on this page is the callout; the spot on the ground is not on it.'",
+        "(D917 ? ' The Sat nav point above is the one Navigate uses (' + esc(D917.label) + ').' : ' The drawing on this page is the callout; the spot on the ground is not on it.')",
+        'drop sheet off-plan words', str(p))
+s = rep(s, "steps.push(['Ring the supervisor before you leave the yard.', op ? e(offPlanWords(op)) :",
+        "steps.push(['Ring the supervisor before you leave the yard.', op ? e(offPlanWords(op)) + (D917 ? ' The Sat nav point above is the one Navigate uses (' + e(D917.label) + ').' : '') :",
+        'drop email off-plan words', str(p))
+# 5c. the drawer's driver card: Ground position
+U = chr(92) + 'u2014'
+s = rep(s, """<tr><td>Ground position</td><td>${(() => { const g = pt && lonLatOf(pt.ax, pt.ay);
+ return g ? esc(g.text) + ' """ + U + """ read off the drawing through the photograph, not surveyed'""",
+        """<tr><td>Ground position</td><td>${(() => { const D917 = navPoint917(a), g = D917 ? D917.ll : pt && lonLatOf(pt.ax, pt.ay);
+ return g ? esc(g.text) + (D917 ? ' """ + U + """ the same point as Navigate (' + esc(D917.label) + ')' : ' """ + U + """ read off the drawing through the photograph, not surveyed')""",
+        'driver card ground position', str(p))
+# 5d. the drop email's "Pinned on site": a master-plan position that is not where Navigate goes (the 13 big screens, whose
+#     master position is not verified, go to the pit lane) is not a pin taken on site and is not offered as a second place
+#     to drive or walk to; one line says so, without a second coordinate (the drawer keeps it, with its note)
+s = rep(s, "(() => { const fx = [a.key].concat(pinUnits(a).map(u => fixKey(a.key, u))).map(k => [k, fixOf(k)]).filter(x => x[1] && x[1].lat != null);\n",
+        "(() => { const fx0 = [a.key].concat(pinUnits(a).map(u => fixKey(a.key, u))).map(k => [k, fixOf(k)]).filter(x => x[1] && x[1].lat != null);\n"
+        " const away917 = x => !!(D917 && x[1].master && haversineKm({lat: x[1].lat, lon: x[1].lon}, D917.ll) * 1000 > 0.5), fx = fx0.filter(x => !away917(x)), aside917 = fx0.filter(away917); /* v9.17 */\n"
+        " const note917 = aside917.length ? '<br><br><span style=\"color:' + MUTE + '\">' + aside917.map(([k, f]) => e(fixParse(k).ref)).join(', ') + ' also has a drawing position that is not verified on the master plan, so it is not offered here: the Sat nav line and the button go to ' + e(D917.nav || D917.sms || D917.label) + '.</span>' : '';\n",
+        'drop email pins', str(p))
+s = rep(s, "return fx.length ? '<br><br><b>Pinned on site'", "return note917 + (fx.length ? '<br><br><b>Pinned on site'", 'drop email pins start', str(p))
+s = rep(s, "goes to the pin itself, which is the one that puts you on the spot.</span>' : ''; })()}", " goes to the pin itself, which is the one that puts you on the spot.</span>' : ''); })()}",
+        'drop email pins end', str(p))
+# 5e. the pictures and map pins that ring the point elsewhere: Today's day card map and pictures, the banner map pins, the
+#     drop email's and driver page's pictures, the search's aerial, the drawer's satellite window, the 3D fly-to, and the
+#     bearing from the gate in the two mail-outs
+s = rep(s, "let pt = null; try { pt = aerialPointFor(a); } catch (e) { pt = null; }\n if (!pt) return '';",
+        "let pt = null; try { pt = aerialNav917(a); } catch (e) { pt = null; } /* v9.17 */\n if (!pt) return '';", 'day card map', str(p))
+s = rep(s, "title=\"the satellite, centred on ${esc(a.key)}'s point on the plan - a drawing callout, not a surveyed position\"",
+        " title=\"the satellite, centred on ${esc(a.key)}'s point on the plan - ${pt.nav917 ? 'the same point as Navigate (' + esc(pt.nav917.label) + ')' : 'a drawing callout'}, not a surveyed position\"",
+        'day card map words', str(p))
+s = rep(s, "let pt = null; try { pt = aerialPointFor(a); } catch (e) { pt = null; }\n const air = (DATA.sheets",
+        "let pt = null; try { pt = aerialNav917(a); } catch (e) { pt = null; } /* v9.17 */\n const air = (DATA.sheets", 'day card pictures', str(p))
+s = rep(s, "'the registered aerial at the callout’s point — where the drawing says it goes, not a surveyed position'",
+        "(pt.nav917 ? 'the registered aerial at the same point as Navigate (' + pt.nav917.label + ') — not a surveyed position' : 'the registered aerial at the callout’s point — where the drawing says it goes, not a surveyed position')",
+        'day card pictures words', str(p))
+s = rep(s, "let pt = null; try { pt = aerialPointFor(a); } catch (e) { pt = null; }\n if (!pt) { missing.push(a.key); continue; }",
+        "let pt = null; try { pt = aerialNav917(a); } catch (e) { pt = null; } /* v9.17 */\n if (!pt) { missing.push(a.key); continue; }", 'banner map pins', str(p))
+s = rep(s, "function dropPics(a){\n const pt = aerialPointFor(a);", "function dropPics(a){\n const pt = aerialNav917(a); /* v9.17 */", 'drop email pictures', str(p))
+s = rep(s, "pt: as.length ? aerialPointFor(as[0]) : null}", "pt: as.length ? aerialNav917(as[0]) : null}", 'driver page picture (typed drop)', str(p))
+s = rep(s, "basis: 'the drawing callout for ' + a.key + ' — a drawing position, not a survey', pt: aerialPointFor(a)};",
+        "basis: (aerialNav917(a) || {}).nav917 ? 'the same point as Navigate for ' + a.key + ' (' + aerialNav917(a).nav917.label + ')' : 'the drawing callout for ' + a.key + ' — a drawing position, not a survey', pt: aerialNav917(a)}; /* v9.17 */",
+        'driver page picture', str(p))
+s = rep(s, "const pt = aerialPointFor(a); if (!pt || !DATA.aerial_hi) { box.innerHTML = ''; return; }",
+        "const pt = aerialNav917(a); if (!pt || !DATA.aerial_hi) { box.innerHTML = ''; return; } /* v9.17 */\n const at917 = pt.nav917 ? 'the same point as Navigate (' + esc(pt.nav917.label) + ')' : 'callout ' + esc(pt.label);",
+        'search aerial', str(p))
+s = rep(s, '<div class="satbox fvaer"><img src="${DATA.aerial_hi}" alt="Aerial photograph centred on callout ${esc(pt.label)}"',
+        '<div class="satbox fvaer"><img src="${DATA.aerial_hi}" alt="Aerial photograph centred on ${at917}"', 'search aerial alt', str(p))
+s = rep(s, "— the Queensland aerial photograph centred on callout ${esc(pt.label)}${pt.sheet && pt.sheet.sheet_id ? ' on ' + esc(pt.sheet.sheet_id) : ''}: the drawing registered to the photograph, a callout's place and not a survey.",
+        " — the Queensland aerial photograph centred on ${at917}${!pt.nav917 && pt.sheet && pt.sheet.sheet_id ? ' on ' + esc(pt.sheet.sheet_id) : ''}: ${pt.nav917 ? 'a registered photograph, not a survey' : 'the drawing registered to the photograph, a callout\\'s place and not a survey'}.",
+        'search aerial words', str(p))
+s = rep(s, "state.satPt = aerialPointFor(a);", "state.satPt = aerialNav917(a); /* v9.17 */", 'drawer satellite window', str(p))
+s = rep(s, "if (a) { const pt = aerialPointFor(a); const ll = pt && lonLatOf(pt.ax, pt.ay); if (ll) return {lat: ll.lat, lon: ll.lon, key: f.key",
+        "if (a) { const pt = aerialNav917(a); const ll = pt && (pt.nav917 ? pt.nav917.ll : lonLatOf(pt.ax, pt.ay)); if (ll) return {lat: ll.lat, lon: ll.lon, key: f.key",
+        '3D fly-to', str(p))
+s = rep(s, "const gate = heavyGate(), pt = a ? aerialPointFor(a) : null;", "const gate = heavyGate(), pt = a ? aerialNav917(a) : null; /* v9.17 */", 'breakdown mail bearing', str(p))
+s = rep(s, "const pt = aerialPointFor(a), link = (a.drawing_links || [])[0], gate = heavyGate();",
+        "const pt = aerialNav917(a), link = (a.drawing_links || [])[0], gate = heavyGate(); /* v9.17 */", 'reference mail bearing', str(p))
 p.write_bytes((b'\xef\xbb\xbf' if bom else b'') + s.encode('utf-8'))
-print('v9.17 pins: MASTER_LOC 23 moved (ll, pt, how, img) | layers 23 E.P labels | media +46/-46 (%d) manifest %s | Part 2: drop email, satellite panel, drawer links, map spot -> dest782 | footer unchanged'
+print('v9.17 pins: MASTER_LOC 23 moved (ll, pt, how, img) | layers 23 E.P labels | media +46/-46 (%d) manifest %s | Part 2: drop email, drop sheet, driver card, satellite panel, drawer links, map spot, pictures -> dest782 | footer unchanged'
       % (len(D['media']), MAN['sha256'][:16]))

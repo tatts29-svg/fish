@@ -1,6 +1,8 @@
 // Author: Andrew Fisher. v9.17 - phone screenshots of the WC09 and CP1 drawers: "Where it is" (pin, links, the two new
 // close-ups) and the satellite panel's position line. Read only; the 46 new pictures are served from evidence/media917
-// until they are uploaded. Fails if a dollar figure is visible in a frame or a write is attempted.
+// until they are uploaded. After the 8 Oct review it also renders the printed drop sheet for both (its "How to get there"
+// block and its pictures, cut by the page's own cropFit) and fails unless its Sat nav is Navigate's point.
+// Fails if a dollar figure is visible in a frame or a write is attempted.
 //   PAGE=<candidate> OUT=<dir> [MOB=1] node tests/shots917.cjs     (through browser_run.sh)
 const fs = require('fs'), path = require('path');
 const {open} = require('../../toolchain/harness/open_page.js');
@@ -17,8 +19,15 @@ const MEDIA = path.join(__dirname, '..', 'evidence', 'media917');
     await p.waitForTimeout(2500);
     for (const ref of ['WC09', 'CP1']) {
       await p.evaluate(k => openAsset(k), ref); await p.waitForTimeout(2500);
-      for (const [part, sel] of [['where', '.pinblock'], ['satellite', '.satcap.pos']]) {
-        const found = await p.evaluate(sel => { const el = document.querySelector('#drawer ' + sel) || document.querySelector(sel); if (!el) return false; el.scrollIntoView({block: 'start'}); return true; }, sel);
+      // The satellite panel (satelliteBlock) is not shown in the drawer since v8.16: its folds keep five rows of the record
+      // section and drop the rest, the panel with them. Its points are proven from the function itself (collect_pins917.cjs).
+      for (const [part, sel] of [['where', '.where816']]) {
+        if (part === 'satellite') { await p.evaluate(() => { const d = document.getElementById('dsectRecord'); if (d && !d.open) d.querySelector('summary').click(); }); await p.waitForTimeout(1500); }
+        const found = await p.evaluate(sel => { const dr = document.getElementById('drawer'); const all = [...(dr ? dr.querySelectorAll(sel) : [])]; /* the drawer's own block only */
+          let el = all.find(x => x.offsetParent);
+          if (!el && all.length) { el = all[0]; for (let d = el.closest('details'); d; d = d.parentElement && d.parentElement.closest('details')) d.open = true;
+            for (let n = el; n; n = n.parentElement) if (n.hidden) n.hidden = false; }
+          if (!el || !el.offsetParent) return el ? 'hidden: ' + (el.closest('[id]') || {}).id : false; el.scrollIntoView({block: 'start'}); return true; }, sel);
         await p.waitForTimeout(1500);
         const info = await p.evaluate(() => {
           const vw = innerWidth, vh = innerHeight, out = []; const w = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
@@ -27,6 +36,9 @@ const MEDIA = path.join(__dirname, '..', 'evidence', 'media917');
           const imgs = [...document.querySelectorAll('.mlocpics img')].map(i => ({w: i.naturalWidth, src: i.getAttribute('src').slice(-20)}));
           return {text: out.join(' ').replace(/\s+/g, ' '), imgs};
         });
+        const diag = found ? null : await p.evaluate(() => ({details: [...document.querySelectorAll('details')].filter(d => d.offsetParent).map(d => (d.id || '') + ':' + (d.querySelector('summary') || {}).textContent).slice(0, 12),
+          satcap: document.body.innerHTML.split('satcap pos').length - 1, satnone: document.body.innerHTML.split('sat none').length - 1, drawer: !!document.getElementById('drawer'), rec: !!document.getElementById('dsectRecord')}));
+        if (diag) console.log('diag', JSON.stringify(diag));
         const file = path.join(process.env.OUT, `${mob ? 'phone' : 'laptop'}_${ref}_${part}.png`);
         await p.screenshot({path: file});
         const dollars = /\$\s?\d/.test(info.text);
@@ -34,9 +46,29 @@ const MEDIA = path.join(__dirname, '..', 'evidence', 'media917');
       }
       await p.keyboard.press('Escape'); await p.waitForTimeout(800);
     }
-    const ok = R.every(r => r.found && !r.dollars) && s.counts.blocked === 0 && !s.errors.length;
+    // after the 8 Oct review: the printed drop sheet for the same two, as the page renders it for printing (its pictures cut
+    // by the page's own cropFit), so the Sat nav line and the ring on the pictures can be looked at
+    for (const ref of ['WC09', 'CP1']) {
+      const info = await p.evaluate(async k => { const a = assetOf(k); const h = dropPage(a, a.events || [], 1, 1, {iso: '2026-10-09'}, 'deliveries');
+        const d = document.createElement('div'); d.id = 'shot917'; d.style.cssText = 'position:fixed;inset:0;z-index:2147483647;background:#fff;color:#111;overflow:auto;padding:10px';
+        d.innerHTML = h; document.body.appendChild(d); try { await cropFit(d); } catch (e) {}
+        const go = d.querySelector('.rs-go'), map = d.querySelector('.rs-map'); const n = dest782(a);
+        const sat = /Sat nav:\s*(-?\d+\.\d+), (-?\d+\.\d+)/.exec(go ? go.innerText : '');
+        return {go: go ? go.innerText.slice(0, 500) : null, cap: map ? (map.querySelector('.rs-cap') || {}).innerText || null : null, satnav: sat ? [Number(sat[1]), Number(sat[2])] : null,
+          nav: n ? [n.ll.lat, n.ll.lon, n.label] : null, rings: [...d.querySelectorAll('.rs-air')].length, text: d.innerText.replace(/\s+/g, ' ')}; }, ref);
+      await p.waitForTimeout(1200);
+      for (const [part, sel] of [['dropsheet_go', '#shot917 .rs-go'], ['dropsheet_pics', '#shot917 .rs-map']]) {
+        const el = await p.$(sel); const file = path.join(process.env.OUT, `${mob ? 'phone' : 'laptop'}_${ref}_${part}.png`);
+        if (el) await el.screenshot({path: file});
+        R.push({ref, part, found: !!el, file: path.basename(file), dollars: /\$\s?\d/.test(info.text), satnav: info.satnav, nav: info.nav, rings: info.rings, cap: info.cap, text: (part === 'dropsheet_go' ? info.go : info.cap) || ''});
+      }
+      await p.evaluate(() => { const d = document.getElementById('shot917'); if (d) d.remove(); });
+    }
+    // the drop sheet's Sat nav is Navigate's point, to the printed 6 decimals
+    const satOk = R.filter(r => r.part === 'dropsheet_go').every(r => r.satnav && r.nav && Math.abs(r.satnav[0] - r.nav[0]) < 6e-7 && Math.abs(r.satnav[1] - r.nav[1]) < 6e-7);
+    const ok = R.every(r => r.found === true && !r.dollars) && satOk && s.counts.blocked === 0 && !s.errors.length;
     fs.writeFileSync(path.join(process.env.OUT, `shots917_${mob ? 'phone' : 'laptop'}.json`), JSON.stringify({R, counts: s.counts, errors: s.errors, served}, null, 1));
-    R.forEach(r => console.log(r.ref, r.part, r.found ? 'shown' : 'NOT FOUND', r.dollars ? 'DOLLARS IN FRAME' : 'no dollar figures', JSON.stringify(r.imgs)));
+    R.forEach(r => console.log(r.ref, r.part, r.found ? 'shown' : 'NOT FOUND', r.dollars ? 'DOLLARS IN FRAME' : 'no dollar figures', JSON.stringify(r.imgs || {satnav: r.satnav, nav: r.nav, rings: r.rings})));
     console.log((ok ? 'PASS' : 'FAIL') + ' shots, counts ' + JSON.stringify(s.counts) + ', errors ' + s.errors.length + ', pictures served locally ' + served);
     if (!ok) process.exitCode = 1;
   } finally { if (s) await s.browser.close(); }

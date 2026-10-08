@@ -34,6 +34,30 @@
   - The roster grid answers "which days each person is on". Is that what he meant?
 - **The build follows his yes**, on the latest public page. If Codex's v9.08 is live by then, it is rebuilt on v9.08.
 
+**LIVE, 8 Oct 2026 ~19:30 AEST: Codex's v9.18, Showcase stability** (Codex commits `e8e8b30` READY, `91aff37` verified live).
+- **Claude's GET read-back at 23:08 AEST:** page `c547a6debe1dea9009b50466d3c1028ec9c3a800e6c591ea258b61490b14b762`, 11,605,879 bytes, footer ` · v9.18`. It is byte-identical to the candidate Claude rebuilt from Codex's frozen source `287a7206` on v9.11. The record is unchanged at 4581.
+- **Claude's focused check** (`wf_5a4785a1-e9f`) is still running after publication. Any finding goes to Codex as a follow-up.
+- **Every Claude release now builds on v9.18** and takes the next free footer after it.
+
+**CLAUDE, ~23:10 AEST: releases being brought to READY on v9.18** (workflow `wf_01a95c7d-b17`, one skeptic per release). Each goes live only on Andrew's yes; Codex publishes.
+- **v9.17 pins (for WC09, Fri 9 Oct):**
+  - **In:** the 23 moves, plus GN18 and GN13 ("follow the master"), plus 28 verified near moves (1.3–2.9 m) toward 10/10.
+  - **Every surface:** all of them use Navigate's point, and the E.P labels change.
+  - **Held for Andrew:** WC57/WC59, WC13 and WC69.
+  - **Previous candidate** with the 23 moves only: `565b3b8a…` on v9.18, all checks passed.
+- **v9.14 fire extinguishers:** the previous candidate `18638084…` on v9.18 passes 58/58 laptop and phone, and both blocking review findings are fixed (no rate reads as "rate to confirm" on every money page; Take off keeps the record). Now taking the year off the page, with one-off wording.
+- **v9.13 VMS register:** passed 51/51 laptop and phone on v9.11 with money identical. Now being rebased on v9.18, with 1211404 = VMS09 confirmed.
+
+**Unit slots (Andrew's "WC50 1|5" idea): sized, read only.** The survey, design and skeptic review are in `unit_slots_design_08Oct2026/`.
+- **The gap:** 206 units on 35 locations (424 labour line-units, 27% of forecast labour) can only be ticked as one block today. No money is lost outright, but charges can run late or early on part-done locations. WC31 is ticked as 2 blocks with 1 counted on site.
+- **The review says yes to the idea, but simpler than the draft:**
+  - a line goes by asset number or by slot, never both;
+  - nothing goes into the site-count record;
+  - boxes per unit only where units are marked "3|12" on site, otherwise an "installed 7 of 20" counter;
+  - a phone mock-up and Andrew's yes before any build.
+- **Andrew to decide first:** does Coates labour apply to Event Portables units? That covers 89 of the 206 units.
+- **Order:** part E, then v9.14, then v9.13, then slots.
+
 **CODEX, 19:14 AEST ([6056647973](https://github.com/tatts29-svg/fish/pull/1#issuecomment-6056647973)): v9.18 source pushed as `fb3c5310`.** Context-recovery corrections are being checked before the freeze.
 - **Passing on Codex's side:** ten phone reopen cycles, all vehicle and camera controls, and automatic context recovery. Heap after GC plateaus near 242 MB.
 - **Culling** leaves the corridor fence buffers intact.

@@ -11,174 +11,153 @@ Author: Andrew Fisher
 
 ## Where it is up to
 
-- **State:** DRAFT. It is built and tested, but it has not been uploaded and is not ready to upload. The footer is not
-  touched, so whoever publishes it gives it the next free footer.
-- **Base:** the live page moved during the build. Codex's v9.11 went live, so the release was rebuilt on it.
-  - Live v9.11: `408ae6acf1753b74274a6a44e009ad3d8eea29a1836678d6a94e214eeaf7c2d1` (11,600,839 bytes).
-  - Built page: `504b21cfb33dae0e0af1db6d21c74ab9a851381923c007d074d8e8a974a6f3e4` (11,629,848 bytes).
-  - The first build was on v9.10 (`838a4555…`) and was tested there too: 51/51 on laptop and phone, money identical.
+- **State:** DRAFT. Built and tested after the review; not uploaded, not READY TO UPLOAD. The footer is not touched, so
+  whoever publishes it gives it the next free footer.
+- **Base:** the live page moved twice during the work. v9.11 (the Timeline map release) went live, then v9.18 (the
+  Showcase stability release). This build is on **live v9.18**:
+  - Live v9.18: `c547a6debe1dea9009b50466d3c1028ec9c3a800e6c591ea258b61490b14b762` (11,605,879 bytes), fetched 8 Oct ~20:35 AEST.
+  - Built page: `bdd10c727db81b63475d27b633101d7705a879678dca1edb209ad1c20dec86e1` (11,648,507 bytes; `check_page.py` PASS).
 - **Build:** `toolchain/build.sh v913_vms v9.13_vms_rego_DRAFT/patch_v913_vms_rego.py`
-- **The live record was only read (GET), never written.** No `vmsboard` document exists on it yet.
+- **The live record was only read (GET), never written.** No `vmsboard` document exists on it.
 
 ## What the page gains
 
-### The VMS board register (Equipment tab)
+### The VMS board register (Equipment tab, "VMS boards")
 
-The register sits in the VMS rows (the "VMS boards" group), under the references. It has one row per VMS line on contract
-9961265: 23 lines in all, lines 1 and 3–9, then VMS09–VMS23. Each row shows:
+One row per VMS line on contract 9961265: 23 lines (1, 3–9, then VMS09–VMS23), under the references.
 
-- **Board:** the VMS number where the contract names one, else the Coates asset number. Under it are the line and the docket.
-  Where the same Coates asset number is on two lines, the row says so but does not resolve it. That happens once: 1211404
-  is on line 1 and also on line 12 (VMS09).
+- **Board:** the VMS number where the contract names one, else the Coates asset number, with the line and the docket under
+  it. 1211404 is on line 1 and on line 12 (VMS09); the row says so and does not resolve it.
 - **Whose:** Coates, or the sub-hire company the contract names (Premiair, RPM). A company the project manager or an editor
   gives wins.
-- **Fleet no.:** the Coates asset number, or the supplier's fleet number when somebody has given one.
-- **Rego:** shown only where somebody has given one. Otherwise it reads "not given". No rego is invented.
-- **On delivery:** the VMS plant line that carries the board, and on whose say-so.
-  - **The record** comes first.
-  - **The project manager's word** comes next.
-  - **The contract** comes last: the line's own match by asset number or by delivery docket.
-  - If none of these names a delivery, the cell reads "not named yet". Nothing is guessed.
-- **Source:** where whose / fleet no. / rego came from: the record (with who and when), the project manager's word, or the
-  contract.
+- **Fleet no.:** the Coates asset number, or the supplier's fleet number when somebody has given one. Where it is the board's
+  own name it reads "same as board" (no number twice in a row).
+- **Rego:** only where somebody has given one; otherwise "not given". No rego is invented.
+- **On delivery:** the VMS plant line carrying the board: the record first, then the project manager's word, then the
+  contract ("by asset number" / "by delivery docket"). Otherwise "not named yet".
+- **Source:** the record (who and when), or the project manager's word. Rows from the contract leave it blank; the note says
+  "From the contract unless a row says otherwise" once. His word is said once per row.
+- A record whose board is no longer on the contract is listed under the register ("On the record for a board no longer on
+  the contract"), so a contract refresh never hides one.
 
 ### The project manager's word, preloaded and shown as his word
 
-Anything entered on the record overrides it.
+Field by field, anything entered on the record overrides it.
 
-- **VMS10:** company PremAir Hire, fleet number 120T, rego V14221, on T0103.
+- **VMS10:** PremAir Hire, fleet number 120T, rego V14221, on T0103.
 - **VMS09:** on T0103. Contract line 12 gives it Coates asset 1211404. No rego has been given.
-- **Everything else:** nothing is preloaded. Every other rego reads "not given".
+- Nothing else is preloaded. Every other rego reads "not given".
 
 ### The editor form (edit link only)
 
-- **Layout:** one small form with Board, Whose (company), Fleet number, Rego and **On delivery**, then *Save to the record*.
-  Every tap target is 44 px, and the form fits a phone.
-- **The view link:** it shows no controls.
-- **Validation:**
-  - A rego is 1 to 9 letters or digits, kept in capitals.
-  - A fleet number follows the sub-hire rule: 1 to 12 characters, or 3 to 12 for a Coates number.
-  - A company name is plain text only.
-  - A rego or fleet number cannot already belong to another board.
-  - On delivery must be one of the VMS deliveries on the page: T0001, T0103, T0128, T0158, T0159, T0169 or T0170, shown
-    under a given reference where there is one.
-  - A delivery never carries more boards than its schedule row says. "T0103 carries 2 boards on the schedule and already
-    has VMS09, VMS10" refuses a third.
-- **Write path:** it saves through the page's own guarded write path (`mayWrite`, `whoAmI`, `stampIt`, `bump`), the same
-  way the v7.44 sub-hire collection does.
-- **Nothing is written on opening, viewing or printing.**
+- Board, Whose (company), Fleet number, Rego, **On delivery**, *Save to the record*. Every tap target is 44 px. On a laptop
+  each row has a Change button; on a phone the Board picker does that job (no Change button per row).
+- **Validation:** rego 1 to 9 letters or digits, kept in capitals; fleet number by the sub-hire rule (1 to 12, or 3 to 12
+  for Coates); company plain text; a rego or fleet number already on another board is refused; On delivery must be one of
+  the VMS plant lines on the page (T0001, T0103, T0128, T0158, T0159, T0169, T0170), never more boards than its schedule row
+  carries. A refusal is said once, in the form.
+- **What a save writes:** the board's record as it stands, with only the fields the editor changed. A changed field that
+  matches what would show anyway (his word, else the contract) is stored as null. Pressing Save with nothing changed writes
+  nothing ("Nothing changed on VMS10 - nothing was saved.").
+- **Another device:** if the board's record changes while the form is open, the form refills what the editor has not changed,
+  keeps what he has, and says "VMS13 was changed on another device by … at … - the form now shows that". A save from a stale
+  form is refused and writes nothing.
+- **Save waits for the shared record** (disabled until `vmsboard` has arrived, the way the daily message waits).
+- **Write path:** `mayWrite`, `whoAmI`, `stampIt`, `bump`, the same as the v7.44 sub-hire collection. Nothing is written on
+  opening, viewing or printing.
+- **Not yet on the shared record:** a row saved here but not taken by the service reads "saved on this device by … - not on
+  the shared record yet"; after the service refuses it (403) the register is drawn again and reads "saved on this device only
+  … - the shared record did not take it". Only a document the store holds reads "recorded by …".
 
 ### The record collection: `vmsboard`
 
-- **Documents:** one document per board, keyed by the board name (`VMS09`, `VMS10` … or the Coates asset number for lines
-  with no VMS number, e.g. `1211404`).
-- **Fields:** `{co, fleet, rego, on, line, by, at}`.
-  - `on` is the plant line's task id (e.g. `T0103`).
-  - `'none'` means an editor took the board off the delivery the page would otherwise show.
-  - `null` means the record says nothing about the delivery.
-  - `line` is `contract/line`.
-  - `by` and `at` are who and when.
-- **Sync:** the collection is in the page's sync list, blank record, merge, import and export, exactly as `subhire` is.
-  The server stores any collection name.
+- One document per board, keyed by the board name (`VMS09`, `VMS10` …, or the Coates asset number), `{co, fleet, rego, on,
+  line, by, at}`. `null` says nothing (falls back); `''` means an editor cleared his word's value; `on` is a plant line,
+  `'none'` (taken off) or `null`.
+- In the sync list, blank record, merge, import and export, exactly as `subhire`. An import now checks it: the key is a board
+  on the contract, the rego and fleet number follow the rules, and `on` is a VMS delivery, `'none'` or nothing.
 
-### The boards by name, with fleet number and rego, wherever a VMS delivery is shown
+### The boards by name wherever a VMS delivery is shown
 
-For example, T0103 now reads: **VMS09 (Coates 1211404 · rego not given) · VMS10 (PremAir Hire 120T · rego V14221)**,
-marked "(the project manager's word)".
+T0103 reads **VMS09 (Coates 1211404 · rego not given · asset no. also on T0001 - to confirm) · VMS10 (PremAir Hire 120T ·
+rego V14221)**, marked "(the project manager's word)". A Coates board whose only fact is its asset number, already shown on
+the same surface, is counted rather than repeated (T0001: "1211404 (… also on T0103 - to confirm) · 7 Coates boards by the
+asset nos. shown (rego not given)"). A VMS delivery with no board linked says "VMS boards not named yet".
 
-| surface | how it is reached (exactly-once anchor or wrapper on stable code) | done |
+| surface | how it is reached | done |
 |---|---|---|
-| Timeline load card | wraps `loading872AssetHtml` (v8.72/8.73), under "Asset no." | yes |
-| Timeline "Every day" rows | wraps `dayRows`, under the asset numbers in the GC500 ID cell | yes |
-| Delivery cards (a Timeline load opened) | wraps `bookingNosLine801` (the card's "Asset no." box) | yes |
-| Drawer — Delivery card | wraps `deliveryCard`, under its rental lines; VMS10's own rental line also carries its fleet no. and rego | yes |
-| Drawer — Driver drop card | anchor in `driverCard` (one pill per board) | yes |
+| Timeline load card | wraps `loading872AssetHtml`, under "Asset no." | yes |
+| Timeline "Every day" rows | wraps `dayRows`, under the asset numbers | yes |
+| Delivery cards (a Timeline load opened) | wraps `bookingNosLine801`; hidden inside an opened load, where the load card already says it | yes |
+| Drawer — Delivery card | wraps `deliveryCard`, under its rental lines (class `dcl913`, not the page's `.dcard`); the rental lines' own chips are left off there | yes |
+| Drawer — Driver drop card | anchor in `driverCard`: one pill per board (wrapping inside the card on a phone), his word as one small note naming the boards; the plain Asset pills leave out numbers a board pill carries and "and N more" counts what is left | yes |
 | Printed drop sheet / Print the day | anchor in `dropPage`'s Asset no. field | yes |
-| Drivers PDF and Install PDF (run sheets, "Print Run Sheet") | wraps `dpTruck`, one line per VMS delivery on the truck | yes |
-| Installers' daily page (the daily message link) | wraps `daily821Model`, the boards as the delivery's first note | yes |
-| Driver's text, short | wraps `text747What` (plain characters, stays within three texts) | yes |
-| Driver's text, full details | wraps `dropText`, a Boards line after the asset numbers | yes |
-| Today's own delivery list | Today does not draw loads with these renderers. T0103 is recorded complete and shows on Today only in its "What went in today" log, which is left as it is | **not done** |
+| Drivers PDF and Install PDF (run sheets) | anchor in `dpTruckBefore801`'s "Booked / recorded numbers" cell | yes |
+| Installers' daily page | wraps `daily821Model`, the boards as the delivery's first note | yes |
+| Driver's short text | wraps `dropSmsText`: one "Boards:" line, only while the text stays within 459 units, 3 texts and 480 characters (full, then "VMS10 rego V14221", then names, then "see Full details"); rego only where given; `text747What` (the map picture's title) is untouched | yes |
+| Driver's full details text | wraps `dropText`, a Boards line after the asset numbers | yes |
+| Today's own delivery list | Today does not draw loads with these renderers, and Today's markup is the other agent's | **not done** |
 
-- **No board linked:** a VMS delivery with no board linked says **"VMS boards not named yet"** (T0128, T0158, T0159,
-  T0169, T0170 today).
-- **T0001:** it names its eight Coates boards by asset number, from the contract's own match.
-- **Other deliveries:** nothing changes on any delivery that is not VMS. WC09 is checked on every surface.
-- **Effect on T0103's short text:** the boards take about 85 characters, so the optional "Delivery details" link no longer
-  fits in the three texts. The text is 457 of 459 units. The link is still in the full-details version.
+Nothing changes on a delivery that is not VMS (WC09 is checked on every surface).
+
+## The review findings and what happened to each
+
+| finding | outcome | evidence |
+|---|---|---|
+| **Saving (blocking): a stale form overwrote a newer record** | fixed: base + touched draft, refill and message, stale save refused, document = record + changed fields | test D: "the open form refills…", "saving only On delivery keeps the other device's fleet number and rego" (body `{co:null, fleet:'R13', rego:'RPM13', on:'T0158'}`), "a save from a stale form is refused…" (0 sent) |
+| **Screens (blocking): register unreadable in dark mode** | fixed: light-panel tokens on the register's own fold only | test B: 0 texts under 4.5:1 on phone and laptop; `evidence/dark_*_{phone,laptop}.png` |
+| **Screens (blocking): boards line drawn as a `.dcard` box** | fixed: `dcl913` (and `tl913`, `row913`, `dc913`) | test A: computed border 0, radius 0, no shadow, no margin |
+| **Screens (blocking): facts repeated** | fixed: (a) "same as board" / "by asset number"; (b) driver card pills; (c) chips dropped where the Boards line is drawn; (d) note without counts; (e) his word once per row | test A checks for each; `evidence/register_*.png`, `drawer_dropcard_T0103_*.png` |
+| **Screens (blocking): note talked about the plan reconciliation** | fixed: one plain line, no counts, no plan | test A "the note carries no counts…" |
+| **Scope (blocking): short text over the limit** | fixed: Boards line added in `dropSmsText` only while it fits | test A: 14 cases (7 deliveries today, and with T0158 9, T0159 5, T0128 2 linked in memory) all ≤ 459 units, 3 texts, 480 characters; T0103 keeps its link |
+| **Scope (blocking): README named an agent** | fixed | this file |
+| Save with nothing changed wrote a document | fixed | test C |
+| Refused write presented as recorded | fixed (row wording by sync state; redrawn after the refusal) | test D |
+| Orphan records never shown | fixed | test A |
+| Import did not check `vmsboard` | fixed (`subhire` still has the same gap — not this release) | test A |
+| Save possible before the record arrived | fixed | test C |
+| Test gaps (no manual redraw; textContent) | fixed | test D waits with no redraw (about 3.5 s) |
+| Boards twice in an opened Timeline load | fixed (CSS `:has`, inside `.ld` only) | test A |
+| Drivers sheet: Boards line away from the numbers | fixed: in the booked numbers cell | test A; `evidence/drivers_sheet_T0103_laptop.png` |
+| SMS spent characters on "rego not given", lost its link | fixed | test A |
+| VMS09's 1211404 also on T0001, caution only in the register | fixed: "asset no. also on T0001 - to confirm" on driver and installer surfaces | test A |
+| Word pill read as a detached tag | fixed: one small note "VMS09 and VMS10: the project manager's word" | test A |
+| Validation error shown twice | fixed: inline only | test C |
+| On delivery options truncated / relocation | fixed: "T0159 - 19 Oct - VMS × 5 · Relocate" (no year) | test C |
+| Phone rows tall, "from the contract" ×22, Change per row | fixed: source blank for contract rows; no Change button on phone | test A/C |
+| Board select truncated | fixed: "1211404 - line 1" | screenshots |
+| Dark screenshots missing | fixed | `evidence/dark_*` |
+| PremAir Hire vs Premiair | **open — question for the project manager**, nothing changed | — |
+| Tab-wide fault (not this release): the Equipment tab's skin keeps `fold96` panels white in dark mode while `--ink` follows dark mode, so "Every reference", "Branches" and the other folds are unreadable on a dark-mode phone | **reported, not fixed here** | `evidence/dark_form_laptop.png` shows "Every reference" above the register |
 
 ## Checks (all read only; the live record was never written)
 
-**`tests/test_vms_rego913.cjs`, laptop and phone (`MOB=1`):**
+Run with `TMPDIR=/dev/shm/v913tmp` and `CHROMIUM_PATH=/opt/pw-browsers/chromium-1194/chrome-linux/chrome` (Playwright's own
+headless shell is not installed on this machine, and Chromium crashes on large pictures when the temp disk is full). Every
+browser run went through the one-browser-at-a-time lock.
 
-- Every VMS contract line has one register row (23).
-- VMS10 shows PremAir Hire, 120T and V14221 as the project manager's word. All the others read "not given".
-- On delivery: VMS09 and VMS10 are on T0103 as his word, T0001's eight boards come by asset number, and the rest read
-  "not named yet".
-- Every surface in the table above names both T0103 boards. T0001 names its eight boards. T0158 says "boards not named
-  yet". WC09 is untouched.
-- A view link shows no controls.
-- Validation refuses bad input, including a third board on T0103 and a delivery that is not VMS.
-- A simulated editor save writes exactly one document to `vmsboard/VMS12` with who and when. It is captured in
-  `page.route` and aborted there. A fresh GET of the record proves it never arrived.
-- A simulated incoming record syncs in like `subhire` and overrides the project manager's word. With it, VMS09 is taken
-  off T0103 by the record and VMS13 is put on T0158, and every surface follows.
-- Money is identical before and after the save.
-- There are no page errors. The harness blocked nothing.
-
-**Results:**
-
-| run | result | evidence |
-|---|---|---|
-| Laptop, on the v9.11 build | 51/51 (run with TMPDIR on /dev/shm) | `evidence/test_vms_rego913_laptop.log` |
-| Phone, on the v9.11 build | 51/51 (run with TMPDIR on /dev/shm) | `evidence/test_vms_rego913_phone.log` |
-| v9.10 build (earlier) | 51/51 on laptop and phone | — |
-
-**Sweep (`toolchain/harness/sweep.js`) on the v9.11 build:**
-
-- Laptop and phone both open 21 tabs, with 0 page errors, 0 hash errors and 0 blocked writes.
-- The only console errors are the map explorer's own tile 404s (`explorer/assets/vt/*.bin`). The live v9.11 page shows
-  the same ones.
-- The same 15 panes show on the live page as on the build.
-- Evidence: `evidence/sweep_laptop.json` and `evidence/sweep_phone.json`.
-
-**Money (`v8.95_baseplan_07oct_DRAFT/tests/compare_money895.cjs`, A = live v9.11, B = this build, laptop and phone):**
-
-- 4,113 numbers are the same, 0 differ, and there are 0 structural differences. The tie-outs are 17/17 on both pages.
-  Both pages read the same record, version 4508. The final test runs read version 4581; the record had moved by then.
-- Evidence: `evidence/compare_money_laptop.log` and `evidence/compare_money_phone.log`.
-
-**Other checks:**
-
-- `check_page.py`: PASS (every inline script parses, no new keys, author line present).
-- The patch refuses to run twice. DATA round-trips. MASTER_LOC and the footer are asserted unchanged.
-- No navigation pin, marker position, count, hire date, contract line or money figure moves.
-
-**Screenshots** (no dollar figure in frame):
-
-- `evidence/register_laptop.png` and `evidence/register_phone.png`
-- `evidence/register_editor_laptop.png` and `evidence/register_editor_phone.png` (practice edit capability)
-- `evidence/timeline_T0103_laptop.png` and `evidence/timeline_T0103_phone.png`
-
-### Rig problem found during testing (the machine, not this release)
-
-From about 16:20 AEST, headless Chromium started crashing about 11 s after opening the page.
-
-- **Where it happened:** on the **unpatched live v9.11 and v9.10 pages alike**, whenever a large picture was drawn: the
-  map explorer that is parked in a hidden frame, and the Timeline's drop map at laptop width.
-- **The cause:** the machine's disk is full (`/` at 100%, tens of MB free; shared with other sessions). Playwright starts
-  Chromium with `--disable-dev-shm-usage`, so Chromium's shared memory lives in the temp directory. With no room there, it
-  crashes on large images. Its crash reporter logs "No space left on device".
-- **The fix used:** run with `TMPDIR=/dev/shm/v913tmp`. The harness passes the environment to the browser unchanged, and
-  `/dev/shm` is a 16 GB memory disk. With that, the same case survives. The final laptop and phone runs used it.
-- **Nothing else changed:** the harness, `open_page.js` and the page are as they were.
-- **To clear it for good:** somebody with authority over the machine needs to free disk space. Only this release's own
-  scratch copies were deleted here.
+- `tests/test_vms_rego913.cjs` — four sessions: A view link (register, every surface, texts, import, orphans), B dark mode,
+  C practice editor (form, validation, nothing-changed, one save, Save waits), D another device (incoming record without a
+  reload, stale form, 403 refusal). Every write captured in `page.route` and aborted; the harness blocked nothing; a fresh
+  GET before and after shows no `vmsboard` document.
+  - Laptop **66/66** (`evidence/test_vms_rego913_laptop.log`), phone **66/66** (`evidence/test_vms_rego913_phone.log`), on the
+    final build `bdd10c72…`.
+- `tests/shots913.cjs` — the T0103 Driver drop card (`evidence/drawer_dropcard_T0103_{laptop,phone}.png`) and the Drivers
+  sheet's booked numbers cell (`evidence/drivers_sheet_T0103_laptop.png`, drawn on screen without the print styles). The
+  drawer's Delivery card is not drawn open for T0103 by default, so it has no picture; test A checks its markup and computed
+  style instead.
+- Money (`v8.95_baseplan_07oct_DRAFT/tests/compare_money895.cjs`, A = live v9.18, B = this build), laptop and phone: 4,113
+  numbers the same, **0 differ**, 0 structural differences, tie-outs 17/17 on both pages, both reading record 4581; no errors,
+  no writes attempted (`evidence/compare_money_{laptop,phone}.log`).
+- Sweeps (`toolchain/harness/sweep.js`), laptop and phone: 21 tabs, 0 page errors, 0 console errors, 0 hash errors, 0 blocked
+  writes (`evidence/sweep_{laptop,phone}.json`).
+- `check_page.py` PASS; the patch refuses to run twice; DATA round-trips; MASTER_LOC and the footer asserted unchanged.
 
 ## Open with the project manager (nothing here resolves them)
 
-- **VMS09's asset number:** contract line 12 gives VMS09 Coates asset 1211404. That is the same number as line 1, which has
-  been on T0001 since 7 Sep. Which physical board went on T0103?
-- **Regos for every other board:** the register shows "not given" until somebody enters one.
-- **The VMS plan:** VMS001-26003-01 numbers 24 boards (01–24) against 23 contract lines. That reconciliation is still open.
-  Nothing is renumbered.
+- **VMS09's asset number:** he confirmed 1211404 is VMS09 (relayed 17:41). The contract also has 1211404 on line 1, on
+  T0001 since 7 Sep. Did VMS09 move, or is T0001's number wrong? The page says "asset no. also on … - to confirm".
+- **PremAir Hire / Premiair:** his spelling for VMS10 sits beside the contract's "Premiair" (VMS11, VMS18–23). Does his
+  spelling apply to all of them? Nothing changed until he says.
+- **Regos for every other board:** "not given" until somebody enters one.
+- **The VMS plan:** the plan's numbering against the 23 contract lines is still open. Nothing is renumbered.

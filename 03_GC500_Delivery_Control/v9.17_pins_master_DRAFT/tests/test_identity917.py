@@ -5,7 +5,8 @@
 #     manifest file written beside the page;
 #   - MASTER_LOC: identical except the 23, and for them only ll, pt, how and img, each equal to the release's list;
 #   - MASTER_LAYERS: identical except the 23 "Entry point" labels, now "Emergency egress point (E.P)";
-#   - every other byte: identical except the Part 2 code (the navPoint917 helper and the five surfaces that read it),
+#   - every other byte: identical except the Part 2 code (the navPoint917 and aerialNav917 helpers and the surfaces that
+#     read them: 38 base lines out, 64 in, each one named below),
 #     printed in full to evidence/identity917_code.diff;
 #   - the footer is unchanged.
 import difflib, hashlib, json, re, sys
@@ -82,19 +83,36 @@ d = list(difflib.unified_diff(bl, cl, 'base', 'candidate', n=0, lineterm=''))
 (here.parent / 'evidence' / 'identity917_code.diff').write_text('\n'.join(x[:2000] for x in d) + '\n')
 minus = [x[1:] for x in d if x.startswith('-') and not x.startswith('---')]
 plus = [x[1:] for x in d if x.startswith('+') and not x.startswith('+++')]
-EXPECT_OLD = ["const pt = aerialPointFor(a), ll = pt ? lonLatOf(pt.ax, pt.ay) : null;", "— it drops you at the area, not on the spot.",
+EXPECT_OLD = [  # Part 2 as first built (11 lines)
+              "const pt = aerialPointFor(a), ll = pt ? lonLatOf(pt.ax, pt.ay) : null;", "— it drops you at the area, not on the spot.",
               "const to = pf && pf.lat != null ? {lat: pf.lat, lon: pf.lon} : ll;", "'Open the pinned spot in maps' : 'Open it in maps'",
               "const ll = lonLatOf(pt.ax, pt.ay); const g = DATA.georef;", "the callout's spot on the drawing through a",
               "if (mu) { const ll = {lat: mu.ll[0], lon: mu.ll[1]}", "<div class=\"pinwhat\"><span class=\"mono\">${ll.lat.toFixed(6)}",
-              "const t = navTargetFor(a); if (!t || !t.ll) return null;", "const words = t.pinned ?", "return {a, t, lat: t.ll.lat, lon: t.ll.lon, words};"]
+              "const t = navTargetFor(a); if (!t || !t.ll) return null;", "const words = t.pinned ?", "return {a, t, lat: t.ll.lat, lon: t.ll.lon, words};",
+              # after the 8 Oct review: the drop sheet, the driver card, the email's pins, every picture and map pin (27 lines)
+              "const ll = pt ? lonLatOf(pt.ax, pt.ay) : null;", "<b>Sat nav:</b> <span class=\"mono\">${esc(ll.text)}</span> — it drops you at the area",
+              "${dropSteps(a, aerialPointFor(a))}", "const pt = aerialPointFor(a);", "No aerial photo and no sat nav point for this one.",
+              "<tr><td>Ground position</td><td>${(() => { const g = pt && lonLatOf(pt.ax, pt.ay);", "read off the drawing through the photograph, not surveyed'",
+              "(() => { const fx = [a.key].concat(pinUnits(a)", "return fx.length ? '<br><br><b>Pinned on site'", "which is the one that puts you on the spot.</span>' : ''; })()}",
+              "let pt = null; try { pt = aerialPointFor(a); } catch (e) { pt = null; }", "a drawing callout, not a surveyed position\"><img",
+              "'the registered aerial at the callout’s point", "if (a) { const pt = aerialPointFor(a); const ll = pt && lonLatOf(pt.ax, pt.ay);",
+              "const pt = aerialPointFor(a); if (!pt || !DATA.aerial_hi)", "alt=\"Aerial photograph centred on callout ${esc(pt.label)}\"",
+              "the Queensland aerial photograph centred on callout ${esc(pt.label)}", "state.satPt = aerialPointFor(a);",
+              "pt: as.length ? aerialPointFor(as[0]) : null}", "basis: 'the drawing callout for ' + a.key", "const gate = heavyGate(), pt = a ? aerialPointFor(a) : null;",
+              "const pt = aerialPointFor(a), link = (a.drawing_links || [])[0], gate = heavyGate();",
+              "steps.push(['Ring the supervisor before you leave the yard.', op ? e(offPlanWords(op)) :", "' The drawing on this page is the callout; the spot on the ground is not on it.'"]
 check(all(any(e in x for e in EXPECT_OLD) for x in minus), 'a base line changed that Part 2 does not name: ' + str([x[:120] for x in minus if not any(e in x for e in EXPECT_OLD)][:3]))
 check(all(any(e in x for x in minus) for e in EXPECT_OLD), 'a Part 2 change is missing: ' + str([e for e in EXPECT_OLD if not any(e in x for x in minus)]))
-check(len(minus) == 11, 'expected 11 base lines changed, found %d' % len(minus))
+check(len(minus) == 38, 'expected 38 base lines changed, found %d' % len(minus))
 ALLOWED_PLUS = (": t.pinned ? 'the pin '", "return {a, t, lat: ll.lat, lon: ll.lon, words};", "reads the one Navigate uses: dest782.",
                 '"Where it is" links, and the map pin / search spot', 'sheets) or their own pin, so the same reference',
-                '/* v9.17 - one point per reference', '<div class="pinwhat"><span class="mono">${mu.ll[0].toFixed(6)}, ${mu.ll[1].toFixed(6)}</span>')
+                '/* v9.17 - one point per reference', '/* v9.17 - the same point on the aerial photograph', '<div class="pinwhat"><span class="mono">${mu.ll[0].toFixed(6)}, ${mu.ll[1].toFixed(6)}</span>',
+                "(() => { const fx0 = [a.key].concat(pinUnits(a)", "+ 'Driving directions stop at the nearest road; <b>walk to it</b>",
+                "drawing callout's frame point with Navigate's point put in its place.", "reference with no callout keeps no picture);",
+                "the thing goes, so a picture of it keeps the drawn spot;", "let pt = null; try { pt = aerialPointFor(a); } catch (e) { pt = null; }",
+                "if (!pt) return null;", "const f = frameOf(D.ll.lat, D.ll.lon);", "if (!f || !(f.ax >= 0 && f.ax <= 1 && f.ay >= 0 && f.ay <= 1)) return null;", "}")
 check(all('917' in x or x.strip().startswith(ALLOWED_PLUS) for x in plus), 'an added line is not part of v9.17: ' + str([x[:120] for x in plus if '917' not in x and not x.strip().startswith(ALLOWED_PLUS)][:6]))
-check(len(plus) == 22, 'expected 22 candidate lines, found %d' % len(plus))
+check(len(plus) == 64, 'expected 64 candidate lines, found %d' % len(plus))
 fb, fc = re.findall(r' · v9\.\d+', b), re.findall(r' · v9\.\d+', c)
 check(fb == fc, 'the footer changed')
 print(('FAIL ' + '; '.join(fails)) if fails else

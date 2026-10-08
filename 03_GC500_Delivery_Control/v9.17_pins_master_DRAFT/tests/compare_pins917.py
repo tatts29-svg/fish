@@ -3,7 +3,10 @@
 # (3) every row: the 23 move by the listed metres (+-0.1 m) on Navigate, the Navigate button, the drop message (Directions
 #     and "Or key in"), the job sheet lines, dpPos and the driver card, and stay "master plan"; every other row moves 0.0 m
 #     and keeps its kind; CP1 and WC81 stay in the inset; the record version is the same before and after both runs.
-# (4) Part 2, candidate: every surface's point equals Navigate's (dest782) to 0.0 m, for every reference.
+# (4) Part 2, candidate: every surface's point equals Navigate's (dest782) to 0.0 m, for every reference - including, after
+#     the 8 Oct review, the printed drop sheet (Sat nav and the ring on its pictures), the driver card's Ground position,
+#     the email's "Pinned on site" rows, the aerial point (aerialNav917), the 3D fly-to, Today's day card map (0.1 m: the
+#     page's own 4-decimal rounding) and the driver page picture of every load; and the words beside them say so.
 import json, math, sys
 from pathlib import Path
 here = Path(__file__).resolve().parent
@@ -42,7 +45,7 @@ def pts_of(sf):
     if isinstance(sf.get('dpPos'), dict) and sf['dpPos'].get('ll'): out['dpPos'] = [sf['dpPos']['ll']]
     if isinstance(sf.get('driverCard'), dict): out['driverCard'] = sf['driverCard']['dest'] + sf['driverCard']['earth']
     return out
-rows3 = []
+rows3 = []; part2_moved = []
 for k in sorted(BB):
     a, b = BA.get(k), BB[k]
     if not a: continue
@@ -75,10 +78,16 @@ for k in sorted(BB):
         check(same_kind, k + ': kind changed %s -> %s' % ((da or {}).get('kind'), (db or {}).get('kind')))
         check(moved == 0.0, k + ': Navigate moved %s m' % moved)
         Pa, Pb = pts_of(a['sf']), pts_of(b['sf'])
-        check(Pa == Pb, k + ': a driver-facing point changed: ' + str([s for s in set(Pa) | set(Pb) if Pa.get(s) != Pb.get(s)]))
+        changed = [s for s in set(Pa) | set(Pb) if Pa.get(s) != Pb.get(s)]
+        # Part 2 may only bring the driver card (it carries the drawer's links) onto Navigate; nothing else may change
+        p2 = [s for s in changed if s == 'driverCard' and db and db.get('ll') and all(r1(hav(ll, R6(db['ll']))) == 0.0 for ll in Pb.get(s, []))]
+        if p2: part2_moved.append(k)
+        check(not [s for s in changed if s not in p2], k + ': a driver-facing point changed: ' + str([s for s in changed if s not in p2]))
         check(a['master'] == b['master'], k + ': MASTER_LOC changed')
 # (4) Part 2 on the candidate (and, for the record, how many disagreed on the base)
-def part2(X):
+def part2(X, building_pins, words_bad=None, notes917=None, report_aerial=None):
+    words_bad = [] if words_bad is None else words_bad; notes917 = [] if notes917 is None else notes917
+    report_aerial = [] if report_aerial is None else report_aerial; rounded = []
     bad, n_checked, per = [], 0, {}
     for r in X['rows']:
         d = r['dest']
@@ -98,23 +107,85 @@ def part2(X):
         for x in (sf.get('dayPinCell') if isinstance(sf.get('dayPinCell'), list) else []): got.append(('day pin', x))
         for sname, lst in pts_of(sf).items():
             for ll in lst: got.append((sname, ll))
+        # after the 8 Oct review: the printed drop sheet, the driver card's Ground position, the email's pins, the pictures
+        ds = sf.get('dropSheet')
+        if isinstance(ds, dict):
+            got.append(('drop sheet Sat nav', ds.get('satnav')))
+            # the pit lane (no drop-off set) is where the driver reports, not where the thing goes: its pictures keep the
+            # drawn spot by design (aerialNav917); they are listed, not counted
+            if d.get('kind') == 'report':
+                if ds.get('rings'): report_aerial.append(r['key'] + ' drop sheet pictures')
+            else: got += [('drop sheet picture ring', x) for x in (ds.get('rings') or [])]
+            if ds.get('satnav') and not str(ds.get('words') or '').startswith('the same point as Navigate'): words_bad.append({'ref': r['key'], 'surface': 'drop sheet Sat nav', 'words': ds.get('words')})
+        g = sf.get('ground')
+        if isinstance(g, dict):
+            got.append(('driver card Ground position', g.get('ll')))
+            if 'the same point as Navigate' not in str(g.get('words')): words_bad.append({'ref': r['key'], 'surface': 'Ground position', 'words': g.get('words')})
+        ep = sf.get('emailPins')
+        if isinstance(ep, dict):
+            for row in ep.get('rows') or []:
+                if row.get('unit'):
+                    for ll in row.get('links') or []:
+                        if r1(min(hav(ll, d['ll']), hav(ll, D))) != 0.0: building_pins.append({'ref': r['key'], 'surface': 'email building pin', 'm': r1(hav(ll, d['ll']))})
+                    continue
+                got += [('email pinned on site', ll) for ll in row.get('links') or []]
+            if ep.get('note'): notes917.append({'ref': r['key'], 'kind': d.get('kind'), 'note': ep['note'][:160]})
+        ae = sf.get('aerial')
+        if isinstance(ae, dict):
+            if d.get('kind') == 'report':
+                if ae.get('helper'): report_aerial.append(r['key'] + ' aerial point')
+            else:
+                got += [('aerial point (aerialNav917)', ae.get('helper')), ('3D fly-to', ae.get('fly3d'))]
+                if ae.get('dayCardMap'): rounded.append(('Today day card map', ae['dayCardMap']))
+        # a reference with a pin per building (not a master unit) lists every building's pin in its drawer and driver card;
+        # those rows are the buildings' own pins by design (on the record only T0022) and are reported, not counted
+        per_building = isinstance(pb, dict) and not pb.get('master') and pb.get('rows', 0) > 1
+        for sname, ll in rounded:  # the page writes this one as a 4-decimal fraction of the crop: 0.1 m is its own rounding
+            n_checked += 1; per[sname] = per.get(sname, 0) + 1
+            if min(hav(ll, d['ll']), hav(ll, D)) > 0.1: bad.append({'ref': r['key'], 'surface': sname, 'm': r1(hav(ll, d['ll']))})
+        rounded.clear()
         for sname, ll in got:
             if ll is None: continue
+            # equal to Navigate exactly, or to Navigate as the page prints it (6 decimals in a link)
+            m = min(hav(ll, d['ll']), hav(ll, D))
+            if per_building and sname == 'driverCard' and r1(m) != 0.0:
+                building_pins.append({'ref': r['key'], 'm': r1(m)}); continue
             n_checked += 1; per[sname] = per.get(sname, 0) + 1
-            m = hav(ll, D)
             if r1(m) != 0.0: bad.append({'ref': r['key'], 'surface': sname, 'm': r1(m)})
     return bad, n_checked, per
-bad_b, nb, per_b = part2(B); bad_a, na, _ = part2(A)
+bp_b, bp_a = [], []
+wb_b, nt_b, ra_b = [], [], []
+bad_b, nb, per_b = part2(B, bp_b, wb_b, nt_b, ra_b); bad_a, na, per_a = part2(A, bp_a)
 check(not bad_b, 'Part 2: %d surface points are not on Navigate: %s' % (len(bad_b), bad_b[:8]))
+check(not wb_b, 'Part 2: %d lines do not say they are Navigate\'s point: %s' % (len(wb_b), wb_b[:4]))
+check(all(k in per_b for k in ('drop sheet Sat nav', 'drop sheet picture ring', 'driver card Ground position', 'email pinned on site', 'aerial point (aerialNav917)', '3D fly-to', 'Today day card map')),
+      'Part 2: a review surface was not read on the candidate: ' + str(sorted(per_b)))
+# the driver page picture of every load on the programme (loadDrop), against Navigate for the load's first reference
+def loads_off(X):
+    off, n = [], 0
+    for l in X.get('loads') or []:
+        if l.get('error'): off.append(l); continue
+        if not l.get('pic') or not l.get('dest') or l.get('kind') == 'report': continue
+        n += 1
+        if r1(hav(l['pic'], l['dest'])) != 0.0: off.append({'load': l['id'], 'ref': l['key'], 'm': r1(hav(l['pic'], l['dest']))})
+    return off, n
+lo_b, ln_b = loads_off(B); lo_a, ln_a = loads_off(A)
+check(not lo_b and ln_b > 0, 'driver page pictures: %d of %d not on Navigate: %s' % (len(lo_b), ln_b, lo_b[:4]))
 # Navigate itself does not move because of Part 2: only the 23 change (checked above), and the base's surfaces that disagreed are now fixed
 refs_fixed = sorted({x['ref'] for x in bad_a})
-out = {'rows': len(BB), 'record_version': B['version_end'], 'footer': B['footer'], 'moved_23': rows3,
-       'part2': {'candidate_points_checked': nb, 'candidate_not_on_navigate': bad_b, 'per_surface': per_b,
+out = {'driver_card_brought_onto_navigate_by_part2': part2_moved, 'rows': len(BB), 'record_version': B['version_end'], 'footer': B['footer'], 'moved_23': rows3,
+       'part2': {'candidate_points_checked': nb, 'candidate_not_on_navigate': bad_b, 'per_building_pins_shown_not_counted': bp_b, 'per_surface': per_b,
+                 'candidate_words_not_navigate': wb_b, 'email_unverified_master_notes': nt_b, 'report_kind_pictures_keep_drawn_spot': ra_b,
+                 'driver_page_pictures': {'candidate_checked': ln_b, 'candidate_off': lo_b, 'base_checked': ln_a, 'base_off': len(lo_a), 'base_worst': sorted([x for x in lo_a if 'm' in x], key=lambda x: -x['m'])[:8]},
+                 'base_per_surface_checked': per_a,
                  'base_points_checked': na, 'base_not_on_navigate': len(bad_a), 'base_refs_with_a_second_point': len(refs_fixed), 'base_refs': refs_fixed,
                  'base_worst': sorted(bad_a, key=lambda x: -x['m'])[:15]},
        'fails': fails}
 Path(sys.argv[3]).write_text(json.dumps(out, indent=1))
 print('rows', len(BB), '| record', A['version_start'], '->', B['version_end'], '| the 23:', ', '.join('%s %.1f m' % (x['ref'], x['moved_m']) for x in rows3))
 print('Part 2: candidate %d points, %d off Navigate; base %d points off Navigate on %d references' % (nb, len(bad_b), len(bad_a), len(refs_fixed)))
+print('  per surface (candidate):', ', '.join('%s %d' % kv for kv in sorted(per_b.items())))
+print('  driver page pictures: candidate %d checked, %d off; base %d off' % (ln_b, len(lo_b), len(lo_a)))
+print('  email notes (unverified master position not offered):', ', '.join(x['ref'] for x in nt_b) or 'none', '| pit-lane references whose pictures keep the drawn spot:', ', '.join(sorted({x.split()[0] for x in ra_b})) or 'none')
 print(('FAIL %d: ' % len(fails)) + '; '.join(fails[:12]) if fails else 'PASS')
 sys.exit(1 if fails else 0)

@@ -1,0 +1,6 @@
+rows 200 | record 4581 -> 4581 | the 23: CP1 15.9 m, T0243 5.4 m, WC02 3.1 m, WC04 3.2 m, WC09 6.5 m, WC16 4.1 m, WC17 4.1 m, WC19 4.4 m, WC24 5.6 m, WC25 5.0 m, WC26 5.1 m, WC28 3.1 m, WC34 5.0 m, WC35 5.6 m, WC39 3.6 m, WC44 4.0 m, WC50 3.0 m, WC62 3.2 m, WC65 5.5 m, WC68 5.1 m, WC70 4.7 m, WC81 5.8 m, WC86 5.1 m
+Part 2: candidate 5388 points, 0 off Navigate; base 1593 points off Navigate on 133 references
+  per surface (candidate): 3D fly-to 120, Today day card map 115, aerial point (aerialNav917) 120, day pin 362, dpPos 199, drawer driving 143, drawer earth 143, drawer walking 143, driver card Ground position 199, driverCard 435, drop sheet Sat nav 199, drop sheet picture ring 360, dropText 199, email Sat nav 199, email button 199, email pinned on site 393, load Go 199, map spot 199, navBtn 199, satellite approx 133, satellite copy 133, satellite earth 133, satellite fly 133, satellite fromDepot 133, satellite navigate 133, satellite streetView 133, satellite svHere 133, text747 199
+  driver page pictures: candidate 30 checked, 0 off; base 30 off
+  email notes (unverified master position not offered): LTC01, LTC02, LTC03, LTC04, LTC05, LTC06, LTC07, LTC08, LTC09, LTC10, LTC11, LTC12, LTC14 | pit-lane references whose pictures keep the drawn spot: LTC01, LTC02, LTC03, LTC04, LTC05, LTC06, LTC07, LTC08, LTC09, LTC10, LTC11, LTC12, LTC14
+PASS

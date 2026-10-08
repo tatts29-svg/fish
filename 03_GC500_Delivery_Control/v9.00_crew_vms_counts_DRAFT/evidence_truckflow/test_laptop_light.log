@@ -19,7 +19,6 @@ PASS 2026-10-08: the opened card carries Order, People on, the areas, Oversized,
 PASS 2026-10-08: an opened fold stays open through a redraw; closed again, it stays closed
 PASS 2026-10-08: opening, closing and redrawing wrote nothing (local record, localStorage and sessionStorage identical; blocked writes 0)
 PASS 2026-10-08: the rest of the Timeline pane is the base’s byte for byte with the fold unwrapped — load cards, Workers, dropdowns (22), order controls (3), Arrange loads (3)
-  pane: first difference at 89788 "utton\" class=\"day quiet blank weekend\" data-day=\"2026-10-11\" aria-pressed=\"false\" aria-label=\"Sun 11 Oct 2026, nothing scheduled: 0 due in, 0 due out. Weather: no forecast yet, forecast runs to Sat 10 Oct\">\n <span class=\"dface\">\n <span class=\"dhead\"><span class=\"dow\">Sun</span><span class=\"dhr\"></span></span>\n <span cl" "utton\" class=\"day quiet blank weekend\" data-day=\"2026-10-11\" aria-pressed=\"false\" aria-label=\"Sun 11 Oct 2026, nothing scheduled: 0 due in, 0 due out. Weather: Drizzle · 29° / 19° · rain 90% · wind to 17 km/h · flagged WET — Open-Meteo forecast (best-match models)\" data-weather-card=\"rain\" data-motion-visible=\"true\" da"
 PASS 2026-10-08: money identical (moneySummary, fh866Model)
 PASS 2026-10-08: edit practice — Make it Load 1 (1), Stagger (0), People on Save and the order controls call the same functions with the same arguments as the base (captured, never saved)
 PASS 2026-10-08: a load’s jump chip opens the fold; a print opens every fold and closes it after; the line never prints

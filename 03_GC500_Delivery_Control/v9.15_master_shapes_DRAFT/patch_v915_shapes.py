@@ -25,7 +25,7 @@ import hashlib, json, re, sys
 from pathlib import Path
 here = Path(__file__).resolve().parent
 sys.path.insert(0, str(here.parent / 'toolchain'))
-from rep import rep
+from rep import rep  # noqa: F401 (shared helper; the one insertion here is at the page end, checked below)
 
 SHAPES = here / 'shapes_v915.json'
 SHAPES_SHA = 'c53e21d530f0d614a0d3d2488fe00c6770a914245f6c971c2e9e6fedd5701374'
@@ -284,11 +284,10 @@ assert 'Claude' not in JS and 'Codex' not in JS
 
 INSERT = ('\n<script id="shapes915-data" data-sha256="' + BLOB_SHA + '">const MASTER_SHAPES915_DATA = ' + blob + ';</script>\n'
           '<script id="shapes915-script">' + JS + '</script>')
-ANCHOR = "if(typeof module!=='undefined'&&module.exports)module.exports=Workers911;\n\n</script>\n</body></html>"
-assert s.count(ANCHOR) == 1, 'end-of-page anchor not found exactly once - stopping'
-s = rep(s, "if(typeof module!=='undefined'&&module.exports)module.exports=Workers911;\n\n</script>\n</body></html>",
-        "if(typeof module!=='undefined'&&module.exports)module.exports=Workers911;\n\n</script>" + INSERT + "\n</body></html>",
-        'v9.15 master shapes blocks', str(p))
+# the two blocks go at the very end of the page, after its last script and before </body></html>
+mt = re.search(r'</script>(\n</body></html>\s*)$', s)
+assert mt, 'page end not as expected - stopping'
+s = s[:mt.start(1)] + INSERT + s[mt.start(1):]
 
 # nothing else moved
 m2 = re.search(r'const DATA = (\{.*?\});\n', s); assert m2 and m2.group(1) == DATA_TEXT, 'DATA changed - stopping'

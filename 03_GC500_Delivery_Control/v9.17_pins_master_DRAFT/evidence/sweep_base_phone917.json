@@ -1,0 +1,49 @@
+{
+ "tabs": 21,
+ "shown": 15,
+ "page_errors": [],
+ "console_errors": [],
+ "counts": {
+  "page": 1,
+  "live": 183,
+  "blocked": 0
+ },
+ "deep_links": {
+  "#timeline": {
+   "pane": "pane-timeline",
+   "errors": []
+  },
+  "#day/2026-09-28": {
+   "pane": "pane-timeline",
+   "errors": []
+  },
+  "#change/2026-09-28": {
+   "pane": "pane-change",
+   "errors": []
+  },
+  "#print/drivers/2026-09-28": {
+   "pane": "pane-timeline",
+   "errors": []
+  },
+  "#sheet/__satellite3d": {
+   "pane": "pane-map",
+   "errors": []
+  },
+  "#plant": {
+   "pane": "pane-plant",
+   "errors": []
+  },
+  "#today": {
+   "pane": "pane-today",
+   "errors": []
+  }
+ },
+ "not_shown_in_view_mode": [
+  "register",
+  "journal",
+  "breakdowns",
+  "variances",
+  "edit",
+  "add"
+ ]
+}
