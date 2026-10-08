@@ -1,0 +1,26 @@
+{
+  "author": "Andrew Fisher",
+  "state": "Source module ready for combined integration; not published",
+  "originals": {
+    "newSha256": "fc39ba08ded1f6c6d4823b755b44d1463cf72262829b11dce4fa65f87506bcb7",
+    "previousSha256": "fd522077f05f1d36ff8cae5a95726f546c6764ad74763db6e64d9d449193dddd",
+    "review": "Both original workbooks read through ZIP/XML; every populated cell in every worksheet examined. Eleven new full-programme sheets have identical 1028-cell content; the distinct 218-cell DEMOB WK 1 exactly matches old Sheet2."
+  },
+  "checks": {
+    "allTwelveAlignedChanges": true,
+    "allExistingEmbeddedDataExactPreservation": true,
+    "nativeDrawerDelegation": true,
+    "closedFoldForAllTwelveReferences": true,
+    "unrelatedReferenceExcluded": true,
+    "repeatSafeAndDoublePatchRejected": true,
+    "GN18FinalPositionCaveat": true,
+    "P45ReversedYearHeld": true,
+    "noOperationalWrites": true
+  },
+  "limits": [
+    "No workbook completion status imported into site readiness or operational delivery records.",
+    "No additional deliveries created from cloned worksheets; no P45 duplicate or guessed date correction.",
+    "Original workbook files and private aligned source audit are not included in this module.",
+    "Final combined page parse and real desktop/phone drawer verification are the integration owner's remaining checks."
+  ]
+}
