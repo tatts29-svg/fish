@@ -1,12 +1,79 @@
 {
  "author": "Andrew Fisher",
  "profile": "laptop",
- "heapBeforeMB": 12.2,
+ "heapBeforeMB": 13.3,
+ "mainContextId": 3,
+ "typedBefore": {
+  "Float32Array": {
+   "n": 0,
+   "mb": 0,
+   "over1MB": 0
+  },
+  "Uint16Array": {
+   "n": 0,
+   "mb": 0,
+   "over1MB": 0
+  },
+  "Uint32Array": {
+   "n": 0,
+   "mb": 0,
+   "over1MB": 0
+  },
+  "Uint8Array": {
+   "n": 0,
+   "mb": 0,
+   "over1MB": 0
+  },
+  "Int16Array": {
+   "n": 0,
+   "mb": 0,
+   "over1MB": 0
+  },
+  "Float64Array": {
+   "n": 0,
+   "mb": 0,
+   "over1MB": 0
+  },
+  "ArrayBuffer": {
+   "n": 0,
+   "mb": 0,
+   "over1MB": 0
+  },
+  "WebGLBuffer": {
+   "n": 0,
+   "mb": 0,
+   "over1MB": 0
+  },
+  "WebGLTexture": {
+   "n": 0,
+   "mb": 0,
+   "over1MB": 0
+  },
+  "WebGL2RenderingContext": {
+   "n": 0,
+   "mb": 0,
+   "over1MB": 0
+  },
+  "HTMLCanvasElement": {
+   "n": 1,
+   "mb": 0,
+   "over1MB": 0
+  },
+  "AudioBuffer": {
+   "n": 0,
+   "mb": 0,
+   "over1MB": 0
+  }
+ },
  "walkBefore": {
   "top": [
    [
     "DATA",
     3.55
+   ],
+   [
+    "RENDER_MEMO",
+    0.93
    ],
    [
     "SYNC",
@@ -15,20 +82,16 @@
    [
     "localStorage",
     0.83
-   ],
-   [
-    "RENDER_MEMO",
-    0.83
    ]
   ],
-  "totalMB": 6.1,
+  "totalMB": 6.2,
   "sceneUp": false,
   "extra": {
    "DATA.surrounds": 0
   }
  },
- "heapOpenMB": 374.6,
- "heapAfterCloseMB": 312,
+ "heapOpenMB": 373.4,
+ "heapAfterCloseMB": 310.6,
  "walkAfter": {
   "top": [
    [
@@ -45,7 +108,7 @@
    ],
    [
     "RENDER_MEMO",
-    0.93
+    0.98
    ],
    [
     "SYNC",
@@ -94,6 +157,31 @@
    "over1MB": 0
   },
   "ArrayBuffer": {
+   "n": 0,
+   "mb": 0,
+   "over1MB": 0
+  },
+  "WebGLBuffer": {
+   "n": 175,
+   "mb": 0,
+   "over1MB": 0
+  },
+  "WebGLTexture": {
+   "n": 2,
+   "mb": 0,
+   "over1MB": 0
+  },
+  "WebGL2RenderingContext": {
+   "n": 1,
+   "mb": 0,
+   "over1MB": 0
+  },
+  "HTMLCanvasElement": {
+   "n": 2,
+   "mb": 0,
+   "over1MB": 0
+  },
+  "AudioBuffer": {
    "n": 0,
    "mb": 0,
    "over1MB": 0
