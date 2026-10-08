@@ -1,6 +1,6 @@
 # Author: Andrew Fisher. v9.17 - compare what the base and the candidate hand a driver, for every reference.
 #   python3 tests/compare_pins917.py <base collect json> <candidate collect json> <out json>
-# (3) every row: the 53 (the 23, GN18 and GN13, the 28 near moves) move by the listed metres (+-0.1 m) on Navigate, the Navigate button, the drop message (Directions
+# (3) every row: the 57 (the 23, GN18 and GN13, the 28 near moves, WC59, WC57, WC13 and WC69) move by the listed metres (+-0.1 m) on Navigate, the Navigate button, the drop message (Directions
 #     and "Or key in"), the job sheet lines, dpPos and the driver card, and stay "master plan"; every other row moves 0.0 m
 #     and keeps its kind; CP1 and WC81 stay in the inset; the record version is the same before and after both runs.
 # (4) Part 2, candidate: every surface's point equals Navigate's (dest782) to 0.0 m, for every reference - including, after
@@ -11,7 +11,8 @@ import json, math, sys
 from pathlib import Path
 here = Path(__file__).resolve().parent
 A, B = (json.loads(Path(x).read_text()) for x in sys.argv[1:3])
-DER = dict(json.loads((here.parent / 'evidence' / 'derive917.json').read_text())['rows'], **json.loads((here.parent / 'evidence' / 'derive917_add.json').read_text())['rows'])
+DER = dict(json.loads((here.parent / 'evidence' / 'derive917.json').read_text())['rows'], **json.loads((here.parent / 'evidence' / 'derive917_add.json').read_text())['rows'],
+           **json.loads((here.parent / 'evidence' / 'derive917_held.json').read_text())['rows'])
 # the "Moves" column of the audit table the project manager was given (metres)
 TABLE = {'WC09': 6.6, 'CP1': 15.9, 'T0243': 5.4, 'WC24': 5.6, 'WC35': 5.6, 'WC81': 5.7, 'WC65': 5.5, 'WC26': 5.2, 'WC68': 5.1, 'WC86': 5.1,
          'WC25': 5.0, 'WC34': 5.0, 'WC70': 4.8, 'WC19': 4.4, 'WC16': 4.1, 'WC17': 4.1, 'WC44': 4.0, 'WC39': 3.6, 'WC62': 3.2, 'WC04': 3.2,
@@ -20,9 +21,11 @@ TABLE = {'WC09': 6.6, 'CP1': 15.9, 'T0243': 5.4, 'WC24': 5.6, 'WC35': 5.6, 'WC81
          'GN18': 17.1, 'GN13': 11.6,
          'WC06': 1.5, 'WC10': 2.4, 'WC11': 2.1, 'WC12': 2.4, 'WC21': 2.7, 'WC23': 2.0, 'WC29': 2.8, 'WC30': 1.4, 'WC33': 2.6, 'WC38': 2.0,
          'WC40': 1.9, 'WC41': 2.2, 'WC42': 2.2, 'WC43': 1.6, 'WC45': 1.9, 'WC46': 1.9, 'WC47': 2.2, 'WC48': 2.6, 'WC49': 1.9, 'WC53': 2.2,
-         'WC54': 2.3, 'WC55': 1.6, 'WC56': 2.0, 'WC61': 2.0, 'WC67': 1.3, 'WC71': 2.4, 'WC72': 2.9, 'WC73': 1.9}
-assert set(TABLE) == set(DER) and len(TABLE) == 53
-HELD = ['WC57', 'WC59', 'WC13', 'WC69', 'P08', 'P44', 'P51', 'WC20', 'P27', 'P29', 'P34', 'WC51', 'WC01', 'P26', 'P28', 'T0022', 'T0023', 'P47', 'WC32']
+         'WC54': 2.3, 'WC55': 1.6, 'WC56': 2.0, 'WC61': 2.0, 'WC67': 1.3, 'WC71': 2.4, 'WC72': 2.9, 'WC73': 1.9,
+         # third round: the audit's metres for the four the project manager answered (8 Oct about 23:20 AEST)
+         'WC59': 5.6, 'WC57': 11.8, 'WC13': 2.0, 'WC69': 2.3}
+assert set(TABLE) == set(DER) and len(TABLE) == 57
+HELD = ['P08', 'P44', 'P51', 'WC20', 'P27', 'P29', 'P34', 'WC51', 'WC01', 'P26', 'P28', 'T0022', 'T0023', 'P47', 'WC32']
 def hav(a, b):
     la1, lo1, la2, lo2 = map(math.radians, (a[0], a[1], b[0], b[1]))
     h = math.sin((la2 - la1) / 2) ** 2 + math.cos(la1) * math.cos(la2) * math.sin((lo2 - lo1) / 2) ** 2
@@ -187,8 +190,8 @@ for k in HELD:
     da, db = a['dest'] or {}, b['dest'] or {}
     check(da.get('ll') == db.get('ll') and da.get('kind') == db.get('kind'), k + ': a held reference moved')
     held_seen.append(k)
-check(len(held_seen) >= 18, 'held references not all read: ' + str(sorted(set(HELD) - set(held_seen))))
-out = {'held_not_moved': held_seen, 'driver_card_brought_onto_navigate_by_part2': part2_moved, 'rows': len(BB), 'record_version': B['version_end'], 'footer': B['footer'], 'moved_53': rows3,
+check(len(held_seen) >= 14, 'held references not all read: ' + str(sorted(set(HELD) - set(held_seen))))
+out = {'held_not_moved': held_seen, 'driver_card_brought_onto_navigate_by_part2': part2_moved, 'rows': len(BB), 'record_version': B['version_end'], 'footer': B['footer'], 'moved_57': rows3,
        'part2': {'candidate_points_checked': nb, 'candidate_not_on_navigate': bad_b, 'per_building_pins_shown_not_counted': bp_b, 'per_surface': per_b,
                  'candidate_words_not_navigate': wb_b, 'email_unverified_master_notes': nt_b, 'report_kind_pictures_keep_drawn_spot': ra_b,
                  'driver_page_pictures': {'candidate_checked': ln_b, 'candidate_off': lo_b, 'base_checked': ln_a, 'base_off': len(lo_a), 'base_worst': sorted([x for x in lo_a if 'm' in x], key=lambda x: -x['m'])[:8]},

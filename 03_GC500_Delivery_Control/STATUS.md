@@ -39,6 +39,7 @@
 - **"Water barrier have shapes theirs is the white and yellow long lines."** The WB references are traced from the master's white and yellow lines, as line shapes. This corrects v9.15's "not drawn".
 - **"Waste tank almost need to be same shape as the toilet block greyed. Clearly to say waste tank."** Each waste tank takes its block's footprint, greyed out, labelled "WASTE TANK", beside its block.
 - **What Claude did:** stopped the v9.15 run after 5 minutes, put all three into it and relaunched it as `wf_ee607042-8cf`.
+- **~00:20: "Waste tanks are under the toilets so u wont see on master."** A tank takes its block's footprint at the **same place and rotation**, under the block, so the master not drawing it is expected. In Arrange loads it shows as its own greyed "WASTE TANK" item. On the map it stays readable alongside its block. The run was restarted again with this correction.
 
 **CLAIM: v9.15 master shapes, every item, CLAUDE, 9 Oct 2026 ~00:10 AEST.** Claude takes v9.15 back from the 23:45 handover; Codex had not claimed it.
 - **Andrew, ~00:05:** "Remember every item has a shape even a fwf has a shape. Disabled toilet. Generator too."

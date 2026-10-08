@@ -18,7 +18,8 @@ const MEDIA = path.join(__dirname, '..', 'evidence', 'media917');
     await p.waitForFunction(() => typeof SYNC !== 'undefined' && SYNC.status === 'live' && typeof openAsset === 'function', null, {timeout: 180000});
     await p.waitForTimeout(2500);
     // second round: also GN18 (the generator symbol, "follow the master") and WC56 (a near move, two rows of six)
-    for (const ref of ['WC09', 'GN18', 'WC56', 'CP1']) {
+    // third round: the drawers of WC09 and WC59 (the long row) only
+    for (const ref of (process.env.REFS || 'WC09,WC59').split(',')) {
       await p.evaluate(k => openAsset(k), ref); await p.waitForTimeout(2500);
       // The satellite panel (satelliteBlock) is not shown in the drawer since v8.16: its folds keep five rows of the record
       // section and drop the rest, the panel with them. Its points are proven from the function itself (collect_pins917.cjs).
@@ -52,7 +53,7 @@ const MEDIA = path.join(__dirname, '..', 'evidence', 'media917');
     }
     // after the 8 Oct review: the printed drop sheet for the same two, as the page renders it for printing (its pictures cut
     // by the page's own cropFit), so the Sat nav line and the ring on the pictures can be looked at
-    for (const ref of ['WC09', 'CP1']) {
+    for (const ref of (process.env.SHEETS || 'WC09,WC59').split(',').filter(Boolean)) {
       const info = await p.evaluate(async k => { const a = assetOf(k); const h = dropPage(a, a.events || [], 1, 1, {iso: '2026-10-09'}, 'deliveries');
         const d = document.createElement('div'); d.id = 'shot917'; d.style.cssText = 'position:fixed;inset:0;z-index:2147483647;background:#fff;color:#111;overflow:auto;padding:10px';
         d.innerHTML = h; document.body.appendChild(d); try { await cropFit(d); } catch (e) {}
