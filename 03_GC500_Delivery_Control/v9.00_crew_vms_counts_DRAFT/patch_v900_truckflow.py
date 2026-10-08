@@ -110,7 +110,7 @@ function flow909Checks(M){
 function flow909Line(d, M){
  const C = flow909Checks(M), loads = M.loads + ' load' + (M.loads === 1 ? '' : 's');
  const tip = C.count ? 'Loads to check — ' + C.words.join(' · ') + '. Press to open the Truck flow.' : 'Press to open the Truck flow.';
- return '<summary title="' + esc(tip) + '"><span class="flow909-k">Truck flow</span><span class="flow909-w">' + esc(loads) + ' · ' +
+ return '<summary title="' + esc(tip) + '"><span class="flow909-k">Truck flow</span> <span class="flow909-w">· ' + esc(loads) + ' · ' +
   (C.count ? '<b class="flow909-n">' + C.count + ' to check</b>' : '<span class="flow909-ok">nothing to check</span>') +
   '</span><span class="flow909-h" aria-hidden="true"></span></summary>';
 }

@@ -99,7 +99,7 @@ async function sessionA() {
         others: !/vms913|Boards:/.test(loading872AssetHtml(wc) + bookingNosLine801(wc) + driverCard(wc) + dropText(wc, {}) + dpTruck(gw, 'drv')) && !/^Boards/.test((roww && roww.notes[0]) || '') && dropSmsText(wc) === dropSmsText(wc) && !/:\s*VMS|boards not named/.test(text747What(wc))};
     }, W103);
     ok('Timeline load card for T0103 names VMS09 and VMS10 with fleet number and rego', sur.loadCard, W103);
-    ok('delivery card (Timeline / Today) for T0103 names both boards', sur.deliveryCard);
+    ok('delivery card (the Timeline load opened) for T0103 names both boards', sur.deliveryCard);
     ok('the Timeline\'s "Every day" row for T0103 names both boards (WC09\'s rows untouched)', sur.everyDay);
     ok("drawer: the Delivery card's rental lines name both boards as the project manager's word; VMS10's own line keeps its fleet number and rego", sur.drawer && sur.drawerLine, sur);
     ok("driver drop card (drawer) names both boards, one pill each, as the project manager's word", sur.driverCard);
