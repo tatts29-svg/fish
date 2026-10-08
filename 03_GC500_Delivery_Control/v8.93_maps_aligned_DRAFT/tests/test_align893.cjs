@@ -58,7 +58,7 @@ function offPt(pt, boxes) {   // distance (sheet pt) from a picture fraction to 
       const tr = TR.exec(b.style.transform || ''), ptr = op ? TR.exec(op.style.transform || '') : null; let fx, fy, how;
       if (tr && par && par.width > 0) { const X = parseFloat(tr[1]) + (ptr ? parseFloat(ptr[1]) : 0), Y = parseFloat(tr[2]) + (ptr ? parseFloat(ptr[2]) : 0); fx = X / par.width; fy = Y / (par.width * RATIO); how = 'transform'; }
       else { fx = parseFloat(b.style.left) / 100; fy = parseFloat(b.style.top) / 100; how = 'style'; }
-      out[lab] = out[lab] || []; out[lab].push({fx, fy, how, shown: r.width > 0, dom: par && par.width > 0 ? [(r.left + r.width / 2 - par.left) / par.width, (r.top + r.height / 2 - par.top) / (par.width * RATIO)] : null, cls: b.className}); }); return {sheet: state.sheet, markers: out}; });
+      out[lab] = out[lab] || []; out[lab].push({fx, fy, how, sw: par && par.width > 0 ? par.width : null, panned: !!(ptr && (parseFloat(ptr[1]) !== 0 || parseFloat(ptr[2]) !== 0)), shown: r.width > 0, dom: par && par.width > 0 ? [(r.left + r.width / 2 - par.left) / par.width, (r.top + r.height / 2 - par.top) / (par.width * RATIO)] : null, cls: b.className}); }); return {sheet: state.sheet, markers: out}; });
   const master = await readMarkers(); await shot('master_sheet');
   const tagPins = Object.entries(C89.master_loc).map(([k]) => k);
   const refs = {}; const allTag = await p.evaluate(() => Object.entries(MASTER_LOC).filter(([k, v]) => String(v.how || '').startsWith('tag on the unit')).map(([k]) => k).sort());
@@ -71,11 +71,19 @@ function offPt(pt, boxes) {   // distance (sheet pt) from a picture fraction to 
     const boxes = labelBoxes(k); const isTag = String(info.how).startsWith('tag on the unit');
     const off = boxes.length ? offPt([m.fx, m.fy], boxes) : null;
     if (m.dom) { domSeen++; if (Math.abs(m.dom[0] - m.fx) < 0.004 && Math.abs(m.dom[1] - m.fy) < 0.004) domAgree++; }
+    /* the page writes each floater's position as translate(X.toFixed(1)px, Y.toFixed(1)px), so a position read back through the
+       transform is within 0.05 CSS px of fx * stage width (and of fy * stage width * ratio) on any stage - the bound is the page's own
+       rounding, in CSS pixels, not a fixed fraction of the picture (which a narrow phone stage cannot meet: 0.05 px there is more
+       than 1e-4 of the picture). A panned overlay adds one more rounded translate. The stale style % keeps the old 1e-4 fraction. */
+    const dpx = m.how === 'transform' && m.sw ? [Math.abs(m.fx - info.pt[0]) * m.sw, Math.abs(m.fy - info.pt[1]) * m.sw * (1837 / 2600)] : null;
+    const bound = 0.05 * (m.panned ? 2 : 1) + 1e-6;
+    const matches = dpx ? (dpx[0] <= bound && dpx[1] <= bound) : (Math.abs(m.fx - info.pt[0]) < 1e-4 && Math.abs(m.fy - info.pt[1]) < 1e-4);
     refs[k] = {marker: [m.fx, m.fy], sheet_pt: [Math.round(m.fx * PW * 10) / 10, Math.round(m.fy * PH * 10) / 10], label_boxes: boxes.length, off_pt: off === null ? null : Math.round(off * 100) / 100, off_m: off === null ? null : Math.round(off * M_PER_PT * 10) / 10,
-      on_label: off !== null ? off <= 1.0 : null, tag: isTag, read: m.how, matches_data: Math.abs(m.fx - info.pt[0]) < 1e-4 && Math.abs(m.fy - info.pt[1]) < 1e-4, drawn: m.shown};
+      on_label: off !== null ? off <= 1.0 : null, tag: isTag, read: m.how, stage_px: m.sw ? Math.round(m.sw) : null, off_css_px: dpx ? dpx.map(v => Math.round(v * 1000) / 1000) : null, matches_data: matches, drawn: m.shown};
   }
   const tagRefs = Object.entries(refs).filter(([k, r]) => r.tag && r.label_boxes > 0 && k !== 'WC32');
-  ok(`MASTER markers sit where MASTER_LOC puts them, within 0.3 px of the 2600 px picture (${checkList.length} references read from the page's own layout)`, Object.values(refs).every(r => !r.missing && r.matches_data), Object.fromEntries(Object.entries(refs).filter(([k, r]) => r.missing || !r.matches_data)));
+  const worstPx = Math.max(0, ...Object.values(refs).filter(r => r.off_css_px).flatMap(r => r.off_css_px));
+  ok(`MASTER markers sit where MASTER_LOC puts them, within the page's own 0.05 CSS px rounding of the data position at this stage width (${checkList.length} references read from the page's own layout; worst ${Math.round(worstPx * 1000) / 1000} px)`, Object.values(refs).every(r => !r.missing && r.matches_data), Object.fromEntries(Object.entries(refs).filter(([k, r]) => r.missing || !r.matches_data)));
   ok(`every checked tag pin is on its 2 Oct tag (${tagRefs.length} with a tag: the inset pins, the flagged set, the moved set and every 9th tag pin)`, tagRefs.every(([k, r]) => r.on_label), Object.fromEntries(tagRefs.filter(([k, r]) => !r.on_label)));
   ok('the inset cluster: WC81 on its tag, P68 tag beside it, CP1 (leader line from D022, no tag) and T0265 (OP42 label) back where the 17 Sep issue had them', refs.WC81 && refs.WC81.on_label && offPt(refs.WC81.marker, labelBoxes('P68')) < 15 && offPt(refs.T0265.marker, labelBoxes('OP42')) <= 1.0 && refs.CP1 && refs.CP1.matches_data, {WC81: refs.WC81, CP1: refs.CP1, T0265: refs.T0265, P68_from_WC81_pt: Math.round(offPt(refs.WC81.marker, labelBoxes('P68')) * 10) / 10});
   ok('the first diff\'s flagged references (P60, P62, P63, WC48, WC49, WC51, WC81) each sit on their 2 Oct tag', FLAGGED.every(k => refs[k] && refs[k].on_label), Object.fromEntries(FLAGGED.map(k => [k, refs[k]])));

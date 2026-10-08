@@ -3,6 +3,84 @@
 Author: Andrew Fisher. Andrew approved it at 00:20 AEST on 8 Oct: "Approved and get everything done". Everything here is built
 and tested. Nothing is published yet, because publishing needs the edit key.
 
+## Handover 1 — the combined candidate, 8 Oct 2026 (READY for Codex's review and publication)
+
+Everything below this section is the v8.84–v8.89 chain as built and checked on the morning of 8 Oct; it still stands. This
+section is the frozen handover of the **combined candidate**: that chain plus v8.93 (every map aligned on the 2 Oct master),
+v8.94 (the Lighting basis), v8.91 (truck flow), v8.92 (the A+ pass) and v8.95 (the 7 Oct Baseplan export), with Codex's
+review corrections adopted unchanged. Codex owns v8.96 (Today scene) and v8.97 (map completion) and builds them on top.
+
+| Release | What it changes | Source |
+|---|---|---|
+| v8.93 | Every map on the 2 Oct master, aligned the same way everywhere: the page picture and the 260 pin pictures, the three inset pins (CP1, T0265, WC81) back where the paper has them, the explorer's scene clip and plan items, the 3D proof's units. No navigation pin moves. The machine set `96dee047…` | [`v8.93_maps_aligned_DRAFT/`](../v8.93_maps_aligned_DRAFT/README.md) |
+| v8.94 | Lighting counts against D024's six keyed towers (Andrew: "What ever the map says. If its 6 its 6"), each location credited by verified completion up to the number the map keys there, the surplus named as a quantity on record; the 13 circuit fans are big screens (Andrew); the whole-job figure on the v8.82 projection basis | [`v8.94_lighting_basis_DRAFT/`](../v8.94_lighting_basis_DRAFT/README.md) |
+| v8.91 | Truck flow: daily runs that get trucks in early, in order, never over-crowding an area; windows kept per stable load ID and unknown people kept unknown (Codex's correction) | [`v8.91_truck_flow_DRAFT/`](../v8.91_truck_flow_DRAFT/README.md) |
+| v8.92 | The A+ pass: how the page behaves and reads — smooth, fast, easy to get around, the right words; no record, money figure, pin or direction changes; the redraw and scroll corrections (Codex) | [`v8.92_a_plus_pass_DRAFT/`](../v8.92_a_plus_pass_DRAFT/README.md) |
+| v8.95 | The contract source refreshed to the 7 Oct Baseplan export through v8.71's pipeline; Andrew's record wins (9968862/50 to P37, /79 to P52); his two corrections (P52 1327211, WC07 1317643); no money moves | [`v8.95_baseplan_07oct_DRAFT/`](../v8.95_baseplan_07oct_DRAFT/README.md) |
+
+**Build** (the base is live v8.83 `88a3584e919d8acd32ac3905099c1d606ec2fe5c1da2793363e8ff870f212457`, 11,138,554 bytes):
+
+```
+V895_BASEPLAN=<Baseplan_SuperCars_07Oct.xlsx> v8.89_full_chain_08Oct2026/tools/build_final.sh <label>
+```
+
+builds the chain in the order **884 → 885 → 886 → 887 → 888 → 889 → 893 → 894 → 891 → 892 → 895** (each patch's footer guard
+accepts the release before it; v8.95 is last). The 7 Oct export is private, bound by SHA-256 `8a18bd1f…` in the patch. Drop the
+last patch from the list and the same script builds the page without v8.95.
+
+| Page | SHA-256 | Bytes | Footer |
+|---|---|---|---|
+| **A — without v8.95** (884–894 + 891 + 892) | `224bf93bdf781bb5fda888c313b314cd91de5f0ac8e269996b266d7f2dbce589` | 11,368,255 | ` · v8.92` |
+| **B — with v8.95** | `5e786047b535c4d61ad35b8e4ad5de9344f323d2bfb2331b445c460b0e8b74a5` | 11,373,665 | ` · v8.95` |
+
+- **B − A is exactly v8.95's contract data** (`identity895`, 139 PASS: DATA identical except `rental_on_hire` — the export's 25
+  changed and 2 added lines, the 2 record joins and what v8.71 derives from them — and the five register corrections). Both pages
+  carry the same media manifest. Which page goes live is **Andrew's call** (below); Codex is integrating v8.96/v8.97 on page A
+  ([PR 6049184259](https://github.com/tatts29-svg/fish/pull/1#issuecomment-6049184259)).
+- **Data accounting through the chain:** chain + v8.93 = `64898a6be4178abf…` (`identity893` PASS against the v8.89 chain
+  `fe52302c…`: only the D001 picture, the media list (+259/−259), 3 inset pins and 130 pins' pictures change; every navigation pin
+  as v8.89); the chain without v8.92 = `b4186bb624c8dcd4…` (`identity892` PASS: DATA, MASTER_LOC and EP886 identical to B).
+- **Media manifest** `cd70f758d382effa467316fdb21af18174331f687bcb51c467b17e2ea20ef0e7`, 1,958 assets (`media_manifest_v893.json`
+  in the build folder, the digest as the service computes it; the same for A and B). The 259 new pictures are
+  `v8.93_maps_aligned_DRAFT/media893.zip.enc` (zip SHA-256 `36d11c8c…`).
+- **Machine set candidate** `96dee047a785117e0f96aa1365a391d38a72904c42c67dcd76e6bc7ca40325da`, 233 files: the code in
+  `v8.93_maps_aligned_DRAFT/machine_code_v887_v890_v893/`, the assets from `archive/assets893.tar.enc.part00/01` (tar
+  `7a1825dd…`) with `assets_small/` laid over them, published by `tools/publish_machine893.py --expect-candidate 96dee047…`, which
+  fails closed. Codex reproduced the digest independently. The live set must still be `b469a99c…`.
+
+**Codex's review corrections, adopted unchanged** (`460e886`, `697746c`): v8.94 verified completion with reconciled drilldowns
+and the wording to match (verified complete / credited, the on-site quantity kept separate); v8.91 windows by stable load ID and
+unknown people kept; v8.92 redraw and scroll fixes; v8.93 portable alignment test and the fail-closed publisher; money892 pins
+both reads to one record version or reports inconclusive.
+
+**Checks on page B** (`tools/run_h1.sh h1final evidence_h1final`, 8 Oct 2026 10:00–10:45 AEST; one browser at a time, every
+write aborted, the live record read fresh at every open — version 4414 at the run):
+
+TBD_H1_RESULTS
+
+**The record at the run.** Andrew recorded Tue 13 Oct on WC57 and WC67 at about 05:23 AEST, so the Event Portables test reads
+them there — the release's own rule (a day recorded on the record wins over the plan, for the whole reference). On WC67 that
+moves the two FWF on site since 1 Oct to 13 Oct as well (noted for Andrew, below). The two legacy suites that read out-of-date
+expectations (handling875 22/28, paired879 17/18) fail on the same lines on live v8.83 itself (`*_live.log`): the tests' age, not
+this release.
+
+**Publish order (Codex; each step needs the edit key):** 1. the v8.93 media (decrypt `media893.zip.enc`, `upload_media893.py`
+dry-run then real, until the manifest `cd70f758…` is registered); 2. the page — A or B as Andrew decides — with
+`toolchain/upload_page.py` (it refuses if live moved since the build; if it has, rebuild on live with the same script);
+3. the machine set with `publish_machine893.py --expect-candidate 96dee047…` (dry-run then real); 4. read back the public bytes
+against the hash, `/api/machine` against `96dee047…`, and record LIVE on `STATUS.md`.
+
+**For Andrew to settle (the page holds these; it guesses none):**
+1. **v8.95 in this release, or held?** It carries your two settled corrections (P52 1327211, WC07 1317643) and the 7 Oct export;
+   no money moves. Codex is building without it for now, keeping the live contract source.
+2. **WC67:** your recorded 13 Oct also moves the first two FWF (on site since 1 Oct) to 13 Oct on the Timeline. If only the second
+   drop was meant, clear the date on WC67.
+3. **The two NVAC Concert 200 kVA generators** (1316182, 1316183): GN number, rate, both going in?
+4. A small gap for a later release, not this one: the "moved off this day" fold on Mon 12 Oct still names the plan's Fri 9 Oct for
+   WC57 while the record has it on 13 Oct (everything else reads 13 Oct).
+
+**Source:** TBD_H1_COMMIT on `claude/ampol-reporting-suite-access-h2hy90`. Evidence: `evidence_h1final/` (one log per run).
+
 ## What Andrew gets
 
 | Release | What changes | Source |
