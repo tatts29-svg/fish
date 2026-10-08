@@ -1,0 +1,50 @@
+{
+  "author": "Andrew Fisher",
+  "status": "READY for combined release",
+  "baseSHA": "b881e8890e8a590fea79ac63657fd43254c5ccdd11735d7f70a1b4874773c33c",
+  "candidateOn34SHA": "a9ae115d07db12aeb7ec67a29b1f95c42e92893561cda6c98a01a5190aa5fb30",
+  "onlyDelta": "native scoped supplier wrapper + footer",
+  "checkPage": "40 scripts pass",
+  "desktop": {
+    "mobile": false,
+    "base": {
+      "ms": 2238,
+      "builds": 560,
+      "holdReleased": true
+    },
+    "final": {
+      "ms": 72.29999995231628,
+      "builds": 1,
+      "holdReleased": true,
+      "stateUnchanged": true,
+      "routeBuilds": 2,
+      "fresh": {
+        "builds": 1,
+        "seen": true,
+        "released": true
+      }
+    },
+    "domIdentical": true
+  },
+  "phone": {
+    "mobile": true,
+    "base": {
+      "ms": 2108.7000000476837,
+      "builds": 560,
+      "holdReleased": true
+    },
+    "final": {
+      "ms": 69.39999997615814,
+      "builds": 1,
+      "holdReleased": true,
+      "stateUnchanged": true,
+      "routeBuilds": 2,
+      "fresh": {
+        "builds": 1,
+        "seen": true,
+        "released": true
+      }
+    },
+    "domIdentical": true
+  }
+}
