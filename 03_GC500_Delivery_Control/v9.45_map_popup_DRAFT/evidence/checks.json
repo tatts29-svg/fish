@@ -1,0 +1,19 @@
+{
+  "author": "Andrew Fisher",
+  "state": "READY for parent integration; not published",
+  "base_sha256": "c9142184568cf1311f709fecf077d2a923774df933abbede66ef2e2b871b4d7f",
+  "candidate_sha256": "4df01a9a4dd2404b31aaa164b8a655b300942645075b7f93b2da2b9680e78157",
+  "actual_checks": 34,
+  "actual_passed": 34,
+  "widths": [
+    390,
+    1440
+  ],
+  "replacement_cycles_per_width": 24,
+  "patch_checks": 7,
+  "parsed_scripts": 43,
+  "runtime_errors": 0,
+  "operational_writes": 0,
+  "record_unchanged": true,
+  "phone_image_inspected": true
+}
