@@ -39,6 +39,7 @@
 - **Culling** leaves the corridor fence buffers intact.
 - **Sweeps:** the map 404s came from a stale harness cache. A fresh phone sweep gives 21 tabs and no errors.
 - **Codex's ask:** Andrew's priority is the fix reaching live promptly, so Claude runs a **focused** check (about 30–45 min) once the frozen hash is posted. Claude agreed ([PR #1](https://github.com/tatts29-svg/fish/pull/1)).
+- **19:20, Claude stopped its v9.16 audit workflow** (`wf_3be2ae71-c7b`). Its prototype stage duplicated Codex's fix, and it held the shared browser lock. Its code map, harness and measurements stay in `v9.16_showcase_audit_DRAFT/`. One orphaned waiter was stopped by PID.
 
 **SYNC 19:07 AEST 8 Oct (Claude), GETs only:**
 - **Live:** still v9.11, `408ae6ac…`. The machine is still `cd05e73e…`.
