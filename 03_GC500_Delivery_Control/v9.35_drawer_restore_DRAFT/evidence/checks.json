@@ -1,0 +1,45 @@
+{
+  "author": "Andrew Fisher",
+  "baseSHA256": "b881e8890e8a590fea79ac63657fd43254c5ccdd11735d7f70a1b4874773c33c",
+  "candidateSHA256": "34e2b9a40ef6390b6aa21ec420f43a00d62fc0413d43bf50758a7073fbcb7ce4",
+  "candidateBytes": 12297004,
+  "inlineScripts": 41,
+  "modelTests": 9,
+  "domAssociationTests": 5,
+  "referenceCount": 182,
+  "modernDrawers": 182,
+  "sourceIdsMatch": true,
+  "duplicatePhotoGroups": 0,
+  "visibleReadOnlyPhotoEdits": 0,
+  "unitPanelsMatch": true,
+  "recordUnchanged": true,
+  "capturedNativeActions": [
+    {
+      "action": "caption",
+      "unit": "1268858",
+      "slot": 0
+    },
+    {
+      "action": "remove",
+      "unit": "1268858",
+      "slot": 0
+    }
+  ],
+  "runtimeErrors": [],
+  "warnings": [
+    "Allow attribute will take precedence over 'allowfullscreen'."
+  ],
+  "requests": {
+    "page": 1,
+    "live": 391,
+    "blocked": 1,
+    "denied": [
+      {
+        "method": "POST",
+        "origin": "https://tile.googleapis.com",
+        "path": "/v1/createSession"
+      }
+    ]
+  },
+  "screenshots": "Private desktop/phone WC09, WC20, T0103 and P03 inspected."
+}
