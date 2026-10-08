@@ -56,7 +56,32 @@ both reads to one record version or reports inconclusive.
 **Checks on page B** (`tools/run_h1.sh h1final evidence_h1final`, 8 Oct 2026 10:00–10:45 AEST; one browser at a time, every
 write aborted, the live record read fresh at every open — version 4414 at the run):
 
-TBD_H1_RESULTS
+| Check | Laptop | Phone | Other |
+|---|---|---|---|
+| Identity: chain + v8.93 against the v8.89 chain (`identity893`) | PASS | — | only the D001 picture, the media list, 3 inset pins and 130 pins' pictures change; every navigation pin as v8.89 |
+| Identity: the chain without v8.92 against B (`identity892`) | PASS | — | DATA, MASTER_LOC and EP886 identical |
+| Identity: A against B (`identity895`) | 139 PASS | — | the suite's first run reported 3 findings, all in the test (WC07's line 38 join, the counts after it, the attribution the v5.97 scrub lifts); the test was brought to the rules and re-run on the same bytes |
+| v8.94 Lighting (`lighting894`) | 35/35 | 35/35 | 4 of 6 today: T0002's 5 at Molendinar credit 4, 1 surplus; LT05, LT06 not on site |
+| v8.91 truck flow (`flow891`) | 43/43 | 41/41 | Andrew's 14 Sep Crew orders respected |
+| v8.92 the A+ pass (`aplus892`) | 21/21 | 22/22 | |
+| v8.92 money against the chain without v8.92 (`money892`) | 6/6 | 6/6 | both reads on record 4414 |
+| v8.95 contracts (`contracts895`) | 26/26 | 26/26 | |
+| v8.93 alignment (`align893`) | 21/21 | 20/21, then **TBD_ALIGN_PHONE** with the corrected bound | the one failing check was the test's fixed 1e-4 picture fraction against the page's `toFixed(1)` CSS px (Codex found the same, [6049323871](https://github.com/tatts29-svg/fish/pull/1#issuecomment-6049323871)); the bound is now the page's own 0.05 px rounding |
+| v8.86 Event Portables (`ep886`) | 31/31 | 31/31 | WC57 and WC67 on the Tue 13 Oct Andrew recorded |
+| v8.88 Transport view (`transport888`) | 29/29 | 29/29 | 29/29 at 2560 px |
+| v8.65 Costs (`costs865`) | 33/33 | 33/33 | |
+| Map explorer card on the v8.93 code and assets (`explorer887`) | 23/23 | 24/24 | |
+| v8.89 master read against v8.93 (`master889_v893`) | 17/17 | 17/17 | |
+| v8.85 Where we are (`where885`) | 24/24 at 1600 and 1440 | 24/24 | 24/24 at 2560 |
+| v8.84 wide layout (`wide884`) | 21/21 at 1600 and 1440 | 21/21 | 21/21 at 2560 |
+| Layout 876 · VMS 874 · Equipment 873 | 18 · 18 · 40 | 18 · 18 · 40 | |
+| Crew 883 · Finance 866 | 34/34 · 24/24 | 34/34 · 24/24 | |
+| Loading 872 · Unloading 881 · Paired 881 | 26 · 34 · 18 | 26 · 34 · 18 | |
+| v8.71 · Supplier 870 · KINP 869 | 11/12 · 17/17 · 17/17 | — | v871's first check asks for the 6 Oct export, which v8.95 supersedes on page B; on page A: **TBD_V871_A** |
+| 15-tab sweep | 15 shown, 0 errors, 0 blocked | 15 shown, 0 errors, 0 blocked | |
+| Handling 875 · Paired 879 (out of date) | 22/28 · 17/18 | 22/28 · 17/18 | the same lines fail on live v8.83 (`handling875_live.log`, `paired879_live.log`) |
+| **v8.95's money effect, A against B** (`compare_money895`) | **TBD_MONEY_AB** | — | every money model read from both pages on one record version; differing figures by path, direction and percentage |
+| **Page A** (sweeps, costs865, finance866, transport888, v871) | **TBD_PAGE_A** | **TBD_PAGE_A_PHONE** | `evidence_h1final_pageA/` |
 
 **The record at the run.** Andrew recorded Tue 13 Oct on WC57 and WC67 at about 05:23 AEST, so the Event Portables test reads
 them there — the release's own rule (a day recorded on the record wins over the plan, for the whole reference). On WC67 that
