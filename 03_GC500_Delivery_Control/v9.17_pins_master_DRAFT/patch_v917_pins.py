@@ -170,7 +170,7 @@ def how_held(ref, r):
     raise AssertionError(ref)
 OPP = {'north': 'south', 'north-east': 'south-west', 'east': 'west', 'south-east': 'north-west', 'south': 'north', 'south-west': 'north-east', 'west': 'east', 'north-west': 'south-east'}
 
-# 1. MASTER_LOC: the 53 (the 23, GN18, GN13 and the 28), nothing else
+# 1. MASTER_LOC: the 57 (the 23, GN18, GN13, the 28 and the 4 answered), nothing else
 m = re.search(r'const MASTER_LOC = ', s); assert m and s.count('const MASTER_LOC = ') == 1
 ML, end = json.JSONDecoder().raw_decode(s[m.end():]); orig = s[m.end():m.end() + end]
 fmt = next((f for f in (dict(ensure_ascii=a, separators=sep) for a in (True, False) for sep in ((',', ':'), (', ', ': '))) if json.dumps(ML, **f) == orig), None)
@@ -181,7 +181,8 @@ for ref, (ll, pt) in MOVES.items():
     # the base must be the page the audit read: each pin exactly where the audit found it
     assert v['ll'] == r['page_now_ll'] and v['pt'] == r['page_now_pt'] and (v.get('img') or []) == TH['pins'][ref]['old_img'], ref + ': the base pin is not as audited - stopping'
     assert 'pts' not in v and not v.get('confirmed') and not v.get('unverified'), ref + ': unexpected fields'
-    v['ll'] = list(ll); v['pt'] = list(pt); v['how'] = how_for(ref, r) if ref in FIRST23 else how_add(ref, r); v['img'] = list(TH['pins'][ref]['img'])
+    v['ll'] = list(ll); v['pt'] = list(pt); v['img'] = list(TH['pins'][ref]['img'])
+    v['how'] = how_for(ref, r) if ref in FIRST23 else how_held(ref, r) if ref in ANSWERED else how_add(ref, r)
     assert not re.search(r'^[^—]*\(.*rev 02', v['how']), ref + ': a bracket before the dash would cut the drawer\'s "Drawings differ" line'
     assert ('rev 02' in v['how']) == ('rev 02' in (r['page_now_how'] or '') or ref in ('CP1', 'T0243')), ref + ': a "Drawings differ" line would appear or go'
 s = s[:m.end()] + json.dumps(ML, **fmt) + s[m.end() + end:]
@@ -197,7 +198,7 @@ assert len(ep) == 23 and all(x['layer'] == 'ep' and x['face'] == 'EP' for x in e
 for x in ep: x['label'] = 'Emergency egress point (E.P)'
 s = s[:m.end()] + json.dumps(LAY, **fmt2) + s[m.end() + end:]
 
-# 3. DATA: media +106 / -102 and the manifest; nothing else in DATA changes
+# 3. DATA: media +114 / -110 and the manifest; nothing else in DATA changes
 m = re.search(r'const DATA = (\{.*?\});\n', s); assert m
 D = json.loads(m.group(1)); assert json.dumps(D, ensure_ascii=False, separators=(',', ':')) == m.group(1), 'DATA must round-trip exactly - stopping'
 ORIG_KEYS = {k: json.dumps(v, ensure_ascii=False, sort_keys=True) for k, v in D.items() if k not in ('media', 'hostedMedia')}
@@ -218,7 +219,7 @@ for ref in MOVES:
 for x in TH['media']:
     assert x['sha256'] not in D['media'] and x['file'] == x['sha256'] + '.webp'
     D['media'][x['sha256']] = {k: x[k] for k in ('file', 'sha256', 'type', 'bytes', 'scope')}
-assert len(dropped) == 102 and len(D['media']) == n0 + 4   # GN18 and GN13 had no pictures
+assert len(dropped) == 110 and len(D['media']) == n0 + 4   # GN18 and GN13 had no pictures
 MAN = manifest_of(D); D['hostedMedia']['manifest'] = MAN['sha256']
 assert {k: json.dumps(v, ensure_ascii=False, sort_keys=True) for k, v in D.items() if k not in ('media', 'hostedMedia')} == ORIG_KEYS
 s = s[:m.start(1)] + json.dumps(D, ensure_ascii=False, separators=(',', ':')) + s[m.end(1):]
@@ -376,5 +377,5 @@ s = rep(s, "const gate = heavyGate(), pt = a ? aerialPointFor(a) : null;", "cons
 s = rep(s, "const pt = aerialPointFor(a), link = (a.drawing_links || [])[0], gate = heavyGate();",
         "const pt = aerialNav917(a), link = (a.drawing_links || [])[0], gate = heavyGate(); /* v9.17 */", 'reference mail bearing', str(p))
 p.write_bytes((b'\xef\xbb\xbf' if bom else b'') + s.encode('utf-8'))
-print('v9.17 pins: MASTER_LOC 53 moved (23 + GN18, GN13 + 28 near; ll, pt, how, img) | layers 23 E.P labels | media +106/-102 (%d) manifest %s | Part 2: drop email, drop sheet, driver card, satellite panel, drawer links, map spot, pictures -> dest782 | footer unchanged'
+print('v9.17 pins: MASTER_LOC 57 moved (23 + GN18, GN13 + 28 near + WC59, WC57, WC13, WC69; ll, pt, how, img) | layers 23 E.P labels | media +114/-110 (%d) manifest %s | Part 2: drop email, drop sheet, driver card, satellite panel, drawer links, map spot, pictures -> dest782 | footer unchanged'
       % (len(D['media']), MAN['sha256'][:16]))
