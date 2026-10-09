@@ -1,6 +1,6 @@
 {
   "author": "Andrew Fisher",
-  "state": "READY TO UPLOAD",
+  "state": "VERIFIED LIVE",
   "sha256": "d98bfc4b6bb8461feec1f4af31a7d69fdd0711f2979d27bae4c324d7f8001ae6",
   "bytes": 12762245,
   "baseSha256": "1f04615f0c941e1c6c2b45e0656fc92e2bd816998a7b5f2d428f1e1b0e4a6cb0",
@@ -36,5 +36,11 @@
     "Some supplier rates remain missing; forecasts are not invoices"
   ],
   "supersededCandidate": "b1d38abbe657dee4e1eebfbeb9ac62bca68f90e67e77d919ee13b93446d24d87",
-  "regressionResolution": "WC09 partial FWF receipt no longer removes recorded block installation or places unrelated quantities under review."
+  "regressionResolution": "WC09 partial FWF receipt no longer removes recorded block installation or places unrelated quantities under review.",
+  "publishedAt": "2026-10-09T06:29:12.704Z",
+  "liveTimeAEST": "9 Oct 2026 16:29 AEST",
+  "readySourceCommit": "2a9c771e",
+  "publicVerificationPassed": true,
+  "publicChecks": 8,
+  "publicNativeRecord": 5155
 }

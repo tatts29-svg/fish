@@ -2,7 +2,9 @@
 
 Author: Andrew Fisher
 
-Status: source frozen. Component tests, native replay and independent review passed. Ready for the combined standard build and its final release checks; not published independently. This folder does not publish a page or write a native record.
+Verified LIVE on 9 October 2026 at 16:29 AEST as part of the combined v9.63 release. READY source commit `2a9c771e`; public SHA-256 `d98bfc4b6bb8461feec1f4af31a7d69fdd0711f2979d27bae4c324d7f8001ae6`, 12,762,245 bytes. Guarded upload and fresh actual-public checks passed on unchanged record 5155. Today, Equipment and Sub-hired quantities, partial-reference badges and source qualifications agree; all 16 paper records still resolve to 17 originals. Publication verification is saved in v9.63’s evidence folder.
+
+Status: published as part of the verified v9.63 combined release. Component tests, native replay and independent review passed. This folder does not publish a page or write a native record.
 
 FL01 and T0003 describe the same scheduled 5 t forklift at Phillip Park. FL02 and T0004 describe the same scheduled 2.5 t forklift (asset 1197839). The added references explicitly name their original schedule rows; each source row has the same item, single-machine quantity, location and scheduled date. Inventory and Today type details previously counted the added references again.
 
@@ -27,6 +29,6 @@ Frozen source hashes: `counts963.js` is `a58b2443fd4272c7cd9142f1dfdc951b9bf975a
 
 ## Combined release verification
 
-READY TO UPLOAD as part of v9.58–v9.63, 9 October 2026. Final standard-build SHA-256 `d98bfc4b6bb8461feec1f4af31a7d69fdd0711f2979d27bae4c324d7f8001ae6`, 12,762,245 bytes; exact live v9.57 base `1f04615f0c941e1c6c2b45e0656fc92e2bd816998a7b5f2d428f1e1b0e4a6cb0`. All 48 scripts parse. Final source checks (214 programme, 50 fencing and 65 toilet), 153 financial checks and 17 native ties pass. Both desktop and phone sweeps pass 22 routes, seven deep links and Back. All 21 incoming-record scenarios across seven tabs pass, with native record 5155 and actual charges/costs unchanged. Final phone layouts were inspected. Sixteen signed papers link to 17 original photographs. Detailed sanitised combined evidence is in the v9.63 release folder.
+Final pre-publication verification for v9.58–v9.63, 9 October 2026. Final standard-build SHA-256 `d98bfc4b6bb8461feec1f4af31a7d69fdd0711f2979d27bae4c324d7f8001ae6`, 12,762,245 bytes; exact live v9.57 base `1f04615f0c941e1c6c2b45e0656fc92e2bd816998a7b5f2d428f1e1b0e4a6cb0`. All 48 scripts parse. Final source checks (214 programme, 50 fencing and 65 toilet), 153 financial checks and 17 native ties pass. Both desktop and phone sweeps pass 22 routes, seven deep links and Back. All 21 incoming-record scenarios across seven tabs pass, with native record 5155 and actual charges/costs unchanged. Final phone layouts were inspected. Sixteen signed papers link to 17 original photographs. Detailed sanitised combined evidence is in the v9.63 release folder.
 
 The final update replay exposed an intermediate WC09 partial-receipt regression. It was corrected and independently reviewed before rebuilding and repeating final checks; the superseded candidate was never published. Missing receipts and conflicting source scopes remain explicit.
