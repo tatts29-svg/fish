@@ -1,0 +1,93 @@
+{
+  "author": "Andrew Fisher",
+  "scope": "CPU-only source simulation; not a physical-device frame-rate claim",
+  "baseSha256": "a271015a9cf6d099b1665d3bcef71bb6fe5b2671d7081739c91b0f04d52205b5",
+  "candidateSha256": "f182b59f07ea6f2fbd0a2b09d2efc4e219ef44c9c16a0109304f0f6e89437c5a",
+  "checks": [
+    {
+      "name": "All non-opening tuning remains exactly unchanged",
+      "pass": true
+    },
+    {
+      "name": "Opening is shorter, later and lighter without changing launch time",
+      "pass": true
+    },
+    {
+      "name": "Lower frame-rate cap prunes218 to114 on the next step without emission",
+      "pass": true
+    },
+    {
+      "name": "Surviving particles preserve numerical rise/drag and arrays at dt=0",
+      "pass": true
+    },
+    {
+      "name": "Surviving particles preserve numerical rise/drag and arrays at dt=0.008333333333333333",
+      "pass": true
+    },
+    {
+      "name": "Surviving particles preserve numerical rise/drag and arrays at dt=0.016666666666666666",
+      "pass": true
+    },
+    {
+      "name": "Surviving particles preserve numerical rise/drag and arrays at dt=0.05",
+      "pass": true
+    },
+    {
+      "name": "An empty smoke budget clears existing particles and admits none",
+      "pass": true
+    },
+    {
+      "name": "Budget enforcement also holds when an emission occurs",
+      "pass": true
+    },
+    {
+      "name": "Balanced opening peaks at40 particles versus218 and burns for less time",
+      "pass": true
+    },
+    {
+      "name": "No simulation step emits more than one pair during the opening",
+      "pass": true
+    },
+    {
+      "name": "Normal driving from the same go-state is numerically unchanged over1200 steps",
+      "pass": true
+    },
+    {
+      "name": "Normal moving drift still uses its original smoke properties",
+      "pass": true
+    }
+  ],
+  "passed": 13,
+  "capProof": {
+    "before": 218,
+    "previousAfter": 218,
+    "after": 114,
+    "nextEmissionUnchanged": true
+  },
+  "opening": {
+    "before": {
+      "peak": 218,
+      "burningSeconds": 2.283333333333333,
+      "maxLife": 4.299999961255645,
+      "maxSize": 1.8499999725560823,
+      "maxAlpha": 1.4499999806278225,
+      "creepSceneUnits": 4.29893019566946
+    },
+    "after": {
+      "peak": 40,
+      "burningSeconds": 1.375,
+      "maxLife": 1.25,
+      "maxSize": 0.9,
+      "maxAlpha": 0.7,
+      "creepSceneUnits": 1.6324488702702444
+    }
+  },
+  "normal": {
+    "steps": 1200,
+    "seconds": 10,
+    "pairedCpuWallMs": 476.8388130000001,
+    "physicalStateEqual": true
+  },
+  "noNetworkOrRecordAccess": true,
+  "pass": true
+}

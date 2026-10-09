@@ -1,0 +1,50 @@
+{
+  "author": "Andrew Fisher",
+  "release": "v9.71",
+  "status": "PASS",
+  "checkedUtc": "2026-10-09T09:24:41.118645+00:00",
+  "baselineSha256": "a271015a9cf6d099b1665d3bcef71bb6fe5b2671d7081739c91b0f04d52205b5",
+  "candidateSha256": "f182b59f07ea6f2fbd0a2b09d2efc4e219ef44c9c16a0109304f0f6e89437c5a",
+  "candidateBytes": 12831751,
+  "nativeRecordVersion": 5168,
+  "method": "Fresh public GET snapshot used identically for baseline and candidate; all collections and photo index ready; financial render memo cleared before capture. Browser access was read-only under the shared lock. Full private captures remain outside Git.",
+  "financialModelsCompared": 15,
+  "financialModelsExactlyEqual": true,
+  "modelPreservationChecks": 23,
+  "modelPreservationChecksPassed": 23,
+  "financialInvariants": 153,
+  "financialInvariantsPassed": 153,
+  "nativeFinancialTies": {
+    "count": 17,
+    "pass": true,
+    "failed": 0
+  },
+  "embeddedDataExactlyPreserved": true,
+  "completeNativeRecordExactlyPreserved": true,
+  "liveServiceBeforeAfter": {
+    "beforeVersion": 5168,
+    "afterVersion": 5168,
+    "fullResponseExactlyEqual": true
+  },
+  "pageErrors": 0,
+  "consoleErrors": 0,
+  "writeAttempts": 0,
+  "modelNames": [
+    "cj",
+    "contracts",
+    "fence",
+    "fenceSplit",
+    "finance",
+    "green",
+    "money",
+    "pl752",
+    "pl770",
+    "rehire",
+    "scope961",
+    "source949",
+    "supplierCosts",
+    "ticks",
+    "ties"
+  ],
+  "limits": "This proves preservation on the same fresh record; it does not certify missing supplier prices or unrecorded operational work."
+}

@@ -1,0 +1,52 @@
+{
+  "author": "Andrew Fisher",
+  "photos": [
+    {
+      "sourcePhoto": "21154.jpg",
+      "dimensions": [
+        1280,
+        960
+      ],
+      "originalUploads": [
+        {
+          "sha256": "4a81aa2a304621e209a004ccd9b06fff8bae17e4998dc440c95e2b19f5cce30a",
+          "bytes": 148915
+        }
+      ],
+      "retainedWorkingCopy": false
+    },
+    {
+      "sourcePhoto": "21162.jpg",
+      "dimensions": [
+        1280,
+        960
+      ],
+      "originalUploads": [
+        {
+          "sha256": "37b1e5273d79f78e22f2c6bcbde0a2cd2015a9affa0cd9b853eada005a1b540f",
+          "bytes": 143493
+        }
+      ],
+      "retainedWorkingCopy": false
+    },
+    {
+      "sourcePhoto": "21110.jpg",
+      "sha256": "84333c8fbbd8d2ebc3f7714d56d69a6e9659e6ca58bbf2e708f49f5dd9d034ee"
+    },
+    {
+      "sourcePhoto": "21134.jpg",
+      "sha256": "3df5bf38538bf6b2bb1615c4c27a2def0aff4b4f001b83188de621e1fb338ca3"
+    },
+    {
+      "sourcePhoto": "21074.jpg",
+      "sha256": "a2e4e194adf5324950909a4ff2509e766996470625cb4ec9538803b08482645f"
+    }
+  ],
+  "appearance": {
+    "PB3": "Cream two-panel finals wrap,23\u201325 Oct2026 wording, concentric ring motif, white-clad stair flights and exposed silver frame. Stylised reconstruction, not official artwork.",
+    "OT5": "Black central Boost wordmark, orange diamond and orange ends with WORKS ITS / ARSE OFF; advertising span without stairs.",
+    "PB1": "Blue DELIVERING / FOR QUEENSLAND and Queensland / Government wording, pale clad stairs. Government crest is not reproduced.",
+    "PB2": "Red/magenta GOLDCOAST. fascia with white-clad stair flights.",
+    "OT4": "Taller pale grey viewed face with vertical seams; no unsupported sponsor wording or stairs."
+  }
+}

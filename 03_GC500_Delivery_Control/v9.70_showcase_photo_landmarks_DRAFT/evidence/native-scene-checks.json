@@ -1,0 +1,490 @@
+{
+  "landmarks": {
+    "version": 970,
+    "masterSha256": "8753d875cf90682e09afefae8c774144d9e9725ece87f726707882fb3711c56d",
+    "placement": "Recovered master crossing axes; illustrative spans extend to schematic road clearance.",
+    "landmarks": [
+      {
+        "id": "PB1",
+        "kind": "pedestrian bridge",
+        "photo": "21074.jpg",
+        "sourceWorldCentre": [
+          7.255942227609687,
+          -47.51701386336502
+        ],
+        "sourceWorldEnds": [
+          [
+            7.344098756876463,
+            -50.04336362756767
+          ],
+          [
+            7.167785698342911,
+            -44.990664099162366
+          ]
+        ],
+        "worldCentre": [
+          7.260264800235776,
+          -47.64088818584002
+        ],
+        "worldEnds": [
+          [
+            7.389994585246153,
+            -51.358625425463224
+          ],
+          [
+            7.1305350152254,
+            -43.92315094621681
+          ]
+        ],
+        "axis": [
+          -0.03487359812106895,
+          0.9993917310815066
+        ],
+        "face": [
+          0.9993917310815066,
+          0.03487359812106895
+        ],
+        "tangent": [
+          -0.9992118165951174,
+          -0.039695661937868575
+        ],
+        "s": 88.78295945221281,
+        "span": 7.440000000000003,
+        "roadBoundaryEnds": [
+          [
+            7.362095706749297,
+            -50.559112040598016
+          ],
+          [
+            7.158433893722254,
+            -44.722664331082015
+          ]
+        ],
+        "supportClearance": 0.8,
+        "metresPerPoint": 5.937552372855356,
+        "dimensionsIllustrative": true,
+        "officialArtwork": false,
+        "deckHeight": 1.1082007512189225,
+        "faceHeight": 0.8757817486836469,
+        "topHeight": 1.9839824999025695,
+        "depth": 0.4042069609309139,
+        "emittedQuads": 1870,
+        "emittedSegments": 108,
+        "labels": [
+          "DELIVERING",
+          "FOR QUEENSLAND",
+          "Queensland",
+          "Government",
+          "DELIVERING",
+          "FOR QUEENSLAND",
+          "Queensland",
+          "Government"
+        ]
+      },
+      {
+        "id": "PB2",
+        "kind": "pedestrian bridge",
+        "photo": "21110.jpg",
+        "sourceWorldCentre": [
+          -97.33565399945265,
+          -12.543178574343628
+        ],
+        "sourceWorldEnds": [
+          [
+            -99.57188239758975,
+            -12.482657405409924
+          ],
+          [
+            -95.09942560131555,
+            -12.603699743277332
+          ]
+        ],
+        "worldCentre": [
+          -94.9004500396534,
+          -12.609084807518116
+        ],
+        "worldEnds": [
+          [
+            -99.57188239758975,
+            -12.482657405409924
+          ],
+          [
+            -90.22901768171705,
+            -12.735512209626307
+          ]
+        ],
+        "axis": [
+          0.9996339724235401,
+          -0.02705404178182944
+        ],
+        "face": [
+          -0.02705404178182944,
+          -0.9996339724235401
+        ],
+        "tangent": [
+          -0.09278154348821208,
+          0.9956864894071552
+        ],
+        "s": 211.68704186579603,
+        "span": 9.346285714181551,
+        "roadBoundaryEnds": [
+          [
+            -97.10649941199102,
+            -12.549380402167321
+          ],
+          [
+            -91.0287248596559,
+            -12.713868976200844
+          ]
+        ],
+        "supportClearance": 0.8,
+        "metresPerPoint": 5.937552372855356,
+        "dimensionsIllustrative": true,
+        "officialArtwork": false,
+        "deckHeight": 1.1082007512189225,
+        "faceHeight": 0.8757817486836469,
+        "topHeight": 1.9839824999025695,
+        "depth": 0.4042069609309139,
+        "emittedQuads": 382,
+        "emittedSegments": 108,
+        "labels": [
+          "GOLDCOAST.",
+          "GOLDCOAST."
+        ]
+      },
+      {
+        "id": "OT4",
+        "kind": "advertising gantry",
+        "photo": "21134.jpg",
+        "sourceWorldCentre": [
+          -90.42465983328327,
+          27.590211842443622
+        ],
+        "sourceWorldEnds": [
+          [
+            -91.82846876346876,
+            27.187075563141562
+          ],
+          [
+            -89.02085090309777,
+            27.993348121745683
+          ]
+        ],
+        "worldCentre": [
+          -87.76029795404597,
+          28.35534512491109
+        ],
+        "worldEnds": [
+          [
+            -91.82846876346878,
+            27.187075563141562
+          ],
+          [
+            -83.69212714462317,
+            29.523614686680613
+          ]
+        ],
+        "axis": [
+          0.9611526750684045,
+          0.2760172733885503
+        ],
+        "face": [
+          0.2760172733885503,
+          -0.9611526750684045
+        ],
+        "tangent": [
+          -0.2900494037649529,
+          0.9570116735837632
+        ],
+        "s": 258.6966879221739,
+        "span": 8.465191670268766,
+        "roadBoundaryEnds": [
+          [
+            -90.15107312108286,
+            27.668778609509555
+          ],
+          [
+            -84.4610492846779,
+            29.302800867969776
+          ]
+        ],
+        "supportClearance": 0.8,
+        "metresPerPoint": 5.937552372855356,
+        "dimensionsIllustrative": true,
+        "officialArtwork": false,
+        "deckHeight": null,
+        "faceHeight": 0.7073621816290994,
+        "topHeight": 1.7818790194371124,
+        "depth": 0.10947271858545586,
+        "emittedQuads": 48,
+        "emittedSegments": 28,
+        "labels": []
+      },
+      {
+        "id": "PB3",
+        "kind": "pedestrian bridge",
+        "photo": "21154.jpg",
+        "sourceWorldCentre": [
+          -78.3539275215798,
+          41.1020523856698
+        ],
+        "sourceWorldEnds": [
+          [
+            -80.02584145227696,
+            38.8318818756393
+          ],
+          [
+            -76.68201359088266,
+            43.372222895700304
+          ]
+        ],
+        "worldCentre": [
+          -77.24810690939802,
+          42.60356588888715
+        ],
+        "worldEnds": [
+          [
+            -80.02584145227695,
+            38.8318818756393
+          ],
+          [
+            -74.47037236651909,
+            46.375249902134996
+          ]
+        ],
+        "axis": [
+          0.5930051680484617,
+          0.8051986529222562
+        ],
+        "face": [
+          -0.8051986529222562,
+          0.5930051680484617
+        ],
+        "tangent": [
+          0.8138126906799218,
+          -0.5811272704737802
+        ],
+        "s": 295.75704111013994,
+        "span": 9.368331652219036,
+        "roadBoundaryEnds": [
+          [
+            -78.59768833613639,
+            40.77106727779609
+          ],
+          [
+            -74.94477650095786,
+            45.731090979797195
+          ]
+        ],
+        "supportClearance": 0.8,
+        "metresPerPoint": 5.937552372855356,
+        "dimensionsIllustrative": true,
+        "officialArtwork": false,
+        "deckHeight": 1.1082007512189225,
+        "faceHeight": 0.8757817486836469,
+        "topHeight": 1.9839824999025695,
+        "depth": 0.4042069609309139,
+        "emittedQuads": 3034,
+        "emittedSegments": 108,
+        "labels": [
+          "boostmobile",
+          "GOLD COAST",
+          "500",
+          "SUPERCARS.COM",
+          "THE FINALS",
+          "STARTS HERE",
+          "23-25 OCT 2026",
+          "boostmobile",
+          "GOLD COAST",
+          "500",
+          "SUPERCARS.COM",
+          "THE FINALS",
+          "STARTS HERE",
+          "23-25 OCT 2026"
+        ]
+      },
+      {
+        "id": "OT5",
+        "kind": "advertising gantry",
+        "photo": "21162.jpg",
+        "sourceWorldCentre": [
+          -43.59740413386155,
+          15.693440332196985
+        ],
+        "sourceWorldEnds": [
+          [
+            -44.640761329392504,
+            14.363356119649367
+          ],
+          [
+            -42.5540469383306,
+            17.023524544744603
+          ]
+        ],
+        "worldCentre": [
+          -42.183274309992484,
+          17.49618991908589
+        ],
+        "worldEnds": [
+          [
+            -44.640761329392504,
+            14.363356119649367
+          ],
+          [
+            -39.725787290592464,
+            20.62902371852241
+          ]
+        ],
+        "axis": [
+          0.6171962964293369,
+          0.7868092091949038
+        ],
+        "face": [
+          -0.7868092091949038,
+          0.6171962964293369
+        ],
+        "tangent": [
+          0.8045340938933749,
+          -0.593906467184157
+        ],
+        "s": 338.88569071205666,
+        "span": 7.963388742341158,
+        "roadBoundaryEnds": [
+          [
+            -43.92272210631196,
+            15.278721095997064
+          ],
+          [
+            -40.21954432773594,
+            19.99957635116649
+          ]
+        ],
+        "supportClearance": 0.8,
+        "metresPerPoint": 5.937552372855356,
+        "dimensionsIllustrative": true,
+        "officialArtwork": false,
+        "deckHeight": null,
+        "faceHeight": 0.3199971774036402,
+        "topHeight": 1.394514015211653,
+        "depth": 0.10947271858545586,
+        "emittedQuads": 1612,
+        "emittedSegments": 28,
+        "labels": [
+          "boostmobile",
+          "WORKS ITS",
+          "ARSE OFF",
+          "WORKS ITS",
+          "ARSE OFF",
+          "boostmobile",
+          "WORKS ITS",
+          "ARSE OFF",
+          "WORKS ITS",
+          "ARSE OFF"
+        ]
+      }
+    ],
+    "skipped": [],
+    "static": true,
+    "newDrawCalls": 0,
+    "newTextures": 0
+  },
+  "signage": {
+    "author": "the project manager",
+    "labels": 144,
+    "strings": [
+      "50",
+      "100",
+      "150",
+      "500",
+      "COATES",
+      "GC500 2026",
+      "COATES GC500 2026",
+      "DELIVERING",
+      "FOR QUEENSLAND",
+      "Queensland",
+      "Government",
+      "GOLDCOAST.",
+      "boostmobile",
+      "GOLD COAST",
+      "SUPERCARS.COM",
+      "THE FINALS",
+      "STARTS HERE",
+      "23-25 OCT 2026",
+      "WORKS ITS",
+      "ARSE OFF"
+    ],
+    "sourcePlacementPreserved": false,
+    "sourceWordingPreserved": true,
+    "sourceDecorationPreserved": true,
+    "originalLetterTriangles": 42072,
+    "letterTriangles": 288,
+    "retainedDecorationTriangles": 84532,
+    "retainedDecorationVertices": 84532,
+    "atlasWidth": 1024,
+    "atlasHeight": 1024,
+    "atlasGpuBytes": 5592406,
+    "signDecorGpuBytes": 4057536,
+    "font": "bold 64px Arial, Helvetica, sans-serif",
+    "officialSponsorArtwork": false,
+    "newSponsorPlacements": 0,
+    "existingFenceBannersFollowMeasuredCorridor": true,
+    "otherSourcePlacementsPreserved": true
+  },
+  "report": {
+    "scale_m_per_pt": 5.937552372855356,
+    "time_compression": 1,
+    "car_drawn_times_life_size": 1,
+    "car_length_m": 4.98,
+    "car_length_real_m": 4.98,
+    "deck_height_m": 0.18,
+    "top_speed_kmh_real": 205,
+    "top_speed_kmh_on_screen": 205,
+    "accel_g": 0.8,
+    "brake_g": 1.75,
+    "lateral_g": 1.6,
+    "gravity_g": 1,
+    "jump_height_m": 0.027590624999999997,
+    "jump_air_s": 0.15,
+    "look": "day",
+    "jump_length_car_lengths": 1.7151941097724228,
+    "lap_length_m": 2910.1086655413205,
+    "road_width_m": {
+      "min": 10.914567901234568,
+      "median": 18.496296296296308,
+      "max": 26.749999999999993
+    },
+    "road_width_source": "measured",
+    "car_width_m": 1.7882727272727272,
+    "road_widths_per_car": 10.343107074335792
+  },
+  "pageErrors": [],
+  "counts": {
+    "page": 1,
+    "live": 65,
+    "blocked": 0
+  },
+  "author": "Andrew Fisher",
+  "scope": "GET-only actual frozen candidate970 scene",
+  "sourceBaseSha256": "a271015a9cf6d099b1665d3bcef71bb6fe5b2671d7081739c91b0f04d52205b5",
+  "candidateSha256": "9f5b33c39c17011a0cb8f9a81a34d5c30caf5c41032d32f85ef6f495616fd63b",
+  "screenshots": [
+    "PB1-approach970.png",
+    "PB2-approach970.png",
+    "OT4-approach970.png",
+    "PB3-approach970.png",
+    "OT5-approach970.png"
+  ],
+  "screenshotsInspected": true,
+  "display": "960\u00d7600 software-rendered Chromium; not a physical-device FPS result",
+  "baselineAtlas": {
+    "width": 1024,
+    "height": 256,
+    "gpuBytes": 1398102
+  },
+  "atlasGpuByteIncrease": 4194304,
+  "limits": [
+    "Crossing axes are source backed; schematic road registration and illustrative span/dimension limits remain.",
+    "OT5 left ground support overlaps an existing schematic grandstand footprint outside the road; inspected approach shows no exposed roof-piercing artifact. Unrelated stands are preserved.",
+    "Official artwork/crest is not reproduced. All signage is a stylised reconstruction."
+  ]
+}

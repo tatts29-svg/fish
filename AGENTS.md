@@ -163,6 +163,7 @@ marks as a draft, or anything risky to the record, waits for his yes.
 - **A forklift goes by its day rate** (Andrew, 1 Oct 2026): where a contract line's Rate 1 is a card forklift day rate
   x the line's days written as one figure (MEAD 9968726 line 1: $1,483.20 = $185.40 x 8 days), the line is charged by
   the day rate, not that figure by the day again.
+- **Labour costs stay separate from accommodation and meals** (Andrew, 9 Oct 2026: “Labour is labour”): hotel accommodation and meal expense entries are not labour. Andrew separately confirmed the existing $14,700 salary-uplift/living-away allowance **is labour** (“Thats fine thats classed as labour”). Keep that allowance in labour; do not invent a split or reclassify it as hotel/meals. Preserve each cost once in the overall job forecast.
 - **How the branch charges** (Brenden Meek, Branch Manager - Relief, by email; Andrew said "remember", 1 Oct 2026):
   "Labour is charged per piece of equipment. Only hourly labour charged is over the event. Forklifts, VMS and
   water barriers are charged for from when they go in. Everything else is only charged for over the event."

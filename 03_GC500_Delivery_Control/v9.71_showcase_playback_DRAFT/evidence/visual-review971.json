@@ -1,0 +1,94 @@
+{
+  "author": "Andrew Fisher",
+  "release": "v9.71",
+  "status": "PASS",
+  "candidateSha256": "f182b59f07ea6f2fbd0a2b09d2efc4e219ef44c9c16a0109304f0f6e89437c5a",
+  "candidateBytes": 12831751,
+  "devices": [
+    {
+      "device": "desktop",
+      "checks": 28,
+      "passed": 28,
+      "screenshots": 20,
+      "landmarkIds": [
+        "PB1",
+        "PB2",
+        "OT4",
+        "PB3",
+        "OT5"
+      ],
+      "defaultPreferencesPreserved": {
+        "back": "circuit3d",
+        "view": "hero",
+        "quality": "auto",
+        "focus": true
+      },
+      "newDrawCalls": 0,
+      "newTextures": 0,
+      "nativeRecordUnchanged": true,
+      "pageErrors": 0,
+      "graphicsErrors": 0,
+      "operationalWriteAttempts": 0,
+      "locallyBlockedExternalRequests": [
+        {
+          "method": "POST",
+          "origin": "https://tile.googleapis.com",
+          "path": "/v1/createSession"
+        }
+      ],
+      "screenshotsInspected": [
+        "desktop-day-PB1-28m.png",
+        "desktop-day-PB2-28m.png",
+        "desktop-day-PB3-28m.png",
+        "desktop-day-OT5-28m.png",
+        "desktop-night-PB1-28m.png"
+      ],
+      "poseFixture": false
+    },
+    {
+      "device": "phone",
+      "checks": 10,
+      "passed": 10,
+      "screenshots": 2,
+      "landmarkIds": [
+        "PB1",
+        "PB2",
+        "OT4",
+        "PB3",
+        "OT5"
+      ],
+      "defaultPreferencesPreserved": {
+        "back": "circuit3d",
+        "view": "hero",
+        "quality": "auto",
+        "focus": true
+      },
+      "newDrawCalls": 0,
+      "newTextures": 0,
+      "nativeRecordUnchanged": true,
+      "pageErrors": 0,
+      "graphicsErrors": 0,
+      "operationalWriteAttempts": 0,
+      "locallyBlockedExternalRequests": [
+        {
+          "method": "POST",
+          "origin": "https://tile.googleapis.com",
+          "path": "/v1/createSession"
+        }
+      ],
+      "screenshotsInspected": [
+        "phone-day-PB3-40m.png",
+        "phone-night-OT5-40m.png"
+      ],
+      "poseFixture": true
+    }
+  ],
+  "visualReview": "Daytime signs and five distinct bridge/gantry structures visible. Phone cream finals bridge and night Boost approach inspected with usable controls. Night lettering is naturally less prominent under the retained night treatment. All retain original car/view/quality defaults.",
+  "atlasMemory": {
+    "beforeBytes": 1398102,
+    "afterBytes": 5592406,
+    "increaseBytes": 4194304,
+    "texturesAdded": 0
+  },
+  "limits": "Chromium SwiftShader software rendering; these checks do not establish hardware GPU frame rates. Phone approach shots use an ephemeral source-resolved pose fixture; separate source and simulation tests cover driving. Strict GET visual harness locally blocks the optional Google map createSession request; there were no operational write attempts. Screenshots remain in private evidence."
+}

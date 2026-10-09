@@ -1,0 +1,1491 @@
+{
+  "author": "Andrew Fisher",
+  "reviewed": "9 Oct 2026",
+  "uniquePhotosReviewed": 114,
+  "sourceRange": "21016\u201321162, all114 available unique originals in the reviewed batch",
+  "implementation": "Five independently matched master-plan bridge/gantry appearances; broader surroundings are retained as reference evidence, not claimed fully reconstructed.",
+  "privacy": "Original photographs remain private; this index contains names, hashes and visual observations only.",
+  "limitations": [
+    "Prior v9.20 release recorded115 working reference photographs; its deleted working inventory cannot establish a one-to-one match to these114 currently available originals.",
+    "Scene remains illustrative; no surveyed dimensions or camera geolocation are inferred."
+  ],
+  "photos": [
+    {
+      "number": 21016,
+      "filename": "21016.jpg",
+      "sha256": "98b6a50f91e0df7b4418eb37daf0869c657c1eb309a3eb6dffea69f683c7639f",
+      "reviewed": true,
+      "classification": "track_or_circuit_public_road_photo",
+      "section": "pit_entry_boost",
+      "observation": "Black-centre Boost gantry ahead with orange end panels; KMC right and yellow/white BP Ultimate left; numbered grid boxes; broad pale balcony podium and crowned tower right.",
+      "olderReferenceMatches": [
+        20667,
+        20668
+      ],
+      "implementationLimit": "Distinguish this narrow advertising gantry from the pedestrian bridge."
+    },
+    {
+      "number": 21017,
+      "filename": "21017.jpg",
+      "sha256": "2d5acf57ab83707bbee05b16657d8fcce356f667613a1a8cc0c8198a342c5b64",
+      "reviewed": true,
+      "classification": "track_or_circuit_public_road_photo",
+      "section": "pit_entry_boost",
+      "observation": "Closer black-centre Boost span with white wordmark/orange icon and orange slogan ends; slender supports; red/white/yellow splitter paint left.",
+      "olderReferenceMatches": [
+        20667,
+        20668
+      ],
+      "implementationLimit": "Artwork and slender braced supports are clear; physical dimensions not established."
+    },
+    {
+      "number": 21018,
+      "filename": "21018.jpg",
+      "sha256": "0970f088ee2dd08c138b5b60ec0b2740db37eea73ab014526737caae5ef10cc8",
+      "reviewed": true,
+      "classification": "track_or_circuit_public_road_photo",
+      "section": "pit_entry_boost",
+      "observation": "Close frontal Boost advertising span: black centre, orange icon, white lowercase boostmobile, orange ends with black WORKS ITS ARSE OFF and chequered graphic. Slender grey legs/diagonal braces; no stairs or pedestrian deck.",
+      "olderReferenceMatches": [
+        20667,
+        20668
+      ],
+      "implementationLimit": "Strongest close reference in this subset for OT5 appearance, also matches later21162."
+    },
+    {
+      "number": 21019,
+      "filename": "21019.jpg",
+      "sha256": "c70aca7dd0b21b7cf9233d0ab4968afc23038718efb6e54497e9869ff7689460",
+      "reviewed": true,
+      "classification": "track_or_circuit_public_road_photo",
+      "section": "pit_main_straight",
+      "observation": "After Boost span: long pale two-storey modular pit/event building and palms left, red GOLDCOAST walls left; exposed silver grandstand/blue seats and blue Queensland Government panels right.",
+      "olderReferenceMatches": [
+        20669,
+        20670
+      ],
+      "implementationLimit": "Different structure and branding from pit-entry approach."
+    },
+    {
+      "number": 21020,
+      "filename": "21020.jpg",
+      "sha256": "9d655473e78b5bf7a7d59088d9fd96e3fd1d7b385216ae3e2aac51d48ddacc7c",
+      "reviewed": true,
+      "classification": "track_or_circuit_public_road_photo",
+      "section": "pit_main_straight",
+      "observation": "Long two-level pit/event structure with pale roof fascia/dark upper bays and palms left. Blue Queensland wall/open scaffold grandstand right; white numbered grid boxes.",
+      "olderReferenceMatches": [
+        20669,
+        20670
+      ],
+      "implementationLimit": "Facade rhythm and open bays supported; no surveyed building size from image."
+    },
+    {
+      "number": 21021,
+      "filename": "21021.jpg",
+      "sha256": "76a97147e26007d12e9ecdb43b524a231f95430abf9eb1b3b3ce73c666c48042",
+      "reviewed": true,
+      "classification": "track_or_circuit_public_road_photo",
+      "section": "pit_main_straight",
+      "observation": "Closer view of same pit building/palms, red GOLDCOAST left and blue Queensland right; numbered grid boxes remain.",
+      "olderReferenceMatches": [
+        20669,
+        20670
+      ],
+      "implementationLimit": "Material and facade reference."
+    },
+    {
+      "number": 21022,
+      "filename": "21022.jpg",
+      "sha256": "810689d4dc337b8f6c4cae49cec1fa9f5758592ef2a2570ee47074ab0927ed40",
+      "reviewed": true,
+      "classification": "track_or_circuit_public_road_photo",
+      "section": "pit_main_straight",
+      "observation": "Long pit structure and palm row left, red GOLDCOAST panels; blue DELIVERING FOR QUEENSLAND / Queensland Government panels and seating scaffold right.",
+      "olderReferenceMatches": [
+        20669,
+        20670
+      ],
+      "implementationLimit": "Sector-specific sponsor faces."
+    },
+    {
+      "number": 21023,
+      "filename": "21023.jpg",
+      "sha256": "41e7ec90d8b5b4474ec3bd4b9d51785090d6048b85ec5414972fb002da8a8f6e",
+      "reviewed": true,
+      "classification": "track_or_circuit_public_road_photo",
+      "section": "pit_straight_exit",
+      "observation": "Sponsor transition: Boost black/orange wall left, blue Thrifty right; long pit building continues left and dense high-rise skyline ahead.",
+      "olderReferenceMatches": [
+        20671,
+        20672
+      ],
+      "implementationLimit": "Sponsor transitions should not be distributed uniformly."
+    },
+    {
+      "number": 21024,
+      "filename": "21024.jpg",
+      "sha256": "0b75e15ed1805a47051812c8f7858ceb70938cc38c8013cc6d93102ad45e6fc1",
+      "reviewed": true,
+      "classification": "track_or_circuit_public_road_photo",
+      "section": "pit_straight_exit",
+      "observation": "Boost/slogan panels left; right fence ends at open grass/maintenance verge and parked vehicles. Broad white balcony tower right, dark construction towers ahead.",
+      "olderReferenceMatches": [
+        20671,
+        20672
+      ],
+      "implementationLimit": "Open verge is visible; snapshot does not prove race-day barrier layout."
+    },
+    {
+      "number": 21025,
+      "filename": "21025.jpg",
+      "sha256": "52d1255e7a39d92b5a3b46783bb92123482306f72b0537449fc9ec6970d838d0",
+      "reviewed": true,
+      "classification": "track_or_circuit_public_road_photo",
+      "section": "pit_straight_exit",
+      "observation": "Pit building end and Boost panels left; open signalised junction/verge right with blue portable toilets; street lanes/arrows and red walls beyond.",
+      "olderReferenceMatches": [
+        20671,
+        20672
+      ],
+      "implementationLimit": "Temporary vehicles/toilets are contextual, not proof of asset identity or placement."
+    },
+    {
+      "number": 21027,
+      "filename": "21027.jpg",
+      "sha256": "2f024586e21f49d7751e505f6bd4b1d7aa9a33f0aeb49d95955820347518805f",
+      "reviewed": true,
+      "classification": "track_or_circuit_public_road_photo",
+      "section": "gold_coast_corridor",
+      "observation": "GOLDCOAST red walls both sides after junction; remaining pit building left, broad white slab tower right; distinct orange-centre Boost gantry far ahead.",
+      "olderReferenceMatches": [
+        20671,
+        20672,
+        20673
+      ],
+      "implementationLimit": "Separate gantry is ahead of this sector."
+    },
+    {
+      "number": 21028,
+      "filename": "21028.jpg",
+      "sha256": "7ee7d27b9f7fddc91be0dda6f1d397858edcb792a82d12a2cbcf01ead2654348",
+      "reviewed": true,
+      "classification": "track_or_circuit_public_road_photo",
+      "section": "gold_coast_corridor",
+      "observation": "Red GOLDCOAST walls both sides, white hospitality pavilion/scaffold left, high-rise cluster; orange-centre Boost ahead.",
+      "olderReferenceMatches": [
+        20671,
+        20672,
+        20673
+      ],
+      "implementationLimit": "Pavilion and local brand section."
+    },
+    {
+      "number": 21029,
+      "filename": "21029.jpg",
+      "sha256": "1f1104a14f4eb1d6b6b05f7f666082bf08a708708db441bce72f575234fa585f",
+      "reviewed": true,
+      "classification": "track_or_circuit_public_road_photo",
+      "section": "gold_coast_corridor",
+      "observation": "GOLDCOAST walls and pale pavilion left continue; orange-centre Boost gantry approaching; tall beige narrow tower left and dark glazed towers behind span.",
+      "olderReferenceMatches": [
+        20673,
+        20674
+      ],
+      "implementationLimit": "Geometric/skyline continuity matches older sector."
+    },
+    {
+      "number": 21030,
+      "filename": "21030.jpg",
+      "sha256": "f0639ef1559edfe7d19a66bd8d2c2f6c393654fa753bd400ee707150fc26cdc6",
+      "reviewed": true,
+      "classification": "track_or_circuit_public_road_photo",
+      "section": "orange_centre_boost_approach",
+      "observation": "Traeger burnt-orange/white panels left, plain pale concrete right; long white pavilion left and red/white raised strip; orange-centre black-end Boost span ahead.",
+      "olderReferenceMatches": [
+        20526,
+        20527,
+        20673,
+        20674
+      ],
+      "implementationLimit": "Distinct banner design from21018."
+    },
+    {
+      "number": 21031,
+      "filename": "21031.jpg",
+      "sha256": "11353545c20f1099cfb95f14cca382f2cd53a6aac737f6239242707d62fc6217",
+      "reviewed": true,
+      "classification": "track_or_circuit_public_road_photo",
+      "section": "orange_centre_boost_approach",
+      "observation": "Closer Traeger/pale-concrete corridor and second Boost advertising span, with central orange slogan and black logo ends; white pavilion left.",
+      "olderReferenceMatches": [
+        20526,
+        20527,
+        20673,
+        20674
+      ],
+      "implementationLimit": "Could support separately anchored second gantry only."
+    },
+    {
+      "number": 21032,
+      "filename": "21032.jpg",
+      "sha256": "e8d3d9d71bddcce766548ac2992b7733ec22d5bcf98f351a25b3b70193ee393f",
+      "reviewed": true,
+      "classification": "track_or_circuit_public_road_photo",
+      "section": "orange_centre_boost",
+      "observation": "Orange-centre WORKS ITS ARSE OFF span, black ends with stacked orange/white Boost mobile logos; plain concrete right, orange Traeger left ending toward span.",
+      "olderReferenceMatches": [
+        20526,
+        20527,
+        20673,
+        20674
+      ],
+      "implementationLimit": "Do not apply this artwork to OT5."
+    },
+    {
+      "number": 21033,
+      "filename": "21033.jpg",
+      "sha256": "2b4ecb8f77f17b494ad99c382a6ecc1c47a19f0939de027de99abb3a688ee42f",
+      "reviewed": true,
+      "classification": "track_or_circuit_public_road_photo",
+      "section": "orange_centre_boost",
+      "observation": "Best close second Boost span: orange centre occupies about half face, black ends with orange icon and stacked white boost/mobile; grey upright legs and diagonal braces. No stair/deck.",
+      "olderReferenceMatches": [
+        20526,
+        20527,
+        20673,
+        20674
+      ],
+      "implementationLimit": "Strong appearance source for this separate gantry; no metric dimension inferred."
+    },
+    {
+      "number": 21034,
+      "filename": "21034.jpg",
+      "sha256": "85c75192a6e5b6af38cc0cda39f576906917248badf6183dc1e485cba8d43e68",
+      "reviewed": true,
+      "classification": "track_or_circuit_public_road_photo",
+      "section": "tower_corridor",
+      "observation": "Past second Boost: black wall left, pale wall right, low blue seating visible left; dark curved-glass tower and white broad balcony slab frame road.",
+      "olderReferenceMatches": [
+        20675,
+        20676
+      ],
+      "implementationLimit": "Supports varied podium/skyline silhouette."
+    },
+    {
+      "number": 21035,
+      "filename": "21035.jpg",
+      "sha256": "6133af7cf1bfd4fb7455323eeef7c24977bafe551876205599f6d72264aaf8c6",
+      "reviewed": true,
+      "classification": "track_or_circuit_public_road_photo",
+      "section": "tower_corridor",
+      "observation": "Blue grandstand seats/scaffold left, black left wall, pale right wall becoming magenta Queensland; gentle right bend among towers.",
+      "olderReferenceMatches": [
+        20675,
+        20676
+      ],
+      "implementationLimit": "Seating colour and right-wall change supported."
+    },
+    {
+      "number": 21036,
+      "filename": "21036.jpg",
+      "sha256": "19d0d7ac0b0f3ac7647bb7e4a253eae78ddc9ebcab75714189e10436206bf009",
+      "reviewed": true,
+      "classification": "track_or_circuit_public_road_photo",
+      "section": "tower_corridor",
+      "observation": "Blue seated stand left and magenta Queensland / THAT HOLIDAY FEELING panels right; left lane arrows; dark curved tower left, white ribbed slab ahead.",
+      "olderReferenceMatches": [
+        20675,
+        20676
+      ],
+      "implementationLimit": "Queensland tourism magenta differs from blue government artwork."
+    },
+    {
+      "number": 21037,
+      "filename": "21037.jpg",
+      "sha256": "4d2ee7957002ddc75df65f712455d3348bbf2265175f14ae9122e6d4a6c82a33",
+      "reviewed": true,
+      "classification": "track_or_circuit_public_road_photo",
+      "section": "tower_corridor",
+      "observation": "Same blue stand/black left wall and magenta Queensland tourism right; junction/work area ahead under white balcony tower.",
+      "olderReferenceMatches": [
+        20675,
+        20676
+      ],
+      "implementationLimit": "No new precise position without mapped correspondence."
+    },
+    {
+      "number": 21042,
+      "filename": "21042.jpg",
+      "sha256": "adfce907eb98e0ae70e6753133bea1d81b89ebe097958de790445635268f3681",
+      "reviewed": true,
+      "classification": "track_or_circuit_public_road_photo",
+      "section": "residential_pizza_hut",
+      "observation": "Narrow high-rise corridor, red Pizza Hut right, plain red left; concrete/mesh barriers, temporary cone/bunting channel; rounded cream balconies and dark glazing left.",
+      "olderReferenceMatches": [
+        20676,
+        20677
+      ],
+      "implementationLimit": "Roadwork cones/bunting are temporary context, not race alignment."
+    },
+    {
+      "number": 21043,
+      "filename": "21043.jpg",
+      "sha256": "f7fd578d72af89dff006847838734e9f437be6d9d53dc224be71159cdbb2b907",
+      "reviewed": true,
+      "classification": "track_or_circuit_public_road_photo",
+      "section": "residential_pizza_hut",
+      "observation": "Close red Pizza Hut wall right, plain red left, temporary orange delineators/bunting; 40 paint and forward arrow; cream/grey balcony blocks tight to road.",
+      "olderReferenceMatches": [
+        20676,
+        20677
+      ],
+      "implementationLimit": "Branding and narrow urban enclosure supported."
+    },
+    {
+      "number": 21044,
+      "filename": "21044.jpg",
+      "sha256": "ae0a813cb381f11a8cdfd3029fe481a3bb4b586243ba93ca4e40c25f3c33d0b9",
+      "reviewed": true,
+      "classification": "track_or_circuit_public_road_photo",
+      "section": "residential_pizza_hut",
+      "observation": "Pizza Hut right/plain red left, 40 road marking and temporary delineator lines; light cream balcony bands/dark podium left, pale glazed tower right.",
+      "olderReferenceMatches": [
+        20676,
+        20677
+      ],
+      "implementationLimit": "Previously explicit920 source example; neutral mesh/barrier character only was recorded."
+    },
+    {
+      "number": 21045,
+      "filename": "21045.jpg",
+      "sha256": "73f84b0e9391452ff4f3210f4e11203e4706a7b08303ec27c64b8f2511ee6ef4",
+      "reviewed": true,
+      "classification": "track_or_circuit_public_road_photo",
+      "section": "residential_pizza_hut",
+      "observation": "Same red/Pizza Hut corridor approaches bend; tall narrow conifers right and varied cream slab towers; left podium glass/bronze bands.",
+      "olderReferenceMatches": [
+        20676,
+        20677
+      ],
+      "implementationLimit": "Vegetation type/facade diversity supported."
+    },
+    {
+      "number": 21046,
+      "filename": "21046.jpg",
+      "sha256": "2a58f56e858bf65f2e8aa0630e5ae8302031f221a102ce1aaafaba610ad8015d",
+      "reviewed": true,
+      "classification": "track_or_circuit_public_road_photo",
+      "section": "residential_podium_approach",
+      "observation": "Left wall transitions into purple THE STAR panels; dark/cream rounded podium and planting left, narrow pines right; temporary cone channel into bend.",
+      "olderReferenceMatches": [
+        20677,
+        20678
+      ],
+      "implementationLimit": "No universal wall palette."
+    },
+    {
+      "number": 21048,
+      "filename": "21048.jpg",
+      "sha256": "3922ab8298f5ebee91cd79c414a463814369b4daaec2290fbbe004bea3f8ea7d",
+      "reviewed": true,
+      "classification": "track_or_circuit_public_road_photo",
+      "section": "rounded_podium_turn",
+      "observation": "Soft-focus turning view of close podium: rounded white/grey horizontal bands with bronze/gold vertical screens and green planted slot; low red/white plastic barriers across opposite frontage.",
+      "olderReferenceMatches": [],
+      "implementationLimit": "Distinct architectural appearance; exact building/source-way identity not established."
+    },
+    {
+      "number": 21049,
+      "filename": "21049.jpg",
+      "sha256": "7ee9e2cb41755ddc5fba2a258ab6471665cecc48d2ba151fb51b23e7726cc7d3",
+      "reviewed": true,
+      "classification": "track_or_circuit_public_road_photo",
+      "section": "rounded_podium_turn",
+      "observation": "Sharp close podium frontage: white/grey rounded bands, gold/bronze louvred screens, green planted vertical slot; grey columns/open ground floor and temporary mesh/plastic barriers.",
+      "olderReferenceMatches": [],
+      "implementationLimit": "Strong close facade reference if same existing mapped building is matched."
+    },
+    {
+      "number": 21050,
+      "filename": "21050.jpg",
+      "sha256": "a4b422bce1fc3f22c26040a0826429bae31fca83d3b3bde13a90b50c080bd584",
+      "reviewed": true,
+      "classification": "track_or_circuit_public_road_photo",
+      "section": "rounded_podium_turn",
+      "observation": "Soft-focus continuation of turn beside bronze/cream rounded podium; alternating red/white temporary water barriers and mesh on right.",
+      "olderReferenceMatches": [],
+      "implementationLimit": "Roadside materials, not evidence of permanent race barrier line."
+    },
+    {
+      "number": 21051,
+      "filename": "21051.jpg",
+      "sha256": "843d0e1701021b652b76a6d8ac9333a3ebe8a3f411ed1a7922b92b9efbe0e2f1",
+      "reviewed": true,
+      "classification": "track_or_circuit_public_road_photo",
+      "section": "rounded_podium_exit",
+      "observation": "Along bronze/cream rounded podium now right; black sponsor strips and red/white temporary water barriers; narrow layered pines ahead/left.",
+      "olderReferenceMatches": [
+        20678
+      ],
+      "implementationLimit": "Contextual facade/vegetation continuation; partial older-scene match."
+    },
+    {
+      "number": 21052,
+      "filename": "21052.jpg",
+      "sha256": "62993781b2600ccd7ba93d3b08b9d41c3f388ac19082e450aff494e3db556e3c",
+      "reviewed": true,
+      "classification": "track_or_circuit_public_road_photo",
+      "section": "coastal_junction_approach",
+      "observation": "Rounded bronze/cream podium right with street-level canopy; red/white water barriers and black sponsor strip; pines left and open coast ahead.",
+      "olderReferenceMatches": [
+        20678,
+        20679
+      ],
+      "implementationLimit": "Different public-road setup from fully fenced race corridor."
+    },
+    {
+      "number": 21053,
+      "filename": "21053.jpg",
+      "sha256": "1501bf8e4c178dc093aa1f5cd8195a78d71ff84d03d983b5f73914eb9afd12b7",
+      "reviewed": true,
+      "classification": "track_or_circuit_public_road_photo",
+      "section": "coastal_junction_approach",
+      "observation": "Podium continues right, open footpath/residential entrance left; narrow conifers and coastal trees ahead; mixed neutral/red barriers.",
+      "olderReferenceMatches": [
+        20678,
+        20679
+      ],
+      "implementationLimit": "Street-view context; no complete route proof."
+    },
+    {
+      "number": 21054,
+      "filename": "21054.jpg",
+      "sha256": "51be09ae691c4db8fc02bfe9c19dd1d17cfc745fea1ff0329e9dead848aa2e68",
+      "reviewed": true,
+      "classification": "track_or_circuit_public_road_photo",
+      "section": "coastal_junction_approach",
+      "observation": "Seacrest/Rhapsody-side residential frontage and narrow pine left, bronze/cream podium right; broad open road toward coastal junction.",
+      "olderReferenceMatches": [
+        20678,
+        20679
+      ],
+      "implementationLimit": "Readable building signs aid future exact building matching."
+    },
+    {
+      "number": 21055,
+      "filename": "21055.jpg",
+      "sha256": "12a530ea65376f6b8ffd3185ef33b066d049fc5024f99ec40527a06c980b2d2f",
+      "reviewed": true,
+      "classification": "track_or_circuit_public_road_photo",
+      "section": "coastal_junction_approach",
+      "observation": "SEACREST name readable on cream slab tower left; two tall layered pines/footpath, podium/canopy right, coast opens ahead.",
+      "olderReferenceMatches": [
+        20678,
+        20679
+      ],
+      "implementationLimit": "Use existing geolocated building identity before modifying specific geometry."
+    },
+    {
+      "number": 21056,
+      "filename": "21056.jpg",
+      "sha256": "0c0075a6d982337ab816fce4575a805d5a9aede5f708b829e1dac3445db1a789",
+      "reviewed": true,
+      "classification": "track_or_circuit_public_road_photo",
+      "section": "coastal_junction_approach",
+      "observation": "Open left verge/parking and hatched road shoulder; temporary barriers around right podium, view opens to coastal tree line.",
+      "olderReferenceMatches": [
+        20678,
+        20679
+      ],
+      "implementationLimit": "Photographer follows normal road traffic; no authority to change official racing line."
+    },
+    {
+      "number": 21057,
+      "filename": "21057.jpg",
+      "sha256": "9ed5e3d48b0929c66747511bbb048abe12ffc7c83661e0e9b3de592ed33d33ed",
+      "reviewed": true,
+      "classification": "track_or_circuit_public_road_photo",
+      "section": "coastal_junction",
+      "observation": "Open junction with ocean glimpses/right tree line; cream Seacrest and white/blue balcony towers left, tall narrow conifer; short sponsor barriers right.",
+      "olderReferenceMatches": [
+        20678,
+        20679
+      ],
+      "implementationLimit": "Do not place enclosed fence corridor solely from generalized theme."
+    },
+    {
+      "number": 21061,
+      "filename": "21061.jpg",
+      "sha256": "6b24789a0d145e39a710b4697cf5935d46b1d72a8d282d0066cc7c2b1f9acdca",
+      "reviewed": true,
+      "classification": "track_or_circuit_public_road_photo",
+      "section": "coastal_straight_crossing",
+      "observation": "Red/white pedestrian crossing ahead; residential towers/pines and open sidewalk left, blue grandstand scaffold and coastal vegetation right.",
+      "olderReferenceMatches": [
+        20679,
+        20680
+      ],
+      "implementationLimit": "Crossing and open coastal character supported, exact map attachment pending."
+    },
+    {
+      "number": 21062,
+      "filename": "21062.jpg",
+      "sha256": "d9e35f333ffd42857b475849a22e3e3d11df6d3f0edf6a10e764770f07c54ad2",
+      "reviewed": true,
+      "classification": "track_or_circuit_public_road_photo",
+      "section": "coastal_straight_crossing",
+      "observation": "Close red/white crossing and painted hatched shoulder; blue seats on exposed stand right, dark/cream balconies and tall pine left.",
+      "olderReferenceMatches": [
+        20679,
+        20680
+      ],
+      "implementationLimit": "Useful crossing/stand structural appearance."
+    },
+    {
+      "number": 21064,
+      "filename": "21064.jpg",
+      "sha256": "f4c0d276357f2053eadfb8eadaf6747b0892c8948bc8485543e37cfeedfc6ad6",
+      "reviewed": true,
+      "classification": "track_or_circuit_public_road_photo",
+      "section": "construction_tree_straight",
+      "observation": "Black Hutchinson Builders hoarding left under tan/white slab towers; plain cream concrete and lower catch mesh right, irregular coastal trees beyond.",
+      "olderReferenceMatches": [
+        20680,
+        20681,
+        20682
+      ],
+      "implementationLimit": "Clear distinction between construction hoarding and race sponsor wall."
+    },
+    {
+      "number": 21065,
+      "filename": "21065.jpg",
+      "sha256": "198a7db75240e1a1721cf11dc9c24862718f660f12faca83ab987a94a1e23e62",
+      "reviewed": true,
+      "classification": "track_or_circuit_public_road_photo",
+      "section": "construction_tree_straight",
+      "observation": "Same black construction hoarding left, tan slab then white rounded tower; cream barrier/green irregular trees right; blue bridge distant.",
+      "olderReferenceMatches": [
+        20680,
+        20681,
+        20682
+      ],
+      "implementationLimit": "Matches older blue-bridge approach."
+    },
+    {
+      "number": 21066,
+      "filename": "21066.jpg",
+      "sha256": "81069b231aeffb4384a849b620b43eb17685b6e2434848472a012a1c6793760a",
+      "reviewed": true,
+      "classification": "track_or_circuit_public_road_photo",
+      "section": "construction_tree_straight",
+      "observation": "Closer tan slab and white rounded tower left, black Hutchinson hoarding/containers; cream right wall and dense trees, blue bridge ahead.",
+      "olderReferenceMatches": [
+        20680,
+        20681,
+        20682
+      ],
+      "implementationLimit": "Tree silhouettes and facade palette supported."
+    },
+    {
+      "number": 21067,
+      "filename": "21067.jpg",
+      "sha256": "a2a17dd45225259847635c6ed8dc4132fbb44851ee6bb282c0a619e441f1b691",
+      "reviewed": true,
+      "classification": "track_or_circuit_public_road_photo",
+      "section": "blue_bridge_approach",
+      "observation": "Tall white rounded balcony tower and narrow pine left, broad irregular canopy right; cream barrier, blue Queensland bridge ahead.",
+      "olderReferenceMatches": [
+        20681,
+        20682,
+        20683
+      ],
+      "implementationLimit": "Strong continuation toward distinct coastal bridge."
+    },
+    {
+      "number": 21069,
+      "filename": "21069.jpg",
+      "sha256": "ea8b62cb992b6d20fc48f30c8c1666405372505c55d98b507eac43aa1e2680ba",
+      "reviewed": true,
+      "classification": "track_or_circuit_public_road_photo",
+      "section": "blue_bridge_approach",
+      "observation": "Blue pedestrian bridge ahead; left white rounded tower, mixed left brands incl Air and red; black TITANIUM CARAVANS right with coast behind.",
+      "olderReferenceMatches": [
+        20682,
+        20683,
+        20684
+      ],
+      "implementationLimit": "Distinct from cream PB3 and red Gold Coast bridges."
+    },
+    {
+      "number": 21070,
+      "filename": "21070.jpg",
+      "sha256": "561bf482791b2f388957daec39a3fe5f938ebaaf54f18e86b37d568dafdd3ff5",
+      "reviewed": true,
+      "classification": "track_or_circuit_public_road_photo",
+      "section": "blue_bridge_approach",
+      "observation": "Blue DELIVERING FOR QUEENSLAND / Queensland Government bridge ahead; Gold Coast red left, Titanium Caravans black right, ocean and narrow pine right.",
+      "olderReferenceMatches": [
+        20683,
+        20684
+      ],
+      "implementationLimit": "Correct blue artwork and coastal setting supported."
+    },
+    {
+      "number": 21071,
+      "filename": "21071.jpg",
+      "sha256": "dcf653390ce269aa08f5f219efd7921918edd3ad2235893b8b3d23ffe9fcfb34",
+      "reviewed": true,
+      "classification": "track_or_circuit_public_road_photo",
+      "section": "blue_bridge_approach",
+      "observation": "Approaching blue bridge: white/clad left stair enclosure, grey right stairs/columns, blue front span; red/white crossing ahead, coast right.",
+      "olderReferenceMatches": [
+        20683,
+        20684
+      ],
+      "implementationLimit": "Pedestrian bridge has side flights; not a slender advertising gantry."
+    },
+    {
+      "number": 21072,
+      "filename": "21072.jpg",
+      "sha256": "4147ee34fd192dfd1cd7905945604fef74d8d2eebf6eb76fcf57737d16d76d4c",
+      "reviewed": true,
+      "classification": "track_or_circuit_public_road_photo",
+      "section": "blue_bridge_crossing",
+      "observation": "Blue bridge across fenced straight beyond red/white crossing; white/silver side towers and stairs, red Gold Coast left, black Titanium Caravans right, coast visible.",
+      "olderReferenceMatches": [
+        20683,
+        20684
+      ],
+      "implementationLimit": "Front wording and construction clear."
+    },
+    {
+      "number": 21073,
+      "filename": "21073.jpg",
+      "sha256": "203f4bcca1da8b29961732650ff90b3a7aef482c525761969bcaf02d398eb477",
+      "reviewed": true,
+      "classification": "track_or_circuit_public_road_photo",
+      "section": "blue_bridge",
+      "observation": "Close blue span with white DELIVERING FOR QUEENSLAND left, divider and Queensland Government crest/name right; pale clad side flights, silver structure; black Titanium right.",
+      "olderReferenceMatches": [
+        20683,
+        20684
+      ],
+      "implementationLimit": "Strong blue-bridge artwork/structure source."
+    },
+    {
+      "number": 21074,
+      "filename": "21074.jpg",
+      "sha256": "a2e4e194adf5324950909a4ff2509e766996470625cb4ec9538803b08482645f",
+      "reviewed": true,
+      "classification": "track_or_circuit_public_road_photo",
+      "section": "blue_bridge",
+      "observation": "Best close blue bridge face: white text/crest on blue, thin pale outline, exposed dark/silver underside beams; white-clad angled left and right stair flights. Ocean and small yellow structure beyond right.",
+      "olderReferenceMatches": [
+        20683,
+        20684
+      ],
+      "implementationLimit": "Separate appearance asset needed if adding this bridge at a verified anchor."
+    },
+    {
+      "number": 21075,
+      "filename": "21075.jpg",
+      "sha256": "061fe71d3f663f2dcf416ca236dc19d6365090f97e6cc8b347e378371fa99abd",
+      "reviewed": true,
+      "classification": "track_or_circuit_public_road_photo",
+      "section": "coastal_grandstands",
+      "observation": "Beyond bridge: blue Thrifty right, mixed brands left, yellow raised beach hut right, coast visible through fence; tall blue/green glass tower left.",
+      "olderReferenceMatches": [
+        20685,
+        20686
+      ],
+      "implementationLimit": "Yellow beach structure is contextual until mapped."
+    },
+    {
+      "number": 21076,
+      "filename": "21076.jpg",
+      "sha256": "6639836d83b97c2c2f53c7e843588b9a2b7aebde45f995fc23a52ef48f643849",
+      "reviewed": true,
+      "classification": "track_or_circuit_public_road_photo",
+      "section": "coastal_grandstands",
+      "observation": "Blue Thrifty right, blue seating on exposed silver scaffold right and smaller stand left; ocean visible through structure, tree/grass left.",
+      "olderReferenceMatches": [
+        20685,
+        20686
+      ],
+      "implementationLimit": "Open scaffold is important, not solid grandstand wall."
+    },
+    {
+      "number": 21077,
+      "filename": "21077.jpg",
+      "sha256": "f56653714ddf8c9727820960b933fa8280b0229ea5bbeee5df2bbb23d4ab125e",
+      "reviewed": true,
+      "classification": "track_or_circuit_public_road_photo",
+      "section": "coastal_grandstands",
+      "observation": "Two blue seating stands on exposed scaffold, long blue Thrifty right and mixed left panels; coastal horizon right, vegetation left.",
+      "olderReferenceMatches": [
+        20685,
+        20686
+      ],
+      "implementationLimit": "Repeating blue seats and silver frame supported."
+    },
+    {
+      "number": 21079,
+      "filename": "21079.jpg",
+      "sha256": "a9a8ac34f0367457cf77b8b37a4175cfaadf629a1807182784cac644fa87640d",
+      "reviewed": true,
+      "classification": "track_or_circuit_public_road_photo",
+      "section": "coastal_grandstands",
+      "observation": "Blue Thrifty both sides, low stand left and elevated stand with stair flight right; ocean beyond. Tall blue/green tower over trees left.",
+      "olderReferenceMatches": [
+        20685,
+        20686
+      ],
+      "implementationLimit": "Right stair profile and open-frame stands supported."
+    },
+    {
+      "number": 21080,
+      "filename": "21080.jpg",
+      "sha256": "50540c56127cf5dc47d89179ee5de44a3153afd0322bd7655149939edb8e0018",
+      "reviewed": true,
+      "classification": "track_or_circuit_public_road_photo",
+      "section": "coastal_bend",
+      "observation": "Left curve with resurfacing/hatching road marks; blue Thrifty right transitions to black Toyota GAZOO Racing, trees and parked vans left; pale roofed structure ahead.",
+      "olderReferenceMatches": [
+        20686,
+        20687
+      ],
+      "implementationLimit": "Street traffic/paint do not define exact racing path."
+    },
+    {
+      "number": 21081,
+      "filename": "21081.jpg",
+      "sha256": "946f054c6d36ca43430a8fcff7018fb035f0b523bb0776fb3946d7272a42b0c6",
+      "reviewed": true,
+      "classification": "track_or_circuit_public_road_photo",
+      "section": "coastal_bend",
+      "observation": "Continuation: black Toyota GAZOO Racing wall left/right replacing blue Thrifty, dense trees left, ocean right through fence; tall layered pine and long pale roof structure ahead.",
+      "olderReferenceMatches": [
+        20686,
+        20687
+      ],
+      "implementationLimit": "Local sponsor change and tree/roof silhouettes supported."
+    },
+    {
+      "number": 21085,
+      "filename": "21085.jpg",
+      "sha256": "7417fedb3f5e1c08c46207be7525e37acf906c678277b7c1aeb3619e426b6c8a",
+      "kind": "track",
+      "section": "Coastal straight; exact master segment not yet fixed",
+      "observations": [
+        "Tall apartment facades on left; covered spectator stand and pines right.",
+        "Galvanised catch fence leaning inward; black barrier right with Toyota Gazoo branding; red Gold Coast barrier sections left."
+      ]
+    },
+    {
+      "number": 21086,
+      "filename": "21086.jpg",
+      "sha256": "51c9f307d37cbf411688e73dc677cb9112f50f76790e18faf5a2947fd3af7007",
+      "kind": "track",
+      "section": "Same coastal straight",
+      "observations": [
+        "Long covered blue-seated stand on right, silver scaffolding and pitched white roof.",
+        "Mixed red/white/black concrete faces; temporary orange delineators along right service edge."
+      ]
+    },
+    {
+      "number": 21087,
+      "filename": "21087.jpg",
+      "sha256": "5d07d04e83161032cb186b23f90d316144c067b8114a42591d0132ee0a19612d",
+      "kind": "track",
+      "section": "Same coastal straight",
+      "observations": [
+        "Clear modular fence-post spacing and silver inward-top mesh.",
+        "Blue-seated covered stand right; weathered white painted patches on roadway; apartment podium balconies left."
+      ]
+    },
+    {
+      "number": 21088,
+      "filename": "21088.jpg",
+      "sha256": "98e1e8bf01f9c9778a75f4cf943aae7b02da287deafe6d7fa36fe48064cf16e3",
+      "kind": "track",
+      "section": "Same coastal straight",
+      "observations": [
+        "Worksite/Gold Coast branding along left barriers.",
+        "Blue work platforms below white-roof grandstand right; repeated roadside tree trunks behind fence."
+      ]
+    },
+    {
+      "number": 21089,
+      "filename": "21089.jpg",
+      "sha256": "a99b787505844771157e444c7c86c8172ce4184d69cc066496bc5a050adadf28",
+      "kind": "track",
+      "section": "Same coastal straight",
+      "observations": [
+        "Large existing road PED/X marking.",
+        "Sponsor strip left alternates black/white Boost, orange and yellow; blue-seated stand right."
+      ]
+    },
+    {
+      "number": 21094,
+      "filename": "21094.jpg",
+      "sha256": "1d5d1ada0224cb1f191fed9a6d615b1ccdd9e0fc405e52cc1cc69bbf8522ca34",
+      "kind": "track",
+      "section": "Coastal straight continuing toward high-rise cluster",
+      "observations": [
+        "Dunlop yellow wall segment right, Gold Coast magenta/red and black/white barrier faces.",
+        "Pines, dense spreading trees and residential curved balcony towers; no overhead structure in frame."
+      ]
+    },
+    {
+      "number": 21095,
+      "filename": "21095.jpg",
+      "sha256": "7393f268c950a92f2f8a1886c2e0b1b9fd7e6052feea5caa04226cbcef39778c",
+      "kind": "track_edge_transition",
+      "section": "Cable Street junction",
+      "observations": [
+        "CABLE ST street sign visible on left.",
+        "Right catch fencing carries orange Coates, red Hino and yellow Dunlop signs; left opens to residential footpath."
+      ]
+    },
+    {
+      "number": 21097,
+      "filename": "21097.jpg",
+      "sha256": "bfc7d38afa23b19a1d0d51fcd23865527a1c573fc137e0eb69991f1259a8198f",
+      "kind": "surroundings",
+      "section": "Silverpoint residential approach",
+      "observations": [
+        "SILVERPOINT tower name visible on left; open road, parked cars, 2P parking sign and bus stop.",
+        "No event fence visible; does not alone prove circuit alignment."
+      ]
+    },
+    {
+      "number": 21098,
+      "filename": "21098.jpg",
+      "sha256": "0f3ce83496db81c324f6dcfe5799e826e193f8244aa30089d66fc0bb99803742",
+      "kind": "surroundings",
+      "section": "Public road beyond Silverpoint",
+      "observations": [
+        "40 road marking, overhead power lines and Norfolk pines; unfenced residential street."
+      ]
+    },
+    {
+      "number": 21100,
+      "filename": "21100.jpg",
+      "sha256": "016eeeaeae4f9aa80715be3f355ccaba43fdb0d4e764430ec4b0bdfcbf973ae3",
+      "kind": "surroundings",
+      "section": "Open public road",
+      "observations": [
+        "Blue-glass rounded tower left; DB BUILD scaffolding right; traffic lights ahead.",
+        "No circuit barrier visible."
+      ]
+    },
+    {
+      "number": 21102,
+      "filename": "21102.jpg",
+      "sha256": "c6227d3e385efefb8cec3158e0050b1ffacc2d6449711b7a8160735f5a1a1724",
+      "kind": "surroundings",
+      "section": "Open public road at signal intersection",
+      "observations": [
+        "DB BUILD scaffolding right, construction crane ahead, pines and white towers left."
+      ]
+    },
+    {
+      "number": 21103,
+      "filename": "21103.jpg",
+      "sha256": "1cfd71131e0815e2a70da203d81d4a4422e9c139c5fee0362cb9f5932411d85a",
+      "kind": "surroundings",
+      "section": "Norfolk Luxury Beachfront Apartments approach",
+      "observations": [
+        "Norfolk Luxury Beachfront Apartments 3534 sign readable; unfenced intersection.",
+        "Useful surroundings identity, not standalone proof of circuit road."
+      ]
+    },
+    {
+      "number": 21104,
+      "filename": "21104.jpg",
+      "sha256": "6656c3572b7a97ef8705a5843f82a8fb10b113c6cd21c9a39d73827a604519e7",
+      "kind": "surroundings",
+      "section": "Woodroffe Avenue junction, tentative sign reading",
+      "observations": [
+        "Left street sign appears WOODROFFE AV; confirm against original map before mapping.",
+        "Surfers apartment sign left; rounded blue facade and construction crane ahead."
+      ],
+      "mappingConfidence": "Street sign reading tentative; no circuit/landmark placement from this photo"
+    },
+    {
+      "number": 21105,
+      "filename": "21105.jpg",
+      "sha256": "6031068fc6af38cd3b1edfc408fc143002b741d3e823973d922b64504379bb64",
+      "kind": "landmark_approach",
+      "section": "PB2 at Breaker Street/Pacific Street",
+      "observations": [
+        "Long residential approach toward red GOLDCOAST overhead span.",
+        "Tall white apartment with zigzag dark balconies behind span; palms and parked cars both sides."
+      ],
+      "masterReference": "PB2",
+      "mappingConfidence": "Confirmed by D001 sequence: Breaker/Pacific bridge before T12 and Contessa"
+    },
+    {
+      "number": 21106,
+      "filename": "21106.jpg",
+      "sha256": "aeabb1090c7e6575f798270fa41020edd34ddff2db7335b2a341cbdaa131553c",
+      "kind": "landmark_approach",
+      "section": "PB2 at Breaker Street/Pacific Street",
+      "observations": [
+        "Closer approach; red full-width wordmark; white supporting steel visible.",
+        "Overhead public power cables remain above street."
+      ],
+      "masterReference": "PB2",
+      "mappingConfidence": "Confirmed by D001 sequence: Breaker/Pacific bridge before T12 and Contessa"
+    },
+    {
+      "number": 21107,
+      "filename": "21107.jpg",
+      "sha256": "ff354b7fb0a4bfc16e0e599be00bd1ceb7fc888ba8a0a4bc0d6284c2cba6f286",
+      "kind": "landmark_approach",
+      "section": "PB2 at Breaker Street/Pacific Street",
+      "observations": [
+        "White lattice supports, magenta/red fascia with white GOLDCOAST; substantial palm planting."
+      ],
+      "masterReference": "PB2",
+      "mappingConfidence": "Confirmed by D001 sequence: Breaker/Pacific bridge before T12 and Contessa"
+    },
+    {
+      "number": 21108,
+      "filename": "21108.jpg",
+      "sha256": "a3e24f2b9f1379c21937d9098c19a8705e7040081aca7845ddf55d1294e3e840",
+      "kind": "landmark_approach",
+      "section": "PB2 at Breaker Street/Pacific Street",
+      "observations": [
+        "White steel support towers either pavement; white wrapped stairs begin behind side trees."
+      ],
+      "masterReference": "PB2",
+      "mappingConfidence": "Confirmed by D001 sequence: Breaker/Pacific bridge before T12 and Contessa"
+    },
+    {
+      "number": 21109,
+      "filename": "21109.jpg",
+      "sha256": "d96c372f68651bbbf36c6333bbc8c060e8d13289c69afda868eaa96d90172a16",
+      "kind": "landmark_approach",
+      "section": "PB2 at Breaker Street/Pacific Street",
+      "observations": [
+        "Span close enough to distinguish separate lattice tower feet.",
+        "Road beyond returns to race barriers."
+      ],
+      "masterReference": "PB2",
+      "mappingConfidence": "Confirmed by D001 sequence: Breaker/Pacific bridge before T12 and Contessa"
+    },
+    {
+      "number": 21110,
+      "filename": "21110.jpg",
+      "sha256": "84333c8fbbd8d2ebc3f7714d56d69a6e9659e6ca58bbf2e708f49f5dd9d034ee",
+      "kind": "track_landmark",
+      "section": "PB2 at Breaker Street/Pacific Street",
+      "observations": [
+        "Clear stairs climbing diagonally inward on BOTH sides with white opaque wrapped sides.",
+        "Red/magenta fascia, large white GOLDCOAST. wordmark and small TM; white steel lattice support towers.",
+        "Not an advertising-only truss; this is a pedestrian bridge."
+      ],
+      "masterReference": "PB2",
+      "mappingConfidence": "Confirmed by D001 sequence: Breaker/Pacific bridge before T12 and Contessa"
+    },
+    {
+      "number": 21113,
+      "filename": "21113.jpg",
+      "sha256": "410fd93209bd1142e00b804e9f76d4a9631aee5e54928a100a922f9afd236a91",
+      "kind": "track",
+      "section": "Breaker Street left onto Serisier Avenue",
+      "observations": [
+        "Silver catch fencing and white/red barriers both sides; tall palms and pines.",
+        "Right red Repco sign approaching tyre-lined corner."
+      ],
+      "masterReference": "T12",
+      "mappingConfidence": "Source-supported sequence after PB2; Contessa/tower/corner geometry"
+    },
+    {
+      "number": 21114,
+      "filename": "21114.jpg",
+      "sha256": "d40d6f9f5584aab2caed0f55c47aea66132a8894812c278656ca32aad561a24c",
+      "kind": "track",
+      "section": "Breaker Street left onto Serisier Avenue",
+      "observations": [
+        "Red Repco fence billboard right, Gold Coast red wall left.",
+        "Stacked tyre wall closes direct route at left bend; residential access remains partly open."
+      ],
+      "masterReference": "T12",
+      "mappingConfidence": "Source-supported sequence after PB2; Contessa/tower/corner geometry"
+    },
+    {
+      "number": 21115,
+      "filename": "21115.jpg",
+      "sha256": "1d33116103ed8491fe0b4810a58aea040f4b1b911388c8ef21e1bbf5b876cfc8",
+      "kind": "track",
+      "section": "Breaker Street left onto Serisier Avenue",
+      "observations": [
+        "T12 left turn from Breaker Street onto Serisier Avenue (map-confirmed); distant street sign is not needed as sole evidence.",
+        "Tall palms behind continuous four-high black tyre wall; red wall and yellow kerb inside left."
+      ],
+      "masterReference": "T12",
+      "mappingConfidence": "Source-supported sequence after PB2; Contessa/tower/corner geometry"
+    },
+    {
+      "number": 21116,
+      "filename": "21116.jpg",
+      "sha256": "b306bc44d5ee75d4a33e55d6e82e4a54fb08f9a2e22851df1a4c31d5d57ef9f0",
+      "kind": "track",
+      "section": "Breaker Street left onto Serisier Avenue",
+      "observations": [
+        "Tyre wall follows outside edge; white apartment with dark staggered balconies above; inward mesh fencing.",
+        "Corner kerb yellow with red concrete sponsor wall."
+      ],
+      "masterReference": "T12",
+      "mappingConfidence": "Source-supported sequence after PB2; Contessa/tower/corner geometry"
+    },
+    {
+      "number": 21117,
+      "filename": "21117.jpg",
+      "sha256": "be0bed3648dbf81f8ddfc1a33cdf4c68a2bb3bb06ca9f4a5cc05e6efd79845ea",
+      "kind": "track",
+      "section": "Serisier Avenue between T12 and T13",
+      "observations": [
+        "Large orange Coates lettering on black left wall; tyres still along right corner exit.",
+        "Pines left, tall palm trunks right; white concrete and catch fence beyond tyres."
+      ],
+      "masterReference": "T12\u2013T13",
+      "mappingConfidence": "Source-supported sequence; Contessa entrance approaching Hill Parade"
+    },
+    {
+      "number": 21118,
+      "filename": "21118.jpg",
+      "sha256": "fa62ed938cad784834c5bf7705fb4d8cdcc78ecb520593e5b519b9fd6d8de206",
+      "kind": "track",
+      "section": "Serisier Avenue between T12 and T13",
+      "observations": [
+        "Orange Coates on black left wall; plain white barriers right; tall pines/palms enclose corridor."
+      ],
+      "masterReference": "T12\u2013T13",
+      "mappingConfidence": "Source-supported sequence; Contessa entrance approaching Hill Parade"
+    },
+    {
+      "number": 21119,
+      "filename": "21119.jpg",
+      "sha256": "1351c70ea7d6a82d716f9904aba0fe6250a366a6ae180ad4585d3265eb709fd6",
+      "kind": "track",
+      "section": "Serisier Avenue between T12 and T13",
+      "observations": [
+        "Repeated orange Coates wordmarks left, orange delineators; parked cars right are temporary public traffic, not race assets."
+      ],
+      "masterReference": "T12\u2013T13",
+      "mappingConfidence": "Source-supported sequence; Contessa entrance approaching Hill Parade"
+    },
+    {
+      "number": 21120,
+      "filename": "21120.jpg",
+      "sha256": "65d5afbc08c25ae02e4ddf1d05e5e0df144f16b779cf0dab3a02e2a6bc10bb92",
+      "kind": "track",
+      "section": "Serisier Avenue between T12 and T13",
+      "observations": [
+        "Oversized orange Coates billboard above left wall; lower repeat sponsor panels; yellow direction notice on right."
+      ],
+      "masterReference": "T12\u2013T13",
+      "mappingConfidence": "Source-supported sequence; Contessa entrance approaching Hill Parade"
+    },
+    {
+      "number": 21121,
+      "filename": "21121.jpg",
+      "sha256": "5cd99ea0302c2f56a1eaf096938c0fa27aea616f93e428d421f2d728f9871856",
+      "kind": "track",
+      "section": "Serisier Avenue between T12 and T13",
+      "observations": [
+        "Main-straight tower crown visible beyond trees; black wall ahead has white Coates wordmark."
+      ],
+      "masterReference": "T12\u2013T13",
+      "mappingConfidence": "Source-supported sequence; Contessa entrance approaching Hill Parade"
+    },
+    {
+      "number": 21122,
+      "filename": "21122.jpg",
+      "sha256": "becc02a94d4dd2adfb937ccbb21bb7828274b1818605d6e8cd38a6765d5d62c5",
+      "kind": "track",
+      "section": "Serisier Avenue between T12 and T13",
+      "observations": [
+        "Entrance monument left appears Contessa; black fence wall has white Coates; sparse trees beyond outer edge."
+      ],
+      "masterReference": "T12\u2013T13",
+      "mappingConfidence": "Source-supported sequence; Contessa entrance approaching Hill Parade"
+    },
+    {
+      "number": 21123,
+      "filename": "21123.jpg",
+      "sha256": "b52a0b073076d4897879e76b81e3893555671696c3d7892781c006d4b0629982",
+      "kind": "track",
+      "section": "Serisier Avenue right onto Hill Parade",
+      "observations": [
+        "Left street sign appears HILL PDE; two large white Coates wordmarks on black outside wall; yellow inside kerb."
+      ],
+      "masterReference": "T13",
+      "mappingConfidence": "HILL PDE and CONTESSA signs visible; matches D001"
+    },
+    {
+      "number": 21124,
+      "filename": "21124.jpg",
+      "sha256": "84c41ca34d6a3d1024ac7a607b2f995bc6c5b046f3a48faa716e6cd791a6011f",
+      "kind": "track",
+      "section": "Serisier Avenue right onto Hill Parade",
+      "observations": [
+        "CONTESSA entrance name readable; HILL PDE sign at corner; white Coates on outer black wall."
+      ],
+      "masterReference": "T13",
+      "mappingConfidence": "HILL PDE and CONTESSA signs visible; matches D001"
+    },
+    {
+      "number": 21125,
+      "filename": "21125.jpg",
+      "sha256": "58b69fa48740e5d30035ad861756daa9e8d33ccc1417851b94836653c0a34048",
+      "kind": "track",
+      "section": "Serisier Avenue right onto Hill Parade",
+      "observations": [
+        "Outside wall repeats large white Coates, fence follows turn; mature pines immediately beyond fence."
+      ],
+      "masterReference": "T13",
+      "mappingConfidence": "HILL PDE and CONTESSA signs visible; matches D001"
+    },
+    {
+      "number": 21126,
+      "filename": "21126.jpg",
+      "sha256": "4faee50592e7e4062e42ed60d1ec27589e1aa197d538436c4d336e366f36e571",
+      "kind": "track",
+      "section": "Hill Parade before/at/after OT4",
+      "observations": [
+        "Water visible through left fence; continuous wall switches white Coates to orange Coates; pines line both sides."
+      ],
+      "masterReference": "OT4",
+      "mappingConfidence": "Verified full sequence from T13, water left and highrise right; original plan OT4 crossing"
+    },
+    {
+      "number": 21127,
+      "filename": "21127.jpg",
+      "sha256": "8b370464dda440d374f0b711cef6152a51f6b13eebe45c9f96d68b354dff4fc6",
+      "kind": "track",
+      "section": "Hill Parade before/at/after OT4",
+      "observations": [
+        "Orange Coates left; black EquipSuper sponsor wall right; a white unbranded overhead span ahead."
+      ],
+      "masterReference": "OT4",
+      "mappingConfidence": "Verified full sequence from T13, water left and highrise right; original plan OT4 crossing"
+    },
+    {
+      "number": 21128,
+      "filename": "21128.jpg",
+      "sha256": "790339afbaba04646700505f02009d71d4c6f1603e476611e04652e5303ede70",
+      "kind": "track",
+      "section": "Hill Parade before/at/after OT4",
+      "observations": [
+        "Clear EquipSuper blue/purple arrow icon right; Coates orange left; white overhead span ahead."
+      ],
+      "masterReference": "OT4",
+      "mappingConfidence": "Verified full sequence from T13, water left and highrise right; original plan OT4 crossing"
+    },
+    {
+      "number": 21129,
+      "filename": "21129.jpg",
+      "sha256": "53ccdcefa46e935ee903721f7f981d74f39e01fe3598eb2bc30d6e0603051c1d",
+      "kind": "track",
+      "section": "Hill Parade before/at/after OT4",
+      "observations": [
+        "Long narrow corridor under mature pine crowns; orange Coates left, EquipSuper right; water left."
+      ],
+      "masterReference": "OT4",
+      "mappingConfidence": "Verified full sequence from T13, water left and highrise right; original plan OT4 crossing"
+    },
+    {
+      "number": 21130,
+      "filename": "21130.jpg",
+      "sha256": "531eb606106b09a413bd14fa8c87bdc5c416f3d5fd6d20ec693cec4af8ab1d3b",
+      "kind": "track",
+      "section": "Hill Parade before/at/after OT4",
+      "observations": [
+        "Coates orange left, EquipSuper right; blank grey/white rectangular gantry face ahead."
+      ],
+      "masterReference": "OT4",
+      "mappingConfidence": "Verified full sequence from T13, water left and highrise right; original plan OT4 crossing"
+    },
+    {
+      "number": 21131,
+      "filename": "21131.jpg",
+      "sha256": "3d7228cb82dbd99bfeda5da05a5d70c83ed16ead5df2c330b202c5d4c5b992f3",
+      "kind": "track",
+      "section": "Hill Parade before/at/after OT4",
+      "observations": [
+        "Pines closely line fence; left opens toward grass slope beside water, high-rise right."
+      ],
+      "masterReference": "OT4",
+      "mappingConfidence": "Verified full sequence from T13, water left and highrise right; original plan OT4 crossing"
+    },
+    {
+      "number": 21132,
+      "filename": "21132.jpg",
+      "sha256": "57144d37759ae617996ae55cc128f473219c9ca986ccad3672cad6ae493c2117",
+      "kind": "track",
+      "section": "Hill Parade before/at/after OT4",
+      "observations": [
+        "Left grassy park contains temporary red access equipment; plain white overhead span has simple narrow supports."
+      ],
+      "masterReference": "OT4",
+      "mappingConfidence": "Verified full sequence from T13, water left and highrise right; original plan OT4 crossing"
+    },
+    {
+      "number": 21133,
+      "filename": "21133.jpg",
+      "sha256": "07f6f5d8f4c7076877b2547c6bbcac3aa4e7c9059d496839aabedf6a70dc42d6",
+      "kind": "track",
+      "section": "Hill Parade before/at/after OT4",
+      "observations": [
+        "Grey-white full-width face with faint vertical seams; no legible branding on viewed face.",
+        "Right wall changes from EquipSuper to red Queensland/Gold Coast sponsorship."
+      ],
+      "masterReference": "OT4",
+      "mappingConfidence": "Verified full sequence from T13, water left and highrise right; original plan OT4 crossing"
+    },
+    {
+      "number": 21134,
+      "filename": "21134.jpg",
+      "sha256": "3df5bf38538bf6b2bb1615c4c27a2def0aff4b4f001b83188de621e1fb338ca3",
+      "kind": "track_landmark",
+      "section": "Hill Parade before/at/after OT4",
+      "observations": [
+        "Clear narrow freestanding vertical support legs, no stairs, no pedestrian deck visible.",
+        "Plain corrugated/vertical-seamed face; park left and curving white highrise right."
+      ],
+      "masterReference": "OT4",
+      "mappingConfidence": "Verified full sequence from T13, water left and highrise right; original plan OT4 crossing"
+    },
+    {
+      "number": 21135,
+      "filename": "21135.jpg",
+      "sha256": "43fc4235a0d27393293cb3e2585442934578262b7fbd4ce2567d786a297e5444",
+      "kind": "track",
+      "section": "Hill Parade before/at/after OT4",
+      "observations": [
+        "Left sponsor strip now orange WORKSUITS... and black boostmobile; right red Queensland/Gold Coast and blue HYDRO.",
+        "No change to road alignment implied by wall details."
+      ],
+      "masterReference": "OT4",
+      "mappingConfidence": "Verified full sequence from T13, water left and highrise right; original plan OT4 crossing"
+    },
+    {
+      "number": 21138,
+      "filename": "21138.jpg",
+      "sha256": "4a2aa08e7e91ddab391aca74aa30b93df97451c173b531f1a72c6006d024937b",
+      "kind": "track_edge_transition",
+      "section": "Hill Parade end junction",
+      "observations": [
+        "Track fence left with orange WORKS ITS ARSE OFF and black boostmobile panels.",
+        "Zebra crossing and give-way ahead; open junction public traffic right."
+      ]
+    },
+    {
+      "number": 21139,
+      "filename": "21139.jpg",
+      "sha256": "661172657b224ecf39b0ae921a008d54401f0dd4ca5792768fb459c17d82b374",
+      "kind": "track_edge_transition",
+      "section": "Same end junction",
+      "observations": [
+        "Raised zebra crossing, fluorescent pedestrian signs, boostmobile wall left; HINO wall across junction."
+      ]
+    },
+    {
+      "number": 21140,
+      "filename": "21140.jpg",
+      "sha256": "8c4dea13689de0cf3054fbd950317d74aa5d3afb2885700b9e97ec53aa66c7df",
+      "kind": "track_edge_transition",
+      "section": "Same end junction",
+      "observations": [
+        "Temporary public-road opening and cross traffic; park behind Hino wall."
+      ]
+    },
+    {
+      "number": 21141,
+      "filename": "21141.jpg",
+      "sha256": "38d3f3afad4cd7a748754b326d8bcf01bcdf941eb899d5474064394a2bfa02ea",
+      "kind": "track_edge_transition",
+      "section": "Hill Parade before end junction (sequence slightly out of order)",
+      "observations": [
+        "Blue HYDRO wall right; boostmobile and orange Work... panels left; bin near right edge is temporary."
+      ]
+    },
+    {
+      "number": 21142,
+      "filename": "21142.jpg",
+      "sha256": "3b48d8a52ea155ba1b9e8f98ec4a1e5f8d7fdd4396e1a790d4e94ebd513edf49",
+      "kind": "surroundings",
+      "section": "Outside circuit at end-junction left turn",
+      "observations": [
+        "Broad arterial turn toward traffic signals; right HINO wall, white slabs, temporary mesh and park behind.",
+        "Does not prove an alternate circuit route."
+      ]
+    },
+    {
+      "number": 21143,
+      "filename": "21143.jpg",
+      "sha256": "00b0351995af0845bdafa924d63d953070686ec21a78d71ada6e98ecae0e9abe",
+      "kind": "surroundings",
+      "section": "Outside circuit at arterial traffic signals",
+      "observations": [
+        "Red traffic signals and crossing cars; HINO wall right; construction arrangement retained only as photo context."
+      ]
+    },
+    {
+      "number": 21148,
+      "filename": "21148.jpg",
+      "sha256": "a5698dc6f79cc0b5d1fecb0c9a618ba03bfc5d162e9cfdb3857b3cb6fd353337",
+      "kind": "track_edge_transition",
+      "section": "T15 approach to PB3",
+      "observations": [
+        "Main-straight GC500 white pedestrian bridge visible left ahead; open cross-traffic at turn; red/yellow kerb inside."
+      ],
+      "masterReference": "PB3",
+      "mappingConfidence": "confirmed earlier source crosscheck; approximate scene registration"
+    },
+    {
+      "number": 21149,
+      "filename": "21149.jpg",
+      "sha256": "5292df32d441a80854e8f5272fa9c5d8062679d23138cdb3fb4c29f2cedb2127",
+      "kind": "track_edge_transition",
+      "section": "Same T15 approach",
+      "observations": [
+        "Public traffic crossing; bridge cream fascia and wrapped white stairs; no operational load meaning."
+      ],
+      "masterReference": "PB3",
+      "mappingConfidence": "confirmed earlier source crosscheck; approximate scene registration"
+    },
+    {
+      "number": 21150,
+      "filename": "21150.jpg",
+      "sha256": "9082c8202a586dd23f1de838b655428f463a4187f6168016f6fec17f5306d951",
+      "kind": "track_edge_transition",
+      "section": "Exiting T15 toward PB3",
+      "observations": [
+        "Out-of-focus bridge but consistent crown tower behind; inward mesh fencing and red/yellow kerb."
+      ],
+      "masterReference": "PB3",
+      "mappingConfidence": "confirmed earlier source crosscheck; approximate scene registration"
+    },
+    {
+      "number": 21151,
+      "filename": "21151.jpg",
+      "sha256": "f3453648e47ad746336efcf9302d24d725e9614a75f2deb70eb526e221df2bcf",
+      "kind": "track_landmark",
+      "section": "PB3 approach",
+      "observations": [
+        "White stairs rise diagonally on both sides; cream two-panel fascia; black barriers, park left, highrises right."
+      ],
+      "masterReference": "PB3",
+      "mappingConfidence": "confirmed earlier source crosscheck; approximate scene registration"
+    },
+    {
+      "number": 21152,
+      "filename": "21152.jpg",
+      "sha256": "6a4e5ff4107c22e50097edc28221008ae4f9c42752a89012bf801facb326305f",
+      "kind": "track_landmark",
+      "section": "PB3 approach",
+      "observations": [
+        "Yellow MERGE RIGHT sign left is temporary roadworks; full bridge width and stairs visible; silver fence."
+      ],
+      "masterReference": "PB3",
+      "mappingConfidence": "confirmed earlier source crosscheck; approximate scene registration"
+    },
+    {
+      "number": 21153,
+      "filename": "21153.jpg",
+      "sha256": "edf54c71e629418a93b8b2420ba643c992b835049ce1069575b348fa6482edf5",
+      "kind": "track_landmark",
+      "section": "PB3 clear fascia",
+      "observations": [
+        "Left boostmobile GOLD COAST500 / SUPERCARS.COM/GOLDCOAST; right THE FINALS STARTS HERE /23\u201325 OCT2026.",
+        "Cream background with pastel concentric circles, narrow multicolour edges, white stair wraps."
+      ],
+      "masterReference": "PB3",
+      "mappingConfidence": "confirmed earlier source crosscheck; approximate scene registration"
+    },
+    {
+      "number": 21154,
+      "filename": "21154.jpg",
+      "sha256": "4a81aa2a304621e209a004ccd9b06fff8bae17e4998dc440c95e2b19f5cce30a",
+      "kind": "track_landmark",
+      "section": "PB3 close-up",
+      "observations": [
+        "Clear fascia confirms THE FINALS STARTS HERE wording; white underside cross-bracing and two broad banner panels.",
+        "Ivory background, pastel circles, red title; no need invent different branding."
+      ],
+      "masterReference": "PB3",
+      "mappingConfidence": "confirmed source crosscheck; section relation not photo GPS"
+    },
+    {
+      "number": 21155,
+      "filename": "21155.jpg",
+      "sha256": "f228e0467a562f61e83ab14ba855ed860d190acfd0ba2a1243e7e6ba06072531",
+      "kind": "track",
+      "section": "Main straight after PB3 toward OT5",
+      "observations": [
+        "White left concrete wall changes to black at preceding section; dense trees left, cream highrise right.",
+        "Orange cones close left public lane temporarily."
+      ],
+      "masterReference": "OT5",
+      "mappingConfidence": "confirmed source crosscheck; section relation not photo GPS"
+    },
+    {
+      "number": 21156,
+      "filename": "21156.jpg",
+      "sha256": "1e52322e7981b8ba06a0b2aa1cc635b813a0c636a4213238182333cd9d643a1b",
+      "kind": "track",
+      "section": "Same main straight",
+      "observations": [
+        "Five-plus white pagoda roof peaks behind left catch fence; yellow flowering shrub left.",
+        "Long inward-topped fence on right, full black concrete base."
+      ],
+      "masterReference": "OT5",
+      "mappingConfidence": "confirmed source crosscheck; section relation not photo GPS"
+    },
+    {
+      "number": 21157,
+      "filename": "21157.jpg",
+      "sha256": "0984ab91ff3b219fe793edba98da3f5ea01f7f13520e6d23b8636f6560eeba3b",
+      "kind": "track",
+      "section": "Main straight approaching OT5",
+      "observations": [
+        "Red THE STAR GOLD COAST wall right; white pagoda roofs left; black Boost centre on distant gantry."
+      ],
+      "masterReference": "OT5",
+      "mappingConfidence": "confirmed source crosscheck; section relation not photo GPS"
+    },
+    {
+      "number": 21158,
+      "filename": "21158.jpg",
+      "sha256": "30a6f3f27e9336974cc8a08f26d4dc17cc43c0ed4e56d00b7896de48e75db6ea",
+      "kind": "track",
+      "section": "Same main straight before21157 perspective",
+      "observations": [
+        "Earlier distance than21157 despite file numbering; source sequence not strict chronology.",
+        "Black\u2192red THE STAR GOLD COAST wall right, white tents left."
+      ],
+      "masterReference": "OT5",
+      "mappingConfidence": "confirmed source crosscheck; section relation not photo GPS"
+    },
+    {
+      "number": 21162,
+      "filename": "21162.jpg",
+      "sha256": "37b1e5273d79f78e22f2c6bcbde0a2cd2015a9affa0cd9b853eada005a1b540f",
+      "kind": "track_landmark",
+      "section": "OT5 approach along main straight",
+      "observations": [
+        "Black centre boostmobile wordmark with orange logo and orange WORKS ITS ARSE OFF ends.",
+        "Yellow BP ultimate wall left, large white KMC WHEELS on black wall right; white grid boxes on road.",
+        "Temporary cone taper is construction context, not permanent track geometry."
+      ],
+      "masterReference": "OT5",
+      "mappingConfidence": "confirmed source crosscheck; section relation not photo GPS"
+    }
+  ]
+}
