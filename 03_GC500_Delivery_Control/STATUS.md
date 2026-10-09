@@ -1,5 +1,9 @@
 <!-- Author: Andrew Fisher -->
 
+CLAIMED — v9.68 Timeline navigation and load-card flow, 9 Oct 2026. Andrew reports clunky, disorganised Timeline movement. Measured read-only audit: 13 Oct on a390px phone is16047px tall for15loads; all long loading-method disclosures reopen and Next wraps away from Prev/Today. Timeline worker owns a narrow correction afterv9.67: keep sourced sizes/weights visible in compact existing cards, preserve disclosure state through redraw/navigation, group the existing day-stepper controls and retain return-scroll. Preserve existing component design, load order/identities/dates and operational data. Root owns final tests/publication.
+
+<!-- Author: Andrew Fisher -->
+
 CLAIMED — v9.66 reference reconciliation, 9 Oct 2026. Andrew requests every item to have its correct destination and all views to agree. Read-only audit finds the unreferenced schedule projection ignores existing native/source reference links and includes paired demob rows. Reference audit worker owns guarded source/native matching and actionable missing-location presentation after v9.65. Preserve original rows/history and genuine unresolved allocations; no invented reference, duplicate equipment or receipt.
 
 CLAIMED — v9.67 answered-question reconciliation, 9 Oct 2026. Andrew instructs us to close questions already answered by his decisions or source documents. Financial/source worker owns source-backed Questions status/projection corrections after v9.66, including modern typed/quantity-only identity coverage, confirmed D024 map count and current installation-rate scope. Retain source provenance and only genuine unanswered facts; do not falsely close gaps with note text or invented prices. Root owns final integrated tests/publication.
