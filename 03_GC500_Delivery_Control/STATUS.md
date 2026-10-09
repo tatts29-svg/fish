@@ -1,5 +1,17 @@
 <!-- Author: Andrew Fisher -->
 
+READY TO UPLOAD — combined v9.76–v9.77. Final SHA-256 f4d3e6aa147b2012d9347dc844bc46b11e361b414c0716a6623215e98618e7d7, 12,897,769 bytes,61scripts. Exact live v9.75 base db0a3c517de2de287da6f385c3f5858fd5a54e48d259b03180cf1116aafdb6b7. Not yet published.
+
+Fencing/P&L recorded, remaining and job forecast figures are easy to find. Supporting explanations use More info; financial results, ratios and reconciliation warnings remain accessible. Onsite item charge tables include delivery and pickup from the existing shared transport model. Exact half-cent unit rates stay visible. P36's historical number no longer blocks its two500 forecast legs; T0258 reuses existing container coverage once; T0085's machine is distinguished from its extension without guessing package allocation.
+
+Final all15models match the independently checked combined candidate on frozen native5201. Against live975, only five forecast/metadata models change with the verified1000P36 addition; recordedRevenue and costs, all12preservation sections and native records are exact.100onsiteitemgroups have200transportlegs:157estimated,4covered,6excluded,33held for rates/allocations. No missing demand rows. Unresolved prices remain explicit, notzero. Three future VMS source allocation differences remain.
+
+Desktop/phone each22routes/sevenlinks/Back, five prose surfaces, financial and exact390px item screenshots pass; zero page/native-write errors. Navigation uses local map fixtures, not a new map-visual proof. Final render-only amendments are explicitly bound to the checked source and financial models recaptured. Actual phone checks confirm exactFWF/VMS rates and allfour charge columns. Component checks28financial/16identity/12other-source/17itemprojection/3rateprecision pass. Original Baseplan, transport workbook both tabs and2026rate card reviewed. Native snapshots/private originals stay private. Root owns guarded upload and actual-public verification; no Claude review claimed.
+
+<!-- Author: Andrew Fisher -->
+
+<!-- Author: Andrew Fisher -->
+
 CLAIMED — v9.77 onsite delivery and pickup transport forecast correction. Andrew requests all applicable onsite charges including both transport legs. Correct P36 current1282487 versus history1327222 using reviewed physical identity, preserve contract coverage to avoid double charging. Audit remaining held rates/allocations against supplied originals; no guessed price or false completion. Combined976–977 final checks before publication. Exact975 source synced through GitHub connector commit cfb96a00c2b7cc8ce48a07074c2a6fa1f30f20d5, tree8ded14d430bac5a76c312e47cb026a55d21f056d matches local76532132; CLI credential expired. Root owns source sync with branch lease.
 
 <!-- Author: Andrew Fisher -->
