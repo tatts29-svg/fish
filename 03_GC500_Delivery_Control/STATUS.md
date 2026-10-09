@@ -1,5 +1,9 @@
 <!-- Author: Andrew Fisher -->
 
+VERIFIED LIVE — v9.64,9Oct2026at17:39AEST. READY sourcebb0d098e; exact public SHA82d23168b4df656016bc8be2e7da74e58ac09a585eaebca3418f87bc4656291f,12,770,567bytes. Native quantity ownership saved5164→5167: sixWC09PeePanels received/installed/SUB-HIRED EventPortables, quantity-only. Exactly three expected loads/by/stamps documents changed. Fresh public read verifies all other records, physical identities and financial models unchanged. Supplier91identities+6quantity-only,79received; FWF71unchanged. Today254planned/138received/138installed/116withoutrecordedreceipt. WC09twoCoatesblocks and fourFWF allocations preserved. v9.65–v9.68 must build from this live code and latestrecord5167; root owns integration/publication. v9.64source and record evidence are saved under their LIVE/record folders.
+
+<!-- Author: Andrew Fisher -->
+
 READY TO UPLOAD — v9.64 quantity-only sub-hire ownership,9Oct2026. Exact candidate SHA82d23168b4df656016bc8be2e7da74e58ac09a585eaebca3418f87bc4656291f,12,770,567bytes; exact livev9.63 based98bfc4b6bb8461feec1f4af31a7d69fdd0711f2979d27bae4c324d7f8001ae6. Frozen source independently reviewed.55 focused/18 patch checks,7 final ownership checks, desktop/phone22routes/7links/Back pass, zero errors or operational writes. Both financial fixtures pass153 checks/17 ties/23 preservation checks;15financial models unchanged. Root owns guarded upload, then separate authorised native six-panel Event Portables ownership save and fresh public verification. v9.65–v9.68 remain moving drafts and are excluded.
 
 USER PRESENTATION RULE —9Oct2026: “We only wanna see weights and dimensions. Sizes rest can be hidden” and “If we need more info we open up a drop down box with more info”. Default cards show concise data; detailed methods, source explanations and other context sit in closed More info disclosures. Preserve data and existing visual components; remove repetitive prose.
