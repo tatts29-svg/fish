@@ -1,5 +1,9 @@
 <!-- Author: Andrew Fisher -->
 
+READY TO UPLOAD — v9.55 + v9.56, 9 Oct 2026. Final combined SHA4410bb0b4f8fb8dbdb049485df95d0163ee9032251ad25df37c265a943efaca1, 12,688,275 bytes; exact live v9.54 base84109458fde3ec9de584d411e8b87616718b0b21a2f37c32066066e684ee4d8f. Both source owners frozen and READY; root reviewed originals, source and final phone views. Supplier 92 unit/6 patch checks and 125 phone/125 desktop native checks pass; final caption-only change proved equivalent with 11 phone/12 desktop targeted checks. Transport 22 focused checks and 17 financial ties pass on fresh record5127; final caption equivalence verified. Exact final desktop/phone sweeps each inspect22 routes/seven deep links with zero errors/write attempts and correct Back. WC31 additional supplier hire is provisional; classification preserves customer total. Two exact transport source matches only; actuals and full native records unchanged. Raw transport workbook adds no duplicate charge or unsupported carrier cost. Codex owns guarded publication; no Claude review claimed.
+
+<!-- Author: Andrew Fisher -->
+
 Transport Help.xlsx original review — 9 Oct 2026. Both tabs reviewed (890 + 189 rows), SHA b4f06374a2caf6efc13c987055b1bc40c1639cb75784ba5875013d472aee5f91. Ninety-three current-contract matches; four positive customer Charge rows already in current Revenue lines. No new positive carrier-cost evidence; blank supplier and zero Sub Rental Cost are not invoice proof. Detailed matched evidence retained privately and CSV delivered to Andrew. No record changes; source status/date conflicts do not erase site progress or current equipment allocations.
 
 <!-- Author: Andrew Fisher -->
