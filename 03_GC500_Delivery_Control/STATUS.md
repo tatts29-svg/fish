@@ -1,5 +1,9 @@
 <!-- Author: Andrew Fisher -->
 
+CLAIMED — v9.54 CW1 supported planning evidence,9Oct2026,Codex/fencing source worker. Andrew providednewCW1PDF/email and authorised review/update. Prepare source-only patch afterv9.53 for verifiednewtaskdates/lengths/bracing/access, preservingnewernativecompletion/dockets and allambiguousscopeasexplicitreview. Do notcopyPDFstalesubtotals orduplicateCypresspages. Rootownssequentialfinalintegration/publication; unbookedtransportv9.53 remainsseparatelyowned. This updates the forecast basis, not proof of completed fencing.
+
+<!-- Author: Andrew Fisher -->
+
 VERIFIED LIVE — v9.52,9Oct2026 12:23AEST. Exact public SHA8b703bb4135ae7d280c27c6f017f2fa3bd64cfa55ee4d1cb078875b1e29f2788,12,586,471bytes. Original-source PeePanel labour matched; allownerships retain samecardcustomerlabour, individual supplier unit/remainder charges supported, editor drawer shows recorded/workremaining/demobcleaning forecast. All176existing charged amounts preserved in frozenrecordproof, partialsupplier native setter tests pass, final22routes/7deeplinks desktop+phone0errors/0writes, phone inspected. Separate record5104 reconciles45completion-backed entries. No futuredemobcompletion or arrival inferred. First publicationrefusal literalDATA spacing resolved; finalguardeduploadbyteexact.
 
 CLAIMED — v9.53 complete transport-cost forecast and source-correct supplier date wording,9Oct2026,Codex. Andrew requires all supported costing/transport/subhire forecasts. Include numeric unbooked demob allowance only with supplier/actual/booking coverage deduplication; unknown/POA source gaps preserved, actuals/customercharges untouched. Q6846known14Sep–25Oct dates must replace stale absence warning. Source review collaborative; basev9.52.
