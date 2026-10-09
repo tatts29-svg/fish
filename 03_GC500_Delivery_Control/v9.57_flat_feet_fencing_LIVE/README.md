@@ -2,7 +2,7 @@
 
 Author: Andrew Fisher
 
-Status: READY TO UPLOAD. Final source is frozen and all required browser checks have passed.
+Status: LIVE — 9 Oct 2026 at 15:06 AEST. Ready source commit 6e1c6f8d; guarded upload and fresh public/native readback passed. Public page exactly matches the final candidate; record 5153 and all 17 original links are preserved.
 
 The 9 October fencing docket records flat-feet CCB metres and a separate physical barrier count. The existing Fencing columns omitted flat feet, despite both the current programme and rate card naming it. This patch adds `flat_feet` to the native column model, CCB metre summaries and rehire classification.
 

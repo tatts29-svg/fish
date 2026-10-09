@@ -1,5 +1,9 @@
 <!-- Author: Andrew Fisher -->
 
+VERIFIED LIVE — v9.57, 9 Oct 2026 at 15:06 AEST. Ready source 6e1c6f8d; public SHA-256 1f04615f0c941e1c6c2b45e0656fc92e2bd816998a7b5f2d428f1e1b0e4a6cb0, 12,694,230 bytes. Guarded upload and a fresh public/native read verify record 5153 unchanged, 16 papers linked to 17 original photos, both Event assessments confirmed against the exact current source files, and the supported flat-feet charge. Final desktop/phone, financial, source and script checks all passed. Known source gaps remain explicit. Release source and verification: v9.57_flat_feet_fencing_LIVE. Codex completed publication; no Claude review claimed.
+
+<!-- Author: Andrew Fisher -->
+
 READY TO UPLOAD — final v9.57, 9 Oct 2026. This replaces the earlier candidate. Exact SHA-256 1f04615f0c941e1c6c2b45e0656fc92e2bd816998a7b5f2d428f1e1b0e4a6cb0, 12,694,230 bytes; live v9.56 base 4410bb0b4f8fb8dbdb049485df95d0163ee9032251ad25df37c265a943efaca1. Frozen source includes flat-feet metre pricing, readable component labels and two exact source-backed Event assessments using the newer programme original. All 29 classification/label checks, nine costing groups, five patch guards and 46 script parses pass. Final desktop and phone sweeps each pass 22 routes, seven deep links and Back, with no errors or attempted writes. Phone screenshot inspected. Native comparison on record 5153 preserves 95 other dockets, all direct costs, notes, collections and operational records; only the supported flat-feet customer charge changes. Both Finance checks pass. All 16 papers link to 17 original photos. Codex owns publication; no Claude review claimed. Additional schedule associations are being checked separately and do not alter this frozen candidate.
 
 <!-- Author: Andrew Fisher -->
