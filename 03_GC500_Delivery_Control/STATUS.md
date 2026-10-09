@@ -1,5 +1,9 @@
 <!-- Author: Andrew Fisher -->
 
+CLAIMED — v9.72 labour cost separation, 9 Oct 2026. Andrew: “do not include accommodation and meals in what our labour costs are … Labour is labour.” Audit confirms actual accommodation/meal rows already remain separate expenses. A source-backed14,700 salary-uplift/living-away lump sum is currently included in labour forecast without a supported split. Financial worker owns separating that mixed allowance from the pure labour subtotal into an explicit allocation-pending allowance bucket, retaining it exactly once in the overall job forecast. Clarify combined person totals and affected summaries/exports; do not invent a split, change raw records/rates, omit costs or alter overall Revenue/Direct-cost totals. Root owns integration after v9.71, independent financial reconciliation and guarded publication. This user rule persists across all views and exports.
+
+<!-- Author: Andrew Fisher -->
+
 CLAIMED — v9.71 Showcase opening and playback performance, 9 Oct 2026. Andrew reports lag/freezes and requests less opening burnout while retaining visual upgrades. Root owns a narrow follow-up composed after v9.70: shorten/lighten the opening smoke only, enforce particle limits as quality adapts, remove particle/culling allocation churn, and suspend hidden Today media behind Showcase. Independent profiling identifies driver stalls during staged static-detail buffer upload; review startup scheduling without reducing retained geometry or manual preferences. Preserve normal driving, track, car, camera, operational data and all financial models. Source/performance reviewer owns runtime helper and equivalent-culling tests; visual and navigation reviewer verifies the final combined candidate. No physical-device FPS claim. Root owns guarded publication.
 
 <!-- Author: Andrew Fisher -->
