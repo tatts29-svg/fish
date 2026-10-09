@@ -1,5 +1,9 @@
 <!-- Author: Andrew Fisher -->
 
+VERIFIED LIVE — v9.54, 9 Oct 2026 12:59 AEST. Exact public SHA84109458fde3ec9de584d411e8b87616718b0b21a2f37c32066066e684ee4d8f, 12,677,405 bytes. Guarded publication, fresh public byte read and native smoke passed: record 5104 unchanged, 176 equipment locations, 826 labour slots, 32 transport allowances/five overlap removals and 18 provisional CW1 tasks verified. All source, financial, desktop/phone and navigation checks passed. Source-backed CW1 planning and forecasts are live; actuals/dockets/completion preserved. Original private attachments retained outside Git. Missing supplier rates, second WC31 block quote scope, POA transport and unpriced wage hours remain explicit gaps; no claim that every forecast dollar is fully priced.
+
+<!-- Author: Andrew Fisher -->
+
 READY TO UPLOAD — v9.54 CW1 planning, 9 Oct 2026. Standard build starts from exact live v9.53; final SHA84109458fde3ec9de584d411e8b87616718b0b21a2f37c32066066e684ee4d8f, 12,677,405 bytes. All 32 source tests, 191 independent source assertions, 409 phone and 408 desktop native assertions pass. Both final 22-route/seven-link/Back sweeps pass, zero errors/writes. Root reviewed transformation and phone screenshots. Actuals, dockets, completion, rates and full native record 5104 unchanged. Eighteen earlier allowances stay provisional. Attribution scrub changed one provenance sentence; affected exact-byte checks rerun and passed. Root owns guarded publication.
 
 <!-- Author: Andrew Fisher -->

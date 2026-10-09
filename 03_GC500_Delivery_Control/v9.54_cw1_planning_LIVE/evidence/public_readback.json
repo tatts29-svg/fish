@@ -1,0 +1,13 @@
+{
+  "author": "Andrew Fisher",
+  "live": "9 Oct 2026 12:59 AEST",
+  "sha256": "84109458fde3ec9de584d411e8b87616718b0b21a2f37c32066066e684ee4d8f",
+  "bytes": 12677405,
+  "exact_public_match": true,
+  "native_record": 5104,
+  "public_native_transport_additions": 32,
+  "public_native_transport_exclusions": 5,
+  "public_native_cw1_provisional_tasks": 18,
+  "public_runtime_errors": 0,
+  "public_record_unchanged": true
+}
