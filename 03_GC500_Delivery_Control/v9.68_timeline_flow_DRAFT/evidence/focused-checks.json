@@ -1,0 +1,27 @@
+{
+  "author": "Andrew Fisher",
+  "nativeRecord": 5167,
+  "nativeUnchanged": true,
+  "productsChargesPrintsProgrammeUnchanged": true,
+  "loadsBefore": 15,
+  "loadsAfter": 15,
+  "phoneWidth": 390,
+  "phoneHeightBefore": 16047,
+  "phoneHeightAfter": 10846,
+  "firstLoadBefore": 856.328125,
+  "firstLoadAfter": 597.265625,
+  "errors": [],
+  "isolatedChecks": 44,
+  "stateChecks": [
+    "More info initially closed",
+    "Open/closed retained on redraw",
+    "Retained across next/previous day",
+    "Retained across Equipment and return",
+    "Native controls retain nodes/handlers/disabled state",
+    "Progress dialog returns exact scroll"
+  ],
+  "writesSent": 0,
+  "actualPredecessor": "Standard v9.67",
+  "patchChecks": 8,
+  "candidateSha256": "f7c78025a54a4b6c0eddb25c6d239fdbbbf05791e11ff6ebefdd8c178063de2c"
+}

@@ -1,0 +1,58 @@
+{
+  "author": "Andrew Fisher",
+  "candidateVersion": "v9.69",
+  "candidateSha256": "a271015a9cf6d099b1665d3bcef71bb6fe5b2671d7081739c91b0f04d52205b5",
+  "candidateBytes": 12815042,
+  "baselineVersion": "v9.64",
+  "baselineSha256": "82d23168b4df656016bc8be2e7da74e58ac09a585eaebca3418f87bc4656291f",
+  "nativeRecord": 5167,
+  "source": {
+    "questions967.js": "f8777185989a591a08b66a636b870b07e4bc7a02564d6d7d2b62f6ecc8c1fd86",
+    "patch_v967.py": "aefaa0407a35a6ef18ba55ea8f2b9ca713755c7df84ae143cdd6a7eecef15e0a",
+    "test_questions967.cjs": "cd3902b62a5cfec090a896215e0497776ebc8c141110cf43e7b0500e9d2a9554",
+    "test_questions967_dom.cjs": "164bc8612bc3be999ac377d026dac2105961fed2d223f603bd8616e09bd39e6e",
+    "test_patch_v967.py": "48665cd0704f6e1a25746baffbfc5fd41463f83e84847f14a78dc865fb1cbee6"
+  },
+  "checks": {
+    "focused": 37,
+    "patchGuards": 10,
+    "localPresentation": 11,
+    "finalQuestionsAndFolds": 39,
+    "unchangedFinancialModels": 15,
+    "financialInvariants": 153,
+    "nativeFinancialTies": 17,
+    "financialPreservation": 23
+  },
+  "questions": {
+    "open": 13,
+    "pending": 5,
+    "answeredOrHistory": 40,
+    "closed": [
+      "sp-nums",
+      "lb-install-confirm747",
+      "oi-R06",
+      "oi-R09",
+      "oi-R23",
+      "oi-R27",
+      "oi-R28"
+    ]
+  },
+  "presentation": {
+    "supported": true,
+    "count": 58,
+    "initiallyClosed": true,
+    "allWhyFolded": true,
+    "introClosed": true,
+    "redrawKeptOpen": true,
+    "navigationKeptOpen": true,
+    "closedStateKept": true
+  },
+  "recordUnchanged": true,
+  "pageErrors": 0,
+  "consoleErrors": 0,
+  "operationalWrites": 0,
+  "network": "GET-only; Google tile session requests fulfilled locally without external POST. Map graphics are covered separately by the final navigation review.",
+  "localMapSessionFixtures": 1,
+  "privateFinancialDetailsCommitted": false,
+  "passed": true
+}

@@ -1,0 +1,115 @@
+{
+  "author": "Andrew Fisher",
+  "record": 5164,
+  "checks": 17,
+  "sourceRows": 34,
+  "linkedRows": 29,
+  "sourceOnly": [
+    "T0234",
+    "T0222",
+    "T0223",
+    "T0273",
+    "T0274"
+  ],
+  "unresolvedLocations": [
+    {
+      "id": "T0021",
+      "ref": "T0021",
+      "title": "Building 4.8m",
+      "required": "The source does not name a destination for this item.",
+      "source": "'Week 5'!A19:N19"
+    },
+    {
+      "id": "T0128",
+      "ref": "T0128",
+      "title": "VMS",
+      "required": "The source does not name a destination for this item.",
+      "source": "'Week 1'!A32:H32"
+    },
+    {
+      "id": "T0234",
+      "ref": "T0234",
+      "title": "Passes",
+      "required": "Collection point for the accreditation task is not stated.",
+      "source": "'Event Week'!A2:H2"
+    },
+    {
+      "id": "T0158",
+      "ref": "T0158",
+      "title": "VMS",
+      "required": "The source does not name a destination for this item.",
+      "source": "'Event Week'!A28:H28"
+    },
+    {
+      "id": "T0159",
+      "ref": "T0159",
+      "title": "VMS",
+      "required": "The source does not name a destination for this item.",
+      "source": "'Event Week'!A29:H29"
+    },
+    {
+      "id": "T0268",
+      "ref": "T0268",
+      "title": "100KVA TRAILER",
+      "required": "The spare is identified; its storage location is not recorded.",
+      "source": "'Event Week'!A39:I39"
+    },
+    {
+      "id": "T0169",
+      "ref": "T0169",
+      "title": "VMS",
+      "required": "The source does not name a destination for this item.",
+      "source": "'Event Week'!A40:H40"
+    },
+    {
+      "id": "T0170",
+      "ref": "T0170",
+      "title": "VMS",
+      "required": "The source does not name a destination for this item.",
+      "source": "'Event Week'!A41:H41"
+    },
+    {
+      "id": "T0222",
+      "ref": "T0222",
+      "title": "Building 6m",
+      "required": "The removal row does not identify its original item.",
+      "source": "'Demob Week 3'!A5:H5"
+    },
+    {
+      "id": "T0223",
+      "ref": "T0223",
+      "title": "Building 6m",
+      "required": "The removal row does not identify its original item.",
+      "source": "'Demob Week 3'!A6:H6"
+    },
+    {
+      "id": "T0273",
+      "ref": "T0273",
+      "title": "Fridge",
+      "required": "The source does not name a destination for this item.",
+      "source": "'Event Week'!A45:I45"
+    },
+    {
+      "id": "T0274",
+      "ref": "T0274",
+      "title": "Air Con",
+      "required": "The source does not name a destination for this item.",
+      "source": "'Event Week'!A46:I46"
+    },
+    {
+      "id": "GN25",
+      "ref": "GN25",
+      "title": "20kva",
+      "required": "The source does not name a destination for this item.",
+      "source": "'Event Week'!A7:I7"
+    },
+    {
+      "id": "WC85",
+      "ref": "WC85",
+      "title": "FWF",
+      "required": "The source does not name a destination for this item.",
+      "source": "'Event Week'!A38:H38"
+    }
+  ],
+  "pass": true
+}

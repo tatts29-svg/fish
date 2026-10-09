@@ -1,0 +1,126 @@
+{
+  "author": "Andrew Fisher",
+  "sha256": "a271015a9cf6d099b1665d3bcef71bb6fe5b2671d7081739c91b0f04d52205b5",
+  "bytes": 12815042,
+  "nativeFixtureVersion": 5167,
+  "pass": true,
+  "phoneJourney": {
+    "author": "Andrew Fisher",
+    "sha256": "a271015a9cf6d099b1665d3bcef71bb6fe5b2671d7081739c91b0f04d52205b5",
+    "nativeFixtureVersion": 5167,
+    "timingsMs": {
+      "mixedItemSelectionMs": 100.4,
+      "timelineNextDayMs": 446.8,
+      "questionsNavigationMs": 574,
+      "browserBackMs": 497
+    },
+    "timingBasis": "Single headless phone interactions to two animation frames; automation overhead included. No stress benchmark.",
+    "checks": [
+      "Native receipt and installation totals remain intact",
+      "Shared ownership keeps mixed items and actual identifiers",
+      "WC09 selected Pee Panel header matches item",
+      "WC09 selected FWF header matches item",
+      "WC09 selected Toilet Block 6m header matches item",
+      "WC31 selected Accessible Toilet header matches item",
+      "WC31 selected 16Pan Block header matches item",
+      "T0103 selected VMS header matches item",
+      "Quantity item photos open from the selected item",
+      "Selected item sticky header remains visibly readable while photos are in view",
+      "Add photo targets Pee Panel group without uploading",
+      "13 October exposes sizes and weights with optional detail closed",
+      "More info choice survives redraw, next/back and tab navigation",
+      "Closing More info also persists",
+      "Timeline progress Close restores scroll and context",
+      "Linked WC-TV source opens the existing reference and Close/Back retain context",
+      "Linked rows do not remain duplicate missing-reference tasks",
+      "Genuine additional tasks keep their source reference and supplier marker",
+      "Answered questions leave active asks while genuine missing facts remain",
+      "A remaining question opens its source page and browser Back returns"
+    ],
+    "checksPassed": 20,
+    "pass": true,
+    "recordUnchanged": true,
+    "pageErrors": [],
+    "consoleErrors": [
+      "Failed to load resource: net::ERR_FAILED"
+    ],
+    "blockedRequests": [
+      {
+        "method": "POST",
+        "origin": "https://tile.googleapis.com",
+        "path": "/v1/createSession"
+      }
+    ],
+    "liveRecordWriteAttempts": 0,
+    "screenshots": [
+      "phone-wc09-fwf.png",
+      "phone-t0103-vms.png",
+      "phone-pee-panel-photos.png",
+      "phone-timeline-sizes.png",
+      "phone-source-tasks.png",
+      "phone-questions-summary.png"
+    ]
+  },
+  "standardSweeps": {
+    "desktop": {
+      "author": "Andrew Fisher",
+      "view": "desktop",
+      "sha256": "a271015a9cf6d099b1665d3bcef71bb6fe5b2671d7081739c91b0f04d52205b5",
+      "routes": 22,
+      "directPanes": 16,
+      "intentionalRedirects": [
+        "register",
+        "journal",
+        "breakdowns",
+        "variances",
+        "edit",
+        "add"
+      ],
+      "deepLinks": 7,
+      "back": {
+        "hash": "#plant",
+        "pane": "pane-plant"
+      },
+      "pageErrors": 0,
+      "consoleErrors": 0,
+      "blockedRequests": 0,
+      "pass": true
+    },
+    "phone": {
+      "author": "Andrew Fisher",
+      "view": "phone",
+      "sha256": "a271015a9cf6d099b1665d3bcef71bb6fe5b2671d7081739c91b0f04d52205b5",
+      "routes": 22,
+      "directPanes": 16,
+      "intentionalRedirects": [
+        "register",
+        "journal",
+        "breakdowns",
+        "variances",
+        "edit",
+        "add"
+      ],
+      "deepLinks": 7,
+      "back": {
+        "hash": "#plant",
+        "pane": "pane-plant"
+      },
+      "pageErrors": 0,
+      "consoleErrors": 0,
+      "blockedRequests": 0,
+      "pass": true
+    }
+  },
+  "screenshotsInspected": [
+    "phone-wc09-fwf.png",
+    "phone-t0103-vms.png",
+    "phone-pee-panel-photos.png",
+    "phone-timeline-sizes.png",
+    "phone-source-tasks.png",
+    "phone-questions-summary.png"
+  ],
+  "sourceRecordMutation": false,
+  "publicationPerformedByVerifier": false,
+  "pending": "Fresh actual-public proof only after release owner confirms upload",
+  "screenshotsStorage": "Private review evidence outside Git"
+}

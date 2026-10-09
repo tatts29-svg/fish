@@ -59,5 +59,15 @@
   "receiptInstallationCountsPreserved": true,
   "financeVerification": "Independent contract audit worker",
   "strictGetNote": "Focused rigs block the Google tile-session POST; standard sweeps have zero console errors or blocked requests.",
-  "publicationStatus": "Awaiting root publication and native owner save before actual-public check."
+  "publicationStatus": {
+    "actualPublicVerified": true,
+    "checksPassed": 7,
+    "sha256": "82d23168b4df656016bc8be2e7da74e58ac09a585eaebca3418f87bc4656291f",
+    "bytes": 12770567,
+    "nativeVersion": 5167,
+    "nativeRecordUnchangedDuringCheck": true,
+    "requiresReview": false,
+    "candidateInterception": false,
+    "stateInterception": false
+  }
 }
