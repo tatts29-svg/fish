@@ -1,0 +1,110 @@
+{
+  "author": "Andrew Fisher",
+  "release": "v9.73",
+  "baseSha256": "f182b59f07ea6f2fbd0a2b09d2efc4e219ef44c9c16a0109304f0f6e89437c5a",
+  "sha256": "eb42ed37194210db9f514c1a4c6e9e013e5b2ecf153856cb2e05103dd50a66fb",
+  "checks": [
+    {
+      "name": "exact frozen candidate",
+      "pass": true
+    },
+    {
+      "name": "exact live predecessor footer",
+      "pass": true
+    },
+    {
+      "name": "new footer once",
+      "pass": true
+    },
+    {
+      "name": "one appended reference script",
+      "pass": true
+    },
+    {
+      "name": "exact approved identity projection hook once",
+      "pass": true
+    },
+    {
+      "name": "approved source reference hook 1 once",
+      "pass": true
+    },
+    {
+      "name": "approved source reference hook 2 once",
+      "pass": true
+    },
+    {
+      "name": "approved source reference hook 3 once",
+      "pass": true
+    },
+    {
+      "name": "approved source reference hook 4 once",
+      "pass": true
+    },
+    {
+      "name": "approved source reference hook 5 once",
+      "pass": true
+    },
+    {
+      "name": "approved source reference hook 6 once",
+      "pass": true
+    },
+    {
+      "name": "approved source reference hook 7 once",
+      "pass": true
+    },
+    {
+      "name": "approved source reference hook 8 once",
+      "pass": true
+    },
+    {
+      "name": "approved source reference hook 9 once",
+      "pass": true
+    },
+    {
+      "name": "approved source reference hook 10 once",
+      "pass": true
+    },
+    {
+      "name": "approved source reference hook 11 once",
+      "pass": true
+    },
+    {
+      "name": "original page source preserved apart from approved hooks, footer, module and five indent spaces",
+      "pass": true
+    },
+    {
+      "name": "original BOM retained",
+      "pass": true
+    },
+    {
+      "name": "repeat application refuses without mutation",
+      "pass": true
+    },
+    {
+      "name": "wrong predecessor refuses without mutation",
+      "pass": true
+    },
+    {
+      "name": "missing shared reference API refuses without mutation",
+      "pass": true
+    },
+    {
+      "name": "missing shared Questions API refuses without mutation",
+      "pass": true
+    },
+    {
+      "name": "missing physical identity hook refuses without mutation",
+      "pass": true
+    },
+    {
+      "name": "missing closing insertion anchor refuses without mutation",
+      "pass": true
+    },
+    {
+      "name": "ambiguous closing insertion anchor refuses without mutation",
+      "pass": true
+    }
+  ],
+  "pass": true,
+  "liveWrites": 0
+}

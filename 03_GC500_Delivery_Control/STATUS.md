@@ -1,5 +1,9 @@
 <!-- Author: Andrew Fisher -->
 
+READY TO UPLOAD — v9.73 original-source reference reconciliation, 9 Oct 2026. Final SHA-256 `eb42ed37194210db9f514c1a4c6e9e013e5b2ecf153856cb2e05103dd50a66fb`, 12,855,461 bytes, 52 scripts; exact live v9.71 base `f182b59f07ea6f2fbd0a2b09d2efc4e219ef44c9c16a0109304f0f6e89437c5a`. GN25/LT05/LT06 receive original-plan named destinations without false coordinates/navigation; two office/lunchroom removal rows link to their existing 4.8m units; accreditation and WAU tasks use supported area associations. Verified original VMS plan is linked, with five genuine board-to-load allocations still specific. P36 current building1282487 and planned-history1327222 are correctly separated. Questions12open/5pending/41answered. Reference34rows:31linked/3tasks; six of14false gaps resolved, eight specific allocation facts remain. Final desktop/phone each22routes/sevenlinks/Back and focusedphone10/10pass. All15financialmodels exactlyunchanged,153invariants/17native ties/37pairedpreservationchecks pass. Native5168 unchanged; no operational writes. Final source and actual scrub reviewed independently; phone screenshots inspected. Root owns guarded upload and actual-public proof. Superseded8348b916/74fca64f candidates were not published. No Claude review claimed.
+
+<!-- Author: Andrew Fisher -->
+
 LIVE SOURCE FILE — 9 Oct 2026 at20:40AEST. Supplied VMS001-26003-01 original uploaded once via native Documents as map, recorded as Andrew Fisher via Codex. Exact original/readback SHA9ef1527d1fd9c6c7ea70dd3db3ced96784b0c1b32eba0df2aa3fb5ecd61be382,2,994,014bytes,17pages. All427previousfiles and native5168 preserved; no operational writes. v9.73 will remove the stale name-only availability note and expose the verified original link. This does not select the governing drawing or allocate future load boards.
 
 <!-- Author: Andrew Fisher -->

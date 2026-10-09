@@ -1,0 +1,86 @@
+{
+  "author": "Andrew Fisher",
+  "nativeVersion": 5168,
+  "review": "Original documents read independently; source-backed relationships only, no native or financial mutation.",
+  "sources": {
+    "schedule7": {
+      "sha256": "485f5d885b88d836b63e85ad4062474a95a484022386efec7be62429f958edac",
+      "filename": "2-GC500-26-Schedule-7-.xlsx"
+    },
+    "infrastructure9oct": {
+      "sha256": "fc39ba08ded1f6c6d4823b755b44d1463cf72262829b11dce4fa65f87506bcb7",
+      "filename": "4-P003-26003-01-Programme-Coates-Inf-V1-14.8.26-2-.xlsx"
+    },
+    "baseplan9oct": {
+      "sha256": "eb4a224fadbe1350d031adf8a1b12760d3dd748a2f0643119ea103d1df9b5b21",
+      "filename": "source-workbook.xlsx"
+    },
+    "master": {
+      "sha256": "8753d875cf90682e09afefae8c774144d9e9725ece87f726707882fb3711c56d",
+      "filename": "D001-26003-03-MASTER.pdf"
+    },
+    "cw6": {
+      "sha256": "6a5273b0509b706223b7f0ce863b03fbdd8c41c8771b6695d69717c5a8af1215",
+      "filename": "01_CW6_GC600_2026_Fencing_Installation_Plan.pdf"
+    }
+  },
+  "findings": [
+    {
+      "tasks": [
+        "T0222",
+        "T0223"
+      ],
+      "recommendation": "Associate demob office T0222 with T0021 / asset960639; lunchroom T0223 with T0022 / asset960634. Keep original6m source text as an acknowledged size error, not a new physical building.",
+      "evidence": [
+        "schedule7 Week 5 E19/H19/I19 Office4.8x3 / Coates /960639; E20/H20/I20 Lunchroom4.8x3 /Coates /960634",
+        "schedule7 Demob Week3 A5/C5/D5/F5/H5 12Nov/Building6m/1/Office/Coates; row6 same date,size,qty,Coates with Luchroom",
+        "baseplan9oct 9968929-KINP A2/D2/F2 line1/960639/4.8Mx3.0M; A3/D3/F3 line3/960634/4.8Mx3.0M",
+        "Existing live Questions R10 explicitly says size answered and demob6m wrong"
+      ],
+      "unresolved": "Real pickup-date disagreement: Schedule7 A5/A6 12Nov2026 versus Baseplan AU2/AU3 explicitly Booked Pickup Date13Nov2026; S2/S3 separately Expected Term Date13Nov. Original7Oct Baseplan has same values.",
+      "guard": "Association alone must not change hire/customer charges, native statuses or dates."
+    },
+    {
+      "tasks": [
+        "T0273",
+        "T0274"
+      ],
+      "recommendation": "Show named WAU team-area association with P13 Team Office as related place, not an exact placement or merged equipment identity.",
+      "evidence": [
+        "schedule7 Event Week A45/C45/D45/E45/H45 21Oct/Fridge/1/Fridge/WAU; A46/C46/D46/E46/H46/I46 21Oct/AirCon/2/PortableAircon/WAU/Rehire",
+        "schedule7 Week4 E2=P13-Team Office-WAU",
+        "infrastructure9oct Base information(4) A40=P13-Team Office-WAU; other repeated phase tabs same row",
+        "master page1 P13 tagged within TEAMS cluster; WAU labelled separately on garage strip below"
+      ],
+      "unresolved": "Exact final drop point and physical fridge/AC identities not supplied. Do not assert inside P13.",
+      "guard": "Native assetNumbers/P13 is1097346, overriding historical Schedule7 I2=1097345. Infrastructure D40/E40 incorrectly say2029; do not apply that year."
+    },
+    {
+      "tasks": [
+        "T0234"
+      ],
+      "recommendation": "Show accreditation centre / Helen Park as source-supported named area.",
+      "evidence": [
+        "schedule7 Event Week A2/E2/H2 19Oct/Collect event weekend Accred/Coates",
+        "schedule7 Week3 E14=P53-Accred Centre; Week2 E18=P54-Accred Centre BOH",
+        "infrastructure9oct Base information(4) A84=P53-Accred Centre; A85=P54-Accred Centre BOH-Helen Park",
+        "master page1 P53/P54 visibly in HELEN PARK beside BREAKER ST"
+      ],
+      "unresolved": "No explicit instruction identifies the collection counter or P53 versus P54 as collection building.",
+      "guard": "Infrastructure G84=Not in Coates Scope; destination association must not make P53 Coates equipment or change ownership/counts."
+    },
+    {
+      "tasks": [
+        "T0021"
+      ],
+      "recommendation": "Known Coates internal office, asset960639. Exact destination remains unsupported by a unique source link.",
+      "evidence": [
+        "schedule7 Week5 E19/H19/I19 Office4.8x3/Coates/960639",
+        "master page1 COA compound adjacent ABD/OPS exists, but no office asset-number tag",
+        "cw6 page2 explicitly COATES COMPOUND-PHILIP PARK CARPARK; therefore generic Coates compound name is not a unique map anchor"
+      ],
+      "unresolved": "Originals do not identify whether office is at circuit COA or another Coates compound. No native fix forT0021.",
+      "guard": "Do not clone T0022 GPS to T0021 or infer location solely from same owner/docket. Retain native T0022 reference/unit GPS."
+    }
+  ]
+}

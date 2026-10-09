@@ -1,0 +1,22 @@
+Author: Andrew Fisher
+
+The remaining-reference audit had missed relationships already present in the supplied originals. This release applies those matches to the shared page projections and keeps the exact remaining allocation facts separate from missing documents.
+
+- GN25 uses the D024 written destination, Seaway Carpark. LT05 and LT06 use Seaway Car Park Transporter Compound. These off-map labels no longer produce pit-lane or drawing-legend navigation. No coordinates are invented; later recorded locations take precedence.
+- Office removal T0222 links to T0021 / 960639; lunchroom removal T0223 links to T0022 / 960634. Both are 4.8 × 3 m. The original 6 m descriptions remain source history. The separate 12 November schedule / 13 November booked-pickup conflict remains visible.
+- Accreditation points to its supplied Helen Park area. WAU fridge and portable air-conditioning tasks show their team-area association without pretending to identify a particular building or individual unit.
+- Five future VMS batches link the supplied numbered-destination plan. Their remaining gap is board-to-load allocation. Four documented relocations versus five scheduled moves and the 03a/04A drawing difference remain explicit. Existing D025 positions and T0103's two boards are preserved.
+- P36 shows current building 1282487 from the unit-labelled site photographs. Schedule-only 1327222 stays in Previously recorded items. Source records, photographs and quantities remain intact.
+- Questions use the same current evidence. Known office sizes and P20/P21 identities are no longer asked again; genuine pickup and load-link differences remain specific. The six-person daytime event roster is recognised; outstanding night coverage, Advanced shift/cost coverage and Kyle’s return remain separate.
+
+The original VMS001 PDF was uploaded unchanged through Documents and verified byte for byte. Its old name-only availability note is replaced only when the file registry matches the exact original. Upload evidence is in `record_09Oct2026_vms_original`.
+
+Source references total 34 rows: 31 linked to existing items and three retained as additional tasks. All have reference IDs. Six of the previous 14 flagged facts are resolved. Three destinations remain unsupported by a unique link after the original-source review: office T0021, toilet WC85 and spare generator T0268. Five VMS load allocations remain separate. Original-source hashes and exact review scope are retained in `evidence/`; private originals stay outside Git.
+
+READY TO UPLOAD — 9 Oct 2026. Final candidate SHA-256 `eb42ed37194210db9f514c1a4c6e9e013e5b2ecf153856cb2e05103dd50a66fb`, 12,855,461 bytes, 52 inline scripts. Exact live v9.71 base: `f182b59f07ea6f2fbd0a2b09d2efc4e219ef44c9c16a0109304f0f6e89437c5a`.
+
+Source review, integration and independent verification are complete. Final checks pass: 79 reference cases, 12 document guards, 38 identity cases, 25 Questions cases, five actual-toolchain scrub cases and 32 independent VMS/source guards. The final built page passes 25 source/patch guards and 37 paired preservation checks. All 15 financial models exactly match the live base: 153 financial invariants and 17 native financial ties pass. Complete native record 5168, embedded source data, Today, Inventory and supplier counts remain unchanged. Only the documented P36 identity presentation and two removal source links differ.
+
+Desktop and phone each pass 22 routes, seven deep links and browser Back, with no page or console errors. The focused phone journey passes all ten checks, including active source predicates, folded history, disclosure persistence, destination navigation and exact original-PDF retrieval. Questions shows 12 open, five pending and 41 answered/history. Phone screenshots were inspected by implementation and integration reviewers. All browser checks read only; no operational writes. The focused fixture uses a local Google tile-session response; standard navigation sweeps separately exercise map loading. Public page/state substitution is forbidden by the post-upload verifier.
+
+An initial candidate exposed an attribution-scrub issue in a native photo-author guard; another used the historical rather than current daytime roster. Neither candidate was published. Both corrections are verified against the final scrubbed build. Guarded publication and actual-public verification follow this READY source commit. Independent subtask reviews are recorded in `evidence/`; no separate external-agent audit is claimed.

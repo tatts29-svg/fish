@@ -1,0 +1,27 @@
+{
+  "author": "Andrew Fisher",
+  "candidateSha256": "eb42ed37194210db9f514c1a4c6e9e013e5b2ecf153856cb2e05103dd50a66fb",
+  "candidateBytes": 12855461,
+  "pass": true,
+  "checks": [
+    {
+      "viewport": "desktop",
+      "routes": 22,
+      "deepLinks": 7,
+      "back": "#plant",
+      "errors": 0,
+      "consoleErrors": 0,
+      "pass": true
+    },
+    {
+      "viewport": "phone",
+      "routes": 22,
+      "deepLinks": 7,
+      "back": "#plant",
+      "errors": 0,
+      "consoleErrors": 0,
+      "pass": true
+    }
+  ],
+  "scope": "Standard GET-only local candidate sweeps at live view address; intentional public aliases verified by destination. Actual public proof follows upload."
+}

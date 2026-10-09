@@ -1,0 +1,28 @@
+{
+  "author": "Andrew Fisher",
+  "reviewed": "9 Oct 2026",
+  "baseline": {"page": "v9.71", "nativeVersion": 5168, "openQuestions": 13, "pendingQuestions": 5},
+  "settled": [{"id": "sp-extra", "scope": "P36 only", "current": "1282487", "history": "1327222", "basis": "Three Andrew Fisher unit-labelled site photographs, 18 and 25 Sep 2026; one Building 6m in Schedule 7 Week 5 row 35.", "preservation": "Original allocation and all raw records remain. Previous allocation is shown under Previously recorded items; charge and inventory quantities remain one.", "caution": "The Baseplan row for asset 1282487 describes P63/Pending; it is not asserted to be a P36 contract assignment."}],
+  "narrowed": [
+    {"id": "oi-R10", "known": "Office 960639 and lunchroom 960634, both 4.8 by 3 metres; source-linked demob rows.", "remaining": "Schedule 7 Demob Week 3 A5/A6 says 12 Nov. Baseplan 9968929-KINP AU2/AU3 explicitly says Booked Pickup Date 13 Nov. Expected hire end is a separate field."},
+    {"id": "oi-TX03", "known": "P20 one 4.8 m building 1097339/DD26076698; P21 one 6 m building 1327220/DD26076820. Schedule 7 Week 5 rows 30/31 and Baseplan 9968862-KINP rows 30/62 agree.", "remaining": "The shared record links each reference to two carrier-plan slots. The carrier plan lacks per-slot reference/DD evidence; no trip or charge exclusion is inferred."}
+  ],
+  "remainingReviewed": [
+    {"id": "br-norate-KINP", "remaining": "Cleaning Fee contract line has no specific numeric rate; equipment-specific cleaning prices do not identify that generic fee."},
+    {"id": "br-norate-NVAC", "remaining": "Three exact accessories have no matching numeric supplied rate; customer rates are not inferred from other equipment."},
+    {"id": "fe-quote", "remaining": "Three original approval PDFs are weekly actual/docket summaries, not a current whole-job accepted quote or express measured-docket payment agreement."},
+    {"id": "fe-rate-team_leader", "remaining": "No quantity booked and no supplied customer rate; supplier rate is not silently copied as a customer rate."},
+    {"id": "fe-gap", "remaining": "Recorded-versus-programme category gaps remain operational comparisons; no undocketed completion inferred."},
+    {"id": "fe-closure", "known": "Order 1, then 2, then 3 is already recorded.", "remaining": "Colour semantics, simultaneous repeated numbers, and closed-at versus clear-by meanings lack a definitive supplied answer. The exact original marked photograph was not available for a new visual review."},
+    {"id": "tr-miss-transport-only-the-loads-with-a-figure-are-in-loads-from-the", "remaining": "Final carrier actuals remain pending under Andrew's instruction; source-backed estimates already included are retained."},
+    {"id": "lb-rates", "remaining": "Person rates and verified actuals remain distinct from customer installation charges and sourced forecasts."},
+    {"id": "lb-nights-alfie-harris", "remaining": "No supported nightly accommodation rate was identified; elapsed dates do not confirm stays."},
+    {"id": "lb-miss-the-cost-of-the-people-on-the-event-labour-scope-who-are-not", "known": "Six active named people already have 18 planned event shifts and 216 paid hours. Current Finance rows include Jayden and exclude obsolete Alfie event shifts; Kyle remains separately unconfirmed. Original Outlook scope screenshot identifies the six-person fencing crew as supplied by Advanced.", "remaining": "Night supervisor, Advanced shift allocation and supplier-cost coverage, and Kyle's unconfirmed event return. Current Finance rows guard the narrower wording; the older event-staffing specification is not treated as the current roster. No additional fence-team cost is inferred."},
+    {"id": "oi-R11", "known": "Two concert generator identities and the Concert named area.", "remaining": "Exact GN/map association is not proved by the Concert area label."},
+    {"id": "oi-R26", "remaining": "Drawing generator 028 has no supported supplier/scope association; it is not silently aliased to GN?."},
+    {"id": "oi-R29", "remaining": "S04 plan quantity and the extension docket differ; no cancelled remainder is inferred."},
+    {"id": "ccb-classification753", "remaining": "Hire agreement 36595, Rear S20 Shower, has recorded metres but no supported Event/Demarcation subtype."},
+    {"id": "oi-R30", "known": "Both supplied maps contain numbered VMS destinations; T0103 board identities are settled.", "remaining": "Drawing authority, batch-to-board allocation, four-versus-five relocation scope, and specific source-caption conflicts remain. No map absence is asserted."}
+  ],
+  "checks": {"identityGuardChecks": 38, "questionProjectionChecks": 25, "actualToolchainScrubChecks": 5, "nativeAndFinancialProof": "Final integrated candidate verified separately before publication."}
+}
