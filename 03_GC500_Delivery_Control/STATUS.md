@@ -1,5 +1,9 @@
 <!-- Author: Andrew Fisher -->
 
+2025.xlsx historical review — 9 Oct 2026. All18 tabs/507 rows reviewed; historical customer charge categories indexed. Each-way transport and separate FWF/sewer/tank servicing charge descriptions are useful scope evidence. Supplier identifiers are not cost amounts; no current RPM/fork-extension price resolved. Original/detail private, sanitised evidence source_review_09Oct2026_2025. No live or record changes.
+
+<!-- Author: Andrew Fisher -->
+
 2024.xlsx historical review — 9 Oct 2026. All20 sheets/829 rows parsed,185 customer charge rows indexed. Historical scope evidence includes transport, installation, pump-outs/clean/restock, hydration refill, relocation and removal crane. Supplier identifiers are present but supplier-cost fields are absent; no current RPM/QUE supplier price resolved. Historical pricing/ownership/status never replaces 2026 authoritative sources. Original/detail private, sanitised review in source_review_09Oct2026_2024. No live or record changes.
 
 <!-- Author: Andrew Fisher -->
