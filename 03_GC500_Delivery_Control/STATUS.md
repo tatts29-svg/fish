@@ -1,5 +1,9 @@
 <!-- Author: Andrew Fisher -->
 
+CLAIMED — v9.60 typed inventory allocation, 9 Oct 2026. Cross-tab audit confirms WC09's four identified Event Portables FWF units are assigned to the six-unit pee-panel inventory line by positional allocation, while Sub-hired correctly identifies them as FWF. Extend the existing conservative typed inventory projection to supported mixed-item rows, preserving recorded quantities and unidentified pee panels. Equipment worker owns implementation and evidence after v9.59. Root owns final combined build and publication. No operational record changes or inferred identities.
+
+<!-- Author: Andrew Fisher -->
+
 CLAIMED — v9.59 fencing category count consistency, 9 Oct 2026. Andrew reports counts and percentages across categories/tabs are wrong and requests a complete consistency audit. Initial review confirms hard-coded Today and overall fencing category lists omit flat-feet metres, the component tally omits flat-feet CCB pieces, and the measured but unclassified S20 shower run is absent from measured-CCB summaries. Add supported quantities to shared summaries with exact evidence guards, preserve unclassified status and all charges. Review new service work for supported progress evidence without double-counting existing mesh or uncertain scrim. Source/count worker owns implementation after v9.58; root owns combined integration, checks and publication. Equipment, sync and financial category audits are running separately; no speculative data edits.
 
 <!-- Author: Andrew Fisher -->
