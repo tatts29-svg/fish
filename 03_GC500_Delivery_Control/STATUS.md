@@ -1,5 +1,9 @@
 <!-- Author: Andrew Fisher -->
 
+READY TO UPLOAD — v9.53 transport forecast, 9 Oct 2026. Source frozen and independently reviewed; original card and exact supplier scopes checked. Standard live-base build matches candidate b4c2ec652c603c07b09afbca9ec2317816b96b4174e673339b77fb15314bfe8a, 12,598,847 bytes. All 25 focused checks, 17 native financial ties and both 22-route/seven-link/Back sweeps pass; zero runtime errors or writes. Phone inspected. Actuals, customer Revenue and native record 5104 preserved. Adds 32 planned allowances and removes five exact overlaps; unknown costs and source disagreements remain visible. Root owns guarded publication.
+
+<!-- Author: Andrew Fisher -->
+
 CLAIMED — v9.54 CW1 supported planning evidence,9Oct2026,Codex/fencing source worker. Andrew providednewCW1PDF/email and authorised review/update. Prepare source-only patch afterv9.53 for verifiednewtaskdates/lengths/bracing/access, preservingnewernativecompletion/dockets and allambiguousscopeasexplicitreview. Do notcopyPDFstalesubtotals orduplicateCypresspages. Rootownssequentialfinalintegration/publication; unbookedtransportv9.53 remainsseparatelyowned. This updates the forecast basis, not proof of completed fencing.
 
 <!-- Author: Andrew Fisher -->

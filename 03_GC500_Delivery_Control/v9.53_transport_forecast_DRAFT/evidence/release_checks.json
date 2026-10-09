@@ -1,0 +1,20 @@
+{
+  "author": "Andrew Fisher",
+  "state": "READY TO UPLOAD",
+  "base_sha256": "8b703bb4135ae7d280c27c6f017f2fa3bd64cfa55ee4d1cb078875b1e29f2788",
+  "candidate_sha256": "b4c2ec652c603c07b09afbca9ec2317816b96b4174e673339b77fb15314bfe8a",
+  "candidate_bytes": 12598847,
+  "focused_checks": 25,
+  "native_ties": 17,
+  "actuals_unchanged": true,
+  "customer_revenue_unchanged": true,
+  "record_unchanged": true,
+  "planned_allowances": 32,
+  "duplicate_estimates_removed": 5,
+  "desktop_routes": 22,
+  "phone_routes": 22,
+  "deep_links_each": 7,
+  "errors": 0,
+  "writes": 0,
+  "phone_inspected": true
+}
