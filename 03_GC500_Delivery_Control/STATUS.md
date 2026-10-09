@@ -1,5 +1,9 @@
 <!-- Author: Andrew Fisher -->
 
+CLAIMED — v9.52 customer install/demob charge audit, 9 Oct 2026, Codex. Andrew requires sub-hired gear to retain Coates customer install/demob rates and all supported charges captured visibly. Fix verified Pee Panel labour match from original card, show recorded versus forecast labour on affected equipment, reconcile missing native charge ticks only against confirmed work evidence, preserve future demob and separate supplier costs/customer revenue. Based on v9.51; source audit collaborator read-only.
+
+<!-- Author: Andrew Fisher -->
+
 9 Oct 2026 — LIVE record 4887: Andrew confirmed all six WC09 pee panels are here and have no numbers. Native supplied quantity set to 6; fresh public read verifies qty6 and no Pee Panel shortage. No asset numbers created or requested. Toilet remaining PDF refreshed. Scoped changes only supplied/WC09 and its quantity stamps/by. Evidence: record_09Oct2026_wc09_pee_panels/verified.json.
 
 <!-- Author: Andrew Fisher -->
