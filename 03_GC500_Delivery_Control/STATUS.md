@@ -1,5 +1,9 @@
 <!-- Author: Andrew Fisher -->
 
+READY TO UPLOAD — v9.78 branch presentation and commercial terminology. SHA256 1335339af789da16db7777919a320f52b12b65d002113acaa9c8a8ecdf07d09f,12907519bytes,62scripts. All current financial figures allocate to KINP/MEAD/NVAC/STPS with exact combined totals, using existing Finance cost rules and current reference charge slots. C004 invoice categories matched to responsible contract branches; support remains outside labour. Finance invoice view shares the same allocation.14legacy models exact; Finance only invoice branch rows/transport reconciliation metadata change; all amounts, native5201 and12preservation sections exact. Desktop/phone22routes each, seven model checks, phone figures and all reconciliations pass; navmaps use explicit local fixtures. No new operational writes or Claude review claimed. Current per-item hire/Included presentation audit is separate;33transport rows remain held. Root owns guarded publish.
+
+<!-- Author: Andrew Fisher -->
+
 CLAIMED — v9.78 branch presentation and commercial terminology. Andrew defines Coates as hire supplier/coordinator, V8 Supercars as client, Advanced Temporary Fencing as subcontractor, equipment suppliers as subhire and external carriers as third-party transport. Each branch requires its revenue, costs and margin plus a reconciled combined job total. Root owns source integration, unchanged-money checks, desktop/phone and guarded publication from v9.77 f4d3e6aa. Historical 2024/2025 structure is not authority for current-year rates. No invented shared-cost allocations or operational writes.
 
 <!-- Author: Andrew Fisher -->

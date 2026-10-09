@@ -1,0 +1,26 @@
+{
+  "author": "Andrew Fisher",
+  "pass": true,
+  "nativeVersion": 5201,
+  "sha256": "1335339af789da16db7777919a320f52b12b65d002113acaa9c8a8ecdf07d09f",
+  "14legacyModelsExact": true,
+  "onlyFinanceInvoiceBranchAllocationChanged": true,
+  "allFinancialTotalsExact": true,
+  "nativeAnd12PreservationSectionsExact": true,
+  "allReconciliationChecksPass": true,
+  "noUnallocatedCurrentBranchBalance": true,
+  "branchCount": 4,
+  "unitChecks": 7,
+  "desktopNavigation": {
+    "routes": 22,
+    "errors": 0,
+    "writes": 0,
+    "localMapFixture": true
+  },
+  "phoneNavigation": {
+    "routes": 22,
+    "errors": 0,
+    "writes": 0,
+    "localMapFixture": true
+  }
+}
