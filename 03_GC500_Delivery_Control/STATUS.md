@@ -1,5 +1,9 @@
 <!-- Author: Andrew Fisher -->
 
+CLAIMED — v9.75 arrived equipment charges and optional stairs. Andrew requests all applicable install, level, stairs, clean and demob charges against arrived equipment now, including sub-hired gear at our rates, with a per-item stairs removal option and recorded exclusions preserved. Financial worker owns shared forecast reconciliation and arrived-item charge projection; stairs worker owns item-specific controls and native exemption lifecycle. Root owns integration, source-backed rates, prevention of duplicate charges, tests and publication after v9.74. Forecast demob does not mark demob performed. Andrew also directs spare T0268 and WC85 to Coates compound until instructed otherwise; root owns native location-only backup/write/readback.
+
+<!-- Author: Andrew Fisher -->
+
 CLAIMED — v9.74 Showcase realism and original-source follow-up, 9 Oct 2026. Andrew says the V8 sounds over-revved and asks for more realistic sliding, smoke and movement; he asks us to use all supplied records to resolve remaining links. Audio worker owns source-bound V8 rev response/gear changes and audio character with offline auditory evidence. Dynamics worker owns grip/slip, body response and tyre smoke while preserving fixed timestep, track, quality settings and earlier performance fixes. Source worker retraces the eight specific outstanding destination/load associations across originals and recorded positions. Root owns integration, meaningful simulation/audio/render checks, financial/native/navigation preservation and guarded publication from exact live v9.73 eb42ed37. No guessed locations or physical-device FPS claim. Source corrections are applied only when supported; source review results will identify exact facts and references.
 
 <!-- Author: Andrew Fisher -->
