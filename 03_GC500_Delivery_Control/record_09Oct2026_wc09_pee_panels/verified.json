@@ -1,0 +1,22 @@
+{
+  "author": "Andrew Fisher",
+  "complete": true,
+  "beforeVersion": 4884,
+  "afterVersion": 4887,
+  "quantity": 6,
+  "changes": [
+    {
+      "collection": "stamps",
+      "key": "supplied/WC09/Pee Panel"
+    },
+    {
+      "collection": "supplied",
+      "key": "WC09"
+    },
+    {
+      "collection": "by",
+      "key": "supplied/WC09/Pee Panel"
+    }
+  ],
+  "errors": []
+}

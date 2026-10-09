@@ -1,5 +1,9 @@
 <!-- Author: Andrew Fisher -->
 
+9 Oct 2026 — LIVE record 4887: Andrew confirmed all six WC09 pee panels are here and have no numbers. Native supplied quantity set to 6; fresh public read verifies qty6 and no Pee Panel shortage. No asset numbers created or requested. Toilet remaining PDF refreshed. Scoped changes only supplied/WC09 and its quantity stamps/by. Evidence: record_09Oct2026_wc09_pee_panels/verified.json.
+
+<!-- Author: Andrew Fisher -->
+
 9 Oct 2026 — LIVE record 4884: Coates accessible toilet 1317645 allocated to WC31 through native unit/typed identity functions, backed up and independently verified from fresh view. Unique allocation confirmed. WC31 Event Portables 16-pan blocks 12/74 preserved; WC09 four, WC61 eight and WC69 six Event Portables FWF numbers checked exactly, leading zeroes preserved, WC40 empty after correction. Tuesday rollover preserved. Individual accessible arrival quantity not inferred from location status. Toilet remaining PDF refreshed. Evidence: record_09Oct2026_wc31_accessible/verified.json. CW1 planning PDF remains reviewed, not yet integrated live.
 
 <!-- Author: Andrew Fisher -->
