@@ -1,0 +1,116 @@
+{
+  "author": "Andrew Fisher",
+  "candidateSha256": "d98bfc4b6bb8461feec1f4af31a7d69fdd0711f2979d27bae4c324d7f8001ae6",
+  "candidateBytes": 12762245,
+  "baseSha256": "1f04615f0c941e1c6c2b45e0656fc92e2bd816998a7b5f2d428f1e1b0e4a6cb0",
+  "sources": [
+    {
+      "file": "v9.58_fencing_programme_links_DRAFT/programme958.js",
+      "sha256": "39c8423d7f08bd116db23a2a9024b64a9d5c80fb735125c24c8b4c1699007fa4"
+    },
+    {
+      "file": "v9.58_fencing_programme_links_DRAFT/patch_v958.py",
+      "sha256": "bd7663022653c09447c4773804b229975644e59eac4249806ff2d99c5a9c2fe9"
+    },
+    {
+      "file": "v9.58_fencing_programme_links_DRAFT/test_programme958.cjs",
+      "sha256": "e13ff578e5bfa7463b25ba22b108d9c5f0167a5a0e0a25232f30613cbc8267f7"
+    },
+    {
+      "file": "v9.58_fencing_programme_links_DRAFT/test_patch958.py",
+      "sha256": "1a50e15c4f42ae96a61cfc60d120ec5b56be24d621839d5b321920c99bf478af"
+    },
+    {
+      "file": "v9.59_fencing_count_consistency_DRAFT/test_patch959.py",
+      "sha256": "0926a2ca1045070cf833d16de0947645deb393522a952e741565ce1ed4735ae3"
+    },
+    {
+      "file": "v9.59_fencing_count_consistency_DRAFT/counts959.js",
+      "sha256": "bd80baf2d0e397a7d20db1cd21882d34f257b4f0d4d87dba29a44c25bed62116"
+    },
+    {
+      "file": "v9.59_fencing_count_consistency_DRAFT/test_counts959.cjs",
+      "sha256": "f0aecf2eef56f92b1c78c2d121964be9c6af9f167d3879883908ea3c1033ae8c"
+    },
+    {
+      "file": "v9.59_fencing_count_consistency_DRAFT/patch_v959.py",
+      "sha256": "a47fbf248d7b0c9c390bab546be5376b03f14b3bac90c12f1631c014ed1128b0"
+    },
+    {
+      "file": "v9.60_typed_inventory_allocation_DRAFT/patch_v960.py",
+      "sha256": "32deefb633311ec0bd0cda19ed13442b439ca759a2b01cf3b917cae4b7ba756a"
+    },
+    {
+      "file": "v9.60_typed_inventory_allocation_DRAFT/test_patch960.py",
+      "sha256": "8549e363ccc524632f0902d6642cf2c5530a02330c6dfc07ed927317dc786289"
+    },
+    {
+      "file": "v9.60_typed_inventory_allocation_DRAFT/scope960.js",
+      "sha256": "526f7127ca98c9490833880343b13629a271475f8ffca9eeeb59c1d70a68399f"
+    },
+    {
+      "file": "v9.60_typed_inventory_allocation_DRAFT/scope960-bind.js",
+      "sha256": "0ce7960225505610f3b9f7b29044d67020c830b90d4af2676e43397f20c0aa72"
+    },
+    {
+      "file": "v9.60_typed_inventory_allocation_DRAFT/inventory960.js",
+      "sha256": "920c77bbd4b2a880e91d21f2a9451b96cbeaf19520de1b4c91b579d651d2f8b1"
+    },
+    {
+      "file": "v9.60_typed_inventory_allocation_DRAFT/test_inventory960.cjs",
+      "sha256": "5e7a0e5e39c047d8e33a7e2f371fed6c7ad6b354dcb39ea58e27aa366f3d78d3"
+    },
+    {
+      "file": "v9.61_financial_scope_labels_DRAFT/test_scope961.cjs",
+      "sha256": "930058a44d6204fde362da449b197e103fbc6ee740d3a4e4c02daaeef72700cd"
+    },
+    {
+      "file": "v9.61_financial_scope_labels_DRAFT/patch_v961.py",
+      "sha256": "6d5a95751bbeff87f9310e79d5729bb85fd57570e32a4124fd906df07cce4df0"
+    },
+    {
+      "file": "v9.61_financial_scope_labels_DRAFT/scope961.js",
+      "sha256": "bdaeaf811fd6ab7453431ffa9b9e729433dfc44148f96ae6b2338688e6279178"
+    },
+    {
+      "file": "v9.61_financial_scope_labels_DRAFT/test_patch961.py",
+      "sha256": "985335bc8d2e702a0187d7e22e334ec69e4851487393a14ee7f19240f34049b9"
+    },
+    {
+      "file": "v9.62_toilet_progress_truth_DRAFT/toilets962.js",
+      "sha256": "9f45553b6c8dfe6c249c2ebc201794afe6c4cdec18c395d7922b3537001a3bea"
+    },
+    {
+      "file": "v9.62_toilet_progress_truth_DRAFT/test_patch962.py",
+      "sha256": "b9b40bcb8ff7ef719a3ce1d32aee449395fef9173c9ebc274b9c15cac8676178"
+    },
+    {
+      "file": "v9.62_toilet_progress_truth_DRAFT/patch_v962.py",
+      "sha256": "e6a6c7b41d68b0ee60656a6da9228f0f2cec1658693bd0d2609e14a64f63c0e1"
+    },
+    {
+      "file": "v9.62_toilet_progress_truth_DRAFT/test_toilets962.cjs",
+      "sha256": "29f99d5d36e20bf3009417fe80289934519ff44e565a096b722f22e680477827"
+    },
+    {
+      "file": "v9.63_source_linked_equipment_counts_DRAFT/test_counts963.cjs",
+      "sha256": "fefbe9b412042f7efe2d95fb7cdebf057c22d781f9be1e1a454d4ebb4ad2f7f8"
+    },
+    {
+      "file": "v9.63_source_linked_equipment_counts_DRAFT/counts963.js",
+      "sha256": "a58b2443fd4272c7cd9142f1dfdc951b9bf975a135d9f9264cb939e22c441f7a"
+    },
+    {
+      "file": "v9.63_source_linked_equipment_counts_DRAFT/test_native963.cjs",
+      "sha256": "2a687ea8bbaa1802e9c7ed074b4dd5d7eef755119cf9e5d1af8e2999c195b5fe"
+    },
+    {
+      "file": "v9.63_source_linked_equipment_counts_DRAFT/patch_v963.py",
+      "sha256": "52d37d3a8c27669eb7282e2827c6ac1af3330d5945e89bab58ecfb529836c2e8"
+    },
+    {
+      "file": "v9.63_source_linked_equipment_counts_DRAFT/test_patch963.py",
+      "sha256": "c2b7b840d09b284e9f1508355dd313790f16bbae9f65fb9a4d0069d20fb1b190"
+    }
+  ]
+}

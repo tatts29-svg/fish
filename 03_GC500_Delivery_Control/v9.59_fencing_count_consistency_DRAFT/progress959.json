@@ -1,0 +1,180 @@
+{
+  "schema": 1,
+  "author": "Andrew Fisher",
+  "sources": [
+    {
+      "id": "24469.jpg",
+      "sha256": "99f4ea8605ede548e193b72a6d7c3033701ac6248d35a495dac83052797be436",
+      "title": "Original signed paper 24469.jpg"
+    },
+    {
+      "id": "24474.jpg",
+      "sha256": "3b3d22e4e2d62facb5d15532ec90508a4a58d617407539424b4bb26fa0a90afc",
+      "title": "Original signed paper 24474.jpg"
+    }
+  ],
+  "operations": [
+    {
+      "id": "physical-relocation-24469",
+      "type": "relocation",
+      "quantity": 17.5,
+      "unit": "m",
+      "records": [
+        {
+          "book": "green",
+          "record_id": "N-AFV-0009",
+          "number": "24469",
+          "expected": {
+            "id": "N-AFV-0009",
+            "note_no": "24469",
+            "date": "2026-10-06",
+            "week": "Week 2",
+            "usable": true,
+            "location": "S04 Corporate — fence relocation",
+            "note": "Relocate 17.5 m temporary fence. Work date from the paper; owner signed 8 Oct 2026. Prices and totals are blank; existing GC500 card and supplier rates apply where quantities are chargeable. Original signed paper 24469.jpg.",
+            "crew_note": "3 men × 15 mins each",
+            "labour_hours": 0.75,
+            "metres": 17.5
+          }
+        }
+      ],
+      "source_ids": [
+        "24469.jpg"
+      ],
+      "source_refs": [
+        {
+          "id": "24469.jpg",
+          "page": 1
+        }
+      ],
+      "basis": "Original service note 24469 explicitly records 17.5 m temporary-fence relocation on 6 Oct 2026; count as relocation work only, not new mesh.",
+      "red_overlap": [
+        {
+          "id": "F010",
+          "docket_no": "36510",
+          "date": "2026-09-14",
+          "week": "Week 5",
+          "scope": "programme",
+          "usable": true,
+          "quantities": {
+            "relocation": 50
+          },
+          "components": {},
+          "location": "Sea World Drive, Main Beach",
+          "note": "Relocated fence line on Sea World Drive, Main Beach — half an hour of relocation work, now with a length on it. 50 m of mesh fence on 36510, confirmed as mesh panel. 50 m, charged at the 2026 card’s Relocation of Fencing rate, which is what this docket’s open question was: the rate was settled and the metres were not. Advanced bill relocation by the hour and the card prices it by the metre, so the length is the thing that had to come off the paper."
+        },
+        {
+          "id": "F025",
+          "docket_no": "36525",
+          "date": "2026-09-17",
+          "week": "Week 5",
+          "scope": "programme",
+          "usable": true,
+          "quantities": {
+            "relocation": 60
+          },
+          "components": {},
+          "location": "S.O.5 C.2",
+          "note": "Written on the docket: relocated fence line, 60 m, half an hour, two men. THE METRES ARE ON THIS ONE — which is what was missing from docket 36510, where the relocation was given in hours alone and Coates charge relocation by the metre. This one costs."
+        },
+        {
+          "id": "F027",
+          "docket_no": "36528",
+          "date": "2026-09-17",
+          "week": "Week 5",
+          "scope": "programme",
+          "usable": true,
+          "quantities": {
+            "relocation": 27.5
+          },
+          "components": {
+            "wheels": 2
+          },
+          "location": "S.O.8 exclusion zone",
+          "note": "Written on the docket: relocated panels from the existing fence line, 27.5 m, two men, 15 minutes; added two wheels for a gate. The metres are on this one, so the relocation costs."
+        }
+      ]
+    },
+    {
+      "id": "physical-relocation-24474",
+      "type": "relocation",
+      "quantity": 25,
+      "unit": "m",
+      "records": [
+        {
+          "book": "green",
+          "record_id": "N-AFV-0014",
+          "number": "24474",
+          "expected": {
+            "id": "N-AFV-0014",
+            "note_no": "24474",
+            "date": "2026-10-09",
+            "week": "Week 2",
+            "usable": true,
+            "location": "Race Admin — Double Stack CZ relocation",
+            "note": "Relocate 25 m. Labour quantity 0.5 hours. Collection 28555 also names Race Admin Double Stack CZ but is a separate collected-count record; no extra hire or removal metres inferred.",
+            "crew_note": "2 men × 15 minutes each",
+            "labour_hours": 0.5,
+            "metres": 25
+          }
+        }
+      ],
+      "source_ids": [
+        "24474.jpg"
+      ],
+      "source_refs": [
+        {
+          "id": "24474.jpg",
+          "page": 1
+        }
+      ],
+      "basis": "Original service note 24474 explicitly records 25 m Race Admin Double Stack CZ relocation on 9 Oct 2026. Collection 28555 is a separate piece-count record; no extra removal or hire metres are inferred.",
+      "red_overlap": [
+        {
+          "id": "F010",
+          "docket_no": "36510",
+          "date": "2026-09-14",
+          "week": "Week 5",
+          "scope": "programme",
+          "usable": true,
+          "quantities": {
+            "relocation": 50
+          },
+          "components": {},
+          "location": "Sea World Drive, Main Beach",
+          "note": "Relocated fence line on Sea World Drive, Main Beach — half an hour of relocation work, now with a length on it. 50 m of mesh fence on 36510, confirmed as mesh panel. 50 m, charged at the 2026 card’s Relocation of Fencing rate, which is what this docket’s open question was: the rate was settled and the metres were not. Advanced bill relocation by the hour and the card prices it by the metre, so the length is the thing that had to come off the paper."
+        },
+        {
+          "id": "F025",
+          "docket_no": "36525",
+          "date": "2026-09-17",
+          "week": "Week 5",
+          "scope": "programme",
+          "usable": true,
+          "quantities": {
+            "relocation": 60
+          },
+          "components": {},
+          "location": "S.O.5 C.2",
+          "note": "Written on the docket: relocated fence line, 60 m, half an hour, two men. THE METRES ARE ON THIS ONE — which is what was missing from docket 36510, where the relocation was given in hours alone and Coates charge relocation by the metre. This one costs."
+        },
+        {
+          "id": "F027",
+          "docket_no": "36528",
+          "date": "2026-09-17",
+          "week": "Week 5",
+          "scope": "programme",
+          "usable": true,
+          "quantities": {
+            "relocation": 27.5
+          },
+          "components": {
+            "wheels": 2
+          },
+          "location": "S.O.8 exclusion zone",
+          "note": "Written on the docket: relocated panels from the existing fence line, 27.5 m, two men, 15 minutes; added two wheels for a gate. The metres are on this one, so the relocation costs."
+        }
+      ]
+    }
+  ]
+}

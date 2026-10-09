@@ -1,0 +1,77 @@
+{
+  "author": "Andrew Fisher",
+  "pass": true,
+  "checks": 36,
+  "names": [
+    "exactly two explicit source aliases",
+    "source records and snapshots stay unchanged",
+    "canonical physical list removes exactly two alias references",
+    "full schedule source evidence retained",
+    "no pending source aliases in native record",
+    "subhired canonical forklift keeps rental identity and ownership",
+    "asked 2.5t is preserved when actual supplied is 3t",
+    "missing source is retained",
+    "duplicate source key is retained",
+    "duplicate alias key is retained",
+    "two competing aliases are retained",
+    "cancelled parent is not canonicalised",
+    "cancelled alias is not hidden as an active alias",
+    "source chains are not canonicalised",
+    "self-reference is not canonicalised",
+    "changed source ownership type is retained",
+    "independently scheduled alias is retained",
+    "changed item is retained",
+    "changed quantity is retained",
+    "unknown quantity is retained",
+    "mixed equipment is retained",
+    "changed location is retained",
+    "changed schedule date is retained",
+    "source event missing is retained",
+    "duplicate source placement is retained",
+    "source event quantity conflicts are retained",
+    "new alias asset identity is retained",
+    "moved alias is retained",
+    "moved parent is retained",
+    "follow-up alias is retained",
+    "identical unlinked machine remains separately counted",
+    "source changes are re-evaluated without stale caching",
+    "source reconciliation does not replace objects",
+    "unknown supplier identity on alias blocks reconciliation",
+    "both histories remain actionable",
+    "pending source evidence is explicitly qualified"
+  ],
+  "aliases": [
+    {
+      "ref": "FL01",
+      "source": "T0003",
+      "item": "Forklift 5T",
+      "quantity": 1,
+      "location": "Phillip Park",
+      "date": "2026-09-11",
+      "evidence": {
+        "task_id": "T0003",
+        "sheet": "Week 6",
+        "date": "2026-09-11",
+        "item": "Forklift 5T",
+        "quantity": 1,
+        "location": "Phillip Park"
+      }
+    },
+    {
+      "ref": "FL02",
+      "source": "T0004",
+      "item": "Forklift 2.5T",
+      "quantity": 1,
+      "location": "Phillip Park",
+      "date": "2026-09-11",
+      "evidence": {
+        "task_id": "T0004",
+        "sheet": "Week 6",
+        "date": "2026-09-11",
+        "item": "Forklift 2.5T",
+        "quantity": 1,
+        "location": "Phillip Park"
+      }
+    }
+  ]
+}

@@ -27,3 +27,5 @@ Andrew requested that signed papers, schedules, maps and rates be matched, linke
 The newer supplied programme was uploaded separately as GC500_2026_Coates_Fencing_Programme_Reviewed_09Oct2026.xlsx (SHA-256 836a3e1036c660caa89b1b36d4b821e2f84df7a8d8b977068b13a4f07602d9db). Its source rows differ from the older programme already in Documents. The older file remains available. Both category assessments use the newer original and exact signed-photo checksums, with stale-record/source guards.
 
 Release v9.57 was verified live at 15:06 AEST on 9 October. Fresh public verification preserved record 5153 and all 17 photo links, confirmed both source-backed category assessments and verified the supported flat-feet customer charge.
+
+The original CW1 PDF was also uploaded unchanged as 05_CW1_Fencing_Installation_Plan.pdf (SHA-256 d7287c2cb05f69677d954c6daf9bd086666ba54535ecb91e7d8fe6e0847fa661). All 426 existing files and the operational record were preserved. It supplies the linked current planning evidence for the subsequent task reconciliation.
