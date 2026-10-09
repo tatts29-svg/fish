@@ -1,5 +1,11 @@
 <!-- Author: Andrew Fisher -->
 
+READY TO UPLOAD — v9.64 quantity-only sub-hire ownership,9Oct2026. Exact candidate SHA82d23168b4df656016bc8be2e7da74e58ac09a585eaebca3418f87bc4656291f,12,770,567bytes; exact livev9.63 based98bfc4b6bb8461feec1f4af31a7d69fdd0711f2979d27bae4c324d7f8001ae6. Frozen source independently reviewed.55 focused/18 patch checks,7 final ownership checks, desktop/phone22routes/7links/Back pass, zero errors or operational writes. Both financial fixtures pass153 checks/17 ties/23 preservation checks;15financial models unchanged. Root owns guarded upload, then separate authorised native six-panel Event Portables ownership save and fresh public verification. v9.65–v9.68 remain moving drafts and are excluded.
+
+USER PRESENTATION RULE —9Oct2026: “We only wanna see weights and dimensions. Sizes rest can be hidden” and “If we need more info we open up a drop down box with more info”. Default cards show concise data; detailed methods, source explanations and other context sit in closed More info disclosures. Preserve data and existing visual components; remove repetitive prose.
+
+<!-- Author: Andrew Fisher -->
+
 CLAIMED — v9.68 Timeline navigation and load-card flow, 9 Oct 2026. Andrew reports clunky, disorganised Timeline movement. Measured read-only audit: 13 Oct on a390px phone is16047px tall for15loads; all long loading-method disclosures reopen and Next wraps away from Prev/Today. Timeline worker owns a narrow correction afterv9.67: keep sourced sizes/weights visible in compact existing cards, preserve disclosure state through redraw/navigation, group the existing day-stepper controls and retain return-scroll. Preserve existing component design, load order/identities/dates and operational data. Root owns final tests/publication.
 
 <!-- Author: Andrew Fisher -->

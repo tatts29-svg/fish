@@ -1,0 +1,63 @@
+{
+  "author": "Andrew Fisher",
+  "sha256": "82d23168b4df656016bc8be2e7da74e58ac09a585eaebca3418f87bc4656291f",
+  "nativeFixtureVersion": 5164,
+  "pass": true,
+  "focusedOwnershipChecks": 7,
+  "phoneVisualsInspected": true,
+  "desktop": {
+    "author": "Andrew Fisher",
+    "view": "desktop",
+    "sha256": "82d23168b4df656016bc8be2e7da74e58ac09a585eaebca3418f87bc4656291f",
+    "routes": 22,
+    "directPanes": 16,
+    "intentionalRedirects": [
+      "register",
+      "journal",
+      "breakdowns",
+      "variances",
+      "edit",
+      "add"
+    ],
+    "deepLinks": 7,
+    "back": {
+      "hash": "#plant",
+      "pane": "pane-plant"
+    },
+    "pageErrors": 0,
+    "consoleErrors": 0,
+    "blockedRequests": 0,
+    "pass": true
+  },
+  "phone": {
+    "author": "Andrew Fisher",
+    "view": "phone",
+    "sha256": "82d23168b4df656016bc8be2e7da74e58ac09a585eaebca3418f87bc4656291f",
+    "routes": 22,
+    "directPanes": 16,
+    "intentionalRedirects": [
+      "register",
+      "journal",
+      "breakdowns",
+      "variances",
+      "edit",
+      "add"
+    ],
+    "deepLinks": 7,
+    "back": {
+      "hash": "#plant",
+      "pane": "pane-plant"
+    },
+    "pageErrors": 0,
+    "consoleErrors": 0,
+    "blockedRequests": 0,
+    "pass": true
+  },
+  "nativeRecordsUnchanged": true,
+  "liveRecordWriteAttempts": 0,
+  "physicalIdentitiesPreserved": true,
+  "receiptInstallationCountsPreserved": true,
+  "financeVerification": "Independent contract audit worker",
+  "strictGetNote": "Focused rigs block the Google tile-session POST; standard sweeps have zero console errors or blocked requests.",
+  "publicationStatus": "Awaiting root publication and native owner save before actual-public check."
+}

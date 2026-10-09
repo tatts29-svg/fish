@@ -1,0 +1,28 @@
+# Author: Andrew Fisher. Exact v9.63 predecessor; atomic scoped integration.
+from pathlib import Path
+import hashlib,sys
+HERE=Path(__file__).resolve().parent
+sys.path.insert(0,str(HERE.parent/'toolchain'))
+from rep import rep
+p=Path(sys.argv[1]);raw=p.read_bytes();s=raw.decode('utf-8-sig')
+assert 'function quantitySubhire964Read(' not in s,'v9.64 already applied'
+assert hashlib.sha256(raw).hexdigest()=='d98bfc4b6bb8461feec1f4af31a7d69fdd0711f2979d27bae4c324d7f8001ae6','Requires exact live v9.63'
+assert " · v9.63'; /* v8.19" in s and 'function physicalCountAssets963(' in s,'Requires v9.63 source'
+def change(old,new,why):
+ global s
+ s=rep(s,old,new,why,str(p))
+change('function inventory(){',(HERE/'quantity964.js').read_text()+'\nfunction inventory(){','shared quantity ownership model and authenticated setter')
+change(" const quantityOnly=ref==='WC09'&&same(item,'Pee Panel');", " const quantityOnly=ref==='WC09'&&same(item,'Pee Panel');\n if(quantityOnly&&typeof quantitySubhire964Read==='function'){const own=quantitySubhire964Read(ref,item);if(own.valid){const n=Math.min(on,own.row.received);return {coates:0,sub:n,cos:n?{[own.row.company]:n}:{},nonum:0,numbers:[],quantityOnly:true};}}",'Inventory uses confirmed quantity ownership without identities')
+change("quantityOnly962?(receipt962?.arrived||0)+' received · quantity only; no fleet numbers'", "quantityOnly962?quantitySubhire964Drawer(a.key,g.item,receipt962)", 'existing quantity-only drawer clearly names sub-hire supplier')
+change(" return [...companies.values()].sort((a,b)=>a.name.localeCompare(b.name));", " quantitySubhire964List().rows.forEach(r=>{let c=companies.get(r.owner);if(!c){c={owner:r.owner,name:r.company,units:[]};companies.set(r.owner,c);}(c.quantityOnly||(c.quantityOnly=[])).push(r);});\n return [...companies.values()].sort((a,b)=>a.name.localeCompare(b.name));", 'supplier company retains quantity rows separately from identities')
+change("company.units.filter(u=>u.physical).length+' individually identified units · owner and costing branch are recorded separately.", "company.units.filter(u=>u.physical).length+' individually identified units'+((company.quantityOnly||[]).length?' · '+company.quantityOnly.reduce((n,r)=>n+r.quantity,0)+' quantity-only units':'')+' · owner and costing branch are recorded separately.", 'company count distinguishes quantity stock from identified fleet')
+change("esc925(u.identityReview||u.name||'Open unit')+' →</span></button>').join('')+'</div>':'')", "esc925(u.identityReview||u.name||'Open unit')+' →</span></button>').join('')+quantitySubhire964CompanyHtml(company)+'</div>':'')",'quantity stock uses existing company list and reference links')
+change("Choose a company for its identified units, supplier delivery plan and original quotes. Ownership is recorded per unit; a location may contain more than one company.","Choose a company for its identified units, quantity-only stock, supplier delivery plan and original quotes. Ownership is recorded per item; a location may contain more than one company.",'supplier scope includes quantity-only ownership')
+change("  spareList().filter(s=>isEP(s.co)).forEach(s=>add(", "  quantitySubhire964List().rows.filter(r=>isEP(r.company)).forEach(r=>{const a=refs.get(r.ref);if(!a)return;const pos=place(a);rows.push({id:'ep:quantity:'+r.ref+':'+r.item,ref:r.ref,assetNo:'',description:r.item,...pos,status:r.status,qty:r.quantity,received:r.received,installed:r.installed,quantityOnly:true,warning:pos.warning,_on:r.received===r.quantity,_spare:false});});\n  spareList().filter(s=>isEP(s.co)).forEach(s=>add(", 'supplier inventory includes one aggregate ownership row')
+old="  const summary={units:rows.filter(r=>r.qty===1).length,numbered:rows.filter(r=>r.assetNo).length,unnumbered:rows.filter(r=>r.qty===1&&!r.assetNo).length,onSite:rows.filter(r=>r.qty===1&&r._on).length,atReferences:rows.filter(r=>r.qty===1&&r._on&&!r._spare).length,spares:rows.filter(r=>r.qty===1&&r._spare).length,references:new Set(rows.filter(r=>!r._spare&&!r._conflict&&r.ref).map(r=>r.ref)).size,scopeGaps:rows.filter(r=>r._scope).length,locationConflicts:conflicts};"
+new="  const quantityRows=rows.filter(r=>r.quantityOnly),quantityCount=quantityRows.reduce((n,r)=>n+r.qty,0),quantityReceived=quantityRows.reduce((n,r)=>n+r.received,0);\n  const summary={units:rows.filter(r=>r.qty===1&&!r.quantityOnly).length,quantityOnly:quantityCount,quantityOnlyReceived:quantityReceived,trackedUnits:rows.filter(r=>r.qty===1&&!r.quantityOnly).length+quantityCount,numbered:rows.filter(r=>r.assetNo).length,unnumbered:rows.filter(r=>r.qty===1&&!r.assetNo&&!r.quantityOnly).length,onSite:rows.filter(r=>r.qty===1&&r._on&&!r.quantityOnly).length+quantityReceived,atReferences:rows.filter(r=>r.qty===1&&r._on&&!r._spare&&!r.quantityOnly).length+quantityReceived,spares:rows.filter(r=>r.qty===1&&r._spare).length,references:new Set(rows.filter(r=>!r._spare&&!r._conflict&&r.ref).map(r=>r.ref)).size,scopeGaps:rows.filter(r=>r._scope).length,locationConflicts:conflicts};"
+change(old,new,'supplier totals separate identities and received quantities')
+change("join(', ')||'Not recorded'}));", "join(', ')||(r.quantityOnly?'Quantity only — no fleet numbers':'Not recorded')}));",'quantity stock never asks for missing fleet numbers in PDFs')
+change("model.summary.numbered+' numbered units | '+model.summary.references", "model.summary.numbered+' numbered units'+(model.summary.quantityOnly?' | '+model.summary.quantityOnly+' quantity-only units':'')+' | '+model.summary.references",'PDF explicitly distinguishes quantity stock from fleet identities')
+change(" · v9.63'; /* v8.19", " · v9.64'; /* v8.19",'footer')
+p.write_bytes((b'\xef\xbb\xbf' if raw.startswith(b'\xef\xbb\xbf') else b'')+s.encode())

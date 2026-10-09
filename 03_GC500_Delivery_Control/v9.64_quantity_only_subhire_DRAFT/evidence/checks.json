@@ -1,0 +1,46 @@
+{
+  "author": "Andrew Fisher",
+  "scope": "Quantity-only item ownership; no physical identity or financial changes",
+  "base_sha256": "d98bfc4b6bb8461feec1f4af31a7d69fdd0711f2979d27bae4c324d7f8001ae6",
+  "candidate_sha256": "82d23168b4df656016bc8be2e7da74e58ac09a585eaebca3418f87bc4656291f",
+  "candidate_bytes": 12770567,
+  "source_sha256": {
+    "quantity964.js": "dc382477a98de6734a005b94087e99940e2c91ee3d28018a847b26fb5bfababf",
+    "patch_v964.py": "d89686f679a242f5d3791bb427a8a3fe01bd6f3ad868b6e1ffbfa597119d538f"
+  },
+  "native_fixture_version": 5164,
+  "focused_assertions": 54,
+  "candidate_company_model_assertions": 1,
+  "patch_source_checks": 18,
+  "inline_scripts": 48,
+  "parse_pass": true,
+  "local_captured_documents": 3,
+  "actual_network_writes": 0,
+  "preserved": [
+    "supplied quantities",
+    "installation ticks",
+    "receipt and installation timestamps",
+    "physical identities",
+    "existing sub-hire units",
+    "customer Revenue",
+    "supplier Direct costs",
+    "all toilet progress counts"
+  ],
+  "supplier": {
+    "identified_units": 91,
+    "quantity_only": 6,
+    "tracked_units": 97,
+    "received": 79,
+    "received_at_references": 78,
+    "spares": 1,
+    "fwf_received": 71
+  },
+  "toilets": {
+    "total": 254,
+    "installed": 138,
+    "received": 138
+  },
+  "phone_inspected": true,
+  "page_errors": [],
+  "production_state": "Not written by this implementation worker; release owner records authorised ownership after publication."
+}
