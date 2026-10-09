@@ -1,0 +1,124 @@
+{
+  "author": "Andrew Fisher",
+  "passed": true,
+  "result": {
+    "categoryChecks": {
+      "inventory": true,
+      "today": true,
+      "progress": true,
+      "programme": true,
+      "suppliers": true
+    },
+    "categorySame": true,
+    "nonStepsSame": true,
+    "stairsMoneyBefore": 811.98,
+    "stairsMoneyAfter": 655.83,
+    "stepsBefore": [
+      {
+        "key": "steps",
+        "name": "Steps",
+        "heading": "Steps 2025",
+        "rate": 156.15,
+        "year": 2025,
+        "of_this_year": false,
+        "money": "rate",
+        "money_note": null,
+        "as_written": 156.15,
+        "year_note": "this figure is headed 2025 on the card, not 2026; it is shown as a 2025 rate",
+        "ticked": true,
+        "by": "Andrew Fisher via Codex",
+        "at": "2026-10-09T02:15:54.316Z"
+      },
+      {
+        "key": "steps",
+        "name": "Steps",
+        "heading": "Steps 2025",
+        "rate": 156.15,
+        "year": 2025,
+        "of_this_year": false,
+        "money": "rate",
+        "money_note": null,
+        "as_written": 156.15,
+        "year_note": "this figure is headed 2025 on the card, not 2026; it is shown as a 2025 rate",
+        "ticked": true,
+        "by": "Andrew Fisher via Codex",
+        "at": "2026-10-09T02:15:54.316Z"
+      }
+    ],
+    "stepsAfter": [
+      {
+        "key": "steps",
+        "name": "Steps",
+        "heading": "Steps 2025",
+        "rate": 156.15,
+        "year": 2025,
+        "of_this_year": false,
+        "money": "rate",
+        "money_note": null,
+        "as_written": 156.15,
+        "year_note": "this figure is headed 2025 on the card, not 2026; it is shown as a 2025 rate",
+        "ticked": true,
+        "by": "Andrew Fisher via Codex",
+        "at": "2026-10-09T02:15:54.316Z",
+        "chargeQty975": 1
+      }
+    ],
+    "ok": true,
+    "qty": 1,
+    "sibling": false,
+    "reloaded": 1,
+    "restored": true,
+    "afterqty": 0,
+    "history": 2,
+    "doc": {
+      "kind": "stairs975",
+      "ref": "WC09",
+      "disc": "Toilets & amenities",
+      "item": "Toilet Block 6m",
+      "unit": "1268858",
+      "qty": 1,
+      "excluded": true,
+      "by": "Andrew Fisher",
+      "at": "2026-10-09T17:11:02.369Z",
+      "history": [
+        {
+          "qty": 1,
+          "excluded": true,
+          "by": "Andrew Fisher",
+          "at": "2026-10-09T17:11:02.369Z"
+        }
+      ]
+    },
+    "units": [
+      "1268858",
+      "1311146"
+    ],
+    "unchanged": true,
+    "events": [
+      "stamp:loads",
+      "save-capture",
+      "bump-capture",
+      "stamp:loads",
+      "save-capture",
+      "bump-capture"
+    ]
+  },
+  "operationalWrites": 0,
+  "errors": [],
+  "counts": {
+    "page": 1,
+    "live": 13,
+    "blocked": 0
+  },
+  "fixture": "Preliminary v9.75, current native data, detached record only. Non-stairs semantic equality excludes only newly computed chargeQty975 metadata.",
+  "consumerAudit": {
+    "operationalLoads": "Source programme/booking lists and exact loadId lookups; stairs975 has no keys/card",
+    "crew": "kind crew883 only",
+    "flow": "flow891 exact key/kind",
+    "traffic": "traffic903 exact key/kind",
+    "restraint": "restraint924 kinds and keys",
+    "physicalUnits": "unit925 prefix/kind and restraint924 slots",
+    "quantitySubhire": "quantity-subhire964 kind",
+    "genericRecordCounts": "Shared loads-document count increases by one, correctly retained for backup/export"
+  }
+}

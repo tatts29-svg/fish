@@ -10,6 +10,7 @@ from apply_finance975 import apply_finance975
 from stairs975 import apply_stairs975
 from workers975 import apply_workers975
 from sync_cache975 import apply_sync_cache975
+from subhire975 import apply_subhire975
 
 def patch(s):
  if 'arrival-charges975-script' in s: raise ValueError('v9.75 already applied')
@@ -19,6 +20,7 @@ def patch(s):
  s=apply_stairs975(s)
  s=apply_workers975(s)
  s=apply_sync_cache975(s)
+ s=apply_subhire975(s)
  return rep(s,"+ ' · v9.74'","+ ' · v9.75'",'Release footer',__file__)
 
 if __name__=='__main__':

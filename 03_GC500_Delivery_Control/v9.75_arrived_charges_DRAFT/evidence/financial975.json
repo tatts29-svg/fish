@@ -1,0 +1,166 @@
+{
+  "author": "Andrew Fisher",
+  "pass": true,
+  "checks": [
+    {
+      "name": "Native and embedded source unchanged",
+      "pass": true
+    },
+    {
+      "name": "today preserved",
+      "pass": true
+    },
+    {
+      "name": "inventory preserved",
+      "pass": true
+    },
+    {
+      "name": "ep preserved",
+      "pass": true
+    },
+    {
+      "name": "epSupply preserved",
+      "pass": true
+    },
+    {
+      "name": "sourceAliases preserved",
+      "pass": true
+    },
+    {
+      "name": "assets preserved",
+      "pass": true
+    },
+    {
+      "name": "dates preserved",
+      "pass": true
+    },
+    {
+      "name": "pl752 exactly preserved",
+      "pass": true
+    },
+    {
+      "name": "ticks exactly preserved",
+      "pass": true
+    },
+    {
+      "name": "money exactly preserved",
+      "pass": true
+    },
+    {
+      "name": "fenceSplit exactly preserved",
+      "pass": true
+    },
+    {
+      "name": "fence exactly preserved",
+      "pass": true
+    },
+    {
+      "name": "green exactly preserved",
+      "pass": true
+    },
+    {
+      "name": "source949 exactly preserved",
+      "pass": true
+    },
+    {
+      "name": "supplierCosts exactly preserved",
+      "pass": true
+    },
+    {
+      "name": "contracts exactly preserved",
+      "pass": true
+    },
+    {
+      "name": "scope961 exactly preserved",
+      "pass": true
+    },
+    {
+      "name": "Revenue stream hire unchanged",
+      "pass": true
+    },
+    {
+      "name": "Revenue stream rehire unchanged",
+      "pass": true
+    },
+    {
+      "name": "Revenue stream transport unchanged",
+      "pass": true
+    },
+    {
+      "name": "Revenue stream pump unchanged",
+      "pass": true
+    },
+    {
+      "name": "Revenue stream cons unchanged",
+      "pass": true
+    },
+    {
+      "name": "Revenue stream install unchanged",
+      "pass": true
+    },
+    {
+      "name": "Revenue stream event_support unchanged",
+      "pass": true
+    },
+    {
+      "name": "Revenue stream waiver unchanged",
+      "pass": true
+    },
+    {
+      "name": "Cleaning recorded charge preserved",
+      "pass": true
+    },
+    {
+      "name": "Cleaning forecast not negative",
+      "pass": true
+    },
+    {
+      "name": "Cleaning only added once to overall forecast",
+      "pass": true
+    },
+    {
+      "name": "Forecast addition agrees across Finance and P&L",
+      "pass": true
+    },
+    {
+      "name": "pl770 cost preserved",
+      "pass": true
+    },
+    {
+      "name": "pl770 costJob preserved",
+      "pass": true
+    },
+    {
+      "name": "pl770 wages preserved",
+      "pass": true
+    },
+    {
+      "name": "cj wages preserved",
+      "pass": true
+    },
+    {
+      "name": "finance costs preserved",
+      "pass": true
+    },
+    {
+      "name": "Exact three remaining VMS associations",
+      "pass": true
+    },
+    {
+      "name": "Independent financial invariants",
+      "pass": true
+    },
+    {
+      "name": "Native reconciliation ties",
+      "pass": true
+    },
+    {
+      "name": "No errors or operational writes",
+      "pass": true
+    }
+  ],
+  "sha256": "db0a3c517de2de287da6f385c3f5858fd5a54e48d259b03180cf1116aafdb6b7",
+  "nativeVersion": 5196,
+  "financialInvariants": 153,
+  "nativeTies": 17
+}
