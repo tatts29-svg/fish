@@ -2,7 +2,7 @@
 
 Author: Andrew Fisher
 
-READY TO UPLOAD with v9.71 — source frozen and final combined checks passed. Root owns the combined release and publication. No operational records are changed.
+VERIFIED LIVE with v9.71 —9 Oct2026,19:28AEST. Final combined and actual-public checks passed. Root owns the combined release and publication. No operational records are changed.
 
 The 114 unique originals in the reviewed photo index support five applied landmarks: PB1’s blue Queensland bridge (21074), PB2’s red GOLDCOAST. bridge (21110), OT4’s pale seamed advertising span (21134), PB3’s cream finals bridge (21154), and OT5’s black-centre/orange-end Boost span (21162/21018). The old generic orange Coates bridge is removed. These use recovered, reviewed master-plan crossing axes rather than choosing a visually convenient straight. The surrounding streetscape is not claimed to have been rebuilt from every photograph. Source and rendered coordinates are recorded separately: the schematic circuit and master plan have registration error, so illustrative spans extend along the same crossing line to keep posts outside the existing road boundaries. They are not surveyed dimensions or set-out positions.
 
@@ -26,4 +26,6 @@ Frozen source SHA-256: `8259154233f7985d3b9284c27d176161c7e2152cbba8e36de2f24415
 
 Independent source reviewer reran all 62 focused assertions and 15 exact source-reversal checks, and inspected all five original master crossings. No source blocker remains. The final combined release’s phone/night, control/lifecycle and financial preservation checks remain required before publication.
 
-Final combined candidate SHA-256: `f182b59f07ea6f2fbd0a2b09d2efc4e219ef44c9c16a0109304f0f6e89437c5a`;12,831,751bytes;51 scripts. Exact live base: `a271015a9cf6d099b1665d3bcef71bb6fe5b2671d7081739c91b0f04d52205b5`. Sanitised final verification is in the companion v9.71 evidence folder. Public verification follows the guarded upload.
+Final combined candidate SHA-256: `f182b59f07ea6f2fbd0a2b09d2efc4e219ef44c9c16a0109304f0f6e89437c5a`;12,831,751bytes;51 scripts. Exact live base: `a271015a9cf6d099b1665d3bcef71bb6fe5b2671d7081739c91b0f04d52205b5`. Sanitised final verification is in the companion v9.71 evidence folder. Guarded upload verified exact public bytes; actual-public phone check passed12 checks without page/state substitution. Native record5168 unchanged.
+
+Published source commit: `eddf7758`. Publication:9 Oct2026,19:28AEST. Public verification:12/12 actual-public phone checks, no script errors or operational writes; native version5168 unchanged. This release preserves the confirmed labour allowance and separate accommodation/meal expense classification.

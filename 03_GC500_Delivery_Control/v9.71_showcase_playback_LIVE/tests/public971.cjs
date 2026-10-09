@@ -11,8 +11,8 @@ const {open}=require(path.resolve(__dirname,'../../toolchain/harness/open_page.j
   const before=await p.evaluate(()=>JSON.stringify(S));
   ok(await p.evaluate(()=>document.body.innerText.includes('v9.71')),'public footer');
   await p.evaluate(()=>{localStorage.setItem('gc500.showback','circuit3d_day');showOpen();});
-  await p.waitForFunction(()=>GC3D.startupReport971()?.shown&&GC3D.S?.trackDetailReport?.photoLandmarks970?.landmarks?.length===5,null,{timeout:120000});
-  const r=await p.evaluate(()=>{const G=GC3D,S=G.S;const playing=SHOW.playing;showPause();return {landmarks:S.trackDetailReport.photoLandmarks970.landmarks.map(x=>x.id),earlierPhotoFinish:!!S.trackDetailReport.photoTrack920,startup:G.startupReport971(),burnFrom:S.tune.burnFrom_s,burnTo:S.tune.burnTo_s,maxOpeningSmoke:S.tune.maxOpeningSmoke,playing,paused:!SHOW.playing,quality:G.openingQuality(),loop:SHOW.loop,failed:G.failed||null,hiddenMedia:G.playbackRuntime971.report()};});
+  await p.waitForFunction(()=>GC3D.startupReport971()?.shown&&GC3D.S?.dressStats?.photoLandmarks970?.landmarks?.length===5,null,{timeout:120000});
+  const r=await p.evaluate(()=>{const G=GC3D,S=G.S;const playing=SHOW.playing;showPause();return {landmarks:S.dressStats.photoLandmarks970.landmarks.map(x=>x.id),earlierPhotoFinish:!!S.trackDetailReport.photoTrack920,startup:G.startupReport971(),burnFrom:S.tune.burnFrom_s,burnTo:S.tune.burnTo_s,maxOpeningSmoke:S.tune.maxOpeningSmoke,playing,paused:!SHOW.playing,quality:G.openingQuality(),loop:SHOW.loop,failed:G.failed||null,hiddenMedia:G.playbackRuntime971.report()};});
   ok(JSON.stringify(r.landmarks)===JSON.stringify(['PB1','PB2','OT4','PB3','OT5']),'five actual scene landmarks');
   ok(r.earlierPhotoFinish,'earlier concrete and fence detail retained');
   ok(r.startup.prepared&&r.startup.shown&&!r.startup.pending,'startup completed');
