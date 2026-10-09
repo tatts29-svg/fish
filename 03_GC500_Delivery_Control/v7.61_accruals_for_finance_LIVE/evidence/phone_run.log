@@ -1,0 +1,60 @@
+{
+ "pass": true,
+ "checks": {
+  "defaultIsLastCompleteMonth": true,
+  "everyMonthAddsToThePLRevenue": true,
+  "baseplanBilledColumnsRead": true,
+  "sepFencingRevenueIsAllDocketsAtTheCard": true,
+  "sepFencingCostIncurredIsDocketsAtTheirSheetPlusLabourShare": true,
+  "sepFencingInvoicedIsTheConfirmedPOs": true,
+  "sepFencingAccrueIsIncurredLessInvoiced": true,
+  "sepHasWipQuestion": true,
+  "labourPerPieceEqualsThePlan": true,
+  "labourTickedEqualsThePL": true,
+  "monthSwitchRedraws": true,
+  "csvExported": true,
+  "copyTextCarriesTheFigures": true,
+  "noWriteLeftThePage": true,
+  "noHorizontalOverflow": true,
+  "noErrors": true
+ },
+ "sep": {
+  "fenceRev": 120913.08,
+  "fenceCost": {
+   "stream": "Fencing — Advanced Temporary Fencing, rehire cost",
+   "branch": "STPS",
+   "incurred": 74605.72,
+   "invoiced": 42662,
+   "accrue": 31943.72,
+   "action": "accrue",
+   "evidence": "62 dockets dated in September 2026 at Advanced's own sheet $73,397 + their labour and truck hours $1,209 (the green book, apportioned by the dockets) · invoices recorded: 4918492 $8,992 (PO 4647508, Construction week 6); 4922398 $33,670 (PO 4647509, Construction week 5) · 2 POs for the month with no invoice yet (4647515, 4658850)"
+  },
+  "revenueTotal": 177968.05,
+  "costAccrue": 67815.33,
+  "invoiced": 42662,
+  "decisions": 2,
+  "wip": 1
+ },
+ "labourPer": {
+  "charged": 17082.81,
+  "expected": 6943.47,
+  "tocome": 21215.58,
+  "later": 35706.3,
+  "n": 687,
+  "total": 80948.16
+ },
+ "scope": 55816.56,
+ "allHours": {
+  "cna": 1102.5,
+  "salary": 523.5,
+  "hire": 477,
+  "hours": 2103,
+  "cost": 31823.98,
+  "unpriced": 1626,
+  "shifts": 208,
+  "future": 135
+ },
+ "errors": [],
+ "console": [],
+ "overflow": 0
+}

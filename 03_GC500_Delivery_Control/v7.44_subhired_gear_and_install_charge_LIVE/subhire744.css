@@ -1,0 +1,8 @@
+/* v7.44 - Author: Andrew Fisher */
+.sub744{border:1px solid var(--orange);border-radius:8px;padding:12px;margin:0 0 12px;background:var(--tint2);min-width:0}
+.sub744head,.sub744actions,.sub744pick{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.sub744head{justify-content:space-between}.sub744head h3{font-size:14px;margin:0}.sub744existing{overflow-wrap:anywhere;font-size:12px;line-height:1.5;margin:8px 0}
+.sub744form{display:grid;gap:10px;margin-top:10px;min-width:0}.sub744form input,.sub744form textarea,.sub744pick select{box-sizing:border-box;width:100%;min-width:0;max-width:100%}
+.sub744form textarea{font-family:ui-monospace,Consolas,monospace}.sub744actions .btn{max-width:100%;white-space:normal;text-align:left}.sub744mark{border-top:1px solid var(--line);padding-top:8px}
+.sub744off{display:flex;align-items:flex-start;gap:7px;margin:10px 0;font-size:12px}.sub744off input{width:auto;flex:none;margin-top:3px}.sub744result{margin:0;font-size:12px;line-height:1.45;overflow-wrap:anywhere}.sub744pick{margin:10px 0}.sub744pick .f{flex:1 1 220px;min-width:0}
+@media(max-width:600px){.sub744head{align-items:stretch;flex-direction:column}.sub744head .btn{width:100%}.sub744pick .btn{width:100%}}

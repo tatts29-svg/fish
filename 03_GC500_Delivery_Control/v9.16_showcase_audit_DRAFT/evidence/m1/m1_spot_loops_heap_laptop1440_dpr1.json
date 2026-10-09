@@ -1,0 +1,2717 @@
+{
+ "notes": [],
+ "before": {
+  "label": "before open (3 s window after reset)",
+  "t": 14898,
+  "raf": {
+   "anon": {
+    "n": 11,
+    "ms": 124,
+    "max": 67
+   },
+   "step": {
+    "n": 13,
+    "ms": 2,
+    "max": 0
+   },
+   "tick": {
+    "n": 4,
+    "ms": 1,
+    "max": 0
+   }
+  },
+  "intervals": [
+   {
+    "ms": 60000,
+    "site": "at photoOutboxBoot (:36743:2) < at Object.start (:49844:29)"
+   },
+   {
+    "ms": 4000,
+    "site": "at Object.start (:49845:10) < at syncBoot (:49934:57)"
+   }
+  ],
+  "ctx": {
+   "2d": 15
+  },
+  "audioContexts": 0,
+  "moCallbacks": 383,
+  "longTasks": [
+   [
+    1224,
+    305
+   ],
+   [
+    1543,
+    54
+   ],
+   [
+    1736,
+    453
+   ],
+   [
+    2377,
+    380
+   ],
+   [
+    3287,
+    418
+   ],
+   [
+    4044,
+    866
+   ],
+   [
+    4911,
+    151
+   ],
+   [
+    5230,
+    67
+   ],
+   [
+    7018,
+    57
+   ],
+   [
+    8158,
+    110
+   ]
+  ],
+  "canvases": [
+   [
+    "lamps",
+    924,
+    371,
+    true
+   ]
+  ],
+  "heapMB": 43,
+  "dom": 8806,
+  "show": {
+   "open": false,
+   "playing": false,
+   "back": null
+  },
+  "gc3d": null,
+  "opening": "ultra",
+  "w885running": true,
+  "s896run": true,
+  "tw840running": false,
+  "boardTimer": false,
+  "tab": "today"
+ },
+ "before3s": {
+  "label": "before open, 3 s",
+  "t": 17907,
+  "raf": {
+   "anon": {
+    "n": 0,
+    "ms": 0,
+    "max": 0
+   },
+   "step": {
+    "n": 0,
+    "ms": 0,
+    "max": 0
+   },
+   "tick": {
+    "n": 0,
+    "ms": 0,
+    "max": 0
+   }
+  },
+  "intervals": [
+   {
+    "ms": 60000,
+    "site": "at photoOutboxBoot (:36743:2) < at Object.start (:49844:29)"
+   },
+   {
+    "ms": 4000,
+    "site": "at Object.start (:49845:10) < at syncBoot (:49934:57)"
+   }
+  ],
+  "ctx": {
+   "2d": 15
+  },
+  "audioContexts": 0,
+  "moCallbacks": 392,
+  "longTasks": [],
+  "canvases": [
+   [
+    "lamps",
+    924,
+    371,
+    true
+   ]
+  ],
+  "heapMB": 43,
+  "dom": 8806,
+  "show": {
+   "open": false,
+   "playing": false,
+   "back": null
+  },
+  "gc3d": null,
+  "opening": "ultra",
+  "w885running": true,
+  "s896run": true,
+  "tw840running": false,
+  "boardTimer": false,
+  "tab": "today"
+ },
+ "costs": {
+  "stringifyS": 3.6,
+  "stringifyBytes": 427124,
+  "render": 487.1,
+  "render2": 481.2,
+  "scenes": {
+   "countdown": 76.3,
+   "lead": 55.6,
+   "crew": 45,
+   "equipment": 44.8,
+   "complete": 41.2,
+   "fencing": 48.1,
+   "fence": 62.6,
+   "fenceprog": 74.3,
+   "effort": 137.3,
+   "site": 129.7
+  },
+  "completionAsOf": 41.3,
+  "lightTally": 7.2
+ },
+ "openMs": 6850,
+ "timeline": [
+  {
+   "label": "open +12s",
+   "t": 31651,
+   "raf": {
+    "anon": {
+     "n": 5,
+     "ms": 25,
+     "max": 15
+    },
+    "step": {
+     "n": 0,
+     "ms": 0,
+     "max": 0
+    },
+    "tick": {
+     "n": 0,
+     "ms": 0,
+     "max": 0
+    },
+    "frame": {
+     "n": 3,
+     "ms": 4164,
+     "max": 4158
+    }
+   },
+   "intervals": [
+    {
+     "ms": 60000,
+     "site": "at photoOutboxBoot (:36743:2) < at Object.start (:49844:29)"
+    },
+    {
+     "ms": 4000,
+     "site": "at Object.start (:49845:10) < at syncBoot (:49934:57)"
+    },
+    {
+     "ms": 1000,
+     "site": "at showRender (:48560:49) < at showOpen (:48611:2)"
+    },
+    {
+     "ms": 4000,
+     "site": "at showWatchdogStart (:50721:65) < at showOpen (:48613:2)"
+    }
+   ],
+   "ctx": {
+    "2d": 25,
+    "webgl2": 1
+   },
+   "audioContexts": 0,
+   "moCallbacks": 495,
+   "longTasks": [
+    [
+     17911,
+     1764
+    ],
+    [
+     19794,
+     6852
+    ],
+    [
+     26646,
+     4182
+    ]
+   ],
+   "canvases": [
+    [
+     "lamps",
+     924,
+     371,
+     true
+    ],
+    [
+     "shlaps",
+     1440,
+     668,
+     true
+    ],
+    [
+     "gc3d",
+     1800,
+     835,
+     true
+    ]
+   ],
+   "heapMB": 492,
+   "dom": 8864,
+   "show": {
+    "open": true,
+    "playing": true,
+    "back": "circuit3d"
+   },
+   "gc3d": {
+    "quality": "ultra",
+    "step": null,
+    "fps": null,
+    "ss": 1,
+    "bloom": true,
+    "refl": false,
+    "shadowOff": false,
+    "cv": [
+     1800,
+     835
+    ],
+    "frames": 3,
+    "revived": 0,
+    "detail781": true,
+    "beatWorst": 4263
+   },
+   "failed": null,
+   "opening": "ultra",
+   "w885running": true,
+   "s896run": false,
+   "tw840running": false,
+   "boardTimer": false,
+   "tab": "today"
+  },
+  {
+   "label": "open +17s",
+   "t": 36659,
+   "raf": {
+    "anon": {
+     "n": 0,
+     "ms": 0,
+     "max": 0
+    },
+    "step": {
+     "n": 0,
+     "ms": 0,
+     "max": 0
+    },
+    "tick": {
+     "n": 0,
+     "ms": 0,
+     "max": 0
+    },
+    "frame": {
+     "n": 0,
+     "ms": 0,
+     "max": 0
+    }
+   },
+   "intervals": [
+    {
+     "ms": 60000,
+     "site": "at photoOutboxBoot (:36743:2) < at Object.start (:49844:29)"
+    },
+    {
+     "ms": 4000,
+     "site": "at Object.start (:49845:10) < at syncBoot (:49934:57)"
+    },
+    {
+     "ms": 1000,
+     "site": "at showRender (:48560:49) < at showOpen (:48611:2)"
+    },
+    {
+     "ms": 4000,
+     "site": "at showWatchdogStart (:50721:65) < at showOpen (:48613:2)"
+    }
+   ],
+   "ctx": {
+    "2d": 25,
+    "webgl2": 1
+   },
+   "audioContexts": 0,
+   "moCallbacks": 535,
+   "longTasks": [],
+   "canvases": [
+    [
+     "lamps",
+     924,
+     371,
+     true
+    ],
+    [
+     "shlaps",
+     1440,
+     668,
+     true
+    ],
+    [
+     "gc3d",
+     1800,
+     835,
+     true
+    ]
+   ],
+   "heapMB": 492,
+   "dom": 8864,
+   "show": {
+    "open": true,
+    "playing": true,
+    "back": "circuit3d"
+   },
+   "gc3d": {
+    "quality": "ultra",
+    "step": null,
+    "fps": null,
+    "ss": 1,
+    "bloom": true,
+    "refl": false,
+    "shadowOff": false,
+    "cv": [
+     1800,
+     835
+    ],
+    "frames": 3,
+    "revived": 0,
+    "detail781": true,
+    "beatWorst": 4263
+   },
+   "failed": null,
+   "opening": "ultra",
+   "w885running": true,
+   "s896run": false,
+   "tw840running": false,
+   "boardTimer": false,
+   "tab": "today"
+  },
+  {
+   "label": "open +22s",
+   "t": 41683,
+   "raf": {
+    "anon": {
+     "n": 0,
+     "ms": 0,
+     "max": 0
+    },
+    "step": {
+     "n": 0,
+     "ms": 0,
+     "max": 0
+    },
+    "tick": {
+     "n": 0,
+     "ms": 0,
+     "max": 0
+    },
+    "frame": {
+     "n": 0,
+     "ms": 0,
+     "max": 0
+    }
+   },
+   "intervals": [
+    {
+     "ms": 60000,
+     "site": "at photoOutboxBoot (:36743:2) < at Object.start (:49844:29)"
+    },
+    {
+     "ms": 4000,
+     "site": "at Object.start (:49845:10) < at syncBoot (:49934:57)"
+    },
+    {
+     "ms": 1000,
+     "site": "at showRender (:48560:49) < at showOpen (:48611:2)"
+    },
+    {
+     "ms": 4000,
+     "site": "at showWatchdogStart (:50721:65) < at showOpen (:48613:2)"
+    }
+   ],
+   "ctx": {
+    "2d": 25,
+    "webgl2": 1
+   },
+   "audioContexts": 0,
+   "moCallbacks": 570,
+   "longTasks": [],
+   "canvases": [
+    [
+     "lamps",
+     924,
+     371,
+     true
+    ],
+    [
+     "shlaps",
+     1440,
+     668,
+     true
+    ],
+    [
+     "gc3d",
+     1800,
+     835,
+     true
+    ]
+   ],
+   "heapMB": 480,
+   "dom": 8864,
+   "show": {
+    "open": true,
+    "playing": true,
+    "back": "circuit3d"
+   },
+   "gc3d": {
+    "quality": "ultra",
+    "step": null,
+    "fps": null,
+    "ss": 1,
+    "bloom": true,
+    "refl": false,
+    "shadowOff": false,
+    "cv": [
+     1800,
+     835
+    ],
+    "frames": 3,
+    "revived": 0,
+    "detail781": true,
+    "beatWorst": 4263
+   },
+   "failed": null,
+   "opening": "ultra",
+   "w885running": true,
+   "s896run": false,
+   "tw840running": false,
+   "boardTimer": false,
+   "tab": "today"
+  },
+  {
+   "label": "open +27s",
+   "t": 46703,
+   "raf": {
+    "anon": {
+     "n": 0,
+     "ms": 0,
+     "max": 0
+    },
+    "step": {
+     "n": 0,
+     "ms": 0,
+     "max": 0
+    },
+    "tick": {
+     "n": 0,
+     "ms": 0,
+     "max": 0
+    },
+    "frame": {
+     "n": 0,
+     "ms": 0,
+     "max": 0
+    }
+   },
+   "intervals": [
+    {
+     "ms": 60000,
+     "site": "at photoOutboxBoot (:36743:2) < at Object.start (:49844:29)"
+    },
+    {
+     "ms": 4000,
+     "site": "at Object.start (:49845:10) < at syncBoot (:49934:57)"
+    },
+    {
+     "ms": 4000,
+     "site": "at showWatchdogStart (:50721:65) < at showOpen (:48613:2)"
+    }
+   ],
+   "ctx": {
+    "2d": 25,
+    "webgl2": 1
+   },
+   "audioContexts": 0,
+   "moCallbacks": 598,
+   "longTasks": [
+    [
+     41749,
+     106
+    ]
+   ],
+   "canvases": [
+    [
+     "lamps",
+     924,
+     371,
+     true
+    ],
+    [
+     "shlaps",
+     1440,
+     668,
+     true
+    ],
+    [
+     "gc3d",
+     1800,
+     835,
+     true
+    ]
+   ],
+   "heapMB": 486,
+   "dom": 8904,
+   "show": {
+    "open": true,
+    "playing": true,
+    "back": "circuit3d"
+   },
+   "gc3d": {
+    "quality": "ultra",
+    "step": null,
+    "fps": null,
+    "ss": 1,
+    "bloom": true,
+    "refl": false,
+    "shadowOff": false,
+    "cv": [
+     1800,
+     835
+    ],
+    "frames": 3,
+    "revived": 0,
+    "detail781": true,
+    "beatWorst": 4263
+   },
+   "failed": null,
+   "opening": "ultra",
+   "w885running": true,
+   "s896run": false,
+   "tw840running": false,
+   "boardTimer": false,
+   "tab": "today"
+  },
+  {
+   "label": "open +32s",
+   "t": 51712,
+   "raf": {
+    "anon": {
+     "n": 0,
+     "ms": 0,
+     "max": 0
+    },
+    "step": {
+     "n": 0,
+     "ms": 0,
+     "max": 0
+    },
+    "tick": {
+     "n": 0,
+     "ms": 0,
+     "max": 0
+    },
+    "frame": {
+     "n": 0,
+     "ms": 0,
+     "max": 0
+    }
+   },
+   "intervals": [
+    {
+     "ms": 60000,
+     "site": "at photoOutboxBoot (:36743:2) < at Object.start (:49844:29)"
+    },
+    {
+     "ms": 4000,
+     "site": "at Object.start (:49845:10) < at syncBoot (:49934:57)"
+    },
+    {
+     "ms": 4000,
+     "site": "at showWatchdogStart (:50721:65) < at showOpen (:48613:2)"
+    }
+   ],
+   "ctx": {
+    "2d": 25,
+    "webgl2": 1
+   },
+   "audioContexts": 0,
+   "moCallbacks": 618,
+   "longTasks": [],
+   "canvases": [
+    [
+     "lamps",
+     924,
+     371,
+     true
+    ],
+    [
+     "shlaps",
+     1440,
+     668,
+     true
+    ],
+    [
+     "gc3d",
+     1800,
+     835,
+     true
+    ]
+   ],
+   "heapMB": 486,
+   "dom": 8904,
+   "show": {
+    "open": true,
+    "playing": true,
+    "back": "circuit3d"
+   },
+   "gc3d": {
+    "quality": "ultra",
+    "step": null,
+    "fps": null,
+    "ss": 1,
+    "bloom": true,
+    "refl": false,
+    "shadowOff": false,
+    "cv": [
+     1800,
+     835
+    ],
+    "frames": 3,
+    "revived": 0,
+    "detail781": true,
+    "beatWorst": 4263
+   },
+   "failed": null,
+   "opening": "ultra",
+   "w885running": true,
+   "s896run": false,
+   "tw840running": false,
+   "boardTimer": false,
+   "tab": "today"
+  },
+  {
+   "label": "open +37s",
+   "t": 56728,
+   "raf": {
+    "anon": {
+     "n": 0,
+     "ms": 0,
+     "max": 0
+    },
+    "step": {
+     "n": 0,
+     "ms": 0,
+     "max": 0
+    },
+    "tick": {
+     "n": 0,
+     "ms": 0,
+     "max": 0
+    },
+    "frame": {
+     "n": 0,
+     "ms": 0,
+     "max": 0
+    }
+   },
+   "intervals": [
+    {
+     "ms": 60000,
+     "site": "at photoOutboxBoot (:36743:2) < at Object.start (:49844:29)"
+    },
+    {
+     "ms": 4000,
+     "site": "at Object.start (:49845:10) < at syncBoot (:49934:57)"
+    },
+    {
+     "ms": 4000,
+     "site": "at showWatchdogStart (:50721:65) < at showOpen (:48613:2)"
+    }
+   ],
+   "ctx": {
+    "2d": 25,
+    "webgl2": 1
+   },
+   "audioContexts": 0,
+   "moCallbacks": 641,
+   "longTasks": [
+    [
+     51858,
+     89
+    ]
+   ],
+   "canvases": [
+    [
+     "lamps",
+     924,
+     371,
+     true
+    ],
+    [
+     "shlaps",
+     1440,
+     668,
+     true
+    ],
+    [
+     "gc3d",
+     1800,
+     835,
+     true
+    ]
+   ],
+   "heapMB": 486,
+   "dom": 8883,
+   "show": {
+    "open": true,
+    "playing": true,
+    "back": "circuit3d"
+   },
+   "gc3d": {
+    "quality": "ultra",
+    "step": null,
+    "fps": null,
+    "ss": 1,
+    "bloom": true,
+    "refl": false,
+    "shadowOff": false,
+    "cv": [
+     1800,
+     835
+    ],
+    "frames": 3,
+    "revived": 0,
+    "detail781": true,
+    "beatWorst": 4263
+   },
+   "failed": null,
+   "opening": "ultra",
+   "w885running": true,
+   "s896run": false,
+   "tw840running": false,
+   "boardTimer": false,
+   "tab": "today"
+  },
+  {
+   "label": "open +42s",
+   "t": 61735,
+   "raf": {
+    "anon": {
+     "n": 0,
+     "ms": 0,
+     "max": 0
+    },
+    "step": {
+     "n": 0,
+     "ms": 0,
+     "max": 0
+    },
+    "tick": {
+     "n": 0,
+     "ms": 0,
+     "max": 0
+    },
+    "frame": {
+     "n": 0,
+     "ms": 0,
+     "max": 0
+    }
+   },
+   "intervals": [
+    {
+     "ms": 60000,
+     "site": "at photoOutboxBoot (:36743:2) < at Object.start (:49844:29)"
+    },
+    {
+     "ms": 4000,
+     "site": "at Object.start (:49845:10) < at syncBoot (:49934:57)"
+    },
+    {
+     "ms": 4000,
+     "site": "at showWatchdogStart (:50721:65) < at showOpen (:48613:2)"
+    }
+   ],
+   "ctx": {
+    "2d": 25,
+    "webgl2": 1
+   },
+   "audioContexts": 0,
+   "moCallbacks": 661,
+   "longTasks": [],
+   "canvases": [
+    [
+     "lamps",
+     924,
+     371,
+     true
+    ],
+    [
+     "shlaps",
+     1440,
+     668,
+     true
+    ],
+    [
+     "gc3d",
+     1800,
+     835,
+     true
+    ]
+   ],
+   "heapMB": 486,
+   "dom": 8883,
+   "show": {
+    "open": true,
+    "playing": true,
+    "back": "circuit3d"
+   },
+   "gc3d": {
+    "quality": "ultra",
+    "step": null,
+    "fps": null,
+    "ss": 1,
+    "bloom": true,
+    "refl": false,
+    "shadowOff": false,
+    "cv": [
+     1800,
+     835
+    ],
+    "frames": 3,
+    "revived": 0,
+    "detail781": true,
+    "beatWorst": 4263
+   },
+   "failed": null,
+   "opening": "ultra",
+   "w885running": true,
+   "s896run": false,
+   "tw840running": false,
+   "boardTimer": false,
+   "tab": "today"
+  },
+  {
+   "label": "open +47s",
+   "t": 66744,
+   "raf": {
+    "anon": {
+     "n": 0,
+     "ms": 0,
+     "max": 0
+    },
+    "step": {
+     "n": 0,
+     "ms": 0,
+     "max": 0
+    },
+    "tick": {
+     "n": 0,
+     "ms": 0,
+     "max": 0
+    },
+    "frame": {
+     "n": 1,
+     "ms": 4,
+     "max": 4
+    }
+   },
+   "intervals": [
+    {
+     "ms": 60000,
+     "site": "at photoOutboxBoot (:36743:2) < at Object.start (:49844:29)"
+    },
+    {
+     "ms": 4000,
+     "site": "at Object.start (:49845:10) < at syncBoot (:49934:57)"
+    },
+    {
+     "ms": 4000,
+     "site": "at showWatchdogStart (:50721:65) < at showOpen (:48613:2)"
+    }
+   ],
+   "ctx": {
+    "2d": 25,
+    "webgl2": 1
+   },
+   "audioContexts": 0,
+   "moCallbacks": 692,
+   "longTasks": [
+    [
+     61947,
+     85
+    ]
+   ],
+   "canvases": [
+    [
+     "lamps",
+     924,
+     371,
+     true
+    ],
+    [
+     "shlaps",
+     1440,
+     668,
+     true
+    ],
+    [
+     "gc3d",
+     1800,
+     835,
+     true
+    ]
+   ],
+   "heapMB": 487,
+   "dom": 8862,
+   "show": {
+    "open": true,
+    "playing": true,
+    "back": "circuit3d"
+   },
+   "gc3d": {
+    "quality": "ultra",
+    "step": null,
+    "fps": null,
+    "ss": 1,
+    "bloom": true,
+    "refl": false,
+    "shadowOff": false,
+    "cv": [
+     1800,
+     835
+    ],
+    "frames": 4,
+    "revived": 0,
+    "detail781": true,
+    "beatWorst": 35196
+   },
+   "failed": null,
+   "opening": "ultra",
+   "w885running": true,
+   "s896run": false,
+   "tw840running": false,
+   "boardTimer": false,
+   "tab": "today"
+  },
+  {
+   "label": "open +52s",
+   "t": 71755,
+   "raf": {
+    "anon": {
+     "n": 0,
+     "ms": 0,
+     "max": 0
+    },
+    "step": {
+     "n": 0,
+     "ms": 0,
+     "max": 0
+    },
+    "tick": {
+     "n": 0,
+     "ms": 0,
+     "max": 0
+    },
+    "frame": {
+     "n": 0,
+     "ms": 0,
+     "max": 0
+    }
+   },
+   "intervals": [
+    {
+     "ms": 60000,
+     "site": "at photoOutboxBoot (:36743:2) < at Object.start (:49844:29)"
+    },
+    {
+     "ms": 4000,
+     "site": "at Object.start (:49845:10) < at syncBoot (:49934:57)"
+    },
+    {
+     "ms": 4000,
+     "site": "at showWatchdogStart (:50721:65) < at showOpen (:48613:2)"
+    }
+   ],
+   "ctx": {
+    "2d": 25,
+    "webgl2": 1
+   },
+   "audioContexts": 0,
+   "moCallbacks": 715,
+   "longTasks": [
+    [
+     70037,
+     107
+    ]
+   ],
+   "canvases": [
+    [
+     "lamps",
+     924,
+     371,
+     true
+    ],
+    [
+     "shlaps",
+     1440,
+     668,
+     true
+    ],
+    [
+     "gc3d",
+     1800,
+     835,
+     true
+    ]
+   ],
+   "heapMB": 488,
+   "dom": 8871,
+   "show": {
+    "open": true,
+    "playing": true,
+    "back": "circuit3d"
+   },
+   "gc3d": {
+    "quality": "ultra",
+    "step": null,
+    "fps": null,
+    "ss": 1,
+    "bloom": true,
+    "refl": false,
+    "shadowOff": false,
+    "cv": [
+     1800,
+     835
+    ],
+    "frames": 4,
+    "revived": 0,
+    "detail781": true,
+    "beatWorst": 35196
+   },
+   "failed": null,
+   "opening": "ultra",
+   "w885running": true,
+   "s896run": false,
+   "tw840running": false,
+   "boardTimer": false,
+   "tab": "today"
+  },
+  {
+   "label": "open +57s",
+   "t": 76779,
+   "raf": {
+    "anon": {
+     "n": 0,
+     "ms": 0,
+     "max": 0
+    },
+    "step": {
+     "n": 0,
+     "ms": 0,
+     "max": 0
+    },
+    "tick": {
+     "n": 0,
+     "ms": 0,
+     "max": 0
+    },
+    "frame": {
+     "n": 0,
+     "ms": 0,
+     "max": 0
+    }
+   },
+   "intervals": [
+    {
+     "ms": 60000,
+     "site": "at photoOutboxBoot (:36743:2) < at Object.start (:49844:29)"
+    },
+    {
+     "ms": 4000,
+     "site": "at Object.start (:49845:10) < at syncBoot (:49934:57)"
+    },
+    {
+     "ms": 4000,
+     "site": "at showWatchdogStart (:50721:65) < at showOpen (:48613:2)"
+    }
+   ],
+   "ctx": {
+    "2d": 25,
+    "webgl2": 1
+   },
+   "audioContexts": 0,
+   "moCallbacks": 735,
+   "longTasks": [],
+   "canvases": [
+    [
+     "lamps",
+     924,
+     371,
+     true
+    ],
+    [
+     "shlaps",
+     1440,
+     668,
+     true
+    ],
+    [
+     "gc3d",
+     1800,
+     835,
+     true
+    ]
+   ],
+   "heapMB": 488,
+   "dom": 8871,
+   "show": {
+    "open": true,
+    "playing": true,
+    "back": "circuit3d"
+   },
+   "gc3d": {
+    "quality": "ultra",
+    "step": null,
+    "fps": null,
+    "ss": 1,
+    "bloom": true,
+    "refl": false,
+    "shadowOff": false,
+    "cv": [
+     1800,
+     835
+    ],
+    "frames": 4,
+    "revived": 0,
+    "detail781": true,
+    "beatWorst": 35196
+   },
+   "failed": null,
+   "opening": "ultra",
+   "w885running": true,
+   "s896run": false,
+   "tw840running": false,
+   "boardTimer": false,
+   "tab": "today"
+  },
+  {
+   "label": "open +62s",
+   "t": 81788,
+   "raf": {
+    "anon": {
+     "n": 0,
+     "ms": 0,
+     "max": 0
+    },
+    "step": {
+     "n": 0,
+     "ms": 0,
+     "max": 0
+    },
+    "tick": {
+     "n": 0,
+     "ms": 0,
+     "max": 0
+    },
+    "frame": {
+     "n": 0,
+     "ms": 0,
+     "max": 0
+    }
+   },
+   "intervals": [
+    {
+     "ms": 60000,
+     "site": "at photoOutboxBoot (:36743:2) < at Object.start (:49844:29)"
+    },
+    {
+     "ms": 4000,
+     "site": "at Object.start (:49845:10) < at syncBoot (:49934:57)"
+    },
+    {
+     "ms": 4000,
+     "site": "at showWatchdogStart (:50721:65) < at showOpen (:48613:2)"
+    }
+   ],
+   "ctx": {
+    "2d": 25,
+    "webgl2": 1
+   },
+   "audioContexts": 0,
+   "moCallbacks": 758,
+   "longTasks": [
+    [
+     78144,
+     59
+    ]
+   ],
+   "canvases": [
+    [
+     "lamps",
+     924,
+     371,
+     true
+    ],
+    [
+     "shlaps",
+     1440,
+     668,
+     true
+    ],
+    [
+     "gc3d",
+     1800,
+     835,
+     true
+    ]
+   ],
+   "heapMB": 490,
+   "dom": 8896,
+   "show": {
+    "open": true,
+    "playing": true,
+    "back": "circuit3d"
+   },
+   "gc3d": {
+    "quality": "ultra",
+    "step": null,
+    "fps": null,
+    "ss": 1,
+    "bloom": true,
+    "refl": false,
+    "shadowOff": false,
+    "cv": [
+     1800,
+     835
+    ],
+    "frames": 4,
+    "revived": 0,
+    "detail781": true,
+    "beatWorst": 35196
+   },
+   "failed": null,
+   "opening": "ultra",
+   "w885running": true,
+   "s896run": false,
+   "tw840running": false,
+   "boardTimer": false,
+   "tab": "today"
+  },
+  {
+   "label": "open +67s",
+   "t": 86795,
+   "raf": {
+    "anon": {
+     "n": 0,
+     "ms": 0,
+     "max": 0
+    },
+    "step": {
+     "n": 0,
+     "ms": 0,
+     "max": 0
+    },
+    "tick": {
+     "n": 0,
+     "ms": 0,
+     "max": 0
+    },
+    "frame": {
+     "n": 0,
+     "ms": 0,
+     "max": 0
+    }
+   },
+   "intervals": [
+    {
+     "ms": 60000,
+     "site": "at photoOutboxBoot (:36743:2) < at Object.start (:49844:29)"
+    },
+    {
+     "ms": 4000,
+     "site": "at Object.start (:49845:10) < at syncBoot (:49934:57)"
+    },
+    {
+     "ms": 4000,
+     "site": "at showWatchdogStart (:50721:65) < at showOpen (:48613:2)"
+    }
+   ],
+   "ctx": {
+    "2d": 25,
+    "webgl2": 1
+   },
+   "audioContexts": 0,
+   "moCallbacks": 783,
+   "longTasks": [],
+   "canvases": [
+    [
+     "lamps",
+     924,
+     371,
+     true
+    ],
+    [
+     "shlaps",
+     1440,
+     668,
+     true
+    ],
+    [
+     "gc3d",
+     1800,
+     835,
+     true
+    ]
+   ],
+   "heapMB": 490,
+   "dom": 8896,
+   "show": {
+    "open": true,
+    "playing": true,
+    "back": "circuit3d"
+   },
+   "gc3d": {
+    "quality": "ultra",
+    "step": null,
+    "fps": null,
+    "ss": 1,
+    "bloom": true,
+    "refl": false,
+    "shadowOff": false,
+    "cv": [
+     1800,
+     835
+    ],
+    "frames": 4,
+    "revived": 0,
+    "detail781": true,
+    "beatWorst": 35196
+   },
+   "failed": null,
+   "opening": "ultra",
+   "w885running": true,
+   "s896run": false,
+   "tw840running": false,
+   "boardTimer": false,
+   "tab": "today"
+  },
+  {
+   "label": "open +72s",
+   "t": 91819,
+   "raf": {
+    "anon": {
+     "n": 0,
+     "ms": 0,
+     "max": 0
+    },
+    "step": {
+     "n": 0,
+     "ms": 0,
+     "max": 0
+    },
+    "tick": {
+     "n": 0,
+     "ms": 0,
+     "max": 0
+    },
+    "frame": {
+     "n": 1,
+     "ms": 4,
+     "max": 4
+    }
+   },
+   "intervals": [
+    {
+     "ms": 60000,
+     "site": "at photoOutboxBoot (:36743:2) < at Object.start (:49844:29)"
+    },
+    {
+     "ms": 4000,
+     "site": "at Object.start (:49845:10) < at syncBoot (:49934:57)"
+    },
+    {
+     "ms": 4000,
+     "site": "at showWatchdogStart (:50721:65) < at showOpen (:48613:2)"
+    }
+   ],
+   "ctx": {
+    "2d": 25,
+    "webgl2": 1
+   },
+   "audioContexts": 0,
+   "moCallbacks": 809,
+   "longTasks": [
+    [
+     88204,
+     123
+    ]
+   ],
+   "canvases": [
+    [
+     "lamps",
+     924,
+     371,
+     true
+    ],
+    [
+     "shlaps",
+     1440,
+     668,
+     true
+    ],
+    [
+     "gc3d",
+     1800,
+     835,
+     true
+    ]
+   ],
+   "heapMB": 493,
+   "dom": 8866,
+   "show": {
+    "open": true,
+    "playing": true,
+    "back": "circuit3d"
+   },
+   "gc3d": {
+    "quality": "high",
+    "step": "detail High",
+    "fps": 1,
+    "ss": 1,
+    "bloom": true,
+    "refl": false,
+    "shadowOff": false,
+    "cv": [
+     1800,
+     835
+    ],
+    "frames": 5,
+    "revived": 0,
+    "detail781": true,
+    "beatWorst": 35196
+   },
+   "failed": null,
+   "opening": "ultra",
+   "w885running": true,
+   "s896run": false,
+   "tw840running": false,
+   "boardTimer": false,
+   "tab": "today"
+  },
+  {
+   "label": "open +77s",
+   "t": 96830,
+   "raf": {
+    "anon": {
+     "n": 0,
+     "ms": 0,
+     "max": 0
+    },
+    "step": {
+     "n": 0,
+     "ms": 0,
+     "max": 0
+    },
+    "tick": {
+     "n": 0,
+     "ms": 0,
+     "max": 0
+    },
+    "frame": {
+     "n": 0,
+     "ms": 0,
+     "max": 0
+    }
+   },
+   "intervals": [
+    {
+     "ms": 60000,
+     "site": "at photoOutboxBoot (:36743:2) < at Object.start (:49844:29)"
+    },
+    {
+     "ms": 4000,
+     "site": "at Object.start (:49845:10) < at syncBoot (:49934:57)"
+    },
+    {
+     "ms": 4000,
+     "site": "at showWatchdogStart (:50721:65) < at showOpen (:48613:2)"
+    }
+   ],
+   "ctx": {
+    "2d": 25,
+    "webgl2": 1
+   },
+   "audioContexts": 0,
+   "moCallbacks": 832,
+   "longTasks": [
+    [
+     96328,
+     107
+    ]
+   ],
+   "canvases": [
+    [
+     "lamps",
+     924,
+     371,
+     true
+    ],
+    [
+     "shlaps",
+     1440,
+     668,
+     true
+    ],
+    [
+     "gc3d",
+     1800,
+     835,
+     true
+    ]
+   ],
+   "heapMB": 497,
+   "dom": 8885,
+   "show": {
+    "open": true,
+    "playing": true,
+    "back": "circuit3d"
+   },
+   "gc3d": {
+    "quality": "high",
+    "step": "detail High",
+    "fps": 1,
+    "ss": 1,
+    "bloom": true,
+    "refl": false,
+    "shadowOff": false,
+    "cv": [
+     1800,
+     835
+    ],
+    "frames": 5,
+    "revived": 0,
+    "detail781": true,
+    "beatWorst": 35196
+   },
+   "failed": null,
+   "opening": "ultra",
+   "w885running": true,
+   "s896run": false,
+   "tw840running": false,
+   "boardTimer": false,
+   "tab": "today"
+  },
+  {
+   "label": "open +82s",
+   "t": 101837,
+   "raf": {
+    "anon": {
+     "n": 0,
+     "ms": 0,
+     "max": 0
+    },
+    "step": {
+     "n": 0,
+     "ms": 0,
+     "max": 0
+    },
+    "tick": {
+     "n": 0,
+     "ms": 0,
+     "max": 0
+    },
+    "frame": {
+     "n": 0,
+     "ms": 0,
+     "max": 0
+    }
+   },
+   "intervals": [
+    {
+     "ms": 60000,
+     "site": "at photoOutboxBoot (:36743:2) < at Object.start (:49844:29)"
+    },
+    {
+     "ms": 4000,
+     "site": "at Object.start (:49845:10) < at syncBoot (:49934:57)"
+    },
+    {
+     "ms": 4000,
+     "site": "at showWatchdogStart (:50721:65) < at showOpen (:48613:2)"
+    }
+   ],
+   "ctx": {
+    "2d": 25,
+    "webgl2": 1
+   },
+   "audioContexts": 0,
+   "moCallbacks": 852,
+   "longTasks": [],
+   "canvases": [
+    [
+     "lamps",
+     924,
+     371,
+     true
+    ],
+    [
+     "shlaps",
+     1440,
+     668,
+     true
+    ],
+    [
+     "gc3d",
+     1800,
+     835,
+     true
+    ]
+   ],
+   "heapMB": 497,
+   "dom": 8885,
+   "show": {
+    "open": true,
+    "playing": true,
+    "back": "circuit3d"
+   },
+   "gc3d": {
+    "quality": "high",
+    "step": "detail High",
+    "fps": 1,
+    "ss": 1,
+    "bloom": true,
+    "refl": false,
+    "shadowOff": false,
+    "cv": [
+     1800,
+     835
+    ],
+    "frames": 5,
+    "revived": 0,
+    "detail781": true,
+    "beatWorst": 35196
+   },
+   "failed": null,
+   "opening": "ultra",
+   "w885running": true,
+   "s896run": false,
+   "tw840running": false,
+   "boardTimer": false,
+   "tab": "today"
+  },
+  {
+   "label": "open +87s",
+   "t": 106847,
+   "raf": {
+    "anon": {
+     "n": 0,
+     "ms": 0,
+     "max": 0
+    },
+    "step": {
+     "n": 0,
+     "ms": 0,
+     "max": 0
+    },
+    "tick": {
+     "n": 0,
+     "ms": 0,
+     "max": 0
+    },
+    "frame": {
+     "n": 0,
+     "ms": 0,
+     "max": 0
+    }
+   },
+   "intervals": [
+    {
+     "ms": 60000,
+     "site": "at photoOutboxBoot (:36743:2) < at Object.start (:49844:29)"
+    },
+    {
+     "ms": 4000,
+     "site": "at Object.start (:49845:10) < at syncBoot (:49934:57)"
+    },
+    {
+     "ms": 4000,
+     "site": "at showWatchdogStart (:50721:65) < at showOpen (:48613:2)"
+    }
+   ],
+   "ctx": {
+    "2d": 25,
+    "webgl2": 1
+   },
+   "audioContexts": 0,
+   "moCallbacks": 880,
+   "longTasks": [
+    [
+     104438,
+     193
+    ]
+   ],
+   "canvases": [
+    [
+     "lamps",
+     924,
+     371,
+     true
+    ],
+    [
+     "shlaps",
+     1440,
+     668,
+     true
+    ],
+    [
+     "gc3d",
+     1800,
+     835,
+     true
+    ]
+   ],
+   "heapMB": 495,
+   "dom": 8878,
+   "show": {
+    "open": true,
+    "playing": true,
+    "back": "circuit3d"
+   },
+   "gc3d": {
+    "quality": "high",
+    "step": "detail High",
+    "fps": 1,
+    "ss": 1,
+    "bloom": true,
+    "refl": false,
+    "shadowOff": false,
+    "cv": [
+     1800,
+     835
+    ],
+    "frames": 5,
+    "revived": 0,
+    "detail781": true,
+    "beatWorst": 35196
+   },
+   "failed": null,
+   "opening": "ultra",
+   "w885running": true,
+   "s896run": false,
+   "tw840running": false,
+   "boardTimer": false,
+   "tab": "today"
+  },
+  {
+   "label": "open +92s",
+   "t": 111856,
+   "raf": {
+    "anon": {
+     "n": 0,
+     "ms": 0,
+     "max": 0
+    },
+    "step": {
+     "n": 0,
+     "ms": 0,
+     "max": 0
+    },
+    "tick": {
+     "n": 0,
+     "ms": 0,
+     "max": 0
+    },
+    "frame": {
+     "n": 0,
+     "ms": 0,
+     "max": 0
+    }
+   },
+   "intervals": [
+    {
+     "ms": 60000,
+     "site": "at photoOutboxBoot (:36743:2) < at Object.start (:49844:29)"
+    },
+    {
+     "ms": 4000,
+     "site": "at Object.start (:49845:10) < at syncBoot (:49934:57)"
+    },
+    {
+     "ms": 4000,
+     "site": "at showWatchdogStart (:50721:65) < at showOpen (:48613:2)"
+    }
+   ],
+   "ctx": {
+    "2d": 25,
+    "webgl2": 1
+   },
+   "audioContexts": 0,
+   "moCallbacks": 900,
+   "longTasks": [],
+   "canvases": [
+    [
+     "lamps",
+     924,
+     371,
+     true
+    ],
+    [
+     "shlaps",
+     1440,
+     668,
+     true
+    ],
+    [
+     "gc3d",
+     1800,
+     835,
+     true
+    ]
+   ],
+   "heapMB": 495,
+   "dom": 8878,
+   "show": {
+    "open": true,
+    "playing": true,
+    "back": "circuit3d"
+   },
+   "gc3d": {
+    "quality": "high",
+    "step": "detail High",
+    "fps": 1,
+    "ss": 1,
+    "bloom": true,
+    "refl": false,
+    "shadowOff": false,
+    "cv": [
+     1800,
+     835
+    ],
+    "frames": 5,
+    "revived": 0,
+    "detail781": true,
+    "beatWorst": 35196
+   },
+   "failed": null,
+   "opening": "ultra",
+   "w885running": true,
+   "s896run": false,
+   "tw840running": false,
+   "boardTimer": false,
+   "tab": "today"
+  },
+  {
+   "label": "open +97s",
+   "t": 172583,
+   "raf": {
+    "anon": {
+     "n": 0,
+     "ms": 0,
+     "max": 0
+    },
+    "step": {
+     "n": 0,
+     "ms": 0,
+     "max": 0
+    },
+    "tick": {
+     "n": 0,
+     "ms": 0,
+     "max": 0
+    },
+    "frame": {
+     "n": 1,
+     "ms": 57282,
+     "max": 57282
+    }
+   },
+   "intervals": [
+    {
+     "ms": 60000,
+     "site": "at photoOutboxBoot (:36743:2) < at Object.start (:49844:29)"
+    },
+    {
+     "ms": 4000,
+     "site": "at Object.start (:49845:10) < at syncBoot (:49934:57)"
+    },
+    {
+     "ms": 4000,
+     "site": "at showWatchdogStart (:50721:65) < at showOpen (:48613:2)"
+    }
+   ],
+   "ctx": {
+    "2d": 25,
+    "webgl2": 1
+   },
+   "audioContexts": 0,
+   "moCallbacks": 923,
+   "longTasks": [
+    [
+     112631,
+     139
+    ]
+   ],
+   "canvases": [
+    [
+     "lamps",
+     924,
+     371,
+     true
+    ],
+    [
+     "shlaps",
+     1440,
+     668,
+     true
+    ],
+    [
+     "gc3d",
+     1440,
+     668,
+     true
+    ]
+   ],
+   "heapMB": 501,
+   "dom": 8870,
+   "show": {
+    "open": true,
+    "playing": true,
+    "back": "circuit3d"
+   },
+   "gc3d": {
+    "quality": "high",
+    "step": "detail High",
+    "fps": 1,
+    "ss": 1,
+    "bloom": true,
+    "refl": false,
+    "shadowOff": false,
+    "cv": [
+     1440,
+     668
+    ],
+    "frames": 6,
+    "revived": 0,
+    "detail781": true,
+    "beatWorst": 35196
+   },
+   "failed": null,
+   "opening": "ultra",
+   "w885running": true,
+   "s896run": false,
+   "tw840running": false,
+   "boardTimer": false,
+   "tab": "today"
+  }
+ ],
+ "inShow": {
+  "showRender": [
+   [
+    "countdown",
+    64.6
+   ],
+   [
+    "lead",
+    44
+   ],
+   [
+    "crew",
+    42.8
+   ],
+   [
+    "equipment",
+    48.5
+   ],
+   [
+    "complete",
+    44.2
+   ],
+   [
+    "fencing",
+    79.5
+   ],
+   [
+    "fence",
+    136.9
+   ],
+   [
+    "fenceprog",
+    165.1
+   ],
+   [
+    "effort",
+    154.4
+   ],
+   [
+    "site",
+    118.5
+   ]
+  ],
+  "showFit": 4.9,
+  "syncLayout": 0.1,
+  "renderBehind": 584.3
+ },
+ "close1": 21482,
+ "afterClose": {
+  "label": "after close +4s",
+  "t": 199639,
+  "raf": {
+   "anon": {
+    "n": 5,
+    "ms": 23,
+    "max": 15
+   },
+   "step": {
+    "n": 0,
+    "ms": 0,
+    "max": 0
+   },
+   "tick": {
+    "n": 0,
+    "ms": 0,
+    "max": 0
+   },
+   "frame": {
+    "n": 0,
+    "ms": 0,
+    "max": 0
+   }
+  },
+  "intervals": [
+   {
+    "ms": 60000,
+    "site": "at photoOutboxBoot (:36743:2) < at Object.start (:49844:29)"
+   },
+   {
+    "ms": 4000,
+    "site": "at Object.start (:49845:10) < at syncBoot (:49934:57)"
+   }
+  ],
+  "ctx": {
+   "2d": 30,
+   "webgl2": 1
+  },
+  "audioContexts": 0,
+  "moCallbacks": 1038,
+  "longTasks": [
+   [
+    115292,
+    57290
+   ],
+   [
+    172594,
+    1500
+   ],
+   [
+    174138,
+    21490
+   ]
+  ],
+  "canvases": [
+   [
+    "lamps",
+    924,
+    371,
+    true
+   ]
+  ],
+  "heapMB": 489,
+  "dom": 8847,
+  "show": {
+   "open": false,
+   "playing": false,
+   "back": "circuit3d"
+  },
+  "gc3d": null,
+  "failed": null,
+  "opening": "ultra",
+  "w885running": true,
+  "s896run": true,
+  "tw840running": false,
+  "boardTimer": false,
+  "tab": "today"
+ },
+ "cycles": [
+  {
+   "openMs": 5009,
+   "mid": {
+    "label": "cycle 1 open +8s",
+    "t": 212665,
+    "raf": {
+     "anon": {
+      "n": 1,
+      "ms": 2,
+      "max": 2
+     },
+     "step": {
+      "n": 0,
+      "ms": 0,
+      "max": 0
+     },
+     "tick": {
+      "n": 0,
+      "ms": 0,
+      "max": 0
+     },
+     "frame": {
+      "n": 3,
+      "ms": 3658,
+      "max": 3648
+     }
+    },
+    "intervals": [
+     {
+      "ms": 60000,
+      "site": "at photoOutboxBoot (:36743:2) < at Object.start (:49844:29)"
+     },
+     {
+      "ms": 4000,
+      "site": "at Object.start (:49845:10) < at syncBoot (:49934:57)"
+     },
+     {
+      "ms": 1000,
+      "site": "at showRender (:48560:49) < at showOpen (:48611:2)"
+     },
+     {
+      "ms": 4000,
+      "site": "at showWatchdogStart (:50721:65) < at showOpen (:48613:2)"
+     }
+    ],
+    "ctx": {
+     "2d": 32,
+     "webgl2": 2
+    },
+    "audioContexts": 0,
+    "moCallbacks": 1106,
+    "longTasks": [
+     [
+      199647,
+      5011
+     ],
+     [
+      204658,
+      3663
+     ]
+    ],
+    "canvases": [
+     [
+      "lamps",
+      924,
+      371,
+      true
+     ],
+     [
+      "shlaps",
+      1440,
+      668,
+      true
+     ],
+     [
+      "gc3d",
+      1800,
+      835,
+      true
+     ]
+    ],
+    "heapMB": 490,
+    "dom": 8864,
+    "show": {
+     "open": true,
+     "playing": true,
+     "back": "circuit3d"
+    },
+    "gc3d": {
+     "quality": "high",
+     "step": "detail High",
+     "fps": 1,
+     "ss": 1,
+     "bloom": true,
+     "refl": false,
+     "shadowOff": false,
+     "cv": [
+      1800,
+      835
+     ],
+     "frames": 3,
+     "revived": 0,
+     "detail781": true,
+     "beatWorst": 3701
+    },
+    "failed": null,
+    "opening": "ultra",
+    "w885running": true,
+    "s896run": false,
+    "tw840running": false,
+    "boardTimer": false,
+    "tab": "today"
+   },
+   "after": {
+    "label": "cycle 1 closed +3s",
+    "t": 285867,
+    "raf": {
+     "anon": {
+      "n": 1,
+      "ms": 1,
+      "max": 1
+     },
+     "step": {
+      "n": 0,
+      "ms": 0,
+      "max": 0
+     },
+     "tick": {
+      "n": 0,
+      "ms": 0,
+      "max": 0
+     },
+     "frame": {
+      "n": 0,
+      "ms": 0,
+      "max": 0
+     }
+    },
+    "intervals": [
+     {
+      "ms": 60000,
+      "site": "at photoOutboxBoot (:36743:2) < at Object.start (:49844:29)"
+     },
+     {
+      "ms": 4000,
+      "site": "at Object.start (:49845:10) < at syncBoot (:49934:57)"
+     }
+    ],
+    "ctx": {
+     "2d": 32,
+     "webgl2": 2
+    },
+    "audioContexts": 0,
+    "moCallbacks": 1133,
+    "longTasks": [
+     [
+      212675,
+      70183
+     ]
+    ],
+    "canvases": [
+     [
+      "lamps",
+      924,
+      371,
+      true
+     ]
+    ],
+    "heapMB": 369,
+    "dom": 8841,
+    "show": {
+     "open": false,
+     "playing": false,
+     "back": "circuit3d"
+    },
+    "gc3d": null,
+    "failed": null,
+    "opening": "ultra",
+    "w885running": true,
+    "s896run": true,
+    "tw840running": false,
+    "boardTimer": false,
+    "tab": "today"
+   }
+  },
+  {
+   "openMs": 4887,
+   "mid": {
+    "label": "cycle 2 open +8s",
+    "t": 298771,
+    "raf": {
+     "anon": {
+      "n": 1,
+      "ms": 6,
+      "max": 6
+     },
+     "step": {
+      "n": 0,
+      "ms": 0,
+      "max": 0
+     },
+     "tick": {
+      "n": 0,
+      "ms": 0,
+      "max": 0
+     },
+     "frame": {
+      "n": 3,
+      "ms": 3497,
+      "max": 3487
+     }
+    },
+    "intervals": [
+     {
+      "ms": 60000,
+      "site": "at photoOutboxBoot (:36743:2) < at Object.start (:49844:29)"
+     },
+     {
+      "ms": 4000,
+      "site": "at Object.start (:49845:10) < at syncBoot (:49934:57)"
+     },
+     {
+      "ms": 1000,
+      "site": "at showRender (:48560:49) < at showOpen (:48611:2)"
+     },
+     {
+      "ms": 4000,
+      "site": "at showWatchdogStart (:50721:65) < at showOpen (:48613:2)"
+     }
+    ],
+    "ctx": {
+     "2d": 34,
+     "webgl2": 3
+    },
+    "audioContexts": 0,
+    "moCallbacks": 1201,
+    "longTasks": [
+     [
+      285874,
+      4889
+     ],
+     [
+      290764,
+      3512
+     ]
+    ],
+    "canvases": [
+     [
+      "lamps",
+      924,
+      371,
+      true
+     ],
+     [
+      "shlaps",
+      1440,
+      668,
+      true
+     ],
+     [
+      "gc3d",
+      1800,
+      835,
+      true
+     ]
+    ],
+    "heapMB": 489,
+    "dom": 8864,
+    "show": {
+     "open": true,
+     "playing": true,
+     "back": "circuit3d"
+    },
+    "gc3d": {
+     "quality": "high",
+     "step": "detail High",
+     "fps": 1,
+     "ss": 1,
+     "bloom": true,
+     "refl": false,
+     "shadowOff": false,
+     "cv": [
+      1800,
+      835
+     ],
+     "frames": 3,
+     "revived": 0,
+     "detail781": true,
+     "beatWorst": 3563
+    },
+    "failed": null,
+    "opening": "ultra",
+    "w885running": true,
+    "s896run": false,
+    "tw840running": false,
+    "boardTimer": false,
+    "tab": "today"
+   },
+   "after": {
+    "label": "cycle 2 closed +3s",
+    "t": 381641,
+    "raf": {
+     "anon": {
+      "n": 1,
+      "ms": 1,
+      "max": 1
+     },
+     "step": {
+      "n": 0,
+      "ms": 0,
+      "max": 0
+     },
+     "tick": {
+      "n": 0,
+      "ms": 0,
+      "max": 0
+     },
+     "frame": {
+      "n": 0,
+      "ms": 0,
+      "max": 0
+     }
+    },
+    "intervals": [
+     {
+      "ms": 60000,
+      "site": "at photoOutboxBoot (:36743:2) < at Object.start (:49844:29)"
+     },
+     {
+      "ms": 4000,
+      "site": "at Object.start (:49845:10) < at syncBoot (:49934:57)"
+     }
+    ],
+    "ctx": {
+     "2d": 34,
+     "webgl2": 3
+    },
+    "audioContexts": 0,
+    "moCallbacks": 1228,
+    "longTasks": [
+     [
+      298788,
+      79850
+     ]
+    ],
+    "canvases": [
+     [
+      "lamps",
+      924,
+      371,
+      true
+     ]
+    ],
+    "heapMB": 369,
+    "dom": 8841,
+    "show": {
+     "open": false,
+     "playing": false,
+     "back": "circuit3d"
+    },
+    "gc3d": null,
+    "failed": null,
+    "opening": "ultra",
+    "w885running": true,
+    "s896run": true,
+    "tw840running": false,
+    "boardTimer": false,
+    "tab": "today"
+   }
+  },
+  {
+   "openMs": 3748,
+   "mid": {
+    "label": "cycle 3 open +8s",
+    "t": 393400,
+    "raf": {
+     "anon": {
+      "n": 1,
+      "ms": 2,
+      "max": 2
+     },
+     "step": {
+      "n": 0,
+      "ms": 0,
+      "max": 0
+     },
+     "tick": {
+      "n": 0,
+      "ms": 0,
+      "max": 0
+     },
+     "frame": {
+      "n": 2,
+      "ms": 3349,
+      "max": 3344
+     }
+    },
+    "intervals": [
+     {
+      "ms": 60000,
+      "site": "at photoOutboxBoot (:36743:2) < at Object.start (:49844:29)"
+     },
+     {
+      "ms": 4000,
+      "site": "at Object.start (:49845:10) < at syncBoot (:49934:57)"
+     },
+     {
+      "ms": 1000,
+      "site": "at showRender (:48560:49) < at showOpen (:48611:2)"
+     },
+     {
+      "ms": 4000,
+      "site": "at showWatchdogStart (:50721:65) < at showOpen (:48613:2)"
+     }
+    ],
+    "ctx": {
+     "2d": 36,
+     "webgl2": 4
+    },
+    "audioContexts": 0,
+    "moCallbacks": 1299,
+    "longTasks": [
+     [
+      381646,
+      3750
+     ],
+     [
+      385397,
+      3359
+     ]
+    ],
+    "canvases": [
+     [
+      "lamps",
+      924,
+      371,
+      true
+     ],
+     [
+      "shlaps",
+      1440,
+      668,
+      true
+     ],
+     [
+      "gc3d",
+      1800,
+      835,
+      true
+     ]
+    ],
+    "heapMB": 489,
+    "dom": 8864,
+    "show": {
+     "open": true,
+     "playing": true,
+     "back": "circuit3d"
+    },
+    "gc3d": {
+     "quality": "ultra",
+     "step": null,
+     "fps": null,
+     "ss": 1,
+     "bloom": true,
+     "refl": false,
+     "shadowOff": false,
+     "cv": [
+      1800,
+      835
+     ],
+     "frames": 2,
+     "revived": 0,
+     "detail781": true,
+     "beatWorst": 4245
+    },
+    "failed": null,
+    "opening": "ultra",
+    "w885running": true,
+    "s896run": false,
+    "tw840running": false,
+    "boardTimer": false,
+    "tab": "today"
+   },
+   "after": {
+    "label": "cycle 3 closed +3s",
+    "t": 442511,
+    "raf": {
+     "anon": {
+      "n": 1,
+      "ms": 1,
+      "max": 1
+     },
+     "step": {
+      "n": 0,
+      "ms": 0,
+      "max": 0
+     },
+     "tick": {
+      "n": 0,
+      "ms": 0,
+      "max": 0
+     },
+     "frame": {
+      "n": 0,
+      "ms": 0,
+      "max": 0
+     }
+    },
+    "intervals": [
+     {
+      "ms": 60000,
+      "site": "at photoOutboxBoot (:36743:2) < at Object.start (:49844:29)"
+     },
+     {
+      "ms": 4000,
+      "site": "at Object.start (:49845:10) < at syncBoot (:49934:57)"
+     }
+    ],
+    "ctx": {
+     "2d": 36,
+     "webgl2": 4
+    },
+    "audioContexts": 0,
+    "moCallbacks": 1326,
+    "longTasks": [
+     [
+      393407,
+      46093
+     ]
+    ],
+    "canvases": [
+     [
+      "lamps",
+      924,
+      371,
+      true
+     ]
+    ],
+    "heapMB": 369,
+    "dom": 8841,
+    "show": {
+     "open": false,
+     "playing": false,
+     "back": "circuit3d"
+    },
+    "gc3d": null,
+    "failed": null,
+    "opening": "ultra",
+    "w885running": true,
+    "s896run": true,
+    "tw840running": false,
+    "boardTimer": false,
+    "tab": "today"
+   }
+  }
+ ],
+ "finalMetrics": {
+  "Documents": 4,
+  "Frames": 4,
+  "JSEventListeners": 376,
+  "Nodes": 15217,
+  "JSHeapUsedSize": 327244508,
+  "JSHeapTotalSize": 328785920
+ },
+ "errors": [],
+ "counts": {
+  "page": 2,
+  "live": 118,
+  "blocked": 0
+ }
+}

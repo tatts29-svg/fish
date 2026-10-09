@@ -1,0 +1,48 @@
+{
+  "author": "Andrew Fisher",
+  "status": "PRIVATE DRAFT packaging only",
+  "base_sha256": "fa32b0a1937b329077923b960688a8927fbaaa2e6283d4d1ce2c6732eb98c213",
+  "source_sha256": "33fa43f8e5fdf04514064484300ef92c38e5479f4d57bf02e8e2504e82dcb7ea",
+  "prototype_sha256": "1d2845f7dff2fe54accb8f9769810271fa36ec6205df48e9ccb08175cd461411",
+  "checks": [
+    {
+      "id": "reviewed_base_hash",
+      "passed": true
+    },
+    {
+      "id": "reviewed_source_hash",
+      "passed": true
+    },
+    {
+      "id": "reviewed_preview_rebuilt_exactly",
+      "passed": true
+    },
+    {
+      "id": "one_component_at_final_body_only",
+      "passed": true
+    },
+    {
+      "id": "all_original_bytes_restored",
+      "passed": true
+    },
+    {
+      "id": "no_new_stylesheet",
+      "passed": true
+    },
+    {
+      "id": "repeat_application_refused",
+      "passed": true
+    },
+    {
+      "id": "changed_base_refused",
+      "passed": true
+    },
+    {
+      "id": "changed_component_refused",
+      "passed": true
+    }
+  ],
+  "passed": 9,
+  "total": 9,
+  "limit": "No release readiness or browser behaviour inferred from these static guards."
+}

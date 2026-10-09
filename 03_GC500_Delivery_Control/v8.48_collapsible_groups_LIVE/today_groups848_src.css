@@ -1,0 +1,62 @@
+/* Author: Andrew Fisher. Consistent native Today disclosures; existing instruments retained. */
+#gc500-work-board840 .tw848-card > .tw848-group {
+  margin:0; padding:0; border:0; border-radius:0; background:transparent;
+  box-shadow:none; color:inherit;
+}
+#gc500-work-board840 .tw848-group > .tw848-group-toggle {
+  display:grid; grid-template-columns:minmax(0,1fr) auto; align-items:center;
+  gap:12px 16px; min-height:56px; margin:0; padding:0; border:0;
+  background:transparent; color:#eff8f6; cursor:pointer; list-style:none;
+  font:500 15px/1.4 Inter,"Segoe UI",Arial,sans-serif; text-shadow:none;
+  letter-spacing:normal; text-transform:none;
+}
+#gc500-work-board840 .tw848-group-toggle::-webkit-details-marker { display:none; }
+#gc500-work-board840 .tw848-group-toggle::marker { content:""; }
+#gc500-work-board840 .tw848-group-toggle:focus-visible { outline:2px solid #ffbd85; outline-offset:7px; border-radius:6px; }
+#gc500-work-board840 .tw848-toggle-title { display:flex; align-items:center; gap:12px; min-width:0; }
+#gc500-work-board840 .tw848-toggle-title > svg { flex:none; width:25px; height:25px; fill:none; stroke:#ffb678; stroke-width:1.7; }
+#gc500-work-board840 .tw848-group-name { min-width:0; font:700 32px/1.15 Inter,"Segoe UI",Arial,sans-serif; }
+#gc500-work-board840 .tw848-toggle-action { display:flex; align-items:center; justify-content:flex-end; gap:8px; min-height:44px; color:#ffbd85; font-weight:600; white-space:nowrap; }
+#gc500-work-board840 .tw848-chevron { display:inline-block; font:500 25px/1 Inter,Arial,sans-serif; }
+#gc500-work-board840 .tw848-action-close { display:none; }
+#gc500-work-board840 .tw848-closed-summary { grid-column:1/-1; display:grid; gap:7px; }
+#gc500-work-board840 .tw848-closed-counts { display:flex; flex-wrap:wrap; gap:8px 25px; color:#d5e3e2; }
+#gc500-work-board840 .tw848-closed-counts > span { display:inline-flex; align-items:baseline; gap:7px; }
+#gc500-work-board840 .tw848-closed-counts strong { font:700 26px/1.2 Inter,Arial,sans-serif; font-variant-numeric:lining-nums tabular-nums; color:#b9f5d8; }
+#gc500-work-board840 .tw848-closed-counts > span:last-child strong { color:#ffb678; }
+#gc500-work-board840 .tw848-closed-basis { color:#bbd0d0; font:400 14px/1.4 Inter,"Segoe UI",Arial,sans-serif; }
+#gc500-work-board840 .tw848-group[open] > .tw848-group-toggle { min-height:44px; padding-bottom:12px; margin-bottom:15px; border-bottom:1px solid #45606a; }
+#gc500-work-board840 .tw848-group[open] > .tw848-group-toggle .tw848-group-name { font-size:20px; }
+#gc500-work-board840 .tw848-group[open] > .tw848-group-toggle .tw848-closed-summary,
+#gc500-work-board840 .tw848-group[open] > .tw848-group-toggle .tw848-action-open { display:none; }
+#gc500-work-board840 .tw848-group[open] > .tw848-group-toggle .tw848-action-close { display:inline; }
+#gc500-work-board840 .tw848-group[open] > .tw848-group-toggle .tw848-chevron { transform:rotate(180deg); }
+#gc500-work-board840 .tw848-card.tw841-fence-card:has(> .tw848-group[open]) { grid-column:1/-1; }
+#gc500-work-board840 .tw848-fence-table th:first-child { width:32%; }
+#gc500-work-board840 .tw848-fence-table .tw846-qty { white-space:normal; overflow-wrap:anywhere; }
+#gc500-work-board840 .tw848-fence-table .tw846-qty strong.tw848-range { font-size:.86em; }
+@container tw846group (max-width:440px) {
+  #gc500-work-board840 .tw848-group > .tw848-group-toggle { grid-template-columns:minmax(0,1fr); gap:9px; }
+  #gc500-work-board840 .tw848-toggle-title { gap:9px; }
+  #gc500-work-board840 .tw848-group-name { font-size:30px; }
+  #gc500-work-board840 .tw848-toggle-action { grid-row:3; justify-content:flex-start; min-height:32px; }
+  #gc500-work-board840 .tw848-group[open] > .tw848-group-toggle { grid-template-columns:minmax(0,1fr) auto; }
+  #gc500-work-board840 .tw848-group[open] > .tw848-group-toggle .tw848-toggle-action { grid-row:auto; }
+  #gc500-work-board840 .tw848-group[open] > .tw848-group-toggle .tw848-toggle-title > svg { display:none; }
+  #gc500-work-board840 .tw848-fence-table .tw846-type-row { grid-template-columns:repeat(2,minmax(0,1fr)); column-gap:15px; row-gap:6px; }
+  #gc500-work-board840 .tw848-fence-table .tw846-type-row > th { width:auto; }
+  #gc500-work-board840 .tw848-fence-table button.tw846-qty { justify-content:flex-start; }
+}
+@container work840 (min-width:2000px) {
+  #gc500-work-board840 .tw848-group-name { font-size:40px; }
+  #gc500-work-board840 .tw848-group > .tw848-group-toggle { font-size:19px; }
+  #gc500-work-board840 .tw848-closed-basis { font-size:18px; }
+  #gc500-work-board840 .tw848-closed-counts strong { font-size:34px; }
+  #gc500-work-board840 .tw848-group[open] > .tw848-group-toggle .tw848-group-name { font-size:25px; }
+}
+@media print {
+  #gc500-work-board840 .tw848-group > .tw848-group-toggle { display:none!important; }
+  #gc500-work-board840 .tw848-group-body { display:block!important; }
+  #gc500-work-board840 .tw848-group { color:#111!important; }
+  #gc500-work-board840 .tw848-fence-table .tw846-qty { color:#111!important; }
+}

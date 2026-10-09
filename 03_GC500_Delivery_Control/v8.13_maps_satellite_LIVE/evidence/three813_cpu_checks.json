@@ -1,0 +1,155 @@
+{
+  "author": "Andrew Fisher",
+  "poc_sha256": "7edf7b5ac55c1cf5f60f35b72d577d8e257854e2e482b1b93796e498edcf5ac4",
+  "merge_sha256": "bbc441e67211d6a3f73d64c9fffcace96335baf803d22980236a461942ccda2c",
+  "checks": [
+    {
+      "name": "missing library classified without map request",
+      "pass": true
+    },
+    {
+      "name": "missing library exposes manual Retry",
+      "pass": true
+    },
+    {
+      "name": "access failure classified and no automatic retry",
+      "pass": true
+    },
+    {
+      "name": "one explicit Retry reloads once",
+      "pass": true
+    },
+    {
+      "name": "graphics unavailable differs from network",
+      "pass": true
+    },
+    {
+      "name": "imagery failure retains useful network recovery",
+      "pass": true
+    },
+    {
+      "name": "slow startup exposes recovery without reload",
+      "pass": true
+    },
+    {
+      "name": "late success clears slow state and notifies parent",
+      "pass": true
+    },
+    {
+      "name": "slow startup opened imagery only once",
+      "pass": true
+    },
+    {
+      "name": "context loss during startup cannot be cleared by late imagery",
+      "pass": true
+    },
+    {
+      "name": "context loss stops render loop pending explicit retry",
+      "pass": true
+    },
+    {
+      "name": "running context loss exposes Retry and stops flight",
+      "pass": true
+    },
+    {
+      "name": "terminal failure clears child readiness",
+      "pass": true
+    },
+    {
+      "name": "ground camera is above measured local datum",
+      "pass": true
+    },
+    {
+      "name": "ground label describes relative local height",
+      "pass": true
+    },
+    {
+      "name": "street camera is above measured local datum",
+      "pass": true
+    },
+    {
+      "name": "street label describes relative local height",
+      "pass": true
+    },
+    {
+      "name": "new preset takes over old motion",
+      "pass": true
+    },
+    {
+      "name": "all other camera presets unchanged",
+      "pass": true
+    },
+    {
+      "name": "ground and street coordinates/angles unchanged",
+      "pass": true
+    },
+    {
+      "name": "stillScale policy unchanged",
+      "pass": true
+    },
+    {
+      "name": "applyRender policy unchanged",
+      "pass": true
+    },
+    {
+      "name": "adaptFrame policy unchanged",
+      "pass": true
+    },
+    {
+      "name": "tune policy unchanged",
+      "pass": true
+    },
+    {
+      "name": "settle policy unchanged",
+      "pass": true
+    },
+    {
+      "name": "applyQuality policy unchanged",
+      "pass": true
+    },
+    {
+      "name": "pin coordinate projection unchanged",
+      "pass": true
+    },
+    {
+      "name": "heightBatch policy unchanged",
+      "pass": true
+    },
+    {
+      "name": "no 3D iframe before activation",
+      "pass": true
+    },
+    {
+      "name": "reload owns exactly one readiness poll",
+      "pass": true
+    },
+    {
+      "name": "superseded poll cannot set pins",
+      "pass": true
+    },
+    {
+      "name": "ready child receives pins once and clears poll",
+      "pass": true
+    },
+    {
+      "name": "leaving3D stops all camera motion",
+      "pass": true
+    },
+    {
+      "name": "returning3D reuses successful session",
+      "pass": true
+    },
+    {
+      "name": "failed child cannot publish readiness",
+      "pass": true
+    },
+    {
+      "name": "failure notification clears parent readiness",
+      "pass": true
+    },
+    {
+      "name": "unrelated frame cannot publish readiness",
+      "pass": true
+    }
+  ]
+}

@@ -1,0 +1,39 @@
+{
+  "author": "Andrew Fisher",
+  "sourceCommit": "ba9fff7ec48d3d49d037f461c145b1abd6f2c957",
+  "source": "/workspace/private-v809-support/ba9fff7e/03_GC500_Delivery_Control/v8.09_coates_way_machine_DRAFT/work",
+  "proposal": null,
+  "takeUp": [
+    {
+      "steps": 1,
+      "crankTravel": 0.6666666666666666,
+      "gearboxTravel": 0.6666666666666666,
+      "engaged": 1
+    },
+    {
+      "steps": 2,
+      "crankTravel": 0.6666666666666666,
+      "gearboxTravel": 0.4999999999999999,
+      "engaged": 0.9999999999999999
+    },
+    {
+      "steps": 10,
+      "crankTravel": 0.6666666666666666,
+      "gearboxTravel": 0.3666666666666666,
+      "engaged": 0.9999999999999999
+    },
+    {
+      "steps": 100,
+      "crankTravel": 0.6666666666666666,
+      "gearboxTravel": 0.33666666666666656,
+      "engaged": 0.9999999999999998
+    }
+  ],
+  "firstStarterFrame": {
+    "starting": true,
+    "crankStep": 0.05,
+    "firstFrameInput": 0.05,
+    "firstFrameEngaged": 1
+  },
+  "sourceCallsAnimateBeforeSetStarter": true
+}

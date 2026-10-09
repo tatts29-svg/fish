@@ -1,0 +1,66 @@
+page A 8.20 · v8.92 vs page B 8.20 · v8.95; record 4414 (2026-10-08); 4062 numbers the same, 58 differ, 8 structural differences
+P&L summary (moneySummary): 18 differ
+   charge.contracts  up 0.88%
+   charge.contracts_lines  up 0.65%
+   charge.contracts_all  up 0.62%
+   charge.by_branch[2].charge  up 4.79%
+   charge.by_branch[2].charge0  up 4.79%
+   charge.by_branch[2].lines  up 5.88%
+   charge.total  up 0.37%
+   difference  up 0.69%
+   difference0  up 0.69%
+   streams[2].charge0  down 0.00%
+   streams[2].difference0  down 0.00%
+   streams[5].charge  up 18.73%
+   streams[5].lines  up 8.33%
+   streams[5].notes[0]  a text carrying figures differs
+   streams[5].difference  up 18.73%
+   streams[5].charge0  up 18.74%
+   streams[5].difference0  up 18.74%
+   breakeven  up 0.70%
+Costs to job end (cj764): 2 differ
+   revenue.record  up 0.37%
+   revenue.job  up 0.22%
+Finance handover (fh866): 10 differ
+   inv[1].onRecord  up 4.71%
+   inv[1].job  up 4.24%
+   inv[1].unbilled  up 4.71%
+   invTotal.onRecord  up 0.37%
+   invTotal.job  up 0.22%
+   invTotal.unbilled  up 0.37%
+   revenueRecord  up 0.37%
+   revenueJob  up 0.22%
+   billed.of  up 0.62%
+   billed.supplied  a text carrying figures differs
+P&L (pl770): 9 differ
+   rev[0].job  up 1.45%
+   rev[1].basis  a text carrying figures differs
+   revNow  up 0.37%
+   revJob  up 0.22%
+   gm.job  up 0.40%
+   gm.pcNow  up 0.28%
+   gm.pcJob  up 0.18%
+   diff.job  up 0.46%
+   diff.pcNow  up 0.32%
+the business's lines (pl752): same
+Transport view (transport888): same
+tie-outs (recon888): same
+Rehire by branch (rh766): 7 differ
+   groups[0].notes[0]  a text carrying figures differs
+   totals.share  down 0.22%
+   totals.shareNow  down 0.37%
+   revenueJob  up 0.22%
+   revenueNow  up 0.37%
+   coverage.lines  up 0.65%
+   coverage.coatesOwn  up 1.79%
+labour plan: same
+structural: .X.buildingTransport.rows[132].lineKeys length 0 -> 2
+structural: .X.buildingTransport.rows[133].lineKeys length 0 -> 2
+structural: .X.buildingTransport.rows[196].lineKeys length 0 -> 20
+structural: .X.buildingTransport.rows[197].lineKeys length 0 -> 20
+structural: .X.buildingTransport.rows[202].lineKeys length 0 -> 2
+structural: .X.buildingTransport.rows[203].lineKeys length 0 -> 2
+structural: .X.buildingTransport.rows[246].lineKeys length 0 -> 1
+structural: .X.buildingTransport.rows[247].lineKeys length 0 -> 1
+tie-outs tied: A 17/17, B 17/17
+errors A 0 B 0; writes attempted A 0 B 0

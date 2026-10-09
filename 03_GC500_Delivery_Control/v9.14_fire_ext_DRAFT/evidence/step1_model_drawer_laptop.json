@@ -1,0 +1,758 @@
+{
+ "model": {
+  "cap": "view",
+  "level": "view",
+  "status": "live",
+  "footer": "· v9.11",
+  "refs": 176,
+  "kinds": {
+   "building": 52,
+   "generator": 15,
+   "tower": 3,
+   "furniture": 4,
+   "toilet": 72,
+   "barrier": 15,
+   "other": 15
+  },
+  "carries": 124,
+  "perItem": {
+   "Portable buildings | Building 6m": {
+    "card": "rate [Fire Ext. 2025]",
+    "offered": true,
+    "refs": 23,
+    "kind": "building"
+   },
+   "Generators | 60kva": {
+    "card": "absent",
+    "offered": false,
+    "refs": 3,
+    "kind": "generator"
+   },
+   "Generators | 30kva": {
+    "card": "absent",
+    "offered": false,
+    "refs": 2,
+    "kind": "generator"
+   },
+   "Generators | 50kva": {
+    "card": "absent",
+    "offered": false,
+    "refs": 2,
+    "kind": "generator"
+   },
+   "Generators | 20kva": {
+    "card": "absent",
+    "offered": false,
+    "refs": 2,
+    "kind": "generator"
+   },
+   "Generators | 45kva": {
+    "card": "absent",
+    "offered": false,
+    "refs": 1,
+    "kind": "generator"
+   },
+   "Generators | 350kva": {
+    "card": "absent",
+    "offered": false,
+    "refs": 1,
+    "kind": "generator"
+   },
+   "Generators | 150kva": {
+    "card": "absent",
+    "offered": false,
+    "refs": 1,
+    "kind": "generator"
+   },
+   "Generators | 80kva": {
+    "card": "absent",
+    "offered": false,
+    "refs": 1,
+    "kind": "generator"
+   },
+   "Generators | 200kva & cables": {
+    "card": "absent",
+    "offered": false,
+    "refs": 1,
+    "kind": "generator"
+   },
+   "Lighting towers | Light Tower": {
+    "card": "absent",
+    "offered": false,
+    "refs": 3,
+    "kind": "tower"
+   },
+   "Portable buildings | Building 12m": {
+    "card": "rate [Fire Ext. 2025]",
+    "offered": true,
+    "refs": 6,
+    "kind": "building"
+   },
+   "Portable buildings | Building 4.8m": {
+    "card": "rate [Fire Ext. 2025]",
+    "offered": true,
+    "refs": 14,
+    "kind": "building"
+   },
+   "Portable buildings | Building 9.6m": {
+    "card": "rate [Fire Ext. 2025]",
+    "offered": true,
+    "refs": 3,
+    "kind": "building"
+   },
+   "Furniture | Fridge Lge": {
+    "card": "included [Labour]",
+    "offered": false,
+    "refs": 2,
+    "kind": "furniture"
+   },
+   "Furniture | Pad Chair": {
+    "card": "included [Labour]",
+    "offered": false,
+    "refs": 1,
+    "kind": "furniture"
+   },
+   "Portable buildings | Ticket Box 6m": {
+    "card": "rate [Fire Ext. 2025]",
+    "offered": true,
+    "refs": 1,
+    "kind": "building"
+   },
+   "Portable buildings | Building 3.6m": {
+    "card": "rate [Fire Ext. 2025]",
+    "offered": true,
+    "refs": 1,
+    "kind": "building"
+   },
+   "Portable buildings | Ticket Box 4.8m": {
+    "card": "rate [Fire Ext. 2025]",
+    "offered": true,
+    "refs": 1,
+    "kind": "building"
+   },
+   "Toilets & amenities | FWF": {
+    "card": "zero [Fire Ext. 2025]",
+    "offered": false,
+    "refs": 61,
+    "kind": "toilet"
+   },
+   "Water-filled barriers | TL2": {
+    "card": "absent",
+    "offered": false,
+    "refs": 15,
+    "kind": "barrier"
+   },
+   "Toilets & amenities | Accessible Toilet": {
+    "card": "zero [Fire Ext. 2025]",
+    "offered": false,
+    "refs": 4,
+    "kind": "toilet"
+   },
+   "Toilets & amenities | Waste tank": {
+    "card": "zero [Fire Ext. 2025]",
+    "offered": false,
+    "refs": 4,
+    "kind": "toilet"
+   },
+   "Toilets & amenities | Toilet Block 6m": {
+    "card": "zero [Fire Ext. 2025]",
+    "offered": false,
+    "refs": 9,
+    "kind": "toilet"
+   },
+   "Toilets & amenities | Pee Panel": {
+    "card": "absent",
+    "offered": false,
+    "refs": 1,
+    "kind": "toilet"
+   },
+   "Toilets & amenities | FWF Trailer": {
+    "card": "absent",
+    "offered": false,
+    "refs": 1,
+    "kind": "toilet"
+   },
+   "Toilets & amenities | 16Pan Block": {
+    "card": "zero [Fire Ext. 2025]",
+    "offered": false,
+    "refs": 1,
+    "kind": "toilet"
+   },
+   "Variable message signs | VMS": {
+    "card": "absent",
+    "offered": false,
+    "refs": 7,
+    "kind": "other"
+   },
+   "Access & plant | Forklift 5T": {
+    "card": "absent [Labour]",
+    "offered": false,
+    "refs": 1,
+    "kind": "other"
+   },
+   "Access & plant | Forklift 2.5T": {
+    "card": "absent [Labour]",
+    "offered": false,
+    "refs": 1,
+    "kind": "other"
+   },
+   "Access & plant | Forklift 2.5T RT": {
+    "card": "absent [Labour]",
+    "offered": false,
+    "refs": 1,
+    "kind": "other"
+   },
+   "Portable buildings | Event Container": {
+    "card": "absent",
+    "offered": false,
+    "refs": 1,
+    "kind": "building"
+   },
+   "Ground protection | Trakmat": {
+    "card": "absent",
+    "offered": false,
+    "refs": 1,
+    "kind": "other"
+   },
+   "Access & plant | 3.5T Forklift Std": {
+    "card": "absent [Labour]",
+    "offered": false,
+    "refs": 1,
+    "kind": "other"
+   },
+   "Portable buildings | 3.0m Cont": {
+    "card": "absent",
+    "offered": false,
+    "refs": 1,
+    "kind": "building"
+   },
+   "Access & plant | 2.5T Forklift STD": {
+    "card": "absent [Labour]",
+    "offered": false,
+    "refs": 1,
+    "kind": "other"
+   },
+   "Furniture | Fridge": {
+    "card": "included [Labour]",
+    "offered": false,
+    "refs": 1,
+    "kind": "furniture"
+   },
+   "Portable buildings | 6.0m Refrigerator Cont": {
+    "card": "absent",
+    "offered": false,
+    "refs": 1,
+    "kind": "building"
+   },
+   "Generators | 100KVA TRAILER": {
+    "card": "absent",
+    "offered": false,
+    "refs": 1,
+    "kind": "generator"
+   },
+   "Other | Forklift 5T": {
+    "card": "no card line (no labour_per_piece)",
+    "offered": false,
+    "refs": 1,
+    "kind": "other"
+   },
+   "Other | Forklift 2.5T": {
+    "card": "no card line (no labour_per_piece)",
+    "offered": false,
+    "refs": 1,
+    "kind": "other"
+   }
+  },
+  "fireOfferedRefs": 49,
+  "fireWithheldRefs": 125,
+  "fireNoLineRefs": 2,
+  "fireOfferedNotBuilding": [],
+  "refsNoChargeLines": 0,
+  "fireTicksRecorded": 0,
+  "fireTickKeys": [],
+  "TK_fire": {
+   "ticks": 0,
+   "unknown": 0,
+   "amountPositive": false
+  },
+  "planFireSlots": {
+   "n": 49,
+   "byState": {
+    "expected": 40,
+    "tocome": 9
+   },
+   "valued": 49
+  },
+  "acc761Fire": {
+   "n": 49,
+   "unpriced": 0,
+   "complete": true,
+   "totalPositive": true
+  },
+  "accRefs": 22,
+  "accTypes": {
+   "Air conditioner": 29,
+   "Fridge": 15,
+   "Microwave": 1,
+   "Zip boiler": 2,
+   "Urn": 1
+  },
+  "accFire": [],
+  "accRateFire": {
+   "value": null,
+   "per": null,
+   "source": null,
+   "cardState": "not on the card matching"
+  },
+  "partOfBuilding": [
+   "Air conditioner",
+   "Heater"
+  ],
+  "plantLines": 27,
+  "plantDisc": [
+   "Variable message signs",
+   "Lighting towers",
+   "Access & plant",
+   "Generators",
+   "Portable buildings",
+   "Toilets & amenities",
+   "Ground protection",
+   "Furniture"
+  ],
+  "compound": [
+   "LT05:tower",
+   "LT06:tower",
+   "WC05:toilet"
+  ],
+  "syncAccKind": "value",
+  "syncLabourKind": "value"
+ },
+ "picks": {
+  "building": "AA",
+  "toilet": "WC09",
+  "container": "T0023",
+  "generator": "GN01",
+  "tower": "LT05",
+  "barrier": "WB01",
+  "plant": "T0001",
+  "vms": "T0001",
+  "forklift": "T0003",
+  "compoundToilet": "WC05"
+ },
+ "view": {
+  "building": {
+   "key": "AA",
+   "kind": "building",
+   "carriesAccessories": true,
+   "accForm": true,
+   "accFormVisible": true,
+   "fireInTypeList": false,
+   "typeListLen": 16,
+   "accNoRequired": false,
+   "qtyHiddenUnderMore": true,
+   "accMoreOpen": false,
+   "fireTickCount": 1,
+   "fireTickDisabled": true,
+   "fireTickInHireFold": false,
+   "hireFoldOpen": null,
+   "fireTickVisible": false,
+   "fireText": [
+    "Fire extinguisher <figure>"
+   ],
+   "labourWords": "Building 6m Install <figure>Andrew Fisher · 18 Sep 09:54 Steps <figure>Andrew Fisher · 18 Sep 09:54 Levelling <figure>Andrew Fisher · 18 Sep 09:54 Cleaning <figure> Fire extinguisher <figure> Demob <figure> <figure> labour ticked · still to tick: <figure> (3 lines, incl. demob/cleaning later)",
+   "bodyViewonly": true
+  },
+  "toilet": {
+   "key": "WC09",
+   "kind": "toilet",
+   "carriesAccessories": true,
+   "accForm": true,
+   "accFormVisible": true,
+   "fireInTypeList": false,
+   "typeListLen": 16,
+   "accNoRequired": false,
+   "qtyHiddenUnderMore": true,
+   "accMoreOpen": false,
+   "fireTickCount": 0,
+   "fireTickDisabled": false,
+   "fireTickInHireFold": false,
+   "hireFoldOpen": null,
+   "fireTickVisible": false,
+   "fireText": [],
+   "labourWords": "FWF Install <figure> × 4 Demob <figure> × 4 not ticked — no labour charged on this line yet · still to tick: <figure> (2 lines, incl. demob/cleaning later) · 4 other labour types not priced on the cardPee Panel — no labour priced on the card for this itemToilet Block 6m labour agreed across the card",
+   "bodyViewonly": true
+  },
+  "container": {
+   "key": "T0023",
+   "kind": "building",
+   "carriesAccessories": true,
+   "accForm": false,
+   "accFormVisible": false,
+   "fireInTypeList": false,
+   "typeListLen": 0,
+   "accNoRequired": false,
+   "qtyHiddenUnderMore": false,
+   "accMoreOpen": false,
+   "fireTickCount": 0,
+   "fireTickDisabled": false,
+   "fireTickInHireFold": false,
+   "hireFoldOpen": null,
+   "fireTickVisible": false,
+   "fireText": [],
+   "labourWords": "Event Container — no labour priced on the card for this item",
+   "bodyViewonly": true
+  },
+  "generator": {
+   "key": "GN01",
+   "kind": "generator",
+   "carriesAccessories": false,
+   "accForm": false,
+   "accFormVisible": false,
+   "fireInTypeList": false,
+   "typeListLen": 0,
+   "accNoRequired": false,
+   "qtyHiddenUnderMore": false,
+   "accMoreOpen": false,
+   "fireTickCount": 0,
+   "fireTickDisabled": false,
+   "fireTickInHireFold": false,
+   "hireFoldOpen": null,
+   "fireTickVisible": false,
+   "fireText": [],
+   "labourWords": "60kva Install <figure>Andrew Fisher · 28 Sep 15:07 Demob <figure> <figure> labour ticked · still to tick: <figure> (1 line, incl. demob/cleaning later) · 4 other labour types not priced on the card",
+   "bodyViewonly": true
+  },
+  "tower": {
+   "key": "LT05",
+   "kind": "tower",
+   "carriesAccessories": false,
+   "accForm": false,
+   "accFormVisible": false,
+   "fireInTypeList": false,
+   "typeListLen": 0,
+   "accNoRequired": false,
+   "qtyHiddenUnderMore": false,
+   "accMoreOpen": false,
+   "fireTickCount": 0,
+   "fireTickDisabled": false,
+   "fireTickInHireFold": false,
+   "hireFoldOpen": null,
+   "fireTickVisible": false,
+   "fireText": [],
+   "labourWords": "Light Tower Install <figure> Demob <figure> not ticked — no labour charged on this line yet · still to tick: <figure> (2 lines, incl. demob/cleaning later) · 4 other labour types not priced on the card",
+   "bodyViewonly": true
+  },
+  "barrier": {
+   "key": "WB01",
+   "kind": "barrier",
+   "carriesAccessories": false,
+   "accForm": false,
+   "accFormVisible": false,
+   "fireInTypeList": false,
+   "typeListLen": 0,
+   "accNoRequired": false,
+   "qtyHiddenUnderMore": false,
+   "accMoreOpen": false,
+   "fireTickCount": 0,
+   "fireTickDisabled": false,
+   "fireTickInHireFold": false,
+   "hireFoldOpen": null,
+   "fireTickVisible": false,
+   "fireText": [],
+   "labourWords": "TL2 — no labour priced on the card for this item",
+   "bodyViewonly": true
+  },
+  "plant": {
+   "key": "T0001",
+   "kind": "other",
+   "carriesAccessories": false,
+   "accForm": false,
+   "accFormVisible": false,
+   "fireInTypeList": false,
+   "typeListLen": 0,
+   "accNoRequired": false,
+   "qtyHiddenUnderMore": false,
+   "accMoreOpen": false,
+   "fireTickCount": 0,
+   "fireTickDisabled": false,
+   "fireTickInHireFold": false,
+   "hireFoldOpen": null,
+   "fireTickVisible": false,
+   "fireText": [],
+   "labourWords": "VMS 8 units 1182999 vms7 Install <figure> Demob <figure> vms4 Install <figure> Demob <figure> vms1 Install <figure> Demob <figure> vms6 Install <figure> Demob <figure> vms2 Install <figure> Demob <figure> vms8 Install <figure> Demob <figure> vms5 Install <figure> Demob <figure> vms3 Install <figure>",
+   "bodyViewonly": true
+  },
+  "vms": {
+   "key": "T0001",
+   "kind": "other",
+   "carriesAccessories": false,
+   "accForm": false,
+   "accFormVisible": false,
+   "fireInTypeList": false,
+   "typeListLen": 0,
+   "accNoRequired": false,
+   "qtyHiddenUnderMore": false,
+   "accMoreOpen": false,
+   "fireTickCount": 0,
+   "fireTickDisabled": false,
+   "fireTickInHireFold": false,
+   "hireFoldOpen": null,
+   "fireTickVisible": false,
+   "fireText": [],
+   "labourWords": "VMS 8 units 1182999 vms7 Install <figure> Demob <figure> vms4 Install <figure> Demob <figure> vms1 Install <figure> Demob <figure> vms6 Install <figure> Demob <figure> vms2 Install <figure> Demob <figure> vms8 Install <figure> Demob <figure> vms5 Install <figure> Demob <figure> vms3 Install <figure>",
+   "bodyViewonly": true
+  },
+  "forklift": {
+   "key": "T0003",
+   "kind": "other",
+   "carriesAccessories": false,
+   "accForm": false,
+   "accFormVisible": false,
+   "fireInTypeList": false,
+   "typeListLen": 0,
+   "accNoRequired": false,
+   "qtyHiddenUnderMore": false,
+   "accMoreOpen": false,
+   "fireTickCount": 0,
+   "fireTickDisabled": false,
+   "fireTickInHireFold": false,
+   "hireFoldOpen": null,
+   "fireTickVisible": false,
+   "fireText": [],
+   "labourWords": "Forklift 5T — no labour priced on the card for this item",
+   "bodyViewonly": true
+  },
+  "compoundToilet": {
+   "key": "WC05",
+   "kind": "toilet",
+   "carriesAccessories": true,
+   "accForm": true,
+   "accFormVisible": true,
+   "fireInTypeList": false,
+   "typeListLen": 16,
+   "accNoRequired": false,
+   "qtyHiddenUnderMore": true,
+   "accMoreOpen": false,
+   "fireTickCount": 0,
+   "fireTickDisabled": false,
+   "fireTickInHireFold": false,
+   "hireFoldOpen": null,
+   "fireTickVisible": false,
+   "fireText": [],
+   "labourWords": "Waste tank 1 unit 1328978 Waste tank Install <figure>Andrew Fisher · 22 Sep 09:26 Levelling <figure>Andrew Fisher · 22 Sep 09:26 Cleaning <figure> Demob <figure> <figure> labour ticked — one charge per unit · still to tick: <figure> (2 lines, incl. demob/cleaning later) · 2 other labour types not pr",
+   "bodyViewonly": true
+  }
+ },
+ "edit": {
+  "building": {
+   "key": "AA",
+   "kind": "building",
+   "carriesAccessories": true,
+   "accForm": true,
+   "accFormVisible": true,
+   "fireInTypeList": false,
+   "typeListLen": 16,
+   "accNoRequired": false,
+   "qtyHiddenUnderMore": true,
+   "accMoreOpen": false,
+   "fireTickCount": 1,
+   "fireTickDisabled": false,
+   "fireTickInHireFold": false,
+   "hireFoldOpen": null,
+   "fireTickVisible": true,
+   "fireText": [
+    "Fire extinguisher <figure>"
+   ],
+   "labourWords": "Building 6m Install <figure>Andrew Fisher · 18 Sep 09:54 Steps <figure>Andrew Fisher · 18 Sep 09:54 Levelling <figure>Andrew Fisher · 18 Sep 09:54 Cleaning <figure> Fire extinguisher <figure> Demob <figure> <figure> labour ticked · still to tick: <figure> (3 lines, incl. demob/cleaning later)",
+   "bodyViewonly": false
+  },
+  "toilet": {
+   "key": "WC09",
+   "kind": "toilet",
+   "carriesAccessories": true,
+   "accForm": true,
+   "accFormVisible": true,
+   "fireInTypeList": false,
+   "typeListLen": 16,
+   "accNoRequired": false,
+   "qtyHiddenUnderMore": true,
+   "accMoreOpen": false,
+   "fireTickCount": 0,
+   "fireTickDisabled": false,
+   "fireTickInHireFold": false,
+   "hireFoldOpen": null,
+   "fireTickVisible": false,
+   "fireText": [],
+   "labourWords": "FWF Install <figure> × 4 Demob <figure> × 4 not ticked — no labour charged on this line yet · still to tick: <figure> (2 lines, incl. demob/cleaning later) · 4 other labour types not priced on the cardPee Panel — no labour priced on the card for this itemToilet Block 6m labour agreed across the card",
+   "bodyViewonly": false
+  },
+  "container": {
+   "key": "T0023",
+   "kind": "building",
+   "carriesAccessories": true,
+   "accForm": true,
+   "accFormVisible": true,
+   "fireInTypeList": false,
+   "typeListLen": 16,
+   "accNoRequired": false,
+   "qtyHiddenUnderMore": true,
+   "accMoreOpen": false,
+   "fireTickCount": 0,
+   "fireTickDisabled": false,
+   "fireTickInHireFold": false,
+   "hireFoldOpen": null,
+   "fireTickVisible": false,
+   "fireText": [],
+   "labourWords": "Event Container — no labour priced on the card for this item",
+   "bodyViewonly": false
+  },
+  "generator": {
+   "key": "GN01",
+   "kind": "generator",
+   "carriesAccessories": false,
+   "accForm": false,
+   "accFormVisible": false,
+   "fireInTypeList": false,
+   "typeListLen": 0,
+   "accNoRequired": false,
+   "qtyHiddenUnderMore": false,
+   "accMoreOpen": false,
+   "fireTickCount": 0,
+   "fireTickDisabled": false,
+   "fireTickInHireFold": false,
+   "hireFoldOpen": null,
+   "fireTickVisible": false,
+   "fireText": [],
+   "labourWords": "60kva Install <figure>Andrew Fisher · 28 Sep 15:07 Demob <figure> <figure> labour ticked · still to tick: <figure> (1 line, incl. demob/cleaning later) · 4 other labour types not priced on the card",
+   "bodyViewonly": false
+  },
+  "tower": {
+   "key": "LT05",
+   "kind": "tower",
+   "carriesAccessories": false,
+   "accForm": false,
+   "accFormVisible": false,
+   "fireInTypeList": false,
+   "typeListLen": 0,
+   "accNoRequired": false,
+   "qtyHiddenUnderMore": false,
+   "accMoreOpen": false,
+   "fireTickCount": 0,
+   "fireTickDisabled": false,
+   "fireTickInHireFold": false,
+   "hireFoldOpen": null,
+   "fireTickVisible": false,
+   "fireText": [],
+   "labourWords": "Light Tower Install <figure> Demob <figure> not ticked — no labour charged on this line yet · still to tick: <figure> (2 lines, incl. demob/cleaning later) · 4 other labour types not priced on the card",
+   "bodyViewonly": false
+  },
+  "barrier": {
+   "key": "WB01",
+   "kind": "barrier",
+   "carriesAccessories": false,
+   "accForm": false,
+   "accFormVisible": false,
+   "fireInTypeList": false,
+   "typeListLen": 0,
+   "accNoRequired": false,
+   "qtyHiddenUnderMore": false,
+   "accMoreOpen": false,
+   "fireTickCount": 0,
+   "fireTickDisabled": false,
+   "fireTickInHireFold": false,
+   "hireFoldOpen": null,
+   "fireTickVisible": false,
+   "fireText": [],
+   "labourWords": "TL2 — no labour priced on the card for this item",
+   "bodyViewonly": false
+  },
+  "plant": {
+   "key": "T0001",
+   "kind": "other",
+   "carriesAccessories": false,
+   "accForm": false,
+   "accFormVisible": false,
+   "fireInTypeList": false,
+   "typeListLen": 0,
+   "accNoRequired": false,
+   "qtyHiddenUnderMore": false,
+   "accMoreOpen": false,
+   "fireTickCount": 0,
+   "fireTickDisabled": false,
+   "fireTickInHireFold": false,
+   "hireFoldOpen": null,
+   "fireTickVisible": false,
+   "fireText": [],
+   "labourWords": "VMS 8 units 1182999 vms7 Install <figure> Demob <figure> vms4 Install <figure> Demob <figure> vms1 Install <figure> Demob <figure> vms6 Install <figure> Demob <figure> vms2 Install <figure> Demob <figure> vms8 Install <figure> Demob <figure> vms5 Install <figure> Demob <figure> vms3 Install <figure>",
+   "bodyViewonly": false
+  },
+  "vms": {
+   "key": "T0001",
+   "kind": "other",
+   "carriesAccessories": false,
+   "accForm": false,
+   "accFormVisible": false,
+   "fireInTypeList": false,
+   "typeListLen": 0,
+   "accNoRequired": false,
+   "qtyHiddenUnderMore": false,
+   "accMoreOpen": false,
+   "fireTickCount": 0,
+   "fireTickDisabled": false,
+   "fireTickInHireFold": false,
+   "hireFoldOpen": null,
+   "fireTickVisible": false,
+   "fireText": [],
+   "labourWords": "VMS 8 units 1182999 vms7 Install <figure> Demob <figure> vms4 Install <figure> Demob <figure> vms1 Install <figure> Demob <figure> vms6 Install <figure> Demob <figure> vms2 Install <figure> Demob <figure> vms8 Install <figure> Demob <figure> vms5 Install <figure> Demob <figure> vms3 Install <figure>",
+   "bodyViewonly": false
+  },
+  "forklift": {
+   "key": "T0003",
+   "kind": "other",
+   "carriesAccessories": false,
+   "accForm": false,
+   "accFormVisible": false,
+   "fireInTypeList": false,
+   "typeListLen": 0,
+   "accNoRequired": false,
+   "qtyHiddenUnderMore": false,
+   "accMoreOpen": false,
+   "fireTickCount": 0,
+   "fireTickDisabled": false,
+   "fireTickInHireFold": false,
+   "hireFoldOpen": null,
+   "fireTickVisible": false,
+   "fireText": [],
+   "labourWords": "Forklift 5T — no labour priced on the card for this item",
+   "bodyViewonly": false
+  },
+  "compoundToilet": {
+   "key": "WC05",
+   "kind": "toilet",
+   "carriesAccessories": true,
+   "accForm": true,
+   "accFormVisible": true,
+   "fireInTypeList": false,
+   "typeListLen": 16,
+   "accNoRequired": false,
+   "qtyHiddenUnderMore": true,
+   "accMoreOpen": false,
+   "fireTickCount": 0,
+   "fireTickDisabled": false,
+   "fireTickInHireFold": false,
+   "hireFoldOpen": null,
+   "fireTickVisible": false,
+   "fireText": [],
+   "labourWords": "Waste tank 1 unit 1328978 Waste tank Install <figure>Andrew Fisher · 22 Sep 09:26 Levelling <figure>Andrew Fisher · 22 Sep 09:26 Cleaning <figure> Demob <figure> <figure> labour ticked — one charge per unit · still to tick: <figure> (2 lines, incl. demob/cleaning later) · 2 other labour types not pr",
+   "bodyViewonly": false
+  }
+ },
+ "writesCaptured": 0,
+ "errors": [],
+ "consoleErr": [],
+ "counts": {
+  "page": 1,
+  "live": 122,
+  "blocked": 0
+ }
+}

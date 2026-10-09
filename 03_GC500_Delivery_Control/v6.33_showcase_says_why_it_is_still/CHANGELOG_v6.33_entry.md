@@ -1,0 +1,6 @@
+## v6.33 — 26 Sep 2026 — the Showcase says why it is still, and offers the switch
+
+- Andrew: "It use to work. On phones fine." Checked every builder back to v5.99: nothing in the page turns motion off by itself, and the reduced-motion rules had not changed. The only two ways motion goes off are the phone's own reduced-motion setting and the Motion button under Tools, which one mis-tap in the menu flips and which then stays flipped in that browser. The Showcase used to say just "Reduced motion" and offer nothing, and Tools is out of reach while the Showcase is open.
+- The footer line now names the cause in words: "Motion is off — the Motion button under Tools on this device", or "This device asks for reduced motion — its own accessibility setting (Reduce Motion / Remove animations)".
+- When it is the page's own switch, a button under that line, "Turn motion on · run the lap", turns motion on and runs the lap at once. When it is the phone's setting the page keeps honouring it and says where the setting lives.
+- `test_v633.js`: a phone with Motion: Off stored sees the cause and the button; pressing it makes the Tools button read Motion: Subtle, the scene unpauses and plays. A phone whose OS asks for reduced motion sees the other line and no button. No script errors.

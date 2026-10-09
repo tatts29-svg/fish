@@ -1,0 +1,92 @@
+{
+  "author": "Andrew Fisher",
+  "baseSha256": "476f0dcca3d97de07d55c8eb7c85618a8672abf99f2c00f2892c11690b7bc265",
+  "candidateSha256": "5270f18bee891aabbd64173f0250e0e68d8061c8c2d935bddd74df3ec5e67ce5",
+  "bytes": 8970293,
+  "checks": [
+    {
+      "name": "exact official scrubbed rebuild matches final candidate",
+      "pass": true
+    },
+    {
+      "name": "one extension block",
+      "pass": true
+    },
+    {
+      "name": "only declared guarded renderer refinements precede the extension",
+      "pass": true
+    },
+    {
+      "name": "entire business page before the renderer is byte-preserved",
+      "pass": true
+    },
+    {
+      "name": "embedded source DATA is byte-preserved",
+      "pass": true
+    },
+    {
+      "name": "car geometry is byte-preserved",
+      "pass": true
+    },
+    {
+      "name": "simulation and smoke generation is byte-preserved",
+      "pass": true
+    },
+    {
+      "name": "fixed-step frame loop is byte-preserved",
+      "pass": true
+    },
+    {
+      "name": "double application refused",
+      "pass": true
+    },
+    {
+      "name": "wrong base refused",
+      "pass": true
+    },
+    {
+      "name": "showcase794_src.js parses",
+      "pass": true
+    },
+    {
+      "name": "vegetation794_src.js parses",
+      "pass": true
+    },
+    {
+      "name": "pit794_src.js parses",
+      "pass": true
+    },
+    {
+      "name": "scenery794_src.js parses",
+      "pass": true
+    },
+    {
+      "name": "corridor794_src.js parses",
+      "pass": true
+    },
+    {
+      "name": "architecture794_src.js parses",
+      "pass": true
+    },
+    {
+      "name": "camera794_src.js parses",
+      "pass": true
+    },
+    {
+      "name": "playback794_src.js parses",
+      "pass": true
+    }
+  ],
+  "sources": {
+    "architecture794_src.js": "2134722c2ce418842311d422ef30dd0905624aa8a0da61f6f0d28dea31cef02b",
+    "camera794_src.js": "a41dc01d0281caa0e5813f93d789c804a5e3accec0ca090d23fa945ca6589c85",
+    "corridor794_src.js": "53733b3f84cf74b68f033123ab4d7b50ab39cad5f0c36a6898717e35374e8efa",
+    "kerb794_src.js": "ca541d87c6e6b0dc728045addf96dac38f92797fe6fc6cfed57a4603b67f1599",
+    "pit794_src.js": "935ab0155eeb5ccc7e97c1e51e6d97fb9e3832036ccfe504e6ccc2b863a04292",
+    "playback794_src.js": "50a9c02318f6d8294a47218193f55fc7549cca0db29414e78401343d6d26019a",
+    "scenery794_src.js": "f1c47bac922eac694876de1489f94efdbc8f2968c966d5102495e1150bb06f87",
+    "showcase794_src.css": "49ab68004899774848ef2b3ee3ac58b906cbbfeeef496f994cd5be41dbb5aec2",
+    "showcase794_src.js": "f4341ccf7d8da66389a32355da8862d23c48e6ccc94b48bef800c0c73c37f0fa",
+    "vegetation794_src.js": "8993b038a6c0abf37bf2607d87372aef8f31a52205b4111e83479fb64a3510ee"
+  }
+}

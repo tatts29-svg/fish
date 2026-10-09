@@ -1,0 +1,5 @@
+PASS T1 the live v7.85 shows the Track detail button (what is being taken out) — {"button":true,"open":true,"controls":["showView","showQuality","showBackdrop","showPace"],"enabled":false,"openErr":null}
+PASS T2 the Showcase still opens, with its own controls (view, detail, backdrop, speed) — {"button":false,"open":true,"controls":["showView","showQuality","showBackdrop","showPace"],"enabled":false,"openErr":null}
+PASS T3 there is no Track detail button, and the part-built scene is not on — {"button":false,"enabled":false}
+PASS E1 no page errors — []
+4/4 desktop

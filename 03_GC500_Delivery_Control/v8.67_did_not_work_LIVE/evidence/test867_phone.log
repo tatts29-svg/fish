@@ -1,0 +1,12 @@
+PASS  a worked shift exists on the record to try
+PASS  running sheet drawn with the new column, every row the same width as the header
+PASS  a view-only link sees no Did not work or Put back button
+PASS  the row offers Did not work while the shift is on
+PASS  taking the shift off removes it from the day, the paid hours and the labour line count
+PASS  the row then offers Put back, and a view-only link sees nothing
+PASS  putting it back restores the day, the paid hours and the wages to the cent
+PASS  on a view-only link neither write goes through and nothing changes
+PASS  P&L summary comes back whole
+PASS  no page errors
+PASS  no writes attempted
+phone: 11/11 pass

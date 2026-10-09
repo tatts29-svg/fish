@@ -1,0 +1,25 @@
+PASS card sits directly above the group cards
+PASS programme panel moved inside, once
+PASS programme controls kept (10 week buttons, rail, Where we are link)
+PASS whole job matches the seven group records (60.53 = 60.53)
+PASS lights match the 20% steps (3 lit)
+PASS lights describe the reading for screen readers
+PASS each group reading matches its card
+PASS lights are much larger than the group lights (75 vs 44 px)
+PASS heading and unique identifiers
+PASS group strip columns (7)
+PASS no page-wide horizontal overflow
+PASS pause settles the figure and stops the motion
+PASS play replays the count and the lights
+PASS intro finishes on the exact figure, then the reflection runs
+PASS group tap goes to its card
+PASS redraw keeps scroll position
+PASS redraw keeps focus on the card control
+PASS redraw does not replay or duplicate the card
+PASS redraw does not change data or money
+PASS selected day drives the figure, labelled "As of" (54.61)
+PASS reduced motion shows the final figure without motion
+PASS print keeps the figure and drops the lights and control
+PASS no runtime errors
+PASS no attempted live writes
+1440 px: 24/24

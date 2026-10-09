@@ -1,0 +1,25 @@
+FAIL labour ticked: pl760Ticks total equals the P&L charge to the cent {"ticks":19825.84,"charge":19825.85}
+FAIL labour ticked: every line total is whole cents {"halfCents":7}
+FAIL labour ticked: no phantom "Relocated or moved units" row {"charged":0.01,"expected":0,"tocome":0,"later":0,"n":{"charged":0,"expected":0,"tocome":0,"later":0},"unpriced":0}
+FAIL labour ticked: Accruals card charged equals the P&L charge {"acc":19825.84,"plan":19825.85,"charge":19825.85}
+FAIL one labour forecast: labourRevenue858 job equals the Accruals Labour Install total {"rev858":71318.91,"accInstall":70434.06,"planInstallGroup":70434.07}
+PASS one labour forecast: P&L Installation to job end = labour if all ticked + event people {"instJob":108033.87,"sum":108033.87}
+PASS one labour forecast: P&L Installation on the record = labour ticked + event people {"instNow":56540.81}
+FAIL relocation rule: install forecast on a relocation, demob not {"relocInstall":0,"relocDemob":0}
+PASS P&L reconciles: revenue, costs, job end {"revenue":true,"revenueJob":true,"costs":true,"costsJob":true,"quotes":true}
+PASS glance revenue to job end equals the P&L {"revJob":999934.66,"glance":999934.66}
+FAIL glance says labour to tick is inside Revenue to job end, with its amount {"labourToCome":51493.06}
+FAIL glance has a Labour per piece tile {"tiles":["Revenue","Direct costs","Difference so far","Month-end for Finance"]}
+FAIL Labour tile shows ticked so far and if-all-ticked, matching the models {"nums":[],"charge":19825.85,"job":71318.91,"remaining":51493.06}
+FAIL glance wages note splits Job Connect from the salary allowance {"snippet":"Priced wages: $49,249.83. 1,414.5 h remain unpriced. Job-end difference deducts priced wages."}
+FAIL P&L card names the ledger gross margin as such {}
+FAIL sub-view pricing heading reads as its button does {"h":"Pricing — Boost Mobile Gold Coast 500"}
+FAIL sub-view runsheet heading reads as its button does {"h":"runsheet — Boost Mobile Gold Coast 500"}
+PASS no money on today {"n":0}
+PASS no money on timeline {"n":0}
+PASS no money on plant {"n":0}
+PASS no money on demob {"n":0}
+PASS no money on coatesway {"n":0}
+PASS no page errors []
+PASS no writes attempted {"page":1,"live":62,"blocked":0}
+desktop: 11/24 pass

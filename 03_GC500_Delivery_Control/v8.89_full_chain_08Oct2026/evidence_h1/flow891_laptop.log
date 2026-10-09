@@ -1,0 +1,45 @@
+TIMING laptop {"iso":"2026-10-19","loads":30,"runs":[645,558,529,621,679,763,751,571,583],"median":621,"dpLoads30ms":19,"flow":true}
+PASS render time of the day view is reasonable (621 ms median, 30 loads; the before/after measure is timing.cjs on a quiet machine)
+PASS the rules carry their source (the project manager, 8 Oct 2026 — the page’s own words for Andrew): Main Beach 1, Helen Park 4, oversized guide 7, holding 4
+PASS Helen Park holding strip: about 50 m, within 60 m of the master’s Helen Park label and 100 m of the Helen Park meet point; no pin moved
+PASS pit lane allowance follows the programme weeks: Weeks 6–5 up to 6, Week 4 onwards 2 (gaps take the week before), before the programme not set
+PASS the printed checklist is Andrew’s four lines
+FAIL with no saved order every day reads exactly as before (43 days) {"same":false,"days":43,"wc60":true,"gn18":false,"fwf":false,"late":{"state":"late","words":"loaded 08:30 — on the road in the 07:00–09:00 restriction; the earliest run is away from Kingston by 05:00, on site before 07:00","fix":"Make it Load 1 and give the carrier a 05:00 load time"},"ok":{"state":"ok","words":"on the earliest run — loaded 04:30, away by 05:00, on site before 07:00"},"early":{"st
+PASS oversized reads the item words: WC60’s Toilet Block 6m yes, GN18 generator no, FWF toilets no
+PASS curfew first: an oversized load loaded 08:30 is on the road in the 07:00–09:00 restriction; 04:30 is the earliest run; no time says so; not oversized is not flagged
+PASS arrival windows: a 05:00 booking lands 06:10–06:40 (70 min run, 30 min unload); a 05:00 schedule load waits for the 07:00 access; no time means not known
+PASS a coming day with several delivery loads exists for the practice (2026-10-08)
+PASS the Truck flow card sits on the day under its figures, headed by who is on and the loads (People on: not set · 4 loads)
+PASS people on is not set until somebody sets it, and the card says what the number gives
+PASS every delivery load line carries the order controls (grip, ▲, ▼) and reads Load k of N; the ends are disabled
+PASS the rules fold is closed, names its source and carries a Navigate link to the Helen Park holding strip
+PASS could share a truck: same-area pairs are listed but none is suggested — weights and dimensions are not on the page; the guide is linked
+PASS loads with no arrival window are counted and the card says how to give them one
+PASS on the view link a reorder is refused the page’s way (View only …) and nothing moves
+PASS ▼ on Load 1 swaps it with Load 2 and every label renumbers at once: the list, the Drivers plate menu, the sheet header, the message model and the pre-dispatch scope
+FAIL the order is saved on the crew planning record: one day document with the loads in order, and each reference’s planned arrival order (crew883) set to match — stamped, named, in the synced documents, and the later stamp wins a merge both ways {"doc":{"kind":"flow891","ids":["2026-10-08|deliveries|booking:schedule875-T0102-dd-26115316","2026-10-08|deliveries|booking:schedule875-T0102-dd-26115312","2026-10-08|deliveries|T0103","2026-10-08|deliveries|WC31"],"by":"Isolated check","stamped":true},"rec":[],"refsAll":3,"inDocs":false,"merge":true,"flash":"Load order saved — the Load numbers now read this way on the Drivers and Install PDFs, t
+PASS no scroll jump on reorder (0 px) and the focus stays on the control that was pressed
+PASS Alt + ↑ on the grip moves the load up (keyboard), and the grip keeps focus
+PASS drag and drop reorders (desktop pointer drag left it; the drop rule itself puts a load after another)
+PASS people on sets the day’s numbers: 3 people on → 1 unload at a time (2 people each); blank → not set
+PASS Main Beach: two trucks planned 09:00–09:30 are flagged (limit 1) with the fix — stagger the later one to 09:30, or hold it at Helen Park; an Area full chip sits on the line
+FAIL one tap staggers the later load to 09:30 through the crew record (planned unloading window 09:30–10:00) and the flag clears {"iso":"2026-10-09","loads":[2,6],"peak":2,"conflicts":[{"at":540,"loads":[2,6],"to":570}],"flagged":true,"chip":["Area full","Area full"],"to":570,"after":0,"movedStart":"09:00","movedFinish":"09:30","cleared":true}
+PASS 7 Oct: the oversized buildings loaded 08:30 (P57, P52) are flagged curfew-first; the 05:00 loads are on the earliest run; WC60 (1 Oct, loaded 08:30) reads the same
+PASS one tap makes a flagged load Load 1 (the day’s order), and the lines carry a Curfew first chip
+PASS Printed by needs a first and last name: one word is “name not recorded”; the operator’s full name counts; the remembered name counts, with the 24-hour stamp
+PASS the Drivers and Install sheets carry Printed by once, under the sheet title, and the four tick boxes as a row of the hero’s facts (no line of their own, so the photographs keep their room)
+PASS the Drivers sheet’s header carries the allocated order and the arrival window, and its rules line the Helen Park holding instruction; the Install sheet does not repeat them
+PASS the location signs and the drop sheet carry Printed by; the pre-dispatch check’s snapshot of the signs stays clean (no stamp, so a minute ticking over cannot fail a print)
+PASS the pre-dispatch check lists “Site is aware of the status of the trucks” and “The loads are all ready”, wants a first AND last name, and Escape closes it
+PASS the name prompt has Close (×), Not now and Escape; one word is not enough; nothing prints until a name is given
+PASS a first and last name continues to the PDFs (the panel has Close), is remembered on the device and is not asked again
+PASS a message needs the sender’s first and last name in Recording as; with it the text says “Sent by Andrew Fisher.” and stays under the texting limit
+PASS every reference in the message model carries its load’s order, arrival window and the Helen Park holding words; the daily page says Prepared by and the arrival order
+PASS the local record is put back byte for byte and the link is view-only again
+PASS no money figure changed through any of it (moneySummary and the Finance handover model identical)
+PASS layout: no horizontal overflow, the card fits its pane, every control is at least 40 px tall, rows keep two columns
+PASS the Drivers sheet as laid out for the PDF: one A4, header under 19 mm with Printed by inside it, the tick boxes inside the 47 mm hero, the footer on the page, no empty picture left to stop the PDF maker
+PASS the Install sheet as laid out for the PDF: one A4, header under 19 mm with Printed by inside it, the tick boxes inside the 47 mm hero, the footer on the page, no empty picture left to stop the PDF maker
+PASS no page errors
+PASS no attempted live writes
+flow891 laptop: 40/43

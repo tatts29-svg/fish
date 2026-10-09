@@ -1,0 +1,7 @@
+PASS  every figure on Costs & P&L is identical to the base (8916 numbers compared, 266 KB of models)
+PASS  the models read the same apart from the v8.92 words
+PASS  the candidate carries v8.92 (its style and script) and the base does not
+PASS  both pages read the same shared record (version 4414, 2026-10-08)
+PASS  no page errors on either
+PASS  no writes attempted
+laptop: 6/6

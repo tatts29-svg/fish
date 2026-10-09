@@ -1,0 +1,8 @@
+{
+  "author": "Andrew Fisher",
+  "final_bytes": 1117998,
+  "final_sha256": "22ac12d01aa8938c4d1f40113229a2dccf4aece3917ff0db592db6e1afb843ba",
+  "checked_sha256": "f0cb213548f5cc824caab27873cc40612a8010217839f517547e8c54caeb4ecc",
+  "change": "One additional flag reset inside the full-page-only attach() handler; standalone has neither required full-page control, so attach returns before registering that handler. All exercised standalone rendering, data and controls are byte-identical to the 43/43 checked candidate.",
+  "identical_except_full_page_flag_reset": true
+}

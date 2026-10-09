@@ -1,0 +1,13 @@
+const {chromium} = require('playwright');
+(async () => { const browser = await chromium.launch({executablePath: '/opt/pw-browsers/chromium', args: ['--no-sandbox', '--use-gl=angle', '--use-angle=swiftshader', '--enable-unsafe-swiftshader', '--ignore-gpu-blocklist']});
+  const page = await (await browser.newContext({viewport: {width: 1200, height: 700}})).newPage(); const errs = [];
+  page.on('pageerror', e => errs.push(String(e))); page.on('console', m => { if (m.type() === 'error' || m.type() === 'warning') errs.push(m.text().slice(0, 300)); });
+  await page.goto(process.argv[2] + '#progress', {waitUntil: 'load', timeout: 120000}); await page.waitForTimeout(2500);
+  await page.click('#showStart'); await page.waitForTimeout(1500);
+  await page.selectOption('#showBackdrop', 'circuit3d_day'); await page.waitForTimeout(9000);
+  await page.selectOption('#showVehicle', 'tractor'); await page.waitForTimeout(3000);
+  console.log('tractor', JSON.stringify(await page.evaluate(() => ({S: !!GC3D.S, failed: GC3D.failed, v: GC3D.S && GC3D.S.vehicle}))));
+  await page.selectOption('#showVehicle', 'car'); await page.waitForTimeout(4000);
+  console.log('car', JSON.stringify(await page.evaluate(() => ({S: !!GC3D.S, failed: GC3D.failed, v: GC3D.S && GC3D.S.vehicle, tag: GC3D.S && GC3D.S.raceCarGeometryQuality, parts: GC3D.S && GC3D.S.raceCarParts && GC3D.S.raceCarParts.length, vmax: GC3D.S && +GC3D.S.tune.vmax.toFixed(3)}))));
+  console.log('errors', errs.slice(0, 6));
+  await browser.close(); })();

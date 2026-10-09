@@ -1,0 +1,293 @@
+{
+ "author": "Andrew Fisher",
+ "picture_px": [
+  2600,
+  1837
+ ],
+ "regions_pt": {
+  "main_left": [
+   49.46,
+   41.46,
+   1468.64,
+   1464.24
+  ],
+  "main_top": [
+   1468.64,
+   41.46,
+   2334.02,
+   859.26
+  ],
+  "inset": [
+   1482.86,
+   873.48,
+   2334.02,
+   1464.24
+  ],
+  "legend": [
+   49.46,
+   1478.52,
+   1175.54,
+   1639.98
+  ],
+  "title_block": [
+   1175.54,
+   1478.52,
+   2344.16,
+   1653.78
+  ],
+  "border_top": [
+   0,
+   0,
+   2384.0,
+   41.46
+  ],
+  "border_left": [
+   0,
+   0,
+   49.46,
+   1684.0
+  ],
+  "border_right": [
+   2334.02,
+   0,
+   2384.0,
+   1684.0
+  ],
+  "border_bottom": [
+   0,
+   1639.98,
+   2384.0,
+   1684.0
+  ]
+ },
+ "phase_correlation_px": {
+  "main_left": {
+   "17_sep_render_vs_live": {
+    "shift": [
+     0,
+     0
+    ],
+    "peak": 0.722
+   },
+   "v893_picture_vs_live": {
+    "shift": [
+     0,
+     0
+    ],
+    "peak": 0.596
+   },
+   "v889_picture_vs_live": {
+    "shift": [
+     0,
+     0
+    ],
+    "peak": 0.646
+   },
+   "mean_abs_diff_v893_vs_live": 7.29
+  },
+  "main_top": {
+   "17_sep_render_vs_live": {
+    "shift": [
+     0,
+     0
+    ],
+    "peak": 0.687
+   },
+   "v893_picture_vs_live": {
+    "shift": [
+     0,
+     0
+    ],
+    "peak": 0.633
+   },
+   "v889_picture_vs_live": {
+    "shift": [
+     0,
+     0
+    ],
+    "peak": 0.612
+   },
+   "mean_abs_diff_v893_vs_live": 5.99
+  },
+  "inset": {
+   "17_sep_render_vs_live": {
+    "shift": [
+     0,
+     0
+    ],
+    "peak": 0.639
+   },
+   "v893_picture_vs_live": {
+    "shift": [
+     0,
+     0
+    ],
+    "peak": 0.642
+   },
+   "v889_picture_vs_live": {
+    "shift": [
+     -28,
+     0
+    ],
+    "peak": 0.681
+   },
+   "mean_abs_diff_v893_vs_live": 6.39
+  },
+  "legend": {
+   "17_sep_render_vs_live": {
+    "shift": [
+     0,
+     0
+    ],
+    "peak": 0.733
+   },
+   "v893_picture_vs_live": {
+    "shift": [
+     0,
+     0
+    ],
+    "peak": 0.729
+   },
+   "v889_picture_vs_live": {
+    "shift": [
+     -28,
+     0
+    ],
+    "peak": 0.786
+   },
+   "mean_abs_diff_v893_vs_live": 5.36
+  },
+  "title_block": {
+   "17_sep_render_vs_live": {
+    "shift": [
+     0,
+     0
+    ],
+    "peak": 0.623
+   },
+   "v893_picture_vs_live": {
+    "shift": [
+     0,
+     0
+    ],
+    "peak": 0.643
+   },
+   "v889_picture_vs_live": {
+    "shift": [
+     -28,
+     0
+    ],
+    "peak": 0.78
+   },
+   "mean_abs_diff_v893_vs_live": 7.08
+  },
+  "border_top": {
+   "17_sep_render_vs_live": {
+    "shift": [
+     0,
+     0
+    ],
+    "peak": 0.284
+   },
+   "v893_picture_vs_live": {
+    "shift": [
+     0,
+     0
+    ],
+    "peak": 0.244
+   },
+   "v889_picture_vs_live": {
+    "shift": [
+     -28,
+     0
+    ],
+    "peak": 0.733
+   },
+   "mean_abs_diff_v893_vs_live": 1.47
+  },
+  "border_left": {
+   "17_sep_render_vs_live": {
+    "shift": [
+     0,
+     -1
+    ],
+    "peak": 0.297
+   },
+   "v893_picture_vs_live": {
+    "shift": [
+     1,
+     0
+    ],
+    "peak": 0.276
+   },
+   "v889_picture_vs_live": {
+    "shift": [
+     0,
+     0
+    ],
+    "peak": 0.0
+   },
+   "mean_abs_diff_v893_vs_live": 0.82
+  },
+  "border_right": {
+   "17_sep_render_vs_live": {
+    "shift": [
+     0,
+     0
+    ],
+    "peak": 0.392
+   },
+   "v893_picture_vs_live": {
+    "shift": [
+     0,
+     0
+    ],
+    "peak": 0.38
+   },
+   "v889_picture_vs_live": {
+    "shift": [
+     27,
+     0
+    ],
+    "peak": 0.146
+   },
+   "mean_abs_diff_v893_vs_live": 1.27
+  },
+  "border_bottom": {
+   "17_sep_render_vs_live": {
+    "shift": [
+     0,
+     0
+    ],
+    "peak": 0.61
+   },
+   "v893_picture_vs_live": {
+    "shift": [
+     0,
+     0
+    ],
+    "peak": 0.631
+   },
+   "v889_picture_vs_live": {
+    "shift": [
+     -28,
+     0
+    ],
+    "peak": 0.813
+   },
+   "mean_abs_diff_v893_vs_live": 1.88
+  }
+ },
+ "western_strip": {
+  "px_box": [
+   55,
+   46,
+   81,
+   1597
+  ],
+  "v893_min_grey": 19,
+  "v893_non_white_px": 48,
+  "live_non_white_px": 37898,
+  "v889_non_white_px": 31
+ }
+}

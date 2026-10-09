@@ -1,0 +1,63 @@
+{
+  "author": "Andrew Fisher",
+  "source": "v8.16_reference_and_demob_DRAFT",
+  "baseline": "/tmp/claude-0/-home-user-fish/710a1764-23a1-5338-9fe8-299f94961e8a/scratchpad/live_now.html",
+  "checks": 13,
+  "passed": [
+    "same-day added reference now has one typed removal",
+    "same-day added reference retains its original delivery",
+    "clearing typed date removes the synthetic removal",
+    "ordinary missing-remove case remains correct",
+    "changing typed date leaves no removal on previous date",
+    "existing plan removal is moved once without duplication",
+    "cancelled reference gets no active Timeline removal",
+    "cancelled typed out date remains visible and says cancelled",
+    "cancelled plan date remains visible with its source",
+    "cancelled early contract date remains visible with its source",
+    "active proposed date retains proposal styling and wording",
+    "active confirmed date retains confirmed source and recorder",
+    "added reference keeps its explicit removal event as the plan date (fixed)"
+  ],
+  "newFinding": {
+    "file": "demob816_src.js",
+    "line": 139,
+    "fixture": {
+      "key": "ADDED",
+      "_added": true,
+      "first_date": "2026-10-20",
+      "last_date": "2026-10-20",
+      "events": [
+        {
+          "date": "2026-10-20",
+          "movement": "place"
+        },
+        {
+          "date": "2026-11-05",
+          "movement": "remove"
+        }
+      ]
+    },
+    "result": {
+      "effective": {
+        "in": "2026-10-20",
+        "in_plan": "2026-10-20",
+        "in_moved": false,
+        "out": "2026-11-05",
+        "out_plan": "2026-11-05",
+        "out_moved": false
+      },
+      "demob": {
+        "src": "plan",
+        "iso": "2026-11-05"
+      },
+      "timeline": [
+        {
+          "iso": "2026-11-05",
+          "refs": [
+            "ADDED"
+          ]
+        }
+      ]
+    }
+  }
+}

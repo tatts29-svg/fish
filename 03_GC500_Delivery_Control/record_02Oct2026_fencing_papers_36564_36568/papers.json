@@ -1,0 +1,169 @@
+{
+ "author": "Andrew Fisher",
+ "received": "2 Oct 2026, photographs of eight signed Advanced papers, from Andrew: \"I have more fencing dockets for you to add as well as save the dockets as the docket no and add these into the system and against each one\"",
+ "transcribed_by": "Claude, from the photographs. Every figure is as written on the paper; anything the paper does not say is marked to_confirm and is not charged.",
+ "for": "Codex (holds the edit key) to enter through the Fencing tab forms, recorded as \"Andrew Fisher\" (no punctuation in the name - see v7.40: a bracket broke the id generator). The signed-paper photographs are attached by Andrew on the Documents tab, named by number (36564.jpg ...), which the page matches to each docket by itself.",
+ "hire_agreements": [
+  {
+   "docket_no": "36564",
+   "book": "red",
+   "date": "2026-09-29",
+   "location": "WC15 - rear fencing (toilets)",
+   "contact": "Brendan",
+   "quantities": {
+    "clean": 40,
+    "scrim": 40
+   },
+   "components": {
+    "mesh_panel": 16,
+    "base": 32,
+    "clamp": 29,
+    "brace": 8
+   },
+   "note": "Written on the paper: \"Braced & scrimmed is completed 40m\". Mesh fence 40 m on the charge line; 16 panels (2.5 m a panel). Scrim 40 m, same as the fence (Andrew, 2 Oct).",
+   "to_confirm": [],
+   "signed_by": "Andrew (2 Oct 2026)",
+   "installer_date": "2026-09-29"
+  },
+  {
+   "docket_no": "36565",
+   "book": "red",
+   "date": "2026-09-29",
+   "location": "S04 to S05 pedestrian bridge",
+   "contact": "Brenden",
+   "quantities": {
+    "clean": 25
+   },
+   "components": {
+    "mesh_panel": 10,
+    "base": 9,
+    "clamp": 9
+   },
+   "note": "Written on the paper: \"Zip tied to bridge crossing\". 25 m, 10 panels.",
+   "signed_by": "Andrew (2 Oct 2026)",
+   "installer_date": "2026-09-29"
+  },
+  {
+   "docket_no": "36566",
+   "book": "red",
+   "date": "2026-09-30",
+   "location": "Rear of pit building / rear of Puppet Theatre",
+   "contact": "Brendan",
+   "quantities": {
+    "fence_blocks": 216
+   },
+   "components": {
+    "base": 216,
+    "clamp": 216,
+    "brace": 108
+   },
+   "note": "Written on the paper: \"Brace existing fence. Not scrimmed.\" No metres on any charge line. Charged as used (Andrew, 2 Oct): 216 bases on the card line Fence Blocks( per block), $3.02 = $652.32; clamps and braces have no card line and are not charged separately; what Advanced bill comes off their invoice.",
+   "to_confirm": [
+    "Needs the v7.85 Fence blocks line live before it can be entered."
+   ],
+   "signed_by": "Andrew (2 Oct 2026)",
+   "installer_date": "2026-09-30"
+  },
+  {
+   "docket_no": "36567",
+   "book": "red",
+   "date": "2026-09-30",
+   "location": "Smoking zones - trackwide",
+   "contact": "Brendan",
+   "quantities": {
+    "ccb_event": 215
+   },
+   "components": {
+    "cc_barrier": 86
+   },
+   "note": "Written on the paper: 26 areas with 3 CCBs, 1 area with 8 CCBs (= 86 barriers, 215 m at 2.5 m a barrier). Paper says CC Barrier; smoking zones are for the crowd - CCB Event (Andrew, 2 Oct: \"continue with your logic\").",
+   "to_confirm": [],
+   "signed_by": "Andrew (2 Oct 2026)",
+   "installer_date": "2026-09-30"
+  },
+  {
+   "docket_no": "36568",
+   "book": "red",
+   "date": "2026-10-01",
+   "location": "GC Hwy median strip (south)",
+   "contact": "Brendan",
+   "quantities": {
+    "clean": 462.5,
+    "ccb_demarc": 420,
+    "scrim": 462.5
+   },
+   "components": {
+    "mesh_panel": 185,
+    "cc_barrier": 168,
+    "base": 474,
+    "clamp": 487,
+    "brace": 151,
+    "wheels": 6
+   },
+   "note": "Written on the paper: site \"Median strip north plus south\"; Andrew, 2 Oct: new fence - 36560 was the north, 36568 is the south. Written on the paper: \"Shade cloth installed\". 462.5 m mesh (185 panels), 420 m CC barrier (168 barriers), 6 wheels. Paper says CC Barrier - demarcation: the median strip barrier keeps people off the road, as 36560 (Andrew, 2 Oct). Scrim 462.5 m, same as the fence (Andrew, 2 Oct).",
+   "to_confirm": [],
+   "read_with_care": [
+    "Base 474 and brace 151 - the last digit of each is a hurried hand; check against the paper."
+   ],
+   "signed_by": "Andrew (2 Oct 2026)",
+   "installer_date": "2026-10-01"
+  }
+ ],
+ "service_notes": [
+  {
+   "note_no": "24463",
+   "book": "green",
+   "date": "2026-09-30",
+   "location": "S04 BOH",
+   "contact": "Brenden",
+   "crew_note": "3 men x 15 mins each",
+   "labour_hours": 0.75,
+   "metres": 17.5,
+   "note": "Written on the note: relocate 17.5 m of temp fence to the other side of the timber bollards.",
+   "signed_by": "Andrew (2 Oct 2026)",
+   "installer_date": "2026-09-30"
+  },
+  {
+   "note_no": "24464",
+   "book": "green",
+   "date": "2026-09-30",
+   "location": "Advanced compound - Phillip Park (written \"Phillip Island\")",
+   "contact": "Brenden",
+   "crew_note": "Labour 1 man x 1 hr (the Labour and Travel lines are crossed out and rewritten)",
+   "labour_hours": 1,
+   "note": "Written on the note: trucks XQ39GD 09:45-10:15 and XB38ZP 10:30-11:00 (unloading semis, as 24459).",
+   "read_with_care": [
+    "The site is written Phillip Island; the compound is at Phillip Park - recorded as the compound."
+   ],
+   "signed_by": "Andrew (2 Oct 2026)",
+   "installer_date": "2026-09-30"
+  },
+  {
+   "note_no": "24465",
+   "book": "green",
+   "date": "2026-10-01",
+   "location": "Phillip Park - Advanced compound",
+   "contact": "Brenden",
+   "crew_note": "2 men x 30 mins each (1 hr)",
+   "labour_hours": 1,
+   "note": "Written on the note: 1 hr; rego 1 XQ37UH, rego 2 XQ70IV.",
+   "read_with_care": [
+    "Both regos are hand-written and partly unclear (as read)."
+   ],
+   "signed_by": "Andrew (2 Oct 2026)"
+  }
+ ],
+ "effect_at_the_card_as_recorded": {
+  "charged": "36564 $1,667.63 + 36565 $404.02 + 36566 $652.32 + 36567 $1,614.65 + 36568 $24,775.55 = $29,114.17 (ex GST)",
+  "paid_to_advanced": "36564 $1,376 + 36565 $250 + 36567 $1,161 + 36568 $18,178 = $20,965; 36566 blocks: from their invoice",
+  "service_notes": "2.75 h at the tracker's $100 = $275 paid",
+  "not_charged_until_answered": []
+ },
+ "andrew_answers": [
+  "Andrew, 2 Oct 2026: \"shade cloth same as fencing\" - the shade cloth (scrim) is the same metres as the fence on the docket, charged on the card Scrim line ($25.53/m charged, $24.40/m paid).",
+  "Andrew, 2 Oct 2026: \"new 60 was north 68 is south\" - 36568 is new fence: 36560 is the median strip north, 36568 the south. No overlap.",
+  "Andrew, 2 Oct 2026: \"no shade cloth gone on as yet\" (the 36560 north run) - nothing added for it.",
+  "Andrew, 2 Oct 2026, on 36566: \"charge as per what was used\" - proposed: 216 bases on the card's Fence Blocks line ($3.02 each = $652.32); clamps and braces have no card line. Waiting on his yes; needs a Fence blocks line on the page.",
+  "Andrew, 2 Oct 2026: \"continue with your logic please\" - 36567 smoking zones are crowd barrier: CCB Event ($7.51/m); 36568 median strip barrier keeps people off the road: CCB Demarcation ($13.08/m), as 36560; 36566 charged as used: 216 fence blocks at the card $3.02 (needs v7.85)."
+ ]
+}

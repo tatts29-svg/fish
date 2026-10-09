@@ -1,0 +1,333 @@
+--- /tmp/claude-0/stage3/machine_base/car-cockpit.js	2026-09-26 09:43:54.640078163 +0000
++++ /tmp/claude-0/stage3/machine/car-cockpit.js	2026-09-27 03:49:29.764585978 +0000
+@@ -61,7 +61,18 @@
+  display:{w:.24,h:.075,x:-.15,y:.96,z:-.34,tilt:.3},   /* the pod on the column top, just behind the spoke plate, as a race dash is mounted: its bezel clears the curved screen by 7 mm at the worst corner (tests/engine.test.mjs) and from the eye (1.05) the screen's centre clears the rim's marker (.954) by 14 mm */
+  doorZ:.655,seatZ:[-.53,.01],
+  eye:{x:.42,y:1.05,z:-.30},
+- wheelButtons:[wheelButton('RADIO',2,'#ff6a13'),wheelButton('PIT',0,'#ff6a13'),wheelButton('PAGE',5,'#ff6a13'),wheelButton('N',4,'#2a2f34')],
++ wheelButtons:[wheelButton('RADIO',2,'#ff6a13'),wheelButton('PIT',0,'#ff6a13'),wheelButton('PAGE',5,'#ff6a13'),wheelButton('N',4,'#2a2f34'),
++  /* v6.92 — THE WHEEL OPERATES EVERYTHING (Andrew Fisher, 27 Sep 2026: "the showcase piece of the whole machine is that steering wheel,
++     it operates everything"). START takes the empty valley at twelve, in the middle of the driver's view; the valleys at nine and
++     three stay empty because the gloves cover them from the eye. The panel's other systems are on the rim (rimButtons) and the gears
++     are on the paddles behind it. */
++  wheelButton('START',1,'#2ec46a')],
++ /* the rim's own buttons: small machined caps standing on the suede — IGN and FUEL either side of the twelve o'clock marker, FAN and
++    LIGHTS at the upper corners, HB and FIRE at the lower ones, all clear of the grips (angle as the pods': 0 at three o'clock,
++    anticlockwise to the driver) */
++ rimButtons:[['IGN',105,'#e5342a'],['FUEL',75,'#ffb020'],['FAN',132,'#2ec46a'],['LIGHTS',48,'#f3f4f2'],['HBRAKE',225,'#e5342a'],['FIRE',315,'#e5342a']],
++ /* what each wheel control does, as car-app.js operate() reads it */
++ wheelControl:{RADIO:{kind:'button',id:'RADIO'},PIT:{kind:'button',id:'PIT'},PAGE:{kind:'button',id:'PAGE'},N:{kind:'button',id:'NEUTRAL'},START:{kind:'button',id:'START'},IGN:{kind:'switch',id:'IGN'},FUEL:{kind:'switch',id:'FUEL'},FAN:{kind:'switch',id:'FAN'},LIGHTS:{kind:'switch',id:'LIGHTS'},HBRAKE:{kind:'switch',id:'HBRAKE'},FIRE:{kind:'switch',id:'FIRE'}},
+  switches:['IGN','FUEL','FAN','LIGHTS'],buttons:[['START','#2ec46a'],['PIT LIMIT','#3a7bff'],['RADIO','#ffb020']],
+  gears:['N','1','2','3','4','5','6'],
+  /* v5.81 — the printed things, in pixels per metre of the part, chosen from the stills: at the hero's 1935 px frame the
+@@ -89,6 +100,11 @@
+  g.strokeStyle='#1a222b';g.lineWidth=4;g.strokeRect(6,6,W-12,H-12);
+  const text=(s,x,y,size,col,align='left',weight=700)=>{g.fillStyle=col;g.font=`${weight} ${size}px ${FONT}`;g.textAlign=align;g.textBaseline='middle';g.fillText(s,x,y);};
+  if(!st.ign){text('IGNITION OFF',W/2,H/2-28,70,'#1f272f','center');text('COATES · 26 · GC500',W/2,H/2+48,38,'#ff6a13','center');g.restore();return;}
++ /* v6.92 — the ignition's self-test: every shift light lit, the systems check across the screen, for the second and a half the
++    needles sweep (car-cockpit.js setGauge) */
++ if(st.selfTest){const leds=['#2ec46a','#2ec46a','#2ec46a','#2ec46a','#ffb020','#ffb020','#ffb020','#e5342a','#e5342a','#e5342a','#3a7bff','#3a7bff'];
++  for(let i=0;i<12;i++){const x=298+i*62,y=40;g.shadowColor=leds[i];g.shadowBlur=22;g.fillStyle=leds[i];g.beginPath();g.arc(x,y,13,0,Math.PI*2);g.fill();g.shadowBlur=0;}
++  text('SYSTEMS CHECK',W/2,H/2-10,92,'#f3f4f2','center',800);text('COATES · 26 · GC500 2026',W/2,H/2+70,34,'#ff6a13','center');g.restore();return;}
+  const rpm=Math.max(0,st.rpm||0),max=st.rpmMax||7500,f=Math.min(1,rpm/max);
+  /* shift lights: twelve, green to amber to red to blue, lit in turn from 55 % up; the last two flash at the limit */
+  const leds=['#2ec46a','#2ec46a','#2ec46a','#2ec46a','#ffb020','#ffb020','#ffb020','#e5342a','#e5342a','#e5342a','#3a7bff','#3a7bff'];
+@@ -106,8 +122,8 @@
+   g.fillStyle='#2ec46a';g.beginPath();g.arc(52,H-30,10,0,Math.PI*2);g.fill();text('SCORECARD & CADENCE',72,H-30,24,'#c9ced0');text('PAGE 3 / 3',W-40,H-30,24,'#ff6a13','right');g.restore();return;}
+  if(st.page===1){
+   text('SYSTEMS',40,98,32,'#9aa3a8');
+-  const rows=[['WATER',st.water!=null?Math.round(st.water)+' °C':'—'],['OIL',st.oil!=null?Math.round(st.oil)+' °C':'—'],['FUEL PUMP',st.fuel?'ON':'OFF'],['FAN',st.fan?'ON':st.fanAuto?'AUTO':'OFF'],['LIGHTS',st.lights?'ON':'OFF'],['PIT LIMIT',st.pit?'ON':'OFF'],['RADIO',st.radio?'OPEN':'—'],['GEAR',st.gear||'N']];
+-  rows.forEach((r,i)=>{const x=40+(i%4)*300,y=146+Math.floor(i/4)*84;text(r[0],x,y,26,'#6f7b82','left',600);text(r[1],x,y+38,44,'#e8ebe9');});
++  const rows=[['WATER',st.water!=null?Math.round(st.water)+' °C':'—'],['OIL',st.oil!=null?Math.round(st.oil)+' °C':'—'],['FUEL PUMP',st.fuel?'ON':'OFF'],['FAN',st.fan?'ON':st.fanRun?'AUTO ON':st.fanAuto?'AUTO':'OFF'],['LIGHTS',st.lights?'ON':'OFF'],['PIT LIMIT',st.pit?'ON':'OFF'],['RADIO',st.radio?'OPEN':'—'],['HANDBRAKE',st.hbrake?'ON':'OFF'],['FIRE SYS',st.fire?'ARMED':'SAFE'],['GEAR',st.gear||'N']];
++  rows.forEach((r,i)=>{const x=40+(i%5)*244,y=146+Math.floor(i/5)*84;text(r[0],x,y,24,'#6f7b82','left',600);text(r[1],x,y+38,40,r[0]==='FIRE SYS'&&st.fire||r[0]==='HANDBRAKE'&&st.hbrake?'#e5342a':'#e8ebe9');});
+   text('PAGE 2 / 3 · PAGE on the wheel',W-40,H-30,26,'#ff6a13','right');g.restore();return;}
+  /* the race page: revs over water on the left, the gear in the middle, the rollers' speed over oil on the right, the
+     state along the foot */
+@@ -118,7 +134,7 @@
+  const gear=st.gear||'N';text(gear,640,172,236,gear==='N'?'#2ec46a':st.running?'#f3f4f2':'#7d868c','center',800);
+  text('KM/H',1240,90,26,'#9aa3a8','right');text(st.speed!=null?String(Math.round(st.speed)):'0',1240,140,72,'#f3f4f2','right');
+  text('OIL',1240,224,26,'#9aa3a8','right');text(st.oil!=null?Math.round(st.oil)+'°C':'—',1240,266,54,'#e8ebe9','right');
+- text(st.fuel?'FUEL PUMP ON':'FUEL OFF',40,356,26,st.fuel?'#c9ced0':'#6f7b82','left',600);if(st.pit)text('PIT LIMIT',300,356,26,'#3a7bff','left',700);
++ text(st.fuel?'FUEL PUMP ON':'FUEL OFF',40,356,26,st.fuel?'#c9ced0':'#6f7b82','left',600);if(st.pit)text('PIT LIMIT',300,356,26,'#3a7bff','left',700);if(st.hbrake)text('HANDBRAKE',460,356,26,'#e5342a','left',700);else if(st.fire)text('FIRE ARMED',460,356,26,'#e5342a','left',700);
+  text(st.starting?'STARTING':st.running?'V8 RUNNING · IN THE GARAGE':'V8 OFF · IN THE GARAGE',W-40,356,26,'#ff6a13','right');
+  g.restore();
+ }
+@@ -189,7 +205,7 @@
+  const red=new T.MeshStandardMaterial({color:0xb3121a,roughness:.32,metalness:.25});
+  const bottleRed=new T.MeshPhysicalMaterial({color:0xb0141c,roughness:.3,metalness:.1,clearcoat:.8,clearcoatRoughness:.12});
+  const mirror=new T.MeshStandardMaterial({color:0xd8dde0,roughness:.08,metalness:1});
+- const all=[],controls=[];const cap=w=>w[0].toUpperCase()+w.slice(1);
++ const all=[],controls=[],litCaps=[];const cap=w=>w[0].toUpperCase()+w.slice(1);
+  /* a part whose material is sized in metres gets UVs in metres (a box's faces projected on their own axes) */
+  const metric=(mesh)=>{const m=mesh.material;if(m&&m.userData&&m.userData.twill&&mesh.geometry&&mesh.geometry.type==='BoxGeometry')metricUV(mesh.geometry);return mesh;};
+  const add=(mesh,name)=>{mesh.name=name;mesh.castShadow=mesh.receiveShadow=true;metric(mesh);interior.add(mesh);all.push(mesh);return mesh;};
+@@ -274,7 +290,7 @@
+     three buttons that press (car-app.js listens for userData.control). v5.81: the plate is black anodised
+     aluminium with a brushed grain; the words are a printed sheet on it (drawPanelSheet) at 5,200 px a metre; the
+     toggles stand in machined bases with a guard each side; COATES #26 is engraved on a plate across the top. ---- */
+- const switchLevers=new Map(),buttonCaps=new Map();let radioTex=null,radioLed=null,ignLamp=null;const radioState={ign:false,open:false};   /* v5.82 */
++ const switchLevers=new Map(),buttonCaps=new Map();let radioTex=null,radioLed=null,ignLamp=null,volKnob=null;const radioState={ign:false,open:false};   /* v5.82 */
+  {const cx=-.155,cy=.80,cz=.06,ang=.45;   /* on the tunnel's top by the driver's left knee; +.45 turns the panel's face toward the driver's side (−z) so it is in the eye's field */
+   const consoleG=new T.Group();consoleG.position.set(cx,cy,cz);consoleG.rotation.y=ang;interior.add(consoleG);
+   const cbody=new T.Mesh(new T.ExtrudeGeometry((()=>{const sh=new T.Shape();sh.moveTo(-.02,-.17);sh.lineTo(.09,-.17);sh.lineTo(.09,.10);sh.lineTo(.03,.13);sh.lineTo(-.02,.13);sh.closePath();return sh;})(),{depth:.34,bevelEnabled:true,bevelThickness:.008,bevelSize:.008,bevelSegments:3}),carbon);
+@@ -301,41 +317,45 @@
+     const pivot=new T.Group();pivot.position.set(.116,y,z);consoleG.add(pivot);pivot.userData.rotary=true;   /* v5.82: the key is built standing up (+y) at OFF, its head over the panel and not past its edge, and turns a quarter toward the passenger side to ON */
+     const key=new T.Mesh(new T.BoxGeometry(.004,.028,.007),black);key.position.set(.003,.010,0);key.name='Ignition key';key.castShadow=true;pivot.add(key);all.push(key);
+     /* v5.82 — the key's head: an orange tag with the car's number, a split ring through its eye, and the escutcheon the barrel sits in; the lamp above the barrel lights with the ignition */
+-    const head=new T.Mesh(new T.BoxGeometry(.0035,.028,.021),orange);head.position.set(.003,.038,0);head.name='Ignition key head';head.castShadow=true;pivot.add(head);all.push(head);control(head,{kind:'switch',id});
++    const keySpec={kind:'switch',id,part:'key',src:'panel'};   /* v6.92: one spec for the key, its head, its tag and its pad */
++    const head=new T.Mesh(new T.BoxGeometry(.0035,.028,.021),orange);head.position.set(.003,.038,0);head.name='Ignition key head';head.castShadow=true;pivot.add(head);all.push(head);control(head,keySpec);
+     const ring=new T.Mesh(new T.TorusGeometry(.0055,.0013,6,16),machined);ring.position.set(.003,.056,0);ring.rotation.y=Math.PI/2;pivot.add(ring);all.push(ring);ring.name='Ignition key ring';
+     const tag=canvasTexture(T,160,224,(g,w,h)=>{g.fillStyle='#ff6a13';g.fillRect(0,0,w,h);g.fillStyle='#121417';g.font=`800 ${Math.round(h*.42)}px ${FONT}`;g.textAlign='center';g.textBaseline='middle';g.fillText('26',w/2,h*.46);g.font=`800 ${Math.round(h*.11)}px ${FONT}`;g.fillText('COATES',w/2,h*.80);});
+-    if(tag){const face=new T.Mesh(new T.PlaneGeometry(.020,.027),new T.MeshStandardMaterial({map:tag.texture,roughness:.4,metalness:.1}));face.position.set(.0049,.038,0);face.rotation.y=Math.PI/2;face.name='Ignition key tag';pivot.add(face);all.push(face);control(face,{kind:'switch',id});}
++    if(tag){const face=new T.Mesh(new T.PlaneGeometry(.020,.027),new T.MeshStandardMaterial({map:tag.texture,roughness:.4,metalness:.1}));face.position.set(.0049,.038,0);face.rotation.y=Math.PI/2;face.name='Ignition key tag';pivot.add(face);all.push(face);control(face,keySpec);}
+     {const eg=new T.TorusGeometry(.0135,.0025,8,32);eg.rotateY(Math.PI/2);eg.translate(.1045,y,z);trim.push(eg);}
+     ignLamp=put(new T.Mesh(new T.CylinderGeometry(.0038,.0038,.004,16),new T.MeshStandardMaterial({color:0x2a0a05,emissive:0xff3b1f,emissiveIntensity:0})),'Ignition lamp');ignLamp.position.set(.104,y,z+.026);ignLamp.rotation.z=Math.PI/2;
+     {const lg=new T.TorusGeometry(.0045,.0012,6,16);lg.rotateY(Math.PI/2);lg.translate(.1045,y,z+.026);trim.push(lg);}
+-    switchLevers.set(id,pivot);control(key,{kind:'switch',id});const pad=new T.Mesh(new T.BoxGeometry(.006,.045,.06),new T.MeshBasicMaterial({visible:false}));pad.position.set(.104,y,z);pad.name='Switch pad '+id;consoleG.add(pad);control(pad,{kind:'switch',id});return;}
++    switchLevers.set(id,pivot);pivot.userData.at=0;pivot.userData.v=0;control(key,keySpec);const pad=new T.Mesh(new T.BoxGeometry(.006,.045,.06),new T.MeshBasicMaterial({visible:false}));pad.position.set(.104,y,z);pad.name='Switch pad '+id;consoleG.add(pad);control(pad,keySpec);return;}
+    const base=put(new T.Mesh(new T.CylinderGeometry(.0085,.0085,.006,24),machined),'Switch base '+id);base.position.set(.106,y,z);base.rotation.z=Math.PI/2;
+    /* the two guard posts either side of the toggle, so a knee cannot flip it — merged below */
+    for(const side of [-1,1]){const gp=new T.BoxGeometry(.010,.020,.0035);gp.translate(.107,y,z+side*.0125);guards.push(gp);}
+    const pivot=new T.Group();pivot.position.set(.108,y,z);consoleG.add(pivot);
+    const lever=new T.Mesh(new T.CylinderGeometry(.0025,.0032,.024,12),machined);lever.position.set(.012,0,0);lever.rotation.z=-Math.PI/2;lever.name='Switch lever '+id;lever.castShadow=true;pivot.add(lever);all.push(lever);
+    const tip=new T.Mesh(new T.SphereGeometry(.004,12,10),red);tip.position.set(.024,0,0);pivot.add(tip);
+-   pivot.rotation.z=-.5;switchLevers.set(id,pivot);
++   pivot.rotation.z=-.5;pivot.userData.at=-.5;pivot.userData.v=0;switchLevers.set(id,pivot);
+    /* the toggle and a generous hit pad behind it, so a finger on a phone finds it */
+-   control(lever,{kind:'switch',id});const pad=new T.Mesh(new T.BoxGeometry(.006,.045,.06),new T.MeshBasicMaterial({visible:false}));pad.position.set(.104,y,z);pad.name='Switch pad '+id;consoleG.add(pad);control(pad,{kind:'switch',id});});
++   const spec={kind:'switch',id,part:'toggle',src:'panel'};control(lever,spec);const pad=new T.Mesh(new T.BoxGeometry(.006,.045,.06),new T.MeshBasicMaterial({visible:false}));pad.position.set(.104,y,z);pad.name='Switch pad '+id;consoleG.add(pad);control(pad,spec);});
+   merged(guards,anodised,'Switch guards',consoleG);
+   COCKPIT.buttons.forEach(([id,colour],i)=>{const z=pw/2-.062-i*.094,y=-.045;
+    const guard=put(new T.Mesh(new T.CylinderGeometry(.015,.015,.008,32),machined),'Button guard '+id);guard.position.set(.107,y,z);guard.rotation.z=Math.PI/2;
+    const cap=put(new T.Mesh(new T.CylinderGeometry(.011,.011,.010,24),new T.MeshPhysicalMaterial({color:colour,roughness:.3,metalness:.05,clearcoat:.6,clearcoatRoughness:.2,emissive:colour,emissiveIntensity:.25})),'Button '+id);cap.position.set(.113,y,z);cap.rotation.z=Math.PI/2;
+-   const cid=id==='PIT LIMIT'?'PIT':id;if(!buttonCaps.has(cid))buttonCaps.set(cid,[]);buttonCaps.get(cid).push({cap,home:.113});control(cap,{kind:'button',id:cid});});
++   const cid=id==='PIT LIMIT'?'PIT':id;if(!buttonCaps.has(cid))buttonCaps.set(cid,[]);buttonCaps.get(cid).push({cap,home:.113});control(cap,{kind:'button',id:cid,part:'panel-button',src:'panel',cap});});
+   /* v5.82 — THE RADIO: a crew radio head unit on the console's face under the switch panel — a machined bezel, the
+      channel window (drawRadio) that wakes with the ignition, a PTT key that opens the channel (the same RADIO the
+      panel button and the wheel pod operate, so all three agree), a volume knob, a speaker grille and the LED that
+      shows the channel open. The whole unit is a hit target: a finger anywhere on it keys the radio. */
+   {const rx=.096,ry=-.125,rz=0;
+-   const unit=put(new T.Mesh(new T.BoxGeometry(.016,.056,.18),black),'Radio unit');unit.position.set(rx,ry,rz);unit.receiveShadow=true;control(unit,{kind:'button',id:'RADIO'});
++   const unit=put(new T.Mesh(new T.BoxGeometry(.016,.056,.18),black),'Radio unit');unit.position.set(rx,ry,rz);unit.receiveShadow=true;const radioSpec={kind:'button',id:'RADIO',part:'panel-button',src:'panel'};control(unit,radioSpec);
+    {const bg=new T.BoxGeometry(.004,.062,.186);bg.translate(rx-.005,ry,rz);trim.push(bg);}
+    radioTex=canvasTexture(T,Math.round(.09*COCKPIT.print.panel),Math.round(.03*COCKPIT.print.panel),(g,w,h)=>drawRadio(g,w,h,radioState));
+-   if(radioTex){const win=new T.Mesh(new T.PlaneGeometry(.09,.03),new T.MeshBasicMaterial({map:radioTex.texture,toneMapped:false}));win.position.set(rx+.0082,ry+.008,rz+.030);win.rotation.y=Math.PI/2;win.name='Radio channel window';consoleG.add(win);all.push(win);control(win,{kind:'button',id:'RADIO'});}
++   if(radioTex){const win=new T.Mesh(new T.PlaneGeometry(.09,.03),new T.MeshBasicMaterial({map:radioTex.texture,toneMapped:false}));win.position.set(rx+.0082,ry+.008,rz+.030);win.rotation.y=Math.PI/2;win.name='Radio channel window';consoleG.add(win);all.push(win);control(win,radioSpec);}
+    const ptt=put(new T.Mesh(new T.CylinderGeometry(.009,.009,.008,24),new T.MeshPhysicalMaterial({color:0xffb020,roughness:.3,metalness:.05,clearcoat:.6,clearcoatRoughness:.2,emissive:0xffb020,emissiveIntensity:.25})),'Radio PTT');ptt.position.set(rx+.012,ry-.014,rz+.064);ptt.rotation.z=Math.PI/2;
+-   if(!buttonCaps.has('RADIO'))buttonCaps.set('RADIO',[]);buttonCaps.get('RADIO').push({cap:ptt,home:rx+.012});control(ptt,{kind:'button',id:'RADIO'});
+-   {const kg=new T.CylinderGeometry(.007,.0075,.010,20);kg.rotateZ(Math.PI/2);kg.translate(rx+.013,ry+.008,rz-.068);trim.push(kg);}
+-   const mark=new T.Mesh(new T.BoxGeometry(.002,.0012,.006),orange);mark.position.set(rx+.0185,ry+.008,rz-.068);mark.name='Radio volume mark';consoleG.add(mark);all.push(mark);
++   if(!buttonCaps.has('RADIO'))buttonCaps.set('RADIO',[]);buttonCaps.get('RADIO').push({cap:ptt,home:rx+.012});radioSpec.cap=ptt;control(ptt,radioSpec);
++   /* v6.92 — the volume knob turns: its own spindle, eight detents, the orange mark round with it (a rotary control, car-app.js) */
++   {volKnob=new T.Group();volKnob.name='Radio volume knob';volKnob.position.set(rx+.013,ry+.008,rz-.068);consoleG.add(volKnob);
++    const kn=new T.Mesh(new T.CylinderGeometry(.007,.0075,.010,20),machined);kn.rotation.z=Math.PI/2;kn.name='Radio volume knob body';volKnob.add(kn);all.push(kn);
++    const mark=new T.Mesh(new T.BoxGeometry(.002,.0012,.006),orange);mark.position.set(.0055,0,0);mark.name='Radio volume mark';volKnob.add(mark);all.push(mark);
++    const volSpec={kind:'rotary',id:'VOL',part:'rotary',src:'panel'};control(kn,volSpec);const kp=new T.Mesh(new T.BoxGeometry(.012,.024,.024),new T.MeshBasicMaterial({visible:false}));kp.name='Radio volume pad';volKnob.add(kp);control(kp,volSpec);}
+    radioLed=put(new T.Mesh(new T.SphereGeometry(.0035,12,10),new T.MeshStandardMaterial({color:0x3a1208,emissive:0xff3b1f,emissiveIntensity:0})),'Radio LED');radioLed.position.set(rx+.009,ry-.016,rz+.036);
+    const holes=[];for(let i=0;i<19;i++){const a=i*2.399,rr=.0042*Math.sqrt(i);const hg=new T.CylinderGeometry(.0013,.0013,.002,8);hg.rotateZ(Math.PI/2);hg.translate(rx+.0085,ry-.010+Math.sin(a)*rr,rz-.032+Math.cos(a)*rr);holes.push(hg);}
+    merged(holes,new T.MeshStandardMaterial({color:0x000000,roughness:1}),'Radio speaker grille',consoleG);
+@@ -345,13 +365,17 @@
+    merged(trim,machined,'Console trim, machined',consoleG);}}
+ 
+  /* ---- 4. THE COLUMN: shroud from the dash face, the hub that carries the quick-release, the paddles ---- */
++ const paddles={};
+  {const [h0,h1]=COCKPIT.hubX;
+   const shroud=cyl(.085,.070,Math.max(.012,h0-COCKPIT.dashFaceDriver+.03),(h0+COCKPIT.dashFaceDriver)/2+.012,wheelY-.006,wheelZ,carbonMatte,'Column shroud',[0,0,Math.PI/2]);
+   scaleUV(shroud.geometry,Math.PI*2*.078,Math.max(.012,h0-COCKPIT.dashFaceDriver+.03));   /* round and along, in metres */
+   cyl(COCKPIT.hubR,COCKPIT.hubR,h1-h0,(h0+h1)/2,wheelY,wheelZ,black,'Column hub',[0,0,Math.PI/2],40);
+   cyl(COCKPIT.hubR+.006,COCKPIT.hubR+.006,.012,h1-.004,wheelY,wheelZ,machined,'Hub ring',[0,0,Math.PI/2],48);
+   for(let k=0;k<6;k++){const a=k*Math.PI/3;cyl(.006,.006,.008,h1+.002,wheelY+Math.cos(a)*(COCKPIT.hubR-.02),wheelZ+Math.sin(a)*(COCKPIT.hubR-.02),machined,'Hub bolt '+(k+1),[0,0,Math.PI/2],12);}
+-  [-1,1].forEach(q=>{const p=box(.008,.045,.13,wheelX-.045,wheelY-.02,wheelZ+q*.16,carbon,q<0?'Paddle, right':'Paddle, left');p.rotation.y=q*.35;});}
++  /* v6.92 — the paddles shift: the right one pulls the next gear, the left the one below (car-app.js operate); each flicks back toward
++     the driver on its hinge and springs home */
++  [-1,1].forEach(q=>{const p=box(.008,.045,.13,wheelX-.045,wheelY-.02,wheelZ+q*.16,carbon,q<0?'Paddle, right':'Paddle, left');p.rotation.y=q*.35;paddles[q<0?1:-1]={mesh:p,kick:0};
++   control(p,{kind:'shift',dir:q<0?1:-1,part:'paddle',src:'wheel'});});}
+ 
+  /* ---- 5. THE BUTTONS ON THE WHEEL: four pods inside the rim, turning with it (setWheelAngle). v5.81: they sit on a
+     carbon faceplate that fills the ring between the cog's valleys and the rim — the dark ring round the cog in
+@@ -374,17 +398,65 @@
+   pod.name='Wheel pod '+b.id;pod.castShadow=true;wheelGroup.add(pod);all.push(pod);
+   const cap=new T.Mesh(new T.CylinderGeometry(.0085,.0085,.006,24),new T.MeshPhysicalMaterial({color:b.color,roughness:.28,metalness:.05,clearcoat:.7,clearcoatRoughness:.15,emissive:b.color,emissiveIntensity:b.color==='#ff6a13'?.3:0}));cap.position.set(.0225,b.y+.005,b.z);cap.rotation.z=Math.PI/2;cap.name='Wheel button '+b.id;wheelGroup.add(cap);all.push(cap);
+   {const bz=new T.TorusGeometry(.0102,.0019,10,32);bz.rotateY(Math.PI/2);bz.translate(.0205,b.y+.005,b.z);bezels.push(bz);}
+-  const cid=b.id==='N'?'NEUTRAL':b.id;if(!buttonCaps.has(cid))buttonCaps.set(cid,[]);buttonCaps.get(cid).push({cap,home:.0225});control(cap,{kind:'button',id:cid});control(pod,{kind:'button',id:cid});
++  const cid=b.id==='N'?'NEUTRAL':b.id;if(!buttonCaps.has(cid))buttonCaps.set(cid,[]);buttonCaps.get(cid).push({cap,home:.0225});
++  /* v6.92 — one control for the pod and its cap, carrying the cap so a press moves and lights that cap and no other */
++  const spec={...COCKPIT.wheelControl[b.id],part:'wheel-button',src:'wheel',cap};control(cap,spec);control(pod,spec);
++  cap.material.emissive.set(b.id==='N'?'#2ec46a':b.color);litCaps.push({cap,id:b.id,base:cap.material.emissiveIntensity,glow:0});
+   const label=canvasTexture(T,labelTexW,labelTexH,(g,w,h)=>{g.clearRect(0,0,w,h);g.fillStyle='#f3f4f2';g.font=`800 ${Math.round(h*.78)}px ${FONT}`;g.textAlign='center';g.textBaseline='middle';if('letterSpacing' in g)g.letterSpacing=Math.round(h*.06)+'px';g.fillText(b.id,w/2,h*.54);});
+   const face=new T.Mesh(new T.PlaneGeometry(.024,.0083),label?new T.MeshStandardMaterial({map:label.texture,transparent:true,alphaTest:.05,roughness:.6,metalness:0,emissive:0xffffff,emissiveMap:label.texture,emissiveIntensity:.35,polygonOffset:true,polygonOffsetFactor:-1}):new T.MeshStandardMaterial({color:0xf3f4f2,transparent:true,opacity:0}));
+   if(label){label.texture.generateMipmaps=true;label.texture.minFilter=T.LinearMipmapLinearFilter;}
+   face.position.set(.0204,b.y-.0105,b.z);face.rotation.y=Math.PI/2;face.name='Wheel pod label '+b.id;wheelGroup.add(face);all.push(face);}
++ /* v6.92 — the rim buttons: a machined bezel and a coloured cap each, standing proud of the suede at eleven, one, half past seven and
++    half past four, and a printed tag beside each on the rim */
++ for(const [id,deg,color] of COCKPIT.rimButtons){const a=deg*Math.PI/180,R=WHEEL.rimR*CS,y=R*Math.sin(a),z=-R*Math.cos(a);
++  const cap=new T.Mesh(new T.CylinderGeometry(.0062,.0062,.006,20),new T.MeshPhysicalMaterial({color,roughness:.28,metalness:.05,clearcoat:.7,clearcoatRoughness:.15,emissive:color,emissiveIntensity:.12}));
++  cap.position.set(.0215,y,z);cap.rotation.z=Math.PI/2;cap.name='Wheel rim button '+id;wheelGroup.add(cap);all.push(cap);
++  {const bz=new T.TorusGeometry(.0078,.0016,8,24);bz.rotateY(Math.PI/2);bz.translate(.0195,y,z);bezels.push(bz);}
++  const spec={...COCKPIT.wheelControl[id],part:'wheel-button',src:'wheel',cap};control(cap,spec);
++  if(!buttonCaps.has(id))buttonCaps.set(id,[]);buttonCaps.get(id).push({cap,home:.0215});litCaps.push({cap,id,base:.12,glow:0});
++  /* a pad round it the size of a thumb, so the pointer finds a 12 mm button */
++  const pad=new T.Mesh(new T.BoxGeometry(.006,.026,.026),new T.MeshBasicMaterial({visible:false}));pad.position.set(.021,y,z);pad.name='Wheel rim button pad '+id;wheelGroup.add(pad);control(pad,spec);
++  const tag=canvasTexture(T,160,56,(g,w,h)=>{g.clearRect(0,0,w,h);g.fillStyle='#f3f4f2';g.font=`800 ${Math.round(h*.7)}px ${FONT}`;g.textAlign='center';g.textBaseline='middle';g.fillText(id==='HBRAKE'?'HB':id,w/2,h*.55);});
++  if(tag){const lab=new T.Mesh(new T.PlaneGeometry(.016,.0056),new T.MeshStandardMaterial({map:tag.texture,transparent:true,alphaTest:.05,roughness:.6,emissive:0xffffff,emissiveMap:tag.texture,emissiveIntensity:.35,polygonOffset:true,polygonOffsetFactor:-1}));
++   /* on the rim's crown beside the button, running along the rim and upright to the driver */
++   const upper=Math.sin(a)>=0,off=(upper?(Math.cos(a)>=0?-1:1):(Math.cos(a)>=0?1:-1))*9.5*Math.PI/180,la=a+off,th=upper?la-Math.PI/2:la-Math.PI*1.5;   /* the tag on the side away from twelve (or six), so the marker stays clear */lab.position.set(.0170,R*Math.sin(la),-R*Math.cos(la));lab.quaternion.setFromEuler(new T.Euler(th,Math.PI/2,0,'XYZ'));lab.name='Wheel rim label '+id;wheelGroup.add(lab);all.push(lab);}}
+  merged(bezels,machined,'Wheel button bezels',wheelGroup);
+ 
++ /* ---- 5b. THE SYSTEMS PANEL (v6.92). On the dash face to the right of the column, where the driver's right hand drops to it: the
++    fire system's ARM switch under a red flip cover (lift the cover, the toggle goes up and the ARMED lamp lights; close the cover and
++    it pushes the toggle off), and the warning lamps a race dash carries — OIL and BATT lit with the ignition on and the V8 stopped, as
++    a real car's are, FUEL when the ignition is on without the pump, FAN while the radiator fans run, HB with the handbrake on, PIT with
++    the limiter. On the ignition they all light for the self-test, then go out. Every word printed here is the car's own. ---- */
++ const lamps={};let fireCover=null,fireLever=null,fireLamp=null;
++ {const P=new T.Group();P.name='Systems panel';P.position.set(COCKPIT.dashFaceDriver+.006,.815,-.585);interior.add(P);
++  const pw=.105,ph=.10;
++  const plate=new T.Mesh(new T.BoxGeometry(.008,ph,pw),anodised);metricUV(plate.geometry);plate.name='Systems panel plate';plate.castShadow=plate.receiveShadow=true;P.add(plate);all.push(plate);
++  const L=[['OIL','#e5342a'],['BATT','#e5342a'],['FUEL','#ffb020'],['FAN','#2ec46a'],['HB','#e5342a'],['PIT','#3a7bff']];
++  const sheet=canvasTexture(T,Math.round(pw*COCKPIT.print.panel),Math.round(ph*COCKPIT.print.panel),(g,w,h)=>{const X=z=>(pw/2-z)/pw*w,Y=y=>(ph/2-y)/ph*h,S=v=>v/pw*w;g.clearRect(0,0,w,h);g.textAlign='center';g.textBaseline='middle';
++   g.fillStyle='#e9edef';g.font=`800 ${Math.round(S(.0052))}px ${FONT}`;L.forEach(([id],i)=>g.fillText(id,X(pw/2-.011-i*.0166),Y(.018)));
++   g.fillStyle='#ff6a13';g.fillRect(X(pw/2-.004),Y(.006),X(-pw/2+.004)-X(pw/2-.004),S(.0012));
++   g.fillStyle='#e9edef';g.font=`800 ${Math.round(S(.0068))}px ${FONT}`;g.fillText('FIRE SYSTEM',X(.012),Y(-.041));g.fillStyle='#aab3b8';g.font=`700 ${Math.round(S(.0048))}px ${FONT}`;g.fillText('ARM ↑',X(.012),Y(.000));g.fillText('ARMED',X(-.032),Y(-.030));});
++  if(sheet){sheet.texture.generateMipmaps=true;sheet.texture.minFilter=T.LinearMipmapLinearFilter;const face=new T.Mesh(new T.PlaneGeometry(pw-.004,ph-.004),new T.MeshStandardMaterial({map:sheet.texture,transparent:true,alphaTest:.02,roughness:.5,metalness:0,emissive:0xffffff,emissiveMap:sheet.texture,emissiveIntensity:.08,polygonOffset:true,polygonOffsetFactor:-1}));face.position.set(.0045,0,0);face.rotation.y=Math.PI/2;face.name='Systems panel sheet';P.add(face);all.push(face);}
++  const bez=[];
++  L.forEach(([id,col],i)=>{const z=pw/2-.011-i*.0166,y=.031;const lamp=new T.Mesh(new T.CylinderGeometry(.0045,.0045,.004,16),new T.MeshStandardMaterial({color:0x1a1c1e,emissive:col,emissiveIntensity:0,roughness:.3}));lamp.position.set(.006,y,z);lamp.rotation.z=Math.PI/2;lamp.name='Warning lamp '+id;P.add(lamp);all.push(lamp);lamps[id]={lamp,on:0};
++   const bg=new T.TorusGeometry(.0052,.0011,6,16);bg.rotateY(Math.PI/2);bg.translate(.0062,y,z);bez.push(bg);});
++  /* the ARM toggle, its base and its guard's hinge block */
++  {const y=-.012,z=.012;const base=new T.CylinderGeometry(.0075,.0075,.005,20);base.rotateZ(Math.PI/2);base.translate(.0065,y,z);bez.push(base);
++   fireLever=new T.Group();fireLever.position.set(.008,y,z);P.add(fireLever);fireLever.rotation.z=-.5;fireLever.userData.at=-.5;fireLever.userData.v=0;
++   const lv=new T.Mesh(new T.CylinderGeometry(.0022,.0028,.02,10),machined);lv.position.set(.010,0,0);lv.rotation.z=-Math.PI/2;lv.name='Fire system switch';fireLever.add(lv);all.push(lv);
++   const tip=new T.Mesh(new T.SphereGeometry(.0035,10,8),red);tip.position.set(.020,0,0);fireLever.add(tip);
++   /* the red flip cover: hinged along its top edge, closed down over the toggle */
++   const hinge=new T.BoxGeometry(.006,.004,.026);hinge.translate(.007,y+.02,z);bez.push(hinge);
++   fireCover=new T.Group();fireCover.position.set(.009,y+.02,z);P.add(fireCover);fireCover.userData.at=0;fireCover.userData.v=0;
++   const cov=new T.Mesh(new T.BoxGeometry(.022,.036,.024),new T.MeshPhysicalMaterial({color:0xc41a1f,roughness:.25,metalness:0,clearcoat:.8,transparent:true,opacity:.82,emissive:0x400000,emissiveIntensity:.4}));cov.position.set(.011,-.018,0);cov.name='Fire system cover';fireCover.add(cov);all.push(cov);
++   const spec={kind:'switch',id:'FIRE',part:'guard',src:'panel'};control(cov,spec);control(lv,spec);const pad=new T.Mesh(new T.BoxGeometry(.008,.05,.05),new T.MeshBasicMaterial({visible:false}));pad.position.set(.008,y,z);pad.name='Fire system pad';P.add(pad);control(pad,spec);
++   fireLamp=new T.Mesh(new T.CylinderGeometry(.0048,.0048,.004,16),new T.MeshStandardMaterial({color:0x1a1c1e,emissive:'#e5342a',emissiveIntensity:0,roughness:.3}));fireLamp.position.set(.006,-.018,-.032);fireLamp.rotation.z=Math.PI/2;fireLamp.name='Fire system ARMED lamp';P.add(fireLamp);all.push(fireLamp);}
++  merged(bez,machined,'Systems panel bezels',P);}
++
+  /* ---- 10. THE GAUGES (v5.80): three analogue dials on the dash beside the display — tacho, water, oil — a face
+     drawn at build, a needle that sweeps with the machine's own state (setInstruments), a bezel each. v5.81: the
+     faces at 384 px, the bezels machined, the pod carbon. ---- */
+- const gauges={};
++ const gauges={};let selfT=-1;const SELF_TEST=1.5;
+  {const G=[{id:'rpm',lab:'RPM ×1000',min:0,max:8,step:1,red:7},{id:'water',lab:'WATER °C',min:40,max:120,step:20,red:105},{id:'oil',lab:'OIL °C',min:40,max:140,step:20,red:125},{id:'speed',lab:'KM/H',min:0,max:300,step:50,red:null}];   /* v5.82 — the speedo: 0–300, no red band; car-app.js feeds it the road speed at the dial's revs in the lever's gear */
+   const pod=new T.Group();pod.position.set(-.165,.925,-.084);   /* v5.82: four gauges, the pod 7.5 cm longer toward the passenger side, its driver's end where it was */pod.rotation.z=.30;interior.add(pod);   /* on the dash top, left of the display, leaning back to the eye like it */
+   const put=(m,name)=>{m.name=name;m.castShadow=m.receiveShadow=true;metric(m);pod.add(m);all.push(m);return m;};
+@@ -405,7 +477,8 @@
+    const bezel=put(new T.Mesh(new T.TorusGeometry(.0305,.0028,10,48),machined),cap(g.id)+' gauge bezel');bezel.position.set(.019,0,z);bezel.rotation.y=Math.PI/2;
+    gauges[g.id]={needle,min:g.min,max:g.max,at:0};});}
+  /* a needle's sweep: 0 at seven o'clock, full at five, clockwise to the eye looking into the face (+x toward it) */
+- function setGauge(id,value){const g=gauges[id];if(!g)return;const t=Math.max(0,Math.min(1,(value-g.min)/(g.max-g.min)));g.at+=(t-g.at)*.35;g.needle.rotation.x=-(-135+270*g.at)*Math.PI/180;}
++ function setGauge(id,value){const g=gauges[id];if(!g)return;let t=Math.max(0,Math.min(1,(value-g.min)/(g.max-g.min)));if(selfT>=0&&selfT<SELF_TEST)t=selfT<.55?1:selfT<.8?1:0;   /* v6.92: the ignition's self-test sweeps every needle to the stop and back */
++  g.at+=(t-g.at)*(selfT>=0&&selfT<SELF_TEST?.16:.35);g.needle.rotation.x=-(-135+270*g.at)*Math.PI/180;}
+ 
+  /* ---- 6. THE CAGE: round tubes where a Supercar's are — the A-pillars along the screen's edges, the header
+     under the roof's front, the roof rails, the main hoop behind the seats with its harness bar, the door
+@@ -480,18 +553,25 @@
+  const shifter=new T.Group();shifter.position.set(.16,.60,-.04);shifter.rotation.z=.22;interior.add(shifter);
+  let leverRock=0;
+  {const boot=new T.Mesh(new T.CylinderGeometry(.02,.045,.06,20),seatCloth);boot.position.set(0,.03,0);boot.name='Lever boot';shifter.add(boot);all.push(boot);scaleUV(boot.geometry,.2,.06);
+-  const shaft=new T.Mesh(new T.CylinderGeometry(.010,.012,.19,16),machined);shaft.position.set(0,.135,0);shaft.name='Gear lever';shaft.castShadow=true;shifter.add(shaft);all.push(shaft);control(shaft,{kind:'shift',dir:-1});
++  const shaft=new T.Mesh(new T.CylinderGeometry(.010,.012,.19,16),machined);shaft.position.set(0,.135,0);shaft.name='Gear lever';shaft.castShadow=true;shifter.add(shaft);all.push(shaft);control(shaft,{kind:'shift',dir:-1,part:'lever',src:'panel'});
+   /* the knob's profile: a flat top with a chamfer, a straight body with four grooves, the neck into the collar */
+   const prof=[[0,.040],[.012,.040],[.0165,.037],[.0175,.033]];for(let k=0;k<4;k++){const y=.028-k*.012;prof.push([.0175,y],[.0158,y-.003],[.0158,y-.005],[.0175,y-.008]);}prof.push([.0175,-.022],[.0150,-.030],[.0120,-.034],[0,-.034]);prof.reverse();   /* bottom to top, the way LatheGeometry faces outward */
+-  const knob=new T.Mesh(new T.LatheGeometry(prof.map(([r,y])=>new T.Vector2(r,y)),40),machined);knob.position.set(0,.245,0);knob.name='Gear knob';knob.castShadow=true;shifter.add(knob);all.push(knob);control(knob,{kind:'shift',dir:1});
++  const knob=new T.Mesh(new T.LatheGeometry(prof.map(([r,y])=>new T.Vector2(r,y)),40),machined);knob.position.set(0,.245,0);knob.name='Gear knob';knob.castShadow=true;shifter.add(knob);all.push(knob);control(knob,{kind:'shift',dir:1,part:'lever',src:'panel'});
+   const collar=new T.Mesh(new T.CylinderGeometry(.013,.013,.02,24),orange);collar.position.set(0,.205,0);collar.name='Knob collar';shifter.add(collar);all.push(collar);
+   /* v5.80 — the lever's base arm below its pivot, and the push-pull rod from it forward to the box's shift tower (layShiftRod lays it to the tower each frame; a shift moves it) */
+   const baseArm=new T.Mesh(new T.CylinderGeometry(.007,.007,.05,10),machined);baseArm.position.set(0,-.02,0);baseArm.name='Lever base arm';shifter.add(baseArm);all.push(baseArm);
+   const label=canvasTexture(T,512,146,(g,w,h)=>{g.clearRect(0,0,w,h);g.fillStyle='#ff6a13';g.font=`800 ${Math.round(h*.46)}px ${FONT}`;g.textAlign='center';g.textBaseline='middle';g.fillText('◄ UP · DOWN ►',w/2,h/2);});
+   if(label){const face=new T.Mesh(new T.PlaneGeometry(.07,.02),new T.MeshStandardMaterial({map:label.texture,transparent:true,alphaTest:.05,roughness:.6,emissive:0xff6a13,emissiveMap:label.texture,emissiveIntensity:.25}));face.position.set(.18,.6125,-.04);face.rotation.set(-Math.PI/2,0,0);face.rotateZ(Math.PI/2);add(face,'Shift plate');}}
+  box(.16,.024,.04,.16,.60,-.04,anodised,'Lever gate');
+- cyl(.012,.010,.22,.34,.66,-.06,black,'Handbrake',[0,0,.6],12);
+- cyl(.02,.02,.05,.26,.75,-.06,machined,'Handbrake grip',[0,0,.6],16);
++ /* v6.92 — the handbrake works: the lever on its pivot at the tunnel's end, pulled up over its ratchet and let down again by the
++    button in its end (car-app.js: HBRAKE holds the rear wheels) */
++ const hbPivot=new T.Group();hbPivot.position.set(.402,.569,-.06);interior.add(hbPivot);hbPivot.userData.at=0;hbPivot.userData.v=0;
++ {const put=(m,name)=>{m.name=name;m.castShadow=m.receiveShadow=true;hbPivot.add(m);all.push(m);return m;};const dir=new T.Vector3(-Math.sin(.6),Math.cos(.6),0);
++  const lever=put(new T.Mesh(new T.CylinderGeometry(.012,.010,.22,12),black),'Handbrake');lever.position.copy(dir).multiplyScalar(.11);lever.rotation.z=.6;
++  const grip=put(new T.Mesh(new T.CylinderGeometry(.02,.02,.05,16),machined),'Handbrake grip');grip.position.set(.26-.402,.75-.569,0);grip.rotation.z=.6;
++  const btn=put(new T.Mesh(new T.CylinderGeometry(.007,.007,.012,12),red),'Handbrake release button');btn.position.copy(grip.position).addScaledVector(dir,.03);btn.rotation.z=.6;
++  const quad=put(new T.Mesh(new T.CylinderGeometry(.03,.03,.012,20,1,false,0,Math.PI),machined),'Handbrake ratchet quadrant');quad.rotation.x=Math.PI/2;
++  const spec={kind:'switch',id:'HBRAKE',part:'handbrake',src:'panel'};for(const m of [lever,grip,btn])control(m,spec);}
+ 
+  /* ---- 10. THE PEDAL BOX, in front of the firewall (x −.39), not through it ---- */
+  /* ---- 9. THE PEDAL BOX (v5.80). Andrew Fisher, 24 Sep 2026: everything moves and moves the next thing.
+@@ -559,7 +639,7 @@
+     would hang, casts no shadow and reaches nothing past the door. It hangs over the tunnel on the passenger's side
+     of the driver's head, not ahead of it: from the eye, the display glass mirrors the roof just ahead of the driver,
+     and a lamp there put a white spot in the middle of the screen (the first first-person still, 24 Sep). ---- */
+- const cabinLight=new T.PointLight(0xffe4c4,1.6,1.9,1.5);cabinLight.name='Cabin fill light';cabinLight.position.set(.25,1.06,.12);cabinLight.castShadow=false;interior.add(cabinLight);
++ const cabinLight=new T.PointLight(0xffe4c4,1.6,1.9,1.5);cabinLight.name='Cabin fill light';cabinLight.position.set(.25,.97,.12);   /* v6.92: 9 cm lower — at 6 cm under the roof lining it burnt a white disc in it, which the driver now sees when he looks up and across */cabinLight.castShadow=false;interior.add(cabinLight);
+ 
+  /* ---- 13. THE CABIN'S SHADE ON THE REFLECTIONS (v5.81). The scene's environment is the garage captured from the car's
+     place with the car taken away (car-app.js garageEnvironment), so every surface in here reflected the hall's white
+@@ -574,18 +654,37 @@
+  function setInstruments(st,now){
+   /* v5.82 — the radio's window and LED follow the ignition and the channel */
+   if(radioTex&&(!!st.ign!==radioState.ign||!!st.radio!==radioState.open)){radioState.ign=!!st.ign;radioState.open=!!st.radio;const c=radioTex.canvas;drawRadio(c.getContext('2d'),c.width,c.height,radioState);radioTex.texture.needsUpdate=true;if(radioLed)radioLed.material.emissiveIntensity=radioState.open?2.4:0;}
+-  if(!displayTex)return;now=now||0;
+-  const key=JSON.stringify([st.ign,st.running,st.starting,Math.round((st.rpm||0)/25),st.gear,Math.round(st.speed||0),Math.round(st.water||0),Math.round(st.oil||0),st.page,st.pit,st.fuel,st.fan,st.lights,st.radio]);
++  if(!displayTex)return;now=now||0;st.selfTest=!!st.ign&&selfT>=0&&selfT<SELF_TEST;
++  const key=JSON.stringify([st.ign,st.running,st.starting,Math.round((st.rpm||0)/25),st.gear,Math.round(st.speed||0),Math.round(st.water||0),Math.round(st.oil||0),st.page,st.pit,st.fuel,st.fan,st.lights,st.radio,st.selfTest,st.hbrake,st.fire,st.fanRun]);
+   if(key===lastKey||(now-lastDrawn<90&&lastKey))return;lastKey=key;lastDrawn=now;
+   const c=displayTex.canvas;drawDisplay(c.getContext('2d'),c.width,c.height,st);displayTex.texture.needsUpdate=true;
+  }
+  function setWheelAngle(a){wheelGroup.rotation.x=a;}
+  /* the pods leave the column with the rim they are bolted to (car-app.js spreads the wheel along the column in the cockpit) */
+  function setWheelSpread(dx){wheelGroup.position.x=wheelX+(dx||0);}
+- function setSwitch(id,on){const p=switchLevers.get(id);if(!p)return;if(p.userData.rotary)p.rotation.x=on?-1.35:0;else p.rotation.z=on?.5:-.5;if(id==='IGN'&&ignLamp)ignLamp.material.emissiveIntensity=on?2.6:0;}
++ /* v6.92 — EVERYTHING THAT MOVES, MOVES LIKE A MECHANISM. A switch is not set, it is thrown: each lever, the key, the fire cover,
++    the handbrake and the volume knob has a target and a sprung joint that gets there with the overshoot of a real toggle's spring
++    (update() below). setSwitch() only moves the targets. */
++ const joints=[];const joint=(o,axis,at,{k=900,z=.42}={})=>{if(!o)return null;const j={o,axis,at,to:at,v:0,k,z};o.rotation[axis]=at;joints.push(j);return j;};
++ const J=new Map();for(const [id,p] of switchLevers)J.set(id,p.userData.rotary?joint(p,'x',0,{k:500,z:.55}):joint(p,'z',-.5));
++ J.set('FIRE',joint(fireLever,'z',-.5));const coverJ=joint(fireCover,'z',0,{k:260,z:.5}),hbJ=joint(hbPivot,'z',0,{k:140,z:.7}),volJ=joint(volKnob,'x',0,{k:600,z:.5});
++ function setSwitch(id,on){
++  if(id==='FIRE'){if(coverJ)coverJ.to=on?1.9:0;const j=J.get('FIRE');if(j)j.to=on?.5:-.5;if(fireLamp)fireLamp.material.emissiveIntensity=on?2.6:0;return;}
++  if(id==='HBRAKE'){if(hbJ)hbJ.to=on?-.34:0;return;}
++  const j=J.get(id),p=switchLevers.get(id);if(!j||!p)return;j.to=p.userData.rotary?(on?-1.35:0):(on?.5:-.5);if(id==='IGN'&&ignLamp)ignLamp.material.emissiveIntensity=on?2.6:0;}
++ /* the volume knob: eight detents over 270° */
++ function setVolume(step){if(volJ)volJ.to=-(Math.max(0,Math.min(7,step))-3.5)*(Math.PI*1.5/7);}
++ /* a press moves the cap it was made on (or, from the keyboard or the dock, every cap of that system) and flashes it */
+  const pressed=new Map();
+- function press(id){if(!buttonCaps.has(id))return;pressed.set(id,.18);}
++ function press(id,cap){const list=buttonCaps.get(id);if(!list)return;for(const b of list)if(!cap||b.cap===cap){pressed.set(b,.18);const l=litCaps.find(x=>x.cap===b.cap);if(l)l.glow=1;}}
++ function flickPaddle(dir){const p=paddles[dir>0?1:-1];if(p)p.kick=1;}
+  function setGear(g,dir){leverRock=dir>0?.24:dir<0?-.24:0;}
++ /* the ignition's self-test: every lamp, every shift light and every needle, for a second and a half */
++ function selfTest(){selfT=0;}
++ /* what is lit: on the wheel, each system's own button while it is on; on the dash, the warning lamps */
++ let litState={},lampState={};
++ function setLit(state){litState=state||{};}
++ function setLamps(state){lampState=state||{};}
+  /* the shift rod: a tube from the lever's base arm to the gearbox's shift tower, laid every frame so it follows the lever's rock */
+  const shiftRod=new T.Mesh(new T.CylinderGeometry(.0055,.0055,1,10),alloy);shiftRod.name='Shift rod to the box';shiftRod.castShadow=true;interior.add(shiftRod);all.push(shiftRod);
+  const rodEnd=new T.Mesh(new T.SphereGeometry(.009,10,8),black);rodEnd.name='Shift rod rose joint';interior.add(rodEnd);all.push(rodEnd);
+@@ -593,14 +692,22 @@
+  function layShiftRod(target){if(target)rodTarget=(rodTarget||new T.Vector3()).copy(target);if(!rodTarget){shiftRod.visible=rodEnd.visible=false;return;}shiftRod.visible=rodEnd.visible=true;
+   shifter.updateMatrixWorld(true);rodA.set(0,-.045,0);shifter.localToWorld(rodA);interior.worldToLocal(rodA);rodD.copy(rodTarget);interior.worldToLocal(rodD);rodD.sub(rodA);const L=rodD.length();
+   shiftRod.position.copy(rodA).addScaledVector(rodD,.5);shiftRod.scale.set(1,L,1);shiftRod.quaternion.setFromUnitVectors(new T.Vector3(0,1,0),rodD.normalize());rodEnd.position.copy(rodA);}
+- let rumbleT=0;
++ let rumbleT=0,blinkT=0;
+  function update(dt,st){
+-  for(const [id,left] of pressed){const t=Math.max(0,left-dt);pressed.set(id,t);for(const b of buttonCaps.get(id))b.cap.position.x=b.home-(t>0?.004:0);if(t<=0)pressed.delete(id);}
++  for(const [b,left] of pressed){const t=Math.max(0,left-dt);pressed.set(b,t);b.cap.position.x=b.home-(t>0?.004:0);if(t<=0)pressed.delete(b);}
+   if(Math.abs(leverRock)>1e-4){shifter.rotation.z=.18+leverRock;leverRock*=Math.max(0,1-dt*6);if(Math.abs(leverRock)<1e-3)leverRock=0;}else shifter.rotation.z=.18;
++  /* the sprung joints, stepped finely so a slow frame cannot throw them */
++  for(const j of joints){if(Math.abs(j.to-j.at)<1e-4&&Math.abs(j.v)<1e-3){if(j.at!==j.to){j.at=j.to;j.o.rotation[j.axis]=j.at;}continue;}
++   const n=Math.min(40,Math.ceil(dt/.004)),h=dt/n,w=Math.sqrt(j.k);for(let i=0;i<n;i++){j.v+=((j.to-j.at)*j.k-2*j.z*w*j.v)*h;j.at+=j.v*h;}j.o.rotation[j.axis]=j.at;}
++  for(const q of [1,-1]){const p=paddles[q];if(!p)continue;if(p.kick>0)p.kick=Math.max(0,p.kick-dt*5);p.mesh.rotation.y=(q>0?-1:1)*(.35+.25*p.kick);}
++  if(selfT>=0){selfT+=dt;if(selfT>SELF_TEST+.2)selfT=-1;}
++  const testing=selfT>=0&&selfT<SELF_TEST;blinkT+=dt;
++  for(const l of litCaps){if(l.glow>0)l.glow=Math.max(0,l.glow-dt*4);const on=litState[l.id];const lit=on==='blink'?(blinkT*4%1<.5):!!on;l.cap.material.emissiveIntensity=l.base+(lit||testing?1.6:0)+l.glow*2.4;}
++  for(const id in lamps){const on=testing||!!lampState[id];const L=lamps[id];if(L.on!==on){L.on=on;L.lamp.material.emissiveIntensity=on?2.4:0;}}
+   /* the V8's rumble reaches the lever and the mirror: a shiver that grows with the revs (car-app passes the amplitude) */
+   const r=(st&&st.rumble)||0;rumbleT+=dt*((st&&st.rumbleHz)||30);const sh=r*Math.sin(rumbleT*6.283),sh2=r*Math.sin(rumbleT*6.283*1.37+1);
+   shifter.position.x=.16+sh*.6;shifter.position.z=-.04+sh2*.4;if(mirrorHousing){mirrorHousing.rotation.z=-.35+sh2*.35;}
+   layShiftRod();
+  }
+- return {group:interior,meshes:all,materials:{carbon,carbonMatte,seatCloth,strap,machined,anodised,padding},driver,controls,setInstruments,setWheelAngle,setWheelSpread,setSwitch,press,setGear,update,wheelGroup,setPedals,setGauge,layShiftRod,pedals,gauges,cabinLight};
++ return {group:interior,meshes:all,materials:{carbon,carbonMatte,seatCloth,strap,machined,anodised,padding},driver,controls,setInstruments,setWheelAngle,setWheelSpread,setSwitch,setVolume,press,flickPaddle,selfTest,get selfTesting(){return selfT>=0&&selfT<SELF_TEST;},setLit,setLamps,litCaps,lamps,joints,setGear,update,wheelGroup,setPedals,setGauge,layShiftRod,pedals,gauges,cabinLight};
+ }

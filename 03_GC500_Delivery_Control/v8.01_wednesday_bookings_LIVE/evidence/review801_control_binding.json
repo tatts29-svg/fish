@@ -1,0 +1,72 @@
+{
+  "author": "Andrew Fisher",
+  "candidateSha256": "70ed0c49213a910ae33dd062ecd3ada5f1752a69b0c1665c19c6bb25bcea1f11",
+  "reviewed798Sha256": "9a52ec22c794a514d44936ef84335b62a6876c2664fa54f211a35f1315666d95",
+  "checks": [
+    {
+      "name": "drawer helpers and delivery note",
+      "sha256": "b5f9669e22eab569de842ef18ebe83181c71291b7a91dd2c795dd84d47e77b56",
+      "identical": true
+    },
+    {
+      "name": "initial drawer badge",
+      "sha256": "b8ae9b6064f33484729b0f3bbe642c9f09900dc4c6721c3fe39d726b5efa0379",
+      "identical": true
+    },
+    {
+      "name": "status refresh hook",
+      "sha256": "81f5319940171b6056ddf10f384143140e5455cefdf63b856e9f2fb53aa203de",
+      "identical": true
+    },
+    {
+      "name": "toolbar height after width fit",
+      "sha256": "b98d5c95e2f7da292f049747382ffff7b062257f92865948fd8e9438fd3b41e5",
+      "identical": true
+    },
+    {
+      "name": "driver and installer delivery note hook",
+      "sha256": "e9698c1442ddac40bfd555803e5a3dcbc3c333d59b0479b1cafe7729d3c3044e",
+      "identical": true
+    },
+    {
+      "name": "print rebuild scale reset",
+      "sha256": "7cc252a0c328026b41f118a4014f5087dd328f62095436c3dba5873fde45a197",
+      "identical": true
+    },
+    {
+      "name": "toolbar status, close and initial setup",
+      "sha256": "36cb00391e65618f5fb85ce4492fad4cf8c61aa5d53a499158a17f162e5d537c",
+      "identical": true
+    },
+    {
+      "name": "font preflight",
+      "sha256": "192c47e5f858503de4cfec1dd7bcac355205190d055464c8f3283d473f081158",
+      "identical": true
+    },
+    {
+      "name": "body.dpbar-on{padding-top:var(--dpbar-height798,64px)}",
+      "identical": true
+    },
+    {
+      "name": "document.querySelector('#drawer.on .ptag.sync b')",
+      "identical": true
+    },
+    {
+      "name": "'#drv782 .box{",
+      "identical": true
+    }
+  ],
+  "allSourcesIdentical": true,
+  "priorPrintChecks": [
+    {
+      "mode": "phone",
+      "passed": 31
+    },
+    {
+      "mode": "desktop",
+      "passed": 31
+    }
+  ],
+  "scope": "The corrected final 798 status, font, note hook, preview scale and toolbar sources are byte-identical. Full final801 standing and actual-drawer tests run separately. Booking changes to print load composition receive their own final browser checks; this binding does not substitute for those.",
+  "liveWrites": 0
+}

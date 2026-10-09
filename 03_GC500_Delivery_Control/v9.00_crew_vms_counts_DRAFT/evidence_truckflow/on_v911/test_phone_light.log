@@ -1,0 +1,27 @@
+PASS 2026-10-14: one closed line in the card’s place, “Truck flow · 4 loads · 4 to check” (expected 4 to check: {"loads":4,"n":4,"unknown":4,"noWindow":4})
+PASS 14 Oct: the four loads with no Kingston load time read “4 loads · 4 to check”
+PASS 2026-10-14: compact — one line, tap target ≥ 44 px, no sideways overflow at 390 px (summary 44 px, fold 44 px)
+PASS 2026-10-14: light — the line takes the page’s paper and ink (rgb(255, 255, 255) on rgb(20, 24, 29))
+PASS 2026-10-14: a press opens the card exactly as the base draws it (markup byte for byte, 3343 characters of text the same)
+PASS 2026-10-14: the opened card carries Order, People on, the areas, Oversized, Curfew first, Could share a truck and Rules
+PASS 2026-10-14: an opened fold stays open through a redraw; closed again, it stays closed
+PASS 2026-10-14: opening, closing and redrawing wrote nothing (local record, localStorage and sessionStorage identical; blocked writes 0)
+PASS 2026-10-14: the rest of the Timeline pane is the base’s byte for byte with the fold unwrapped — load cards, Workers, dropdowns (29), order controls (4), Arrange loads (4)
+PASS 2026-10-14: money identical (moneySummary, fh866Model)
+PASS 2026-10-14: edit practice — Make it Load 1 (3), Stagger (0), People on Save and the order controls call the same functions with the same arguments as the base (captured, never saved)
+PASS 14 Oct: the three Make it Load 1 buttons (Loads 2, 3, 4) are there in edit and call flow891Move(day, load, "first")
+PASS 2026-10-14: a load’s jump chip opens the fold; a print opens every fold and closes it after; the line never prints
+PASS 2026-10-08: one closed line in the card’s place, “Truck flow · 3 loads · 2 to check” (expected 2 to check: {"loads":3,"n":2,"unknown":0,"noWindow":0})
+PASS 2026-10-08: compact — one line, tap target ≥ 44 px, no sideways overflow at 390 px (summary 44 px, fold 44 px)
+PASS 2026-10-08: light — the line takes the page’s paper and ink (rgb(255, 255, 255) on rgb(20, 24, 29))
+PASS 2026-10-08: a press opens the card exactly as the base draws it (markup byte for byte, 3162 characters of text the same)
+PASS 2026-10-08: the opened card carries Order, People on, the areas, Oversized, Curfew first, Could share a truck and Rules
+PASS 2026-10-08: an opened fold stays open through a redraw; closed again, it stays closed
+PASS 2026-10-08: opening, closing and redrawing wrote nothing (local record, localStorage and sessionStorage identical; blocked writes 0)
+PASS 2026-10-08: the rest of the Timeline pane is the base’s byte for byte with the fold unwrapped — load cards, Workers, dropdowns (22), order controls (3), Arrange loads (3)
+PASS 2026-10-08: money identical (moneySummary, fh866Model)
+PASS 2026-10-08: edit practice — Make it Load 1 (1), Stagger (0), People on Save and the order controls call the same functions with the same arguments as the base (captured, never saved)
+PASS 2026-10-08: a load’s jump chip opens the fold; a print opens every fold and closes it after; the line never prints
+PASS every programme day with loads (40) reads the right line and draws closed; nothing to check on 2026-09-22, 2026-09-27, 2026-10-25, 2026-10-27, 2026-10-28, 2026-10-29, 2026-10-30, 2026-11-06, 2026-11-12, 2026-11-13
+PASS no page errors (base 0, build 0); no write attempted on either (blocked 0, 0)
+ALL PASS 26/26 (phone_light)

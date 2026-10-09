@@ -1,0 +1,210 @@
+{
+  "author": "Andrew Fisher",
+  "source": "/workspace/private-v809-support/cameras/ownership/car-app.js",
+  "sha256": "f10c3d8d066529ae1c11db5b063f1446f25766de9c5087641121d0d8fa0b5728",
+  "mode": "patched",
+  "assertions": [
+    {
+      "name": "aspect 1.6: manual maxDistance unchanged",
+      "pass": true
+    },
+    {
+      "name": "aspect 1.6: shot pose survives real control update",
+      "pass": true
+    },
+    {
+      "name": "aspect 1.6: intended action points remain in frame",
+      "pass": true
+    },
+    {
+      "name": "aspect 0.791: manual maxDistance unchanged",
+      "pass": true
+    },
+    {
+      "name": "aspect 0.791: shot pose survives real control update",
+      "pass": true
+    },
+    {
+      "name": "aspect 0.791: intended action points remain in frame",
+      "pass": true
+    },
+    {
+      "name": "aspect 0.65: manual maxDistance unchanged",
+      "pass": true
+    },
+    {
+      "name": "aspect 0.65: shot pose survives real control update",
+      "pass": true
+    },
+    {
+      "name": "aspect 0.65: intended action points remain in frame",
+      "pass": true
+    },
+    {
+      "name": "aspect 0.552: manual maxDistance unchanged",
+      "pass": true
+    },
+    {
+      "name": "aspect 0.552: shot pose survives real control update",
+      "pass": true
+    },
+    {
+      "name": "aspect 0.552: intended action points remain in frame",
+      "pass": true
+    },
+    {
+      "name": "aspect 0.524: manual maxDistance unchanged",
+      "pass": true
+    },
+    {
+      "name": "aspect 0.524: shot pose survives real control update",
+      "pass": true
+    },
+    {
+      "name": "aspect 0.524: intended action points remain in frame",
+      "pass": true
+    },
+    {
+      "name": "aspect 0.5: manual maxDistance unchanged",
+      "pass": true
+    },
+    {
+      "name": "aspect 0.5: shot pose survives real control update",
+      "pass": true
+    },
+    {
+      "name": "aspect 0.5: intended action points remain in frame",
+      "pass": true
+    },
+    {
+      "name": "aspect 0.4: manual maxDistance unchanged",
+      "pass": true
+    },
+    {
+      "name": "aspect 0.4: shot pose survives real control update",
+      "pass": true
+    },
+    {
+      "name": "aspect 0.4: intended action points remain in frame",
+      "pass": true
+    },
+    {
+      "name": "orbit residual decays while driver shot owns camera",
+      "pass": true
+    },
+    {
+      "name": "pan residual decays while driver shot owns camera",
+      "pass": true
+    },
+    {
+      "name": "residual input does not move authored camera",
+      "pass": true
+    },
+    {
+      "name": "residual pan does not move authored target",
+      "pass": true
+    },
+    {
+      "name": "actual gesture-start handler immediately releases ownership",
+      "pass": true
+    },
+    {
+      "name": "manual max distance applies after gesture release",
+      "pass": true
+    },
+    {
+      "name": "completed return releases ownership",
+      "pass": true
+    },
+    {
+      "name": "completed return reaches saved position",
+      "pass": true
+    },
+    {
+      "name": "completed return reaches saved target",
+      "pass": true
+    },
+    {
+      "name": "separate assemblyFit follow-on remains explicit",
+      "pass": true
+    },
+    {
+      "name": "view/reset cancellation releases ownership",
+      "pass": true
+    },
+    {
+      "name": "no stale scripted pose restored after cancellation",
+      "pass": true
+    },
+    {
+      "name": "reduced-motion camera reaches hold on first frame",
+      "pass": true
+    },
+    {
+      "name": "reduced-motion cut preserved through controls",
+      "pass": true
+    }
+  ],
+  "measurements": [
+    {
+      "aspect": 1.6,
+      "desiredDistance": 11.258484776933077,
+      "drawnDistance": 11.258484776933077,
+      "poseError": 0,
+      "maxX": 0.6781184993444,
+      "maxY": 0.8538973642325116
+    },
+    {
+      "aspect": 0.791,
+      "desiredDistance": 15.539174424655803,
+      "drawnDistance": 15.539174424655803,
+      "poseError": 0,
+      "maxX": 0.9295517244709718,
+      "maxY": 0.579256391636217
+    },
+    {
+      "aspect": 0.65,
+      "desiredDistance": 18.38768845185805,
+      "drawnDistance": 18.38768845185805,
+      "poseError": 0,
+      "maxX": 0.9314195525995155,
+      "maxY": 0.47713716421298585
+    },
+    {
+      "aspect": 0.552,
+      "desiredDistance": 21.224710632460678,
+      "drawnDistance": 21.224710632460678,
+      "poseError": 0,
+      "maxX": 0.9327221872346051,
+      "maxY": 0.40587299717596537
+    },
+    {
+      "aspect": 0.524,
+      "desiredDistance": 22.230198319151903,
+      "drawnDistance": 22.230198319151903,
+      "poseError": 0,
+      "maxX": 0.9330950380578549,
+      "maxY": 0.38546827732294653
+    },
+    {
+      "aspect": 0.5,
+      "desiredDistance": 23.181676952958,
+      "drawnDistance": 23.181676952958,
+      "poseError": 0,
+      "maxX": 0.933414861814674,
+      "maxY": 0.3679630801342959
+    },
+    {
+      "aspect": 0.4,
+      "desiredDistance": 28.207829290281293,
+      "drawnDistance": 28.207829290281293,
+      "poseError": 0,
+      "maxX": 0.9404559023566655,
+      "maxY": 0.2882108983383939
+    },
+    {
+      "assemblyFitFollowOn": 1,
+      "note": "Source interaction is unchanged; original exact-return test omits this real-frame gate."
+    }
+  ]
+}

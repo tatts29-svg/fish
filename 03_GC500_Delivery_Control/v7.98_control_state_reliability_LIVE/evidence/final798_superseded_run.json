@@ -1,0 +1,12 @@
+{
+  "author": "Andrew Fisher",
+  "intendedCandidate": "76939c32635b8628b05b577233f827f41c1a60a52fe65270304711abdc6b725e",
+  "status": "Superseded and not accepted as final evidence",
+  "reason": "Official build was rewritten while queued affected jobs started; final runner hash guard rejected the run. The print job reports hash 65bfc837f4ecfd8ea71f96b50706e31175a193c8724f6b92d9059601dcf3e136, a build in progress without the v798 helper, and timed out at the readiness gate. Do not call this a product regression or a passing final798 run.",
+  "retainedValidEvidence": [
+    "Complete b2 standing run with matching initial/final hash",
+    "Native storage29 on769 with exact production chunks",
+    "Final9a toolbar print checks owned by app agent, pending its completed report",
+    "Final801 full standing runner serves an immutable copy of its verified hash"
+  ]
+}

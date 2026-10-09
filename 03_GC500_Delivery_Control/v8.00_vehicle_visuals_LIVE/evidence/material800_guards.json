@@ -1,0 +1,17 @@
+{
+  "author": "Andrew Fisher",
+  "checks": [
+    {
+      "name": "duplicate",
+      "pass": true
+    },
+    {
+      "name": "wrong shader",
+      "pass": true
+    },
+    {
+      "name": "wrong module",
+      "pass": true
+    }
+  ]
+}

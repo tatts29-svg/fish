@@ -1,0 +1,61 @@
+{
+  "author": "Andrew Fisher",
+  "sourceCommit": "c1f69890736fae4c004e4643ff4139bb19cebeeb",
+  "sourceSha256": "038e6fd2966c374a27b70a0d3195c50f27346e9c7f32f59a607bba6618093168",
+  "preservedPositiveChecks": 43,
+  "reproduced": true,
+  "cases": [
+    {
+      "finishBeforeFocusTimer": false,
+      "markedBeforeTimer": {
+        "targetPresent": true,
+        "current": true,
+        "focused": false,
+        "selectedIdCleared": true,
+        "queryPreserved": true
+      },
+      "beforeRefresh": {
+        "targetPresent": true,
+        "current": true,
+        "focused": true,
+        "selectedIdCleared": true,
+        "queryPreserved": true
+      },
+      "afterRefresh": {
+        "targetPresent": true,
+        "current": false,
+        "focused": false,
+        "selectedIdCleared": true,
+        "queryPreserved": true
+      },
+      "scrollCalls": 1
+    },
+    {
+      "finishBeforeFocusTimer": true,
+      "markedBeforeTimer": {
+        "targetPresent": true,
+        "current": true,
+        "focused": false,
+        "selectedIdCleared": true,
+        "queryPreserved": true
+      },
+      "beforeRefresh": {
+        "targetPresent": true,
+        "current": true,
+        "focused": false,
+        "selectedIdCleared": true,
+        "queryPreserved": true
+      },
+      "afterRefresh": {
+        "targetPresent": true,
+        "current": false,
+        "focused": false,
+        "selectedIdCleared": true,
+        "queryPreserved": true
+      },
+      "scrollCalls": 0
+    }
+  ],
+  "limits": "Actual renderDocs815/selRow815/docsRefresh/docsRedraw with synthetic data, controlled file Promise and DOM/timer doubles. No browser geometry or elapsed-time claim.",
+  "pageSha256": "665f53fef3bd685260771c2d8e2867531263f3af7e9c84d870c316797f4c15fb"
+}

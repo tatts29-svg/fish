@@ -1,0 +1,499 @@
+{
+  "author": "Andrew Fisher",
+  "assertions": [
+    {
+      "name": "all 15 Wednesday groups retained",
+      "pass": true
+    },
+    {
+      "name": "all 6 Thursday groups retained",
+      "pass": true
+    },
+    {
+      "name": "isolated fixture state restored exactly",
+      "pass": true
+    },
+    {
+      "name": "completed WC33 17 recorded and 0 remaining",
+      "pass": true
+    },
+    {
+      "name": "WC33 planned headings on both sheets",
+      "pass": true
+    },
+    {
+      "name": "mixed WC31 per-type shortages",
+      "pass": true
+    },
+    {
+      "name": "WC31 reference Complete is explicitly scoped",
+      "pass": true
+    },
+    {
+      "name": "WC32 discrepancy visible on both sheets",
+      "pass": true
+    },
+    {
+      "name": "unknown FWF is not zero",
+      "pass": true
+    },
+    {
+      "name": "blank count remains unknown",
+      "pass": true,
+      "detail": {
+        "item": "FWF",
+        "quantity": "2",
+        "planned": 2,
+        "total": 2,
+        "recorded": null,
+        "remaining": null,
+        "different": false,
+        "supplied": null,
+        "basis": null,
+        "conflict": false,
+        "invalid": false,
+        "unitCount": null,
+        "split": false
+      }
+    },
+    {
+      "name": "green Complete without units remains unknown",
+      "pass": true,
+      "detail": {
+        "item": "FWF",
+        "quantity": "2",
+        "planned": 2,
+        "total": 2,
+        "recorded": null,
+        "remaining": null,
+        "different": false,
+        "supplied": null,
+        "basis": null,
+        "conflict": false,
+        "invalid": false,
+        "unitCount": null,
+        "split": false
+      }
+    },
+    {
+      "name": "single numbered FWF counted",
+      "pass": true,
+      "detail": {
+        "item": "FWF",
+        "quantity": "2",
+        "planned": 2,
+        "total": 2,
+        "recorded": 2,
+        "remaining": 0,
+        "different": false,
+        "supplied": null,
+        "basis": "numbered Event Portables units on site",
+        "conflict": false,
+        "invalid": false,
+        "unitCount": 2,
+        "split": false
+      }
+    },
+    {
+      "name": "numbers without recorded arrival remain unknown",
+      "pass": true,
+      "detail": {
+        "item": "FWF",
+        "quantity": "2",
+        "planned": 2,
+        "total": 2,
+        "recorded": null,
+        "remaining": null,
+        "different": false,
+        "supplied": null,
+        "basis": null,
+        "conflict": false,
+        "invalid": false,
+        "unitCount": null,
+        "split": false
+      }
+    },
+    {
+      "name": "duplicate serial counted once",
+      "pass": true,
+      "detail": {
+        "item": "FWF",
+        "quantity": "2",
+        "planned": 2,
+        "total": 2,
+        "recorded": 1,
+        "remaining": 1,
+        "different": false,
+        "supplied": null,
+        "basis": "numbered Event Portables units on site",
+        "conflict": false,
+        "invalid": false,
+        "unitCount": 1,
+        "split": false
+      }
+    },
+    {
+      "name": "blank serial cannot count",
+      "pass": true,
+      "detail": {
+        "item": "FWF",
+        "quantity": "2",
+        "planned": 2,
+        "total": 2,
+        "recorded": null,
+        "remaining": null,
+        "different": false,
+        "supplied": null,
+        "basis": null,
+        "conflict": false,
+        "invalid": false,
+        "unitCount": null,
+        "split": false
+      }
+    },
+    {
+      "name": "mixed types cannot infer receipt",
+      "pass": true,
+      "detail": {
+        "item": "FWF",
+        "quantity": "2",
+        "planned": 2,
+        "total": 2,
+        "recorded": null,
+        "remaining": null,
+        "different": false,
+        "supplied": null,
+        "basis": null,
+        "conflict": false,
+        "invalid": false,
+        "unitCount": null,
+        "split": false
+      }
+    },
+    {
+      "name": "accessories cannot infer receipt",
+      "pass": true,
+      "detail": {
+        "item": "FWF",
+        "quantity": "2",
+        "planned": 2,
+        "total": 2,
+        "recorded": null,
+        "remaining": null,
+        "different": false,
+        "supplied": null,
+        "basis": null,
+        "conflict": false,
+        "invalid": false,
+        "unitCount": null,
+        "split": false
+      }
+    },
+    {
+      "name": "negative typed quantity unknown despite units",
+      "pass": true,
+      "detail": {
+        "item": "FWF",
+        "quantity": "2",
+        "planned": 2,
+        "total": 2,
+        "recorded": null,
+        "remaining": null,
+        "different": false,
+        "supplied": null,
+        "basis": null,
+        "conflict": false,
+        "invalid": true,
+        "unitCount": 2,
+        "split": false
+      }
+    },
+    {
+      "name": "typed zero retained",
+      "pass": true,
+      "detail": {
+        "item": "FWF",
+        "quantity": "2",
+        "planned": 2,
+        "total": 2,
+        "recorded": 0,
+        "remaining": 2,
+        "different": false,
+        "supplied": null,
+        "basis": "supplied quantity",
+        "conflict": false,
+        "invalid": false,
+        "unitCount": null,
+        "split": false
+      }
+    },
+    {
+      "name": "different supplied type unconfirmed",
+      "pass": true,
+      "detail": {
+        "item": "FWF",
+        "quantity": "2",
+        "planned": 2,
+        "total": 2,
+        "recorded": 1,
+        "remaining": null,
+        "different": true,
+        "supplied": "Accessible Toilet",
+        "basis": "supplied quantity",
+        "conflict": false,
+        "invalid": false,
+        "unitCount": null,
+        "split": false
+      }
+    },
+    {
+      "name": "typed and numbered disagreement unconfirmed",
+      "pass": true,
+      "detail": {
+        "item": "FWF",
+        "quantity": "2",
+        "planned": 2,
+        "total": 2,
+        "recorded": 1,
+        "remaining": null,
+        "different": false,
+        "supplied": null,
+        "basis": "supplied quantity",
+        "conflict": true,
+        "invalid": false,
+        "unitCount": 2,
+        "split": false
+      }
+    },
+    {
+      "name": "placeholder serial not a receipt",
+      "pass": true,
+      "detail": {
+        "item": "FWF",
+        "quantity": "2",
+        "planned": 2,
+        "total": 2,
+        "recorded": null,
+        "remaining": null,
+        "different": false,
+        "supplied": null,
+        "basis": null,
+        "conflict": false,
+        "invalid": false,
+        "unitCount": null,
+        "split": false
+      }
+    },
+    {
+      "name": "decimal explicit count does not fall back",
+      "pass": true,
+      "detail": {
+        "item": "FWF",
+        "quantity": "2",
+        "planned": 2,
+        "total": 2,
+        "recorded": null,
+        "remaining": null,
+        "different": false,
+        "supplied": null,
+        "basis": null,
+        "conflict": false,
+        "invalid": true,
+        "unitCount": 2,
+        "split": false
+      }
+    },
+    {
+      "name": "boolean explicit count does not fall back",
+      "pass": true,
+      "detail": {
+        "item": "FWF",
+        "quantity": "2",
+        "planned": 2,
+        "total": 2,
+        "recorded": null,
+        "remaining": null,
+        "different": false,
+        "supplied": null,
+        "basis": null,
+        "conflict": false,
+        "invalid": true,
+        "unitCount": 2,
+        "split": false
+      }
+    },
+    {
+      "name": "over receipt flagged",
+      "pass": true,
+      "detail": {
+        "item": "FWF",
+        "quantity": "2",
+        "planned": 2,
+        "total": 2,
+        "recorded": 3,
+        "remaining": 0,
+        "different": false,
+        "supplied": null,
+        "basis": "supplied quantity",
+        "conflict": false,
+        "invalid": false,
+        "unitCount": null,
+        "split": false
+      }
+    },
+    {
+      "name": "WC20 four separate sheets",
+      "pass": true
+    },
+    {
+      "name": "split 0 preserves1 planned vs2 reference",
+      "pass": true
+    },
+    {
+      "name": "split 0 no receipt assigned to DD",
+      "pass": true
+    },
+    {
+      "name": "tank 0 no block asset numbers",
+      "pass": true
+    },
+    {
+      "name": "split 1 preserves1 planned vs2 reference",
+      "pass": true
+    },
+    {
+      "name": "split 1 no receipt assigned to DD",
+      "pass": true
+    },
+    {
+      "name": "tank 1 no block asset numbers",
+      "pass": true
+    },
+    {
+      "name": "split 2 preserves1 planned vs2 reference",
+      "pass": true
+    },
+    {
+      "name": "split 2 no receipt assigned to DD",
+      "pass": true
+    },
+    {
+      "name": "block 2 exact one booked number",
+      "pass": true
+    },
+    {
+      "name": "split 3 preserves1 planned vs2 reference",
+      "pass": true
+    },
+    {
+      "name": "split 3 no receipt assigned to DD",
+      "pass": true
+    },
+    {
+      "name": "block 3 exact one booked number",
+      "pass": true
+    },
+    {
+      "name": "native drv WC31 current supply shown",
+      "pass": true
+    },
+    {
+      "name": "native drv WC31 fits A4",
+      "pass": true,
+      "detail": {
+        "over": [],
+        "k": "0.8"
+      }
+    },
+    {
+      "name": "native drv WC33 current supply shown",
+      "pass": true
+    },
+    {
+      "name": "native drv WC33 fits A4",
+      "pass": true,
+      "detail": {
+        "over": [],
+        "k": "0.8"
+      }
+    },
+    {
+      "name": "native drv WC32 current supply shown",
+      "pass": true
+    },
+    {
+      "name": "native drv WC32 fits A4",
+      "pass": true,
+      "detail": {
+        "over": [],
+        "k": "0.8"
+      }
+    },
+    {
+      "name": "native ins WC31 current supply shown",
+      "pass": true
+    },
+    {
+      "name": "native ins WC31 fits A4",
+      "pass": true,
+      "detail": {
+        "over": [],
+        "k": "0.8"
+      }
+    },
+    {
+      "name": "native ins WC33 current supply shown",
+      "pass": true
+    },
+    {
+      "name": "native ins WC33 fits A4",
+      "pass": true,
+      "detail": {
+        "over": [],
+        "k": "0.8"
+      }
+    },
+    {
+      "name": "native ins WC32 current supply shown",
+      "pass": true
+    },
+    {
+      "name": "native ins WC32 fits A4",
+      "pass": true,
+      "detail": {
+        "over": [],
+        "k": "0.8"
+      }
+    },
+    {
+      "name": "all15Wednesday drv A4 sheets fit",
+      "pass": true
+    },
+    {
+      "name": "all15Wednesday drv rendered",
+      "pass": true
+    },
+    {
+      "name": "all15Wednesday ins A4 sheets fit",
+      "pass": true
+    },
+    {
+      "name": "all15Wednesday ins rendered",
+      "pass": true
+    },
+    {
+      "name": "native phone preview page fits viewport",
+      "pass": true
+    }
+  ],
+  "errors": [],
+  "blocked": [
+    {
+      "method": "POST",
+      "path": "/v1/createSession"
+    }
+  ],
+  "at": "2026-10-02T08:22:52.575Z",
+  "candidate_sha256": "b3c38f0ad23a48936b20278f71153cb3399ba93f8146fdc1653d9ffd08382a91",
+  "base_sha256": "35024d43405947d59c106e858221f8c40ed9629bcf6b19b1081f87c4da6799ed"
+}

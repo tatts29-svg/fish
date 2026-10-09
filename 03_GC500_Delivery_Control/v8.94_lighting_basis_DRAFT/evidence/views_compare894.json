@@ -1,0 +1,857 @@
+{
+ "base": {
+  "register": {
+   "rows": 200,
+   "live": 194,
+   "byDiscipline": {
+    "Portable buildings": 52,
+    "Generators": 15,
+    "Lighting towers": 21,
+    "Furniture": 4,
+    "Toilets & amenities": 72,
+    "Water-filled barriers": 15,
+    "Variable message signs": 7,
+    "Access & plant": 5,
+    "Ground protection": 1,
+    "Other": 2
+   },
+   "lighting": {
+    "rows": 21,
+    "units": 25,
+    "keys": [
+     "LT01",
+     "LT02",
+     "LT03",
+     "LT04",
+     "LT05",
+     "LT06",
+     "LTC01",
+     "LTC02",
+     "LTC03",
+     "LTC04",
+     "LTC05",
+     "LTC06",
+     "LTC07",
+     "LTC08",
+     "LTC09",
+     "LTC10",
+     "LTC11",
+     "LTC12",
+     "LTC14",
+     "NVLT",
+     "T0002"
+    ]
+   },
+   "readings": {
+    "buildings": {
+     "pct": 80.77,
+     "kind": "confirmed",
+     "done": 42,
+     "left": 10,
+     "total": 52
+    },
+    "toilets": {
+     "pct": 50,
+     "kind": "lower-bound",
+     "done": 127,
+     "left": 127,
+     "total": 254
+    },
+    "fencing": {
+     "pct": null,
+     "kind": "unknown",
+     "done": null,
+     "left": null,
+     "total": null
+    },
+    "generators": {
+     "pct": 37.5,
+     "kind": "confirmed",
+     "done": 6,
+     "left": 10,
+     "total": 16
+    },
+    "lighting": {
+     "pct": 20,
+     "kind": "confirmed",
+     "done": 5,
+     "left": 20,
+     "total": 25
+    },
+    "vms": {
+     "pct": 33.33,
+     "kind": "confirmed",
+     "done": 8,
+     "left": 16,
+     "total": 24
+    },
+    "equipment": {
+     "pct": 100,
+     "kind": "confirmed",
+     "done": 6,
+     "left": 0,
+     "total": 6
+    }
+   },
+   "whole": {
+    "ready": true,
+    "pct": {
+     "min": 53.86714285714286,
+     "max": 61.01
+    },
+    "reached": 2,
+    "allGreen": false
+   },
+   "lightTally": {
+    "green": 93,
+    "amber": 12,
+    "red": 87,
+    "none": 2,
+    "done": 92,
+    "levelled": 48,
+    "steps": 45,
+    "needLevel": 124,
+    "total": 194,
+    "cancelled": 6,
+    "asOf": null
+   }
+  },
+  "equipment": {
+   "chips": [
+    "All",
+    "Toilets & amenities",
+    "Portable buildings",
+    "Lighting towers",
+    "Generators",
+    "Water-filled barriers",
+    "VMS boards",
+    "Forklifts & access",
+    "Furniture",
+    "Other",
+    "Track mat"
+   ],
+   "groups": [
+    "Toilets & amenities 73",
+    "Portable buildings 56",
+    "Lighting towers 21",
+    "Generators 16",
+    "Water-filled barriers 15",
+    "VMS boards 7",
+    "Forklifts & access 5",
+    "Furniture 4",
+    "Other 2",
+    "Track mat 1"
+   ],
+   "lightingRows": [
+    "LT01",
+    "LT02",
+    "LT03",
+    "LT04",
+    "LT05",
+    "LT06",
+    "LTC01",
+    "LTC02",
+    "LTC03",
+    "LTC04",
+    "LTC05",
+    "LTC06",
+    "LTC07",
+    "LTC08",
+    "LTC09",
+    "LTC10",
+    "LTC11",
+    "LTC12",
+    "LTC14",
+    "NVLT",
+    "T0002"
+   ]
+  },
+  "programme": {
+   "deliveries": [
+    "2026-09-11 T0002",
+    "2026-09-11 NVLT",
+    "2026-10-20 LT05",
+    "2026-10-20 LT06"
+   ],
+   "loads": [],
+   "removals": [],
+   "days": 43
+  },
+  "transport": {
+   "rows": 136,
+   "lightingRows": [
+    "T0002 inbound 2026-09-11"
+   ],
+   "counted": 70
+  },
+  "finder": {
+   "LT01": [
+    "asset:LT01"
+   ],
+   "LTC01": [
+    "asset:LTC01",
+    "place:LTC01"
+   ],
+   "NVLT": [
+    "asset:NVLT"
+   ],
+   "light": [
+    "asset:LT01",
+    "asset:LT02",
+    "asset:LT03",
+    "asset:LT04",
+    "asset:LT05",
+    "asset:LT06",
+    "asset:T0002",
+    "asset:LTC01",
+    "sheet:D024",
+    "doc:D024 Generators Light Towers — quadrant zooms — single A3 plate",
+    "doc:D024 Generators Light Towers — single A3 plate",
+    "doc:D024-26003-02 · Generator, Light Tower & Big Screen Locations",
+    "doc:Generators, light towers and big screens over the site aerial — full contrast",
+    "doc:Generators, light towers and big screens over the site aerial — labels clear"
+   ]
+  },
+  "mentions": {
+   "pricingMentions": {
+    "LT01": 0,
+    "LT02": 0,
+    "LT03": 0,
+    "LT04": 0,
+    "LT05": 0,
+    "LT06": 0,
+    "LTC": 0,
+    "NVLT": 1,
+    "T0002": 1,
+    "Big screen": 0
+   },
+   "demobMentions": {
+    "LT01": 0,
+    "LT02": 0,
+    "LT03": 0,
+    "LT04": 0,
+    "LT05": 1,
+    "LT06": 1,
+    "LTC": 0,
+    "NVLT": 1,
+    "T0002": 1,
+    "Big screen": 0
+   },
+   "timelineMentions": {
+    "LT01": 0,
+    "LT02": 0,
+    "LT03": 0,
+    "LT04": 0,
+    "LT05": 0,
+    "LT06": 0,
+    "LTC": 0,
+    "NVLT": 0,
+    "T0002": 0,
+    "Big screen": 0
+   },
+   "registerMentions": {
+    "LT01": 0,
+    "LT02": 0,
+    "LT03": 0,
+    "LT04": 0,
+    "LT05": 0,
+    "LT06": 0,
+    "LTC": 0,
+    "NVLT": 0,
+    "T0002": 0,
+    "Big screen": 0
+   }
+  },
+  "drawers": {
+   "LT01": {
+    "on": true,
+    "title": "LT01",
+    "tab": "map",
+    "sheet": "D024",
+    "notice": null,
+    "noticeFirst": false
+   },
+   "LTC01": {
+    "on": true,
+    "title": "LTC01",
+    "tab": "map",
+    "sheet": "MASTER",
+    "notice": null,
+    "noticeFirst": false
+   },
+   "NVLT": {
+    "on": true,
+    "title": "NVLT",
+    "tab": "map",
+    "sheet": "MASTER",
+    "notice": null,
+    "noticeFirst": false
+   },
+   "T0002": {
+    "on": true,
+    "title": "T0002",
+    "tab": "map",
+    "sheet": "MASTER",
+    "notice": null,
+    "noticeFirst": false
+   }
+  },
+  "errors": [],
+  "blocked": 0
+ },
+ "candidate": {
+  "register": {
+   "rows": 182,
+   "live": 176,
+   "byDiscipline": {
+    "Portable buildings": 52,
+    "Generators": 15,
+    "Lighting towers": 3,
+    "Furniture": 4,
+    "Toilets & amenities": 72,
+    "Water-filled barriers": 15,
+    "Variable message signs": 7,
+    "Access & plant": 5,
+    "Ground protection": 1,
+    "Other": 2
+   },
+   "lighting": {
+    "rows": 3,
+    "units": 7,
+    "keys": [
+     "LT05",
+     "LT06",
+     "T0002"
+    ]
+   },
+   "readings": {
+    "buildings": {
+     "pct": 80.77,
+     "kind": "confirmed",
+     "done": 42,
+     "left": 10,
+     "total": 52
+    },
+    "toilets": {
+     "pct": 50,
+     "kind": "lower-bound",
+     "done": 127,
+     "left": 127,
+     "total": 254
+    },
+    "fencing": {
+     "pct": null,
+     "kind": "unknown",
+     "done": null,
+     "left": null,
+     "total": null
+    },
+    "generators": {
+     "pct": 37.5,
+     "kind": "confirmed",
+     "done": 6,
+     "left": 10,
+     "total": 16
+    },
+    "lighting": {
+     "pct": 66.67,
+     "kind": "confirmed",
+     "done": 4,
+     "left": 2,
+     "total": 6
+    },
+    "vms": {
+     "pct": 33.33,
+     "kind": "confirmed",
+     "done": 8,
+     "left": 16,
+     "total": 24
+    },
+    "equipment": {
+     "pct": 100,
+     "kind": "confirmed",
+     "done": 6,
+     "left": 0,
+     "total": 6
+    }
+   },
+   "whole": {
+    "ready": true,
+    "pct": {
+     "min": 60.53428571428571,
+     "max": 67.67714285714285
+    },
+    "reached": 3,
+    "allGreen": false
+   },
+   "lightTally": {
+    "green": 92,
+    "amber": 12,
+    "red": 70,
+    "none": 2,
+    "done": 92,
+    "levelled": 48,
+    "steps": 45,
+    "needLevel": 124,
+    "total": 176,
+    "cancelled": 6,
+    "asOf": null
+   }
+  },
+  "equipment": {
+   "chips": [
+    "All",
+    "Toilets & amenities",
+    "Portable buildings",
+    "Generators",
+    "Water-filled barriers",
+    "VMS boards",
+    "Forklifts & access",
+    "Furniture",
+    "Lighting towers",
+    "Other",
+    "Track mat"
+   ],
+   "groups": [
+    "Toilets & amenities 73",
+    "Portable buildings 56",
+    "Generators 16",
+    "Water-filled barriers 15",
+    "VMS boards 7",
+    "Forklifts & access 5",
+    "Furniture 4",
+    "Lighting towers 3",
+    "Other 2",
+    "Track mat 1"
+   ],
+   "lightingRows": [
+    "LT05",
+    "LT06",
+    "T0002"
+   ]
+  },
+  "programme": {
+   "deliveries": [
+    "2026-09-11 T0002",
+    "2026-10-20 LT05",
+    "2026-10-20 LT06"
+   ],
+   "loads": [],
+   "removals": [],
+   "days": 43
+  },
+  "transport": {
+   "rows": 136,
+   "lightingRows": [
+    "T0002 inbound 2026-09-11"
+   ],
+   "counted": 70
+  },
+  "finder": {
+   "LT01": [
+    "asset:LT01"
+   ],
+   "LTC01": [
+    "asset:LTC01",
+    "place:LTC01"
+   ],
+   "NVLT": [
+    "asset:NVLT"
+   ],
+   "light": [
+    "asset:LT01",
+    "asset:LT02",
+    "asset:LT03",
+    "asset:LT04",
+    "asset:LT05",
+    "asset:LT06",
+    "asset:T0002",
+    "asset:NVLT",
+    "sheet:D024",
+    "doc:D024 Generators Light Towers — quadrant zooms — single A3 plate",
+    "doc:D024 Generators Light Towers — single A3 plate",
+    "doc:D024-26003-02 · Generator, Light Tower & Big Screen Locations",
+    "doc:Generators, light towers and big screens over the site aerial — full contrast",
+    "doc:Generators, light towers and big screens over the site aerial — labels clear"
+   ]
+  },
+  "mentions": {
+   "pricingMentions": {
+    "LT01": 0,
+    "LT02": 0,
+    "LT03": 0,
+    "LT04": 0,
+    "LT05": 0,
+    "LT06": 0,
+    "LTC": 0,
+    "NVLT": 0,
+    "T0002": 0,
+    "Big screen": 0
+   },
+   "demobMentions": {
+    "LT01": 0,
+    "LT02": 0,
+    "LT03": 0,
+    "LT04": 0,
+    "LT05": 1,
+    "LT06": 1,
+    "LTC": 0,
+    "NVLT": 0,
+    "T0002": 1,
+    "Big screen": 0
+   },
+   "timelineMentions": {
+    "LT01": 0,
+    "LT02": 0,
+    "LT03": 0,
+    "LT04": 0,
+    "LT05": 0,
+    "LT06": 0,
+    "LTC": 0,
+    "NVLT": 0,
+    "T0002": 0,
+    "Big screen": 0
+   },
+   "registerMentions": {
+    "LT01": 0,
+    "LT02": 0,
+    "LT03": 0,
+    "LT04": 0,
+    "LT05": 0,
+    "LT06": 0,
+    "LTC": 0,
+    "NVLT": 0,
+    "T0002": 0,
+    "Big screen": 0
+   }
+  },
+  "drawers": {
+   "LT01": {
+    "on": true,
+    "title": "LT01",
+    "tab": "map",
+    "sheet": "D024",
+    "notice": "D024 lighting callout — map context only. No asset number, hire or delivery is recorded against it, so it is not counted as a supplied tower. Record one here and it joins the Lighting count.",
+    "noticeFirst": true
+   },
+   "LTC01": {
+    "on": true,
+    "title": "LTC01",
+    "tab": "map",
+    "sheet": "MASTER",
+    "notice": "D024 big-screen symbol — map context only (confirmed 8 Oct 2026). The sheet’s legend lists big screens apart from lighting towers and numbers them beside these light-spread fans; this is not a lighting tower and is not counted as one.",
+    "noticeFirst": true
+   },
+   "NVLT": {
+    "on": true,
+    "title": "NVLT",
+    "tab": "map",
+    "sheet": "MASTER",
+    "notice": "NVLT is a copy of T0002 — counted with T0002. Its asset number is one of T0002’s, so this row adds no tower to the Lighting count; its own history stays here.",
+    "noticeFirst": true
+   },
+   "T0002": {
+    "on": true,
+    "title": "T0002",
+    "tab": "map",
+    "sheet": "MASTER",
+    "notice": "NVLT is a copy of this row (same asset number) and is counted here. T0002 delivered 5 towers to the BSF storage yard, Molendinar; D024 needs 4, so 1 is surplus to the plan. Open NVLT",
+    "noticeFirst": true
+   }
+  },
+  "errors": [],
+  "blocked": 0
+ },
+ "text_fingerprints": {
+  "today": "differs (explained in the README)",
+  "equipmentText": "differs (explained in the README)",
+  "pricingText": "differs (explained in the README)",
+  "demobText": "differs (explained in the README)",
+  "timelineText": "differs (explained in the README)",
+  "costs": "differs (explained in the README)",
+  "finance": "differs (explained in the README)",
+  "transportText": "differs (explained in the README)"
+ },
+ "money_models": "differs only in forecasts and estimates that counted the 18 rows; recorded figures identical (see the README)",
+ "map_base": {
+  "tag": "base",
+  "D024": {
+   "sheet": "D024",
+   "tab": "map",
+   "markers": 57,
+   "lightingPins": 19,
+   "pins": [
+    {
+     "what": "LT01 — Light tower 01 — keyed on D024 to the BSF storage yard, Molendinar · callout 01 · LT01: not on site",
+     "cls": "id",
+     "tag": "BUTTON",
+     "keys": "LT01"
+    },
+    {
+     "what": "LT02 — Light tower 02 — keyed on D024 to the BSF storage yard, Molendinar · callout 02 · LT02: not on site",
+     "cls": "id",
+     "tag": "BUTTON",
+     "keys": "LT02"
+    },
+    {
+     "what": "LT03 — Light tower 03 — keyed on D024 to the BSF storage yard, Molendinar · callout 03 · LT03: not on site",
+     "cls": "id",
+     "tag": "BUTTON",
+     "keys": "LT03"
+    },
+    {
+     "what": "LT04 — Light tower 04 — keyed on D024 to the BSF storage yard, Molendinar · callout 04 · LT04: not on site",
+     "cls": "id",
+     "tag": "BUTTON",
+     "keys": "LT04"
+    },
+    {
+     "what": "LT05 — Light Towers · callout 05 · LT05: not on site",
+     "cls": "id",
+     "tag": "BUTTON",
+     "keys": "LT05"
+    },
+    {
+     "what": "LT06 — Light Towers · callout 06 · LT06: not on site",
+     "cls": "id",
+     "tag": "BUTTON",
+     "keys": "LT06"
+    },
+    {
+     "what": "LTC01 — Circuit light tower 01 — light spread drawn on D024 · callout 01 · LTC01: not on site",
+     "cls": "id",
+     "tag": "BUTTON",
+     "keys": "LTC01"
+    },
+    {
+     "what": "LTC02 — Circuit light tower 02 — light spread drawn on D024 · callout 02 · LTC02: not on site",
+     "cls": "id",
+     "tag": "BUTTON",
+     "keys": "LTC02"
+    },
+    {
+     "what": "LTC03 — Circuit light tower 03 — light spread drawn on D024 · callout 03 · LTC03: not on site",
+     "cls": "id",
+     "tag": "BUTTON",
+     "keys": "LTC03"
+    },
+    {
+     "what": "LTC04 — Circuit light tower 04 — light spread drawn on D024 · callout 04 · LTC04: not on site",
+     "cls": "id",
+     "tag": "BUTTON",
+     "keys": "LTC04"
+    },
+    {
+     "what": "LTC05 — Circuit light tower 05 — light spread drawn on D024 · callout 05 · LTC05: not on site",
+     "cls": "id",
+     "tag": "BUTTON",
+     "keys": "LTC05"
+    },
+    {
+     "what": "LTC06 — Circuit light tower 06 — light spread drawn on D024 · callout 06 · LTC06: not on site",
+     "cls": "id",
+     "tag": "BUTTON",
+     "keys": "LTC06"
+    },
+    {
+     "what": "LTC07 — Circuit light tower 07 — light spread drawn on D024 · callout 07 · LTC07: not on site",
+     "cls": "id",
+     "tag": "BUTTON",
+     "keys": "LTC07"
+    },
+    {
+     "what": "LTC08 — Circuit light tower 08 — light spread drawn on D024 · callout 08 · LTC08: not on site",
+     "cls": "id",
+     "tag": "BUTTON",
+     "keys": "LTC08"
+    },
+    {
+     "what": "LTC09 — Circuit light tower 09 — light spread drawn on D024 · callout 09 · LTC09: not on site",
+     "cls": "id",
+     "tag": "BUTTON",
+     "keys": "LTC09"
+    },
+    {
+     "what": "LTC10 — Circuit light tower 10 — light spread drawn on D024 · callout 10 · LTC10: not on site",
+     "cls": "id",
+     "tag": "BUTTON",
+     "keys": "LTC10"
+    },
+    {
+     "what": "LTC11 — Circuit light tower 11 — light spread drawn on D024 · callout 11 · LTC11: not on site",
+     "cls": "id",
+     "tag": "BUTTON",
+     "keys": "LTC11"
+    },
+    {
+     "what": "LTC12 — Circuit light tower 12 — light spread drawn on D024 · callout 12 · LTC12: not on site",
+     "cls": "id",
+     "tag": "BUTTON",
+     "keys": "LTC12"
+    },
+    {
+     "what": "LTC14 — Circuit light tower 14 — light spread drawn on D024 · callout 14 · LTC14: not on site",
+     "cls": "id",
+     "tag": "BUTTON",
+     "keys": "LTC14"
+    }
+   ],
+   "discBar": [
+    "All 32",
+    "Generators 13",
+    "Lighting towers 19"
+   ],
+   "lightBar": []
+  },
+  "D001": {
+   "sheet": "D001",
+   "tab": "map",
+   "markers": 62,
+   "lightingPins": 0,
+   "pins": [],
+   "discBar": [],
+   "lightBar": []
+  }
+ },
+ "map_cand3": {
+  "tag": "cand3",
+  "D024": {
+   "sheet": "D024",
+   "tab": "map",
+   "markers": 57,
+   "lightingPins": 19,
+   "pins": [
+    {
+     "what": "LT01 — Light tower 01 — keyed on D024 to the BSF storage yard, Molendinar · callout 01 · LT01: not on site",
+     "cls": "id",
+     "tag": "BUTTON",
+     "keys": "LT01"
+    },
+    {
+     "what": "LT02 — Light tower 02 — keyed on D024 to the BSF storage yard, Molendinar · callout 02 · LT02: not on site",
+     "cls": "id",
+     "tag": "BUTTON",
+     "keys": "LT02"
+    },
+    {
+     "what": "LT03 — Light tower 03 — keyed on D024 to the BSF storage yard, Molendinar · callout 03 · LT03: not on site",
+     "cls": "id",
+     "tag": "BUTTON",
+     "keys": "LT03"
+    },
+    {
+     "what": "LT04 — Light tower 04 — keyed on D024 to the BSF storage yard, Molendinar · callout 04 · LT04: not on site",
+     "cls": "id",
+     "tag": "BUTTON",
+     "keys": "LT04"
+    },
+    {
+     "what": "LT05 — Light Towers · callout 05 · LT05: not on site",
+     "cls": "id",
+     "tag": "BUTTON",
+     "keys": "LT05"
+    },
+    {
+     "what": "LT06 — Light Towers · callout 06 · LT06: not on site",
+     "cls": "id",
+     "tag": "BUTTON",
+     "keys": "LT06"
+    },
+    {
+     "what": "LTC01 — Big screen 01 · D024 drawing symbol · callout 01 · LTC01: not on site",
+     "cls": "id",
+     "tag": "BUTTON",
+     "keys": "LTC01"
+    },
+    {
+     "what": "LTC02 — Big screen 02 · D024 drawing symbol · callout 02 · LTC02: not on site",
+     "cls": "id",
+     "tag": "BUTTON",
+     "keys": "LTC02"
+    },
+    {
+     "what": "LTC03 — Big screen 03 · D024 drawing symbol · callout 03 · LTC03: not on site",
+     "cls": "id",
+     "tag": "BUTTON",
+     "keys": "LTC03"
+    },
+    {
+     "what": "LTC04 — Big screen 04 · D024 drawing symbol · callout 04 · LTC04: not on site",
+     "cls": "id",
+     "tag": "BUTTON",
+     "keys": "LTC04"
+    },
+    {
+     "what": "LTC05 — Big screen 05 · D024 drawing symbol · callout 05 · LTC05: not on site",
+     "cls": "id",
+     "tag": "BUTTON",
+     "keys": "LTC05"
+    },
+    {
+     "what": "LTC06 — Big screen 06 · D024 drawing symbol · callout 06 · LTC06: not on site",
+     "cls": "id",
+     "tag": "BUTTON",
+     "keys": "LTC06"
+    },
+    {
+     "what": "LTC07 — Big screen 07 · D024 drawing symbol · callout 07 · LTC07: not on site",
+     "cls": "id",
+     "tag": "BUTTON",
+     "keys": "LTC07"
+    },
+    {
+     "what": "LTC08 — Big screen 08 · D024 drawing symbol · callout 08 · LTC08: not on site",
+     "cls": "id",
+     "tag": "BUTTON",
+     "keys": "LTC08"
+    },
+    {
+     "what": "LTC09 — Big screen 09 · D024 drawing symbol · callout 09 · LTC09: not on site",
+     "cls": "id",
+     "tag": "BUTTON",
+     "keys": "LTC09"
+    },
+    {
+     "what": "LTC10 — Big screen 10 · D024 drawing symbol · callout 10 · LTC10: not on site",
+     "cls": "id",
+     "tag": "BUTTON",
+     "keys": "LTC10"
+    },
+    {
+     "what": "LTC11 — Big screen 11 · D024 drawing symbol · callout 11 · LTC11: not on site",
+     "cls": "id",
+     "tag": "BUTTON",
+     "keys": "LTC11"
+    },
+    {
+     "what": "LTC12 — Big screen 12 · D024 drawing symbol · callout 12 · LTC12: not on site",
+     "cls": "id",
+     "tag": "BUTTON",
+     "keys": "LTC12"
+    },
+    {
+     "what": "LTC14 — Big screen 14 · D024 drawing symbol · callout 14 · LTC14: not on site",
+     "cls": "id",
+     "tag": "BUTTON",
+     "keys": "LTC14"
+    }
+   ],
+   "discBar": [
+    "All 32",
+    "Big screens 13",
+    "Generators 13",
+    "Lighting towers 6"
+   ],
+   "lightBar": []
+  },
+  "D001": {
+   "sheet": "D001",
+   "tab": "map",
+   "markers": 62,
+   "lightingPins": 0,
+   "pins": [],
+   "discBar": [],
+   "lightBar": []
+  }
+ }
+}

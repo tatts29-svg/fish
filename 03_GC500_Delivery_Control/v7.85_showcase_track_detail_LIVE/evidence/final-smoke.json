@@ -1,0 +1,115 @@
+{
+  "author": "Andrew Fisher",
+  "sourceBytes": 1117998,
+  "sourceSha256": "22ac12d01aa8938c4d1f40113229a2dccf4aece3917ff0db592db6e1afb843ba",
+  "checkedAtUTC": "2026-10-01T15:23:32.962Z",
+  "checks": [
+    {
+      "name": "Exact frozen candidate bytes and hash",
+      "pass": true
+    },
+    {
+      "name": "Load waits behind explicit start gate",
+      "pass": true
+    },
+    {
+      "name": "Explicit start and pause work",
+      "pass": true,
+      "detail": {
+        "started": true,
+        "paused": true,
+        "geometry": true,
+        "glError": 0,
+        "links": [
+          true,
+          true
+        ],
+        "canvas": [
+          1000,
+          700
+        ]
+      }
+    },
+    {
+      "name": "Detail geometry and linked shaders present",
+      "pass": true
+    },
+    {
+      "name": "No initial WebGL error",
+      "pass": true
+    },
+    {
+      "name": "Actual animation advances car simulation",
+      "pass": true,
+      "detail": {
+        "before": {
+          "s": 345.18954131729726,
+          "clock": 3.5
+        },
+        "advanced": {
+          "s": 345.22473012971454,
+          "clock": 3.558333333333333
+        }
+      }
+    },
+    {
+      "name": "Pause holds car position and clock",
+      "pass": true
+    },
+    {
+      "name": "Comparison changes actual rendered frame",
+      "pass": true,
+      "detail": {
+        "initial": "256cf628",
+        "original": "bccd0234",
+        "restored": "256cf628",
+        "off": {
+          "disabled": true,
+          "released": true,
+          "preserved": true
+        },
+        "on": true,
+        "preserved": true,
+        "glError": 0
+      }
+    },
+    {
+      "name": "Comparison releases and reinstalls added resources",
+      "pass": true
+    },
+    {
+      "name": "Comparison preserves original car and paused position",
+      "pass": true
+    },
+    {
+      "name": "No final WebGL error",
+      "pass": true
+    },
+    {
+      "name": "No external resource requests",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "No page, shader, or console errors",
+      "pass": true,
+      "detail": []
+    }
+  ],
+  "errors": [],
+  "externalRequests": [],
+  "browserClosed": true,
+  "previousFullSuite": {
+    "path": "preview-checks.json",
+    "passed": 43,
+    "total": 43,
+    "sha256": "f0cb213548f5cc824caab27873cc40612a8010217839f517547e8c54caeb4ecc"
+  },
+  "limitations": [
+    "Preview environment study, below approved concept fidelity.",
+    "Software Chromium smoke does not establish physical-device FPS or native 4K performance.",
+    "Private preview only; no publication or record changes."
+  ],
+  "passed": 13,
+  "total": 13
+}

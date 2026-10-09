@@ -1,0 +1,10 @@
+# v8.19 checks · source commit 1cd16dcdc67a62299c7ca244cea5fa87dadeadcc · candidate sha256 0630371d2c662cbff820d429aec87f0142da24a947d7b3ef4441dd5671d7bf6c (9356879 bytes) · base (live at build) sha256 88a7b6b110194133ab59f5efa17b169f937f8fa21cb551dfd38f96eab6597919 (9293149 bytes) · run 2026-10-03T14:14:13Z
+# suite: anchors · command: python3 v8.19_meet_points_ep_plan_DRAFT/evidence/anchor_check819.py /home/user/fish/03_GC500_Delivery_Control/build/GC500_v8.19/base_live.html
+PASS the live base: applies, footer and marker read v8.19  - v8.19 applied: meet points, site rules and the Event Portables load plan
+PASS a second run is refused  - v8.19 meet points already applied
+PASS built a base with the footer and the marker moved on (v8.20)
+PASS moved footer and marker: still applies; the footer drops the other release tag and names v8.19 once  - $('#footL').textContent = String(DATA.brand.footer + ' · built ' + DATA.built + ' · ' + DATA.build_version + ' · Today v8.20').replace(/ · v\d+\.\d+$/, '') + ' · v8.19';
+PASS no release marker: stops with a plain message, writes nothing  - v8.19 patch: the release marker (meta gc500-release) anchor was found 0 times (want exactly 1) - the live page has moved; look at it and update the anchor in patch_v819.py. Pattern: <meta name="gc500-release" content="v[0-9.]+">
+PASS no footer: stops with a plain message, writes nothing  - v8.19 patch: the footer (#footL) anchor was found 0 times (want exactly 1) - the live page has moved; look at it and update the anchor in patch_v819.py. Pattern: \$\('#footL'\)\.textContent\s*=\s*([^;\n]+);
+
+6 passed, 0 failed

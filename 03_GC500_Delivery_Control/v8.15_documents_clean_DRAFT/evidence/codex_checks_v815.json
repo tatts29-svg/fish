@@ -1,0 +1,147 @@
+{
+  "author": "Andrew Fisher",
+  "reviewedBy": "Codex review eafb37e, review_v815_release (checks 1-7)",
+  "sourceFiles": {
+    "docs815_src.js": "da33522f35097ce2987e26ede691cd9d99b6e606e6522af8a0e02bb9e07cf134",
+    "v815.css": "81c2bf72a6438adf8aaa8c6dd4072629671f01b8be4b1d4a8f34952798cd4e21",
+    "patch_v815.py": "2d0a8457f22049123ecf437c6ef05fcf9bdd781e98c8e3508783e1744ea2c161"
+  },
+  "builtPage": "35ab136643f9b7b0fb5b4e237c501c58cb27bc31e4faaded75df013dad0f7770",
+  "baselineExcerptSha256": "6ff6b78ac55daf080952bd3792d1e192158db60a9dbffa2207e62cd7056c76f7",
+  "fixture": "Codex's invented documents, notes, uploads and example.invalid URLs; no operational data.",
+  "checks": 7,
+  "fixed": 7,
+  "allFixed": true,
+  "rows": [
+    {
+      "name": "Native print has every document row from the initial body",
+      "fixed": true,
+      "detail": {
+        "defaultScreenRows": 5,
+        "printRows": 11,
+        "everyFileOnPaper": true,
+        "printCssShowsList": true,
+        "printCssHidesScreenBody": true,
+        "dependsOnButtonFlag": false,
+        "listAlwaysRendered": true
+      }
+    },
+    {
+      "name": "Recorded reference kept on the map row",
+      "fixed": true,
+      "detail": {
+        "kind": "map",
+        "oldShowsReference": true,
+        "oldHasDrawerAction": true,
+        "newShowsReference": true,
+        "newHasDrawerAction": true,
+        "newSaysFiledAgainst": true,
+        "oldOpenUrlPreserved": true,
+        "newOpenUrlPreserved": true,
+        "unknownReferenceShown": true
+      }
+    },
+    {
+      "name": "Recorded reference kept on the invoice row",
+      "fixed": true,
+      "detail": {
+        "kind": "invoice",
+        "oldShowsReference": true,
+        "oldHasDrawerAction": true,
+        "newShowsReference": true,
+        "newHasDrawerAction": true,
+        "newSaysFiledAgainst": true,
+        "oldOpenUrlPreserved": true,
+        "newOpenUrlPreserved": true,
+        "unknownReferenceShown": true
+      }
+    },
+    {
+      "name": "Existing plan button opens the fencing plans under Drawings",
+      "fixed": true,
+      "detail": {
+        "buttonAsksForPlan": true,
+        "callerRequestsFencing": true,
+        "actualDestination": "maps",
+        "scrollsTo": "docsub815-fencing",
+        "docketsRoute": "dockets",
+        "plansHeadingRendered": true
+      }
+    },
+    {
+      "name": "Header selection reaches the merged twin",
+      "fixed": true,
+      "detail": {
+        "catalogueId": "Synthetic_Prestart_Advanced_Fencing_2026-09-14.pdf",
+        "indexedId": "Synthetic_Prestart_ATF_2026-09-14.pdf",
+        "resolvedId": "Synthetic_Prestart_ATF_2026-09-14.pdf",
+        "oldIdStillIndexed": false,
+        "resolvedHref": "https://example.invalid/files/Synthetic_Prestart_ATF_2026-09-14.pdf",
+        "opened": "https://example.invalid/files/Synthetic_Prestart_ATF_2026-09-14.pdf",
+        "tab": "today",
+        "query": "",
+        "selected": null,
+        "selectedDocumentRendered": false,
+        "rowsFound": 5
+      }
+    },
+    {
+      "name": "Header selection reaches the missing original",
+      "fixed": true,
+      "detail": {
+        "catalogueId": "synthetic_missing_swms.pdf",
+        "indexedId": "synthetic_missing_swms.pdf",
+        "resolvedId": "synthetic_missing_swms.pdf",
+        "oldIdStillIndexed": false,
+        "resolvedHref": null,
+        "opened": null,
+        "tab": "docs",
+        "query": "Synthetic unavailable SWMS",
+        "selected": "synthetic_missing_swms.pdf",
+        "selectedDocumentRendered": true,
+        "rowsFound": 1
+      }
+    },
+    {
+      "name": "All five merged catalogue notes are kept",
+      "fixed": true,
+      "detail": [
+        {
+          "oldId": "Synthetic_Prestart_Advanced_Fencing_2026-09-14.pdf",
+          "mergedId": "Synthetic_Prestart_ATF_2026-09-14.pdf",
+          "originalNoteRetained": true,
+          "inRow": true,
+          "searchable": true
+        },
+        {
+          "oldId": "Synthetic_Prestart_Advanced_Fencing_2026-09-15.pdf",
+          "mergedId": "Synthetic_Prestart_ATF_2026-09-15.pdf",
+          "originalNoteRetained": true,
+          "inRow": true,
+          "searchable": true
+        },
+        {
+          "oldId": "Synthetic_Prestart_Advanced_Fencing_2026-09-16.pdf",
+          "mergedId": "Synthetic_Prestart_ATF_2026-09-16.pdf",
+          "originalNoteRetained": true,
+          "inRow": true,
+          "searchable": true
+        },
+        {
+          "oldId": "Synthetic_Prestart_Advanced_Fencing_2026-09-17.pdf",
+          "mergedId": "Synthetic_Prestart_ATF_2026-09-17.pdf",
+          "originalNoteRetained": true,
+          "inRow": true,
+          "searchable": true
+        },
+        {
+          "oldId": "Synthetic_Prestart_Advanced_Fencing_2026-09-18.pdf",
+          "mergedId": "Synthetic_Prestart_ATF_2026-09-18.pdf",
+          "originalNoteRetained": true,
+          "inRow": true,
+          "searchable": true
+        }
+      ]
+    }
+  ]
+}

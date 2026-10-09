@@ -1,0 +1,12 @@
+{
+  "author": "Andrew Fisher",
+  "device": "phone",
+  "candidateSha256": "fa32b0a1937b329077923b960688a8927fbaaa2e6283d4d1ce2c6732eb98c213",
+  "candidateUnchanged": true,
+  "requests": {
+    "page": 1,
+    "live": 272,
+    "blocked": 0
+  },
+  "pageErrors": []
+}

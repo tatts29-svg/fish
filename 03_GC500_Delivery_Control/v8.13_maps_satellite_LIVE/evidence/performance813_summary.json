@@ -1,0 +1,130 @@
+{
+  "author": "Andrew Fisher",
+  "baseSha256": "ad9ab5e488d690444c59730f8ad286b2df60ab0353cd1d21dabc40e398a3b5a4",
+  "candidateSha256": "b312edb6cd07a02dcdad4f1ace57f06921b2f3d597d9e23cbd3de6c8f6e6cd43",
+  "sourceBytes": 130850,
+  "cpu": {
+    "cameraDprDemandSource": 29,
+    "requests": 12,
+    "guards": 11,
+    "total": 52,
+    "failures": 0,
+    "baselineRequestRegressionsDetected": 11
+  },
+  "matchedBrowser": [
+    {
+      "device": "desktop",
+      "before": {
+        "receivedBytesBy8sAfterFirstSharp": 17903546,
+        "heavyRequests": 65,
+        "firstSharpMs": 1579,
+        "medianZoomFirstFrameMs": 35.79999998211861,
+        "medianZoomSharpMs": 790.0999999940395
+      },
+      "after": {
+        "receivedBytesBy8sAfterFirstSharp": 3464389,
+        "heavyRequests": 0,
+        "firstSharpMs": 1643,
+        "medianZoomFirstFrameMs": 30,
+        "medianZoomSharpMs": 793
+      },
+      "savedReceivedBytes": 14439157,
+      "percentLess": 80.65,
+      "reportBindings": [
+        {
+          "path": "/workspace/private-maps813/reliability/browser-desktop-before/result.json",
+          "sha256": "9b026649a2f53549582acbfa8a8a20aa4c0404e2eadd4ea7bc536103f8bf3085"
+        },
+        {
+          "path": "/workspace/private-maps813/reliability/browser-desktop-after/result.json",
+          "sha256": "032dba59f333566620baf323a8c2ac6212bdedf244039d5e4713fd8f2947edd9"
+        }
+      ]
+    },
+    {
+      "device": "phone",
+      "before": {
+        "receivedBytesBy8sAfterFirstSharp": 17501025,
+        "heavyRequests": 65,
+        "firstSharpMs": 1970,
+        "medianZoomFirstFrameMs": 29.700000017881393,
+        "medianZoomSharpMs": 874.7000000178814
+      },
+      "after": {
+        "receivedBytesBy8sAfterFirstSharp": 3061868,
+        "heavyRequests": 0,
+        "firstSharpMs": 863,
+        "medianZoomFirstFrameMs": 31.80000001192093,
+        "medianZoomSharpMs": 807.8000000119209
+      },
+      "savedReceivedBytes": 14439157,
+      "percentLess": 82.5,
+      "reportBindings": [
+        {
+          "path": "/workspace/private-maps813/reliability/browser-phone-before/result.json",
+          "sha256": "8e221d4a6be025cef23dd0b001030c788c2de0523d7da656d80ed5fa60d835c0"
+        },
+        {
+          "path": "/workspace/private-maps813/reliability/browser-phone-after/result.json",
+          "sha256": "a1fd11b48eb5ad11c70b9175f67edaad5a50e2dba4f8d3740409b9a31a9bf1af"
+        }
+      ]
+    }
+  ],
+  "browserErrors": 0,
+  "operationalWrites": 0,
+  "demandChecks": {
+    "desktop": "browser-desktop-after/result.json passed deep source and Original aerial",
+    "phone": "browser-phone-demand/result.json passed actual12 plus clicks, deep source and Original aerial",
+    "phoneReportSha256": "dd32c9db3e94d279927e78ac286a317f7afc7a8dca09b459a44facc6578161c7"
+  },
+  "fixtureLimit": "Phone full run completed all timing, Fit and idle observations then tried the desktop-only hidden zoom input. Its raw report remains failed for that fixture. A separate native-phone demand-only run passes; earlier failed report is not relabelled as a full pass.",
+  "observedDownloadDifference": {
+    "sourceScene": 13589698,
+    "underlay64WebPs": 837378,
+    "twoAvoidedWorkerScripts": 14420,
+    "candidateJavaScriptIncrease": 2339,
+    "netReduction": 14439157
+  },
+  "visualReview": {
+    "desktopHybrid": "inspected; current source labels, map and controls render; no position or style change by this component",
+    "phoneHybrid": "inspected at390CSSpx/DPR2; imagery and plan remain sharp at rest, existing native controls visible",
+    "artifacts": [
+      {
+        "path": "/workspace/private-maps813/reliability/browser-desktop-before/hybrid-sharp.png",
+        "sha256": "c74241acd6c4555040ec82d6904284ad2eebbec9929bfa058620c00aad74fbd2"
+      },
+      {
+        "path": "/workspace/private-maps813/reliability/browser-desktop-after/hybrid-sharp.png",
+        "sha256": "c74241acd6c4555040ec82d6904284ad2eebbec9929bfa058620c00aad74fbd2"
+      },
+      {
+        "path": "/workspace/private-maps813/reliability/browser-desktop-after/original-demand.png",
+        "sha256": "29f6338398caa551b38dc57dd78a8639a343b894626b1d45419b093b6dafcdce"
+      },
+      {
+        "path": "/workspace/private-maps813/reliability/browser-phone-before/hybrid-sharp.png",
+        "sha256": "0179fa51df245c34c74f54d286d881c805f651d2995b92edfb35c3ef3900d5ec"
+      },
+      {
+        "path": "/workspace/private-maps813/reliability/browser-phone-after/hybrid-sharp.png",
+        "sha256": "61933268f0f3dfa1b7c02534249c0f569809c76d69755093220ec21c6596fb6a"
+      },
+      {
+        "path": "/workspace/private-maps813/reliability/browser-phone-demand/hybrid-sharp.png",
+        "sha256": "450831ec12a35418386b078ea3bcfc787ba0e352711d68dcb11c8f46a8a764e4"
+      },
+      {
+        "path": "/workspace/private-maps813/reliability/browser-phone-demand/original-demand.png",
+        "sha256": "bb27d9286375d252792faa00950880196021055382316b2a13a427bec04637c2"
+      }
+    ]
+  },
+  "limits": [
+    "One before/after pair per device and three zoom samples each; latency is mixed, no general faster-zoom or physical-device FPS claim.",
+    "Browser receives real service/provider responses through the read-only curl harness in isolated fresh contexts with separate empty disk caches. Byte sizes are received decoded payload, not measured compressed wire traffic.",
+    "Deep source and full aerial costs are deferred until requested; their first use still requires fetching/decoding.",
+    "No map geometry, georeference, pin coordinates, source assets, operational records, renderer precision/DPR policy or v7.90 coordinate-family fit changes.",
+    "2D context-loss injection and inherited underlay-worker failure teardown were not part of this bounded patch; 3D lifecycle is separately owned."
+  ]
+}

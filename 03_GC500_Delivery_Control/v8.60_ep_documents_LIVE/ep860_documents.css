@@ -1,0 +1,11 @@
+/* Author: Andrew Fisher. Native supplier actions; documents stay separate from the shared record. */
+.ep819 .ld-go.ep819-go{flex-wrap:wrap;gap:8px}
+.ep819 .ep819-go .btn{white-space:normal}
+.ep860-capture{position:fixed;left:-30000px;top:0;width:194mm;background:#fff;pointer-events:none;zoom:1}
+.ep860-capture .rs819{margin:0;box-shadow:none;zoom:1}
+#ep860-dialog{z-index:2147483100}
+#ep860-dialog .pdf7-card{max-height:calc(100dvh - 32px);overflow:auto}
+#ep860-dialog .pdf7-acts{display:flex;flex-wrap:wrap;gap:10px}
+#ep860-dialog .pdf7-btn{min-height:44px;display:inline-flex;align-items:center;justify-content:center;text-align:center;text-decoration:none}
+@media(max-width:520px){#ep860-dialog .pdf7-acts>*{flex:1 1 100%}}
+@media print{.ep860-capture,#ep860-dialog{display:none!important}}

@@ -1,0 +1,20 @@
+{
+  "author": "Andrew Fisher",
+  "verified_at": "2026-10-01T08:11:43.859195+10:00",
+  "explorer_live": true,
+  "changed_paths": [
+    "explorer/explorer.js"
+  ],
+  "files_preserved": 218,
+  "old_manifest_sha256": "9637ce437ad27222ad336193962a2357b7003beb0f99cccc23c91f64b8f6b644",
+  "new_manifest_sha256": "c3f9a346eccb8e63127ff600caa5a5d4815a9d31b1ace8870b3f4a39b8c4a3bc",
+  "explorer_sha256": "d46797b8e0f7c60d23bf7d1d6b4fb4acf772a324a78324d17e92ec087818d2b5",
+  "explorer_bytes": 122510,
+  "server_blob_staged": true,
+  "server_sha256": "76afbd997a9fcfd6e796eea4ead641a5249a1bad23114417c861fd1559057684",
+  "rollback_server_present": true,
+  "active_server_build": "v5.84",
+  "record_before": 3082,
+  "record_after": 3082,
+  "record_unchanged": true
+}

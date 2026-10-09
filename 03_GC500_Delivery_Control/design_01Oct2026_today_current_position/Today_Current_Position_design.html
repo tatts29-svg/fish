@@ -1,0 +1,516 @@
+<title>Today — Current Position</title>
+<meta name="description" content="Visual design for merging Today and Where we are into one Coates operations landing page.">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,600;0,800;1,800&family=Inter:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: a design document. A framed mock of the unified page (the live Coates language: dark command rail over a
+ warm paper workspace, orange accent, numbered brief sections, 9px 0 geometry), with numbered design-note pins,
+ then the notes themselves: what moved where, the one-source-of-truth rules, the navigation change, the phone. */
+:root{
+ --rail:#0d0a09; --rail2:#1b1613; --rail3:#26201c; --rail-ink:#f4efe9; --rail-mute:#9b918a;
+ --paper:#f8f6f4; --card:#ffffff; --ink:#14181d; --mute:#6b655f; --rule:#ddd6cf; --rule2:#eee9e3;
+ --orange:#ff6a13; --orange-ink:#c24d07; --red:#d6281c; --amber:#f0a600; --green:#179a47;
+ --doc:#efeae4; --doc-ink:#2a2521; --pin:#1d5fd6;
+ --display:'Barlow Condensed','Arial Narrow',Impact,sans-serif; --body:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif; --mono:ui-monospace,Menlo,Consolas,monospace;
+ color-scheme:light;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--doc);color:var(--doc-ink);font:14px/1.5 var(--body);padding-inline:16px;padding-block:20px 48px}
+h1,h2,h3,h4{text-wrap:balance;margin:0}
+a{color:inherit}
+.doc{max-width:1280px;margin:0 auto;display:grid;gap:22px}
+.doc-head{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:12px 24px;border-bottom:2px solid var(--rail);padding-bottom:12px}
+.doc-head h1{font:800 34px/1 var(--display);letter-spacing:.01em;color:var(--rail)}
+.doc-head h1 small{display:block;font:600 12px/1.4 var(--body);letter-spacing:.14em;text-transform:uppercase;color:var(--mute);margin-bottom:6px}
+.doc-head p{margin:0;max-width:62ch;color:var(--mute)}
+.doc-meta{font-size:12px;color:var(--mute);letter-spacing:.04em;text-align:right}
+.toggle{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--rail);background:var(--card);color:var(--rail);padding:8px 12px;border-radius:9px 0 9px 0;font:600 12px var(--body);letter-spacing:.06em;text-transform:uppercase;cursor:pointer}
+.toggle:focus-visible{outline:2px solid var(--pin);outline-offset:2px}
+.toggle i{width:10px;height:10px;border-radius:50%;background:var(--pin);display:inline-block}
+
+/* ---------- the mock frame ---------- */
+.frame{background:var(--paper);border:1px solid var(--rule);box-shadow:0 18px 50px rgba(20,16,12,.18);position:relative;overflow:hidden}
+.frame .browser{display:flex;align-items:center;gap:8px;padding:8px 12px;background:#e8e2db;border-bottom:1px solid var(--rule);font:12px var(--mono);color:var(--mute)}
+.frame .browser i{width:10px;height:10px;border-radius:50%;background:#cfc6bd;display:inline-block}
+.frame .browser span{margin-left:8px;background:var(--card);border:1px solid var(--rule);padding:3px 10px;border-radius:4px;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+
+/* command rail */
+.rail{background:var(--rail);color:var(--rail-ink);padding:14px 22px 0;background-image:linear-gradient(180deg,#1a1411 0%,#0d0a09 60%)}
+.rail-top{display:flex;flex-wrap:wrap;align-items:center;gap:12px 22px}
+.brand small{display:block;font:600 11px/1 var(--body);letter-spacing:.32em;text-transform:uppercase;color:#d9d1c9}
+.brand b{font:800 italic 34px/1 var(--display);letter-spacing:.01em}
+.brand b em{font-style:italic;color:var(--orange);font-size:20px;margin-left:3px}
+.search{flex:1;min-width:220px;background:#1f1a16;border:1px solid #3a322c;color:var(--rail-mute);padding:9px 14px;border-radius:6px;font-size:13px}
+.rail-tiles{display:grid;grid-template-columns:1.4fr .8fr 1fr;gap:10px;margin-top:12px}
+.tile{background:linear-gradient(180deg,#2a231e,#1b1613);border:1px solid #3a322c;border-radius:9px 0 9px 0;padding:10px 14px;min-width:0}
+.tile small{display:block;font:600 10px/1 var(--body);letter-spacing:.22em;text-transform:uppercase;color:var(--rail-mute)}
+.tile b{font:800 italic 30px/1.1 var(--display);letter-spacing:.01em}
+.tile b span{color:var(--orange)}
+.tile .sub{font-size:11px;color:#cfc6bd;letter-spacing:.06em;margin-top:4px}
+.tile .bar{height:4px;background:#3a322c;margin-top:8px;position:relative;border-radius:2px}
+.tile .bar i{position:absolute;left:0;top:0;bottom:0;background:var(--orange);border-radius:2px}
+.live{display:inline-flex;align-items:center;gap:5px}
+.live i{width:9px;height:9px;border-radius:50%;background:var(--green);box-shadow:0 0 8px var(--green)}
+.tabs{display:flex;flex-wrap:wrap;align-items:center;gap:2px;margin-top:14px;border-top:1px solid #2a231e}
+.tabs a{text-decoration:none;color:#e7dfd6;font:500 14px var(--body);padding:13px 16px 12px;border-bottom:3px solid transparent;white-space:nowrap}
+.tabs a.on{color:#fff;font-weight:700;border-bottom-color:var(--orange)}
+.tabs .tools{margin-left:auto;background:#2a231e;border:1px solid #3a322c;border-radius:9px 0 9px 0;padding:7px 12px;font-size:13px;color:#fff;margin-bottom:6px}
+
+/* workspace */
+.work{padding:18px 22px 30px;display:grid;gap:18px}
+.viewonly{font-size:12px;color:var(--mute);background:var(--card);border:1px solid var(--rule);display:inline-block;padding:6px 10px;border-radius:9px 0 9px 0}
+.viewonly b{color:var(--ink)}
+.intro{display:grid;grid-template-columns:1fr auto;gap:12px 24px;align-items:end}
+.intro h2{font:800 40px/1 var(--display);color:var(--ink);letter-spacing:.005em;border-left:5px solid var(--orange);padding-left:14px}
+.intro h2 span{color:var(--mute);font-weight:600}
+.intro p{margin:8px 0 0 19px;color:var(--mute);max-width:70ch}
+.intro .asat{margin:6px 0 0 19px;font-size:13px;color:var(--ink)}
+.intro .asat b{font-weight:700}
+.actions{display:flex;flex-wrap:wrap;gap:8px}
+.btn{border:1px solid var(--rule);background:var(--card);color:var(--ink);padding:9px 14px;border-radius:9px 0 9px 0;font:600 13px var(--body);white-space:nowrap}
+.btn.primary{background:var(--orange);border-color:var(--orange);color:#1b1207}
+.jump{position:sticky;top:0;z-index:3;background:var(--paper);border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);display:flex;flex-wrap:wrap;gap:0 4px;padding:4px 0;font-size:12.5px}
+.jump a{text-decoration:none;color:var(--mute);padding:7px 10px;letter-spacing:.02em;border-bottom:2px solid transparent}
+.jump a.on{color:var(--ink);font-weight:700;border-bottom-color:var(--orange)}
+.jump code{margin-left:auto;font:11px var(--mono);color:var(--mute);padding:9px 6px}
+
+.sec{display:grid;grid-template-columns:78px 1fr;gap:0 18px;border-top:1px solid var(--rule);padding-top:16px}
+.sec .no{font:800 italic 44px/1 var(--display);color:var(--orange);letter-spacing:-.01em}
+.sec .no small{display:block;font:600 10px/1.2 var(--body);letter-spacing:.2em;text-transform:uppercase;color:var(--mute);margin-top:6px}
+.sec h3{font:800 26px/1.05 var(--display);color:var(--ink);letter-spacing:.005em}
+.sec .lede{color:var(--mute);margin:4px 0 12px;max-width:72ch}
+.grid2{display:grid;grid-template-columns:1.25fr .75fr;gap:14px;align-items:start}
+.grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;align-items:start}
+.card{background:var(--card);border:1px solid var(--rule);border-radius:9px 0 9px 0;padding:14px 16px;min-width:0}
+.card h4{font:600 11px/1.2 var(--body);letter-spacing:.18em;text-transform:uppercase;color:var(--mute);margin-bottom:8px}
+.facts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.fact b{display:block;font:800 italic 34px/1 var(--display);color:var(--ink);font-variant-numeric:tabular-nums}
+.fact span{font-size:12px;color:var(--mute)}
+.brief-title{font:800 34px/1 var(--display);color:var(--ink);margin:2px 0 4px}
+.brief-sub{color:var(--mute);font-size:13px}
+.note{font-size:12.5px;color:var(--ink);border-top:1px dashed var(--rule);margin-top:12px;padding-top:10px}
+.note b{color:var(--red)}
+.list{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.list li{display:grid;grid-template-columns:auto 1fr auto;gap:10px;align-items:baseline;font-size:13px;border-bottom:1px solid var(--rule2);padding-bottom:8px}
+.list li:last-child{border-bottom:0;padding-bottom:0}
+.ref{font:800 15px/1 var(--display);color:var(--ink);letter-spacing:.02em;min-width:46px}
+.pill{font:600 10.5px/1 var(--body);letter-spacing:.1em;text-transform:uppercase;padding:5px 8px;border-radius:9px 0 9px 0;white-space:nowrap}
+.pill.none{background:#fbe9e6;color:#9a1d14;border:1px solid #f1c7c1}
+.pill.plan{background:#fff1e8;color:var(--orange-ink);border:1px solid #ffd4bb}
+.pill.info{background:#eef2f6;color:#3c4a5a;border:1px solid #d5dde6}
+.pill.ok{background:#e8f5ec;color:#116b33;border:1px solid #bfe3ca}
+.act{color:var(--orange-ink);font-weight:600;font-size:12px;white-space:nowrap}
+.board{width:100%;border-collapse:collapse;font-size:13px}
+.board th{font:600 10.5px/1.2 var(--body);letter-spacing:.16em;text-transform:uppercase;color:var(--mute);text-align:left;padding:6px 8px;border-bottom:1px solid var(--rule)}
+.board td{padding:9px 8px;border-bottom:1px solid var(--rule2);vertical-align:top}
+.board tr:last-child td{border-bottom:0}
+.board .r{text-align:right;font-variant-numeric:tabular-nums}
+.tw{overflow-x:auto}
+/* the one delivery-against-plan component */
+.gauge{display:grid;grid-template-columns:1fr auto;gap:8px 20px;align-items:end}
+.gauge .big{font:800 italic 72px/.9 var(--display);color:var(--ink);font-variant-numeric:tabular-nums}
+.gauge .big small{font:600 14px var(--body);color:var(--mute);display:block;letter-spacing:.14em;text-transform:uppercase;margin-bottom:6px}
+.scale{grid-column:1/-1;position:relative;height:18px;background:var(--rule2);border-radius:2px;margin-top:8px}
+.scale .fill{position:absolute;left:0;top:0;bottom:0;width:93.1%;background:var(--ink);border-radius:2px 0 0 2px}
+.scale .plan{position:absolute;top:-6px;bottom:-6px;left:100%;width:2px;background:var(--orange);transform:translateX(-1px)}
+.scale .tick{position:absolute;top:100%;font:600 10px var(--body);color:var(--mute);margin-top:4px;transform:translateX(-50%);letter-spacing:.06em}
+.gauge .caption{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:6px 18px;font-size:12.5px;color:var(--mute);margin-top:18px}
+.gauge .caption b{color:var(--ink)}
+.short{border-left:4px solid var(--red);padding-left:12px}
+.short b{display:block;font:800 italic 40px/1 var(--display);color:var(--red);font-variant-numeric:tabular-nums}
+.short .lbl{font:600 11px var(--body);letter-spacing:.16em;text-transform:uppercase;color:var(--red)}
+.short p{margin:6px 0 0;font-size:12.5px;color:var(--ink)}
+.prov{font-size:12px;color:var(--mute);margin-top:12px;border-top:1px dashed var(--rule);padding-top:10px}
+.lights{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+.lights div{border:1px solid var(--rule);padding:8px 10px;border-radius:9px 0 9px 0}
+.lights b{display:block;font:800 italic 26px/1 var(--display);font-variant-numeric:tabular-nums;color:var(--ink)}
+.lights span{font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--mute)}
+.lights .warn b{color:var(--red)}
+/* programme */
+.prog{position:relative;height:56px;margin:14px 6px 30px}
+.prog .line{position:absolute;left:0;right:0;top:24px;height:6px;background:var(--rule2);border-radius:3px}
+.prog .done{position:absolute;left:0;top:24px;height:6px;width:36.8%;background:var(--ink);border-radius:3px 0 0 3px}
+.prog .ms{position:absolute;top:18px;width:2px;height:18px;background:var(--mute)}
+.prog .ms span{position:absolute;top:22px;left:0;transform:translateX(-50%);font:600 10px var(--body);letter-spacing:.06em;color:var(--mute);white-space:nowrap}
+.prog .ms small{position:absolute;bottom:22px;left:0;transform:translateX(-50%);font:500 10px var(--body);color:var(--mute);white-space:nowrap}
+.prog .now{position:absolute;top:12px;width:3px;height:30px;background:var(--orange);left:36.8%}
+.prog .now span{position:absolute;top:-16px;left:0;transform:translateX(-50%);font:800 12px var(--display);letter-spacing:.06em;color:var(--orange-ink);white-space:nowrap;background:var(--paper);padding:0 4px}
+.dates{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px;font-size:12px}
+.dates div{border-top:2px solid var(--rule);padding-top:6px}
+.dates b{display:block;font:800 16px/1.1 var(--display);color:var(--ink)}
+.dates span{color:var(--mute)}
+details{border:1px solid var(--rule);border-radius:9px 0 9px 0;background:var(--card)}
+details summary{cursor:pointer;padding:10px 14px;font-weight:600;font-size:13px;color:var(--ink);list-style:none;display:flex;justify-content:space-between;gap:10px}
+details summary::after{content:'Show';font:600 10.5px var(--body);letter-spacing:.14em;text-transform:uppercase;color:var(--orange-ink)}
+details[open] summary::after{content:'Hide'}
+details .in{padding:0 14px 12px;border-top:1px solid var(--rule2)}
+.meter{height:8px;background:var(--rule2);border-radius:2px;position:relative;margin:8px 0 4px}
+.meter i{position:absolute;left:0;top:0;bottom:0;background:var(--ink);border-radius:2px}
+.meter em{position:absolute;top:-4px;bottom:-4px;width:2px;background:var(--orange)}
+.kv{display:grid;grid-template-columns:1fr auto;gap:4px 12px;font-size:13px}
+.kv b{font-variant-numeric:tabular-nums;font-weight:600}
+.kv .tot{border-top:1px solid var(--rule);padding-top:6px;margin-top:4px;font-weight:700}
+.money{font:800 italic 44px/1 var(--display);color:var(--ink);font-variant-numeric:tabular-nums}
+.money small{font:600 12px var(--body);letter-spacing:.14em;text-transform:uppercase;color:var(--mute);display:block;margin-bottom:6px}
+.caveat{font-size:12px;color:var(--ink);background:#fff7ee;border:1px solid #ffd9c2;border-left:4px solid var(--amber);padding:8px 10px;border-radius:0 0 9px 0;margin-top:10px}
+.tiles{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px}
+.tiles a{text-decoration:none;display:block;background:var(--card);border:1px solid var(--rule);border-radius:9px 0 9px 0;padding:12px 12px 10px;color:var(--ink);min-width:0}
+.tiles a b{display:block;font:800 17px/1.1 var(--display);letter-spacing:.02em}
+.tiles a span{display:block;font-size:11.5px;color:var(--mute);margin-top:3px}
+.foot{display:flex;flex-wrap:wrap;justify-content:space-between;gap:6px 16px;font-size:11.5px;color:var(--mute);border-top:1px solid var(--rule);padding-top:10px}
+
+/* design pins */
+.pin{position:absolute;z-index:4;width:24px;height:24px;border-radius:50%;background:var(--pin);color:#fff;font:700 12px/24px var(--body);text-align:center;box-shadow:0 0 0 3px rgba(29,95,214,.25);pointer-events:none}
+.frame:not(.pins) .pin{display:none}
+.notes{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px}
+.nt{background:var(--card);border:1px solid var(--rule);border-left:4px solid var(--pin);padding:12px 14px;border-radius:0 0 9px 0;min-width:0}
+.nt b.n{display:inline-block;width:22px;height:22px;border-radius:50%;background:var(--pin);color:#fff;font:700 12px/22px var(--body);text-align:center;margin-right:8px}
+.nt h4{display:inline;font:700 14px var(--body);color:var(--ink)}
+.nt p{margin:8px 0 0;font-size:13px;color:var(--doc-ink)}
+.doc h2.dh{font:800 26px/1 var(--display);color:var(--rail);border-left:5px solid var(--orange);padding-left:12px}
+.map{width:100%;border-collapse:collapse;font-size:13px;background:var(--card)}
+.map th{text-align:left;font:600 10.5px var(--body);letter-spacing:.16em;text-transform:uppercase;color:var(--mute);padding:8px 10px;border-bottom:1px solid var(--rule)}
+.map td{padding:9px 10px;border-bottom:1px solid var(--rule2);vertical-align:top}
+.map td:first-child{font-weight:600}
+.rules{display:grid;gap:10px;margin:0;padding:0;list-style:none}
+.rules li{background:var(--card);border:1px solid var(--rule);padding:10px 14px;border-radius:9px 0 9px 0;font-size:13px}
+.rules li b{color:var(--ink)}
+.phone{display:grid;grid-template-columns:minmax(0,300px) 1fr;gap:18px;align-items:start}
+.ph{background:var(--paper);border:6px solid #1b1613;border-radius:26px;padding:10px;max-width:100%;min-width:0}
+.ph .rail{padding:10px 12px 0;border-radius:14px 14px 0 0}
+.ph .brand b{font-size:24px}
+.ph .tabs a{padding:9px 9px 8px;font-size:12px}
+.ph .work{padding:12px}
+.ph .intro h2{font-size:28px}
+.ph .jump{font-size:11.5px}
+.ph .fact b{font-size:26px}
+.ph .gauge .big{font-size:52px}
+.ph .short b{font-size:30px}
+@media (max-width:980px){.rail-tiles{grid-template-columns:1fr 1fr}.grid2,.grid3{grid-template-columns:1fr}.lights{grid-template-columns:repeat(2,1fr)}.tiles{grid-template-columns:repeat(2,1fr)}.dates{grid-template-columns:repeat(2,1fr)}.intro{grid-template-columns:1fr}.phone{grid-template-columns:1fr}}
+@media (max-width:600px){.rail-tiles{grid-template-columns:1fr}.sec{grid-template-columns:1fr}.facts{grid-template-columns:1fr 1fr}.jump code{display:none}.doc-head h1{font-size:28px}}
+@media (prefers-reduced-motion:no-preference){.live i{animation:pulse 1.6s ease-in-out infinite}@keyframes pulse{50%{opacity:.45}}}
+</style>
+
+<div class="doc">
+ <header class="doc-head">
+ <div>
+ <h1><small>GC500 Delivery Control · design proposal · 1 Oct 2026</small>Today — Current Position</h1>
+ <p>One landing page in place of Today and Where we are. The mock below uses the figures the live record showed at 04:40 on Thu 01 Oct 2026, so the hierarchy can be judged on real content. Nothing on the live page changes until this is approved.</p>
+ </div>
+ <div style="display:grid;gap:8px;justify-items:end">
+ <button class="toggle" id="pinbtn" type="button" aria-pressed="true"><i></i>Design notes on</button>
+ <div class="doc-meta">Author: Andrew Fisher · view only · figures as at 04:40 AEST</div>
+ </div>
+ </header>
+
+ <!-- ================= THE MOCK ================= -->
+ <div class="frame pins" id="frame">
+ <div class="browser"><i></i><i></i><i></i><span>gc500-production.up.railway.app/v/Coates-GC500-2026#today</span></div>
+
+ <div class="rail">
+ <div class="rail-top">
+ <div class="brand"><small>Coates Industrial Solutions</small><b>GC500<em>2026</em></b></div>
+ <div class="search">Search a reference, a name, an asset number or a map location — try P33, medical, 1322588, callout 033</div>
+ </div>
+ <div class="rail-tiles">
+ <div class="tile"><small>Gold Coast · AEST</small><b>04:40<span>:35</span></b><div class="bar"><i style="width:19%"></i></div><div class="sub">THU 01 OCT 2026</div></div>
+ <div class="tile"><small>Race day · Fri 23 Oct</small><b>21 <span style="font-size:16px">DAYS</span> 19:19:26</b><div class="bar"><i style="width:37%"></i></div><div class="sub">07 SEP — 13 NOV · WEEK 3 · BUILD</div></div>
+ <div class="tile"><small>Record</small><b class="live"><i></i> LIVE</b><div class="sub">LAST CONFIRMED 04:40 · shared record · view only</div></div>
+ </div>
+ <nav class="tabs" aria-label="Pages">
+ <a class="on" href="#today">Today + position</a><a href="#x">Timeline</a><a href="#x">Plant</a><a href="#x">Map explorer</a><a href="#x">Documents</a><a href="#x">Coates Way</a>
+ <span class="tools">Tools ▾</span>
+ </nav>
+ </div>
+ <span class="pin" style="left:22px;top:268px">1</span>
+
+ <div class="work">
+ <div class="viewonly"><b>View only.</b> This link shows the shared record and cannot change it — everything here can be read, searched, printed and exported.</div>
+
+ <div class="intro" id="today">
+ <div>
+ <h2>Today <span>— Current Position</span></h2>
+ <p>The daily handover, programme position and exceptions that need attention now.</p>
+ <div class="asat">As at <b>Thu 01 Oct 2026 04:40</b> · Week 3 · Build · <b>22 days</b> to race day · <b>43 days</b> to the end of demob · last confirmed 04:40</div>
+ </div>
+ <div class="actions"><span class="btn">01/10/2026 ▾</span><span class="btn">Print the handover</span><span class="btn">Email this</span><span class="btn primary">Start showcase · 10 scenes</span></div>
+ </div>
+
+ <nav class="jump" aria-label="Sections on this page">
+ <a class="on" href="#today">Daily brief</a><a href="#deliveries">Deliveries</a><a href="#position">Current position</a><a href="#programme">Programme</a><a href="#workstreams">Workstreams</a><a href="#commercial">Commercial</a><a href="#records">Records</a>
+ <code>#today · #deliveries · #position · #programme …</code>
+ </nav>
+ <span class="pin" style="left:22px;top:472px">2</span>
+
+ <!-- 01 -->
+ <section class="sec" id="brief">
+ <div class="no">01<small>Daily brief</small></div>
+ <div>
+ <div class="grid2">
+ <div class="card">
+ <div class="brief-title">Build. Record. Hand over.</div>
+ <div class="brief-sub">Thu 01 Oct 2026 · Week 3 · Build · 3 weeks to event week</div>
+ <div class="facts" style="margin-top:14px">
+ <div class="fact"><b>6</b><span>due in · schedule entries</span></div>
+ <div class="fact"><b>0</b><span>due out · schedule entries</span></div>
+ <div class="fact"><b>0</b><span>loads on the carrier's list</span></div>
+ </div>
+ <div class="note"><b>0 of 6</b> due entries recorded on site · 6 with no delivery record. Confirm each outcome before this day is reported delivered or missed.</div>
+ </div>
+ <div class="card">
+ <h4>Act on now</h4>
+ <ul class="list">
+ <li><span class="ref">6</span><span>due items have no delivery record — GN03, WC44, WC60, WC66, WC67, WC71</span><span class="pill none">No record</span></li>
+ <li><span class="ref">17</span><span>units due by today not recorded on site (see Current position)</span><span class="pill plan">Behind plan</span></li>
+ <li><span class="ref">14</span><span>road reports between Coates Kingston and the circuit, from 9 days old · 9 past their stated end time</span><span class="pill info">Roads</span></li>
+ <li><span class="ref">06</span><span>Next programme day · Tue 06 Oct · 6 in · 0 out</span><span class="pill ok">Look ahead</span></li>
+ </ul>
+ </div>
+ </div>
+ </div>
+ </section>
+ <span class="pin" style="right:26px;top:560px">3</span>
+
+ <!-- 02 -->
+ <section class="sec" id="deliveries">
+ <div class="no">02<small>Deliveries</small></div>
+ <div>
+ <h3>Today's equipment deliveries</h3>
+ <p class="lede">The Deliveries board is the one place the day's entries and their recorded status live. Loads and the carrier's list stay on the Timeline.</p>
+ <div class="card tw">
+ <table class="board">
+ <thead><tr><th>Ref</th><th>Equipment</th><th>Asset no.</th><th>Recorded status</th><th>Navigate</th><th></th></tr></thead>
+ <tbody>
+ <tr><td class="ref">GN03</td><td>Generator 30 kVA</td><td>1320829</td><td><span class="pill none">No delivery record</span></td><td><span class="act">MASTER PLAN →</span></td><td class="r"><span class="act">Open</span></td></tr>
+ <tr><td class="ref">WC44</td><td>Toilets FWF</td><td><span style="color:var(--mute)">not recorded yet</span></td><td><span class="pill none">No delivery record</span></td><td><span class="act">MASTER PLAN →</span></td><td class="r"><span class="act">Open</span></td></tr>
+ <tr><td class="ref">WC60</td><td>Toilet Block 6 m (tank mounted)</td><td><span style="color:var(--mute)">not recorded yet</span></td><td><span class="pill none">No delivery record</span></td><td><span class="act">MASTER PLAN →</span></td><td class="r"><span class="act">Open</span></td></tr>
+ <tr><td class="ref">WC66</td><td>Toilet FWF</td><td><span style="color:var(--mute)">not recorded yet</span></td><td><span class="pill none">No delivery record</span></td><td><span style="color:var(--mute)">no position yet</span></td><td class="r"><span class="act">Open</span></td></tr>
+ <tr><td class="ref">WC67</td><td>Toilets FWF</td><td><span style="color:var(--mute)">not recorded yet</span></td><td><span class="pill none">No delivery record</span></td><td><span class="act">MASTER PLAN →</span></td><td class="r"><span class="act">Open</span></td></tr>
+ <tr><td class="ref">WC71</td><td>Toilets FWF</td><td><span style="color:var(--mute)">not recorded yet</span></td><td><span class="pill none">No delivery record</span></td><td><span class="act">MASTER PLAN →</span></td><td class="r"><span class="act">Open</span></td></tr>
+ </tbody>
+ </table>
+ </div>
+ </div>
+ </section>
+
+ <!-- 03 -->
+ <section class="sec" id="position">
+ <div class="no">03<small>Current position</small></div>
+ <div>
+ <h3>Delivery against the plan</h3>
+ <p class="lede">One component carries the headline. The shortfall sits beside it; it is not repeated as a third headline anywhere on the page.</p>
+ <div class="grid2">
+ <div class="card">
+ <div class="gauge">
+ <div class="big"><small>Recorded on site · due by this day</small>93.1%</div>
+ <div class="short"><span class="lbl">Behind by</span><b>17 units</b><p>due by today, not recorded on site. A gap in the record, not proof they're late — anything due today can still arrive today.</p></div>
+ <div class="scale"><div class="fill"></div><div class="plan"></div><span class="tick" style="left:0">0</span><span class="tick" style="left:25%">25</span><span class="tick" style="left:50%">50</span><span class="tick" style="left:75%">75</span><span class="tick" style="left:100%">100 · plan</span></div>
+ <div class="caption"><span><b>229</b> of <b>246</b> units due by today recorded on site</span><span><b>3</b> more recorded early — a separate fact, not counted here</span><span>Due by <b>01 Oct</b></span></div>
+ </div>
+ <div class="prov">On site comes from 58 asset numbers on hire in the rental system, 1 sub-hired machine and 69 lines set by a person on site. A light a person sets overrides the rental system.</div>
+ </div>
+ <div class="card">
+ <h4>The whole job · 789 units</h4>
+ <div class="meter"><i style="width:29.4%"></i><em style="left:31.2%"></em></div>
+ <div class="kv"><span>Recorded on site</span><b>29.4%</b><span>Planned by today</span><b>31.2%</b><span>References due in, on site</span><b>70 of 76</b><span>Complete · unrecorded</span><b>67 · 6</b><span>Due in the next 7 days</span><b>25</b></div>
+ <h4 style="margin-top:14px">The lights · 198 assets</h4>
+ <div class="lights">
+ <div><b>73</b><span>on site</span></div>
+ <div class="warn"><b>125</b><span>no record</span></div>
+ <div><b>70</b><span>complete</span></div>
+ <div><b>38</b><span>of 128 levelled</span></div>
+ </div>
+ <div class="prov" style="margin-top:10px">Open the register → for the 198 references and their lights.</div>
+ </div>
+ </div>
+ </div>
+ </section>
+ <span class="pin" style="left:120px;top:1085px">4</span>
+
+ <!-- 04 -->
+ <section class="sec" id="programme">
+ <div class="no">04<small>Programme</small></div>
+ <div>
+ <h3>Where we are on the programme</h3>
+ <p class="lede">Calendar position only · work completion is tracked on the plates above.</p>
+ <div class="card">
+ <div class="prog">
+ <div class="line"></div><div class="done"></div>
+ <div class="ms" style="left:0"><small>Mon 07 Sep</small><span>PROGRAMME STARTS</span></div>
+ <div class="ms" style="left:10.3%"><small>Mon 14 Sep</small><span>FIRST TRUCK</span></div>
+ <div class="ms" style="left:67.6%"><small>Fri 23 Oct</small><span>RACE WEEKEND</span></div>
+ <div class="ms" style="left:72.1%"><small>Mon 26 Oct</small><span>DEMOB STARTS</span></div>
+ <div class="ms" style="left:100%"><small>Fri 13 Nov</small><span>END OF DEMOB</span></div>
+ <div class="now"><span>TODAY · 01 OCT</span></div>
+ </div>
+ <div class="dates">
+ <div><b>Day 25 of 68</b><span>Build phase · 07 Sep – 13 Nov</span></div>
+ <div><b>22 days</b><span>until race weekend · starts Fri 23 Oct</span></div>
+ <div><b>Race weekend</b><span>23–25 Oct 2026 · event week · 0 due in · 0 due out</span></div>
+ <div><b>Demob starts</b><span>Mon 26 Oct 2026</span></div>
+ <div><b>End of demob</b><span>Fri 13 Nov 2026 · 43 days</span></div>
+ </div>
+ </div>
+ </div>
+ </section>
+
+ <!-- 05 -->
+ <section class="sec" id="workstreams">
+ <div class="no">05<small>Workstreams</small></div>
+ <div>
+ <h3>Fencing, trades and branches</h3>
+ <p class="lede">The headline for each workstream, with its detail under a disclosure or on its own tab. Fencing is behind on braced-for-scrim; that is the one line called out.</p>
+ <div class="grid3">
+ <div class="card">
+ <h4>Fencing · dockets to 01 Oct</h4>
+ <div class="money" style="font-size:36px">5,450 m<small style="margin:6px 0 0">of 11,329 m of fence work · 48%</small></div>
+ <div class="meter"><i style="width:48%"></i><em style="left:42.7%"></em></div>
+ <div class="kv"><span>Recorded</span><b>5,450 m</b><span>Planned by this day</span><b>4,835.5 m</b><span>Braced for scrim</span><b style="color:var(--red)">215 of 2,492 m planned</b></div>
+ <details style="margin-top:12px"><summary>Fence work by line</summary><div class="in tw">
+ <table class="board"><thead><tr><th>Line</th><th class="r">Recorded</th><th class="r">Planned by 01 Oct</th><th class="r">Programme</th></tr></thead><tbody>
+ <tr><td>Clean</td><td class="r">5,235 m</td><td class="r">2,343.5 m</td><td class="r">7,479.5 m</td></tr>
+ <tr><td>Braced for scrim</td><td class="r">215 m</td><td class="r">2,492 m</td><td class="r">3,849.5 m</td></tr>
+ <tr><td>Relocation</td><td class="r">137.5 m</td><td class="r">132 m</td><td class="r">809 m</td></tr>
+ <tr><td>Removal</td><td class="r">0 m</td><td class="r">115 m</td><td class="r">968 m</td></tr>
+ <tr><td>Vehicle gates</td><td class="r">3</td><td class="r">48</td><td class="r">140</td></tr>
+ <tr><td>Pedestrian gates</td><td class="r">4</td><td class="r">6</td><td class="r">33</td></tr>
+ <tr><td>CCB — event</td><td class="r">2,372.5 m</td><td class="r">760 m</td><td class="r">2,383.5 m</td></tr>
+ <tr><td>CCB — demarcation</td><td class="r">800 m</td><td class="r">1,895 m</td><td class="r">4,556 m</td></tr>
+ </tbody></table>
+ <p style="font-size:12px;color:var(--mute);margin:8px 0 0">Work recorded on the dockets, not unique fence length — a scrim upgrade on a fence already standing isn't new length. A short line is a gap in the record until the dockets say otherwise.</p>
+ </div></details>
+ <div class="prov">Open the Fencing tab →</div>
+ </div>
+ <div class="card">
+ <h4>By trade · on site over the job</h4>
+ <div class="kv"><span>Units across 10 trades</span><b>789</b><span>References drawn on the sheets</span><b>169</b><span>Plant lines with no drawing reference</span><b>26</b><span>Cancelled, off the schedule</span><b>4</b></div>
+ <details style="margin-top:12px"><summary>Trade-by-trade detail</summary><div class="in"><p style="font-size:12.5px;color:var(--mute);margin:10px 0 0">The existing trade table (generators, toilets, towers, fencing, VMS, forklifts, track mat and the rest) opens here unchanged, and on the Plant register.</p></div></details>
+ <div class="prov">Open the register → · Open the Plant tab →</div>
+ </div>
+ <div class="card">
+ <h4>By branch · who gets the revenue</h4>
+ <div class="kv"><span>Branches on the job</span><b>as on Costs</b><span>Every row shows its sub-hire</span><b>lines · revenue · supplier · or NONE</b></div>
+ <details style="margin-top:12px"><summary>Branch table</summary><div class="in"><p style="font-size:12.5px;color:var(--mute);margin:10px 0 0">The v7.52 branch table (contracts, from the card, transport, rehire, sub-hired) opens here in full width, exactly as on Costs.</p></div></details>
+ <div class="prov">Open Costs &amp; charges →</div>
+ </div>
+ </div>
+ </div>
+ </section>
+ <span class="pin" style="right:26px;top:1520px">5</span>
+
+ <!-- 06 -->
+ <section class="sec" id="commercial">
+ <div class="no">06<small>Commercial</small></div>
+ <div>
+ <h3>Calculated revenue</h3>
+ <p class="lede">Worked out from the record: planned and recorded charges together. It isn't profit, and it isn't invoiced or paid. The Forecast P&amp;L stays on Costs.</p>
+ <div class="grid2">
+ <div class="card">
+ <div class="money"><small>Calculated revenue · ex GST · as at 01 Oct</small>$555,930</div>
+ <div class="caveat"><b>Rate coverage incomplete</b> · 2 hire lines with no rate · water services have no customer rate · 31 nights unpriced · 34 transport figures are minimums · rehire toilet total not final.</div>
+ <details style="margin-top:12px"><summary>How it is made up</summary><div class="in">
+ <div class="kv" style="margin-top:10px"><span>Hire contracts, by the rate (incl. sub-hire and delivery lines)</span><b>$277,016</b><span>Fencing dockets, at the 2026 card</span><b>$120,913</b><span>Event labour scope (provisional)</span><b>$55,817</b><span>Labour ticked per piece</span><b>$17,083</b><span>Not itemised here</span><b>$85,102</b><span class="tot">Calculated revenue, ex GST</span><b class="tot">$555,930</b></div>
+ </div></details>
+ </div>
+ <div class="card">
+ <h4>Still missing from the figure</h4>
+ <ul class="list">
+ <li><span class="ref">—</span><span>Labour actuals and forecasts reviewed separately; event staff not on the tracker</span><span class="pill info">Labour</span></li>
+ <li><span class="ref">—</span><span>Sub-hire rehire cost not on the record</span><span class="pill info">Rehire</span></li>
+ <li><span class="ref">—</span><span>Transport only partly in; 2 contract lines unrated</span><span class="pill info">Rates</span></li>
+ </ul>
+ <div class="prov">Open Costs &amp; charges → for the Forecast P&amp;L, direct costs and the branch table.</div>
+ </div>
+ </div>
+ </div>
+ </section>
+
+ <!-- 07 -->
+ <section class="sec" id="records">
+ <div class="no">07<small>Records</small></div>
+ <div>
+ <h3>Your records</h3>
+ <p class="lede">The specialist destinations the two old pages linked to, once each.</p>
+ <div class="tiles">
+ <a href="#x"><b>Delivery updates today</b><span>what was recorded on site today</span></a>
+ <a href="#x"><b>Who to call</b><span>branches, carriers, the event</span></a>
+ <a href="#x"><b>Fencing</b><span>dockets, lines, gates</span></a>
+ <a href="#x"><b>Variances</b><span>changes against the plan</span></a>
+ <a href="#x"><b>Breakdowns</b><span>callouts and repairs</span></a>
+ <a href="#x"><b>Costs &amp; charges</b><span>Forecast P&amp;L, rates, branches</span></a>
+ <a href="#x"><b>Map</b><span>master plan, satellite, 3D</span></a>
+ <a href="#x"><b>Documents</b><span>photos, papers, prints</span></a>
+ <a href="#x"><b>Running sheet</b><span>hours by person and day</span></a>
+ <a href="#x"><b>Edit</b><span>editors only, under Tools</span></a>
+ </div>
+ </div>
+ </section>
+
+ <div class="foot"><span>Coates Industrial Solutions · GC500 · Author: Andrew Fisher</span><span>Shared record · live · view only — this link cannot change it · last confirmed 04:40</span></div>
+ </div>
+ </div>
+
+ <!-- ================= DESIGN NOTES ================= -->
+ <h2 class="dh">Design notes</h2>
+ <div class="notes">
+ <div class="nt"><b class="n">1</b><h4>The command rail stays</h4><p>Deep charcoal-brown rail, Coates identity, search, the Gold Coast clock, the race-day countdown and the LIVE record light are kept as they are. The tab row loses Today and Where we are and gains one active destination, Today + position. Orange stays on the active tab only.</p></div>
+ <div class="nt"><b class="n">2</b><h4>Section jump rail</h4><p>A slim rail under the introduction sticks to the top as the page scrolls. Each link scrolls to an anchored section and writes the fragment (#today, #deliveries, #position, #programme, #workstreams, #commercial, #records), so a link to a section still lands on that section. The active link is underlined in orange as the sections pass.</p></div>
+ <div class="nt"><b class="n">3</b><h4>Act on now</h4><p>The exception list is the ten-second answer. It carries the six unrecorded due items, the 17-unit shortfall (once, as a pointer to Current position), the road reports and the look-ahead. Wording stays factual: "no delivery record", "not recorded on site", never a bare colour.</p></div>
+ <div class="nt"><b class="n">4</b><h4>One delivery-against-plan component</h4><p>93.1% appears once, as the big figure with its scale. The 17 units sit beside it in a red-ruled block with the caveat that a gap in the record is not proof of lateness. The 3 early units are named as a separate fact. Provenance (58 asset numbers, 1 sub-hired machine, 69 lines set on site) sits under it.</p></div>
+ <div class="nt"><b class="n">5</b><h4>Detail under disclosure</h4><p>Fencing by line, the trade table and the branch table open on request or on their own tabs. The one line that is behind (braced for scrim, 215 of 2,492 m) is called out in the headline card so it is not buried under the disclosure.</p></div>
+ <div class="nt"><b class="n">6</b><h4>Provenance everywhere</h4><p>"As at", last confirmed, planned versus observed and the incomplete-rate warning are kept in place: in the introduction, on the position component, on the programme ("calendar position only") and on the revenue figure.</p></div>
+ </div>
+
+ <h2 class="dh">What moves where</h2>
+ <div class="tw"><table class="map">
+ <thead><tr><th>Today (old)</th><th>Where we are (old)</th><th>Unified page</th></tr></thead>
+ <tbody>
+ <tr><td>Hero board and weather banner</td><td>Hero scene and Start showcase</td><td>Dropped from the first screen. Start showcase stays as an action button in the introduction. The board's date and week move into the introduction's "as at" line.</td></tr>
+ <tr><td>01 Scheduled today · due in / out / loads</td><td>Due today · 6 due in · 0 due out</td><td>01 Daily brief, once. Loads stay with the Timeline.</td></tr>
+ <tr><td>02 Today's equipment deliveries</td><td>Due, with no delivery record yet (list of refs)</td><td>02 Deliveries board, one row per reference with recorded status and Navigate.</td></tr>
+ <tr><td>03 Carry forward for review · 04 Next programme day · Roads</td><td>—</td><td>Act on now, beside the brief.</td></tr>
+ <tr><td>The lights · Deliveries due by today met · 93.1% gauge · Behind by 17</td><td>Delivery against plan 93.1% · Due by 01 Oct 17 of 246</td><td>03 Current position: one 93.1% component, the 17 adjacent, the lights and the whole job in the side card.</td></tr>
+ <tr><td>Where we are on the programme · Next milestone · Key dates</td><td>Programme milestones strip</td><td>04 Programme, once.</td></tr>
+ <tr><td>Fencing (records tile)</td><td>Fencing records 5,450 m · fence work by line · by group · by trade</td><td>05 Workstreams: headline cards, tables under disclosure, tabs for the rest.</td></tr>
+ <tr><td>Costs &amp; charges (records tile)</td><td>Calculated revenue $555,930 · make-up · caveats · by branch · money</td><td>06 Commercial: the figure with its caveats; make-up under disclosure; the Forecast P&amp;L and branch table stay on Costs.</td></tr>
+ <tr><td>Your records tiles</td><td>Email this · Print · View date</td><td>07 Records tiles; Email, Print and the date picker move into the introduction's actions.</td></tr>
+ </tbody>
+ </table></div>
+
+ <h2 class="dh">One source of truth</h2>
+ <ul class="rules">
+ <li><b>93.1%</b> — one component, in Current position. Nowhere else.</li>
+ <li><b>17 units</b> — beside that component, and once in Act on now as a pointer. Not a third headline.</li>
+ <li><b>Due today 6 in · 0 out</b> — Daily brief and the Deliveries board. Not in the Programme section.</li>
+ <li><b>Trades, branches, revenue make-up</b> — under disclosure controls or on Plant, Fencing and Costs. The unified page carries their headlines only.</li>
+ <li><b>Wording</b> — "recorded on site", "due by this day", "no delivery record", "a gap in the record, not proof they're late". No green/amber/red labels without the fact beside them.</li>
+ </ul>
+
+ <h2 class="dh">On a phone</h2>
+ <div class="phone">
+ <div class="ph">
+ <div class="rail"><div class="rail-top"><div class="brand"><small>Coates Industrial Solutions</small><b>GC500<em>2026</em></b></div></div>
+ <div class="rail-tiles" style="grid-template-columns:1fr 1fr"><div class="tile"><small>Race day</small><b>21 <span style="font-size:14px">DAYS</span></b></div><div class="tile"><small>Record</small><b class="live" style="font-size:22px"><i></i> LIVE</b><div class="sub">04:40</div></div></div>
+ <nav class="tabs"><a class="on" href="#today">Today + position</a><a href="#x">Timeline</a><a href="#x">Plant</a><a href="#x">Map</a></nav></div>
+ <div class="work">
+ <div class="intro"><div><h2>Today <span>— Current Position</span></h2><div class="asat">As at <b>Thu 01 Oct 04:40</b> · Week 3 · Build · <b>22 days</b> to race day</div></div></div>
+ <nav class="jump"><a class="on" href="#today">Brief</a><a href="#deliveries">Deliveries</a><a href="#position">Position</a><a href="#programme">Programme</a><a href="#workstreams">Work</a><a href="#commercial">$</a></nav>
+ <div class="card"><div class="brief-title" style="font-size:26px">Build. Record. Hand over.</div><div class="facts" style="margin-top:10px"><div class="fact"><b>6</b><span>due in</span></div><div class="fact"><b>0</b><span>due out</span></div></div><div class="note"><b>0 of 6</b> recorded on site · 6 no delivery record</div></div>
+ <div class="card"><div class="gauge"><div class="big"><small>Recorded · due by this day</small>93.1%</div><div class="short"><span class="lbl">Behind by</span><b>17</b></div><div class="scale"><div class="fill"></div><div class="plan"></div></div></div></div>
+ </div>
+ </div>
+ <div class="nt" style="border-left-color:var(--orange)"><h4>Phone behaviour</h4><p>The rail tiles stack, the tab row scrolls sideways within itself, the jump rail keeps to short labels, cards go to one column and the Deliveries board scrolls inside its own frame. Nothing scrolls the page sideways. The 93.1% component and the 17 units are still the first thing under the brief, so the ten-second answer holds at 390 px.</p><p>Print the handover prints sections 01 to 04 on one A4 page, as the current handover does.</p></div>
+ </div>
+</div>
+
+<script>
+(function(){
+ var frame=document.getElementById('frame'),btn=document.getElementById('pinbtn');
+ btn.addEventListener('click',function(){var on=frame.classList.toggle('pins');btn.setAttribute('aria-pressed',on?'true':'false');btn.lastChild.textContent=on?'Design notes on':'Design notes off';});
+ /* the jump rail in the mock: scroll to the section, write the fragment, mark the active link as sections pass */
+ var jump=frame.querySelector('.jump'),links=Array.prototype.slice.call(jump.querySelectorAll('a'));
+ links.forEach(function(a){a.addEventListener('click',function(e){e.preventDefault();var id=a.getAttribute('href').slice(1);var el=document.getElementById(id==='today'?'brief':id);if(el){el.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',block:'start'});}try{history.replaceState(null,'','#'+id);}catch(err){}links.forEach(function(x){x.classList.toggle('on',x===a);});});});
+ var secs=['brief','deliveries','position','programme','workstreams','commercial','records'].map(function(id){return document.getElementById(id);}).filter(Boolean);
+ if('IntersectionObserver' in window){var io=new IntersectionObserver(function(es){es.forEach(function(en){if(!en.isIntersecting)return;var id=en.target.id==='brief'?'today':en.target.id;links.forEach(function(x){x.classList.toggle('on',x.getAttribute('href')==='#'+id);});});},{rootMargin:'-30% 0px -60% 0px'});secs.forEach(function(s){io.observe(s);});}
+ frame.querySelectorAll('a[href="#x"]').forEach(function(a){a.addEventListener('click',function(e){e.preventDefault();});});
+})();
+</script>

@@ -1,0 +1,252 @@
+{
+ "mode": "static",
+ "device": null,
+ "page": "GC500_Delivery_Control_hosted.html",
+ "page_sha256": "2f75a9e8b1b68196f00be0a1bd410546d0a28a7456fde2af5cc7aa03e9a16ada",
+ "pass": 34,
+ "total": 34,
+ "results": [
+  {
+   "name": "S1 the two new blocks are on the page, once",
+   "pass": true,
+   "info": null
+  },
+  {
+   "name": "S1 removing them gives the base page byte for byte (DATA, MASTER_LOC, money, footer, every screen unchanged)",
+   "pass": true,
+   "info": {
+    "build": 11917412,
+    "base": 11586587
+   }
+  },
+  {
+   "name": "S2 embedded data matches its recorded sha256",
+   "pass": true,
+   "info": "0279e2ad30f861ac"
+  },
+  {
+   "name": "S2 page data names the source files it came from (shapes and footprints)",
+   "pass": true,
+   "info": {
+    "shapes": "3671d30452645a49",
+    "footprints": "c005d65560e14c0d"
+   }
+  },
+  {
+   "name": "S2 no agent or model names, no author name, no dollar figure in the page data",
+   "pass": true,
+   "info": null
+  },
+  {
+   "name": "S3 MasterShapes915 loads, frozen, read only",
+   "pass": true,
+   "info": null
+  },
+  {
+   "name": "S3 refs() lists every reference with a shape",
+   "pass": true,
+   "info": 192
+  },
+  {
+   "name": "S3 every reference on the page (DATA and MASTER_LOC) has a shape or a reason",
+   "pass": true,
+   "info": {
+    "refs": 180,
+    "shapes": 192,
+    "unanswered": []
+   }
+  },
+  {
+   "name": "S3 no reference is without a shape except cancelled ones (kept with a note) and T0265 (4 fridges, no footprint anywhere)",
+   "pass": true,
+   "info": {
+    "nulls": [
+     "P47",
+     "T0265",
+     "WC32",
+     "WC66",
+     "T0019",
+     "T0089"
+    ],
+    "badNull": []
+   }
+  },
+  {
+   "name": "S3 shape() hands out a copy (cannot change the data)",
+   "pass": true,
+   "info": null
+  },
+  {
+   "name": "S3b every unit in inventory.json is answered, in order, with its own type, index and number",
+   "pass": true,
+   "info": {
+    "units": 409,
+    "bad": []
+   }
+  },
+  {
+   "name": "S3b every active unit has exactly one shape (its own part, never shared), and draws on its own",
+   "pass": true,
+   "info": {
+    "shaped": 403,
+    "active": 402,
+    "shared": []
+   }
+  },
+  {
+   "name": "S3b meta counts the units by source",
+   "pass": true,
+   "info": {
+    "master": 311,
+    "standard": 85,
+    "under its block": 6
+   }
+  },
+  {
+   "name": "S3b a unit is found by its loading id and its number (for the Arrange loads door choice)",
+   "pass": true,
+   "info": null
+  },
+  {
+   "name": "S4 every traced outline's centroid within 0.5 m of the PDF centroid after the transform",
+   "pass": true,
+   "info": {
+    "outlines": 327,
+    "worst_m": 0.0001,
+    "at": "WC15#1",
+    "missing": []
+   }
+  },
+  {
+   "name": "S4 every traced vertex is a PDF corner (under 0.01 pt)",
+   "pass": true,
+   "info": {
+    "worst_pt": 0.00018
+   }
+  },
+  {
+   "name": "S4 every door swing is the PDF arc: the 117 of 8 Oct point for point, every arc end and leaf under 0.01 m / 0.01 pt",
+   "pass": true,
+   "info": {
+    "doors": 121,
+    "of_8oct": 117,
+    "worst_arc_m": 0.00012,
+    "worst_end_m": 0.00012,
+    "worst_leaf_pt": 0.00017
+   }
+  },
+  {
+   "name": "S4 every water-barrier piece is a PDF piece, and every barrier line vertex a piece-end mid point or the meeting of two (under 0.01 pt)",
+   "pass": true,
+   "info": {
+    "lines": 23,
+    "pieces": 242,
+    "vertices": 265,
+    "worst_piece_pt": 0.00017,
+    "worst_line_pt": 0.00019
+   }
+  },
+  {
+   "name": "S4b every part not drawn on the master cites its source, uses its reconciled footprint, and says \"size to confirm\" where it is",
+   "pass": true,
+   "info": {
+    "standard_parts": 91,
+    "size_to_confirm": 61,
+    "bad": []
+   }
+  },
+  {
+   "name": "S4b footprints: where the catalogues disagree by more than 10% the drawn size is used only with direct drawing evidence, else \"size to confirm\"",
+   "pass": true,
+   "info": []
+  },
+  {
+   "name": "S4c every waste tank (6) is its block's own outline, drawn grey under the block with \"+ WASTE TANK\" on the map and as its own \"WASTE TANK\" item for loads",
+   "pass": true,
+   "info": {
+    "tanks": 6,
+    "bad": []
+   }
+  },
+  {
+   "name": "S4d every water-barrier reference is a line shape (white-and-yellow pieces), traced where the master draws it",
+   "pass": true,
+   "info": {
+    "refs": 15,
+    "bad": []
+   }
+  },
+  {
+   "name": "S5 svg keeps every edge's direction (rotation exact)",
+   "pass": true,
+   "info": {
+    "edges": 6484,
+    "worst_deg": 0.0724
+   }
+  },
+  {
+   "name": "S5 svg keeps every edge's length ratio (aspect exact)",
+   "pass": true,
+   "info": {
+    "worst_relative": 0.00112
+   }
+  },
+  {
+   "name": "S6 scaling is uniform: one factor for every edge of every part",
+   "pass": true,
+   "info": {
+    "spread": 0.00207
+   }
+  },
+  {
+   "name": "S6 under minPx the shape is scaled up to exactly minPx, otherwise true size (barrier lines never scaled)",
+   "pass": true,
+   "info": []
+  },
+  {
+   "name": "S7 the door mark sits on the master's door edge, square to it, pointing out",
+   "pass": true,
+   "info": {
+    "marks": 484,
+    "bad": []
+   }
+  },
+  {
+   "name": "S8 a chosen edge replaces the master's door; door:'none' draws none",
+   "pass": true,
+   "info": []
+  },
+  {
+   "name": "S9 project() (the explorer camera) and pxPerPt + rot draw the same shape",
+   "pass": true,
+   "info": {
+    "worst_px": 8.78150622987182e-12
+   }
+  },
+  {
+   "name": "S9 a reference with no position on the master, MASTER_LOC or a record pin is never put on the map (shape for loads only)",
+   "pass": true,
+   "info": []
+  },
+  {
+   "name": "S10 the number badge stays readable (radius 11 px at any zoom)",
+   "pass": true,
+   "info": null
+  },
+  {
+   "name": "S11 svg(ref, {unit}) draws that unit and nothing else",
+   "pass": true,
+   "info": []
+  },
+  {
+   "name": "S12 traced parts are solid, parts not drawn on the master dashed (outlines and barrier lines)",
+   "pass": true,
+   "info": []
+  },
+  {
+   "name": "S12 each kind is recognisable: FWF circle, accessible-toilet sign, generator diagonal, barrier white-and-yellow, tags",
+   "pass": true,
+   "info": null
+  }
+ ]
+}

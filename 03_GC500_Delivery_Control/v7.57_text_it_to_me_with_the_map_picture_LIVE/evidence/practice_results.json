@@ -1,0 +1,93 @@
+{
+ "mobile": false,
+ "readonlyBefore": true,
+ "readonlyAfter": false,
+ "loadLines": {
+  "lines": 6,
+  "withGo": 5,
+  "withTextIt": 5,
+  "sample": [
+   "GN03",
+   "WC44",
+   "WC60"
+  ]
+ },
+ "clickOpensBox": {
+  "box": true,
+  "title": "Text GN03",
+  "lineStillAsItWas": true
+ },
+ "lineToggledByTheClick": false,
+ "picture": {
+  "drawn": true,
+  "error": null,
+  "bytes": 177684,
+  "w": 1000,
+  "h": 824,
+  "quality": 0.86,
+  "plan": true,
+  "info": "the aerial with the master plan over it · 1000×824 · 178 kB",
+  "tick": true,
+  "ticked": true,
+  "sub": "Goes from this service through ClickSend: what it is, the GPS, a Maps link and the way in, and a picture of the map with the spot marked. The link opens the card with the pictures."
+ },
+ "sendPath": true,
+ "dry": {
+  "msg": "It reads fine: 1 picture message, the picture 178 kB. Nothing has been sent.",
+  "post": {
+   "url": "/api/mms",
+   "body": {
+    "to": [
+     "0429352788"
+    ],
+    "text": "Coates GC500: GN03 - Generator (30kva)\nGPS: -27.988016, 153.427920 (master plan)\nMaps: https://www.google.com/maps/dir/?api=1&destination=-27.988016,153.427920&travelmode=driving\nDue Thu 01 Oct 2026\nPictures: https://gc500-production.up.railway.app/v/Coates-GC500-2026#asset/GN03",
+    "subject": "Coates GC500 GN03",
+    "picture": {
+     "dataUrlPrefix": "data:image/jpeg;base64,",
+     "bytes": 177684
+    },
+    "dry_run": true
+   }
+  }
+ },
+ "send": {
+  "msg": "Sent to +61429352788, with the picture · $0.36.",
+  "post": {
+   "url": "/api/mms",
+   "body": {
+    "to": [
+     "0429352788"
+    ],
+    "text": "Coates GC500: GN03 - Generator (30kva)\nGPS: -27.988016, 153.427920 (master plan)\nMaps: https://www.google.com/maps/dir/?api=1&destination=-27.988016,153.427920&travelmode=driving\nDue Thu 01 Oct 2026\nPictures: https://gc500-production.up.railway.app/v/Coates-GC500-2026#asset/GN03",
+    "subject": "Coates GC500 GN03",
+    "picture": {
+     "dataUrlPrefix": "data:image/jpeg;base64,",
+     "bytes": 177684
+    },
+    "dry_run": false
+   }
+  }
+ },
+ "boxClosedAfterSend": true,
+ "plainText": {
+  "msg": "Sent to +61429352788 · $0.08.",
+  "post": {
+   "url": "/api/sms",
+   "body": {
+    "to": [
+     "0429352788"
+    ],
+    "text": "Coates GC500: AA - Portable building (Building 6m) - Active Air Crib Room\nGPS: -27.986807, 153.428251 (master plan)\nMaps: https://www.google.com/maps/dir/?api=1&destination=-27.986807,153.428251&travelmode=driving\nWay in: off the Gold Coast Hwy into the pit lane at its north-west end, then down it the way the race cars go.\nDue Thu 17 Sep 2026, on site 11:00\nPictures: https://gc500-production.up.railway.app/v/Coates-GC500-2026#asset/AA",
+    "dry_run": false
+   }
+  }
+ },
+ "drawerTextIt": {
+  "button": true,
+  "box": true,
+  "drawn": true
+ },
+ "posts": 3,
+ "errors": [],
+ "console": []
+}

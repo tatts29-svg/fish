@@ -1,0 +1,42 @@
+Author: Andrew Fisher
+v8.30 source-note reconciliation — LIVE, 4 October 2026
+
+Two existing plan notes omitted relevant context from their current source.
+Append that verified context without creating another note, task or quantity.
+Preserve the renderer and all dates, rates, costs, completion and map geometry.
+Original attachments and private source specification are excluded from GitHub.
+
+Frozen generic implementation: 2229c982
+READY checkpoint: c8e293de
+Base v8.29: 8af09119006f7fad218b4fad3146ccc49d5c7cb6546f5f8a2ab626304484ccbf
+Candidate/public: 24b9bc1f256171330e5f02546fbf64fb3f82d3e9ec919ad60c4c1737182535d0
+Size: 10,115,041 bytes
+Guarded upload and exact public readback: 05:12 AEST
+Actual-public desktop/phone smoke completed: 05:15 AEST
+
+Verification
+- Eight portable helper tests; standard inline-script and credential checks pass.
+- Independent structured comparison: exactly two existing DATA note strings,
+  plus release labels; all other data and financial inputs preserved.
+- Focused base/candidate desktop/phone: 28/28 assertions pass. No duplicate
+  notes or added task rows; financial/numeric models equal on both sizes.
+- Required desktop and phone sweeps: 22 tabs, seven deep links and Back each;
+  zero browser errors or attempted operational writes.
+- Actual public service: 18/18 assertions pass on desktop and phone, without
+  local HTML or asset substitution. Public models match the approved candidate.
+- All operational collections are identical before and after page publication.
+- Changed-area desktop and phone screenshots inspected, including live phone.
+
+Harness limitations retained explicitly
+Initial navigation launch lacked Chromium execution permission; rerun passed.
+Initial focused selector inspected the default week; native target-week selection
+corrected the test. No product change was required.
+Initial public response-body capture was evicted from Chromium's inspector cache.
+A dedicated larger CDP buffer corrected capture. Its decoded body omits the
+three-byte UTF-8 BOM: exact raw public GET and exact decoded source comparison,
+plus response ETags, establish parity. Initial failures are retained privately.
+The existing narrow phone page-citation wrapping is unchanged. This patch makes
+no broad performance, full-suite, billing-completeness or faultlessness claim.
+
+Codex implemented, independently reviewed and published. Claude remains paused.
+No backend deployment, financial posting or operational write by this patch.

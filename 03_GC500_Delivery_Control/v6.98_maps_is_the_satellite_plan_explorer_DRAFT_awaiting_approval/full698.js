@@ -1,0 +1,10 @@
+const {open} = require('./lh2');
+(async () => { const s = await open({pageFile: process.env.PAGE, gl: false}); const p = s.page;
+  await p.waitForFunction(() => typeof renderExplorerTab === 'function', null, {timeout: 120000}); await p.waitForTimeout(2000);
+  await p.evaluate(() => go('map')); await p.waitForTimeout(1500);
+  const r0 = await p.evaluate(() => { const w = document.getElementById('expwrap'); return {styleH: w.style.height, h: w.getBoundingClientRect().height}; });
+  await p.evaluate(() => document.getElementById('expFull').click()); await p.waitForTimeout(600);
+  const r = await p.evaluate(() => { const w = document.getElementById('expwrap'), c = document.getElementById('expcard'), cs = getComputedStyle(w), cc = getComputedStyle(c);
+    return {styleH: w.style.height, compH: cs.height, disp: cs.display, contain: cs.contain, top: w.getBoundingClientRect().top, cardPos: cc.position, cardH: c.getBoundingClientRect().height, cardDisp: cc.display, cardTop: c.getBoundingClientRect().top, vh: innerHeight}; });
+  const anc = await p.evaluate(() => { const out = []; let e = document.getElementById('expcard').parentElement; while (e && e !== document.documentElement) { const cs = getComputedStyle(e); const bad = ['transform','filter','perspective','contain','willChange','backdropFilter','containerType'].filter(k => cs[k] && !['none','normal','auto'].includes(cs[k])).map(k => k + ':' + cs[k]); if (bad.length) out.push((e.id ? '#' + e.id : e.tagName + '.' + String(e.className).split(' ').join('.')) + ' ' + bad.join(' ')); e = e.parentElement; } return out; });
+  console.log(JSON.stringify({r0, r, anc})); await s.browser.close(); })().catch(e => { console.error('FAIL', e.message); process.exit(1); });

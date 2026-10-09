@@ -1,0 +1,21 @@
+{
+  "author": "Andrew Fisher",
+  "candidateSha256": "d5cd59c5df09caadfa835f3c10f1aef2a073852ec6922474107f97efefb67c21",
+  "summaryOnly": true,
+  "desktop": {
+    "tabs": 21,
+    "deepLinks": 7,
+    "pageErrors": [],
+    "consoleErrors": [],
+    "navigationErrors": [],
+    "note": "Existing hidden/legacy routes retain their redirects."
+  },
+  "phone": {
+    "tabs": 21,
+    "deepLinks": 7,
+    "pageErrors": [],
+    "consoleErrors": [],
+    "navigationErrors": [],
+    "note": "Existing hidden/legacy routes retain their redirects."
+  }
+}

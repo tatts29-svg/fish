@@ -1,0 +1,2527 @@
+{
+ "author": "Andrew Fisher",
+ "tool": "v9.16 m3_summarise.cjs",
+ "note": "median over repeats [min-max]; SwiftShader software GL, shared CPU: wall frames and ms are relative only",
+ "groups": {
+  "laptop1|v6.40": {
+   "repeats": 2,
+   "rounds": [
+    "1",
+    "2"
+   ],
+   "sha": "66eb590b85d4",
+   "final": [
+    {
+     "q": "high",
+     "step": "detail High",
+     "failed": null,
+     "up": true
+    },
+    {
+     "q": "balanced",
+     "step": "shadow map off",
+     "failed": null,
+     "up": true
+    }
+   ],
+   "metrics": {
+    "open: draws/frame (med)": {
+     "med": 90,
+     "min": 90,
+     "max": 90
+    },
+    "open: vertices/frame (med)": {
+     "med": 3364050,
+     "min": 3364050,
+     "max": 3364050
+    },
+    "open: GL calls/frame (med)": {
+     "med": 1465,
+     "min": 1465,
+     "max": 1465
+    },
+    "open: frames in window (wall, relative)": {
+     "med": 7.5,
+     "min": 7,
+     "max": 8
+    },
+    "open: frames with 3D up": {
+     "med": 7.5,
+     "min": 7,
+     "max": 8
+    },
+    "open: JS ms/frame (med)": {
+     "med": 8.05,
+     "min": 4.2,
+     "max": 11.9
+    },
+    "open: JS ms/frame (max)": {
+     "med": 38281.65,
+     "min": 34046.3,
+     "max": 42517
+    },
+    "open: script ms/frame ex-GL (med)": {
+     "med": 4.85,
+     "min": 3.1,
+     "max": 6.6
+    },
+    "open: main-thread busy %": {
+     "med": 57.32,
+     "min": 54.72,
+     "max": 59.92
+    },
+    "open: long tasks (n)": {
+     "med": 6.5,
+     "min": 6,
+     "max": 7
+    },
+    "open: long tasks total ms": {
+     "med": 39736.5,
+     "min": 35502,
+     "max": 43971
+    },
+    "open: longest task ms": {
+     "med": 38286.5,
+     "min": 34051,
+     "max": 42522
+    },
+    "open: buffer upload MB (phase)": {
+     "med": 75.69,
+     "min": 74.11,
+     "max": 77.28
+    },
+    "open: texture upload MB (phase)": {
+     "med": 57.54,
+     "min": 54.11,
+     "max": 60.98
+    },
+    "open: shader compiles (phase)": {
+     "med": 16,
+     "min": 16,
+     "max": 16
+    },
+    "showOpen() ms (sync)": {
+     "med": 1982,
+     "min": 1982,
+     "max": 1982
+    },
+    "render() under the Showcase ms (med of 3)": {
+     "med": 1050,
+     "min": 1050,
+     "max": 1050
+    },
+    "open: biggest timer callback ms": {
+     "med": 106.4,
+     "min": 99.8,
+     "max": 113
+    },
+    "open: heap MB at end": {
+     "med": 163.94,
+     "min": 163.72,
+     "max": 164.16
+    },
+    "open: DOM nodes at end": {
+     "med": 7726,
+     "min": 7721,
+     "max": 7731
+    },
+    "open: live intervals": {
+     "med": 3,
+     "min": 3,
+     "max": 3
+    },
+    "open: first quality step at s": {
+     "med": 26.12,
+     "min": 24.14,
+     "max": 28.1
+    },
+    "open: 3D handed back (failed) at s": null,
+    "before: main-thread busy %": {
+     "med": 0.63,
+     "min": 0.59,
+     "max": 0.66
+    },
+    "before: frames (wall)": {
+     "med": 1,
+     "min": 1,
+     "max": 1
+    },
+    "before: heap MB": {
+     "med": 11.65,
+     "min": 10.97,
+     "max": 12.33
+    },
+    "before: DOM nodes": {
+     "med": 6355,
+     "min": 4253,
+     "max": 8457
+    },
+    "before: live intervals": {
+     "med": 2,
+     "min": 2,
+     "max": 2
+    },
+    "load to ready s": {
+     "med": 3.75,
+     "min": 3.61,
+     "max": 3.89
+    },
+    "page MB": {
+     "med": 6.21,
+     "min": 6.21,
+     "max": 6.21
+    },
+    "blocked writes": {
+     "med": 0,
+     "min": 0,
+     "max": 0
+    },
+    "page errors": {
+     "med": 0,
+     "min": 0,
+     "max": 0
+    }
+   },
+   "openRafMs": [
+    [
+     "frame",
+     50279.15
+    ]
+   ],
+   "openTimerMs": [
+    [
+     "to anon:() => { SHOW.timer = null; if (SHOW.i === SHOW_ORD",
+     343.9
+    ],
+    [
+     "to anon:() => { BOARD_RUN.fade = null; if (canPage()) { fi",
+     36.8
+    ],
+    [
+     "to tpodTick",
+     31.45
+    ],
+    [
+     "to anon:() => { step(showFit); step(fxSize); step(lapsSize",
+     28.35
+    ],
+    [
+     "iv anon:() => { if (document.visibilityState === 'visible'",
+     5.8
+    ],
+    [
+     "to anon:() => { SHOW.launchTimer = null; if (SHOW.launch <",
+     2.75
+    ],
+    [
+     "iv showTickClock",
+     2.25
+    ],
+    [
+     "iv tick",
+     1.3
+    ],
+    [
+     "iv showWatchdogTick",
+     1.05
+    ]
+   ],
+   "openIntervals": [
+    "iv anon:() => { if (document.visibilityState === 'visible' every 4000 ms",
+    "iv showWatchdogTick every 4000 ms",
+    "iv tick every 6000 ms"
+   ],
+   "captured": {
+    "frames": 2,
+    "byProgram": [
+     {
+      "program": 2,
+      "drawsPerFrame": 25,
+      "vertsPerFrame": 2378472,
+      "vs": "328ch vec4 p=uVP*vec4(aPos,1.);gl_Position=p;vCol=aCol;vUV=aUV;vW=p.w;vP=aPos.xz;vWorld=aPos;}"
+     },
+     {
+      "program": 7,
+      "drawsPerFrame": 43,
+      "vertsPerFrame": 540618,
+      "vs": "414ch vec4 w=uModel*vec4(aPos,1.);vec4 p=uVP*w;gl_Position=p;vWorld=w.xyz;vNormal=normalize(mat3(uModel)*aNormal);vLocal=aPos;vUV=aUV;vDistance=p."
+     },
+     {
+      "program": 1,
+      "drawsPerFrame": 1,
+      "vertsPerFrame": 232275,
+      "vs": "427ch vec4 p=uVP*vec4(aPos,1.);gl_Position=p;vN=aNrm;vUVH=aUVH;vGlow=aGlow;vW=p.w;vY=aPos.y;vWorld=aPos;vSeed=aUVH.z;}"
+     },
+     {
+      "program": 0,
+      "drawsPerFrame": 14,
+      "vertsPerFrame": 212642,
+      "vs": "2000ch #version 300 es precision highp float; layout(location=0) in vec2 aC; layout(location=1) in vec3 aA; layout(location=2) in vec3 aB; layout(l"
+     },
+     {
+      "program": 5,
+      "drawsPerFrame": 4,
+      "vertsPerFrame": 12,
+      "vs": "164ch vec2 p=vec2(float((gl_VertexID<<1)&2),float(gl_VertexID&2));vUV=p;gl_Position=vec4(p*2.-1.,0.,1.);}"
+     },
+     {
+      "program": 4,
+      "drawsPerFrame": 2,
+      "vertsPerFrame": 6,
+      "vs": "164ch vec2 p=vec2(float((gl_VertexID<<1)&2),float(gl_VertexID&2));vUV=p;gl_Position=vec4(p*2.-1.,0.,1.);}"
+     },
+     {
+      "program": 6,
+      "drawsPerFrame": 1,
+      "vertsPerFrame": 3,
+      "vs": "164ch vec2 p=vec2(float((gl_VertexID<<1)&2),float(gl_VertexID&2));vUV=p;gl_Position=vec4(p*2.-1.,0.,1.);}"
+     }
+    ]
+   }
+  },
+  "laptop1|v7.84": {
+   "repeats": 2,
+   "rounds": [
+    "1",
+    "2"
+   ],
+   "sha": "c9958a42085a",
+   "final": [
+    {
+     "q": "balanced",
+     "step": "reflections off",
+     "failed": null,
+     "up": true
+    },
+    {
+     "q": "balanced",
+     "step": "reflections off",
+     "failed": null,
+     "up": true
+    }
+   ],
+   "metrics": {
+    "open: draws/frame (med)": {
+     "med": 93,
+     "min": 93,
+     "max": 93
+    },
+    "open: vertices/frame (med)": {
+     "med": 5638834,
+     "min": 5638826,
+     "max": 5638842
+    },
+    "open: GL calls/frame (med)": {
+     "med": 1524,
+     "min": 1524,
+     "max": 1524
+    },
+    "open: frames in window (wall, relative)": {
+     "med": 8,
+     "min": 7,
+     "max": 9
+    },
+    "open: frames with 3D up": {
+     "med": 8,
+     "min": 7,
+     "max": 9
+    },
+    "open: JS ms/frame (med)": {
+     "med": 7.7,
+     "min": 6.1,
+     "max": 9.3
+    },
+    "open: JS ms/frame (max)": {
+     "med": 29743.9,
+     "min": 24263.7,
+     "max": 35224.1
+    },
+    "open: script ms/frame ex-GL (med)": {
+     "med": 5.15,
+     "min": 5,
+     "max": 5.3
+    },
+    "open: main-thread busy %": {
+     "med": 49.32,
+     "min": 41.27,
+     "max": 57.36
+    },
+    "open: long tasks (n)": {
+     "med": 9,
+     "min": 7,
+     "max": 11
+    },
+    "open: long tasks total ms": {
+     "med": 41783.5,
+     "min": 25942,
+     "max": 57625
+    },
+    "open: longest task ms": {
+     "med": 29748,
+     "min": 24268,
+     "max": 35228
+    },
+    "open: buffer upload MB (phase)": {
+     "med": 114.58,
+     "min": 112.64,
+     "max": 116.52
+    },
+    "open: texture upload MB (phase)": {
+     "med": 57.54,
+     "min": 54.11,
+     "max": 60.98
+    },
+    "open: shader compiles (phase)": {
+     "med": 16,
+     "min": 16,
+     "max": 16
+    },
+    "showOpen() ms (sync)": {
+     "med": 2965,
+     "min": 2965,
+     "max": 2965
+    },
+    "render() under the Showcase ms (med of 3)": {
+     "med": 865,
+     "min": 865,
+     "max": 865
+    },
+    "open: biggest timer callback ms": {
+     "med": 114.6,
+     "min": 99.2,
+     "max": 130
+    },
+    "open: heap MB at end": {
+     "med": 238.28,
+     "min": 237.78,
+     "max": 238.77
+    },
+    "open: DOM nodes at end": {
+     "med": 8621,
+     "min": 8530,
+     "max": 8712
+    },
+    "open: live intervals": {
+     "med": 4,
+     "min": 4,
+     "max": 4
+    },
+    "open: first quality step at s": {
+     "med": 29.15,
+     "min": 26.16,
+     "max": 32.14
+    },
+    "open: 3D handed back (failed) at s": null,
+    "before: main-thread busy %": {
+     "med": 0.8,
+     "min": 0.77,
+     "max": 0.83
+    },
+    "before: frames (wall)": {
+     "med": 1,
+     "min": 1,
+     "max": 1
+    },
+    "before: heap MB": {
+     "med": 13.87,
+     "min": 13.8,
+     "max": 13.93
+    },
+    "before: DOM nodes": {
+     "med": 4999.5,
+     "min": 4979,
+     "max": 5020
+    },
+    "before: live intervals": {
+     "med": 3,
+     "min": 3,
+     "max": 3
+    },
+    "load to ready s": {
+     "med": 3.55,
+     "min": 3.47,
+     "max": 3.63
+    },
+    "page MB": {
+     "med": 8.36,
+     "min": 8.36,
+     "max": 8.36
+    },
+    "blocked writes": {
+     "med": 0,
+     "min": 0,
+     "max": 0
+    },
+    "page errors": {
+     "med": 0,
+     "min": 0,
+     "max": 0
+    }
+   },
+   "openRafMs": [
+    [
+     "frame",
+     38726.15
+    ],
+    [
+     "anon:() => { BOARD_RUN.raf = 0; if (BOARD_RUN.redraw !=",
+     1.85
+    ],
+    [
+     "anon:() => { try {document.querySelectorAll('.pane.on\\x",
+     0.15
+    ]
+   ],
+   "openTimerMs": [
+    [
+     "to anon:() => { SHOW.timer = null; if (SHOW.i === SHOW_ORD",
+     384.45
+    ],
+    [
+     "to anon:() => { step(showFit); step(fxSize); step(lapsSize",
+     36.85
+    ],
+    [
+     "to tpodTick",
+     32
+    ],
+    [
+     "to anon:() => { BOARD_RUN.fade = null; if (canPage()) { fi",
+     16.85
+    ],
+    [
+     "iv anon:() => { if (document.visibilityState === 'visible'",
+     10.15
+    ],
+    [
+     "to anon:() => { SHOW.launchTimer = null; if (SHOW.launch <",
+     2.7
+    ],
+    [
+     "iv showTickClock",
+     2.65
+    ],
+    [
+     "iv tick",
+     1.65
+    ],
+    [
+     "iv showWatchdogTick",
+     1.05
+    ],
+    [
+     "iv anon:() => { if (PHOTO_OUTBOX.size && !PHOTO_RETRY) go(",
+     0.1
+    ]
+   ],
+   "openIntervals": [
+    "iv anon:() => { if (PHOTO_OUTBOX.size && !PHOTO_RETRY) go( every 60000 ms",
+    "iv anon:() => { if (document.visibilityState === 'visible' every 4000 ms",
+    "iv showWatchdogTick every 4000 ms",
+    "iv tick every 6000 ms"
+   ],
+   "captured": {
+    "frames": 2,
+    "byProgram": [
+     {
+      "program": 2,
+      "drawsPerFrame": 27,
+      "vertsPerFrame": 4651080,
+      "vs": "484ch vec3 q=aPos;if(uMode>11.5&&uMode<12.5){float b=max(0.,sin(uTime*7.+aUV.x));q.y+=aUV.y*b*b;} /* v6.64 - the crowd bounces */ vec4 p=uVP*vec4("
+     },
+     {
+      "program": 7,
+      "drawsPerFrame": 43,
+      "vertsPerFrame": 540618,
+      "vs": "414ch vec4 w=uModel*vec4(aPos,1.);vec4 p=uVP*w;gl_Position=p;vWorld=w.xyz;vNormal=normalize(mat3(uModel)*aNormal);vLocal=aPos;vUV=aUV;vDistance=p."
+     },
+     {
+      "program": 1,
+      "drawsPerFrame": 1,
+      "vertsPerFrame": 232275,
+      "vs": "427ch vec4 p=uVP*vec4(aPos,1.);gl_Position=p;vN=aNrm;vUVH=aUVH;vGlow=aGlow;vW=p.w;vY=aPos.y;vWorld=aPos;vSeed=aUVH.z;}"
+     },
+     {
+      "program": 0,
+      "drawsPerFrame": 15,
+      "vertsPerFrame": 214830,
+      "vs": "2000ch #version 300 es precision highp float; layout(location=0) in vec2 aC; layout(location=1) in vec3 aA; layout(location=2) in vec3 aB; layout(l"
+     },
+     {
+      "program": 5,
+      "drawsPerFrame": 4,
+      "vertsPerFrame": 12,
+      "vs": "164ch vec2 p=vec2(float((gl_VertexID<<1)&2),float(gl_VertexID&2));vUV=p;gl_Position=vec4(p*2.-1.,0.,1.);}"
+     },
+     {
+      "program": 4,
+      "drawsPerFrame": 2,
+      "vertsPerFrame": 6,
+      "vs": "164ch vec2 p=vec2(float((gl_VertexID<<1)&2),float(gl_VertexID&2));vUV=p;gl_Position=vec4(p*2.-1.,0.,1.);}"
+     },
+     {
+      "program": 6,
+      "drawsPerFrame": 1,
+      "vertsPerFrame": 3,
+      "vs": "164ch vec2 p=vec2(float((gl_VertexID<<1)&2),float(gl_VertexID&2));vUV=p;gl_Position=vec4(p*2.-1.,0.,1.);}"
+     }
+    ]
+   }
+  },
+  "laptop1|v8.14": {
+   "repeats": 2,
+   "rounds": [
+    "1",
+    "2"
+   ],
+   "sha": "6365fd0965e1",
+   "final": [
+    {
+     "q": "high",
+     "step": "detail High",
+     "failed": null,
+     "up": true
+    },
+    {
+     "q": "high",
+     "step": "detail High",
+     "failed": null,
+     "up": true
+    }
+   ],
+   "metrics": {
+    "open: draws/frame (med)": {
+     "med": 94,
+     "min": 94,
+     "max": 94
+    },
+    "open: vertices/frame (med)": {
+     "med": 5687786,
+     "min": 5687786,
+     "max": 5687786
+    },
+    "open: GL calls/frame (med)": {
+     "med": 1617,
+     "min": 1617,
+     "max": 1617
+    },
+    "open: frames in window (wall, relative)": {
+     "med": 5,
+     "min": 5,
+     "max": 5
+    },
+    "open: frames with 3D up": {
+     "med": 5,
+     "min": 5,
+     "max": 5
+    },
+    "open: JS ms/frame (med)": {
+     "med": 16.3,
+     "min": 14.4,
+     "max": 18.2
+    },
+    "open: JS ms/frame (max)": {
+     "med": 1741.75,
+     "min": 1602.9,
+     "max": 1880.6
+    },
+    "open: script ms/frame ex-GL (med)": {
+     "med": 15.3,
+     "min": 13.5,
+     "max": 17.1
+    },
+    "open: main-thread busy %": {
+     "med": 3.78,
+     "min": 2.84,
+     "max": 4.71
+    },
+    "open: long tasks (n)": {
+     "med": 9,
+     "min": 9,
+     "max": 9
+    },
+    "open: long tasks total ms": {
+     "med": 4047.5,
+     "min": 2923,
+     "max": 5172
+    },
+    "open: longest task ms": {
+     "med": 2345.5,
+     "min": 1891,
+     "max": 2800
+    },
+    "open: buffer upload MB (phase)": {
+     "med": 176.86,
+     "min": 176.86,
+     "max": 176.86
+    },
+    "open: texture upload MB (phase)": {
+     "med": 49.73,
+     "min": 49.73,
+     "max": 49.73
+    },
+    "open: shader compiles (phase)": {
+     "med": 20,
+     "min": 20,
+     "max": 20
+    },
+    "showOpen() ms (sync)": {
+     "med": 2794,
+     "min": 2794,
+     "max": 2794
+    },
+    "render() under the Showcase ms (med of 3)": {
+     "med": 295,
+     "min": 295,
+     "max": 295
+    },
+    "open: biggest timer callback ms": {
+     "med": 121.05,
+     "min": 105.9,
+     "max": 136.2
+    },
+    "open: heap MB at end": {
+     "med": 382.28,
+     "min": 380.84,
+     "max": 383.72
+    },
+    "open: DOM nodes at end": {
+     "med": 9608,
+     "min": 9599,
+     "max": 9617
+    },
+    "open: live intervals": {
+     "med": 3,
+     "min": 3,
+     "max": 3
+    },
+    "open: first quality step at s": {
+     "med": 51.23,
+     "min": 45.74,
+     "max": 56.71
+    },
+    "open: 3D handed back (failed) at s": null,
+    "before: main-thread busy %": {
+     "med": 0.55,
+     "min": 0.52,
+     "max": 0.59
+    },
+    "before: frames (wall)": {
+     "med": 1,
+     "min": 1,
+     "max": 1
+    },
+    "before: heap MB": {
+     "med": 14.25,
+     "min": 14.24,
+     "max": 14.26
+    },
+    "before: DOM nodes": {
+     "med": 8038.5,
+     "min": 8035,
+     "max": 8042
+    },
+    "before: live intervals": {
+     "med": 2,
+     "min": 2,
+     "max": 2
+    },
+    "load to ready s": {
+     "med": 3.93,
+     "min": 3.89,
+     "max": 3.96
+    },
+    "page MB": {
+     "med": 8.65,
+     "min": 8.65,
+     "max": 8.65
+    },
+    "blocked writes": {
+     "med": 0,
+     "min": 0,
+     "max": 0
+    },
+    "page errors": {
+     "med": 0,
+     "min": 0,
+     "max": 0
+    }
+   },
+   "openRafMs": [
+    [
+     "frame",
+     1762.65
+    ],
+    [
+     "anon:() => { place799.raf = 0; const q = [...place799.q",
+     35.5
+    ],
+    [
+     "anon:() => { try {document.querySelectorAll('.pane.on\\x",
+     12.85
+    ]
+   ],
+   "openTimerMs": [
+    [
+     "to anon:()=>{ SHOW.timer=null; if(!SHOW.open||!SHOW.playin",
+     510.9
+    ],
+    [
+     "to tpodTick",
+     54.6
+    ],
+    [
+     "to anon:() => { step(showFit); step(fxSize); step(lapsSize",
+     26.45
+    ],
+    [
+     "iv anon:() => { if (document.visibilityState === 'visible'",
+     17.85
+    ],
+    [
+     "iv showTickClock",
+     6.35
+    ],
+    [
+     "to anon:() => { SHOW.launchTimer = null; if (SHOW.launch <",
+     3.35
+    ],
+    [
+     "iv showWatchdogTick",
+     1.35
+    ],
+    [
+     "iv anon:() => { if (PHOTO_OUTBOX.size && !PHOTO_RETRY) go(",
+     0.05
+    ]
+   ],
+   "openIntervals": [
+    "iv anon:() => { if (PHOTO_OUTBOX.size && !PHOTO_RETRY) go( every 60000 ms",
+    "iv anon:() => { if (document.visibilityState === 'visible' every 4000 ms",
+    "iv showWatchdogTick every 4000 ms"
+   ],
+   "captured": {
+    "frames": 2,
+    "byProgram": [
+     {
+      "program": 2,
+      "drawsPerFrame": 26,
+      "vertsPerFrame": 4300614,
+      "vs": "726ch vec3 q=aPos;if(uMode>11.5&&uMode<12.5){float b=max(0.,sin(uTime*7.+aUV.x));q.y+=aUV.y*b*b;} /* v6.64 - the crowd bounces */ vec4 p=uVP*vec4("
+     },
+     {
+      "program": 7,
+      "drawsPerFrame": 43,
+      "vertsPerFrame": 456018,
+      "vs": "414ch vec4 w=uModel*vec4(aPos,1.);vec4 p=uVP*w;gl_Position=p;vWorld=w.xyz;vNormal=normalize(mat3(uModel)*aNormal);vLocal=aPos;vUV=aUV;vDistance=p."
+     },
+     {
+      "program": 9,
+      "drawsPerFrame": 1,
+      "vertsPerFrame": 244992,
+      "vs": "520ch  vec4 p=uVP*vec4(aPosition,1.); gl_Position=p; vPosition=aPosition; vNormal=aNormal; vColour=aColour; vMaterial=aMaterial; vDepth=p.w; vFaca"
+     },
+     {
+      "program": 8,
+      "drawsPerFrame": 1,
+      "vertsPerFrame": 232134,
+      "vs": "409ch vec4 p=uVP*vec4(aPosition,1.);gl_Position=p;vDepth=p.w;vWorld=aPosition;vNormal=aNormal;vUV=aUV;vColour=aColour;}"
+     },
+     {
+      "program": 1,
+      "drawsPerFrame": 1,
+      "vertsPerFrame": 231495,
+      "vs": "427ch vec4 p=uVP*vec4(aPos,1.);gl_Position=p;vN=aNrm;vUVH=aUVH;vGlow=aGlow;vW=p.w;vY=aPos.y;vWorld=aPos;vSeed=aUVH.z;}"
+     },
+     {
+      "program": 0,
+      "drawsPerFrame": 15,
+      "vertsPerFrame": 222496,
+      "vs": "2000ch #version 300 es precision highp float; layout(location=0) in vec2 aC; layout(location=1) in vec3 aA; layout(location=2) in vec3 aB; layout(l"
+     },
+     {
+      "program": 5,
+      "drawsPerFrame": 4,
+      "vertsPerFrame": 12,
+      "vs": "164ch vec2 p=vec2(float((gl_VertexID<<1)&2),float(gl_VertexID&2));vUV=p;gl_Position=vec4(p*2.-1.,0.,1.);}"
+     },
+     {
+      "program": 4,
+      "drawsPerFrame": 2,
+      "vertsPerFrame": 6,
+      "vs": "164ch vec2 p=vec2(float((gl_VertexID<<1)&2),float(gl_VertexID&2));vUV=p;gl_Position=vec4(p*2.-1.,0.,1.);}"
+     },
+     {
+      "program": 6,
+      "drawsPerFrame": 1,
+      "vertsPerFrame": 3,
+      "vs": "164ch vec2 p=vec2(float((gl_VertexID<<1)&2),float(gl_VertexID&2));vUV=p;gl_Position=vec4(p*2.-1.,0.,1.);}"
+     }
+    ]
+   }
+  },
+  "laptop1|v9.11": {
+   "repeats": 2,
+   "rounds": [
+    "1",
+    "2"
+   ],
+   "sha": "408ae6acf175",
+   "final": [
+    {
+     "q": "balanced",
+     "step": "reflections off",
+     "failed": null,
+     "up": true
+    },
+    {
+     "q": "ultra",
+     "step": null,
+     "failed": null,
+     "up": true
+    }
+   ],
+   "metrics": {
+    "open: draws/frame (med)": {
+     "med": 94,
+     "min": 94,
+     "max": 94
+    },
+    "open: vertices/frame (med)": {
+     "med": 5687790,
+     "min": 5687778,
+     "max": 5687802
+    },
+    "open: GL calls/frame (med)": {
+     "med": 1668,
+     "min": 1617,
+     "max": 1719
+    },
+    "open: frames in window (wall, relative)": {
+     "med": 5,
+     "min": 4,
+     "max": 6
+    },
+    "open: frames with 3D up": {
+     "med": 5,
+     "min": 4,
+     "max": 6
+    },
+    "open: JS ms/frame (med)": {
+     "med": 1573.3,
+     "min": 6.7,
+     "max": 3139.9
+    },
+    "open: JS ms/frame (max)": {
+     "med": 22002.05,
+     "min": 4256.3,
+     "max": 39747.8
+    },
+    "open: script ms/frame ex-GL (med)": {
+     "med": 164.85,
+     "min": 5.9,
+     "max": 323.8
+    },
+    "open: main-thread busy %": {
+     "med": 39.48,
+     "min": 2.2,
+     "max": 76.75
+    },
+    "open: long tasks (n)": {
+     "med": 6.5,
+     "min": 5,
+     "max": 8
+    },
+    "open: long tasks total ms": {
+     "med": 24112,
+     "min": 5045,
+     "max": 43179
+    },
+    "open: longest task ms": {
+     "med": 22017.5,
+     "min": 4277,
+     "max": 39758
+    },
+    "open: buffer upload MB (phase)": {
+     "med": 178.34,
+     "min": 176.42,
+     "max": 180.27
+    },
+    "open: texture upload MB (phase)": {
+     "med": 57.55,
+     "min": 49.73,
+     "max": 65.38
+    },
+    "open: shader compiles (phase)": {
+     "med": 20,
+     "min": 20,
+     "max": 20
+    },
+    "showOpen() ms (sync)": {
+     "med": 5009,
+     "min": 5009,
+     "max": 5009
+    },
+    "render() under the Showcase ms (med of 3)": {
+     "med": 629,
+     "min": 629,
+     "max": 629
+    },
+    "open: biggest timer callback ms": {
+     "med": 157.15,
+     "min": 102.3,
+     "max": 212
+    },
+    "open: heap MB at end": {
+     "med": 382.6,
+     "min": 379.89,
+     "max": 385.3
+    },
+    "open: DOM nodes at end": {
+     "med": 16581,
+     "min": 16000,
+     "max": 17162
+    },
+    "open: live intervals": {
+     "med": 3,
+     "min": 3,
+     "max": 3
+    },
+    "open: first quality step at s": {
+     "med": 19.22,
+     "min": 19.22,
+     "max": 19.22
+    },
+    "open: 3D handed back (failed) at s": null,
+    "before: main-thread busy %": {
+     "med": 4.55,
+     "min": 3.92,
+     "max": 5.17
+    },
+    "before: frames (wall)": {
+     "med": 1,
+     "min": 1,
+     "max": 1
+    },
+    "before: heap MB": {
+     "med": 16.45,
+     "min": 15.37,
+     "max": 17.54
+    },
+    "before: DOM nodes": {
+     "med": 15382.5,
+     "min": 15209,
+     "max": 15556
+    },
+    "before: live intervals": {
+     "med": 2,
+     "min": 2,
+     "max": 2
+    },
+    "load to ready s": {
+     "med": 3.54,
+     "min": 2.91,
+     "max": 4.16
+    },
+    "page MB": {
+     "med": 11.06,
+     "min": 11.06,
+     "max": 11.06
+    },
+    "blocked writes": {
+     "med": 0,
+     "min": 0,
+     "max": 0
+    },
+    "page errors": {
+     "med": 0,
+     "min": 0,
+     "max": 0
+    }
+   },
+   "openRafMs": [
+    [
+     "frame",
+     39229.1
+    ],
+    [
+     "anon:() => { moFrame = 0; sync(); }",
+     1.75
+    ]
+   ],
+   "openTimerMs": [
+    [
+     "to anon:()=>{ SHOW.timer=null; if(!SHOW.open||!SHOW.playin",
+     484
+    ],
+    [
+     "to anon:() => { step(showFit); step(fxSize); step(lapsSize",
+     48.25
+    ],
+    [
+     "to tpodTick",
+     38.35
+    ],
+    [
+     "iv anon:() => { if (document.visibilityState === 'visible'",
+     12.25
+    ],
+    [
+     "to anon:() => { healthTimer = 0; const health = {work:type",
+     11.4
+    ],
+    [
+     "iv showWatchdogTick",
+     3.85
+    ],
+    [
+     "to anon:() => { SHOW.launchTimer = null; if (SHOW.launch <",
+     2.85
+    ],
+    [
+     "iv showTickClock",
+     2.3
+    ],
+    [
+     "iv anon:() => { if (PHOTO_OUTBOX.size && !PHOTO_RETRY) go(",
+     0.1
+    ]
+   ],
+   "openIntervals": [
+    "iv anon:() => { if (PHOTO_OUTBOX.size && !PHOTO_RETRY) go( every 60000 ms",
+    "iv anon:() => { if (document.visibilityState === 'visible' every 4000 ms",
+    "iv showWatchdogTick every 4000 ms"
+   ],
+   "captured": {
+    "frames": 2,
+    "byProgram": [
+     {
+      "program": 2,
+      "drawsPerFrame": 26,
+      "vertsPerFrame": 4300614,
+      "vs": "726ch vec3 q=aPos;if(uMode>11.5&&uMode<12.5){float b=max(0.,sin(uTime*7.+aUV.x));q.y+=aUV.y*b*b;} /* v6.64 - the crowd bounces */ vec4 p=uVP*vec4("
+     },
+     {
+      "program": 7,
+      "drawsPerFrame": 43,
+      "vertsPerFrame": 456018,
+      "vs": "414ch vec4 w=uModel*vec4(aPos,1.);vec4 p=uVP*w;gl_Position=p;vWorld=w.xyz;vNormal=normalize(mat3(uModel)*aNormal);vLocal=aPos;vUV=aUV;vDistance=p."
+     },
+     {
+      "program": 9,
+      "drawsPerFrame": 1,
+      "vertsPerFrame": 244992,
+      "vs": "520ch  vec4 p=uVP*vec4(aPosition,1.); gl_Position=p; vPosition=aPosition; vNormal=aNormal; vColour=aColour; vMaterial=aMaterial; vDepth=p.w; vFaca"
+     },
+     {
+      "program": 8,
+      "drawsPerFrame": 1,
+      "vertsPerFrame": 232134,
+      "vs": "409ch vec4 p=uVP*vec4(aPosition,1.);gl_Position=p;vDepth=p.w;vWorld=aPosition;vNormal=aNormal;vUV=aUV;vColour=aColour;}"
+     },
+     {
+      "program": 1,
+      "drawsPerFrame": 1,
+      "vertsPerFrame": 231495,
+      "vs": "427ch vec4 p=uVP*vec4(aPos,1.);gl_Position=p;vN=aNrm;vUVH=aUVH;vGlow=aGlow;vW=p.w;vY=aPos.y;vWorld=aPos;vSeed=aUVH.z;}"
+     },
+     {
+      "program": 0,
+      "drawsPerFrame": 15,
+      "vertsPerFrame": 222486,
+      "vs": "2000ch #version 300 es precision highp float; layout(location=0) in vec2 aC; layout(location=1) in vec3 aA; layout(location=2) in vec3 aB; layout(l"
+     },
+     {
+      "program": 5,
+      "drawsPerFrame": 4,
+      "vertsPerFrame": 12,
+      "vs": "164ch vec2 p=vec2(float((gl_VertexID<<1)&2),float(gl_VertexID&2));vUV=p;gl_Position=vec4(p*2.-1.,0.,1.);}"
+     },
+     {
+      "program": 4,
+      "drawsPerFrame": 2,
+      "vertsPerFrame": 6,
+      "vs": "164ch vec2 p=vec2(float((gl_VertexID<<1)&2),float(gl_VertexID&2));vUV=p;gl_Position=vec4(p*2.-1.,0.,1.);}"
+     },
+     {
+      "program": 6,
+      "drawsPerFrame": 1,
+      "vertsPerFrame": 3,
+      "vs": "164ch vec2 p=vec2(float((gl_VertexID<<1)&2),float(gl_VertexID&2));vUV=p;gl_Position=vec4(p*2.-1.,0.,1.);}"
+     }
+    ]
+   }
+  },
+  "phone3|v6.40": {
+   "repeats": 1,
+   "rounds": [
+    "1"
+   ],
+   "sha": "66eb590b85d4",
+   "final": [
+    {
+     "q": null,
+     "step": null,
+     "failed": "frame rate",
+     "up": false
+    }
+   ],
+   "metrics": {
+    "open: draws/frame (med)": {
+     "med": 83,
+     "min": 83,
+     "max": 83
+    },
+    "open: vertices/frame (med)": {
+     "med": 3088781,
+     "min": 3088781,
+     "max": 3088781
+    },
+    "open: GL calls/frame (med)": {
+     "med": 1378,
+     "min": 1378,
+     "max": 1378
+    },
+    "open: frames in window (wall, relative)": {
+     "med": 105,
+     "min": 105,
+     "max": 105
+    },
+    "open: frames with 3D up": {
+     "med": 16,
+     "min": 16,
+     "max": 16
+    },
+    "open: JS ms/frame (med)": {
+     "med": 1.9,
+     "min": 1.9,
+     "max": 1.9
+    },
+    "open: JS ms/frame (max)": {
+     "med": 7953.1,
+     "min": 7953.1,
+     "max": 7953.1
+    },
+    "open: script ms/frame ex-GL (med)": {
+     "med": 1.9,
+     "min": 1.9,
+     "max": 1.9
+    },
+    "open: main-thread busy %": {
+     "med": 53.62,
+     "min": 53.62,
+     "max": 53.62
+    },
+    "open: long tasks (n)": {
+     "med": 12,
+     "min": 12,
+     "max": 12
+    },
+    "open: long tasks total ms": {
+     "med": 30657,
+     "min": 30657,
+     "max": 30657
+    },
+    "open: longest task ms": {
+     "med": 7969,
+     "min": 7969,
+     "max": 7969
+    },
+    "open: buffer upload MB (phase)": {
+     "med": 73.22,
+     "min": 73.22,
+     "max": 73.22
+    },
+    "open: texture upload MB (phase)": {
+     "med": 7.16,
+     "min": 7.16,
+     "max": 7.16
+    },
+    "open: shader compiles (phase)": {
+     "med": 16,
+     "min": 16,
+     "max": 16
+    },
+    "showOpen() ms (sync)": {
+     "med": 7368,
+     "min": 7368,
+     "max": 7368
+    },
+    "render() under the Showcase ms (med of 3)": null,
+    "open: biggest timer callback ms": {
+     "med": 278.1,
+     "min": 278.1,
+     "max": 278.1
+    },
+    "open: heap MB at end": {
+     "med": 161.27,
+     "min": 161.27,
+     "max": 161.27
+    },
+    "open: DOM nodes at end": {
+     "med": 4321,
+     "min": 4321,
+     "max": 4321
+    },
+    "open: live intervals": {
+     "med": 3,
+     "min": 3,
+     "max": 3
+    },
+    "open: first quality step at s": {
+     "med": 4.3,
+     "min": 4.3,
+     "max": 4.3
+    },
+    "open: 3D handed back (failed) at s": {
+     "med": 48.05,
+     "min": 48.05,
+     "max": 48.05
+    },
+    "before: main-thread busy %": {
+     "med": 2.51,
+     "min": 2.51,
+     "max": 2.51
+    },
+    "before: frames (wall)": {
+     "med": 1,
+     "min": 1,
+     "max": 1
+    },
+    "before: heap MB": {
+     "med": 11.83,
+     "min": 11.83,
+     "max": 11.83
+    },
+    "before: DOM nodes": {
+     "med": 8374,
+     "min": 8374,
+     "max": 8374
+    },
+    "before: live intervals": {
+     "med": 2,
+     "min": 2,
+     "max": 2
+    },
+    "load to ready s": {
+     "med": 3.45,
+     "min": 3.45,
+     "max": 3.45
+    },
+    "page MB": {
+     "med": 6.21,
+     "min": 6.21,
+     "max": 6.21
+    },
+    "blocked writes": {
+     "med": 0,
+     "min": 0,
+     "max": 0
+    },
+    "page errors": {
+     "med": 0,
+     "min": 0,
+     "max": 0
+    }
+   },
+   "openRafMs": [
+    [
+     "frame",
+     25757.3
+    ],
+    [
+     "lapsFrame",
+     155.3
+    ]
+   ],
+   "openTimerMs": [
+    [
+     "to anon:() => { SHOW.timer = null; if (SHOW.i === SHOW_ORD",
+     1137.4
+    ],
+    [
+     "to anon:() => { BOARD_RUN.fade = null; if (canPage()) { fi",
+     198.3
+    ],
+    [
+     "to tpodTick",
+     118.5
+    ],
+    [
+     "iv anon:() => { if (document.visibilityState === 'visible'",
+     20.5
+    ],
+    [
+     "to anon:() => { step(showFit); step(fxSize); step(lapsSize",
+     20.2
+    ],
+    [
+     "iv tick",
+     12.8
+    ],
+    [
+     "iv showTickClock",
+     10.3
+    ],
+    [
+     "to anon:() => { SHOW.launchTimer = null; if (SHOW.launch <",
+     8.6
+    ],
+    [
+     "iv showWatchdogTick",
+     2.4
+    ]
+   ],
+   "openIntervals": [
+    "iv anon:() => { if (document.visibilityState === 'visible' every 4000 ms",
+    "iv showWatchdogTick every 4000 ms",
+    "iv tick every 6000 ms"
+   ],
+   "captured": {
+    "frames": 2,
+    "byProgram": [
+     {
+      "program": 2,
+      "drawsPerFrame": 25,
+      "vertsPerFrame": 2378472,
+      "vs": "328ch vec4 p=uVP*vec4(aPos,1.);gl_Position=p;vCol=aCol;vUV=aUV;vW=p.w;vP=aPos.xz;vWorld=aPos;}"
+     },
+     {
+      "program": 7,
+      "drawsPerFrame": 43,
+      "vertsPerFrame": 265446,
+      "vs": "414ch vec4 w=uModel*vec4(aPos,1.);vec4 p=uVP*w;gl_Position=p;vWorld=w.xyz;vNormal=normalize(mat3(uModel)*aNormal);vLocal=aPos;vUV=aUV;vDistance=p."
+     },
+     {
+      "program": 1,
+      "drawsPerFrame": 1,
+      "vertsPerFrame": 232275,
+      "vs": "427ch vec4 p=uVP*vec4(aPos,1.);gl_Position=p;vN=aNrm;vUVH=aUVH;vGlow=aGlow;vW=p.w;vY=aPos.y;vWorld=aPos;vSeed=aUVH.z;}"
+     },
+     {
+      "program": 0,
+      "drawsPerFrame": 14,
+      "vertsPerFrame": 212530,
+      "vs": "2000ch #version 300 es precision highp float; layout(location=0) in vec2 aC; layout(location=1) in vec3 aA; layout(location=2) in vec3 aB; layout(l"
+     }
+    ]
+   }
+  },
+  "phone3|v7.84": {
+   "repeats": 1,
+   "rounds": [
+    "1"
+   ],
+   "sha": "c9958a42085a",
+   "final": [
+    {
+     "q": null,
+     "step": null,
+     "failed": "frame rate",
+     "up": false
+    }
+   ],
+   "metrics": {
+    "open: draws/frame (med)": {
+     "med": 93,
+     "min": 93,
+     "max": 93
+    },
+    "open: vertices/frame (med)": {
+     "med": 4561650,
+     "min": 4561650,
+     "max": 4561650
+    },
+    "open: GL calls/frame (med)": {
+     "med": 1520,
+     "min": 1520,
+     "max": 1520
+    },
+    "open: frames in window (wall, relative)": {
+     "med": 145,
+     "min": 145,
+     "max": 145
+    },
+    "open: frames with 3D up": {
+     "med": 14,
+     "min": 14,
+     "max": 14
+    },
+    "open: JS ms/frame (med)": {
+     "med": 1.8,
+     "min": 1.8,
+     "max": 1.8
+    },
+    "open: JS ms/frame (max)": {
+     "med": 8416.6,
+     "min": 8416.6,
+     "max": 8416.6
+    },
+    "open: script ms/frame ex-GL (med)": {
+     "med": 1.8,
+     "min": 1.8,
+     "max": 1.8
+    },
+    "open: main-thread busy %": {
+     "med": 45.09,
+     "min": 45.09,
+     "max": 45.09
+    },
+    "open: long tasks (n)": {
+     "med": 11,
+     "min": 11,
+     "max": 11
+    },
+    "open: long tasks total ms": {
+     "med": 25358,
+     "min": 25358,
+     "max": 25358
+    },
+    "open: longest task ms": {
+     "med": 8429,
+     "min": 8429,
+     "max": 8429
+    },
+    "open: buffer upload MB (phase)": {
+     "med": 100.56,
+     "min": 100.56,
+     "max": 100.56
+    },
+    "open: texture upload MB (phase)": {
+     "med": 7.16,
+     "min": 7.16,
+     "max": 7.16
+    },
+    "open: shader compiles (phase)": {
+     "med": 16,
+     "min": 16,
+     "max": 16
+    },
+    "showOpen() ms (sync)": {
+     "med": 9148,
+     "min": 9148,
+     "max": 9148
+    },
+    "render() under the Showcase ms (med of 3)": null,
+    "open: biggest timer callback ms": {
+     "med": 332.2,
+     "min": 332.2,
+     "max": 332.2
+    },
+    "open: heap MB at end": {
+     "med": 204.13,
+     "min": 204.13,
+     "max": 204.13
+    },
+    "open: DOM nodes at end": {
+     "med": 5302,
+     "min": 5302,
+     "max": 5302
+    },
+    "open: live intervals": {
+     "med": 4,
+     "min": 4,
+     "max": 4
+    },
+    "open: first quality step at s": {
+     "med": 6.28,
+     "min": 6.28,
+     "max": 6.28
+    },
+    "open: 3D handed back (failed) at s": {
+     "med": 44.13,
+     "min": 44.13,
+     "max": 44.13
+    },
+    "before: main-thread busy %": {
+     "med": 4.59,
+     "min": 4.59,
+     "max": 4.59
+    },
+    "before: frames (wall)": {
+     "med": 1,
+     "min": 1,
+     "max": 1
+    },
+    "before: heap MB": {
+     "med": 12.12,
+     "min": 12.12,
+     "max": 12.12
+    },
+    "before: DOM nodes": {
+     "med": 4759,
+     "min": 4759,
+     "max": 4759
+    },
+    "before: live intervals": {
+     "med": 3,
+     "min": 3,
+     "max": 3
+    },
+    "load to ready s": {
+     "med": 4.19,
+     "min": 4.19,
+     "max": 4.19
+    },
+    "page MB": {
+     "med": 8.36,
+     "min": 8.36,
+     "max": 8.36
+    },
+    "blocked writes": {
+     "med": 0,
+     "min": 0,
+     "max": 0
+    },
+    "page errors": {
+     "med": 0,
+     "min": 0,
+     "max": 0
+    }
+   },
+   "openRafMs": [
+    [
+     "frame",
+     20402.3
+    ],
+    [
+     "lapsFrame",
+     218.8
+    ],
+    [
+     "anon:() => { try {document.querySelectorAll('.pane.on\\x",
+     3.2
+    ],
+    [
+     "anon:() => { BOARD_RUN.raf = 0; if (BOARD_RUN.redraw !=",
+     2.1
+    ]
+   ],
+   "openTimerMs": [
+    [
+     "to anon:() => { SHOW.timer = null; if (SHOW.i === SHOW_ORD",
+     1363
+    ],
+    [
+     "to tpodTick",
+     143
+    ],
+    [
+     "to anon:() => { BOARD_RUN.fade = null; if (canPage()) { fi",
+     122.6
+    ],
+    [
+     "iv anon:() => { if (document.visibilityState === 'visible'",
+     27.6
+    ],
+    [
+     "to anon:() => { step(showFit); step(fxSize); step(lapsSize",
+     17.6
+    ],
+    [
+     "iv showTickClock",
+     12.4
+    ],
+    [
+     "to anon:() => { SHOW.launchTimer = null; if (SHOW.launch <",
+     9.5
+    ],
+    [
+     "iv tick",
+     8.1
+    ],
+    [
+     "iv showWatchdogTick",
+     2.2
+    ],
+    [
+     "iv anon:() => { if (PHOTO_OUTBOX.size && !PHOTO_RETRY) go(",
+     0.1
+    ]
+   ],
+   "openIntervals": [
+    "iv anon:() => { if (PHOTO_OUTBOX.size && !PHOTO_RETRY) go( every 60000 ms",
+    "iv anon:() => { if (document.visibilityState === 'visible' every 4000 ms",
+    "iv showWatchdogTick every 4000 ms",
+    "iv tick every 6000 ms"
+   ],
+   "captured": {
+    "frames": 2,
+    "byProgram": [
+     {
+      "program": 2,
+      "drawsPerFrame": 27,
+      "vertsPerFrame": 3849120,
+      "vs": "484ch vec3 q=aPos;if(uMode>11.5&&uMode<12.5){float b=max(0.,sin(uTime*7.+aUV.x));q.y+=aUV.y*b*b;} /* v6.64 - the crowd bounces */ vec4 p=uVP*vec4("
+     },
+     {
+      "program": 7,
+      "drawsPerFrame": 43,
+      "vertsPerFrame": 265446,
+      "vs": "414ch vec4 w=uModel*vec4(aPos,1.);vec4 p=uVP*w;gl_Position=p;vWorld=w.xyz;vNormal=normalize(mat3(uModel)*aNormal);vLocal=aPos;vUV=aUV;vDistance=p."
+     },
+     {
+      "program": 1,
+      "drawsPerFrame": 1,
+      "vertsPerFrame": 232275,
+      "vs": "427ch vec4 p=uVP*vec4(aPos,1.);gl_Position=p;vN=aNrm;vUVH=aUVH;vGlow=aGlow;vW=p.w;vY=aPos.y;vWorld=aPos;vSeed=aUVH.z;}"
+     },
+     {
+      "program": 0,
+      "drawsPerFrame": 15,
+      "vertsPerFrame": 214730,
+      "vs": "2000ch #version 300 es precision highp float; layout(location=0) in vec2 aC; layout(location=1) in vec3 aA; layout(location=2) in vec3 aB; layout(l"
+     }
+    ]
+   }
+  },
+  "phone3|v8.14": {
+   "repeats": 1,
+   "rounds": [
+    "1"
+   ],
+   "sha": "6365fd0965e1",
+   "final": [
+    {
+     "q": "balanced",
+     "step": "drawn at 60%",
+     "failed": null,
+     "up": true
+    }
+   ],
+   "metrics": {
+    "open: draws/frame (med)": {
+     "med": 94,
+     "min": 94,
+     "max": 94
+    },
+    "open: vertices/frame (med)": {
+     "med": 4690326,
+     "min": 4690326,
+     "max": 4690326
+    },
+    "open: GL calls/frame (med)": {
+     "med": 1617,
+     "min": 1617,
+     "max": 1617
+    },
+    "open: frames in window (wall, relative)": {
+     "med": 11,
+     "min": 11,
+     "max": 11
+    },
+    "open: frames with 3D up": {
+     "med": 11,
+     "min": 11,
+     "max": 11
+    },
+    "open: JS ms/frame (med)": {
+     "med": 24.7,
+     "min": 24.7,
+     "max": 24.7
+    },
+    "open: JS ms/frame (max)": {
+     "med": 14774.9,
+     "min": 14774.9,
+     "max": 14774.9
+    },
+    "open: script ms/frame ex-GL (med)": {
+     "med": 19.8,
+     "min": 19.8,
+     "max": 19.8
+    },
+    "open: main-thread busy %": {
+     "med": 50.61,
+     "min": 50.61,
+     "max": 50.61
+    },
+    "open: long tasks (n)": {
+     "med": 12,
+     "min": 12,
+     "max": 12
+    },
+    "open: long tasks total ms": {
+     "med": 37736,
+     "min": 37736,
+     "max": 37736
+    },
+    "open: longest task ms": {
+     "med": 14796,
+     "min": 14796,
+     "max": 14796
+    },
+    "open: buffer upload MB (phase)": {
+     "med": 165.4,
+     "min": 165.4,
+     "max": 165.4
+    },
+    "open: texture upload MB (phase)": {
+     "med": 16.32,
+     "min": 16.32,
+     "max": 16.32
+    },
+    "open: shader compiles (phase)": {
+     "med": 20,
+     "min": 20,
+     "max": 20
+    },
+    "showOpen() ms (sync)": {
+     "med": 9544,
+     "min": 9544,
+     "max": 9544
+    },
+    "render() under the Showcase ms (med of 3)": null,
+    "open: biggest timer callback ms": {
+     "med": 361,
+     "min": 361,
+     "max": 361
+    },
+    "open: heap MB at end": {
+     "med": 349.67,
+     "min": 349.67,
+     "max": 349.67
+    },
+    "open: DOM nodes at end": {
+     "med": 14625,
+     "min": 14625,
+     "max": 14625
+    },
+    "open: live intervals": {
+     "med": 3,
+     "min": 3,
+     "max": 3
+    },
+    "open: first quality step at s": {
+     "med": 18.14,
+     "min": 18.14,
+     "max": 18.14
+    },
+    "open: 3D handed back (failed) at s": null,
+    "before: main-thread busy %": {
+     "med": 4.25,
+     "min": 4.25,
+     "max": 4.25
+    },
+    "before: frames (wall)": {
+     "med": 1,
+     "min": 1,
+     "max": 1
+    },
+    "before: heap MB": {
+     "med": 12.48,
+     "min": 12.48,
+     "max": 12.48
+    },
+    "before: DOM nodes": {
+     "med": 7879,
+     "min": 7879,
+     "max": 7879
+    },
+    "before: live intervals": {
+     "med": 2,
+     "min": 2,
+     "max": 2
+    },
+    "load to ready s": {
+     "med": 3.76,
+     "min": 3.76,
+     "max": 3.76
+    },
+    "page MB": {
+     "med": 8.65,
+     "min": 8.65,
+     "max": 8.65
+    },
+    "blocked writes": {
+     "med": 0,
+     "min": 0,
+     "max": 0
+    },
+    "page errors": {
+     "med": 0,
+     "min": 0,
+     "max": 0
+    }
+   },
+   "openRafMs": [
+    [
+     "frame",
+     34083.9
+    ],
+    [
+     "anon:() => { try {document.querySelectorAll('.pane.on\\x",
+     64.6
+    ],
+    [
+     "anon:() => { place799.raf = 0; const q = [...place799.q",
+     4.5
+    ]
+   ],
+   "openTimerMs": [
+    [
+     "to anon:()=>{ SHOW.timer=null; if(!SHOW.open||!SHOW.playin",
+     1730.5
+    ],
+    [
+     "to tpodTick",
+     126.3
+    ],
+    [
+     "to anon:() => { step(showFit); step(fxSize); step(lapsSize",
+     87.2
+    ],
+    [
+     "iv anon:() => { if (document.visibilityState === 'visible'",
+     24.8
+    ],
+    [
+     "to anon:() => { SHOW.launchTimer = null; if (SHOW.launch <",
+     8.2
+    ],
+    [
+     "iv showTickClock",
+     8
+    ],
+    [
+     "iv showWatchdogTick",
+     3.1
+    ],
+    [
+     "iv anon:() => { if (PHOTO_OUTBOX.size && !PHOTO_RETRY) go(",
+     0.1
+    ]
+   ],
+   "openIntervals": [
+    "iv anon:() => { if (PHOTO_OUTBOX.size && !PHOTO_RETRY) go( every 60000 ms",
+    "iv anon:() => { if (document.visibilityState === 'visible' every 4000 ms",
+    "iv showWatchdogTick every 4000 ms"
+   ],
+   "captured": {
+    "frames": 2,
+    "byProgram": [
+     {
+      "program": 2,
+      "drawsPerFrame": 26,
+      "vertsPerFrame": 3498654,
+      "vs": "726ch vec3 q=aPos;if(uMode>11.5&&uMode<12.5){float b=max(0.,sin(uTime*7.+aUV.x));q.y+=aUV.y*b*b;} /* v6.64 - the crowd bounces */ vec4 p=uVP*vec4("
+     },
+     {
+      "program": 7,
+      "drawsPerFrame": 43,
+      "vertsPerFrame": 260586,
+      "vs": "414ch vec4 w=uModel*vec4(aPos,1.);vec4 p=uVP*w;gl_Position=p;vWorld=w.xyz;vNormal=normalize(mat3(uModel)*aNormal);vLocal=aPos;vUV=aUV;vDistance=p."
+     },
+     {
+      "program": 9,
+      "drawsPerFrame": 1,
+      "vertsPerFrame": 244992,
+      "vs": "520ch  vec4 p=uVP*vec4(aPosition,1.); gl_Position=p; vPosition=aPosition; vNormal=aNormal; vColour=aColour; vMaterial=aMaterial; vDepth=p.w; vFaca"
+     },
+     {
+      "program": 8,
+      "drawsPerFrame": 1,
+      "vertsPerFrame": 232134,
+      "vs": "409ch vec4 p=uVP*vec4(aPosition,1.);gl_Position=p;vDepth=p.w;vWorld=aPosition;vNormal=aNormal;vUV=aUV;vColour=aColour;}"
+     },
+     {
+      "program": 1,
+      "drawsPerFrame": 1,
+      "vertsPerFrame": 231495,
+      "vs": "427ch vec4 p=uVP*vec4(aPos,1.);gl_Position=p;vN=aNrm;vUVH=aUVH;vGlow=aGlow;vW=p.w;vY=aPos.y;vWorld=aPos;vSeed=aUVH.z;}"
+     },
+     {
+      "program": 0,
+      "drawsPerFrame": 15,
+      "vertsPerFrame": 222436,
+      "vs": "2000ch #version 300 es precision highp float; layout(location=0) in vec2 aC; layout(location=1) in vec3 aA; layout(location=2) in vec3 aB; layout(l"
+     },
+     {
+      "program": 5,
+      "drawsPerFrame": 4,
+      "vertsPerFrame": 12,
+      "vs": "164ch vec2 p=vec2(float((gl_VertexID<<1)&2),float(gl_VertexID&2));vUV=p;gl_Position=vec4(p*2.-1.,0.,1.);}"
+     },
+     {
+      "program": 4,
+      "drawsPerFrame": 2,
+      "vertsPerFrame": 6,
+      "vs": "164ch vec2 p=vec2(float((gl_VertexID<<1)&2),float(gl_VertexID&2));vUV=p;gl_Position=vec4(p*2.-1.,0.,1.);}"
+     },
+     {
+      "program": 6,
+      "drawsPerFrame": 1,
+      "vertsPerFrame": 3,
+      "vs": "164ch vec2 p=vec2(float((gl_VertexID<<1)&2),float(gl_VertexID&2));vUV=p;gl_Position=vec4(p*2.-1.,0.,1.);}"
+     }
+    ]
+   }
+  },
+  "phone3|v9.11": {
+   "repeats": 1,
+   "rounds": [
+    "1"
+   ],
+   "sha": "408ae6acf175",
+   "final": [
+    {
+     "q": "balanced",
+     "step": "drawn at 60%",
+     "failed": null,
+     "up": true
+    }
+   ],
+   "metrics": {
+    "open: draws/frame (med)": {
+     "med": 94,
+     "min": 94,
+     "max": 94
+    },
+    "open: vertices/frame (med)": {
+     "med": 4690362,
+     "min": 4690362,
+     "max": 4690362
+    },
+    "open: GL calls/frame (med)": {
+     "med": 1617,
+     "min": 1617,
+     "max": 1617
+    },
+    "open: frames in window (wall, relative)": {
+     "med": 10,
+     "min": 10,
+     "max": 10
+    },
+    "open: frames with 3D up": {
+     "med": 10,
+     "min": 10,
+     "max": 10
+    },
+    "open: JS ms/frame (med)": {
+     "med": 125.1,
+     "min": 125.1,
+     "max": 125.1
+    },
+    "open: JS ms/frame (max)": {
+     "med": 14093.2,
+     "min": 14093.2,
+     "max": 14093.2
+    },
+    "open: script ms/frame ex-GL (med)": {
+     "med": 116.3,
+     "min": 116.3,
+     "max": 116.3
+    },
+    "open: main-thread busy %": {
+     "med": 51.67,
+     "min": 51.67,
+     "max": 51.67
+    },
+    "open: long tasks (n)": {
+     "med": 13,
+     "min": 13,
+     "max": 13
+    },
+    "open: long tasks total ms": {
+     "med": 36648,
+     "min": 36648,
+     "max": 36648
+    },
+    "open: longest task ms": {
+     "med": 14111,
+     "min": 14111,
+     "max": 14111
+    },
+    "open: buffer upload MB (phase)": {
+     "med": 164.96,
+     "min": 164.96,
+     "max": 164.96
+    },
+    "open: texture upload MB (phase)": {
+     "med": 16.32,
+     "min": 16.32,
+     "max": 16.32
+    },
+    "open: shader compiles (phase)": {
+     "med": 20,
+     "min": 20,
+     "max": 20
+    },
+    "showOpen() ms (sync)": {
+     "med": 9902,
+     "min": 9902,
+     "max": 9902
+    },
+    "render() under the Showcase ms (med of 3)": null,
+    "open: biggest timer callback ms": {
+     "med": 1814.1,
+     "min": 1814.1,
+     "max": 1814.1
+    },
+    "open: heap MB at end": {
+     "med": 352.14,
+     "min": 352.14,
+     "max": 352.14
+    },
+    "open: DOM nodes at end": {
+     "med": 16468,
+     "min": 16468,
+     "max": 16468
+    },
+    "open: live intervals": {
+     "med": 3,
+     "min": 3,
+     "max": 3
+    },
+    "open: first quality step at s": {
+     "med": 17.74,
+     "min": 17.74,
+     "max": 17.74
+    },
+    "open: 3D handed back (failed) at s": null,
+    "before: main-thread busy %": {
+     "med": 3.81,
+     "min": 3.81,
+     "max": 3.81
+    },
+    "before: frames (wall)": {
+     "med": 1,
+     "min": 1,
+     "max": 1
+    },
+    "before: heap MB": {
+     "med": 15.38,
+     "min": 15.38,
+     "max": 15.38
+    },
+    "before: DOM nodes": {
+     "med": 15474,
+     "min": 15474,
+     "max": 15474
+    },
+    "before: live intervals": {
+     "med": 2,
+     "min": 2,
+     "max": 2
+    },
+    "load to ready s": {
+     "med": 3.58,
+     "min": 3.58,
+     "max": 3.58
+    },
+    "page MB": {
+     "med": 11.06,
+     "min": 11.06,
+     "max": 11.06
+    },
+    "blocked writes": {
+     "med": 0,
+     "min": 0,
+     "max": 0
+    },
+    "page errors": {
+     "med": 0,
+     "min": 0,
+     "max": 0
+    }
+   },
+   "openRafMs": [
+    [
+     "frame",
+     32837.3
+    ],
+    [
+     "anon:() => { try { const wide = [...document.querySelec",
+     69.1
+    ],
+    [
+     "anon:() => { BOARD_RUN.raf = 0; if (BOARD_RUN.redraw !=",
+     24.4
+    ],
+    [
+     "anon:() => { place799.raf = 0; const q = [...place799.q",
+     1.6
+    ],
+    [
+     "tick",
+     1.3
+    ],
+    [
+     "anon:() => { moFrame = 0; sync(); }",
+     0.1
+    ]
+   ],
+   "openTimerMs": [
+    [
+     "to anon:() => { const el = document.activeElement; const t",
+     1814.1
+    ],
+    [
+     "to anon:()=>{ SHOW.timer=null; if(!SHOW.open||!SHOW.playin",
+     1616.4
+    ],
+    [
+     "to tpodTick",
+     146.9
+    ],
+    [
+     "to anon:() => { step(showFit); step(fxSize); step(lapsSize",
+     98.1
+    ],
+    [
+     "to anon:() => { healthTimer = 0; const health = {work:type",
+     45.9
+    ],
+    [
+     "iv anon:() => { if (document.visibilityState === 'visible'",
+     31.8
+    ],
+    [
+     "iv showTickClock",
+     8.3
+    ],
+    [
+     "iv showWatchdogTick",
+     7.3
+    ],
+    [
+     "to anon:() => { SHOW.launchTimer = null; if (SHOW.launch <",
+     3.8
+    ],
+    [
+     "to anon:()=>{introTimer=0;el.classList.remove('w885-intro'",
+     1.4
+    ]
+   ],
+   "openIntervals": [
+    "iv anon:() => { if (PHOTO_OUTBOX.size && !PHOTO_RETRY) go( every 60000 ms",
+    "iv anon:() => { if (document.visibilityState === 'visible' every 4000 ms",
+    "iv showWatchdogTick every 4000 ms"
+   ],
+   "captured": {
+    "frames": 2,
+    "byProgram": [
+     {
+      "program": 2,
+      "drawsPerFrame": 26,
+      "vertsPerFrame": 3498654,
+      "vs": "726ch vec3 q=aPos;if(uMode>11.5&&uMode<12.5){float b=max(0.,sin(uTime*7.+aUV.x));q.y+=aUV.y*b*b;} /* v6.64 - the crowd bounces */ vec4 p=uVP*vec4("
+     },
+     {
+      "program": 7,
+      "drawsPerFrame": 43,
+      "vertsPerFrame": 260586,
+      "vs": "414ch vec4 w=uModel*vec4(aPos,1.);vec4 p=uVP*w;gl_Position=p;vWorld=w.xyz;vNormal=normalize(mat3(uModel)*aNormal);vLocal=aPos;vUV=aUV;vDistance=p."
+     },
+     {
+      "program": 9,
+      "drawsPerFrame": 1,
+      "vertsPerFrame": 244992,
+      "vs": "520ch  vec4 p=uVP*vec4(aPosition,1.); gl_Position=p; vPosition=aPosition; vNormal=aNormal; vColour=aColour; vMaterial=aMaterial; vDepth=p.w; vFaca"
+     },
+     {
+      "program": 8,
+      "drawsPerFrame": 1,
+      "vertsPerFrame": 232134,
+      "vs": "409ch vec4 p=uVP*vec4(aPosition,1.);gl_Position=p;vDepth=p.w;vWorld=aPosition;vNormal=aNormal;vUV=aUV;vColour=aColour;}"
+     },
+     {
+      "program": 1,
+      "drawsPerFrame": 1,
+      "vertsPerFrame": 231495,
+      "vs": "427ch vec4 p=uVP*vec4(aPos,1.);gl_Position=p;vN=aNrm;vUVH=aUVH;vGlow=aGlow;vW=p.w;vY=aPos.y;vWorld=aPos;vSeed=aUVH.z;}"
+     },
+     {
+      "program": 0,
+      "drawsPerFrame": 15,
+      "vertsPerFrame": 222452,
+      "vs": "2000ch #version 300 es precision highp float; layout(location=0) in vec2 aC; layout(location=1) in vec3 aA; layout(location=2) in vec3 aB; layout(l"
+     },
+     {
+      "program": 5,
+      "drawsPerFrame": 4,
+      "vertsPerFrame": 12,
+      "vs": "164ch vec2 p=vec2(float((gl_VertexID<<1)&2),float(gl_VertexID&2));vUV=p;gl_Position=vec4(p*2.-1.,0.,1.);}"
+     },
+     {
+      "program": 4,
+      "drawsPerFrame": 2,
+      "vertsPerFrame": 6,
+      "vs": "164ch vec2 p=vec2(float((gl_VertexID<<1)&2),float(gl_VertexID&2));vUV=p;gl_Position=vec4(p*2.-1.,0.,1.);}"
+     },
+     {
+      "program": 6,
+      "drawsPerFrame": 1,
+      "vertsPerFrame": 3,
+      "vs": "164ch vec2 p=vec2(float((gl_VertexID<<1)&2),float(gl_VertexID&2));vUV=p;gl_Position=vec4(p*2.-1.,0.,1.);}"
+     }
+    ]
+   }
+  }
+ },
+ "sweep": [
+  {
+   "tag": "v6.40",
+   "sha": "66eb590b85d4",
+   "quality": "ultra",
+   "fixq": "ultra",
+   "frames": 5,
+   "draws": 90,
+   "verts": 3364014,
+   "glCalls": 1465,
+   "heapMB": 164.1,
+   "bufMB": 0.69,
+   "texMB": 0,
+   "showOpenMs": 1956,
+   "openBufMB": 73.08,
+   "compilesAtOpen": 16,
+   "cv": [
+    1800,
+    733
+   ],
+   "samples": 4,
+   "byProgram": "2:2378k 7:541k 1:232k 0:213k",
+   "blocked": 0,
+   "errors": 0
+  },
+  {
+   "tag": "v6.51",
+   "sha": "9bb1618ee541",
+   "quality": "ultra",
+   "fixq": "ultra",
+   "frames": 5,
+   "draws": 90,
+   "verts": 3364050,
+   "glCalls": 1465,
+   "heapMB": 161.31,
+   "bufMB": 0.69,
+   "texMB": 0,
+   "showOpenMs": 2300,
+   "openBufMB": 73.08,
+   "compilesAtOpen": 16,
+   "cv": [
+    1800,
+    733
+   ],
+   "samples": 4,
+   "byProgram": "2:2378k 7:541k 1:232k 0:213k",
+   "blocked": 0,
+   "errors": 0
+  },
+  {
+   "tag": "v6.52",
+   "sha": "3a1f4923691b",
+   "quality": "ultra",
+   "fixq": "ultra",
+   "frames": 5,
+   "draws": 92,
+   "verts": 3393990,
+   "glCalls": 1502,
+   "heapMB": 161.45,
+   "bufMB": 0.69,
+   "texMB": 0,
+   "showOpenMs": 2199,
+   "openBufMB": 74.09,
+   "compilesAtOpen": 16,
+   "cv": [
+    1800,
+    733
+   ],
+   "samples": 4,
+   "byProgram": "2:2380k 7:541k 0:241k 1:232k",
+   "blocked": 0,
+   "errors": 0
+  },
+  {
+   "tag": "v6.63",
+   "sha": "31c41d72cb09",
+   "quality": "ultra",
+   "fixq": "ultra",
+   "frames": 5,
+   "draws": 92,
+   "verts": 3716218,
+   "glCalls": 1502,
+   "heapMB": 173.47,
+   "bufMB": 0.69,
+   "texMB": 0,
+   "showOpenMs": 2177,
+   "openBufMB": 85.66,
+   "compilesAtOpen": 16,
+   "cv": [
+    1800,
+    733
+   ],
+   "samples": 4,
+   "byProgram": "2:2693k 7:541k 0:250k 1:232k",
+   "blocked": 0,
+   "errors": 0
+  },
+  {
+   "tag": "v6.64",
+   "sha": "3132aef9c0e3",
+   "quality": "ultra",
+   "fixq": "ultra",
+   "frames": 5,
+   "draws": 93,
+   "verts": 4547144,
+   "glCalls": 1524,
+   "heapMB": 199.29,
+   "bufMB": 1.75,
+   "texMB": 0,
+   "showOpenMs": 2395,
+   "openBufMB": 95.85,
+   "compilesAtOpen": 16,
+   "cv": [
+    1800,
+    733
+   ],
+   "samples": 4,
+   "byProgram": "2:3559k 7:541k 1:232k 0:215k",
+   "blocked": 0,
+   "errors": 0
+  },
+  {
+   "tag": "v6.66",
+   "sha": "0154542ec075",
+   "quality": "ultra",
+   "fixq": "ultra",
+   "frames": 5,
+   "draws": 93,
+   "verts": 4487516,
+   "glCalls": 1524,
+   "heapMB": 191.84,
+   "bufMB": 1.75,
+   "texMB": 0,
+   "showOpenMs": 2208,
+   "openBufMB": 95.08,
+   "compilesAtOpen": 16,
+   "cv": [
+    1800,
+    733
+   ],
+   "samples": 4,
+   "byProgram": "2:3500k 7:541k 1:232k 0:215k",
+   "blocked": 0,
+   "errors": 0
+  },
+  {
+   "tag": "v6.72",
+   "sha": "091d17f70f8c",
+   "quality": "ultra",
+   "fixq": "ultra",
+   "frames": 5,
+   "draws": 93,
+   "verts": 5638850,
+   "glCalls": 1524,
+   "heapMB": 233.65,
+   "bufMB": 1.75,
+   "texMB": 0,
+   "showOpenMs": 2546,
+   "openBufMB": 110.01,
+   "compilesAtOpen": 16,
+   "cv": [
+    1800,
+    733
+   ],
+   "samples": 4,
+   "byProgram": "2:4651k 7:541k 1:232k 0:215k",
+   "blocked": 0,
+   "errors": 0
+  },
+  {
+   "tag": "v7.86",
+   "sha": "0513542de21e",
+   "quality": "ultra",
+   "fixq": "ultra",
+   "frames": 5,
+   "draws": 93,
+   "verts": 5638850,
+   "glCalls": 1554,
+   "heapMB": 237.18,
+   "bufMB": 1.75,
+   "texMB": 0,
+   "showOpenMs": 2797,
+   "openBufMB": 110.01,
+   "compilesAtOpen": 16,
+   "cv": [
+    1800,
+    733
+   ],
+   "samples": 4,
+   "byProgram": "2:4651k 7:541k 1:232k 0:215k",
+   "blocked": 0,
+   "errors": 0
+  },
+  {
+   "tag": "v7.92",
+   "sha": "476f0dcca3d9",
+   "quality": "ultra",
+   "fixq": "ultra",
+   "frames": 4,
+   "draws": 94,
+   "verts": 5618326,
+   "glCalls": 1574,
+   "heapMB": 315.12,
+   "bufMB": 1.31,
+   "texMB": 0,
+   "showOpenMs": 2363,
+   "openBufMB": 146.71,
+   "compilesAtOpen": 20,
+   "cv": [
+    1800,
+    733
+   ],
+   "samples": 4,
+   "byProgram": "2:4207k 7:541k 1:232k 9:232k",
+   "blocked": 0,
+   "errors": 0
+  },
+  {
+   "tag": "v8.07",
+   "sha": "35024d434059",
+   "quality": "ultra",
+   "fixq": "ultra",
+   "frames": 3,
+   "draws": 94,
+   "verts": 5687778,
+   "glCalls": 1617,
+   "heapMB": 379.99,
+   "bufMB": 0.88,
+   "texMB": 0,
+   "showOpenMs": 2699,
+   "openBufMB": 175.11,
+   "compilesAtOpen": 20,
+   "cv": [
+    1800,
+    771
+   ],
+   "samples": 4,
+   "byProgram": "2:4301k 7:456k 9:245k 8:232k",
+   "blocked": 0,
+   "errors": 0
+  },
+  {
+   "tag": "v8.12",
+   "sha": "cd3159be30b7",
+   "quality": "ultra",
+   "fixq": "ultra",
+   "frames": 3,
+   "draws": 94,
+   "verts": 5687778,
+   "glCalls": 1617,
+   "heapMB": 376.24,
+   "bufMB": 0.88,
+   "texMB": 0,
+   "showOpenMs": 2990,
+   "openBufMB": 175.11,
+   "compilesAtOpen": 20,
+   "cv": [
+    1800,
+    835
+   ],
+   "samples": 4,
+   "byProgram": "2:4301k 7:456k 9:245k 8:232k",
+   "blocked": 0,
+   "errors": 0
+  }
+ ]
+}

@@ -1,0 +1,63 @@
+{
+  "author": "Andrew Fisher",
+  "status": "PASS \u2014 final affected805/810 browser checks",
+  "candidateSha256": "33d61cd71fa409b34f23ba0c7badbbdf7c4ae61ed5a4b8f080bea63e5d492cc0",
+  "candidateBytes": 9077939,
+  "runs": [
+    {
+      "suite": "navigation",
+      "device": "phone",
+      "passed": 27,
+      "total": 27,
+      "errors": [],
+      "path": "/workspace/private-navigation-quality-02Oct2026/final812/navigation/phone_browser_results.json",
+      "sha256": "5f6f278f6c1cbbdce8e0c5f5c6c1ed1a3b65613d442335ccc18c4305cf17c9a3",
+      "optionalNonGetBlocked": 1
+    },
+    {
+      "suite": "links805",
+      "device": "phone",
+      "passed": 15,
+      "total": 15,
+      "errors": [],
+      "path": "/workspace/private-navigation-quality-02Oct2026/final812/links/v805_phone.json",
+      "sha256": "a35b1aca338b1fbafda2f969a1afcef2147ee3a3d68af3a50f75f3e3c7da97fd",
+      "optionalNonGetBlocked": 10
+    },
+    {
+      "suite": "navigation",
+      "device": "desktop",
+      "passed": 27,
+      "total": 27,
+      "errors": [],
+      "path": "/workspace/private-navigation-quality-02Oct2026/final812/navigation/desktop_browser_results.json",
+      "sha256": "00f42b83760f63c5df68729cf26b0a40a5dab3d4d06b0d928d06e0c5a17df8a9",
+      "optionalNonGetBlocked": 1
+    },
+    {
+      "suite": "links805",
+      "device": "desktop",
+      "passed": 15,
+      "total": 15,
+      "errors": [],
+      "path": "/workspace/private-navigation-quality-02Oct2026/final812/links/v805_desktop.json",
+      "sha256": "decc3dfd90fdb2b02c84851a82a8f58c5ca48de507a1f1c495ae34cf7ffff18c",
+      "optionalNonGetBlocked": 10
+    }
+  ],
+  "passed": 84,
+  "total": 84,
+  "navigationSourceMatchesFrozen810": true,
+  "frozen805SuiteSha256": "7a0e077f46dbd87993cf78e4b5af694beeb5c8268a3220d1e9df9ef8f2dc4b43",
+  "privateOutputWrapperSha256": "2a4bf2df2f9cdd98a35dbd7480d17b539ab0aa80203ef18e9fda932d1ab4fd19",
+  "inherited805EvidenceUnchanged": true,
+  "operationalWrites": 0,
+  "transport": "Public view only; all non-GET requests blocked, including optional Google tile-session POST. Induced tile network failures are distinguished from page errors.",
+  "recordPreservation": "Both navigation browser runs compare every toDocs(collection) field before and after, byte-identical.",
+  "visualReview": "Final812 phone invalid-date and desktop missing-reference screenshots inspected; explicit notices visible and no old drawer or scrim.",
+  "limits": [
+    "No performance assertions during concurrent GPU work.",
+    "Root owns the full standing suites, standard sweeps and publication.",
+    "Frozen805 default15-check suite run unchanged on both sizes; optional BASE real-PDF page-count comparison not repeated."
+  ]
+}

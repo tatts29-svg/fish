@@ -1,0 +1,86 @@
+{
+ "status": "image registration by feature matching (SIFT + RANSAC) between the drawing's embedded aerial and Mapbox satellite z16 @2x; not a survey",
+ "sources": {
+  "pdf_sha256": "37792f0a9d32e829f34d28ab41197fd2cf689fb62cd60a755aa89106cb5a0a2f",
+  "aerial_xref": 6,
+  "placement_sheet_pts": {
+   "x0": 49.46,
+   "y0": 41.4,
+   "w": 2284.62,
+   "h": 1422.84,
+   "pw": 4760,
+   "ph": 2965
+  },
+  "imagery": {
+   "z": 16,
+   "tile_px": 512,
+   "x0": 60693,
+   "y0": 38072,
+   "x1": 60701,
+   "y1": 38082,
+   "width": 4608,
+   "height": 5632,
+   "source": "mapbox.satellite @2x jpg90",
+   "fetched": "2026-09-25"
+  },
+  "imagery_capture_date": null,
+  "imagery_native_resolution": null
+ },
+ "coordinate_conventions": {
+  "sheet": "PDF user space points, origin top-left of the 2384 x 1684 sheet, y down (the viewer's drawing space)",
+  "target": "Web Mercator tile pixels at z16 with 512 px tiles (global), then EPSG:3857 / WGS84"
+ },
+ "model": "affine (6 parameter), LMEDS on RANSAC inliers of a similarity fit",
+ "sheet_to_z16px": [
+  [
+   0.0014774128556632538,
+   -0.6696443151584477,
+   31078151.573519386
+  ],
+  [
+   0.6716275527268686,
+   -0.0032555977538605628,
+   19495489.683170576
+  ],
+  [
+   0.0,
+   0.0,
+   1.0
+  ]
+ ],
+ "fit": {
+  "matches": 87,
+  "inliers": 24,
+  "n_fit": 18,
+  "rms_px": 1.5755181614171037,
+  "p95_px": 2.5974216552855736
+ },
+ "independent_check": {
+  "n": 6,
+  "rms_m": 1.9445777035889182,
+  "p95_m": 2.9309071753185036,
+  "method": "a quarter of the inlier matches held out of the affine fit; residual in z16 pixels x ground metres per pixel at lat -27.985"
+ },
+ "rotation_deg": 89.87396379980586,
+ "scale_check": 1.000823013353008,
+ "corners_wgs84": {
+  "plan_tl": [
+   153.4320966122844,
+   -27.980784936504406
+  ],
+  "plan_tr": [
+   153.43213282561402,
+   -27.995322048912083
+  ],
+  "plan_bl": [
+   153.42187421250554,
+   -27.980741047892888
+  ],
+  "plan_br": [
+   153.42191042583516,
+   -27.995278166218036
+  ]
+ },
+ "review_status": "unreviewed",
+ "suitable_for_setout": false
+}

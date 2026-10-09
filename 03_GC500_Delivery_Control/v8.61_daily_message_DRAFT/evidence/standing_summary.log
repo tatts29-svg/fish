@@ -1,0 +1,14 @@
+# v8.61 standing suites · source 0d4f37cb8954db141e941caf07832abd96b3dd53 · candidate fa9e62b9ee8cbb763bc6bd17e418a9c10ceeac41eba6af4484176623b5d21c0f · base ae6880d9fc3e5555f34ad30eed47e31ed873847065927b4b6737dc5604b20073 · run 2026-10-05T13:35:32Z
+v799-desktop | candidate pass 22 fail 1 exit 0 | base pass 22 fail 1 exit 0
+v799-phone | candidate pass 18 fail 0 exit 0 | base pass 18 fail 0 exit 0
+packed-desktop | candidate pass 6 fail 3 exit 1 | base pass 6 fail 3 exit 1
+packed-phone | candidate pass 3 fail 2 exit 1 | base pass 3 fail 2 exit 1
+equip-desktop | candidate pass 0 fail 0 exit 1 | base pass 0 fail 0 exit 1
+equip-phone | candidate pass 0 fail 0 exit 1 | base pass 0 fail 0 exit 1
+results-desktop | candidate pass 1 fail 1 exit 1 | base pass 1 fail 1 exit 1
+results-phone | candidate pass 1 fail 1 exit 1 | base pass 1 fail 1 exit 1
+onetab-desktop | candidate pass 10 fail 4 exit 1 | base pass 10 fail 4 exit 1
+onetab-phone | candidate pass 10 fail 4 exit 1 | base pass 10 fail 4 exit 1
+rules | candidate pass 45 fail 0 exit 0 | base pass 45 fail 0 exit 0
+fresh | candidate pass 11 fail 0 exit 0 | base pass 11 fail 0 exit 0
+same-figures | candidate pass 0 fail 0 exit 0 | base pass 0 fail 0 exit 0

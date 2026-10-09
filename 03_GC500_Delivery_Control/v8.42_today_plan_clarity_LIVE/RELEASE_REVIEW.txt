@@ -1,0 +1,110 @@
+Author: Andrew Fisher
+GC500 v8.42 — clear totals, percentages and programme position
+
+VERIFIED LIVE, 4 Oct 2026. Published at 22:37 AEST; public checks complete.
+Owner: Codex. Claude remains intentionally paused. The separate steering-wheel
+film is held and excluded. READY checkpoint: 46447c90. Actual public content matches the frozen candidate.
+
+Base v8.41 SHA256:
+59088bb3da40fe01a2db224a538ebd010b26933d4a0c000969c744f9a30c2457
+Initial implementation checkpoint: d6e8c188.
+Final implementation checkpoint: 4f40fbdf.
+Candidate SHA256:
+d3495d9221414c8997d8962fc83031b86b10b500458c9e477197926b337d154a
+10,600,482 bytes. Model 9fb0d5e9; UI 9320cab6; CSS 9958bf7b.
+
+Resulting behaviour
+- Today retains its motorsport housing with wider laptop instruments. Total,
+  Done, Left, completion percentage and dated plan position are brought forward.
+- A known total remains useful when completion evidence conflicts. Confirmed
+  completion is a rounded-down lower bound, clearly labelled; Left includes
+  work requiring review. Detail rows retain that qualification and known count.
+- On-site plan counts use scheduled active references with explicit arrival or
+  completion evidence. Rental starts alone are insufficient. Early arrivals
+  cannot erase other references due but still missing. This comparison concerns
+  arrival dates; it does not invent installation deadlines.
+- Fencing shows every supported Build work type in its existing instrument,
+  with its own Total, Recorded, Left, percentage and dated plan comparison.
+  Metres and gates remain separate. Over-plan work is identified; overlapping
+  fence work is not combined into a physical track-completion percentage.
+- Source-authored dates remain unchanged. Invalid or unreconciled programme
+  coverage is not presented as confirmed progress. Relevant source conflicts
+  retain useful numeric comparisons with an explicit provisional qualification.
+- Broader type, whole-programme/Demob, source and cost detail remains available
+  within the matching instruments. Docket labour is labelled as that column;
+  it does not claim to include separately recorded crew hours.
+- Matching Total/Done/Left drilldowns, selected-date replay, print expansion,
+  focus, fold state and automatic motion remain connected. Decorative motion
+  runs on one visible selected instrument and respects Pause, reduced motion,
+  hidden views, dialogs, printing and global motion settings.
+
+Verification approach
+The standard build checks all eleven inline scripts. Exact preservation checks
+cover original header, media, maps, source data, native financial calculations,
+Timeline stages and both driver-print paths. Independent browser arithmetic is
+computed against native source data, rather than copying renderer outputs.
+Laptop, phone and 4K checks cover detail links, dates, motion, print, focus and
+scroll. Final desktop and phone navigation sweeps and actual-public checks are
+required before calling this release verified live.
+
+Preservation and final verification
+- Standard build: eleven inline scripts parse, required page and secret checks
+  pass. All 42 exact source/preservation checks pass on the final candidate.
+- All 26 model checks and the 13 renderer checks pass. The 29 selected-source-date
+  provisional UI checks are bound by unchanged-component proof: only Today UI
+  and CSS changed after candidate 07fa8e8d; its metric adapter is unchanged.
+- Final four-view browser suite: 2053/2054 assertions passed. The sole failure
+  sampled focus before the native dialog-close event. Five same-byte focused
+  repetitions prove correct return focus after that event and stable focus and
+  scroll afterwards: 16/16 checks pass. The test now awaits the actual event;
+  product bytes did not change. The original raw result is retained.
+- The scroll correction passes 48/48 focused checks: fresh and post-print
+  refresh, real wheel input, pointer/key/touch cancellation, programmatic
+  detail opening, native tab navigation and subsequent normal refresh.
+- Independent exact-final visual review passes both laptop widths, phone and
+  3840px. Root inspected the final phone Toilet and laptop Fencing captures.
+  Labels and percentages are sharp, and summary quantities and plan headlines
+  fit each category's landing view. Extra detail remains available by scrolling.
+- Final desktop and phone navigation sweeps each pass 22 routes, seven direct
+  links and Back navigation, with exact candidate bytes, expected route guards
+  only, zero runtime/console errors and no operational write attempts.
+
+Findings retained
+Initial candidate 07fa8e8d passed 2046/2054 browser checks. Five phone cards put
+plan headlines below the initial visible area; the compact phone layout now
+passes those same assertions. Three related 4K checks exposed a temporary scroll
+range clamp during native packing. A bounded retry restores only that clamped
+position, stops on user input, navigation or modal changes, and expires before
+any late write. The final full suite passes all eight formerly failing checks.
+
+The remaining final-suite dialog assertion was an event-timing race: in one
+focused repetition, motion resumed before the native close event restored
+focus. Waiting for the actual event verified the correct behaviour. Original
+failures and corrected checks remain in private evidence; no unrun repeat is
+represented as a full-suite pass.
+
+Release boundaries
+Tests block operational writes. No live records, financial model, backend,
+media or map deployment is part of this frontend change. Private snapshots,
+commercial values, source photographs and browser captures remain outside Git.
+Publication must use the standard unchanged-base guard, exact public readback,
+actual-public browser checks and before/after shared-record comparisons.
+
+Publication and actual-public verification
+The standard upload_page.py confirmed the unchanged live base, edit capability,
+existing media registry and exact public readback. No force override was used.
+Published 4 Oct 2026 at 22:37 AEST, 10,600,482 bytes, full SHA256 as above.
+
+Actual-public checks pass 906/906 across 1366x768, 1280x800, 390x844 DPR2 and
+3840x2160. Upstream bytes and Chromium's documented BOM-normalised body match
+in every view, with zero local HTML substitutions, runtime errors, unexpected
+console errors or operational write attempts. Quantities, percentages, dated
+plan positions and compact first-view layout are checked against native inputs.
+Root inspected the actual-public phone Toilet view.
+
+All 33 shared-record collections and the record version match before integration,
+immediately before publication, after upload and after public checks. No backend,
+media, map or operational-record deployment occurred. Existing tabs need one reload
+to receive v8.42. The separate film remains held. Claude remains intentionally
+paused; independent review here was within the Codex team. Physical-device
+perfection is not claimed. Source folder is now LIVE; private evidence stays private.

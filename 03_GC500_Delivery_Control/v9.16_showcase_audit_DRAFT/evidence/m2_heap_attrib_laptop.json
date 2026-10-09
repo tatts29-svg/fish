@@ -1,0 +1,191 @@
+{
+ "author": "Andrew Fisher",
+ "profile": "laptop",
+ "heapBeforeMB": 13.3,
+ "mainContextId": 3,
+ "typedBefore": {
+  "Float32Array": {
+   "n": 0,
+   "mb": 0,
+   "over1MB": 0
+  },
+  "Uint16Array": {
+   "n": 0,
+   "mb": 0,
+   "over1MB": 0
+  },
+  "Uint32Array": {
+   "n": 0,
+   "mb": 0,
+   "over1MB": 0
+  },
+  "Uint8Array": {
+   "n": 0,
+   "mb": 0,
+   "over1MB": 0
+  },
+  "Int16Array": {
+   "n": 0,
+   "mb": 0,
+   "over1MB": 0
+  },
+  "Float64Array": {
+   "n": 0,
+   "mb": 0,
+   "over1MB": 0
+  },
+  "ArrayBuffer": {
+   "n": 0,
+   "mb": 0,
+   "over1MB": 0
+  },
+  "WebGLBuffer": {
+   "n": 0,
+   "mb": 0,
+   "over1MB": 0
+  },
+  "WebGLTexture": {
+   "n": 0,
+   "mb": 0,
+   "over1MB": 0
+  },
+  "WebGL2RenderingContext": {
+   "n": 0,
+   "mb": 0,
+   "over1MB": 0
+  },
+  "HTMLCanvasElement": {
+   "n": 1,
+   "mb": 0,
+   "over1MB": 0
+  },
+  "AudioBuffer": {
+   "n": 0,
+   "mb": 0,
+   "over1MB": 0
+  }
+ },
+ "walkBefore": {
+  "top": [
+   [
+    "DATA",
+    3.55
+   ],
+   [
+    "RENDER_MEMO",
+    0.93
+   ],
+   [
+    "SYNC",
+    0.89
+   ],
+   [
+    "localStorage",
+    0.83
+   ]
+  ],
+  "totalMB": 6.2,
+  "sceneUp": false,
+  "extra": {
+   "DATA.surrounds": 0
+  }
+ },
+ "heapOpenMB": 373.4,
+ "heapAfterCloseMB": 310.6,
+ "walkAfter": {
+  "top": [
+   [
+    "GC3D._raceCarModels",
+    4.65
+   ],
+   [
+    "DATA",
+    3.55
+   ],
+   [
+    "0",
+    1.79
+   ],
+   [
+    "RENDER_MEMO",
+    0.98
+   ],
+   [
+    "SYNC",
+    0.89
+   ],
+   [
+    "GC3D._raceCarDecals",
+    0.34
+   ]
+  ],
+  "totalMB": 12.2,
+  "sceneUp": false,
+  "extra": {
+   "DATA.surrounds": 0
+  }
+ },
+ "typedAfter": {
+  "Float32Array": {
+   "n": 0,
+   "mb": 0,
+   "over1MB": 0
+  },
+  "Uint16Array": {
+   "n": 0,
+   "mb": 0,
+   "over1MB": 0
+  },
+  "Uint32Array": {
+   "n": 0,
+   "mb": 0,
+   "over1MB": 0
+  },
+  "Uint8Array": {
+   "n": 0,
+   "mb": 0,
+   "over1MB": 0
+  },
+  "Int16Array": {
+   "n": 0,
+   "mb": 0,
+   "over1MB": 0
+  },
+  "Float64Array": {
+   "n": 0,
+   "mb": 0,
+   "over1MB": 0
+  },
+  "ArrayBuffer": {
+   "n": 0,
+   "mb": 0,
+   "over1MB": 0
+  },
+  "WebGLBuffer": {
+   "n": 175,
+   "mb": 0,
+   "over1MB": 0
+  },
+  "WebGLTexture": {
+   "n": 2,
+   "mb": 0,
+   "over1MB": 0
+  },
+  "WebGL2RenderingContext": {
+   "n": 1,
+   "mb": 0,
+   "over1MB": 0
+  },
+  "HTMLCanvasElement": {
+   "n": 2,
+   "mb": 0,
+   "over1MB": 0
+  },
+  "AudioBuffer": {
+   "n": 0,
+   "mb": 0,
+   "over1MB": 0
+  }
+ },
+ "blocked": 0
+}

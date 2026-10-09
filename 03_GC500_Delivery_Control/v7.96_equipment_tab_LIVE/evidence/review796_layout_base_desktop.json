@@ -1,0 +1,47 @@
+{
+  "author": "Andrew Fisher",
+  "tag": "base",
+  "mobile": false,
+  "sha256": "476f0dcca3d97de07d55c8eb7c85618a8672abf99f2c00f2892c11690b7bc265",
+  "screenshots": [
+    "/workspace/private-v796-review/base-today-desktop-top.png",
+    "/workspace/private-v796-review/base-today-desktop-middle.png",
+    "/workspace/private-v796-review/base-today-desktop-bottom.png",
+    "/workspace/private-v796-review/base-plant-desktop-top.png",
+    "/workspace/private-v796-review/base-plant-desktop-middle.png",
+    "/workspace/private-v796-review/base-plant-desktop-bottom.png"
+  ],
+  "measures": {
+    "today": {
+      "paneHeightPx": 3194,
+      "mainScrollHeightPx": 3237,
+      "viewportWidth": 1440,
+      "pageScrollWidth": 1440,
+      "sections": {
+        "Instruments": {
+          "heightPx": 1243,
+          "emptyPct": 2.4
+        },
+        "Today's work": {
+          "heightPx": 1078,
+          "emptyPct": 40.1
+        }
+      },
+      "totalEmptyPct": 19.9
+    },
+    "plant": {
+      "paneHeightPx": 23098,
+      "mainScrollHeightPx": 23144,
+      "viewportWidth": 1440,
+      "pageScrollWidth": 1440,
+      "sections": {},
+      "totalEmptyPct": null
+    }
+  },
+  "errors": [],
+  "requests": {
+    "page": 1,
+    "live": 116,
+    "blocked": 0
+  }
+}

@@ -1,0 +1,26 @@
+# v8.19 checks · source commit 1cd16dcdc67a62299c7ca244cea5fa87dadeadcc · candidate sha256 0630371d2c662cbff820d429aec87f0142da24a947d7b3ef4441dd5671d7bf6c (9356879 bytes) · base (live at build) sha256 88a7b6b110194133ab59f5efa17b169f937f8fa21cb551dfd38f96eab6597919 (9293149 bytes) · run 2026-10-03T14:14:13Z
+# suite: v799-desktop · command: env BASE=/home/user/fish/03_GC500_Delivery_Control/build/GC500_v8.19/base_live.html flock /tmp/claude-0/-home-user-fish/710a1764-23a1-5338-9fe8-299f94961e8a/scratchpad/browser.lock node v7.99_today_faster_fuller_DRAFT/evidence/v799_tests.js
+PASS the money summary is worked out once per opening of Today, not twice
+PASS folded By branch and On site wait to be opened
+PASS the By branch fold line still counts the branches
+PASS the On site fold line is unchanged
+PASS opening By branch draws its plates, word for word as a full draw
+PASS opening On site draws it, word for word as a full draw
+PASS both stay open once drawn
+PASS a redraw of the record keeps opened folds drawn
+PASS every fold opened at once stays open, and all are drawn
+PASS print draws By branch and On site in full and opens every fold
+PASS after printing the folds close again
+PASS every jump button lands its part at the top, folds opened and drawn
+PASS cards are placed, and the two-wide plates stay two wide
+PASS no overlap and nothing outside its box at 1440 px
+PASS no overlap and nothing outside its box at 1280 px
+PASS no overlap and nothing outside its box at 1000 px
+PASS widening is decided afresh after the window changes, and comes back the same
+PASS the date control replays the day with the folds still waiting
+PASS a print from Equipment leaves its list alone and draws nothing on Today
+PASS opening On site by its line keeps it in place, open, drawn and focused
+PASS opening By branch by its line keeps it in place, open, drawn and focused
+PASS paper has as many pages as live: Ctrl+P on Today and the A4 report
+PASS no page errors
+23/23 desktop · page errors 0

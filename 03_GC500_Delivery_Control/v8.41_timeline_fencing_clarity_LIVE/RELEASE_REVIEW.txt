@@ -1,0 +1,99 @@
+Author: Andrew Fisher
+GC500 v8.41 — Timeline lights and one Today work board
+
+VERIFIED LIVE, 4 Oct 2026 22:01 AEST. Final candidate and actual-public checks
+are complete. READY commit53eb4f45; implementation checkpoint fa1c5f2f.
+Owner: Codex. Independently reviewed within the Codex team; Claude remains
+intentionally paused and is not claimed as a reviewer. The film remains held.
+
+Source checkpoint: fa1c5f2f (implementation); final test-only adjustment is
+included with this READY record.
+Base v8.40 SHA256:
+573df8e5440f7cd9c48452a52632114bdc4cedbdf3254db007dc6bff35e48929
+Final candidate SHA256:
+59088bb3da40fe01a2db224a538ebd010b26933d4a0c000969c744f9a30c2457
+10,571,474 bytes.
+
+Resulting behaviour
+- Timeline uses native five-stage evidence: Off Site, Transit, Location,
+  Installed and Finished. Completed rows retain green status and visible motion.
+- Native and supplier driver print requests advance only the exact selected
+  inbound references to Transit. Later stages survive reprinting. Preview,
+  email, installer and removal sheets do not dispatch loads. The audit says
+  print requested; a browser cannot prove paper output or physical departure.
+- Superseded, failed, closed and competing print preparations cannot dispatch
+  another selection. Both print routes clear competing wrappers and styles.
+- Today leads with recorded completion and remaining work by category. Main
+  completion percentages and detailed on-site percentages are labelled apart.
+  Unknown, conflicting and mixed-unit quantities remain explicit.
+- Fencing lists supported work types in its existing instrument, each with its
+  own units and recorded percentage. Over-plan work is identified. Build and
+  whole-programme/Demob figures are separate; no combined physical completion
+  is invented from overlapping fence work.
+- The separate By group cards are removed only after complete migration coverage.
+  Their type quantities, source notes, programme comparisons, Revenue and Direct
+  costs live under By type and costs in the matching instruments. Native money
+  buckets appear once; cumulative financial context is distinct from date replay.
+- Equipment subgroups remain named and separate. Selected-day replay, source
+  drawers, drilldown links, fold state, focus, scroll and native Today printing
+  remain connected. Print expands all details and restores them afterwards.
+- Foreground text and vector lights remain crisp. Decorative motion runs on one
+  visible Today instrument, including completed instruments. Manual Pause,
+  hidden views, dialogs, printing, reduced motion and global off are respected.
+
+Preservation and verification
+- Standard build: all eleven inline scripts parse; required page/secret checks
+  pass. All 35 exact source/preservation checks pass. Original header, media,
+  maps, source data, costing formulae and native financial renderers are intact.
+- Fencing model15; group adapter16; Timeline stage/evidence55; native print15;
+  supplier print31 checks pass. Captured dispatch tests do not send live writes.
+- Timeline browser70, Finished/focus5 and supplier browser21 passed on candidate
+  701cc188. Exact byte-replacement proof binds those results to final59088bb3:
+  only the group adapter and Today JavaScript changed. Timeline, supplier, CSS
+  and every other component are identical. No unrun check is described as rerun.
+- Final Today desktop/phone/4K suite: 1197 of1198 assertions passed. The sole
+  failure required motion after closing a phone dialog even though no track was
+  visible. Captured state correctly restored focus/scroll and stayed idle with
+  no visible tracks. The test expectation was corrected, with the original
+  result retained. The focused same-byte phone offscreen/resume probe passes12/12. Its first
+  setup attempt exposed the track and is retained as an8/10 setup failure;
+  the final probe explicitly measures offscreen geometry before its checks.
+- Independent final desktop, phone and 3840px visual review passes. Root inspected
+  phone and desktop captures; merged types, percentages and print remain clear.
+- Final standard desktop and phone sweeps each pass22 routes,7 deep links and
+  Back navigation with exact candidate bytes, no runtime/console errors or
+  operational write attempts. Expected read-only redirect guards are unchanged.
+
+Earlier findings retained
+An inherited LED entrance effect conflicted with instrument selection; scoped CSS
+corrected it. A closed native drawer was mistaken for an open modal; visibility
+and modal observation were corrected. Competing supplier/native print styles and
+stale print continuations were corrected. Native transient button click feedback
+was separately verified as bounded feedback, not unwanted instrument motion.
+Original failures, comparisons and corrected checks remain in private evidence.
+
+Release boundaries
+Tests block operational writes. No backend, media, map or live record mutation
+is part of this frontend release. Private snapshots, commercial values and images
+remain outside Git. Publication must use the standard unchanged-base guard and
+exact public readback, followed by actual-public browser checks. Existing tabs
+need one reload to obtain the new HTML. Physical-device perfection is not claimed.
+
+Publication and actual-public verification
+Standard upload_page.py confirmed the live base was unchanged, checked edit
+capability, accepted the page with its existing media registry and proved exact
+public bytes. Uploaded4 Oct2026 at22:01AEST; no force override.
+
+Actual-public Today529/529 and Timeline79/79 pass on desktop, phone and3840px.
+Upstream SHA and length equal the final candidate. Buffered browser bodies differ
+only by the documented leading UTF-8 BOM; zero local HTML substitutions in every
+view. No runtime errors or operational write attempts. Read-only guards block
+non-GET test traffic; expected blocked map-session messages are matched explicitly
+and excluded from unexpected-console-error counts. Root inspected public phone
+Fencing imagery. All33 collection fingerprints and record version are identical
+before integration, before publication, after upload and after public checks.
+
+Source folder is now LIVE. Private raw reports, source/record snapshots, identity
+proof and images remain outside Git. This is a completed frontend release, not a
+backend update or a claim that the separately held steering-wheel film is ready.
+Claude remains intentionally paused at dacf75dd; no restart is requested.

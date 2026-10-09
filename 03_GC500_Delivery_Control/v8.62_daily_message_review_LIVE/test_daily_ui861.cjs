@@ -1,0 +1,44 @@
+// Author: Andrew Fisher. Native daily-message preview on laptop and phone; live reads only.
+const fs=require('fs'),path=require('path'),assert=require('node:assert/strict');
+const R=path.resolve(__dirname,'..'),O=process.env.OUT;if(!O)throw Error('Set private OUT');fs.mkdirSync(O,{recursive:true});
+const {open}=require(R+'/toolchain/harness/open_page.js');
+const {installWriteGuard,ready840,nativeSnapshot}=require(R+'/v8.40_today_work_progress_LIVE/test_today840.cjs');
+const GSM861='@£$¥èéùìòÇ\nØøÅåΔ_ΦΓΛΩΠΨΣΘΞÆæßÉ !"#¤%&\'()*+,-./0123456789:;<=>?¡ABCDEFGHIJKLMNOPQRSTUVWXYZÄÖÑÜ§¿abcdefghijklmnopqrstuvwxyzäöñüà';
+// The day plate on a phone: Message daily runs sits beside Install (no hole where Email was); Edit takes the full last row.
+const plateGeo861=p=>p.locator('#pane-timeline .dplate').first().evaluate(el=>{const box=c=>{const b=c.getBoundingClientRect();return {l:Math.round(b.left),t:Math.round(b.top),w:Math.round(b.width),h:Math.round(b.height)};};const pick=sel=>{const c=el.querySelector(':scope > '+sel);return c?box(c):null;};const all=[...el.children].filter(c=>!c.classList.contains('dplate-k')).map(c=>c.matches('details')?c.querySelector('summary'):c);return {plate:box(el),install:(()=>{const c=[...el.children].find(c=>/^Install\b/.test(((c.querySelector('.dpt-w')||c).textContent||'').trim()));return c?box(c.matches('details')?c.querySelector('summary'):c):null;})(),msg:pick('.daily821-tile'),edit:pick('.dpt-edit'),tiles:all.map(box)};});
+const guard=installWriteGuard(),report={author:'Andrew Fisher',scope:process.env.PAGE?'Candidate':'Actual public HTML',views:[]};
+(async()=>{let s;try{for(const W of [1366,390]){
+ s=await open({pageFile:process.env.PAGE,hash:'#today',W,H:900,mobile:W===390,dpr:W===390?2:1});const p=s.page;await ready840(p);await p.waitForFunction(()=>typeof daily861Message==='function');const before=await nativeSnapshot(p);
+ const iso=await p.evaluate(()=>{go('timeline');const d=programmeDays().find(d=>d.iso>=todayIso()&&(d.deliveries||[]).length);if(!d)throw Error('No scheduled day available for preview');state.day=d.iso;state.tlView='day';renderTimeline();return d.iso;});
+ assert.equal(await p.locator('#pane-timeline .dplate').getByText(/^Email(?: ▾)?$/).count(),0,'No generic Email tile');
+ assert.equal(await p.locator('#pane-timeline .tlday-ctl .dpmail').count(),0,'No duplicate per-day Email menu');
+ for(const kind of ['drivers','install'])assert(await p.locator('#pane-timeline .dplate [data-pdf7="'+kind+'"]').count()>0,kind+' group PDF controls remain');
+ assert.equal(await p.locator('#pane-timeline .ep819-hd [data-ep860-inventory]').count(),1,'Timeline supplier inventory remains available');
+ assert(await p.locator('#pane-timeline .ep819-go [data-ep860-email]').count()>0,'Supplier run-sheet email remains available');
+ const geo=await plateGeo861(p);if(W===390){assert(geo.install&&geo.msg,'Install and Message tiles found');assert.equal(geo.msg.t,geo.install.t,'Message daily runs sits beside Install');assert(geo.msg.l>geo.install.l);if(geo.edit)assert(geo.edit.t>geo.msg.t&&geo.edit.w>geo.msg.w*1.8,'Edit takes the full last row');}else assert.equal(new Set(geo.tiles.map(t=>t.t)).size,1,'one row on a laptop');
+ await p.locator('.dplate [data-daily821-toggle="'+iso+'"]').click();const panel=p.locator('[data-daily821-panel="'+iso+'"]');assert(await panel.isVisible());
+ await p.locator('[data-daily821-recipient="'+iso+'"]').selectOption({index:1});assert(await panel.locator('.daily861-preview').isVisible());
+ const waitPopup=p.waitForEvent('popup');await p.locator('[data-daily821-preview="'+iso+'"]').click();const popup=await waitPopup;await popup.waitForFunction(()=>document.title.includes('Daily deliveries'),null,{timeout:25000});await p.waitForFunction(iso=>daily821Session(iso).prepared&&!daily821Session(iso).busy,iso);
+ const model=await p.evaluate(iso=>{const s=daily821Session(iso),team=daily821Contacts().find(x=>x.id===s.recipient);return{message:daily861Message(iso,team,'[Daily run link]',s.prepared.weather861),weather:s.prepared.weather861,date:fmtDate(iso),first:daily861FirstName(team),worst:daily861Message(iso,team,daily861WorstLink(),s.prepared.weather861),refs:s.prepared.model.loads.flatMap(l=>l.rows.map(r=>r.key))};},iso);
+ const text=await panel.locator('.daily861-preview pre').textContent();assert.equal(text,model.message);assert(text.startsWith('Good morning, '+model.first+'.'));assert(text.includes(model.date));assert(text.includes(model.weather.text));assert(text.includes('Take 5'));assert(text.endsWith('[Daily run link]'));assert(text.length<=480);assert(model.worst.length<=480);for(const ch of model.worst)assert(GSM861.includes(ch),'not GSM-7: '+JSON.stringify(ch));assert.doesNotMatch(model.worst,/Coates/);
+ assert(await p.locator('[data-daily821-send="'+iso+'"]').isDisabled(),'View link cannot send');assert((await popup.locator('h1').textContent()).includes(model.date));
+ const dayText=await popup.locator('body').innerText();for(const ref of model.refs)assert(dayText.includes(ref));
+ await p.evaluate(()=>renderTimeline());assert(await panel.isVisible());assert.equal(await panel.locator('.daily861-preview pre').textContent(),text);
+ assert(await p.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1));await panel.scrollIntoViewIfNeeded();await panel.screenshot({path:O+'/personal-message-'+W+'.png'});
+ await p.locator('[data-daily821-close="'+iso+'"]').click();assert(!await panel.isVisible());await popup.close();
+ await p.locator('#pane-timeline [data-ep819-print]').first().click();
+ assert(await p.locator('#ep819print [data-ep860-email]').isVisible(),'Run-sheet preview retains Email PDF');
+ await p.locator('[data-ep819-x]').click();
+ await p.evaluate(()=>go('plant'));
+ const inventoryButton=p.locator('#pane-plant .eqtools [data-ep860-inventory]');assert.equal(await inventoryButton.count(),1,'Equipment offers supplier inventory');assert(await inventoryButton.isVisible());
+ await inventoryButton.click();await p.waitForFunction(()=>EP860.file&&document.querySelector('#ep860-dialog [data-ep860-share]'),null,{timeout:120000});
+ const inventory=await p.evaluate(()=>({name:EP860.file.name,pages:EP860.file.pages,size:EP860.file.size,type:EP860.file.file.type,title:document.querySelector('#ep860-title').textContent}));
+ assert(inventory.name.startsWith('GC500_Event_Portables_Inventory_'));assert(inventory.pages>0);assert(inventory.size>1000);assert.equal(inventory.type,'application/pdf');assert.equal(inventory.title,'Inventory print');
+ assert(await p.locator('#ep860-dialog').getByRole('link',{name:'Open / Print PDF',exact:true}).isVisible());
+ await p.screenshot({path:O+'/equipment-inventory-'+W+'.png'});await p.locator('[data-ep860-close]').click();assert.equal(await p.locator('#ep860-dialog').count(),0);
+ assert(await inventoryButton.evaluate(e=>document.activeElement===e),'Inventory close restores focus');
+ const after=await nativeSnapshot(p);assert.deepEqual(after.collections,before.collections);assert.equal(s.errors.length,0,s.errors.join('\n'));
+ report.views.push({width:W,plateTiles:geo.tiles.length,messageBesideInstall:W===390?true:undefined,gsm7:true,personalGreeting:true,selectedDate:true,forecastPinned:true,take5:true,linkLast:true,viewCannotSend:true,dayPageReferencesMatch:true,redrawPreservesPreview:true,genericEmailRemoved:true,supplierEmailPreserved:true,timelineInventoryPresent:true,equipmentInventoryGenerated:true,inventoryPages:inventory.pages,recordsPreserved:true});
+ await s.browser.close();s=null;
+ }assert(!guard.nonGetSeen.some(x=>x.operational),'No operational writes');const intentional=guard.consoleErrors.filter(x=>x.url==='https://tile.googleapis.com/v1/createSession'&&/ERR_BLOCKED_BY_CLIENT/.test(x.text));assert.equal(guard.consoleErrors.length,intentional.length,'No unexpected console errors');report.operationalWrites=0;report.unexpectedConsoleErrors=0;report.intentionalMapBlocks=intentional.length;fs.writeFileSync(O+'/native-ui861.json',JSON.stringify(report,null,2));console.log(JSON.stringify(report));
+ }finally{if(s)await s.browser.close();await guard.closeAll();}})().catch(e=>{console.error(e.stack);process.exitCode=1;});

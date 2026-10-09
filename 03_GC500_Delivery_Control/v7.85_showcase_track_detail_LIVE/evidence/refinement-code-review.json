@@ -1,0 +1,16 @@
+{
+  "author": "Andrew Fisher",
+  "scope": "Independent internal code review; no external source-photo review or hardware benchmark",
+  "full_sha256": "34e5defbe3fe39bcb40d8715d3d032ebb5c9841dbea35e90b47090c427bfbcb5",
+  "standalone_sha256": "4b07428254f7a84535820f65b0ed065b05df7f4c2acfb0f775fce43be98b1288",
+  "result": "No remaining blocking findings",
+  "checks": [
+    "Default-off shader branches retained",
+    "Original tree positions and building shells retained",
+    "Original tree pointers and GPU cleanup reviewed",
+    "Full and standalone renderer cores match",
+    "Final scrubbed HTML parsed: foliage hooks appear once in executable script after renderer, outside text/plain PDF library",
+    "Isolated VM confirms install/dispose/report and preview controls callable"
+  ],
+  "runtime_regression": "full_page_checks.cjs asserts lifecycle hooks execute before Showcase opens"
+}

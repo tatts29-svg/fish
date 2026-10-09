@@ -1,0 +1,134 @@
+{
+  "author": "Andrew Fisher",
+  "tag": "candidate",
+  "mobile": true,
+  "sha256": "6365fd0965e1ae1fcf75fdd6aad076b2662697443addfae49a3d6016a39f9fce",
+  "screenshots": [
+    "/workspace/private-release-v814/light-arrival-phone.png",
+    "/workspace/private-release-v814/candidate-today-phone-top.png",
+    "/workspace/private-release-v814/candidate-today-phone-middle.png",
+    "/workspace/private-release-v814/candidate-today-phone-bottom.png",
+    "/workspace/private-release-v814/candidate-plant-phone-top.png",
+    "/workspace/private-release-v814/candidate-plant-phone-middle.png",
+    "/workspace/private-release-v814/candidate-plant-phone-bottom.png"
+  ],
+  "measures": {
+    "today": {
+      "paneHeightPx": 8998,
+      "mainScrollHeightPx": 9030,
+      "viewportWidth": 390,
+      "pageScrollWidth": 390,
+      "sections": {
+        "Instruments": {
+          "heightPx": 2219,
+          "emptyPct": 1.3
+        },
+        "Today's work": {
+          "heightPx": 1017,
+          "emptyPct": 4.5
+        },
+        "By group": {
+          "heightPx": 4533,
+          "emptyPct": 3.1
+        }
+      },
+      "totalEmptyPct": 2.8
+    },
+    "plant": {
+      "paneHeightPx": 4665,
+      "mainScrollHeightPx": 4699,
+      "viewportWidth": 390,
+      "pageScrollWidth": 390,
+      "sections": {},
+      "totalEmptyPct": null
+    }
+  },
+  "lightArrival": {
+    "tab": "plant",
+    "light": "none",
+    "filterPresent": true,
+    "foldOpen": true,
+    "referenceCount": 116,
+    "referenceRows": 116,
+    "visibleReferenceRows": 116,
+    "inventoryVisible": true
+  },
+  "tradeMapping": [
+    {
+      "group": "Toilets & amenities",
+      "count": 74,
+      "inventoryDisciplines": [
+        "Toilets & amenities"
+      ]
+    },
+    {
+      "group": "Portable buildings",
+      "count": 56,
+      "inventoryDisciplines": [
+        "Portable buildings"
+      ]
+    },
+    {
+      "group": "Lighting towers",
+      "count": 21,
+      "inventoryDisciplines": [
+        "Lighting towers"
+      ]
+    },
+    {
+      "group": "Generators",
+      "count": 16,
+      "inventoryDisciplines": [
+        "Generators"
+      ]
+    },
+    {
+      "group": "Water-filled barriers",
+      "count": 15,
+      "inventoryDisciplines": [
+        "Water-filled barriers"
+      ]
+    },
+    {
+      "group": "VMS boards",
+      "count": 7,
+      "inventoryDisciplines": [
+        "Variable message signs"
+      ]
+    },
+    {
+      "group": "Forklifts & access",
+      "count": 5,
+      "inventoryDisciplines": [
+        "Access & plant"
+      ]
+    },
+    {
+      "group": "Furniture",
+      "count": 4,
+      "inventoryDisciplines": [
+        "Furniture"
+      ]
+    },
+    {
+      "group": "Other",
+      "count": 2,
+      "inventoryDisciplines": [
+        "Other"
+      ]
+    },
+    {
+      "group": "Track mat",
+      "count": 1,
+      "inventoryDisciplines": [
+        "Ground protection"
+      ]
+    }
+  ],
+  "errors": [],
+  "requests": {
+    "page": 1,
+    "live": 66,
+    "blocked": 0
+  }
+}

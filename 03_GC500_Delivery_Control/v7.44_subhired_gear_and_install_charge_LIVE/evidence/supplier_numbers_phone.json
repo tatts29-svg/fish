@@ -1,0 +1,443 @@
+{
+  "author": "Andrew Fisher",
+  "mobile": true,
+  "build_sha256": "66dc8be2b0536471feafb65b1716ceb2f52a201d0076ba4c1ff02d0c26f50435",
+  "checks": [
+    {
+      "name": "live record includes the reported supplier locations",
+      "pass": true
+    },
+    {
+      "name": "WC31 shared number line includes all supplier numbers and ownership",
+      "pass": true
+    },
+    {
+      "name": "WC31 driver card recognises supplier numbers",
+      "pass": true
+    },
+    {
+      "name": "WC31 equipment card recognises supplier numbers",
+      "pass": true
+    },
+    {
+      "name": "WC31 shared driver message includes supplier numbers",
+      "pass": true
+    },
+    {
+      "name": "WC31 printed drop sheet includes all supplier numbers",
+      "pass": true
+    },
+    {
+      "name": "WC31 driver email rendering includes supplier numbers without sending",
+      "pass": true
+    },
+    {
+      "name": "WC31 plant register includes supplier numbers",
+      "pass": true
+    },
+    {
+      "name": "WC31 reference-labelled number line includes supplier numbers",
+      "pass": true
+    },
+    {
+      "name": "WC31 Change deliveries row includes supplier numbers",
+      "pass": true
+    },
+    {
+      "name": "WC31 search result recognises supplier numbers",
+      "pass": true
+    },
+    {
+      "name": "WC31 unit list preserves short supplier IDs as numbers",
+      "pass": true
+    },
+    {
+      "name": "WC31 drawer has no false missing-number message",
+      "pass": true
+    },
+    {
+      "name": "WC31 edit form has no false missing-number message",
+      "pass": true
+    },
+    {
+      "name": "WC41 shared number line includes all supplier numbers and ownership",
+      "pass": true
+    },
+    {
+      "name": "WC41 driver card recognises supplier numbers",
+      "pass": true
+    },
+    {
+      "name": "WC41 equipment card recognises supplier numbers",
+      "pass": true
+    },
+    {
+      "name": "WC41 load brief recognises supplier numbers",
+      "pass": true
+    },
+    {
+      "name": "WC41 shared driver message includes supplier numbers",
+      "pass": true
+    },
+    {
+      "name": "WC41 printed drop sheet includes all supplier numbers",
+      "pass": true
+    },
+    {
+      "name": "WC41 driver email rendering includes supplier numbers without sending",
+      "pass": true
+    },
+    {
+      "name": "WC41 plant register includes supplier numbers",
+      "pass": true
+    },
+    {
+      "name": "WC41 wholly sub-hired driver card has no Coates rental ID",
+      "pass": true
+    },
+    {
+      "name": "WC41 wholly sub-hired plant register has no Coates rental ID",
+      "pass": true
+    },
+    {
+      "name": "WC41 reference-labelled number line includes supplier numbers",
+      "pass": true
+    },
+    {
+      "name": "WC41 Change deliveries row includes supplier numbers",
+      "pass": true
+    },
+    {
+      "name": "WC41 search result recognises supplier numbers",
+      "pass": true
+    },
+    {
+      "name": "WC41 unit list preserves short supplier IDs as numbers",
+      "pass": true
+    },
+    {
+      "name": "WC41 drawer has no false missing-number message",
+      "pass": true
+    },
+    {
+      "name": "WC41 edit form has no false missing-number message",
+      "pass": true
+    },
+    {
+      "name": "WC42 shared number line includes all supplier numbers and ownership",
+      "pass": true
+    },
+    {
+      "name": "WC42 driver card recognises supplier numbers",
+      "pass": true
+    },
+    {
+      "name": "WC42 equipment card recognises supplier numbers",
+      "pass": true
+    },
+    {
+      "name": "WC42 load brief recognises supplier numbers",
+      "pass": true
+    },
+    {
+      "name": "WC42 shared driver message includes supplier numbers",
+      "pass": true
+    },
+    {
+      "name": "WC42 printed drop sheet includes all supplier numbers",
+      "pass": true
+    },
+    {
+      "name": "WC42 driver email rendering includes supplier numbers without sending",
+      "pass": true
+    },
+    {
+      "name": "WC42 plant register includes supplier numbers",
+      "pass": true
+    },
+    {
+      "name": "WC42 wholly sub-hired driver card has no Coates rental ID",
+      "pass": true
+    },
+    {
+      "name": "WC42 wholly sub-hired plant register has no Coates rental ID",
+      "pass": true
+    },
+    {
+      "name": "WC42 reference-labelled number line includes supplier numbers",
+      "pass": true
+    },
+    {
+      "name": "WC42 Change deliveries row includes supplier numbers",
+      "pass": true
+    },
+    {
+      "name": "WC42 search result recognises supplier numbers",
+      "pass": true
+    },
+    {
+      "name": "WC42 unit list preserves short supplier IDs as numbers",
+      "pass": true
+    },
+    {
+      "name": "WC42 drawer has no false missing-number message",
+      "pass": true
+    },
+    {
+      "name": "WC42 edit form has no false missing-number message",
+      "pass": true
+    },
+    {
+      "name": "WC43 shared number line includes all supplier numbers and ownership",
+      "pass": true
+    },
+    {
+      "name": "WC43 driver card recognises supplier numbers",
+      "pass": true
+    },
+    {
+      "name": "WC43 equipment card recognises supplier numbers",
+      "pass": true
+    },
+    {
+      "name": "WC43 load brief recognises supplier numbers",
+      "pass": true
+    },
+    {
+      "name": "WC43 shared driver message includes supplier numbers",
+      "pass": true
+    },
+    {
+      "name": "WC43 printed drop sheet includes all supplier numbers",
+      "pass": true
+    },
+    {
+      "name": "WC43 driver email rendering includes supplier numbers without sending",
+      "pass": true
+    },
+    {
+      "name": "WC43 plant register includes supplier numbers",
+      "pass": true
+    },
+    {
+      "name": "WC43 wholly sub-hired driver card has no Coates rental ID",
+      "pass": true
+    },
+    {
+      "name": "WC43 wholly sub-hired plant register has no Coates rental ID",
+      "pass": true
+    },
+    {
+      "name": "WC43 reference-labelled number line includes supplier numbers",
+      "pass": true
+    },
+    {
+      "name": "WC43 Change deliveries row includes supplier numbers",
+      "pass": true
+    },
+    {
+      "name": "WC43 search result recognises supplier numbers",
+      "pass": true
+    },
+    {
+      "name": "WC43 unit list preserves short supplier IDs as numbers",
+      "pass": true
+    },
+    {
+      "name": "WC43 drawer has no false missing-number message",
+      "pass": true
+    },
+    {
+      "name": "WC43 edit form has no false missing-number message",
+      "pass": true
+    },
+    {
+      "name": "WC81 shared number line includes all supplier numbers and ownership",
+      "pass": true
+    },
+    {
+      "name": "WC81 driver card recognises supplier numbers",
+      "pass": true
+    },
+    {
+      "name": "WC81 equipment card recognises supplier numbers",
+      "pass": true
+    },
+    {
+      "name": "WC81 load brief recognises supplier numbers",
+      "pass": true
+    },
+    {
+      "name": "WC81 shared driver message includes supplier numbers",
+      "pass": true
+    },
+    {
+      "name": "WC81 printed drop sheet includes all supplier numbers",
+      "pass": true
+    },
+    {
+      "name": "WC81 driver email rendering includes supplier numbers without sending",
+      "pass": true
+    },
+    {
+      "name": "WC81 plant register includes supplier numbers",
+      "pass": true
+    },
+    {
+      "name": "WC81 wholly sub-hired driver card has no Coates rental ID",
+      "pass": true
+    },
+    {
+      "name": "WC81 wholly sub-hired plant register has no Coates rental ID",
+      "pass": true
+    },
+    {
+      "name": "WC81 reference-labelled number line includes supplier numbers",
+      "pass": true
+    },
+    {
+      "name": "WC81 Change deliveries row includes supplier numbers",
+      "pass": true
+    },
+    {
+      "name": "WC81 search result recognises supplier numbers",
+      "pass": true
+    },
+    {
+      "name": "WC81 unit list preserves short supplier IDs as numbers",
+      "pass": true
+    },
+    {
+      "name": "WC81 drawer has no false missing-number message",
+      "pass": true
+    },
+    {
+      "name": "WC81 edit form has no false missing-number message",
+      "pass": true
+    },
+    {
+      "name": "sub-hire register continues to show all existing numbers",
+      "pass": true
+    },
+    {
+      "name": "display rendering leaves financial values and Coates numbers unchanged",
+      "pass": true
+    },
+    {
+      "name": "display rendering leaves the shared record untouched",
+      "pass": true
+    },
+    {
+      "name": "unmarked supplier units retain leading zeros and both owners",
+      "pass": true
+    },
+    {
+      "name": "mixed location shows Coates and supplier numbers separately",
+      "pass": true
+    },
+    {
+      "name": "unknown supplier number is not invented",
+      "pass": true
+    },
+    {
+      "name": "partial supplier numbers show the known number and remaining gap",
+      "pass": true
+    },
+    {
+      "name": "supplier text is escaped in display HTML",
+      "pass": true
+    },
+    {
+      "name": "committed supplier number is displayed before removal",
+      "pass": true
+    },
+    {
+      "name": "removed supplier number stays out of display",
+      "pass": true
+    },
+    {
+      "name": "genuinely missing numbers retain an honest missing state",
+      "pass": true
+    },
+    {
+      "name": "quantity-only equipment remains not numbered",
+      "pass": true
+    },
+    {
+      "name": "isolated fixtures restore the record exactly",
+      "pass": true
+    },
+    {
+      "name": "drawer fits viewport",
+      "pass": true
+    },
+    {
+      "name": "view link stays read-only",
+      "pass": true
+    },
+    {
+      "name": "no page or console errors",
+      "pass": true
+    },
+    {
+      "name": "no attempted live-record writes",
+      "pass": true
+    }
+  ],
+  "live": [
+    {
+      "key": "WC31",
+      "numbers": [
+        "12"
+      ]
+    },
+    {
+      "key": "WC41",
+      "numbers": [
+        "0521",
+        "0996",
+        "0191",
+        "0669",
+        "0643",
+        "0517",
+        "0682",
+        "0651",
+        "0065",
+        "0518"
+      ]
+    },
+    {
+      "key": "WC42",
+      "numbers": [
+        "0141"
+      ]
+    },
+    {
+      "key": "WC43",
+      "numbers": [
+        "0723",
+        "0056",
+        "0161",
+        "0182",
+        "0528",
+        "0696",
+        "0420",
+        "0961",
+        "0646",
+        "0581"
+      ]
+    },
+    {
+      "key": "WC81",
+      "numbers": [
+        "0124"
+      ]
+    }
+  ],
+  "readonly": true,
+  "passed": 95,
+  "total": 95,
+  "pageErrors": [],
+  "consoleErrors": [],
+  "blockedWrites": 0
+}

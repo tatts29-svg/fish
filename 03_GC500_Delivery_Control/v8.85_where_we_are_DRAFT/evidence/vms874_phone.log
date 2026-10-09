@@ -1,0 +1,19 @@
+PASS card
+PASS scope
+PASS total
+PASS done
+PASS left
+PASS pct
+PASS plan
+PASS group
+PASS noDuplicate
+PASS coverage
+PASS type
+PASS unchanged
+PASS visible VMS card
+PASS VMS navigation
+PASS no horizontal overflow
+PASS guide in Transport
+PASS no runtime errors
+PASS no attempted live writes
+phone: 18/18

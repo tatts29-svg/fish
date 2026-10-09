@@ -1,0 +1,1500 @@
+{
+  "author": "Andrew Fisher",
+  "candidateSha256": "9a52ec22c794a514d44936ef84335b62a6876c2664fa54f211a35f1315666d95",
+  "runs": [
+    {
+      "mode": "phone",
+      "checks": [
+        {
+          "name": "2026-10-06 drv note appears exactly once on its delivery load",
+          "pass": true,
+          "detail": "DELIVERY NOTE\nP08 · Andrew Fisher — Tue 06 Oct 2026: \"3x buildings are coming in to Commodore park please make sure the team keep an eye on the drivers is a tight area and have had a couple of incidents with hitting light poles in past years.\" Count discrepancy awaiting Andrew's clarification: the programme currently lists four buildings (P08, P46, P47, P51); Andrew said 3x. No programme quantities or dates changed."
+        },
+        {
+          "name": "2026-10-06 drv A4 remains within its page",
+          "pass": true,
+          "detail": {
+            "baseline": {
+              "height": 1058,
+              "scrollHeight": 1058,
+              "k": "0.8"
+            },
+            "added": {
+              "height": 1058,
+              "scrollHeight": 1058,
+              "k": "0.8"
+            }
+          }
+        },
+        {
+          "name": "2026-10-06 drv load hero, QR, photos and location signs preserved",
+          "pass": true,
+          "detail": {
+            "baseline": {
+              "photos": 4,
+              "navQr": 1,
+              "locationSigns": 1
+            },
+            "added": {
+              "photos": 4,
+              "navQr": 1,
+              "locationSigns": 1
+            }
+          }
+        },
+        {
+          "name": "2026-10-06 drv preview fits actual device viewport",
+          "pass": true,
+          "detail": {
+            "left": 6.1875,
+            "right": 383.796875,
+            "width": 377.609375,
+            "top": 106.171875
+          }
+        },
+        {
+          "name": "2026-10-06 drv page header clears wrapped toolbar",
+          "pass": true,
+          "detail": {
+            "headerTop": 106.171875,
+            "barBottom": 99.265625
+          }
+        },
+        {
+          "name": "2026-10-06 ins note appears exactly once on its delivery load",
+          "pass": true,
+          "detail": "DELIVERY NOTE\nP08 · Andrew Fisher — Tue 06 Oct 2026: \"3x buildings are coming in to Commodore park please make sure the team keep an eye on the drivers is a tight area and have had a couple of incidents with hitting light poles in past years.\" Count discrepancy awaiting Andrew's clarification: the programme currently lists four buildings (P08, P46, P47, P51); Andrew said 3x. No programme quantities or dates changed."
+        },
+        {
+          "name": "2026-10-06 ins A4 remains within its page",
+          "pass": true,
+          "detail": {
+            "baseline": {
+              "height": 1058,
+              "scrollHeight": 1058,
+              "k": "0.8"
+            },
+            "added": {
+              "height": 1058,
+              "scrollHeight": 1058,
+              "k": "0.8"
+            }
+          }
+        },
+        {
+          "name": "2026-10-06 ins load hero, QR, photos and location signs preserved",
+          "pass": true,
+          "detail": {
+            "baseline": {
+              "photos": 4,
+              "navQr": 1,
+              "locationSigns": 0
+            },
+            "added": {
+              "photos": 4,
+              "navQr": 1,
+              "locationSigns": 0
+            }
+          }
+        },
+        {
+          "name": "2026-10-06 ins preview fits actual device viewport",
+          "pass": true,
+          "detail": {
+            "left": 6.1875,
+            "right": 383.796875,
+            "width": 377.609375,
+            "top": 106.171875
+          }
+        },
+        {
+          "name": "2026-10-06 ins page header clears wrapped toolbar",
+          "pass": true,
+          "detail": {
+            "headerTop": 106.171875,
+            "barBottom": 99.265625
+          }
+        },
+        {
+          "name": "2026-10-07 drv note appears exactly once on its delivery load",
+          "pass": true,
+          "detail": "DELIVERY NOTE\nP52 · Andrew Fisher — Wed 07 Oct 2026: \"Wednesday will be Helen park these are craned in under traffic control. BSF cranes have been booked will be there from 7am. They will do there own inductions and lift plan will need to be signed off by David or Steve before they start. They will also install WC20 toilets after Helen park.\""
+        },
+        {
+          "name": "2026-10-07 drv A4 remains within its page",
+          "pass": true,
+          "detail": {
+            "baseline": {
+              "height": 1058,
+              "scrollHeight": 1058,
+              "k": "0.8"
+            },
+            "added": {
+              "height": 1058,
+              "scrollHeight": 1058,
+              "k": "0.8"
+            }
+          }
+        },
+        {
+          "name": "2026-10-07 drv load hero, QR, photos and location signs preserved",
+          "pass": true,
+          "detail": {
+            "baseline": {
+              "photos": 4,
+              "navQr": 1,
+              "locationSigns": 1
+            },
+            "added": {
+              "photos": 4,
+              "navQr": 1,
+              "locationSigns": 1
+            }
+          }
+        },
+        {
+          "name": "2026-10-07 drv preview fits actual device viewport",
+          "pass": true,
+          "detail": {
+            "left": 6.1875,
+            "right": 383.796875,
+            "width": 377.609375,
+            "top": 106.171875
+          }
+        },
+        {
+          "name": "2026-10-07 drv page header clears wrapped toolbar",
+          "pass": true,
+          "detail": {
+            "headerTop": 106.171875,
+            "barBottom": 99.265625
+          }
+        },
+        {
+          "name": "2026-10-07 ins note appears exactly once on its delivery load",
+          "pass": true,
+          "detail": "DELIVERY NOTE\nP52 · Andrew Fisher — Wed 07 Oct 2026: \"Wednesday will be Helen park these are craned in under traffic control. BSF cranes have been booked will be there from 7am. They will do there own inductions and lift plan will need to be signed off by David or Steve before they start. They will also install WC20 toilets after Helen park.\""
+        },
+        {
+          "name": "2026-10-07 ins A4 remains within its page",
+          "pass": true,
+          "detail": {
+            "baseline": {
+              "height": 1058,
+              "scrollHeight": 1058,
+              "k": "0.8"
+            },
+            "added": {
+              "height": 1058,
+              "scrollHeight": 1058,
+              "k": "0.8"
+            }
+          }
+        },
+        {
+          "name": "2026-10-07 ins load hero, QR, photos and location signs preserved",
+          "pass": true,
+          "detail": {
+            "baseline": {
+              "photos": 4,
+              "navQr": 1,
+              "locationSigns": 0
+            },
+            "added": {
+              "photos": 4,
+              "navQr": 1,
+              "locationSigns": 0
+            }
+          }
+        },
+        {
+          "name": "2026-10-07 ins preview fits actual device viewport",
+          "pass": true,
+          "detail": {
+            "left": 6.1875,
+            "right": 383.796875,
+            "width": 377.609375,
+            "top": 106.171875
+          }
+        },
+        {
+          "name": "2026-10-07 ins page header clears wrapped toolbar",
+          "pass": true,
+          "detail": {
+            "headerTop": 106.171875,
+            "barBottom": 99.265625
+          }
+        },
+        {
+          "name": "reused preview A retains photos, note and A4/phone fit",
+          "pass": true,
+          "detail": {
+            "photos": 4,
+            "navQr": 1,
+            "over": [],
+            "rect": {
+              "left": 6.1875,
+              "right": 383.796875,
+              "width": 377.609375,
+              "top": 106.171875
+            },
+            "headerTop": 106.171875,
+            "barBottom": 99.265625
+          }
+        },
+        {
+          "name": "reused preview B retains photos, note and A4/phone fit",
+          "pass": true,
+          "detail": {
+            "photos": 4,
+            "navQr": 1,
+            "over": [],
+            "rect": {
+              "left": 6.1875,
+              "right": 383.796875,
+              "width": 377.609375,
+              "top": 106.171875
+            },
+            "headerTop": 106.171875,
+            "barBottom": 99.265625
+          }
+        },
+        {
+          "name": "reused preview A again retains photos, note and A4/phone fit",
+          "pass": true,
+          "detail": {
+            "photos": 4,
+            "navQr": 1,
+            "over": [],
+            "rect": {
+              "left": 6.1875,
+              "right": 383.796875,
+              "width": 377.609375,
+              "top": 106.171875
+            },
+            "headerTop": 106.171875,
+            "barBottom": 99.265625
+          }
+        },
+        {
+          "name": "long toolbar status keeps full document header clear",
+          "pass": true,
+          "detail": {
+            "headerTop": 215.171875,
+            "barBottom": 208.390625,
+            "offset": "209px",
+            "pageRight": 383.796875
+          }
+        },
+        {
+          "name": "existing resize handler refits toolbar offset at 320px",
+          "pass": true,
+          "detail": {
+            "headerTop": 250.03125,
+            "barBottom": 244.765625,
+            "offset": "245px",
+            "pageRight": 313.96875
+          }
+        },
+        {
+          "name": "existing resize handler refits toolbar offset at 390px",
+          "pass": true,
+          "detail": {
+            "headerTop": 215.171875,
+            "barBottom": 208.390625,
+            "offset": "209px",
+            "pageRight": 383.796875
+          }
+        },
+        {
+          "name": "physical print retains zero toolbar offset",
+          "pass": true,
+          "detail": {
+            "padding": 0,
+            "bar": "none"
+          }
+        },
+        {
+          "name": "long note is retained and reported as running long",
+          "pass": true,
+          "detail": {
+            "over": [
+              "load 1"
+            ],
+            "chars": 6459
+          }
+        },
+        {
+          "name": "closing preview clears measured toolbar offset",
+          "pass": true
+        },
+        {
+          "name": "no page exceptions",
+          "pass": true,
+          "detail": []
+        },
+        {
+          "name": "only expected map-session POST blocked",
+          "pass": true,
+          "detail": [
+            {
+              "method": "POST",
+              "path": "/v1/createSession"
+            }
+          ]
+        }
+      ],
+      "errors": [],
+      "blocked": [
+        {
+          "method": "POST",
+          "path": "/v1/createSession"
+        }
+      ],
+      "cases": [
+        {
+          "iso": "2026-10-06",
+          "doc": "drv",
+          "refs": [
+            "P08"
+          ],
+          "key": "P08",
+          "baseline": {
+            "verdict": {
+              "failed": 0,
+              "over": [],
+              "pages": 1
+            },
+            "loadPages": 1,
+            "locationSigns": 1,
+            "height": 1058,
+            "scrollHeight": 1058,
+            "width": 733,
+            "scrollWidth": 733,
+            "note": "",
+            "noteCount": 0,
+            "photos": 4,
+            "navQr": 1,
+            "hero": "DELIVER\nP08\n1 × Building 6m → Security\nDATE\nTue 06 Oct 2026\nLOAD TIME\nCARRIER\nON SITE\nAfter 07:00\nLOAD\nOwn page · no shared load recorded",
+            "k": "0.8",
+            "viewRect": {
+              "left": 6.1875,
+              "right": 383.796875,
+              "width": 377.609375,
+              "top": 106.171875
+            },
+            "headerTop": 106.171875,
+            "barBottom": 99.265625,
+            "viewport": 390
+          },
+          "added": {
+            "verdict": {
+              "failed": 0,
+              "over": [],
+              "pages": 1
+            },
+            "loadPages": 1,
+            "locationSigns": 1,
+            "height": 1058,
+            "scrollHeight": 1058,
+            "width": 733,
+            "scrollWidth": 733,
+            "note": "DELIVERY NOTE\nP08 · Andrew Fisher — Tue 06 Oct 2026: \"3x buildings are coming in to Commodore park please make sure the team keep an eye on the drivers is a tight area and have had a couple of incidents with hitting light poles in past years.\" Count discrepancy awaiting Andrew's clarification: the programme currently lists four buildings (P08, P46, P47, P51); Andrew said 3x. No programme quantities or dates changed.",
+            "noteCount": 1,
+            "photos": 4,
+            "navQr": 1,
+            "hero": "DELIVER\nP08\n1 × Building 6m → Security\nDATE\nTue 06 Oct 2026\nLOAD TIME\nCARRIER\nON SITE\nAfter 07:00\nLOAD\nOwn page · no shared load recorded",
+            "k": "0.8",
+            "viewRect": {
+              "left": 6.1875,
+              "right": 383.796875,
+              "width": 377.609375,
+              "top": 106.171875
+            },
+            "headerTop": 106.171875,
+            "barBottom": 99.265625,
+            "viewport": 390
+          }
+        },
+        {
+          "iso": "2026-10-06",
+          "doc": "ins",
+          "refs": [
+            "P08"
+          ],
+          "key": "P08",
+          "baseline": {
+            "verdict": {
+              "failed": 0,
+              "over": [],
+              "pages": 1
+            },
+            "loadPages": 1,
+            "locationSigns": 0,
+            "height": 1058,
+            "scrollHeight": 1058,
+            "width": 733,
+            "scrollWidth": 733,
+            "note": "",
+            "noteCount": 0,
+            "photos": 4,
+            "navQr": 1,
+            "hero": "INSTALL\nP08\n1 × Building 6m → Security\nDATE\nTue 06 Oct 2026\nTRUCK LEAVES\nCARRIER\nON SITE\nAfter 07:00\nLOAD\nOwn page · no shared load recorded",
+            "k": "0.8",
+            "viewRect": {
+              "left": 6.1875,
+              "right": 383.796875,
+              "width": 377.609375,
+              "top": 106.171875
+            },
+            "headerTop": 106.171875,
+            "barBottom": 99.265625,
+            "viewport": 390
+          },
+          "added": {
+            "verdict": {
+              "failed": 0,
+              "over": [],
+              "pages": 1
+            },
+            "loadPages": 1,
+            "locationSigns": 0,
+            "height": 1058,
+            "scrollHeight": 1058,
+            "width": 733,
+            "scrollWidth": 733,
+            "note": "DELIVERY NOTE\nP08 · Andrew Fisher — Tue 06 Oct 2026: \"3x buildings are coming in to Commodore park please make sure the team keep an eye on the drivers is a tight area and have had a couple of incidents with hitting light poles in past years.\" Count discrepancy awaiting Andrew's clarification: the programme currently lists four buildings (P08, P46, P47, P51); Andrew said 3x. No programme quantities or dates changed.",
+            "noteCount": 1,
+            "photos": 4,
+            "navQr": 1,
+            "hero": "INSTALL\nP08\n1 × Building 6m → Security\nDATE\nTue 06 Oct 2026\nTRUCK LEAVES\nCARRIER\nON SITE\nAfter 07:00\nLOAD\nOwn page · no shared load recorded",
+            "k": "0.8",
+            "viewRect": {
+              "left": 6.1875,
+              "right": 383.796875,
+              "width": 377.609375,
+              "top": 106.171875
+            },
+            "headerTop": 106.171875,
+            "barBottom": 99.265625,
+            "viewport": 390
+          }
+        },
+        {
+          "iso": "2026-10-07",
+          "doc": "drv",
+          "refs": [
+            "P52"
+          ],
+          "key": "P52",
+          "baseline": {
+            "verdict": {
+              "failed": 0,
+              "over": [],
+              "pages": 1
+            },
+            "loadPages": 1,
+            "locationSigns": 1,
+            "height": 1058,
+            "scrollHeight": 1058,
+            "width": 733,
+            "scrollWidth": 733,
+            "note": "",
+            "noteCount": 0,
+            "photos": 4,
+            "navQr": 1,
+            "hero": "DELIVER\nP52\n1 × Building 12m → Gate 1 Volunteer Check-In\nDATE\nWed 07 Oct 2026\nLOAD TIME\nCARRIER\nON SITE\nAfter 07:00\nLOAD\nOwn page · no shared load recorded",
+            "k": "0.8",
+            "viewRect": {
+              "left": 6.1875,
+              "right": 383.796875,
+              "width": 377.609375,
+              "top": 106.171875
+            },
+            "headerTop": 106.171875,
+            "barBottom": 99.265625,
+            "viewport": 390
+          },
+          "added": {
+            "verdict": {
+              "failed": 0,
+              "over": [],
+              "pages": 1
+            },
+            "loadPages": 1,
+            "locationSigns": 1,
+            "height": 1058,
+            "scrollHeight": 1058,
+            "width": 733,
+            "scrollWidth": 733,
+            "note": "DELIVERY NOTE\nP52 · Andrew Fisher — Wed 07 Oct 2026: \"Wednesday will be Helen park these are craned in under traffic control. BSF cranes have been booked will be there from 7am. They will do there own inductions and lift plan will need to be signed off by David or Steve before they start. They will also install WC20 toilets after Helen park.\"",
+            "noteCount": 1,
+            "photos": 4,
+            "navQr": 1,
+            "hero": "DELIVER\nP52\n1 × Building 12m → Gate 1 Volunteer Check-In\nDATE\nWed 07 Oct 2026\nLOAD TIME\nCARRIER\nON SITE\nAfter 07:00\nLOAD\nOwn page · no shared load recorded",
+            "k": "0.8",
+            "viewRect": {
+              "left": 6.1875,
+              "right": 383.796875,
+              "width": 377.609375,
+              "top": 106.171875
+            },
+            "headerTop": 106.171875,
+            "barBottom": 99.265625,
+            "viewport": 390
+          }
+        },
+        {
+          "iso": "2026-10-07",
+          "doc": "ins",
+          "refs": [
+            "P52"
+          ],
+          "key": "P52",
+          "baseline": {
+            "verdict": {
+              "failed": 0,
+              "over": [],
+              "pages": 1
+            },
+            "loadPages": 1,
+            "locationSigns": 0,
+            "height": 1058,
+            "scrollHeight": 1058,
+            "width": 733,
+            "scrollWidth": 733,
+            "note": "",
+            "noteCount": 0,
+            "photos": 4,
+            "navQr": 1,
+            "hero": "INSTALL\nP52\n1 × Building 12m → Gate 1 Volunteer Check-In\nDATE\nWed 07 Oct 2026\nTRUCK LEAVES\nCARRIER\nON SITE\nAfter 07:00\nLOAD\nOwn page · no shared load recorded",
+            "k": "0.8",
+            "viewRect": {
+              "left": 6.1875,
+              "right": 383.796875,
+              "width": 377.609375,
+              "top": 106.171875
+            },
+            "headerTop": 106.171875,
+            "barBottom": 99.265625,
+            "viewport": 390
+          },
+          "added": {
+            "verdict": {
+              "failed": 0,
+              "over": [],
+              "pages": 1
+            },
+            "loadPages": 1,
+            "locationSigns": 0,
+            "height": 1058,
+            "scrollHeight": 1058,
+            "width": 733,
+            "scrollWidth": 733,
+            "note": "DELIVERY NOTE\nP52 · Andrew Fisher — Wed 07 Oct 2026: \"Wednesday will be Helen park these are craned in under traffic control. BSF cranes have been booked will be there from 7am. They will do there own inductions and lift plan will need to be signed off by David or Steve before they start. They will also install WC20 toilets after Helen park.\"",
+            "noteCount": 1,
+            "photos": 4,
+            "navQr": 1,
+            "hero": "INSTALL\nP52\n1 × Building 12m → Gate 1 Volunteer Check-In\nDATE\nWed 07 Oct 2026\nTRUCK LEAVES\nCARRIER\nON SITE\nAfter 07:00\nLOAD\nOwn page · no shared load recorded",
+            "k": "0.8",
+            "viewRect": {
+              "left": 6.1875,
+              "right": 383.796875,
+              "width": 377.609375,
+              "top": 106.171875
+            },
+            "headerTop": 106.171875,
+            "barBottom": 99.265625,
+            "viewport": 390
+          }
+        }
+      ],
+      "browserVersion": "151.0.7922.173",
+      "capabilities": {
+        "isSecureContext": true,
+        "cryptoSubtle": true,
+        "blobArrayBuffer": true,
+        "webLocks": true
+      },
+      "previewSequence": [
+        {
+          "label": "A",
+          "iso": "2026-10-06",
+          "doc": "drv",
+          "printed": {
+            "verdict": {
+              "failed": 0,
+              "over": [],
+              "pages": 1
+            },
+            "loadPages": 1,
+            "locationSigns": 1,
+            "height": 1058,
+            "scrollHeight": 1058,
+            "width": 733,
+            "scrollWidth": 733,
+            "note": "DELIVERY NOTE\nP08 · Andrew Fisher — Tue 06 Oct 2026: \"3x buildings are coming in to Commodore park please make sure the team keep an eye on the drivers is a tight area and have had a couple of incidents with hitting light poles in past years.\" Count discrepancy awaiting Andrew's clarification: the programme currently lists four buildings (P08, P46, P47, P51); Andrew said 3x. No programme quantities or dates changed.",
+            "noteCount": 1,
+            "photos": 4,
+            "navQr": 1,
+            "hero": "DELIVER\nP08\n1 × Building 6m → Security\nDATE\nTue 06 Oct 2026\nLOAD TIME\nCARRIER\nON SITE\nAfter 07:00\nLOAD\nOwn page · no shared load recorded",
+            "k": "0.8",
+            "viewRect": {
+              "left": 6.1875,
+              "right": 383.796875,
+              "width": 377.609375,
+              "top": 106.171875
+            },
+            "headerTop": 106.171875,
+            "barBottom": 99.265625,
+            "viewport": 390
+          }
+        },
+        {
+          "label": "B",
+          "iso": "2026-10-07",
+          "doc": "ins",
+          "printed": {
+            "verdict": {
+              "failed": 0,
+              "over": [],
+              "pages": 1
+            },
+            "loadPages": 1,
+            "locationSigns": 0,
+            "height": 1058,
+            "scrollHeight": 1058,
+            "width": 733,
+            "scrollWidth": 733,
+            "note": "DELIVERY NOTE\nP52 · Andrew Fisher — Wed 07 Oct 2026: \"Wednesday will be Helen park these are craned in under traffic control. BSF cranes have been booked will be there from 7am. They will do there own inductions and lift plan will need to be signed off by David or Steve before they start. They will also install WC20 toilets after Helen park.\"",
+            "noteCount": 1,
+            "photos": 4,
+            "navQr": 1,
+            "hero": "INSTALL\nP52\n1 × Building 12m → Gate 1 Volunteer Check-In\nDATE\nWed 07 Oct 2026\nTRUCK LEAVES\nCARRIER\nON SITE\nAfter 07:00\nLOAD\nOwn page · no shared load recorded",
+            "k": "0.8",
+            "viewRect": {
+              "left": 6.1875,
+              "right": 383.796875,
+              "width": 377.609375,
+              "top": 106.171875
+            },
+            "headerTop": 106.171875,
+            "barBottom": 99.265625,
+            "viewport": 390
+          }
+        },
+        {
+          "label": "A again",
+          "iso": "2026-10-06",
+          "doc": "drv",
+          "printed": {
+            "verdict": {
+              "failed": 0,
+              "over": [],
+              "pages": 1
+            },
+            "loadPages": 1,
+            "locationSigns": 1,
+            "height": 1058,
+            "scrollHeight": 1058,
+            "width": 733,
+            "scrollWidth": 733,
+            "note": "DELIVERY NOTE\nP08 · Andrew Fisher — Tue 06 Oct 2026: \"3x buildings are coming in to Commodore park please make sure the team keep an eye on the drivers is a tight area and have had a couple of incidents with hitting light poles in past years.\" Count discrepancy awaiting Andrew's clarification: the programme currently lists four buildings (P08, P46, P47, P51); Andrew said 3x. No programme quantities or dates changed.",
+            "noteCount": 1,
+            "photos": 4,
+            "navQr": 1,
+            "hero": "DELIVER\nP08\n1 × Building 6m → Security\nDATE\nTue 06 Oct 2026\nLOAD TIME\nCARRIER\nON SITE\nAfter 07:00\nLOAD\nOwn page · no shared load recorded",
+            "k": "0.8",
+            "viewRect": {
+              "left": 6.1875,
+              "right": 383.796875,
+              "width": 377.609375,
+              "top": 106.171875
+            },
+            "headerTop": 106.171875,
+            "barBottom": 99.265625,
+            "viewport": 390
+          }
+        }
+      ],
+      "longInstruction": {
+        "verdict": {
+          "failed": 0,
+          "over": [
+            "load 1"
+          ],
+          "pages": 1
+        },
+        "loadPages": 1,
+        "locationSigns": 0,
+        "height": 1058,
+        "scrollHeight": 1119,
+        "width": 733,
+        "scrollWidth": 733,
+        "note": "DELIVERY NOTE\nP08 · Long test instruction: Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. FINAL END MARKER",
+        "noteCount": 1,
+        "photos": 6,
+        "navQr": 1,
+        "hero": "INSTALL\nP08\n1 × Building 6m → Security\nDATE\nTue 06 Oct 2026\nTRUCK LEAVES\nCARRIER\nON SITE\nAfter 07:00\nLOAD\nOwn page · no shared load recorded",
+        "k": "0.64",
+        "viewRect": {
+          "left": 6.1875,
+          "right": 383.796875,
+          "width": 377.609375,
+          "top": 106.171875
+        },
+        "headerTop": 106.171875,
+        "barBottom": 99.265625,
+        "viewport": 390
+      },
+      "passed": 31
+    },
+    {
+      "mode": "desktop",
+      "checks": [
+        {
+          "name": "2026-10-06 drv note appears exactly once on its delivery load",
+          "pass": true,
+          "detail": "DELIVERY NOTE\nP08 · Andrew Fisher — Tue 06 Oct 2026: \"3x buildings are coming in to Commodore park please make sure the team keep an eye on the drivers is a tight area and have had a couple of incidents with hitting light poles in past years.\" Count discrepancy awaiting Andrew's clarification: the programme currently lists four buildings (P08, P46, P47, P51); Andrew said 3x. No programme quantities or dates changed."
+        },
+        {
+          "name": "2026-10-06 drv A4 remains within its page",
+          "pass": true,
+          "detail": {
+            "baseline": {
+              "height": 1058,
+              "scrollHeight": 1058,
+              "k": "0.8"
+            },
+            "added": {
+              "height": 1058,
+              "scrollHeight": 1058,
+              "k": "0.8"
+            }
+          }
+        },
+        {
+          "name": "2026-10-06 drv load hero, QR, photos and location signs preserved",
+          "pass": true,
+          "detail": {
+            "baseline": {
+              "photos": 4,
+              "navQr": 1,
+              "locationSigns": 1
+            },
+            "added": {
+              "photos": 4,
+              "navQr": 1,
+              "locationSigns": 1
+            }
+          }
+        },
+        {
+          "name": "2026-10-06 drv preview fits actual device viewport",
+          "pass": true,
+          "detail": {
+            "left": 353.390625,
+            "right": 1086.609375,
+            "width": 733.21875,
+            "top": 67
+          }
+        },
+        {
+          "name": "2026-10-06 drv page header clears wrapped toolbar",
+          "pass": true,
+          "detail": {
+            "headerTop": 67,
+            "barBottom": 54.890625
+          }
+        },
+        {
+          "name": "2026-10-06 ins note appears exactly once on its delivery load",
+          "pass": true,
+          "detail": "DELIVERY NOTE\nP08 · Andrew Fisher — Tue 06 Oct 2026: \"3x buildings are coming in to Commodore park please make sure the team keep an eye on the drivers is a tight area and have had a couple of incidents with hitting light poles in past years.\" Count discrepancy awaiting Andrew's clarification: the programme currently lists four buildings (P08, P46, P47, P51); Andrew said 3x. No programme quantities or dates changed."
+        },
+        {
+          "name": "2026-10-06 ins A4 remains within its page",
+          "pass": true,
+          "detail": {
+            "baseline": {
+              "height": 1058,
+              "scrollHeight": 1058,
+              "k": "0.8"
+            },
+            "added": {
+              "height": 1058,
+              "scrollHeight": 1058,
+              "k": "0.8"
+            }
+          }
+        },
+        {
+          "name": "2026-10-06 ins load hero, QR, photos and location signs preserved",
+          "pass": true,
+          "detail": {
+            "baseline": {
+              "photos": 4,
+              "navQr": 1,
+              "locationSigns": 0
+            },
+            "added": {
+              "photos": 4,
+              "navQr": 1,
+              "locationSigns": 0
+            }
+          }
+        },
+        {
+          "name": "2026-10-06 ins preview fits actual device viewport",
+          "pass": true,
+          "detail": {
+            "left": 353.390625,
+            "right": 1086.609375,
+            "width": 733.21875,
+            "top": 67
+          }
+        },
+        {
+          "name": "2026-10-06 ins page header clears wrapped toolbar",
+          "pass": true,
+          "detail": {
+            "headerTop": 67,
+            "barBottom": 54.890625
+          }
+        },
+        {
+          "name": "2026-10-07 drv note appears exactly once on its delivery load",
+          "pass": true,
+          "detail": "DELIVERY NOTE\nP52 · Andrew Fisher — Wed 07 Oct 2026: \"Wednesday will be Helen park these are craned in under traffic control. BSF cranes have been booked will be there from 7am. They will do there own inductions and lift plan will need to be signed off by David or Steve before they start. They will also install WC20 toilets after Helen park.\""
+        },
+        {
+          "name": "2026-10-07 drv A4 remains within its page",
+          "pass": true,
+          "detail": {
+            "baseline": {
+              "height": 1058,
+              "scrollHeight": 1058,
+              "k": "0.8"
+            },
+            "added": {
+              "height": 1058,
+              "scrollHeight": 1058,
+              "k": "0.8"
+            }
+          }
+        },
+        {
+          "name": "2026-10-07 drv load hero, QR, photos and location signs preserved",
+          "pass": true,
+          "detail": {
+            "baseline": {
+              "photos": 4,
+              "navQr": 1,
+              "locationSigns": 1
+            },
+            "added": {
+              "photos": 4,
+              "navQr": 1,
+              "locationSigns": 1
+            }
+          }
+        },
+        {
+          "name": "2026-10-07 drv preview fits actual device viewport",
+          "pass": true,
+          "detail": {
+            "left": 353.390625,
+            "right": 1086.609375,
+            "width": 733.21875,
+            "top": 67
+          }
+        },
+        {
+          "name": "2026-10-07 drv page header clears wrapped toolbar",
+          "pass": true,
+          "detail": {
+            "headerTop": 67,
+            "barBottom": 54.890625
+          }
+        },
+        {
+          "name": "2026-10-07 ins note appears exactly once on its delivery load",
+          "pass": true,
+          "detail": "DELIVERY NOTE\nP52 · Andrew Fisher — Wed 07 Oct 2026: \"Wednesday will be Helen park these are craned in under traffic control. BSF cranes have been booked will be there from 7am. They will do there own inductions and lift plan will need to be signed off by David or Steve before they start. They will also install WC20 toilets after Helen park.\""
+        },
+        {
+          "name": "2026-10-07 ins A4 remains within its page",
+          "pass": true,
+          "detail": {
+            "baseline": {
+              "height": 1058,
+              "scrollHeight": 1058,
+              "k": "0.8"
+            },
+            "added": {
+              "height": 1058,
+              "scrollHeight": 1058,
+              "k": "0.8"
+            }
+          }
+        },
+        {
+          "name": "2026-10-07 ins load hero, QR, photos and location signs preserved",
+          "pass": true,
+          "detail": {
+            "baseline": {
+              "photos": 4,
+              "navQr": 1,
+              "locationSigns": 0
+            },
+            "added": {
+              "photos": 4,
+              "navQr": 1,
+              "locationSigns": 0
+            }
+          }
+        },
+        {
+          "name": "2026-10-07 ins preview fits actual device viewport",
+          "pass": true,
+          "detail": {
+            "left": 353.390625,
+            "right": 1086.609375,
+            "width": 733.21875,
+            "top": 67
+          }
+        },
+        {
+          "name": "2026-10-07 ins page header clears wrapped toolbar",
+          "pass": true,
+          "detail": {
+            "headerTop": 67,
+            "barBottom": 54.890625
+          }
+        },
+        {
+          "name": "reused preview A retains photos, note and A4/phone fit",
+          "pass": true,
+          "detail": {
+            "photos": 4,
+            "navQr": 1,
+            "over": [],
+            "rect": {
+              "left": 353.390625,
+              "right": 1086.609375,
+              "width": 733.21875,
+              "top": 67
+            },
+            "headerTop": 67,
+            "barBottom": 54.890625
+          }
+        },
+        {
+          "name": "reused preview B retains photos, note and A4/phone fit",
+          "pass": true,
+          "detail": {
+            "photos": 4,
+            "navQr": 1,
+            "over": [],
+            "rect": {
+              "left": 353.390625,
+              "right": 1086.609375,
+              "width": 733.21875,
+              "top": 67
+            },
+            "headerTop": 67,
+            "barBottom": 54.890625
+          }
+        },
+        {
+          "name": "reused preview A again retains photos, note and A4/phone fit",
+          "pass": true,
+          "detail": {
+            "photos": 4,
+            "navQr": 1,
+            "over": [],
+            "rect": {
+              "left": 353.390625,
+              "right": 1086.609375,
+              "width": 733.21875,
+              "top": 67
+            },
+            "headerTop": 67,
+            "barBottom": 54.890625
+          }
+        },
+        {
+          "name": "long toolbar status keeps full document header clear",
+          "pass": true,
+          "detail": {
+            "headerTop": 87,
+            "barBottom": 74.5625,
+            "offset": "75px",
+            "pageRight": 1086.609375
+          }
+        },
+        {
+          "name": "existing resize handler refits toolbar offset at 1000px",
+          "pass": true,
+          "detail": {
+            "headerTop": 105,
+            "barBottom": 92.75,
+            "offset": "93px",
+            "pageRight": 866.609375
+          }
+        },
+        {
+          "name": "existing resize handler refits toolbar offset at 1440px",
+          "pass": true,
+          "detail": {
+            "headerTop": 87,
+            "barBottom": 74.5625,
+            "offset": "75px",
+            "pageRight": 1086.609375
+          }
+        },
+        {
+          "name": "physical print retains zero toolbar offset",
+          "pass": true,
+          "detail": {
+            "padding": 0,
+            "bar": "none"
+          }
+        },
+        {
+          "name": "long note is retained and reported as running long",
+          "pass": true,
+          "detail": {
+            "over": [
+              "load 1"
+            ],
+            "chars": 6459
+          }
+        },
+        {
+          "name": "closing preview clears measured toolbar offset",
+          "pass": true
+        },
+        {
+          "name": "no page exceptions",
+          "pass": true,
+          "detail": []
+        },
+        {
+          "name": "only expected map-session POST blocked",
+          "pass": true,
+          "detail": [
+            {
+              "method": "POST",
+              "path": "/v1/createSession"
+            }
+          ]
+        }
+      ],
+      "errors": [],
+      "blocked": [
+        {
+          "method": "POST",
+          "path": "/v1/createSession"
+        }
+      ],
+      "cases": [
+        {
+          "iso": "2026-10-06",
+          "doc": "drv",
+          "refs": [
+            "P08"
+          ],
+          "key": "P08",
+          "baseline": {
+            "verdict": {
+              "failed": 0,
+              "over": [],
+              "pages": 1
+            },
+            "loadPages": 1,
+            "locationSigns": 1,
+            "height": 1058,
+            "scrollHeight": 1058,
+            "width": 733,
+            "scrollWidth": 733,
+            "note": "",
+            "noteCount": 0,
+            "photos": 4,
+            "navQr": 1,
+            "hero": "DELIVER\nP08\n1 × Building 6m → Security\nDATE\nTue 06 Oct 2026\nLOAD TIME\nCARRIER\nON SITE\nAfter 07:00\nLOAD\nOwn page · no shared load recorded",
+            "k": "0.8",
+            "viewRect": {
+              "left": 353.390625,
+              "right": 1086.609375,
+              "width": 733.21875,
+              "top": 67
+            },
+            "headerTop": 67,
+            "barBottom": 54.890625,
+            "viewport": 1440
+          },
+          "added": {
+            "verdict": {
+              "failed": 0,
+              "over": [],
+              "pages": 1
+            },
+            "loadPages": 1,
+            "locationSigns": 1,
+            "height": 1058,
+            "scrollHeight": 1058,
+            "width": 733,
+            "scrollWidth": 733,
+            "note": "DELIVERY NOTE\nP08 · Andrew Fisher — Tue 06 Oct 2026: \"3x buildings are coming in to Commodore park please make sure the team keep an eye on the drivers is a tight area and have had a couple of incidents with hitting light poles in past years.\" Count discrepancy awaiting Andrew's clarification: the programme currently lists four buildings (P08, P46, P47, P51); Andrew said 3x. No programme quantities or dates changed.",
+            "noteCount": 1,
+            "photos": 4,
+            "navQr": 1,
+            "hero": "DELIVER\nP08\n1 × Building 6m → Security\nDATE\nTue 06 Oct 2026\nLOAD TIME\nCARRIER\nON SITE\nAfter 07:00\nLOAD\nOwn page · no shared load recorded",
+            "k": "0.8",
+            "viewRect": {
+              "left": 353.390625,
+              "right": 1086.609375,
+              "width": 733.21875,
+              "top": 67
+            },
+            "headerTop": 67,
+            "barBottom": 54.890625,
+            "viewport": 1440
+          }
+        },
+        {
+          "iso": "2026-10-06",
+          "doc": "ins",
+          "refs": [
+            "P08"
+          ],
+          "key": "P08",
+          "baseline": {
+            "verdict": {
+              "failed": 0,
+              "over": [],
+              "pages": 1
+            },
+            "loadPages": 1,
+            "locationSigns": 0,
+            "height": 1058,
+            "scrollHeight": 1058,
+            "width": 733,
+            "scrollWidth": 733,
+            "note": "",
+            "noteCount": 0,
+            "photos": 4,
+            "navQr": 1,
+            "hero": "INSTALL\nP08\n1 × Building 6m → Security\nDATE\nTue 06 Oct 2026\nTRUCK LEAVES\nCARRIER\nON SITE\nAfter 07:00\nLOAD\nOwn page · no shared load recorded",
+            "k": "0.8",
+            "viewRect": {
+              "left": 353.390625,
+              "right": 1086.609375,
+              "width": 733.21875,
+              "top": 67
+            },
+            "headerTop": 67,
+            "barBottom": 54.890625,
+            "viewport": 1440
+          },
+          "added": {
+            "verdict": {
+              "failed": 0,
+              "over": [],
+              "pages": 1
+            },
+            "loadPages": 1,
+            "locationSigns": 0,
+            "height": 1058,
+            "scrollHeight": 1058,
+            "width": 733,
+            "scrollWidth": 733,
+            "note": "DELIVERY NOTE\nP08 · Andrew Fisher — Tue 06 Oct 2026: \"3x buildings are coming in to Commodore park please make sure the team keep an eye on the drivers is a tight area and have had a couple of incidents with hitting light poles in past years.\" Count discrepancy awaiting Andrew's clarification: the programme currently lists four buildings (P08, P46, P47, P51); Andrew said 3x. No programme quantities or dates changed.",
+            "noteCount": 1,
+            "photos": 4,
+            "navQr": 1,
+            "hero": "INSTALL\nP08\n1 × Building 6m → Security\nDATE\nTue 06 Oct 2026\nTRUCK LEAVES\nCARRIER\nON SITE\nAfter 07:00\nLOAD\nOwn page · no shared load recorded",
+            "k": "0.8",
+            "viewRect": {
+              "left": 353.390625,
+              "right": 1086.609375,
+              "width": 733.21875,
+              "top": 67
+            },
+            "headerTop": 67,
+            "barBottom": 54.890625,
+            "viewport": 1440
+          }
+        },
+        {
+          "iso": "2026-10-07",
+          "doc": "drv",
+          "refs": [
+            "P52"
+          ],
+          "key": "P52",
+          "baseline": {
+            "verdict": {
+              "failed": 0,
+              "over": [],
+              "pages": 1
+            },
+            "loadPages": 1,
+            "locationSigns": 1,
+            "height": 1058,
+            "scrollHeight": 1058,
+            "width": 733,
+            "scrollWidth": 733,
+            "note": "",
+            "noteCount": 0,
+            "photos": 4,
+            "navQr": 1,
+            "hero": "DELIVER\nP52\n1 × Building 12m → Gate 1 Volunteer Check-In\nDATE\nWed 07 Oct 2026\nLOAD TIME\nCARRIER\nON SITE\nAfter 07:00\nLOAD\nOwn page · no shared load recorded",
+            "k": "0.8",
+            "viewRect": {
+              "left": 353.390625,
+              "right": 1086.609375,
+              "width": 733.21875,
+              "top": 67
+            },
+            "headerTop": 67,
+            "barBottom": 54.890625,
+            "viewport": 1440
+          },
+          "added": {
+            "verdict": {
+              "failed": 0,
+              "over": [],
+              "pages": 1
+            },
+            "loadPages": 1,
+            "locationSigns": 1,
+            "height": 1058,
+            "scrollHeight": 1058,
+            "width": 733,
+            "scrollWidth": 733,
+            "note": "DELIVERY NOTE\nP52 · Andrew Fisher — Wed 07 Oct 2026: \"Wednesday will be Helen park these are craned in under traffic control. BSF cranes have been booked will be there from 7am. They will do there own inductions and lift plan will need to be signed off by David or Steve before they start. They will also install WC20 toilets after Helen park.\"",
+            "noteCount": 1,
+            "photos": 4,
+            "navQr": 1,
+            "hero": "DELIVER\nP52\n1 × Building 12m → Gate 1 Volunteer Check-In\nDATE\nWed 07 Oct 2026\nLOAD TIME\nCARRIER\nON SITE\nAfter 07:00\nLOAD\nOwn page · no shared load recorded",
+            "k": "0.8",
+            "viewRect": {
+              "left": 353.390625,
+              "right": 1086.609375,
+              "width": 733.21875,
+              "top": 67
+            },
+            "headerTop": 67,
+            "barBottom": 54.890625,
+            "viewport": 1440
+          }
+        },
+        {
+          "iso": "2026-10-07",
+          "doc": "ins",
+          "refs": [
+            "P52"
+          ],
+          "key": "P52",
+          "baseline": {
+            "verdict": {
+              "failed": 0,
+              "over": [],
+              "pages": 1
+            },
+            "loadPages": 1,
+            "locationSigns": 0,
+            "height": 1058,
+            "scrollHeight": 1058,
+            "width": 733,
+            "scrollWidth": 733,
+            "note": "",
+            "noteCount": 0,
+            "photos": 4,
+            "navQr": 1,
+            "hero": "INSTALL\nP52\n1 × Building 12m → Gate 1 Volunteer Check-In\nDATE\nWed 07 Oct 2026\nTRUCK LEAVES\nCARRIER\nON SITE\nAfter 07:00\nLOAD\nOwn page · no shared load recorded",
+            "k": "0.8",
+            "viewRect": {
+              "left": 353.390625,
+              "right": 1086.609375,
+              "width": 733.21875,
+              "top": 67
+            },
+            "headerTop": 67,
+            "barBottom": 54.890625,
+            "viewport": 1440
+          },
+          "added": {
+            "verdict": {
+              "failed": 0,
+              "over": [],
+              "pages": 1
+            },
+            "loadPages": 1,
+            "locationSigns": 0,
+            "height": 1058,
+            "scrollHeight": 1058,
+            "width": 733,
+            "scrollWidth": 733,
+            "note": "DELIVERY NOTE\nP52 · Andrew Fisher — Wed 07 Oct 2026: \"Wednesday will be Helen park these are craned in under traffic control. BSF cranes have been booked will be there from 7am. They will do there own inductions and lift plan will need to be signed off by David or Steve before they start. They will also install WC20 toilets after Helen park.\"",
+            "noteCount": 1,
+            "photos": 4,
+            "navQr": 1,
+            "hero": "INSTALL\nP52\n1 × Building 12m → Gate 1 Volunteer Check-In\nDATE\nWed 07 Oct 2026\nTRUCK LEAVES\nCARRIER\nON SITE\nAfter 07:00\nLOAD\nOwn page · no shared load recorded",
+            "k": "0.8",
+            "viewRect": {
+              "left": 353.390625,
+              "right": 1086.609375,
+              "width": 733.21875,
+              "top": 67
+            },
+            "headerTop": 67,
+            "barBottom": 54.890625,
+            "viewport": 1440
+          }
+        }
+      ],
+      "browserVersion": "151.0.7922.173",
+      "capabilities": {
+        "isSecureContext": true,
+        "cryptoSubtle": true,
+        "blobArrayBuffer": true,
+        "webLocks": true
+      },
+      "previewSequence": [
+        {
+          "label": "A",
+          "iso": "2026-10-06",
+          "doc": "drv",
+          "printed": {
+            "verdict": {
+              "failed": 0,
+              "over": [],
+              "pages": 1
+            },
+            "loadPages": 1,
+            "locationSigns": 1,
+            "height": 1058,
+            "scrollHeight": 1058,
+            "width": 733,
+            "scrollWidth": 733,
+            "note": "DELIVERY NOTE\nP08 · Andrew Fisher — Tue 06 Oct 2026: \"3x buildings are coming in to Commodore park please make sure the team keep an eye on the drivers is a tight area and have had a couple of incidents with hitting light poles in past years.\" Count discrepancy awaiting Andrew's clarification: the programme currently lists four buildings (P08, P46, P47, P51); Andrew said 3x. No programme quantities or dates changed.",
+            "noteCount": 1,
+            "photos": 4,
+            "navQr": 1,
+            "hero": "DELIVER\nP08\n1 × Building 6m → Security\nDATE\nTue 06 Oct 2026\nLOAD TIME\nCARRIER\nON SITE\nAfter 07:00\nLOAD\nOwn page · no shared load recorded",
+            "k": "0.8",
+            "viewRect": {
+              "left": 353.390625,
+              "right": 1086.609375,
+              "width": 733.21875,
+              "top": 67
+            },
+            "headerTop": 67,
+            "barBottom": 54.890625,
+            "viewport": 1440
+          }
+        },
+        {
+          "label": "B",
+          "iso": "2026-10-07",
+          "doc": "ins",
+          "printed": {
+            "verdict": {
+              "failed": 0,
+              "over": [],
+              "pages": 1
+            },
+            "loadPages": 1,
+            "locationSigns": 0,
+            "height": 1058,
+            "scrollHeight": 1058,
+            "width": 733,
+            "scrollWidth": 733,
+            "note": "DELIVERY NOTE\nP52 · Andrew Fisher — Wed 07 Oct 2026: \"Wednesday will be Helen park these are craned in under traffic control. BSF cranes have been booked will be there from 7am. They will do there own inductions and lift plan will need to be signed off by David or Steve before they start. They will also install WC20 toilets after Helen park.\"",
+            "noteCount": 1,
+            "photos": 4,
+            "navQr": 1,
+            "hero": "INSTALL\nP52\n1 × Building 12m → Gate 1 Volunteer Check-In\nDATE\nWed 07 Oct 2026\nTRUCK LEAVES\nCARRIER\nON SITE\nAfter 07:00\nLOAD\nOwn page · no shared load recorded",
+            "k": "0.8",
+            "viewRect": {
+              "left": 353.390625,
+              "right": 1086.609375,
+              "width": 733.21875,
+              "top": 67
+            },
+            "headerTop": 67,
+            "barBottom": 54.890625,
+            "viewport": 1440
+          }
+        },
+        {
+          "label": "A again",
+          "iso": "2026-10-06",
+          "doc": "drv",
+          "printed": {
+            "verdict": {
+              "failed": 0,
+              "over": [],
+              "pages": 1
+            },
+            "loadPages": 1,
+            "locationSigns": 1,
+            "height": 1058,
+            "scrollHeight": 1058,
+            "width": 733,
+            "scrollWidth": 733,
+            "note": "DELIVERY NOTE\nP08 · Andrew Fisher — Tue 06 Oct 2026: \"3x buildings are coming in to Commodore park please make sure the team keep an eye on the drivers is a tight area and have had a couple of incidents with hitting light poles in past years.\" Count discrepancy awaiting Andrew's clarification: the programme currently lists four buildings (P08, P46, P47, P51); Andrew said 3x. No programme quantities or dates changed.",
+            "noteCount": 1,
+            "photos": 4,
+            "navQr": 1,
+            "hero": "DELIVER\nP08\n1 × Building 6m → Security\nDATE\nTue 06 Oct 2026\nLOAD TIME\nCARRIER\nON SITE\nAfter 07:00\nLOAD\nOwn page · no shared load recorded",
+            "k": "0.8",
+            "viewRect": {
+              "left": 353.390625,
+              "right": 1086.609375,
+              "width": 733.21875,
+              "top": 67
+            },
+            "headerTop": 67,
+            "barBottom": 54.890625,
+            "viewport": 1440
+          }
+        }
+      ],
+      "longInstruction": {
+        "verdict": {
+          "failed": 0,
+          "over": [
+            "load 1"
+          ],
+          "pages": 1
+        },
+        "loadPages": 1,
+        "locationSigns": 0,
+        "height": 1058,
+        "scrollHeight": 1114,
+        "width": 733,
+        "scrollWidth": 733,
+        "note": "DELIVERY NOTE\nP08 · Long test instruction: Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. Keep this recorded instruction visible. FINAL END MARKER",
+        "noteCount": 1,
+        "photos": 6,
+        "navQr": 1,
+        "hero": "INSTALL\nP08\n1 × Building 6m → Security\nDATE\nTue 06 Oct 2026\nTRUCK LEAVES\nCARRIER\nON SITE\nAfter 07:00\nLOAD\nOwn page · no shared load recorded",
+        "k": "0.64",
+        "viewRect": {
+          "left": 353.390625,
+          "right": 1086.609375,
+          "width": 733.21875,
+          "top": 67
+        },
+        "headerTop": 67,
+        "barBottom": 54.890625,
+        "viewport": 1440
+      },
+      "passed": 31
+    }
+  ]
+}

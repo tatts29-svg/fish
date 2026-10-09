@@ -1,0 +1,22 @@
+{
+ "phone": {
+  "before": {
+   "paneH": 21878,
+   "firstOpenY": 923,
+   "open": 457
+  },
+  "after": {
+   "paneH": 1102,
+   "firstOpenY": 670,
+   "open": 448,
+   "press": {
+    "swms": 340,
+    "transport": 377,
+    "maps": 357,
+    "packs": 370,
+    "photos": 453,
+    "dockets": 399
+   }
+  }
+ }
+}

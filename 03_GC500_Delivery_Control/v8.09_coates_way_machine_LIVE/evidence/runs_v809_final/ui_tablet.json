@@ -1,0 +1,691 @@
+{
+ "root": "v8.09_coates_way_machine_DRAFT/work",
+ "device": "tablet",
+ "results": [
+  {
+   "name": "no sideways scroll on the page",
+   "ok": true,
+   "detail": "768 wide on 768"
+  },
+  {
+   "name": "the whole dock is on the first screen",
+   "ok": true,
+   "detail": "dock 837–992 of 1024"
+  },
+  {
+   "name": "nothing is open at rest",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "dock words a readable size on this screen",
+   "ok": true,
+   "detail": "Start V8 at 12.0 px"
+  },
+  {
+   "name": "quiet status: \"Ready to run\" still read by a screen reader (visually hidden, not display:none)",
+   "ok": true,
+   "detail": "{\"quiet\":true,\"text\":\"Ready to run\",\"display\":\"block\",\"visibility\":\"visible\",\"w\":1,\"h\":1}"
+  },
+  {
+   "name": "tap 1 at 14,169 (exhibit: The dyno console): at most one card or dialog open",
+   "ok": true,
+   "detail": "1 open (exhibit)"
+  },
+  {
+   "name": "tap 1 at 14,169 (exhibit: The dyno console): ✕ is 44 px or more",
+   "ok": true,
+   "detail": "44×44"
+  },
+  {
+   "name": "tap 1 at 14,169 (exhibit: The dyno console): ✕ inside the screen",
+   "ok": true,
+   "detail": "[707,600]"
+  },
+  {
+   "name": "tap 1 at 14,169 (exhibit: The dyno console): ✕ not covered (elementFromPoint at its centre is the ✕)",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "tap 1 at 14,169 (exhibit: The dyno console): card clear of the dock",
+   "ok": true,
+   "detail": "card 587–827, dock from 837"
+  },
+  {
+   "name": "tap 1 at 14,169 (exhibit: The dyno console): card clear of the view tabs",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "tap 1 at 14,169 (exhibit: The dyno console): card inside the screen",
+   "ok": true,
+   "detail": "[8,587,760,827]"
+  },
+  {
+   "name": "tap 2 at 494,169 (exhibit: The overhead crane): at most one card or dialog open",
+   "ok": true,
+   "detail": "1 open (exhibit)"
+  },
+  {
+   "name": "tap 2 at 494,169 (exhibit: The overhead crane): ✕ is 44 px or more",
+   "ok": true,
+   "detail": "44×44"
+  },
+  {
+   "name": "tap 2 at 494,169 (exhibit: The overhead crane): ✕ inside the screen",
+   "ok": true,
+   "detail": "[707,620]"
+  },
+  {
+   "name": "tap 2 at 494,169 (exhibit: The overhead crane): ✕ not covered (elementFromPoint at its centre is the ✕)",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "tap 2 at 494,169 (exhibit: The overhead crane): card clear of the dock",
+   "ok": true,
+   "detail": "card 607–827, dock from 837"
+  },
+  {
+   "name": "tap 2 at 494,169 (exhibit: The overhead crane): card clear of the view tabs",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "tap 2 at 494,169 (exhibit: The overhead crane): card inside the screen",
+   "ok": true,
+   "detail": "[8,607,760,827]"
+  },
+  {
+   "name": "tap 3 at 710,457 (exhibit: The tie-downs): at most one card or dialog open",
+   "ok": true,
+   "detail": "1 open (exhibit)"
+  },
+  {
+   "name": "tap 3 at 710,457 (exhibit: The tie-downs): ✕ is 44 px or more",
+   "ok": true,
+   "detail": "44×44"
+  },
+  {
+   "name": "tap 3 at 710,457 (exhibit: The tie-downs): ✕ inside the screen",
+   "ok": true,
+   "detail": "[707,600]"
+  },
+  {
+   "name": "tap 3 at 710,457 (exhibit: The tie-downs): ✕ not covered (elementFromPoint at its centre is the ✕)",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "tap 3 at 710,457 (exhibit: The tie-downs): card clear of the dock",
+   "ok": true,
+   "detail": "card 587–827, dock from 837"
+  },
+  {
+   "name": "tap 3 at 710,457 (exhibit: The tie-downs): card clear of the view tabs",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "tap 3 at 710,457 (exhibit: The tie-downs): card inside the screen",
+   "ok": true,
+   "detail": "[8,587,760,827]"
+  },
+  {
+   "name": "tap 4 at 494,505 (exhibit: The chassis dyno): at most one card or dialog open",
+   "ok": true,
+   "detail": "1 open (exhibit)"
+  },
+  {
+   "name": "tap 4 at 494,505 (exhibit: The chassis dyno): ✕ is 44 px or more",
+   "ok": true,
+   "detail": "44×44"
+  },
+  {
+   "name": "tap 4 at 494,505 (exhibit: The chassis dyno): ✕ inside the screen",
+   "ok": true,
+   "detail": "[707,581]"
+  },
+  {
+   "name": "tap 4 at 494,505 (exhibit: The chassis dyno): ✕ not covered (elementFromPoint at its centre is the ✕)",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "tap 4 at 494,505 (exhibit: The chassis dyno): card clear of the dock",
+   "ok": true,
+   "detail": "card 568–827, dock from 837"
+  },
+  {
+   "name": "tap 4 at 494,505 (exhibit: The chassis dyno): card clear of the view tabs",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "tap 4 at 494,505 (exhibit: The chassis dyno): card inside the screen",
+   "ok": true,
+   "detail": "[8,568,760,827]"
+  },
+  {
+   "name": "tap 5 at 470,337 (part: GC500 rear wing and orange endplates): at most one card or dialog open",
+   "ok": true,
+   "detail": "0 open (none)"
+  },
+  {
+   "name": "tap 6 at 422,361 (part: GC500 roof, pillars and windscreens): at most one card or dialog open",
+   "ok": true,
+   "detail": "0 open (none)"
+  },
+  {
+   "name": "six taps on the scene: never more than one card",
+   "ok": true,
+   "detail": "most open at once: 1"
+  },
+  {
+   "name": "a tap on a garage exhibit opens its card",
+   "ok": true,
+   "detail": "The dyno console"
+  },
+  {
+   "name": "closes with ✕",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "closes with Escape",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "closes with a tap on empty scene (none)",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "starting the tour closes the card (the tour card takes its place)",
+   "ok": true,
+   "detail": "tour-panel"
+  },
+  {
+   "name": "tour card: at most one card or dialog open",
+   "ok": true,
+   "detail": "1 open (tour-panel)"
+  },
+  {
+   "name": "tour card: ✕ is 44 px or more",
+   "ok": true,
+   "detail": "44×44"
+  },
+  {
+   "name": "tour card: ✕ inside the screen",
+   "ok": true,
+   "detail": "[707,637]"
+  },
+  {
+   "name": "tour card: ✕ not covered (elementFromPoint at its centre is the ✕)",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "tour card: card clear of the dock",
+   "ok": true,
+   "detail": "card 624–827, dock from 837"
+  },
+  {
+   "name": "tour card: card clear of the view tabs",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "tour card: card inside the screen",
+   "ok": true,
+   "detail": "[8,624,760,827]"
+  },
+  {
+   "name": "starting the tour moves focus to its title",
+   "ok": true,
+   "detail": "tour-title"
+  },
+  {
+   "name": "Escape ends the tour",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "ending the tour puts focus back on Guided tour",
+   "ok": true,
+   "detail": "tour"
+  },
+  {
+   "name": "switching view closes the card",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "a drag (orbit) starting on an exhibit opens nothing",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "a drag that comes back to where it began opens nothing",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "a long press (0.9 s) opens nothing",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "a quick tap on an exhibit (after all that) does open it",
+   "ok": true,
+   "detail": "The dyno console"
+  },
+  {
+   "name": "pressing and scrolling the card keeps it open",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "the card stays until it is closed (no timer)",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "Controls ?: at most one card or dialog open",
+   "ok": true,
+   "detail": "1 open (exhibit)"
+  },
+  {
+   "name": "Controls ?: ✕ is 44 px or more",
+   "ok": true,
+   "detail": "44×44"
+  },
+  {
+   "name": "Controls ?: ✕ inside the screen",
+   "ok": true,
+   "detail": "[707,427]"
+  },
+  {
+   "name": "Controls ?: ✕ not covered (elementFromPoint at its centre is the ✕)",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "Controls ?: card clear of the dock",
+   "ok": true,
+   "detail": "card 414–827, dock from 837"
+  },
+  {
+   "name": "Controls ?: card clear of the view tabs",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "Controls ?: card inside the screen",
+   "ok": true,
+   "detail": "[8,414,760,827]"
+  },
+  {
+   "name": "Controls ? opens in the card",
+   "ok": true,
+   "detail": "Explore the car"
+  },
+  {
+   "name": "opening a card moves focus to its title (a dialog named by that title)",
+   "ok": true,
+   "detail": "{\"focus\":\"exhibit-name\",\"role\":\"dialog\",\"named\":\"exhibit-name\",\"tab\":\"-1\"}"
+  },
+  {
+   "name": "Controls ? scrolled to the end: at most one card or dialog open",
+   "ok": true,
+   "detail": "1 open (exhibit)"
+  },
+  {
+   "name": "Controls ? scrolled to the end: ✕ is 44 px or more",
+   "ok": true,
+   "detail": "44×44"
+  },
+  {
+   "name": "Controls ? scrolled to the end: ✕ inside the screen",
+   "ok": true,
+   "detail": "[707,427]"
+  },
+  {
+   "name": "Controls ? scrolled to the end: ✕ not covered (elementFromPoint at its centre is the ✕)",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "Controls ? scrolled to the end: card clear of the dock",
+   "ok": true,
+   "detail": "card 414–827, dock from 837"
+  },
+  {
+   "name": "Controls ? scrolled to the end: card clear of the view tabs",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "Controls ? scrolled to the end: card inside the screen",
+   "ok": true,
+   "detail": "[8,414,760,827]"
+  },
+  {
+   "name": "a long card scrolls inside itself, its ✕ stays put in the header",
+   "ok": true,
+   "detail": "{\"scrolls\":true,\"top\":399}"
+  },
+  {
+   "name": "Original cog: at most one card or dialog open",
+   "ok": true,
+   "detail": "1 open (exhibit)"
+  },
+  {
+   "name": "Original cog: ✕ is 44 px or more",
+   "ok": true,
+   "detail": "44×44"
+  },
+  {
+   "name": "Original cog: ✕ inside the screen",
+   "ok": true,
+   "detail": "[707,427]"
+  },
+  {
+   "name": "Original cog: ✕ not covered (elementFromPoint at its centre is the ✕)",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "Original cog: card clear of the dock",
+   "ok": true,
+   "detail": "card 414–827, dock from 837"
+  },
+  {
+   "name": "Original cog: card clear of the view tabs",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "Original cog: card inside the screen",
+   "ok": true,
+   "detail": "[8,414,760,827]"
+  },
+  {
+   "name": "Original cog replaces it (still one card)",
+   "ok": true,
+   "detail": "The original Coates Way"
+  },
+  {
+   "name": "closing the card puts focus back on what opened it (Original cog)",
+   "ok": true,
+   "detail": "{\"focus\":\"original\",\"role\":\"dialog\",\"named\":\"exhibit-name\",\"tab\":\"-1\"}"
+  },
+  {
+   "name": "Read more: at most one card or dialog open",
+   "ok": true,
+   "detail": "1 open (exhibit)"
+  },
+  {
+   "name": "Read more: ✕ is 44 px or more",
+   "ok": true,
+   "detail": "44×44"
+  },
+  {
+   "name": "Read more: ✕ inside the screen",
+   "ok": true,
+   "detail": "[707,427]"
+  },
+  {
+   "name": "Read more: ✕ not covered (elementFromPoint at its centre is the ✕)",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "Read more: card clear of the dock",
+   "ok": true,
+   "detail": "card 414–827, dock from 837"
+  },
+  {
+   "name": "Read more: card clear of the view tabs",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "Read more: card inside the screen",
+   "ok": true,
+   "detail": "[8,414,760,827]"
+  },
+  {
+   "name": "Read more opens in the card",
+   "ok": true,
+   "detail": "Performance pillars"
+  },
+  {
+   "name": "Find a part opens the register, nothing else",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "register ✕ is 44 px or more",
+   "ok": true,
+   "detail": "44×44"
+  },
+  {
+   "name": "Find a part during the guided tour: the register is the only thing open (the tour ends)",
+   "ok": true,
+   "detail": "register"
+  },
+  {
+   "name": "…and closing the register leaves nothing open (the tour does not come back)",
+   "ok": true,
+   "detail": "none"
+  },
+  {
+   "name": "Guided tour and the part-details toggle have explicit names",
+   "ok": true,
+   "detail": "{\"tour\":\"Guided tour\",\"inspect\":\"Toggle selected part details\",\"controls\":\"inspect-content\"}"
+  },
+  {
+   "name": "the steering wheel is in reach from the driver's seat",
+   "ok": true,
+   "detail": "{\"x\":434,\"y\":471,\"n\":49,\"name\":\"The seven traits\",\"other\":{\"x\":554,\"y\":321}}"
+  },
+  {
+   "name": "V8 running, one finger on the wheel: the steering sways, and holds still while the wheel is held",
+   "ok": true,
+   "detail": "{\"free\":[-0.000148,-0.000148,0.000038,0.000038],\"held\":[0,0,0]}"
+  },
+  {
+   "name": "two fingers on the wheel (second finger lifted first): once both are up the wheel lets go and the steering sways again",
+   "ok": true,
+   "detail": "{\"after\":[0,0,-0.0008959,-0.0008959],\"events\":\"down21 down22 up21 up22\"}"
+  },
+  {
+   "name": "two fingers on the wheel (wheel finger lifted first): once both are up the wheel lets go and the steering sways again",
+   "ok": true,
+   "detail": "{\"after\":[0,0,-0.0008471,-0.0008471],\"events\":\"down23 down24 up23 up24\"}"
+  },
+  {
+   "name": "two fingers on the wheel (both cancelled): once both are up the wheel lets go and the steering sways again",
+   "ok": true,
+   "detail": "{\"after\":[0,0,0.0008709,0.0008709],\"events\":\"down25 down26 cancel25 cancel26\"}"
+  },
+  {
+   "name": "a toast shows for a gear change",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "the toast covers no control",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "the toast is inside the screen",
+   "ok": true,
+   "detail": "[251,467]"
+  },
+  {
+   "name": "a toast with a card open covers neither",
+   "ok": true,
+   "detail": "{\"toast\":[210,254],\"card\":[414,827]}"
+  },
+  {
+   "name": "tab: engine",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "tab: cog",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "tab: car",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "Guided tour starts",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "tour: Next",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "tour: End tour",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "Sound answers",
+   "ok": true,
+   "detail": "Sound off → Sound on"
+  },
+  {
+   "name": "Full screen answers",
+   "ok": true,
+   "detail": "entered"
+  },
+  {
+   "name": "Find a part: search",
+   "ok": true,
+   "detail": "12 physical components"
+  },
+  {
+   "name": "Find a part: picking a row selects it and closes the register",
+   "ok": true,
+   "detail": "Piston 2 crown, skirt & rings"
+  },
+  {
+   "name": "part list (rings) selects",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "Start V8",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "throttle",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "brake",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "steer",
+   "ok": true,
+   "detail": "60°"
+  },
+  {
+   "name": "Stop V8",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "gears up and down",
+   "ok": true,
+   "detail": "1 → 2 → 1"
+  },
+  {
+   "name": "Explode powertrain answers (the driver gets out first)",
+   "ok": true,
+   "detail": "\"exiting\""
+  },
+  {
+   "name": "Reset",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "Service: first step",
+   "ok": true,
+   "detail": "isolated"
+  },
+  {
+   "name": "cutaway toggles",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "slow motion",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "power path",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "camera: zoom-in",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "camera: zoom-out",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "camera: home",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "Quality cycles Laptop ⇄ Balanced on a phone, never High or Ultra (and comes round again)",
+   "ok": true,
+   "detail": "Quality: Laptop → Quality: Balanced → Quality: Laptop"
+  },
+  {
+   "name": "4K capture saves a picture",
+   "ok": true,
+   "detail": "Coates_V8_Connected_4K.png"
+  },
+  {
+   "name": "Original cog",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "Controls",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "no page errors",
+   "ok": true,
+   "detail": ""
+  }
+ ]
+}

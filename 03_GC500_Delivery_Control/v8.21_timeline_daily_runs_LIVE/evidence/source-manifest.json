@@ -1,0 +1,22 @@
+{
+  "author": "Andrew Fisher",
+  "state": "Source complete; final integrated candidate checks and upload pending",
+  "files": {
+    "daily821.css": "efb01441a46d84f0b3482992a2ea9908a8cf5c38e9dba116937c70ab28b1d60a",
+    "test_daily821.cjs": "d9c61ebb7b71d4be0aca44599db9c60ae530020e637dcc1192c9db74b12b1098",
+    "test_daily821_send.cjs": "2195cb9adb0ad27047de6be2cf8396847bbb9f91a19de3c750066133e7e806b7",
+    "daily821_fonts.css": "01c121ee7c56d33cffad88535b07df1ca44bc325b018a9a5813da3510a52771d",
+    "test_daily821_projection.cjs": "c0a629ae58d62653e1b48f6cf5201a604a47e810dce5550cd090935bf3319b8d",
+    "daily821_renderer.js": "63493735d72d44eb13f17bc8cfc049462bf166233100cc2e13d009aa5ebdac5a",
+    "fixture_delivery_groups.cjs": "64f19431ee6fdffce9d82212224de0fc4d682b4947defdd230b21918fba3c0d7",
+    "test_daily821_visual.cjs": "4653d8385f0367e6a45893f784aa880ac0f64f0077ebfeea695b53468a14c727",
+    "patch_v821.py": "566111bd95f5a6c676d5d8df9cde40c6e482dcad5ea789a7ec3c23176946cc87",
+    "daily821_src.js": "3bbb5ffeb3dc566a1a6f3dfc745908f835aa2601bbfb70eb9c8fe88f6c8f64a5"
+  },
+  "independentChecks": {
+    "send": 38,
+    "projection": 26
+  },
+  "operationalWrites": 0,
+  "liveSmsTests": 0
+}

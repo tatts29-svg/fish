@@ -1,0 +1,8 @@
+PASS confirm_split: confirming keeps each portion on its day and quantity, on the record  - {"before":"2026-10-26:24 2026-10-27:1","after":"2026-10-26:24 2026-10-27:1","stored":[{"date":"2026-10-26","units":24},{"date":"2026-10-27","units":1}]}
+PASS split_pump: every portion day has a pump task on or before it, the first included  - [{"day":"2026-10-26","units":24,"pumpKeys":["WC49"]},{"day":"2026-10-27","units":24,"pumpKeys":["WC49"]},{"day":"2026-10-28","units":1,"pumpKeys":["WC49"]}]
+PASS unknown_confirmed: the unknown quantity stays on its load, marked, and on a truck  - {"before":[{"day":"2026-10-26","units":0,"keys":["WCUNK"],"uncertain":true}],"after":[{"day":"2026-10-26","units":0,"keys":["WCUNK"],"uncertain":true}],"list":["WCUNK"],"trucks":1}
+PASS unknown_toilet_tank: the tank waits for its (unknown-quantity) toilet stop  - [{"kind":"toilets","stops":[{"at":420,"end":435,"parts":["FWF"]}]},{"kind":"normal","stops":[{"at":435,"end":465,"parts":["Waste tank"]}]}]
+PASS merge_equal_time: not emptied in either order, the clash written down  - {"a":{"emptied":false,"emptied_by":"B","emptied_at":"2026-10-26T00:00:00Z"},"b":{"emptied":false,"emptied_by":"B","emptied_at":"2026-10-26T00:00:00Z"}}
+PASS prior_onsite_amber_gate: refused
+
+ALL PASSED (6)

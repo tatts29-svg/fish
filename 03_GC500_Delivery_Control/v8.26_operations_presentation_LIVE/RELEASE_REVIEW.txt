@@ -1,0 +1,17 @@
+Author: Andrew Fisher
+LIVE — 4 Oct 2026 at 01:55 AEST.
+
+The Fencing, Equipment, Demob and Costs presentation changes are integrated with selected-load checks, the reviewed source supplement and a qualified source-period warning. Existing native controls and stored operational collections are retained. Generic source checkpoint: 2fb4ae3e.
+
+Base: a505155e749d35c2231add24762a2db08ae617b9efcd4d06c8aee8507750a414.
+Final standard/public page: cde8d4295b58d6f0ec85d46b49091698afd847bc4f49a4bad90a2c14d17c595e, 9,654,140 bytes.
+
+Focused combined/selected-load checks passed102/102. Final standing verification passed269/269 across16 suites. Desktop and phone each passed22 tabs, seven deep links and Back; zero page/console errors. All19 final contexts closed. Original legacy-selector/text failures were retained and resolved with native fold actions and exact semantic/source comparisons, not a blanket exclusion of amounts or changed tabs. One late-mounted fold and weather-settlement capture issue were preserved and corrected in the verification harness. Full financial model comparison passed33 checks, with9 base and41 candidate DOM checks.
+
+Guarded upload returned200 and the public view matched byte for byte. Before/after all33 operational collections matched. Actual public-host desktop/phone smoke passed14/14 with no HTML substitution, no browser errors and no attempted operational writes. No real SMS or live checklist confirmation was used as a test.
+
+Implementation, integration, independent subagent verification and publication: Codex. Claude remains intentionally paused and is not claimed as reviewer.
+
+Limits: the selected-load checklist is a manual check; it does not reserve resources or record departure. Phone checks used Chromium emulation. This does not claim universal performance or absence of all defects. Original documents, private policy inputs, full-page sources, financial evidence and complete browser captures remain outside Git.
+
+Private final standing report SHA256:352fa73c80ebd49c8e741d8fcc415b4f97100294cb7600ef63839c3a78bf8da1.

@@ -1,0 +1,521 @@
+--- gc500/print/build_asset_app.py.v586	2026-09-25 12:44:58.910878659 +0000
++++ gc500/print/build_asset_app.py	2026-09-25 12:50:42.071256309 +0000
+@@ -327,6 +327,28 @@
+ )
+ 
+ 
++def hz_car_uri() -> str:
++    """v5.87 - the #26 cut-out for the banner, as the page carries it (print/web/car_26.webp, 1000 px wide for a 230 px slot)."""
++    f = WEB / 'car_26.webp'
++    return 'data:image/webp;base64,' + base64.b64encode(f.read_bytes()).decode() if f.exists() else ''
++
++
++def hz_backdrop_uri() -> str:
++    """v5.87 - the circuit at dusk behind the bar: sources/brand/hero_circuit.png cropped to the band, graded darker and
++    cooler, a touch of depth of field, cached as print/web/hz_backdrop.jpg. The foreground stays sharp; this is the one
++    thing meant to be soft."""
++    out = WEB / 'hz_backdrop.jpg'
++    src = ROOT / 'sources/brand/hero_circuit.png'
++    if not out.exists() and src.exists():
++        from PIL import Image, ImageEnhance, ImageFilter
++        im = Image.open(src).convert('RGB'); w, h = im.size
++        im = im.crop((0, int(h * 0.18), w, int(h * 0.78)))
++        im = ImageEnhance.Color(im).enhance(0.75); im = ImageEnhance.Brightness(im).enhance(0.6); im = ImageEnhance.Contrast(im).enhance(1.15)
++        im = im.filter(ImageFilter.GaussianBlur(0.8))
++        im.save(out, quality=92)
++    return 'data:image/jpeg;base64,' + base64.b64encode(out.read_bytes()).decode() if out.exists() else ''
++
++
+ def font_faces() -> str:
+     """@font-face rules with the font bytes in them, so the page carries its own type wherever it is opened."""
+     out = ['/* ' + FONT_NOTICE + ' */']
+@@ -1697,6 +1719,10 @@
+                     # picture back is one line here.
+                     .replace('/*FONT_FACES_HERE*/', font_faces())
+                     .replace('APP_TITLE_HERE', APP_TITLE)
++                    # v5.87 - the #26 (print/web/car_26.webp) and the circuit at dusk (print/web/hz_backdrop.jpg, graded
++                    # once from sources/brand/hero_circuit.png by hz_backdrop()) ride inline: the banner needs no media import.
++                    .replace('__HZ_CAR__', hz_car_uri())
++                    .replace('__HZ_BACKDROP__', hz_backdrop_uri())
+                     # What a photograph or an invoice can be filed against, in the page's head where the hosted
+                     # service reads it on every upload of the page (hosting/railway/server.js, uploadApp): every
+                     # reference on the schedule, and the branches from sources/team/branches.json. Andrew Fisher,
+@@ -5321,6 +5347,175 @@
+   .drawer .db > .ptags{margin-top:2px}
+ }
+ 
++/* =====================================================================================================================
++   v5.87 - THE PIT-WALL STANDARD (Andrew Fisher, 25 Sep 2026). One set of parts, used everywhere: the scene behind the
++   bar, the instrument cluster and its pods, the carbon island, the chrome dial, the signal head, the LED tile, the card
++   with the orange edge. Vector for every edge; the two photographs are the only rasters and ship oversized. */
++header.top{--hzcar:url(__HZ_CAR__);background:#0d0a09 url(__HZ_BACKDROP__) center 62%/cover no-repeat;overflow:hidden}
++header.top::before{background:linear-gradient(90deg,#ff9a4d,#ff6a13 45%,#ff6a13 70%,#ff8e35);box-shadow:0 1px 10px rgba(255,106,19,.7);z-index:6}
++.hzscene{position:absolute;inset:0;pointer-events:none;z-index:0}
++.hzgrade{position:absolute;inset:0;background:linear-gradient(90deg,rgba(10,7,6,.55) 0%,rgba(10,7,6,.35) 26%,rgba(10,7,6,.62) 52%,rgba(8,6,5,.94) 66%,rgba(8,6,5,.97) 100%),linear-gradient(180deg,rgba(0,0,0,.35),rgba(0,0,0,0) 35%,rgba(0,0,0,.55) 100%),radial-gradient(520px 200px at 14% 78%,rgba(255,106,19,.22),transparent 65%)}
++.hzflare{position:absolute;top:-40px;right:16%;width:420px;height:110px;background:radial-gradient(closest-side,rgba(255,170,90,.28),rgba(255,106,19,.08) 55%,transparent 75%);filter:blur(6px)}
++.brandrow{position:relative;z-index:3}
++.hbar{height:auto;min-height:100px;padding:12px 14px 12px 0;gap:12px}
++.lockup{flex:0 0 auto} .brandtxt{min-width:0} #bOrg{white-space:nowrap;overflow:visible;text-overflow:clip;max-width:none}
++.search{flex:1 1 200px;min-width:170px}
++/* the #26 on its reflection, three light trails behind it */
++.hzcar{position:relative;flex:0 0 auto;width:214px;height:92px;margin-left:-6px;display:block}
++.hzcar::before,.hzcar::after{content:'';position:absolute;left:-40px;top:32px;width:250px;height:2px;background:linear-gradient(90deg,transparent,rgba(255,150,80,.65) 55%,transparent);filter:blur(1px)}
++.hzcar::after{top:50px;width:200px;left:-60px;opacity:.6}
++.hzcarimg,.hzcarref{display:block;background:var(--hzcar) 0 0/100% auto no-repeat;aspect-ratio:1000/367}
++.hzcarimg{position:absolute;left:0;top:-4px;width:228px;z-index:2;filter:drop-shadow(0 0 1px rgba(255,255,255,.35)) drop-shadow(0 8px 8px rgba(0,0,0,.7))}
++.hzcarref{position:absolute;left:0;top:68px;width:228px;transform:scaleY(-1);opacity:.28;filter:blur(1.5px);-webkit-mask-image:linear-gradient(180deg,transparent 0%,#000 70%);mask-image:linear-gradient(180deg,transparent 0%,#000 70%)}
++.lockup .mark{display:none}
++#bOrg{font:800 10.5px/1 'Inter',var(--sans,system-ui,sans-serif);letter-spacing:.24em;text-transform:uppercase;color:#e2d6cb;text-shadow:0 1px 2px #000,0 0 12px rgba(0,0,0,.8)}
++.wordmark{gap:10px;margin-top:5px;align-items:center}
++.wordmark .gc{font:700 40px/1 'Barlow Condensed','Arial Narrow',var(--sans,system-ui,sans-serif);font-style:italic;letter-spacing:-.005em;background:linear-gradient(180deg,#ffffff 0%,#e9eef0 38%,#8f9ca0 50%,#dfe6e8 62%,#ffffff 100%);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 2px 2px rgba(0,0,0,.9)) drop-shadow(0 0 14px rgba(255,255,255,.12))}
++.wordmark .yr{font:700 19px/1 'Barlow Condensed','Arial Narrow',var(--sans,system-ui,sans-serif);font-style:italic;color:#ff7a24;letter-spacing:.06em;text-shadow:0 0 1px #ffb27a,0 0 12px rgba(255,106,19,.9),0 0 30px rgba(255,106,19,.45)}
++.wordmark .when{display:none}
++.search input{height:46px;border-radius:12px;border:1px solid rgba(255,255,255,.14);background:linear-gradient(180deg,rgba(6,4,3,.72),rgba(6,4,3,.55));backdrop-filter:blur(6px);box-shadow:inset 0 2px 6px rgba(0,0,0,.8),inset 0 -1px 0 rgba(255,255,255,.06),0 1px 0 rgba(255,255,255,.05)}
++.search input::placeholder{color:#9c8b7e}
++.tools{order:4}
++/* the cluster: carbon, the shift light along its top, three pods */
++.hzcluster{order:3;position:relative;display:flex;gap:10px;padding:14px 12px 10px;border-radius:14px;flex:0 0 auto;align-self:center;
++  background:#120e0c url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='8' height='8' viewBox='0 0 8 8'><defs><linearGradient id='a' x1='0' y1='0' x2='1' y2='1'><stop offset='0' stop-color='%23262019'/><stop offset='.55' stop-color='%23181310'/><stop offset='1' stop-color='%23110d0b'/></linearGradient><linearGradient id='b' x1='1' y1='0' x2='0' y2='1'><stop offset='0' stop-color='%23211b16'/><stop offset='.55' stop-color='%23151110'/><stop offset='1' stop-color='%230f0b0a'/></linearGradient></defs><rect width='8' height='8' fill='%23100c0a'/><rect x='0' y='0' width='4' height='4' rx='.6' fill='url(%23a)'/><rect x='4' y='4' width='4' height='4' rx='.6' fill='url(%23a)'/><rect x='4' y='0' width='4' height='4' rx='.6' fill='url(%23b)'/><rect x='0' y='4' width='4' height='4' rx='.6' fill='url(%23b)'/></svg>") 0 0/8px 8px;
++  box-shadow:0 0 0 1px #3a2c24,0 0 0 2px #0a0706,0 14px 30px -10px rgba(0,0,0,.95),inset 0 1px 0 rgba(255,255,255,.07)}
++.hzshift{position:absolute;left:14px;right:14px;top:4px;height:7px;display:flex;gap:3px}
++.hzshift i{flex:1;border-radius:2px;background:#221a16;box-shadow:inset 0 0 0 1px #0a0706}
++.hzshift i.g.on{background:#39e07a;box-shadow:0 0 6px 1px rgba(57,224,122,.9)} .hzshift i.o.on{background:#ff8a2a;box-shadow:0 0 6px 1px rgba(255,138,42,.9)} .hzshift i.r.on{background:#ff3b3b;box-shadow:0 0 6px 1px rgba(255,59,59,.9)}
++.hzpod,.tpcard > .face,.recstrip{position:relative;min-width:142px;border-radius:12px;color:#fff;background:linear-gradient(180deg,#2a3436,#141b1d 40%,#0e1416);
++  box-shadow:0 0 0 1px #0b1012,0 0 0 2.5px #4d5a5b,0 0 0 3.5px #1a2224,0 8px 18px -6px rgba(0,0,0,.8),inset 0 1px 0 rgba(255,255,255,.10),inset 0 -8px 16px rgba(0,0,0,.55)}
++.hzpod::before,.tpcard > .face::before,.recstrip::before{content:'';position:absolute;inset:1px 1px auto 1px;height:46%;border-radius:11px 11px 40% 40%;background:linear-gradient(180deg,rgba(255,255,255,.09),rgba(255,255,255,0));pointer-events:none}
++.tpodwrap{flex:0 0 auto;width:auto} .tpcard{clip-path:none;background:none;padding:0} .tpcard > .face{display:block;padding:0;clip-path:none;border-radius:12px}
++.tphead{padding:8px 11px 9px;gap:0} .tpk{justify-content:flex-start} .tpk b{font-size:9.5px;letter-spacing:.2em;color:#a9b4b3} .tpk i{display:none}
++.tpnum{font:700 30px/1 'Barlow Condensed','Arial Narrow',var(--sans,system-ui,sans-serif);font-style:italic;margin-top:3px;letter-spacing:-.005em;color:#f4f7f6;text-shadow:0 0 1px #fff,0 0 12px rgba(255,255,255,.18),0 2px 3px rgba(0,0,0,.8)}
++.tpnum .sec{color:#ff7a24;text-shadow:0 0 1px #ffb27a,0 0 10px rgba(255,106,19,.85),0 0 26px rgba(255,106,19,.45)} .tpnum .sep{color:rgba(246,241,236,.6)} .tpnum .d{font-size:16px}
++.tpsec{margin-top:6px;gap:2px} .tpsec i{height:5px;border-radius:1px;background:#3d2d24} .tpsec i.on{background:#ff7a24;box-shadow:0 0 5px rgba(255,106,19,.8)}
++.tpdate{display:block;margin-top:5px;font:600 9.5px/1.2 'Inter',var(--sans,system-ui,sans-serif);letter-spacing:.1em;text-transform:uppercase;color:#a9b4b3;white-space:nowrap}
++.tpprint{display:none}
++.hzpod{padding:8px 11px 9px;display:flex;flex-direction:column}
++.hzpod .lab,.recstrip .rsw b{font:700 9.5px/1 'Inter',var(--sans,system-ui,sans-serif);letter-spacing:.2em;text-transform:uppercase;color:#a9b4b3;text-shadow:0 1px 0 #000}
++.hzpod .num{display:block;margin-top:3px;font:700 30px/1 'Barlow Condensed','Arial Narrow',var(--sans,system-ui,sans-serif);font-style:italic;color:#f4f7f6;white-space:nowrap;letter-spacing:-.005em;text-shadow:0 0 1px #fff,0 0 12px rgba(255,255,255,.18),0 2px 3px rgba(0,0,0,.8)}
++.hzpod .num small{font:600 11px/1 'Inter',var(--sans,system-ui,sans-serif);letter-spacing:.16em;margin-left:7px;color:#b8c2c1;vertical-align:.32em;text-shadow:none}
++.hzpod .sub,.recstrip .rsw em{display:block;margin-top:4px;font:600 9.5px/1.2 'Inter',var(--sans,system-ui,sans-serif);letter-spacing:.1em;text-transform:uppercase;color:#a9b4b3;white-space:nowrap;font-style:normal;overflow:hidden;text-overflow:ellipsis;max-width:100%}
++.hzpod.hzcd{max-width:236px;min-width:0}
++.rail{position:relative;height:18px;margin-top:5px;width:100%;min-width:150px}
++.rail .track{position:absolute;left:0;right:0;top:10px;height:3px;border-radius:2px;background:#0a0f10;box-shadow:inset 0 1px 1px rgba(0,0,0,.9),0 1px 0 rgba(255,255,255,.06)}
++.rail .done{position:absolute;left:0;top:10px;height:3px;width:var(--p,0%);border-radius:2px;background:linear-gradient(90deg,#ff9a4d,#ff6a13);box-shadow:0 0 8px rgba(255,106,19,.8)}
++.rail .wks i{position:absolute;top:8px;width:1px;height:7px;background:rgba(255,255,255,.22)}
++.rail .flag{position:absolute;top:-4px;width:12px;height:8px;background:repeating-conic-gradient(#fff 0 25%,#171110 0 50%) 0 0/4px 4px;border:1px solid #fff;filter:drop-shadow(0 1px 2px rgba(0,0,0,.8))}
++.rail .flag::after{content:'';position:absolute;left:-1px;top:7px;width:1px;height:8px;background:#fff}
++.rail .car{position:absolute;left:calc(var(--p,0%) - 16px);top:-3px;width:34px;aspect-ratio:1000/367;background:var(--hzcar) center/contain no-repeat;filter:drop-shadow(0 0 5px rgba(255,106,19,.85)) drop-shadow(0 2px 2px rgba(0,0,0,.9))}
++.rail .lb{position:absolute;top:13px;font:700 7.5px/1 'Inter',var(--sans,system-ui,sans-serif);letter-spacing:.14em;color:#8e9a99} .rail .lb.s{left:0} .rail .lb.e{right:0}
++/* the record pod: three lamps and a word; the state is the colour, and it never pulses */
++.recstrip{display:flex;flex-direction:column;align-items:flex-start;gap:0;padding:8px 11px 9px;max-width:none;border:0}
++.recstrip .rsdot{display:none}
++.recstrip .rsw{display:flex;flex-direction:column;gap:0;min-width:0;order:2}
++.recstrip .rsw b{order:1;font:700 24px/1 'Barlow Condensed','Arial Narrow',var(--sans,system-ui,sans-serif);font-style:italic;letter-spacing:0;text-transform:none;color:#f4f7f6;text-shadow:0 0 1px #fff,0 0 12px rgba(255,255,255,.18),0 2px 3px rgba(0,0,0,.8);margin-top:3px;padding-left:64px}
++.recstrip .rslamps{position:absolute;left:11px;top:31px;display:inline-flex;gap:6px}
++.recstrip .rslamps i{width:15px;height:15px;border-radius:50%;background:radial-gradient(circle at 38% 32%,#4a3a30,#2b2019 35%,#120d0b);box-shadow:0 0 0 1px #5a4638,inset 0 0 0 1px rgba(255,255,255,.05)}
++.recstrip .rslamps i::after{content:'';position:absolute;width:5px;height:3px;border-radius:50%;background:#fff;opacity:.35;transform:translate(3px,3px)}
++.recstrip.shared .rslamps i,.recstrip.view .rslamps i{background:radial-gradient(circle at 38% 32%,#c8ffd9,#3ddc78 35%,#0b6b2d);box-shadow:0 0 0 1px #0d3a1c,0 0 8px 2px rgba(47,192,100,.55)}
++.recstrip.pending .rslamps i:nth-child(-n+2),.recstrip.checking .rslamps i:first-child{background:radial-gradient(circle at 38% 32%,#ffe3a0,#ffb000 35%,#7a4f00);box-shadow:0 0 0 1px #4a3000,0 0 8px 2px rgba(255,176,0,.5)}
++.recstrip.offline .rslamps i:first-child,.recstrip.local .rslamps i:first-child{background:radial-gradient(circle at 38% 32%,#ffb0a8,#ff3b30 35%,#7a140c);box-shadow:0 0 0 1px #4a0d08,0 0 8px 2px rgba(255,59,48,.5)}
++.recstrip::after{content:'';position:absolute;left:11px;top:8px;font:700 9.5px/1 'Inter',var(--sans,system-ui,sans-serif);letter-spacing:.2em;text-transform:uppercase;color:#a9b4b3}
++.recstrip .rsw::before{content:'Record';font:700 9.5px/1 'Inter',var(--sans,system-ui,sans-serif);letter-spacing:.2em;text-transform:uppercase;color:#a9b4b3;text-shadow:0 1px 0 #000;order:0}
++.recstrip .rsw em{order:2}
++/* the tab row: glass over the scene */
++nav.tabs{position:relative;z-index:3;background:linear-gradient(180deg,rgba(8,6,5,.78),rgba(8,6,5,.9));backdrop-filter:blur(8px);border-top:1px solid rgba(255,255,255,.09);box-shadow:inset 0 1px 0 rgba(0,0,0,.7)}
++nav.tabs button[aria-selected="true"]::after,.tabmore.on::after{background:linear-gradient(90deg,#ff9a4d,#ff6a13);box-shadow:0 0 14px 3px rgba(255,106,19,.6)}
++/* ---- Today: the strip's tiles are LED tiles now */
++.tstrip{border-radius:14px;background:linear-gradient(180deg,#fff,#faf8f6)}
++.tsq{--edge:#1a2224;--face:#141b1d;clip-path:none;border-radius:12px;background:none;padding:0;min-width:172px;box-shadow:0 0 0 1px #0b1012,0 0 0 2.5px #4d5a5b,0 0 0 3.5px #1a2224,0 10px 20px -8px rgba(0,0,0,.6);margin:3.5px}
++.tsq > .tsqface{clip-path:none;border-radius:12px;padding:10px 14px 11px;background:linear-gradient(180deg,#232c2e,#111819 45%,#0c1213);color:#fff;position:relative}
++.tsq > .tsqface::before{content:'';position:absolute;inset:1px 1px auto 1px;height:46%;border-radius:11px 11px 40% 40%;background:linear-gradient(180deg,rgba(255,255,255,.08),transparent);pointer-events:none}
++.tsq .tsqface b{font-size:34px;color:#fff;text-shadow:0 0 12px rgba(255,255,255,.2);margin-top:4px}
++.tsq .tsqface span{font:700 9.5px/1 'Inter',var(--sans,system-ui,sans-serif);letter-spacing:.2em;text-transform:uppercase;color:#a9b4b3;order:-1;margin:0}
++.tsq .tsqface em{font:600 9.5px/1.2 'Inter',var(--sans,system-ui,sans-serif);letter-spacing:.1em;text-transform:uppercase;color:#a9b4b3;margin-top:5px}
++.tsq.gap .tsqface b,.tsq.gap .tsqface span{color:#ff8a3a;text-shadow:0 0 12px rgba(255,106,19,.8)}
++.tsq:hover{background:none;box-shadow:0 0 0 1px #0b1012,0 0 0 2.5px #ff6a13,0 0 0 3.5px #1a2224,0 10px 20px -8px rgba(0,0,0,.6);transform:translateY(-1px)}
++.tsnote{font-size:13px;color:var(--ink2)}
++/* ---- the instruments: dark carbon islands with screws */
++.inst{display:grid;grid-template-columns:400px minmax(0,1fr);gap:14px;margin-bottom:14px;align-items:stretch}
++.inst .racecard{grid-column:1/-1}
++.card.island{--edge:#3a2c24;--face:#120e0c;clip-path:none;border-radius:16px;margin:0;padding:14px 14px 12px;color:#fff;
++  background:#120e0c url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='8' height='8' viewBox='0 0 8 8'><defs><linearGradient id='a' x1='0' y1='0' x2='1' y2='1'><stop offset='0' stop-color='%23262019'/><stop offset='.55' stop-color='%23181310'/><stop offset='1' stop-color='%23110d0b'/></linearGradient><linearGradient id='b' x1='1' y1='0' x2='0' y2='1'><stop offset='0' stop-color='%23211b16'/><stop offset='.55' stop-color='%23151110'/><stop offset='1' stop-color='%230f0b0a'/></linearGradient></defs><rect width='8' height='8' fill='%23100c0a'/><rect x='0' y='0' width='4' height='4' rx='.6' fill='url(%23a)'/><rect x='4' y='4' width='4' height='4' rx='.6' fill='url(%23a)'/><rect x='4' y='0' width='4' height='4' rx='.6' fill='url(%23b)'/><rect x='0' y='4' width='4' height='4' rx='.6' fill='url(%23b)'/></svg>") 0 0/8px 8px;
++  box-shadow:0 0 0 1px #3a2c24,0 0 0 2px #0a0706,0 18px 34px -16px rgba(0,0,0,.8),inset 0 1px 0 rgba(255,255,255,.07);border-top:0}
++.card.island > .face{display:contents}
++.card.island::before,.card.island::after,.card.island .hubtitle::before,.card.island .hubtitle::after{content:'';position:absolute;width:9px;height:9px;border-radius:50%;z-index:2;background:radial-gradient(circle at 40% 35%,#c9d0d2,#6b7678 55%,#1c2224);box-shadow:0 0 0 1px #000,inset 0 0 0 1px rgba(255,255,255,.15)}
++.card.island::before{left:6px;top:6px} .card.island::after{right:6px;top:6px} .card.island .hubtitle::before{left:6px;bottom:6px;top:auto} .card.island .hubtitle::after{right:6px;bottom:6px;top:auto}
++.card.island .hubtitle{position:static} .card.island .hubtitle h3,.card.island .phead h3{font:700 10px/1 'Inter',var(--sans,system-ui,sans-serif);letter-spacing:.2em;text-transform:uppercase;color:#a9b4b3}
++.card.island .chip{background:rgba(255,255,255,.06);color:#ffb27a;border-color:rgba(255,255,255,.12)} .card.island .chip.ok{color:#39e07a} .card.island .chip.crit{color:#ff8a80} .card.island .chip.cand{color:#ffd28a}
++.card.island .hubgo,.card.island .pkeyhead .hubgo{color:#ff8a3a}
++.card.island:hover{border-color:transparent;box-shadow:0 0 0 1px #ff6a13,0 0 0 2px #0a0706,0 18px 34px -16px rgba(0,0,0,.8);transform:translateY(-1px)}
++.card.island.dialcard .cgauge.gi{background:none;border:0;box-shadow:none;padding:0}
++.card.island.dialcard .hubtitle{margin-bottom:4px}
++.cgauge.gi .giface{filter:drop-shadow(0 12px 16px rgba(0,0,0,.6))}
++.gikn{stroke:#0b1012;stroke-opacity:.55;stroke-width:1} .giring{fill:none;stroke:#fff;stroke-opacity:.12;stroke-width:1} .gired{stroke:#7a1a14;opacity:.9} .giglass{fill:url(#giglassg);pointer-events:none}
++.cgauge.gi{--gi-track:#1f2a2c;--gi-fill:#ff6a13;--gi-maj:#e6ecec;--gi-med:#8a9a9c;--gi-min:#4e5e60;--gi-lab:#cfd6d7;--gi-cap:#9fb0b2;--gi-cap2:#6f8082;--gi-n1:#ff6a13;--gi-n2:#ffe1c6;--gi-hub:#151d1f;--gi-hubline:#9aa6a8;--gi-rule:#2b3638;--gi-foot:#7f8f91}
++.cgauge.gi .gifill{filter:drop-shadow(0 0 6px rgba(255,106,19,.8))}
++.cgauge.gi .gidig b{text-shadow:0 0 1px #fff,0 0 10px rgba(255,255,255,.35),0 2px 4px rgba(0,0,0,.9)}
++.cgauge.gi .ginote{border-top-color:#2b3638} .cgauge.gi .cgnote{color:#b6c0bb}
++.card.island.dialcard .ctile{background:linear-gradient(180deg,#1c2426,#0f1516);border:1px solid rgba(255,255,255,.1);border-radius:12px;box-shadow:inset 0 1px 0 rgba(255,255,255,.07),0 8px 16px -10px rgba(0,0,0,.8);color:#d7dedd}
++.card.island.dialcard .ctile b,.card.island.dialcard .ctile .ctbig{color:#fff;font-family:'Barlow Condensed','Arial Narrow',var(--sans,system-ui,sans-serif);font-style:italic;font-weight:700;text-shadow:0 0 1px #fff,0 0 12px rgba(255,255,255,.18)}
++.card.island.dialcard .ctile span,.card.island.dialcard .ctile .ctk{color:#a9b4b3} .card.island.dialcard .ctile .ctk{font:700 9.5px/1 'Inter',var(--sans,system-ui,sans-serif);letter-spacing:.2em;text-transform:uppercase}
++.card.island.dialcard .ctile.lead.good{border-color:rgba(57,224,122,.5);box-shadow:inset 0 0 0 1px rgba(57,224,122,.15),0 0 18px -6px rgba(57,224,122,.5)} .card.island.dialcard .ctile.lead.good b,.card.island.dialcard .ctile.lead.good .ctbig,.card.island.dialcard .ctile.good > b{color:#39e07a;text-shadow:0 0 10px rgba(57,224,122,.55)}
++.card.island.dialcard .ctile.lead.stop{border-color:rgba(255,59,48,.55);box-shadow:inset 0 0 0 1px rgba(255,59,48,.15),0 0 18px -6px rgba(255,59,48,.5)} .card.island.dialcard .ctile.lead.stop b,.card.island.dialcard .ctile.lead.stop .ctbig{color:#ff5a4e;text-shadow:0 0 10px rgba(255,59,48,.5)}
++.card.island.dialcard .ctile.plan > b{color:#8fc4ff;text-shadow:0 0 10px rgba(143,196,255,.45)} .card.island.dialcard .ctile.plan{border-color:rgba(143,196,255,.35)}
++.card.island.dialcard .ctile.whole{background:linear-gradient(180deg,#171d1f,#0d1213)} .card.island.dialcard .cwpc span{color:#c9d1d0}
++.card.island.dialcard .sem,.card.island.dialcard .ctile .chip{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.14);color:#e6ecec}
++.card.island.dialcard .ctmark{color:inherit}
++/* the lights island: the signal head beside the counts */
++.card.island.lights .hublights{display:grid;grid-template-columns:96px 1fr;gap:10px 12px;align-items:start}
++.card.island.lights .sighead{grid-row:1/span 4;width:96px;height:auto;filter:drop-shadow(0 10px 14px rgba(0,0,0,.7));align-self:center}
++.card.island.lights .hl{background:rgba(255,255,255,.05);border:0;box-shadow:inset 0 0 0 1px rgba(255,255,255,.08);color:#a9b4b3;font:600 11px/1.2 'Inter',var(--sans,system-ui,sans-serif);letter-spacing:.1em;text-transform:uppercase;border-radius:10px;padding:8px 10px;gap:10px}
++.card.island.lights .hl b{font:700 28px/1 'Barlow Condensed','Arial Narrow',var(--sans,system-ui,sans-serif);font-style:italic;min-width:52px;text-align:right;color:#fff}
++.card.island.lights .hl[data-lf-go="green"] b{color:#39e07a;text-shadow:0 0 10px rgba(57,224,122,.6)} .card.island.lights .hl[data-lf-go="amber"] b{color:#ffb000} .card.island.lights .hl[data-lf-go="red"] b{color:#ff5a4e} .card.island.lights .hl[data-lf-go="none"] b{color:#c9c9c9}
++.card.island.lights .hl[data-lf-go="done"],.card.island.lights .hl[data-lf-go="levelled"],.card.island.lights .hl[data-lf-go="steps"]{grid-column:2;background:linear-gradient(180deg,#232c2e,#111819);box-shadow:0 0 0 1px #0b1012,0 0 0 2px #3d4a4b,inset 0 1px 0 rgba(255,255,255,.08)}
++.card.island.lights .hl[data-lf-go="done"] b{color:#39e07a} .card.island.lights .hl[data-lf-go="levelled"] b,.card.island.lights .hl[data-lf-go="steps"] b{color:#8fc4ff}
++.card.island.lights .hl .tl,.card.island.lights .hl .tick{display:none}
++.card.island.lights .hl .w{color:#a9b4b3;font-size:10px}
++.card.island.lights .hl:hover{box-shadow:inset 0 0 0 1px #ff6a13}
++/* the programme island: its rail and figures in white, the race numerals, the next milestone as dark glass */
++.card.island.racecard{color:#fff}
++.card.island.racecard .pstat b{font:700 44px/1 'Barlow Condensed','Arial Narrow',var(--sans,system-ui,sans-serif);font-style:italic;letter-spacing:-.01em;color:#fff;text-shadow:0 0 1px #fff,0 0 12px rgba(255,255,255,.18)}
++.card.island.racecard .pstat b+span,.card.island.racecard .pstat em{color:#c9d1d0} .card.island.racecard .pstat+.pstat{border-left-color:rgba(255,255,255,.14)}
++.card.island.racecard .pnext{background:linear-gradient(180deg,#1c2426,#0f1516);border:1px solid rgba(255,106,19,.45);border-radius:12px;box-shadow:inset 0 1px 0 rgba(255,255,255,.07),0 0 18px -6px rgba(255,106,19,.45);color:#d7dedd}
++.card.island.racecard .pnext *{color:inherit} .card.island.racecard .pnext h4{color:#fff} .card.island.racecard .pnext b{color:#fff} .card.island.racecard .pphase{color:#ff8a3a} .card.island.racecard .pnext{background:rgba(255,255,255,.05);border-color:rgba(255,255,255,.1)} .card.island.racecard .pnext h4,.card.island.racecard .pkeys li b,.card.island.racecard .pnfig b{color:#fff}
++.card.island.racecard .pkeys li{border-color:rgba(255,255,255,.08);color:#d2d8d2} .card.island.racecard .pkeys li.next,.card.island.racecard .pkeys li.next b{color:#ff8a3a}
++.card.island.racecard .pgm,.card.island.racecard .pgm *{color:#d2d8d2}
++/* ---- the cards: white, an orange edge, the race numerals, equal heights */
++.hub{align-items:stretch}
++.hubcard{--face:#fff;border-radius:14px;box-shadow:0 12px 28px -20px rgba(0,0,0,.45)}
++.hubcard > .face{border-radius:14px}
++.hubbig b{font:700 40px/1 'Barlow Condensed','Arial Narrow',var(--sans,system-ui,sans-serif);font-style:italic;letter-spacing:-.01em;color:var(--ink)}
++.hublist .tm{font:700 15px/1.2 'Barlow Condensed','Arial Narrow',var(--sans,system-ui,sans-serif);font-style:italic;color:var(--ink)}
++.hubgo{font:700 12px/1 'Inter',var(--sans,system-ui,sans-serif);letter-spacing:.06em;text-transform:uppercase}
++.hubtitle h3{font-size:15px;font-weight:800;letter-spacing:-.01em}
++/* ---- the page's own scale: laptop, tablet, phone */
++@media(max-width:1280px){ .inst{grid-template-columns:360px minmax(0,1fr)} }
++@media(max-width:900px){ .inst{grid-template-columns:1fr} }
++@media(max-width:640px){
++  header.top{background-position:38% 70%}
++  .hbar{flex-wrap:wrap;gap:9px 10px;padding:10px 12px 10px;min-height:0;height:auto}
++  .lockup{order:1;overflow:visible} .hzcar{width:110px;height:48px;margin-left:-8px} .hzcarimg{width:124px;top:-2px} .hzcarref{display:none} .hzcar::before,.hzcar::after{display:none}
++  .wordmark .gc{font-size:30px} .wordmark .yr{font-size:15px} .wordmark{margin-top:0}
++  .tools{order:2;margin-left:auto}
++  body.search-open .recstrip{display:flex} body.search-open .tpodwrap{display:block}
++  .tpk{overflow:hidden} .tpk b{display:block;overflow:hidden;text-overflow:ellipsis}
++  .tsq-row{grid-template-columns:1fr;gap:6px} .tsq{margin:3.5px 3.5px}
++  .tsq > .tsqface{flex-direction:row;align-items:center;gap:10px;padding:7px 12px} .tsq .tsqface b{font-size:26px;margin:0;min-width:44px} .tsq .tsqface span{order:0;flex:1 1 auto} .tsq .tsqface em{margin:0;text-align:right;max-width:40%}
++  .hzcluster{order:5;flex:1 1 100%;gap:7px;min-width:0;max-width:100%;padding:12px 8px 8px;border-radius:12px} .hzshift{left:8px;right:8px}
++  .hzpod,.tpcard > .face,.recstrip{min-width:0;flex:1 1 0;overflow:hidden} .tpodwrap{flex:1 1 0;min-width:0}
++  .hzpod .num,.tpnum{font-size:22px} .hzpod .num small{font-size:9px;margin-left:4px} .hzpod .lab,.tpk b,.recstrip .rsw::before{font-size:7.5px;letter-spacing:.12em;white-space:nowrap} .hzpod .sub,.tpdate,.recstrip .rsw em{font-size:8px;letter-spacing:.06em;overflow:hidden;text-overflow:ellipsis}
++  .recstrip .rsw b{font-size:17px;padding-left:46px} .recstrip .rslamps{gap:3px;top:26px} .recstrip .rslamps i{width:11px;height:11px}
++  .rail{min-width:0} .rail .lb{display:none} .rail .car{width:26px;top:-1px}
++  .tppanel{left:0;right:auto;width:calc(100vw - 24px)}
++  .tsq{min-width:0}
++  .inst{grid-template-columns:1fr}
++}
++@media(prefers-reduced-motion:reduce){ .hzshift i{transition:none} }
++@media print{ .hzscene,.hzcar,.hzcluster{display:none!important} header.top{background:#fff!important} }
+ /* ---------------------------------------------------------------------------------- printing
+    The page is built for a phone and a laptop, but people print the register and take it on site.
+    Without these rules only the on-screen viewport reached the paper: printing 150 assets produced a
+@@ -6236,6 +6431,7 @@
+  <!-- V11 audit: a keyboard lands on the header every time. One link, first in the order, straight to the work. -->
+  <a class="skipwork" href="#pane-today" id="skipWork">Skip to the work</a>
+  <header class="top">
++  <div class="hzscene" aria-hidden="true"><div class="hzgrade"></div><div class="hzflare"></div></div>
+   <!-- The primary bar. ONE row on a desktop, 84px tall, in the order a person reads it: who we are, what they
+        are looking for, what the record is doing, what the time is. Everything that is not one of those four
+        lives behind More, labelled, keyboard-reachable, and holding all of it.
+@@ -6243,6 +6439,7 @@
+        single line of the day's work appeared. -->
+   <div class="brandrow hbar">
+    <div class="lockup">
++     <span class="hzcar" aria-hidden="true"><i class="hzcarimg"></i><i class="hzcarref"></i></span>
+      <div class="mark"></div>
+      <div class="brandtxt">
+        <h1 class="vh">APP_TITLE_HERE</h1>
+@@ -6267,7 +6464,6 @@
+         because pulsing looks alive. Superior Audit, 15 Sep 2026: "Never animate a fake green heartbeat."
+         Every state here is read from SYNC, and the time beside it is the last time the service actually
+         answered, not the time now. -->
+-   <div class="recstrip" id="recstrip" role="status" aria-live="polite" aria-label="The shared record"></div>
+    <div class="tools">
+      <button class="btn iconb phoneonly" id="searchBtn" aria-label="Search" title="Search" aria-expanded="false"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><circle cx="6.5" cy="6.5" r="4.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M10 10l4.5 4.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
+      <!-- V11 audit: two controls said "More" and opened unrelated menus. This one is the tools — your name,
+@@ -6290,12 +6486,15 @@
+    </div>
+    <!-- The timing pod. The same housing as everything else: espresso, orange edge, the two opposing chamfers.
+         Compact in the header; the mode switch, the target and what the clock IS open underneath when pressed. -->
++   <div class="hzcluster" id="hzcluster">
++   <div class="hzshift" id="hzshift" aria-hidden="true" title="the seconds of the minute, as a shift light"></div>
+    <div class="tpodwrap" id="tpod" role="group" aria-label="Gold Coast time and event countdown">
+      <div class="cut dark tpcard"><span class="face">
+        <button type="button" class="tphead" id="tpodOpen" aria-expanded="false" aria-controls="tpodPanel" title="Gold Coast time · press for the countdown and what this clock is">
+          <span class="tpk"><b id="tpodLab">Gold Coast · AEST</b><i id="tpodSrc">device clock</i></span>
+          <span class="tpnum racenum" id="tpodNum" role="timer" aria-live="off" aria-label="Gold Coast time">--:--:--</span>
+          <span class="tpsec" id="tpodSec" aria-hidden="true" title="seconds of the current minute"></span>
++         <span class="tpdate" id="tpodDate"></span>
+        </button>
+        <div class="tpprint" id="tpodPrint" aria-hidden="true"></div>
+      </span></div>
+@@ -6309,6 +6508,16 @@
+      </div>
+    </div>
+    <p class="vh" id="tpodSay" role="status" aria-live="polite"></p>
++   <!-- v5.87 - the countdown pod: days to race day on the programme rail, the #26 at today. Read from DATA.race_days
++        and DATA.weeks, worked out once a day (hzCountdown), never a record. -->
++   <div class="hzpod hzcd" id="hzcd" role="group" aria-label="Countdown to race day">
++     <span class="lab" id="hzcdLab">Race day</span>
++     <span class="num"><b id="hzcdN">—</b><small id="hzcdU">DAYS</small></span>
++     <div class="rail" id="hzrail" aria-hidden="true"><span class="track"></span><span class="done"></span><span class="wks"></span><span class="flag"></span><i class="car"></i><span class="lb s"></span><span class="lb e"></span></div>
++     <span class="sub" id="hzcdSub"></span>
++   </div>
++   <div class="recstrip" id="recstrip" role="status" aria-live="polite" aria-label="The shared record"></div>
++   </div>
+   </div>
+   <nav class="tabs" id="tabs" role="tablist"></nav>
+   <!-- The More menu lives HERE, outside the tab strip, and not inside it.
+@@ -9466,7 +9675,7 @@
+   const when = m => race && m.label === 'Race day' && DATA.event.race_dates_as_supplied
+     ? esc(DATA.event.race_dates_as_supplied) : esc(fd(m.iso)) + ' ' + m.iso.slice(0, 4);
+   const name = m => race && m.label === 'Race day' && race[1] && race[1] !== race[0] ? 'Race weekend' : m.label;
+-  return `<div class="card hubcard racecard" data-go="progress">
++  return `<div class="card hubcard racecard island" data-go="progress">
+     <div class="phead"><h3>Where we are on the programme</h3>${
+       ph ? `<span class="pphase" title="${esc(ph.why)}"><i></i>${esc(ph.word)}</span>` : ''}</div>
+     ${raceStrip(today, 'today', true)}
+@@ -9502,6 +9711,22 @@
+    scrolling to. It is not worth scrolling PAST.
+    So the day, the counts and the one thing that needs doing go in a strip at the top, and the hero follows them
+    exactly as it was. Every figure here is a link to where it can be acted on. */
++/* v5.87 - THE SIGNAL HEAD. The lights as a real hooded signal: three lenses, the one lit is the state most of the
++   job is in (on site, in transit, not on site); none lit when nothing has a light yet. The counts beside it are the
++   fact; the lamp is the picture of it. */
++function signalHead(t){
++  const lit = Math.max(t.red, t.amber, t.green) > 0 ? (t.green >= t.amber && t.green >= t.red ? 'g' : t.amber >= t.red ? 'a' : 'r') : '';
++  const lens = (cy, col, k) => `<g><path d="M30 ${cy - 26}h60a6 6 0 0 1 6 6v4H24v-4a6 6 0 0 1 6-6z" fill="#0c0c0c"/><circle cx="60" cy="${cy}" r="27" fill="#050505"/>
++    <circle cx="60" cy="${cy}" r="24" fill="${col}" opacity="${lit === k ? 1 : .18}"/>${lit === k ? `<circle cx="60" cy="${cy}" r="28" fill="${col}" opacity=".55" filter="url(#sgGlow)"/>` : ''}
++    <circle cx="60" cy="${cy}" r="24" fill="url(#sgDots)" opacity="${lit === k ? .35 : .15}"/>
++    <circle cx="60" cy="${cy}" r="8" fill="none" stroke="#000" stroke-opacity=".28" stroke-width=".8"/><circle cx="60" cy="${cy}" r="13" fill="none" stroke="#000" stroke-opacity=".28" stroke-width=".8"/><circle cx="60" cy="${cy}" r="18" fill="none" stroke="#000" stroke-opacity=".28" stroke-width=".8"/>
++    <ellipse cx="52" cy="${cy - 9}" rx="9" ry="5" fill="#fff" opacity="${lit === k ? .5 : .12}"/><circle cx="60" cy="${cy}" r="24" fill="none" stroke="#000" stroke-opacity=".7" stroke-width="2"/></g>`;
++  return `<svg class="sighead" viewBox="0 0 120 300" aria-hidden="true"><defs><pattern id="sgDots" width="6" height="6" patternUnits="userSpaceOnUse"><circle cx="3" cy="3" r="1.4" fill="#000"/></pattern>
++    <linearGradient id="sgHouse" x1="0" x2="1"><stop offset="0" stop-color="#2a2a2a"/><stop offset=".5" stop-color="#101010"/><stop offset="1" stop-color="#232323"/></linearGradient>
++    <filter id="sgGlow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="6"/></filter></defs>
++    <rect x="18" y="8" width="84" height="284" rx="16" fill="url(#sgHouse)" stroke="#3c3c3c" stroke-width="1.5"/>
++    ${lens(60, '#ff3b30', 'r')}${lens(150, '#ffb000', 'a')}${lens(240, '#2fd66b', 'g')}</svg>`;
++}
+ function todayStrip(today, show, dayNow){
+   const t = lightTally(allAssets());
+   const due = show ? show.deliveries : [];
+@@ -9648,30 +9873,38 @@
+       <span class="w" style="color:var(--mute)">${esc((r.a.item_types || []).join(', ') || r.a.product || '')}${r.a.name ? ' · ' + esc(r.a.name) : ''}<span class="anos">${assetNosLine(r.a)}</span></span></li>`; };
+   $('#pane-today').innerHTML = paneHeadingHtml('today') + `
+   ${todayStrip(today, show, dayNow)}
+-  <div class="dsnband">${dsnBoard(today, dsnState(today), 'video')}</div>
+-  <!-- F11, Superior Audit 15 Sep 2026: the brief ran to 880px and left roughly 400px of empty white beside it
+-       on every laptop, while the carrier loads and the circuit notes — the context a person reads the brief
+-       AGAINST — sat 3,000px further down the page. They share a row now, and the column stacks under the brief
+-       on anything narrower than 1180px. -->
+-  <div class="todaycols">
+-  ${dailyBrief(today)}
+-  ${((show && (show.loads.length || show.notes.length)) || roadsSnapshot()) ? `<aside class="sidecol">
+-    ${show && show.loads.length ? `<div class="card"><h3>Carrier loads ${dayNow ? 'today' : 'that day'}</h3>
+-      <p class="sub">${loadTimesLine()}</p>
+-      <ul>${show.loads.slice().sort((x, y) => x.time.localeCompare(y.time)).map(loadLi).join('')}</ul>
+-      <p class="norate">${esc(((DATA.transport || {}).carrier || {}).authority || '')}</p></div>` : ''}
+-    ${roadsCard()}
+-    ${show && show.notes.length ? `<div class="card"><h3>What D007 says the circuit is doing</h3>
+-      <ul>${show.notes.flatMap(n => n.items).map(i => `<li><span class="tm">${esc(i.time)}</span>${esc(i.text || '')}${i.bullets.length ? '<ul>' + i.bullets.map(b => '<li>' + esc(b) + '</li>').join('') + '</ul>' : ''}</li>`).join('')}</ul></div>` : ''}
+-  </aside>` : ''}
+-  </div>
+   <div class="hubhead">
+     <div><h2>${esc(fmtDate(today))}</h2>
+       <div class="sub">${wk ? esc(weekWords(wk)) : 'outside every week on the 2026 schedule'} · ${esc(DATA.event.name)} · ${esc(DATA.event.race_dates_as_supplied)}</div></div>
+     <div class="hubwho editonly">${!canEdit() ? '' : S.operator ? `Recording as <b>${esc(S.operator)}</b>` : '<button class="linkish" data-focus="who">Put your name in “Recording as” before you record anything</button>'}</div>
+   </div>
+-  <div class="hub">
++  <!-- v5.87 - the three instruments first: the dial, the signal head, the programme; then the cards -->
++  <div class="inst">
++    <div class="card hubcard island lights" data-go="register">
++      <div class="hubtitle"><h3>The lights</h3><span class="chip ref">${t.total} assets</span></div>
++      <div class="hublights">
++        ${signalHead(t)}
++        <button class="hl" data-lf-go="green"><span class="tl green"><i></i></span><b>${t.green}</b> on site</button>
++        <button class="hl" data-lf-go="amber"><span class="tl amber"><i></i></span><b>${t.amber}</b> in transit</button>
++        <button class="hl" data-lf-go="red"><span class="tl red"><i></i></span><b>${t.red}</b> not on site</button>
++        <button class="hl" data-lf-go="none"><span class="tl none"><i></i></span><b>${t.none}</b> no record</button>
++        <button class="hl" data-lf-go="done"><span class="tick sm" aria-hidden="true">✓</span><b>${t.done}</b> complete</button>
++        ${t.needLevel ? `<button class="hl" data-lf-go="levelled" title="positioned and levelled — the final check on a building, toilet or tank; ${t.needLevel} on the job can carry it"><span class="tick sm lvl" aria-hidden="true">${levelGlyph(11)}</span><b>${t.levelled}</b> <span class="w">of ${t.needLevel}</span> levelled</button>` : ''}
++        ${t.needLevel ? `<button class="hl" data-lf-go="steps" title="steps installed — its own check, separate from levelled; ${t.needLevel} on the job can carry it"><span class="tick sm stp" aria-hidden="true">${stepsGlyph(11)}</span><b>${t.steps}</b> <span class="w">of ${t.needLevel}</span> steps</button>` : ''}
++      </div>
++      <div class="hubgo">Open the register →</div>
++    </div>
++    ${(() => { const C = completionAsOf(today), P = C.P, v = verdictIn(P.all); return `
++    <div class="card hubcard island dialcard${P.all.overdue || C.cls === 'crit' ? ' alert' : ''}" data-go="progress">
++      <div class="hubtitle"><h3>How far through the job we are</h3><span class="chip ${v.cls}">${esc(v.word)}</span></div>
++      ${completionBlock(today, C, {note: false, scope: 'due'})}
++      <p class="norate"><b>${P.all.onsite}</b> of <b>${P.all.due}</b> references due in are on site${P.all.complete ? ` · ✓ ${P.all.complete} complete` : ''}${
++        P.all.overdue ? ` · <b style="color:var(--red)">${P.all.overdue}</b> overdue` : ''}${P.all.norecord ? ` · ${P.all.norecord} unrecorded` : ''} · ${P.all.next} due in the next ${PROG_NEXT_DAYS} days · fencing ${P.fenceLines.length ? (P.fenceLines.every(l => !l.behind) ? 'on track' : 'behind') : 'nothing planned yet'}</p>
++      <div class="hubgo">Open the summary →</div>
++    </div>`; })()}
+     ${progCard(today)}
++  </div>
++  <div class="hub">
+     <div class="card hubcard" data-go="timeline" data-day="${esc(show ? show.iso : '')}">
+       <div class="hubtitle"><h3>${dayNow ? 'Due today' : next ? 'Next programme day' : 'Programme'}</h3>${show ? `<span class="chip ref">${esc(fmtDate(show.iso).slice(0, 10))}</span>` : ''}</div>
+       ${show ? `<div class="hubbig"><b>${show.deliveries.length}</b> due in <span class="w">·</span> <b>${show.removals.length}</b> due out${show.loads.length ? ` <span class="w">·</span> ${show.loads.length} carrier load${show.loads.length === 1 ? '' : 's'} listed` : ''}</div>
+@@ -9710,27 +9943,6 @@
+       <ul class="tm-list compact">${TEAM.people.filter(p => ['site', 'transport', 'install'].includes(p.group)).map(p => teamPerson(p, {compact: true})).join('')}</ul>
+       <div class="hubgo">The whole team, with emails →</div>
+     </div>` : ''}
+-    <div class="card hubcard" data-go="register">
+-      <div class="hubtitle"><h3>Lights</h3><span class="chip ref">${t.total} assets</span></div>
+-      <div class="hublights">
+-        <button class="hl" data-lf-go="green"><span class="tl green"><i></i></span><b>${t.green}</b> on site</button>
+-        <button class="hl" data-lf-go="amber"><span class="tl amber"><i></i></span><b>${t.amber}</b> in transit</button>
+-        <button class="hl" data-lf-go="red"><span class="tl red"><i></i></span><b>${t.red}</b> not on site</button>
+-        <button class="hl" data-lf-go="none"><span class="tl none"><i></i></span><b>${t.none}</b> no record</button>
+-        <button class="hl" data-lf-go="done"><span class="tick sm" aria-hidden="true">✓</span><b>${t.done}</b> complete</button>
+-        ${t.needLevel ? `<button class="hl" data-lf-go="levelled" title="positioned and levelled — the final check on a building, toilet or tank; ${t.needLevel} on the job can carry it"><span class="tick sm lvl" aria-hidden="true">${levelGlyph(11)}</span><b>${t.levelled}</b> <span class="w">of ${t.needLevel}</span> levelled</button>` : ''}
+-        ${t.needLevel ? `<button class="hl" data-lf-go="steps" title="steps installed — its own check, separate from levelled; ${t.needLevel} on the job can carry it"><span class="tick sm stp" aria-hidden="true">${stepsGlyph(11)}</span><b>${t.steps}</b> <span class="w">of ${t.needLevel}</span> steps</button>` : ''}
+-      </div>
+-      <div class="hubgo">Open the register →</div>
+-    </div>
+-    ${(() => { const C = completionAsOf(today), P = C.P, v = verdictIn(P.all); return `
+-    <div class="card hubcard wide${P.all.overdue || C.cls === 'crit' ? ' alert' : ''}" data-go="progress">
+-      <div class="hubtitle"><h3>How far through the job we are</h3><span class="chip ${v.cls}">${esc(v.word)}</span></div>
+-      ${completionBlock(today, C, {note: false, scope: 'due'})}
+-      <p class="norate"><b>${P.all.onsite}</b> of <b>${P.all.due}</b> references due in are on site${P.all.complete ? ` · ✓ ${P.all.complete} complete` : ''}${
+-        P.all.overdue ? ` · <b style="color:var(--red)">${P.all.overdue}</b> overdue` : ''}${P.all.norecord ? ` · ${P.all.norecord} unrecorded` : ''} · ${P.all.next} due in the next ${PROG_NEXT_DAYS} days · fencing ${P.fenceLines.length ? (P.fenceLines.every(l => !l.behind) ? 'on track' : 'behind') : 'nothing planned yet'}</p>
+-      <div class="hubgo">Open the summary →</div>
+-    </div>`; })()}
+     <div class="card hubcard${over.length ? ' alert' : ''}" data-go="fencing">
+       <div class="hubtitle"><h3>Fencing</h3>${fenceQuote() ? (over.length ? `<span class="chip crit">${over.length} line${over.length > 1 ? 's' : ''} over the quote</span>` : '<span class="chip ok">within quote</span>') : '<span class="chip">no quote entered</span>'}</div>
+       <div class="hubbig"><b>${usable.length}</b> docket${usable.length === 1 ? '' : 's'} <span class="w">·</span> <b>${esc(money(fcost) || '$0.00')}</b> charged</div>
+@@ -9851,6 +10063,23 @@
+       <div class="hubgo">Open the edit table →</div>
+     </div>
+   </div>
++  <div class="dsnband">${dsnBoard(today, dsnState(today), 'video')}</div>
++  <!-- F11, Superior Audit 15 Sep 2026: the brief ran to 880px and left roughly 400px of empty white beside it
++       on every laptop, while the carrier loads and the circuit notes — the context a person reads the brief
++       AGAINST — sat 3,000px further down the page. They share a row now, and the column stacks under the brief
++       on anything narrower than 1180px. -->
++  <div class="todaycols">
++  ${dailyBrief(today)}
++  ${((show && (show.loads.length || show.notes.length)) || roadsSnapshot()) ? `<aside class="sidecol">
++    ${show && show.loads.length ? `<div class="card"><h3>Carrier loads ${dayNow ? 'today' : 'that day'}</h3>
++      <p class="sub">${loadTimesLine()}</p>
++      <ul>${show.loads.slice().sort((x, y) => x.time.localeCompare(y.time)).map(loadLi).join('')}</ul>
++      <p class="norate">${esc(((DATA.transport || {}).carrier || {}).authority || '')}</p></div>` : ''}
++    ${roadsCard()}
++    ${show && show.notes.length ? `<div class="card"><h3>What D007 says the circuit is doing</h3>
++      <ul>${show.notes.flatMap(n => n.items).map(i => `<li><span class="tm">${esc(i.time)}</span>${esc(i.text || '')}${i.bullets.length ? '<ul>' + i.bullets.map(b => '<li>' + esc(b) + '</li>').join('') + '</ul>' : ''}</li>`).join('')}</ul></div>` : ''}
++  </aside>` : ''}
++  </div>
+   <p class="maphint">Press <b>/</b> to search from anywhere. Every card opens the tab that does the work; a link to any asset, day or tab can be copied and sent —
+     <span class="mono">#asset/GN01</span>, <span class="mono">#day/2026-09-14</span>, <span class="mono">#fencing</span>.</p>`;
+   const pane = $('#pane-today');
+@@ -26382,6 +26611,38 @@
+   const p = tpodParts(now);
+   return {mode: 'clock', expired: false, d: 0, h: p.h, m: p.m, s: p.s};
+ }
++/* v5.87 - THE COUNTDOWN POD. Days to race day (DATA.race_days), then, once the weekend has run, days to the end of the
++   programme (the last week sheet). The rail is the programme, first sheet to last, the flag at race day and the #26
++   at today. Worked out once a day, from the same calendar the Today card uses, and it is never a record. */
++const HZ = {iso: null};
++function hzCountdown(){
++  const el = $('#hzcd'); if (!el) return;
++  let iso; try { iso = todayIso(); } catch (e) { return; }
++  if (HZ.iso === iso) return; HZ.iso = iso;
++  const W = DATA.weeks || [], start = W.length ? W[0].start : null, end = W.length ? W[W.length - 1].end : null;
++  const race = (DATA.race_days || [])[0] || null, raceEnd = (DATA.race_days || [])[1] || race;
++  const days = (a, b) => Math.round((new Date(b + 'T00:00:00') - new Date(a + 'T00:00:00')) / 86400000);
++  const wk = weekOf(iso);
++  let lab, n, unit, sub;
++  if (race && iso < race) { lab = 'Race day · ' + fmtDay(race).dow + ' ' + fmtDay(race).dm; n = days(iso, race); unit = n === 1 ? 'DAY' : 'DAYS'; sub = wk ? weekWords(wk).split(' · ').slice(0, 2).join(' · ') : 'before the programme'; }
++  else if (race && iso <= raceEnd) { lab = 'Race weekend'; n = 'ON'; unit = 'NOW'; sub = 'the event is running'; }
++  else if (end && iso <= end) { lab = 'End of demob · ' + fmtDay(end).dow + ' ' + fmtDay(end).dm; n = days(iso, end); unit = n === 1 ? 'DAY' : 'DAYS'; sub = wk ? weekWords(wk).split(' · ').slice(0, 2).join(' · ') : 'demob'; }
++  else { lab = 'Programme'; n = '—'; unit = ''; sub = end ? 'ended ' + fmtDate(end) : ''; }
++  const span = start && end ? days(start, end) : 0;
++  const p = span ? Math.max(0, Math.min(100, days(start, iso) / span * 100)) : 0;
++  const fp = span && race ? Math.max(0, Math.min(100, days(start, race) / span * 100)) : null;
++  const set = (id, v) => { const x = $(id); if (x) x.textContent = v; };
++  set('#hzcdLab', lab); set('#hzcdN', String(n)); set('#hzcdU', unit); set('#hzcdSub', sub);
++  const rail = $('#hzrail');
++  if (rail) {
++    rail.style.setProperty('--p', p.toFixed(1) + '%');
++    const f = rail.querySelector('.flag'); if (f) f.style.left = fp == null ? '-99px' : 'calc(' + fp.toFixed(1) + '% - 6px)';
++    const ws = rail.querySelector('.wks'); if (ws && span) ws.innerHTML = W.map(w => `<i style="left:${(days(start, w.start) / span * 100).toFixed(1)}%"></i>`).join('');
++    const a = rail.querySelector('.lb.s'), b = rail.querySelector('.lb.e');
++    if (a && start) a.textContent = fmtDay(start).dm.toUpperCase(); if (b && end) b.textContent = fmtDay(end).dm.toUpperCase();
++  }
++  el.title = span ? `The programme, ${fmtDate(start)} to ${fmtDate(end)}` + (race ? ` · race day ${fmtDate(race)}` : '') : '';
++}
+ function tpodPaint(at){
+   const r = tpodRead(at), num = $('#tpodNum');
+   if (!num) return r;
+@@ -26397,6 +26658,14 @@
+   if (sec) { const lit = Math.floor(Number(r.s) / 5) + 1;
+     if (sec.children.length !== 12) sec.innerHTML = Array.from({length: 12}, () => '<i></i>').join('');
+     [...sec.children].forEach((el, i) => el.classList.toggle('on', !r.expired && i < lit)); }
++  /* v5.87 - the shift light along the cluster: the seconds of the minute, fifteen LEDs green to red, reset each
++     minute - the one moving thing on the bar, and it is time, never the record */
++  const hzs = $('#hzshift');
++  if (hzs) { if (hzs.children.length !== 15) hzs.innerHTML = Array.from({length: 15}, (_, i) => `<i class="${i < 5 ? 'g' : i < 10 ? 'o' : 'r'}"></i>`).join('');
++    const on = r.expired ? 0 : Math.round(Number(r.s) / 60 * 15); [...hzs.children].forEach((el, i) => el.classList.toggle('on', i < on)); }
++  const dt = $('#tpodDate');
++  if (dt) { if (cd) dt.textContent = ''; else { try { dt.textContent = fmtDate(isoIn(new Date(at == null ? Date.now() : at))); } catch (e) { dt.textContent = ''; } } }
++  hzCountdown();
+   const lab = $('#tpodLab'), src = $('#tpodSrc');
+   if (lab) lab.textContent = cd ? (r.expired ? 'Event date reached' : 'Countdown to the event') : 'Gold Coast · AEST';
+   if (src) src.textContent = cd ? 'days · hours · minutes' : 'device clock';
+@@ -27988,6 +28257,9 @@
+   const id = o.scope ? 'fixed:' + o.scope : 'where';
+   const sw = giSweeps(id, v);
+   const ang = pc => (A0 + pc * (SW / 100)).toFixed(2) + 'deg';
++  /* v5.87 - 180 cut lines round the bezel, drawn as geometry so a 4K screen gets them crisp */
++  const knurl = Array.from({length: 180}, (_, i) => { const a = i * Math.PI / 90, c = Math.cos(a), sn = Math.sin(a);
++    return `<line x1="${(260 + 211 * sn).toFixed(1)}" y1="${(232 - 211 * c).toFixed(1)}" x2="${(260 + 206.8 * sn).toFixed(1)}" y2="${(232 - 206.8 * c).toFixed(1)}" class="gikn"></line>`; }).join('');
+   return `<div class="cgauge gi${sw.play ? ' sweep' : ''}${o.cls ? ' ' + o.cls : ''}" style="--gi-len:${arcLen};--gi-from:${ang(sw.from)};--gi-to:${ang(v)}">
+     <div class="gitop"><span>${esc(EVENT_SHORT)} · delivery</span><span>${due ? 'against the plan' : 'whole job'}</span></div>
+     ${o.scope ? '' : `<div class="giscope" role="group" aria-label="What the instrument reads">${swap('due')}${swap('all')}</div>`}
+@@ -27995,15 +28267,19 @@
+       <svg viewBox="0 0 520 455" role="img" aria-label="${esc(words)}">
+         <defs>
+           <linearGradient id="girim" x1="0" y1="0" x2="1" y2="1">
+-            <stop offset="0" stop-color="#6d7c7c"/><stop offset=".23" stop-color="#222c2e"/>
+-            <stop offset=".55" stop-color="#667675"/><stop offset=".8" stop-color="#1b2729"/><stop offset="1" stop-color="#465556"/>
++            <stop offset="0" stop-color="#e9eef0"/><stop offset=".25" stop-color="#7c898c"/>
++            <stop offset=".5" stop-color="#2b3537"/><stop offset=".75" stop-color="#9aa6a8"/><stop offset="1" stop-color="#3a4547"/>
+           </linearGradient>
++          <linearGradient id="giglassg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".13"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>
+           <radialGradient id="gifac"><stop stop-color="#263234"/><stop offset=".7" stop-color="#1a2325"/><stop offset="1" stop-color="#10191c"/></radialGradient>
+         </defs>
+         <circle cx="260" cy="232" r="212" class="girim"></circle>
++        <g class="giknurl">${knurl}</g>
+         <circle cx="260" cy="232" r="209" class="gibez"></circle>
+         <circle cx="260" cy="232" r="206" class="gidisc"></circle>
++        <circle cx="260" cy="232" r="204.5" class="giring"></circle>
+         <path d="${arc(100, R)}" fill="none" class="gitrack" stroke-width="4"></path>
++        <path d="${arc(100, R)}" fill="none" class="gired" stroke-width="5" pathLength="100" stroke-dasharray="10 90" stroke-dashoffset="-90"></path>
+         ${v > 0 ? `<path d="${arc(v, R)}" fill="none" class="gifill" stroke-width="5"></path>` : ''}
+         <g>${ticks.join('')}</g>
+         <g>${labels}</g>
+@@ -28017,6 +28293,7 @@
+         <circle cx="260" cy="232" r="4" class="gipin"></circle>
+         <path d="M174 365 H346" class="girule"></path>
+         <text x="260" y="393" class="gifoot">${esc(EVENT_SHORT + '  /  2026')}</text>
++        <path d="M 54 232 A 206 206 0 0 1 466 232 Z" class="giglass"></path>
+       </svg>
+       <div class="gidig" aria-hidden="true">
+         <b>${has ? pc1(raw) : '—'}${has ? '<i>%</i>' : ''}</b>
+@@ -29386,7 +29663,9 @@
+   const r = recordState(waiting || 0, since || 0);
+   el.className = 'recstrip ' + r.k;
+   el.title = r.title;
+-  el.innerHTML = `<i class="rsdot" aria-hidden="true"></i><span class="rsw"><b>${esc(r.word)}</b><em>${esc(r.sub)}</em></span>`;
++  /* v5.87 - three pit-lane lamps and one word. Steady lamps: a heartbeat is still never faked here. */
++  const big = {view: 'LIVE', shared: 'LIVE', pending: 'PENDING', checking: 'CHECKING', offline: 'OFFLINE', local: 'LOCAL'}[r.k] || r.word.toUpperCase();
++  el.innerHTML = `<span class="rslamps" aria-hidden="true"><i></i><i></i><i></i></span><span class="rsw"><b>${esc(big)}</b><em>${esc(r.sub)}</em></span>`;
+ }
+ function hhmm(d){ return timeOfStamp(d); }
+ function syncStop(why){

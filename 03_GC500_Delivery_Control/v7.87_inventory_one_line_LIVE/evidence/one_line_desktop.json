@@ -1,0 +1,223 @@
+{
+ "tag": "desktop",
+ "T": [
+  {
+   "name": "L1 every location still to come is a line (116 of 116)",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "L2 each line says what is still to do, with its tags",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "L3 each line has its map location words and a locator pin",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "L4 each line has a QR code place and a satellite picture place",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "L5 reference, still to do and QR on the same line",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "L6 no sideways scroll",
+   "pass": true,
+   "detail": "false"
+  },
+  {
+   "name": "L7 the first lines in view have their QR drawn",
+   "pass": true,
+   "detail": "[{\"k\":\"P08\",\"qr\":true,\"satW\":300,\"none\":false,\"host\":\"api.mapbox.com\"},{\"k\":\"P46\",\"qr\":true,\"satW\":300,\"none\":false,\"host\":\"api.mapbox.com\"},{\"k\":\"P47\",\"qr\":true,\"satW\":300,\"none\":false,\"host\":\"api.mapbox.com\"}]"
+  },
+  {
+   "name": "L8 the first lines in view have their satellite picture (Mapbox)",
+   "pass": true,
+   "detail": "[{\"k\":\"P08\",\"qr\":true,\"satW\":300,\"none\":false,\"host\":\"api.mapbox.com\"},{\"k\":\"P46\",\"qr\":true,\"satW\":300,\"none\":false,\"host\":\"api.mapbox.com\"},{\"k\":\"P47\",\"qr\":true,\"satW\":300,\"none\":false,\"host\":\"api.mapbox.com\"}]"
+  },
+  {
+   "name": "L9 QR codes far down the list wait until they are scrolled to (8 of 116 drawn)",
+   "pass": true,
+   "detail": "{\"drawn\":8,\"all\":116}"
+  },
+  {
+   "name": "L10 the QR is the same navigation the drivers get",
+   "pass": true,
+   "detail": "true"
+  },
+  {
+   "name": "L11 the card draws in good time (158 ms)",
+   "pass": true,
+   "detail": "158.29999999998836"
+  },
+  {
+   "name": "T1 under every Still-to-come number, the reference of each location it waits on, adding up to the number (29 types)",
+   "pass": true,
+   "detail": "{\"rows\":29,\"bad\":[],\"none\":0}"
+  },
+  {
+   "name": "T2 pressing a reference opens where it goes, on its own line (WB19)",
+   "pass": true,
+   "detail": "{\"k\":\"WB19\",\"go\":true,\"r\":537,\"h\":1000}"
+  },
+  {
+   "name": "D1 pressing Still to come for FWF lists every location not turned up yet, one line each (43 of 43)",
+   "pass": true,
+   "detail": "\"FWF - still to come: 117 at 43 locations\""
+  },
+  {
+   "name": "D2 each says its due day and where it goes",
+   "pass": true,
+   "detail": "[]"
+  },
+  {
+   "name": "D3 each has a Directions link straight to the spot (the same navigation as the QR and the drivers)",
+   "pass": true,
+   "detail": "[]"
+  },
+  {
+   "name": "D4 the first line has its QR and satellite picture",
+   "pass": true,
+   "detail": "{\"qr\":true,\"sat\":300}"
+  },
+  {
+   "name": "L12 pressing the pictures opens the map (P08 -> #sheet/__explorer)",
+   "pass": true,
+   "detail": "#sheet/__explorer"
+  },
+  {
+   "name": "E1 no page errors",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "E2 nothing written",
+   "pass": true,
+   "detail": "{\"page\":1,\"live\":222,\"blocked\":0}"
+  }
+ ],
+ "heights": [
+  "P08:135",
+  "P46:135",
+  "P47:135",
+  "P51:135",
+  "T0089:150",
+  "GN18:135",
+  "P52:135",
+  "P54:135",
+  "P55:135",
+  "P56:135",
+  "P57:135",
+  "T0258:150",
+  "WC20:135",
+  "WC38:135",
+  "WC39:135",
+  "WC40:135",
+  "WC61:135",
+  "WC86:135",
+  "T0103:150",
+  "WC09:135",
+  "WC31:135",
+  "WC32:135",
+  "WC34:135",
+  "GN?:150",
+  "GN13:135",
+  "P45:135",
+  "P69:135",
+  "WC57:135",
+  "T0265:150",
+  "T0266:150",
+  "WC69:135",
+  "WC70:135",
+  "P25:135",
+  "P65:135",
+  "P66:135",
+  "P67:135",
+  "GN06:135",
+  "P60:135",
+  "P62:135",
+  "P63:135",
+  "WC48:135",
+  "WC49:135",
+  "WC51:135",
+  "WC53:135",
+  "WC54:135",
+  "P26:135",
+  "P28:135",
+  "P34:135",
+  "T0128:150",
+  "WB04:135",
+  "WB05:135",
+  "WB06:142",
+  "WB07:135",
+  "GN04:135",
+  "GN10:135",
+  "GN19:135",
+  "GN24:135",
+  "GN25:150",
+  "T0158:150",
+  "T0162:150",
+  "WB13:135",
+  "WC10:150",
+  "WC13:135",
+  "WC19:135",
+  "WC23:135",
+  "WC24:135",
+  "WC25:135",
+  "WC26:135",
+  "WC28:135",
+  "WC29:135",
+  "WC30:135",
+  "WC35:135",
+  "WC45:135",
+  "WC46:135",
+  "WC47:135",
+  "WC55:135",
+  "WC62:135",
+  "WC65:135",
+  "WC68:135",
+  "WC72:135",
+  "WC73:135",
+  "LT05:150",
+  "LT06:150",
+  "PG01:150",
+  "PG03:150",
+  "PG05:150",
+  "PG29:150",
+  "T0268:150",
+  "WC85:150",
+  "T0169:150",
+  "T0170:150",
+  "WB14:135",
+  "WB15:135",
+  "WB16:135",
+  "T0176:150",
+  "WB17:135",
+  "WB18:135",
+  "WB20:135",
+  "WB19:135",
+  "LT01:150",
+  "LT02:150",
+  "LT03:150",
+  "LT04:150",
+  "LTC01:150",
+  "LTC02:150",
+  "LTC03:150",
+  "LTC04:150",
+  "LTC05:150",
+  "LTC06:150",
+  "LTC07:150",
+  "LTC08:150",
+  "LTC09:150",
+  "LTC10:150",
+  "LTC11:150",
+  "LTC12:150",
+  "LTC14:150"
+ ]
+}
