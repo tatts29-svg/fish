@@ -1,5 +1,9 @@
 <!-- Author: Andrew Fisher -->
 
+CLAIMED — v9.59 fencing category count consistency, 9 Oct 2026. Andrew reports counts and percentages across categories/tabs are wrong and requests a complete consistency audit. Initial review confirms hard-coded Today and overall fencing category lists omit flat-feet metres, the component tally omits flat-feet CCB pieces, and the measured but unclassified S20 shower run is absent from measured-CCB summaries. Add supported quantities to shared summaries with exact evidence guards, preserve unclassified status and all charges. Review new service work for supported progress evidence without double-counting existing mesh or uncertain scrim. Source/count worker owns implementation after v9.58; root owns combined integration, checks and publication. Equipment, sync and financial category audits are running separately; no speculative data edits.
+
+<!-- Author: Andrew Fisher -->
+
 CLAIMED — v9.58 signed fencing programme reconciliation, 9 Oct 2026. Andrew asks to match and link signed papers with schedules/maps as fully as evidence supports. Final source audit found 36592 (Monster CZ) and 36588 (Club 500 Toilets) recorded in work Week 2 but their matching programme tasks still forecast in Week 1. Add guarded source-task associations and category-specific forecast attribution, retaining actual dates/weeks/costs, unmatched scope and scrim not evidenced as complete. Other exact schedule associations should be visible as references without copying planned quantities into actuals. No speculative map pins or completion ticks. Root owns final integration and publication; scoped worker implements after source review. v9.57 remains the verified live base.
 
 <!-- Author: Andrew Fisher -->
