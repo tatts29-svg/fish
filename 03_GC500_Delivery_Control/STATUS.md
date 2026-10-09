@@ -1,5 +1,9 @@
 <!-- Author: Andrew Fisher -->
 
+CLAIMED — v9.71 Showcase opening and playback performance, 9 Oct 2026. Andrew reports lag/freezes and requests less opening burnout while retaining visual upgrades. Root owns a narrow follow-up composed after v9.70: shorten/lighten the opening smoke only, enforce particle limits as quality adapts, remove particle/culling allocation churn, and suspend hidden Today media behind Showcase. Independent profiling identifies driver stalls during staged static-detail buffer upload; review startup scheduling without reducing retained geometry or manual preferences. Preserve normal driving, track, car, camera, operational data and all financial models. Source/performance reviewer owns runtime helper and equivalent-culling tests; visual and navigation reviewer verifies the final combined candidate. No physical-device FPS claim. Root owns guarded publication.
+
+<!-- Author: Andrew Fisher -->
+
 CLAIMED — v9.70 Showcase photo landmarks, 9 Oct 2026. Andrew asks whether the track was actually reviewed and upgraded from his photographs because it looks unchanged. Audit confirms v9.20 applied concrete/fence construction character only; the generic bridge and sign arrangement remained. Root owns a visible, source-supported follow-up on exact live v9.69 a271015a: review latest21148–21162 against earlier matching views and master-plan bridge/over-track references; correct only supported scene appearance/anchors, preserve circuit/car/physics/operational records and device preferences. Photo reviewer, master-registration reviewer and actual-live visual tester run independently. No guessed geographic anchor, whole-track sponsor extrapolation or physical-device FPS claim. Final source review, visual/graphics/navigation checks and guarded publication required.
 
 <!-- Author: Andrew Fisher -->
