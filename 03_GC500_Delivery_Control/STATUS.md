@@ -1,5 +1,11 @@
 <!-- Author: Andrew Fisher -->
 
+CLAIMED — v9.66 reference reconciliation, 9 Oct 2026. Andrew requests every item to have its correct destination and all views to agree. Read-only audit finds the unreferenced schedule projection ignores existing native/source reference links and includes paired demob rows. Reference audit worker owns guarded source/native matching and actionable missing-location presentation after v9.65. Preserve original rows/history and genuine unresolved allocations; no invented reference, duplicate equipment or receipt.
+
+CLAIMED — v9.67 answered-question reconciliation, 9 Oct 2026. Andrew instructs us to close questions already answered by his decisions or source documents. Financial/source worker owns source-backed Questions status/projection corrections after v9.66, including modern typed/quantity-only identity coverage, confirmed D024 map count and current installation-rate scope. Retain source provenance and only genuine unanswered facts; do not falsely close gaps with note text or invented prices. Root owns final integrated tests/publication.
+
+<!-- Author: Andrew Fisher -->
+
 CLAIMED — v9.65 item-specific quantity photos and mixed-location clarity, 9 Oct 2026. Andrew requires each item at a shared location to be selectable with its own photos/details and clear sub-hire identification. Source audit finds quantity-only Pee Panels lose the old generic photo action while the new drawer only renders photo controls for individually identified units. Independent drawer worker owns a narrow native item-group photo/detail correction after v9.64, preserving physical unit photos, existing style and one-document-per-photo upload. Root owns final integration, checks and publication. Timeline, unanswered prompts and missing references are being audited separately; no unsupported destination or receipt is inferred.
 
 <!-- Author: Andrew Fisher -->
