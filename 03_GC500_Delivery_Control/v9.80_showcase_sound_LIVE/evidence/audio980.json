@@ -282,5 +282,5 @@
   },
   "scope": "Final sound and motion blocks match the exact tested offline render. Generated engine, mechanical and lifecycle validation only; no subjective listening or real-engine recording claim.",
   "combinedCandidateSha256": "824192c81c4c719590d82bd5497cb8c6e5e0f93590d61035ce642e7490919b34",
-  "combinedBindingEvidence": "v9.81_pnl_clarity_DRAFT/evidence/cpu-publish981.json"
+  "combinedBindingEvidence": "v9.81_pnl_clarity_LIVE/evidence/cpu-publish981.json"
 }
