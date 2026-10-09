@@ -1,5 +1,9 @@
 <!-- Author: Andrew Fisher -->
 
+CLAIMED — v9.80 Showcase engine sound and continuous launch, 10 Oct 2026. Andrew reports humming/max-rev sound and a start that looks stalled before taking off. Root owns integrated sound/motion correction from exact live v9.79 b3c4ab26, with independent audio and launch audits. Check shared physical units, start timing and RPM/gear/load coupling; preserve track/car detail, preferences and all operational/financial records. Bind tests to actual motion and audio source together, verify desktop/phone lifecycle/navigation, and guarded publication only after checks. No subjective listening or physical-device performance claim without evidence.
+
+<!-- Author: Andrew Fisher -->
+
 VERIFIED LIVE — v9.79,10Oct2026 at07:02AEST. Public SHA256b3c4ab269d79f0d2a1cbef5f834967769417e91a31a281f6fe4c3c46d63f514f,12929848bytes,66scripts. READY source APIa9b96c89be726db33944184de186fc8ee2867db5/local7d63177c. Arrived-only complete billing derives all applicable known hire/work/transport charges now, including future physical clean/demob/pickup, without changing physical completion/invoices. Shared item/P&L/Finance value; per-item stairs option/source exceptions retained.191onsite groups inclaccessories,3onsite branches,43rate/allocation holds incl32transport and unknown damage waiver: priced subtotal is not a fullfinalinvoice. Exactbase/public guard, actual-public390px item/billing/roster checks,15models/sixsuites, native5201+12preservation sections, desktop/phone22routes+7links each pass, zeroerrors/writes. All recorded Revenue and Coates costs exact; missing customer pee-panel hire job forecast once, no repeat suppliercost. Codex implements/reviews/publishes with scoped agents; noClaude review claimed. Andrew reminder afterREADY: some buildings have stairs removed and more may be removed; retain per-item option and propagate exclusions, no blanket stairs removal.
 
 <!-- Author: Andrew Fisher -->
