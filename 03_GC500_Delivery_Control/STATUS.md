@@ -1,5 +1,9 @@
 <!-- Author: Andrew Fisher -->
 
+VERIFIED LIVE — combined v9.55 + v9.56, 9 Oct 2026 13:38 AEST. READY source85ade8c0; exact public SHA4410bb0b4f8fb8dbdb049485df95d0163ee9032251ad25df37c265a943efaca1, 12,688,275 bytes. Guarded upload and fresh public/native smoke pass: record5127 unchanged, 176 locations, 826 labour slots, zero runtime errors. Final desktop/phone22-route/seven-link/Back sweeps pass with zero writes/errors. Supported supplier estimate, exact ownership classification and two transport-source matches now live; actuals/customer total preserved. Missing supplier prices remain explicit. Transport workbook reviewed without duplicate customer charges. Codex completed publication; no Claude review claimed.
+
+<!-- Author: Andrew Fisher -->
+
 READY TO UPLOAD — v9.55 + v9.56, 9 Oct 2026. Final combined SHA4410bb0b4f8fb8dbdb049485df95d0163ee9032251ad25df37c265a943efaca1, 12,688,275 bytes; exact live v9.54 base84109458fde3ec9de584d411e8b87616718b0b21a2f37c32066066e684ee4d8f. Both source owners frozen and READY; root reviewed originals, source and final phone views. Supplier 92 unit/6 patch checks and 125 phone/125 desktop native checks pass; final caption-only change proved equivalent with 11 phone/12 desktop targeted checks. Transport 22 focused checks and 17 financial ties pass on fresh record5127; final caption equivalence verified. Exact final desktop/phone sweeps each inspect22 routes/seven deep links with zero errors/write attempts and correct Back. WC31 additional supplier hire is provisional; classification preserves customer total. Two exact transport source matches only; actuals and full native records unchanged. Raw transport workbook adds no duplicate charge or unsupported carrier cost. Codex owns guarded publication; no Claude review claimed.
 
 <!-- Author: Andrew Fisher -->

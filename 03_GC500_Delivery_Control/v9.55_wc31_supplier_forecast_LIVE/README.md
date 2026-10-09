@@ -27,3 +27,8 @@ Base v9.54 SHA256: `84109458fde3ec9de584d411e8b87616718b0b21a2f37c32066066e684ee
 Final standalone component candidate SHA256: `b0b8d01805e2b9a41b7d6c3d0772eae892eda20db9c0ca52862185a50cd3a318`, 12,686,024 bytes. Native model test candidate SHA256: `b54ff45053c7706a821bcf764139419975c1612f26d9a1ca5eda0548b353e747`. Full private evidence: `/workspace/private-wc31-955/final-phone/` and `/workspace/private-wc31-955/final-desktop/`. The only subsequent change is the verified caption shortening above. This component will be composed with the separately owned v9.56 exact transport-card work; it is not an independently published release.
 
 Final caption evidence: `/workspace/private-wc31-955/short-caption-phone-visible/`, `/workspace/private-wc31-955/short-caption-desktop/`; exact sole-literal proof: `/workspace/private-wc31-955/caption-only-delta.json`. No remaining findings in this component. No Git action, upload or operational write was performed by the component owner.
+
+
+Author: Andrew Fisher
+
+VERIFIED LIVE — combined v9.55 + v9.56, 9 Oct 2026 13:38 AEST. READY source commit85ade8c0. Public SHA4410bb0b4f8fb8dbdb049485df95d0163ee9032251ad25df37c265a943efaca1, 12,688,275 bytes. Guarded upload and independent public/native readback pass. Record5127 unchanged, zero runtime errors. Both final desktop and phone navigation sweeps pass. Original documents and detailed financial evidence remain private.

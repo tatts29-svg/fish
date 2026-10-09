@@ -28,3 +28,8 @@ Reviewed helper SHA256: `9b96ae8346e1560834bbb678f78a750fcb7dedde9f0bc18de7b1de6
 Reviewed patch SHA256: `87a954525b1d878698dbad3f9c773fd13512a031f205b43bef296b8e28c6feb1`.
 
 The last v9.55 presentation change only shortened its truthful approved/provisional caption. Literal-only HTML identity was proved against the passing paired build; the final-byte phone run recaptured every native model and all 17 ties, and all models are identical after normalising that one caption string. Evidence: `final_equivalence_proof.json`.
+
+
+Author: Andrew Fisher
+
+VERIFIED LIVE — combined v9.55 + v9.56, 9 Oct 2026 13:38 AEST. READY source commit85ade8c0. Public SHA4410bb0b4f8fb8dbdb049485df95d0163ee9032251ad25df37c265a943efaca1, 12,688,275 bytes. Guarded upload and independent public/native readback pass. Record5127 unchanged, zero runtime errors. Both final desktop and phone navigation sweeps pass. Original documents and detailed financial evidence remain private.
