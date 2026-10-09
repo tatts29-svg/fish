@@ -1,5 +1,9 @@
 <!-- Author: Andrew Fisher -->
 
+CLAIMED — v9.82 Costs refresh and duplication audit. Codex reviews local saves, remote shared-record changes, branch/P&L/Finance propagation and repeated presentation from exact live v9.81 824192c81c4c719590d82bd5497cb8c6e5e0f93590d61035ce642e7490919b34. Isolated browser fixtures only; preserve authoritative records and unsupported rate/receipt holds. Fix reproduced defects, run desktop/phone checks, publish only verified candidate.
+
+<!-- Author: Andrew Fisher -->
+
 VERIFIED LIVE — combined v9.80–v9.81, 10 Oct 2026 at 08:24 AEST. READY source a39f1c35; public SHA-256 824192c81c4c719590d82bd5497cb8c6e5e0f93590d61035ce642e7490919b34, 12,951,708 bytes, 67 scripts. Guarded upload and actual-public phone P&L 39/Showcase 42 checks pass, no HTML substitution, page errors or operational writes; public screenshots inspected. Correct V8 Supercars Aust Pty / V8SU0845 / QLD_GOLD COAST 600 identity, concise statement, retained branch splits, separate onsite complete charges and whole-job forecast, visible estimate/commitment basis and folded source/wages details. All 15 financial models, 12 operational projections and native 5201 unchanged. Known future cleaning/demob/pickup stay included now; unsupported prices, receipts and journals remain explicit. No full billing-completion or posted-ledger claim. Continuous five-light launch and generated six-gear/load engine are live, with scene detail preserved; no subjective listening or physical-device FPS claim. Desktop/phone 22 routes, seven links and Back pass. Root with scoped independent agents; no Claude review claimed. Next release starts from this exact public base.
 
 <!-- Author: Andrew Fisher -->
