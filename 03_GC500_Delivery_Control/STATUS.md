@@ -1,5 +1,11 @@
 <!-- Author: Andrew Fisher -->
 
+READY TO UPLOAD — v9.57, 9 Oct 2026. Exact candidate SHA4e2a8aa11e3287b536a9404cb753982873f42798ac406dbd72a12683c2ce6f1a, 12,690,491 bytes; live base v9.56 SHA4410bb0b4f8fb8dbdb049485df95d0163ee9032251ad25df37c265a943efaca1. Source frozen. Original card metre heading and rate independently read. Nine focused groups, five strict patch checks, 46-script build checks, final desktop/phone 22-route/seven-link/Back sweeps all pass, zero errors or writes. Paired native record5153 checks preserve 95 other dockets, all cost buckets, service notes, collections and record. Customer total delta equals the supported flat-feet amount; both Finance checks pass. All16 new paper records resolve to17 uploaded originals. Phone view inspected. Codex root owns guarded publication; no Claude review claimed.
+
+LIVE RECORD — fencing papers, 9 Oct 2026. Seventeen original photos uploaded and byte-verified, 16 unique native records saved (12 hire agreements, two service notes, two collection forms), record5127 to5153. Duplicate36585 photo retained without duplicate transaction. Existing files/records preserved. Schedule supports Event category for36591/36594; current card resolves flat-feet metre pricing via v9.57. RearS20shower subtype and PitLane150m related-hire identity remain unresolved after map/programme review; full source evidence retained. Andrew requests traceable matching, links and references suitable for future works. See record_09Oct2026_fencing_36584_36595.
+
+<!-- Author: Andrew Fisher -->
+
 CLAIMED — v9.57 flat-feet fencing card mapping,9Oct2026. New signed agreement36591 plus original programme CON WK2 row14 confirm42m flat-feet CCB/19components. Original2026StreetCard C53 establishes per-metre section; C63=9.6511, labourIncluded. Add native flat_feet column with customercard rate, suppliercostunknown; preserve other rates andrecord. Rootowns build/publication; scopedworkerimplementation. Separately authorised17originalphotosuploaded and16uniqueoperationalpapers beingreconciled.
 
 <!-- Author: Andrew Fisher -->

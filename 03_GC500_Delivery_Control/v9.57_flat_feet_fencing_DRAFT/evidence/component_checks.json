@@ -1,0 +1,19 @@
+{
+  "author": "Andrew Fisher",
+  "state": "component ready; final build, browser checks and publication owned by the release owner",
+  "base_sha256": "4410bb0b4f8fb8dbdb049485df95d0163ee9032251ad25df37c265a943efaca1",
+  "candidate_sha256": "4e2a8aa11e3287b536a9404cb753982873f42798ac406dbd72a12683c2ce6f1a",
+  "candidate_bytes": 12690491,
+  "source_sha256": "fff96053de6f0aa6ed30865ad579438747ba8ed918ae5d70f138b72a6c8f169a",
+  "patch_sha256": "354dbf12902f075a741d3835c69994a31e60748bf945c012b7ed4f054e48e1e2",
+  "native_costing_check_groups": 9,
+  "existing_docket_calculations_preserved": 84,
+  "strict_patch_checks": 5,
+  "inline_scripts_parsed": 46,
+  "page_check": "PASS",
+  "source_units": "Original 2026 fencing section says Per Mtr 2026; source programme also names metres.",
+  "supplier_cost": "Unknown; no supplier rate added.",
+  "physical_components": "Independent of the recorded metre quantity.",
+  "record_writes": 0,
+  "uploads": 0
+}

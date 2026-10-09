@@ -1,0 +1,16 @@
+{
+  "author": "Andrew Fisher",
+  "pass": true,
+  "version": 5153,
+  "existingDocketsUnchanged": 95,
+  "onlyCustomerChargeChange": "flat-feet card mapping",
+  "actualCostsUnchanged": true,
+  "recordUnchanged": true,
+  "papers": 16,
+  "linkedPhotos": 17,
+  "errors": [],
+  "financePeopleCheck": true,
+  "financeCostCheck": true,
+  "customerTotalDeltaMatchesFlatFeet": true,
+  "allCostBucketsUnchanged": true
+}
