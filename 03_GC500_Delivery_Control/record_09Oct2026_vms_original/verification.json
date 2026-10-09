@@ -1,0 +1,18 @@
+{
+  "author": "Andrew Fisher",
+  "at": "2026-10-09T10:40:36.773Z",
+  "filename": "VMS001-26003-01_GC500_COATES_VMS_LOCATIONS.pdf",
+  "sha256": "9ef1527d1fd9c6c7ea70dd3db3ced96784b0c1b32eba0df2aa3fb5ecd61be382",
+  "bytes": 2994014,
+  "kind": "map",
+  "original_exact": true,
+  "existing_files_unchanged": 427,
+  "shared_record_unchanged": true,
+  "record_version_before": 5168,
+  "record_version_after": 5168,
+  "record_writes_sent": 0,
+  "original_posts": 1,
+  "thumbnail_required": false,
+  "unrelated_writes_blocked": 0,
+  "page_errors": 0
+}

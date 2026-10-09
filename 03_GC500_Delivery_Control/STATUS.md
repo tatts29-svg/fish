@@ -1,5 +1,9 @@
 <!-- Author: Andrew Fisher -->
 
+LIVE SOURCE FILE — 9 Oct 2026 at20:40AEST. Supplied VMS001-26003-01 original uploaded once via native Documents as map, recorded as Andrew Fisher via Codex. Exact original/readback SHA9ef1527d1fd9c6c7ea70dd3db3ced96784b0c1b32eba0df2aa3fb5ecd61be382,2,994,014bytes,17pages. All427previousfiles and native5168 preserved; no operational writes. v9.73 will remove the stale name-only availability note and expose the verified original link. This does not select the governing drawing or allocate future load boards.
+
+<!-- Author: Andrew Fisher -->
+
 CLAIMED — v9.73 original-source reference reconciliation, 9 Oct 2026. Andrew: “U have all info all all maps u have all data.” Reopen remaining references and Questions against supplied originals and current native5168. Original D024 page1 explicitly links generator025/GN25 to Seaway Carpark; apply this named destination without inventing a coordinate. Reference and contract workers are tracing office/lunchroom identities, VMS batch associations and remaining locations. Root owns integration of exact supported source links, closure of stale Questions, evidence retention, financial/native preservation and guarded publication from exact live v9.71 f182b59f. Unsupported facts remain specific, not generic missing-reference claims. No operational record or financial changes without separately evidenced necessity.
 
 <!-- Author: Andrew Fisher -->
