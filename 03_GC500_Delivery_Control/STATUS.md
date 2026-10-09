@@ -1,5 +1,9 @@
 <!-- Author: Andrew Fisher -->
 
+CLAIMED — v9.76 clear Fencing actual/forecast and concise data presentation. Andrew requests easy-to-find forecast and actual fencing figures, the same clarity in P&L, and excessive explanations across tabs moved behind More info. Finance worker owns consistent Fencing/P&L data-first presentation; presentation worker owns remaining operational surfaces and folding supporting prose using existing components. Preserve structured shared models, all native records, ledger classifications, automation inputs and essential status/uncertainty labels. No narrative-based calculation, guessed forecast or hidden financial discrepancy. Root integrates after verified v9.75 and owns final preservation/navigation/phone checks and publication.
+
+<!-- Author: Andrew Fisher -->
+
 IN PROGRESS — combined v9.74–v9.75 integration. Native destinations T0268/WC85 are verified saved to Coates compound on record5174; arrival/install unchanged. Andrew confirms no card cleaning rate means no cleaning charge and requests worker-only assignment. Latest requests add shared Sub-hired refresh, correct one Coates/one PremiAir VMS ownership, remove completed Friday sheets from active work and generate upcoming sheets from remaining work. Root integrates these scopes with arrived charges and Showcase realism; helpers are under test, not LIVE. A confirmed shared-cache hydration/poll invalidation defect is included so views refresh from received records immediately. Supplied FWF supplier balance must not masquerade as scheduled deliveries remaining.
 
 <!-- Author: Andrew Fisher -->
