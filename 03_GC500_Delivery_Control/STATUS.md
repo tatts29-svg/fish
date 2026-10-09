@@ -1,5 +1,9 @@
 <!-- Author: Andrew Fisher -->
 
+v9.55 scope correction — original contract 9968955/KINP line 98 already prices two WC31 16-pan blocks at $2,852.13 each, $5,704.26 whole event. Native physical identities 12/74 explicitly Event Portables; unmatched MISCITEM source had defaulted their Revenue to Hire. Correct only this exact two-unit ownership-supported line to Rehire, preserving total Revenue and all actual costs. This is part of Andrew’s current request to answer/fix costing and sub-hire using supplied data; no new customer charge. Guard contract/line/item/qty/physical ownership and verify classification delta/ties.
+
+<!-- Author: Andrew Fisher -->
+
 CLAIMED — v9.56 exact source toilet-block transport matches, 9 Oct 2026. Original card re-review supports WC05 T0225 combo-tanked block pickup and WC60 T0203 tank-mounted toilet pickup: exact product names map to equal Transport L27:L29 each-way carrier rates. Implement those two source matches only; preserve customer Revenue, actuals, supplier coverage and all truly unknown/POA work. Build after v9.55; contract/source worker owns scoped implementation, root owns tested publication.
 
 <!-- Author: Andrew Fisher -->
