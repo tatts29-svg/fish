@@ -1,0 +1,40 @@
+{
+  "author": "Andrew Fisher",
+  "candidateSha256": "824192c81c4c719590d82bd5497cb8c6e5e0f93590d61035ce642e7490919b34",
+  "scope": "Historical Finance controls reviewed as context; no accounting or operational posting.",
+  "presentationBasis": [
+    "Current record includes estimates and commitments; it is not a posted-actual claim.",
+    "Additional forecast is whole-job forecast less current record.",
+    "Onsite complete charges are a Revenue subtotal, not an extra amount to add to the whole-job forecast.",
+    "PO receipt and source branch stay visible in Finance."
+  ],
+  "coveredControls": [
+    "Customer Revenue separate from Coates costs",
+    "Branch totals and combined total",
+    "PO and receipt status retained",
+    "Distinct Installation and Consumables ledger lines",
+    "Monthly labour and journal evidence remain distinct",
+    "Demob forecast and unbilled handover retained"
+  ],
+  "remainingScope": [
+    "Receipt and PO evidence is incomplete.",
+    "Monthly labour handover does not yet include home branch in the same table/export.",
+    "No posted journal is inferred.",
+    "Some labour and transport remains unpriced.",
+    "Unbilled status comes from the source contract export.",
+    "A yearless historical deadline is not re-dated."
+  ],
+  "preservation": {
+    "monetaryModelsChanged": false,
+    "nativeRecordsChanged": false,
+    "newReceiptsOrBranchReallocations": false,
+    "emailsSent": false
+  },
+  "notClaimed": [
+    "Complete posted P&L",
+    "All costs priced",
+    "All POs receipted",
+    "All journals posted",
+    "All charges invoiced"
+  ]
+}

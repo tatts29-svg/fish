@@ -1,0 +1,286 @@
+{
+  "author": "Andrew Fisher",
+  "intermediateSha256": "1155a15ab89ee27bbeae2a465f3c28ef8d09fcf6220b12564fc53e0ad68318ff",
+  "sourceBlocks": {
+    "tune": "2d256a3f053b5d8d77d6a2d4dc5f03893625e998c11b460d4d2c1e758478c02e",
+    "units": "461fda818d017741e01eee3c2203e7afdaeee94497964ed1deda2bb59a615b0e",
+    "pose": "bf393dc3b15466f4ab66fce91f419fc60eb3cad23b3657cb2184130d4192148a",
+    "step": "af5029e99bc4599fe2e305185d38c7c24523bf6ce44f42816d08ee6c0cb57411",
+    "audio": "8fca064447df0ebd2bd6ca6003007e9b317f8462286f0ebe92453bb205bfb03b"
+  },
+  "offlineChecks": [
+    "Sound/context absent before gesture",
+    "Late decode retains firing source",
+    "Late decode retains audio context",
+    "Three body layers attach once",
+    "Repeated decode completion does not duplicate layers",
+    "Engine preference keeps firing source",
+    "Loops preference keeps firing source",
+    "Close disposes context and every source",
+    "Actual fixed-step motion drives finite audio",
+    "No clutch-to-idle collapse",
+    "Launch RPM has no abrupt jump",
+    "Moving revs remain bounded",
+    "Sixth gear reached on205kmh straight",
+    "Maintained speed has engine load",
+    "Brake/throttle changes represented",
+    "Upshift load cut present",
+    "Original generated loop mode retained",
+    "Rendered audio is present and unclipped",
+    "Off clears firing source and loops",
+    "On reuses current context"
+  ],
+  "modelChecks": {
+    "pass": true,
+    "checks": 26,
+    "rows": [
+      {
+        "pace": 0.25,
+        "target": 0,
+        "maxRpmStep": 19.699118437396237,
+        "launchMinimum": 2202.5375000000004,
+        "finalRpm": 1300,
+        "gear": 1
+      },
+      {
+        "pace": 0.25,
+        "target": 5,
+        "maxRpmStep": 19.699118437396237,
+        "launchMinimum": 2202.5375000000004,
+        "finalRpm": 1300,
+        "gear": 1
+      },
+      {
+        "pace": 0.25,
+        "target": 15,
+        "maxRpmStep": 19.699118437396237,
+        "launchMinimum": 2202.5375000000004,
+        "finalRpm": 1392.8571428571431,
+        "gear": 1
+      },
+      {
+        "pace": 0.25,
+        "target": 55,
+        "maxRpmStep": 19.699118437396237,
+        "launchMinimum": 2230.326098632814,
+        "finalRpm": 5107.142857142857,
+        "gear": 1
+      },
+      {
+        "pace": 0.25,
+        "target": 205,
+        "maxRpmStep": 19.699118437396237,
+        "launchMinimum": 2230.326098632814,
+        "finalRpm": 4935.185185185185,
+        "gear": 6
+      },
+      {
+        "pace": 1,
+        "target": 0,
+        "maxRpmStep": 19.699118437396237,
+        "launchMinimum": 2202.537500000001,
+        "finalRpm": 1300,
+        "gear": 1
+      },
+      {
+        "pace": 1,
+        "target": 5,
+        "maxRpmStep": 19.699118437396237,
+        "launchMinimum": 2202.537500000001,
+        "finalRpm": 1300,
+        "gear": 1
+      },
+      {
+        "pace": 1,
+        "target": 15,
+        "maxRpmStep": 19.699118437396237,
+        "launchMinimum": 2202.537500000001,
+        "finalRpm": 1392.8571428571431,
+        "gear": 1
+      },
+      {
+        "pace": 1,
+        "target": 55,
+        "maxRpmStep": 27.327857142858193,
+        "launchMinimum": 2232.685326873861,
+        "finalRpm": 5107.142857142857,
+        "gear": 1
+      },
+      {
+        "pace": 1,
+        "target": 205,
+        "maxRpmStep": 27.327857142858193,
+        "launchMinimum": 2232.685326873861,
+        "finalRpm": 4935.185185185185,
+        "gear": 6
+      },
+      {
+        "pace": 2,
+        "target": 0,
+        "maxRpmStep": 37.461419753086375,
+        "launchMinimum": 2202.5375000000017,
+        "finalRpm": 1300,
+        "gear": 1
+      },
+      {
+        "pace": 2,
+        "target": 5,
+        "maxRpmStep": 37.461419753086375,
+        "launchMinimum": 2202.5375000000017,
+        "finalRpm": 1300,
+        "gear": 1
+      },
+      {
+        "pace": 2,
+        "target": 15,
+        "maxRpmStep": 37.461419753086375,
+        "launchMinimum": 2202.5375000000017,
+        "finalRpm": 1392.8571428571431,
+        "gear": 1
+      },
+      {
+        "pace": 2,
+        "target": 55,
+        "maxRpmStep": 54.655714285715476,
+        "launchMinimum": 2236.400000000006,
+        "finalRpm": 5107.142857142857,
+        "gear": 1
+      },
+      {
+        "pace": 2,
+        "target": 205,
+        "maxRpmStep": 54.655714285715476,
+        "launchMinimum": 2236.400000000006,
+        "finalRpm": 4935.185185185185,
+        "gear": 6
+      }
+    ]
+  },
+  "peak": 0.25749263167381287,
+  "rms": 0.04104266544827087,
+  "clipped": 0,
+  "minLaunchRpm": 2233.6441550925956,
+  "maxMovingRpm": 5795.06369684725,
+  "largestLaunchRpmStep": 54.655714285716385,
+  "spectralEvidence": {
+    "author": "Andrew Fisher",
+    "scope": "Measured source-bound controlled-road offline renders. Staging includes countdown beeps. Harmonic measurements do not certify subjective realism.",
+    "before": {
+      "wav_sha256": "445c52b84b6ebc5a70af45e78b674daa81754ea8cb40a0babd042ee085fa41dc",
+      "windows": {
+        "staging": {
+          "rms": 0.026358716904800232,
+          "peak": 0.13800048828125,
+          "strongest_bin_fraction": 0.13242101934171158,
+          "strongest_bin_hz": 150.732421875,
+          "band_power_fraction": {
+            "0-120Hz": 0.16290154406178523,
+            "120-500Hz": 0.6529173288063046,
+            "500-1500Hz": 0.18157755684099194,
+            "1500-4000Hz": 0.0025129241217975882,
+            "4000-20000Hz": 9.063626097313639e-05
+          }
+        },
+        "launch": {
+          "rms": 0.03691957130427638,
+          "peak": 0.115386962890625,
+          "strongest_bin_fraction": 0.06116424663038492,
+          "strongest_bin_hz": 156.11572265625,
+          "band_power_fraction": {
+            "0-120Hz": 0.3673952939764359,
+            "120-500Hz": 0.6179510595996988,
+            "500-1500Hz": 0.010845160561141359,
+            "1500-4000Hz": 0.0036449225190002816,
+            "4000-20000Hz": 0.0001635582309988815
+          }
+        },
+        "cruise": {
+          "rms": 0.017025680309837945,
+          "peak": 0.043792724609375,
+          "strongest_bin_fraction": 0.05262431982685106,
+          "strongest_bin_hz": 511.41357421875,
+          "band_power_fraction": {
+            "0-120Hz": 0.010154767573966798,
+            "120-500Hz": 0.4391338303855833,
+            "500-1500Hz": 0.5351663031469003,
+            "1500-4000Hz": 0.015522271359474036,
+            "4000-20000Hz": 2.2802614916958132e-05
+          }
+        },
+        "braking": {
+          "rms": 0.016049999879175204,
+          "peak": 0.043212890625,
+          "strongest_bin_fraction": 0.05464366371908489,
+          "strongest_bin_hz": 387.59765625,
+          "band_power_fraction": {
+            "0-120Hz": 0.02403648618684968,
+            "120-500Hz": 0.803417632755936,
+            "500-1500Hz": 0.16633979130621326,
+            "1500-4000Hz": 0.006192136776808019,
+            "4000-20000Hz": 1.3924243518456387e-05
+          }
+        }
+      }
+    },
+    "after": {
+      "wav_sha256": "6ddc7d0d378ccf4a2d90e421b9f79f9fdf4561c82ff772d8bcdedc62e6d49306",
+      "windows": {
+        "staging": {
+          "rms": 0.03973103781543252,
+          "peak": 0.168304443359375,
+          "strongest_bin_fraction": 0.039624796925816004,
+          "strongest_bin_hz": 96.8994140625,
+          "band_power_fraction": {
+            "0-120Hz": 0.205008962095806,
+            "120-500Hz": 0.5301359787731225,
+            "500-1500Hz": 0.25298488907362277,
+            "1500-4000Hz": 0.01184677139360889,
+            "4000-20000Hz": 2.3394119555735778e-05
+          }
+        },
+        "launch": {
+          "rms": 0.06212375909447323,
+          "peak": 0.257476806640625,
+          "strongest_bin_fraction": 0.038486552082074986,
+          "strongest_bin_hz": 156.11572265625,
+          "band_power_fraction": {
+            "0-120Hz": 0.20299533943221934,
+            "120-500Hz": 0.6030241037643824,
+            "500-1500Hz": 0.16009217560631692,
+            "1500-4000Hz": 0.03319883878246435,
+            "4000-20000Hz": 0.0006895405621179831
+          }
+        },
+        "cruise": {
+          "rms": 0.03613910561293257,
+          "peak": 0.16619873046875,
+          "strongest_bin_fraction": 0.08171568697862173,
+          "strongest_bin_hz": 123.81591796875,
+          "band_power_fraction": {
+            "0-120Hz": 0.13518151969639644,
+            "120-500Hz": 0.6391320476828992,
+            "500-1500Hz": 0.1957079267170973,
+            "1500-4000Hz": 0.029790632650505886,
+            "4000-20000Hz": 0.00018786770972505692
+          }
+        },
+        "braking": {
+          "rms": 0.02007006708124607,
+          "peak": 0.09832763671875,
+          "strongest_bin_fraction": 0.039323065554280605,
+          "strongest_bin_hz": 161.4990234375,
+          "band_power_fraction": {
+            "0-120Hz": 0.15556218414870612,
+            "120-500Hz": 0.5774906558756616,
+            "500-1500Hz": 0.257037790588343,
+            "1500-4000Hz": 0.009878230774250766,
+            "4000-20000Hz": 3.1119585024494965e-05
+          }
+        }
+      }
+    }
+  },
+  "scope": "Final sound and motion blocks match the exact tested offline render. Generated engine, mechanical and lifecycle validation only; no subjective listening or real-engine recording claim.",
+  "combinedCandidateSha256": "824192c81c4c719590d82bd5497cb8c6e5e0f93590d61035ce642e7490919b34",
+  "combinedBindingEvidence": "v9.81_pnl_clarity_DRAFT/evidence/cpu-publish981.json"
+}

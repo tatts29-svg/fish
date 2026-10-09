@@ -1,5 +1,15 @@
 <!-- Author: Andrew Fisher -->
 
+READY TO UPLOAD — combined v9.80–v9.81, 10 Oct 2026 at 08:24 AEST. Final SHA-256 824192c81c4c719590d82bd5497cb8c6e5e0f93590d61035ce642e7490919b34, 12,951,708 bytes, 67 scripts; base live v9.79 b3c4ab269d79f0d2a1cbef5f834967769417e91a31a281f6fe4c3c46d63f514f. One concise P&L, exact customer/site header and Finance exports, retained branch splits, duplicate summaries/wage tables folded, separate onsite subtotal and whole-job operational forecast. Management email requirements reviewed: include known full future costs now for October, distinguish estimates/commitments from receipts/posted costs, preserve PO and costed/revenue branch detail. No rates, receipts, allocations or journals fabricated. Existing source/price/receipt gaps remain; this is not complete invoice or posted-ledger certification.
+
+Final desktop/phone P&L each 38 checks; frozen native 5201, all 15 financial models and 12 operational projections exact vs v9.79. Final desktop/phone 22 routes + seven links + Back pass, zero errors/writes; explicit navigation map fixtures. 17 launch + 26 sound-model + 20 offline audio checks; desktop 41/phone 42 Showcase checks bound to byte-identical full Showcase script in final candidate. Stationary five-light start, continuous launch and six-gear load-driven audio retain scene detail. Phone screenshots inspected; no subjective audio or physical-device FPS claim. Root implements/tests/publishes with independent scoped agents; no Claude review claimed. Exact source/evidence pushed before guarded upload; actual-public readback still pending.
+
+<!-- Author: Andrew Fisher -->
+
+CUSTOMER IDENTITY — Andrew confirms in this chat: “Customer code: V8SU0845”, “Customer: V8 Supercars Aust Pty”, “Site code: QLD_GOLD COAST 600”. v9.81 uses these exact values once in each financial view and Finance export. This commercial site code does not rename the GC500 event. Andrew also reiterates “We need everything clean and tidy”; repeated summaries and default-visible wage allocations are folded into their existing source detail. Final desktop/phone verification is in progress; v9.79 remains live until guarded publication.
+
+<!-- Author: Andrew Fisher -->
+
 CLAIMED — v9.81 P&L terminology and duplicate presentation, 10 Oct 2026. Andrew asks to ensure correct terminology everywhere in the P&L, remove confusing stories and duplicate information. Separate financial presentation worker audits visible P&L/Finance and owns concise labels/closed More info using existing components. Preserve all financial models, different accounting bases, source/rate holds and native records; each repeated figure appears once per view. Root owns exact source integration, financial equality checks and publication after/alongside sound v9.80. v9.80 sound/launch implementation continues independently.
 
 <!-- Author: Andrew Fisher -->

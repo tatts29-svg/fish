@@ -35,6 +35,11 @@ fs.mkdirSync(out, {recursive: true});
     check('Opening retains quality, view, backdrop and engine preferences', await p.evaluate(v => showViewGet() === v.view && showQualityGet() === v.quality && showBackPref() === v.back && localStorage.getItem('gc500.showengine') === v.engine, prefsBefore));
     check('Photo landmarks and prepared track retained', await p.evaluate(() => GC3D.S.dressStats.photoLandmarks970.landmarks.length === 5 && GC3D.startupReport971().prepared && !GC3D.failed));
 
+    if (phone) {
+      await p.locator('#showOptions794').click();
+      check('Phone Options reveals sound controls', await p.locator('#showSound').isVisible());
+    }
+
     // Use the actual control gesture. Paused presentation creates then suspends sound.
     await p.locator('#showSound').click();
     await audioState('suspended');

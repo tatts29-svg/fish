@@ -1,0 +1,89 @@
+{
+  "author": "Andrew Fisher",
+  "sha256": "824192c81c4c719590d82bd5497cb8c6e5e0f93590d61035ce642e7490919b34",
+  "pass": true,
+  "sourceBinding": {
+    "priorBrowserCandidateSha256": "c04216d9335ace764021bc1bb87253b067d3acbac22a8a492f7157f0921d1413",
+    "entirePageBefore981AppendixExact": true,
+    "showcaseScriptSha256": "45e0075f2a91b257c1ea650f22b24e43c6491e1dc8b5bc638e87530e34e7c0bf",
+    "legacyFinancialAndOtherScriptsExactExceptFooterVersion": true,
+    "legacyPageSha256": "b3c4ab269d79f0d2a1cbef5f834967769417e91a31a281f6fe4c3c46d63f514f",
+    "offlineV3Sha256": "49deb536d8a518bd49e5e9a5964abfb9aad2eca71e5e0f9b79cfcf718834b618",
+    "blocks": {
+      "tune": "2d256a3f053b5d8d77d6a2d4dc5f03893625e998c11b460d4d2c1e758478c02e",
+      "units": "461fda818d017741e01eee3c2203e7afdaeee94497964ed1deda2bb59a615b0e",
+      "reset": "52eebbae6c5d54a9322fe623291aa43936784ba7d0cbc3aa94ab2932103e5645",
+      "pose": "bf393dc3b15466f4ab66fce91f419fc60eb3cad23b3657cb2184130d4192148a",
+      "step": "af5029e99bc4599fe2e305185d38c7c24523bf6ce44f42816d08ee6c0cb57411",
+      "audio": "8fca064447df0ebd2bd6ca6003007e9b317f8462286f0ebe92453bb205bfb03b"
+    },
+    "allExact": true
+  },
+  "cpuSoundModel": {
+    "pass": true,
+    "checks": 26,
+    "binding": "Carried forward from exact unchanged source"
+  },
+  "cpuLaunch": {
+    "pass": true,
+    "checks": 17,
+    "binding": "Carried forward from exact unchanged source"
+  },
+  "grouping": {
+    "author": "Andrew Fisher",
+    "pass": true,
+    "checks": 16
+  },
+  "identityExport": {
+    "author": "Andrew Fisher",
+    "pass": true,
+    "checks": 10,
+    "scope": "Exact identity, CRLF CSV metadata, prior export body and source model preservation"
+  },
+  "identityPlacement": {
+    "author": "Andrew Fisher",
+    "pass": true,
+    "checks": 12,
+    "scope": "No-header fallback, existing heading reuse, navigation placement and repeat-apply idempotency"
+  },
+  "financialSourceSha256": "f15254e2b9d951683a0ecb71f6ff096744cacb65c214129ec3ef119f97e278c5",
+  "financialBasisLabels": {
+    "currentRecordNotPostedActual": true,
+    "additionalForecastEqualsJobLessCurrent": true,
+    "onsiteSubtotalNotAdditiveToWholeJob": true,
+    "receiptAndBranchEvidenceRetainedInFinance": true
+  },
+  "offlineAudio": {
+    "pageSha256": "49deb536d8a518bd49e5e9a5964abfb9aad2eca71e5e0f9b79cfcf718834b618",
+    "evidenceSha256": "255aa451f62441c1b95e7e32b370f28b94540bfc93812ed48163ca915f73dc7d",
+    "checks": 20,
+    "errors": 0,
+    "scope": "Prior offline render bound by exact source; no subjective listening claim"
+  },
+  "showcaseBrowser": {
+    "desktop": {
+      "testedSha256": "c04216d9335ace764021bc1bb87253b067d3acbac22a8a492f7157f0921d1413",
+      "evidenceSha256": "48d236f8c8dab00fc6f9099019c69890c73458d526c696715d823130c611ef21",
+      "pass": true,
+      "checks": 41,
+      "recordUnchanged": true,
+      "operationalWrites": 0,
+      "errors": 0,
+      "binding": "Entire Showcase script and all preceding page source identical",
+      "scope": "Actual page fixed-step motion plus actual sound tick, controls, GL render and explicit visibility fixture in software Chromium. Not subjective listening or physical-device FPS evidence."
+    },
+    "phone": {
+      "testedSha256": "c04216d9335ace764021bc1bb87253b067d3acbac22a8a492f7157f0921d1413",
+      "evidenceSha256": "805d728885999f3a3fe263e3aaba372b2bbf6fc84db4609f3148b474f399b0db",
+      "pass": true,
+      "checks": 42,
+      "recordUnchanged": true,
+      "operationalWrites": 0,
+      "errors": 0,
+      "binding": "Entire Showcase script and all preceding page source identical",
+      "scope": "Actual page fixed-step motion plus actual sound tick, controls, GL render and explicit visibility fixture in software Chromium. Not subjective listening or physical-device FPS evidence."
+    }
+  },
+  "noNewBrowserNetworkOrOperationalWrites": true,
+  "scope": "Final source binding and isolated CPU checks. Browser Showcase checks are carried forward from the identical tested script; root owns final financial model equality and public verification."
+}
