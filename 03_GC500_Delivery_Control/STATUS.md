@@ -1,5 +1,9 @@
 <!-- Author: Andrew Fisher -->
 
+CLAIMED — v9.69 shared item ownership labels,9Oct2026. Andrew requires every sub-hired item clearly marked across views. Confirmed audit finds legacy Equipment/Map/Timeline identity strips omit typed supplier units and show stale T0103sub-17093. Quantity ownership worker owns a read-only shared summary afterv9.68 from existing typed physical identities and guarded quantity-only records. Display item-specific supplier/number/quantity consistently; preserve mixed Coates items, source records, map positions, receipts and financial models. Concise data by default; no new prose or whole-location supplier flag. Root owns final combined checks/publication.
+
+<!-- Author: Andrew Fisher -->
+
 VERIFIED LIVE — v9.64,9Oct2026at17:39AEST. READY sourcebb0d098e; exact public SHA82d23168b4df656016bc8be2e7da74e58ac09a585eaebca3418f87bc4656291f,12,770,567bytes. Native quantity ownership saved5164→5167: sixWC09PeePanels received/installed/SUB-HIRED EventPortables, quantity-only. Exactly three expected loads/by/stamps documents changed. Fresh public read verifies all other records, physical identities and financial models unchanged. Supplier91identities+6quantity-only,79received; FWF71unchanged. Today254planned/138received/138installed/116withoutrecordedreceipt. WC09twoCoatesblocks and fourFWF allocations preserved. v9.65–v9.68 must build from this live code and latestrecord5167; root owns integration/publication. v9.64source and record evidence are saved under their LIVE/record folders.
 
 <!-- Author: Andrew Fisher -->
