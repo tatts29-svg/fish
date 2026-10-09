@@ -9,8 +9,11 @@
   "papers": 16,
   "linkedPhotos": 17,
   "errors": [],
+  "candidate_sha256": "1f04615f0c941e1c6c2b45e0656fc92e2bd816998a7b5f2d428f1e1b0e4a6cb0",
+  "candidate_bytes": 12694230,
   "financePeopleCheck": true,
   "financeCostCheck": true,
   "customerTotalDeltaMatchesFlatFeet": true,
-  "allCostBucketsUnchanged": true
+  "allCostBucketsUnchanged": true,
+  "sourceReviewsConfirmed": 2
 }

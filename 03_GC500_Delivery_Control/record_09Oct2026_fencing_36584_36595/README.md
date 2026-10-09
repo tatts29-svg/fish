@@ -23,3 +23,5 @@ Service 24473's Pit Lane scrim cannot be linked to a unique earlier hire agreeme
 ## Standard for future work
 
 Andrew requested that signed papers, schedules, maps and rates be matched, linked and referenced as far as the evidence supports. Preserve source year, planned versus actual quantities, and unresolved distinctions. This gives future projects a traceable reference without claiming certainty beyond the evidence.
+
+The newer supplied programme was uploaded separately as GC500_2026_Coates_Fencing_Programme_Reviewed_09Oct2026.xlsx (SHA-256 836a3e1036c660caa89b1b36d4b821e2f84df7a8d8b977068b13a4f07602d9db). Its source rows differ from the older programme already in Documents. The older file remains available. Both category assessments use the newer original and exact signed-photo checksums, with stale-record/source guards.

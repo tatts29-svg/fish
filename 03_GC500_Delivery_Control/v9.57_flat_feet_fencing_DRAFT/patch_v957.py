@@ -14,6 +14,15 @@ assert 'function transport956Demand' in s and " · v9.56'; /* v8.19" in s, 'Requ
 s = rep(s, 'const FCOL = FENCE.columns || [];',
         'const FCOL = FENCE.columns || [];\n' + (HERE / 'flatfeet957.js').read_text(),
         'flat-feet source mapping', str(p))
+s = rep(s, 'function fenceInstallationWeeks847() {',
+        (HERE / 'ccbreview957.js').read_text() + '\nfunction fenceInstallationWeeks847() {',
+        'two source-backed CCB classifications', str(p))
+s = rep(s, "const COLLECT_WORDS = {mesh_panel: ['mesh panel', 'mesh panels'],",
+        "const COLLECT_WORDS = {flat_feet_ccb: ['flat-feet CCB', 'flat-feet CCBs'], mesh_panel: ['mesh panel', 'mesh panels'],",
+        'flat-feet physical component label', str(p))
+s = rep(s, "const PAPER_PARTS = [['mesh_panel', 'Mesh panels'],",
+        "const PAPER_PARTS = [['flat_feet_ccb', 'Flat-feet CCBs'], ['mesh_panel', 'Mesh panels'],",
+        'flat-feet native component field', str(p))
 s = rep(s, "const FENCE_GEAR_COLS = ['clean', 'scrim', 'v_gates', 'ped_gates', 'ccb_event', 'ccb_demarc'];",
         "const FENCE_GEAR_COLS = ['clean', 'scrim', 'v_gates', 'ped_gates', 'ccb_event', 'ccb_demarc', 'flat_feet'];",
         'flat-feet rehire classification', str(p))
