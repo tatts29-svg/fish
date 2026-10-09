@@ -1,5 +1,9 @@
 <!-- Author: Andrew Fisher -->
 
+CLAIMED — v9.77 onsite delivery and pickup transport forecast correction. Andrew requests all applicable onsite charges including both transport legs. Correct P36 current1282487 versus history1327222 using reviewed physical identity, preserve contract coverage to avoid double charging. Audit remaining held rates/allocations against supplied originals; no guessed price or false completion. Combined976–977 final checks before publication. Exact975 source synced through GitHub connector commit cfb96a00c2b7cc8ce48a07074c2a6fa1f30f20d5, tree8ded14d430bac5a76c312e47cb026a55d21f056d matches local76532132; CLI credential expired. Root owns source sync with branch lease.
+
+<!-- Author: Andrew Fisher -->
+
 VERIFIED LIVE — combined v9.74–v9.75, 10 Oct 2026 at03:37AEST. Local READY source b20a11fe; publicSHA256 db0a3c517de2de287da6f385c3f5858fd5a54e48d259b03180cf1116aafdb6b7,12,881,079bytes,57scripts. Guardedupload and12actual-publicphonechecks pass with no page/state substitution and no operationalwrites. Customer arrived charges, optionalstairs, workeronlyassignments, instantsharedcache refresh, supplierremaining35andnewPDFs areLIVE. Fridayhistory only; oneCoates/onePremiAirVMS. Source/photo/plannedgroups and progressiveShowcase audio/grip/smoke alsoLIVE. Finaldesktop/phone22routes/sevenlinks/Back;39financialchecks/153invariants/17ties pass onfrozen5196, preservingcounts/recordedRevenue/Directcosts andaddingcleaningforecastonce. Actualpublicusescurrentnative5201; concurrentuseraccessoryeditsretained. ThreefutureVMSsourceallocationdifferences remain. Git command credentialexpired duringREADYpush; exactcheckedsource is preservedlocal and root is syncingthroughauthorisedGitHubconnector with branchlease before furtherrelease. No Claude reviewclaimed. v9.76stillDRAFT; finance/prosechangesmuststartfromexactdb0livebase.
 
 <!-- Author: Andrew Fisher -->
