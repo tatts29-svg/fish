@@ -2,7 +2,7 @@
 
 Author: Andrew Fisher.
 
-READY TO UPLOAD — all final candidate checks complete; not yet published.
+LIVE — 10 Oct 2026 at 08:55 AEST. Guarded publication at 2026-10-09T22:55:10.463Z; exact source commit 1ce521bf.
 
 Andrew requests another Costs audit: correct totals, shared updates and no duplicate presentation.
 
@@ -12,7 +12,7 @@ Purchase-order entry rejects negative amounts, missing/negative partial receipt 
 
 Desktop and phone browser fixtures verify a transport cost reaches P&L, combined branches and Finance exactly once; remote removal updates the same figures. All six Costs sections retain one customer header and no stale or duplicate summary panels. A worker branch edit reaches monthly CSV and Finance. The fixture restores the browser record and makes no operational service writes.
 
-Final presentation regression: 38 phone checks. All 15 financial models, 12 operational projections and native record 5201 preserved against v9.81. Phone screenshot inspected. Desktop and phone navigation: 22 routes, seven direct links and Back each pass; no page/console errors or service writes. Actual-public verification pending. Exact-base/double-apply guards and isolated actual PO entry-function tests pass; the invalid partial receipt bug is reproduced against v9.81. Existing rate, wage and receipt holds remain; no complete-invoice or posted-ledger claim.
+Final presentation regression: 38 phone checks. All 15 financial models, 12 operational projections and native record 5201 preserved against v9.81. Phone screenshot inspected. Desktop and phone navigation: 22 routes, seven direct links and Back each pass; no page/console errors or service writes. Actual public desktop and phone each pass 41 checks, including the receipt guard and monthly branch CSV, exact served bytes, one customer header, retained source disclosures and unchanged native/financial models. No HTML substitution, injection, page errors or operational writes. Actual phone screenshot inspected. Exact-base/double-apply guards and isolated actual PO entry-function tests pass; the invalid partial receipt bug is reproduced against v9.81. Existing rate, wage and receipt holds remain; no complete-invoice or posted-ledger claim.
 
 Base: 824192c81c4c719590d82bd5497cb8c6e5e0f93590d61035ce642e7490919b34.
 Candidate: f27008ce5293921f69c5f0b812ff46f5dddb00453e7d3748d99909aa22561bd2 (12,952,641 bytes; 67 scripts).
