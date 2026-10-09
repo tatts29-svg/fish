@@ -26,7 +26,7 @@ result.push({pace,steps,complete:S.sim.s-S.gridS>=S.CL.L,peakSlip,peakSmoke,peak
 return result;});
 for(const r of track){ok('Complete finite lap at '+r.pace+'x',r.complete&&r.finite);ok('Bounded grip and particles at '+r.pace+'x',r.peakSlip<.196&&r.bounded&&r.peakOpening<=40);}
 fs.writeFileSync(out+'/track-observation.json',JSON.stringify(track.map(({peak,...r})=>r),null,2));
-const render=track.find(r=>r.pace===1);await p.evaluate(peak=>{const G=GC3D,S=G.S;G.setPace(1);G.simReset();S.clock=peak.clock;Object.assign(S.sim,peak.sim);S.sim.rnd=G.rng(5);S.paused=true;G.setView('chase');G.pose();for(let i=0;i<60;i++)G.camStep(1/60);G.render();},render.peak);
+const render=track.find(r=>r.pace===1);await p.evaluate(peak=>{const G=GC3D,S=G.S;G.setPace(1);G.simReset();S.clock=peak.clock;Object.assign(S.sim,peak.sim);S.sim.rnd=G.rng(5);S.paused=true;G.setView('chase');G.setLook('day');G.pose();for(let i=0;i<60;i++)G.camStep(1/60);G.render();},render.peak);
 ok('Day smoke/car frame renders without GL error',await p.evaluate(()=>GC3D.S.gl.getError()===0));await p.screenshot({timeout:120000,path:out+'/'+(phone?'phone':'desktop')+'-day-slide.png'});
 await p.evaluate(()=>{GC3D.setLook('night');GC3D.render();});ok('Night frame renders without GL error',await p.evaluate(()=>GC3D.S.gl.getError()===0));await p.screenshot({timeout:120000,path:out+'/'+(phone?'phone':'desktop')+'-night-slide.png'});
 await p.evaluate(()=>{GC3D.sound.on();GC3D.sound.tick(GC3D.S);});

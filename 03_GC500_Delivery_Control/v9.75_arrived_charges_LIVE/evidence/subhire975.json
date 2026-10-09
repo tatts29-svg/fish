@@ -1,0 +1,35 @@
+{
+  "author": "Andrew Fisher",
+  "scope": "Sub-hired supplier views use current shared item quantities and programme dates",
+  "finding": "119 was confirmed FWF supply 194 minus 75 numbered on site. It includes unallocated supplier stock and is not the operational scheduled remainder.",
+  "changes": [
+    "Completed deliveries excluded from active remaining plan",
+    "Current programme date and item receipt quantities govern remaining rows",
+    "Original supplier plan and its Friday run sheet folded as history",
+    "Supplier unit cards show item ownership instead of the whole reference quantity label"
+  ],
+  "detachedProjectionChecks": 8,
+  "detachedProjectionPass": true,
+  "nativeWrites": 0,
+  "browserVerification": {
+    "GETOnly": true,
+    "nativeWrites": 0,
+    "T0103": {
+      "Coates": 1,
+      "PremAirHire": 1
+    },
+    "completedFridayActiveRows": 0,
+    "remainingPDF": {
+      "pages": 1,
+      "bytes": 3870
+    },
+    "phoneScreenshotReviewed": true,
+    "activeCardBeforeEquipment": true,
+    "equipmentListFoldedRetains90ItemLinks": true,
+    "arrangedPhoneScreenshotReviewed": true,
+    "existingUnits925Styles": true
+  },
+  "limitation": "Final integrated release browser sweeps remain root-owned.",
+  "WC61Review": "Root reviewed native 13 October delivery rollover saved 9 October and Andrew assignment versus receipt wording. Eight identities are allocated, not an arrival confirmation; current item receipt remains authoritative.",
+  "arrangement": "Current remaining delivery work appears directly below Companies; existing Equipment units list is folded without removing any item links."
+}
