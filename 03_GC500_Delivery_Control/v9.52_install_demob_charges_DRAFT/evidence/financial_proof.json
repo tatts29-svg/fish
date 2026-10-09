@@ -1,0 +1,15 @@
+{
+  "author": "Andrew Fisher",
+  "passed": true,
+  "allExistingChargedAmountsPreserved": true,
+  "locations": 176,
+  "partialUnitProof": {
+    "first": 36.44,
+    "combined": 255.05,
+    "ticked": 2,
+    "untickedSiblings": 5
+  },
+  "phoneNoOverflow": true,
+  "recordUnchanged": true,
+  "errors": []
+}
