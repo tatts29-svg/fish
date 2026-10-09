@@ -1,5 +1,9 @@
 <!-- Author: Andrew Fisher -->
 
+2024.xlsx historical review — 9 Oct 2026. All20 sheets/829 rows parsed,185 customer charge rows indexed. Historical scope evidence includes transport, installation, pump-outs/clean/restock, hydration refill, relocation and removal crane. Supplier identifiers are present but supplier-cost fields are absent; no current RPM/QUE supplier price resolved. Historical pricing/ownership/status never replaces 2026 authoritative sources. Original/detail private, sanitised review in source_review_09Oct2026_2024. No live or record changes.
+
+<!-- Author: Andrew Fisher -->
+
 VERIFIED LIVE — combined v9.55 + v9.56, 9 Oct 2026 13:38 AEST. READY source85ade8c0; exact public SHA4410bb0b4f8fb8dbdb049485df95d0163ee9032251ad25df37c265a943efaca1, 12,688,275 bytes. Guarded upload and fresh public/native smoke pass: record5127 unchanged, 176 locations, 826 labour slots, zero runtime errors. Final desktop/phone22-route/seven-link/Back sweeps pass with zero writes/errors. Supported supplier estimate, exact ownership classification and two transport-source matches now live; actuals/customer total preserved. Missing supplier prices remain explicit. Transport workbook reviewed without duplicate customer charges. Codex completed publication; no Claude review claimed.
 
 <!-- Author: Andrew Fisher -->

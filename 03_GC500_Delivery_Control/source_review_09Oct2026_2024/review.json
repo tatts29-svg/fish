@@ -1,0 +1,23 @@
+{
+  "author": "Andrew Fisher",
+  "file": "2024.xlsx",
+  "sha256": "c9ef041b7a18e8a7806d91c7afa79541addd2326e73352a8d7b4b524dba2bf59",
+  "sheets": 20,
+  "nonempty_data_rows": 829,
+  "charge_rows": 185,
+  "charge_item_counts": {
+    "TRANSPORT": 64,
+    "LABOUR": 31,
+    "INSTDISMEXTNL": 48,
+    "SUB-MISC": 1,
+    "MISC": 11,
+    "RELOCATION": 4,
+    "SUB-TRANSPORT": 2,
+    "PUMPOUT": 5,
+    "CLEAN6": 1,
+    "DIESEL": 18
+  },
+  "supplier_cost_columns_present": false,
+  "historical_only": true,
+  "live_changes": false
+}
