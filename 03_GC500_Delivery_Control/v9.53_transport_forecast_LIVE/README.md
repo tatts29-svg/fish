@@ -38,3 +38,5 @@ Reviewed patch SHA256: `1aff3a3103011e4fa6eb6d428972171eac9794a7deffececbbf97f91
 Private composed candidate SHA256: `b4c2ec652c603c07b09afbca9ec2317816b96b4174e673339b77fb15314bfe8a`.
 
 Root release checks: standard build reproduces the frozen candidate exactly; independent source review and phone inspection passed. Final desktop and phone sweeps each pass 22 routes, seven deep links and Back, zero errors or writes. Dry run confirms edit access and unchanged live base. READY TO UPLOAD; not yet live.
+
+VERIFIED LIVE — 9 Oct 2026 12:52 AEST. Guarded publication and a separate fresh public read match the final candidate byte for byte. Source checkpoint d7937e6e.

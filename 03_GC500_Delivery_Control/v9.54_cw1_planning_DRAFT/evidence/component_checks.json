@@ -1,0 +1,43 @@
+{
+  "author": "Andrew Fisher",
+  "state": "READY for root release verification; not live",
+  "candidate_sha256": "02e6a81785d4fc65f18d126ea7a5de6dcb189cef79e9e099445cdcea22010966",
+  "candidate_bytes": 12677399,
+  "base_sha256": "b4c2ec652c603c07b09afbca9ec2317816b96b4174e673339b77fb15314bfe8a",
+  "source_sha256": "d7287c2cb05f69677d954c6daf9bd086666ba54535ecb91e7d8fe6e0847fa661",
+  "checks": {
+    "python_source_boundary": 32,
+    "independent_source": 191,
+    "phone_native": 409,
+    "desktop_native": 408,
+    "inline_scripts": 46
+  },
+  "native_record": 5104,
+  "native_record_unchanged": true,
+  "recorded_money_costs_dockets_rates_completion_unchanged": true,
+  "forecast_changed_weeks": [
+    "CON WK1"
+  ],
+  "independent_forecast_reconciliation": "Remaining selected task quantities multiplied by native customer/supplier rates; other nine forecast weeks unchanged",
+  "selected_tasks": 57,
+  "prior_allowances_pending_review": 18,
+  "operational_write_attempts": 0,
+  "runtime_errors": 0,
+  "phone": {
+    "viewport": 390,
+    "document": 390,
+    "visual_inspected": true
+  },
+  "desktop": {
+    "viewport": 1440,
+    "document": 1440,
+    "visual_inspected": true
+  },
+  "original_uploaded": false,
+  "published": false,
+  "remaining_release_checks": [
+    "root whole-page sweeps",
+    "root independent release review",
+    "guarded publication after exact v9.53 base is live"
+  ]
+}

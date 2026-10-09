@@ -1,5 +1,9 @@
 <!-- Author: Andrew Fisher -->
 
+VERIFIED LIVE — v9.53, 9 Oct 2026 12:52 AEST. Guarded upload plus fresh public read proved b4c2ec652c603c07b09afbca9ec2317816b96b4174e673339b77fb15314bfe8a, 12,598,847 bytes. All focused/native/desktop/phone checks pass; 32 supported planned transport allowances and five overlap removals applied. Actual costs, customer Revenue and native record preserved. Unknown rates and quote coverage remain explicit. v9.54 is rebuilding from this exact live base.
+
+<!-- Author: Andrew Fisher -->
+
 READY TO UPLOAD — v9.53 transport forecast, 9 Oct 2026. Source frozen and independently reviewed; original card and exact supplier scopes checked. Standard live-base build matches candidate b4c2ec652c603c07b09afbca9ec2317816b96b4174e673339b77fb15314bfe8a, 12,598,847 bytes. All 25 focused checks, 17 native financial ties and both 22-route/seven-link/Back sweeps pass; zero runtime errors or writes. Phone inspected. Actuals, customer Revenue and native record 5104 preserved. Adds 32 planned allowances and removes five exact overlaps; unknown costs and source disagreements remain visible. Root owns guarded publication.
 
 <!-- Author: Andrew Fisher -->
