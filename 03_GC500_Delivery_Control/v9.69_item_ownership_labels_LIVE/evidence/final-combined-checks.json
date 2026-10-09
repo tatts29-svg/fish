@@ -121,6 +121,15 @@
   ],
   "sourceRecordMutation": false,
   "publicationPerformedByVerifier": false,
-  "pending": "Fresh actual-public proof only after release owner confirms upload",
-  "screenshotsStorage": "Private review evidence outside Git"
+  "screenshotsStorage": "Private review evidence outside Git",
+  "publication": {
+    "author": "Andrew Fisher",
+    "liveAt": "2026-10-09T18:21:00+10:00",
+    "readySourceCommit": "706c259d",
+    "publicChecksPassed": 9,
+    "nativeVersion": 5167,
+    "recordUnchanged": true,
+    "sha256": "a271015a9cf6d099b1665d3bcef71bb6fe5b2671d7081739c91b0f04d52205b5",
+    "bytes": 12815042
+  }
 }

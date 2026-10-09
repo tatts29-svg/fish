@@ -1,8 +1,12 @@
 Author: Andrew Fisher
 
+LIVE — 9 Oct 2026 at 18:21 AEST, combined v9.65–v9.69. READY source `706c259d`; exact public SHA-256 `a271015a9cf6d099b1665d3bcef71bb6fe5b2671d7081739c91b0f04d52205b5`, 12,815,042 bytes. Fresh actual-public verification passed 9/9; native record 5167 remained unchanged. Final desktop/phone navigation and 20 phone interactions passed. Combined evidence is in `v9.69_item_ownership_labels_LIVE/evidence/`.
+
+Author: Andrew Fisher
+
 # v9.66 — Existing references and schedule links
 
-DRAFT — source frozen for the combined v9.65–v9.69 build; final integration checks and publication remain with the release owner. No native record changes or publication by this module.
+LIVE as part of the combined v9.65–v9.69 release. Source remains frozen. This module makes no native record changes.
 
 The Timeline labelled 31 schedule rows as having no reference even though 22 already had item records and four were already linked removal movements. Opening the old action could create a second item. This release follows the existing record, keeps the source row as evidence, and leaves five additional tasks visible with their own T references. It also stops Equipment saying an item is absent from the drawing when it has a verified master-plan or site position.
 

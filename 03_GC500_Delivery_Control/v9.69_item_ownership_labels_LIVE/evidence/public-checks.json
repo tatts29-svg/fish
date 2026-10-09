@@ -1,0 +1,38 @@
+{
+  "author": "Andrew Fisher",
+  "actualPublicPage": true,
+  "candidateInterception": false,
+  "stateInterception": false,
+  "sha256": "a271015a9cf6d099b1665d3bcef71bb6fe5b2671d7081739c91b0f04d52205b5",
+  "bytes": 12815042,
+  "nativeVersion": 5167,
+  "finalNativeVersion": 5167,
+  "sameReviewedRecord": true,
+  "recordUnchangedDuringCheck": true,
+  "requiresReview": false,
+  "checks": [
+    "Actual served public bytes match the published build",
+    "Public toilet totals remain138 received and138 installed",
+    "Public six-panel Event Portables quantity ownership is retained",
+    "T0103 displays its separate Coates and PremAir units",
+    "Public item selection exposes its own photos in view-only mode",
+    "Public Timeline keeps sizes and weights visible with More info closed",
+    "Actual public WC-TV link opens its existing record and Close retains context",
+    "Public Questions keeps supporting explanations under More info",
+    "Public Questions shows13 open,5 pending and40 answered/history"
+  ],
+  "checksPassed": 9,
+  "pageErrors": [],
+  "consoleErrors": [
+    "Failed to load resource: net::ERR_FAILED"
+  ],
+  "blockedRequests": [
+    {
+      "method": "POST",
+      "origin": "https://tile.googleapis.com",
+      "path": "/v1/createSession"
+    }
+  ],
+  "liveRecordWriteAttempts": 0,
+  "pass": true
+}

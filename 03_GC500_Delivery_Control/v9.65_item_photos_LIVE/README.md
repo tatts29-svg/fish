@@ -1,4 +1,8 @@
-# v9.65 — selected item details and photographs — DRAFT
+Author: Andrew Fisher
+
+LIVE — 9 Oct 2026 at 18:21 AEST, combined v9.65–v9.69. READY source `706c259d`; exact public SHA-256 `a271015a9cf6d099b1665d3bcef71bb6fe5b2671d7081739c91b0f04d52205b5`, 12,815,042 bytes. Fresh actual-public verification passed 9/9; native record 5167 remained unchanged. Final desktop/phone navigation and 20 phone interactions passed. Combined evidence is in `v9.69_item_ownership_labels_LIVE/evidence/`.
+
+# v9.65 — selected item details and photographs — LIVE
 
 Author: Andrew Fisher
 
