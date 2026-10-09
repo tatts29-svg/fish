@@ -1,5 +1,9 @@
 <!-- Author: Andrew Fisher -->
 
+Transport Help.xlsx original review — 9 Oct 2026. Both tabs reviewed (890 + 189 rows), SHA b4f06374a2caf6efc13c987055b1bc40c1639cb75784ba5875013d472aee5f91. Ninety-three current-contract matches; four positive customer Charge rows already in current Revenue lines. No new positive carrier-cost evidence; blank supplier and zero Sub Rental Cost are not invoice proof. Detailed matched evidence retained privately and CSV delivered to Andrew. No record changes; source status/date conflicts do not erase site progress or current equipment allocations.
+
+<!-- Author: Andrew Fisher -->
+
 v9.55 scope correction — original contract 9968955/KINP line 98 already prices two WC31 16-pan blocks at $2,852.13 each, $5,704.26 whole event. Native physical identities 12/74 explicitly Event Portables; unmatched MISCITEM source had defaulted their Revenue to Hire. Correct only this exact two-unit ownership-supported line to Rehire, preserving total Revenue and all actual costs. This is part of Andrew’s current request to answer/fix costing and sub-hire using supplied data; no new customer charge. Guard contract/line/item/qty/physical ownership and verify classification delta/ties.
 
 <!-- Author: Andrew Fisher -->
