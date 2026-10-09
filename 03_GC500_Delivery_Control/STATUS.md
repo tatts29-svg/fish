@@ -1,5 +1,9 @@
 <!-- Author: Andrew Fisher -->
 
+READY TO UPLOAD — v9.54 CW1 planning, 9 Oct 2026. Standard build starts from exact live v9.53; final SHA84109458fde3ec9de584d411e8b87616718b0b21a2f37c32066066e684ee4d8f, 12,677,405 bytes. All 32 source tests, 191 independent source assertions, 409 phone and 408 desktop native assertions pass. Both final 22-route/seven-link/Back sweeps pass, zero errors/writes. Root reviewed transformation and phone screenshots. Actuals, dockets, completion, rates and full native record 5104 unchanged. Eighteen earlier allowances stay provisional. Attribution scrub changed one provenance sentence; affected exact-byte checks rerun and passed. Root owns guarded publication.
+
+<!-- Author: Andrew Fisher -->
+
 VERIFIED LIVE — v9.53, 9 Oct 2026 12:52 AEST. Guarded upload plus fresh public read proved b4c2ec652c603c07b09afbca9ec2317816b96b4174e673339b77fb15314bfe8a, 12,598,847 bytes. All focused/native/desktop/phone checks pass; 32 supported planned transport allowances and five overlap removals applied. Actual costs, customer Revenue and native record preserved. Unknown rates and quote coverage remain explicit. v9.54 is rebuilding from this exact live base.
 
 <!-- Author: Andrew Fisher -->

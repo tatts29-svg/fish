@@ -1,8 +1,8 @@
 {
   "author": "Andrew Fisher",
   "state": "READY for root release verification; not live",
-  "candidate_sha256": "02e6a81785d4fc65f18d126ea7a5de6dcb189cef79e9e099445cdcea22010966",
-  "candidate_bytes": 12677399,
+  "candidate_sha256": "84109458fde3ec9de584d411e8b87616718b0b21a2f37c32066066e684ee4d8f",
+  "candidate_bytes": 12677405,
   "base_sha256": "b4c2ec652c603c07b09afbca9ec2317816b96b4174e673339b77fb15314bfe8a",
   "source_sha256": "d7287c2cb05f69677d954c6daf9bd086666ba54535ecb91e7d8fe6e0847fa661",
   "checks": {
@@ -36,8 +36,28 @@
   "original_uploaded": false,
   "published": false,
   "remaining_release_checks": [
-    "root whole-page sweeps",
     "root independent release review",
-    "guarded publication after exact v9.53 base is live"
-  ]
+    "guarded publication and public byte verification"
+  ],
+  "production_build_attribution_scrub": "Sole change from initial candidate: Email text supplied by Andrew Fisher in this chat \u2192 Email text supplied by the project manager in this chat; source/native checks rerun on final production bytes",
+  "standard_sweeps": {
+    "candidate_sha256": "84109458fde3ec9de584d411e8b87616718b0b21a2f37c32066066e684ee4d8f",
+    "desktop": {
+      "routes": 22,
+      "deep_links": 7,
+      "page_errors": 0,
+      "console_errors": 0,
+      "navigation_errors": 0,
+      "blocked_write_attempts": 0
+    },
+    "phone": {
+      "routes": 22,
+      "deep_links": 7,
+      "page_errors": 0,
+      "console_errors": 0,
+      "navigation_errors": 0,
+      "blocked_write_attempts": 0
+    },
+    "evidence_owner": "Independent review agent"
+  }
 }
