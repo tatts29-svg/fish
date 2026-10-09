@@ -1,0 +1,15 @@
+# v9.79 — onsite complete billing and item charges
+
+Author: Andrew Fisher.
+
+READY TO UPLOAD. Base live v9.78 SHA2561335339af789da16db7777919a320f52b12b65d002113acaa9c8a8ecdf07d09f.
+
+Andrew directs every applicable charge for equipment already onsite to count now as a complete billing package. The shared onsite model derives hire, install, levelling, stairs, cleaning, demob and delivery/pickup from current arrived quantities, existing contract prices and source-backed card rates. It appears in P&L, Finance and item details. Future work and invoices remain separate. Gear not arrived is excluded. Missing rates/allocations are holds, not invented zeros or a fabricated complete total. Branch rows reconcile to the same priced subtotal.
+
+Item hire uses current Coates physical identities; supplier numbers and duplicate future requests cannot pick up another hire line. Exact description/docket evidence recovers existing WC09 blocks, WB barriers and T0258 container allocations. Included furniture labour stays Included; stairs exclusions and separate tank treatment remain authoritative. Accessories reuse exact contract evidence and avoid duplicate physical numbers. Existing transport coverage is used once, including T0025’s original delivery line; its pickup remains POA.
+
+Six installed Event Portables pee panels had no customer hire line. Original Street Rate Card2026 D22 whole-event hire is used once in job forecast and the onsite billing value; approved supplier hire cost is already captured and is not added again. This is not an invoice or payment claim. Current card source SHA25660a62f37d9d91634ca617f3b2840809e64ebc1f000303857f1abb5e00691d7d6. Source workbook reviewed directly; neither historical rates nor daily×70 substitute for D22.
+
+Worker names/count derive from the programmed daily roster unless an explicit saved day override exists. Rendering never writes attendance or task assignments. Explicit saves preserve stable worker mapping. Accommodation/meals remain separate from labour, with the confirmed salary allowance retained as labour.
+
+Codex implements/reviews/tests; no Claude review claimed. Final build SHA256b3c4ab269d79f0d2a1cbef5f834967769417e91a31a281f6fe4c3c46d63f514f,12,929,848bytes,66scripts. Six source/allocation suites pass;15model calls and all reconciliations pass; native5201 and12preservation sections exact. Recorded Revenue and every Coates cost remain exact; only source-backed missing pee-panel hire changes the job forecast once. Desktop/phone22routes and7deep links each pass with zeroerrors/writes; map sessions/2Dtiles use explicit read-only fixtures. Actual-native390px item and shared P&L/Finance billing checks pass,191onsite item/accessory groups,3onsite branches,43source holds including32transport rows. Critical onsite card stays visible; supporting detail is folded. Guarded publication pending. The release is not a claim that all unresolved transport, accessory or physical identity evidence has been supplied.
