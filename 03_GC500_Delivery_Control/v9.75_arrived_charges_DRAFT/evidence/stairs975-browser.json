@@ -1,0 +1,54 @@
+{
+  "author": "Andrew Fisher",
+  "passed": true,
+  "result": {
+    "ok": true,
+    "qty": 1,
+    "sibling": false,
+    "reloaded": 1,
+    "restored": true,
+    "afterqty": 0,
+    "history": 2,
+    "doc": {
+      "kind": "stairs975",
+      "ref": "WC09",
+      "disc": "Toilets & amenities",
+      "item": "Toilet Block 6m",
+      "unit": "1268858",
+      "qty": 1,
+      "excluded": true,
+      "by": "Andrew Fisher",
+      "at": "2026-10-09T17:04:25.315Z",
+      "history": [
+        {
+          "qty": 1,
+          "excluded": true,
+          "by": "Andrew Fisher",
+          "at": "2026-10-09T17:04:25.315Z"
+        }
+      ]
+    },
+    "units": [
+      "1268858",
+      "1311146"
+    ],
+    "unchanged": true,
+    "events": [
+      "stamp:loads",
+      "save-capture",
+      "bump-capture",
+      "stamp:loads",
+      "save-capture",
+      "bump-capture"
+    ]
+  },
+  "operationalWrites": 0,
+  "errors": [],
+  "counts": {
+    "page": 1,
+    "live": 47,
+    "blocked": 0
+  },
+  "fixture": "v9.73 plus stairs975 helper; real native GET data, detached S clone and native serialization roundtrip",
+  "phoneVisual": "Pending integrated editor fixture: native view polling hides Contract & charges controls in standalone screenshot"
+}

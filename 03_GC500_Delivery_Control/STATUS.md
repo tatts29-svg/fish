@@ -1,5 +1,9 @@
 <!-- Author: Andrew Fisher -->
 
+IN PROGRESS — combined v9.74–v9.75 integration. Native destinations T0268/WC85 are verified saved to Coates compound on record5174; arrival/install unchanged. Andrew confirms no card cleaning rate means no cleaning charge and requests worker-only assignment. Latest requests add shared Sub-hired refresh, correct one Coates/one PremiAir VMS ownership, remove completed Friday sheets from active work and generate upcoming sheets from remaining work. Root integrates these scopes with arrived charges and Showcase realism; helpers are under test, not LIVE. A confirmed shared-cache hydration/poll invalidation defect is included so views refresh from received records immediately. Supplied FWF supplier balance must not masquerade as scheduled deliveries remaining.
+
+<!-- Author: Andrew Fisher -->
+
 CLAIMED — v9.75 arrived equipment charges and optional stairs. Andrew requests all applicable install, level, stairs, clean and demob charges against arrived equipment now, including sub-hired gear at our rates, with a per-item stairs removal option and recorded exclusions preserved. Financial worker owns shared forecast reconciliation and arrived-item charge projection; stairs worker owns item-specific controls and native exemption lifecycle. Root owns integration, source-backed rates, prevention of duplicate charges, tests and publication after v9.74. Forecast demob does not mark demob performed. Andrew also directs spare T0268 and WC85 to Coates compound until instructed otherwise; root owns native location-only backup/write/readback.
 
 <!-- Author: Andrew Fisher -->

@@ -1,0 +1,180 @@
+{
+  "author": "Andrew Fisher",
+  "reviewed": "2026-10-09",
+  "native_version": 5168,
+  "method": {
+    "xlsx_paths": 279,
+    "unique_xlsx_sha256": 125,
+    "relevant_row_hits": 165,
+    "xlsx_errors": 0,
+    "unique_current_map_plan_pdfs_text_reviewed": 14,
+    "pdf_errors": 0,
+    "native_collections_checked": [
+      "delivery",
+      "dropPhotos",
+      "fixes",
+      "places",
+      "mapRef",
+      "locations",
+      "givenRefs",
+      "moves",
+      "loads",
+      "units"
+    ],
+    "original_item_photos_retrieved_and_visually_reviewed": [
+      {
+        "file": "drop_T0021_1_20260918-103740_bf4e9442030e709b.jpg",
+        "sha256": "86e2fdb9779661a73b639d743ff663b5f33fc08f1d339b3686de80367c56d069",
+        "bytes": 557688
+      },
+      {
+        "file": "drop_T0021_2_20260918-103755_aabf46f2a93033c5.jpg",
+        "sha256": "a7c173788b7f713374767633a04e5fd4fee563aa4cb9e05e2ffa2c36a2797a48",
+        "bytes": 561494
+      },
+      {
+        "file": "drop_T0021_u960639_1_20260918-103837_3816ceb6f1b3b9a5.jpg",
+        "sha256": "c9901250e350f138707b114f672de1ad8e318268b8a1fa4429a82b3358f5bef3",
+        "bytes": 651262
+      },
+      {
+        "file": "drop_T0021_u960639_2_20260918-103849_d5e59ca718bd7b18.jpg",
+        "sha256": "327da8eb3f55b13adb9f69e158ad74188cb36b78444dfe3467507a6007ea3014",
+        "bytes": 618078
+      },
+      {
+        "file": "drop_T0022_1_20260918-103409_a57eced29fa6ea7f.jpg",
+        "sha256": "f2e1f0f2f3a87f1b2897f8d3cd269b04ab843a49a48327689aa6ed810335be3f",
+        "bytes": 537801
+      },
+      {
+        "file": "drop_T0022_2_20260918-103427_5e836be3e8a301db.jpg",
+        "sha256": "db901d6302d075cb852df8397ef5f98f4ee14fee0df4c97d0d03b1270ee7bc22",
+        "bytes": 598718
+      }
+    ],
+    "private_extracts_in_git": false
+  },
+  "resolved_or_planned_links": [
+    {
+      "ref": "T0021",
+      "asset": "960639",
+      "result": "Coates compound \u00b7 beside lunchroom T0022",
+      "kind": "original-photo named area",
+      "evidence": [
+        "Unit-labelled photo drop_T0021_u960639_2_20260918-103849_d5e59ca718bd7b18.jpg",
+        "T0022 photo drop_T0022_1_20260918-103409_a57eced29fa6ea7f.jpg shows both buildings together",
+        "T0021 parent photo2 shows identical office/lunchroom pair, table, blue bins and trailer",
+        "Current Baseplan9968929-KINP lines1/3 identify960639/960634",
+        "T0022 unit fix21Sep and parentfix23Sep place lunchroom on site; no office coordinate is copied"
+      ],
+      "exact_position": false
+    },
+    {
+      "ref": "T0128",
+      "date": "2026-10-16",
+      "quantity": 2,
+      "result": [
+        "VMS11",
+        "VMS12"
+      ],
+      "kind": "Contract-planned destination group",
+      "schedule": "Week1!A32:H32",
+      "contract": "9961265-STPS",
+      "contract_lines": [
+        15,
+        16
+      ],
+      "source_xlsx_rows": [
+        12,
+        13
+      ],
+      "reason": "Exact numbered description, booked date and sum quantity match this single schedule batch. Physical truck allocation and receipt are not asserted."
+    },
+    {
+      "ref": "T0158",
+      "date": "2026-10-19",
+      "quantity": 9,
+      "result": [
+        "VMS13",
+        "VMS14",
+        "VMS15",
+        "VMS16",
+        "VMS17",
+        "VMS18",
+        "VMS19",
+        "VMS20",
+        "VMS23"
+      ],
+      "kind": "Contract-planned destination group",
+      "schedule": "EventWeek!A28:H28",
+      "contract": "9961265-STPS",
+      "contract_lines": [
+        18,
+        19,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        30
+      ],
+      "source_xlsx_rows": [
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        24
+      ],
+      "reason": "Exact numbered description, booked date and sum quantity match this single schedule batch. Destination source VMS001 includes23, though activeD025 does not. Physical truck allocation and receipt are not asserted."
+    }
+  ],
+  "remaining_source_differences": [
+    {
+      "ref": "WC85",
+      "date": "2026-10-19",
+      "schedule_date": "2026-10-20",
+      "quantity": 1,
+      "known": "One FWF on EPload4 withPG01/03/05/29 andT0176; reference appears in infrastructure row153 and contract9968955line134",
+      "unknown": "Exact named toilet site/destination; current D023/D001 and suppliedquote do not uniquely assign85. Companionassets on same truck cover multiple sites. No WC85 number, photo, pin, savedlocation or writtenmove found."
+    },
+    {
+      "ref": "T0268",
+      "date": "2026-10-20",
+      "quantity": 1,
+      "asset": "1197215",
+      "known": "100kVA trailer-mounted spare, current9961976-NVACline36, removal26Oct",
+      "unknown": "Spare storage/drop point. D024GN028 namesBSFStorageYardMolendinar but no suppliedunit/refjoin proves this is1197215. SourceMPDcode is fleet/systempackage descriptor, not a surveyedstoragepin."
+    },
+    {
+      "ref": "T0159",
+      "date": "2026-10-19",
+      "quantity": 5,
+      "known": "VMS relocationbatch",
+      "unknown": "Fifth move plus drawingidentitydifference. VMS001 explicitly relocates02/03/05/07 (four); D025 uses04A whereVMS001 uses03a. Both sourcedrawings kept, no fifth invented."
+    },
+    {
+      "ref": "T0169",
+      "date": "2026-10-21",
+      "quantity": 2,
+      "known": "Two scheduledVMS",
+      "unknown": "Schedule21Oct total3 acrossT0169+T0170; currentcontractdescriptionsVMS22 booked21Oct andVMS21 booked22Oct (two). NoVMS24contractrow supplied. Cannot assign2boards to this load from one21Octline."
+    },
+    {
+      "ref": "T0170",
+      "date": "2026-10-21",
+      "quantity": 1,
+      "known": "One scheduledVMS",
+      "unknown": "Same21Octschedule/contract discrepancy; VMS22 cannot be placed into oneofthese two loads uniquely."
+    }
+  ],
+  "baseplan_sha256": "eb4a224fadbe1350d031adf8a1b12760d3dd748a2f0643119ea103d1df9b5b21",
+  "vms_plan_sha256": "9ef1527d1fd9c6c7ea70dd3db3ced96784b0c1b32eba0df2aa3fb5ecd61be382",
+  "operational_writes": 0,
+  "conclusion": "Three additional supported links surfaced. Eight blanket missing facts become five explicit source differences; two resolvedVMSgroups remain labelledplanned."
+}

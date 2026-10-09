@@ -1,0 +1,26 @@
+{
+  "author": "Andrew Fisher",
+  "checks": 19,
+  "passed": true,
+  "scope": [
+    "FWF install/demob and zero cleaning",
+    "full ordered versus partial arrived quantities",
+    "cleaning distinct ledger1025 forecast",
+    "completed cleaning deducted once",
+    "stairs removal affects charge quantities while preserving work ticks",
+    "named partial arrival has no invented unit assignment"
+  ],
+  "financial_hooks": [
+    "labourMoney914base",
+    "pl760Ticks",
+    "labourRevenue858",
+    "labourPlan",
+    "pl770Model cleaning",
+    "cj764Model revenue",
+    "charges952Html"
+  ],
+  "baseline_native_version": 5168,
+  "baseline_sha256": "eb42ed37194210db9f514c1a4c6e9e013e5b2ecf153856cb2e05103dd50a66fb",
+  "current_record_requirement": "Root must verify latest native5174; destinations changed only from baseline5168",
+  "release_status": "DRAFT, full candidate integration/publication by root"
+}
