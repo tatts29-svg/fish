@@ -1,5 +1,9 @@
 <!-- Author: Andrew Fisher -->
 
+CLAIMED — v9.56 exact source toilet-block transport matches, 9 Oct 2026. Original card re-review supports WC05 T0225 combo-tanked block pickup and WC60 T0203 tank-mounted toilet pickup: exact product names map to equal Transport L27:L29 each-way carrier rates. Implement those two source matches only; preserve customer Revenue, actuals, supplier coverage and all truly unknown/POA work. Build after v9.55; contract/source worker owns scoped implementation, root owns tested publication.
+
+<!-- Author: Andrew Fisher -->
+
 CLAIMED — v9.55 existing-source costing gap resolution, 9 Oct 2026. Andrew requests help answering/fixing remaining gaps using only the data already supplied. Review original supplier quotes/Baseplan/card; forecast WC31 additional 16-pan hire at the same supplier/item quoted unit rate, explicitly an estimate outside approved quantity. Preserve approved quotes, actual costs, customer charges, operational state and unresolved additional freight. Root owns integration/publication; supplier-source review worker investigates remaining lines read-only. No customer rate presented as supplier cost.
 
 <!-- Author: Andrew Fisher -->
