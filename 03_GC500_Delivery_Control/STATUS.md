@@ -1,5 +1,9 @@
 <!-- Author: Andrew Fisher -->
 
+READY TO UPLOAD — v9.82 Costs refresh audit. Final SHA256 f27008ce5293921f69c5f0b812ff46f5dddb00453e7d3748d99909aa22561bd2, 12,952,641 bytes, 67 scripts; exact live v9.81 base 824192c81c4c719590d82bd5497cb8c6e5e0f93590d61035ce642e7490919b34. Monthly labour includes shared home branch and current KINP allocation in CSV. Reject invalid PO/partial receipt entries; invalid shared receipts flagged/excluded from receipted totals. Browser-only local save/remote change propagation and worker branch changes pass on desktop/phone, all six Costs views retain one customer/no stale summaries. Phone presentation 38 checks; 15 financial models, 12 operational projections and native 5201 exact. Desktop/phone22routes, seven links and Back pass, zero errors/writes; phone screenshots inspected. Actual source PO tests reproduce baseline bug and verify valid partial/merged PO safeguards. Existing price/wage/receipt holds remain; no full invoice or ledger certification. Codex implemented/tested independently, no Claude review. Guarded publication and actual-public checks next.
+
+<!-- Author: Andrew Fisher -->
+
 CLAIMED — v9.82 Costs refresh and duplication audit. Codex reviews local saves, remote shared-record changes, branch/P&L/Finance propagation and repeated presentation from exact live v9.81 824192c81c4c719590d82bd5497cb8c6e5e0f93590d61035ce642e7490919b34. Isolated browser fixtures only; preserve authoritative records and unsupported rate/receipt holds. Fix reproduced defects, run desktop/phone checks, publish only verified candidate.
 
 <!-- Author: Andrew Fisher -->
