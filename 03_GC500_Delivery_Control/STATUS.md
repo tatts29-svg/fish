@@ -1,5 +1,11 @@
 <!-- Author: Andrew Fisher -->
 
+CLAIMED — v9.64 quantity-only item ownership, 9 Oct 2026. Andrew confirms six WC09 Pee Panels are installed and sub-hired. Existing Q6845 source identifies Event Portables. Add one synced, item-level quantity ownership record and a shared read-only projection for Inventory, supplier views and WC09 drawer; preserve all receipt/install records, the four separately assigned FWF and two Coates blocks. No invented fleet numbers, whole-location sub-hire mark or duplicate charges. Toilet worker owns implementation after exact live v9.63; root owns record write, final integration, checks and publication. Claude remains paused under the authorised takeover.
+
+LIVE RECORD — WC09 Pee Panels, 9 Oct 2026. Andrew: “6 pee panels are installed”. Native item installation saved and freshly verified:5161→5164, three expected documents only. Today254 planned/138 received/138 installed/116 without confirmed installation,54.33%. WC09 eight of12 installed (six panels plus two blocks); WC31 remains complete. Existing card installation charge874.44exGST captured once; its printed2025 heading retained. No identities, receipts or other records changed. Evidence: record_09Oct2026_wc09_pee_panels_installed.
+
+<!-- Author: Andrew Fisher -->
+
 LIVE RECORD CORRECTION — WC31 accessible toilet, 9 Oct 2026. Andrew confirms “You know the answrr i said it turned up” and “Installed” in this chat. Coates unit 1317645 is ARRIVED AND INSTALLED; do not ask again. Native supplied quantity0→1 and its item installation tick are saved and freshly verified, record5155→5161. WC31 is3/3 received and installed; Event Portables blocks12/74 are unchanged. Today:254 planned,138 received,132 installed,122 without confirmed installation,51.97%,zero shortage-review units. Equipment, Timeline Finished and Map completion agree. Normal installation charge88.49exGST is captured at existing card rate88.485. Exactly six expected documents changed; all others preserved. This supersedes the WC31 awaiting-confirmation note in the v9.63 release verification below. Page v9.63 is unchanged; no new deployment required. Evidence: record_09Oct2026_wc31_accessible_arrived_installed.
 
 <!-- Author: Andrew Fisher -->
