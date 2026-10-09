@@ -1,5 +1,9 @@
 <!-- Author: Andrew Fisher -->
 
+CLAIMED — v9.55 existing-source costing gap resolution, 9 Oct 2026. Andrew requests help answering/fixing remaining gaps using only the data already supplied. Review original supplier quotes/Baseplan/card; forecast WC31 additional 16-pan hire at the same supplier/item quoted unit rate, explicitly an estimate outside approved quantity. Preserve approved quotes, actual costs, customer charges, operational state and unresolved additional freight. Root owns integration/publication; supplier-source review worker investigates remaining lines read-only. No customer rate presented as supplier cost.
+
+<!-- Author: Andrew Fisher -->
+
 VERIFIED LIVE — v9.54, 9 Oct 2026 12:59 AEST. Exact public SHA84109458fde3ec9de584d411e8b87616718b0b21a2f37c32066066e684ee4d8f, 12,677,405 bytes. Guarded publication, fresh public byte read and native smoke passed: record 5104 unchanged, 176 equipment locations, 826 labour slots, 32 transport allowances/five overlap removals and 18 provisional CW1 tasks verified. All source, financial, desktop/phone and navigation checks passed. Source-backed CW1 planning and forecasts are live; actuals/dockets/completion preserved. Original private attachments retained outside Git. Missing supplier rates, second WC31 block quote scope, POA transport and unpriced wage hours remain explicit gaps; no claim that every forecast dollar is fully priced.
 
 <!-- Author: Andrew Fisher -->
