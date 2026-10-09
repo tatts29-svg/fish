@@ -1,5 +1,9 @@
 <!-- Author: Andrew Fisher -->
 
+CLAIMED — v9.81 P&L terminology and duplicate presentation, 10 Oct 2026. Andrew asks to ensure correct terminology everywhere in the P&L, remove confusing stories and duplicate information. Separate financial presentation worker audits visible P&L/Finance and owns concise labels/closed More info using existing components. Preserve all financial models, different accounting bases, source/rate holds and native records; each repeated figure appears once per view. Root owns exact source integration, financial equality checks and publication after/alongside sound v9.80. v9.80 sound/launch implementation continues independently.
+
+<!-- Author: Andrew Fisher -->
+
 CLAIMED — v9.80 Showcase engine sound and continuous launch, 10 Oct 2026. Andrew reports humming/max-rev sound and a start that looks stalled before taking off. Root owns integrated sound/motion correction from exact live v9.79 b3c4ab26, with independent audio and launch audits. Check shared physical units, start timing and RPM/gear/load coupling; preserve track/car detail, preferences and all operational/financial records. Bind tests to actual motion and audio source together, verify desktop/phone lifecycle/navigation, and guarded publication only after checks. No subjective listening or physical-device performance claim without evidence.
 
 <!-- Author: Andrew Fisher -->
