@@ -1,6 +1,6 @@
 Author: Andrew Fisher
 
-READY TO UPLOAD — combined v9.74–v9.75. Not yet LIVE.
+VERIFIED LIVE — combined v9.74–v9.75, 10 Oct 2026 at03:37AEST. Exact public readback and12 actual-public phone checks passed.
 
 Progressive tyre grip, bounded realistic motion and shorter-lived smoke; generated V8 loops follow speed, gears and actual wheelspin instead of a timer-forced redline. Original photo office relation and two contract-planned VMS groups added without GPS/receipt inference. Final Showcase scripts are bound byte-for-byte to desktop/phone full-lap and audio checks. Three genuine future VMS allocation differences remain.
 
