@@ -1,5 +1,11 @@
 <!-- Author: Andrew Fisher -->
 
+CLAIMED — v9.61 financial category scope labels, 9 Oct 2026. Independent arithmetic checks pass, but Traffic and Buildings captions incorrectly call mixed owned/Rehire contract groups entirely our own fleet. Some missing-actual-cost captions also omit the distinction between supplier-rate forecasts already available and rates still missing. Financial audit worker owns a narrow label correction using existing models, after v9.60. Preserve every figure, rate, operational record and source distinction. Root owns combined final checks/publication.
+
+v9.60 scope extension — also make the VMS requirement disagreement visible on the main instrument and whole-job progress basis. Preserve the current 24-unit schedule and 10 delivered numerator; do not silently replace them with the earlier 22-unit user requirement or 23-unit BOQ. The percentage must identify its schedule basis and provisional scope consistently with the existing source detail.
+
+<!-- Author: Andrew Fisher -->
+
 CLAIMED — v9.60 typed inventory allocation, 9 Oct 2026. Cross-tab audit confirms WC09's four identified Event Portables FWF units are assigned to the six-unit pee-panel inventory line by positional allocation, while Sub-hired correctly identifies them as FWF. Extend the existing conservative typed inventory projection to supported mixed-item rows, preserving recorded quantities and unidentified pee panels. Equipment worker owns implementation and evidence after v9.59. Root owns final combined build and publication. No operational record changes or inferred identities.
 
 <!-- Author: Andrew Fisher -->
