@@ -1,5 +1,9 @@
 <!-- Author: Andrew Fisher -->
 
+CLAIMED — v9.58 signed fencing programme reconciliation, 9 Oct 2026. Andrew asks to match and link signed papers with schedules/maps as fully as evidence supports. Final source audit found 36592 (Monster CZ) and 36588 (Club 500 Toilets) recorded in work Week 2 but their matching programme tasks still forecast in Week 1. Add guarded source-task associations and category-specific forecast attribution, retaining actual dates/weeks/costs, unmatched scope and scrim not evidenced as complete. Other exact schedule associations should be visible as references without copying planned quantities into actuals. No speculative map pins or completion ticks. Root owns final integration and publication; scoped worker implements after source review. v9.57 remains the verified live base.
+
+<!-- Author: Andrew Fisher -->
+
 VERIFIED LIVE — v9.57, 9 Oct 2026 at 15:06 AEST. Ready source 6e1c6f8d; public SHA-256 1f04615f0c941e1c6c2b45e0656fc92e2bd816998a7b5f2d428f1e1b0e4a6cb0, 12,694,230 bytes. Guarded upload and a fresh public/native read verify record 5153 unchanged, 16 papers linked to 17 original photos, both Event assessments confirmed against the exact current source files, and the supported flat-feet charge. Final desktop/phone, financial, source and script checks all passed. Known source gaps remain explicit. Release source and verification: v9.57_flat_feet_fencing_LIVE. Codex completed publication; no Claude review claimed.
 
 <!-- Author: Andrew Fisher -->
