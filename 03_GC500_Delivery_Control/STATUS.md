@@ -1,5 +1,9 @@
 <!-- Author: Andrew Fisher -->
 
+9 Oct 2026 — LIVE record5104: completed-labour charge audit reconciled45missing native labour ticks across recorded completed equipment, install/steps/levelling only where supported. Fresh public read verifies all45, all61FWF locations have card install/demob rates36.435, unrelated documents unchanged. Added customer labour9098.36exGST. WC09newFWF and WC31newaccessible remain unticked because allocation/arrival is not installation. First attempt safely blocked unrelated startup replay of tombed future wage-cost deletes; no mutations. Successful authentic edit session isolated native syncStageLive to labour/by/stamps and exact keys; complete before/after comparison proves no unrelated changes. Evidence record_09Oct2026_completed_labour_charges.
+
+<!-- Author: Andrew Fisher -->
+
 CLAIMED — v9.52 customer install/demob charge audit, 9 Oct 2026, Codex. Andrew requires sub-hired gear to retain Coates customer install/demob rates and all supported charges captured visibly. Fix verified Pee Panel labour match from original card, show recorded versus forecast labour on affected equipment, reconcile missing native charge ticks only against confirmed work evidence, preserve future demob and separate supplier costs/customer revenue. Based on v9.51; source audit collaborator read-only.
 
 <!-- Author: Andrew Fisher -->

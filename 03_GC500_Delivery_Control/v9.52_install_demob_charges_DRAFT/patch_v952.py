@@ -15,7 +15,7 @@ e['why']='Customer labour uses the Street Rate Card Pee Panel row 22, authorised
 e['labour_per_piece']=copy.deepcopy(t['labour_per_piece'])
 e['labour_per_piece']['note']='Pee Panel: original Street Rate Card 2026 row 22; install E22, steps F22, levelling G22, cleaning H22, demob J22. Source headings retain their printed years. Customer rates apply equally to owned and sub-hired equipment.'
 e['labour_source952']={'sha256':'60a62f37d9d91634ca617f3b2840809e64ebc1f000303857f1abb5e00691d7d6','sheet':'Street Rate Card 2026','row':22,'cells':{'install':'E22','steps':'F22','levelling':'G22','cleaning':'H22','demob':'J22'}}
-s=rep(s,old,json.dumps(d,ensure_ascii=False,separators=(',',':')),'Pee Panel card labour source',str(p))
+s=rep(s,old,' '+json.dumps(d,ensure_ascii=False,separators=(',',':')),'Pee Panel card labour source',str(p))
 anchor='function labourUnits(a, item){'
 # Native physical identities permit one supplier unit to be charged without charging its uncompleted siblings.
 new=anchor+'''\n if(a&&/^(FWF|Accessible Toilet|16Pan Block|VMS)$/.test(String(item||''))&&typeof gcModel925==='function'){
@@ -27,4 +27,5 @@ s=rep(s,anchor,new,'typed customer labour units',str(p))
 s=rep(s,'function mount925(a){',(H/'charges952.js').read_text()+'\nfunction mount925(a){','customer charge summary helper',str(p))
 s=rep(s,"body.querySelectorAll('.units925').forEach(e=>e.remove());const html=panel925(a);","body.querySelectorAll('.units925,.charges952').forEach(e=>e.remove());const html=panel925(a)+charges952Html(a);",'visible customer labour summary',str(p))
 s=rep(s," · v9.51'; /* v8.19"," · v9.52'; /* v8.19",'footer',str(p))
+assert 'const DATA = {' in s, 'Literal DATA required by linked-media publication guard'
 p.write_bytes((b'\xef\xbb\xbf' if raw.startswith(b'\xef\xbb\xbf') else b'')+s.encode())
