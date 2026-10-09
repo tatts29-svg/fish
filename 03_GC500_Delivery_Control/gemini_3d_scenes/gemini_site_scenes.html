@@ -1,0 +1,331 @@
+<title>Gemini Site Scenes</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Barlow:wght@400;500;600&family=IBM+Plex+Mono:wght@400&display=swap">
+<style>
+/* Layout: one reading column of numbered scene cards; each card is copy-first, full text folded below. Hazard-stripe band is the only flourish. */
+:root{
+  --bg:#EEF0F0; --surface:#FFFFFF; --ink:#1D1D1B; --muted:#565A5C; --line:#D5D9DA; --accent:#F26222; --on-accent:#1D1D1B; --code:#F6F7F7; --ok:#1E7B45;
+  --f-display:"Barlow Condensed","Arial Narrow",Arial,sans-serif; --f-body:"Barlow",system-ui,-apple-system,"Segoe UI",Arial,sans-serif; --f-mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#1D1D1B;--surface:#272725;--ink:#F1F1EE;--muted:#AEB0AC;--line:#3B3B38;--accent:#F26222;--on-accent:#1D1D1B;--code:#20201E;--ok:#5CCB8A;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#1D1D1B;--surface:#272725;--ink:#F1F1EE;--muted:#AEB0AC;--line:#3B3B38;--accent:#F26222;--on-accent:#1D1D1B;--code:#20201E;--ok:#5CCB8A;color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased}
+.stripe{height:10px;background:repeating-linear-gradient(135deg,var(--accent) 0 14px,var(--ink) 14px 28px)}
+.wrap{max-width:760px;margin:0 auto;padding-inline:16px;padding-block:28px 56px;display:flex;flex-direction:column;gap:28px}
+h1,h2,h3{font-family:var(--f-display);font-weight:700;letter-spacing:.01em;line-height:1.1;text-wrap:balance;margin:0}
+h1{font-size:clamp(2rem,6vw,2.8rem)}
+h2{font-size:1.6rem}
+h3{font-size:1.15rem;font-weight:600}
+.eyebrow{font-family:var(--f-display);font-weight:600;text-transform:uppercase;letter-spacing:.12em;font-size:.85rem;color:var(--muted)}
+.lede{color:var(--muted);max-width:62ch;margin:0}
+header{display:flex;flex-direction:column;gap:10px}
+ol.how{margin:0;padding-left:1.3em;display:flex;flex-direction:column;gap:6px;max-width:62ch}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:20px;display:flex;flex-direction:column;gap:14px;min-width:0}
+.card-head{display:flex;gap:14px;align-items:center}
+.num{flex:none;width:44px;height:44px;border-radius:4px;background:var(--accent);color:var(--on-accent);font-family:var(--f-display);font-weight:700;font-size:1.6rem;display:grid;place-items:center}
+.card-head > div{min-width:0;display:flex;flex-direction:column;gap:4px}
+.what{margin:0;max-width:62ch}
+.chips{display:flex;flex-wrap:wrap;gap:6px;list-style:none;margin:0;padding:0}
+.chips li{font-size:.85rem;border:1px solid var(--line);border-radius:3px;padding:2px 8px;color:var(--muted);font-variant-numeric:tabular-nums}
+.row{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.meta{color:var(--muted);font-size:.9rem}
+button.copy{font:600 1rem var(--f-body);min-height:44px;padding:0 18px;border-radius:4px;border:2px solid var(--accent);background:var(--accent);color:var(--on-accent);cursor:pointer}
+button.copy.ghost{background:transparent;color:var(--ink)}
+button.copy:focus-visible,summary:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
+button.copy.done{background:var(--ok);border-color:var(--ok);color:var(--surface)}
+details{border-top:1px solid var(--line);padding-top:10px}
+summary{cursor:pointer;color:var(--muted);font-weight:500;min-height:32px}
+pre{font-family:var(--f-mono);font-size:.82rem;line-height:1.5;background:var(--code);border:1px solid var(--line);border-radius:4px;padding:12px;margin:10px 0 0;white-space:pre-wrap;overflow-wrap:anywhere;max-height:420px;overflow:auto}
+.follow{border-left:3px solid var(--accent);padding-left:14px;display:flex;flex-direction:column;gap:8px}
+.follow p{margin:0;color:var(--muted)}
+.fixes{display:flex;flex-direction:column;gap:12px}
+.fix{display:flex;flex-direction:column;gap:6px;padding-bottom:12px;border-bottom:1px solid var(--line)}
+.fix:last-child{border-bottom:0;padding-bottom:0}
+.fix code{font-family:var(--f-mono);font-size:.85rem;overflow-wrap:anywhere}
+ul.checks{margin:0;padding-left:1.2em;display:flex;flex-direction:column;gap:8px;max-width:64ch}
+footer{color:var(--muted);font-size:.9rem;max-width:62ch}
+@media (prefers-reduced-motion: reduce){*{transition:none!important}}
+</style>
+<div class="stripe" aria-hidden="true"></div>
+<main class="wrap">
+<header>
+  <span class="eyebrow">GC500 · Coates · prompts for Gemini</span>
+  <h1>Gemini Site Scenes</h1>
+  <p class="lede">Three prompts for interactive 3D training scenes built on what our crews do on the job: fencing, levelling a building and unloading toilets. Each one asks Gemini for a single web page that runs on a phone or a laptop, in the Coates orange and charcoal.</p>
+  <ol class="how">
+    <li>Open a <b>new</b> Gemini chat and turn on <b>Canvas</b>. Use one chat per scene.</li>
+    <li>Tap <b>Copy prompt</b> below, paste it into Gemini and send. Gemini writes the page and shows a preview.</li>
+    <li>Play it. If something's off, send one of the fix-it replies at the bottom. Expect two or three rounds.</li>
+    <li>To open it on your phone, use Canvas's <b>Share</b> link. Anyone with the link can open it.</li>
+  </ol>
+</header>
+
+<section class="card" id="fencing" aria-labelledby="h-fencing">
+  <div class="card-head"><div class="num" aria-hidden="true">1</div><div><h2 id="h-fencing">Erecting temporary fencing around the track</h2></div></div>
+  <p class="what">Put up a 42.5 m run of mesh fence beside the circuit: Take 5, forklift the panel pack in with a separate spotter, then feet, panels, clamps, stays, shade cloth and the gate, and finish by walking the line.</p>
+  <ul class="chips"><li>17 bays × 2.5 m</li><li>Panels 1.8 m high</li><li>Brace before cloth</li></ul>
+  <div class="row"><button class="copy" type="button" data-target="p-fencing"><span class="lbl">Copy prompt</span></button><span class="meta">About 1,880 words · paste into a new chat</span></div>
+  <details><summary>Show the full prompt</summary><pre id="p-fencing">Build ONE self-contained HTML file: an interactive 3D training game where the player puts up temporary mesh fencing beside a beach-side street race circuit, the way the fencing crew does it on our job (the fence is hired in, and Coates checks and signs off the work).
+
+## Build rules (read first)
+- Write the whole file in one reply: no placeholders, &quot;...&quot;, TODO or &quot;rest of the code here&quot;. About 1,500 lines; simple shapes beat detail.
+- Build in this order, each part working before the next: renderer, lights and ground; HUD, STOP and error bar; steps and tap-to-place; safety rules; vehicles and crew; end card; tour, sound and quality.
+- Every button on screen works (leave a feature out, leave its button out). Before finishing, check every import, function call and button handler exists.
+
+## Scene
+- 07:10 by a closed beach-side street circuit: concrete barriers with plain hoardings, red-and-white kerbs, palms, beach, a flat blue sea. Keep scenery light.
+- A plain flat-deck truck (typical) with packs of mesh panels, feet (blocks), clamps, stays and black shade cloth (scrim). A forklift with an amber beacon on 1.8 m tynes (no extensions). Operator, spotter, two installers, and a supervisor at the sign-off board.
+- Chalk line, left to right: panels 1 to 8, a gate bay, panels 9 to 16; 17 bays of 2.5 m (42.5 m), panels 1.8 m high. Joints are the 16 points between bays, numbered from the left; the two outer ends are open ends. The gate is one leaf on two hinge clamps from panel 8, latching to panel 9 (no clamp on the latch joint). Bays 12 to 14 sit on an amber strip drawn tilted 3 degrees; parts there still snap to the line.
+- Panels: a rounded tube frame plus one mesh plane sharing one CanvasTexture grid (alphaTest 0.5, DoubleSide, no shadow); never wires or cylinders.
+- Parts follow our planning guide (label it &quot;Planning guide: an allowance, not the installer&#x27;s method&quot;): a foot at every joint and open end (none at the gate&#x27;s free end); one clamp per fixed joint; two hinge clamps; a stay, with its own foot, at joints 1, 3, 5, 7, 10, 12, 14 and 16 (every second fixed joint), at joints 8 and 9 beside the gate, and two at each open end. Keep layout and rules in one array and compute every &quot;needed&quot; count from it (32 feet, 16 clamps, 14 stays); show them on Help. The end card also shows, for comparison, a real signed 40 m braced-and-scrimmed run of 16 panels: 32 feet, 29 clamps, 8 stays.
+
+## Gameplay (the checklist ticks each step)
+1. **Take 5**: tap the pulsing ring on each hazard (traffic, slope, wind, people), tick PPE, Confirm.
+2. **Unload**: once a spotter who isn&#x27;t the operator stands in the Safe Zone, tap the panel pack and hold GO. The forklift drives a fixed path at walking pace, tynes low, to the run start; letting go stops it.
+3 to 6. **Feet, Panels, Clamps, Stays**: pick a type in the tray, then tap a glowing slot (slots show only for the current step). After three correct, &quot;Place the rest&quot; finishes that type. Tapping a misplaced part removes it.
+7. **Shade cloth**: the same metres as the panels (40 m, not the gate), fixed to the panels (typical: zip ties). Brace first: scrim catches wind.
+8. **Gate**: hang it on its two hinge clamps, then tap it to swing open 90 degrees and shut over 1.5 s.
+9. **Walk the line**: an installer walks the run in 10 s; misses glow amber (&quot;Joint 7 not clamped&quot;). Tapping the amber strip offers &quot;Flag to supervisor&quot; (ticks) or &quot;Looks fine&quot; (-5: &quot;Don&#x27;t guess on a slope: flag it&quot;). The board then reads &quot;Braced &amp; scrimmed: 40 m&quot;.
+- Steps unlock in order, except Shade cloth unlocks once every clamp is on, stays or not. A bay is braced if either end has a stay. 5 s after cloth goes on an unbraced bay, a gust tips it to 80 degrees about its feet in 1 s: &quot;Bay 13 had no stay: brace before cloth&quot; (-15). The player adds the stay, then taps the bay to stand it up.
+- Steps are one array of { id, label, isDone(), complete() } used by the checklist, self-check and Practice. Only the current step&#x27;s things can be tapped; a later step&#x27;s thing shows a card saying why (-5) and does nothing else.
+- Score starts at 100: mistake -5, safety stop -15, never below 0. The end card lists each deduction and reason, then score, time and parts used versus needed.
+- Crew and safety: the player is the leading hand. Tap a crew member (they glow), then tap the ground to send them (1.4 m/s); their card has &quot;Make spotter&quot;. A spotter counts only inside the green Safe Zone ring; a translucent red disc marks the exclusion zone around the forklift. Making the forklift operator the spotter locks the forklift: &quot;Confirm a separate external spotter during forklift operation.&quot; Anyone inside a red zone while something moves freezes everything, with a red card naming the problem, until the player presses STOP (tynes down, brake) and taps the person to walk them out. Walk-in: 4 s after GO is first held, a member of the public (no hi-vis) walks towards the red zone.
+
+## Controls
+- Laptop: drag to orbit, scroll to zoom, click to pick and place; hold G for GO; Space STOP; F free look; 0 reframe; Esc closes cards.
+- Phone (pointer: coarse): drag, pinch, tap. One bottom strip, max(20% of the view, 150 px) high, inside the safe-area insets: GO left, STOP centre (88 px round, #ff3b2f, always on top), the parts tray (Feet, Panels, Clamps, Stays, Cloth, Gate) right. Restart, Free look, Tour, Sound, Quality and Help sit behind a 48 px Menu button top right. Top left shows only the current step (tap for the checklist); score and time in one small line top centre. Nothing wider than the screen.
+- Input: a pointerup is a tap only if it moved under 8 px within 350 ms; taps pick and place, everything else goes to OrbitControls. No click events on the canvas; raycast one group of tappable things. touch-action and user-select none (with -webkit- versions and -webkit-touch-callout) on canvas and controls. Hold buttons: pointerdown with setPointerCapture starts; pointerup, pointercancel and lostpointercapture stop; stopPropagation. preventDefault on Space, arrows, [ and ]; held keys in a Set cleared on blur.
+- OrbitControls: damping, distance 4 to 90, maxPolarAngle 1.45, no pan on phones, off during the tour or a card. The camera follows the forklift, pack or current part by adding its movement to camera.position and controls.target; Free look stops following; Reframe glides back in 0.8 s. A skippable 10 s tour opens the game.
+
+## Look and feel
+- Rounded shapes (RoundedBoxGeometry, 12- to 16-sided cylinders) with shared MeshStandardMaterials. Colours are the Coates brand: orange #F26222 and charcoal #1D1D1B. For orange paint on 3D objects start at color.setRGB(0.62, 0.115, 0.020, THREE.LinearSRGBColorSpace) (about #CE5F27), because #F26222 itself washes out towards yellow under the sun and tone mapping; tune it until it reads as #F26222 on screen.
+- Lights to start from: hemisphere 0.6; sun 0xfff0e1 at 2.6, 25 degrees up, the only shadow caster, shadow camera ±35 m on the work; fill 0xc6deff 0.6; rim 0xffa36e 0.8; RoomEnvironment via PMREMGenerator at 0.5. Transparent canvas over a CSS sky gradient #62a5ce, #bcdde9, #e9eeea; Fog(0xe9eeea, 65, 680). Ground markings 2 cm up with polygonOffset.
+- People: capsules and boxes in hi-vis, hard hat, glasses, gloves, boots and long sleeves; limbs swing in step with walking speed; no skeletons, IK or models; build one, clone it.
+- UI: panels charcoal #1D1D1B, 5 px Coates orange #F26222 top border, text #f7f8f8, status #ff3b2f / #ffb300 / #2ee56f, Arial, 44 px targets, plain words. CanvasTextures use SRGBColorSpace.
+- &quot;Coates&quot; appears in plain text only on the sign-off board; the truck, forklift and fencing crew carry no company name. No logos and no other company, series or sponsor names. Corner note: &quot;Illustrative training scene · not a procedure · nothing here sends or changes anything.&quot;
+
+## Technical
+- One file, no build step, no API keys. The only network requests are three.js r170 from jsDelivr, exactly like this, with no other scripts, CDNs or versions:
+&lt;script type=&quot;importmap&quot;&gt;
+{ &quot;imports&quot;: {
+  &quot;three&quot;: &quot;https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js&quot;,
+  &quot;three/addons/&quot;: &quot;https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/&quot;
+} }
+&lt;/script&gt;
+&lt;script type=&quot;module&quot;&gt;
+import * as THREE from &#x27;three&#x27;;
+import { OrbitControls } from &#x27;three/addons/controls/OrbitControls.js&#x27;;
+import { RoundedBoxGeometry } from &#x27;three/addons/geometries/RoundedBoxGeometry.js&#x27;;
+import { RoomEnvironment } from &#x27;three/addons/environments/RoomEnvironment.js&#x27;;
+// all game code goes in this one module
+&lt;/script&gt;
+- r170 API: one WebGLRenderer({ antialias: true, alpha: true }), never recreated; outputColorSpace = THREE.SRGBColorSpace; ACESFilmicToneMapping, exposure 1.02; PCFSoftShadowMap. No outputEncoding, sRGBEncoding or THREE.Geometry.
+- Don&#x27;t use: loaders, FontLoader or TextGeometry, Water, Sky or Reflector, HDR files, EffectComposer or post-processing, physics engines, MeshPhysicalMaterial, PointLight or SpotLight, web fonts, image or audio files, alert, confirm or prompt. Falls, gusts and tips are keyframed; beacons are pulsing emissive; repeats use InstancedMesh.
+- Page: viewport meta with viewport-fit=cover; html, body { margin:0; height:100%; overflow:hidden; overscroll-behavior:none }; canvas { display:block; position:fixed; inset:0 }.
+- Before the importmap, a plain (non-module) script shows a red error bar with a Copy button for any error or unhandledrejection, and after 40 s, unless the module has set window.__drawn = true, &quot;The 3D didn&#x27;t start. It needs Chrome, or Safari on iOS 16.4 or newer.&quot; with Try again.
+- On webglcontextlost: preventDefault, show &quot;Graphics paused&quot;, offer Reload after 4 s; never make a second renderer. Use setAnimationLoop; stop it and all holds while hidden; clamp delta to 0.05 s.
+- Build every mesh, material, texture and listener once. Restart only resets positions, visibility, steps, score, timers and crew; changed text redraws its own canvas.
+- Quality has three levels and opens on Balanced. Low: pixel ratio 1, no shadows, 30 fps cap. Balanced: at most 1.5x and 1.8 MP, 1024 shadows. High: at most 2x, 2048 (phones: as Balanced). Phones about 1.3 MP, 0.5 MP while moving. Guard: after a 6 s warm-up, 3 one-second samples under 24 fps in a row drop a level, then wait 6 s; never raise or stop the 3D.
+- Reduced motion: no tour, Reframe jumps. Sound is off until tapped; create the AudioContext in that tap. Keep Quality and Sound in localStorage inside try/catch.
+
+## Help, checks and done
+- Help shows live FPS, draw calls, triangles, geometries and textures (renderer.info). Buttons: &quot;Test walk-in&quot; fires the safety event now; &quot;Practice: finish this step&quot; (flagged on the end card); &quot;Run self-check&quot; resets, drives the steps in code, lists PASS/FAIL, then restarts 10 times, a frame each, and compares geometries and textures.
+- Self-check lines: no spotter in the Safe Zone, no forklift movement; a walk-in during movement freezes the job; every step can be completed; the needed counts match the layout; cloth on an unbraced bay brings a gust that tips it.
+- Done when: every self-check line passes; no red error bar in Chrome or Safari, laptop or phone; taps alone finish the job; Test walk-in freezes everything until STOP and the person is cleared; on a phone, portrait or landscape, no sideways scroll and STOP always visible.</pre></details>
+</section>
+<section class="card" id="building" aria-labelledby="h-building">
+  <div class="card-head"><div class="num" aria-hidden="true">2</div><div><h2 id="h-building">Unloading and levelling a site building</h2></div></div>
+  <p class="what">Bring a 6 m building in on a tilt-tray, check the door side on the load card, unload, then jack, block and pack it level on a 1 in 50 slope, fit the steps and hand it over.</p>
+  <ul class="chips"><li>Level to ±5 mm</li><li>Blocks over 20 kg = two-person lift</li><li>No steps, no handover</li></ul>
+  <div class="row"><button class="copy" type="button" data-target="p-building"><span class="lbl">Copy prompt</span></button><span class="meta">About 2,050 words · paste into a new chat</span></div>
+  <details><summary>Show the full prompt</summary><pre id="p-building">Build ONE self-contained HTML file: an interactive 3D training game where the player unloads a 6 m transportable building, levels it on sloping ground and fits its steps, the way a Coates crew does it.
+
+## Build rules (read first)
+- Write the whole file in one reply: no placeholders, &quot;...&quot;, TODO or &quot;rest of the code here&quot;. About 1,500 lines; simple shapes beat detail.
+- Build in this order, each part working before the next: renderer, lights and ground; HUD, STOP and error bar; steps and tap-to-place; safety rules; vehicles and crew; end card; tour, sound and quality.
+- Every button on screen works (leave a feature out, leave its button out). Before finishing, check every import, function call and button handler exists.
+
+## Scene
+- 06:50 in a grassed park beside a beach-side street circuit (concrete barriers with plain hoardings, palms, beach). Keep scenery light. The ground falls 1 in 50 along the building (120 mm over 6 m).
+- A holding strip, a park gate, cones, a walkway and a pad with four lay-down marks, one under each skid corner. Two approach lanes: A, the set route, puts the truck&#x27;s driver side towards the walkway; B puts its passenger side there.
+- A tilt-tray truck with a 6.0 x 3.0 m building on skids, about 2.7 m high (typical): one outward door on a long side, its centre about 1.4 m from the nearer end, 0.78 m swing. Stair, landing and handrail on the tray.
+- Supervisor, spotter, two installers, an escort. Jacks (typical: four), timber blocks (typical: 100 mm, 22 kg), plastic packers (typical: 5, 10 and 20 mm).
+
+## Gameplay (the checklist ticks each step)
+1. **Arrive** (plays itself in 8 s, clock 06:50 to 06:58): the truck waits its turn in the holding strip (out of order = you wait), then at the park gate until the escort leads it in, beacons on, 10 km/h. Tick &quot;Traffic control: Arranged&quot; and &quot;Route walked, looked up for branches and wires&quot;. Work unlocks at 07:00; then the clock runs at real speed.
+2. **Take 5**: tap the pulsing ring on each hazard (soft ground, branches, pinch points, people), tick PPE (Cut-5 gloves), Confirm.
+3. **Door side**: the load card, random each restart, reads &quot;Door to driver side&quot;, &quot;Door to passenger side&quot; or &quot;Door side not set&quot;: the side the door is on while loaded, ticked with the driver at the yard. The building comes off keeping its sides. The player picks Go (lane A) or Stop and confirm. Driver side: Go. Passenger side: Stop, and the supervisor re-plans to lane B. Not set: Stop, and the supervisor confirms with the yard. Never guess from the map. A wrong Go leaves the door facing away, red at the walk-round (-15); Restart is the only fix. A needless Stop costs 5.
+4. **Zone**: cones round the drop and a spotter in the Safe Zone before Unload unlocks.
+5. **Unload**: the arrows nudge the truck 0.1 m to line the skids up with the marks. Hold Unload: the tray tilts, the building winches back, the rear skids touch down, the truck creeps forward and the building settles (typical tilt-tray method; our buildings also come off by crane). Letting go pauses it.
+6. **Jack**: locked until the player taps the supervisor and picks &quot;Check jacks&quot;. The crew watch the jack pressure.
+7. **Blocks and packers** under the skids, to the lay-down plan. Blocks are over 20 kg: &quot;Two-person lift?&quot; Yes sends both installers (3 s); &quot;Carry alone&quot; places it but costs 5.
+8. **Level**: every readout green, then &quot;Lower onto packers&quot; (±5 mm is typical; the supervisor sets the real tolerance).
+9. **Steps**: tap the door to fit the stair, then the landing, then the handrail.
+10. **Handover walk-round**: tap to check the stairs to AS 1657 (treads and handrails), fire extinguisher, cleaning, power-on by a licensed electrician (test &amp; tag, RCD) and a photo. &quot;Hand over&quot; stays grey until the steps are on: no steps, no handover.
+- Steps are one array of { id, label, isDone(), complete() } used by the checklist, self-check and Practice. Only the current step&#x27;s things can be tapped; a later step&#x27;s thing shows a card saying why (-5) and does nothing else.
+- Score starts at 100: mistake -5, safety stop -15, never below 0. The end card lists each deduction and reason, then score, time and the final level readings, with &quot;Positioned and levelled&quot; and &quot;Steps installed&quot; ticked.
+- Crew and safety: the player is the leading hand. Tap a crew member (they glow), then tap the ground to send them (1.4 m/s); their card has &quot;Make spotter&quot;. A spotter counts only inside the green Safe Zone ring; a translucent red disc marks the exclusion zone around the truck and building while they move. Anyone inside a red zone while something moves freezes everything, with a red card naming the problem, until the player presses STOP and taps the person to walk them out. The same freeze applies to anyone under a building on jacks without an approved support, any hand or foot between skid and ground, and a packer placed while a jack moves (hands stay out of pinch points). 6 s after the first jack raise, an installer starts to reach under the building.
+
+## Levelling
+- A rigid building with four corner heights in mm above a datum (FL, FR, RL, RR); draw its pitch over 6.0 m and roll over 3.0 m from them.
+- Readouts: each long side shows front minus rear corner, each end left minus right. Green within ±5 mm, amber within ±15, red beyond.
+- Tap a jack; each [ or ] press, or 0.25 s of hold, moves that corner 5 mm (0 to 300 mm). Twist = |(FL + RR) - (FR + RL)|; over 50 mm (typical), show &quot;Twist: bring the low corners up&quot; and stop the highest corner rising.
+- Each mark shows the gap under the skid in mm; stack blocks and packers there. &quot;Lower onto packers&quot; sets each corner to its ground height plus its stack. Level ticks when all four readouts are within ±5 mm.
+
+## Controls
+- Laptop: drag to orbit, scroll to zoom, click to pick and place; the arrows nudge the truck; hold U to unload; tap a jack, then [ ] moves it down or up; Space STOP; F free look; 0 reframe; Esc closes cards.
+- Phone (pointer: coarse): drag, pinch, tap. One bottom strip, max(20% of the view, 150 px) high, inside the safe-area insets: the nudge pad left, STOP centre (88 px round, #ff3b2f, always on top), Unload, Jack down and Jack up right. Restart, Free look, Tour, Sound, Quality and Help sit behind a 48 px Menu button top right. Top left shows only the current step (tap for the checklist); score and time in one small line top centre. Nothing wider than the screen.
+- Input: a pointerup is a tap only if it moved under 8 px within 350 ms; taps pick and place, everything else goes to OrbitControls. No click events on the canvas; raycast one group of tappable things. touch-action and user-select none (with -webkit- versions and -webkit-touch-callout) on canvas and controls. Hold buttons: pointerdown with setPointerCapture starts; pointerup, pointercancel and lostpointercapture stop; stopPropagation. preventDefault on Space, arrows, [ and ]; held keys in a Set cleared on blur.
+- OrbitControls: damping, distance 4 to 90, maxPolarAngle 1.45, no pan on phones, off during the tour or a card. The camera follows the truck, building or selected jack by adding its movement to camera.position and controls.target; Free look stops following; Reframe glides back in 0.8 s. A skippable 10 s tour opens the game.
+
+## Look and feel
+- Rounded shapes (RoundedBoxGeometry, 12- to 16-sided cylinders) with shared MeshStandardMaterials. Colours are the Coates brand: orange #F26222 and charcoal #1D1D1B. For orange paint on 3D objects start at color.setRGB(0.62, 0.115, 0.020, THREE.LinearSRGBColorSpace) (about #CE5F27), because #F26222 itself washes out towards yellow under the sun and tone mapping; tune it until it reads as #F26222 on screen.
+- Lights to start from: hemisphere 0.6; sun 0xfff0e1 at 2.6, 25 degrees up, the only shadow caster, shadow camera ±35 m on the work; fill 0xc6deff 0.6; rim 0xffa36e 0.8; RoomEnvironment via PMREMGenerator at 0.5. Transparent canvas over a CSS sky gradient #62a5ce, #bcdde9, #e9eeea; Fog(0xe9eeea, 65, 680). Ground markings 2 cm up with polygonOffset.
+- People: capsules and boxes in hi-vis, hard hat, glasses, gloves, boots and long sleeves; limbs swing in step with walking speed; no skeletons, IK or models; build one, clone it.
+- UI: panels charcoal #1D1D1B, 5 px Coates orange #F26222 top border, text #f7f8f8, status #ff3b2f / #ffb300 / #2ee56f, Arial, 44 px targets, plain words. CanvasTextures use SRGBColorSpace.
+- &quot;Coates&quot; appears in plain text only on the building, the crew&#x27;s vests and the site board; the truck carries no company name. No logos and no other company, series or sponsor names. Corner note: &quot;Illustrative training scene · not a procedure · nothing here sends or changes anything.&quot;
+
+## Technical
+- One file, no build step, no API keys. The only network requests are three.js r170 from jsDelivr, exactly like this, with no other scripts, CDNs or versions:
+&lt;script type=&quot;importmap&quot;&gt;
+{ &quot;imports&quot;: {
+  &quot;three&quot;: &quot;https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js&quot;,
+  &quot;three/addons/&quot;: &quot;https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/&quot;
+} }
+&lt;/script&gt;
+&lt;script type=&quot;module&quot;&gt;
+import * as THREE from &#x27;three&#x27;;
+import { OrbitControls } from &#x27;three/addons/controls/OrbitControls.js&#x27;;
+import { RoundedBoxGeometry } from &#x27;three/addons/geometries/RoundedBoxGeometry.js&#x27;;
+import { RoomEnvironment } from &#x27;three/addons/environments/RoomEnvironment.js&#x27;;
+// all game code goes in this one module
+&lt;/script&gt;
+- r170 API: one WebGLRenderer({ antialias: true, alpha: true }), never recreated; outputColorSpace = THREE.SRGBColorSpace; ACESFilmicToneMapping, exposure 1.02; PCFSoftShadowMap. No outputEncoding, sRGBEncoding or THREE.Geometry.
+- Don&#x27;t use: loaders, FontLoader or TextGeometry, Water, Sky or Reflector, HDR files, EffectComposer or post-processing, physics engines, MeshPhysicalMaterial, PointLight or SpotLight, web fonts, image or audio files, alert, confirm or prompt. Falls, gusts and tips are keyframed; beacons are pulsing emissive; repeats use InstancedMesh.
+- Page: viewport meta with viewport-fit=cover; html, body { margin:0; height:100%; overflow:hidden; overscroll-behavior:none }; canvas { display:block; position:fixed; inset:0 }.
+- Before the importmap, a plain (non-module) script shows a red error bar with a Copy button for any error or unhandledrejection, and after 40 s, unless the module has set window.__drawn = true, &quot;The 3D didn&#x27;t start. It needs Chrome, or Safari on iOS 16.4 or newer.&quot; with Try again.
+- On webglcontextlost: preventDefault, show &quot;Graphics paused&quot;, offer Reload after 4 s; never make a second renderer. Use setAnimationLoop; stop it and all holds while hidden; clamp delta to 0.05 s.
+- Build every mesh, material, texture and listener once. Restart only resets positions, visibility, steps, score, timers and crew; changed text redraws its own canvas.
+- Quality has three levels and opens on Balanced. Low: pixel ratio 1, no shadows, 30 fps cap. Balanced: at most 1.5x and 1.8 MP, 1024 shadows. High: at most 2x, 2048 (phones: as Balanced). Phones about 1.3 MP, 0.5 MP while moving. Guard: after a 6 s warm-up, 3 one-second samples under 24 fps in a row drop a level, then wait 6 s; never raise or stop the 3D.
+- Reduced motion: no tour, Reframe jumps. Sound is off until tapped; create the AudioContext in that tap. Keep Quality and Sound in localStorage inside try/catch.
+
+## Help, checks and done
+- Help shows live FPS, draw calls, triangles, geometries and textures (renderer.info). Buttons: &quot;Test someone under the building&quot; fires the safety event now; &quot;Practice: finish this step&quot; (flagged on the end card); &quot;Run self-check&quot; resets, drives the steps in code, lists PASS/FAIL, then restarts 10 times, a frame each, and compares geometries and textures.
+- Self-check lines: no Unload without cones and a spotter in the Safe Zone; jacks stay locked until the supervisor checks them; twist over 50 mm warns; a packer placed while a jack moves freezes the job; someone under the building freezes the job; a wrong door decision is caught; packing to within ±5 mm completes Level.
+- Done when: every self-check line passes; no red error bar in Chrome or Safari, laptop or phone; taps alone finish the job; Test someone under the building freezes everything until STOP and the person is cleared; on a phone, portrait or landscape, no sideways scroll and STOP always visible.</pre></details>
+  <div class="follow"><h3>Follow-up: crane truck mode</h3><p>Send this in the same chat once prompt 2 works.</p>
+  <div class="row"><button class="copy ghost" type="button" data-target="f-building"><span class="lbl">Copy follow-up</span></button></div>
+  <details><summary>Show the follow-up</summary><pre id="f-building">Add a Crane truck mode button that replays Unload with a crane truck instead of the tilt-tray. Before the lift: a crane lift plan signed, the ground checked, the exclusion zone up under the hook, and traffic control showing &quot;Required&quot;. A licensed dogger stands in view and directs. A wind gauge on the HUD shows the wind against a line marked &quot;chart limit&quot; (no number); the Lift button stays locked while the wind is over it (card: &quot;Wind over the chart limit: no lift&quot;). The building hangs from four slings on the hook. Anyone under the suspended building freezes the job until STOP. Controls: hold Lift, Lower, Slew left, Slew right. No physics, just a keyframed swing. Add to the self-check: no lift without the plan, the ground check and the zone; no lift over the wind limit; someone under the load freezes the job. Don&#x27;t change anything else.</pre></details></div>
+</section>
+<section class="card" id="toilets" aria-labelledby="h-toilets">
+  <div class="card-head"><div class="num" aria-hidden="true">3</div><div><h2 id="h-toilets">Unloading portable toilets</h2></div></div>
+  <p class="what">Forklift 8 of the 24 toilets off the supplier&#x27;s truck into two rows of four, doors to the walkway: straps one at a time, travel low, tilt back, and mind the branches.</p>
+  <ul class="chips"><li>24 a load, 8 at this stop</li><li>Separate spotter</li><li>Site hours 07:00–17:00</li></ul>
+  <div class="row"><button class="copy" type="button" data-target="p-toilets"><span class="lbl">Copy prompt</span></button><span class="meta">About 1,960 words · paste into a new chat</span></div>
+  <details><summary>Show the full prompt</summary><pre id="p-toilets">Build ONE self-contained HTML file: an interactive 3D training game where the player forklifts portable toilets off a supplier&#x27;s truck into neat rows at a meet point beside a beach-side street race circuit, the way a Coates crew does it.
+
+## Build rules (read first)
+- Write the whole file in one reply: no placeholders, &quot;...&quot;, TODO or &quot;rest of the code here&quot;. About 1,500 lines; simple shapes beat detail.
+- Build in this order, each part working before the next: renderer, lights and ground; HUD, STOP and error bar; steps and tap-to-place; safety rules; vehicles and crew; end card; tour, sound and quality.
+- Every button on screen works (leave a feature out, leave its button out). Before finishing, check every import, function call and button handler exists.
+
+## Scene
+- 07:40 at a meet point by a closed street circuit (concrete barriers with plain hoardings, yellow and white water-filled barriers, palms, beach). Low branches overhang part of the drop area. Keep scenery light.
+- The toilet supplier&#x27;s truck with 24 single portable toilets in two rows of 12, strapped, doors to the back of the truck. Each about 1.2 x 1.2 m and 2.3 m high with forklift slots in the base (truck type, strapping, size and slots all typical). This meet point takes 8: the HUD starts at &quot;Left on truck: 24&quot; and the job ends at 16, when the truck drives on to its next meet point.
+- Ground marks for two rows of four, 1.5 m apart centre to centre (typical 300 mm gaps), a walkway and a running lane kept clear.
+- A Coates-orange forklift with an amber beacon; operator, a separate spotter and one more crew member. Site board: &quot;Max 2 trucks unloading · 4 people, 2 forklifts · at least 2 people per unload&quot;.
+
+## Gameplay (the checklist ticks each step)
+1. **Arrive**: the truck reaches the named meet point within site hours (07:00 to 17:00) and a Coates crew member walks out to meet it, because Coates places the units. Load card: &quot;Unloaded by 09:00 · allow at least 30 min (about 5 min a unit)&quot;. Traffic control: &quot;To confirm&quot;. The clock runs at 6 times real speed. Score safe, steady work, never speed; passing 09:00 shows an amber &quot;Past the unloaded-by time&quot; card (-5).
+2. **Take 5**: tap the pulsing ring on each hazard (branches, people, uneven ground), tick PPE, Confirm.
+3. **Set up**: exclusion zone, spotter in the Safe Zone, then tap the spotter and pick &quot;Agree hand signals&quot;.
+4. **Straps**: tap &quot;Fall protection on&quot; before anyone gets on the tray; every load has rated straps. Tap straps to release them (typical: one at a time, checking nothing has shifted); tapping another while one is releasing shows &quot;One strap at a time&quot; (-5).
+5. **Pick and carry** (typical forklift practice; see Forklift). 6. **Place** on the next mark (see Placement). 7. **Repeat** until &quot;Left on truck: 16&quot;.
+8. **Check rows**: straight, doors right, running lane clear; misses glow amber with a reason.
+9. **Truck away**: remaining load restrained and straps checked, deck clean of sand, mud and oil, nothing loose.
+- Steps are one array of { id, label, isDone(), complete() } used by the checklist, self-check and Practice. Only the current step&#x27;s things can be tapped; a later step&#x27;s thing shows a card saying why (-5) and does nothing else.
+- Score starts at 100: mistake -5, safety stop -15, never below 0. The end card lists each deduction and reason, then score, time and placement accuracy.
+- Crew and safety: the player is the leading hand. Tap a crew member (they glow), then tap the ground to send them (1.4 m/s); their card has &quot;Make spotter&quot;. A spotter counts only inside the green Safe Zone ring; a translucent red disc marks the exclusion zone around the forklift and its load. Making the forklift operator the spotter locks the forklift: &quot;Confirm a separate external spotter during forklift operation.&quot; Anyone inside a red zone while something moves freezes everything, with a red card naming the problem, until the player presses STOP (tynes down, brake) and taps the person to walk them out. Walk-in: on the third trip, a member of the public (no hi-vis) walks towards the red zone.
+
+## Forklift
+- Arcade driving: 2.5 m/s empty, 1.5 m/s loaded, turning 50 degrees a second; tynes 0 to 3.5 m; tilt back 5 degrees. Simple box checks stop it driving through the truck, units or barriers.
+- Pick: a unit attaches only when the forklift is within 15 degrees of square, its centre line within 0.15 m, the tynes at slot height within 0.05 m and in at least 1.0 m; otherwise &quot;Tynes not fully in&quot;. Only a unit with nothing in the way on that side can be picked.
+- Carry: over 3 m from the truck with the load over 0.3 m up shows &quot;Travel low&quot; (-5); moving loaded without tilt back, &quot;Tilt back&quot; (-5); the mast top above 3.2 m under the branches, &quot;Branch strike&quot; (-15) and the forklift stops.
+- A carried unit keeps its direction relative to the forklift, so the player sets the door by how they approach and turn.
+
+## Placement
+- No snapping. Within 100 mm and 5 degrees of the mark earns full marks; within 300 mm and 15 degrees, half; worse shows &quot;Re-place&quot;. Doors face the walkway within 20 degrees (the supervisor&#x27;s call on the day; our drawings don&#x27;t fix the door side).
+- A hard set-down (full-speed lowering in the last 0.2 m) or a tip (turning at over half speed with the load above 1 m) plays a 1.5 s keyframed gag: the door swings open and a toilet roll bounces out and unrolls a 2 m white strip (-10).
+
+## Controls
+- Laptop: drag to orbit, scroll to zoom, click to pick and place; W/S or up/down drive; A/D or left/right turn; [ ] tynes down/up; T toggles tilt back; Space STOP; F free look; 0 reframe; Esc closes cards.
+- Phone (pointer: coarse): drag, pinch, tap. One bottom strip, max(20% of the view, 150 px) high, inside the safe-area insets: the drive pad left, STOP centre (88 px round, #ff3b2f, always on top), Tynes up, Tynes down and Tilt right. Restart, Free look, Tour, Sound, Quality and Help sit behind a 48 px Menu button top right. Top left shows only the current step (tap for the checklist); score and time in one small line top centre. Nothing wider than the screen.
+- Input: a pointerup is a tap only if it moved under 8 px within 350 ms; taps pick and place, everything else goes to OrbitControls. No click events on the canvas; raycast one group of tappable things. touch-action and user-select none (with -webkit- versions and -webkit-touch-callout) on canvas and controls. Hold buttons: pointerdown with setPointerCapture starts; pointerup, pointercancel and lostpointercapture stop; stopPropagation. preventDefault on Space, arrows, [ and ]; held keys in a Set cleared on blur.
+- OrbitControls: damping, distance 4 to 90, maxPolarAngle 1.45, no pan on phones, off during the tour or a card. The camera follows the forklift or load by adding its movement to camera.position and controls.target; Free look stops following; Reframe glides back in 0.8 s. A skippable 10 s tour opens the game.
+
+## Look and feel
+- Rounded shapes (RoundedBoxGeometry, 12- to 16-sided cylinders) with shared MeshStandardMaterials. Colours are the Coates brand: orange #F26222 and charcoal #1D1D1B. For orange paint on 3D objects start at color.setRGB(0.62, 0.115, 0.020, THREE.LinearSRGBColorSpace) (about #CE5F27), because #F26222 itself washes out towards yellow under the sun and tone mapping; tune it until it reads as #F26222 on screen.
+- Lights to start from: hemisphere 0.6; sun 0xfff0e1 at 2.6, 25 degrees up, the only shadow caster, shadow camera ±35 m on the work; fill 0xc6deff 0.6; rim 0xffa36e 0.8; RoomEnvironment via PMREMGenerator at 0.5. Transparent canvas over a CSS sky gradient #62a5ce, #bcdde9, #e9eeea; Fog(0xe9eeea, 65, 680). Ground markings 2 cm up with polygonOffset.
+- People: capsules and boxes in hi-vis, hard hat, glasses, gloves, boots and long sleeves; limbs swing in step with walking speed; no skeletons, IK or models; build one, clone it.
+- UI: panels charcoal #1D1D1B, 5 px Coates orange #F26222 top border, text #f7f8f8, status #ff3b2f / #ffb300 / #2ee56f, Arial, 44 px targets, plain words. CanvasTextures use SRGBColorSpace.
+- &quot;Coates&quot; appears in plain text only on the forklift, the crew&#x27;s vests and the site board; the supplier&#x27;s truck carries no company name. No logos and no other company, series or sponsor names. Corner note: &quot;Illustrative training scene · not a procedure · nothing here sends or changes anything.&quot;
+
+## Technical
+- One file, no build step, no API keys. The only network requests are three.js r170 from jsDelivr, exactly like this, with no other scripts, CDNs or versions:
+&lt;script type=&quot;importmap&quot;&gt;
+{ &quot;imports&quot;: {
+  &quot;three&quot;: &quot;https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js&quot;,
+  &quot;three/addons/&quot;: &quot;https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/&quot;
+} }
+&lt;/script&gt;
+&lt;script type=&quot;module&quot;&gt;
+import * as THREE from &#x27;three&#x27;;
+import { OrbitControls } from &#x27;three/addons/controls/OrbitControls.js&#x27;;
+import { RoundedBoxGeometry } from &#x27;three/addons/geometries/RoundedBoxGeometry.js&#x27;;
+import { RoomEnvironment } from &#x27;three/addons/environments/RoomEnvironment.js&#x27;;
+// all game code goes in this one module
+&lt;/script&gt;
+- r170 API: one WebGLRenderer({ antialias: true, alpha: true }), never recreated; outputColorSpace = THREE.SRGBColorSpace; ACESFilmicToneMapping, exposure 1.02; PCFSoftShadowMap. No outputEncoding, sRGBEncoding or THREE.Geometry.
+- Don&#x27;t use: loaders, FontLoader or TextGeometry, Water, Sky or Reflector, HDR files, EffectComposer or post-processing, physics engines, MeshPhysicalMaterial, PointLight or SpotLight, web fonts, image or audio files, alert, confirm or prompt. Falls, gusts and tips are keyframed; beacons are pulsing emissive; repeats use InstancedMesh.
+- Page: viewport meta with viewport-fit=cover; html, body { margin:0; height:100%; overflow:hidden; overscroll-behavior:none }; canvas { display:block; position:fixed; inset:0 }.
+- Before the importmap, a plain (non-module) script shows a red error bar with a Copy button for any error or unhandledrejection, and after 40 s, unless the module has set window.__drawn = true, &quot;The 3D didn&#x27;t start. It needs Chrome, or Safari on iOS 16.4 or newer.&quot; with Try again.
+- On webglcontextlost: preventDefault, show &quot;Graphics paused&quot;, offer Reload after 4 s; never make a second renderer. Use setAnimationLoop; stop it and all holds while hidden; clamp delta to 0.05 s.
+- Build every mesh, material, texture and listener once. Restart only resets positions, visibility, steps, score, timers and crew; changed text redraws its own canvas.
+- Quality has three levels and opens on Balanced. Low: pixel ratio 1, no shadows, 30 fps cap. Balanced: at most 1.5x and 1.8 MP, 1024 shadows. High: at most 2x, 2048 (phones: as Balanced). Phones about 1.3 MP, 0.5 MP while moving. Guard: after a 6 s warm-up, 3 one-second samples under 24 fps in a row drop a level, then wait 6 s; never raise or stop the 3D.
+- Reduced motion: no tour, Reframe jumps. Sound is off until tapped; create the AudioContext in that tap. Keep Quality and Sound in localStorage inside try/catch.
+
+## Help, checks and done
+- Help shows live FPS, draw calls, triangles, geometries and textures (renderer.info). Buttons: &quot;Test walk-in&quot; fires the safety event now; &quot;Practice: finish this step&quot; (flagged on the end card); &quot;Run self-check&quot; resets, drives the steps in code, lists PASS/FAIL, then restarts 10 times, a frame each, and compares geometries and textures.
+- Self-check lines: making the operator the spotter locks the forklift; a walk-in during movement freezes the job; the mast up under the branches warns; placing 8 units takes Left on truck from 24 to 16.
+- Done when: every self-check line passes; no red error bar in Chrome or Safari, laptop or phone; taps alone finish the job; Test walk-in freezes everything until STOP and the person is cleared; on a phone, portrait or landscape, no sideways scroll and STOP always visible.</pre></details>
+  <div class="follow"><h3>Follow-up: demob mode</h3><p>Send this in the same chat once prompt 3 works.</p>
+  <div class="row"><button class="copy ghost" type="button" data-target="f-toilets"><span class="lbl">Copy follow-up</span></button></div>
+  <details><summary>Show the follow-up</summary><pre id="f-toilets">Add a Demob mode button. It starts with this meet point&#x27;s 8 units in their rows and an empty Coates toilet-run truck (12 a load; 12 to 14). Each unit has a tag with two tick boxes, &quot;Pumped out&quot; (with a time such as 10:40) and &quot;Loaded&quot;, under the red line &quot;MUST BE EMPTIED BEFORE LOADING — DO NOT LOAD IF NOT PUMPED OUT&quot;. Each unit has a fresh-water tank and a waste tank; pumped out means the waste tank has been emptied. One random unit is not pumped out. Collect only what is on the run sheet (these 8). Forklift the pumped-out units onto the deck marks using the same rules as unloading. Loading the unit that isn&#x27;t pumped out fails the job with the card: &quot;Do not load if not pumped out. Leave it and call the Coates lead.&quot; The job is done when 7 units are on, the straps are on and the player taps &quot;Call the Coates lead&quot;. The HUD shows &quot;Left on site&quot;. Add to the self-check: loading the unpumped unit fails the job, and 7 loaded plus the call completes it. Don&#x27;t change anything else.</pre></details></div>
+</section>
+<section class="card" aria-labelledby="h-fix"><h2 id="h-fix">Fix-it replies</h2><div class="fixes">
+<div class="fix"><h3>It shows a red error bar</h3><code id="x0">Fix this error without removing anything: </code><span class="meta">Tap Copy on the red bar in Gemini&#x27;s preview, then paste it after this line.</span><div class="row"><button class="copy ghost" type="button" data-target="x0"><span class="lbl">Copy reply</span></button></div></div>
+<div class="fix"><h3>Steps or buttons don&#x27;t work</h3><code id="x1">Finish every Gameplay step and make every button work; no placeholders.</code><div class="row"><button class="copy ghost" type="button" data-target="x1"><span class="lbl">Copy reply</span></button></div></div>
+<div class="fix"><h3>It looks blocky or runs slow</h3><code id="x2">Follow the Look and feel and Technical sections exactly.</code><div class="row"><button class="copy ghost" type="button" data-target="x2"><span class="lbl">Copy reply</span></button></div></div>
+</div></section>
+<section class="card" aria-labelledby="h-chk"><h2 id="h-chk">Check before you show anyone</h2><ul class="checks"><li><b>Fencing:</b> the fence crew is the fencing contractor and Coates checks and signs off. I added the gate as an extra bay (17 bays, 42.5 m). Tell me if it should replace a panel instead.</li><li><b>Building:</b> the repo has no figures for these, so they're marked “typical”: height 2.7 m, four jacks, block and packer sizes, the ±5 mm level and the 1 in 50 slope. Swap in your supervisor's numbers.</li><li><b>Toilets:</b> truck type, strapping, forklift slots and the 300 mm gaps are marked “typical”. Which way the doors face is the supervisor's call on the day, and traffic control shows “To confirm”.</li><li><b>Times and scores</b> (the 6× clock, unloaded by 09:00, every penalty) are game settings, not site rules. Each scene carries the line “Illustrative training scene · not a procedure”.</li><li><b>Nothing private:</b> no names, prices, phone numbers, job numbers or internal links. Gemini is an outside service, so keep it that way if you add detail.</li></ul></section>
+<footer>Built from our job records (install pre-start, site plans, delivery rules) and checked against them. I haven't run Gemini's output, so try each scene on your phone first. Its Help card shows the frame rate.</footer>
+</main>
+<script>
+document.addEventListener('click', function(e){
+  var b = e.target.closest('button.copy'); if(!b) return;
+  var el = document.getElementById(b.dataset.target); if(!el) return;
+  var lbl = b.querySelector('.lbl'), orig = lbl.textContent;
+  function flash(t, ok){ lbl.textContent = t; b.classList.toggle('done', !!ok); setTimeout(function(){ lbl.textContent = orig; b.classList.remove('done'); }, 2200); }
+  function fallback(){
+    var d = el.closest('details'); if(d) d.open = true;
+    var r = document.createRange(); r.selectNodeContents(el);
+    var s = window.getSelection(); s.removeAllRanges(); s.addRange(r);
+    el.scrollIntoView({block:'nearest'});
+    flash('Selected: tap Copy', false);
+  }
+  try {
+    navigator.clipboard.writeText(el.textContent).then(function(){ flash('Copied', true); }, fallback);
+  } catch(err){ fallback(); }
+});
+</script>
