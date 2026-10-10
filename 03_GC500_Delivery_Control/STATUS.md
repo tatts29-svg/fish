@@ -1,6 +1,6 @@
 <!-- Author: Andrew Fisher -->
 
-CLAIMED — v9.84 past Build day reference cards, Codex. Andrew requests distinct completed/past-day appearance and recorded day percentages, with no percentage on Today; past dates remain open for records/reference. Start exact live v9.83 19242957feb45f8abfe098ec096461f80d3ed7b57a887fb6086c666ca201c589. Review recorded progress versus calendar passage; optional percentage-basis clarification asked while auditing. No operational completion or date snapshots invented. Preserve shared records, figures, weather and all navigation.
+CLAIMED — v9.84 past Build day reference cards, Codex. Andrew clarified percentage means whole-job progress as at that date, not daily task completion. Draft uses shared progress881Model with historical cache isolation; Today has no percentage. Past dates remain accessible. Latest request: closed reference days with fixed historical weather. Current service/page only exposes current/forecast weather, not a historical archive; do not substitute forecasts for actual past weather. Verification/publication pending. Exact live v9.83 base 19242957feb45f8abfe098ec096461f80d3ed7b57a887fb6086c666ca201c589.
 
 <!-- Author: Andrew Fisher -->
 
