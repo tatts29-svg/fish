@@ -1,5 +1,9 @@
 <!-- Author: Andrew Fisher -->
 
+READY FOR DRAFT REVIEW ONLY — v9.90 compact Build load cards, PR #31. Reconciled latest shared base 8cca513 into feature branch; its complete STATUS and separate v9.89 Life Saving Rule icon claim remain unchanged. Implementation e74c87a; candidate SHA256 5f7323892f4e3706c43ca7e5232be708fcc5e6422f56971ff10205b7fed5de6f, 14,645,792 bytes, 75 scripts. Exact live v9.88 base 40dc8f6c66079d8910ef5eaa3dd6e98a80b778960f70659d5c2447676d1c6175 independently reverified. Build/static checks pass; patch preservation/guard 2, staff model 30, desktop/phone focused 57 each, staff browser 50 each, both navigation sweeps 22 routes/seven deep links/Back pass. Screenshots inspected; zero browser errors/operational writes. Every original page byte retained except draft footer and added presentation; staff, Truck flow, warnings, ordering, records and financial state preserved. Exact-base guard rejects subsequent live/icon changes, requiring rebuild/retest. Library screenshot upload remains blocked by 401; local evidence retained. No release-branch merge or deployment; further approval required.
+
+<!-- Author: Andrew Fisher -->
+
 RECONCILING FOR DRAFT REVIEW — v9.90 compact Build load cards, superseding the never-deployed v9.89 card draft in PR #31. Preserves base8cca513 and its separate v9.89 Life Saving Rule icon claim unchanged. Actual public bytes independently fetched during reconciliation remain v9.88 SHA25640dc8f6c66079d8910ef5eaa3dd6e98a80b778960f70659d5c2447676d1c6175; the base contains no icon implementation yet. Renumbering the card patch, presentation namespace, files and tests consistently to990. Exact-base guard must reject any later live change, including an icon release: rebuild/retest on those actual bytes before release. Feature-branch reconciliation and testing authorised; merge into release branch and deployment still require further approval. Final checks in progress.
 
 <!-- Author: Andrew Fisher -->

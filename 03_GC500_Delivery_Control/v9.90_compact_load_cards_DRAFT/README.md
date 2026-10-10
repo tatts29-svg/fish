@@ -9,7 +9,7 @@ Andrew approved compact dark load cards, stronger borders, glow and animated pro
 The saved K2 branch was not used as the implementation base. The current shared branch is `codex/gc500-current-release-03oct`, reconciled tip `8cca51366bab2beba7a4decfd9b4bcff36925b30`. Its v9.88 staff release matches the actual public page byte for byte:
 
 - Base SHA-256: `40dc8f6c66079d8910ef5eaa3dd6e98a80b778960f70659d5c2447676d1c6175` (14,630,539 bytes).
-- Candidate SHA-256: pending final build below.
+- Candidate SHA-256: `5f7323892f4e3706c43ca7e5232be708fcc5e6422f56971ff10205b7fed5de6f` (14,645,792 bytes, 75 inline scripts).
 - Review branch: `codex/gc500-load-cards-989-review`.
 
 Closed loads keep their load number, time or explicit No time, carrier, reference/name, destination source, actual status, and every existing Truck flow warning chip. Navigate and Details remain available. Details holds the existing QR, progress controls, nominal sizes/weights and their uncertainty/source notes, native delivery cards, photos, notes, loading controls, run-sheet action and Arrange loads. No filters or broader day-page rearrangement were added.
@@ -35,7 +35,7 @@ npm ci --prefix toolchain
 bash toolchain/build.sh v9.90-review v9.90_compact_load_cards_DRAFT/patch_v990.py
 export PAGE=build/GC500_v9.90-review/GC500_Delivery_Control_hosted.html
 export BASE=build/GC500_v9.90-review/base_live.html
-export EXPECTED_SHA=<final-candidate-sha256>
+export EXPECTED_SHA=5f7323892f4e3706c43ca7e5232be708fcc5e6422f56971ff10205b7fed5de6f
 python v9.90_compact_load_cards_DRAFT/tests/patch990.py
 node v9.90_compact_load_cards_DRAFT/tests/browser990.cjs
 MOB=1 node v9.90_compact_load_cards_DRAFT/tests/browser990.cjs
@@ -52,3 +52,21 @@ Optional `OUTDIR` saves private screenshots/check results outside the checkout. 
 ## Base reconciliation
 
 The shared base advanced only by the separate v9.89 Life Saving Rule icon claim in `STATUS.md`. Its complete status content is retained verbatim. Actual live bytes, fetched independently, remain the v9.88 base above. No icon implementation was present in that base or deployment at reconciliation time. This draft was renumbered to v9.90 to avoid the claim collision; the existing PR head branch retains its historical name so PR #31 remains intact. The implementation is unchanged except the 989-to-990 presentation namespace and draft version. Any subsequent live icon release must be preserved by rebuilding from that newer exact base; the current hash guard rejects it automatically.
+
+## Final validation — reconciled v9.90 candidate
+
+Executed against implementation/reconciliation commit `e74c87a9de66fc464dac12c9eb61d722c50dfe23` and the candidate hash above. Subsequent review-record changes affect documentation only.
+
+| Check | Result |
+| --- | --- |
+| Shared build, inline JavaScript, author/secret checks | Pass |
+| Exact original-byte preservation, wrong-base/reapply refusal | 2 pass |
+| Existing daily staff model | 30 pass |
+| Focused desktop and 360px phone interactions | 57 pass each |
+| Existing staff browser regressions, desktop and phone | 50 pass each |
+| Shared navigation sweeps, desktop and phone | 22 routes, 7 deep links and Back each; zero errors |
+| Patch whitespace and complete newer base STATUS preservation | Pass |
+
+Desktop and phone screenshots inspected. Native navigation, repeated/rapid toggle, keyboard focus, safety warnings, Arrange loads, progress and run-sheet dialogs, reduced motion, true-stage lamps, staff, Truck flow, shared records and financial state were checked. Browser suites reported no operational writes. The independent final public fetch remains the exact v9.88 base; the release branch still points to `8cca51366bab2beba7a4decfd9b4bcff36925b30`. No deployment or merge into that branch occurred.
+
+Private evidence is retained at `/workspace/gc500-review/v990/results.json`, with logs and screenshots in its sibling test directories. Screenshot Library upload is blocked by HTTP 401; no further retry is required. GitHub check-run/status/Actions availability is reported separately for the final PR head; local validation is not a GitHub CI pass.
