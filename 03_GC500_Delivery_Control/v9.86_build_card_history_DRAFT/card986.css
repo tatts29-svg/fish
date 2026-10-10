@@ -1,0 +1,17 @@
+/* Author: Andrew Fisher. Day work stays compact within the approved upright card. */
+#pane-timeline .bc984-card>.bc986-work{position:relative;z-index:3;flex-shrink:0;min-width:0;display:block;margin:14px 22px 0;padding-bottom:12px;border-bottom:1px solid #758d9938;color:#edf2f4}
+#pane-timeline .bc986-work-heading{margin-bottom:7px}
+#pane-timeline .bc986-work-row{display:flex;align-items:baseline;justify-content:space-between;gap:12px;min-width:0;padding:3px 0;font-size:12px;line-height:1.4;text-shadow:0 1px 4px #06111fe0}
+#pane-timeline .bc986-work-label{min-width:0;overflow-wrap:anywhere;color:#d6e2e8}
+#pane-timeline .bc986-work-value{flex-shrink:0;max-width:48%;text-align:right;font-weight:650;font-variant-numeric:tabular-nums;color:#f0f5f2;overflow-wrap:anywhere}
+#pane-timeline .bc986-work-empty,#pane-timeline .bc986-work-more{display:block;font-size:11px;line-height:1.4;color:#bac8ce}
+#pane-timeline .bc986-work-more{margin-top:5px;color:#f3bc86}
+#pane-timeline .bc986-work-details{margin-bottom:14px}
+#pane-timeline .bc986-work-details dl{max-width:480px;margin:8px 0}
+#pane-timeline .bc986-work-details dl>div{display:flex;justify-content:space-between;gap:18px;border-bottom:1px solid var(--line,#d7dedf);padding:4px 0}
+#pane-timeline .bc986-work-details dd{margin:0;font-weight:600}
+#pane-timeline .bc986-work-details ul{padding-left:18px;margin:8px 0}
+#pane-timeline .bc986-work-details li{margin:5px 0;overflow-wrap:anywhere}
+#pane-timeline .bc986-work-details small{display:block;color:var(--mute,#51616b)}
+#pane-timeline .bc986-work-refs{font-weight:600}
+@media(max-width:360px){#pane-timeline .bc984-card>.bc986-work{margin-inline:17px}}
