@@ -2,7 +2,7 @@
 
 Author: Andrew Fisher
 
-DRAFT — final browser checks in progress; not live.
+READY TO UPLOAD — candidate checks passed; actual-public verification pending.
 
 Andrew requested: “Remove the staff allocation for each job. Lets just have available staff fkr that day. Lets audit presentatjon and look at other areas we can clean up”.
 
@@ -15,3 +15,5 @@ Presentation audit changes: Today’s toilet figures stay visible and the existi
 Base v9.87: `554538d9203e9a8863a145b592a7f6b66a4f4d6307f398de3cf7f394c0bd1939`.
 
 Independent source, presentation and browser reviews completed by scoped Codex agents. No Claude review claimed. 30 daily-availability model/save regression checks pass. Final desktop/phone, preservation and public verification are recorded in the release evidence. Private screenshots and operational captures stay outside the repository.
+
+Final source `160dfb49`; candidate SHA256 `40dc8f6c66079d8910ef5eaa3dd6e98a80b778960f70659d5c2447676d1c6175` (14,630,539 bytes; 74 scripts). Model30, staff desktop50/phone50, hydration17; unchanged card source binding to desktop148/phone147/native-entry3; both final navigation sweeps22 routes/seven links/Back pass. Native5300,15financial models,12operational projections and the shared record exactly preserved against v9.87. Today visibility outside collapsed programme panels and readable contrast explicitly checked on both sizes. Phone screenshots inspected. Evidence contains compact results only; operational snapshots remain private.

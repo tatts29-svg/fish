@@ -1,0 +1,10 @@
+{
+  "author": "Andrew Fisher",
+  "baseSha256": "554538d9203e9a8863a145b592a7f6b66a4f4d6307f398de3cf7f394c0bd1939",
+  "sha256": "40dc8f6c66079d8910ef5eaa3dd6e98a80b778960f70659d5c2447676d1c6175",
+  "nativeVersion": 5300,
+  "financialModels": 15,
+  "operationalProjections": 12,
+  "exactPreservation": true,
+  "pass": true
+}
