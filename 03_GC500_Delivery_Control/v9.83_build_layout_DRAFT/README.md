@@ -2,7 +2,7 @@
 
 Author: Andrew Fisher
 
-Status: DRAFT — final combined checks running. Codex implements, tests and publishes independently; no Claude review claimed.
+Status: READY TO UPLOAD — final combined checks passed. Codex implements, tests and publishes independently; no Claude review claimed.
 
 Andrew chose “Build” for the opposite of Demob and requested wider cards, improved motion and weather with an almost 3D effect. He also reiterates that worker names must already be available from the programmed day roster.
 
@@ -16,3 +16,5 @@ Exact base: f27008ce5293921f69c5f0b812ff46f5dddb00453e7d3748d99909aa22561bd2.
 Candidate: 19242957feb45f8abfe098ec096461f80d3ed7b57a887fb6086c666ca201c589; 12,960,333 bytes; 68 scripts.
 
 No financial rates, physical progress or operational records are changed. This release does not certify every price or posted ledger cost, subjective visual perfection or physical-device frame rate.
+
+Validation: strict wrong-base and double-apply refusal; 68 parsed inline scripts and secret/author checks; desktop 21/phone 18 layout checks; desktop/phone 24 worker selector checks each; 17 roster/save mapping model checks. Eight browser-only weather types on desktop and phone, with reduced/off-tab stop checks. All 15 financial models and 12 operational projections/native record 5201 exactly preserved. Desktop and phone each pass 22 routes, seven deep links and Back, with no page/console errors. Public checks remain pending. Local phone layout and weather fixture screenshots inspected; screenshots and raw financial captures stay private.

@@ -1,5 +1,9 @@
 <!-- Author: Andrew Fisher -->
 
+READY TO UPLOAD — v9.83 Build, weather depth and worker selection. Candidate SHA256 19242957feb45f8abfe098ec096461f80d3ed7b57a887fb6086c666ca201c589, 12,960,333 bytes, 68 scripts; exact live v9.82 base f27008ce5293921f69c5f0b812ff46f5dddb00453e7d3748d99909aa22561bd2. Andrew chooses Build and requests almost-3D weather and prefilled named workers. Wider 292/304px date cards, clearer wrapping figures, stable adjacent-day navigation, layered native forecast shadows/sunlight and pointer perspective/parallax. Touch/reduced/off-tab gates retained; no additional particle systems or idle loops. Worker selection appears directly inside Workers with roster names already available, preserving saved task mapping and deliberate availability overrides. Desktop21/phone18 layout checks, each24 worker checks,17 roster model checks, eight weather fixture types on each viewport pass. Final desktop/phone22routes/sevenlinks/Back pass; native5201/all15financial models/12operational projections exact, no errors or writes. Phone inspected. Codex independent implementation/testing; no Claude review. Guarded upload and actual-public verification next.
+
+<!-- Author: Andrew Fisher -->
+
 CLAIMED — v9.83 Timeline presentation review, Codex. Andrew requests clearer Build/Demob terminology, wider cards, improved layout and animation. Review actual desktop/phone view from exact live v9.82 f27008ce, preserve operational/financial data and navigation; Andrew confirms Build. Scope now includes dimensional native weather and directly accessible named worker selection using the existing roster; final combined desktop/phone checks running. No source changes published yet.
 
 <!-- Author: Andrew Fisher -->

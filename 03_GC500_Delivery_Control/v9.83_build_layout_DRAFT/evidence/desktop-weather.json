@@ -1,0 +1,61 @@
+{
+  "author": "Andrew Fisher",
+  "sha256": "19242957feb45f8abfe098ec096461f80d3ed7b57a887fb6086c666ca201c589",
+  "pass": true,
+  "mobile": false,
+  "cases": [
+    {
+      "kind": "sun",
+      "svg": true,
+      "source": "browser-only WMO fixture",
+      "selectedScenes": 1
+    },
+    {
+      "kind": "part",
+      "svg": true,
+      "source": "browser-only WMO fixture",
+      "selectedScenes": 1
+    },
+    {
+      "kind": "cloud",
+      "svg": true,
+      "source": "browser-only WMO fixture",
+      "selectedScenes": 1
+    },
+    {
+      "kind": "rain",
+      "svg": true,
+      "source": "browser-only WMO fixture",
+      "selectedScenes": 1
+    },
+    {
+      "kind": "pour",
+      "svg": true,
+      "source": "browser-only WMO fixture",
+      "selectedScenes": 1
+    },
+    {
+      "kind": "storm",
+      "svg": true,
+      "source": "browser-only WMO fixture",
+      "selectedScenes": 1
+    },
+    {
+      "kind": "fog",
+      "svg": true,
+      "source": "browser-only WMO fixture",
+      "selectedScenes": 1
+    },
+    {
+      "kind": "sleet",
+      "svg": true,
+      "source": "browser-only WMO fixture",
+      "selectedScenes": 1
+    }
+  ],
+  "reducedMotion": true,
+  "offTabStopped": true,
+  "nativeUnchanged": true,
+  "errors": 0,
+  "writes": 0
+}
