@@ -1,5 +1,9 @@
 <!-- Author: Andrew Fisher -->
 
+READY FOR REVIEW ONLY — v9.89 compact Build load cards. Draft PR #31 https://github.com/tatts29-svg/fish/pull/31, implementation87efbba, branch codex/gc500-load-cards-989-review. Candidate SHA256 b9f59b39618cc171fb9ac0679ebea30b6216ee971a171cdf92cf751ad0c26211,14,645,792bytes,75scripts; exact livev9.88 base40dc8f6c66079d8910ef5eaa3dd6e98a80b778960f70659d5c2447676d1c6175. Compact native summaries, visible status/warnings/Navigate; original secondary actions in Details. Orange outline/bevel, open/focus glow, short sweep, smooth toggle; only active native progress light pulses, finished/off-site/unknown steady. Static and exact-original-byte preservation checks pass; desktop57/360px-phone57 focused checks, staff model30 and existing staff50each pass. Desktop/phone22routes/sevenlinks/Back pass with zero page/console errors. Native S, P&L, staff/Truck flow markup and order unchanged; no attempted operational writes in focused/staff checks. Screenshots inspected. Final public read is still v9.88. Not merged, not deployed, not READY TO UPLOAD: further approval required. No second-agent review claimed.
+
+<!-- Author: Andrew Fisher -->
+
 CLAIMED — v9.89 compact Build load cards, draft review only, 11 Oct 2026 AEST. Approved scope relayed from Andrew in thread 01a12526-76e6-750a-9393-466c046640f2: “I want the cards to animate and glow”, “Make sure the lights animate. Border the cards better”, “Do it”. Compact existing summaries; retain true status, warnings and Navigate; put secondary controls in Details. Preserve daily availability, Truck flow, order, records, costs and permissions. Exact live v9.88 base 40dc8f6c66079d8910ef5eaa3dd6e98a80b778960f70659d5c2447676d1c6175; source branch tip 3570120. Work isolated on codex/gc500-load-cards-989-review. Implementation and tests authorised; merge and deployment require further approval. Not ready to upload.
 
 <!-- Author: Andrew Fisher -->

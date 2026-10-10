@@ -47,3 +47,24 @@ MOB=1 node toolchain/harness/sweep.js
 ```
 
 Optional `OUTDIR` saves private screenshots/check results outside the checkout. Raw browser evidence and generated pages are not committed. Desktop and phone checks are browser emulation, not physical-device performance measurements. See the final validation record below for executed results.
+
+## Executed validation
+
+Final candidate implementation: `87efbba`. Draft PR: https://github.com/tatts29-svg/fish/pull/31.
+
+| Check | Result |
+|---|---|
+| Shared `check_page.py` | PASS — 75 inline scripts parse; author and secret checks pass |
+| `tests/patch989.py` | PASS — 2 tests, exact round-trip, repeat/wrong-base refusal without writing |
+| Final built candidate byte comparison | PASS — exact original page after removing added presentation blocks and restoring the version label |
+| Focused desktop browser | PASS — 57 checks, 1440px; zero errors or attempted writes |
+| Focused narrow phone browser | PASS — 57 checks, 360px; zero errors or attempted writes |
+| Existing daily availability model | PASS — 30 checks |
+| Existing daily staff browser suite | PASS — 50 desktop + 50 phone checks, including Edit availability, stale-save rejection, Today/Build/Demob, legacy records and unchanged P&L |
+| Shared desktop and phone sweeps | PASS — each 22 routes, 7 deep links, browser Back, zero page or console errors; intentional public aliases resolve to Equipment/Today |
+| Visual inspection | Desktop and 360px phone, closed/open cards inspected |
+| Final live read | Still exact v9.88 base hash above; nothing deployed |
+
+Focused checks cover repeated open/close, rapid reversal, Enter/Escape and focus restoration, native Navigate destination, QR parity, Arrange loads open/close, run-sheet dispatch warnings, nominal dimension labels, both curfew-first flags, missing times, 14 October arrival restrictions, every lamp stage and reduced motion. Native single-open behavior, daily staff markup, Truck flow markup, load order, shared S and P&L remain unchanged. Desktop closed-card heights are 73–125px; phone 165–217px for the six loads on 12 October.
+
+The protected data and source functions were not changed. No physical-device FPS testing, merge, upload or live UI change is claimed. No technical blocker remains for review; merge/deployment require Andrew's further approval. Rebuild and retest if the live base changes before any later release.
