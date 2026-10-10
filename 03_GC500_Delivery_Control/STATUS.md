@@ -1,5 +1,9 @@
 <!-- Author: Andrew Fisher -->
 
+CLAIMED — v9.84 past Build day reference cards, Codex. Andrew requests distinct completed/past-day appearance and recorded day percentages, with no percentage on Today; past dates remain open for records/reference. Start exact live v9.83 19242957feb45f8abfe098ec096461f80d3ed7b57a887fb6086c666ca201c589. Review recorded progress versus calendar passage; optional percentage-basis clarification asked while auditing. No operational completion or date snapshots invented. Preserve shared records, figures, weather and all navigation.
+
+<!-- Author: Andrew Fisher -->
+
 VERIFIED LIVE — v9.83, 10 Oct 2026 11:28 AEST; READY source ece0bc87. Public SHA256 19242957feb45f8abfe098ec096461f80d3ed7b57a887fb6086c666ca201c589,12,960,333bytes,68scripts. Guarded upload byte-for-byte verified. Actual-public desktop23/phone20 Build checks pass, no HTML substitution/errors/writes; public phone inspected. Actual-public phone24 browser-only named worker edit-render checks pass. Build replaces Timeline in primary navigation; wider date/work cards, stable day navigation, dimensional native sourced weather and pointer parallax live. Worker selector directly inside Workers with prefilled day roster, no extra task-override fold. Saved mappings preserved; individual task assignments still deliberate. Eight weather fixture types and reduced/off-tab stops tested locally. Native5201/all15financial models/12operational projections unchanged; final desktop/phone22routes/sevenlinks/Back pass. Codex independent implementation/testing/publication; no Claude review claimed. No physical-device FPS, subjective perfection or all-cost-complete claim. Next release must use this exact public base.
 
 <!-- Author: Andrew Fisher -->
