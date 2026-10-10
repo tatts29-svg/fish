@@ -1,5 +1,9 @@
 <!-- Author: Andrew Fisher -->
 
+RESUMED — v9.84 approved Build race cards, Codex. Andrew approved the final mock-up in this chat: “Lets do it” after requesting three upright desktop cards, centred large transparent green stamp with pulsing glow, stronger full-card weather, week, daily loads, staff names and Life Saving Rule. Supersedes the earlier preview-only pause and abandoned horizontal draft. Implement on exact live v9.83 base 19242957feb45f8abfe098ec096461f80d3ed7b57a887fb6086c666ca201c589; retain shared data/navigation and all financial models. Past whole-build percentages remain dated; Today has none. Historical weather must have observations, never sample/forecast substitution; unresolved historical load completion stays explicit. Daily official safety focus is a calendar reminder, not a claim that a briefing occurred. Root owns integration/tests/guarded publication, with scoped data/weather/review agents. Not ready to upload.
+
+<!-- Author: Andrew Fisher -->
+
 CLAIMED — v9.84 past Build day reference cards, Codex. Andrew clarified percentage means whole-job progress as at that date, not daily task completion. Draft uses shared progress881Model with historical cache isolation; Today has no percentage. Past dates remain accessible. Latest request: closed reference days with fixed historical weather. Current service/page only exposes current/forecast weather, not a historical archive; do not substitute forecasts for actual past weather. Verification/publication pending. Exact live v9.83 base 19242957feb45f8abfe098ec096461f80d3ed7b57a887fb6086c666ca201c589.
 
 <!-- Author: Andrew Fisher -->
