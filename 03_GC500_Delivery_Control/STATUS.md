@@ -1,5 +1,9 @@
 <!-- Author: Andrew Fisher -->
 
+CLAIMED — v9.87 Build day load completion, Codex. Andrew reports “You still have load not veriified” after v9.86. Trace the existing card helper against native load groups, dated delivery history and supplied running sheets; correct unsupported all-or-nothing withholding and distinguish deliveries from installation and physical truck counts. Keep past records dated, preserve shared/financial data, and publish the tested correction. Exact live base 7f477763bd1e8f49244439388cc74dd78320961a3240a59705ce4cd1b43178b9. Root owns implementation/release; independent agent audits native load evidence. Not ready.
+
+<!-- Author: Andrew Fisher -->
+
 VERIFIED LIVE — v9.86 historical Build percentages and daily work. Uploaded 10 Oct 2026 15:34 AEST; actual-public verification 10 Oct 2026 15:37 AEST. Source f0156158; READY978d885d; public SHA256 7f477763bd1e8f49244439388cc74dd78320961a3240a59705ce4cd1b43178b9, 14,611,866 bytes, 71 scripts. Exact-base upload and byte-for-byte public readback pass. Public desktop126, phone125, hydration19 and native-phone-entry5 checks pass, no HTML substitution/errors/writes. Screenshots inspected. All supported programme dates now show reconstructed whole-build progress, including 7 September–6 October; Today/future remain without historical percentages. Cards show up to three recorded/planned work rows, with full dated/source breakdown under More info. The native seven-category provisional scope, real historical decreases and distinct work units remain unchanged. Selected/visible calculations only; native asset caching and shared-record/document refresh verified. Approved cards/weather/staff/rules/loads retained. Native5201, all15 financial models and12 operational projections exactly preserved; final desktop/phone22routes/sevenlinks/Back pass. Codex with independent scoped agents; no Claude review. Next release starts from this exact live base.
 
 <!-- Author: Andrew Fisher -->
