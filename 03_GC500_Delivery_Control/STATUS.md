@@ -1,5 +1,9 @@
 <!-- Author: Andrew Fisher -->
 
+READY TO UPLOAD — v9.92 visible load lights and measurements. Source cf47c39e; candidate SHA256 0460e6f2306946c0e7262600414ff65b0824b0a086e618dbce28d7c66669e890, 14,745,408 bytes, 77 scripts. Exact live v9.91 base 198bb721e7bff046bdfeb92c229e0dd35cb41a5edd4aa9c0d856fe8348aa9f28. Andrew: “I want the lights to still show” and “And dimensions and weights if known”. Each closed/open load reference shows its original five lights and existing size/weight facts once. Full product quantity/unit context and actual/contract/nominal/guide qualification labels retained. Unknown values do not create empty rows; supporting sources/loading guidance remain in Details. Native statuses, current-stage motion gates, actions, staff, day cards, records and P&L preserved. Desktop 85/phone 85 focused checks; source-preservation and wrong-base/reapply tests 2; both final navigation sweeps 22 routes/seven links/Back pass. No errors or operational writes; desktop/phone screenshots inspected. Root implementation/publication with scoped independent native-facts/source and browser audits; no Claude review claimed. Guarded upload and actual-public checks next.
+
+<!-- Author: Andrew Fisher -->
+
 CLAIMED — v9.92 visible Build load progress lights. Andrew: “I want the lights to still show.” Root owns the narrow correction from live v9.91 SHA256 198bb721e7bff046bdfeb92c229e0dd35cb41a5edd4aa9c0d856fe8348aa9f28: keep each reference’s original five progress lights visible on closed and open cards, once, with existing status/data and motion gates. Retain the newly approved compact card, Details and record folds. Scoped QA checks desktop/phone layout, native reports/actions and motion before guarded publication. Not ready.
 
 <!-- Author: Andrew Fisher -->
