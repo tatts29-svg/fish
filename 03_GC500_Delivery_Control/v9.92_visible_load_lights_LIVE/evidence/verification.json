@@ -57,5 +57,34 @@
       "console_errors": 0,
       "scope": "Read-only local candidate; Google map-session/2D tile fixtures; does not certify map imagery."
     }
-  }
+  },
+  "public": {
+    "desktop": {
+      "pass": true,
+      "checks": 87,
+      "exact_served_sha256": "0460e6f2306946c0e7262600414ff65b0824b0a086e618dbce28d7c66669e890",
+      "local_html_substitution": false,
+      "errors": 0,
+      "attempted_writes": 0,
+      "native_records_and_pnl_preserved": true,
+      "lights_and_qualified_measurements_visible": true
+    },
+    "phone": {
+      "pass": true,
+      "checks": 87,
+      "exact_served_sha256": "0460e6f2306946c0e7262600414ff65b0824b0a086e618dbce28d7c66669e890",
+      "local_html_substitution": false,
+      "errors": 0,
+      "attempted_writes": 0,
+      "native_records_and_pnl_preserved": true,
+      "lights_and_qualified_measurements_visible": true
+    }
+  },
+  "uploaded_aest": "11 Oct 2026 08:30 AEST",
+  "public_verified_aest": "11 Oct 2026 08:33 AEST",
+  "ready_commit": "dbb57954",
+  "public_screenshots_inspected": [
+    "desktop closed",
+    "phone closed"
+  ]
 }
