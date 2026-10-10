@@ -1,0 +1,18 @@
+/* Author: Andrew Fisher. Readable archive treatment; no overlay blocks a date or its records. */
+#pane-timeline .day.past984{border-color:#7b8c92;background:#edf0ef;box-shadow:0 2px 7px #152c3520}
+#pane-timeline .day.past984 .dface{background:linear-gradient(145deg,#e8eeed,#dce4e4);color:#263e46}
+#pane-timeline .day.past984 .dnum{opacity:.75}
+#pane-timeline .day.past984 .dwx{opacity:.7;filter:saturate(.4)}
+#pane-timeline .day.past984 .dwk{background:#c9d4d4;color:#354d55}
+#pane-timeline .day.past984 .dpan{background:#f7f9f8;border-color:#b8c9cb}
+#pane-timeline .day.past984.on{border-color:#ff7b20;box-shadow:0 0 0 2px #ff7b2055,0 3px 9px #152c3520}
+#pane-timeline .day.past984.on .dface{background:linear-gradient(145deg,#dae6e4,#cbdad9)}
+#pane-timeline .day.past984 .dfoot{color:#486167}
+.past984-stamp{display:inline-flex;border:1px solid #657e84;border-radius:5px;padding:3px 6px;color:#36525b;font:800 9px/1.1 var(--sans,system-ui,sans-serif);letter-spacing:1px}
+.past984-band{display:grid;grid-template-columns:1fr auto;align-items:center;gap:3px 8px;border-top:1px solid #b3c6c9;padding:9px 0 5px;background:linear-gradient(90deg,#2e827a22 var(--past984-progress),transparent var(--past984-progress)) bottom/100% 3px no-repeat}
+.past984-label{font:800 11px/1.3 var(--sans,system-ui,sans-serif);text-transform:uppercase;letter-spacing:.6px;color:#405e65}
+.past984-band>b{grid-column:2;grid-row:1/3;font:800 27px/1 'Barlow Condensed','Arial Narrow',var(--sans,system-ui,sans-serif);font-variant-numeric:tabular-nums;color:#274d51}
+.past984-band>b small{font:800 13px/1 var(--sans,system-ui,sans-serif)}
+.past984-count,.past984-empty{font:600 10px/1.3 var(--sans,system-ui,sans-serif);color:#48626a}
+.past984-count{grid-column:1}.past984-empty{grid-column:2}
+@media print{.past984-band{background:none!important}.past984-stamp{border-color:#777}}
