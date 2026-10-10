@@ -1,5 +1,9 @@
 <!-- Author: Andrew Fisher -->
 
+READY TO UPLOAD — v9.86 historical Build percentages and daily work. Final source f0156158; candidate SHA256 7f477763bd1e8f49244439388cc74dd78320961a3240a59705ce4cd1b43178b9, 14,611,866 bytes, 71 scripts; exact live v9.85 base f36c42ebb6f85a49f62663b5c5454510308dee7ea0087e2bed01a860b5a2c3c8. Removes the 7 October cutoff so supported readings cover the whole programme. Past cards show recorded daily work; current/future cards show planned work, with full source breakdown under More info. Native dated seven-category progress and provisional scope retained; no invented snapshots or monotonic smoothing. Percentages calculate only for selected/visible cards with native asset caching; S, readiness and document-index changes invalidate the cards. Approved style/weather/staff/rules/loads retained. Final desktop124, phone123, hydration17 and native-phone-entry3 pass; both navigation sweeps22routes/sevenlinks/Back pass. Native5201, all15 financial models and12 operational projections exactly preserved. Phone screenshots inspected; zero errors or operational writes. Codex with independent scoped source/data/QA agents; no Claude review. Guarded upload and actual-public verification next.
+
+<!-- Author: Andrew Fisher -->
+
 CLAIMED — v9.86 historical Build percentages and daily work, Codex. Andrew says the cards look good but are missing build percentages on previous days, then adds “And works being done”. Audit native dated progress before7Oct (card had an artificial cutoff), expose supported historical readings and add concise sourced daily work to approved cards. Distinguish completed/recorded work from scheduled tasks. Preserve layout, shared records, financial models and native navigation. Exactlivev9.85 base f36c42ebb6f85a49f62663b5c5454510308dee7ea0087e2bed01a860b5a2c3c8. Rootownsimplementation/release; independent scoped agents audit historical data and daily-work sources. Notready.
 
 <!-- Author: Andrew Fisher -->
