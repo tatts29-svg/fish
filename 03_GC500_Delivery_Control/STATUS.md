@@ -1,6 +1,6 @@
 <!-- Author: Andrew Fisher -->
 
-CLAIMED — v9.83 Timeline presentation review, Codex. Andrew requests clearer Build/Demob terminology, wider cards, improved layout and animation. Review actual desktop/phone view from exact live v9.82 f27008ce, preserve operational/financial data and navigation; naming preference asked while inspecting. No source changes published yet.
+CLAIMED — v9.83 Timeline presentation review, Codex. Andrew requests clearer Build/Demob terminology, wider cards, improved layout and animation. Review actual desktop/phone view from exact live v9.82 f27008ce, preserve operational/financial data and navigation; Andrew confirms Build. Scope now includes dimensional native weather and directly accessible named worker selection using the existing roster; final combined desktop/phone checks running. No source changes published yet.
 
 <!-- Author: Andrew Fisher -->
 
