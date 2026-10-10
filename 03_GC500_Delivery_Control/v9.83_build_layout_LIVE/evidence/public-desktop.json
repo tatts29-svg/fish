@@ -1,0 +1,20 @@
+{
+  "author": "Andrew Fisher",
+  "pass": true,
+  "checks": 23,
+  "mobile": false,
+  "actualPublic": true,
+  "sha256": "19242957feb45f8abfe098ec096461f80d3ed7b57a887fb6086c666ca201c589",
+  "geometry": {
+    "width": 292,
+    "height": 384.78125,
+    "weatherRight": 905,
+    "faceRight": 921,
+    "dataRight": 905,
+    "pageWidth": 1440,
+    "viewport": 1440,
+    "phaseWhiteSpace": "normal"
+  },
+  "errors": 0,
+  "writes": 0
+}

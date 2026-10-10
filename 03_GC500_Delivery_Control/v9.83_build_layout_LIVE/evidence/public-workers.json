@@ -1,0 +1,28 @@
+{
+  "author": "Andrew Fisher",
+  "pass": true,
+  "checks": 24,
+  "mobile": true,
+  "days": [
+    {
+      "day": "2026-10-12",
+      "count": 3,
+      "prefilled": true,
+      "selectionVisibleWithinWorkers": true
+    },
+    {
+      "day": "2026-10-13",
+      "count": 3,
+      "prefilled": true,
+      "selectionVisibleWithinWorkers": true
+    },
+    {
+      "day": "2026-10-14",
+      "count": 4,
+      "prefilled": true,
+      "selectionVisibleWithinWorkers": true
+    }
+  ],
+  "errors": 0,
+  "writes": 0
+}
