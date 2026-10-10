@@ -2,7 +2,7 @@
 
 Author: Andrew Fisher
 
-READY TO UPLOAD — final source 0f67516b. All agreed checks pass; guarded publication and actual-public checks are next.
+PUBLISHED 10 Oct 2026 14:33 AEST — source 0f67516b, READY record91381be9. Actual-public verification caught a readiness-cache defect that could retain unavailable past percentages. Corrected by v9.85 at14:43AEST; the approved design is fully verified in that combined release. See ../v9.85_build_card_hydration_LIVE/README.md.
 
 The Build day strip now uses the approved upright racing cards: up to three 400px cards on desktop, one responsive card on phone, full-card sourced weather, a large transparent closed-day stamp with pulsing glow, week, named staff, daily load completion and an official Life Saving Rule reminder. Existing date selection, work records and navigation remain in place. More info contains source and calculation detail.
 
