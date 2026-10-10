@@ -1,5 +1,9 @@
 <!-- Author: Andrew Fisher -->
 
+CLAIMED — v9.92 visible Build load progress lights. Andrew: “I want the lights to still show.” Root owns the narrow correction from live v9.91 SHA256 198bb721e7bff046bdfeb92c229e0dd35cb41a5edd4aa9c0d856fe8348aa9f28: keep each reference’s original five progress lights visible on closed and open cards, once, with existing status/data and motion gates. Retain the newly approved compact card, Details and record folds. Scoped QA checks desktop/phone layout, native reports/actions and motion before guarded publication. Not ready.
+
+<!-- Author: Andrew Fisher -->
+
 VERIFIED LIVE — v9.91 reviewed Build load cards. Uploaded 11 Oct 2026 08:05 AEST; public verification completed 11 Oct 2026 08:07 AEST. Source d9e0b00f; READY 682a4182; SHA256 198bb721e7bff046bdfeb92c229e0dd35cb41a5edd4aa9c0d856fe8348aa9f28, 14,741,471 bytes, 76 inline scripts. Guarded unchanged-base upload and exact public-byte readback pass. Actual-public desktop 79/phone 79 checks pass without HTML substitution, errors or operational writes; public phone screenshot inspected. Compact load summaries retain identity, status and warnings; native progress and sizes/weights open in Details; photos, notes and delivery records have one named fold. Untimed Wednesday cards, shortage visibility, progress reporting, refresh/focus and motion gates corrected. Daily staff, approved day cards, rule icons, native records and P&L preserved. Candidate desktop 77/phone 77, source preservation/guards 2, both navigation sweeps 22 routes/seven links/Back pass. Root implementation/publication with scoped independent source/browser audits; no Claude review claimed. Separately owned v9.90/PR31 remains untouched; future drafts must start from this public hash. Release folder LIVE.
 
 <!-- Author: Andrew Fisher -->
