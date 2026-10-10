@@ -38,7 +38,12 @@ function mount(pane,day,before){
  const content=html(day);if(existing){if(existing.outerHTML!==content)existing.outerHTML=content;return;}
  if(before)before.insertAdjacentHTML('beforebegin',content);else pane.insertAdjacentHTML('beforeend',content);
 }
-function mountToday(){const pane=document.getElementById('pane-today');mount(pane,todayIso(),pane?.querySelector('.grid')||pane?.querySelector('.hubcard')||pane?.querySelector('.card'));}
+function mountToday(){
+ const pane=document.getElementById('pane-today');
+ // Daily availability belongs in the main view, outside the folded programme.
+ const before=pane?.querySelector(':scope > #where885')||pane?.querySelector(':scope > #gc500-work-board840')||pane?.querySelector(':scope > .hub');
+ mount(pane,todayIso(),before);
+}
 function mountDemob(){const pane=document.getElementById('pane-demob'),day=demobSel816(demob816());mount(pane,day,pane?.querySelector('.dmday816'));}
 function draft(pane){
  const box=document.querySelector(pane+' [data-staff988-day]');if(!box?.querySelector('[data-staff988-edit][open]'))return null;

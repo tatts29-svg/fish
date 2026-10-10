@@ -18,21 +18,23 @@ const {open}=require('../../toolchain/harness/open_page');
   const before=await p.evaluate(()=>({native:JSON.stringify(S),money:JSON.stringify(pl770Model())}));
   const surfaces=[];
   for(const entry of [{tab:'timeline',day:'2026-10-14'},{tab:'timeline',day:'2026-10-09'},{tab:'today'},{tab:'demob'}]){
-   const row=await p.evaluate(entry=>{
-    if(entry.day)state.day=entry.day;go(entry.tab);render();
+   const row=await p.evaluate(async entry=>{
+    if(entry.day)state.day=entry.day;go(entry.tab);render();await new Promise(requestAnimationFrame);
     const pane=document.querySelector('#pane-'+entry.tab),sections=[...pane.querySelectorAll('[data-staff988-day]')],section=sections[0];
-    const day=section?.dataset.staff988Day,model=day?DailyStaff988.day(day):null;
+    const day=section?.dataset.staff988Day,model=day?DailyStaff988.day(day):null,rect=section?.getBoundingClientRect();
+    let closedAncestor=false;for(let n=section?.parentElement;n&&n!==pane;n=n.parentElement)if(n.tagName==='DETAILS'&&!n.open)closedAncestor=true;
     const contrast=node=>{
      if(!node)return null;const rgba=c=>{const values=c.match(/[\d.]+/g)?.map(Number)||[0,0,0];return [...values.slice(0,3),values[3]??1];},blend=(a,b)=>a.slice(0,3).map((v,i)=>v*a[3]+b[i]*(1-a[3]));
      let background=[255,255,255];const ancestors=[];for(let n=node;n;n=n.parentElement)ancestors.unshift(n);for(const n of ancestors)background=blend(rgba(getComputedStyle(n).backgroundColor),background);
      const ink=blend(rgba(getComputedStyle(node).color),background),luminance=c=>c.map(v=>v/255).map(v=>v<=.04045?v/12.92:((v+.055)/1.055)**2.4).reduce((sum,v,i)=>sum+v*[.2126,.7152,.0722][i],0),a=luminance(ink),b=luminance(background);return (Math.max(a,b)+.05)/(Math.min(a,b)+.05);
     };
     return {tab:entry.tab,expectedDay:entry.day||(entry.tab==='today'?todayIso():demobSel816(demob816())),day,sections:sections.length,
-     namesMatch:model?model.names.every(n=>section.textContent.includes(n)):false,count:model?.count,unnamed:model?.unnamed,
+     namesMatch:model?model.names.every(n=>section.textContent.includes(n)):false,visibleInFlow:!!rect&&rect.width>0&&rect.height>0,closedAncestor,count:model?.count,unnamed:model?.unnamed,
      label:section?.textContent||'',dateContrast:contrast(section?.querySelector('.staff988-heading span')),unknownContrast:contrast(section?.querySelector('.staff988-empty,.staff988-unnamed')),oldControls:pane.querySelectorAll('.crew883,[data-crew883-save],[data-crew883-slot],[data-workers983-selection]').length,
      overflow:document.documentElement.scrollWidth>innerWidth+1};
    },entry);
    check(row.sections===1,'One daily availability section on '+entry.tab+' '+(entry.day||''));
+   check(row.visibleInFlow&&!row.closedAncestor,'Daily availability is visible without opening a folded section on '+entry.tab);
    check(row.day===row.expectedDay,'Availability follows selected date on '+entry.tab);
    check(row.namesMatch,'Names agree with shared daily model on '+entry.tab);
    check(row.dateContrast>=4.5&&(row.unknownContrast===null||row.unknownContrast>=4.5),'Availability date/unknown text has readable contrast on '+entry.tab+': '+row.dateContrast);
@@ -52,7 +54,7 @@ const {open}=require('../../toolchain/harness/open_page');
   check(drawer.controls===0,'Asset drawer no longer offers per-job staffing');
   const unchanged=await p.evaluate(before=>({native:JSON.stringify(S)===before.native,money:JSON.stringify(pl770Model())===before.money}),before);
   check(unchanged.native&&unchanged.money,'Read-only presentation never changes shared records or P&L');
-  const fixture=await p.evaluate(()=>{
+  const fixture=await p.evaluate(async()=>{
    const native=JSON.stringify(S),originalLoads=S.loads,cap=capability,write=mayWrite,who=whoAmI,saveBefore=save,readonly=SYNC.readonly,flashBefore=flash;
    const day='2026-10-14',key=DailyStaff988.key(day),legacy=crew883Key(day),task=crew883Key(day,'WC09'),other=DailyStaff988.key('2026-10-15');
    let saves=0;
@@ -86,15 +88,15 @@ const {open}=require('../../toolchain/harness/open_page');
     const rejectionText=selectedSection()?.querySelector('[data-staff988-result]')?.textContent||'',rejected={kept:saves!==savesBeforeStale,reason:rejectionText},reloadAvailable=!!selectedSection()?.querySelector('[data-staff988-reload]');
     const afterRemote=DailyStaff988.day(day),cardAfterRemote=card(),sectionAfterRemote=selectedSection()?.textContent||'';
     selectedSection()?.querySelector('[data-staff988-reload]')?.click();const afterReload=selectedSection()?.textContent||'';
-    const currentKey=DailyStaff988.key(todayIso());S.loads[currentKey]={kind:'staff988',day:todayIso(),count:1,names:['Today Available']};go('today');render();
-    const todayShown=document.querySelector('#pane-today [data-staff988-day]')?.textContent||'';
+    const currentKey=DailyStaff988.key(todayIso());S.loads[currentKey]={kind:'staff988',day:todayIso(),count:1,names:['Today Available']};go('today');render();await new Promise(requestAnimationFrame);
+    const todaySection=document.querySelector('#pane-today [data-staff988-day]'),todayShown=todaySection?.textContent||'',todayRect=todaySection?.getBoundingClientRect();let todayFolded=false;for(let n=todaySection?.parentElement;n&&n.id!=='pane-today';n=n.parentElement)if(n.tagName==='DETAILS'&&!n.open)todayFolded=true;const todayVisibleAfterRefresh=!!todayRect&&todayRect.width>0&&todayRect.height>0&&!todayFolded;
     const demobDay=demobSel816(demob816()),demobKey=DailyStaff988.key(demobDay);S.loads[demobKey]={kind:'staff988',day:demobDay,count:1,names:['Demob Available']};go('demob');render();
     const demobShown=document.querySelector('#pane-demob [data-staff988-day]')?.textContent||'';
     state.day='2026-10-09';go('timeline');render();
     const past=document.querySelector('#pane-timeline [data-staff988-day="2026-10-09"]'),pastEditable=!!past?.querySelector('[data-staff988-edit],[data-staff988-save]');
     RENDER_MEMO.clear();const moneyAfter=JSON.stringify(pl770Model());
     const successfulSaves=saves;save=()=>false;const failedSave=DailyStaff988.save(day,{count:1,names:['Failed local save']},DailyStaff988.day(day).token);
-    return {taskUI,sheet,checksUnchanged:JSON.stringify(checked)===JSON.stringify({report:['Retain original report'],warnings:[{key:'WC09',text:'Retain actual transport issue'}]}),editVisible,saves:successfulSaves,failedSave,result,afterSave:{count:afterSave.count,names:afterSave.names},cardAfterSave,sectionAfterSave,rejected,preservedDraft,reloadAvailable,afterReload,afterRemote:{count:afterRemote.count,names:afterRemote.names},cardAfterRemote,sectionAfterRemote,todayShown,demobShown,pastEditable,oldRecordsSame:JSON.stringify([S.loads[legacy],S.loads[task],S.loads[other]])===retained,moneySame:money===moneyAfter};
+    return {taskUI,sheet,checksUnchanged:JSON.stringify(checked)===JSON.stringify({report:['Retain original report'],warnings:[{key:'WC09',text:'Retain actual transport issue'}]}),editVisible,saves:successfulSaves,failedSave,result,afterSave:{count:afterSave.count,names:afterSave.names},cardAfterSave,sectionAfterSave,rejected,preservedDraft,reloadAvailable,afterReload,afterRemote:{count:afterRemote.count,names:afterRemote.names},cardAfterRemote,sectionAfterRemote,todayShown,todayVisibleAfterRefresh,demobShown,pastEditable,oldRecordsSame:JSON.stringify([S.loads[legacy],S.loads[task],S.loads[other]])===retained,moneySame:money===moneyAfter};
    }finally{S.loads=originalLoads;capability=cap;mayWrite=write;whoAmI=who;save=saveBefore;SYNC.readonly=readonly;flash=flashBefore;RENDER_MEMO.clear();render();if(JSON.stringify(S)!==native)throw Error('Fixture did not restore exact shared state');}
   });
   check(fixture.taskUI==='','Archived task plans do not recreate allocation editor');
@@ -109,11 +111,12 @@ const {open}=require('../../toolchain/harness/open_page');
   check(fixture.preservedDraft&&fixture.reloadAvailable&&/changed/i.test(fixture.rejected.reason),'Remote redraw preserves open draft and shows a reload action for stale save');
   check(fixture.cardAfterRemote.includes('Remote One')&&fixture.afterReload.includes('Remote Two'),'Shared change refreshes card and reloaded daily section');
   check(fixture.todayShown.includes('Today Available')&&fixture.demobShown.includes('Demob Available'),'Today and Demob read the shared daily availability model');
+  check(fixture.todayVisibleAfterRefresh,'Today availability stays visible after the shared record changes');
   check(fixture.oldRecordsSame&&fixture.moneySame,'Daily availability preserves archived assignments, other dates and financial labour');
   const after=await p.evaluate(before=>({native:JSON.stringify(S)===before.native,money:JSON.stringify(pl770Model())===before.money}),before);
   check(after.native&&after.money,'All browser fixtures restore exact shared records and P&L');
   check(h.errors.length===0,'No browser errors: '+h.errors.join('; '));check(h.counts.blocked===0,'No attempted operational writes');
-  const report={author:'Andrew Fisher',pass:true,checks,mobile,actualPublic:publicMode,sha256:process.env.EXPECTED_SHA,surfaces:surfaces.map(r=>({tab:r.tab,day:r.day,count:r.count,unnamed:r.unnamed,dateContrast:Number(r.dateContrast.toFixed(2)),unknownContrast:r.unknownContrast===null?null:Number(r.unknownContrast.toFixed(2)),oneDailySection:true,noJobControls:true})),savedAvailabilityOnly:true,staleSaveRejected:true,legacyRecordsPreserved:true,moneyPreserved:true,errors:0,writes:0};
+  const report={author:'Andrew Fisher',pass:true,checks,mobile,actualPublic:publicMode,sha256:process.env.EXPECTED_SHA,surfaces:surfaces.map(r=>({tab:r.tab,day:r.day,count:r.count,unnamed:r.unnamed,dateContrast:Number(r.dateContrast.toFixed(2)),unknownContrast:r.unknownContrast===null?null:Number(r.unknownContrast.toFixed(2)),oneDailySection:true,noJobControls:true,visibleOutsideFolds:true})),savedAvailabilityOnly:true,staleSaveRejected:true,legacyRecordsPreserved:true,moneyPreserved:true,errors:0,writes:0};
   if(out)fs.writeFileSync(out+'/staff-browser.json',JSON.stringify(report,null,2));console.log(JSON.stringify(report));
  }finally{await h.browser.close();}
 })().catch(e=>{console.error(e.stack);process.exit(1)});
