@@ -1,5 +1,9 @@
 <!-- Author: Andrew Fisher -->
 
+CLAIMED — v9.83 Timeline presentation review, Codex. Andrew requests clearer Build/Demob terminology, wider cards, improved layout and animation. Review actual desktop/phone view from exact live v9.82 f27008ce, preserve operational/financial data and navigation; naming preference asked while inspecting. No source changes published yet.
+
+<!-- Author: Andrew Fisher -->
+
 VERIFIED LIVE — v9.82, 10 Oct 2026 08:55 AEST; source 1ce521bf. Public SHA256 f27008ce5293921f69c5f0b812ff46f5dddb00453e7d3748d99909aa22561bd2, 12,952,641 bytes, 67 scripts. Guarded upload and actual-public desktop/phone each41checks pass, no HTML substitution/injection, errors or operational writes; phone inspected. Monthly labour home branch and CSV current KINP allocation, invalid PO receipt entry rejection and shared-record receipt review guard live. Local save and remote removal update P&L/branches/Finance once; worker branch changes update monthly export/Finance. Six Costs sections retain one customer and no stale summaries. All15financial models,12operational projections/native5201 unchanged. Desktop/phone22routes,7links/Back pass. Known price/wage/receipt holds remain; no complete billing/ledger claim. Codex independent implementation/testing/publication; no Claude review. Next release uses this exact public base.
 
 <!-- Author: Andrew Fisher -->
