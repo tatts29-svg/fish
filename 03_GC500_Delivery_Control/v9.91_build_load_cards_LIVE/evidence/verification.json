@@ -61,5 +61,31 @@
     "phone closed and expanded",
     "phone untimed Wednesday"
   ],
-  "public_verification": "Pending upload"
+  "public_verification": {
+    "desktop": {
+      "pass": true,
+      "checks": 79,
+      "sha256": "198bb721e7bff046bdfeb92c229e0dd35cb41a5edd4aa9c0d856fe8348aa9f28",
+      "local_html_substitution": false,
+      "errors": 0,
+      "attempted_writes": 0,
+      "records_and_pnl_preserved": true
+    },
+    "phone": {
+      "pass": true,
+      "checks": 79,
+      "sha256": "198bb721e7bff046bdfeb92c229e0dd35cb41a5edd4aa9c0d856fe8348aa9f28",
+      "local_html_substitution": false,
+      "errors": 0,
+      "attempted_writes": 0,
+      "records_and_pnl_preserved": true
+    }
+  },
+  "uploaded_aest": "11 Oct 2026 08:05 AEST",
+  "public_verified_aest": "11 Oct 2026 08:07 AEST",
+  "public_screenshots_inspected": [
+    "desktop expanded",
+    "phone closed"
+  ],
+  "ready_commit": "682a4182"
 }
