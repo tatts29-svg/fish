@@ -1,5 +1,9 @@
 <!-- Author: Andrew Fisher -->
 
+READY TO UPLOAD — v9.89 Life Saving Rule outline icons. Source f4fb3b6d; candidate SHA256 4773efd9433b7bf50b824f1c4f3966bfa4e009b99bbd2231ffa0a2c1f35612bf,14,721,174bytes,75inline scripts. Exact v9.88 base40dc8f6c66079d8910ef5eaa3dd6e98a80b778960f70659d5c2447676d1c6175. Andrew confirmed “No only outline. Not full orange” and “Tyats better”. Matching original Coates linework rendered orange with transparent interior/background and restrained visible-only pulsation; Build cards, More info and static native pre-start/driver/install sheets covered. Canonical six rules/wording/rotation retained; broad topics retain neutral outline shield. Focused desktop46/phone46 pass; final desktop/phone22routes/sevenlinks/Back pass, zero errors/writes. Transparency pixel proof across all ten symbols on black/white; pause/reduced/hidden/print checked, print contrast corrected and retested. All non-icon page bytes preserved exactly, native S/P&L unchanged in focused checks. Phone and print screenshots inspected. Nav map fixtures explicit. Root Codex implemented; independent scoped original-art/mapping and browser audits; no Claude review claimed. Guarded upload and actual-public proof next.
+
+<!-- Author: Andrew Fisher -->
+
 CLAIMED — v9.89 Life Saving Rule icons, Codex. Andrew requests the attached Coates symbol references be used wherever Life Saving Rules appear, with improved neon orange styling and pulsation. Audit canonical rule mapping and existing icon assets; implement crisp consistent symbols and restrained visible-only motion with reduced-motion/print handling. Preserve official wording, daily rule selection, staff and all operational/financial records. Exact live base40dc8f6c66079d8910ef5eaa3dd6e98a80b778960f70659d5c2447676d1c6175. Root owns source/release, scoped agent audits mapping/surfaces. Not ready.
 
 <!-- Author: Andrew Fisher -->
