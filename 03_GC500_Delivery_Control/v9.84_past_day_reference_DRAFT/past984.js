@@ -23,7 +23,7 @@ function decorate(){
   const m=model(day,today,historical);if(!m.past)continue;
   card.classList.add('past984');card.dataset.past984=m.complete?'complete':'reference';
   card.style.setProperty('--past984-progress',String(m.percent??0)+'%');
-  const header=card.querySelector('.dhr');if(header)header.innerHTML='<span class="past984-stamp">PAST DAY · CLOSED</span>';
+  const header=card.querySelector('.dhr');if(header)header.innerHTML='<span class="past984-stamp">CLOSED · REFERENCE</span>';
   const band=document.createElement('span');band.className='past984-band';band.dataset.past984Summary='';
   band.innerHTML='<span class="past984-label">Job progress</span>'+(m.percent===null?'<span class="past984-empty">—</span>':'<b>'+(m.bound?'≥':'')+m.text+'<small>%</small></b>');
   card.querySelector('.dpan')?.append(band);

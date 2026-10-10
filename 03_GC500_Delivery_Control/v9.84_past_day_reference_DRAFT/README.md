@@ -15,3 +15,5 @@ Exact base: 19242957feb45f8abfe098ec096461f80d3ed7b57a887fb6086c666ca201c589. Fi
 Historical weather request: current page discards forecast rows older than Today and has no historical weather source. A past-day forecast must not be relabelled actual. Fixed sourced historical weather remains pending; past records remain accessible and passage of time does not assert operational completion.
 
 Historical progress is cached per shared-record revision and Brisbane day. Earlier reference dates show no added percentage; Andrew’s requested progress period starts 7 October.
+
+Andrew rejected the narrow-card preview. Revised design: 660px desktop horizontal date/weather/data cards; phone uses viewport minus 32px with compact side-by-side movement data. Preview-only read-only browser checks: widths 660/358, no page errors or writes. Previous layout evidence does not certify this revision; final rebuild and regression checks required.
