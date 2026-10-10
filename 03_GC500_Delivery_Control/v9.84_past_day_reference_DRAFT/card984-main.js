@@ -50,7 +50,7 @@ function html(day,ci,sel,today){
  const classes=['day','bc984-day',on?'on':'',isToday?'today':'',p.past?'past984':'',day.phase==='Demob'?'demob':'',day.phase==='Event'?'event':''].filter(Boolean).join(' ');
  const names=d.staffNames.length?d.staffNames.map(n=>'<span>'+e(n)+'</span>').join(''):'<span class="bc984-missing">No roster recorded</span>',rule=d.lifeSavingRule;
  const pct=p.percent===null?(p.past?'Not recorded':isToday?'In progress':'Scheduled'):(p.bound?'≥':'')+p.text+'<small>%</small>';
- const progressLabel=p.past?'WHOLE BUILD':'BUILD DAY',phaseLine=isToday?'TODAY':p.past?'AT DAY’S CLOSE':'UPCOMING';
+ const progressLabel=p.past?'WHOLE BUILD':day.phase==='Demob'?'DEMOB DAY':day.phase==='Event'?'EVENT DAY':'BUILD DAY',phaseLine=isToday?'TODAY':p.past?'AT DAY’S CLOSE':'UPCOMING';
  const completion=p.past?(p.percent===null?'Whole-build progress not recorded.':(p.bound?'At least ':'')+p.text+' percent whole-build progress at day close.'):'No historical percentage for this day.';
  return '<button type="button" class="'+classes+'" data-day="'+day.iso+'" data-bc984-weather="'+(w.kind||'unknown')+'" data-bc984-motion="off" aria-pressed="'+on+'" aria-label="'+e(fmtDate(day.iso)+'. '+(p.past?'Closed day record. ':isToday?'Today. ':'Scheduled day. ')+completion+' '+load.value+'. Staff: '+(d.staffNames.join(', ')||'no roster recorded')+'. Weather: '+w.label)+'">'+
  '<span class="dface bc984-card">'+sky(w)+foreground(w.kind)+
@@ -62,10 +62,10 @@ function html(day,ci,sel,today){
  '<span class="bc984-load-row"><span class="bc984-label">DAY’S LOADS<span class="bc984-at-close">'+load.basis+'</span></span><span class="bc984-load-count'+(load.value.length>10?' long':'')+'">'+e(load.value)+'</span></span>'+
  '<span class="bc984-crew"><span class="bc984-crew-head"><span class="bc984-label">STAFF ON THIS DAY</span><span class="bc984-crew-count">'+(d.staffNames.length?'<b>'+d.staffNames.length+'</b> staff':'')+'</span></span><span class="bc984-names">'+names+'</span></span>'+
  (rule?'<span class="bc984-safety-rule"><span class="bc984-rule-icon" aria-hidden="true">'+shield+'</span><span class="bc984-rule-copy"><span class="bc984-label">LIFE SAVING RULE <small>REMINDER</small></span><span class="bc984-rule-title">'+e(rule.title)+'</span></span></span>':'')+
- '<span class="bc984-card-footer"><span>'+(on?'Selected · ':'')+(p.past?'Open day record':'Open day plan')+'</span><span aria-hidden="true">↗</span></span></span></button>';
+ '<span class="bc984-card-footer"><span>'+(on?'Selected · ':'')+(p.past?'Open day record':'Open day plan')+'</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M6 18L18 6M6 6h12v12"/></svg></span></span></button>';
 }
 function active(){const p=document.getElementById('pane-timeline');return !!(p&&p.classList.contains('on')&&!p.hidden&&state.tab==='timeline');}
-function allowed(){return active()&&!document.hidden&&!printing&&!suspended&&!paused&&!motionOff();}
+function allowed(){const options=document.documentElement.dataset;return active()&&!document.hidden&&!printing&&!suspended&&!paused&&!motionOff()&&options.motion!=='off'&&options.weatherReduced!=='true';}
 function sync(){const play=allowed();for(const c of watched)c.dataset.bc984Motion=play&&c.dataset.bc984Visible==='true'?'on':'off';}
 const observer=typeof IntersectionObserver==='function'?new IntersectionObserver(entries=>{for(const x of entries)x.target.dataset.bc984Visible=String(x.isIntersecting&&x.intersectionRatio>.05);sync();},{threshold:[0,.05]}):null;
 function details(pane){
@@ -85,7 +85,7 @@ function mount(){
 }
 function refreshWeather(){
  const pane=document.getElementById('pane-timeline');if(!pane)return;
- for(const c of pane.querySelectorAll('.bc984-day')){const w=weather(c.dataset.day),key=JSON.stringify(w);if(weatherKeys.get(c)===key)continue;weatherKeys.set(c,key);c.dataset.bc984Weather=w.kind||'unknown';c.querySelectorAll('.wm-card-scene,.bc984-weather-foreground,.bc984-rain-sheet,.bc984-sun-rays,.bc984-cloud-veil').forEach(n=>n.remove());c.querySelector('.bc984-card').insertAdjacentHTML('afterbegin',sky(w)+foreground(w.kind));c.querySelector('.bc984-weather-reading').innerHTML=weatherHtml(w);}
+ for(const c of pane.querySelectorAll('.bc984-day')){const w=weather(c.dataset.day),key=JSON.stringify(w);if(weatherKeys.get(c)===key)continue;weatherKeys.set(c,key);c.dataset.bc984Weather=w.kind||'unknown';c.querySelectorAll('.wm-card-scene,.bc984-weather-foreground,.bc984-rain-sheet,.bc984-sun-rays,.bc984-cloud-veil').forEach(n=>n.remove());c.querySelector('.bc984-card').insertAdjacentHTML('afterbegin',sky(w)+foreground(w.kind));c.querySelector('.bc984-weather-reading').innerHTML=weatherHtml(w);c.setAttribute('aria-label',(c.getAttribute('aria-label')||'').replace(/Weather: [\s\S]*$/,'Weather: '+w.label));}
  details(pane);sync();
 }
 function checkDay(){if(document.hidden||typeof TPOD!=='undefined'&&TPOD.frozen)return false;const now=todayIso();if(now===lastDay)return false;lastDay=now;if(active()){renderTimeline();return true;}return false;}

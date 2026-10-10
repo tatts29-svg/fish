@@ -7,7 +7,7 @@
 #pane-timeline .daystrip>.day:has(.bc984-card):hover{--edge:#ffac6b;transform:translateY(-2px);box-shadow:0 0 12px -3px #f4842e66}
 #pane-timeline .daystrip>.day:has(.bc984-card):focus-visible{--edge:#ffbd7d;padding:1px;outline:2px solid #e47020;outline-offset:3px;box-shadow:inset 0 0 0 2px #ffbd7d,0 0 14px -2px #f4842e80}
 #pane-timeline .daystrip>.day .bc984-card{--bc984-race:'Barlow Condensed','Arial Narrow',var(--sans,system-ui,sans-serif);position:relative;isolation:isolate;display:flex;flex-direction:column;gap:0;box-sizing:border-box;width:100%;min-width:0;height:auto!important;min-height:604px;margin:0;padding:0;border:0;border-radius:9px 0 9px 0;overflow:hidden;clip-path:polygon(0 0,calc(100% - 17px) 0,100% 17px,100% 100%,17px 100%,0 calc(100% - 17px));background:linear-gradient(150deg,#263d4c,#142632 48%,#101c25);color:#edf2f4;font-family:'Inter',var(--sans,system-ui,sans-serif);font-size:13px;line-height:1.4;box-shadow:inset 0 1px 0 #ffffff25;text-align:left}
-#pane-timeline .daystrip>.day:has(.bc984-card)>.bc984-card::before{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(90deg,#08182670,#10223014 72%),linear-gradient(180deg,#0c172000 15%,#101d276f 35%,#0b1924ce 63%,#101c25de 100%);mask-image:none;transform:none;animation:none!important}
+#pane-timeline .daystrip>.day:has(.bc984-card)>.bc984-card::before{content:"";position:absolute;display:block;inset:0;width:auto;height:auto;min-height:0;margin:0;padding:0;border:0;z-index:1;opacity:1;pointer-events:none;background:linear-gradient(90deg,#08182670,#10223014 72%),linear-gradient(180deg,#0c172000 15%,#101d276f 35%,#0b1924ce 63%,#101c25de 100%);mask-image:none;transform:none;animation:none!important}
 #pane-timeline .daystrip>.day:has(.bc984-card)>.bc984-card::after{content:none!important;animation:none!important}
 #pane-timeline .day:has(.bc984-card) .bc984-card>.wm-card-scene{position:absolute;inset:0;z-index:0;width:100%;height:100%;margin:0;overflow:hidden;pointer-events:none;mask-image:none;opacity:1}
 #pane-timeline .day:has(.bc984-card) .bc984-card>.wm-card-scene::before,
@@ -132,3 +132,6 @@ html[data-motion="off"] #pane-timeline .day:has(.bc984-card){transition:none;tra
 
 #pane-timeline .bc984-percentage small{font-size:19px;margin-left:3px;color:#c4d1d8}
 #pane-timeline .bc984-more{max-width:1240px;margin:8px auto 12px;padding:10px 14px;border:1px solid var(--line,#c6cdd0);border-radius:8px}#pane-timeline .bc984-more summary{cursor:pointer;font-weight:600}#pane-timeline .bc984-more>div{padding-top:12px}#pane-timeline .bc984-more p{margin:5px 0 12px}
+
+/* Source details for each selected date are in More info. */
+#pane-timeline [data-wxsrc]{display:none}
