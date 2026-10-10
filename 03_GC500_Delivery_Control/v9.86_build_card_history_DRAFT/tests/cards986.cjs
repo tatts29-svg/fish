@@ -19,6 +19,22 @@ const {open}=require('../../toolchain/harness/open_page');
  };
  try{
   await p.waitForFunction(()=>SYNC.status==='live'&&SYNC.first.size===Object.keys(SYNC_COLLS).length,null,{timeout:150000});
+  if(process.env.NATIVE_ENTRY_ONLY==='1'){
+   if(publicMode){check(h.counts.page===0,'No public HTML substitution');check(servedHash===process.env.EXPECTED_SHA,'Exact public bytes');}
+   await p.evaluate(()=>{go('plant');state.day='2026-09-25';go('timeline');renderTimeline();});
+   await p.waitForFunction(()=>document.querySelector('.bc984-day.on')?.dataset.buildProgress==='ready',null,{timeout:60000});
+   await p.waitForTimeout(250);
+   const visible=selector=>p.evaluate(selector=>{const n=document.querySelector('.bc984-day.on '+selector),r=n.getBoundingClientRect(),x=r.x+r.width/2,y=r.y+r.height/2,top=document.elementFromPoint(x,y);return {visible:x>=0&&x<=innerWidth&&y>=0&&y<=innerHeight&&!!top&&(n.contains(top)||top===n||top.closest('.bc984-day')===n.closest('.bc984-day')),hit:top?.className||null,top:r.top,bottom:r.bottom,scrollY,viewport:innerHeight};},selector);
+   const week=await visible('.bc984-week');check(week.visible,'Native Build entry exposes week without sticky-nav overlap');
+   if(out){fs.mkdirSync(out,{recursive:true});await p.screenshot({path:out+'/native-entry.png'});}
+   await p.evaluate(()=>{const n=document.querySelector('.bc984-day.on .bc984-crew'),r=n.getBoundingClientRect();let parent=n.parentElement;while(parent&&!(/auto|scroll/.test(getComputedStyle(parent).overflowY)&&parent.scrollHeight>parent.clientHeight+1))parent=parent.parentElement;if(parent)parent.scrollBy(0,r.top-300);else window.scrollBy(0,r.top-300);});await p.waitForTimeout(600);
+   const staff=await visible('.bc984-crew');
+   if(out){await p.screenshot({path:out+'/native-staff-scroll.png'});fs.writeFileSync(out+'/native-entry-debug.json',JSON.stringify({week,staff},null,2));}
+   check(staff.visible,'Ordinary page scrolling exposes staff without sticky-nav overlap');
+   check(h.errors.length===0&&h.counts.blocked===0,'Native entry has no errors or operational writes');
+   const result={author:'Andrew Fisher',pass:true,checks,mobile,actualPublic:publicMode,sha256:process.env.EXPECTED_SHA,week,staff,errors:0,writes:0};
+   if(out)fs.writeFileSync(out+'/native-entry.json',JSON.stringify(result,null,2));console.log(JSON.stringify(result));return;
+  }
   await showDay('2026-10-09');
   const before=await p.evaluate(()=>({native:JSON.stringify(S),money:JSON.stringify(pl770Model()),dates:calendarDays().map(d=>[d.iso,d.deliveries.map(r=>r.a.key),d.removals.map(r=>r.a.key)])}));
   if(publicMode){check(h.counts.page===0,'No public HTML substitution');check(servedHash===process.env.EXPECTED_SHA,'Exact public bytes');}

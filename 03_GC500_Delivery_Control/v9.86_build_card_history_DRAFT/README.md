@@ -2,7 +2,7 @@
 
 Author: Andrew Fisher
 
-DRAFT — final candidate checks in progress. No publication yet.
+READY TO UPLOAD — all agreed checks complete. Guarded publication and actual-public verification next.
 
 Andrew approved the Build cards, then said: “Looks good. But your missing data on previous days on percentage of build” and “And works being done”.
 
@@ -18,4 +18,4 @@ Exact live base: `f36c42ebb6f85a49f62663b5c5454510308dee7ea0087e2bed01a860b5a2c3
 
 Final candidate: `7f477763bd1e8f49244439388cc74dd78320961a3240a59705ce4cd1b43178b9`, 14,611,866 bytes, 71 scripts.
 
-26 daily-work model tests and 17 deferred-loader tests pass. Independent source review covered dates, native progress, work evidence, duplicate papers, cache invalidation and calculation scheduling. Desktop, phone, navigation and model-preservation checks are running on the final candidate. Private records and screenshots remain outside the repository.
+26 daily-work model tests and 17 deferred-loader tests pass. Independent source review covered dates, native progress, work evidence, duplicate papers, cache invalidation and calculation scheduling. Final desktop 124 and phone 123 card checks pass, plus 17 loading/refresh checks. Both navigation sweeps pass 22 routes, seven deep links and Back. All 15 financial models, 12 operational projections and native record 5201 match v9.85 exactly. Phone screenshots inspected; no page errors or operational writes. Three native phone-entry checks also pass: the week is unobstructed and normal pane scrolling exposes staff and the card footer. Private records and screenshots remain outside the repository.
