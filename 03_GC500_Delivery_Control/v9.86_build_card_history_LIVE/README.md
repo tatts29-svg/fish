@@ -2,7 +2,7 @@
 
 Author: Andrew Fisher
 
-READY TO UPLOAD — all agreed checks complete. Guarded publication and actual-public verification next.
+VERIFIED LIVE — uploaded 10 Oct 2026 15:34 AEST; actual-public verification completed 10 Oct 2026 15:37 AEST. Source f0156158; READY record 978d885d.
 
 Andrew approved the Build cards, then said: “Looks good. But your missing data on previous days on percentage of build” and “And works being done”.
 
@@ -19,3 +19,5 @@ Exact live base: `f36c42ebb6f85a49f62663b5c5454510308dee7ea0087e2bed01a860b5a2c3
 Final candidate: `7f477763bd1e8f49244439388cc74dd78320961a3240a59705ce4cd1b43178b9`, 14,611,866 bytes, 71 scripts.
 
 26 daily-work model tests and 17 deferred-loader tests pass. Independent source review covered dates, native progress, work evidence, duplicate papers, cache invalidation and calculation scheduling. Final desktop 124 and phone 123 card checks pass, plus 17 loading/refresh checks. Both navigation sweeps pass 22 routes, seven deep links and Back. All 15 financial models, 12 operational projections and native record 5201 match v9.85 exactly. Phone screenshots inspected; no page errors or operational writes. Three native phone-entry checks also pass: the week is unobstructed and normal pane scrolling exposes staff and the card footer. Private records and screenshots remain outside the repository.
+
+Guarded upload passed exact-base protection and byte-for-byte public readback. Actual-public desktop126, phone125, hydration19 and native-phone-entry5 checks pass, with no HTML substitution, page errors or operational writes. Public phone screenshots inspected. Earlier dates now display their native whole-build readings and daily work; records and financial calculations remain unchanged.
