@@ -1,0 +1,65 @@
+{
+  "author": "Andrew Fisher",
+  "source_commit": "d9e0b00f",
+  "base_sha256": "4773efd9433b7bf50b824f1c4f3966bfa4e009b99bbd2231ffa0a2c1f35612bf",
+  "sha256": "198bb721e7bff046bdfeb92c229e0dd35cb41a5edd4aa9c0d856fe8348aa9f28",
+  "bytes": 14741471,
+  "inline_scripts": 76,
+  "source_preservation_tests": 2,
+  "candidate": {
+    "desktop": {
+      "checks": 77,
+      "pass": true,
+      "width": 1440,
+      "errors": 0,
+      "attempted_writes": 0,
+      "records_and_pnl_preserved": true,
+      "warning_visibility": true,
+      "untimed_layout": true,
+      "native_report": true,
+      "record_fold_focus_and_redraw": true,
+      "native_actions": true,
+      "motion_gates": true
+    },
+    "phone": {
+      "checks": 77,
+      "pass": true,
+      "width": 360,
+      "errors": 0,
+      "attempted_writes": 0,
+      "records_and_pnl_preserved": true,
+      "warning_visibility": true,
+      "untimed_layout": true,
+      "native_report": true,
+      "record_fold_focus_and_redraw": true,
+      "native_actions": true,
+      "motion_gates": true
+    }
+  },
+  "navigation": {
+    "desktop": {
+      "pass": true,
+      "routes": 22,
+      "deep_links": 7,
+      "back": true,
+      "errors": 0,
+      "console_errors": 0,
+      "scope": "Read-only local candidate; Google map-session/2D tile fixtures; does not certify map imagery."
+    },
+    "phone": {
+      "pass": true,
+      "routes": 22,
+      "deep_links": 7,
+      "back": true,
+      "errors": 0,
+      "console_errors": 0,
+      "scope": "Read-only local candidate; Google map-session/2D tile fixtures; does not certify map imagery."
+    }
+  },
+  "candidate_screenshots_inspected": [
+    "desktop closed and expanded",
+    "phone closed and expanded",
+    "phone untimed Wednesday"
+  ],
+  "public_verification": "Pending upload"
+}

@@ -2,7 +2,7 @@
 
 Author: Andrew Fisher
 
-DRAFT — final candidate under verification; not yet live.
+READY TO UPLOAD — source `d9e0b00f`; not yet live.
 
 Andrew accepted the reviewed design: “Sounds good presentation is key. And easy understand.”
 
@@ -17,3 +17,5 @@ Base: `4773efd9433b7bf50b824f1c4f3966bfa4e009b99bbd2231ffa0a2c1f35612bf`.
 Final candidate: `198bb721e7bff046bdfeb92c229e0dd35cb41a5edd4aa9c0d856fe8348aa9f28`, 14,741,471 bytes, 76 inline scripts.
 
 Build with `bash toolchain/build.sh v9.91-final2 v9.91_build_load_cards_DRAFT/patch_v991.py`. The patch refuses a changed live base and repeat application. Tests run under the shared browser lock with all operational writes blocked. Public verification uses `PUBLIC=1` with no local page override and verifies the served hash. Compact verification evidence is saved here; screenshots and raw records remain private.
+
+Verification: desktop 77 and phone 77 focused checks pass; 2 exact-source/patch guard tests pass. Both navigation sweeps cover 22 routes, 7 deep links and browser Back with no errors. Native records and P&L are exactly preserved. Phone screenshots inspected. Map imagery is not certified by the navigation fixtures. Actual-public checks follow the guarded upload.
