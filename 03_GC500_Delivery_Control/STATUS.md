@@ -1,5 +1,9 @@
 <!-- Author: Andrew Fisher -->
 
+READY TO UPLOAD — v9.85 Build card hydration. Source ecde29c3; SHA256 f36c42ebb6f85a49f62663b5c5454510308dee7ea0087e2bed01a860b5a2c3c8,14,592,170bytes,69scripts; exact livev9.84 base5f5ac67334f382985d57e136277a6321bf47565ac1033e35cf203c631ae1e45c. Readiness/status now participates in card cache invalidation, unready progress is not retained, existing sync footer refreshes once when health changes. Reproduced baseline hydration failure;13 correction checks pass, no redraw loop. Finaldesktop60/phone59 full card checks;both22routes/sevenlinks/Back pass. Native5201/all15financial models/12operational projections exact. Screenshots inspected, zeroerrors/writes. Approved984design retained. RootCodex implementation, independent scopedQA; noClaude review. Guardedupload and actual-public proof next.
+
+<!-- Author: Andrew Fisher -->
+
 CLAIMED — v9.85 Build card hydration correction, Codex. v9.84 was guarded-uploaded14:33AEST, publicSHA5f5ac67334f382985d57e136277a6321bf47565ac1033e35cf203c631ae1e45c, but actual-public verification reproduced a cache-readiness defect: past percentages could retain “Not recorded” after empty shared collections finish loading without changing S. Correct invalidation using native progress health and avoid retaining unready progress, add deterministic loading-to-ready browser regression, rerun final/public checks. Keep all records/models unchanged. This continues Andrew’s approved release; do not call v9.84 fully verified. Rootownsfixandpublication, independentQAagentownsregression.
 
 <!-- Author: Andrew Fisher -->
