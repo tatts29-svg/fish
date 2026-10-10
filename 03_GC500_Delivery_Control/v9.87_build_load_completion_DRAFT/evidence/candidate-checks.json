@@ -1,0 +1,74 @@
+{
+  "author": "Andrew Fisher",
+  "version": "v9.87",
+  "sourceCommit": "dc6c4b56",
+  "sha256": "554538d9203e9a8863a145b592a7f6b66a4f4d6307f398de3cf7f394c0bd1939",
+  "bytes": 14616536,
+  "scripts": 72,
+  "receiptRegressionChecks": 45,
+  "nativeAudit": "Independent read-only audit passed",
+  "phoneScreenshotsInspected": true,
+  "actualPublic": false,
+  "desktop": {
+    "pass": true,
+    "checks": 145,
+    "sha256": "554538d9203e9a8863a145b592a7f6b66a4f4d6307f398de3cf7f394c0bd1939",
+    "errors": 0,
+    "writes": 0
+  },
+  "phone": {
+    "pass": true,
+    "checks": 144,
+    "sha256": "554538d9203e9a8863a145b592a7f6b66a4f4d6307f398de3cf7f394c0bd1939",
+    "errors": 0,
+    "writes": 0
+  },
+  "nativePhone": {
+    "pass": true,
+    "checks": 3,
+    "sha256": "554538d9203e9a8863a145b592a7f6b66a4f4d6307f398de3cf7f394c0bd1939",
+    "errors": 0,
+    "writes": 0
+  },
+  "hydration": {
+    "pass": true,
+    "checks": 17,
+    "sha256": "554538d9203e9a8863a145b592a7f6b66a4f4d6307f398de3cf7f394c0bd1939",
+    "errors": 0,
+    "writes": 0
+  },
+  "navigation": {
+    "desktop": {
+      "pass": true,
+      "routes": 22,
+      "deepLinks": 7,
+      "back": {
+        "hash": "#plant",
+        "pane": "pane-plant"
+      },
+      "errors": 0,
+      "sha256": "554538d9203e9a8863a145b592a7f6b66a4f4d6307f398de3cf7f394c0bd1939"
+    },
+    "phone": {
+      "pass": true,
+      "routes": 22,
+      "deepLinks": 7,
+      "back": {
+        "hash": "#plant",
+        "pane": "pane-plant"
+      },
+      "errors": 0,
+      "sha256": "554538d9203e9a8863a145b592a7f6b66a4f4d6307f398de3cf7f394c0bd1939"
+    }
+  },
+  "preservation": {
+    "author": "Andrew Fisher",
+    "baseSha256": "7f477763bd1e8f49244439388cc74dd78320961a3240a59705ce4cd1b43178b9",
+    "sha256": "554538d9203e9a8863a145b592a7f6b66a4f4d6307f398de3cf7f394c0bd1939",
+    "nativeVersion": 5201,
+    "financialModels": 15,
+    "operationalProjections": 12,
+    "exactPreservation": true,
+    "pass": true
+  }
+}

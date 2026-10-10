@@ -2,7 +2,7 @@
 
 Author: Andrew Fisher
 
-DRAFT — final browser checks in progress. Not yet live.
+READY TO UPLOAD — exact source dc6c4b56. Final candidate checks passed; not yet live.
 
 Andrew reported: “You still have load not veriified”. The Build cards previously required installation on the scheduled delivery date and hid the entire day when one truck grouping could not be verified.
 
@@ -16,4 +16,4 @@ Exact live base: `7f477763bd1e8f49244439388cc74dd78320961a3240a59705ce4cd1b43178
 
 Candidate: `554538d9203e9a8863a145b592a7f6b66a4f4d6307f398de3cf7f394c0bd1939`, 14,616,536 bytes, 72 scripts.
 
-45 independent receipt-model regression checks pass. Native source audit and final browser/preservation evidence are recorded separately. Private records and screenshots stay outside the repository. Codex and independent scoped agents performed the work; no Claude review is claimed.
+45 independent receipt-model regression checks pass. Desktop 145, phone 144, native-phone-entry 3 and hydration 17 checks pass. Both navigation sweeps pass 22 routes, seven deep links and Back. Native record 5201, all 15 financial models and 12 operational projections match v9.86 exactly. Phone screenshots inspected. No page errors or operational writes. Native source audit and compact final evidence are recorded separately. Private records and screenshots stay outside the repository. Codex and independent scoped agents performed the work; no Claude review is claimed.

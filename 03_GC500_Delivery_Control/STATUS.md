@@ -1,5 +1,9 @@
 <!-- Author: Andrew Fisher -->
 
+READY TO UPLOAD — v9.87 Build delivery/load completion. Exact source dc6c4b56; SHA256 554538d9203e9a8863a145b592a7f6b66a4f4d6307f398de3cf7f394c0bd1939, 14,616,536 bytes, 72 scripts; live v9.86 base 7f477763bd1e8f49244439388cc74dd78320961a3240a59705ce4cd1b43178b9. Counts receipts by the selected Brisbane day’s close, independently of installation. Documented truck groups retain loads; other groups use clearly labelled delivery references. 7 Oct 11/11 loads, 8 Oct 3/3 loads, 9 Oct 2/2 delivery references (WC31, WC09). Genuine historical shortfalls remain; pickups are not completed from arrival records. Canonical split-booking quantities, item scope, explicit corrected delivery states and hydration checked. 45 independent model tests; desktop145, phone144, native-phone-entry3, hydration17 pass. Both navigation sweeps22routes/sevenlinks/Back pass. Native5201/all15financial models/all12operational projections exactly preserved. Screenshots inspected; no errors/writes. Codex/scoped independent native audit and QA; no Claude review. Guarded upload and actual-public verification next.
+
+<!-- Author: Andrew Fisher -->
+
 CLAIMED — v9.87 Build day load completion, Codex. Andrew reports “You still have load not veriified” after v9.86. Trace the existing card helper against native load groups, dated delivery history and supplied running sheets; correct unsupported all-or-nothing withholding and distinguish deliveries from installation and physical truck counts. Keep past records dated, preserve shared/financial data, and publish the tested correction. Exact live base 7f477763bd1e8f49244439388cc74dd78320961a3240a59705ce4cd1b43178b9. Root owns implementation/release; independent agent audits native load evidence. Not ready.
 
 <!-- Author: Andrew Fisher -->
