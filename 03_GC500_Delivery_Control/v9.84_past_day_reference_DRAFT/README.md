@@ -2,7 +2,7 @@
 
 Author: Andrew Fisher
 
-DRAFT — approved design implemented; final browser checks and publication pending.
+READY TO UPLOAD — final source 0f67516b. All agreed checks pass; guarded publication and actual-public checks are next.
 
 The Build day strip now uses the approved upright racing cards: up to three 400px cards on desktop, one responsive card on phone, full-card sourced weather, a large transparent closed-day stamp with pulsing glow, week, named staff, daily load completion and an official Life Saving Rule reminder. Existing date selection, work records and navigation remain in place. More info contains source and calculation detail.
 
@@ -19,5 +19,5 @@ Motion uses CSS transforms/opacity, reused weather SVG templates, one shared sta
 Sources: card984-main.js, card984-data.js, card984.css, history984.js/json and assets/day-completed-stamp.png. patch_v984.py accepts only the exact v9.83 live hash below. Obsolete past984 source and tests were removed; Git retains their history.
 
 Exact base: 19242957feb45f8abfe098ec096461f80d3ed7b57a887fb6086c666ca201c589.
-Initial candidate: e78131bc30f9bc2a72393c8e3621dbfa58d49b34772734c547652ade4d9ad62d.
-Checks completed: 11 progress-model, 30 day-data and 9 historical-weather checks; all 33 weather rows independently reconciled to BOM HTML/CSV; build static validation (69 scripts). Final desktop/phone, navigation, financial/native preservation and guarded upload remain pending.
+Final candidate: 5f5ac67334f382985d57e136277a6321bf47565ac1033e35cf203c631ae1e45c (14,591,720 bytes; 69 scripts).
+Checks completed: 11 progress-model, 30 day-data and 9 historical-weather checks; all 33 weather rows independently reconciled to BOM HTML/CSV. Desktop 60 / phone 59 focused checks, eight weather fixtures, motion preferences, visibility, midnight rollover, keyboard and day navigation pass. Final desktop/phone sweeps each cover 22 routes, seven deep links and Back. Native record 5201, all 15 financial models and 12 operational projections are exactly unchanged against v9.83 on the same frozen record. No page errors or operational writes. Desktop and phone screenshots inspected. Bright forecast readability, inherited top-strip height, footer glyph, motion gates and duplicate weather-source line were corrected before final verification. Public-safe summaries are in evidence; private native snapshots/screenshots remain outside Git.
