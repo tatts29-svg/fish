@@ -1,5 +1,9 @@
 <!-- Author: Andrew Fisher -->
 
+CLAIMED DRAFT PREVIEW ONLY — v9.93 Build card alignment, larger measurements and motion mock-up. Andrew accepted the proposal to show one refined mock-up on the actual page before changing it, adding “Ok remember animating”. Root owns a local preview from live v9.92 SHA256 0460e6f2306946c0e7262600414ff65b0824b0a086e618dbce28d7c66669e890. Retain visible native lights/measurements/qualifications, refine alignment and readability, preserve controlled animation and data. Produce desktop/phone and animated private previews for review. No publication or operational writes in this scope. Not ready to upload; v9.92 stays live.
+
+<!-- Author: Andrew Fisher -->
+
 VERIFIED LIVE — v9.92 visible load lights and measurements. Uploaded 11 Oct 2026 08:30 AEST; actual-public verification completed 11 Oct 2026 08:33 AEST. Source cf47c39e; READY dbb57954; SHA256 0460e6f2306946c0e7262600414ff65b0824b0a086e618dbce28d7c66669e890, 14,745,408 bytes, 77 scripts. Guarded unchanged-base upload and exact public-byte readback pass. Actual-public desktop 87/phone 87 checks pass with no HTML substitution, browser errors or operational writes; public phone screenshot inspected. Andrew requested lights and known dimensions/weights remain visible: each closed/open reference now shows its original five lights and existing measurements once, preserving product/unit quantities and actual/contract/nominal/guide labels. Unknown fields have no blank rows; supporting sources/loading remain in Details. Native actions, motion gates, daily staff, records and P&L preserved. Candidate desktop 85/phone 85, source preservation/guards 2, both navigation sweeps 22 routes/seven links/Back pass. Root implementation/publication with scoped independent native-facts/source and browser audits; no Claude review claimed. Release folder LIVE; future releases start from this public hash.
 
 <!-- Author: Andrew Fisher -->
