@@ -1,5 +1,9 @@
 <!-- Author: Andrew Fisher -->
 
+EXTENDED SCOPE — v10.02. Andrew also requests weather cards fill the available screen width and a refresh select and centre today; explicitly confirms the same for Demob. Preserve approved race-card design, animation and maximum three desktop cards. If today is outside the relevant programme, use its nearest scheduled day without labelling it today. Scoped weather helper owns source and focused checks; root integrates and publishes with precise destinations. Not ready.
+
+<!-- Author: Andrew Fisher -->
+
 CLAIMED — v10.02 precise supplier destinations. Andrew says generic destination lines such as Surfers Paradise and Main Beach Pde are unacceptable. Root owns evidence-backed detailed locations from original master plan, schedule and current native reference details, shared supplier presentation and updated portrait PDFs. Preserve v10.01 dates24/24/24/24/3, quantities, routes and verifiedQRcoordinates; use exact named destination/landmark/adjacentroad where source supports it, with meet-point/access instructions separated from actual placement. Independent scoped south/north source review underway. Exactbase67dc74f271b2c3927eb8ebaaa65d849b5879c9827fa382358194a20effe2cc7b. No invented placement, native operational writes or emails. Notready.
 
 <!-- Author: Andrew Fisher -->
