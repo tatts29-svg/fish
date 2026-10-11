@@ -76,3 +76,28 @@ Before publication, review native and encoded samples, verify all media properti
 and test actual MP4 playback on desktop and phone: looping, pause/resume, reduced
 motion, visibility, unmount behavior and Back/Close. Follow the exact live release
 checks. The renderer itself does not upload or publish anything.
+
+## Completed native capture and media verification
+
+All 137 required native poses completed at 3840 × 2160. Every pose passed visible
+vertex bounds, camera-depth and hidden-part checks. Only base 18 is hidden. Native
+start/end PNGs and complete scene-pose hashes match exactly. The frozen capture and
+scene source hashes match the final evidence.
+
+Final files are in `/workspace/private-gc500-machine995/final4k/`:
+
+- `coates-way-machine-4k.mp4`: 3840 × 2160, 22,339,188 bytes.
+- `coates-way-machine-preview.mp4`: 1920 × 1080, 5,879,542 bytes.
+- `coates-way-machine-poster.webp`: 1920 × 1080, 129,100 bytes.
+
+Both MP4s contain 420 frames at 30 fps, run for 14 seconds, have no audio, and have
+verified faststart atom order. Rec.709 colour metadata and conversion were verified.
+Decoded 4K boundary-frame mean absolute RGB error is 0.254 out of 255. The original
+orange swatch [242, 98, 34] decodes to median [241, 96, 32]. Native rear pose 165 and
+decoded first frame were visually inspected and approved by the release owner.
+
+The immutable report is `media-verification.json`, SHA-256
+`54ead325d1889fd7e363b47f87c4d82cedba6cd99a36b84f0b4c854800c543ba`. Its exact copy is
+`evidence/final-media-verification.json`; compact geometry and source verification
+is `evidence/final-native-render-verification.json`. Final player checks, registration
+and publication remain with the integration/release owners. Render source is held.

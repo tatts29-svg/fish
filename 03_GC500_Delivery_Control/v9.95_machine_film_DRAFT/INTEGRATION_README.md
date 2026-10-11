@@ -2,9 +2,24 @@
 
 Author: Andrew Fisher
 
-DRAFT. Integration source is held. Desktop30/30 and phone28/28 source-matched960movie fixture checks pass, including16.5seconds across4native version polls without remounting. Media render and final native 4K browser tests are still in progress. Nothing
-in this component has been uploaded. The current Coates Way card, hero button,
-interactive machine, branding, colours and navigation remain as built.
+DRAFT — final candidate verified; publication remains with the release owner.
+Actual-media desktop checks pass 32/32 and phone checks pass 30/30. Both run through
+16.5 seconds and four native version polls without remounting or restarting. The
+full poster and movie frame fit within the original card, and both screenshots
+have been reviewed. There are no browser errors, operational writes or P&L changes.
+No media or page has been uploaded by this component. The current Coates Way card,
+hero button, interactive machine, branding, colours and navigation remain as built.
+
+Final candidate: `build/GC500_v9.95-final/GC500_Delivery_Control_hosted.html`
+
+SHA256: `7403761db76a2bffb2eac99fb97669f5be09de946a6cc7c7592ff65287841975`
+
+The strict media validator passed the actual three files in report
+`54ead325d1889fd7e363b47f87c4d82cedba6cd99a36b84f0b4c854800c543ba`.
+Desktop decodes the 22,339,188-byte 3840×2160 file. Phone fetches only the
+5,879,542-byte 1920×1080 preview. The matching poster is 129,100 bytes.
+Final focused evidence is in `evidence/player-final-desktop.json` and
+`evidence/player-final-phone.json`; earlier fixture evidence is explicitly separate.
 
 `patch_v995.py` starts from exact v9.94 SHA256
 `382311bc1faf33ca1333d1431368a442dbdf651a6d23874b56ef65bae7ed8dd8`.
@@ -14,7 +29,7 @@ permissions remain. The native Open machine action remains. The rendered movie
 uses the original geometry/artwork; render details and limits are in
 `RENDER_README.md`. No mechanical part-count claim is added to the page.
 
-The hero retains the native muted loop. Its existing inline ratio already follows the16:9 media; the CSS fallback now agrees and contain-fit prevents any border/padding ratio from cropping the frame. Actual poster/video bounds are checked on desktop and phone. Its source is assigned only when the card
+The hero retains the native muted loop. Its existing inline ratio already follows the 16:9 media; the CSS fallback now agrees and contain-fit prevents any border/padding ratio from cropping the frame. Actual poster/video bounds are checked on desktop and phone. Its source is assigned only when the card
 is visible and motion is allowed. Desktop uses the native 3840×2160 movie; a CSS
 viewport up to 767px or Save-Data uses the matched 1920×1080 encode. Device pixel
 ratio does not turn a phone into the desktop download. Only one movie URL is set.
@@ -34,8 +49,8 @@ Use the renderer's final `media-verification.json` after root visual acceptance:
 ```bash
 export MACHINE995_REPORT=/private/final4k/media-verification.json
 export MACHINE995_REPORT_SHA256=<sha256-of-that-exact-report>
-toolchain/build.sh v9.95 v9.95_machine_film_DRAFT/patch_v995.py
-python3 v9.95_machine_film_DRAFT/register_media995.py build/GC500_v9.95/GC500_Delivery_Control_hosted.html
+toolchain/build.sh v9.95-final v9.95_machine_film_DRAFT/patch_v995.py
+python3 v9.95_machine_film_DRAFT/register_media995.py build/GC500_v9.95-final/GC500_Delivery_Control_hosted.html
 ```
 
 The final command is a dry run by default. It reads current live bytes, credential
@@ -74,7 +89,7 @@ For standard navigation sweeps before media registration, preload the strictly
 read-only provider so the new movies and poster come from verified local bytes:
 
 ```bash
-MACHINE995_TEST_MEDIA=/private/final-media-roles.json PAGE=build/GC500_v9.95/GC500_Delivery_Control_hosted.html \
+MACHINE995_TEST_MEDIA=/private/final-media-roles.json PAGE=build/GC500_v9.95-final/GC500_Delivery_Control_hosted.html \
   flock /tmp/gc500-browser.lock node -r ./v9.95_machine_film_DRAFT/tests/media995_hook.cjs \
   v9.80_showcase_sound_LIVE/tests/navigation980.cjs
 ```
