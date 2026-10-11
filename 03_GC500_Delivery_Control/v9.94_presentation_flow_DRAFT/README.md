@@ -2,7 +2,7 @@
 
 Author: Andrew Fisher
 
-Draft undergoing final checks. Not published. Exact live base v9.93 SHA256 `3da4e17980eead5cbf886dbbfab54f60c18aacd48405d92822869a7ce3637205`. Final candidate SHA256 `382311bc1faf33ca1333d1431368a442dbdf651a6d23874b56ef65bae7ed8dd8`, 14,786,230 bytes, 81 inline scripts.
+READY TO UPLOAD. Final candidate checks passed. Not yet published. Exact live base v9.93 SHA256 `3da4e17980eead5cbf886dbbfab54f60c18aacd48405d92822869a7ce3637205`. Final candidate SHA256 `382311bc1faf33ca1333d1431368a442dbdf651a6d23874b56ef65bae7ed8dd8`, 14,786,230 bytes, 81 inline scripts.
 
 Andrew requested a full presentation/flow audit, correct Close/Back controls, removal of repeated staff information, source-backed generator destinations and removal of unsupported fencing-delay claims. His latest direction is to keep the existing look and improve it. Existing race cards, lights, weather, colours and animation remain.
 
@@ -22,4 +22,4 @@ The Concert pair's exact position is not identified in the checked issued plans.
 
 Build using `toolchain/build.sh v9.94-final v9.94_presentation_flow_DRAFT/patch_v994.py`. The patch requires the exact live base and rejects reapplication. Tests use the shared read-only harness under `/tmp/gc500-browser.lock`; operational writes are blocked. Compact evidence is committed; private screenshots, original documents and full HTML remain outside Git.
 
-Final candidate checks, release state and public proof will be recorded here before completion. Root implementation/release with independent scoped presentation, navigation, flow, generator and fencing checks. No separate external review is claimed.
+Final candidate passed desktop/phone presentation18, navigation45, flow32, Demob13, generator15 and fencing36 checks per viewport; Demob email model6, fencing source-preservation96 and patch/data guards3 passed. Full desktop/phone navigation sweeps passed22routes, seven deep links and browser Back, with zero errors or operational writes. Final phone screenshots inspected. Upload access dry run passed. Public verification remains after guarded upload. Root implementation/release with independent scoped presentation, navigation, flow, generator and fencing checks. No separate external review is claimed.
