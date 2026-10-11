@@ -1,0 +1,209 @@
+{
+  "author": "Andrew Fisher",
+  "state": "READY TO UPLOAD",
+  "source_commit": "6e7709c3",
+  "base_sha256": "dc648c02fa4d083a78a7068c08526f31e8ad3adfaf3a6beffce4ba326a71a551",
+  "candidate": {
+    "author": "Andrew Fisher",
+    "sha256": "c52e2204776eb43e48649ff4780705b0af989a419fda19c9fe29f9831db61e90",
+    "bytes": 14881070,
+    "pass": true,
+    "scope": "Actual scrubbed candidate preserves all bytes outside scoped hero/media literals and release footer; actual media desktop/phone and navigation gates passed."
+  },
+  "media_report_sha256": "5d6355ce2bf729c705e9fb80fdcf38b8ceaf02b48a49aaa34b05f61f78af4890",
+  "native_source_frames": 632,
+  "seconds": 32,
+  "fps": 30,
+  "orbit_degrees": 360,
+  "original_visible_components": 175,
+  "loop_endpoints_identical": true,
+  "inspection_returns_home": true,
+  "geometry_all_frames_pass": true,
+  "decoded_quality": {
+    "author": "Andrew Fisher",
+    "video_sha256": "c94faba9e786f722ccf6b14c54a26c4808ea169d55afc9fe4af42546aefa1a73",
+    "pass": true,
+    "frames": [
+      {
+        "frame": 150,
+        "seconds": 5.0,
+        "mean_abs_rgb_error": 1.7257076501846313,
+        "psnr_db": 37.522830963134766
+      },
+      {
+        "frame": 300,
+        "seconds": 10.0,
+        "mean_abs_rgb_error": 1.5399515628814697,
+        "psnr_db": 39.82010269165039
+      },
+      {
+        "frame": 390,
+        "seconds": 13.0,
+        "mean_abs_rgb_error": 1.8542503118515015,
+        "psnr_db": 36.087223052978516
+      },
+      {
+        "frame": 480,
+        "seconds": 16.0,
+        "mean_abs_rgb_error": 1.7570480108261108,
+        "psnr_db": 37.21135711669922
+      },
+      {
+        "frame": 570,
+        "seconds": 19.0,
+        "mean_abs_rgb_error": 1.6979018449783325,
+        "psnr_db": 36.85666275024414
+      },
+      {
+        "frame": 660,
+        "seconds": 22.0,
+        "mean_abs_rgb_error": 1.5208505392074585,
+        "psnr_db": 39.96572494506836
+      }
+    ],
+    "scope": "Native RGB versus decoded Rec.709 4K at staged opening and four orbit views; full-frame error thresholds, followed by visual inspection."
+  },
+  "media": [
+    {
+      "sha256": "c94faba9e786f722ccf6b14c54a26c4808ea169d55afc9fe4af42546aefa1a73",
+      "bytes": 29247008,
+      "mime": "video/mp4",
+      "width": 3840,
+      "height": 2160,
+      "fps": 30,
+      "duration": 32,
+      "decoded_seam_mae": 0.24468524754047394
+    },
+    {
+      "sha256": "ba4f6d316d06120572b20ef4add3e49496bfadce140ff960d104f143911be29a",
+      "bytes": 13792816,
+      "mime": "video/mp4",
+      "width": 1920,
+      "height": 1080,
+      "fps": 30,
+      "duration": 32,
+      "decoded_seam_mae": 0.40139660239219666
+    },
+    {
+      "sha256": "62704a18288c49d6a66a00af305338905175aef2385445e7c372a330fa33a17f",
+      "bytes": 129100,
+      "mime": "image/webp",
+      "width": 1920,
+      "height": 1080,
+      "fps": null,
+      "duration": null,
+      "decoded_seam_mae": null
+    }
+  ],
+  "candidate_tests": {
+    "desktop": {
+      "player_pass": true,
+      "player_checks": 33,
+      "sustained_seconds": 35,
+      "errors": 0,
+      "writes": 0,
+      "navigation": {
+        "author": "Andrew Fisher",
+        "sha256": "c52e2204776eb43e48649ff4780705b0af989a419fda19c9fe29f9831db61e90",
+        "mobile": false,
+        "pass": true,
+        "routes": 22,
+        "deepLinks": 7,
+        "back": {
+          "hash": "#plant",
+          "pane": "pane-plant"
+        },
+        "destinations": {
+          "today": "#today",
+          "progress": "#today",
+          "map": "#sheet/__explorer",
+          "docs": "#docs",
+          "register": "#plant",
+          "plant": "#plant",
+          "demob": "#demob",
+          "fencing": "#fencing",
+          "prestarts": "#prestarts",
+          "coatesway": "#coatesway",
+          "journal": "#today",
+          "breakdowns": "#today",
+          "variances": "#today",
+          "costs": "#costs",
+          "edit": "#today",
+          "change": "#change/2026-10-12",
+          "add": "#today",
+          "pricing": "#costs",
+          "timeline": "#day/2026-10-12",
+          "subhired": "#subhired",
+          "questions": "#questions",
+          "about": "#about"
+        },
+        "errors": 0,
+        "consoleErrors": 0,
+        "mapSessionFixtures": 1,
+        "scope": "Read-only local candidate; Google map-session/2D tile fixtures; does not certify map imagery."
+      }
+    },
+    "phone": {
+      "player_pass": true,
+      "player_checks": 31,
+      "sustained_seconds": 35,
+      "errors": 0,
+      "writes": 0,
+      "navigation": {
+        "author": "Andrew Fisher",
+        "sha256": "c52e2204776eb43e48649ff4780705b0af989a419fda19c9fe29f9831db61e90",
+        "mobile": true,
+        "pass": true,
+        "routes": 22,
+        "deepLinks": 7,
+        "back": {
+          "hash": "#plant",
+          "pane": "pane-plant"
+        },
+        "destinations": {
+          "today": "#today",
+          "progress": "#today",
+          "map": "#sheet/__explorer",
+          "docs": "#docs",
+          "register": "#plant",
+          "plant": "#plant",
+          "demob": "#demob",
+          "fencing": "#fencing",
+          "prestarts": "#prestarts",
+          "coatesway": "#coatesway",
+          "journal": "#today",
+          "breakdowns": "#today",
+          "variances": "#today",
+          "costs": "#costs",
+          "edit": "#today",
+          "change": "#change/2026-10-12",
+          "add": "#today",
+          "pricing": "#costs",
+          "timeline": "#day/2026-10-12",
+          "subhired": "#subhired",
+          "questions": "#questions",
+          "about": "#about"
+        },
+        "errors": 0,
+        "consoleErrors": 0,
+        "mapSessionFixtures": 1,
+        "scope": "Read-only local candidate; Google map-session/2D tile fixtures; does not certify map imagery."
+      }
+    }
+  },
+  "source_files": {
+    "media997.py": "dc24dfe6dd0bf0fc69d2695114af192ccff72b99c4789fce6fe37dbe2751d0fc",
+    "register_media997.py": "4a13140bf3f5f3e462bf3f9575bd99bc6eeeb9fef39bad472499f09b1a308670",
+    "capture_machine997.cjs": "bb70a6154f9643d77b8feb4649ba25f4638c041c09a0261273fc135becde371d",
+    "encode_machine997.py": "15318216dc746e58a8a751331b13dc032f639fa881fe7cea24cef7ed78b21fd7",
+    "render_batches997.py": "621ccbe2a08567b1395d537192350e93c240a708146bcf6ba573c221b5231a6f",
+    "machine_film997.js": "334f102b64226b52e98bc85bb3ba3e7ed2c4dc354f256fa2b1ec0b50647cc4b1",
+    "patch_v997.py": "0584c89759b1db776f951168d46cfc3660cb87d2b2d5ca32d3a0ad8df251f7fb",
+    "tests/test_integration997.py": "7fdcf4e2afe982b152811489066886fb5f2c19a7356cc4940af979cb447fbdde",
+    "tests/player997.cjs": "5f0c71dd7c5415839cbbbd953c4990d36d5e9d355a8259892462de446fb4e2ed",
+    "tests/media997_hook.cjs": "50b3c3c06cce07147aaba64d8ab822ce58639e372d194a99ad3623c1e0cdc2ae",
+    "tests/quality997.py": "749f7af7c3138c65eec4dec2e0037a365c3a4213c7e726e2824dcc3b4c9ba64c"
+  },
+  "visual_review": "Native versus encoded contact sheet and actual phone orbit view inspected. Approved geometry/materials/card design retained.",
+  "scope": "Media-only; actual final page is byte-identical outside hero/media/manifest literals and footer. No operational writes."
+}

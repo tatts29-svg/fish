@@ -1,5 +1,9 @@
 <!-- Author: Andrew Fisher -->
 
+READY TO UPLOAD — v9.97 extended Coates Way film. Source 6e7709c3; exact v9.96 base dc648c02fa4d083a78a7068c08526f31e8ad3adfaf3a6beffce4ba326a71a551; candidate c52e2204776eb43e48649ff4780705b0af989a419fda19c9fe29f9831db61e90, 14,881,070 bytes, 89 scripts. 32 seconds, native 4K/30 fps, full 360-degree orbit, 175 original visible components, staged opening/reassembly and exact native loop/inspection endpoints. All 632 source poses framed; six encoded detail views reviewed. Six integration guards, desktop33/phone31 actual-media checks and both 22-route/seven-link/Back sweeps pass; no errors or operational writes. Final phone screenshot inspected. Existing player/design and unrelated DATA/scripts preserved byte for byte. Two additive movies; existing poster reused. Registration/upload dry runs pass. Root implementation/release with one scoped read-only mechanism review. Publication and actual-public verification follow.
+
+<!-- Author: Andrew Fisher -->
+
 CLAIMED — v9.97 extended Coates Way machine film. Andrew likes current film and requests at least30seconds, a full360orbit and clearer individual cog/component motion during separation. Root owns narrow media-only implementation/publication from exact v9.96 dc648c02fa4d083a78a7068c08526f31e8ad3adfaf3a6beffce4ba326a71a551. Preserve approved design, native geometry/materials, no stand, seamless loop and existing lazy player. One scoped read-only helper reviews renderer constraints; no broad app/data work. Fresh native4K capture, media verification, focused player checks and required desktop/phone navigation gates before publication. Not ready.
 
 <!-- Author: Andrew Fisher -->
