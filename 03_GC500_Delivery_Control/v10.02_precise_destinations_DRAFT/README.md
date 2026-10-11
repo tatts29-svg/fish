@@ -1,6 +1,6 @@
 Author: Andrew Fisher
 
-Draft v10.02 — precise supplier destinations and current weather-card selection
+Ready v10.02 — precise supplier destinations and current weather-card selection
 
 The supplier running sheets previously replaced generic schedule descriptions with broad areas and omitted master-plan landmarks. The shared supplier location now includes the reviewed street, gate, building, compound or nearby mapped reference for each of the 41 remaining destinations. A later native destination edit, move or coordinate change takes precedence over the reviewed description. Current inventory, remaining runs and supplier PDFs use the same resolver.
 
@@ -10,4 +10,4 @@ Source review: issued master plan D001-26003-03 and current embedded 2 October m
 
 Andrew also requests Build and Demob weather strips fill their available width and refresh to the current day, centred. If the current day is outside a programme, its nearest scheduled day is selected. The strip spans the screen and retains a readable card width, allowing five, six or seven cards on wider screens. This supersedes the earlier three-card maximum. The existing race-card design and weather animation are retained.
 
-Root owns integration and publication, with independent source and focused helper review. Candidate checks are in progress. Not ready to upload. No operational record writes or emails.
+Root owns integration and publication, with independent source and focused helper review. Source d712d213; ready to upload. Exact base 67dc74f271b2c3927eb8ebaaa65d849b5879c9827fa382358194a20effe2cc7b; final candidate 0ed900c790e1cf21686d4b24566d0919e920032c25e66da205fbe4c68494468b, 14,912,834 bytes and 90 inline scripts. Exact reproduction and wrong/repeated-base guards passed; DATA and MASTER_LOC are unchanged. Focused desktop137/phone131, both22-route/seven-link/Back sweeps, 62 destination guards, 35 routing, nine packing and nine weather date/startup tests pass. The weather helper passed36 responsive/refresh checks before the final selected-control extension; real mobile startup is covered by the final phone pass. Portrait QR/layout858, destination/order380 and landscape inventory/demob126 checks pass. Upload dry run passed. Actual public verification follows publication. No operational record writes or emails.
