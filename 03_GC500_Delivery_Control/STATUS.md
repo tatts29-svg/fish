@@ -1,5 +1,9 @@
 <!-- Author: Andrew Fisher -->
 
+CLAIMED — v10.00 Event Portables daily delivery limit. Andrew clarifies “Only 24 per day” in the current chat. This supersedes v9.99's per-truck interpretation: maximum 24 outstanding portaloos across the whole day, with excess deferred to the next working day and no deliveries advanced ahead of their source/explicit dates. Root owns the shared remaining-delivery projection, reference date display, tests, publication and refreshed run sheet from exact v9.99 bfb7767a4036d7103940ed932365d687fe15a76921c6670d1ea78c6732b93dc8. Preserve native receipts/installation, source dates, current design and Demob. Proposed dates are not supplier booking confirmations. Scoped independent source review completed; no record writes or emails. Not ready.
+
+<!-- Author: Andrew Fisher -->
+
 VERIFIED LIVE — v9.99 portaloo delivery runs of 24. Published 12 Oct 2026 07:08 AEST; source bae5f1a0, READY 79c70f59. Exact public SHA256 bfb7767a4036d7103940ed932365d687fe15a76921c6670d1ea78c6732b93dc8, 14,881,754 bytes, 89 scripts. Same-day inbound loads combine locations across island boundaries: 13 Oct 24 + 3; 15 Oct 24; 19 Oct 24 + 20; 22 Oct 4. All 99 outstanding toilets and their dates retained; six proposed physical runs. Nine model checks, candidate and actual-public desktop/phone 24 checks each, both 22-route/seven-link/Back sweeps and 29 current PDF checks pass. Actual-public phone and PDF preview inspected; native records untouched. Sub-hired, daily cards and exported run sheets agree. Special product capacities and Demob priority/pickup grouping unchanged; no emails sent. Root implementation/publication with scoped independent source review. Folder v9.99_portaloo_runs_LIVE. Future builds start from this exact published hash.
 
 <!-- Author: Andrew Fisher -->
