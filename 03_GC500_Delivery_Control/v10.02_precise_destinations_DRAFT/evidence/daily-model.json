@@ -1,0 +1,153 @@
+{
+  "author": "Andrew Fisher",
+  "page": "build/GC500_v10.02/GC500_Delivery_Control_hosted.html",
+  "modelFile": "/workspace/private-gc500-dest1002/native-details.json",
+  "planFile": "/workspace/private-gc500-qr1001/proposed-routes.json",
+  "checks": 35,
+  "passed": 35,
+  "failed": 0,
+  "results": [
+    {
+      "name": "Shared planner exposes pure scheduling functions",
+      "pass": true
+    },
+    {
+      "name": "27 units use 24 followed by three on the next calendar day",
+      "pass": true
+    },
+    {
+      "name": "Overflow continues on Saturday and Sunday rather than skipping days",
+      "pass": true
+    },
+    {
+      "name": "Overdue work can begin on the current Saturday",
+      "pass": true
+    },
+    {
+      "name": "New requests preserve their stated date while source provenance survives",
+      "pass": true
+    },
+    {
+      "name": "Fulfilled spaces count against that day capacity",
+      "pass": true
+    },
+    {
+      "name": "Undated work stays undated",
+      "pass": true
+    },
+    {
+      "name": "Pee panels, blocks and unrelated products retain their own transport scope",
+      "pass": true
+    },
+    {
+      "name": "Numbered units split without inventing, dropping or duplicating numbers",
+      "pass": true
+    },
+    {
+      "name": "Unnumbered portaloo rows remain unnumbered",
+      "pass": true
+    },
+    {
+      "name": "Pure allocation does not mutate input or reservations",
+      "pass": true
+    },
+    {
+      "name": "All 99 outstanding units fill four days of 24 and a final three",
+      "pass": true
+    },
+    {
+      "name": "Every reference/item quantity matches the independent native snapshot",
+      "pass": true
+    },
+    {
+      "name": "All 68 public-area units precede the first island unit",
+      "pass": true
+    },
+    {
+      "name": "WC29 seven stay together on Friday, with original source date traceable",
+      "pass": true
+    },
+    {
+      "name": "No baseline reference is split across dates",
+      "pass": true
+    },
+    {
+      "name": "Stop order and quantities match independent geographical plan",
+      "pass": true
+    },
+    {
+      "name": "Inbound packing preserves the same route sequence and full daily quantity",
+      "pass": true
+    },
+    {
+      "name": "Historical installed items stay off the outstanding plan",
+      "pass": true
+    },
+    {
+      "name": "Known source dates may be earlier in the new expressly approved baseline",
+      "pass": true
+    },
+    {
+      "name": "Receiving Tuesday 24 leaves later allocations in their original slots",
+      "pass": true
+    },
+    {
+      "name": "Partial WC29 receipt removes only received quantity without filling earlier vacancies",
+      "pass": true
+    },
+    {
+      "name": "Receiving Thursday 24 does not pull Friday deliveries back",
+      "pass": true
+    },
+    {
+      "name": "New demand cannot reuse already completed daily slots",
+      "pass": true
+    },
+    {
+      "name": "Increased demand is conserved without exceeding daily capacity",
+      "pass": true
+    },
+    {
+      "name": "Reduced demand does not refill removed quantity with later locations",
+      "pass": true
+    },
+    {
+      "name": "A new native movedDate overrides the approved baseline",
+      "pass": true
+    },
+    {
+      "name": "A changed previously moved native row respects its new date",
+      "pass": true
+    },
+    {
+      "name": "A genuinely changed source date is not hidden by approved old baseline",
+      "pass": true
+    },
+    {
+      "name": "Dispatch-held demand is not routed",
+      "pass": true
+    },
+    {
+      "name": "Removed native references are not rebuilt from the route baseline",
+      "pass": true
+    },
+    {
+      "name": "Date rollover preserves quantity, cap and consecutive weekend availability",
+      "pass": true
+    },
+    {
+      "name": "Fully received scope has no remaining deliveries",
+      "pass": true
+    },
+    {
+      "name": "Planner leaves every native input field unchanged",
+      "pass": true
+    },
+    {
+      "name": "Supplier total, remaining projection and on-site count remain reconciled",
+      "pass": true
+    }
+  ],
+  "networkCalls": 0,
+  "recordWrites": 0
+}

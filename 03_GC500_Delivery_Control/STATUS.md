@@ -1,5 +1,9 @@
 <!-- Author: Andrew Fisher -->
 
+IMPLEMENTED — v10.02 scope clarified by Andrew: weather cards span the whole screen, with five, six or seven visible as space allows; this supersedes the earlier three-card maximum. Build and Demob refresh to today and centre it when within their programme; outside it, show the nearest real scheduled date. Persistent orange glow covers selected weather cards, tabs, buttons and existing equipment/map/search controls. Source and focused checks are saved; final desktop/phone navigation gates are running. Candidate 0ed900c790e1cf21686d4b24566d0919e920032c25e66da205fbe4c68494468b, 14,912,834 bytes, 90 scripts. No operational writes. Not ready to upload yet.
+
+<!-- Author: Andrew Fisher -->
+
 EXTENDED SCOPE — v10.02. Andrew also requests weather cards fill the available screen width and a refresh select and centre today; explicitly confirms the same for Demob. Preserve approved race-card design, animation and maximum three desktop cards. If today is outside the relevant programme, use its nearest scheduled day without labelling it today. Scoped weather helper owns source and focused checks; root integrates and publishes with precise destinations. Not ready.
 
 <!-- Author: Andrew Fisher -->
