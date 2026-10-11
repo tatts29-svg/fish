@@ -1,14 +1,15 @@
 {
   "author": "Andrew Fisher",
-  "candidateSha256": "f56370f8a55ae850aabcaf27287f79bc6c880e85582687c4aa29f95fa4680bfc",
+  "candidateSha256": "67dc74f271b2c3927eb8ebaaa65d849b5879c9827fa382358194a20effe2cc7b",
   "exactBuildReproduction": true,
   "repeatAndWrongBaseGuards": true,
   "embeddedDataAndCommittedUnchanged": true,
   "sourceHashes": {
     "patch_v1001.py": "a161daa8b948768611b7a5dc50cf7dd4d5bdd024d26c16fe4f4bd3f6d7baba31",
+    "verify_pdfs1001.py": "adcf028b35897d8dea3936f0abbb24a49752385d162a51ac5dc93bb16dd707cc",
     "plan1001.js": "a661681434fc82e619567fd1eef6625ea8878972d41fb20db526418a9f4d8d3e",
     "browser1001.cjs": "7a2d91af0cea97f07033b698513b82eb81f76c3c96364a2131b1d92006660e62",
-    "portrait1001.js": "2520e4b13c06114983f6183bc2a53e744a91f533f32a034332eb5a46e8440531",
+    "portrait1001.js": "00b3fad57c41d425ad9263aaf718502cb629f8f336733cc83684156287a76b9b",
     "daily1001.js": "ce35dd22a1b386bf1f86aa90207845831e03da6c28d07ae27e08a8401275b054",
     "daily1001_model.cjs": "12fd34404af5e3d424fcc46e51e40d837df6f995d860f8474e6c587c0d468f0b"
   }

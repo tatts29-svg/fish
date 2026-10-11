@@ -7,7 +7,7 @@ S1000.pdf=async function(kind,day,alive=()=>true){
  await pdf7Sync();const M=S1000.model(),fingerprint=JSON.stringify(M),dates=[...new Set(M.remaining.filter(r=>day?r.date===day:true).map(r=>r.date))].sort();
  if(!dates.length)throw Error('No deliveries remain for this selection');
  const lib=await pdf7Lib();if(!alive())return null;if(JSON.stringify(S1000.model())!==fingerprint)throw Error('Shared records changed; reopen the document');
- const doc=new lib.jsPDF({orientation:'portrait',unit:'mm',format:'a4',compress:true}),title='GC500 - Event Portables - Remaining delivery run sheets';doc.setProperties({title,author:'Andrew Fisher',creator:'GC500 Delivery Control'});
+ const doc=new lib.jsPDF({orientation:'portrait',unit:'mm',format:'a4',compress:true}),title='GC500 - Event Portables - Remaining delivery run sheets';doc.setProperties({title,author:'Author: Andrew Fisher'.slice(8),creator:'GC500 Delivery Control'});
  const columns=[{label:'Stop',w:10},{label:'Reference / item',w:39},{label:'Qty',w:11},{label:'Destination',w:111},{label:'Map QR',w:23}];
  const printable=(r,i)=>{
   const nums=r.received===0&&r.numbers.length===r.remaining?r.numbers:[],basis=r.dispatchBasis||r.locationBasis||'',showBasis=!/^(Master plan reference position|Confirmed reference position|Recorded site pin)$/.test(basis);
