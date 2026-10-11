@@ -1,5 +1,9 @@
 <!-- Author: Andrew Fisher -->
 
+CLAIMED — v9.99 portaloo delivery runs of 24. Andrew asks “Portaloos i want runs of 24” after the current remaining-delivery sheets showed partly filled runs separated at island boundaries. Root owns a narrow shared supplier packing fix, tests and refreshed exports from exact v9.98 a72ab6662a237194c09d8dd9671856fa97409ac97a53cf8b94c97f6063df5d0c. Fill compatible same-day runs across locations; preserve required dates, actual quantities, special product capacities and demob priority. Final balance remains explicit; no additional units or completed work invented. Not ready.
+
+<!-- Author: Andrew Fisher -->
+
 VERIFIED LIVE — v9.98 shared reference quantities and installed Event Portables reconciliation. Uploaded 12 Oct 2026 06:55 AEST. Source 69f87ad8; READY f9862308; SHA256 a72ab6662a237194c09d8dd9671856fa97409ac97a53cf8b94c97f6063df5d0c, 14,881,552 bytes, 89 scripts. Quantities beside descriptions across all shared reference drawers, known physical items and quantity-only cards; native identity/photo controls preserved. WC61 eight installed, WC69 six installed and six remaining, through named native setters; 14 acknowledged writes, record 5306 to 5320, exact fresh readback and all unrelated shared fields unchanged. Supplier balance: 89 FWF on site including one spare, two 16-pan blocks, six pee panels; 99 FWF scheduled outstanding and six unallocated retained explicitly. Candidate desktop 69 / phone 66, both full navigation sweeps, actual-public 70 checks per viewport and 28 refreshed supplier PDF checks pass. Public phone drawer and three PDF previews inspected; no test writes or emails. Root integration/publication with scoped quantity implementation and review. Folder v9.98_installed_quantities_LIVE. Next release must use this exact base.
 
 <!-- Author: Andrew Fisher -->
