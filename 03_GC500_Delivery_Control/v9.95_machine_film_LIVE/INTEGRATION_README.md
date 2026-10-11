@@ -2,13 +2,23 @@
 
 Author: Andrew Fisher
 
-DRAFT — final candidate verified; publication remains with the release owner.
-Actual-media desktop checks pass 32/32 and phone checks pass 30/30. Both run through
-16.5 seconds and four native version polls without remounting or restarting. The
-full poster and movie frame fit within the original card, and both screenshots
-have been reviewed. There are no browser errors, operational writes or P&L changes.
-No media or page has been uploaded by this component. The current Coates Way card,
-hero button, interactive machine, branding, colours and navigation remain as built.
+Published by the release owner on 12 October 2026 at 02:06 AEST. Actual-public
+browser checks pass 34/34 on desktop and 32/32 on phone, using served HTML and
+media without substitution. Both public screenshots have been reviewed. The
+complete poster and film fit inside the original card; desktop decodes native
+3840×2160, while phone downloads only the matching 1920×1080 preview.
+
+Both tests run through 16.5 seconds and four native version polls without
+remounting or restarting. There are no browser errors, operational writes or
+P&L changes. Initial public attempts were blocked by host thread exhaustion
+before page assertions; after host capacity was restored, both complete public
+suites passed. The resolved environment evidence is retained separately.
+
+The original Coates Way card, hero button, interactive machine, branding, colours
+and navigation remain as built. Public evidence is in
+`evidence/player-public-desktop.json` and `evidence/player-public-phone.json`.
+Candidate checks passed 32/32 on desktop and 30/30 on phone before publication;
+those earlier results remain distinct from the actual-public verification.
 
 Final candidate: `build/GC500_v9.95-final/GC500_Delivery_Control_hosted.html`
 

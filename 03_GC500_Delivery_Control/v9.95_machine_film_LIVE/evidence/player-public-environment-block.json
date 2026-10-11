@@ -1,0 +1,36 @@
+{
+  "author": "Andrew Fisher",
+  "candidate_sha256": "7403761db76a2bffb2eac99fb97669f5be09de946a6cc7c7592ff65287841975",
+  "actual_public_player_checked": true,
+  "status": "resolved_after_host_capacity_restored",
+  "attempts": [
+    {
+      "test": "desktop PUBLIC=1",
+      "result": "net::ERR_FAILED before assertions; unified session stopped with Ctrl-C, exit130"
+    },
+    {
+      "test": "desktop PUBLIC=1 bounded 300s retry",
+      "result": "Chromium launch failed before navigation",
+      "error": "pthread_create: Resource temporarily unavailable (11)",
+      "chromium_pid": 1919233,
+      "cleanup": "Playwright force-killed failed Chromium and cleaned temporary directory; command exited1"
+    }
+  ],
+  "browser_lock_held": false,
+  "prior_candidate_evidence": {
+    "desktop_checks": 32,
+    "phone_checks": 30,
+    "actual_4k_and_1080_decoding": true
+  },
+  "qualification": "Prior actual-media candidate tests are not post-upload public browser verification.",
+  "resolution": {
+    "desktop_checks_passed": 34,
+    "phone_checks_passed": 32,
+    "candidate_sha256": "7403761db76a2bffb2eac99fb97669f5be09de946a6cc7c7592ff65287841975",
+    "evidence": [
+      "player-public-desktop.json",
+      "player-public-phone.json"
+    ],
+    "operational_writes": 0
+  }
+}
