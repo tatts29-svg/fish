@@ -1,5 +1,9 @@
 <!-- Author: Andrew Fisher -->
 
+VERIFIED LIVE — v9.97 Coates Way 32-second film. Uploaded 12 Oct 2026 04:12 AEST; actual-public desktop/phone verification completed 12 Oct 2026 04:15 AEST. Source 6e7709c3; READY 520d05b2; SHA256 c52e2204776eb43e48649ff4780705b0af989a419fda19c9fe29f9831db61e90, 14,881,070 bytes, 89 scripts. Native 4K/30 fps, full 360-degree inspection, 175 original visible components, slower staged teardown/reassembly and seamless loop. 632 native poses pass; all candidate and actual-public checks pass. Public desktop35/phone33 checks use actual hosted bytes, no substitution; no errors or operational writes. Both public orbit screenshots inspected. Two immutable movies added, existing poster reused; all older media and every unrelated page/data byte preserved. Root owns implementation/publication with one scoped read-only mechanism review. Folder v9.97_machine_360_LIVE.
+
+<!-- Author: Andrew Fisher -->
+
 READY TO UPLOAD — v9.97 extended Coates Way film. Source 6e7709c3; exact v9.96 base dc648c02fa4d083a78a7068c08526f31e8ad3adfaf3a6beffce4ba326a71a551; candidate c52e2204776eb43e48649ff4780705b0af989a419fda19c9fe29f9831db61e90, 14,881,070 bytes, 89 scripts. 32 seconds, native 4K/30 fps, full 360-degree orbit, 175 original visible components, staged opening/reassembly and exact native loop/inspection endpoints. All 632 source poses framed; six encoded detail views reviewed. Six integration guards, desktop33/phone31 actual-media checks and both 22-route/seven-link/Back sweeps pass; no errors or operational writes. Final phone screenshot inspected. Existing player/design and unrelated DATA/scripts preserved byte for byte. Two additive movies; existing poster reused. Registration/upload dry runs pass. Root implementation/release with one scoped read-only mechanism review. Publication and actual-public verification follow.
 
 <!-- Author: Andrew Fisher -->
