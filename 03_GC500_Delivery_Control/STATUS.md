@@ -1,5 +1,11 @@
 <!-- Author: Andrew Fisher -->
 
+CLAIMED — v9.95 Coates Way machine film remaster. Andrew requests removal of the steel stand, more depth and exploded detail, crystal-clear 4K and a seamless loop. Root owns source/media review and implementation after the v9.94 presentation/flow corrections; inspect earlier unpublished no-stand film sources before reuse, retain original machine components and lazy media behaviour. New user instruction authorises this media upgrade. No old draft HTML is to be uploaded. Build from the then-current exact live page; verify render, loop, dimensions, browser playback and release before publication. Not ready.
+
+EXTENDED SCOPE — v9.94 now also covers Andrew's two new corrections: generators due on Monday 12 Oct shown vaguely as “GN?” despite schedule/contracts and orange plan symbols; and Coates Way falsely marking the fencing crew behind. Match generator assets/loads/locations to source evidence without changing arrival states or guessing a formal GN number. Separate docket quantity comparisons from actual crew progress; Andrew confirms fencing is on track. Existing staff deduplication, presentation, flow and navigation fixes continue. No financial or operational record edits in this release.
+
+<!-- Author: Andrew Fisher -->
+
 CLAIMED — v9.94 all-page presentation and navigation audit. Andrew requests “Please audit for presentation. Amd flow. And improvements. We want improvememts on all pages. Presentation is key. Look for bugs and errors. Ensure we have close buttons and back buttons”. Root owns evidence-led fixes from exact livev9.93 SHA2563da4e17980eead5cbf886dbbfab54f60c18aacd48405d92822869a7ce3637205. Audit every unique page on desktop/phone and nested overlays; retain native components, data, financial rules and motion. Delegate scoped desktop/source/exit reviews; root coordinates edits/release. Publish tested routine bug/usability repairs under the user’s standing authority; broader redesign remains preview-first. No operational record changes. Findings and actual coverage determine final scope; not ready.
 
 <!-- Author: Andrew Fisher -->
