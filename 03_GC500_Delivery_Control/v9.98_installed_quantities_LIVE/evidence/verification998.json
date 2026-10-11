@@ -52,5 +52,47 @@
         "add": "#today"
       }
     }
-  }
+  },
+  "actualPublic": {
+    "desktop": {
+      "checks": 70,
+      "failures": [],
+      "htmlSubstitutions": 0,
+      "writes": 0,
+      "recordVersion": 5320
+    },
+    "phone": {
+      "checks": 70,
+      "failures": [],
+      "htmlSubstitutions": 0,
+      "writes": 0,
+      "recordVersion": 5320
+    }
+  },
+  "exports": {
+    "checks": 28,
+    "recordVersion": 5320,
+    "visualInspection": "Actual-public phone drawer and first page of inventory, remaining-delivery and proposed-demob PDFs inspected; clear counts and current corrections verified.",
+    "files": [
+      {
+        "kind": "inventory",
+        "pages": 4,
+        "bytes": 76258,
+        "sha256": "561268236b379a034d44f713c4293caee9d061fa4e4b1fa6a83d85627419995f"
+      },
+      {
+        "kind": "remaining",
+        "pages": 12,
+        "bytes": 166132,
+        "sha256": "de3b39fb0be23d679a2a021b2803947c9f1f68ba12ea206644dee1684160b3af"
+      },
+      {
+        "kind": "demob",
+        "pages": 8,
+        "bytes": 101778,
+        "sha256": "fb23ac814bafb94bad15bbb0a209c7542239b40a3f0f22779880de07d0528015"
+      }
+    ]
+  },
+  "liveAest": "12 Oct 2026 06:55 AEST"
 }
