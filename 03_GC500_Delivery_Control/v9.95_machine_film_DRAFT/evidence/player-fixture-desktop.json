@@ -1,0 +1,182 @@
+{
+  "author": "Andrew Fisher",
+  "scope": "Actual source motion at960\u00d7540,480\u00d7270preview fixture; NOT4Krelease proof",
+  "mobile": false,
+  "actualPublic": false,
+  "sha256": "c3054e1f7898fe84903dace6fb08fba5ef1409985a45fa90d9cbf0f82e75f15b",
+  "checks": [
+    {
+      "name": "Other initial page downloads no machine movie",
+      "pass": true
+    },
+    {
+      "name": "One lazy muted inline looping video; no eager source",
+      "pass": true
+    },
+    {
+      "name": "Motion off shows native poster without movie download",
+      "pass": true
+    },
+    {
+      "name": "Reduced motion retains poster and no film source",
+      "pass": true
+    },
+    {
+      "name": "CSS viewport chooses one full source",
+      "pass": true
+    },
+    {
+      "name": "Selected media actually decodes at declared dimensions",
+      "pass": true
+    },
+    {
+      "name": "Only the chosen movie is fetched",
+      "pass": true
+    },
+    {
+      "name": "Actual decoded frames and playback time advance",
+      "pass": true
+    },
+    {
+      "name": "Film remains mounted and playing through16seconds and3nativeversionpolls",
+      "pass": true
+    },
+    {
+      "name": "Actual media loops across the end without stopping",
+      "pass": true
+    },
+    {
+      "name": "Decoded film is visible without an incorrect picture-loading overlay",
+      "pass": true
+    },
+    {
+      "name": "Film pauses when card leaves the viewport",
+      "pass": true
+    },
+    {
+      "name": "Tools Motion off pauses active film",
+      "pass": true
+    },
+    {
+      "name": "Print pauses film",
+      "pass": true
+    },
+    {
+      "name": "Hidden document pauses film",
+      "pass": true
+    },
+    {
+      "name": "Native Open machine pauses background film",
+      "pass": true
+    },
+    {
+      "name": "Native Escape closes machine and returns original hero focus",
+      "pass": true
+    },
+    {
+      "name": "Tab exit 1 pauses film",
+      "pass": true
+    },
+    {
+      "name": "Return 1 has one owned lifecycle and one source",
+      "pass": true
+    },
+    {
+      "name": "Tab exit 2 pauses film",
+      "pass": true
+    },
+    {
+      "name": "Return 2 has one owned lifecycle and one source",
+      "pass": true
+    },
+    {
+      "name": "Tab exit 3 pauses film",
+      "pass": true
+    },
+    {
+      "name": "Return 3 has one owned lifecycle and one source",
+      "pass": true
+    },
+    {
+      "name": "Live OS reduced-motion change pauses film",
+      "pass": true
+    },
+    {
+      "name": "A full-source error while motion is off does not start a hidden download",
+      "pass": true
+    },
+    {
+      "name": "Returning to an allowed view applies the pending one-time preview fallback",
+      "pass": true
+    },
+    {
+      "name": "Film leaves operational records and P&L unchanged",
+      "pass": true
+    },
+    {
+      "name": "No horizontal document overflow",
+      "pass": true
+    },
+    {
+      "name": "No browser errors",
+      "pass": true
+    },
+    {
+      "name": "No operational writes",
+      "pass": true
+    }
+  ],
+  "steadyLoop": {
+    "seconds": 16.5,
+    "versionPolls": 4,
+    "before": {
+      "mounted": true,
+      "mounts": 1,
+      "disposals": 0,
+      "active": 1,
+      "quality": "full",
+      "sourceLoads": 1,
+      "seen": true,
+      "allowed": true,
+      "paused": false,
+      "time": 0.673678,
+      "width": 960,
+      "height": 540,
+      "pending": false
+    },
+    "after": {
+      "mounted": true,
+      "mounts": 1,
+      "disposals": 0,
+      "active": 1,
+      "quality": "full",
+      "sourceLoads": 1,
+      "seen": true,
+      "allowed": true,
+      "paused": false,
+      "time": 3.173914,
+      "width": 960,
+      "height": 540,
+      "pending": false
+    }
+  },
+  "pass": true,
+  "lifecycle": {
+    "mounted": true,
+    "mounts": 4,
+    "disposals": 3,
+    "active": 1,
+    "quality": "preview",
+    "sourceLoads": 2,
+    "seen": true,
+    "allowed": true,
+    "paused": false,
+    "time": 4.151521,
+    "width": 480,
+    "height": 270,
+    "pending": false
+  },
+  "errors": [],
+  "writes": 0,
+  "source": "Playback fixture only:960\u00d7540 reviewed motion,480\u00d7270 phone encode; final4K/1080 must be rerun."
+}

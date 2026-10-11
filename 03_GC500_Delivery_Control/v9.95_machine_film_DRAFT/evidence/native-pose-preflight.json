@@ -1,0 +1,35 @@
+{
+  "author": "Andrew Fisher",
+  "status": "Low-resolution preflight passed;4K render queued",
+  "source_manifest": "d573ed4017f9ebf0c9c8502367b847f4409eac75c9f3d4f59d5977151ffb7b13",
+  "hook_sha256": "44c7725c8123c4f8e698aec52bd95cbb9a03123db27c71e55c12f45e4a492cc9",
+  "source_parts": 176,
+  "visible_parts_retained": 175,
+  "hidden_part": {
+    "index": 18,
+    "id": "base"
+  },
+  "dimensions": [
+    960,
+    540
+  ],
+  "fps": 30,
+  "unique_native_poses": 137,
+  "all_actual_vertices_in_frame": true,
+  "native_endpoint_picture_identical": true,
+  "native_endpoint_pose_identical": true,
+  "loop_boundary_velocity": "Zero: identical assembled pose held 1 second on each side of the join",
+  "original_artwork": "Original 1179\u00d71179 texture unchanged; no fonts or wording replaced",
+  "movie_path": "/workspace/private-gc500-machine995/orbit-proof4/motion-review-960.mp4",
+  "movie_sha256": "bd18f2719acb1f554b3b538c8f5202cf7ca5743c3cfd33dcb6b2d3fd05008c5d",
+  "source_modules_compared_to_live": [
+    "app.js",
+    "model.js",
+    "mechanics.js",
+    "parts.js",
+    "poses.js",
+    "service-parts.js"
+  ],
+  "source_modules_match_live": true,
+  "console_note": "One blocked Google Fonts CSS request causes an expected ERR_FAILED console line; all render assets local and manifest-verified, with no JavaScript exceptions or missing local files"
+}
