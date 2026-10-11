@@ -4,6 +4,19 @@
  function enhance(card) {
   if (!card || card.dataset.preview993) return;
   card.dataset.preview993 = '1';
+  for (const ref of card.querySelectorAll('.lc991-summary .tl841-ref')) {
+   const asset = assetOf(ref.dataset.tl841Ref);
+   const record = asset && handling875Record(asset);
+   // Permanent recorded instructions; never infer an unloading method from a vehicle or a guide.
+   if (!record || !['forklift', 'tilt-tray', 'crane-truck', 'franna', 'onsite-crane', 'none'].includes(record.method)) continue;
+   const fact = document.createElement('span'); fact.className = 'lc993-unload';
+   fact.dataset.unloadMethod993 = record.method;
+   fact.textContent = handling875Words(record.method);
+   if (record.source) {
+    const source = document.createElement('small'); source.textContent = ' · Schedule'; fact.append(source);
+   }
+   (ref.querySelector('.ld-w') || ref).append(fact);
+  }
   for (const strong of card.querySelectorAll('.lc992-product > .r931-fact > strong')) {
    const original = strong.textContent;
    const parts = original.split(' · ');

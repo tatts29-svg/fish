@@ -19,11 +19,14 @@ def main():
         raise SystemExit('Wrong base: requires exact live v9.92')
     s = rep(s, "+ ' · v9.92'", "+ ' · v9.93 DESIGN PREVIEW — NOT LIVE'", 'Draft preview footer', str(p))
     s = rep(s, '</head>\n<body', '<style id="preview993-style">' +
-            (HERE / 'preview993.css').read_text() + '</style>\n</head>\n<body',
+            (HERE / 'preview993.css').read_text() + '\n' +
+            (HERE / 'today993.css').read_text() + '</style>\n</head>\n<body',
             'Preview hierarchy and interaction styling', str(p))
     s = rep(s, '</body>\n</html>', '<script id="preview993-script">' +
-            (HERE / 'preview993.js').read_text() + '</script>\n</body>\n</html>',
-            'Preserve and format native measurement strings', str(p))
+            (HERE / 'preview993.js').read_text() + '</script>\n' +
+            '<script id="today993-script">' + (HERE / 'today993.js').read_text() +
+            '</script>\n</body>\n</html>',
+            'Native load facts and compact Today controls', str(p))
     p.write_text(s)
 
 

@@ -87,3 +87,26 @@ html[data-motion="off"] #pane-timeline .ld.tl846.lc991 .ld-nav {animation:none!i
 @media(prefers-reduced-motion:reduce) {#pane-timeline .ld.tl846.lc991 .ld-nav {animation:none!important}}
 @media print {#pane-timeline .ld.tl846.lc991,#pane-timeline .ld.tl846.lc991 * {transition:none!important}}
 @media print {#pane-timeline .ld.tl846.lc991 .ld-nav {animation:none!important}}
+
+/* Iteration 2: pack facts and warnings at their natural size. */
+#pane-timeline .ld.tl846.lc991>.tl846-layout {padding:12px 14px;gap:8px 14px;grid-template-rows:min-content 1fr}
+#pane-timeline .ld.tl846.lc991 .lc991-summary {grid-column:1;grid-row:1 / span 2;gap:12px;grid-template-columns:42px 86px minmax(0,1fr)}
+#pane-timeline .ld.tl846.lc991 .lc991-summary.lc991-untimed {grid-template-columns:42px minmax(0,1fr)}
+#pane-timeline .ld.tl846.lc991 .lc991-warnings {grid-column:2;grid-row:2;align-self:start;justify-content:flex-end;max-width:210px;border:0;padding:0}
+#pane-timeline .ld.tl846.lc991 .lc992-data {align-items:center;gap:10px 14px;margin-top:8px}
+#pane-timeline .ld.tl846.lc991 .lc992-data>.tl841-gantry {flex-basis:350px;width:350px;align-self:center}
+#pane-timeline .ld.tl846.lc991 .lc992-measures {flex:0 1 auto;max-width:100%;gap:8px}
+#pane-timeline .ld.tl846.lc991 .lc992-product {padding:0 0 0 12px;border:0;border-left:1px solid #7894a552;border-radius:0;background:transparent}
+#pane-timeline .ld.tl846.lc991 .lc992-product>.r931-fact {margin-top:3px}
+#pane-timeline .ld.tl846.lc991 .lc992-product>.r931-fact>strong.lc993-readings {margin-top:3px;gap:6px 16px}
+#pane-timeline .ld.tl846.lc991 .lc993-unload {display:inline-flex;align-items:baseline;gap:2px;color:#ffd0ae;font-weight:600;border-left:1px solid #8299a366;padding-left:8px;line-height:1.45}
+#pane-timeline .ld.tl846.lc991 .lc993-unload small {font-size:11px;font-weight:400;color:#b6cbd4}
+@media(max-width:700px) {
+ #pane-timeline .ld.tl846.lc991>.tl846-layout {padding:12px;grid-template-rows:auto;gap:9px}
+ #pane-timeline .ld.tl846.lc991 .lc991-summary,#pane-timeline .ld.tl846.lc991 .lc991-summary.lc991-untimed {grid-row:1;grid-template-columns:42px minmax(0,1fr);gap:8px 12px}
+ #pane-timeline .ld.tl846.lc991 .lc991-warnings {grid-column:1;grid-row:2;justify-content:flex-start;max-width:100%}
+ #pane-timeline .ld.tl846.lc991 .lc991-actions {grid-row:3}
+ #pane-timeline .ld.tl846.lc991 .lc992-measures {flex-basis:100%}
+ #pane-timeline .ld.tl846.lc991 .lc992-product {padding:0;border:0}
+ #pane-timeline .ld.tl846.lc991 .lc993-unload {border:0;padding:0;flex-basis:100%}
+}
