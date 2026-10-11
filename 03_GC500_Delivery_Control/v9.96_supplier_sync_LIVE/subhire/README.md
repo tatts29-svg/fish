@@ -2,7 +2,7 @@
 
 Author: Andrew Fisher
 
-Status: scoped implementation ready for root integration. Release-level checks and public verification remain with the root release owner; this folder is not independently READY TO UPLOAD.
+Status: LIVE in v9.96, published 12 Oct 2026 at 02:34 AEST. Final root integration and actual-public verification passed.
 
 `patch_supplier996.py:patch(html)` composes after v9.94 or later. The native shared record is unchanged. `Supplier996.model()` supplies current inventory, cumulative receipts, outstanding dated fulfilment, daily deliveries and proposed supplier demob loads. Exact typed collection evidence is read from `DemobCollection996.read`; current stock and cumulative arrivals remain separate.
 
@@ -30,8 +30,8 @@ The five original supplier PDFs were reviewed, including rendered scanned load s
 
 ## Verification
 
-`tests/integration996.cjs` uses the shared read-only browser harness, with all operational writes blocked. Run under `/tmp/gc500-browser.lock`, with `PAGE` pointing to the candidate, `MOB=1` for phone and `OUTDIR` for private artifacts. Local-only receipt and quantity fixtures are restored before completion. Desktop 24 and phone 21 focused checks passed: current/remaining counts, source resolution, date/quantity propagation, capacity, PDF generation, Back/Close/Escape/focus and viewport overflow. Phone inventory and remaining-delivery screenshots were inspected.
+`tests/integration996.cjs` uses the shared read-only browser harness, with all operational writes blocked. Run under `/tmp/gc500-browser.lock`, with `PAGE` pointing to the candidate, `MOB=1` for phone and `OUTDIR` for private artifacts. Local-only receipt and quantity fixtures are restored before completion. Final desktop 26 and phone 21 focused checks passed: current/remaining counts, source resolution, date/quantity propagation, capacity, PDF generation, Back/Close/Escape/focus and viewport overflow. Phone inventory and remaining-delivery screenshots were inspected.
 
-`tests/collections996.cjs` tests the shared typed collection reader with the root current-stock adapter. The earlier combined candidate passed seven checks; the final combined rerun stopped on a Playwright protocol assertion during machine process exhaustion, before application results. That final rerun remains pending with root integration. Its fixtures preserve cumulative receipts and customer charging while removing collected items from current inventory and proposed demob. Independent adversarial model/capacity review passed 16 checks; shared source-request resolution passed 13 collision, precedence and cancellation checks. No live operational writes or email sends occurred.
+`tests/collections996.cjs` tests the shared typed collection reader with the root current-stock adapter. The final combined candidate passed all eight checks after the temporary workspace process exhaustion was resolved. Its fixtures preserve cumulative receipts and customer charging while removing collected items from current inventory and proposed demob. Independent adversarial model/capacity review passed 16 checks; shared source-request resolution passed 13 collision, precedence and cancellation checks. No live operational writes or email sends occurred.
 
-Root owns combined v9.96 integration, final full-page checks, source-bound current PDFs and publication. Candidate PDFs are review artifacts until the final public model is verified.
+Root completed combined v9.96 integration, final navigation sweeps and actual-public verification. Final supplier PDF exports are generated from the verified live page and current shared record, separately from earlier candidate previews.

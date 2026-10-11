@@ -1,0 +1,219 @@
+{
+  "author": "Andrew Fisher",
+  "generatedUtc": "2026-10-11T16:40:15.714Z",
+  "publicHtmlSha256": "dc648c02fa4d083a78a7068c08526f31e8ad3adfaf3a6beffce4ba326a71a551",
+  "recordVersionBefore": 5306,
+  "recordVersionAfter": 5306,
+  "asAt": "2026-10-12",
+  "summary": {
+    "onSite": 83,
+    "onsiteUnknown": 0,
+    "received": 83,
+    "identified": 91,
+    "quantityOnly": 6,
+    "remaining": 113,
+    "references": 14,
+    "spares": 1,
+    "fwf": {
+      "confirmed": 194,
+      "received": 75,
+      "onSite": 75,
+      "pending": 113,
+      "unallocated": 6,
+      "over": 0
+    }
+  },
+  "remainingDates": [
+    "Tue 13 Oct 2026",
+    "Thu 15 Oct 2026",
+    "Mon 19 Oct 2026",
+    "Thu 22 Oct 2026"
+  ],
+  "counts": {
+    "page": 0,
+    "live": 47,
+    "blocked": 0,
+    "publicHtmlSha256": "dc648c02fa4d083a78a7068c08526f31e8ad3adfaf3a6beffce4ba326a71a551",
+    "localMapSessions": 1
+  },
+  "checks": [
+    {
+      "name": "Public HTML matches released hash",
+      "pass": true,
+      "detail": {
+        "expected": "dc648c02fa4d083a78a7068c08526f31e8ad3adfaf3a6beffce4ba326a71a551",
+        "actual": "dc648c02fa4d083a78a7068c08526f31e8ad3adfaf3a6beffce4ba326a71a551"
+      }
+    },
+    {
+      "name": "No candidate HTML substitution",
+      "pass": true
+    },
+    {
+      "name": "Shared record is hydrated and view-only",
+      "pass": true,
+      "detail": {
+        "version": 5306,
+        "minimum": 5306,
+        "readonly": true
+      }
+    },
+    {
+      "name": "Proposed supplier portable loads respect24/6capacity",
+      "pass": true
+    },
+    {
+      "name": "Every16-pan block has a full separate truck",
+      "pass": true
+    },
+    {
+      "name": "All current supplier demob units reconcile to on-site inventory",
+      "pass": true
+    },
+    {
+      "name": "Remaining physical loads reconcile to scheduled quantities",
+      "pass": true
+    },
+    {
+      "name": "Public outside-island demob precedes island",
+      "pass": true
+    },
+    {
+      "name": "inventory export returns a safe PDF filename",
+      "pass": true
+    },
+    {
+      "name": "inventory PDF carries current on-site and scheduled totals",
+      "pass": true
+    },
+    {
+      "name": "inventory PDF discloses the unallocated FWF balance",
+      "pass": true
+    },
+    {
+      "name": "inventory PDF keeps blocks and panels separate",
+      "pass": true
+    },
+    {
+      "name": "Inventory PDF includes every recorded asset number",
+      "pass": true,
+      "detail": {
+        "count": 91
+      }
+    },
+    {
+      "name": "remaining export returns a safe PDF filename",
+      "pass": true
+    },
+    {
+      "name": "remaining PDF carries current on-site and scheduled totals",
+      "pass": true
+    },
+    {
+      "name": "remaining PDF discloses the unallocated FWF balance",
+      "pass": true
+    },
+    {
+      "name": "remaining PDF keeps blocks and panels separate",
+      "pass": true
+    },
+    {
+      "name": "All-dates PDF preserves every remaining recorded date",
+      "pass": true,
+      "detail": {
+        "dates": [
+          "Tue 13 Oct 2026",
+          "Thu 15 Oct 2026",
+          "Mon 19 Oct 2026",
+          "Thu 22 Oct 2026"
+        ]
+      }
+    },
+    {
+      "name": "All-dates PDF clearly identifies proposed transport",
+      "pass": true
+    },
+    {
+      "name": "demob export returns a safe PDF filename",
+      "pass": true
+    },
+    {
+      "name": "demob PDF carries current on-site and scheduled totals",
+      "pass": true
+    },
+    {
+      "name": "demob PDF discloses the unallocated FWF balance",
+      "pass": true
+    },
+    {
+      "name": "demob PDF keeps blocks and panels separate",
+      "pass": true
+    },
+    {
+      "name": "Demob PDF includes every allocated current asset number",
+      "pass": true,
+      "detail": {
+        "count": 77
+      }
+    },
+    {
+      "name": "Demob PDF states vehicle limits and pump-out check",
+      "pass": true
+    },
+    {
+      "name": "No browser errors",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "No operational writes or email sends",
+      "pass": true,
+      "detail": {
+        "page": 0,
+        "live": 47,
+        "blocked": 0,
+        "publicHtmlSha256": "dc648c02fa4d083a78a7068c08526f31e8ad3adfaf3a6beffce4ba326a71a551",
+        "localMapSessions": 1
+      }
+    }
+  ],
+  "exports": [
+    {
+      "kind": "inventory",
+      "file": "GC500_Event_Portables_Inventory_2026-10-12.pdf",
+      "pages": 4,
+      "bytes": 76257,
+      "sha256": "801eb9b20e02210b2a56d5465163ca9b439d619d11b7e37875deb69f84b2cea3",
+      "preview": "inventory-mupdf.png"
+    },
+    {
+      "kind": "remaining",
+      "file": "GC500_Event_Portables_Remaining_All_dates_2026-10-12.pdf",
+      "pages": 13,
+      "bytes": 172284,
+      "sha256": "4d5eb2c2a5f34c29aa56e7692d75d32e1675822136522024e6f6230af9c9c905",
+      "preview": "remaining-mupdf.png"
+    },
+    {
+      "kind": "demob",
+      "file": "GC500_Event_Portables_Demob_Proposed_2026-10-12.pdf",
+      "pages": 8,
+      "bytes": 92795,
+      "sha256": "e0c778de5d36417d82aeac4a8c8cd1487c95adcb4f8b7089a71b3745836dc799",
+      "preview": "demob-mupdf.png"
+    }
+  ],
+  "visualInspection": {
+    "status": "passed",
+    "renderer": "MuPDF",
+    "pagesReviewed": [
+      "inventory page1",
+      "all remaining page1",
+      "demob page1"
+    ],
+    "findings": "Readable standard Helvetica text; headings, reconciliation, tables, asset numbers and location QR fit without overlap. Earlier local Poppler previews had font-substitution distortion; the PDFs were unchanged."
+  },
+  "operationalWrites": 0,
+  "emailSends": 0,
+  "exportToolSha256": "1170657193f5dcfeb4ed610cdddd429f5d3a4bc3039e3356a123f12568645c3e"
+}

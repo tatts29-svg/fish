@@ -2,6 +2,8 @@
 
 Author: Andrew Fisher
 
+LIVE — Parent and external map files published 12 Oct 2026 at 02:34 AEST. Actual-public fresh-cache identity checks passed 16/16, followed by 9/9 settled phone Plan checks. All 178 references present; zero writes/errors. See the release evidence for exact hashes and cache-diagnostic scope.
+
 The map retained old asset numbers and names when a reference stayed at the same point. It also omitted Event Portables numbers and the numbers of unplaced assets from the embedded search. This scoped change reuses the existing map and its native rendering, while refreshing its current identity, search results, selected marker and open card from the same shared record used by item cards.
 
 ## Integration
