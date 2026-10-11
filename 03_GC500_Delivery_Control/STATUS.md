@@ -1,5 +1,9 @@
 <!-- Author: Andrew Fisher -->
 
+READY TO UPLOAD — v10.00 maximum 24 Event Portables portaloos per day; one A4 portrait PDF page per delivery day. Source f239a834; exact v9.99 base bfb7767a4036d7103940ed932365d687fe15a76921c6670d1ea78c6732b93dc8; final candidate b899e56b8d76776ed361940a0fd2e968628edee562e274b9b33aa8e10679cdc4, 14,896,315 bytes, 89 scripts. Proposed99:13Oct24,14Oct3,15Oct24,19Oct24,20Oct20,22Oct4. Dated allocation preserves fulfilled slots; receipts cannot pull later balances back. Native records unchanged. 30 allocator and9packing checks; desktop45/phone38 focused checks; both22-route/seven-link/Back sweeps pass with zero errors. Six-page combined and six individual portrait PDFs verified, busiest pages and finalphone inspected. Shared remaining dates feed supplier/daily/drawer/map/draft displays. Exact build/source/guard checks and upload dry run pass. Root implementation/release with scoped independent allocator review/testing. Separate2-page water barrier schedule checked against all30 Schedule7/native movements, record5324; WB02 removal remains unconfirmed. No emails. Guarded publication and fresh public PDFs follow.
+
+<!-- Author: Andrew Fisher -->
+
 EXTENDED SCOPE — v10.00 Andrew now requests one A4 portrait page per delivery day, plus a separate current water barrier schedule PDF. Remaining supplier export is being compacted to six legible portrait pages, with one-page per-day exports. Current plan/date labels in expanded cards, map and reference draft also use the shared remaining portions. Water barrier schedule is a separate read-only native/source reconciliation and PDF; no operational edits or emails. Prior candidate checks are retained as intermediate evidence; final revised bytes will be retested before publication.
 
 <!-- Author: Andrew Fisher -->
