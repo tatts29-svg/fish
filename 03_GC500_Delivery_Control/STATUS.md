@@ -1,5 +1,9 @@
 <!-- Author: Andrew Fisher -->
 
+CLAIMED — v10.02 precise supplier destinations. Andrew says generic destination lines such as Surfers Paradise and Main Beach Pde are unacceptable. Root owns evidence-backed detailed locations from original master plan, schedule and current native reference details, shared supplier presentation and updated portrait PDFs. Preserve v10.01 dates24/24/24/24/3, quantities, routes and verifiedQRcoordinates; use exact named destination/landmark/adjacentroad where source supports it, with meet-point/access instructions separated from actual placement. Independent scoped south/north source review underway. Exactbase67dc74f271b2c3927eb8ebaaa65d849b5879c9827fa382358194a20effe2cc7b. No invented placement, native operational writes or emails. Notready.
+
+<!-- Author: Andrew Fisher -->
+
 VERIFIED LIVE — v10.01 daily geographic toilet runs and adjacent QR. Published12Oct2026 07:55AEST; source4075c927, READYd34df75c. PublicSHA25667dc74f271b2c3927eb8ebaaa65d849b5879c9827fa382358194a20effe2cc7b,14,901,986bytes,89scripts. 99allocatedFWF:24each13–16Oct,final3on17Oct;41referencesstaytogether,outside/public68first. Supplier/daily/reference/map projections agree. Native97onsite and6unallocated unchanged, record5324. Candidate and actualpublicdesktop55/phone49 pass; bothfinal22-route/seven-link/Back sweeps pass withzeroerrors. 35allocator+9packing+858publicPDFchecks pass. FiveA4portraitdays and individualdayexports include82decodedQRinstances; nine refs useexplicitverifiedpitlanemeetpoint. Phone and PDFvisuals inspected. WaterbarrierPDF15QR/30movements verified;WB02unconfirmedremoval remains explicit. Root implementation/publication withscopedindependent route/PDFreview. Source/evidence v10.01_qr_daily_routes_LIVE; privateoriginals/PDFs outsideGit. No native operational writes, bookings or emails. Future builds start from this exactpublichash.
 
 <!-- Author: Andrew Fisher -->
