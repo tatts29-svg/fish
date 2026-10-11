@@ -31,6 +31,8 @@ def apply(text, report_path=None, report_sha=None):
     roles = load_report(report_path or os.environ.get('MACHINE995_REPORT'),report_sha or os.environ.get('MACHINE995_REPORT_SHA256'))
     data,_,_ = literal(text)
     text = rep(text," function wire(im){\n const src=im.getAttribute('src')||'';"," function wire(im){\n if (im.tagName !== 'IMG') return; /* v9.95: picture status belongs to images, never lazy videos. */\n const src=im.getAttribute('src')||'';",'Keep picture loader scoped to images','v9.95')
+    text = rep(text,'aspect-ratio:1600/995;cursor:default}', 'aspect-ratio:16/9;cursor:default}', 'Match hero fallback to current16:9 film', 'v9.95')
+    text = rep(text,'.cwhero img,.cwhero video{display:block;width:100%;height:100%;object-fit:cover;background:#0b0f12}', '.cwhero img,.cwhero video{display:block;width:100%;height:100%;object-fit:contain;background:#0b0f12}', 'Keep the entire native frame within the original hero', 'v9.95')
     text = rep(text,OLD_VIDEO,NEW_VIDEO,'Lazy hero video without eager source downloads','v9.95')
     text = rep(text,OLD_WIRE," MachineFilm995.mount(pic && pic.querySelector('video.cwloop'));\n",'Owned hero playback lifecycle','v9.95')
     text = rep(text,'function machineCardHtml(){',(HERE/'player995.js').read_text()+'\nfunction machineCardHtml(){','Shared lazy film controller','v9.95')

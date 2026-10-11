@@ -14,7 +14,7 @@ permissions remain. The native Open machine action remains. The rendered movie
 uses the original geometry/artwork; render details and limits are in
 `RENDER_README.md`. No mechanical part-count claim is added to the page.
 
-The hero retains the native muted loop. Its source is assigned only when the card
+The hero retains the native muted loop. Its existing inline ratio already follows the16:9 media; the CSS fallback now agrees and contain-fit prevents any border/padding ratio from cropping the frame. Actual poster/video bounds are checked on desktop and phone. Its source is assigned only when the card
 is visible and motion is allowed. Desktop uses the native 3840×2160 movie; a CSS
 viewport up to 767px or Save-Data uses the matched 1920×1080 encode. Device pixel
 ratio does not turn a phone into the desktop download. Only one movie URL is set.

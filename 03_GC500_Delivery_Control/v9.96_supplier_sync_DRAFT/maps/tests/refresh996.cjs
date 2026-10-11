@@ -1,0 +1,43 @@
+// Author: Andrew Fisher. Native map build/search/refresh exercised with in-memory record changes; no network or persistence.
+'use strict';
+const fs=require('fs'),vm=require('vm'),assert=require('assert');
+const root=process.argv[2]||'/workspace/private-maps996';
+const baselineNative=fs.readFileSync(root+'/explorer.js','utf8'),native=fs.readFileSync(root+'/candidate/explorer.js','utf8');
+const candidate=fs.readFileSync(root+'/candidate/explorer-merge.js','utf8');
+const original=fs.readFileSync(root+'/explorer-merge.js','utf8');
+const span=(text,a,b)=>text.slice(text.indexOf(a),text.indexOf(b,text.indexOf(a)));
+const checks=[];
+function env(source){
+ const functions=source===original?baselineNative:native;
+ const elements={};
+ const element=id=>elements[id]||(elements[id]={id,innerHTML:'',value:'',scrollTop:0,hidden:false,dataset:{},classList:{toggle(){},remove(){},add(){}},closest(){return null},querySelector(){return null},querySelectorAll(){return []},replaceChildren(){this.innerHTML=''},focus(){c.focus=id}});
+ ['q','results','chips','findCard','findList','xcard'].forEach(element);elements.xcard.hidden=true;
+ const h={v:1,trades:[{name:'Toilets',n:1,count:'1'}],items:[{key:'WC61',trade:'Toilets',name:'Coates compound',pt:[.2,.4],sec:'S01',assets:'0645'}],unplaced:[],layers:[]};
+ let paints=0,repins=0,cards=0;
+ const c={console,JSON,Map,Set,window:{__ready:true,parent:{gc500PlanCard:()=>c.card}},document:{activeElement:null,closest(){return null},querySelector(){return null},querySelectorAll(){return []}},HOST:null,P:{labels:[]},REG:null,PLAN_SNAP:null,CATS:[],LANDMARKS:new Set(),TRADE_C:{Toilets:'#ff6a13'},LAYER_C:{},ITEMS:[],CATS_NOW:[],marks:[],selected:null,lastSearch:[],highlight:null,SHEET_W:1000,SHEET_H:1000,
+  $:element,$$:element,hostPlan:()=>h,sheetOfLL:(lat,lon)=>[lat,lon],norm:s=>String(s).toUpperCase().replace(/[\s\-_.]+/g,' ').trim(),ptBox:pt=>[pt[0]*1000-1,pt[1]*1000-1,pt[0]*1000+1,pt[1]*1000+1],catOf:()=>null,esc:String,placeWord:it=>it.places.length?'placed':'unplaced',ok897:()=>'',done782Chip(){},requestPaint(){paints++},stopPulse(){c.pulseStopped=true},gotoRect(){throw Error('Refresh moved the camera')},showCategory(){},card:{name:'Coates compound',stage:{n:3,label:'At location'}}};
+ c.window.GC500ExplorerRepin=()=>repins++;c.window.GC500ExplorerRefreshCard897=()=>{cards++;return true};vm.createContext(c);
+ vm.runInContext(span(functions,'function buildItems() {','function showCategory('),c);
+ vm.runInContext(span(functions,'function search() {','function chooseResult('),c);
+ const start=source.includes('v9.96:')?'  /* Author: Andrew Fisher. v9.96:':'  /* what the items were last built from';
+ vm.runInContext(span(source,"  if (typeof hostPlan === 'function' && !hostPlan.__placed)",start),c);
+ vm.runInContext(span(source,start,'/* pick a point */'),c);
+ vm.runInContext('buildItems()',c);
+ return {c,h,e:elements,run:code=>vm.runInContext(code,c),counts:()=>({paints,repins,cards})};
+}
+function check(name,fn){fn();checks.push(name)}
+check('Original defect reproduced: same-position asset rename remains cached',()=>{const x=env(original);x.h.items[0].assets='0999';assert.equal(x.run('refresh()'),false);assert.equal(x.c.ITEMS[0].reg.asset_numbers,'0645')});
+check('Search catches a received record before its deferred parent redraw',()=>{const x=env(candidate);x.c.window.GC500Explorer={refresh:x.c.refresh};x.h.items[0].assets='002222';x.e.q.value='002222';x.run('search()');assert(x.e.results.innerHTML.includes('WC61'));assert.equal(x.c.ITEMS[0].reg.asset_numbers,'002222')});
+check('Changed number replaces old map search results without reloading',()=>{const x=env(candidate);x.e.q.value='0645';x.run('search()');assert(x.e.results.innerHTML.includes('WC61'));x.h.items[0].assets='0999';assert(x.run('refresh()'));assert(!x.e.results.innerHTML.includes('data-code="WC61"'));x.e.q.value='0999';x.run('search()');assert(x.e.results.innerHTML.includes('WC61'));assert.equal(x.c.ITEMS[0].reg.asset_numbers,'0999')});
+check('Description changes update existing name query',()=>{const x=env(candidate);x.e.q.value='compound';x.run('search()');x.h.items[0].name='Public gate';x.run('refresh()');assert(!x.e.results.innerHTML.includes('data-code="WC61"'));x.e.q.value='Public gate';x.run('search()');assert(x.e.results.innerHTML.includes('WC61'))});
+check('Same-count unplaced replacement removes old identity',()=>{const x=env(candidate);x.h.unplaced=[{key:'WC85',trade:'Toilets',name:'Spare'}];x.run('refresh()');x.h.unplaced=[{key:'WC86',trade:'Toilets',name:'Spare'}];x.run('refresh()');assert(x.c.ITEMS.some(i=>i.code==='WC86'));assert(!x.c.ITEMS.some(i=>i.code==='WC85'))});
+check('Moved marker rebinds once to new point and preserves selected identity',()=>{const x=env(candidate);x.run('selected=ITEMS[0];marks=[{it:ITEMS[0],c:"orange"}]');x.h.items[0].pt=[.8,.7];x.run('refresh()');assert.equal(x.c.marks.length,1);assert.equal(x.c.marks[0].it,x.c.ITEMS[0]);assert.equal(x.c.selected,x.c.ITEMS[0]);assert.equal(x.c.marks[0].it.places[0][0],799)});
+check('Removed selected reference removes ghost marker and card',()=>{const x=env(candidate);x.e.xcard.hidden=false;x.run('selected=ITEMS[0];marks=[{it:ITEMS[0],c:"orange"}]');x.h.items=[];x.h.trades=[];x.run('refresh()');assert.equal(x.c.selected,null);assert.equal(x.c.marks.length,0);assert(x.e.xcard.hidden);assert(x.c.pulseStopped)});
+check('Stage-only change refreshes open card without geometry rebuild',()=>{const x=env(candidate);x.e.xcard.hidden=false;x.run('selected=ITEMS[0]');x.run('refresh()');const item=x.c.ITEMS[0],before=x.counts().cards;x.c.card.stage={n:4,label:'Installed'};x.run('refresh()');assert.equal(x.counts().cards,before+1);assert.equal(x.c.ITEMS[0],item);assert.equal(x.counts().repins,0)});
+check('Unchanged snapshot does not rebuild lists or active card',()=>{const x=env(candidate);x.e.xcard.hidden=false;x.run('selected=ITEMS[0]');x.run('refresh()');const before=x.counts(),item=x.c.ITEMS[0];assert.equal(x.run('refresh()'),false);assert.equal(x.c.ITEMS[0],item);assert.deepEqual(x.counts(),before)});
+check('Active query and scroll positions survive record refresh',()=>{const x=env(candidate);x.e.q.value='WC61';x.e.results.scrollTop=80;x.e.findList.scrollTop=150;x.h.items[0].assets='0123';x.run('refresh()');assert.equal(x.e.q.value,'WC61');assert.equal(x.e.results.scrollTop,80);assert.equal(x.e.findList.scrollTop,150)});
+check('Trade/layer information is part of the live signature',()=>{const x=env(candidate);x.h.items[0].sec='S02';assert(x.run('refresh()'));assert.equal(x.c.ITEMS[0].reg.sec,'S02');x.h.layers=[{id:'test',name:'Test layer',n:0,marks:[]}];assert(x.run('refresh()'))});
+check('Unplaced references retain and search their asset identity',()=>{const x=env(candidate);x.h.unplaced=[{key:'T0268',trade:'Toilets',name:'Spare',assets:'001234',ownership:'Coates',location:'Coates compound'}];x.run('refresh()');x.e.q.value='001234';x.run('search()');assert(x.e.results.innerHTML.includes('T0268'));assert(x.e.results.innerHTML.includes('Coates compound'))});
+check('Sub-hired quantity-only rows search by owner without a fake number',()=>{const x=env(candidate);x.h.items[0].assets='';x.h.items[0].ownership='SUB-HIRED · Event Portables | Pee panels · quantity 6 · no fleet numbers';x.run('refresh()');x.e.q.value='Event Portables';x.run('search()');assert(x.e.results.innerHTML.includes('WC61'));assert(!x.e.results.innerHTML.includes('asset undefined'));assert(!x.e.results.innerHTML.includes(' · asset '));assert(x.e.results.innerHTML.includes('quantity 6'))});
+check('A natively pinned reference keeps ownership and named destination',()=>{const x=env(candidate);x.h.placed=[{key:'WC85',trade:'Toilets',name:'Toilets',ll:[.7,.6],assets:'001111',ownership:'SUB-HIRED · Event Portables',location:'Coates compound'}];x.run('refresh()');const row=x.c.ITEMS.find(i=>i.code==='WC85');assert.equal(row.reg.asset_numbers,'001111');assert.equal(row.reg.ownership,'SUB-HIRED · Event Portables');assert.equal(row.reg.location,'Coates compound');assert(row.placedHow.includes('not on the master plan'))});
+console.log(JSON.stringify({author:'Andrew Fisher',checks:checks.length,passed:checks,networkRequests:0,recordWrites:0},null,2));

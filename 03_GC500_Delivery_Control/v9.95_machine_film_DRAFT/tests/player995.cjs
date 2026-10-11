@@ -45,11 +45,15 @@ const out=process.env.OUTDIR||'/workspace/private-gc500-integration995/'+(mobile
   check(videoRequests().length===0,'Motion off shows native poster without movie download');
   await p.emulateMedia({reducedMotion:'reduce'});await p.evaluate(()=>{localStorage.removeItem('gc500.motion');motionApply();});
   check(await p.locator('#cwHero video').evaluate(v=>v.paused&&!v.getAttribute('src')&&!!v.poster),'Reduced motion retains poster and no film source');
+  const posterBounds=await p.locator('#cwHero video').evaluate(async v=>{const image=new Image();image.src=v.poster;await image.decode();const r=v.getBoundingClientRect(),h=v.parentElement.getBoundingClientRect(),style=getComputedStyle(v),scale=Math.min(v.clientWidth/image.naturalWidth,v.clientHeight/image.naturalHeight);return{fit:style.objectFit,ratio:image.naturalWidth/image.naturalHeight,paintWidth:image.naturalWidth*scale,paintHeight:image.naturalHeight*scale,width:v.clientWidth,height:v.clientHeight,inside:r.left>=h.left-.5&&r.right<=h.right+.5&&r.top>=h.top-.5&&r.bottom<=h.bottom+.5,heroRatio:h.width/h.height};});evidence.posterBounds=posterBounds;
+  check(posterBounds.fit==='contain'&&posterBounds.inside&&Math.abs(posterBounds.ratio-16/9)<.001&&Math.abs(posterBounds.heroRatio-16/9)<.01&&posterBounds.paintWidth<=posterBounds.width+.1&&posterBounds.paintHeight<=posterBounds.height+.1,'Complete16:9 poster fits inside original hero without cropping');
   await p.emulateMedia({reducedMotion:'no-preference'});await p.evaluate(()=>motionApply());await play();
   const selected=mobile?'preview':'full',row=files.roles[selected],first=await report();
   check(first.quality===selected&&first.sourceLoads===1,'CSS viewport chooses one '+selected+' source');
   check(await p.locator('#cwHero video').evaluate((v,row)=>v.currentSrc.endsWith(row.file)&&v.videoWidth===row.width&&v.videoHeight===row.height,row),'Selected media actually decodes at declared dimensions');
   check(videoRequests().every(r=>r.file===row.file),'Only the chosen movie is fetched');
+  const filmBounds=await p.locator('#cwHero video').evaluate(v=>{const r=v.getBoundingClientRect(),h=v.parentElement.getBoundingClientRect(),scale=Math.min(v.clientWidth/v.videoWidth,v.clientHeight/v.videoHeight);return{fit:getComputedStyle(v).objectFit,width:v.clientWidth,height:v.clientHeight,paintWidth:v.videoWidth*scale,paintHeight:v.videoHeight*scale,inside:r.left>=h.left-.5&&r.right<=h.right+.5&&r.top>=h.top-.5&&r.bottom<=h.bottom+.5};});evidence.filmBounds=filmBounds;
+  check(filmBounds.fit==='contain'&&filmBounds.inside&&filmBounds.paintWidth<=filmBounds.width+.1&&filmBounds.paintHeight<=filmBounds.height+.1,'Entire decoded movie frame fits inside hero without clipping geometry');
   const start=await p.locator('#cwHero video').evaluate(v=>({time:v.currentTime,frames:v.getVideoPlaybackQuality().totalVideoFrames}));
   await p.waitForFunction(s=>{const v=document.querySelector('#cwHero video');return v.currentTime>s.time+.2&&v.getVideoPlaybackQuality().totalVideoFrames>s.frames},start,{timeout:10000});
   check(true,'Actual decoded frames and playback time advance');
