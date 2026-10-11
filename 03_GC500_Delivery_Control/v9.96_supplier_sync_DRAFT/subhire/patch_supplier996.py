@@ -10,7 +10,7 @@ def patch(html):
         raise RuntimeError('Supplier996 already applied')
     if 'generatorRefLabel994' not in html or 'const Subhire975=' not in html:
         raise RuntimeError('Supplier996 needs the current v9.94 or later source')
-    html=rep(html,"kind==='remaining'?'Remaining deliveries - '+String(n):'Run sheet - Load '+Number(n)","kind==='remaining'?'Remaining deliveries - '+String(n):kind==='supplier-demob'?'Proposed demob run sheets':'Run sheet - Load '+Number(n)",'Demob document title','supplier996')
+    html=rep(html,"kind==='remaining'?'Remaining deliveries - '+String(n):'Run sheet - Load '+Number(n)","kind==='remaining'?'Remaining deliveries - '+(n?String(n):'all dates'):kind==='supplier-demob'?'Proposed demob run sheets':'Run sheet - Load '+Number(n)",'Demob document title','supplier996')
     html=rep(html,"kind==='remaining'?subhirePdf975(String(n),alive):epLoadPdf860(n,alive)","kind==='remaining'?subhirePdf975(String(n),alive):kind==='supplier-demob'?Supplier996.pdf('demob','',alive):epLoadPdf860(n,alive)",'Current demob document generator','supplier996')
     assets='<style id="supplier996-style">'+(HERE/'supplier996.css').read_text()+'</style>\n'
     for name in ['supplier996','supplier996_pdf','supplier996_ui','supplier996_daily']:

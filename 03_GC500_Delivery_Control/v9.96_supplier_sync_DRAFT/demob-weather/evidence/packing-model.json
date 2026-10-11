@@ -1,0 +1,19 @@
+{
+  "author": "Andrew Fisher",
+  "passed": 13,
+  "checks": [
+    "Two exact supplier block trucks and one untouched Coates accessible residual",
+    "Unknown, slot or other supplier ownership is not guessed as Event Portables",
+    "Partially identified block scope retains the remaining unit on native branch list",
+    "Conflicting block identities cannot choose an arbitrary unit",
+    "Twenty-four FWF retain their original physical load and date",
+    "Six pee panels and eighteen FWF fit exactly one load",
+    "Twelve panels and twelve FWF need two physical loads, with each quantity conserved",
+    "Two references cannot hide a combined panel count above six",
+    "An untyped mixed-item portion is qualified and cannot exceed possible panel capacity",
+    "Coates capacity and physical load object are untouched",
+    "Native card, print and mail helpers identify full trucks and exact assets",
+    "Repeated display numbers cannot claim two distinct block trucks",
+    "Portable item totals conserved over a range of mixed supplier quantities"
+  ]
+}

@@ -11,7 +11,12 @@ function asNative(L,day){
  return {kind:'deliveries',rows:[...groups.values()],time:null,timeRaw:'',carrier:'Event Portables',basis:'supplier996',_supplier996:L};
 }
 const daysBefore=programmeDays;
-programmeDays=function(){const days=daysBefore.apply(this,arguments),M=S996.model();for(const r of M.remaining.filter(r=>r.sourceOnly&&r.date)){let d=days.find(d=>d.iso===r.date);if(!d){d={iso:r.date,deliveries:[],removals:[],loads:[]};days.push(d);}const a=S996.requestAsset(r.ref);if(!d.deliveries.some(x=>x.a.key===a.key))d.deliveries.push({a,events:a.events});}return days.sort((a,b)=>a.iso.localeCompare(b.iso));};
+programmeDays=function(){
+ const days=daysBefore.apply(this,arguments),M=S996.model();
+ for(const d of days)if(d.iso>=todayIso())d.deliveries=residualDay(d,M).deliveries;
+ for(const r of M.remaining.filter(r=>r.date&&r.date>=todayIso())){let d=days.find(d=>d.iso===r.date);if(!d){d={iso:r.date,deliveries:[],removals:[],loads:[]};days.push(d);}const a=assetOf(r.ref)||S996.requestAsset(r.ref);if(!a)continue;let row=d.deliveries.find(x=>x.a.key===a.key);if(!row){row={a,events:[]};d.deliveries.push(row);}row.events.push({task_id:'supplier996:'+r.ref+':'+r.item,date:r.date,phase:'Build',item:r.item,quantity_raw:r.remaining,quantity_display:String(r.remaining),movement:'place',carrier:'Event Portables',supplierRequest996:r.sourceRequest?.id||null});}
+ return days.sort((a,b)=>a.iso.localeCompare(b.iso));
+};
 dpLoads=function(d){if(!d||d.iso<todayIso())return base.apply(this,arguments);const M=S996.model(),other=base(residualDay(d,M));return other.concat(S996.inboundLoads(d.iso).map(L=>asNative(L,d.iso)));};
 ldId=function(d,g){return g._supplier996?d.iso+'|'+g.kind+'|supplier996:'+g._supplier996.id:baseId.apply(this,arguments);};
 ldIsOpen=function(d,g){return g._supplier996?state.tlLoad===ldId(d,g):baseOpen.apply(this,arguments);};

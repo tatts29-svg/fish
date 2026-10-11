@@ -27,6 +27,11 @@ def patch(html):
             'function toiletProgressView962(a,d,v) {\n if (v.blocked || a._cancelled || d.moved || CurrentStock996.departed(a,todayIso())) return v;',
             'A recorded collection retains its native departure state',
         ),
+        (
+            'arrivals[l.item]=toiletArrival962(a,l.item,td,on?(q!=null?q+restArrived(a,l.item):qtyOf(l)||0):0);',
+            'arrivals[l.item]=CurrentStock996.received(a,l.item,td,toiletArrival962(a,l.item,td,on?(q!=null?q+restArrived(a,l.item):qtyOf(l)||0):0));',
+            'Arrival charge coverage retains evidence of units already collected',
+        ),
     ]
     for old, new, label in replacements:
         html = rep(html, old, new, label, __file__)

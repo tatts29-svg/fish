@@ -25,6 +25,8 @@ function check(value,name){result.checks.push({name,pass:!!value});assert(value,
  const search=async q=>frame.evaluate(value=>{document.getElementById('q').value=value;search();return document.getElementById('results').textContent;},q);
  check((await search('0645')).includes('WC61'),'Embedded map finds leading-zero supplier number');
  check((await search('1197215')).includes('T0268'),'Embedded map finds unplaced asset number');
+ result.coverage=await frame.evaluate(()=>{const model=window.parent.gc500PlanItems(),expected=[...new Set([...model.items,...model.unplaced,...(model.placed||[])].map(row=>norm(row.key)))],present=new Set(ITEMS.map(row=>row.code));return {parentReferences:expected.length,missing:expected.filter(key=>!present.has(key))};});
+ check(result.coverage.missing.length===0,'Every current parent reference is present in embedded map items');
  await frame.evaluate(()=>GC500Explorer.find('WC61'));await frame.waitForFunction(()=>gotoAnim887===0&&zAnim===0,null,{timeout:5000});const camera=await frame.evaluate(()=>JSON.stringify(GC500Explorer.state.view));
  await p.evaluate(()=>{const input=document.getElementById('q');input.value='0645';finderOpen('0645');});
  if(process.env.MOB!=='1')await frame.evaluate(()=>document.getElementById('q').focus());

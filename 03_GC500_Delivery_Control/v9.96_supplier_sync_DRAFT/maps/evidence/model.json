@@ -1,6 +1,6 @@
 {
   "author": "Andrew Fisher",
-  "checks": 14,
+  "checks": 15,
   "passed": [
     "Original defect reproduced: same-position asset rename remains cached",
     "Search catches a received record before its deferred parent redraw",
@@ -15,7 +15,8 @@
     "Trade/layer information is part of the live signature",
     "Unplaced references retain and search their asset identity",
     "Sub-hired quantity-only rows search by owner without a fake number",
-    "A natively pinned reference keeps ownership and named destination"
+    "A natively pinned reference keeps ownership and named destination",
+    "Entirely unplaced discipline stays searchable with zero mapped positions"
   ],
   "networkRequests": 0,
   "recordWrites": 0

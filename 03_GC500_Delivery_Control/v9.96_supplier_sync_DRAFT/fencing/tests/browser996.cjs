@@ -15,6 +15,7 @@ function check(name,value){assert(value,name);checks.push({name,pass:true});}
  });
  const rows=r.summary.summaryRows.filter(x=>x.id==='scrim_existing');check('one150m existing-fence activity',rows.length===1&&rows[0].recorded===150);check('no programme total or percentage',rows[0].planned===null&&rows[0].pct===null&&rows[0].remaining===null&&rows[0].kind==='recorded-only');
  check('native work summary uses same150m',r.work.fencingRows.find(x=>x.id==='scrim_existing')?.done===150);check('no activity before work date',!r.before.summaryRows.some(x=>x.id==='scrim_existing'));
+ check('activity has no false programme gap',r.work.fencingRows.find(x=>x.id==='scrim_existing')?.plan.label==='Recorded service activity');
  check('one source drill-down record',r.linked.state==='ready'&&r.linked.dockets.length===1&&r.linked.dockets[0].number==='24473'&&r.linked.dockets[0].papers.some(p=>p.id==='24473.jpg'&&p.state==='ready'));
  check('past-day work150m once',r.past.rows.filter(x=>x.label==='Scrim applied to existing fence').length===1&&r.past.rows.find(x=>x.label==='Scrim applied to existing fence').value==='150 m');
  check('past-day HTML retains activity',r.html.includes('Scrim applied to existing fence')&&r.html.includes('150 m'));
@@ -26,8 +27,15 @@ function check(name,value){assert(value,name);checks.push({name,pass:true});}
  for(const key of ['base','clamp'])check('36589 reduces '+key+' by5',r.baseline.components.recorded.find(x=>x.id===key).quantity-r.corrected.components.recorded.find(x=>x.id===key).quantity===5);
  check('programme matches survive correction',JSON.stringify(r.baseline.reviews)===JSON.stringify(r.corrected.reviews));check('correction does not suppress24473',r.corrected.summary.summaryRows.find(x=>x.id==='scrim_existing')?.recorded===150);check('local fixture restored',r.stateRestored);
  // Render the page's existing work-progress panel and use its own drill-down controls.
- await p.evaluate(()=>{const row=document.querySelector('[data-tw847-fence-summary-row="scrim_existing"]');if(!row)throw Error('Native activity row is missing from the rendered work board');let node=row;while(node){if(node.tagName==='DETAILS')node.open=true;node=node.parentElement;}row.scrollIntoView({block:'center'});});
+ await p.evaluate(()=>{const row=document.querySelector('[data-tw840-fence-row="scrim_existing"]');if(!row)throw Error('Native activity row is missing from the rendered work board');let node=row;while(node){if(node.tagName==='DETAILS')node.open=true;node=node.parentElement;}row.scrollIntoView({block:'center'});});
  await p.screenshot({path:path.join(out,'browser-'+(mob?'phone':'desktop')+'.png'),fullPage:false});
+ await p.locator('[data-tw840-fence-row="scrim_existing"] [data-tw840-fence-detail]').first().click();
+ const detail=p.locator('#gc500-work-dialog840');
+ await detail.waitFor({state:'visible'});
+ check('native click opens one supporting service note',await detail.locator('[data-tw844-docket]').count()===1&&(await detail.innerText()).includes('24473'));
+ check('activity detail avoids unsupported percentage and plan',!/(Percentage unconfirmed|Plan position unconfirmed|Dated installation plan unconfirmed)/.test(await detail.innerText()));
+ await detail.locator('[data-tw840-close]').click();
+ check('native close closes activity detail',await detail.isHidden());
  check('no page errors',h.errors.length===0);check('no operational writes',h.counts.blocked===0);
  fs.writeFileSync(path.join(out,'browser-'+(mob?'phone':'desktop')+'.json'),JSON.stringify({author:'Andrew Fisher',pass:true,checks,errors:h.errors,requests:h.counts},null,2));console.log(JSON.stringify({pass:true,checks:checks.length,mobile:mob}));
  }finally{await h.browser.close();}})().catch(e=>{console.error(e.stack);process.exitCode=1;});

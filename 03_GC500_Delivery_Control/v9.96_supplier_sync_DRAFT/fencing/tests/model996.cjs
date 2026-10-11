@@ -2,7 +2,7 @@
 const fs=require('fs'),path=require('path'),vm=require('vm'),assert=require('assert/strict');
 const {babelParse}=require(path.join(path.dirname(require.resolve('playwright')),'lib/transform/babelBundle.js'));
 const root=path.resolve(__dirname,'../../..'),out=process.env.AUDIT_DIR||'/workspace/private-gc500-fencing996';
-const base=fs.readFileSync(process.env.BASE||path.join(root,'build/GC500_v9.94-final/GC500_Delivery_Control_hosted.html'),'utf8');
+const base=fs.readFileSync(process.env.BASE||path.join(root,'build/GC500_v9.95-final/GC500_Delivery_Control_hosted.html'),'utf8');
 const page=fs.readFileSync(process.env.PAGE||path.join(out,'candidate.html'),'utf8');
 const snapshot=JSON.parse(fs.readFileSync(path.join(out,'native-snapshot.json')));
 const checks=[],clone=x=>JSON.parse(JSON.stringify(x));
@@ -16,6 +16,11 @@ function extract(html){const f={},constants={};for(const m of html.matchAll(/<sc
  }
  }return {f,constants};}
 const old=extract(base),now=extract(page),catalogue=now.constants.FENCE_PROGRESS848;
+check('Rewritten constants retain canonical declaration spacing',()=>{for(const name of ['DATA','FENCE_REVIEW836','FENCE_TRACE837','FENCE_EVIDENCE849','FENCE_PROGRESS848'])assert.equal([...page.matchAll(new RegExp('^const '+name+' = \\{','gm'))].length,1,name);});
+check('Factual person names survive the build scrubber',()=>{
+ const people=(value,prefix='DATA')=>Object.entries(value||{}).flatMap(([key,v])=>v&&typeof v==='object'?people(v,prefix+'.'+key):['name','by'].includes(key)&&typeof v==='string'&&v.includes('Andrew Fisher')?[[prefix+'.'+key,v]]:[]);
+ const expected=people(old.constants.DATA);assert(expected.some(([p])=>p.endsWith('.name')));assert(expected.some(([p])=>p.endsWith('.by')));assert.deepEqual(people(now.constants.DATA),expected);
+});
 for(const name of ['costDocket','allDockets','fenceByWeek','fenceByArea','fenceDerived','greenBookTotals','cj764Fencing','fenceComponents849','fenceProgrammeReviews958','recordHireAgreement','recordServiceScrim898'])
  check(name+' remains byte-identical',()=>assert.equal(now.f[name],old.f[name]));
 check('DATA changes only the gate review expectation',()=>{const expected=clone(old.constants.DATA);expected.fence_ccb_review847.rows.find(r=>r.docket_no==='36560').expected.quantities.ped_gates=1;assert.deepEqual(now.constants.DATA,expected);});

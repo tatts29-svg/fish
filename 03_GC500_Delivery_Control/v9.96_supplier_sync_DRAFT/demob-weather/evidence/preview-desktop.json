@@ -1,0 +1,199 @@
+{
+  "author": "Andrew Fisher",
+  "mobile": false,
+  "sha256": "56de35a4c1309a036780c2ade6762d64cc61bc5b468c95707023af2979609d11",
+  "checks": [
+    {
+      "name": "All native Demob dates retained",
+      "pass": true
+    },
+    {
+      "name": "Programme summary and card denominator use identical reference scope",
+      "pass": true,
+      "detail": {
+        "dates": [
+          "2026-10-26",
+          "2026-10-27",
+          "2026-10-28",
+          "2026-10-29",
+          "2026-10-30",
+          "2026-11-02",
+          "2026-11-03",
+          "2026-11-04",
+          "2026-11-05",
+          "2026-11-06",
+          "2026-11-09",
+          "2026-11-10",
+          "2026-11-11",
+          "2026-11-12",
+          "2026-11-13"
+        ],
+        "cards": [
+          "2026-10-26",
+          "2026-10-27",
+          "2026-10-28",
+          "2026-10-29",
+          "2026-10-30",
+          "2026-11-02",
+          "2026-11-03",
+          "2026-11-04",
+          "2026-11-05",
+          "2026-11-06",
+          "2026-11-09",
+          "2026-11-10",
+          "2026-11-11",
+          "2026-11-12",
+          "2026-11-13"
+        ],
+        "count": 176,
+        "summary": "176",
+        "staffNamesVisible": false,
+        "stamp": 0,
+        "selected": "2026-10-26"
+      }
+    },
+    {
+      "name": "Daily staff names displayed only on cards",
+      "pass": true
+    },
+    {
+      "name": "No completed stamps inferred from dates or arrived equipment",
+      "pass": true
+    },
+    {
+      "name": "Native keyboard day selection preserved",
+      "pass": true
+    },
+    {
+      "name": "Approved card width and phone overflow",
+      "pass": true,
+      "detail": {
+        "window": 1440,
+        "body": 1440,
+        "card": 400,
+        "display": "flex",
+        "direction": "row"
+      }
+    },
+    {
+      "name": "Pause stops weather and stamp motion",
+      "pass": true
+    },
+    {
+      "name": "Motion Off stops all Demob card animation",
+      "pass": true
+    },
+    {
+      "name": "Hidden Demob page has no animation",
+      "pass": true
+    },
+    {
+      "name": "Approved Build cards remain available",
+      "pass": true
+    },
+    {
+      "name": "Rendering and navigation leave operational records unchanged",
+      "pass": true
+    },
+    {
+      "name": "Native pump-out gate prevents collection dialog",
+      "pass": true,
+      "detail": {
+        "key": "GN?",
+        "n": 2,
+        "today": "2026-10-12",
+        "denied": true,
+        "date": "2026-10-12",
+        "planned": "2026-10-26"
+      }
+    },
+    {
+      "name": "Actual collection date defaults to today, not selected future plan",
+      "pass": true
+    },
+    {
+      "name": "Partial collection stays blocked until stock propagation is verified",
+      "pass": true,
+      "detail": {
+        "partialEnabled": false,
+        "partial": {
+          "ok": false,
+          "message": "Record the full remaining reference only. Partial collection is not enabled."
+        },
+        "future": {
+          "ok": false,
+          "message": "Use the actual collection date, between arrival and today."
+        },
+        "captures": 0
+      }
+    },
+    {
+      "name": "Future actual collection date rejected",
+      "pass": true
+    },
+    {
+      "name": "Full scoped quantity uses native outgoing light and single same-document save",
+      "pass": true,
+      "detail": {
+        "result": true,
+        "state": "in transit",
+        "complete": true,
+        "captures": 1,
+        "duplicate": false,
+        "financeUnchanged": true,
+        "stock": 0,
+        "departed": true,
+        "history": [
+          {
+            "state": "on site",
+            "typed": false,
+            "by": "Andrew Fisher"
+          },
+          {
+            "state": "in transit",
+            "typed": true,
+            "by": "Andrew Fisher"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Stale or duplicate collection rejected",
+      "pass": true
+    },
+    {
+      "name": "Full collection preserves native P&L projection",
+      "pass": true
+    },
+    {
+      "name": "Shared current-stock reader removes collected units and marks departure",
+      "pass": true
+    },
+    {
+      "name": "Captured collection fixtures restore original operational records",
+      "pass": true
+    },
+    {
+      "name": "No browser errors",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "No operational writes attempted",
+      "pass": true,
+      "detail": {
+        "page": 1,
+        "live": 56,
+        "blocked": 0
+      }
+    }
+  ],
+  "failures": [],
+  "counts": {
+    "page": 1,
+    "live": 56,
+    "blocked": 0
+  },
+  "errors": [],
+  "stage": "Scoped preview before final native supplier packing integration"
+}

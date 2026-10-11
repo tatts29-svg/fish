@@ -9,7 +9,9 @@ check(v.assets==='0645, 0001','Leading zeros and canonical physical identities p
 c.rows=[];v=vm.runInContext('MapIdentity996.project(a,rows,{rows:[{owner:"event-portables",quantityOnly:true,item:"Pee panels",quantity:6}]},{known:false,text:"Toilets"})',c);
 check(v.assets==='','Quantity-only equipment gets no invented number');check(v.ownership.includes('quantity 6')&&v.ownership.includes('SUB-HIRED'),'Quantity and owner retained together');check(v.location==='','Unknown destination is not asserted');
 const elements={q:{value:'0645'},finder:{hidden:false}};let matches=[{kind:'asset',key:'WC61'}],draws=0;
-Object.assign(c,{window:{gc500PlanItems:()=>({items:[],unplaced:[],placed:[]})},holdAssets:fn=>fn(),render:()=>7,document:{getElementById:id=>elements[id]},FINDER:{list:[{kind:'asset',key:'WC61'}],at:0},finderMatches:()=>matches,finderDraw:()=>draws++});
+let planBuilds=0;
+Object.assign(c,{window:{gc500PlanItems:()=>{planBuilds++;return {items:[],unplaced:[],placed:[]}}},RENDER_MEMO:new Map(),holdAssets:fn=>fn(),render:()=>7,document:{getElementById:id=>elements[id]},FINDER:{list:[{kind:'asset',key:'WC61'}],at:0},finderMatches:()=>matches,finderDraw:()=>draws++});
 vm.runInContext(src.slice(src.indexOf('const planItems996')),c);
 check(vm.runInContext('render()',c)===7&&draws===1,'Open search refresh preserves native return');check(c.FINDER.at===0&&c.FINDER.list[0].key==='WC61','Selected matching reference retained');matches=[];vm.runInContext('render()',c);check(c.FINDER.list.length===0&&c.FINDER.at===-1,'Obsolete result removed on remote redraw');elements.finder.hidden=true;const before=draws;vm.runInContext('render()',c);check(draws===before,'Closed search is not reopened by redraw');
+c.window.gc500PlanItems();c.window.gc500PlanItems();check(planBuilds===1,'Unchanged map searches reuse the native render cache');c.RENDER_MEMO.clear();c.window.gc500PlanItems();check(planBuilds===2,'Native record cache invalidation rebuilds the projection');
 console.log(JSON.stringify({author:'Andrew Fisher',checks,pass:true,recordWrites:0}));

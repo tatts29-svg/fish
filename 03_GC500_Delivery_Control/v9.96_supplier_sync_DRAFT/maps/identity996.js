@@ -14,17 +14,36 @@ const MapIdentity996 = (() => {
   if (!a || a._cancelled || movedAway(a.key)) return {assets:'',ownership:'',location:''};
   return heldMemo('map-identity996/' + a.key, () => project(a, gcUnits925(a,{loading:false}), ItemOwnership969.read(a), destinationOf(a)));
  }
- return {project,read};
+ function sourceRequests(model, supplier) {
+  if (!model || !supplier || !Array.isArray(supplier.requests) || typeof supplier.resolveRequest !== 'function' || typeof supplier.requestAsset !== 'function') return model;
+  const unplaced = (model.unplaced || []).filter(row => !row._supplier996MapRequest);
+  const keys = new Set([...(model.items || []), ...unplaced, ...(model.placed || [])].map(row => row.key));
+  for (const request of supplier.requests) {
+   if (supplier.resolveRequest(request).state !== 'missing') continue;
+   const a = supplier.requestAsset(request.id); if (!a || keys.has(a.key)) continue;
+   const source = request.source || {};
+   unplaced.push({key:a.key, trade:a.discipline, name:a.name, assets:'', ownership:'SUB-HIRED · ' + request.supplier,
+    location:(a.locations || []).join(' · '), drawing:[source.file, source.sheet, source.row ? 'row ' + source.row : ''].filter(Boolean).join(' · '),
+    requestDate:request.date, quantity:request.quantity, item:request.item, _supplier996MapRequest:true});
+   keys.add(a.key);
+  }
+  return Object.assign({}, model, {unplaced});
+ }
+ return {project,read,sourceRequests};
 })();
 const planItems996 = window.gc500PlanItems;
 window.gc500PlanItems = function () {
- return holdAssets(() => {
+ const memo = 'map-identity996-plan';
+ if (RENDER_MEMO.has(memo)) return RENDER_MEMO.get(memo);
+ const model = holdAssets(() => {
   const model = planItems996.apply(this, arguments); if (!model) return model;
   for (const key of ['items','unplaced','placed']) model[key] = (model[key] || []).map(row => {
    const a = assetOf(row.key); return a ? Object.assign({}, row, MapIdentity996.read(a)) : row;
   });
-  return model;
+  return MapIdentity996.sourceRequests(model, typeof Supplier996 === 'undefined' ? null : Supplier996);
  });
+ RENDER_MEMO.set(memo, model);
+ return model;
 };
 // A visible header search also follows a remote record refresh, without reopening a closed search.
 const mapRender996 = render;

@@ -1,5 +1,6 @@
 """Author: Andrew Fisher. Source-backed fencing count correction and activity projection."""
 import json
+import re
 import sys
 from pathlib import Path
 
@@ -17,6 +18,21 @@ def constant(source, name):
     start = source.index(prefix) + len(prefix)
     value, size = json.JSONDecoder().raw_decode(source[start:])
     return source[start:start + size], value
+
+
+def replace_constant(source, name, raw, value, label):
+    # The shared replacement consumes whitespace before its match. Include the
+    # declaration so DATA keeps the canonical spacing used by the build scrubber.
+    prefix = 'const ' + name + ' = '
+    serialized = json.dumps(value, ensure_ascii=True, separators=(',', ':'))
+    # Some source catalogues deliberately escape factual author/by values. Keep
+    # those original JSON spellings so a rebuild cannot turn them into prose.
+    for token in dict.fromkeys(re.findall(r'"(?:\\.|[^"\\])*"', raw)):
+        if '\\u' in token:
+            canonical = json.dumps(json.loads(token), ensure_ascii=True)
+            if canonical != token:
+                serialized = serialized.replace(canonical, token)
+    return rep(source, prefix + raw, prefix + serialized, label)
 
 
 def gate_reviews(source):
@@ -38,19 +54,19 @@ def gate_reviews(source):
                 raise ValueError('36560 source question changed')
             row['query'] = {'open': False, 'text': 'Original pedestrian gate quantity 1 reconciled on 12 Oct 2026. CCB category follows the separately verified source-plan classification; original prices remain blank.'}
             row['reviewed_on'] = '2026-10-12'
-        source = rep(source, raw, json.dumps(catalogue, ensure_ascii=True, separators=(',', ':')), '36560 gate source expectation in ' + name)
+        source = replace_constant(source, name, raw, catalogue, '36560 gate source expectation in ' + name)
     raw, catalogue = constant(source, 'FENCE_EVIDENCE849')
     matches = [r for r in catalogue['items'] if r.get('id') == 'ped-gate-gap-36560']
     if len(matches) != 1 or matches[0].get('quantity') != 1 or matches[0].get('status') != 'original-quantity-not-in-register':
         raise ValueError('36560 missing-gate evidence changed')
     catalogue['items'] = [r for r in catalogue['items'] if r['id'] != 'ped-gate-gap-36560']
-    return rep(source, raw, json.dumps(catalogue, ensure_ascii=True, separators=(',', ':')), 'retire reconciled missing-gate issue')
+    return replace_constant(source, 'FENCE_EVIDENCE849', raw, catalogue, 'retire reconciled missing-gate issue')
 
 
 def patch(source):
     if 'physical-scrim-existing-24473' in source:
         raise ValueError('Fencing 996 is already present')
-    if 'function fencingStatus994' not in source and 'function fenceProgrammeReviews958' not in source:
+    if 'function fencingReview994' not in source or 'function fenceProgrammeReviews958' not in source:
         raise ValueError('Reviewed fencing base missing')
     source = gate_reviews(source)
     # 36589 has no embedded expected-record entry. Its correction is a separate
@@ -61,7 +77,7 @@ def patch(source):
         raise ValueError('24473 source already registered in physical evidence')
     progress['sources'].append(activity['source'])
     progress['operations'].append(activity['operation'])
-    source = rep(source, raw, json.dumps(progress, ensure_ascii=True, separators=(',', ':')), 'reviewed existing-fence scrim activity')
+    source = replace_constant(source, 'FENCE_PROGRESS848', raw, progress, 'reviewed existing-fence scrim activity')
     source = rep(source,
         "['relocation','removal','reinstatement','clean','scrim','v_gates','ped_gates','ccb_event','ccb_demarc'].includes(item.type)",
         "['relocation','removal','reinstatement','scrim_existing','clean','scrim','v_gates','ped_gates','ccb_event','ccb_demarc'].includes(item.type)",
@@ -83,6 +99,16 @@ def patch(source):
     start = source.index('function todayFencingSummary848(asOf) {')
     end = source.index('function todayWorkSummary848(', start)
     source = source[:start] + rep(source[start:end], marker, block + '\n' + marker, 'shared recorded-only scrim row') + source[end:]
+    start = source.index('function todayWorkSummary848(')
+    end = source.index('function ', start + 9)
+    source = source[:start] + rep(source[start:end],
+        "    const plan = noPlan(row.unit, planBasis, 'Dated installation plan unconfirmed');",
+        "    if (row.id === 'scrim_existing') {\n      const activity = noPlan(row.unit, row.note, row.evidencePending ? 'Source review required' : 'Recorded service activity');\n      activity.actual = row.evidencePending ? null : row.recorded;\n      return activity;\n    }\n    const plan = noPlan(row.unit, planBasis, 'Dated installation plan unconfirmed');",
+        'service activity has no invented programme gap') + source[end:]
+    source = rep(source,
+        '  function fencingDetailHtml(row) {',
+        '  function fencingDetailHtml(row) {\n' + (HERE / 'scrim_detail996.js').read_text().rstrip(),
+        'concise recorded service activity detail')
     source = rep(source,
         "const allowed = ['ccb_unclassified', ...FCOL.filter(column => ['m','each','h','hr'].includes(column.unit)).map(column => column.key)];",
         "const allowed = ['ccb_unclassified','scrim_existing', ...FCOL.filter(column => ['m','each','h','hr'].includes(column.unit)).map(column => column.key)];",

@@ -7,8 +7,8 @@ HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE.parent / 'toolchain'))
 from rep import rep
 
-# Replaced only after the final v9.95 page has been verified live.
-BASE_SHA = 'PENDING_VERIFIED_V995'
+# Exact v9.95 bytes verified on public desktop and phone.
+BASE_SHA = '7403761db76a2bffb2eac99fb97669f5be09de946a6cc7c7592ff65287841975'
 
 
 def component(name, relative):
@@ -25,6 +25,8 @@ def apply(html):
         ('supplier996_patch', 'subhire/patch_supplier996.py'),
         ('demob996_patch', 'demob-weather/patch_demob996.py'),
         ('stock996_patch', 'stock996.py'),
+        ('packing996_patch', 'demob-weather/packing996.py'),
+        ('finance996_patch', 'finance/patch_finance996.py'),
         ('fencing996_patch', 'fencing/fencing996.py'),
         ('maps996_patch', 'maps/identity996.py'),
     ]:

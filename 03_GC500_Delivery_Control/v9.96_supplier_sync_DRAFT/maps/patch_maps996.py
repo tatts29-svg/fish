@@ -22,6 +22,17 @@ def apply(source, output):
     text = rep(text, text[start:end], Path(__file__).with_name('refresh996.js').read_text(), 'Map explorer refresh', 'explorer-merge.js')
     text = rep(text, "assets: p.assets || '', placedHow:", "assets: p.assets || '', ownership:p.ownership || '', location:p.location || '', placedHow:", 'Pinned references retain current ownership and destination', 'explorer-merge.js')
     body = explorer.decode()
+    body = rep(body, "    HOST.trades.forEach(tr => {", """    // A discipline can have only unplaced references. Keep those references searchable without inventing positions.
+    const tradeName996 = row => String(row.trade || 'Other equipment');
+    const tradeRows996 = (HOST.trades || []).slice(), tradeNames996 = new Set(tradeRows996.map(tr => tr.name));
+    [...HOST.items, ...HOST.unplaced].forEach(row => {
+      const name = tradeName996(row); if (tradeNames996.has(name)) return;
+      const n = HOST.items.filter(item => tradeName996(item) === name).length;
+      tradeRows996.push({name, n, count:String(n)}); tradeNames996.add(name);
+    });
+    tradeRows996.forEach(tr => {""", 'Include disciplines whose references are all unplaced', 'explorer.js')
+    body = rep(body, "HOST.items.filter(i => i.trade === tr.name)", "HOST.items.filter(i => tradeName996(i) === tr.name)", 'Match current placed trade', 'explorer.js')
+    body = rep(body, "HOST.unplaced.filter(i => i.trade === tr.name)", "HOST.unplaced.filter(i => tradeName996(i) === tr.name)", 'Match current unplaced trade', 'explorer.js')
     body = rep(body, "function search() { if (!P) return; const q", "function search() { if (!P) return; if (window.GC500Explorer && typeof window.GC500Explorer.refresh === 'function') window.GC500Explorer.refresh(true); const q", 'Search sees record received before a deferred redraw', 'explorer.js')
     body = rep(body, "reg: {name: i.name, asset_numbers: i.assets, sec: i.sec}", "reg: {name: i.name, asset_numbers: i.assets, sec: i.sec, ownership:i.ownership || '', location:i.location || ''}", 'Placed current map identities', 'explorer.js')
     body = rep(body, "reg: {name: i.name, drawing: i.drawing}", "reg: {name: i.name, drawing: i.drawing, asset_numbers:i.assets || '', ownership:i.ownership || '', location:i.location || ''}", 'Unplaced current map identities', 'explorer.js')

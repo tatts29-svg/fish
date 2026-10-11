@@ -1,5 +1,9 @@
 <!-- Author: Andrew Fisher -->
 
+DRAFT FINAL CHECKPOINT — v9.96 integrated candidate dc648c02fa4d083a78a7068c08526f31e8ad3adfaf3a6beffce4ba326a71a551,14,880,488bytes,89scripts, exact verified v9.95 base.240 focused checks pass across supplier, typed collections, Demob cards/physical truck packing, finance, fencing and maps; no errors or operational writes.32 fencing model checks plus real-scrubber regression preserve source names. Source-row BJR/Shell forecasts add515.90 exGST across native ledgers and KINP; current Revenue/supplier costs unchanged. Maps include178 native/source references without invented pins.6FWF remain unallocated and the existing undated/unlocated Week6 fencing232.5m+3gates remains visible. Exact final navigation/publication checks pending; NOT READY. Source/tests saved in v9.96_supplier_sync_DRAFT. Two source-verified fencing record corrections still not applied; native guarded correction and fresh readback follow verified code publication. No emails sent.
+
+<!-- Author: Andrew Fisher -->
+
 VERIFIED LIVE — v9.95 native Coates Way machine film. Uploaded12Oct2026 02:06AEST; actual-public desktop/phone verification completed02:14AEST. READY/source5d1446bf; candidate7403761db76a2bffb2eac99fb97669f5be09de946a6cc7c7592ff65287841975,14,790,764bytes,81scripts. Three new media assets registered additively, public bytes verified; all previous media descriptors retained. Actual-public desktop34/phone32 checks pass with no HTML/media substitution, no errors or operational writes. Full native4K decodes on desktop,1080on phone; full frame, loop and lifecycle verified. Both public screenshots inspected. Temporary workspace thread exhaustion was resolved and both public suites rerun successfully; it was not an application failure. Folderv9.95_machine_film_LIVE. v9.96 integrates from this exact verified hash; supplier, collection, finance and map source checks continue before its final candidate.
 
 <!-- Author: Andrew Fisher -->
