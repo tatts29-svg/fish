@@ -1,5 +1,9 @@
 <!-- Author: Andrew Fisher -->
 
+CLAIMED — v9.98 Event Portables installed-item reconciliation and quantities beside reference item descriptions. Andrew confirms EP items with asset numbers, or whose actual location he has stated, are installed; correct native shared records and regenerate remaining toilet run sheets. He also requests recorded quantity beside each item description whenever opening a reference, everywhere across tabs/suppliers. Root owns fresh record audit, guarded native corrections, export and release from v9.97 c52e2204776eb43e48649ff4780705b0af989a419fda19c9fe29f9831db61e90. Scoped helper reviews supplier authority and shared display paths. Do not treat planned locations as arrival evidence; preserve unallocated items and genuine source gaps. Not ready.
+
+<!-- Author: Andrew Fisher -->
+
 VERIFIED LIVE — v9.97 Coates Way 32-second film. Uploaded 12 Oct 2026 04:12 AEST; actual-public desktop/phone verification completed 12 Oct 2026 04:15 AEST. Source 6e7709c3; READY 520d05b2; SHA256 c52e2204776eb43e48649ff4780705b0af989a419fda19c9fe29f9831db61e90, 14,881,070 bytes, 89 scripts. Native 4K/30 fps, full 360-degree inspection, 175 original visible components, slower staged teardown/reassembly and seamless loop. 632 native poses pass; all candidate and actual-public checks pass. Public desktop35/phone33 checks use actual hosted bytes, no substitution; no errors or operational writes. Both public orbit screenshots inspected. Two immutable movies added, existing poster reused; all older media and every unrelated page/data byte preserved. Root owns implementation/publication with one scoped read-only mechanism review. Folder v9.97_machine_360_LIVE.
 
 <!-- Author: Andrew Fisher -->
