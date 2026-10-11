@@ -16,11 +16,14 @@ const {open}=require(harness+'/open_page'),out=process.env.OUTDIR||'/workspace/p
  const result=await h.page.evaluate(()=>{
   const before=JSON.stringify(S),M=Supplier996.model(),days=[...new Set(M.remaining.map(r=>r.date))],groups=days.map(date=>{const loads=Supplier996.inboundLoads(date),native=dpLoads(programmeDays().find(d=>d.iso===date)).filter(l=>l._supplier996);return {date,units:loads.map(l=>l.units),nativeUnits:native.map(l=>l._supplier996.units),rows:loads.flatMap(l=>l.stops).map(s=>({ref:s.ref,item:s.item,date:s.date,count:s.count})),expected:M.remaining.filter(r=>r.date===date).map(r=>({ref:r.ref,item:r.item,date:r.date,count:r.remaining})),capacity:loads.every(l=>l.units<=24&&l.panels<=6)};});
   renderSubhired932();const wrapper=document.querySelector('[data-supplier996]'),details=[...wrapper.querySelectorAll('details')].filter(d=>d.querySelector(':scope > summary')?.textContent.includes('Tue 13 Oct'));if(details.length)details[0].open=true;
-  return {model:M,groups,summary:M.summary,version:SYNC.backend.readVersion821(),recordsUnchanged:before===JSON.stringify(S),subhireText:wrapper.innerText,overflow:document.documentElement.scrollWidth>innerWidth+1,demob:Supplier996.demobLoads()};
+  return {model:M,display:{rowDay:rowDay886(assetOf('WC29'),programmeDays().find(d=>d.iso==='2026-10-14').deliveries.find(r=>r.a.key==='WC29').events,effectiveDates(assetOf('WC29')),true),map:gc500PlanProgress887('WC29'),mail:decodeURIComponent(assetMailto(assetOf('WC29')))},groups,summary:M.summary,version:SYNC.backend.readVersion821(),recordsUnchanged:before===JSON.stringify(S),subhireText:wrapper.innerText,overflow:document.documentElement.scrollWidth>innerWidth+1,demob:Supplier996.demobLoads()};
  });
  fs.writeFileSync(path.join(out,'model-private.json'),JSON.stringify(result.model));
  const expected={'2026-10-13':[24],'2026-10-14':[3],'2026-10-15':[24],'2026-10-19':[24],'2026-10-20':[20],'2026-10-22':[4]},checks=[];
  const check=(name,test)=>{assert(test,name);checks.push(name);};
+ check('Expanded daily card uses its planned date',result.display.rowDay==='2026-10-14');
+ check('Map due label shows both remaining portions',JSON.stringify(result.display.map).includes('14 Oct')&&JSON.stringify(result.display.map).includes('3 × FWF'));
+ check('Reference email draft shows both remaining portions',result.display.mail.includes('14 Oct')&&result.display.mail.includes('3 × FWF'));
  const totals=rows=>{const m={};for(const r of rows){const k=[r.ref,r.item,r.date].join('|');m[k]=(m[k]||0)+r.count;}return m;};
  for(const g of result.groups){assert.deepEqual(g.units,expected[g.date]);checks.push(g.date+' full runs and remainder');assert.deepEqual(g.nativeUnits,g.units);checks.push(g.date+' daily cards match supplier runs');assert.deepEqual(totals(g.rows),totals(g.expected));checks.push(g.date+' each location and date conserved');check(g.date+' capacity respected',g.capacity);}
  check('All 99 outstanding toilets retained',result.summary.remaining===99&&result.groups.flatMap(g=>g.units).reduce((a,b)=>a+b,0)===99);
@@ -36,6 +39,13 @@ const {open}=require(harness+'/open_page'),out=process.env.OUTDIR||'/workspace/p
  const drawer=await h.page.evaluate(()=>{openAsset('WC29');return {tile:document.querySelector('.sum816 .ctile.plan')?.innerText, plan:Supplier996.remainingIn1000('WC29'), drawer:document.getElementById('drawer')?.innerText.slice(0,1500)};});
  check('WC29 drawer shows both outstanding dated portions',/13 Oct/i.test(drawer.tile)&&/4 × FWF/.test(drawer.tile)&&/14 Oct/i.test(drawer.tile)&&/3 × FWF/.test(drawer.tile));
  await h.page.screenshot({path:path.join(out,'drawer.png')});
+ if(process.env.EXPORT==='1'){
+  const pdfDir=path.join(out,'pdf');fs.mkdirSync(pdfDir,{recursive:true});
+  for(const day of ['',...result.groups.map(g=>g.date)]){
+   const file=await h.page.evaluate(async day=>{const F=await Supplier996.pdf('remaining',day,()=>true),bytes=new Uint8Array(await F.blob.arrayBuffer());let binary='';for(let i=0;i<bytes.length;i+=16384)binary+=String.fromCharCode(...bytes.subarray(i,i+16384));return {name:F.name,pages:F.pages,base64:btoa(binary)};},day);
+   check((day||'Combined')+' PDF has one page per day',file.pages===(day?1:result.groups.length));fs.writeFileSync(path.join(pdfDir,file.name),Buffer.from(file.base64,'base64'));
+  }
+ }
  check('No page errors',h.errors.length===0);check('No operational writes',h.counts.blocked===0);
  fs.writeFileSync(path.join(out,'result.json'),JSON.stringify({author:'Andrew Fisher',checks,publicSha,recordVersion:result.version,groups:result.groups.map(({date,units,nativeUnits})=>({date,units,nativeUnits})),counts:h.counts,errors:h.errors},null,2));
  console.log(JSON.stringify({pass:true,checks:checks.length,groups:result.groups.map(({date,units})=>({date,units})),out}));

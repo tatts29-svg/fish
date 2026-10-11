@@ -43,3 +43,7 @@ function remainingIn1000(ref){
  const parts=api.model().remaining.filter(r=>r.ref===ref);if(!parts.length||!parts.some(r=>r.dailyLimit===24))return '';
  return '<p class="ctk">Remaining in</p><b>'+parts.map(r=>esc((r.date?dayWords816(r.date):'Date not recorded')+' · '+r.remaining+' × '+r.item)).join('<br>')+'</b><span>Proposed · maximum 24 portaloos per day</span>';
 }
+
+function remainingText1000(ref){
+ const parts=api.model().remaining.filter(r=>r.ref===ref);return parts.some(r=>r.dailyLimit===24)?parts.map(r=>(r.date?dayWords816(r.date):'Date not recorded')+' · '+r.remaining+' × '+r.item).join('; ')+' (proposed)':'';
+}
