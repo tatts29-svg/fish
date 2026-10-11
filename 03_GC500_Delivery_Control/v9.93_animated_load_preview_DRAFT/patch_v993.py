@@ -17,7 +17,7 @@ def main():
         raise SystemExit('Already applied')
     if hashlib.sha256(p.read_bytes()).hexdigest() != BASE_SHA:
         raise SystemExit('Wrong base: requires exact live v9.92')
-    s = rep(s, "+ ' · v9.92'", "+ ' · v9.93 DESIGN PREVIEW — NOT LIVE'", 'Draft preview footer', str(p))
+    s = rep(s, "+ ' · v9.92'", "+ ' · v9.93'", 'Approved release footer', str(p))
     s = rep(s, '</head>\n<body', '<style id="preview993-style">' +
             (HERE / 'preview993.css').read_text() + '\n' +
             (HERE / 'today993.css').read_text() + '</style>\n</head>\n<body',
