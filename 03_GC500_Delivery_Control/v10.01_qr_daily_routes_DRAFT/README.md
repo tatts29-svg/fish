@@ -1,0 +1,13 @@
+# Daily Event Portables runs with location QR codes
+
+Author: Andrew Fisher
+
+Andrew says the stops and PDF layout are scattered and clarifies: “And we do 24 every day. Last load should be the less.” The current 99 allocated outstanding FWF now form proposed loads of 24 on 13, 14, 15 and 16 October, then three on 17 October. Geographic stop order is shared by Sub-hired, daily loads and printable sheets. All 68 outside public-area units precede island deliveries. Each reference stays together; WC29 has seven on 16 October.
+
+The remaining-delivery export has one A4 portrait page per day, numbered stops and a clickable vector QR beside each destination. Empty asset-number columns are removed; recorded load numbers show beneath the reference when available. Nine references lack an exact toilet pin: their verified original supplier-plan pit lane meet point is explicitly labelled, without replacing the actual inventory location. No truck entry to west parkland is stated on each sheet. Six unallocated FWF remain separate from the 99 planned deliveries.
+
+Original source dates remain traceable. Andrew's current daily plan supersedes old proposed dates; the original supplier plan permits early delivery and pit-lane storage. Later native reschedules and changed source dates are respected. Receipts consume allocated slots without pulling later deliveries backwards. No operational records, installation states, financial source dates, bookings or emails are written. Demob retains its existing packing rules. Stop sequence is geographic grouping, not verified road-turn navigation.
+
+Exact base v10.00: b899e56b8d76776ed361940a0fd2e968628edee562e274b9b33aa8e10679cdc4. The patch refuses other bases and repeat application. Native embedded DATA and COMMITTED are unchanged. Candidate: f56370f8a55ae850aabcaf27287f79bc6c880e85582687c4aa29f95fa4680bfc, 14,901,975 bytes and 89 inline scripts. Source reproduction, 35 independent allocator/routing checks, nine existing packing checks and upload dry run pass. Browser, print and final publication evidence follows.
+
+The separate Water Barrier Schedule PDF keeps installation/removal dates, quantity, location and its QR together in one reference row. Fifteen QR codes decode correctly; all 30 movement facts match Schedule (7) and native records. Approximate areas and WB02's unconfirmed previous collection remain explicit. Originals, private record snapshots, PDFs and browser screenshots remain outside Git.
