@@ -1,5 +1,9 @@
 <!-- Author: Andrew Fisher -->
 
+EXTENDED SCOPE — v10.00 Andrew now requests one A4 portrait page per delivery day, plus a separate current water barrier schedule PDF. Remaining supplier export is being compacted to six legible portrait pages, with one-page per-day exports. Current plan/date labels in expanded cards, map and reference draft also use the shared remaining portions. Water barrier schedule is a separate read-only native/source reconciliation and PDF; no operational edits or emails. Prior candidate checks are retained as intermediate evidence; final revised bytes will be retested before publication.
+
+<!-- Author: Andrew Fisher -->
+
 CLAIMED — v10.00 Event Portables daily delivery limit. Andrew clarifies “Only 24 per day” in the current chat. This supersedes v9.99's per-truck interpretation: maximum 24 outstanding portaloos across the whole day, with excess deferred to the next working day and no deliveries advanced ahead of their source/explicit dates. Root owns the shared remaining-delivery projection, reference date display, tests, publication and refreshed run sheet from exact v9.99 bfb7767a4036d7103940ed932365d687fe15a76921c6670d1ea78c6732b93dc8. Preserve native receipts/installation, source dates, current design and Demob. Proposed dates are not supplier booking confirmations. Scoped independent source review completed; no record writes or emails. Not ready.
 
 <!-- Author: Andrew Fisher -->
