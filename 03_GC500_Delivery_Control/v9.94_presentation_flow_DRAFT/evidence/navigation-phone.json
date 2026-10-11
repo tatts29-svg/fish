@@ -1,0 +1,195 @@
+{
+  "author": "Andrew Fisher",
+  "mobile": true,
+  "actualPublic": false,
+  "checks": [
+    {
+      "name": "Navigation extension loaded",
+      "pass": true
+    },
+    {
+      "name": "Native map accessible Exit name",
+      "pass": true
+    },
+    {
+      "name": "layer has original Close and Back",
+      "pass": true
+    },
+    {
+      "name": "layer receives keyboard focus",
+      "pass": true
+    },
+    {
+      "name": "layer exit buttons fit phone/desktop",
+      "pass": true
+    },
+    {
+      "name": "layer exits just the child",
+      "pass": true
+    },
+    {
+      "name": "layer restores actual map opener",
+      "pass": true
+    },
+    {
+      "name": "empty has original Close and Back",
+      "pass": true
+    },
+    {
+      "name": "empty receives keyboard focus",
+      "pass": true
+    },
+    {
+      "name": "empty exit buttons fit phone/desktop",
+      "pass": true
+    },
+    {
+      "name": "empty exits just the child",
+      "pass": true
+    },
+    {
+      "name": "empty restores actual map opener",
+      "pass": true
+    },
+    {
+      "name": "picker has original Close and Back",
+      "pass": true
+    },
+    {
+      "name": "picker receives keyboard focus",
+      "pass": true
+    },
+    {
+      "name": "picker exit buttons fit phone/desktop",
+      "pass": true
+    },
+    {
+      "name": "picker exits just the child",
+      "pass": true
+    },
+    {
+      "name": "picker restores actual map opener",
+      "pass": true
+    },
+    {
+      "name": "Native callout selection opens the chosen asset",
+      "pass": true
+    },
+    {
+      "name": "Native selected-asset Close retains parent map",
+      "pass": true
+    },
+    {
+      "name": "Second Escape exits map fullscreen",
+      "pass": true
+    },
+    {
+      "name": "Native map normal accessible name restored",
+      "pass": true
+    },
+    {
+      "name": "Changing tab closes map child",
+      "pass": true
+    },
+    {
+      "name": "Chooser Escape has visible Back and native Close",
+      "pass": true
+    },
+    {
+      "name": "Chooser Escape reports expanded",
+      "pass": true
+    },
+    {
+      "name": "Chooser Escape traps child keyboard focus",
+      "pass": true
+    },
+    {
+      "name": "Chooser Escape keeps Showcase open",
+      "pass": true
+    },
+    {
+      "name": "Chooser Escape restores trigger focus",
+      "pass": true
+    },
+    {
+      "name": "Chooser Escape reports collapsed",
+      "pass": true
+    },
+    {
+      "name": "Chooser Back has visible Back and native Close",
+      "pass": true
+    },
+    {
+      "name": "Chooser Back reports expanded",
+      "pass": true
+    },
+    {
+      "name": "Chooser Back traps child keyboard focus",
+      "pass": true
+    },
+    {
+      "name": "Chooser Back keeps Showcase open",
+      "pass": true
+    },
+    {
+      "name": "Chooser Back restores trigger focus",
+      "pass": true
+    },
+    {
+      "name": "Chooser Back reports collapsed",
+      "pass": true
+    },
+    {
+      "name": "Chooser Close has visible Back and native Close",
+      "pass": true
+    },
+    {
+      "name": "Chooser Close reports expanded",
+      "pass": true
+    },
+    {
+      "name": "Chooser Close traps child keyboard focus",
+      "pass": true
+    },
+    {
+      "name": "Chooser Close keeps Showcase open",
+      "pass": true
+    },
+    {
+      "name": "Chooser Close restores trigger focus",
+      "pass": true
+    },
+    {
+      "name": "Chooser Close reports collapsed",
+      "pass": true
+    },
+    {
+      "name": "Second Escape closes Showcase",
+      "pass": true
+    },
+    {
+      "name": "Existing asset Back and return focus retained",
+      "pass": true
+    },
+    {
+      "name": "Native shared record unchanged",
+      "pass": true
+    },
+    {
+      "name": "No operational write attempts",
+      "pass": true
+    },
+    {
+      "name": "No browser errors",
+      "pass": true,
+      "detail": []
+    }
+  ],
+  "sha256": "ba0f683939bd0bb4d1bb57eacabaf27ef7775784dc473fa51feb3c043148b47a",
+  "errors": [],
+  "requests": {
+    "page": 1,
+    "live": 71,
+    "blocked": 0
+  }
+}
