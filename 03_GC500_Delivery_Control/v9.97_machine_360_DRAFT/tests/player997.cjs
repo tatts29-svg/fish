@@ -67,6 +67,9 @@ const out=process.env.OUTDIR||'/workspace/private-gc500-integration997/'+(mobile
   check(true,'Actual media loops across the end without stopping');
   check(await p.locator('#cwHero').evaluate(n=>!n.querySelector('.gc-media-status')&&!n.querySelector('video').classList.contains('gc-media-wait')),'Decoded film is visible without an incorrect picture-loading overlay');
   await p.screenshot({path:path.join(out,'coates-way-film.png')});
+  await p.locator('#cwHero video').evaluate(v=>new Promise(resolve=>{v.pause();v.addEventListener('seeked',resolve,{once:true});v.currentTime=16;}));
+  await p.screenshot({path:path.join(out,'coates-way-orbit.png')});
+  await p.locator('#cwHero video').evaluate(v=>v.play());
   await p.evaluate(()=>{document.querySelector('#pane-coatesway').lastElementChild.scrollIntoView({block:'end'});document.querySelector('main').scrollTop=document.querySelector('main').scrollHeight;window.scrollTo(0,document.documentElement.scrollHeight);});await paused();check((await report()).paused,'Film pauses when card leaves the viewport');
   await play();
   await p.evaluate(()=>{localStorage.setItem('gc500.motion','off');motionApply();});await paused();check((await report()).paused,'Tools Motion off pauses active film');
