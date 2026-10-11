@@ -1,5 +1,9 @@
 <!-- Author: Andrew Fisher -->
 
+READY TO UPLOAD — v9.98 quantities beside descriptions across all reference drawers. Source69f87ad8; exact v9.97 basec52e2204776eb43e48649ff4780705b0af989a419fda19c9fe29f9831db61e90; candidatea72ab6662a237194c09d8dd9671856fa97409ac97a53cf8b94c97f6063df5d0c,14,881,552bytes,89scripts. Native user-confirmed installations corrected WC61eight and WC69six;14acknowledged writes, record5306→5320, allotherfieldsunchanged, privatebackup/readbackverified. Supplier inventory97units, outstanding99FWF, sixunallocatedkeptvisible. Source guards/native practice pass, desktop69/phone66 focused checks and both22route/sevenlink/Backsweepspass, zeroerrors. Phonescreenshotinspected and uploaddryrunpassed. Current DATA/COMMITTED, appearance and media preserved. Root implementation/publication with scoped quantity helper; no externalreviewclaimed. Publication, actualpublic checks and currentPDFexports follow.
+
+<!-- Author: Andrew Fisher -->
+
 CLAIMED — v9.98 Event Portables installed-item reconciliation and quantities beside reference item descriptions. Andrew confirms EP items with asset numbers, or whose actual location he has stated, are installed; correct native shared records and regenerate remaining toilet run sheets. He also requests recorded quantity beside each item description whenever opening a reference, everywhere across tabs/suppliers. Root owns fresh record audit, guarded native corrections, export and release from v9.97 c52e2204776eb43e48649ff4780705b0af989a419fda19c9fe29f9831db61e90. Scoped helper reviews supplier authority and shared display paths. Do not treat planned locations as arrival evidence; preserve unallocated items and genuine source gaps. Not ready.
 
 <!-- Author: Andrew Fisher -->

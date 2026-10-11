@@ -20,5 +20,37 @@
       "recordVersion": 5320,
       "writes": 0
     }
+  },
+  "sweeps": {
+    "desktop": {
+      "routes": 22,
+      "deepLinks": 7,
+      "back": true,
+      "errors": 0,
+      "consoleErrors": 0,
+      "intentionalPublicAliases": {
+        "register": "#plant",
+        "journal": "#today",
+        "breakdowns": "#today",
+        "variances": "#today",
+        "edit": "#today",
+        "add": "#today"
+      }
+    },
+    "phone": {
+      "routes": 22,
+      "deepLinks": 7,
+      "back": true,
+      "errors": 0,
+      "consoleErrors": 0,
+      "intentionalPublicAliases": {
+        "register": "#plant",
+        "journal": "#today",
+        "breakdowns": "#today",
+        "variances": "#today",
+        "edit": "#today",
+        "add": "#today"
+      }
+    }
   }
 }
