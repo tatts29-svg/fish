@@ -1,5 +1,9 @@
 <!-- Author: Andrew Fisher -->
 
+CORRECTED SCOPE — v10.01 Andrew adds “And they are scattered all over the place”, clarifies “everything” (route and PDF layout), and explicitly says “And we do 24 every day. Last load should be the less”. This supersedes preserving the old supplier delivery-date splits. Replan the current99 allocated outstanding portaloos into24each on13,14,15,16Oct and final3on17Oct; consecutive calendar days as stated in the chat. Group adjacent destinations into coherent runs and number stops; preserve original source dates as history, not current proposed arrival constraints unless evidence states a hard access restriction. Every QR stays adjacent to its reference/location and is labelled by its verified basis. One A4portrait page per toilet delivery day remains required. Water barrier schedule uses one reference row with install/removal dates and adjacentQR, avoiding a scattered QRindex. Native installed/received counts and finance remain unchanged; no bookings or emails are sent.
+
+<!-- Author: Andrew Fisher -->
+
 CLAIMED — v10.01 restore location QR codes to portrait run sheets. Andrew says “You left out the Qr codes mate” after the v10.00 PDFs. Root owns restoration of per-location QR codes in the native Event Portables A4 portrait remaining-delivery export, preserving one page per day, maximum24portaloos/day and every quantity/reference. Restore only verified native destination URLs; absent exact locations remain explicit. Re-export and decode-check actual printed QR images before delivery. Also correct the separate water barrier PDF with verified location links. No operational records or emails. Exactbasev10.00 b899e56b8d76776ed361940a0fd2e968628edee562e274b9b33aa8e10679cdc4. Not ready.
 
 <!-- Author: Andrew Fisher -->
