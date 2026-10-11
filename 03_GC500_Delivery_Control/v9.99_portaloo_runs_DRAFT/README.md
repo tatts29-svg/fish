@@ -8,6 +8,6 @@ Same-day inbound runs now combine locations up to 24. Outside locations remain f
 
 Sub-hired, daily delivery cards and generated run sheets use the same grouping. Six pee panels plus eighteen portaloos remain within capacity, and each 16-pan block takes its own truck. Existing Demob priority and pickup-date grouping are retained.
 
-Exact base: v9.98 `a72ab6662a237194c09d8dd9671856fa97409ac97a53cf8b94c97f6063df5d0c`. The patch requires this base and refuses reapplication. Embedded DATA and COMMITTED records are unchanged; no operational writes. Nine model checks cover packing, dates, quantity/number conservation, special products and Demob preservation. Browser, navigation and publication checks are in progress.
+Exact base: v9.98 `a72ab6662a237194c09d8dd9671856fa97409ac97a53cf8b94c97f6063df5d0c`. The patch requires this base and refuses reapplication. Embedded DATA and COMMITTED records are unchanged; no operational writes. Nine model checks cover packing, dates, quantity/number conservation, special products and Demob preservation. Desktop and phone focused checks pass24 each; both full navigation sweeps pass22 routes, seven deep links and Back with no page or console errors. Phone screenshot inspected. Exact patch reproduction, unchanged embedded data and upload dry run pass. READY TO UPLOAD; actual-public checks and refreshed exports follow publication.
 
 Root owns implementation/publication with an independent scoped source review. Private records, screenshots and generated PDFs stay outside Git. No email is sent.

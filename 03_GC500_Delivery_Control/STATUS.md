@@ -1,5 +1,9 @@
 <!-- Author: Andrew Fisher -->
 
+READY TO UPLOAD — v9.99 full portaloo delivery runs. Source bae5f1a0; exact v9.98 base a72ab6662a237194c09d8dd9671856fa97409ac97a53cf8b94c97f6063df5d0c; candidate bfb7767a4036d7103940ed932365d687fe15a76921c6670d1ea78c6732b93dc8, 14,881,754 bytes, 89 scripts. Same-day inbound loads fill to24 across island boundaries; six runs retain all99 outstanding toilets and recorded dates (13Oct24+3,15Oct24,19Oct24+20,22Oct4). Nine model checks, desktop24/phone24 focused checks and both22-route/seven-link/Back sweeps pass with zero errors. Phone screenshot and upload dry run passed. No native writes; approved appearance, quantities, media, special-product capacities and Demob grouping retained. Root implementation/release with scoped independent source review. Actual-public verification and new run-sheet PDFs follow.
+
+<!-- Author: Andrew Fisher -->
+
 CLAIMED — v9.99 portaloo delivery runs of 24. Andrew asks “Portaloos i want runs of 24” after the current remaining-delivery sheets showed partly filled runs separated at island boundaries. Root owns a narrow shared supplier packing fix, tests and refreshed exports from exact v9.98 a72ab6662a237194c09d8dd9671856fa97409ac97a53cf8b94c97f6063df5d0c. Fill compatible same-day runs across locations; preserve required dates, actual quantities, special product capacities and demob priority. Final balance remains explicit; no additional units or completed work invented. Not ready.
 
 <!-- Author: Andrew Fisher -->

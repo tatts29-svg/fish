@@ -1,0 +1,117 @@
+{
+  "author": "Andrew Fisher",
+  "candidateSha256": "bfb7767a4036d7103940ed932365d687fe15a76921c6670d1ea78c6732b93dc8",
+  "modelChecks": 9,
+  "focused": {
+    "desktop": {
+      "checks": 24,
+      "recordVersion": 5321,
+      "groups": [
+        {
+          "date": "2026-10-13",
+          "units": [
+            24,
+            3
+          ],
+          "nativeUnits": [
+            24,
+            3
+          ]
+        },
+        {
+          "date": "2026-10-15",
+          "units": [
+            24
+          ],
+          "nativeUnits": [
+            24
+          ]
+        },
+        {
+          "date": "2026-10-19",
+          "units": [
+            24,
+            20
+          ],
+          "nativeUnits": [
+            24,
+            20
+          ]
+        },
+        {
+          "date": "2026-10-22",
+          "units": [
+            4
+          ],
+          "nativeUnits": [
+            4
+          ]
+        }
+      ],
+      "writes": 0
+    },
+    "phone": {
+      "checks": 24,
+      "recordVersion": 5321,
+      "groups": [
+        {
+          "date": "2026-10-13",
+          "units": [
+            24,
+            3
+          ],
+          "nativeUnits": [
+            24,
+            3
+          ]
+        },
+        {
+          "date": "2026-10-15",
+          "units": [
+            24
+          ],
+          "nativeUnits": [
+            24
+          ]
+        },
+        {
+          "date": "2026-10-19",
+          "units": [
+            24,
+            20
+          ],
+          "nativeUnits": [
+            24,
+            20
+          ]
+        },
+        {
+          "date": "2026-10-22",
+          "units": [
+            4
+          ],
+          "nativeUnits": [
+            4
+          ]
+        }
+      ],
+      "writes": 0
+    }
+  },
+  "sweeps": {
+    "desktop": {
+      "routes": 22,
+      "deepLinks": 7,
+      "back": true,
+      "errors": 0,
+      "consoleErrors": 0
+    },
+    "phone": {
+      "routes": 22,
+      "deepLinks": 7,
+      "back": true,
+      "errors": 0,
+      "consoleErrors": 0
+    }
+  }
+}
