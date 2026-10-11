@@ -2,7 +2,9 @@
 
 Author: Andrew Fisher
 
-Approved for publication by Andrew: **“Make live”** in the current chat. READY TO UPLOAD. Final desktop and phone focused checks pass (45 each). Both navigation sweeps pass: 22 routes, seven deep links and Back, zero browser/console errors. Phone screenshot inspected. Upload dry run passes. Not yet published.
+VERIFIED LIVE — uploaded 11 Oct 2026 11:27 AEST; actual-public verification completed 11 Oct 2026 11:28 AEST. Andrew explicitly approved **“Make live”**. Source `bd4c5b26`; READY `d883d67d`.
+
+Final candidate desktop45/phone45 checks passed. Both navigation sweeps passed22routes/sevenlinks/Back with no errors. Actual-public desktop41/phone41 passed without local HTML substitution, browser errors or attempted operational writes. Exact public bytes verified; public phone screenshot inspected.
 
 Today uses compact controls with Date and Showcase visible, and the original Email, Print and section shortcuts under Actions. Available staff remains connected to the native daily roster. An unrecorded roster uses a dated disclosure rather than a large empty panel; confirmed zero and known staff stay distinct. The disclosure survives native roster and footer refreshes, and the actual staff date stays clear when viewing historical progress.
 
@@ -17,7 +19,7 @@ Base v9.92 SHA256: `0460e6f2306946c0e7262600414ff65b0824b0a086e618dbce28d7c66669
 Candidate SHA256: `3da4e17980eead5cbf886dbbfab54f60c18aacd48405d92822869a7ce3637205`; 14,770,433 bytes; 79 inline scripts.
 
 ```sh
-bash toolchain/build.sh v9.93-final v9.93_animated_load_preview_DRAFT/patch_v993.py
+bash toolchain/build.sh v9.93-final v9.93_compact_today_loads_LIVE/patch_v993.py
 ```
 
 The patch refuses the wrong base and repeated application. Native source is byte-for-byte unchanged outside the three presentation injections and version footer. Syntax, attribution and secret checks pass. Focused release checks use `tests/browser993.cjs`; actual-public verification uses `PUBLIC=1` without `PAGE`. Navigation uses the shared sweep through `v9.80_showcase_sound_LIVE/tests/navigation980.cjs`, with explicit Google map fixtures; it does not certify map imagery. All browser runs use `/tmp/gc500-browser.lock` and block operational writes.
