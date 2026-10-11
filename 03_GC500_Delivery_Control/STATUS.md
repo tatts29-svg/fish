@@ -1,5 +1,9 @@
 <!-- Author: Andrew Fisher -->
 
+READY TO UPLOAD — v9.93 compact Today and recorded unload details. Andrew explicitly approved “Make live”. Source bd4c5b26; candidate SHA256 3da4e17980eead5cbf886dbbfab54f60c18aacd48405d92822869a7ce3637205, 14,770,433 bytes, 79 scripts; exact livev9.92 base0460e6f2306946c0e7262600414ff65b0824b0a086e618dbce28d7c66669e890. Production bytes differ from approved draft45049e36 only by the footer. Desktop45/phone45 focused checks pass, both navigation sweeps22routes/sevenlinks/Back pass, zero errors/writes, final phone screenshot inspected. Exact native source preservation, wrong-base/reapply guards and upload dry run pass. Root implementation/testing/publication with narrow independent source review; no Claude review claimed. No unreviewed two-column change, invented specifications or operational writes. Guarded upload and actual-public verification next.
+
+<!-- Author: Andrew Fisher -->
+
 CLAIMED RELEASE — v9.93 approved Today and Build presentation. Andrew explicitly says “Make live” in the current chat, approving publication of the reviewed draft45049e36. Root owns promotion from exact livev9.92: retain reviewed layout, original controls/data, lights/motion and recorded unloading methods; change draft footer to production version only. No unreviewed two-column redesign or inferred building heights/weights. Run final desktop/phone focused checks and navigation sweeps, then guarded upload and actual-public proof. Not ready until checks complete. Existing P25 source discrepancy remains visible; no operational record writes are authorised by this presentation release.
 
 <!-- Author: Andrew Fisher -->

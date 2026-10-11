@@ -2,7 +2,7 @@
 
 Author: Andrew Fisher
 
-Approved for publication by Andrew: **“Make live”** in the current chat. Release checks in progress; not yet published.
+Approved for publication by Andrew: **“Make live”** in the current chat. READY TO UPLOAD. Final desktop and phone focused checks pass (45 each). Both navigation sweeps pass: 22 routes, seven deep links and Back, zero browser/console errors. Phone screenshot inspected. Upload dry run passes. Not yet published.
 
 Today uses compact controls with Date and Showcase visible, and the original Email, Print and section shortcuts under Actions. Available staff remains connected to the native daily roster. An unrecorded roster uses a dated disclosure rather than a large empty panel; confirmed zero and known staff stay distinct. The disclosure survives native roster and footer refreshes, and the actual staff date stays clear when viewing historical progress.
 
@@ -21,6 +21,8 @@ bash toolchain/build.sh v9.93-final v9.93_animated_load_preview_DRAFT/patch_v993
 ```
 
 The patch refuses the wrong base and repeated application. Native source is byte-for-byte unchanged outside the three presentation injections and version footer. Syntax, attribution and secret checks pass. Focused release checks use `tests/browser993.cjs`; actual-public verification uses `PUBLIC=1` without `PAGE`. Navigation uses the shared sweep through `v9.80_showcase_sound_LIVE/tests/navigation980.cjs`, with explicit Google map fixtures; it does not certify map imagery. All browser runs use `/tmp/gc500-browser.lock` and block operational writes.
+
+Independent narrow source review found no production blockers. Native data, refresh paths, original control bindings and unloading updates are retained. No review of unrelated financial or operational correctness is claimed by this presentation release.
 
 Private screenshots and detailed evidence remain outside Git under `/workspace/private-gc500-release993/`. Initial preview evidence is retained in `tests/iteration2.json`; release evidence is recorded separately and bound to the production hash. The earlier animated preview's motion checks remain applicable because release presentation sources are unchanged.
 
