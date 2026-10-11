@@ -1,5 +1,9 @@
 <!-- Author: Andrew Fisher -->
 
+VERIFIED LIVE — v9.99 portaloo delivery runs of 24. Published 12 Oct 2026 07:08 AEST; source bae5f1a0, READY 79c70f59. Exact public SHA256 bfb7767a4036d7103940ed932365d687fe15a76921c6670d1ea78c6732b93dc8, 14,881,754 bytes, 89 scripts. Same-day inbound loads combine locations across island boundaries: 13 Oct 24 + 3; 15 Oct 24; 19 Oct 24 + 20; 22 Oct 4. All 99 outstanding toilets and their dates retained; six proposed physical runs. Nine model checks, candidate and actual-public desktop/phone 24 checks each, both 22-route/seven-link/Back sweeps and 29 current PDF checks pass. Actual-public phone and PDF preview inspected; native records untouched. Sub-hired, daily cards and exported run sheets agree. Special product capacities and Demob priority/pickup grouping unchanged; no emails sent. Root implementation/publication with scoped independent source review. Folder v9.99_portaloo_runs_LIVE. Future builds start from this exact published hash.
+
+<!-- Author: Andrew Fisher -->
+
 READY TO UPLOAD — v9.99 full portaloo delivery runs. Source bae5f1a0; exact v9.98 base a72ab6662a237194c09d8dd9671856fa97409ac97a53cf8b94c97f6063df5d0c; candidate bfb7767a4036d7103940ed932365d687fe15a76921c6670d1ea78c6732b93dc8, 14,881,754 bytes, 89 scripts. Same-day inbound loads fill to24 across island boundaries; six runs retain all99 outstanding toilets and recorded dates (13Oct24+3,15Oct24,19Oct24+20,22Oct4). Nine model checks, desktop24/phone24 focused checks and both22-route/seven-link/Back sweeps pass with zero errors. Phone screenshot and upload dry run passed. No native writes; approved appearance, quantities, media, special-product capacities and Demob grouping retained. Root implementation/release with scoped independent source review. Actual-public verification and new run-sheet PDFs follow.
 
 <!-- Author: Andrew Fisher -->
