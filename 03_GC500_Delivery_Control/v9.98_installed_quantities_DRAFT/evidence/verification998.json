@@ -1,0 +1,24 @@
+{
+  "author": "Andrew Fisher",
+  "candidateSha256": "a72ab6662a237194c09d8dd9671856fa97409ac97a53cf8b94c97f6063df5d0c",
+  "nativeCorrection": {
+    "beforeVersion": 5306,
+    "afterVersion": 5320,
+    "put200": 14,
+    "allOtherSharedFieldsUnchanged": true
+  },
+  "focused": {
+    "desktop": {
+      "checks": 69,
+      "failures": [],
+      "recordVersion": 5320,
+      "writes": 0
+    },
+    "phone": {
+      "checks": 66,
+      "failures": [],
+      "recordVersion": 5320,
+      "writes": 0
+    }
+  }
+}
