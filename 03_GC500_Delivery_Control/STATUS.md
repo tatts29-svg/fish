@@ -1,5 +1,9 @@
 <!-- Author: Andrew Fisher -->
 
+CLAIMED — v10.05 visible generator standdown breakdown. Andrew asks: “Standdown i want the rate per day. Start and end date. And the total days then tptal inckuded”. Root owns a narrow presentation update showing per-unit daily standdown rate, actual/planned start, inclusive end, total days and existing charge together for every generator. Retain shared calculation, quantities, actual/forecast, branches and all financial totals; no native record writes. Scope review assigned for date boundaries and quantity/precision meaning. Exact v10.04 base0030d7d3d6838fcad67773cdb19927ea0388591aa33cbc163e53d0d02d182443. Not ready.
+
+<!-- Author: Andrew Fisher -->
+
 VERIFIED LIVE — v10.04 generator standdown and Concert location. Published12Oct2026 14:12AEST; implementation89837f86, READY932c7bb4. ExactpublicSHA2560030d7d3d6838fcad67773cdb19927ea0388591aa33cbc163e53d0d02d182443,14,947,935bytes,90scripts. Card standby rates authoritative; 200kVA $182.28/day until22Oct, full daily23–25Oct, commercial offhire25Oct. Complete generator hire: actual $28,196.40 + remaining forecast $9,333.73 = $37,530.13 exGST; standdown $21,132.58 + $3,884.69 = $25,017.27. Shared Revenue projection updates Costs/P&L/branch/reference/October Finance without duplicate charges. Confirmed identities only; Concert pair user coordinate links map/master/navigation. Two contract-only spare locations remain unspecified. 87finance/36source/24presentation checks,383final-candidate browser checks, both22-route/seven-link/Back sweeps, actual-public18checks perviewport pass; zero errors/testwrites, phonevisual reviewed. No operational records changed; Direct costs/physical pickups/accessories/install/transport preserved. Root-owned combined review/publication with scoped agent implementation. Source and evidence v10.04_generator_standdown_LIVE. Future builds must start from this exact public hash.
 
 <!-- Author: Andrew Fisher -->
