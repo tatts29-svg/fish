@@ -10,4 +10,4 @@ The exact reviewed historical records now resolve to one corrected base ID. Unkn
 
 Implementation and release: root, with independent signed-paper review and merge regression review. Final candidate is SHA256 `3056702a2a5664050eb9b8cf8592bc2f700ea5faf705829d97f471b83f38e412`, 14,915,214 bytes, 90 inline scripts, from v10.02 `0ed900c790e1cf21686d4b24566d0919e920032c25e66da205fbe4c68494468b`.
 
-90 pure merge regressions and 18 offline native correction guards pass. Desktop/phone startup and navigation checks are finishing. Not ready to upload yet. The guarded native reconciliation runner has not been executed; private backups and original signed papers remain outside Git.
+90 pure merge regressions and 18 offline native correction guards pass. Final desktop/phone startup, repeated stale-copy sync, 22-route/seven-link navigation and Back checks pass with zero errors or test writes. Source guards, DATA/style preservation and upload dry-run pass. READY TO UPLOAD from source commit8883fb6f. The guarded native reconciliation runner has not been executed; private backups and original signed papers remain outside Git.

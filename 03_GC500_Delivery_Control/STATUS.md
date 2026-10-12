@@ -1,5 +1,9 @@
 <!-- Author: Andrew Fisher -->
 
+READY TO UPLOAD — v10.03 recurring fencing conflict. Source8883fb6f; finalcandidate3056702a2a5664050eb9b8cf8592bc2f700ea5faf705829d97f471b83f38e412,14,915,214bytes,90scripts; exactv10.02base0ed900c790e1cf21686d4b24566d0919e920032c25e66da205fbe4c68494468b. 90mergechecks/18nativeguardchecks pass; final desktop/phone initial+repeat startup and22-route/seven-link/Back sweeps pass withzeroerrors/writes. DATA/styles unchanged; phonevisual inspected, upload dryrunpass. Correct docket36560 retained once including1pedgate; semantic duplicatekeyorder handled, existingvariant hashes and genuinelynewedits retained; native tombstones/undo honoured. Root implementation/publication; independent signed-source andmerge review completed. Guardednativecleanup will back up fresh record5381, keep canonicalcorrectedpayload, deleteonly2exactduplicatevariantdocuments andstampnamedoperator, then verifyallotherfields unchanged. No nativewriteexecutedyet. Publishthenfreshpublic verification.
+
+<!-- Author: Andrew Fisher -->
+
 IMPLEMENTED — v10.03 recurring fencing conflict. Root and independent source review confirmed signed docket36560 has one pedestrian gate. Exact stale/corrected native variants bed7/3529 resolve once to F-AFV-0002; unrelated edits retained. Semantic list equality preserves established hashes, and already-held conflicts no longer reopen on every merge. Native tombstones precede reconciliation; read-only pricing uses the same projection without changing native input. Candidate3056702a2a5664050eb9b8cf8592bc2f700ea5faf705829d97f471b83f38e412,14,915,214bytes,90scripts, exactv10.02base. 90purechecks and18offline nativeguardchecks pass; final desktop/phone gates underway. Guarded nativecleanup prepared, not executed. Notready.
 
 <!-- Author: Andrew Fisher -->
