@@ -1,0 +1,47 @@
+/* Author: Andrew Fisher. Keep the existing Finance housing, table and phone stack. */
+#generators1004{min-width:0}
+#generators1004 .generator1004-metrics{grid-template-columns:repeat(3,minmax(0,1fr));margin:12px 0}
+#generators1004 .generator1004-table{margin-top:12px}
+#generators1004 table{width:100%;min-width:0;border-collapse:collapse}
+#generators1004 th,#generators1004 td{vertical-align:top}
+#generators1004 th.num,#generators1004 td.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+#generators1004 .generator1004-ref{font-size:16px;font-weight:800;line-height:1.4;min-height:32px;padding:2px 0;text-decoration:underline;text-underline-offset:3px}
+#generators1004 .generator1004-location{max-width:32ch;line-height:1.45;margin:3px 0;overflow-wrap:anywhere}
+#generators1004 .generator1004-map{min-height:32px;font-size:12px}
+#generators1004 .generator1004-assets{max-width:30ch;margin:5px 0;overflow-wrap:anywhere}
+#generators1004 .generator1004-dates{display:grid;gap:6px;white-space:nowrap}
+#generators1004 .generator1004-dates .acc761-w{display:inline-block;min-width:48px;margin-right:5px}
+#generators1004 .generator1004-more{font-size:12px;max-width:36ch;margin-top:4px}
+#generators1004 .generator1004-more summary,#generators1004 .generator1004-basis summary{cursor:pointer;min-height:40px;align-content:center;font-weight:700}
+#generators1004 .generator1004-basis{border-bottom:1px solid #d2dce1;font-size:13px}
+#generators1004 dl{display:grid;grid-template-columns:minmax(95px,.8fr) minmax(0,1.2fr);gap:8px 12px;line-height:1.45;text-align:left}
+#generators1004 dt{font-weight:700}
+#generators1004 dd{margin:0;overflow-wrap:anywhere}
+#generators1004 .generator1004-basis dl{max-width:620px}
+#generators1004 .generator1004-unpriced{font-size:13px;font-weight:700;color:#9c470c}
+#generators1004 summary:focus-visible,#generators1004 .linkish:focus-visible{outline:2px solid var(--orange,#f47721);outline-offset:3px}
+@media(max-width:900px){
+ #generators1004{padding:14px}
+ #generators1004 .generator1004-metrics{gap:8px}
+ #generators1004 .fin745-metric{padding:12px}
+ #generators1004 .fin745-metric>strong{font-size:22px}
+ #generators1004 table,#generators1004 tbody,#generators1004 tr,#generators1004 td{display:block;width:100%;box-sizing:border-box}
+ #generators1004 thead{display:none}
+ #generators1004 tbody tr{border:1px solid #d2dce1;border-radius:8px;margin:0 0 10px;padding:4px 10px;background:#fff}
+ #generators1004 td{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;padding:8px 0;border:0;border-bottom:1px dashed #e4e9ec;min-width:0;text-align:right;white-space:normal!important}
+ #generators1004 td:last-child{border-bottom:0}
+ #generators1004 td[data-l]::before{content:attr(data-l);flex:0 0 31%;max-width:31%;font-size:11px;font-weight:700;color:#52636e;text-align:left;text-transform:uppercase;letter-spacing:.03em}
+ #generators1004 td>.tr888-v{flex:1 1 auto;min-width:0;overflow-wrap:anywhere}
+ #generators1004 .generator1004-location,#generators1004 .generator1004-assets,#generators1004 .generator1004-more{max-width:none}
+ #generators1004 .generator1004-more summary{min-height:44px}
+ #generators1004 .generator1004-dates{white-space:normal}
+ #generators1004 .generator1004-more dl{grid-template-columns:1fr;margin-top:0;gap:3px}
+ #generators1004 .generator1004-more dd{margin-bottom:8px}
+}
+@media(max-width:520px){
+ #generators1004 .generator1004-metrics{grid-template-columns:1fr}
+ #generators1004 .fin745-metric{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:6px 12px}
+ #generators1004 .fin745-metric>strong{grid-column:2;grid-row:1 / span 2;align-self:center;font-size:23px}
+ #generators1004 .fin745-metric>small{grid-column:1}
+}
+@media print{#generators1004 .generator1004-map{display:none}}
