@@ -22,6 +22,26 @@ function targetDocs(docs){
 function compact(docs){return Object.fromEntries(Object.entries(docs).filter(([,v])=>Object.keys(v||{}).length));}
 function compareDocs(actual,expected,label){if(!same(compact(actual),compact(expected)))throw Error(label+' differs from expected full shared document set');}
 function captureNative(){return JSON.parse(JSON.stringify({docs:Object.fromEntries(Object.keys(SYNC_COLLS).map(k=>[k,toDocs(k)])),state:S,queue:SYNC.queue,inflight:SYNC.inflight,financial:{actual:fenceDerived(),forecast:cj764Fencing()}}));}
+function restoreUnchangedNative(input){
+ const canonical=value=>fencePaperCanonical898(value),clone=value=>JSON.parse(JSON.stringify(value));
+ const fail=message=>{throw Error(message);};
+ if(!window.__nativeCorrectionSend1003||Object.keys(SYNC.inflight||{}).length)fail('Native writer was not paused before startup writes');
+ const before=Object.fromEntries(Object.keys(SYNC_COLLS).map(k=>[k,toDocs(k)])),restored=[];
+ for(const [name,queue]of Object.entries(SYNC.queue||{})){
+  if(!Object.keys(queue).length||['fenceDockets','stamps','by'].includes(name))continue;
+  const original=input.beforeDocs[name]||{};
+  // Only JSON property order may differ. Real concurrent edits never pass this guard.
+  if(canonical(before[name]||{})!==canonical(original))fail('Unrelated queued collection has changed values: '+name);
+  for(const [id,body]of Object.entries(queue))if(body===null||canonical(body)!==canonical(original[id]))fail('Queued document is not a serialization-only no-op: '+name+'/'+id);
+  SYNC_COLLS[name].set(fromDocs(name,clone(original)));restored.push(name);
+ }
+ const after=Object.fromEntries(Object.keys(SYNC_COLLS).map(k=>[k,toDocs(k)]));
+ if(canonical(before)!==canonical(after))fail('Restoring server key order changed record values');
+ if(!persist()||SYNC.unkept)fail('Could not retain native serialization alignment');
+ syncStage();
+ for(const [name,queue]of Object.entries(SYNC.queue||{}))if(!['fenceDockets','stamps','by'].includes(name)&&Object.keys(queue).length)fail('Unrelated queue remains after native serialization alignment: '+name);
+ return clone({restored,docs:after,queue:SYNC.queue});
+}
 function stageNative(input){
  const canonical=value=>fencePaperCanonical898(value),clone=value=>JSON.parse(JSON.stringify(value));
  const compact=docs=>Object.fromEntries(Object.entries(docs).filter(([,v])=>Object.keys(v||{}).length));
@@ -67,7 +87,7 @@ async function fetchSafe(url,headers={},method='GET',body=null){
  }finally{fs.rmSync(hf,{force:true});fs.rmSync(bf,{force:true});}
 }
 async function publicState(){const response=await fetchSafe(HOST+'/api/state',{'x-gc500-token':'Coates-GC500-2026','cache-control':'no-cache'});if(response.status!==200)throw Error('Public record read failed: '+response.status);return JSON.parse(response.body);}
-(async()=>{let browser;const expectedWrites=new Map(),receipts=new Set(),attempted=new Set();try{
+(async()=>{let browser,p;const expectedWrites=new Map(),receipts=new Set(),attempted=new Set();try{
  save('validation.json',validation);
  const live=await fetchSafe(HOST+'/v/Coates-GC500-2026',{'cache-control':'no-cache'});
  if(live.status!==200||hash(live.body)!==expectedPage||!live.body.toString().includes('1003'))throw Error('Published page differs from reviewed reconciliation release');
@@ -92,16 +112,26 @@ async function publicState(){const response=await fetchSafe(HOST+'/api/state',{'
    }
    const response=await fetchSafe(url,req.headers(),method,req.postData());
    if(proof){proof.status=response.status;proof.finished=new Date().toISOString();save('write-requests.json',requests);if(response.status!==200)throw Error('Correction returned '+response.status);receipts.add(proof.collection+'/'+proof.id);}
+   if(!writesAllowed&&method==='GET'&&new URL(url).origin===HOST&&new URL(url).pathname==='/api/state'){
+    await p.evaluate(()=>{
+     if(!window.__nativeCorrectionSend1003){
+      if(typeof syncSend!=='function')throw Error('Native writer unavailable before initial state');
+      window.__nativeCorrectionSend1003=syncSend;
+      syncSend=function(){clearTimeout(SYNC.timer);SYNC.timer=null;syncStage();};
+     }
+    });
+   }
    await route.fulfill(response);
   }catch(error){stop(error.message);save('transport-failure.json',{message:fatal.message,requests});await route.abort();}
  });
- const p=await ctx.newPage();p.on('pageerror',error=>stop('Page error: '+error.message));
+ p=await ctx.newPage();p.on('pageerror',error=>stop('Page error: '+error.message));
  await p.goto(HOST+'/e/'+token,{waitUntil:'load',timeout:180000});
  await p.waitForFunction(()=>SYNC.status==='live'&&!SYNC.readonly&&!SYNC.unkept&&SYNC.first.size===Object.keys(SYNC_COLLS).length,null,{timeout:180000});
  if(fatal)throw fatal;
  await p.evaluate(()=>{const control=document.getElementById('who');if(!control)throw Error('Native operator control missing');control.value='Andrew Fisher via Codex';control.dispatchEvent(new Event('change',{bubbles:true}));});
  const pageBefore=await p.evaluate(captureNative);save('before-page.json',pageBefore);compareDocs(pageBefore.docs,proposed.docs,'Initial native projection');
  compareDocs((await publicState()).docs,before.docs,'Fresh pre-write record');if(fatal)throw fatal;
+ const aligned=await p.evaluate(restoreUnchangedNative,{beforeDocs:before.docs});save('serialization-alignment.json',aligned);
  const staged=await p.evaluate(stageNative,{scope:SCOPE,operator:OPERATOR,projectedDocs:proposed.docs,corrected:reviewed.corrected});save('native-proposal.json',staged);
  const expected=clone(proposed.docs),stampId=docId('fenceDockets/'+BASE),stamp=staged.after.stamps?.[stampId],by=staged.after.by?.[stampId];
  if(!stamp||stamp._k!=='fenceDockets/'+BASE||!Number.isFinite(Date.parse(stamp.v))||Date.now()-Date.parse(stamp.v)>60000||Date.parse(stamp.v)>Date.now()+1000||!by||by._k!=='fenceDockets/'+BASE||by.v!==OPERATOR)throw Error('Native reconciliation stamp or operator missing');
@@ -115,7 +145,10 @@ async function publicState(){const response=await fetchSafe(HOST+'/api/state',{'
  for(const write of held){const want=expectedWrites.get(write.collection+'/'+write.id);if(!want||want.method!==write.method||!same(want.body,write.body))throw Error('Unexpected held native write');}
  // Confirm the server still matches the backed-up record immediately before releasing writes.
  compareDocs((await publicState()).docs,before.docs,'Final pre-write record');if(fatal)throw fatal;
- save('expected-writes.json',[...expectedWrites.values()]);writesAllowed=true;releaseGate();await p.evaluate(()=>syncSend());
+ save('expected-writes.json',[...expectedWrites.values()]);writesAllowed=true;releaseGate();await p.evaluate(()=>{
+  if(typeof window.__nativeCorrectionSend1003!=='function')throw Error('Paused native writer missing');
+  syncSend=window.__nativeCorrectionSend1003;delete window.__nativeCorrectionSend1003;syncSend();
+ });
  const deadline=Date.now()+120000;
  while(true){if(fatal)throw fatal;const status=await p.evaluate(()=>({on:SYNC.on,status:SYNC.status,unkept:SYNC.unkept,waiting:syncWaiting()}));
   if(!status.on||status.unkept||['offline','unreachable','error','stopped','paused'].includes(status.status))throw Error('Shared sync became unhealthy; inspect partial receipts before retry');

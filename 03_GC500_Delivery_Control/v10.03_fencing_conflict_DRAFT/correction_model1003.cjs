@@ -3,8 +3,8 @@
 const fs=require('fs'),vm=require('vm'),path=require('path'),assert=require('assert');
 const source=fs.readFileSync(path.join(__dirname,'correction1003.cjs'),'utf8');
 const ctx={require,process:{env:process.env},console};vm.createContext(ctx);
-vm.runInContext(source.slice(0,source.indexOf('const args=process.argv.slice(2)'))+'\nthis.testing={targetDocs,reviewed,variants,BASE,canon,docId};',ctx);
-const {targetDocs,reviewed,variants,BASE,canon,docId}=ctx.testing,clone=x=>JSON.parse(JSON.stringify(x));
+vm.runInContext(source.slice(0,source.indexOf('const args=process.argv.slice(2)'))+'\nthis.testing={targetDocs,reviewed,variants,BASE,canon,docId,restoreUnchangedNative};',ctx);
+const {targetDocs,reviewed,variants,BASE,canon,docId,restoreUnchangedNative}=ctx.testing,clone=x=>JSON.parse(JSON.stringify(x));
 let checks=0;const check=(condition,message)=>{assert(condition,message);checks++;};
 const fixture={fenceDockets:Object.fromEntries(variants.map(v=>[v.key,clone(v.body)])),notes:{WC61:{_k:'WC61',v:'Preserve unrelated note'}},stamps:{},by:{}};
 const before=canon(fixture),fixed=targetDocs(fixture);
@@ -28,4 +28,27 @@ for(const [name,change]of [
 ]){const modified=clone(fixture);change(modified);assert.throws(()=>targetDocs(modified),/exact reviewed pair/);checks++;}
 check(docId('F-AFV-0002·3529')==='F-AFV-0002~b7~3529','native encoded variant key');
 check(docId('fenceDockets/F-AFV-0002')==='fenceDockets~2f~F-AFV-0002','native stamp key');
+// Startup merge can reorder keys in recently edited deliveries. Do not send those no-op writes.
+function serializationFixture(){
+ const original={state:'on site',history:[{state:'on site',at:'2026-10-12T00:56:20.325Z'}],done:true,_k:'GN13'};
+ let stored={GN13:{state:original.state,done:original.done,history:clone(original.history)}};
+ ctx.window={__nativeCorrectionSend1003:function(){}};
+ ctx.SYNC={inflight:{},unkept:false,queue:{delivery:{GN13:{...stored.GN13,_k:'GN13'}},fenceDockets:{[BASE]:clone(reviewed.corrected)}}};
+ ctx.SYNC_COLLS={delivery:{set:value=>stored=value},fenceDockets:{set:()=>{throw Error('Target collection must not be reset');}}};
+ ctx.fencePaperCanonical898=canon;ctx.persist=()=>true;
+ ctx.toDocs=name=>name==='delivery'?Object.fromEntries(Object.entries(stored).map(([k,v])=>[k,{...v,_k:k}])):{[BASE]:clone(reviewed.corrected)};
+ ctx.fromDocs=(_name,docs)=>Object.fromEntries(Object.entries(docs).map(([k,v])=>{const copy={...v};delete copy._k;return[k,copy];}));
+ ctx.syncStage=()=>{const body=ctx.toDocs('delivery').GN13;if(JSON.stringify(body)===JSON.stringify(original))delete ctx.SYNC.queue.delivery.GN13;else ctx.SYNC.queue.delivery.GN13=body;};
+ return{beforeDocs:{delivery:{GN13:original},fenceDockets:{[BASE]:clone(reviewed.corrected)}}};
+}
+let serialization=serializationFixture();const aligned=restoreUnchangedNative(serialization);
+check(aligned.restored.join(',')==='delivery','only unrelated no-op collection aligned');
+check(Object.keys(aligned.queue.delivery).length===0,'native stage drops property-order-only delivery write');
+check(aligned.queue.fenceDockets[BASE].quantities.ped_gates===1,'target correction remains queued');
+check(canon(aligned.docs.delivery)===canon(serialization.beforeDocs.delivery),'user delivery values and history preserved');
+serialization=serializationFixture();ctx.SYNC.inflight['delivery/GN13']='pending';assert.throws(()=>restoreUnchangedNative(serialization),/not paused/);checks++;
+serialization=serializationFixture();ctx.window={};assert.throws(()=>restoreUnchangedNative(serialization),/not paused/);checks++;
+serialization=serializationFixture();serialization.beforeDocs.delivery.GN13.done=false;assert.throws(()=>restoreUnchangedNative(serialization),/changed values/);checks++;
+serialization=serializationFixture();ctx.SYNC.queue.delivery.GN13=null;assert.throws(()=>restoreUnchangedNative(serialization),/serialization-only no-op/);checks++;
+serialization=serializationFixture();ctx.persist=()=>false;assert.throws(()=>restoreUnchangedNative(serialization),/Could not retain/);checks++;
 console.log(JSON.stringify({author:'Andrew Fisher',pass:true,checks,networkCalls:0,mutations:0},null,2));
