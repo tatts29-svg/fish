@@ -1,5 +1,9 @@
 <!-- Author: Andrew Fisher -->
 
+SOURCE REVIEW COMPLETE — 12 Oct 2026 updated Schedule 8 and Baseplan originals read and compared with the last reviewed originals and fresh live record at 14:29 AEST. Schedule: 12 sheets, 27 aligned field changes, three new business rows, no deletions. Baseplan: 11 sheets, 320 to 295 numbered lines (287 retained, 73 changed, eight added, 33 absent); consolidations are not equipment removals. Material date/size/loading/VMS/bundle inconsistencies recorded alongside confirmed native evidence; retained rates, branch codes and supplier cost notes unchanged. Root owns reconciliation; two independent scoped original-source reviews complete. Private comparison register delivered; original paths, hashes, review scope and proposed reconciliation recorded in review_12Oct2026_schedule8_baseplan/README.md. READ / COMPARED only: no source import, app release, operational write or financial adjustment. v10.05 remains live. A later importer must preserve native state and reconcile source joins, not bypass the old source guard.
+
+<!-- Author: Andrew Fisher -->
+
 VERIFIED LIVE — v10.05 visible generator standdown breakdown. Published12Oct2026 14:25AEST; implementation3717cc8d, READYc98b8b87; exactpublicSHA25665bba5cb7477816d587cb72025ff256f2eb8c2dbc65eb4087dccc5ad49f4622a,14,950,116bytes,90scripts. Every generator now shows rate/unit/day, actual/planned start, end, inclusive total days and quantity-inclusive standdown total without expanding. Delivery date shown once; source precision retained in More info. Shared generator model and all financial totals unchanged. Candidate and actual-public110checks each perdesktop/phone, both22-route/seven-link/Back sweeps, source guards, phonevisual and scoped independent source review pass; zero errors/operational writes. Root implementation/publication; source/evidence v10.05_standdown_detail_LIVE. Nextbuild must start from exactpublichash.
 
 <!-- Author: Andrew Fisher -->
