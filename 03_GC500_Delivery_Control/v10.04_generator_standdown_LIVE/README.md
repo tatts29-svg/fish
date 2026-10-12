@@ -2,7 +2,7 @@
 
 Author: Andrew Fisher
 
-READY TO UPLOAD. Implementation commit `89837f86`; final candidate SHA256 `0030d7d3d6838fcad67773cdb19927ea0388591aa33cbc163e53d0d02d182443` (14,947,935 bytes, 90 scripts). Not yet live.
+VERIFIED LIVE — 12 Oct 2026, 14:12 AEST. Implementation commit `89837f86`; READY commit `932c7bb4`; public SHA256 `0030d7d3d6838fcad67773cdb19927ea0388591aa33cbc163e53d0d02d182443` (14,947,935 bytes, 90 scripts), served byte for byte.
 
 Generators charge from delivery through 25 October 2026. Use the **published Standby Rate 2026** before Friday 23 October and **Daily Rate 2026** for 23–25 October, with no hire after Sunday. Andrew clarified that standdown rates already appear on the card and confirmed the 200 kVA rate as $182.28/day. Source precision is retained until each contract line is rounded. Explicit whole-event or weekly overrides keep their existing units; unpriced/POA lines remain visible holds.
 
@@ -21,6 +21,6 @@ Testing uses the read-only harness under `/tmp/gc500-browser.lock`; fixtures nev
 
 Root implemented integration, standdown disclosure, location mapping and release checks, with scoped source, finance and presentation implementation from collaborating agents. The final combined review is root-owned. No operational records, bookings or emails are changed.
 
-Build: `./toolchain/build.sh v10.04 v10.04_generator_standdown_DRAFT/patch_v1004.py`. Exact required base: v10.03, SHA256 `3056702a2a5664050eb9b8cf8592bc2f700ea5faf705829d97f471b83f38e412`.
+Build: `./toolchain/build.sh v10.04 v10.04_generator_standdown_LIVE/patch_v1004.py`. Exact required base: v10.03, SHA256 `3056702a2a5664050eb9b8cf8592bc2f700ea5faf705829d97f471b83f38e412`.
 
-Final gates: 87 finance, 36 source and 24 presentation model checks; 383 final-candidate browser reconciliation checks; desktop and phone 22-route/seven-link/Back sweeps, zero errors or test writes. Both viewport visuals inspected. Wrong-base and repeated patch application rejected. Detailed evidence is in `evidence/release-gates.json`. Actual-public desktop and phone checks follow guarded publication.
+Final gates: 87 finance, 36 source and 24 presentation model checks; 383 final-candidate browser reconciliation checks; desktop and phone 22-route/seven-link/Back sweeps, zero errors or test writes. Both viewport visuals inspected. Wrong-base and repeated patch application rejected. Detailed evidence is in `evidence/release-gates.json`. Actual-public desktop and phone: 18 checks each passed, exact approved bytes, native current totals matching the calculation, zero errors and writes. Public phone rows inspected.
