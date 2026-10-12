@@ -4,6 +4,16 @@ Author: Andrew Fisher
 
 Status: **READ AND COMPARED — not imported or published**. Review completed 12 Oct 2026. The live application remains v10.05. No operational records, rates, charges, maps or running sheets were changed by this review.
 
+## Current deliverable — simple Baseplan check
+
+Andrew clarified: “I dont care about times. I care about my baseplan matching what i have.. and if not what needs to be fixed. My data is truth” and requested two tabs: existing and what needs fixing. This supersedes the earlier broad change-register presentation.
+
+`/workspace/output/GC500_Baseplan_Check.xlsx` now contains exactly **Existing** and **Needs fixing**. Existing has 153 matching item/status rows; Needs fixing has 43 correction rows and one active-contract linkage check. These are review rows, not equipment totals. Each correction shows what Baseplan says, what the site record says and the specific change required. Supporting contract cells and evidence remain in cell comments. Schedule times are excluded. Related duplicate instructions were consolidated. Recorded supplier numbers are visible where they are needed to complete a correction, and mixed ownership is labelled by item.
+
+The basis is a fresh GET-only site read at 14:49 AEST, 12 Oct, shared version 5477. Confirmed local records and committed supplied entries take precedence; scheduled-only numbers are not presented as confirmed. P25's larger-building substitution is already authorised in the committed variance, so it is not a correction. P47/P53 are effectively cancelled, so their absence is correct. Included fittings without a separate contract line are not automatically missing hire charges. Generator physical pickup dates are not mistaken for the commercial hire end date.
+
+Three independent scoped comparisons covered sanitation, buildings/contents and remaining equipment. The sanitation reviewer checked the final workbook; root applied the requested ownership/number-display polish. Private inputs, row decisions, generator and validation are under `/workspace/private-gc500-source1006/` (`simple_toilets.json`, `simple_buildings.json`, `simple_equipment.json`, `current-site-snapshot.json`, `simple-check-rows.json`, `create_simple_check.py`, `simple-check-validation.json`). Workbook SHA256: `a4513040dc0fc1501cd7f7c8e1033f74a27865e681251dca7f35ba140f282c97`. Reopened workbook checks confirm exactly two tabs, filters/frozen headings, no executable formulas, no schedule-time noise, no cancelled-unit reinstatements and no duplicate paired correction. This is a corrected review deliverable; Baseplan originals and live app/records remain unchanged.
+
 Andrew supplied both originals in the current chat and asked: “Also see attached updated baseplan and schedule. See if anything has been changed or updated to assist.” The review compares the complete workbooks with the last reviewed originals, then checks material changes against a fresh read-only live snapshot captured at 14:29:12 AEST on 12 Oct.
 
 ## Exact sources

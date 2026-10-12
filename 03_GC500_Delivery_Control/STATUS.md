@@ -1,5 +1,9 @@
 <!-- Author: Andrew Fisher -->
 
+BASEPLAN CHECK SIMPLIFIED — Andrew says his site data is truth, excludes schedule times and wants only Existing / Needs fixing. Completed two-tab private workbook against fresh read-only site version5477 at14:49AEST,12Oct. Specific Baseplan quantity/status/reference/identity corrections replace the broad source-diff presentation; matching items separate, repeated actions consolidated. Approved substitutions and cancellations preserved; included contents do not imply extra hire charges. Root integration plus three scoped reviews; final sanitation rows independently checked. See review_12Oct2026_schedule8_baseplan/README.md for exact private source/artefact paths and validation. Review deliverable only; no live/financial/operational changes, no source workbook mutation. v10.05 remains live.
+
+<!-- Author: Andrew Fisher -->
+
 SOURCE REVIEW COMPLETE — 12 Oct 2026 updated Schedule 8 and Baseplan originals read and compared with the last reviewed originals and fresh live record at 14:29 AEST. Schedule: 12 sheets, 27 aligned field changes, three new business rows, no deletions. Baseplan: 11 sheets, 320 to 295 numbered lines (287 retained, 73 changed, eight added, 33 absent); consolidations are not equipment removals. Material date/size/loading/VMS/bundle inconsistencies recorded alongside confirmed native evidence; retained rates, branch codes and supplier cost notes unchanged. Root owns reconciliation; two independent scoped original-source reviews complete. Private comparison register delivered; original paths, hashes, review scope and proposed reconciliation recorded in review_12Oct2026_schedule8_baseplan/README.md. READ / COMPARED only: no source import, app release, operational write or financial adjustment. v10.05 remains live. A later importer must preserve native state and reconcile source joins, not bypass the old source guard.
 
 <!-- Author: Andrew Fisher -->
