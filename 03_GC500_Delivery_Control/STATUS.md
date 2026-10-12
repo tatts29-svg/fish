@@ -1,5 +1,9 @@
 <!-- Author: Andrew Fisher -->
 
+IMPLEMENTED — v10.05 visible standdown breakdown. Candidate65bba5cb7477816d587cb72025ff256f2eb8c2dbc65eb4087dccc5ad49f4622a,14,950,116bytes,90scripts. Standdown shows rate/unit/day, actual/planned start, end, total days and quantity-inclusive charge; duplicate arrival date removed for positive standdown periods. Calculation precision retained under More info. Shared financial source and totals unchanged.110focused checks perdesktop/phone, sourceguards and phonevisual pass; scoped independent source review has no blockers. Both final navigation sweeps running. Root implementation/publication. Not ready; no operational writes.
+
+<!-- Author: Andrew Fisher -->
+
 CLAIMED — v10.05 visible generator standdown breakdown. Andrew asks: “Standdown i want the rate per day. Start and end date. And the total days then tptal inckuded”. Root owns a narrow presentation update showing per-unit daily standdown rate, actual/planned start, inclusive end, total days and existing charge together for every generator. Retain shared calculation, quantities, actual/forecast, branches and all financial totals; no native record writes. Scope review assigned for date boundaries and quantity/precision meaning. Exact v10.04 base0030d7d3d6838fcad67773cdb19927ea0388591aa33cbc163e53d0d02d182443. Not ready.
 
 <!-- Author: Andrew Fisher -->
