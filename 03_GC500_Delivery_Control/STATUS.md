@@ -1,5 +1,9 @@
 <!-- Author: Andrew Fisher -->
 
+IMPLEMENTED — v10.03 recurring fencing conflict. Root and independent source review confirmed signed docket36560 has one pedestrian gate. Exact stale/corrected native variants bed7/3529 resolve once to F-AFV-0002; unrelated edits retained. Semantic list equality preserves established hashes, and already-held conflicts no longer reopen on every merge. Native tombstones precede reconciliation; read-only pricing uses the same projection without changing native input. Candidate3056702a2a5664050eb9b8cf8592bc2f700ea5faf705829d97f471b83f38e412,14,915,214bytes,90scripts, exactv10.02base. 90purechecks and18offline nativeguardchecks pass; final desktop/phone gates underway. Guarded nativecleanup prepared, not executed. Notready.
+
+<!-- Author: Andrew Fisher -->
+
 CLAIMED — v10.03 recurring fencing import-conflict warning. Andrew provides screenshot of repeated “Two records disagreed” for F-AFV-0002 variants3529/bed7 and says “Fix and remove”. Root owns tracing replay/merge, source-backed handling of corrected docket36560, regression tests and publication from exactv10.02 base0ed900c790e1cf21686d4b24566d0919e920032c25e66da205fbe4c68494468b. Preserve valid evidence; do not merely conceal unresolved conflicts or double-count copies. Independent docket/reconciliation review in progress. No native financial/operational write until exact current records and a justified correction are concrete. Notready.
 
 <!-- Author: Andrew Fisher -->
