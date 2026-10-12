@@ -1,5 +1,9 @@
 <!-- Author: Andrew Fisher -->
 
+VERIFIED LIVE — v10.05 visible generator standdown breakdown. Published12Oct2026 14:25AEST; implementation3717cc8d, READYc98b8b87; exactpublicSHA25665bba5cb7477816d587cb72025ff256f2eb8c2dbc65eb4087dccc5ad49f4622a,14,950,116bytes,90scripts. Every generator now shows rate/unit/day, actual/planned start, end, inclusive total days and quantity-inclusive standdown total without expanding. Delivery date shown once; source precision retained in More info. Shared generator model and all financial totals unchanged. Candidate and actual-public110checks each perdesktop/phone, both22-route/seven-link/Back sweeps, source guards, phonevisual and scoped independent source review pass; zero errors/operational writes. Root implementation/publication; source/evidence v10.05_standdown_detail_LIVE. Nextbuild must start from exactpublichash.
+
+<!-- Author: Andrew Fisher -->
+
 READY TO UPLOAD — v10.05 visible standdown breakdown. Implementation3717cc8d; exactv10.04base0030d7d3d6838fcad67773cdb19927ea0388591aa33cbc163e53d0d02d182443; finalcandidate65bba5cb7477816d587cb72025ff256f2eb8c2dbc65eb4087dccc5ad49f4622a,14,950,116bytes,90scripts. 110focused checks perdesktop/phone, both22-route/seven-link/Back sweeps, sourceguards, upload dryrun and phonevisual pass, zero errors/writes. Scoped read-only review has no blockers. Existing shared generator financial source unchanged; all totals reconcile. Actual/planned start shown once, daily rate/unit, inclusive end, days and total visible together. Root implementation/publication; source v10.05_standdown_detail_DRAFT. Public verification follows upload.
 
 <!-- Author: Andrew Fisher -->
