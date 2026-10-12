@@ -167,9 +167,10 @@ marks as a draft, or anything risky to the record, waits for his yes.
 - **How the branch charges** (Brenden Meek, Branch Manager - Relief, by email; Andrew said "remember", 1 Oct 2026):
   "Labour is charged per piece of equipment. Only hourly labour charged is over the event. Forklifts, VMS and
   water barriers are charged for from when they go in. Everything else is only charged for over the event."
-  The event is 23, 24 and 25 October, both ends billed (three days). Pricing for the rehire toilets came attached to
-  that email; "no updated pricing yet, waiting on Corey Machado". A card daily rate for a generator or a light
-  tower is therefore charged for the three event days, never for its days on site.
+  Generator hire is superseded by Andrew's 12 October rule below. The event is 23, 24 and 25 October, both ends billed (three days). Pricing for the rehire toilets came attached to
+  that email; "no updated pricing yet, waiting on Corey Machado". A card daily rate for a light
+  tower is charged for the three event days, never for its days on site.
+- **Generator standdown** (Andrew, 12 Oct 2026): "we have the standown rate on the rate card" and "a 200kva is 182.28 a day until race day". Use the card's published **Standby Rate 2026** from delivery through 22 October, then the full **Daily Rate 2026** for 23–25 October. Commercial off hire is 25 October; no hire after Sunday. Keep source precision until contract-line rounding. Actual is the full hire period for confirmed arrivals; pending arrivals remain forecast. One shared calculation feeds Costs, P&L, branch totals and reference prices. This customer Revenue rule does not set supplier Direct costs or change physical pickup dates.
 - **Generator pricing** (Andrew, 1 Oct 2026): "If a generator price is not there you go for the lower, so 70 kVA becomes
   the 60 kVA. If the client asks for a 60 kVA and we supplied larger, they get the price of a 60 kVA." The rate
   follows what was asked for; a size the card has no line for takes the next size down.
