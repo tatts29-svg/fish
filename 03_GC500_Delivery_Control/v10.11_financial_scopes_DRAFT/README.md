@@ -2,7 +2,7 @@
 
 Author: Andrew Fisher
 
-State: IMPLEMENTED — final candidate checks passed, publication pending.
+State: READY TO UPLOAD. Source `fcab9ec0`; final candidate checks passed.
 
 Exact live base v10.10: `6bc40d8d46b1ca5f936731f17c9d75738c0436c9d1a928e37c94c391a08d0258`.
 Candidate: `a37381b49fec5317fb9b354b7eee2e314f3c6e15215449314e9f1a14c9303557`, 15,125,421 bytes, 103 inline scripts.
