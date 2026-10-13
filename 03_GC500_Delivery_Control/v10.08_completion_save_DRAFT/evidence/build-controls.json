@@ -1,0 +1,12 @@
+{
+  "author": "Andrew Fisher",
+  "sha256": "1cdd454f842bf2467fbb928179f2570a6d16f8f88d7dfa49674b3d34fcac0910",
+  "bytes": 15053525,
+  "passed": true,
+  "checks": [
+    "Exact deterministic final build",
+    "Repeat guard",
+    "Wrong-base guard",
+    "Footer v10.08"
+  ]
+}

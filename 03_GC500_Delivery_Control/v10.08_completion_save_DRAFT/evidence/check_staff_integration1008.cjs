@@ -1,0 +1,55 @@
+// Author: Andrew Fisher. Exercises exact patched staff script against inert local adapters; no live service.
+'use strict';
+const fs=require('node:fs'),vm=require('node:vm'),assert=require('node:assert/strict'),crypto=require('node:crypto');
+const path=require('node:path');
+const outPath=process.env.OUT||path.join(__dirname,'save-integration-review.json');
+const pageFile=process.env.PAGE||path.join(__dirname,'..','..','build','GC500_v10.08','GC500_Delivery_Control_hosted.html'),page=fs.readFileSync(pageFile,'utf8'),checks=[];
+const script=id=>{const x=page.match(new RegExp('<script id="'+id+'">([\\s\\S]*?)<\\/script>'));assert.ok(x,'missing '+id);return x[1]};
+const day='2026-10-14',key='staff988/'+day+'/availability';
+function make(options={}){
+ const writes=[],flashes=[],handlers={},c={console,Date,Map,Set,JSON,Object,Number,String,Array,Math,S:{loads:{}},SYNC:{on:true,readonly:false,status:'live',last:{loads:{}},queue:{loads:{}},inflight:{}},state:{tab:'test'},StaffNames910:{roster:()=>[{name:'Practice One'},{name:'Practice Two'}]},todayWorkHealth840:()=>({ready:true}),crew883Key:d=>'legacy/'+d,mayWrite:()=>options.permission!==false,whoAmI:()=>options.operator===false?'':'Practice operator',esc:s=>String(s).replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('"','&quot;'),fmtDate:s=>s,capability:()=> 'edit',todayIso:()=> '2026-10-13',docIdOf:()=> 'target',flash:s=>flashes.push(s),document:{querySelectorAll:()=>[],querySelector:()=>null,getElementById:()=>null,addEventListener:(t,f)=>(handlers[t]||=[]).push(f)},crew883Editor:()=>{},crew883Checks:()=>{},crew883Sheet:()=>{},crew883Day:()=>{},crew883Transport:()=> '',tr888Flags:()=>[],dayPanels:()=>'',renderToday:()=>{},renderDemob816:()=>{},renderTimeline:()=>{},demobSel816:()=>day,demob816:()=>({}),syncFooter:()=>{}};
+ c.bump=()=>{writes.push(JSON.parse(JSON.stringify(c.S.loads)));c.bump.kept=options.kept!==false;if(options.ack)c.SYNC.last.loads.target=JSON.stringify({...c.S.loads[key],_k:key});};
+ c.window=c;vm.createContext(c);
+ vm.runInContext(script('availability988-script'),c);
+ vm.runInContext(script('staff-save1008-script'),c);
+ vm.runInContext(script('staff988-script'),c);
+ return {c,writes,flashes,handlers};
+}
+function ok(name,truth){assert.ok(truth,name);checks.push({name,pass:true})}
+const names=['Practice One','Practice Two'];
+let f=make(),a=f.c.DailyStaff988,m=a.day(day),save=a.save(day,{count:2,names},m.token);
+ok('Real adapter locally saves exactly one staff record',save.kept&&f.writes.length===1&&Object.keys(f.c.S.loads).length===1);
+ok('Native record retains date and named author',f.c.S.loads[key].day===day&&f.c.S.loads[key].by==='Practice operator');
+ok('Unacknowledged actual save flash is not shared saved',f.flashes.at(-1)==='Saved on this device · syncing…');
+let html=a.html(day);
+ok('Render shows one persistent status', (html.match(/data-staff988-result/g)||[]).length===1);
+ok('Status sits outside the collapsing editor',html.includes('</details><p role="status" aria-live="polite" data-staff988-result'));
+ok('Render immediately shows local pending state',html.includes('data-save1008="pending"')&&html.includes('Saved on this device · syncing'));
+f.c.SYNC.last.loads.target=JSON.stringify({...f.c.S.loads[key],_k:key});html=a.html(day);
+ok('Exact acknowledgement updates actual render to shared',html.includes('data-save1008="shared"')&&html.includes('SAVED · shared record updated'));
+const firstAck=f.c.SYNC.last.loads.target;m=a.day(day);save=a.save(day,{count:1,names:['Practice Three']},m.token);html=a.html(day);
+ok('Second save with old acknowledgement stays pending',save.kept&&html.includes('data-save1008="pending"')&&!html.includes('SAVED · shared record updated'));
+ok('Each real save uses newer timestamp',Date.parse(f.writes[1][key].at)>Date.parse(f.writes[0][key].at));
+f.c.SYNC.last.loads.target=firstAck;html=a.html(day);
+ok('Late stale ack cannot confirm second save through renderer',html.includes('data-save1008="pending"'));
+f.c.SYNC.last.loads.target=JSON.stringify({...f.c.S.loads[key],_k:key});html=a.html(day);
+ok('Second actual exact ack confirms new saved payload',html.includes('data-save1008="shared"'));
+f.c.S.loads[key]={...f.c.S.loads[key],count:3,names:['External One','External Two','External Three']};html=a.html(day);
+ok('Externally changed current document invalidates attempt confirmation',html.includes('data-save1008="changed"'));
+f=make({kept:false});a=f.c.DailyStaff988;m=a.day(day);save=a.save(day,{count:2,names},m.token);html=a.html(day);
+ok('Failed browser persistence makes save fail',!save.kept);
+ok('Failed actual persistence is visibly not saved',html.includes('data-save1008="error"')&&html.includes('Not saved · keep this page open'));
+ok('Failed save never flashes success',!f.flashes.some(x=>x.startsWith('SAVED')));
+f=make({permission:false});a=f.c.DailyStaff988;m=a.day(day);save=a.save(day,{count:2,names},m.token);
+ok('No permission prevents local mutation and bump',!save.kept&&f.writes.length===0&&Object.keys(f.c.S.loads).length===0);
+f=make({operator:false});a=f.c.DailyStaff988;m=a.day(day);save=a.save(day,{count:2,names},m.token);
+ok('Missing operator prevents mutation and bump',!save.kept&&f.writes.length===0&&Object.keys(f.c.S.loads).length===0);
+f=make();a=f.c.DailyStaff988;m=a.day(day);f.c.S.loads[key]={count:1,names:['Other person']};save=a.save(day,{count:2,names},m.token);
+ok('Stale roster token rejected before writer',!save.kept&&f.writes.length===0&&save.reason.includes('changed'));
+f=make();a=f.c.DailyStaff988;m=a.day(day);save=a.save(day,{count:2,names:['Practice One','practice one']},m.token);
+ok('Duplicate staff validation never invokes save',!save.kept&&f.writes.length===0&&save.reason.includes('once'));
+f=make();a=f.c.DailyStaff988;m=a.day(day);save=a.saveRoster(day,m.token);html=a.html(day);
+ok('Use programmed roster follows same truthful pending save path',save.kept&&f.c.S.loads[key].mode==='roster'&&html.includes('data-save1008="pending"'));
+f=make({ack:true});a=f.c.DailyStaff988;m=a.day(day);save=a.save(day,{count:2,names},m.token);
+ok('Synchronous captured exact acknowledgement may truthfully confirm save',save.kept&&f.flashes.at(-1)==='SAVED · shared record updated');
+const out={author:'Andrew Fisher',source:pageFile,sha256:crypto.createHash('sha256').update(page).digest('hex'),pass:true,checks,count:checks.length,noNetwork:true,noNativeWrites:true};fs.mkdirSync(path.dirname(outPath),{recursive:true});fs.writeFileSync(outPath,JSON.stringify(out,null,2)+'\n');console.log(JSON.stringify({pass:true,checks:checks.length,sha256:out.sha256}));
