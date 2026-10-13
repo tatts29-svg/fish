@@ -71,6 +71,9 @@ def apply(html):
     change("const atLeast=n=>Math.floor((n+1e-9)*100)/100;",
            'const atLeast=n=>ProgressPercent1012.display(n,true);',
            'Conservative lower-bound display')
+    change('const bound=number(max)&&max-min>.005,value=bound?atLeast(min):min;',
+           'const bound=number(max)&&max>min,value=bound?atLeast(min):min;',
+           'Retain a real percentage range even when its width is under one display step')
     change("provisional:!!f.provisional,basis:'Programme work metres recorded'",
            "provisional:!!f.provisional,scopeComplete1012:f.scopeComplete1012===true,basis:'Programme work metres recorded'",
            'Pass exact fencing completion into the category index')
@@ -90,6 +93,6 @@ def apply(html):
            "const pctText = n => typeof n === 'number' && Number.isFinite(n) ? ProgressPercent1012.text(Math.max(0, Math.min(100, n))) : '—';",
            'Lighting scope caption percentage display')
     change("const bound=p.pct.max-p.pct.min>.005,percent=bound?Math.floor((p.pct.min+1e-9)*100)/100:p.pct.min;\n return {past:true,percent,bound,text:percent.toLocaleString('en-AU',{maximumFractionDigits:2}),complete:",
-           "const bound=p.pct.max-p.pct.min>.005,percent=bound?ProgressPercent1012.display(p.pct.min,true):p.pct.min;\n return {past:true,percent,bound,text:ProgressPercent1012.text(percent,bound),complete:",
+           "const bound=p.pct.max>p.pct.min,percent=bound?ProgressPercent1012.display(p.pct.min,true):p.pct.min;\n return {past:true,percent,bound,text:ProgressPercent1012.text(percent,bound),complete:",
            'Past Build card percentage matches current precise progress')
     return html

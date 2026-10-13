@@ -27,7 +27,7 @@ All native `onchange`, delegated `change`, `oninput` and delegated `input` regis
 | Change deliveries `[data-chdate]`, `[data-chtext]` | deferred `chSetDate`, `chSetText` | delivery, descs, locations | Matched deferred native-setter context; no broad delayed save attribution |
 | Per-item charge selection `input[data-lab]` | `setLabour` | labour | Adjacent Save on editable fields; automatic arrived charges stay automatic |
 | Manual stairs `[data-stairs975-qty]`, `[data-stairs1006-qty]`, `[data-stairs1006-select]` | `Stairs975.save`, `setLabour` | loads, labour | Adjacent Save; physical completion remains separate |
-| Loading / lifting / unit door | loading872 / handling875 / Shapes926 | existing loads records | Separate v10.12 explicit Save editor; excluded from generic adapter |
+| Loading / lifting / unit door | loading872 / handling875 / Shapes926 | existing delivery records | Separate v10.12 explicit Save editor; excluded from generic adapter |
 
 Existing explicit submissions are retained, rather than adding a second button to the same form:
 
@@ -60,3 +60,5 @@ Excluded selections do not silently become shared-record saves:
 - All hidden input bridges and the specialist v10.12 loading editors are excluded. Disabled automatic charge selections remain disabled; read-only links receive no active Save controls.
 
 Confirmation is scoped to exact changed native documents plus their audit stamps. A nonempty accepted document set, matching current record, exact acknowledged server values, fully loaded collections and no relevant queued/inflight write are all required. Deletion entries are checked by key presence even when their value is null. Invalid entries, failed local persistence, stale drafts and partial acknowledgements cannot display “Saved · shared record updated”.
+
+Verification separates executable checks from source coverage. `test_selection_save1012.cjs` exercises 26 pure acknowledgement boundaries. `check_selection_save1012.cjs` exercises native-style lifecycle events, rejection, remote conflicts, deletion acknowledgement, redraw drafts, dual change/blur protection, save exceptions, mirrored fields and read-only permissions. `check_selection_native1012.cjs` exercises the actual app's workforce note, pay rule, fencing supplier rate, customer rate, fencing scope rate, question note, deferred Change description and delivery note paths with writes intercepted. `check_selection_drawers1012.cjs` exercises actual drawer branch, rental, supplied quantity and manual stairs paths. The table above also records source-reviewed sibling selectors and pre-existing explicit forms; it does not imply every individual field was clicked in the browser.

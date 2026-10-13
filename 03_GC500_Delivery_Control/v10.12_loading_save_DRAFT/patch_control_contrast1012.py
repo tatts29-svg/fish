@@ -7,7 +7,7 @@ from rep import rep
 
 
 def apply(page):
-    if 'id="control-contrast1012"' in page:
+    if 'id="control-contrast1012"' in page or 'id="selection-save1012-style"' in page:
         raise ValueError('Control contrast1012 is already installed')
     for marker in ['id="contrast1007css"', 'id="loadcards991-style"', 'function loading872Editor(a)']:
         if marker not in page:

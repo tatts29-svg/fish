@@ -8,12 +8,13 @@ from rep import rep
 sys.path.insert(0, str(HERE / 'numbers'))
 from patch_percentage1012 import apply as percentage_patch
 from patch_inventory1012 import apply as inventory_patch
+from patch_description_quantity1012 import apply as description_quantity_patch
 BASE_SHA = 'a37381b49fec5317fb9b354b7eee2e314f3c6e15215449314e9f1a14c9303557'
 
 def apply(html):
     if hashlib.sha256(html.encode()).hexdigest() != BASE_SHA:
         raise ValueError('Requires exact live v10.11; refuses repeat or wrong-base application')
-    html = inventory_patch(percentage_patch(html))
+    html = inventory_patch(percentage_patch(description_quantity_patch(html)))
     html = rep(html, "flash(ref+' · '+loading872Words(side)+' saved.');", "flash(bump.kept===false?'Not saved · keep this page open.':ref+' · '+loading872Words(side)+' saved on this device.');", 'Accurate loading save notice', 'v10.12')
     handling = [line for line in html.splitlines() if line.startswith('function handling875Set(ref,method){')]
     if len(handling) != 2:

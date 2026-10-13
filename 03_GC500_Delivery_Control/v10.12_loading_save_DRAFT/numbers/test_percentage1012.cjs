@@ -90,6 +90,11 @@ const ranged=summary();ranged.fencingRows=[{id:'clean',unit:'m',total:5000,done:
 const rf=read(after,ranged,{health:{ready:true},classification:{unallocatedMetres:0,confirmedByType:{ccb_event:2499.9,ccb_demarc:2499.9},pendingMetres:.2}});
 check(rf.fencing.state==='ready'&&rf.fencing.pct.min<100&&rf.fencing.pct.max===100,'CCB pending allocation retains unequal near-100 bounds');
 check(!rf.model.allGreen&&rf.model.provisional,'pending CCB allocation cannot turn green');
+const tinyPastBefore=before.pastModel({iso:'2026-10-13'},'2026-10-14',()=>rf.model);
+const tinyPastAfter=after.pastModel({iso:'2026-10-13'},'2026-10-14',()=>rf.model);
+check(!tinyPastBefore.bound,'original past-day display drops a real range narrower than 0.005');
+check(tinyPastAfter.bound&&tinyPastAfter.text==='99.99'&&!tinyPastAfter.complete,'tiny range keeps its minimum marker and incomplete display');
+check(patched.includes('const bound=number(max)&&max>min,value=bound?atLeast(min):min;'),'Where retains every nonempty raw percentage range');
 const excess=summary();excess.fencingRows=[{id:'clean',unit:'m',total:100,done:101},{id:'ccb_event',unit:'m',total:100,done:99},{id:'ccb_demarc',unit:'m',total:100,done:100}];
 const ex=read(after,excess);equal(ex.fencing.credited.min,299,'excess in one type does not cover another shortfall');check(!ex.model.allGreen,'excess does not finish incomplete scope');
 

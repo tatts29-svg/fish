@@ -63,9 +63,24 @@ const result=await p.evaluate(()=>{
   const ownerMismatch=ownership.filter(r=>{const inv=r.inventory.find(i=>i.item==='FWF'),typed=r.physical.filter(u=>u.item==='FWF'&&u.owner==='event-portables');return inv?.on===typed.length&&typed.length>0&&inv.sub!==typed.length;});
   check('Single-item typed supplier identities reach inventory ownership totals',ownerMismatch.length===0,ownerMismatch.map(r=>({ref:r.ref,typedEventPortables:r.physical.length,inventorySub:r.inventory[0]?.sub})));
   if(ownerMismatch.length)findings.push({id:'single-item-inventory-ownership',severity:'high',references:ownerMismatch.map(r=>r.ref),source:'Inventory960.managed / allocation original lines79061–79063',detail:'Single-item references with verified Event Portables units are omitted from supplier inventory totals when legacy subOf is empty.'});
-  // Unknown-quantity fixture isolates the reader; the original live dataset currently has no unknown active lines.
-  const originalAssets=allAssets,unknownAsset={...assetOf('P25'),key:'AUDIT-UNKNOWN',asset_numbers:[],charge_lines:[{item:'Building 4.8m',discipline:'Portable buildings',quantity:null}],item_types:['Building 4.8m']};
-  try{allAssets=()=>[unknownAsset];const x=inventory().list.find(r=>r.refs['AUDIT-UNKNOWN']);observations.unknownFixture={inventoryAsked:x?.refs['AUDIT-UNKNOWN']?.asked,map:mapQuantity1010(unknownAsset,'unknown')};if(x?.refs['AUDIT-UNKNOWN']?.asked===1)findings.push({id:'inventory-unknown-default',severity:'medium',source:'inventory() original line16103',detail:'Unknown ordered quantity is assumed one in Inventory, while map quantity stays unknown. No current active live line has unknown quantity.'});}finally{allAssets=originalAssets;}
+  // The project manager's shared rule: one per separately described item unless a quantity is stated.
+  const originalAssets=allAssets,described={...assetOf('P25'),key:'AUDIT-DESCRIBED',name:'Audit described building',asset_numbers:[],charge_lines:[{item:'Building 4.8m',discipline:'Portable buildings',quantity:null}],item_types:['Building 4.8m']};
+  const originalSpares=spareList;
+  try{
+   allAssets=()=>[described];spareList=()=>[];
+   const readDescription=()=>fresh(()=>{const a=allAssets()[0],l=chargeLines(a)[0],I=inventory(),ref=I.list.find(r=>r.refs[a.key])?.refs[a.key],work=todayWorkMetrics840(day).find(r=>r.id==='buildings')?.rows.find(r=>r.key===a.key);return {direct:l.quantity,q:qtyOf(l),priceable:l.priceable,map:mapQuantity1010(a,'incomplete'),inv:ref?.asked,work:work?.quantity,labour:labourLineQty(a,l.item),demob:demob816().refs.find(r=>r.key===a.key)?.units};});
+   let x=readDescription();check('Described item with blank quantity is one across charge lines, map, inventory, Today and labour',x.direct===1&&x.q===1&&x.priceable&&x.map.items[0].quantity===1&&x.inv===1&&x.work===1&&x.labour===1,x);
+   described.name='Audit building qty 3';x=readDescription();check('Explicit description quantity three reaches every shared quantity reader',x.direct===3&&x.q===3&&x.map.items[0].quantity===3&&x.inv===3&&x.work===3&&x.labour===3,x);
+   described.charge_lines[0].quantity=4;x=readDescription();check('Explicit recorded four takes precedence over description three everywhere',x.direct===4&&x.q===4&&x.map.items[0].quantity===4&&x.inv===4&&x.work===4&&x.labour===4,x);
+   described.charge_lines=[{item:'Building 4.8m',discipline:'Portable buildings',quantity:null},{item:'Waste tank',discipline:'Toilets & amenities',quantity:null}];described.item_types=['Building 4.8m','Waste tank'];
+   const multi=fresh(()=>({lines:chargeLines(described).map(l=>({item:l.item,quantity:qtyOf(l)})),map:mapQuantity1010(described,'incomplete')}));check('Separate descriptions count one each and do not inherit another item’s quantity',multi.lines.length===2&&multi.lines.every(l=>l.quantity===1)&&multi.map.items.length===2&&multi.map.items.every(l=>l.quantity===1),multi);
+   described.charge_lines=[{item:'Building 6m',discipline:'Portable buildings',quantity:null}];described.item_types=['Building 6m'];described.name='Building 6000 x 3000 mm · asset 1189408';x=readDescription();check('Dimensions and asset numbers never inflate a described item quantity',x.direct===1&&x.q===1&&x.inv===1,x);
+   check('Known quantities retain normal priceable presentation without a missing-quantity flag',chargeLines(described).every(l=>l.priceable&&qtyOf(l)!=null));
+   described.charge_lines[0].quantity=-3;const invalid=fresh(()=>({lines:chargeLines(described),inventory:inventory()}));
+   check('Truly invalid explicit quantity is unpriced and never becomes one in Inventory',qtyOf(invalid.lines[0])===null&&invalid.lines[0].priceable===false&&!invalid.inventory.list.some(r=>r.refs[described.key])&&invalid.inventory.quantityIssues1012.some(x=>x.ref===described.key));
+   const correction=document.createElement('div');correction.innerHTML=invHtml(true);check('Invalid quantity keeps an accessible reference correction button',!!correction.querySelector('[data-quantity-correction1012] [data-fixref="AUDIT-DESCRIBED"]'));
+  }finally{allAssets=originalAssets;spareList=originalSpares;}
+
  }finally{for(const k of Object.keys(S))if(!(k in saved))delete S[k];Object.assign(S,saved);RENDER_MEMO.clear();for(const[k,v]of savedMemo)RENDER_MEMO.set(k,v);}
  check('Every in-memory fixture restored the exact original shared record',JSON.stringify(S)===before);
  return {author:'Andrew Fisher',asAt:day,version,checks,findings,observations,recordRestored:JSON.stringify(S)===before};

@@ -51,6 +51,11 @@ const out=process.env.OUT||'/workspace/private-percentage1012-browser';
     Scope960.applyScope(partial.byId.vms,{requirement:5});const pm=model(partial).m,vms=pm.rows.find(r=>r.id==='vms'),pui=paint(pm);
     check('Provisional VMS scope keeps separate lower-bound uncertainty',partial.byId.vms.scopeProvisional960&&partial.byId.vms.pctKind==='lower-bound'&&vms.min===50&&vms.max===100&&pm.provisional&&!pm.allGreen,{min:vms.min,max:vms.max,provisional:pm.provisional});
     check('Real VMS chip retains minimum symbol',/≥/.test(pui.vmsText),pui.vmsText);
+    const tiny=summary();tiny.fencingRows=types.map(id=>({id,unit:'m',total:id==='clean'?5000:['ccb_event','ccb_demarc'].includes(id)?2500:0,done:id==='clean'?5000:id==='ccb_event'?2499.9:id==='ccb_demarc'?2500.1:0,...(['ccb_event','ccb_demarc'].includes(id)?{classificationPending:true}:{})}));
+    const tinyFence=fenceOverall853(day,tiny,{health:{ready:true},classification:{unallocatedMetres:0,confirmedByType:{ccb_event:2499.9,ccb_demarc:2499.9},pendingMetres:.2}}),tinyModel=read(day,tiny,tinyFence),tinyUi=paint(tinyModel);
+    check('Sub-0.005 completion range stays real and cannot complete',tinyModel.pct.max>tinyModel.pct.min&&tinyModel.pct.max-tinyModel.pct.min<.005&&!tinyModel.allGreen);
+    check('Real fencing chip retains the tiny-range minimum marker',/≥/.test(tinyUi.fenceText),tinyUi.fenceText);
+    check('Past-day tiny range retains its minimum marker',PastDay984.model({iso:'2026-10-13'},'2026-10-14',()=>tinyModel).bound);
     for(const kind of ['unknown','stale']){const s=summary();if(kind==='unknown')s.byId.toilets={total:null,done:1,pct:null,pctKind:'unknown'};else s.health.stale=true;const r=model(s).m,u=paint(r);check(kind+' prevents completed UI',!r.allGreen&&u.complete==='false'&&u.lights<5,u);if(kind==='unknown')check('Unknown group keeps overall unavailable',!r.ready&&r.pct===null&&u.text==='—');}
    }finally{progress881Model=read;mount();}
    check('All fixtures leave the shared record exactly unchanged',JSON.stringify(S)===before);

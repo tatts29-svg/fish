@@ -36,7 +36,7 @@ function status(attempt,env){
 const api={families,excluded,diff,status,sameBody};
 if(typeof module!=='undefined'&&module.exports)module.exports=api;
 root.SelectionSave1012=api;if(typeof document==='undefined')return;
-const attempts=new Map(),selector=families.map(f=>f.selector).join(','),mounted=new WeakMap(),discarded=new WeakSet(),deferred=new Map();let active=null,pendingMount=false,sequence=0;
+const attempts=new Map(),selector=families.map(f=>f.selector).join(','),mounted=new WeakMap(),owners=new WeakMap(),discarded=new WeakSet(),deferred=new Map();let active=null,pendingMount=false,sequence=0;
 function editable(el){return capability()==='edit'&&!SYNC.readonly&&!el.disabled&&!el.readOnly;}
 function family(el){return el?.matches?.('input:not([type="hidden"]),select,textarea')&&!el.closest(excluded)&&families.find(f=>el.matches(f.selector));}
 function identity(el,f){const scope=el.closest('[id^="pane-"],#drawer'),allowed=new Set(['id','name','data-rsp','data-k','data-ref','data-unit',...[...f.selector.matchAll(/\[(data-[a-z0-9-]+)/g)].map(m=>m[1])]),attrs=[...el.attributes].filter(a=>allowed.has(a.name)).map(a=>[a.name,a.value]).sort((a,b)=>a[0].localeCompare(b[0]));const stairs=el.closest('.stairs975');if(stairs)attrs.push(...[...stairs.attributes].filter(a=>/data-stairs(?:1006|975)-(?:ref|disc|item|unit)$/.test(a.name)).map(a=>[a.name,a.value]));return JSON.stringify([f.id,scope?.id||'',scope?.id==='drawer'?state.sel||'':'',scope?.id==='pane-runsheet'?state.runDay||todayIso():'',scope?.id==='pane-change'&&typeof CHG!=='undefined'?CHG.key||'':'',attrs]);}
@@ -46,7 +46,9 @@ function snapshot(f,audit){const out={};for(const c of f.collections.concat(audi
 function current(c,id){const d=toDocs(c)[id];return d===undefined?null:JSON.stringify(d);}
 function environment(){return {unkept:SYNC.unkept,ready:SYNC.on&&SYNC.status==='live'&&!SYNC.readonly&&Object.keys(SYNC_COLLS).every(k=>SYNC.first.has(k)),connected:SYNC.on&&!['offline','unreachable','error','stopped','paused'].includes(SYNC.status),last:SYNC.last||{},queue:SYNC.queue||{},inflight:SYNC.inflight||{},current};}
 function entry(el,f){const key=identity(el,f);let a=attempts.get(key);if(!a){a={key,family:f.id,value:value(el),baseValue:value(el),dirty:false,expected:[],accepted:false};attempts.set(key,a);}return a;}
-function find(key){return [...document.querySelectorAll(selector)].find(el=>{const f=family(el);return f&&identity(el,f)===key;});}
+function copies(key){return [...document.querySelectorAll(selector)].filter(el=>{const f=family(el);return f&&identity(el,f)===key;});}
+function find(key){return copies(key)[0];}
+function isCopy(el,key){const f=el?.isConnected&&family(el);return !!f&&identity(el,f)===key;}
 function draw(el,f){
  const a=attempts.get(identity(el,f)),bar=mounted.get(el);if(!bar?.isConnected)return;
  const s=status(a,environment()),out=bar.querySelector('[data-selection1012-status]'),button=bar.querySelector('[data-selection1012-save]'),reload=bar.querySelector('[data-selection1012-reload]');
@@ -66,7 +68,7 @@ function mount(){
    const button=document.createElement('button');button.type='button';button.className='btn selection1012-save';button.dataset.selection1012Save='';button.textContent='Save';button.setAttribute('aria-label','Save this field');
    const reload=document.createElement('button');reload.type='button';reload.className='btn selection1012-save';reload.dataset.selection1012Reload='';reload.textContent='Reload';reload.hidden=true;
    const out=document.createElement('span');out.dataset.selection1012Status='';out.setAttribute('role','status');out.setAttribute('aria-live','polite');bar.append(button,reload,out);
-   const label=el.closest('label'),anchor=label&&label.querySelectorAll('input,select,textarea').length===1?label:el;anchor.after(bar);mounted.set(el,bar);
+   const label=el.closest('label'),anchor=label&&label.querySelectorAll('input,select,textarea').length===1?label:el;anchor.after(bar);mounted.set(el,bar);owners.set(bar,el);
   }draw(el,f);
  }
 }
@@ -98,28 +100,39 @@ function finish(context){
 for(const [name,kind]of [['chSetDate','date'],['chSetText','text']]){const original=root[name];if(typeof original!=='function')continue;root[name]=function(ref,second,third){const field=kind==='date'?third:second,v=kind==='date'?second:third,context=[...deferred.values()].find(c=>c.kind===kind&&c.ref===ref&&c.field===field&&String(c.value)===String(v));if(!context)return original.apply(this,arguments);deferred.delete(context.id);const prior=active;active=context;try{return original.apply(this,arguments);}finally{active=prior;finish(context);}};}
 const nativeSave=save;
 save=function(){const context=active;let result;try{result=nativeSave.apply(this,arguments);return result;}finally{if(context)record(context,result===true);}};
-function explicitSave(key){
- let el=find(key);const f=family(el);if(!f||!editable(el))return;let a=entry(el,f);
+function flushCaptured(a,f){
+ const prior=active;active=null;a.kept=false;
+ try{a.kept=nativeSave()===true;}catch(_){a.kept=false;}finally{active=prior;}
+ if(a.kept){a.dirty=false;a.error='';a.base=null;}else{a.dirty=true;a.error='Not saved · keep this page open';a.base=snapshot(f,false);}
+}
+function explicitSave(key,preferred){
+ let el=isCopy(preferred,key)?preferred:find(key);const f=family(el);if(!f||!editable(el))return;let a=entry(el,f);const origin=el,copyIndex=copies(key).indexOf(el);
  if(a.dirty&&a.base&&diff(a.base,snapshot(f,false)).length){a.error='Record changed · reopen this field before saving';draw(el,f);return;}
  if(document.activeElement===el)el.blur();
  function flush(){
-  el=find(key);if(!el)return;a=attempts.get(key);if(!a)return;
+  el=isCopy(origin,key)?origin:(copies(key)[copyIndex]||find(key));if(!el||!editable(el))return;a=attempts.get(key);if(!a)return;
   if(a.dirty&&a.restored&&!a.error&&(!a.base||!diff(a.base,snapshot(f,false)).length)&&value(el)===a.value){a.restored=false;el.dispatchEvent(new Event('change',{bubbles:true}));setTimeout(flush,0);return;}
-  if(a.kept===false&&a.accepted&&a.expected.length&&a.expected.every(d=>sameBody(current(d.collection,d.id),d.expected))){const prior=active;active=null;try{a.kept=nativeSave()===true;if(a.kept){a.dirty=false;a.error='';a.base=null;}}finally{active=prior;}draw(el,f);return;}
+  if(a.kept===false&&a.accepted&&a.expected.length&&a.expected.every(d=>sameBody(current(d.collection,d.id),d.expected))){flushCaptured(a,f);draw(el,f);return;}
   if(a.dirty||a.error){if(!a.error)a.error='Not saved · finish or correct this field';draw(el,f);return;}
   if(!a.accepted||!a.expected.length){a.noChange=true;draw(el,f);return;}
   if(!editable(el))return;
   // Flush the already captured native state. No field handler is invoked again.
-  const prior=active;active=null;try{a.kept=nativeSave()===true;}finally{active=prior;}draw(el,f);
+  flushCaptured(a,f);draw(el,f);
  }setTimeout(flush,0);
 }
-function reloadField(key){const el=find(key),a=attempts.get(key);if(!el)return;discarded.add(el);if(document.activeElement===el)el.blur();const ref=el.closest('#drawer')?state.sel:null;if(a)writeValue(el,a.baseValue??'');attempts.delete(key);if(ref)openAsset(ref);else render();schedule();}
+function reloadField(key,preferred){const el=isCopy(preferred,key)?preferred:find(key),a=attempts.get(key);if(!el)return;discarded.add(el);if(document.activeElement===el)el.blur();const ref=el.closest('#drawer')?state.sel:null;if(a)writeValue(el,a.baseValue??'');if(el.matches('[data-qa]')&&typeof refreshQuestionNote754==='function')refreshQuestionNote754(el.dataset.qa);attempts.delete(key);if(ref)openAsset(ref,{keep:true});else{const pane=document.getElementById('pane-'+state.tab),held=root.Persistence1010?.capture(pane,false);try{render();}finally{mount();if(held)root.Persistence1010.restore(pane,held,false);}}schedule();}
 document.addEventListener('input',captureInput,true);
 document.addEventListener('change',begin,true);
 document.addEventListener('blur',event=>{const el=event.target;if(discarded.has(el)){event.preventDefault();event.stopImmediatePropagation();return;}const f=family(el),a=f&&attempts.get(identity(el,f));if(a?.dirty&&a.base&&diff(a.base,snapshot(f,false)).length){a.error='Record changed · your entry is unsaved';event.preventDefault();event.stopImmediatePropagation();draw(el,f);}},true);
 document.addEventListener('focusout',e=>{const f=family(e.target);if(f){const a=attempts.get(identity(e.target,f));if(a&&!active)a.focused=false;}},true);
-document.addEventListener('pointerdown',e=>{const b=e.target.closest?.('[data-selection1012-save],[data-selection1012-reload]');if(!b)return;e.preventDefault();e.stopPropagation();if(b.hasAttribute('data-selection1012-reload'))return reloadField(b.closest('.selection1012-controls').dataset.selection1012Key);explicitSave(b.closest('.selection1012-controls').dataset.selection1012Key);},true);
-document.addEventListener('click',e=>{const b=e.target.closest?.('[data-selection1012-save],[data-selection1012-reload]');if(!b)return;e.preventDefault();e.stopPropagation();if(e.detail===0){if(b.hasAttribute('data-selection1012-reload'))reloadField(b.closest('.selection1012-controls').dataset.selection1012Key);else explicitSave(b.closest('.selection1012-controls').dataset.selection1012Key);}},true);
+document.addEventListener('pointerdown',e=>{const b=e.target.closest?.('[data-selection1012-save],[data-selection1012-reload]');if(!b)return;e.preventDefault();e.stopPropagation();if(b.hasAttribute('data-selection1012-reload'))return reloadField(b.closest('.selection1012-controls').dataset.selection1012Key,owners.get(b.closest('.selection1012-controls')));explicitSave(b.closest('.selection1012-controls').dataset.selection1012Key,owners.get(b.closest('.selection1012-controls')));},true);
+document.addEventListener('click',e=>{const b=e.target.closest?.('[data-selection1012-save],[data-selection1012-reload]');if(!b)return;e.preventDefault();e.stopPropagation();if(e.detail===0){if(b.hasAttribute('data-selection1012-reload'))reloadField(b.closest('.selection1012-controls').dataset.selection1012Key,owners.get(b.closest('.selection1012-controls')));else explicitSave(b.closest('.selection1012-controls').dataset.selection1012Key,owners.get(b.closest('.selection1012-controls')));}},true);
+// The outer native bump/Idle handlers restore page position after render returns.
+// Give them the final control height, without introducing another scroll owner.
+const renderBefore=render;render=function(){try{return renderBefore.apply(this,arguments);}finally{mount();}};
+// Build the real control height before the existing synchronous drawer position restore.
+// Its native user-intent guards still own any next-frame correction.
+if(typeof openAssetRestore==='function'){const restoreDrawer=openAssetRestore;openAssetRestore=function(){mount();return restoreDrawer.apply(this,arguments);};}
 const footer=syncFooter;syncFooter=function(){const result=footer.apply(this,arguments);refresh();return result;};
 new MutationObserver(records=>{if(records.some(r=>[...r.addedNodes,...r.removedNodes].some(n=>n.nodeType===1&&!n.matches?.('.selection1012-controls,.selection1012-controls *'))))schedule();}).observe(document.body,{subtree:true,childList:true});
 Object.assign(api,{mount,refresh,attempts,explicitSave,identity,family});schedule();

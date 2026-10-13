@@ -1,0 +1,246 @@
+{
+  "author": "Andrew Fisher",
+  "version": 5814,
+  "checks": [
+    {
+      "name": "Integrated precise percentage helper loaded",
+      "pass": true
+    },
+    {
+      "name": "99.9 raw fencing completion remains false",
+      "pass": true,
+      "actual": {
+        "raw": {
+          "min": 99.9,
+          "max": 99.9
+        },
+        "left": {
+          "min": 10,
+          "max": 10
+        }
+      }
+    },
+    {
+      "name": "99.9 overall cannot turn green",
+      "pass": true
+    },
+    {
+      "name": "99.9 real Where card does not display completed 100",
+      "pass": true,
+      "actual": {
+        "text": "99.99",
+        "complete": "false",
+        "lights": 4,
+        "aria": "99.99% tracked category progress. 4 of 5 milestone lights reached.",
+        "fenceText": "99.9%",
+        "vmsText": "100%"
+      }
+    },
+    {
+      "name": "99.9 real category chip does not round up to 100",
+      "pass": true,
+      "actual": "99.9%"
+    },
+    {
+      "name": "99.999 raw fencing completion remains false",
+      "pass": true,
+      "actual": {
+        "raw": {
+          "min": 99.999,
+          "max": 99.999
+        },
+        "left": {
+          "min": 0.1,
+          "max": 0.1
+        }
+      }
+    },
+    {
+      "name": "99.999 overall cannot turn green",
+      "pass": true
+    },
+    {
+      "name": "99.999 real Where card does not display completed 100",
+      "pass": true,
+      "actual": {
+        "text": "99.99",
+        "complete": "false",
+        "lights": 4,
+        "aria": "99.99% tracked category progress. 4 of 5 milestone lights reached.",
+        "fenceText": "99.99%",
+        "vmsText": "100%"
+      }
+    },
+    {
+      "name": "99.999 real category chip does not round up to 100",
+      "pass": true,
+      "actual": "99.99%"
+    },
+    {
+      "name": "rounded-zero-left raw fencing completion remains false",
+      "pass": true,
+      "actual": {
+        "raw": {
+          "min": 99.99999,
+          "max": 99.99999
+        },
+        "left": {
+          "min": 0,
+          "max": 0
+        }
+      }
+    },
+    {
+      "name": "rounded-zero-left overall cannot turn green",
+      "pass": true
+    },
+    {
+      "name": "rounded-zero-left real Where card does not display completed 100",
+      "pass": true,
+      "actual": {
+        "text": "99.99",
+        "complete": "false",
+        "lights": 4,
+        "aria": "99.99% tracked category progress. 4 of 5 milestone lights reached.",
+        "fenceText": "99.99%",
+        "vmsText": "100%"
+      }
+    },
+    {
+      "name": "rounded-zero-left real category chip does not round up to 100",
+      "pass": true,
+      "actual": "99.99%"
+    },
+    {
+      "name": "Exact completed source quantities give five green lamps",
+      "pass": true,
+      "actual": {
+        "text": "100",
+        "complete": "true",
+        "lights": 5,
+        "aria": "100% tracked category progress. All five lights green: finished.",
+        "fenceText": "100%",
+        "vmsText": "100%"
+      }
+    },
+    {
+      "name": "Near100 arithmetic remains below100",
+      "pass": true,
+      "actual": {
+        "min": 99.99857142857142,
+        "max": 99.99857142857142
+      }
+    },
+    {
+      "name": "Near100 real overall display shows99.99",
+      "pass": true,
+      "actual": {
+        "text": "99.99",
+        "complete": "false",
+        "lights": 4,
+        "aria": "99.99% tracked category progress. 4 of 5 milestone lights reached.",
+        "fenceText": "100%",
+        "vmsText": "100%"
+      }
+    },
+    {
+      "name": "Past-day card shares the same99.99 reading",
+      "pass": true,
+      "actual": {
+        "past": true,
+        "percent": 99.99857142857142,
+        "bound": false,
+        "text": "99.99",
+        "complete": false
+      }
+    },
+    {
+      "name": "Category denominator and Done/Left retained",
+      "pass": true
+    },
+    {
+      "name": "Category raw ratio and displayed rounding cannot finish one remaining unit",
+      "pass": true,
+      "actual": 99.995
+    },
+    {
+      "name": "Provisional VMS scope keeps separate lower-bound uncertainty",
+      "pass": true,
+      "actual": {
+        "min": 50,
+        "max": 100,
+        "provisional": true
+      }
+    },
+    {
+      "name": "Real VMS chip retains minimum symbol",
+      "pass": true,
+      "actual": "\u226550%"
+    },
+    {
+      "name": "Sub-0.005 completion range stays real and cannot complete",
+      "pass": true
+    },
+    {
+      "name": "Real fencing chip retains the tiny-range minimum marker",
+      "pass": true,
+      "actual": "\u226599.99%"
+    },
+    {
+      "name": "Past-day tiny range retains its minimum marker",
+      "pass": true
+    },
+    {
+      "name": "unknown prevents completed UI",
+      "pass": true,
+      "actual": {
+        "text": "\u2014",
+        "complete": "false",
+        "lights": 0,
+        "aria": "Tracked category progress unavailable.",
+        "fenceText": "100%",
+        "vmsText": "100%"
+      }
+    },
+    {
+      "name": "Unknown group keeps overall unavailable",
+      "pass": true
+    },
+    {
+      "name": "stale prevents completed UI",
+      "pass": true,
+      "actual": {
+        "text": "100",
+        "complete": "false",
+        "lights": 4,
+        "aria": "100% tracked category progress. 4 of 5 milestone lights reached.",
+        "fenceText": "100%",
+        "vmsText": "100%"
+      }
+    },
+    {
+      "name": "All fixtures leave the shared record exactly unchanged",
+      "pass": true
+    },
+    {
+      "name": "Original model function restored",
+      "pass": true
+    },
+    {
+      "name": "Existing programme panel preserved",
+      "pass": true
+    }
+  ],
+  "operationalWrites": 0,
+  "sourceSha256": "c5685d83f0fafb71cdf18868c6123f9b9b2a9ffc9a15db71aa0a1cb341866572",
+  "viewport": "desktop",
+  "browserErrors": [],
+  "network": {
+    "page": 1,
+    "live": 13,
+    "blocked": 0
+  },
+  "passed": 30,
+  "failed": [],
+  "sourceScope": "Exact integrated candidate; synthetic scope inputs and real Where885 display; original functions and shared record restored."
+}

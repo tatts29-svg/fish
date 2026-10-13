@@ -10,6 +10,7 @@ The live source was `a37381b49fec5317fb9b354b7eee2e314f3c6e15215449314e9f1a14c93
 - The existing dark loading/action/progress-dialog surfaces now declare paired paper, text, border and native-control palette tokens. The light delivery record and asset drawer keep their light palette.
 - Shared native button and field defaults now pair foreground/background at low specificity. Existing primary, danger, status, staff, traffic and Save rules retain their explicit colours. Disabled values remain readable without altering disabled or read-only behaviour. Keyboard focus and selected input text have explicit contrasting pairs.
 - Cancelled rows in the legacy Edit table reduced all cell contents to 62% opacity, making correction actions and hints approximately **3:1**. Removing that opacity retains the existing written **cancelled** status and all native actions.
+- Coates Way’s modal Back button used white text on bright orange (about **2.87:1**). A single scoped text-colour pair retains its orange face with dark lettering. The existing ghost navigation buttons keep their own palette.
 - No source prices, quantities, dates, branches, asset records, selectors for native events or Save handlers are changed. The CSS is screen-only; existing printing rules are preserved.
 
 `patch_control_contrast1012.py` is an isolated CSS-only test helper. Root's `patch_v1012.py` includes the same CSS in the combined release; do not apply both helpers to a release build.
@@ -20,4 +21,8 @@ The live source was `a37381b49fec5317fb9b354b7eee2e314f3c6e15215449314e9f1a14c93
 
 The numerical audit composites solid colours and representative gradient stops. Image backgrounds are recorded separately and require screenshot inspection. A numerical contrast scan does not prove the correctness of underlying records.
 
-Final candidate/public results and exact hashes are added after the combined build is frozen.
+The immutable combined UI preview `c5685d83f0fafb71cdf18868c6123f9b9b2a9ffc9a15db71aa0a1cb341866572` passed **50 checks across 43 expanded audits on each of phone and desktop**, both with the operating-system dark preference. Both runs had zero page errors, native writes and blocked operational requests. Build, drawer and machine-header screenshots were inspected. The preceding isolated CSS-only phone/light run passed 46 checks across 39 audits.
+
+Clear measures **12.78:1** in its normal, hover and keyboard-focus states and **6.20:1** while disabled. The generic Save status pairs measure between **7.97:1 and 10.54:1** across the six states. CSS-only status fixtures use the actual dark Build, light drawer and dark dialog hosts; they do not simulate a successful record save. The machine check covers its native modal header, not animation loading or playback.
+
+Final CSS SHA-256 is `7a39d43d5d5666106ef4238515966f8018f22cc13633b69194ef712e994bfc07`. Sanitised results and private evidence paths are in `control-contrast1012-source-checks.json`. This UI preview was supplied before the final unknown-scope helper; root must establish final source/style equivalence and verify publication. No final-public release claim is made here.

@@ -1,0 +1,151 @@
+{
+  "author": "Andrew Fisher",
+  "script_sha256": "ffd5ef64a384f58882c05007914399af32a5858df17fd623a460743845b140c7",
+  "pass": true,
+  "checks": [
+    {
+      "name": "workforce native field exists",
+      "ok": true
+    },
+    {
+      "name": "workforce native setter captured accepted documents",
+      "ok": true
+    },
+    {
+      "name": "workforce waits for exact shared acknowledgement",
+      "ok": true
+    },
+    {
+      "name": "workforce exact shared acknowledgement shown",
+      "ok": true
+    },
+    {
+      "name": "pay rules native field exists",
+      "ok": true
+    },
+    {
+      "name": "pay rules native setter captured accepted documents",
+      "ok": true
+    },
+    {
+      "name": "pay rules waits for exact shared acknowledgement",
+      "ok": true
+    },
+    {
+      "name": "pay rules exact shared acknowledgement shown",
+      "ok": true
+    },
+    {
+      "name": "fencing supplier rates native field exists",
+      "ok": true
+    },
+    {
+      "name": "fencing supplier rates native setter captured accepted documents",
+      "ok": true
+    },
+    {
+      "name": "fencing supplier rates waits for exact shared acknowledgement",
+      "ok": true
+    },
+    {
+      "name": "fencing supplier rates exact shared acknowledgement shown",
+      "ok": true
+    },
+    {
+      "name": "pricing native field exists",
+      "ok": true
+    },
+    {
+      "name": "pricing native setter captured accepted documents",
+      "ok": true
+    },
+    {
+      "name": "pricing waits for exact shared acknowledgement",
+      "ok": true
+    },
+    {
+      "name": "pricing exact shared acknowledgement shown",
+      "ok": true
+    },
+    {
+      "name": "fencing customer hourly scope native field exists",
+      "ok": true
+    },
+    {
+      "name": "fencing customer hourly scope native setter captured accepted documents",
+      "ok": true
+    },
+    {
+      "name": "fencing customer hourly scope waits for exact shared acknowledgement",
+      "ok": true
+    },
+    {
+      "name": "fencing customer hourly scope exact shared acknowledgement shown",
+      "ok": true
+    },
+    {
+      "name": "questions native field exists",
+      "ok": true
+    },
+    {
+      "name": "questions native setter captured accepted documents",
+      "ok": true
+    },
+    {
+      "name": "questions waits for exact shared acknowledgement",
+      "ok": true
+    },
+    {
+      "name": "questions exact shared acknowledgement shown",
+      "ok": true
+    },
+    {
+      "name": "native Questions Reload clears its own retained draft without mutation",
+      "ok": true
+    },
+    {
+      "name": "deferred Change description native field exists",
+      "ok": true
+    },
+    {
+      "name": "deferred Change description native setter captured accepted documents",
+      "ok": true
+    },
+    {
+      "name": "deferred Change description waits for exact shared acknowledgement",
+      "ok": true
+    },
+    {
+      "name": "deferred Change description exact shared acknowledgement shown",
+      "ok": true
+    },
+    {
+      "name": "delivery note native field exists",
+      "ok": true
+    },
+    {
+      "name": "delivery note native setter captured accepted documents",
+      "ok": true
+    },
+    {
+      "name": "delivery note waits for exact shared acknowledgement",
+      "ok": true
+    },
+    {
+      "name": "delivery note exact shared acknowledgement shown",
+      "ok": true
+    },
+    {
+      "name": "read-only disables all generic Save controls",
+      "ok": true
+    },
+    {
+      "name": "no browser runtime errors",
+      "ok": true
+    }
+  ],
+  "runtime_errors": [],
+  "native_writes": 0,
+  "intercepted_native_calls": 1,
+  "position_verification": "Internal scroller regression queued; window-level checks were removed as non-meaningful."
+}

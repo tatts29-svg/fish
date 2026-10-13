@@ -1,19 +1,18 @@
 {
   "author": "Andrew Fisher",
-  "review": "Independent percentage source review and rerun",
-  "result": "PASS",
-  "checks": 94,
-  "scripts": 103,
+  "reviewer": "map_completion_trace",
   "baseSha256": "a37381b49fec5317fb9b354b7eee2e314f3c6e15215449314e9f1a14c9303557",
   "moduleSha256": "f0de0337c56c49d179e9b7d51270f192e3a7e4f63332ffd155432409bddffed6",
-  "patchSha256": "1b70c56e2888f0041f7ec3fb8c70e6398186a7394c19ca54b3eb6c20b79a6eab",
-  "findings": [],
-  "reviewed": [
-    "raw numerators and denominators decide completion, display never promotes below100 to100",
-    "VMS lower-bound survives provisional scope annotation",
-    "lighting wrapper retains no-green guard",
-    "PastDay card percentage uses same bounded display",
-    "financial functions and financial scope scripts unchanged"
-  ],
-  "operationalWrites": 0
+  "patchSha256": "93e96011e8447f95089c8035b46f6b53575855345ba824ce2824a30a396ebab4",
+  "review": "Raw-ratio completion, bounded presentation, narrow uncertainty ranges and lower-bound VMS scope preserved. Independently reran the current source tests.",
+  "result": {
+    "author": "Andrew Fisher",
+    "result": "PASS",
+    "checks": 99,
+    "scripts": 103,
+    "baseSha": "a37381b49fec5317fb9b354b7eee2e314f3c6e15215449314e9f1a14c9303557",
+    "moduleSha": "f0de0337c56c49d179e9b7d51270f192e3a7e4f63332ffd155432409bddffed6",
+    "patchSha": "93e96011e8447f95089c8035b46f6b53575855345ba824ce2824a30a396ebab4",
+    "operationalWrites": 0
+  }
 }

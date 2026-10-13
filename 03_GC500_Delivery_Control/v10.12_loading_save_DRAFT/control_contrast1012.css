@@ -42,6 +42,9 @@
     border-color:var(--rule);
   }
 
+  /* Preserve the orange machine Back button with readable dark lettering. */
+  .mtop #machineClose {color:#211409;-webkit-text-fill-color:currentColor}
+
   /* Cancelled rows already say cancelled. Their corrective controls and
      recorded values must not be faded below readable contrast. */
   .edtbl tr.edoff td {opacity:1}

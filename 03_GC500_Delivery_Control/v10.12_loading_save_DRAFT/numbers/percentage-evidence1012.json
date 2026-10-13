@@ -3,9 +3,9 @@
   "result": "PASS",
   "reviewedBaseSha": "a37381b49fec5317fb9b354b7eee2e314f3c6e15215449314e9f1a14c9303557",
   "moduleSha": "f0de0337c56c49d179e9b7d51270f192e3a7e4f63332ffd155432409bddffed6",
-  "patchSha": "1b70c56e2888f0041f7ec3fb8c70e6398186a7394c19ca54b3eb6c20b79a6eab",
-  "testSha": "78ec9b54d82258d1da1b1755e5a192f4c471af6b4dd1ae28ca1e9b3d7e0b2024",
-  "checks": 96,
+  "patchSha": "93e96011e8447f95089c8035b46f6b53575855345ba824ce2824a30a396ebab4",
+  "testSha": "b7dc6363e891e607099f8928dddea3354da2e34a7a9ae820b3acd1cfa40f0ef8",
+  "checks": 99,
   "parsedScripts": 103,
   "operationalWrites": 0,
   "beforeAfterFindings": [
@@ -40,7 +40,8 @@
     "Excess work cannot offset another activity shortfall",
     "13 financial functions and complete pricing1010/financial-scopes1011 scripts unchanged",
     "Repeated and wrong-base patch applications rejected",
-    "Binary-noise lower-bound cases display(1.13,true) and ratio(113,10000) preserve 1.13 without promoting incomplete 100"
+    "Binary-noise lower-bound cases display(1.13,true) and ratio(113,10000) preserve 1.13 without promoting incomplete 100",
+    "A genuine completion range narrower than 0.005 retains its minimum marker in current and past-day percentage displays"
   ],
   "scopeLimit": "This evidence covers local source-executed calculation and formatting tests. Final integrated browser and live checks are performed by the release owner."
 }

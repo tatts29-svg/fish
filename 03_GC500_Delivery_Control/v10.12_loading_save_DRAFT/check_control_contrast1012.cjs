@@ -33,7 +33,7 @@ const controlSelector=base=>['button','a.btn','input','textarea','select','table
  for(const tab of tabs){await p.evaluate(tab=>go(tab),tab);await p.waitForTimeout(180);await openDetails();await audit(tab,controlSelector('main .pane:not([hidden])'));
   if(tab==='timeline'){
    const b=p.locator('[data-loading1012-clear],[data-door872-clear]').filter({visible:true}).first();
-   check('Build loading selection is rendered',await p.locator('#pane-timeline [data-door872-ref]').count()>0);
+   check('Build loading selection is rendered',await p.locator('#pane-timeline [data-loading1012-choice],#pane-timeline [data-door872-ref]').count()>0);
    if(access==='edit'){
     check('Build Clear action is available',await b.count()>0);await b.evaluate(e=>{const t=e.closest('.lc991')?.querySelector('.lc991-toggle');if(t?.getAttribute('aria-expanded')==='false')t.click()});await p.evaluate(()=>document.querySelectorAll('#pane-timeline details').forEach(d=>d.open=true));await b.scrollIntoViewIfNeeded();
     for(const state of ['default','hover','focus','disabled']){
@@ -44,7 +44,7 @@ const controlSelector=base=>['button','a.btn','input','textarea','select','table
      if(state==='focus'){const ring=await b.evaluate(e=>({style:getComputedStyle(e).outlineStyle,width:getComputedStyle(e).outlineWidth,shadow:getComputedStyle(e).boxShadow,focus:e.matches(':focus'),visible:e.matches(':focus-visible'),active:document.activeElement?.outerHTML.slice(0,150)}));check('Build Clear has a visible focus ring',ring.style!=='none'&&parseFloat(ring.width)>=2,ring)}
      if(state==='disabled')await b.evaluate(e=>e.disabled=e.__contrast1012Disabled);
     }
-    await b.evaluate(e=>delete e.dataset.contrast1012Check);await p.mouse.move(0,0);await b.evaluate(e=>e.blur());
+    await b.evaluate(e=>delete e.dataset.contrast1012Check);await p.mouse.move(0,0);await b.evaluate(e=>e.blur());await p.waitForTimeout(200);
     await p.screenshot({path:path.join(out,'build-loading.png')});await statuses('#pane-timeline .lc991:not([hidden]) .timeline908-plans','dark Build');
    }
   }
@@ -67,6 +67,7 @@ const controlSelector=base=>['button','a.btn','input','textarea','select','table
   await p.locator('#drawer .close').click({force:true});
  }
  await p.evaluate(()=>timeline841Dialog('P33'));await audit('dark progress dialog',controlSelector('#timeline841-dialog'));await p.screenshot({path:path.join(out,'progress-dialog.png')});await statuses('#timeline841-dialog','dark dialog');await p.evaluate(()=>timeline841Close(false));
+ await p.evaluate(()=>machineOpen('machine'));await p.waitForFunction(()=>MACHINE.open&&!document.getElementById('machine').hidden);await audit('machine modal header',controlSelector('#machine .mtop'));await p.screenshot({path:path.join(out,'machine-header.png')});await p.evaluate(()=>machineClose());
  report.writes=await p.evaluate(()=>__contrast1012Writes);report.errors=h.errors;report.network=h.counts;
  check('no native save requests',report.writes.length===0,report.writes);check('no operational requests',h.counts.blocked===0,h.counts);check('no page errors',h.errors.length===0,h.errors);
  console.log(JSON.stringify({passed:true,checks:report.checks.length,audits:report.audits.length,mode,scheme,access,sha256:actual}));

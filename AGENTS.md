@@ -159,6 +159,7 @@ marks as a draft, or anything risky to the record, waits for his yes.
   the pit lane at its north-west end and drives it the way the race cars go.
 - **Photos: one document per photograph** (v7.41), sent from an outbox on the phone until the service has them.
   Never go back to one list per reference; that is what lost photographs.
+- **Described-item quantities** (Andrew, 14 Oct 2026): if there is no quantity, each separate described item means **one**; an explicit quantity in its description, such as "qty 3", means **three**. Use one shared quantity rule across the register, maps, daily runs, Inventory and charges. Keep an explicitly entered quantity; do not treat a rating, dimension, reference or asset number as a quantity. These valid description-based counts are not missing-data issues. Keep confirmed received and installed quantities as separate actual records.
 - **Sub-hired locations say so first** (v7.43) and carry no Coates contract, branch or Rental ID.
 - **What a reference is decides what its drawer offers** (v7.43): no accessories on generators, towers, barriers.
 - **A forklift goes by its day rate** (Andrew, 1 Oct 2026): where a contract line's Rate 1 is a card forklift day rate
