@@ -1,0 +1,115 @@
+{
+  "author": "Andrew Fisher",
+  "baseSha256": "6bc40d8d46b1ca5f936731f17c9d75738c0436c9d1a928e37c94c391a08d0258",
+  "candidateSha256": "a37381b49fec5317fb9b354b7eee2e314f3c6e15215449314e9f1a14c9303557",
+  "nativeVersion": 5806,
+  "checks": [
+    {
+      "name": "All existing financial and source model sections unchanged",
+      "pass": true,
+      "sections": [
+        "author",
+        "nativeVersion",
+        "day",
+        "checks",
+        "errors",
+        "items",
+        "plan",
+        "money",
+        "ticks",
+        "bill",
+        "pl",
+        "finance",
+        "branches",
+        "branchRows",
+        "oct",
+        "sep",
+        "ties",
+        "transport",
+        "transportView",
+        "transportHandover",
+        "contractFigures",
+        "generators",
+        "scope",
+        "scopeBranches",
+        "labour",
+        "labourRows",
+        "quote27172",
+        "peeHire",
+        "contracts",
+        "browserErrors"
+      ]
+    }
+  ],
+  "financialControls": [
+    {
+      "name": "No model mutation of shared record",
+      "pass": true
+    },
+    {
+      "name": "All arrived applicable automatic service quantities included",
+      "pass": true
+    },
+    {
+      "name": "Stairs remain manual",
+      "pass": true
+    },
+    {
+      "name": "Costs labour equals charged plan and tick total",
+      "pass": true
+    },
+    {
+      "name": "Labour slots have unique reference item charge state",
+      "pass": true
+    },
+    {
+      "name": "Costs actual and P&L actual agree",
+      "pass": true
+    },
+    {
+      "name": "Costs job and P&L forecast agree",
+      "pass": true
+    },
+    {
+      "name": "P&L model controls reconcile",
+      "pass": true
+    },
+    {
+      "name": "Branch financial controls reconcile",
+      "pass": true
+    },
+    {
+      "name": "P&L reconciliation controls pass",
+      "pass": true
+    },
+    {
+      "name": "Arrived package branch sum matches priced subtotal",
+      "pass": true
+    },
+    {
+      "name": "Transport actual and remaining reconcile once",
+      "pass": true
+    },
+    {
+      "name": "Transport contract plus arrived allowance equals Costs",
+      "pass": true
+    },
+    {
+      "name": "Transport invoice and revenue controls pass",
+      "pass": true
+    },
+    {
+      "name": "Generator actual plus remaining equals total",
+      "pass": true
+    },
+    {
+      "name": "Generator branch amounts tie once",
+      "pass": true
+    },
+    {
+      "name": "No browser errors or live writes",
+      "pass": true
+    }
+  ],
+  "browserErrors": []
+}
