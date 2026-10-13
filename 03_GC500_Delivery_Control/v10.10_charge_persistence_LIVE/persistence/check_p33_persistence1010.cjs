@@ -1,14 +1,31 @@
 /* Author: Andrew Fisher. Isolated native Save practice; every service write is captured. */
-const fs=require('fs'),path=require('path'),assert=require('assert');
+const fs=require('fs'),path=require('path'),assert=require('assert'),crypto=require('crypto');
 const {open}=require(path.resolve(__dirname,'../../toolchain/harness/open_page'));
+const {curlFetch}=require(path.resolve(__dirname,'../../toolchain/harness/curlfetch'));
 const out=process.env.OUT||'/workspace/private-gc5001010-p33';fs.mkdirSync(out,{recursive:true});
-const report={author:'Andrew Fisher',mode:process.env.LIVE==='1'?'public':'candidate',checks:[],errors:[],blocked:0};
+const report={author:'Andrew Fisher',mode:process.env.LIVE==='1'?'public':'candidate',checks:[],errors:[],blocked:0,publicLoads:[]};
 function check(name,ok,detail){report.checks.push({name,ok,detail});assert(ok,name+': '+JSON.stringify(detail));}
 (async()=>{
  for(const mobile of [true,false]){
   const label=mobile?'phone':'desktop',h=await open({pageFile:process.env.LIVE==='1'?undefined:process.env.PAGE||path.resolve(__dirname,'../../build/GC500_v10.10/GC500_Delivery_Control_hosted.html'),mobile,W:mobile?390:1440,H:mobile?844:1000,dpr:1});
   try{
-   const p=h.page;await p.waitForFunction(()=>SYNC.status==='live'&&GC500Refresh904.report().settled,null,{timeout:120000});
+   const p=h.page;
+   if(process.env.LIVE==='1'){
+    assert(process.env.EXPECTED_SHA,'LIVE verification requires EXPECTED_SHA');
+    // Capture the actual network response before Chromium evicts this large HTML
+    // from its inspector cache. This is the harness's fresh GET, not a local build.
+    let bytes;
+    await p.route(/^https:\/\/gc500-production\.up\.railway\.app\/v\/Coates-GC500-2026\/?(?:\?.*)?$/,async route=>{
+     const request=route.request();assert(request.method()==='GET');
+     const response=await curlFetch(request.url(),request.headers(),'GET');assert(response.status===200);
+     bytes=Buffer.from(response.body);await route.fulfill(response);
+    },{times:1});
+    await p.reload({waitUntil:'load',timeout:180000});assert(bytes,'Actual public navigation response was not captured');
+    const received={viewport:label,sha256:crypto.createHash('sha256').update(bytes).digest('hex'),bytes:bytes.length,localPageSubstitutions:h.counts.page};report.publicLoads.push(received);
+    check(label+' exact public build received without local substitution',received.sha256===process.env.EXPECTED_SHA&&received.localPageSubstitutions===0,received);
+    if(mobile)fs.writeFileSync(out+'/actual-public-page.html',bytes);
+   }
+   await p.waitForFunction(()=>SYNC.status==='live'&&GC500Refresh904.report().settled,null,{timeout:120000});
    const version=await p.evaluate(()=>SYNC.backend.readVersion821());
    await p.route('**/api/version',r=>r.fulfill({status:200,contentType:'application/json',body:JSON.stringify({version,level:'edit'})}));
    await p.evaluate(()=>{
@@ -26,6 +43,7 @@ function check(name,ok,detail){report.checks.push({name,ok,detail});assert(ok,na
     return {found:true,id:card.dataset.unit925Id,source:form.dataset.source,beforeDoc:form.dataset.doc,nestedKey:Persistence1010.key(nested,document.querySelector('#drawer'))};
    });
    check(label+' P33 original unit has first metadata Save fixture',fixture.found,fixture);
+   if(process.env.LIVE==='1')check(label+' note guidance makes no unconditional shared-save claim',await p.locator('#noteBox').evaluate(el=>el.parentElement.querySelector('.hint')?.textContent.trim()==='Use Save note to record your changes.'));
    const pos=()=>({drawer:document.querySelector('#drawer').scrollTop,body:document.querySelector('#drawer .db').scrollTop,on:document.querySelector('#drawer').classList.contains('on')});
    const beforeSave=await p.evaluate(pos);
    await p.evaluate(()=>{const form=[...document.querySelectorAll('#drawer [data-unit925-form]')].find(f=>f.dataset.source===__p33Source);form.querySelector('[type="submit"]').focus({preventScroll:true});form.requestSubmit();});
@@ -43,6 +61,7 @@ function check(name,ok,detail){report.checks.push({name,ok,detail});assert(ok,na
    const afterNotes=await p.evaluate(pos);
    check(label+' P33 lower note Save remains open and scrolled',afterNotes.on&&Math.abs(beforeNotes.drawer-afterNotes.drawer)<40&&Math.abs(beforeNotes.body-afterNotes.body)<40,{beforeNotes,afterNotes});
    check(label+' P33 note reaches local native record once',await p.evaluate(()=>S.notes.P33==='Lower notes Save practice'));
+   if(process.env.LIVE==='1')check(label+' pending note Save reports on-device status only',await p.locator('#flash').textContent()==='Note saved on this device.');
    await p.evaluate(()=>Idle1006.refreshDrawer());await p.waitForTimeout(80);
    const afterRemote=await p.evaluate(pos);
    check(label+' P33 later document/remote refresh keeps lower section',afterRemote.on&&Math.abs(afterRemote.drawer-afterNotes.drawer)<40&&Math.abs(afterRemote.body-afterNotes.body)<40,{afterNotes,afterRemote});

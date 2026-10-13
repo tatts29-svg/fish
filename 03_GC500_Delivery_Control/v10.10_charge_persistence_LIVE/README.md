@@ -2,7 +2,7 @@
 
 Author: Andrew Fisher.
 
-State: READY TO UPLOAD. Root owns integration and publication. Implementation source `796573d5`; no release or Eric Lucian record change has been published yet.
+State: VERIFIED LIVE — 14 Oct 2026 03:54 AEST. Implementation source `796573d5`, READY `c6b018d5`. Root owns publication. Eric addition remains pending the standalone-calculation performance correction below.
 
 Andrew requests source-backed charges without overcharging, known quantities beside map references and completion status, information that stays open while he reads or saves it, six individual fencing workforce rows, Kyle Gover’s race-weekend night shifts, location-level FWF photos and Eric Lucian on 14 October’s roster.
 
@@ -39,3 +39,8 @@ Final page SHA256 `6bc40d8d46b1ca5f936731f17c9d75738c0436c9d1a928e37c94c391a08d0
 Both 22-route/seven-link/Back navigation sweeps pass. Scoped browser checks pass for persistence (90), rate Save (30), the six More info disclosures (96), and final delivery-note deduplication (24). Pricing passes 125 pure cases, 158 in-memory propagation checks, 989 original-source checks, 2,119 same-record reconciliation checks and 17 combined financial controls. Map, FWF photo and workforce suites also pass in both viewports. Tests made no operational writes and reported no browser errors. Phone visuals and guarded upload dryruns pass.
 
 The final note-only change is exactly documented in `evidence/release-checks.json`; the financial functions, data and persistence module are unchanged from the audited candidate. Public verification and the authorised Eric record addition remain pending publication.
+
+
+## Public verification and follow-up
+
+Exact public page and three map files match the reviewed bytes. Actual-public phone/desktop panel checks64, map74, grouped-photo17 and financial17 checks pass with no browser errors or test writes. The guarded Eric runner exposed slow repeated index calculation when `fh866Model()` is called outside the normal render hold. It was stopped before proposal/send: fresh native5806 readback matches every document in its backup. No Eric data was written. v10.11 is claimed to add bounded synchronous financial calculation scopes; this is a performance follow-up, with no intended pricing changes. Ordinary held rendering and the audited financial totals passed. Source originals and pricing holds remain explicit.

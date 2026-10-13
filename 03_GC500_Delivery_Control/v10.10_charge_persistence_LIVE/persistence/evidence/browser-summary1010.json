@@ -1,6 +1,6 @@
 {
   "author": "Andrew Fisher",
-  "status": "Focused browser suites passed; final public verification pending release owner notification.",
+  "status": "Focused browser suites passed; subsequent actual-public verification also passed.",
   "viewports": [
     {
       "label": "phone",
@@ -410,5 +410,11 @@
         }
       ]
     }
-  ]
+  ],
+  "actualPublicVerification": {
+    "report": "actual-public-browser-summary1010.json",
+    "sha256": "6bc40d8d46b1ca5f936731f17c9d75738c0436c9d1a928e37c94c391a08d0258",
+    "checks": 64,
+    "passed": true
+  }
 }

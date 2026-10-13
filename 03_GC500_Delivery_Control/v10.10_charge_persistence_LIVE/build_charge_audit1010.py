@@ -164,7 +164,10 @@ for h in allocation:
 lab=s['labour'];missing=lab['missingHours'];unpriced=[r for r in s['labourRows']if r['calculatedCost']is None]
 fix.append(['LABOUR','Coates / labour hire','Various','Not applicable','Direct costs — labour','Hours missing',f'{len(missing)} shifts: {sum(r["date"]<=s["day"]for r in missing)} past/current; {sum(r["date"]>s["day"]for r in missing)} future','Enter evidenced actual or planned hours. These are Coates costs, separate from customer per-piece charges.'])
 fix.append(['LABOUR','Coates / labour hire','Various','Not applicable','Direct costs — labour','Cost rates missing',f'{len(unpriced)} shifts have hours but no usable cost rate','Add approved wage/labour-hire cost rates and review stale approvals. Do not use the customer charge rate as the employee or contractor cost.'])
-fix.append(['LABOUR','Eric — roster addition','Not confirmed','Not applicable','Direct costs — labour','Hours / cost not recorded','Eric is being added to the roster. No shift hours, cost rate or amount are included in this audited snapshot.','Record the agreed days, hours, employer and costing branch when known. Keep any unconfirmed cost blank; do not invent a shift or rate.'])
+# Missing-hours coverage already includes every recorded person, including new
+# roster additions. Keep one source-derived issue instead of a second stale story.
+hours_row=fix.max_row-1
+fix.cell(hours_row,7).comment=Comment('\n'.join(f'{r["person"]} · {r["date"]}' for r in missing),'Andrew Fisher')
 finish(fix,'ChargeQuestions','H')
 for row in fix.iter_rows(min_row=7):
     fix.row_dimensions[row[0].row].height=max(65,fix.row_dimensions[row[0].row].height)
@@ -181,6 +184,6 @@ assert round(sum(r[8].value or 0 for r in test['Existing charges'].iter_rows(min
 assert not any(c.data_type=='f'for ws in test for row in ws for c in row)
 for ref in ['GN?','T0109','AA','WC42','WC81','P65','P67']:assert any(r[0].value==ref for r in test['Needs fixing'].iter_rows(min_row=7)),ref
 assert test.properties.creator=='Andrew Fisher'
-summary=dict(author='Andrew Fisher',source=release_hash,financialCapture=s['sha256'],nativeVersion=s['nativeVersion'],output=str(out),existingRows=existing.max_row-6,questionRows=fix.max_row-6,transportGroups=len(groups),sourceAndRateGroups=fix.max_row-6-len(groups)-len(allocation)-3,forecastAllocationGroups=len(allocation),labourInputGroups=3,subtotal=s['bill']['known'],noFormulas=True,privateSnapshot=str(P/'coverage-snapshot.json'))
+summary=dict(author='Andrew Fisher',source=release_hash,financialCapture=s['sha256'],nativeVersion=s['nativeVersion'],output=str(out),existingRows=existing.max_row-6,questionRows=fix.max_row-6,transportGroups=len(groups),sourceAndRateGroups=fix.max_row-6-len(groups)-len(allocation)-2,forecastAllocationGroups=len(allocation),labourInputGroups=2,subtotal=s['bill']['known'],noFormulas=True,privateSnapshot=str(P/'coverage-snapshot.json'))
 (P/'workbook-validation.json').write_text(json.dumps(summary,indent=2)+'\n')
 print(json.dumps(summary))
