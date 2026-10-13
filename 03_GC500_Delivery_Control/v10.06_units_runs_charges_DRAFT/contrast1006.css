@@ -1,6 +1,8 @@
 /* Author: Andrew Fisher. Pair foreground and background in existing edit fields. */
 #drawer .rstbl input,
 #drawer .rstbl select,
+#drawer input[data-sup],
+#drawer input[data-supq],
 .ourform input,
 .ourform select,
 .flow891-people input {
@@ -9,6 +11,8 @@
   -webkit-text-fill-color:var(--ink,#14181d);
 }
 #drawer .rstbl input::placeholder,
+#drawer input[data-sup]::placeholder,
+#drawer input[data-supq]::placeholder,
 .ourform input::placeholder,
 .flow891-people input::placeholder {
   color:var(--mute,#4b535b);
@@ -20,3 +24,13 @@
   background:var(--paper,#fff);
   color:var(--ink,#14181d);
 }
+#drawer .ptag.save1006 {
+  display:block;
+  margin:3px 0 0;
+  padding:0;
+  border:0;
+  background:transparent;
+  color:inherit;
+  font-size:11px;
+}
+#drawer .ptag.save1006 b {font-weight:500;white-space:normal;}

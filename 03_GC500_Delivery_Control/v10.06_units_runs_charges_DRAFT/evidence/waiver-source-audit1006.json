@@ -1,0 +1,74 @@
+{
+  "author": "Andrew Fisher",
+  "checkedAt": "2026-10-13T08:36:17.889Z",
+  "nativeVersion": 5698,
+  "status": "Explanation only; no financial changes",
+  "existingApp": {
+    "waiverRow": [
+      {
+        "key": "waiver",
+        "code": "1015",
+        "line": "Damage Waiver",
+        "what": "on the hire only \u2014 never on labour, steps, cleaning, install, demob or pump-outs (the card\u2019s rule)",
+        "now": null,
+        "job": null,
+        "basis": "not on the 2026 contracts yet \u2014 the branch\u2019s rate"
+      }
+    ],
+    "contractMatches": 0,
+    "nativeMatches": 0,
+    "finding": "No separate damage waiver percentage or amount is currently added by the app."
+  },
+  "originalRateCard": {
+    "sha256": "60a62f37d9d91634ca617f3b2840809e64ebc1f000303857f1abb5e00691d7d6",
+    "notes": [
+      "Street Rate Card 2026 A2: Prices Exclude GST and Damage waiver",
+      "A3: no waiver on labour, steps, fire extinguishers, cleaning, installation and demobilisation, pump outs"
+    ],
+    "percentageSpecified": false
+  },
+  "boq": {
+    "sha256": "0eb57ce572ea4a9d407bc75e38e118ab558c4a4e1cfb9cb2eee7b9fa675a413b",
+    "pages": 42,
+    "pagesReadForExamples": [
+      4,
+      41
+    ],
+    "noTextMatches": [
+      "damage",
+      "waiver",
+      "insurance",
+      "25%",
+      "12.5%"
+    ],
+    "examples": [
+      {
+        "item": "200 kVA generator full daily hire",
+        "card": 364.5582,
+        "boq": 410.13,
+        "relationship": "12.5% higher, rounded to cents"
+      },
+      {
+        "item": "200 kVA standby",
+        "card": 182.2791,
+        "boq": 205.06,
+        "relationship": "12.5% higher, rounded to cents"
+      },
+      {
+        "item": "Generator labour over 125 kVA",
+        "card": 333.12,
+        "boq": 343.11,
+        "relationship": "3% higher, rounded to cents"
+      },
+      {
+        "item": "200 kVA return transport",
+        "cardBothWays": 1200,
+        "boq": 1236,
+        "relationship": "3% higher"
+      }
+    ],
+    "exceptions": "GN20 350 kVA daily and standby differ from the current next-lower 315 kVA source basis. BOQ quantities also use different full/standby days. 60 kVA daily rate differs by one cent from applying 12.5% to the raw card precision."
+  },
+  "conclusion": "Higher BOQ values show hire and service uplifts, plus different day quantities and packaged service/transport lines. Their commercial reason is not labelled, so this does not establish damage waiver or a 25% rule. Do not layer another percentage over them.",
+  "nativeWrites": 0
+}

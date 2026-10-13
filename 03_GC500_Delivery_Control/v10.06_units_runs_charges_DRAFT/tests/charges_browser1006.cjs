@@ -10,6 +10,7 @@ const fs=require('fs'),assert=require('assert/strict'),{open}=require('../../too
    ok('P&L branch labour equals included plan',t.total===plan.all.charged);
    ok('Branch included amounts add once',cents(Object.values(t.byBranch).reduce((n,r)=>n+r.amount,0))===t.total);
    ok('All financial reconciliation checks pass',ties.filter(r=>r.group==='P&L').every(r=>r.ok));
+   const october=acc761Model('2026-10'),billing=october.revenue.flatMap(r=>r.extra?.sources||[]).filter(s=>s.chargeIncluded1006);ok('October included charge quantity matches P&L',cents(billing.reduce((n,r)=>n+(r.amount||0),0))===cents(t.total-t.fire_ext.amount));ok('October package remains Finance review, not completed work',billing.length>0&&billing.every(r=>r.status==='review'&&r.basis.includes('does not record demob')));
    ok('Onsite package branches add once',cents(bill.byBranch.reduce((n,r)=>n+r.total,0))===bill.known);
    ok('Each arrived applicable line included automatically',rows.every(({p})=>p.rows.filter(r=>OnsiteCharges1006.automatic.has(r.key)).every(r=>r.qty>=p.arrived)));
    ok('Stairs never selected automatically',rows.every(({p})=>p.rows.filter(r=>r.key==='steps').every(r=>r.qty===r.recordedQty&&!r.automatic)));
@@ -19,6 +20,12 @@ const fs=require('fs'),assert=require('assert/strict'),{open}=require('../../too
    ok('WC72 repeated number does not multiply charges',c.rows.find(r=>r.key==='install').qty===c.arrived&&c.rows.find(r=>r.key==='demob').qty===c.arrived);
    ok('FWF offers card install/demob only',c.rows.every(r=>['install','demob'].includes(r.key)));
    ok('Physical completion remains separate',!labourTicked(a.key,l.discipline,l.item,'demob')&&c.rows.find(r=>r.key==='demob').qty>0);
+   const g=assets.find(a=>a.key==='GN20'),gl=chargeLines(g).find(l=>/350/i.test(l.item)),gp=charge1006(g,gl);
+   ok('GN20 includes install and demob exactly once',gp.arrived===1&&gp.rows.filter(r=>['install','demob'].includes(r.key)).length===2&&gp.rows.filter(r=>['install','demob'].includes(r.key)).every(r=>r.rate===166.56&&r.qty===1)&&gp.total===333.12);
+   ok('GN20 included demob does not complete physical work',!labourTicked(g.key,gl.discipline,gl.item,'demob'));
+   const detail=document.createElement('template');detail.innerHTML=labourCard([g]);const chargeRows=[...detail.content.querySelectorAll('tbody tr')].filter(tr=>tr.children[1]?.textContent==='350kva');
+   ok('Detailed labour table shows both GN20 charge lines',chargeRows.filter(tr=>['Install','Demob'].some(k=>tr.children[2]?.textContent.startsWith(k))).length===2&&chargeRows.filter(tr=>['Install','Demob'].some(k=>tr.children[2]?.textContent.startsWith(k))).every(tr=>tr.children[5]?.textContent.includes('166.56')));
+   ok('Automatic charges have no physical bulk tick control',!detail.content.querySelector('[data-lab-all$="|install"],[data-lab-all$="|demob"]'));
    const unresolved=rows.filter(r=>r.p.rows.some(x=>x.qty>r.p.arrived&&OnsiteCharges1006.automatic.has(x.key)));
    window.__chargeRead1006={included:m.charge.labour,branches:Object.keys(t.byBranch).length,rows:rows.length,existingManualBeyondReceipts:unresolved.map(r=>r.a.key)};
   });
@@ -40,6 +47,13 @@ const fs=require('fs'),assert=require('assert/strict'),{open}=require('../../too
    const packageRow=holdAssets(()=>arrivedChargeRows975(a).find(r=>r.item==='FWF'));ok('Updated reference package agrees with shared price',packageRow.total===q.total);
   }finally{S.supplied=nativeSupplied;S.labour=nativeLabour;RENDER_MEMO.clear();}
   ok('Receipt check restored native state',snapshot===JSON.stringify(S));
+  const generatorDelivery=S.delivery,generatorLabour=S.labour,generatorSupplied=S.supplied;
+  try{
+   S.delivery={...S.delivery,GN20:{state:'not on site',done:false,date:'2026-10-13'}};S.labour={...S.labour};for(const k of Object.keys(S.labour))if(k.startsWith('GN20'))delete S.labour[k];S.supplied={...S.supplied,GN20:{items:[{asked:'350kva',qty_supplied:0}]}};RENDER_MEMO.clear();
+   const ga=assetOf('GN20'),gl=chargeLines(ga).find(l=>/350/i.test(l.item)),gp=holdAssets(()=>charge1006(ga,gl));
+   ok('Undelivered GN20 keeps both legs forecast only',gp.arrived===0&&gp.rows.filter(r=>['install','demob'].includes(r.key)).every(r=>r.qty===0&&r.forecastQty===1&&r.forecastValue===166.56));
+  }finally{S.delivery=generatorDelivery;S.labour=generatorLabour;S.supplied=generatorSupplied;RENDER_MEMO.clear();}
+  ok('Generator charge practice restored native state',snapshot===JSON.stringify(S));
   const savedEdit=canEdit,savedStairsSave=Stairs975.save,savedSetLabour=setLabour,priorLoads=S.loads,host=document.createElement('div'),calls=[];
   try{
    canEdit=()=>true;Stairs975.save=(...args)=>{calls.push(['exclusion',...args]);return true;};setLabour=(...args)=>{calls.push(['manual',...args]);return true;};

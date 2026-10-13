@@ -19,6 +19,14 @@
 })(typeof window!=='undefined'?window:null);
 
 if(typeof window!=='undefined'){
+ // The existing generator convention apportions its single Labour figure equally.
+ // Andrew's 13 October direction includes demob as well as the earlier GN20 install.
+ const priorGn20Basis1006=gn20Install746;
+ gn20Install746=function(ref,disc,item,original){const p=priorGn20Basis1006.apply(this,arguments);if(!gn20Install746Matches(ref,disc,item))return p;
+  const install={...p.lines.find(l=>l.key==='install'),year_note:'The supplied workbook retains its original Labour year heading. Existing install basis retained; demob included under the 13 October instruction.'},demob={...install,key:'demob',name:'Demob',heading:'315 kVA Labour — existing equal allocation',money_note:'315 kVA Labour '+GN20_INSTALL746.sourceLabour+' is allocated equally to install and demob under the existing generator calculation. Complete applicable charges included on arrival, Andrew 13 Oct 2026; this does not record physical demob.'};
+  return {...p,note:'GN20: 315 kVA Labour basis allocated equally to install and demob; both included once when received.',lines:p.lines.filter(l=>!['install','demob'].includes(l.key)).concat([install,demob])};
+ };
+ gn20Install746Notice=function(a,l,info){if(!gn20Install746Matches(a.key,l.discipline,l.item))return '';return '<div class="notice" data-install-rate-approved="GN20"><b>Install '+esc(money(GN20_INSTALL746.rate))+' · Demob '+esc(money(GN20_INSTALL746.rate))+' ex GST</b><details><summary>Rate basis</summary><p>315 kVA Labour '+esc(money(GN20_INSTALL746.sourceLabour))+' allocated equally to install and demob under the existing calculation. Included once when received; physical completion is recorded separately.</p></details></div>';};
  const manualMoney1006=labourMoney914base;
  function received1006(a,l){
   const td=todayIso(),on=invOnSite(a,td),r=on?itemRows(a).find(i=>i.asked===l.item):null;
@@ -41,7 +49,8 @@ if(typeof window!=='undefined'){
   const a=asset||assetOf(ref);if(!a||a._cancelled||a.rest_of||movedAway(ref))return manualMoney1006.apply(this,arguments);
   const p=charge1006(a,l),info=labourLinesFor(ref,l.discipline,l.item,key,undefined,a);
   const ticked=p.rows.filter(r=>r.qty===null||r.qty>0).map(r=>({...r,ticked:true,chargeQty975:r.qty,recordedQty1006:r.recordedQty,automaticCharge1006:r.automatic}));
-  return {total:p.total,ticked,info,blocked:p.total==null,why:p.total==null?'Charge rate or quantity to confirm':null,qty:qtyOf(l),units:[],perBuilding:false,chargeInclusion1006:true};
+  const billingInfo={...info,lines:info.lines.map(l=>{const row=p.rows.find(r=>r.key===l.key);return row?{...l,ticked:row.qty===null||row.qty>0,chargeQty975:row.qty,chargeInclusion1006:true}:l;})};
+  return {total:p.total,ticked,info:billingInfo,blocked:p.total==null,why:p.total==null?'Charge rate or quantity to confirm':null,qty:qtyOf(l),units:[],perBuilding:false,chargeInclusion1006:true};
  };
  labourPlan=function(){
   if(RENDER_MEMO.has('labourPlan'))return RENDER_MEMO.get('labourPlan');
@@ -120,6 +129,16 @@ if(typeof window!=='undefined'){
   if(box.checked){const max=Stairs975.pieceQty(a,l,d.stairs1006Unit),excluded=Stairs975.quantity(a,l,d.stairs1006Unit);if(max===1&&excluded)Stairs975.save(a.key,l.discipline,l.item,d.stairs1006Unit,0);else if(max>1&&(excluded===0||excluded===max))Stairs975.save(a.key,l.discipline,l.item,d.stairs1006Unit,max-1);}
   setLabour(a.key,l.discipline,l.item,'steps',box.checked,d.stairs1006Unit||undefined);
  });
+ const oldCard1006=labourCard;
+ labourCard=function(){const template=document.createElement('template');template.innerHTML=oldCard1006.apply(this,arguments);
+  const first=template.content.querySelector('p.sub');if(first)first.innerHTML='Applicable card charges are included when equipment arrives. Stairs are selected manually. <details><summary>More info</summary><p>Charge inclusion is separate from physical work completion. The published card supplies the rates; where it has one Labour figure, the existing calculation allocates half to install and half to demob.</p></details>';
+  for(const button of template.content.querySelectorAll('[data-lab-all]'))if(OnsiteCharges1006.automatic.has(button.dataset.labAll.split('|').pop())){const cell=button.closest('td');if(cell)cell.textContent='Automatic on arrival';}
+  for(const node of template.content.querySelectorAll('th,.kpi .l'))if(node.textContent==='Ticked'||node.textContent==='Labour ticked')node.textContent='Charges included';
+  for(const note of template.content.querySelectorAll('.kpi .q'))if(/Every ticked line|Nothing ticked yet/.test(note.textContent))note.textContent='Included quantities at their card rates. Any unpriced scope is shown separately.';
+  for(const note of template.content.querySelectorAll('td .norate'))if(note.textContent==='not ticked')note.textContent='Not included';
+  for(const note of template.content.querySelectorAll('[title]'))if(/partly done|ticked, but/.test(note.title))note.title=note.title.replace('partly done — some units ticked, some not','partly included — some units received, some remaining').replace('ticked, but','included, but');
+  return template.innerHTML;
+ };
  // Keep the existing presentation; correct only the meaning of its financial headings.
  for(const entry of LAB_STATES){if(entry[0]==='charged'){entry[1]='Included';entry[2]='Customer charges included; physical work is recorded separately';}if(entry[0]==='tocome'){entry[1]='Remaining forecast';entry[2]='Charges for equipment still to arrive';}}
 }

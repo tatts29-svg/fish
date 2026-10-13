@@ -11,7 +11,7 @@ BASE_SHA='65bba5cb7477816d587cb72025ff256f2eb8c2dbc65eb4087dccc5ad49f4622a'
 def apply(text):
     if hashlib.sha256(text.encode()).hexdigest()!=BASE_SHA:
         raise ValueError('Requires exact live v10.05; refuses repeat or wrong-base application')
-    for name in ['identity','idle','runs','charges','transport','roster']:
+    for name in ['identity','idle','runs','charges','transport','roster','profile','contrast']:
         path=HERE/('patch_'+name+'1006.py')
         spec=importlib.util.spec_from_file_location('v1006_'+name,path)
         module=importlib.util.module_from_spec(spec);spec.loader.exec_module(module)

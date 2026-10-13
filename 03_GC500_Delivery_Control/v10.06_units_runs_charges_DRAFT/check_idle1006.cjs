@@ -62,6 +62,34 @@ const {open}=require(path.resolve(__dirname,'../toolchain/harness/open_page'));
   fixture.innerHTML='';Idle1006.restore(fixture,held);ok('A removed form is not resurrected',!fixture.querySelector('form'));
   fixture.innerHTML=markup('new','NVAC');fixture.className='';Idle1006.restore(fixture,held);ok('A closed drawer is not reopened',!fixture.classList.contains('on')&&fixture.querySelector('[name=note]').value==='');
   ok('Capture of closed drawer is empty',Idle1006.capture(fixture)===null);
+  // Both editors use the same concurrency attributes. Their form kind must remain part of identity.
+  const transportMarkup=(token,delivery,pickup)=>`<details id="transport-rate1006-GN20" open><summary>Transport rates</summary><form data-transport1006-form data-ref="GN20" data-doc="transport-charge-test" data-expected="${token}" data-source-token="source-${token}"><input name="delivery" type="number" value="${delivery}"><input name="pickup" type="number" value="${pickup}"><textarea name="note"></textarea><p data-transport1006-result></p></form></details>`;
+  fixture.className='on';fixture.innerHTML=transportMarkup('old','100','200');fixture.querySelector('[name=delivery]').value='166.56';fixture.querySelector('[name=note]').value='Unsubmitted transport note';const transportHeld=Idle1006.capture(fixture);
+  fixture.innerHTML=transportMarkup('new','110','250');fixture.querySelector('details').open=false;Idle1006.restore(fixture,transportHeld);
+  const transportForm=fixture.querySelector('form');
+  ok('Dirty transport amount and note survive remote refresh',transportForm.querySelector('[name=delivery]').value==='166.56'&&transportForm.querySelector('[name=note]').value==='Unsubmitted transport note');
+  ok('Untouched transport amount accepts remote value',transportForm.querySelector('[name=pickup]').value==='250');
+  ok('Transport fold stays open',fixture.querySelector('details').open);
+  ok('Transport original expected and source tokens remain for stale guard',transportForm.dataset.expected==='old'&&transportForm.dataset.sourceToken==='source-old');
+  ok('Stale transport draft gives charge-specific reopening instruction',transportForm.querySelector('[data-transport1006-result]').textContent==='This charge changed elsewhere. Reopen it before saving.');
+  fixture.innerHTML=transportMarkup('new','110','250').replace('data-transport1006-form','data-unit925-form');Idle1006.restore(fixture,transportHeld);
+  ok('Transport draft never restores into a unit form with identical ref/doc',fixture.querySelector('[name=delivery]').value==='110'&&fixture.querySelector('form').dataset.expected==='new');
+  {
+   openAsset('GN20');const edit=()=>document.querySelector('#drawer [data-transport1006-form]');if(!edit())throw Error('GN20 transport editor missing');
+   edit().closest('details').open=true;edit().querySelector('[name=delivery]').value='666.25';edit().querySelector('[name=pickup]').value='333.10';edit().querySelector('[name=note]').value='Unsubmitted rate test';const expected=edit().dataset.expected;
+   syncRedraw();await new Promise(resolve=>setTimeout(resolve,400));
+   ok('GN20 unchanged-source redraw keeps dirty rates explicitly unsaved',edit().querySelector('[data-transport1006-result]').textContent==='Unsaved changes'&&edit().querySelector('[name=delivery]').value==='666.25');
+   edit().dataset.sourceToken='stale-fixture';syncRedraw();await new Promise(resolve=>setTimeout(resolve,400));
+   ok('GN20 native transport editor survives background redraw',edit().querySelector('[name=delivery]').value==='666.25'&&Number(edit().querySelector('[name=pickup]').value)===333.1&&edit().querySelector('[name=note]').value==='Unsubmitted rate test');
+   ok('GN20 native editor remains open with original concurrency tokens',edit().closest('details').open&&edit().dataset.expected===expected&&edit().dataset.sourceToken==='stale-fixture');
+   ok('GN20 native editor makes stale scope explicit',edit().querySelector('[data-transport1006-result]').textContent==='This charge changed elsewhere. Reopen it before saving.');
+   const priorWho=window.whoAmI;window.whoAmI=()=> 'Andrew Fisher';
+   const refused=CustomerTransport1006.save('GN20','350kva',{delivery:'666.25',pickup:'333.10',note:'Test only'},edit().dataset.expected,edit().dataset.sourceToken);window.whoAmI=priorWho;
+   ok('GN20 native save rejects retained stale source without recording rates',!refused.ok&&/source changed/.test(refused.reason)&&JSON.stringify(S)===native);
+   window.mayWrite=()=>false;SYNC.readonly=true;
+   const viewRefusal=CustomerTransport1006.save('GN20','350kva',{delivery:'666.25'},edit().dataset.expected,edit().dataset.sourceToken);
+   ok('GN20 shared view cannot save a transport rate',!viewRefusal.ok&&/edit link/.test(viewRefusal.reason)&&JSON.stringify(S)===native);SYNC.readonly=false;window.mayWrite=()=>true;
+  }
   ok('No horizontal overflow on phone',document.documentElement.scrollWidth<=innerWidth+2);
   window.capability=originalCapability;window.mayWrite=originalMayWrite;
   return {checks,nativeUnchanged:JSON.stringify(S)===native};

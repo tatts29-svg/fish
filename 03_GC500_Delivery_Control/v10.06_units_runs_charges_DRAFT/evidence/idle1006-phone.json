@@ -1,6 +1,6 @@
 {
   "author": "Andrew Fisher",
-  "at": "2026-10-13T07:47:37.032Z",
+  "at": "2026-10-13T08:29:34.753Z",
   "viewport": "phone",
   "checks": [
     {
@@ -88,6 +88,54 @@
       "pass": true
     },
     {
+      "name": "Dirty transport amount and note survive remote refresh",
+      "pass": true
+    },
+    {
+      "name": "Untouched transport amount accepts remote value",
+      "pass": true
+    },
+    {
+      "name": "Transport fold stays open",
+      "pass": true
+    },
+    {
+      "name": "Transport original expected and source tokens remain for stale guard",
+      "pass": true
+    },
+    {
+      "name": "Stale transport draft gives charge-specific reopening instruction",
+      "pass": true
+    },
+    {
+      "name": "Transport draft never restores into a unit form with identical ref/doc",
+      "pass": true
+    },
+    {
+      "name": "GN20 unchanged-source redraw keeps dirty rates explicitly unsaved",
+      "pass": true
+    },
+    {
+      "name": "GN20 native transport editor survives background redraw",
+      "pass": true
+    },
+    {
+      "name": "GN20 native editor remains open with original concurrency tokens",
+      "pass": true
+    },
+    {
+      "name": "GN20 native editor makes stale scope explicit",
+      "pass": true
+    },
+    {
+      "name": "GN20 native save rejects retained stale source without recording rates",
+      "pass": true
+    },
+    {
+      "name": "GN20 shared view cannot save a transport rate",
+      "pass": true
+    },
+    {
       "name": "No horizontal overflow on phone",
       "pass": true
     },
@@ -100,7 +148,7 @@
   "errors": [],
   "counts": {
     "page": 1,
-    "live": 46,
+    "live": 67,
     "blocked": 0
   }
 }

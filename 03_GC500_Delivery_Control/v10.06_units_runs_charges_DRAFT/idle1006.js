@@ -1,8 +1,9 @@
-/* Author: Andrew Fisher. Keep the open unit card and unsubmitted inputs through a shared-record redraw. */
+/* Author: Andrew Fisher. Keep open unit and transport forms through a shared-record redraw. */
 (function(root){
 'use strict';
 const fields='input[name]:not([type="file"]):not([type="submit"]):not([type="button"]),textarea[name],select[name]';
-function formKey(form){return JSON.stringify([form.dataset.ref||'',form.dataset.doc||'',form.dataset.source||'']);}
+const formSelector='[data-unit925-form],[data-transport1006-form]';
+function formKey(form){return JSON.stringify([form.hasAttribute('data-transport1006-form')?'transport':'unit',form.dataset.ref||'',form.dataset.doc||'',form.dataset.source||'']);}
 function fieldValue(field){return /^(checkbox|radio)$/.test(field.type)?field.checked:field.tagName==='SELECT'&&field.multiple?[...field.selectedOptions].map(o=>o.value):field.value;}
 function fieldDefault(field){
  if(/^(checkbox|radio)$/.test(field.type))return field.defaultChecked;
@@ -21,7 +22,7 @@ function detailKey(detail){
 function capture(drawer){
  if(!drawer?.classList.contains('on'))return null;
  const active=drawer.ownerDocument.activeElement,forms=[];
- for(const form of drawer.querySelectorAll('[data-unit925-form]')){
+ for(const form of drawer.querySelectorAll(formSelector)){
   const dirty=[...form.querySelectorAll(fields)].filter(field=>!same(fieldValue(field),fieldDefault(field))).map(field=>({name:field.name,value:fieldValue(field)}));
   const focus=active&&form.contains(active)&&active.matches(fields)?{name:active.name,selection:typeof active.selectionStart==='number'?[active.selectionStart,active.selectionEnd]:null}:null;
   if(dirty.length||focus)forms.push({key:formKey(form),dirty,focus,expected:form.dataset.expected,sourceToken:form.dataset.sourceToken});
@@ -36,7 +37,7 @@ function restore(drawer,held){
   const hidden=galleries.get(card.dataset.unit925Id),gallery=card.querySelector('.item933-gallery');
   if(gallery&&typeof hidden==='boolean'){gallery.hidden=hidden;card.querySelectorAll('[data-item933-view]').forEach(button=>button.setAttribute('aria-expanded',String(!hidden)));}
  }
- const forms=[...drawer.querySelectorAll('[data-unit925-form]')];
+ const forms=[...drawer.querySelectorAll(formSelector)];
  for(const draft of held.forms){
   const form=forms.find(f=>formKey(f)===draft.key);if(!form)continue;
   const changed=form.dataset.expected!==draft.expected||form.dataset.sourceToken!==draft.sourceToken;
@@ -51,7 +52,8 @@ function restore(drawer,held){
   // A remote change must still fail the native stale-write check. Never rebase a dirty draft silently.
   if(draft.dirty.length&&draft.expected!==undefined)form.dataset.expected=draft.expected;
   if(draft.dirty.length&&draft.sourceToken!==undefined)form.dataset.sourceToken=draft.sourceToken;
-  if(draft.dirty.length&&changed){const result=form.querySelector('[data-unit925-result]');if(result)result.textContent='This item changed elsewhere. Reopen it before saving.';}
+  if(draft.dirty.length&&changed){const result=form.querySelector('[data-unit925-result],[data-transport1006-result]');if(result)result.textContent=form.hasAttribute('data-transport1006-form')?'This charge changed elsewhere. Reopen it before saving.':'This item changed elsewhere. Reopen it before saving.';}
+  else if(draft.dirty.length&&form.hasAttribute('data-transport1006-form')){const result=form.querySelector('[data-transport1006-result]');if(result)result.textContent='Unsaved changes';}
  }
  drawer.scrollTop=held.top;const body=drawer.querySelector('.db');if(body)body.scrollTop=held.bodyTop;
 }
