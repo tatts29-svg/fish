@@ -1,0 +1,12 @@
+/* Author: Andrew Fisher. Compact scoped Save confirmation using the existing page palette. */
+.selection1012-controls{display:flex;align-items:center;flex-wrap:wrap;gap:5px;max-width:100%;margin:5px 0 2px;white-space:normal;line-height:1.3}
+.selection1012-controls[hidden]{display:none}
+.selection1012-controls .selection1012-save{min-height:32px;min-width:54px;margin:0;padding:4px 10px;font-size:12px;font-weight:750;color:#fff;background:#293e48;border:1px solid #70868e;border-radius:6px;box-shadow:none}
+.selection1012-controls .selection1012-save:focus-visible{outline:2px solid #ff8b42;outline-offset:2px}
+.selection1012-controls [data-selection1012-status]{font-size:11px;font-weight:650;color:#213742;background:#e8edf0;padding:3px 5px;border-radius:4px;overflow-wrap:anywhere;max-width:240px}
+.selection1012-controls[data-selection1012-state="shared"] [data-selection1012-status]{color:#075434;background:#ddf7e8}
+.selection1012-controls[data-selection1012-state="error"] [data-selection1012-status],.selection1012-controls[data-selection1012-state="changed"] [data-selection1012-status]{color:#802a18;background:#ffebe2}
+@media(max-width:600px){.selection1012-controls{gap:4px}.selection1012-controls .selection1012-save{min-height:36px}.selection1012-controls [data-selection1012-status]{max-width:180px}}
+@media print{.selection1012-controls{display:none!important}}
+.selection1012-controls [data-selection1012-status]:empty{display:none}
+.selection1012-controls:is([data-selection1012-state="dirty"],[data-selection1012-state="local"]) [data-selection1012-status]{color:#604000;background:#fff0c5}

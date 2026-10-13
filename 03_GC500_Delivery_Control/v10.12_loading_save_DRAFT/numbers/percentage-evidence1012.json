@@ -1,0 +1,46 @@
+{
+  "author": "Andrew Fisher",
+  "result": "PASS",
+  "reviewedBaseSha": "a37381b49fec5317fb9b354b7eee2e314f3c6e15215449314e9f1a14c9303557",
+  "moduleSha": "f0de0337c56c49d179e9b7d51270f192e3a7e4f63332ffd155432409bddffed6",
+  "patchSha": "1b70c56e2888f0041f7ec3fb8c70e6398186a7394c19ca54b3eb6c20b79a6eab",
+  "testSha": "78ec9b54d82258d1da1b1755e5a192f4c471af6b4dd1ae28ca1e9b3d7e0b2024",
+  "checks": 96,
+  "parsedScripts": 103,
+  "operationalWrites": 0,
+  "beforeAfterFindings": [
+    {
+      "case": "9999.9 of 10000 programme metres, other six categories complete",
+      "before": "Fencing rounds to 100 and the whole index incorrectly lights five green lamps despite 0.1 m left.",
+      "after": "Raw fencing ratio remains 99.999, displayed as 99.99; overall completion is false and four lamps are reached."
+    },
+    {
+      "case": "19999 of 20000 category units",
+      "before": "Category displays 100 with one unit left.",
+      "after": "Raw ratio remains below 100; displayed 99.99. Quantity, done and left remain unchanged."
+    },
+    {
+      "case": "Six categories at 100 and one at 99.99",
+      "before": "Overall and past-day card round the value to 100.",
+      "after": "Overall and past-day display 99.99 and remain incomplete."
+    },
+    {
+      "case": "VMS lower-bound completion with provisional schedule scope",
+      "before": "Scope annotation replaces lower-bound kind and collapses the completion range.",
+      "after": "Both independent uncertainty states remain; lower-bound and upper bound are retained."
+    }
+  ],
+  "controlCoverage": [
+    "Exact 100 and 99.9 behave correctly",
+    "99.999 and IEEE near-100 boundaries stay incomplete",
+    "Raw scope verification survives rounded left of zero",
+    "Unknown quantities and unquantified fence scope keep the index unavailable",
+    "Stale data and partial completion do not turn green",
+    "CCB shared pending allocation preserves its range without duplicate quantity",
+    "Excess work cannot offset another activity shortfall",
+    "13 financial functions and complete pricing1010/financial-scopes1011 scripts unchanged",
+    "Repeated and wrong-base patch applications rejected",
+    "Binary-noise lower-bound cases display(1.13,true) and ratio(113,10000) preserve 1.13 without promoting incomplete 100"
+  ],
+  "scopeLimit": "This evidence covers local source-executed calculation and formatting tests. Final integrated browser and live checks are performed by the release owner."
+}

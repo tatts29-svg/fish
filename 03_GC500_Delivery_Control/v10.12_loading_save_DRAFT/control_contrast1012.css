@@ -1,0 +1,71 @@
+/* Author: Andrew Fisher. Keep the approved mixed light-paper / dark-race design.
+   Native controls and generic buttons own a foreground as well as a background;
+   an inherited pale label must never land on the default white button face. */
+@media screen {
+  button,.btn {
+    color:var(--ink,#14181d);
+    -webkit-text-fill-color:currentColor;
+  }
+  button {background-color:var(--paper,#fff)}
+  :where(main,#drawer,dialog,[role="dialog"])
+  :is(input,select,textarea):not(:where([type="checkbox"],[type="radio"],[type="range"],[type="color"],[type="file"],[type="hidden"])) {
+    color:var(--ink,#14181d);
+    background-color:var(--paper,#fff);
+    -webkit-text-fill-color:currentColor;
+  }
+  :where(main,#drawer,dialog,[role="dialog"]) select :is(option,optgroup) {
+    background-color:var(--paper,#fff);
+    color:var(--ink,#14181d);
+    -webkit-text-fill-color:currentColor;
+  }
+
+  /* Loading moved outside the original dark action row. Give the actual dark
+     control panels the complete palette; the light delivery-record panel and
+     the white asset drawer retain their existing paper palette. */
+  #pane-timeline .ld .timeline908-plans,
+  #pane-timeline .tl841-actions,
+  #timeline841-dialog {
+    --ink:#edf3f6;--ink2:#d5e1e6;--slate:#bdd0d9;--mute:#bdd0d9;
+    --paper:#152832;--tint:#1d3541;--tint2:#203b48;
+    --rule:#617f8d;--rule2:#395361;
+    --orange-ink:#ffb27a;--orange-soft:#49311f;
+    --red:#ffa692;--red-soft:#492b2b;
+    --amber:#ffd192;--amber-soft:#433524;
+    --green:#a9f5c4;--green-soft:#203d31;
+    --control-focus1012:#ffb27a;
+    color-scheme:dark;
+  }
+  #pane-timeline .ld .timeline908-plans .btn:not(.primary):not(.danger):not(.amber) {
+    background:var(--tint2);
+    color:var(--ink);
+    -webkit-text-fill-color:currentColor;
+    border-color:var(--rule);
+  }
+
+  /* Cancelled rows already say cancelled. Their corrective controls and
+     recorded values must not be faded below readable contrast. */
+  .edtbl tr.edoff td {opacity:1}
+
+  /* Disabled remains disabled. A visible value or action label must still be
+     readable; do not use opacity to communicate its availability. */
+  :where(main,#drawer,dialog,[role="dialog"]) :is(button,input,select,textarea):disabled {
+    opacity:1;
+    -webkit-text-fill-color:currentColor;
+    cursor:not-allowed;
+  }
+  :where(main,#drawer,dialog,[role="dialog"]) :is(button,.btn):disabled {
+    border-style:dashed;
+    box-shadow:none;
+  }
+  :where(main,#drawer,dialog,[role="dialog"])
+  :is(button,input,select,textarea):focus-visible {
+    outline:2px solid var(--control-focus1012,#9a3f0a);
+    outline-offset:3px;
+  }
+  :where(main,#drawer,dialog,[role="dialog"])
+  :is(input,textarea)::selection {
+    background:#ffcfaa;
+    color:#211409;
+    -webkit-text-fill-color:#211409;
+  }
+}
