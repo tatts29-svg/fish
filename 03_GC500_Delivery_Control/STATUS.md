@@ -1,5 +1,9 @@
 <!-- Author: Andrew Fisher -->
 
+READY TO UPLOAD — v10.09 distinct map completion symbols. Source f0f8a953; exact parent base1cdd454f842bf2467fbb928179f2570a6d16f8f88d7dfa49674b3d34fcac0910, candidate60533337c67a77211e660f0737ca5c693d52c2108a18d79fb0fd8a9d48c46a8b, 15,055,334 bytes, 97 scripts. Machine base8e791df7c83ebe1fac2a67b55f589fbfe3c51e77bef9986ff4f535c028a664ba, candidatead9297e85cc923d22b31656fe795ebbb576dc921335e6e15bebf1a4c203af654; three reviewed map files,230 otherfiles preserved. Both finalphone/desktop68 focused checks, both22route/sevenlink/Back sweeps,18parent/22map/22source controls pass. Visuals inspected, source/union guards and upload dryruns pass. No browser errors, operational writes or changedfinancialdata. Root integration/publication with scoped implementation and independent source review. Public verification follows guarded paired publication.
+
+<!-- Author: Andrew Fisher -->
+
 IMPLEMENTED — v10.09 distinct map completion symbols. Exact parent candidate 60533337c67a77211e660f0737ca5c693d52c2108a18d79fb0fd8a9d48c46a8b, 15,055,334 bytes, 97 scripts. Embedded map gains 28 px check/dash shapes, selected status words, independent orange selection, truthful partial/review/unavailable states and verified Done-layer counts. Shared snapshot preserves existing physical-completion rules; no native/financial data changes. Machine union ad9297e85cc923d22b31656fe795ebbb576dc921335e6e15bebf1a4c203af654 replaces exactly three files and preserves 230 other assets. Parent18, map22 and source22 focused controls pass; both22-route/seven-link/Back parent sweeps pass. Initial phone68 checks pass; final phone/desktop visual checks running after badge spacing and spoken-label cleanup. Root integration/publication with scoped implementation and independent source/checker review. Not ready.
 
 <!-- Author: Andrew Fisher -->
