@@ -2,20 +2,25 @@
 'use strict';
 const fs = require('node:fs'), path = require('node:path'), crypto = require('node:crypto');
 if (process.env.PAGE || process.env.BASE_PAGE) throw new Error('Public scope check requires PAGE and BASE_PAGE unset');
-const {open} = require('../toolchain/harness/open_page');
 const expected = 'a37381b49fec5317fb9b354b7eee2e314f3c6e15215449314e9f1a14c9303557';
+const publicResponses = [], curl = require('../toolchain/harness/curlfetch'), liveFetch = curl.curlFetch;
+// Observe the real GET response before the existing harness fulfils it. Return
+// the same response object and bytes untouched: no local-page substitution.
+curl.curlFetch = async function (url, headers, method, body) {
+ const response = await liveFetch(url, headers, method, body);
+ if (method === 'GET' && /^https:\/\/gc500-production\.up\.railway\.app\/v\/Coates-GC500-2026\/?(?:[?#].*)?$/.test(url)) publicResponses.push({url, status: response.status, bytes: response.body.length, sha256: crypto.createHash('sha256').update(response.body).digest('hex')});
+ return response;
+};
+const {open} = require('../toolchain/harness/open_page');
 (async () => {
  let h, timer;
  try {
   h = await open({hash: '#costs', W: 1440, H: 1000});
-  // Obtain the body of the exact navigation the browser will evaluate. No local
-  // page file is accepted and the harness excludes this address from caching.
-  const response = await h.page.reload({waitUntil: 'load', timeout: 180000});
-  if (!response || response.status() !== 200) throw new Error('Public page did not return HTTP 200');
-  const body = await response.body(), sha256 = crypto.createHash('sha256').update(body).digest('hex');
-  if (sha256 !== expected) throw new Error('Public page SHA mismatch: ' + sha256);
-  await h.page.waitForFunction(() => SYNC.status === 'live' && SYNC.first.size === Object.keys(SYNC_COLLS).length, null, {timeout: 180000});
   const cdp = await h.page.context().newCDPSession(h.page);
+  const navigation = publicResponses.at(-1);
+  if (!navigation || navigation.status !== 200) throw new Error('Actual public page did not return HTTP 200');
+  if (navigation.sha256 !== expected) throw new Error('Public page SHA mismatch: ' + navigation.sha256);
+  await h.page.waitForFunction(() => SYNC.status === 'live' && SYNC.first.size === Object.keys(SYNC_COLLS).length, null, {timeout: 180000});
   let expired = false;
   timer = setTimeout(() => { expired = true; cdp.send('Runtime.terminateExecution').catch(() => {}); }, 15000);
   const result = await h.page.evaluate(() => {
@@ -48,7 +53,7 @@ const expected = 'a37381b49fec5317fb9b354b7eee2e314f3c6e15215449314e9f1a14c93035
   if (expired) throw new Error('Public financial check exceeded 15 seconds');
   result.checks.push({name: 'No local page substitution', pass: h.counts.page === 0});
   result.checks.push({name: 'No browser errors or operational write attempts', pass: !h.errors.length && h.counts.blocked === 0});
-  Object.assign(result, {author: 'Andrew Fisher', at: new Date().toISOString(), sha256, bytes: body.length, errors: h.errors, requests: h.counts, actualPublic: true});
+  Object.assign(result, {author: 'Andrew Fisher', at: new Date().toISOString(), sha256: navigation.sha256, bytes: navigation.bytes, navigationResponses: publicResponses, errors: h.errors, requests: h.counts, actualPublic: true});
   const out = process.env.OUT || '/workspace/private-gc5001011-public'; fs.mkdirSync(out, {recursive: true});
   fs.writeFileSync(path.join(out, 'public-scope-performance.json'), JSON.stringify(result, null, 2) + '\n');
   console.log(JSON.stringify(result));
