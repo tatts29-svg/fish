@@ -2,7 +2,7 @@
 'use strict';
 const fs=require('fs'),path=require('path'),crypto=require('crypto'),os=require('os'),{spawn}=require('child_process');
 const args=process.argv.slice(2),scope=args[1];
-if(!['--practice','--apply'].includes(args[0])||!['identity','roster'].includes(scope))throw Error('Use --practice|--apply identity|roster');
+if(!['--practice','--apply'].includes(args[0])||!['identity','roster','wrong_number'].includes(scope))throw Error('Use --practice|--apply identity|roster|wrong_number');
 const modulePath=path.join(__dirname,'native_'+scope+'1006.cjs');
 const {prepare,apply,verify}=require(modulePath);
 const token=process.env.GC500_EDIT_TOKEN,expectedPage=process.env.GC500_EXPECTED_PAGE_SHA;
