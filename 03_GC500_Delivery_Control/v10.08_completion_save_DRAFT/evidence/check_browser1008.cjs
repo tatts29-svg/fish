@@ -1,9 +1,10 @@
 /* Author: Andrew Fisher. GET-only practice: completion visuals and local Rules-table scrolling. */
-const fs=require('fs'),assert=require('assert'),path=require('path');
+const fs=require('fs'),assert=require('assert'),path=require('path'),crypto=require('crypto');
 const source=path.resolve(__dirname,'..');
 const {open}=require(path.resolve(source,'../toolchain/harness/open_page'));
 const out=process.env.OUT||'/tmp/gc500-review1008';fs.mkdirSync(out,{recursive:true});
-const report={checks:[],screenshots:[],errors:[],blocked:0};
+const live=process.env.LIVE==='1',pageFile=live?undefined:process.env.PAGE||path.resolve(source,'../build/GC500_v10.08/GC500_Delivery_Control_hosted.html');
+const report={author:'Andrew Fisher',mode:live?'public':'candidate',sha256:null,checks:[],screenshots:[],errors:[],blocked:0};
 const check=(name,ok,details)=>{report.checks.push({name,ok,details});assert(ok,name+': '+JSON.stringify(details));};
 const geometry=()=>{
  const main=document.querySelector('main'),details=document.querySelector('#pane-timeline .flow891-rules'),table=details.querySelector('table'),box=details.querySelector('.flow1008-table'),card=details.closest('.flow891');
@@ -12,9 +13,13 @@ const geometry=()=>{
 };
 (async()=>{
  for(const mobile of [true,false]){
-  const label=mobile?'phone':'desktop',h=await open({pageFile:process.env.PAGE||path.resolve(source,'../build/GC500_v10.08/GC500_Delivery_Control_hosted.html'),mobile,W:mobile?390:1440,H:mobile?844:1000,dpr:1});
+  const label=mobile?'phone':'desktop',h=await open({pageFile,mobile,W:mobile?390:1440,H:mobile?844:1000,dpr:1});
   try{
-   const p=h.page;await p.waitForFunction(()=>SYNC.status==='live'&&SYNC.first.size===Object.keys(SYNC_COLLS).length,null,{timeout:120000});
+   const p=h.page;
+   const bytes=live?await (await p.reload({waitUntil:'load',timeout:180000})).body():fs.readFileSync(pageFile);
+   const digest=crypto.createHash('sha256').update(bytes).digest('hex');
+   check(label+' exact served page hash',(!report.sha256||report.sha256===digest)&&(!process.env.EXPECTED_SHA||process.env.EXPECTED_SHA===digest),digest);report.sha256=digest;
+   await p.waitForFunction(()=>SYNC.status==='live'&&SYNC.first.size===Object.keys(SYNC_COLLS).length,null,{timeout:120000});
    await p.evaluate(()=>{go('timeline');});
    const chain=await p.evaluate(()=>{let el=document.querySelector('#pane-timeline .flow891-rules');const list=[];while(el){if(el.tagName==='DETAILS')list.unshift(el.className);el=el.parentElement;}return list;});
    for(const cls of chain){const detail=p.locator('#pane-timeline details.'+cls.trim().split(/\s+/).join('.')).first();if(!await detail.evaluate(el=>el.open))await detail.locator(':scope>summary').click();}
@@ -69,5 +74,7 @@ const geometry=()=>{
   }finally{await h.browser.close();}
  }
  check('no browser errors',report.errors.length===0,report.errors);check('no operational writes attempted',report.blocked===0,report.blocked);
- fs.writeFileSync(out+'/browser-review.json',JSON.stringify(report,null,2));console.log(JSON.stringify({checks:report.checks.length,passed:true,screenshots:report.screenshots}));
+ fs.writeFileSync(out+'/browser-review.json',JSON.stringify(report,null,2));
+ const summary={author:'Andrew Fisher',mode:report.mode,sha256:report.sha256,checks:report.checks.length,passed:true,browserErrors:report.errors.length,operationalWritesAttempted:report.blocked,viewports:['390×844','1440×1000'],scope:['expanded Rules-table containment and independent scrolling','verified completion emblem and retained lights','reduced motion and Motion Off','isolated native availability Save and exact acknowledgement after collapse']};
+ fs.writeFileSync(out+'/browser-summary.json',JSON.stringify(summary,null,2));console.log(JSON.stringify({...summary,screenshots:report.screenshots}));
 })().catch(e=>{report.failure=String(e);fs.writeFileSync(out+'/browser-review.json',JSON.stringify(report,null,2));console.error(e);process.exitCode=1;});
