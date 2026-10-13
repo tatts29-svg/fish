@@ -1,6 +1,6 @@
 <!-- Author: Andrew Fisher -->
 
-AUTHORISED RECORD UPDATE IN PROGRESS — 14 Oct 2026. Andrew confirms today’s Event Portables delivery at WC57, assets0008 and0915, and asks both marked complete. Root owns duplicate check, backup, native page setters, exact document write gate and fresh readback; operational projection review delegated read-only. Preserve leading zeros, Event Portables ownership, quantity2 and the actual14Oct arrival. No other deliveries, rates, stairs or pickup completion to be invented. v10.12 unchanged.
+AUTHORISED RECORD UPDATE COMPLETE — 14 Oct 2026 Event Portables arrivals. WC57×2, WC53×3, WC51×6, WC48×4, WC49×3 and WC54×6:24 user-supplied numbers saved once with leading zeros and typed EP ownership, dated receipts and FWF installation. WC51 separate Accessible Toilet and whole-reference status unchanged; only its six FWF complete. Pure-FWF dates/complete flags updated. Native5874→5987,113 targeted acknowledged writes; backup, exact document gate and full readback match, unrelated records/rates unchanged. Independent24-unit practice200checks and fresh-public39checks pass. Today24received/0furtherproposed; supplier136FWF received,52allocated remaining,6unallocated. Applicable automatic install/demob charges count received units once; no future physical demob/stairs/pumpout invented. Exact v10.12cde0 unchanged. Private evidence /workspace/private-portables14Oct2026; shared adapter/log summary record_14Oct2026_event_portables. Morning audit workbook remains its09:12historical snapshot.
 
 <!-- Author: Andrew Fisher -->
 
