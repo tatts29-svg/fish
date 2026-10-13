@@ -162,5 +162,11 @@
     "published": false,
     "recordWrites": 0
   },
-  "publicVerification": "Pending publication"
+  "publicVerification": "Pending publication",
+  "deliveryNoteChecks": {
+    "checks": 24,
+    "candidateSha256": "6bc40d8d46b1ca5f936731f17c9d75738c0436c9d1a928e37c94c391a08d0258",
+    "browserErrors": 0,
+    "operationalWrites": 0
+  }
 }

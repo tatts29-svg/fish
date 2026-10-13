@@ -2,7 +2,7 @@
 
 Author: Andrew Fisher.
 
-State: DRAFT. Root owns integration and publication. Final validation is underway; no release or Eric Lucian record change has been published yet.
+State: READY TO UPLOAD. Root owns integration and publication. Implementation source `796573d5`; no release or Eric Lucian record change has been published yet.
 
 Andrew requests source-backed charges without overcharging, known quantities beside map references and completion status, information that stays open while he reads or saves it, six individual fencing workforce rows, Kyle Gover’s race-weekend night shifts, location-level FWF photos and Eric Lucian on 14 October’s roster.
 
@@ -32,4 +32,10 @@ Programme V1 introduces three Complete flags already supported by onsite records
 
 Original workbooks, PDFs, full record snapshots, browser screenshots and generated financial workbooks remain outside Git. Sanitised results and source-cell references are retained here. All tests are read-only against the live service; only Andrew’s explicit Eric record addition will use guarded native writes after publication.
 
-Final combined checks, exact release hashes and verified publication evidence will replace this draft status.
+## Ready evidence
+
+Final page SHA256 `6bc40d8d46b1ca5f936731f17c9d75738c0436c9d1a928e37c94c391a08d0258`, 15,123,821 bytes, 102 inline scripts. Machine SHA256 `712e195b0207dc59690dab0978353091328d2a3b6d492e4019164a36e2c63587`; three reviewed files replaced, 230 preserved.
+
+Both 22-route/seven-link/Back navigation sweeps pass. Scoped browser checks pass for persistence (90), rate Save (30), the six More info disclosures (96), and final delivery-note deduplication (24). Pricing passes 125 pure cases, 158 in-memory propagation checks, 989 original-source checks, 2,119 same-record reconciliation checks and 17 combined financial controls. Map, FWF photo and workforce suites also pass in both viewports. Tests made no operational writes and reported no browser errors. Phone visuals and guarded upload dryruns pass.
+
+The final note-only change is exactly documented in `evidence/release-checks.json`; the financial functions, data and persistence module are unchanged from the audited candidate. Public verification and the authorised Eric record addition remain pending publication.
