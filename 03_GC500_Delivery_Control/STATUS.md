@@ -1,5 +1,9 @@
 <!-- Author: Andrew Fisher -->
 
+VERIFIED LIVE — v10.09 distinct map completion symbols. Published14Oct2026 01:48AEST; implementationf0f8a953, READYba59ec1e. ExactparentSHA25660533337c67a77211e660f0737ca5c693d52c2108a18d79fb0fd8a9d48c46a8b,15,055,334bytes,97scripts. Machine manifestad9297e85cc923d22b31656fe795ebbb576dc921335e6e15bebf1a4c203af654 replaces3reviewedmapfiles, preserves230otherassets. Larger green check/amber dash plus selected status words, independent orange selection glow, truthful partial/review/unavailable states and verified Done counts. Bothcandidate68/public65checks perviewport pass; both22route/sevenlink/Back sweeps and18parent/22map/22sourcecontrols pass; visuals inspected. Exactpublicbytesverified; zeroerrors/operationalwrites, native5796 unchanged. Root integration/publication with scoped implementation and independent source review. Source/evidence v10.09_map_completion_LIVE. No nativefinancialcalculations, rates, locations or completion records changed. Nextbuild startsfromexactpublichash.
+
+<!-- Author: Andrew Fisher -->
+
 READY TO UPLOAD — v10.09 distinct map completion symbols. Source f0f8a953; exact parent base1cdd454f842bf2467fbb928179f2570a6d16f8f88d7dfa49674b3d34fcac0910, candidate60533337c67a77211e660f0737ca5c693d52c2108a18d79fb0fd8a9d48c46a8b, 15,055,334 bytes, 97 scripts. Machine base8e791df7c83ebe1fac2a67b55f589fbfe3c51e77bef9986ff4f535c028a664ba, candidatead9297e85cc923d22b31656fe795ebbb576dc921335e6e15bebf1a4c203af654; three reviewed map files,230 otherfiles preserved. Both finalphone/desktop68 focused checks, both22route/sevenlink/Back sweeps,18parent/22map/22source controls pass. Visuals inspected, source/union guards and upload dryruns pass. No browser errors, operational writes or changedfinancialdata. Root integration/publication with scoped implementation and independent source review. Public verification follows guarded paired publication.
 
 <!-- Author: Andrew Fisher -->

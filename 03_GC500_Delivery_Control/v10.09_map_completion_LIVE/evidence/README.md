@@ -16,4 +16,4 @@ Repeat without `MOB=1` for desktop. Public verification uses `LIVE=1` in place o
 
 The check covers the real WC50/WC26 record readings, selected-reference status and shape distinctions, current provider refresh without camera movement, unavailable provider, partial/conflicted physical completion, the optional Done layer, clearing selection, reduced motion, source provenance and zero operational writes. Screen captures show actual public record data before any isolated fixture. It does not assert every map location is correct or that every project cost is complete.
 
-Status: checker preparation; no browser run or completed-test claim yet.
+Final status: candidate 68/68 and actual-public 65/65 checks pass on each phone/desktop viewport. Source SHA values appear in the compact evidence files. All operational writes remained blocked and none were attempted; native record version 5796 remained unchanged.
