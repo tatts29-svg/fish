@@ -1,0 +1,230 @@
+{
+  "author": "Andrew Fisher",
+  "review": "Independent original-source review; no record edits or publication",
+  "source": {
+    "file": "Baseplan SuperCars (1).xlsx",
+    "sha256": "6f6a20a3567d99ff0f1e0e97c8387d5a94907a358711c7d52cf5b1043e54956d",
+    "sheet": "9968862-KINP"
+  },
+  "snapshot": {
+    "at": "2026-10-13T16:00:32.821Z",
+    "pageSha256": "60533337c67a77211e660f0737ca5c693d52c2108a18d79fb0fd8a9d48c46a8b",
+    "nativeVersion": 5796
+  },
+  "cases": [
+    {
+      "asset": "1327213",
+      "confirmedLine": 7,
+      "confirmedRef": "P04",
+      "pendingLine": 94,
+      "pendingRef": "P46",
+      "replacementLine": 100,
+      "replacementAsset": "1327215",
+      "sourceHire": 1951.46,
+      "decision": "Exclude old pending line 94 from both actual and forecast. Current P46 is supplied and priced once through confirmed asset 1327215 on line 100.",
+      "siteSnapshot": {
+        "confirmedRef": "P04",
+        "physicalNumbers": [
+          "1327213"
+        ],
+        "received": 1,
+        "pendingRef": "P46",
+        "pendingPhysicalNumbers": [
+          "1327215"
+        ],
+        "pendingReceived": 1,
+        "currentPendingHire": 1951.46,
+        "currentPendingHireLines": [
+          "9968862|100"
+        ]
+      },
+      "originalRows": [
+        {
+          "line": 7,
+          "excelRow": 6,
+          "status": "Delivered",
+          "asset": "1327213",
+          "serial": "261179",
+          "description": "P04 Portable Building Shell 12.0M x 3.0M - Cyclonic Rated",
+          "quantity": 1,
+          "rate1": 1951.46,
+          "sourceStartDate": "2026-09-14 00:00:00",
+          "expectedTerm": "2026-11-13 00:00:00",
+          "bookedDelivery": "2026-09-14 00:00:00",
+          "billedAmount": 0
+        },
+        {
+          "line": 94,
+          "excelRow": 62,
+          "status": "Delivered",
+          "asset": "1322579",
+          "serial": "7856.B120.3",
+          "description": "P51 Portable Building Shell 12.0M x 3.0M - Cyclonic Rated",
+          "quantity": 1,
+          "rate1": 1951.46,
+          "sourceStartDate": "2026-09-14 00:00:00",
+          "expectedTerm": "2026-11-13 00:00:00",
+          "bookedDelivery": "2026-10-06 00:00:00",
+          "billedAmount": 0
+        },
+        {
+          "line": 100,
+          "excelRow": 64,
+          "status": "Delivered",
+          "asset": "1327215",
+          "serial": "261181",
+          "description": "P46 Portable Building Shell 12.0M x 3.0M - Cyclonic Rated",
+          "quantity": 1,
+          "rate1": 1951.46,
+          "sourceStartDate": "2026-09-14 00:00:00",
+          "expectedTerm": "2026-11-13 00:00:00",
+          "bookedDelivery": "2026-10-06 00:00:00",
+          "billedAmount": 0
+        }
+      ]
+    },
+    {
+      "asset": "1189412",
+      "confirmedLine": 63,
+      "confirmedRef": "P41",
+      "pendingLine": 110,
+      "pendingRef": "P65",
+      "sourceHire": 1426.07,
+      "decision": "Hold duplicate physical asset allocation and actual billing. Keep one approved P65 building as a separately labelled known-price forecast until its own arrival and allocation are confirmed.",
+      "siteSnapshot": {
+        "confirmedRef": "P41",
+        "physicalNumbers": [
+          "1189412"
+        ],
+        "received": 1,
+        "pendingRef": "P65",
+        "pendingPhysicalNumbers": [],
+        "pendingReceived": 0,
+        "currentPendingHire": null,
+        "currentPendingHireLines": []
+      },
+      "originalRows": [
+        {
+          "line": 63,
+          "excelRow": 41,
+          "status": "Delivered",
+          "asset": "1189412",
+          "serial": "897",
+          "description": "P41 Portable Building Shell 6.0M x 3.0M",
+          "quantity": 1,
+          "rate1": 1426.17,
+          "sourceStartDate": "2026-09-14 00:00:00",
+          "expectedTerm": "2026-11-13 00:00:00",
+          "bookedDelivery": "2026-09-23 00:00:00",
+          "billedAmount": 0
+        },
+        {
+          "line": 110,
+          "excelRow": 70,
+          "status": "Del Req",
+          "asset": "1189412",
+          "serial": "897",
+          "description": "P65 Commentary Booth 6.0M x 3.0M",
+          "quantity": 1,
+          "rate1": 1426.07,
+          "sourceStartDate": "2026-09-14 00:00:00",
+          "expectedTerm": "2026-11-13 00:00:00",
+          "bookedDelivery": "2026-09-14 00:00:00",
+          "billedAmount": 0
+        }
+      ]
+    },
+    {
+      "asset": "1189410",
+      "confirmedLine": 93,
+      "confirmedRef": "HRP",
+      "pendingLine": 108,
+      "pendingRef": "P67",
+      "sourceHire": 1426.07,
+      "decision": "Hold duplicate physical asset allocation and actual billing. Keep one approved P67 building as a separately labelled known-price forecast until its own arrival and allocation are confirmed.",
+      "siteSnapshot": {
+        "confirmedRef": "HRP",
+        "physicalNumbers": [
+          "1189410"
+        ],
+        "received": 1,
+        "pendingRef": "P67",
+        "pendingPhysicalNumbers": [],
+        "pendingReceived": 0,
+        "currentPendingHire": null,
+        "currentPendingHireLines": []
+      },
+      "originalRows": [
+        {
+          "line": 93,
+          "excelRow": 61,
+          "status": "Delivered",
+          "asset": "1189410",
+          "serial": "895",
+          "description": "P36 Portable Building Shell 6.0M x 3.0M - Cyclonic Rated",
+          "quantity": 1,
+          "rate1": 1426.07,
+          "sourceStartDate": "2026-09-14 00:00:00",
+          "expectedTerm": "2026-11-13 00:00:00",
+          "bookedDelivery": "2026-09-14 00:00:00",
+          "billedAmount": 0
+        },
+        {
+          "line": 108,
+          "excelRow": 69,
+          "status": "Del Req",
+          "asset": "1189410",
+          "serial": "895",
+          "description": "P67 Commentary Booth 6.0M x 3.0M",
+          "quantity": 1,
+          "rate1": 1426.07,
+          "sourceStartDate": "2026-09-14 00:00:00",
+          "expectedTerm": "2026-11-13 00:00:00",
+          "bookedDelivery": "2026-09-14 00:00:00",
+          "billedAmount": 0
+        }
+      ]
+    }
+  ],
+  "currentModelIssue": "Legacy contractCharge() prices all non-daily Rate 1 rows irrespective of pending status. All three source rows are in ONHIRE_ROWS and contractFigures sum, while item identity excludes the duplicate pending assets. This is a model overstatement/misclassification; the source Billed Amount is zero, not evidence that a customer invoice was issued.",
+  "expectedChanges": {
+    "actualHireReduction": 4803.6,
+    "forecastRetained": 2852.14,
+    "wholeJobDuplicateReduction": 1951.46,
+    "branch": "KINP",
+    "ledger": "1005"
+  },
+  "limitations": [
+    "P65/P67 remain valid separate planned buildings; do not delete their demand or invent replacement asset numbers.",
+    "Source Start Date Sep14 also appears on pending rows and is not a confirmed delivery.",
+    "Current physical confirmations and corrected source lines must cause recalculation; holds must not become permanent hard-coded missing arrivals.",
+    "HRP holds asset1189410; original description P36 is stale. Current P36 has different confirmed asset1282487 and is a distinct building."
+  ],
+  "checks": [
+    {
+      "check": "P04 current physical asset agrees with delivered contract",
+      "pass": true
+    },
+    {
+      "check": "P46 safe allocation decision",
+      "pass": false
+    },
+    {
+      "check": "P41 current physical asset agrees with delivered contract",
+      "pass": true
+    },
+    {
+      "check": "P65 safe allocation decision",
+      "pass": true
+    },
+    {
+      "check": "HRP current physical asset agrees with delivered contract",
+      "pass": true
+    },
+    {
+      "check": "P67 safe allocation decision",
+      "pass": true
+    }
+  ],
+  "pass": false
+}

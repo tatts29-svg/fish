@@ -1,5 +1,9 @@
 <!-- Author: Andrew Fisher -->
 
+SCOPE UPDATE — v10.10 remains DRAFT. Andrew also requests six separate Fencing 1–6 workforce rows and repeats Kyle Gover’s confirmed race-weekend night shifts, plus source-backed cost reassurance. Original street card and Advanced quotation 27172 reviewed. Preserve customer $88.49/person/hour separately from quoted supplier $142/person/hour race-day cost; future hours remain forecast and missing hours remain unpriced. Root integration; scoped pricing, source review, quantity, persistence, explicit rate Save and workforce modules underway. No native record writes. Final combined financial, phone/desktop and publication checks pending.
+
+<!-- Author: Andrew Fisher -->
+
 CLAIMED — v10.10 charge accuracy, quantity status and open-panel persistence. Andrew supplies WC09 screenshot (14Oct2026 01:36AEST), queries six pee-panel charges, asks quantities in Complete/Not complete boxes, and requires open information to stay open until he closes it. Root owns source-backed financial audit/corrections, shared UI state fix, combined testing and publication. Scoped source-rate audit, broad charge-engine audit and persistence implementation assigned. Use current card/contract facts and Andrew’s on-site truth; no speculative rates, damage waiver, supplier/customer conflation or duplicated charges. Preserve explicit unpriced holds. Base exact live v10.09 SHA60533337c67a77211e660f0737ca5c693d52c2108a18d79fb0fd8a9d48c46a8b. Audit underway; not ready.
 
 <!-- Author: Andrew Fisher -->

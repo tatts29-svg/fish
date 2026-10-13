@@ -1,0 +1,114 @@
+{
+  "author": "Andrew Fisher",
+  "pass": true,
+  "checks": [
+    {
+      "name": "Single verified complete shows6/6",
+      "pass": true
+    },
+    {
+      "name": "Single incomplete showsQty6 withoutinventedzero",
+      "pass": true
+    },
+    {
+      "name": "Unknown completion still shows known typed quantity",
+      "pass": true
+    },
+    {
+      "name": "WC09 mixed6pee4FWF neverbecomes10identicalunits",
+      "pass": true
+    },
+    {
+      "name": "One fleetnumber cannot overwrite six quantity-only panels",
+      "pass": true
+    },
+    {
+      "name": "Repeated typed description combines same scope",
+      "pass": true
+    },
+    {
+      "name": "One missing quantity keeps group unknown",
+      "pass": true
+    },
+    {
+      "name": "Blank quantity isnotzero",
+      "pass": true
+    },
+    {
+      "name": "Negative andnonfinite quantities areunknown",
+      "pass": true
+    },
+    {
+      "name": "No line doesnotdefaulttoone",
+      "pass": true
+    },
+    {
+      "name": "Unnamed description remainsvisible forreview",
+      "pass": true
+    },
+    {
+      "name": "Explicit zero quantity remainsQty0 not0/0complete",
+      "pass": true
+    },
+    {
+      "name": "Recorded partial installation shownas2/6installed",
+      "pass": true
+    },
+    {
+      "name": "Partial installation doesnotbecomefinalComplete",
+      "pass": true
+    },
+    {
+      "name": "Incomplete record doesnotclaiminstalledascomplete",
+      "pass": true
+    },
+    {
+      "name": "Conflicting installation count isnotdisplayed",
+      "pass": true
+    },
+    {
+      "name": "Receipt scope mismatch cannotborrowcount",
+      "pass": true
+    },
+    {
+      "name": "Zero installed withoutproof isnotinvented",
+      "pass": true
+    },
+    {
+      "name": "Explicit installationzero remainsvalidrecordedcount",
+      "pass": true
+    },
+    {
+      "name": "Moreinstalledthanorder isnotdisplayed",
+      "pass": true
+    },
+    {
+      "name": "23itemtypes fitthreecompactquantitylines",
+      "pass": true
+    },
+    {
+      "name": "Mixed unknownqty staysindividuallyexplicit",
+      "pass": true
+    },
+    {
+      "name": "Unavailable batch hidesunverifiedquantityclaims",
+      "pass": true
+    },
+    {
+      "name": "Olderparent missingquantity givesclearunknown",
+      "pass": true
+    },
+    {
+      "name": "Noncomplete state cannot use suppliedcompletedfield",
+      "pass": true
+    },
+    {
+      "name": "Fractional suppliedscope ispreservedwithout rounding",
+      "pass": true
+    },
+    {
+      "name": "Quantity failure returns unknown without throwing away physical status",
+      "pass": true
+    }
+  ]
+}
