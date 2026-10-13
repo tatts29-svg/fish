@@ -2,9 +2,10 @@
 
 Author: Andrew Fisher · Shutdown Manager, Coates · last updated 2 Oct 2026
 
-Two AI agents work on this repo: **Claude (Claude Code)** and **Codex (ChatGPT Codex cloud)**. Same jobs, same
-rules, same tools. One day one of you does a job, the next day the other picks it up. Everything either of you needs
-is in this repo; nothing lives only in one agent's session. Read this file first, then
+Coding assistants share this repo: **Claude (Claude Code)**, **Codex (ChatGPT Codex cloud)** and, once connected,
+**Gemini CLI** (Andrew requested the same build access on 13 Oct 2026). Same project rules and build tools apply.
+Use separate checkouts and coordinate work on the shared board. Shared implementation and handovers belong
+in this repo; private originals and credentials stay in authorised private storage. Read this file first, then
 `03_GC500_Delivery_Control/STATUS.md`.
 
 ## Who you are working for
