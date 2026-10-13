@@ -16,8 +16,11 @@ const geometry=()=>{
   const label=mobile?'phone':'desktop',h=await open({pageFile,mobile,W:mobile?390:1440,H:mobile?844:1000,dpr:1});
   try{
    const p=h.page;
-   const bytes=live?await (await p.reload({waitUntil:'load',timeout:180000})).body():fs.readFileSync(pageFile);
-   const digest=crypto.createHash('sha256').update(bytes).digest('hex');
+   const digest=live?await p.evaluate(async()=>{
+    const response=await fetch('/v/Coates-GC500-2026',{cache:'no-store'});
+    if(!response.ok)throw new Error('Public page GET failed: '+response.status);
+    return Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256',await response.arrayBuffer())),v=>v.toString(16).padStart(2,'0')).join('');
+   }):crypto.createHash('sha256').update(fs.readFileSync(pageFile)).digest('hex');
    check(label+' exact served page hash',(!report.sha256||report.sha256===digest)&&(!process.env.EXPECTED_SHA||process.env.EXPECTED_SHA===digest),digest);report.sha256=digest;
    await p.waitForFunction(()=>SYNC.status==='live'&&SYNC.first.size===Object.keys(SYNC_COLLS).length,null,{timeout:120000});
    await p.evaluate(()=>{go('timeline');});

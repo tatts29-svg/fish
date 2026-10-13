@@ -2,7 +2,7 @@
 
 Author: Andrew Fisher · 13 Oct 2026
 
-Status: READY TO UPLOAD — final candidate checks pass.
+Status: VERIFIED LIVE — 13 Oct 2026, 21:44 AEST.
 
 Andrew requests a clearer completed-work icon and reassurance that edits have saved. The existing asset identity and transport-rate Save buttons remain. Availability now confirms the exact document acknowledged by the shared service, with distinct unsaved, device-only, syncing and failed states. Feedback stays visible when the editor closes.
 
@@ -16,4 +16,4 @@ Exact v10.07 base: `b5d99de88886d9f03aad7af2177b68b1239919542f6c27e2d80be7ec9a89
 
 Root owns integration, review and publication; scoped implementation and independent save-state reviews support this release. Private browser snapshots remain outside Git.
 
-Final candidate: `1cdd454f842bf2467fbb928179f2570a6d16f8f88d7dfa49674b3d34fcac0910`, 15,053,525 bytes, 96 scripts. Both 22-route/seven-link/Back navigation sweeps and 28 focused phone/desktop browser checks pass with no errors or live record writes. The 21 completion checks, 56 independent Save checks, 13 source controls, exact master rebuild/repeat/wrong-base guards and source preservation review pass. Original DATA, financial calculations and physical/financial setters remain unchanged. Phone completion, expanded Rules and collapsed Save feedback visuals reviewed. Upload dry run passes; actual-public verification follows publication.
+Final candidate: `1cdd454f842bf2467fbb928179f2570a6d16f8f88d7dfa49674b3d34fcac0910`, 15,053,525 bytes, 96 scripts. Both 22-route/seven-link/Back navigation sweeps and 28 focused phone/desktop browser checks pass with no errors or live record writes. The 21 completion checks, 56 independent Save checks, 13 source controls, exact master rebuild/repeat/wrong-base guards and source preservation review pass. Original DATA, financial calculations and physical/financial setters remain unchanged. Phone completion, expanded Rules and collapsed Save feedback visuals reviewed. Upload dry run passed. The public view serves the exact build byte for byte; all 28 focused checks also pass on the actual public page on phone and desktop, with zero browser errors or attempted operational writes. The public hash check uses a fresh GET because the large page can be evicted from the browser inspector response cache.
