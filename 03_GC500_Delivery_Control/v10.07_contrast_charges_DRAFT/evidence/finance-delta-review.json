@@ -1,0 +1,214 @@
+{
+  "author": "Andrew Fisher",
+  "baseline": "fc7995c79cd5df18c47de4f2c05f1499382ba0313ae8b27dd23d783606a59068",
+  "candidate": "0106085127fbb27dd15942261925c667cf4db429e28f45ac540776252095ce18",
+  "nativeVersion": 5796,
+  "amountReclassified": 4033.01,
+  "checks": [
+    {
+      "name": "Same shared record; no native corrections in this release",
+      "pass_": true
+    },
+    {
+      "name": "Existing pee-panel hire amount is unchanged",
+      "pass_": true
+    },
+    {
+      "name": "Six received pee panels valued in actual once",
+      "pass_": true
+    },
+    {
+      "name": "Costs current Revenue rises by existing hire only",
+      "pass_": true
+    },
+    {
+      "name": "P&L current Revenue rises by existing hire only",
+      "pass_": true
+    },
+    {
+      "name": "Whole-job Revenue remains unchanged",
+      "pass_": true
+    },
+    {
+      "name": "Remaining pee-panel forecast falls by same amount",
+      "pass_": true
+    },
+    {
+      "name": "P&L hire existing job Revenue preserved",
+      "pass_": true
+    },
+    {
+      "name": "P&L hire current Revenue classified correctly",
+      "pass_": true
+    },
+    {
+      "name": "P&L rehire existing job Revenue preserved",
+      "pass_": true
+    },
+    {
+      "name": "P&L rehire current Revenue classified correctly",
+      "pass_": true
+    },
+    {
+      "name": "P&L transport existing job Revenue preserved",
+      "pass_": true
+    },
+    {
+      "name": "P&L transport current Revenue classified correctly",
+      "pass_": true
+    },
+    {
+      "name": "P&L pump existing job Revenue preserved",
+      "pass_": true
+    },
+    {
+      "name": "P&L pump current Revenue classified correctly",
+      "pass_": true
+    },
+    {
+      "name": "P&L cons existing job Revenue preserved",
+      "pass_": true
+    },
+    {
+      "name": "P&L cons current Revenue classified correctly",
+      "pass_": true
+    },
+    {
+      "name": "P&L install existing job Revenue preserved",
+      "pass_": true
+    },
+    {
+      "name": "P&L install current Revenue classified correctly",
+      "pass_": true
+    },
+    {
+      "name": "P&L event_support existing job Revenue preserved",
+      "pass_": true
+    },
+    {
+      "name": "P&L event_support current Revenue classified correctly",
+      "pass_": true
+    },
+    {
+      "name": "P&L cleaning existing job Revenue preserved",
+      "pass_": true
+    },
+    {
+      "name": "P&L cleaning current Revenue classified correctly",
+      "pass_": true
+    },
+    {
+      "name": "P&L waiver existing job Revenue preserved",
+      "pass_": true
+    },
+    {
+      "name": "P&L waiver current Revenue classified correctly",
+      "pass_": true
+    },
+    {
+      "name": "Direct costs and overheads remain unchanged",
+      "pass_": true
+    },
+    {
+      "name": "Supplier and other known cost model unchanged",
+      "pass_": true
+    },
+    {
+      "name": "Service rates, quantities and amounts unchanged",
+      "pass_": true
+    },
+    {
+      "name": "Transport rates, coverage and money unchanged",
+      "pass_": true
+    },
+    {
+      "name": "Generator hire model unchanged",
+      "pass_": true
+    },
+    {
+      "name": "Contract source lines unchanged",
+      "pass_": true
+    },
+    {
+      "name": "Existing onsite priced subtotal unchanged",
+      "pass_": true
+    },
+    {
+      "name": "KINP arrived Revenue classified once",
+      "pass_": true
+    },
+    {
+      "name": "KINP forecast and Direct costs unchanged",
+      "pass_": true
+    },
+    {
+      "name": "MEAD arrived Revenue classified once",
+      "pass_": true
+    },
+    {
+      "name": "MEAD forecast and Direct costs unchanged",
+      "pass_": true
+    },
+    {
+      "name": "NVAC arrived Revenue classified once",
+      "pass_": true
+    },
+    {
+      "name": "NVAC forecast and Direct costs unchanged",
+      "pass_": true
+    },
+    {
+      "name": "STPS arrived Revenue classified once",
+      "pass_": true
+    },
+    {
+      "name": "STPS forecast and Direct costs unchanged",
+      "pass_": true
+    },
+    {
+      "name": "Unmatched arrived work scope has exact five explicit holds",
+      "pass_": true
+    },
+    {
+      "name": "No invented work charge for own-use container",
+      "pass_": true
+    },
+    {
+      "name": "Original transport and hire holds remain visible",
+      "pass_": true
+    },
+    {
+      "name": "No supplier quote 27172 imported",
+      "pass_": true
+    },
+    {
+      "name": "October contains exactly one KINP pee-panel allocation",
+      "pass_": true
+    },
+    {
+      "name": "October received amount is actual with no remaining duplicate",
+      "pass_": true
+    },
+    {
+      "name": "October allocation remains a Finance review, not an issued invoice",
+      "pass_": true
+    },
+    {
+      "name": "No September pee-panel allocation",
+      "pass_": true
+    },
+    {
+      "name": "Unrelated October revenue allocations preserved",
+      "pass_": true
+    },
+    {
+      "name": "Revenue stream sum equals Costs",
+      "pass_": true
+    },
+    {
+      "name": "No browser errors or write attempts",
+      "pass_": true
+    }
+  ],
+  "failures": []
+}

@@ -171,3 +171,30 @@
   }
   body .supplier996-stop small {opacity:1}
 }
+
+@media screen {
+  /* Finance handover also marks read-only fields through its own data
+     attributes rather than disabled. Keep its pointer/write guards unchanged. */
+  body.viewonly #handover866 :is([data-fh866],#fh866New,[data-fh866-save],[data-fh866-add]),
+  body.viewonly #handover866 input#fh866New {
+    opacity:1;
+  }
+  /* Destructive actions retain their red outline on the surface they occupy.
+     The older OS-dark override used pale red even inside a white drawer. */
+  body .btn.danger {
+    background:var(--paper);
+    color:var(--red);
+    border-color:var(--red);
+    -webkit-text-fill-color:currentColor;
+  }
+  body .btn.danger:is(:hover,:focus-visible) {
+    background:#b3261e;
+    color:#fff;
+    border-color:#b3261e;
+  }
+  .top #q::placeholder {
+    color:#c5b4a8;
+    -webkit-text-fill-color:#c5b4a8;
+    opacity:1;
+  }
+}

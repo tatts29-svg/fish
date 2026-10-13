@@ -24,6 +24,6 @@ Completeness remains partial: 32 transport legs across 17 arrived references nee
 
 Base public v10.06 SHA256: `fc7995c79cd5df18c47de4f2c05f1499382ba0313ae8b27dd23d783606a59068`.
 
-Final candidate: `0106085127fbb27dd15942261925c667cf4db429e28f45ac540776252095ce18`, 15,045,719 bytes, 95 inline scripts. Exact rebuild, wrong-base/repeat guards and unchanged embedded DATA pass. Original source-rate review passed 107 comparisons. Final combined contrast, navigation and financial reconciliation evidence is being completed before READY.
+Final candidate: `b5d99de88886d9f03aad7af2177b68b1239919542f6c27e2d80be7ec9a89bdfb`, 15,046,568 bytes, 95 inline scripts. Exact rebuild, wrong-base/repeat guards and unchanged embedded DATA pass. Original source-rate review passed 107 comparisons. Final combined contrast, navigation and financial reconciliation evidence is being completed before READY.
 
 Root owns integration, review and publication. Separate scoped implementation, rendered-contrast and financial reviews were used; no claim of an external agent review. Private snapshots and screenshots stay outside Git.

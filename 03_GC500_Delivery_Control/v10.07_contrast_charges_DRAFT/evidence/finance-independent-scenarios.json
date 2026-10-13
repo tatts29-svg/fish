@@ -1,0 +1,230 @@
+{
+  "author": "Andrew Fisher",
+  "checks": [
+    {
+      "name": "0 received: existing complete hire retained",
+      "pass": true
+    },
+    {
+      "name": "0 received: actual and remaining independently expected",
+      "pass": true
+    },
+    {
+      "name": "0 received: one amount partitioned once",
+      "pass": true
+    },
+    {
+      "name": "1 received: existing complete hire retained",
+      "pass": true
+    },
+    {
+      "name": "1 received: actual and remaining independently expected",
+      "pass": true
+    },
+    {
+      "name": "1 received: one amount partitioned once",
+      "pass": true
+    },
+    {
+      "name": "2 received: existing complete hire retained",
+      "pass": true
+    },
+    {
+      "name": "2 received: actual and remaining independently expected",
+      "pass": true
+    },
+    {
+      "name": "2 received: one amount partitioned once",
+      "pass": true
+    },
+    {
+      "name": "3 received: existing complete hire retained",
+      "pass": true
+    },
+    {
+      "name": "3 received: actual and remaining independently expected",
+      "pass": true
+    },
+    {
+      "name": "3 received: one amount partitioned once",
+      "pass": true
+    },
+    {
+      "name": "5 received: existing complete hire retained",
+      "pass": true
+    },
+    {
+      "name": "5 received: actual and remaining independently expected",
+      "pass": true
+    },
+    {
+      "name": "5 received: one amount partitioned once",
+      "pass": true
+    },
+    {
+      "name": "6 received: existing complete hire retained",
+      "pass": true
+    },
+    {
+      "name": "6 received: actual and remaining independently expected",
+      "pass": true
+    },
+    {
+      "name": "6 received: one amount partitioned once",
+      "pass": true
+    },
+    {
+      "name": "reference absent: safe numeric zero in every financial view",
+      "pass": true
+    },
+    {
+      "name": "reference absent: subsequent amount arithmetic cannot become NaN",
+      "pass": true
+    },
+    {
+      "name": "cancelled: safe numeric zero in every financial view",
+      "pass": true
+    },
+    {
+      "name": "cancelled: subsequent amount arithmetic cannot become NaN",
+      "pass": true
+    },
+    {
+      "name": "rest location: safe numeric zero in every financial view",
+      "pass": true
+    },
+    {
+      "name": "rest location: subsequent amount arithmetic cannot become NaN",
+      "pass": true
+    },
+    {
+      "name": "item removed: safe numeric zero in every financial view",
+      "pass": true
+    },
+    {
+      "name": "item removed: subsequent amount arithmetic cannot become NaN",
+      "pass": true
+    },
+    {
+      "name": "contract now covers panels: safe numeric zero in every financial view",
+      "pass": true
+    },
+    {
+      "name": "contract now covers panels: subsequent amount arithmetic cannot become NaN",
+      "pass": true
+    },
+    {
+      "name": "changed scope needs review: safe numeric zero in every financial view",
+      "pass": true
+    },
+    {
+      "name": "changed scope needs review: subsequent amount arithmetic cannot become NaN",
+      "pass": true
+    },
+    {
+      "name": "FWF Trailer: unpriced scope explicit, no fabricated price",
+      "pass": true
+    },
+    {
+      "name": "FWF Trailer: pending equipment not called arrived gap",
+      "pass": true
+    },
+    {
+      "name": "FWF Trailer: own use does not gain client charge",
+      "pass": true
+    },
+    {
+      "name": "FWF Trailer: rate source suppresses missing-mapping warning",
+      "pass": true
+    },
+    {
+      "name": "FWF Trailer: zero source suppresses missing-mapping warning",
+      "pass": true
+    },
+    {
+      "name": "FWF Trailer: included source suppresses missing-mapping warning",
+      "pass": true
+    },
+    {
+      "name": "3.0m Cont: unpriced scope explicit, no fabricated price",
+      "pass": true
+    },
+    {
+      "name": "3.0m Cont: pending equipment not called arrived gap",
+      "pass": true
+    },
+    {
+      "name": "3.0m Cont: own use does not gain client charge",
+      "pass": true
+    },
+    {
+      "name": "3.0m Cont: rate source suppresses missing-mapping warning",
+      "pass": true
+    },
+    {
+      "name": "3.0m Cont: zero source suppresses missing-mapping warning",
+      "pass": true
+    },
+    {
+      "name": "3.0m Cont: included source suppresses missing-mapping warning",
+      "pass": true
+    },
+    {
+      "name": "Event Container: unpriced scope explicit, no fabricated price",
+      "pass": true
+    },
+    {
+      "name": "Event Container: pending equipment not called arrived gap",
+      "pass": true
+    },
+    {
+      "name": "Event Container: own use does not gain client charge",
+      "pass": true
+    },
+    {
+      "name": "Event Container: rate source suppresses missing-mapping warning",
+      "pass": true
+    },
+    {
+      "name": "Event Container: zero source suppresses missing-mapping warning",
+      "pass": true
+    },
+    {
+      "name": "Event Container: included source suppresses missing-mapping warning",
+      "pass": true
+    },
+    {
+      "name": "TL2: unpriced scope explicit, no fabricated price",
+      "pass": true
+    },
+    {
+      "name": "TL2: pending equipment not called arrived gap",
+      "pass": true
+    },
+    {
+      "name": "TL2: own use does not gain client charge",
+      "pass": true
+    },
+    {
+      "name": "TL2: rate source suppresses missing-mapping warning",
+      "pass": true
+    },
+    {
+      "name": "TL2: zero source suppresses missing-mapping warning",
+      "pass": true
+    },
+    {
+      "name": "TL2: included source suppresses missing-mapping warning",
+      "pass": true
+    },
+    {
+      "name": "Ordinary FWF zero level/clean cells do not create new charges",
+      "pass": true
+    },
+    {
+      "name": "Forklift N/A labour does not create new installation",
+      "pass": true
+    }
+  ],
+  "failures": []
+}
