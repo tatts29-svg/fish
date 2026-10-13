@@ -1,0 +1,7 @@
+{
+  "author": "Andrew Fisher",
+  "at": "2026-10-13T07:54:47.797Z",
+  "checks": 15,
+  "pass": true,
+  "scope": "Offline serialization and identity scope rejection checks; no network or native mutation"
+}

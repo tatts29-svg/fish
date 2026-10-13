@@ -1,0 +1,22 @@
+/* Author: Andrew Fisher. Pair foreground and background in existing edit fields. */
+#drawer .rstbl input,
+#drawer .rstbl select,
+.ourform input,
+.ourform select,
+.flow891-people input {
+  background:var(--paper,#fff);
+  color:var(--ink,#14181d);
+  -webkit-text-fill-color:var(--ink,#14181d);
+}
+#drawer .rstbl input::placeholder,
+.ourform input::placeholder,
+.flow891-people input::placeholder {
+  color:var(--mute,#4b535b);
+  -webkit-text-fill-color:var(--mute,#4b535b);
+  opacity:1;
+}
+#drawer .rstbl select option,
+.ourform select option {
+  background:var(--paper,#fff);
+  color:var(--ink,#14181d);
+}
