@@ -32,6 +32,20 @@ shorter hire period or divide a per-unit price by six. A dedicated full-hire
 override is shared by the drawer, Costs, branches and P&L and can be reset to the
 card. The existing approved $450 supplier cost per panel remains counted once.
 
+Confirmed ownership now reaches the financial classification as well as the
+asset record. The 109 identified Event Portables FWF units at 20 references,
+spread across 39 existing contract lines, move $9,817.63 from Hire Revenue
+(1005) to Rehire Revenue (1010). Customer totals and supplier costs do not change.
+The resolver requires fully received scope, unique physical numbers, one explicit
+owner and matching contract quantity. Mixed, incomplete or ambiguous allocations
+are not inferred. The two Coates toilet blocks at WC09 remain owned hire.
+
+A recorded branch edit now moves uniquely matched customer hire together with
+the reference's existing work and cartage charges in Costs, P&L, October Finance
+and the Rehire breakdown. Shared or unlinked source contracts keep their source
+branch. Supplier costs remain on their separately documented cost branch. The
+source contracts and billed snapshots are preserved.
+
 Five additional source checks remain explicit holds:
 
 - Concert cables: two sets of five; the ten component cables are included under
@@ -49,13 +63,18 @@ fully priced while those holds remain.
 
 ## Verification
 
-- `node test_pricing1010.cjs`: 101 independent source and integration cases.
+- `node test_pricing1010.cjs`: independent source and integration cases.
+- `check_propagation1010.cjs`: isolated in-memory edits to full hire, generator
+  rate/date, installation source rate, transport, branch and received quantity;
+  exact branch transfers, reset and zero operational writes are checked.
 - `audit_pricing1010.py`: read-only source arithmetic against the original
   workbook and extracted models, including generator standdown windows,
   service quantities, rates, branches and unauthorized damage-waiver exclusion.
 - `reconcile_pricing1010.py`: baseline versus candidate controls covering source
   identity, unchanged site facts, hire, service, transport, branch, P&L and onsite
   package effects. Both extracts must use the same native record version.
+  The verified classification change is supplied explicitly as
+  `--rehire-classification-change 9817.63`; it is separate from price changes.
 - `evidence/independent-pricing-review.json`: independent original-workbook
   verification of the final bounded source projection.
 

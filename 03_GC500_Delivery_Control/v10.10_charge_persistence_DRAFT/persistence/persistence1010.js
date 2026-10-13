@@ -13,7 +13,9 @@ function segment(el){
  if(attrs.length)return JSON.stringify([el.tagName,attrs]);
  if(el.tagName==='DETAILS')return 'details:'+normal(el.querySelector(':scope > summary')?.textContent);
  if(el.matches('input,textarea,select'))return JSON.stringify([el.tagName,el.name||'',el.type||'',el.getAttribute('aria-label')||'']);
- if(el.matches('button,a,summary,[tabindex]'))return JSON.stringify([el.tagName,el.getAttribute('aria-label')||normal(el.textContent)]);
+ // A table wrapper gains tabindex/aria-label in a later accessibility frame.
+ // Those transient decorations must not change identities below that wrapper.
+ if(el.matches('button,a,summary'))return JSON.stringify([el.tagName,el.getAttribute('aria-label')||normal(el.textContent)]);
  return el.tagName+':'+[...el.classList].filter(c=>!['on','active','open','arrive','selected','viewonly'].includes(c)).sort().join('.');
 }
 function key(el,scope){
@@ -72,7 +74,9 @@ function openSurfaces(excluded){
  const nodes=[...document.querySelectorAll('dialog[open],.drawer.on,[role="dialog"][aria-modal="true"]')].filter(el=>!el.hidden&&el.getAttribute('aria-hidden')!=='true'&&(!el.matches('dialog')||el.open)&&!excluded.some(root=>root?.contains(el))&&el.getClientRects().length);
  return nodes.filter(el=>!nodes.some(parent=>parent!==el&&parent.contains(el)));
 }
-let drawing=false;
+let drawing=false,drawerView=null,intent=0;
+// A queued native layout correction must yield to the user's next action.
+for(const type of ['pointerdown','touchstart','wheel','keydown'])document.addEventListener(type,()=>{intent++;},{capture:true,passive:true});
 function background(fn,args,self){
  if(drawing)return fn.apply(self,args);
  const tab=state.tab,ref=state.sel,drawer=document.getElementById('drawer'),opened=!!drawer?.classList.contains('on');
@@ -102,9 +106,18 @@ if(idle){for(const name of ['redraw','refreshDrawer']){const before=idle[name];i
 const beforeOpen=openAsset_held;
 openAsset_held=function(ref,opts){
  const drawer=document.getElementById('drawer'),keep=opts?.keep&&state.sel===ref&&drawer?.classList.contains('on');
- const held=keep&&!drawing?capture(drawer,false):null,result=beforeOpen.apply(this,arguments);
- if(keep&&state.sel===ref&&drawer.classList.contains('on'))restore(drawer,held,false);
- return result;
+ const previous=drawerView,held=keep?capture(drawer,false):null;
+ drawerView=held;
+ try{return beforeOpen.apply(this,arguments);}
+ finally{if(keep&&state.sel===ref&&drawer.classList.contains('on'))restore(drawer,held,false);drawerView=previous;}
 };
-root.Persistence1010={capture,restore,key};
+// Native focus anchoring needs the full open layout, otherwise its next-frame
+// correction remembers a scroll position clamped to collapsed sections.
+const restoreDrawerBefore=openAssetRestore;
+openAssetRestore=function(held){
+ const drawer=document.getElementById('drawer');
+ if(drawerView&&drawer?.classList.contains('on'))restore(drawer,drawerView,false);
+ return restoreDrawerBefore.apply(this,arguments);
+};
+root.Persistence1010={capture,restore,key,get intent(){return intent;}};
 })(window);

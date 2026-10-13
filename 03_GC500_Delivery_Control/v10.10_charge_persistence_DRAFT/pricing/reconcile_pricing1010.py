@@ -14,6 +14,7 @@ p.add_argument('--out',type=Path)
 p.add_argument('--race-revenue-change',type=float,default=0)
 p.add_argument('--workforce-forecast-cost-change',type=float,default=0)
 p.add_argument('--workforce-current-cost-change',type=float,default=0)
+p.add_argument('--rehire-classification-change',type=float,default=0)
 a=p.parse_args()
 b=json.loads(a.baseline.read_text());c=json.loads(a.candidate.read_text())
 checks=[]
@@ -66,6 +67,8 @@ for key,old in rb.items():
     for field in ['now','job']:
         new=rc[key][field]
         change=(now_change if field=='now' else job_change) if key=='hire' else a.race_revenue_change if key=='install' else 0
+        if key=='hire':change-=a.rehire_classification_change
+        if key=='rehire':change+=a.rehire_classification_change
         if old[field] is None:check('Unpriced '+key+' '+field,new,None)
         else:delta('Revenue category '+key+' '+field,old[field],new,change)
 branches=lambda s:keyed(s['branches']['rows'],lambda r:r['code'])
@@ -108,7 +111,7 @@ for ref in ['GN?','T0109','AA','WC42','WC81']:
     check('Visible unresolved source coverage '+ref,any(h['ref']==ref and ('confirm' in h['charge'] or 'reconcile' in h['charge']) for h in c['bill']['holds']),True)
 check('Missing inputs are not called complete',c['bill']['complete'],False)
 check('All branch totals still reconcile',all(c['branches'].get('checks',{}).values()),True)
-result=dict(author='Andrew Fisher',baselineSha256=b['sha256'],candidateSha256=c['sha256'],nativeVersion=c['nativeVersion'],checks=len(checks),pass_=all(r['passed'] for r in checks),failures=[r for r in checks if not r['passed']],effects=dict(currentHire=now_change,jobHire=job_change,onsiteRehirePeriod=3522.60,verifiedRaceRevenue=a.race_revenue_change,verifiedWorkforceForecastCost=a.workforce_forecast_cost_change,verifiedWorkforceCurrentCost=a.workforce_current_cost_change),totals={key:{'before':before,'after':after} for key,before,after in [('currentRevenue',b['pl']['revNow'],c['pl']['revNow']),('jobRevenue',b['pl']['revJob'],c['pl']['revJob']),('onsitePackage',b['bill']['known'],c['bill']['known']),('onsiteHolds',len(b['bill']['holds']),len(c['bill']['holds']))]})
+result=dict(author='Andrew Fisher',baselineSha256=b['sha256'],candidateSha256=c['sha256'],nativeVersion=c['nativeVersion'],checks=len(checks),pass_=all(r['passed'] for r in checks),failures=[r for r in checks if not r['passed']],effects=dict(currentHire=now_change,jobHire=job_change,onsiteRehirePeriod=3522.60,verifiedRaceRevenue=a.race_revenue_change,verifiedWorkforceForecastCost=a.workforce_forecast_cost_change,verifiedWorkforceCurrentCost=a.workforce_current_cost_change,verifiedRehireClassification=a.rehire_classification_change),totals={key:{'before':before,'after':after} for key,before,after in [('currentRevenue',b['pl']['revNow'],c['pl']['revNow']),('jobRevenue',b['pl']['revJob'],c['pl']['revJob']),('onsitePackage',b['bill']['known'],c['bill']['known']),('onsiteHolds',len(b['bill']['holds']),len(c['bill']['holds']))]})
 if a.out:a.out.write_text(json.dumps(result,indent=2)+'\n')
 print(json.dumps(result,indent=2))
 if not result['pass_']:raise SystemExit(1)

@@ -30,6 +30,7 @@ def apply(html):
     html = append_script(html, 'pricing1010-script', (HERE / 'pricing/pricing1010.js').read_text())
     html = module('pricing_ui/patch_pricing_ui1010.py').apply(html)
     html = module('persistence/patch_persistence1010.py').apply(html)
+    html = module('presentation/patch_presentation1010.py').apply(html)
     return rep(html, "+ ' · v10.09'", "+ ' · v10.10'", 'Release footer', 'v10.10')
 
 if __name__ == '__main__':

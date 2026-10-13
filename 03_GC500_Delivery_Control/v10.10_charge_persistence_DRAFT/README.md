@@ -15,14 +15,16 @@ The release starts from exact live v10.09, SHA256 `60533337c67a77211e660f0737ca5
 - Six individual fencing people preserve the customer’s $88.49 hourly Revenue rate separately from Advanced’s quoted $142 race-day Direct cost. Missing hours remain unknown. Kyle’s race-weekend shifts say Night.
 - Known map quantities appear in brackets beside references. Mixed references retain distinct item quantities and descriptions; unknown quantities are not invented. Physical completion remains separate from financial charge inclusion.
 - FWF photos belong to the whole location quantity. Existing unit photos remain accessible with their original associations; uploads keep the native one-document-per-photo outbox.
-- Shared refreshes and same-reference redraws retain expanded sections, reading position, editable drafts and focus. A final local-save/P33 regression is being added following Andrew’s latest report.
+- Shared refreshes and same-reference redraws retain expanded sections, reading position, editable drafts and focus. Local Save preserves the open layout before focus anchoring; queued scroll corrections yield to user navigation. Main pages, independent dialogs, body scrolling, Back and Close are covered. Save notes distinguish device retention from shared acknowledgement.
+- Six repeated or lengthy explanations move into the existing More info disclosures. Numbers, warnings, controls and missing-input holds remain visible. Existing staff duplication rules and the approved design remain intact.
+- A recorded branch change follows uniquely matched customer hire through Costs, P&L, October Finance and Rehire details. Supplier Direct costs remain against their documented cost branch. The 109 confirmed Event Portables FWF units move $9,817.63 from Hire Revenue to Rehire Revenue, with no increase in total charges or supplier costs. WC09's Coates toilet blocks remain Hire Revenue.
 - Eric’s proposed 14 October record uses labour hire, NOIS home branch, KINP cost destination and Daniel’s verified $55.70 hourly rate. Native setters, exact-change guards, a private backup and fresh readback are required. No hours or employer are invented.
 
 ## Financial limits
 
 Revenue and Direct costs remain separate. Arrived billing scope and remaining forecast reconcile, but the wider contract ledger includes approved future hire and must not be described as entirely delivered. Unknown rates, hours and allocations remain explicit. No damage waiver is introduced; stairs remain manual. Financial charge inclusion does not falsely record demob, pickup or other future work as physically complete.
 
-Source-backed comparison on the same native record passes 2,119 checks, with 989 source checks and 101 targeted tests. It corrects current contract-ledger Revenue by −$1,966.49, full-job Revenue by +$885.65 and the received-equipment priced subtotal by +$3,522.60. The workforce change adds $8,949.74 of future Direct costs. Those are distinct views, not amounts to add together. Missing inputs prevent certification as fully priced.
+Source-backed comparison on the same native record checks source arithmetic, allocation and financial effects. It corrects current contract-ledger Revenue by −$1,966.49, full-job Revenue by +$885.65 and the received-equipment priced subtotal by +$3,522.60. The workforce change adds $8,949.74 of future Direct costs. The $9,817.63 Hire to Rehire classification change does not alter those totals. These are distinct views, not amounts to add together. Missing inputs prevent certification as fully priced.
 
 ## Document review
 

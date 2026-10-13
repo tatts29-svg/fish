@@ -35,7 +35,7 @@ function feedback(){
 function editorHtml(){
  if(!canEdit())return '';
  const draft=editor?.dirty?editor.draft:String(current()),base=editor?.dirty?editor.base:baseline();
- return '<form data-pee1010-editor data-baseline="'+esc(base)+'"><label for="pee1010-rate">Full hire rate / panel · ex GST</label><div class="pee1010-entry"><input id="pee1010-rate" name="pee1010-rate" inputmode="decimal" autocomplete="off" value="'+esc(draft)+'" placeholder="'+esc(String(peePrice1010().sourceRate))+'"><button type="submit" class="btn primary">Save rate</button><button type="button" class="btn ghost" data-pee1010-reload>Reload</button></div><small>Blank removes this override.</small><p data-pee1010-result role="status" aria-live="polite"></p></form>';
+ return '<form data-pee1010-editor data-baseline="'+esc(base)+'"><label for="pee1010-rate">Full hire rate / panel · ex GST</label><div class="pee1010-entry"><input id="pee1010-rate" name="pee1010-rate" inputmode="decimal" autocomplete="off" value="'+esc(draft)+'" placeholder="'+esc(chargeRateDisplay977(peePrice1010().sourceRate))+'"><button type="submit" class="btn primary">Save rate</button><button type="button" class="btn ghost" data-pee1010-reload>Reload</button></div><small>Blank removes this override.</small><p data-pee1010-result role="status" aria-live="polite"></p></form>';
 }
 const before=arrivedChargesHtml975;
 arrivedChargesHtml975=function(a){

@@ -23,7 +23,7 @@ function check(name,ok,detail){report.checks.push({name,ok,detail});assert(ok,na
     const card=form.closest('[data-unit925-id]'),nested=form.querySelector('details');
     window.__p33Source=form.dataset.source;window.__p33Id=card.dataset.unit925Id;
     const note=form.querySelector('[name="note"]');note.value='Persistence practice only';nested.open=true;form.querySelector('[type="submit"]').scrollIntoView({block:'center'});
-    return {found:true,id:card.dataset.unit925Id,source:form.dataset.source,beforeDoc:form.dataset.doc};
+    return {found:true,id:card.dataset.unit925Id,source:form.dataset.source,beforeDoc:form.dataset.doc,nestedKey:Persistence1010.key(nested,document.querySelector('#drawer'))};
    });
    check(label+' P33 original unit has first metadata Save fixture',fixture.found,fixture);
    const pos=()=>({drawer:document.querySelector('#drawer').scrollTop,body:document.querySelector('#drawer .db').scrollTop,on:document.querySelector('#drawer').classList.contains('on')});
@@ -32,7 +32,7 @@ function check(name,ok,detail){report.checks.push({name,ok,detail});assert(ok,na
    await p.waitForTimeout(180);
    const afterSave=await p.evaluate(()=>{
     const form=[...document.querySelectorAll('#drawer [data-unit925-form]')].find(f=>f.dataset.source===__p33Source);
-    return {on:document.querySelector('#drawer').classList.contains('on'),drawer:document.querySelector('#drawer').scrollTop,body:document.querySelector('#drawer .db').scrollTop,nestedOpen:form?.querySelector('details')?.open,doc:form?.dataset.doc,note:form?.querySelector('[name="note"]')?.value,feedback:form?.querySelector('[data-unit925-result]')?.textContent,kept:bump.kept};
+    return {on:document.querySelector('#drawer').classList.contains('on'),drawer:document.querySelector('#drawer').scrollTop,body:document.querySelector('#drawer .db').scrollTop,nestedOpen:form?.querySelector('details')?.open,nestedKey:form?.querySelector('details')&&Persistence1010.key(form.querySelector('details'),document.querySelector('#drawer')),doc:form?.dataset.doc,note:form?.querySelector('[name="note"]')?.value,feedback:form?.querySelector('[data-unit925-result]')?.textContent,kept:bump.kept};
    });
    check(label+' P33 first metadata Save keeps nested details open',afterSave.on&&afterSave.nestedOpen&&!!afterSave.doc&&afterSave.note==='Persistence practice only',afterSave);
    check(label+' P33 metadata Save stays at reading position',Math.abs(beforeSave.drawer-afterSave.drawer)<40&&Math.abs(beforeSave.body-afterSave.body)<40,{beforeSave,afterSave});
@@ -47,15 +47,45 @@ function check(name,ok,detail){report.checks.push({name,ok,detail});assert(ok,na
    const afterRemote=await p.evaluate(pos);
    check(label+' P33 later document/remote refresh keeps lower section',afterRemote.on&&Math.abs(afterRemote.drawer-afterNotes.drawer)<40&&Math.abs(afterRemote.body-afterNotes.body)<40,{afterNotes,afterRemote});
    await p.screenshot({path:out+'/'+label+'-p33-save.png'});
-   await p.locator('#dclose').click();
-   for(const tab of ['timeline','today','costs','demob','fencing']){
-    await p.evaluate(tab=>{go(tab);document.querySelectorAll('#pane-'+state.tab+' details').forEach(d=>d.open=true);},tab);
-    const before=await p.evaluate(()=>{const pane=document.querySelector('#pane-'+state.tab),details=[...pane.querySelectorAll('details')];if(details.length)details[Math.floor(details.length/2)].scrollIntoView({block:'center'});return {tab:state.tab,folds:details.map(d=>Persistence1010.key(d,pane)),top:document.querySelector('main').scrollTop};});
-    await p.evaluate(()=>bump());await p.waitForTimeout(100);
-    const after=await p.evaluate(()=>{const pane=document.querySelector('#pane-'+state.tab);return {tab:state.tab,folds:[...pane.querySelectorAll('details[open]')].map(d=>Persistence1010.key(d,pane)),top:document.querySelector('main').scrollTop};});
-    check(label+' '+tab+' local Save preserves open disclosures',before.tab===after.tab&&before.folds.every(k=>after.folds.includes(k)),{beforeCount:before.folds.length,afterCount:after.folds.length});
-    check(label+' '+tab+' local Save preserves reading position',Math.abs(before.top-after.top)<40,{before:before.top,after:after.top});
+   const scrollIntent=await p.evaluate(()=>{
+    Idle1006.refreshDrawer();const dr=document.querySelector('#drawer'),sc=dr.scrollHeight>dr.clientHeight+1?dr:dr.querySelector('.db');
+    sc.dispatchEvent(new WheelEvent('wheel',{bubbles:true,deltaY:-300}));sc.scrollTop=Math.max(0,sc.scrollTop-300);window.__p33IntentScroller=sc;return {top:sc.scrollTop,anchor:document.querySelector('#noteSave').getBoundingClientRect().top};
+   });
+   await p.waitForTimeout(80);
+   const afterIntent=await p.evaluate(()=>({top:__p33IntentScroller.scrollTop,anchor:document.querySelector('#noteSave').getBoundingClientRect().top,intent:Persistence1010.intent}));
+   check(label+' queued layout correction yields to fresh scroll intent',Math.abs(afterIntent.top-scrollIntent.top)<3||Math.abs(afterIntent.top-scrollIntent.top)<40&&Math.abs(afterIntent.anchor-scrollIntent.anchor)<3,{before:scrollIntent,after:afterIntent});
+   const newReference=await p.evaluate(()=>{Idle1006.refreshDrawer();openAsset('WC70');return {drawer:document.querySelector('#drawer').scrollTop,body:document.querySelector('#drawer .db').scrollTop};});await p.waitForTimeout(80);
+   const afterReference=await p.evaluate(()=>({ref:state.sel,drawer:document.querySelector('#drawer').scrollTop,body:document.querySelector('#drawer .db').scrollTop}));
+   check(label+' queued P33 layout correction cannot move another reference',afterReference.ref==='WC70'&&Math.abs(afterReference.drawer-newReference.drawer)<40&&Math.abs(afterReference.body-newReference.body)<40,{before:newReference,after:afterReference});
+   await p.locator('#drawer [data-nav934-back]').click();await p.evaluate(()=>Idle1006.redraw());
+   check(label+' Back returns normally and stays closed after refresh',!await p.locator('#drawer').evaluate(d=>d.classList.contains('on')));
+   for(const tab of ['timeline','today','costs','demob','fencing','workforce']){
+    await p.evaluate(tab=>{go(tab==='workforce'?'costs':tab);document.querySelectorAll('#pane-'+state.tab+' details').forEach(d=>d.open=true);},tab);
+    // Day-document menus deliberately allow one open menu: let native toggle rules settle.
+    await p.waitForTimeout(80);
+    // Today materialises lazy panels and holds their headings for at most 1.5 s.
+    // Record the reading position after that initial layout finishes, as a user reading then saving does.
+    if(tab==='today')await p.waitForTimeout(1700);
+    await p.evaluate(()=>document.querySelector('main').dispatchEvent(new WheelEvent('wheel',{bubbles:true,deltaY:100})));
+    const before=await p.evaluate(tab=>{const pane=document.querySelector('#pane-'+state.tab),scope=tab==='workforce'?document.querySelector('#workforce')||pane:pane,details=[...scope.querySelectorAll('details[open]')];if(details.length)details[Math.floor(details.length/2)].scrollIntoView({block:'center'});else scope.scrollIntoView({block:'center'});return {tab:state.tab,folds:details.map(d=>Persistence1010.key(d,pane)),top:document.querySelector('main').scrollTop};},tab);
+    const immediate=await p.evaluate(()=>{const pane=document.querySelector('#pane-'+state.tab),m=document.querySelector('main'),kept=Persistence1010.capture(pane,false),pre={sameMain:kept.main===m,top:m.scrollTop,heldTop:kept.mainTop,doc:kept.documentTop};bump();return {top:m.scrollTop,height:m.scrollHeight,focus:document.activeElement.id,tab:state.tab,pre};});await p.waitForTimeout(100);
+    const after=await p.evaluate(()=>{const pane=document.querySelector('#pane-'+state.tab);return {tab:state.tab,folds:[...pane.querySelectorAll('details[open]')].map(d=>Persistence1010.key(d,pane)),top:document.querySelector('main').scrollTop,height:document.querySelector('main').scrollHeight,focus:document.activeElement.id};});
+    check(label+' '+tab+' local Save preserves open disclosures',before.tab===after.tab&&before.folds.every(k=>after.folds.includes(k)),{beforeCount:before.folds.length,afterCount:after.folds.length,missing:before.folds.filter(k=>!after.folds.includes(k))});
+    check(label+' '+tab+' local Save preserves reading position',Math.abs(before.top-after.top)<40,{before:before.top,after:after.top,immediate,afterHeight:after.height,afterFocus:after.focus});
    }
+   const dialogState=await p.evaluate(()=>{
+    const dialog=document.createElement('dialog');dialog.innerHTML='<div class="db" style="height:100px;overflow:auto"><details open><summary>Practice nested dialog</summary><div style="height:500px">Practice only</div></details></div>';document.body.append(dialog);dialog.showModal();const db=dialog.querySelector('.db');db.scrollTop=150;
+    bump();Idle1006.redraw();const kept=dialog.open&&db.scrollTop===150&&dialog.querySelector('details').open;
+    dialog.close();Idle1006.redraw();const closed=!dialog.open;dialog.remove();return {kept,closed};
+   });
+   check(label+' independent dialog and nested body scroller remain open',dialogState.kept,dialogState);
+   check(label+' explicitly closed independent dialog stays closed',dialogState.closed,dialogState);
+   const documentScroll=await p.evaluate(()=>{
+    const html=document.documentElement,body=document.body,oldHtml=html.getAttribute('style'),oldBody=body.getAttribute('style'),space=document.createElement('div');space.style.height='4000px';body.append(space);html.style.setProperty('overflow','auto','important');html.style.height='auto';body.style.setProperty('overflow','auto','important');body.style.height='auto';body.style.display='block';
+    window.scrollTo(0,400);const before=document.scrollingElement.scrollTop,pane=document.querySelector('#pane-'+state.tab),held=Persistence1010.capture(pane,false);window.scrollTo(0,0);Persistence1010.restore(pane,held,false);const after=document.scrollingElement.scrollTop;
+    space.remove();if(oldHtml===null)html.removeAttribute('style');else html.setAttribute('style',oldHtml);if(oldBody===null)body.removeAttribute('style');else body.setAttribute('style',oldBody);window.scrollTo(0,0);return {before,after};
+   });
+   check(label+' body-scrolling responsive surface retains reading position',documentScroll.before>0&&documentScroll.before===documentScroll.after,documentScroll);
    await p.evaluate(()=>{go('timeline');const first=document.querySelector('#pane-timeline details');if(first)first.open=false;bump();});
    check(label+' deliberately closed disclosure stays closed',!await p.locator('#pane-timeline details').first().evaluate(d=>d.open));
    await p.evaluate(()=>{openAsset('P33');document.querySelector('#dclose').click();Idle1006.redraw();});

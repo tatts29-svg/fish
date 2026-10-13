@@ -35,6 +35,7 @@ eq('Changed item identity is not silently repriced',P.quantity({...row,register_
 eq('Missing scope is not interpreted as zero',P.quantity(row,{quantity:null}),null);
 // Exercise the actual integration wrapper against a minimal independent contract reader.
 let scopeQty=4;const c={window:{},S:{rates:{},minDays:{},lineRates:{}},Pricing1010:P,PeeHire979:{source},MAX_MIN_DAYS:365,
+ branchOf:()=>({code:'KINP'}),generatorBranch1004:r=>r.branch_code,generatorContract1004:()=>null,supplierBranchWords961:()=>'',finance928ContractOwner:()=>({owner:'coates',rehire:false}),
  assetOf:()=>({key:'WC09'}),chargeLines:()=>[{item:'FWF',quantity:scopeQty},{item:'Pee Panel',quantity:6}],qtyOf:l=>l.quantity,receivedChargeQty1006:()=>6,chargeSpanOf:()=>({days:3}),chargedDays:()=>({days:3}),
  cardRate:()=>({minimum_hire:null,labour_per_piece:{lines:[]}}),rateFor:()=>({value:1}),contractCharge:r=>({amount:Math.round((r.quantity||1)*r.rate_1*100)/100,basis:'source quantity'}),
  ItemIdentity979:{select:()=>[]},ItemCharges979:{project:(ref,item,rs,read)=>({amount:read(rs[0]).amount,lines:rs.map(r=>({id:r.rental_contract+'|'+r.line,contract:r.rental_contract,line:r.line,quantity:r.quantity,amount:read(r).amount}))})}};
@@ -45,6 +46,33 @@ scopeQty=0;eq('Explicit zero scope never triggers the old default-to-one',c.cont
 scopeQty=10;eq('Restoring approved scope restores the original contract charge',c.contractCharge(row).amount,900.7);
 c.S.lineRates[P.hireKey]='500';eq('Generic reference hire uses the same edited price',c.rateFor('Toilets & amenities','Pee Panel','WC09').value,500);eq('Financial fallback uses the same edited price',c.PeeHire979.forecast(items(),[]).amount,3000);
 delete c.S.lineRates[P.hireKey];eq('Reset propagates to financial fallback',c.PeeHire979.forecast(items(),[]).amount,4033.01);
+eq('Shared fallback receives the native branch',c.PeeHire979.forecast(items(),[]).branch,'KINP');
+c.branchOf=()=>({code:'NVAC',where:'local'});eq('Edited reference branch follows the same hire model',c.PeeHire979.forecast(items(),[]).branch,'NVAC');
+c.branchOf=()=>({code:null});eq('Missing branch is not invented',c.PeeHire979.forecast(items(),[]).branch,'no branch');
+const branchRow={branch_code:'KINP',quantity:4},one={ref:'WC09',quantity:4,branch:'NVAC',where:'local'};
+eq('Unique current reference branch overrides source',P.referenceBranch(branchRow,[one]),'NVAC');
+eq('Clearing override restores source',P.referenceBranch(branchRow,[{...one,where:'rental'}]),'KINP');
+eq('Committed recorded branch also applies',P.referenceBranch(branchRow,[{...one,where:'committed'}]),'NVAC');
+eq('Shared bulk source stays on original branch',P.referenceBranch(branchRow,[one,{...one,ref:'WC10',where:'rental'}]),'KINP');
+eq('Unlinked contract stays on original branch',P.referenceBranch(branchRow,[]),'KINP');
+eq('Cancelled or moved reference cannot transfer revenue',P.referenceBranch(branchRow,[{...one,active:false}]),'KINP');
+eq('Source quantity beyond reference scope is not reassigned',P.referenceBranch({...branchRow,quantity:10},[one]),'KINP');
+eq('Confirmed billing scope correction allows exact reassignment',P.referenceBranch({...branchRow,quantity:10},[one],4),'NVAC');
+eq('Transport source rows are not guessed from hire identities',P.referenceBranch({...branchRow,charge_line:true},[one]),'KINP');
+eq('Branch resolution preserves raw source',branchRow,{branch_code:'KINP',quantity:4});
+const actualUnits=['0085','0551','0450','0585'].map(assetNo=>({physical:true,source:'native',item:'FWF',assetNo,owner:'event-portables'}));
+eq('WC09 current confirmed supplier owns all four billed FWF',P.owner(row,{ref:'WC09',quantity:4,arrived:4},actualUnits).rehire,true);
+eq('Only source102 receives this identity correction',P.owner({...row,line:103},{ref:'WC09',quantity:4,arrived:4},actualUnits),null);
+eq('Blocks are not reclassified with the FWF',P.owner({...row,register_type:'Toilet Block 6m'},{ref:'WC09',quantity:4,arrived:4},actualUnits),null);
+eq('Partial units cannot classify entire source line',P.owner(row,{ref:'WC09',quantity:4,arrived:4},actualUnits.slice(0,3)),null);
+eq('Mixed owners remain unallocated',P.owner(row,{ref:'WC09',quantity:4,arrived:4},actualUnits.map((u,i)=>i?u:{...u,owner:'coates'})),null);
+eq('Duplicate asset number cannot prove full quantity',P.owner(row,{ref:'WC09',quantity:4,arrived:4},[actualUnits[0],...actualUnits.slice(0,3)]),null);
+eq('Future explicit Coates replacement restores owned classification',P.owner(row,{ref:'WC09',quantity:4,arrived:4},actualUnits.map(u=>({...u,owner:'coates'}))).rehire,false);
+const groupedFwf=[1,2,3,4].map(line=>({...row,line,quantity:1,description:'WC41 FWF'}));
+eq('Several lines for one confirmed supplier scope classify together',P.owner(groupedFwf,{ref:'WC41',quantity:4,arrived:4},actualUnits).owner,'event-portables');
+eq('Partial arrivals never classify unsupplied scope',P.owner(groupedFwf,{ref:'WC41',quantity:4,arrived:3},actualUnits),null);
+eq('Duplicate contract keys cannot classify two units',P.owner([groupedFwf[0],groupedFwf[0],...groupedFwf.slice(2)],{ref:'WC41',quantity:4,arrived:4},actualUnits),null);
+eq('Unidentified supplier marker does not become rehire evidence',P.owner(groupedFwf,{ref:'WC41',quantity:4,arrived:4},actualUnits.map(u=>({...u,owner:'supplier-not-named:pending'}))),null);
 const building=(line,no,status,ref,rate=1426.07)=>({rental_contract:'9968862',line,asset_no:no,asset_no_is_plant_number:true,quantity:1,kind:'building',register_type:'Building 6m',branch_code:'KINP',status_as_written:status,start_date:status==='Delivered'?'2026-09-14':null,rate_1:rate,description:ref+' Building'});
 const buildings=[building(7,'1327213','Delivered','P04',1951.46),building(94,'1327213','Del Req','P46',1951.46),building(100,'1327215','Pending','P46',1951.46),building(93,'1189410','Delivered','P36'),building(108,'1189410','Pending','P67'),building(63,'1189412','Delivered','P41',1426.17),building(110,'1189412','Pending','P65')];
 let decision;

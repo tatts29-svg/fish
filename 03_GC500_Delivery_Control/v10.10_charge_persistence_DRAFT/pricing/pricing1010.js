@@ -20,7 +20,22 @@
   if(!Number.isSafeInteger(quantity)||quantity<0||!Number.isSafeInteger(arrivedQuantity)||arrivedQuantity<0||arrivedQuantity>quantity)return empty('scope changed');
   if((contracts||[]).some(r=>!r.charge_line&&/\bpee\s*panels?\b/i.test(r.description||r.register_type||'')))return empty('contract coverage needs allocation');
   const rate=pricing.fullHireRate,amount=cents(quantity*rate),actualAmount=cents(arrivedQuantity*rate);
-  return {id:'hire979|WC09|Pee Panel',ref:'WC09',item:'Pee Panel',branch:'KINP',quantity,arrivedQuantity,rate,amount,actualAmount,remainingAmount:cents(amount-actualAmount),state:arrivedQuantity===quantity?'actual':arrivedQuantity>0?'part arrived':'forecast',ledger:'1010',supplierCostAdditional:0,source,pricing1010:pricing,basis:pricing.basis+'. Confirmed received quantity is actual; remaining approved quantity is forecast. Supplier hire remains in the existing approved quote.'};
+  return {id:'hire979|WC09|Pee Panel',ref:'WC09',item:'Pee Panel',branch:pricing.branch||'no branch',quantity,arrivedQuantity,rate,amount,actualAmount,remainingAmount:cents(amount-actualAmount),state:arrivedQuantity===quantity?'actual':arrivedQuantity>0?'part arrived':'forecast',ledger:'1010',supplierCostAdditional:0,source,pricing1010:pricing,basis:pricing.basis+'. Confirmed received quantity is actual; remaining approved quantity is forecast. Supplier hire remains in the existing approved quote.'};
+ }
+ function referenceBranch(row,matches,billableQuantity){
+  const source=row?.branch_code||null,candidates=(matches||[]).filter(m=>m.active!==false),refs=[...new Set(candidates.map(m=>m.ref).filter(Boolean))];
+  if(!row||row.charge_line||refs.length!==1)return source;
+  const current=candidates.find(m=>m.ref===refs[0]),qty=billableQuantity??row.quantity;
+  if(!['local','committed'].includes(current.where)||!current.branch||!known(qty)||!known(current.quantity)||qty>current.quantity)return source;
+  return current.branch;
+ }
+ function owner(rows,scope,units){
+  rows=Array.isArray(rows)?rows:[rows];if(!rows.length||!scope?.ref||!Number.isSafeInteger(scope.quantity)||scope.quantity<=0||scope.arrived!==scope.quantity)return null;
+  if(rows.some(r=>!r||r.charge_line||r.asset_no_is_plant_number||r.subhired||r.supplier_sub_rental||norm(r.register_type)!=='fwf'||!Number.isSafeInteger(r.quantity)||r.quantity<=0))return null;
+  if(new Set(rows.map(r=>r.rental_contract+'|'+r.line)).size!==rows.length||rows.reduce((n,r)=>n+(quantity(r,scope)?.billableQuantity??r.quantity),0)!==scope.quantity)return null;
+  const current=(units||[]).filter(u=>u.physical&&u.source!=='history'&&norm(u.item)==='fwf'),numbers=new Set(current.map(u=>String(u.assetNo||'').trim()).filter(Boolean)),owners=[...new Set(current.map(u=>u.owner))];
+  if(current.length!==scope.quantity||numbers.size!==scope.quantity||owners.length!==1||typeof owners[0]!=='string'||!owners[0].trim()||/unknown|supplier-not-named/.test(owners[0]))return null;
+  return {owner:owners[0],rehire:owners[0]!=='coates',basis:'Current approved '+scope.ref+' FWF quantity and uniquely identified physical-unit ownership',ref:scope.ref};
  }
  function quantity(row,scope){
   // This exact source line is the independently verified over-allocation. Other
@@ -76,7 +91,7 @@
   if(i.ref==='GN?'&&norm(i.item)==='200kva & cables')holds.push({ref:i.ref,item:i.item,charge:'Cable hire basis / period to confirm',reason:'Concert cables: 2 sets of 5. Baseplan 9961976 line 46 quotes 115.14 and 104.03 with an unresolved charging period. Line 47 is the 10 included cable components, not another charge. Generator hire remains separate.',source:{contract:'9961976',line:46,quantity:2,contents:10,includedChild:47,rate1:115.14,rate2:104.03,rateType:'W'},amount:null});
   if(i.ref==='T0109'&&(i.physicalNumbers||[]).includes('1281615'))holds.push({ref:i.ref,item:i.item,charge:'Forklift type / dates / branch to reconcile',reason:'Asset 1281615 is recorded on site as 2.5T Forklift STD, NVAC, arrived 28 September. New Baseplan 9987005 line 7 says rough-terrain, MEAD, 13–27 October at 185.40. Keep site facts; confirm the correct contract before replacing the current card estimate or adding hire.',source:{contract:'9987005',line:7,asset:'1281615',rate:185.4,from:'2026-10-13',to:'2026-10-27',branch:'MEAD'},amount:null});
  }return holds;}
- const api={price,pee,quantity,sourceRows,allocation,periods,reviewHolds,validate,hireKey,supplierFloor,cents};
+ const api={price,pee,quantity,referenceBranch,owner,sourceRows,allocation,periods,reviewHolds,validate,hireKey,supplierFloor,cents};
  if(typeof module!=='undefined'&&module.exports)module.exports=api;if(root)root.Pricing1010=api;
 })(typeof window!=='undefined'?window:null);
 
@@ -84,12 +99,35 @@ if(typeof window!=='undefined'){
  const oldCard1010=cardRate,oldRate1010=rateFor,oldCharge1010=contractCharge,oldItemProject1010=ItemCharges979.project;
  function scope1010(){const a=assetOf('WC09'),l=a&&chargeLines(a).find(r=>r.item==='FWF');return a&&l?{quantity:qtyOf(l),cancelled:!!(a._cancelled||a.rest_of)}:null;}
  window.contractQuantity1010=r=>r&&String(r.rental_contract)==='9968955'&&Number(r.line)===102?Pricing1010.quantity(r,scope1010()):null;
+ window.contractBillingQuantity1010=r=>contractQuantity1010(r)?.billableQuantity??r.quantity;
+ const sourceOwner1010=finance928ContractOwner;finance928ContractOwner=function(r){if(String(r?.register_type).trim().toLowerCase()==='fwf'&&!r.charge_line&&!r.asset_no_is_plant_number){const decision=currentFwfOwners1010().get(r.rental_contract+'|'+r.line);if(decision)return decision;}return sourceOwner1010.apply(this,arguments);};
  window.validatePeeRate1010=input=>Pricing1010.validate(input);
  window.contractAllocation1010=function(r){if(!r||String(r.rental_contract)!=='9968862'||![108,110].includes(Number(r.line)))return null;
   const ref={108:'P67',110:'P65'}[r.line],a=assetOf(ref),l=a&&chargeLines(a).find(l=>l.item===r.register_type),current=a&&l?{quantity:qtyOf(l),arrived:receivedChargeQty1006(a,l),cancelled:!!(a._cancelled||a.rest_of),physicalNumbers:gcModel925(a).rows.filter(u=>u.physical&&u.item===l.item).map(u=>String(u.assetNo||''))}:null;
   const source=r.allocationConfirmed1010?ONHIRE_ROWS.find(x=>String(x.rental_contract)===String(r.rental_contract)&&Number(x.line)===Number(r.line))||r:r;
-  return Pricing1010.allocation(source,ONHIRE_ROWS,current);
+  const result=Pricing1010.allocation(source,ONHIRE_ROWS,current),b=branchOf(ref);return result&&['local','committed'].includes(b?.where)&&b.code?{...result,branch:b.code,sourceBranch1010:result.branch}:result;
  };
+ const sourceBranch1010=generatorBranch1004;
+ window.contractReferenceBranches1010=function(){return heldMemo('contractReferenceBranches1010',()=>{
+  const by=new Map();for(const a of allAssets()){if(a._cancelled||a.rest_of||movedAway(a.key))continue;const b=branchOf(a.key),units=gcModel925(a).rows;
+   for(const l of chargeLines(a))for(const r of ItemIdentity979.select(a.key,l.item,ONHIRE_ROWS,units)){const key=r.rental_contract+'|'+r.line,list=by.get(key)||[];list.push({ref:a.key,item:l.item,quantity:qtyOf(l),branch:b.code,where:b.where});by.set(key,list);}
+  }return by;
+ });};
+ window.currentFwfOwners1010=function(){return heldMemo('currentFwfOwners1010',()=>{const groups=new Map(),out=new Map();for(const [id,matches]of contractReferenceBranches1010()){if(new Set(matches.map(m=>m.ref)).size!==1||matches[0].item!=='FWF')continue;const ref=matches[0].ref,r=ONHIRE_ROWS.find(r=>r.rental_contract+'|'+r.line===id),list=groups.get(ref)||[];if(r){list.push(r);groups.set(ref,list);}}
+  for(const [ref,rows]of groups){const a=assetOf(ref),l=chargeLines(a).find(l=>l.item==='FWF'),decision=Pricing1010.owner(rows,{ref,quantity:qtyOf(l),arrived:receivedChargeQty1006(a,l)},gcModel925(a).rows);if(decision)for(const r of rows)out.set(r.rental_contract+'|'+r.line,decision);}return out;
+ });};
+ generatorBranch1004=function(r){const original=sourceBranch1010(r);if(generatorContract1004(r))return original;const allocation=contractAllocation1010(r);if(allocation)return allocation.branch;return Pricing1010.referenceBranch(r,contractReferenceBranches1010().get(r.rental_contract+'|'+r.line),contractQuantity1010(r)?.billableQuantity)||original;};
+ window.rehireBranches1010=function(groups){const out={};const put=branch=>out[branch]=out[branch]||{branch,groups:0,revJob:0,costJob:0,costMissing:0,forecastMissing:0};
+  for(const g of groups){const allocation=new Map(),add=(branch,amount)=>{if(Number.isFinite(amount)&&amount)allocation.set(branch||'no branch',Pricing1010.cents((allocation.get(branch||'no branch')||0)+amount));};let assigned=0;
+   for(const key of g.revenueLines1010||[]){const r=ONHIRE_ROWS.find(r=>r.rental_contract+'|'+r.line===key);if(!r)continue;const ch=contractCharge(r),amount=Pricing1010.cents((ch.amount||0)+(ch.generator1004?ch.remaining||0:0));add(generatorBranch1004(r),amount);assigned=Pricing1010.cents(assigned+amount);}
+   const pee=g.uncontractedHire979;if(pee){add(pee.branch,pee.amount);assigned=Pricing1010.cents(assigned+pee.amount);}
+   for(const r of g.sourceHire996?.rows||[]){add(r.branch,r.amount);assigned=Pricing1010.cents(assigned+r.amount);}
+   add(g.branch,Pricing1010.cents((g.revJob||0)-assigned));g.revenueBranches1010=[...allocation].map(([branch,amount])=>({branch,amount}));
+   const costBranch=g.costEvidence949?.costBranch||(g.what==='Toilets — Event Portables'?pl760ToiletBranch():g.branch);g.costBranch1010=costBranch;const own=put(costBranch);own.groups++;own.costJob=Pricing1010.cents(own.costJob+(g.costJob||0));if(g.cost==null)own.costMissing++;if(g.costJob==null)own.forecastMissing++;
+   for(const part of g.revenueBranches1010){const b=put(part.branch);b.revJob=Pricing1010.cents(b.revJob+part.amount);}
+  }return out;
+ };
+ const previousSupplierBranch1010=supplierBranchWords961;supplierBranchWords961=function(g){const parts=g.revenueBranches1010||[];if(!parts.some(p=>p.branch!==g.branch))return previousSupplierBranch1010(g);const cost=g.costEvidence949?.costBranch||(g.what==='Toilets — Event Portables'?pl760ToiletBranch():null);return 'Revenue '+parts.map(p=>p.branch+' '+money(p.amount)).join(' · ')+'. '+(cost?'Direct cost branch '+cost+' is unchanged.':'Supplier Direct cost allocation is unchanged.');};
  window.pricingForecast1010=function(){return heldMemo('pricingForecast1010',()=>{const holds=ONHIRE_ROWS.map(contractAllocation1010).filter(Boolean),rows=holds.filter(r=>r.state==='forecast-allocation-hold'&&r.remainingAmount!=null).map(r=>({ref:r.ref,item:r.item,branch:r.branch,amount:r.remainingAmount,contract:r.contract,line:r.line,reason:r.reason}));return {rows,holds,total:Pricing1010.cents(rows.reduce((n,r)=>n+r.amount,0)),excluded:Pricing1010.cents(holds.filter(r=>r.state==='duplicate-removed').reduce((n,r)=>n+(r.sourceAmount||0),0))};});};
  contractCharge=function(r){const decision=contractAllocation1010(r);if(decision){const original=oldCharge1010(r);return {...original,amount:decision.actualAmount,actual:decision.actualAmount,remaining:decision.remainingAmount,forecast:decision.state==='current-scope-confirmed'?decision.actualAmount:decision.remainingAmount,allocation1010:decision,how:decision.state==='duplicate-removed'?'Replaced source line':decision.state==='current-scope-confirmed'?'Current site scope':'Forecast — asset allocation pending',basis:decision.reason};}
   const allocation=contractQuantity1010(r);if(!allocation)return oldCharge1010.apply(this,arguments);
@@ -109,7 +147,7 @@ if(typeof window!=='undefined'){
   if(typedMin!=null&&String(typedMin).trim()!==''){const n=Number(typedMin);min=Number.isFinite(n)&&n>=0&&n<=MAX_MIN_DAYS?{days:n}:{invalid:true};}
   const weeklyDays=a?chargedDays(chargeSpanOf(a),min).days:null;
   const p=Pricing1010.price({source:PeeHire979.source,fullOverride:S.lineRates?.[Pricing1010.hireKey],weeklyOverride,weeklyDays}),l=a&&chargeLines(a).find(r=>r.item==='Pee Panel'),quantity=l?qtyOf(l):0,arrived=l?receivedChargeQty1006(a,l):0;
-  return {...p,quantity,arrivedQuantity:arrived,amount:Number.isFinite(quantity)?Pricing1010.cents(p.fullHireRate*quantity):null,actualAmount:Number.isFinite(arrived)?Pricing1010.cents(p.fullHireRate*arrived):null,floor:p.supplierFloor};
+  return {...p,branch:branchOf('WC09').code||'no branch',quantity,arrivedQuantity:arrived,amount:Number.isFinite(quantity)?Pricing1010.cents(p.fullHireRate*quantity):null,actualAmount:Number.isFinite(arrived)?Pricing1010.cents(p.fullHireRate*arrived):null,floor:p.supplierFloor};
  };
  PeeHire979.forecast=(items,contracts)=>Pricing1010.pee(items,contracts,PeeHire979.source,peePrice1010());
  cardRate=function(disc,item,key){const card=oldCard1010.apply(this,arguments);if(disc!=='Toilets & amenities'||String(item).trim().toLowerCase()!=='pee panel')return card;const p=peePrice1010();return {...card,kind:'flat',rate:p.fullHireRate,hire_rate:p.fullHireRate,source:p.overridden?'typed':'card',basis:p.basis,why:'Full hire per individual pee panel from the original card, or its recorded override. Quantity is applied once.',pricing1010:p};};

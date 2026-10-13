@@ -45,6 +45,9 @@ const check=(name,ok,detail)=>{report.checks.push({name,ok,detail});assert(ok,na
    await p.evaluate(()=>{Idle1006.redraw();});
    const afterFolds=await p.evaluate(()=>[...document.querySelectorAll('#pane-timeline details')].map(d=>[Persistence1010.key(d,document.querySelector('#pane-timeline')),d.open]));
    check(label+' Build disclosures remain open across remote updates',folds.filter(([,v])=>v).every(([k])=>afterFolds.some(([a,b])=>a===k&&b)),{before:folds.length,after:afterFolds.length});
+   await p.evaluate(()=>{const menus=[...document.querySelectorAll('#pane-timeline .dplate details')];menus.forEach(d=>d.open=false);const driver=menus.find(d=>/^Drivers/.test(d.querySelector('summary')?.textContent.trim()));if(driver)driver.open=true;});
+   await p.waitForTimeout(80);await p.evaluate(()=>Idle1006.redraw());await p.waitForTimeout(80);
+   check(label+' Drivers PDF menu retains its single-open-menu state',await p.evaluate(()=>{const menus=[...document.querySelectorAll('#pane-timeline .dplate details')],driver=menus.find(d=>/^Drivers/.test(d.querySelector('summary')?.textContent.trim()));return driver?.open&&menus.filter(d=>d.open).length===1;}));
    await p.evaluate(()=>{openAsset('WC70');Idle1006.redraw();});
    check(label+' navigation to another reference never restores prior one',await p.evaluate(()=>state.sel==='WC70'&&document.querySelector('#drawerTitle').textContent.includes('WC70')));
    await p.locator('#dclose').click();
@@ -58,6 +61,14 @@ const check=(name,ok,detail)=>{report.checks.push({name,ok,detail});assert(ok,na
    check(label+' values refresh while open item identity remains stable',formChecks.open&&formChecks.otherClosed&&formChecks.newMoney&&formChecks.remote==='new',formChecks);
    check(label+' selected attachment survives without uploading',formChecks.file==='practice.txt',formChecks);
    check(label+' unsubmitted draft and focus/caret survive',formChecks.draft==='not submitted'&&formChecks.focus==='note'&&String(formChecks.selection)==='2,5',formChecks);
+   const accessibleTable=await p.evaluate(()=>{
+    const fixture=document.createElement('section');document.body.append(fixture);
+    fixture.innerHTML='<div class="tblwrap" tabindex="0" aria-label="Table — scrolls sideways"><details open><summary>More info</summary>Branch breakdown</details></div>';
+    const held=Persistence1010.capture(fixture,false);
+    fixture.innerHTML='<div class="tblwrap"><details><summary>More info</summary>Updated branch breakdown</details></div>';
+    Persistence1010.restore(fixture,held,false);const open=fixture.querySelector('details').open;fixture.remove();return open;
+   });
+   check(label+' delayed table accessibility attributes do not collapse its disclosure',accessibleTable);
    // Existing unit stale-write snapshots remain the authority; do not silently rebase a draft.
    const native=await p.evaluate(()=>{
     capability=()=> 'edit';mayWrite=()=>true;SYNC.readonly=false;SYNC.level='edit';openAsset('WC09');
