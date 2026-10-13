@@ -2,7 +2,7 @@
 
 Author: Andrew Fisher · 13 Oct 2026
 
-Status: IMPLEMENTED — final combined browser checks in progress. Not ready to upload.
+Status: READY TO UPLOAD — final scoped checks complete.
 
 Andrew supplied screenshots 21639/21637 showing pale text on white tables and buttons inside dark Build panels. He asked to fix this everywhere and audit whether all applicable charges have been included.
 
@@ -24,6 +24,6 @@ Completeness remains partial: 32 transport legs across 17 arrived references nee
 
 Base public v10.06 SHA256: `fc7995c79cd5df18c47de4f2c05f1499382ba0313ae8b27dd23d783606a59068`.
 
-Final candidate: `b5d99de88886d9f03aad7af2177b68b1239919542f6c27e2d80be7ec9a89bdfb`, 15,046,568 bytes, 95 inline scripts. Exact rebuild, wrong-base/repeat guards and unchanged embedded DATA pass. Original source-rate review passed 107 comparisons. Final combined contrast, navigation and financial reconciliation evidence is being completed before READY.
+Final candidate: `b5d99de88886d9f03aad7af2177b68b1239919542f6c27e2d80be7ec9a89bdfb`, 15,046,568 bytes, 95 inline scripts. Exact rebuild, wrong-base/repeat guards and unchanged embedded DATA pass. Original source-rate review passed 107 comparisons. Both navigation sweeps pass, with the final CSS-only delta explicitly proved. Six responsive light/dark pane cases plus six final header cases cover 26,583 text/control groups; the affected Delete states and header placeholder were rechecked after their corrections. The finance adapter tests, 124 independent finance/coverage/reconciliation checks and original 107 source-rate comparisons pass. Upload dry run and phone visual review pass. See CONTRAST_AUDIT.md for exact tested hashes and coverage limits. The existing narrow-screen Rules-table containment defect is assigned to the next release.
 
 Root owns integration, review and publication. Separate scoped implementation, rendered-contrast and financial reviews were used; no claim of an external agent review. Private snapshots and screenshots stay outside Git.

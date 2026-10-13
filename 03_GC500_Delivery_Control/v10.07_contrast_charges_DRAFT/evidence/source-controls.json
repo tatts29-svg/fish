@@ -20,8 +20,9 @@
       "pass": true
     },
     {
-      "name": "Embedded JSON sources unchanged",
-      "pass": true
+      "name": "All embedded operational and rate-card DATA unchanged",
+      "pass": true,
+      "topLevelKeys": 83
     },
     {
       "name": "Footer version v10.07",
