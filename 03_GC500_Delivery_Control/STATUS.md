@@ -1,5 +1,9 @@
 <!-- Author: Andrew Fisher -->
 
+CLAIMED — v10.10 charge accuracy, quantity status and open-panel persistence. Andrew supplies WC09 screenshot (14Oct2026 01:36AEST), queries six pee-panel charges, asks quantities in Complete/Not complete boxes, and requires open information to stay open until he closes it. Root owns source-backed financial audit/corrections, shared UI state fix, combined testing and publication. Scoped source-rate audit, broad charge-engine audit and persistence implementation assigned. Use current card/contract facts and Andrew’s on-site truth; no speculative rates, damage waiver, supplier/customer conflation or duplicated charges. Preserve explicit unpriced holds. Base exact live v10.09 SHA60533337c67a77211e660f0737ca5c693d52c2108a18d79fb0fd8a9d48c46a8b. Audit underway; not ready.
+
+<!-- Author: Andrew Fisher -->
+
 VERIFIED LIVE — v10.09 distinct map completion symbols. Published14Oct2026 01:48AEST; implementationf0f8a953, READYba59ec1e. ExactparentSHA25660533337c67a77211e660f0737ca5c693d52c2108a18d79fb0fd8a9d48c46a8b,15,055,334bytes,97scripts. Machine manifestad9297e85cc923d22b31656fe795ebbb576dc921335e6e15bebf1a4c203af654 replaces3reviewedmapfiles, preserves230otherassets. Larger green check/amber dash plus selected status words, independent orange selection glow, truthful partial/review/unavailable states and verified Done counts. Bothcandidate68/public65checks perviewport pass; both22route/sevenlink/Back sweeps and18parent/22map/22sourcecontrols pass; visuals inspected. Exactpublicbytesverified; zeroerrors/operationalwrites, native5796 unchanged. Root integration/publication with scoped implementation and independent source review. Source/evidence v10.09_map_completion_LIVE. No nativefinancialcalculations, rates, locations or completion records changed. Nextbuild startsfromexactpublichash.
 
 <!-- Author: Andrew Fisher -->
