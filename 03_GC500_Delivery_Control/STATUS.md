@@ -1,5 +1,9 @@
 <!-- Author: Andrew Fisher -->
 
+IMPLEMENTED — v10.09 distinct map completion symbols. Exact parent candidate 60533337c67a77211e660f0737ca5c693d52c2108a18d79fb0fd8a9d48c46a8b, 15,055,334 bytes, 97 scripts. Embedded map gains 28 px check/dash shapes, selected status words, independent orange selection, truthful partial/review/unavailable states and verified Done-layer counts. Shared snapshot preserves existing physical-completion rules; no native/financial data changes. Machine union ad9297e85cc923d22b31656fe795ebbb576dc921335e6e15bebf1a4c203af654 replaces exactly three files and preserves 230 other assets. Parent18, map22 and source22 focused controls pass; both22-route/seven-link/Back parent sweeps pass. Initial phone68 checks pass; final phone/desktop visual checks running after badge spacing and spoken-label cleanup. Root integration/publication with scoped implementation and independent source/checker review. Not ready.
+
+<!-- Author: Andrew Fisher -->
+
 CLAIMED — v10.09 distinct map completion symbols. Andrew’s screenshots 21646/WC26 and 21644/WC50 show the map’s absent/tiny tick is too weak to distinguish Not complete from Complete; v10.08 improved other controls but did not replace this map marker. Root owns a narrow map symbol/selected-label improvement, scoped implementation, visual review, testing and publication. Preserve authoritative completion, unknown/partial status, map locations, selection behaviour, approved layout and all native records/financial data. Add a strong shape and readable status, without relying on green selection colour alone. Fresh exact v10.08 base 1cdd454f842bf2467fbb928179f2570a6d16f8f88d7dfa49674b3d34fcac0910. Map source/state and independent truth reviews underway. Not ready.
 
 <!-- Author: Andrew Fisher -->
