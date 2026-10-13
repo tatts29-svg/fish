@@ -1,5 +1,9 @@
 <!-- Author: Andrew Fisher -->
 
+CLAIMED — v10.06 unit identity, Event Portables daily reconciliation, on-site charges and idle form stability. Andrew confirms all 13 Oct portaloo arrivals are Event Portables, wants each number once, easy add/remove, matching supplier/Build daily runs including completed arrivals, and applicable install/level/demob/clean charges automatically included for all on-site equipment; stairs remain manual. Root owns integration, backed-up native record cleanup, financial/run reconciliation and publication. Scoped implementation assigned for unit identity controls, daily projections, finance and preserving unsaved forms during background sync. Exact v10.05 base SHA256 65bba5cb7477816d587cb72025ff256f2eb8c2dbc65eb4087dccc5ad49f4622a. Preserve actual physical completion versus future charge inclusion, confirmed quantities and all history/photos; no invented rates or blanket supplier recategorisation outside confirmed arrivals. Not ready. Claimed 13 Oct 2026.
+
+<!-- Author: Andrew Fisher -->
+
 BASEPLAN CHECK SIMPLIFIED — Andrew says his site data is truth, excludes schedule times and wants only Existing / Needs fixing. Completed two-tab private workbook against fresh read-only site version5477 at14:49AEST,12Oct. Specific Baseplan quantity/status/reference/identity corrections replace the broad source-diff presentation; matching items separate, repeated actions consolidated. Approved substitutions and cancellations preserved; included contents do not imply extra hire charges. Root integration plus three scoped reviews; final sanitation rows independently checked. See review_12Oct2026_schedule8_baseplan/README.md for exact private source/artefact paths and validation. Review deliverable only; no live/financial/operational changes, no source workbook mutation. v10.05 remains live.
 
 <!-- Author: Andrew Fisher -->
