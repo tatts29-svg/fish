@@ -21,7 +21,7 @@
       "replacementLine": 100,
       "replacementAsset": "1327215",
       "sourceHire": 1951.46,
-      "decision": "Exclude old pending line 94 from both actual and forecast. Current P46 is supplied and priced once through confirmed asset 1327215 on line 100.",
+      "decision": "Reconcile all three source allocations together: line4 P03/1327212, line94 P51/1322579, line100 P46/1327215. Preserve their known original Rate1 and approved quantities. Removing stale line94 alone would lose one real building from total Revenue.",
       "siteSnapshot": {
         "confirmedRef": "P04",
         "physicalNumbers": [
@@ -65,7 +65,8 @@
           "sourceStartDate": "2026-09-14 00:00:00",
           "expectedTerm": "2026-11-13 00:00:00",
           "bookedDelivery": "2026-10-06 00:00:00",
-          "billedAmount": 0
+          "billedAmount": 0,
+          "interpretation": "Updated source line94 is P51, not the old pending P46 assignment. Current P51 was incorrectly consuming old line4; current P03 had only a display fallback."
         },
         {
           "line": 100,
@@ -81,7 +82,20 @@
           "bookedDelivery": "2026-10-06 00:00:00",
           "billedAmount": 0
         }
-      ]
+      ],
+      "latestSourceReplacesPendingAllocation": true,
+      "requiredCompanionCorrection": {
+        "line": 4,
+        "ref": "P03",
+        "physicalAsset": "1327212",
+        "oldPhysicalAsset": "1322579",
+        "oldSiteMatch": "P51",
+        "sourceCell": "9968862-KINP!D4",
+        "rate1": 1951.46,
+        "rateCell": "9968862-KINP!J4",
+        "quantity": 1,
+        "serial": "261178"
+      }
     },
     {
       "asset": "1189412",
@@ -186,11 +200,12 @@
       ]
     }
   ],
-  "currentModelIssue": "Legacy contractCharge() prices all non-daily Rate 1 rows irrespective of pending status. All three source rows are in ONHIRE_ROWS and contractFigures sum, while item identity excludes the duplicate pending assets. This is a model overstatement/misclassification; the source Billed Amount is zero, not evidence that a customer invoice was issued.",
+  "currentModelIssue": "Legacy contractCharge() sums all source rows. P03/P51/P46 have a stale three-line asset allocation that needs the latest original workbook, but their total hire must remain unchanged. Pending P65/P67 source rows are currently included in contract-based actual totals even though neither has a confirmed arrival or unique physical unit. This is model misclassification, not evidence of issued invoices; original source Billed Amount is zero.",
   "expectedChanges": {
-    "actualHireReduction": 4803.6,
-    "forecastRetained": 2852.14,
-    "wholeJobDuplicateReduction": 1951.46,
+    "actualHireReductionForPendingP65P67": 2852.14,
+    "forecastRetainedForP65P67": 2852.14,
+    "wholeJobReductionFromTheseBuildingCorrections": 0,
+    "P03P04P46P51CombinedHirePreserved": 7805.84,
     "branch": "KINP",
     "ledger": "1005"
   },
@@ -198,7 +213,9 @@
     "P65/P67 remain valid separate planned buildings; do not delete their demand or invent replacement asset numbers.",
     "Source Start Date Sep14 also appears on pending rows and is not a confirmed delivery.",
     "Current physical confirmations and corrected source lines must cause recalculation; holds must not become permanent hard-coded missing arrivals.",
-    "HRP holds asset1189410; original description P36 is stale. Current P36 has different confirmed asset1282487 and is a distinct building."
+    "HRP holds asset1189410; original description P36 is stale. Current P36 has different confirmed asset1282487 and is a distinct building.",
+    "Do not drop line94 independently: P03 card fallback appears in its drawer but is not an additional line in global uncontractedHire1007, which currently contains only pee panels.",
+    "The initial hypothesis that latest line94 was absent is withdrawn after a complete row-index check; it is present with corrected P51 details."
   ],
   "checks": [
     {
@@ -206,8 +223,8 @@
       "pass": true
     },
     {
-      "check": "P46 safe allocation decision",
-      "pass": false
+      "check": "P03/P51/P46 corrected original source identities all agree with confirmed site numbers, preserving four physical buildings including P04",
+      "pass": true
     },
     {
       "check": "P41 current physical asset agrees with delivered contract",
@@ -226,5 +243,5 @@
       "pass": true
     }
   ],
-  "pass": false
+  "pass": true
 }

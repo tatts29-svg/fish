@@ -1,19 +1,33 @@
-# Charge accuracy, quantities and persistent panels
+# Charges, quantities and persistent panels
 
 Author: Andrew Fisher.
 
-State: DRAFT. Not yet published. Root owns integration and publication; scoped implementation and independent source review are underway.
+State: DRAFT. Root owns integration and publication. Final validation is underway; no release or Eric Lucian record change has been published yet.
 
-Andrew requests source-backed charges without overcharging, quantities alongside completion, panels that stay open until closed, six individual fencing workforce rows and Kyle Gover's race-weekend night shifts.
+Andrew requests source-backed charges without overcharging, known quantities beside map references and completion status, information that stays open while he reads or saves it, six individual fencing workforce rows, Kyle Gover’s race-weekend night shifts, location-level FWF photos and Eric Lucian on 14 October’s roster.
 
-The release starts from exact live v10.09, SHA256 `60533337c67a77211e660f0737ca5c693d52c2108a18d79fb0fd8a9d48c46a8b`. The root patch refuses a different base or repeated application. Map changes replace only the three reviewed explorer files and retain the other machine assets.
+The release starts from exact live v10.09, SHA256 `60533337c67a77211e660f0737ca5c693d52c2108a18d79fb0fd8a9d48c46a8b`. The root patch refuses a different base or repeated application. Map changes replace only the three reviewed explorer files and retain 230 other machine assets.
 
-Financial review compares source rates, approved scope, physical arrivals, charge periods, quantities and branch allocation. It keeps Revenue separate from Direct costs, actual arrivals separate from remaining forecast and charge inclusion separate from physical completion. Unknown rates, hours and allocations remain explicit. No damage waiver is introduced and stairs remain manual.
+## Changes
 
-Original source workbooks, PDFs, record snapshots, browser screenshots and generated financial workbooks remain outside Git. Sanitised check results and source-cell references are retained here. No tests may write to the shared operational record.
+- Reconciles the original card and latest Baseplan with current approved quantities. Corrects WC09 FWF quantity, building contract allocations, P45 missing hire, the T0005 later hire period and duplicate-asset P65/P67 actual/forecast allocation. Four real buildings remain charged once; no legitimate hire is removed.
+- Pee panels use the card’s full-hire amount per panel. The daily reference is separately explained, quantity applies once and an explicit Save rate control acknowledges the shared record. Source holds remain visible.
+- Six individual fencing people preserve the customer’s $88.49 hourly Revenue rate separately from Advanced’s quoted $142 race-day Direct cost. Missing hours remain unknown. Kyle’s race-weekend shifts say Night.
+- Known map quantities appear in brackets beside references. Mixed references retain distinct item quantities and descriptions; unknown quantities are not invented. Physical completion remains separate from financial charge inclusion.
+- FWF photos belong to the whole location quantity. Existing unit photos remain accessible with their original associations; uploads keep the native one-document-per-photo outbox.
+- Shared refreshes and same-reference redraws retain expanded sections, reading position, editable drafts and focus. A final local-save/P33 regression is being added following Andrew’s latest report.
+- Eric’s proposed 14 October record uses labour hire, NOIS home branch, KINP cost destination and Daniel’s verified $55.70 hourly rate. Native setters, exact-change guards, a private backup and fresh readback are required. No hours or employer are invented.
 
-Known release blocker: latest Baseplan reallocates building contract lines 4, 94 and 100 across P03, P51 and P46. Reconcile these together before publishing; removing the old P46 allocation alone would lose legitimate P03 hire from P&L. Initial model consistency checks pass, but this source reconciliation is still underway.
+## Financial limits
 
-Andrew also requests FWF photos against the whole location quantity and review of Programme V1 / Schedule (6), preserving confirmed onsite truth. Scoped work is underway.
+Revenue and Direct costs remain separate. Arrived billing scope and remaining forecast reconcile, but the wider contract ledger includes approved future hire and must not be described as entirely delivered. Unknown rates, hours and allocations remain explicit. No damage waiver is introduced; stairs remain manual. Financial charge inclusion does not falsely record demob, pickup or other future work as physically complete.
 
-Final combined checks and verified publication evidence will replace this draft status.
+Source-backed comparison on the same native record passes 2,119 checks, with 989 source checks and 101 targeted tests. It corrects current contract-ledger Revenue by −$1,966.49, full-job Revenue by +$885.65 and the received-equipment priced subtotal by +$3,522.60. The workforce change adds $8,949.74 of future Direct costs. Those are distinct views, not amounts to add together. Missing inputs prevent certification as fully priced.
+
+## Document review
+
+Programme V1 introduces three Complete flags already supported by onsite records. Schedule (6) is older than Schedule (8). The review records discrepancies without replacing confirmed arrivals, quantities or assets. Its two-tab Excel output stays in the private output area.
+
+Original workbooks, PDFs, full record snapshots, browser screenshots and generated financial workbooks remain outside Git. Sanitised results and source-cell references are retained here. All tests are read-only against the live service; only Andrew’s explicit Eric record addition will use guarded native writes after publication.
+
+Final combined checks, exact release hashes and verified publication evidence will replace this draft status.

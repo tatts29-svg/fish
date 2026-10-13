@@ -35,21 +35,44 @@ async function fixture(quantity,state='complete'){
  check('Parent matches expected candidate',!process.env.EXPECTED_SHA||report.sha256===process.env.EXPECTED_SHA);
  await p.waitForFunction(()=>EXP.frame&&EXP.frame.contentWindow.__ready,null,{timeout:120000});frame=p.frames().find(f=>/\/explorer\/index\.html(?:\?|$)/.test(f.url()));assert(frame);
  await frame.evaluate(()=>GC500Explorer.ready);await pull();
- const actual=await p.evaluate(()=>gc500MapStatus1009(['WC09','WC50']));report.actual=actual;
+ if(process.env.VISUAL_ONLY==='1'){
+  report.mode+='-unobstructed-visual';
+  for(const key of ['WC48','WC49']){
+   await select(key);await frame.locator('#xcard [data-xclose]').click();
+   check(key+' popup closed and selected map label retained',await frame.evaluate(k=>document.getElementById('xcard').hidden&&selected?.code===k,key));
+   report[key]=await frame.evaluate(()=>({label:referenceQuantity1010(selected,mapStatus1009(selected)),status:mapStatus1009(selected)}));
+   await shot(key.toLowerCase()+'-map-label-unobstructed');
+  }
+  check('Native record remains unchanged',await p.evaluate(s=>JSON.stringify(S)===s,before.record));
+  check('No page errors',h.errors.length===0);check('No operational writes attempted',h.counts.blocked===0);report.pass=true;return;
+ }
+ const actual=await p.evaluate(()=>gc500MapStatus1009(['WC09','WC50','WC48','WC49']));report.actual=actual;
  const wc9=actual.states.find(r=>r.key==='WC09'),wc50=actual.states.find(r=>r.key==='WC50');
  check('WC09 preserves six pee panels',wc9.quantity.items.some(r=>/pee panel/i.test(r.item)&&r.quantity===6));
  check('WC09 preserves four FWF separately',wc9.quantity.items.some(r=>/fwf/i.test(r.item)&&r.quantity===4));
- check('WC09 has two typed groups rather than ten identical toilets',wc9.quantity.items.length===2);
+ check('WC09 includes its two toilet blocks',wc9.quantity.items.some(r=>/toilet block/i.test(r.item)&&r.quantity===2));
+ check('WC09 has three typed groups rather than a combined toilet count',wc9.quantity.items.length===3);
  check('WC50 current quantity is one',wc50.quantity.items.length===1&&wc50.quantity.items[0].quantity===1);
+ for(const key of ['WC48','WC49']){
+  await select(key);const row=actual.states.find(r=>r.key===key),items=row.quantity.items,expected=items.length&&items.every(r=>typeof r.quantity==='number'&&Number.isFinite(r.quantity)&&r.quantity>=0)?key+' ('+items.map(r=>r.quantity).join(' + ')+')':key;
+  const rendered=await frame.evaluate(()=>{const original=mctx.fillText,texts=[];mctx.fillText=function(text,...args){texts.push(String(text));return original.call(this,text,...args);};try{drawMarks(currentView());}finally{mctx.fillText=original;}return {texts,label:referenceQuantity1010(selected,mapStatus1009(selected)),bounds:labelBounds1010.filter(b=>b.it.code===selected.code).map(b=>({x:b.x,y:b.y,w:b.w,h:b.h,hit:labelHit1010(b.x+b.w-2,b.y+2)?.it.code}))};});
+  check(key+' label matches current shared quantities',rendered.label===expected&&rendered.texts.includes(expected),{expected,rendered});
+  check(key+' full label box is measured and tappable',rendered.bounds.length>0&&rendered.bounds.every(b=>b.w>0&&b.hit===key));await shot(key.toLowerCase()+'-reference-quantity');
+  await frame.locator('#xcard [data-xclose]').click();
+  check(key+' Close hides details while retaining the selected map label',await frame.evaluate(k=>document.getElementById('xcard').hidden&&selected?.code===k,key));
+  await shot(key.toLowerCase()+'-map-label-unobstructed');
+ }
  await select('WC50');let state=await frame.evaluate(()=>mapStatus1009(selected));
  check('WC50 verified complete shows1/1',state.state!=='complete'||state.quantity1010.summary==='1/1');
  check('Selected accessible text includes quantity',await frame.evaluate(()=>document.getElementById('mapStatus1009').textContent.includes(mapStatus1009(selected).quantity1010.summary)));
  await shot('wc50-quantity');await select('WC09');state=await frame.evaluate(()=>mapStatus1009(selected));
- check('Map keeps mixed descriptions',state.quantity1010.items.some(r=>/pee panel/i.test(r.item)&&r.quantity===6)&&state.quantity1010.items.some(r=>/fwf/i.test(r.item)&&r.quantity===4));
+ check('Map keeps all three mixed descriptions',state.quantity1010.items.some(r=>/pee panel/i.test(r.item)&&r.quantity===6)&&state.quantity1010.items.some(r=>/fwf/i.test(r.item)&&r.quantity===4)&&state.quantity1010.items.some(r=>/toilet block/i.test(r.item)&&r.quantity===2));
  check('Mixed box has no combined identical-unit fraction',state.quantity1010.summary==='');
- const card=await frame.evaluate(()=>document.getElementById('xcard').textContent);check('Reference card shows both descriptions',/Pee Panel/.test(card)&&/FWF/.test(card));await shot('wc09-mixed-quantity');
+ const card=await frame.evaluate(()=>document.getElementById('xcard').textContent);check('Reference card retains all descriptions',/Pee Panel/.test(card)&&/FWF/.test(card)&&/Toilet Block/i.test(card));
+ check('WC09 brackets retain each typed quantity',await frame.evaluate(()=>referenceQuantity1010(selected,mapStatus1009(selected)))==='WC09 ('+wc9.quantity.items.map(r=>r.quantity).join(' + ')+')');await shot('wc09-mixed-quantity');
  await select('WC50');await p.evaluate(()=>{window.__quantityBridge1010=window.gc500MapStatus1009;});const camera=await frame.evaluate(()=>JSON.stringify(GC500Explorer.state.view));
  await fixture({items:[{item:'FWF',quantity:6,completed:6,installed:6}]});state=await frame.evaluate(()=>mapStatus1009(selected));check('Changed shared quantity updates6/6',state.quantity1010.summary==='6/6');
+ check('Changed shared quantity updates bracketed reference text',await frame.evaluate(()=>referenceQuantity1010(selected,mapStatus1009(selected)))==='WC50 (6)');
  check('Quantity change keeps the camera',await frame.evaluate(c=>JSON.stringify(GC500Explorer.state.view)===c,camera));
  check('Open reference card updates quantity',await frame.evaluate(()=>document.getElementById('xcard').textContent.includes('6/6')));
  await fixture({items:[{item:'FWF',quantity:6,completed:null,installed:2}]},'partial');state=await frame.evaluate(()=>mapStatus1009(selected));check('Partial remains 2/6 installed without complete claim',state.state==='partial'&&state.quantity1010.summary==='2/6 installed'&&state.glyph!=='check');
@@ -62,6 +85,7 @@ async function fixture(quantity,state='complete'){
  await frame.evaluate(()=>{document.querySelector('.map1010-quantities').open=false;});await fixture(manyItems(2));
  check('Explicitly closed quantities stay closed during shared refresh',await frame.evaluate(()=>!document.querySelector('.map1010-quantities').open));
  await fixture({items:[{item:'FWF',quantity:null,completed:null}]});state=await frame.evaluate(()=>mapStatus1009(selected));check('Unknown quantity preserves existing complete status',state.state==='complete'&&state.quantity1010.summary==='Qty to confirm');
+ check('Unknown quantity removes reference brackets',await frame.evaluate(()=>referenceQuantity1010(selected,mapStatus1009(selected)))==='WC50');
  await p.evaluate(()=>{window.gc500MapStatus1009=window.__quantityBridge1010;delete window.__quantityBridge1010;});await pull();
  check('Native record remains byte-for-byte unchanged',await p.evaluate(s=>JSON.stringify(S)===s,before.record));
  const expected=JSON.parse(fs.readFileSync(path.join(release,'quantity/evidence/source-bound.json'),'utf8')).changedFiles;

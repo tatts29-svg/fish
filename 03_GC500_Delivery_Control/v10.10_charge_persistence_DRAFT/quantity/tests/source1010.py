@@ -10,15 +10,20 @@ def check(name,result):
  assert result,name
  checks.append({'name':name,'pass':True})
 old=(source/'explorer.js').read_text();new=(candidate/'explorer.js').read_text()
+preserved=new.replace('function drawMarks(v) {\n  labelBounds1010=[];\n','function drawMarks(v) {\n').replace('return best && best.m || labelHit1010(x,y); }','return best && best.m; }')
 def block(s,start,end):
  i=s.index(start);return s[i:s.index(end,i)]
 for start,end,name in [('function badge1009(', 'function label1009(', 'Status symbols'),('function drawMarks(', 'const gradCache887', 'Map marker position and drawing'),('function itemAt887(', '/* search on the drawing', 'Native hit targets'),('function done782List(', 'let done782At', 'Verified optional Done layer')]:
- check(name+' unchanged',block(old,start,end)==block(new,start,end))
+ check(name+' unchanged',block(old,start,end)==block(preserved,start,end))
 timers_unchanged=all(old.count(token)==new.count(token) for token in ['setTimeout(','setInterval('])
 check('No extra timers',timers_unchanged)
 check('Canvas quantity lines capped at three', 'q.lines.slice(0,3)' in new)
 check('Canvas quantity text constrained to viewport','Math.min(300*dpr,canvas.width-8*dpr)' in new)
 check('Quantity-only update enters existing refresh signature','quantity:row.quantity||null' in new)
+check('Bracketed reference text determines canvas width','main=textWidth887(ctx,reference)' in new and 'ctx.fillText(reference,' in new)
+check('Known quantities are read for unselected labels','const sharedStatus=mapStatus1009(it),status=selected1009&&sharedStatus' in new)
+check('Drawn label rectangles receive taps after native marker checks','labelBounds1010.push({it,x:x/dpr,y:y/dpr,w:w/dpr,h:h/dpr})' in new and 'return best && best.m || labelHit1010(x,y); }' in new)
+check('Stale label hit bounds cleared on every paint','function drawMarks(v) {\n  labelBounds1010=[];' in new)
 merge=(candidate/'explorer-merge.js').read_text()
 check('Quantity disclosure stays as the user left it during refresh','nextQuantity.open=quantityOpen' in merge and 'quantityOpen=quantities?quantities.open:null' in merge)
 check('Focused quantity summary remains focused during refresh',"if(quantityFocus)nextQuantity.querySelector('summary').focus({preventScroll:true})" in merge)

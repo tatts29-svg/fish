@@ -1,5 +1,9 @@
 <!-- Author: Andrew Fisher -->
 
+SCOPE UPDATE — v10.10 remains DRAFT. Andrew requests known quantities in brackets beside map references, Eric Lucian on 14 Oct labour (External, home NOIS, charged KINP, Daniel’s $55.70 hourly rate; no hours invented), FWF photos against the location quantity, and broader scrolling/open/close/navigation review. Source-backed financial reconciliation now passes 2,119 same-native-version checks and 989 original-source checks; building allocation blocker resolved. Map quantity and grouped-photo checks pass phone/desktop. Latest P33 report exposed local-save redraw/fold identity gaps beyond shared refresh; correction and expanded regression underway. Andrew also requests repeated facts removed and static explanations under More info, retaining live source-derived numbers and visible missing-input holds. Root coordinates final source, release and guarded Eric addition; no new operational writes yet. Final broader checks pending.
+
+<!-- Author: Andrew Fisher -->
+
 SCOPE UPDATE — v10.10 remains DRAFT. Andrew also requests six separate Fencing 1–6 workforce rows and repeats Kyle Gover’s confirmed race-weekend night shifts, plus source-backed cost reassurance. Original street card and Advanced quotation 27172 reviewed. Preserve customer $88.49/person/hour separately from quoted supplier $142/person/hour race-day cost; future hours remain forecast and missing hours remain unpriced. Root integration; scoped pricing, source review, quantity, persistence, explicit rate Save and workforce modules underway. No native record writes. Final combined financial, phone/desktop and publication checks pending.
 
 <!-- Author: Andrew Fisher -->

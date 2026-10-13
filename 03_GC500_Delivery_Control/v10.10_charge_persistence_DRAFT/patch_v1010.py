@@ -24,6 +24,7 @@ def apply(html):
     if hashlib.sha256(html.encode()).hexdigest() != BASE_SHA:
         raise ValueError('Requires exact live v10.09; refuses repeat or wrong-base application')
     html = module('quantity/patch_quantity1010.py').apply(html)
+    html = module('photos/patch_photos1010.py').apply(html)
     html = module('workforce/patch_workforce1010.py').apply(html)
     html = module('pricing/patch_pricing1010.py').apply(html)
     html = append_script(html, 'pricing1010-script', (HERE / 'pricing/pricing1010.js').read_text())

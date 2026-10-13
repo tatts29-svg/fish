@@ -1,0 +1,43 @@
+{
+  "author": "Andrew Fisher",
+  "reviewerRole": "Independent source audit",
+  "pricingModuleSha256": "87d09881e1f692f409376a0ee8d6726c07ad413e996a5dd0cacd3367e4f84ddd",
+  "originalSourceChecks": {
+    "rateCard": 812,
+    "peePanel": 16,
+    "fencingSupplier": 7,
+    "buildingProjectionOriginalCells": 25
+  },
+  "sourceProjection": {
+    "originalRowsUnchanged": true,
+    "idempotent": true,
+    "originalCount": 320,
+    "projectedCount": 321,
+    "newPricedP45Rows": 1,
+    "P03P04P46P51HirePreserved": 7805.84
+  },
+  "reviewedBehaviours": [
+    "Pee panel hire remains original full-period D22 per panel; quantity counted once. No unsupported three-day substitution.",
+    "Supplier450 floor rejects lower typed prices at input; legacy under-floor values are not silently used. No extra supplier quote cost.",
+    "Current WC09 FWF scope4 supersedes stale source10, distinct from6pee panels.",
+    "Three building allocation corrections preserve all real building prices; original data remains untouched with provenance.",
+    "P45 new original line131 added once with blank original asset number; site-confirmed number remains separate.",
+    "P65/P67 retain known source hire as forecast until unique current arrival is confirmed; future new-source coverage suppresses duplicate pending line.",
+    "Non-overlapping forklift hire periods are grouped for physical count only; original money is summed, not repeated or removed.",
+    "Cable parent46 held pending charging basis and period; child47 is included contents, not extra hire.",
+    "T0109 retains site facts and current pricing while conflicting type/date/branch is visible.",
+    "Final AA/WC42/WC81 holds require matching confirmed physical number, arrived quantity and absent exact contract. Optional EP prefix is handled; a later exact source allocation clears the hold. No additional Revenue is created."
+  ],
+  "result": "PASS for the bounded reviewed source and calculation changes; not a claim all operational charges are resolved.",
+  "remainingCoverageHolds": [
+    "AA asset142514 lacks matched source hire allocation.",
+    "WC42 EventPortables0141 andWC81 EventPortables0124 lack matched source hire allocation; aggregate customer quantities need reconciliation.",
+    "T0109 forklift1281615 has conflicting type/date/branch.",
+    "Concert cable parent46 period/basis remains unresolved."
+  ],
+  "limitations": [
+    "Browser and runtime reconciliation checks are owned by the release owner.",
+    "This review does not authorise new operational records or publishing."
+  ],
+  "finalSourceReadComplete": true
+}

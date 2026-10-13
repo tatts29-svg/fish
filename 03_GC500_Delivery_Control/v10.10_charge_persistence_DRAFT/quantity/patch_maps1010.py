@@ -16,26 +16,30 @@ def apply(source,output):
  js=rep(js,'return Object.assign({state}, model, {label,detail:available && row && typeof row.label === \'string\' ? row.label : label});', 'return Object.assign({state}, model, {label,detail:available && row && typeof row.label === \'string\' ? row.label : label,quantity1010:quantity1010View(row&&row.quantity,state,available)});')
  js=rep(js,'else rows.set(key, {key,state:row.state,label:row.label});','else rows.set(key, {key,state:row.state,label:row.label,quantity:row.quantity||null});')
  old="selected.code + ' · ' + status.label + (status.detail.toLowerCase() !== status.label.toLowerCase() ? ' · ' + status.detail : '')"
- new="selected.code+' · '+status.label+(status.quantity1010.lines.length?' · '+status.quantity1010.lines.join(' · '):'')+(status.detail.toLowerCase()!==status.label.toLowerCase()?' · '+status.detail:'')"
+ new="referenceQuantity1010(selected,status)+' · '+status.label+(status.quantity1010.summary?' · '+status.quantity1010.summary:'')+(status.quantity1010.items.length?' · '+(status.quantity1010.items.length===1?status.quantity1010.items[0].item:status.quantity1010.all.join(' · ')):'')+(status.detail.toLowerCase()!==status.label.toLowerCase()?' · '+status.detail:'')"
  js=rep(js,old,new)
  js=rep(js,"'+mapGlyph1009(status)+' '+esc(status.label)+'</em>'", "'+mapGlyph1009(status)+' '+quantity1010Html(status)+'</em>'")
  begin=js.index('function label1009(ctx, it, c, r, selected1009, colour) {');end=js.index('window.GC500MapCompletion1009=',begin)
  label='''function label1009(ctx,it,c,r,selected1009,colour){
- const status=selected1009&&mapStatus1009(it),q=status&&status.quantity1010,pad=8*dpr;
+ const sharedStatus=mapStatus1009(it),status=selected1009&&sharedStatus,q=status&&status.quantity1010,pad=8*dpr,maxWidth=Math.min(300*dpr,canvas.width-8*dpr);
  const statusText=status?status.label.toUpperCase()+(q.summary?' · '+q.summary:''):'';
  const quantityLines=status&&!q.summary?q.lines.slice(0,3):[];
- ctx.save();ctx.font=`800 ${12*dpr}px Inter,sans-serif`;const main=textWidth887(ctx,it.code);
+ ctx.save();ctx.font=`800 ${12*dpr}px Inter,sans-serif`;const reference=fitReference1010(it,sharedStatus,maxWidth-pad*2,text=>textWidth887(ctx,text)),main=textWidth887(ctx,reference);
  ctx.font=`800 ${10*dpr}px Inter,sans-serif`;const sub=textWidth887(ctx,statusText),more=quantityLines.map(line=>textWidth887(ctx,line));
- const maxWidth=Math.min(300*dpr,canvas.width-8*dpr),w=Math.min(maxWidth,Math.max(main,sub,...more)+pad*2),h=(status?40+quantityLines.length*14:20)*dpr;
+ const w=Math.min(maxWidth,Math.max(main,sub,...more)+pad*2),h=(status?40+quantityLines.length*14:20)*dpr;
  const x=Math.min(Math.max(4*dpr,c.x+r*.75),canvas.width-w-4*dpr),y=Math.min(Math.max(4*dpr,c.y-r*.75-h-8*dpr),canvas.height-h-4*dpr);
  ctx.fillStyle='#101c23';ctx.strokeStyle=selected1009?'#ff821f':colour;ctx.lineWidth=(selected1009?2:1)*dpr;ctx.beginPath();ctx.roundRect(x,y,w,h,5*dpr);ctx.fill();ctx.stroke();
- ctx.textAlign='left';ctx.textBaseline='middle';ctx.font=`800 ${12*dpr}px Inter,sans-serif`;ctx.fillStyle='#fff';ctx.fillText(it.code,x+pad,y+(status?12:10)*dpr);
+ labelBounds1010.push({it,x:x/dpr,y:y/dpr,w:w/dpr,h:h/dpr});
+ ctx.textAlign='left';ctx.textBaseline='middle';ctx.font=`800 ${12*dpr}px Inter,sans-serif`;ctx.fillStyle='#fff';ctx.fillText(reference,x+pad,y+(status?12:10)*dpr);
  if(status){ctx.font=`800 ${10*dpr}px Inter,sans-serif`;ctx.fillStyle=status.colour;ctx.fillText(statusText,x+pad,y+28*dpr);
   ctx.font=`600 ${10*dpr}px Inter,sans-serif`;ctx.fillStyle='#e0e7ed';quantityLines.forEach((line,i)=>{let text=line;while(text.length>1&&textWidth887(ctx,text)>w-pad*2)text=text.slice(0,-1);if(text!==line)text=text.slice(0,-1)+'…';ctx.fillText(text,x+pad,y+(43+i*14)*dpr);});}
  ctx.restore();
 }
 '''
  js=rep(js,js[begin:end],label)
+ js=rep(js,'function drawMarks(v) {\n  const dn', 'function drawMarks(v) {\n  labelBounds1010=[];\n  const dn')
+ hit_start=js.index('function markAt(x, y) {');hit_end=js.index('/* search on the drawing',hit_start);hit=js[hit_start:hit_end]
+ js=rep(js,hit,hit.replace('return best && best.m; }','return best && best.m || labelHit1010(x,y); }'))
  style='\n(()=>{const style=document.createElement(\'style\');style.id=\'quantity1010-style\';style.textContent='+json.dumps((HERE/'quantity1010.css').read_text())+';document.head.appendChild(style);})();\n'
  js=rep(js,'let marksDrawn = false;',style+'let marksDrawn = false;')
  merge=original['explorer-merge.js'].decode()

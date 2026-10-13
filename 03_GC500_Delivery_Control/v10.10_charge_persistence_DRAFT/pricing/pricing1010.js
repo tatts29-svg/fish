@@ -29,18 +29,26 @@
   if(!scope||scope.cancelled||!Number.isSafeInteger(scope.quantity)||scope.quantity<0||!known(row.quantity)||row.quantity<=scope.quantity)return null;
   return {ref:'WC09',item:'FWF',sourceQuantity:row.quantity,billableQuantity:scope.quantity,excludedQuantity:row.quantity-scope.quantity,reason:'Current approved WC09 FWF quantity replaces the older contract quantity; pee panels are a separate item.'};
  }
+ // SOURCE_ROWS1010_START
+ function sourceRows(rows){
+  const rules={4:{was:'1322579',asset:'1327212',ref:'P03',serial:'261178',row:4,description:'P03 Portable Building Shell 12.0M x 3.0M - Cyclonic Ra'},94:{was:'1327213',asset:'1322579',ref:'P51',serial:'7856.B120.3',row:62,description:'P51 Portable Building Shell 12.0M x 3.0M - Cyclonic Rated'},100:{was:'1327215',asset:'1327215',ref:'P46',serial:'261181',row:64,description:'P46 Portable Building Shell 12.0M x 3.0M - Cyclonic Rated'}};
+  const projected=(rows||[]).map(r=>{const rule=String(r.rental_contract)==='9968862'&&rules[r.line];if(!rule||r.sourceAllocation1010||String(r.asset_no)!==rule.was||r.quantity!==1||r.rate_1!==1951.46||r.kind!=='building')return r;
+   return {...r,item:rule.asset,asset_no:rule.asset,serial:rule.serial,description:rule.description,match:{...r.match,state:'current source and confirmed site',key:rule.ref,task_id:null,to:'asset',via:'confirmed asset number and updated Baseplan',basis:'Updated Baseplan 9968862-KINP row '+rule.row+' matches the confirmed site asset '+rule.asset+' at '+rule.ref},sourceAllocation1010:{file:'Baseplan SuperCars (1).xlsx',sha256:'6f6a20a3567d99ff0f1e0e97c8387d5a94907a358711c7d52cf5b1043e54956d',sheet:'9968862-KINP',row:rule.row,cells:'A'+rule.row+',D'+rule.row+',F'+rule.row+',BD'+rule.row,sourceStatus:'Delivered',original:{asset_no:r.asset_no,item:r.item,serial:r.serial,description:r.description,match:r.match},basis:'Identity allocation only. Rates, quantities, contract dates and native delivery records are unchanged.'}};
+  });
+  // The updated source has a new priced P45 line. Its asset field is blank;
+  // keep that fact and link its explicit reference to the confirmed site scope.
+  // This replaces P45's existing drawer fallback; it is not a second unit.
+  if(!projected.some(r=>String(r.rental_contract)==='9968862'&&Number(r.line)===131))projected.push({rental_contract:'9968862',branch_code:'KINP',line:131,item_type_code:1,item:null,asset_no:null,asset_no_is_plant_number:false,serial:null,description:'P45 Portable Building Shell 6.0M x 3.0M',what:'Portable Building Shell 6.0M x 3.0M',register_type:'Building 6m',family:'building',quantity:1,status_as_written:'Del Req',contract_start:'2026-09-14',booked_delivery_date:'2026-09-14',delivery_number:'26122823',return_number:null,expected_term_date:'2026-11-13',term_date:null,booked_pickup_date:'2026-11-13',location:null,delivered:false,start_date:null,start_time:null,demob_date:'2026-11-13',rate_1:1426.07,rate_2:0,rate_3:0,rate_4:0,rate_5:0,flat_monthly_charge:null,rate_type:'W',rate_classification:'no rates',rate_id:'128767',price:0,sell_price:null,number_of_days:7,minimum_days:0,term_number:null,billing_option:null,hold_billing:false,start_time_as_written:'07:00',expected_offrental_time:null,main_item:false,package_name:null,swap_from_line:null,billed_amount:0,last_total_amount:0,billed_units:0,total_inc_sd_dw_gst:0,sales_analysis_code:'KINP-HIR',supplier_sub_rental:null,subhired:false,subhire_rule:null,charge_line:false,kind:'building',match:{state:'explicit source reference and confirmed site',to:'asset',key:'P45',task_id:null,via:'reference and item',basis:'Updated Baseplan line 131 explicitly names P45, Building 6m, quantity 1. Site records confirm asset 107135 received on 12 October; the source asset number and pending status are not treated as site truth.'},sourceAddition1010:{file:'Baseplan SuperCars (1).xlsx',sha256:'6f6a20a3567d99ff0f1e0e97c8387d5a94907a358711c7d52cf5b1043e54956d',sheet:'9968862-KINP',row:83,cells:'A83,B83,D83,F83,G83,J83',basis:'One full event hire at the published source line rate. Native site quantity, asset number and arrival remain authoritative.'}});
+  return projected;
+ }
+ // SOURCE_ROWS1010_END
  function allocation(row,contracts,current){
   if(!row||String(row.rental_contract)!=='9968862'||row.charge_line||!row.asset_no_is_plant_number||row.kind!=='building'||row.quantity!==1)return null;
-  const cases={94:{ref:'P46',primary:7,number:'1327213',replacement:100,replacementNumber:'1327215'},108:{ref:'P67',primary:93,number:'1189410'},110:{ref:'P65',primary:63,number:'1189412'}},rule=cases[row.line];
+  const cases={108:{ref:'P67',primary:93,number:'1189410'},110:{ref:'P65',primary:63,number:'1189412'}},rule=cases[row.line];
   if(!rule||String(row.asset_no)!==rule.number||!['pending','del req'].includes(norm(row.status_as_written))||row.start_date)return null;
   const primary=(contracts||[]).find(r=>String(r.rental_contract)==='9968862'&&Number(r.line)===rule.primary&&String(r.asset_no)===rule.number&&norm(r.status_as_written)==='delivered'&&r.start_date);
   if(!primary)return null;
   const amount=known(row.rate_1)&&row.rate_1>=0?cents(row.rate_1*row.quantity):null;
-  if(rule.replacement){
-   const replacement=(contracts||[]).find(r=>String(r.rental_contract)==='9968862'&&Number(r.line)===rule.replacement&&String(r.asset_no)===rule.replacementNumber);
-   if(!replacement||!current||current.quantity!==1||!current.physicalNumbers?.includes(rule.replacementNumber))return null;
-   return {ref:rule.ref,item:row.register_type,contract:'9968862',line:row.line,branch:row.branch_code,state:'duplicate-removed',sourceAmount:amount,actualAmount:0,remainingAmount:0,primary:rule.primary,replacement:rule.replacement,reason:'P46 is supplied by confirmed asset 1327215 on contract line 100. Old pending line 94 repeats P04 asset 1327213; no second P46 hire is added.'};
-  }
   if(!current||current.quantity!==1||current.cancelled)return null;
   const physical=[...new Set(current.physicalNumbers||[])].filter(Boolean);
   if(current.arrived===1&&physical.length===1&&physical[0]!==rule.number){
@@ -63,7 +71,12 @@
    return {...item,hire:(item.hire||[]).filter(l=>!remove.has(l.id)).map(l=>replace.get(l.id)||l)};
   });
  }
- const api={price,pee,quantity,allocation,periods,validate,hireKey,supplierFloor,cents};
+ function reviewHolds(items){const holds=[];for(const i of items||[]){if(!(i.arrived>0))continue;
+  const unmatched={AA:{item:'Building 6m',asset:'142514'},WC42:{item:'FWF',asset:'EP0141'},WC81:{item:'FWF',asset:'EP0124'}}[i.ref];if(unmatched&&norm(i.item)===norm(unmatched.item)&&(i.physicalNumbers||[]).some(n=>String(n).replace(/^EP/i,'')===unmatched.asset.replace(/^EP/i,''))&&!i.exactContract)holds.push({ref:i.ref,item:i.item,charge:'Hire allocation / existing coverage to confirm',reason:i.ref+' asset '+unmatched.asset+' has a card estimate but no exact source contract match. Check existing bulk hire coverage before adding any customer revenue; do not bill the same equipment twice.',source:{asset:unmatched.asset},amount:null});
+  if(i.ref==='GN?'&&norm(i.item)==='200kva & cables')holds.push({ref:i.ref,item:i.item,charge:'Cable hire basis / period to confirm',reason:'Concert cables: 2 sets of 5. Baseplan 9961976 line 46 quotes 115.14 and 104.03 with an unresolved charging period. Line 47 is the 10 included cable components, not another charge. Generator hire remains separate.',source:{contract:'9961976',line:46,quantity:2,contents:10,includedChild:47,rate1:115.14,rate2:104.03,rateType:'W'},amount:null});
+  if(i.ref==='T0109'&&(i.physicalNumbers||[]).includes('1281615'))holds.push({ref:i.ref,item:i.item,charge:'Forklift type / dates / branch to reconcile',reason:'Asset 1281615 is recorded on site as 2.5T Forklift STD, NVAC, arrived 28 September. New Baseplan 9987005 line 7 says rough-terrain, MEAD, 13–27 October at 185.40. Keep site facts; confirm the correct contract before replacing the current card estimate or adding hire.',source:{contract:'9987005',line:7,asset:'1281615',rate:185.4,from:'2026-10-13',to:'2026-10-27',branch:'MEAD'},amount:null});
+ }return holds;}
+ const api={price,pee,quantity,sourceRows,allocation,periods,reviewHolds,validate,hireKey,supplierFloor,cents};
  if(typeof module!=='undefined'&&module.exports)module.exports=api;if(root)root.Pricing1010=api;
 })(typeof window!=='undefined'?window:null);
 
@@ -72,8 +85,8 @@ if(typeof window!=='undefined'){
  function scope1010(){const a=assetOf('WC09'),l=a&&chargeLines(a).find(r=>r.item==='FWF');return a&&l?{quantity:qtyOf(l),cancelled:!!(a._cancelled||a.rest_of)}:null;}
  window.contractQuantity1010=r=>r&&String(r.rental_contract)==='9968955'&&Number(r.line)===102?Pricing1010.quantity(r,scope1010()):null;
  window.validatePeeRate1010=input=>Pricing1010.validate(input);
- window.contractAllocation1010=function(r){if(!r||String(r.rental_contract)!=='9968862'||![94,108,110].includes(Number(r.line)))return null;
-  const ref={94:'P46',108:'P67',110:'P65'}[r.line],a=assetOf(ref),l=a&&chargeLines(a).find(l=>l.item===r.register_type),current=a&&l?{quantity:qtyOf(l),arrived:receivedChargeQty1006(a,l),cancelled:!!(a._cancelled||a.rest_of),physicalNumbers:gcModel925(a).rows.filter(u=>u.physical&&u.item===l.item).map(u=>String(u.assetNo||''))}:null;
+ window.contractAllocation1010=function(r){if(!r||String(r.rental_contract)!=='9968862'||![108,110].includes(Number(r.line)))return null;
+  const ref={108:'P67',110:'P65'}[r.line],a=assetOf(ref),l=a&&chargeLines(a).find(l=>l.item===r.register_type),current=a&&l?{quantity:qtyOf(l),arrived:receivedChargeQty1006(a,l),cancelled:!!(a._cancelled||a.rest_of),physicalNumbers:gcModel925(a).rows.filter(u=>u.physical&&u.item===l.item).map(u=>String(u.assetNo||''))}:null;
   const source=r.allocationConfirmed1010?ONHIRE_ROWS.find(x=>String(x.rental_contract)===String(r.rental_contract)&&Number(x.line)===Number(r.line))||r:r;
   return Pricing1010.allocation(source,ONHIRE_ROWS,current);
  };
@@ -88,7 +101,8 @@ if(typeof window!=='undefined'){
  };
  ItemCharges979.project=function(ref,item,contracts,readCharge,workCard,costEvidence){const result=oldItemProject1010.apply(this,arguments);return {...result,lines:result.lines.map(l=>{const r=(contracts||[]).find(r=>String(r.rental_contract)===String(l.contract)&&Number(r.line)===Number(l.line)),allocation=r&&contractQuantity1010(r);return allocation?{...l,sourceQuantity1010:allocation.sourceQuantity,quantity:allocation.billableQuantity}:l;})};};
  const previousIdentity1010=ItemIdentity979.select;ItemIdentity979.select=function(ref,item,contracts,current){const selected=previousIdentity1010.apply(this,arguments);if(!['P65','P67'].includes(ref))return selected;for(const row of contracts||[]){const decision=contractAllocation1010(row);if(decision?.state!=='current-scope-confirmed'||decision.ref!==ref||decision.item!==item||selected.some(r=>String(r.rental_contract)===String(row.rental_contract)&&Number(r.line)===Number(row.line)))continue;selected.push({...row,asset_no:decision.currentAssetNumber,sourceAssetNumber1010:row.asset_no,match:{...row.match,key:ref},allocationConfirmed1010:true});}return selected;};
- if(typeof OnsiteComplete979!=='undefined'){const previous=OnsiteComplete979.project;OnsiteComplete979.project=function(items,transport){return previous(Pricing1010.periods(items,ONHIRE_ROWS),transport);};}
+ window.pricingReviewHolds1010=function(){return Pricing1010.reviewHolds(['GN?','T0109','AA','WC42','WC81'].flatMap(ref=>{const a=assetOf(ref);if(!a||a._cancelled||a.rest_of)return [];const current=gcModel925(a).rows;return chargeLines(a).map(l=>({ref,item:l.item,arrived:receivedChargeQty1006(a,l),physicalNumbers:current.filter(u=>u.physical&&u.item===l.item).map(u=>String(u.assetNo||'')),exactContract:ItemIdentity979.select(ref,l.item,ONHIRE_ROWS,current).length>0}));}));};
+ if(typeof OnsiteComplete979!=='undefined'){const previous=OnsiteComplete979.project;OnsiteComplete979.project=function(items,transport){const result=previous(Pricing1010.periods(items,ONHIRE_ROWS),transport);for(const hold of pricingReviewHolds1010()){const row=result.rows.find(r=>r.ref===hold.ref&&r.item===hold.item);if(!row||row.pending.includes(hold.charge))continue;row.pending.push(hold.charge);result.holds.push(hold);const branch=result.byBranch.find(b=>b.branch===row.branch);if(branch)branch.holds++;}if(result.holds.length){result.complete=false;result.total=null;}return result;};}
  window.peePrice1010=function(){
   const a=assetOf('WC09'),key='Toilets & amenities|Pee Panel',weeklyOverride=S.rates?.[key],typedMin=S.minDays?.[key];
   let min=oldCard1010('Toilets & amenities','Pee Panel','WC09')?.minimum_hire;

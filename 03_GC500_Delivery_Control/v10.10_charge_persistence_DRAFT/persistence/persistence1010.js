@@ -5,7 +5,7 @@
 (function(root){
 'use strict';
 const fieldSelector='input:not([type="file"]):not([type="hidden"]):not([type="button"]):not([type="submit"]),textarea,select';
-const stableAttributes=['data-ref','data-key','data-item','data-unit925-id','data-units925','data-charges952','data-f816','data-ldsec','data-sfold','data-dphunit','data-doc','data-source','data-day','data-iso','data-profile1006-item','data-photo935','data-r931-ref'];
+const stableAttributes=['data-ref','data-key','data-item','data-unit925-id','data-units925','data-charges952','data-f816','data-ldsec','data-sfold','data-dphunit','data-day','data-iso','data-profile1006-item','data-photo935','data-r931-ref'];
 const normal=s=>String(s||'').replace(/\$[\d,.]+/g,'$#').replace(/\b\d+(?:[.,]\d+)*\b/g,'#').replace(/\s+/g,' ').trim();
 function segment(el){
  if(el.id)return '#'+el.id;
@@ -41,6 +41,7 @@ function capture(scope,drafts){
  const fields=index(scope,fieldSelector),focus=active&&scope.contains(active)?key(active,scope):null;
  const held={scope,folds:index(scope,'details').map(([k,el])=>[k,el.open]),scroll:[],fields:[],files:[],focus,active,selection:null,main:scope.closest('main')};
  if(held.main){held.mainTop=held.main.scrollTop;held.mainLeft=held.main.scrollLeft;}
+ held.documentScroll=scope.ownerDocument.scrollingElement;if(held.documentScroll){held.documentTop=held.documentScroll.scrollTop;held.documentLeft=held.documentScroll.scrollLeft;}
  // Read only actual scrollers; an empty offset needs no layout measurement.
  for(const el of [scope,...scope.querySelectorAll('*')])if(el.scrollTop||el.scrollLeft)held.scroll.push({el,key:key(el,scope),top:el.scrollTop,left:el.scrollLeft});
  for(const [k,el] of fields){
@@ -65,20 +66,35 @@ function restore(scope,held,drafts){
  }
  if(held.main&&held.main.isConnected){held.main.scrollTop=held.mainTop;held.main.scrollLeft=held.mainLeft;}
  for(const pos of held.scroll){const el=pos.el.isConnected?pos.el:pos.el===held.scope?scope:[...scope.querySelectorAll('*')].find(el=>key(el,scope)===pos.key);if(el){el.scrollTop=pos.top;el.scrollLeft=pos.left;}}
+ if(held.documentScroll?.isConnected){held.documentScroll.scrollTop=held.documentTop;held.documentScroll.scrollLeft=held.documentLeft;}
+}
+function openSurfaces(excluded){
+ const nodes=[...document.querySelectorAll('dialog[open],.drawer.on,[role="dialog"][aria-modal="true"]')].filter(el=>!el.hidden&&el.getAttribute('aria-hidden')!=='true'&&(!el.matches('dialog')||el.open)&&!excluded.some(root=>root?.contains(el))&&el.getClientRects().length);
+ return nodes.filter(el=>!nodes.some(parent=>parent!==el&&parent.contains(el)));
 }
 let drawing=false;
 function background(fn,args,self){
  if(drawing)return fn.apply(self,args);
  const tab=state.tab,ref=state.sel,drawer=document.getElementById('drawer'),opened=!!drawer?.classList.contains('on');
- const pane=document.getElementById('pane-'+tab),page=capture(pane,true),item=opened?capture(drawer,true):null;
+ const pane=document.getElementById('pane-'+tab),page=capture(pane,true),item=opened?capture(drawer,true):null,other=openSurfaces([pane,opened?drawer:null]).map(el=>[el,capture(el,true)]);
  drawing=true;
  try{return fn.apply(self,args);}
  finally{
   drawing=false;
   if(state.tab===tab)restore(pane,page,true);
   if(opened&&state.sel===ref&&drawer.classList.contains('on'))restore(drawer,item,true);
+  if(state.tab===tab)for(const [el,held] of other)restore(el,held,true);
  }
 }
+// Native local Save redraws the page too. Keep its disclosures and reading position,
+// but never copy old form values back over the successfully saved record.
+const bumpBefore=bump;
+bump=function(){
+ const tab=state.tab,pane=document.getElementById('pane-'+tab),held=capture(pane,false),other=openSurfaces([pane]).map(el=>[el,capture(el,false)]);
+ try{return bumpBefore.apply(this,arguments);}
+ finally{if(state.tab===tab){restore(pane,held,false);for(const [el,view] of other)restore(el,view,false);}}
+};
+Object.assign(bump,bumpBefore);
 const idle=root.Idle1006;
 if(idle){for(const name of ['redraw','refreshDrawer']){const before=idle[name];idle[name]=function(){return background(before,arguments,this);};}}
 // Reports, file previews and local saved changes also refresh the same drawer.

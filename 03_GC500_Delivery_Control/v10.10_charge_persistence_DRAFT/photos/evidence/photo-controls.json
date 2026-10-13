@@ -1,0 +1,130 @@
+{
+  "author": "Andrew Fisher",
+  "pass": true,
+  "checks": [
+    {
+      "name": "Explicit location token contains reference and FWF only",
+      "pass": true
+    },
+    {
+      "name": "Malformed, wrong item and wrong reference tokens fail",
+      "pass": true
+    },
+    {
+      "name": "Whole FWF quantity is four, not two identified numbers or six pee panels",
+      "pass": true
+    },
+    {
+      "name": "Pee Panel and other toilet types do not become FWF",
+      "pass": true
+    },
+    {
+      "name": "Physical FWF rows remain in the model",
+      "pass": true
+    },
+    {
+      "name": "Gallery aggregates FWF unit aliases and group photos once",
+      "pass": true
+    },
+    {
+      "name": "Pee-panel and unassigned-location photos stay separate",
+      "pass": true
+    },
+    {
+      "name": "Aggregation preserves every original photo field and association",
+      "pass": true
+    },
+    {
+      "name": "Duplicated identity matches show each photo once",
+      "pass": true
+    },
+    {
+      "name": "Ambiguous asset number is not borrowed",
+      "pass": true
+    },
+    {
+      "name": "New group slots do not replace same-numbered legacy-unit slots",
+      "pass": true
+    },
+    {
+      "name": "Queued group photo reserves its own slot",
+      "pass": true
+    },
+    {
+      "name": "Other-unit queued photo does not reserve the group slot",
+      "pass": true
+    },
+    {
+      "name": "Fresh group upload passes current scope guard",
+      "pass": true
+    },
+    {
+      "name": "Occupied group slot is rejected",
+      "pass": true
+    },
+    {
+      "name": "Negative, fractional and overflow slots fail",
+      "pass": true
+    },
+    {
+      "name": "Quantity changes invalidate an already-open upload chooser",
+      "pass": true
+    },
+    {
+      "name": "Owner changes invalidate the chooser without altering photos",
+      "pass": true
+    },
+    {
+      "name": "Cancelled and moved references reject upload",
+      "pass": true
+    },
+    {
+      "name": "Exact legacy FWF replacement retains original unit association",
+      "pass": true
+    },
+    {
+      "name": "A different item photo cannot be replaced via the FWF gallery",
+      "pass": true
+    },
+    {
+      "name": "Changing the replacement unit or slot rejects it",
+      "pass": true
+    },
+    {
+      "name": "FWF gallery shows a single Add photo control",
+      "pass": true
+    },
+    {
+      "name": "Gallery retains legacy captions and remove-link identities",
+      "pass": true
+    },
+    {
+      "name": "Read-only gallery has no add, replace or remove control",
+      "pass": true
+    },
+    {
+      "name": "Full shared group still preserves additional legacy photos",
+      "pass": true
+    },
+    {
+      "name": "Missing quantity stays unknown, never asset count",
+      "pass": true
+    },
+    {
+      "name": "Existing history FWF photos remain in the aggregate",
+      "pass": true
+    },
+    {
+      "name": "Absent or duplicate FWF group does not hide individual photos",
+      "pass": true
+    },
+    {
+      "name": "FWF without identified numbers still has one full-quantity photo area",
+      "pass": true
+    },
+    {
+      "name": "Mixed quantity-only pee panels do not enter the FWF photo area",
+      "pass": true
+    }
+  ]
+}

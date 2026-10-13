@@ -15,7 +15,7 @@
       "pass": true
     },
     {
-      "name": "WC09 mixed6pee4FWF neverbecomes10identicalunits",
+      "name": "WC09 keeps four FWF, six pee panels and two toilet blocks separate",
       "pass": true
     },
     {
@@ -108,6 +108,38 @@
     },
     {
       "name": "Quantity failure returns unknown without throwing away physical status",
+      "pass": true
+    },
+    {
+      "name": "Known single-item map reference gets bracketed quantity",
+      "pass": true
+    },
+    {
+      "name": "Mixed reference brackets retain each quantity without adding unlike items",
+      "pass": true
+    },
+    {
+      "name": "Unknown quantity omits brackets",
+      "pass": true
+    },
+    {
+      "name": "Partly unknown mixed quantity omits the bracket rather than a partial total",
+      "pass": true
+    },
+    {
+      "name": "Unavailable quantities omit brackets",
+      "pass": true
+    },
+    {
+      "name": "Bracket quantity does not imply complete status",
+      "pass": true
+    },
+    {
+      "name": "Long mixed labels truncate whole quantity terms, preserving the full model",
+      "pass": true
+    },
+    {
+      "name": "Label hit targets cover the complete drawn box and preserve topmost priority",
       "pass": true
     }
   ]

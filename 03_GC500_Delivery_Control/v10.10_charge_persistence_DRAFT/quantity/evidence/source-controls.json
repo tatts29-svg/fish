@@ -35,6 +35,22 @@
       "pass": true
     },
     {
+      "name": "Bracketed reference text determines canvas width",
+      "pass": true
+    },
+    {
+      "name": "Known quantities are read for unselected labels",
+      "pass": true
+    },
+    {
+      "name": "Drawn label rectangles receive taps after native marker checks",
+      "pass": true
+    },
+    {
+      "name": "Stale label hit bounds cleared on every paint",
+      "pass": true
+    },
+    {
       "name": "Quantity disclosure stays as the user left it during refresh",
       "pass": true
     },
