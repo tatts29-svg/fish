@@ -1,5 +1,9 @@
 <!-- Author: Andrew Fisher -->
 
+AUTHORISED RECORD UPDATE IN PROGRESS — 14 Oct 2026. Andrew confirms today’s Event Portables delivery at WC57, assets0008 and0915, and asks both marked complete. Root owns duplicate check, backup, native page setters, exact document write gate and fresh readback; operational projection review delegated read-only. Preserve leading zeros, Event Portables ownership, quantity2 and the actual14Oct arrival. No other deliveries, rates, stairs or pickup completion to be invented. v10.12 unchanged.
+
+<!-- Author: Andrew Fisher -->
+
 AUDIT COMPLETE — Today so far, 14 Oct 2026. Operational/financial cut-off 09:12 AEST, phone checks 09:15; native5874 versus06:12/native5814, exact v10.12cde0 unchanged. Four buildings P25/P65/P66/P67 newly recorded onsite; applicable work/transport selections follow receipts. Today’s proposed24-FWF load matches Build; no new FWF receipt today. Remaining allocated24/24/24/4 plus six without destinations. No active EP identity duplicates. Important: P66 drawer/central source valuation selects two hire lines for one received building while arrived summary correctly caps one; P65 retains a stale forecast placeholder. Four physical Steps ticks have priced Stairs zero; review manual quantities.52 existing rate/allocation holds across32groups remain (excluded damage waiver not to be added); Eric/Kyle hours unentered. Latest manual availability four names preserved.46 operational,27 financial,68 generator plus totals,25 phone controls pass; financial sign-off remains OPEN because source allocations and missing inputs are unresolved. Private two-tab workbook Existing30 / Needs fixing39 delivered; independent review corrected T0109 arrival wording. No operational writes, imports, pricing changes or release. Handover/evidence: audit_14Oct2026_morning. Root combined scoped independent operational, financial, generator and UI reviews.
 
 <!-- Author: Andrew Fisher -->
