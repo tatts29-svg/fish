@@ -1,5 +1,9 @@
 <!-- Author: Andrew Fisher -->
 
+IMPLEMENTED — v10.06 final source frozen. Exact candidate fc7995c79cd5df18c47de4f2c05f1499382ba0313ae8b27dd23d783606a59068; 15,031,668bytes,94scripts. Search both directions opens the same record; shared quantities, arrival/charging dates and branch context; native save feedback; supplied-field contrast; idle draft retention; shared receipt/run projection; applicable arrived charges plus transport actual/forecast; manual stairs; Kyle roster and missing-hours completeness. Original card standby/daily boundaries preserved. GN20 transport stays editablePOA as Andrew instructed. New BOQ13October read/compared only: Andrew says not to add waiver, wants existing-card differences explained. NoBOQprices imported. Final combined checks running, no native writes yet, not ready. Root integration and scoped reviews; source/evidence v10.06_units_runs_charges_DRAFT.
+
+<!-- Author: Andrew Fisher -->
+
 IN PROGRESS — v10.06 scoped implementations and native practice checks pass; combined financial/mobile gates pending. Identity forms consolidated with duplicate prevention, reversible removal and shared-save acknowledgement; background refresh retains drafts. Supplier and Build share actual receipts and remaining daily plan. On-site applicable charges auto-include install/level/clean/demob; stairs manual, including partial quantities; Transport Revenue actual/forecast split under final reconciliation. Kyle returning 12 Oct and race-night roster prepared through native records, unknown hours left blank. Standdown independently checked against original card: delivery–22 Oct standby,23–25 Oct daily,26 Oct onward zero. Two exact ownership duplicates identified; one distinct extra WC69 number needs user identity clarification and will not be deleted as a duplicate. No live record changes yet. Root integration/publication; scoped implementations and independent financial/runner checks. Not ready.
 
 <!-- Author: Andrew Fisher -->
