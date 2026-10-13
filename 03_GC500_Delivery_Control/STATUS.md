@@ -1,6 +1,6 @@
 <!-- Author: Andrew Fisher -->
 
-AUTHORISED RECORD MOVE IN PROGRESS — 14 Oct 2026. Andrew asks the current P46 fridge to move into P54. Root owns backup, native contents controls, duplicate/charge checks, guarded shared update and fresh readback. Current native5987 identifies fridge1328957, qty1, with no P54 fridge; building identities, dates, photos and rates stay intact. Scoped read-only operational/pricing reviews assigned. No whole-reference move.
+AUTHORISED RECORD UPDATE IN PROGRESS — 14 Oct 2026. Andrew asks current P46 fridge1328957 to move into P54, replacement1272751 at P46, T0265 four fridges1318501/1260164/1283996/1311992 arrived and complete14Oct, and T0266 subhired refrigerated container920584 arrived13Oct complete. Root owns backups, native controls, exact document gates and fresh readback; independent read-only operations/pricing reviews. Baseline5987; no whole-building move, no invented supplier/rate or duplicated units. T0266 supplier being checked against Baseplan(2), and historical arrival must retain actual13Oct separately from entry date. Exact v10.12cde0 unchanged.
 
 <!-- Author: Andrew Fisher -->
 
