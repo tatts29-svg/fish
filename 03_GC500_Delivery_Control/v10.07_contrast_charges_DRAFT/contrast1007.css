@@ -1,0 +1,173 @@
+/* Author: Andrew Fisher. The operational document has an approved mixed palette:
+   light paper panels and explicitly dark race cards. OS dark mode must not flip
+   inherited ink while leaving those fixed paper faces white. Local card palettes
+   still override these inherited defaults, including native form colour-scheme. */
+@media screen {
+  body {
+    --ink:#14181d;--ink2:#2f3841;--slate:#4a5560;--mute:#4b535b;
+    --paper:#fff;--tint:#f8f6f4;--tint2:#fcfbfa;
+    --rule:#e4e0dc;--rule2:#f1eeec;
+    --orange:#ff6a13;--orange-lt:#ff9a4d;--orange-ink:#9a3f0a;--orange-soft:#fdf0e6;
+    --navy:#4a3426;--navy-soft:#f4efe9;
+    --red:#b3261e;--red-soft:#fdeeed;--amber:#8a5a00;--amber-soft:#fdf5e3;
+    --green:#1f6b3a;--green-soft:#eaf4ee;
+    --sem-good-ink:#166534;--sem-good-bg:#dcfce7;--sem-good-edge:#86ce9f;
+    --sem-gap-ink:#854d0e;--sem-gap-bg:#fef3c7;--sem-gap-edge:#dcb463;
+    --sem-stop-ink:#991b1b;--sem-stop-bg:#fee2e2;--sem-stop-edge:#dd9c9c;
+    --sem-plan-ink:#1e40af;--sem-plan-bg:#dbeafe;--sem-plan-edge:#93aee0;
+    --sem-change-ink:#6b21a8;--sem-change-bg:#f3e8ff;--sem-change-edge:#c09ce0;
+    --sem-none-ink:#475569;--sem-none-bg:#f1f5f9;--sem-none-edge:#b8c2cd;
+    color-scheme:light;
+  }
+  .chip.ref {color:var(--navy)}
+  .chip.act {color:var(--orange-ink)}
+}
+
+/* Author: Andrew Fisher.
+   Existing dark operational surfaces must own the whole palette: a light ink
+   token cannot inherit the page's white table, button and input backgrounds.
+   Screen-only; the established paper/PDF presentation keeps its own palette. */
+@media screen {
+  #pane-timeline :is(.staff988,.bc984-more),
+  #pane-timeline details.flow909 > .flow891,
+  #pane-today.today876 > .acts793,
+  :is(#pane-today,#pane-demob) > .staff988 {
+    --ink:#edf3f6;
+    --ink2:#d5e1e6;
+    --slate:#bdd0d9;
+    --mute:#bdd0d9;
+    --paper:#152832;
+    --tint:#1d3541;
+    --tint2:#203b48;
+    --rule:#617f8d;
+    --rule2:#395361;
+    --orange-ink:#ffb27a;
+    --orange-soft:#49311f;
+    --red:#ffa692;
+    --red-soft:#492b2b;
+    --amber:#ffd192;
+    --amber-soft:#433524;
+    --green:#a9f5c4;
+    --green-soft:#203d31;
+    color-scheme:dark;
+  }
+  #pane-plant.refresh-equipment .eqhead {
+    --paper:#232a2e;
+    --tint:#293239;
+    --tint2:#303d45;
+    --ink:#f4f7f8;
+    --ink2:#d5e1e6;
+    --slate:#c8d0d4;
+    --mute:#c8d0d4;
+    --rule:#75858e;
+    --rule2:#4a5c65;
+    color-scheme:dark;
+  }
+  /* Keep native controls legible in default, focused, disabled and autofill
+     states. Explicit text-fill avoids WebKit keeping the former white ink. */
+  :is(#pane-timeline :is(.staff988,.bc984-more),#pane-timeline details.flow909 > .flow891,#pane-today.today876 > .acts793,:is(#pane-today,#pane-demob) > .staff988,#pane-plant.refresh-equipment .eqhead)
+  :is(input:not([type=checkbox]):not([type=radio]):not([type=range]):not([type=color]),select,textarea) {
+    background-color:var(--paper);
+    color:var(--ink);
+    -webkit-text-fill-color:var(--ink);
+    border-color:var(--rule);
+    color-scheme:dark;
+  }
+  :is(#pane-timeline :is(.staff988,.bc984-more),#pane-timeline details.flow909 > .flow891,#pane-today.today876 > .acts793,:is(#pane-today,#pane-demob) > .staff988,#pane-plant.refresh-equipment .eqhead)
+  :is(input,textarea)::placeholder {
+    color:var(--mute);
+    -webkit-text-fill-color:var(--mute);
+    opacity:1;
+  }
+  :is(#pane-timeline :is(.staff988,.bc984-more),#pane-timeline details.flow909 > .flow891,#pane-today.today876 > .acts793,:is(#pane-today,#pane-demob) > .staff988,#pane-plant.refresh-equipment .eqhead)
+  select option {
+    background:var(--paper);
+    color:var(--ink);
+    -webkit-text-fill-color:var(--ink);
+  }
+  #pane-timeline details.flow909 > .flow891 .btn:not(.primary):not(.amber):not(.danger) {
+    background:var(--tint2);
+    color:var(--ink);
+    -webkit-text-fill-color:var(--ink);
+    border-color:var(--rule);
+  }
+  /* The dark surfaces use orange-ink for text. It must not also become a
+     pale orange primary-button background underneath a white label. */
+  :is(#pane-timeline :is(.staff988,.bc984-more),#pane-timeline details.flow909 > .flow891,#pane-today.today876 > .acts793,:is(#pane-today,#pane-demob) > .staff988,#pane-plant.refresh-equipment .eqhead)
+  .btn.primary {
+    background:linear-gradient(180deg,#ae480d,#853208);
+    color:#fff;
+    -webkit-text-fill-color:currentColor;
+    border-color:#ef985c;
+  }
+}
+
+@media screen {
+  /* Shared form hints had fallen back to browser grey, below readable contrast
+     on both cream fields and the dark fencing calculator. */
+  input::placeholder,textarea::placeholder {
+    color:var(--mute,#5d6670);
+    -webkit-text-fill-color:var(--mute,#5d6670);
+    opacity:1;
+  }
+  #gc500-work-board840 .fc849-components .fc849-inputs :is(input,select) {
+    -webkit-text-fill-color:#eff8f6;
+    color-scheme:dark;
+  }
+  #gc500-work-board840 .fc849-components .fc849-inputs input::placeholder {
+    color:#bed0d8;
+    -webkit-text-fill-color:#bed0d8;
+    opacity:1;
+  }
+  /* Keep the orange action/label styling, with ink selected for its actual
+     surface. Bright decorative orange is not small-text ink on white. */
+  .btn.primary {
+    background:linear-gradient(180deg,#ae480d,#853208);
+    color:#fff;
+    -webkit-text-fill-color:currentColor;
+    border-color:#a34611;
+  }
+  .btn.primary .navpinned {opacity:1;background:rgba(0,0,0,.18)}
+  .supplier996-facts span b,
+  #drawer details.dsect.f816 > summary > .ft816,
+  #drawer .notice.subhirebanner .subhirebig,
+  #drawer .r931-product a:not(.btn),
+  #drawer .dphslot .dphdrone {color:var(--orange-ink,#9d420a)}
+  .tg782 .tg-w .ln87-tag.tg-ok {color:#175f35}
+  .nomark,.nomark b {color:#b42318}
+  .cwph .cwpk,#drawer .dphpic .dphl {color:#211208}
+  #drawer .dcref .dcrf {opacity:1;color:#1b1207}
+  /* Opaque backing under the existing decorative gradients. The textures,
+     layout and dark race-card appearance remain unchanged. */
+  .dplate,.ep819 .ep819-list .ldl {background-color:#121517}
+}
+
+@media screen {
+  #pane-timeline .ld.tl846.lc991 .lc991-actions > .ld-nav,
+  #pane-timeline .ld.tl846.lc991 .lc991-actions > .ld-nav .ld-nav-t b {
+    color:#201309;
+    -webkit-text-fill-color:#201309;
+  }
+}
+
+@media screen {
+  /* These actions sit on the paired document surface. Their older OS-dark
+     overrides selected decorative orange even when the card stayed white. */
+  .linkish,.hubgo,.lbk,.lbref {color:var(--orange-ink,#9a3f0a)}
+}
+
+@media screen {
+  /* A shared-view field is still a displayed value. Retain native disabled
+     behaviour and the not-allowed cursor without fading its contents away. */
+  body.viewonly :is(main,#drawer) :is(input,select,textarea):disabled {
+    opacity:1;
+    -webkit-text-fill-color:currentColor;
+  }
+  body :is(main,#drawer) .btn:disabled {
+    opacity:1;
+    cursor:not-allowed;
+    border-style:dashed;
+    box-shadow:none;
+  }
+  body .supplier996-stop small {opacity:1}
+}
