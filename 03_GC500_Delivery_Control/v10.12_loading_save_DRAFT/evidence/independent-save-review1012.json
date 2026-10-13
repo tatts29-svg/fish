@@ -42,7 +42,7 @@
   "acknowledgement_rule": "Nonempty accepted expected documents must match current values and exact shared acknowledgements, with no corresponding queued or inflight write. Null deletion queue entries remain pending. Partial acknowledgements and failed persistence cannot say shared saved.",
   "coverage": "Reviewed selection_save/COVERAGE.md against native handlers. Shared record controls are separate from existing explicit forms, view/navigation selections, uploads and device-only Demob assumptions.",
   "financial_scope": "No charge calculation, rate, branch allocation, quantity or native record edits performed by this reviewer. Adapter observes native setters and flushes existing state; parent validates final financial model parity.",
-  "remaining": "No source or isolated lifecycle blocker found at final ffd5ef64. Final native main-pane bottom Save/background position evidence pending; parent owns combined navigation/mobile/financial and publication gates.",
+  "remaining": "No source or scoped lifecycle blocker found at final ffd5ef64. Parent owns final combined candidate navigation/mobile/financial and publication gates.",
   "css_review": "Scoped styles provide explicit paired foreground/background colours for neutral, pending, error and shared states; wrapping controls and print exclusion do not alter record behaviour.",
   "previous_review": {
     "selection_js_sha256": "d6ce95174fade300f19ab02705adfd8405eb547d6b525f06374075733d346cf3",
@@ -63,14 +63,14 @@
   },
   "implementation_evidence_reviewed": {
     "path": "selection_save/evidence/native-save-coverage.json",
-    "source_sha256": "c315d89b27025acd45c910584aa173018a04354f734d3b8dd6305284e093bf46",
-    "native_page_checks": 35,
+    "source_sha256": "ffd5ef64a384f58882c05007914399af32a5858df17fd623a460743845b140c7",
+    "native_page_checks": 37,
     "result": "PASS",
     "native_writes": 0,
     "runtime_errors": []
   },
   "timing_follow_up_review": {
-    "result": "PASS \u2014 source order and isolated lifecycle; final native main-pane position evidence pending",
+    "result": "PASS \u2014 source order, isolated lifecycle and reviewed native position evidence",
     "source_sha256": "ffd5ef64a384f58882c05007914399af32a5858df17fd623a460743845b140c7",
     "delta": [
       "Render mounts all generic controls synchronously before outer native bump/Idle persistence restores page position.",
@@ -84,6 +84,24 @@
     "errors": 0,
     "operational_writes": 0,
     "independent_fixture": "/workspace/private-selection1012-independent-timing-final/fixture-desktop.json",
-    "native_drawer_evidence": "Parent reports phone 36/36 and scroll 4511 to 4511 at preceding drawer-only timing hash fd39e36d; final main-pane evidence pending."
+    "native_drawer_evidence": "Parent reports phone 36/36 and scroll 4511 to 4511 at preceding drawer-only timing hash fd39e36d; final main-pane evidence pending.",
+    "native_main_evidence": {
+      "source_sha256": "ffd5ef64a384f58882c05007914399af32a5858df17fd623a460743845b140c7",
+      "checks": 37,
+      "writes": 0,
+      "errors": 0,
+      "main_scroll_before_after": [
+        1246,
+        1246
+      ],
+      "field_y_before_after": [
+        521.625,
+        521.625
+      ],
+      "operations": [
+        "explicit Save",
+        "background refresh"
+      ]
+    }
   }
 }

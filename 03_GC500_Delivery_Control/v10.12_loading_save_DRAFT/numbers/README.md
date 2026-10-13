@@ -3,7 +3,7 @@
 Author: Andrew Fisher
 
 Base: exact v10.11 live page SHA-256 `a37381b49fec5317fb9b354b7eee2e314f3c6e15215449314e9f1a14c9303557`.
-State: scoped patches tested; the root release composes and verifies the final candidate before publication.
+State: final combined candidate `cde0aae30d5e528e85c2b16189bf0c0828397b87a7b3d10c1695362b19a58105` passes the numerical and percentage checks; publication remains the root release gate.
 
 `patch_inventory1012.py` adds the missing single-item path to the existing typed inventory ownership projection. WC70 and WC72 each have a verified Event Portables FWF identity, but the old Inventory counted each as unidentified because it only reconciled mixed-item locations or VMS. The correction retains the existing receipt, complete identity coverage, duplicate-number and reference guards. It changes ownership counts only; quantities, physical status, photos and native records remain unchanged.
 
@@ -14,7 +14,7 @@ Validation:
 - 99 precision checks execute original and patched source, reproduce the earlier false completion, and verify all 103 inline scripts parse. Independently reviewed and rerun.
 - 19 inventory identity tests verify supplier/Coates ownership, mixed items, partial receipts, unknown scope, duplicates, reference mismatches and idempotent aggregation.
 - 21 pure quantity/receipt/collection tests verify typed Demob subtraction, duplicate collection rejection, reference/load denominators, unknown and future states.
-- 29 blocked-write browser checks on the quantity and inventory candidate reconcile 182 typed quantity groups and 108 fully identified on-site ownership groups. In-memory quantity, receipt, completion and collection changes propagate through Today, Build, map status/quantity, Inventory and supplier runs. Every fixture restores the exact shared record. Zero browser errors or attempted operational writes.
+- 29 blocked-write browser checks on the final combined candidate reconcile 182 typed quantity groups and 108 fully identified on-site ownership groups. In-memory quantity, receipt, completion and collection changes propagate through Today, Build, map status/quantity, Inventory and supplier runs. Every fixture restores the exact shared record. Another 30 browser checks validate composed progress formulas and rendered percentages. Zero browser errors or attempted operational writes.
 
 The checks distinguish receipt from physical completion and physical collection. A delivered item can satisfy Build delivery counts while its installation remains incomplete. A two-unit pickup reduces current stock by two and cannot close a six-unit Demob scope. Metres and unit counts are never added to calculate the seven-category index.
 

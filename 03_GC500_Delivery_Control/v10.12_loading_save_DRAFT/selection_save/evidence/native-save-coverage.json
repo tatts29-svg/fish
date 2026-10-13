@@ -36,6 +36,58 @@
       "ok": true
     },
     {
+      "name": "Workforce bottom Save preserves legal reading position",
+      "ok": true,
+      "detail": {
+        "before": {
+          "scrollers": [
+            {
+              "id": "MAIN",
+              "top": 1246,
+              "max": 1867
+            }
+          ],
+          "y": 521.625
+        },
+        "after": {
+          "scrollers": [
+            {
+              "id": "MAIN",
+              "top": 1246,
+              "max": 1867
+            }
+          ],
+          "y": 521.625
+        }
+      }
+    },
+    {
+      "name": "Workforce background refresh preserves legal reading position",
+      "ok": true,
+      "detail": {
+        "before": {
+          "scrollers": [
+            {
+              "id": "MAIN",
+              "top": 1246,
+              "max": 1867
+            }
+          ],
+          "y": 521.625
+        },
+        "after": {
+          "scrollers": [
+            {
+              "id": "MAIN",
+              "top": 1246,
+              "max": 1867
+            }
+          ],
+          "y": 521.625
+        }
+      }
+    },
+    {
       "name": "fencing supplier rates native field exists",
       "ok": true
     },
@@ -146,6 +198,5 @@
   ],
   "runtime_errors": [],
   "native_writes": 0,
-  "intercepted_native_calls": 1,
-  "position_verification": "Internal scroller regression queued; window-level checks were removed as non-meaningful."
+  "intercepted_native_calls": 1
 }
