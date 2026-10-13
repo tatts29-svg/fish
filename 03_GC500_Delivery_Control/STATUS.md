@@ -1,5 +1,9 @@
 <!-- Author: Andrew Fisher -->
 
+SCOPE UPDATE — v10.12 remains DRAFT. Andrew broadens the request: Save buttons at record selections throughout the app, clear control text everywhere, and audit that quantities/rates/status changes propagate to totals and percentages across views without duplicates. Root coordinates shared autosave confirmation adapter, explicit loading/lifting drafts, global control contrast and focused number/percentage propagation review. Preserve specialised Save forms and native setters; no new operational writes or invented values. Publication follows combined evidence; source/card gaps remain distinct from arithmetic correctness.
+
+<!-- Author: Andrew Fisher -->
+
 CLAIMED — v10.12 loading-side Save and readable Clear controls. Andrew screenshot21657 shows a door-side radio selection without an explicit Save and white-on-white Clear. Root owns integration, read-only phone/desktop checks and publication; scoped implementation and independent Save review. Preserve native loading records, shared driver/run-sheet outputs, open sections and reading position. Add clear draft/Save/shared-acknowledgement feedback and scoped contrast, no rate/source changes. Exact live basea37381b49fec5317fb9b354b7eee2e314f3c6e15215449314e9f1a14c9303557. Not ready.
 
 <!-- Author: Andrew Fisher -->
