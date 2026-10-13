@@ -44,7 +44,20 @@ def apply(page):
          "${moreInfo('presentation1010|inventory-help', `<div class=\"hint\">" +
          INVENTORY.split('Press any number to see which locations are behind it. ', 1)[1] + "`)}",
          'Inventory count basis')
-    return page
+    return apply_delivery_note(page)
+
+
+def apply_delivery_note(page):
+    """The field already has a label; do not repeat its note or heading for editors."""
+    old = """if (d.note || ed) { const h = document.createElement('div'); h.className = 'sect'; h.textContent = 'Delivery note'; hist.appendChild(h);
+            if (d.note) { const p = document.createElement('p'); p.className = 'note816 vo816'; p.textContent = d.note; hist.appendChild(p); }
+            if (dnote) { const w = document.createElement('div'); w.className = 'form editonly'; w.appendChild(dnote); hist.appendChild(w); } }"""
+    new = """if (d.note || ed) {
+            const deliveryNoteEditor1010 = ed && dnote;
+            if (!deliveryNoteEditor1010) { const h = document.createElement('div'); h.className = 'sect'; h.textContent = 'Delivery note'; hist.appendChild(h);
+                if (d.note) { const p = document.createElement('p'); p.className = 'note816 vo816'; p.textContent = d.note; hist.appendChild(p); } }
+            if (dnote) { const w = document.createElement('div'); w.className = 'form editonly'; w.appendChild(dnote); hist.appendChild(w); } }"""
+    return rep(page, old, new, 'One visible delivery note', 'v10.10 presentation')
 
 
 if __name__ == '__main__':

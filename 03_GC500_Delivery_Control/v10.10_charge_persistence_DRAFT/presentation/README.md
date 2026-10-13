@@ -18,3 +18,5 @@ Static review also checked Demob, Costs/P&L and staff: existing disclosures alre
 Run `node check_presentation1010.cjs CANDIDATE.html BASE.html`. It parses all inline scripts, compares untouched model/critical action sections, and checks changing unknown-window counts, stale-warning removal and disclosure-state retention using isolated render fixtures. Root owns the final browser/navigation check.
 
 Browser acceptance: each of the six help blocks opens by keyboard/tap, contains its retained text once and remains open after redraw. Confirm live quantity/curfew/pricing notices remain visible and staff is shown only once per Build/Demob day. No native writes are needed.
+
+The separately requested delivery-note correction also removes its duplicate heading/read-only value when the existing editable field is present. View mode retains the readable note, and a missing editor falls back to readable text. The original field and its handlers are retained. `check_delivery_note1010.cjs` passed 24 checks on the isolated candidate: phone/desktop × view/edit, redraw retention, empty-note/missing-field cases, 102 scripts parsed, zero page errors and no native writes.
