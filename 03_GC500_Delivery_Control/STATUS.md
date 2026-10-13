@@ -1,5 +1,9 @@
 <!-- Author: Andrew Fisher -->
 
+READY TO UPLOAD — v10.06 implementation5507f14f. Exact base65bba5cb7477816d587cb72025ff256f2eb8c2dbc65eb4087dccc5ad49f4622a; finalcandidatefc7995c79cd5df18c47de4f2c05f1499382ba0313ae8b27dd23d783606a59068,15,031,668bytes,94scripts. All14focused final suites pass including identity/search, phone/desktop idle, contrast, charges, transport/native editor,103standdownchecks, sharedruns and bothnativepractice plans. Both22-route/seven-deeplink/Back desktop/phone sweeps pass, zero errors/console. SixA4portraitPDFs/86QRs/980checks pass. Wrong-base/repeatguards, exactscrubbedrebuild, phone/PDFvisuals anduploaddryrun pass. Nooperationalwritesyet. Rootreview/publication plus scopedfinance/date/native-runner/navigation reviews. EditablePOAtransport, missinghours anddistinctWC69extra0689 remainexplicit. BOQrates andwaiver notimported. Guardedpublication thenfreshbacked-upnativecorrections andactual-publicreadback.
+
+<!-- Author: Andrew Fisher -->
+
 IMPLEMENTED — v10.06 final source frozen. Exact candidate fc7995c79cd5df18c47de4f2c05f1499382ba0313ae8b27dd23d783606a59068; 15,031,668bytes,94scripts. Search both directions opens the same record; shared quantities, arrival/charging dates and branch context; native save feedback; supplied-field contrast; idle draft retention; shared receipt/run projection; applicable arrived charges plus transport actual/forecast; manual stairs; Kyle roster and missing-hours completeness. Original card standby/daily boundaries preserved. GN20 transport stays editablePOA as Andrew instructed. New BOQ13October read/compared only: Andrew says not to add waiver, wants existing-card differences explained. NoBOQprices imported. Final combined checks running, no native writes yet, not ready. Root integration and scoped reviews; source/evidence v10.06_units_runs_charges_DRAFT.
 
 <!-- Author: Andrew Fisher -->

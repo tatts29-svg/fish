@@ -2,7 +2,7 @@
 
 Author: Andrew Fisher
 
-Implementation frozen; final integrated release checks in progress. Not live.
+READY TO UPLOAD. Implementation5507f14f; final integrated checks pass. Not yet live.
 
 Base v10.05 SHA256 `65bba5cb7477816d587cb72025ff256f2eb8c2dbc65eb4087dccc5ad49f4622a`. Final candidate `fc7995c79cd5df18c47de4f2c05f1499382ba0313ae8b27dd23d783606a59068`,15,031,668bytes,94inline scripts.
 
@@ -18,4 +18,4 @@ Kyle’s authorised return from12October and race-night roster use native record
 
 Operational corrections are separate from the release: two confirmed ownership duplicates,10confirmed Event Portables receipt references and Kyle’s authorised roster changes. They require fresh private backups, named native actions, exact payload gates and full fresh readback. WC69’s distinct extra0689 remains a review item; it is not removed as a duplicate.
 
-Source, pure checks and scoped read-only browser checks are complete. Final candidate desktop/phone financial, identity, save, run/PDF, navigation and native-practice checks are running. Root owns integration/publication with scoped implementation and independent financial/date/runner reviews. Detailed snapshots, originals and phone images stay outside Git.
+Source, pure checks and scoped read-only browser checks are complete. All14focused final suites, both22-route/seven-deeplink/Back sweeps and980PDF/QRchecks pass. Source guards, exact scrubbed rebuild, upload dry run and phone/PDF visuals pass. Root owns integration/publication with scoped implementation and independent financial/date/runner reviews. Detailed snapshots, originals and phone images stay outside Git.
