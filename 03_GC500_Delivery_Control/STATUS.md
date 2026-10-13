@@ -1,5 +1,7 @@
 <!-- Author: Andrew Fisher -->
 
+QUANTITY RULE — Andrew, this chat14Oct2026: “If no qty and you have a description that is qty 1 ... if there is another description that will be qty 1 ... if there is a description that has qty 3 in it. Means qty is 3 ... you dont need to flag it or say its a issue.” v10.12 now applies this rule through shared quantity readers: retain entered quantities, read explicitly stated description quantities, otherwise one per separate described item. Ratings, dimensions, reference numbers and asset numbers are not description quantities. Confirmed received/installed records retain their separate actual quantities. The proposed missing-quantity Inventory warning work is superseded and will not be published. Root integrates the shared-rule patch and tests its cross-view and financial impact before release.
+
 SCOPE UPDATE — v10.12 remains DRAFT. Andrew broadens the request: Save buttons at record selections throughout the app, clear control text everywhere, and audit that quantities/rates/status changes propagate to totals and percentages across views without duplicates. Root coordinates shared autosave confirmation adapter, explicit loading/lifting drafts, global control contrast and focused number/percentage propagation review. Preserve specialised Save forms and native setters; no new operational writes or invented values. Publication follows combined evidence; source/card gaps remain distinct from arithmetic correctness.
 
 <!-- Author: Andrew Fisher -->
