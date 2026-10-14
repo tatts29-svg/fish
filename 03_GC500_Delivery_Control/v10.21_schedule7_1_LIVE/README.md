@@ -1,3 +1,5 @@
+> VERIFIED LIVE — 15 Oct 2026 02:34 AEST as part of reviewed combinedv10.21 page06d6e6b0 and machineeb8a01ff. See `../release_review1021/README.md` for final fixes, checks and source limitations. This declaration covers the app only; native P/O checks and pre-start PDF uploads were not applied. Author: Andrew Fisher.
+
 # v10.21 — Schedule 7.1 and the 15 Oct iEDM programme issue, recorded (DRAFT)
 
 Author: Andrew Fisher · 15 Oct 2026

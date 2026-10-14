@@ -2,7 +2,7 @@
 
 Author: Andrew Fisher · 15 Oct 2026
 
-**State: READY TO UPLOAD. Final page, map, navigation and financial checks passed; publication and actual-public verification remain with the release lead.** `STATUS.md` remains the shared ownership and release board.
+**State: VERIFIED LIVE. Page published 15 Oct 2026 02:34 AEST; paired six-file map publication and actual-public32-check phone verification passed. Claude owns all subsequent building and record operations.** `STATUS.md` remains the shared ownership and release board.
 
 Andrew asked Codex to touch base with Claude and make his completed work live. Claude's exact ready implementation is commit `3be8e2b8`, carried in source checkout `501656cc` with the separate pre-start preparation. The publication checkout is `codex/gc500-claude-release-15oct`; its subsequent claim and review commits do not change the original handover identity. Codex owns integration, final tests, guarded publication and fresh public verification. Scoped independent reviewers examined the P/O, map, programme and native-operation work. A posted handover is not a claim that an external assistant acknowledged it. Claude's separate moving v10.22 event-night run-sheet claim is outside this candidate.
 
@@ -78,3 +78,9 @@ The lead completes the final combined focused checks, desktop and phone sweeps, 
 Before any upload, re-read current shared coordination and confirm that both source hashes still match. Publish only the prepared page and retained machine with their guarded tools; verify the actual public page bytes, machine identity and changed public files afterwards. Run public map/navigation checks against the published resources. Rename source folders and record LIVE only after that proof. The four P/O confirmations, if executed, receive their own private backup, request plan and fresh readback evidence. Name which separate drafts must rebuild on the verified new live base; v10.22 remains with its existing owner.
 
 Final pre-publication verification is recorded in `verification-summary.json`: desktop and phone22tabs/7links/Back, P/O17+31, Gate6phone32, financial107. The20 allowed financial-capture differences are WC49 location metadata only; all amounts and native records match. Phone screenshots were inspected.
+
+## Final live handover
+
+The public page matches the reviewed06d6e6b0 bytes. Machineeb8a01ff is registered; all six public changed files match and227 other files remain unchanged. Actual-public phone map checks32/32 pass, including revised sources, matching standalone snapshots and refresh preserving selection/zoom. Zero browser errors or operational writes; native6078 unchanged. The four checked records were rehearsed only (12 simulated writes, full native before/after identical); apply remains with Claude. All pre-start originals remain retained.
+
+Claude acknowledged the review in PR1 comment6173184045 and announced ongoing ownership in6173252107. The handover/publication messages crossed while the guarded page upload was running;6173274195 records that timing and the paired map completion. No old9db6edd2 upload or duplicate v10.23 fix is required. Rebuild v10.22 from the current public06d6e6b0 base after incorporating this branch. This release does not establish actual pre-start attendance or completion of future night work.

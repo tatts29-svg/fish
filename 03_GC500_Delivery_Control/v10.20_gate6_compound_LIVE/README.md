@@ -1,3 +1,5 @@
+> VERIFIED LIVE — 15 Oct 2026 02:34 AEST as part of reviewed combinedv10.21 page06d6e6b0 and machineeb8a01ff. See `../release_review1021/README.md` for final fixes, checks and source limitations. This declaration covers the app only; native P/O checks and pre-start PDF uploads were not applied. Author: Andrew Fisher.
+
 # v10.20 — Gate 6 compound moved as iEDM drew it (P60, P62, P63, WC49, GN06)
 
 Author: Andrew Fisher. Built 15 Oct 2026, about 01:40 AEST. DRAFT: built and tested read-only; not published.
