@@ -18,6 +18,17 @@ test('new receipt and new work completes new scope',()=>assert.equal(read({suppl
 test('earlier work cannot install a later receipt',()=>assert.equal(read({supplied:6,suppliedAt:'2026-10-14T02:00:00Z',install:true,installAt:'2026-10-14T01:00:00Z'}).done,4));
 test('item work can be explicitly unticked',()=>assert.equal(read({install:false,installAt:'2026-10-14T01:00:00Z'}).done,0));
 test('per-unit work un-tick reduces existing installation',()=>assert.equal(read({unitWork:{a:{on:false,at:'2026-10-14T01:00:00Z'}}},6,'2026-10-14',{...old,unitWork:{a:{on:true,at:'2026-10-13T01:00:00Z'}}}).done,3));
+test('native deleted tick retains false evidence from its audit stamp',()=>{
+ const k='WC09/u0085|Toilets & amenities|FWF|install',stamp='2026-10-14T01:00:00Z';
+ const unitWork=s.unitEvidence('WC09','Toilets & amenities','FWF',{}, {['labour/'+k]:stamp});
+ assert.deepEqual(unitWork,{[k]:{on:false,at:stamp}});
+ assert.equal(read({unitWork},6,'2026-10-14',{...old,unitWork:{[k]:{on:true,at:'2026-10-13T01:00:00Z'}}}).done,3);
+});
+test('unit evidence excludes other references, items, work and unidentified remainder',()=>{
+ const stamp='2026-10-14T01:00:00Z',stamps={};
+ for(const k of ['WC09/urest|Toilets & amenities|FWF|install','WC10/u0085|Toilets & amenities|FWF|install','WC09/u0085|Toilets & amenities|FWF|clean','WC09/u0085|Toilets & amenities|Pee Panel|install'])stamps['labour/'+k]=stamp;
+ assert.deepEqual(s.unitEvidence('WC09','Toilets & amenities','FWF',{},stamps),{});
+});
 test('newly recorded unit work adds only within actual receipt',()=>assert.equal(read({unitWork:{b:{on:true,at:'2026-10-14T01:00:00Z'}}}).done,4));
 test('later received unit with its own work adds one',()=>assert.equal(read({supplied:6,suppliedAt:'2026-10-14T01:00:00Z',unitWork:{b:{on:true,at:'2026-10-14T02:00:00Z'}}}).done,5));
 test('unticking work keeps receipt',()=>assert.deepEqual([read({done:false,doneAt:'2026-10-14T01:00:00Z'}).arrived,read({done:false,doneAt:'2026-10-14T01:00:00Z'}).done],[4,0]));

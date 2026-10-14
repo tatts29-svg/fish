@@ -5,6 +5,13 @@ const KIND='quantityScope1017',key=ref=>KIND+'/'+ref;
 const integer=v=>v!=null&&String(v).trim()!==''&&Number.isInteger(Number(v))&&Number(v)>=0?Number(v):null;
 const day=at=>{const t=Date.parse(at);return Number.isFinite(t)?new Date(t+36000000).toISOString().slice(0,10):'';};
 const sum=(rows,name)=>rows.reduce((n,r)=>n+r[name],0);
+function unitEvidence(ref,discipline,item,labour,stamps){
+ const rows={},suffix='|'+discipline+'|'+item+'|install';
+ // Native unticking deletes the value but retains its audit stamp.
+ const keys=new Set([...Object.keys(labour||{}),...Object.keys(stamps||{}).filter(k=>k.startsWith('labour/')).map(k=>k.slice(7))]);
+ for(const k of keys)if(k.startsWith(ref+'/u')&&k.endsWith(suffix)&&k!==ref+'/urest'+suffix)rows[k]={on:!!labour?.[k],at:stamps?.['labour/'+k]||''};
+ return rows;
+}
 function project(old,e,quantity,asOf,at){
  if(!old||integer(quantity)==null)return null;
  const valid=t=>!!day(t)&&day(t)<=asOf;
@@ -34,7 +41,7 @@ function project(old,e,quantity,asOf,at){
   explicitInstall:!!e.install,status:done+' of '+quantity+' installed · '+arrived+' received',
   basis:'Received and installed quantities retained when the planned quantity changed.'};
 }
-const api={kind:KIND,key,integer,project};root.Scope1017=api;
+const api={kind:KIND,key,integer,project,unitEvidence};root.Scope1017=api;
 if(typeof module!=='undefined'&&module.exports)module.exports=api;
 if(typeof document==='undefined')return;
 const clone=x=>JSON.parse(JSON.stringify(x));
@@ -44,8 +51,7 @@ api.has=a=>!!record(a);
 function evidence(a,item,d){
  const lines=chargeLines(a),line=lines.find(l=>l.item===item),lk=a.key+'|'+line?.discipline+'|'+item+'|install';
  const receipts=((S.supplied||{})[a.key]?.items||[]).filter(r=>r.asked===item),r=receipts.length===1?receipts[0]:null;
- const unitWork={},suffix='|'+line?.discipline+'|'+item+'|install';
- for(const [k,on]of Object.entries(S.labour||{}))if(k.startsWith(a.key+'/u')&&k.endsWith(suffix)&&k!==a.key+'/urest'+suffix)unitWork[k]={on:!!on,at:(S.stamps||{})['labour/'+k]||''};
+ const unitWork=unitEvidence(a.key,line?.discipline,item,S.labour,S.stamps);
  return {supplied:integer(r?.qty_supplied),suppliedAt:(S.stamps||{})['supplied/'+a.key+'/'+item]||'',
   on:!!(d.recorded&&d.state==='on site'),onAt:d.set_at||'',done:!!d.done,doneAt:d.done_at||'',
   install:!!(S.labour||{})[lk],installAt:(S.stamps||{})['labour/'+lk]||'',rest:restArrived(a,item)||0,unitWork};
