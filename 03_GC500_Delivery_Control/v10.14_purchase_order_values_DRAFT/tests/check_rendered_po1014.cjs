@@ -4,10 +4,10 @@ const fs=require('fs'),path=require('path');
 const {open}=require('../../record_14Oct2026_purchase_order/readonly_page.cjs');
 const spec=JSON.parse(fs.readFileSync(process.env.PRICING_SPEC,'utf8'));
 (async()=>{let h;try{
- h=await open({pageFile:process.env.PAGE,hash:'#fencing',W:390,H:844,mobile:true});
+ h=await open({pageFile:process.env.PAGE,hash:'#today',W:390,H:844,mobile:true});
  await h.page.waitForFunction(()=>SYNC.status==='live'&&SYNC.first.size===Object.keys(SYNC_COLLS).length,null,{timeout:180000});
  await h.page.clock.install();
- await h.page.evaluate(s=>{S.purchaseOrders[s.number]={...S.purchaseOrders[s.number],...s.expected_po,supplier_pricing:s.supplier_pricing};sharedCache975();render();},spec);
+ await h.page.evaluate(s=>{S.purchaseOrders[s.number]={...S.purchaseOrders[s.number],...s.expected_po,supplier_pricing:s.supplier_pricing};sharedCache975();go('fencing');render();},spec);
  const input=h.page.locator('[data-po-amt="'+spec.number+'"]');
  await input.evaluate(el=>{for(let n=el;n;n=n.parentElement)if(n.tagName==='DETAILS')n.open=true;});
  const result=await input.evaluate((el,s)=>{
