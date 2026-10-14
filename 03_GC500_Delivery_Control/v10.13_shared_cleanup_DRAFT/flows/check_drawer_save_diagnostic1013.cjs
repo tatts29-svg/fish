@@ -2,10 +2,10 @@
 'use strict';
 const fs=require('fs'),path=require('path'),assert=require('assert'),crypto=require('crypto');
 const fetcher=require('../../toolchain/harness/curlfetch'),fixture=JSON.parse(fs.readFileSync(process.env.STATE)),fetchBefore=fetcher.curlFetch;
-fetcher.curlFetch=async function(url,...args){const pathname=new URL(url).pathname;if(pathname==='/api/state'||pathname==='/api/version')return {status:200,headers:{'content-type':'application/json'},body:JSON.stringify(pathname==='/api/state'?fixture:{version:fixture.version,level:'view',updated:fixture.updated})};return fetchBefore.call(this,url,...args);};
+fetcher.curlFetch=async function(url,...args){const pathname=new URL(url).pathname;if(pathname==='/api/state'||pathname==='/api/version')return {status:200,headers:{'content-type':'application/json'},body:JSON.stringify(pathname==='/api/state'?fixture:{version:fixture.version,level:process.env.STABLE_EDIT==='1'?'edit':'view',updated:fixture.updated})};return fetchBefore.call(this,url,...args);};
 const {open}=require('../../toolchain/harness/open_page');
 const out=process.env.OUT||'/workspace/private-gc5001012-selection-drawers';fs.mkdirSync(out,{recursive:true});
-const report={author:'Andrew Fisher',nativeVersion:fixture.version,candidateSha256:crypto.createHash('sha256').update(fs.readFileSync(process.env.PAGE)).digest('hex'),checks:[],errors:[],nativeWrites:0};
+const report={author:'Andrew Fisher',nativeVersion:fixture.version,stableEditFixture:process.env.STABLE_EDIT==='1',candidateSha256:crypto.createHash('sha256').update(fs.readFileSync(process.env.PAGE)).digest('hex'),checks:[],errors:[],nativeWrites:0};
 const check=(name,ok,details)=>{report.checks.push({name,ok,details});assert(ok,name+': '+JSON.stringify(details));};
 (async()=>{for(const mobile of (process.env.FOCUS_ONLY?Array.from({length:Number(process.env.REPEAT)||1},()=>true):[true,false])){
  const label=mobile?'phone':'desktop',h=await open({pageFile:process.env.PAGE,mobile,W:mobile?390:1440,H:mobile?844:1000,dpr:1});
@@ -39,6 +39,7 @@ const check=(name,ok,details)=>{report.checks.push({name,ok,details});assert(ok,
    return {found:true,nextAvailable:next!==undefined,bars:bars.length,copies:copies.length,adjacent};
   },{selector,family});
   check(label+' '+family+' has one native field Save',setup.found&&setup.nextAvailable&&setup.bars===setup.copies&&setup.adjacent,setup);
+  if(process.env.STABLE_EDIT==='1'){const gate=await p.evaluate(()=>({capability:capability(),readonly:SYNC.readonly,level:SYNC.level}));check(label+' '+family+' practice capability is consistently editable',gate.capability==='edit'&&!gate.readonly&&gate.level==='edit',gate);}
   const field=p.locator('#drawer '+selector).first();
   const bar=()=>p.locator('.selection1012-controls').filter({has:p.locator('[data-selection1012-save]')});
   await field.evaluate(el=>{el.scrollIntoView({block:'center'});document.dispatchEvent(new WheelEvent('wheel',{bubbles:true,deltaY:1}));});

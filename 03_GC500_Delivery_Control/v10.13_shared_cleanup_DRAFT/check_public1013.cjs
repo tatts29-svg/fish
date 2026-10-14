@@ -108,6 +108,9 @@ const {open} = require('../toolchain/harness/open_page');
   await h.page.setViewportSize({width: 390, height: 844});
   await h.page.evaluate(() => new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve))));
   await h.page.screenshot({path: path.join(out, 'public-costs-phone-viewport.png'), fullPage: false});
+  // These original UI regressions run only after the actual public response hash
+  // has matched. No edit capability, local fixture, Save or record setter is used.
+  result.checks.push(...await require('./flows/check_public_flows1013.cjs')(h.page));
   result.checks.push({name: 'No local page substitution', pass: h.counts.page === 0});
   result.checks.push({name: 'No non-GET requests reached network', pass: rejectedMethods.length === 0});
   result.checks.push({name: 'No browser errors or operational write attempts', pass: !h.errors.length && h.counts.blocked === 0});

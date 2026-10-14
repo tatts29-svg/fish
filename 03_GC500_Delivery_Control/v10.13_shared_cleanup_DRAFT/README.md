@@ -2,7 +2,7 @@
 
 Author: Andrew Fisher
 
-Status: **DRAFT — implementation and verification in progress**. Start from the exact live v10.12 page, SHA256 `cde0aae30d5e528e85c2b16189bf0c0828397b87a7b3d10c1695362b19a58105`.
+Status: **READY TO UPLOAD — candidate checks complete; actual-public verification follows publication**. Start from the exact live v10.12 page, SHA256 `cde0aae30d5e528e85c2b16189bf0c0828397b87a7b3d10c1695362b19a58105`.
 
 Andrew's request is to clean up data, costs and information while keeping the existing presentation. Information entered onsite must drive every view. Explanatory text must be generated from the current records or clearly retained as dated source evidence under More info. The system should be suitable for future V8s work, with straightforward entry and reliable Save, scrolling, open/close, Back and tab navigation.
 
@@ -40,3 +40,15 @@ Original embedded source data and operational records remain intact. Effective c
 This release fixes proved allocation and interaction defects. It does not certify that every commercial input has been supplied. On the frozen native record 6052, the arrived-equipment model still reports 54 charge holds across 34 groups, including missing transport amounts, work rates and unresolved source allocation. Some workforce hours are also unrecorded. These counts are evidence for that snapshot, not a current operational dashboard; the page generates its current holds from the shared record.
 
 T0266 has evidenced customer hire and transport, but no applicable evidenced work/labour rate. That scope remains explicitly unpriced. Do not fabricate a building labour rate, a supplier invoice, a hire period or future worked hours to clear a hold. The new event-date configuration covers the connected financial/workforce/demob consumers; a later reusable event setup must also supply approved maps, rates, source documents and the remaining event-specific presentation settings.
+
+## Candidate verification — 14 Oct 2026
+
+Production source commit `81cf4ce7`; exact candidate SHA256 `ab5fe3dc666b68b3b9ec27a731ff3edad06ba0fa3db4da3910ecbc11b9184143`, 15,197,894 bytes and 107 parsed inline scripts. The source manifest and combined evidence are in `evidence/`.
+
+- Final combined financial reconciliation 24, propagation 32, interaction 22, information 15, loading Save 38 and drawer Save 80 checks pass.
+- Desktop and phone each pass 22 routes, seven deep links and Back navigation with zero page/console errors. Phone presentation was inspected.
+- Source preservation/wrong-base/repeat guards: 10. Independent final integration checks: 25. Component tests, current-event numeric parity, 182 active item quantities and 120 physical ownership groups are recorded in their folders.
+- The initial drawer practice failure was a late view-level capability response in the test. Consistent permissions from first navigation resolve it; all original assertions remain and eight permission checks were added. Application source was unchanged; the read-only adapter did not falsely show Saved.
+- No tests write to the operational service. Actual-public verification uses the served page and verifies its exact hash, without local page substitution.
+
+Root implemented/integrated/released with scoped independent source, finance and interaction reviews. This is not an external Claude audit.
