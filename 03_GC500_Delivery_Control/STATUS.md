@@ -1,3 +1,7 @@
+MAP AUDIT HANDOVER POSTED — 14 Oct 2026. Andrew asks for Argon to audit imagery, zoom, refresh, search and map usability, and asks root to communicate with him. Brief posted at https://github.com/tatts29-svg/fish/pull/1#issuecomment-6160936112. Inspection and proposals only: separate workspace, test copy with live writes blocked, phone/desktop evidence, preserve confirmed site records and master-plan positions, mock-up before layout changes. Awaiting Argon acknowledgement and his bounded claim; posting does not prove receipt or wake his Gemini chat. Root retains v10.14 ownership. No publication or live-record authority added to the map audit.
+
+<!-- Author: Andrew Fisher -->
+
 GEMINI TASK CAPABILITY REPORT — 14 Oct 2026. Andrew relays Argon’s successful isolated-worktree dependency installation, Chromium installation, release-runner unit tests, repository permission check and Git push dry-run. This is remote-agent evidence, not an independent execution here. Read/build/test and repository write capability are reported ready; the dry-run did not publish a commit. Live publication remains unavailable there because its edit binding is unset. Argon may claim an independent bounded scope on the board; root retains active v10.14 supplier-docket reconciliation and publication. Credentials and their values stay private. No new Argon acknowledgement was present in PR #1 at this check.
 
 <!-- Author: Andrew Fisher -->
