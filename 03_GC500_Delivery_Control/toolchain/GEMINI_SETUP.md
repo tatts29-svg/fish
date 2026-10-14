@@ -1,12 +1,58 @@
-# Gemini coding environment for GC500
+# Use the Gemini app with the GC500 project
 
 Author: Andrew Fisher · verified 14 Oct 2026
 
-Use **Gemini CLI** to read and edit the project, run the existing tests and publish
-ready releases through the shared toolchain. The Gemini website alone does not
-provide this terminal or deployment access.
+Andrew wants to work from the normal **Gemini app at
+[gemini.google.com](https://gemini.google.com/)** on his computer and phone.
+The CLI setup below prepares an execution environment; it does not by itself
+connect the Gemini app to that environment or meet this goal.
 
-**Setup state — 14 Oct 2026:** Andrew reports Gemini running in the separate
+## First check Task mode in the Gemini app
+
+On the computer, look for **Task** below the Gemini text box. Google documents
+browser interaction and remote code execution in Task mode. It requires a
+personal account aged 18+, Google AI Pro or Ultra, Keep Activity and Personal
+Intelligence. Australia is not in the documented excluded regions (EEA, Nigeria,
+Switzerland and UK). Availability on Andrew's account is still unconfirmed.
+
+If Task is available, use the prompt below to test access to the existing
+Codespace. **Task mode operating its browser terminal has not been verified.**
+Google's remote code environment is not automatically the Codespace, and its
+files and secrets are not automatically shared. Complete any requested GitHub
+sign-in yourself in the browser, never in the conversation.
+
+```text
+Use Task mode for a read-only GC500 setup check. Open
+https://github.com/codespaces and the existing fish Codespace; do not create
+another workspace. If sign-in is needed, let me take over in the browser.
+Open a NEW terminal and go to /workspaces/fish-gemini. Do not interrupt
+another terminal or launch Gemini CLI or another coding assistant.
+
+Read GEMINI.md, AGENTS.md, 03_GC500_Delivery_Control/STATUS.md,
+03_GC500_Delivery_Control/toolchain/README.md and
+03_GC500_Delivery_Control/toolchain/GEMINI_SETUP.md in full.
+Confirm the repo, branch, clean/dirty state, recorded LIVE release and active
+claims. Report whether you can actually operate this terminal, whether the
+build tools are available, and whether GC500_EDIT_TOKEN is SET or UNSET only.
+Never print credentials. Do not edit source, claim work, install tools, build,
+publish, push or change operational records. If terminal access fails, report
+the exact blocker; do not describe the app as connected.
+```
+
+If Task is absent or the access check fails, app-based build and publication
+access remains unconfirmed. Keep the existing workspace intact. Do not treat a
+successful CLI check as proof that the app can use it. Once app access works,
+continue in the same Gemini account and task on the phone; verify its access
+there too.
+
+The ordinary **GitHub import** provides a repository snapshot for discussion:
+it cannot write back and does not sync later repository changes. It is not a
+build or publication connection. Google's **custom MCP apps** currently require
+being in the US; this is not a documented setup route for Andrew in Australia.
+
+## Prepared CLI environment — secondary option
+
+**CLI setup state — 14 Oct 2026:** Andrew reports Gemini running in the separate
 `/workspaces/fish-gemini` worktree on `codex/gc500-current-release-03oct`, initially
 at `0f375b77`. The existing Claude checkout remains intact. Gemini reports a clean
 checkout, installed Node dependencies and Playwright Chromium/OS libraries, a
@@ -16,7 +62,7 @@ These Codespace observations are reported by Gemini through Andrew; the setup
 agent has not directly inspected that remote terminal. Use this same Codespace
 from the computer and phone.
 
-## Start on the computer; use the same workspace on the phone
+### Start the CLI on the computer; use the same workspace on the phone
 
 1. Open [Your Codespaces](https://github.com/codespaces). If a Codespace for
    `tatts29-svg/fish` already exists on `codex/gc500-current-release-03oct`, open it.
@@ -62,9 +108,10 @@ On the phone, sign into the same GitHub account at
 There is no need to create another environment or copy the project between
 devices. The computer is easier for the initial terminal and Google sign-in.
 
-The Gemini website chat remains a separate conversation. Its link does not give
-Gemini CLI the chat history, repository permissions or publication credentials.
-The shared files and current board provide the project handover.
+The Gemini website chat and CLI remain separate conversations. A chat link does
+not give the CLI chat history, repository permissions or publication credentials.
+The shared files and current board provide the project handover. The Task-mode
+access check above is separate from launching this CLI.
 
 There is currently no repository-specific `.devcontainer` configuration. The
 standard Codespaces environment can be checked first; Gemini needs Node 20 or
@@ -81,7 +128,8 @@ private GC500 edit key in this Codespace; a Google login does not supply it.
    GitHub's secret value field. Select only the `tatts29-svg/fish` repository.
    Do not paste the key into an assistant conversation, source file or command.
 3. Save the secret, then stop and reopen the same Codespace so the environment
-   receives it. Start a new Gemini process in `/workspaces/fish-gemini`.
+   receives it. Open a fresh terminal in `/workspaces/fish-gemini`. For Task mode,
+   repeat the app's terminal-access check; for the CLI, start a new CLI process.
 4. Ask Gemini to verify access without uploading. From the repository root, this
    uses the shared uploader's existing GET helper and prints only status/level:
 
@@ -206,6 +254,9 @@ publishing code does not itself confirm any installation, charge or delivery.
 
 ## Official references
 
+- [Task mode: availability, browsers and remote code execution](https://support.google.com/gemini/answer/17094507?co=GENIE.Platform%3DDesktop&hl=en)
+- [GitHub import: snapshot and write limitations](https://support.google.com/gemini/answer/16176929?hl=en)
+- [Custom MCP apps: current US availability](https://support.google.com/gemini/answer/17209137?co=GENIE.Platform%3DDesktop&hl=en)
 - [Installation and supported environments](https://geminicli.com/docs/get-started/installation/)
 - [Authentication and Google AI Pro sign-in](https://geminicli.com/docs/get-started/authentication/)
 - [Quotas, subscriptions and API billing](https://geminicli.com/docs/resources/quota-and-pricing/)
