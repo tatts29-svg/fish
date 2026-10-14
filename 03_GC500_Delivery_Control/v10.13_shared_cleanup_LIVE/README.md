@@ -2,7 +2,7 @@
 
 Author: Andrew Fisher
 
-Status: **READY TO UPLOAD — candidate checks complete; actual-public verification follows publication**. Start from the exact live v10.12 page, SHA256 `cde0aae30d5e528e85c2b16189bf0c0828397b87a7b3d10c1695362b19a58105`.
+Status: **VERIFIED LIVE — published 14 Oct 2026 at 11:50 AEST; actual-public checks passed at 11:54 AEST**. Start from the exact live v10.12 page, SHA256 `cde0aae30d5e528e85c2b16189bf0c0828397b87a7b3d10c1695362b19a58105`.
 
 Andrew's request is to clean up data, costs and information while keeping the existing presentation. Information entered onsite must drive every view. Explanatory text must be generated from the current records or clearly retained as dated source evidence under More info. The system should be suitable for future V8s work, with straightforward entry and reliable Save, scrolling, open/close, Back and tab navigation.
 
@@ -52,3 +52,11 @@ Production source commit `81cf4ce7`; exact candidate SHA256 `ab5fe3dc666b68b3b9e
 - No tests write to the operational service. Actual-public verification uses the served page and verifies its exact hash, without local page substitution.
 
 Root implemented/integrated/released with scoped independent source, finance and interaction reviews. This is not an external Claude audit.
+
+## Verified live
+
+Production source `81cf4ce7`; READY commit `8f4f3c82`. The guarded uploader confirmed the original base was unchanged and that the public view serves the exact tested candidate: SHA256 `ab5fe3dc666b68b3b9ec27a731ff3edad06ba0fa3db4da3910ecbc11b9184143`, 15,197,894 bytes. Published 14 Oct 2026 11:50 AEST.
+
+Actual-public verification at 11:54 AEST passes 54/54 checks on native version 6064, including financial reconciliation, described quantities, percentages, ownership and original disclosure/scroll/Inventory Close regressions. Standalone financial evaluation took 2.793 seconds. Public phone presentation inspected. There was no local candidate substitution, browser error or operational write. The GET-only verifier blocked a Google Maps tile-session POST before transport; its original assertion incorrectly counted that rejected attempt as sent traffic. The corrected verifier distinguishes rejected map setup from sent requests and still fails unexpected non-GET or operational write attempts. Four pure transport-guard checks confirm rejection and redaction. Application source did not change.
+
+No unrelated draft was uploaded. Future work must start from the current live hash; older drafts must be rebuilt and retested. Confirmed site records remain intact. Missing commercial inputs listed above remain unresolved and visible.

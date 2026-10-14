@@ -4,11 +4,20 @@ const fs = require('node:fs'), path = require('node:path'), crypto = require('no
 if (process.env.PAGE || process.env.BASE_PAGE) throw new Error('Public verification requires PAGE and BASE_PAGE unset');
 const expected = process.env.EXPECTED_SHA;
 if(!/^[a-f0-9]{64}$/.test(expected||''))throw Error('Exact published SHA required');
-const publicResponses = [], rejectedMethods = [], curl = require('../toolchain/harness/curlfetch'), liveFetch = curl.curlFetch;
+const publicResponses = [], rejectedMethods = [], rejectedRequests = [], forwardedMethods = [], curl = require('../toolchain/harness/curlfetch'), liveFetch = curl.curlFetch;
 // Observe the actual navigation response before the harness fulfils it. No
 // response fields or bytes are changed, and no local candidate is supplied.
 curl.curlFetch = async function (url, headers, method, body) {
- if (method !== 'GET') { rejectedMethods.push(method); throw new Error('Public verifier permits GET only'); }
+ if (method !== 'GET') {
+  const target = new URL(url), mapSession = method === 'POST' && target.origin === 'https://tile.googleapis.com' && target.pathname === '/v1/createSession';
+  rejectedMethods.push(method);
+  // Never retain query strings, headers, bodies, edit links or arbitrary paths.
+  // The harness permits this map-session setup to reach its transport adapter;
+  // this verifier still blocks it before any network request is sent.
+  rejectedRequests.push({method, host: target.hostname, pathname: mapSession ? '/v1/createSession' : '/[redacted]', classification: mapSession ? 'blocked map session setup' : 'unexpected non-GET', forwarded: false});
+  throw new Error('Public verifier permits GET only');
+ }
+ forwardedMethods.push(method);
  const response = await liveFetch(url, headers, method, body);
  if (/^https:\/\/gc500-production\.up\.railway\.app\/v\/Coates-GC500-2026\/?(?:[?#].*)?$/.test(url)) publicResponses.push({url, status: response.status, bytes: response.body.length, sha256: crypto.createHash('sha256').update(response.body).digest('hex')});
  return response;
@@ -112,9 +121,10 @@ const {open} = require('../toolchain/harness/open_page');
   // has matched. No edit capability, local fixture, Save or record setter is used.
   result.checks.push(...await require('./flows/check_public_flows1013.cjs')(h.page));
   result.checks.push({name: 'No local page substitution', pass: h.counts.page === 0});
-  result.checks.push({name: 'No non-GET requests reached network', pass: rejectedMethods.length === 0});
+  result.checks.push({name: 'Only GET requests were forwarded to network', pass: forwardedMethods.every(method => method === 'GET')});
+  result.checks.push({name: 'No unexpected non-GET attempts; map session setup remains blocked', pass: rejectedRequests.every(request => request.classification === 'blocked map session setup' && request.forwarded === false)});
   result.checks.push({name: 'No browser errors or operational write attempts', pass: !h.errors.length && h.counts.blocked === 0});
-  Object.assign(result, {author: 'Andrew Fisher', at: new Date().toISOString(), sha256: navigation.sha256, expectedSha256: expected, bytes: navigation.bytes, navigationResponses: publicResponses, errors: h.errors, requests: h.counts, rejectedMethods, actualPublic: true, screenshot: 'public-costs-phone-viewport.png'});
+  Object.assign(result, {author: 'Andrew Fisher', at: new Date().toISOString(), sha256: navigation.sha256, expectedSha256: expected, bytes: navigation.bytes, navigationResponses: publicResponses, errors: h.errors, requests: h.counts, rejectedMethods, rejectedRequests, forwardedMethodCounts: forwardedMethods.reduce((counts, method) => (counts[method] = (counts[method] || 0) + 1, counts), {}), actualPublic: true, screenshot: 'public-costs-phone-viewport.png'});
   fs.writeFileSync(path.join(out, 'public-verification1013.json'), JSON.stringify(result, null, 2) + '\n');
   console.log(JSON.stringify(result));
   if (result.checks.some(c => !c.pass)) process.exitCode = 1;
