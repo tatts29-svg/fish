@@ -1,3 +1,7 @@
+GEMINI TASK CAPABILITY REPORT — 14 Oct 2026. Andrew relays Argon’s successful isolated-worktree dependency installation, Chromium installation, release-runner unit tests, repository permission check and Git push dry-run. This is remote-agent evidence, not an independent execution here. Read/build/test and repository write capability are reported ready; the dry-run did not publish a commit. Live publication remains unavailable there because its edit binding is unset. Argon may claim an independent bounded scope on the board; root retains active v10.14 supplier-docket reconciliation and publication. Credentials and their values stay private. No new Argon acknowledgement was present in PR #1 at this check.
+
+<!-- Author: Andrew Fisher -->
+
 SCOPE UPDATE — v10.14 remains DRAFT, 14 Oct 2026. Andrew clarifies that the approved P/O value must match the underlying docket pricing, not just display the same currency value. The authorised P/O native update is saved and verified; root is reconciling the source-backed supplier breakdown against existing physical docket quantities and Direct-cost projections. Preserve customer card rates and physical completion; supplier net billing adjustments and daily charges need explicit evidence and must count once. Display checks pass, but no release/sign-off until underlying reconciliation is complete. Detailed sources and amounts remain private.
 
 <!-- Author: Andrew Fisher -->
