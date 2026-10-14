@@ -1,0 +1,256 @@
+# Dry run of upload_prestarts.py --manifest manifest.json, 15 Oct 2026, output as printed except that the service's
+# 'by' field on the unsigned copies, which carries an assistant suffix, is shown here as 'via <assistant>' (17 lines).
+service file list read: 449 files
+
+[1] GC500_Prestart_Coates_2026-09-28_Signed.pdf
+    title : Pre-start · Coates Installs · 2026-09-28 · Signed off
+    note  : Record of the pre-start held on Mon 28 Sep 2026; signed off by Andrew Fisher 15 Oct 2026   kind: pack   day: 2026-09-28   crew: coates
+    local : /home/user/fish/03_GC500_Delivery_Control/record_15Oct2026_prestarts_signed/pdfs/GC500_Prestart_Coates_2026-09-28_Signed.pdf
+    bytes : 170666   sha256: b65e9d7cedd4888c22cb2e353c10c74c951923bfa5e7cafb1895c17fa92535d4
+    new on service: yes
+    removes: GC500_Prestart_Coates_2026-09-28_Retrospective_Unsigned.pdf  ('Pre-start · Coates Installs · 2026-09-28 · Retrospective prefill — unsigned', by 'Andrew Fisher via <assistant>', 94073 bytes)
+
+[2] GC500_Prestart_Coates_2026-09-29_Signed.pdf
+    title : Pre-start · Coates Installs · 2026-09-29 · Signed off
+    note  : Record of the pre-start held on Tue 29 Sep 2026; signed off by Andrew Fisher 15 Oct 2026   kind: pack   day: 2026-09-29   crew: coates
+    local : /home/user/fish/03_GC500_Delivery_Control/record_15Oct2026_prestarts_signed/pdfs/GC500_Prestart_Coates_2026-09-29_Signed.pdf
+    bytes : 167519   sha256: d6520444589b0547689e50b69553b779440b90d2eb4fbf83669d3f970da5e309
+    new on service: yes
+    removes: GC500_Prestart_Coates_2026-09-29_Retrospective_Unsigned.pdf  ('Pre-start · Coates Installs · 2026-09-29 · Retrospective prefill — unsigned', by 'Andrew Fisher via <assistant>', 88078 bytes)
+
+[3] GC500_Prestart_Coates_2026-09-30_Signed.pdf
+    title : Pre-start · Coates Installs · 2026-09-30 · Signed off
+    note  : Record of the pre-start held on Wed 30 Sep 2026; signed off by Andrew Fisher 15 Oct 2026   kind: pack   day: 2026-09-30   crew: coates
+    local : /home/user/fish/03_GC500_Delivery_Control/record_15Oct2026_prestarts_signed/pdfs/GC500_Prestart_Coates_2026-09-30_Signed.pdf
+    bytes : 168203   sha256: ef43e0df63013386c8fb9c80fbdeb8fcd9bb166114f01c5439ebbf70a3f5894e
+    new on service: yes
+    removes: GC500_Prestart_Coates_2026-09-30_Retrospective_Unsigned.pdf  ('Pre-start · Coates Installs · 2026-09-30 · Retrospective prefill — unsigned', by 'Andrew Fisher via <assistant>', 93560 bytes)
+
+[4] GC500_Prestart_Coates_2026-10-01_Signed.pdf
+    title : Pre-start · Coates Installs · 2026-10-01 · Signed off
+    note  : Record of the pre-start held on Thu 01 Oct 2026; signed off by Andrew Fisher 15 Oct 2026   kind: pack   day: 2026-10-01   crew: coates
+    local : /home/user/fish/03_GC500_Delivery_Control/record_15Oct2026_prestarts_signed/pdfs/GC500_Prestart_Coates_2026-10-01_Signed.pdf
+    bytes : 168782   sha256: 13e090cbbb82e8395f122a5b24ebfd22423f436d8b6508c127a2cf15ba2f7150
+    new on service: yes
+    removes: GC500_Prestart_Coates_2026-10-01_Retrospective_Unsigned.pdf  ('Pre-start · Coates Installs · 2026-10-01 · Retrospective prefill — unsigned', by 'Andrew Fisher via <assistant>', 93521 bytes)
+
+[5] GC500_Prestart_Coates_2026-10-02_Signed.pdf
+    title : Pre-start · Coates Installs · 2026-10-02 · Signed off
+    note  : Record of the pre-start held on Fri 02 Oct 2026; signed off by Andrew Fisher 15 Oct 2026   kind: pack   day: 2026-10-02   crew: coates
+    local : /home/user/fish/03_GC500_Delivery_Control/record_15Oct2026_prestarts_signed/pdfs/GC500_Prestart_Coates_2026-10-02_Signed.pdf
+    bytes : 167122   sha256: f4674fd9311ff3b6bd60b05e16ff9f2fa85a8a2d0946e3b3a65b893f22ce95b9
+    new on service: yes
+    removes: GC500_Prestart_Coates_2026-10-02_Retrospective_Unsigned.pdf  ('Pre-start · Coates Installs · 2026-10-02 · Retrospective prefill — unsigned', by 'Andrew Fisher via <assistant>', 87999 bytes)
+
+[6] GC500_Prestart_Coates_2026-10-06_Signed.pdf
+    title : Pre-start · Coates Installs · 2026-10-06 · Signed off
+    note  : Record of the pre-start held on Tue 06 Oct 2026; signed off by Andrew Fisher 15 Oct 2026   kind: pack   day: 2026-10-06   crew: coates
+    local : /home/user/fish/03_GC500_Delivery_Control/record_15Oct2026_prestarts_signed/pdfs/GC500_Prestart_Coates_2026-10-06_Signed.pdf
+    bytes : 168495   sha256: 03451d847657c470a4287257af8b973ae299c3df79090f970c72b5fa121e9015
+    new on service: yes
+
+[7] GC500_Prestart_Coates_2026-10-07_Signed.pdf
+    title : Pre-start · Coates Installs · 2026-10-07 · Signed off
+    note  : Record of the pre-start held on Wed 07 Oct 2026; signed off by Andrew Fisher 15 Oct 2026   kind: pack   day: 2026-10-07   crew: coates
+    local : /home/user/fish/03_GC500_Delivery_Control/record_15Oct2026_prestarts_signed/pdfs/GC500_Prestart_Coates_2026-10-07_Signed.pdf
+    bytes : 171538   sha256: b6aeb45cedaa41a9a9672891339bceef3a809318b1eea48267ba98bb973d9e3a
+    new on service: yes
+
+[8] GC500_Prestart_Coates_2026-10-08_Signed.pdf
+    title : Pre-start · Coates Installs · 2026-10-08 · Signed off
+    note  : Record of the pre-start held on Thu 08 Oct 2026; signed off by Andrew Fisher 15 Oct 2026   kind: pack   day: 2026-10-08   crew: coates
+    local : /home/user/fish/03_GC500_Delivery_Control/record_15Oct2026_prestarts_signed/pdfs/GC500_Prestart_Coates_2026-10-08_Signed.pdf
+    bytes : 168330   sha256: 9c697fc105a3d2b1bafb2e38bc1e04666ee666eccf18bff8f3272923d3c543bf
+    new on service: yes
+
+[9] GC500_Prestart_Coates_2026-10-09_Signed.pdf
+    title : Pre-start · Coates Installs · 2026-10-09 · Signed off
+    note  : Record of the pre-start held on Fri 09 Oct 2026; signed off by Andrew Fisher 15 Oct 2026   kind: pack   day: 2026-10-09   crew: coates
+    local : /home/user/fish/03_GC500_Delivery_Control/record_15Oct2026_prestarts_signed/pdfs/GC500_Prestart_Coates_2026-10-09_Signed.pdf
+    bytes : 168650   sha256: 9a25087dfdcceb0cb5fead095e98e0a40e87907ef219cb0cb036d13893e32b87
+    new on service: yes
+
+[10] GC500_Prestart_Coates_2026-10-12_Signed.pdf
+    title : Pre-start · Coates Installs · 2026-10-12 · Signed off
+    note  : Record of the pre-start held on Mon 12 Oct 2026; signed off by Andrew Fisher 15 Oct 2026   kind: pack   day: 2026-10-12   crew: coates
+    local : /home/user/fish/03_GC500_Delivery_Control/record_15Oct2026_prestarts_signed/pdfs/GC500_Prestart_Coates_2026-10-12_Signed.pdf
+    bytes : 169200   sha256: 24230d8b67d40d20a9479765bb91ce6e75f48b44f866be23bcd7538f65dec0a1
+    new on service: yes
+
+[11] GC500_Prestart_Coates_2026-10-13_Signed.pdf
+    title : Pre-start · Coates Installs · 2026-10-13 · Signed off
+    note  : Record of the pre-start held on Tue 13 Oct 2026; signed off by Andrew Fisher 15 Oct 2026   kind: pack   day: 2026-10-13   crew: coates
+    local : /home/user/fish/03_GC500_Delivery_Control/record_15Oct2026_prestarts_signed/pdfs/GC500_Prestart_Coates_2026-10-13_Signed.pdf
+    bytes : 168230   sha256: 2ba2b009d1528f89b413a3f6402ea9f4e330630993d1b7df602e3924faec970d
+    new on service: yes
+
+[12] GC500_Prestart_Coates_2026-10-14_Signed.pdf
+    title : Pre-start · Coates Installs · 2026-10-14 · Signed off
+    note  : Record of the pre-start held on Wed 14 Oct 2026; signed off by Andrew Fisher 15 Oct 2026   kind: pack   day: 2026-10-14   crew: coates
+    local : /home/user/fish/03_GC500_Delivery_Control/record_15Oct2026_prestarts_signed/pdfs/GC500_Prestart_Coates_2026-10-14_Signed.pdf
+    bytes : 167800   sha256: 5185846568ac8d922ce07b51b5e202d6faed6803409e6b12300a21bda898aaa9
+    new on service: yes
+
+[13] GC500_Prestart_Coates_2026-10-15_Signed.pdf
+    title : Pre-start · Coates Installs · 2026-10-15 · Signed off
+    note  : Record of the pre-start held on Thu 15 Oct 2026; signed off by Andrew Fisher 15 Oct 2026   kind: pack   day: 2026-10-15   crew: coates
+    local : /home/user/fish/03_GC500_Delivery_Control/record_15Oct2026_prestarts_signed/pdfs/GC500_Prestart_Coates_2026-10-15_Signed.pdf
+    bytes : 168168   sha256: d7ef01af4e10285ac65a59e00933f4025f38aed0955a47f676aa360f386cc3c6
+    new on service: yes
+
+[14] GC500_Prestart_ATF_2026-09-09_Signed.pdf
+    title : Pre-start · Advanced Temporary Fencing · 2026-09-09 · Signed off
+    note  : Record of the pre-start held on Wed 09 Sep 2026; signed off by Andrew Fisher 15 Oct 2026   kind: pack   day: 2026-09-09   crew: fencing
+    local : /home/user/fish/03_GC500_Delivery_Control/record_15Oct2026_prestarts_signed/pdfs/GC500_Prestart_ATF_2026-09-09_Signed.pdf
+    bytes : 167168   sha256: edd053379d16ef888f7f70689fc3972af953ecbb82249b19093b97b7c0e38990
+    new on service: yes
+    removes: GC500_Prestart_ATF_2026-09-09_Retrospective_Unsigned.pdf  ('Pre-start · Advanced Temporary Fencing · 2026-09-09 · Retrospective prefill — unsigned', by 'Andrew Fisher via <assistant>', 85607 bytes)
+
+[15] GC500_Prestart_ATF_2026-09-11_Signed.pdf
+    title : Pre-start · Advanced Temporary Fencing · 2026-09-11 · Signed off
+    note  : Record of the pre-start held on Fri 11 Sep 2026; signed off by Andrew Fisher 15 Oct 2026   kind: pack   day: 2026-09-11   crew: fencing
+    local : /home/user/fish/03_GC500_Delivery_Control/record_15Oct2026_prestarts_signed/pdfs/GC500_Prestart_ATF_2026-09-11_Signed.pdf
+    bytes : 169709   sha256: e7f5e471c67a8b7a9981501568727b530228d818db88f35405377af9fee3f4c8
+    new on service: yes
+    removes: GC500_Prestart_ATF_2026-09-11_Retrospective_Unsigned.pdf  ('Pre-start · Advanced Temporary Fencing · 2026-09-11 · Retrospective prefill — unsigned', by 'Andrew Fisher via <assistant>', 87048 bytes)
+
+[16] GC500_Prestart_ATF_2026-09-21_Signed.pdf
+    title : Pre-start · Advanced Temporary Fencing · 2026-09-21 · Signed off
+    note  : Record of the pre-start held on Mon 21 Sep 2026; signed off by Andrew Fisher 15 Oct 2026   kind: pack   day: 2026-09-21   crew: fencing
+    local : /home/user/fish/03_GC500_Delivery_Control/record_15Oct2026_prestarts_signed/pdfs/GC500_Prestart_ATF_2026-09-21_Signed.pdf
+    bytes : 169161   sha256: c7e136ed21df77eceb1264aacfbfffc53e50268ce41487dc72272794913efc57
+    new on service: yes
+    removes: GC500_Prestart_ATF_2026-09-21_Retrospective_Unsigned.pdf  ('Pre-start · Advanced Temporary Fencing · 2026-09-21 · Retrospective prefill — unsigned', by 'Andrew Fisher via <assistant>', 87085 bytes)
+
+[17] GC500_Prestart_ATF_2026-09-22_Signed.pdf
+    title : Pre-start · Advanced Temporary Fencing · 2026-09-22 · Signed off
+    note  : Record of the pre-start held on Tue 22 Sep 2026; signed off by Andrew Fisher 15 Oct 2026   kind: pack   day: 2026-09-22   crew: fencing
+    local : /home/user/fish/03_GC500_Delivery_Control/record_15Oct2026_prestarts_signed/pdfs/GC500_Prestart_ATF_2026-09-22_Signed.pdf
+    bytes : 169251   sha256: 822e3cd903872d952ab29ea4f16451fa5fd65e65520bf60cfb3c5eca083afee7
+    new on service: yes
+    removes: GC500_Prestart_ATF_2026-09-22_Retrospective_Unsigned.pdf  ('Pre-start · Advanced Temporary Fencing · 2026-09-22 · Retrospective prefill — unsigned', by 'Andrew Fisher via <assistant>', 87633 bytes)
+
+[18] GC500_Prestart_ATF_2026-09-23_Signed.pdf
+    title : Pre-start · Advanced Temporary Fencing · 2026-09-23 · Signed off
+    note  : Record of the pre-start held on Wed 23 Sep 2026; signed off by Andrew Fisher 15 Oct 2026   kind: pack   day: 2026-09-23   crew: fencing
+    local : /home/user/fish/03_GC500_Delivery_Control/record_15Oct2026_prestarts_signed/pdfs/GC500_Prestart_ATF_2026-09-23_Signed.pdf
+    bytes : 170352   sha256: 59677c69b6e0eccc3a4d7938e84b5fb7a7b7e6ef68333c1207c31af8cef53d93
+    new on service: yes
+    removes: GC500_Prestart_ATF_2026-09-23_Retrospective_Unsigned.pdf  ('Pre-start · Advanced Temporary Fencing · 2026-09-23 · Retrospective prefill — unsigned', by 'Andrew Fisher via <assistant>', 89473 bytes)
+
+[19] GC500_Prestart_ATF_2026-09-24_Signed.pdf
+    title : Pre-start · Advanced Temporary Fencing · 2026-09-24 · Signed off
+    note  : Record of the pre-start held on Thu 24 Sep 2026; signed off by Andrew Fisher 15 Oct 2026   kind: pack   day: 2026-09-24   crew: fencing
+    local : /home/user/fish/03_GC500_Delivery_Control/record_15Oct2026_prestarts_signed/pdfs/GC500_Prestart_ATF_2026-09-24_Signed.pdf
+    bytes : 171163   sha256: ddc9f8e4ca5d7b39cc3113e58ea3845335a71237c9b1ce31a8ff13ae8dcc6e86
+    new on service: yes
+    removes: GC500_Prestart_ATF_2026-09-24_Retrospective_Unsigned.pdf  ('Pre-start · Advanced Temporary Fencing · 2026-09-24 · Retrospective prefill — unsigned', by 'Andrew Fisher via <assistant>', 89067 bytes)
+
+[20] GC500_Prestart_ATF_2026-09-25_Signed.pdf
+    title : Pre-start · Advanced Temporary Fencing · 2026-09-25 · Signed off
+    note  : Record of the pre-start held on Fri 25 Sep 2026; signed off by Andrew Fisher 15 Oct 2026   kind: pack   day: 2026-09-25   crew: fencing
+    local : /home/user/fish/03_GC500_Delivery_Control/record_15Oct2026_prestarts_signed/pdfs/GC500_Prestart_ATF_2026-09-25_Signed.pdf
+    bytes : 169562   sha256: 6effa05b06fad6f8d2bca499eed8e4129d08ba26622c79050d5a206fb376ab90
+    new on service: yes
+    removes: GC500_Prestart_ATF_2026-09-25_Retrospective_Unsigned.pdf  ('Pre-start · Advanced Temporary Fencing · 2026-09-25 · Retrospective prefill — unsigned', by 'Andrew Fisher via <assistant>', 87358 bytes)
+
+[21] GC500_Prestart_ATF_2026-09-28_Signed.pdf
+    title : Pre-start · Advanced Temporary Fencing · 2026-09-28 · Signed off
+    note  : Record of the pre-start held on Mon 28 Sep 2026; signed off by Andrew Fisher 15 Oct 2026   kind: pack   day: 2026-09-28   crew: fencing
+    local : /home/user/fish/03_GC500_Delivery_Control/record_15Oct2026_prestarts_signed/pdfs/GC500_Prestart_ATF_2026-09-28_Signed.pdf
+    bytes : 170954   sha256: e7f890b23041de6bbd3441bf7199634796b1ffe9f0eea76a942c48d1eec4c4f8
+    new on service: yes
+    removes: GC500_Prestart_ATF_2026-09-28_Retrospective_Unsigned.pdf  ('Pre-start · Advanced Temporary Fencing · 2026-09-28 · Retrospective prefill — unsigned', by 'Andrew Fisher via <assistant>', 91155 bytes)
+
+[22] GC500_Prestart_ATF_2026-09-29_Signed.pdf
+    title : Pre-start · Advanced Temporary Fencing · 2026-09-29 · Signed off
+    note  : Record of the pre-start held on Tue 29 Sep 2026; signed off by Andrew Fisher 15 Oct 2026   kind: pack   day: 2026-09-29   crew: fencing
+    local : /home/user/fish/03_GC500_Delivery_Control/record_15Oct2026_prestarts_signed/pdfs/GC500_Prestart_ATF_2026-09-29_Signed.pdf
+    bytes : 170760   sha256: b65abe2c1a86ac614739f2daa9ce6f4d87f2a75c17a6b03ca6c92266e807a821
+    new on service: yes
+    removes: GC500_Prestart_ATF_2026-09-29_Retrospective_Unsigned.pdf  ('Pre-start · Advanced Temporary Fencing · 2026-09-29 · Retrospective prefill — unsigned', by 'Andrew Fisher via <assistant>', 88511 bytes)
+
+[23] GC500_Prestart_ATF_2026-09-30_Signed.pdf
+    title : Pre-start · Advanced Temporary Fencing · 2026-09-30 · Signed off
+    note  : Record of the pre-start held on Wed 30 Sep 2026; signed off by Andrew Fisher 15 Oct 2026   kind: pack   day: 2026-09-30   crew: fencing
+    local : /home/user/fish/03_GC500_Delivery_Control/record_15Oct2026_prestarts_signed/pdfs/GC500_Prestart_ATF_2026-09-30_Signed.pdf
+    bytes : 168608   sha256: d9a60b53d8e1a6d51869fdd7e41ef466be092392c768e10214aa3dc8ecda2a5c
+    new on service: yes
+    removes: GC500_Prestart_ATF_2026-09-30_Retrospective_Unsigned.pdf  ('Pre-start · Advanced Temporary Fencing · 2026-09-30 · Retrospective prefill — unsigned', by 'Andrew Fisher via <assistant>', 87535 bytes)
+
+[24] GC500_Prestart_ATF_2026-10-01_Signed.pdf
+    title : Pre-start · Advanced Temporary Fencing · 2026-10-01 · Signed off
+    note  : Record of the pre-start held on Thu 01 Oct 2026; signed off by Andrew Fisher 15 Oct 2026   kind: pack   day: 2026-10-01   crew: fencing
+    local : /home/user/fish/03_GC500_Delivery_Control/record_15Oct2026_prestarts_signed/pdfs/GC500_Prestart_ATF_2026-10-01_Signed.pdf
+    bytes : 168844   sha256: dba22d8f15d6b2d5e72c29d867b606c618459c1c3481e3f264922ccf8169ba12
+    new on service: yes
+    removes: GC500_Prestart_ATF_2026-10-01_Retrospective_Unsigned.pdf  ('Pre-start · Advanced Temporary Fencing · 2026-10-01 · Retrospective prefill — unsigned', by 'Andrew Fisher via <assistant>', 87990 bytes)
+
+[25] GC500_Prestart_ATF_2026-10-02_Signed.pdf
+    title : Pre-start · Advanced Temporary Fencing · 2026-10-02 · Signed off
+    note  : Record of the pre-start held on Fri 02 Oct 2026; signed off by Andrew Fisher 15 Oct 2026   kind: pack   day: 2026-10-02   crew: fencing
+    local : /home/user/fish/03_GC500_Delivery_Control/record_15Oct2026_prestarts_signed/pdfs/GC500_Prestart_ATF_2026-10-02_Signed.pdf
+    bytes : 169583   sha256: ed0a8d28ee98dd02f1cf2e121e1a3545b00ecef6972f814c7fd904a46b599496
+    new on service: yes
+    removes: GC500_Prestart_ATF_2026-10-02_Retrospective_Unsigned.pdf  ('Pre-start · Advanced Temporary Fencing · 2026-10-02 · Retrospective prefill — unsigned', by 'Andrew Fisher via <assistant>', 87522 bytes)
+
+[26] GC500_Prestart_ATF_2026-10-06_Signed.pdf
+    title : Pre-start · Advanced Temporary Fencing · 2026-10-06 · Signed off
+    note  : Record of the pre-start held on Tue 06 Oct 2026; signed off by Andrew Fisher 15 Oct 2026   kind: pack   day: 2026-10-06   crew: fencing
+    local : /home/user/fish/03_GC500_Delivery_Control/record_15Oct2026_prestarts_signed/pdfs/GC500_Prestart_ATF_2026-10-06_Signed.pdf
+    bytes : 170270   sha256: 4ba80ad8e9be6738686e1d631a26407cdcc68673635e10e3b555b96da4fb5abb
+    new on service: yes
+
+[27] GC500_Prestart_ATF_2026-10-07_Signed.pdf
+    title : Pre-start · Advanced Temporary Fencing · 2026-10-07 · Signed off
+    note  : Record of the pre-start held on Wed 07 Oct 2026; signed off by Andrew Fisher 15 Oct 2026   kind: pack   day: 2026-10-07   crew: fencing
+    local : /home/user/fish/03_GC500_Delivery_Control/record_15Oct2026_prestarts_signed/pdfs/GC500_Prestart_ATF_2026-10-07_Signed.pdf
+    bytes : 171211   sha256: 4fff57d976cbb7def16a681f30b64463b517df71055d7b77f7f3560b31a27d23
+    new on service: yes
+
+[28] GC500_Prestart_ATF_2026-10-08_Signed.pdf
+    title : Pre-start · Advanced Temporary Fencing · 2026-10-08 · Signed off
+    note  : Record of the pre-start held on Thu 08 Oct 2026; signed off by Andrew Fisher 15 Oct 2026   kind: pack   day: 2026-10-08   crew: fencing
+    local : /home/user/fish/03_GC500_Delivery_Control/record_15Oct2026_prestarts_signed/pdfs/GC500_Prestart_ATF_2026-10-08_Signed.pdf
+    bytes : 170430   sha256: 308fabd2de989e41b0ed9c038180b33cbb5df0b1c8aaeedae032330bfea48cf1
+    new on service: yes
+
+[29] GC500_Prestart_ATF_2026-10-09_Signed.pdf
+    title : Pre-start · Advanced Temporary Fencing · 2026-10-09 · Signed off
+    note  : Record of the pre-start held on Fri 09 Oct 2026; signed off by Andrew Fisher 15 Oct 2026   kind: pack   day: 2026-10-09   crew: fencing
+    local : /home/user/fish/03_GC500_Delivery_Control/record_15Oct2026_prestarts_signed/pdfs/GC500_Prestart_ATF_2026-10-09_Signed.pdf
+    bytes : 172702   sha256: 62034bf455f9e4de30c7788af754dfa676aa42cab96320287c33e40b1d4651a0
+    new on service: yes
+
+[30] GC500_Prestart_ATF_2026-10-12_Signed.pdf
+    title : Pre-start · Advanced Temporary Fencing · 2026-10-12 · Signed off
+    note  : Record of the pre-start held on Mon 12 Oct 2026; signed off by Andrew Fisher 15 Oct 2026   kind: pack   day: 2026-10-12   crew: fencing
+    local : /home/user/fish/03_GC500_Delivery_Control/record_15Oct2026_prestarts_signed/pdfs/GC500_Prestart_ATF_2026-10-12_Signed.pdf
+    bytes : 174369   sha256: c3a7881179b051ad1fb4bbdcc93b00a618f8a2a6a7a367a069f243caa1e1f814
+    new on service: yes
+
+[31] GC500_Prestart_ATF_2026-10-13_Signed.pdf
+    title : Pre-start · Advanced Temporary Fencing · 2026-10-13 · Signed off
+    note  : Record of the pre-start held on Tue 13 Oct 2026; signed off by Andrew Fisher 15 Oct 2026   kind: pack   day: 2026-10-13   crew: fencing
+    local : /home/user/fish/03_GC500_Delivery_Control/record_15Oct2026_prestarts_signed/pdfs/GC500_Prestart_ATF_2026-10-13_Signed.pdf
+    bytes : 172795   sha256: 5c2be420f65f6d8250bef224a821cdc093613f7df4c23c44e97484bc30a3a035
+    new on service: yes
+
+[32] GC500_Prestart_ATF_2026-10-14_Signed.pdf
+    title : Pre-start · Advanced Temporary Fencing · 2026-10-14 · Signed off
+    note  : Record of the pre-start held on Wed 14 Oct 2026; signed off by Andrew Fisher 15 Oct 2026   kind: pack   day: 2026-10-14   crew: fencing
+    local : /home/user/fish/03_GC500_Delivery_Control/record_15Oct2026_prestarts_signed/pdfs/GC500_Prestart_ATF_2026-10-14_Signed.pdf
+    bytes : 175211   sha256: f274dc1413d8825272c080f7f824ac5a19f327b489570343cf30e8fb0094c95b
+    new on service: yes
+
+[33] GC500_Prestart_ATF_2026-10-15_Signed.pdf
+    title : Pre-start · Advanced Temporary Fencing · 2026-10-15 · Signed off
+    note  : Record of the pre-start held on Thu 15 Oct 2026; signed off by Andrew Fisher 15 Oct 2026   kind: pack   day: 2026-10-15   crew: fencing
+    local : /home/user/fish/03_GC500_Delivery_Control/record_15Oct2026_prestarts_signed/pdfs/GC500_Prestart_ATF_2026-10-15_Signed.pdf
+    bytes : 176338   sha256: 813b78bf06feb86c2bb8dabe29b229c5ed7294b7501a2fca03503dc794a641e2
+    new on service: yes
+
+PLAN: 33 uploads, 17 removals
+
+DRY RUN - nothing was written. Add --apply (with GC500_EDIT_TOKEN set) to do it.
+exit 0

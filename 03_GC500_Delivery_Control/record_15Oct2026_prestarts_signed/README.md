@@ -51,6 +51,23 @@ argument), never printed, and redacted from anything the service answers.
 Options: `--only 2026-10-06` (one day), `--crew coates|fencing`, `--no-remove` (upload only, leave the unsigned
 copies), `--manifest <file>`, `--pdf-dir <folder>`.
 
+#### How the PDFs and `manifest.json` were made — `generate_prestarts.cjs`
+
+`node generate_prestarts.cjs` opens the page read-only through the toolchain harness (every write aborted), reads
+the record for every day in scope — the day's loads and drops, `crew883Day` for who worked, the signed fencing
+dockets, the fencing crew off `DATA.team`, and where a fencing day has no docket yet the week's installation-plan
+rows dated that day — and writes one record a day a crew: `pdfs/GC500_Prestart_Coates_<day>_Signed.pdf` and
+`pdfs/GC500_Prestart_ATF_<day>_Signed.pdf`, on the record forms the 14 and 21 Sep 2026 records use
+(GC500-PS-INS-01 v1, GC500-PS-ATF-01 v1), each closed with "Signed off: Andrew Fisher, Shutdown Manager · signed
+15 Oct 2026". Attendance ticks only the names the record holds for the day; a day with nothing on the record for a
+crew is skipped and listed with its reason. It writes `manifest.json` (a fencing day built from the plan rather
+than a docket carries `"confirm"`, so `--only` can leave it out), `evidence/record_snapshot.json` (what was read)
+and `evidence/build.json` (what was built, and what was skipped and why). `--page <copy of the live page>`,
+`--days`, `--crew`, `--signed`, `--snapshot` and `--out` are described at the top of the script.
+`python3 check_pdfs.py` then reads every PDF back (the form, the day, the names, the sign-off, nothing an
+assistant's name) and `--render <days>` puts page 1 of chosen records in `evidence/pages/` to look at.
+`REPORT.md` is the run of 15 Oct 2026: the table of days, the skipped days, the dry run and what was looked at.
+
 ### 2. `po_checked.cjs` + `po_checked_spec.json` — the tick on the other purchase orders
 
 Records on purchase orders 4647508, 4647509, 4647515 and 4647517 that Andrew checked them, the same as 4647519,
