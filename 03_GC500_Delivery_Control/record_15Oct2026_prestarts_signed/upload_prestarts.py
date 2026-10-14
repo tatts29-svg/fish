@@ -282,8 +282,12 @@ def apply(plan, listing, args, report):
             rec['id'] = ans['id']
             print(f'uploaded {u["name"]} -> id {ans["id"]} ({code})')
             if ans.get('sha256') and ans['sha256'] != u['sha256']:
-                rec['warning'] = 'service sha256 differs from the local file'
-                print(f'   WARNING: service sha256 {ans["sha256"]} differs from local {u["sha256"]}')
+                # a hard stop (15 Oct 2026): the bytes the service holds are not the bytes that were checked, so no
+                # later upload is sent and nothing is removed; the unsigned copies stay until this is looked at
+                rec['error'] = 'service sha256 differs from the local file'
+                print(f'   STOP: service sha256 {ans["sha256"]} differs from local {u["sha256"]}')
+                report['stopped'] = f'service sha256 for {u["name"]} differs from the local file - later uploads and all removals were not attempted'
+                return False
         else:
             print(f'UPLOAD FAILED for {u["name"]}: {code} {redact(json.dumps(ans)[:300])}')
             report['stopped'] = f'upload of {u["name"]} failed - later uploads and all removals were not attempted'

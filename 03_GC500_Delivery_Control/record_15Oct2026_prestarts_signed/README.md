@@ -46,7 +46,8 @@ failure, in which case nothing is removed); only after every upload succeeded re
 (`DELETE /api/files/<id>`); then reads `/api/files` again and proves each new title is there with
 `by == "Andrew Fisher"` and `kind == "pack"` and none of the replaced ids remain. Writes `report_<UTC>.json`.
 The key is read from the environment only, handed to curl on its standard input as a header file (never an
-argument), never printed, and redacted from anything the service answers.
+argument), never printed, and redacted from anything the service answers. Since 15 Oct 2026 a service sha256 that differs from the local file after an upload is a hard stop:
+no later upload is sent and nothing is removed.
 
 Options: `--only 2026-10-06` (one day), `--crew coates|fencing`, `--no-remove` (upload only, leave the unsigned
 copies), `--manifest <file>`, `--pdf-dir <folder>`.
