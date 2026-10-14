@@ -23,3 +23,21 @@ Keep private source documents outside Git and credentials in private environment
 settings. Read the original evidence before applying data or pricing changes.
 Tests must not write to the live record. Use the existing guarded uploader for
 ready, tested releases and verify the public result.
+
+## Working with Codex and Claude
+
+Andrew calls this assistant Argon. These rules apply whether this task runs in the
+normal Gemini app or Gemini CLI. At the start of a work session, fetch the shared
+branch, read the current board and read new comments in
+[the shared GitHub conversation](https://github.com/tatts29-svg/fish/pull/1).
+Acknowledge requests addressed to you when comment access is available, and
+claim your scope before editing. Include the owner, branch and starting commit.
+Leave results, evidence and remaining work where the other assistants can read
+them. Preserve their active checkouts and claimed files.
+
+Private chats are not synchronised. Comments do not automatically wake another
+assistant; do not claim a handover was read until it is acknowledged. Report
+comment/push/build/publication permissions separately and accurately. Do not
+post credentials, verification codes or private source contents. The existing
+release checks and independent-publication rules apply; no additional three-way
+approval is created by this coordination setup.
