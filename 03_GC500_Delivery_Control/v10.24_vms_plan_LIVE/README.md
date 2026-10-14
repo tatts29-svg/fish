@@ -2,6 +2,9 @@
 
 Author: Andrew Fisher · 15 Oct 2026
 
+> LIVE 15 Oct 2026 08:06 AEST (Andrew: "Upload"): page `681da5c7c631a5ccefe25a0f294020feb79a204e2e89211ebb7ff191a9e73dac` published and re-read
+> byte for byte by the view link; the pack PDF uploaded 08:06 AEST, VERIFIED on the service (`report_20261014T220640Z.json`).
+
 Andrew, 15 Oct 2026 about 05:45 AEST in Claude's chat, with iEDM's `VMS001-26003-01_GC500_COATES_VMS_LOCATIONS.pdf`
 and three emails: "We need to work on vms this is going to be a job that needs to be organised and planned. I want
 these as a direct pin on where they are with a satellite image of where it needs to go. Maybe we do a sheet for each.
@@ -79,9 +82,9 @@ pending; Brenden's email calls the end-of-session boards VMS13–17 by position)
 ## Checks (`tests/test_vms1024.cjs`, read only through the harness; results in `tests/test_vms1024_result.json`)
 
 ```sh
-toolchain/build.sh v10.24 v10.24_vms_plan_DRAFT/patch_v1024.py
-PAGE=build/GC500_v10.24/GC500_Delivery_Control_hosted.html node v10.24_vms_plan_DRAFT/tests/test_vms1024.cjs
-PAGE=build/GC500_v10.24/GC500_Delivery_Control_hosted.html node v10.24_vms_plan_DRAFT/generate_vms.cjs
+toolchain/build.sh v10.24 v10.24_vms_plan_LIVE/patch_v1024.py
+PAGE=build/GC500_v10.24/GC500_Delivery_Control_hosted.html node v10.24_vms_plan_LIVE/tests/test_vms1024.cjs
+PAGE=build/GC500_v10.24/GC500_Delivery_Control_hosted.html node v10.24_vms_plan_LIVE/generate_vms.cjs
 ```
 
 | check | result |
