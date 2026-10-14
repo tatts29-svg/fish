@@ -1,0 +1,18 @@
+{
+  "author": "Andrew Fisher",
+  "pageSha256": "2d09fa44794596c52c54d41aed6f98d16fbb6f5ff1ccf608f9d275874559785d",
+  "checks": [
+    {
+      "name": "Exact-base patch reproduces final candidate",
+      "pass": true
+    },
+    {
+      "name": "Repeated application refused",
+      "pass": true
+    },
+    {
+      "name": "Changed live base refused",
+      "pass": true
+    }
+  ]
+}
