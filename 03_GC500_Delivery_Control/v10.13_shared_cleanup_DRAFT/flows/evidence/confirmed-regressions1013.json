@@ -1,0 +1,62 @@
+{
+  "author": "Andrew Fisher",
+  "scope": "Confirmed native interaction regressions and narrow repairs",
+  "baseSha256": "cde0aae30d5e528e85c2b16189bf0c0828397b87a7b3d10c1695362b19a58105",
+  "candidateSha256": "ddf49187248e7e2f47b79b4ca15f16ce1463ab633c59e7aaee7d9ca8f6c25dc7",
+  "reproductions": [
+    {
+      "area": "plant",
+      "case": "Photo registry completion retains open disclosure",
+      "beforeFix": false,
+      "afterFix": true
+    },
+    {
+      "area": "costs",
+      "case": "Photo registry completion retains open disclosure",
+      "beforeFix": false,
+      "afterFix": true
+    },
+    {
+      "area": "subhired",
+      "case": "Photo registry completion retains open disclosure",
+      "beforeFix": false,
+      "afterFix": true
+    },
+    {
+      "area": "today",
+      "case": "Native large-pane disposal retains chosen disclosure state on tab return",
+      "nativePaneWasDisposed": true,
+      "beforeFix": false,
+      "afterFix": true
+    },
+    {
+      "area": "costs",
+      "case": "Native large-pane disposal retains chosen disclosure state on tab return",
+      "nativePaneWasDisposed": true,
+      "beforeFix": false,
+      "afterFix": true
+    },
+    {
+      "area": "subhired",
+      "case": "Native large-pane disposal retains chosen disclosure state on tab return",
+      "nativePaneWasDisposed": true,
+      "beforeFix": false,
+      "afterFix": true
+    },
+    {
+      "area": "Inventory",
+      "case": "Close returns keyboard focus to the originating quantity",
+      "beforeFix": false,
+      "afterFix": true
+    }
+  ],
+  "nativeWrites": {
+    "base": 0,
+    "candidate": 0
+  },
+  "runtimeErrors": {
+    "base": 0,
+    "candidate": 0
+  },
+  "limits": "Large-pane disposal was exercised with an explicitly labelled DOM-only threshold fixture. No operational records were fabricated, saved or changed."
+}
