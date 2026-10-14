@@ -1,7 +1,7 @@
 {
   "name": "GC500_Inventory_All_2026-10-14.pdf",
   "pages": 9,
-  "size": 3927641,
+  "size": 3930724,
   "orient": [
     "lan",
     "lan",
@@ -19,12 +19,12 @@
   "errors": [],
   "requests": {
     "page": 1,
-    "live": 153,
+    "live": 154,
     "blocked": 0,
     "blockedMapSessions": 1
   },
-  "pageSha256": "b9af9ed35e57588d1ec8d6d5712e565a7be02265825e4dd570c8dfc7f86a7609",
-  "pdfSha256": "9846883987a7d725168a45eca2134a2a15e48826636e098b5d8b8ce5327c1027",
+  "pageSha256": "d30833b57d59b2347c106193fa052edfda6c953801c513069af0ab6e05e00b5d",
+  "pdfSha256": "3ca35dbdcf05324edc9373d5c440e02210769dc03976adcb249f7c54eeb593d4",
   "a4BoundsVerified": true,
   "visualPagesInspected": [
     1,
@@ -32,5 +32,9 @@
     7,
     9
   ],
-  "notes": "Actual native Inventory export, two A4 landscape summary pages and seven A4 portrait location pages. Phone source request card and PDF summary, source-only destination, longest water barrier name, and last page inspected; no clipping. Raw PDF/images remain private."
+  "masterPointQRsDecoded": {
+    "WC46": true,
+    "WC55": true
+  },
+  "notes": "Actual native Inventory export, two A4 landscape summary pages and seven A4 portrait location pages. Corrected master-plan labels, source request destination, long water-barrier name, summary and last page visually inspected; no clipping. Actual WC46/WC55 QR codes decoded and matched existing master point destinations. Raw PDF/images remain private."
 }

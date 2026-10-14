@@ -18,7 +18,7 @@ WC46/WC55 already have master-plan unit positions and correct QR destinations. T
 
 Verification against unchanged native record 6075:
 
-- 28 GET-only browser checks: 39 types, 175 Inventory references, 55 outstanding stops and 25 matched supplier date scopes; current stock and ownership equal the baseline throughout.
+- 29 GET-only browser checks: 39 types, 175 Inventory references, 55 outstanding stops and 25 matched supplier date scopes; current stock and ownership equal the baseline throughout.
 - FWF: 227 ordered, 175 currently on site, 52 outstanding. VMS: original placement scope 24, nine currently on site, 14 outstanding. The moved source reference retains its original eight received and seven current units, with none still to deliver.
 - TL2: 311 new-supply ordered, 76 currently on site, 235 outstanding; 64 reinstatement placements shown separately.
 - All summary pages, location pages and nested location cards fit their actual A4 bounds. The actual native PDF export has nine A4 pages (two landscape, seven portrait); summary, source-only destination, long barrier name and final pages inspected without clipping. Real phone source-reference chip, drill and Close tested; phone screenshot inspected.
@@ -27,4 +27,6 @@ Verification against unchanged native record 6075:
 
 Run with `PAGE` pointing to the combined candidate and `BASE_PAGE` to the exact live base. Browser checks also require private `BASELINE` (the native-6075 quantity snapshot), `OUT_DIR`, and the usual Chromium environment. Original captures, screenshots and PDFs stay in private workspace storage. Root owns the final combined checks, financial parity and publication.
 
-Final combined browser and actual PDF evidence was captured from candidate SHA256 `b9af9ed35e57588d1ec8d6d5712e565a7be02265825e4dd570c8dfc7f86a7609`, native 6075. All 28 checks pass, including a split-reference fixture with 27 delivery stops at 26 distinct trade locations. WB19/WB20 later removal tasks were independently verified as distinct scheduled work following reinstatement, so Demob retains them; they do not represent additional simultaneous physical stock.
+Final release browser and actual PDF evidence was captured from candidate SHA256 `d30833b57d59b2347c106193fa052edfda6c953801c513069af0ab6e05e00b5d`, native 6075. All 29 checks pass, including a split-reference fixture with 27 delivery stops at 26 distinct trade locations. WB19/WB20 later removal tasks were independently verified as distinct scheduled work following reinstatement, so Demob retains them; they do not represent additional simultaneous physical stock.
+
+The final release PDF was visually rechecked after the location-label correction. WC46/WC55 actual PDF QR codes were decoded and still exactly match the existing master positions at the six decimal places used by navigation. No coordinates were changed.

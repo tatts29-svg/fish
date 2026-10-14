@@ -79,6 +79,10 @@
       "pass": true
     },
     {
+      "name": "WC46 and WC55 screen and PDF label their existing master points without changing navigation",
+      "pass": true
+    },
+    {
       "name": "PDF includes source names quantities dates and no invented QR",
       "pass": true
     },
@@ -224,9 +228,9 @@
   "errors": [],
   "requests": {
     "page": 1,
-    "live": 115,
+    "live": 116,
     "blocked": 0,
     "blockedMapSessions": 1
   },
-  "sha256": "b9af9ed35e57588d1ec8d6d5712e565a7be02265825e4dd570c8dfc7f86a7609"
+  "sha256": "d30833b57d59b2347c106193fa052edfda6c953801c513069af0ab6e05e00b5d"
 }
