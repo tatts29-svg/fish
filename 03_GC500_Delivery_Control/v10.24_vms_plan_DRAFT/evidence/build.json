@@ -1,13 +1,13 @@
 {
  "author": "Andrew Fisher",
- "built": "2026-10-14T20:02:44.630Z",
+ "built": "2026-10-14T20:12:47.059Z",
  "issued": "2026-10-15",
  "page_version": "v10.24",
- "record_read_at": "2026-10-14T20:02:43.633Z",
+ "record_read_at": "2026-10-14T20:12:43.858Z",
  "page_file": {
   "name": "GC500_Delivery_Control_hosted.html",
-  "sha256": "2fb836de4ef39f75a8ede037954f92e44106d41db61184ac0cd700366b2b465b",
-  "bytes": 17741392
+  "sha256": "3db28c7b8c12563145cd7a5717a602f461dae08ed4bc5fc6dfd3f8efe2f84609",
+  "bytes": 17747235
  },
  "boards": [
   {
@@ -321,152 +321,152 @@
  ],
  "harness": {
   "blocked_writes": 0,
-  "live_requests": 48,
+  "live_requests": 160,
   "page_errors": []
  },
  "pack": {
   "file": "pdfs/GC500_VMS_Plan_Pack_2026-10-15_Issued.pdf",
-  "bytes": 2707868,
-  "sha256": "c1b087853f87e68bfb81b64f57acde3a31d593523bd8cc38c4f3aaa74754bcd9",
+  "bytes": 2322465,
+  "sha256": "a27d0230ab9a0e2e5ea64001f2aaa76e9bdcdc5b1a0c16e521be559b38b7bc32",
   "pages": 28,
   "fit": [
    {
-    "height": 902,
+    "height": 681,
     "avail": 1070,
     "zoom": 1
    },
    {
-    "height": 867,
+    "height": 656,
     "avail": 1070,
     "zoom": 1
    },
    {
-    "height": 902,
+    "height": 681,
     "avail": 1070,
     "zoom": 1
    },
    {
-    "height": 867,
+    "height": 656,
     "avail": 1070,
     "zoom": 1
    },
    {
-    "height": 902,
+    "height": 681,
     "avail": 1070,
     "zoom": 1
    },
    {
-    "height": 867,
+    "height": 656,
     "avail": 1070,
     "zoom": 1
    },
    {
-    "height": 867,
+    "height": 656,
     "avail": 1070,
     "zoom": 1
    },
    {
-    "height": 902,
+    "height": 681,
     "avail": 1070,
     "zoom": 1
    },
    {
-    "height": 867,
+    "height": 656,
     "avail": 1070,
     "zoom": 1
    },
    {
-    "height": 902,
+    "height": 681,
     "avail": 1070,
     "zoom": 1
    },
    {
-    "height": 867,
+    "height": 656,
     "avail": 1070,
     "zoom": 1
    },
    {
-    "height": 902,
+    "height": 681,
     "avail": 1070,
     "zoom": 1
    },
    {
-    "height": 867,
+    "height": 656,
     "avail": 1070,
     "zoom": 1
    },
    {
-    "height": 902,
+    "height": 681,
     "avail": 1070,
     "zoom": 1
    },
    {
-    "height": 867,
+    "height": 656,
     "avail": 1070,
     "zoom": 1
    },
    {
-    "height": 910,
+    "height": 689,
     "avail": 1070,
     "zoom": 1
    },
    {
-    "height": 867,
+    "height": 656,
     "avail": 1070,
     "zoom": 1
    },
    {
-    "height": 902,
+    "height": 681,
     "avail": 1070,
     "zoom": 1
    },
    {
-    "height": 867,
+    "height": 656,
     "avail": 1070,
     "zoom": 1
    },
    {
-    "height": 918,
+    "height": 697,
     "avail": 1070,
     "zoom": 1
    },
    {
-    "height": 867,
+    "height": 656,
     "avail": 1070,
     "zoom": 1
    },
    {
-    "height": 902,
+    "height": 681,
     "avail": 1070,
     "zoom": 1
    },
    {
-    "height": 867,
+    "height": 656,
     "avail": 1070,
     "zoom": 1
    },
    {
-    "height": 902,
+    "height": 681,
     "avail": 1070,
     "zoom": 1
    },
    {
-    "height": 867,
+    "height": 656,
     "avail": 1070,
     "zoom": 1
    },
    {
-    "height": 987,
+    "height": 766,
     "avail": 1070,
     "zoom": 1
    },
    {
-    "height": 867,
+    "height": 656,
     "avail": 1070,
     "zoom": 1
    },
    {
-    "height": 902,
+    "height": 681,
     "avail": 1070,
     "zoom": 1
    }

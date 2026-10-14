@@ -45,6 +45,29 @@ function position(b){
 }
 function frame(p){ try { const f = typeof frameOf === 'function' ? frameOf(p.lat, p.lon) : null; return f && f.ax >= 0.02 && f.ax <= 0.98 && f.ay >= 0.02 && f.ay <= 0.98 ? f : null; } catch (e) { return null; } }
 function notes(b){ const r = rec(b.pos); return r && r.notes != null ? r.notes : (b.notes_default || ''); }
+/* Satellite close-ups: the live Mapbox imagery the page's satellite board shows (the service's token, restricted to this
+   address), as static pictures centred on the pin, north up, street names on - CLOSE about 110 m across, WIDE about
+   480 m - with the ring, cross and scale bar drawn over them on the page. Without a key (no service answer) the
+   registered 2022 aerial stands in where it covers the spot. */
+const SAT = {close: {z: 18.6, w: 640, h: 420}, wide: {z: 16.5, w: 640, h: 420}};
+let keyPromise = null;
+function mapKey(){ try { return typeof liveMapKey === 'function' ? liveMapKey() : null; } catch (e) { return null; } }
+function askKey(){ /* the service's answer, asked once; the tab redraws when it lands, a sheet waits for it */
+ if (keyPromise) return keyPromise;
+ keyPromise = Promise.resolve().then(() => typeof liveMapKeyFromService === 'function' ? liveMapKeyFromService() : null).catch(() => null)
+  .then(k => { try { const pane = document.getElementById('pane-vms'); if (k && state.tab === 'vms' && pane && pane.classList.contains('on')) render(); } catch (e) {} return k; });
+ return keyPromise;
+}
+function satUrl(p, which){
+ const k = mapKey(); if (!k || !k.token) return null; const s = SAT[which] || SAT.close;
+ return 'https://api.mapbox.com/styles/v1/mapbox/satellite-streets-v12/static/' + p.lon.toFixed(6) + ',' + p.lat.toFixed(6) + ',' + s.z + ',0/' + s.w + 'x' + s.h + '@2x?attribution=false&logo=false&access_token=' + encodeURIComponent(k.token);
+}
+function metresPerPx(p, which){ const s = SAT[which] || SAT.close; return 78271.517 * Math.cos(p.lat * Math.PI / 180) / Math.pow(2, s.z); }
+function satFigure(p, which, cls){
+ const url = satUrl(p, which); if (!url) return '';
+ const s = SAT[which] || SAT.close, mpp = metresPerPx(p, which), across = Math.round(s.w * mpp / 10) * 10, bar = which === 'close' ? 20 : 100, barPct = (bar / mpp) / s.w * 100;
+ return `<figure class="${cls} v1024-sat v1024-sat-${which}"><span class="v1024-im"><img src="${esc(url)}" alt="satellite ${which} ${across} m across" crossorigin="anonymous"><i class="v1024-ring"></i><span class="v1024-scale" style="width:${barPct.toFixed(2)}%">${bar} m</span><span class="v1024-north">N ↑</span></span><figcaption>${which === 'close' ? 'Close-up' : 'The area'} · satellite, about ${across} m across · north up · orange ring = the pin · © Mapbox © Maxar</figcaption></figure>`;
+}
 function aerial(pos, p, f){ /* a promise of the aerial close-up data URL, cached per position */
  const k = pos + '|' + (f || 0.12) + '|' + p.lat.toFixed(5) + ',' + p.lon.toFixed(5);
  if (crops[k]) return crops[k];
@@ -91,8 +114,8 @@ function card(b){
  return `<section class="card v1024-card${r.inPlace ? ' done' : ''}" data-pos="${esc(b.pos)}">
  <header class="v1024-h"><span class="v1024-no">${esc(label(b))}</span><div><h3>${esc(b.title)}</h3><p class="sub">${esc(phaseWord(b))}${b.from ? ' · moved from VMS ' + esc(b.from) : ''}${b.moves_to ? ' · moves to VMS ' + esc(b.moves_to) + ' for the event' : ''}${b.stored ? ' · stored: ' + esc(b.stored) : ''}${b.roadtek ? ' · Roadtek removes and reinstalls it Fri/Sat/Sun' : ''}${b.dates ? ' · ' + esc(b.dates) : ''}</p></div></header>
  <div class="v1024-pics">
-  <figure class="v1024-air" data-air="${esc(b.pos)}">${fr ? '<div class="v1024-wait">satellite close-up loading…</div>' : '<div class="v1024-wait">outside the page’s aerial; the plan’s map below</div>'}<figcaption>${fr ? 'Satellite (QLD 2022 aerial) · about 190 m across · orange ring = the pin' : 'No aerial cover here'}</figcaption></figure>
-  <figure class="v1024-plan">${IMG[b.pos] ? `<img src="${IMG[b.pos]}" alt="iEDM plan crop for ${esc(label(b))}">` : '<div class="v1024-wait">plan crop not built</div>'}<figcaption>iEDM VMS plan, page ${esc(b.page)} · red dot = position, photo = the spot</figcaption></figure>
+  ${mapKey() ? satFigure(p, 'close', 'v1024-pic') + satFigure(p, 'wide', 'v1024-pic') : `<figure class="v1024-pic v1024-air" data-air="${esc(b.pos)}">${fr ? '<div class="v1024-wait">satellite close-up loading…</div>' : '<div class="v1024-wait">' + (keyPromise ? 'no satellite key from the service; the plan’s map below' : 'asking the service for the satellite key…') + '</div>'}<figcaption>${fr ? 'Satellite (QLD 2022 aerial) · about 190 m across · orange ring = the pin' : 'Satellite'}</figcaption></figure>`}
+  <figure class="v1024-pic v1024-plan">${IMG[b.pos] ? `<img src="${IMG[b.pos]}" alt="iEDM plan crop for ${esc(label(b))}">` : '<div class="v1024-wait">plan crop not built</div>'}<figcaption>iEDM VMS plan, page ${esc(b.page)} · red dot = position, photo = the spot</figcaption></figure>
  </div>
  <div class="v1024-nav"><div class="v1024-qr">${qr(p, 3)}</div><div><b>Pin</b> ${p.lat.toFixed(6)}, ${p.lon.toFixed(6)}<br><small>${esc(p.how)}${p.by ? ' · ' + esc(p.by) + ' · ' + esc(when(p.at)) : ''}</small><br><a class="btn" href="${esc(nav(p))}" target="_blank" rel="noopener" data-ro>Navigate</a> <button type="button" class="btn" data-v1024-print="${esc(b.pos)}" data-ro>Print this sheet</button></div></div>
  ${msgs}
@@ -111,6 +134,7 @@ function card(b){
 function when(iso){ if (!iso) return ''; const d = new Date(iso); return isNaN(d) ? String(iso) : d.toLocaleString('en-AU', {timeZone: 'Australia/Brisbane', hour12: false, day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit'}); }
 function render(){
  const pane = document.getElementById('pane-vms'); if (!pane) return;
+ askKey();
  const src = PLAN.source || {}, win = PLAN.windows || {};
  const counts = {all: boards().length, construction: boards().filter(b => b.phase === 'construction').length, event: boards().filter(b => b.phase === 'event' && !b.session).length, session: boards().filter(b => b.session).length};
  const placed = boards().filter(b => (rec(b.pos) || {}).inPlace).length;
@@ -155,12 +179,21 @@ const CSS = `
 #dayprint .ps7.v1024 .v-no{display:inline-block;background:#f07c2a;color:#fff;font-weight:800;font-size:14pt;padding:2px 10px;border-radius:3px;letter-spacing:.5px}
 #dayprint .ps7.v1024 .v-title{font-size:10.5pt;font-weight:700;margin:3px 0 1px}
 #dayprint .ps7.v1024 .v-sub{font-size:7.2pt;color:#3b4246;margin:0 0 3px}
-#dayprint .ps7.v1024 .v-pics{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:4mm;align-items:start}
-#dayprint .ps7.v1024 .v-pics figure{margin:0;border:1px solid #c9cfd2}
-#dayprint .ps7.v1024 .v-pics img{display:block;width:100%;height:auto}
-#dayprint .ps7.v1024 .v-pics figcaption{font-size:6.2pt;color:#3b4246;padding:1.5px 4px;background:#f3f4f5;border-top:1px solid #c9cfd2}
-#dayprint .ps7.v1024 .v-none{min-height:60mm;display:flex;align-items:center;justify-content:center;color:#6b757a;font-size:7pt;background:#f7f8f8}
-#dayprint .ps7.v1024 .v-nav{display:grid;grid-template-columns:34mm 1fr 1fr;gap:4mm;margin:3mm 0 2mm;align-items:start}
+#dayprint .ps7.v1024 .v-pics{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:3mm;align-items:start}
+#dayprint .ps7.v1024 .v-pics.live{grid-template-columns:minmax(0,1.25fr) minmax(0,1fr)}
+#dayprint .ps7.v1024 .v-pic{margin:0;border:1px solid #c9cfd2;position:relative;overflow:hidden;background:#f3f4f5}
+#dayprint .ps7.v1024 .v-pic img{display:block;width:100%;height:auto}
+#dayprint .ps7.v1024 .v-pic figcaption{font-size:6.2pt;color:#3b4246;padding:1.5px 4px;background:#f3f4f5;border-top:1px solid #c9cfd2;position:relative}
+#dayprint .ps7.v1024 .v1024-im{display:block;position:relative;line-height:0}
+#dayprint .ps7.v1024 .v1024-sat .v1024-ring{position:absolute;left:50%;top:50%;width:9mm;height:9mm;margin:-4.5mm 0 0 -4.5mm;border:1.1mm solid #f07c2a;border-radius:50%;box-shadow:0 0 0 .4mm rgba(255,255,255,.85),inset 0 0 0 .4mm rgba(255,255,255,.85);pointer-events:none}
+#dayprint .ps7.v1024 .v1024-sat .v1024-ring::before,#dayprint .ps7.v1024 .v1024-sat .v1024-ring::after{content:"";position:absolute;background:#f07c2a;left:50%;top:50%}
+#dayprint .ps7.v1024 .v1024-sat .v1024-ring::before{width:.6mm;height:14mm;margin:-7mm 0 0 -.3mm}
+#dayprint .ps7.v1024 .v1024-sat .v1024-ring::after{height:.6mm;width:14mm;margin:-.3mm 0 0 -7mm}
+#dayprint .ps7.v1024 .v1024-sat .v1024-scale{position:absolute;left:3mm;bottom:3mm;height:1.2mm;background:#fff;border:.3mm solid #15181a;font-size:5.8pt;line-height:1;color:#fff;text-shadow:0 0 2px #000,0 0 2px #000;padding-top:1.6mm;box-sizing:content-box;white-space:nowrap}
+#dayprint .ps7.v1024 .v1024-sat .v1024-north{position:absolute;right:2mm;top:1.5mm;font-size:7pt;font-weight:800;color:#fff;text-shadow:0 0 2px #000,0 0 3px #000}
+#dayprint .ps7.v1024 .v-none{min-height:60mm;display:flex;align-items:center;justify-content:center;color:#6b757a;font-size:7pt;background:#f7f8f8;padding:0 8mm;text-align:center}
+#dayprint .ps7.v1024 .v-nav{display:grid;grid-template-columns:58mm 34mm 1fr 1fr;gap:3mm;margin:3mm 0 2mm;align-items:start}
+#dayprint .ps7.v1024 .v-nav .v-plan img{width:100%}
 #dayprint .ps7.v1024 .v-nav svg{width:34mm;height:34mm;display:block}
 #dayprint .ps7.v1024 .v-nav .v-k{font-size:7.2pt}
 #dayprint .ps7.v1024 .v-nav .v-k b{display:block;font-size:6.4pt;letter-spacing:.8px;color:#b4521a;margin-top:2px}
@@ -184,7 +217,11 @@ const CSS = `
 async function sheetHtml(pos, o){
  const b = board(pos); if (!b) return '';
  const p = position(b), id = identity(b), r = rec(b.pos) || {}, fr = frame(p);
- const air = fr ? await aerial(b.pos, p, 0.12) : null;
+ await askKey();
+ const live = !!mapKey();
+ const air = !live && fr ? await aerial(b.pos, p, 0.12) : null;
+ const pics = live ? satFigure(p, 'close', 'v-pic') + satFigure(p, 'wide', 'v-pic')
+  : `<figure class="v-pic">${air ? `<img src="${air}" alt="satellite close-up">` : '<div class="v-none">No satellite picture: the service gave no map key and the page’s aerial does not cover this spot — use the plan crop and the QR</div>'}<figcaption>${air ? 'Satellite · QLD Government 2022 aerial · about 190 m across · orange ring and cross = the pin' : 'No satellite on the page for this spot'}</figcaption></figure>`;
  const msgs = (b.messages || []).map(m => `<div class="v-msg"><b>${esc(m.name)}</b> · ${esc(m.when)} · <i>${esc(m.face)}</i><code>${m.lines.map(esc).join('  ·  ')}</code></div>`).join('');
  const noteText = notes(b);
  return `<section class="ps ps7 fen v1024${o && o.brk ? ' brk' : ''}">
@@ -193,11 +230,8 @@ async function sheetHtml(pos, o){
  <div class="psh-r"><b>GC500 · 2026</b><span>SUPERCARS GOLD COAST 500</span><span>SURFERS PARADISE STREET CIRCUIT</span></div></header>
  <p class="v-title"><span class="v-no">${esc(label(b))}</span> &nbsp;${esc(b.title)}</p>
  <p class="v-sub">${esc(phaseWord(b))}${b.from ? ' · moved from VMS ' + esc(b.from) : ''}${b.moves_to ? ' · moves to VMS ' + esc(b.moves_to) + ' for the event' : ''}${b.stored ? ' · stored: ' + esc(b.stored) : ''}${b.roadtek ? ' · Roadtek removes and reinstalls it Fri/Sat/Sun' : ''}${b.dates ? ' · ' + esc(b.dates) : ''} · iEDM plan page ${esc(b.page)}</p>
- <div class="v-pics">
-  <figure>${air ? `<img src="${air}" alt="satellite close-up">` : '<div class="v-none">Outside the page’s aerial cover — use the plan crop and the QR</div>'}<figcaption>${air ? 'Satellite · QLD Government 2022 aerial · about 190 m across · orange ring and cross = the pin' : 'No aerial on the page for this spot'}</figcaption></figure>
-  <figure>${IMG[b.pos] ? `<img src="${IMG[b.pos]}" alt="iEDM plan crop">` : '<div class="v-none">plan crop not built</div>'}<figcaption>iEDM VMS plan · red dot = the position · photo = the spot</figcaption></figure>
- </div>
- <div class="v-nav"><div>${qr(p, 4)}</div>
+ <div class="v-pics${live ? ' live' : ''}">${pics}</div>
+ <div class="v-nav"><figure class="v-pic v-plan">${IMG[b.pos] ? `<img src="${IMG[b.pos]}" alt="iEDM plan crop">` : '<div class="v-none">plan crop not built</div>'}<figcaption>iEDM VMS plan \u00b7 red dot = the position \u00b7 photo = the spot</figcaption></figure><div>${qr(p, 4)}</div>
   <div class="v-k"><b>SCAN TO NAVIGATE</b>Google Maps driving directions to the pin<b>PIN</b><code>${p.lat.toFixed(6)}, ${p.lon.toFixed(6)}</code><b>POSITION BASIS</b>${esc(p.how)}${p.by ? ' · ' + esc(p.by) + ' ' + esc(when(p.at)) : ''}</div>
   <div class="v-k"><b>WHEN</b>${esc(b.session ? (PLAN.windows || {}).track || '' : b.phase === 'event' ? (PLAN.windows || {}).event || '' : (PLAN.windows || {}).construction || '')}${b.stored ? '<b>STORED BETWEEN SESSIONS</b>' + esc(b.stored) : ''}${b.from ? '<b>COMES FROM</b>VMS ' + esc(b.from) + ' (construction position)' : ''}${b.moves_to ? '<b>GOES TO</b>VMS ' + esc(b.moves_to) + ' for the event' : ''}</div></div>
  ${msgs}
@@ -236,8 +270,13 @@ function print(which, o){
    if (keep === null) wrap.removeAttribute('style'); else wrap.setAttribute('style', keep);
    if (h > avail * 0.985) sec.style.zoom = String(Math.max(0.8, Math.floor(avail * 0.985 / h * 1000) / 1000));
   });
-  if (o && o.keep) { try { dpBarSay((DP_MAIL.vms || 'VMS board sheet') + ' · ' + (which === 'all' ? boards().length + ' pages' : label(board(which)) + ' · 1 page'), true); } catch (e) {} if (typeof dpZoomFit === 'function') dpZoomFit(); }
-  else (document.fonts && document.fonts.ready ? document.fonts.ready : Promise.resolve()).then(() => { if (timeline841PrintCurrent(token)) window.print(); });
+  /* the satellite pictures come from the map service: the bar says ready, or print starts, only once every one is in */
+  const imgs = [...wrap.querySelectorAll('img')].filter(im => !im.complete);
+  Promise.all(imgs.map(im => new Promise(res => { im.onload = im.onerror = () => res(); }))).then(() => {
+   if (!timeline841PrintCurrent(token) || document.getElementById('dayprint') !== wrap) return;
+   if (o && o.keep) { try { dpBarSay((DP_MAIL.vms || 'VMS board sheet') + ' · ' + (which === 'all' ? boards().length + ' pages' : label(board(which)) + ' · 1 page'), true); } catch (e) {} if (typeof dpZoomFit === 'function') dpZoomFit(); }
+   else (document.fonts && document.fonts.ready ? document.fonts.ready : Promise.resolve()).then(() => { if (timeline841PrintCurrent(token)) window.print(); });
+  });
  });
 }
 

@@ -16,10 +16,15 @@ vms reference in case some have special instructions. I think have one big huge 
   demob 01–08, 22, 23; event 02a, 03a, 05a, 07a (the relocations of 02, 03, 05, 07), 09–12, 18–21, 24; the five
   end-of-session boards 13–17 (in at the conclusion of track activity Fri/Sat/Sun, stored in the Altus compound on
   Cypress Ave, the T2, T11 and T10 runoffs). Filters: all, construction, event, end of session.
-- **Each card**: the plan's words for the spot; the phase and dates; where it comes from or moves to; a **satellite
-  close-up** from the page's registered 2022 aerial (about 190 m across, orange ring on the pin) for the 17 positions
-  the aerial covers; **iEDM's own map crop and photo** for every position (the plan's pages, rendered and cropped, red
-  dot and all); a **QR** that opens Google Maps driving directions to the pin and a Navigate button; the **pin**
+- **Each card**: the plan's words for the spot; the phase and dates; where it comes from or moves to; **two
+  satellite close-ups of our own on every board** — the live Mapbox/Maxar imagery the page's satellite board uses,
+  drawn as static pictures centred on the pin with the service's own map token (the one Andrew set on Railway on
+  18 Sep; restricted to this address, asked of the service once per page load): a close-up about 110 m across and the
+  area about 480 m across, north up, street names on, an orange ring and cross on the pin, a scale bar and a north
+  mark drawn over them by the page (Andrew, 15 Oct about 06:05 AEST: "I want our shots better. I want whoever is placing
+  these to have confidence so they know where to go"); if the service gives no key, the registered 2022 aerial stands
+  in where it covers the spot; **iEDM's own map crop and photo** for every position (the plan's pages, rendered and
+  cropped, red dot and all); a **QR** that opens Google Maps driving directions to the pin and a Navigate button; the **pin**
   (lat, lon) and its basis; **VMS 20's two messages** with their times and facing; the **board** standing there
   (vms1–vms8 from the record's T0001 numbering for 01–08; VMS09 and VMS10 from the v9.13 register); **asset number**,
   **number plate**, **notes / special instructions** (Brenden's and Steve's words preloaded where they apply), an
@@ -31,7 +36,8 @@ vms reference in case some have special instructions. I think have one big huge 
   link shows everything and changes nothing. The v9.13 VMS register on the Equipment tab is untouched and still feeds
   the board identity where a position names a contract board.
 - **Print**: `#print/vms/<pos>` one A4 sheet (the pre-start's print style): orange board number, the spot, phase and
-  dates, the satellite close-up and the plan crop side by side, a 34 mm QR with the pin and its basis, when, storage,
+  dates, the two satellite close-ups side by side (the sheet waits for the map key and for every picture before the
+  print bar says ready), the plan crop beside a 34 mm QR with the pin and its basis, when, storage,
   the messages, four identity boxes (board, asset number, number plate, in place), notes with write-in lines, placed
   by / date / checked by, and the issued line. `#print/vms/all` prints the whole plan, 28 pages, a page break before
   each. The **pack PDF** (`generate_vms.cjs` → `pdfs/GC500_VMS_Plan_Pack_2026-10-15_Issued.pdf`) is made from that
@@ -48,9 +54,9 @@ page already holds to the metre — the master plan's gates (G1, G8, G9, G10), t
 pit lane line — or the named intersection (TomTom cross-street geocode, 15 Oct 2026), then checked as an orange ring on
 the 2022 aerial at 115 m across (`tests/shots/montage*.jpg`): every pin on its carriageway, verge or path. The accuracy
 stated on each line (30–60 m) is the honest figure for a board placed from a plan; the pin taken on site with the phone
-button, or a lat/lon typed on the line, becomes the position of record and prints on the sheet. Eleven positions are
-outside the page's aerial cover (01, 02, 03, 07, 08, 09, 10, 17, 21, 23, 24): their sheets carry the plan crop and the
-QR, no satellite. Boards 11–23 are named by their position number (contract 9961265 lists VMS11–VMS23, sub-hire,
+button, or a lat/lon typed on the line, becomes the position of record and prints on the sheet. The live satellite
+pictures cover all 28 positions; the page's own 2022 aerial (the fallback) covers 17 (not 01, 02, 03, 07, 08, 09, 10,
+17, 21, 23, 24). Boards 11–23 are named by their position number (contract 9961265 lists VMS11–VMS23, sub-hire,
 pending; Brenden's email calls the end-of-session boards VMS13–17 by position); 24 has no contract board yet (the plan's
 24 positions against the contract's 23 boards, open item R16/R30).
 

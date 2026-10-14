@@ -28,14 +28,14 @@ const docIdOf1024 = key => [...String(key)].map(ch => /[A-Za-z0-9_\-.:@+]/.test(
 (async () => {
   let s = await open({pageFile: PAGE, hash: '#vms', mobile: true, W: 390, H: 844, dpr: 2});
   await live(s.page); await s.page.waitForTimeout(3000);
-  await s.page.waitForFunction(() => document.querySelectorAll('#pane-vms [data-air] img').length >= 10, null, {timeout: 90000}).catch(() => null);
+  await s.page.waitForFunction(() => { const im = [...document.querySelectorAll('#pane-vms .v1024-sat img')]; return im.length >= 56 && im.every(i => i.complete); }, null, {timeout: 180000}).catch(() => null);
   const v = await s.page.evaluate(() => {
     const pane = document.getElementById('pane-vms'), cards = [...pane.querySelectorAll('.v1024-card')];
     const N = window.VMS1024, bs = N.boards();
     return {tab: state.tab, shown: pane.classList.contains('on'), cards: cards.length, boards: bs.length,
       construction: bs.filter(b => b.phase === 'construction').length, event: bs.filter(b => b.phase === 'event' && !b.session).length, session: bs.filter(b => b.session).length,
       qrs: pane.querySelectorAll('.v1024-qr svg').length, navs: [...pane.querySelectorAll('a[href*="google.com/maps/dir"]')].length, plans: pane.querySelectorAll('.v1024-plan img').length,
-      airs: pane.querySelectorAll('[data-air] img').length, inFrame: bs.filter(b => N.frame(N.position(b))).length,
+      airs: [...pane.querySelectorAll('.v1024-sat img')].filter(i => i.complete && i.naturalWidth > 0).length, satFail: [...pane.querySelectorAll('.v1024-sat img')].filter(i => i.complete && i.naturalWidth === 0).length, key: !!(typeof liveMapKey === 'function' && liveMapKey()), inFrame: bs.filter(b => N.frame(N.position(b))).length,
       disabled: [...pane.querySelectorAll('.v1024-txt, [data-v1024]')].filter(e => e.disabled).length, fields: pane.querySelectorAll('.v1024-txt, [data-v1024]').length,
       preTicked: [...pane.querySelectorAll('[data-v1024="inplace"]')].filter(e => e.checked).length,
       msgs20: pane.querySelectorAll('.v1024-card[data-pos="20"] .v1024-msg').length, msg20text: (pane.querySelector('.v1024-card[data-pos="20"] .v1024-msg code') || {}).textContent,
@@ -45,7 +45,7 @@ const docIdOf1024 = key => [...String(key)].map(ch => /[A-Za-z0-9_\-.:@+]/.test(
   });
   check('1 #vms opens the VMS boards pane with 28 cards (10 + 13 + 5)', v.tab === 'vms' && v.shown && v.cards === 28 && v.boards === 28 && v.construction === 10 && v.event === 13 && v.session === 5, {cards: v.cards, c: v.construction, e: v.event, s: v.session});
   check('1 every card has a QR, a navigate link and the plan crop', v.qrs === 28 && v.navs === 28 && v.plans === 28, {qrs: v.qrs, navs: v.navs, plans: v.plans});
-  check('1 satellite close-ups arrived for the positions inside the aerial', v.airs >= 10 && v.airs === v.inFrame, {airs: v.airs, inFrame: v.inFrame});
+  check('1 the service gave the map key and two satellite close-ups loaded on every card (56)', v.key && v.airs === 56 && v.satFail === 0, {key: v.key, loaded: v.airs, failed: v.satFail});
   check('1 view link: every field disabled, nothing pre-ticked', v.disabled === v.fields && v.preTicked === 0, {fields: v.fields, disabled: v.disabled});
   check('1 VMS 20 shows its two messages', v.msgs20 === 2 && /TICKETS/.test(v.msg20text || ''), {msgs: v.msgs20, text: v.msg20text});
   check('1 asset numbers come from the record (vms1 → 1211354) and the register (VMS09 → 1211404)', v.asset01 === '1211354' && v.asset09 === '1211404', {a01: v.asset01, a09: v.asset09});
@@ -93,12 +93,12 @@ const docIdOf1024 = key => [...String(key)].map(ch => /[A-Za-z0-9_\-.:@+]/.test(
   const p = await s.page.evaluate(() => {
     const w = document.getElementById('dayprint'), secs = w ? [...w.querySelectorAll('.ps7.v1024')] : [], sec = secs[0], bar = document.getElementById('dpbar');
     return {tab: state.tab, bar: bar && bar.querySelector('.dpbar-t').textContent, ready: bar && !bar.querySelector('[data-dpbar-print]').disabled, sheets: secs.length,
-      msgs: sec ? sec.querySelectorAll('.v-msg').length : 0, qr: sec ? !!sec.querySelector('.v-nav svg') : false, air: sec ? !!sec.querySelector('.v-pics img[alt="satellite close-up"]') : false,
-      plan: sec ? !!sec.querySelector('.v-pics img[alt="iEDM plan crop"]') : false, ids: sec ? sec.querySelectorAll('.v-id div').length : 0, zoom: sec ? (sec.style.zoom || '1') : null,
+      msgs: sec ? sec.querySelectorAll('.v-msg').length : 0, qr: sec ? !!sec.querySelector('.v-nav svg') : false, air: sec ? [...sec.querySelectorAll('.v-pics .v1024-sat img')].filter(i => i.complete && i.naturalWidth > 0).length === 2 : false,
+      plan: sec ? !!sec.querySelector('.v-nav img[alt="iEDM plan crop"]') : false, ids: sec ? sec.querySelectorAll('.v-id div').length : 0, zoom: sec ? (sec.style.zoom || '1') : null,
       title: sec ? sec.querySelector('.v-title').textContent : '', issued: sec ? sec.querySelector('.issued').textContent : '', printing: document.body.classList.contains('printing-day')};
   });
   check('3 #print/vms/20 lands on the VMS tab with the bar ready and one sheet', p.tab === 'vms' && p.ready && p.sheets === 1 && /VMS board sheet/.test(p.bar || ''), {bar: p.bar, sheets: p.sheets});
-  check('3 the VMS 20 sheet: two messages, QR, satellite and plan pictures, four identity boxes, fits one page', p.msgs === 2 && p.qr && p.air && p.plan && p.ids === 4 && Number(p.zoom) >= 0.8 && /P60/.test(p.title), {msgs: p.msgs, qr: p.qr, air: p.air, plan: p.plan, zoom: p.zoom});
+  check('3 the VMS 20 sheet: two messages, QR, both satellite close-ups loaded, the plan picture, four identity boxes, fits one page', p.msgs === 2 && p.qr && p.air && p.plan && p.ids === 4 && Number(p.zoom) >= 0.8 && /P60/.test(p.title), {msgs: p.msgs, qr: p.qr, air: p.air, plan: p.plan, zoom: p.zoom});
   check('3 issued line names the author and 15 Oct 2026', /Issued:/.test(p.issued) && /15 Oct 2026/.test(p.issued) && !/undefined|NaN/.test(p.issued), p.issued.slice(0, 100));
   await s.page.screenshot({path: path.join(shots, 'desktop_print_vms20.png')});
   await s.page.evaluate(() => { location.hash = '#print/vms/all'; });
