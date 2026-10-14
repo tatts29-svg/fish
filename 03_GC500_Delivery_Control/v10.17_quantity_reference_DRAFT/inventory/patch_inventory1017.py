@@ -38,6 +38,7 @@ def apply(html):
     end=' if (!list.length) return `<div class="tg782">'
     old=html[html.index(start):html.index(end,html.index(start))]
     edit(old,start+' const list=Inventory1017.outstanding(I,INV.disc);\n','Screen outstanding list uses shared receipt demand')
+    edit('Still to come - every location (${list.length})','Still to come - ${list.length} delivery stops','Count dated rows as delivery stops')
     start='function inv83Togo(I){\n'
     end='function inv83Pages(){'
     old=html[html.index(start):html.index(end,html.index(start))]
@@ -51,6 +52,9 @@ def apply(html):
         ('const PORTRAIT_ROWS = 34, LAND_ROWS = 33, pages = [];','const placementNote1017=!!Inventory1017.placements(I,true), PORTRAIT_ROWS = placementNote1017?31:34, LAND_ROWS = 33, pages = [];','Reserve summary note space'),
         ('const first = LAND_ROWS - 9;','const first = LAND_ROWS - (placementNote1017?13:9);','Reserve landscape note space'),
         ('const PER = 10;','const PER = 9;','Nine fully readable location rows per A4 page'),
+        ("<i>at ${togo.length} location${togo.length === 1 ? '' : 's'}</i>","<i>at ${Inventory1017.locationCount(togo)} location${Inventory1017.locationCount(togo) === 1 ? '' : 's'}</i>",'Export unique location count'),
+        ("${togo.length} location${togo.length === 1 ? '' : 's'}, by the day due","${togo.length} delivery stop${togo.length === 1 ? '' : 's'}, by the day due",'Export dated row count'),
+        ('togo: togo.length, money, what','togo: Inventory1017.locationCount(togo), money, what','Export summary reports unique locations'),
     ])
     scope(' const card = e => { const F = inv87Facts(e),',' const card783 = e => {',[
         ("'<div class=\"nq\">No map spot yet - set it in Edit</div>'","'<div class=\"nq\">'+(F.sourceOnly1017?'Exact position not recorded · no navigation QR':'No map spot yet - set it in Edit')+'</div>'",'No invented request position or editor'),
@@ -69,6 +73,7 @@ def apply(html):
         ('asked: refs.map(x =>','asked: refs.filter(x=>x.asked>0).map(x =>','Exclude repeat placement from new supply drill'),
         ("const es = pick.map(([x]) => ({key: x.key, a: assetOf(x.key), items: [(x.asked - x.on) + ' × ' + r.item], short: !!x.onsite, due: due(x.key)})).filter(e => e.a), n7 = pick.reduce((s, [x]) => s + x.asked - x.on, 0);", "const es = Inventory1017.outstanding({...I,list:[r]},r.disc,true), n7 = pick.reduce((s,[x])=>s+Inventory1017.remaining(x),0);",'Drill uses dated supplier portions'),
         ("D.col === 'togo' ? x.asked - x.on :","D.col === 'togo' ? Inventory1017.remaining(x) :",'Drill alternative aggregate'),
+        ("at ${es.length} location${es.length === 1 ? '' : 's'}","at ${Inventory1017.locationCount(es)} location${Inventory1017.locationCount(es) === 1 ? '' : 's'}",'Drill unique locations across split days'),
         ('.map(([x, w]) => `<li><button type="button" class="invref"', '.map(([x, w]) => x.sourceOnly1017 ? `<li><b>${esc(x.key)}</b> · ${esc(w)} · ${esc(x.source1017.name)}<details><summary>More info</summary><p>${esc(Inventory1017.sourceNote(x.source1017))}</p><p>Supplier request · no receipt or native location reference recorded.</p></details></li>` : `<li><button type="button" class="invref"','Source requests have no dead edit link'),
     ])
     edit('Everything ordered that is not on site yet${INV.disc', 'Outstanding deliveries after recorded receipts${INV.disc','Delivery list explains its measure')

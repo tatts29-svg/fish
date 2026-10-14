@@ -1,12 +1,12 @@
 {
   "author": "Andrew Fisher",
   "parentBaseSha256": "3cbfd0d5c9bd53f02d5a89b274e83ee0c2d2c8dc17b03da59b68cf3a3db8673c",
-  "modelChecks": 10,
+  "modelChecks": 15,
   "manifestChecks": 7,
   "browser": {
     "candidate-desktop": {
       "nativeVersion": 6075,
-      "checks": 28,
+      "checks": 33,
       "passed": true,
       "failedNames": [],
       "models": {
@@ -27,14 +27,14 @@
       "errors": [],
       "counts": {
         "page": 1,
-        "live": 216,
+        "live": 224,
         "blocked": 0,
         "blockedMapSessions": 1
       }
     },
     "candidate-phone": {
       "nativeVersion": 6075,
-      "checks": 28,
+      "checks": 33,
       "passed": true,
       "failedNames": [],
       "models": {
@@ -55,7 +55,7 @@
       "errors": [],
       "counts": {
         "page": 1,
-        "live": 167,
+        "live": 174,
         "blocked": 0,
         "blockedMapSessions": 1
       }
@@ -64,14 +64,15 @@
   "machinePreparation": {
     "author": "Andrew Fisher",
     "baseManifestSha256": "712e195b0207dc59690dab0978353091328d2a3b6d492e4019164a36e2c63587",
-    "candidateManifestSha256": "a62b6257d870c181bc7ffc7f2c3c4ef589c3ab93696ffeb7c115ff66ff1a7fc0",
+    "candidateManifestSha256": "ca0b74da923e0955e6e4252a2dfe11bd076deec377585f3a1b48be0d6e5efdd0",
     "changedFiles": {
-      "explorer/explorer.js": "78d4580651df4dcaacce6298cc72ecdff4c24721bfe0b6183073f16a87b45bc6",
-      "explorer/explorer-merge.js": "39b9d017988e33a875b92072fbd1b3be41118d0df4958ff7b1fc356104f3deb7",
-      "explorer/index.html": "a14b077d8dc059c1aeb35cb7b4f0c18053a889edf77379db02df8067c432385c"
+      "explorer/explorer.js": "d35ae04911e83dcb140dcc4f6eb23ed69dff39b0169609f7b2974dd5c9c12c69",
+      "explorer/explorer-merge.js": "8c321e5632f410df5ad17021f32cd50b70038e84ac419cb6ef3891115e691ef1",
+      "explorer/index.html": "08e131d11647c58239e4c21686274e3405f47127c929314eb5b1e8994cc9d05a"
     },
     "otherFilesPreserved": 230,
     "published": false,
+    "restore": false,
     "recordWrites": 0
   },
   "parentGuardChecks": 3

@@ -26,6 +26,8 @@ def apply(source,output):
  merge=rep(merge,"      ${!it.places.length ? '<div class=\"xc-s\">In the register, with no place on the master plan yet.</div>' : ''}","      ${typeof sourceRequestCard1017==='function'&&it.reg&&it.reg.sourceRequest1017?sourceRequestCard1017(it):!it.places.length ? '<div class=\"xc-s\">In the register, with no place on the master plan yet.</div>' : ''}")
  merge=rep(merge,"if (!code || !info || typeof window.GC500ExplorerRefreshCard897 !== 'function') return false;","if (!code || (!info&&!(selected&&selected.reg&&selected.reg.sourceRequest1017)) || typeof window.GC500ExplorerRefreshCard897 !== 'function') return false;")
  merge=rep(merge,"const signature = JSON.stringify([code, info]);","const signature = JSON.stringify([code, info,selected&&selected.reg&&selected.reg.sourceRequest1017?selected.reg:null]);")
+ merge=rep(merge,"const quantities=el.querySelector('.map1010-quantities')","const quantities=el.querySelector('.map1010-quantities,.map-source1017')")
+ merge=rep(merge,"const nextQuantity=el.querySelector('.map1010-quantities')","const nextQuantity=el.querySelector('.map1010-quantities,.map-source1017')")
  changed={'explorer.js':js.encode(),'explorer-merge.js':merge.encode()};index=original['index.html'].decode()
  for name,raw in changed.items():index=rep(index,name+'?v='+BASE[name][:12],name+'?v='+hashlib.sha256(raw).hexdigest()[:12])
  changed['index.html']=index.encode();output.mkdir(parents=True,exist_ok=True);evidence={'author':'Andrew Fisher','changedFiles':{}}

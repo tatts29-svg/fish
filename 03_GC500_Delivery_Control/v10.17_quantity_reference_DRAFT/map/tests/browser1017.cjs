@@ -16,6 +16,7 @@ function check(name,pass,detail){report.checks.push({name,pass:!!pass,detail});}
  await p.waitForFunction(()=>SYNC.status==='live'&&SYNC.first.size===Object.keys(SYNC_COLLS).length,null,{timeout:120000});
  await p.waitForFunction(()=>EXP.frame&&EXP.frame.contentWindow.__ready,null,{timeout:120000});
  const f=p.frames().find(f=>/\/explorer\/index\.html(?:\?|$)/.test(f.url()));await f.evaluate(()=>GC500Explorer.ready);await f.waitForFunction(()=>!!window.GC500MapCompletion1009,null,{timeout:30000});
+ await p.waitForFunction(()=>{const rows=gc500PlanItems().unplaced.filter(r=>r._supplier996MapRequest);return rows.length===2&&rows.every(r=>r.planState1017==='planned')},null,{timeout:60000});
  await f.evaluate(()=>GC500Explorer.refresh());
  const before=await p.evaluate(()=>({version:SYNC.backend.readVersion821(),record:JSON.stringify(S)}));report.version=before.version;
  const original=JSON.parse(fs.readFileSync(process.env.MAP_BASE_SNAPSHOT||'/workspace/private-gc500-recheck14Oct2026/maps/parent-private.json'));
@@ -35,9 +36,9 @@ function check(name,pass,detail){report.checks.push({name,pass:!!pass,detail});}
  const keys=['WC09','WC48','GN?','GN25','T0268','P66','T0022','T0159','EP-S7-EW49','EP-S7-EW50'];
  for(const key of keys){
   await f.evaluate(async k=>{await GC500Explorer.find(k);panel813(false)},key);await f.waitForFunction(()=>gotoAnim887===0&&zAnim===0,null,{timeout:15000});
-  const value=await f.evaluate(()=>{drawMarks(currentView());return {key:selected?.code,label:selected&&referenceQuantity1010(selected,mapStatus1009(selected)),places:selected?.places,status:mapStatus1009(selected),card:document.getElementById('xcard')?.textContent,open:document.querySelector('#xcard [data-xopen]')?.getAttribute('data-xopen'),accessible:document.getElementById('mapStatus1009')?.textContent,location:location.hash}});report.samples.push({request:key,...value});
+  const value=await f.evaluate(()=>{drawMarks(currentView());return {key:selected?.code,label:selected&&referenceQuantity1010(selected,mapStatus1009(selected)),places:selected?.places,status:mapStatus1009(selected),card:document.getElementById('xcard')?.textContent,visibleCard:document.getElementById('xcard')?.innerText,detailOpen:document.querySelector('#xcard .map-source1017')?.open,planned:selected?.reg?.plannedDeliveries1017,open:document.querySelector('#xcard [data-xopen]')?.getAttribute('data-xopen'),accessible:document.getElementById('mapStatus1009')?.textContent,location:location.hash}});report.samples.push({request:key,...value});
   check(key+' selects correct reference',value.key===key.replace(/-/g,' '));
-  if(key.startsWith('EP-')){check(key+' preserves requested quantity and provenance',value.status.state==='unknown'&&value.status.label==='Source request'&&value.status.quantity1010.items.length===1&&value.status.quantity1010.items[0].quantity===1&&value.status.quantity1010.items[0].completed===null&&value.card.includes('1 × FWF')&&value.card.includes('22 Oct 2026')&&!value.card.includes('In the register')&&value.places.length===0,value);}
+  if(key.startsWith('EP-')){const plan=await p.evaluate(k=>Supplier996.model().remaining.filter(r=>r.ref===k&&r.item==='FWF').map(r=>({date:r.date,quantity:r.remaining})),key);check(key+' planned portions exactly match Supplier996',JSON.stringify(value.planned)===JSON.stringify(plan)&&plan.length>0,{map:value.planned,shared:plan});check(key+' shows current plan while original date stays folded',value.visibleCard.includes(key.endsWith('49')?'16 Oct 2026':'17 Oct 2026')&&!value.visibleCard.includes('22 Oct 2026')&&value.detailOpen===false,value.visibleCard);check(key+' preserves requested quantity and provenance',value.status.state==='unknown'&&value.status.label==='Source request'&&value.status.quantity1010.items.length===1&&value.status.quantity1010.items[0].quantity===1&&value.status.quantity1010.items[0].completed===null&&value.card.includes('1 × FWF')&&value.card.includes('22 Oct 2026')&&!value.card.includes('In the register')&&value.places.length===0,value);}
   if(key==='GN?'){const ll=await f.evaluate(()=>{const b=selected.places[0],x=(b[0]+b[2])/2,y=(b[1]+b[3])/2,m=GEO.main.sheet_to_z18px,W=512*2**18,px=m[0][0]*x+m[0][1]*y+m[0][2],py=m[1][0]*x+m[1][1]*y+m[1][2];return [Math.atan(Math.sinh(Math.PI*(1-2*py/W)))*180/Math.PI,px/W*360-180]});check('Rendered Concert marker matches exact authorised pin',Math.abs(ll[0]+27.984576)<1e-8&&Math.abs(ll[1]-153.427700)<1e-8,ll);}
   if(key==='EP-S7-EW49')await p.screenshot({path:path.join(out,(mobile?'phone':'desktop')+'-source-request.png')});
   if(key==='WC48'||key==='GN?'){
@@ -47,10 +48,12 @@ function check(name,pass,detail){report.checks.push({name,pass:!!pass,detail});}
   }
  }
  await f.evaluate(async()=>{await GC500Explorer.find('EP-S7-EW49')});
+ await f.locator('#xcard .map-source1017 > summary').click();
  const camera=await f.evaluate(()=>JSON.stringify(GC500Explorer.state.view));
- await p.evaluate(()=>{window.__plan1017=window.gc500PlanItems;window.gc500PlanItems=function(){const m=window.__plan1017();return {...m,unplaced:m.unplaced.map(r=>r.key==='EP-S7-EW49'?{...r,quantity:3}:r)}};});
+ await p.evaluate(()=>{window.__plan1017=window.gc500PlanItems;window.gc500PlanItems=function(){const m=window.__plan1017();return {...m,unplaced:m.unplaced.map(r=>r.key==='EP-S7-EW49'?{...r,quantity:3,plannedDeliveries1017:[{date:'2026-10-19',quantity:3}]}:r)}};});
  await f.evaluate(()=>GC500Explorer.refresh());
  await f.waitForFunction(()=>document.getElementById('xcard')?.textContent.includes('3 × FWF'),null,{timeout:15000});
+ check('Open source request card refreshes date and preserves More info',await f.evaluate(()=>document.getElementById('xcard').innerText.includes('19 Oct 2026')&&document.querySelector('#xcard .map-source1017').open));
  check('Open source request card refreshes quantity without moving camera',await f.evaluate(c=>JSON.stringify(GC500Explorer.state.view)===c,camera));
  await p.evaluate(()=>{window.gc500PlanItems=window.__plan1017;delete window.__plan1017});await f.evaluate(()=>GC500Explorer.refresh());
  await f.evaluate(async()=>{await GC500Explorer.find('WC09')});await f.locator('#xcard [data-xopen]').click();

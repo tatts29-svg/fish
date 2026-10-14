@@ -22,7 +22,7 @@ for label, changed in [('repeat', out), ('changed source', base + '\n')]:
         checks[label + ' refused'] = True
     else:
         checks[label + ' refused'] = False
-for part in patch.PARTS:
-    checks[part + ' source exists'] = (patch.HERE / part / ('patch_' + part + '1017.py')).is_file()
+for folder, part in patch.PARTS:
+    checks[part + ' source exists'] = (patch.HERE / folder / ('patch_' + part + '1017.py')).is_file()
 assert all(checks.values()), checks
 print({'author': 'Andrew Fisher', 'pass': True, 'checks': len(checks)})

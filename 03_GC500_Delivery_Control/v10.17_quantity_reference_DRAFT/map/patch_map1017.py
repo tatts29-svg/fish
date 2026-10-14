@@ -13,6 +13,9 @@ def apply_map1017(s):
     once('function generatorMaster1004(){',(HERE/'concert_projection1017.js').read_text()+'\nfunction generatorMaster1004(){','Exact published drawing inverse')
     once('const p=generatorPlace1004(),pt=ptOf782({key:\'\'},{lat:p.lat,lon:p.lon});','const p=generatorPlace1004(),pt=generatorSheetPoint1017({lat:p.lat,lon:p.lon});','Concert authorised pin projection')
     once("return v?ptOf782({key:''},{lat:v.lat,lon:v.lon}):m.pt;","return v?(generatorSheetPoint1017({lat:v.lat,lon:v.lon})||m.pt):m.pt;",'Later Concert pin uses same drawing projection')
+    once('const MapIdentity996 = (() => {',(HERE/'request_plan1017.js').read_text()+'\nconst MapIdentity996 = (() => {','Shared supplier delivery portions for source-only map requests')
+    once('  for (const request of supplier.requests) {',"  let deliveryPlan1017=null;try{deliveryPlan1017=typeof supplier.model==='function'?supplier.model():null;}catch(_){}\n  for (const request of supplier.requests) {",'Read the existing supplier plan once')
+    once('requestDate:request.date, quantity:request.quantity, item:request.item, _supplier996MapRequest:true});','requestDate:request.date, quantity:request.quantity, item:request.item, _supplier996MapRequest:true,...mapRequestPlan1017(request,deliveryPlan1017)});','Retain current dated delivery portions without changing the original request')
     return s
 apply=apply_map1017
 if __name__=='__main__':

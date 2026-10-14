@@ -3,6 +3,7 @@
 (function(root){
 'use strict';
 const count=n=>Number.isFinite(n)&&n>=0?n:0;
+const locationCount=entries=>new Set((entries||[]).map(row=>row.key).filter(Boolean)).size;
 function remaining(row){return Number.isFinite(row?.remaining1017)?Math.max(0,row.remaining1017):Math.max(0,count(row?.asked)-count(row?.received1017));}
 function ordered(a,line){
  const placement=typeof waterBarrierPlacement1017==='function'?waterBarrierPlacement1017(a):null;
@@ -81,7 +82,7 @@ function placements(I,print){
  const rows=waterBarrierPlacements1017().filter(p=>INV.disc==='*'||I.list.some(r=>r.disc===INV.disc&&Object.hasOwn(r.refs||{},p.key)));
  return waterBarrierPlacementsNote1017(rows,print);
 }
-const api={remaining,ordered,sourceRows,addRequests,asset,due,allocations,outstanding,sourceNote,sourceLine,placements};
+const api={remaining,ordered,sourceRows,addRequests,asset,due,allocations,outstanding,locationCount,sourceNote,sourceLine,placements};
 root.Inventory1017=api;if(typeof module!=='undefined'&&module.exports)module.exports=api;
 if(typeof document==='undefined')return;
 const originalInventory=inventory;
