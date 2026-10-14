@@ -1,6 +1,6 @@
 Author: Andrew Fisher
 
-DRAFT map component for v10.18. It preserves the existing drawing, imagery, layout, source coordinates and operational models. Root owns integration and publication. The separate Argon prototype is not included.
+READY map component for v10.18. It preserves the existing drawing, imagery, layout, source coordinates and operational models. Root owns integration and publication. The separate Argon prototype is not included.
 
 The confirmed corrections are:
 
