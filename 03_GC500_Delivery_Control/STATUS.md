@@ -1,3 +1,7 @@
+CLAIMED — v10.14 purchase-order value presentation, 14 Oct 2026. Andrew asks for dollar amounts with purchase-order numbers while authorising a matched order update. Root owns integration/publication; scoped helper adds current shared currency values alongside existing P/O references, retaining native editing/Save and receipt state. No charge calculation or source-record reclassification. Starting live v10.13 ab5fe3dc666b68b3b9ec27a731ff3edad06ba0fa3db4da3910ecbc11b9184143. DRAFT; final focused values/propagation and phone/desktop checks required. Private commercial evidence remains outside Git.
+
+<!-- Author: Andrew Fisher -->
+
 AUTHORISED PURCHASE-ORDER UPDATE IN PROGRESS — 14 Oct 2026. Root owns matching the newly supplied fencing commercial approval and docket scan to the existing Week 2 purchase order and recording the user-approved value. Use native P/O controls with backup, exact document allowlist and fresh readback. Preserve receipt/payment state and existing docket/green-book pricing; an order value must not be added again to Direct costs. Supporting PDFs and detailed financial evidence stay private. No page release claimed unless presentation checks demonstrate a required correction. Starting source 1aac174a; live v10.13 unchanged.
 
 <!-- Author: Andrew Fisher -->
