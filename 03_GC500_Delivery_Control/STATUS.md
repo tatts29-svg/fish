@@ -1,3 +1,7 @@
+SCOPE UPDATE — v10.14 remains DRAFT, 14 Oct 2026. Andrew clarifies that the approved P/O value must match the underlying docket pricing, not just display the same currency value. The authorised P/O native update is saved and verified; root is reconciling the source-backed supplier breakdown against existing physical docket quantities and Direct-cost projections. Preserve customer card rates and physical completion; supplier net billing adjustments and daily charges need explicit evidence and must count once. Display checks pass, but no release/sign-off until underlying reconciliation is complete. Detailed sources and amounts remain private.
+
+<!-- Author: Andrew Fisher -->
+
 CLAIMED — v10.14 purchase-order value presentation, 14 Oct 2026. Andrew asks for dollar amounts with purchase-order numbers while authorising a matched order update. Root owns integration/publication; scoped helper adds current shared currency values alongside existing P/O references, retaining native editing/Save and receipt state. No charge calculation or source-record reclassification. Starting live v10.13 ab5fe3dc666b68b3b9ec27a731ff3edad06ba0fa3db4da3910ecbc11b9184143. DRAFT; final focused values/propagation and phone/desktop checks required. Private commercial evidence remains outside Git.
 
 <!-- Author: Andrew Fisher -->
