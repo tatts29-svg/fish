@@ -1,0 +1,38 @@
+/* Author: Andrew Fisher. Event nights tab (v10.22): phone first, big ticks, one line per unit. */
+#pane-nights .n1022-nights{display:flex;gap:6px;flex-wrap:wrap}
+#pane-nights .n1022-nights .btn small{display:block;font-weight:400;font-size:.78em;opacity:.8}
+#pane-nights .n1022-sum{display:flex;flex-wrap:wrap;gap:6px 14px;margin:6px 0;font-size:.95em}
+#pane-nights .n1022-sum b{font-size:1.15em}
+#pane-nights .n1022-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:6px}
+#pane-nights .n1022-task{display:flex;gap:10px;align-items:flex-start;flex-wrap:wrap;padding:8px 0;border-bottom:1px solid rgba(0,0,0,.08)}
+#pane-nights .n1022-task input{width:22px;height:22px;flex:none;margin:1px 0 0}
+#pane-nights .n1022-task>span{flex:1;min-width:200px}
+#pane-nights .n1022-task small{display:block;width:100%;opacity:.7;font-size:.8em;padding-left:32px}
+#pane-nights .n1022-unit{display:grid;grid-template-columns:repeat(4,1fr);gap:4px 8px;padding:8px 0;border-bottom:1px solid rgba(0,0,0,.08);align-items:end}
+#pane-nights .n1022-unit.done{background:rgba(46,125,50,.06)}
+#pane-nights .n1022-u{grid-column:1/-1;display:flex;gap:8px;align-items:baseline;flex-wrap:wrap}
+#pane-nights .n1022-u b{font-size:1.1em}
+#pane-nights .n1022-u span{opacity:.8;font-size:.9em}
+#pane-nights .n1022-rel{color:#b4521a;font-style:normal;font-weight:600}
+#pane-nights .n1022-unit label{display:flex;flex-direction:column;gap:2px;font-size:.78em;opacity:.95;min-width:0}
+#pane-nights .n1022-unit label span{text-transform:uppercase;letter-spacing:.04em;font-size:.85em;opacity:.75}
+#pane-nights .n1022-unit .n1022-tick{width:26px;height:26px;margin:0}
+#pane-nights .n1022-unit .n1022-note{grid-column:1/-1}
+#pane-nights .n1022-txt,#pane-nights .n1022-sel{width:100%;min-height:30px;font:inherit;padding:3px 6px;box-sizing:border-box}
+#pane-nights .n1022-by{grid-column:1/-1;opacity:.65;font-size:.78em}
+#pane-nights .n1022-req{display:grid;grid-template-columns:1fr auto;gap:2px 10px;padding:6px 0;border-bottom:1px solid rgba(0,0,0,.08);align-items:center}
+#pane-nights .n1022-req input{width:22px;height:22px;margin:0}
+#pane-nights .n1022-req.done span{text-decoration:line-through;opacity:.7}
+#pane-nights .n1022-req small{grid-column:1/-1;opacity:.65;font-size:.78em}
+#pane-nights .n1022-add{display:flex;gap:8px;margin-top:8px}
+#pane-nights .n1022-add input{flex:1}
+#pane-nights .n1022-signgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:6px}
+#pane-nights .n1022-signgrid label{display:flex;flex-direction:column;gap:2px;font-size:.85em}
+#pane-nights .n1022-signgrid label:nth-child(1),#pane-nights .n1022-signgrid label:nth-child(4){grid-column:1/-1}
+#pane-nights .n1022-files{padding-left:18px}
+@media (min-width:760px){
+#pane-nights .n1022-unit{grid-template-columns:minmax(220px,1.6fr) 1fr .6fr .6fr .8fr .7fr 1.6fr}
+#pane-nights .n1022-u{grid-column:auto;flex-direction:column;align-items:flex-start;gap:0}
+#pane-nights .n1022-unit .n1022-note{grid-column:auto}
+#pane-nights .n1022-by{grid-column:1/-1}
+}
