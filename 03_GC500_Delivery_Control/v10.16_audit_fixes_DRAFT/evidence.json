@@ -1,0 +1,59 @@
+{
+  "author": "Andrew Fisher",
+  "state": "READY TO UPLOAD",
+  "implementation_commit": "eba14380",
+  "base_sha256": "bc7885b1bed08bafd75353ec3666ca9a4c52a59d17ad3bb0eb5896f011586f67",
+  "candidate_sha256": "3cbfd0d5c9bd53f02d5a89b274e83ee0c2d2c8dc17b03da59b68cf3a3db8673c",
+  "bytes": 15238166,
+  "inline_scripts": 113,
+  "native_version": 6075,
+  "combined_checks": {
+    "routes": 29,
+    "vms": 22,
+    "search": 23,
+    "quantities": 15,
+    "recovery": 12,
+    "financial_scenarios": 40,
+    "waiver": 23,
+    "manual_charge_branch": 38,
+    "pdf_exports": 13,
+    "pdf_content_and_geometry": 266,
+    "financial_baseline_model_comparisons": 13,
+    "presentation": 19,
+    "source_guards": 14
+  },
+  "pure_checks": {
+    "accessory_search": 13,
+    "quantity_scope": 11,
+    "recovery": 12,
+    "vms": 18
+  },
+  "navigation": {
+    "desktop": {
+      "routes": 22,
+      "direct_links": 7,
+      "back": true
+    },
+    "phone": {
+      "routes": 22,
+      "direct_links": 7,
+      "back": true
+    },
+    "application_exceptions": 0,
+    "operational_write_attempts": 0,
+    "limitation": "One Google createSession POST per sweep intentionally blocked by strict GET-only transport; its expected console entry is separately classified."
+  },
+  "review": "Independent scoped code review found and resolved two historical VMS edge cases; no remaining confirmed P1/P2. Root owns integration and publication. External Claude/Argon combined review is not claimed.",
+  "visuals": [
+    "Fresh 360px Today timestamp and lamps",
+    "Current accessory selection at correct reference",
+    "Current/moved VMS reference",
+    "Both readable A4 portrait continuation pages"
+  ],
+  "saved_data": "Native shared records, original rates and embedded source data unchanged; current quantity/identity projections corrected. Financial totals unchanged.",
+  "limits": [
+    "Unpriced transport/work and uncertain contract/source allocations remain explicit.",
+    "No blanket accuracy, full security or real-device performance certification.",
+    "Separate supplied 3D fencing prototype reviewed only; not integrated."
+  ]
+}

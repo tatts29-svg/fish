@@ -1,9 +1,17 @@
-# GC500 audit corrections — draft
+# GC500 audit corrections — ready to upload
 
 Author: Andrew Fisher
 
-The current audit reproduced faults in direct reference links, map history, accessory-number search, delivery PDF export, narrow-phone sync status and recovery of supporting source documents. This release fixes those behaviours using current shared records and the established presentation. Native site records, pricing rules and physical map assignments are outside the patch scope.
+Ten reproduced defects are corrected: cold shared-reference links, background map history, current accessory-number search, source-only supplier scope in Today, moved VMS stock identity, PDF overflow, failed source-document recovery, manual-charge branch allocation, the optional waiver hold and a clipped narrow-phone timestamp. The existing design and operational records are preserved. Full findings and optional improvements are in `../audit_14Oct2026_afternoon/README.md`.
 
-Root owns integration and publication. Components have separate owners and focused regressions; full final navigation and actual-public checks are required before release. Exact base: live v10.15, SHA256 bc7885b1bed08bafd75353ec3666ca9a4c52a59d17ad3bb0eb5896f011586f67. Not ready to upload.
+Implementation source: `eba14380`. Exact base v10.15: `bc7885b1bed08bafd75353ec3666ca9a4c52a59d17ad3bb0eb5896f011586f67`. Final candidate: `3cbfd0d5c9bd53f02d5a89b274e83ee0c2d2c8dc17b03da59b68cf3a3db8673c`, 15,238,166 bytes, 113 scripts. The frozen component source reproduces those exact bytes.
 
-All browser tests reject operational writes. Raw source records, amounts and screenshots remain in private audit storage. The public audit report will distinguish tested fixes, unresolved source inputs and improvement proposals.
+All final combined checks in `evidence.json` pass. Both navigation sweeps cover 22 routes, seven direct links and Back. No application exceptions or operational write attempts occurred. The strict read-only harness deliberately blocks the separate Google map-session POST; this is recorded explicitly. Focused actual map rendering/performance remains separate work.
+
+Financial, P&L, branch, Finance, generator and supplier-run baseline comparisons match. Manual customer charges retain their selected branch, including after edits/removal; the unselected waiver is uncharged. Current VMS stock follows reviewed movement without changing original delivery/charge history. Historical replacement events are not invented. Known missing rates/source allocations remain visible.
+
+Fresh phone screenshots and both supplier PDF continuation pages were inspected. A4 portrait, full destinations, QR codes and 24-per-day planning are retained. Overflow uses clearly labelled continuation pages. Individual component guards and independent review passed; two VMS historical edge cases were corrected during review.
+
+Root owns integration/publication. No external combined review is claimed. Native version6075 is unchanged. Upload dry run passed; actual-public verification follows guarded publication. Private raw evidence is `/workspace/private-gc500-audit14Oct2026/combined/`; public files contain only sanitised results.
+
+The separately supplied 3D fencing prototype is not part of this release. Its demonstrated visual behaviours and integration defects are reviewed separately.

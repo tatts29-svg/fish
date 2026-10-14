@@ -7,6 +7,17 @@ if(!PAGE||!BASE)throw new Error('BASE and PAGE must identify the baseline and ca
 fs.mkdirSync(OUT,{recursive:true});
 const checks=[],check=(name,pass)=>{checks.push({name,pass:!!pass});console.log(JSON.stringify({name,pass:!!pass}));};
 const same=(a,b)=>{try{assert.deepStrictEqual(a,b);return true;}catch{return false;}};
+function sameFinancial(key,before,after){
+ if(same(before,after))return true;
+ if(key!=='pl')return false;
+ // The adjacent v10.16 waiver component deliberately clarifies this optional,
+ // unpriced row. Permit exactly its two metadata changes, never a money change.
+ const b=JSON.parse(JSON.stringify(before)),a=JSON.parse(JSON.stringify(after));
+ const br=b.rev?.find(r=>r.key==='waiver'),ar=a.rev?.find(r=>r.key==='waiver');
+ if(!br||!ar||Object.hasOwn(br,'optional')||ar.optional!==true||br.basis!=="not on the 2026 contracts yet — the branch’s rate"||ar.basis!=='No automatic damage waiver is applied. An agreed charge requires an explicit entry.')return false;
+ delete ar.optional;ar.basis=br.basis;
+ return same(b,a);
+}
 async function capture(name,file){
  const h=await open({pageFile:file,mobile:true,W:390,H:844});
  try{
@@ -31,10 +42,11 @@ async function capture(name,file){
 }
 (async()=>{
  try{
-  const before=await capture('baseline',BASE),after=await capture('candidate',PAGE);
+  const before=process.env.RECHECK==='1'?JSON.parse(fs.readFileSync(path.join(OUT,'baseline.json'),'utf8')):await capture('baseline',BASE);
+  const after=process.env.RECHECK==='1'?JSON.parse(fs.readFileSync(path.join(OUT,'candidate.json'),'utf8')):await capture('candidate',PAGE);
   check('Both snapshots read the same shared record version',before.version===after.version);
   check('Complete native shared records are unchanged',same(before.record,after.record));
-  for(const key of Object.keys(before.finance))check(key+' financial model remains exactly equal',same(before.finance[key],after.finance[key]));
+  for(const key of Object.keys(before.finance))check(key+' financial model remains equal except the exact optional-waiver text change',sameFinancial(key,before.finance[key],after.finance[key]));
   const old=after.refs[0],dest=after.refs[1],history=old.model.rows.filter(r=>r.assetNo==='1211404');
   check('Original source has seven current physical units',old.physical.length===7&&old.model.rows.filter(r=>r.physical).length===7);
   check('Moved source identity remains nonphysical history',history.length===1&&!history[0].physical&&history[0].source==='history'&&history[0].movement1016.to==='T0103');
@@ -49,7 +61,7 @@ async function capture(name,file){
    check(a.ref+' other current unit identities remain unchanged',same(b.model.rows.filter(r=>!(i===0&&r.assetNo==='1211404')),a.model.rows.filter(r=>!(i===0&&r.assetNo==='1211404'))));
   }
  }catch(error){check('Regression runner completed',false);fs.writeFileSync(path.join(OUT,'error.txt'),String(error.stack||error));}
- const report={author:'Andrew Fisher',sha256:crypto.createHash('sha256').update(fs.readFileSync(PAGE)).digest('hex'),checks,result:{checks:checks.length,passed:checks.filter(c=>c.pass).length},limitations:'Live GET-only snapshots; no native writes. Historical replacement events cannot be reconstructed from current identity records. Full private snapshots include financial and operational records and must not be committed.'};
+ const report={author:'Andrew Fisher',sha256:crypto.createHash('sha256').update(fs.readFileSync(PAGE)).digest('hex'),mode:process.env.RECHECK==='1'?'Saved GET-only capture comparison':'Fresh GET-only browser captures',checks,result:{checks:checks.length,passed:checks.filter(c=>c.pass).length},limitations:'No native writes. Combined comparison permits only the exact optional-waiver basis/optional metadata transition; every financial amount and other model field must remain equal. Historical replacement events cannot be reconstructed from current identity records. Full private snapshots include financial and operational records and must not be committed.'};
  fs.writeFileSync(path.join(OUT,'review.json'),JSON.stringify(report,null,2)+'\n');
  console.log(JSON.stringify({result:report.result,failed:checks.filter(c=>!c.pass)}));
  if(checks.some(c=>!c.pass))process.exitCode=1;

@@ -19,3 +19,5 @@ Validation:
 - `BASE=/path/to/baseline.html PAGE=/path/to/candidate.html OUT=/private/output node check_vms1016.cjs`: browser GET-only current identity, inventory, search, original delivery, shared-state, and complete financial-model comparisons. This uses the shared read-only browser helper and must never receive an edit URL.
 
 Full browser snapshots include private operational and financial records; retain them outside the public repository. Only sanitized check results belong in `evidence/`.
+
+Combined v10.16 validation passes 22/22 browser/capture-comparison checks, with 18/18 pure fixtures and four patch guards. All monetary fields remain exactly equal. The only allowed full-model difference is the adjacent waiver component's exact optional-label/basis text transition; its unpriced values and every other field must still match. The source drawer was visually checked at phone width: seven currently identified units, eight originally planned units, and the original delivery date remain clear.

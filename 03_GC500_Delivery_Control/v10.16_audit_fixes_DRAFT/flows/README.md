@@ -15,4 +15,4 @@ Map rendering cannot replace the address owned by an open matching reference dra
 
 Root owns the combined v10.16 source guard, final build, release checks and publication. This component is not a standalone release. Private current-record evidence and screenshots remain outside Git.
 
-Component checks: 25/25 current-record browser regressions and four exact-source/repeat/dependency guards pass. No runtime errors or operational writes. The evidence is for the isolated component candidate; root must run the final combined release checks. The phone reference drawer was visually inspected.
+Component checks: 25/25 initial browser regressions and four exact-source/repeat/dependency guards pass. The combined v10.16 candidate passes 29/29 browser checks, including pending shared-only reference A followed by explicit reference B before the shared records arrive. No runtime errors or operational writes. Sanitized combined results are in `evidence/combined-routes.json`; the root release audit covers the remaining components. The phone reference drawer was visually inspected.

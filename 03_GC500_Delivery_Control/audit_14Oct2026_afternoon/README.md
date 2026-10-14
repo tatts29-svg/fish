@@ -1,10 +1,10 @@
-# GC500 application audit — corrections in final testing
+# GC500 application audit — corrections ready to publish
 
 Author: Andrew Fisher
 
 Requested audit of errors, bugs and useful improvements across current GC500. Root owns integration; scoped reviews cover navigation, presentation, financial consistency and shared operational data. Live service access is read-only. Findings require reproduction and are separated from source-input gaps or design proposals. Private evidence is held outside this public repository.
 
-Starting source: 16218ec5. Base v10.15 SHA256 bc7885b1bed08bafd75353ec3666ca9a4c52a59d17ad3bb0eb5896f011586f67. The v10.16 release remains in final testing. No operational record has been changed by this audit.
+Starting source: 16218ec5. Base v10.15 SHA256 bc7885b1bed08bafd75353ec3666ca9a4c52a59d17ad3bb0eb5896f011586f67. The v10.16 combined release passed its required checks and is ready to publish. No operational record has been changed by this audit.
 
 ## Confirmed defects
 
@@ -38,3 +38,7 @@ The existing refresh/disclosure/scroll audit passed across 22 routes. Presentati
 - Continue the separate map-quality audit using real devices and measured rendering performance. Preserve current map positions and completion semantics.
 
 These are proposals, not untested changes bundled into the corrective release. The existing design is retained.
+
+## Separate supplied fencing prototype
+
+The supplied standalone 3D fencing preview was also reviewed without integration. Confirmed issues include sample statuses labelled as confirmed records, an unimplemented shared-data adapter, an unused write-block constant, unsafe HTML rendering of hardware data, inaccurate imagery scale/placement, interrupted-reset behaviour, invisible meshes remaining selectable and overlapping phone panels. Normal tested flows made no write attempts; the prototype constant does not enforce that boundary. Pointer/wheel pause and camera/selection preservation passed. Real-device frame rate, latency, touch behaviour and a full seamless loop remain unverified. Keep this as an assembly demonstration until corrected and connected to actual shared readers. No prototype source or operational record was changed.
