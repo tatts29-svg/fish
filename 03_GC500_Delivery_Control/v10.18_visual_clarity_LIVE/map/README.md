@@ -1,6 +1,6 @@
 Author: Andrew Fisher
 
-READY map component for v10.18. It preserves the existing drawing, imagery, layout, source coordinates and operational models. Root owns integration and publication. The separate Argon prototype is not included.
+LIVE map component for v10.18, published 14 Oct 2026 at 20:05 AEST. It preserves the existing drawing, imagery, layout, source coordinates and operational models. Root owns integration and publication. The separate Argon prototype is not included.
 
 The confirmed corrections are:
 
@@ -23,4 +23,4 @@ Tests use the strict GET harness and `/tmp/gc500-browser.lock`. `math1018.cjs` c
 
 Evidence is private under `/tmp/private-gc500-visual1018/map`; the shareable check summary omits source records. Native version 6078 stayed unchanged. These are Chromium/software-rendering checks, not a physical-device frame-rate guarantee. Original photographic detail remains limited by its source; vectors refine from the original drawing. Headless 4K canvas rendering is still costly, so this release does not claim universal zero latency or invented extra detail.
 
-Prepared final manifest: `6a5582b6e60a0e1449ee42c63900912fda875c08c825cbc3dc13c42b24d6047f`. Current gates: 14 exact-function maths checks, 9 source/manifest guards, 19 checks each on phone DPR3 and 4K desktop, 6 real gesture checks, 9 phone card checks, and the 33-check map/data regression. Final paired/public checks remain root-owned.
+Prepared final manifest: `6a5582b6e60a0e1449ee42c63900912fda875c08c825cbc3dc13c42b24d6047f`. Current gates: 14 exact-function maths checks, 9 source/manifest guards, 19 checks each on phone DPR3 and 4K desktop, 6 real gesture checks, 9 phone card checks, and the 33-check map/data regression. Paired publication and fresh public checks completed by root; all three public map files match the manifest exactly.

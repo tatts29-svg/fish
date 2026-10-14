@@ -6,7 +6,7 @@ if(process.env.PAGE||process.env.MAP_CODE)throw Error('Actual-public check refus
  h=await open({hash:'#today',mobile:true,W:390,H:844,dpr:2});const p=h.page;
  await p.waitForFunction(()=>SYNC.status==='live'&&GC500Refresh904.report().settled,null,{timeout:180000});
  const before=await p.evaluate(()=>({record:JSON.stringify(S),version:SYNC.backend.readVersion821()}));
- const facts=await p.evaluate(()=>({footer:document.querySelector('footer')?.innerText||'',feedback:typeof VisualClarity1018==='object',memo:gcModel925.toString().includes('unitModels1018'),cycle:supplierPricing1014.toString().includes('allCosts(supplierBaseDocket1014)'),version:SYNC.backend.readVersion821()}));
+ const facts=await p.evaluate(()=>({footer:document.querySelector('footer.foot')?.innerText||'',feedback:typeof VisualClarity1018==='object',memo:gcModel925.toString().includes('unitModels1018'),cycle:supplierPricing1014.toString().includes('allCosts(supplierBaseDocket1014)'),version:SYNC.backend.readVersion821()}));
  check('Public page serves v10.18',facts.footer.includes('v10.18'));
  check('Shared feedback module is present',facts.feedback);
  check('Unit projection optimisation is present',facts.memo);
