@@ -1,0 +1,22 @@
+{
+  "author": "Andrew Fisher",
+  "pass": true,
+  "scope": "wc09_scope",
+  "beforeVersion": 6075,
+  "afterVersion": 6078,
+  "writes": 3,
+  "allOtherSharedFieldsUnchanged": true,
+  "privateEvidence": "Retained outside Git",
+  "nativeChecks": 16,
+  "freshPublicChecks": 19,
+  "freshPublicPass": true,
+  "requests": {
+    "page": 0,
+    "live": 66,
+    "blocked": 0,
+    "blockedMapSessions": 1
+  },
+  "pageUnchanged": true,
+  "independentFinancialChecks": 36,
+  "independentFinancialPass": true
+}
