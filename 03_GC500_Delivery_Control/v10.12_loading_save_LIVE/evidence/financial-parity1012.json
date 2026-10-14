@@ -1,0 +1,231 @@
+{
+  "author": "Andrew Fisher",
+  "baseline_sha256": "a37381b49fec5317fb9b354b7eee2e314f3c6e15215449314e9f1a14c9303557",
+  "candidate_sha256": "cde0aae30d5e528e85c2b16189bf0c0828397b87a7b3d10c1695362b19a58105",
+  "nativeVersion": 5814,
+  "sameNativeVersion": true,
+  "financial_models": 22,
+  "financial_all_deep_equal": false,
+  "financial_models_deep_equal_count": 21,
+  "all_amounts_rates_billed_quantities_unchanged": true,
+  "quantity_projection_changes_only": true,
+  "difference_leaf_fields": {
+    "quantity_state": 63,
+    "quantity_description1012": 52,
+    "quantity_inferred1012": 52,
+    "quantity_auto": 91,
+    "quantity_on_the_schedule": 91,
+    "quantity_state_on_the_schedule": 2,
+    "quantity_display": 18,
+    "quantity_display_on_the_schedule": 89,
+    "quantity_flag": 89,
+    "quantity_raw": 89,
+    "qty": 3
+  },
+  "difference_count_by_model": {
+    "items": 50,
+    "transportView": 589
+  },
+  "expected_difference_reason": "The authorized described-item quantity rule changes event quantity display/provenance. All money, rates, billed quantities, current/forecast totals, branches and model controls remain unchanged. TransportView includes those event projections; it is not byte-for-byte identical.",
+  "all_same_record_snapshot_fields_equal": false,
+  "results": [
+    {
+      "model": "author",
+      "equal": true
+    },
+    {
+      "model": "bill",
+      "equal": true
+    },
+    {
+      "model": "branchRows",
+      "equal": true
+    },
+    {
+      "model": "branches",
+      "equal": true
+    },
+    {
+      "model": "browserErrors",
+      "equal": true
+    },
+    {
+      "model": "checks",
+      "equal": true
+    },
+    {
+      "model": "contractFigures",
+      "equal": true
+    },
+    {
+      "model": "contracts",
+      "equal": true
+    },
+    {
+      "model": "day",
+      "equal": true
+    },
+    {
+      "model": "errors",
+      "equal": true
+    },
+    {
+      "model": "finance",
+      "equal": true
+    },
+    {
+      "model": "generators",
+      "equal": true
+    },
+    {
+      "model": "items",
+      "equal": false
+    },
+    {
+      "model": "labour",
+      "equal": true
+    },
+    {
+      "model": "labourRows",
+      "equal": true
+    },
+    {
+      "model": "money",
+      "equal": true
+    },
+    {
+      "model": "nativeVersion",
+      "equal": true
+    },
+    {
+      "model": "oct",
+      "equal": true
+    },
+    {
+      "model": "peeHire",
+      "equal": true
+    },
+    {
+      "model": "pl",
+      "equal": true
+    },
+    {
+      "model": "plan",
+      "equal": true
+    },
+    {
+      "model": "quote27172",
+      "equal": true
+    },
+    {
+      "model": "scope",
+      "equal": true
+    },
+    {
+      "model": "scopeBranches",
+      "equal": true
+    },
+    {
+      "model": "sep",
+      "equal": true
+    },
+    {
+      "model": "ticks",
+      "equal": true
+    },
+    {
+      "model": "ties",
+      "equal": true
+    },
+    {
+      "model": "transport",
+      "equal": true
+    },
+    {
+      "model": "transportHandover",
+      "equal": true
+    },
+    {
+      "model": "transportView",
+      "equal": false
+    }
+  ],
+  "excluded_nondeterministic_metadata": [
+    "at",
+    "requestCounts",
+    "sha256"
+  ],
+  "candidate_checks": [
+    {
+      "name": "No model mutation of shared record",
+      "pass": true
+    },
+    {
+      "name": "All arrived applicable automatic service quantities included",
+      "pass": true
+    },
+    {
+      "name": "Stairs remain manual",
+      "pass": true
+    },
+    {
+      "name": "Costs labour equals charged plan and tick total",
+      "pass": true
+    },
+    {
+      "name": "Labour slots have unique reference item charge state",
+      "pass": true
+    },
+    {
+      "name": "Costs actual and P&L actual agree",
+      "pass": true
+    },
+    {
+      "name": "Costs job and P&L forecast agree",
+      "pass": true
+    },
+    {
+      "name": "P&L model controls reconcile",
+      "pass": true
+    },
+    {
+      "name": "Branch financial controls reconcile",
+      "pass": true
+    },
+    {
+      "name": "P&L reconciliation controls pass",
+      "pass": true
+    },
+    {
+      "name": "Arrived package branch sum matches priced subtotal",
+      "pass": true
+    },
+    {
+      "name": "Transport actual and remaining reconcile once",
+      "pass": true
+    },
+    {
+      "name": "Transport contract plus arrived allowance equals Costs",
+      "pass": true
+    },
+    {
+      "name": "Transport invoice and revenue controls pass",
+      "pass": true
+    },
+    {
+      "name": "Generator actual plus remaining equals total",
+      "pass": true
+    },
+    {
+      "name": "Generator branch amounts tie once",
+      "pass": true
+    },
+    {
+      "name": "No browser errors or live writes",
+      "pass": true
+    }
+  ],
+  "candidate_model_errors": [],
+  "candidate_browser_errors": [],
+  "candidate_operational_write_attempts": 0
+}

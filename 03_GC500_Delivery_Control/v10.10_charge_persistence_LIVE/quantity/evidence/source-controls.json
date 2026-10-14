@@ -1,0 +1,94 @@
+{
+  "author": "Andrew Fisher",
+  "pass": true,
+  "checks": [
+    {
+      "name": "Status symbols unchanged",
+      "pass": true
+    },
+    {
+      "name": "Map marker position and drawing unchanged",
+      "pass": true
+    },
+    {
+      "name": "Native hit targets unchanged",
+      "pass": true
+    },
+    {
+      "name": "Verified optional Done layer unchanged",
+      "pass": true
+    },
+    {
+      "name": "No extra timers",
+      "pass": true
+    },
+    {
+      "name": "Canvas quantity lines capped at three",
+      "pass": true
+    },
+    {
+      "name": "Canvas quantity text constrained to viewport",
+      "pass": true
+    },
+    {
+      "name": "Quantity-only update enters existing refresh signature",
+      "pass": true
+    },
+    {
+      "name": "Bracketed reference text determines canvas width",
+      "pass": true
+    },
+    {
+      "name": "Known quantities are read for unselected labels",
+      "pass": true
+    },
+    {
+      "name": "Drawn label rectangles receive taps after native marker checks",
+      "pass": true
+    },
+    {
+      "name": "Stale label hit bounds cleared on every paint",
+      "pass": true
+    },
+    {
+      "name": "Quantity disclosure stays as the user left it during refresh",
+      "pass": true
+    },
+    {
+      "name": "Focused quantity summary remains focused during refresh",
+      "pass": true
+    },
+    {
+      "name": "explorer/explorer.js matches reviewed bytes",
+      "pass": true
+    },
+    {
+      "name": "explorer/explorer-merge.js matches reviewed bytes",
+      "pass": true
+    },
+    {
+      "name": "explorer/index.html matches reviewed bytes",
+      "pass": true
+    },
+    {
+      "name": "Exact map rebuild",
+      "pass": true
+    },
+    {
+      "name": "Map repeat/wrong base rejected",
+      "pass": true
+    },
+    {
+      "name": "Parent native data untouched",
+      "pass": true
+    },
+    {
+      "name": "Native completion classifier untouched",
+      "pass": true
+    },
+    {
+      "name": "Parent repeat rejected",
+      "pass": true
+    }
+  ]
+}

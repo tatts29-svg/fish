@@ -1,0 +1,435 @@
+{
+  "author": "Andrew Fisher",
+  "results": [
+    {
+      "name": "Typed partial collection subtracts3currentstock only",
+      "pass": true,
+      "detail": {
+        "summary": {
+          "onSite": 80,
+          "onsiteUnknown": 0,
+          "received": 83,
+          "identified": 91,
+          "quantityOnly": 6,
+          "remaining": 113,
+          "references": 14,
+          "spares": 1,
+          "fwf": {
+            "confirmed": 194,
+            "received": 75,
+            "pending": 113,
+            "unallocated": 6,
+            "over": 0
+          }
+        },
+        "row": {
+          "ref": "WC33",
+          "item": "FWF",
+          "name": "Toilets",
+          "quantity": 17,
+          "received": 17,
+          "installed": 17,
+          "collected": 3,
+          "onSite": 14,
+          "remainingNumbers": [
+            "0782",
+            "0657",
+            "0912",
+            "0554",
+            "0920",
+            "0971",
+            "0586",
+            "0487",
+            "0790",
+            "0297",
+            "0456",
+            "0012",
+            "0938",
+            "0597"
+          ],
+          "collectionIssues": [],
+          "numbers": [
+            "0012",
+            "0297",
+            "0456",
+            "0487",
+            "0548",
+            "0554",
+            "0582",
+            "0586",
+            "0597",
+            "0634",
+            "0657",
+            "0782",
+            "0790",
+            "0912",
+            "0920",
+            "0938",
+            "0971"
+          ],
+          "quantityOnly": false,
+          "events": [
+            {
+              "id": "T0100",
+              "date": "2026-10-08",
+              "quantity": 17
+            }
+          ],
+          "movedDate": "2026-10-01",
+          "location": "Main Beach Pde",
+          "locationBasis": "Master plan reference position",
+          "url": "https://www.google.com/maps/dir/?api=1&destination=-27.986107,153.429524&travelmode=driving",
+          "coordinates": "-27.986107, 153.429524",
+          "side": "outside",
+          "zone": "mbp",
+          "status": "Recorded installed",
+          "arrivalBasis": "Reference completion for this item\u2019s recorded scope.",
+          "emptied": false,
+          "emptyRecord": {
+            "on": false,
+            "by": null,
+            "at": null,
+            "unproven": false,
+            "stale": false
+          },
+          "supplierBasis": "Shared item ownership",
+          "outDate": "",
+          "outSource": "",
+          "dispatchHold": false,
+          "remaining": 0,
+          "locationConflict": false
+        }
+      }
+    },
+    {
+      "name": "Typed partial demob excludes collected exactnumbers",
+      "pass": true,
+      "detail": [
+        {
+          "ref": "WC33",
+          "item": "FWF",
+          "name": "Toilets",
+          "quantity": 17,
+          "received": 17,
+          "installed": 17,
+          "collected": 3,
+          "onSite": 14,
+          "remainingNumbers": [
+            "0782",
+            "0657",
+            "0912",
+            "0554",
+            "0920",
+            "0971",
+            "0586",
+            "0487",
+            "0790",
+            "0297",
+            "0456",
+            "0012",
+            "0938",
+            "0597"
+          ],
+          "collectionIssues": [],
+          "numbers": [
+            "0782",
+            "0657",
+            "0912",
+            "0554",
+            "0920",
+            "0971",
+            "0586",
+            "0487",
+            "0790",
+            "0297",
+            "0456",
+            "0012",
+            "0938"
+          ],
+          "quantityOnly": false,
+          "events": [
+            {
+              "id": "T0100",
+              "date": "2026-10-08",
+              "quantity": 17
+            }
+          ],
+          "movedDate": "2026-10-01",
+          "location": "Main Beach Pde",
+          "locationBasis": "Master plan reference position",
+          "url": "https://www.google.com/maps/dir/?api=1&destination=-27.986107,153.429524&travelmode=driving",
+          "coordinates": "-27.986107, 153.429524",
+          "side": "outside",
+          "zone": "mbp",
+          "status": "Recorded installed",
+          "arrivalBasis": "Reference completion for this item\u2019s recorded scope.",
+          "emptied": false,
+          "emptyRecord": {
+            "on": false,
+            "by": null,
+            "at": null,
+            "unproven": false,
+            "stale": false
+          },
+          "supplierBasis": "Shared item ownership",
+          "outDate": "",
+          "outSource": "",
+          "dispatchHold": false,
+          "remaining": 0,
+          "locationConflict": false,
+          "count": 13,
+          "identityPending": false,
+          "recordedNumbers": [
+            "0782",
+            "0657",
+            "0912",
+            "0554",
+            "0920",
+            "0971",
+            "0586",
+            "0487",
+            "0790",
+            "0297",
+            "0456",
+            "0012",
+            "0938",
+            "0597"
+          ],
+          "portion": true
+        },
+        {
+          "ref": "WC33",
+          "item": "FWF",
+          "name": "Toilets",
+          "quantity": 17,
+          "received": 17,
+          "installed": 17,
+          "collected": 3,
+          "onSite": 14,
+          "remainingNumbers": [
+            "0782",
+            "0657",
+            "0912",
+            "0554",
+            "0920",
+            "0971",
+            "0586",
+            "0487",
+            "0790",
+            "0297",
+            "0456",
+            "0012",
+            "0938",
+            "0597"
+          ],
+          "collectionIssues": [],
+          "numbers": [
+            "0597"
+          ],
+          "quantityOnly": false,
+          "events": [
+            {
+              "id": "T0100",
+              "date": "2026-10-08",
+              "quantity": 17
+            }
+          ],
+          "movedDate": "2026-10-01",
+          "location": "Main Beach Pde",
+          "locationBasis": "Master plan reference position",
+          "url": "https://www.google.com/maps/dir/?api=1&destination=-27.986107,153.429524&travelmode=driving",
+          "coordinates": "-27.986107, 153.429524",
+          "side": "outside",
+          "zone": "mbp",
+          "status": "Recorded installed",
+          "arrivalBasis": "Reference completion for this item\u2019s recorded scope.",
+          "emptied": false,
+          "emptyRecord": {
+            "on": false,
+            "by": null,
+            "at": null,
+            "unproven": false,
+            "stale": false
+          },
+          "supplierBasis": "Shared item ownership",
+          "outDate": "",
+          "outSource": "",
+          "dispatchHold": false,
+          "remaining": 0,
+          "locationConflict": false,
+          "count": 1,
+          "identityPending": false,
+          "recordedNumbers": [
+            "0782",
+            "0657",
+            "0912",
+            "0554",
+            "0920",
+            "0971",
+            "0586",
+            "0487",
+            "0790",
+            "0297",
+            "0456",
+            "0012",
+            "0938",
+            "0597"
+          ],
+          "portion": true
+        }
+      ]
+    },
+    {
+      "name": "Full collection keeps receipts but zeroon-site and inbound",
+      "pass": true,
+      "detail": {
+        "row": {
+          "ref": "WC33",
+          "item": "FWF",
+          "name": "Toilets",
+          "quantity": 17,
+          "received": 17,
+          "installed": 0,
+          "collected": 17,
+          "onSite": 0,
+          "remainingNumbers": [],
+          "collectionIssues": [],
+          "numbers": [
+            "0012",
+            "0297",
+            "0456",
+            "0487",
+            "0548",
+            "0554",
+            "0582",
+            "0586",
+            "0597",
+            "0634",
+            "0657",
+            "0782",
+            "0790",
+            "0912",
+            "0920",
+            "0938",
+            "0971"
+          ],
+          "quantityOnly": false,
+          "events": [
+            {
+              "id": "T0100",
+              "date": "2026-10-08",
+              "quantity": 17
+            }
+          ],
+          "movedDate": "2026-10-01",
+          "location": "Main Beach Pde",
+          "locationBasis": "Master plan reference position",
+          "url": "https://www.google.com/maps/dir/?api=1&destination=-27.986107,153.429524&travelmode=driving",
+          "coordinates": "-27.986107, 153.429524",
+          "side": "outside",
+          "zone": "mbp",
+          "status": "Arrival and installation not recorded",
+          "arrivalBasis": "Receipt, allocation and installation remain separate.",
+          "emptied": false,
+          "emptyRecord": {
+            "on": false,
+            "by": null,
+            "at": null,
+            "unproven": false,
+            "stale": false
+          },
+          "supplierBasis": "Shared item ownership",
+          "outDate": "",
+          "outSource": "",
+          "dispatchHold": false,
+          "remaining": 0,
+          "locationConflict": false
+        },
+        "summary": {
+          "onSite": 66,
+          "onsiteUnknown": 0,
+          "received": 83,
+          "identified": 91,
+          "quantityOnly": 6,
+          "remaining": 113,
+          "references": 14,
+          "spares": 1,
+          "fwf": {
+            "confirmed": 194,
+            "received": 75,
+            "pending": 113,
+            "unallocated": 6,
+            "over": 0
+          }
+        }
+      }
+    },
+    {
+      "name": "Full collection removed from demob",
+      "pass": true
+    },
+    {
+      "name": "Native Today stock adapter alsozero",
+      "pass": true
+    },
+    {
+      "name": "A later canonicalFWF reference replaces source fallback once",
+      "pass": true,
+      "detail": [
+        {
+          "ref": "TEST-SOURCED-BJR",
+          "item": "FWF",
+          "name": "Brad Jones Racing",
+          "quantity": 1,
+          "received": 0,
+          "installed": 0,
+          "collected": 0,
+          "onSite": 0,
+          "remainingNumbers": [],
+          "collectionIssues": [],
+          "numbers": [],
+          "quantityOnly": false,
+          "events": [
+            {
+              "id": "TEST-SOURCED-BJR",
+              "date": "2026-10-22",
+              "quantity": 1
+            }
+          ],
+          "movedDate": "",
+          "location": "Brad Jones Racing",
+          "locationBasis": "Exact location not recorded",
+          "url": "",
+          "coordinates": "",
+          "side": "unknown",
+          "zone": "unknown",
+          "status": "Arrival and installation not recorded",
+          "arrivalBasis": "Receipt, allocation and installation remain separate.",
+          "emptied": false,
+          "emptyRecord": {
+            "on": false,
+            "by": null,
+            "at": null,
+            "unproven": false,
+            "stale": false
+          },
+          "supplierBasis": "Current supplier plan matched to scheduled item",
+          "outDate": "",
+          "outSource": "",
+          "dispatchHold": false,
+          "remaining": 1
+        }
+      ]
+    },
+    {
+      "name": "Full fixture restoration",
+      "pass": true
+    }
+  ],
+  "errors": [],
+  "counts": {
+    "page": 1,
+    "live": 9,
+    "blocked": 0
+  }
+}

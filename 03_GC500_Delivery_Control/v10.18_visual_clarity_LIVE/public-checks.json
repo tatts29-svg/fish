@@ -1,0 +1,91 @@
+{
+  "author": "Andrew Fisher",
+  "checks": [
+    {
+      "name": "Public page serves v10.18",
+      "pass": true
+    },
+    {
+      "name": "Shared feedback module is present",
+      "pass": true
+    },
+    {
+      "name": "Unit projection optimisation is present",
+      "pass": true
+    },
+    {
+      "name": "Supplier dependency correction is present",
+      "pass": true
+    },
+    {
+      "name": "Public costs opens with content and no horizontal overflow",
+      "pass": true
+    },
+    {
+      "name": "Public timeline opens with content and no horizontal overflow",
+      "pass": true
+    },
+    {
+      "name": "Public plant opens with content and no horizontal overflow",
+      "pass": true
+    },
+    {
+      "name": "Public today opens with content and no horizontal overflow",
+      "pass": true
+    },
+    {
+      "name": "Public map exports camera-change events",
+      "pass": true
+    },
+    {
+      "name": "Public map uses compact More info card",
+      "pass": true
+    },
+    {
+      "name": "Public refresh keeps selected camera",
+      "pass": true
+    },
+    {
+      "name": "Native record and version stay unchanged",
+      "pass": true
+    },
+    {
+      "name": "No local page substitution",
+      "pass": true
+    },
+    {
+      "name": "No operational writes",
+      "pass": true
+    },
+    {
+      "name": "No application errors",
+      "pass": true
+    }
+  ],
+  "routeTimings": [
+    {
+      "route": "costs",
+      "milliseconds": 2110
+    },
+    {
+      "route": "timeline",
+      "milliseconds": 1512
+    },
+    {
+      "route": "plant",
+      "milliseconds": 346
+    },
+    {
+      "route": "today",
+      "milliseconds": 811
+    }
+  ],
+  "nativeVersion": 6078,
+  "requests": {
+    "page": 0,
+    "live": 129,
+    "blocked": 0,
+    "blockedMapSessions": 1
+  },
+  "errors": []
+}

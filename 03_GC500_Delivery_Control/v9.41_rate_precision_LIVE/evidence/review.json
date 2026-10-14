@@ -1,0 +1,42 @@
+{
+  "author": "Andrew Fisher",
+  "status": "READY source; final combined release validation remains with the release owner",
+  "scope": "Display precision only; no source rates, charge calculations, totals or shared records changed",
+  "syntheticChecks": 50,
+  "patchGuardAndScopeChecks": 6,
+  "inlineScriptsParsed": 42,
+  "focusedProof": {
+    "author": "Andrew Fisher",
+    "passed": true,
+    "baseSha256": "35ff0ab8c354de151f96da4502e8958d1de88662e9d459e20bff55b1e28adcf0",
+    "candidateSha256": "4e96cbde80843e878acc5c90824e6d7725381793857288a8c9f1edc00b60f870",
+    "record": 4669,
+    "clock": "2026-10-08T21:34:11.575Z",
+    "financialModelResults": 16,
+    "financialModelsUnchanged": true,
+    "nativeRecordUnchanged": true,
+    "formulasChecked": 142,
+    "extraPrecision": 131,
+    "explicitLimitations": 1,
+    "desktopAndPhone": true,
+    "pageErrors": 0,
+    "operationalWrites": 0,
+    "phoneScreenshotReviewed": true,
+    "sameAsOriginalAuditedFinancialReference": true
+  },
+  "precedingMoneyAudit": {
+    "sameFrozenRecordAndClock": true,
+    "financialModelResults": 16,
+    "renderedViews": 24,
+    "currencyCellsMatched": 3704,
+    "renderedTables": 158,
+    "equipmentDrawers": 8,
+    "drawerCurrencyCellsMatched": 80,
+    "independentArithmeticAndCellChecks": 184,
+    "nativeFinancialTieOuts": 17,
+    "operationalWrites": 0,
+    "pageErrors": 0,
+    "privateSummarySha256": "c37119df3a7b805ff55af3bc894c271634eefb4b65ddd5aaccb3b11682545a07"
+  },
+  "privateEvidence": "Original records, financial values and screenshots are deliberately excluded from this repository."
+}

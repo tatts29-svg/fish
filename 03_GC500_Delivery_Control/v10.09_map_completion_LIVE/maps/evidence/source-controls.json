@@ -1,0 +1,94 @@
+{
+  "author": "Andrew Fisher",
+  "pass": true,
+  "checks": [
+    {
+      "name": "Sheet transform and inverse retained byte-for-byte",
+      "pass": true
+    },
+    {
+      "name": "Camera view calculation retained byte-for-byte",
+      "pass": true
+    },
+    {
+      "name": "Native hit targets retained byte-for-byte",
+      "pass": true
+    },
+    {
+      "name": "Region coordinates retained",
+      "pass": true
+    },
+    {
+      "name": "No new repeating timers",
+      "pass": true
+    },
+    {
+      "name": "Raw unverified Done API removed",
+      "pass": true
+    },
+    {
+      "name": "Verified status populates optional Done layer",
+      "pass": true
+    },
+    {
+      "name": "Marked references excluded from duplicate Done overlay",
+      "pass": true
+    },
+    {
+      "name": "Selection highlight explicitly orange",
+      "pass": true
+    },
+    {
+      "name": "No status geometry added to native hit targets",
+      "pass": true
+    },
+    {
+      "name": "Parent provider is read once per existing loop",
+      "pass": true
+    },
+    {
+      "name": "Motion Off and reduced motion stop pulse children",
+      "pass": true
+    },
+    {
+      "name": "Accessible selected status has polite live region",
+      "pass": true
+    },
+    {
+      "name": "Merge has only one existing-refresh hook",
+      "pass": true
+    },
+    {
+      "name": "explorer/explorer.js matches reviewed bytes",
+      "pass": true
+    },
+    {
+      "name": "explorer/explorer-merge.js matches reviewed bytes",
+      "pass": true
+    },
+    {
+      "name": "explorer/index.html matches reviewed bytes",
+      "pass": true
+    },
+    {
+      "name": "explorer.js query binds candidate SHA",
+      "pass": true
+    },
+    {
+      "name": "explorer-merge.js query binds candidate SHA",
+      "pass": true
+    },
+    {
+      "name": "Exact reproducible output",
+      "pass": true
+    },
+    {
+      "name": "Already patched base rejected",
+      "pass": true
+    },
+    {
+      "name": "Modified base rejected",
+      "pass": true
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "author": "Andrew Fisher",
+  "checks": [
+    {
+      "pass": true,
+      "check_count": 858,
+      "failed": 0,
+      "pdf_count": 6,
+      "qr_decoded_count": 82,
+      "record_version": 5338
+    },
+    {
+      "pass": true,
+      "check_count": 380,
+      "failure_count": 0,
+      "reference_count": 41,
+      "quantity": 99
+    },
+    {
+      "pass": true,
+      "check_count": 126,
+      "failure_count": 0,
+      "recordVersion": 5338
+    }
+  ]
+}

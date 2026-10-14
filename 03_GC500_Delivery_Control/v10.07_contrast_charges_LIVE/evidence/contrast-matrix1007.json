@@ -1,0 +1,470 @@
+{
+  "author": "Andrew Fisher",
+  "candidate_sha256": "b5d99de88886d9f03aad7af2177b68b1239919542f6c27e2d80be7ec9a89bdfb",
+  "method": "Actual rendered text and form values/placeholders; hidden and decorative icon text excluded. Foreground/background alpha and ancestor opacity composited. Layered gradients use representative stop colours with visual review; image and canvas content is not given a numeric pass. Header search placeholder additionally measured against its actual rendered background pixels, excluding the overlaid Close button.",
+  "thresholds": {
+    "normal_text": 4.5,
+    "large_text": 3
+  },
+  "viewports": {
+    "phone": [
+      390,
+      844
+    ],
+    "tablet": [
+      1138,
+      1280
+    ],
+    "desktop": [
+      1440,
+      1000
+    ]
+  },
+  "source_equivalence": [
+    {
+      "tested_sha256": "826ce44a2bf33cd93eccb23d7c68aa8ac06a740c16970279cdbde8acd1049b4f",
+      "final_sha256": "b5d99de88886d9f03aad7af2177b68b1239919542f6c27e2d80be7ec9a89bdfb",
+      "only_added_styles": [
+        "danger buttons",
+        "header search placeholder"
+      ],
+      "all_bytes_outside_contrast_styles_identical": true,
+      "scripts_markup_and_records_identical": true
+    },
+    {
+      "tested_sha256": "e2c02b7895b15223490976dcde30678775d6adae6eb1bd51096c688450971730",
+      "final_sha256": "b5d99de88886d9f03aad7af2177b68b1239919542f6c27e2d80be7ec9a89bdfb",
+      "only_added_styles": [
+        "header search placeholder"
+      ],
+      "all_bytes_outside_contrast_styles_identical": true,
+      "scripts_markup_and_records_identical": true
+    }
+  ],
+  "cases": [
+    {
+      "viewport": "tablet",
+      "os_colour_scheme": "light",
+      "edit_practice": false,
+      "tested_sha256": "826ce44a2bf33cd93eccb23d7c68aa8ac06a740c16970279cdbde8acd1049b4f",
+      "applies_to_final_by_css_delta_proof": true,
+      "routes": [
+        "today",
+        "progress",
+        "map",
+        "docs",
+        "register",
+        "plant",
+        "demob",
+        "fencing",
+        "prestarts",
+        "coatesway",
+        "journal",
+        "breakdowns",
+        "variances",
+        "costs",
+        "edit",
+        "change",
+        "add",
+        "pricing",
+        "timeline",
+        "subhired",
+        "questions",
+        "about"
+      ],
+      "finance_views": [
+        "summary",
+        "pricing",
+        "fencing",
+        "runsheet",
+        "handover",
+        "transport",
+        "generators"
+      ],
+      "asset_drawers": 3,
+      "default_hover_focus_states": 0,
+      "expanded_folds": 1489,
+      "text_control_groups_measured": 6275,
+      "disabled_or_readonly_groups": 91,
+      "gradient_groups_with_representative_stop_measurement": 1918,
+      "image_surface_groups_not_given_numeric_pass": 61,
+      "minimum_normal_text_ratio": 4.73,
+      "minimum_large_text_ratio": 5.94,
+      "contrast_failures": 0,
+      "page_errors": 0,
+      "attempted_operational_writes": 0,
+      "checks": [
+        {
+          "name": "Map field style applied exactly once on initial load and reload",
+          "pass": true
+        },
+        {
+          "name": "Map search still finds WC69",
+          "pass": true
+        },
+        {
+          "name": "All requested routes rendered and audited",
+          "pass": true
+        },
+        {
+          "name": "No page errors or attempted operational writes",
+          "pass": true
+        },
+        {
+          "name": "Main application text and controls meet contrast thresholds",
+          "pass": true
+        },
+        {
+          "name": "Embedded map text and controls meet contrast thresholds",
+          "pass": true
+        }
+      ],
+      "map_initial_style_count": 1,
+      "map_reload_style_count": 1,
+      "map_search_passed": true
+    },
+    {
+      "viewport": "tablet",
+      "os_colour_scheme": "dark",
+      "edit_practice": false,
+      "tested_sha256": "826ce44a2bf33cd93eccb23d7c68aa8ac06a740c16970279cdbde8acd1049b4f",
+      "applies_to_final_by_css_delta_proof": true,
+      "routes": [
+        "today",
+        "progress",
+        "map",
+        "docs",
+        "register",
+        "plant",
+        "demob",
+        "fencing",
+        "prestarts",
+        "coatesway",
+        "journal",
+        "breakdowns",
+        "variances",
+        "costs",
+        "edit",
+        "change",
+        "add",
+        "pricing",
+        "timeline",
+        "subhired",
+        "questions",
+        "about"
+      ],
+      "finance_views": [
+        "summary",
+        "pricing",
+        "fencing",
+        "runsheet",
+        "handover",
+        "transport",
+        "generators"
+      ],
+      "asset_drawers": 3,
+      "default_hover_focus_states": 0,
+      "expanded_folds": 1489,
+      "text_control_groups_measured": 6287,
+      "disabled_or_readonly_groups": 91,
+      "gradient_groups_with_representative_stop_measurement": 1917,
+      "image_surface_groups_not_given_numeric_pass": 61,
+      "minimum_normal_text_ratio": 4.73,
+      "minimum_large_text_ratio": 5.94,
+      "contrast_failures": 0,
+      "page_errors": 0,
+      "attempted_operational_writes": 0,
+      "checks": [
+        {
+          "name": "Map field style applied exactly once on initial load and reload",
+          "pass": true
+        },
+        {
+          "name": "Map search still finds WC69",
+          "pass": true
+        },
+        {
+          "name": "All requested routes rendered and audited",
+          "pass": true
+        },
+        {
+          "name": "No page errors or attempted operational writes",
+          "pass": true
+        },
+        {
+          "name": "Main application text and controls meet contrast thresholds",
+          "pass": true
+        },
+        {
+          "name": "Embedded map text and controls meet contrast thresholds",
+          "pass": true
+        }
+      ],
+      "map_initial_style_count": 1,
+      "map_reload_style_count": 1,
+      "map_search_passed": true
+    },
+    {
+      "viewport": "phone",
+      "os_colour_scheme": "light",
+      "edit_practice": true,
+      "tested_sha256": "826ce44a2bf33cd93eccb23d7c68aa8ac06a740c16970279cdbde8acd1049b4f",
+      "applies_to_final_by_css_delta_proof": true,
+      "routes": [
+        "today",
+        "timeline",
+        "demob",
+        "plant",
+        "subhired",
+        "costs"
+      ],
+      "finance_views": [
+        "summary",
+        "pricing",
+        "fencing",
+        "runsheet",
+        "handover",
+        "transport",
+        "generators"
+      ],
+      "asset_drawers": 3,
+      "default_hover_focus_states": 15,
+      "expanded_folds": 617,
+      "text_control_groups_measured": 3488,
+      "disabled_or_readonly_groups": 0,
+      "gradient_groups_with_representative_stop_measurement": 547,
+      "image_surface_groups_not_given_numeric_pass": 57,
+      "minimum_normal_text_ratio": 4.73,
+      "minimum_large_text_ratio": 5.94,
+      "contrast_failures": 0,
+      "page_errors": 0,
+      "attempted_operational_writes": 0,
+      "checks": [
+        {
+          "name": "All requested routes rendered and audited",
+          "pass": true
+        },
+        {
+          "name": "No page errors or attempted operational writes",
+          "pass": true
+        },
+        {
+          "name": "Main application text and controls meet contrast thresholds",
+          "pass": true
+        },
+        {
+          "name": "Embedded map text and controls meet contrast thresholds",
+          "pass": true
+        }
+      ]
+    },
+    {
+      "viewport": "phone",
+      "os_colour_scheme": "dark",
+      "edit_practice": true,
+      "tested_sha256": "e2c02b7895b15223490976dcde30678775d6adae6eb1bd51096c688450971730",
+      "applies_to_final_by_css_delta_proof": true,
+      "routes": [
+        "today",
+        "timeline",
+        "demob",
+        "plant",
+        "subhired",
+        "costs"
+      ],
+      "finance_views": [
+        "summary",
+        "pricing",
+        "fencing",
+        "runsheet",
+        "handover",
+        "transport",
+        "generators"
+      ],
+      "asset_drawers": 3,
+      "default_hover_focus_states": 24,
+      "expanded_folds": 617,
+      "text_control_groups_measured": 3497,
+      "disabled_or_readonly_groups": 0,
+      "gradient_groups_with_representative_stop_measurement": 547,
+      "image_surface_groups_not_given_numeric_pass": 57,
+      "minimum_normal_text_ratio": 4.73,
+      "minimum_large_text_ratio": 5.94,
+      "contrast_failures": 0,
+      "page_errors": 0,
+      "attempted_operational_writes": 0,
+      "checks": [
+        {
+          "name": "All requested routes rendered and audited",
+          "pass": true
+        },
+        {
+          "name": "No page errors or attempted operational writes",
+          "pass": true
+        },
+        {
+          "name": "Main application text and controls meet contrast thresholds",
+          "pass": true
+        },
+        {
+          "name": "Embedded map text and controls meet contrast thresholds",
+          "pass": true
+        }
+      ]
+    },
+    {
+      "viewport": "desktop",
+      "os_colour_scheme": "light",
+      "edit_practice": true,
+      "tested_sha256": "e2c02b7895b15223490976dcde30678775d6adae6eb1bd51096c688450971730",
+      "applies_to_final_by_css_delta_proof": true,
+      "routes": [
+        "today",
+        "timeline",
+        "demob",
+        "plant",
+        "subhired",
+        "costs"
+      ],
+      "finance_views": [
+        "summary",
+        "pricing",
+        "fencing",
+        "runsheet",
+        "handover",
+        "transport",
+        "generators"
+      ],
+      "asset_drawers": 3,
+      "default_hover_focus_states": 24,
+      "expanded_folds": 615,
+      "text_control_groups_measured": 3520,
+      "disabled_or_readonly_groups": 0,
+      "gradient_groups_with_representative_stop_measurement": 548,
+      "image_surface_groups_not_given_numeric_pass": 57,
+      "minimum_normal_text_ratio": 4.73,
+      "minimum_large_text_ratio": 5.94,
+      "contrast_failures": 0,
+      "page_errors": 0,
+      "attempted_operational_writes": 0,
+      "checks": [
+        {
+          "name": "All requested routes rendered and audited",
+          "pass": true
+        },
+        {
+          "name": "No page errors or attempted operational writes",
+          "pass": true
+        },
+        {
+          "name": "Main application text and controls meet contrast thresholds",
+          "pass": true
+        },
+        {
+          "name": "Embedded map text and controls meet contrast thresholds",
+          "pass": true
+        }
+      ]
+    },
+    {
+      "viewport": "desktop",
+      "os_colour_scheme": "dark",
+      "edit_practice": true,
+      "tested_sha256": "e2c02b7895b15223490976dcde30678775d6adae6eb1bd51096c688450971730",
+      "applies_to_final_by_css_delta_proof": true,
+      "routes": [
+        "today",
+        "timeline",
+        "demob",
+        "plant",
+        "subhired",
+        "costs"
+      ],
+      "finance_views": [
+        "summary",
+        "pricing",
+        "fencing",
+        "runsheet",
+        "handover",
+        "transport",
+        "generators"
+      ],
+      "asset_drawers": 3,
+      "default_hover_focus_states": 24,
+      "expanded_folds": 615,
+      "text_control_groups_measured": 3516,
+      "disabled_or_readonly_groups": 0,
+      "gradient_groups_with_representative_stop_measurement": 548,
+      "image_surface_groups_not_given_numeric_pass": 57,
+      "minimum_normal_text_ratio": 4.73,
+      "minimum_large_text_ratio": 5.94,
+      "contrast_failures": 0,
+      "page_errors": 0,
+      "attempted_operational_writes": 0,
+      "checks": [
+        {
+          "name": "All requested routes rendered and audited",
+          "pass": true
+        },
+        {
+          "name": "No page errors or attempted operational writes",
+          "pass": true
+        },
+        {
+          "name": "Main application text and controls meet contrast thresholds",
+          "pass": true
+        },
+        {
+          "name": "Embedded map text and controls meet contrast thresholds",
+          "pass": true
+        }
+      ]
+    }
+  ],
+  "final_candidate_chrome_cases": [
+    {
+      "viewport": "phone",
+      "os_colour_scheme": "light",
+      "text_control_groups": 23,
+      "search_placeholder_minimum_rendered_pixel_contrast": 8.59,
+      "contrast_failures": 0
+    },
+    {
+      "viewport": "phone",
+      "os_colour_scheme": "dark",
+      "text_control_groups": 23,
+      "search_placeholder_minimum_rendered_pixel_contrast": 8.59,
+      "contrast_failures": 0
+    },
+    {
+      "viewport": "tablet",
+      "os_colour_scheme": "light",
+      "text_control_groups": 28,
+      "search_placeholder_minimum_rendered_pixel_contrast": 8.89,
+      "contrast_failures": 0
+    },
+    {
+      "viewport": "tablet",
+      "os_colour_scheme": "dark",
+      "text_control_groups": 28,
+      "search_placeholder_minimum_rendered_pixel_contrast": 8.89,
+      "contrast_failures": 0
+    },
+    {
+      "viewport": "desktop",
+      "os_colour_scheme": "light",
+      "text_control_groups": 28,
+      "search_placeholder_minimum_rendered_pixel_contrast": 8.73,
+      "contrast_failures": 0
+    },
+    {
+      "viewport": "desktop",
+      "os_colour_scheme": "dark",
+      "text_control_groups": 28,
+      "search_placeholder_minimum_rendered_pixel_contrast": 8.73,
+      "contrast_failures": 0
+    }
+  ],
+  "all_scoped_contrast_checks_pass": true,
+  "separate_layout_finding": "At 390px the Build Rules table exceeds its container and is clipped by main overflow-x:hidden; scrollIntoView can shift main by27px. Existing layout defect assigned to v10.08. Finance handover already has a local horizontal scroll container."
+}

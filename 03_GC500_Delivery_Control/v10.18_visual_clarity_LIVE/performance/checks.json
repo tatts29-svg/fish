@@ -1,0 +1,63 @@
+{
+  "author": "Andrew Fisher",
+  "checks": [
+    {
+      "name": "actual explorer uses event-driven parent observer",
+      "pass": true
+    },
+    {
+      "name": "still embedded map does not remeasure every frame",
+      "pass": true
+    },
+    {
+      "name": "one hundred camera notifications coalesce into one measurement",
+      "pass": true
+    },
+    {
+      "name": "animated camera move updates parent projection",
+      "pass": true
+    },
+    {
+      "name": "observer returns to rest after camera animation",
+      "pass": true
+    },
+    {
+      "name": "data refresh preserves exact camera",
+      "pass": true
+    },
+    {
+      "name": "resized embedded map updates its overlay",
+      "pass": true
+    },
+    {
+      "name": "covered showcase defers measurement",
+      "pass": true
+    },
+    {
+      "name": "uncovering resumes pending measurement",
+      "pass": true
+    },
+    {
+      "name": "removed host releases observer and iframe",
+      "pass": true
+    },
+    {
+      "name": "record and service version untouched",
+      "pass": true
+    },
+    {
+      "name": "zero browser errors or operational write attempts",
+      "pass": true
+    }
+  ],
+  "version": 6078,
+  "requests": {
+    "page": 1,
+    "live": 173,
+    "blocked": 0,
+    "blockedMapSessions": 1
+  },
+  "errors": [],
+  "pageSha256": "2d09fa44794596c52c54d41aed6f98d16fbb6f5ff1ccf608f9d275874559785d",
+  "machineSha256": "6a5582b6e60a0e1449ee42c63900912fda875c08c825cbc3dc13c42b24d6047f"
+}

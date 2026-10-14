@@ -1,0 +1,16 @@
+{
+  "author": "Andrew Fisher",
+  "pass": true,
+  "version": 5153,
+  "publicPage": {
+    "sha256": "1f04615f0c941e1c6c2b45e0656fc92e2bd816998a7b5f2d428f1e1b0e4a6cb0",
+    "bytes": 12694230
+  },
+  "papers": 16,
+  "linkedPhotos": 17,
+  "recordUnchanged": true,
+  "errors": [],
+  "live_aest": "9 Oct 2026 15:06 AEST",
+  "source_commit": "6e1c6f8d",
+  "source_reviews_confirmed": 2
+}

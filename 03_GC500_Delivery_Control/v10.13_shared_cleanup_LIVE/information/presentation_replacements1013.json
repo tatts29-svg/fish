@@ -1,0 +1,207 @@
+[
+  {
+    "old": " : (d.by ? d.by + ' · ' : '') + (d.set_at ? fmtStamp(d.set_at) : 'time not recorded')",
+    "new": " : partial962 ? Information1013.partialWords(partial962) : (d.by ? d.by + ' · ' : '') + (d.set_at ? fmtStamp(d.set_at,d) : 'time not recorded')",
+    "why": "Receipt timestamps carry date-only context"
+  },
+  {
+    "old": " <tr><td class=\"mono\">${r.dateOnly ? '<span class=\"w\" title=\"the record holds the day, not the time\">day only</span>' : esc(timeOfStamp(r.at) || '')}${r.lastOnly ? '<div class=\"w\">last changed</div>' : ''}</td>",
+    "new": " <tr><td class=\"mono\">${r.dateOnly ? '<span class=\"w\" title=\"the record holds the day, not the time\">day only</span>' : esc(timeOfStamp(r.at,r) || '')}${r.lastOnly ? '<div class=\"w\">last changed</div>' : ''}</td>",
+    "why": "Receipt timestamps carry date-only context"
+  },
+  {
+    "old": " return {word: 'A person on site', why: (d.by ? d.by + ' set it' : 'somebody set it') + (d.set_at ? ' at ' + fmtStamp(d.set_at) : '') + ' on site'};",
+    "new": " return {word: 'A person on site', why: (d.by ? d.by + ' set it' : 'somebody set it') + (d.set_at ? ' at ' + fmtStamp(d.set_at,d) : '') + ' on site'};",
+    "why": "Receipt timestamps carry date-only context"
+  },
+  {
+    "old": " ? `set ${esc(fmtStamp(d.set_at))}by <b>${recorderDisplay772(d.by || 'unnamed')}</b> ${whereChip(d.where)}`",
+    "new": " ? `set ${esc(fmtStamp(d.set_at,d))}by <b>${recorderDisplay772(d.by || 'unnamed')}</b> ${whereChip(d.where)}`",
+    "why": "Receipt timestamps carry date-only context"
+  },
+  {
+    "old": " <span class=\"w\" style=\"color:var(--mute)\">${esc(fmtStamp(h.at))} · ${recorderDisplay772(h.by || 'unnamed')}</span></li>`).join('')}</ul></div></details>` : ''}",
+    "new": " <span class=\"w\" style=\"color:var(--mute)\">${esc(fmtStamp(h.at,h))} · ${recorderDisplay772(h.by || 'unnamed')}</span></li>`).join('')}</ul></div></details>` : ''}",
+    "why": "Receipt timestamps carry date-only context"
+  },
+  {
+    "old": " + (d.set_at ? ' ' + fmtStamp(d.set_at) : '')",
+    "new": " + (d.set_at ? ' ' + fmtStamp(d.set_at,d) : '')",
+    "why": "Receipt timestamps carry date-only context"
+  },
+  {
+    "old": " const updated = d.moved || !d.recorded ? '' : d.where === 'rental' ? 'From the rental system' : ('Last updated ' + (d.set_at ? fmtStamp(d.set_at) : 'time not recorded') + (d.by ? ' by ' + d.by : ''));",
+    "new": " const updated = d.moved || !d.recorded ? '' : d.where === 'rental' ? 'From the rental system' : ('Last updated ' + (d.set_at ? fmtStamp(d.set_at,d) : 'time not recorded') + (d.by ? ' by ' + d.by : ''));",
+    "why": "Receipt timestamps carry date-only context"
+  },
+  {
+    "old": " ${hist.length ? `<ul class=\"dchl\">${hist.slice(0, 5).map(h => `<li><i class=\"${esc(h.c || '')}\"></i><span>${esc(fmtStamp(h.at))}</span><b>${esc(h.what)}</b><em>${recorderDisplay772(h.by || '')}</em></li>`).join('')}</ul>` : '<span class=\"dcsub dcnone\">Nothing recorded yet</span>'}",
+    "new": " ${hist.length ? `<ul class=\"dchl\">${hist.slice(0, 5).map(h => `<li><i class=\"${esc(h.c || '')}\"></i><span>${esc(fmtStamp(h.at,h))}</span><b>${esc(h.what)}</b><em>${recorderDisplay772(h.by || '')}</em></li>`).join('')}</ul>` : '<span class=\"dcsub dcnone\">Nothing recorded yet</span>'}",
+    "why": "Receipt timestamps carry date-only context"
+  },
+  {
+    "old": " `Status now: ${deliveryView(a).short}${d.recorded ? ' (set ' + fmtStamp(d.set_at) + ' by ' + (d.by || 'unnamed') + ')' : ''}`,",
+    "new": " `Status now: ${deliveryView(a).short}${d.recorded ? ' (set ' + fmtStamp(d.set_at,d) + ' by ' + (d.by || 'unnamed') + ')' : ''}`,",
+    "why": "Receipt timestamps carry date-only context"
+  },
+  {
+    "old": " return `${timeOfStamp(r.at)} ${r.a.key} ${(r.a.item_types || []).join(', ') || r.a.product || ''}${r.a.name ? ' — ' + r.a.name : ''}` +",
+    "new": " return `${timeOfStamp(r.at,r)} ${r.a.key} ${(r.a.item_types || []).join(', ') || r.a.product || ''}${r.a.name ? ' — ' + r.a.name : ''}` +",
+    "why": "Receipt timestamps carry date-only context"
+  },
+  {
+    "old": " v.offsite.length ? `RECORDED OFF SITE (${v.offsite.length}): ` + v.offsite.map(r => `${timeOfStamp(r.at)} ${r.a.key} (${r.by || 'unnamed'})`).join(' · ') : null,",
+    "new": " v.offsite.length ? `RECORDED OFF SITE (${v.offsite.length}): ` + v.offsite.map(r => `${timeOfStamp(r.at,r)} ${r.a.key} (${r.by || 'unnamed'})`).join(' · ') : null,",
+    "why": "Receipt timestamps carry date-only context"
+  },
+  {
+    "old": " <td class=\"mono\"><b>${esc(timeOfStamp(r.at))}</b></td>",
+    "new": " <td class=\"mono\"><b>${esc(timeOfStamp(r.at,r))}</b></td>",
+    "why": "Receipt timestamps carry date-only context"
+  },
+  {
+    "old": " ${v.offsite.length ? `<p class=\"ds-dd\"><b>Recorded off site on this day (${v.offsite.length}):</b> ${v.offsite.map(r => esc(r.a.key) + ' ' + esc(timeOfStamp(r.at))+ ' (' + recorderDisplay772(r.by || 'unnamed') + ')').join(' · ')}</p>` : ''}",
+    "new": " ${v.offsite.length ? `<p class=\"ds-dd\"><b>Recorded off site on this day (${v.offsite.length}):</b> ${v.offsite.map(r => esc(r.a.key) + ' ' + esc(timeOfStamp(r.at,r))+ ' (' + recorderDisplay772(r.by || 'unnamed') + ')').join(' · ')}</p>` : ''}",
+    "why": "Receipt timestamps carry date-only context"
+  },
+  {
+    "old": " <span class=\"w\">${u ? `<b>${esc(fmtNum(u))}</b> ${esc(u === 1 ? 'thing' : 'things')} on site · ` : ''}${esc(deliveryView(x.a).short)}${x.d.done ? ' · complete' : ''} · ${recorderDisplay772(x.d.by || 'a person')}${x.d.set_at ? ' · ' + esc(fmtStamp(x.d.set_at)) : ''}</span></li>`; }).join('')}${byPerson.length > 40 ? `<li class=\"w\">and ${byPerson.length - 40} more — open the Register filtered to on site</li>` : ''}</ul></details>` : ''}",
+    "new": " <span class=\"w\">${u ? `<b>${esc(fmtNum(u))}</b> ${esc(u === 1 ? 'thing' : 'things')} on site · ` : ''}${esc(deliveryView(x.a).short)}${x.d.done ? ' · complete' : ''} · ${recorderDisplay772(x.d.by || 'a person')}${x.d.set_at ? ' · ' + esc(fmtStamp(x.d.set_at,x.d)) : ''}</span></li>`; }).join('')}${byPerson.length > 40 ? `<li class=\"w\">and ${byPerson.length - 40} more — open the Register filtered to on site</li>` : ''}</ul></details>` : ''}",
+    "why": "Receipt timestamps carry date-only context"
+  },
+  {
+    "old": " <td class=\"num mono\">${esc(timeOfStamp(r.at))}</td>",
+    "new": " <td class=\"num mono\">${esc(timeOfStamp(r.at,r))}</td>",
+    "why": "Receipt timestamps carry date-only context"
+  },
+  {
+    "old": "function lightChip(a, opts){\n const o = opts || {}, d = deliveryOf(a.key || a), L = LIGHT[d.state];\n const title = d.where === 'rental'\n ? `${L.word} — on site: the Coates rental system has it on hire from ${fmtDate(d.rental.from)}${d.rental.from_time ? ' ' + d.rental.from_time : ''}${d.rental.numbers.length ? ' (asset no. ' + d.rental.numbers.filter(n => String(n).toUpperCase() !== 'MISCITEM').join(', ') + ')' : ''}. Nobody has set a light; set one to override it.`\n : d.recorded\n ? `${L.word} — ${L.label.toLowerCase()}, set ${fmtStamp(d.set_at)} by ${d.by || 'unnamed'}${d.where === 'local' ? ` (${LW()})` : d.where === 'rental' ? ' (rental system)' : ' (committed)'}`\n : 'No delivery record — nobody has recorded a delivery for this reference yet. That is not the same as a record saying it is not here.';\n return `<span class=\"tl ${d.recorded ? L.c : 'none'}${d.recorded && d.where === 'rental' ? ' hire' : ''}\" role=\"img\" title=\"${esc(title)}\" aria-label=\"${esc(title)}\"><i></i>${\n o.full ? (d.recorded ? esc(L.label) + (d.where === 'rental' ? ' <span class=\"w\">on hire</span>' : '') : 'No delivery record') : ''}${\n o.eta && d.eta ? ` <span class=\"eta\" title=\"planned time to site\">${esc(d.eta)}</span>` : ''}</span>`;\n}\n",
+    "new": "function lightChip(a, opts){\n const o=opts||{},v=deliveryView(a),d=v.d;\n const title=v.said;\n return `<span class=\"tl ${v.c}${d.recorded&&d.where==='rental'?' hire':''}\" role=\"img\" title=\"${esc(title)}\" aria-label=\"${esc(title)}\"><i></i>${\n o.full?esc(v.short):''}${o.eta&&d.eta?` <span class=\"eta\" title=\"planned time to site\">${esc(d.eta)}</span>`:''}</span>`;\n}\n",
+    "why": "Delivery chips use the same partial/unknown/moved projection as other instruments"
+  },
+  {
+    "old": "\tconst sinceW = d.recorded ? [d.set_at ? 'since ' + fmtStamp(d.set_at) : '', d.by ? recorderDisplay772(d.by) : ''].filter(Boolean).join(' · ') : esc(v.why || 'nobody has set a light yet');",
+    "new": "\tconst sinceW = partial962 ? esc(Information1013.partialWords(partial962)) : d.recorded ? [d.set_at ? 'recorded ' + esc(fmtStamp(d.set_at,d)) : '', d.by ? recorderDisplay772(d.by) : ''].filter(Boolean).join(' · ') : esc(v.why || 'nobody has set a light yet');",
+    "why": "Partial summary describes item scope rather than an old whole-reference light time"
+  },
+  {
+    "old": "red: d.recorded && d.state === 'not on site' ? 1 : 0})}${rows.join('')}</div>",
+    "new": "red: !partial962&&d.recorded && d.state === 'not on site' ? 1 : 0})}${partial962?moreInfo('drawer|whole-checks|'+key,'<p class=\"since816\">These saved checks apply to the whole reference. Current item progress is shown above.</p>'+rows.join('')):rows.join('')}</div>",
+    "why": "Partial scope lights amber only; saved whole-reference controls use the existing persistent More info fold"
+  },
+  {
+    "old": "${partial962?'Recorded checks':'Complete it'}",
+    "new": "${partial962?'Whole-reference checks':'Complete it'}",
+    "why": "Distinguish saved whole-reference controls from current item progress"
+  },
+  {
+    "old": " const hist = (d.history || []).map(h => ({at: h.at, what: (LIGHT[h.state] ? LIGHT[h.state].label : h.state) + (h.note ? ' · ' + h.note : ''), by: h.by, c: LIGHT[h.state] ? LIGHT[h.state].c : ''}));",
+    "new": " const hist = (d.history || []).map(h => ({...h,at: h.at, what: (LIGHT[h.state] ? LIGHT[h.state].label : h.state) + (h.note ? ' · ' + h.note : ''), by: h.by, c: LIGHT[h.state] ? LIGHT[h.state].c : ''}));",
+    "why": "Retain evidence in display-only history rows"
+  },
+  {
+    "old": " push(at(h.at), 'light', k, (LIGHT[h.state] || {word: h.state}).word\n + (from ? ' (was ' + (LIGHT[from] || {word: from}).word.toLowerCase() + ')' : ''), h.by);",
+    "new": " push(at(h.at), 'light', k, (LIGHT[h.state] || {word: h.state}).word\n + (from ? ' (was ' + (LIGHT[from] || {word: from}).word.toLowerCase() + ')' : ''), h.by, {dateOnly:!!Information1013.receiptDay(h.at,h),effectiveDate:Information1013.receiptDay(h.at,h)});",
+    "why": "Journal history preserves explicit date-only provenance"
+  },
+  {
+    "old": " pushC(at(h.at), 'light', k, (LIGHT[h.state] || {word: h.state}).word\n + (from ? ' (was ' + (LIGHT[from] || {word: from}).word.toLowerCase() + ')' : ''), h.by);",
+    "new": " pushC(at(h.at), 'light', k, (LIGHT[h.state] || {word: h.state}).word\n + (from ? ' (was ' + (LIGHT[from] || {word: from}).word.toLowerCase() + ')' : ''), h.by, {dateOnly:!!Information1013.receiptDay(h.at,h),effectiveDate:Information1013.receiptDay(h.at,h)});",
+    "why": "Journal history preserves explicit date-only provenance"
+  },
+  {
+    "old": " const pushC = (when, kind, ref, what, who) => {",
+    "new": " const pushC = (when, kind, ref, what, who,extra) => {",
+    "why": "Committed history accepts explicit day-only display provenance"
+  },
+  {
+    "old": " rows.push({at: when, kind, ref: ref || null, what, who: who || null, where: 'committed', dateOnly: /^\\d{4}-\\d{2}-\\d{2}$/.test(String(when))});",
+    "new": " rows.push({...extra,at: when, kind, ref: ref || null, what, who: who || null, where: 'committed', dateOnly: !!(extra&&extra.dateOnly)||/^\\d{4}-\\d{2}-\\d{2}$/.test(String(when))});",
+    "why": "Committed history retains day-only metadata"
+  },
+  {
+    "old": "if (!hist.length && d.set_at) push(at(d.set_at), 'light', k, (LIGHT[d.state] || {word: d.state}).word, d.by);",
+    "new": "if (!hist.length && d.set_at) push(at(d.set_at), 'light', k, (LIGHT[d.state] || {word: d.state}).word, d.by, {dateOnly:!!Information1013.receiptDay(d.set_at,d),effectiveDate:Information1013.receiptDay(d.set_at,d)});",
+    "why": "Journal fallback preserves explicit date-only provenance"
+  },
+  {
+    "old": " const day = iso => { const d = String(iso).slice(0, 10); return d; };",
+    "new": " const day = iso => Information1013.day(iso) || String(iso).slice(0,10);",
+    "why": "Journal groups receipt events under the same Brisbane day as Today"
+  },
+  {
+    "old": "  const stamp = iso => { try { return iso && typeof fmtStamp === 'function' ? fmtStamp(iso) : (iso || ''); } catch (e) { return String(iso || ''); } };\n  const who = (by, at) => [by || '', at ? stamp(at) : ''].filter(Boolean).join(' · ');",
+    "new": "  const stamp = (iso,context) => { try { return iso && typeof fmtStamp === 'function' ? fmtStamp(iso,context) : (iso || ''); } catch (e) { return String(iso || ''); } };\n  const who = (by, at,context) => [by || '', at ? stamp(at,context) : ''].filter(Boolean).join(' · ');",
+    "why": "Map progress shares receipt timestamp formatting"
+  },
+  {
+    "old": "    else { const L = typeof LIGHT !== 'undefined' && LIGHT[d.state] ? LIGHT[d.state].label : (d.state || 'Recorded');lines.push({k: v.partial962?'Item receipts':L, text: v.partial962?v.why:who(d.by, d.set_at) || 'recorded', done: d.state === 'on site'&&!v.partial962}); }",
+    "new": "    else { const L = typeof LIGHT !== 'undefined' && LIGHT[d.state] ? LIGHT[d.state].label : (d.state || 'Recorded');lines.push({k: v.partial962?'Item receipts':L, text: v.partial962?v.why:who(d.by, d.set_at,d) || 'recorded', done: d.state === 'on site'&&!v.partial962}); }",
+    "why": "Map arrival progress passes the reference record"
+  },
+  {
+    "old": " ? `<b>${esc(money(c.rate))}</b> <span class=\"w\">${esc(c.kind === 'daily' ? 'a day' : c.kind === 'flat' ? 'flat' : c.kind)}</span>${c.hire_rate != null ? `<div class=\"w\" style=\"font-size:11px;color:var(--mute)\">${esc(money(c.hire_rate))} for the card's 42 days</div>` : ''}`",
+    "new": " ? `<b>${esc(money(c.rate))}</b> <span class=\"w\">${esc(c.kind === 'daily' ? 'a day' : c.kind === 'flat' ? 'flat' : c.kind)}</span>${c.hire_rate != null ? `<div class=\"w\" style=\"font-size:11px;color:var(--mute)\">${esc(money(c.hire_rate))} ${Number.isFinite(c.minimum_hire&&c.minimum_hire.days)?'for '+esc(fmtNum(c.minimum_hire.days))+' days on the card':'source hire amount'}</div>` : ''}`",
+    "why": "Card period caption reads the current line instead of a fixed42days"
+  },
+  {
+    "old": " <div class=\"card\"><h3>What is still missing before a total means anything</h3>\n <ul style=\"margin:0;padding-left:18px;font-size:13px;line-height:1.7\">\n <li>Answers on the ${open.length} card lines above — a 350 kVA rate, a FWF trailer rate, a TL-2 barrier rate, a\n 3.5 t forklift rate, a container rate, and which 6 m toilet block, chair and hydration station each of those is.</li>\n <li><s>Whether the card's day rate runs for the whole time on site.</s> Answered:\n forklifts, VMS and water barriers from the day they go in until they come off; everything else over the\n three race days, at no fewer days than the card's own minimum hire. What is still open is whether a\n <b>negotiated</b> minimum differs from the card's 42, 14 and 7 days — if it does, it is typed per item type.</li>\n <li>Updated pricing — with Corey Machado as at 17 Sep 2026. The 2026 card stands until it lands.</li>\n <li>Whether the track mat's 20 is 20 mats or 20 metres — the card prices it per metre.</li>\n<li>A rate for the sub-hired 5 t forklift with 1.8 m tynes — the rental system has it as a miscellaneous line with no asset number, and the 2026 card has no line for a subhire or for tynes.</li>\n <li>Confirmed on-hire and off-hire dates. ${assets.filter(a => (a.hire||{}).offhire === 'none').length} of\n ${assets.length} lines have nothing in the schedule that takes them off site, so their off-hire is\n unplanned and their weeks run to the end of the programme.</li>\n<li>Transport rates are each way and exclude GST. The card comparison counts one leg per listed transport unit; the job-end forecast separately reconciles delivery and pickup coverage.</li>\n <li>A decision on which bill of quantities governs. The BOQ tab and the external\n <span class=\"mono\">GC500 26' BOQ.xlsx</span> differ on ${DATA.boq.row_differences} rows, ${DATA.boq.substantive_differences} of them substantive.</li>\n <li>A quantity for P09 and WC05. Their cells held an asset number and the letter “T”; the project manager took both\n out of the quantity on 12 Sep 2026 and the workbook's own entries are kept beside the correction. Neither\n line can be priced until somebody states how many.</li>\n </ul>\n </div>",
+    "new": " <div class=\"card\"><h3>Pricing checks</h3>\n <p class=\"sub\">${open.length ? open.length+' rate-card item types need a decision. ' : 'No unresolved rate-card matches. '}${blockedNoQty ? blockedNoQty+' reference'+(blockedNoQty===1?' needs':'s need')+' a usable quantity. ' : ''}${blockedReloc ? blockedReloc+' relocation'+(blockedReloc===1?' is':'s are')+' excluded from new hire. ' : ''}${badWeeks.length ? badWeeks.length+' reference'+(badWeeks.length===1?' has':'s have')+' an invalid hire period. ' : ''}The affected lines are listed above. Costs and P&amp;L show any other unpriced scope separately.</p>\n ${moreInfo('pricing|earlier-source-notes', ` <h4>Earlier setup questions · 17 Sep 2026</h4><p class=\"sub\">Historical source notes, retained for audit. These are not the current pricing rules or a list of unresolved items. The current card, recorded quantities and pricing checks above take precedence.</p>\n <ul style=\"margin:0;padding-left:18px;font-size:13px;line-height:1.7\">\n <li>Answers on the original unmatched card lines — a 350 kVA rate, a FWF trailer rate, a TL-2 barrier rate, a\n 3.5 t forklift rate, a container rate, and which 6 m toilet block, chair and hydration station each of those is.</li>\n <li><s>Whether the card's day rate runs for the whole time on site.</s> Answered:\n forklifts, VMS and water barriers from the day they go in until they come off; everything else over the\n three race days, at no fewer days than the card's own minimum hire. What is still open is whether a\n <b>negotiated</b> minimum differs from the card's 42, 14 and 7 days — if it does, it is typed per item type.</li>\n <li>Updated pricing — with Corey Machado as at 17 Sep 2026. The 2026 card stands until it lands.</li>\n <li>Whether the track mat's 20 is 20 mats or 20 metres — the card prices it per metre.</li>\n<li>A rate for the sub-hired 5 t forklift with 1.8 m tynes — the rental system has it as a miscellaneous line with no asset number, and the 2026 card has no line for a subhire or for tynes.</li>\n <li>Confirmed on-hire and off-hire dates. Some lines had nothing in the schedule that takes them off site, so their off-hire is\n unplanned and their weeks run to the end of the programme.</li>\n<li>Transport rates are each way and exclude GST. The card comparison counts one leg per listed transport unit; the job-end forecast separately reconciles delivery and pickup coverage.</li>\n <li>A decision on which bill of quantities governs. The BOQ tab and the external\n <span class=\"mono\">GC500 26' BOQ.xlsx</span> differ on source rows, including substantive differences.</li>\n <li>A quantity for P09 and WC05. Their cells held an asset number and the letter “T”; the project manager took both\n out of the quantity on 12 Sep 2026 and the workbook's own entries are kept beside the correction. Neither\n line can be priced until somebody states how many.</li>\n </ul>`)}\n </div>",
+    "why": "Current pricing counts stay visible; superseded setup prose is explicitly historical under More info"
+  },
+  {
+    "old": "Cannot be priced until the schedule is corrected (${blocked.length})",
+    "new": "Lines excluded from hire pricing (${blocked.length})",
+    "why": "Distinguish excluded relocations from genuinely invalid quantities"
+  },
+  {
+    "old": "<p class=\"sub\">Not a missing rate — a quantity the workbook does not give as a number. Entering a rate will not\n price these; the source has to be fixed with authorisation.</p>",
+    "new": "<p class=\"sub\">The reason for each exclusion is shown below. A relocation is not new hire. An invalid quantity needs correction before that line can be priced.</p>",
+    "why": "Explain each current exclusion without calling every source line an error"
+  },
+  {
+    "old": "['Fencing programme', 'On track · confirmed 12 Oct 2026']",
+    "new": "['Fencing programme', 'Last confirmation: 12 Oct 2026 · on track']",
+    "why": "Date the latest provided fencing confirmation without pretending it is live measurement"
+  },
+  {
+    "old": "The Coates Way, presented to the CMG in June 2026. The words in this section are Coates's own; everything above them is this job's record.",
+    "new": "Company guidance · The Coates Way, presented to the CMG in June 2026. Job figures above come from the shared record; company targets and dated confirmations are labelled separately.",
+    "why": "Separate company guidance from live job figures"
+  },
+  {
+    "old": "Here is everything red on this job, in that shape — and where one of the four is missing, it says which.",
+    "new": "Recorded issues are listed below. Missing cause, action, owner or deadline is shown on each issue.",
+    "why": "Avoid claiming the record knows every real-world issue"
+  },
+  {
+    "old": "ON SITE (${v.arrivals.length}) — times are when the light was set on site, by the person named:",
+    "new": "ON SITE (${v.arrivals.length}) — recorded arrival dates; times shown only when known:",
+    "why": "Arrival advice distinguishes known dates from unknown times"
+  },
+  {
+    "old": "Recorded on site by the people named. Times are when the light was set, not a signed receipt.",
+    "new": "Recorded on site by the people named. A date-only arrival has no recorded time. This advice is not a signed receipt.",
+    "why": "Advice provenance does not claim an invented exact time"
+  },
+  {
+    "old": "<p class=\"ds-dd\"><b>What this is.</b> Every line is a traffic light somebody set on site, with the time it was set and the name of whoever set it.\n It is a record of what was recorded — not a signed receipt, and not a claim about anything nobody recorded. Branch codes are typed against each asset;\n blank means nobody has recorded one. Each time is the clock of the device the light was set from. Where the record lives: ${esc(LW())}.</p>",
+    "new": "<p class=\"ds-dd\"><b>Recorded arrivals.</b> Dates and names come from the shared record. Times use Brisbane time and are shown only when recorded; a date-only arrival has no known time. This advice is not a signed receipt. Branch codes are shown where recorded.</p>",
+    "why": "Printed receipt advice stays concise and honest about unknown arrival times"
+  },
+  {
+    "old": "<p class=\"sub\">Two of Coates's eight targets sit closest to this job. Neither is measured by this record, and it says so; the job's own nearest measure is under each, under its own name.</p>",
+    "new": "",
+    "why": "Keep target values and unknown labels visible without repeating their explanation"
+  },
+  {
+    "old": " <p class=\"norate\">The other six — zero recordable injuries, ROCE, EBIT margin, sales win rate, NPS and\n employee engagement — belong to the business and to the safety system. This record does not hold them,\n so they are not shown here rather than shown empty.</p>",
+    "new": " ${moreInfo('coatesway|targets', `<p>Company targets are shown separately from job measures. This record does not measure fleet unavailable time or fleet utilisation.</p><p>The other company measures — recordable injuries, ROCE, EBIT margin, sales win rate, NPS and employee engagement — belong to the business and safety systems.</p>`)}",
+    "why": "Fold supporting company-target explanation using the existing More info component"
+  },
+  {
+    "old": " <p class=\"norate\">Cadence: <b>Today</b> is the daily review, <b>Where we are</b> the weekly one. A red that stays red is the one that escalates.</p>",
+    "new": " ${moreInfo('coatesway|scorecard', `<p>Each issue needs a cause, corrective action, owner and deadline. Today supports the daily review; Where we are supports the weekly review. These are recorded issues, not a complete safety or fleet assessment.</p>`)}",
+    "why": "Fold scorecard guidance while keeping current issues and unknowns visible"
+  }
+]

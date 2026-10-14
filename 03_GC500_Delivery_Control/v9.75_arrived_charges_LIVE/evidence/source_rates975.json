@@ -1,0 +1,104 @@
+{
+  "author": "Andrew Fisher",
+  "original_sha256": "60a62f37d9d91634ca617f3b2840809e64ebc1f000303857f1abb5e00691d7d6",
+  "sheet": "Street Rate Card 2026",
+  "rows": [
+    {
+      "row": 7,
+      "item": "Portable Building - 6m x 3m",
+      "charges": {
+        "E7": 145.74,
+        "F7": 156.15,
+        "G7": 52.05,
+        "H7": 104.1,
+        "I7": 52.05,
+        "J7": 145.74
+      }
+    },
+    {
+      "row": 22,
+      "item": "Pee Panel",
+      "charges": {
+        "E22": 145.74,
+        "F22": 156.15,
+        "G22": 104.1,
+        "H22": 156.15,
+        "I22": 0,
+        "J22": 145.74
+      }
+    },
+    {
+      "row": 23,
+      "item": "Sewer Combo 6m x 3m",
+      "charges": {
+        "E23": 145.74,
+        "F23": 156.15,
+        "G23": 104.1,
+        "H23": 156.15,
+        "I23": 0,
+        "J23": 145.74
+      }
+    },
+    {
+      "row": 24,
+      "item": "Sewer Combo 12m x 3m",
+      "charges": {
+        "E24": 145.74,
+        "F24": 156.15,
+        "G24": 104.1,
+        "H24": 156.15,
+        "I24": 0,
+        "J24": 145.74
+      }
+    },
+    {
+      "row": 27,
+      "item": "Tank Mount Combo 6m x 3m",
+      "charges": {
+        "E27": 145.74,
+        "F27": 156.15,
+        "G27": 104.1,
+        "H27": 156.15,
+        "I27": 0,
+        "J27": 145.74
+      }
+    },
+    {
+      "row": 31,
+      "item": "16 Pan Unit",
+      "charges": {
+        "E31": 145.74,
+        "F31": 156.15,
+        "G31": 104.1,
+        "H31": 156.15,
+        "I31": 0,
+        "J31": 145.74
+      }
+    },
+    {
+      "row": 34,
+      "item": "Portable FWF Single ",
+      "charges": {
+        "E34": 36.435,
+        "F34": 0,
+        "G34": 0,
+        "H34": 0,
+        "I34": 0,
+        "J34": 36.435
+      }
+    },
+    {
+      "row": 110,
+      "item": "FWF Pump out & Clean & Restock ",
+      "charges": {
+        "E110": null,
+        "F110": null,
+        "G110": null,
+        "H110": null,
+        "I110": null,
+        "J110": null
+      }
+    }
+  ],
+  "rule": "Apply supplied current workbook figures with printed column years preserved; no previous-year contract substitution. Zero cleaning means no customer cleaning charge."
+}

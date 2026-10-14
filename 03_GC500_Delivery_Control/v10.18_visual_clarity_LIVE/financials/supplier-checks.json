@@ -1,0 +1,146 @@
+{
+  "author": "Andrew Fisher",
+  "nativeVersion": 6078,
+  "checks": [
+    {
+      "name": "normal retains previous branch semantics",
+      "pass": true
+    },
+    {
+      "name": "normal initial supplier lookup does not recurse",
+      "pass": true
+    },
+    {
+      "name": "blank branch retains previous branch semantics",
+      "pass": true
+    },
+    {
+      "name": "blank branch initial supplier lookup does not recurse",
+      "pass": true
+    },
+    {
+      "name": "priced missing branch stays explicitly unknown",
+      "pass": true
+    },
+    {
+      "name": "blank branch no dockets retains previous branch semantics",
+      "pass": true
+    },
+    {
+      "name": "blank branch no dockets initial supplier lookup does not recurse",
+      "pass": true
+    },
+    {
+      "name": "blank branch no dockets retains existing empty-ledger fallback",
+      "pass": true
+    },
+    {
+      "name": "normal no dockets retains previous branch semantics",
+      "pass": true
+    },
+    {
+      "name": "normal no dockets initial supplier lookup does not recurse",
+      "pass": true
+    },
+    {
+      "name": "normal no dockets retains existing empty-ledger fallback",
+      "pass": true
+    },
+    {
+      "name": "blank branch nothing to price retains previous branch semantics",
+      "pass": true
+    },
+    {
+      "name": "blank branch nothing to price initial supplier lookup does not recurse",
+      "pass": true
+    },
+    {
+      "name": "blank branch nothing to price retains existing empty-ledger fallback",
+      "pass": true
+    },
+    {
+      "name": "fixture includes approved supplier docket overlays",
+      "pass": true
+    },
+    {
+      "name": "default docket readers retain approved supplier prices",
+      "pass": true
+    },
+    {
+      "name": "base-pricer path preserves every customer charge line",
+      "pass": true
+    },
+    {
+      "name": "base-pricer branch path has no supplier overlay",
+      "pass": true
+    },
+    {
+      "name": "ordinary readers stay nonrecursive",
+      "pass": true
+    },
+    {
+      "name": "negative control targets the exact corrected call edge",
+      "pass": true
+    },
+    {
+      "name": "negative control reproduces swallowed recursion",
+      "pass": true
+    },
+    {
+      "name": "rate refresh fixture has a priced customer line",
+      "pass": true
+    },
+    {
+      "name": "native Save invalidates supplier projection after rate edit",
+      "pass": true
+    },
+    {
+      "name": "rate edit updates customer docket arithmetic",
+      "pass": true
+    },
+    {
+      "name": "customer rate edit retains separate approved supplier amount",
+      "pass": true
+    },
+    {
+      "name": "P/O refresh fixture is a valid priced order",
+      "pass": true
+    },
+    {
+      "name": "native P/O edit invalidates supplier projection",
+      "pass": true
+    },
+    {
+      "name": "P/O amount edit recalculates exact variance",
+      "pass": true
+    },
+    {
+      "name": "P/O amount edit does not create or alter docket costs",
+      "pass": true
+    },
+    {
+      "name": "native record restored exactly",
+      "pass": true
+    },
+    {
+      "name": "source supplier and dockets restored exactly",
+      "pass": true
+    },
+    {
+      "name": "service version unchanged",
+      "pass": true
+    },
+    {
+      "name": "zero browser errors or operational writes",
+      "pass": true
+    }
+  ],
+  "errors": [],
+  "requests": {
+    "page": 1,
+    "live": 27,
+    "blocked": 0,
+    "blockedMapSessions": 0
+  },
+  "pageSha": "2d09fa44794596c52c54d41aed6f98d16fbb6f5ff1ccf608f9d275874559785d"
+}

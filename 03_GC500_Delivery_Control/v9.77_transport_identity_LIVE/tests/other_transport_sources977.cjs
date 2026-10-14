@@ -1,0 +1,21 @@
+// Author: Andrew Fisher. Exact source guards retain ambiguous allocations.
+const fs=require('fs'),vm=require('vm'),assert=require('assert/strict');
+const machine={rental_contract:'9987005',line:1,asset_no:'1272166',asset_no_is_plant_number:true,family:'forklift',quantity:1,delivery_number:'26116726',description:'Supply Forklift 5.0t Diesel'};
+const extension={rental_contract:'9987005',line:2,asset_no:'1262224',family:'forklift accessory',description:'Supply Telehandler Fork Extension 1800mm'};
+const container={rental_contract:'9974042',line:1,description:'Container 3.0M x 2.4M',quantity:1,delivery_number:'26112749',match:{to:'unreferenced row',task_id:'T0258',via:'delivery docket'}};
+const a={key:'T0258',asset_numbers:['1134386'],events:[{task_id:'T0258',dd:'26112749'}]},b={ref:'T0258',quantity:1,numbers:['1134386'],contracts:['9974042']};
+const c={allAssets:()=>[a]};vm.createContext(c);vm.runInContext(fs.readFileSync(require.resolve('../other_transport_sources977.js'),'utf8'),c);
+let n=0;const ck=v=>{assert(v);n++};
+ck(c.transportMachineKnown977({key:'T0085',asset_numbers:['1272166']},[machine,extension],[]));
+ck(!c.transportMachineKnown977({key:'T0085',asset_numbers:['1262224']},[machine,extension],[]));
+ck(!c.transportMachineKnown977({key:'T0085',asset_numbers:['1272166']},[{...machine,delivery_number:'other'},extension],[]));
+ck(!c.transportMachineKnown977({key:'T0085',asset_numbers:['1272166'],relocation:true},[machine,extension],[]));
+ck(c.transportContainerKnown977(a,[container]));
+ck(!c.transportContainerKnown977({...a,events:[]},[container]));
+ck(!c.transportContainerKnown977({...a,asset_numbers:['other']},[container]));
+ck(!c.transportContainerKnown977(a,[{...container,line:2}]));
+ck(c.transportContainerOwners977(container,[b])[0]===b);
+ck(c.transportContainerOwners977(container,[b,{...b}])===null);
+ck(c.transportContainerOwners977({...container,line:2},[b])===null);
+ck(c.transportContainerOwners977(container,[{...b,exclusion:'Own use'}])===null);
+console.log(JSON.stringify({author:'Andrew Fisher',checks:n,pass:true}));

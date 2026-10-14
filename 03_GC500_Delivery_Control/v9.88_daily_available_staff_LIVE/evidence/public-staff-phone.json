@@ -1,0 +1,14 @@
+{
+  "author": "Andrew Fisher",
+  "sha256": "40dc8f6c66079d8910ef5eaa3dd6e98a80b778960f70659d5c2447676d1c6175",
+  "pass": true,
+  "checks": 52,
+  "mobile": true,
+  "actualPublic": true,
+  "savedAvailabilityOnly": true,
+  "staleSaveRejected": true,
+  "legacyRecordsPreserved": true,
+  "moneyPreserved": true,
+  "errors": 0,
+  "writes": 0
+}

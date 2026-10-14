@@ -1,0 +1,16 @@
+{
+  "author": "Andrew Fisher",
+  "original": "Transport Help.xlsx",
+  "sha256": "b4f06374a2caf6efc13c987055b1bc40c1639cb75784ba5875013d472aee5f91",
+  "sheets": {
+    "Sheet1": 890,
+    "Sheet2": 189
+  },
+  "current_contract_rows": 93,
+  "excluded_history_or_other_jobs": 986,
+  "positive_charge_rows_already_in_contract_revenue": 4,
+  "new_carrier_cost_evidence": 0,
+  "operational_writes": 0,
+  "raw_and_detailed_evidence": "Private original and matching reports retained outside Git",
+  "review_scope": "Contract and docket matches, charge-line deduplication, dates/status conflict and movement-vs-current-allocation preservation"
+}

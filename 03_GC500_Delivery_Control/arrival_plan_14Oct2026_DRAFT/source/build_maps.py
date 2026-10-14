@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+from holding943 import HOLDING, TURN
 """Author: Andrew Fisher. Wed 14 Oct 2026 Esplanade arrival plan: two clean maps from OpenStreetMap data and tiles.
 A muted tile background, crisp roads drawn from the OSM ways, then the route, the holding strip, the truck slots and the
 drop area on top. Writes maps.json."""
@@ -31,7 +32,7 @@ class Map:
         buf = io.BytesIO(); crop.save(buf, 'JPEG', quality=84, optimize=True)
         self.b64 = base64.b64encode(buf.getvalue()).decode(); self.z = z; self.x1, self.y1 = x1, y1
         self.mpp = 156543.03392 * math.cos(math.radians((la1 + la2) / 2)) / 2 ** z / self.s
-        self.parts = [f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {self.w} {self.h}" class="map" preserveAspectRatio="xMidYMid slice">',
+        self.parts = [f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {self.w} {self.h}" class="map" preserveAspectRatio="xMidYMid meet">',
                       f'<image href="data:image/jpeg;base64,{self.b64}" x="0" y="0" width="{self.w}" height="{self.h}"/>']
         self.bbox = (la1, lo1, la2, lo2)
     def P(self, lat, lon):
@@ -78,7 +79,7 @@ def oneway_against(ids, pts):
         if ia > ib: bad.append(i)
     return bad
 
-route = chain(ROUTE); assert not oneway_against(ROUTE, route)
+route = chain(ROUTE[:-1]) + TURN; assert not oneway_against(ROUTE[:-1], route)
 esp = chain(ESPLANADE)
 
 def mpd(lat): return 111320.0, 111320.0 * math.cos(math.radians(lat))
@@ -158,8 +159,9 @@ O.add(f'<path d="{rd}" fill="none" stroke="#fff" stroke-width="15" stroke-lineca
 O.add(f'<path d="{rd}" fill="none" stroke="{ORANGE}" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>')
 RL = length_m(route)
 chevrons(O, route, [RL * f for f in (0.06, 0.27, 0.40, 0.55, 0.70, 0.85)], 6, '#fff', 3)
-ex, ey = O.P(*esp[-1]); sx, sy = O.P(*esp[0])
-O.add(f'<rect x="{min(ex, sx) - 16:.1f}" y="{sy - 14:.1f}" width="{abs(ex - sx) + 32:.1f}" height="{ey - sy + 28:.1f}" rx="7" fill="{ORANGE}" fill-opacity=".18" stroke="{INK}" stroke-width="3" stroke-dasharray="7 5"/>')
+ex, ey = O.P(*HOLDING[-1]); sx, sy = O.P(*HOLDING[0])
+# The overview uses the same marked island edge as the close-up and aerial, not the full road segment.
+O.add(f'<path d="{O.d(HOLDING)}" fill="none" stroke="{ORANGE}" stroke-width="12" stroke-opacity=".45" stroke-linecap="butt"/>')
 for txt, la, lo, a in [('SOUTHPORT', -27.97290, 153.41500, 0), ('MAIN BEACH', -27.98000, 153.42620, 0), ('NARROWNECK', -27.98880, 153.42380, 0), ('Broadwater', -27.97260, 153.42520, 0), ('Nerang River', -27.98380, 153.41940, -60), ('Pacific Ocean', -27.98250, 153.43400, -84)]:
     x, y = O.P(la, lo); O.add(f'<text x="{x:.1f}" y="{y:.1f}" class="t-place" transform="rotate({a} {x:.1f} {y:.1f})">{txt}</text>')
 def near(la, lo): return min(route, key=lambda p: math.dist(p, (la, lo)))
@@ -175,26 +177,18 @@ C = Map(19, -27.99192, 153.42868, -27.98968, 153.43122, 700)
 roads(C, 3)
 C.add(f'<path d="{C.d(esp)}" fill="none" stroke="#a9b8bc" stroke-width="{11 / C.mpp + 2.4:.1f}" stroke-linecap="round"/><path d="{C.d(esp)}" fill="none" stroke="#fff" stroke-width="{11 / C.mpp:.1f}" stroke-linecap="round"/>')
 L = length_m(esp)
-lane = offset(esp, 2.3)                      # right-hand (landward) kerb lane of the one-way Esplanade, as Andrew marked it
-strip = sub_m(lane, 9, L - 6)
+strip = HOLDING
 SL = length_m(strip)
 lane_w = 3.0 / C.mpp
 sd = C.d(strip)
 C.add(f'<defs><pattern id="hatch" width="12" height="12" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="12" height="12" fill="#ffe3d1"/><line x1="0" y1="0" x2="0" y2="12" stroke="{ORANGE}" stroke-width="4" stroke-opacity=".55"/></pattern></defs>')
 C.add(f'<path d="{sd}" fill="none" stroke="{ORANGE}" stroke-width="{lane_w + 8:.1f}" stroke-linecap="round" stroke-linejoin="round"/>')
 C.add(f'<path d="{sd}" fill="none" stroke="url(#hatch)" stroke-width="{lane_w:.1f}" stroke-linecap="round" stroke-linejoin="round"/>')
-truck_len, gap = 13.0, 3.0
-end = SL - 1.5; slots = []
-for k in range(4):                           # truck 1 at the front (Higman St end); 2, 3, 4 behind it in order
-    slots.append((k + 1, sub_m(strip, end - truck_len, end))); end -= truck_len + gap
-tw_px = 2.5 / C.mpp
-for n, seg in slots:
-    (x1, y1), (x2, y2) = C.P(*seg[0]), C.P(*seg[-1])
-    a = math.degrees(math.atan2(y2 - y1, x2 - x1)); cx, cy = (x1 + x2) / 2, (y1 + y2) / 2; ln = math.hypot(x2 - x1, y2 - y1); cab = 2.4 / C.mpp
-    C.add(f'<g transform="translate({cx:.1f},{cy:.1f}) rotate({a:.1f})"><rect x="{-ln / 2:.1f}" y="{-tw_px / 2:.1f}" width="{ln - cab - 2.5:.1f}" height="{tw_px:.1f}" rx="3" fill="{INK}"/>'
-          f'<rect x="{ln / 2 - cab:.1f}" y="{-tw_px / 2 + 1.5:.1f}" width="{cab:.1f}" height="{tw_px - 3:.1f}" rx="5" fill="{INK}"/></g>')
+# Queue-order markers only: no invented truck footprint or capacity assertion.
+for n,f in enumerate([0.88,0.64,0.40,0.16],1):
+    cx,cy=C.P(*at_m(strip,SL*f)[0])
     C.add(f'<circle cx="{cx:.1f}" cy="{cy:.1f}" r="16" fill="#fff" stroke="{ORANGE}" stroke-width="4"/><text x="{cx:.1f}" y="{cy + 7:.1f}" text-anchor="middle" class="t-slot">{n}</text>')
-chevrons(C, strip, [3, 9], 9, INK, 4.5)
+chevrons(C, strip, [1], 9, INK, 4.5)
 DROP = [('P25', -27.991486, 153.430428), ('P66', -27.991452, 153.430425), ('P65', -27.991376, 153.430418), ('P67', -27.991346, 153.430415)]
 xs = [C.P(la, lo) for _, la, lo in DROP]
 mx, my = sum(x for x, _ in xs) / 4, sum(y for _, y in xs) / 4
@@ -214,5 +208,5 @@ north(C); scale(C, 25, '25 m')
 json.dump({'overview': {'svg': O.svg(), 'w': O.w, 'h': O.h, 'route_m': round(RL)},
            'closeup': {'svg': C.svg(), 'w': C.w, 'h': C.h, 'strip_m': round(SL), 'esplanade_m': round(L)},
            'route_ways': ROUTE}, open(os.path.join(HERE, 'maps.json'), 'w'))
-print('route', round(RL), 'm; Esplanade one-way', round(L), 'm; holding strip', round(SL), 'm; 4 trucks need', 4 * truck_len + 3 * gap, 'm',
+print('route', round(RL), 'm; Esplanade one-way', round(L), 'm; holding strip', round(SL), 'm; queue markers show order only, not truck dimensions',
       '| overview', O.w, 'x', O.h, 'close-up', C.w, 'x', C.h)

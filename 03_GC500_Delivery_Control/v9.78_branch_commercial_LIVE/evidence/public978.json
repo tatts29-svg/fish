@@ -1,0 +1,12 @@
+{
+  "author": "Andrew Fisher",
+  "pass": true,
+  "actualPublic": true,
+  "sha256": "1335339af789da16db7777919a320f52b12b65d002113acaa9c8a8ecdf07d09f",
+  "branches": 4,
+  "unallocatedCurrentBalance": 0,
+  "allTotalsReconcile": true,
+  "phoneWidth": 390,
+  "errors": 0,
+  "operationalWrites": 0
+}

@@ -1,0 +1,118 @@
+{
+  "author": "Andrew Fisher",
+  "reviewerRole": "Independent source audit",
+  "pricingModuleSha256": "ec00fe700069d98dc059d5552458a3aa83de4afa4392c0583dfd83e1cd947b0b",
+  "originalSourceChecks": {
+    "rateCard": 812,
+    "peePanel": 16,
+    "fencingSupplier": 7,
+    "buildingProjectionOriginalCells": 25
+  },
+  "sourceProjection": {
+    "originalRowsUnchanged": true,
+    "idempotent": true,
+    "originalCount": 320,
+    "projectedCount": 321,
+    "newPricedP45Rows": 1,
+    "P03P04P46P51HirePreserved": 7805.84
+  },
+  "reviewedBehaviours": [
+    "Pee panel hire remains original full-period D22 per panel; quantity counted once. No unsupported three-day substitution.",
+    "Supplier450 floor rejects lower typed prices at input; legacy under-floor values are not silently used. No extra supplier quote cost.",
+    "Current WC09 FWF scope4 supersedes stale source10, distinct from6pee panels.",
+    "Three building allocation corrections preserve all real building prices; original data remains untouched with provenance.",
+    "P45 new original line131 added once with blank original asset number; site-confirmed number remains separate.",
+    "P65/P67 retain known source hire as forecast until unique current arrival is confirmed; future new-source coverage suppresses duplicate pending line.",
+    "Non-overlapping forklift hire periods are grouped for physical count only; original money is summed, not repeated or removed.",
+    "Cable parent46 held pending charging basis and period; child47 is included contents, not extra hire.",
+    "T0109 retains site facts and current pricing while conflicting type/date/branch is visible.",
+    "Final AA/WC42/WC81 holds require matching confirmed physical number, arrived quantity and absent exact contract. Optional EP prefix is handled; a later exact source allocation clears the hold. No additional Revenue is created.",
+    "Explicit local or committed reference branch overrides propagate through shared hire, received-scope charges, P&L, forecast, October allocation and Rehire revenue detail. Unique current identity and billable quantity checks prevent reassignment of ambiguous bulk or unlinked source rows.",
+    "Removing a reference branch override restores the original source allocation. Cancelled and moved-away references do not transfer contract revenue; original contract and historical billed-source records are not mutated.",
+    "Confirmed FWF ownership is read from current uniquely numbered physical units only when approved, received and matched billable quantities agree and every unit has the same known owner. Mixed, partial, duplicate and unknown-owner scopes do not receive a guessed whole-line classification.",
+    "The native5806 independent fixture classifies 109 Event Portables FWF units across 20 references and 39 source lines as Rehire Revenue: $9,817.63 changes ledger category only, without increasing customer charges or supplier costs. WC09 Coates toilet blocks remain Hire Revenue.",
+    "Rehire summaries and contract detail use WC09 billable quantity4 while retaining sourceQuantity1010=10; the stale source quantity does not inflate displayed billable units.",
+    "Rehire supplier-cost summaries use documented costEvidence949.costBranch where present; Event Portables approved quote costs retain their existing allocation. Revenue branch changes do not silently transfer supplier costs, and split allocations are labelled."
+  ],
+  "result": "PASS for final ec00 source-backed pricing, ownership, branch propagation and documented cost-branch changes, with 125 pure checks and independent fixtures. This is not a claim that all operational charges or coverage holds are resolved.",
+  "remainingCoverageHolds": [
+    "AA asset142514 lacks matched source hire allocation.",
+    "WC42 EventPortables0141 andWC81 EventPortables0124 lack matched source hire allocation; aggregate customer quantities need reconciliation.",
+    "T0109 forklift1281615 has conflicting type/date/branch.",
+    "Concert cable parent46 period/basis remains unresolved."
+  ],
+  "limitations": [
+    "Browser and runtime reconciliation checks are owned by the release owner.",
+    "This review does not authorise new operational records or publishing."
+  ],
+  "finalSourceReadComplete": true,
+  "priorReviewedModules": [
+    {
+      "sha256": "87d09881e1f692f409376a0ee8d6726c07ad413e996a5dd0cacd3367e4f84ddd",
+      "result": "PASS for the bounded reviewed source and calculation changes; not a claim all operational charges are resolved.",
+      "sourceReadComplete": true,
+      "scope": "Original source-backed rates, source allocations, quantity corrections and coverage holds. OriginalSourceChecks and sourceProjection provenance retained above."
+    }
+  ],
+  "pricingPatchSha256": "9342d8eea79b2b2bbc82a2f6de01369008fc45e388b38e3d095d4631fe46f8a6",
+  "releaseOwnerCandidateSha256": "8cdd8e1ac7421e020a69333c4d82c1cb7f90ee6ee220209901aa0ec8325e6461",
+  "finalIndependentValidation": {
+    "purePricingChecks": {
+      "checks": 125,
+      "result": "PASS",
+      "runner": "pricing/test_pricing1010.cjs"
+    },
+    "currentFwfOwnershipFixture": {
+      "result": "PASS",
+      "nativeVersion": 5806,
+      "input": "Read-only coverage snapshot supplied by the release audit",
+      "references": 20,
+      "sourceContractLines": 39,
+      "confirmedPhysicalUnits": 109,
+      "customerHireReclassified": 9817.63,
+      "currency": "AUD ex GST",
+      "fromLedger": "1005 Hire Revenue",
+      "toLedger": "1010 Rehire Revenue",
+      "refs": [
+        "WC09",
+        "WC10",
+        "WC33",
+        "WC34",
+        "WC38",
+        "WC39",
+        "WC40",
+        "WC41",
+        "WC43",
+        "WC44",
+        "WC56",
+        "WC59",
+        "WC61",
+        "WC67",
+        "WC68",
+        "WC69",
+        "WC70",
+        "WC71",
+        "WC72",
+        "WC73"
+      ],
+      "approvedReceivedAndUniquePhysicalQuantitiesAgree": true,
+      "owner": "Event Portables",
+      "rawContractsUnchanged": true,
+      "WC09CoatesBlocksExcluded": true,
+      "additionalCustomerRevenue": 0,
+      "additionalSupplierCost": 0
+    },
+    "branchAllocationFixture": {
+      "result": "PASS",
+      "checks": 6,
+      "kind": "Isolated synthetic allocation fixture; not a native branch edit",
+      "hireTransfer": 9346.99,
+      "unrelatedRevenuePreserved": 300,
+      "supplierCostPreserved": 2700,
+      "overallRevenueUnchanged": true,
+      "rawContractRowsUnchanged": true
+    },
+    "operationalWrites": 0,
+    "browserChecks": "Owned by release owner and charge engine reviewer; not executed by this independent reviewer"
+  }
+}

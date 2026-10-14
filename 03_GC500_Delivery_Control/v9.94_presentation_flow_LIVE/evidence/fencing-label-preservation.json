@@ -1,0 +1,393 @@
+{
+  "author": "Andrew Fisher",
+  "pass": true,
+  "checks": [
+    {
+      "name": "Executable syntax unchanged in script 0 (only string/template text differs)",
+      "pass": true
+    },
+    {
+      "name": "Executable syntax unchanged in script 1 (only string/template text differs)",
+      "pass": true
+    },
+    {
+      "name": "Executable syntax unchanged in script 2 (only string/template text differs)",
+      "pass": true
+    },
+    {
+      "name": "Executable syntax unchanged in script 3 (only string/template text differs)",
+      "pass": true
+    },
+    {
+      "name": "Executable syntax unchanged in script 4 (only string/template text differs)",
+      "pass": true
+    },
+    {
+      "name": "Executable syntax unchanged in script 5 (only string/template text differs)",
+      "pass": true
+    },
+    {
+      "name": "Executable syntax unchanged in script 6 (only string/template text differs)",
+      "pass": true
+    },
+    {
+      "name": "Executable syntax unchanged in script 7 (only string/template text differs)",
+      "pass": true
+    },
+    {
+      "name": "Executable syntax unchanged in script 8 (only string/template text differs)",
+      "pass": true
+    },
+    {
+      "name": "Executable syntax unchanged in script 9 (only string/template text differs)",
+      "pass": true
+    },
+    {
+      "name": "Executable syntax unchanged in script 10 (only string/template text differs)",
+      "pass": true
+    },
+    {
+      "name": "Executable syntax unchanged in script 11 (only string/template text differs)",
+      "pass": true
+    },
+    {
+      "name": "Executable syntax unchanged in script 12 (only string/template text differs)",
+      "pass": true
+    },
+    {
+      "name": "Executable syntax unchanged in script 13 (only string/template text differs)",
+      "pass": true
+    },
+    {
+      "name": "Executable syntax unchanged in script 14 (only string/template text differs)",
+      "pass": true
+    },
+    {
+      "name": "Executable syntax unchanged in script 15 (only string/template text differs)",
+      "pass": true
+    },
+    {
+      "name": "Executable syntax unchanged in script 16 (only string/template text differs)",
+      "pass": true
+    },
+    {
+      "name": "Executable syntax unchanged in script 17 (only string/template text differs)",
+      "pass": true
+    },
+    {
+      "name": "Executable syntax unchanged in script 18 (only string/template text differs)",
+      "pass": true
+    },
+    {
+      "name": "Executable syntax unchanged in script 19 (only string/template text differs)",
+      "pass": true
+    },
+    {
+      "name": "Executable syntax unchanged in script 20 (only string/template text differs)",
+      "pass": true
+    },
+    {
+      "name": "Executable syntax unchanged in script 21 (only string/template text differs)",
+      "pass": true
+    },
+    {
+      "name": "Executable syntax unchanged in script 22 (only string/template text differs)",
+      "pass": true
+    },
+    {
+      "name": "Executable syntax unchanged in script 23 (only string/template text differs)",
+      "pass": true
+    },
+    {
+      "name": "Executable syntax unchanged in script 24 (only string/template text differs)",
+      "pass": true
+    },
+    {
+      "name": "Executable syntax unchanged in script 25 (only string/template text differs)",
+      "pass": true
+    },
+    {
+      "name": "Executable syntax unchanged in script 26 (only string/template text differs)",
+      "pass": true
+    },
+    {
+      "name": "Executable syntax unchanged in script 27 (only string/template text differs)",
+      "pass": true
+    },
+    {
+      "name": "Executable syntax unchanged in script 28 (only string/template text differs)",
+      "pass": true
+    },
+    {
+      "name": "Executable syntax unchanged in script 29 (only string/template text differs)",
+      "pass": true
+    },
+    {
+      "name": "Executable syntax unchanged in script 30 (only string/template text differs)",
+      "pass": true
+    },
+    {
+      "name": "Executable syntax unchanged in script 31 (only string/template text differs)",
+      "pass": true
+    },
+    {
+      "name": "Executable syntax unchanged in script 32 (only string/template text differs)",
+      "pass": true
+    },
+    {
+      "name": "Executable syntax unchanged in script 33 (only string/template text differs)",
+      "pass": true
+    },
+    {
+      "name": "Executable syntax unchanged in script 34 (only string/template text differs)",
+      "pass": true
+    },
+    {
+      "name": "Executable syntax unchanged in script 35 (only string/template text differs)",
+      "pass": true
+    },
+    {
+      "name": "Executable syntax unchanged in script 36 (only string/template text differs)",
+      "pass": true
+    },
+    {
+      "name": "Executable syntax unchanged in script 37 (only string/template text differs)",
+      "pass": true
+    },
+    {
+      "name": "Executable syntax unchanged in script 38 (only string/template text differs)",
+      "pass": true
+    },
+    {
+      "name": "Executable syntax unchanged in script 39 (only string/template text differs)",
+      "pass": true
+    },
+    {
+      "name": "Executable syntax unchanged in script 40 (only string/template text differs)",
+      "pass": true
+    },
+    {
+      "name": "Executable syntax unchanged in script 41 (only string/template text differs)",
+      "pass": true
+    },
+    {
+      "name": "Executable syntax unchanged in script 42 (only string/template text differs)",
+      "pass": true
+    },
+    {
+      "name": "Executable syntax unchanged in script 43 (only string/template text differs)",
+      "pass": true
+    },
+    {
+      "name": "Executable syntax unchanged in script 44 (only string/template text differs)",
+      "pass": true
+    },
+    {
+      "name": "Executable syntax unchanged in script 45 (only string/template text differs)",
+      "pass": true
+    },
+    {
+      "name": "Executable syntax unchanged in script 46 (only string/template text differs)",
+      "pass": true
+    },
+    {
+      "name": "Executable syntax unchanged in script 47 (only string/template text differs)",
+      "pass": true
+    },
+    {
+      "name": "Executable syntax unchanged in script 48 (only string/template text differs)",
+      "pass": true
+    },
+    {
+      "name": "Executable syntax unchanged in script 49 (only string/template text differs)",
+      "pass": true
+    },
+    {
+      "name": "Executable syntax unchanged in script 50 (only string/template text differs)",
+      "pass": true
+    },
+    {
+      "name": "Executable syntax unchanged in script 51 (only string/template text differs)",
+      "pass": true
+    },
+    {
+      "name": "Executable syntax unchanged in script 52 (only string/template text differs)",
+      "pass": true
+    },
+    {
+      "name": "Executable syntax unchanged in script 53 (only string/template text differs)",
+      "pass": true
+    },
+    {
+      "name": "Executable syntax unchanged in script 54 (only string/template text differs)",
+      "pass": true
+    },
+    {
+      "name": "Executable syntax unchanged in script 55 (only string/template text differs)",
+      "pass": true
+    },
+    {
+      "name": "Executable syntax unchanged in script 56 (only string/template text differs)",
+      "pass": true
+    },
+    {
+      "name": "Executable syntax unchanged in script 57 (only string/template text differs)",
+      "pass": true
+    },
+    {
+      "name": "Executable syntax unchanged in script 58 (only string/template text differs)",
+      "pass": true
+    },
+    {
+      "name": "Executable syntax unchanged in script 59 (only string/template text differs)",
+      "pass": true
+    },
+    {
+      "name": "Executable syntax unchanged in script 60 (only string/template text differs)",
+      "pass": true
+    },
+    {
+      "name": "Executable syntax unchanged in script 61 (only string/template text differs)",
+      "pass": true
+    },
+    {
+      "name": "Executable syntax unchanged in script 62 (only string/template text differs)",
+      "pass": true
+    },
+    {
+      "name": "Executable syntax unchanged in script 63 (only string/template text differs)",
+      "pass": true
+    },
+    {
+      "name": "Executable syntax unchanged in script 64 (only string/template text differs)",
+      "pass": true
+    },
+    {
+      "name": "Executable syntax unchanged in script 65 (only string/template text differs)",
+      "pass": true
+    },
+    {
+      "name": "Executable syntax unchanged in script 66 (only string/template text differs)",
+      "pass": true
+    },
+    {
+      "name": "Executable syntax unchanged in script 67 (only string/template text differs)",
+      "pass": true
+    },
+    {
+      "name": "Executable syntax unchanged in script 68 (only string/template text differs)",
+      "pass": true
+    },
+    {
+      "name": "Executable syntax unchanged in script 69 (only string/template text differs)",
+      "pass": true
+    },
+    {
+      "name": "Executable syntax unchanged in script 70 (only string/template text differs)",
+      "pass": true
+    },
+    {
+      "name": "Executable syntax unchanged in script 71 (only string/template text differs)",
+      "pass": true
+    },
+    {
+      "name": "Executable syntax unchanged in script 72 (only string/template text differs)",
+      "pass": true
+    },
+    {
+      "name": "Executable syntax unchanged in script 73 (only string/template text differs)",
+      "pass": true
+    },
+    {
+      "name": "Executable syntax unchanged in script 74 (only string/template text differs)",
+      "pass": true
+    },
+    {
+      "name": "Executable syntax unchanged in script 75 (only string/template text differs)",
+      "pass": true
+    },
+    {
+      "name": "Executable syntax unchanged in script 76 (only string/template text differs)",
+      "pass": true
+    },
+    {
+      "name": "Executable syntax unchanged in script 77 (only string/template text differs)",
+      "pass": true
+    },
+    {
+      "name": "Executable syntax unchanged in script 78 (only string/template text differs)",
+      "pass": true
+    },
+    {
+      "name": "Label correction leaves all HTML and CSS unchanged",
+      "pass": true
+    },
+    {
+      "name": "Unsupported display wording retired: confirmed behind",
+      "pass": true
+    },
+    {
+      "name": "Unsupported display wording retired: ahead; the rest on plan",
+      "pass": true
+    },
+    {
+      "name": "Unsupported display wording retired: Fencing behind the programme:",
+      "pass": true
+    },
+    {
+      "name": "Unsupported display wording retired: is BEHIND THE PROGRAMME:",
+      "pass": true
+    },
+    {
+      "name": "Unsupported display wording retired: Behind the programme by type</span>",
+      "pass": true
+    },
+    {
+      "name": "Unsupported display wording retired:  behind the selected-day plan",
+      "pass": true
+    },
+    {
+      "name": "Unsupported display wording retired: Early work on one type never makes up for a type behind.",
+      "pass": true
+    },
+    {
+      "name": "Preserved native asset/qualification/quantity logic: ' behind on-site plan'",
+      "pass": true
+    },
+    {
+      "name": "Preserved native asset/qualification/quantity logic: ' ahead of on-site plan'",
+      "pass": true
+    },
+    {
+      "name": "Preserved native asset/qualification/quantity logic: P.all.overdue_keys.length",
+      "pass": true
+    },
+    {
+      "name": "Preserved native asset/qualification/quantity logic: CCB classification needs review",
+      "pass": true
+    },
+    {
+      "name": "Preserved native asset/qualification/quantity logic: Unconfirmed classifications retain the raw recorded allocation",
+      "pass": true
+    },
+    {
+      "name": "Preserved native asset/qualification/quantity logic: plan.status = plan.delta < 0 ? 'behind' : plan.delta > 0 ? 'ahead' : 'on-plan'",
+      "pass": true
+    },
+    {
+      "name": "Preserved native asset/qualification/quantity logic: out.behindCost = r2((out.behindCost || 0) + row.cost)",
+      "pass": true
+    },
+    {
+      "name": "Only unsupported Coates Way fencing red retired",
+      "pass": true
+    },
+    {
+      "name": "Dated confirmation occurs once in Operations",
+      "pass": true
+    }
+  ],
+  "base_sha256": "3da4e17980eead5cbf886dbbfab54f60c18aacd48405d92822869a7ce3637205",
+  "label_only_sha256": "948bb8d50472de4ee1ef2be8ef2926548578b739fd288eb8381e1472e4a84b2e",
+  "scope": "All programme/docket comparison display strings only; Coates Way red classification is covered by focused runtime checks."
+}

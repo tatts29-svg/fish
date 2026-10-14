@@ -1,0 +1,31 @@
+/* Author: Andrew Fisher. Native upload path with in-memory stand-ins; never uploads or writes a record. */
+'use strict';
+const fs=require('fs'),vm=require('vm'),path=require('path'),assert=require('node:assert/strict');
+const here=path.resolve(__dirname,'..'),page=fs.readFileSync(process.argv[2],'utf8'),start=page.indexOf('async function dropPhotoAddUnlocked('),end=page.indexOf('async function dropPhotoRemove(',start),source=page.slice(start,end),checks=[];
+if(!source.includes('item933.fwfGroup1010?FwfPhotos1010.guard'))throw Error('Use the photo-patched parent');
+let queue=[],sent=[],messages=[],scope=true,was=null,shrink=async file=>({blob:file,shrunk:false});
+const token='["location-item1010","WC09","FWF"]',c={SYNC:{readonly:false,backend:{upload:()=>{throw Error('Upload must not run')}}},S:{operator:'Test operator'},mayWrite:()=>true,whoAmI:()=> 'Test operator',flash:m=>messages.push(m),DROP_MAX:5,DROP_SLOTS:[{lab:'Photo1'}],dropShrink:f=>shrink(f),FwfPhotos1010:{guard:()=>scope?'':'Scope changed'},ItemPhotos965:{guard:()=>{throw Error('Wrong quantity-only guard')}},Items933:{guard:()=>{throw Error('Wrong physical guard')},friendly:()=> 'FWF at WC09'},unitKey:String,dropPhotoName:()=> 'dry-file.jpg',File:class{constructor(blob,name,options){this.blob=blob;this.name=name;this.type=options.type;}},dropPhotoSlots:()=>[was],photoOutboxPut:async entry=>{queue.push(entry);return true},photoDrawerRedraw:()=>{},photoSend:async entry=>{sent.push(entry);return true}};
+vm.createContext(c);vm.runInContext(source,c);
+const file={type:'image/jpeg'},intent={unitId:token,expected:'signature',replace:null,actor:'Test operator',fwfGroup1010:true};
+const check=(name,ok)=>{assert(ok,name);checks.push({name,pass:true});};
+(async()=>{
+ await c.dropPhotoAddUnlocked('WC09',0,file,m=>messages.push(m),token,intent);
+ check('Exactly one durable queue entry uses the reference and FWF group token',queue.length===1&&queue[0].key==='WC09'&&queue[0].unit===token&&queue[0].slot===0);
+ check('New group photo has no previous photo to remove',queue[0].previousId===null);
+ check('Queue title describes the FWF location',queue[0].title.includes('FWF at WC09'));
+ check('Native sender receives only the queued entry',sent.length===1&&sent[0]===queue[0]);
+ queue=[];sent=[];scope=false;
+ await c.dropPhotoAddUnlocked('WC09',0,file,m=>messages.push(m),token,intent);
+ check('Changed scope after image processing never enters the queue',queue.length===0&&sent.length===0&&messages.includes('Scope changed'));
+ scope=true;was={id:'newer-photo',unit:token,slot:0};
+ await c.dropPhotoAddUnlocked('WC09',0,file,m=>messages.push(m),token,intent);
+ check('Concurrent occupied slot never queues an accidental replacement',queue.length===0&&sent.length===0);
+ was={id:'legacy-photo',unit:'0699',slot:0,caption:'Original caption'};
+ await c.dropPhotoAddUnlocked('WC09',0,file,m=>messages.push(m),'0699',{...intent,replace:{id:was.id,unit:was.unit,slot:0}});
+ check('Explicit legacy replacement preserves legacy unit association and target',queue.length===1&&queue[0].unit==='0699'&&queue[0].previousId==='legacy-photo');
+ check('Explicit replacement preserves existing caption',queue[0].caption==='Original caption');
+ queue=[];sent=[];was=null;shrink=async f=>{c.SYNC.readonly=true;return {blob:f,shrunk:false};};
+ await c.dropPhotoAddUnlocked('WC09',0,file,m=>messages.push(m),token,intent);
+ check('Session becoming read-only during image processing never queues a photo',queue.length===0&&sent.length===0);
+ fs.writeFileSync(path.join(here,'evidence/upload-controls.json'),JSON.stringify({author:'Andrew Fisher',pass:true,checks},null,2)+'\n');console.log(JSON.stringify({pass:true,checks:checks.length}));
+})().catch(e=>{console.error(e);process.exitCode=1;});

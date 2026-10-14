@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Author: Andrew Fisher. Wed 14 Oct 2026 Esplanade arrival plan, A4 portrait, one page."""
+"""Author: Andrew Fisher. Wed 14 Oct 2026 Esplanade arrival plan, A4 portrait, two pages."""
 import json, os
 HERE = os.path.dirname(os.path.abspath(__file__))
 M = json.load(open(os.path.join(HERE, 'maps.json')))
@@ -44,7 +44,7 @@ td.un {{ width: 20mm; font-weight: 700; font-size: 8.4pt }}
 .maps {{ display: grid; grid-template-columns: 1fr 1.12fr; gap: 3mm }}
 figure {{ margin: 0; display: flex; flex-direction: column; min-height: 0 }}
 figcaption {{ font: 700 7.4pt/1.2 Inter, sans-serif; letter-spacing: .1em; text-transform: uppercase; color: #5b6f75; margin-bottom: 1.4mm }}
-.frame {{ height: 80mm; border-radius: 2.5mm; overflow: hidden; border: .4mm solid #c9d4d7; background: #eef2f3 }}
+.frame {{ height: 74mm; border-radius: 2.5mm; overflow: hidden; border: .4mm solid #c9d4d7; background: #eef2f3 }}
 svg.map {{ width: 100%; height: 100%; display: block }}
 .t-num {{ font: 800 19px Inter, sans-serif; fill: #fff }} .t-step {{ font: 700 21px Inter, sans-serif; fill: #13272f }}
 .t-hold {{ font: italic 700 26px 'Barlow Condensed', sans-serif; fill: #13272f; paint-order: stroke; stroke: #fff; stroke-width: 5px }}
@@ -54,7 +54,7 @@ svg.map {{ width: 100%; height: 100%; display: block }}
 .t-box {{ font: italic 700 24px 'Barlow Condensed', sans-serif; fill: #13272f }} .t-boxs {{ font: 700 15px Inter, sans-serif; fill: #13272f }}
 .t-boxw {{ font: italic 700 24px 'Barlow Condensed', sans-serif; fill: #fff }} .t-boxws {{ font: 600 13.5px Inter, sans-serif; fill: #fff }}
 .t-road {{ font: 700 16px Inter, sans-serif; fill: #13272f; paint-order: stroke; stroke: #fff; stroke-width: 5px }}
-.nojump {{ background: #d7263d; color: #fff; border-radius: 2.2mm; padding: 2.4mm 4mm; font: italic 700 15pt/1.1 'Barlow Condensed', sans-serif; letter-spacing: .02em; text-align: center }}
+.nojump {{ background: #d7263d; color: #fff; border-radius: 2.2mm; padding: 2mm 3mm; font: italic 700 12pt/1.1 'Barlow Condensed', sans-serif; letter-spacing: .02em; text-align: center }}
 .rules {{ display: grid; grid-template-columns: 1fr 1fr; gap: 1.6mm 5mm; margin: 0; padding: 0; list-style: none; counter-reset: r }}
 .rules li {{ position: relative; padding-left: 7mm; font-size: 8.6pt; line-height: 1.3 }}
 .rules li::before {{ counter-increment: r; content: counter(r); position: absolute; left: 0; top: .2mm; width: 5mm; height: 5mm; border-radius: 50%; background: #ff6a13; color: #fff; font: 800 7.5pt/5mm Inter, sans-serif; text-align: center }}
@@ -80,11 +80,11 @@ footer {{ display: flex; justify-content: space-between; gap: 4mm; border-top: .
 <div class="date">Wednesday 14 Oct 2026<small>Narrowneck · Esplanade at Higman St</small></div></header>
 <div class="must">
 <div><b>In this order</b>P25 → P66 → P65 → P67. No truck jumps the one in front.</div>
-<div><b>Parked by 07:00</b>All four in the strip before the 07:00–09:00 no-travel window.</div>
+<div><b>Kingston 05:00</b>Load in order and leave Kingston by 05:00.</div>
 <div><b>TC from 06:00</b>Traffic controllers on site from 06:00. Follow their directions.</div>
 <div><b>Doors right</b>Building door on the side shown below, for tilt-tray unloading.</div>
 </div>
-<div class="nojump">NO TRUCK JUMPS THE ORDER · 1 P25 → 2 P66 → 3 P65 → 4 P67 · out of order = you wait</div>
+<div class="nojump">ALL TRUCKS ON SITE BEFORE 07:00 — load restriction curfew (no travel 07:00–09:00)<br>NO TRUCK JUMPS THE ORDER · 1 P25 → 2 P66 → 3 P65 → 4 P67 · TC FROM 06:00 · out of order = you wait</div>
 <section><h2>Arrival order</h2>
 <table><thead><tr><th>Truck</th><th>Ref</th><th>Load</th><th>Building door (as loaded)</th><th>Unload</th></tr></thead><tbody>{rows}</tbody></table></section>
 <div class="maps">
@@ -105,7 +105,7 @@ footer {{ display: flex; justify-content: space-between; gap: 4mm; border-top: .
 </div>
 <div class="page p2"><header><div><div class="kick">GC500 · Coates · Driver arrival plan · page 2 of 2</div><h1>Where to <em>turn</em> &amp; where to <em>park</em></h1></div>
 <div class="date">Wednesday 14 Oct 2026<small>Narrowneck · Esplanade at Higman St</small></div></header>
-<div class="nojump">NO TRUCK JUMPS THE ORDER · 1 P25 → 2 P66 → 3 P65 → 4 P67</div>
+<div class="nojump">ALL TRUCKS ON SITE BEFORE 07:00 — load restriction curfew (no travel 07:00–09:00)<br>NO TRUCK JUMPS THE ORDER · 1 P25 → 2 P66 → 3 P65 → 4 P67 · TC FROM 06:00</div>
 <div class="p2body"><div class="aerframe">{AER}</div>
 <div class="steps3"><div><b>1 · Turn</b>Coming south on Main Beach Pde, <b>keep LEFT onto the Esplanade at the red pedestrian crossing</b>. Do not carry straight on.</div>
 <div><b>2 · Park</b>Truck 1 drives to the <b>front of the strip</b> (Higman St end). Trucks 2, 3 and 4 pull up close behind <b>in order</b>. Nobody overtakes.</div>

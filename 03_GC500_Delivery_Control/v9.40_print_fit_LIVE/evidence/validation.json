@@ -1,0 +1,107 @@
+{
+  "author": "Andrew Fisher",
+  "status": "READY for combined release",
+  "base37SHA": "35ff0ab8c354de151f96da4502e8958d1de88662e9d459e20bff55b1e28adcf0",
+  "candidateOn37SHA": "c33c142a9b2177bba168fbade13624f7b12ba04bb84a9cbc90fd973d8dd43265",
+  "sourceBoundary": "pagination number reservation, measured sign-font fit, footer only",
+  "actualPDFClippingConfirmed": true,
+  "matrix": [
+    {
+      "case": "final940-2026-09-14-drv",
+      "nativeOver": [],
+      "overflow": 0,
+      "sectionTextIdentical": true,
+      "photosCountBefore": 69,
+      "photosCountAfter": 69,
+      "photoLabelsIdentical": true,
+      "signReferencesIdentical": true,
+      "badText": false
+    },
+    {
+      "case": "final940-2026-09-14-ins",
+      "nativeOver": [],
+      "overflow": 0,
+      "sectionTextIdentical": true,
+      "photosCountBefore": 69,
+      "photosCountAfter": 69,
+      "photoLabelsIdentical": true,
+      "signReferencesIdentical": true,
+      "badText": false
+    },
+    {
+      "case": "final940-2026-10-07-drv",
+      "nativeOver": [],
+      "overflow": 0,
+      "sectionTextIdentical": true,
+      "photosCountBefore": 68,
+      "photosCountAfter": 68,
+      "photoLabelsIdentical": true,
+      "signReferencesIdentical": true,
+      "badText": false
+    },
+    {
+      "case": "final940-2026-10-07-ins",
+      "nativeOver": [],
+      "overflow": 0,
+      "sectionTextIdentical": true,
+      "photosCountBefore": 68,
+      "photosCountAfter": 68,
+      "photoLabelsIdentical": true,
+      "signReferencesIdentical": true,
+      "badText": false
+    },
+    {
+      "case": "final940-2026-10-09-drv",
+      "nativeOver": [],
+      "overflow": 0,
+      "sectionTextIdentical": true,
+      "photosCountBefore": 49,
+      "photosCountAfter": 49,
+      "photoLabelsIdentical": true,
+      "signReferencesIdentical": true,
+      "badText": false
+    },
+    {
+      "case": "final940-2026-10-09-ins",
+      "nativeOver": [],
+      "overflow": 0,
+      "sectionTextIdentical": true,
+      "photosCountBefore": 49,
+      "photosCountAfter": 49,
+      "photoLabelsIdentical": true,
+      "signReferencesIdentical": true,
+      "badText": false
+    },
+    {
+      "case": "final940-2026-10-19-drv",
+      "nativeOver": [],
+      "overflow": 0,
+      "sectionTextIdentical": true,
+      "photosCountBefore": 167,
+      "photosCountAfter": 167,
+      "photoLabelsIdentical": true,
+      "signReferencesIdentical": true,
+      "badText": false
+    },
+    {
+      "case": "final940-2026-10-19-ins",
+      "nativeOver": [],
+      "overflow": 0,
+      "sectionTextIdentical": true,
+      "photosCountBefore": 167,
+      "photosCountAfter": 167,
+      "photoLabelsIdentical": true,
+      "signReferencesIdentical": true,
+      "badText": false
+    }
+  ],
+  "nativePages": 359,
+  "demobPages": 15,
+  "supplierPages": 5,
+  "inventorySharePDFPass": true,
+  "inventoryLoadingUnchanged": true,
+  "recordUnchanged": true,
+  "pageErrors": 0,
+  "expectedDeniedGoogleMappingPOST": 1,
+  "independentSourceReview": "map911_build: no unit/photo/navigation interaction risk"
+}

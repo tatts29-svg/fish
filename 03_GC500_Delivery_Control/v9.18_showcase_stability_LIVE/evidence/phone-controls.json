@@ -1,0 +1,242 @@
+{
+  "author": "Andrew Fisher",
+  "phone": true,
+  "checks": [
+    {
+      "name": "balanced opening",
+      "pass": true
+    },
+    {
+      "name": "loop default",
+      "pass": true
+    },
+    {
+      "name": "open 0",
+      "pass": true
+    },
+    {
+      "name": "cleanup 0",
+      "pass": true
+    },
+    {
+      "name": "open 1",
+      "pass": true
+    },
+    {
+      "name": "cleanup 1",
+      "pass": true
+    },
+    {
+      "name": "open 2",
+      "pass": true
+    },
+    {
+      "name": "cleanup 2",
+      "pass": true
+    },
+    {
+      "name": "open 3",
+      "pass": true
+    },
+    {
+      "name": "cleanup 3",
+      "pass": true
+    },
+    {
+      "name": "open 4",
+      "pass": true
+    },
+    {
+      "name": "cleanup 4",
+      "pass": true
+    },
+    {
+      "name": "open 5",
+      "pass": true
+    },
+    {
+      "name": "cleanup 5",
+      "pass": true
+    },
+    {
+      "name": "open 6",
+      "pass": true
+    },
+    {
+      "name": "cleanup 6",
+      "pass": true
+    },
+    {
+      "name": "open 7",
+      "pass": true
+    },
+    {
+      "name": "cleanup 7",
+      "pass": true
+    },
+    {
+      "name": "open 8",
+      "pass": true
+    },
+    {
+      "name": "cleanup 8",
+      "pass": true
+    },
+    {
+      "name": "open 9",
+      "pass": true
+    },
+    {
+      "name": "cleanup 9",
+      "pass": true
+    },
+    {
+      "name": "quality floor keeps scene",
+      "pass": true
+    },
+    {
+      "name": "manual quality remains available",
+      "pass": true
+    },
+    {
+      "name": "pace works",
+      "pass": true
+    },
+    {
+      "name": "camera hero",
+      "pass": true
+    },
+    {
+      "name": "camera auto",
+      "pass": true
+    },
+    {
+      "name": "camera onboard",
+      "pass": true
+    },
+    {
+      "name": "camera chase",
+      "pass": true
+    },
+    {
+      "name": "camera heli",
+      "pass": true
+    },
+    {
+      "name": "camera top",
+      "pass": true
+    },
+    {
+      "name": "camera wide",
+      "pass": true
+    },
+    {
+      "name": "camera detail",
+      "pass": true
+    },
+    {
+      "name": "camera frontdetail",
+      "pass": true
+    },
+    {
+      "name": "vehicle car",
+      "pass": true
+    },
+    {
+      "name": "vehicle car_vms",
+      "pass": true
+    },
+    {
+      "name": "vehicle car_loo",
+      "pass": true
+    },
+    {
+      "name": "vehicle forklift",
+      "pass": true
+    },
+    {
+      "name": "vehicle boom",
+      "pass": true
+    },
+    {
+      "name": "vehicle scissor",
+      "pass": true
+    },
+    {
+      "name": "vehicle tractor",
+      "pass": true
+    },
+    {
+      "name": "figures reveal",
+      "pass": true
+    },
+    {
+      "name": "car focus returns",
+      "pass": true
+    },
+    {
+      "name": "deferred redraw",
+      "pass": true
+    },
+    {
+      "name": "still open and playing",
+      "pass": true
+    },
+    {
+      "name": "visibility preparation active",
+      "pass": true
+    },
+    {
+      "name": "context loss explained",
+      "pass": true
+    },
+    {
+      "name": "automatic context recovery",
+      "pass": true
+    },
+    {
+      "name": "retry mounts scene",
+      "pass": true
+    },
+    {
+      "name": "Back closes",
+      "pass": true
+    },
+    {
+      "name": "catch-up queued once",
+      "pass": true
+    },
+    {
+      "name": "no page errors",
+      "pass": true
+    },
+    {
+      "name": "no operational writes",
+      "pass": true
+    }
+  ],
+  "closedHeapMB": [
+    238.4184799194336,
+    240.30578994750977,
+    241.5775909423828,
+    241.77039337158203,
+    241.9236717224121,
+    241.94800567626953,
+    242.12065887451172,
+    242.08888244628906,
+    242.47369766235352,
+    242.47910690307617
+  ],
+  "visibility": {
+    "prepared": 34,
+    "submitted": 14643177,
+    "total": 59483400,
+    "sourceGeometryPreserved": true
+  },
+  "errors": [],
+  "counts": {
+    "page": 1,
+    "live": 165,
+    "blocked": 0
+  }
+}

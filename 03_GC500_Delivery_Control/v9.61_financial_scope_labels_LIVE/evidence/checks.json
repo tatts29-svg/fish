@@ -1,0 +1,14 @@
+{
+  "author": "Andrew Fisher",
+  "pass": true,
+  "focusedChecks": 23,
+  "componentPatchChecks": 6,
+  "sourceFixture": "isolated v9.60 component; combined final release checks owned by root",
+  "privateNativeRecord": 5155,
+  "sourceSha256": {
+    "scope961.js": "bdaeaf811fd6ab7453431ffa9b9e729433dfc44148f96ae6b2338688e6279178",
+    "patch_v961.py": "6d5a95751bbeff87f9310e79d5729bb85fd57570e32a4124fd906df07cce4df0",
+    "test_scope961.cjs": "930058a44d6204fde362da449b197e103fbc6ee740d3a4e4c02daaeef72700cd",
+    "test_patch961.py": "985335bc8d2e702a0187d7e22e334ec69e4851487393a14ee7f19240f34049b9"
+  }
+}

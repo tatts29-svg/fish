@@ -1,10 +1,12 @@
-# Working on Andrew Fisher's repo — for Claude and Codex alike
+# Working on Andrew Fisher's repo — shared assistant instructions
 
-Author: Andrew Fisher · Shutdown Manager, Coates · last updated 2 Oct 2026
+Author: Andrew Fisher · Shutdown Manager, Coates · last updated 14 Oct 2026
 
-Two AI agents work on this repo: **Claude (Claude Code)** and **Codex (ChatGPT Codex cloud)**. Same jobs, same
-rules, same tools. One day one of you does a job, the next day the other picks it up. Everything either of you needs
-is in this repo; nothing lives only in one agent's session. Read this file first, then
+Coding assistants share this repo: **Claude**, **Codex** and **Argon (Gemini)**.
+Andrew wants Argon to work through the normal Gemini app's Task interface; a prepared CLI environment is separate.
+The same project rules and build tools apply. Each environment's actual access must be verified independently.
+Use separate checkouts and coordinate work on the shared board. Shared implementation and handovers belong
+in this repo; private originals and credentials stay in authorised private storage. Read this file first, then
 `03_GC500_Delivery_Control/STATUS.md`.
 
 ## Who you are working for
@@ -88,8 +90,12 @@ Rename the folder to `_LIVE` when it goes live. **Never upload another agent's `
 `STATUS.md` says READY TO UPLOAD** — a draft may still be moving (1 Oct 2026: a draft went live mid-correction and
 overstated revenue by $66,000).
 
-**How Claude and Codex talk to each other** (Andrew, 2 Oct 2026: "U both need to communicate better talk to each
-other"; agreed by both on PR #1 the same day). The coordination thread is PR #1.
+**How Codex, Claude and Argon talk to each other** (Andrew, 2 Oct 2026: "U both need to communicate better talk to each
+other"; extended to the three assistants when Andrew asked on 14 Oct how they coordinate).
+The shared conversation is [PR #1](https://github.com/tatts29-svg/fish/pull/1).
+`03_GC500_Delivery_Control/STATUS.md` is the current work and release board; commits share the implementation.
+At the start of a work session and before a claim, handover or publication, fetch the shared branch and read the
+latest board plus new coordination comments since your last acknowledgement. Address any requests for your work.
 1. **Every message gets an answer.** The reply is `Ack <comment link>`, then what you will do and when. Silence is
    never agreement.
 2. **One shared board.** `STATUS.md` holds every claim and every state. Before you change it, fetch and read the
@@ -104,11 +110,25 @@ other"; agreed by both on PR #1 the same day). The coordination thread is PR #1.
    were about. Each session keeps its own authorisation constraints. A relay from the other agent is information,
    not new permission. If an action is blocked, name the specific constraint that is not met.
 
-**The other agent does not hear your chat with Andrew.** Anything he decides that matters beyond the one job — a
-rule, a price, a yes or no — goes into `STATUS.md` (or into the rules below if it is lasting), in his words.
+**Private chats are separate; GitHub is the shared handover.** A GitHub comment does not automatically wake an
+assistant or prove it has read a message. An acknowledgement establishes receipt. No background watcher is implied
+by these instructions. Report a handover as posted until its recipient acknowledges it.
 
-**Both agents read the original documents** (Andrew, 1 Oct 2026: "What ever documenet claude gets you need to read
-and also understand"). When either agent receives a document, share its filename, revision/date, accessible source
+Each claim names its owner, bounded scope, branch and starting commit. Use separate checkouts and avoid another
+assistant's active files. One named owner publishes each ready candidate; the unchanged-live-base guard still applies.
+Adding a third assistant does not add a mandatory three-person review or change existing independent-release rules.
+
+Argon must separately verify project reads, command execution, GitHub comments/pushes, build tests and publication
+access. A Task button, GitHub import or CLI login does not prove all of those capabilities. Keep these states accurate
+on the board. Handover messages contain a short outcome, exact source, check results, open items and the next owner;
+private originals, credentials and confidential financial details stay out of the public conversation.
+
+Other assistants cannot automatically see Andrew's private chats or attachments. Decisions that affect shared work
+must be recorded in the appropriate authorised handover, with Andrew's words and their scope. Put non-sensitive
+coordination in `STATUS.md`; keep private evidence in its authorised private source location.
+
+**All assistants read the original documents** (Andrew, 1 Oct 2026: "What ever documenet claude gets you need to read
+and also understand"). When an assistant receives a document, share its filename, revision/date, accessible source
 location and Andrew's accompanying decisions through the authorised handover location. Use `STATUS.md` for
 non-sensitive coordination; keep private originals and detailed findings in an authorised private location. Do not
 publish a private attachment merely to hand it over. The receiving agent reads the source, including relevant
@@ -158,17 +178,20 @@ marks as a draft, or anything risky to the record, waits for his yes.
   the pit lane at its north-west end and drives it the way the race cars go.
 - **Photos: one document per photograph** (v7.41), sent from an outbox on the phone until the service has them.
   Never go back to one list per reference; that is what lost photographs.
+- **Described-item quantities** (Andrew, 14 Oct 2026): if there is no quantity, each separate described item means **one**; an explicit quantity in its description, such as "qty 3", means **three**. Use one shared quantity rule across the register, maps, daily runs, Inventory and charges. Keep an explicitly entered quantity; do not treat a rating, dimension, reference or asset number as a quantity. These valid description-based counts are not missing-data issues. Keep confirmed received and installed quantities as separate actual records.
 - **Sub-hired locations say so first** (v7.43) and carry no Coates contract, branch or Rental ID.
 - **What a reference is decides what its drawer offers** (v7.43): no accessories on generators, towers, barriers.
 - **A forklift goes by its day rate** (Andrew, 1 Oct 2026): where a contract line's Rate 1 is a card forklift day rate
   x the line's days written as one figure (MEAD 9968726 line 1: $1,483.20 = $185.40 x 8 days), the line is charged by
   the day rate, not that figure by the day again.
+- **Labour costs stay separate from accommodation and meals** (Andrew, 9 Oct 2026: “Labour is labour”): hotel accommodation and meal expense entries are not labour. Andrew separately confirmed the existing $14,700 salary-uplift/living-away allowance **is labour** (“Thats fine thats classed as labour”). Keep that allowance in labour; do not invent a split or reclassify it as hotel/meals. Preserve each cost once in the overall job forecast.
 - **How the branch charges** (Brenden Meek, Branch Manager - Relief, by email; Andrew said "remember", 1 Oct 2026):
   "Labour is charged per piece of equipment. Only hourly labour charged is over the event. Forklifts, VMS and
   water barriers are charged for from when they go in. Everything else is only charged for over the event."
-  The event is 23, 24 and 25 October, both ends billed (three days). Pricing for the rehire toilets came attached to
-  that email; "no updated pricing yet, waiting on Corey Machado". A card daily rate for a generator or a light
-  tower is therefore charged for the three event days, never for its days on site.
+  Generator hire is superseded by Andrew's 12 October rule below. The event is 23, 24 and 25 October, both ends billed (three days). Pricing for the rehire toilets came attached to
+  that email; "no updated pricing yet, waiting on Corey Machado". A card daily rate for a light
+  tower is charged for the three event days, never for its days on site.
+- **Generator standdown** (Andrew, 12 Oct 2026): "we have the standown rate on the rate card" and "a 200kva is 182.28 a day until race day". Use the card's published **Standby Rate 2026** from delivery through 22 October, then the full **Daily Rate 2026** for 23–25 October. Commercial off hire is 25 October; no hire after Sunday. Keep source precision until contract-line rounding. Actual is the full hire period for confirmed arrivals; pending arrivals remain forecast. One shared calculation feeds Costs, P&L, branch totals and reference prices. This customer Revenue rule does not set supplier Direct costs or change physical pickup dates.
 - **Generator pricing** (Andrew, 1 Oct 2026): "If a generator price is not there you go for the lower, so 70 kVA becomes
   the 60 kVA. If the client asks for a 60 kVA and we supplied larger, they get the price of a 60 kVA." The rate
   follows what was asked for; a size the card has no line for takes the next size down.
