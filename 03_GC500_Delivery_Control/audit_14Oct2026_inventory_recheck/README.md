@@ -4,7 +4,7 @@ Author: Andrew Fisher
 
 Andrew requests a full recheck of quantities, all equipment, generators, maps and references. Compare current onsite truth across the shared record, delivery/installation history, current stock, original source scopes and map readers. Counts of units, panels and metres remain separate. Recorded moves are not additional equipment; source-only requests are not confirmed arrivals.
 
-Starting source: 9f042475. Exact live v10.16 SHA256: 3cbfd0d5c9bd53f02d5a89b274e83ee0c2d2c8dc17b03da59b68cf3a3db8673c. All service checks are GET-only. Raw source files and detailed reconciliations remain private. Root owns v10.17 corrections and final publication; the release remains DRAFT while combined tests run.
+Starting source: 9f042475. Exact live v10.16 SHA256: 3cbfd0d5c9bd53f02d5a89b274e83ee0c2d2c8dc17b03da59b68cf3a3db8673c. All service checks are GET-only. Raw source files and detailed reconciliations remain private. The confirmed corrections are live in v10.17, published 14 Oct 2026 at 18:34 AEST and verified against the actual public page. Root owns the release and shared handover.
 
 Verified coverage on native version 6075:
 
@@ -16,7 +16,7 @@ Verified coverage on native version 6075:
 - All 202 source reference rows reconcile to live records, reachable context or explicit deletion. No unidentified historical delivery is turned into a new asset.
 - Current parent-to-map quantity and status fields, all published point transforms, reference search and exceptional routes checked on desktop and phone. Exact GPS points, plan-tag positions, representative area anchors and unplaced requests retain distinct meanings.
 
-Confirmed corrections included in the v10.17 candidate:
+Confirmed corrections published in v10.17:
 
 - Collection plans duplicate two forklift aliases and a historical VMS relocation, and retain a moved VMS at its old pickup quantity.
 - Inventory treats a moved or collected unit as still awaiting delivery because it subtracts current stock instead of historical receipt quantities.
@@ -31,4 +31,4 @@ Andrew has separately requested six FWF added back to WC09. Four FWF are already
 
 Original-source differences are recorded separately in the source coverage review. Source requests and contracts can fill gaps, but conflicting dates, identities, quantities or prices do not overwrite confirmed onsite records. The workbook distinguishes existing records from specific entries needing reconciliation.
 
-The audit will report enumerated coverage, confirmed defects, corrections and exact unresolved source/location cases. Matching arithmetic cannot establish a surveyed location or missing physical asset identity.
+The audit records enumerated coverage, confirmed defects, corrections and exact unresolved source/location cases. Matching arithmetic cannot establish a surveyed location or missing physical asset identity.

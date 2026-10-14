@@ -1,6 +1,6 @@
 {
   "author": "Andrew Fisher",
-  "state": "READY TO UPLOAD",
+  "state": "VERIFIED LIVE",
   "implementation": "891ee555",
   "baseSha256": "3cbfd0d5c9bd53f02d5a89b274e83ee0c2d2c8dc17b03da59b68cf3a3db8673c",
   "candidateSha256": "d30833b57d59b2347c106193fa052edfda6c953801c513069af0ab6e05e00b5d",
@@ -35,5 +35,20 @@
   "finalLabelOnlyDiffVerified": true,
   "existingMonetaryTotalsUnchanged": true,
   "wc09QuantityEdit": "Pending total-versus-additional clarification; existing four FWF retained",
-  "review": "Root integration/publication with scoped independent reviews; external acknowledgement not claimed"
+  "review": "Root integration/publication with scoped independent reviews; external acknowledgement not claimed",
+  "publishedAest": "14 Oct 2026 18:34",
+  "verifiedAest": "14 Oct 2026 18:36",
+  "readyCommit": "e5de77dc",
+  "publicChecks": {
+    "combined": 18,
+    "phoneMap": 33,
+    "financialParity": 72,
+    "financialDomains": 20,
+    "candidateInterceptions": 0,
+    "applicationErrors": 0,
+    "operationalWrites": 0,
+    "nativeVersion": 6075
+  },
+  "publicBytesExact": true,
+  "publicMapFilesExact": true
 }
