@@ -1,4 +1,4 @@
-# GC500 audit corrections — ready to upload
+# GC500 audit corrections — live
 
 Author: Andrew Fisher
 
@@ -12,6 +12,6 @@ Financial, P&L, branch, Finance, generator and supplier-run baseline comparisons
 
 Fresh phone screenshots and both supplier PDF continuation pages were inspected. A4 portrait, full destinations, QR codes and 24-per-day planning are retained. Overflow uses clearly labelled continuation pages. Individual component guards and independent review passed; two VMS historical edge cases were corrected during review.
 
-Root owns integration/publication. No external combined review is claimed. Native version6075 is unchanged. Upload dry run passed; actual-public verification follows guarded publication. Private raw evidence is `/workspace/private-gc500-audit14Oct2026/combined/`; public files contain only sanitised results.
+Root owns integration/publication. No external combined review is claimed. Native version6075 is unchanged. Published 14 Oct 2026 at 16:39 AEST from READY commit `0c2b29f2`. The guarded uploader verified exact public bytes; 20 fresh actual-public checks passed on unchanged native6075, with no page substitution, browser errors or operational write attempts. Private raw evidence is `/workspace/private-gc500-audit14Oct2026/combined/`; public files contain only sanitised results.
 
 The separately supplied 3D fencing prototype is not part of this release. Its demonstrated visual behaviours and integration defects are reviewed separately.
