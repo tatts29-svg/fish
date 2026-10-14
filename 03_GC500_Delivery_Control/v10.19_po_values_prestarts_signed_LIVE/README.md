@@ -1,3 +1,5 @@
+> VERIFIED LIVE — 15 Oct 2026 02:34 AEST as part of reviewed combinedv10.21 page06d6e6b0 and machineeb8a01ff. See `../release_review1021/README.md` for final fixes, checks and source limitations. This declaration covers the app only; native P/O checks and pre-start PDF uploads were not applied. Author: Andrew Fisher.
+
 # Purchase-order values with the dollar sign, a recorded "checked" tick, people shown without an agent suffix — DRAFT
 
 Author: Andrew Fisher · built 15 Oct 2026 (AEST) · **DRAFT, not uploaded**

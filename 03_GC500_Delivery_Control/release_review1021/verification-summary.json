@@ -1,0 +1,38 @@
+{
+  "author": "Andrew Fisher",
+  "state": "VERIFIED LIVE",
+  "pageSha256": "06d6e6b0956c793299c99b5e48a7ee1c3fe16616f20a60ff0696d410f111848d",
+  "machineSha256": "eb8a01ffa79dc336057b2b369a6500344058e9a5f4635205d0fa1dbe9ef3e0c2",
+  "nativeVersion": 6078,
+  "inlineScripts": 120,
+  "desktop": {
+    "tabs": 22,
+    "links": 7,
+    "applicationErrors": 0,
+    "unexpectedConsole": 0
+  },
+  "phone": {
+    "tabs": 22,
+    "links": 7,
+    "applicationErrors": 0,
+    "unexpectedConsole": 0
+  },
+  "purchaseOrderChecks": 17,
+  "originalPurchaseOrderBrowserChecks": 31,
+  "gate6PhoneChecks": 32,
+  "financialChecks": 107,
+  "permittedNonfinancialMetadataChanges": 20,
+  "machineChangedFiles": 6,
+  "machineUnchangedFiles": 227,
+  "operationalWrites": 0,
+  "held": [
+    "Four PO checked records: practice passed; apply handed to Claude",
+    "Pre-start signed records: factual attendance confirmation and uploader safeguards required"
+  ],
+  "pagePublishedAest": "15 Oct 2026 02:34 AEST",
+  "publicMapBrowserChecks": 32,
+  "publicBrowserErrors": 0,
+  "publicMachineAssetsExact": true,
+  "nativeVersionAfter": 6078,
+  "remainingOwner": "Claude"
+}
