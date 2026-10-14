@@ -156,3 +156,84 @@ pasted into a chat, a file or a command.
    `--only <day>` remains the switch if he changes that.
 3. `python3 verify_after.py`.
 4. Readback on STATUS.md and PR #1. v10.22 rebuilds on `06d6e6b0…`.
+
+## Third attempt, 15 Oct 2026 about 03:15 AEST — stopped by the same binding; the cause pinned down
+
+Author: Andrew Fisher
+
+Andrew, 15 Oct 2026 about 03:05 AEST in Claude's chat, the same four steps as at 02:45 ("GC500_EDIT_TOKEN is set in this
+environment. Publish now, in this order, from branch claude/ampol-reporting-suite-access-h2hy90 …"). Read first: the board,
+this file, PR #1 6172736470 (Claude's checklist to Codex, posted 02:08 AEST) and everything after it to 6173708414; nothing
+new had been posted on PR #1 since.
+
+1. **Live, by the view URL at 03:08 AEST:** `06d6e6b0956c793299c99b5e48a7ee1c3fe16616f20a60ff0696d410f111848d`, 15,901,228 bytes,
+   120 scripts — Codex's v10.21, unchanged since the second attempt. `/health`: record version 6078, 449 files, server build v5.87.
+   `toolchain/build.sh v10.21` with no patch reproduces it byte for byte (check_page PASS), left in `build/GC500_v10.21/`.
+2. **Step 1 does not apply.** The `9db6edd2…` candidate stays withdrawn: its condition (live still `2d09fa44…`) failed when Codex
+   published at 02:34 AEST; the live page already carries its three patches plus Codex's review corrections; applying
+   `patch_v1019/1020/1021` again on `06d6e6b0…` would apply them twice (each patch refuses a repeat); and `upload_page.py`'s
+   base guard refuses the old build because its `base_live.html` is `2d09fa44…`. With a working key, step 1 is a no-op and
+   steps 2 to 4 are the work.
+3. **Dry run, for the record:** `python3 toolchain/upload_page.py build/GC500_v10.21/GC500_Delivery_Control_hosted.html --dry-run`
+
+   ```
+   live page unchanged since the build started - safe to upload
+   service: 401 {"error":"a view or edit token is needed"}
+   that key is not the edit key - stopping before anything is written
+   ```
+
+4. **Record scripts, read-only:** `verify_after.py` → `STOP: GET /api/files answered 401`; `upload_prestarts.py --manifest
+   manifest.json` (dry run) → `STOP: GET /api/files from the service (view token) answered 401`; `po_checked.cjs` (dry run)
+   → `STOP: GET /api/state answered 401`. No backup folder, no report, no P/O tick, no pre-start uploaded or removed.
+5. **Nothing was uploaded, nothing written.** Native record 6078 unchanged.
+
+### Why, pinned down this time
+
+Three read-only probes of `GET /api/version`, all answered
+
+```
+HTTP/1.1 401 Unauthorized
+X-Proxy-Error: upstream auth failed: connection "GC500 upload access", host "gc500-production.up.railway.app"
+{"error":"a view or edit token is needed"}
+```
+
+- with **no token from Claude at all** — no header, no query;
+- with the **public view token** `Coates-GC500-2026` in the `x-gc500-token` header;
+- with the view token as the `?t=` query and **no header**.
+
+The live server (v5.87; `level()` in `server_v5.87_pictures_from_shared_number_LIVE/server.js`) reads `x-gc500-token` first and
+falls back to `?t=` only when that header is absent or empty; every `/api` route goes through `level()`, and no API route takes
+the key from the path (`/v/<key>` and `/health` answer 200 because they do not use it). A bare request with the view token in the
+query would therefore answer 200 `view` unless something put a non-empty `x-gc500-token` header on it. So: the proxy adds an
+`x-gc500-token` header to every request to that host, and the value it adds is neither the edit key nor the view key. The header
+name in the "GC500 upload access" entry is right; its value is wrong — most likely a prefix such as `Bearer ` in front of the key,
+or a stale or mistyped key. The `GC500_EDIT_TOKEN` process variable is set and every tool reads it, but the proxy overwrites the
+header the tools send before the service sees it.
+
+### What fixes it (Andrew) — still one setting
+
+In the environment's Edit screen, under Network secrets (API credentials in an older app build), the **"GC500 upload access"**
+entry: **delete it** — the `GC500_EDIT_TOKEN` variable already in place is enough on its own, because the tools put it in the
+header and, with no injection configured, the proxy leaves that header alone — or keep it with host exactly
+`gc500-production.up.railway.app`, header `x-gc500-token`, **prefix empty**, value the current edit key with no spaces around it.
+Save, then start a new session. The key is never pasted into a chat, a file or a command.
+
+Proof before any write, in that session:
+
+```bash
+cd 03_GC500_Delivery_Control
+python3 toolchain/upload_page.py build/GC500_v10.21/GC500_Delivery_Control_hosted.html --dry-run   # must end "the key is the edit key"
+python3 record_15Oct2026_prestarts_signed/verify_after.py                                          # must list the files (view key)
+```
+
+`verify_after.py` uses the public view key only, so it answers the moment the proxy stops rewriting the header; if it still says
+401, the entry is still there.
+
+### Order once that holds (live base `06d6e6b0…`, no page upload)
+
+1. `GC500_EXPECTED_PAGE_SHA=06d6e6b0956c793299c99b5e48a7ee1c3fe16616f20a60ff0696d410f111848d node po_checked.cjs --apply` in
+   `record_15Oct2026_prestarts_signed/` — Andrew's named runner, the tick as "Andrew Fisher" with no agent suffix.
+2. `python3 upload_prestarts.py --manifest manifest.json --apply` — 33 uploads, 17 removals; the four 12–15 Oct fencing
+   `confirm` entries included on Andrew's instruction of 02:45 AEST; `--only <day>` if he changes that.
+3. `python3 verify_after.py`.
+4. Readback on STATUS.md and PR #1. v10.22 rebuilds on `06d6e6b0…`.
