@@ -35,7 +35,7 @@ const live = async page => page.waitForFunction(() => typeof SYNC !== 'undefined
     const num = k => parseInt(k.replace(/\D/g, ''), 10);
     return {tab: state.tab, shown: pane && pane.classList.contains('on'), nights: pane.querySelectorAll('[data-n1022-night]').length,
       tasks: pane.querySelectorAll('.n1022-tasks .n1022-task').length, units: units.length, ordered: units.every((k, i) => !i || num(units[i - 1]) <= num(k)),
-      cancelledIn: units.filter(k => (assetOf(k) || {})._cancelled), expectedUnits: DATA.assets.filter(a => /^WC\d+$/.test(a.key) && !(assetOf(a.key) || {})._cancelled).length,
+      cancelledIn: units.filter(k => (assetOf(k) || {})._cancelled), expectedUnits: DATA.assets.filter(a => /^WC\d+$/.test(a.key) && assetOf(a.key) && !assetOf(a.key)._cancelled).length, wc66: [...pane.querySelectorAll('.n1022-unit')].some(e => e.dataset.ref === 'WC66'),
       disabledTicks: [...pane.querySelectorAll('.n1022-tick')].filter(e => e.disabled).length, ticks: pane.querySelectorAll('.n1022-tick').length,
       preTicked: [...pane.querySelectorAll('.n1022-tick')].filter(e => e.checked).length, signoff: !!pane.querySelector('.n1022-sign'),
       heading: (pane.querySelector('.panehead') || {}).textContent, menu: !!document.querySelector('[data-tab="nights"], [data-go="nights"], a[href="#nights"]'),
@@ -43,7 +43,7 @@ const live = async page => page.waitForFunction(() => typeof SYNC !== 'undefined
   });
   check('1 #nights opens the Event nights pane on a phone', v.tab === 'nights' && v.shown, {tab: v.tab, heading: v.heading});
   check('1 three nights, the Friday tasks, the sign-off block', v.nights === 3 && v.tasks === 5 && v.signoff, {nights: v.nights, tasks: v.tasks});
-  check('1 every toilet unit, number order, none cancelled', v.units === v.expectedUnits && v.ordered && !v.cancelledIn.length && v.units >= 60, {units: v.units, expected: v.expectedUnits, cancelled: v.cancelledIn});
+  check('1 every toilet unit on the register, number order, none cancelled or deleted (WC66 is deleted)', v.units === v.expectedUnits && v.ordered && !v.cancelledIn.length && !v.wc66 && v.units >= 60, {units: v.units, expected: v.expectedUnits, cancelled: v.cancelledIn, wc66: v.wc66});
   check('1 view link: every tick disabled, nothing pre-ticked', v.disabledTicks === v.ticks && v.preTicked === 0, {ticks: v.ticks, disabled: v.disabledTicks, preTicked: v.preTicked});
   check('1 the night manager named as Kyle, no cost line', v.wordsKyle && /no cost lines/.test(v.costWords ? 'no cost lines' : ''), {kyle: v.wordsKyle});
   check('1 footer is the release', /v10\.2[23]/.test(v.footer || ''), v.footer);
@@ -108,7 +108,7 @@ const live = async page => page.waitForFunction(() => typeof SYNC !== 'undefined
     return {tab: state.tab, bar: !!bar, barText: bar && bar.querySelector('.dpbar-t').textContent, printEnabled: bar && !bar.querySelector('[data-dpbar-print]').disabled,
       sheet: !!sec, rows, rel: sec ? sec.querySelectorAll('.rel').length : 0, ticked: sec ? sec.querySelectorAll('.bx.checked').length : 0, zoom: sec ? (sec.style.zoom || '1') : null,
       title: sec ? sec.querySelector('h1').textContent : '', issued: sec ? sec.querySelector('.issued').textContent : '', printing: document.body.classList.contains('printing-day'), wrap: w && w.className,
-      units: DATA.assets.filter(a => /^WC\d+$/.test(a.key) && !(assetOf(a.key) || {})._cancelled).length, kickerForm: sec && /GC500-RS-EN-01/.test(sec.querySelector('.kicker').textContent)};
+      units: DATA.assets.filter(a => /^WC\d+$/.test(a.key) && assetOf(a.key) && !assetOf(a.key)._cancelled).length, kickerForm: sec && /GC500-RS-EN-01/.test(sec.querySelector('.kicker').textContent)};
   });
   check('3 #print/nights/<date> lands on the Event nights tab with the print bar ready', p.tab === 'nights' && p.bar && p.printEnabled && /Event night run sheet/.test(p.barText || ''), {tab: p.tab, bar: p.barText});
   check('3 one run sheet with every unit, Sunday relocation marks, the form id', p.sheet && p.rows === p.units && p.rel >= 10 && p.kickerForm && /Sunday night/.test(p.title), {rows: p.rows, units: p.units, rel: p.rel, title: p.title});

@@ -8,7 +8,7 @@
 #pane-nights .n1022-task input{width:22px;height:22px;flex:none;margin:1px 0 0}
 #pane-nights .n1022-task>span{flex:1;min-width:200px}
 #pane-nights .n1022-task small{display:block;width:100%;opacity:.7;font-size:.8em;padding-left:32px}
-#pane-nights .n1022-unit{display:grid;grid-template-columns:repeat(4,1fr);gap:4px 8px;padding:8px 0;border-bottom:1px solid rgba(0,0,0,.08);align-items:end}
+#pane-nights .n1022-unit{display:grid;grid-template-columns:1.5fr .8fr .8fr 1.1fr .9fr;gap:4px 6px;padding:8px 0;border-bottom:1px solid rgba(0,0,0,.08);align-items:end}
 #pane-nights .n1022-unit.done{background:rgba(46,125,50,.06)}
 #pane-nights .n1022-u{grid-column:1/-1;display:flex;gap:8px;align-items:baseline;flex-wrap:wrap}
 #pane-nights .n1022-u b{font-size:1.1em}

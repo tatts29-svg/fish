@@ -39,11 +39,12 @@ function unitRows(){
  const seen = new Set(), out = [];
  (DATA.assets || []).forEach(a => {
   if (!/^WC\d+$/.test(a.key) || seen.has(a.key)) return;
-  const live = typeof assetOf === 'function' ? assetOf(a.key) : null;
-  if ((live || a)._cancelled) return;
+  const live = typeof assetOf === 'function' ? assetOf(a.key) : a;
+  if (!live || live._cancelled) return; /* deleted from the register (no asset any more) or cancelled: not serviced */
   seen.add(a.key);
   const m = typeof MASTER_LOC === 'object' && MASTER_LOC ? MASTER_LOC[a.key] : null;
-  const where = trim((a.locations || [])[0] || a.name || '').replace(new RegExp('^' + a.key + '\\s*[-\u2013\u2014:]?\\s*'), '');
+  const strip = t => trim(t).replace(new RegExp('^' + a.key + '\\s*[-\u2013\u2014:]?\\s*'), '');
+  const where = strip((a.locations || [])[0] || '') || strip(a.name || '') || trim(a.product || '');
   out.push({key: a.key, where, types: (a.item_types || []).join(', '), sec: (m && m.sec) || ''});
  });
  return out.sort((x, y) => num(x.key) - num(y.key) || x.key.localeCompare(y.key));
@@ -170,11 +171,11 @@ function bind(pane){
 
 /* --------------------------------------------------------------------------------------------------- the run sheet */
 const CSS = `
-#dayprint .ps7.n1022 .n1022-grid{display:grid;grid-template-columns:1fr 1fr;gap:0 8px}
-#dayprint .ps7.n1022 table.n1022-t{width:100%;border-collapse:collapse;font-size:6.1pt}
-#dayprint .ps7.n1022 table.n1022-t th{font-weight:700;text-align:left;border-bottom:1px solid #15181a;padding:1px 2px;font-size:5.6pt;letter-spacing:.4px}
-#dayprint .ps7.n1022 table.n1022-t td{border-bottom:1px solid #d9dde0;padding:.6px 2px;vertical-align:middle;white-space:nowrap}
-#dayprint .ps7.n1022 table.n1022-t td.w{white-space:normal;max-width:34mm;overflow:hidden;text-overflow:ellipsis;color:#3b4246}
+#dayprint .ps7.n1022 .n1022-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:0 8px}
+#dayprint .ps7.n1022 table.n1022-t{width:100%!important;min-width:0!important;max-width:100%;table-layout:fixed;border-collapse:collapse;font-size:6.1pt;margin:0}
+#dayprint .ps7.n1022 table.n1022-t th{font-weight:700;text-align:left;border-bottom:1px solid #15181a;padding:1px 2px;font-size:5.6pt;letter-spacing:.4px;overflow:hidden}
+#dayprint .ps7.n1022 table.n1022-t td{border-bottom:1px solid #d9dde0;padding:.6px 2px;vertical-align:middle;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#dayprint .ps7.n1022 table.n1022-t td.w{color:#3b4246}
 #dayprint .ps7.n1022 table.n1022-t td.c{text-align:center}
 #dayprint .ps7.n1022 .bx{width:7.5px;height:7.5px;border:1px solid #6b757a;display:inline-block;vertical-align:middle;position:relative}
 #dayprint .ps7.n1022 .bx.checked{background:#15181a;border-color:#15181a}
@@ -196,9 +197,9 @@ function sheetHtml(iso, o){
  o = o || {}; const blank = !!o.blank, n = night(iso); if (!n) return '';
  const units = unitRows(), st = ref => blank ? {} : unitState(iso, ref), sign = blank ? {} : (rec(iso, 'signoff') || {}), audit = blank ? {} : (rec(iso, 'audit') || {});
  const half = Math.ceil(units.length / 2), cols = [units.slice(0, half), units.slice(half)];
- const table = rows => `<table class="n1022-t"><thead><tr><th>Unit</th><th>Where</th><th>Area</th><th class="c">Pumped</th><th class="c">Refilled</th><th class="c">Level</th><th class="c">Spot</th></tr></thead><tbody>` +
+ const table = rows => `<table class="n1022-t"><colgroup><col style="width:12mm"><col><col style="width:15mm"><col style="width:9mm"><col style="width:9mm"><col style="width:8mm"><col style="width:7mm"></colgroup><thead><tr><th>Unit</th><th>Where</th><th>Area</th><th class="c">Pumped</th><th class="c">Refilled</th><th class="c">Level</th><th class="c">Spot</th></tr></thead><tbody>` +
   rows.map(u => { const s = st(u.key), rel = n.kind === 'final' && RELOCATE.includes(u.key);
-   return `<tr><td><b>${esc1022(u.key)}</b>${rel ? ' <span class="rel">\u2192</span>' : ''}</td><td class="w">${esc1022(u.where)}${s.note ? ' \u00b7 ' + esc1022(s.note) : ''}</td><td class="w">${esc1022(s.area || '')}</td><td class="c">${pbox(s.pumped)}</td><td class="c">${pbox(s.refilled)}</td><td class="c lv">${s.level ? esc1022(levelWord(s.level)) : '\u2014'}</td><td class="c">${pbox(s.spot)}</td></tr>`; }).join('') + '</tbody></table>';
+   return `<tr><td><b>${esc1022(u.key)}</b>${rel ? ' <span class="rel">\u2192</span>' : ''}</td><td class="w" title="${esc1022(u.where)}">${esc1022(u.where)}${s.note ? ' \u00b7 ' + esc1022(s.note) : ''}</td><td class="w">${esc1022(s.area || '')}</td><td class="c">${pbox(s.pumped)}</td><td class="c">${pbox(s.refilled)}</td><td class="c lv">${s.level ? esc1022(levelWord(s.level)) : ''}</td><td class="c">${pbox(s.spot)}</td></tr>`; }).join('') + '</tbody></table>';
  const tasks = (TASKS[n.kind] || []).map(([id, label]) => { const t = blank ? {} : (rec(iso, 'task', id) || {}); return `<label>${pbox(t.done)}<span>${esc1022(label)}${t.done ? ` <i>\u2014 ${esc1022(t.by)}, ${esc1022(when(t.at))}</i>` : ''}</span></label>`; }).join('');
  const reqs = blank ? [] : requests(iso);
  const reqHtml = (reqs.length ? reqs.map(r => `<p>${pbox(r.done)} ${esc1022(r.text)} <i>\u2014 ${esc1022(r.by)}, ${esc1022(when(r.at))}</i></p>`).join('') : '') + '<p></p><p></p>'.repeat(reqs.length ? 1 : 3);
