@@ -1,3 +1,7 @@
+AUTHORISED PURCHASE-ORDER UPDATE IN PROGRESS — 14 Oct 2026. Root owns matching the newly supplied fencing commercial approval and docket scan to the existing Week 2 purchase order and recording the user-approved value. Use native P/O controls with backup, exact document allowlist and fresh readback. Preserve receipt/payment state and existing docket/green-book pricing; an order value must not be added again to Direct costs. Supporting PDFs and detailed financial evidence stay private. No page release claimed unless presentation checks demonstrate a required correction. Starting source 1aac174a; live v10.13 unchanged.
+
+<!-- Author: Andrew Fisher -->
+
 THREE-ASSISTANT COORDINATION DOCUMENTED — 14 Oct 2026. Andrew asks how Codex, Claude and Argon communicate. The existing PR #1 conversation carries messages/acknowledgements, STATUS.md carries current ownership and release state, and shared commits carry implementation. AGENTS.md and GEMINI.md now explicitly include Argon working from the normal Gemini app. Read new handovers when starting work and before claiming, handing over or publishing; keep scopes/checkouts separate and one owner per publication. This does not introduce mandatory three-way review, automatic chat synchronisation or a background watcher. No new Argon check-in was found in the current coordination thread; his comment/push/build/publication capabilities remain separately unverified. User-reported app browser/terminal access stands as recorded below. No live code or operational data changed.
 
 <!-- Author: Andrew Fisher -->
