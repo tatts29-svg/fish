@@ -17,3 +17,7 @@ Each writer requires a private specification and supports a read-only `--practic
 Mapping evidence: all source records have an existing identity and named location; only a subset has reviewed schedule links. No exact map-reference/geometry binding was established for these records. Existing verified programme and plan links are shown dynamically; no pin or schedule task was guessed.
 
 Final operation status and release evidence are recorded on STATUS.md. Detailed amounts, scans, specifications, backups and raw browser results remain in authorised private storage under `/workspace/private-po4647519/`.
+
+All three native operations are complete and freshly checked. The native record progressed from 6067 to 6075 through the narrowly permitted order/audit and docket/audit writes. Supplier reconciliation matches; the existing receipt and payment states remain unchanged. v10.14 was published with exact public readback. The initial cold-read forecast failure was investigated separately: verification must await source-document readiness, and v10.15 prevents dependent caches outliving a deferred redraw. No further record mutation is required.
+
+Schedule coverage has two meanings: every supplied docket number joins to the new actual-work programme; eight records additionally retain reviewed links to earlier forecast tasks. Exact installed map runs are a separate evidence check. Named areas and approximate drawing annotations are not exact as-built geometry.
