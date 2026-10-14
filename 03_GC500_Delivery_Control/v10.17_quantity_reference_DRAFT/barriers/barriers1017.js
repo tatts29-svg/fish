@@ -35,6 +35,7 @@ function waterBarrierPlacementsNote1017(rows, print) {
  if (!rows.length) return '';
  const total = rows.reduce((sum,row) => sum + row.quantity,0);
  const ref = key => print ? '<b>'+esc(key)+'</b>' : '<button type="button" class="linkish" data-open="'+esc(key)+'">'+esc(key)+'</button>';
+ if (print) return '<p class="wb1017-reinstatement-print"><b>Reinstatement work · '+total+' barriers:</b> '+rows.map(row => ref(row.key)+' '+row.quantity+' TL2'+(row.date?' · '+esc(fmtDate(row.date)):'')+' · from '+ref(row.sourceRef)).join('; ')+'.</p>';
  return '<div class="notice info wb1017-reinstatement"><b>Reinstatement work · '+total+' barriers</b><p>'+rows.map(row =>
   ref(row.key)+' · '+row.quantity+' TL2'+(row.date?' · '+esc(fmtDate(row.date)):'')+' · existing '+ref(row.sourceRef)+' barriers'
  ).join('<br>')+'</p><details><summary>More info</summary><p>The source schedule calls these operations Reinstate. They remain on the work schedule and are separate from new supply. A planned reinstatement does not record an arrival, transfer or completion.</p></details></div>';

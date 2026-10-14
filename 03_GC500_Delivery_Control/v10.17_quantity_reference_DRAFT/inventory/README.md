@@ -1,0 +1,26 @@
+# Inventory receipts, current stock and outstanding deliveries
+
+Author: Andrew Fisher
+
+Component source is frozen for root integration into v10.17. It starts from the actual public v10.16 page, SHA256 `3cbfd0d5c9bd53f02d5a89b274e83ee0c2d2c8dc17b03da59b68cf3a3db8673c`. It does not publish or edit the shared operational record.
+
+Inventory was subtracting current stock from ordered quantity to calculate deliveries still required. That incorrectly requested another VMS after an already-received board moved to another reference. The same mistake would recur after collection. Remaining deliveries now use the existing typed receipt history, independently for each reference and item. Current stock, ownership, receipt history, original delivery scope, rates and charges remain unchanged. Overdelivery at one reference cannot offset another reference's unmet request.
+
+The two known supplier-only FWF requests now join Inventory ordered/outstanding counts through `Supplier996.model`. These remain read-only source requests, with their current supplier run dates and destination descriptions. They acquire no native asset, receipt, fleet number, fabricated pin, editor or navigation QR. A linked, cancelled or ambiguous source request is not added again. Export pricing marks their missing native price allocation explicitly without inventing a value.
+
+Inventory's screen list, drill and PDF now use one outstanding-delivery projection. An exact reference/item quantity match consumes the existing supplier's dated portions, including split deliveries. Non-supplier quantities retain native dates. Twenty-one existing pending references previously used legacy programme dates instead of the current supplier runs; the checks reconcile every matching supplier scope.
+
+The separately reviewed barrier helper identifies two source-labelled reinstatements. Their 64 barriers remain visible as scheduled work, separately from newly ordered supply. The helper does not record a transfer, receipt or completion. Actual stock at either reference remains visible if it is later recorded.
+
+Inventory PDF summaries reserve room for this compact work note. Location pages use nine naturally sized rows rather than clipping maps, QR codes or long location names in the former fixed-height ten-row layout. The current full export is checked at its authored A4 page sizes; screen styling and the app's layout are preserved.
+
+Verification against unchanged native record 6075:
+
+- 27 GET-only browser checks: 39 types, 175 Inventory references, 55 outstanding stops and 25 matched supplier date scopes; current stock and ownership equal the baseline throughout.
+- FWF: 227 ordered, 175 currently on site, 52 outstanding. VMS: original placement scope 24, nine currently on site, 14 outstanding. The moved source reference retains its original eight received and seven current units, with none still to deliver.
+- TL2: 311 new-supply ordered, 76 currently on site, 235 outstanding; 64 reinstatement placements shown separately.
+- All summary pages, location pages and nested location cards fit their actual A4 bounds. Real phone source-reference chip, drill and Close tested; phone screenshot inspected.
+- 17 pure fixtures cover partial receipt, movement, full/partial/unresolved collection, overdelivery, reinstatement, source-only requests, source suppression, split supplier dates and non-supplier dates.
+- Four exact-source guards pass. No browser errors or attempted operational writes.
+
+Run with `PAGE` pointing to the combined candidate and `BASE_PAGE` to the exact live base. Browser checks also require private `BASELINE` (the native-6075 quantity snapshot), `OUT_DIR`, and the usual Chromium environment. Original captures, screenshots and PDFs stay in private workspace storage. Root owns the final combined checks, financial parity and publication.

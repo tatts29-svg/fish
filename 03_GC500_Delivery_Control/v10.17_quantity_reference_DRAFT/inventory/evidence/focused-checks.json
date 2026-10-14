@@ -1,0 +1,221 @@
+{
+  "author": "Andrew Fisher",
+  "nativeVersion": 6075,
+  "checks": [
+    {
+      "name": "Same native version as baseline",
+      "pass": true
+    },
+    {
+      "name": "Every baseline stock and ownership total is unchanged",
+      "pass": true
+    },
+    {
+      "name": "Moved VMS keeps requested and received eight, current seven, no new demand",
+      "pass": true
+    },
+    {
+      "name": "VMS requested24/current9/remaining14",
+      "pass": true
+    },
+    {
+      "name": "FWF requested227/current175/remaining52",
+      "pass": true
+    },
+    {
+      "name": "WB new supply311/current76/remaining235 with64 reinstatement",
+      "pass": true
+    },
+    {
+      "name": "All row demand totals equal summed per-reference demand",
+      "pass": true
+    },
+    {
+      "name": "All native requested quantities remain except verified reinstatements",
+      "pass": true
+    },
+    {
+      "name": "Both source-only requests are counted exactly once",
+      "pass": true
+    },
+    {
+      "name": "Source-only dates match daily supplier plan",
+      "pass": true
+    },
+    {
+      "name": "Screen and PDF share exact outstanding references and order",
+      "pass": true
+    },
+    {
+      "name": "Moved, collected and reinstatement fallback excluded",
+      "pass": true
+    },
+    {
+      "name": "Every outstanding reference and date occurs once",
+      "pass": true
+    },
+    {
+      "name": "Every matched supplier item and split date equals current daily runs",
+      "pass": true
+    },
+    {
+      "name": "Previously mismatched WC29 and WC45 dates now match supplier runs",
+      "pass": true
+    },
+    {
+      "name": "Non-supplier delivery dates remain unchanged",
+      "pass": true
+    },
+    {
+      "name": "Source request cards have destination, quantity and no fabricated editing or navigation",
+      "pass": true
+    },
+    {
+      "name": "FWF remaining drill shows both source requests and52 total",
+      "pass": true
+    },
+    {
+      "name": "Ordered drill has both read-only source rows without dead form links",
+      "pass": true
+    },
+    {
+      "name": "PDF includes source names quantities dates and no invented QR",
+      "pass": true
+    },
+    {
+      "name": "Source requests cannot be treated as native priced assets",
+      "pass": true
+    },
+    {
+      "name": "Unpriced source requests stay explicitly unpriced in export",
+      "pass": true
+    },
+    {
+      "name": "Native records source data and contracts unchanged",
+      "pass": true
+    },
+    {
+      "name": "Export pages fit authored A4 page bounds",
+      "pass": true,
+      "detail": [
+        {
+          "page": 1,
+          "width": 1062.046875,
+          "height": 733.21875,
+          "scroll": 733,
+          "client": 733,
+          "footerBottom": 733.21875,
+          "childOverflow": 0,
+          "overflowRows": []
+        },
+        {
+          "page": 2,
+          "width": 1062.046875,
+          "height": 733.21875,
+          "scroll": 733,
+          "client": 733,
+          "footerBottom": 733.21875,
+          "childOverflow": 0,
+          "overflowRows": []
+        },
+        {
+          "page": 3,
+          "width": 733.21875,
+          "height": 1062.046875,
+          "scroll": 1062,
+          "client": 1062,
+          "footerBottom": 1062.046875,
+          "childOverflow": 0,
+          "overflowRows": []
+        },
+        {
+          "page": 4,
+          "width": 733.21875,
+          "height": 1062.046875,
+          "scroll": 1062,
+          "client": 1062,
+          "footerBottom": 1062.046875,
+          "childOverflow": 0,
+          "overflowRows": []
+        },
+        {
+          "page": 5,
+          "width": 733.21875,
+          "height": 1062.046875,
+          "scroll": 1062,
+          "client": 1062,
+          "footerBottom": 1062.046875,
+          "childOverflow": 0,
+          "overflowRows": []
+        },
+        {
+          "page": 6,
+          "width": 733.21875,
+          "height": 1062.046875,
+          "scroll": 1062,
+          "client": 1062,
+          "footerBottom": 1062.046875,
+          "childOverflow": 0,
+          "overflowRows": []
+        },
+        {
+          "page": 7,
+          "width": 733.21875,
+          "height": 1062.046875,
+          "scroll": 1062,
+          "client": 1062,
+          "footerBottom": 1062.046875,
+          "childOverflow": 0,
+          "overflowRows": []
+        },
+        {
+          "page": 8,
+          "width": 733.21875,
+          "height": 1062.046875,
+          "scroll": 1062,
+          "client": 1062,
+          "footerBottom": 1062.046875,
+          "childOverflow": 0,
+          "overflowRows": []
+        },
+        {
+          "page": 9,
+          "width": 733.21875,
+          "height": 1062.046875,
+          "scroll": 1062,
+          "client": 1062,
+          "footerBottom": 1062.046875,
+          "childOverflow": 0,
+          "overflowRows": []
+        }
+      ]
+    },
+    {
+      "name": "Actual source request chip opens the matching drill",
+      "pass": true
+    },
+    {
+      "name": "Actual drill Close removes the panel and retains Equipment",
+      "pass": true
+    },
+    {
+      "name": "No browser errors or operational writes",
+      "pass": true
+    }
+  ],
+  "counts": {
+    "types": 39,
+    "references": 175,
+    "outstanding": 55,
+    "sourceRequests": 2,
+    "supplierDateScopes": 25
+  },
+  "errors": [],
+  "requests": {
+    "page": 1,
+    "live": 116,
+    "blocked": 0,
+    "blockedMapSessions": 1
+  },
+  "sha256": "d3967f490e778ee1d1b9620aea7a4dee28d40e0aee8eaa7bfe45c71159428175"
+}

@@ -33,6 +33,6 @@ check('Zero means no units, not one',()=>assert.equal(ctx.waterBarrierPlacement1
 check('Empty current quantity lines excluded',()=>assert.equal(ctx.waterBarrierPlacement1017(assets[2],{lines:[]}),null));
 check('All input records remain byte-identical',()=>{const before=JSON.stringify(assets);ctx.waterBarrierPlacements1017();assert.equal(JSON.stringify(assets),before);});
 check('Note links current workfront and original ref',()=>{const html=ctx.waterBarrierPlacementsNote1017();assert.match(html,/data-open="WB19"/);assert.match(html,/data-open="WB02"/);assert.match(html,/Reinstatement work · 64 barriers/);assert.match(html,/<details><summary>More info/);});
-check('Print does not contain unusable app buttons',()=>assert.doesNotMatch(ctx.waterBarrierPlacementsNote1017(undefined,true),/<button/));
+check('Print does not contain unusable app buttons',()=>assert.doesNotMatch(ctx.waterBarrierPlacementsNote1017(undefined,true),/<button|<details|<summary/));
 check('No receipt or cost fields invented',()=>{const r=ctx.waterBarrierPlacement1017(assets[2]);for(const key of ['onsite','done','received','cost','hire','rate','transfer'])assert.equal(Object.hasOwn(r,key),false);});
 console.log(JSON.stringify({author:'Andrew Fisher',checksPassed:count}));
