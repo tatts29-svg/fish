@@ -18,3 +18,5 @@ python3 03_GC500_Delivery_Control/v10.17_quantity_reference_DRAFT/financials/com
 ```
 
 The capture needs the existing Playwright dependencies and Chromium binding. Baseline SHA256: `3cbfd0d5c9bd53f02d5a89b274e83ee0c2d2c8dc17b03da59b68cf3a3db8673c`. Detailed native copies and monetary evidence are not committed.
+
+Final candidate `5c0925948ce16c940fe56874da22a8b2980d0f87f005e382e67cb583542dac9f` also passes all 72 checks across 20 domains on native record 6075. There are no financial differences, errors or operational writes. Full raw values remain private.

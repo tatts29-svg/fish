@@ -35,4 +35,17 @@ run('Supplier split dates preserve each quantity rather than reschedule',()=>{co
 run('Split days are two delivery stops at one location, retaining all30 units',()=>{const c=fixture([make('A',30,{lines:[{item:'FWF',qty:30}],date:'2026-10-19'})]),I=c.inventory();I.supplierRemaining1017=[{ref:'A',item:'FWF',remaining:24,date:'2026-10-15'},{ref:'A',item:'FWF',remaining:6,date:'2026-10-16'}];const stops=c.Inventory1017.outstanding(I,'*');assert.equal(stops.length,2);assert.equal(c.Inventory1017.locationCount(stops),1);assert.equal(stops.flatMap(x=>x.allocations1017).reduce((n,x)=>n+x.quantity,0),30);});
 run('Unmatched supplier quantity cannot date another owner’s delivery',()=>{const c=fixture([]),p=c.Inventory1017.allocations('A','FWF',3,[{ref:'A',item:'FWF',remaining:2,date:'2026-10-15'}],'2026-10-19');assert.equal(JSON.stringify(p),JSON.stringify([{date:'2026-10-19',quantity:3}]));});
 run('Non-supplier dates remain the native delivery date',()=>{const c=fixture([]),p=c.Inventory1017.allocations('A','Building',1,[],'2026-10-19');assert.equal(p[0].date,'2026-10-19');});
+// Exercise the same facts reader used by both screen cards and PDF cards.
+const factsStart=html.indexOf('function inv87Facts(e){'),factsEnd=html.indexOf('const inv87Items = F =>',factsStart),factsCore=html.slice(factsStart,factsEnd);
+function locationFacts(position,master={},description=null,report=false){
+ const c={whereText:()=>({main:'Toilets'}),masterLoc:()=>master,inPlace782:()=>false,dirs782:()=>({ok:report,report:report?'P33':null,missing:[]}),dpPos:()=>position,descLoc782:()=>description,
+  navUrl:p=>p.lat+','+p.lon,inv87Pin:()=>null,mapPlaceFor:()=>null,mapSheetFor:()=>null};
+ vm.createContext(c);vm.runInContext(factsCore,c);return c.inv87Facts({a:{key:'WC46'},items:['1 × FWF']});
+}
+run('Master unit without landmark text uses its truthful position label and unchanged navigation',()=>{const f=locationFacts({kind:'master',lat:-27.9922233,lon:153.4293799});assert.equal(f.loc,'Master-plan position · WC46');assert.equal(f.nav,'-27.9922233,153.4293799');});
+run('Existing landmark description remains ahead of master fallback',()=>{assert.equal(locationFacts({kind:'master',lat:-27.9,lon:153.4},{sec:'S15',near:['Gate 3 (~20 m)']}).loc,'Section S15 · near Gate 3');});
+run('Existing beside description remains ahead of master fallback',()=>{assert.equal(locationFacts({kind:'master',lat:-27.9,lon:153.4},{beside:['P33']}).loc,'beside P33');});
+run('A report point is never labelled as a master drop-off',()=>{const f=locationFacts({kind:'report',lat:-27.9,lon:153.4},{},null,true);assert.equal(f.loc,'No drop-off yet - report to the pit lane');assert.equal(f.report,true);});
+run('No position retains missing location wording and no navigation',()=>{const f=locationFacts({kind:'none'});assert.equal(f.loc,'no location on the map yet');assert.equal(f.nav,'');});
+run('Description-based position keeps its existing source wording',()=>{assert.equal(locationFacts({kind:'desc',lat:-27.9,lon:153.4},{},{src:'Named destination'}).loc,'the spot the description names');});
 console.log(JSON.stringify({author:'Andrew Fisher',checks:checks.length,passed:checks}));

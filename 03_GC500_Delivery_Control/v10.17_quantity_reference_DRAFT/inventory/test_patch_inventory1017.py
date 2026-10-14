@@ -17,5 +17,8 @@ class SourceGuards(unittest.TestCase):
     def test_refuses_changed_receipt_anchor(self):
         altered=self.source.replace('onsite: on}); R.asked += x.asked;','onsite: on}); R.asked += Number(x.asked);')
         with self.assertRaises(SystemExit): apply(altered)
+    def test_refuses_changed_location_fallback(self):
+        altered=self.source.replace("const loc = report && !main ? 'No drop-off yet - report to the pit lane'", "const loc = report && !main ? 'A different report point'")
+        with self.assertRaises(SystemExit): apply(altered)
 
 if __name__=='__main__':unittest.main()

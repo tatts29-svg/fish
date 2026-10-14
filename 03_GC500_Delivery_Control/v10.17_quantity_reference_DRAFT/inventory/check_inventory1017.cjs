@@ -33,9 +33,22 @@
   INV.drill={t:f.type,col:'asked'};const ordered=new DOMParser().parseFromString(invDrillHtml(I),'text/html');
   ck('Ordered drill has both read-only source rows without dead form links',sources.every(s=>ordered.body.textContent.includes(s.ref)&&!ordered.querySelector('[data-fixref="'+s.ref+'"]')));
   const pdf=inv83Pages(),pdfText=pdf.pages.map(p=>p.html).join('');
+  ck('WC46 and WC55 screen and PDF label their existing master points without changing navigation',['WC46','WC55'].every(key=>{
+   const e=outstanding.find(r=>r.key===key),facts=inv87Facts(e),m=masterLoc(key),expected='Master-plan position · '+key,screenCard=screen.querySelector('[data-k87="'+key+'"]'),doc=new DOMParser().parseFromString(pdfText,'text/html'),pdfCard=[...doc.querySelectorAll('.card')].find(el=>el.querySelector('.ref')?.textContent===key);
+   return facts.loc===expected&&facts.lat===m.ll[0]&&facts.lon===m.ll[1]&&facts.nav===navUrl({lat:m.ll[0],lon:m.ll[1]})&&screenCard?.querySelector('.tg-loc')?.textContent===expected&&pdfCard?.querySelector('.lo')?.textContent===expected;
+  }));
   ck('PDF includes source names quantities dates and no invented QR',sources.every(s=>{const doc=new DOMParser().parseFromString(pdfText,'text/html'),card=[...doc.querySelectorAll('.card')].find(el=>el.textContent.includes(s.ref));return card&&card.textContent.includes(s.name)&&card.textContent.includes('1 ×')&&card.textContent.includes(fmtDate(f.refs[s.ref].due1017))&&!card.querySelector('.qr svg')&&card.textContent.includes('Exact position not recorded');}));
   ck('Source requests cannot be treated as native priced assets',sources.every(s=>assetOf(s.ref)===null||assetOf(s.ref)===undefined));
   const price=inv83Money([f]).get(f.type);ck('Unpriced source requests stay explicitly unpriced in export',price.unknown>=2);
+  // In-memory projection fixture only: one pending reference travels on two days.
+  const split=JSON.parse(JSON.stringify(I)),portion=split.supplierRemaining1017.find(r=>r.ref==='WC29'&&r.item==='FWF'),savedInventory=inventory;
+  split.supplierRemaining1017=split.supplierRemaining1017.filter(r=>r!==portion).concat([{...portion,remaining:4,date:'2026-10-17'},{...portion,remaining:3,date:'2026-10-18'}]);
+  const splitEntries=Inventory1017.outstanding({...split,list:[split.list.find(r=>r.type===f.type)]},f.disc,true),locations=Inventory1017.locationCount(splitEntries);
+  INV.disc=f.disc;INV.drill={t:f.type,col:'togo'};
+  const splitDrill=new DOMParser().parseFromString(invDrillHtml(split),'text/html');let splitPDF;
+  try{inventory=()=>split;splitPDF=inv83Pages();}finally{inventory=savedInventory;}
+  const fullTradeStops=Inventory1017.outstanding(split,f.disc),fullTradeLocations=Inventory1017.locationCount(fullTradeStops);
+  ck('Split-reference fixture labels unique locations separately from dated stops',splitEntries.length===locations+1&&splitEntries.filter(r=>r.key==='WC29').flatMap(r=>r.allocations1017).reduce((n,r)=>n+r.quantity,0)===7&&splitDrill.querySelector('.invdrillh').textContent.includes('at '+locations+' locations')&&splitPDF.togo===fullTradeLocations&&splitPDF.pages.map(p=>p.html).join('').includes(fullTradeStops.length+' delivery stops'),{drillStops:splitEntries.length,drillLocations:locations,tradeStops:fullTradeStops.length,tradeLocations:fullTradeLocations,printedLocations:splitPDF.togo});
   const supplied=Object.values(I.list).flatMap(r=>Object.values(r.refs)).filter(r=>r.sourceOnly1017);
   INV.disc=oldDisc;INV.drill=oldDrill;
   ck('Native records source data and contracts unchanged',before===JSON.stringify(S)&&data===JSON.stringify(DATA)&&contracts===JSON.stringify(ONHIRE_ROWS));

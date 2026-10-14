@@ -22,6 +22,11 @@ def apply(html):
         for old,new,label in changes:
             result=rep(result,old,new,label,'v10.17 Inventory')
         edit(section,result,start)
+    scope('function inv87Facts(e){','const inv87Items = F =>',[
+        ("const loc = report && !main ? 'No drop-off yet - report to the pit lane' : main || (bs.length ? 'beside ' + bs.join(', ') : '') || (D ? 'the spot the description names' : 'no location on the map yet');",
+         "const loc = report && !main ? 'No drop-off yet - report to the pit lane' : main || (bs.length ? 'beside ' + bs.join(', ') : '') || (D ? 'the spot the description names' : P.kind === 'master' ? 'Master-plan position · ' + a.key : 'no location on the map yet');",
+         'Describe an existing master-plan position when landmark text is absent'),
+    ])
     edit('return {t: invTypeKey(l, a), item: l.item, asked,onq: CurrentStock996.quantity(a,l.item,td,toiletArrival962(a,l.item,td,on ? (sup != null ? sup + restArrived(a, l.item) : asked) : 0))};',
          'const rawReceived=toiletArrival962(a,l.item,td,on ? (sup != null ? sup + restArrived(a, l.item) : asked) : 0), received1017=CurrentStock996.received(a,l.item,td,rawReceived), ordered1017=Inventory1017.ordered(a,l);\n return {t: invTypeKey(l, a), item: l.item, asked:ordered1017,received1017,remaining1017:Math.max(0,ordered1017-received1017),onq: CurrentStock996.quantity(a,l.item,td,rawReceived)};',
          'Separate requested, received and current stock at each typed line')

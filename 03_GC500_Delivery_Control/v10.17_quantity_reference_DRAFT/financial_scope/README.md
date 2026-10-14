@@ -16,7 +16,7 @@ Daily hire, generators and ambiguous source allocations are excluded from this w
 
 Integration: `patch_financial_scope1017.apply(html)` after the quantity scope and sync components. No native migration or live-record write.
 
-Validation in progress against the final combined candidate. The preceding focused run passed 53 checks and the independent source/formula review passed six fixtures. Final evidence and unchanged-record financial parity are required before release. Raw results and all monetary values remain in private audit storage.
+The exact final combined candidate `5c0925948ce16c940fe56874da22a8b2980d0f87f005e382e67cb583542dac9f` passed all 55 focused checks, with zero browser errors or operational writes, native record 6075. The independent source/formula review passed six fixtures and the independent sync/cache/subsequent-receipt review passed 18 checks. All 72 unchanged-record parity checks also pass: 20 full financial domains are identical to the live v10.16 baseline, including source rates, contract allocations, actual charges, supplier costs, P&L, branches and generator pricing. This component is ready for integration/publication under the root release process. Raw results and all monetary values remain in private audit storage.
 
 ```bash
 NODE_PATH=/path/to/node_modules CHROMIUM_PATH=/usr/bin/chromium \

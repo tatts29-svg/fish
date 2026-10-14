@@ -1,4 +1,4 @@
-# GC500 quantities, equipment and map recheck — in progress
+# GC500 quantities, equipment and map recheck
 
 Author: Andrew Fisher
 
@@ -16,13 +16,16 @@ Verified coverage on native version 6075:
 - All 202 source reference rows reconcile to live records, reachable context or explicit deletion. No unidentified historical delivery is turned into a new asset.
 - Current parent-to-map quantity and status fields, all published point transforms, reference search and exceptional routes checked on desktop and phone. Exact GPS points, plan-tag positions, representative area anchors and unplaced requests retain distinct meanings.
 
-Confirmed corrections being tested:
+Confirmed corrections included in the v10.17 candidate:
 
 - Collection plans duplicate two forklift aliases and a historical VMS relocation, and retain a moved VMS at its old pickup quantity.
 - Inventory treats a moved or collected unit as still awaiting delivery because it subtracts current stock instead of historical receipt quantities.
 - Two known source-only supplier requests are omitted from Inventory and lose their quantity/provenance in map cards.
 - Two barrier reinstatement workfronts count 64 repeat placements as new supply.
 - Concert generator coordinates are saved correctly, but the drawing projection offsets the displayed marker by approximately 24 metres.
+- Inventory delivery dates for 21 outstanding references use old programme dates instead of the current supplier run allocations. Split dates now retain their quantities, with locations counted separately from delivery stops.
+- Planned quantity increases reuse older Complete and labour selections, inventing arrivals and actual charges. The quantity edit now carries its original actual evidence through save, sync and reload; new units remain planned. Existing supplier ownership, manually selected stairs and actual hire quantities remain separate from forecast scope.
+- Inventory print cards can overflow A4 pages when long destination details or reinstatement notes are included. The candidate reserves the required space and retains maps and QR codes where a verified destination exists.
 
 Andrew has separately requested six FWF added back to WC09. Four FWF are already received there. Whether six means additional units or the new total remains a pending clarification; no receipt, identity, completion or quantity is being invented while it is unresolved.
 

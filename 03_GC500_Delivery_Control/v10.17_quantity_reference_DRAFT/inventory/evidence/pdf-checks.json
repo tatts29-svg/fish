@@ -1,0 +1,36 @@
+{
+  "name": "GC500_Inventory_All_2026-10-14.pdf",
+  "pages": 9,
+  "size": 3927641,
+  "orient": [
+    "lan",
+    "lan",
+    "por",
+    "por",
+    "por",
+    "por",
+    "por",
+    "por",
+    "por"
+  ],
+  "nativeVersion": 6075,
+  "unchanged": true,
+  "author": "Andrew Fisher",
+  "errors": [],
+  "requests": {
+    "page": 1,
+    "live": 153,
+    "blocked": 0,
+    "blockedMapSessions": 1
+  },
+  "pageSha256": "b9af9ed35e57588d1ec8d6d5712e565a7be02265825e4dd570c8dfc7f86a7609",
+  "pdfSha256": "9846883987a7d725168a45eca2134a2a15e48826636e098b5d8b8ce5327c1027",
+  "a4BoundsVerified": true,
+  "visualPagesInspected": [
+    1,
+    4,
+    7,
+    9
+  ],
+  "notes": "Actual native Inventory export, two A4 landscape summary pages and seven A4 portrait location pages. Phone source request card and PDF summary, source-only destination, longest water barrier name, and last page inspected; no clipping. Raw PDF/images remain private."
+}

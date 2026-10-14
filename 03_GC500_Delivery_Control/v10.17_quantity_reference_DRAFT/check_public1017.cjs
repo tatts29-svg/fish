@@ -20,7 +20,7 @@ const {open}=require('../record_14Oct2026_purchase_order/readonly_page.cjs');
   check('Barrier reinstatements separated from new supply',tl2.asked===311&&tl2.on===76&&Inventory1017.remaining(tl2)===235&&waterBarrierPlacements1017().reduce((n,r)=>n+r.quantity,0)===64);
   check('All barrier workfronts retained',Object.keys(tl2.refs).length===15);
   const supplier=Supplier996.model(),out=Inventory1017.outstanding(I,'*');
-  check('Outstanding supplier unit total remains shared',supplier.remaining.reduce((n,r)=>n+r.count,0)===52);
+  check('Outstanding supplier unit total remains shared',supplier.remaining.reduce((n,r)=>n+r.remaining,0)===52);
   check('Source-only requests have no invented native assets',out.filter(r=>r.source1017).length===2&&out.filter(r=>r.source1017).every(r=>!assetOf(r.key)));
   const wc=chargeLines(assetOf('WC09'));
   check('WC09 unchanged while exact requested total is unresolved',wc.find(r=>r.item==='FWF').quantity===4&&wc.find(r=>r.item==='Pee Panel').quantity===6&&wc.filter(r=>r.item!=='FWF'&&r.item!=='Pee Panel').reduce((n,r)=>n+qtyOf(r),0)===2);

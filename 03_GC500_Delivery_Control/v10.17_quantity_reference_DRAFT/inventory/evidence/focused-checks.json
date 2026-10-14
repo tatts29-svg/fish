@@ -91,6 +91,17 @@
       "pass": true
     },
     {
+      "name": "Split-reference fixture labels unique locations separately from dated stops",
+      "pass": true,
+      "detail": {
+        "drillStops": 26,
+        "drillLocations": 25,
+        "tradeStops": 27,
+        "tradeLocations": 26,
+        "printedLocations": 26
+      }
+    },
+    {
       "name": "Native records source data and contracts unchanged",
       "pass": true
     },
@@ -213,9 +224,9 @@
   "errors": [],
   "requests": {
     "page": 1,
-    "live": 116,
+    "live": 115,
     "blocked": 0,
     "blockedMapSessions": 1
   },
-  "sha256": "d3967f490e778ee1d1b9620aea7a4dee28d40e0aee8eaa7bfe45c71159428175"
+  "sha256": "b9af9ed35e57588d1ec8d6d5712e565a7be02265825e4dd570c8dfc7f86a7609"
 }
