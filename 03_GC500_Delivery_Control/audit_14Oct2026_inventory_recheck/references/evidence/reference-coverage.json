@@ -1,0 +1,31 @@
+{
+  "author": "Andrew Fisher",
+  "sha256": "3cbfd0d5c9bd53f02d5a89b274e83ee0c2d2c8dc17b03da59b68cf3a3db8673c",
+  "nativeVersion": 6075,
+  "coverage": {
+    "sourceRows": 202,
+    "currentReferences": 182,
+    "cancelledWithinCurrent": 6,
+    "contextOnlyReferences": 18,
+    "deletedSourceRows": 2,
+    "searchableReferences": 200,
+    "typedPlannedLines": 191,
+    "contractRowsReviewed": 322,
+    "explicitContractAllocations": 148,
+    "projectedNativeUnitRows": 124,
+    "indexedUnitRows": 365,
+    "programmeEntries": 230,
+    "sourceOnlySupplierRequests": 2,
+    "renderedExceptionalRoutes": 25,
+    "physicalSourceAliases": 2
+  },
+  "result": {
+    "checks": 2193,
+    "passed": 2193
+  },
+  "failures": [],
+  "unresolvedData": [
+    "T0233 has an old native onsite/completion record but no current reference, unit, map, source task or removal link. Its identity is unverified; no equipment or charge is inferred."
+  ],
+  "scope": "Reference and link coverage only. Current-stock/Demob arithmetic and physical map accuracy are separate audit scopes. Historical source-only rows, cancelled rows and drawing contexts are not new onsite units. No source/native/app edits."
+}

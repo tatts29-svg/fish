@@ -1,0 +1,78 @@
+{
+  "author": "Andrew Fisher",
+  "parentBaseSha256": "3cbfd0d5c9bd53f02d5a89b274e83ee0c2d2c8dc17b03da59b68cf3a3db8673c",
+  "modelChecks": 10,
+  "manifestChecks": 7,
+  "browser": {
+    "candidate-desktop": {
+      "nativeVersion": 6075,
+      "checks": 28,
+      "passed": true,
+      "failedNames": [],
+      "models": {
+        "active": 176,
+        "items": 378,
+        "categories": 23,
+        "masterEntries": 149,
+        "fallbackPins": 2,
+        "unplaced": 27,
+        "quantityDiff": [],
+        "statusDiff": [],
+        "missing": [],
+        "masterDiff": [],
+        "categoryDiff": [],
+        "duplicates": [],
+        "invalidBounds": []
+      },
+      "errors": [],
+      "counts": {
+        "page": 1,
+        "live": 216,
+        "blocked": 0,
+        "blockedMapSessions": 1
+      }
+    },
+    "candidate-phone": {
+      "nativeVersion": 6075,
+      "checks": 28,
+      "passed": true,
+      "failedNames": [],
+      "models": {
+        "active": 176,
+        "items": 378,
+        "categories": 23,
+        "masterEntries": 149,
+        "fallbackPins": 2,
+        "unplaced": 27,
+        "quantityDiff": [],
+        "statusDiff": [],
+        "missing": [],
+        "masterDiff": [],
+        "categoryDiff": [],
+        "duplicates": [],
+        "invalidBounds": []
+      },
+      "errors": [],
+      "counts": {
+        "page": 1,
+        "live": 167,
+        "blocked": 0,
+        "blockedMapSessions": 1
+      }
+    }
+  },
+  "machinePreparation": {
+    "author": "Andrew Fisher",
+    "baseManifestSha256": "712e195b0207dc59690dab0978353091328d2a3b6d492e4019164a36e2c63587",
+    "candidateManifestSha256": "a62b6257d870c181bc7ffc7f2c3c4ef589c3ab93696ffeb7c115ff66ff1a7fc0",
+    "changedFiles": {
+      "explorer/explorer.js": "78d4580651df4dcaacce6298cc72ecdff4c24721bfe0b6183073f16a87b45bc6",
+      "explorer/explorer-merge.js": "39b9d017988e33a875b92072fbd1b3be41118d0df4958ff7b1fc356104f3deb7",
+      "explorer/index.html": "a14b077d8dc059c1aeb35cb7b4f0c18053a889edf77379db02df8067c432385c"
+    },
+    "otherFilesPreserved": 230,
+    "published": false,
+    "recordWrites": 0
+  },
+  "parentGuardChecks": 3
+}
