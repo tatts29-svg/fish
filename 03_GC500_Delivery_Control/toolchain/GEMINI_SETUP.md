@@ -13,13 +13,29 @@ On the computer, look for **Task** below the Gemini text box. Google documents
 browser interaction and remote code execution in Task mode. It requires a
 personal account aged 18+, Google AI Pro or Ultra, Keep Activity and Personal
 Intelligence. Australia is not in the documented excluded regions (EEA, Nigeria,
-Switzerland and UK). Availability on Andrew's account is still unconfirmed.
+Switzerland and UK). Andrew has confirmed that Task is visible in his account.
 
-If Task is available, use the prompt below to test access to the existing
-Codespace. **Task mode operating its browser terminal has not been verified.**
-Google's remote code environment is not automatically the Codespace, and its
-files and secrets are not automatically shared. Complete any requested GitHub
-sign-in yourself in the browser, never in the conversation.
+**Latest Task-mode report — 14 Oct 2026:** Argon reports that GitHub sign-in,
+browser access to the existing Codespace, an isolated Bash terminal, command
+execution, Git history and remote-branch documentation reads all worked. Andrew
+relayed this report; it has not been directly observed by the setup agent.
+Argon reports only `/workspaces/fish` on the Claude branch in this Codespace,
+with no secondary worktree and `GC500_EDIT_TOKEN` unset. This differs from the
+earlier CLI worktree report below; verify the current Codespace and Git worktree
+list rather than assuming the earlier setup exists here. GitHub write access,
+build tests from the app and publishing remain unverified.
+
+The next setup action is to create the missing `/workspaces/fish-gemini` worktree
+from the current `origin/codex/gc500-current-release-03oct`, after inspecting the
+worktree list and fetching origin. Reuse an existing correct worktree if present.
+Preserve the Claude checkout and any changes; do not reset, delete or force a
+branch. Recheck the build tools in this actual workspace. Installing an edit key
+is separate from creating the worktree.
+
+For a fresh Task session, use the read-only access prompt below first. Google's
+remote code environment is not automatically the Codespace, and its files and
+secrets are not automatically shared. Complete any requested sign-in in the
+browser; do not include authentication codes or credentials in setup reports.
 
 ```text
 Use Task mode for a read-only GC500 setup check. Open
@@ -52,7 +68,7 @@ being in the US; this is not a documented setup route for Andrew in Australia.
 
 ## Prepared CLI environment — secondary option
 
-**CLI setup state — 14 Oct 2026:** Andrew reports Gemini running in the separate
+**Earlier CLI setup report — 14 Oct 2026:** Andrew reported Gemini running in the separate
 `/workspaces/fish-gemini` worktree on `codex/gc500-current-release-03oct`, initially
 at `0f375b77`. The existing Claude checkout remains intact. Gemini reports a clean
 checkout, installed Node dependencies and Playwright Chromium/OS libraries, a
