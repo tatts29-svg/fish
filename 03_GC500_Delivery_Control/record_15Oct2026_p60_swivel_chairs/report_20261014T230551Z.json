@@ -1,0 +1,119 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261014T230551Z",
+ "finished": "2026-10-14T23:06:03.296Z",
+ "mode": "apply",
+ "spec": {
+  "ref": "P60",
+  "type": "Swivel chair",
+  "qty": 4,
+  "by": "Andrew Fisher",
+  "note": "Andrew, 15 Oct 2026 about 09:05 AEST in Claude chat: P60 can we add swivel chairs qty 4"
+ },
+ "pageSha256": "681da5c7c631a5ccefe25a0f294020feb79a204e2e89211ebb7ff191a9e73dac",
+ "version": {
+  "before": 6163,
+  "after": 6166
+ },
+ "updated": {
+  "before": "2026-10-14T23:02:30.797Z",
+  "after": "2026-10-14T23:06:02.350Z"
+ },
+ "stage": {
+  "added": {
+   "type": "Swivel chair",
+   "qty": 4,
+   "as_written": "4x Swivel chair",
+   "added_at": "2026-10-14T23:05:58.866Z",
+   "added_by": "Andrew Fisher"
+  },
+  "rows": 2
+ },
+ "writes": [
+  {
+   "key": "deleted/back~2f~acc~2f~P60~2f~Swivel~20~chair~7c~4x~20~Swivel~20~chair~7c~2026-10-14T23:05:58.866Z",
+   "status": 200
+  },
+  {
+   "key": "accessories/P60",
+   "status": 200
+  },
+  {
+   "key": "by/deleted~2f~back~2f~acc~2f~P60~2f~Swivel~20~chair~7c~4x~20~Swivel~20~chair~7c~2026-10-14T23:05:58.866Z",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 1,
+ "docs": {
+  "before": {
+   "deleted/back~2f~acc~2f~P60~2f~Swivel~20~chair~7c~4x~20~Swivel~20~chair~7c~2026-10-14T23:05:58.866Z": null,
+   "accessories/P60": {
+    "_k": "P60",
+    "v": [
+     {
+      "type": "Air conditioner",
+      "qty": 1,
+      "qty_stated": true,
+      "as_written": "Air conditioner",
+      "asset_no": "1267597",
+      "asset_no_state": "entered here",
+      "origin": "added in this page",
+      "source_task": null,
+      "_added": true,
+      "added_at": "2026-10-14T23:00:37.345Z",
+      "added_by": "Andrew Fisher"
+     }
+    ]
+   },
+   "by/deleted~2f~back~2f~acc~2f~P60~2f~Swivel~20~chair~7c~4x~20~Swivel~20~chair~7c~2026-10-14T23:05:58.866Z": null
+  },
+  "after": {
+   "deleted/back~2f~acc~2f~P60~2f~Swivel~20~chair~7c~4x~20~Swivel~20~chair~7c~2026-10-14T23:05:58.866Z": {
+    "_k": "back/acc/P60/Swivel chair|4x Swivel chair|2026-10-14T23:05:58.866Z",
+    "v": "2026-10-14T23:05:58.866Z"
+   },
+   "accessories/P60": {
+    "_k": "P60",
+    "v": [
+     {
+      "type": "Air conditioner",
+      "qty": 1,
+      "qty_stated": true,
+      "as_written": "Air conditioner",
+      "asset_no": "1267597",
+      "asset_no_state": "entered here",
+      "origin": "added in this page",
+      "source_task": null,
+      "_added": true,
+      "added_at": "2026-10-14T23:00:37.345Z",
+      "added_by": "Andrew Fisher"
+     },
+     {
+      "type": "Swivel chair",
+      "qty": 4,
+      "qty_stated": true,
+      "as_written": "4x Swivel chair",
+      "asset_no": null,
+      "asset_no_state": "not supplied",
+      "origin": "added in this page",
+      "source_task": null,
+      "_added": true,
+      "added_at": "2026-10-14T23:05:58.866Z",
+      "added_by": "Andrew Fisher"
+     }
+    ]
+   },
+   "by/deleted~2f~back~2f~acc~2f~P60~2f~Swivel~20~chair~7c~4x~20~Swivel~20~chair~7c~2026-10-14T23:05:58.866Z": {
+    "_k": "deleted/back/acc/P60/Swivel chair|4x Swivel chair|2026-10-14T23:05:58.866Z",
+    "v": "Andrew Fisher"
+   }
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}
