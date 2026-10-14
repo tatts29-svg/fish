@@ -1,0 +1,475 @@
+{
+ "author": "Andrew Fisher",
+ "built": "2026-10-14T20:02:44.630Z",
+ "issued": "2026-10-15",
+ "page_version": "v10.24",
+ "record_read_at": "2026-10-14T20:02:43.633Z",
+ "page_file": {
+  "name": "GC500_Delivery_Control_hosted.html",
+  "sha256": "2fb836de4ef39f75a8ede037954f92e44106d41db61184ac0cd700366b2b465b",
+  "bytes": 17741392
+ },
+ "boards": [
+  {
+   "pos": "01",
+   "title": "Gold Coast Highway (median strip), south of Queen St intersection",
+   "phase": "construction",
+   "session": false,
+   "lat": -27.9742,
+   "lon": 153.4186,
+   "inFrame": false,
+   "asset": "1211354",
+   "rego": ""
+  },
+  {
+   "pos": "02",
+   "title": "Waterways Drive northbound",
+   "phase": "construction",
+   "session": false,
+   "lat": -27.979,
+   "lon": 153.4228,
+   "inFrame": false,
+   "asset": "1211370",
+   "rego": ""
+  },
+  {
+   "pos": "03",
+   "title": "Gold Coast Highway (southbound), north of Breaker St intersection",
+   "phase": "construction",
+   "session": false,
+   "lat": -27.9804,
+   "lon": 153.4221,
+   "inFrame": false,
+   "asset": "1271129",
+   "rego": ""
+  },
+  {
+   "pos": "04",
+   "title": "Admiralty Drive eastbound, Gold Coast Highway intersection",
+   "phase": "construction",
+   "session": false,
+   "lat": -27.98672,
+   "lon": 153.427,
+   "inFrame": true,
+   "asset": "1191877",
+   "rego": ""
+  },
+  {
+   "pos": "05",
+   "title": "Gold Coast Highway (southbound), pit exit chevron",
+   "phase": "construction",
+   "session": false,
+   "lat": -27.988,
+   "lon": 153.4279,
+   "inFrame": true,
+   "asset": "1211404",
+   "rego": ""
+  },
+  {
+   "pos": "06",
+   "title": "Gold Coast Highway northbound at Birt Ave, median strip, 'The Marriott'",
+   "phase": "construction",
+   "session": false,
+   "lat": -27.9927,
+   "lon": 153.428,
+   "inFrame": true,
+   "asset": "1211359",
+   "rego": ""
+  },
+  {
+   "pos": "07",
+   "title": "Main Beach Parade southbound",
+   "phase": "construction",
+   "session": false,
+   "lat": -27.9781,
+   "lon": 153.429,
+   "inFrame": false,
+   "asset": "1182999",
+   "rego": ""
+  },
+  {
+   "pos": "08",
+   "title": "Gold Coast Highway northbound, south of Staghorn intersection",
+   "phase": "construction",
+   "session": false,
+   "lat": -27.9955,
+   "lon": 153.4277,
+   "inFrame": false,
+   "asset": "1211383",
+   "rego": ""
+  },
+  {
+   "pos": "22",
+   "title": "South of Sundale Bridge (northbound traffic), in the traffic switch lane at Tedder Ave intersection",
+   "phase": "construction",
+   "session": false,
+   "lat": -27.9812,
+   "lon": 153.4232,
+   "inFrame": true,
+   "asset": "",
+   "rego": ""
+  },
+  {
+   "pos": "23",
+   "title": "Gold Coast Highway (north of Sundale Bridge), eastern side of the road, for southbound traffic",
+   "phase": "construction",
+   "session": false,
+   "lat": -27.9748,
+   "lon": 153.4194,
+   "inFrame": false,
+   "asset": "",
+   "rego": ""
+  },
+  {
+   "pos": "02a",
+   "title": "Relocate VMS02 to Gold Coast Highway (southbound), top of path near S10",
+   "phase": "event",
+   "session": false,
+   "lat": -27.9834,
+   "lon": 153.4249,
+   "inFrame": true,
+   "asset": "1211370",
+   "rego": ""
+  },
+  {
+   "pos": "03a",
+   "title": "Relocate VMS03 to Gold Coast Highway (southbound), outside Gate 1",
+   "phase": "event",
+   "session": false,
+   "lat": -27.9817,
+   "lon": 153.4234,
+   "inFrame": true,
+   "asset": "1271129",
+   "rego": ""
+  },
+  {
+   "pos": "05a",
+   "title": "Relocate VMS05 to Gold Coast Highway (southbound), PB3",
+   "phase": "event",
+   "session": false,
+   "lat": -27.9826,
+   "lon": 153.4243,
+   "inFrame": true,
+   "asset": "1211404",
+   "rego": ""
+  },
+  {
+   "pos": "07a",
+   "title": "Relocate VMS07 to the eastern end of Macintosh Island Park bridge",
+   "phase": "event",
+   "session": false,
+   "lat": -27.9857,
+   "lon": 153.4296,
+   "inFrame": true,
+   "asset": "1182999",
+   "rego": ""
+  },
+  {
+   "pos": "09",
+   "title": "Gold Coast Highway (northbound), north of T E Peters Dr intersection (southern end of the Convention Centre)",
+   "phase": "event",
+   "session": false,
+   "lat": -28.0288,
+   "lon": 153.4301,
+   "inFrame": false,
+   "asset": "1211404",
+   "rego": ""
+  },
+  {
+   "pos": "10",
+   "title": "Old Burleigh Rd (northbound), south of Queensland Ave intersection",
+   "phase": "event",
+   "session": false,
+   "lat": -28.0303,
+   "lon": 153.4338,
+   "inFrame": false,
+   "asset": "120T",
+   "rego": "V14221"
+  },
+  {
+   "pos": "11",
+   "title": "Macintosh Island Park, western end of Macintosh Island Park bridge",
+   "phase": "event",
+   "session": false,
+   "lat": -27.986,
+   "lon": 153.4286,
+   "inFrame": true,
+   "asset": "",
+   "rego": ""
+  },
+  {
+   "pos": "12",
+   "title": "Macintosh Island Park, co-located with WC16",
+   "phase": "event",
+   "session": false,
+   "lat": -27.985938,
+   "lon": 153.427692,
+   "inFrame": true,
+   "asset": "1211646",
+   "rego": ""
+  },
+  {
+   "pos": "13",
+   "title": "T14 DL — installed at the conclusion of track activity (Fri/Sat/Sun); stored in the Altus compound, Cypress Ave",
+   "phase": "event",
+   "session": true,
+   "lat": -27.9814,
+   "lon": 153.4244,
+   "inFrame": true,
+   "asset": "",
+   "rego": ""
+  },
+  {
+   "pos": "14",
+   "title": "Gold Coast Highway southbound — installed at the conclusion of track activity (Fri/Sat/Sun); stored in the Altus compound, Cypress Ave",
+   "phase": "event",
+   "session": true,
+   "lat": -27.9822,
+   "lon": 153.424,
+   "inFrame": true,
+   "asset": "",
+   "rego": ""
+  },
+  {
+   "pos": "15",
+   "title": "T4 runoff — installed at the conclusion of track activity (Fri/Sat/Sun); stored in the T2 runoff",
+   "phase": "event",
+   "session": true,
+   "lat": -27.991754,
+   "lon": 153.42945,
+   "inFrame": true,
+   "asset": "",
+   "rego": ""
+  },
+  {
+   "pos": "16",
+   "title": "T11 — installed at the conclusion of track activity (Fri/Sat/Sun); stored in the T11 runoff",
+   "phase": "event",
+   "session": true,
+   "lat": -27.981727,
+   "lon": 153.429072,
+   "inFrame": true,
+   "asset": "",
+   "rego": ""
+  },
+  {
+   "pos": "17",
+   "title": "T12 runoff — installed at the conclusion of track activity (Fri/Sat/Sun); stored in the T10 runoff",
+   "phase": "event",
+   "session": true,
+   "lat": -27.9809,
+   "lon": 153.4277,
+   "inFrame": false,
+   "asset": "",
+   "rego": ""
+  },
+  {
+   "pos": "18",
+   "title": "Ocean Ave (westbound), Surfers Paradise Blvd intersection — Roadtek to remove/install Fri/Sat/Sun",
+   "phase": "event",
+   "session": false,
+   "lat": -27.993326,
+   "lon": 153.429388,
+   "inFrame": true,
+   "asset": "",
+   "rego": ""
+  },
+  {
+   "pos": "19",
+   "title": "Concert egress, within the Palm Bar BOH compound",
+   "phase": "event",
+   "session": false,
+   "lat": -27.988,
+   "lon": 153.4283,
+   "inFrame": true,
+   "asset": "",
+   "rego": ""
+  },
+  {
+   "pos": "20",
+   "title": "The Esplanade (southbound), next to P60",
+   "phase": "event",
+   "session": false,
+   "lat": -27.99356,
+   "lon": 153.43025,
+   "inFrame": true,
+   "asset": "",
+   "rego": ""
+  },
+  {
+   "pos": "21",
+   "title": "Staghorn Ave / Surfers Paradise Boulevard intersection (eastbound)",
+   "phase": "event",
+   "session": false,
+   "lat": -27.9952,
+   "lon": 153.4293,
+   "inFrame": false,
+   "asset": "",
+   "rego": ""
+  },
+  {
+   "pos": "24",
+   "title": "The Esplanade before Staghorn Ave intersection (northbound)",
+   "phase": "event",
+   "session": false,
+   "lat": -27.996,
+   "lon": 153.4306,
+   "inFrame": false,
+   "asset": "",
+   "rego": ""
+  }
+ ],
+ "harness": {
+  "blocked_writes": 0,
+  "live_requests": 48,
+  "page_errors": []
+ },
+ "pack": {
+  "file": "pdfs/GC500_VMS_Plan_Pack_2026-10-15_Issued.pdf",
+  "bytes": 2707868,
+  "sha256": "c1b087853f87e68bfb81b64f57acde3a31d593523bd8cc38c4f3aaa74754bcd9",
+  "pages": 28,
+  "fit": [
+   {
+    "height": 902,
+    "avail": 1070,
+    "zoom": 1
+   },
+   {
+    "height": 867,
+    "avail": 1070,
+    "zoom": 1
+   },
+   {
+    "height": 902,
+    "avail": 1070,
+    "zoom": 1
+   },
+   {
+    "height": 867,
+    "avail": 1070,
+    "zoom": 1
+   },
+   {
+    "height": 902,
+    "avail": 1070,
+    "zoom": 1
+   },
+   {
+    "height": 867,
+    "avail": 1070,
+    "zoom": 1
+   },
+   {
+    "height": 867,
+    "avail": 1070,
+    "zoom": 1
+   },
+   {
+    "height": 902,
+    "avail": 1070,
+    "zoom": 1
+   },
+   {
+    "height": 867,
+    "avail": 1070,
+    "zoom": 1
+   },
+   {
+    "height": 902,
+    "avail": 1070,
+    "zoom": 1
+   },
+   {
+    "height": 867,
+    "avail": 1070,
+    "zoom": 1
+   },
+   {
+    "height": 902,
+    "avail": 1070,
+    "zoom": 1
+   },
+   {
+    "height": 867,
+    "avail": 1070,
+    "zoom": 1
+   },
+   {
+    "height": 902,
+    "avail": 1070,
+    "zoom": 1
+   },
+   {
+    "height": 867,
+    "avail": 1070,
+    "zoom": 1
+   },
+   {
+    "height": 910,
+    "avail": 1070,
+    "zoom": 1
+   },
+   {
+    "height": 867,
+    "avail": 1070,
+    "zoom": 1
+   },
+   {
+    "height": 902,
+    "avail": 1070,
+    "zoom": 1
+   },
+   {
+    "height": 867,
+    "avail": 1070,
+    "zoom": 1
+   },
+   {
+    "height": 918,
+    "avail": 1070,
+    "zoom": 1
+   },
+   {
+    "height": 867,
+    "avail": 1070,
+    "zoom": 1
+   },
+   {
+    "height": 902,
+    "avail": 1070,
+    "zoom": 1
+   },
+   {
+    "height": 867,
+    "avail": 1070,
+    "zoom": 1
+   },
+   {
+    "height": 902,
+    "avail": 1070,
+    "zoom": 1
+   },
+   {
+    "height": 867,
+    "avail": 1070,
+    "zoom": 1
+   },
+   {
+    "height": 987,
+    "avail": 1070,
+    "zoom": 1
+   },
+   {
+    "height": 867,
+    "avail": 1070,
+    "zoom": 1
+   },
+   {
+    "height": 902,
+    "avail": 1070,
+    "zoom": 1
+   }
+  ]
+ }
+}
