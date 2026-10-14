@@ -1,0 +1,235 @@
+{
+ "checks": [
+  {
+   "n": "P60 pin as computed",
+   "ok": true,
+   "d": "{\"pt\":[0.86841,0.15109],\"ll\":[-27.993601,153.430601],\"near\":[\"Gate 6 (~45 m)\"],\"beside\":[\"P62\"],\"k\":[0.8684118,0.1508566],\"imgs\":[\"data:image/webp;base64\",\"data:image/webp;base64\"]}"
+  },
+  {
+   "n": "P60 footprint centre as computed",
+   "ok": true,
+   "d": "[0.8684118,0.1508566]"
+  },
+  {
+   "n": "P60 two master-plan pictures resolve in the page",
+   "ok": true,
+   "d": "[\"data:image/webp;base64\",\"data:image/webp;base64\"]"
+  },
+  {
+   "n": "P62 pin as computed",
+   "ok": true,
+   "d": "{\"pt\":[0.87538,0.15145],\"ll\":[-27.993707,153.430597],\"near\":[\"Gate 6 (~55 m)\"],\"beside\":[\"P60\",\"GN06\",\"WC49\"],\"k\":[0.8754965,0.1512131],\"imgs\":[\"data:image/webp;base64\",\"data:image/webp;base64\"]}"
+  },
+  {
+   "n": "P62 footprint centre as computed",
+   "ok": true,
+   "d": "[0.8754965,0.1512131]"
+  },
+  {
+   "n": "P62 two master-plan pictures resolve in the page",
+   "ok": true,
+   "d": "[\"data:image/webp;base64\",\"data:image/webp;base64\"]"
+  },
+  {
+   "n": "P63 pin as computed",
+   "ok": true,
+   "d": "{\"pt\":[0.88582,0.15194],\"ll\":[-27.993866,153.430592],\"near\":[\"Gate 6 (~70 m)\"],\"beside\":[\"WC49\",\"OP54\"],\"k\":[0.8857155,0.1517528],\"imgs\":[\"data:image/webp;base64\",\"data:image/webp;base64\"]}"
+  },
+  {
+   "n": "P63 footprint centre as computed",
+   "ok": true,
+   "d": "[0.8857155,0.1517528]"
+  },
+  {
+   "n": "P63 two master-plan pictures resolve in the page",
+   "ok": true,
+   "d": "[\"data:image/webp;base64\",\"data:image/webp;base64\"]"
+  },
+  {
+   "n": "WC49 pin as computed",
+   "ok": true,
+   "d": "{\"pt\":[0.8823,0.15153],\"ll\":[-27.993812,153.430597],\"near\":[\"Gate 6 (~65 m)\"],\"beside\":[\"P62\",\"P63\"],\"k\":[0.8822874,0.1515609],\"imgs\":[\"data:image/webp;base64\",\"data:image/webp;base64\"]}"
+  },
+  {
+   "n": "WC49 footprint centre as computed",
+   "ok": true,
+   "d": "[0.8822874,0.1515609]"
+  },
+  {
+   "n": "WC49 two master-plan pictures resolve in the page",
+   "ok": true,
+   "d": "[\"data:image/webp;base64\",\"data:image/webp;base64\"]"
+  },
+  {
+   "n": "GN06 pin as computed",
+   "ok": true,
+   "d": "{\"pt\":[0.87709,0.14797],\"ll\":[-27.993733,153.43064],\"near\":[\"Gate 6 (~55 m)\"],\"beside\":[\"P62\",\"WC49\"],\"k\":[0.8770636,0.1485387],\"imgs\":[]}"
+  },
+  {
+   "n": "GN06 footprint centre as computed",
+   "ok": true,
+   "d": "[0.8770636,0.1485387]"
+  },
+  {
+   "n": "WC49 driver destination",
+   "ok": true,
+   "d": "{\"destination\":\"The Esplanade · Gate 6 compound · between P62 and P63\",\"coordinates\":\"-27.993812, 153.430597\"}"
+  },
+  {
+   "n": "picture table has 8 entries",
+   "ok": true,
+   "d": "8"
+  },
+  {
+   "n": "footer v10.20 or a later release carrying it",
+   "ok": true,
+   "d": "v10.21"
+  },
+  {
+   "n": "no page errors",
+   "ok": true,
+   "d": ""
+  },
+  {
+   "n": "no write reached the service",
+   "ok": true,
+   "d": ""
+  }
+ ],
+ "errors": [],
+ "counts": {
+  "page": 1,
+  "live": 117,
+  "blocked": 0
+ },
+ "got": {
+  "P60": {
+   "pt": [
+    0.86841,
+    0.15109
+   ],
+   "ll": [
+    -27.993601,
+    153.430601
+   ],
+   "near": [
+    "Gate 6 (~45 m)"
+   ],
+   "beside": [
+    "P62"
+   ],
+   "k": [
+    0.8684118,
+    0.1508566
+   ],
+   "imgs": [
+    "data:image/webp;base64",
+    "data:image/webp;base64"
+   ]
+  },
+  "P62": {
+   "pt": [
+    0.87538,
+    0.15145
+   ],
+   "ll": [
+    -27.993707,
+    153.430597
+   ],
+   "near": [
+    "Gate 6 (~55 m)"
+   ],
+   "beside": [
+    "P60",
+    "GN06",
+    "WC49"
+   ],
+   "k": [
+    0.8754965,
+    0.1512131
+   ],
+   "imgs": [
+    "data:image/webp;base64",
+    "data:image/webp;base64"
+   ]
+  },
+  "P63": {
+   "pt": [
+    0.88582,
+    0.15194
+   ],
+   "ll": [
+    -27.993866,
+    153.430592
+   ],
+   "near": [
+    "Gate 6 (~70 m)"
+   ],
+   "beside": [
+    "WC49",
+    "OP54"
+   ],
+   "k": [
+    0.8857155,
+    0.1517528
+   ],
+   "imgs": [
+    "data:image/webp;base64",
+    "data:image/webp;base64"
+   ]
+  },
+  "WC49": {
+   "pt": [
+    0.8823,
+    0.15153
+   ],
+   "ll": [
+    -27.993812,
+    153.430597
+   ],
+   "near": [
+    "Gate 6 (~65 m)"
+   ],
+   "beside": [
+    "P62",
+    "P63"
+   ],
+   "k": [
+    0.8822874,
+    0.1515609
+   ],
+   "imgs": [
+    "data:image/webp;base64",
+    "data:image/webp;base64"
+   ]
+  },
+  "GN06": {
+   "pt": [
+    0.87709,
+    0.14797
+   ],
+   "ll": [
+    -27.993733,
+    153.43064
+   ],
+   "near": [
+    "Gate 6 (~55 m)"
+   ],
+   "beside": [
+    "P62",
+    "WC49"
+   ],
+   "k": [
+    0.8770636,
+    0.1485387
+   ],
+   "imgs": []
+  },
+  "footer": "v10.21",
+  "details": {
+   "destination": "The Esplanade · Gate 6 compound · between P62 and P63",
+   "coordinates": "-27.993812, 153.430597"
+  },
+  "imgTable": 8
+ }
+}

@@ -1,0 +1,219 @@
+{
+ "author": "Andrew Fisher",
+ "page": "/home/user/fish/03_GC500_Delivery_Control/build/GC500_v10.19/GC500_Delivery_Control_hosted.html",
+ "pass": true,
+ "checks": 31,
+ "failed": [],
+ "results": [
+  {
+   "name": "4647517 value field shows $26,695.00",
+   "ok": true,
+   "info": {
+    "value": "$26,695.00",
+    "type": "text",
+    "inputmode": "decimal",
+    "maxWidth": "110px",
+    "w": 110,
+    "textFits": true
+   }
+  },
+  {
+   "name": "4647519 value field shows $28,246.50",
+   "ok": true,
+   "info": {
+    "value": "$28,246.50",
+    "type": "text",
+    "inputmode": "decimal",
+    "maxWidth": "110px",
+    "w": 110,
+    "textFits": true
+   }
+  },
+  {
+   "name": "4647520 value field is empty (no value recorded)",
+   "ok": true,
+   "info": {
+    "value": "",
+    "type": "text",
+    "inputmode": "decimal",
+    "maxWidth": "110px",
+    "w": 110,
+    "textFits": true
+   }
+  },
+  {
+   "name": "value field is a text field with a decimal keypad, still 110px wide as v10.18 built it",
+   "ok": true
+  },
+  {
+   "name": "the currency text fits inside the field ($50,154.00 and $28,246.50, no overflow)",
+   "ok": true,
+   "info": {
+    "w": 110
+   }
+  },
+  {
+   "name": "poParseMoney1019('$26,695.00') === '26695.00' and Number(...) === 26695",
+   "ok": true,
+   "info": {
+    "a": "26695.00",
+    "n": 26695,
+    "b": "12345",
+    "e": "",
+    "z": "0",
+    "bad": "abc",
+    "badNum": false
+   }
+  },
+  {
+   "name": "poParseMoney1019('') === '' (an empty field clears the value, as before)",
+   "ok": true
+  },
+  {
+   "name": "a non-number still fails the existing Save check",
+   "ok": true
+  },
+  {
+   "name": "personWords1019 strips the agent suffix and leaves names alone",
+   "ok": true,
+   "info": []
+  },
+  {
+   "name": "Mark checked sits in the P/O cell; the actions column still holds only Save / Confirm",
+   "ok": true
+  },
+  {
+   "name": "on the view link Mark checked is hidden exactly like Save",
+   "ok": true,
+   "info": {
+    "viewonly": true,
+    "save": "none",
+    "mark": "none"
+   }
+  },
+  {
+   "name": "Fencing purchase-order card rendered",
+   "ok": true
+  },
+  {
+   "name": "Mark checked on every confirmed row that has no recorded check (5 rows)",
+   "ok": true,
+   "info": {
+    "markButtons": [
+     "4647508",
+     "4647509",
+     "4647515",
+     "4647517",
+     "4647519"
+    ],
+    "confirmed": [
+     "4647508",
+     "4647509",
+     "4647515",
+     "4647517",
+     "4647519"
+    ],
+    "withChecked": []
+   }
+  },
+  {
+   "name": "no Mark checked on the unconfirmed 4647520",
+   "ok": true
+  },
+  {
+   "name": "4647519 row says confirmed by Andrew Fisher without the agent suffix (record carries one)",
+   "ok": true,
+   "info": " 4647519 · $28,246.50✓ Supplier dockets match P/OMore info · supplier pricingCopy of P003-25003-01-GC600 2026_Coates Hire Fencing Programme - WEEK 2 - INV TOTAL"
+  },
+  {
+   "name": "4647519 row still shows ✓ Supplier dockets match P/O",
+   "ok": true
+  },
+  {
+   "name": "no agent suffix anywhere on the purchase-order card",
+   "ok": true
+  },
+  {
+   "name": "checked-state style installed once",
+   "ok": true
+  },
+  {
+   "name": "poAll layers the checked field through to the row",
+   "ok": true
+  },
+  {
+   "name": "4647517 row shows ✓ P/O checked · Andrew Fisher (no \"via Codex\")",
+   "ok": true,
+   "info": "<div class=\"po-checked1019\"><b>✓ P/O checked</b><span class=\"w\"> · Andrew Fisher · 15 Oct 10:40</span></div>"
+  },
+  {
+   "name": "checked line carries the stamp in AEST (2026-10-15T00:40Z is 15 Oct 10:40)",
+   "ok": true
+  },
+  {
+   "name": "4647519 row still shows ✓ Supplier dockets match P/O beside the in-memory check",
+   "ok": true
+  },
+  {
+   "name": "Mark checked gone from the checked 4647517 row, kept on the other confirmed rows",
+   "ok": true,
+   "info": {
+    "markButtons": [
+     "4647508",
+     "4647509",
+     "4647515",
+     "4647519"
+    ],
+    "confirmed": [
+     "4647508",
+     "4647509",
+     "4647515",
+     "4647517",
+     "4647519"
+    ]
+   }
+  },
+  {
+   "name": "in-memory record restored",
+   "ok": true
+  },
+  {
+   "name": "Pre-starts tab rendered with its rows (44 rows, documents ready)",
+   "ok": true,
+   "info": {
+    "recordSuffixes": 25,
+    "total": 42
+   }
+  },
+  {
+   "name": "the record carries agent suffixes on pre-starts, so this check proves something",
+   "ok": true
+  },
+  {
+   "name": "Pre-starts innerText has no \"via Codex\"",
+   "ok": true
+  },
+  {
+   "name": "Pre-starts has no agent suffix at all, shown or folded",
+   "ok": true
+  },
+  {
+   "name": "Pre-starts still names the person",
+   "ok": true
+  },
+  {
+   "name": "no page errors",
+   "ok": true,
+   "info": []
+  },
+  {
+   "name": "no write reached the service (the harness aborts them)",
+   "ok": true,
+   "info": {
+    "page": 1,
+    "live": 63,
+    "blocked": 0
+   }
+  }
+ ]
+}
