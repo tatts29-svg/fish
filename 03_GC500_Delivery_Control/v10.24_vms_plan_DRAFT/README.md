@@ -16,13 +16,14 @@ vms reference in case some have special instructions. I think have one big huge 
   demob 01–08, 22, 23; event 02a, 03a, 05a, 07a (the relocations of 02, 03, 05, 07), 09–12, 18–21, 24; the five
   end-of-session boards 13–17 (in at the conclusion of track activity Fri/Sat/Sun, stored in the Altus compound on
   Cypress Ave, the T2, T11 and T10 runoffs). Filters: all, construction, event, end of session.
-- **Each card**: the plan's words for the spot; the phase and dates; where it comes from or moves to; **two
-  satellite close-ups of our own on every board** — the live Mapbox/Maxar imagery the page's satellite board uses,
+- **Each card**: the plan's words for the spot; the phase and dates; where it comes from or moves to; **four
+  satellite views of our own on every board** — the live Mapbox/Maxar imagery the page's satellite board uses,
   drawn as static pictures centred on the pin with the service's own map token (the one Andrew set on Railway on
-  18 Sep; restricted to this address, asked of the service once per page load): a close-up about 110 m across and the
-  area about 480 m across, north up, street names on, an orange ring and cross on the pin, a scale bar and a north
-  mark drawn over them by the page (Andrew, 15 Oct about 06:05 AEST: "I want our shots better. I want whoever is placing
-  these to have confidence so they know where to go"); if the service gives no key, the registered 2022 aerial stands
+  18 Sep; restricted to this address, asked of the service once per page load): the exact spot about 50 m across,
+  a close-up about 110 m, the area about 480 m and the way in about 1.4 km, north up, street names on, an orange
+  ring and cross on the pin, a scale bar and a north mark drawn over them by the page (Andrew, 15 Oct about 06:05
+  AEST: "I want our shots better. I want whoever is placing these to have confidence so they know where to go";
+  about 06:20: "better pinned locations better drop off images so its clear.. 4 images if needed or more"); if the service gives no key, the registered 2022 aerial stands
   in where it covers the spot; **iEDM's own map crop and photo** for every position (the plan's pages, rendered and
   cropped, red dot and all); a **QR** that opens Google Maps driving directions to the pin and a Navigate button; the **pin**
   (lat, lon) and its basis; **VMS 20's two messages** with their times and facing; the **board** standing there
@@ -36,8 +37,8 @@ vms reference in case some have special instructions. I think have one big huge 
   link shows everything and changes nothing. The v9.13 VMS register on the Equipment tab is untouched and still feeds
   the board identity where a position names a contract board.
 - **Print**: `#print/vms/<pos>` one A4 sheet (the pre-start's print style): orange board number, the spot, phase and
-  dates, the two satellite close-ups side by side (the sheet waits for the map key and for every picture before the
-  print bar says ready), the plan crop beside a 34 mm QR with the pin and its basis, when, storage,
+  dates, the four satellite views (exact spot and close-up large, the area and the way in beside the plan crop; the
+  sheet waits for the map key and for every picture before the print bar says ready), then a 34 mm QR with the pin and its basis, when, storage,
   the messages, four identity boxes (board, asset number, number plate, in place), notes with write-in lines, placed
   by / date / checked by, and the issued line. `#print/vms/all` prints the whole plan, 28 pages, a page break before
   each. The **pack PDF** (`generate_vms.cjs` → `pdfs/GC500_VMS_Plan_Pack_2026-10-15_Issued.pdf`) is made from that
@@ -52,7 +53,11 @@ The D025 sheet's VMS callout bubbles were checked on the aerial first: they sit 
 the Nerang River), so they are not used. Every position is placed from the plan's own map crop against something the
 page already holds to the metre — the master plan's gates (G1, G8, G9, G10), turn markers (T2, T4, T11), WC16, P60, the
 pit lane line — or the named intersection (TomTom cross-street geocode, 15 Oct 2026), then checked as an orange ring on
-the 2022 aerial at 115 m across (`tests/shots/montage*.jpg`): every pin on its carriageway, verge or path. The accuracy
+the 2022 aerial at 115 m across and again on the live satellite at 50 m across (`tests/shots/montage*.jpg`). That
+50 m pass moved five pins onto the road they belong to (15 Oct 2026): VMS 01 onto the Gold Coast Highway median south
+of Queen St, VMS 03 about 15 m east onto the southbound lanes, VMS 09 onto the highway's eastern verge at the
+Convention Centre, VMS 10 onto Old Burleigh Rd at the Kurrawa roundabout, VMS 23 onto the highway north of the Sundale
+Bridge (`montage_moved_pins_*.jpg`); every pin is now on its carriageway, verge or path. The accuracy
 stated on each line (30–60 m) is the honest figure for a board placed from a plan; the pin taken on site with the phone
 button, or a lat/lon typed on the line, becomes the position of record and prints on the sheet. The live satellite
 pictures cover all 28 positions; the page's own 2022 aerial (the fallback) covers 17 (not 01, 02, 03, 07, 08, 09, 10,
@@ -81,12 +86,13 @@ PAGE=build/GC500_v10.24/GC500_Delivery_Control_hosted.html node v10.24_vms_plan_
 
 | check | result |
 |---|---|
-| view link, phone: 28 cards (10 + 13 + 5), a QR, a navigate link and the plan crop on each, satellite close-ups for every in-frame position, every field disabled, nothing pre-ticked, VMS 20's two messages, vms1 → 1211354 and VMS09 → 1211404, Brenden's note on 13, footer v10.24, no errors, no writes | see STATUS.md top entry |
-| edit practice, phone (every PUT aborted): asset, number plate, notes, a typed position; a non-Gold-Coast position and an unknown position refused; the in-place tick; one document, stamped and named; exactly the planned PUTs (loads, stamps, by); the card re-renders with the values | see STATUS.md top entry |
-| print path, desktop: `#print/vms/20` one sheet (two messages, QR, satellite and plan pictures, four identity boxes, zoom 1); `#print/vms/all` 28 sheets with 27 page breaks, every one fitted; Close restores the page | see STATUS.md top entry |
-| the other tabs route; the Equipment tab's VMS register fold is still there | see STATUS.md top entry |
-| desktop sweep / phone sweep | see STATUS.md top entry |
-| screenshots and the pack looked at | `tests/shots/` |
+| view link, phone: 28 cards (10 + 13 + 5), a QR, a navigate link and the plan crop on each, four satellite views on every card (112 pictures, all loaded), every field disabled, nothing pre-ticked, VMS 20's two messages, vms1 → 1211354 and VMS09 → 1211404, Brenden's note on 13, footer v10.24, no errors, no writes | PASS (24 of 24, `tests/test_vms1024_result.json`) |
+| edit practice, phone (every PUT aborted): asset, number plate, notes, a typed position; a non-Gold-Coast position and an unknown position refused; the in-place tick; one document, stamped and named; exactly the planned PUTs (loads, stamps, by); the card re-renders with the values | PASS, every PUT aborted by the harness |
+| print path, desktop: `#print/vms/20` one sheet (two messages, QR, four satellite views and the plan picture, four identity boxes, zoom 1); `#print/vms/all` 28 sheets with 27 page breaks, every one fitted; Close restores the page | PASS |
+| the other tabs route; the Equipment tab's VMS register fold is still there | PASS |
+| desktop sweep / phone sweep | 24 tabs each, 0 errors, 0 console, 0 writes |
+| the pack: 28 sheets, 140 of 140 pictures loaded, min zoom 1, 20,875,244 bytes, sha256 `c1903e0b1311e253…` | PASS (`evidence/build.json`) |
+| screenshots, the pin montages and the pack looked at | `tests/shots/` (`pack_sheet_01.png` is sheet 1 of the pack) |
 
 ## Source
 
@@ -94,4 +100,4 @@ PAGE=build/GC500_v10.24/GC500_Delivery_Control_hosted.html node v10.24_vms_plan_
 |---|---|
 | live v10.23 (base) | `d44a51537bd00a5a0d89cea58356fb39ce3a423c09faea62b77b546f99934b97` |
 | iEDM VMS001-26003-01 (private upload; on the record as a document since 9 Oct) | `9ef1527d…` |
-| candidate | see STATUS.md top entry |
+| candidate `build/GC500_v10.24/GC500_Delivery_Control_hosted.html` | `681da5c7c631a5ccefe25a0f294020feb79a204e2e89211ebb7ff191a9e73dac` |

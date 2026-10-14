@@ -21,11 +21,11 @@
    }
   },
   {
-   "name": "1 the service gave the map key and two satellite close-ups loaded on every card (56)",
+   "name": "1 the service gave the map key and four satellite views loaded on every card (112)",
    "ok": true,
    "detail": {
     "key": true,
-    "loaded": 56,
+    "loaded": 112,
     "failed": 0
    }
   },
@@ -85,14 +85,14 @@
     "kind": "vms1024",
     "pos": "20",
     "by": "Practice Operator 1024",
-    "at": "2026-10-14T20:12:20.641Z",
+    "at": "2026-10-14T20:29:16.743Z",
     "rego": "ABC123",
     "notes": "practice note",
     "lat": -27.99351,
     "lon": 153.43108,
     "posHow": "typed on the page",
     "posBy": "Practice Operator 1024",
-    "posAt": "2026-10-14T20:12:20.240Z",
+    "posAt": "2026-10-14T20:29:16.330Z",
     "acc": null,
     "inPlace": true
    }
@@ -145,7 +145,7 @@
    }
   },
   {
-   "name": "3 the VMS 20 sheet: two messages, QR, both satellite close-ups loaded, the plan picture, four identity boxes, fits one page",
+   "name": "3 the VMS 20 sheet: two messages, QR, four satellite views loaded, the plan picture, four identity boxes, fits one page",
    "ok": true,
    "detail": {
     "msgs": 2,

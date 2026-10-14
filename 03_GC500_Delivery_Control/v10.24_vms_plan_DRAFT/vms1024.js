@@ -49,7 +49,8 @@ function notes(b){ const r = rec(b.pos); return r && r.notes != null ? r.notes :
    address), as static pictures centred on the pin, north up, street names on - CLOSE about 110 m across, WIDE about
    480 m - with the ring, cross and scale bar drawn over them on the page. Without a key (no service answer) the
    registered 2022 aerial stands in where it covers the spot. */
-const SAT = {close: {z: 18.6, w: 640, h: 420}, wide: {z: 16.5, w: 640, h: 420}};
+const SAT = {closest: {z: 19.8, w: 640, h: 400, bar: 10, word: 'Exact spot'}, close: {z: 18.6, w: 640, h: 400, bar: 20, word: 'Close-up'}, area: {z: 16.5, w: 640, h: 360, bar: 100, word: 'The area'}, approach: {z: 15, w: 640, h: 360, bar: 250, word: 'The way in'}};
+const SAT_ORDER = ['closest', 'close', 'area', 'approach'];
 let keyPromise = null;
 function mapKey(){ try { return typeof liveMapKey === 'function' ? liveMapKey() : null; } catch (e) { return null; } }
 function askKey(){ /* the service's answer, asked once; the tab redraws when it lands, a sheet waits for it */
@@ -65,8 +66,8 @@ function satUrl(p, which){
 function metresPerPx(p, which){ const s = SAT[which] || SAT.close; return 78271.517 * Math.cos(p.lat * Math.PI / 180) / Math.pow(2, s.z); }
 function satFigure(p, which, cls){
  const url = satUrl(p, which); if (!url) return '';
- const s = SAT[which] || SAT.close, mpp = metresPerPx(p, which), across = Math.round(s.w * mpp / 10) * 10, bar = which === 'close' ? 20 : 100, barPct = (bar / mpp) / s.w * 100;
- return `<figure class="${cls} v1024-sat v1024-sat-${which}"><span class="v1024-im"><img src="${esc(url)}" alt="satellite ${which} ${across} m across" crossorigin="anonymous"><i class="v1024-ring"></i><span class="v1024-scale" style="width:${barPct.toFixed(2)}%">${bar} m</span><span class="v1024-north">N ↑</span></span><figcaption>${which === 'close' ? 'Close-up' : 'The area'} · satellite, about ${across} m across · north up · orange ring = the pin · © Mapbox © Maxar</figcaption></figure>`;
+ const s = SAT[which] || SAT.close, mpp = metresPerPx(p, which), across = Math.round(s.w * mpp / 10) * 10, bar = s.bar, barPct = (bar / mpp) / s.w * 100;
+ return `<figure class="${cls} v1024-sat v1024-sat-${which}"><span class="v1024-im"><img src="${esc(url)}" alt="satellite ${which} ${across} m across" crossorigin="anonymous"><i class="v1024-ring"></i><span class="v1024-scale" style="width:${barPct.toFixed(2)}%">${bar} m</span><span class="v1024-north">N ↑</span></span><figcaption>${esc(s.word)} · satellite, about ${across >= 1000 ? (across / 1000).toFixed(1) + ' km' : across + ' m'} across · north up · orange ring = the pin · © Mapbox © Maxar</figcaption></figure>`;
 }
 function aerial(pos, p, f){ /* a promise of the aerial close-up data URL, cached per position */
  const k = pos + '|' + (f || 0.12) + '|' + p.lat.toFixed(5) + ',' + p.lon.toFixed(5);
@@ -114,7 +115,7 @@ function card(b){
  return `<section class="card v1024-card${r.inPlace ? ' done' : ''}" data-pos="${esc(b.pos)}">
  <header class="v1024-h"><span class="v1024-no">${esc(label(b))}</span><div><h3>${esc(b.title)}</h3><p class="sub">${esc(phaseWord(b))}${b.from ? ' · moved from VMS ' + esc(b.from) : ''}${b.moves_to ? ' · moves to VMS ' + esc(b.moves_to) + ' for the event' : ''}${b.stored ? ' · stored: ' + esc(b.stored) : ''}${b.roadtek ? ' · Roadtek removes and reinstalls it Fri/Sat/Sun' : ''}${b.dates ? ' · ' + esc(b.dates) : ''}</p></div></header>
  <div class="v1024-pics">
-  ${mapKey() ? satFigure(p, 'close', 'v1024-pic') + satFigure(p, 'wide', 'v1024-pic') : `<figure class="v1024-pic v1024-air" data-air="${esc(b.pos)}">${fr ? '<div class="v1024-wait">satellite close-up loading…</div>' : '<div class="v1024-wait">' + (keyPromise ? 'no satellite key from the service; the plan’s map below' : 'asking the service for the satellite key…') + '</div>'}<figcaption>${fr ? 'Satellite (QLD 2022 aerial) · about 190 m across · orange ring = the pin' : 'Satellite'}</figcaption></figure>`}
+  ${mapKey() ? SAT_ORDER.map(w => satFigure(p, w, 'v1024-pic')).join('') : `<figure class="v1024-pic v1024-air" data-air="${esc(b.pos)}">${fr ? '<div class="v1024-wait">satellite close-up loading…</div>' : '<div class="v1024-wait">' + (keyPromise ? 'no satellite key from the service; the plan’s map below' : 'asking the service for the satellite key…') + '</div>'}<figcaption>${fr ? 'Satellite (QLD 2022 aerial) · about 190 m across · orange ring = the pin' : 'Satellite'}</figcaption></figure>`}
   <figure class="v1024-pic v1024-plan">${IMG[b.pos] ? `<img src="${IMG[b.pos]}" alt="iEDM plan crop for ${esc(label(b))}">` : '<div class="v1024-wait">plan crop not built</div>'}<figcaption>iEDM VMS plan, page ${esc(b.page)} · red dot = position, photo = the spot</figcaption></figure>
  </div>
  <div class="v1024-nav"><div class="v1024-qr">${qr(p, 3)}</div><div><b>Pin</b> ${p.lat.toFixed(6)}, ${p.lon.toFixed(6)}<br><small>${esc(p.how)}${p.by ? ' · ' + esc(p.by) + ' · ' + esc(when(p.at)) : ''}</small><br><a class="btn" href="${esc(nav(p))}" target="_blank" rel="noopener" data-ro>Navigate</a> <button type="button" class="btn" data-v1024-print="${esc(b.pos)}" data-ro>Print this sheet</button></div></div>
@@ -180,7 +181,11 @@ const CSS = `
 #dayprint .ps7.v1024 .v-title{font-size:10.5pt;font-weight:700;margin:3px 0 1px}
 #dayprint .ps7.v1024 .v-sub{font-size:7.2pt;color:#3b4246;margin:0 0 3px}
 #dayprint .ps7.v1024 .v-pics{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:3mm;align-items:start}
-#dayprint .ps7.v1024 .v-pics.live{grid-template-columns:minmax(0,1.25fr) minmax(0,1fr)}
+#dayprint .ps7.v1024 .v-pics.live{grid-template-columns:repeat(6,minmax(0,1fr))}
+#dayprint .ps7.v1024 .v-pics.live .v-big{grid-column:span 3}
+#dayprint .ps7.v1024 .v-pics.live .v-small{grid-column:span 2}
+#dayprint .ps7.v1024 .v-pics.live .v-plan img{max-height:52mm;object-fit:cover;object-position:top}
+#dayprint .ps7.v1024 .v-nav.live{grid-template-columns:34mm 1fr 1fr}
 #dayprint .ps7.v1024 .v-pic{margin:0;border:1px solid #c9cfd2;position:relative;overflow:hidden;background:#f3f4f5}
 #dayprint .ps7.v1024 .v-pic img{display:block;width:100%;height:auto}
 #dayprint .ps7.v1024 .v-pic figcaption{font-size:6.2pt;color:#3b4246;padding:1.5px 4px;background:#f3f4f5;border-top:1px solid #c9cfd2;position:relative}
@@ -220,7 +225,7 @@ async function sheetHtml(pos, o){
  await askKey();
  const live = !!mapKey();
  const air = !live && fr ? await aerial(b.pos, p, 0.12) : null;
- const pics = live ? satFigure(p, 'close', 'v-pic') + satFigure(p, 'wide', 'v-pic')
+ const pics = live ? SAT_ORDER.map(w => satFigure(p, w, 'v-pic ' + (w === 'closest' || w === 'close' ? 'v-big' : 'v-small'))).join('')
   : `<figure class="v-pic">${air ? `<img src="${air}" alt="satellite close-up">` : '<div class="v-none">No satellite picture: the service gave no map key and the page’s aerial does not cover this spot — use the plan crop and the QR</div>'}<figcaption>${air ? 'Satellite · QLD Government 2022 aerial · about 190 m across · orange ring and cross = the pin' : 'No satellite on the page for this spot'}</figcaption></figure>`;
  const msgs = (b.messages || []).map(m => `<div class="v-msg"><b>${esc(m.name)}</b> · ${esc(m.when)} · <i>${esc(m.face)}</i><code>${m.lines.map(esc).join('  ·  ')}</code></div>`).join('');
  const noteText = notes(b);
@@ -230,8 +235,8 @@ async function sheetHtml(pos, o){
  <div class="psh-r"><b>GC500 · 2026</b><span>SUPERCARS GOLD COAST 500</span><span>SURFERS PARADISE STREET CIRCUIT</span></div></header>
  <p class="v-title"><span class="v-no">${esc(label(b))}</span> &nbsp;${esc(b.title)}</p>
  <p class="v-sub">${esc(phaseWord(b))}${b.from ? ' · moved from VMS ' + esc(b.from) : ''}${b.moves_to ? ' · moves to VMS ' + esc(b.moves_to) + ' for the event' : ''}${b.stored ? ' · stored: ' + esc(b.stored) : ''}${b.roadtek ? ' · Roadtek removes and reinstalls it Fri/Sat/Sun' : ''}${b.dates ? ' · ' + esc(b.dates) : ''} · iEDM plan page ${esc(b.page)}</p>
- <div class="v-pics${live ? ' live' : ''}">${pics}</div>
- <div class="v-nav"><figure class="v-pic v-plan">${IMG[b.pos] ? `<img src="${IMG[b.pos]}" alt="iEDM plan crop">` : '<div class="v-none">plan crop not built</div>'}<figcaption>iEDM VMS plan \u00b7 red dot = the position \u00b7 photo = the spot</figcaption></figure><div>${qr(p, 4)}</div>
+ <div class="v-pics${live ? ' live' : ''}">${pics}${live ? `<figure class="v-pic v-small v-plan">${IMG[b.pos] ? `<img src="${IMG[b.pos]}" alt="iEDM plan crop">` : '<div class="v-none">plan crop not built</div>'}<figcaption>iEDM VMS plan \u00b7 red dot = the position \u00b7 photo = the spot</figcaption></figure>` : ''}</div>
+ <div class="v-nav${live ? ' live' : ''}">${live ? '' : `<figure class="v-pic v-plan">${IMG[b.pos] ? `<img src="${IMG[b.pos]}" alt="iEDM plan crop">` : '<div class="v-none">plan crop not built</div>'}<figcaption>iEDM VMS plan \u00b7 red dot = the position \u00b7 photo = the spot</figcaption></figure>`}<div>${qr(p, 4)}</div>
   <div class="v-k"><b>SCAN TO NAVIGATE</b>Google Maps driving directions to the pin<b>PIN</b><code>${p.lat.toFixed(6)}, ${p.lon.toFixed(6)}</code><b>POSITION BASIS</b>${esc(p.how)}${p.by ? ' · ' + esc(p.by) + ' ' + esc(when(p.at)) : ''}</div>
   <div class="v-k"><b>WHEN</b>${esc(b.session ? (PLAN.windows || {}).track || '' : b.phase === 'event' ? (PLAN.windows || {}).event || '' : (PLAN.windows || {}).construction || '')}${b.stored ? '<b>STORED BETWEEN SESSIONS</b>' + esc(b.stored) : ''}${b.from ? '<b>COMES FROM</b>VMS ' + esc(b.from) + ' (construction position)' : ''}${b.moves_to ? '<b>GOES TO</b>VMS ' + esc(b.moves_to) + ' for the event' : ''}</div></div>
  ${msgs}

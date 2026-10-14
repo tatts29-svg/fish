@@ -1,13 +1,13 @@
 {
  "author": "Andrew Fisher",
- "built": "2026-10-14T20:12:47.059Z",
+ "built": "2026-10-14T20:29:41.596Z",
  "issued": "2026-10-15",
  "page_version": "v10.24",
- "record_read_at": "2026-10-14T20:12:43.858Z",
+ "record_read_at": "2026-10-14T20:29:40.078Z",
  "page_file": {
   "name": "GC500_Delivery_Control_hosted.html",
-  "sha256": "3db28c7b8c12563145cd7a5717a602f461dae08ed4bc5fc6dfd3f8efe2f84609",
-  "bytes": 17747235
+  "sha256": "681da5c7c631a5ccefe25a0f294020feb79a204e2e89211ebb7ff191a9e73dac",
+  "bytes": 17748473
  },
  "boards": [
   {
@@ -15,11 +15,11 @@
    "title": "Gold Coast Highway (median strip), south of Queen St intersection",
    "phase": "construction",
    "session": false,
-   "lat": -27.9742,
-   "lon": 153.4186,
-   "inFrame": false,
+   "lat": -27.9737,
+   "lon": 153.42028,
    "asset": "1211354",
-   "rego": ""
+   "rego": "",
+   "board": "vms1"
   },
   {
    "pos": "02",
@@ -28,9 +28,9 @@
    "session": false,
    "lat": -27.979,
    "lon": 153.4228,
-   "inFrame": false,
    "asset": "1211370",
-   "rego": ""
+   "rego": "",
+   "board": "vms2"
   },
   {
    "pos": "03",
@@ -38,10 +38,10 @@
    "phase": "construction",
    "session": false,
    "lat": -27.9804,
-   "lon": 153.4221,
-   "inFrame": false,
+   "lon": 153.42225,
    "asset": "1271129",
-   "rego": ""
+   "rego": "",
+   "board": "vms3"
   },
   {
    "pos": "04",
@@ -50,9 +50,9 @@
    "session": false,
    "lat": -27.98672,
    "lon": 153.427,
-   "inFrame": true,
    "asset": "1191877",
-   "rego": ""
+   "rego": "",
+   "board": "vms4"
   },
   {
    "pos": "05",
@@ -61,9 +61,9 @@
    "session": false,
    "lat": -27.988,
    "lon": 153.4279,
-   "inFrame": true,
    "asset": "1211404",
-   "rego": ""
+   "rego": "",
+   "board": "vms5"
   },
   {
    "pos": "06",
@@ -72,9 +72,9 @@
    "session": false,
    "lat": -27.9927,
    "lon": 153.428,
-   "inFrame": true,
    "asset": "1211359",
-   "rego": ""
+   "rego": "",
+   "board": "vms6"
   },
   {
    "pos": "07",
@@ -83,9 +83,9 @@
    "session": false,
    "lat": -27.9781,
    "lon": 153.429,
-   "inFrame": false,
    "asset": "1182999",
-   "rego": ""
+   "rego": "",
+   "board": "vms7"
   },
   {
    "pos": "08",
@@ -94,9 +94,9 @@
    "session": false,
    "lat": -27.9955,
    "lon": 153.4277,
-   "inFrame": false,
    "asset": "1211383",
-   "rego": ""
+   "rego": "",
+   "board": "vms8"
   },
   {
    "pos": "22",
@@ -105,9 +105,9 @@
    "session": false,
    "lat": -27.9812,
    "lon": 153.4232,
-   "inFrame": true,
    "asset": "",
-   "rego": ""
+   "rego": "",
+   "board": "VMS22"
   },
   {
    "pos": "23",
@@ -115,10 +115,10 @@
    "phase": "construction",
    "session": false,
    "lat": -27.9748,
-   "lon": 153.4194,
-   "inFrame": false,
+   "lon": 153.4207,
    "asset": "",
-   "rego": ""
+   "rego": "",
+   "board": "VMS23"
   },
   {
    "pos": "02a",
@@ -127,9 +127,9 @@
    "session": false,
    "lat": -27.9834,
    "lon": 153.4249,
-   "inFrame": true,
    "asset": "1211370",
-   "rego": ""
+   "rego": "",
+   "board": "vms2"
   },
   {
    "pos": "03a",
@@ -138,9 +138,9 @@
    "session": false,
    "lat": -27.9817,
    "lon": 153.4234,
-   "inFrame": true,
    "asset": "1271129",
-   "rego": ""
+   "rego": "",
+   "board": "vms3"
   },
   {
    "pos": "05a",
@@ -149,9 +149,9 @@
    "session": false,
    "lat": -27.9826,
    "lon": 153.4243,
-   "inFrame": true,
    "asset": "1211404",
-   "rego": ""
+   "rego": "",
+   "board": "vms5"
   },
   {
    "pos": "07a",
@@ -160,9 +160,9 @@
    "session": false,
    "lat": -27.9857,
    "lon": 153.4296,
-   "inFrame": true,
    "asset": "1182999",
-   "rego": ""
+   "rego": "",
+   "board": "vms7"
   },
   {
    "pos": "09",
@@ -170,21 +170,21 @@
    "phase": "event",
    "session": false,
    "lat": -28.0288,
-   "lon": 153.4301,
-   "inFrame": false,
+   "lon": 153.43005,
    "asset": "1211404",
-   "rego": ""
+   "rego": "",
+   "board": "VMS09"
   },
   {
    "pos": "10",
    "title": "Old Burleigh Rd (northbound), south of Queensland Ave intersection",
    "phase": "event",
    "session": false,
-   "lat": -28.0303,
-   "lon": 153.4338,
-   "inFrame": false,
+   "lat": -28.02975,
+   "lon": 153.4341,
    "asset": "120T",
-   "rego": "V14221"
+   "rego": "V14221",
+   "board": "VMS10"
   },
   {
    "pos": "11",
@@ -193,9 +193,9 @@
    "session": false,
    "lat": -27.986,
    "lon": 153.4286,
-   "inFrame": true,
    "asset": "",
-   "rego": ""
+   "rego": "",
+   "board": "VMS11"
   },
   {
    "pos": "12",
@@ -204,9 +204,9 @@
    "session": false,
    "lat": -27.985938,
    "lon": 153.427692,
-   "inFrame": true,
    "asset": "1211646",
-   "rego": ""
+   "rego": "",
+   "board": "VMS12"
   },
   {
    "pos": "13",
@@ -215,9 +215,9 @@
    "session": true,
    "lat": -27.9814,
    "lon": 153.4244,
-   "inFrame": true,
    "asset": "",
-   "rego": ""
+   "rego": "",
+   "board": "VMS13"
   },
   {
    "pos": "14",
@@ -226,9 +226,9 @@
    "session": true,
    "lat": -27.9822,
    "lon": 153.424,
-   "inFrame": true,
    "asset": "",
-   "rego": ""
+   "rego": "",
+   "board": "VMS14"
   },
   {
    "pos": "15",
@@ -237,9 +237,9 @@
    "session": true,
    "lat": -27.991754,
    "lon": 153.42945,
-   "inFrame": true,
    "asset": "",
-   "rego": ""
+   "rego": "",
+   "board": "VMS15"
   },
   {
    "pos": "16",
@@ -248,9 +248,9 @@
    "session": true,
    "lat": -27.981727,
    "lon": 153.429072,
-   "inFrame": true,
    "asset": "",
-   "rego": ""
+   "rego": "",
+   "board": "VMS16"
   },
   {
    "pos": "17",
@@ -259,9 +259,9 @@
    "session": true,
    "lat": -27.9809,
    "lon": 153.4277,
-   "inFrame": false,
    "asset": "",
-   "rego": ""
+   "rego": "",
+   "board": "VMS17"
   },
   {
    "pos": "18",
@@ -270,9 +270,9 @@
    "session": false,
    "lat": -27.993326,
    "lon": 153.429388,
-   "inFrame": true,
    "asset": "",
-   "rego": ""
+   "rego": "",
+   "board": "VMS18"
   },
   {
    "pos": "19",
@@ -281,9 +281,9 @@
    "session": false,
    "lat": -27.988,
    "lon": 153.4283,
-   "inFrame": true,
    "asset": "",
-   "rego": ""
+   "rego": "",
+   "board": "VMS19"
   },
   {
    "pos": "20",
@@ -292,9 +292,9 @@
    "session": false,
    "lat": -27.99356,
    "lon": 153.43025,
-   "inFrame": true,
    "asset": "",
-   "rego": ""
+   "rego": "",
+   "board": "VMS20"
   },
   {
    "pos": "21",
@@ -303,9 +303,9 @@
    "session": false,
    "lat": -27.9952,
    "lon": 153.4293,
-   "inFrame": false,
    "asset": "",
-   "rego": ""
+   "rego": "",
+   "board": "VMS21"
   },
   {
    "pos": "24",
@@ -314,162 +314,52 @@
    "session": false,
    "lat": -27.996,
    "lon": 153.4306,
-   "inFrame": false,
    "asset": "",
-   "rego": ""
+   "rego": "",
+   "board": ""
   }
  ],
  "harness": {
   "blocked_writes": 0,
-  "live_requests": 160,
+  "live_requests": 278,
   "page_errors": []
  },
  "pack": {
   "file": "pdfs/GC500_VMS_Plan_Pack_2026-10-15_Issued.pdf",
-  "bytes": 2322465,
-  "sha256": "a27d0230ab9a0e2e5ea64001f2aaa76e9bdcdc5b1a0c16e521be559b38b7bc32",
-  "pages": 28,
-  "fit": [
-   {
-    "height": 681,
-    "avail": 1070,
-    "zoom": 1
-   },
-   {
-    "height": 656,
-    "avail": 1070,
-    "zoom": 1
-   },
-   {
-    "height": 681,
-    "avail": 1070,
-    "zoom": 1
-   },
-   {
-    "height": 656,
-    "avail": 1070,
-    "zoom": 1
-   },
-   {
-    "height": 681,
-    "avail": 1070,
-    "zoom": 1
-   },
-   {
-    "height": 656,
-    "avail": 1070,
-    "zoom": 1
-   },
-   {
-    "height": 656,
-    "avail": 1070,
-    "zoom": 1
-   },
-   {
-    "height": 681,
-    "avail": 1070,
-    "zoom": 1
-   },
-   {
-    "height": 656,
-    "avail": 1070,
-    "zoom": 1
-   },
-   {
-    "height": 681,
-    "avail": 1070,
-    "zoom": 1
-   },
-   {
-    "height": 656,
-    "avail": 1070,
-    "zoom": 1
-   },
-   {
-    "height": 681,
-    "avail": 1070,
-    "zoom": 1
-   },
-   {
-    "height": 656,
-    "avail": 1070,
-    "zoom": 1
-   },
-   {
-    "height": 681,
-    "avail": 1070,
-    "zoom": 1
-   },
-   {
-    "height": 656,
-    "avail": 1070,
-    "zoom": 1
-   },
-   {
-    "height": 689,
-    "avail": 1070,
-    "zoom": 1
-   },
-   {
-    "height": 656,
-    "avail": 1070,
-    "zoom": 1
-   },
-   {
-    "height": 681,
-    "avail": 1070,
-    "zoom": 1
-   },
-   {
-    "height": 656,
-    "avail": 1070,
-    "zoom": 1
-   },
-   {
-    "height": 697,
-    "avail": 1070,
-    "zoom": 1
-   },
-   {
-    "height": 656,
-    "avail": 1070,
-    "zoom": 1
-   },
-   {
-    "height": 681,
-    "avail": 1070,
-    "zoom": 1
-   },
-   {
-    "height": 656,
-    "avail": 1070,
-    "zoom": 1
-   },
-   {
-    "height": 681,
-    "avail": 1070,
-    "zoom": 1
-   },
-   {
-    "height": 656,
-    "avail": 1070,
-    "zoom": 1
-   },
-   {
-    "height": 766,
-    "avail": 1070,
-    "zoom": 1
-   },
-   {
-    "height": 656,
-    "avail": 1070,
-    "zoom": 1
-   },
-   {
-    "height": 681,
-    "avail": 1070,
-    "zoom": 1
-   }
+  "bytes": 20875244,
+  "sha256": "c1903e0b1311e2535ad5d5a886c9545ca56fa278ded71ae89b641dac06b8a03a",
+  "sheets": 28,
+  "satellite_sheets": 28,
+  "pictures": 140,
+  "zooms": [
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1
   ]
  }
 }
