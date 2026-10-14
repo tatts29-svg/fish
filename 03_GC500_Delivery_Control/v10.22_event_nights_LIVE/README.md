@@ -1,3 +1,9 @@
+> LIVE — 15 Oct 2026 05:34 AEST, as one page with v10.23: sha256 `d44a51537bd00a5a0d89cea58356fb39ce3a423c09faea62b77b546f99934b97`
+> (15,927,703 bytes, 121 scripts), the view link serving the build byte for byte (toolchain uploader proof, re-read at
+> 05:35). The three issued run-sheet PDFs uploaded 05:34 AEST, by Andrew Fisher, kind pack, every one sha-verified on the
+> service (`report_20261014T193450Z.json`); files 465 → 468. Record version 6114, unchanged by the release. Desktop and
+> phone sweeps on the published candidate: 23 tabs, 0 errors, 0 console. One builder (Claude), no second review.
+
 # v10.22 — Event nights run sheet: a new tab, the per-night record, the printable sheet, three issued PDFs
 
 Author: Andrew Fisher · 15 Oct 2026

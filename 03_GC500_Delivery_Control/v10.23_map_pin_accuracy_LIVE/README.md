@@ -1,3 +1,8 @@
+> LIVE — 15 Oct 2026 05:34 AEST, as one page with v10.22: sha256 `d44a51537bd00a5a0d89cea58356fb39ce3a423c09faea62b77b546f99934b97`
+> (15,927,703 bytes, 121 scripts), the view link serving the build byte for byte. Phone sweep on the published candidate:
+> 23 tabs, 0 errors, 0 console (desktop the same). Record version 6114, unchanged by the release. One builder (Claude),
+> no second review. The standalone machine (explorer `plan_items.json`, `units3d.json`) is untouched: no position moved.
+
 # v10.23 — Map pin accuracy review: every position recomputed; WC57 and WC59 footprints put on their own units
 
 Author: Andrew Fisher · 15 Oct 2026
