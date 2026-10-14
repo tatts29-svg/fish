@@ -6,9 +6,15 @@ Use **Gemini CLI** to read and edit the project, run the existing tests and publ
 ready releases through the shared toolchain. The Gemini website alone does not
 provide this terminal or deployment access.
 
-**Setup state:** use one GitHub Codespace from Andrew's computer and phone. The
-instructions below are verified against the official documentation; installation,
-Google sign-in and access still need to be checked in Andrew's actual Codespace.
+**Setup state — 14 Oct 2026:** Andrew reports Gemini running in the separate
+`/workspaces/fish-gemini` worktree on `codex/gc500-current-release-03oct`, initially
+at `0f375b77`. The existing Claude checkout remains intact. Gemini reports a clean
+checkout, installed Node dependencies and Playwright Chromium/OS libraries, a
+successful headless launch and all 21 toolchain runner unit tests passing.
+`GC500_EDIT_TOKEN` is unset there, so publishing access is not yet verified.
+These Codespace observations are reported by Gemini through Andrew; the setup
+agent has not directly inspected that remote terminal. Use this same Codespace
+from the computer and phone.
 
 ## Start on the computer; use the same workspace on the phone
 
@@ -63,6 +69,43 @@ The shared files and current board provide the project handover.
 There is currently no repository-specific `.devcontainer` configuration. The
 standard Codespaces environment can be checked first; Gemini needs Node 20 or
 newer. Use the setup sections below for any missing project dependencies.
+
+## Enable publishing in the Codespace
+
+The build tools work without the edit key. Publishing requires the existing
+private GC500 edit key in this Codespace; a Google login does not supply it.
+
+1. Open [GitHub personal Codespaces settings](https://github.com/settings/codespaces).
+2. Under **Codespaces secrets**, choose **New secret**. Name it
+   `GC500_EDIT_TOKEN`. Enter the existing private edit-key value directly into
+   GitHub's secret value field. Select only the `tatts29-svg/fish` repository.
+   Do not paste the key into an assistant conversation, source file or command.
+3. Save the secret, then stop and reopen the same Codespace so the environment
+   receives it. Start a new Gemini process in `/workspaces/fish-gemini`.
+4. Ask Gemini to verify access without uploading. From the repository root, this
+   uses the shared uploader's existing GET helper and prints only status/level:
+
+```bash
+python3 - <<'PYCODE'
+import json, sys
+sys.path.insert(0, '03_GC500_Delivery_Control/toolchain')
+from upload_page import curl
+status, body = curl('GET', '/api/version')
+level = json.loads(body).get('level') if status == 200 else None
+print({'http_status': status, 'access_level': level})
+if status != 200 or level != 'edit':
+    raise SystemExit('Publishing access is not verified; nothing uploaded')
+PYCODE
+```
+
+A result of HTTP `200` and level `edit` verifies the service grants access to that
+environment. It does not upload a page or replace the tested-candidate release
+checks. Continue to follow the current shared board and guarded publication flow.
+
+The setup agent's current GitHub integration returns HTTP 403 for Codespaces
+secret administration, so it cannot configure this secret remotely. Andrew adds
+it using his own GitHub settings. No secret has been copied into this repository
+or chat.
 
 ## Choose where it runs
 
