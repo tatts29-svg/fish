@@ -2,7 +2,7 @@
 
 Author: Andrew Fisher
 
-Component source is frozen for root integration into v10.17. It starts from the actual public v10.16 page, SHA256 `3cbfd0d5c9bd53f02d5a89b274e83ee0c2d2c8dc17b03da59b68cf3a3db8673c`. It does not publish or edit the shared operational record.
+Component published with v10.17 on 14 Oct 2026 at 18:34 AEST. It starts from the actual public v10.16 page, SHA256 `3cbfd0d5c9bd53f02d5a89b274e83ee0c2d2c8dc17b03da59b68cf3a3db8673c`. It does not publish or edit the shared operational record.
 
 Inventory was subtracting current stock from ordered quantity to calculate deliveries still required. That incorrectly requested another VMS after an already-received board moved to another reference. The same mistake would recur after collection. Remaining deliveries now use the existing typed receipt history, independently for each reference and item. Current stock, ownership, receipt history, original delivery scope, rates and charges remain unchanged. Overdelivery at one reference cannot offset another reference's unmet request.
 

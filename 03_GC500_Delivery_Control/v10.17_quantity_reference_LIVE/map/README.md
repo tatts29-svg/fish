@@ -1,6 +1,6 @@
 Author: Andrew Fisher
 
-DRAFT component for the v10.17 integration. The Concert pair retained the correct authorised geographic pin, but the explorer projected it about 24 m away because a general fit mixed the main drawing and inset. The parent patch uses the exact inverse of the currently published drawing registration. Native coordinates, other master points and navigation destinations stay unchanged.
+Published with v10.17 on 14 Oct 2026 at 18:34 AEST; actual-public phone checks passed. The Concert pair retained the correct authorised geographic pin, but the explorer projected it about 24 m away because a general fit mixed the main drawing and inset. The parent patch uses the exact inverse of the currently published drawing registration. Native coordinates, other master points and navigation destinations stay unchanged.
 
 The map also dropped the explicit quantities and provenance of the two supplier source requests. Their cards now show the source reference, one FWF, supplier, current planned delivery date and named destination, with no receipt or exact-position claim. Planned dates and quantities come from the existing supplier remaining allocations, retaining split runs only when they reconcile to outstanding scope. The original 22 Oct request date and source row remain under More info; EW49 currently shows 16 Oct and EW50 shows 17 Oct. Source-only card quantities and planned dates refresh when the parent source changes, preserving the open disclosure and map position.
 

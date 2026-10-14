@@ -2,7 +2,7 @@
 
 Author: Andrew Fisher
 
-This release follows the full equipment, generator, map and reference recheck. It corrects confirmed disagreements between current stock, original receipts, planned work and future deliveries. The established design, original site history and agreed prices are retained. Raw source and financial evidence remains private. Root owns integration and publication after combined checks.
+This release follows the full equipment, generator, map and reference recheck. It corrects confirmed disagreements between current stock, original receipts, planned work and future deliveries. The established design, original site history and agreed prices are retained. Raw source and financial evidence remains private. Root integrated, tested and published this release.
 
 Confirmed corrections:
 

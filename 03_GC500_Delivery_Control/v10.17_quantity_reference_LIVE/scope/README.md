@@ -2,7 +2,7 @@
 
 Author: Andrew Fisher
 
-Draft v10.17 component. No live equipment record has been changed by this work.
+Published v10.17 component. No live equipment record has been changed by this work.
 
 Changing a planned quantity previously reused an earlier whole-location Complete tick. Increasing four received toilets to six planned toilets could report six received and installed, increase charges, and change the historical delivery run. This component preserves the item quantities already received and installed before the native quantity setter changes the plan.
 

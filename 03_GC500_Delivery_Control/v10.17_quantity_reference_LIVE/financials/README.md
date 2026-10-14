@@ -13,8 +13,8 @@ Independent code-path review confirms the initial Inventory, Demob, barrier and 
 Example from the repository root (provide private output paths):
 
 ```sh
-PAGE=path/to/page.html OUT=/private/capture.json node 03_GC500_Delivery_Control/v10.17_quantity_reference_DRAFT/financials/capture1017.cjs
-python3 03_GC500_Delivery_Control/v10.17_quantity_reference_DRAFT/financials/compare1017.py /private/baseline.json /private/candidate.json /private/parity.json
+PAGE=path/to/page.html OUT=/private/capture.json node 03_GC500_Delivery_Control/v10.17_quantity_reference_LIVE/financials/capture1017.cjs
+python3 03_GC500_Delivery_Control/v10.17_quantity_reference_LIVE/financials/compare1017.py /private/baseline.json /private/candidate.json /private/parity.json
 ```
 
 The capture needs the existing Playwright dependencies and Chromium binding. Baseline SHA256: `3cbfd0d5c9bd53f02d5a89b274e83ee0c2d2c8dc17b03da59b68cf3a3db8673c`. Detailed native copies and monetary evidence are not committed.
