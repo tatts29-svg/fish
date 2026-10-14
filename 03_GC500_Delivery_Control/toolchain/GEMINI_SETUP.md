@@ -1,13 +1,68 @@
 # Gemini coding environment for GC500
 
-Author: Andrew Fisher · verified 13 Oct 2026
+Author: Andrew Fisher · verified 14 Oct 2026
 
 Use **Gemini CLI** to read and edit the project, run the existing tests and publish
 ready releases through the shared toolchain. The Gemini website alone does not
 provide this terminal or deployment access.
 
-**Setup state:** instructions prepared; Windows, Mac or cloud environment still to
-be chosen. No installation, sign-in or access grant has been performed.
+**Setup state:** use one GitHub Codespace from Andrew's computer and phone. The
+instructions below are verified against the official documentation; installation,
+Google sign-in and access still need to be checked in Andrew's actual Codespace.
+
+## Start on the computer; use the same workspace on the phone
+
+1. Open [Your Codespaces](https://github.com/codespaces). If a Codespace for
+   `tatts29-svg/fish` already exists on `codex/gc500-current-release-03oct`, open it.
+   Leave workspaces on other branches intact. Otherwise open
+   [the shared project branch](https://github.com/tatts29-svg/fish/tree/codex/gc500-current-release-03oct),
+   choose **Code → Codespaces → Create codespace**. Confirm the branch is
+   `codex/gc500-current-release-03oct`.
+2. In the Codespace, choose **Terminal → New Terminal**. From the repository root,
+   start Gemini with:
+
+   ```bash
+   NO_BROWSER=true npx @google/gemini-cli
+   ```
+
+   If npm asks to install `@google/gemini-cli`, accept that package. Choose
+   **Sign in with Google**. Open the sign-in URL printed by Gemini in your browser,
+   sign in, then enter the authorization code from Google's page into the
+   waiting Codespace terminal. `NO_BROWSER=true` uses Gemini's manual sign-in flow
+   so a remote workspace does not depend on a callback to your computer's
+   `localhost`. Enter the code only into that terminal prompt.
+3. Once Gemini opens, paste this first message:
+
+   ```text
+   This is a read-only setup check for Andrew Fisher's GC500 project.
+   Read these files in full:
+   - GEMINI.md and its imported AGENTS.md
+   - 03_GC500_Delivery_Control/STATUS.md
+   - 03_GC500_Delivery_Control/toolchain/README.md
+   - 03_GC500_Delivery_Control/toolchain/GEMINI_SETUP.md
+
+   Confirm this checkout is tatts29-svg/fish on
+   codex/gc500-current-release-03oct. Fetch origin and check the latest shared
+   STATUS.md for the LIVE release and active work claims; do not rely on an
+   old version mentioned in chat. Report whether Node, Python, Git, curl,
+   flock and the browser test dependencies are available. Report whether
+   GC500_EDIT_TOKEN is set, never its value. Tell me what setup remains.
+   Do not edit files, claim work, install more tools, change operational
+   records, build or upload during this setup check.
+   ```
+
+On the phone, sign into the same GitHub account at
+[Your Codespaces](https://github.com/codespaces) and open **the same Codespace**.
+There is no need to create another environment or copy the project between
+devices. The computer is easier for the initial terminal and Google sign-in.
+
+The Gemini website chat remains a separate conversation. Its link does not give
+Gemini CLI the chat history, repository permissions or publication credentials.
+The shared files and current board provide the project handover.
+
+There is currently no repository-specific `.devcontainer` configuration. The
+standard Codespaces environment can be checked first; Gemini needs Node 20 or
+newer. Use the setup sections below for any missing project dependencies.
 
 ## Choose where it runs
 
@@ -30,8 +85,9 @@ npm install -g @google/gemini-cli
 gemini
 ```
 
-Choose **Sign in with Google** using the Google account that holds the **Google AI
-Pro** subscription. Most personal accounts do not need a Google Cloud project.
+Choose **Sign in with Google** using your Google account. If you have **Google AI
+Pro** or **Ultra**, use the account associated with that subscription; a paid
+subscription is not required to start. Most personal accounts do not need a Google Cloud project.
 Company or Google Workspace accounts can require separate Cloud setup.
 
 Google AI Pro provides higher Gemini CLI usage limits. It does not provide GitHub
@@ -111,6 +167,8 @@ publishing code does not itself confirm any installation, charge or delivery.
 - [Authentication and Google AI Pro sign-in](https://geminicli.com/docs/get-started/authentication/)
 - [Quotas, subscriptions and API billing](https://geminicli.com/docs/resources/quota-and-pricing/)
 - [GEMINI.md context and imports](https://geminicli.com/docs/cli/gemini-md/)
+- [Creating a Codespace on a repository branch](https://docs.github.com/en/codespaces/developing-in-a-codespace/creating-a-codespace-for-a-repository)
+- [Gemini CLI manual Google authorization implementation](https://github.com/google-gemini/gemini-cli/blob/main/packages/core/src/code_assist/oauth2.ts)
 
 Requirements and plan limits can change; check these official pages when setting
 up the selected environment.
