@@ -1,4 +1,6 @@
-# v10.32 — every outstanding portaloo today, loads of 24; the labour a thing carries (READY, not live)
+**Published in v10.36 on 16 Oct 2026 at 06:41 AEST.** Page `d72e7f6198111f51…` (18,024,035 bytes), read back byte for byte by the view link; the stack v10.32 → v10.36 went up together on the live v10.31. Author: Andrew Fisher.
+
+# v10.32 — every outstanding portaloo today, loads of 24; the labour a thing carries (LIVE)
 
 Author: Andrew Fisher. Andrew, 16 Oct 2026: "No FWF loads on Saturday. For toilets, loads of 24, so we do the max on. Stop
 deciding." And: "FWF only get an install and a demob. Toilet blocks: install, level, steps, clean, demob. Waste tanks:

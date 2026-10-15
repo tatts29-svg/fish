@@ -1,4 +1,6 @@
-# v10.33 — the seven symbols: delivery, install, level, steps, clean, demob, pick up (READY, not live)
+**Published in v10.36 on 16 Oct 2026 at 06:41 AEST.** Page `d72e7f6198111f51…` (18,024,035 bytes), read back byte for byte by the view link; the stack v10.32 → v10.36 went up together on the live v10.31. Author: Andrew Fisher.
+
+# v10.33 — the seven symbols: delivery, install, level, steps, clean, demob, pick up (LIVE)
 
 Author: Andrew Fisher. Andrew, 16 Oct 2026, with a screenshot of an Equipment row: "Maybe we do a clean symbol. And
 delivery and a symbol to be ticked and unticked. Goes in order: delivery, install, level, steps, clean, demob, pick up.
@@ -29,6 +31,6 @@ Build `build/GC500_v10.33/` sha256 `46f7fdfd32ff8a73…` (18,023,301 bytes), cha
 (`e592f9f5…`). Goes live on Andrew's "Upload", with v10.32, v10.34 and v10.35.
 
 ```sh
-toolchain/build.sh v10.33 v10.32_all_today_DRAFT/patch_v1032.py v10.33_seven_symbols_DRAFT/patch_v1033.py
-PAGE=build/GC500_v10.33/GC500_Delivery_Control_hosted.html node v10.33_seven_symbols_DRAFT/tests/test_sym1033.cjs
+toolchain/build.sh v10.33 v10.32_all_today_LIVE/patch_v1032.py v10.33_seven_symbols_LIVE/patch_v1033.py
+PAGE=build/GC500_v10.33/GC500_Delivery_Control_hosted.html node v10.33_seven_symbols_LIVE/tests/test_sym1033.cjs
 ```

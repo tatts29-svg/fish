@@ -1,4 +1,6 @@
-# v10.34 — the water barriers picture on Today (READY, not live)
+**Published in v10.36 on 16 Oct 2026 at 06:41 AEST.** Page `d72e7f6198111f51…` (18,024,035 bytes), read back byte for byte by the view link; the stack v10.32 → v10.36 went up together on the live v10.31. Author: Andrew Fisher.
+
+# v10.34 — the water barriers picture on Today (LIVE)
 
 Author: Andrew Fisher. Andrew, 16 Oct 2026: "Water barriers need their picture done for the today data plate."
 
@@ -30,10 +32,10 @@ v10.31 (`e592f9f5…`). Goes live on Andrew's "Upload".
 The service refuses a page whose media manifest it does not hold, so on "Upload" the order is:
 
 ```sh
-toolchain/build.sh v10.34 v10.32_all_today_DRAFT/patch_v1032.py v10.33_seven_symbols_DRAFT/patch_v1033.py v10.34_barriers_picture_DRAFT/patch_v1034.py
-PAGE=build/GC500_v10.34/GC500_Delivery_Control_hosted.html node v10.34_barriers_picture_DRAFT/tests/test_plates1034.cjs
-python3 v10.34_barriers_picture_DRAFT/upload_media1034.py build/GC500_v10.34/media_manifest_v1034.json v10.34_barriers_picture_DRAFT/assets --dry-run
-python3 v10.34_barriers_picture_DRAFT/upload_media1034.py build/GC500_v10.34/media_manifest_v1034.json v10.34_barriers_picture_DRAFT/assets
+toolchain/build.sh v10.34 v10.32_all_today_LIVE/patch_v1032.py v10.33_seven_symbols_LIVE/patch_v1033.py v10.34_barriers_picture_LIVE/patch_v1034.py
+PAGE=build/GC500_v10.34/GC500_Delivery_Control_hosted.html node v10.34_barriers_picture_LIVE/tests/test_plates1034.cjs
+python3 v10.34_barriers_picture_LIVE/upload_media1034.py build/GC500_v10.34/media_manifest_v1034.json v10.34_barriers_picture_LIVE/assets --dry-run
+python3 v10.34_barriers_picture_LIVE/upload_media1034.py build/GC500_v10.34/media_manifest_v1034.json v10.34_barriers_picture_LIVE/assets
 python3 toolchain/upload_page.py build/GC500_v10.34/GC500_Delivery_Control_hosted.html
 ```
 

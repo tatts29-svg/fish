@@ -1,4 +1,6 @@
-# v10.35 — generators and VMS boards carry delivery, install and pick up (READY, not live)
+**Published in v10.36 on 16 Oct 2026 at 06:41 AEST.** Page `d72e7f6198111f51…` (18,024,035 bytes), read back byte for byte by the view link; the stack v10.32 → v10.36 went up together on the live v10.31. Author: Andrew Fisher.
+
+# v10.35 — generators and VMS boards carry delivery, install and pick up (LIVE)
 
 Author: Andrew Fisher. Andrew, 16 Oct 2026: "Whatever as per rate card, that is the cost it will get, unless I unticked
 it. Generators as example: delivery, install, pick up. VMS boards: delivery, install, pick up. This is everything you
@@ -27,6 +29,6 @@ on the live v10.31 (`e592f9f5…`). Goes live on Andrew's "Upload", with the thr
 on the service first; see its README).
 
 ```sh
-toolchain/build.sh v10.35 v10.32_all_today_DRAFT/patch_v1032.py v10.33_seven_symbols_DRAFT/patch_v1033.py v10.34_barriers_picture_DRAFT/patch_v1034.py v10.35_generators_vms_DRAFT/patch_v1035.py
-BEFORE=build/GC500_v10.34/GC500_Delivery_Control_hosted.html PAGE=build/GC500_v10.35/GC500_Delivery_Control_hosted.html node v10.35_generators_vms_DRAFT/tests/test_gen_vms1035.cjs
+toolchain/build.sh v10.35 v10.32_all_today_LIVE/patch_v1032.py v10.33_seven_symbols_LIVE/patch_v1033.py v10.34_barriers_picture_LIVE/patch_v1034.py v10.35_generators_vms_LIVE/patch_v1035.py
+BEFORE=build/GC500_v10.34/GC500_Delivery_Control_hosted.html PAGE=build/GC500_v10.35/GC500_Delivery_Control_hosted.html node v10.35_generators_vms_LIVE/tests/test_gen_vms1035.cjs
 ```
