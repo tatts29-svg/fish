@@ -2,17 +2,19 @@
 
 Andrew, 16 Oct 2026: "If something has been delivered it has been installed. I want all associated costs added. Everything needs to be ticked, in reference to what it is." Buildings are right "with exception of a few with no steps" (P06, P38, P39, P42 left alone on steps). Water barriers get the same treatment.
 
-Rule applied: every reference whose light is **on site** → Complete; Levelled where it is a building or toilet; Steps where the card offers steps; every labour line the card carries for the item → ticked (install, levelling, steps, cleaning). **Fire extinguisher is not ticked here: not every building gets one, so Andrew ticks it per building (Andrew, 16 Oct 2026: "Not all buildings get a fire extinguisher, hence why I was adding this").** **Demob is not ticked: it has not happened.** Through the page's own setDone, setLevelled, setSteps and setLabour, each stamped Andrew Fisher.
+Rule applied: every reference whose light is **on site** → Complete; Levelled where it is a building or toilet; Steps where the card offers steps; the labour the thing carries → ticked. In Andrew's words (16 Oct 2026): **an FWF gets an install and a demob; a toilet block install, level, steps, clean, demob; a waste tank install, level, clean, demob; a building install, level, steps, clean, demob**, unless Andrew has unticked something or added a fire extinguisher or an accessory himself. An FWF-only location gets no Levelled or Steps tick. **Fire extinguisher is not ticked here: not every building gets one, so Andrew ticks it per building (Andrew, 16 Oct 2026: "Not all buildings get a fire extinguisher, hence why I was adding this").** **Demob is not ticked: it has not happened.** Through the page's own setDone, setLevelled, setSteps and setLabour, each stamped Andrew Fisher.
+
+**Nothing Andrew unticked is ticked again** (Andrew, 16 Oct 2026: "If I have unticked it don't go ticking it again"): every candidate was checked against the record's stamps, and the two he took off stay off: WC100 Levelled (23 Sep) and WC60's cleaning on unit 1087500 (1 Oct).
 
 | Area | Ticks to put on | Labour added |
 |---|---|---|
 | Portable buildings | Labour · cleaning 49, Labour · install 9, Labour · steps 7, Labour · levelling 9 | $7,974.06 |
 | Generators | Labour · install 2 | $291.48 |
 | Water-filled barriers | Complete 1 | $0.00 |
-| Toilets & amenities | Levelled 50, Labour · cleaning 23, Labour · install 11, Labour · steps 3, Labour · levelling 3, Steps 2 | $4,825.03 |
-| **Total** | **169 ticks** | **$13,090.58** |
+| Toilets & amenities | Levelled 5, Labour · cleaning 22, Labour · install 11, Labour · steps 3, Labour · levelling 3, Steps 2 | $4,668.89 |
+| **Total** | **123 ticks** | **$12,934.42** |
 
-Taken off this list on 16 Oct: the 49 fire extinguisher ticks ($2,550.45); they are Andrew's, per building.
+Taken off this list on 16 Oct: the 49 fire extinguisher ticks (Andrew's, per building), every levelling, steps and cleaning tick on an FWF, and the two ticks Andrew had taken off himself.
 
 ## Every tick
 
@@ -101,22 +103,13 @@ Taken off this list on 16 Oct: the 49 fire extinguisher ticks ($2,550.45); they 
 
 ### Toilets & amenities
 - WC01 · Levelled
-- WC02 · Levelled
-- WC04 · Levelled
 - WC05 · Labour · cleaning · Waste tank · unit 1328978 · $156.15
 - WC05 · Labour · cleaning · Toilet Block 6m · $156.15
-- WC06 · Levelled
-- WC07 · Levelled
 - WC09 · Labour · install · FWF · unit rest · $36.44
 - WC09 · Labour · steps · Pee Panel · $156.15
 - WC09 · Labour · levelling · Pee Panel · $104.10
 - WC09 · Labour · cleaning · Pee Panel · $156.15
 - WC09 · Labour · cleaning · Toilet Block 6m · $156.15
-- WC10 · Levelled
-- WC100 · Levelled
-- WC11 · Levelled
-- WC12 · Levelled
-- WC13 · Levelled
 - WC15 · Labour · cleaning · Toilet Block 6m · unit 1327226 · $156.15
 - WC15 · Labour · cleaning · Toilet Block 6m · unit 1303835 · $156.15
 - WC16 · Labour · cleaning · Toilet Block 6m · unit 1322587 · $156.15
@@ -127,15 +120,8 @@ Taken off this list on 16 Oct: the 49 fire extinguisher ticks ($2,550.45); they 
 - WC20 · Labour · cleaning · Toilet Block 6m · unit 1327225 · $156.15
 - WC20 · Labour · cleaning · Waste tank · unit 1311341 · $156.15
 - WC20 · Labour · cleaning · Waste tank · unit 1328982 · $156.15
-- WC21 · Levelled
-- WC23 · Levelled
-- WC24 · Levelled
-- WC25 · Levelled
-- WC26 · Levelled
 - WC27 · Labour · cleaning · Toilet Block 6m · unit 1119484 · $156.15
 - WC27 · Labour · cleaning · Waste tank · unit 1328979 · $156.15
-- WC28 · Levelled
-- WC29 · Levelled
 - WC31 · Levelled
 - WC31 · Steps
 - WC31 · Labour · steps · 16Pan Block · unit 12 · $156.15
@@ -144,51 +130,21 @@ Taken off this list on 16 Oct: the 49 fire extinguisher ticks ($2,550.45); they 
 - WC31 · Labour · levelling · 16Pan Block · unit 1317645 · $104.10
 - WC31 · Labour · cleaning · 16Pan Block · unit 12 · $156.15
 - WC31 · Labour · cleaning · 16Pan Block · unit 1317645 · $156.15
-- WC33 · Levelled
-- WC34 · Levelled
-- WC38 · Levelled
 - WC38 · Labour · install · FWF · unit 0183 · $36.44
-- WC39 · Levelled
 - WC39 · Labour · install · FWF · unit 0188 · $36.44
 - WC39 · Labour · install · FWF · unit 0637 · $36.44
-- WC40 · Levelled
 - WC40 · Labour · install · FWF · unit 0626 · $36.44
 - WC40 · Labour · install · FWF · unit 0541 · $36.44
 - WC40 · Labour · install · FWF · unit 0965 · $36.44
 - WC40 · Labour · install · FWF · unit 0433 · $36.44
 - WC40 · Labour · install · FWF · unit 0648 · $36.44
-- WC41 · Levelled
-- WC42 · Levelled
-- WC43 · Levelled
-- WC44 · Levelled
-- WC47 · Levelled
-- WC48 · Levelled
-- WC49 · Levelled
-- WC50 · Levelled
 - WC51 · Levelled
 - WC51 · Labour · install · Accessible Toilet · unit 1197174 · $88.48
-- WC53 · Levelled
-- WC54 · Levelled
-- WC55 · Levelled
-- WC56 · Levelled
-- WC57 · Levelled
-- WC59 · Levelled
 - WC60 · Labour · cleaning · Toilet Block 6m · unit 1119489 · $156.15
-- WC60 · Labour · cleaning · Toilet Block 6m · unit 1087500 · $156.15
 - WC60 · Labour · cleaning · Waste tank · unit 1328980 · $156.15
 - WC60 · Labour · cleaning · Waste tank · unit 1328981 · $156.15
-- WC61 · Levelled
-- WC67 · Levelled
-- WC68 · Levelled
-- WC69 · Levelled
-- WC70 · Levelled
 - WC70 · Labour · install · FWF · unit 0423 · $36.44
-- WC71 · Levelled
-- WC72 · Levelled
-- WC73 · Levelled
-- WC81 · Levelled
 - WC86 · Levelled
-- T0024 · Levelled
 - T0243 · Levelled
 - T0243 · Steps
 - T0243 · Labour · cleaning · Toilet Block 6m · $156.15

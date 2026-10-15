@@ -533,20 +533,6 @@
 },
 {
 "disc": "Toilets & amenities",
-"ref": "WC02",
-"tick": "Levelled",
-"item": "",
-"rate": 0
-},
-{
-"disc": "Toilets & amenities",
-"ref": "WC04",
-"tick": "Levelled",
-"item": "",
-"rate": 0
-},
-{
-"disc": "Toilets & amenities",
 "ref": "WC05",
 "tick": "Labour · cleaning",
 "item": "Waste tank · unit 1328978",
@@ -558,20 +544,6 @@
 "tick": "Labour · cleaning",
 "item": "Toilet Block 6m",
 "rate": 156.15
-},
-{
-"disc": "Toilets & amenities",
-"ref": "WC06",
-"tick": "Levelled",
-"item": "",
-"rate": 0
-},
-{
-"disc": "Toilets & amenities",
-"ref": "WC07",
-"tick": "Levelled",
-"item": "",
-"rate": 0
 },
 {
 "disc": "Toilets & amenities",
@@ -607,41 +579,6 @@
 "tick": "Labour · cleaning",
 "item": "Toilet Block 6m",
 "rate": 156.15
-},
-{
-"disc": "Toilets & amenities",
-"ref": "WC10",
-"tick": "Levelled",
-"item": "",
-"rate": 0
-},
-{
-"disc": "Toilets & amenities",
-"ref": "WC100",
-"tick": "Levelled",
-"item": "",
-"rate": 0
-},
-{
-"disc": "Toilets & amenities",
-"ref": "WC11",
-"tick": "Levelled",
-"item": "",
-"rate": 0
-},
-{
-"disc": "Toilets & amenities",
-"ref": "WC12",
-"tick": "Levelled",
-"item": "",
-"rate": 0
-},
-{
-"disc": "Toilets & amenities",
-"ref": "WC13",
-"tick": "Levelled",
-"item": "",
-"rate": 0
 },
 {
 "disc": "Toilets & amenities",
@@ -715,41 +652,6 @@
 },
 {
 "disc": "Toilets & amenities",
-"ref": "WC21",
-"tick": "Levelled",
-"item": "",
-"rate": 0
-},
-{
-"disc": "Toilets & amenities",
-"ref": "WC23",
-"tick": "Levelled",
-"item": "",
-"rate": 0
-},
-{
-"disc": "Toilets & amenities",
-"ref": "WC24",
-"tick": "Levelled",
-"item": "",
-"rate": 0
-},
-{
-"disc": "Toilets & amenities",
-"ref": "WC25",
-"tick": "Levelled",
-"item": "",
-"rate": 0
-},
-{
-"disc": "Toilets & amenities",
-"ref": "WC26",
-"tick": "Levelled",
-"item": "",
-"rate": 0
-},
-{
-"disc": "Toilets & amenities",
 "ref": "WC27",
 "tick": "Labour · cleaning",
 "item": "Toilet Block 6m · unit 1119484",
@@ -761,20 +663,6 @@
 "tick": "Labour · cleaning",
 "item": "Waste tank · unit 1328979",
 "rate": 156.15
-},
-{
-"disc": "Toilets & amenities",
-"ref": "WC28",
-"tick": "Levelled",
-"item": "",
-"rate": 0
-},
-{
-"disc": "Toilets & amenities",
-"ref": "WC29",
-"tick": "Levelled",
-"item": "",
-"rate": 0
 },
 {
 "disc": "Toilets & amenities",
@@ -834,38 +722,10 @@
 },
 {
 "disc": "Toilets & amenities",
-"ref": "WC33",
-"tick": "Levelled",
-"item": "",
-"rate": 0
-},
-{
-"disc": "Toilets & amenities",
-"ref": "WC34",
-"tick": "Levelled",
-"item": "",
-"rate": 0
-},
-{
-"disc": "Toilets & amenities",
-"ref": "WC38",
-"tick": "Levelled",
-"item": "",
-"rate": 0
-},
-{
-"disc": "Toilets & amenities",
 "ref": "WC38",
 "tick": "Labour · install",
 "item": "FWF · unit 0183",
 "rate": 36.435
-},
-{
-"disc": "Toilets & amenities",
-"ref": "WC39",
-"tick": "Levelled",
-"item": "",
-"rate": 0
 },
 {
 "disc": "Toilets & amenities",
@@ -880,13 +740,6 @@
 "tick": "Labour · install",
 "item": "FWF · unit 0637",
 "rate": 36.435
-},
-{
-"disc": "Toilets & amenities",
-"ref": "WC40",
-"tick": "Levelled",
-"item": "",
-"rate": 0
 },
 {
 "disc": "Toilets & amenities",
@@ -925,62 +778,6 @@
 },
 {
 "disc": "Toilets & amenities",
-"ref": "WC41",
-"tick": "Levelled",
-"item": "",
-"rate": 0
-},
-{
-"disc": "Toilets & amenities",
-"ref": "WC42",
-"tick": "Levelled",
-"item": "",
-"rate": 0
-},
-{
-"disc": "Toilets & amenities",
-"ref": "WC43",
-"tick": "Levelled",
-"item": "",
-"rate": 0
-},
-{
-"disc": "Toilets & amenities",
-"ref": "WC44",
-"tick": "Levelled",
-"item": "",
-"rate": 0
-},
-{
-"disc": "Toilets & amenities",
-"ref": "WC47",
-"tick": "Levelled",
-"item": "",
-"rate": 0
-},
-{
-"disc": "Toilets & amenities",
-"ref": "WC48",
-"tick": "Levelled",
-"item": "",
-"rate": 0
-},
-{
-"disc": "Toilets & amenities",
-"ref": "WC49",
-"tick": "Levelled",
-"item": "",
-"rate": 0
-},
-{
-"disc": "Toilets & amenities",
-"ref": "WC50",
-"tick": "Levelled",
-"item": "",
-"rate": 0
-},
-{
-"disc": "Toilets & amenities",
 "ref": "WC51",
 "tick": "Levelled",
 "item": "",
@@ -995,58 +792,9 @@
 },
 {
 "disc": "Toilets & amenities",
-"ref": "WC53",
-"tick": "Levelled",
-"item": "",
-"rate": 0
-},
-{
-"disc": "Toilets & amenities",
-"ref": "WC54",
-"tick": "Levelled",
-"item": "",
-"rate": 0
-},
-{
-"disc": "Toilets & amenities",
-"ref": "WC55",
-"tick": "Levelled",
-"item": "",
-"rate": 0
-},
-{
-"disc": "Toilets & amenities",
-"ref": "WC56",
-"tick": "Levelled",
-"item": "",
-"rate": 0
-},
-{
-"disc": "Toilets & amenities",
-"ref": "WC57",
-"tick": "Levelled",
-"item": "",
-"rate": 0
-},
-{
-"disc": "Toilets & amenities",
-"ref": "WC59",
-"tick": "Levelled",
-"item": "",
-"rate": 0
-},
-{
-"disc": "Toilets & amenities",
 "ref": "WC60",
 "tick": "Labour · cleaning",
 "item": "Toilet Block 6m · unit 1119489",
-"rate": 156.15
-},
-{
-"disc": "Toilets & amenities",
-"ref": "WC60",
-"tick": "Labour · cleaning",
-"item": "Toilet Block 6m · unit 1087500",
 "rate": 156.15
 },
 {
@@ -1065,73 +813,10 @@
 },
 {
 "disc": "Toilets & amenities",
-"ref": "WC61",
-"tick": "Levelled",
-"item": "",
-"rate": 0
-},
-{
-"disc": "Toilets & amenities",
-"ref": "WC67",
-"tick": "Levelled",
-"item": "",
-"rate": 0
-},
-{
-"disc": "Toilets & amenities",
-"ref": "WC68",
-"tick": "Levelled",
-"item": "",
-"rate": 0
-},
-{
-"disc": "Toilets & amenities",
-"ref": "WC69",
-"tick": "Levelled",
-"item": "",
-"rate": 0
-},
-{
-"disc": "Toilets & amenities",
-"ref": "WC70",
-"tick": "Levelled",
-"item": "",
-"rate": 0
-},
-{
-"disc": "Toilets & amenities",
 "ref": "WC70",
 "tick": "Labour · install",
 "item": "FWF · unit 0423",
 "rate": 36.435
-},
-{
-"disc": "Toilets & amenities",
-"ref": "WC71",
-"tick": "Levelled",
-"item": "",
-"rate": 0
-},
-{
-"disc": "Toilets & amenities",
-"ref": "WC72",
-"tick": "Levelled",
-"item": "",
-"rate": 0
-},
-{
-"disc": "Toilets & amenities",
-"ref": "WC73",
-"tick": "Levelled",
-"item": "",
-"rate": 0
-},
-{
-"disc": "Toilets & amenities",
-"ref": "WC81",
-"tick": "Levelled",
-"item": "",
-"rate": 0
 },
 {
 "disc": "Toilets & amenities",
@@ -1153,13 +838,6 @@
 "tick": "Labour · cleaning",
 "item": "Building 4.8m",
 "rate": 104.1
-},
-{
-"disc": "Toilets & amenities",
-"ref": "T0024",
-"tick": "Levelled",
-"item": "",
-"rate": 0
 },
 {
 "disc": "Toilets & amenities",
