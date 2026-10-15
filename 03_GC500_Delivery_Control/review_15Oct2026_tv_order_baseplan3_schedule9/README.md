@@ -81,6 +81,12 @@ record. Six are already on the record at another reference (P44 1273656 is on P5
 1327222/1327215/1327217) — those need a look, not a write. **GN10's cell reads "1283681-1261271": 1283681 is the number
 the older schedule put on GN06, so the GN06 1283681 Andrew asked about this morning is stale on GN06.**
 
+> **Correction, 15 Oct 2026 about 15:40 AEST** (see `review_15Oct2026_baseplan4_delivery_dockets/README.md`): the
+> "Numbers to fill" check read the shared record documents only. The page carries its own numbers per reference from
+> the earlier data load, and 60 of the 62 are already shown on the page. Only GN24 1276412 and 1277089 are not.
+> Proposal 1 below shrinks to GN24 (look) and 1283681 off GN06; there is no 44-number runner to write. T0243 is ticked
+> complete on the record (27 Sep) with no light, rather than having no record at all.
+
 ## Proposed actions (each waits for Andrew's word; nothing below was done)
 
 1. **Put the 44 corroborated fleet numbers on their references** through the drawer's own rule (`numberPutOn`, one
