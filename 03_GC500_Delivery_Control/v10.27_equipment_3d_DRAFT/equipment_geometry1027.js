@@ -124,7 +124,57 @@
     for(var j=0;j<count;j++)this.face([left[j],left[(j+1)%count],right[(j+1)%count],right[j]],material);
   };
 
-  function building(g, x, w, l, h, ablution) {
+  function withPlacement(g,x,y,z,angle,run){
+    var previous=g.transform,co=Math.cos(angle),si=Math.sin(angle),offset=[x,y,z];
+    if(previous){
+      offset=[x*previous.cos-y*previous.sin+previous.offset[0],x*previous.sin+y*previous.cos+previous.offset[1],z+previous.offset[2]];
+      var nextCo=previous.cos*co-previous.sin*si;
+      si=previous.sin*co+previous.cos*si;co=nextCo;
+    }
+    g.transform={offset:offset,cos:co,sin:si};
+    try{run();}finally{g.transform=previous;}
+  }
+
+  function confirmedDoors(g,x,w,l,h,floor,options,style){
+    if(!options||!options.doorConfirmed)return;
+    var doors=(options.doors||[]).slice();
+    if(!doors.length){
+      var side=options.doorSide,length=side==='left'||side==='right'?l:w;
+      var count=Math.max(1,Math.min(4,options.doorCount||1));
+      var width=Math.min(style==='accessible'?1.25:1.05,length*.78/count);
+      for(var i=0;i<count;i++)doors.push({side:side,width:width,offset:(i-(count-1)/2)*Math.min(length/count,width*1.65),open:options.doorOpen});
+    }
+    var material=style==='toilet'||style==='accessible'?7:style==='container'?0:1;
+    doors.forEach(function(door){
+      var side=door.side,length=side==='left'||side==='right'?l:w;
+      var width=Math.min(door.width||1.05,length*.9),height=(h-floor)*.79;
+      var along=Math.max(-length/2+width/2,Math.min(length/2-width/2,door.offset||0));
+      var px=side==='left'?x-w/2:side==='right'?x+w/2:x;
+      var py=side==='front'?-l/2:side==='back'?l/2:0;
+      var yaw=side==='front'?0:side==='back'?Math.PI:side==='left'?-Math.PI/2:Math.PI/2;
+      withPlacement(g,px,py,0,yaw,function(){
+        // Dark recess, light jambs and a low threshold make the actual side clear.
+        g.box(along,-.012,floor,width,.035,height,3);
+        g.box(along-width/2-.018,-.034,floor,.04,.065,height+.045,2);
+        g.box(along+width/2+.018,-.034,floor,.04,.065,height+.045,2);
+        g.box(along,-.034,floor+height,width+.08,.065,.04,2);
+        g.box(along,-.075,Math.max(0,floor-.025),width+.09,.18,.025,2);
+        var opening=door.open?-Math.PI/2:0;
+        withPlacement(g,along-width/2,-.04,floor,opening,function(){
+          g.box(width/2,0,0,width,.035,height,material);
+          if(door.open)g.box(width-.012,0,0,.03,.05,height,5);
+          g.box(width*.88,-.031,height*.49,.028,.035,height*.09,2);
+          if(style==='container'){
+            [width*.2,width*.7].forEach(function(dx){g.cylinder(dx,-.04,.03,.014,height-.06,2,8);});
+          }else if(style==='accessible'){
+            g.box(width*.5,-.021,height*.69,width*.24,.01,width*.24,11);
+          }
+        });
+      });
+    });
+  }
+
+  function building(g, x, w, l, h, options, ablution) {
     var floor = h * .085, roof = h * .046, bodyH = h - floor - roof;
     var post = Math.min(w * .026, .075), panel = Math.min(w * .008, .025);
     // Bearers and skids are inside the supplied footprint; no fabricated stairs.
@@ -148,14 +198,7 @@
     });
     var ribs = Math.max(3, Math.min(14, Math.round(w/.28)));
     for (var r = 1; r < ribs; r++) g.box(x-w/2+w*r/ribs, 0, h-roof*.38, panel*.75, l*.98, roof*.2, 8);
-    // Door on the -Y end. Windows on both long sides remain visibly framed.
-    var dw = Math.min(w*.42,.94), dh = bodyH*.81, doorY = -l/2+.006;
-    if(!ablution){
-      g.box(x, doorY, floor, dw+post*1.1, .025, dh+post*.5, 3);
-      g.box(x, doorY-.009, floor+post*.22, dw, .024, dh, 1);
-      g.box(x+dw*.34, doorY-.026, floor+dh*.49, .025, .029, dh*.075, 2);
-      g.box(x, doorY-.023, floor+dh*.66, dw*.53, .026, dh*.18, 4);
-    }
+    // Windows remain illustrative. A door is only drawn on a sourced door side.
     var windowCount = Math.max(1, Math.min(4, Math.floor(l/2.6)));
     for (var n = 0; n < windowCount; n++) {
       var wy = l*(n+.5)/windowCount-l/2, wl = Math.min(l/windowCount*.56,1.45), wh = bodyH*.32, wz = floor+bodyH*.4;
@@ -167,40 +210,21 @@
         g.box(x+side*(w/2+.012), wy, wz+.018, .055, wl+.08, .025, 1);
       });
     }
-    // Small non-branded orange identification panel; no fictitious asset number.
-    if(!ablution)g.box(x-dw*.36, doorY-.025, floor+dh*.87, dw*.15, .028, dh*.045, 5);
-    else{
-      // Two visible access doors and privacy-height windows identify an ablution block.
-      [-1,1].forEach(function(sign){
-        var cy=sign*l*.25,doorWidth=Math.min(.9,l*.29),doorHeight=bodyH*.72;
-        g.box(x+w/2-.005,cy,floor,.034,doorWidth+.055,doorHeight+.028,3);
-        g.box(x+w/2+.011,cy,floor+.02,.028,doorWidth,doorHeight,1);
-        g.box(x+w/2+.0265,cy-doorWidth*.34,floor+doorHeight*.48,.026,.035,doorHeight*.085,2);
-        g.box(x+w/2+.024,cy,floor+doorHeight*.8,.018,doorWidth*.22,doorHeight*.09,11);
-      });
+    // No generic end-door remains to contradict the confirmed wall.
+    confirmedDoors(g,x,w,l,h,floor,options,ablution?'block':'building');
+    if(ablution){
       [-1,1].forEach(function(sign){g.box(x+sign*w*.26,l*.32,h-roof*.33,w*.06,l*.08,roof*.33,3);});
     }
   }
 
-  function toilet(g, x, w, l, h, accessible) {
+  function toilet(g, x, w, l, h, options, accessible) {
     var base = h*(accessible ? .012 : .045), canopy = h*.095, bodyH = h-base-canopy, r = Math.min(w,l)*.07;
     g.roundedPrism(x,0,0,w*.98,l*.98,base,r,3);
     g.roundedPrism(x,0,base,w*.94,l*.94,bodyH,r,6,.98);
     // The pale rounded roof is immediately recognisable from an aerial angle.
     g.roundedPrism(x,0,h-canopy,w,l,canopy*.38,r*1.3,1);
     g.roundedPrism(x,0,h-canopy*.62,w,l,canopy*.62,r*1.3,1,.82);
-    var doorW=w*(accessible ? .82 : .72), doorH=bodyH*.88, front=-l*.474;
-    g.box(x,front,base+bodyH*.04,doorW*1.045,l*.018,doorH*1.035,3);
-    g.box(x,front-l*.009,base+bodyH*.05,doorW,l*.017,doorH,7);
-    // Moulded door recess and ribs, sized proportionally to each unit.
-    g.box(x,front-l*.02,base+bodyH*.17,doorW*.7,l*.011,doorH*.62,6);
-    [-.35,.35].forEach(function (t) {
-      g.box(x+doorW*t,front-l*.025,base+bodyH*.105,w*.024,l*.026,doorH*.81,7);
-    });
-    g.box(x+doorW*.37,front-l*.036,base+bodyH*.47,w*.058,l*.025,h*.035,3);
-    g.box(x+doorW*.37,front-l*.052,base+bodyH*.49,w*.066,l*.022,h*.011,2);
-    g.box(x,front-l*.025,base+bodyH*.84,w*.24,l*.023,h*.047,1);
-    g.box(x,front-l*.039,base+bodyH*.854,w*.16,l*.012,h*.018,5);
+    var front=-l*.474;
     // Vent slots sit above the door; side moulding gives depth without textures.
     for (var i=0;i<5;i++) g.box(x+w*(i-2)*.095,front-l*.02,base+bodyH*.948,w*.06,l*.02,h*.016,3);
     [-1,1].forEach(function (side) {
@@ -208,7 +232,8 @@
     });
     // Roof vent stays within the total provided height.
     g.cylinder(x+w*.27,l*.25,h-canopy*.24,w*.04,canopy*.21,3,8);
-    if(accessible){
+    confirmedDoors(g,x,w,l,h-canopy,base,options,accessible?'accessible':'toilet');
+    if(accessible&&(!options||!options.doorConfirmed)){
       var sy=front-l*.049,sz=base+bodyH*.64,mark=w*.18;
       g.box(x,sy,sz,mark,l*.016,mark,11);
       // A small geometric access symbol is illustrative, not an asset label.
@@ -227,8 +252,8 @@
     }
   }
 
-  function toiletBlock(g,x,w,l,h){building(g,x,w,l,h,true);}
-  function accessibleToilet(g,x,w,l,h){toilet(g,x,w,l,h,true);}
+  function toiletBlock(g,x,w,l,h,options){building(g,x,w,l,h,options,true);}
+  function accessibleToilet(g,x,w,l,h,options){toilet(g,x,w,l,h,options,true);}
 
   function peePanel(g,x,w,l,h){
     var thickness=Math.min(w,l)*.018,base=h*.045;
@@ -275,7 +300,7 @@
     [-1,1].forEach(function (side) { g.box(x+side*w*.32,0,h-roof*.7,w*.07,l*.08,roof*.65,2); });
   }
 
-  function container(g, x, w, l, h) {
+  function container(g, x, w, l, h, options) {
     var rail=Math.min(w*.032,h*.027),skin=Math.min(w*.009,.027);
     g.box(x,0,0,w,l,rail*1.7,3);
     g.box(x,0,rail*1.7,w*.982,l*.99,h-rail*2.7,0);
@@ -289,20 +314,7 @@
     g.box(x,0,h-rail*.9,w*.99,l*.99,rail*.75,0);
     var roofRibs=Math.max(5,Math.min(64,Math.floor(l/.32)));
     for(var r=1;r<roofRibs;r++)g.box(x,-l/2+l*r/roofRibs,h-rail*.25,w*.94,skin,rail*.25,8);
-    // Two closed end doors with dark seals, cross rails and four locking bars.
-    var front=-l/2,dh=h-rail*3.4,dw=w*.455;
-    [-1,1].forEach(function(sign) {
-      var cx=x+sign*w*.235;
-      g.box(cx,front,rail*1.75,dw,l*.006,dh,3);
-      g.box(cx,front-l*.0034,rail*1.95,dw*.96,l*.005,dh*.98,0);
-      for(var b=0;b<2;b++) {
-        var bx=cx+(b-.5)*dw*.52;
-        g.cylinder(bx,front-l*.008,rail*2.1,Math.min(w*.007,.02),dh*.94,2,8);
-        g.box(bx+dw*.065,front-l*.009,rail*2.1+dh*.38,dw*.16,l*.004,rail*.36,2);
-      }
-      [0.12,0.79].forEach(function(p){g.box(cx,front-l*.006,rail*2+dh*p,dw*.94,l*.007,rail*.6,2);});
-    });
-    g.box(x+w*.34,front-l*.012,h*.63,w*.105,l*.003,h*.07,5);
+    confirmedDoors(g,x,w,l,h,rail*1.7,options,'container');
   }
 
   function light(g, x, w, l, h) {
@@ -428,19 +440,31 @@
     var defaults=specification.slice(1);
     var w=finitePositive(options.width,defaults[0],.25,15),l=finitePositive(options.length,defaults[1],.25,50),h=finitePositive(options.height,defaults[2],.25,10);
     var requested=Number(options.quantity),requestedQuantity=Number.isFinite(requested)&&requested>0?Math.floor(requested):1;
+    var sides=['front','back','left','right'];
+    var doors=Array.isArray(options.doors)?options.doors.slice(0,16).filter(function(d){return d&&d.confirmed===true&&sides.indexOf(d.side)>=0;}).map(function(d){return {
+      side:d.side,confirmed:true,open:d.open===true,offset:Number.isFinite(d.offset)?Math.max(-50,Math.min(50,d.offset)):0,
+      width:finitePositive(d.width,1.05,.2,8),adapted:d.adapted===true,
+      renderedOffset:Number.isFinite(d.renderedOffset)?d.renderedOffset:undefined,
+      renderedWidth:Number.isFinite(d.renderedWidth)?d.renderedWidth:undefined};}):[];
+    var doorSide=sides.indexOf(options.doorSide)>=0?options.doorSide:(doors.length?doors[0].side:null);
+    var doorConfirmed=doors.length>0||(options.doorConfirmed===true&&doorSide!==null);
+    var doorCount=Math.floor(finitePositive(options.doorCount,1,1,4));
     return {kind:kind,quantity:Math.max(1,Math.min(48,requestedQuantity)),requestedQuantity:requestedQuantity,
-      width:w,length:l,height:h,render:specification[0]};
+      width:w,length:l,height:h,render:specification[0],doorSide:doorSide,doorConfirmed:doorConfirmed,
+      doorOpen:doorConfirmed&&(options.doorOpen===true||doors.some(function(d){return d.open;})),doorCount:doorConfirmed?(doors.length||doorCount):0,
+      doorAdapted:options.doorAdapted===true||doors.some(function(d){return d.adapted;}),doors:doors};
   }
 
   function appendEquipment(g,spec) {
     var gap=Math.min(.22,spec.width*.12);
-    for(var i=0;i<spec.quantity;i++)spec.render(g,(i-(spec.quantity-1)/2)*(spec.width+gap),spec.width,spec.length,spec.height);
+    for(var i=0;i<spec.quantity;i++)spec.render(g,(i-(spec.quantity-1)/2)*(spec.width+gap),spec.width,spec.length,spec.height,spec);
   }
 
   function make(options) {
     var spec=normaliseSpec(options),g=new Builder();
     appendEquipment(g,spec);
     return encodeGLB(g,{kind:spec.kind,quantity:spec.quantity,requestedQuantity:spec.requestedQuantity,
+      doorSide:spec.doorSide,doorConfirmed:spec.doorConfirmed,doorOpen:spec.doorOpen,doorCount:spec.doorCount,doorAdapted:spec.doorAdapted,doors:spec.doors,
       dimensionsMetres:{width:spec.width,length:spec.length,height:spec.height},author:'Andrew Fisher',
       note:'Illustrative equipment geometry. Not surveyed CAD. No asset identity, position or operational status is asserted by this model.'});
   }
@@ -469,6 +493,7 @@
       g.activeBounds={min:[Infinity,Infinity,Infinity],max:[-Infinity,-Infinity,-Infinity]};
       appendEquipment(g,spec);
       partStats.push({kind:spec.kind,quantity:spec.quantity,requestedQuantity:spec.requestedQuantity,
+        doorSide:spec.doorSide,doorConfirmed:spec.doorConfirmed,doorOpen:spec.doorOpen,doorCount:spec.doorCount,doorAdapted:spec.doorAdapted,doors:spec.doors,
         dimensionsMetres:{width:spec.width,length:spec.length,height:spec.height},offset:part.offset,angle:part.angle,
         vertices:g.parts.reduce(function(sum,p){return sum+p.p.length/3;},0)-beforeVertices,
         triangles:g.parts.reduce(function(sum,p){return sum+p.i.length/3;},0)-beforeTriangles,

@@ -13,6 +13,10 @@ The snapshot contains named items, current quantities, received and installed qu
 
 `location.kind` is `master`, `pin`, `place` or `area`. The native rule chooses a master tag on the unit first, then a recorded site pin or placement, then a broad area. `extrudable: false` means preserve the existing marker and do not invent a precise equipment position. Plan polygons are emitted only for master positions. A newer site pin does not inherit the previous plan polygon. Known dimensions and a drawing footprint remain different evidence; for example, the Gate 6 P60 contract footprint and the drawing rectangle differ. Missing heights stay null. A renderer may use clearly identified illustrative heights, never turn them into measured facts.
 
+`dimensions.massKg` is a per-unit verified transport mass, only when every matched product agrees. Different or missing masses remain null while common dimensions stay available. Guide-model masses never become actual equipment weights. The patch also repairs the native identity serialiser so saved actual specifications can be checked against their physical unit.
+
+Each component retains all native `doors` with their projected midpoint, drawing bearing, edge index/fraction, width and source. `doorCount` counts those doorway records; the original primary `doorBearingDeg` and `doorEdge` remain for compatibility. Door locations come from the same master/revised geometry as the footprint. Truck driver/passenger loading-side selections do not establish site-facing directions. An illustrated open leaf does not indicate a door's physical open/closed state on site.
+
 `test_adapter1027.cjs` uses the shared read-only browser rig. It checks the native quantity/completion result, isolated output objects, no changes to shared state, valid/invalid projection handling, broader reference access, no guessed heights, and native grouped-photo navigation. All attempted network writes are aborted by the rig.
 
 Run with `PAGE=/absolute/path/to/candidate.html CHROMIUM_PATH=/usr/bin/chromium node test_adapter1027.cjs` where Chromium is installed at that path.

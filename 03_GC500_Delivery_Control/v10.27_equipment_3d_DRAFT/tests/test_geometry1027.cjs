@@ -126,4 +126,38 @@ check('Invalid transforms fail clearly instead of contaminating coordinates',()=
  for(const offset of [[NaN,0,0],[0,Infinity,0],[0,0,-Infinity],[0,0],[0,0,0,0],['1',0,0],[1000001,0,0],null])assert.throws(()=>api.makeGroup([{spec,offset}]),/three finite metre coordinates/);
  for(const angle of [NaN,Infinity,-Infinity,'0',null])assert.throws(()=>api.makeGroup([{spec,angle}]),/finite radians/);
 });
+check('Confirmed open doors stay on the requested wall for every supported doorway family',()=>{
+ for(const kind of ['building','container','toilet_block','accessible_toilet','toilet']){
+  const options={kind,width:3,length:6,height:2.9},base=api.make(options);
+  for(const side of ['front','back','left','right']){
+   const model=api.make({...options,doorSide:side,doorConfirmed:true,doorOpen:true}),data=integrity(model);
+   assert(model.stats.triangles>base.stats.triangles);
+   const axis=side==='left'||side==='right'?0:1;
+   if(side==='left'||side==='front')assert(model.stats.bounds.min[axis]<base.stats.bounds.min[axis]-.5);
+   else assert(model.stats.bounds.max[axis]>base.stats.bounds.max[axis]+.5);
+   assert.equal(data.doc.asset.extras.doorSide,side);assert.equal(data.doc.asset.extras.doorConfirmed,true);assert.equal(data.doc.asset.extras.doorOpen,true);
+  }
+ }
+});
+check('An unconfirmed open request cannot create an authoritative door',()=>{
+ const base=api.make({kind:'building'}),unsafe=api.make({kind:'building',doorSide:'right',doorOpen:true,doorConfirmed:false});
+ assert.equal(base.stats.vertices,unsafe.stats.vertices);assert.equal(base.stats.triangles,unsafe.stats.triangles);
+ const data=integrity(unsafe);assert.equal(data.doc.asset.extras.doorOpen,false);assert.equal(data.doc.asset.extras.doorCount,0);
+});
+check('Two sourced doorway offsets survive a transformed mixed group',()=>{
+ const doors=[{side:'right',offset:-1.4,width:.8,confirmed:true,open:true},{side:'right',offset:1.2,width:.9,confirmed:true,open:true}];
+ const options={kind:'toilet_block',width:3,length:6,height:2.9,doorSide:'right',doorConfirmed:true,doorOpen:true,doorCount:2,doors};
+ const model=api.makeGroup([{spec:options,offset:[12,5,0],angle:.71},{spec:{kind:'toilet'},offset:[0,0,0],angle:0}]);integrity(model);
+ const stats=model.stats.parts[0];assert.equal(stats.doorCount,2);assert.equal(stats.doors.length,2);assert.equal(stats.doors[0].offset,-1.4);assert.equal(stats.doors[1].width,.9);assert.equal(stats.doorOpen,true);
+ assert.equal(model.stats.parts[1].doorConfirmed,false);assert.equal(model.stats.parts[1].doorCount,0);
+});
+check('Adapted doorway metadata survives grouping without changing the established mesh',()=>{
+ const door={side:'right',offset:-.645,width:.83,confirmed:true,open:true};
+ const spec={kind:'accessible_toilet',length:1.8,width:1.6,height:2.4,doorSide:'right',doorConfirmed:true,doorOpen:true,doors:[door]};
+ const base=api.makeGroup([{spec}]),annotated=api.makeGroup([{spec:{...spec,doorAdapted:true,doors:[{...door,adapted:true,renderedOffset:-.485,renderedWidth:.83}]}}]);
+ assert.deepEqual(primitives(base),primitives(annotated));
+ const data=integrity(annotated),stats=annotated.stats.parts[0];
+ assert.equal(stats.doorAdapted,true);assert.equal(stats.doors[0].adapted,true);near(stats.doors[0].offset,-.645);near(stats.doors[0].renderedOffset,-.485);
+ assert.equal(data.doc.asset.extras.parts[0].doorAdapted,true);
+});
 console.log(`${count}/${count} PASS`);

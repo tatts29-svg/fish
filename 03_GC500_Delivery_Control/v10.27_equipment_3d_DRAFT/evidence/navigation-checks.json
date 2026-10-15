@@ -1,0 +1,28 @@
+{
+  "author": "Andrew Fisher",
+  "state": "Final page sweeps passed; focused 3D visual checks running",
+  "standardSweeps": {
+    "desktop": {
+      "pageSha256": "39e2bec4595d018a36c2ded5b2afa33b1bda4b0dc07e88606cfbbd36fbc3560b",
+      "tabs": 24,
+      "navigationLinks": 7,
+      "applicationErrors": 0,
+      "unexpectedConsoleErrors": 0,
+      "operationalWrites": 0,
+      "nativeRecordUnchanged": true,
+      "nativeVersion": 6562,
+      "pass": true
+    },
+    "phone": {
+      "pageSha256": "39e2bec4595d018a36c2ded5b2afa33b1bda4b0dc07e88606cfbbd36fbc3560b",
+      "tabs": 24,
+      "navigationLinks": 7,
+      "applicationErrors": 0,
+      "unexpectedConsoleErrors": 0,
+      "operationalWrites": 0,
+      "nativeRecordUnchanged": true,
+      "nativeVersion": 6562,
+      "pass": true
+    }
+  }
+}

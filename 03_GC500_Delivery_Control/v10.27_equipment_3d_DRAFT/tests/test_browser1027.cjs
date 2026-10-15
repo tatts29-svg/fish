@@ -1,6 +1,7 @@
 /* Author: Andrew Fisher. Read-only browser checks for the 3D equipment map.
  * PAGE=<candidate.html> MAP_ROOT=<prepared machine> OUT=<private directory>
  * MOB=1 CHROMIUM_PATH=<chromium> node tests/test_browser1027.cjs
+ * LIVE=1 (with PAGE and MAP_ROOT unset) checks the actual public release.
  * The shared harness intercepts the public view with local files and blocks
  * every operational write. Evidence contains view facts, never the full record.
  */
@@ -8,9 +9,10 @@
 const fs = require('fs'), path = require('path'), crypto = require('crypto');
 const {open} = require('../../release_review1021/readonly1021.cjs');
 const mobile = process.env.MOB === '1';
+const live = process.env.LIVE === '1';
 const out = process.env.OUT || '/tmp/private-gc500-3d1027/browser-' + (mobile ? 'phone' : 'desktop');
 const gate = ['P60', 'P62', 'P63', 'WC49', 'GN06'];
-const report = {author: 'Andrew Fisher', mobile, checks: [], measurements: {}};
+const report = {author: 'Andrew Fisher', mobile, mode: live ? 'actual-public' : 'local-candidate', checks: [], measurements: {}};
 const check = (name, pass, detail) => report.checks.push({name, pass: !!pass, ...(detail === undefined ? {} : {detail})});
 const cameraSame = (a, b) => a.length === b.length && a.every((n, i) => Math.abs(n - b[i]) < (i < 3 ? .001 : .000001));
 fs.mkdirSync(out, {recursive: true});
@@ -48,6 +50,30 @@ async function saveScreenshots(page, frame, name) {
   report.measurements[name] = await frame.evaluate(() => ({tilesSettled: !!window.__allLoaded,
     heightSampling: !!HQ.busy, modelCount: GC500EquipmentView1027.state.models.length,
     sampledPins: PINS.filter(pin => pin._hd != null).length}));
+  if (mobile) {
+    const visibility = await frame.evaluate(() => {
+      const ref = GC500EquipmentView1027.state.active, card = document.querySelector('.equipment1027-card');
+      if (!ref || card.hidden) return null;
+      const primitives = viewer.scene.primitives;
+      for (let i = 0; i < primitives.length; i++) {
+        const model = primitives.get(i);
+        if (model.id?._gc?.k !== ref) continue;
+        const point = Cesium.SceneTransforms.worldToWindowCoordinates(viewer.scene, model.boundingSphere.center);
+        return {ref, x: point?.x, y: point?.y, cardTop: card.getBoundingClientRect().top, width: innerWidth};
+      }
+      return {ref, missingModel: true};
+    });
+    if (visibility) check(name + ' phone model remains above its information card', !visibility.missingModel &&
+      visibility.x >= 0 && visibility.x <= visibility.width && visibility.y >= 0 && visibility.y < visibility.cardTop, visibility);
+    if (visibility) {
+      const labels = await frame.evaluate(() => {
+        const active = GC500EquipmentView1027.state.active;
+        return pinEntities.filter(pin => pin._gc.k === active).map(pin => ({ref: active, shown: pin.l.show}));
+      });
+      check(name + ' phone card replaces the duplicate selected map label',
+        labels.length > 0 && labels.every(label => !label.shown), labels);
+    }
+  }
   // The scene shot shows model detail; the host shot retains real mobile chrome/layout.
   await frame.locator('body').screenshot({path: path.join(out, name + '-scene.png')});
   await page.screenshot({path: path.join(out, name + '-page.png')});
@@ -83,11 +109,15 @@ async function selectedFacts(page, frame, ref) {
 
 (async () => {
   try {
-    if (!process.env.PAGE || !process.env.MAP_ROOT) throw Error('Set PAGE and MAP_ROOT to the locally prepared candidate.');
-    report.pageSha256 = crypto.createHash('sha256').update(fs.readFileSync(process.env.PAGE)).digest('hex');
-    report.machineSha256 = Object.fromEntries(['poc3d/equipment_viewer1027.js', 'poc3d/equipment_layout1027.js',
-      'poc3d/equipment_geometry1027.js', 'explorer/explorer-merge.js'].map(file => [file,
-      crypto.createHash('sha256').update(fs.readFileSync(path.join(process.env.MAP_ROOT, file))).digest('hex')]));
+    if (live) {
+      if (process.env.PAGE || process.env.MAP_ROOT) throw Error('LIVE=1 requires PAGE and MAP_ROOT unset; public checks must not use local overrides.');
+    } else {
+      if (!process.env.PAGE || !process.env.MAP_ROOT) throw Error('Set PAGE and MAP_ROOT to the locally prepared candidate.');
+      report.pageSha256 = crypto.createHash('sha256').update(fs.readFileSync(process.env.PAGE)).digest('hex');
+      report.machineSha256 = Object.fromEntries(['poc3d/equipment_viewer1027.js', 'poc3d/equipment_layout1027.js',
+        'poc3d/equipment_geometry1027.js', 'explorer/explorer-merge.js'].map(file => [file,
+        crypto.createHash('sha256').update(fs.readFileSync(path.join(process.env.MAP_ROOT, file))).digest('hex')]));
+    }
     harness = await open({pageFile: process.env.PAGE, hash: '#sheet/__explorer', gl: true,
       mobile, W: mobile ? 390 : 1440, H: mobile ? 844 : 1050, dpr: mobile ? 2 : 1});
     const page = harness.page;
@@ -120,6 +150,24 @@ async function selectedFacts(page, frame, ref) {
     check('WC49 has exactly its three recorded toilets in the model', wc49.quantity === 3 &&
       wc49Models.length === 1 && wc49Models[0].ready && !wc49Models[0].failed && wc49Models[0].quantity === wc49.quantity,
       wc49Models.map(({ref, quantity, kind, ready, failed}) => ({ref, quantity, kind, ready, failed})));
+    report.measurements.wc49Axes = await scene.evaluate(() => {
+      const primitives = viewer.scene.primitives;
+      for (let i = 0; i < primitives.length; i++) {
+        const model = primitives.get(i);
+        if (model.id?._gc?.k !== 'WC49') continue;
+        const graph = model._sceneGraph, components = graph?.components || graph?._components;
+        const matrix = graph?.axisCorrectionMatrix || graph?._axisCorrectionMatrix;
+        return {upAxis: components?.upAxis ?? model._upAxis, forwardAxis: components?.forwardAxis ?? model._forwardAxis,
+          expectedUp: Cesium.Axis.Y, expectedForward: Cesium.Axis.X,
+          axisCorrectionMatrix: matrix ? Cesium.Matrix4.toArray(matrix) : null};
+      }
+      return null;
+    });
+    if (report.measurements.wc49Axes) {
+      const axes = report.measurements.wc49Axes;
+      check('Rendered WC49 uses the exporter Y-up and X-forward axes', axes.upAxis === axes.expectedUp &&
+        axes.forwardAxis === axes.expectedForward, axes);
+    }
     await saveScreenshots(page, scene, 'wc49-selected');
 
     const card = scene.locator('.equipment1027-card');
@@ -150,6 +198,8 @@ async function selectedFacts(page, frame, ref) {
       after.active === 'WC49' && after.visible && before.focused && after.focused, {before, after});
     check('Refresh and identical pins preserve the card scroll position', Math.abs(before.scrollTop - after.scrollTop) < 1,
       {before: before.scrollTop, after: after.scrollTop, maxScroll: before.maxScroll});
+    if (mobile) check('Phone exercises a genuinely scrolled More info card', before.maxScroll > 0 && before.scrollTop > 0,
+      {maxScroll: before.maxScroll, scrollTop: before.scrollTop});
     check('Refresh and identical pins preserve the exact camera', cameraSame(beforeCamera, await camera(scene)));
     report.measurements.moreInfo = {maxScroll: before.maxScroll, testedScrollTop: before.scrollTop};
 
@@ -188,6 +238,11 @@ async function selectedFacts(page, frame, ref) {
     check('WC51 keeps six FWF and one accessible toilet as distinct equipment', wc51.quantity === 7 && mixed?.ready &&
       !mixed.failed && mixed.quantity === wc51.quantity && kinds.toilet === 6 && kinds.accessible_toilet === 1,
       {items: wc51.items, modelQuantity: mixed?.quantity, kinds});
+    const adaptedDoors = (mixed?.stats?.parts || []).filter(part => part.doorAdapted);
+    const adaptedNote = await card.locator('[data-door]').textContent();
+    check('WC51 discloses doorway positions adapted to the illustrative body', adaptedDoors.length > 0 &&
+      /doorway position adapted to the illustrative model/i.test(adaptedNote),
+      {adaptedParts: adaptedDoors.length, note: adaptedNote});
     await saveScreenshots(page, scene, 'wc51-mixed-equipment');
 
     for (const closeAction of [{name: 'Close', selector: '#drawer #dclose'},
@@ -233,6 +288,34 @@ async function selectedFacts(page, frame, ref) {
     report.measurements.scene = await scene.evaluate(() => ({models: GC500EquipmentView1027.state.models.length,
       records: GC500EquipmentView1027.state.records, failed: GC500EquipmentView1027.state.models.filter(row => row.failed).map(row => ({ref: row.ref, error: row.error}))}));
     check('No equipment GLB load fails', report.measurements.scene.failed.length === 0, report.measurements.scene.failed);
+
+    await explorer.evaluate(() => GC500Explorer.find('P63'));
+    await scene.waitForFunction(() => GC500EquipmentView1027.state.active === 'P63', null, {timeout: 15000});
+    await settle(scene);
+    await selectedFacts(page, scene, 'P63');
+    const p63Models = await readyModels(scene, ['P63']);
+    const sourceDoors = await page.evaluate(() => GC500Equipment1027.get('P63').components
+      .reduce((count, component) => count + component.doorCount, 0));
+    const doorParts = (p63Models[0]?.stats?.parts || []).filter(part => part.doorCount > 0);
+    const renderedDoors = doorParts.reduce((count, part) => count + part.doorCount, 0);
+    check('P63 represents every sourced doorway with illustrative open leaves', sourceDoors > 0 &&
+      renderedDoors === sourceDoors && doorParts.every(part => part.doorConfirmed && part.doorOpen),
+      {sourceDoors, renderedDoors, parts: doorParts.map(({kind, doorSide, doorCount, doorConfirmed, doorOpen}) =>
+        ({kind, doorSide, doorCount, doorConfirmed, doorOpen}))});
+    const doorNote = await card.locator('[data-door]').textContent();
+    check('Open-door explanation distinguishes entry direction from live door state',
+      /entry direction|doorway positions and sides/i.test(doorNote) &&
+      /not whether.*currently open|not a live door.open status/i.test(doorNote), doorNote);
+    await saveScreenshots(page, scene, 'p63-door-open');
+
+    // Capture the final overview after this area's imagery and elevation samples
+    // have warmed; the first visit can still be streaming its detailed tiles.
+    await card.locator('.equipment1027-close').click();
+    await scene.locator('[data-gate]').click();
+    await settle(scene);
+    await scene.evaluate(() => GC500EquipmentView1027.refresh());
+    await readyModels(scene, gate);
+    await saveScreenshots(page, scene, 'gate6-overview');
     check('No operational write attempts', harness.counts.blocked === 0, harness.counts);
     check('No browser JavaScript errors', harness.errors.length === 0, harness.errors);
   } catch (error) {
@@ -246,7 +329,7 @@ async function selectedFacts(page, frame, ref) {
       await harness.browser.close();
     }
     fs.writeFileSync(path.join(out, 'browser1027.json'), JSON.stringify(report, null, 2) + '\n');
-    console.log(JSON.stringify({mobile, pageSha256: report.pageSha256, checks: report.checks.length,
+    console.log(JSON.stringify({mobile, mode: report.mode, pageSha256: report.pageSha256, checks: report.checks.length,
       failed: report.checks.filter(row => !row.pass), errors: report.errors, failure: report.failure, out}));
   }
 })();

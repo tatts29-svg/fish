@@ -78,7 +78,51 @@
     var height=positive(d.heightMm)?d.heightMm/1000:fallback[2];
     // Match the model engine's supported dimensions rather than changing scale silently.
     if(length<.25||length>50||width<.25||width>15||height<.25||height>10)return null;
-    return {spec:{kind:kind,length:length,width:width,height:height,quantity:1},angle:shape.angle};
+    var door=doorInfo(component,shape.angle,kind,centre,width,length);
+    return {spec:{kind:kind,length:length,width:width,height:height,quantity:1,
+      doorSide:door.side,doorConfirmed:door.confirmed,doorOpen:door.confirmed,doorCount:door.count,doorAdapted:door.adapted,doors:door.doors},
+      angle:shape.angle,doorSourceNote:door.source};
+  }
+  function doorInfo(component,angle,kind,centre,bodyWidth,bodyLength){
+    var unknown={side:null,confirmed:false,count:0,source:'',doors:[],adapted:false};
+    if(['building','container','toilet_block','toilet','accessible_toilet'].indexOf(kind)<0)return unknown;
+    var basis=String(component.doorBasis||''),hasDoors=Array.isArray(component.doors)&&component.doors.length>0;
+    if(/uncertain|unknown|not confirmed|no door|not shown/i.test(basis))return unknown;
+    var candidates=hasDoors?component.doors:[{bearingDeg:component.doorBearingDeg,edgeIndex:component.doorEdge,source:component.source}];
+    var valid=[];
+    candidates.forEach(function(door){
+      var bearing=door.bearingDeg,edge=door.edgeIndex;
+      var sourced=/^master(?:_|$)/.test(key(door.source||component.source))||component.doorVerified===true||component.doorConfirmed===true;
+      if(!sourced||!finite(bearing)||!Number.isInteger(edge)||edge<0)return;
+      if(Array.isArray(component.polygon)&&component.polygon.length&&edge>=component.polygon.length)return;
+      var localX=Math.sin(bearing*DEG+angle),localY=Math.cos(bearing*DEG+angle);
+      if(Math.max(Math.abs(localX),Math.abs(localY))<Math.cos(25*DEG))return;
+      var side=Math.abs(localX)>Math.abs(localY)?(localX>0?'right':'left'):(localY>0?'back':'front');
+      var offset=0,positioned=ll(door.mid);
+      if(positioned){
+        var dx=(door.mid.lon-centre.lon)*Math.cos(centre.lat*DEG)*EAST,dy=(door.mid.lat-centre.lat)*NORTH;
+        var x=dx*Math.cos(angle)+dy*Math.sin(angle),y=-dx*Math.sin(angle)+dy*Math.cos(angle);
+        offset=side==='front'?x:side==='back'?-x:side==='left'?-y:y;
+      }
+      var width=positive(door.widthM)?door.widthM:1.05;
+      // Match normaliseSpec and confirmedDoors in the geometry engine exactly.
+      // A source position may sit outside a smaller illustrative/recorded body.
+      var span=side==='left'||side==='right'?bodyLength:bodyWidth;
+      var renderedWidth=Math.min(Math.max(.2,Math.min(8,width)),span*.9);
+      var normalOffset=Math.max(-50,Math.min(50,offset));
+      var renderedOffset=Math.max(-span/2+renderedWidth/2,Math.min(span/2-renderedWidth/2,normalOffset));
+      var adapted=Math.abs(renderedWidth-width)>1e-9||Math.abs(renderedOffset-offset)>1e-9;
+      valid.push({side:side,confirmed:true,open:true,offset:offset,width:width,positioned:positioned,
+        adapted:adapted,renderedOffset:renderedOffset,renderedWidth:renderedWidth});
+    });
+    if(!valid.length)return unknown;
+    var count=basis.match(/\b(\d+)\s+doors?\b/i);
+    var source=/^master(?:_|$)/.test(key(component.source))?'the master plan':'the verified location record';
+    var adapted=hasDoors&&valid.some(function(d){return d.adapted;});
+    return {side:valid[0].side,confirmed:true,count:hasDoors?valid.length:(count?Math.max(1,Math.min(4,Number(count[1]))):1),
+      doors:hasDoors?valid:[],adapted:adapted,source:adapted?
+        'Door side from '+source+'; doorway position adapted to the illustrative model.':hasDoors&&valid.every(function(d){return d.positioned;})?
+        'Doorway positions and sides from '+source+'.':'Door side from '+source+'; doorway position is illustrative.'};
   }
   function specOf(row){
     if(!row||row.extrudable===false||row.areaOnly||!ll(row.location)||row.location.areaOnly)return null;
@@ -110,7 +154,7 @@
         var built=dimensions(request.item,candidate.component,candidate.centre,request.kind);
         if(!built)continue;
         candidate.used=true;request.matched++;
-        placed.push({spec:built.spec,angle:built.angle,centre:candidate.centre,componentId:candidate.id});
+        placed.push({spec:built.spec,angle:built.angle,centre:candidate.centre,componentId:candidate.id,doorSourceNote:built.doorSourceNote});
       }
     });
     // A point entered on site establishes the group's location, not individual slots.
@@ -122,7 +166,7 @@
         var built=dimensions(request.item,{polygon:[]},row.location,request.kind);
         if(!built)return;
         for(var i=0;i<request.quantity;i++){
-          placed.push({spec:Object.assign({},built.spec),angle:0,centre:row.location,componentId:null});
+          placed.push({spec:Object.assign({},built.spec),angle:0,centre:row.location,componentId:null,doorSourceNote:''});
           request.matched++;
         }
       });
@@ -133,7 +177,7 @@
     var eastScale=Math.cos(centre.lat*DEG)*EAST;
     var parts=placed.map(function(part){return {spec:part.spec,
       offset:[(part.centre.lon-centre.lon)*eastScale,(part.centre.lat-centre.lat)*NORTH,0],
-      angle:part.angle,componentId:part.componentId};});
+      angle:part.angle,componentId:part.componentId,doorSourceNote:part.doorSourceNote};});
     if(grouped){
       var fullWidth=parts.reduce(function(sum,p){return sum+p.spec.width;},0)+.16*(parts.length-1),cursor=-fullWidth/2;
       parts.forEach(function(part){part.offset=[cursor+part.spec.width/2,0,0];cursor+=part.spec.width+.16;});
@@ -149,6 +193,9 @@
       height=Math.max(height,part.spec.height);
     });
     bounds.max[2]=height;
+    var doorCount=parts.filter(function(part){return part.spec.doorConfirmed&&part.spec.doorOpen;}).length;
+    var doorAdapted=parts.some(function(part){return part.spec.doorAdapted;});
+    var doorSources=Array.from(new Set(parts.filter(function(part){return !doorAdapted||part.spec.doorAdapted;}).map(function(part){return part.doorSourceNote;}).filter(Boolean)));
     var missing=requests.filter(function(r){return r.matched<r.quantity;}).map(function(r){
       return (r.quantity-r.matched)+' '+String(r.item.description||r.kind)+' position'+(r.quantity-r.matched===1?' is':'s are')+' not individually marked';
     });
@@ -158,10 +205,11 @@
     if(excluded)notes.push(excluded+' other item'+(excluded===1?' remains':'s remain')+' in the equipment list.');
     if(grouped)notes.push('Illustrative row at the recorded group location; individual positions are not established.');
     return {kind:'group',quantity:parts.length,requestedQuantity:requested,parts:parts,
-      length:Math.max(.25,2*Math.max(Math.abs(bounds.min[1]),Math.abs(bounds.max[1])))+.12,
-      width:Math.max(.25,2*Math.max(Math.abs(bounds.min[0]),Math.abs(bounds.max[0])))+.12,
+      length:Math.max(.25,2*Math.max(Math.abs(bounds.min[1]),Math.abs(bounds.max[1])))+.12+(doorCount?2.5:0),
+      width:Math.max(.25,2*Math.max(Math.abs(bounds.min[0]),Math.abs(bounds.max[0])))+.12+(doorCount?2.5:0),
       height:height,angle:0,centre:centre,bounds:bounds,partialNote:notes.join(' '),
-      groupedPosition:grouped,doorsIllustrative:true};
+      groupedPosition:grouped,doorsIllustrative:true,doorCount:doorCount,doorAdapted:doorAdapted,
+      doorSourceNote:doorSources.join(' ')+(doorCount?' Open position shown for clarity; not a live door-open status.':'Door side is not confirmed on the source drawing.')};
   }
   root.GC500EquipmentLayout1027=Object.freeze({version:'10.27',specOf:specOf});
 })(typeof window!=='undefined'?window:globalThis);

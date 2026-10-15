@@ -20,12 +20,12 @@
   .equipment1027-status{display:flex;gap:10px;align-items:center;font-weight:800;font-size:17px;color:#53f2ac;margin:14px 0;padding:12px 0;border-top:1px solid #647076;border-bottom:1px solid #647076}.equipment1027-status.pending{color:#ffd166}.equipment1027-status svg{flex:none;width:30px;height:30px}.equipment1027-actions{display:flex;gap:8px}.equipment1027-actions button{flex:1}.equipment1027-card details{margin-top:12px;color:#dbe2e4;font-size:12px}.equipment1027-card summary{cursor:pointer;min-height:30px;display:flex;align-items:center;font-weight:700}.equipment1027-card details p{font-size:12px}.equipment1027-card [data-meta]{font-size:12px}
   .equipment1027-tools{position:absolute;left:12px;top:calc(var(--hh) + 10px);z-index:3;display:flex;gap:6px}.equipment1027-tools[hidden]{display:none}.equipment1027-tools button[aria-pressed=true]{border-color:#ffa362;box-shadow:0 0 12px #ff6a1355;background:#51301d}.equipment1027-caption{position:absolute;left:12px;bottom:26px;z-index:3;max-width:calc(100% - 30px);font-size:11px;background:#101719e8;color:#e2e8ea;border:1px solid #6c7478;border-radius:8px;padding:5px 9px;pointer-events:none}.equipment1027-caption[hidden]{display:none}
   body.equipment1027 .rose3d{top:auto;bottom:62px}body.equipment1027 .pill{top:calc(var(--hh) + 60px);max-width:calc(100% - 350px)}body.equipment1027 .q button{min-height:38px}body.equipment1027 .views button{min-height:36px}
-  @media(max-width:900px){.equipment1027-tools{left:10px;top:calc(var(--hh) + 48px)}.equipment1027-tools button{font-size:12px;padding:7px 10px}.equipment1027-card{right:10px;left:10px;top:auto;bottom:58px;width:auto;max-height:42%;padding:12px;border-radius:13px}.equipment1027-card h2{font-size:21px;margin-bottom:4px}.equipment1027-card p{font-size:13px;margin:2px 0}.equipment1027-status{margin:8px 0;padding:8px 0;font-size:15px}.equipment1027-status svg{width:25px;height:25px}.equipment1027-card details{margin-top:6px}.equipment1027-actions button{font-size:12px}.equipment1027-caption{bottom:24px;left:10px;max-width:calc(100% - 40px);font-size:10px}body.equipment1027 .rose3d{top:calc(var(--hh) + 100px);bottom:auto}body.equipment1027 .pill{max-width:calc(100% - 130px);top:calc(var(--hh) + 101px)}
+  @media(max-width:900px){.equipment1027-tools{left:10px;top:calc(var(--hh) + 48px)}.equipment1027-tools button{font-size:12px;padding:7px 10px}.equipment1027-card{right:10px;left:10px;top:auto;bottom:58px;width:auto;max-height:42%;padding:12px;border-radius:13px}.equipment1027-card h2{font-size:21px;margin-bottom:4px}.equipment1027-card p{font-size:13px;margin:2px 0}.equipment1027-status{margin:8px 0;padding:8px 0;font-size:15px}.equipment1027-status svg{width:25px;height:25px}.equipment1027-card details{margin-top:6px}.equipment1027-actions button{font-size:12px}.equipment1027-caption{bottom:24px;left:10px;max-width:calc(100% - 40px);font-size:10px}body.equipment1027 .rose3d{top:calc(var(--hh) + 100px);bottom:auto}body.equipment1027 .pill{max-width:calc(100% - 130px);top:calc(var(--hh) + 101px)}body.equipment1027-selected .q{display:none}body.equipment1027-selected .equipment1027-tools{top:calc(var(--hh) + 8px)}body.equipment1027-selected .rose3d{top:calc(var(--hh) + 58px);transform:scale(.7);transform-origin:top right}
   `;
   document.head.appendChild(css);
   const card = document.createElement('section'); card.className = 'equipment1027-card'; card.hidden = true;
   card.setAttribute('aria-label', 'Selected equipment');
-  card.innerHTML = '<button type="button" class="equipment1027-close" aria-label="Close equipment details">×</button><h2 data-ref></h2><div data-description></div><p data-supplier></p><div class="equipment1027-status" role="status"><span data-icon></span><span data-status></span></div><div class="equipment1027-actions"><button type="button" data-action="photos">View photos</button><button type="button" data-action="details">Details</button></div><details><summary>More info</summary><p data-location></p><p data-visual></p><p data-meta></p></details>';
+  card.innerHTML = '<button type="button" class="equipment1027-close" aria-label="Close equipment details">×</button><h2 data-ref></h2><div data-description></div><p data-supplier></p><div class="equipment1027-status" role="status"><span data-icon></span><span data-status></span></div><div class="equipment1027-actions"><button type="button" data-action="photos">View photos</button><button type="button" data-action="details">Details</button></div><details><summary>More info</summary><p data-location></p><p data-specs></p><p data-door></p><p data-visual></p><p data-meta></p></details>';
   document.body.appendChild(card);
   const tools = document.createElement('div'); tools.className = 'equipment1027-tools'; tools.hidden = true;
   tools.innerHTML = '<button type="button" data-gate>Gate 6</button><button type="button" data-models aria-pressed="true">3D equipment</button><button type="button" data-zoom="in" aria-label="Zoom in">+</button><button type="button" data-zoom="out" aria-label="Zoom out">−</button>';
@@ -35,6 +35,7 @@
   function suppressParentCard(show) { try { bridge()?.cardVisible(show); } catch (_) {} }
   function updateCard() {
     const row = records.get(active);
+    document.body.classList.toggle('equipment1027-selected',!!row);
     card.hidden = !row; suppressParentCard(!!row);
     if (!row) return;
     card.querySelector('[data-ref]').textContent = row.quantityLabel;
@@ -47,7 +48,17 @@
     card.querySelector('[data-location]').textContent = row.sourceNote;
     card.querySelector('[data-visual]').textContent = row.visualNote;
     const entry=models.get(row.ref),note=entry?.spec.partialNote;
-    card.querySelector('[data-meta]').textContent = (note ? note+' ' : '')+`${row.photos.recorded} recorded photo${row.photos.recorded === 1 ? '' : 's'} · changes read from the shared record. Model doors and fittings are illustrative; use the loading record for orientation.`;
+    const specs=row.items.map(item=>{
+      const d=item.dimensions;if(!d)return '';
+      const parts=[['lengthMm','length'],['widthMm','width'],['heightMm','height']].filter(([key])=>finite(d[key])&&d[key]>0).map(([key,label])=>`${label} ${Number((d[key]/1000).toFixed(3))} m`);
+      if(d.verified&&finite(d.massKg)&&d.massKg>0)parts.push(`weight ${d.massKg.toLocaleString('en-AU')} kg per unit`);
+      return parts.length?`${item.description}: ${parts.join(' · ')} (${d.verified?'verified specifications':d.basis||'recorded footprint'}).`:'';
+    }).filter(Boolean).join(' ');
+    card.querySelector('[data-specs]').textContent=specs;
+    card.querySelector('[data-specs]').hidden=!specs;
+    card.querySelector('[data-door]').textContent=entry?.spec.doorCount?entry.spec.doorSourceNote || 'Recorded door side. Open position shows entry direction, not live door-open status.':'Door side is not confirmed for this model.';
+    card.querySelector('[data-door]').hidden=!row.items.some(item=>/building|office|ticket|container|\bcont\b|toilet|fwf|ablution|pan.?block/i.test(item.description));
+    card.querySelector('[data-meta]').textContent = (note ? note+' ' : '')+`${row.photos.recorded} recorded photo${row.photos.recorded === 1 ? '' : 's'} · changes read from the shared record. Unmeasured fittings remain illustrative.`;
     card.querySelector('[data-action="photos"]').hidden = row.photos.recorded === 0;
   }
   card.querySelector('.equipment1027-close').onclick = () => { active = null; ringAt(null); try { bridge()?.clear(); } catch (_) {} updateCard(); render(); };
@@ -76,7 +87,9 @@
     try {
       const generated = GC500EquipmentGeometry1027.makeGroup(spec.parts);
       entry.url = URL.createObjectURL(new Blob([generated.glb], {type:'model/gltf-binary'}));
-      const model = await Cesium.Model.fromGltfAsync({url:entry.url,modelMatrix:modelMatrix(row,spec),id:{_gc:findPin(row.ref)},allowPicking:true,minimumPixelSize:0,maximumScale:1,incrementallyLoadTextures:false,shadows:Cesium.ShadowMode.DISABLED,distanceDisplayCondition:new Cesium.DistanceDisplayCondition(0,1200)});
+      // Geometry already converts ENU into glTF Y-up. Suppress Cesium's default
+      // Z-forward correction, which would rotate both placements and bodies.
+      const model = await Cesium.Model.fromGltfAsync({url:entry.url,upAxis:Cesium.Axis.Y,forwardAxis:Cesium.Axis.X,modelMatrix:modelMatrix(row,spec),id:{_gc:findPin(row.ref)},allowPicking:true,minimumPixelSize:0,maximumScale:1,incrementallyLoadTextures:false,shadows:Cesium.ShadowMode.DISABLED,distanceDisplayCondition:new Cesium.DistanceDisplayCondition(0,1200)});
       if (entry.dead || stopped || !sceneReady() || models.get(row.ref) !== entry) { model.destroy(); return; }
       entry.model = model; entry.stats = generated.stats; viewer.scene.primitives.add(model);
       URL.revokeObjectURL(entry.url); entry.url = null;
@@ -111,8 +124,9 @@
       rec.l.distanceDisplayCondition = selected ? DDC.all : new Cesium.DistanceDisplayCondition(0,650);
       if(entry?.model){
         entry.model.id={_gc:rec._gc};
-        entry.model.silhouetteSize=selected?3:0;
-        entry.model.silhouetteColor=Cesium.Color.fromCssColorString(row.complete?'#32ee9b':'#ff9a38');
+        // A silhouette outlines every cladding seam and masks the open door.
+        // The pulsing ground rim carries selection while materials remain clear.
+        entry.model.silhouetteSize=0;
       }
     }
     declutter();
@@ -122,6 +136,8 @@
     const placed=[],order=pinEntities.filter(rec=>records.has(rec._gc.k)).sort((a,b)=>(b._gc.k===active?1:0)-(a._gc.k===active?1:0));
     for(const rec of order){
       if(!(visible(rec._gc)||rec._gc.k===active)){rec.l.show=false;continue;}
+      // The phone card already names the selected item; keep its label out of the controls.
+      if(window.innerWidth<=900 && !card.hidden && rec._gc.k===active){rec.l.show=false;continue;}
       const pos=Cesium.SceneTransforms.worldToWindowCoordinates(viewer.scene,rec.l.position);if(!pos)continue;
       const lines=String(rec.l.text).split('\n'),w=Math.max(...lines.map(t=>t.length))*7+20,h=lines.length*20+12;
       const box={l:pos.x-w/2,r:pos.x+w/2,t:pos.y-h-22,b:pos.y-15};
@@ -162,8 +178,6 @@
       phase+=.23;const alpha=.15+.055*(1+Math.sin(phase));
       const row=records.get(active),color=Cesium.Color.fromCssColorString(row?.complete?'#32ee9b':'#ff9a38');
       for(const e of selectionEntities)e.polygon.material=color.withAlpha(alpha);
-      const selected=models.get(active)?.model;
-      if(selected)selected.silhouetteColor=color.withAlpha(.72+.28*(1+Math.sin(phase))/2);
       render();
     },100);
   }
@@ -196,7 +210,11 @@
       const spec=specOf(row);if(!spec)return;
       const centre=spec.centre||row.location,position=Cesium.Cartesian3.fromDegrees(centre.lon,centre.lat,pinH(p));
       stopMotion813();
-      viewer.camera.flyToBoundingSphere(new Cesium.BoundingSphere(position,5),{offset:new Cesium.HeadingPitchRange(viewer.camera.heading,Cesium.Math.toRadians(-48),Math.max(42,Math.max(spec.length,spec.width)*4)),duration:reduced.matches?0:1.2});
+      const range=Math.max(42,Math.max(spec.length,spec.width)*4);
+      const entrance=spec.doorCount>0?row.components.find(c=>finite(c.doorBearingDeg)):null;
+      const heading=entrance?Cesium.Math.toRadians((entrance.doorBearingDeg+205)%360):viewer.camera.heading;
+      viewer.camera.flyToBoundingSphere(new Cesium.BoundingSphere(position,5),{offset:new Cesium.HeadingPitchRange(heading,Cesium.Math.toRadians(-48),range),duration:reduced.matches?0:1.2,
+        complete:()=>{if(innerWidth<=900){viewer.camera.moveDown(range*.18);render();}}});
       render();
     };
   }

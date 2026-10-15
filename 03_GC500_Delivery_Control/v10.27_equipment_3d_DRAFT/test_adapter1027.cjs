@@ -29,6 +29,8 @@ const {open} = require('../toolchain/harness/open_page.js');
         invalid: invalid.items.every(i => i.components.every(c => c.polygon.length === 0)),
         detached: clean.items[0].components[0].sheetPolygon[0][0] !== 999,
         noHeightsGuessed: clean.items.every(i => i.items.every(x => x.dimensions?.heightMm == null || x.dimensions.verified)),
+        noMassesGuessed: clean.items.every(i => i.items.every(x => x.dimensions?.massKg == null || x.dimensions.verified)),
+        allDoorsRetained: projected.items.every(i => i.components.every(c => c.doorCount === c.doors.length)),
         unchanged: before === JSON.stringify(S) && shapesBefore === JSON.stringify(MASTER_SHAPES926_DATA),
         invalidOpen: api.open('NOT-A-REFERENCE', 'details'), invalidAction: api.open('WC49', 'write'),
         knownOnly: api.get('NOT-A-REFERENCE') === null,
@@ -38,7 +40,7 @@ const {open} = require('../toolchain/harness/open_page.js');
     });
     assert(result.available);
     assert.deepEqual(result.actual.sort((a, b) => a.ref.localeCompare(b.ref)), result.expected.sort((a, b) => a.ref.localeCompare(b.ref)));
-    for (const field of ['projected', 'invalid', 'detached', 'noHeightsGuessed', 'unchanged', 'knownOnly', 'expanded']) assert(result[field], field);
+    for (const field of ['projected', 'invalid', 'detached', 'noHeightsGuessed', 'noMassesGuessed', 'allDoorsRetained', 'unchanged', 'knownOnly', 'expanded']) assert(result[field], field);
     assert.equal(result.invalidOpen, false); assert.equal(result.invalidAction, false);
     assert.equal(result.supplier, 'Event Portables');
     assert.equal(await rig.page.evaluate(() => GC500Equipment1027.open('WC49', 'photos')), true);

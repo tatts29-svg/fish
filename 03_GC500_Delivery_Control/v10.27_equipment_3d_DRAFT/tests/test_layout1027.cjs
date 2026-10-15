@@ -40,4 +40,48 @@ test('Groups over 48 actual positions skip rather than silently drop families',(
 test('Camera bounds contain every rotated component footprint',()=>{const s=api.specOf(fixture09());for(const p of s.parts){assert(Math.abs(p.offset[0])+Math.abs(Math.cos(p.angle))*p.spec.width/2+Math.abs(Math.sin(p.angle))*p.spec.length/2<=s.width/2);assert(Math.abs(p.offset[1])+Math.abs(Math.sin(p.angle))*p.spec.width/2+Math.abs(Math.cos(p.angle))*p.spec.length/2<=s.length/2);}assert(s.height>=2.9);});
 test('Door bearing chooses only a compatible half-turn, preserving footprint axes',()=>{const c=comp('building','B',0,0,6,3),r=row([{description:'Building',kind:'building',quantity:1}],[c]);const a=api.specOf(r).parts[0].angle;c.doorBearingDeg=0;const b=api.specOf(r).parts[0].angle;near(Math.abs(Math.cos(a-b)),1);c.doorBearingDeg=90;const d=api.specOf(r).parts[0].angle;near(Math.abs(Math.cos(a-d)),1);});
 test('Input is unchanged and output deterministic',()=>{const r=fixture09(),before=JSON.stringify(r);const a=api.specOf(r),b=api.specOf(r);assert.equal(JSON.stringify(r),before);assert.equal(JSON.stringify(a),JSON.stringify(b));});
+test('Confirmed door side points along its master bearing without a quarter-turn of the building',()=>{
+ for(const bearing of [0,90,180,270]){
+  const c=comp('building','B',0,0,6,3),r=row([{description:'Building 6m',kind:'building',quantity:1}],[c]);
+  const initial=api.specOf(r).parts[0].angle;
+  Object.assign(c,{source:'master',doorBearingDeg:bearing,doorEdge:1,doorBasis:'one door drawn'});
+  const s=api.specOf(r),p=s.parts[0],v={front:[0,-1],back:[0,1],left:[-1,0],right:[1,0]}[p.spec.doorSide];
+  assert.equal(p.spec.doorConfirmed,true);assert.equal(p.spec.doorOpen,true);assert.equal(s.doorCount,1);
+  const e=v[0]*Math.cos(p.angle)-v[1]*Math.sin(p.angle),n=v[0]*Math.sin(p.angle)+v[1]*Math.cos(p.angle);
+  near(e,Math.sin(bearing*Math.PI/180));near(n,Math.cos(bearing*Math.PI/180));near(Math.abs(Math.cos(p.angle-initial)),1);
+ }
+});
+test('Unconfirmed, malformed and ordinary FWF door sides do not open',()=>{
+ const r=fixture51(),s=api.specOf(r);assert.equal(s.doorCount,0);assert(s.parts.every(p=>p.spec.doorConfirmed===false&&p.spec.doorOpen===false));
+ const c=comp('building','B',0,0,6,3);Object.assign(c,{doorBearingDeg:90,doorEdge:1,doorBasis:'one door drawn'});
+ const rr=row([{description:'Building',kind:'building',quantity:1}],[c]);assert.equal(api.specOf(rr).doorCount,0);
+ c.source='master';c.doorBasis='door not confirmed';assert.equal(api.specOf(rr).doorCount,0);
+ c.doorBasis='one door drawn';c.doorEdge=8;assert.equal(api.specOf(rr).doorCount,0);
+});
+test('Every source doorway midpoint and width is retained on a two-door block',()=>{
+ const c=comp('toilet_block','B',0,0,6,3);Object.assign(c,{source:'master',doorBearingDeg:90,doorEdge:1,doorBasis:'2 doors drawn, all on the same edge',doors:[
+  {edgeIndex:1,bearingDeg:90,widthM:.8,mid:{lat:base.lat-1.4/110540,lon:base.lon+1.5/eastScale},source:'master'},
+  {edgeIndex:1,bearingDeg:90,widthM:.9,mid:{lat:base.lat+1.2/110540,lon:base.lon+1.5/eastScale},source:'master'}]});
+ const s=api.specOf(row([{description:'Toilet Block 6m',kind:'toilet-block',quantity:1}],[c])),spec=s.parts[0].spec;
+ assert.equal(s.doorCount,1);assert.equal(spec.doorCount,2);assert.equal(spec.doors.length,2);
+ assert.equal(spec.doors[0].side,'right');near(spec.doors[0].offset,-1.4);near(spec.doors[1].offset,1.2);assert.equal(spec.doors[0].width,.8);assert.equal(spec.doors[1].width,.9);
+ assert.match(s.doorSourceNote,/Doorway positions and sides from the master plan/);assert.match(s.doorSourceNote,/not a live door-open status/);
+ assert.equal(s.doorAdapted,false);assert.equal(spec.doorAdapted,false);assert(spec.doors.every(d=>d.adapted===false));
+});
+test('A sourced doorway shifted to fit a smaller body is explicitly adapted without losing its source position',()=>{
+ const c=comp('accessible_toilet','A',0,0,2.6,2.4);Object.assign(c,{source:'master',doorBearingDeg:90,doorEdge:1,doorBasis:'one door drawn',doors:[
+  {edgeIndex:1,bearingDeg:90,widthM:.83,mid:{lat:base.lat-.645/110540,lon:base.lon+1.2/eastScale},source:'master'}]});
+ const s=api.specOf(row([{description:'Accessible Toilet',quantity:1}],[c])),p=s.parts[0],d=p.spec.doors[0];
+ assert.equal(s.doorAdapted,true);assert.equal(p.spec.doorAdapted,true);assert.equal(d.adapted,true);
+ assert.equal(d.side,'right');near(d.offset,-.645);near(d.renderedOffset,-.485);near(d.renderedWidth,.83);
+ assert.match(p.doorSourceNote,/Door side from the master plan; doorway position adapted to the illustrative model/);
+ assert.match(s.doorSourceNote,/adapted to the illustrative model/);assert.doesNotMatch(s.doorSourceNote,/Doorway positions and sides/);
+});
+test('A source door wider than the body carries the same adaptation disclosure',()=>{
+ const c=comp('accessible_toilet','A',0,0,2.6,2.4);Object.assign(c,{source:'master',doorBasis:'one door drawn',doors:[
+  {edgeIndex:0,bearingDeg:180,widthM:2,mid:{lat:base.lat-1.2/110540,lon:base.lon},source:'master'}]});
+ const s=api.specOf(row([{description:'Accessible Toilet',quantity:1}],[c])),d=s.parts[0].spec.doors[0];
+ assert.equal(d.side,'front');near(d.width,2);near(d.renderedWidth,1.44);near(d.renderedOffset,0);
+ assert.equal(d.adapted,true);assert.equal(s.doorAdapted,true);assert.match(s.doorSourceNote,/adapted/);
+});
 console.log(`${passed}/${passed} PASS`);

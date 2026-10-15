@@ -64,6 +64,7 @@
       lengthMm: positive(chosen.lengthMm) ? chosen.lengthMm : null,
       widthMm: positive(chosen.widthMm) ? chosen.widthMm : null,
       heightMm: actual && positive(actual.heightMm) ? actual.heightMm : null,
+      massKg: actual && positive(actual.massKg) ? actual.massKg : null,
       source: actual ? String(actual.source || '') : contractListed ? String(product?.source?.source || '') : '',
       basis: actual ? 'Verified transport dimensions' : contractListed ? 'Contract-listed footprint' : 'Nominal description',
       verified: !!actual
@@ -82,6 +83,15 @@
         try { return point(projectPoint(p[0] * sheet[0], p[1] * sheet[1])); } catch (_) { return null; }
       };
       const polygon = (c.poly || []).map(project);
+      const doors = (c.doors || []).map(d => ({
+        edgeIndex: Number.isInteger(d.edge_index) ? d.edge_index : null,
+        at: typeof d.at === 'number' && d.at >= 0 && d.at <= 1 ? d.at : null,
+        mid: project(d.mid),
+        bearingDeg: Number.isFinite(d.bearing_deg) ? d.bearing_deg : null,
+        widthM: positive(d.width_m) ? d.width_m : null,
+        faces: String(d.faces || ''), opens: String(d.opens || ''),
+        source: String(c.source || ''), basis: String(c.door_note || '')
+      }));
       return {
         id: ref + ':' + index, kind: c.kind, label: c.label,
         polygon: polygon.length >= 3 && polygon.every(Boolean) ? polygon : [],
@@ -93,7 +103,7 @@
         approximate: true, confirm: !!c.confirm,
         doorBearingDeg: Number.isFinite(c.door?.bearing_deg) ? c.door.bearing_deg : null,
         doorEdge: Number.isInteger(c.door?.edge_index) ? c.door.edge_index : null,
-        doorBasis: String(c.door_note || '')
+        doorBasis: String(c.door_note || ''), doors, doorCount: doors.length
       };
     });
   }
@@ -120,7 +130,10 @@
         if (p.owner && p.owner !== 'unknown') names.push(window.Units925.company(p.owner));
       });
       const sizes = matchingProducts.map(dimensions);
-      const consistent = sizes.length && sizes.every(s => JSON.stringify(s) === JSON.stringify(sizes[0]));
+      const sizeSignature = ({massKg, ...size}) => JSON.stringify(size);
+      const consistent = sizes.length && sizes.every(s => sizeSignature(s) === sizeSignature(sizes[0]));
+      const size = consistent ? {...sizes[0],
+        massKg: sizes.every(s => s.massKg === sizes[0].massKg) ? sizes[0].massKg : null} : null;
       const family = window.Loading931?.family931(row.item) || 'other';
       const itemKind = family === 'other' && /\bcont(?:ainer)?\b/i.test(row.item) ? 'container' : family;
       return {
@@ -128,7 +141,7 @@
         quantity: row.quantity, received: known(received) ? received : null,
         installed: status.state === 'complete' ? row.completed : row.installed,
         completed: row.completed, suppliers: [...new Set(names)],
-        dimensions: consistent ? sizes[0] : null,
+        dimensions: size,
         capacityKva: matchingProducts.length && matchingProducts.every(p => p.source?.capacityKva === matchingProducts[0].source?.capacityKva)
           ? matchingProducts[0].source?.capacityKva || null : null
       };
