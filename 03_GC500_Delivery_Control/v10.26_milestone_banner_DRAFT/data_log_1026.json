@@ -2919,5 +2919,42 @@
     "date": "2026-10-28"
    }
   ]
- }
+ },
+ "schedule_copies": [
+  {
+   "ref": "P63",
+   "number_removed": "1282487",
+   "why": "P63 stands as unit 960719 on the record and on Baseplan line 121; 1282487 is HRP (Schedule 9, Week 5 row for the Hire Republic crib room)"
+  },
+  {
+   "ref": "P27",
+   "number_removed": "1097343",
+   "why": "docket 26076747 delivered 1097343 to P18 on 16 Sep; P27 is not on site"
+  },
+  {
+   "ref": "P53",
+   "number_removed": "1327222",
+   "why": "docket 26126001 delivered 1327222 to P66 on 14 Oct"
+  },
+  {
+   "ref": "P36",
+   "number_removed": "1327222",
+   "why": "docket 26126001 delivered 1327222 to P66 on 14 Oct; P36 is 1189410 (docket 26085104)"
+  },
+  {
+   "ref": "P46",
+   "number_removed": "1327213",
+   "why": "docket 26064087 delivered 1327213 to P04 on 15 Sep; P46 is 1327215 on the record"
+  },
+  {
+   "ref": "P67",
+   "number_removed": "1189410",
+   "why": "docket 26085104 delivered 1189410 to P36 on 17 Sep; P67 is the commentary booth, unit 421107 on the record"
+  },
+  {
+   "ref": "GN06",
+   "number_removed": "1283681",
+   "why": "the 15 Oct export carries 1283681 as a spare generator; GN06 is 1320828, confirmed on site 15 Oct"
+  }
+ ]
 }

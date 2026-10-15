@@ -2,9 +2,12 @@
 
 Author: Andrew Fisher · 15 Oct 2026
 
-Status: **APPLIED and VERIFIED on the live record, 15 Oct 2026 15:49 AEST — record version 6469 → 6498, 29 documents
-written, every other document unchanged in value.** Report `report_20261015T054922Z.json` (key redacted); backup of the
-whole record before, `backup_state_20261015T054922Z.json`, beside it. Andrew, 15 Oct 2026 about 15:50 AEST in
+Status: **APPLIED and VERIFIED on the live record in three passes** — 15:49 AEST, record 6469 → 6498, 29 documents
+(`report_20261015T054922Z.json`); 16:03, 6501 → 6503, the two fridge numbers again after another open copy of the page
+wrote the old ones back (`report_20261015T060324Z.json`, spec `fill_spec_fridges_again.json`); 16:48, 6503 → 6562,
+59 documents: the questions answered from the data and three toilet identities (`report_20261015T064831Z.json`, spec
+`fill_spec_questions.json`). Every other document unchanged in value each time; a backup of the whole record before
+each pass sits beside the runner, key redacted from every report. Andrew, 15 Oct 2026 about 15:50 AEST in
 Claude's chat: "fix anything that is relevant to truth please … we have all the data we need. true fact".
 
 ## What was written, and why
@@ -42,6 +45,35 @@ sha256 `ba246d4a…`) or on the contract line of the same export. The page's own
 - **CP1's fridge and urn, P09's auto boil, GN23's distribution board**: their contract lines now carry the numbers; the
   drawer would have added a second row beside the schedule's unnumbered one, so nothing was added.
 
+## Third pass, 16:48 — the questions, worked out from what we hold
+
+Andrew, 15 Oct about 16:30 AEST: "You have all the data, you are the brains, I need you to work it out." Each question
+got a dated note through the page's own note field (`setQAnswer`), read off the record, the 15 Oct Baseplan export,
+Schedule 9, Advanced's weekly approval sheets and the 2026 card as the page holds them. Where a source is silent the
+note says the rule applied until a person says otherwise.
+
+| Question | The answer written |
+|---|---|
+| Advanced's accepted quote | None exists, none needed: paid on measured dockets at the approval-sheet rates, a purchase order a week (4647508, 4647509, 4647517, 4647515, 4647519). |
+| Customer rate for "team leader" | No separate line: the customer pays fencing per metre at the card and event people at the Labour Scope roles; Advanced's $200/day is inside our weekly cost. |
+| Fencing 6 lines short | Line by line: bracing booked under Clean as components; relocation on the green notes as hours; removal still to do by programme; gates on Advanced's week 2 sheet (33 vehicle, 3 pedestrian) and the rest CON WK1 / Event Week; flat-feet CCB 42 of 45 done, 121 m is Event Week. |
+| Closure marks | Working rule: a window is closed at its start and clear by its end; two marks with one order number are the two ends of one section; the colour is the crew. |
+| Labour cost basis | Kyle Gover and Daniel Gough at the Job Connect purchase orders; the six Coates staff on salary (a payroll figure the 30 Sep review left blank); Kyle's records without hours are shifts from 15 Oct on. |
+| Alfie's nights | $223.63 ex GST, his own rate on the record for 14–17 Sep and 6–9 Oct; planned at that until invoiced. |
+| Locations short | WC09 asks 10 on Andrew's word of 14 Oct (6 to come); WC30 asks 8 for 19 Oct and 4 arrived today. Not errors. |
+| R26 generator 028 | An off-site reference note on D024, not a position; the only 028 drawn is building 028 (P28) on D022. Nothing to supply. |
+| R29 S04 compound | 36546 22.5 m + 36589 15 m + the bridge run 36565 25 m + bracing 36581 cover the 41 m; no gate docketed at S04, so it stays on the event-week list. |
+| R30 VMS plan | Settled by what was issued: the 15 Oct VMS plan pack follows VMS001-26003-01; D025's bubbles are not used; 22 boards; charges unchanged. |
+| CCB 36595 | Demarcation (rear of S20 shower, Advanced's demarcation column); customer rate $13.08/m. |
+| No-rate lines | STPS shade cloth = scrim at $25.53/m when docketed; KINP "Shop Front - Shut Down" is a fit-out of container 1257261 at T0023, no separate hire rate; NVAC board and cable sit inside the generator card rate, the spare and the tyne rotator are Pending with no charge unless called off. |
+
+Identities: WC51's accessible toilet 1197174, WC09's two toilet blocks 1268858 and 1311146 were typed as plain numbers,
+so the page counted them as FWF toilets; each came off as a plain number and went on again as the unit it is (the
+drawer's unit record, Coates-owned). P63, P65, P66 and WC31 were already identified on the record.
+
+Not done: T0265 is cancelled (Andrew, 14:15) but still on the register with two fridge units, 1260164 and 1318501;
+deleting a reference is permanent and is the Delete button's job, so it waits for Andrew.
+
 ## Checks
 
 | Check | Result |
@@ -51,3 +83,5 @@ sha256 `ba246d4a…`) or on the contract line of the same export. The page's own
 | Startup queue | clear |
 | Writes allowed through the gate | exactly the 29 planned, once each, all acknowledged 200 |
 | Service after: every op holds; other documents unchanged in value | yes |
+| Third pass dry run (four rounds, every write aborted) | passed: 24 ops staged, 59 documents, including the drawer's own removal of two emptied number documents |
+| Third pass apply | 59 writes allowed once each, acknowledged; verified on the service; other documents unchanged in value |

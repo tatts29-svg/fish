@@ -201,6 +201,31 @@ def apply_schedule9(D, xlsx, state):
     return {'dates_applied': dates_applied, 'dates_held': dates_held, 'quantities': qtys, 'rows_added': added, 'rows_without_a_page_event': unmatched_rows, 'vms_rows_held': held_rows}
 
 
+# the schedule's copies of a number that belongs to another reference: the register shows them both until somebody
+# says which, and the page's own rule hides the number on both. Each is settled by the record and the 15 Oct export.
+SCHEDULE_COPIES = [
+    ('P63', '1282487', 'P63 stands as unit 960719 on the record and on Baseplan line 121; 1282487 is HRP (Schedule 9, Week 5 row for the Hire Republic crib room)'),
+    ('P27', '1097343', 'docket 26076747 delivered 1097343 to P18 on 16 Sep; P27 is not on site'),
+    ('P53', '1327222', 'docket 26126001 delivered 1327222 to P66 on 14 Oct'),
+    ('P36', '1327222', 'docket 26126001 delivered 1327222 to P66 on 14 Oct; P36 is 1189410 (docket 26085104)'),
+    ('P46', '1327213', 'docket 26064087 delivered 1327213 to P04 on 15 Sep; P46 is 1327215 on the record'),
+    ('P67', '1189410', 'docket 26085104 delivered 1189410 to P36 on 17 Sep; P67 is the commentary booth, unit 421107 on the record'),
+    ('GN06', '1283681', 'the 15 Oct export carries 1283681 as a spare generator; GN06 is 1320828, confirmed on site 15 Oct'),
+]
+
+
+def settle_schedule_copies(D):
+    A = {a['key']: a for a in D['assets']}; out = []
+    for key, no, why in SCHEDULE_COPIES:
+        a = A.get(key)
+        if not a or no not in (a.get('asset_numbers') or []): continue
+        a['asset_numbers'] = [n for n in a['asset_numbers'] if n != no]
+        a.setdefault('asset_notes', []).append({'kind': 'number settled', 'number': no, 'note': 'the schedule wrote ' + no + ' here; ' + why + ' (settled 15 Oct 2026)'})
+        a['asset_no_state'] = a.get('asset_no_state') if a['asset_numbers'] else 'settled: the schedule\'s number belongs to another reference'
+        out.append({'ref': key, 'number_removed': no, 'why': why})
+    return out
+
+
 def main():
     a = sys.argv[1:]
     if not a: sys.exit(__doc__)
@@ -212,13 +237,14 @@ def main():
     D, n = json.JSONDecoder().raw_decode(html[at:])
     assert json.dumps(D, ensure_ascii=False, separators=(',', ':')) == html[at:at + n], 'DATA does not round-trip byte for byte'
     before = copy.deepcopy(D)
+    copies = settle_schedule_copies(D)
     bplog, nlines, ntabs = refresh_baseplan(D, bp, state)
     s9log = apply_schedule9(D, s9, state)
     D['baseplan_review1026'] = {'schema': 1, 'author': 'Andrew Fisher', 'reviewed': '2026-10-15', 'source': 'Baseplan SuperCars.xlsx, exported 15 Oct 2026 (uploaded as 892b9fab-Baseplan_SuperCars.xlsx)', 'sha256': BP_SHA,
                                 'contract_tabs': ntabs, 'lines': nlines, 'record_version': state.get('version'),
                                 'added': bplog['added'], 'removed_to_history': bplog['removed'], 'changed': len(bplog['changed']), 'changed_lines': bplog['changed'],
                                 'rejoined_by_filled_number': bplog['rejoined'], 'held': bplog['held'], 'record_would_move': bplog['record_would_move'], 'hand_joins': bplog['hand_joins'],
-                                'repeated_numbers': bplog['flags'], 'plant_line_copies': bplog['plant_line_copies'],
+                                'repeated_numbers': bplog['flags'], 'plant_line_copies': bplog['plant_line_copies'], 'schedule_copies_settled': copies,
                                 'rule': 'Contract information as exported; the site record stays authoritative for what stands where. A line the export no longer has is kept in the source history, out of the active totals.'}
     D['schedule_review1026'] = {'schema': 1, 'author': 'Andrew Fisher', 'reviewed': '2026-10-15', 'source': 'GC500 26 Schedule 9.xlsx (uploaded as 85b798de-GC500_26_Schedule_9.xlsx)', 'sha256': S9_SHA, 'comparison': 'the Schedule 7 events the page held',
                                 'applied': s9log, 'rule': 'A quantity or a day the schedule changed moves on the page; a reference already on site keeps its first day; VMS pick-up rows stay with the VMS plant line (no page reference).'}
@@ -227,11 +253,11 @@ def main():
     assert {k: v for k, v in D.items() if k not in keep} == {k: v for k, v in before.items() if k not in keep}, 'data outside the plan changed'
     for x, y in zip(D['assets'], before['assets']):
         assert x['key'] == y['key']
-        assert {k: v for k, v in x.items() if k not in ('events', 'first_date', 'last_date')} == {k: v for k, v in y.items() if k not in ('events', 'first_date', 'last_date')}, 'asset ' + x['key'] + ' changed outside its events'
+        assert {k: v for k, v in x.items() if k not in ('events', 'first_date', 'last_date', 'asset_numbers', 'asset_notes', 'asset_no_state')} == {k: v for k, v in y.items() if k not in ('events', 'first_date', 'last_date', 'asset_numbers', 'asset_notes', 'asset_no_state')}, 'asset ' + x['key'] + ' changed outside its events and settled numbers'
     html = html[:at] + json.dumps(D, ensure_ascii=False, separators=(',', ':')) + html[at + n:]
     page.write_text(html, encoding='utf-8')
     rep = {'baseplan': {k: (len(v) if isinstance(v, list) else v) for k, v in bplog.items()}, 'schedule9': {k: len(v) for k, v in s9log.items()}}
-    (HERE / 'data_log_1026.json').write_text(json.dumps({'baseplan': bplog, 'schedule9': s9log}, indent=1, ensure_ascii=False) + '\n')
+    (HERE / 'data_log_1026.json').write_text(json.dumps({'baseplan': bplog, 'schedule9': s9log, 'schedule_copies': copies}, indent=1, ensure_ascii=False) + '\n')
     print('patch_v1026_data applied:', json.dumps(rep))
 
 

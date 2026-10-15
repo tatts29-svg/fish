@@ -57,15 +57,22 @@ spec.ops.forEach((o, i) => {
   else if (o.op === 'light') { if (!REFRE.test(o.ref || '')) fail(at + 'needs a reference'); if (!['on site', 'not on site', 'in transit', 'collected'].includes(o.state)) fail(at + 'needs a light state'); }
   else if (o.op === 'acc_add') { if (!REFRE.test(o.ref || '')) fail(at + 'needs a reference'); if (!TYPES.includes(o.type)) fail(at + 'type must be one the picker has'); if (!NORE.test(o.no || '')) fail(at + 'needs a number'); if (o.qty != null && !(Number.isInteger(o.qty) && o.qty >= 1)) fail(at + 'qty'); }
   else if (o.op === 'acc_fix') { if (!REFRE.test(o.ref || '')) fail(at + 'needs a reference'); if (!TYPES.includes(o.type)) fail(at + 'type'); if (!/^\d{4,12}$/.test(o.from || '') || !NORE.test(o.to || '')) fail(at + 'from/to numbers'); }
-  else if (o.op === 'answer') { if (typeof o.id !== 'string' || !/^[a-z0-9][a-z0-9-]{1,80}$/i.test(o.id)) fail(at + 'needs a question id'); if (typeof o.text !== 'string' || !o.text.trim() || o.text.length > 600) fail(at + 'needs text under 600 characters'); if (/\b(codex|claude|gpt|model|agent)\b/i.test(o.text)) fail(at + 'text names a system'); }
+  else if (o.op === 'answer') { if (typeof o.id !== 'string' || !/^[a-z0-9][a-z0-9_-]{1,80}$/i.test(o.id)) fail(at + 'needs a question id'); if (typeof o.text !== 'string' || !o.text.trim() || o.text.length > 600) fail(at + 'needs text under 600 characters'); if (/\b(codex|claude|gpt|model|agent)\b/i.test(o.text)) fail(at + 'text names a system'); }
+  else if (o.op === 'unit_reidentify') { if (!REFRE.test(o.ref || '')) fail(at + 'needs a reference'); if (!NORE.test(o.no || '')) fail(at + 'needs a number'); if (typeof o.item !== 'string' || !o.item.trim()) fail(at + 'needs an item type'); if (!['coates', 'event-portables'].includes(o.owner || 'coates')) fail(at + 'owner'); }
+  else if (o.op === 'set_qty') { if (!REFRE.test(o.ref || '')) fail(at + 'needs a reference'); if (!(o.qty === '' || (Number.isInteger(o.qty) && o.qty >= 0))) fail(at + 'qty must be a whole number or "" for the schedule\'s own'); }
   else fail(at + 'unknown op ' + o.op);
 });
 const REFS = [...new Set(spec.ops.filter(o => o.ref).map(o => o.ref))], QIDS = [...new Set(spec.ops.filter(o => o.op === 'answer').map(o => o.id))];
 /* the documents this operation may touch: the references' own delivery, assetNumbers and accessories documents, the
    answers documents named, and the audit documents the page keeps beside them (stamps, by, deleted, notes, spares) */
-const ALLOWED_COLLS = new Set(['delivery', 'assetNumbers', 'accessories', 'answers', 'stamps', 'by', 'deleted', 'notes', 'spares']);
+const ALLOWED_COLLS = new Set(['delivery', 'assetNumbers', 'accessories', 'answers', 'stamps', 'by', 'deleted', 'notes', 'spares', 'loads', 'qtys', 'units']);
 const docIdDecode = id => String(id).replace(/~2f~/g, '/').replace(/~7c~/g, '|').replace(/~20~/g, ' ').replace(/~26~/g, '&');
-const allowed = k => { const c = k.slice(0, k.indexOf('/')), id = k.slice(k.indexOf('/') + 1); if (!ALLOWED_COLLS.has(c)) return false; const d = docIdDecode(id), parts = d.split('/'); return parts.some(p => REFS.includes(p) || QIDS.includes(p)); };
+const allowed = (k, body, docs) => { const c = k.slice(0, k.indexOf('/')), id = k.slice(k.indexOf('/') + 1); if (!ALLOWED_COLLS.has(c)) return false; const d = docIdDecode(id), parts = d.split('/');
+  if (c === 'loads') return d.startsWith('unit925/') && !!body && REFS.includes(body.ref); /* a unit record is named by its uuid; its body names the reference */
+  if ((c === 'stamps' || c === 'by') && d.startsWith('loads/unit925/')) { const u = ((docs || {}).loads || {})['unit925~2f~' + d.slice('loads/unit925/'.length)]; return !!u && REFS.includes(u.ref); } /* its audit stamps likewise */
+  if (c === 'answers' || (c === 'stamps' || c === 'by') && d.startsWith('answers/')) { const nid = d.replace(/^answers\//, ''); return QIDS.includes(nid) || NOTE_IDS.has(nid); }
+  return parts.some(p => REFS.includes(p) || QIDS.includes(p)); };
+const NOTE_IDS = new Set();
 
 // ---------------------------------------------------------------------------------------------- curl with headers on stdin
 let seq = 0;
@@ -99,7 +106,7 @@ function playwright() { try { return require(path.join(TOOLCHAIN, 'node_modules'
 // ---------------------------------------------------------------------------------------------- functions run INSIDE the page
 function pageReady() { return typeof SYNC === 'object' && SYNC.status === 'live' && SYNC.first && SYNC.first.size === Object.keys(SYNC_COLLS).length; }
 function pageHasControls() {
-  const missing = ['setLight', 'numberPutOn', 'numberTakeOff', 'numberOwners', 'assetNumbersOf', 'assetOf', 'deliveryOf', 'openAsset', 'setQAnswer', 'qAnswer', 'isRef', 'whoAmI', 'mayWrite', 'capability', 'toDocs', 'fromDocs', 'syncStage', 'syncSend', 'syncWaiting', 'persist', 'save'].filter(f => typeof window[f] !== 'function');
+  const missing = ['setLight', 'numberPutOn', 'numberTakeOff', 'numberOwners', 'assetNumbersOf', 'assetOf', 'deliveryOf', 'openAsset', 'setQAnswer', 'qAnswer', 'isRef', 'whoAmI', 'mayWrite', 'capability', 'toDocs', 'fromDocs', 'syncStage', 'syncSend', 'syncWaiting', 'persist', 'save', 'unit925Save', 'gcModel925', 'setQty'].filter(f => typeof window[f] !== 'function');
   return {missing, hasS: typeof S === 'object' && !!S, hasColls: typeof SYNC_COLLS === 'object', level: SYNC.level, readonly: SYNC.readonly, status: SYNC.status};
 }
 function pageDocs() { return JSON.parse(JSON.stringify(Object.fromEntries(Object.keys(SYNC_COLLS).map(k => [k, toDocs(k)])))); }
@@ -184,9 +191,29 @@ function applyOps(spec) {
           if (!accOf(op.ref, op.to, op.type) || accOf(op.ref, op.from, op.type)) throw new Error('the number did not change');
           r.result = 'changed ' + op.from + ' -> ' + op.to;
         }
+      } else if (op.op === 'unit_reidentify') {
+        const owner = op.owner || 'coates';
+        const rows = () => gcModel925(assetOf(op.ref), {loading: false}).rows.filter(x => x.source !== 'history' && x.active !== false);
+        const have = rows().filter(x => String(x.assetNo) === op.no);
+        if (have.some(x => x.physical && x.item === op.item && x.owner === owner)) { r.result = 'already identified as ' + op.item; }
+        else {
+          if (typeof UnitIdentity1006 !== 'object') throw new Error('UnitIdentity1006 missing');
+          have.forEach(x => { if (!x.id || x.kind !== 'unit925-record') return; const k = UnitIdentity1006.remove(op.ref, x.id, UnitIdentity1006.token(x)); if (!k || !k.ok) throw new Error(op.ref + ' take off ' + op.no + ' refused: ' + (k && k.reason)); });
+          const saved = unit925Save(op.ref, {item: op.item, owner, assetNo: op.no, label: op.item, branch: '', note: op.note || '', sourceKey: ''}, '', 'null', '');
+          const now = rows().find(x => String(x.assetNo) === op.no && x.item === op.item && x.owner === owner);
+          if (!now) throw new Error(op.no + ' is not on ' + op.ref + ' as ' + op.item + ' after the save (' + JSON.stringify(saved).slice(0, 120) + ')');
+          r.result = 'identified as ' + op.item + (now.physical ? '' : ' (not yet physical: ' + (now.identityReview || '') + ')');
+        }
+      } else if (op.op === 'set_qty') {
+        const cur = ((S.qtys || {})[op.ref]);
+        const ok = setQty(op.ref, op.qty === '' ? '' : String(op.qty)); if (ok === false) throw new Error('setQty refused ' + op.ref);
+        r.result = 'quantity ' + JSON.stringify(cur && cur.v !== undefined ? cur.v : cur) + ' -> ' + (op.qty === '' ? "the schedule's own" : op.qty);
       } else if (op.op === 'answer') {
-        if (qAnswer(op.id) === op.text) r.result = 'already noted';
-        else { const kept = setQAnswer(op.id, op.text); if (kept === false) throw new Error('setQAnswer refused ' + op.id); if (qAnswer(op.id) !== op.text) throw new Error('note not held'); r.result = 'noted'; }
+        /* the note lives under the question's note id (its words less the figures), so it survives the counts changing */
+        if (!applyOps.QL) applyOps.QL = typeof questionsList === 'function' ? questionsList() : []; /* computed once: it is a heavy read */
+        const q = applyOps.QL.find(x => x.id === op.id); const nid = q ? (q.noteId || q.id) : op.id; r.noteId = nid;
+        if (qAnswer(nid) === op.text) r.result = 'already noted';
+        else { const kept = setQAnswer(nid, op.text); if (kept === false) throw new Error('setQAnswer refused ' + nid); if (qAnswer(nid) !== op.text) throw new Error('note not held'); r.result = 'noted under ' + nid; }
       } else throw new Error('unknown op ' + op.op);
     } catch (e) { r.result = 'ERROR: ' + e.message; r.error = true; }
     out.push(r);
@@ -237,14 +264,15 @@ function applyOps(spec) {
         }
         if (method === 'POST' && u.origin === 'https://tile.googleapis.com' && u.pathname === '/v1/createSession') { counts.mapSessions++; return route.abort(); }
         const m = u.origin === HOST && u.pathname.match(/^\/api\/doc\/([^/]+)\/([^/]+)$/);
-        if (!m || method !== 'PUT') { counts.blocked++; refused.push({method, path: u.pathname}); stop('unexpected write ' + method + ' ' + u.pathname); return route.abort(); }
+        if (!m || (method !== 'PUT' && method !== 'DELETE')) { counts.blocked++; refused.push({method, path: u.pathname}); stop('unexpected write ' + method + ' ' + u.pathname); return route.abort(); }
         const key = decodeURIComponent(m[1]) + '/' + decodeURIComponent(m[2]);
-        let body = null; try { body = JSON.parse(req.postData() || 'null'); } catch (_) { body = undefined; }
+        if (method === 'DELETE' && expected.get(key) !== 'null') { counts.blocked++; refused.push({method, key}); stop('removal outside the plan: ' + key); return route.abort(); }
+        let body = null; try { body = method === 'DELETE' ? null : JSON.parse(req.postData() || 'null'); } catch (_) { body = undefined; }
         if (!writesAllowed || !expected.has(key) || canon(body) !== expected.get(key)) { counts.blocked++; refused.push({method, key}); stop('write outside the plan: ' + key); return route.abort(); }
         if (sent.has(key)) { counts.blocked++; refused.push({method, key, retry: true}); stop('automatic retry refused: ' + key); return route.abort(); }
         sent.add(key); return route.continue();
       });
-      page.on('response', r => { const q = r.request(); if (q.method() !== 'PUT') return; const m = new URL(r.url()).pathname.match(/^\/api\/doc\/([^/]+)\/([^/]+)$/); if (m) acks.set(decodeURIComponent(m[1]) + '/' + decodeURIComponent(m[2]), r.status()); });
+      page.on('response', r => { const q = r.request(); if (q.method() !== 'PUT' && q.method() !== 'DELETE') return; const m = new URL(r.url()).pathname.match(/^\/api\/doc\/([^/]+)\/([^/]+)$/); if (m) acks.set(decodeURIComponent(m[1]) + '/' + decodeURIComponent(m[2]), r.status()); });
       await page.goto(HOST + '/e/' + token + '#plant', {waitUntil: 'load', timeout: 180000});
     } else {
       let pageFile = argValue('--page') || process.env.PAGE || null;
@@ -282,15 +310,18 @@ function applyOps(spec) {
 
     const blockedBefore = harness ? harness.counts.blocked : counts.blocked;
     const results = await page.evaluate(applyOps, {ops: spec.ops, by: spec.by, dry: !applying}).catch(e => fail('stage: ' + e.message));
+    results.forEach(r => { if (r.noteId) NOTE_IDS.add(r.noteId); });
     results.forEach(r => log(`stage: ${r.op} ${r.ref || r.id} ${r.no || (r.from ? r.from + '->' + r.to : '') || r.state || r.type || ''} - ${r.result}`));
     const pageAfter = await page.evaluate(pageSnapshot, {refs: REFS, qids: QIDS});
     const pageDocsAfter = await page.evaluate(pageDocs);
     const changed = [];
     for (const c of new Set([...Object.keys(before.docs), ...Object.keys(pageDocsAfter)])) for (const id of new Set([...Object.keys(before.docs[c] || {}), ...Object.keys(pageDocsAfter[c] || {})])) if (!same((before.docs[c] || {})[id] ?? null, (pageDocsAfter[c] || {})[id] ?? null)) changed.push(c + '/' + id);
-    const outside = changed.filter(k => !allowed(k));
+    const outside = changed.filter(k => !allowed(k, pageDocsAfter[k.slice(0, k.indexOf('/'))][k.slice(k.indexOf('/') + 1)], pageDocsAfter));
     log(`documents changed on the page: ${changed.length} (${changed.join(', ')})`);
     if (outside.length) fail('the stage changed documents outside the plan: ' + outside.join(', ') + ' - nothing sent');
-    for (const k of changed) { const c = k.slice(0, k.indexOf('/')), id = k.slice(k.indexOf('/') + 1); if (pageDocsAfter[c][id] == null) fail('plan would REMOVE ' + k + ' - refused'); expected.set(k, canon(pageDocsAfter[c][id])); }
+    for (const k of changed) { const c = k.slice(0, k.indexOf('/')), id = k.slice(k.indexOf('/') + 1);
+      if (pageDocsAfter[c][id] == null) { if (c === 'assetNumbers' && REFS.includes(id) && spec.ops.some(o => o.op === 'number_off' && o.ref === id)) { expected.set(k, 'null'); log('plan removes ' + k + ' (its last typed number came off, as the drawer does)'); continue; } fail('plan would REMOVE ' + k + ' - refused'); }
+      expected.set(k, canon(pageDocsAfter[c][id])); }
     const checkDocs = (docs, where) => { const problems = []; const numsOf = k => (((docs.assetNumbers || {})[k] || {}).v) || []; const dead = k => (docs.deleted || {})[k] != null && (docs.deleted || {})[k] !== undefined;
       for (const op of spec.ops) {
         if (op.op === 'number_on' && !numsOf(op.ref).includes(op.no) && !(pageBefore.refs[op.ref].numbers.includes(op.no))) problems.push(op.ref + ' does not carry ' + op.no + ' ' + where);
@@ -298,7 +329,9 @@ function applyOps(spec) {
         if (op.op === 'light' && (((docs.delivery || {})[op.ref] || {}).state) !== op.state) problems.push(op.ref + ' light is not ' + op.state + ' ' + where);
         if (op.op === 'acc_add' && !((((docs.accessories || {})[op.ref] || {}).v) || []).some(x => String(x.asset_no || '') === op.no && x.type === op.type)) problems.push(op.ref + ' has no ' + op.type + ' ' + op.no + ' ' + where);
         if (op.op === 'acc_fix') { const v = (((docs.accessories || {})[op.ref] || {}).v) || []; if (!v.some(x => String(x.asset_no || '') === op.to && x.type === op.type) || v.some(x => String(x.asset_no || '') === op.from)) problems.push(op.ref + ' ' + op.type + ' is not ' + op.to + ' ' + where); }
-        if (op.op === 'answer' && (((docs.answers || {})[op.id] || {}).v) !== op.text) problems.push('note ' + op.id + ' is not held ' + where);
+        if (op.op === 'answer') { const nid = (results.find(x => x.op === 'answer' && x.id === op.id) || {}).noteId || op.id; if ((((docs.answers || {})[nid] || {}).v) !== op.text) problems.push('note ' + nid + ' is not held ' + where); }
+        if (op.op === 'unit_reidentify' && !Object.values(docs.loads || {}).some(u => u && u.kind === 'unit925-record' && u.ref === op.ref && String(u.assetNo) === op.no && u.item === op.item && u.active !== false && !u.removedBy)) problems.push(op.ref + ' has no active ' + op.item + ' unit ' + op.no + ' ' + where);
+        if (op.op === 'set_qty' && op.qty !== '' && ((((docs.qtys || {})[op.ref] || {}).v)) !== op.qty) problems.push(op.ref + ' quantity is not ' + op.qty + ' ' + where);
       } return problems; };
     const stageProblems = checkDocs(pageDocsAfter, 'after the stage'); if (stageProblems.length) fail(stageProblems.join(' | '));
     for (const k of REFS) log(`  page after: ${k} numbers ${JSON.stringify(pageAfter.refs[k].numbers)} · light ${pageAfter.refs[k].light}, complete ${pageAfter.refs[k].done} · accessories ${JSON.stringify(pageAfter.refs[k].accessories)}`);
@@ -327,7 +360,7 @@ function applyOps(spec) {
       if (fatal) throw fatal;
       const st = await page.evaluate(() => ({status: SYNC.status, unkept: !!SYNC.unkept, waiting: syncWaiting(), queueEmpty: Object.keys(SYNC.queue || {}).every(k => !Object.keys(SYNC.queue[k]).length), inflight: Object.keys(SYNC.inflight || {}).length}));
       if (st.unkept || ['offline', 'unreachable', 'error', 'stopped', 'paused', 'revoked'].includes(st.status)) fail('sync is ' + st.status + (st.unkept ? ' (unkept)' : '') + ' - inspect the service before any retry');
-      if (st.queueEmpty && !st.inflight && st.waiting === 0 && [...expected.keys()].every(k => acks.get(k) === 200)) break;
+      if (st.queueEmpty && !st.inflight && st.waiting === 0 && [...expected.keys()].every(k => acks.get(k) === 200 || (expected.get(k) === 'null' && acks.get(k) === 204))) break;
       if (Date.now() > deadline) fail('the writes did not settle in 90 s (acknowledged: ' + [...acks.entries()].map(([k, s]) => k + '=' + s).join(', ') + ') - no automatic retry');
       await new Promise(r => setTimeout(r, 200));
     }
@@ -345,7 +378,7 @@ function applyOps(spec) {
       else if (JSON.stringify(was) !== JSON.stringify(now)) verify.serialisationDiffers.push(k);
     }
     if (verify.otherDocsChanged.length) verify.problems.push('other documents changed: ' + verify.otherDocsChanged.join(', '));
-    for (const k of expected.keys()) { const c = k.slice(0, k.indexOf('/')), id = k.slice(k.indexOf('/') + 1); if (canon((after.docs[c] || {})[id]) !== expected.get(k)) verify.problems.push(k + ' on the service is not what the page sent'); }
+    for (const k of expected.keys()) { const c = k.slice(0, k.indexOf('/')), id = k.slice(k.indexOf('/') + 1); const v = (after.docs[c] || {})[id]; if (canon(v === undefined ? null : v) !== expected.get(k)) verify.problems.push(k + ' on the service is not what the page sent'); }
     verify.ok = !verify.problems.length;
     const report = {author: 'Andrew Fisher', started, finished: new Date().toISOString(), mode: 'apply', spec, pageSha256: expectedSha,
       version: {before: before.version, after: after.version}, updated: {before: before.updated, after: after.updated},

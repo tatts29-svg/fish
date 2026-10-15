@@ -3,8 +3,8 @@
 Author: Andrew Fisher · 15 Oct 2026
 
 Status: **BUILT and TESTED from the live v10.25 page (`66878d12…`), not uploaded.** Candidate
-`build/GC500_v10.26/GC500_Delivery_Control_hosted.html`, sha256 `9f6674e4fc6b3f4c54836abdece61b25dbced4b7e1f8264899f19fcc4e6b4270`
-(17,889,781 bytes, 126 inline scripts). Andrew, 15 Oct 2026 about 15:50 AEST in Claude's chat: "I need you to update.
+`build/GC500_v10.26/GC500_Delivery_Control_hosted.html`, sha256 `1661d1c17b5099deeab65d359f786fec3761474d8f7d5bf373027aaa43bdcaf9`
+(17,892,402 bytes, 126 inline scripts). Andrew, 15 Oct 2026 about 15:50 AEST in Claude's chat: "I need you to update.
 And fix anything that is relevant to truth please … ensure all pricing and all numbers are 100% correct please. test.
 fix and then permission to go live", and at 15:30: "I don't see any difference with it" (the v10.25 celebration);
 then "this data don't go mentioning Codex or AI; I need to know what is missing, levelling or stairs etc".
@@ -59,6 +59,13 @@ rows (P46 fridge 14 Oct, P53 fridge 15 Oct); the VMS pick-up rows (11–23 on 26
 1–8 on 13 Nov) stay with the VMS plant line, which has no page reference. The schedule's two typo cells (WC05 "T",
 P09 "1097377") are skipped as before (R01, R02).
 
+**The schedule's stray copies of other references' numbers are settled** (`schedule_copies_settled` in the Baseplan
+review block): the earlier schedule wrote 1282487 on P63 (it is HRP's crib room, Schedule 9 Week 5; P63 is 960719),
+1097343 on P27 (P18's, docket 26076747), 1327222 on P53 and P36 (P66's, docket 26126001), 1327213 on P46 (P04's,
+docket 26064087; P46 is 1327215), 1189410 on P67 (P36's, docket 26085104; P67 is unit 421107) and 1283681 on GN06 (a
+spare on the 15 Oct export; GN06 is 1320828). Each number comes off that reference's register entry with a note saying
+why, so the page no longer has to hide a number that sits on two references.
+
 Two review blocks, `DATA.baseplan_review1026` and `DATA.schedule_review1026`, carry every change, hold and join with
 its line or cell; `data_log_1026.json` beside this README is the same log.
 
@@ -73,7 +80,7 @@ PAGE=build/GC500_v10.26/GC500_Delivery_Control_hosted.html node v10.26_milestone
 ```
 
 The workbooks are customer and branch documents and are not committed; their SHA-256 is checked by the patch. The
-record was read at version 6503 (after the 15:49 and 16:03 fills) for the joins.
+record was read at version 6562 (after the three record passes of 15:49, 16:03 and 16:48) for the joins.
 
 ## Checks
 
