@@ -40,21 +40,24 @@
   return out;
  }
  function legKey(a, leg){ const l = (chargeLines(a) || [])[0]; return l ? lineKey(a.key, l.discipline, l.item, leg) : null; }
- function legApplies(a){ try { const T = W.buildingTransportModel831(); return (T.rows || []).some(r => r.ref === a.key && !['held', 'excluded', 'included'].includes(r.state)); } catch (e) { return false; } }
- function legState(a, leg){
-  const k = legKey(a, leg); const on = !!(k && ((typeof S !== 'undefined' && S.labour) || {})[k]); const stamp = k && ((typeof S !== 'undefined' && S.stamps) || {})['labour/' + k];
-  let charge = null, arrived = false; try { const T = W.buildingTransportModel831(); const rows = (T.rows || []).filter(r => r.ref === a.key && r.leg === leg); charge = rows.length ? rows.reduce((n, r) => n + (Number(r.additional) || 0), 0) : null; arrived = rows.some(r => r.receivedRatio1006 > 0); } catch (e) {}
-  return {applies: legApplies(a), on: on, off: !!stamp && !on, arrived, charge, key: k};
+ /* the transport model is the page's and costs seconds outside a render pass (the page memoises it only while a pass holds the assets),
+    so one state() fetches it once and hands it to the legs */
+ function model(){ try { return W.buildingTransportModel831() || {}; } catch (e) { return {}; } }
+ function legApplies(a, T){ return (T.rows || []).some(r => r.ref === a.key && !['held', 'excluded', 'included'].includes(r.state)); }
+ function legState(a, leg, T){
+  T = T || model(); const k = legKey(a, leg); const on = !!(k && ((typeof S !== 'undefined' && S.labour) || {})[k]); const stamp = k && ((typeof S !== 'undefined' && S.stamps) || {})['labour/' + k];
+  let charge = null, arrived = false; try { const rows = (T.rows || []).filter(r => r.ref === a.key && r.leg === leg); charge = rows.length ? rows.reduce((n, r) => n + (Number(r.additional) || 0), 0) : null; arrived = rows.some(r => r.receivedRatio1006 > 0); } catch (e) {}
+  return {applies: legApplies(a, T), on: on, off: !!stamp && !on, arrived, charge, key: k};
  }
  function state(ref){
-  const a = assetOf(ref); if (!a) return null; const d = deliveryOf(ref); const out = {};
+  const a = assetOf(ref); if (!a) return null; const d = deliveryOf(ref); const out = {}; let T = null;
   for (const s of SYMS) {
    if (LAB.has(s.k)) {
     const cs = carriers(a, s.k); const on = cs.filter(c => labourTicked(ref, c.disc, c.item, s.k, c.unit || undefined, a)).length;
     const recTick = s.k === 'levelling' ? !!d.levelled : s.k === 'steps' ? !!d.steps : null;
     const applies = cs.length > 0; /* the thing carries the line on the card (an FWF: install and demob only) */
     out[s.k] = {applies, of: cs.length, on: on, all: cs.length ? on === cs.length : !!recTick, part: on > 0 && on < cs.length, record: recTick, money: cs.reduce((n, c) => n + (c.rate || 0), 0)};
-   } else out[s.k] = Object.assign({}, legState(a, s.k));
+   } else { if (!T) T = model(); out[s.k] = Object.assign({}, legState(a, s.k, T)); }
   }
   return out;
  }

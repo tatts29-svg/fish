@@ -22,7 +22,7 @@ Nothing else in DATA changes; no record, quantity, money or navigation change.
 | `tests/test_plates1034.cjs` (page from the build, the picture from `assets/`, every write aborted) | ALL 11 PASSED — atlas, media entry, manifest hash, footer; desktop and phone: the barriers card paints the picture from the hosted media route, toilets and generators keep theirs |
 | `harness/sweep.js` desktop and phone | see STATUS |
 
-Build `build/GC500_v10.34/` sha256 `1fd34f76d1156ae6…` (18023404 bytes), chain v10.32 + v10.33 + v10.34 on the live
+Build `build/GC500_v10.34/` sha256 `cf68d2b32f4efb32…` (18,023,653 bytes), chain v10.32 + v10.33 + v10.34 on the live
 v10.31 (`e592f9f5…`). Goes live on Andrew's "Upload".
 
 ## Upload order — the picture first, then the page
