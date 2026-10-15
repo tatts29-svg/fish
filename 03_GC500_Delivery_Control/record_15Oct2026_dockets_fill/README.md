@@ -72,7 +72,16 @@ so the page counted them as FWF toilets; each came off as a plain number and wen
 drawer's unit record, Coates-owned). P63, P65, P66 and WC31 were already identified on the record.
 
 Not done: T0265 is cancelled (Andrew, 14:15) but still on the register with two fridge units, 1260164 and 1318501;
-deleting a reference is permanent and is the Delete button's job, so it waits for Andrew.
+deleting a reference is permanent and is the Delete button's job, so it waits for Andrew. HRP has no Coates docket
+with a number: 1282487 (the schedule's) was the planned P63 shell, so HRP's number is genuinely unknown.
+
+## After v10.26 goes live: `fill_spec_after_upload.json`
+
+On v10.26 the Baseplan lines 110, 113 and 121 (Delivered, 1327217, 1327222, 960719) join P65, P66 and P63 and carry
+those numbers as the units, so the hand-made unit records for the same numbers read as duplicates ("Duplicate physical
+identity"). Once the page is live, this spec sets those three unit records aside (archived, who and when) and the
+line's own row stands, as it does for P52 and WC07. Dry-run against the v10.26 build: passed, 8 documents, every
+row left physical. It is not run before the upload because the live page has no such lines yet.
 
 ## Checks
 

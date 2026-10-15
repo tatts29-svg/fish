@@ -59,6 +59,7 @@ spec.ops.forEach((o, i) => {
   else if (o.op === 'acc_fix') { if (!REFRE.test(o.ref || '')) fail(at + 'needs a reference'); if (!TYPES.includes(o.type)) fail(at + 'type'); if (!/^\d{4,12}$/.test(o.from || '') || !NORE.test(o.to || '')) fail(at + 'from/to numbers'); }
   else if (o.op === 'answer') { if (typeof o.id !== 'string' || !/^[a-z0-9][a-z0-9_-]{1,80}$/i.test(o.id)) fail(at + 'needs a question id'); if (typeof o.text !== 'string' || !o.text.trim() || o.text.length > 600) fail(at + 'needs text under 600 characters'); if (/\b(codex|claude|gpt|model|agent)\b/i.test(o.text)) fail(at + 'text names a system'); }
   else if (o.op === 'unit_reidentify') { if (!REFRE.test(o.ref || '')) fail(at + 'needs a reference'); if (!NORE.test(o.no || '')) fail(at + 'needs a number'); if (typeof o.item !== 'string' || !o.item.trim()) fail(at + 'needs an item type'); if (!['coates', 'event-portables'].includes(o.owner || 'coates')) fail(at + 'owner'); }
+  else if (o.op === 'unit_archive') { if (!REFRE.test(o.ref || '')) fail(at + 'needs a reference'); if (!NORE.test(o.no || '')) fail(at + 'needs a number'); }
   else if (o.op === 'set_qty') { if (!REFRE.test(o.ref || '')) fail(at + 'needs a reference'); if (!(o.qty === '' || (Number.isInteger(o.qty) && o.qty >= 0))) fail(at + 'qty must be a whole number or "" for the schedule\'s own'); }
   else fail(at + 'unknown op ' + o.op);
 });
@@ -204,6 +205,17 @@ function applyOps(spec) {
           if (!now) throw new Error(op.no + ' is not on ' + op.ref + ' as ' + op.item + ' after the save (' + JSON.stringify(saved).slice(0, 120) + ')');
           r.result = 'identified as ' + op.item + (now.physical ? '' : ' (not yet physical: ' + (now.identityReview || '') + ')');
         }
+      } else if (op.op === 'unit_archive') {
+        /* the delivered contract line joined to the reference now carries this number as the unit; the hand-made unit record for the same number is set aside (archived, who and when), as the drawer's take-off does */
+        const rows = () => gcModel925(assetOf(op.ref), {loading: false}).rows.filter(x => x.source !== 'history' && x.active !== false);
+        const units = rows().filter(x => String(x.assetNo) === op.no && x.kind === 'unit925-record' && x.id);
+        if (!units.length) r.result = 'no unit record to set aside';
+        else {
+          const keep = rows().some(x => String(x.assetNo) === op.no && x.kind !== 'unit925-record'); if (!keep) throw new Error(op.ref + ' would be left with no row for ' + op.no + ' - not set aside');
+          units.forEach(x => { const k = UnitIdentity1006.remove(op.ref, x.id, UnitIdentity1006.token(x)); if (!k || !k.ok) throw new Error(op.ref + ' set aside ' + op.no + ' refused: ' + (k && k.reason)); });
+          const left = rows().filter(x => String(x.assetNo) === op.no); if (!left.length || left.some(x => x.kind === 'unit925-record')) throw new Error('rows after: ' + JSON.stringify(left).slice(0, 200));
+          r.result = 'unit record set aside; ' + left.length + ' row left (' + left.map(x => x.item + (x.physical ? '' : ' not physical: ' + x.identityReview)).join(', ') + ')';
+        }
       } else if (op.op === 'set_qty') {
         const cur = ((S.qtys || {})[op.ref]);
         const ok = setQty(op.ref, op.qty === '' ? '' : String(op.qty)); if (ok === false) throw new Error('setQty refused ' + op.ref);
@@ -331,6 +343,7 @@ function applyOps(spec) {
         if (op.op === 'acc_fix') { const v = (((docs.accessories || {})[op.ref] || {}).v) || []; if (!v.some(x => String(x.asset_no || '') === op.to && x.type === op.type) || v.some(x => String(x.asset_no || '') === op.from)) problems.push(op.ref + ' ' + op.type + ' is not ' + op.to + ' ' + where); }
         if (op.op === 'answer') { const nid = (results.find(x => x.op === 'answer' && x.id === op.id) || {}).noteId || op.id; if ((((docs.answers || {})[nid] || {}).v) !== op.text) problems.push('note ' + nid + ' is not held ' + where); }
         if (op.op === 'unit_reidentify' && !Object.values(docs.loads || {}).some(u => u && u.kind === 'unit925-record' && u.ref === op.ref && String(u.assetNo) === op.no && u.item === op.item && u.active !== false && !u.removedBy)) problems.push(op.ref + ' has no active ' + op.item + ' unit ' + op.no + ' ' + where);
+        if (op.op === 'unit_archive' && Object.values(docs.loads || {}).some(u => u && u.kind === 'unit925-record' && u.ref === op.ref && String(u.assetNo) === op.no && u.active !== false && !u.removedBy)) problems.push(op.ref + ' still has an active unit record for ' + op.no + ' ' + where);
         if (op.op === 'set_qty' && op.qty !== '' && ((((docs.qtys || {})[op.ref] || {}).v)) !== op.qty) problems.push(op.ref + ' quantity is not ' + op.qty + ' ' + where);
       } return problems; };
     const stageProblems = checkDocs(pageDocsAfter, 'after the stage'); if (stageProblems.length) fail(stageProblems.join(' | '));
