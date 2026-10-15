@@ -1,0 +1,22 @@
+{
+ "by": "Andrew Fisher",
+ "basis": "Baseplan SuperCars export of 15 Oct 2026 (sha256 ba246d4a\u2026), its Delivery Dockets sheet, and Schedule 9. Andrew, 15 Oct 2026 about 15:50 AEST: fix anything that is relevant to truth; we have all the data we need. Second pass: the two fridge numbers were written at 15:49 and overwritten at 15:54 by another open copy of the page; written again.",
+ "ops": [
+  {
+   "op": "acc_fix",
+   "ref": "P66",
+   "type": "Fridge",
+   "from": "131190",
+   "to": "1311990",
+   "why": "a dropped digit: docket 26126001 and Baseplan line 115 say 1311990"
+  },
+  {
+   "op": "acc_fix",
+   "ref": "P33",
+   "type": "Fridge",
+   "from": "1238952",
+   "to": "1328952",
+   "why": "digits in the wrong order: docket 26064103 and Baseplan line 26 say 1328952"
+  }
+ ]
+}
