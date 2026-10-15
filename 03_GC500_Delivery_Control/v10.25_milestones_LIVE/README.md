@@ -2,6 +2,9 @@
 
 Author: Andrew Fisher · 15 Oct 2026
 
+> LIVE 15 Oct 2026 12:54 AEST (Andrew: "Please upload update"): page `66878d12b8f4a98c177b3bf07f30efcce501da46f56b3244b92da94e458b320f`
+> published and re-read byte for byte by the view link.
+
 Andrew, 15 Oct 2026 about 09:15 AEST in Claude's chat: "when something reaches 100% we need to do an animation
 almost like a celebration fireworks over it. I don't know. And a summary on start to finish from 0-100% keep in mind
 for future this needs to be automated no stories just generated data based on what has happened in that area. Purely
@@ -42,8 +45,8 @@ just an idea. Example now. Buildings is now at 100%"; then "Build it same way".
 ## Checks (`tests/test_ms1025.cjs`, read only through the harness; results in `tests/test_ms1025_result.json`)
 
 ```sh
-toolchain/build.sh v10.25 v10.25_milestones_DRAFT/patch_v1025.py
-PAGE=build/GC500_v10.25/GC500_Delivery_Control_hosted.html node v10.25_milestones_DRAFT/tests/test_ms1025.cjs
+toolchain/build.sh v10.25 v10.25_milestones_LIVE/patch_v1025.py
+PAGE=build/GC500_v10.25/GC500_Delivery_Control_hosted.html node v10.25_milestones_LIVE/tests/test_ms1025.cjs
 ```
 
 | check | result |
