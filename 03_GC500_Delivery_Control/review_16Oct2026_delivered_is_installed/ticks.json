@@ -8,24 +8,10 @@
 },
 {
 "disc": "Portable buildings",
-"ref": "AA",
-"tick": "Labour · fire_ext",
-"item": "Building 6m",
-"rate": 52.05
-},
-{
-"disc": "Portable buildings",
 "ref": "CP1",
 "tick": "Labour · cleaning",
 "item": "Building 6m",
 "rate": 104.1
-},
-{
-"disc": "Portable buildings",
-"ref": "CP1",
-"tick": "Labour · fire_ext",
-"item": "Building 6m",
-"rate": 52.05
 },
 {
 "disc": "Generators",
@@ -50,24 +36,10 @@
 },
 {
 "disc": "Portable buildings",
-"ref": "HRP",
-"tick": "Labour · fire_ext",
-"item": "Building 6m",
-"rate": 52.05
-},
-{
-"disc": "Portable buildings",
 "ref": "P01",
 "tick": "Labour · cleaning",
 "item": "Building 12m",
 "rate": 104.1
-},
-{
-"disc": "Portable buildings",
-"ref": "P01",
-"tick": "Labour · fire_ext",
-"item": "Building 12m",
-"rate": 52.05
 },
 {
 "disc": "Portable buildings",
@@ -78,24 +50,10 @@
 },
 {
 "disc": "Portable buildings",
-"ref": "P03",
-"tick": "Labour · fire_ext",
-"item": "Building 12m",
-"rate": 52.05
-},
-{
-"disc": "Portable buildings",
 "ref": "P04",
 "tick": "Labour · cleaning",
 "item": "Building 12m",
 "rate": 104.1
-},
-{
-"disc": "Portable buildings",
-"ref": "P04",
-"tick": "Labour · fire_ext",
-"item": "Building 12m",
-"rate": 52.05
 },
 {
 "disc": "Portable buildings",
@@ -106,24 +64,10 @@
 },
 {
 "disc": "Portable buildings",
-"ref": "P05",
-"tick": "Labour · fire_ext",
-"item": "Building 6m",
-"rate": 52.05
-},
-{
-"disc": "Portable buildings",
 "ref": "P06",
 "tick": "Labour · cleaning",
 "item": "Building 6m",
 "rate": 104.1
-},
-{
-"disc": "Portable buildings",
-"ref": "P06",
-"tick": "Labour · fire_ext",
-"item": "Building 6m",
-"rate": 52.05
 },
 {
 "disc": "Portable buildings",
@@ -134,24 +78,10 @@
 },
 {
 "disc": "Portable buildings",
-"ref": "P08",
-"tick": "Labour · fire_ext",
-"item": "Building 6m",
-"rate": 52.05
-},
-{
-"disc": "Portable buildings",
 "ref": "P09",
 "tick": "Labour · cleaning",
 "item": "Building 6m",
 "rate": 104.1
-},
-{
-"disc": "Portable buildings",
-"ref": "P09",
-"tick": "Labour · fire_ext",
-"item": "Building 6m",
-"rate": 52.05
 },
 {
 "disc": "Portable buildings",
@@ -162,24 +92,10 @@
 },
 {
 "disc": "Portable buildings",
-"ref": "P10",
-"tick": "Labour · fire_ext",
-"item": "Building 4.8m",
-"rate": 52.05
-},
-{
-"disc": "Portable buildings",
 "ref": "P11",
 "tick": "Labour · cleaning",
 "item": "Building 4.8m",
 "rate": 104.1
-},
-{
-"disc": "Portable buildings",
-"ref": "P11",
-"tick": "Labour · fire_ext",
-"item": "Building 4.8m",
-"rate": 52.05
 },
 {
 "disc": "Portable buildings",
@@ -190,24 +106,10 @@
 },
 {
 "disc": "Portable buildings",
-"ref": "P12",
-"tick": "Labour · fire_ext",
-"item": "Building 4.8m",
-"rate": 52.05
-},
-{
-"disc": "Portable buildings",
 "ref": "P13",
 "tick": "Labour · cleaning",
 "item": "Building 4.8m",
 "rate": 104.1
-},
-{
-"disc": "Portable buildings",
-"ref": "P13",
-"tick": "Labour · fire_ext",
-"item": "Building 4.8m",
-"rate": 52.05
 },
 {
 "disc": "Portable buildings",
@@ -218,24 +120,10 @@
 },
 {
 "disc": "Portable buildings",
-"ref": "P14",
-"tick": "Labour · fire_ext",
-"item": "Building 4.8m",
-"rate": 52.05
-},
-{
-"disc": "Portable buildings",
 "ref": "P15",
 "tick": "Labour · cleaning",
 "item": "Building 4.8m",
 "rate": 104.1
-},
-{
-"disc": "Portable buildings",
-"ref": "P15",
-"tick": "Labour · fire_ext",
-"item": "Building 4.8m",
-"rate": 52.05
 },
 {
 "disc": "Portable buildings",
@@ -246,24 +134,10 @@
 },
 {
 "disc": "Portable buildings",
-"ref": "P16",
-"tick": "Labour · fire_ext",
-"item": "Building 4.8m",
-"rate": 52.05
-},
-{
-"disc": "Portable buildings",
 "ref": "P17",
 "tick": "Labour · cleaning",
 "item": "Building 9.6m",
 "rate": 104.1
-},
-{
-"disc": "Portable buildings",
-"ref": "P17",
-"tick": "Labour · fire_ext",
-"item": "Building 9.6m",
-"rate": 52.05
 },
 {
 "disc": "Portable buildings",
@@ -274,24 +148,10 @@
 },
 {
 "disc": "Portable buildings",
-"ref": "P18",
-"tick": "Labour · fire_ext",
-"item": "Building 4.8m",
-"rate": 52.05
-},
-{
-"disc": "Portable buildings",
 "ref": "P19",
 "tick": "Labour · cleaning",
 "item": "Building 4.8m",
 "rate": 104.1
-},
-{
-"disc": "Portable buildings",
-"ref": "P19",
-"tick": "Labour · fire_ext",
-"item": "Building 4.8m",
-"rate": 52.05
 },
 {
 "disc": "Portable buildings",
@@ -302,24 +162,10 @@
 },
 {
 "disc": "Portable buildings",
-"ref": "P20",
-"tick": "Labour · fire_ext",
-"item": "Building 4.8m",
-"rate": 52.05
-},
-{
-"disc": "Portable buildings",
 "ref": "P21",
 "tick": "Labour · cleaning",
 "item": "Building 4.8m",
 "rate": 104.1
-},
-{
-"disc": "Portable buildings",
-"ref": "P21",
-"tick": "Labour · fire_ext",
-"item": "Building 4.8m",
-"rate": 52.05
 },
 {
 "disc": "Portable buildings",
@@ -348,13 +194,6 @@
 "tick": "Labour · cleaning",
 "item": "Building 4.8m",
 "rate": 104.1
-},
-{
-"disc": "Portable buildings",
-"ref": "P25",
-"tick": "Labour · fire_ext",
-"item": "Building 4.8m",
-"rate": 52.05
 },
 {
 "disc": "Portable buildings",
@@ -365,24 +204,10 @@
 },
 {
 "disc": "Portable buildings",
-"ref": "P33",
-"tick": "Labour · fire_ext",
-"item": "Building 9.6m",
-"rate": 52.05
-},
-{
-"disc": "Portable buildings",
 "ref": "P36",
 "tick": "Labour · cleaning",
 "item": "Building 6m",
 "rate": 104.1
-},
-{
-"disc": "Portable buildings",
-"ref": "P36",
-"tick": "Labour · fire_ext",
-"item": "Building 6m",
-"rate": 52.05
 },
 {
 "disc": "Portable buildings",
@@ -393,24 +218,10 @@
 },
 {
 "disc": "Portable buildings",
-"ref": "P37",
-"tick": "Labour · fire_ext",
-"item": "Building 6m",
-"rate": 52.05
-},
-{
-"disc": "Portable buildings",
 "ref": "P38",
 "tick": "Labour · cleaning",
 "item": "Building 6m",
 "rate": 104.1
-},
-{
-"disc": "Portable buildings",
-"ref": "P38",
-"tick": "Labour · fire_ext",
-"item": "Building 6m",
-"rate": 52.05
 },
 {
 "disc": "Portable buildings",
@@ -421,24 +232,10 @@
 },
 {
 "disc": "Portable buildings",
-"ref": "P39",
-"tick": "Labour · fire_ext",
-"item": "Building 6m",
-"rate": 52.05
-},
-{
-"disc": "Portable buildings",
 "ref": "P41",
 "tick": "Labour · cleaning",
 "item": "Building 6m",
 "rate": 104.1
-},
-{
-"disc": "Portable buildings",
-"ref": "P41",
-"tick": "Labour · fire_ext",
-"item": "Building 6m",
-"rate": 52.05
 },
 {
 "disc": "Portable buildings",
@@ -449,24 +246,10 @@
 },
 {
 "disc": "Portable buildings",
-"ref": "P42",
-"tick": "Labour · fire_ext",
-"item": "Building 6m",
-"rate": 52.05
-},
-{
-"disc": "Portable buildings",
 "ref": "P44",
 "tick": "Labour · cleaning",
 "item": "Building 6m",
 "rate": 104.1
-},
-{
-"disc": "Portable buildings",
-"ref": "P44",
-"tick": "Labour · fire_ext",
-"item": "Building 6m",
-"rate": 52.05
 },
 {
 "disc": "Portable buildings",
@@ -495,13 +278,6 @@
 "tick": "Labour · cleaning",
 "item": "Building 6m",
 "rate": 104.1
-},
-{
-"disc": "Portable buildings",
-"ref": "P45",
-"tick": "Labour · fire_ext",
-"item": "Building 6m",
-"rate": 52.05
 },
 {
 "disc": "Portable buildings",
@@ -512,24 +288,10 @@
 },
 {
 "disc": "Portable buildings",
-"ref": "P46",
-"tick": "Labour · fire_ext",
-"item": "Building 12m",
-"rate": 52.05
-},
-{
-"disc": "Portable buildings",
 "ref": "P51",
 "tick": "Labour · cleaning",
 "item": "Building 12m",
 "rate": 104.1
-},
-{
-"disc": "Portable buildings",
-"ref": "P51",
-"tick": "Labour · fire_ext",
-"item": "Building 12m",
-"rate": 52.05
 },
 {
 "disc": "Portable buildings",
@@ -540,24 +302,10 @@
 },
 {
 "disc": "Portable buildings",
-"ref": "P52",
-"tick": "Labour · fire_ext",
-"item": "Building 12m",
-"rate": 52.05
-},
-{
-"disc": "Portable buildings",
 "ref": "P54",
 "tick": "Labour · cleaning",
 "item": "Building 6m",
 "rate": 104.1
-},
-{
-"disc": "Portable buildings",
-"ref": "P54",
-"tick": "Labour · fire_ext",
-"item": "Building 6m",
-"rate": 52.05
 },
 {
 "disc": "Portable buildings",
@@ -568,24 +316,10 @@
 },
 {
 "disc": "Portable buildings",
-"ref": "P55",
-"tick": "Labour · fire_ext",
-"item": "Ticket Box 6m",
-"rate": 52.05
-},
-{
-"disc": "Portable buildings",
 "ref": "P56",
 "tick": "Labour · cleaning",
 "item": "Building 3.6m",
 "rate": 104.1
-},
-{
-"disc": "Portable buildings",
-"ref": "P56",
-"tick": "Labour · fire_ext",
-"item": "Building 3.6m",
-"rate": 52.05
 },
 {
 "disc": "Portable buildings",
@@ -596,13 +330,6 @@
 },
 {
 "disc": "Portable buildings",
-"ref": "P57",
-"tick": "Labour · fire_ext",
-"item": "Building 9.6m",
-"rate": 52.05
-},
-{
-"disc": "Portable buildings",
 "ref": "P58",
 "tick": "Labour · cleaning",
 "item": "Building 6m",
@@ -610,13 +337,6 @@
 },
 {
 "disc": "Portable buildings",
-"ref": "P58",
-"tick": "Labour · fire_ext",
-"item": "Building 6m",
-"rate": 52.05
-},
-{
-"disc": "Portable buildings",
 "ref": "P60",
 "tick": "Labour · install",
 "item": "Ticket Box 4.8m",
@@ -642,13 +362,6 @@
 "tick": "Labour · cleaning",
 "item": "Ticket Box 4.8m",
 "rate": 104.1
-},
-{
-"disc": "Portable buildings",
-"ref": "P60",
-"tick": "Labour · fire_ext",
-"item": "Ticket Box 4.8m",
-"rate": 52.05
 },
 {
 "disc": "Portable buildings",
@@ -673,13 +386,6 @@
 },
 {
 "disc": "Portable buildings",
-"ref": "P62",
-"tick": "Labour · fire_ext",
-"item": "Building 6m",
-"rate": 52.05
-},
-{
-"disc": "Portable buildings",
 "ref": "P63",
 "tick": "Labour · install",
 "item": "Building 6m",
@@ -705,13 +411,6 @@
 "tick": "Labour · cleaning",
 "item": "Building 6m",
 "rate": 104.1
-},
-{
-"disc": "Portable buildings",
-"ref": "P63",
-"tick": "Labour · fire_ext",
-"item": "Building 6m",
-"rate": 52.05
 },
 {
 "disc": "Portable buildings",
@@ -743,13 +442,6 @@
 },
 {
 "disc": "Portable buildings",
-"ref": "P65",
-"tick": "Labour · fire_ext",
-"item": "Building 6m",
-"rate": 52.05
-},
-{
-"disc": "Portable buildings",
 "ref": "P66",
 "tick": "Labour · install",
 "item": "Building 6m",
@@ -775,13 +467,6 @@
 "tick": "Labour · cleaning",
 "item": "Building 6m",
 "rate": 104.1
-},
-{
-"disc": "Portable buildings",
-"ref": "P66",
-"tick": "Labour · fire_ext",
-"item": "Building 6m",
-"rate": 52.05
 },
 {
 "disc": "Portable buildings",
@@ -813,13 +498,6 @@
 },
 {
 "disc": "Portable buildings",
-"ref": "P67",
-"tick": "Labour · fire_ext",
-"item": "Building 6m",
-"rate": 52.05
-},
-{
-"disc": "Portable buildings",
 "ref": "P69",
 "tick": "Labour · install",
 "item": "Building 6m",
@@ -838,13 +516,6 @@
 "tick": "Labour · cleaning",
 "item": "Building 6m",
 "rate": 104.1
-},
-{
-"disc": "Portable buildings",
-"ref": "P69",
-"tick": "Labour · fire_ext",
-"item": "Building 6m",
-"rate": 52.05
 },
 {
 "disc": "Water-filled barriers",
@@ -1478,24 +1149,10 @@
 },
 {
 "disc": "Portable buildings",
-"ref": "T0021",
-"tick": "Labour · fire_ext",
-"item": "Building 4.8m",
-"rate": 52.05
-},
-{
-"disc": "Portable buildings",
 "ref": "T0022",
 "tick": "Labour · cleaning",
 "item": "Building 4.8m",
 "rate": 104.1
-},
-{
-"disc": "Portable buildings",
-"ref": "T0022",
-"tick": "Labour · fire_ext",
-"item": "Building 4.8m",
-"rate": 52.05
 },
 {
 "disc": "Toilets & amenities",

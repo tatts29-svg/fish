@@ -2,142 +2,95 @@
 
 Andrew, 16 Oct 2026: "If something has been delivered it has been installed. I want all associated costs added. Everything needs to be ticked, in reference to what it is." Buildings are right "with exception of a few with no steps" (P06, P38, P39, P42 left alone on steps). Water barriers get the same treatment.
 
-Rule applied: every reference whose light is **on site** → Complete; Levelled where it is a building or toilet; Steps where the card offers steps; every labour line the card carries for the item → ticked (install, levelling, steps, cleaning, fire extinguisher). **Demob is not ticked: it has not happened.** Through the page's own setDone, setLevelled, setSteps and setLabour, each stamped Andrew Fisher.
+Rule applied: every reference whose light is **on site** → Complete; Levelled where it is a building or toilet; Steps where the card offers steps; every labour line the card carries for the item → ticked (install, levelling, steps, cleaning). **Fire extinguisher is not ticked here: not every building gets one, so Andrew ticks it per building (Andrew, 16 Oct 2026: "Not all buildings get a fire extinguisher, hence why I was adding this").** **Demob is not ticked: it has not happened.** Through the page's own setDone, setLevelled, setSteps and setLabour, each stamped Andrew Fisher.
 
 | Area | Ticks to put on | Labour added |
 |---|---|---|
-| Portable buildings | Labour · cleaning 49, Labour · fire_ext 49, Labour · install 9, Labour · steps 7, Labour · levelling 9 | $10,524.51 |
+| Portable buildings | Labour · cleaning 49, Labour · install 9, Labour · steps 7, Labour · levelling 9 | $7,974.06 |
 | Generators | Labour · install 2 | $291.48 |
 | Water-filled barriers | Complete 1 | $0.00 |
 | Toilets & amenities | Levelled 50, Labour · cleaning 23, Labour · install 11, Labour · steps 3, Labour · levelling 3, Steps 2 | $4,825.03 |
-| **Total** | **218 ticks** | **$15,641.02** |
+| **Total** | **169 ticks** | **$13,090.58** |
+
+Taken off this list on 16 Oct: the 49 fire extinguisher ticks ($2,550.45); they are Andrew's, per building.
 
 ## Every tick
 
 ### Portable buildings
 - AA · Labour · cleaning · Building 6m · $104.10
-- AA · Labour · fire_ext · Building 6m · $52.05
 - CP1 · Labour · cleaning · Building 6m · $104.10
-- CP1 · Labour · fire_ext · Building 6m · $52.05
 - HRP · Labour · cleaning · Building 6m · $104.10
-- HRP · Labour · fire_ext · Building 6m · $52.05
 - P01 · Labour · cleaning · Building 12m · $104.10
-- P01 · Labour · fire_ext · Building 12m · $52.05
 - P03 · Labour · cleaning · Building 12m · $104.10
-- P03 · Labour · fire_ext · Building 12m · $52.05
 - P04 · Labour · cleaning · Building 12m · $104.10
-- P04 · Labour · fire_ext · Building 12m · $52.05
 - P05 · Labour · cleaning · Building 6m · $104.10
-- P05 · Labour · fire_ext · Building 6m · $52.05
 - P06 · Labour · cleaning · Building 6m · $104.10
-- P06 · Labour · fire_ext · Building 6m · $52.05
 - P08 · Labour · cleaning · Building 6m · $104.10
-- P08 · Labour · fire_ext · Building 6m · $52.05
 - P09 · Labour · cleaning · Building 6m · $104.10
-- P09 · Labour · fire_ext · Building 6m · $52.05
 - P10 · Labour · cleaning · Building 4.8m · $104.10
-- P10 · Labour · fire_ext · Building 4.8m · $52.05
 - P11 · Labour · cleaning · Building 4.8m · $104.10
-- P11 · Labour · fire_ext · Building 4.8m · $52.05
 - P12 · Labour · cleaning · Building 4.8m · $104.10
-- P12 · Labour · fire_ext · Building 4.8m · $52.05
 - P13 · Labour · cleaning · Building 4.8m · $104.10
-- P13 · Labour · fire_ext · Building 4.8m · $52.05
 - P14 · Labour · cleaning · Building 4.8m · $104.10
-- P14 · Labour · fire_ext · Building 4.8m · $52.05
 - P15 · Labour · cleaning · Building 4.8m · $104.10
-- P15 · Labour · fire_ext · Building 4.8m · $52.05
 - P16 · Labour · cleaning · Building 4.8m · $104.10
-- P16 · Labour · fire_ext · Building 4.8m · $52.05
 - P17 · Labour · cleaning · Building 9.6m · $104.10
-- P17 · Labour · fire_ext · Building 9.6m · $52.05
 - P18 · Labour · cleaning · Building 4.8m · $104.10
-- P18 · Labour · fire_ext · Building 4.8m · $52.05
 - P19 · Labour · cleaning · Building 4.8m · $104.10
-- P19 · Labour · fire_ext · Building 4.8m · $52.05
 - P20 · Labour · cleaning · Building 4.8m · $104.10
-- P20 · Labour · fire_ext · Building 4.8m · $52.05
 - P21 · Labour · cleaning · Building 4.8m · $104.10
-- P21 · Labour · fire_ext · Building 4.8m · $52.05
 - P25 · Labour · install · Building 4.8m · $145.74
 - P25 · Labour · steps · Building 4.8m · $156.15
 - P25 · Labour · levelling · Building 4.8m · $52.05
 - P25 · Labour · cleaning · Building 4.8m · $104.10
-- P25 · Labour · fire_ext · Building 4.8m · $52.05
 - P33 · Labour · cleaning · Building 9.6m · $104.10
-- P33 · Labour · fire_ext · Building 9.6m · $52.05
 - P36 · Labour · cleaning · Building 6m · $104.10
-- P36 · Labour · fire_ext · Building 6m · $52.05
 - P37 · Labour · cleaning · Building 6m · $104.10
-- P37 · Labour · fire_ext · Building 6m · $52.05
 - P38 · Labour · cleaning · Building 6m · $104.10
-- P38 · Labour · fire_ext · Building 6m · $52.05
 - P39 · Labour · cleaning · Building 6m · $104.10
-- P39 · Labour · fire_ext · Building 6m · $52.05
 - P41 · Labour · cleaning · Building 6m · $104.10
-- P41 · Labour · fire_ext · Building 6m · $52.05
 - P42 · Labour · cleaning · Building 6m · $104.10
-- P42 · Labour · fire_ext · Building 6m · $52.05
 - P44 · Labour · cleaning · Building 6m · $104.10
-- P44 · Labour · fire_ext · Building 6m · $52.05
 - P45 · Labour · install · Building 6m · $145.74
 - P45 · Labour · steps · Building 6m · $156.15
 - P45 · Labour · levelling · Building 6m · $52.05
 - P45 · Labour · cleaning · Building 6m · $104.10
-- P45 · Labour · fire_ext · Building 6m · $52.05
 - P46 · Labour · cleaning · Building 12m · $104.10
-- P46 · Labour · fire_ext · Building 12m · $52.05
 - P51 · Labour · cleaning · Building 12m · $104.10
-- P51 · Labour · fire_ext · Building 12m · $52.05
 - P52 · Labour · cleaning · Building 12m · $104.10
-- P52 · Labour · fire_ext · Building 12m · $52.05
 - P54 · Labour · cleaning · Building 6m · $104.10
-- P54 · Labour · fire_ext · Building 6m · $52.05
 - P55 · Labour · cleaning · Ticket Box 6m · $104.10
-- P55 · Labour · fire_ext · Ticket Box 6m · $52.05
 - P56 · Labour · cleaning · Building 3.6m · $104.10
-- P56 · Labour · fire_ext · Building 3.6m · $52.05
 - P57 · Labour · cleaning · Building 9.6m · $104.10
-- P57 · Labour · fire_ext · Building 9.6m · $52.05
 - P58 · Labour · cleaning · Building 6m · $104.10
-- P58 · Labour · fire_ext · Building 6m · $52.05
 - P60 · Labour · install · Ticket Box 4.8m · $145.74
 - P60 · Labour · steps · Ticket Box 4.8m · $156.15
 - P60 · Labour · levelling · Ticket Box 4.8m · $52.05
 - P60 · Labour · cleaning · Ticket Box 4.8m · $104.10
-- P60 · Labour · fire_ext · Ticket Box 4.8m · $52.05
 - P62 · Labour · install · Building 6m · $145.74
 - P62 · Labour · levelling · Building 6m · $52.05
 - P62 · Labour · cleaning · Building 6m · $104.10
-- P62 · Labour · fire_ext · Building 6m · $52.05
 - P63 · Labour · install · Building 6m · $145.74
 - P63 · Labour · steps · Building 6m · $156.15
 - P63 · Labour · levelling · Building 6m · $52.05
 - P63 · Labour · cleaning · Building 6m · $104.10
-- P63 · Labour · fire_ext · Building 6m · $52.05
 - P65 · Labour · install · Building 6m · $145.74
 - P65 · Labour · steps · Building 6m · $156.15
 - P65 · Labour · levelling · Building 6m · $52.05
 - P65 · Labour · cleaning · Building 6m · $104.10
-- P65 · Labour · fire_ext · Building 6m · $52.05
 - P66 · Labour · install · Building 6m · $145.74
 - P66 · Labour · steps · Building 6m · $156.15
 - P66 · Labour · levelling · Building 6m · $52.05
 - P66 · Labour · cleaning · Building 6m · $104.10
-- P66 · Labour · fire_ext · Building 6m · $52.05
 - P67 · Labour · install · Building 6m · $145.74
 - P67 · Labour · steps · Building 6m · $156.15
 - P67 · Labour · levelling · Building 6m · $52.05
 - P67 · Labour · cleaning · Building 6m · $104.10
-- P67 · Labour · fire_ext · Building 6m · $52.05
 - P69 · Labour · install · Building 6m · $145.74
 - P69 · Labour · levelling · Building 6m · $52.05
 - P69 · Labour · cleaning · Building 6m · $104.10
-- P69 · Labour · fire_ext · Building 6m · $52.05
 - T0021 · Labour · cleaning · Building 4.8m · $104.10
-- T0021 · Labour · fire_ext · Building 4.8m · $52.05
 - T0022 · Labour · cleaning · Building 4.8m · $104.10
-- T0022 · Labour · fire_ext · Building 4.8m · $52.05
 
 ### Generators
 - GN06 · Labour · install · 50kva · $145.74

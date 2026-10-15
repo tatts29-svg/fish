@@ -195,6 +195,7 @@ marks as a draft, or anything risky to the record, waits for his yes.
 - **Generator pricing** (Andrew, 1 Oct 2026): "If a generator price is not there you go for the lower, so 70 kVA becomes
   the 60 kVA. If the client asks for a 60 kVA and we supplied larger, they get the price of a 60 kVA." The rate
   follows what was asked for; a size the card has no line for takes the next size down.
+- **Fire extinguishers are per building** (Andrew, 16 Oct 2026: "Not all buildings get a fire extinguisher, hence why I was adding this"): the fire extinguisher tick is Andrew's, building by building; never ticked across the board. "Delivered is installed" (Andrew, 16 Oct 2026) covers Complete, Levelled, Steps where the card offers them, and the card's install, levelling, steps and cleaning labour; demob only when the demob happens.
 - Track mat and water-filled barriers have no asset numbers (v7.38). Fencing purchase orders use the Receipt ID No.
   (v7.39). Fencing hire agreements and service notes are typed on the Fencing tab (v7.40).
 
