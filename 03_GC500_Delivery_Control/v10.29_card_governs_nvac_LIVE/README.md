@@ -1,4 +1,4 @@
-# v10.29 — the card governs NVAC's generator and tower lines (READY, not live)
+# v10.29 — the card governs NVAC's generator and tower lines (LIVE 16 Oct 2026 04:53 AEST, as part of v10.31)
 
 Author: Andrew Fisher. Data-only patch on the live v10.28. Andrew, 15 Oct 2026, in Claude's chat: **"We go by our
 rate cards at the moment."**
@@ -77,8 +77,8 @@ transport line (+$359.80). Net −$4,716.60, none of it rates.
 ## Build and checks
 
 ```sh
-toolchain/build.sh v10.29 v10.29_card_governs_nvac_DRAFT/patch_v1029.py
-PAGE=build/GC500_v10.29/GC500_Delivery_Control_hosted.html node v10.29_card_governs_nvac_DRAFT/tests/test_rates1029.cjs
+toolchain/build.sh v10.29 v10.29_card_governs_nvac_LIVE/patch_v1029.py
+PAGE=build/GC500_v10.29/GC500_Delivery_Control_hosted.html node v10.29_card_governs_nvac_LIVE/tests/test_rates1029.cjs
 ```
 
 | Check | Result |

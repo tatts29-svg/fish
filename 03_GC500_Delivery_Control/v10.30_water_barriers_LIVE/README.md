@@ -1,4 +1,4 @@
-# v10.30 — Water barriers get their own section; no agent name anywhere (READY, not live)
+# v10.30 — Water barriers get their own section; no agent name anywhere (LIVE 16 Oct 2026 04:53 AEST, as part of v10.31)
 
 Author: Andrew Fisher. Andrew, 15 Oct 2026: "Water barriers is missing its own section. What's been completed and what
 has not has no set up like buildings and toilets. Only looking at the Coates." And: "ensure we do not mention anywhere
