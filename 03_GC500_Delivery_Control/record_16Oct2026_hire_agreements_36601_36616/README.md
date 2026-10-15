@@ -65,3 +65,42 @@ node record_16Oct2026_hire_agreements_36601_36616/upload_originals.cjs          
 node record_16Oct2026_hire_agreements_36601_36616/papers_fill.cjs                 # dry run on the live page
 GC500_EXPECTED_PAGE_SHA=<public page sha256> node record_16Oct2026_hire_agreements_36601_36616/papers_fill.cjs --apply
 ```
+
+## The supplier rates Advanced actually bill (RECORD OPERATION APPLIED, 09:12 AEST)
+
+Andrew, 16 Oct 2026: "We go by what we are being charged for; you have the purchase orders on how we are being
+charged." The purchase orders on the record run week 6 to week 1, Event week and Demob (ZINC001 Advanced Temporary
+Fencing, branch STPS); week 2's order 4647519 carries Advanced's own invoice totals sheet (commercial approval, 13 Oct
+2026) line by line against our papers, and that is the rate sheet we are charged at: clean fence $10 a metre, braced for
+scrim $24.40, demarcation CCB $5.40, vehicle gate incl one wheel $50, **pedestrian gate incl one wheel $61**, installer
+and relocation labour $100 an hour, team leader $200 a day, two a day. The page's cost tracker already matched all of
+those except the pedestrian gate ($36, the old rate row) and carried no flat-feet rate at all; Advanced billed 36591's
+flat-feet barriers inside "Demarcation CCB" at $5.40 a metre with no separate line.
+
+So two supplier rates were typed through the Fencing tab's own rate inputs (`rates_spec.json`, the same runner, dry run
+then apply with the write gate): **pedestrian gates $61** and **flat-feet CCB $5.40**, recorded under Andrew's name.
+Record version 6637 → 6643 (the six documents between 6631 and 6637 were Andrew's own accessory edits on P33 and P66);
+report `report_20261015T231236Z.json`. Every gate and flat-feet paper on the record now carries the billed rate: the
+sixteen agreements' paid side moved from $33,288.00 to **$34,015.20** (+$225 on nine gates, +$502.20 on 36604's flat
+feet); 36591 now pays $793.80 instead of $567.00.
+
+### What week 1's invoice should come to
+
+Order 4647520 (Construction week 1, work 12–16 Oct) is not on the record yet — Advanced's invoice totals sheet for the
+week has not arrived. At the rates they billed on week 2, our 27 papers of 12–15 Oct come to:
+
+| Line | Quantity | Rate | Amount |
+|---|---|---|---|
+| Clean temporary fencing | 2,442.5 m | $10.00 | $24,425.00 |
+| Braced for scrim | 70 m | $24.40 | $1,708.00 |
+| Demarcation CCB | 1,265 m | $5.40 | $6,831.00 |
+| Flat-feet CCB (36604) | 93 m | $5.40 | $502.20 |
+| Pedestrian gate incl one wheel | 9 | $61.00 | $549.00 |
+| Installer / relocation labour (service notes 24475–24481) | 13 h | $100.00 | $1,300.00 |
+| **Papers** | | | **$35,315.20** |
+| Team leader, if billed as on week 2 | 4 days × 2 | $200.00 | $1,600.00 |
+| **With team leader** | | | **$36,915.20** |
+
+Friday 16 Oct's papers, 36596–36600 (36596 is named on service note 24475) and anything after 36616, are not in this
+figure. When Advanced's week-1 sheet arrives it goes on order 4647520 as week 2's did, line by line, and any rate that
+differs from these is theirs to explain.

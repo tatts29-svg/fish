@@ -70,20 +70,24 @@ spec.ops.forEach((o, i) => {
     if (!o.quantities || typeof o.quantities !== 'object' || !Object.keys(o.quantities).length) fail(at + 'needs card-line quantities');
     for (const [k, v] of Object.entries(o.quantities)) { if (!QTY_KEYS.includes(k)) fail(at + 'unknown card line ' + k); if (!(Number(v) > 0)) fail(at + k + ' must be above zero'); }
     for (const [k, v] of Object.entries(o.components || {})) { if (!PART_KEYS.includes(k)) fail(at + 'unknown component ' + k); if (!Number.isInteger(v) || v < 0) fail(at + k + ' must be a whole number'); }
+  } else if (o.op === 'fence_cost') {
+    if (!/^[a-z_]+$/.test(o.key || '')) fail(at + 'needs a cost column key'); if (!(Number(o.rate) > 0)) fail(at + 'needs a rate above zero');
   } else fail(at + 'unknown op ' + o.op);
 });
+const COST_KEYS = spec.ops.filter(o => o.op === 'fence_cost').map(o => o.key);
 const HA_NOS = spec.ops.filter(o => o.op === 'hire_agreement').map(o => o.docket_no);
 const NOTE_NOS = spec.ops.filter(o => o.op === 'service_note').map(o => o.note_no), COLL_NOS = spec.ops.filter(o => o.op === 'collection').map(o => o.collection_no);
 if (new Set([...NOTE_NOS, ...COLL_NOS, ...HA_NOS]).size !== NOTE_NOS.length + COLL_NOS.length + HA_NOS.length) fail('a paper number is in the spec twice');
 /* the documents this operation may touch: the new papers' own documents and the audit documents the page keeps beside them */
-const ALLOWED_COLLS = new Set(['serviceNotes', 'fenceCollections', 'fenceDockets', 'stamps', 'by']);
+const ALLOWED_COLLS = new Set(['serviceNotes', 'fenceCollections', 'fenceDockets', 'fenceCosts', 'stamps', 'by']);
 const docIdDecode = id => String(id).replace(/~2f~/g, '/').replace(/~7c~/g, '|').replace(/~20~/g, ' ').replace(/~26~/g, '&');
 const NEW_IDS = new Set(); /* the ids the page gives the new papers, learned at the stage */
 const allowed = (k, body, docs) => { const c = k.slice(0, k.indexOf('/')), id = docIdDecode(k.slice(k.indexOf('/') + 1)); if (!ALLOWED_COLLS.has(c)) return false;
   if (c === 'serviceNotes') return !!body && NOTE_NOS.includes(String(body.note_no));
   if (c === 'fenceCollections') return !!body && COLL_NOS.includes(String(body.collection_no));
   if (c === 'fenceDockets') return !!body && HA_NOS.includes(String(body.docket_no));
-  const m = id.match(/^(serviceNotes|fenceCollections|fenceDockets)\/(.+)$/); return !!m && NEW_IDS.has(m[2]); };
+  if (c === 'fenceCosts') return COST_KEYS.includes(id);
+  const m = id.match(/^(serviceNotes|fenceCollections|fenceDockets|fenceCosts)\/(.+)$/); return !!m && (NEW_IDS.has(m[2]) || (m[1] === 'fenceCosts' && COST_KEYS.includes(m[2]))); };
 
 // ---------------------------------------------------------------------------------------------- curl with headers on stdin
 let seq = 0;
@@ -161,7 +165,7 @@ function applyOps(spec) {
   const out = [], flashes = []; const oldFlash = typeof flash === 'function' ? flash : null; if (oldFlash) flash = m => { flashes.push(String(m)); };
   try {
     for (const op of spec.ops) {
-      const r = {op: op.op, no: op.note_no || op.collection_no || op.docket_no}; flashes.length = 0;
+      const r = {op: op.op, no: op.note_no || op.collection_no || op.docket_no || op.key}; flashes.length = 0;
       try {
         if (op.op === 'service_note') {
           if (paperNoTaken(op.note_no)) throw new Error('service note ' + op.note_no + ' is already on the books');
@@ -187,6 +191,16 @@ function applyOps(spec) {
           for (const [k, v] of Object.entries(op.quantities)) if (Number(held.quantities[k]) !== Number(v)) throw new Error('quantity ' + k + ' is ' + held.quantities[k] + ', not ' + v);
           const c = costDocket(held); r.id = d.id; r.charge = c.cost_total; r.paid = c.paid_total; r.cost_state = c.cost_state;
           r.result = 'recorded as ' + d.id + ' - ' + Object.entries(held.quantities).map(([k, v]) => v + ' ' + k).join(', ') + ' - ' + flashes.join(' | ');
+        } else if (op.op === 'fence_cost') {
+          /* the Fencing tab's own supplier-rate input: type the rate and let its change handler save it; where the tab draws no input for the column (flat feet has no tracker column), the same three lines the handler runs */
+          r.no = op.key; const was = (S.fenceCosts || {})[op.key];
+          if (typeof renderFencing === 'function') { try { go('fencing'); } catch (_) {} renderFencing(); }
+          const input = document.querySelector('#pane-fencing [data-fck="' + op.key + '"]');
+          if (input) { input.value = String(op.rate); input.dispatchEvent(new Event('change', {bubbles: true})); }
+          else { S.fenceCosts = S.fenceCosts || {}; S.fenceCosts[op.key] = String(op.rate); stampIt('fenceCosts', op.key, who); save(); }
+          const now = (S.fenceCosts || {})[op.key]; if (String(now) !== String(op.rate)) throw new Error('the rate is ' + now + ', not ' + op.rate + ' after typing');
+          const pr = fenceCostFor(op.key); if (pr.source !== 'typed' || Number(pr.value) !== Number(op.rate)) throw new Error('fenceCostFor reads ' + JSON.stringify(pr));
+          r.result = 'supplier rate ' + op.key + ' ' + (was == null ? '(tracker ' + ((FCOL.find(x => x.key === op.key) || {}).cost_rate ?? 'none') + ')' : 'was ' + was) + ' -> ' + op.rate + (input ? ' through the tab\'s input' : ' (no input drawn for this column; saved as the handler does)');
         } else throw new Error('unknown op ' + op.op);
       } catch (e) { r.result = 'ERROR: ' + e.message; r.error = true; }
       out.push(r);
@@ -203,7 +217,7 @@ function applyOps(spec) {
 (async () => {
   let browser = null, tempPage = null; const started = utc(); let exitCode = 0;
   try {
-    log(`papers_fill ${applying ? 'APPLY' : 'DRY RUN'} - ${HA_NOS.length} hire agreement(s) ${HA_NOS.join(', ')}${NOTE_NOS.length ? ', ' + NOTE_NOS.length + ' service note(s)' : ''}${COLL_NOS.length ? ', ' + COLL_NOS.length + ' collection form(s)' : ''} - by ${spec.by}`);
+    log(`papers_fill ${applying ? 'APPLY' : 'DRY RUN'} - ${HA_NOS.length} hire agreement(s) ${HA_NOS.join(', ')}${COST_KEYS.length ? ', supplier rates ' + COST_KEYS.join(', ') : ''}${NOTE_NOS.length ? ', ' + NOTE_NOS.length + ' service note(s)' : ''}${COLL_NOS.length ? ', ' + COLL_NOS.length + ' collection form(s)' : ''} - by ${spec.by}`);
     const before = await publicState();
     log(`before: record version ${before.version} updated ${before.updated}`);
     if (applying) { const bk = path.join(HERE, 'backup_state_' + started + '.json'); fs.writeFileSync(bk, JSON.stringify(before, null, 1) + '\n', {mode: 0o600}); log('backup of the whole record before: ' + bk); }
@@ -300,6 +314,7 @@ function applyOps(spec) {
       for (const op of spec.ops) {
         if (op.op === 'service_note') { const n = notes.find(x => x && String(x.note_no) === op.note_no); if (!n) problems.push('service note ' + op.note_no + ' is not held ' + where); else if (n.labour_hours !== Math.round(Number(op.labour_hours) * 100) / 100 || n.date !== op.date || n.location !== op.location.trim()) problems.push('service note ' + op.note_no + ' differs ' + where); }
         if (op.op === 'collection') { const c = colls.find(x => x && String(x.collection_no) === op.collection_no); if (!c) problems.push('collection form ' + op.collection_no + ' is not held ' + where); else if (c.date !== op.date || Object.entries(op.collected).some(([k, v]) => c.collected[k] !== v)) problems.push('collection form ' + op.collection_no + ' differs ' + where); }
+        if (op.op === 'fence_cost') { const v = ((docs.fenceCosts || {})[op.key] || {}); const held = v.v !== undefined ? v.v : v; if (String(held) !== String(op.rate)) problems.push('supplier rate ' + op.key + ' is ' + JSON.stringify(held) + ', not ' + op.rate + ' ' + where); }
         if (op.op === 'hire_agreement') { const d = Object.values(docs.fenceDockets || {}).find(x => x && String(x.docket_no) === op.docket_no); if (!d) problems.push('hire agreement ' + op.docket_no + ' is not held ' + where); else if (d.date !== op.date || Object.entries(op.quantities).some(([k, v]) => Number(d.quantities[k]) !== Number(v)) || Object.entries(op.components || {}).some(([k, v]) => (d.components || {})[k] !== v)) problems.push('hire agreement ' + op.docket_no + ' differs ' + where); }
       } return problems; };
     const stageProblems = checkDocs(pageDocsAfter, 'after the stage'); if (stageProblems.length) fail(stageProblems.join(' | '));
