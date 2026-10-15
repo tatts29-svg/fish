@@ -19,7 +19,7 @@
     "modelGroups": 124,
     "geometryOrCountErrors": 0
   },
-  "state": "Frozen source - focused phone visual check pending",
+  "state": "READY TO UPLOAD",
   "exactBaseRecoverable": true,
   "boundedNativeFix": "returnJSON.stringify to return JSON.stringify in fingerprintUnit",
   "focusedTotal": 149,
@@ -27,5 +27,6 @@
     "doorwaysReviewed": 117,
     "adaptedPositionsLabelled": 8,
     "passed": true
-  }
+  },
+  "implementationCommit": "d9afa6a2d02b8d16995c6cbc63a32f467bd569bc"
 }
