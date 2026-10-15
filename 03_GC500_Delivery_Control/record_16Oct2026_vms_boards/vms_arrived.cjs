@@ -155,7 +155,7 @@ function applyOps(spec) {
     if (!isRef(p.ref)) throw new Error(p.ref + ' is not a reference on the page');
     const a = assetOf(p.ref), l = chargeLines(a).find(x => x.item === spec.item);
     if (!l || (p.mode === 'partial' ? !(p.units.length < qtyOf(l)) : qtyOf(l) !== p.units.length)) throw new Error(p.ref + ': the ' + spec.item + ' quantity is ' + (l ? qtyOf(l) : 'none') + ', not ' + p.units.length + ' - nothing done');
-    p.units.forEach(u => { const r = unit925Save(p.ref, {item: spec.item, owner: u.owner, assetNo: u.no, label: u.label, branch: '', note: spec.note, sourceKey: ''}, '', 'null', ''); if (!r || !r.ok || r.kept === false) throw new Error(p.ref + ' ' + u.no + ': ' + (r && r.reason)); out.push({ref: p.ref, unit: u.no, label: u.label, owner: u.owner, key: r.key || null}); });
+    p.units.forEach(u => { const r = unit925Save(p.ref, {item: spec.item, owner: u.owner, assetNo: u.no, label: u.label, branch: '', note: spec.note + (u.rego ? ' Rego ' + u.rego + '.' : ''), sourceKey: ''}, '', 'null', ''); if (!r || !r.ok || r.kept === false) throw new Error(p.ref + ' ' + u.no + ': ' + (r && r.reason)); out.push({ref: p.ref, unit: u.no, label: u.label, owner: u.owner, key: r.key || null}); });
     if (setSupplied(p.ref, spec.item, {supplied: spec.item, qty_supplied: p.units.length}) === false) throw new Error(p.ref + ': supplied refused'); out.push({ref: p.ref, supplied: p.units.length});
     if (setDeliveryNote(p.ref, p.note) === false) throw new Error(p.ref + ': note refused'); out.push({ref: p.ref, note: p.note});
     if (p.mode === 'partial') { out.push({ref: p.ref, dated: false, why: p.units.length + ' of ' + qtyOf(l) + ' - a partial arrival, no date, nothing ticked'}); return; }

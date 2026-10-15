@@ -9,6 +9,21 @@ VMS13–17, delivery numbers 26129008, 26129024, 26134263 and 26134314) but none
 the schedule's VMS references carry no unit identities yet: T0128 "VMS × 2" is the 16 Oct Build-week row, T0158 "VMS × 9"
 the 19 Oct Event-week row.
 
+## The regos, as Andrew read them off the boards (16 Oct, 10:30 AEST)
+
+| Board | Asset / fleet | Rego | Contract line |
+|---|---|---|---|
+| VMS11 | Premiair fleet **467T** (sub-hire line SUB-17093) | TE97G | 15 |
+| VMS12 | 1211646 Junior | TF59LR | 16 |
+| VMS13 | 1191957 Senior — Andrew wrote **1191657**; the contract line reads 1191957, one digit apart, to be checked on the plate | EN3803 | 32 |
+| VMS14 | 1201864 Junior | TD98VJ | 34 |
+| VMS15 | 1211348 Senior | ER9217 | 35 |
+| VMS16 | 1211376 Senior | ES3211 | 37 |
+| VMS17 | 1211364 Senior | ER9410 | 39 |
+
+The rego goes into each unit's note and the reference's delivery note; the sub-hired board is recorded under its
+Premiair fleet number 467T, owner `prem-air-hire`, not under the sub-hire line number.
+
 ## What goes on the record, through the page's own controls
 
 | Reference | Boards | Owner | What the runner writes |
