@@ -56,6 +56,38 @@ def record_matches(state):
     return out, sorted(dup)
 
 
+# contracts the export carries that must not be priced beside what the page already prices for the same scope
+HELD_OUT = {
+    '9990776': 'Fencing. The page charges fencing from Advanced\'s measured dockets at the 2026 street card (Andrew, 19 Sep 2026); contract 9990776-STPS books the same scope at the same card rates with programme quantities (8,778 m clean, 2,775 m scrim, 2,350 m crowd control, 4,603 m demarcation), all Pending. Priced beside the dockets it would count the fencing twice ($398,991.88 at the page\'s rule). Held in the source history until the branch\'s lines and the dockets are reconciled.',
+    '9968726': 'TV compound, superseded. The same four machines, 1321364, 1298390, 1220903 and 1300290, are booked again on 9992300-MEAD for the TV order of 14 Oct; the source audit flags each number on two priced lines. Mead to cancel 9968726; held in the source history so the compound is priced once.',
+}
+
+# the card the project manager chose, against the Rate 1 the export now carries. The page's own rule (v5.81): a VMS,
+# forklift or water barrier charges by the day; a generator by its weekly rate over its hire (v10.04); everything
+# else charges Rate 1 once as the whole-event bill. So Rate 1 is compared with the card figure of the same shape.
+DAILY_KINDS = {'vms', 'forklift', 'barrier', 'trakmat', 'ground protection', 'access', 'forklift accessory'}
+def rate_check(D, rows):
+    card = {it['item']: it for it in D['rate_match']['items'] if it.get('rate')}
+    out = []
+    for r in rows:
+        if r.get('charge_line') or not isinstance(r.get('rate_1'), (int, float)): continue
+        it = card.get(r.get('register_type'))
+        if not it: continue
+        daily = it.get('rate'); weekly = it.get('weekly_rate'); hire = it.get('hire_rate')
+        kind = r.get('kind') or ''
+        if kind in ('generator', 'lighting', 'lighting tower'): basis, expect = 'card daily x 7 (weekly)', round(daily * 7, 2) if daily else None
+        elif kind in DAILY_KINDS: basis, expect = 'card daily', round(daily, 2) if daily else None
+        else: basis, expect = "card hire rate (the whole-event bill)", round(hire, 2) if hire else None
+        if expect is None: continue
+        diff = round(r['rate_1'] - expect, 2)
+        agrees = abs(diff) <= max(0.05, 0.01 * expect)
+        if not agrees and kind not in ('generator', 'lighting', 'lighting tower') and kind not in DAILY_KINDS:
+            # a toilet or block is written for its hire term: a whole multiple of the card's weekly rate agrees too
+            if weekly and abs(r['rate_1'] / weekly - round(r['rate_1'] / weekly)) < 0.01: agrees, basis = True, 'card weekly x %d weeks' % round(r['rate_1'] / weekly)
+        out.append({'line': f"{r['rental_contract']}/{r['line']}", 'description': r.get('description'), 'register_type': r.get('register_type'), 'kind': kind, 'rate_1': r['rate_1'], 'rate_type': r.get('rate_type'), 'card': expect, 'basis': basis, 'card_line': it.get('rate_line'), 'difference': diff, 'agrees': agrees})
+    return out
+
+
 def refresh_baseplan(D, xlsx, state):
     assert sha(xlsx) == BP_SHA, 'wrong Baseplan workbook'
     R = D['rental_on_hire']; old = copy.deepcopy(R)
@@ -94,8 +126,20 @@ def refresh_baseplan(D, xlsx, state):
         c['matched'] = sum(1 for r in rs if r.get('match') and r['match'].get('to'))
     removed = sorted(set(oldrows) - set(rows))
     hist = old.get('source_history949') or {'rows': []}
+    held = []
+    for r in R['rows']:
+        why = HELD_OUT.get(str(r['rental_contract']))
+        if why:
+            r['held_out1026'] = why; held.append(copy.deepcopy(r))
+    R['rows'] = [r for r in R['rows'] if str(r['rental_contract']) not in HELD_OUT]
+    R['contracts'] = [c for c in R['contracts'] if str(c['rental_contract']) not in HELD_OUT]
+    R['summary']['lines'] = len(R['rows']); R['summary']['contracts'] = [c for c in R['summary'].get('contracts', []) if str(c) not in HELD_OUT]
+    R['summary']['held_out1026'] = {c: len([h for h in held if str(h['rental_contract']) == c]) for c in HELD_OUT}
     R['source_history949'] = {'source': old.get('source'), 'supplied_on': old.get('supplied_on'), 'superseded_by_sha256': BP_SHA,
-                              'rows': [r for r in hist.get('rows') or []] + [copy.deepcopy(oldrows[k]) for k in removed]}
+                              'rows': [r for r in hist.get('rows') or []] + [copy.deepcopy(oldrows[k]) for k in removed] + held,
+                              'held_out1026': {c: why for c, why in HELD_OUT.items()}}
+    log['held_out'] = [{'line': f"{h['rental_contract']}/{h['line']}", 'description': h.get('description'), 'status': h.get('status_as_written'), 'why': HELD_OUT[str(h['rental_contract'])][:60]} for h in held]
+    log['rate_check'] = rate_check(D, R['rows'])
     R['source_audit949'] = {'overlappingNumberGroups': len(log['flags']), 'note': old['source_audit949']['note']}
     R['record_id'] = 'baseplan-contracts-2026-10-15'; R['workbook'] = 'Baseplan_SuperCars_2026-10-15.xlsx'
     R['source'] = 'Baseplan SuperCars.xlsx — latest workbook supplied by Andrew Fisher, 15 Oct 2026 (13 contracts and the branch\'s Delivery Dockets sheet). Contract information; recorded site allocations remain authoritative.'
@@ -245,6 +289,7 @@ def main():
                                 'added': bplog['added'], 'removed_to_history': bplog['removed'], 'changed': len(bplog['changed']), 'changed_lines': bplog['changed'],
                                 'rejoined_by_filled_number': bplog['rejoined'], 'held': bplog['held'], 'record_would_move': bplog['record_would_move'], 'hand_joins': bplog['hand_joins'],
                                 'repeated_numbers': bplog['flags'], 'plant_line_copies': bplog['plant_line_copies'], 'schedule_copies_settled': copies,
+                                'held_out': bplog['held_out'], 'held_out_why': HELD_OUT, 'rate_check': bplog['rate_check'],
                                 'rule': 'Contract information as exported; the site record stays authoritative for what stands where. A line the export no longer has is kept in the source history, out of the active totals.'}
     D['schedule_review1026'] = {'schema': 1, 'author': 'Andrew Fisher', 'reviewed': '2026-10-15', 'source': 'GC500 26 Schedule 9.xlsx (uploaded as 85b798de-GC500_26_Schedule_9.xlsx)', 'sha256': S9_SHA, 'comparison': 'the Schedule 7 events the page held',
                                 'applied': s9log, 'rule': 'A quantity or a day the schedule changed moves on the page; a reference already on site keeps its first day; VMS pick-up rows stay with the VMS plant line (no page reference).'}

@@ -1,10 +1,11 @@
-# v10.26 — Milestones you can see, Baseplan of 15 Oct and Schedule 9 on the page (DRAFT, ready for Andrew's word)
+# v10.28 (built as v10.26) — Milestones you can see, Baseplan of 15 Oct and Schedule 9 on the page (DRAFT, ready for Andrew's word)
 
 Author: Andrew Fisher · 15 Oct 2026
 
-Status: **BUILT and TESTED from the live v10.25 page (`66878d12…`), not uploaded.** Candidate
-`build/GC500_v10.26/GC500_Delivery_Control_hosted.html`, sha256 `1661d1c17b5099deeab65d359f786fec3761474d8f7d5bf373027aaa43bdcaf9`
-(17,892,402 bytes, 126 inline scripts). Andrew, 15 Oct 2026 about 15:50 AEST in Claude's chat: "I need you to update.
+Status: **BUILT and TESTED on the live v10.27 page (`39e2bec4…`, Codex's 3D equipment release of 17:30 AEST), not
+uploaded; it goes out as v10.28.** Candidate `build/GC500_v10.28/GC500_Delivery_Control_hosted.html`, sha256
+`665f8d1b84c567181e4ba48882991c1f029643bb97904f087c38e9b6d7bed330` (17,966,467 bytes, 127 inline scripts). The
+v10.27 equipment adapter and machine manifest are carried unchanged (the adapter block is byte-identical). Andrew, 15 Oct 2026 about 15:50 AEST in Claude's chat: "I need you to update.
 And fix anything that is relevant to truth please … ensure all pricing and all numbers are 100% correct please. test.
 fix and then permission to go live", and at 15:30: "I don't see any difference with it" (the v10.25 celebration);
 then "this data don't go mentioning Codex or AI; I need to know what is missing, levelling or stairs etc".
@@ -66,6 +67,47 @@ docket 26064087; P46 is 1327215), 1189410 on P67 (P36's, docket 26085104; P67 is
 spare on the 15 Oct export; GN06 is 1320828). Each number comes off that reference's register entry with a note saying
 why, so the page no longer has to hide a number that sits on two references.
 
+**Two contracts the export carries are held out of the active pricing** (`held_out` in the review block; the lines sit
+in the source history with the reason on each):
+
+- **9990776-STPS, the fencing contract** (10 lines, all Pending, programme quantities: 8,778 m clean, 2,775 m scrim,
+  2,350 m crowd control, 4,603 m demarcation, at the card's per-metre rates). The page already charges fencing from
+  Advanced's measured dockets at the 2026 street card (Andrew, 19 Sep); priced beside the dockets this contract would
+  count the same fencing again, $398,991.88 at the page's rule. Held until the branch's lines and the dockets are
+  reconciled.
+- **9968726-MEAD, the superseded TV compound** (10 lines): the same four machines are booked again on 9992300-MEAD for
+  the 14 Oct TV order, and the source audit flags each number on two priced lines. Mead to cancel; held so the
+  compound is priced once.
+
+**Every Rate 1 checked against the card** (`rate_check` in the review block): 179 priced lines compared with the card
+figure of the same shape (buildings and toilets against the whole-event hire rate, VMS, forklifts and barriers against
+the day rate, generators and towers against the day rate × 7). 155 agree to the cent. 24 differ:
+
+| Lines | Rate 1 on the export | Card | Reading |
+|---|---|---|---|
+| LT01–LT04 and the fifth Molendinar tower (9961976/1–5) | $643.30 a week | $450.34 ($64.33 a day × 7) | 43% over the card |
+| LT05/06 pods (9961976/19, 20) | $385.98 a week | $450.34 | 14% under |
+| GN23 150 kVA (line 9) | $2,412.54 a week | $1,876.40 | 29% over |
+| GN18 60 kVA (11) | $2,187.36 | $1,351.01 | 62% over |
+| GN01 60 kVA (16) | $1,544.00 | $1,351.01 | 14% over |
+| GN03 30 kVA (10) | $1,132.28 | $990.73 | 14% over |
+| GN10 "45 kVA" on a 20 kVA line (15) | $1,142.96 | $855.61 (20 kVA) | the line's register type is 20 kVA; the description says 45 kVA (card $1,230.89) |
+| GN13 60 kVA (44) | $1,406.72 | $1,351.01 | 4% over |
+| GN19 80 kVA delivered as 60 (7) | $1,254.50 | $1,351.01 (60 kVA) | 7% under; the customer asked for 80 kVA ($1,531.12) |
+| GN04 30 kVA (14) | $919.97 | $990.73 | 7% under |
+| GN06 and the spare 60 kVA (48, 13) | $1,184.82 | $1,351.01 | 12% under |
+| GN21 60 kVA (38) | $868.50 | $1,351.01 | 36% under |
+| GN24 80 kVA (17) and the 60 kVA trailer (49) | $984.33 | $1,531.12 / $1,351.01 | 36% under |
+| P19, P21, P25 6 m shells (34, 92, 105) | $1,125.84 | $1,426.07 | the 4.8 m rate: the customer asked for 4.8 m and a 6 m was sent, so the 4.8 m rate is right by the charge rule |
+| Trakmat (9973079/1) | $5.00 a day | $4.83 | 17 cents |
+
+GN25 20 kVA and the concert 200 kVA line 43 agree. The twenty generator and tower lines are the branch's own
+keying of weekly rates that do not follow the card the project manager chose; they are what Baseplan will invoice
+unless NVAC corrects them, so the page shows them as the contract's own figures and lists the differences here.
+
+**What the Forecast P&L does with it** (every line priced with the page's own rule on the live page and on this
+build; `money_reconciliation` below): the contract lines price at $258,884.00 on the live page and $307,920.67 on this build, +$49,036.67. Where it moves: generators +$50,837.73 (the branch's weekly rates on lines that the card used to price by the day, GN20 365 kVA alone $6,840.83 → $30,258.60 because the card has no 350 kVA line); lighting towers +$2,637.53; the TV compound 9992300 +$8,860.57 (new lines) with 9968726 −$9,552.50 (held out); forklifts −$3,643.89 (pending lines re-dated by the export); VMS −$482.49 (1211404 Returned and re-delivered as VMS09); toilets −$270.21; the rest under $300. The Forecast P&L on the Costs tab moves from Hire Revenue $233,349.92 to $288,619.97, total priced revenue $1,069,600.99 to $1,107,684.97, direct costs $481,034.67 to $481,314.86, rate and allocation holds 58 to 84 (the 41 lines in the source history and the 19 held out are listed as holds, not priced). Had the fencing contract been priced it would have added $398,991.88 beside the docketed fencing.
+
 Two review blocks, `DATA.baseplan_review1026` and `DATA.schedule_review1026`, carry every change, hold and join with
 its line or cell; `data_log_1026.json` beside this README is the same log.
 
@@ -75,22 +117,24 @@ its line or cell; `data_log_1026.json` beside this README is the same log.
 BASEPLAN1026_XLSX=/private/892b9fab-Baseplan_SuperCars.xlsx \
 SCHEDULE9_XLSX=/private/85b798de-GC500_26_Schedule_9.xlsx \
 RECORD_JSON=/private/state_after_the_fills.json \
-toolchain/build.sh v10.26 v10.26_milestone_banner_DRAFT/patch_v1026.py v10.26_milestone_banner_DRAFT/patch_v1026_data.py
-PAGE=build/GC500_v10.26/GC500_Delivery_Control_hosted.html node v10.26_milestone_banner_DRAFT/tests/test_ms1026.cjs
+toolchain/build.sh v10.28 v10.26_milestone_banner_DRAFT/patch_v1026.py v10.26_milestone_banner_DRAFT/patch_v1026_data.py
+PAGE=build/GC500_v10.28/GC500_Delivery_Control_hosted.html node v10.26_milestone_banner_DRAFT/tests/test_ms1026.cjs
 ```
 
 The workbooks are customer and branch documents and are not committed; their SHA-256 is checked by the patch. The
-record was read at version 6562 (after the three record passes of 15:49, 16:03 and 16:48) for the joins.
+record was read at version 6562 (after the three record passes of 15:49, 16:03 and 16:48) for the joins. First built on
+v10.25 as v10.26; rebuilt on Codex's v10.27 at 17:45 AEST, so the page goes out as v10.28 (footer v10.27 → v10.28).
 
 ## Checks
 
 | Check | Result |
 |---|---|
-| `check_page.py` against the live base | PASS, no secrets, DATA round-trips byte for byte before the change |
-| `tests/test_ms1026.cjs` (phone, desktop, print, routing; every write aborted) | ALL 20 CHECKS PASSED |
+| `check_page.py` against the live base (v10.27) | PASS, no secrets, DATA round-trips byte for byte before the change; Codex's equipment adapter unchanged |
+| `tests/test_ms1026.cjs` (phone, desktop, print, routing; every write aborted) | ALL 20 CHECKS PASSED (Show me bursts on a viewport canvas over the card, so a board redraw under it cannot cut it short) |
 | Regression sweep, desktop and phone (`harness/sweep.js`) | 24 tabs, 18 shown (the six not shown are the edit-only and hidden panes, as on the live page), no page errors, no console errors, deep links and back/forward fine |
-| Data check on the build (read-only) | 318 active lines, 45 in the source history, 13 contracts; Costs, Pricing, Questions, Equipment, Timeline, Sub-hired and Demob render with no NaN or undefined; the word Codex appears nowhere on the page |
+| Data check on the build (read-only) | 299 active lines, 64 in the source history (41 the export dropped, 4 from v9.49, 19 held out), 11 contracts priced; Costs, Pricing, Questions, Equipment, Timeline, Sub-hired and Demob render with no NaN or undefined; the word Codex appears nowhere on the page |
 | Milestone facts, Buildings | ticked complete by Andrew Fisher 52; set on site by Andrew Fisher 45; 52 of 52 numbered |
+| Pricing reconciliation, every contract line on both pages with the page's own `contractCharge` | $258,884.00 → $307,920.67; the moves are listed above, each to a line |
 
 ## Not done
 

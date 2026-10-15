@@ -29,7 +29,7 @@ function banner(all, board){
   /* the board redraws on every live poll, so the card is looked up again at the moment of the burst */
   const find = () => document.querySelector(`#gc500-work-board840 .tw840-card[data-tw840-area="${CSS.escape(id)}"]`);
   const card = find();
-  if (card) { card.scrollIntoView({block: 'center', behavior: reduced() ? 'auto' : 'smooth'}); setTimeout(() => { const c = find(); if (c && W.MS1025) MS1025.celebrate(c, {force: true}); else screenBurst(1); }, reduced() ? 50 : 500); }
+  if (card) { card.scrollIntoView({block: 'center', behavior: reduced() ? 'auto' : 'smooth'}); setTimeout(() => { const c = find(); if (c) { c.classList.add('ms1025-glow'); setTimeout(() => c.classList.remove('ms1025-glow'), 2600); screenBurst(1, c.getBoundingClientRect()); } else screenBurst(1); }, reduced() ? 50 : 600); }
   else screenBurst(1); }; });
  sec.querySelectorAll('[data-ms1026-sum]').forEach(b => { b.onclick = e => { e.preventDefault(); e.stopPropagation(); const det = document.querySelector(`#ms1025 .ms1025-area[data-ms1025="${CSS.escape(b.dataset.ms1026Sum)}"]`);
   if (det) { det.open = true; det.scrollIntoView({block: 'start', behavior: reduced() ? 'auto' : 'smooth'}); } }; });
@@ -39,11 +39,15 @@ function banner(all, board){
 /* ----------------------------------------------------------------------------------------- the screen burst
    A canvas fixed over the whole viewport, pointer-events none, bursts across the upper two thirds of the screen,
    about five seconds, then gone. Reduced motion: the banner glows instead. */
-function screenBurst(n){
+function screenBurst(n, over){
  if (reduced()) { const b = document.getElementById('ms1026'); if (b) { b.classList.add('ms1025-glow'); setTimeout(() => b.classList.remove('ms1025-glow'), 2600); } return true; }
  const old = document.querySelector('canvas.ms1026-screen'); if (old) old.remove();
  const c = document.createElement('canvas'); c.className = 'ms1026-screen'; document.body.appendChild(c);
- const dpr = Math.min(2, W.devicePixelRatio || 1), w = Math.max(200, W.innerWidth || 320), h = Math.max(200, W.innerHeight || 480);
+ const dpr = Math.min(2, W.devicePixelRatio || 1);
+ /* over a card: the canvas sits on the part of the card that is on the screen, fixed to the viewport, so a redraw of
+    the board under it does not cut the burst short */
+ let w = Math.max(200, W.innerWidth || 320), h = Math.max(200, W.innerHeight || 480);
+ if (over) { const L = Math.max(0, over.left), T = Math.max(0, over.top), R = Math.min(W.innerWidth, over.right), B = Math.min(W.innerHeight, over.bottom); w = Math.max(120, R - L); h = Math.max(120, B - T); c.style.left = L + 'px'; c.style.top = T + 'px'; c.style.right = 'auto'; c.style.bottom = 'auto'; }
  c.width = Math.round(w * dpr); c.height = Math.round(h * dpr); c.style.width = w + 'px'; c.style.height = h + 'px';
  const ctx = c.getContext('2d'); if (!ctx) { c.remove(); return false; } ctx.scale(dpr, dpr);
  const colours = ['#ff6a13', '#ffd166', '#ffffff', '#06d6a0', '#118ab2', '#ef476f'];

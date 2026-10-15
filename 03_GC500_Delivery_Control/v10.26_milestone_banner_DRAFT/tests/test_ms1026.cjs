@@ -45,7 +45,7 @@ const live = async page => page.waitForFunction(() => typeof SYNC !== 'undefined
   await s.page.evaluate(() => renderToday());
   const again = await s.page.waitForFunction(() => !!document.querySelector('canvas.ms1026-screen'), null, {timeout: 3000}).then(() => true).catch(() => false);
   check('phone: a redraw plays nothing again', !again && await s.page.evaluate(() => !!document.getElementById('ms1026')));
-  check('footer v10.26', v.footer === 'v10.26', v.footer);
+  check('footer v10.28', v.footer === 'v10.28', v.footer);
   await s.page.screenshot({path: path.join(shots, 'phone_today.png')});
   check('phone: no page errors', s.errors.length === 0, s.errors); check('phone: nothing written', s.counts.blocked === 0, s.counts);
   await s.browser.close();
@@ -63,9 +63,9 @@ const live = async page => page.waitForFunction(() => typeof SYNC !== 'undefined
   check('desktop: going to Today plays it and marks it seen', burst2 && d1.banner && d1.reached.every(id => d1.seen[id]), d1);
   await s.page.screenshot({path: path.join(shots, 'desk_today.png')});
   const show = await s.page.evaluate(async () => { const b = document.querySelector('#ms1026 [data-ms1026-show]'); if (!b) return {no: true}; const id = b.dataset.ms1026Show; b.click();
-    let canvas = false; for (let i = 0; i < 30 && !canvas; i++) { await new Promise(r => setTimeout(r, 150)); const c = document.querySelector(`.tw840-card[data-tw840-area="${id}"]`); canvas = !!(c && c.querySelector('canvas.ms1025-fw')); }
+    let canvas = false; for (let i = 0; i < 30 && !canvas; i++) { await new Promise(r => setTimeout(r, 150)); const sc = document.querySelector('canvas.ms1026-screen'); canvas = !!(sc && sc.style.left); }
     const card = document.querySelector(`.tw840-card[data-tw840-area="${id}"]`), r = card.getBoundingClientRect(); return {id, inView: r.top >= 0 && r.top < innerHeight, canvas}; });
-  check('desktop: Show me scrolls to the card and bursts over it', show.inView && show.canvas, show);
+  check('desktop: Show me scrolls to the card and bursts over it (a viewport canvas on the card)', show.inView && show.canvas, show);
   await s.page.screenshot({path: path.join(shots, 'desk_showme.png')});
   const sum = await s.page.evaluate(async () => { const b = document.querySelector('#ms1026 [data-ms1026-sum]'); if (!b) return {no: true}; b.click(); await new Promise(r => setTimeout(r, 1200)); const det = document.querySelector(`#ms1025 .ms1025-area[data-ms1025="${b.dataset.ms1026Sum}"]`); return {open: det && det.open, rows: det ? det.querySelectorAll('.ms1025-facts tr').length : 0}; });
   check('desktop: Summary opens the facts', sum.open && sum.rows > 8, sum);

@@ -6,8 +6,8 @@ quantity, rate or charge changes.
 
     python3 patch_v1026.py path/to/page.html
 
-Guards: refuses a repeat (ms1026-script already in the page) and a wrong base (the v10.25 line's ms1025-script and
-the ' · v10.25' footer must be present).
+Guards: refuses a repeat (ms1026-script already in the page) and a wrong base (the ms1025-script of the milestones
+line and the ' · v10.27' footer of the 3D equipment release must both be present; the page goes out as v10.28).
 """
 import sys
 from pathlib import Path
@@ -46,7 +46,7 @@ REPLACEMENTS = [
     ('Ticked by, plain', "['Ticked complete by (as recorded)', who(f.tickedBy)],", "['Ticked complete by', who(f.tickedBy)],"),
     ('Set on site by, plain', "['Set on site by (as recorded)', who(f.onsiteBy)],", "['Set on site by', who(f.onsiteBy)],"),
     ('Banner script', '</script>\n</body>', '</script>\n<style id="ms1026-style">\n%CSS%\n</style>\n<script id="ms1026-script">\n%SCRIPT%\n</script>\n</body>'),
-    ('Release footer', "+ ' · v10.25'", "+ ' · v10.26'"),
+    ('Release footer', "+ ' · v10.27'", "+ ' · v10.28'"),
 ]
 
 
@@ -55,14 +55,14 @@ def main():
     if not a: sys.exit(__doc__)
     page = Path(a[0]); html = page.read_text(encoding='utf-8')
     if 'ms1026-script' in html: sys.exit('patch_v1026 refuses a repeat: ms1026-script is already in the page')
-    if 'ms1025-script' not in html or "+ ' · v10.25'" not in html: sys.exit('patch_v1026: not the v10.25 line - wrong base')
+    if 'ms1025-script' not in html or "+ ' · v10.27'" not in html: sys.exit('patch_v1026: not the v10.27 line (the milestones page under the 3D equipment release) - wrong base')
     script = SCRIPT.read_text(encoding='utf-8').rstrip('\n'); css = CSS.read_text(encoding='utf-8').rstrip('\n')
     assert script.startswith('/* Author: Andrew Fisher.'), 'the script must open with its author line'
     assert '</script' not in script and '</style' not in css
     for what, old, new in REPLACEMENTS:
         html = rep(html, old, new.replace('%SCRIPT%', script).replace('%CSS%', css), what, page)
     page.write_text(html, encoding='utf-8')
-    print('patch_v1026 applied: milestone banner at the top of Today, screen burst only while Today shows, footer v10.25 -> v10.26')
+    print('patch_v1026 applied: milestone banner at the top of Today, screen burst only while Today shows, footer v10.27 -> v10.28')
 
 
 if __name__ == '__main__':
