@@ -70,23 +70,36 @@ spec.ops.forEach((o, i) => {
     if (!o.quantities || typeof o.quantities !== 'object' || !Object.keys(o.quantities).length) fail(at + 'needs card-line quantities');
     for (const [k, v] of Object.entries(o.quantities)) { if (!QTY_KEYS.includes(k)) fail(at + 'unknown card line ' + k); if (!(Number(v) > 0)) fail(at + k + ' must be above zero'); }
     for (const [k, v] of Object.entries(o.components || {})) { if (!PART_KEYS.includes(k)) fail(at + 'unknown component ' + k); if (!Number.isInteger(v) || v < 0) fail(at + k + ' must be a whole number'); }
+  } else if (o.op === 'docket_fix') {
+    if (!NORE.test(o.docket_no || '')) fail(at + 'needs the agreement number'); if (!o.quantities || typeof o.quantities !== 'object') fail(at + 'needs the corrected quantities');
+    for (const [k, v] of Object.entries(o.quantities)) { if (!QTY_KEYS.includes(k)) fail(at + 'unknown card line ' + k); if (!(Number(v) > 0)) fail(at + k + ' must be above zero'); }
+    if (typeof o.note !== 'string' || !o.note.trim()) fail(at + 'needs the corrected note');
+  } else if (o.op === 'docket_aside') {
+    if (!/^[A-Za-z0-9·\-]+$/.test(o.id || '')) fail(at + 'needs the record id to set aside'); if (!NORE.test(o.docket_no || '')) fail(at + 'needs the paper number'); if (typeof o.why !== 'string' || !o.why.trim()) fail(at + 'needs why');
+  } else if (o.op === 'docket_putback') {
+    if (!/^[A-Za-z0-9·\-]+$/.test(o.id || '')) fail(at + 'needs the record id to put back'); if (!NORE.test(o.docket_no || '')) fail(at + 'needs the paper number'); if (typeof o.why !== 'string' || !o.why.trim()) fail(at + 'needs why');
   } else if (o.op === 'fence_cost') {
     if (!/^[a-z_]+$/.test(o.key || '')) fail(at + 'needs a cost column key'); if (!(Number(o.rate) > 0)) fail(at + 'needs a rate above zero');
   } else fail(at + 'unknown op ' + o.op);
 });
 const COST_KEYS = spec.ops.filter(o => o.op === 'fence_cost').map(o => o.key);
-const HA_NOS = spec.ops.filter(o => o.op === 'hire_agreement').map(o => o.docket_no);
+const HA_NOS = spec.ops.filter(o => o.op === 'hire_agreement').map(o => o.docket_no), FIX_NOS = spec.ops.filter(o => o.op === 'docket_fix').map(o => o.docket_no), ASIDE_IDS = spec.ops.filter(o => o.op === 'docket_aside').map(o => o.id), ASIDE_NOS = spec.ops.filter(o => o.op === 'docket_aside').map(o => o.docket_no);
+const PUTBACK_IDS = spec.ops.filter(o => o.op === 'docket_putback').map(o => o.id), PUTBACK_NOS = spec.ops.filter(o => o.op === 'docket_putback').map(o => o.docket_no); /* the page's own Put back (Tools -> Edit): the record returns to its list, the tombstone is countered by back/<id>, the aside entry goes */
 const NOTE_NOS = spec.ops.filter(o => o.op === 'service_note').map(o => o.note_no), COLL_NOS = spec.ops.filter(o => o.op === 'collection').map(o => o.collection_no);
 if (new Set([...NOTE_NOS, ...COLL_NOS, ...HA_NOS]).size !== NOTE_NOS.length + COLL_NOS.length + HA_NOS.length) fail('a paper number is in the spec twice');
 /* the documents this operation may touch: the new papers' own documents and the audit documents the page keeps beside them */
-const ALLOWED_COLLS = new Set(['serviceNotes', 'fenceCollections', 'fenceDockets', 'fenceCosts', 'stamps', 'by']);
-const docIdDecode = id => String(id).replace(/~2f~/g, '/').replace(/~7c~/g, '|').replace(/~20~/g, ' ').replace(/~26~/g, '&');
+const ALLOWED_COLLS = new Set(['serviceNotes', 'fenceCollections', 'fenceDockets', 'fenceCosts', 'aside', 'deleted', 'stamps', 'by']);
+const docIdDecode = id => String(id).replace(/~([0-9a-f]{2})~/g, (_, h) => String.fromCharCode(parseInt(h, 16))); /* a document key encodes every character outside [A-Za-z0-9-] as ~hex~ */
 const NEW_IDS = new Set(); /* the ids the page gives the new papers, learned at the stage */
 const allowed = (k, body, docs) => { const c = k.slice(0, k.indexOf('/')), id = docIdDecode(k.slice(k.indexOf('/') + 1)); if (!ALLOWED_COLLS.has(c)) return false;
   if (c === 'serviceNotes') return !!body && NOTE_NOS.includes(String(body.note_no));
   if (c === 'fenceCollections') return !!body && COLL_NOS.includes(String(body.collection_no));
-  if (c === 'fenceDockets') return !!body && HA_NOS.includes(String(body.docket_no));
+  if (c === 'fenceDockets') return (body == null && ASIDE_IDS.includes(id)) || (!!body && (HA_NOS.includes(String(body.docket_no)) || FIX_NOS.includes(String(body.docket_no)) || (PUTBACK_IDS.includes(id) && PUTBACK_NOS.includes(String(body.docket_no)))));
   if (c === 'fenceCosts') return COST_KEYS.includes(id);
+  if (c === 'aside') return ASIDE_IDS.includes(id) || (body == null && PUTBACK_IDS.includes(id)) || (!!body && !!body.v && !!body.v.rec && ASIDE_NOS.includes(String(body.v.rec.docket_no)));
+  if (c === 'fenceDockets' && ASIDE_IDS.includes(id)) return true;
+  if (c === 'deleted') return ASIDE_IDS.includes(id) || (id.indexOf('back/') === 0 && PUTBACK_IDS.includes(id.slice(5)));
+  { const am = id.match(/^(?:aside|deleted)\/(.+)$/); if (am && (c === 'stamps' || c === 'by')) return ASIDE_IDS.includes(am[1]) || PUTBACK_IDS.includes(am[1]) || (am[1].indexOf('back/') === 0 && PUTBACK_IDS.includes(am[1].slice(5))); }
   const m = id.match(/^(serviceNotes|fenceCollections|fenceDockets|fenceCosts)\/(.+)$/); return !!m && (NEW_IDS.has(m[2]) || (m[1] === 'fenceCosts' && COST_KEYS.includes(m[2]))); };
 
 // ---------------------------------------------------------------------------------------------- curl with headers on stdin
@@ -121,7 +134,7 @@ function playwright() { try { return require(path.join(TOOLCHAIN, 'node_modules'
 // ---------------------------------------------------------------------------------------------- functions run INSIDE the page
 function pageReady() { return typeof SYNC === 'object' && SYNC.status === 'live' && SYNC.first && SYNC.first.size === Object.keys(SYNC_COLLS).length; }
 function pageHasControls() {
-  const missing = ['recordServiceNote', 'recordCollection', 'recordHireAgreement', 'costDocket', 'paperNoTaken', 'whoAmI', 'mayWrite', 'capability', 'weekOf', 'bump', 'syncStage', 'syncSend', 'syncWaiting', 'toDocs', 'fromDocs', 'persist'].filter(n => typeof window[n] !== 'function' && (() => { try { return typeof eval(n) !== 'function'; } catch (_) { return true; } })());
+  const missing = ['recordServiceNote', 'recordCollection', 'recordHireAgreement', 'costDocket', 'setAside', 'putBack', 'tombedHere', 'paperNoTaken', 'whoAmI', 'mayWrite', 'capability', 'weekOf', 'bump', 'syncStage', 'syncSend', 'syncWaiting', 'toDocs', 'fromDocs', 'persist'].filter(n => typeof window[n] !== 'function' && (() => { try { return typeof eval(n) !== 'function'; } catch (_) { return true; } })());
   return {missing, hasS: typeof S === 'object' && !!S, hasColls: typeof SYNC_COLLS === 'object', level: SYNC.level, readonly: SYNC.readonly, status: SYNC.status};
 }
 function pageDocs() { return JSON.parse(JSON.stringify(Object.fromEntries(Object.keys(SYNC_COLLS).map(k => [k, toDocs(k)])))); }
@@ -162,7 +175,7 @@ function applyOps(spec) {
   S.operator = spec.by;
   const who = whoAmI(); if (who !== spec.by) throw new Error('whoAmI() did not return ' + spec.by);
   if (!mayWrite('a service note')) throw new Error('mayWrite() is false - this is not an edit link');
-  const out = [], flashes = []; const oldFlash = typeof flash === 'function' ? flash : null; if (oldFlash) flash = m => { flashes.push(String(m)); };
+  const out = [], flashes = [], NEW_IDS_LOCAL = []; const oldFlash = typeof flash === 'function' ? flash : null; if (oldFlash) flash = m => { flashes.push(String(m)); };
   try {
     for (const op of spec.ops) {
       const r = {op: op.op, no: op.note_no || op.collection_no || op.docket_no || op.key}; flashes.length = 0;
@@ -191,6 +204,34 @@ function applyOps(spec) {
           for (const [k, v] of Object.entries(op.quantities)) if (Number(held.quantities[k]) !== Number(v)) throw new Error('quantity ' + k + ' is ' + held.quantities[k] + ', not ' + v);
           const c = costDocket(held); r.id = d.id; r.charge = c.cost_total; r.paid = c.paid_total; r.cost_state = c.cost_state;
           r.result = 'recorded as ' + d.id + ' - ' + Object.entries(held.quantities).map(([k, v]) => v + ' ' + k).join(', ') + ' - ' + flashes.join(' | ');
+        } else if (op.op === 'docket_fix') {
+          /* a correction of a hire agreement recorded earlier today: the quantities move between the card's CCB lines and the note says why; the same
+             write the page's own recordHireAgreement makes on the list (map, stamp, bump, save), on the one docket named */
+          r.no = op.docket_no; const d = (S.fenceDockets || []).find(x => String(x.docket_no) === op.docket_no); if (!d) throw new Error('hire agreement ' + op.docket_no + ' is not on the books');
+          if (d.recorded_by !== who) throw new Error(op.docket_no + ' was recorded by ' + d.recorded_by + ', not ' + who + ' - not touched');
+          const before = JSON.stringify(d.quantities);
+          S.fenceDockets = S.fenceDockets.map(x => x.id === d.id ? Object.assign({}, x, {quantities: Object.fromEntries(Object.entries(op.quantities).map(([k, v]) => [k, Number(v)])), note: op.note}) : x);
+          stampIt('fenceDockets', d.id, who); bump(); if (typeof save === 'function') save();
+          const now = (S.fenceDockets || []).find(x => x.id === d.id); const c = costDocket(now); r.id = d.id; r.charge = c.cost_total; r.paid = c.paid_total;
+          r.result = 'quantities ' + before + ' -> ' + JSON.stringify(now.quantities) + '; ' + (money(c.cost_total) || '$0.00') + ' charged at the 2026 card, ' + (money(c.paid_total) || '$0.00') + ' paid';
+          NEW_IDS_LOCAL.push(d.id);
+        } else if (op.op === 'docket_putback') {
+          /* the page's own Put back (the Edit tab's button on a set-aside line): the record returns to the list with who and when */
+          r.no = op.docket_no; const e = (S.aside || {})[op.id]; if (!e || e.coll !== 'fenceDockets') throw new Error(op.id + ' is not set aside');
+          if (String(e.rec.docket_no) !== op.docket_no) throw new Error(op.id + ' is paper ' + e.rec.docket_no + ', not ' + op.docket_no);
+          if (!putBack(op.id, who)) throw new Error('putBack refused ' + op.id);
+          bump(); if (typeof save === 'function') save();
+          const back = (S.fenceDockets || []).find(x => x.id === op.id); if (!back || tombedHere(op.id)) throw new Error(op.id + ' is not back on the books');
+          r.id = op.id; r.result = 'put back ' + op.id + ' (' + JSON.stringify(back.quantities) + ', ' + JSON.stringify(back.components || {}) + ') - ' + op.why;
+        } else if (op.op === 'docket_aside') {
+          /* the page's own Set aside (the Fencing tab's button): the record is kept with who and when, and can be put back from Tools -> Edit */
+          r.no = op.docket_no; const d = (S.fenceDockets || []).find(x => x.id === op.id); if (!d) throw new Error(op.id + ' is not on the books');
+          if (String(d.docket_no) !== op.docket_no) throw new Error(op.id + ' is paper ' + d.docket_no + ', not ' + op.docket_no);
+          const twins = (S.fenceDockets || []).filter(x => String(x.docket_no) === op.docket_no); if (twins.length < 2) throw new Error(op.docket_no + ' is on the books once only - not setting aside the only copy');
+          if (!setAside('fenceDockets', op.id, who)) throw new Error('setAside refused ' + op.id);
+          bump(); if (typeof save === 'function') save();
+          const left = (S.fenceDockets || []).filter(x => String(x.docket_no) === op.docket_no && !tombedHere(x.id)); if (left.length !== 1) throw new Error(op.docket_no + ' has ' + left.length + ' copies left on the books');
+          r.id = op.id; r.result = 'set aside ' + op.id + ' (' + JSON.stringify(d.quantities) + '); ' + left[0].id + ' (' + JSON.stringify(left[0].quantities) + ') stays - ' + op.why;
         } else if (op.op === 'fence_cost') {
           /* the Fencing tab's own supplier-rate input: type the rate and let its change handler save it; where the tab draws no input for the column (flat feet has no tracker column), the same three lines the handler runs */
           r.no = op.key; const was = (S.fenceCosts || {})[op.key];
@@ -217,12 +258,12 @@ function applyOps(spec) {
 (async () => {
   let browser = null, tempPage = null; const started = utc(); let exitCode = 0;
   try {
-    log(`papers_fill ${applying ? 'APPLY' : 'DRY RUN'} - ${HA_NOS.length} hire agreement(s) ${HA_NOS.join(', ')}${COST_KEYS.length ? ', supplier rates ' + COST_KEYS.join(', ') : ''}${NOTE_NOS.length ? ', ' + NOTE_NOS.length + ' service note(s)' : ''}${COLL_NOS.length ? ', ' + COLL_NOS.length + ' collection form(s)' : ''} - by ${spec.by}`);
+    log(`papers_fill ${applying ? 'APPLY' : 'DRY RUN'} - ${HA_NOS.length} hire agreement(s) ${HA_NOS.join(', ')}${COST_KEYS.length ? ', supplier rates ' + COST_KEYS.join(', ') : ''}${FIX_NOS.length ? ', corrections ' + FIX_NOS.join(', ') : ''}${ASIDE_IDS.length ? ', set aside ' + ASIDE_IDS.join(', ') : ''}${NOTE_NOS.length ? ', ' + NOTE_NOS.length + ' service note(s)' : ''}${COLL_NOS.length ? ', ' + COLL_NOS.length + ' collection form(s)' : ''} - by ${spec.by}`);
     const before = await publicState();
     log(`before: record version ${before.version} updated ${before.updated}`);
     if (applying) { const bk = path.join(HERE, 'backup_state_' + started + '.json'); fs.writeFileSync(bk, JSON.stringify(before, null, 1) + '\n', {mode: 0o600}); log('backup of the whole record before: ' + bk); }
     const onBooks = [...Object.values(before.docs.serviceNotes || {}).map(n => n && n.note_no), ...Object.values(before.docs.fenceCollections || {}).map(c => c && c.collection_no), ...Object.values(before.docs.fenceDockets || {}).map(d => d && d.docket_no)].map(String);
-    const dup = [...NOTE_NOS, ...COLL_NOS, ...HA_NOS].filter(n => onBooks.includes(n)); if (dup.length) fail('already on the books: ' + dup.join(', ') + ' - nothing to do for those; take them out of the spec');
+    const dup = [...NOTE_NOS, ...COLL_NOS, ...HA_NOS].filter(n => onBooks.includes(n)); const missingFix = FIX_NOS.filter(n => !onBooks.includes(n)); if (dup.length) fail('already on the books: ' + dup.join(', ') + ' - nothing to do for those; take them out of the spec'); if (missingFix.length) fail('not on the books, nothing to correct: ' + missingFix.join(', ')); for (const id of ASIDE_IDS) if (!Object.values(before.docs.fenceDockets || {}).some(x => x && x.id === id)) fail(id + ' is not on the record - nothing to set aside');
     log(`before: ${Object.keys(before.docs.fenceDockets || {}).length} hire agreements, ${Object.keys(before.docs.serviceNotes || {}).length} service notes and ${Object.keys(before.docs.fenceCollections || {}).length} collection forms on the record; none of the spec's numbers among them`);
 
     let page, harness = null;
@@ -253,14 +294,15 @@ function applyOps(spec) {
         }
         if (method === 'POST' && u.origin === 'https://tile.googleapis.com' && u.pathname === '/v1/createSession') { counts.mapSessions++; return route.abort(); }
         const m = u.origin === HOST && u.pathname.match(/^\/api\/doc\/([^/]+)\/([^/]+)$/);
-        if (!m || method !== 'PUT') { counts.blocked++; refused.push({method, path: u.pathname}); stop('unexpected write ' + method + ' ' + u.pathname); return route.abort(); }
+        if (!m || (method !== 'PUT' && method !== 'DELETE')) { counts.blocked++; refused.push({method, path: u.pathname}); stop('unexpected write ' + method + ' ' + u.pathname); return route.abort(); }
         const key = decodeURIComponent(m[1]) + '/' + decodeURIComponent(m[2]);
-        let body = null; try { body = JSON.parse(req.postData() || 'null'); } catch (_) { body = undefined; }
+        if (method === 'DELETE' && expected.get(key) !== 'null') { counts.blocked++; refused.push({method, key}); stop('removal outside the plan: ' + key); return route.abort(); }
+        let body = null; try { body = method === 'DELETE' ? null : JSON.parse(req.postData() || 'null'); } catch (_) { body = undefined; }
         if (!writesAllowed || !expected.has(key) || canon(body) !== expected.get(key)) { counts.blocked++; refused.push({method, key}); stop('write outside the plan: ' + key); return route.abort(); }
         if (sent.has(key)) { counts.blocked++; refused.push({method, key, retry: true}); stop('automatic retry refused: ' + key); return route.abort(); }
         sent.add(key); return route.continue();
       });
-      page.on('response', r => { const q = r.request(); if (q.method() !== 'PUT') return; const m = new URL(r.url()).pathname.match(/^\/api\/doc\/([^/]+)\/([^/]+)$/); if (m) acks.set(decodeURIComponent(m[1]) + '/' + decodeURIComponent(m[2]), r.status()); });
+      page.on('response', r => { const q = r.request(); if (q.method() !== 'PUT' && q.method() !== 'DELETE') return; const m = new URL(r.url()).pathname.match(/^\/api\/doc\/([^/]+)\/([^/]+)$/); if (m) acks.set(decodeURIComponent(m[1]) + '/' + decodeURIComponent(m[2]), r.status()); });
       await page.goto(HOST + '/e/' + token + '#fencing', {waitUntil: 'load', timeout: 180000});
     } else {
       let pageFile = argValue('--page') || process.env.PAGE || null;
@@ -308,13 +350,16 @@ function applyOps(spec) {
     const outside = changed.filter(k => !allowed(k, pageDocsAfter[k.slice(0, k.indexOf('/'))][k.slice(k.indexOf('/') + 1)], pageDocsAfter));
     log(`documents changed on the page: ${changed.length} (${changed.join(', ')})`);
     if (outside.length) fail('the stage changed documents outside the plan: ' + outside.join(', ') + ' - nothing sent');
-    for (const k of changed) { const c = k.slice(0, k.indexOf('/')), id = k.slice(k.indexOf('/') + 1); if (pageDocsAfter[c][id] == null) fail('the plan would remove ' + k + ' - nothing sent'); expected.set(k, canon(pageDocsAfter[c][id])); }
+    for (const k of changed) { const c = k.slice(0, k.indexOf('/')), id = k.slice(k.indexOf('/') + 1); if (pageDocsAfter[c][id] == null) { if (c === 'fenceDockets' && ASIDE_IDS.includes(docIdDecode(id))) { expected.set(k, 'null'); log('plan removes ' + k + ' (set aside: the page keeps it under aside/ and deleted/)'); continue; } if (c === 'aside' && PUTBACK_IDS.includes(docIdDecode(id))) { expected.set(k, 'null'); log('plan removes ' + k + ' (put back: the record returns to fenceDockets/)'); continue; } fail('the plan would remove ' + k + ' - nothing sent'); } expected.set(k, canon(pageDocsAfter[c][id])); }
     const checkDocs = (docs, where) => { const problems = [];
       const notes = Object.values(docs.serviceNotes || {}), colls = Object.values(docs.fenceCollections || {});
       for (const op of spec.ops) {
         if (op.op === 'service_note') { const n = notes.find(x => x && String(x.note_no) === op.note_no); if (!n) problems.push('service note ' + op.note_no + ' is not held ' + where); else if (n.labour_hours !== Math.round(Number(op.labour_hours) * 100) / 100 || n.date !== op.date || n.location !== op.location.trim()) problems.push('service note ' + op.note_no + ' differs ' + where); }
         if (op.op === 'collection') { const c = colls.find(x => x && String(x.collection_no) === op.collection_no); if (!c) problems.push('collection form ' + op.collection_no + ' is not held ' + where); else if (c.date !== op.date || Object.entries(op.collected).some(([k, v]) => c.collected[k] !== v)) problems.push('collection form ' + op.collection_no + ' differs ' + where); }
         if (op.op === 'fence_cost') { const v = ((docs.fenceCosts || {})[op.key] || {}); const held = v.v !== undefined ? v.v : v; if (String(held) !== String(op.rate)) problems.push('supplier rate ' + op.key + ' is ' + JSON.stringify(held) + ', not ' + op.rate + ' ' + where); }
+        if (op.op === 'docket_aside') { const asideIds = new Set(Object.values(docs.aside || {}).map(a => a && a.v && a.v.rec && a.v.rec.id)); const live = Object.values(docs.fenceDockets || {}).filter(x => x && String(x.docket_no) === op.docket_no && !asideIds.has(x.id)); if (live.length !== 1) problems.push(op.docket_no + ' has ' + live.length + ' copies on the books ' + where); if (!asideIds.has(op.id)) problems.push(op.id + ' is not set aside ' + where); }
+        if (op.op === 'docket_putback') { const asideIds = new Set(Object.values(docs.aside || {}).map(a => a && a.v && a.v.rec && a.v.rec.id)); const live = Object.values(docs.fenceDockets || {}).filter(x => x && String(x.docket_no) === op.docket_no && !asideIds.has(x.id)); if (!live.some(x => x.id === op.id)) problems.push(op.id + ' is not back on the books ' + where); if (asideIds.has(op.id)) problems.push(op.id + ' is still set aside ' + where); if (live.length !== 1 && !spec.ops.some(o => o.op === 'docket_aside' && o.docket_no === op.docket_no)) problems.push(op.docket_no + ' has ' + live.length + ' copies on the books ' + where); }
+        if (op.op === 'docket_fix') { const d = Object.values(docs.fenceDockets || {}).find(x => x && String(x.docket_no) === op.docket_no); if (!d) problems.push('hire agreement ' + op.docket_no + ' is not held ' + where); else if (Object.entries(op.quantities).some(([k, v]) => Number(d.quantities[k]) !== Number(v)) || Object.keys(d.quantities).some(k => !(k in op.quantities)) || d.note !== op.note) problems.push('hire agreement ' + op.docket_no + ' is not corrected ' + where); }
         if (op.op === 'hire_agreement') { const d = Object.values(docs.fenceDockets || {}).find(x => x && String(x.docket_no) === op.docket_no); if (!d) problems.push('hire agreement ' + op.docket_no + ' is not held ' + where); else if (d.date !== op.date || Object.entries(op.quantities).some(([k, v]) => Number(d.quantities[k]) !== Number(v)) || Object.entries(op.components || {}).some(([k, v]) => (d.components || {})[k] !== v)) problems.push('hire agreement ' + op.docket_no + ' differs ' + where); }
       } return problems; };
     const stageProblems = checkDocs(pageDocsAfter, 'after the stage'); if (stageProblems.length) fail(stageProblems.join(' | '));
@@ -344,7 +389,7 @@ function applyOps(spec) {
       if (fatal) throw fatal;
       const st = await page.evaluate(() => ({status: SYNC.status, unkept: !!SYNC.unkept, waiting: syncWaiting(), queueEmpty: Object.keys(SYNC.queue || {}).every(k => !Object.keys(SYNC.queue[k]).length), inflight: Object.keys(SYNC.inflight || {}).length}));
       if (st.unkept || ['offline', 'unreachable', 'error', 'stopped', 'paused', 'revoked'].includes(st.status)) fail('sync is ' + st.status + (st.unkept ? ' (unkept)' : '') + ' - inspect the service before any retry');
-      if (st.queueEmpty && !st.inflight && st.waiting === 0 && [...expected.keys()].every(k => acks.get(k) === 200)) break;
+      if (st.queueEmpty && !st.inflight && st.waiting === 0 && [...expected.keys()].every(k => acks.get(k) === 200 || (expected.get(k) === 'null' && (acks.get(k) === 204 || acks.get(k) === 200)))) break;
       if (Date.now() > deadline) fail('the writes did not settle in 90 s (acknowledged: ' + [...acks.entries()].map(([k, s]) => k + '=' + s).join(', ') + ') - no automatic retry');
       await new Promise(r => setTimeout(r, 200));
     }

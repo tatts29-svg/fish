@@ -1,0 +1,23 @@
+{
+ "day": "2026-10-16",
+ "by": "Andrew Fisher",
+ "item": "VMS",
+ "disc": "Variable message signs",
+ "rows": [
+  {"ref": "T0128", "mode": "delivered",
+   "note": "VMS11 (Premiair SUB-17093) and VMS12 (1211646) delivered 16 Oct 2026 - contract 9961265 lines 15 and 16.",
+   "units": [
+    {"label": "VMS11", "no": "SUB-17093", "owner": "prem-air-hire"},
+    {"label": "VMS12", "no": "1211646", "owner": "coates"}
+   ]},
+  {"ref": "T0158", "mode": "partial",
+   "note": "Came in 16 Oct 2026 for Monday 19 Oct: VMS13 1191957, VMS14 1201864, VMS15 1211348, VMS16 1211376, VMS17 1211364 - contract 9961265 lines 32, 34, 35, 37, 39.",
+   "units": [
+    {"label": "VMS13", "no": "1191957", "owner": "coates"},
+    {"label": "VMS14", "no": "1201864", "owner": "coates"},
+    {"label": "VMS15", "no": "1211348", "owner": "coates"},
+    {"label": "VMS16", "no": "1211376", "owner": "coates"},
+    {"label": "VMS17", "no": "1211364", "owner": "coates"}
+   ]}
+ ]
+}

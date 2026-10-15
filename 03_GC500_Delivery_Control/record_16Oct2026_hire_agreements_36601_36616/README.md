@@ -104,3 +104,35 @@ week has not arrived. At the rates they billed on week 2, our 27 papers of 12–
 Friday 16 Oct's papers, 36596–36600 (36596 is named on service note 24475) and anything after 36616, are not in this
 figure. When Advanced's week-1 sheet arrives it goes on order 4647520 as week 2's did, line by line, and any rate that
 differs from these is theirs to explain.
+
+## Three more record operations the same morning
+
+**36611 reclassified (`fix_spec.json`, 6643 → 6646, `report_20261015T232006Z.json`).** The agreement's 130 m of CCB
+was first booked as demarcation; the programme's CON WK1 row 46 names the Scrimmage Zone / Monster Energy Event
+Compound as event work, so the quantities were moved to the event line through the same write the page's own form
+makes ({clean: 165, ccb_event: 130}), note updated, charged at the event rate. 36613 stays pending Andrew's word (event
+compound or demarcation).
+
+**Record notes (`notes_fix_spec.json`, 6646 → 6693).** The sixteen agreements' notes were re-saved as "Owner sign-off:
+Andrew, 16 Oct 2026" so the programme-link snapshots the page keeps (which drop the full name from narrative text) match
+the records exactly.
+
+**36592 set aside, then found to be the wrong copy (`aside_spec.json`, 6693 → 6699, `report_20261015T232819Z.json`).**
+36592 (The Hill, Monster CZ, 9 Oct) is on the record twice: `F-AFV-0035·2904` at 137.5 m / 55 panels and
+`F-AFV-0035·1e26` at 132.5 m / 53 panels. The `·2904` copy was set aside through the page's own Set aside on the reading
+that the paper says 132.5 m. That was the wrong way round. The backups settle it: at record 6128 (14 Oct, 22:34 UTC) the
+record held one copy of 36592, the corrected 137.5 m / 55-panel one (the 14 Oct inventory audit calls it "the previously
+corrected 36592"); by 6163 (23:05 UTC) it had been re-keyed to `·2904` and the old 9 Oct reading had come back beside it
+as `·1e26`. The page's v10.14 attribution expects the corrected signature (137.5 m, 55 panels, credit capped at the 135 m
+allowance), so the corrected copy is the one to keep and the resurrected old reading is the duplicate Andrew knew about
+and asked to remove.
+
+**The swap back (`swap_spec.json`, PREPARED, dry run passed, not applied).** Two operations through the page's own
+buttons: `docket_putback` of `·2904` (the Edit tab's Put back: the record returns to its list, the tombstone is
+countered by `deleted/back/<id>`, the aside entry goes) and `docket_aside` of `·1e26`. The runner learned the put-back
+op for it (`PUTBACK_IDS`, the write gate allows the eleven documents the page writes for the pair and nothing else, the
+removal of `aside/<id>` is gated on expected null). The dry run on the live page (6699) passed: eleven aborted writes,
+exactly the plan. The apply was refused twice by this session's permission gate, so it waits: run
+`GC500_EXPECTED_PAGE_SHA=<live page sha> node papers_fill.cjs --spec swap_spec.json --apply` with the edit key in the
+environment, or put `·2904` back and set `·1e26` aside by hand under Tools → Edit. After it, 36592 is charged once at
+137.5 m and its week-2 programme link reads matched again.
