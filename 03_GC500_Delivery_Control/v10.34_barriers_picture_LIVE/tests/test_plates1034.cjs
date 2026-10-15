@@ -1,7 +1,7 @@
 /* v10.34: the Water barriers card on Today carries its picture, the other cards keep theirs. Read-only: the page is
    served from the build, the picture from this release's assets/ (until it is on the service), every other GET goes
    to the live service as it is; nothing is written. Author: Andrew Fisher.
-     PAGE=build/GC500_v10.34/GC500_Delivery_Control_hosted.html node v10.34_barriers_picture_DRAFT/tests/test_plates1034.cjs */
+     PAGE=build/GC500_v10.34/GC500_Delivery_Control_hosted.html node v10.34_barriers_picture_LIVE/tests/test_plates1034.cjs */
 const fs = require('fs'), path = require('path');
 const here = path.resolve(__dirname, '..');
 const {open} = require(path.resolve(here, '..', 'toolchain', 'harness', 'open_page.js'));

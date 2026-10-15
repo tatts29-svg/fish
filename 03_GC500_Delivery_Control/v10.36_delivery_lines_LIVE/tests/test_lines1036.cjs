@@ -1,7 +1,7 @@
 /* v10.36: a contract's "Delivery for Line Item(s) 7,14" names its units. Before (the v10.35 build) that line was unallocated
    and held every generator's delivery leg; after, it covers GN19 and GN04 and every other generator's delivery leg is the
    card's each-way charge. Read-only: pages served from the builds, every write aborted. Author: Andrew Fisher.
-     BEFORE=build/GC500_v10.35/GC500_Delivery_Control_hosted.html PAGE=build/GC500_v10.36/GC500_Delivery_Control_hosted.html node v10.36_delivery_lines_DRAFT/tests/test_lines1036.cjs */
+     BEFORE=build/GC500_v10.35/GC500_Delivery_Control_hosted.html PAGE=build/GC500_v10.36/GC500_Delivery_Control_hosted.html node v10.36_delivery_lines_LIVE/tests/test_lines1036.cjs */
 const path = require('path');
 const {open} = require(path.resolve(__dirname, '..', '..', 'toolchain', 'harness', 'open_page.js'));
 const results = []; const check = (name, ok, note) => { results.push({name, ok: !!ok}); console.log((ok ? 'PASS ' : 'FAIL ') + name + (note ? ' — ' + note : '')); };

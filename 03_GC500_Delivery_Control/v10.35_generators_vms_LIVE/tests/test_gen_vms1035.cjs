@@ -1,7 +1,7 @@
 /* v10.35: every generator and VMS board reference carries delivery, install and pick up and no demob; FWF, blocks, tanks
    and buildings as v10.32 left them. Read-only: the page is served from the build, every write aborted.
    Author: Andrew Fisher.
-     PAGE=build/GC500_v10.35/GC500_Delivery_Control_hosted.html [BEFORE=build/GC500_v10.34/GC500_Delivery_Control_hosted.html] [OUT=dir] node v10.35_generators_vms_DRAFT/tests/test_gen_vms1035.cjs */
+     PAGE=build/GC500_v10.35/GC500_Delivery_Control_hosted.html [BEFORE=build/GC500_v10.34/GC500_Delivery_Control_hosted.html] [OUT=dir] node v10.35_generators_vms_LIVE/tests/test_gen_vms1035.cjs */
 const path = require('path');
 const {open} = require(path.resolve(__dirname, '..', '..', 'toolchain', 'harness', 'open_page.js'));
 const results = []; const check = (name, ok, note) => { results.push({name, ok: !!ok}); console.log((ok ? 'PASS ' : 'FAIL ') + name + (note ? ' — ' + note : '')); };
