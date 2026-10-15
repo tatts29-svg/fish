@@ -80,8 +80,8 @@ with a number: 1282487 (the schedule's) was the planned P63 shell, so HRP's numb
 On v10.26 the Baseplan lines 110, 113 and 121 (Delivered, 1327217, 1327222, 960719) join P65, P66 and P63 and carry
 those numbers as the units, so the hand-made unit records for the same numbers read as duplicates ("Duplicate physical
 identity"). Once the page is live, this spec sets those three unit records aside (archived, who and when) and the
-line's own row stands, as it does for P52 and WC07. Dry-run against the v10.26 build: passed, 8 documents, every
-row left physical. It is not run before the upload because the live page has no such lines yet.
+line's own row stands, as it does for P52 and WC07. Applied 18:00 AEST once v10.28 was live: dry run against the live page passed, then record 6562 → 6568 (6 documents),
+each reference left with its one row from the contract line; report `report_20261015T075947Z.json`.
 
 ## Checks
 

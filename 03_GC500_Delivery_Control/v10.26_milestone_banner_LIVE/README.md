@@ -1,9 +1,11 @@
-# v10.28 (built as v10.26) — Milestones you can see, Baseplan of 15 Oct and Schedule 9 on the page (DRAFT, ready for Andrew's word)
+# v10.28 (built as v10.26) — Milestones you can see, Baseplan of 15 Oct and Schedule 9 on the page
 
 Author: Andrew Fisher · 15 Oct 2026
 
-Status: **BUILT and TESTED on the live v10.27 page (`39e2bec4…`, Codex's 3D equipment release of 17:30 AEST), not
-uploaded; it goes out as v10.28.** Candidate `build/GC500_v10.28/GC500_Delivery_Control_hosted.html`, sha256
+> LIVE 15 Oct 2026 17:59 AEST (Andrew: "Upload"): page `665f8d1b84c567181e4ba48882991c1f029643bb97904f087c38e9b6d7bed330`
+> (17,966,467 bytes) published over the live v10.27 `39e2bec4…` with the base guard, re-read byte for byte by the view link.
+
+Status: **LIVE as v10.28, built on the v10.27 page (`39e2bec4…`, Codex's 3D equipment release of 17:30 AEST).** Candidate `build/GC500_v10.28/GC500_Delivery_Control_hosted.html`, sha256
 `665f8d1b84c567181e4ba48882991c1f029643bb97904f087c38e9b6d7bed330` (17,966,467 bytes, 127 inline scripts). The
 v10.27 equipment adapter and machine manifest are carried unchanged (the adapter block is byte-identical). Andrew, 15 Oct 2026 about 15:50 AEST in Claude's chat: "I need you to update.
 And fix anything that is relevant to truth please … ensure all pricing and all numbers are 100% correct please. test.
@@ -136,6 +138,6 @@ v10.25 as v10.26; rebuilt on Codex's v10.27 at 17:45 AEST, so the page goes out 
 | Milestone facts, Buildings | ticked complete by Andrew Fisher 52; set on site by Andrew Fisher 45; 52 of 52 numbered |
 | Pricing reconciliation, every contract line on both pages with the page's own `contractCharge` | $258,884.00 → $307,920.67; the moves are listed above, each to a line |
 
-## Not done
+## After the upload
 
-No upload: the page waits for Andrew's word. The record fills of 15:49 are in `record_15Oct2026_dockets_fill/`.
+The page went live at 17:59 AEST. The record fills of 15:49 are in `record_15Oct2026_dockets_fill/`.
