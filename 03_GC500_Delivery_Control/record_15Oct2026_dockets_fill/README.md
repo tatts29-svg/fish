@@ -30,6 +30,8 @@ sha256 `ba246d4a…`) or on the contract line of the same export. The page's own
 | Question TX03 | note | P20 is one building, 1097339, docket 26076698, 17 Sep 13:01; P21 is one building, 1327220, docket 26076820, 17 Sep 12:29. The second load link on each is superseded. |
 | Question R10 | note | Contract 9968929 books the office and lunchroom pick-up for 13 Nov; Schedule 9 Demob Week 3 still shows 12 Nov. Pick-up: 13 Nov. |
 
+**Reversed 17 Oct 2026 (HRP and P36 rows):** Andrew's site record has HRP = 1189410 and P36 = 1282487 (his loading of 10 Oct and his photos of 18 and 25 Sep), and his site record outranks the docket. Both numbers were put back; see `../record_17Oct2026_hrp_p36_numbers/`. 1327222 stays off P36.
+
 ## What the dry run showed, so it was left alone
 
 - **WC07's twenty Coates toilets are already on the page** through the contract lines (the page reads delivered
