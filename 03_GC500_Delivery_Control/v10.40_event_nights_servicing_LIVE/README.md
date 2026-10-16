@@ -1,4 +1,4 @@
-# v10.40 — event-night servicing charged per unit, per night — READY, not uploaded
+# v10.40 — event-night servicing charged per unit, per night — LIVE 16 Oct 2026 13:16 AEST
 
 Author: Andrew Fisher. Andrew, 16 Oct 2026: "here is a new charge for these areas to add in. This gets charged Friday,
 Saturday and Sunday night for each unit: FWF Pump out & Clean & Restock $72.87; waste tanks — Tank Pump Out & Clean &
