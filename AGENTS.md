@@ -153,6 +153,15 @@ marks as a draft, or anything risky to the record, waits for his yes.
   "Andrew Fisher via <Claude or Codex>", with a backup of what you are changing first and a fresh read afterwards to
   prove it. Keep the backup and the log in a `record_<date>_<what>/` folder. Example:
   `record_29Sep2026_master_plan_positions/`.
+- **Andrew's site record is the truth** (Andrew, 16 Oct 2026: "my data is truth on site"; 17 Oct 2026: "remember my
+  records were truth"). What he enters on site outranks the branch's paperwork. That covers a number he typed or
+  picked, his loading sheet, a unit he tagged on a photo, his ticks, the accessories he added and his quantities and
+  notes. Dockets, Baseplan, the schedule, the rental system and contract lines are what get checked against it.
+  - No fill, runner or rule removes, replaces or moves one of his site entries on paperwork.
+  - Where the paperwork disagrees, his entry stays on the page and the difference goes on the list for the branch.
+  - If two of his own entries disagree, ask him.
+  - The 15 Oct dockets fill broke this rule (HRP 1189410, P36 1282487), and it was put back on 17 Oct
+    (`record_17Oct2026_hrp_p36_numbers/`).
 - **No pre-bill amounts for anything.**
 - **Email: drafts only, never send.** PDFs are attached, not linked ("we are emailing the PDFs, no link").
 - Anything shown to partners or sub-hire companies: no mention of the hidden tabs, and never "sub-hire partners" or
