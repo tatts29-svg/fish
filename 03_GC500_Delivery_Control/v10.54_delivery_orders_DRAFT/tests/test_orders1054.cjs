@@ -23,9 +23,11 @@ async function drawerCard(p, ref){ await p.evaluate(r => openAsset(r), ref); awa
    const c17 = await drawerCard(p, 'WC17'); ok(c17 && /before P36 and P10/.test(c17.txt), tag + ': WC17 drawer: blocks before P36 and P10');
    const r = await p.evaluate(() => { const row = ONHIRE_ROWS.find(x => String(x.rental_contract) === '9968862' && Number(x.line) === 93); const a = assetOf('P65'), m = gcModel925(a), u = m.rows.find(x => x.physical && String(x.assetNo) === '1327217' && x.active !== false);
     const a6 = assetOf('P66'), m6 = gcModel925(a6), u6 = m6.rows.find(x => x.physical && String(x.assetNo) === '1327222' && x.active !== false);
-    return {key: row && row.match.key, p65: u ? Units925.photos(u, m.rows, dropPhotosOf('P65')).length : -1, p66: u6 ? Units925.photos(u6, m6.rows, dropPhotosOf('P66')).length : -1}; });
+    const a0 = assetOf('P06'), m0 = gcModel925(a0), u0 = m0.rows.find(x => x.physical && x.active !== false);
+    return {p06: u0 ? Units925.photos(u0, m0.rows, dropPhotosOf('P06')).length : -1, key: row && row.match.key, p65: u ? Units925.photos(u, m.rows, dropPhotosOf('P65')).length : -1, p66: u6 ? Units925.photos(u6, m6.rows, dropPhotosOf('P66')).length : -1}; });
    ok(r.key === 'HRP', tag + ': Baseplan line 93 joins HRP');
    ok(r.p65 >= 2 && r.p66 >= 2, tag + ': Andrew\'s unit photos attach again (P65 ' + r.p65 + ', P66 ' + r.p66 + ')');
+   ok(r.p06 === 3, tag + ': P06 shows Andrew\'s three 30 Sep photos (' + r.p06 + ')');
    ok(!t.over, tag + ': no sideways scroll');
    ok(h.errors.length === 0, tag + ': no page errors ' + h.errors.slice(0, 3).join(' | '));
   } finally { await h.browser.close(); }

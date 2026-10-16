@@ -8,7 +8,8 @@ to locked in with theirs order for future records").
   them; a new or changed order comes in a page release.
 - Baseplan 9968862 line 93 (1189410) is joined to HRP, by the number recorded on site. The 15 Oct export's docket
   label had joined it to P36. This is display only; the revenue already sat with HRP.
-- Andrew's photos taken against his own unit records (P65 and P66, 14 Oct) attach to the building again. The 15 Oct
+- Andrew's photos taken against his own unit records (P65 and P66, 14 Oct), and on a one-unit building his photos tagged
+  with a number no longer on it (P06: three photos tagged 1097453, 30 Sep), attach to the building again. The 15 Oct
   fill set those records aside as duplicates of the Baseplan rows, which left the photos with no unit. This is display
   only; nothing in the record changes.
 
@@ -72,7 +73,10 @@ NEW = r'''</script>
   W.Units925.photos = function(u, rows, photos){
    const out = before.apply(this, arguments) || [];
    try { if (!u || !u.assetNo || !Array.isArray(photos)) return out; const have = new Set(out.map(p => p.id));
-    photos.forEach(p => { if (have.has(p.id)) return; const id = slotOf(p); if (!id) return; const r = rec(id); if (r && r.active === false && String(r.assetNo) === String(u.assetNo) && r.ref === u.ref && !(rows || []).some(x => x.id === id && x.active !== false)) { out.push(p); have.add(p.id); } }); } catch (x) {}
+    photos.forEach(p => { if (have.has(p.id)) return; const id = slotOf(p); if (!id) return; const r = rec(id); if (r && r.active === false && String(r.assetNo) === String(u.assetNo) && r.ref === u.ref && !(rows || []).some(x => x.id === id && x.active !== false)) { out.push(p); have.add(p.id); } });
+    /* a building with one unit: a photo Andrew tagged with a number no longer on it (P06: 1097453, 30 Sep) is still a photo of that building */
+    const a = typeof assetOf === 'function' ? assetOf(u.ref) : null, phys = (rows || []).filter(x => x.physical && x.active !== false);
+    if (a && a.discipline === 'Portable buildings' && phys.length === 1 && phys[0].id === u.id) photos.forEach(p => { if (have.has(p.id)) return; const t = String(p.unit || ''); if (/^\d{4,12}$/.test(t) && !phys.some(x => String(x.assetNo) === t)) { out.push(p); have.add(p.id); } }); } catch (x) {}
    return out; };
  }
  const st = D.createElement('style'); st.id = 'orders1054-style';

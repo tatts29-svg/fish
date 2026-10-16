@@ -16,12 +16,12 @@ carries its rule: P04 only after the rest, with the WC05 tank before the WC05 bl
 docket label had joined it to P36. This is display only; the revenue already sat with HRP.
 
 **Unit photos.** Andrew's photos against his own unit records on P65 and P66 (two each, 14 Oct) attach to the building
-again. This is display only.
+again, and so do P06's three photos from 30 Sep, tagged 1097453. This is display only.
 
 ## Build and checks
 
 - On live v10.48, together with v10.49 to v10.53.
-- Build: 18146767 bytes, sha256 `733219f26e97268bafc7bad702a809675bebad751f450e6ab3295871074b0cea`, check_page PASS.
+- Build: 18147333 bytes, sha256 `0d90f909127fabc508cb0d45b3138c62ec73785900c21fd5e8a60c4784439205`, check_page PASS.
 - Tests on desktop and phone:
   - `tests/test_orders1054.cjs`: 22/22.
   - twin-steer: 36/36.

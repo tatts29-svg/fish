@@ -29,8 +29,11 @@ Done earlier: HRP 1189410 and P36 1282487 (`../record_17Oct2026_hrp_p36_numbers/
 
 ## Waiting for Andrew
 
-- **P06.** His three photos (30 Sep) are tagged 1097453. The 15 Oct fill put 1087453 on (docket 26094121, Baseplan line
-  64). Which plate is on the building?
+- **P06 — settled, left at 1087453.** Andrew, 17 Oct 2026: "P06 im not onsite mate. What ever i changed it too". He
+  never typed a P06 number himself. His only entries are three photos (30 Sep) tagged 1097453, the number the schedule
+  offered at the time. 1087453 came from the 15 Oct fill (docket 26094121, Baseplan line 64), recorded under his name.
+  Swapping back would drop the $1,426.07 hire line, because Baseplan bills 1087453 (tested in page memory). So it is
+  left at 1087453, his photos attach to the building in v10.54, and the plate is to be read at pick-up.
 - **WC20.** His own entries disagree. On 7 Oct he took 1327225 off; on 8 Oct he said there are two blocks and two tanks.
   Is the second toilet block 1327225?
 - **P65, P66 and P63 unit records.** He made these on site; the 15 Oct fill set them aside as duplicates of the Baseplan
