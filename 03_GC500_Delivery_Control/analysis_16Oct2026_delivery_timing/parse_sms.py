@@ -6,10 +6,19 @@ import re, sys, json
 from datetime import datetime, timedelta
 from collections import defaultdict
 
-txt = open(sys.argv[1], encoding='utf-8').read()
-# each message starts with "Received   16 Oct 2026   Coates   <content>" then the time on the next line
-blocks = re.split(r'\n\s*(?=(?:Received|Sent)\s+\d{1,2} \w{3} \d{4}\s+Coates)', '\n' + txt)
 msgs = []
+if sys.argv[1].lower().endswith('.xlsx'):
+    # the same export as a spreadsheet: Type, Date ("8 Sept 2026 9:39:55 am"), Name / Number, Sender, Content
+    import openpyxl
+    for row in list(openpyxl.load_workbook(sys.argv[1], read_only=True).worksheets[0].iter_rows(values_only=True))[1:]:
+        if not row or not row[1] or not row[4]: continue
+        ds = re.sub(r'\s+', ' ', str(row[1]).replace('\u202f', ' ')).replace('Sept', 'Sep').strip()
+        msgs.append({'at': datetime.strptime(ds, '%d %b %Y %I:%M:%S %p'), 'text': re.sub(r'\s+', ' ', str(row[4])).strip()})
+    blocks = []
+else:
+    txt = open(sys.argv[1], encoding='utf-8').read()
+    # each message starts with "Received   16 Oct 2026   Coates   <content>" then the time on the next line
+    blocks = re.split(r'\n\s*(?=(?:Received|Sent)\s+\d{1,2} \w{3} \d{4}\s+Coates)', '\n' + txt)
 for b in blocks:
     m = re.match(r'\s*(Received|Sent)\s+(\d{1,2} \w{3} \d{4})\s+Coates\s+(.*)', b, re.S)
     if not m: continue
@@ -76,8 +85,38 @@ for i, x in enumerate(ev):
     used.add(i); o['delivered_at'] = x['at'] if x['kind'] == 'delivered' else None; o['failed_at'] = x['at'] if x['kind'] == 'failed' else None
     w = take('onway', o, before=x['at']); o['onway_at'] = w['at'] if w else None
     orders.append(o)
+# a "could not be delivered" text belongs to its order even when the item came later
+for i, x in enumerate(ev):
+    if x['kind'] != 'failed' or i in used: continue
+    c = [o for o in orders if o['item'] == x['item'] and o['day'] <= x['at'].date()]
+    if c:
+        o = max(c, key=lambda o: o['day']); o.setdefault('failed_list', []).append(x['at']); used.add(i)
+        if not o.get('failed_at'): o['failed_at'] = x['at']
+# delivered on a later day than booked (no new booking text): the earliest undelivered order of that item before it
+for i, x in enumerate(ev):
+    if x['kind'] != 'delivered' or i in used: continue
+    c = [o for o in orders if o['item'] == x['item'] and (not x['site'] or o['site'] == x['site']) and o['day'] < x['at'].date() and not o.get('delivered_at')]
+    if not c: continue
+    o = min(c, key=lambda o: o['day']); used.add(i); o['delivered_at'] = x['at']; o['moved_day'] = True
+    w = [(j, y) for j, y in enumerate(ev) if y['kind'] == 'onway' and j not in used and y['item'] == x['item'] and y['at'].date() == x['at'].date() and y['at'] <= x['at']]
+    if w: used.add(w[0][0]); o['onway_at'] = w[0][1]['at']
+# delivered with no booking text in the export: kept, marked
+for i, x in enumerate(ev):
+    if x['kind'] != 'delivered' or i in used: continue
+    used.add(i); o = {'item': x['item'], 'site': x['site'], 'day': x['at'].date(), 'windows': [], 'booked_at': None, 'texts': 0, 'delivered_at': x['at'], 'failed_at': None, 'onway_at': None, 'no_booking': True}
+    w = [(j, y) for j, y in enumerate(ev) if y['kind'] == 'onway' and j not in used and y['item'] == x['item'] and y['at'].date() == x['at'].date() and y['at'] <= x['at']]
+    if w: used.add(w[0][0]); o['onway_at'] = w[0][1]['at']
+    orders.append(o)
 rows = []
-for o in sorted(orders, key=lambda o: (o['day'], o['windows'][0][0], o['item'])):
+for o in sorted(orders, key=lambda o: (o['day'], o['windows'][0][0] if o['windows'] else '99', o['item'])):
+    if not o['windows']:
+        da = o['delivered_at']
+        rows.append({'day': o['day'].isoformat(), 'item': o['item'], 'site': o['site'], 'ref': (re.match(r'^(WC\d+|Wc\d+|P\d+)\b', o['item']) or [None])[0], 'booked_at': None,
+          'first_window': None, 'final_window': None, 'window_changes': None, 'onway_at': o['onway_at'].isoformat(timespec='minutes') if o['onway_at'] else None,
+          'delivered_at': da.isoformat(timespec='minutes'), 'failed_at': None, 'lead_h': None, 'no_booking': True,
+          'onway_to_delivered_min': round((da - o['onway_at']).total_seconds() / 60) if o['onway_at'] else None,
+          'in_first_window': None, 'in_final_window': None, 'late_vs_first_min': None, 'early_vs_first_min': None})
+        continue
     first, last = o['windows'][0], o['windows'][-1]
     fs, fe, ls, le = dt(o['day'], first[0]), dt(o['day'], first[1]), dt(o['day'], last[0]), dt(o['day'], last[1])
     da = o['delivered_at']
@@ -90,7 +129,8 @@ for o in sorted(orders, key=lambda o: (o['day'], o['windows'][0][0], o['item']))
          'lead_h': round((da - o['booked_at']).total_seconds() / 3600, 1) if da else None,
          'onway_to_delivered_min': mins(da, o['onway_at']) if da and o['onway_at'] else None,
          'in_first_window': (fs <= da <= fe) if da else None, 'in_final_window': (ls <= da <= le) if da else None,
-         'late_vs_first_min': max(0, mins(da, fe)) if da else None, 'early_vs_first_min': max(0, mins(fs, da)) if da else None}
+         'late_vs_first_min': max(0, mins(da, fe)) if da else None, 'early_vs_first_min': max(0, mins(fs, da)) if da else None,
+         'moved_day': bool(o.get('moved_day')), 'days_late': (da.date() - o['day']).days if da else None, 'failed_texts': len(o.get('failed_list', []))}
     rows.append(r)
 left = [ {'kind': x['kind'], 'item': x['item'], 'at': x['at'].isoformat(timespec='minutes')} for i, x in enumerate(ev) if x['kind'] in ('delivered', 'failed', 'onway') and i not in used]
 other = [x for x in ev if x['kind'] == 'other']
