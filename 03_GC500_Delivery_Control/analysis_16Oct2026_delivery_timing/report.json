@@ -1,0 +1,176 @@
+{
+ "texts": 150,
+ "span": [
+  "2026-10-01T07:49:57",
+  "2026-10-16T15:14:56"
+ ],
+ "orders": 51,
+ "delivered": 48,
+ "counts": {
+  "on time": 35,
+  "early": 1,
+  "in revised window": 3,
+  "late": 9
+ },
+ "pct_first_window": 75.0,
+ "late": [
+  {
+   "day": "2026-10-08",
+   "item": "Variable Message Board - Colour - Senior",
+   "window": "07:00-10:00",
+   "final": "07:00-13:00",
+   "delivered": "15:09",
+   "late_min": 310
+  },
+  {
+   "day": "2026-10-08",
+   "item": "WC31 Toilet - Accessible",
+   "window": "07:00-10:00",
+   "final": "07:00-14:00",
+   "delivered": "15:10",
+   "late_min": 310
+  },
+  {
+   "day": "2026-10-06",
+   "item": "Forklift 5.0t Diesel",
+   "window": "07:00-10:00",
+   "final": "07:00-13:00",
+   "delivered": "13:09",
+   "late_min": 190
+  },
+  {
+   "day": "2026-10-01",
+   "item": "Toilet Block 6.0M x 3.0M - Male/Female",
+   "window": "07:00-10:00",
+   "final": "07:00-10:00",
+   "delivered": "13:09",
+   "late_min": 189
+  },
+  {
+   "day": "2026-10-13",
+   "item": "Container 6.0M x 2.4M",
+   "window": "12:00-15:00",
+   "final": "12:00-15:00",
+   "delivered": "16:59",
+   "late_min": 120
+  },
+  {
+   "day": "2026-10-01",
+   "item": "WC60 Toilet Block 6.0M x 3.0M",
+   "window": "07:00-12:00",
+   "final": "07:00-12:00",
+   "delivered": "12:49",
+   "late_min": 50
+  },
+  {
+   "day": "2026-10-12",
+   "item": "P69 Portable Building Shell 6.0M x 3.0M",
+   "window": "09:00-12:00",
+   "final": "09:00-12:00",
+   "delivered": "12:39",
+   "late_min": 40
+  },
+  {
+   "day": "2026-10-15",
+   "item": "Ticket Office 4.8Mx2.4M",
+   "window": "05:30-08:30",
+   "final": "05:30-08:30",
+   "delivered": "09:09",
+   "late_min": 40
+  },
+  {
+   "day": "2026-10-08",
+   "item": "WC09 Toilet Block 6.0M x 3.0M",
+   "window": "08:30-11:30",
+   "final": "08:30-12:30",
+   "delivered": "12:05",
+   "late_min": 36
+  },
+  {
+   "day": "2026-10-08",
+   "item": "WC09 Toilet Block 6.0M x 3.0M",
+   "window": "08:30-11:30",
+   "final": "08:30-12:30",
+   "delivered": "11:59",
+   "late_min": 30
+  },
+  {
+   "day": "2026-10-12",
+   "item": "Forklift 2.5t Dual Fuel",
+   "window": "07:00-10:00",
+   "final": "07:00-10:00",
+   "delivered": "10:29",
+   "late_min": 30
+  },
+  {
+   "day": "2026-10-12",
+   "item": "Telehandler Fork Extension 1800mm",
+   "window": "07:00-10:00",
+   "final": "07:00-12:00",
+   "delivered": "10:29",
+   "late_min": 30
+  }
+ ],
+ "window_revised": 13,
+ "widened": 12,
+ "lead_h_median": 54.2,
+ "lead_h_min": 2.0,
+ "lead_h_max": 121.4,
+ "onway_to_delivered_min_median": 105,
+ "onway_to_delivered_min_range": [
+  30,
+  250
+ ],
+ "by_day": {
+  "2026-10-01": {
+   "n": 4,
+   "on_time": 2,
+   "late_min": 239
+  },
+  "2026-10-06": {
+   "n": 4,
+   "on_time": 3,
+   "late_min": 190
+  },
+  "2026-10-07": {
+   "n": 11,
+   "on_time": 11,
+   "late_min": 0
+  },
+  "2026-10-08": {
+   "n": 4,
+   "on_time": 0,
+   "late_min": 686
+  },
+  "2026-10-12": {
+   "n": 4,
+   "on_time": 1,
+   "late_min": 100
+  },
+  "2026-10-13": {
+   "n": 2,
+   "on_time": 1,
+   "late_min": 120
+  },
+  "2026-10-14": {
+   "n": 4,
+   "on_time": 4,
+   "late_min": 0
+  },
+  "2026-10-15": {
+   "n": 4,
+   "on_time": 3,
+   "late_min": 40
+  },
+  "2026-10-16": {
+   "n": 11,
+   "on_time": 11,
+   "late_min": 0
+  }
+ },
+ "not_yet_due": [
+  "Barrier - Crash Rated Water filled - Armorz 2026-10-19 07:00-10:00",
+  "Scissor Lift With Operator Protection 43ft 2026-10-19 08:00-11:00",
+  "Variable Message Board Senior + 1 items 2026-10-19 09:00-12:00"
+ ]
+}
