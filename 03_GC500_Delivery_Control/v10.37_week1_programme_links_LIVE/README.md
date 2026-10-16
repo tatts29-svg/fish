@@ -1,3 +1,5 @@
+LIVE 16 Oct 2026 10:41 AEST on Andrew's "Go and upload": public sha256 `902615e283b292fae4120c50d6e8fd8ffa27e9f296bca28721005d54d9752331`, 18,049,243 bytes, base guard passed, re-read byte for byte. The 36592 link reads matched now that the record holds it once at 137.5 m (see STATUS, 16 Oct record operations).
+
 # v10.37 — week 1's signed agreements matched to the fencing programme (READY, not live)
 
 Author: Andrew Fisher. Andrew, 16 Oct 2026: "You should be able to match with schedule and maps, or close to, to
