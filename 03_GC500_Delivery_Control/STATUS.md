@@ -1,4 +1,4 @@
-READY TO UPLOAD — v10.44: the person's name only, everywhere (page-wide safety net). Owner Claude. Cleans agent names drawn by routines other than esc() (closed sections, night-service print, transport evidence, area sign-off; WC20 drawer showed "via Codex" on v10.43). Test 5/5 (every tab, print views, 187 drawers with sections opened; no tab slower), sweeps clean. Build `62b96d62ea38758f31b0f3876d1d0a00886dbf504ed26e7ed79ec1db863f9399` on live v10.43. Waits for Andrew's "Upload". `v10.44_names_everywhere_DRAFT/`.
+LIVE — v10.44: the person's name only, everywhere (page-wide safety net). Uploaded 16 Oct 2026 15:59 AEST on Andrew's "Upload", over v10.43; base guard passed, view link reads back byte for byte: 18,060,347 bytes, sha256 `62b96d62ea38758f…`. Test 5/5. `v10.44_names_everywhere_LIVE/`.
 
 NEEDS ANDREW — fencing review (other agent's unfinished v10.43 data half, `v10.43_fencing_review_DRAFT/`): it changes the CCB review and fencing progress figures from a private reviewed bundle that was never handed over. Not applied; needs the source documents from Andrew to redo.
 
