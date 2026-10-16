@@ -67,13 +67,12 @@ Andrew, 17 Oct 2026: "P58 door to driver". P58 unit 1273656 → driver (`doors_p
 
 ## Coverage after P58 (read on the live page, record 9578)
 
-- **Every building marked on site has a door side: 40 of 40.** Of the units, 25 are driver and 21 passenger. T0266,
-  the fridge container, is not applicable.
-- 11 buildings on the plan are not marked on site on the record, so none has a door side yet:
-  - HRP, P10, P11, P13, P14, P36 and P37: schedule dates in September; no on-site light.
-  - P27, P29 and P53: no number and no light.
-  - P47: marked not on site, and showing P65's number 1327217 from the schedule.
-  These are checked against the data separately.
-
-    node doors.cjs            dry run (default)
-    node doors.cjs --apply    needs GC500_EDIT_TOKEN and GC500_EXPECTED_PAGE_SHA
+- **Every building on site has a door side: 47 of 47.** Of the units, 26 are driver and 21 passenger. T0266, the
+  fridge container, is not applicable.
+- A first count said 40. That count read the raw light field, so it missed seven buildings: HRP, P10, P11, P13, P14,
+  P36 and P37. The page already shows them green, from the rental system's start date and Andrew's own September
+  Complete, Levelled and Steps ticks. All seven already carry a door side.
+- Andrew confirmed the seven on site, 17 Oct 2026: "HRP, P10, P11, P13, P14, P36, P37 all onsite". A dry run of
+  setting their lights changed nothing (0 documents), so nothing was written. The money is unchanged.
+- Not on site on the page (4): P27, P29 and P53 (no number, never recorded), and P47 (recorded not on site, showing
+  P65's number 1327217 from the schedule). These are checked against the data separately.
