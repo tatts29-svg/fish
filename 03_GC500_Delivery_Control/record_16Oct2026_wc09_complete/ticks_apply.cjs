@@ -26,7 +26,9 @@ const fail = m => { throw new Error(redact(m)); };
 // ---------------------------------------------------------------------------------------------- the spec
 const spec = JSON.parse(fs.readFileSync(specPath, 'utf8'));
 if (!/^[A-Z]{1,3}[0-9]+$/.test(spec.ref || '')) fail('spec.ref must be a reference');
-if (!Array.isArray(spec.symbols) || !spec.symbols.length || spec.symbols.some(s => !['delivery', 'install', 'levelling', 'steps', 'cleaning'].includes(s))) fail('spec.symbols: delivery, install, levelling, steps, cleaning only');
+if (!Array.isArray(spec.symbols) || spec.symbols.some(s => !['delivery', 'install', 'levelling', 'steps', 'cleaning'].includes(s))) fail('spec.symbols: delivery, install, levelling, steps, cleaning only');
+if (spec.restamp != null && (!Array.isArray(spec.restamp) || spec.restamp.some(x => !x.disc || !x.item || !['install'].includes(x.line)))) fail('spec.restamp: [{disc, item, line: install}]');
+if (!spec.symbols.length && !(spec.restamp || []).length && !spec.complete) fail('nothing to do');
 if (typeof spec.by !== 'string' || !spec.by.trim() || /\bvia\b/i.test(spec.by)) fail('spec.by must be the person');
 const REF = spec.ref;
 const ALLOWED_COLLS = new Set(['labour', 'stamps', 'by', 'delivery']);
@@ -105,6 +107,11 @@ function applyOps(spec) {
     const after = sym1033State(spec.ref)[k]; const ok = after.of != null ? after.all : after.on; if (!ok) throw new Error(k + ': not ticked after the tap');
     out.push({k, ticked: true, now: after.of != null ? after.on + '/' + after.of : 'on'});
   }
+  (spec.restamp || []).forEach(x => { /* the same tick saved again, so its stamp follows the latest arrival count (the Toilets card counts an install only when its tick is newer than the receipt) */
+    if (!labourTicked(spec.ref, x.disc, x.item, x.line)) throw new Error(x.item + ' ' + x.line + ' is not ticked - restamp only re-saves an existing tick');
+    if (!setLabour(spec.ref, x.disc, x.item, x.line, true)) throw new Error(x.item + ' ' + x.line + ': setLabour refused');
+    out.push({k: x.item + ' ' + x.line, ticked: true, now: 're-saved'}); });
+  if (spec.complete) { if (deliveryOf(spec.ref).done) out.push({k: 'complete', skipped: 'already complete'}); else { if (!setDone(spec.ref, true)) throw new Error('complete refused'); out.push({k: 'complete', ticked: true, now: 'complete'}); } }
   if (dry) { SYNC.readonly = false; SYNC.level = 'edit'; syncSend(); }
   return out;
 }
@@ -185,7 +192,7 @@ function applyOps(spec) {
     }
 
     const blockedBefore = harness ? harness.counts.blocked : counts.blocked;
-    const results = await page.evaluate(applyOps, {ref: REF, symbols: spec.symbols, by: spec.by, dry: !applying}).catch(e => fail('stage: ' + e.message));
+    const results = await page.evaluate(applyOps, {ref: REF, symbols: spec.symbols, restamp: spec.restamp || [], complete: !!spec.complete, by: spec.by, dry: !applying}).catch(e => fail('stage: ' + e.message));
     log('stage: ' + results.map(r => r.k + (r.ticked ? ' ticked (' + r.now + ')' : ' skipped: ' + r.skipped)).join('; '));
     const pageAfter = await page.evaluate(pageSnapshot, REF);
     log('page after: ' + JSON.stringify(pageAfter.state));
