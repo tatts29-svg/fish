@@ -29,7 +29,7 @@ charges and costs do not change. Footer v10.47 → v10.48.
 **To refresh with a newer export:** re-run `parse_sms.py` and `summarise.py`, then set `EXPORT_DAY`/`EXPORT_AT` in
 `patch_v1048.py` and build again.
 
-Built from live v10.47 `fb68b94d…`, check_page PASS. `tests/test_dt1048.cjs` 15/15 (GET only).
+Built from live v10.47 `fb68b94d…`, check_page PASS. `tests/test_dt1048.cjs` 15/15 (GET only). Sweeps desktop and phone: 18 tabs shown, 0 errors, 0 console.
 
     bash toolchain/build.sh v10.48 v10.48_delivery_times_DRAFT/patch_v1048.py
     node v10.48_delivery_times_DRAFT/tests/test_dt1048.cjs build/GC500_v10.48/GC500_Delivery_Control_hosted.html
