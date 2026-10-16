@@ -1,3 +1,5 @@
+RECORD OPERATION APPLIED — Event Portables batch 9, 16 Oct 2026 (7272 → 7282, VERIFIED). Andrew: "WC85 0135." `record_16Oct2026_ep_batch9/`: WC85 1 of 1, installed, dated 16 Oct, complete. Report `report_20261016T013630Z.json`.
+
 RECORD OPERATION APPLIED — Event Portables batch 8, 16 Oct 2026 (7262 → 7272, VERIFIED). Andrew: "PG29 0573." `record_16Oct2026_ep_batch8/`: PG29 1 of 1, installed, dated 16 Oct, complete. All four pit-garage toilets (PG01, PG03, PG05, PG29) in. Report `report_20261016T013347Z.json`.
 
 RECORD OPERATIONS APPLIED — Shell V-Power and T0176 Red Bull, 16 Oct 2026 11:30 AEST (7232 → 7262, VERIFIED). Andrew: "Shell V-Power 0939. T0176 Red Bull 0994, 0576." `record_16Oct2026_svp_t0176/`: **SVP01** added for Schedule 7 Event Week row 50 (request EP-S7-EW50, "no task ref"), named "Shell V-Power" so the Event Portables plan matches it, branch KINP; 0939 installed, dated, complete. T0176 (FWF × 2 · Redbull) 0994 and 0576, 2 of 2, installed, dated, complete. Both supplier requests without a reference (EW49 Brad Jones Racing → BJR01, EW50 Shell V-Power → SVP01) are now carried.
