@@ -1,0 +1,38 @@
+# Record operation, 17 Oct 2026: Andrew's site entries put back (site-truth audit)
+
+Author: Andrew Fisher · 17 Oct 2026, 05:28 AEST
+
+Status: **APPLIED and VERIFIED**, record 9527 → 9555, 28 documents (`report_20261016T192843Z.json`). Every other
+document unchanged in value. A backup of the whole record was taken first (`backup_state_20261016T192843Z.json`, key
+redacted).
+
+Andrew, 17 Oct 2026: "Why remember my records were truth. Confirm proceed and action"; "number I allocate is truth".
+The audit (`../audit_17Oct2026_site_truth/`, seven finders, three-lens verification, completeness critic) went through
+every record operation for an entry he made on site that had been overridden on branch paperwork or by an agent run.
+
+## Put back (through the page's own functions)
+
+| Ref | What | Why |
+|---|---|---|
+| T0001 | Install untick on VMS board 1182999 | Andrew took it off on 23 Sep. A 9 Oct agent run ticked the whole reference again. The page spread the tick onto the other boards first, so only 1182999 is off. Worth −$88.49 once v10.52 is live. |
+| P65 | Door side passenger on unit 1327217 | Recorded by Andrew on 9 Oct against the line, before the unit was numbered |
+| P66 | Door side driver on unit 1327222 | As above |
+| WC86 | Door side "not applicable" on unit 1296899 | Recorded by Andrew on 7 Oct against the line |
+
+Done earlier: HRP 1189410 and P36 1282487 (`../record_17Oct2026_hrp_p36_numbers/`).
+
+## Checked and left alone
+
+- **WC09 1268858 and 1311146.** The page already shows both of Andrew's toilet blocks with his photos, through the
+  15 Oct unit records. Putting his typed numbers back changes nothing on the page (tested in page memory).
+- **P33 and P66 fridges.** His numbers, 1238952 and 131190, are already back on the page.
+
+## Waiting for Andrew
+
+- **P06.** His three photos (30 Sep) are tagged 1097453. The 15 Oct fill put 1087453 on (docket 26094121, Baseplan line
+  64). Which plate is on the building?
+- **WC20.** His own entries disagree. On 7 Oct he took 1327225 off; on 8 Oct he said there are two blocks and two tanks.
+  Is the second toilet block 1327225?
+- **P65, P66 and P63 unit records.** He made these on site; the 15 Oct fill set them aside as duplicates of the Baseplan
+  rows. The numbers show either way and the money is nil. The two photos each on P65 and P66 re-attach in v10.54
+  (display only).
