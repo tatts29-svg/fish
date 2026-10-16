@@ -58,7 +58,7 @@ async function load(mob){ const h = await open(Object.assign({pageFile: page, ha
     return out; });
    const errs = h.errors;
    if (!mob) console.log(JSON.stringify({card0: r.card0txt, card1: r.card1txt, held: r.held, notOnSite: r.notOnSite, drawer: d1, aDelta: r2.aDelta, mDelta: r2.mDelta, bDelta: r2.bDelta, drift: r2.drift, card: r2.cardTxt, p65: r.p65, p66: r.p66}, null, 1).slice(0, 5000));
-   ok(/v10\.52$/.test(r.foot), tag + ': footer v10.52');
+   ok(/v10\.5[2-9]$/.test(r.foot), tag + ': footer v10.52 or later (built together)');
    ok(/Ticks · not locked/.test(r.card0txt || ''), tag + ': Costs shows the Ticks card, not locked');
    ok(r.lock === true && r.v === 2 && r.held > 100 && r.heldHasWC02, tag + ': Lock ticks holds everything on site (' + r.held + ')');
    ok(/Ticks · locked/.test(r.card1txt || '') && /No change since the lock/.test(r.card1txt || ''), tag + ': locked card, no change since the lock');
