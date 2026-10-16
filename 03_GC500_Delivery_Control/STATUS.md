@@ -1,3 +1,7 @@
+READY TO UPLOAD — v10.45: Fencing tab lists where Advanced's bill and the signed docket disagree on scrim (7 dockets, "What needs reconciling" 4 → 11). Owner Claude. Test 9/9, sweeps clean, no money moved. Build `8c7f3253f91b895f2ebabc329080602faa66efc8af046d39ca73e327c31c84d0` on live v10.44. Waits for Andrew's "Upload". `v10.45_scrim_bill_check_DRAFT/`.
+
+AUDIT — fencing, 16 Oct 2026 (`audit_16Oct2026_fencing/`). All 112 dockets recompute to the cent at the card ($275,347.99); paid $172,792.20 reconciles. Open for Andrew: is braced (not scrimmed) fence charged as scrim? Advanced billed 160 m braced-for-scrim on 4 dockets whose papers show no scrim (36581, 36583, 36587, 36574): $2,304.00 over clean on their side, or $4,084.81 short on the V8s charge. 36581 is paid $1,044 and charged $0. Three dockets show more scrim than Advanced billed (36575, 36579, 36588).
+
 LIVE — v10.44: the person's name only, everywhere (page-wide safety net). Uploaded 16 Oct 2026 15:59 AEST on Andrew's "Upload", over v10.43; base guard passed, view link reads back byte for byte: 18,060,347 bytes, sha256 `62b96d62ea38758f…`. Test 5/5. `v10.44_names_everywhere_LIVE/`.
 
 NEEDS ANDREW — fencing review (other agent's unfinished v10.43 data half, `v10.43_fencing_review_DRAFT/`): it changes the CCB review and fencing progress figures from a private reviewed bundle that was never handed over. Not applied; needs the source documents from Andrew to redo.
