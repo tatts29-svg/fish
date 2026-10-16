@@ -42,15 +42,17 @@
    "n": 4,
    "as_typed": "p54 p56 p54 p52 p57",
    "sequence": [
-    "P54",
-    "P56",
     "P55",
+    "P56",
+    "P54",
     "P52",
     "P57"
    ],
-   "check": "P54 typed twice; the only other building delivered that day is P55, so the second P54 is read as P55 until Andrew says otherwise",
+   "check": "Confirmed by Andrew, 17 Oct 2026: \"P55 p56 p54 p52 p57 ... These need to locked in with theirs order for future records\"",
    "delivered": "7 Oct (all five)",
-   "schedule_demob": "30 Oct (all five)"
+   "schedule_demob": "30 Oct (all five)",
+   "confirmed": true,
+   "as_corrected": "P55 p56 p54 p52 p57"
   },
   {
    "n": 5,
@@ -124,10 +126,35 @@
    ],
    "delivered": "28 Sep (all four)",
    "schedule_demob": "no demob rows"
+  },
+  {
+   "n": 11,
+   "as_typed": "p03 p01 p05 then wc05 waste tank then wc05 toilet block only after all of these bring in p04",
+   "sequence": [
+    "P03",
+    "P01",
+    "P05",
+    "WC05 waste tank",
+    "WC05 toilet block",
+    "P04"
+   ],
+   "rule": "P04 comes only after all of the others are in; the WC05 waste tank goes in before the WC05 toilet block",
+   "note": "Matches the page's existing delivery order for these references (ORDER782: P03, P01, P05, WC05, P04), now with the tank-then-block order inside WC05."
   }
  ],
  "open": [
-  "Which day is each group: the demob pick-up days, or the delivery days? Groups 7, 8 and 9 mix delivery days, and most of the buildings have no demob row yet.",
-  "Group 4: is the second P54 really P55?"
+  "Groups 7, 8 and 9 mix the 2026 delivery days (P09/P33; P13; P14-P16): kept as the order to follow, no date implied."
+ ],
+ "purpose": "Andrew, 17 Oct 2026: \"These need to locked in with theirs order for future records\" - each group is the delivery order to keep on record and follow next time, locked on every building in it.",
+ "constraints": [
+  {
+   "as_typed": "Wc17 ensure these 2 toilet blocks are Delivered before p36 and p10 so maybe day prior",
+   "rule": "WC17's two toilet blocks are delivered before P36 and P10 - the day before",
+   "refs": [
+    "WC17",
+    "P36",
+    "P10"
+   ]
+  }
  ]
 }
