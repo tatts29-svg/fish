@@ -159,6 +159,10 @@ marks as a draft, or anything risky to the record, waits for his yes.
   notes. Dockets, Baseplan, the schedule, the rental system and contract lines are what get checked against it.
   Baseplan is the branch's own keying and Andrew has no faith in it (17 Oct 2026: "number I allocate is truth"). A
   number he allocates to a reference stays there; Baseplan never moves it, it only gets checked against it.
+  Baseplan is how the job learns the missing gaps and how the branch charges (Andrew, 17 Oct 2026: "We use baseplan
+  to understand missing gaps and understand how they charge. End of the day we want things to both align"). Where the
+  two differ, the site number stands, the matched Baseplan line keeps charging, and Costs → Site vs Baseplan lists the
+  difference to bring into line with the branch (v10.55).
   - No fill, runner or rule removes, replaces or moves one of his site entries on paperwork.
   - Where the paperwork disagrees, his entry stays on the page and the difference goes on the list for the branch.
   - If two of his own entries disagree, ask him.
@@ -215,7 +219,7 @@ marks as a draft, or anything risky to the record, waits for his yes.
   twin-steer has nowhere to park or unload and may not be able to unload at all.
   - The warning shows on every load and every print-out.
   - Whoever prints must tick that they comply before any run sheet, docket or load paperwork prints, with no way
-    around it (`v10.53_no_twin_steer_DRAFT/WORDING.md`).
+    around it (`v10.53_no_twin_steer_LIVE/WORDING.md`).
 - **Buildings: door side and departure, permanent** (Andrew, 17 Oct 2026, demob the same).
   - Every building carries the door side Andrew recorded (driver or passenger, per unit), locked on the building as a
     permanent mark. A side he has not recorded is asked for, never guessed.

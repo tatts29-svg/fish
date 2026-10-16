@@ -27,7 +27,7 @@ The lock is kept in the record's runRules under `buildingsLock1049`, the same ke
 ## Build and checks
 
 ```
-bash toolchain/build.sh v10.52 v10.49_buildings_lock_DRAFT/patch_v1049.py v10.50_charge_gaps_DRAFT/patch_v1050.py v10.51_drawer_tidy_DRAFT/patch_v1051.py v10.52_tick_lock_DRAFT/patch_v1052.py
+bash toolchain/build.sh v10.52 v10.49_buildings_lock_LIVE/patch_v1049.py v10.50_charge_gaps_LIVE/patch_v1050.py v10.51_drawer_tidy_LIVE/patch_v1051.py v10.52_tick_lock_LIVE/patch_v1052.py
 python3 toolchain/upload_page.py build/GC500_v10.52/GC500_Delivery_Control_hosted.html
 ```
 

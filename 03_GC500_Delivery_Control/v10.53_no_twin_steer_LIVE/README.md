@@ -32,7 +32,7 @@ text until they are made again. PDFs already saved on someone's phone or compute
 ## Build and checks
 
 ```
-bash toolchain/build.sh v10.53 v10.49_buildings_lock_DRAFT/patch_v1049.py v10.50_charge_gaps_DRAFT/patch_v1050.py v10.51_drawer_tidy_DRAFT/patch_v1051.py v10.52_tick_lock_DRAFT/patch_v1052.py v10.53_no_twin_steer_DRAFT/patch_v1053.py
+bash toolchain/build.sh v10.53 v10.49_buildings_lock_LIVE/patch_v1049.py v10.50_charge_gaps_LIVE/patch_v1050.py v10.51_drawer_tidy_LIVE/patch_v1051.py v10.52_tick_lock_LIVE/patch_v1052.py v10.53_no_twin_steer_LIVE/patch_v1053.py
 python3 toolchain/upload_page.py build/GC500_v10.53/GC500_Delivery_Control_hosted.html
 ```
 

@@ -30,6 +30,6 @@ errors, phone layout, buttons hidden on the view link. Sweeps desktop and phone:
 
 After upload, the first lock is pressed on Andrew's word (his "locked in"), through the page's own `lock1049`.
 
-    bash toolchain/build.sh v10.49 v10.49_buildings_lock_DRAFT/patch_v1049.py
-    node v10.49_buildings_lock_DRAFT/tests/test_lock1049.cjs build/GC500_v10.49/GC500_Delivery_Control_hosted.html
+    bash toolchain/build.sh v10.49 v10.49_buildings_lock_LIVE/patch_v1049.py
+    node v10.49_buildings_lock_LIVE/tests/test_lock1049.cjs build/GC500_v10.49/GC500_Delivery_Control_hosted.html
     python3 toolchain/upload_page.py build/GC500_v10.49/GC500_Delivery_Control_hosted.html

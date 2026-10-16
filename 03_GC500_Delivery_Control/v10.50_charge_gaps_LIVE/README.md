@@ -34,5 +34,5 @@ the generators' demob half of the card labour; T0005's extra forklift round trip
 Built from live v10.48 with v10.49 and v10.50, check_page PASS. `tests/test_gaps1050.cjs` 17/17 (GET only, compared
 with the live page); v10.49 `test_lock1049.cjs` 19/19 on the same build. Sweeps desktop and phone: 18 tabs shown, 0 errors, 0 console.
 
-    bash toolchain/build.sh v10.50 v10.49_buildings_lock_DRAFT/patch_v1049.py v10.50_charge_gaps_DRAFT/patch_v1050.py
+    bash toolchain/build.sh v10.50 v10.49_buildings_lock_LIVE/patch_v1049.py v10.50_charge_gaps_LIVE/patch_v1050.py
     python3 toolchain/upload_page.py build/GC500_v10.50/GC500_Delivery_Control_hosted.html

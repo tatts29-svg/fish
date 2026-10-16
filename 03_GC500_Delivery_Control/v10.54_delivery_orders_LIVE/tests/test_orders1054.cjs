@@ -12,7 +12,7 @@ async function drawerCard(p, ref){ await p.evaluate(r => openAsset(r), ref); awa
    await p.waitForFunction(() => typeof SYNC === 'object' && SYNC.status === 'live' && SYNC.first && SYNC.first.size === Object.keys(SYNC_COLLS).length, null, {timeout: 240000});
    await p.waitForTimeout(3500);
    const t = await p.evaluate(() => ({foot: document.getElementById('footL').textContent, list: (document.querySelector('#pane-timeline .seq1054-all') || {}).innerText || '', over: document.documentElement.scrollWidth > window.innerWidth + 1}));
-   ok(/v10\.54$/.test(t.foot), tag + ': footer v10.54');
+   ok(/v10\.5[4-9]$/.test(t.foot), tag + ': footer v10.54 or later');
    ok(/Delivery orders to keep/.test(t.list) && (t.list.match(/Day \d+/g) || []).length === 11 && /P55[\s\S]*P56[\s\S]*P54[\s\S]*P52[\s\S]*P57/.test(t.list), tag + ': Timeline lists the 11 locked orders (group 4 P55 P56 P54 P52 P57)');
    ok(/WC17/.test(t.list) && /P36/.test(t.list) && /P10/.test(t.list), tag + ': the WC17 rule is listed');
    if (shots && mob) { await p.evaluate(() => document.querySelector('#pane-timeline .seq1054-all').scrollIntoView()); await p.waitForTimeout(300); await p.screenshot({path: shots + '/timeline_orders_phone.png'}); }

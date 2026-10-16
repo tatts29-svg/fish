@@ -21,7 +21,7 @@ No record, rate or charge change.
 ## Build and checks
 
 ```
-bash toolchain/build.sh v10.51 v10.49_buildings_lock_DRAFT/patch_v1049.py v10.50_charge_gaps_DRAFT/patch_v1050.py v10.51_drawer_tidy_DRAFT/patch_v1051.py
+bash toolchain/build.sh v10.51 v10.49_buildings_lock_LIVE/patch_v1049.py v10.50_charge_gaps_LIVE/patch_v1050.py v10.51_drawer_tidy_LIVE/patch_v1051.py
 python3 toolchain/upload_page.py build/GC500_v10.51/GC500_Delivery_Control_hosted.html
 ```
 
