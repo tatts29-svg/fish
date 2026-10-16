@@ -1,4 +1,6 @@
-# v10.38 — opening the page can no longer double the fencing papers — READY, not uploaded
+LIVE 16 Oct 2026 11:23 AEST on Andrew's "Upload and make sure we let Codex know": public sha256 `d181b29e1c93713e494466dea3f24ee200729c72e7af61097342d657ea81f2dd`, 18,050,768 bytes, base guard passed (live was v10.37), re-read byte for byte. Re-run on the live bytes: `test_sync1038.cjs` 14 of 14; `test_open1038.cjs` v10.37 doubles, live v10.38 writes none. Record 7185 at upload, no duplicate or suffixed papers.
+
+# v10.38 — opening the page can no longer double the fencing papers — LIVE
 
 Author: Andrew Fisher. Andrew, 16 Oct 2026: "Need to get this sorted, not acceptable on the level we are on."
 
