@@ -56,3 +56,15 @@ Andrew, 17 Oct 2026: "Yes correct cancel p47" and "Make sure these numbers dont 
 - The deletion tombstones travel on every copy of the record. A schedule or Baseplan refresh that still lists these
   references is filtered out by the page's own deleted-asset rule, so they cannot come back.
 
+
+## T0265 deleted · 08:42 AEST · record 9607 → 9612, VERIFIED
+
+Andrew, 17 Oct 2026: "t0265 we spoke about this and where. fridges are".
+
+- Andrew, 15 Oct 2026: "to265 was cancelled  fridges 1311992 and 1283996 can we add these to P46". Both fridges are on
+  P46 as fridge accessories (`record_15Oct2026_p46_fridges/`), and they stay there.
+- T0265's other two numbers, 1318501 and 1260164, are on no Baseplan (5) line, no docket, no building and no other paper.
+  They were only on T0265's own unit records from 14 Oct, so they go with it.
+- Deleted the same way (`remove_t0265_spec.json`): 5 PUTs, all 200; backup `backup_state_20261016T224210Z.json`;
+  report `report_20261016T224210Z.json`. Tested in page memory first: every charge unchanged (labour $74,374.67,
+  contracts $254,985.83, delivery $123,960.34, buildings $149,017.32), and P46 keeps both fridges.
