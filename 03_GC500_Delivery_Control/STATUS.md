@@ -28,7 +28,7 @@ AUDIT — fencing, 16 Oct 2026 (`audit_16Oct2026_fencing/`). All 112 dockets rec
 
 LIVE — v10.44: the person's name only, everywhere (page-wide safety net). Uploaded 16 Oct 2026 15:59 AEST on Andrew's "Upload", over v10.43; base guard passed, view link reads back byte for byte: 18,060,347 bytes, sha256 `62b96d62ea38758f…`. Test 5/5. `v10.44_names_everywhere_LIVE/`.
 
-NEEDS ANDREW — fencing review (other agent's unfinished v10.43 data half, `v10.43_fencing_review_DRAFT/`): it changes the CCB review and fencing progress figures from a private reviewed bundle that was never handed over. Not applied; needs the source documents from Andrew to redo.
+NEEDS ANDREW — fencing review (other agent's unfinished v10.43 data half, `v10.43_fencing_review_DRAFT/`): it changes the CCB review and fencing progress figures from a private reviewed bundle that was never handed over. Not applied; needs the source documents from Andrew to redo. Reconciled 17 Oct 2026 with the 16 Oct fencing audit: the audit covers the dockets, charges and payments (all 112 dockets recompute; paid reconciles; one open business question, braced fence charged as scrim). It does not cover this data half. The only real source gap is that bundle; nothing else on the fencing line is blocked.
 
 LIVE — v10.43: the person's name only on screen, in CSV downloads and copies. Uploaded 16 Oct 2026 15:02 AEST on Andrew's "Upload", over v10.42; base guard passed, view link reads back byte for byte: 18,058,399 bytes, sha256 `1d3d14231bada5b2…`. `v10.43_names_LIVE/`.
 
