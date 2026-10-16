@@ -15,7 +15,9 @@
    The count of numbers must equal the reference's FWF quantity (with "partial": true, fewer: the units and the
    supplied count go on and nothing is ticked). A row with "topup": true completes a reference that already carries
    units from an earlier partial arrival: its existing units plus these numbers must equal the quantity, the supplied
-   count becomes the total, and the install, date and complete ticks go on. No number may already be active anywhere.
+   count becomes the total, and the install, date and complete ticks go on. A row with "over": true and a "note" may
+   carry MORE units than the schedule asks (the person counted them on site): all go on, the supplied count is the real
+   total, and the note goes on the delivery record. No number may already be active anywhere.
 
    --apply, in order: before snapshot of GET /api/state (kept beside this script as the backup) -> the public page's
    sha256 must equal GC500_EXPECTED_PAGE_SHA -> Chromium opens /e/<key>#plant with the sender held and a write gate
@@ -54,8 +56,9 @@ if (/\bvia\b/i.test(spec.by)) fail('spec.by must be the person, with no agent su
 const PARTIAL = !!spec.partial; const TOPUP = new Set(spec.rows.filter(r => r.topup).map(r => r.ref)); if (PARTIAL && TOPUP.size) fail('partial and topup do not mix'); /* fewer numbers than the reference asks: the units and the supplied count go on, nothing is ticked complete */
 const ROWS = spec.rows, REFS = ROWS.map(r => r.ref), REF = REFS.join('+'), NOTE = 'Arrival and installation confirmed by ' + spec.by + ', ' + (d => `${d.getUTCDate()} ${['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][d.getUTCMonth()]} ${d.getUTCFullYear()}`)(new Date(spec.day + 'T00:00:00Z')) + '.';
 const ALLOWED_COLLS = new Set(['loads', 'stamps', 'by', 'supplied', 'labour', 'delivery']);
+spec.rows.forEach(r => { if (r.over && (typeof r.note !== 'string' || !r.note.trim())) fail(r.ref + ': over needs a note'); });
 const docIdDecode = id => String(id).replace(/~2f~/g, '/').replace(/~7c~/g, '|').replace(/~20~/g, ' ').replace(/~26~/g, '&');
-const allowed = k => { const c = k.slice(0, k.indexOf('/')), id = k.slice(k.indexOf('/') + 1); if (!ALLOWED_COLLS.has(c)) return false; const d = docIdDecode(id); if (d.indexOf('unit925/') === 0 || d.indexOf('loads/unit925/') === 0) return true; return REFS.some(r => d === r || d.indexOf(r + '|') === 0 || d.indexOf('/' + r + '|') >= 0 || d.indexOf('/' + r + '/') >= 0 || d === 'delivery/' + r || d === 'supplied/' + r || d.indexOf('supplied/' + r + '/') === 0); };
+const allowed = k => { const c = k.slice(0, k.indexOf('/')), id = k.slice(k.indexOf('/') + 1); if (!ALLOWED_COLLS.has(c)) return false; const d = docIdDecode(id); if (d.indexOf('unit925/') === 0 || d.indexOf('loads/unit925/') === 0) return true; return REFS.some(r => d === r || d.indexOf(r + '|') === 0 || d.indexOf('/' + r + '|') >= 0 || d.indexOf('/' + r + '/') >= 0 || d === 'delivery/' + r || d === 'dnote/' + r || d === 'supplied/' + r || d.indexOf('supplied/' + r + '/') === 0); };
 
 // ---------------------------------------------------------------------------------------------- curl with headers on stdin
 let seq = 0;
@@ -142,8 +145,9 @@ function applyOps(spec) {
     if (!isRef(p.ref)) throw new Error(p.ref + ' is not a reference on the page');
     const a = assetOf(p.ref), l = chargeLines(a).find(x => x.item === 'FWF');
     const have = gcModel925(a, {loading: false}).rows.filter(r => r.source !== 'history' && r.active !== false && r.item === 'FWF').length, total = have + p.numbers.length;
-    if (!l || (spec.partial ? !(p.numbers.length < qtyOf(l)) : qtyOf(l) !== total)) throw new Error(p.ref + ': the FWF quantity is ' + (l ? qtyOf(l) : 'none') + ', not ' + total + ' (' + have + ' already on, ' + p.numbers.length + ' now) - nothing done');
+    if (!l || (spec.partial ? !(p.numbers.length < qtyOf(l)) : (p.over ? !(total > qtyOf(l)) : qtyOf(l) !== total))) throw new Error(p.ref + ': the FWF quantity is ' + (l ? qtyOf(l) : 'none') + ', not ' + total + ' (' + have + ' already on, ' + p.numbers.length + ' now) - nothing done');
     if (have && !p.topup) throw new Error(p.ref + ' already carries ' + have + ' units - a row needs topup: true to complete it');
+    if (p.over) { if (!p.note) throw new Error(p.ref + ': an over-supply row needs its note'); if (setDeliveryNote(p.ref, p.note) === false) throw new Error(p.ref + ': note refused'); out.push({ref: p.ref, note: p.note}); }
     const single = chargeLines(a).every(x => x.item === 'FWF');
     p.numbers.forEach(no => { const r = unit925Save(p.ref, {item: 'FWF', owner: spec.owner, assetNo: no, label: 'FWF', branch: '', note: spec.note, sourceKey: ''}, '', 'null', ''); if (!r || !r.ok || r.kept === false) throw new Error(p.ref + ' ' + no + ': ' + (r && r.reason)); out.push({ref: p.ref, unit: no, key: r.key || null}); });
     if (setSupplied(p.ref, 'FWF', {supplied: 'FWF', qty_supplied: total}) === false) throw new Error(p.ref + ': supplied refused'); out.push({ref: p.ref, supplied: total});
@@ -233,7 +237,7 @@ function applyOps(spec) {
     log('page record matches the before snapshot, document for document');
     if (applying && pageBefore.today !== spec.day) fail('the page\'s day is ' + pageBefore.today + ', not the spec\'s ' + spec.day);
     REFS.forEach(r => { if (!pageBefore.refs[r]) fail(r + ' is not an asset on the page'); log(`  page before: ${r} "${pageBefore.refs[r].name}" asked ${pageBefore.refs[r].asked} · units ${JSON.stringify(pageBefore.refs[r].units)} · supplied ${JSON.stringify(pageBefore.refs[r].supplied)} · install ${pageBefore.refs[r].install} · light ${pageBefore.refs[r].light}, complete ${pageBefore.refs[r].done}`); });
-    ROWS.forEach(p => { const asked = pageBefore.refs[p.ref].asked, have = pageBefore.refs[p.ref].units.length, total = have + p.numbers.length; if (PARTIAL ? !(p.numbers.length < asked) : asked !== total) fail(p.ref + ' asks for ' + asked + ' FWF, ' + have + ' on and ' + p.numbers.length + ' given' + (PARTIAL ? ' (partial needs fewer than asked)' : '') + ' - nothing done'); if (have && !p.topup) fail(p.ref + ' already carries units - nothing done'); if (p.topup) { if (!have) fail(p.ref + ' is marked topup but carries no units'); log('  ' + p.ref + ' TOP-UP: ' + have + ' on (' + pageBefore.refs[p.ref].units.join(', ') + ') + ' + p.numbers.length + ' now = ' + asked); } });
+    ROWS.forEach(p => { const asked = pageBefore.refs[p.ref].asked, have = pageBefore.refs[p.ref].units.length, total = have + p.numbers.length; if (p.over) log('  ' + p.ref + ' OVER: ' + total + ' units against the schedule\'s ' + asked + ' - all go on, the note says so'); if (PARTIAL ? !(p.numbers.length < asked) : (p.over ? !(total > asked) : asked !== total)) fail(p.ref + ' asks for ' + asked + ' FWF, ' + have + ' on and ' + p.numbers.length + ' given' + (PARTIAL ? ' (partial needs fewer than asked)' : '') + ' - nothing done'); if (have && !p.topup) fail(p.ref + ' already carries units - nothing done'); if (p.topup) { if (!have) fail(p.ref + ' is marked topup but carries no units'); log('  ' + p.ref + ' TOP-UP: ' + have + ' on (' + pageBefore.refs[p.ref].units.join(', ') + ') + ' + p.numbers.length + ' now = ' + total + (total === asked ? '' : ' (schedule ' + asked + ')')); } });
     if (PARTIAL) log('  PARTIAL: the units and the supplied count go on; no install tick, no date, no complete tick');
     if (pageBefore.taken.length) fail('a number is already on the page: ' + pageBefore.taken.join(', ') + ' - nothing done');
 
@@ -248,7 +252,7 @@ function applyOps(spec) {
 
     const blockedBefore = harness ? harness.counts.blocked : counts.blocked;
     const results = await page.evaluate(applyOps, {rows: ROWS, owner: spec.owner, item: spec.item, day: spec.day, note: NOTE, by: spec.by, partial: PARTIAL, dry: !applying}).catch(e => fail('stage: ' + e.message));
-    log('stage: ' + results.map(r => r.unit ? r.ref + ' unit ' + r.unit : r.supplied ? r.ref + ' supplied ' + r.supplied : r.install ? r.ref + ' install' : r.complete ? r.ref + ' dated ' + r.date + ', complete' : r.ref + ' not completed (' + r.why + ')').join('; '));
+    log('stage: ' + results.map(r => r.unit ? r.ref + ' unit ' + r.unit : r.supplied ? r.ref + ' supplied ' + r.supplied : r.note ? r.ref + ' note' : r.install ? r.ref + ' install' : r.complete ? r.ref + ' dated ' + r.date + ', complete' : r.ref + ' not completed (' + r.why + ')').join('; '));
     const pageAfter = await page.evaluate(pageSnapshot, {refs: REFS, numbers: ALLNO});
     const pageDocsAfter = await page.evaluate(pageDocs);
     const changed = [];
@@ -301,7 +305,7 @@ function applyOps(spec) {
       const sd = (after.docs.delivery || {})[p.ref] || {}, sp = (after.docs.supplied || {})[p.ref] || {};
       const have = afterUnits.filter(d => d.ref === p.ref && d.owner === spec.owner && d.active).length; if (!(sp.items || []).some(i => i.asked === 'FWF' && i.qty_supplied === have)) verify.problems.push(p.ref + ': the supplied count is not on the service');
       if (PARTIAL) { if (sd.done === true) verify.problems.push(p.ref + ': a partial arrival must not be ticked complete'); }
-      else if (sd.done !== true || sd.state !== 'on site' || !(sd.date === spec.day || (!sd.date && pageBefore.refs[p.ref].plan === spec.day))) verify.problems.push(p.ref + ': the complete tick, the green light or the date is not on the service');
+      else if ((p.over && sd.note !== p.note) || sd.done !== true || sd.state !== 'on site' || !(sd.date === spec.day || (!sd.date && pageBefore.refs[p.ref].plan === spec.day))) verify.problems.push(p.ref + ': the complete tick, the green light or the date is not on the service');
     });
     for (const c of new Set([...Object.keys(before.docs), ...Object.keys(after.docs)])) for (const id of new Set([...Object.keys(before.docs[c] || {}), ...Object.keys(after.docs[c] || {})])) {
       const k = c + '/' + id; if (expected.has(k)) continue;
