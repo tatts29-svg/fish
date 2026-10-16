@@ -215,7 +215,7 @@ marks as a draft, or anything risky to the record, waits for his yes.
   twin-steer has nowhere to park or unload and may not be able to unload at all.
   - The warning shows on every load and every print-out.
   - Whoever prints must tick that they comply before any run sheet, docket or load paperwork prints, with no way
-    around it (`v10.52_no_twin_steer_DRAFT/WORDING.md`).
+    around it (`v10.53_no_twin_steer_DRAFT/WORDING.md`).
 - **Buildings: door side and departure, permanent** (Andrew, 17 Oct 2026, demob the same).
   - Every building carries the door side Andrew recorded (driver or passenger, per unit), locked on the building as a
     permanent mark. A side he has not recorded is asked for, never guessed.
