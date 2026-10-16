@@ -1,4 +1,6 @@
-# v10.39 — the drawer opens quickly again; pee panels carry no steps — READY, not uploaded
+LIVE 16 Oct 2026 12:02 AEST on Andrew's "Go live and upload": public sha256 `fa44b754a6ab55bed9723a54998edd3d14ea8efaa5945a435de898733066e7a5`, 18,051,117 bytes, base guard passed (live was v10.38), re-read byte for byte; `test_quick1039.cjs` 6/6 on the live bytes (WC09 drawer 8.9 s → 1.4 s).
+
+# v10.39 — the drawer opens quickly again; pee panels carry no steps — LIVE
 
 Author: Andrew Fisher. Andrew, 16 Oct 2026: "everything is very laggy and slow at the moment please fix … pee panels
 will have a delivery, install charge, level charge, clean charge, demob charge, pick up."
