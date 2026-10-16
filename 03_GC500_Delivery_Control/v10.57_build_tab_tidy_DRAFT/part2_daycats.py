@@ -214,7 +214,7 @@ JS = r'''/* Author: Andrew Fisher. v10.57 - completed Build day cards: what went
   const moved = v('Fence relocation'), removed = v('Fence removal'), back = v('Fence reinstatement'), scrimOld = v('Scrim applied to existing fence');
   const gates = [ped > 0 ? fmt(ped) + (ped === 1 ? ' ped gate' : ' ped gates') : '', veh > 0 ? fmt(veh) + (veh === 1 ? ' vehicle gate' : ' vehicle gates') : ''];
   const tiles = [];
-  if (mesh > 0) tiles.push({id: 'fencing', name: 'Fencing', n: mesh, unit: 'm', sub: [scrim > 0 ? fmt(scrim) + ' m scrimmed' : ''].concat(gates).filter(Boolean).join(' · ') || 'Mesh fence'});
+  if (mesh > 0) tiles.push({id: 'fencing', name: 'Fencing', n: mesh, unit: 'm', sub: [scrim > 0 ? fmt(scrim) + ' m scrimmed' : 'Mesh fence'].concat(gates).filter(Boolean).join(' · ')});
   const ccb = ev + dem + ff, parts = [[ev, 'event'], [dem, 'demarcation'], [ff, 'flat feet']].filter(x => x[0] > 0);
   if (ccb > 0) tiles.push({id: 'ccb', name: 'Crowd barriers', n: ccb, unit: 'm', sub: parts.length === 1 ? ({event: 'Event barriers', demarcation: 'Demarcation', 'flat feet': 'Flat feet'})[parts[0][1]] : parts.map(x => fmt(x[0]) + ' ' + x[1]).join(' · ')});
   if (!tiles.length) {
