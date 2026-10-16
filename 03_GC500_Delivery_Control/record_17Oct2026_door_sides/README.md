@@ -53,7 +53,14 @@ Andrew, 17 Oct 2026: "P46 door to driver". P46 unit 1327215 → driver (`doors_p
 Andrew, 17 Oct 2026: "P51 door to driver". P51 unit 1322579 → driver (`doors_p51_spec.json`; backup
 `backup_state_20261016T210524Z.json`; 1 PUT 200; report `report_20261016T210524Z.json`).
 
-Still no door side on record, and not guessed: P58 and T0266.
+## T0266 not applicable · 07:06 AEST · record 9576 → 9577, VERIFIED
+
+Andrew, 17 Oct 2026: "T0266 can be what ever". The side does not matter for the fridge container, so it is recorded as
+not applicable, as T0258's container is. T0266 has no unit number; its one row is the item "6.0m Refrigerator Cont"
+(`doors_t0266_spec.json`; the runner now also takes an `item:` row id for a building with no number; backup
+`backup_state_20261016T210626Z.json`; 1 PUT 200; report `report_20261016T210626Z.json`).
+
+Still no door side on record, and not guessed: P58.
 
     node doors.cjs            dry run (default)
     node doors.cjs --apply    needs GC500_EDIT_TOKEN and GC500_EXPECTED_PAGE_SHA
