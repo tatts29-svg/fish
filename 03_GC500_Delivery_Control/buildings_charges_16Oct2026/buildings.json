@@ -1,0 +1,3007 @@
+[
+ {
+  "ref": "AA",
+  "name": "Active Air Crib Room",
+  "item": "Building 6m",
+  "qty": 1,
+  "assetNo": "142514",
+  "contract": null,
+  "line": null,
+  "state": "on site",
+  "done": true,
+  "cancelled": false,
+  "moved": false,
+  "first": "2026-09-17",
+  "hire": null,
+  "lab": {
+   "install": {
+    "rate": 145.74,
+    "ticked": true
+   },
+   "steps": {
+    "rate": 156.15,
+    "ticked": true
+   },
+   "levelling": {
+    "rate": 52.05,
+    "ticked": true
+   },
+   "cleaning": {
+    "rate": 104.1,
+    "ticked": true
+   },
+   "fire_ext": {
+    "rate": 52.05,
+    "ticked": false
+   },
+   "demob": {
+    "rate": 145.74,
+    "ticked": true
+   }
+  },
+  "tr": {
+   "delivery": {
+    "rate": 500,
+    "charge": 500,
+    "state": "estimate",
+    "tick": "on"
+   },
+   "pickup": {
+    "rate": 500,
+    "charge": 500,
+    "state": "estimate",
+    "tick": "on"
+   }
+  }
+ },
+ {
+  "ref": "CP1",
+  "name": "P68 · Signevent Crib Room",
+  "item": "Building 6m",
+  "qty": 1,
+  "assetNo": "1105057",
+  "contract": "9968862",
+  "line": 17,
+  "state": "on site",
+  "done": true,
+  "cancelled": false,
+  "moved": false,
+  "first": "2026-09-14",
+  "hire": 1426.07,
+  "lab": {
+   "install": {
+    "rate": 145.74,
+    "ticked": true
+   },
+   "steps": {
+    "rate": 156.15,
+    "ticked": true
+   },
+   "levelling": {
+    "rate": 52.05,
+    "ticked": true
+   },
+   "cleaning": {
+    "rate": 104.1,
+    "ticked": true
+   },
+   "fire_ext": {
+    "rate": 52.05,
+    "ticked": false
+   },
+   "demob": {
+    "rate": 145.74,
+    "ticked": true
+   }
+  },
+  "tr": {
+   "delivery": {
+    "rate": 500,
+    "charge": 500,
+    "state": "estimate",
+    "tick": "on"
+   },
+   "pickup": {
+    "rate": 500,
+    "charge": 500,
+    "state": "estimate",
+    "tick": "on"
+   }
+  }
+ },
+ {
+  "ref": "HRP",
+  "name": "Hire Republic Crib Room",
+  "item": "Building 6m",
+  "qty": 1,
+  "assetNo": null,
+  "contract": null,
+  "line": null,
+  "state": "on site",
+  "done": true,
+  "cancelled": false,
+  "moved": false,
+  "first": "2026-09-17",
+  "hire": null,
+  "lab": {
+   "install": {
+    "rate": 145.74,
+    "ticked": true
+   },
+   "steps": {
+    "rate": 156.15,
+    "ticked": true
+   },
+   "levelling": {
+    "rate": 52.05,
+    "ticked": true
+   },
+   "cleaning": {
+    "rate": 104.1,
+    "ticked": true
+   },
+   "fire_ext": {
+    "rate": 52.05,
+    "ticked": false
+   },
+   "demob": {
+    "rate": 145.74,
+    "ticked": true
+   }
+  },
+  "tr": {
+   "delivery": {
+    "rate": 500,
+    "charge": 500,
+    "state": "estimate",
+    "tick": "on"
+   },
+   "pickup": {
+    "rate": 500,
+    "charge": 500,
+    "state": "estimate",
+    "tick": "on"
+   }
+  }
+ },
+ {
+  "ref": "P01",
+  "name": "iEDM Engineering Office",
+  "item": "Building 12m",
+  "qty": 1,
+  "assetNo": "1322583",
+  "contract": "9968862",
+  "line": 1,
+  "state": "on site",
+  "done": true,
+  "cancelled": false,
+  "moved": false,
+  "first": "2026-09-14",
+  "hire": 1951.46,
+  "lab": {
+   "install": {
+    "rate": 145.74,
+    "ticked": true
+   },
+   "steps": {
+    "rate": 156.15,
+    "ticked": true
+   },
+   "levelling": {
+    "rate": 52.05,
+    "ticked": true
+   },
+   "cleaning": {
+    "rate": 104.1,
+    "ticked": true
+   },
+   "fire_ext": {
+    "rate": 52.05,
+    "ticked": false
+   },
+   "demob": {
+    "rate": 145.74,
+    "ticked": true
+   }
+  },
+  "tr": {
+   "delivery": {
+    "rate": 800,
+    "charge": 800,
+    "state": "estimate",
+    "tick": "on"
+   },
+   "pickup": {
+    "rate": 800,
+    "charge": 800,
+    "state": "estimate",
+    "tick": "on"
+   }
+  }
+ },
+ {
+  "ref": "P03",
+  "name": "SCA Event Management Office",
+  "item": "Building 12m",
+  "qty": 1,
+  "assetNo": "1327212",
+  "contract": "9968862",
+  "line": 4,
+  "state": "on site",
+  "done": true,
+  "cancelled": false,
+  "moved": false,
+  "first": "2026-09-14",
+  "hire": 1951.46,
+  "lab": {
+   "install": {
+    "rate": 145.74,
+    "ticked": true
+   },
+   "steps": {
+    "rate": 156.15,
+    "ticked": true
+   },
+   "levelling": {
+    "rate": 52.05,
+    "ticked": true
+   },
+   "cleaning": {
+    "rate": 104.1,
+    "ticked": true
+   },
+   "fire_ext": {
+    "rate": 52.05,
+    "ticked": false
+   },
+   "demob": {
+    "rate": 145.74,
+    "ticked": true
+   }
+  },
+  "tr": {
+   "delivery": {
+    "rate": 800,
+    "charge": 800,
+    "state": "estimate",
+    "tick": "on"
+   },
+   "pickup": {
+    "rate": 800,
+    "charge": 800,
+    "state": "estimate",
+    "tick": "on"
+   }
+  }
+ },
+ {
+  "ref": "P04",
+  "name": "SCA Sales & Marketing Office",
+  "item": "Building 12m",
+  "qty": 1,
+  "assetNo": "1327213",
+  "contract": "9968862",
+  "line": 7,
+  "state": "on site",
+  "done": true,
+  "cancelled": false,
+  "moved": false,
+  "first": "2026-09-14",
+  "hire": 1951.46,
+  "lab": {
+   "install": {
+    "rate": 145.74,
+    "ticked": true
+   },
+   "steps": {
+    "rate": 156.15,
+    "ticked": true
+   },
+   "levelling": {
+    "rate": 52.05,
+    "ticked": true
+   },
+   "cleaning": {
+    "rate": 104.1,
+    "ticked": true
+   },
+   "fire_ext": {
+    "rate": 52.05,
+    "ticked": false
+   },
+   "demob": {
+    "rate": 145.74,
+    "ticked": true
+   }
+  },
+  "tr": {
+   "delivery": {
+    "rate": 800,
+    "charge": 800,
+    "state": "estimate",
+    "tick": "on"
+   },
+   "pickup": {
+    "rate": 800,
+    "charge": 800,
+    "state": "estimate",
+    "tick": "on"
+   }
+  }
+ },
+ {
+  "ref": "P05",
+  "name": "Event Control Center (ECC)",
+  "item": "Building 6m",
+  "qty": 1,
+  "assetNo": "1189422",
+  "contract": "9968862",
+  "line": 10,
+  "state": "on site",
+  "done": true,
+  "cancelled": false,
+  "moved": false,
+  "first": "2026-09-14",
+  "hire": 1426.07,
+  "lab": {
+   "install": {
+    "rate": 145.74,
+    "ticked": true
+   },
+   "steps": {
+    "rate": 156.15,
+    "ticked": true
+   },
+   "levelling": {
+    "rate": 52.05,
+    "ticked": true
+   },
+   "cleaning": {
+    "rate": 104.1,
+    "ticked": true
+   },
+   "fire_ext": {
+    "rate": 52.05,
+    "ticked": false
+   },
+   "demob": {
+    "rate": 145.74,
+    "ticked": true
+   }
+  },
+  "tr": {
+   "delivery": {
+    "rate": 500,
+    "charge": 500,
+    "state": "estimate",
+    "tick": "on"
+   },
+   "pickup": {
+    "rate": 500,
+    "charge": 500,
+    "state": "estimate",
+    "tick": "on"
+   }
+  }
+ },
+ {
+  "ref": "P06",
+  "name": "Wilclean Crib Room",
+  "item": "Building 6m",
+  "qty": 1,
+  "assetNo": "1087453",
+  "contract": "9968862",
+  "line": 64,
+  "state": "on site",
+  "done": true,
+  "cancelled": false,
+  "moved": false,
+  "first": "2026-09-28",
+  "hire": 1426.07,
+  "lab": {
+   "install": {
+    "rate": 145.74,
+    "ticked": true
+   },
+   "steps": {
+    "rate": 156.15,
+    "ticked": false
+   },
+   "levelling": {
+    "rate": 52.05,
+    "ticked": true
+   },
+   "cleaning": {
+    "rate": 104.1,
+    "ticked": true
+   },
+   "fire_ext": {
+    "rate": 52.05,
+    "ticked": false
+   },
+   "demob": {
+    "rate": 145.74,
+    "ticked": true
+   }
+  },
+  "tr": {
+   "delivery": {
+    "rate": 500,
+    "charge": 500,
+    "state": "estimate",
+    "tick": "on"
+   },
+   "pickup": {
+    "rate": 500,
+    "charge": 500,
+    "state": "estimate",
+    "tick": "on"
+   }
+  }
+ },
+ {
+  "ref": "P08",
+  "name": "Security",
+  "item": "Building 6m",
+  "qty": 1,
+  "assetNo": "421138",
+  "contract": "9968862",
+  "line": 126,
+  "state": "on site",
+  "done": true,
+  "cancelled": false,
+  "moved": false,
+  "first": "2026-10-06",
+  "hire": 1426.07,
+  "lab": {
+   "install": {
+    "rate": 145.74,
+    "ticked": true
+   },
+   "steps": {
+    "rate": 156.15,
+    "ticked": true
+   },
+   "levelling": {
+    "rate": 52.05,
+    "ticked": true
+   },
+   "cleaning": {
+    "rate": 104.1,
+    "ticked": true
+   },
+   "fire_ext": {
+    "rate": 52.05,
+    "ticked": true
+   },
+   "demob": {
+    "rate": 145.74,
+    "ticked": true
+   }
+  },
+  "tr": {
+   "delivery": {
+    "rate": 500,
+    "charge": 500,
+    "state": "estimate",
+    "tick": "on"
+   },
+   "pickup": {
+    "rate": 500,
+    "charge": 500,
+    "state": "estimate",
+    "tick": "on"
+   }
+  }
+ },
+ {
+  "ref": "P09",
+  "name": "Iedm Safety Office",
+  "item": "Building 6m",
+  "qty": 1,
+  "assetNo": "1268824",
+  "contract": "9968862",
+  "line": 28,
+  "state": "on site",
+  "done": true,
+  "cancelled": false,
+  "moved": false,
+  "first": "2026-09-16",
+  "hire": 1426.07,
+  "lab": {
+   "install": {
+    "rate": 145.74,
+    "ticked": true
+   },
+   "steps": {
+    "rate": 156.15,
+    "ticked": true
+   },
+   "levelling": {
+    "rate": 52.05,
+    "ticked": true
+   },
+   "cleaning": {
+    "rate": 104.1,
+    "ticked": true
+   },
+   "fire_ext": {
+    "rate": 52.05,
+    "ticked": false
+   },
+   "demob": {
+    "rate": 145.74,
+    "ticked": true
+   }
+  },
+  "tr": {
+   "delivery": {
+    "rate": 500,
+    "charge": 500,
+    "state": "estimate",
+    "tick": "on"
+   },
+   "pickup": {
+    "rate": 500,
+    "charge": 500,
+    "state": "estimate",
+    "tick": "on"
+   }
+  }
+ },
+ {
+  "ref": "P10",
+  "name": "Team Office - 888 Racing",
+  "item": "Building 4.8m",
+  "qty": 1,
+  "assetNo": "105626",
+  "contract": "9968862",
+  "line": 44,
+  "state": "on site",
+  "done": true,
+  "cancelled": false,
+  "moved": false,
+  "first": "2026-09-17",
+  "hire": 1125.84,
+  "lab": {
+   "install": {
+    "rate": 145.74,
+    "ticked": true
+   },
+   "steps": {
+    "rate": 156.15,
+    "ticked": true
+   },
+   "levelling": {
+    "rate": 52.05,
+    "ticked": true
+   },
+   "cleaning": {
+    "rate": 104.1,
+    "ticked": true
+   },
+   "fire_ext": {
+    "rate": 52.05,
+    "ticked": false
+   },
+   "demob": {
+    "rate": 145.74,
+    "ticked": true
+   }
+  },
+  "tr": {
+   "delivery": {
+    "rate": 500,
+    "charge": 500,
+    "state": "estimate",
+    "tick": "on"
+   },
+   "pickup": {
+    "rate": 500,
+    "charge": 500,
+    "state": "estimate",
+    "tick": "on"
+   }
+  }
+ },
+ {
+  "ref": "P11",
+  "name": "Team Office - DJR",
+  "item": "Building 4.8m",
+  "qty": 1,
+  "assetNo": "415576",
+  "contract": "9968862",
+  "line": 46,
+  "state": "on site",
+  "done": true,
+  "cancelled": false,
+  "moved": false,
+  "first": "2026-09-17",
+  "hire": 1125.84,
+  "lab": {
+   "install": {
+    "rate": 145.74,
+    "ticked": true
+   },
+   "steps": {
+    "rate": 156.15,
+    "ticked": true
+   },
+   "levelling": {
+    "rate": 52.05,
+    "ticked": true
+   },
+   "cleaning": {
+    "rate": 104.1,
+    "ticked": true
+   },
+   "fire_ext": {
+    "rate": 52.05,
+    "ticked": false
+   },
+   "demob": {
+    "rate": 145.74,
+    "ticked": true
+   }
+  },
+  "tr": {
+   "delivery": {
+    "rate": 500,
+    "charge": 500,
+    "state": "estimate",
+    "tick": "on"
+   },
+   "pickup": {
+    "rate": 500,
+    "charge": 500,
+    "state": "estimate",
+    "tick": "on"
+   }
+  }
+ },
+ {
+  "ref": "P12",
+  "name": "Team 18",
+  "item": "Building 4.8m",
+  "qty": 1,
+  "assetNo": "418665",
+  "contract": "9968862",
+  "line": 48,
+  "state": "on site",
+  "done": true,
+  "cancelled": false,
+  "moved": false,
+  "first": "2026-09-17",
+  "hire": 1125.84,
+  "lab": {
+   "install": {
+    "rate": 145.74,
+    "ticked": true
+   },
+   "steps": {
+    "rate": 156.15,
+    "ticked": true
+   },
+   "levelling": {
+    "rate": 52.05,
+    "ticked": true
+   },
+   "cleaning": {
+    "rate": 104.1,
+    "ticked": true
+   },
+   "fire_ext": {
+    "rate": 52.05,
+    "ticked": false
+   },
+   "demob": {
+    "rate": 145.74,
+    "ticked": true
+   }
+  },
+  "tr": {
+   "delivery": {
+    "rate": 500,
+    "charge": 500,
+    "state": "estimate",
+    "tick": "on"
+   },
+   "pickup": {
+    "rate": 500,
+    "charge": 500,
+    "state": "estimate",
+    "tick": "on"
+   }
+  }
+ },
+ {
+  "ref": "P13",
+  "name": "Team Office - WAU",
+  "item": "Building 4.8m",
+  "qty": 1,
+  "assetNo": "1097346",
+  "contract": "9968862",
+  "line": 51,
+  "state": "on site",
+  "done": true,
+  "cancelled": false,
+  "moved": false,
+  "first": "2026-09-21",
+  "hire": 1125.84,
+  "lab": {
+   "install": {
+    "rate": 145.74,
+    "ticked": true
+   },
+   "steps": {
+    "rate": 156.15,
+    "ticked": true
+   },
+   "levelling": {
+    "rate": 52.05,
+    "ticked": true
+   },
+   "cleaning": {
+    "rate": 104.1,
+    "ticked": true
+   },
+   "fire_ext": {
+    "rate": 52.05,
+    "ticked": false
+   },
+   "demob": {
+    "rate": 145.74,
+    "ticked": true
+   }
+  },
+  "tr": {
+   "delivery": {
+    "rate": 500,
+    "charge": 500,
+    "state": "estimate",
+    "tick": "on"
+   },
+   "pickup": {
+    "rate": 500,
+    "charge": 500,
+    "state": "estimate",
+    "tick": "on"
+   }
+  }
+ },
+ {
+  "ref": "P14",
+  "name": "Team Office - Grove Racing",
+  "item": "Building 4.8m",
+  "qty": 1,
+  "assetNo": "960599",
+  "contract": "9968862",
+  "line": 53,
+  "state": "on site",
+  "done": true,
+  "cancelled": false,
+  "moved": false,
+  "first": "2026-09-21",
+  "hire": 1125.84,
+  "lab": {
+   "install": {
+    "rate": 145.74,
+    "ticked": true
+   },
+   "steps": {
+    "rate": 156.15,
+    "ticked": true
+   },
+   "levelling": {
+    "rate": 52.05,
+    "ticked": true
+   },
+   "cleaning": {
+    "rate": 104.1,
+    "ticked": true
+   },
+   "fire_ext": {
+    "rate": 52.05,
+    "ticked": false
+   },
+   "demob": {
+    "rate": 145.74,
+    "ticked": true
+   }
+  },
+  "tr": {
+   "delivery": {
+    "rate": 500,
+    "charge": 500,
+    "state": "estimate",
+    "tick": "on"
+   },
+   "pickup": {
+    "rate": 500,
+    "charge": 500,
+    "state": "estimate",
+    "tick": "on"
+   }
+  }
+ },
+ {
+  "ref": "P15",
+  "name": "Team Office - Erebus Motorsport",
+  "item": "Building 4.8m",
+  "qty": 1,
+  "assetNo": "1097345",
+  "contract": "9968862",
+  "line": 55,
+  "state": "on site",
+  "done": true,
+  "cancelled": false,
+  "moved": false,
+  "first": "2026-09-21",
+  "hire": 1125.84,
+  "lab": {
+   "install": {
+    "rate": 145.74,
+    "ticked": true
+   },
+   "steps": {
+    "rate": 156.15,
+    "ticked": true
+   },
+   "levelling": {
+    "rate": 52.05,
+    "ticked": true
+   },
+   "cleaning": {
+    "rate": 104.1,
+    "ticked": true
+   },
+   "fire_ext": {
+    "rate": 52.05,
+    "ticked": false
+   },
+   "demob": {
+    "rate": 145.74,
+    "ticked": true
+   }
+  },
+  "tr": {
+   "delivery": {
+    "rate": 500,
+    "charge": 500,
+    "state": "estimate",
+    "tick": "on"
+   },
+   "pickup": {
+    "rate": 500,
+    "charge": 500,
+    "state": "estimate",
+    "tick": "on"
+   }
+  }
+ },
+ {
+  "ref": "P16",
+  "name": "Team Office - WFL",
+  "item": "Building 4.8m",
+  "qty": 1,
+  "assetNo": "415575",
+  "contract": "9968862",
+  "line": 57,
+  "state": "on site",
+  "done": true,
+  "cancelled": false,
+  "moved": false,
+  "first": "2026-09-21",
+  "hire": 1125.84,
+  "lab": {
+   "install": {
+    "rate": 145.74,
+    "ticked": true
+   },
+   "steps": {
+    "rate": 156.15,
+    "ticked": true
+   },
+   "levelling": {
+    "rate": 52.05,
+    "ticked": true
+   },
+   "cleaning": {
+    "rate": 104.1,
+    "ticked": true
+   },
+   "fire_ext": {
+    "rate": 52.05,
+    "ticked": false
+   },
+   "demob": {
+    "rate": 145.74,
+    "ticked": true
+   }
+  },
+  "tr": {
+   "delivery": {
+    "rate": 500,
+    "charge": 500,
+    "state": "estimate",
+    "tick": "on"
+   },
+   "pickup": {
+    "rate": 500,
+    "charge": 500,
+    "state": "estimate",
+    "tick": "on"
+   }
+  }
+ },
+ {
+  "ref": "P17",
+  "name": "Team Office BJR",
+  "item": "Building 9.6m",
+  "qty": 1,
+  "assetNo": "1268887",
+  "contract": "9968862",
+  "line": 33,
+  "state": "on site",
+  "done": true,
+  "cancelled": false,
+  "moved": false,
+  "first": "2026-09-16",
+  "hire": 1576.18,
+  "lab": {
+   "install": {
+    "rate": 145.74,
+    "ticked": true
+   },
+   "steps": {
+    "rate": 156.15,
+    "ticked": true
+   },
+   "levelling": {
+    "rate": 52.05,
+    "ticked": true
+   },
+   "cleaning": {
+    "rate": 104.1,
+    "ticked": true
+   },
+   "fire_ext": {
+    "rate": 52.05,
+    "ticked": false
+   },
+   "demob": {
+    "rate": 145.74,
+    "ticked": true
+   }
+  },
+  "tr": {
+   "delivery": {
+    "rate": 800,
+    "charge": 800,
+    "state": "estimate",
+    "tick": "on"
+   },
+   "pickup": {
+    "rate": 800,
+    "charge": 800,
+    "state": "estimate",
+    "tick": "on"
+   }
+  }
+ },
+ {
+  "ref": "P18",
+  "name": "Team Office - MSR",
+  "item": "Building 4.8m",
+  "qty": 1,
+  "assetNo": "1097343",
+  "contract": "9968862",
+  "line": 36,
+  "state": "on site",
+  "done": true,
+  "cancelled": false,
+  "moved": false,
+  "first": "2026-09-16",
+  "hire": 1125.84,
+  "lab": {
+   "install": {
+    "rate": 145.74,
+    "ticked": true
+   },
+   "steps": {
+    "rate": 156.15,
+    "ticked": true
+   },
+   "levelling": {
+    "rate": 52.05,
+    "ticked": true
+   },
+   "cleaning": {
+    "rate": 104.1,
+    "ticked": true
+   },
+   "fire_ext": {
+    "rate": 52.05,
+    "ticked": false
+   },
+   "demob": {
+    "rate": 145.74,
+    "ticked": true
+   }
+  },
+  "tr": {
+   "delivery": {
+    "rate": 500,
+    "charge": 500,
+    "state": "estimate",
+    "tick": "on"
+   },
+   "pickup": {
+    "rate": 500,
+    "charge": 500,
+    "state": "estimate",
+    "tick": "on"
+   }
+  }
+ },
+ {
+  "ref": "P19",
+  "name": "Team Office Premiair Racing",
+  "item": "Building 4.8m",
+  "qty": 1,
+  "assetNo": "1110619",
+  "contract": "9968862",
+  "line": 34,
+  "state": "on site",
+  "done": true,
+  "cancelled": false,
+  "moved": false,
+  "first": "2026-09-16",
+  "hire": 1125.84,
+  "lab": {
+   "install": {
+    "rate": 145.74,
+    "ticked": true
+   },
+   "steps": {
+    "rate": 156.15,
+    "ticked": true
+   },
+   "levelling": {
+    "rate": 52.05,
+    "ticked": true
+   },
+   "cleaning": {
+    "rate": 104.1,
+    "ticked": true
+   },
+   "fire_ext": {
+    "rate": 52.05,
+    "ticked": false
+   },
+   "demob": {
+    "rate": 145.74,
+    "ticked": true
+   }
+  },
+  "tr": {
+   "delivery": {
+    "rate": 500,
+    "charge": 500,
+    "state": "estimate",
+    "tick": "on"
+   },
+   "pickup": {
+    "rate": 500,
+    "charge": 500,
+    "state": "estimate",
+    "tick": "on"
+   }
+  }
+ },
+ {
+  "ref": "P20",
+  "name": "Team Office Blanchard Racing",
+  "item": "Building 4.8m",
+  "qty": 1,
+  "assetNo": "1097339",
+  "contract": "9968862",
+  "line": 38,
+  "state": "on site",
+  "done": true,
+  "cancelled": false,
+  "moved": false,
+  "first": "2026-09-16",
+  "hire": 1125.84,
+  "lab": {
+   "install": {
+    "rate": 145.74,
+    "ticked": true
+   },
+   "steps": {
+    "rate": 156.15,
+    "ticked": true
+   },
+   "levelling": {
+    "rate": 52.05,
+    "ticked": true
+   },
+   "cleaning": {
+    "rate": 104.1,
+    "ticked": true
+   },
+   "fire_ext": {
+    "rate": 52.05,
+    "ticked": false
+   },
+   "demob": {
+    "rate": 145.74,
+    "ticked": true
+   }
+  },
+  "tr": {
+   "delivery": {
+    "rate": 500,
+    "charge": 500,
+    "state": "estimate",
+    "tick": "on"
+   },
+   "pickup": {
+    "rate": 500,
+    "charge": 500,
+    "state": "estimate",
+    "tick": "on"
+   }
+  }
+ },
+ {
+  "ref": "P21",
+  "name": "Team Objective Racing",
+  "item": "Building 4.8m",
+  "qty": 1,
+  "assetNo": "1327220",
+  "contract": "9968862",
+  "line": 92,
+  "state": "on site",
+  "done": true,
+  "cancelled": false,
+  "moved": false,
+  "first": "2026-09-16",
+  "hire": 1125.84,
+  "lab": {
+   "install": {
+    "rate": 145.74,
+    "ticked": true
+   },
+   "steps": {
+    "rate": 156.15,
+    "ticked": true
+   },
+   "levelling": {
+    "rate": 52.05,
+    "ticked": true
+   },
+   "cleaning": {
+    "rate": 104.1,
+    "ticked": true
+   },
+   "fire_ext": {
+    "rate": 52.05,
+    "ticked": false
+   },
+   "demob": {
+    "rate": 145.74,
+    "ticked": true
+   }
+  },
+  "tr": {
+   "delivery": {
+    "rate": 500,
+    "charge": 500,
+    "state": "estimate",
+    "tick": "on"
+   },
+   "pickup": {
+    "rate": 500,
+    "charge": 500,
+    "state": "estimate",
+    "tick": "on"
+   }
+  }
+ },
+ {
+  "ref": "P25",
+  "name": "Support Category Stewards",
+  "item": "Building 4.8m",
+  "qty": 1,
+  "assetNo": "1189408",
+  "contract": "9968862",
+  "line": 105,
+  "state": "on site",
+  "done": true,
+  "cancelled": false,
+  "moved": false,
+  "first": "2026-10-14",
+  "hire": 1125.84,
+  "lab": {
+   "install": {
+    "rate": 145.74,
+    "ticked": true
+   },
+   "steps": {
+    "rate": 156.15,
+    "ticked": true
+   },
+   "levelling": {
+    "rate": 52.05,
+    "ticked": true
+   },
+   "cleaning": {
+    "rate": 104.1,
+    "ticked": true
+   },
+   "fire_ext": {
+    "rate": 52.05,
+    "ticked": true
+   },
+   "demob": {
+    "rate": 145.74,
+    "ticked": true
+   }
+  },
+  "tr": {
+   "delivery": {
+    "rate": 500,
+    "charge": 500,
+    "state": "estimate",
+    "tick": "on"
+   },
+   "pickup": {
+    "rate": 500,
+    "charge": 500,
+    "state": "estimate",
+    "tick": "on"
+   }
+  }
+ },
+ {
+  "ref": "P27",
+  "name": "Volunteer and Cadet Supervisors",
+  "item": "Building 4.8m",
+  "qty": 1,
+  "assetNo": null,
+  "contract": null,
+  "line": null,
+  "state": "not on site",
+  "done": false,
+  "cancelled": true,
+  "moved": false,
+  "first": "2026-09-16",
+  "hire": null,
+  "lab": {
+   "install": {
+    "rate": 145.74,
+    "ticked": false
+   },
+   "steps": {
+    "rate": 156.15,
+    "ticked": false
+   },
+   "levelling": {
+    "rate": 52.05,
+    "ticked": false
+   },
+   "cleaning": {
+    "rate": 104.1,
+    "ticked": false
+   },
+   "fire_ext": {
+    "rate": 52.05,
+    "ticked": false
+   },
+   "demob": {
+    "rate": 145.74,
+    "ticked": false
+   }
+  },
+  "tr": {
+   "delivery": {
+    "rate": 500,
+    "charge": 0,
+    "state": "excluded",
+    "tick": null
+   },
+   "pickup": {
+    "rate": 500,
+    "charge": 0,
+    "state": "excluded",
+    "tick": null
+   }
+  }
+ },
+ {
+  "ref": "P29",
+  "name": "SCA Stewards",
+  "item": "Building 6m",
+  "qty": 1,
+  "assetNo": null,
+  "contract": null,
+  "line": null,
+  "state": "not on site",
+  "done": false,
+  "cancelled": true,
+  "moved": false,
+  "first": "2026-09-16",
+  "hire": null,
+  "lab": {
+   "install": {
+    "rate": 145.74,
+    "ticked": false
+   },
+   "steps": {
+    "rate": 156.15,
+    "ticked": false
+   },
+   "levelling": {
+    "rate": 52.05,
+    "ticked": false
+   },
+   "cleaning": {
+    "rate": 104.1,
+    "ticked": false
+   },
+   "fire_ext": {
+    "rate": 52.05,
+    "ticked": false
+   },
+   "demob": {
+    "rate": 145.74,
+    "ticked": false
+   }
+  },
+  "tr": {
+   "delivery": {
+    "rate": 500,
+    "charge": 0,
+    "state": "excluded",
+    "tick": null
+   },
+   "pickup": {
+    "rate": 500,
+    "charge": 0,
+    "state": "excluded",
+    "tick": null
+   }
+  }
+ },
+ {
+  "ref": "P33",
+  "name": "Race Medical",
+  "item": "Building 9.6m",
+  "qty": 1,
+  "assetNo": "453375",
+  "contract": "9968862",
+  "line": 24,
+  "state": "on site",
+  "done": true,
+  "cancelled": false,
+  "moved": false,
+  "first": "2026-09-14",
+  "hire": 1576.18,
+  "lab": {
+   "install": {
+    "rate": 145.74,
+    "ticked": true
+   },
+   "steps": {
+    "rate": 156.15,
+    "ticked": true
+   },
+   "levelling": {
+    "rate": 52.05,
+    "ticked": true
+   },
+   "cleaning": {
+    "rate": 104.1,
+    "ticked": true
+   },
+   "fire_ext": {
+    "rate": 52.05,
+    "ticked": false
+   },
+   "demob": {
+    "rate": 145.74,
+    "ticked": true
+   }
+  },
+  "tr": {
+   "delivery": {
+    "rate": 800,
+    "charge": 800,
+    "state": "estimate",
+    "tick": "on"
+   },
+   "pickup": {
+    "rate": 800,
+    "charge": 800,
+    "state": "estimate",
+    "tick": "on"
+   }
+  }
+ },
+ {
+  "ref": "P36",
+  "name": "Harry the Hirer",
+  "item": "Building 6m",
+  "qty": 1,
+  "assetNo": "1189410",
+  "contract": "9968862",
+  "line": 93,
+  "state": "on site",
+  "done": true,
+  "cancelled": false,
+  "moved": false,
+  "first": "2026-09-17",
+  "hire": 1426.07,
+  "lab": {
+   "install": {
+    "rate": 145.74,
+    "ticked": true
+   },
+   "steps": {
+    "rate": 156.15,
+    "ticked": true
+   },
+   "levelling": {
+    "rate": 52.05,
+    "ticked": true
+   },
+   "cleaning": {
+    "rate": 104.1,
+    "ticked": true
+   },
+   "fire_ext": {
+    "rate": 52.05,
+    "ticked": false
+   },
+   "demob": {
+    "rate": 145.74,
+    "ticked": true
+   }
+  },
+  "tr": {
+   "delivery": {
+    "rate": 500,
+    "charge": 500,
+    "state": "estimate",
+    "tick": "on"
+   },
+   "pickup": {
+    "rate": 500,
+    "charge": 500,
+    "state": "estimate",
+    "tick": "on"
+   }
+  }
+ },
+ {
+  "ref": "P37",
+  "name": "Oz Wide Audio Crib Room",
+  "item": "Building 6m",
+  "qty": 1,
+  "assetNo": "1105053",
+  "contract": "9968862",
+  "line": 50,
+  "state": "on site",
+  "done": true,
+  "cancelled": false,
+  "moved": false,
+  "first": "2026-09-17",
+  "hire": 1426.07,
+  "lab": {
+   "install": {
+    "rate": 145.74,
+    "ticked": true
+   },
+   "steps": {
+    "rate": 156.15,
+    "ticked": true
+   },
+   "levelling": {
+    "rate": 52.05,
+    "ticked": true
+   },
+   "cleaning": {
+    "rate": 104.1,
+    "ticked": true
+   },
+   "fire_ext": {
+    "rate": 52.05,
+    "ticked": false
+   },
+   "demob": {
+    "rate": 145.74,
+    "ticked": true
+   }
+  },
+  "tr": {
+   "delivery": {
+    "rate": 500,
+    "charge": 500,
+    "state": "estimate",
+    "tick": "on"
+   },
+   "pickup": {
+    "rate": 500,
+    "charge": 500,
+    "state": "estimate",
+    "tick": "on"
+   }
+  }
+ },
+ {
+  "ref": "P38",
+  "name": "Green Room 1",
+  "item": "Building 6m",
+  "qty": 1,
+  "assetNo": "1327218",
+  "contract": "9968862",
+  "line": 70,
+  "state": "on site",
+  "done": true,
+  "cancelled": false,
+  "moved": false,
+  "first": "2026-09-28",
+  "hire": 1426.07,
+  "lab": {
+   "install": {
+    "rate": 145.74,
+    "ticked": true
+   },
+   "steps": {
+    "rate": 156.15,
+    "ticked": false
+   },
+   "levelling": {
+    "rate": 52.05,
+    "ticked": true
+   },
+   "cleaning": {
+    "rate": 104.1,
+    "ticked": true
+   },
+   "fire_ext": {
+    "rate": 52.05,
+    "ticked": false
+   },
+   "demob": {
+    "rate": 145.74,
+    "ticked": true
+   }
+  },
+  "tr": {
+   "delivery": {
+    "rate": 500,
+    "charge": 500,
+    "state": "estimate",
+    "tick": "on"
+   },
+   "pickup": {
+    "rate": 500,
+    "charge": 500,
+    "state": "estimate",
+    "tick": "on"
+   }
+  }
+ },
+ {
+  "ref": "P39",
+  "name": "Green Room 2",
+  "item": "Building 6m",
+  "qty": 1,
+  "assetNo": "1327216",
+  "contract": "9968862",
+  "line": 73,
+  "state": "on site",
+  "done": true,
+  "cancelled": false,
+  "moved": false,
+  "first": "2026-09-28",
+  "hire": 1426.08,
+  "lab": {
+   "install": {
+    "rate": 145.74,
+    "ticked": true
+   },
+   "steps": {
+    "rate": 156.15,
+    "ticked": false
+   },
+   "levelling": {
+    "rate": 52.05,
+    "ticked": true
+   },
+   "cleaning": {
+    "rate": 104.1,
+    "ticked": true
+   },
+   "fire_ext": {
+    "rate": 52.05,
+    "ticked": false
+   },
+   "demob": {
+    "rate": 145.74,
+    "ticked": true
+   }
+  },
+  "tr": {
+   "delivery": {
+    "rate": 500,
+    "charge": 500,
+    "state": "estimate",
+    "tick": "on"
+   },
+   "pickup": {
+    "rate": 500,
+    "charge": 500,
+    "state": "estimate",
+    "tick": "on"
+   }
+  }
+ },
+ {
+  "ref": "P41",
+  "name": "QFES Crib Room",
+  "item": "Building 6m",
+  "qty": 1,
+  "assetNo": "1189412",
+  "contract": "9968862",
+  "line": 63,
+  "state": "on site",
+  "done": true,
+  "cancelled": false,
+  "moved": false,
+  "first": "2026-09-23",
+  "hire": 1426.17,
+  "lab": {
+   "install": {
+    "rate": 145.74,
+    "ticked": true
+   },
+   "steps": {
+    "rate": 156.15,
+    "ticked": true
+   },
+   "levelling": {
+    "rate": 52.05,
+    "ticked": true
+   },
+   "cleaning": {
+    "rate": 104.1,
+    "ticked": true
+   },
+   "fire_ext": {
+    "rate": 52.05,
+    "ticked": false
+   },
+   "demob": {
+    "rate": 145.74,
+    "ticked": true
+   }
+  },
+  "tr": {
+   "delivery": {
+    "rate": 500,
+    "charge": 500,
+    "state": "estimate",
+    "tick": "on"
+   },
+   "pickup": {
+    "rate": 500,
+    "charge": 500,
+    "state": "estimate",
+    "tick": "on"
+   }
+  }
+ },
+ {
+  "ref": "P42",
+  "name": "Production",
+  "item": "Building 6m",
+  "qty": 1,
+  "assetNo": "1327221",
+  "contract": "9968862",
+  "line": 76,
+  "state": "on site",
+  "done": true,
+  "cancelled": false,
+  "moved": false,
+  "first": "2026-09-28",
+  "hire": 1426.07,
+  "lab": {
+   "install": {
+    "rate": 145.74,
+    "ticked": true
+   },
+   "steps": {
+    "rate": 156.15,
+    "ticked": false
+   },
+   "levelling": {
+    "rate": 52.05,
+    "ticked": true
+   },
+   "cleaning": {
+    "rate": 104.1,
+    "ticked": true
+   },
+   "fire_ext": {
+    "rate": 52.05,
+    "ticked": false
+   },
+   "demob": {
+    "rate": 145.74,
+    "ticked": true
+   }
+  },
+  "tr": {
+   "delivery": {
+    "rate": 500,
+    "charge": 500,
+    "state": "estimate",
+    "tick": "on"
+   },
+   "pickup": {
+    "rate": 500,
+    "charge": 500,
+    "state": "estimate",
+    "tick": "on"
+   }
+  }
+ },
+ {
+  "ref": "P44",
+  "name": "Queensland Ambulance Service",
+  "item": "Building 6m",
+  "qty": 1,
+  "assetNo": "198481",
+  "contract": "9968862",
+  "line": 61,
+  "state": "on site",
+  "done": true,
+  "cancelled": false,
+  "moved": false,
+  "first": "2026-09-23",
+  "hire": 1426.07,
+  "lab": {
+   "install": {
+    "rate": 145.74,
+    "ticked": true
+   },
+   "steps": {
+    "rate": 156.15,
+    "ticked": true
+   },
+   "levelling": {
+    "rate": 52.05,
+    "ticked": true
+   },
+   "cleaning": {
+    "rate": 104.1,
+    "ticked": true
+   },
+   "fire_ext": {
+    "rate": 52.05,
+    "ticked": false
+   },
+   "demob": {
+    "rate": 145.74,
+    "ticked": true
+   }
+  },
+  "tr": {
+   "delivery": {
+    "rate": 500,
+    "charge": 500,
+    "state": "estimate",
+    "tick": "on"
+   },
+   "pickup": {
+    "rate": 500,
+    "charge": 500,
+    "state": "estimate",
+    "tick": "on"
+   }
+  }
+ },
+ {
+  "ref": "P45",
+  "name": "St John First Aid",
+  "item": "Building 6m",
+  "qty": 1,
+  "assetNo": "107135",
+  "contract": "9968862",
+  "line": 131,
+  "state": "on site",
+  "done": true,
+  "cancelled": false,
+  "moved": false,
+  "first": "2026-10-12",
+  "hire": 1426.07,
+  "lab": {
+   "install": {
+    "rate": 145.74,
+    "ticked": true
+   },
+   "steps": {
+    "rate": 156.15,
+    "ticked": true
+   },
+   "levelling": {
+    "rate": 52.05,
+    "ticked": true
+   },
+   "cleaning": {
+    "rate": 104.1,
+    "ticked": true
+   },
+   "fire_ext": {
+    "rate": 52.05,
+    "ticked": true
+   },
+   "demob": {
+    "rate": 145.74,
+    "ticked": true
+   }
+  },
+  "tr": {
+   "delivery": {
+    "rate": 500,
+    "charge": 500,
+    "state": "estimate",
+    "tick": "on"
+   },
+   "pickup": {
+    "rate": 500,
+    "charge": 500,
+    "state": "estimate",
+    "tick": "on"
+   }
+  }
+ },
+ {
+  "ref": "P46",
+  "name": "QPS Command Post",
+  "item": "Building 12m",
+  "qty": 1,
+  "assetNo": "1327215",
+  "contract": "9968862",
+  "line": 100,
+  "state": "on site",
+  "done": true,
+  "cancelled": false,
+  "moved": false,
+  "first": "2026-10-06",
+  "hire": 1951.46,
+  "lab": {
+   "install": {
+    "rate": 145.74,
+    "ticked": true
+   },
+   "steps": {
+    "rate": 156.15,
+    "ticked": true
+   },
+   "levelling": {
+    "rate": 52.05,
+    "ticked": true
+   },
+   "cleaning": {
+    "rate": 104.1,
+    "ticked": true
+   },
+   "fire_ext": {
+    "rate": 52.05,
+    "ticked": true
+   },
+   "demob": {
+    "rate": 145.74,
+    "ticked": true
+   }
+  },
+  "tr": {
+   "delivery": {
+    "rate": 800,
+    "charge": 800,
+    "state": "estimate",
+    "tick": "on"
+   },
+   "pickup": {
+    "rate": 800,
+    "charge": 800,
+    "state": "estimate",
+    "tick": "on"
+   }
+  }
+ },
+ {
+  "ref": "P47",
+  "name": "QPS Amenities Crib Room",
+  "item": "Building 6m",
+  "qty": 1,
+  "assetNo": "1327217",
+  "contract": "9968862",
+  "line": 110,
+  "state": "not on site",
+  "done": false,
+  "cancelled": true,
+  "moved": false,
+  "first": "2026-10-06",
+  "hire": 1426.07,
+  "lab": {
+   "install": {
+    "rate": 145.74,
+    "ticked": false
+   },
+   "steps": {
+    "rate": 156.15,
+    "ticked": false
+   },
+   "levelling": {
+    "rate": 52.05,
+    "ticked": false
+   },
+   "cleaning": {
+    "rate": 104.1,
+    "ticked": false
+   },
+   "fire_ext": {
+    "rate": 52.05,
+    "ticked": false
+   },
+   "demob": {
+    "rate": 145.74,
+    "ticked": false
+   }
+  },
+  "tr": {
+   "delivery": {
+    "rate": 500,
+    "charge": 0,
+    "state": "excluded",
+    "tick": null
+   },
+   "pickup": {
+    "rate": 500,
+    "charge": 0,
+    "state": "excluded",
+    "tick": null
+   }
+  }
+ },
+ {
+  "ref": "P51",
+  "name": "Security Sign On",
+  "item": "Building 12m",
+  "qty": 1,
+  "assetNo": "1322579",
+  "contract": "9968862",
+  "line": 94,
+  "state": "on site",
+  "done": true,
+  "cancelled": false,
+  "moved": false,
+  "first": "2026-10-06",
+  "hire": 1951.46,
+  "lab": {
+   "install": {
+    "rate": 145.74,
+    "ticked": true
+   },
+   "steps": {
+    "rate": 156.15,
+    "ticked": true
+   },
+   "levelling": {
+    "rate": 52.05,
+    "ticked": true
+   },
+   "cleaning": {
+    "rate": 104.1,
+    "ticked": true
+   },
+   "fire_ext": {
+    "rate": 52.05,
+    "ticked": true
+   },
+   "demob": {
+    "rate": 145.74,
+    "ticked": true
+   }
+  },
+  "tr": {
+   "delivery": {
+    "rate": 800,
+    "charge": 800,
+    "state": "estimate",
+    "tick": "on"
+   },
+   "pickup": {
+    "rate": 800,
+    "charge": 800,
+    "state": "estimate",
+    "tick": "on"
+   }
+  }
+ },
+ {
+  "ref": "P52",
+  "name": "Gate 1 Volunteer Check-In",
+  "item": "Building 12m",
+  "qty": 1,
+  "assetNo": "1327211",
+  "contract": "9968862",
+  "line": 79,
+  "state": "on site",
+  "done": true,
+  "cancelled": false,
+  "moved": false,
+  "first": "2026-10-07",
+  "hire": 1951.46,
+  "lab": {
+   "install": {
+    "rate": 145.74,
+    "ticked": true
+   },
+   "steps": {
+    "rate": 156.15,
+    "ticked": true
+   },
+   "levelling": {
+    "rate": 52.05,
+    "ticked": true
+   },
+   "cleaning": {
+    "rate": 104.1,
+    "ticked": true
+   },
+   "fire_ext": {
+    "rate": 52.05,
+    "ticked": true
+   },
+   "demob": {
+    "rate": 145.74,
+    "ticked": true
+   }
+  },
+  "tr": {
+   "delivery": {
+    "rate": 800,
+    "charge": 800,
+    "state": "estimate",
+    "tick": "on"
+   },
+   "pickup": {
+    "rate": 800,
+    "charge": 800,
+    "state": "estimate",
+    "tick": "on"
+   }
+  }
+ },
+ {
+  "ref": "P53",
+  "name": "Accred Centre",
+  "item": "Building 6m",
+  "qty": 1,
+  "assetNo": null,
+  "contract": null,
+  "line": null,
+  "state": "not on site",
+  "done": false,
+  "cancelled": true,
+  "moved": false,
+  "first": "2026-09-29",
+  "hire": null,
+  "lab": {
+   "install": {
+    "rate": 145.74,
+    "ticked": false
+   },
+   "steps": {
+    "rate": 156.15,
+    "ticked": false
+   },
+   "levelling": {
+    "rate": 52.05,
+    "ticked": false
+   },
+   "cleaning": {
+    "rate": 104.1,
+    "ticked": false
+   },
+   "fire_ext": {
+    "rate": 52.05,
+    "ticked": false
+   },
+   "demob": {
+    "rate": 145.74,
+    "ticked": false
+   }
+  },
+  "tr": {
+   "delivery": {
+    "rate": 500,
+    "charge": 0,
+    "state": "excluded",
+    "tick": null
+   },
+   "pickup": {
+    "rate": 500,
+    "charge": 0,
+    "state": "excluded",
+    "tick": null
+   }
+  }
+ },
+ {
+  "ref": "P54",
+  "name": "Accred Centre BOH",
+  "item": "Building 6m",
+  "qty": 1,
+  "assetNo": "1327219",
+  "contract": "9968862",
+  "line": 85,
+  "state": "on site",
+  "done": true,
+  "cancelled": false,
+  "moved": false,
+  "first": "2026-10-07",
+  "hire": 1426.07,
+  "lab": {
+   "install": {
+    "rate": 145.74,
+    "ticked": true
+   },
+   "steps": {
+    "rate": 156.15,
+    "ticked": true
+   },
+   "levelling": {
+    "rate": 52.05,
+    "ticked": true
+   },
+   "cleaning": {
+    "rate": 104.1,
+    "ticked": true
+   },
+   "fire_ext": {
+    "rate": 52.05,
+    "ticked": true
+   },
+   "demob": {
+    "rate": 145.74,
+    "ticked": true
+   }
+  },
+  "tr": {
+   "delivery": {
+    "rate": 500,
+    "charge": 500,
+    "state": "estimate",
+    "tick": "on"
+   },
+   "pickup": {
+    "rate": 500,
+    "charge": 500,
+    "state": "estimate",
+    "tick": "on"
+   }
+  }
+ },
+ {
+  "ref": "P55",
+  "name": "Gate 1 Ticket Box",
+  "item": "Ticket Box 6m",
+  "qty": 1,
+  "assetNo": "172114",
+  "contract": "9968862",
+  "line": 87,
+  "state": "on site",
+  "done": true,
+  "cancelled": false,
+  "moved": false,
+  "first": "2026-10-07",
+  "hire": 1426.07,
+  "lab": {
+   "install": {
+    "rate": 145.74,
+    "ticked": true
+   },
+   "steps": {
+    "rate": 156.15,
+    "ticked": true
+   },
+   "levelling": {
+    "rate": 52.05,
+    "ticked": true
+   },
+   "cleaning": {
+    "rate": 104.1,
+    "ticked": true
+   },
+   "fire_ext": {
+    "rate": 52.05,
+    "ticked": false
+   },
+   "demob": {
+    "rate": 145.74,
+    "ticked": true
+   }
+  },
+  "tr": {
+   "delivery": {
+    "rate": 500,
+    "charge": 500,
+    "state": "estimate",
+    "tick": "on"
+   },
+   "pickup": {
+    "rate": 500,
+    "charge": 500,
+    "state": "estimate",
+    "tick": "on"
+   }
+  }
+ },
+ {
+  "ref": "P56",
+  "name": "Gate 1 Ticket BOH",
+  "item": "Building 3.6m",
+  "qty": 1,
+  "assetNo": "1268865",
+  "contract": "9968862",
+  "line": 89,
+  "state": "on site",
+  "done": true,
+  "cancelled": false,
+  "moved": false,
+  "first": "2026-10-07",
+  "hire": 975.73,
+  "lab": {
+   "install": {
+    "rate": 145.74,
+    "ticked": true
+   },
+   "steps": {
+    "rate": 156.15,
+    "ticked": true
+   },
+   "levelling": {
+    "rate": 52.05,
+    "ticked": true
+   },
+   "cleaning": {
+    "rate": 104.1,
+    "ticked": true
+   },
+   "fire_ext": {
+    "rate": 52.05,
+    "ticked": false
+   },
+   "demob": {
+    "rate": 145.74,
+    "ticked": true
+   }
+  },
+  "tr": {
+   "delivery": {
+    "rate": 500,
+    "charge": 500,
+    "state": "estimate",
+    "tick": "on"
+   },
+   "pickup": {
+    "rate": 500,
+    "charge": 500,
+    "state": "estimate",
+    "tick": "on"
+   }
+  }
+ },
+ {
+  "ref": "P57",
+  "name": "Radio Distribution Office",
+  "item": "Building 9.6m",
+  "qty": 1,
+  "assetNo": "1268888",
+  "contract": "9968862",
+  "line": 90,
+  "state": "on site",
+  "done": true,
+  "cancelled": false,
+  "moved": false,
+  "first": "2026-10-07",
+  "hire": 1576.18,
+  "lab": {
+   "install": {
+    "rate": 145.74,
+    "ticked": true
+   },
+   "steps": {
+    "rate": 156.15,
+    "ticked": true
+   },
+   "levelling": {
+    "rate": 52.05,
+    "ticked": true
+   },
+   "cleaning": {
+    "rate": 104.1,
+    "ticked": true
+   },
+   "fire_ext": {
+    "rate": 52.05,
+    "ticked": true
+   },
+   "demob": {
+    "rate": 145.74,
+    "ticked": true
+   }
+  },
+  "tr": {
+   "delivery": {
+    "rate": 800,
+    "charge": 800,
+    "state": "estimate",
+    "tick": "on"
+   },
+   "pickup": {
+    "rate": 800,
+    "charge": 800,
+    "state": "estimate",
+    "tick": "on"
+   }
+  }
+ },
+ {
+  "ref": "P58",
+  "name": "1300 Medics",
+  "item": "Building 6m",
+  "qty": 1,
+  "assetNo": "1273656",
+  "contract": "9968862",
+  "line": 59,
+  "state": "on site",
+  "done": true,
+  "cancelled": false,
+  "moved": false,
+  "first": "2026-09-23",
+  "hire": 1426.07,
+  "lab": {
+   "install": {
+    "rate": 145.74,
+    "ticked": true
+   },
+   "steps": {
+    "rate": 156.15,
+    "ticked": true
+   },
+   "levelling": {
+    "rate": 52.05,
+    "ticked": true
+   },
+   "cleaning": {
+    "rate": 104.1,
+    "ticked": true
+   },
+   "fire_ext": {
+    "rate": 52.05,
+    "ticked": false
+   },
+   "demob": {
+    "rate": 145.74,
+    "ticked": true
+   }
+  },
+  "tr": {
+   "delivery": {
+    "rate": 500,
+    "charge": 500,
+    "state": "estimate",
+    "tick": "on"
+   },
+   "pickup": {
+    "rate": 500,
+    "charge": 500,
+    "state": "estimate",
+    "tick": "on"
+   }
+  }
+ },
+ {
+  "ref": "P60",
+  "name": "Gate 5 Ticket Box",
+  "item": "Ticket Box 4.8m",
+  "qty": 1,
+  "assetNo": "1015699",
+  "contract": "9968862",
+  "line": 116,
+  "state": "on site",
+  "done": true,
+  "cancelled": false,
+  "moved": false,
+  "first": "2026-10-15",
+  "hire": 1125.84,
+  "lab": {
+   "install": {
+    "rate": 145.74,
+    "ticked": true
+   },
+   "steps": {
+    "rate": 156.15,
+    "ticked": true
+   },
+   "levelling": {
+    "rate": 52.05,
+    "ticked": true
+   },
+   "cleaning": {
+    "rate": 104.1,
+    "ticked": true
+   },
+   "fire_ext": {
+    "rate": 52.05,
+    "ticked": false
+   },
+   "demob": {
+    "rate": 145.74,
+    "ticked": true
+   }
+  },
+  "tr": {
+   "delivery": {
+    "rate": 500,
+    "charge": 500,
+    "state": "estimate",
+    "tick": "on"
+   },
+   "pickup": {
+    "rate": 500,
+    "charge": 500,
+    "state": "estimate",
+    "tick": "on"
+   }
+  }
+ },
+ {
+  "ref": "P62",
+  "name": "Gate 5 QFES Office",
+  "item": "Building 6m",
+  "qty": 1,
+  "assetNo": "1189409",
+  "contract": "9968862",
+  "line": 118,
+  "state": "on site",
+  "done": true,
+  "cancelled": false,
+  "moved": false,
+  "first": "2026-10-15",
+  "hire": 1426.07,
+  "lab": {
+   "install": {
+    "rate": 145.74,
+    "ticked": true
+   },
+   "steps": {
+    "rate": 156.15,
+    "ticked": true
+   },
+   "levelling": {
+    "rate": 52.05,
+    "ticked": true
+   },
+   "cleaning": {
+    "rate": 104.1,
+    "ticked": true
+   },
+   "fire_ext": {
+    "rate": 52.05,
+    "ticked": false
+   },
+   "demob": {
+    "rate": 145.74,
+    "ticked": true
+   }
+  },
+  "tr": {
+   "delivery": {
+    "rate": 500,
+    "charge": 500,
+    "state": "estimate",
+    "tick": "on"
+   },
+   "pickup": {
+    "rate": 500,
+    "charge": 500,
+    "state": "estimate",
+    "tick": "on"
+   }
+  }
+ },
+ {
+  "ref": "P63",
+  "name": "Gate 5 Volunteer Sign On",
+  "item": "Building 6m",
+  "qty": 1,
+  "assetNo": "960719",
+  "contract": "9968862",
+  "line": 121,
+  "state": "on site",
+  "done": true,
+  "cancelled": false,
+  "moved": false,
+  "first": "2026-10-15",
+  "hire": 1426.07,
+  "lab": {
+   "install": {
+    "rate": 145.74,
+    "ticked": true
+   },
+   "steps": {
+    "rate": 156.15,
+    "ticked": true
+   },
+   "levelling": {
+    "rate": 52.05,
+    "ticked": true
+   },
+   "cleaning": {
+    "rate": 104.1,
+    "ticked": true
+   },
+   "fire_ext": {
+    "rate": 52.05,
+    "ticked": false
+   },
+   "demob": {
+    "rate": 145.74,
+    "ticked": true
+   }
+  },
+  "tr": {
+   "delivery": {
+    "rate": 500,
+    "charge": 500,
+    "state": "estimate",
+    "tick": "on"
+   },
+   "pickup": {
+    "rate": 500,
+    "charge": 500,
+    "state": "estimate",
+    "tick": "on"
+   }
+  }
+ },
+ {
+  "ref": "P65",
+  "name": "Support Categories Race Secretary",
+  "item": "Building 6m",
+  "qty": 1,
+  "assetNo": "1327217",
+  "contract": "9968862",
+  "line": 110,
+  "state": "on site",
+  "done": true,
+  "cancelled": false,
+  "moved": false,
+  "first": "2026-10-14",
+  "hire": 1426.07,
+  "lab": {
+   "install": {
+    "rate": 145.74,
+    "ticked": true
+   },
+   "steps": {
+    "rate": 156.15,
+    "ticked": true
+   },
+   "levelling": {
+    "rate": 52.05,
+    "ticked": true
+   },
+   "cleaning": {
+    "rate": 104.1,
+    "ticked": true
+   },
+   "fire_ext": {
+    "rate": 52.05,
+    "ticked": false
+   },
+   "demob": {
+    "rate": 145.74,
+    "ticked": true
+   }
+  },
+  "tr": {
+   "delivery": {
+    "rate": 500,
+    "charge": 500,
+    "state": "estimate",
+    "tick": "on"
+   },
+   "pickup": {
+    "rate": 500,
+    "charge": 500,
+    "state": "estimate",
+    "tick": "on"
+   }
+  }
+ },
+ {
+  "ref": "P66",
+  "name": "Support Category Scrutineers",
+  "item": "Building 6m",
+  "qty": 1,
+  "assetNo": "1327222",
+  "contract": "9968862",
+  "line": 113,
+  "state": "on site",
+  "done": true,
+  "cancelled": false,
+  "moved": false,
+  "first": "2026-10-14",
+  "hire": 1426.07,
+  "lab": {
+   "install": {
+    "rate": 145.74,
+    "ticked": true
+   },
+   "steps": {
+    "rate": 156.15,
+    "ticked": true
+   },
+   "levelling": {
+    "rate": 52.05,
+    "ticked": true
+   },
+   "cleaning": {
+    "rate": 104.1,
+    "ticked": true
+   },
+   "fire_ext": {
+    "rate": 52.05,
+    "ticked": true
+   },
+   "demob": {
+    "rate": 145.74,
+    "ticked": true
+   }
+  },
+  "tr": {
+   "delivery": {
+    "rate": 500,
+    "charge": 500,
+    "state": "estimate",
+    "tick": "on"
+   },
+   "pickup": {
+    "rate": 500,
+    "charge": 500,
+    "state": "estimate",
+    "tick": "on"
+   }
+  }
+ },
+ {
+  "ref": "P67",
+  "name": "Gate 6 Security Office",
+  "item": "Building 6m",
+  "qty": 1,
+  "assetNo": "421107",
+  "contract": "9968862",
+  "line": 108,
+  "state": "on site",
+  "done": true,
+  "cancelled": false,
+  "moved": false,
+  "first": "2026-10-14",
+  "hire": 1426.07,
+  "lab": {
+   "install": {
+    "rate": 145.74,
+    "ticked": true
+   },
+   "steps": {
+    "rate": 156.15,
+    "ticked": true
+   },
+   "levelling": {
+    "rate": 52.05,
+    "ticked": true
+   },
+   "cleaning": {
+    "rate": 104.1,
+    "ticked": true
+   },
+   "fire_ext": {
+    "rate": 52.05,
+    "ticked": false
+   },
+   "demob": {
+    "rate": 145.74,
+    "ticked": true
+   }
+  },
+  "tr": {
+   "delivery": {
+    "rate": 500,
+    "charge": 500,
+    "state": "estimate",
+    "tick": "on"
+   },
+   "pickup": {
+    "rate": 500,
+    "charge": 500,
+    "state": "estimate",
+    "tick": "on"
+   }
+  }
+ },
+ {
+  "ref": "P69",
+  "name": "Supply Building",
+  "item": "Building 6m",
+  "qty": 1,
+  "assetNo": "107247",
+  "contract": "9968862",
+  "line": 103,
+  "state": "on site",
+  "done": true,
+  "cancelled": false,
+  "moved": false,
+  "first": "2026-10-12",
+  "hire": 1426.07,
+  "lab": {
+   "install": {
+    "rate": 145.74,
+    "ticked": true
+   },
+   "steps": {
+    "rate": 156.15,
+    "ticked": true
+   },
+   "levelling": {
+    "rate": 52.05,
+    "ticked": true
+   },
+   "cleaning": {
+    "rate": 104.1,
+    "ticked": true
+   },
+   "fire_ext": {
+    "rate": 52.05,
+    "ticked": true
+   },
+   "demob": {
+    "rate": 145.74,
+    "ticked": true
+   }
+  },
+  "tr": {
+   "delivery": {
+    "rate": 500,
+    "charge": 500,
+    "state": "estimate",
+    "tick": "on"
+   },
+   "pickup": {
+    "rate": 500,
+    "charge": 500,
+    "state": "estimate",
+    "tick": "on"
+   }
+  }
+ },
+ {
+  "ref": "T0021",
+  "name": "Building 4.8m · Office 4.8x3",
+  "item": "Building 4.8m",
+  "qty": 1,
+  "assetNo": "960639",
+  "contract": "9968929",
+  "line": 1,
+  "state": "on site",
+  "done": true,
+  "cancelled": false,
+  "moved": false,
+  "first": "2026-09-15",
+  "hire": 0,
+  "lab": {
+   "install": {
+    "rate": 145.74,
+    "ticked": true
+   },
+   "steps": {
+    "rate": 156.15,
+    "ticked": true
+   },
+   "levelling": {
+    "rate": 52.05,
+    "ticked": true
+   },
+   "cleaning": {
+    "rate": 104.1,
+    "ticked": true
+   },
+   "fire_ext": {
+    "rate": 52.05,
+    "ticked": false
+   },
+   "demob": {
+    "rate": 145.74,
+    "ticked": true
+   }
+  },
+  "tr": {
+   "delivery": {
+    "rate": 500,
+    "charge": 0,
+    "state": "excluded",
+    "tick": null
+   },
+   "pickup": {
+    "rate": 500,
+    "charge": 0,
+    "state": "excluded",
+    "tick": null
+   }
+  }
+ },
+ {
+  "ref": "T0022",
+  "name": "Building 4.8m · Lunchroom 4.8x3",
+  "item": "Building 4.8m",
+  "qty": 1,
+  "assetNo": "960634",
+  "contract": "9968929",
+  "line": 3,
+  "state": "on site",
+  "done": true,
+  "cancelled": false,
+  "moved": false,
+  "first": "2026-09-15",
+  "hire": 0,
+  "lab": {
+   "install": {
+    "rate": 145.74,
+    "ticked": true
+   },
+   "steps": {
+    "rate": 156.15,
+    "ticked": true
+   },
+   "levelling": {
+    "rate": 52.05,
+    "ticked": true
+   },
+   "cleaning": {
+    "rate": 104.1,
+    "ticked": true
+   },
+   "fire_ext": {
+    "rate": 52.05,
+    "ticked": false
+   },
+   "demob": {
+    "rate": 145.74,
+    "ticked": true
+   }
+  },
+  "tr": {
+   "delivery": {
+    "rate": 500,
+    "charge": 0,
+    "state": "excluded",
+    "tick": null
+   },
+   "pickup": {
+    "rate": 500,
+    "charge": 0,
+    "state": "excluded",
+    "tick": null
+   }
+  }
+ },
+ {
+  "ref": "T0023",
+  "name": "Event Container · event container from eags",
+  "item": "Event Container",
+  "qty": 1,
+  "assetNo": "1257261",
+  "contract": "9968929",
+  "line": 5,
+  "state": "on site",
+  "done": true,
+  "cancelled": false,
+  "moved": false,
+  "first": "2026-09-15",
+  "hire": null,
+  "lab": {},
+  "tr": {
+   "delivery": {
+    "rate": null,
+    "charge": 0,
+    "state": "held",
+    "tick": null
+   },
+   "pickup": {
+    "rate": null,
+    "charge": 0,
+    "state": "held",
+    "tick": null
+   }
+  }
+ },
+ {
+  "ref": "T0258",
+  "name": "3.0m Cont · Helen Park",
+  "item": "3.0m Cont",
+  "qty": 1,
+  "assetNo": "1134386",
+  "contract": "9974042",
+  "line": 1,
+  "state": "on site",
+  "done": true,
+  "cancelled": false,
+  "moved": false,
+  "first": "2026-10-07",
+  "hire": 285.6,
+  "lab": {},
+  "tr": {
+   "delivery": {
+    "rate": null,
+    "charge": 0,
+    "state": "held",
+    "tick": null
+   },
+   "pickup": {
+    "rate": null,
+    "charge": 0,
+    "state": "held",
+    "tick": null
+   }
+  }
+ },
+ {
+  "ref": "T0266",
+  "name": "6.0m Refrigerator Cont · Helen Park",
+  "item": "6.0m Refrigerator Cont",
+  "qty": 1,
+  "assetNo": null,
+  "contract": "9974042",
+  "line": 2,
+  "state": "on site",
+  "done": true,
+  "cancelled": false,
+  "moved": false,
+  "first": "2026-10-13",
+  "hire": 1428,
+  "lab": {},
+  "tr": {
+   "delivery": {
+    "rate": null,
+    "charge": 0,
+    "state": "held",
+    "tick": null
+   },
+   "pickup": {
+    "rate": null,
+    "charge": 0,
+    "state": "held",
+    "tick": null
+   }
+  }
+ }
+]

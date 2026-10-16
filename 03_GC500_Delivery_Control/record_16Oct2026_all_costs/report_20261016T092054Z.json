@@ -1,0 +1,88 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261016T092054Z",
+ "finished": "2026-10-16T09:21:04.047Z",
+ "mode": "apply",
+ "spec": {
+  "by": "Andrew Fisher",
+  "lines": [
+   "demob",
+   "pickup"
+  ],
+  "ours": [
+   "P11|Portable buildings|Building 4.8m|demob",
+   "P06|Portable buildings|Building 6m|pickup",
+   "P01|Portable buildings|Building 12m|demob",
+   "GN?|Generators|200kva & cables|pickup",
+   "P13|Portable buildings|Building 4.8m|pickup",
+   "GN03|Generators|30kva|pickup",
+   "CP1|Portable buildings|Building 6m|demob",
+   "P03|Portable buildings|Building 12m|pickup",
+   "P03|Portable buildings|Building 12m|demob",
+   "P08|Portable buildings|Building 6m|demob",
+   "P10|Portable buildings|Building 4.8m|demob",
+   "P05|Portable buildings|Building 6m|demob",
+   "HRP|Portable buildings|Building 6m|demob",
+   "AA|Portable buildings|Building 6m|demob",
+   "P08|Portable buildings|Building 6m|pickup",
+   "GN21|Generators|60kva|pickup",
+   "GN23|Generators|150kva|pickup",
+   "HRP|Portable buildings|Building 6m|pickup",
+   "AA|Portable buildings|Building 6m|pickup",
+   "P04|Portable buildings|Building 12m|demob",
+   "P12|Portable buildings|Building 4.8m|demob",
+   "P11|Portable buildings|Building 4.8m|pickup",
+   "P09|Portable buildings|Building 6m|demob",
+   "P14|Portable buildings|Building 4.8m|demob",
+   "GN06|Generators|50kva|pickup",
+   "P14|Portable buildings|Building 4.8m|pickup",
+   "GN01|Generators|60kva|pickup",
+   "P13|Portable buildings|Building 4.8m|demob",
+   "P10|Portable buildings|Building 4.8m|pickup",
+   "P05|Portable buildings|Building 6m|pickup",
+   "GN18|Generators|50kva|pickup",
+   "P12|Portable buildings|Building 4.8m|pickup",
+   "P06|Portable buildings|Building 6m|demob",
+   "P04|Portable buildings|Building 12m|pickup",
+   "CP1|Portable buildings|Building 6m|pickup",
+   "GN13|Generators|45kva|pickup",
+   "P09|Portable buildings|Building 6m|pickup",
+   "P01|Portable buildings|Building 12m|pickup"
+  ],
+  "max": 40
+ },
+ "pageSha256": "43c1c13be6fa5abc4ea66900d2202422972da11328fe7e41a088e9e1fdfd1204",
+ "version": {
+  "before": 9515,
+  "after": 9515
+ },
+ "updated": {
+  "before": "2026-10-16T09:20:53.660Z",
+  "after": "2026-10-16T09:20:53.660Z"
+ },
+ "stage": [
+  {
+   "k": "plan",
+   "ticked": true,
+   "now": "0 ticks on 0 references · {} · at the card $0 {} · complete ticked on 0 · stamps cleared 0 · left off as a person set: 0 ticks, complete off on 0",
+   "refs": [],
+   "done": [],
+   "offList": [],
+   "doneOff": [],
+   "sample": []
+  }
+ ],
+ "writes": [],
+ "refused": [],
+ "mapSessionsBlocked": 0,
+ "docs": {
+  "before": {},
+  "after": {}
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}

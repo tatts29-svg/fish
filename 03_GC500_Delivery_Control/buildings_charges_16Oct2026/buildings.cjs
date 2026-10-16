@@ -13,7 +13,7 @@ const {open} = require('../toolchain/harness/open_page.js');
    try { const card = cardRate(a.discipline, item, a.key); const ic = ItemCharges979.project(a.key, item, ItemIdentity979.select(a.key, item, ONHIRE_ROWS, gcModel925(a).rows), generatorDisplayCharge1004, card.labour_per_piece, src);
     hire = ic.amount; const x = (ic.lines || [])[0]; if (x) { contract = x.contract; line = x.line; assetNo = x.assetNo; } } catch (e) {}
    const info = item ? labourLinesFor(a.key, a.discipline, item, a.key, undefined, a) : {lines: []};
-   const lab = {}; (info.lines || []).forEach(x => { lab[x.key] = {rate: x.rate, ticked: !!labourTicked(a.key, a.discipline, item, x.key, undefined, a)}; });
+   const lab = {}; (info.lines || []).forEach(x => { lab[x.key] = {rate: x.rate, ticked: !!x.ticked || !!labourTicked(a.key, a.discipline, item, x.key, undefined, a) || !!((S.labour || {})[labourKey(a.key, a.discipline, item, x.key)])}; });
    const tr = {}; (T.rows || []).filter(x => x.ref === a.key).forEach(x => { tr[x.leg] = {rate: x.rate, charge: x.actualAdditional1006, state: x.state, tick: x.tick1033 || null}; });
    return {ref: a.key, name: a.name, item, qty: l.quantity, assetNo: assetNo || (a._buildingNumbers || [])[0] || null, contract, line, state: d.state, done: !!d.done,
     cancelled: !!a._cancelled, moved: !!movedAway(a.key), first: a.first_date, hire, lab, tr};
