@@ -183,12 +183,14 @@ JS = r'''/* Author: Andrew Fisher. v10.57 - completed Build day cards: what went
   if (id === 'toilets' || id === 'furniture' || id === 'tanks') return n + ' ' + (n === 1 ? w : PLURAL[w] || w);
   return n > 1 ? n + ' × ' + w : w;
  }
+ /* buildings read largest first, then ticket boxes, then containers */
+ function order(id, w){ if (id !== 'buildings') return 0; const s = parseFloat(w) || parseFloat(String(w).replace(/^\D+/, '')) || 0; return (/^[\d.]+m$/.test(w) ? 0 : /ticket/.test(w) ? 100 : /container/.test(w) ? 200 : 300) - s; }
  function subOf(g, tanks){
   const by = new Map(); g.lines.forEach(l => { const w = word(g.id, l.item); by.set(w, (by.get(w) || 0) + l.n); });
   const places = new Set(g.lines.map(l => l.ref)).size;
   let parts;
   if (['barriers', 'towers', 'vms', 'trakmat'].includes(g.id)) parts = [[...by.keys()].join(' · '), places + (places === 1 ? ' location' : ' locations')];
-  else parts = [...by.entries()].sort((x, y) => y[1] - x[1]).map(([w, n]) => counted(g.id, w, n));
+  else parts = [...by.entries()].sort((x, y) => y[1] - x[1] || order(g.id, x[0]) - order(g.id, y[0])).map(([w, n]) => counted(g.id, w, n));
   if (tanks) parts.push('+' + counted('tanks', 'waste tank', tanks.n));
   return parts.filter(Boolean).join(' · ');
  }
@@ -235,7 +237,7 @@ JS = r'''/* Author: Andrew Fisher. v10.57 - completed Build day cards: what went
  /* the card face: WHAT WENT IN, a two-column grid of tiles */
  function cardHtml(work){
   const c = work.cats1057, tiles = c.tiles || [], other = (work.rows || []).filter(r => r.kind === 'more1057');
-  const tile = x => '<span class="dc1057-tile" data-cat1057="' + e(x.id) + '"><span class="dc1057-n">' + e(fmt(x.n)) + (x.unit ? '<small>' + e(x.unit) + '</small>' : '') + '</span><span class="dc1057-k">' + e(x.name) + '</span>' +
+  const tile = x => '<span class="dc1057-tile" data-cat1057="' + e(x.id) + '"><span class="dc1057-top"><span class="dc1057-n">' + e(fmt(x.n)) + (x.unit ? '<small>' + e(x.unit) + '</small>' : '') + '</span><span class="dc1057-k">' + e(x.name) + '</span></span>' +
    (x.sub ? '<span class="dc1057-s" title="' + e(x.sub) + '">' + e(x.sub) + '</span>' : '') + '</span>';
   let body = tiles.length ? '<span class="dc1057-grid">' + tiles.map(tile).join('') + '</span>' : '<span class="bc986-work-empty">' + (other.length ? 'Nothing new came in' : 'No work recorded') + '</span>';
   if (!tiles.length && other.length) body += '<span class="dc1057-other">' + e(other.map(r => r.label + ' ' + String(r.value).replace(/ refs?$/, '')).join(' · ')) + '</span>';
@@ -276,11 +278,12 @@ JS = r'''/* Author: Andrew Fisher. v10.57 - completed Build day cards: what went
  const st = D.createElement('style'); st.id = 'daycats1057-style';
  st.textContent =
   ':is(#pane-timeline) .dc1057-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px;margin-top:2px}' +
-  ':is(#pane-timeline) .dc1057-tile{display:flex;flex-direction:column;min-width:0;padding:6px 9px 7px;border-radius:9px;background:#08182acc;border:1px solid #8fb3c440;text-shadow:0 1px 4px #06111fe0}' +
-  ':is(#pane-timeline) .dc1057-n{font-size:20px;line-height:1.15;font-weight:700;font-variant-numeric:tabular-nums;color:#f6faf8;white-space:nowrap}' +
-  ':is(#pane-timeline) .dc1057-n small{font-size:12px;font-weight:650;margin-left:3px;color:#d6e2e8}' +
-  ':is(#pane-timeline) .dc1057-k{font-size:11.5px;line-height:1.3;font-weight:650;color:#d6e2e8;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}' +
-  ':is(#pane-timeline) .dc1057-s{font-size:10.5px;line-height:1.35;color:#bac8ce;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}' +
+  ':is(#pane-timeline) .dc1057-tile{display:block;min-width:0;padding:5px 9px 6px;border-radius:9px;background:#08182acc;border:1px solid #8fb3c440;text-shadow:0 1px 4px #06111fe0}' +
+  ':is(#pane-timeline) .dc1057-top{display:flex;flex-wrap:wrap;align-items:baseline;column-gap:6px;min-width:0}' +
+  ':is(#pane-timeline) .dc1057-n{font-size:19px;line-height:1.2;font-weight:700;font-variant-numeric:tabular-nums;color:#f6faf8;white-space:nowrap}' +
+  ':is(#pane-timeline) .dc1057-n small{font-size:12px;font-weight:650;margin-left:2px;color:#d6e2e8}' +
+  ':is(#pane-timeline) .dc1057-k{font-size:11.5px;line-height:1.3;font-weight:650;color:#e3ecef;white-space:nowrap}' +
+  ':is(#pane-timeline) .dc1057-s{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;margin-top:1px;font-size:10.5px;line-height:1.35;color:#bac8ce;overflow-wrap:anywhere}' +
   ':is(#pane-timeline) .dc1057-other{display:block;margin-top:3px;font-size:11px;line-height:1.4;color:#bac8ce;overflow-wrap:anywhere}' +
   ':is(#pane-timeline) .dc1057-flag{display:block;margin-top:7px;font-size:11px;line-height:1.4;font-weight:600;color:#ffc46b}' +
   ':is(#pane-timeline) .dc1057-details .dc1057-h{margin:10px 0 2px}' +
