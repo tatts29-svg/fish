@@ -1,0 +1,22 @@
+{
+ "author": "Andrew Fisher",
+ "given": "17 Oct 2026, in chat, as typed: \"This day this order p63 then p62 then p60. Must be on this exact sequence ... There will be more to come like this\"",
+ "rule": "Each group is one day's set of buildings, in the exact order given. More groups to come.",
+ "groups": [
+  {"n": 1, "as_typed": "p63 then p62 then p60", "sequence": ["P63", "P62", "P60"], "delivered": "15 Oct (all three)", "schedule_demob": "27 Oct (all three)"},
+  {"n": 2, "as_typed": "p25 p66 p65 p66", "sequence": ["P25", "P66", "P65", "P67"], "check": "P66 typed twice; the 14 Oct Esplanade arrival plan is P25, P66, P65, P67, so the second P66 is read as P67 until Andrew says otherwise", "delivered": "14 Oct (all four)", "schedule_demob": "27 Oct (all four)"},
+  {"n": 3, "as_typed": "p45 p69", "sequence": ["P45", "P69"], "delivered": "12 Oct (both)", "schedule_demob": "P69 28 Oct; P45 has no demob row"},
+  {"n": 4, "as_typed": "p54 p56 p54 p52 p57", "sequence": ["P54", "P56", "P55", "P52", "P57"], "check": "P54 typed twice; the only other building delivered that day is P55, so the second P54 is read as P55 until Andrew says otherwise", "delivered": "7 Oct (all five)", "schedule_demob": "30 Oct (all five)"},
+  {"n": 5, "as_typed": "p46. P51 p08", "sequence": ["P46", "P51", "P08"], "delivered": "6 Oct (all three)", "schedule_demob": "P46, P51 29 Oct; P08 has no demob row"},
+  {"n": 6, "as_typed": "p20 p18 p19 p21 p17", "sequence": ["P20", "P18", "P19", "P21", "P17"], "delivered": "16 Sep (all five)", "schedule_demob": "no demob rows"},
+  {"n": 7, "as_typed": "p09 then p33", "sequence": ["P09", "P33"], "delivered": "P33 14 Sep, P09 16 Sep (different days)", "schedule_demob": "no demob rows"},
+  {"n": 8, "as_typed": "p36 . Hrp p10 p11 p12 p13", "sequence": ["P36", "HRP", "P10", "P11", "P12", "P13"], "delivered": "schedule 17 Sep for P36, HRP, P10, P11, P12; 21 Sep for P13", "schedule_demob": "no demob rows"},
+  {"n": 9, "as_typed": "Aa p37 p14 p15 p16", "sequence": ["AA", "P37", "P14", "P15", "P16"], "delivered": "schedule 17 Sep for AA, P37; 21 Sep for P14, P15, P16", "schedule_demob": "no demob rows"},
+  {"n": 10, "as_typed": "p39 p38 p42 po6", "sequence": ["P39", "P38", "P42", "P06"], "delivered": "28 Sep (all four)", "schedule_demob": "no demob rows"}
+ ],
+ "open": [
+  "Which day is each group: the demob pick-up days, or the delivery days? Groups 7, 8 and 9 mix delivery days, and most of the buildings have no demob row yet.",
+  "Group 2: is the second P66 really P67?",
+  "Group 4: is the second P54 really P55?"
+ ]
+}
