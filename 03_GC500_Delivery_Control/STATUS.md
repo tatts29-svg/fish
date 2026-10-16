@@ -1,3 +1,7 @@
+READY TO UPLOAD — v10.39: the drawer opens quickly again; pee panels carry no steps. Owner Claude; claimed version v10.39 on live v10.38. Andrew, 16 Oct: "everything is very laggy and slow at the moment please fix". The tick row (v10.33) now runs inside holdAssets: worst reference 8.5 s → 0.3 s, WC09 drawer 9.0 s → 1.5 s; pee panels install/level/clean/demob only; Pricing unchanged; sweeps clean. Build sha256 `fa44b754a6ab55bed9723a54998edd3d14ea8efaa5945a435de898733066e7a5`. The upload was refused by this session's deploy gate; it waits for Andrew's "Upload". `v10.39_quick_drawer_pee_panels_DRAFT/`.
+
+RECORD OPERATION APPLIED — WC09 complete, 16 Oct 2026 (7298 → 7312, VERIFIED): delivery, level and clean ticked through the page's own tick buttons; install 12/12 and block steps were already on; demob and pick up stay to come. `record_16Oct2026_wc09_complete/`.
+
 RECORD OPERATION APPLIED — Event Portables batch 9, 16 Oct 2026 (7272 → 7282, VERIFIED). Andrew: "WC85 0135." `record_16Oct2026_ep_batch9/`: WC85 1 of 1, installed, dated 16 Oct, complete. Report `report_20261016T013630Z.json`.
 
 RECORD OPERATION APPLIED — Event Portables batch 8, 16 Oct 2026 (7262 → 7272, VERIFIED). Andrew: "PG29 0573." `record_16Oct2026_ep_batch8/`: PG29 1 of 1, installed, dated 16 Oct, complete. All four pit-garage toilets (PG01, PG03, PG05, PG29) in. Report `report_20261016T013347Z.json`.
