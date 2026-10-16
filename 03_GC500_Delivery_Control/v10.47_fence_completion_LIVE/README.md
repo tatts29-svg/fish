@@ -1,4 +1,4 @@
-# v10.47 — fencing completion read like for like, schedule against dockets — READY TO UPLOAD (with v10.45, v10.46)
+# v10.47 — fencing completion read like for like, schedule against dockets — LIVE 16 Oct 2026 17:43 AEST
 
 Author: Andrew Fisher. Andrew, 16 Oct 2026: "Please ensure we audit the numbers for fencing. You should know by the
 schedule what's been done already, and by dockets we've done. Common sense. We need the completion percentage accurate."
@@ -18,5 +18,5 @@ unchanged. Footer v10.46 → v10.47.
 Built from live v10.44 with v10.45, v10.46, v10.47: sha256 `fb68b94d48e639a809ea860fcc9cb9c150022d7af6a5eb72ad7e0386f4beb704`, check_page PASS. `tests/test_fence1047.cjs` 11/11;
 v10.46's 14 checks other than its footer pass on this build. Sweeps desktop and phone: 18 tabs shown, 0 errors, 0 console.
 
-    bash toolchain/build.sh v10.47 v10.45_scrim_bill_check_DRAFT/patch_v1045.py v10.46_ccb_from_schedule_DRAFT/patch_v1046.py v10.47_fence_completion_DRAFT/patch_v1047.py
+    bash toolchain/build.sh v10.47 v10.45_scrim_bill_check_LIVE/patch_v1045.py v10.46_ccb_from_schedule_LIVE/patch_v1046.py v10.47_fence_completion_LIVE/patch_v1047.py
     python3 toolchain/upload_page.py build/GC500_v10.47/GC500_Delivery_Control_hosted.html

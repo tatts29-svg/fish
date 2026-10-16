@@ -1,4 +1,4 @@
-# v10.46 — every barrier docket carries its event or demarcation category from the schedule — READY TO UPLOAD (with v10.45)
+# v10.46 — every barrier docket carries its event or demarcation category from the schedule — LIVE 16 Oct 2026 17:43 AEST
 
 Author: Andrew Fisher. Andrew, 16 Oct 2026: "Stop asking demarc or event, you should know based off request in schedule."
 
@@ -18,5 +18,5 @@ All 25 barrier dockets now read confirmed; "needs category review" is gone from 
 Built from live v10.44 with v10.45 and v10.46: sha256 `0b2e1a2c0c0babc957619d48f2770087c2d182159ec0621359fa5a9314d4579c`, check_page PASS. `tests/test_ccb1046.cjs` 15/15;
 v10.45's test 9/9. Sweeps desktop and phone: 18 tabs shown, 0 errors, 0 console.
 
-    bash toolchain/build.sh v10.46 v10.45_scrim_bill_check_DRAFT/patch_v1045.py v10.46_ccb_from_schedule_DRAFT/patch_v1046.py
+    bash toolchain/build.sh v10.46 v10.45_scrim_bill_check_LIVE/patch_v1045.py v10.46_ccb_from_schedule_LIVE/patch_v1046.py
     python3 toolchain/upload_page.py build/GC500_v10.46/GC500_Delivery_Control_hosted.html

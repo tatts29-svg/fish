@@ -1,4 +1,4 @@
-# v10.45 — Fencing tab lists where Advanced's bill and the signed docket disagree on scrim — READY TO UPLOAD
+# v10.45 — Fencing tab lists where Advanced's bill and the signed docket disagree on scrim — LIVE 16 Oct 2026 17:43 AEST
 
 Author: Andrew Fisher. From the fencing audit of 16 Oct 2026 (`audit_16Oct2026_fencing/`).
 
@@ -11,5 +11,5 @@ Built on live v10.44 (`62b96d62…`): 18,063,523 bytes, sha256 `8c7f3253f91b895f
 9/9 (existing 4 items unchanged, exactly the 7 added, 36577 left out, totals unchanged at $275,347.99 / $168,642.20).
 Sweeps desktop and phone: 18 tabs shown, 0 errors, 0 console.
 
-    bash toolchain/build.sh v10.45 v10.45_scrim_bill_check_DRAFT/patch_v1045.py
+    bash toolchain/build.sh v10.45 v10.45_scrim_bill_check_LIVE/patch_v1045.py
     python3 toolchain/upload_page.py build/GC500_v10.45/GC500_Delivery_Control_hosted.html
