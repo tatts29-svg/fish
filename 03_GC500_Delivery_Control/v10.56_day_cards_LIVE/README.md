@@ -1,4 +1,4 @@
-# v10.56 — completed day cards: Coates on time, and what came in (DRAFT, waiting on Andrew's "Upload")
+# v10.56 — completed day cards: Coates on time, and what came in (LIVE 17 Oct 2026 07:19 AEST)
 
 Author: Andrew Fisher · 17 Oct 2026
 
@@ -27,7 +27,7 @@ The record does not change. Footer v10.55 → v10.56.
 ## Build and checks
 
 ```
-bash toolchain/build.sh v10.56 v10.56_day_cards_DRAFT/patch_v1056.py
+bash toolchain/build.sh v10.56 v10.56_day_cards_LIVE/patch_v1056.py
 python3 toolchain/upload_page.py build/GC500_v10.56/GC500_Delivery_Control_hosted.html
 ```
 
@@ -35,3 +35,10 @@ python3 toolchain/upload_page.py build/GC500_v10.56/GC500_Delivery_Control_hoste
 - `tests/test_daycards1056.cjs`: 24/24 on desktop and phone (adds the money comma, the WC20 map labels and WC20's four numbers).
 - Sweeps: 24 tabs and 7 links, 0 errors.
 - Phone screenshot: `evidence/oct7_card_phone.png`.
+
+## Live
+
+Uploaded 17 Oct 2026 07:19 AEST on Andrew's "Upload". The base guard passed (live was v10.55 `0cfe02f8…`). The view link serves the build byte for byte: 18,158,203 bytes, sha256 `03ebb3cc0f1e4e4d630da2ea5792a9920212f9ca244773a5629f56cc2e4a8a72`.
+
+- `tests/test_daycards1056.cjs` on the live page: 24/24, desktop and phone.
+- Sweeps on the build: 24 tabs and 7 links, 0 errors, desktop and phone. The six edit-only tabs stay hidden on the view link, as before.
