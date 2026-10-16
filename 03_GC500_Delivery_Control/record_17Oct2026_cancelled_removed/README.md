@@ -36,4 +36,23 @@ references to be removed.
   Site vs Baseplan still lists P06 only.
 - No page errors.
 
-P47 is not part of this. Andrew says it is on site, and it is being checked separately against P65.
+## P47 deleted too · 07:33 AEST · record 9602 → 9607, VERIFIED
+
+Andrew, 17 Oct 2026: "Yes correct cancel p47" and "Make sure these numbers dont pop up again and cause confusion".
+
+- P47 (QPS Amenities Crib Room) was cancelled on the page by Andrew on 6 Oct at 12:27, "No longer needed". That
+  morning he had said: "P47 is cancelled … p46. Then p51 then p08".
+- Its only number, 1327217, is P65's building: Baseplan 9968862 line 110, P65, Delivered. P65 is on site with
+  Andrew's passenger door side.
+- It was deleted the same way as the others (`remove_p47_spec.json`). Backup `backup_state_20261016T213344Z.json`;
+  5 PUTs, all 200; report `report_20261016T213344Z.json`. The money is unchanged (tested in page memory first).
+
+## The numbers no longer pop up anywhere else (live page, all 24 tabs plus the P65, P66, P18 and P36 drawers)
+
+- P27, P29, P47 and P53 show nowhere.
+- 1327217 shows only on P65 (hire line 110, $1,426.07).
+- 1327222 shows only on P66 (line 113, $1,426.07).
+- 1097343 shows only on P18 (line 36, $1,125.84).
+- The deletion tombstones travel on every copy of the record. A schedule or Baseplan refresh that still lists these
+  references is filtered out by the page's own deleted-asset rule, so they cannot come back.
+
