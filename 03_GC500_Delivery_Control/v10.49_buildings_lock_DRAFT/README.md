@@ -26,7 +26,7 @@ Built from live v10.48 `43c1c13b…`, check_page PASS. `tests/test_lock1049.cjs`
 simulated inside the page; nothing reaches the service): card and snapshot (52 buildings, $147,017.32, equal to the
 16 Oct buildings breakdown), lock with the person, building tick and complete refused while locked, toilets not
 locked, a change past the lock shows as drift, unlock, ticks free again, WC86 FWF $218.61, no agent names, no page
-errors, phone layout, buttons hidden on the view link.
+errors, phone layout, buttons hidden on the view link. Sweeps desktop and phone: 18 tabs shown, 0 errors, 0 console.
 
 After upload, the first lock is pressed on Andrew's word (his "locked in"), through the page's own `lock1049`.
 
