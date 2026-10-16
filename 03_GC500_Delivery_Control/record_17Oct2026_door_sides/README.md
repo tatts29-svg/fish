@@ -27,7 +27,12 @@ page's own door-side control (`loading872Set`):
 Andrew, 17 Oct 2026: "P41 door ro driver" (door to driver). P41 unit 1189412 → driver (`doors_p41_spec.json`;
 backup `backup_state_20261016T205447Z.json`; 1 PUT 200; report `report_20261016T205447Z.json`).
 
-Still no door side on record, and not guessed: P44, P46, P51, P57, P58, P60, P62, P63 and T0266.
+## P44 to passenger · 06:57 AEST · record 9569 → 9570, VERIFIED
+
+Andrew, 17 Oct 2026: "P44 door to passenger". P44 unit 198481 → passenger (`doors_p44_spec.json`; backup
+`backup_state_20261016T205655Z.json`; 1 PUT 200; report `report_20261016T205655Z.json`).
+
+Still no door side on record, and not guessed: P46, P51, P57, P58, P60, P62, P63 and T0266.
 
     node doors.cjs            dry run (default)
     node doors.cjs --apply    needs GC500_EDIT_TOKEN and GC500_EXPECTED_PAGE_SHA
