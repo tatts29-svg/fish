@@ -32,7 +32,13 @@ backup `backup_state_20261016T205447Z.json`; 1 PUT 200; report `report_20261016T
 Andrew, 17 Oct 2026: "P44 door to passenger". P44 unit 198481 → passenger (`doors_p44_spec.json`; backup
 `backup_state_20261016T205655Z.json`; 1 PUT 200; report `report_20261016T205655Z.json`).
 
-Still no door side on record, and not guessed: P46, P51, P57, P58, P60, P62, P63 and T0266.
+## P63 to driver, P62 and P60 to passenger · 07:02 AEST · record 9570 → 9573, VERIFIED
+
+Andrew, 17 Oct 2026: "P63 door to driver  p62 door to passenger p60 door to passenger". P63 unit 960719 → driver,
+P62 unit 1189409 → passenger, P60 unit 1015699 → passenger (`doors_p63_p62_p60_spec.json`; backup
+`backup_state_20261016T210156Z.json`; 3 PUTs 200; report `report_20261016T210156Z.json`).
+
+Still no door side on record, and not guessed: P46, P51, P57, P58 and T0266.
 
     node doors.cjs            dry run (default)
     node doors.cjs --apply    needs GC500_EDIT_TOKEN and GC500_EXPECTED_PAGE_SHA
