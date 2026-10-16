@@ -34,10 +34,11 @@ async function load(mob){ const h = await open(Object.assign({pageFile: page, ha
    out.noAgent = !/Codex|Claude/.test(document.getElementById('pane-costs').innerText.slice(0, 3000));
    return out; });
   console.log(JSON.stringify({card0txt: r.card0txt, card1txt: r.card1txt, card2txt: r.card2txt, card3txt: r.card3txt, drift: r.drift, wc86: r.wc86, wc01: r.wc01, svc: r.svc}, null, 1));
-  ok(/v10\.49$/.test(r.foot), 'footer v10.49');
+  ok(/v10\.(49|50)$/.test(r.foot), 'footer v10.49 or v10.50 (built together)');
   ok(r.card0 === 'open' && /Buildings · not locked/.test(r.card0txt), 'Costs shows the Buildings card, not locked');
-  ok(r.n === 52 && Math.abs(r.total - 147017.32) < 0.005, 'snapshot: 52 buildings, $147,017.32 (the verified breakdown) — got ' + r.n + ' ' + r.total);
-  ok(r.lock === true && r.locked && Math.abs(r.lockedTotal - 147017.32) < 0.005 && r.lockedBy === 'Andrew Fisher', 'Lock stores the snapshot with the person');
+  const exp = /v10\.50$/.test(r.foot) ? 149017.32 : 147017.32; /* v10.50 adds the containers' contract transport, $2,000 */
+  ok(r.n === 52 && Math.abs(r.total - exp) < 0.005, 'snapshot: 52 buildings, ' + exp + ' (the verified breakdown' + (exp > 147017.32 ? ' + containers on the contract' : '') + ') — got ' + r.n + ' ' + r.total);
+  ok(r.lock === true && r.locked && Math.abs(r.lockedTotal - r.total) < 0.005 && r.lockedBy === 'Andrew Fisher', 'Lock stores the snapshot with the person');
   ok(r.card1 === 'locked' && /No change since the lock/.test(r.card1txt), 'locked card: no change since the lock');
   ok(r.refused, 'while locked a building tick cannot be changed');
   ok(r.doneRefused, 'while locked a building complete cannot be changed');

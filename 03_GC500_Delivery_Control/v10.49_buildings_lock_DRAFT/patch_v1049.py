@@ -33,7 +33,7 @@ NEW = r'''/* v10.49 - buildings-lock-1049: lock and unlock the buildings positio
  const nm = s => { try { return noAgent1030(String(s || '')); } catch (x) { return String(s || ''); } };
  const $m = v => '$' + r2(v).toLocaleString('en-AU', {minimumFractionDigits: 2, maximumFractionDigits: 2});
  const when = iso => { try { return new Date(iso).toLocaleString('en-AU', {timeZone: 'Australia/Brisbane', day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit', hour12: false}).replace(',', ''); } catch (x) { return iso; } };
- const LBL = {hire: 'Hire', install: 'Install', steps: 'Steps', levelling: 'Levelling', cleaning: 'Cleaning', fire_ext: 'Fire extinguisher', demob: 'Demob', delivery: 'Delivery', pickup: 'Pick-up'};
+ const LBL = {hire: 'Hire', install: 'Install', steps: 'Steps', levelling: 'Levelling', cleaning: 'Cleaning', fire_ext: 'Fire extinguisher', demob: 'Demob', delivery: 'Delivery', pickup: 'Pick-up', delivery_contract: 'Delivery (on the contract)', pickup_contract: 'Pick-up (on the contract)'};
  function state1049(){ try { const v = (S.runRules || {})[KEY]; return v ? JSON.parse(v) : null; } catch (x) { return null; } }
  function lockedNow1049(){ const s = state1049(); return !!(s && s.locked); }
  function isBuilding(key){ try { const a = (typeof assetOf === 'function' ? assetOf(key) : null) || allAssets().find(x => x.key === key); return !!a && a.discipline === DISC; } catch (x) { return false; } }
@@ -46,8 +46,11 @@ NEW = r'''/* v10.49 - buildings-lock-1049: lock and unlock the buildings positio
     const l = (chargeLines(a) || [])[0] || {}, item = l.item, c = {};
     try { const card = cardRate(a.discipline, item, a.key); const ic = ItemCharges979.project(a.key, item, ItemIdentity979.select(a.key, item, ONHIRE_ROWS, gcModel925(a).rows), generatorDisplayCharge1004, card.labour_per_piece, src); if (Number(ic.amount)) c.hire = r2(ic.amount); } catch (x) {}
     const info = item ? labourLinesFor(a.key, a.discipline, item, a.key, undefined, a) : {lines: []};
-    (info.lines || []).forEach(x => { const on = !!x.ticked || !!labourTicked(a.key, a.discipline, item, x.key, undefined, a) || !!((S.labour || {})[labourKey(a.key, a.discipline, item, x.key)]); if (on && x.rate) c[x.key] = r2(x.rate); });
-    (T.rows || []).filter(r => r.ref === a.key && (r.leg === 'delivery' || r.leg === 'pickup') && r.tick1033 === 'on').forEach(r => { c[r.leg] = r2(r.actualAdditional1006 || 0); });
+    (info.lines || []).forEach(x => { if (x.key === 'fire_ext') return; const on = !!x.ticked || !!labourTicked(a.key, a.discipline, item, x.key, undefined, a); if (on && x.rate) c[x.key] = r2(x.rate); });
+    try { const f = typeof fire914Of === 'function' ? fire914Of(a) : null; if (f && f.host && Number(f.amount)) c.fire_ext = r2(f.amount); } catch (x) {} /* the recorded fire extinguisher, as the page charges it */
+    (T.rows || []).filter(r => r.ref === a.key && (r.leg === 'delivery' || r.leg === 'pickup')).forEach(r => {
+     if (r.tick1033 === 'on' && r.actualAdditional1006) c[r.leg] = r2(r.actualAdditional1006);
+     else if (r.state === 'covered' && r.coveredEstimate) c[r.leg + '_contract'] = r2(r.coveredEstimate); }); /* contract-billed legs, already in the contract charges */
     const t = r2(Object.values(c).reduce((n, v) => n + v, 0)); refs[a.key] = {c, t}; total += t;
    });
    return {refs, total: r2(total), n: Object.keys(refs).length};
