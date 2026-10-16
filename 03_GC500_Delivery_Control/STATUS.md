@@ -1,4 +1,8 @@
-READY TO UPLOAD — v10.43: the person's name only, on screen, in CSV downloads and in copies. Owner Claude (taken over from Codex). Fixes the "(via Claude)" bracket form that showed on the WC41/WC43 drawers (52 record entries), and cleans every CSV download and copy the same way. Test 8/8 (14 tabs, 187 drawers, no agent name), sweeps clean. Build `1d3d14231bada5b2d7b658f12f450967df25ea8f0f414bcec613a9682a796478` on live v10.42. Waits for Andrew's "Upload". `v10.43_names_DRAFT/`.
+READY TO UPLOAD — v10.44: the person's name only, everywhere (page-wide safety net). Owner Claude. Cleans agent names drawn by routines other than esc() (closed sections, night-service print, transport evidence, area sign-off; WC20 drawer showed "via Codex" on v10.43). Test 5/5 (every tab, print views, 187 drawers with sections opened; no tab slower), sweeps clean. Build `62b96d62ea38758f31b0f3876d1d0a00886dbf504ed26e7ed79ec1db863f9399` on live v10.43. Waits for Andrew's "Upload". `v10.44_names_everywhere_DRAFT/`.
+
+NEEDS ANDREW — fencing review (other agent's unfinished v10.43 data half, `v10.43_fencing_review_DRAFT/`): it changes the CCB review and fencing progress figures from a private reviewed bundle that was never handed over. Not applied; needs the source documents from Andrew to redo.
+
+LIVE — v10.43: the person's name only on screen, in CSV downloads and copies. Uploaded 16 Oct 2026 15:02 AEST on Andrew's "Upload", over v10.42; base guard passed, view link reads back byte for byte: 18,058,399 bytes, sha256 `1d3d14231bada5b2…`. `v10.43_names_LIVE/`.
 
 READY TO PUBLISH — v10.41: 3D compass containment (map machine release, not the page). Owner Claude (finished from Codex's draft). Candidate machine `43c59fc5…` on live `86eb6916…`: 4 files change, 232 kept. Compass 320 cases fit, guards 17/17, 3D regression desktop 26/26, phone 33/33. Waits for Andrew's word. `v10.41_compass_DRAFT/`.
 

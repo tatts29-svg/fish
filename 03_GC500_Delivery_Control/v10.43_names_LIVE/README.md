@@ -1,4 +1,4 @@
-# v10.43 — the person's name only, on screen, in CSV downloads and in copies — READY TO UPLOAD
+# v10.43 — the person's name only, on screen, in CSV downloads and in copies — LIVE 16 Oct 2026 15:02 AEST
 
 Author: Andrew Fisher. Standing instruction: no mention on any tab that an entry was done through an assistant. Taken
 over from the other agent's v10.43 claim (person-name display corrections) on Andrew's word, 16 Oct 2026.
