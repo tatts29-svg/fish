@@ -1,4 +1,4 @@
-# v10.48 — Coates delivery times on each past day card — READY TO UPLOAD
+# v10.48 — Coates delivery times on each past day card — LIVE 16 Oct 2026 18:52 AEST
 
 Author: Andrew Fisher. Andrew, 16 Oct 2026: "Good data to have against each day card I think. Days that have passed."
 
@@ -31,6 +31,8 @@ charges and costs do not change. Footer v10.47 → v10.48.
 
 Built from live v10.47 `fb68b94d…`, check_page PASS. `tests/test_dt1048.cjs` 15/15 (GET only). Sweeps desktop and phone: 18 tabs shown, 0 errors, 0 console.
 
-    bash toolchain/build.sh v10.48 v10.48_delivery_times_DRAFT/patch_v1048.py
-    node v10.48_delivery_times_DRAFT/tests/test_dt1048.cjs build/GC500_v10.48/GC500_Delivery_Control_hosted.html
+    bash toolchain/build.sh v10.48 v10.48_delivery_times_LIVE/patch_v1048.py
+    node v10.48_delivery_times_LIVE/tests/test_dt1048.cjs build/GC500_v10.48/GC500_Delivery_Control_hosted.html
     python3 toolchain/upload_page.py build/GC500_v10.48/GC500_Delivery_Control_hosted.html
+
+Uploaded 16 Oct 2026 18:52 AEST on Andrew's "upload", over v10.47 `fb68b94d…`. The first try got a 502 upstream error from the service and was refused (live page checked unchanged); the retry passed the base guard and the view link reads back byte for byte: 18,096,269 bytes, sha256 `43c1c13be6fa5abc…`. Record 8077 unchanged.
