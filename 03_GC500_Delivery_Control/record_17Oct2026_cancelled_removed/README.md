@@ -68,3 +68,15 @@ Andrew, 17 Oct 2026: "t0265 we spoke about this and where. fridges are".
 - Deleted the same way (`remove_t0265_spec.json`): 5 PUTs, all 200; backup `backup_state_20261016T224210Z.json`;
   report `report_20261016T224210Z.json`. Tested in page memory first: every charge unchanged (labour $74,374.67,
   contracts $254,985.83, delivery $123,960.34, buildings $149,017.32), and P46 keeps both fridges.
+
+## WC32 and T0019 deleted · 08:46 AEST · record 9612 → 9622, VERIFIED
+
+Andrew, 17 Oct 2026: "yes delete".
+
+- WC32 (Toilets) was cancelled on 3 Oct at 20:11 on Andrew's word ("wc32 is cancelled"), and the customer's 2 Oct master
+  plan dropped it too.
+- T0019 (Generator 200 kVA) was taken off its day on 14 Sep and replaced by GN20 (1276701).
+- Neither had a number.
+- Spec `remove_wc32_t0019_spec.json`: 10 PUTs, all 200; backup `backup_state_20261016T224602Z.json`; report
+  `report_20261016T224602Z.json`. The money is unchanged (tested in page memory), and 1276701 stays on GN20.
+- Nothing on the page is marked cancelled any more.
