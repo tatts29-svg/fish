@@ -118,9 +118,10 @@ JS = r'''/* Author: Andrew Fisher. v10.57 - completed Build day cards: what went
   if (recToday) bits.push('Receipt ' + hm(r.at) + (r.q !== ordered ? ' says ' + r.q + ' (the charge line says ' + ordered + ')' : had > 0 || r.q < ordered ? ' · ' + r.q + ' of ' + ordered + ' received' : ''));
   else if (r && r.day && r.day < iso && !isToilet(a) && r.q !== ordered) bits.push('quantity from the receipt of ' + dmy(r.day) + ' (the charge line says ' + ordered + ')');
   if (recToday && !now.on) bits.push('before the site light was set');
+  if (recToday && !lit && was.on) { const b = lightBefore(a, iso); if (b) bits.push('site light since ' + dmy(dayOf(b.at))); }
   if (!bits.length) { const t = doneAt(a, iso); bits.push(t ? 'Installed tick ' + hm(t) : 'Site record at the day’s close'); }
   if (had > 0) bits.push(had + ' counted earlier');
-  const held = now.held.get(item) || 0; if (held > 0) bits.push(has + ' of ' + ordered + ' · ' + held + ' held for a later programme row');
+  const held = now.held.get(item) || 0; if (held > 0) bits.push(has + ' of ' + ordered + ' by the programme row for the day, ' + held + ' held for a later row (not a site count)');
   return bits.join(' · ');
  }
  function offHow(a, item, iso){
@@ -189,8 +190,14 @@ JS = r'''/* Author: Andrew Fisher. v10.57 - completed Build day cards: what went
   const by = new Map(); g.lines.forEach(l => { const w = word(g.id, l.item); by.set(w, (by.get(w) || 0) + l.n); });
   const places = new Set(g.lines.map(l => l.ref)).size;
   let parts;
-  if (['barriers', 'towers', 'vms', 'trakmat'].includes(g.id)) parts = [[...by.keys()].join(' · '), places + (places === 1 ? ' location' : ' locations')];
+  const where = places + (places === 1 ? ' location' : ' locations');
+  if (g.id === 'barriers') parts = [[...by.keys()].join(' · '), where];
+  else if (['towers', 'vms', 'trakmat'].includes(g.id)) parts = [where];
   else parts = [...by.entries()].sort((x, y) => y[1] - x[1] || order(g.id, x[0]) - order(g.id, y[0])).map(([w, n]) => counted(g.id, w, n));
+  if (g.id === 'buildings' && parts.join(' · ').length > 30) {
+   const ty = new Map(); by.forEach((n, w) => { const k = /^[\d.]+m$/.test(w) ? 'building' : /ticket/.test(w) ? 'ticket box' : /container/.test(w) ? 'container' : w; ty.set(k, (ty.get(k) || 0) + n); });
+   parts = [...ty.entries()].map(([k, n]) => n + ' ' + (n === 1 ? k : k === 'ticket box' ? 'ticket boxes' : k + 's'));
+  }
   if (tanks) parts.push('+' + counted('tanks', 'waste tank', tanks.n));
   return parts.filter(Boolean).join(' · ');
  }
@@ -237,11 +244,15 @@ JS = r'''/* Author: Andrew Fisher. v10.57 - completed Build day cards: what went
  /* the card face: WHAT WENT IN, a two-column grid of tiles */
  function cardHtml(work){
   const c = work.cats1057, tiles = c.tiles || [], other = (work.rows || []).filter(r => r.kind === 'more1057');
-  const tile = x => '<span class="dc1057-tile" data-cat1057="' + e(x.id) + '"><span class="dc1057-top"><span class="dc1057-n">' + e(fmt(x.n)) + (x.unit ? '<small>' + e(x.unit) + '</small>' : '') + '</span><span class="dc1057-k">' + e(x.name) + '</span></span>' +
+  const tile = x => '<span class="dc1057-tile" data-cat1057="' + e(x.id) + '"><span class="dc1057-n">' + e(fmt(x.n)) + (x.unit ? '<small>' + e(x.unit) + '</small>' : '') + '</span><span class="dc1057-k">' + e(x.name) + '</span>' +
    (x.sub ? '<span class="dc1057-s" title="' + e(x.sub) + '">' + e(x.sub) + '</span>' : '') + '</span>';
-  let body = tiles.length ? '<span class="dc1057-grid">' + tiles.map(tile).join('') + '</span>' : '<span class="bc986-work-empty">' + (other.length ? 'Nothing new came in' : 'No work recorded') + '</span>';
+  const quiet = c.off.length || c.lights.length;
+  let body = tiles.length ? '<span class="dc1057-grid">' + tiles.map(tile).join('') + '</span>' : '<span class="bc986-work-empty">' + (other.length || quiet ? 'Nothing new went in' + (quiet && !other.length ? ' · More info' : '') : 'No work recorded') + '</span>';
   if (!tiles.length && other.length) body += '<span class="dc1057-other">' + e(other.map(r => r.label + ' ' + String(r.value).replace(/ refs?$/, '')).join(' · ')) + '</span>';
-  if (c.noLight.length) body += '<span class="dc1057-flag">' + c.noLight.length + (c.noLight.length === 1 ? ' receipt' : ' receipts') + ' without a site light · More info</span>';
+  if (c.noLight.length) {
+   const by = new Map(); c.noLight.forEach(x => { const k = x.cat; const o = by.get(k) || {q: 0, of: 0}; o.q += x.q; o.of += x.of; by.set(k, o); });
+   body += '<span class="dc1057-flag">' + e([...by.entries()].map(([k, o]) => o.q + ' of ' + o.of + ' ' + (o.of === 1 ? k.replace(/s$/, '') : k) + ' receipted with no site light · not counted').join(' · ')) + '</span>';
+  }
   return '<span class="bc986-work"><span class="bc984-label bc986-work-heading">WHAT WENT IN</span>' + body + '</span>';
  }
  const card0 = W.BuildWorkView986.card;
@@ -256,13 +267,14 @@ JS = r'''/* Author: Andrew Fisher. v10.57 - completed Build day cards: what went
  const refLine = l => l.ref + (l.name ? ' · ' + l.name : '');
  function detailsHtml(work){
   const c = work.cats1057, rows = work.rows || [], det = work.details || [];
-  let h = '<section class="bc986-work-details dc1057-details"><b>What went in</b>';
-  h += c.tiles.length ? '<dl>' + c.tiles.map(x => '<div><dt>' + e(x.name) + (x.sub ? ' <small>' + e(x.sub) + '</small>' : '') + '</dt><dd>' + e(fmt(x.n) + (x.unit ? ' ' + x.unit : '')) + '</dd></div>').join('') + '</dl>' : '<p>Nothing new came in this day.</p>';
+  let h = '<section class="bc986-work-details dc1057-details"><b>What went in · where each number comes from</b>';
+  if (!c.groups.length) h += '<p>Nothing new went in this day.</p>';
   c.groups.forEach(g => { h += head(g.name + ' ' + fmt(g.n)) + '<ul>' + g.lines.map(l => li(refLine(l) + ' · ' + fmt(l.n) + ' × ' + l.item, l.how)).join('') + '</ul>'; });
   const fd = det.filter(d => d.kind === 'fencing'), fo = det.filter(d => d.kind === 'fencing-operation');
-  if (fd.length) h += head('Fencing and crowd barriers · dockets') + list(fd);
-  if (fo.length) h += head('Fence moved, removed or reinstated') + list(fo);
-  if (c.noLight.length) h += head('Receipts without a site light · not counted', 'dc1057-amber') + '<ul>' + c.noLight.map(x => li(refLine(x) + ' · ' + x.q + ' of ' + x.of + ' × ' + x.item + ' receipted', 'Receipt ' + hm(x.at) + ' · the site light is not set to on site, so the card does not count them', 'dc1057-amber')).join('') + '</ul>';
+  const ft = c.tiles.filter(x => ['fencing', 'ccb', 'fencework'].includes(x.id)).map(x => x.name + ' ' + fmt(x.n) + (x.unit ? ' ' + x.unit : ''));
+  if (fd.length) h += head((ft.length ? ft.join(' · ') + ' · ' : 'Fencing · ') + 'from the dockets') + list(fd);
+  if (fo.length) h += head('Work on existing fence (moved, removed, reinstated or scrimmed) · not new fence') + list(fo);
+  if (c.noLight.length) h += head('Receipts with no site light · not counted', 'dc1057-amber') + '<ul>' + c.noLight.map(x => li(refLine(x) + ' · ' + x.q + ' of ' + x.of + ' ' + x.item + ' receipted', 'Receipt ' + hm(x.at) + ' · the site light is not set to on site, so the card does not count them until it is', 'dc1057-amber')).join('') + '</ul>';
   if (c.off.length) h += head('Went off') + '<ul>' + c.off.map(x => li(refLine(x) + ' · ' + fmt(x.n) + ' × ' + x.item, x.how)).join('') + '</ul>';
   if (c.lights.length) h += head('Site lights that added nothing') + '<ul>' + c.lights.map(x => li(refLine(x), x.how)).join('') + '</ul>';
   const other = rows.filter(r => r.kind === 'more1057'), od = det.filter(d => d && !['fencing', 'fencing-operation', 'arrival'].includes(d.kind));
@@ -278,11 +290,10 @@ JS = r'''/* Author: Andrew Fisher. v10.57 - completed Build day cards: what went
  const st = D.createElement('style'); st.id = 'daycats1057-style';
  st.textContent =
   ':is(#pane-timeline) .dc1057-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px;margin-top:2px}' +
-  ':is(#pane-timeline) .dc1057-tile{display:block;min-width:0;padding:5px 9px 6px;border-radius:9px;background:#08182acc;border:1px solid #8fb3c440;text-shadow:0 1px 4px #06111fe0}' +
-  ':is(#pane-timeline) .dc1057-top{display:flex;flex-wrap:wrap;align-items:baseline;column-gap:6px;min-width:0}' +
-  ':is(#pane-timeline) .dc1057-n{font-size:19px;line-height:1.2;font-weight:700;font-variant-numeric:tabular-nums;color:#f6faf8;white-space:nowrap}' +
+  ':is(#pane-timeline) .dc1057-tile{display:flex;flex-direction:column;min-width:0;padding:6px 10px 7px;border-radius:10px;background:#08182acc;border:1px solid #8fb3c440;text-shadow:0 1px 4px #06111fe0}' +
+  ':is(#pane-timeline) .dc1057-n{font-size:20px;line-height:1.15;font-weight:700;font-variant-numeric:tabular-nums;color:#f6faf8;white-space:nowrap}' +
   ':is(#pane-timeline) .dc1057-n small{font-size:12px;font-weight:650;margin-left:2px;color:#d6e2e8}' +
-  ':is(#pane-timeline) .dc1057-k{font-size:11.5px;line-height:1.3;font-weight:650;color:#e3ecef;white-space:nowrap}' +
+  ':is(#pane-timeline) .dc1057-k{font-size:11.5px;line-height:1.3;font-weight:650;color:#e3ecef;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}' +
   ':is(#pane-timeline) .dc1057-s{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;margin-top:1px;font-size:10.5px;line-height:1.35;color:#bac8ce;overflow-wrap:anywhere}' +
   ':is(#pane-timeline) .dc1057-other{display:block;margin-top:3px;font-size:11px;line-height:1.4;color:#bac8ce;overflow-wrap:anywhere}' +
   ':is(#pane-timeline) .dc1057-flag{display:block;margin-top:7px;font-size:11px;line-height:1.4;font-weight:600;color:#ffc46b}' +
