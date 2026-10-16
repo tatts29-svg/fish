@@ -107,7 +107,7 @@ function applyOps(spec) {
     let T = {}; try { T = buildingTransportModel831() || {}; } catch (e) {}
     for (const a of allAssets()) {
       if (spec.max && refs.size >= spec.max) break;
-      if (a._cancelled || movedAway(a.key)) continue; if (REFSET && !REFSET.has(a.key)) continue; const d = deliveryOf(a.key); if (d.state !== 'on site') continue;
+      if (a._cancelled || movedAway(a.key)) continue; if (REFSET && !REFSET.has(a.key)) continue; if (spec.disc && a.discipline !== spec.disc) continue; const d = deliveryOf(a.key); if (d.state !== 'on site') continue;
       const ls = chargeLines(a) || []; if (!ls.length) continue;
       for (const l of ls) {
         const info = labourLinesFor(a.key, l.discipline, l.item, a.key, undefined, a);
