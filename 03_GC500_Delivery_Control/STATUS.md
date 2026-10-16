@@ -12,6 +12,8 @@ READY TO UPLOAD — v10.39: the drawer opens quickly again; pee panels carry no 
 
 RECORD OPERATION APPLIED — WC09 complete, 16 Oct 2026 (7298 → 7312, VERIFIED): delivery, level and clean ticked through the page's own tick buttons; install 12/12 and block steps were already on; demob and pick up stay to come. `record_16Oct2026_wc09_complete/`.
 
+RECORD OPERATION APPLIED — Event Portables batch 10, 16 Oct 2026 (7339 → 7349, VERIFIED). Andrew: "WC65 is here 0033. Please complete too." `record_16Oct2026_ep_batch10/`: WC65 1 of 1, installed, dated 16 Oct, complete; the last toilet still to arrive. Report `report_20261016T023114Z.json`.
+
 RECORD OPERATION APPLIED — Event Portables batch 9, 16 Oct 2026 (7272 → 7282, VERIFIED). Andrew: "WC85 0135." `record_16Oct2026_ep_batch9/`: WC85 1 of 1, installed, dated 16 Oct, complete. Report `report_20261016T013630Z.json`.
 
 RECORD OPERATION APPLIED — Event Portables batch 8, 16 Oct 2026 (7262 → 7272, VERIFIED). Andrew: "PG29 0573." `record_16Oct2026_ep_batch8/`: PG29 1 of 1, installed, dated 16 Oct, complete. All four pit-garage toilets (PG01, PG03, PG05, PG29) in. Report `report_20261016T013347Z.json`.
