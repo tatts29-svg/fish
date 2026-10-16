@@ -157,6 +157,8 @@ marks as a draft, or anything risky to the record, waits for his yes.
   records were truth"). What he enters on site outranks the branch's paperwork. That covers a number he typed or
   picked, his loading sheet, a unit he tagged on a photo, his ticks, the accessories he added and his quantities and
   notes. Dockets, Baseplan, the schedule, the rental system and contract lines are what get checked against it.
+  Baseplan is the branch's own keying and Andrew has no faith in it (17 Oct 2026: "number I allocate is truth"). A
+  number he allocates to a reference stays there; Baseplan never moves it, it only gets checked against it.
   - No fill, runner or rule removes, replaces or moves one of his site entries on paperwork.
   - Where the paperwork disagrees, his entry stays on the page and the difference goes on the list for the branch.
   - If two of his own entries disagree, ask him.
