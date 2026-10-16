@@ -9,6 +9,11 @@ to have it. Also in work recorded lets have the info of what came in and the des
   description on the left and the quantity and item on the right (e.g. "WC07 · Toilets - Merch Area · 20 FWF"). The
   card shows the first three; More info lists every arrival with its on-site time.
 
+Two small corrections ride along:
+- The v10.55 Site vs Baseplan cards print money with the page's own format ("$1,426.07", not "$1426.07").
+- WC20's map label: the first waste tank sits under toilet block 1327228, not 1311341 (1311341 is that tank; Andrew,
+  8 Oct: "1327228 is a toilet", "1311341 is a waste tank"). The second tank stays under 1327225.
+
 The record does not change. Footer v10.55 -> v10.56.
 
     python3 patch_v1056.py path/to/page.html   (on the v10.55 page)
@@ -83,6 +88,11 @@ NEW = r'''</script>
 PATCHES = [
     ('day cards script at the end of the page', END, NEW),
     ('Release footer', "+ ' · v10.55'", "+ ' · v10.56'"),
+    ('Site vs Baseplan money in the page format',
+     "const money = v => { try { return W.money(v); } catch (x) { return '$' + Number(v || 0).toFixed(2); } };",
+     "const money = v => { try { return MONEY_FMT.format(Number(v || 0)); } catch (x) { return new Intl.NumberFormat('en-AU', {style: 'currency', currency: 'AUD'}).format(Number(v || 0)); } };"),
+    ('WC20 map: first waste tank under toilet block 1327228',
+     '"l":"WASTE TANK (under toilet block 1311341)"', '"l":"WASTE TANK (under toilet block 1327228)"'),
 ]
 
 if __name__ == '__main__':

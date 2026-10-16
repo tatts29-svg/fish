@@ -165,7 +165,16 @@ marks as a draft, or anything risky to the record, waits for his yes.
   difference to bring into line with the branch (v10.55).
   - No fill, runner or rule removes, replaces or moves one of his site entries on paperwork.
   - Where the paperwork disagrees, his entry stays on the page and the difference goes on the list for the branch.
-  - If two of his own entries disagree, ask him.
+  - If two of his own entries disagree, his later word wins. Check it against the record history, the schedule, the
+    dockets and the contracts, and settle it yourself. Ask him only when no source settles it. WC20 is the example:
+    on 7 Oct he took 1327225 off; on 8 Oct he said "two blocks and two tanks". The schedule, the dockets and
+    contract 9968955 line 48 all name 1327225 as the second block.
+- **Work it out from the data before asking** (Andrew, 15 Oct 2026: "You have all the data, you are the brains, I
+  need you to work it out"; 17 Oct 2026: "You should know if that number should, you know").
+  - Before a question goes to Andrew, search the live record (including history, notes and deleted entries), the
+    page's schedule, dockets and Baseplan rows, the contracts, and his earlier words in STATUS.md and here.
+  - Ask only what no source holds, or a business choice that is genuinely his.
+  - Say which sources were checked.
   - The 15 Oct dockets fill broke this rule (HRP 1189410, P36 1282487), and it was put back on 17 Oct
     (`record_17Oct2026_hrp_p36_numbers/`).
 - **No pre-bill amounts for anything.**

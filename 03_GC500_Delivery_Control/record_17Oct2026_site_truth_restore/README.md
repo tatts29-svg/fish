@@ -34,8 +34,11 @@ Done earlier: HRP 1189410 and P36 1282487 (`../record_17Oct2026_hrp_p36_numbers/
   offered at the time. 1087453 came from the 15 Oct fill (docket 26094121, Baseplan line 64), recorded under his name.
   Swapping back would drop the $1,426.07 hire line, because Baseplan bills 1087453 (tested in page memory). So it is
   left at 1087453, his photos attach to the building in v10.54, and the plate is to be read at pick-up.
-- **WC20.** His own entries disagree. On 7 Oct he took 1327225 off; on 8 Oct he said there are two blocks and two tanks.
-  Is the second toilet block 1327225?
+- **WC20 — settled from the data, 17 Oct 2026, no change needed.** The second toilet block is 1327225. On 7 Oct he took
+  1327225 off; on 8 Oct, the later word, he said there are two blocks and two tanks, 1327228 a toilet and 1311341 a
+  tank. The schedule (T0250, "1327228 - 1327225", dockets 26112783/26112786) and the Coates contract (9968955 line 48,
+  "WC20 Toilet Block … 6m x 3m", Delivered) agree, and the live record already carries 1327225 as Set 2 with tank
+  1328982. Andrew: "You should know if that number should, you know."
 - **P65, P66 and P63 unit records.** He made these on site; the 15 Oct fill set them aside as duplicates of the Baseplan
   rows. The numbers show either way and the money is nil. The two photos each on P65 and P66 re-attach in v10.54
   (display only).
