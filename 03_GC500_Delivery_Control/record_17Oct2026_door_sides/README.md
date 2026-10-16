@@ -48,7 +48,12 @@ Andrew, 17 Oct 2026: "P57 is door to passenger". P57 unit 1268888 → passenger 
 Andrew, 17 Oct 2026: "P46 door to driver". P46 unit 1327215 → driver (`doors_p46_spec.json`; backup
 `backup_state_20261016T210433Z.json`; 1 PUT 200; report `report_20261016T210433Z.json`).
 
-Still no door side on record, and not guessed: P51, P58 and T0266.
+## P51 to driver · 07:05 AEST · record 9575 → 9576, VERIFIED
+
+Andrew, 17 Oct 2026: "P51 door to driver". P51 unit 1322579 → driver (`doors_p51_spec.json`; backup
+`backup_state_20261016T210524Z.json`; 1 PUT 200; report `report_20261016T210524Z.json`).
+
+Still no door side on record, and not guessed: P58 and T0266.
 
     node doors.cjs            dry run (default)
     node doors.cjs --apply    needs GC500_EDIT_TOKEN and GC500_EXPECTED_PAGE_SHA
