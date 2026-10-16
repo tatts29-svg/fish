@@ -3,8 +3,10 @@
 Author: Andrew Fisher. Andrew, 16 Oct 2026: "Good data to have against each day card I think. Days that have passed."
 
 Each Build (Timeline) day that has passed and has Coates delivery texts now carries a fold, **Coates trucks · delivery
-times**. Its header gives how many trucks arrived inside the window first booked, for example "1 of 13 inside the booked
-window (8%)", in green (80% or more), amber (50–79%) or red (under 50%). Opened, it lists one line per truck:
+times**. Andrew: "Percentage time is important out of 100%." So the header leads with the day's on-time percentage, out
+of 100%, in large type with a bar: green at 80% or more, amber 50–79%, red under 50%. Under it: "1 of 13 inside the
+booked window · 14 texted · build to date 8% (1 of 13)". Build to date is the running figure up to and including that
+day (16 Oct: 55%, 52 of 95, as the analysis). Opened, the fold lists one line per truck:
 
 - the item and its reference;
 - the result: On time, Early (and by how much), In the re-sent window, Late (how long after the booked window), Delivery
@@ -27,7 +29,7 @@ charges and costs do not change. Footer v10.47 → v10.48.
 **To refresh with a newer export:** re-run `parse_sms.py` and `summarise.py`, then set `EXPORT_DAY`/`EXPORT_AT` in
 `patch_v1048.py` and build again.
 
-Built from live v10.47 `fb68b94d…`, check_page PASS. `tests/test_dt1048.cjs` 13/13 (GET only).
+Built from live v10.47 `fb68b94d…`, check_page PASS. `tests/test_dt1048.cjs` 15/15 (GET only).
 
     bash toolchain/build.sh v10.48 v10.48_delivery_times_DRAFT/patch_v1048.py
     node v10.48_delivery_times_DRAFT/tests/test_dt1048.cjs build/GC500_v10.48/GC500_Delivery_Control_hosted.html

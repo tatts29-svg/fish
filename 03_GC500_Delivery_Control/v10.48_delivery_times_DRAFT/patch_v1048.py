@@ -4,7 +4,8 @@ against each day card I think. Days that have passed.").
 The Coates delivery texts (SMS export 16 Oct 2026 17:47, analysed in analysis_16Oct2026_delivery_timing) give, for each
 truck, the window first texted when it was booked, any re-sent window, the "on its way" time and the delivered time.
 Each Timeline day that has passed and has texts now carries a fold: "Coates trucks · delivery times", headed with how
-many arrived inside the window first booked, and opening to one line per truck. Days with no texts show nothing; days
+the percentage on time out of 100% (with a bar and "x of y inside the booked window"), and opening to one line
+per truck. A running "build to date" percentage sits under it. Days with no texts show nothing; days
 after the export (19 Oct onward) show nothing until a new export is added.
 
 "Inside the booked window" counts on time and early, as the analysis README does. A booking with no delivered text is
@@ -70,7 +71,11 @@ NEW_TMPL = r'''/* v10.48 - delivery-times-1048: Coates delivery texts on each pa
   const rs = T1048[iso]; if (!rs || !rs.length) return null;
   const booked = rs.filter(r => r.t && r.x !== 'no booking text'), inside = booked.filter(r => r.x === 'on time' || r.x === 'early');
   return {rows: rs, booked: booked.length, inside: inside.length, pct: booked.length ? Math.round(100 * inside.length / booked.length) : null,
-   late: rs.filter(r => r.x === 'late' || r.x === 'delivered a later day').length};
+   late: rs.filter(r => r.x === 'late' || r.x === 'delivered a later day').length, toDate: toDate1048(iso)};
+ }
+ function toDate1048(iso){
+  let b = 0, n = 0; Object.keys(T1048).forEach(k => { if (k <= iso) T1048[k].forEach(r => { if (r.t && r.x !== 'no booking text') { b++; if (r.x === 'on time' || r.x === 'early') n++; } }); });
+  return b ? {booked: b, inside: n, pct: Math.round(100 * n / b)} : null;
  }
  function line1048(r){
   const res = LBL[r.x] || r.x, extra = r.m ? ' · ' + mins(r.m) + ' after the booked window' : r.e ? ' · ' + mins(r.e) + ' before the window' : '';
@@ -83,10 +88,14 @@ NEW_TMPL = r'''/* v10.48 - delivery-times-1048: Coates delivery texts on each pa
  function panel1048(iso){
   if (!iso || !(iso < today())) return '';
   const s = sum1048(iso); if (!s) return '';
-  const head = s.booked ? s.inside + ' of ' + s.booked + ' inside the booked window (' + s.pct + '%)' : 'no delivered text for these bookings';
   const tone = s.pct == null ? 'none' : s.pct >= 80 ? 'ok' : s.pct >= 50 ? 'mid' : 'bad';
-  return '<details class="dt1048" data-dt1048="' + e(iso) + '"><summary><span class="dt1048-t">Coates trucks · delivery times</span>' +
-   '<span class="dt1048-pill ' + tone + '">' + e(head) + '</span><span class="dt1048-n">' + s.rows.length + ' texted</span></summary>' +
+  const score = s.booked
+   ? '<span class="dt1048-pct ' + tone + '">' + s.pct + '%</span><span class="dt1048-of">on time, out of 100%</span>' +
+     '<span class="dt1048-bar ' + tone + '" role="img" aria-label="' + s.pct + '% on time"><i style="width:' + s.pct + '%"></i></span>' +
+     '<span class="dt1048-n">' + s.inside + ' of ' + s.booked + ' inside the booked window · ' + s.rows.length + ' texted' +
+     (s.toDate ? ' · build to date ' + s.toDate.pct + '% (' + s.toDate.inside + ' of ' + s.toDate.booked + ')' : '') + '</span>'
+   : '<span class="dt1048-pill none">No delivered text for these bookings</span><span class="dt1048-n">' + s.rows.length + ' texted</span>';
+  return '<details class="dt1048" data-dt1048="' + e(iso) + '"><summary><span class="dt1048-t">Coates trucks · delivery times</span>' + score + '</summary>' +
    '<ul class="dt1048-list">' + s.rows.map(line1048).join('') + '</ul>' +
    '<p class="dt1048-src">' + e(SRC) + '. Booked window is the one first texted; a re-sent window is shown when it changed. Inside the booked window counts on time and early.</p></details>';
  }
@@ -99,6 +108,12 @@ NEW_TMPL = r'''/* v10.48 - delivery-times-1048: Coates delivery texts on each pa
    '.dt1048-list li b{font-weight:600}.dt1048-sub{font-size:.85em;margin-top:2px}.dt1048-src{font-size:.8em;margin:6px 0 2px}' +
    '.dt1048-pill{display:inline-block;margin-left:6px;padding:1px 8px;border-radius:10px;font-size:.8em;font-weight:600;background:#eceff3;color:#334}' +
    '.dt1048-pill.ok{background:#e3f4e8;color:#17602f}.dt1048-pill.mid{background:#fdf1d8;color:#7a5100}.dt1048-pill.bad{background:#fbe3e1;color:#8e1c12}' +
+   '.dt1048-pct{font-size:1.6em;font-weight:800;line-height:1}.dt1048-pct.ok{color:#17602f}.dt1048-pct.mid{color:#9a6500}.dt1048-pct.bad{color:#b0241a}' +
+   '.dt1048-of{font-weight:600;font-size:.85em;color:var(--mute,#667)}' +
+   '.dt1048-bar{flex:1 1 120px;min-width:90px;max-width:260px;height:10px;border-radius:5px;background:#e4e7eb;overflow:hidden}.dt1048-bar i{display:block;height:100%;min-width:2px}' +
+   '.dt1048-bar.ok i{background:#2e9b52}.dt1048-bar.mid i{background:#e0a21a}.dt1048-bar.bad i{background:#d33a2c}.dt1048-n{flex-basis:100%}' +
+   '@media (prefers-color-scheme:dark){.dt1048-pct.ok{color:#9fe0b2}.dt1048-pct.mid{color:#f3cf7c}.dt1048-pct.bad{color:#f4aaa2}.dt1048-bar{background:#2b3138}' +
+   '}' +
    '@media (prefers-color-scheme:dark){.dt1048-pill{background:#2b3138;color:#cfd6de}.dt1048-pill.ok{background:#173d24;color:#9fe0b2}.dt1048-pill.mid{background:#43340f;color:#f3cf7c}.dt1048-pill.bad{background:#4a1d19;color:#f4aaa2}}';
   document.head.appendChild(st); }
  const before = dayBlock;

@@ -19,13 +19,15 @@ async function day(iso, mob){
   console.log(JSON.stringify({sum: r.sum, first: r.first}));
   ok(r.n === 1, 'one delivery-times fold on 14 Sep');
   ok(r.iso === '2026-09-14', 'fold is for the day shown');
-  ok(/1 of 13 inside the booked window \(8%\)/.test(r.sum), 'headline 1 of 13 matches the analysis');
+  ok(/^Coates trucks · delivery times\s*8%\s*on time, out of 100%/.test(r.sum) && /1 of 13 inside the booked window/.test(r.sum), 'headline leads with 8% out of 100%; 1 of 13 matches the analysis');
   ok(r.li === 14, 'one line per texted truck (14)');
   ok(/v10\.48$/.test(r.foot), 'footer v10.48');
   ok(r.today === '2026-10-16' ? r.p16 === '' : true, 'today shows no fold (not a day gone by yet)');
   ok(r.s16 && r.s16.inside === 11 && r.s16.booked === 11, '16 Oct data held for tomorrow: 11 of 11');
   ok(r.p19 === '', 'a future day shows nothing');
-  ok(/no delivered text for these bookings/.test(r.p23), '23 Sep reads no delivered text, not late');
+  ok(/build to date 8% \(1 of 13\)/.test(r.sum), '14 Sep: build to date is the day itself (first texted day)');
+  ok(r.s16 && r.s16.toDate && r.s16.toDate.pct === 55 && r.s16.toDate.inside === 52 && r.s16.toDate.booked === 95, '16 Oct: build to date 52 of 95 (55%), as the analysis');
+  ok(/no delivered text for these bookings/i.test(r.p23), '23 Sep reads no delivered text, not late');
   ok(r.noAgent, 'no agent name in the fold');
   // every-day view
   await h.page.evaluate(() => { state.tlView = 'agenda'; renderTimeline(); });
@@ -37,7 +39,7 @@ async function day(iso, mob){
  try {
   const m = await h.page.evaluate(() => { const d = document.querySelector('details.dt1048'); d.open = true; d.scrollIntoView();
    return {sum: d.querySelector('summary').innerText, over: document.documentElement.scrollWidth > window.innerWidth + 1}; });
-  ok(/11 of 11 inside the booked window \(100%\)/.test(m.sum), 'phone: 7 Oct reads 11 of 11');
+  ok(/100%\s*on time, out of 100%/.test(m.sum) && /11 of 11/.test(m.sum), 'phone: 7 Oct reads 100% on time, 11 of 11');
   ok(!m.over, 'phone: no sideways scroll');
   if (shot) await h.page.screenshot({path: shot});
  } finally { await h.browser.close(); }
