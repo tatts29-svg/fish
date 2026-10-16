@@ -1,4 +1,4 @@
-# v10.42 — every FWF gets its event-night servicing, Coates' FWF trailers included — READY TO UPLOAD
+# v10.42 — every FWF gets its event-night servicing, Coates' FWF trailers included — LIVE 16 Oct 2026 14:35 AEST
 
 Author: Andrew Fisher. Andrew, 16 Oct 2026: "We charge for all FWF including Coates. For Fridays and Saturdays and
 Sundays."
