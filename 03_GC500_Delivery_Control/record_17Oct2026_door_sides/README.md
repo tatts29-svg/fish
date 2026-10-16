@@ -60,7 +60,20 @@ not applicable, as T0258's container is. T0266 has no unit number; its one row i
 (`doors_t0266_spec.json`; the runner now also takes an `item:` row id for a building with no number; backup
 `backup_state_20261016T210626Z.json`; 1 PUT 200; report `report_20261016T210626Z.json`).
 
-Still no door side on record, and not guessed: P58.
+## P58 to driver · 07:07 AEST · record 9577 → 9578, VERIFIED
+
+Andrew, 17 Oct 2026: "P58 door to driver". P58 unit 1273656 → driver (`doors_p58_spec.json`; backup
+`backup_state_20261016T210720Z.json`; 1 PUT 200; report `report_20261016T210720Z.json`).
+
+## Coverage after P58 (read on the live page, record 9578)
+
+- **Every building marked on site has a door side: 40 of 40.** Of the units, 25 are driver and 21 passenger. T0266,
+  the fridge container, is not applicable.
+- 11 buildings on the plan are not marked on site on the record, so none has a door side yet:
+  - HRP, P10, P11, P13, P14, P36 and P37: schedule dates in September; no on-site light.
+  - P27, P29 and P53: no number and no light.
+  - P47: marked not on site, and showing P65's number 1327217 from the schedule.
+  These are checked against the data separately.
 
     node doors.cjs            dry run (default)
     node doors.cjs --apply    needs GC500_EDIT_TOKEN and GC500_EXPECTED_PAGE_SHA
