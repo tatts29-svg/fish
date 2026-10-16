@@ -4,7 +4,7 @@ NEEDS ANDREW — fencing review (other agent's unfinished v10.43 data half, `v10
 
 LIVE — v10.43: the person's name only on screen, in CSV downloads and copies. Uploaded 16 Oct 2026 15:02 AEST on Andrew's "Upload", over v10.42; base guard passed, view link reads back byte for byte: 18,058,399 bytes, sha256 `1d3d14231bada5b2…`. `v10.43_names_LIVE/`.
 
-READY TO PUBLISH — v10.41: 3D compass containment (map machine release, not the page). Owner Claude (finished from Codex's draft). Candidate machine `43c59fc5…` on live `86eb6916…`: 4 files change, 232 kept. Compass 320 cases fit, guards 17/17, 3D regression desktop 26/26, phone 33/33. Waits for Andrew's word. `v10.41_compass_DRAFT/`.
+LIVE — v10.41: 3D compass containment (map machine). Published 16 Oct 2026 16:00 AEST on Andrew's "Go live": machine `86eb6916…` → `43c59fc5ea41cfabe9941d72cead4d4a61b6c2e86ec883e5b0f2b067f2962f7c`, 4 files changed, 232 kept, public bytes exact, no record writes. 3D regression on the live release desktop 26/26, phone 33/33. Page unchanged (v10.44). `v10.41_compass_LIVE/`.
 
 LIVE — v10.42: every FWF gets its event-night servicing, Coates' FWF trailers included. Uploaded 16 Oct 2026 14:35 AEST on Andrew's "Upload", over v10.40; base guard passed, view link reads back byte for byte: 18,057,349 bytes, sha256 `f7c29263e6425145e0c0a29fd273531fcdde0ce445f501ec2064717d452acc4b`. FWF units 233 → 235 (WC100 1248439, 1288823), servicing $84,717.18 → $85,154.40. Test 12/12. `v10.42_coates_fwf_trailers_nights_LIVE/`.
 

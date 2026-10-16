@@ -1,4 +1,4 @@
-# 3D compass containment — READY TO PUBLISH (map machine release, waits for Andrew's word)
+# 3D compass containment — LIVE 16 Oct 2026 16:00 AEST
 
 Author: Andrew Fisher
 
@@ -32,3 +32,11 @@ Checks, all on live page v10.42 with the candidate map files served locally (rea
 Publish (needs `GC500_EDIT_TOKEN` and Andrew's word): the dry-run command above with `--publish`, `--keep
 evidence/retained_manifest_86eb6916.json`, then `LIVE=1` on the 3D regression. Rollback: re-register the retained
 manifest (all its blobs stay on the volume).
+
+## Live 16 Oct 2026, 16:00 AEST
+
+Published on Andrew's "Go live": 4 blobs staged, manifest registered once, live machine now
+`43c59fc5ea41cfabe9941d72cead4d4a61b6c2e86ec883e5b0f2b067f2962f7c` (v10.41-compass-containment, 236 files, 232 kept),
+public bytes of all six reviewed files exact, no record writes (`evidence/publication.json`). Full 3D regression on the
+actual public release (`LIVE=1`): desktop 26/26, phone 33/33, no errors. Rollback: re-register
+`evidence/retained_manifest_86eb6916.json`.
