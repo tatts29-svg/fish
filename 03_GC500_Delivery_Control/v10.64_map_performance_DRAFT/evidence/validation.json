@@ -1,0 +1,51 @@
+{
+  "author": "Andrew Fisher",
+  "status": "READY TO UPLOAD",
+  "recordWrites": 0,
+  "unit": {
+    "tileRecoveryScenarios": 15,
+    "publisherGuards": 19,
+    "exactLabelComparisons": 1440,
+    "shapeBuildGuards": 17
+  },
+  "browser": {
+    "desktop": {
+      "shapeChecks": 62,
+      "navigationChecks": 11,
+      "tabRoutes": 24,
+      "deepLinks": 7,
+      "pageErrors": 0,
+      "consoleErrors": 0,
+      "backNavigation": true
+    },
+    "phone": {
+      "shapeChecks": 62,
+      "navigationChecks": 11,
+      "tabRoutes": 24,
+      "deepLinks": 7,
+      "pageErrors": 0,
+      "consoleErrors": 0,
+      "backNavigation": true
+    }
+  },
+  "page": {
+    "sha256": "34ac94742f81bfce7e784589a502df515d76dffbee418c048fc3e07a238f2067",
+    "bytes": 18301601
+  },
+  "machine": {
+    "author": "Andrew Fisher",
+    "baseManifestSha256": "43c59fc5ea41cfabe9941d72cead4d4a61b6c2e86ec883e5b0f2b067f2962f7c",
+    "candidateManifestSha256": "1348bf1bbcf69400aab0e510e7239d68dac567d40d103898323bf9abdef7bf6f",
+    "changedFiles": {
+      "explorer/explorer.js": "c096837cb410bce216876ab8b49a9bf10c54ba4e4749bbb337979b71fb367f9d",
+      "explorer/index.html": "b5f7c16560f12ebcea6a84bfa7697e603ee46580c3950414e79bc31308d02843"
+    },
+    "addedFiles": {},
+    "stagedBlobs": 0,
+    "otherFilesPreserved": 234,
+    "totalFiles": 236,
+    "published": false,
+    "recordWrites": 0
+  },
+  "review": "Independent source review found no release blockers; phone screenshots inspected. Full live records and screenshots remain private."
+}

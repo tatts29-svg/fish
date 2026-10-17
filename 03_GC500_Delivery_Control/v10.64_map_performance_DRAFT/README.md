@@ -1,8 +1,8 @@
-# Map loading recovery and exact label fitting — v10.64 draft
+# Map loading recovery and exact label fitting — v10.64 ready
 
 Author: Andrew Fisher
 
-Owner: Codex, taking Map explorer from Claude's PR #1 handover comment 6241118435. Claude retains v10.61 main-page performance and servicing tracker v5.89/v10.63. Starting source: `976b24fa052cf505a29eb6f40167b2601dad1581`; claim: `14ad25becb419c5f1232dd0855207d03f863f934`.
+Map scope comes from PR #1 handover comment 6241118435; current ownership is recorded in STATUS.md. Main-page performance v10.61 and servicing tracker v5.89/v10.63 remain separately owned. Starting source: `976b24fa052cf505a29eb6f40167b2601dad1581`; claim: `14ad25becb419c5f1232dd0855207d03f863f934`.
 
 ## Confirmed defect and change
 
@@ -30,9 +30,11 @@ Full live pages, records, CPU profiles and screenshots remain private. Repositor
 - Label traversal: 1,440 exact sample/result comparisons across six pixel densities passed.
 - Shape build guard: 17 valid/invalid script, origin and path checks passed.
 - Machine preparation/publication guards: 19 mocked-network tests passed.
-- Browser shape regressions, map navigation checks and both full sweeps are running. Not yet READY or live.
+- Desktop and phone: 62/62 shape checks, 11/11 map navigation checks, 24 tab routes and 7 deep links, 0 page errors, 0 console errors. Record unchanged in shape checks; no record writes attempted.
+- Independent source review found no release blockers. Phone screenshots inspected.
+- READY TO UPLOAD; not yet published. Detailed aggregate evidence: `evidence/validation.json`.
 
-Phone CPU ×4 profiling separates the shared parent calculations (Claude's active scope) from map drawing. This bounded change does not claim all page-load delays or all frame-time targets are resolved. Real-device GPU performance remains outside the headless test's proof.
+Phone CPU ×4 profiling separates the shared parent calculations (the separately owned v10.61 scope) from map drawing. This bounded change does not claim all page-load delays or all frame-time targets are resolved. Real-device GPU performance remains outside the headless test's proof.
 
 ## Reproduce and publish
 
