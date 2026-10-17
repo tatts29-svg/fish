@@ -81,6 +81,7 @@ def main():
         ts = re.sub(r'\s+', ' ', M.TWIN_STEER)
         check('every page: the NO TWIN-STEER TRUCKS short form, word for word', all(ts in t for t in norm), [i + 1 for i, t in enumerate(norm) if ts not in t][:5])
         check('every page: DRAFT ribbon', all('DRAFT - TEST QR CODES' in t for t in norm))
+        check('every page: contact fallback does not refer to absent paperwork', all('Servicing contact not confirmed' in t for t in norm) and not any('whose name is on your paperwork' in t for t in norm))
         check('every page: Author: Andrew Fisher', all('Author: Andrew Fisher' in t for t in norm))
         credit = 'Drawing © iEDM · D001'
         check('master map carries the drawing credit', credit in norm[0])
@@ -174,7 +175,8 @@ def main():
         check('live-format run builds outside the repository', r.returncode == 0 and live.exists(), r.stderr + r.stdout)
         if live.exists():
             Tl = [re.sub(r'\s+', ' ', t) for t in pdftext(live)]
-            check('live-format run: no DRAFT anywhere', not any('DRAFT' in t for t in Tl))
+            check('signed links default to TEST, not a crew-ready pack', all('TEST TRACKER - PRACTICE ONLY' in t for t in Tl) and not any('opens nothing' in t for t in Tl))
+            check('contact fallback on every TEST page is honest', all('Servicing contact not confirmed' in t for t in Tl))
             check('live-format run: the token is never printed as text', not any(token in t for t in Tl))
             pl, why = decode_pages(live, tmp)
             if pl is not None:
@@ -183,6 +185,12 @@ def main():
                 check(f'live-format completion QR codes ({len(refs)}, ~{len(next(iter(exp)))} characters) all decode at 300 dpi', exp <= got, len(exp - got))
         r = run(['--links', str(links), '--out', str(HERE / 'should_not_exist.pdf')])
         check('live run refuses to write inside the repository', r.returncode != 0 and 'refused' in (r.stderr + r.stdout) and not (HERE / 'should_not_exist.pdf').exists(), r.stderr)
+
+        # Explicit real mode requires the confirmed contact and independent readiness evidence.
+        r = run(['--links', str(links), '--mode', 'real', '--out', str(Path(tmp) / 'unguarded.pdf')])
+        check('real pack refuses without a confirmed contact', r.returncode != 0 and 'contact' in r.stderr)
+        r = run(['--links', str(links), '--mode', 'real', '--contact-name', 'Fixture supervisor', '--contact-phone', '0400 000 000', '--out', str(Path(tmp) / 'unguarded.pdf')])
+        check('real pack refuses without a readiness receipt', r.returncode != 0 and 'readiness receipt' in r.stderr)
 
         # ---------------------------------------------------------------- refusals
         def bad_urls(mut, name):

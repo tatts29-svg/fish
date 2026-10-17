@@ -77,21 +77,23 @@ python3 -I make_sheets.py                 # the draft from urls.json -> GC500_se
 python3 -I make_sheets.py --placeholder   # rewrite urls.json with the placeholders first
 ```
 
-### Going live (after server v5.89 is deployed and the tracker card is made on the edit link)
+### Going live (after server v5.90 and page v10.67 pass their release checks)
 
-The completion links exist only then. The edit link's answer carries the card token and `tracker.links` = {REF: sig}.
+1. Create the TEST tracker from Event nights. Download its private QR bundle **outside the repository** and build
+   `python3 -I make_sheets.py --links /private/test_links.json --out /private/TEST_sheets.pdf`. The bundle supplies
+   its actual rehearsal dates and confirmed contact. Run the rehearsal before making the event tracker.
+2. Create/read back the event tracker and download its own bundle. Build a practice-marked copy of its sheets with
+   `python3 -I make_sheets.py --links /private/event_links.json --out /private/event_scan_check.pdf`. Signed links
+   default to TEST print mode. Scan the completion and location QRs using both iPhone and Android cameras. Verify
+   the correct reference/day and offline preparation; record those checks in the private readiness receipt.
+3. `python3 -I make_sheets.py --links /private/event_links.json --mode real --readiness /private/readiness.json --out /private/GC500_servicing_sheets.pdf`
+   A real run requires the matching receipt, token, data hash and confirmed contact. It refuses a PDF or link file
+   inside the repository, links outside `/d/<token>#r=REF.<16-character code>`, a wrong/missing reference or mixed
+   tokens. Print the required area packs and laminate after these checks. The token is never printed as text.
+4. Same-token updates preserve the completion codes. Withdrawal or deliberate re-keying invalidates old sheets;
+   a new token or replacement key requires reprinting. The page does not offer either destructive action.
 
-1. Save `{"token": "<card token>", "links": {"PG01": "<sig>", ...}}` to a private file **outside the repository**
-   (the QR text never goes into the repo or the record; the edit key is never involved).
-2. `python3 -I make_sheets.py --links /private/tracker_links.json --out /private/GC500_servicing_sheets.pdf`
-   (or `--urls` with a {REF: url} file). A live run refuses to write the PDF or read the links inside the repository,
-   refuses any link that is not `/d/<token>#r=REF.<16-character code>` on the service (never `/e/`, never `/v/`), a link
-   naming another reference, two tokens, or a missing reference. No DRAFT marks; the token is never printed as text.
-3. Pre-flight (design spec): print one sheet, scan its completion QR with an iPhone and an Android camera app, check the
-   `#r=` part survives and opens that reference's jobs on the right day, and scan the location QR. Then print the area
-   packs (page ranges above) and laminate.
-4. The links stay good as long as the card is never withdrawn (re-posting with the same token keeps them). A new card
-   means a new token: reprint everything.
+Legacy `{token, links}` or `--urls` files remain supported, but supply their matching data/contact explicitly.
 
 ### Re-render the maps (only if positions or areas change)
 
@@ -110,7 +112,7 @@ an area grouping the pictures were not cut for.
 
 ## Checks (`test_sheets.py`, local only)
 
-`TMPDIR=<scratch> ZXING=<folder with zxing-cpp> python3 -I test_sheets.py`: **38 passed, 0 failed** (see
+`TMPDIR=<scratch> ZXING=<folder with zxing-cpp> python3 -I test_sheets.py`: **42 passed, 0 failed** (see
 `test_sheets_results.txt`). It builds into a temporary folder and reads the PDFs back with pdftotext and, for the QR
 codes, pdftoppm at 300 dpi and zxing-cpp:
 - 55 pages (1 + 14 covers + 40 location pages), page 1 A4 landscape, the rest A4 portrait;
@@ -123,7 +125,7 @@ codes, pdftoppm at 300 dpi and zxing-cpp:
 - all 75 completion QRs decode to exactly their link, each on its own page and in its own half; all 63 pinned location
   QRs decode to exactly their Google Maps pin; the 12 unpinned references have none; no stray QR; no `/e/` or `/v/`;
 - a live-format run (a made-up 32-character token and 16-character codes made the way the server makes them, in a
-  temporary folder): no DRAFT, token never printed, all 75 denser QRs (98 characters) decode at 300 dpi; the live run
+  temporary folder): TEST practice labels, token never printed, all 75 denser QRs (98 characters) decode at 300 dpi; the live run
   refuses to write inside the repository;
 - refusals: an `/e/` link, a `/v/` link, a missing reference, a link naming another reference, two tokens, an unknown
   reference.
@@ -148,3 +150,45 @@ WC07 (20 FWF), WC09 (FWF + blocks), WC31, the Teams Area (no pin) and "No locati
 - **QR size**: live links are about 98 characters (QR version 6, level M), printed 36 mm square, about 0.7 mm a module;
   they decode at 300 dpi here. The phone pre-flight above is still needed on real paper and lamination.
 - **Size**: the PDF is about 22 MB and `maps/` about 17 MB (the plan's own aerial background does not compress much).
+
+## Readiness fixes for the next release (18 Oct 2026)
+
+Author: Andrew Fisher. The generator now distinguishes three modes. Placeholder links default to **DRAFT**. Signed
+links default to **TEST**, with a practice-only banner on every page; merely possessing a correctly shaped token no
+longer labels a pack LIVE. `--mode real` is explicit and requires a confirmed contact and private readiness receipt.
+
+Use the same contact as the crew card with `--contact-name` and `--contact-phone`. Every page carries it. Without a
+contact, DRAFT/TEST pages say to check with the site supervisor before the run, rather than pointing to absent contact
+paperwork. The real mode refuses a missing or partial contact. Offline instructions now require opening a sheet with
+signal and waiting for **Ready for offline scans** before relying on later scans without signal; waiting ticks are
+clearly separate from the service having saved them.
+
+The current QR bundle supplies its matching TEST dates automatically. For an older link-only file,
+pass its matching rehearsal data with `--data`. The event
+source file is not relabelled or modified for rehearsal.
+
+A real command is:
+
+```bash
+python3 -I make_sheets.py --links /private/tracker_links.json --mode real \
+  --contact-name '<confirmed name>' --contact-phone '<confirmed phone>' \
+  --readiness /private/readiness.json --out /private/GC500_servicing_sheets.pdf
+```
+
+The private readiness JSON is an operator’s evidence receipt, not generated proof. It must contain the same `token`,
+`data_sha256` (the generator’s printed data hash, or SHA256 of the exact `--data` file for a legacy bundle), `contact: {name, phone}`, and the following booleans true only after
+those checks have actually completed: `test_checks_passed`, `real_tracker_read_back`, `iphone_paper_scan`,
+`android_paper_scan`. A mismatched token, data, contact or incomplete check refuses real output. Keep the receipt,
+signed links and real/test pack outside the repository. Nothing in this generator sends a message or writes a tracker.
+
+Regression checks added in `test_readiness.py`: seven tests passed, including every receipt-field mismatch. The full
+PDF/QR suite also passed 42 checks, including all completion and location QR decoding at 300 dpi. The DRAFT PDF
+has been regenerated from these sources. No real tracker or physical phone scan is certified by those local tests.
+
+
+The Create / update button now downloads a private QR bundle that includes `data_json` (the exact
+published card dates, quantities and plans) and its confirmed contact. `--links <bundle>` uses those
+values automatically, so a TEST rehearsal prints its actual TEST date rather than the event dates.
+An explicit `--data` or contact must match the bundle. A TEST bundle is refused in real mode. The
+generator prints the data SHA-256 to use in the private readiness receipt. Older `{token, links}`
+files remain supported with explicit matching data/contact where needed. Seven readiness tests pass.

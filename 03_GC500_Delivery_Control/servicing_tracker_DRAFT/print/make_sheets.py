@@ -73,6 +73,9 @@ def setup_fonts():
                     pdfmetrics.registerFont(TTFont('GC' + k, p)); F[k] = 'GC' + k; break
                 except Exception:
                     pass
+    if F['narrow'] == 'Helvetica': F['narrow'] = F['sans']
+    if F['narrowb'] == 'Helvetica-Bold' or F['narrowb'] == 'Helvetica': F['narrowb'] = F['bold']
+
 SUBST = {'≈': '~', '→': '->', '–': '-', '—': '-', '×': 'x', '·': '-', '©': '(c)'}
 def safe(s, font):
     """Helvetica (the fallback) cannot show every character; a TTF can. Swap only what the font lacks."""
@@ -101,8 +104,8 @@ def natural(ref):
     return (m.group(1), int(m.group(2))) if m else (ref, 0)
 
 class Data:
-    def __init__(self, path):
-        raw = Path(path).read_bytes(); d = json.loads(raw)
+    def __init__(self, path=None, raw=None):
+        raw = Path(path).read_bytes() if raw is None else raw; d = json.loads(raw)
         self.sha = hashlib.sha256(raw).hexdigest(); self.version = d.get('version', '')
         self.tasks, self.plans, self.days, self.areas = d['tasks'], d['plans'], d['days'], d['areas']
         self.refs = [r for a in self.areas for r in a['refs']]
@@ -167,6 +170,49 @@ def load_urls(args, data):
         bad = [r for r in refs if len(URL_RE.match(urls[r]).group(3)) != 16]
         if bad: sys.exit('a live completion code is 16 characters after the dot; wrong for: ' + ' '.join(bad))
     return {r: urls[r] for r in refs}, draft
+
+def pack_readiness(args, data, urls, placeholder):
+    """Signed links alone prove neither a real tracker nor completed pre-flight checks."""
+    mode = args.mode or ('draft' if placeholder else 'test')
+    name, phone = args.contact_name.strip(), args.contact_phone.strip()
+    if bool(name) != bool(phone): sys.exit('provide both servicing contact name and phone')
+    if len(name) > 80 or (phone and (not re.fullmatch(r'[+0-9 ()-]{6,32}', phone) or len(re.sub(r'\D', '', phone)) < 8)):
+        sys.exit('servicing contact is too long or the phone is not a phone number')
+    contact = {'name': name, 'phone': phone} if name else None
+    if placeholder and mode != 'draft': sys.exit('placeholder codes cannot make a TEST or real tracker pack')
+    if not placeholder and mode == 'draft': sys.exit('signed tracker codes must use TEST or real mode')
+    if mode == 'real':
+        if not contact: sys.exit('real sheets need the confirmed servicing contact name and phone')
+        if not args.readiness: sys.exit('real sheets need a private readiness receipt; signed codes alone are not a live read-back')
+        root = repo_root(HERE)
+        if root and Path(args.readiness).resolve().is_relative_to(root):
+            sys.exit('the readiness receipt holds the tracker token and must stay outside the repository')
+        receipt = json.loads(Path(args.readiness).read_text())
+        token = URL_RE.match(next(iter(urls.values()))).group(1)
+        required = ('test_checks_passed', 'real_tracker_read_back', 'iphone_paper_scan', 'android_paper_scan')
+        if receipt.get('token') != token or receipt.get('data_sha256') != data.sha or any(receipt.get(k) is not True for k in required):
+            sys.exit('real sheets need matching token/data and completed TEST, read-back and paper scan checks')
+        if receipt.get('contact') != contact: sys.exit('servicing contact must match the private readiness receipt')
+    return mode, contact
+
+def load_pack_data(args):
+    """The downloaded link bundle carries the exact published days and contact, including rehearsals."""
+    bundle = json.loads(Path(args.links).read_text()) if args.links else {}
+    raw = bundle.get('data_json')
+    if raw is not None:
+        if not isinstance(raw, str): sys.exit('the QR bundle has unreadable published data')
+        if args.data and json.loads(Path(args.data).read_text()) != json.loads(raw):
+            sys.exit('the supplied print data does not match the published QR bundle')
+        data = Data(raw=raw.encode('utf-8'))
+        if bundle.get('mode') == 'test' and args.mode == 'real': sys.exit('a TEST tracker bundle cannot make real sheets')
+        contact = bundle.get('contact') or {}
+        if args.contact_name or args.contact_phone:
+            if {'name':args.contact_name.strip(),'phone':args.contact_phone.strip()} != contact:
+                sys.exit('the print contact does not match the published QR bundle')
+        else:
+            args.contact_name, args.contact_phone = contact.get('name',''), contact.get('phone','')
+        return data
+    return Data(args.data or HERE.parent / 'tracker_data.json')
 
 def write_placeholder(path, data):
     out = {'_about': 'Author: Andrew Fisher. DRAFT placeholders: the completion QR links for the printed servicing sheets. '
@@ -312,8 +358,9 @@ def place_labels(c, mb, groups, rr, font_size=8):
 
 # ---------------------------------------------------------------- the pack
 class Pack:
-    def __init__(self, data, maps, maps_dir, urls, draft, printed):
+    def __init__(self, data, maps, maps_dir, urls, draft, printed, mode="draft", contact=None):
         self.d, self.maps, self.maps_dir, self.urls, self.draft, self.printed = data, maps, maps_dir, urls, draft, printed
+        self.mode = mode; self.contact = contact or {}
         self.pages = []; self.ref_page = {}
         self.pos = maps['positions']
         missing = [r['ref'] for r in data.refs if r['ref'] not in self.pos]
@@ -342,10 +389,12 @@ class Pack:
         W, H = size
         if self.draft:
             c.setFillColor(RED); c.rect(0, H - 6.5 * mm, W, 6.5 * mm, stroke=0, fill=1)
-            txt(c, W / 2, H - 4.6 * mm, 'DRAFT - TEST QR CODES (TEST-TOKEN-NOT-LIVE) - NOT LIVE - DO NOT LAMINATE OR HAND OUT', 'bold', 8.5, WHITE, 'c')
+            txt(c, W / 2, H - 4.6 * mm, ('DRAFT - TEST QR CODES (TEST-TOKEN-NOT-LIVE) - NOT LIVE - DO NOT LAMINATE OR HAND OUT' if self.mode == 'draft' else 'TEST TRACKER - PRACTICE ONLY - DO NOT LAMINATE OR HAND OUT'), 'bold', 8.5, WHITE, 'c')
         # footer
         x0, x1 = 9 * mm, W - 9 * mm
-        c.setStrokeColor(INK); c.setLineWidth(0.6); c.line(x0, 15.2 * mm, x1, 15.2 * mm)
+        c.setStrokeColor(INK); c.setLineWidth(0.6); c.line(x0, 18.1 * mm, x1, 18.1 * mm)
+        contact = ('Servicing contact: ' + self.contact['name'] + ' · ' + self.contact['phone']) if self.contact else 'Servicing contact not confirmed: check with the site supervisor before the run.'
+        txt(c, x0, 15.3 * mm, contact, 'bold', fit(contact, 'bold', 7.5, x1 - x0), INK)
         txt(c, x0, 11.9 * mm, TRACK_ONLY, 'bold', 8, INK)
         txt(c, x1, 11.9 * mm, f'Page {n} of {len(self.pages)}', 'bold', 8, INK, 'r')
         size_t = 6.6; lines = wrap(TWIN_STEER, 'bold', size_t, x1 - x0)
@@ -356,8 +405,8 @@ class Pack:
         txt(c, x0, 2.6 * mm, meta, 'sans', fit(meta, 'sans', 5.6, x1 - x0, 4), MUTE)
         if self.draft:   # see-through, so the page underneath (and its QR codes) still reads
             c.saveState(); c.translate(W / 2, H / 2); c.rotate(math.degrees(math.atan2(H, W)))
-            txt(c, 0, -20 * mm, 'DRAFT', 'bold', 150, colors.Color(0.70, 0.15, 0.12, alpha=0.09), 'c')
-            txt(c, 0, -38 * mm, 'TEST QR CODES - NOT LIVE', 'bold', 26, colors.Color(0.70, 0.15, 0.12, alpha=0.14), 'c'); c.restoreState()
+            txt(c, 0, -20 * mm, 'DRAFT' if self.mode == 'draft' else 'TEST', 'bold', 150, colors.Color(0.70, 0.15, 0.12, alpha=0.09), 'c')
+            txt(c, 0, -38 * mm, 'TEST QR CODES - NOT LIVE' if self.mode == 'draft' else 'PRACTICE ONLY', 'bold', 26, colors.Color(0.70, 0.15, 0.12, alpha=0.14), 'c'); c.restoreState()
 
     # ------------------------------------------------------------ master map
     def master(self, c):
@@ -516,10 +565,10 @@ class Pack:
 
     def howto(self, c, x, y, w, h):
         c.setFillColor(PAPER); c.setStrokeColor(LINE); c.setLineWidth(0.6); c.roundRect(x, y, w, h, 2 * mm, stroke=1, fill=1)
-        steps = ['Each location has its own sheet: its asset numbers, its jobs for each night and two QR codes.',
+        steps = ['Before the run, open any sheet with signal. Wait for Ready for offline scans. Later scans work offline on that phone; waiting ticks send when signal returns.',
                  'LOCATION QR: scan for directions (Google Maps). No pin: ask on site.',
                  'When the jobs are done, scan that location\'s COMPLETION QR and tap each job. The phone records the time. It only ticks that location.',
-                 'The phone shows % complete for this area and for everything. No signal? Taps wait on the phone and send when signal is back.',
+                 'The phone shows each job, area and overall progress. Wait for Saved before treating a tap as received; Waiting ticks are still on this phone.',
                  'A service day runs 08:00 to 08:00 (Gold Coast time); the phone picks the day.']
         txt(c, x + 3 * mm, y + h - 5 * mm, 'HOW TO USE', 'bold', 8, MUTE)
         yy = y + h - 9 * mm; size = 8 if w > 100 * mm else 7.2
@@ -571,7 +620,7 @@ class Pack:
         txt(c, mx + comp_w / 2, cy, 'Scan when done - tick your jobs', 'bold', fit('Scan when done - tick your jobs', 'bold', 9.4, comp_w - 3 * mm), INK, 'c')
         sub = f'Ticks only {ref} · shows the area % and the overall %'
         txt(c, mx + comp_w / 2, cy - 3.5 * mm, sub, 'sans', fit(sub, 'sans', 6.8, comp_w - 3 * mm), MUTE, 'c')
-        if self.draft: txt(c, mx + comp_w / 2, cy - 7 * mm, 'TEST CODE - NOT LIVE - opens nothing', 'bold', 7, RED, 'c')
+        if self.draft: txt(c, mx + comp_w / 2, cy - 7 * mm, ('TEST CODE - NOT LIVE - opens nothing' if self.mode == 'draft' else 'TEST CODE - PRACTICE ONLY'), 'bold', 7, RED, 'c')
         lx = mx + comp_w + 3 * mm; ls = min(30 * mm, loc_w - 6 * mm, ch - 12.5 * mm)
         c.setStrokeColor(LINE); c.setLineWidth(0.8); c.roundRect(lx, cbot, loc_w, ch, 2.2 * mm, stroke=1, fill=0)
         qx = lx + (loc_w - ls) / 2; qy = ctop - 1.5 * mm - ls
@@ -658,7 +707,7 @@ class Pack:
     # ------------------------------------------------------------ render
     def render(self, out):
         c = canvas.Canvas(str(out), pagesize=A4)
-        c.setAuthor('Andrew Fisher'); c.setTitle('GC500 servicing sheets' + (' (DRAFT)' if self.draft else ''))
+        c.setAuthor('Andrew Fisher'); c.setTitle('GC500 servicing sheets' + (' (' + self.mode.upper() + ')' if self.draft else ''))
         c.setSubject(TRACK_ONLY); c.setCreator('make_sheets.py')
         for n, (kind, a, refs) in enumerate(self.pages, 1):
             size = landscape(A4) if kind == 'master' else A4
@@ -666,30 +715,36 @@ class Pack:
             if kind == 'master': self.master(c)
             elif kind == 'cover': self.cover(c, a)
             else:
-                W, H = A4; bh = (H - 7 * mm - 17 * mm - 6 * mm) / 2
-                self.ref_block(c, a, refs[0], 9 * mm, 17 * mm + bh + 6 * mm, W - 18 * mm, bh)
-                c.setStrokeColor(LINE); c.setDash(2, 2); c.setLineWidth(0.5); c.line(9 * mm, 17 * mm + bh + 3 * mm, W - 9 * mm, 17 * mm + bh + 3 * mm); c.setDash()
-                if len(refs) > 1: self.ref_block(c, a, refs[1], 9 * mm, 17 * mm, W - 18 * mm, bh)
+                W, H = A4; bh = (H - 7 * mm - 20 * mm - 6 * mm) / 2
+                self.ref_block(c, a, refs[0], 9 * mm, 20 * mm + bh + 6 * mm, W - 18 * mm, bh)
+                c.setStrokeColor(LINE); c.setDash(2, 2); c.setLineWidth(0.5); c.line(9 * mm, 20 * mm + bh + 3 * mm, W - 9 * mm, 20 * mm + bh + 3 * mm); c.setDash()
+                if len(refs) > 1: self.ref_block(c, a, refs[1], 9 * mm, 20 * mm, W - 18 * mm, bh)
             self.frame(c, size, n)
             c.showPage()
         c.save()
 
 def main():
     ap = argparse.ArgumentParser(description=__doc__.split('\n')[0])
-    ap.add_argument('--data', default=str(HERE.parent / 'tracker_data.json'))
+    ap.add_argument('--data', help='defaults to the published QR bundle data, otherwise tracker_data.json')
     ap.add_argument('--maps', default=str(HERE / 'maps'))
     ap.add_argument('--urls', default=str(HERE / 'urls.json'))
     ap.add_argument('--links', help='{"token":..., "links":{REF: sig}} from the edit link (kept outside the repo)')
     ap.add_argument('--out')
+    ap.add_argument('--mode', choices=['draft', 'test', 'real'], help='default draft for placeholders, test for signed links; real needs a readiness receipt')
+    ap.add_argument('--contact-name', default='')
+    ap.add_argument('--contact-phone', default='')
+    ap.add_argument('--readiness', help='private JSON confirming TEST checks and real tracker read-back; required for real sheets')
     ap.add_argument('--placeholder', action='store_true', help='(re)write urls.json with the DRAFT placeholders, then build')
     args = ap.parse_args()
     setup_fonts()
-    data = Data(args.data)
+    data = load_pack_data(args)
     if args.placeholder or (not args.links and args.urls == str(HERE / 'urls.json') and not Path(args.urls).exists()):
         write_placeholder(HERE / 'urls.json', data); args.urls = str(HERE / 'urls.json'); print('wrote', HERE / 'urls.json', '(placeholders)')
-    urls, draft = load_urls(args, data)
-    out = Path(args.out) if args.out else HERE / ('GC500_servicing_sheets_DRAFT.pdf' if draft else 'GC500_servicing_sheets.pdf')
-    if not draft:
+    urls, placeholder = load_urls(args, data)
+    mode, contact = pack_readiness(args, data, urls, placeholder)
+    draft = mode != 'real'
+    out = Path(args.out) if args.out else HERE / ('GC500_servicing_sheets_' + mode.upper() + '.pdf' if draft else 'GC500_servicing_sheets.pdf')
+    if not placeholder:
         root = repo_root(HERE)
         for what, p in (('the PDF', out), ('the links file', Path(args.links or args.urls))):
             if root and str(p.resolve()).startswith(str(root) + '/'):
@@ -697,9 +752,10 @@ def main():
     maps_dir = Path(args.maps); maps = json.loads((maps_dir / 'maps.json').read_text())
     maps['layout'] = json.loads((HERE / 'layout.json').read_text())
     printed = datetime.datetime.now(datetime.timezone(datetime.timedelta(hours=10))).strftime('%-d %b %Y %H:%M')
-    pack = Pack(data, maps, maps_dir, urls, draft, printed)
+    pack = Pack(data, maps, maps_dir, urls, draft, printed, mode, contact)
     pack.render(out)
-    print(f'wrote {out} · {len(pack.pages)} pages · {len(data.refs)} locations · {"DRAFT (test QR codes)" if draft else "LIVE QR codes"}')
+    print(f'wrote {out} · {len(pack.pages)} pages · {len(data.refs)} locations · {mode.upper()} QR codes')
+    print('  data sha256:', data.sha)
     # page ranges, for printing one area's pack several times (Andrew: "We can have multiple printed off for each")
     for a in data.areas:
         pages = [n for n, (k, ar, _) in enumerate(pack.pages, 1) if ar is a]

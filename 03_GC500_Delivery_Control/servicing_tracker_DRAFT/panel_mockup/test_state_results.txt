@@ -61,8 +61,9 @@ PASS hh:mm is Brisbane time
 == the same answer whatever order the ticks arrive in (random logs)
 PASS 300 random logs: shuffled arrival order gives the same job states and times
 
-== the crew card's copy of the rule gives the same answers
+== the crew card embeds the same shared rule
+PASS the crew card embeds state.js byte for byte
 PASS the card has all eight rule functions (svcDay, dayOf, autoDay, tasksFor, jobKey, jobStates, refStats, groupStats)
 PASS 250 random logs x 4 days x (everything, 14 areas, 75 references): same jobs, times, %, finish times, locations
 
-50 passed, 0 failed
+51 passed, 0 failed

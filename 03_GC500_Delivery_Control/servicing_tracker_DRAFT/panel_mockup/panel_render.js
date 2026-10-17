@@ -45,15 +45,22 @@ function tableHtml(M, cfg, st, a) {
   }).join('');
   return '<table class="svc-tbl">' + head + '<tbody>' + body + '</tbody></table>';
 }
+function tasksHtml(M, cfg, st, refs) {
+  var ts = M.S.taskStats(cfg, refs, M.day, st);
+  return '<ul class="svc-tasks" aria-label="Progress by job">' + Object.keys(M.D.tasks).filter(function (t) { return ts[t]; }).map(function (t) {
+    var g = ts[t];
+    return '<li' + (g.d === g.w ? ' class="fin"' : '') + '><span>' + esc(M.D.tasks[t]) + '</span><b>' + g.d + ' of ' + g.w + ' · ' + g.pct + '%</b></li>';
+  }).join('') + '</ul>';
+}
 function areaHtml(M, cfg, st, a) {
   var g = M.S.groupStats(cfg, a.refs, M.day, st), done = !!g.finished;
   return '<details class="svc-area' + (done ? ' done' : '') + '" data-svc-area="' + esc(a.n) + '"' + (M.open && M.open[a.n] ? ' open' : '') + '>' +
     '<summary><span class="svc-n">' + (a.n ? esc(a.n) : '–') + '</span><span class="svc-name">' + esc(a.name) + '</span>' +
     '<span class="svc-pct">' + g.pct + '%</span>' +
-    '<span class="svc-meta">' + g.refsDone + ' of ' + g.refs + ' location' + (g.refs === 1 ? '' : 's') + ' · ' +
+    '<span class="svc-meta">' + g.refsDone + ' of ' + g.refs + ' reference' + (g.refs === 1 ? '' : 's') + ' · ' + g.d + ' of ' + g.w + ' jobs · ' +
       (done ? '<span class="fin">finished ' + esc(wdHm(M.S, g.finished)) + '</span>' : 'not finished') + '</span>' +
     bar(g.pct, done) + '</summary>' +
-    '<div class="svc-refs">' + tableHtml(M, cfg, st, a) + '</div></details>';
+    '<div class="svc-refs">' + tasksHtml(M, cfg, st, a.refs) + tableHtml(M, cfg, st, a) + '</div></details>';
 }
 function svcPanelHtml(M) {
   var S = M.S, D = M.D, cfg = { plans: D.plans, days: D.days };
@@ -74,12 +81,12 @@ function svcPanelHtml(M) {
     '<div class="svc-days" role="group" aria-label="Service day">' + days + '</div>' +
     '<p class="svc-win">' + esc(longDate(day.id)) + ' 08:00 to ' + esc(longDate(nextId(day.id))) + ' 08:00 · ' + when + '</p>' +
     '<div class="svc-all' + (g.finished ? ' done' : '') + '"><div class="svc-big"><b>' + g.pct + '%</b><span>everything</span></div>' +
-      '<div class="svc-allmeta"><span><b>' + g.unitsDone + '</b> of ' + g.units + ' units</span><span><b>' + g.refsDone + '</b> of ' + g.refs + ' locations</span>' +
+      '<div class="svc-allmeta"><span><b>' + g.refsDone + '</b> of ' + g.refs + ' references</span><span><b>' + g.d + '</b> of ' + g.w + ' jobs</span>' +
       (g.finished ? '<span class="fin">All finished ' + esc(wdHm(S, g.finished)) + '</span>' : none ? '<span>if needed · no ticks</span>' : '<span>not finished</span>') + '</div>' +
       bar(g.pct, !!g.finished) + '</div>' +
-    '<div class="svc-areas">' + D.areas.map(function (a) { return areaHtml(M, cfg, st, a); }).join('') + '</div>' +
+    tasksHtml(M, cfg, st, all) + '<div class="svc-areas">' + D.areas.map(function (a) { return areaHtml(M, cfg, st, a); }).join('') + '</div>' +
     '<p class="svc-foot">Nothing here ticks the job record, changes a delivery or a charge. The Event Portables servicing count stays our on-site count.</p>' +
-    '<p class="svc-read">Read from the service every 20 s while this tab is open · last read ' + esc(new Date(M.lastRead + 36e6).toISOString().slice(11, 19)) + '</p>';
+    '<p class="svc-read">' + esc(M.readStatus || ('Read from the service every 20 s while this tab is open · last read ' + new Date(M.lastRead + 36e6).toISOString().slice(11, 19))) + '</p>';
 }
 return { svcPanelHtml: svcPanelHtml, esc: esc };
 })();

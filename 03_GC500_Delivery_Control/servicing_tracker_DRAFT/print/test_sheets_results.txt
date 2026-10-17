@@ -7,6 +7,7 @@ PASS text extracted for every page
 PASS every page: the track-only line
 PASS every page: the NO TWIN-STEER TRUCKS short form, word for word
 PASS every page: DRAFT ribbon
+PASS every page: contact fallback does not refer to absent paperwork
 PASS every page: Author: Andrew Fisher
 PASS master map carries the drawing credit
 PASS every page with a map carries "Drawing © iEDM · D001"
@@ -26,10 +27,13 @@ PASS no other location QR (unpinned references have none)
 PASS no stray QR codes
 PASS nothing but completion and location QR codes on the covers and master map
 PASS live-format run builds outside the repository
-PASS live-format run: no DRAFT anywhere
+PASS signed links default to TEST, not a crew-ready pack
+PASS contact fallback on every TEST page is honest
 PASS live-format run: the token is never printed as text
 PASS live-format completion QR codes (75, ~98 characters) all decode at 300 dpi
 PASS live run refuses to write inside the repository
+PASS real pack refuses without a confirmed contact
+PASS real pack refuses without a readiness receipt
 PASS refuses an edit (/e/) link
 PASS refuses a view (/v/) link
 PASS refuses a missing reference
@@ -37,4 +41,4 @@ PASS refuses a link naming another reference
 PASS refuses two different tokens
 PASS refuses a reference the tracker does not have
 
-38 passed, 0 failed
+42 passed, 0 failed

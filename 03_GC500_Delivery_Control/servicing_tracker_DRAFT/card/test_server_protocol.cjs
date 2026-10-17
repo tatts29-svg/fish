@@ -1,0 +1,66 @@
+/* Author: Andrew Fisher. Exact final tracker card + v5.90 service, localhost synthetic data only.
+   No remote network or real tokens; no job-record writes. Own server/process/data directory only. */
+'use strict';
+const fs=require('node:fs'),path=require('node:path'),os=require('node:os'),http=require('node:http'),crypto=require('node:crypto');
+const {spawn}=require('node:child_process'),{chromium}=require('playwright');
+const {buildCardHtml,trackerConfig,cardScriptHash}=require('./build_card');
+const S=require('../panel_mockup/state');
+const SERVER=path.resolve(__dirname,'../../server_v5.90_servicing_tracker_DRAFT/server.js');
+const CLOCK=path.resolve(__dirname,'../../server_v5.89_servicing_tracker_DRAFT/fake_clock.js');
+const EXPECT_SERVER='fb69c73d65b1cc5d206f902d6be226a08b463e6d86abbe7b38292be5d3798524';
+const EDIT='local-fixture-edit-1067',VIEW='local-fixture-view-1067',DAY='2026-10-23';
+const DATA={version:'synthetic-1067',tasks:{pump:'Pumped out',water:'Fresh water refilled',clean:'Cleaned & restocked'},plans:{fwf:{standard:['pump','water','clean']}},days:[{id:DAY,label:'Fri 23',to:'Sat 24',plan:'standard'}],areas:[{n:1,name:'Synthetic area',refs:['QA01','QA02'].map((ref,i)=>({ref,title:ref,lines:[{id:ref+'-FWF',kind:'fwf',type:'FWF',label:(i+1)+' × Synthetic FWF',qty:i+1,nos:[]}]}))}]};
+const sha=b=>crypto.createHash('sha256').update(b).digest('hex');
+let checks=0;const check=(name,ok)=>{if(!ok)throw Error(name);checks++;console.log('PASS '+name);};
+const wait=ms=>new Promise(r=>setTimeout(r,ms));
+const port=()=>new Promise(resolve=>{const s=http.createServer();s.listen(0,'127.0.0.1',()=>{const p=s.address().port;s.close(()=>resolve(p));});});
+(async()=>{
+ const bytes=fs.readFileSync(SERVER);check('exact frozen v5.90 source under test',sha(bytes)===EXPECT_SERVER);
+ const dir=fs.mkdtempSync(path.join(os.tmpdir(),'gc500-card-protocol-')),p=await port(),base='http://127.0.0.1:'+p;
+ const output=fs.openSync(path.join(dir,'server.log'),'a');
+ const record=path.join(dir,'records.json');fs.writeFileSync(record,JSON.stringify({version:1,updated:'2026-10-23T12:00:00Z',docs:{}}));
+ const proc=spawn(process.execPath,['-r',CLOCK,SERVER],{env:{PATH:process.env.PATH,PORT:String(p),DATA_DIR:dir,VIEW_TOKEN:VIEW,EDIT_TOKEN:EDIT,PUBLIC_BASE:base,FAKE_NOW:'2026-10-23T22:00:00+10:00'},stdio:['ignore',output,output]});
+ let browser;let exited=false;proc.on('exit',()=>{exited=true;});
+ const request=async(method,route,body,edit=false)=>{const r=await fetch(base+route,{method,headers:{'content-type':'application/json',...(edit?{'x-gc500-token':EDIT}:{})},body:body===undefined?undefined:JSON.stringify(body)});const text=await r.text();let json;try{json=JSON.parse(text);}catch(_){}return{status:r.status,text,json,headers:r.headers};};
+ try {
+  let healthy=false;for(let i=0;i<100&&!exited;i++){try{healthy=(await request('GET','/health')).json?.build==='v5.90';}catch(_){}if(healthy)break;await wait(100);}check('real service starts as v5.90',healthy);
+  const beforeRecord=sha(fs.readFileSync(record));
+  const html=buildCardHtml(DATA),cfg=trackerConfig(DATA),body={load:'synthetic-card-protocol',title:'Synthetic tracker',run_date:DAY,expires:'2026-10-26',keys:[],targets:[],html,tracker:cfg};
+  const made=await request('POST','/api/cards',body,true);check('real admin creates synthetic tracker',made.status===200&&made.json.tracker.refs===2);
+  const token=made.json.token,links=made.json.tracker.links,cardPath='/d/'+token,cardUrl=base+cardPath,qr=r=>cardUrl+'#r='+r+'.'+links[r];
+  const served=await request('GET',cardPath);check('served card bytes match generated synthetic card',served.text===html);
+  const metadata=await request('GET',cardPath+'/ticks?since=0');check('crew metadata pins exact served script',metadata.json.card_script_hash===cardScriptHash(served.text)&&served.headers.get('content-security-policy').includes(cardScriptHash(served.text)));
+  const worker=await request('GET',cardPath+'/sw.js');check('served worker equals final reviewed source',worker.text===fs.readFileSync(path.join(__dirname,'tracker_sw.js'),'utf8'));check('worker scope remains this token',worker.headers.get('service-worker-allowed')===cardPath);
+  const config=await request('GET','/api/ticks?token='+token+'&since=0',undefined,true);check('admin config readback matches canonical tracker',JSON.stringify(config.json.tracker)===JSON.stringify(cfg));
+  browser=await chromium.launch({executablePath:process.env.CHROMIUM_PATH||undefined});
+  const ctx=await browser.newContext({viewport:{width:360,height:640},isMobile:true,hasTouch:true});const errors=[],outside=[],writes=[];
+  await ctx.route('**/*',route=>{const u=new URL(route.request().url());if(u.origin!==base){outside.push(u.origin);return route.abort();}if(route.request().method()!=='GET')writes.push(u.pathname);return route.continue();});
+  await ctx.addInitScript(()=>{window.csp=[];document.addEventListener('securitypolicyviolation',e=>window.csp.push(e.violatedDirective));});
+  ctx.on('page',page=>page.on('pageerror',e=>errors.push(e.message)));
+  const a=await ctx.newPage();await a.goto(qr('QA01'));await a.waitForFunction(()=>document.querySelector('#readiness').textContent==='Ready for offline scans');
+  await a.locator('[data-job="QA01-FWF|pump"]').click();await a.waitForFunction(()=>svc1067.outbox().length===0);
+  const first=await request('GET',cardPath+'/ticks?since=0');check('real signed tick stored once',first.json.ticks.length===1&&first.json.ticks[0].ref==='QA01');
+  await ctx.setOffline(true);const b=await ctx.newPage();await b.goto(qr('QA02'));await b.waitForFunction(()=>window.svc1067);
+  check('real worker opens fresh other-reference QR offline',await b.locator('#refh').innerText()==='QA02');
+  await b.locator('[data-job="QA02-FWF|pump"]').click();await a.locator('[data-job="QA01-FWF|water"]').click();await b.close();
+  await ctx.setOffline(false);await a.evaluate(()=>window.dispatchEvent(new Event('online')));await a.waitForFunction(()=>svc1067.outbox().length===0);
+  const next=await request('GET',cardPath+'/ticks?since='+first.json.seq);check('real cursor returns only new two-tab ticks',next.json.ticks.length===2&&next.json.ticks.some(t=>t.ref==='QA02')&&next.json.ticks.some(t=>t.ref==='QA01'&&t.task==='water'));
+  const empty=await request('GET',cardPath+'/ticks?since='+next.json.seq);check('caught-up crew cursor has no repeated ticks',empty.json.ticks.length===0);
+  const admin=await request('GET','/api/ticks?token='+token+'&since='+first.json.seq,undefined,true);check('edit cursor returns only new ticks and omits signed links by default',admin.json.ticks.length===2&&!admin.json.links);
+  const current=await request('GET',cardPath+'/ticks?since=0');const stats=S.groupStats(DATA,DATA.areas[0].refs,DAY,S.jobStates(current.json.ticks,Date.parse(current.json.now)));
+  check('live-route progress matches weighted shared rule',stats.d===4&&stats.w===9&&stats.pct===44);
+  await ctx.setOffline(true);const old=await ctx.newPage();await old.goto(qr('QA02'));await old.waitForFunction(()=>window.svc1067);
+  const changed=JSON.parse(JSON.stringify(DATA));changed.areas[0].refs[1].lines[0].qty=3;const changedHtml=buildCardHtml(changed),changedCfg=trackerConfig(changed);
+  const update=await request('POST','/api/cards',{...body,token,html:changedHtml,tracker:changedCfg},true);check('real same-token update preserves printed completion links',update.status===200&&update.json.token===token&&JSON.stringify(update.json.tracker.links)===JSON.stringify(links));
+  await ctx.setOffline(false);await old.evaluate(()=>window.dispatchEvent(new Event('online')));await old.waitForFunction(()=>/Reload/.test(document.querySelector('#banners').textContent));
+  check('real changed HTML marks old offline shell stale and blocks ticking',await old.locator('[data-job]:not([disabled])').count()===0);
+  await old.reload();await old.waitForFunction(()=>/^Live/.test(document.querySelector('#status').textContent));check('reloaded real card shows new quantity and clears stale state',(await old.locator('.count').innerText()).startsWith('3 units')&&!/Reload/.test(await old.locator('#banners').innerText()));
+  const after=await request('GET','/api/ticks?token='+token+'&since=0',undefined,true);check('admin readback matches updated quantity',after.json.tracker.lines.find(l=>l.ref==='QA02').qty===3);
+  check('browser wrote only standalone tracker ticks',writes.every(x=>x===cardPath+'/ticks'));check('browser made no remote network request',outside.length===0);check('browser has no script errors',errors.length===0);
+  const violations=(await Promise.all(ctx.pages().map(p=>p.evaluate(()=>window.csp)))).flat();check('real CSP accepts exact script and worker',violations.length===0);
+  check('standalone tracker operations leave synthetic job record untouched',sha(fs.readFileSync(record))===beforeRecord);
+  const evidence={author:'Andrew Fisher',serverSha256:sha(bytes),serverBytes:bytes.length,productionCardSha256:sha(fs.readFileSync(path.join(__dirname,'card.html'))),syntheticCardSha256:sha(html),syntheticUpdatedCardSha256:sha(changedHtml),checks,errors:errors.length,externalRequests:outside.length,jobRecordUnchanged:true};
+  fs.writeFileSync(path.join(__dirname,'evidence','card_real_server_protocol.json'),JSON.stringify(evidence,null,2)+'\n');
+  await ctx.close();console.log(`${checks} passed, 0 failed`);
+ }finally{if(browser)await browser.close();if(!exited){proc.kill('SIGTERM');for(let i=0;i<50&&!exited;i++)await wait(100);}fs.closeSync(output);}
+})().catch(e=>{console.error(e);process.exitCode=1;});

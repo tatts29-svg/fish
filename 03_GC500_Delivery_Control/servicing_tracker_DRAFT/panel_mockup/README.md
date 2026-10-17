@@ -14,8 +14,8 @@ part way at 23:20, Thursday ("if needed") unused, Sunday not started.
 
 - A day chooser: Thu 22 (if needed) · Fri 23 · Sat 24 · Sun 25 (last night). Each day runs 08:00 to 08:00 Gold Coast
   time, with "on now" and the service clock, "ended", or "starts Sun 25 Oct 08:00".
-- Everything: the %, "u of 263 units", "x of 75 locations", and "All finished <day hh:mm>" or "not finished".
-- One row per area (13 + "No location yet"): number, name, %, "x of y locations", "finished Sat 22:53" or "not finished".
+- Everything: the %, "x of 75 references", "d of 760 jobs" (777 jobs on Sunday), and "All finished <day hh:mm>" or "not finished".
+- One row per area (13 + "No location yet"): number, name, %, "x of y references", completed jobs, per-job totals, "finished Sat 22:53" or "not finished".
 - A fold per area: a table with one column per job that day in Andrew's words (Pumped out · Fresh water refilled ·
   Cleaned & restocked; Sunday: Pumped out · Cleaned & restocked · Locked & confirmed empty), one row per line, each
   job's time in its cell, "not yet", or a dash where it is not a job (a waste tank is only pumped out). A reference with
@@ -59,3 +59,14 @@ part way at 23:20, Thursday ("if needed") unused, Sunday not started.
 - His yes on this layout (placement at the top of Event nights; the fold as a table).
 - The view link: the v5.89 draft answers `/api/ticks` with 403 there, so the panel shows on the edit link only unless he
   wants it on the view link too.
+
+## Revision for v10.67 (18 Oct 2026)
+
+The headline now reads completed **references** and completed **jobs**, matching the crew card and the percentage’s
+unit weighting. Per-job totals appear for each area and everything, using the additive shared `SvcState.taskStats`
+function. Fully serviced units are no longer placed beside a jobs percentage. `admin_reader.js` consumes bounded
+v5.90 pages and resets on changed epoch/definition; it never exposes a partial read as verified progress.
+
+Actual page integration and the explicit edit-only creation/update workflow are in
+`../../v10.67_servicing_tracker_DRAFT/`. The mock remains clearly marked as example data. Current shared state checks:
+51 passed. The old browser screenshots/results are historical until re-run against this revision.

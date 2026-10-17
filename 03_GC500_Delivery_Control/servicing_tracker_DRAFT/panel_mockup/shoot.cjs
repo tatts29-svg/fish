@@ -117,14 +117,14 @@ async function partA(browser) {
       check('title says it is the crews\' tracker and track only', /Servicing tracker/.test(shown.h3) && /track only/.test(shown.h3), shown.h3);
       check('day chooser: Thu 22 if needed / Fri 23 / Sat 24 / Sun 25, Saturday picked by the example clock (Sat 23:20)',
         shown.days.map(d => d.text).join(' | ') === 'Thu 22if needed | Fri 23night | Sat 24night | Sun 25last night' && shown.days.filter(d => d.on).map(d => d.id).join() === '2026-10-24', shown.days);
-      check('overall % and "u of 263 units" are SvcState\'s (' + g.pct + '%, ' + g.unitsDone + ' of 263 units, ' + g.refsDone + ' of 75 locations)',
-        shown.big === g.pct + '%' && shown.allmeta.indexOf(g.unitsDone + ' of 263 units') >= 0 && shown.allmeta.indexOf(g.refsDone + ' of 75 locations') >= 0 && /not finished/.test(shown.allmeta), shown);
+      check('overall % and jobs/references are SvcState\'s (' + g.pct + '%, ' + g.unitsDone + ' of 263 units, ' + g.refsDone + ' of 75 locations)',
+        shown.big === g.pct + '%' && shown.allmeta.indexOf(g.d + ' of 760 jobs') >= 0 && shown.allmeta.indexOf(g.refsDone + ' of 75 references') >= 0 && /not finished/.test(shown.allmeta), shown);
       const bad = M0.D.areas.filter((a, i) => {
         const s = S.groupStats(CFG, a.refs, '2026-10-24', ST), row = shown.areas[i];
-        const meta = s.refsDone + ' of ' + s.refs + ' location' + (s.refs === 1 ? '' : 's') + ' · ' + (s.finished ? 'finished ' + wdHm(s.finished) : 'not finished');
+        const meta = s.refsDone + ' of ' + s.refs + ' reference' + (s.refs === 1 ? '' : 's') + ' · ' + s.d + ' of ' + s.w + ' jobs · ' + (s.finished ? 'finished ' + wdHm(s.finished) : 'not finished');
         return !row || row.n !== String(a.n) || row.pct !== s.pct + '%' || row.meta !== meta;
       }).map(a => a.n);
-      check('one row per area (14), each with SvcState\'s %, x of y locations and finished time / not finished', shown.areas.length === 14 && !bad.length, { bad, rows: shown.areas.slice(0, 3) });
+      check('one row per area (14), each with SvcState\'s %, x of y references and finished time / not finished', shown.areas.length === 14 && !bad.length, { bad, rows: shown.areas.slice(0, 3) });
       check('area 7 folded open: a table, one column per job in Andrew\'s words', shown.areas[6].open && shown.head7.join(' | ') === 'Reference | Pumped out | Fresh water refilled | Cleaned & restocked', shown.head7);
       check('each reference states its number and how many; each line its own row with each job\'s time (WC27: block + waste tank)',
         shown.refs7.some(t => /^WC27 2 units/.test(t)) && shown.refs7.some(t => /^1 × Toilet block 6 m \| \d\d:\d\d \| –not a job here \| \d\d:\d\d$/.test(t)) &&
