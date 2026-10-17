@@ -1,4 +1,4 @@
-# v10.59 — late loads named by reference and description; arrivals on the day they came; the checked figures (READY, waiting on Andrew's "Upload")
+# v10.59 — late loads named by reference and description; arrivals on the day they came; the checked figures (LIVE)
 
 Author: Andrew Fisher · 17 Oct 2026
 
@@ -35,7 +35,12 @@ python3 toolchain/upload_page.py build/GC500_v10.59/GC500_Delivery_Control_hoste
 - Sweeps desktop and phone: 24 tabs (18 shown on the view link), 7 links, 0 errors, 0 console messages.
 - v10.58 `test_part3.cjs` is superseded by `test_v1059.cjs` (the late-line wording changed on purpose).
 
-## After upload
+## Live
+
+Uploaded 17 Oct 2026 13:29 AEST on Andrew's "Upload" (base guard passed on v10.58 `3afd6b5b…`); the view link serves the
+build byte for byte: 18,257,843 bytes, sha256 `2b06724918d04bde…`.
+
+## After upload (done 13:30, record 9698 → 9701)
 
 A record step (`record_17Oct2026_police_fridges_chairs/`, op `arrived`) calls `arrivedOn1059.set` for P26, P28 and P34
 with 14 Oct. FR01/FR02 stay on 17 Oct, the day they came.

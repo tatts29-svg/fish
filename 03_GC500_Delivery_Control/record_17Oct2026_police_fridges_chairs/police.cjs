@@ -8,6 +8,7 @@
      note        - the delivery note (setDeliveryNote), the drawer's own note field
      desc        - the description typed over the schedule's (setDesc); the schedule's words are kept beside it
      date        - the due-in day (setDate), the drawer's own date field; the plan day is kept beside it
+     arrived     - the day it came, for an arrival recorded later (arrivedOn1059.set, v10.59): one day-only light-history entry
    and the ops it already had:
      number_on   - an asset number goes on by the drawer's rule (numberPutOn after the drawer's clash check)
      number_off  - an asset number comes off by the drawer's rule (numberTakeOff: a tombstone, so an older copy
@@ -77,6 +78,7 @@ spec.ops.forEach((o, i) => {
   else if (o.op === 'unit_archive') { if (!REFRE.test(o.ref || '')) fail(at + 'needs a reference'); if (!NORE.test(o.no || '')) fail(at + 'needs a number'); }
   else if (o.op === 'acc_off') { if (!REFRE.test(o.ref || '')) fail(at + 'needs a reference'); if (!TYPES.includes(o.type)) fail(at + 'type'); if (!NORE.test(o.no || '')) fail(at + 'needs a number'); }
   else if (o.op === 'note') { if (!REFRE.test(o.ref || '')) fail(at + 'needs a reference'); if (typeof o.text !== 'string' || !o.text.trim() || o.text.length > 900) fail(at + 'needs text under 900 characters'); if (/\b(codex|claude|gpt|model|agent)\b/i.test(o.text)) fail(at + 'text names a system'); }
+  else if (o.op === 'arrived') { if (!REFRE.test(o.ref || '')) fail(at + 'needs a reference'); if (!/^\d{4}-\d{2}-\d{2}$/.test(o.iso || '')) fail(at + 'needs a day'); if (o.why != null && (typeof o.why !== 'string' || o.why.length > 200 || /\b(codex|claude|gpt|model|agent)\b/i.test(o.why))) fail(at + 'why: under 200 characters, no system names'); }
   else if (o.op === 'date') { if (!REFRE.test(o.ref || '')) fail(at + 'needs a reference'); if (!/^\d{4}-\d{2}-\d{2}$/.test(o.iso || '')) fail(at + 'needs a day'); }
   else if (o.op === 'desc') { if (!REFRE.test(o.ref || '')) fail(at + 'needs a reference'); if (typeof o.text !== 'string' || !o.text.trim() || o.text.length > 160) fail(at + 'needs a description under 160 characters'); if (/\b(codex|claude|gpt|model|agent)\b/i.test(o.text)) fail(at + 'text names a system'); }
   else if (o.op === 'set_qty') { if (!REFRE.test(o.ref || '')) fail(at + 'needs a reference'); if (!(o.qty === '' || (Number.isInteger(o.qty) && o.qty >= 0))) fail(at + 'qty must be a whole number or "" for the schedule\'s own'); }
@@ -266,6 +268,12 @@ function applyOps(spec) {
       } else if (op.op === 'note') {
         if ((deliveryOf(op.ref).note || '') === op.text) r.result = 'already noted';
         else { setDeliveryNote(op.ref, op.text); if ((deliveryOf(op.ref).note || '') !== op.text) throw new Error('note not held on ' + op.ref); r.result = 'noted'; }
+      } else if (op.op === 'arrived') {
+        if (typeof arrivedOn1059 !== 'object' || typeof arrivedOn1059.set !== 'function') throw new Error('this page has no arrivedOn1059 (needs v10.59)');
+        const x = arrivedOn1059.set(op.ref, op.iso, op.why || '');
+        if (!x || !x.ok) throw new Error('arrivedOn1059.set refused ' + op.ref + ': ' + (x && x.reason));
+        if (deliveryAsOf(op.ref, op.iso).state !== 'on site') throw new Error(op.ref + ' does not replay on site at ' + op.iso + ' close');
+        r.result = x.already ? 'already on site by ' + op.iso : 'on site by ' + op.iso + ' (time not recorded), entry ' + x.entry.at;
       } else if (op.op === 'date') {
         const a = assetOf(op.ref), cur = deliveryOf(op.ref).date || a.first_date;
         if (cur === op.iso) r.result = 'already due in ' + op.iso;
@@ -406,6 +414,7 @@ function applyOps(spec) {
         if (op.op === 'set_qty' && op.qty !== '' && ((((docs.qtys || {})[op.ref] || {}).v)) !== op.qty) problems.push(op.ref + ' quantity is not ' + op.qty + ' ' + where);
         if (op.op === 'acc_off') { const st = results.find(x => x.op === 'acc_off' && x.ref === op.ref && x.no === op.no) || {}; if (st.accId && !Object.keys(docs.deleted || {}).some(k => docIdDecode(k) === 'acc/' + op.ref + '/' + st.accId)) problems.push(op.ref + ' has no take-off record for ' + op.type + ' ' + op.no + ' ' + where); }
         if (op.op === 'note' && ((((docs.delivery || {})[op.ref]) || {}).note) !== op.text) problems.push(op.ref + ' note is not held ' + where);
+        if (op.op === 'arrived' && !((((docs.delivery || {})[op.ref]) || {}).history || []).some(h => h && h.state === 'on site' && h.date_only === true && h.effective_date === op.iso)) problems.push(op.ref + ' has no day-only on-site entry for ' + op.iso + ' ' + where);
         if (op.op === 'date' && ((((docs.delivery || {})[op.ref]) || {}).date) !== op.iso) problems.push(op.ref + ' due-in day is not ' + op.iso + ' ' + where);
         if (op.op === 'desc') { const v = (docs.descs || {})[op.ref]; if ((v && typeof v === 'object' ? v.v : v) !== op.text) problems.push(op.ref + ' description is not held ' + where); }
       } return problems; };

@@ -81,3 +81,13 @@ Andrew, 17 Oct 2026: "What dates they should of had turn up. Have it as those da
   date writes, and the report confirms the same nine rows. Nothing else is loosened.
 - 3 documents (delivery/FR01, delivery/FR02, accessories/P46), all 200, read back; every other document unchanged;
   report `report_20261017T023727Z.json`, backup `backup_state_20261017T023727Z.json`.
+
+## Fourth step, 13:30 AEST · record 9698 → 9701, VERIFIED (`police4_spec.json`, after v10.59 went live)
+
+- P26, P28 and P34 each get one day-only light-history entry for **14 Oct**, through v10.59's `arrivedOn1059.set` (op
+  `arrived`): `{state: 'on site', at: 14 Oct 00:00 AEST, by: Andrew Fisher, recorded_at, date_only: true,
+  effective_date: '2026-10-14', note}`. Their 17 Oct light stays as recorded.
+- On the live page: the 14 Oct card reads 14 / 14 received, with Furniture 4 (2 large fridges · 2 chairs); arrivals on
+  14 Oct read "Wed 14 Oct 2026 · time not recorded"; 17 Oct's arrivals are FR01 and FR02 only.
+- 3 documents (delivery/P26, P28, P34), all 200, read back; every other document unchanged; report
+  `report_20261017T033025Z.json`, backup `backup_state_20261017T033025Z.json`.
