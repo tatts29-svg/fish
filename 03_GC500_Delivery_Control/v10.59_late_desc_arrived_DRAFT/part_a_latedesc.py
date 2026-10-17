@@ -34,14 +34,14 @@ PATCHES = [
      "const u = r.u, bits = ['<b>' + e(what(u, r)) + '</b>', e(u.k), e('window ' + win(u.w))];"),
     ('ontime: the card lists what was late',
      " function cardRow(iso){\n",
-     r""" /* v10.59 - the card names what was late, one short line each, in the order More info lists them */
+     r""" /* one reference twice in a day: say which item */
+ function namer(rows){ const seen = {}; rows.forEach(r => { const k = what(r.u, r); seen[k] = (seen[k] || 0) + 1; }); return r => { const k = what(r.u, r); return seen[k] > 1 && k.indexOf(r.u.k) < 0 ? k + ' · ' + r.u.k : k; }; }
+ /* v10.59 - the card names what was late, one short line each, in the order More info lists them */
  function lateHtml(M){
   const bad = M.failed.concat(M.late); if (!bad.length) return '';
   const head = [M.late.length ? M.late.length + ' late' : '', M.failed.length ? M.failed.length + ' failed' : ''].filter(Boolean).join(', ');
   const by = r => r.failed ? 'not delivered' : r.laterDay ? 'done ' + dd(r.u.td) : dur(r.lateBy) + ' late';
-  const show = bad.length > 4 ? bad.slice(0, 3) : bad, seen = {};
-  bad.forEach(r => { const k = what(r.u, r); seen[k] = (seen[k] || 0) + 1; });
-  const name = r => { const k = what(r.u, r); return seen[k] > 1 && k.indexOf(r.u.k) < 0 ? k + ' · ' + r.u.k : k; }; /* one reference twice in a day: say which item */
+  const show = bad.length > 4 ? bad.slice(0, 3) : bad, name = namer(bad);
   return '<span class="ot1057-why">' + e(head) + '</span>' + show.map(r => '<span class="ot1059-late"><b>' + e(name(r)) + '</b> · ' + e(by(r)) + '</span>').join('') +
    (bad.length > show.length ? '<span class="ot1059-late ot1059-more">+' + (bad.length - show.length) + ' more · More info</span>' : '');
  }
@@ -52,7 +52,7 @@ PATCHES = [
      "(why ? lateHtml(M) : '<span class=\"bc984-at-close\">ALL WITHIN THE WINDOW GIVEN</span>')"),
     ('ontime: the card button reads them out',
      "(!bad.length ? '' : bad.length === 1 ? ' ' + (bad[0].failed ? '1 failed: ' : bad[0].laterDay ? '1 late: ' : '1 late: ') + bad[0].u.k + (bad[0].lateBy > 0 ? ', ' + said(bad[0].lateBy) : '') + '.' :\n   ' ' + [M.late.length ? M.late.length + ' late' : '', M.failed.length ? M.failed.length + ' failed' : ''].filter(Boolean).join(', ') + ': ' + Object.entries(cats).sort((a, b) => b[1] - a[1]).map(([c, n]) => c + ' ' + n).join(', ') + '.');",
-     "(!bad.length ? '' : ' ' + [M.late.length ? M.late.length + ' late' : '', M.failed.length ? M.failed.length + ' failed' : ''].filter(Boolean).join(', ') + ': ' +\n   M.failed.concat(M.late).map(r => what(r.u, r) + ' ' + r.u.k + ', ' + (r.failed ? 'not delivered' : r.laterDay ? 'delivered ' + dd(r.u.td) : said(r.lateBy) + ' late')).join('; ') + '.');"),
+     "(!bad.length ? '' : ' ' + [M.late.length ? M.late.length + ' late' : '', M.failed.length ? M.failed.length + ' failed' : ''].filter(Boolean).join(', ') + ': ' +\n   M.failed.concat(M.late).map((r, i, all) => namer(all)(r) + ', ' + (r.failed ? 'not delivered' : r.laterDay ? 'delivered ' + dd(r.u.td) : said(r.lateBy) + ' late')).join('; ') + '.');"),
     ('ontime: on-time list names the reference and description',
      "e(M.ontime.map(r => r.u.k + ' · ' + who(r.u) + ' · window ' + win(r.u.w) + ' · done ' + ck(r.arr)).join('; '))",
      "e(M.ontime.map(r => what(r.u, r) + ' · ' + r.u.k + ' · window ' + win(r.u.w) + ' · done ' + ck(r.arr)).join('; '))"),

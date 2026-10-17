@@ -347,6 +347,20 @@ REVIEWED = {
     ('2026-10-16', 'Forklift Rough Terrain 5.0t 4WD Diesel', 0): (['FL03'], 'the site note on FL03, which names contract 9992300 line 1', ('9992300', 1)),
     ('2026-10-16', 'Forklift Rough Terrain 2.5t 4WD Diesel', 0): (['FL04'], 'the site note on FL04, which names contract 9992300 line 2', ('9992300', 2)),
     ('2026-10-16', 'Trakmat - 2.4M x 1.1M - TM4496', 0): (['TM01'], 'the site note on TM01, which names contract 9992300 line 6', ('9992300', 6)),
+    # 13 Oct (v10.59, the independent check): the rough-terrain 2.5t is asset 1281615, which the site record put on T0109 on
+    # 13 Oct 12:19 (1214298 taken off); register 9987005 line 7 (docket 26127228) has the same description, delivered 13 Oct.
+    ('2026-10-13', 'Forklift Rough Terrain 2.5t 4WD Diesel', 0): (['T0109'], 'asset 1281615, which the site record puts on T0109 (13 Oct 12:19); register 9987005 line 7, docket 26127228', ('9987005', 7)),
+}
+
+# Re-booked on the day (v10.59, the independent check): a unit Coates moved to a later day while its first window was
+# open stays measured against that first window ("Ontime is delivered within the window given", Andrew, 17 Oct 2026).
+# The later day's booking text becomes a re-send on it, and the later day's delivered text closes it out on that day.
+RE_BOOKED = {
+    # P16: four 4.8 x 2.4 booked 16 Sep 12:49 for 21 Sep (the fourth 12:00-15:00); three delivered on 21 Sep. At 21 Sep 12:54,
+    # inside that window, Coates re-booked one for 22 Sep 09:00-15:00, delivered 22 Sep 11:09. Programme T0044 ("NOW 22ND")
+    # and register 9968862 line 57 (docket 26081396) are the same unit. The site record ticks P16 on site 21 Sep 15:34.
+    ('2026-09-21', 'Portable Building Shell 4.8M x 2.4M', 3): ('2026-09-22', 'Portable Building Shell 4.8M x 2.4M', 0,
+        're-booked 21 Sep 12:54, inside the 12:00-15:00 window, for 22 Sep 09:00-15:00; programme T0044 "NOW 22ND"; register 9968862 line 57'),
 }
 
 # Texts the site record contradicts: shown, never counted, every source named.
@@ -537,6 +551,21 @@ def main():
             carr = re.split(r'\s*/\s*', str(carr))[min(idx, len(re.split(r'\s*/\s*', str(carr))) - 1)] if carr else None
             note = (e.get('note') or e.get('notes') or '').strip()
             u['pg'] = {'task': e.get('task_id'), 'carrier': carr, 'load': t, 'words': [w for w in [words, dd_words(e.get('dd')), note if note and ORDER_NOTE.search(note) and len(note) < 60 else None] if w]}
+    # re-booked on the day: folded back onto the first-window unit
+    for (fi, fitem, fn), (ti, titem, tn, why) in RE_BOOKED.items():
+        f = [u for u in units if (u['day'].isoformat(), u['item'], u['n']) == (fi, fitem, fn)]
+        g = [u for u in units if (u['day'].isoformat(), u['item'], u['n']) == (ti, titem, tn)]
+        if len(f) != 1 or len(g) != 1:
+            sys.exit('RE_BOOKED does not match one unit each: %r -> %r' % ((fi, fitem, fn), (ti, titem, tn)))
+        f, g = f[0], g[0]
+        if f['delivered'] or f['failed'] or f['refs'] != g['refs']:
+            sys.exit('RE_BOOKED: %s already has a delivered or failed text, or the references differ (%r, %r)' % (fi, f['refs'], g['refs']))
+        f['rs'].append(dict(w=g['w'], at=g['booked_at'], one=False, of=1))
+        for k in ('delivered', 'failed', 'onway', 'ow_batch'):
+            f[k] = g.get(k)
+        f['later_day'] = True; f['rebooked'] = {'to': ti, 'why': why}
+        if not f['dk'] and g['dk']: f['dk'], f['rl'] = g['dk'], g['rl']
+        units.remove(g)
     # set aside
     for u in units:
         key = (u['day'].isoformat(), u['item'], u['n'])
@@ -581,6 +610,7 @@ def main():
         if u['pg']: row['pg'] = u['pg']
         if u.get('pgm'): row['pgm'] = u['pgm']
         if u.get('aside'): row['x'] = u['aside']
+        if u.get('rebooked'): row['rb'] = u['rebooked']
         if u['site'] and u['site'] != 'MAIN BEACH': row['s'] = u['site'].title()
         out_units.append(row)
     data = {'author': 'Andrew Fisher', 'source': 'Coates delivery texts, export ' + EXPORT_AT + ' (' + str(len(msgs)) + ' texts, ' +
