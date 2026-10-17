@@ -91,7 +91,7 @@ const LINES = () => { const b = document.getElementById('ts1053-banner'); const 
     return d ? {n: pane.querySelectorAll('.orders1057').length, open: d.open, prev: (d.previousElementSibling || {}).dataset ? d.previousElementSibling.dataset.refreshFold : '', next: d.nextElementSibling ? d.nextElementSibling.className : '', summary: d.querySelector('summary').innerText.replace(/\s+/g, ' '), h: Math.round(d.getBoundingClientRect().height), over: document.documentElement.scrollWidth > innerWidth + 1} : null; });
    ok(dm && dm.n === 1 && !dm.open, tag + ': Demob carries one delivery-orders fold, closed (' + (dm && dm.h) + ' px)');
    ok(dm && dm.prev === 'demob-programme-basis' && /asm816/.test(dm.next), tag + ': it sits between Programme totals and Planning assumptions (' + (dm && dm.prev + ' / ' + dm.next) + ')');
-   ok(dm && /^Delivery orders · locked/.test(dm.summary) && /11 days · 44 references in the exact order to keep · 1 rule/.test(dm.summary), tag + ': fold heading: ' + (dm && dm.summary));
+   ok(dm && /^Delivery orders · locked/.test(dm.summary) && /11 days · 45 references in the exact order to keep · 1 rule/.test(dm.summary), tag + ': fold heading: ' + (dm && dm.summary));
    if (mob) await shot(p, 'p1_demob_fold_closed_phone.png', '#pane-demob > .orders1057', 'center');
    await p.evaluate(() => document.querySelector('#pane-demob > .orders1057 summary').click()); await p.waitForTimeout(500);
    const dx = await p.evaluate(() => { const d = document.querySelector('#pane-demob > .orders1057'); const t = d.innerText; const rows = [...d.querySelectorAll('.c1054')].map(x => x.innerText.replace(/\s+/g, ' '));

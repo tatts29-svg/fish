@@ -12,7 +12,8 @@ async function tick(p, name){ await p.waitForSelector('#ts1053', {timeout: 5000}
   const tag = mob ? 'phone' : 'desktop'; const h = await load(mob, '#costs'); const p = h.page;
   try {
    const b = await p.evaluate(() => ({foot: document.getElementById('footL').textContent, banner: (document.getElementById('ts1053-banner') || {}).innerText || '', over: document.documentElement.scrollWidth > window.innerWidth + 1}));
-   ok(/v10\.5[3-9]$/.test(b.foot), tag + ': footer v10.53 or later');
+   const version = /\bv(\d+)\.(\d+)(?:\.\d+)?$/.exec(b.foot.trim());
+   ok(version && (Number(version[1]) > 10 || (Number(version[1]) === 10 && Number(version[2]) >= 53)), tag + ': footer v10.53 or later');
    ok(/NO TWIN-STEER TRUCKS/.test(b.banner) && /Esplanade/.test(b.banner) && /Macintosh Island Park/.test(b.banner), tag + ': red strip under the header: ' + b.banner);
    ok(!b.over, tag + ': no sideways scroll');
    // backstop: a print with no tick is refused and asks
