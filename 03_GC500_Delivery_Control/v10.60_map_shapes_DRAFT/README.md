@@ -18,6 +18,10 @@ door"; "And the green tick is inside the shape not outside". Then "Proceed. Appr
   per reference, in its main part (on a run of FWFs, the one nearest the middle), sized to fit. A shape too small for
   it at that zoom is filled in the status colour instead. No circle, glow or tick beside a shaped reference.
 - The Done chip's finished units are drawn the same way (their shape with the tick inside), not as loose ticks.
+- Glow and pulse (Andrew, 17 Oct 2026: "Glow and pulsate too"): every shape glows softly in its colour (orange and
+  stronger when selected); the selected shape ripples outward in its own outline, not a circle; finished units beat
+  twice when the Done chip shows them, as the old rings did. The pulse runs on its own small layer, so the map is not
+  redrawn for it; it is still while the map moves, hidden, in 3D or fencing, and with reduced motion or Motion Off.
 - The reference is written inside its shape, along it, beside the tick: one shape, no second label box (Andrew,
   17 Oct 2026: "Put the reference number inside the box too.. i dont want two boxes shown"). Selected, the status words
   go under it when they fit. When the shape is too small at that zoom for the tick and the reference side by side, the

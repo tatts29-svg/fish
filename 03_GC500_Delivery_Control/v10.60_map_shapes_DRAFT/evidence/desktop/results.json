@@ -2,7 +2,7 @@
  "author": "Andrew Fisher",
  "page": "build/GC500_v10.60/GC500_Delivery_Control_hosted.html",
  "mobile": false,
- "passed": 32,
+ "passed": 36,
  "failed": 0,
  "results": [
   {
@@ -76,6 +76,13 @@
      "off": 0,
      "failed": 0,
      "lastErr": "",
+     "paints": 5,
+     "beat": {
+      "selected": false,
+      "frames": 0,
+      "still": false,
+      "running": false
+     },
      "wrapped": true
     },
     "layer": true,
@@ -144,7 +151,7 @@
   {
    "name": "shapes: at least 125 references drawn as their shape",
    "ok": true,
-   "detail": 133
+   "detail": 131
   },
   {
    "name": "pinned T0022: drawn as its shape once its pin has arrived",
@@ -163,7 +170,7 @@
     "glyph": "check",
     "arcs": 0,
     "tick": 68,
-    "ink": 1630,
+    "ink": 2281,
     "old": 0,
     "at": {
      "x": 552.8189456760092,
@@ -184,6 +191,13 @@
      "off": 5,
      "failed": 0,
      "lastErr": "",
+     "paints": 35,
+     "beat": {
+      "selected": true,
+      "frames": 40,
+      "still": false,
+      "running": true
+     },
      "wrapped": true
     },
     "w": 73,
@@ -247,6 +261,45 @@
    "detail": "P37"
   },
   {
+   "name": "P37: the shape glows (soft wide strokes in its colour under the outline)",
+   "ok": true,
+   "detail": [
+    "16 rgba(255, 130, 31, 0.3)",
+    "9 rgba(255, 130, 31, 0.45)"
+   ]
+  },
+  {
+   "name": "P37: the selected shape pulses on its own layer",
+   "ok": true,
+   "detail": {
+    "ink": 580,
+    "state": {
+     "selected": true,
+     "frames": 112,
+     "still": false,
+     "running": true
+    },
+    "paints": 48,
+    "under": true
+   }
+  },
+  {
+   "name": "P37: the pulse does not redraw the whole map",
+   "ok": true,
+   "detail": {
+    "before": 37,
+    "after": 48
+   }
+  },
+  {
+   "name": "P37: with reduced motion the pulse stops",
+   "ok": true,
+   "detail": {
+    "ink": 0,
+    "still": true
+   }
+  },
+  {
    "name": "P37: tapping inside the shape picks P37",
    "ok": true,
    "detail": {
@@ -297,7 +350,7 @@
    "name": "WC21: drawn as six FWF squares with their chevrons",
    "ok": true,
    "detail": {
-    "strokes": 38,
+    "strokes": 50,
     "drawn": 1,
     "shaped": true,
     "status": {
@@ -394,7 +447,7 @@
    "ok": true,
    "detail": {
     "page": 1,
-    "live": 228,
+    "live": 231,
     "blocked": 0
    }
   }

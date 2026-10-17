@@ -2,7 +2,7 @@
  "author": "Andrew Fisher",
  "page": "build/GC500_v10.60/GC500_Delivery_Control_hosted.html",
  "mobile": true,
- "passed": 32,
+ "passed": 36,
  "failed": 0,
  "results": [
   {
@@ -76,6 +76,13 @@
      "off": 0,
      "failed": 0,
      "lastErr": "",
+     "paints": 10,
+     "beat": {
+      "selected": false,
+      "frames": 0,
+      "still": false,
+      "running": false
+     },
      "wrapped": true
     },
     "layer": true,
@@ -163,7 +170,7 @@
     "glyph": "check",
     "arcs": 0,
     "tick": 550,
-    "ink": 2485,
+    "ink": 2517,
     "old": 0,
     "at": {
      "x": 183.92009679999978,
@@ -184,6 +191,13 @@
      "off": 5,
      "failed": 0,
      "lastErr": "",
+     "paints": 36,
+     "beat": {
+      "selected": true,
+      "frames": 38,
+      "still": false,
+      "running": true
+     },
      "wrapped": true
     },
     "w": 65,
@@ -247,6 +261,45 @@
    "detail": "P37"
   },
   {
+   "name": "P37: the shape glows (soft wide strokes in its colour under the outline)",
+   "ok": true,
+   "detail": [
+    "16 rgba(255, 130, 31, 0.3)",
+    "9 rgba(255, 130, 31, 0.45)"
+   ]
+  },
+  {
+   "name": "P37: the selected shape pulses on its own layer",
+   "ok": true,
+   "detail": {
+    "ink": 2834,
+    "state": {
+     "selected": true,
+     "frames": 111,
+     "still": false,
+     "running": true
+    },
+    "paints": 53,
+    "under": true
+   }
+  },
+  {
+   "name": "P37: the pulse does not redraw the whole map",
+   "ok": true,
+   "detail": {
+    "before": 38,
+    "after": 53
+   }
+  },
+  {
+   "name": "P37: with reduced motion the pulse stops",
+   "ok": true,
+   "detail": {
+    "ink": 0,
+    "still": true
+   }
+  },
+  {
    "name": "P37: tapping inside the shape picks P37",
    "ok": true,
    "detail": {
@@ -297,7 +350,7 @@
    "name": "WC21: drawn as six FWF squares with their chevrons",
    "ok": true,
    "detail": {
-    "strokes": 38,
+    "strokes": 50,
     "drawn": 1,
     "shaped": true,
     "status": {
@@ -394,7 +447,7 @@
    "ok": true,
    "detail": {
     "page": 1,
-    "live": 207,
+    "live": 218,
     "blocked": 0
    }
   }

@@ -44,7 +44,7 @@ const SHAPE = ['P37', 'P36', 'WC21', 'WC07', 'WC69', 'WB17', 'P10', 'AA'];
 
   /* the frame side */
   const fr = await frame.evaluate(() => { const L = document.getElementById('shape1060'), M = document.getElementById('marks');
-   return {state: GC500Shape1060.state, layer: !!L, under: !!L && L.nextElementSibling === M, noTaps: !!L && getComputedStyle(L).pointerEvents === 'none', wrapped: !!drawMarks.__shape1060, oneScript: document.querySelectorAll('#shape1060-script').length}; });
+   return {state: GC500Shape1060.state, layer: !!L, under: !!L && L.nextElementSibling && L.nextElementSibling.id === 'shape1060beat' && L.nextElementSibling.nextElementSibling === M, noTaps: !!L && getComputedStyle(L).pointerEvents === 'none', wrapped: !!drawMarks.__shape1060, oneScript: document.querySelectorAll('#shape1060-script').length}; });
   check('frame: layer mounted once, just under the native markers, not catching taps', fr.layer && fr.under && fr.noTaps && fr.wrapped && fr.oneScript === 1 && fr.state.available, fr);
   const again = await p.evaluate(() => gc500ShapeLayer1060.mount(document.getElementById('expFrame')));
   check('frame: a second mount does not inject twice', again === true && await frame.evaluate(() => document.querySelectorAll('#shape1060-script').length === 1 && document.querySelectorAll('#shape1060').length === 1));
@@ -95,6 +95,21 @@ const SHAPE = ['P37', 'P36', 'WC21', 'WC07', 'WC69', 'WB17', 'P10', 'AA'];
   check('P37: the reference is written inside its shape', lab.inBox, lab);
   check('P37: no label box beside the shape (one shape, not two boxes)', lab.boxes === 0 && lab.native === 0, {boxes: lab.boxes, native: lab.native});
   check('P37: tapping the reference text still picks P37', lab.hit === 'P37', lab.hit);
+  /* glow and pulse (Andrew, 17 Oct: "Glow and pulsate too") */
+  const glow = await frame.evaluate(() => { const g = document.getElementById('shape1060').getContext('2d'), ws = []; const os = g.stroke;
+   g.stroke = function(){ ws.push({w: g.lineWidth / dpr, s: String(g.strokeStyle)}); return os.apply(this, arguments); };
+   try { drawMarks(currentView()); } finally { g.stroke = os; } return ws.filter(x => x.w >= 9).map(x => x.w + ' ' + x.s); });
+  check('P37: the shape glows (soft wide strokes in its colour under the outline)', glow.length >= 2, glow);
+  const p0 = await frame.evaluate(() => GC500Shape1060.state.paints);
+  await p.waitForTimeout(1200);
+  const pulse = await frame.evaluate(() => { const L = document.getElementById('shape1060beat'), g = L.getContext('2d'), d = g.getImageData(0, 0, L.width, L.height).data; let n = 0; for (let i = 3; i < d.length; i += 4) if (d[i] > 30) n++;
+   return {ink: n, state: GC500Shape1060.state.beat, paints: GC500Shape1060.state.paints, under: L.nextElementSibling === document.getElementById('marks')}; });
+  check('P37: the selected shape pulses on its own layer', pulse.ink > 30 && pulse.state.frames > 10 && pulse.state.selected && pulse.under, pulse);
+  check('P37: the pulse does not redraw the whole map', pulse.paints - p0 < 20, {before: p0, after: pulse.paints});
+  await p.emulateMedia({reducedMotion: 'reduce'}); await p.waitForTimeout(400);
+  const calm = await frame.evaluate(() => { const L = document.getElementById('shape1060beat'), d = L.getContext('2d').getImageData(0, 0, L.width, L.height).data; let n = 0; for (let i = 3; i < d.length; i += 4) if (d[i] > 30) n++; return {ink: n, still: GC500Shape1060.state.beat.still}; });
+  check('P37: with reduced motion the pulse stops', calm.still && calm.ink === 0, calm);
+  await p.emulateMedia({reducedMotion: 'no-preference'});
   const tap = await frame.evaluate(() => { const at = GC500Shape1060.at('P37'), m = markAt(at.x, at.y), i = itemAt887(at.x, at.y), off = markAt(at.box.x1 + 60, at.box.y1 + 60);
    const corner = itemAt887(at.box.x0 + (at.box.x1 - at.box.x0) * 0.3, at.y); return {m: m && m.it.code, i: i && i.it.code, corner: corner && corner.it.code, off: off && off.it && off.it.code}; });
   check('P37: tapping inside the shape picks P37', tap.m === 'P37' && tap.i === 'P37' && tap.corner === 'P37', tap);

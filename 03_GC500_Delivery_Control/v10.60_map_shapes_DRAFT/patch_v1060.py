@@ -21,6 +21,9 @@ What changes in the Map explorer (the separate map in its own frame):
   they fit. A shape too small at that zoom keeps the tick or its status fill and the reference sits on it as plain
   text. Tapping the reference still opens the card; the selected reference is outlined in orange.
 - Tapping inside a shape selects it.
+- Glow and pulse (Andrew, 17 Oct 2026: "Glow and pulsate too"): every shape glows softly in its colour; the selected
+  one ripples outward in its own outline; finished units beat twice when the Done chip shows them. Still while the map
+  moves, and with reduced motion or the project's Motion Off.
 - A reference keeps today's marker, so nothing disappears, when it has no traced shape, more than one place, an outline
   it shares with other references (the police block P26/P28/P34 - fridges and chairs inside it - PG01/03/05/29, shared
   barrier runs), is furniture, or its marker sits more than 6 sheet points (about 4 m) off its outline (area-label
@@ -110,8 +113,11 @@ JS = r'''/* Author: Andrew Fisher. v10.60 - the Map explorer shows each referenc
   const layer = document.createElement('canvas'); layer.id = 'shape1060'; layer.setAttribute('aria-hidden', 'true');
   layer.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;pointer-events:none';
   native.parentNode.insertBefore(layer, native);
-  const css = document.createElement('style'); css.id = 'shape1060-style'; css.textContent = 'body.in3d #shape1060{visibility:hidden}body.fencing-map #shape1060{display:none!important}'; document.head.appendChild(css);
-  const g = layer.getContext('2d');
+  const beatLayer = document.createElement('canvas'); beatLayer.id = 'shape1060beat'; beatLayer.setAttribute('aria-hidden', 'true'); beatLayer.style.cssText = layer.style.cssText;
+  native.parentNode.insertBefore(beatLayer, native);
+  const css = document.createElement('style'); css.id = 'shape1060-style'; css.textContent = 'body.in3d #shape1060,body.in3d #shape1060beat{visibility:hidden}body.fencing-map #shape1060,body.fencing-map #shape1060beat{display:none!important}'; document.head.appendChild(css);
+  const g = layer.getContext('2d'), bg = beatLayer.getContext('2d');
+  const BEAT = {sel: null, done: [], doneKey: '', doneStart: 0, doneUntil: 0, raf: 0, frames: 0}; let paints = 0;
   const MIN = 12, NEAR = 6;    /* px: the smallest a shape is drawn; sheet points (about 4 m): how far the marker may sit outside the shape */
   function pull(){
    try { const s = host && host !== window && typeof host.gc500MapShapes1060 === 'function' ? host.gc500MapShapes1060() : null;
@@ -173,7 +179,7 @@ JS = r'''/* Author: Andrew Fisher. v10.60 - the Map explorer shows each referenc
   }
   function paint(v, shaped){
    if (layer.width !== mcanvas.width || layer.height !== mcanvas.height) { layer.width = mcanvas.width; layer.height = mcanvas.height; }
-   g.setTransform(1, 0, 0, 1, 0, 0); g.clearRect(0, 0, layer.width, layer.height);
+   g.setTransform(1, 0, 0, 1, 0, 0); g.clearRect(0, 0, layer.width, layer.height); paints++; BEAT.sel = null; BEAT.done = [];
    if (!shaped.length) { if (layer.style.display !== 'none') layer.style.display = 'none'; drawn = 0; return; }
    if (layer.style.display === 'none') layer.style.display = '';
    const M = sheetToDevice(dpr * v.scale, canvas.width, canvas.height), s = dpr * v.scale, showText = marks.length <= 60 || s > 1.2;
@@ -191,8 +197,10 @@ JS = r'''/* Author: Andrew Fisher. v10.60 - the Map explorer shows each referenc
     for (const part of L.parts) {
      const {c, pts, P} = part;
      g.save();
+     path(g, pts);
+     if (!c.tank) { g.lineJoin = 'round'; g.strokeStyle = col + (sel ? '4d' : '2e'); g.lineWidth = (sel ? 16 : 10) * dpr; g.stroke(); g.strokeStyle = col + (sel ? '73' : '47'); g.lineWidth = (sel ? 9 : 5.5) * dpr; g.stroke(); }    /* the glow */
      if (c.std) g.setLineDash([4 * dpr, 3 * dpr]);
-     path(g, pts); g.fillStyle = c.tank ? '#9aa4ad80' : col + (sel ? 'b3' : '66'); g.fill();
+     g.fillStyle = c.tank ? '#9aa4ad80' : col + (sel ? 'b3' : '66'); g.fill();
      if (sel) { g.strokeStyle = '#1b1009'; g.lineWidth = 6 * dpr; g.stroke(); g.strokeStyle = '#ff9a4d'; g.lineWidth = 2.6 * dpr; g.stroke(); }
      else { g.strokeStyle = '#0b0908'; g.lineWidth = 3.4 * dpr; g.stroke(); g.strokeStyle = c.tank ? '#c9d1d8' : col; g.lineWidth = 1.7 * dpr; g.stroke(); }
      g.setLineDash([]);
@@ -206,8 +214,36 @@ JS = r'''/* Author: Andrew Fisher. v10.60 - the Map explorer shows each referenc
      g.restore();
     }
     inner(m, L, status, sel, main, sel || (showText && !m.done));
+    const o = {parts: L.parts.filter(p => !p.c.tank).map(p => p.pts), mx: L.mx, my: L.my, r: Math.max(6 * dpr, Math.max(b.x1 - b.x0, b.y1 - b.y0) / 2)};
+    if (sel) BEAT.sel = o; else if (m.done && BEAT.done.length < 160) BEAT.done.push(o);
    }
    drawn = n;
+   const key = doneShaped.map(p => p[0].it.code).sort().join(',');    /* the Done chip's double beat when its finished units change */
+   if (key !== BEAT.doneKey) { BEAT.doneKey = key; if (key) { BEAT.doneStart = performance.now(); BEAT.doneUntil = BEAT.doneStart + 1300; } }
+   kick();
+  }
+  /* glow and pulse (Andrew, 17 Oct 2026: "Glow and pulsate too"): the selected shape ripples outward in its own outline,
+     finished units beat twice when the Done chip shows them. Its own small canvas and loop, so the map is not redrawn
+     for it; still while the map moves, hidden, in 3D or fencing, and with reduced motion or Motion Off. */
+  const still = () => document.documentElement.classList.contains('d782still') || !!(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches);
+  function kick(){ if (!BEAT.raf && (BEAT.sel || BEAT.doneUntil > performance.now())) BEAT.raf = requestAnimationFrame(beat); }
+  function ripple(o, ph, colour, w){
+   const k = 1 + 16 * dpr * ph / o.r; bg.save(); bg.globalAlpha = Math.max(0, 1 - ph) * 0.9; bg.lineJoin = 'round'; bg.strokeStyle = colour; bg.lineWidth = w * dpr;
+   for (const pts of o.parts) { bg.beginPath(); pts.forEach((q, i) => { const x = o.mx + (q.x - o.mx) * k, y = o.my + (q.y - o.my) * k; if (i) bg.lineTo(x, y); else bg.moveTo(x, y); }); bg.closePath(); bg.stroke(); }
+   bg.restore();
+  }
+  function beat(t){
+   BEAT.raf = 0;
+   if (beatLayer.width !== layer.width || beatLayer.height !== layer.height) { beatLayer.width = layer.width; beatLayer.height = layer.height; }
+   bg.setTransform(1, 0, 0, 1, 0, 0); bg.clearRect(0, 0, beatLayer.width, beatLayer.height);
+   if (document.hidden || fencing() || (typeof under3d === 'function' && under3d()) || layer.style.display === 'none') return;    /* the next paint starts it again */
+   const quiet = still(), moving = typeof interacting !== 'undefined' && !!interacting;
+   if (!quiet && !moving) {
+    if (BEAT.sel) { const ph = (t % 1600) / 1600; ripple(BEAT.sel, ph, '#ff9a4d', 3); ripple(BEAT.sel, (ph + 0.5) % 1, '#ff821f', 2); }
+    if (BEAT.doneUntil > t && t >= BEAT.doneStart) { const ph = ((t - BEAT.doneStart) % 650) / 650; for (const o of BEAT.done) ripple(o, ph, '#4aff9a', 2.4); }
+    BEAT.frames++;
+   }
+   if ((BEAT.sel && !quiet) || BEAT.doneUntil > t) BEAT.raf = requestAnimationFrame(beat);
   }
   /* the tick and the reference inside the shape, along its length, with no second box (Andrew, 17 Oct 2026: "Put the
      reference number inside the box too.. i dont want two boxes shown"). Selected: the status words under the reference
@@ -302,7 +338,7 @@ JS = r'''/* Author: Andrew Fisher. v10.60 - the Map explorer shows each referenc
   window.markAt = function(x, y){ if (fencing() || !SNAP) return nativeMarkAt(x, y); return hit(x, y, marks) || nativeMarkAt(x, y); };
   window.itemAt887 = function(x, y){ if (fencing() || !SNAP) return nativeItemAt(x, y); const m = hit(x, y, marks) || hit(x, y, shapedItems()); return m ? {it: m.it, c: m.it.cat ? m.it.cat.c : m.c} : nativeItemAt(x, y); };
   window.GC500Shape1060 = Object.freeze({version: 'v10.60', pull,
-   get state(){ return {available: !!SNAP, refs: SNAP ? SNAP.counts.refs : 0, drawn, kept, done: doneShaped.length, off, failed, lastErr, wrapped: !!window.drawMarks.__shape1060}; },
+   get state(){ return {available: !!SNAP, refs: SNAP ? SNAP.counts.refs : 0, drawn, kept, done: doneShaped.length, off, failed, lastErr, paints, beat: {selected: !!BEAT.sel, frames: BEAT.frames, still: still(), running: !!BEAT.raf}, wrapped: !!window.drawMarks.__shape1060}; },
    shaped: () => marks.filter(m => shapeFor(m.it)).map(m => m.it.code),
    done: () => doneShaped.map(p => p[0].it.code),
    layout: code => LAYOUT.get(code) || null,
