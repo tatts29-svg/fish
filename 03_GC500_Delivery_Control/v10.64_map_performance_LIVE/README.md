@@ -1,4 +1,4 @@
-# Map loading recovery and exact label fitting — v10.64 ready
+# Map loading recovery and exact label fitting — v10.64 LIVE
 
 Author: Andrew Fisher
 
@@ -32,7 +32,9 @@ Full live pages, records, CPU profiles and screenshots remain private. Repositor
 - Machine preparation/publication guards: 19 mocked-network tests passed.
 - Desktop and phone: 62/62 shape checks, 11/11 map navigation checks, 24 tab routes and 7 deep links, 0 page errors, 0 console errors. Record unchanged in shape checks; no record writes attempted.
 - Independent source review found no release blockers. Phone screenshots inspected.
-- READY TO UPLOAD; not yet published. Detailed aggregate evidence: `evidence/validation.json`.
+- LIVE 18 Oct 2026 07:33 AEST. Tested source: `ab1cc0a6b758e206334b4a2bb91a0ac64770deaf`. Page and both changed machine files read back byte for byte.
+- Fresh-cache live desktop and phone checks: 11/11 each, new recovery code loaded, shape layer attached, navigation/refresh preserved, no page errors or record writes.
+- Aggregate validation and publication evidence: `evidence/validation.json` and `evidence/publication.json`.
 
 Phone CPU ×4 profiling separates the shared parent calculations (the separately owned v10.61 scope) from map drawing. This bounded change does not claim all page-load delays or all frame-time targets are resolved. Real-device GPU performance remains outside the headless test's proof.
 
