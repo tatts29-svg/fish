@@ -43,7 +43,24 @@ Through the page's own controls on the edit link:
   all 200; every op read back on the service; every other document unchanged in value; report
   `report_20261017T021317Z.json`. No key in any file.
 
-## Not done
+## Second step, 12:32 AEST · record 9667 → 9690, VERIFIED (`police2_spec.json`)
 
-- **1129733 and 1157786** ("Came in Today"). Neither number is anywhere on the record, the Baseplan exports, Schedule 9
-  or the register, and nothing says what they are or which reference they belong to. Waiting on Andrew.
+Asked where 1129733 and 1157786 belonged, Andrew said: "So the 4 that were for police 2 went to p46 then 2 went to
+p26 and p28 and ilve been told amd the 2 that you mentioed are for broadcast".
+
+- T0265's 14 Oct delivery was four fridges: 1318501, 1260164, 1283996 and 1311992. All four were for the police.
+  1311992 and 1283996 are on P26 and P28 (step one), so the two on P46 are **1318501 and 1260164**. This morning's
+  broadcast record (`record_17Oct2026_broadcast_fridges/`) had put those two on FR01 and FR02. That was wrong.
+- The broadcast fridges are the two that came in today, **1129733** and **1157786**.
+
+| Ref | Change |
+|---|---|
+| FR01 | 1318501 off; 1129733 on; note rewritten (came in 17 Oct; the correction and why) |
+| FR02 | 1260164 off; 1157786 on; note rewritten |
+| P46 | Fridge 1318501 and Fridge 1260164 attached through the drawer's Accessories form, each described "Police fridge, from T0265's 14 Oct delivery". P46 now carries air conditioners 1327959 and 1327960 and fridges 1318501 and 1260164. |
+
+- 1129733 → FR01 and 1157786 → FR02 follow the order Andrew wrote them in (two identical broadcast fridges).
+- FR01 and FR02 really did arrive on 17 Oct, so their light time stands. Only P26, P28 and P34 get the 14 Oct
+  arrival day in v10.59.
+- Dry run first: 8 ops, 23 documents, no page errors. Apply: backup `backup_state_20261017T023200Z.json`; 23 PUTs, all
+  200; every op read back on the service; every other document unchanged; report `report_20261017T023200Z.json`.

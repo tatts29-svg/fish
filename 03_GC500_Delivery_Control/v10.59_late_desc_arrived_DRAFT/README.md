@@ -12,6 +12,7 @@ it relates too" and "the swivel chairs turned up on the correct day. So did the 
 - **Part B** (`part_b_arrived.py`): `arrivedOn1059.set(key, iso, why)` adds one "on site by the close of <day>, time
   not recorded" entry to the light history, so every past-day view counts the item from that day. Tested in page
   memory with P26, P28, P34, FR01 and FR02 on 14 Oct: the 14 Oct card goes 11/16 → 16/16 received, Furniture 6.
+  Since corrected: FR01/FR02 now carry 1129733/1157786, which came in on 17 Oct, so only P26, P28 and P34 get 14 Oct.
   The display patches (no screen prints the entry's stamp as a time) follow the readers audit.
 - Still to do: the display patches, the independent late-load check's confirmed fixes, tests, build, sweeps.
 - Performance moves to v10.60.
