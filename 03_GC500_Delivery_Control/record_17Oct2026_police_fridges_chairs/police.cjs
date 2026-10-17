@@ -7,6 +7,7 @@
      acc_off     - an accessory taken off through the drawer's own Take off button (a put-back record, as a person does)
      note        - the delivery note (setDeliveryNote), the drawer's own note field
      desc        - the description typed over the schedule's (setDesc); the schedule's words are kept beside it
+     date        - the due-in day (setDate), the drawer's own date field; the plan day is kept beside it
    and the ops it already had:
      number_on   - an asset number goes on by the drawer's rule (numberPutOn after the drawer's clash check)
      number_off  - an asset number comes off by the drawer's rule (numberTakeOff: a tombstone, so an older copy
@@ -45,6 +46,10 @@ const token = process.env.GC500_EDIT_TOKEN || '', expectedSha = process.env.GC50
 const redact = s => token ? String(s).split(token).join('[key]') : String(s);
 const canon = x => JSON.stringify((function sort(v) { return Array.isArray(v) ? v.map(sort) : v && typeof v === 'object' ? Object.fromEntries(Object.keys(v).sort().map(k => [k, sort(v[k])])) : v; })(x));
 const same = (a, b) => canon(a) === canon(b);
+/* the same rows in another order: the edit link lists a reference's accessories with the new rows ahead of the taken-off
+   ones, so after an Attach it rewrites the document in that order. Allowed only for documents the spec names. */
+const sameRows = (a, b) => { if (!a || !b || typeof a !== 'object' || typeof b !== 'object') return false; const ka = Object.keys(a).filter(k => k !== 'v').sort(), kb = Object.keys(b).filter(k => k !== 'v').sort();
+  if (canon(ka) !== canon(kb) || ka.some(k => canon(a[k]) !== canon(b[k])) || !Array.isArray(a.v) || !Array.isArray(b.v)) return false; return canon(a.v.map(canon).sort()) === canon(b.v.map(canon).sort()); };
 const sha256 = b => crypto.createHash('sha256').update(b).digest('hex');
 const utc = () => new Date().toISOString().replace(/[-:]/g, '').replace(/\.\d+Z$/, 'Z');
 const log = (...a) => console.log(...a.map(redact));
@@ -72,16 +77,18 @@ spec.ops.forEach((o, i) => {
   else if (o.op === 'unit_archive') { if (!REFRE.test(o.ref || '')) fail(at + 'needs a reference'); if (!NORE.test(o.no || '')) fail(at + 'needs a number'); }
   else if (o.op === 'acc_off') { if (!REFRE.test(o.ref || '')) fail(at + 'needs a reference'); if (!TYPES.includes(o.type)) fail(at + 'type'); if (!NORE.test(o.no || '')) fail(at + 'needs a number'); }
   else if (o.op === 'note') { if (!REFRE.test(o.ref || '')) fail(at + 'needs a reference'); if (typeof o.text !== 'string' || !o.text.trim() || o.text.length > 900) fail(at + 'needs text under 900 characters'); if (/\b(codex|claude|gpt|model|agent)\b/i.test(o.text)) fail(at + 'text names a system'); }
+  else if (o.op === 'date') { if (!REFRE.test(o.ref || '')) fail(at + 'needs a reference'); if (!/^\d{4}-\d{2}-\d{2}$/.test(o.iso || '')) fail(at + 'needs a day'); }
   else if (o.op === 'desc') { if (!REFRE.test(o.ref || '')) fail(at + 'needs a reference'); if (typeof o.text !== 'string' || !o.text.trim() || o.text.length > 160) fail(at + 'needs a description under 160 characters'); if (/\b(codex|claude|gpt|model|agent)\b/i.test(o.text)) fail(at + 'text names a system'); }
   else if (o.op === 'set_qty') { if (!REFRE.test(o.ref || '')) fail(at + 'needs a reference'); if (!(o.qty === '' || (Number.isInteger(o.qty) && o.qty >= 0))) fail(at + 'qty must be a whole number or "" for the schedule\'s own'); }
   else fail(at + 'unknown op ' + o.op);
 });
+const REORDER = new Set(spec.reorderOk || []); for (const k of REORDER) if (!/^accessories\/[A-Z][A-Z0-9]{0,7}$/.test(k)) fail('reorderOk takes accessories documents only: ' + k);
 const REFS = [...new Set(spec.ops.filter(o => o.ref).map(o => o.ref))], QIDS = [...new Set(spec.ops.filter(o => o.op === 'answer').map(o => o.id))];
 /* the documents this operation may touch: the references' own delivery, assetNumbers and accessories documents, the
    answers documents named, and the audit documents the page keeps beside them (stamps, by, deleted, notes, spares) */
 const ALLOWED_COLLS = new Set(['delivery', 'assetNumbers', 'accessories', 'answers', 'stamps', 'by', 'deleted', 'notes', 'spares', 'loads', 'qtys', 'units', 'labour', 'supplied', 'descs']);
 const docIdDecode = id => String(id).replace(/~2f~/g, '/').replace(/~7c~/g, '|').replace(/~20~/g, ' ').replace(/~26~/g, '&');
-const allowed = (k, body, docs) => { const c = k.slice(0, k.indexOf('/')), id = k.slice(k.indexOf('/') + 1); if (!ALLOWED_COLLS.has(c)) return false; const d = docIdDecode(id), parts = d.split('/');
+const allowed = (k, body, docs) => { if (REORDER.has(k)) return true; const c = k.slice(0, k.indexOf('/')), id = k.slice(k.indexOf('/') + 1); if (!ALLOWED_COLLS.has(c)) return false; const d = docIdDecode(id), parts = d.split('/');
   if (c === 'loads') return d.startsWith('unit925/') && !!body && REFS.includes(body.ref); /* a unit record is named by its uuid; its body names the reference */
   if ((c === 'stamps' || c === 'by') && d.startsWith('loads/unit925/')) { const u = ((docs || {}).loads || {})['unit925~2f~' + d.slice('loads/unit925/'.length)]; return !!u && REFS.includes(u.ref); } /* its audit stamps likewise */
   if (c === 'answers' || (c === 'stamps' || c === 'by') && d.startsWith('answers/')) { const nid = d.replace(/^answers\//, ''); return QIDS.includes(nid) || NOTE_IDS.has(nid); }
@@ -121,7 +128,7 @@ function playwright() { try { return require(path.join(TOOLCHAIN, 'node_modules'
 // ---------------------------------------------------------------------------------------------- functions run INSIDE the page
 function pageReady() { return typeof SYNC === 'object' && SYNC.status === 'live' && SYNC.first && SYNC.first.size === Object.keys(SYNC_COLLS).length; }
 function pageHasControls() {
-  const missing = ['setDeliveryNote', 'setDesc', 'setLight', 'numberPutOn', 'numberTakeOff', 'numberOwners', 'assetNumbersOf', 'assetOf', 'deliveryOf', 'openAsset', 'setQAnswer', 'qAnswer', 'isRef', 'whoAmI', 'mayWrite', 'capability', 'toDocs', 'fromDocs', 'syncStage', 'syncSend', 'syncWaiting', 'persist', 'save', 'unit925Save', 'gcModel925', 'setQty'].filter(f => typeof window[f] !== 'function');
+  const missing = ['setDate', 'setDeliveryNote', 'setDesc', 'setLight', 'numberPutOn', 'numberTakeOff', 'numberOwners', 'assetNumbersOf', 'assetOf', 'deliveryOf', 'openAsset', 'setQAnswer', 'qAnswer', 'isRef', 'whoAmI', 'mayWrite', 'capability', 'toDocs', 'fromDocs', 'syncStage', 'syncSend', 'syncWaiting', 'persist', 'save', 'unit925Save', 'gcModel925', 'setQty'].filter(f => typeof window[f] !== 'function');
   return {missing, hasS: typeof S === 'object' && !!S, hasColls: typeof SYNC_COLLS === 'object', level: SYNC.level, readonly: SYNC.readonly, status: SYNC.status};
 }
 function pageDocs() { return JSON.parse(JSON.stringify(Object.fromEntries(Object.keys(SYNC_COLLS).map(k => [k, toDocs(k)])))); }
@@ -139,7 +146,10 @@ function holdSender() {
   return true;
 }
 function releaseSender() { if (!window.__heldSend) throw new Error('sender was not held'); syncSend = window.__heldSend; delete window.__heldSend; syncSend(); return true; }
-function alignStartupQueue(serverDocs) {
+function alignStartupQueue(arg) {
+  const serverDocs = arg.docs, reorderOk = arg.reorderOk || [];
+  const sameRows = (a, b, canon) => { if (!a || !b || typeof a !== 'object' || typeof b !== 'object') return false; const ka = Object.keys(a).filter(k => k !== 'v').sort(), kb = Object.keys(b).filter(k => k !== 'v').sort();
+    if (canon(ka) !== canon(kb) || ka.some(k => canon(a[k]) !== canon(b[k])) || !Array.isArray(a.v) || !Array.isArray(b.v)) return false; return canon(a.v.map(canon).sort()) === canon(b.v.map(canon).sort()); };
   const canon = x => JSON.stringify((function sort(v) { return Array.isArray(v) ? v.map(sort) : v && typeof v === 'object' ? Object.fromEntries(Object.keys(v).sort().map(k => [k, sort(v[k])])) : v; })(x));
   if (!window.__heldSend || Object.keys(SYNC.inflight || {}).length) throw new Error('the sender is not held, or a write is already in flight');
   syncStage();
@@ -147,14 +157,14 @@ function alignStartupQueue(serverDocs) {
   for (const [name, q] of Object.entries(SYNC.queue || {})) {
     if (!Object.keys(q).length) continue;
     const original = serverDocs[name] || {};
-    for (const [id, body] of Object.entries(q)) if (body === null || canon(body) !== canon(original[id])) differing.push(name + '/' + id);
+    for (const [id, body] of Object.entries(q)) if (body === null || canon(body) !== canon(original[id])) { if ((reorderOk || []).includes(name + '/' + id) && sameRows(body, original[id], canon)) continue; differing.push(name + '/' + id); }
     if (differing.length) continue;
-    if (canon(toDocs(name)) !== canon(original)) { differing.push(name + ' (collection differs in value)'); continue; }
+    if (canon(toDocs(name)) !== canon(original)) { const cur = toDocs(name), ids = new Set([...Object.keys(cur), ...Object.keys(original)]); if ([...ids].some(id => canon(cur[id]) !== canon(original[id]) && !((reorderOk || []).includes(name + '/' + id) && sameRows(cur[id], original[id], canon)))) { differing.push(name + ' (collection differs in value)'); continue; } if ([...ids].some(id => canon(cur[id]) !== canon(original[id]))) continue; }
     SYNC_COLLS[name].set(fromDocs(name, JSON.parse(JSON.stringify(original)))); restored.push(name);
   }
   if (differing.length) throw new Error('startup queue holds real changes, not no-ops: ' + differing.join(', '));
   if (restored.length) { if (!persist() || SYNC.unkept) throw new Error('could not persist the realigned record'); syncStage(); }
-  const left = Object.entries(SYNC.queue || {}).filter(([, q]) => Object.keys(q).length).map(([n]) => n);
+  const left = Object.entries(SYNC.queue || {}).flatMap(([n, q]) => Object.keys(q).map(id => n + '/' + id)).filter(k => !(reorderOk || []).includes(k));
   if (left.length) throw new Error('queue still holds: ' + left.join(', '));
   return {restored};
 }
@@ -256,6 +266,10 @@ function applyOps(spec) {
       } else if (op.op === 'note') {
         if ((deliveryOf(op.ref).note || '') === op.text) r.result = 'already noted';
         else { setDeliveryNote(op.ref, op.text); if ((deliveryOf(op.ref).note || '') !== op.text) throw new Error('note not held on ' + op.ref); r.result = 'noted'; }
+      } else if (op.op === 'date') {
+        const a = assetOf(op.ref), cur = deliveryOf(op.ref).date || a.first_date;
+        if (cur === op.iso) r.result = 'already due in ' + op.iso;
+        else { const ok = setDate(op.ref, op.iso); if (!ok) throw new Error('setDate refused ' + op.ref); if ((deliveryOf(op.ref).date || assetOf(op.ref).first_date) !== op.iso) throw new Error('due-in day not held on ' + op.ref); r.result = 'due in ' + op.iso + ' (plan ' + a.first_date + ')'; }
       } else if (op.op === 'desc') {
         if (assetOf(op.ref).name === op.text) r.result = 'already reads that';
         else { const ok = setDesc(op.ref, op.text); if (!ok || assetOf(op.ref).name !== op.text) throw new Error('description not held on ' + op.ref); r.result = 'now reads ' + op.text; }
@@ -349,14 +363,14 @@ function applyOps(spec) {
     const pageBefore = await page.evaluate(pageSnapshot, {refs: REFS, qids: QIDS});
     const pageDocsBefore = await page.evaluate(pageDocs);
     const drift = [];
-    for (const c of new Set([...Object.keys(before.docs), ...Object.keys(pageDocsBefore)])) for (const id of new Set([...Object.keys(before.docs[c] || {}), ...Object.keys(pageDocsBefore[c] || {})])) if (!same((before.docs[c] || {})[id] ?? null, (pageDocsBefore[c] || {})[id] ?? null)) drift.push(c + '/' + id);
+    for (const c of new Set([...Object.keys(before.docs), ...Object.keys(pageDocsBefore)])) for (const id of new Set([...Object.keys(before.docs[c] || {}), ...Object.keys(pageDocsBefore[c] || {})])) if (!same((before.docs[c] || {})[id] ?? null, (pageDocsBefore[c] || {})[id] ?? null) && !(REORDER.has(c + '/' + id) && sameRows((before.docs[c] || {})[id], (pageDocsBefore[c] || {})[id]))) drift.push(c + '/' + id);
     if (drift.length) fail('the page record differs from the before snapshot (' + drift.length + '): ' + drift.slice(0, 8).join(', ') + ' - somebody is editing; try again');
     log('page record matches the before snapshot, document for document');
     for (const k of REFS) { if (!pageBefore.refs[k]) fail(k + ' is not an asset on the page'); log(`  page before: ${k} numbers ${JSON.stringify(pageBefore.refs[k].numbers)} · light ${pageBefore.refs[k].light}, complete ${pageBefore.refs[k].done} · accessories ${JSON.stringify(pageBefore.refs[k].accessories)}`); }
 
     if (applying) {
       if (!controls.level || controls.level !== 'edit' || controls.readonly) fail('the service did not grant edit on this link (level ' + controls.level + ')');
-      const aligned = await page.evaluate(alignStartupQueue, before.docs);
+      const aligned = await page.evaluate(alignStartupQueue, {docs: before.docs, reorderOk: [...REORDER]});
       log(`startup queue clear${aligned.restored.length ? ' (key order realigned for ' + aligned.restored.join(', ') + ')' : ''}`);
       if (!same((await publicState()).docs, before.docs)) fail('the record changed while the page was loading - try again');
     } else {
@@ -392,6 +406,7 @@ function applyOps(spec) {
         if (op.op === 'set_qty' && op.qty !== '' && ((((docs.qtys || {})[op.ref] || {}).v)) !== op.qty) problems.push(op.ref + ' quantity is not ' + op.qty + ' ' + where);
         if (op.op === 'acc_off') { const st = results.find(x => x.op === 'acc_off' && x.ref === op.ref && x.no === op.no) || {}; if (st.accId && !Object.keys(docs.deleted || {}).some(k => docIdDecode(k) === 'acc/' + op.ref + '/' + st.accId)) problems.push(op.ref + ' has no take-off record for ' + op.type + ' ' + op.no + ' ' + where); }
         if (op.op === 'note' && ((((docs.delivery || {})[op.ref]) || {}).note) !== op.text) problems.push(op.ref + ' note is not held ' + where);
+        if (op.op === 'date' && ((((docs.delivery || {})[op.ref]) || {}).date) !== op.iso) problems.push(op.ref + ' due-in day is not ' + op.iso + ' ' + where);
         if (op.op === 'desc') { const v = (docs.descs || {})[op.ref]; if ((v && typeof v === 'object' ? v.v : v) !== op.text) problems.push(op.ref + ' description is not held ' + where); }
       } return problems; };
     const stageProblems = checkDocs(pageDocsAfter, 'after the stage'); if (stageProblems.length) fail(stageProblems.join(' | '));

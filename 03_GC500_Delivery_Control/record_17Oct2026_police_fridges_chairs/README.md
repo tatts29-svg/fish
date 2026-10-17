@@ -64,3 +64,20 @@ p26 and p28 and ilve been told amd the 2 that you mentioed are for broadcast".
   arrival day in v10.59.
 - Dry run first: 8 ops, 23 documents, no page errors. Apply: backup `backup_state_20261017T023200Z.json`; 23 PUTs, all
   200; every op read back on the service; every other document unchanged; report `report_20261017T023200Z.json`.
+
+## Third step, 12:37 AEST · record 9690 → 9693, VERIFIED (`police3_spec.json`)
+
+Andrew, 17 Oct 2026: "What dates they should of had turn up. Have it as those dates".
+
+- **FR01 and FR02** were given 14 Oct as their plan day this morning, on the wrong reading that they were T0265's.
+  They carry 1129733 and 1157786, which came in on 17 Oct, and they have no schedule line. Their due-in day is now
+  **17 Oct**, through the drawer's own date field (`setDate`; the 14 Oct plan day stays beside it, with who moved it
+  and when). They no longer sit on the 14 Oct card.
+- **P26, P28 and P34** were due 14 Oct and came that day. Their 14 Oct arrival goes in with v10.59's arrived-on day,
+  once v10.59 is live (the page cannot back-date a light).
+- **The runner learned one thing:** on the edit link, the page lists a reference's accessories with new rows ahead of
+  taken-off ones, so after step two it rewrites `accessories/P46` in that order on load. The spec names that document
+  in `reorderOk`, and the runner accepts it only when the rows are the same as on the service. It went out with the
+  date writes, and the report confirms the same nine rows. Nothing else is loosened.
+- 3 documents (delivery/FR01, delivery/FR02, accessories/P46), all 200, read back; every other document unchanged;
+  report `report_20261017T023727Z.json`, backup `backup_state_20261017T023727Z.json`.
