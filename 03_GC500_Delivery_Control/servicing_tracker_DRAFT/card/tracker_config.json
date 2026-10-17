@@ -57,7 +57,7 @@
   {
    "id": "WC16-TOILETBL",
    "ref": "WC16",
-   "kind": "blockclean",
+   "kind": "block",
    "qty": 2
   },
   {
@@ -69,13 +69,13 @@
   {
    "id": "T0243-TOILETBL",
    "ref": "T0243",
-   "kind": "blockclean",
+   "kind": "block",
    "qty": 1
   },
   {
    "id": "WC15-TOILETBL",
    "ref": "WC15",
-   "kind": "blockclean",
+   "kind": "block",
    "qty": 2
   },
   {
@@ -93,7 +93,7 @@
   {
    "id": "WC20-TOILETBL",
    "ref": "WC20",
-   "kind": "blockclean",
+   "kind": "block",
    "qty": 2
   },
   {
@@ -147,7 +147,7 @@
   {
    "id": "WC05-TOILETBL",
    "ref": "WC05",
-   "kind": "blockclean",
+   "kind": "block",
    "qty": 1
   },
   {
@@ -225,7 +225,7 @@
   {
    "id": "WC27-TOILETBL",
    "ref": "WC27",
-   "kind": "blockclean",
+   "kind": "block",
    "qty": 1
   },
   {
@@ -243,7 +243,7 @@
   {
    "id": "WC60-TOILETBL",
    "ref": "WC60",
-   "kind": "blockclean",
+   "kind": "block",
    "qty": 2
   },
   {
@@ -547,15 +547,6 @@
    ],
    "final": [
     "pump"
-   ]
-  },
-  "blockclean": {
-   "night": [
-    "clean"
-   ],
-   "final": [
-    "clean",
-    "lock"
    ]
   }
  }

@@ -67,7 +67,9 @@ const at = s => Date.parse(s);       /* '2026-10-23T22:00:00+10:00' */
   check('tracker config: 4 days, 83 lines, 75 references, 263 units', cfg.days.length === 4 && cfg.lines.length === 83 && new Set(cfg.lines.map(l => l.ref)).size === 75 && cfg.lines.reduce((n, l) => n + l.qty, 0) === 263,
     { days: cfg.days.length, lines: cfg.lines.length, units: cfg.lines.reduce((n, l) => n + l.qty, 0) });
   check('tracker config days carry their plans', JSON.stringify(cfg.days) === JSON.stringify(DATA.days.map(d => ({ id: d.id, plan: d.plan }))));
-  check('weighted jobs: ' + weight(ALL_REFS, FRI) + ' a night, ' + weight(ALL_REFS, SUN) + ' on Sunday (README: 749 / 766)', weight(ALL_REFS, FRI) === 749 && weight(ALL_REFS, SUN) === 766);
+  const readme = fs.readFileSync(path.join(__dirname, '..', 'README.md'), 'utf8').match(/Jobs per night: (\d+) \(Sunday (\d+)\)(?![\s\S]*Jobs per night:)/);
+  check('weighted jobs: ' + weight(ALL_REFS, FRI) + ' a night, ' + weight(ALL_REFS, SUN) + ' on Sunday, as the README says (' + (readme ? readme[1] + ' / ' + readme[2] : 'not stated') + ')',
+    !!readme && weight(ALL_REFS, FRI) === +readme[1] && weight(ALL_REFS, SUN) === +readme[2]);
 
   /* ================================================================ 2. the mock keeps the contract */
   section('2. mock service keeps the API contract');
@@ -210,7 +212,8 @@ const at = s => Date.parse(s);       /* '2026-10-23T22:00:00+10:00' */
   check('an untick cancels only the tick it names (a later tick from another phone stands)', pure.untickNamesItsTick === '2026-10-23T12:20:00.000Z', pure);
   check('an untick naming a tick of another job cancels nothing', pure.untickOtherJobIgnored === true);
   check('a voided tick counts for nothing', pure.voided === false);
-  check('748 of 749 shows 99%, never 100%, and no finish time', JSON.stringify(pure.almost) === JSON.stringify([748, 749, 99, 0]), pure.almost);
+  const WF = weight(ALL_REFS, FRI);
+  check((WF - 1) + ' of ' + WF + ' shows 99%, never 100%, and no finish time', JSON.stringify(pure.almost) === JSON.stringify([WF - 1, WF, 99, 0]), pure.almost);
 
   /* ================================================================ 4. two phones: ticking limited by the QR code, percentages */
   section('4. two phones: one reference per QR code; area and overall percentages by units');
@@ -360,7 +363,9 @@ const at = s => Date.parse(s);       /* '2026-10-23T22:00:00+10:00' */
   await tap(A, 'WC19-FWF|pump');
   const cut86 = Object.assign({}, cfg, { lines: cfg.lines.filter(l => l.ref !== 'WC86') });
   check('(edit link re-posts the tracker without WC86)', (await api('POST', '/api/cards', cardBody({ token: TOKEN, tracker: cut86 }), E)).status === 200);
+  const posts86 = A.posts.length;
   await A.ctx.setOffline(false); await settle(A);
+  check('the service named the refused tick, so the rest went in one more post (2 posts)', A.posts.length - posts86 === 2, A.posts.length - posts86);
   check('WC86 dropped with a plain message naming it', /Not saved:.*WC86.*Accessible toilet.*Pumped out/.test(await banners(A)) && findTick({ ref: 'WC86' }).length === 0, await banners(A));
   check('WC19 went through', findTick({ ref: 'WC19', task: 'pump' }).length === 1);
   check('(tracker restored)', (await api('POST', '/api/cards', cardBody({ token: TOKEN }), E)).status === 200);
@@ -368,9 +373,9 @@ const at = s => Date.parse(s);       /* '2026-10-23T22:00:00+10:00' */
   await api('POST', '/api/cards', cardBody({ token: TOKEN, tracker: noThu }), E); await kick(A);
   await A.page.waitForFunction(() => /changed on the service/.test(document.getElementById('banners').textContent), null, { timeout: 10000 }).catch(() => {});
   check('when the service\'s tracker days no longer match the card, it says "Reload"', /changed on the service/.test(await banners(A)) && await A.page.$('[data-reload]') !== null);
-  await api('POST', '/api/cards', cardBody({ token: TOKEN }), E); await kick(A);
-  await A.page.waitForFunction(() => !/changed on the service/.test(document.getElementById('banners').textContent), null, { timeout: 10000 }).catch(() => {});
-  check('(and the banner goes when they match again)', !/changed on the service/.test(await banners(A)));
+  await api('POST', '/api/cards', cardBody({ token: TOKEN }), E);
+  await A.page.click('[data-reload]'); await live(A);
+  check('Reload loads the card again and the banner goes', !/changed on the service/.test(await banners(A)) && A.reqs.filter(r => r.method === 'GET' && new URL(r.url).pathname === '/d/' + TOKEN).length >= 2);
 
   /* ================================================================ 9. the service recovered from a snapshot */
   section('9. epoch change: the phone re-reads and re-sends what the service lost');
@@ -401,6 +406,14 @@ const at = s => Date.parse(s);       /* '2026-10-23T22:00:00+10:00' */
   await api('POST', '/__mock/limits', { perAddrPerMin: 120, retryAfter: 0 });
   await settle(A);
   check('then it goes', findTick({ ref: 'WC23', task: 'water' }).length === 1);
+
+  /* 503: the service cannot check codes */
+  mock.mode.noKey = true;
+  await tap(A, 'WC23-FWF|clean');
+  await A.page.waitForFunction(() => /cannot check completion codes/.test(document.getElementById('banners').textContent), null, { timeout: 10000 }).catch(() => {});
+  check('503 no_key: a banner, the tick kept on the phone', /cannot check completion codes/.test(await banners(A)) && (await A.page.evaluate(() => window.svc1063.outbox().length)) === 1);
+  mock.mode.noKey = false; await kick(A); await settle(A);
+  check('and it goes once the service can', findTick({ ref: 'WC23', task: 'clean' }).length === 1 && !/cannot check/.test(await banners(A)));
 
   /* ================================================================ 11. Sunday */
   section('11. Sunday: lock added, no water; waste tanks pump only; blocks as the data says');
@@ -455,6 +468,18 @@ const at = s => Date.parse(s);       /* '2026-10-23T22:00:00+10:00' */
   await tap(A, 'WC28-FWF|pump'); await settle(A);
   const slashReqs = A.reqs.filter(r => /\/ticks/.test(r.url));
   check('ticks go to /d/<token>/ticks, never //ticks', findTick({ ref: 'WC28' }).length === 1 && slashReqs.every(r => new URL(r.url).pathname === '/d/' + TOKEN + '/ticks'), slashReqs.slice(-3).map(r => r.url));
+
+  /* paging: the service sends a few at a time with more:true */
+  await api('POST', '/__mock/limits', { pageSize: 4 });
+  const PG = await phone('paging');
+  await PG.page.goto(BASE); await live(PG); await wait(500);
+  const pages = PG.reqs.filter(r => r.method === 'GET' && /\/ticks\?since=/.test(r.url)).map(r => +new URL(r.url).searchParams.get('since'));
+  const visible = serverTicks().filter(t => !t.voided).length;
+  await api('POST', '/__mock/limits', { pageSize: 500 });
+  const bigA = await phone('paging check'); await bigA.page.goto(BASE); await live(bigA);
+  const m1 = (await bars(PG))[0].meta, m2 = (await bars(bigA))[0].meta;
+  check('read in pages of 4 (' + pages.length + ' reads for ' + visible + ' ticks), the same totals as one read', pages.length >= Math.ceil(visible / 4) && pages.every((x, i) => i === 0 || x > pages[i - 1]) && m1 === m2, { pages, m1, m2 });
+  await PG.ctx.close(); await bigA.ctx.close();
 
   /* ================================================================ 14. what the phone keeps and sends */
   section('14. storage, names, CSP, requests');
