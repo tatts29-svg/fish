@@ -49,6 +49,15 @@ names the tick (`index`, `id`). GET pages with `more:true` and `seq` = the last 
 since the card loaded shows "Reload"). An "already" for a voided tick carries `voided:true`. Voided ticks are left out of GET and
 the epoch changes. The mock does the same.
 
+The mock's edit-link answers now match the live v5.89 server. They were aligned on 18 Oct after the end-to-end run on the
+real server (`../integration/`), so page v10.63 can be tested on the mock and still work live:
+- `GET /api/ticks?token=` carries `tracker`, not `config`; voided ticks are marked `voided: true`; voids are listed apart in
+  `voids: [{vid, ids, at}]`. Without a token it gives `{now, service_day, trackers}`; an unknown token gives 404 `no_tracker`.
+- `POST /api/ticks/void` answers `{voided: [ids], already: [ids], epoch}`; an id that is not a tick gives 400 `unknown_ids`.
+- `POST /api/cards` returns the tracker block `{links, refs, lines, days, key_new}`.
+- The codes are 400 `bad_tracker`, 409 `tracker_exists` (with the live token) and 409 `tracker_required`.
+- `DELETE` answers `{withdrawn: token}`.
+
 ## Checks (18 Oct 2026)
 
 `node test_card.cjs`: 158 passed, 0 failed (about 45 s), on the data with Andrew's final job rules. Covers the generated card

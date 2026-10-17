@@ -16,8 +16,15 @@
      GET  /d/<t>                       the card, under the card CSP. Unknown 404 (counted), expired 410.
      GET  /d/<t>/ticks?since=<seq>     {now, epoch, seq, days, ticks}. Writes nothing, counts no open.
      POST /d/<t>/ticks                 {ticks:[1..20]} -> {saved:[{id, seq, at, already}], now, epoch}.
-     GET  /api/ticks?token= (edit)     config, links, every event (voids included).
+     GET  /api/ticks?token= (edit)     the live v5.89 answer: {now, epoch, service_day, token, load, title, expires, expired,
+                                       card_withdrawn, updated, tracker, links, key_kept, seq, ticks (voided ones marked
+                                       voided:true), voids [{vid, ids, at}]}; no token: {now, service_day, trackers:[...]};
+                                       unknown token 404 no_tracker.
      POST /api/ticks/void (edit)       {token, ids}: appends a void event, never deletes; the epoch changes so phones re-read.
+                                       Answers {voided:[ids], already:[ids], epoch}; an id that is not a tick: 400 unknown_ids.
+   The edit-link answers and codes are the live server's (aligned 18 Oct 2026 after the end-to-end run on the real v5.89,
+   ../integration/): tracker block {links, refs, lines, days, key_new}; 400 bad_tracker; 409 tracker_exists (+ token);
+   409 tracker_required; DELETE {withdrawn: token}. Page v10.63 reads these, so they must match what is live.
      POST /d/<t>/report(/scoped)       404 on a tracker card, not counted.
    Unknown /d/<t> answers JSON 404 {code:'withdrawn'} (counted); a card with no tracker JSON 404 {code:'no_tracker'}
    (not counted). Test controls under /__mock/ only when control is on (the default for --port runs is off). */
@@ -273,15 +280,15 @@ function createMock(opts) {
         let tracker = null;
         if (body.tracker !== undefined && body.tracker !== null) {
           const why = validTracker(body.tracker);
-          if (why) return send(res, 400, { error: 'tracker: ' + why, code: 'tracker' });
+          if (why) return send(res, 400, { error: 'tracker: ' + why, code: 'bad_tracker' });
           tracker = { days: body.tracker.days.map(d => ({ id: d.id, plan: d.plan })), lines: body.tracker.lines.map(l => ({ id: l.id, ref: l.ref, kind: l.kind, qty: l.qty })), plans: JSON.parse(JSON.stringify(body.tracker.plans)) };
         }
         const given = CARD_TOKEN_RE.test(String(body.token || '')) && cards.has(String(body.token)) ? String(body.token) : null;
         const prev = given ? cards.get(given) : null;
-        if (prev && prev.tracker && !tracker) return send(res, 409, { error: 'this card is a servicing tracker; post it with its tracker', code: 'tracker_kept' });
-        if (!prev && tracker) {
-          const live = [...cards.values()].find(x => x.tracker && x.load === String(body.load || '') && !expired(x));
-          if (live) return send(res, 409, { error: 'a live tracker for this load already exists', code: 'exists', token: live.token });
+        if (prev && prev.tracker && !tracker) return send(res, 409, { error: 'this card is a servicing tracker; post it with its tracker', code: 'tracker_required', token: given });
+        if (tracker) {   /* as live v5.89: one live tracker per load, whatever other token is posted */
+          const live = [...cards.values()].find(x => x.tracker && x.load === String(body.load == null ? '' : body.load).slice(0, 60) && !expired(x) && x.token !== given);
+          if (live) return send(res, 409, { error: 'a live tracker for this load already exists', code: 'tracker_exists', token: live.token, url: '/d/' + live.token });
         }
         const token = given || crypto.randomBytes(24).toString('base64url');
         const c = {
@@ -294,31 +301,50 @@ function createMock(opts) {
         };
         cards.set(token, c);
         const out = { token, url: '/d/' + token, card: brief(c) };
-        if (tracker) out.tracker = { links: linksFor(c) };
+        if (tracker) out.tracker = { links: linksFor(c), refs: new Set(tracker.lines.map(l => l.ref)).size, lines: tracker.lines.length, days: tracker.days, key_new: !(prev && prev.secret) };
         return send(res, 200, out);
       }
       if ((m = p.match(/^\/api\/cards\/([A-Za-z0-9_-]+)$/)) && req.method === 'DELETE') {
         if (lv !== 'edit') return send(res, 403, { error: 'this link cannot withdraw drop cards' });
         if (!cards.has(m[1])) return send(res, 404, { error: 'no such card' });
-        cards.delete(m[1]); return send(res, 200, { withdrawn: true });
+        cards.delete(m[1]); return send(res, 200, { withdrawn: m[1] });
       }
       if (p === '/api/ticks' && req.method === 'GET') {
         if (lv !== 'edit') return send(res, 403, { error: 'the edit link only' });
-        const token = url.searchParams.get('token') || '';
-        if (!cards.has(token) || !stores.has(token) && !cards.get(token).tracker) return send(res, 200, { token, ticks: [] });
-        const c = cards.get(token), st = storeFor(token);
-        return send(res, 200, { token, config: c.tracker, links: c.tracker ? linksFor(c) : {}, epoch: st.epoch, seq: st.seq, expired: expired(c),
-          ticks: st.events.map(e => e.type === 'tick' ? Object.assign(pub(e), { voided: st.voided.has(e.id) }) : { type: 'void', ids: e.ids, at: e.at }) });
+        const token = url.searchParams.get('token'), nowIso = new Date(now()).toISOString();
+        if (!token) {
+          const toks = [...new Set([...cards.values()].filter(c => c.tracker).map(c => c.token).concat([...stores.keys()]))];
+          return send(res, 200, { now: nowIso, service_day: svcDay(now()), trackers: toks.map(k => {
+            const c = cards.get(k), st = stores.get(k);
+            return { token: k, load: c ? c.load : null, title: c ? c.title : null, expires: c ? c.expires : null, expired: c ? expired(c) : null,
+              card_withdrawn: !c, tracker: !!(c && c.tracker), seq: st ? st.seq : 0, ticks: st ? st.events.filter(e => e.type === 'tick').length : 0,
+              voided: st ? st.voided.size : 0, epoch: st ? st.epoch : null };
+          }) });
+        }
+        const c = cards.get(token) || null, st = stores.get(token) || null;
+        if (!(c && c.tracker) && !st) return send(res, 404, { error: 'no servicing tracker has that token', code: 'no_tracker' });
+        const s2 = st || storeFor(token);
+        return send(res, 200, { now: nowIso, epoch: s2.epoch, service_day: svcDay(now()), token,
+          load: c ? c.load : null, title: c ? c.title : null, expires: c ? c.expires : null, expired: c ? expired(c) : null,
+          card_withdrawn: !c, updated: c ? c.updated : null, tracker: c && c.tracker ? c.tracker : null,
+          links: c && c.tracker ? linksFor(c) : {}, key_kept: true, seq: s2.seq,
+          ticks: s2.events.filter(e => e.type === 'tick').map(e => Object.assign(pub(e), s2.voided.has(e.id) ? { voided: true } : {})),
+          voids: s2.events.filter(e => e.type === 'void').map(e => ({ vid: e.vid, ids: e.ids, at: e.at })) });
       }
       if (p === '/api/ticks/void' && req.method === 'POST') {
         if (lv !== 'edit') return send(res, 403, { error: 'the edit link only' });
         let b; try { b = JSON.parse(await readBody(req, 65536)); } catch (e) { return send(res, 400, { error: 'a JSON object is expected' }); }
-        if (!plain(b) || !cards.has(String(b.token)) || !Array.isArray(b.ids) || !b.ids.length) return send(res, 400, { error: 'token and ids are needed' });
-        const st = storeFor(b.token), ids = b.ids.filter(id => st.byId.has(id) && !st.voided.has(id));
-        st.events.push({ type: 'void', ids, at: new Date(now()).toISOString() });
+        if (!plain(b) || typeof b.token !== 'string' || !Array.isArray(b.ids) || !b.ids.length || b.ids.length > 2000) return send(res, 400, { error: 'send {token, ids: [1 to 2000 tick ids]}', code: 'bad_body' });
+        const st = stores.get(b.token);
+        if (!st) return send(res, 404, { error: 'no ticks are kept under that token', code: 'no_tracker' });
+        const unknown = b.ids.filter(id => typeof id !== 'string' || !st.byId.has(id));
+        if (unknown.length) return send(res, 400, { error: unknown.length + ' of those are not ticks of this tracker — nothing was set aside', code: 'unknown_ids', unknown: unknown.slice(0, 20).map(x => String(x).slice(0, 64)) });
+        const all = [...new Set(b.ids)], ids = all.filter(id => !st.voided.has(id)), already = all.filter(id => st.voided.has(id));
+        if (!ids.length) return send(res, 200, { voided: [], already, epoch: st.epoch });
+        st.events.push({ type: 'void', vid: crypto.randomBytes(9).toString('base64url'), ids, at: new Date(now()).toISOString() });
         ids.forEach(id => st.voided.add(id));
         st.epoch = newEpoch();
-        return send(res, 200, { voided: ids.length, epoch: st.epoch });
+        return send(res, 200, { voided: ids, already, epoch: st.epoch });
       }
       return send(res, 404, { error: 'not here' });
     }

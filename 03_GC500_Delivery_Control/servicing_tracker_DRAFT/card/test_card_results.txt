@@ -189,4 +189,4 @@ PASS dark: no sideways scroll at 360 px (tick 360, overview 360)
 PASS dark: day buttons at least 44 px
 PASS dark: no CSP violation, no script error
 
-158 passed, 0 failed in 42 s
+158 passed, 0 failed in 41 s

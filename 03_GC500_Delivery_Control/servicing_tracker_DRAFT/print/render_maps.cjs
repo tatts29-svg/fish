@@ -50,6 +50,18 @@ function rectFor(pts, aspect, margin, minW, minH) {
   return [cx - w / 2, cy - h / 2, cx + w / 2, cy + h / 2];
 }
 const centred = (p, aspect, groundW) => [p.x - groundW / 2, p.y - groundW / aspect / 2, p.x + groundW / 2, p.y + groundW / aspect / 2];
+/* slide a rectangle back onto the drawing (never shrink it): past the sheet's edge is blank paper */
+const SHEET_IN = [40, 30, 2344, 1680];
+function onSheet(r) {
+  const out = r.slice();
+  for (const [a, b] of [[0, 2], [1, 3]]) {
+    const lo = SHEET_IN[a], hi = SHEET_IN[b], w = out[b] - out[a];
+    if (w >= hi - lo) { const c = (lo + hi) / 2; out[a] = c - w / 2; out[b] = c + w / 2; continue; }
+    if (out[a] < lo) { out[b] += lo - out[a]; out[a] = lo; }
+    if (out[b] > hi) { out[a] -= out[b] - hi; out[b] = hi; }
+  }
+  return out;
+}
 
 (async () => {
   const sha = crypto.createHash('sha256').update(fs.readFileSync(PAGE)).digest('hex');
@@ -87,7 +99,7 @@ const centred = (p, aspect, groundW) => [p.x - groundW / 2, p.y - groundW / aspe
     const jobs = [];
     const placed = allRefs.map(k => P[k]).filter(Boolean);
     const mm = LAY.master_map;
-    jobs.push({key: 'master', rect: (() => { const r = rectFor(placed, mm.w / mm.h, LAY.master_margin_units, 0, 0); return r; })(), px: mm.px});
+    jobs.push({key: 'master', rect: onSheet(rectFor(placed, mm.w / mm.h, LAY.master_margin_units, 0, 0)), px: mm.px});
     const areas = {};
     for (const a of data.areas) {
       const pts = a.refs.map(r => P[r.ref]).filter(Boolean); const entry = {n: a.n, name: a.name, main: null, far: [], unplaced: a.refs.filter(r => !P[r.ref]).map(r => r.ref)};
@@ -95,7 +107,7 @@ const centred = (p, aspect, groundW) => [p.x - groundW / 2, p.y - groundW / aspe
       const cl = clusters(pts, LAY.cluster_gap_units);
       const box = cl.length > 1 ? LAY.area_map_split : LAY.area_map_full;
       const mainKey = 'area' + a.n; entry.main = {key: mainKey, refs: cl[0].map(q => q.ref)};
-      jobs.push({key: mainKey, rect: rectFor(cl[0], box.w / box.h, LAY.area_margin_units, LAY.area_min_units[0], LAY.area_min_units[1]), px: box.px});
+      jobs.push({key: mainKey, rect: onSheet(rectFor(cl[0], box.w / box.h, LAY.area_margin_units, LAY.area_min_units[0], LAY.area_min_units[1])), px: box.px});
       cl.slice(1).forEach((c, i) => { const fk = mainKey + '_far' + (i + 1), fb = LAY.area_map_far;
         entry.far.push({key: fk, refs: c.map(q => q.ref)});
         jobs.push({key: fk, rect: c.length === 1 ? centred(c[0], fb.w / fb.h, fb.ground_units) : rectFor(c, fb.w / fb.h, LAY.area_margin_units, fb.ground_units, fb.ground_units / (fb.w / fb.h)), px: fb.px}); });

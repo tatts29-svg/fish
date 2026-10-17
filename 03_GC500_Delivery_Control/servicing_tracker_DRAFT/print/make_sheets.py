@@ -295,7 +295,7 @@ def place_labels(c, mb, groups, rr, font_size=8):
                 cx = px + dx * d + (w / 2 if dx > 0.2 else -w / 2 if dx < -0.2 else 0); cy = py + dy * d + (h / 2 * (1 if dy > 0 else -1) if abs(dx) <= 0.2 else 0)
                 bx = (cx - w / 2, cy - h / 2, cx + w / 2, cy + h / 2)
                 if bx[0] < mb.x + 1 * mm or bx[2] > mb.x + mb.w - 1 * mm or bx[1] < mb.y + 6 * mm or bx[3] > mb.y + mb.h - 1 * mm: continue
-                if mb.inside(mb.x + mb.w - 7 * mm, mb.y + mb.h - 7 * mm) and boxes_hit(bx, (mb.x + mb.w - 14 * mm, mb.y + mb.h - 14 * mm, mb.x + mb.w, mb.y + mb.h)): continue
+                if boxes_hit(bx, (mb.x + mb.w - 14 * mm, mb.y + mb.h - 14 * mm, mb.x + mb.w, mb.y + mb.h)): continue   # the north arrow
                 if any(boxes_hit(bx, t) for t in taken): continue
                 done = (cx, cy, bx); break
             if done: break
@@ -321,6 +321,12 @@ class Pack:
         for r in data.refs:
             if self.pos[r['ref']] and r['ref'] not in maps['ref_image']: sys.exit(f"maps.json: no picture for {r['ref']}")
             if self.pos[r['ref']] and maps['ref_image'][r['ref']] not in maps['images']: sys.exit(f"maps.json: picture for {r['ref']} did not render")
+        for a in data.areas:   # the pictures were cut for these areas; a reference moved since means render again
+            A = maps['areas'].get(str(a['n']))
+            drawn = set(A['unplaced']) | set(A['main']['refs'] if A['main'] else []) | {x for f in A['far'] for x in f['refs']} if A else set()
+            if drawn != {r['ref'] for r in a['refs']}: sys.exit(f"maps.json was cut for a different area {a['n']} - run render_maps.cjs again")
+            for k in ([A['main']['key']] if A['main'] else []) + [f['key'] for f in A['far']]:
+                if k not in maps['images']: sys.exit(f'maps.json: picture {k} did not render')
         self.plan()
 
     def plan(self):
@@ -694,6 +700,11 @@ def main():
     pack = Pack(data, maps, maps_dir, urls, draft, printed)
     pack.render(out)
     print(f'wrote {out} · {len(pack.pages)} pages · {len(data.refs)} locations · {"DRAFT (test QR codes)" if draft else "LIVE QR codes"}')
+    # page ranges, for printing one area's pack several times (Andrew: "We can have multiple printed off for each")
+    for a in data.areas:
+        pages = [n for n, (k, ar, _) in enumerate(pack.pages, 1) if ar is a]
+        print(f"  area {a['n']:>2} {a['name']}: pages {pages[0]}-{pages[-1]}")
+    print('  master map: page 1')
 
 if __name__ == '__main__':
     main()

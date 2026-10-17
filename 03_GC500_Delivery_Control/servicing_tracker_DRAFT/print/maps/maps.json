@@ -1,6 +1,6 @@
 {
  "_about": "Author: Andrew Fisher. Master-plan pictures for the servicing sheets, rendered read only from the live page's Map explorer (Original plan, as drawn, rotation 0) by render_maps.cjs. Positions and rectangles are in drawing sheet units (D001, 2384 x 1684). Picture x = (sheet x - rect x0) / (rect x1 - rect x0) x picture width; the same for y.",
- "rendered_at": "2026-10-17T21:23:04.607Z",
+ "rendered_at": "2026-10-17T21:41:35.004Z",
  "page": {
   "file": "build/GC500_v10.60p1/GC500_Delivery_Control_hosted.html",
   "sha256": "92c91a82174055f02524c416d0e7c864dc6aa183716c2a9b94d205f837e6bc84",
@@ -753,9 +753,9 @@
   "master": {
    "file": "master.jpg",
    "rect": [
-    10.805,
+    40,
     144.377,
-    2287.729,
+    2316.924,
     1368.529
    ],
    "px": [
@@ -933,9 +933,9 @@
   "area11": {
    "file": "area11.jpg",
    "rect": [
-    37.999,
+    40,
     396.722,
-    652.407,
+    654.409,
     691.126
    ],
    "px": [
@@ -963,9 +963,9 @@
   "area12": {
    "file": "area12.jpg",
    "rect": [
-    -134.72,
+    40,
     787.679,
-    590.231,
+    764.951,
     1286.083
    ],
    "px": [
