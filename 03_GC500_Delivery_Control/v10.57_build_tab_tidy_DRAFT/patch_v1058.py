@@ -37,4 +37,4 @@ if __name__ == '__main__':
     for what, old, new in PATCHES:
         t = rep(t, old, new, what, str(p))
     p.write_text(t, encoding='utf-8')
-    print('patch_v1058 applied: WHAT WENT IN by category; Coates on time per truck with reasons; footer v10.57 -> v10.58')
+    print('patch_v1058 applied: WHAT WENT IN by category; Coates on time within the window given, with the time done; footer v10.57 -> v10.58')
