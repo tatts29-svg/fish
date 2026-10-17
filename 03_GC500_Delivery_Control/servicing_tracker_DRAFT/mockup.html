@@ -1,0 +1,150 @@
+<title>GC500 Servicing Tracker</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Barlow:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: one column for a phone held in one hand at night: a sticky night bar, then thirteen area cards that open into tick rows. */
+:root{
+  --bg:#f3f1ec; --panel:#ffffff; --line:#d9d4c8; --ink:#1d1a15; --mute:#6c655a;
+  --hivis:#c96a00; --hivis-ink:#ffffff; --done:#16803a; --done-soft:#e3f3e7; --warn:#a33a1c;
+  --track:#e6e1d6; --chip:#ece7dc;
+  --display:"Barlow Condensed","Arial Narrow",Arial,sans-serif; --body:Barlow,"Segoe UI",Roboto,Arial,sans-serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#14130f; --panel:#1e1c17; --line:#34312a; --ink:#f2eee4; --mute:#a69f91;
+  --hivis:#ffb020; --hivis-ink:#1a1407; --done:#3ccf6a; --done-soft:#17301f; --warn:#ff8a65;
+  --track:#2d2a23; --chip:#2a2721; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#14130f; --panel:#1e1c17; --line:#34312a; --ink:#f2eee4; --mute:#a69f91;
+  --hivis:#ffb020; --hivis-ink:#1a1407; --done:#3ccf6a; --done-soft:#17301f; --warn:#ff8a65;
+  --track:#2d2a23; --chip:#2a2721; color-scheme:dark}
+html,body{background:var(--bg);color:var(--ink)}
+body{font-family:var(--body);font-size:16px;line-height:1.4}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--panel)}
+.wrap{padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--panel);border-bottom:1px solid var(--line)}
+header .wrap{padding-block:10px 12px;display:grid;gap:10px;max-width:760px;margin:0 auto}
+.top{display:flex;align-items:baseline;justify-content:space-between;gap:4px 12px;flex-wrap:wrap}
+h1{font-family:var(--display);font-weight:800;font-size:clamp(21px,6.2vw,26px);white-space:nowrap;letter-spacing:.02em;margin:0;text-transform:uppercase}
+.mock{font-size:12px;font-weight:600;color:var(--warn);text-transform:uppercase;letter-spacing:.06em;white-space:nowrap}
+.days{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.day{font:inherit;border:1px solid var(--line);background:var(--chip);color:var(--ink);border-radius:10px;padding:6px 4px;text-align:center;cursor:pointer;min-height:48px}
+.day b{display:block;font-family:var(--display);font-size:18px;font-weight:700;line-height:1.05}
+.day span{font-size:11px;color:var(--mute)}
+.day[aria-pressed="true"]{background:var(--hivis);border-color:var(--hivis);color:var(--hivis-ink)}
+.day[aria-pressed="true"] span{color:var(--hivis-ink);opacity:.85}
+.day:focus-visible,.tick:focus-visible,.ahead:focus-visible,.nav:focus-visible,.undo:focus-visible{outline:3px solid var(--hivis);outline-offset:2px}
+.window{font-size:13px;color:var(--mute);display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap}
+.window b{color:var(--ink);font-weight:600}
+.overall{display:grid;gap:4px}
+.ovtext{display:flex;justify-content:space-between;font-variant-numeric:tabular-nums;font-weight:600}
+.ovtext em{font-style:normal;font-family:var(--display);font-size:22px;font-weight:800}
+.bar{height:10px;border-radius:5px;background:var(--track);overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:var(--hivis);border-radius:5px;transition:width .35s ease}
+.bar.full i{background:var(--done)}
+main .wrap{max-width:760px;margin:0 auto;padding-block:14px 40px;display:grid;gap:10px}
+.area{background:var(--panel);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.area.complete{border-color:var(--done)}
+.ahead{all:unset;box-sizing:border-box;width:100%;display:grid;grid-template-columns:auto 1fr auto;gap:4px 12px;align-items:center;padding:12px 14px;cursor:pointer}
+.anum{font-family:var(--display);font-weight:800;font-size:28px;width:34px;text-align:center;color:var(--mute)}
+.area.complete .anum{color:var(--done)}
+.aname{font-weight:700;font-size:16px;min-width:0}
+.ameta{grid-column:2;font-size:13px;color:var(--mute);font-variant-numeric:tabular-nums}
+.apct{grid-row:1/span 2;grid-column:3;font-family:var(--display);font-weight:800;font-size:24px;font-variant-numeric:tabular-nums;text-align:right}
+.area .bar{grid-column:1/-1;height:6px}
+.fin{color:var(--done);font-weight:700}
+.rows{border-top:1px solid var(--line);display:grid}
+.row{display:grid;grid-template-columns:56px 1fr;gap:4px 12px;padding:12px 14px;border-bottom:1px solid var(--line);align-items:start}
+.row:last-child{border-bottom:0}
+.row.done{background:var(--done-soft)}
+.tick{all:unset;box-sizing:border-box;width:56px;height:56px;border-radius:12px;border:2px solid var(--line);display:grid;place-items:center;cursor:pointer;background:var(--bg)}
+.tick svg{width:30px;height:30px;stroke:transparent;stroke-width:4;fill:none}
+.row.done .tick{background:var(--done);border-color:var(--done)}
+.row.done .tick svg{stroke:#fff}
+.rinfo{min-width:0;display:grid;gap:3px}
+.rtop{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+.ref{font-family:var(--display);font-weight:800;font-size:24px;letter-spacing:.02em;line-height:1}
+.qty{font-weight:700;font-size:14px;background:var(--chip);border-radius:6px;padding:1px 7px}
+.when{margin-left:auto;font-weight:700;color:var(--done);font-variant-numeric:tabular-nums;font-size:14px}
+.where{font-size:14px}
+.nos{font-size:12px;color:var(--mute);font-variant-numeric:tabular-nums;word-break:break-word}
+.acts{display:flex;gap:8px;flex-wrap:wrap;margin-top:4px}
+.nav{display:inline-flex;align-items:center;gap:6px;font-weight:700;font-size:14px;color:var(--ink);text-decoration:none;border:1px solid var(--line);border-radius:8px;padding:6px 10px;min-height:36px;box-sizing:border-box}
+.nopin{font-size:13px;color:var(--mute);padding:6px 0}
+.undo{font:inherit;font-weight:700;font-size:14px;border:1px solid var(--warn);color:var(--warn);background:transparent;border-radius:8px;padding:6px 10px;min-height:36px;cursor:pointer}
+.note{font-size:13px;color:var(--mute);max-width:65ch}
+@media (prefers-reduced-motion:reduce){.bar i{transition:none}}
+</style>
+<header><div class="wrap">
+  <div class="top"><h1>GC500 Servicing</h1><span class="mock">Mock-up · this phone only</span></div>
+  <div class="days" id="days" role="group" aria-label="Service day"></div>
+  <div class="window" id="window"></div>
+  <div class="overall"><div class="ovtext"><span id="ovunits"></span><em id="ovpct"></em></div><div class="bar" id="ovbar"><i></i></div></div>
+</div></header>
+<main><div class="wrap" id="areas"></div>
+<div class="wrap"><p class="note">Ticks here are a track only: nothing is ticked on the job record and nothing is charged. In the real one each tick goes to the service with the time it was made, and the main page shows each area's progress. In this mock-up ticks stay on this phone.</p></div></main>
+<script>
+const AREAS = [{"n":1,"name":"Pit Lane & Paddock","refs":[{"ref":"PG01","qty":1,"types":"1 \u00d7 FWF","pin":null,"where":"Toilet (Pit Garage)","drop":"Pit lane entry","nos":["0285"]},{"ref":"PG03","qty":1,"types":"1 \u00d7 FWF","pin":null,"where":"Toilet (Pit Garage)","drop":"Pit lane entry","nos":["0100"]},{"ref":"PG05","qty":1,"types":"1 \u00d7 FWF","pin":null,"where":"Toilet (Pit Garage)","drop":"Pit lane entry","nos":["0438"]},{"ref":"PG29","qty":1,"types":"1 \u00d7 FWF","pin":null,"where":"Toilet (Pit Garage)","drop":"Pit lane entry","nos":["0573"]},{"ref":"T0024","qty":1,"types":"1 \u00d7 FWF","pin":null,"where":"FWF","drop":"","nos":["1211968"]},{"ref":"WC12","qty":4,"types":"4 \u00d7 FWF","pin":[-27.985461,153.427322],"where":"Toilets","drop":"Pit lane entry","nos":["1002565","1200601","1211961","1211963"]},{"ref":"WC16","qty":2,"types":"2 \u00d7 Toilet block 6m","pin":[-27.985938,153.427692],"where":"S01 Corporate Toilets - 1x Female, x Male (Sewer)","drop":"Pit lane entry","nos":["1322587","1322588"]},{"ref":"Spare","qty":1,"types":"1 \u00d7 FWF","pin":null,"where":"Spare \u00b7 Pit Lane","drop":"Pit Lane","nos":["0164"]}]},{"n":2,"name":"Island North / Freight","refs":[{"ref":"T0243","qty":1,"types":"1 \u00d7 Toilet block 6m","pin":[-27.987534,153.428271],"where":"Toilet Block 6m \u00b7 WC-TV (sewer connect)","drop":"Island north \u2013 by FREIGHT","nos":["1311144"]},{"ref":"WC15","qty":2,"types":"2 \u00d7 Toilet block 6m","pin":[-27.986024,153.428091],"where":"Toilets (Sewer Connect)","drop":"Island north \u2013 by FREIGHT","nos":["1327226","1303835"]},{"ref":"WC17","qty":2,"types":"2 \u00d7 Toilet block 6m","pin":[-27.986529,153.428095],"where":"S01 Corporate Toilets","drop":"Island north \u2013 by FREIGHT","nos":["1327224","1327223"]},{"ref":"WC19","qty":1,"types":"1 \u00d7 FWF","pin":[-27.98824,153.428267],"where":"Toilets","drop":"Island north \u2013 by FREIGHT","nos":["0435"]},{"ref":"WC20","qty":2,"types":"2 \u00d7 Toilet block 6m","pin":[-27.987468,153.428179],"where":"Toilets (Tank Mounted)","drop":"Island north \u2013 by FREIGHT","nos":["1327228","1327225"]},{"ref":"WC43","qty":10,"types":"10 \u00d7 FWF","pin":[-27.986371,153.427224],"where":"Toilets","drop":"Island north \u2013 by FREIGHT","nos":["0723","0056","0161","0182","0528","0696","0420","0961","0646","0581"]},{"ref":"WC73","qty":2,"types":"2 \u00d7 FWF","pin":[-27.986961,153.428102],"where":"Toilets","drop":"Island north \u2013 by FREIGHT","nos":["0765","0192"]},{"ref":"WC86","qty":1,"types":"1 \u00d7 Accessible toilet","pin":[-27.987704,153.428229],"where":"Toilet","drop":"Island north \u2013 by FREIGHT","nos":["1296899"]}]},{"n":3,"name":"Island West / Merch","refs":[{"ref":"WC01","qty":3,"types":"1 \u00d7 Accessible toilet, 2 \u00d7 FWF","pin":[-27.983425,153.42525],"where":"Toilets","drop":"","nos":["1211958","1211967","1317644"]},{"ref":"WC02","qty":1,"types":"1 \u00d7 FWF","pin":[-27.983618,153.4257],"where":"Toilet","drop":"Island west parkland entry \u2013 by the merch strip","nos":["1058086"]},{"ref":"WC04","qty":1,"types":"1 \u00d7 FWF","pin":[-27.983857,153.426516],"where":"Toilet - QAS","drop":"Island west parkland entry \u2013 by the merch strip","nos":["1212502"]},{"ref":"WC05","qty":1,"types":"1 \u00d7 Toilet block 6m","pin":[-27.983608,153.426357],"where":"Event Operations Compound Toilet - Combo Block (Tanked)","drop":"Island west parkland entry \u2013 by the merch strip","nos":["1097377"]}]},{"n":4,"name":"Commodore Park","refs":[{"ref":"WC38","qty":1,"types":"1 \u00d7 FWF","pin":[-27.983593,153.42413],"where":"Toilet","drop":"Commodore Park drop point (red dot)","nos":["0183"]},{"ref":"WC39","qty":2,"types":"2 \u00d7 FWF","pin":[-27.983626,153.423993],"where":"Toilets","drop":"Commodore Park drop point (red dot)","nos":["0188","0637"]},{"ref":"WC40","qty":5,"types":"5 \u00d7 FWF","pin":[-27.983659,153.42445],"where":"Toilets","drop":"Commodore Park drop point (red dot)","nos":["0626","0541","0965","0433","0648"]},{"ref":"WC42","qty":1,"types":"1 \u00d7 FWF","pin":[-27.98328,153.42484],"where":"Toilets","drop":"Commodore Park drop point (red dot)","nos":["0141"]}]},{"n":5,"name":"Median Strip \u2014 Race Admin & Merch","refs":[{"ref":"WC06","qty":2,"types":"2 \u00d7 FWF","pin":[-27.984699,153.426532],"where":"Toilets - Race Admin","drop":"Median strip meet-up \u2013 pit stop, by FOAM","nos":["1195658","1212523"]},{"ref":"WC07","qty":20,"types":"20 \u00d7 FWF","pin":[-27.984455,153.426897],"where":"Toilets - Merch Area","drop":"Median strip meet-up \u2013 pit stop, by FOAM","nos":["1181004","1002538","1212552","1002566","1083300","1200595","1211959","1002715","1192643","1002651","1317649","1317658","1317632","1317743","1317641","1317640","1317626","1317648","1317652","1317647"]}]},{"n":6,"name":"Median Strip \u2014 FOAM / Other Toilets","refs":[{"ref":"WC09","qty":12,"types":"10 \u00d7 FWF, 2 \u00d7 Toilet block 6m","pin":[-27.984717,153.428026],"where":"Toilets","drop":"Median strip meet-up \u2013 pit stop, by FOAM","nos":["0085","0551","0450","0585","0993","1268858","0553","0140","0089","1311146","0584","0081"]},{"ref":"WC10","qty":3,"types":"3 \u00d7 FWF","pin":[-27.984483,153.427714],"where":"Toilets","drop":"Median strip meet-up \u2013 pit stop, by FOAM","nos":["0488","0677","0119"]},{"ref":"WC11","qty":2,"types":"2 \u00d7 FWF","pin":[-27.984888,153.426575],"where":"Toilets","drop":"Median strip meet-up \u2013 pit stop, by FOAM","nos":["1211969","1211976"]},{"ref":"WC41","qty":10,"types":"10 \u00d7 FWF","pin":[-27.984835,153.426054],"where":"Toilets","drop":"Median strip meet-up \u2013 pit stop, by FOAM","nos":["0521","0996","0191","0669","0643","0517","0682","0651","0065","0518"]}]},{"n":7,"name":"Main Beach Parade / Seaside North","refs":[{"ref":"WC27","qty":1,"types":"1 \u00d7 Toilet block 6m","pin":[-27.98524,153.429459],"where":"Toilet (Tank Mounted)","drop":"Main Beach Pde land side \u2013 by T8 / A19","nos":["1119484"]},{"ref":"WC33","qty":17,"types":"17 \u00d7 FWF","pin":[-27.986107,153.429524],"where":"Toilets","drop":"Main Beach Pde land side \u2013 by T8 / A19","nos":["0634","0582","0548","0782","0657","0912","0554","0920","0971","0586","0487","0790","0297","0456","0012","0938","0597"]},{"ref":"WC60","qty":2,"types":"2 \u00d7 Toilet block 6m","pin":[-27.985279,153.430053],"where":"Toilets (Tank Mounted)","drop":"Seaside north \u2013 between S21 and S22","nos":["1087500","1119489"]},{"ref":"WC61","qty":8,"types":"8 \u00d7 FWF","pin":[-27.984122,153.429824],"where":"Toilets","drop":"Seaside north \u2013 between S21 and S22","nos":["0645","0105","0945","0977","0547","0290","0038","0015"]}]},{"n":8,"name":"Main Beach Seaside \u2014 Supply / North","refs":[{"ref":"WC13","qty":2,"types":"2 \u00d7 FWF","pin":[-27.990956,153.429519],"where":"Toilets","drop":"","nos":["0036","0444"]},{"ref":"WC21","qty":6,"types":"6 \u00d7 FWF","pin":[-27.989159,153.428619],"where":"Toilets","drop":"","nos":["1002747","1103497","1211964","1211971","1211977","1212172"]},{"ref":"WC26","qty":1,"types":"1 \u00d7 FWF","pin":[-27.988803,153.429594],"where":"Toilets","drop":"","nos":["0075"]},{"ref":"WC50","qty":1,"types":"1 \u00d7 FWF","pin":[-27.989786,153.429821],"where":"Toilet","drop":"","nos":["1211974"]},{"ref":"WC56","qty":12,"types":"12 \u00d7 FWF","pin":[-27.98982,153.430077],"where":"Toilets","drop":"","nos":["0721","0491","0190","0294","0970","0974","0004","0003","0445","0088","0442","0009"]},{"ref":"WC57","qty":2,"types":"2 \u00d7 FWF","pin":[-27.988206,153.430076],"where":"Toilets","drop":"Main Beach seaside \u2013 by the supply compound","nos":["0915","0008"]},{"ref":"WC59","qty":7,"types":"7 \u00d7 FWF","pin":[-27.988183,153.430169],"where":"Toilets","drop":"Main Beach seaside \u2013 by the supply compound","nos":["0492","0935","0497","0633","0064","0066","0533"]}]},{"n":9,"name":"Main Beach Seaside \u2014 Mid-South","refs":[{"ref":"WC23","qty":5,"types":"5 \u00d7 FWF","pin":[-27.989504,153.429199],"where":"Toilets","drop":"","nos":["0992","0968","0960","0107","0969"]},{"ref":"WC24","qty":1,"types":"1 \u00d7 FWF","pin":[-27.991038,153.429656],"where":"Toilets","drop":"","nos":["0489"]},{"ref":"WC25","qty":1,"types":"1 \u00d7 FWF","pin":[-27.990061,153.428838],"where":"Toilets","drop":"","nos":["0472"]},{"ref":"WC44","qty":2,"types":"2 \u00d7 FWF","pin":[-27.988968,153.428254],"where":"Toilets","drop":"","nos":["0146","0037"]},{"ref":"WC45","qty":8,"types":"8 \u00d7 FWF","pin":[-27.99071,153.428391],"where":"Toilets","drop":"","nos":["0542","0086","0947","0544","0632","0562","0549","0673"]},{"ref":"WC47","qty":1,"types":"1 \u00d7 FWF","pin":[-27.990183,153.428381],"where":"Toilets","drop":"","nos":["0949"]},{"ref":"WC55","qty":1,"types":"1 \u00d7 FWF","pin":[-27.991242,153.429832],"where":"Toilets","drop":"","nos":["0650"]}]},{"n":10,"name":"Main Beach Seaside \u2014 South","refs":[{"ref":"WC46","qty":1,"types":"1 \u00d7 FWF","pin":[-27.992223,153.42938],"where":"Toilets","drop":"","nos":["0525"]},{"ref":"WC48","qty":4,"types":"4 \u00d7 FWF","pin":[-27.99375,153.430458],"where":"Toilets","drop":"","nos":["0050","0471","0289","0486"]},{"ref":"WC49","qty":3,"types":"3 \u00d7 FWF","pin":[-27.993812,153.430597],"where":"Toilets","drop":"","nos":["0919","0907","0084"]},{"ref":"WC51","qty":7,"types":"1 \u00d7 Accessible toilet, 6 \u00d7 FWF","pin":[-27.992857,153.43046],"where":"Toilets","drop":"","nos":["0991","0167","0653","1197174","0136","0453","0028"]},{"ref":"WC53","qty":3,"types":"3 \u00d7 FWF","pin":[-27.992664,153.43029],"where":"Toilets","drop":"","nos":["0952","0951","0074"]},{"ref":"WC54","qty":6,"types":"6 \u00d7 FWF","pin":[-27.991588,153.430458],"where":"Toilets","drop":"","nos":["0186","0619","0071","0295","0007","0087"]}]},{"n":11,"name":"Surfers Paradise / Cypress","refs":[{"ref":"WC28","qty":1,"types":"1 \u00d7 FWF","pin":[-27.983401,153.429161],"where":"Toilets","drop":"","nos":["0102"]},{"ref":"WC29","qty":7,"types":"7 \u00d7 FWF","pin":[-27.983561,153.428573],"where":"Toilets","drop":"","nos":["0079","0546","0707","0564","0044","0441","0598"]},{"ref":"WC30","qty":8,"types":"8 \u00d7 FWF","pin":[-27.982391,153.42783],"where":"Toilets","drop":"","nos":["0428","0440","0963","0681","0043","0419","0545","0024"]},{"ref":"WC35","qty":1,"types":"1 \u00d7 FWF","pin":[-27.981799,153.427761],"where":"Toilets","drop":"","nos":["0284"]},{"ref":"WC62","qty":2,"types":"2 \u00d7 FWF","pin":[-27.981667,153.429218],"where":"Toilets","drop":"","nos":["0976","0103"]},{"ref":"WC81","qty":1,"types":"1 \u00d7 FWF","pin":[-27.997509,153.428455],"where":"Toilet (Cypress)","drop":"","nos":["0124"]}]},{"n":12,"name":"Helen Park / The Hill","refs":[{"ref":"WC31","qty":3,"types":"1 \u00d7 Accessible toilet, 2 \u00d7 16-pan block","pin":[-27.982469,153.425324],"where":"Toilets","drop":"The Hill \u2013 entry point A47","nos":["12","74","1317645"]},{"ref":"WC34","qty":1,"types":"1 \u00d7 FWF","pin":[-27.982306,153.425877],"where":"Toilets","drop":"The Hill \u2013 entry point A47","nos":["0526"]},{"ref":"WC65","qty":1,"types":"1 \u00d7 FWF","pin":[-27.981478,153.426408],"where":"Toilets","drop":"The Hill \u2013 entry point A47","nos":["0033"]},{"ref":"WC67","qty":2,"types":"2 \u00d7 FWF","pin":[-27.981391,153.424166],"where":"Toilets","drop":"Helen Park drop point (red dot)","nos":["0793","0769"]},{"ref":"WC68","qty":1,"types":"1 \u00d7 FWF","pin":[-27.981498,153.424438],"where":"Toilets","drop":"Helen Park drop point (red dot)","nos":["0426"]},{"ref":"WC69","qty":12,"types":"12 \u00d7 FWF","pin":[-27.981496,153.424162],"where":"Toilets","drop":"Helen Park drop point (red dot)","nos":["0152","0078","0010","0070","0958","0647","0622","0123","0432","0692","0679","0592"]},{"ref":"WC70","qty":1,"types":"1 \u00d7 FWF","pin":[-27.981659,153.424041],"where":"Toilet","drop":"Helen Park drop point (red dot)","nos":["0423"]},{"ref":"WC71","qty":8,"types":"8 \u00d7 FWF","pin":[-27.981283,153.423484],"where":"Toilets","drop":"Helen Park drop point (red dot)","nos":["0280","0116","0279","0293","0531","0644","0552","0490"]},{"ref":"WC72","qty":1,"types":"1 \u00d7 FWF","pin":[-27.982129,153.424007],"where":"Toilets","drop":"Helen Park drop point (red dot)","nos":["0699"]}]},{"n":13,"name":"Teams Area","refs":[{"ref":"BJR01","qty":1,"types":"1 \u00d7 FWF","pin":null,"where":"Brad Jones Racing","drop":"","nos":["0941"]},{"ref":"SVP01","qty":1,"types":"1 \u00d7 FWF","pin":null,"where":"Shell V-Power","drop":"","nos":["0939"]},{"ref":"T0162","qty":1,"types":"1 \u00d7 FWF","pin":null,"where":"FWF \u00b7 Blanchard Race","drop":"","nos":["0990"]},{"ref":"T0176","qty":2,"types":"2 \u00d7 FWF","pin":null,"where":"FWF \u00d7 2 \u00b7 Redbull","drop":"","nos":["0994","0576"]},{"ref":"WC100","qty":2,"types":"2 \u00d7 FWF trailer","pin":null,"where":"","drop":"","nos":["1248439","1288823"]},{"ref":"WC85","qty":1,"types":"1 \u00d7 FWF","pin":null,"where":"Toilets","drop":"","nos":["0135"]}]}];
+const TZ = 'Australia/Brisbane', DAY0 = Date.UTC(2026, 9, 21, 22, 0), H24 = 86400000;
+const DAYS = [0, 1, 2, 3].map(i => ({i, start: DAY0 + i * H24, end: DAY0 + (i + 1) * H24}));
+const fmt = (t, o) => new Intl.DateTimeFormat('en-AU', Object.assign({timeZone: TZ}, o)).format(new Date(t));
+const hm = t => fmt(t, {hour: '2-digit', minute: '2-digit', hour12: false});
+const dname = t => fmt(t, {weekday: 'short', day: 'numeric'});
+const TOTAL = AREAS.reduce((n, a) => n + a.refs.reduce((m, r) => m + r.qty, 0), 0);
+let store = {}; try { store = JSON.parse(localStorage.getItem('gc500svc') || '{}') || {}; } catch (e) { store = {}; }
+const save = () => { try { localStorage.setItem('gc500svc', JSON.stringify(store)); } catch (e) {} };
+const nowDay = () => { const n = Date.now(); const d = DAYS.find(x => n >= x.start && n < x.end); return d ? d.i : (n < DAY0 ? 0 : 3); };
+let day = nowDay(), open = new Set(), undoFor = null;
+const m = /^#a(\d+)$/.exec(location.hash); if (m) open.add(+m[1]);
+const log = () => (store[day] = store[day] || {});
+const esc = s => String(s).replace(/[&<>"]/g, c => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;'}[c]));
+const TICK = '<svg viewBox="0 0 32 32" aria-hidden="true"><path d="M7 17l6 6L25 9" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+function renderDays(){
+  document.getElementById('days').innerHTML = DAYS.map(d => '<button class="day" type="button" id="day' + d.i + '" aria-pressed="' + (d.i === day) + '" data-day="' + d.i + '"><b>' + esc(fmt(d.start, {weekday: 'short'})) + ' ' + esc(fmt(d.start, {day: 'numeric'})) + '</b><span>to ' + esc(dname(d.end)) + '</span></button>').join('');
+  const d = DAYS[day], n = Date.now();
+  const state = n < d.start ? 'Starts ' + dname(d.start) + ' Oct 08:00' : n >= d.end ? 'Closed ' + dname(d.end) + ' Oct 08:00' : 'Open now · closes 08:00 ' + dname(d.end);
+  document.getElementById('window').innerHTML = '<span><b>' + esc(dname(d.start)) + ' 08:00 → ' + esc(dname(d.end)) + ' 08:00</b></span><span>' + esc(state) + '</span>';
+}
+function areaStats(a){
+  const L = log(); let units = 0, refs = 0, last = 0;
+  for (const r of a.refs) if (L[r.ref]) { units += r.qty; refs++; last = Math.max(last, L[r.ref]); }
+  const tot = a.refs.reduce((n, r) => n + r.qty, 0);
+  return {units, refs, tot, pct: Math.round(units * 100 / tot), finished: refs === a.refs.length ? last : 0};
+}
+function rowHtml(r){
+  const t = log()[r.ref], done = !!t;
+  const nav = r.pin ? '<a class="nav" href="https://www.google.com/maps/dir/?api=1&destination=' + r.pin[0] + ',' + r.pin[1] + '" target="_blank" rel="noopener">Navigate ↗</a>' : '<span class="nopin">No pin on the record · ask on site</span>';
+  const undo = done && undoFor === r.ref ? '<button class="undo" type="button" data-undo="' + esc(r.ref) + '">Undo tick</button>' : '';
+  return '<div class="row' + (done ? ' done' : '') + '"><button class="tick" type="button" id="t-' + esc(r.ref) + '" data-ref="' + esc(r.ref) + '" aria-pressed="' + done + '" aria-label="' + esc(r.ref) + (done ? ' serviced at ' + hm(t) : ' not serviced yet') + '">' + TICK + '</button>' +
+    '<div class="rinfo"><div class="rtop"><span class="ref">' + esc(r.ref) + '</span><span class="qty">' + esc(r.types) + '</span>' + (done ? '<span class="when">Done ' + hm(t) + '</span>' : '') + '</div>' +
+    (r.where || r.drop ? '<div class="where">' + esc([r.where, r.drop].filter(Boolean).join(' · ')) + '</div>' : '') +
+    '<div class="nos">Units ' + esc(r.nos.join(', ')) + '</div><div class="acts">' + nav + undo + '</div></div></div>';
+}
+function render(){
+  renderDays();
+  let units = 0;
+  document.getElementById('areas').innerHTML = AREAS.map(a => {
+    const s = areaStats(a); units += s.units; const isOpen = open.has(a.n);
+    return '<section class="area' + (s.finished ? ' complete' : '') + '" id="a' + a.n + '"><button class="ahead" type="button" data-area="' + a.n + '" aria-expanded="' + isOpen + '">' +
+      '<span class="anum">' + a.n + '</span><span class="aname">' + esc(a.name) + '</span><span class="apct">' + s.pct + '%</span>' +
+      '<span class="ameta">' + (s.finished ? '<span class="fin">Area finished ' + hm(s.finished) + '</span> · ' : '') + s.refs + ' of ' + a.refs.length + ' locations · ' + s.units + ' of ' + s.tot + ' units</span>' +
+      '<span class="bar' + (s.finished ? ' full' : '') + '"><i style="width:' + s.pct + '%"></i></span></button>' +
+      (isOpen ? '<div class="rows">' + a.refs.map(rowHtml).join('') + '</div>' : '') + '</section>';
+  }).join('');
+  const pct = Math.round(units * 100 / TOTAL);
+  document.getElementById('ovunits').textContent = units + ' of ' + TOTAL + ' units serviced';
+  document.getElementById('ovpct').textContent = pct + '%';
+  const ob = document.getElementById('ovbar'); ob.querySelector('i').style.width = pct + '%'; ob.classList.toggle('full', pct === 100);
+}
+document.addEventListener('click', e => {
+  const b = e.target.closest('[data-day],[data-area],[data-ref],[data-undo]'); if (!b) return;
+  if (b.dataset.day) { day = +b.dataset.day; undoFor = null; render(); return; }
+  if (b.dataset.area) { const n = +b.dataset.area; open.has(n) ? open.delete(n) : open.add(n); render(); return; }
+  if (b.dataset.undo) { delete log()[b.dataset.undo]; undoFor = null; save(); render(); return; }
+  const ref = b.dataset.ref, L = log();
+  if (L[ref]) { undoFor = undoFor === ref ? null : ref; render(); return; }    /* a done row asks before it unticks */
+  L[ref] = Date.now(); undoFor = null; save(); render();
+  const t = document.getElementById('t-' + ref); if (t) t.focus({preventScroll: true});
+});
+render();
+</script>
