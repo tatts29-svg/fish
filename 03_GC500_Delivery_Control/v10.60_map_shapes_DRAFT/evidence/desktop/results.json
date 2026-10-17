@@ -2,7 +2,7 @@
  "author": "Andrew Fisher",
  "page": "build/GC500_v10.60/GC500_Delivery_Control_hosted.html",
  "mobile": false,
- "passed": 29,
+ "passed": 32,
  "failed": 0,
  "results": [
   {
@@ -75,6 +75,7 @@
      "done": 0,
      "off": 0,
      "failed": 0,
+     "lastErr": "",
      "wrapped": true
     },
     "layer": true,
@@ -161,8 +162,8 @@
     "status": "complete",
     "glyph": "check",
     "arcs": 0,
-    "tick": 94,
-    "ink": 1336,
+    "tick": 68,
+    "ink": 1630,
     "old": 0,
     "at": {
      "x": 552.8189456760092,
@@ -182,6 +183,7 @@
      "done": 0,
      "off": 5,
      "failed": 0,
+     "lastErr": "",
      "wrapped": true
     },
     "w": 73,
@@ -194,10 +196,10 @@
    "detail": 0
   },
   {
-   "name": "P37: the status tick is inside the shape, in the status colour",
+   "name": "P37: the status is inside the shape (the tick, or the status colour when the shape is small)",
    "ok": true,
    "detail": {
-    "tick": 94,
+    "tick": 68,
     "status": "complete",
     "glyph": "check"
    }
@@ -206,6 +208,43 @@
    "name": "P37: nothing in the old tick spot outside the item",
    "ok": true,
    "detail": 0
+  },
+  {
+   "name": "P37: the reference is written inside its shape",
+   "ok": true,
+   "detail": {
+    "boxes": 0,
+    "native": 0,
+    "ref": {
+     "t": "P37 (1)",
+     "x": 547.3482608994624,
+     "y": 286.80717855280034
+    },
+    "box": {
+     "x0": 516.504227382422,
+     "y0": 259.0204303999999,
+     "x1": 589.1336639695965,
+     "y1": 310.83438079999996
+    },
+    "inBox": true,
+    "texts": [
+     "P37 (1)"
+    ],
+    "hit": "P37"
+   }
+  },
+  {
+   "name": "P37: no label box beside the shape (one shape, not two boxes)",
+   "ok": true,
+   "detail": {
+    "boxes": 0,
+    "native": 0
+   }
+  },
+  {
+   "name": "P37: tapping the reference text still picks P37",
+   "ok": true,
+   "detail": "P37"
   },
   {
    "name": "P37: tapping inside the shape picks P37",
@@ -258,7 +297,7 @@
    "name": "WC21: drawn as six FWF squares with their chevrons",
    "ok": true,
    "detail": {
-    "strokes": 39,
+    "strokes": 38,
     "drawn": 1,
     "shaped": true,
     "status": {
@@ -294,7 +333,7 @@
    "ok": true,
    "detail": {
     "marks": 51,
-    "drawn": 125,
+    "drawn": 18,
     "kept": 2,
     "done": 76,
     "nativeDoneShaped": [],
@@ -355,7 +394,7 @@
    "ok": true,
    "detail": {
     "page": 1,
-    "live": 211,
+    "live": 228,
     "blocked": 0
    }
   }

@@ -79,8 +79,22 @@ const SHAPE = ['P37', 'P36', 'WC21', 'WC07', 'WC69', 'WB17', 'P10', 'AA'];
   });
   check('P37: selected and drawn as its shape', p37.sel === 'P37' && p37.state.drawn >= 1 && p37.ink > 200, p37);
   check('P37: no circle drawn round it', p37.arcs === 0, p37.arcs);
-  check('P37: the status tick is inside the shape, in the status colour', p37.tick > 20, {tick: p37.tick, status: p37.status, glyph: p37.glyph});
+  check('P37: the status is inside the shape (the tick, or the status colour when the shape is small)', p37.tick > 20, {tick: p37.tick, status: p37.status, glyph: p37.glyph});
   check('P37: nothing in the old tick spot outside the item', p37.old === 0, p37.old);
+  /* the reference inside the shape, no second box (Andrew, 17 Oct: "i dont want two boxes shown") */
+  const lab = await frame.evaluate(() => {
+   const L = document.getElementById('shape1060'), g = L.getContext('2d'), rr = [], texts = [], nat = []; const or = g.roundRect, of = g.fillText, onr = mctx.roundRect, onf = mctx.fillText;
+   g.roundRect = function(...a){ rr.push(a); return or.apply(this, a); };
+   g.fillText = function(t, x, y){ const m = g.getTransform(); texts.push({t: String(t), x: (m.a * x + m.c * y + m.e) / dpr, y: (m.b * x + m.d * y + m.f) / dpr}); return of.apply(this, arguments); };
+   mctx.roundRect = function(...a){ nat.push(a); return onr.apply(this, a); }; mctx.fillText = function(t){ nat.push(String(t)); return onf.apply(this, arguments); };
+   try { drawMarks(currentView()); } finally { g.roundRect = or; g.fillText = of; mctx.roundRect = onr; mctx.fillText = onf; }
+   const at = GC500Shape1060.at('P37'), b = at.box, ref = texts.find(x => x.t.startsWith('P37'));
+   const lb = labelBounds1010.find(x => x.it && x.it.code === 'P37');
+   return {boxes: rr.length, native: nat.length, ref, box: b, inBox: !!ref && ref.x >= b.x0 - 2 && ref.x <= b.x1 + 2 && ref.y >= b.y0 - 2 && ref.y <= b.y1 + 2, texts: texts.map(x => x.t), hit: !!lb && (() => { const h = labelHit1010(lb.x + lb.w / 2, lb.y + lb.h / 2); return h && h.it.code; })()};
+  });
+  check('P37: the reference is written inside its shape', lab.inBox, lab);
+  check('P37: no label box beside the shape (one shape, not two boxes)', lab.boxes === 0 && lab.native === 0, {boxes: lab.boxes, native: lab.native});
+  check('P37: tapping the reference text still picks P37', lab.hit === 'P37', lab.hit);
   const tap = await frame.evaluate(() => { const at = GC500Shape1060.at('P37'), m = markAt(at.x, at.y), i = itemAt887(at.x, at.y), off = markAt(at.box.x1 + 60, at.box.y1 + 60);
    const corner = itemAt887(at.box.x0 + (at.box.x1 - at.box.x0) * 0.3, at.y); return {m: m && m.it.code, i: i && i.it.code, corner: corner && corner.it.code, off: off && off.it && off.it.code}; });
   check('P37: tapping inside the shape picks P37', tap.m === 'P37' && tap.i === 'P37' && tap.corner === 'P37', tap);

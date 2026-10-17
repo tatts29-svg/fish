@@ -16,7 +16,10 @@ What changes in the Map explorer (the separate map in its own frame):
   in the reference's main part, sized to fit; a shape too small for it at that zoom is filled in the status colour
   instead. The large tick beside the item, the circle round it and its glow are not drawn for shaped references.
 - Finished units shown by the Done chip are drawn the same way (their shape with the tick inside), not as a loose tick.
-- The reference label stays (and still opens the card); the selected reference is outlined in orange.
+- The reference is written inside its shape, along it, beside the tick; no second box (Andrew, 17 Oct 2026: "Put the
+  reference number inside the box too.. i dont want two boxes shown"). Selected, the status words go under it when
+  they fit. A shape too small at that zoom keeps the tick or its status fill and the reference sits on it as plain
+  text. Tapping the reference still opens the card; the selected reference is outlined in orange.
 - Tapping inside a shape selects it.
 - A reference keeps today's marker, so nothing disappears, when it has no traced shape, more than one place, an outline
   it shares with other references (the police block P26/P28/P34 - fridges and chairs inside it - PG01/03/05/29, shared
@@ -97,11 +100,11 @@ JS = r'''/* Author: Andrew Fisher. v10.60 - the Map explorer shows each referenc
  function frameMain(){
   'use strict';
   if (window.GC500Shape1060) return;
-  const need = ['drawMarks', 'markAt', 'itemAt887', 'done782List', 'tick897', 'badge1009', 'sheetToDevice', 'applyM', 'toGeo', 'currentView', 'mapStatus1009', 'label1009', 'requestPaint'];
+  const need = ['drawMarks', 'markAt', 'itemAt887', 'done782List', 'tick897', 'badge1009', 'sheetToDevice', 'applyM', 'toGeo', 'currentView', 'mapStatus1009', 'fitReference1010', 'textWidth887', 'requestPaint'];
   if (need.some(n => typeof window[n] !== 'function')) return;
   const host = window.parent, stageEl = document.getElementById('stage'), native = document.getElementById('marks');
   if (!stageEl || !native) return;
-  let SNAP = null, SIG = '', CACHE = new Map(), drawn = 0, kept = 0, off = 0, failed = 0, frameDn = null, doneShaped = [];
+  let LAYOUT = new Map(), SNAP = null, SIG = '', CACHE = new Map(), drawn = 0, kept = 0, off = 0, failed = 0, lastErr = '', frameDn = null, doneShaped = [];
   const nativeDraw = window.drawMarks, nativeMarkAt = window.markAt, nativeItemAt = window.itemAt887, nativeDone = window.done782List, nativeTick = window.tick897;
   const fencing = () => !!(window.GC500FencingMap && window.GC500FencingMap.active);
   const layer = document.createElement('canvas'); layer.id = 'shape1060'; layer.setAttribute('aria-hidden', 'true');
@@ -200,18 +203,72 @@ JS = r'''/* Author: Andrew Fisher. v10.60 - the Map explorer shows each referenc
       for (const l of c.chev) if (l.length > 1) { poly(ctx, l.map(P)); ctx.stroke(); }
      };
      if (c.doors.length || c.chev.length) { g.lineCap = 'round'; g.lineJoin = 'round'; g.strokeStyle = '#0b0908'; g.lineWidth = 3.6 * dpr; door(g); g.strokeStyle = '#ffffff'; g.lineWidth = 1.7 * dpr; door(g); }
-     /* the status, inside the shape */
-     if (status && part === main) {
-      const at = c.centroid ? P(c.centroid) : mid(pts), w = room(pts);
-      if (w >= 11 * dpr) glyph(g, at, Math.min(Math.max(w * 0.62, 9 * dpr), 24 * dpr), status);
-      else { path(g, pts); g.fillStyle = status.colour || '#2fd06a'; g.fill(); g.strokeStyle = '#0b0908'; g.lineWidth = 1.4 * dpr; g.stroke(); }
-     }
      g.restore();
     }
-    /* the label beside the shape's middle, kept close even on a long barrier run */
-    if (sel || (showText && !m.done)) { const r = Math.min(Math.max(10 * dpr, Math.hypot(b.x1 - b.x0, b.y1 - b.y0) / 2), 36 * dpr); label1009(g, m.it, {x: L.mx, y: L.my}, r, sel, m.c); }
+    inner(m, L, status, sel, main, sel || (showText && !m.done));
    }
    drawn = n;
+  }
+  /* the tick and the reference inside the shape, along its length, with no second box (Andrew, 17 Oct 2026: "Put the
+     reference number inside the box too.. i dont want two boxes shown"). Selected: the status words under the reference
+     when they fit. A shape too small to hold them keeps the tick (or its status fill) and the reference sits on it as
+     plain text, still no box. */
+  function inner(m, L, status, sel, main, show){
+   const pts = []; L.parts.forEach(p => { if (!p.c.tank) pts.push(...p.pts); }); if (!pts.length) return;
+   let mx = 0, my = 0; pts.forEach(q => { mx += q.x / pts.length; my += q.y / pts.length; });
+   let xx = 0, xy = 0, yy = 0; pts.forEach(q => { const dx = q.x - mx, dy = q.y - my; xx += dx * dx; xy += dx * dy; yy += dy * dy; });
+   let th = 0.5 * Math.atan2(2 * xy, xx - yy); if (th > Math.PI / 2) th -= Math.PI; if (th <= -Math.PI / 2) th += Math.PI;
+   const ux = Math.cos(th), uy = Math.sin(th);
+   let a0 = Infinity, a1 = -Infinity, b0 = Infinity, b1 = -Infinity;
+   pts.forEach(q => { const a = (q.x - mx) * ux + (q.y - my) * uy, b = (q.y - my) * ux - (q.x - mx) * uy; a0 = Math.min(a0, a); a1 = Math.max(a1, a); b0 = Math.min(b0, b); b1 = Math.max(b1, b); });
+   const along = (a1 - a0) * 0.9, across = (b1 - b0) * 0.86, ca = (a0 + a1) / 2, cb = (b0 + b1) / 2;
+   const at = (a, b) => ({x: mx + (ca + a) * ux - (cb + b) * uy, y: my + (ca + a) * uy + (cb + b) * ux});
+   const q = status && status.quantity1010, gap = 4 * dpr;
+   const u = status && across >= 11 * dpr ? Math.min(Math.max(across * 0.62, 9 * dpr), 24 * dpr) : 0;
+   const f = Math.round(Math.min(Math.max(across * 0.36, 10 * dpr), 14 * dpr)), f2 = Math.round(Math.max(f * 0.78, 9 * dpr));
+   const font = px => '800 ' + px + 'px Inter,sans-serif', W = (px, t) => { g.font = font(px); return textWidth887(g, t); };
+   const space = Math.max(0, along - (u ? u + gap : 0));
+   const ref = show ? fitReference1010(m.it, status, space, t => W(f, t)) : '';
+   const sub = sel && status ? status.label.toUpperCase() + (q && q.summary ? ' · ' + q.summary : '') : '';
+   const tw = ref ? W(f, ref) : 0, sw2 = sub ? W(f2, sub) : 0;
+   const label = (lines, x0) => {    /* lines: [[text, px, colour]], drawn turned along the shape from x0 */
+    const h = lines.reduce((s, l) => s + l[1], 0) + (lines.length - 1) * 2 * dpr; let y = -h / 2;
+    g.save(); g.translate(at(0, 0).x, at(0, 0).y); g.rotate(th); g.textAlign = 'left'; g.textBaseline = 'middle'; g.lineJoin = 'round';
+    let wmax = 0;
+    for (const [t, px, colour] of lines) { g.font = font(px); const w = textWidth887(g, t); wmax = Math.max(wmax, w); y += px / 2;
+     g.lineWidth = Math.max(3 * dpr, px * 0.28); g.strokeStyle = '#0b0908'; g.strokeText(t, x0, y); g.fillStyle = colour; g.fillText(t, x0, y); y += px / 2 + 2 * dpr; }
+    g.restore();
+    const c = [at(x0, -h / 2), at(x0 + wmax, -h / 2), at(x0, h / 2), at(x0 + wmax, h / 2)];
+    const x = Math.min(...c.map(p => p.x)), yy0 = Math.min(...c.map(p => p.y));
+    labelBounds1010.push({it: m.it, x: x / dpr, y: yy0 / dpr, w: (Math.max(...c.map(p => p.x)) - x) / dpr, h: (Math.max(...c.map(p => p.y)) - yy0) / dpr});
+   };
+   const tick = (a, size) => glyph(g, at(a, 0), size, status);
+   const fillStatus = () => L.parts.forEach(p => { if (p.c.tank) return; path(g, p.pts); g.fillStyle = (status.colour || '#2fd06a') + 'd9'; g.fill(); g.strokeStyle = '#0b0908'; g.lineWidth = 1.4 * dpr; g.stroke(); });
+   const note = how => LAYOUT.set(m.it.code, {how, u: Math.round(u), along: Math.round(along), across: Math.round(across)});
+   /* 1: the tick and the reference side by side (with the status words under it when selected and they fit) */
+   const lines = [];
+   if (ref) lines.push([ref, f, '#ffffff']);
+   const withSub = sub && Math.max(tw, sw2) <= space && f + f2 + 2 * dpr <= across;
+   if (withSub) lines.push([sub, f2, status.colour || '#e0e7ed']);
+   const textW = withSub ? Math.max(tw, sw2) : tw, textH = withSub ? f + f2 + 2 * dpr : (ref ? f : 0);
+   if (u && (u + (ref ? gap : 0) + textW <= along) && Math.max(u, textH) <= across && (!ref || tw <= space)) {
+    const total = u + (ref ? gap : 0) + textW, x0 = -total / 2;
+    tick(x0 + u / 2, u); if (lines.length) label(lines, x0 + u + gap); note('tick and reference'); return;
+   }
+   /* 2: the same with a smaller tick and the bare reference */
+   const fs = Math.round(Math.max(9 * dpr, Math.min(f, across * 0.9))), code = String(m.it.code || ''), cw = show ? W(fs, code) : 0;
+   if (u && show) { const us = Math.min(u, along - gap - cw); if (us >= 8 * dpr && Math.max(us, fs) <= across) { const total = us + gap + cw, x0 = -total / 2; tick(x0 + us / 2, us); label([[code, fs, '#ffffff']], x0 + us + gap); note('small tick and reference'); return; } }
+   if (u && !show) { tick(0, u); note('tick'); return; }
+   /* 3: too small for a tick beside the reference: the shape takes its status colour and the reference sits on it, no box */
+   if (status) fillStatus();
+   if (show) {
+    if (cw <= along && fs <= across * 1.2) { label([[code, fs, '#ffffff']], -cw / 2); note(status ? 'status colour and reference' : 'reference'); return; }
+    const px = Math.round(11 * dpr); g.font = font(px); const w = textWidth887(g, code), p = at(0, 0);
+    g.save(); g.textAlign = 'center'; g.textBaseline = 'middle'; g.lineJoin = 'round'; g.lineWidth = 3.2 * dpr; g.strokeStyle = '#0b0908'; g.strokeText(code, p.x, p.y); g.fillStyle = '#ffffff'; g.fillText(code, p.x, p.y); g.restore();
+    labelBounds1010.push({it: m.it, x: (p.x - w / 2) / dpr, y: (p.y - px / 2) / dpr, w: w / dpr, h: px / dpr});
+    note(status ? 'status colour, reference on it' : 'reference on it'); return;
+   }
+   note(status ? 'status colour' : 'shape only');
   }
   /* the explorer's finished-units layer draws its own tick at each finished unit: a shaped one is drawn here instead */
   window.done782List = function(){ if (frameDn) return frameDn; const dn = nativeDone(); return fencing() || !SNAP ? dn : dn.filter(it => !shapeFor(it)); };
@@ -224,7 +281,7 @@ JS = r'''/* Author: Andrew Fisher. v10.60 - the Map explorer shows each referenc
    kept = rest.length;
    marks = rest; frameDn = dnRest;
    try { nativeDraw(v); } finally { marks = all; frameDn = null; }
-   try { paint(v, doneShaped.concat(shaped)); } catch (e) { failed++; }
+   try { paint(v, doneShaped.concat(shaped)); } catch (e) { failed++; lastErr = String(e && e.message || e).slice(0, 160); }
   };
   window.drawMarks.__shape1060 = true;
   /* a reference with no traced shape keeps its marker, with the status inside it rather than beside it */
@@ -245,9 +302,10 @@ JS = r'''/* Author: Andrew Fisher. v10.60 - the Map explorer shows each referenc
   window.markAt = function(x, y){ if (fencing() || !SNAP) return nativeMarkAt(x, y); return hit(x, y, marks) || nativeMarkAt(x, y); };
   window.itemAt887 = function(x, y){ if (fencing() || !SNAP) return nativeItemAt(x, y); const m = hit(x, y, marks) || hit(x, y, shapedItems()); return m ? {it: m.it, c: m.it.cat ? m.it.cat.c : m.c} : nativeItemAt(x, y); };
   window.GC500Shape1060 = Object.freeze({version: 'v10.60', pull,
-   get state(){ return {available: !!SNAP, refs: SNAP ? SNAP.counts.refs : 0, drawn, kept, done: doneShaped.length, off, failed, wrapped: !!window.drawMarks.__shape1060}; },
+   get state(){ return {available: !!SNAP, refs: SNAP ? SNAP.counts.refs : 0, drawn, kept, done: doneShaped.length, off, failed, lastErr, wrapped: !!window.drawMarks.__shape1060}; },
    shaped: () => marks.filter(m => shapeFor(m.it)).map(m => m.it.code),
    done: () => doneShaped.map(p => p[0].it.code),
+   layout: code => LAYOUT.get(code) || null,
    /* where a reference's shape sits now, in CSS pixels (for a check that taps it) */
    at: code => { const it = (Array.isArray(ITEMS) ? ITEMS : []).find(x => x.code === code), s = it && shapeFor(it); if (!s) return null; const v = currentView(), L = project(s, sheetToDevice(v.scale, sw, sh), 1); return {x: L.mx, y: L.my, box: L.box}; }});
   pull();

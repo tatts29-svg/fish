@@ -18,8 +18,11 @@ door"; "And the green tick is inside the shape not outside". Then "Proceed. Appr
   per reference, in its main part (on a run of FWFs, the one nearest the middle), sized to fit. A shape too small for
   it at that zoom is filled in the status colour instead. No circle, glow or tick beside a shaped reference.
 - The Done chip's finished units are drawn the same way (their shape with the tick inside), not as loose ticks.
-- The label stays and still opens the card; the selected reference is outlined in orange; tapping inside a shape
-  picks it.
+- The reference is written inside its shape, along it, beside the tick: one shape, no second label box (Andrew,
+  17 Oct 2026: "Put the reference number inside the box too.. i dont want two boxes shown"). Selected, the status words
+  go under it when they fit. When the shape is too small at that zoom for the tick and the reference side by side, the
+  tick shrinks; smaller still, the shape takes its status colour (green when complete) with the reference on it.
+  Tapping the reference or anywhere inside the shape picks it; the selected reference is outlined in orange.
 - A reference keeps today's marker, so nothing disappears, when it has no traced shape, more than one place, an outline
   it shares with other references, is furniture, or its marker sits more than 6 sheet points (about 4 m) off its
   outline. On today's record that is 19 references: P26, P28, P34 (police fridges and chairs: they share the police
@@ -50,10 +53,15 @@ python3 toolchain/upload_page.py build/GC500_v10.60/GC500_Delivery_Control_hoste
 ```
 
 - On live v10.59 `2b067249…`. check_page PASS.
-- `tests/test_v1060.cjs` 29/29 desktop and phone: shape data (P37's door swing, WC21's six chevrons, shared outlines);
+- `tests/test_v1060.cjs` 32/32 desktop and phone: shape data (P37's door swing, WC21's six chevrons, shared outlines);
   the layer mounts once under the native markers; which references are shapes and which keep markers; P37 drawn as its
-  shape with no circle, the tick inside in the status colour and nothing in the old tick spot; tapping inside the
-  shape; turning the map and Satellite + plan; WC21's six FWFs and chevrons; the Done chip gives shaped units no loose
-  tick; T0266's tick inside its circle; the pinned T0022 drawn once its pin arrives; fencing and 3D stand the layer
-  down; record unchanged, no errors, no writes.
+  shape with no circle, the status inside it (the tick, or its status colour on a phone at that zoom) and nothing in
+  the old tick spot; the reference written inside the shape and no label box anywhere; tapping the reference and
+  inside the shape; turning the map and Satellite + plan; WC21's six FWFs and chevrons; the Done chip gives shaped
+  units no loose tick; T0266's tick inside its circle; the pinned T0022 drawn once its pin arrives; fencing and 3D
+  stand the layer down; record unchanged, no errors, no writes.
+- Sweeps desktop and phone: 24 tabs (18 shown on the view link), 7 links, 0 errors, 0 console messages.
+- v10.59 `test_v1059.cjs` on this build: 148/154; the 6 are part B's in-memory write checks for P26/P28/P34 (3 per
+  viewport), which now find those day-only entries already in the record from the 13:30 step (expected).
+- An independent review of the final code, with every finding checked, before upload.
 - Screenshots in `evidence/desktop` and `evidence/phone`.
