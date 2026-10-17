@@ -1,5 +1,5 @@
 # Speed diagnosis findings so far (Claude, 18 Oct 2026, live v10.60.1)
-Each finding: measured cost, root cause traced to code, the fix as prototyped, measured gain. Prototypes live on Claude's machine only; the fixes are going into v10.61 (Claude).
+Each finding: measured cost, root cause traced to code, the fix as prototyped, measured gain. The prototype patches and measurement scripts are in `prototypes/` beside this file (18 Oct, for Codex). The scratch paths below are where they were run. The fixes are going into v10.61 (Claude), except the boot/header set offered to Codex in `prototypes/README.md`.
 
 ## load-hotspots (12 findings)
 
