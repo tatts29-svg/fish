@@ -27,5 +27,5 @@ time when the whole area was done."
 - WC100's two FWF trailers (Andrew, 18 Oct: "Trailers let not give.them a location yet.."): out of the Teams Area,
   in their own "No location yet" group at the foot, no pin; still tickable and in the 257. Teams Area is now 6 units.
 - QR codes (Andrew, 18 Oct: "Qr xodes one oer sheet"): one QR per area sheet, opening that area on the current day.
-- To check with Andrew: WC81 is 1.4 km from the
-  rest of area 11;  one QR for all or one per area sheet.
+- WC81 stays in area 11 (Andrew, 18 Oct: "Wc81 stays there"), though it is 1.4 km from the rest of it.
+- To check with Andrew: nothing open on the design.  one QR for all or one per area sheet.
