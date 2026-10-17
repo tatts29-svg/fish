@@ -1234,7 +1234,14 @@
      "label": "Sunday 25 Oct night"
     }
    ],
-   "units": []
+   "units": [
+    {
+     "no": "1317645",
+     "item": "Accessible Toilet",
+     "label": "Accessible Toilet",
+     "owner": "coates"
+    }
+   ]
   },
   {
    "ref": "WC33",

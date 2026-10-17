@@ -14,7 +14,8 @@ final pump-out box. "I don't want to over complicate it or have stickers taken o
   - the location name;
   - three boxes for Fri 23, Sat 24 and Sun 25 Oct nights, each with a dashed circle for a 14 mm dot;
   - a Final pump-out box ("before it is picked up; never load one that is not pumped out").
-- **WC31's** accessible FWF has no unit number on the record, so its label says "Unit —".
+- **WC31's** accessible toilet is Coates **1317645** (confirmed on site 9 Oct). The record keeps it under the 16-pan line,
+  so the first run missed it and printed "Unit —"; corrected 17 Oct evening. Every label now carries a unit number.
 - **The sheet:** Avery 959030 = L7169, A4, 2 across × 2 down, 99.1 × 139 mm, top margin 9.5 mm, side margin 4.65 mm.
 - **Print at "Actual size" (100%), not "Fit to page".** Print `GC500_FWF_labels_alignment_test.pdf` on plain paper
   first and hold it over a label sheet against the light.
