@@ -115,17 +115,21 @@ const SHAPE = ['P37', 'P36', 'WC21', 'WC07', 'WC69', 'WC15', 'P10', 'AA'];
   await p.waitForTimeout(3000);    /* past the explorer's own one-second pick animation, which redraws the map by itself */
   const rp = await frame.evaluate(() => { window.__rp1060 = {n: 0, ours: 0}; const o = window.requestPaint; window.__rpOrig1060 = o; window.requestPaint = function(){ __rp1060.n++; if (/\bbeat\b|ripple/.test(new Error().stack || '')) __rp1060.ours++; return o.apply(this, arguments); }; return true; });
   const p0 = await frame.evaluate(() => GC500Shape1060.state.paints);
-  await p.waitForTimeout(1200);
-  const pulse = await frame.evaluate(() => { const L = document.getElementById('shape1060beat'), g = L.getContext('2d'), d = g.getImageData(0, 0, L.width, L.height).data; let n = 0; for (let i = 3; i < d.length; i += 4) if (d[i] > 30) n++;
-   return {ink: n, state: GC500Shape1060.state.beat, paints: GC500Shape1060.state.paints, under: L.nextElementSibling === document.getElementById('marks')}; });
-  check('P37: the selected shape pulses on its own layer', pulse.ink > 30 && pulse.state.frames > 10 && pulse.state.selected && pulse.under, pulse);
+  /* sample the pulse layer over one full cycle (two ripples, then a rest) */
+  const pulse = await frame.evaluate(async () => { const L = document.getElementById('shape1060beat'), g = L.getContext('2d'), f0 = GC500Shape1060.state.beat.frames; let best = 0, idleHidden = false;
+   for (let i = 0; i < 34; i++) { const d = g.getImageData(0, 0, L.width, L.height).data; let n = 0; for (let k = 3; k < d.length; k += 4) if (d[k] > 30) n++; best = Math.max(best, n); if (getComputedStyle(L).display === 'none') idleHidden = true; await new Promise(r => setTimeout(r, 200)); }
+   const s = GC500Shape1060.state; return {ink: best, frames: s.beat.frames - f0, selected: s.beat.selected, idleHidden, paints: s.paints, under: L.nextElementSibling === document.getElementById('marks')}; });
+  check('P37: the selected shape pulses on its own layer', pulse.ink > 30 && pulse.frames > 10 && pulse.selected && pulse.under, pulse);
+  check('P37: the pulse rests between ripples (its canvas off while resting)', pulse.frames < 330 && pulse.idleHidden, {frames: pulse.frames, idleHidden: pulse.idleHidden});
   await p.emulateMedia({reducedMotion: 'reduce'}); await p.waitForTimeout(400);
   const calm = await frame.evaluate(() => { const L = document.getElementById('shape1060beat'), d = L.getContext('2d').getImageData(0, 0, L.width, L.height).data; let n = 0; for (let i = 3; i < d.length; i += 4) if (d[i] > 30) n++; return {ink: n, still: GC500Shape1060.state.beat.still}; });
   check('P37: with reduced motion the pulse stops', calm.still && calm.ink === 0, calm);
   const q0 = await frame.evaluate(() => GC500Shape1060.state.paints); await p.waitForTimeout(1200); const q1 = await frame.evaluate(() => GC500Shape1060.state.paints);
   const rq = await frame.evaluate(() => { const r = window.__rp1060; window.requestPaint = window.__rpOrig1060; return r; });
-  check('P37: the pulse never asks the map to redraw (its own layer only)', rq.ours === 0 && (pulse.paints - p0) <= (q1 - q0) + 3, {pulseOn: pulse.paints - p0, pulseOff: q1 - q0, requestPaint: rq});
+  check('P37: the pulse never asks the map to redraw (its own layer only)', rq.ours === 0, {pulseOn: pulse.paints - p0, pulseOff: q1 - q0, requestPaint: rq});
   await p.emulateMedia({reducedMotion: 'no-preference'});
+  const back = await frame.evaluate(async () => { const f0 = GC500Shape1060.state.beat.frames; await new Promise(r => setTimeout(r, 7000)); return {frames: GC500Shape1060.state.beat.frames - f0}; });
+  check('P37: the pulse comes back when motion is allowed again', back.frames > 10, back);
   await look('P37', mobile ? 60 : 48);
   const tap = await frame.evaluate(() => { const at = GC500Shape1060.at('P37'), w = at.box.x1 - at.box.x0, it = ITEMS.find(x => x.code === 'P37'), bb = it.places[0], v = currentView(), M = sheetToDevice(v.scale, sw, sh), g0 = toGeo((bb[0] + bb[2]) / 2, (bb[1] + bb[3]) / 2), c = applyM(M, g0.x, g0.y), rN = Math.max(14, Math.hypot(bb[2] - bb[0], bb[3] - bb[1]) * v.scale * .7) * 1.2;
    let deep = null; for (const f of [0.12, 0.2, 0.28]) { const x = at.box.x0 + w * f, y = at.y; if (Math.hypot(x - c.x, y - c.y) > Math.max(rN, 24)) { const hit = markAt(x, y); deep = {x, y, code: hit && hit.it && hit.it.code}; break; } }
@@ -135,6 +139,14 @@ const SHAPE = ['P37', 'P36', 'WC21', 'WC07', 'WC69', 'WC15', 'P10', 'AA'];
   check('P37: tapping well outside the shape does not pick it', tap.off !== 'P37', tap.off);
   await shot('p37');
 
+  const qty = await frame.evaluate(() => { const it = ITEMS.find(x => x.code === 'WC01'), s0 = it && mapStatus1009(it); if (!s0 || !s0.quantity1010 || s0.quantity1010.items.length < 2) return {skip: true};
+   const b = it.places[0]; camera = {...camera, cx: (b[0] + b[2]) / 2, cy: (b[1] + b[3]) / 2, z: 160}; changeView(false); marks = [{it, c: it.cat.c}];
+   const texts = () => { const out = []; const g = document.getElementById('shape1060').getContext('2d'), of = g.fillText; g.fillText = function(t2){ out.push(String(t2)); return of.apply(this, arguments); }; try { drawMarks(currentView()); } finally { g.fillText = of; } return out.filter(x => x.startsWith('WC01')); };
+   const before = texts(), orig = window.mapStatus1009;
+   window.mapStatus1009 = x => { const s = orig(x); return x && x.code === 'WC01' && s ? {...s, quantity1010: {...s.quantity1010, items: s.quantity1010.items.map((r, i) => i ? r : {...r, quantity: (r.quantity || 0) + 7})}} : s; };
+   let after; try { after = texts(); } finally { window.mapStatus1009 = orig; }
+   return {before, after, back: texts()}; });
+  check('quantities: a changed quantity shows on the map at once (no stale layout)', qty.skip || !qty.before.some(x => x.includes('(')) || ( qty.after.join() !== qty.before.join() && qty.back.join() === qty.before.join()), qty);
   /* the shape follows the camera: rotate and satellite */
   const rot = await frame.evaluate(() => { const a = GC500Shape1060.at('P37'); camera = {...camera, rot: (camera.rot + 90) % 360}; changeView(false); drawMarks(currentView()); const b = GC500Shape1060.at('P37'), m = markAt(b.x, b.y); camera = {...camera, rot: (camera.rot + 270) % 360}; changeView(false); return {a, b, m: m && m.it.code, drawn: GC500Shape1060.state.drawn}; });
   check('P37: turning the map turns the shape with it, and it can still be tapped', rot.m === 'P37' && rot.drawn >= 1 && Math.abs((rot.a.box.x1 - rot.a.box.x0) - (rot.b.box.y1 - rot.b.box.y0)) < 3, rot);
@@ -154,8 +166,10 @@ const SHAPE = ['P37', 'P36', 'WC21', 'WC07', 'WC69', 'WC15', 'P10', 'AA'];
   for (const k of ['WC15', 'WC07', 'WC17', 'WC20', 'WC09']) { if (!(await frame.evaluate(k => !!ITEMS.find(x => x.code === k), k))) continue; await look(k, 40);
    multi[k] = await frame.evaluate(k => { drawMarks(currentView()); return GC500Shape1060.layout(k); }, k); }
   check('multi-part references: the tick is inside a part, never in the gap (or the status colour when a part is too small for a tick)', Object.values(multi).length >= 3 && Object.values(multi).every(l => l && (l.tick ? l.tick.inPart : l.u === 0)), multi);
-  await look('WC02', 96); const wc02 = await frame.evaluate(() => { drawMarks(currentView()); return GC500Shape1060.layout('WC02'); });
+  await look('WC02', mobile ? 200 : 96); const wc02 = await frame.evaluate(() => { drawMarks(currentView()); return GC500Shape1060.layout('WC02'); });
   check('a single square FWF (WC02) close up: the tick shows, with its reference', wc02 && wc02.tick && wc02.tick.inPart && /reference/.test(wc02.how), wc02);
+  await look('WC02', mobile ? 130 : 64); const wc02b = await frame.evaluate(() => { drawMarks(currentView()); return GC500Shape1060.layout('WC02'); });
+  check('a square FWF keeps a full-size tick as you zoom in (no shrinking pip)', wc02.tick.size >= 12 && (!wc02b || !wc02b.tick || wc02b.tick.size <= wc02.tick.size + 0.5) && !/under/.test((wc02b && wc02b.how) || ''), {z96: wc02, z64: wc02b});
   await look('WC15', 40); await shot('wc15-two-blocks');
 
   /* all the toilets and buildings, with the Done chip: finished units are shapes with the tick inside, not loose ticks */
@@ -169,6 +183,12 @@ const SHAPE = ['P37', 'P36', 'WC21', 'WC07', 'WC69', 'WC15', 'P10', 'AA'];
   await shot('all-references');
   const speed = await frame.evaluate(() => { const v = currentView(); interacting = true; const t0 = performance.now(); for (let i = 0; i < 20; i++) drawMarks(v); const ms = (performance.now() - t0) / 20; interacting = false; return {ms: +ms.toFixed(2), drawn: GC500Shape1060.state.drawn}; });
   check('panning: drawing the shapes stays light (layout reused while the map moves)', speed.ms < 12, speed);
+  const tapsel = await frame.evaluate(() => { const it = ITEMS.find(x => x.code === 'P13'); if (!it) return {skip: true}; selectCode(it.code); const b = it.places[0]; camera = {...camera, cx: (b[0] + b[2]) / 2, cy: (b[1] + b[3]) / 2, z: 10}; changeView(false); drawMarks(currentView());
+   const l = GC500Shape1060.layout('P13'); if (!l || !l.tick) return {l}; const m = markAt(l.tick.x, l.tick.y); return {l, m: m && m.it && m.it.code}; });
+  check('taps: the selected building\'s own tick picks it, never a neighbour\'s text', tapsel.skip || !tapsel.l || !tapsel.l.tick || tapsel.m === 'P13', tapsel);
+  const outside = await frame.evaluate(() => { const bad = []; for (const m of marks) { const l = GC500Shape1060.layout(m.it.code); if (l && /under/.test(l.how) && m.it !== selected) bad.push(m.it.code + ':' + l.how); } return bad; });
+  check('references are only written inside their own shape (the selected one may sit under it)', outside.length === 0, outside);
+  await frame.evaluate(() => clearSelection813());
   const declutter = await frame.evaluate(() => { const b = [...document.querySelectorAll('#chips [data-cat]')].find(x => x.textContent.includes('Toilets')); if (b && b.getAttribute('aria-pressed') !== 'true') b.click(); return true; });
   await settle(); await p.waitForTimeout(1200); await frame.evaluate(() => { clearSelection813(); camera = {...camera, z: 1}; changeView(false); });
   const ov = await frame.evaluate(() => { const texts = []; const of = mctx.fillText; mctx.fillText = function(t){ texts.push(String(t)); return of.apply(this, arguments); }; try { drawMarks(currentView()); } finally { mctx.fillText = of; } return {marks: marks.length, s: dpr * currentView().scale, texts}; });

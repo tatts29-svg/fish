@@ -106,7 +106,7 @@ JS = r'''/* Author: Andrew Fisher. v10.60 - the Map explorer shows each referenc
  function frameMain(){
   'use strict';
   if (window.GC500Shape1060) return;
-  const need = ['drawMarks', 'markAt', 'itemAt887', 'done782List', 'tick897', 'badge1009', 'sheetToDevice', 'applyM', 'toGeo', 'currentView', 'mapStatus1009', 'label1009', 'fitReference1010', 'textWidth887', 'requestPaint'];
+  const need = ['drawMarks', 'markAt', 'itemAt887', 'done782List', 'tick897', 'badge1009', 'sheetToDevice', 'applyM', 'toGeo', 'currentView', 'mapStatus1009', 'label1009', 'fitReference1010', 'referenceQuantity1010', 'textWidth887', 'requestPaint'];
   if (need.some(n => typeof window[n] !== 'function')) return;
   const host = window.parent, stageEl = document.getElementById('stage'), native = document.getElementById('marks');
   if (!stageEl || !native) return;
@@ -116,11 +116,11 @@ JS = r'''/* Author: Andrew Fisher. v10.60 - the Map explorer shows each referenc
   const layer = document.createElement('canvas'); layer.id = 'shape1060'; layer.setAttribute('aria-hidden', 'true');
   layer.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;pointer-events:none';
   native.parentNode.insertBefore(layer, native);
-  const beatLayer = document.createElement('canvas'); beatLayer.id = 'shape1060beat'; beatLayer.setAttribute('aria-hidden', 'true'); beatLayer.style.cssText = layer.style.cssText;
+  const beatLayer = document.createElement('canvas'); beatLayer.id = 'shape1060beat'; beatLayer.setAttribute('aria-hidden', 'true'); beatLayer.style.cssText = layer.style.cssText + ';display:none';    /* shown only while it beats */
   native.parentNode.insertBefore(beatLayer, native);
   const css = document.createElement('style'); css.id = 'shape1060-style'; css.textContent = 'body.in3d #shape1060,body.in3d #shape1060beat{visibility:hidden}body.fencing-map #shape1060,body.fencing-map #shape1060beat{display:none!important}'; document.head.appendChild(css);
   const g = layer.getContext('2d'), bg = beatLayer.getContext('2d');
-  const BEAT = {sel: null, done: [], doneKey: '', doneStart: 0, raf: 0, wait: 0, frames: 0}; let paints = 0;
+  const BEAT = {sel: null, selKey: '', selStart: 0, done: [], doneKey: '', doneStart: 0, raf: 0, wait: 0, frames: 0}; let paints = 0;
   const MIN = 12, NEAR = 6;    /* px: the smallest a shape is drawn; sheet points (about 4 m): how far the marker may sit outside the shape */
   function pull(){
    try { const s = host && host !== window && typeof host.gc500MapShapes1060 === 'function' ? host.gc500MapShapes1060() : null;
@@ -175,8 +175,9 @@ JS = r'''/* Author: Andrew Fisher. v10.60 - the Map explorer shows each referenc
     ctx.strokeStyle = '#0b0908'; ctx.lineWidth = Math.max(0.34 * u, 4 * dpr); draw();
     ctx.strokeStyle = status.colour || '#2fd06a'; ctx.lineWidth = Math.max(0.19 * u, 2.2 * dpr); draw();
    } else {
-    ctx.font = '800 ' + Math.round(0.8 * u) + 'px Inter,sans-serif'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
-    ctx.lineWidth = Math.max(0.18 * u, 3 * dpr); ctx.strokeStyle = '#0b0908'; ctx.strokeText(String(status.glyph || '?'), 0, 0); ctx.fillStyle = status.colour || '#e0e7ed'; ctx.fillText(String(status.glyph || '?'), 0, 0);
+    const fz = Math.max(Math.round(0.8 * u), Math.round(8 * dpr));    /* a letter never smaller than 8 px */
+    ctx.font = '800 ' + fz + 'px Inter,sans-serif'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+    ctx.lineWidth = Math.min(Math.max(0.18 * u, 3 * dpr), 0.28 * fz); ctx.strokeStyle = '#0b0908'; ctx.strokeText(String(status.glyph || '?'), 0, 0); ctx.fillStyle = status.colour || '#e0e7ed'; ctx.fillText(String(status.glyph || '?'), 0, 0);
    }
    ctx.restore();
   }
@@ -186,16 +187,25 @@ JS = r'''/* Author: Andrew Fisher. v10.60 - the Map explorer shows each referenc
    /* the Done chip's double beat restarts when its finished units change (worked out first, so hiding and showing it beats again) */
    const key = doneShaped.map(p => p[0].it.code).sort().join(',');
    if (key !== BEAT.doneKey) { BEAT.doneKey = key; BEAT.doneStart = key ? performance.now() : 0; }
+   const sk = selected ? selected.code : ''; if (sk !== BEAT.selKey) { BEAT.selKey = sk; BEAT.selStart = sk ? performance.now() : 0; }    /* a new pick ripples at once */
    if (!shaped.length) { if (layer.style.display !== 'none') layer.style.display = 'none'; drawn = 0; return; }
    if (layer.style.display === 'none') layer.style.display = '';
    const M = sheetToDevice(dpr * v.scale, canvas.width, canvas.height), s = dpr * v.scale, showText = marks.length <= 60 || s > 1.2, moving = typeof interacting !== 'undefined' && !!interacting;
    const camKey = [v.scale.toFixed(6), typeof camera !== 'undefined' ? camera.rot : 0, dpr, typeof mode !== 'undefined' ? mode : ''].join('|');
    shaped.sort((a, b) => (a[0].it === selected) - (b[0].it === selected));
-   let n = 0;
-   for (const [m, sh] of shaped) {
+   let n = 0; const later = [];
+   for (const [m, sh] of shaped) {    /* first pass: every shape, so no later fill covers another's tick or reference */
     const sel = selected === m.it, col = sel ? '#ff821f' : m.c, status = mapStatus1009(m.it), L = project(sh, M, dpr);
     const b = L.box; if (b.x1 < -60 || b.y1 < -60 || b.x0 > layer.width + 60 || b.y0 > layer.height + 60) continue;
     n++;
+    /* the tick and the reference: laid out once per zoom, turn, selection, status and wording, then only moved while the map pans */
+    const show = sel || (showText && !m.done), words = status ? status.glyph + status.label + (status.quantity1010 && status.quantity1010.summary || '') + '|' + referenceQuantity1010(m.it, status) : '-';
+    const pk = m.it.code + '|' + camKey + '|' + (sel ? 1 : 0) + (show ? 1 : 0) + '|' + words + '|' + Math.round(b.x1 - b.x0) + 'x' + Math.round(b.y1 - b.y0);
+    let plan = PLAN.get(pk);
+    if (!plan) { plan = planFor(m, L, status, sel, show, s); plan.ax = L.mx; plan.ay = L.my; if (PLAN.size > 3000) PLAN.clear(); PLAN.set(pk, plan); }
+    const dx = L.mx - plan.ax, dy = L.my - plan.ay;
+    const keep = plan.ticks.map(tk => ({x: tk.x + dx, y: tk.y + dy, r: tk.size * 0.6 + 3 * dpr})), boxes = plan.labels.map(l => ({x: l.box.x + dx - 2 * dpr, y: l.box.y + dy - 2 * dpr, w: l.box.w + 4 * dpr, h: l.box.h + 4 * dpr}));
+    const under = pts => pts.some(q => keep.some(k => Math.hypot(q.x - k.x, q.y - k.y) < k.r) || boxes.some(bx => q.x >= bx.x && q.x <= bx.x + bx.w && q.y >= bx.y && q.y <= bx.y + bx.h));
     for (const part of L.parts) {
      const {c, pts, P} = part;
      path(g, pts);
@@ -211,19 +221,15 @@ JS = r'''/* Author: Andrew Fisher. v10.60 - the Map explorer shows each referenc
        dr.arcs.forEach(a => { if (a.length === 4) { const q = a.map(P); ctx.beginPath(); ctx.moveTo(q[0].x, q[0].y); ctx.bezierCurveTo(q[1].x, q[1].y, q[2].x, q[2].y, q[3].x, q[3].y); ctx.stroke(); } else if (a.length > 1) { poly(ctx, a.map(P)); ctx.stroke(); } });    /* the swing is a curve */
        [...dr.leaves, ...dr.landing].forEach(l => { if (l && l.length > 1) { poly(ctx, l.map(P)); ctx.stroke(); } });
        if (!dr.arcs.some(a => a.length > 1) && !dr.leaves.some(l => l.length > 1) && dr.mid && dr.out) { const a = P(dr.mid), e = P([dr.mid[0] + dr.out[0] * 0.002, dr.mid[1] + dr.out[1] * 0.002 * SHEET_W / SHEET_H]); const ux = e.x - a.x, uy = e.y - a.y, l = Math.hypot(ux, uy) || 1; ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(a.x + ux / l * 7 * dpr, a.y + uy / l * 7 * dpr); ctx.stroke(); } }
-      for (const l of c.chev) if (l.length > 1) { poly(ctx, l.map(P)); ctx.stroke(); }
+      for (const l of c.chev) if (l.length > 1) { const q = l.map(P); ctx.globalAlpha = under(q) ? 0.3 : 1; poly(ctx, q); ctx.stroke(); ctx.globalAlpha = 1; }    /* a chevron under the tick or the reference fades */
      };
      if (c.doors.length || c.chev.length) { g.lineCap = 'round'; g.lineJoin = 'round'; g.strokeStyle = '#0b0908'; g.lineWidth = 3.6 * dpr; door(g); g.strokeStyle = '#ffffff'; g.lineWidth = 1.7 * dpr; door(g); }
      g.lineCap = 'butt'; g.lineJoin = 'miter';
     }
-    /* the tick and the reference: laid out once per zoom, turn, selection and status, then only moved while the map pans */
-    const show = sel || (showText && !m.done);
-    const pk = m.it.code + '|' + camKey + '|' + (sel ? 1 : 0) + (show ? 1 : 0) + '|' + (status ? status.glyph + status.label + (status.quantity1010 && status.quantity1010.summary || '') : '-') + '|' + Math.round(b.x1 - b.x0) + 'x' + Math.round(b.y1 - b.y0);
-    let plan = PLAN.get(pk);
-    if (!plan) { plan = planFor(m, L, status, sel, show, s); plan.ax = L.mx; plan.ay = L.my; if (PLAN.size > 3000) PLAN.clear(); PLAN.set(pk, plan); }
-    drawPlan(plan, L, status, m, L.mx - plan.ax, L.my - plan.ay);
+    later.push([plan, L, status, m, dx, dy]);
     if (sel || (m.done && BEAT.done.length < 160)) { const o = {parts: L.parts.filter(p => !p.c.tank).map(p => p.pts), mx: L.mx, my: L.my, r: Math.max(6 * dpr, Math.max(b.x1 - b.x0, b.y1 - b.y0) / 2)}; if (sel) BEAT.sel = o; else BEAT.done.push(o); }
    }
+   for (const [plan, L, status, m, dx, dy] of later) drawPlan(plan, L, status, m, dx, dy);    /* second pass: the ticks and references, the selected last */
    drawn = n;
    kick();
   }
@@ -233,7 +239,7 @@ JS = r'''/* Author: Andrew Fisher. v10.60 - the Map explorer shows each referenc
      fencing), is still while the map moves, and with reduced motion or the project's Motion Off. */
   const still = () => document.documentElement.classList.contains('d782still') || !!(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches);
   const seen = () => !document.hidden && (typeof shown887 !== 'function' || shown887()) && !fencing() && !(typeof under3d === 'function' && under3d()) && layer.style.display !== 'none';
-  function kick(){ if (BEAT.raf || !seen()) return; if (BEAT.sel || (BEAT.done.length && BEAT.doneStart)) { clearTimeout(BEAT.wait); BEAT.raf = requestAnimationFrame(beat); } }
+  function kick(){ if (BEAT.raf || !seen()) return; if (BEAT.sel || (BEAT.done.length && BEAT.doneStart)) { clearTimeout(BEAT.wait); beatLayer.style.display = ''; BEAT.raf = requestAnimationFrame(beat); } }
   function ripple(o, ph, colour, w){
    const k = 1 + 16 * dpr * ph / o.r; bg.save(); bg.globalAlpha = Math.max(0, 1 - ph) * 0.9; bg.lineJoin = 'round'; bg.strokeStyle = colour; bg.lineWidth = w * dpr;
    for (const pts of o.parts) { bg.beginPath(); pts.forEach((q, i) => { const x = o.mx + (q.x - o.mx) * k, y = o.my + (q.y - o.my) * k; if (i) bg.lineTo(x, y); else bg.moveTo(x, y); }); bg.closePath(); bg.stroke(); }
@@ -243,17 +249,18 @@ JS = r'''/* Author: Andrew Fisher. v10.60 - the Map explorer shows each referenc
    BEAT.raf = 0;
    if (beatLayer.width !== layer.width || beatLayer.height !== layer.height) { beatLayer.width = layer.width; beatLayer.height = layer.height; }
    bg.setTransform(1, 0, 0, 1, 0, 0); bg.clearRect(0, 0, beatLayer.width, beatLayer.height);
-   if (!seen()) return;    /* the next paint, when the map is back in view, starts it again */
+   if (!seen()) { beatLayer.style.display = 'none'; return; }    /* the next paint, when the map is back in view, starts it again */
    const quiet = still(), moving = typeof interacting !== 'undefined' && !!interacting;
+   if (quiet || moving) { beatLayer.style.display = 'none'; BEAT.wait = setTimeout(kick, quiet ? 1000 : 300); return; }    /* looks again when motion is back or the map stops */
    const c = BEAT.doneStart ? (((t - BEAT.doneStart) % 3200) + 3200) % 3200 : 9999;
-   if (!quiet && !moving) {
-    if (BEAT.sel) { const ph = (t % 1600) / 1600; ripple(BEAT.sel, ph, '#ff9a4d', 3); ripple(BEAT.sel, (ph + 0.5) % 1, '#ff821f', 2); }
-    if (BEAT.done.length && c < 1300) { const ph = (c % 650) / 650; for (const o of BEAT.done) ripple(o, ph, '#4aff9a', 2.4); }
-    BEAT.frames++;
-   }
-   if (quiet) return;
-   if (BEAT.sel || (BEAT.done.length && c < 1300)) BEAT.raf = requestAnimationFrame(beat);
-   else if (BEAT.done.length && BEAT.doneStart) BEAT.wait = setTimeout(kick, 3200 - c);    /* rest between beats without drawing */
+   const cs = BEAT.sel && BEAT.selStart ? (((t - BEAT.selStart) % 6400) + 6400) % 6400 : 9999, selOn = cs < 3200;    /* two ripples, then a rest */
+   if (selOn) { const ph = (cs % 1600) / 1600; ripple(BEAT.sel, ph, '#ff9a4d', 3); ripple(BEAT.sel, (ph + 0.5) % 1, '#ff821f', 2); }
+   const doneOn = BEAT.done.length && c < 1300; if (doneOn) { const ph = (c % 650) / 650; for (const o of BEAT.done) ripple(o, ph, '#4aff9a', 2.4); }
+   BEAT.frames++;
+   if (selOn || doneOn) { BEAT.raf = requestAnimationFrame(beat); return; }
+   beatLayer.style.display = 'none';
+   const waits = [BEAT.sel ? 6400 - cs : Infinity, BEAT.done.length && BEAT.doneStart ? 3200 - c : Infinity].filter(Number.isFinite);
+   if (waits.length) BEAT.wait = setTimeout(kick, Math.max(16, Math.min(...waits)));    /* rest without drawing */
   }
   /* the tick and the reference inside the shape, along its length, with no second box (Andrew, 17 Oct 2026: "Put the
      reference number inside the box too.. i dont want two boxes shown"). Laid out on the main part (the biggest, nearest the
@@ -311,29 +318,39 @@ JS = r'''/* Author: Andrew Fisher. v10.60 - the Map explorer shows each referenc
    };
    const tick = (pt, size) => { P.ticks.push({x: pt.x, y: pt.y, size}); P.tickIn = inGroup(pt); };
    const done = how => { P.how = how; P.u = Math.round(u); P.along = Math.round(along); P.across = Math.round(across); P.parts = group.length; P.of = solid.length; return P; };
+   /* the whole tick (its strokes and halo, drawn upright) and the whole label must sit inside the group, not just their middles */
+   const tickFits = (tp, us) => { const r = Math.max(0.34 * us, 4 * dpr) / 2; return [[-0.42, 0.02], [-0.12, 0.32], [0.46, -0.34], [0.17, -0.01]].every(([a, b2]) => [[0, 0], [r, 0], [-r, 0], [0, r], [0, -r]].every(([ox, oy]) => inGroup({x: tp.x + a * us + ox, y: tp.y + b2 * us + oy}))); };
+   const labFits = (x0, b0, w, h) => [0, 0.25, 0.5, 0.75, 1].every(k => [-0.5, 0.5].every(j2 => inGroup(at(x0 + w * k, b0 + h * j2))));
+   /* how much further the upright tick's long arm reaches along a turned shape, so it never runs into the first letter */
+   const reach = us => us * Math.max(0, 0.46 * Math.cos(th) - 0.34 * Math.sin(th) - 0.46);
+   const code = String(m.it.code || ''), fs = Math.round(Math.max(8 * dpr, Math.min(f, across * 0.9)));
    /* 1: side by side */
    const lines = [];
    if (ref) lines.push([ref, f, '#ffffff']);
    const withSub = sub && Math.max(tw, sw2) <= space && f + f2 + 2 * dpr <= across;
    if (withSub) lines.push([sub, f2, status.colour || '#e0e7ed']);
    const textW = withSub ? Math.max(tw, sw2) : tw, textH = withSub ? f + f2 + 2 * dpr : (ref ? f : 0);
-   if (u) { const total = u + (ref ? gap : 0) + textW, x0 = -total / 2, tp = at(x0 + u / 2, 0);
-    if (total <= along && Math.max(u, textH) <= across && (!ref || tw <= space) && inGroup(tp)) { tick(tp, u); if (lines.length) lab(lines, x0 + u + gap, 0); return done(ref ? 'tick and reference' : 'tick'); } }
-   /* 2: a smaller tick beside the bare reference */
-   const fs = Math.round(Math.max(8 * dpr, Math.min(f, across * 0.9))), code = String(m.it.code || ''), cw = show ? W(fs, code) : 0, gs = Math.max(3 * dpr, 0.25 * u);
-   if (u && show) for (let fz = fs; fz >= 8 * dpr; fz -= dpr) {    /* the reference a little smaller before it leaves the shape */
-    const cz = W(fz, code), us = Math.min(u, along - gs - cz);
-    if (us >= 7 * dpr && Math.max(us, fz) <= across) { const total = us + gs + cz, x0 = -total / 2, tp = at(x0 + us / 2, 0); if (inGroup(tp)) { tick(tp, us); lab([[code, fz, '#ffffff']], x0 + us + gs, 0); return done('small tick and reference'); } break; }
-   }
-   /* 3: the tick over the reference (a square FWF) */
-   if (u && show) { const us = Math.min(u, across - 2 * dpr - fs); if (us >= 7 * dpr && cw <= along) { const h = us + 2 * dpr + fs, tp = at(0, -h / 2 + us / 2); if (inGroup(tp)) { tick(tp, us); lab([[code, fs, '#ffffff']], -cw / 2, h / 2 - fs / 2); return done('tick over reference'); } } }
-   /* 4: the tick alone; the reference as plain text just under the shape, no box */
-   if (u && inGroup(at(0, 0))) { tick(at(0, 0), u); if (show) { const px = Math.round(11 * dpr); P.plain.push({text: code, x: L.mx, y: L.box.y1 + 3 * dpr, px, w: W(px, code), base: 'top'}); } return done(show ? 'tick, reference under it' : 'tick'); }
-   /* 5: too small for a tick: the status colour, the reference on it */
+   if (u) { const rc = ref ? reach(u) : 0, total = u + (ref ? gap + rc : 0) + textW, x0 = -total / 2, tp = at(x0 + u / 2, 0);
+    if (total <= along && Math.max(u, textH) <= across && (!ref || tw <= space) && tickFits(tp, u) && (!lines.length || labFits(x0 + u + gap + rc, 0, textW, textH))) { tick(tp, u); if (lines.length) lab(lines, x0 + u + gap + rc, 0); return done(ref ? 'tick and reference' : 'tick'); } }
+   /* the tick over the reference (a square FWF), the font stepping down; worked out first so a bigger stacked tick wins */
+   let st = null;
+   if (u && show) for (let fz = fs; fz >= 8 * dpr; fz -= dpr) { const cz = W(fz, code), us = Math.min(u, across - 2 * dpr - fz); if (cz <= along && us >= 7 * dpr) { const h = us + 2 * dpr + fz, tp = at(0, -h / 2 + us / 2); if (tickFits(tp, us) && labFits(-cz / 2, h / 2 - fz / 2, cz, fz)) st = {fz, cz, us, h, tp}; break; } }
+   /* 2: a smaller tick beside the reference, the font stepping down, when its tick is at least as big as the stacked one */
+   if (u && show) { const gs = Math.max(3 * dpr, 0.25 * u);
+    for (let fz = fs; fz >= 8 * dpr; fz -= dpr) { const cz = W(fz, code), us0 = Math.min(u, along - gs - cz), us = us0 - reach(us0);
+     if (us >= 7 * dpr && Math.max(us, fz) <= across) { const rc = reach(us), total = us + gs + rc + cz, x0 = -total / 2, tp = at(x0 + us / 2, 0);
+      if ((!st || us >= st.us) && tickFits(tp, us) && labFits(x0 + us + gs + rc, 0, cz, fz)) { tick(tp, us); lab([[code, fz, '#ffffff']], x0 + us + gs + rc, 0); return done('small tick and reference'); } break; } } }
+   /* 3: the tick over the reference */
+   if (st) { tick(st.tp, st.us); lab([[code, st.fz, '#ffffff']], -st.cz / 2, st.h / 2 - st.fz / 2); return done('tick over reference'); }
+   /* the reference only ever inside its own shape; the selected one, when it cannot fit, as plain text just under it (drawn last, no tap box) */
+   const under = () => { if (sel) { const px = fs; P.plain.push({text: code, x: L.mx, y: L.box.y1 + 3 * dpr, px, w: W(px, code), base: 'top'}); } };
+   /* 4: the tick alone */
+   if (u && tickFits(at(0, 0), u)) { tick(at(0, 0), u); under(); return done(sel ? 'tick, reference under it' : 'tick'); }
+   /* 5: too small for a tick: the status colour, the reference on it when it fits inside */
    if (status) P.fill = true;
    if (show) {
-    if (cw <= along && fs <= across * 1.2) { lab([[code, fs, '#ffffff']], -cw / 2, 0); return done(status ? 'status colour and reference' : 'reference'); }
-    const px = Math.round(11 * dpr), c0 = at(0, 0); P.plain.push({text: code, x: c0.x, y: c0.y, px, w: W(px, code), base: 'middle'}); return done(status ? 'status colour, reference on it' : 'reference on it');
+    for (let fz = fs; fz >= 8 * dpr; fz -= dpr) { const cz = W(fz, code); if (cz <= along && fz <= across * 1.2 && labFits(-cz / 2, 0, cz, fz)) { lab([[code, fz, '#ffffff']], -cz / 2, 0); return done(status ? 'status colour and reference' : 'reference'); } }
+    under(); return done(status ? (sel ? 'status colour, reference under it' : 'status colour') : (sel ? 'reference under it' : 'shape only'));
    }
    return done(status ? 'status colour' : 'shape only');
   }
@@ -344,16 +361,15 @@ JS = r'''/* Author: Andrew Fisher. v10.60 - the Map explorer shows each referenc
    for (const l of P.labels) {
     g.save(); g.translate(l.cx + dx, l.cy + dy); g.rotate(l.th); g.textAlign = 'left'; g.textBaseline = 'middle'; g.lineJoin = 'round';
     let y = -l.h / 2;
-    for (const [tx, px, colour] of l.lines) { g.font = font(px); y += px / 2; g.lineWidth = Math.max(3 * dpr, px * 0.28); g.strokeStyle = '#0b0908'; g.strokeText(tx, l.x0, y); g.fillStyle = colour; g.fillText(tx, l.x0, y); y += px / 2 + 2 * dpr; }
+    for (const [tx, px, colour] of l.lines) { g.font = font(px); y += px / 2; g.lineWidth = P.fill ? 1.2 * dpr : Math.max(3 * dpr, px * 0.28); g.strokeStyle = '#0b0908'; g.strokeText(tx, l.x0, y); g.fillStyle = colour; g.fillText(tx, l.x0, y); y += px / 2 + 2 * dpr; }
     g.restore();
     if (l.level) labelBounds1010.push({it: m.it, x: (l.box.x + dx) / dpr, y: (l.box.y + dy) / dpr, w: l.box.w / dpr, h: l.box.h / dpr});    /* a turned label is tapped through its shape */
    }
    for (const tx of P.plain) {
-    g.save(); g.font = font(tx.px); g.textAlign = 'center'; g.textBaseline = tx.base; g.lineJoin = 'round'; g.lineWidth = 3.2 * dpr; g.strokeStyle = '#0b0908'; g.strokeText(tx.text, tx.x + dx, tx.y + dy); g.fillStyle = '#ffffff'; g.fillText(tx.text, tx.x + dx, tx.y + dy); g.restore();
-    labelBounds1010.push({it: m.it, x: (tx.x + dx - tx.w / 2) / dpr, y: (tx.y + dy - (tx.base === 'top' ? 0 : tx.px / 2)) / dpr, w: tx.w / dpr, h: tx.px / dpr});
+    g.save(); g.font = font(tx.px); g.textAlign = 'center'; g.textBaseline = tx.base; g.lineJoin = 'round'; g.lineWidth = 3.2 * dpr; g.strokeStyle = '#0b0908'; g.strokeText(tx.text, tx.x + dx, tx.y + dy); g.fillStyle = '#ffffff'; g.fillText(tx.text, tx.x + dx, tx.y + dy); g.restore();    /* the selected reference under its shape: no tap box over a neighbour */
    }
    const t0 = P.ticks[0];
-   LAYOUT.set(m.it.code, {how: P.how, u: P.u, along: P.along, across: P.across, parts: P.parts, of: P.of, tick: t0 ? {x: (t0.x + dx) / dpr, y: (t0.y + dy) / dpr, inPart: P.tickIn} : null});
+   LAYOUT.set(m.it.code, {how: P.how, u: P.u, along: P.along, across: P.across, parts: P.parts, of: P.of, tick: t0 ? {x: (t0.x + dx) / dpr, y: (t0.y + dy) / dpr, size: t0.size / dpr, inPart: P.tickIn} : null});
   }
   /* the explorer's finished-units layer draws its own tick at each finished unit: a shaped one is drawn here instead */
   window.done782List = function(){ if (frameDn) return frameDn; const dn = nativeDone(); return fencing() || !SNAP ? dn : dn.filter(it => !shapeFor(it)); };
@@ -399,10 +415,14 @@ JS = r'''/* Author: Andrew Fisher. v10.60 - the Map explorer shows each referenc
     for (const p of L.parts) if (inside(x, y, p.pts)) { const d = Math.hypot(L.mx - x, L.my - y), top = m.it === selected; if (!best || (top && !best.top) || (top === best.top && d < best.d)) best = {m, d, top}; } }
    return best && best.m;
   }
-  window.markAt = function(x, y){    /* what is drawn on top wins: a kept circle or a reference first, then the inside of a shape */
+  window.markAt = function(x, y){    /* what is drawn on top wins: a kept circle or its text, then the selected shape, then a shape's own reference, then the shapes */
    if (fencing() || !SNAP) return nativeMarkAt(x, y);
-   const all = marks; let k = null; marks = all.filter(m => !shapeFor(m.it)); try { k = nativeMarkAt(x, y); } finally { marks = all; }
-   return k || hit(x, y, all);
+   const all = marks, lb = labelBounds1010; let k = null;
+   marks = all.filter(m => !shapeFor(m.it)); labelBounds1010 = lb.filter(b => !b.it || !shapeFor(b.it));
+   try { k = nativeMarkAt(x, y); } finally { marks = all; labelBounds1010 = lb; }
+   if (k) return k;
+   const top = selected && shapeFor(selected) ? hit(x, y, [{it: selected, c: selected.cat ? selected.cat.c : '#fff'}]) : null;
+   return top || labelHit1010(x, y) || hit(x, y, all);
   };
   window.itemAt887 = function(x, y){ if (fencing() || !SNAP) return nativeItemAt(x, y); const m = hit(x, y, marks) || hit(x, y, doneShaped.map(p => p[0]));    /* only shapes drawn now; otherwise the explorer's own pick */ return m ? {it: m.it, c: m.it.cat ? m.it.cat.c : m.c} : nativeItemAt(x, y); };
   window.GC500Shape1060 = Object.freeze({version: 'v10.60', pull,

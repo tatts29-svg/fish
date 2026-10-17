@@ -2,7 +2,7 @@
  "author": "Andrew Fisher",
  "page": "build/GC500_v10.60/GC500_Delivery_Control_hosted.html",
  "mobile": false,
- "passed": 50,
+ "passed": 56,
  "failed": 0,
  "results": [
   {
@@ -77,7 +77,7 @@
      "off": 0,
      "failed": 0,
      "lastErr": "",
-     "paints": 7,
+     "paints": 6,
      "beat": {
       "selected": false,
       "frames": 0,
@@ -193,8 +193,8 @@
     "status": "complete",
     "glyph": "check",
     "arcs": 0,
-    "tick": 66,
-    "ink": 2274,
+    "tick": 68,
+    "ink": 2260,
     "old": 0,
     "at": {
      "x": 552.8189456760092,
@@ -215,10 +215,10 @@
      "off": 2,
      "failed": 0,
      "lastErr": "",
-     "paints": 36,
+     "paints": 34,
      "beat": {
       "selected": true,
-      "frames": 43,
+      "frames": 38,
       "still": false,
       "running": true
      },
@@ -237,7 +237,7 @@
    "name": "P37: the status is inside the shape (the tick, or the status colour when the shape is small)",
    "ok": true,
    "detail": {
-    "tick": 66,
+    "tick": 68,
     "status": "complete",
     "glyph": "check"
    }
@@ -255,8 +255,8 @@
     "native": 0,
     "ref": {
      "t": "P37 (1)",
-     "x": 547.5176362735034,
-     "y": 286.7718095966116
+     "x": 548.2131276022144,
+     "y": 286.53996488876624
     },
     "box": {
      "x0": 516.504227382422,
@@ -277,8 +277,9 @@
      "parts": 1,
      "of": 1,
      "tick": {
-      "x": 535.0855942195332,
-      "y": 290.916092052574,
+      "x": 534.390102890822,
+      "y": 291.1479367604194,
+      "size": 17.472835871553986,
       "inPart": true
      }
     }
@@ -308,8 +309,9 @@
     "parts": 1,
     "of": 1,
     "tick": {
-     "x": 535.0855942195332,
-     "y": 290.916092052574,
+     "x": 534.390102890822,
+     "y": 291.1479367604194,
+     "size": 17.472835871553986,
      "inPart": true
     }
    }
@@ -331,15 +333,20 @@
    "name": "P37: the selected shape pulses on its own layer",
    "ok": true,
    "detail": {
-    "ink": 1325,
-    "state": {
-     "selected": true,
-     "frames": 297,
-     "still": false,
-     "running": true
-    },
-    "paints": 47,
+    "ink": 1359,
+    "frames": 191,
+    "selected": true,
+    "idleHidden": true,
+    "paints": 51,
     "under": true
+   }
+  },
+  {
+   "name": "P37: the pulse rests between ripples (its canvas off while resting)",
+   "ok": true,
+   "detail": {
+    "frames": 191,
+    "idleHidden": true
    }
   },
   {
@@ -363,6 +370,13 @@
    }
   },
   {
+   "name": "P37: the pulse comes back when motion is allowed again",
+   "ok": true,
+   "detail": {
+    "frames": 40
+   }
+  },
+  {
    "name": "P37: tapping inside the shape picks P37 (also beyond the old circle's reach)",
    "ok": true,
    "detail": {
@@ -383,27 +397,42 @@
    "detail": null
   },
   {
+   "name": "quantities: a changed quantity shows on the map at once (no stale layout)",
+   "ok": true,
+   "detail": {
+    "before": [
+     "WC01 (1 + 2)"
+    ],
+    "after": [
+     "WC01 (8 + 2)"
+    ],
+    "back": [
+     "WC01 (1 + 2)"
+    ]
+   }
+  },
+  {
    "name": "P37: turning the map turns the shape with it, and it can still be tapped",
    "ok": true,
    "detail": {
     "a": {
-     "x": 552.6378913520184,
-     "y": 284.35481119999986,
+     "x": 28344.09123245606,
+     "y": -21286.472496000002,
      "box": {
-      "x0": 480.0084547648439,
-      "y0": 232.5408607999998,
-      "x1": 625.2673279391929,
-      "y1": 336.1687615999999
+      "x0": 28101.993110498814,
+      "y0": -21459.185664000004,
+      "x1": 28586.189354413305,
+      "y1": -21113.759328
      }
     },
     "b": {
-     "x": 554.1451888000001,
-     "y": 285.1378913520184,
+     "x": 22124.972496000006,
+     "y": 28076.591232456056,
      "box": {
-      "x0": 502.3312384000001,
-      "y0": 212.50845476484392,
-      "x1": 605.9591392000002,
-      "y1": 357.7673279391929
+      "x0": 21952.259328000004,
+      "y0": 27834.49311049881,
+      "x1": 22297.685664000008,
+      "y1": 28318.6893544133
      }
     },
     "m": "P37",
@@ -469,6 +498,7 @@
      "tick": {
       "x": 520.6821866616946,
       "y": 327.1549789949161,
+      "size": 24,
       "inPart": true
      }
     },
@@ -480,8 +510,9 @@
      "parts": 10,
      "of": 20,
      "tick": {
-      "x": 582.2829564045475,
-      "y": 329.89966320024524,
+      "x": 582.0266665720582,
+      "y": 330.2925580663897,
+      "size": 12.330018018578114,
       "inPart": true
      }
     },
@@ -495,6 +526,7 @@
      "tick": {
       "x": 505.95996533204186,
       "y": 316.0471814202296,
+      "size": 24,
       "inPart": true
      }
     },
@@ -506,8 +538,9 @@
      "parts": 1,
      "of": 2,
      "tick": {
-      "x": 499.5946480915033,
-      "y": 298.13094177306346,
+      "x": 498.66287080445966,
+      "y": 298.4277323024064,
+      "size": 24,
       "inPart": true
      }
     },
@@ -521,6 +554,7 @@
      "tick": {
       "x": 577.9490917918274,
       "y": 258.57732545211485,
+      "size": 24,
       "inPart": true
      }
     }
@@ -530,16 +564,51 @@
    "name": "a single square FWF (WC02) close up: the tick shows, with its reference",
    "ok": true,
    "detail": {
-    "how": "small tick and reference",
+    "how": "tick over reference",
     "u": 24,
     "along": 47,
     "across": 46,
     "parts": 1,
     "of": 1,
     "tick": {
-     "x": 536.7412882701456,
-     "y": 303.0251714991265,
+     "x": 548.9729544934108,
+     "y": 285.25540843014966,
+     "size": 24,
      "inPart": true
+    }
+   }
+  },
+  {
+   "name": "a square FWF keeps a full-size tick as you zoom in (no shrinking pip)",
+   "ok": true,
+   "detail": {
+    "z96": {
+     "how": "tick over reference",
+     "u": 24,
+     "along": 47,
+     "across": 46,
+     "parts": 1,
+     "of": 1,
+     "tick": {
+      "x": 548.9729544934108,
+      "y": 285.25540843014966,
+      "size": 24,
+      "inPart": true
+     }
+    },
+    "z64": {
+     "how": "tick over reference",
+     "u": 19,
+     "along": 31,
+     "across": 31,
+     "parts": 1,
+     "of": 1,
+     "tick": {
+      "x": 549.9454909886738,
+      "y": 284.78224667480225,
+      "size": 18.601958172568235,
+      "inPart": true
+     }
     }
    }
   },
@@ -564,9 +633,35 @@
    "name": "panning: drawing the shapes stays light (layout reused while the map moves)",
    "ok": true,
    "detail": {
-    "ms": 0.88,
+    "ms": 0.93,
     "drawn": 17
    }
+  },
+  {
+   "name": "taps: the selected building's own tick picks it, never a neighbour's text",
+   "ok": true,
+   "detail": {
+    "l": {
+     "how": "small tick and reference",
+     "u": 9,
+     "along": 25,
+     "across": 12,
+     "parts": 1,
+     "of": 1,
+     "tick": {
+      "x": 542.5587347197807,
+      "y": 288.7683469687875,
+      "size": 7.041998396971224,
+      "inPart": true
+     }
+    },
+    "m": "P13"
+   }
+  },
+  {
+   "name": "references are only written inside their own shape (the selected one may sit under it)",
+   "ok": true,
+   "detail": []
   },
   {
    "name": "overview: kept circles show no reference when the rest are decluttered (no PG01-PG29 pile-up)",
@@ -582,8 +677,8 @@
    "ok": true,
    "detail": {
     "done": 74,
-    "f0": 590,
-    "f1": 619,
+    "f0": 685,
+    "f1": 715,
     "on": true
    }
   },
@@ -649,8 +744,8 @@
    "ok": true,
    "detail": {
     "parked": true,
-    "f0": 715,
-    "f1": 715,
+    "f0": 803,
+    "f1": 803,
     "running": false
    }
   },
@@ -668,7 +763,7 @@
    "ok": true,
    "detail": {
     "page": 1,
-    "live": 310,
+    "live": 301,
     "blocked": 0
    }
   }
