@@ -55,7 +55,7 @@ The design was checked against an independent read of the explorer, the page's f
 a critic; its two corrections are in (shared outlines keep their marker; the position test measures from the marker
 to the outline, not to the centre).
 
-## v10.60.1 hotfix (built, waiting on Andrew's "Upload")
+## v10.60.1 hotfix (LIVE 18 Oct 2026 02:43 AEST, 62/62 on the live page, desktop and phone)
 
 The final independent review of v10.60 (round four, regression sweep) found that on the live page a tap 5-9 px beside
 a small drawn unit at an overview zoom could open a hidden unit from another category (Generators at 100%: GN01 +6 px

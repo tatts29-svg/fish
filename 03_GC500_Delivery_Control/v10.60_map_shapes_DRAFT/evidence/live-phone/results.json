@@ -2,7 +2,7 @@
  "author": "Andrew Fisher",
  "page": "live",
  "mobile": true,
- "passed": 61,
+ "passed": 62,
  "failed": 0,
  "results": [
   {
@@ -94,7 +94,7 @@
      "off": 0,
      "failed": 0,
      "lastErr": "",
-     "paints": 9,
+     "paints": 6,
      "beat": {
       "selected": false,
       "frames": 0,
@@ -232,10 +232,10 @@
      "off": 2,
      "failed": 0,
      "lastErr": "",
-     "paints": 31,
+     "paints": 28,
      "beat": {
       "selected": true,
-      "frames": 45,
+      "frames": 37,
       "still": false,
       "running": true
      },
@@ -350,11 +350,11 @@
    "name": "P37: the selected shape pulses on its own layer",
    "ok": true,
    "detail": {
-    "ink": 2794,
-    "frames": 193,
+    "ink": 2784,
+    "frames": 187,
     "selected": true,
     "idleHidden": true,
-    "paints": 51,
+    "paints": 52,
     "under": true
    }
   },
@@ -362,7 +362,7 @@
    "name": "P37: the pulse rests between ripples (its canvas off while resting)",
    "ok": true,
    "detail": {
-    "frames": 193,
+    "frames": 187,
     "idleHidden": true
    }
   },
@@ -390,7 +390,7 @@
    "name": "P37: the pulse comes back when motion is allowed again",
    "ok": true,
    "detail": {
-    "frames": 174
+    "frames": 52
    }
   },
   {
@@ -752,7 +752,7 @@
    "name": "panning: drawing the shapes stays light (layout reused while the map moves)",
    "ok": true,
    "detail": {
-    "ms": 0.95,
+    "ms": 0.8,
     "drawn": 13
    }
   },
@@ -798,8 +798,8 @@
    "ok": true,
    "detail": {
     "done": 74,
-    "f0": 803,
-    "f1": 831,
+    "f0": 643,
+    "f1": 673,
     "on": true
    }
   },
@@ -865,9 +865,27 @@
    "ok": true,
    "detail": {
     "parked": true,
-    "f0": 924,
-    "f1": 924,
+    "f0": 756,
+    "f1": 756,
     "running": false
+   }
+  },
+  {
+   "name": "near-miss taps beside a drawn unit never open a hidden unit from another chip (Generators, Toilets at 100%)",
+   "ok": true,
+   "detail": {
+    "Generators": {
+     "marks": 13,
+     "shaped": 11,
+     "taps": 55,
+     "bad": []
+    },
+    "Toilets": {
+     "marks": 68,
+     "shaped": 64,
+     "taps": 320,
+     "bad": []
+    }
    }
   },
   {
@@ -884,7 +902,7 @@
    "ok": true,
    "detail": {
     "page": 0,
-    "live": 280,
+    "live": 281,
     "blocked": 0
    }
   }
