@@ -42,3 +42,23 @@ time when the whole area was done."
   the run sheet's own redraw cannot wipe it; 400/409 instead of silently dropping the tracker on a bad re-post; unticks
   name the tick they cancel; snapshot epoch; trailing slash, hashchange and 413 handling; one tracker per load;
   day pick lapses at 08:00; append-only tick file; hasOwnProperty on card tokens.
+
+## Andrew's answers, 18 Oct 2026 (build brief)
+
+"Carried by crews" · "Just times" · "Waste tanks too" · "We can have multiple printed off for each. I can even laminate them" ·
+"Remember must show a percentage complete off that area" · "they can tick that refernce number as complete. One refernce number may
+have other completion lines as they will have a different desription" · "Lets have qr code for pinned location. The asset numbers
+associated with that refernce. And a picture of location on the master map. With a circle around the area. And even a master map
+with a print of the different areas" · "There is a compmetion qr code for their refernece. They scan. It whe all done. And click tap.
+This only alows them to complete the refernce qr code. Must shows percentage complete for the area. And again for everything" ·
+"must state. Reference number and how many in each one" · "each refernce needs to have 3 ticks Water fillled. Pumped out
+Restock/Cleaned ... As these could be 3 different job. Waste tanks is only a pump out. Toilet blocks will only need a pump out and
+clean. Sunday night will need a extra. locked and confirmed empty. No water will be needed".
+
+- `tracker_data.json`: 14 groups, 75 references, 83 lines, 263 units (257 toilets + 6 waste tanks). Jobs: FWF, accessible and FWF
+  trailers Pumped out · Fresh water refilled · Cleaned & restocked; blocks Pumped out · Cleaned & restocked; waste tanks Pumped out;
+  Sunday night adds Locked & confirmed empty and drops the water. Percentages weigh each job by the line's units.
+- Each reference gets a completion QR that can only tick that reference (a server-checked signature), a location QR, its asset
+  numbers and a master-map crop with a circle; plus a master map of the 13 areas. Build: workflow wf_86a7cb05-ee8.
+- To check with Andrew: blocks with their own waste tank (WC05, WC20, WC27, WC60) would show a block pump-out and a tank
+  pump-out; sewer-connected blocks (WC15, WC16, T0243) have nothing to pump. Sunday: are FWFs still cleaned & restocked?
