@@ -214,10 +214,14 @@ JS = r'''/* Author: Andrew Fisher. v10.60 - the Map explorer shows each referenc
     const show = sel || (showText && !m.done), words = status ? status.glyph + status.label + (status.quantity1010 && status.quantity1010.summary || '') + '|' + referenceQuantity1010(m.it, status) : '-';
     const pk = m.it.code + '|' + (m.it.places || []).map(bx => bx.join(',')).join(';') + '|' + camKey + '|' + (sel ? 1 : 0) + (show ? 1 : 0) + '|' + words + '|' + Math.round(b.x1 - b.x0) + 'x' + Math.round(b.y1 - b.y0);
     let plan = PLAN.get(pk);
-    if (!plan) { plan = planFor(m, L, status, sel, show, s); plan.ax = L.mx; plan.ay = L.my; if (PLAN.size > 3000) PLAN.clear(); PLAN.set(pk, plan); }
+    if (!plan) { plan = planBest(m, L, status, sel, show, s); plan.ax = L.mx; plan.ay = L.my; if (PLAN.size > 3000) PLAN.clear(); PLAN.set(pk, plan); }
     const dx = L.mx - plan.ax, dy = L.my - plan.ay;
-    const keep = plan.ticks.map(tk => ({x: tk.x + dx, y: tk.y + dy, r: tk.size * 0.6 + 3 * dpr})), boxes = plan.labels.map(l => ({x: l.box.x + dx - 2 * dpr, y: l.box.y + dy - 2 * dpr, w: l.box.w + 4 * dpr, h: l.box.h + 4 * dpr}));
-    const under = pts => pts.some(q => keep.some(k => Math.hypot(q.x - k.x, q.y - k.y) < k.r) || boxes.some(bx => q.x >= bx.x && q.x <= bx.x + bx.w && q.y >= bx.y && q.y <= bx.y + bx.h));
+    /* a chevron arm fades where its line (not just its ends) runs under the tick or through the label's own turned box */
+    const keep = plan.ticks.map(tk => ({x: tk.x + dx, y: tk.y + dy, r: tk.size * 0.6 + 3 * dpr})), rects = plan.labels.map(l => ({cx: l.cx + dx, cy: l.cy + dy, c: Math.cos(l.th), s: Math.sin(l.th), x0: l.x0 - 2 * dpr, x1: l.x0 + l.w + 2 * dpr, y0: -l.h / 2 - 2 * dpr, y1: l.h / 2 + 2 * dpr}));
+    const segDist = (k, a, e) => { const ex = e.x - a.x, ey = e.y - a.y, l2 = ex * ex + ey * ey, t = l2 ? Math.max(0, Math.min(1, ((k.x - a.x) * ex + (k.y - a.y) * ey) / l2)) : 0; return Math.hypot(a.x + t * ex - k.x, a.y + t * ey - k.y); };
+    const crosses = (a, e, R) => { const loc = q => ({x: (q.x - R.cx) * R.c + (q.y - R.cy) * R.s, y: (q.y - R.cy) * R.c - (q.x - R.cx) * R.s}), p = loc(a), q = loc(e), ux = q.x - p.x, uy = q.y - p.y; let t0 = 0, t1 = 1;
+     for (const [pp, qq] of [[-ux, p.x - R.x0], [ux, R.x1 - p.x], [-uy, p.y - R.y0], [uy, R.y1 - p.y]]) { if (pp === 0) { if (qq < 0) return false; } else { const r = qq / pp; if (pp < 0) { if (r > t1) return false; t0 = Math.max(t0, r); } else { if (r < t0) return false; t1 = Math.min(t1, r); } } } return true; };
+    const under = pts => pts.some((q, i) => i > 0 && (keep.some(k => segDist(k, pts[i - 1], q) < k.r) || rects.some(R => crosses(pts[i - 1], q, R))));
     for (const part of L.parts) {
      const {c, pts, P} = part;
      path(g, pts);
@@ -281,6 +285,8 @@ JS = r'''/* Author: Andrew Fisher. v10.60 - the Map explorer shows each referenc
      it when selected and they fit); a smaller tick; the tick over the reference (a square FWF); the tick alone, the
      reference just under the shape; too small for a tick, the shape takes its status colour and the reference sits on it.
      A tick that fits is never dropped. Coordinates are kept as drawn, then shifted while the map pans. */
+  /* a run whose middle-line tick comes out much smaller than its main unit's own (WC33 zooming in): the main unit wins */
+  function planBest(m, L, status, sel, show, s){ const A = planFor(m, L, status, sel, show, s); if (A.parts > 1 && A.ticks.length) { const B = planFor(m, L, status, sel, show, s, true); if (B.ticks.length && B.ticks[0].size > A.ticks[0].size + 2 * dpr && B.labels.length >= A.labels.length) return B; } return A; }
   function planFor(m, L, status, sel, show, scale, mainOnly){
    const P = {how: '', fill: false, ticks: [], labels: [], plain: [], tickIn: false, u: 0, along: 0, across: 0, parts: 0, of: 0};
    const solid = L.parts.filter(p => !p.c.tank); if (!solid.length) { P.how = 'shape only'; return P; }
@@ -327,7 +333,7 @@ JS = r'''/* Author: Andrew Fisher. v10.60 - the Map explorer shows each referenc
     let wmax = 0; lines.forEach(l => { wmax = Math.max(wmax, W(l[1], l[0])); });
     const h = lines.reduce((s2, l) => s2 + l[1], 0) + (lines.length - 1) * 2 * dpr, c0 = at(0, b0);
     const cs = [at(x0, b0 - h / 2), at(x0 + wmax, b0 - h / 2), at(x0, b0 + h / 2), at(x0 + wmax, b0 + h / 2)], xs = cs.map(c => c.x), ys = cs.map(c => c.y);
-    P.labels.push({lines, cx: c0.x, cy: c0.y, th, x0, h, level: Math.abs(Math.sin(th)) < 0.02, box: {x: Math.min(...xs), y: Math.min(...ys), w: Math.max(...xs) - Math.min(...xs), h: Math.max(...ys) - Math.min(...ys)}});
+    P.labels.push({lines, cx: c0.x, cy: c0.y, th, x0, h, w: wmax, level: Math.abs(Math.sin(th)) < 0.02, box: {x: Math.min(...xs), y: Math.min(...ys), w: Math.max(...xs) - Math.min(...xs), h: Math.max(...ys) - Math.min(...ys)}});
    };
    const tick = (pt, size) => { P.ticks.push({x: pt.x, y: pt.y, size}); P.tickIn = inGroup(pt); };
    const done = how => { P.how = how; P.u = Math.round(u); P.along = Math.round(along); P.across = Math.round(across); P.parts = group.length; P.of = solid.length; return P; };
@@ -356,7 +362,7 @@ JS = r'''/* Author: Andrew Fisher. v10.60 - the Map explorer shows each referenc
    if (u && show) { const gs = Math.max(3 * dpr, 0.25 * u);
     for (const fz of sizes(fs)) { const cz = W(fz, code), us0 = Math.min(u, along - gs - cz), us = Math.max(Math.min(us0, 7 * dpr), us0 - reach(us0));    /* the reach never pushes a tick under the 7 px floor */
      if (us >= 7 * dpr && Math.max(us, fz) <= across) { const rc = reach(us), total = us + gs + rc + cz, x0 = -total / 2, tp = at(x0 + us / 2, 0);
-      if ((!st || us >= st.us) && tickFits(tp, us) && labFits(x0 + us + gs + rc, 0, cz, fz)) { tick(tp, us); lab([[code, fz, '#ffffff']], x0 + us + gs + rc, 0); return done('small tick and reference'); } break; } } }
+      if ((!st || us >= st.us) && tickFits(tp, us) && labFits(x0 + us + gs + rc, 0, cz, fz)) { tick(tp, us); lab([[code, fz, '#ffffff']], x0 + us + gs + rc, 0); return done('small tick and reference'); } if (us0 - reach(us0) >= 7 * dpr) break; } } }    /* a font whose tick needed the floor raised does not end the search */
    /* 3: the tick over the reference */
    if (st) { tick(st.tp, st.us); lab([[code, st.fz, '#ffffff']], -st.cz / 2, st.h / 2 - st.fz / 2); return done('tick over reference'); }
    /* the reference only ever inside its own shape; the selected one, when it cannot fit, as plain text just under it (drawn last, no tap box) */

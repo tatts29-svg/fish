@@ -88,8 +88,7 @@
    ],
    "delivered": "P33 14 Sep, P09 16 Sep (different days)",
    "schedule_demob": "no demob rows",
-   "moved": "Andrew, 17 Oct 2026: \"wc 17 move to day 7\" - WC17's two toilet blocks join day 7, the day before P36 and P10 (day 8); placed after P33",
-   "rule": "WC17's two toilet blocks come in on this day, the day before P36 and P10 (day 8)"
+   "moved": "Andrew, 17 Oct 2026: \"wc 17 move to day 7\" - WC17's two toilet blocks join day 7, the day before P36 and P10 (day 8); placed after P33. The existing WC17 rule (constraints) already says it, so day 7 carries no second copy."
   },
   {
    "n": 8,

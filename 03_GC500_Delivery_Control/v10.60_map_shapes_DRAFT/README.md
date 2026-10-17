@@ -1,4 +1,4 @@
-# v10.60 — Map explorer: every reference as the shape of what it is, with its door, and the tick inside
+# v10.60 — Map explorer: every reference as the shape of what it is, with its door, and the tick inside (LIVE 17 Oct 2026 22:49)
 
 Author: Andrew Fisher · 17 Oct 2026
 
@@ -35,6 +35,12 @@ door"; "And the green tick is inside the shape not outside". Then "Proceed. Appr
   and the reference is plain text under it, no box. 125 references are drawn as their shape.
 - The fencing map and the 3D view are unchanged; the PNG export is unchanged (it never carried the markers).
 
+## Also in this release: WC17 on delivery day 7
+
+Andrew, 17 Oct 2026: "wc 17 move to day 7". Day 7 reads P09 → P33 → WC17 (placed last; no order was given), the day
+before P36 and P10 on day 8. The existing WC17 rule already says the blocks go in the day before, so day 7 carries no
+second copy. Source `../sequences_17Oct2026/sequences.json`; the day groups are built into the page, so it rides this release.
+
 ## How
 
 The page gains `gc500MapShapes1060()` (read-only, built once from `MasterShapes926`) and `gc500ShapeLayer1060`. On each
@@ -56,7 +62,11 @@ bash toolchain/build.sh v10.60 v10.60_map_shapes_DRAFT/patch_v1060.py
 python3 toolchain/upload_page.py build/GC500_v10.60/GC500_Delivery_Control_hosted.html
 ```
 
-- On live v10.59 `2b067249…`. check_page PASS.
+- LIVE 17 Oct 2026 22:49 AEST over v10.59 `2b067249…` (base guard passed): 18,300,090 bytes, sha256 `67e1281ef8a9e6f2…`; the view
+  link serves the build byte for byte. check_page PASS.
+- `tests/test_v1060.cjs` 61/61 on the build and on the live page, desktop and phone. Round four (10 checks of the
+  last fixes): 4 more fixed before upload (WC33's tick no longer shrinks to a pip; a chevron fades by its whole line
+  under the tick or label; the 125% case-2 search no longer stops early; the day-7 note no longer repeats the WC17 rule).
 - `tests/test_v1060.cjs` 43/43 desktop and phone (after the review fixes): shape data (P37's door swing, WC21's six chevrons, shared outlines);
   the layer mounts once under the native markers; which references are shapes and which keep markers; P37 drawn as its
   shape with no circle, the status inside it (the tick, or its status colour on a phone at that zoom) and nothing in

@@ -26,7 +26,7 @@ const SHAPE = ['P37', 'P36', 'WC21', 'WC07', 'WC69', 'WC15', 'P10', 'AA'];
   const before = await p.evaluate(() => JSON.stringify(S));
   check('footer says v10.60', await p.evaluate(() => document.body.innerText.includes('v10.60')));
   const day7 = await p.evaluate(() => { const O = window.orders1054; if (!O) return null; const g = O.GROUPS.find(x => x.n === 7); return {seq: g && g.seq, rule: g && g.rule, wc17: O.groupsOf('WC17').map(x => x.n), days: O.GROUPS.length, rules: O.rulesOf('WC17').length}; });
-  check('delivery orders: WC17 is on day 7, after P09 and P33, the day before P36 and P10 (Andrew, 17 Oct 2026)', day7 && day7.seq.join() === 'P09,P33,WC17' && day7.wc17.join() === '7' && day7.days === 11 && day7.rules === 1 && /day 8/.test(day7.rule), day7);
+  check('delivery orders: WC17 is on day 7, after P09 and P33, the day before P36 and P10 (Andrew, 17 Oct 2026)', day7 && day7.seq.join() === 'P09,P33,WC17' && day7.wc17.join() === '7' && day7.days === 11 && day7.rules === 1 && day7.rule === '', day7);    /* the WC17 rule shows once (its constraint), not again on day 7 */
   await p.waitForFunction(() => typeof EXP !== 'undefined' && EXP.frame && EXP.frame.contentWindow && EXP.frame.contentWindow.__ready, null, {timeout: 180000});
   frame = p.frames().find(f => /\/explorer\/index\.html(?:\?|$)/.test(f.url()));
   await frame.evaluate(() => GC500Explorer.ready);
@@ -184,6 +184,10 @@ const SHAPE = ['P37', 'P36', 'WC21', 'WC07', 'WC69', 'WC15', 'P10', 'AA'];
   for (const [k, z] of (mobile ? [['WC33', 200], ['WC67', 400]] : [['WC33', 100], ['WC67', 240]])) { if (!(await frame.evaluate(k => !!ITEMS.find(x => x.code === k), k))) continue; await look(k, z);
    runs[k] = await frame.evaluate(k => { drawMarks(currentView()); const l = GC500Shape1060.layout(k), s = mapStatus1009(ITEMS.find(x => x.code === k)); return {how: l && l.how, tick: l && l.tick, status: s && s.state}; }, k); }
   check('FWF runs (WC33, WC67) close up: the tick sits inside one unit, not lost to a status fill', Object.keys(runs).length >= 1 && Object.values(runs).every(l => !l.status || (l.tick && l.tick.inPart)), runs);
+  const wc33 = [];
+  if (await frame.evaluate(() => !!ITEMS.find(x => x.code === 'WC33'))) for (const z of (mobile ? [190, 224, 250, 280, 320] : [80, 99, 106, 114, 122, 130, 140])) { await look('WC33', z); wc33.push(await frame.evaluate(() => { drawMarks(currentView()); const l = GC500Shape1060.layout('WC33'); return {z: camera.z, how: l && l.how, tick: l && l.tick && +l.tick.size.toFixed(1)}; })); }
+  let big33 = false; const pip33 = wc33.filter(l => { if (l.tick >= 12) big33 = true; return big33 && (!l.tick || l.tick < 9); });
+  check('WC33 (a run of 17 FWFs) keeps a full-size tick as you zoom in, no pip', !wc33.length || pip33.length === 0, wc33);
   await look('WC15', 40); await shot('wc15-two-blocks');
 
   /* all the toilets and buildings, with the Done chip: finished units are shapes with the tick inside, not loose ticks */

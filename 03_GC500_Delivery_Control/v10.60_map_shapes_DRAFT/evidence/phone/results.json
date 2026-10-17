@@ -2,7 +2,7 @@
  "author": "Andrew Fisher",
  "page": "build/GC500_v10.60/GC500_Delivery_Control_hosted.html",
  "mobile": true,
- "passed": 60,
+ "passed": 61,
  "failed": 0,
  "results": [
   {
@@ -18,7 +18,7 @@
      "P33",
      "WC17"
     ],
-    "rule": "WC17's two toilet blocks come in on this day, the day before P36 and P10 (day 8)",
+    "rule": "",
     "wc17": [
      7
     ],
@@ -94,7 +94,7 @@
      "off": 0,
      "failed": 0,
      "lastErr": "",
-     "paints": 7,
+     "paints": 8,
      "beat": {
       "selected": false,
       "frames": 0,
@@ -232,10 +232,10 @@
      "off": 2,
      "failed": 0,
      "lastErr": "",
-     "paints": 29,
+     "paints": 33,
      "beat": {
       "selected": true,
-      "frames": 31,
+      "frames": 39,
       "still": false,
       "running": true
      },
@@ -350,11 +350,11 @@
    "name": "P37: the selected shape pulses on its own layer",
    "ok": true,
    "detail": {
-    "ink": 2814,
-    "frames": 194,
+    "ink": 2737,
+    "frames": 191,
     "selected": true,
     "idleHidden": true,
-    "paints": 53,
+    "paints": 58,
     "under": true
    }
   },
@@ -362,7 +362,7 @@
    "name": "P37: the pulse rests between ripples (its canvas off while resting)",
    "ok": true,
    "detail": {
-    "frames": 194,
+    "frames": 191,
     "idleHidden": true
    }
   },
@@ -390,7 +390,7 @@
    "name": "P37: the pulse comes back when motion is allowed again",
    "ok": true,
    "detail": {
-    "frames": 215
+    "frames": 225
    }
   },
   {
@@ -701,6 +701,37 @@
    }
   },
   {
+   "name": "WC33 (a run of 17 FWFs) keeps a full-size tick as you zoom in, no pip",
+   "ok": true,
+   "detail": [
+    {
+     "z": 190,
+     "how": "tick over reference",
+     "tick": 24
+    },
+    {
+     "z": 224,
+     "how": "tick over reference",
+     "tick": 24
+    },
+    {
+     "z": 250,
+     "how": "tick over reference",
+     "tick": 24
+    },
+    {
+     "z": 280,
+     "how": "tick over reference",
+     "tick": 24
+    },
+    {
+     "z": 320,
+     "how": "small tick and reference",
+     "tick": 23.2
+    }
+   ]
+  },
+  {
    "name": "all references (one chip): shapes drawn, the few without one keep a marker",
    "ok": true,
    "detail": {
@@ -721,7 +752,7 @@
    "name": "panning: drawing the shapes stays light (layout reused while the map moves)",
    "ok": true,
    "detail": {
-    "ms": 0.64,
+    "ms": 1.11,
     "drawn": 13
    }
   },
@@ -767,8 +798,8 @@
    "ok": true,
    "detail": {
     "done": 74,
-    "f0": 815,
-    "f1": 845,
+    "f0": 856,
+    "f1": 885,
     "on": true
    }
   },
@@ -834,8 +865,8 @@
    "ok": true,
    "detail": {
     "parked": true,
-    "f0": 929,
-    "f1": 929,
+    "f0": 977,
+    "f1": 977,
     "running": false
    }
   },
@@ -853,7 +884,7 @@
    "ok": true,
    "detail": {
     "page": 1,
-    "live": 286,
+    "live": 283,
     "blocked": 0
    }
   }
