@@ -95,7 +95,7 @@ photographed code) and the per-job cap, not this limit.
 python3 patch_server_v589.py ../server_v5.87_pictures_from_shared_number_LIVE/server.js server.js
 ```
 
-`server.js` **282,784 bytes, SHA-256 `8f66feba04a79f42c3ac3dee5905d602a512d07c34ebb99c20d575aec91910b2`**,
+`server.js` **283,062 bytes, SHA-256 `cb32d00e0d4beb90870685978981b1e14541a701c7b37cb1f180d848c134019c`**,
 `node --check` passes. The patch refuses any base but `d5a0d777…` and refuses to run twice; every replacement must
 match exactly once. Against v5.87: 19 lines changed (all listed above) and 583 lines added; the live v5.87 file
 itself is untouched.
@@ -106,7 +106,7 @@ Run with `TMPDIR=<scratch folder> node <file>`. Results are saved beside each fi
 
 | file | result | what |
 |---|---|---|
-| `test_tracker.js` | **83/83** | making and validation (16 broken lists → 400, nothing made; 409 × 4); signatures (WC07's cannot tick WC06; none → 403; the HMAC formula); jobs per kind and day (no water on Sunday, lock only on Sunday, tanks only pumped, blocks pumped and cleaned, tanked and sewer blocks cleaned only, Thursday's night jobs); retries (already, 409, a bad tick keeps none of its POST, 10 full ticks in 2 KB); unticks with `undoes` (two phones, one late); the phone's time (kept, held to arrival, dropped); WC07 weighs 20; rate limits per address, per tracker, reads; per-job cap and void; wrong tokens counted, right ones not; report routes 404; 413 and a cut-off chunked body; reads write nothing; ten scans → one write; `propertyIsEnumerable`, `constructor`, `__proto__`; `/api/ticks` edit-only; void (one line, epoch moves, voided tick not resurrected); re-post keeps token, signatures and ticks; no signature or secret in any listing, log or file but the store; **no record writes** (records.json byte for byte, `/api/version` unchanged, writes.log only card and tracker lines); append-only (same inode, prefix unchanged); restart keeps the epoch; a cut-short last line; a damaged middle line; the file lost; a failed write (507, then saved once, file clean after restart); expiry 410 after 26 Oct; **rollback: v5.87 on v5.89's data starts**, serves the card, answers `/ticks` with its plain 404 (not counted), lists no secret; back on v5.89 with every tick; the 08:00 boundary (07:59:59 Friday is Thursday's service); nothing tickable on 18 Oct; 1,200 POSTs an hour per tracker; the 25,000 store cap; a damaged file with no snapshot still starts |
+| `test_tracker.js` | **84/84** | making and validation (16 broken lists → 400, nothing made; 409 × 4); signatures (WC07's cannot tick WC06; none → 403; the HMAC formula); jobs per kind and day (no water on Sunday, lock only on Sunday, tanks only pumped, blocks pumped and cleaned, tanked and sewer blocks cleaned only, Thursday's night jobs); retries (already, 409, a bad tick keeps none of its POST, 10 full ticks in 2 KB); unticks with `undoes` (two phones, one late); the phone's time (kept, held to arrival, dropped); WC07 weighs 20; rate limits per address, per tracker, reads; per-job cap and void; wrong tokens counted, right ones not; report routes 404; 413 and a cut-off chunked body; reads write nothing; ten scans → one write; `propertyIsEnumerable`, `constructor`, `__proto__`; `/api/ticks` edit-only; void (one line, epoch moves, voided tick not resurrected); re-post keeps token, signatures and ticks; no signature or secret in any listing, log or file but the store; **no record writes** (records.json byte for byte, `/api/version` unchanged, writes.log only card and tracker lines); append-only (same inode, prefix unchanged); restart keeps the epoch; a cut-short last line; a damaged middle line; the file lost; a failed write (507, then saved once, file clean after restart); expiry 410 after 26 Oct; **rollback: v5.87 on v5.89's data starts**, serves the card, answers `/ticks` with its plain 404 (not counted), lists no secret; back on v5.89 with every tick; the 08:00 boundary (07:59:59 Friday is Thursday's service); nothing tickable on 18 Oct; 1,200 POSTs an hour per tracker; the 25,000 store cap; a damaged file with no snapshot still starts |
 | `rehearse_deploy.js` | **14/14** | the Upload steps on a local volume: v5.87 booting from its blob; the v5.89 blob staged with `PUT /api/admin/machine/blob/<sha>` and listed; a wrong-hash upload refused; the start command's copy (`server from volume blob …`, sha256sum matches); v5.89 up, banner and `/health` right, record version unchanged; a tracker made and ticked; rolled back to v5.87 (card opens, ticks wait); rolled forward with every tick; a `SERVER_FILE` typo shows as a missing blob |
 | `test_mms_sender_v587_on_v589.js` | **14/14** | v5.87's sender suite, label check now v5.89 |
 | `test_delivery_v586_on_v589.js` | **45/45** | v5.86's delivery-status suite, label check now v5.89 |
@@ -138,13 +138,13 @@ The edit key comes only from `GC500_EDIT_TOKEN` and goes to curl on stdin (`-H @
    edit key must say `level: edit`. `GET /api/export` → keep the copy privately, out of git. Read the Railway variables:
    `SERVER_FILE` = `d5a0d777…`, `SERVER_FILE_KEEP` (expected `f5b9a3f7…`, `76afbd99…`, `264363…`, `b8d38b…`),
    `MMS_FROM=shared`, `RAILWAY_DEPLOYMENT_DRAINING_SECONDS`.
-3. **Stage:** `PUT /api/admin/machine/blob/8f66feba04a79f42c3ac3dee5905d602a512d07c34ebb99c20d575aec91910b2` with the
-   bytes of `server.js` (expect `bytes: 282784`). `GET /api/admin/machine` must list `8f66feba…` and `d5a0d777…`.
+3. **Stage:** `PUT /api/admin/machine/blob/cb32d00e0d4beb90870685978981b1e14541a701c7b37cb1f180d848c134019c` with the
+   bytes of `server.js` (expect `bytes: 283062`). `GET /api/admin/machine` must list `cb32d00e…` and `d5a0d777…`.
    **No machine import** (admin page or `machine_set.py`) until step 4 is done: v5.87 deletes any blob not named in
    `SERVER_FILE`/`SERVER_FILE_KEEP`.
-4. **One Railway change:** `SERVER_FILE=8f66feba…`; `SERVER_FILE_KEEP` = `d5a0d777…` plus every existing entry; keep
+4. **One Railway change:** `SERVER_FILE=cb32d00e…`; `SERVER_FILE_KEEP` = `d5a0d777…` plus every existing entry; keep
    `MMS_FROM`. One redeploy (a gap of about 10 s).
-5. **Verify:** deploy log `server from volume blob 8f66feba…` and `sha256sum /app/server.js` = `8f66feba…`; banner
+5. **Verify:** deploy log `server from volume blob cb32d00e…` and `sha256sum /app/server.js` = `cb32d00e…`; banner
    starts `server v5.89 — THE SERVICING TRACKER`, shows `servicing tracker 0 trackers, 0 ticks` and `server blob N kept
    off the public set`, no `RECOVERED`; `/health` → `ok: true`, `build: v5.89`, `tracker_ticks: 0`,
    `record_recovered: null`, the same record version; the view page's bytes unchanged; `GET /api/ticks` with the edit
@@ -157,7 +157,7 @@ The edit key comes only from `GC500_EDIT_TOKEN` and goes to curl on stdin (`-H @
 
 ## Rollback
 
-`SERVER_FILE=d5a0d777…` (keep `8f66feba…` in `SERVER_FILE_KEEP`), one redeploy, `/health` → v5.87. Nothing in the
+`SERVER_FILE=d5a0d777…` (keep `cb32d00e…` in `SERVER_FILE_KEEP`), one redeploy, `/health` → v5.87. Nothing in the
 record needs undoing. `tracker_ticks.jsonl` and the card's `tracker` field stay and are ignored; the tracker card still
 opens; its `/ticks` answers v5.87's plain 404 (not counted), so phones keep their ticks and send them when v5.89 is back
 (rehearsed: `rehearse_deploy.js` 9–12, `test_tracker.js` 73–76). While on v5.87: do not re-post the tracker card (v5.87
@@ -169,3 +169,12 @@ not roll back blindly (v5.84 `DEPLOY.md`).
 The live Railway variables, the start command's literal text and the Node version actually running were not read (the
 v5.83 README records `node:20-alpine`; the append is fsynced explicitly, so it does not depend on the version). No live
 call was made.
+
+## Pre-deploy review (18 Oct 2026, three independent reviewers)
+
+All three: safe to deploy; every existing route, header and data file behaves as v5.87 (57- and 30-request side-by-side runs,
+identical after normalising times and ids); the secret never leaves the service. Fixed before deploy: unsigned junk POSTs no longer
+spend the tracker's shared hourly allowance (only signed, fresh ticks do; tests 80 and 80b); /health gains `tracker_refusing`.
+Left for later (minor, tracker-only): recovery write order after a damaged line plus a failed write at boot; voided ticks do not
+free store capacity; full reads are per-address capped. Rebuilt: 283,062 bytes, sha256 cb32d00e…; test_tracker 84/84, v5.86
+delivery 45/45, v5.87 sender 14/14, v5.85 MMS 37/37, deploy rehearsal 14/14.

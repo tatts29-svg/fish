@@ -179,7 +179,7 @@ function areaPct(ticks, areaLines, day) {
   check('23. a toilet block (WC17) is pumped out and cleaned, never watered; Sunday adds the lock', blockWater.code === 'task' && blockPump.saved && blockClean.saved && blockLock.saved, [blockWater, blockPump, blockClean, blockLock]);
   const tankedPump = await one(tk('WC20', 'WC20-TOILETBL', 'pump', '2026-10-23')), tankedClean = await one(tk('WC20', 'WC20-TOILETBL', 'clean', '2026-10-23'));
   const sewerPump = await one(tk('WC15', 'WC15-TOILETBL', 'pump', '2026-10-25')), sewerLock = await one(tk('WC15', 'WC15-TOILETBL', 'lock', '2026-10-25'));
-  check("23b. a block with its own tank (WC20) or on the sewer (WC15) is cleaned only (Andrew's job rules): no pump-out; Sunday adds the lock", tankedPump.code === 'task' && tankedClean.saved && sewerPump.code === 'task' && sewerLock.saved, [tankedPump, tankedClean, sewerPump, sewerLock]);
+  check("23b. a block with its own tank (WC20) or on the sewer (WC15) is pumped out and cleaned too (Andrew, 18 Oct: 'With own wster tanks add a pump out too', 'Sewer connected add pumo out'); Sunday adds the lock", tankedPump.saved && tankedClean.saved && sewerPump.saved && sewerLock.saved, [tankedPump, tankedClean, sewerPump, sewerLock]);
   const d26 = await one(tk('WC06', 'WC06-FWF', 'pump', '2026-10-26')), d21 = await one(tk('WC06', 'WC06-FWF', 'pump', '2026-10-21'));
   check('24. a day that is not on the tracker is refused (400 day)', d26.code === 'day' && d21.code === 'day', [d26, d21]);
   const thu = await one(tk('WC06', 'WC06-FWF', 'water', '2026-10-22'));
@@ -481,10 +481,20 @@ function areaPct(ticks, areaLines, day) {
   r = await req(S.port, 'POST', '/api/cards', EH(), cardBody()); SIG = r.json.tracker.links; const T9 = r.json.token;
   let held = 0;
   for (let a = 0; a < 20; a++) for (let i = 0; i < 60; i++) { const x = await req(S.port, 'POST', '/d/' + T9 + '/ticks', PH('10.5.' + a + '.1'), {}); if (x.status === 429) held++; }
-  const over = await post(S.port, T9, [tk('WC06', 'WC06-FWF', 'pump', '2026-10-23')], '10.5.250.1');
+  const after = await post(S.port, T9, [tk('WC06', 'WC06-FWF', 'pump', '2026-10-25')], '10.5.250.1');
+  check('80. 1,200 unsigned junk POSTs do not use up the tracker: a signed tick from another phone is still taken', held === 0 && after.status === 200, { held, after: after.status, code: after.json && after.json.code });
+  {   /* 80b in its own block */
+  const jobs = []; for (const l of LINES) for (const tsk of DATA.plans[l.kind].final) jobs.push([l.ref, l.id, tsk]);
+  let sent = 1, notTaken = 0;
+  outer: for (const [ref, line, task] of jobs) for (let k = 0; k < 12; k++) {
+    const x = await post(S.port, T9, [tk(ref, line, task, '2026-10-25')], '10.6.' + Math.floor(sent / 50) + '.1');
+    if (x.status === 200) sent++; else notTaken++;
+    if (sent >= 1200) break outer; }
+  const last = jobs[jobs.length - 1], over = await post(S.port, T9, [tk(last[0], last[1], last[2], '2026-10-25')], '10.5.251.1');
   const stillReads = await read(S.port, T9, 0, '10.5.250.2');
-  check('80. 1,200 POSTs an hour to one tracker from every address together; the next is 429 from any address; reads still answer',
-    held === 0 && over.status === 429 && Number(over.headers['retry-after']) > 60 && stillReads.status === 200, { held, over: over.status, ra: over.headers['retry-after'] });
+  check('80b. signed ticks do spend it: after 1,200 an hour the next is 429 from any address; reads still answer',
+    sent === 1200 && over.status === 429 && Number(over.headers['retry-after']) > 60 && stillReads.status === 200, { sent, notTaken, over: over.status, ra: over.headers['retry-after'] });
+  }
   await S.stop();
 
   /* ===================================================================================== RUN 10: the whole store's cap */
