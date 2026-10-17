@@ -598,7 +598,7 @@ async function trackPost(req, res, token) {
   const first = Date.now(), ip = clientIp(req);
   const wait = Math.max(trackOver('postAddress', ip, first), trackOver('postTracker', token, first));
   if (wait) return send(res, 429, { error: 'too many ticks sent too fast — they stay on your phone and go again shortly', code: 'slow_down', retry_after: wait }, { 'Retry-After': String(wait) });
-  trackHit('postAddress', ip, first); trackHit('postTracker', token, first);
+  trackHit('postAddress', ip, first);   /* the tracker's own hourly allowance is spent only by signed, fresh ticks, further down (the 18 Oct pre-deploy review: unsigned junk could use it up) */
   /* answered before reading: readBody cuts the socket when a body runs over, and then nothing can be answered */
   const declared = parseInt(req.headers['content-length'] || '0', 10);
   if (Number.isFinite(declared) && declared > TRACK_MAX_BODY) return send(res, 413, { error: 'that is more than ' + TRACK_MAX_BODY + ' bytes of ticks — send fewer at a time', code: 'too_big' });
@@ -663,6 +663,7 @@ async function trackPost(req, res, token) {
     saved.push({ id: t.id, seq: ev.seq, at, already: false });
   }
   if (fresh.length) {
+    trackHit('postTracker', token, first);
     const err = trackAppend(fresh);
     if (err) {   // not on the disk, so not in memory either: the retry must save, not say "already"
       logWrite({ at, what: 'tracker ticks NOT SAVED', token, n: fresh.length, error: err.message });
@@ -2901,7 +2902,8 @@ async function route(req, res) {
       /* v5.84 — says so when a store was recovered from a snapshot at start (null when nothing was) */
       record_recovered: STARTUP_RECOVERY.length ? STARTUP_RECOVERY : null,
       /* v5.89 — how many tracker ticks are kept, and anything said about their file at start */
-      tracker_ticks: track.events, tracker_notes: track.notes.length ? track.notes : null, build: 'v5.89' });
+      tracker_ticks: track.events, tracker_notes: track.notes.length ? track.notes : null,
+      tracker_refusing: track.broken ? track.broken.message : (track.stuck ? 'stuck: ' + track.stuck.message : null), build: 'v5.89' });
     if (p === '/' ) return send(res, 200, page('GC500', '<p>This page opens from its link. If you have one, use it; if not, ask Andrew Fisher.</p>'), { 'Content-Type': 'text/html; charset=utf-8' });
     /* v5.85 - the picture an MMS carries, for ClickSend to fetch. No key: the name IS the picture's SHA-256. */
     if ((m = p.match(/^\/p\/([a-f0-9]{64})\.jpg$/))) return serveMmsPicture(req, res, m[1]);

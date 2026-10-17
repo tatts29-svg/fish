@@ -21,7 +21,7 @@ PASS 20. no water on Sunday (400 task)
 PASS 21. locked & confirmed empty refused before Sunday, taken on Sunday
 PASS 22. a waste tank is only pumped out (clean, water and lock refused)
 PASS 23. a toilet block (WC17) is pumped out and cleaned, never watered; Sunday adds the lock
-PASS 23b. a block with its own tank (WC20) or on the sewer (WC15) is cleaned only (Andrew's job rules): no pump-out; Sunday adds the lock
+PASS 23b. a block with its own tank (WC20) or on the sewer (WC15) is pumped out and cleaned too (Andrew, 18 Oct: 'With own wster tanks add a pump out too', 'Sewer connected add pumo out'); Sunday adds the lock
 PASS 24. a day that is not on the tracker is refused (400 day)
 PASS 25. Thursday ("is a just in case") takes the night jobs
 PASS 26. the same tick again (a lost reply, a retry): already, same seq, nothing new stored or logged
@@ -78,8 +78,9 @@ PASS 76. ...and back on v5.89: every tick, the same epoch, the old signatures st
 PASS 77. at 07:59 on Friday it is still Thursday's service: a Friday tick is refused (future_day), Thursday's is taken
 PASS 78. at 08:00 Friday's service starts: Friday is taken, Saturday is still refused
 PASS 79. before the event (18 Oct) no day can be ticked, Thursday included
-PASS 80. 1,200 POSTs an hour to one tracker from every address together; the next is 429 from any address; reads still answer
+PASS 80. 1,200 unsigned junk POSTs do not use up the tracker: a signed tick from another phone is still taken
+PASS 80b. signed ticks do spend it: after 1,200 an hour the next is 429 from any address; reads still answer
 PASS 81. the store holds 25,000 ticks in all; the next is refused 507 "full"
 PASS 82. a damaged tick file with no snapshot never stops the service: it starts, sets the file aside and starts the ticks empty, and says so
-83/83 v5.89 servicing tracker checks passed
-data folders (throw-away): gc500-589-main-45wMC3, gc500-589-rollback-kFN7st, gc500-589-boundary-f4EGiL, gc500-589-pertoken-X3yu81, gc500-589-full-fVRyMr, gc500-589-nosnap-ZNfJHr
+84/84 v5.89 servicing tracker checks passed
+data folders (throw-away): gc500-589-main-U8uyhV, gc500-589-rollback-SFPXcl, gc500-589-boundary-NfyWG7, gc500-589-pertoken-U489aP, gc500-589-full-SCGBBH, gc500-589-nosnap-jU4e5k
