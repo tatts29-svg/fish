@@ -21,5 +21,8 @@ time when the whole area was done."
   (server v5.56/v5.63 pattern); ticks append to their own log on the service (server time), never touch the job
   record, ticks or charges; the main page reads the log and shows progress per area per night. Needs a server
   addition (no edit key on phones) — deploy and page release on Andrew's "Upload".
-- To check with Andrew: Thursday as a service night (labels and the EP count use Fri/Sat/Sun); WC81 is 1.4 km from the
+- Thursday (Andrew, 18 Oct: "Thursday is a just iin case. Im not sure"): the Thursday day stays on the tracker marked
+  "if needed"; before the event it opens on Friday. The Event Portables count stays Fri/Sat/Sun (714) and the labels
+  are unchanged; if Thursday is serviced, its ticks show it and the count can follow what was actually done.
+- To check with Andrew: WC81 is 1.4 km from the
   rest of area 11; WC100's two FWF trailers in the Teams Area; one QR for all or one per area sheet.

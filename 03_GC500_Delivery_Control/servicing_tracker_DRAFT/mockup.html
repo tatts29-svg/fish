@@ -93,16 +93,16 @@ const dname = t => fmt(t, {weekday: 'short', day: 'numeric'});
 const TOTAL = AREAS.reduce((n, a) => n + a.refs.reduce((m, r) => m + r.qty, 0), 0);
 let store = {}; try { store = JSON.parse(localStorage.getItem('gc500svc') || '{}') || {}; } catch (e) { store = {}; }
 const save = () => { try { localStorage.setItem('gc500svc', JSON.stringify(store)); } catch (e) {} };
-const nowDay = () => { const n = Date.now(); const d = DAYS.find(x => n >= x.start && n < x.end); return d ? d.i : (n < DAY0 ? 0 : 3); };
+const nowDay = () => { const n = Date.now(); const d = DAYS.find(x => n >= x.start && n < x.end); return d ? d.i : (n < DAY0 ? 1 : 3); };    /* before the event it opens on Friday; Thursday is only in case */
 let day = nowDay(), open = new Set(), undoFor = null;
 const m = /^#a(\d+)$/.exec(location.hash); if (m) open.add(+m[1]);
 const log = () => (store[day] = store[day] || {});
 const esc = s => String(s).replace(/[&<>"]/g, c => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;'}[c]));
 const TICK = '<svg viewBox="0 0 32 32" aria-hidden="true"><path d="M7 17l6 6L25 9" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 function renderDays(){
-  document.getElementById('days').innerHTML = DAYS.map(d => '<button class="day" type="button" id="day' + d.i + '" aria-pressed="' + (d.i === day) + '" data-day="' + d.i + '"><b>' + esc(fmt(d.start, {weekday: 'short'})) + ' ' + esc(fmt(d.start, {day: 'numeric'})) + '</b><span>to ' + esc(dname(d.end)) + '</span></button>').join('');
+  document.getElementById('days').innerHTML = DAYS.map(d => '<button class="day" type="button" id="day' + d.i + '" aria-pressed="' + (d.i === day) + '" data-day="' + d.i + '"><b>' + esc(fmt(d.start, {weekday: 'short'})) + ' ' + esc(fmt(d.start, {day: 'numeric'})) + '</b><span>' + (d.i === 0 ? 'if needed' : 'to ' + esc(dname(d.end))) + '</span></button>').join('');
   const d = DAYS[day], n = Date.now();
-  const state = n < d.start ? 'Starts ' + dname(d.start) + ' Oct 08:00' : n >= d.end ? 'Closed ' + dname(d.end) + ' Oct 08:00' : 'Open now · closes 08:00 ' + dname(d.end);
+  const state = (d.i === 0 ? 'Only if Thursday is serviced · ' : '') + (n < d.start ? 'Starts ' + dname(d.start) + ' Oct 08:00' : n >= d.end ? 'Closed ' + dname(d.end) + ' Oct 08:00' : 'Open now · closes 08:00 ' + dname(d.end));
   document.getElementById('window').innerHTML = '<span><b>' + esc(dname(d.start)) + ' 08:00 → ' + esc(dname(d.end)) + ' 08:00</b></span><span>' + esc(state) + '</span>';
 }
 function areaStats(a){
