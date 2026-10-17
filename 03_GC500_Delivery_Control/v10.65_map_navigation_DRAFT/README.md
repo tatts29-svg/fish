@@ -2,7 +2,7 @@
 
 Author: Andrew Fisher
 
-DRAFT. Combined candidate built from live v10.64; desktop and phone validation in progress. Not published.
+READY TO UPLOAD. Combined candidate built from live v10.64. Desktop and phone checks passed; not published. Implementation source: `ba3bd4d1d3ff0a1dab39d0baf3d75abe99aaa0a7`.
 
 Four reproduced defects are corrected:
 
@@ -15,6 +15,6 @@ The page changes are limited to the Costs presentation wrapper, the selected-sha
 
 The build pipeline uses `toolchain/build.sh v10.65 v10.65_map_navigation_DRAFT/patch_v1065.py` from the delivery-control directory. `prepare_machine1065.py` accepts an exact three-file source directory and writes the reviewed machine candidate. The release wrapper supports authenticated read-only preflight before publication. It rejects unexpected server blobs and inventory changes during staging, in addition to the live-manifest guard; the final GET/POST race still requires coordinated publication.
 
-Validation sources are in `camera/`, `navigation/`, `shape/`, `lifecycle/`, `tests/` and `release/`. Full page bytes, live records, screenshots and CPU profiles stay in private scratch storage. Publication and final validation evidence will be added after all checks pass.
+Validation sources are in `camera/`, `navigation/`, `shape/`, `lifecycle/`, `tests/` and `release/`. Full page bytes, live records, screenshots and CPU profiles stay in private scratch storage. Both screen sizes passed 62 shape checks, 16 integrated map checks, 5 Costs scroll checks, and the full 24-route/7-link sweep with zero page errors, console errors or record-write attempts. Focused source and release guard results are in `evidence/validation.json`. Phone screenshots were visually reviewed. Independent subagent source reviews found no remaining blocker; Claude has not reviewed this candidate. Publication evidence will follow guarded upload and fresh live checks.
 
 Remaining work stays explicit: Claude owns v10.61 load/Today/Build/flicker/idle and shared model calculations, plus servicing v10.63. The known overview badge/shape and Done-label overlap need a separate visually verified correction; this release preserves their current drawing and hit priority. The phone profile still shows expensive status projection work, so this release does not claim the full page-speed target is met.

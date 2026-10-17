@@ -1,6 +1,6 @@
 {
   "author": "Andrew Fisher",
-  "state": "validation in progress; not published",
+  "state": "READY TO UPLOAD; not published",
   "basePageSha256": "34ac94742f81bfce7e784589a502df515d76dffbee418c048fc3e07a238f2067",
   "candidatePageSha256": "c62adee5817153a56d538e1db015b0ef66a8a6e75609bc4d6e09a47bedfafbd8",
   "candidatePageBytes": 18302611,
@@ -27,5 +27,24 @@
   "notes": [
     "Candidate byte reads and three-file union validated by shared publisher dry run.",
     "Broader page speed remains assigned to Claude; this is a bounded defect release."
-  ]
+  ],
+  "implementationSource": "ba3bd4d1d3ff0a1dab39d0baf3d75abe99aaa0a7",
+  "regression": {
+    "desktop": {
+      "shapeChecksPassed": 62,
+      "tabs": 24,
+      "deepLinks": 7,
+      "pageErrors": 0,
+      "consoleErrors": 0,
+      "recordWriteAttempts": 0
+    },
+    "phone": {
+      "shapeChecksPassed": 62,
+      "tabs": 24,
+      "deepLinks": 7,
+      "pageErrors": 0,
+      "consoleErrors": 0,
+      "recordWriteAttempts": 0
+    }
+  }
 }
