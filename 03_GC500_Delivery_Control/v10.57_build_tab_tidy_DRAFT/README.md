@@ -1,4 +1,4 @@
-# v10.57 — Build tab tidied: a readable no-twin-steer banner, the locked orders off the Build tab (DRAFT, waiting on Andrew's "Upload")
+# v10.57 — Build tab tidied: a readable no-twin-steer banner, the locked orders off the Build tab (LIVE 17 Oct 2026 10:32 AEST)
 
 Author: Andrew Fisher · 17 Oct 2026
 
@@ -38,3 +38,7 @@ python3 toolchain/upload_page.py build/GC500_v10.57/GC500_Delivery_Control_hoste
 - Sweeps: 24 tabs and 7 links, 0 errors, desktop and phone.
 - Phone screenshots: `evidence/p1_timeline_top_phone.png`, `p1_demob_fold_closed_phone.png`,
   `p1_demob_fold_open_phone.png`, `p1_rule_open_phone.png`, `p1_rule_truckday_phone.png`.
+
+## Live
+
+Uploaded 17 Oct 2026 10:32 AEST on Andrew's "Upload". The base guard passed (live was v10.56 `03ebb3cc…`), and the view link serves the build byte for byte: 18,163,802 bytes, sha256 `2ee2bfb105f05e87…`. `tests/test_part1.cjs` on the live page: 72/72. The folder keeps its DRAFT name while the v10.58 parts are built in it.

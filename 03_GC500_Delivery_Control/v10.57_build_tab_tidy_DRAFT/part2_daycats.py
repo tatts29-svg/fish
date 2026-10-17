@@ -17,8 +17,9 @@ than whta you have on the cards. ... Needs to be neat and tidy its a card of tha
   amber line and More info gives the detail.
 - More info lists, per category, each reference with its quantity and where the number came from (site light HH:MM,
   receipt HH:MM, rental system on-hire date), then the fencing dockets, fence moves and removals, receipts without a
-  site light, anything that went off, site lights that added nothing (set again, on and off, or held), and the other
-  work recorded (installed, levelled, stairs, service notes, collections).
+  site light, anything that went off, site lights that added nothing (set again, on and off, held, or on a reference left
+  out of the count, such as FL01, the same delivery as T0003), and the other work recorded (installed, levelled, stairs,
+  service notes, collections).
 - Only completed Build cards change. Demob cards, today and upcoming cards are untouched (the card and More info
   wrappers only act on a work object that carries cats1057).
 
@@ -68,7 +69,14 @@ JS = r'''/* Author: Andrew Fisher. v10.57 - completed Build day cards: what went
  const isToilet = a => !!a && (a.product === 'Toilet' || a.discipline === 'Toilets & amenities');
 
  /* which references count: one per physical delivery (source-linked aliases dropped), nothing cancelled, moved or a rest-of follow-up */
- function refs(){ return memo('refs', () => physicalCountAssets963(allAssets()).assets.filter(a => a && a.key && !a._cancelled && !a.relocation && !a.rest_of)); }
+ function phys(){ return memo('phys', () => physicalCountAssets963(allAssets())); }
+ function refs(){ return memo('refs', () => phys().assets.filter(a => a && a.key && !a._cancelled && !a.relocation && !a.rest_of)); }
+ /* references left out of the count still show their site lights in More info, with the reason (a rule never hides a record) */
+ function outside(){ return memo('outside', () => {
+  const keep = new Set(refs().map(a => a.key)), al = new Map(); ((phys() || {}).aliases || []).forEach(x => { if (x && x.ref && x.source) al.set(x.ref, x); });
+  return allAssets().filter(a => a && a.key && !keep.has(a.key)).map(a => { const x = al.get(a.key); let item = ''; try { item = ((chargeLines(a) || [])[0] || {}).item || ''; } catch (y) {}
+   return {a, name: String(a.name || '').trim() || (x && x.item) || item, why: x ? 'the same delivery as ' + x.source + ', counted under ' + x.source : a._cancelled ? 'reference cancelled' : a.relocation ? 'a move of plant already on site' : a.rest_of ? 'a follow-up of ' + a.rest_of + ', not in this count' : 'not a separate delivery'}; });
+ }); }
  function itemsOf(a){ return memo('i|' + a.key, () => itemsOf0(a)); }
  function itemsOf0(a){
   const m = new Map();
@@ -155,6 +163,7 @@ JS = r'''/* Author: Andrew Fisher. v10.57 - completed Build day cards: what went
     lights.push({ref: a.key, name, how: why});
    }
   });
+  outside().forEach(o => { const lit = lightOn(o.a, iso); if (lit) lights.push({ref: o.a.key, name: o.name, how: 'Site light ' + hm(lit) + ' · ' + o.why + ' · not counted'}); });
   return {iso, cats, off, noLight, lights};
  }
  /* item words for the card's short line */
@@ -181,11 +190,13 @@ JS = r'''/* Author: Andrew Fisher. v10.57 - completed Build day cards: what went
  }
  const PLURAL = {'block': 'blocks', '16-pan block': '16-pan blocks', 'pee panel': 'pee panels', 'FWF trailer': 'FWF trailers', 'waste tank': 'waste tanks', 'fridge': 'fridges', 'large fridge': 'large fridges', 'chair': 'chairs'};
  function counted(id, w, n){
-  if (id === 'toilets' || id === 'furniture' || id === 'tanks') return n + ' ' + (n === 1 ? w : PLURAL[w] || w);
+  if ((id === 'toilets' || id === 'furniture' || id === 'tanks') && !/^\d/.test(w)) return n + ' ' + (n === 1 ? w : PLURAL[w] || w);
   return n > 1 ? n + ' × ' + w : w;
  }
- /* buildings read largest first, then ticket boxes, then containers */
- function order(id, w){ if (id !== 'buildings') return 0; const s = parseFloat(w) || parseFloat(String(w).replace(/^\D+/, '')) || 0; return (/^[\d.]+m$/.test(w) ? 0 : /ticket/.test(w) ? 100 : /container/.test(w) ? 200 : 300) - s; }
+ /* buildings read largest first, then ticket boxes, then containers; generators largest first */
+ function order(id, w){
+  if (id === 'generators') return -(parseFloat(w) || 0);
+  if (id !== 'buildings') return 0; const s = parseFloat(w) || parseFloat(String(w).replace(/^\D+/, '')) || 0; return (/^[\d.]+m$/.test(w) ? 0 : /ticket/.test(w) ? 100 : /container/.test(w) ? 200 : 300) - s; }
  function subOf(g, tanks){
   const by = new Map(); g.lines.forEach(l => { const w = word(g.id, l.item); by.set(w, (by.get(w) || 0) + l.n); });
   const places = new Set(g.lines.map(l => l.ref)).size;
@@ -245,10 +256,10 @@ JS = r'''/* Author: Andrew Fisher. v10.57 - completed Build day cards: what went
  function cardHtml(work){
   const c = work.cats1057, tiles = c.tiles || [], other = (work.rows || []).filter(r => r.kind === 'more1057');
   const tile = x => '<span class="dc1057-tile" data-cat1057="' + e(x.id) + '"><span class="dc1057-n">' + e(fmt(x.n)) + (x.unit ? '<small>' + e(x.unit) + '</small>' : '') + '</span><span class="dc1057-k">' + e(x.name) + '</span>' +
-   (x.sub ? '<span class="dc1057-s" title="' + e(x.sub) + '">' + e(x.sub) + '</span>' : '') + '</span>';
+   (x.sub ? '<span class="dc1057-s" title="' + e(x.sub) + '">' + String(x.sub).split(' · ').map(s => '<span class="dc1057-p">' + e(s) + '</span>').join(' · ') + '</span>' : '') + '</span>';
   const quiet = c.off.length || c.lights.length;
   let body = tiles.length ? '<span class="dc1057-grid">' + tiles.map(tile).join('') + '</span>' : '<span class="bc986-work-empty">' + (other.length || quiet ? 'Nothing new went in' + (quiet && !other.length ? ' · More info' : '') : 'No work recorded') + '</span>';
-  if (!tiles.length && other.length) body += '<span class="dc1057-other">' + e(other.map(r => r.label + ' ' + String(r.value).replace(/ refs?$/, '')).join(' · ')) + '</span>';
+  if (!tiles.length && other.length) body += '<span class="dc1057-other">' + e(other.map(r => r.label + ' ' + String(r.value).replace(/ refs?$/, '').replace(/^1 records$/, '1 record')).join(' · ')) + '</span>';
   if (c.noLight.length) {
    const by = new Map(); c.noLight.forEach(x => { const k = x.cat; const o = by.get(k) || {q: 0, of: 0}; o.q += x.q; o.of += x.of; by.set(k, o); });
    body += '<span class="dc1057-flag">' + e([...by.entries()].map(([k, o]) => o.q + ' of ' + o.of + ' ' + (o.of === 1 ? k.replace(/s$/, '') : k) + ' receipted with no site light · not counted').join(' · ')) + '</span>';
@@ -294,12 +305,13 @@ JS = r'''/* Author: Andrew Fisher. v10.57 - completed Build day cards: what went
   ':is(#pane-timeline) .dc1057-n{font-size:20px;line-height:1.15;font-weight:700;font-variant-numeric:tabular-nums;color:#f6faf8;white-space:nowrap}' +
   ':is(#pane-timeline) .dc1057-n small{font-size:12px;font-weight:650;margin-left:2px;color:#d6e2e8}' +
   ':is(#pane-timeline) .dc1057-k{font-size:11.5px;line-height:1.3;font-weight:650;color:#e3ecef;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}' +
-  ':is(#pane-timeline) .dc1057-s{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;margin-top:1px;font-size:10.5px;line-height:1.35;color:#bac8ce;overflow-wrap:anywhere}' +
+  ':is(#pane-timeline) .dc1057-s{display:block;margin-top:1px;font-size:10.5px;line-height:1.35;color:#bac8ce;overflow-wrap:anywhere}' +
+  ':is(#pane-timeline) .dc1057-s .dc1057-p{white-space:nowrap}' +
   ':is(#pane-timeline) .dc1057-other{display:block;margin-top:3px;font-size:11px;line-height:1.4;color:#bac8ce;overflow-wrap:anywhere}' +
   ':is(#pane-timeline) .dc1057-flag{display:block;margin-top:7px;font-size:11px;line-height:1.4;font-weight:600;color:#ffc46b}' +
   ':is(#pane-timeline) .dc1057-details .dc1057-h{margin:10px 0 2px}' +
   ':is(#pane-timeline) .dc1057-details dt small{display:inline;margin-left:6px;font-weight:400}' +
-  ':is(#pane-timeline) .dc1057-details .dc1057-amber b,:is(#pane-timeline) .dc1057-details li.dc1057-amber>span{color:#a35a00}';
+  ':is(#pane-timeline) .dc1057-details .dc1057-amber b,:is(#pane-timeline) .dc1057-details li.dc1057-amber>span{color:#ffc46b}';
  D.head.appendChild(st);
  W.daycats1057 = {version: 'v10.57', cameIn, onBy, tilesOf, fence, catOf, word, refs, card0, details0, day0};
 })(window);
