@@ -28,11 +28,11 @@ door"; "And the green tick is inside the shape not outside". Then "Proceed. Appr
   tick shrinks; smaller still, the shape takes its status colour (green when complete) with the reference on it.
   Tapping the reference or anywhere inside the shape picks it; the selected reference is outlined in orange.
 - A reference keeps today's marker, so nothing disappears, when it has no traced shape, more than one place, an outline
-  it shares with other references, is furniture, or its marker sits more than 6 sheet points (about 4 m) off its
-  outline. On today's record that is 19 references: P26, P28, P34 (police fridges and chairs: they share the police
-  building's outline), PG01/03/05/29 (one shared FWF outline), WB01/05/06 (more than one place), WB02/03/19/20 (shared
-  barrier runs), WB13, WB14, WB16, T0258, T0266 (the traced outline is an area label away from the item). Their status
-  now sits inside their circle instead of beside it. 133 references are drawn as their shape.
+  it shares with other references, is furniture, is a water-filled barrier run (a line, not a shape), or its marker sits
+  more than 6 sheet points (about 4 m) off its outline. On today's record that covers P26, P28, P34 (police fridges and
+  chairs: they share the police building's outline), PG01/03/05/29 (one shared FWF outline), every WB barrier run, and
+  T0258 and T0266 (the traced outline is an area label away from the item). Their status now sits inside their circle,
+  and the reference is plain text under it, no box. 125 references are drawn as their shape.
 - The fencing map and the 3D view are unchanged; the PNG export is unchanged (it never carried the markers).
 
 ## How
@@ -57,7 +57,7 @@ python3 toolchain/upload_page.py build/GC500_v10.60/GC500_Delivery_Control_hoste
 ```
 
 - On live v10.59 `2b067249…`. check_page PASS.
-- `tests/test_v1060.cjs` 32/32 desktop and phone: shape data (P37's door swing, WC21's six chevrons, shared outlines);
+- `tests/test_v1060.cjs` 43/43 desktop and phone (after the review fixes): shape data (P37's door swing, WC21's six chevrons, shared outlines);
   the layer mounts once under the native markers; which references are shapes and which keep markers; P37 drawn as its
   shape with no circle, the status inside it (the tick, or its status colour on a phone at that zoom) and nothing in
   the old tick spot; the reference written inside the shape and no label box anywhere; tapping the reference and
@@ -67,5 +67,9 @@ python3 toolchain/upload_page.py build/GC500_v10.60/GC500_Delivery_Control_hoste
 - Sweeps desktop and phone: 24 tabs (18 shown on the view link), 7 links, 0 errors, 0 console messages.
 - v10.59 `test_v1059.cjs` on this build: 148/154; the 6 are part B's in-memory write checks for P26/P28/P34 (3 per
   viewport), which now find those day-only entries already in the record from the 13:30 step (expected).
-- An independent review of the final code, with every finding checked, before upload.
+- Independent review of the code, every finding checked: 16 confirmed and fixed - barrier runs back to circles; the tick
+  laid out on the main part's own group and checked inside a part (WC07, WC15, WC17, WC31...); squares read along their
+  own sides; kept circles and references tapped before shapes; kept circles' reference as plain text; door swings as
+  curves with their landings; all six explorer scripts pinned (another build stands down); glow off while the map moves.
+  Tests added for each. A second review of the fixed code before upload.
 - Screenshots in `evidence/desktop` and `evidence/phone`.

@@ -2,7 +2,7 @@
  "author": "Andrew Fisher",
  "page": "build/GC500_v10.60/GC500_Delivery_Control_hosted.html",
  "mobile": true,
- "passed": 36,
+ "passed": 43,
  "failed": 0,
  "results": [
   {
@@ -13,11 +13,11 @@
    "name": "page: shape data available from the 2 Oct master",
    "ok": true,
    "detail": {
-    "refs": 167,
-    "comps": 378,
+    "refs": 151,
+    "comps": 356,
     "doors": 121,
     "chevrons": 213,
-    "shared": 13
+    "shared": 9
    }
   },
   {
@@ -52,16 +52,17 @@
     "PG01",
     "PG03",
     "PG05",
-    "PG29",
-    "WB02",
-    "WB03",
-    "WB19",
-    "WB20"
+    "PG29"
    ]
   },
   {
-   "name": "page: layer loaded, only for the reviewed explorer build",
+   "name": "page: layer loaded, pinned to the reviewed explorer build (all six scripts)",
    "ok": true
+  },
+  {
+   "name": "page: barrier runs (lines) are not turned into shapes",
+   "ok": true,
+   "detail": []
   },
   {
    "name": "frame: layer mounted once, just under the native markers, not catching taps",
@@ -69,14 +70,14 @@
    "detail": {
     "state": {
      "available": true,
-     "refs": 167,
+     "refs": 151,
      "drawn": 0,
      "kept": 0,
      "done": 0,
      "off": 0,
      "failed": 0,
      "lastErr": "",
-     "paints": 10,
+     "paints": 8,
      "beat": {
       "selected": false,
       "frames": 0,
@@ -93,11 +94,16 @@
    }
   },
   {
+   "name": "frame: another explorer build (one script changed) is refused",
+   "ok": true,
+   "detail": false
+  },
+  {
    "name": "frame: a second mount does not inject twice",
    "ok": true
   },
   {
-   "name": "shapes: the item's own outline for P37, P36, WC21, WC07, WC69, WB17, P10, AA",
+   "name": "shapes: the item's own outline for P37, P36, WC21, WC07, WC69, WC15, P10, AA",
    "ok": true,
    "detail": {
     "P26": "marker",
@@ -112,18 +118,23 @@
     "WB13": "marker",
     "WB14": "marker",
     "WB16": "marker",
+    "WB04": "marker",
+    "WB07": "marker",
+    "WB15": "marker",
+    "WB17": "marker",
+    "WB18": "marker",
     "P37": "shape",
     "P36": "shape",
     "WC21": "shape",
     "WC07": "shape",
     "WC69": "shape",
-    "WB17": "shape",
+    "WC15": "shape",
     "P10": "shape",
     "AA": "shape"
    }
   },
   {
-   "name": "shapes: shared, furniture and area-label references keep their marker",
+   "name": "shapes: shared, area-label and barrier-run references keep their marker",
    "ok": true,
    "detail": {
     "P26": "marker",
@@ -138,20 +149,33 @@
     "WB13": "marker",
     "WB14": "marker",
     "WB16": "marker",
+    "WB04": "marker",
+    "WB07": "marker",
+    "WB15": "marker",
+    "WB17": "marker",
+    "WB18": "marker",
     "P37": "shape",
     "P36": "shape",
     "WC21": "shape",
     "WC07": "shape",
     "WC69": "shape",
-    "WB17": "shape",
+    "WC15": "shape",
     "P10": "shape",
     "AA": "shape"
+   }
+  },
+  {
+   "name": "shapes: furniture and a reference in two places keep their marker",
+   "ok": true,
+   "detail": {
+    "furn": "marker",
+    "multi": "marker"
    }
   },
   {
    "name": "shapes: at least 125 references drawn as their shape",
    "ok": true,
-   "detail": 133
+   "detail": 125
   },
   {
    "name": "pinned T0022: drawn as its shape once its pin has arrived",
@@ -169,8 +193,8 @@
     "status": "complete",
     "glyph": "check",
     "arcs": 0,
-    "tick": 550,
-    "ink": 2517,
+    "tick": 549,
+    "ink": 2516,
     "old": 0,
     "at": {
      "x": 183.92009679999978,
@@ -184,17 +208,17 @@
     },
     "state": {
      "available": true,
-     "refs": 167,
+     "refs": 151,
      "drawn": 1,
      "kept": 0,
      "done": 0,
-     "off": 5,
+     "off": 2,
      "failed": 0,
      "lastErr": "",
-     "paints": 36,
+     "paints": 37,
      "beat": {
       "selected": true,
-      "frames": 38,
+      "frames": 37,
       "still": false,
       "running": true
      },
@@ -213,7 +237,7 @@
    "name": "P37: the status is inside the shape (the tick, or the status colour when the shape is small)",
    "ok": true,
    "detail": {
-    "tick": 550,
+    "tick": 549,
     "status": "complete",
     "glyph": "check"
    }
@@ -231,8 +255,8 @@
     "native": 0,
     "ref": {
      "t": "P37",
-     "x": 174.96922658992486,
-     "y": 215.76127562707674
+     "x": 174.9652996664829,
+     "y": 215.76648659710838
     },
     "box": {
      "x0": 167.89362399999936,
@@ -269,26 +293,23 @@
    ]
   },
   {
+   "name": "P37: the door swing is drawn as a curve",
+   "ok": true,
+   "detail": 2
+  },
+  {
    "name": "P37: the selected shape pulses on its own layer",
    "ok": true,
    "detail": {
-    "ink": 2834,
+    "ink": 1536,
     "state": {
      "selected": true,
-     "frames": 111,
+     "frames": 315,
      "still": false,
      "running": true
     },
-    "paints": 53,
+    "paints": 64,
     "under": true
-   }
-  },
-  {
-   "name": "P37: the pulse does not redraw the whole map",
-   "ok": true,
-   "detail": {
-    "before": 38,
-    "after": 53
    }
   },
   {
@@ -300,37 +321,59 @@
    }
   },
   {
-   "name": "P37: tapping inside the shape picks P37",
+   "name": "P37: the pulse never asks the map to redraw (its own layer only)",
+   "ok": true,
+   "detail": {
+    "pulseOn": 0,
+    "pulseOff": 0,
+    "requestPaint": {
+     "n": 0,
+     "ours": 0
+    }
+   }
+  },
+  {
+   "name": "P37: tapping inside the shape picks P37 (also beyond the old circle's reach)",
    "ok": true,
    "detail": {
     "m": "P37",
     "i": "P37",
-    "corner": "P37",
-    "off": null
+    "deep": {
+     "x": 153.34994367999897,
+     "y": 212.36825418120816,
+     "code": "P37"
+    },
+    "off": null,
+    "rN": 20.611170163686136
    }
+  },
+  {
+   "name": "P37: tapping well outside the shape does not pick it",
+   "ok": true,
+   "detail": null
   },
   {
    "name": "P37: turning the map turns the shape with it, and it can still be tapped",
    "ok": true,
    "detail": {
     "a": {
-     "x": 183.92009679999978,
-     "y": 212.74730167248322,
+     "x": 183.80024199999934,
+     "y": 212.36825418120816,
      "box": {
-      "x0": 167.89362399999936,
-      "y0": 201.31399162953016,
-      "x1": 199.9465696000002,
-      "y1": 224.18061171543627
+      "x0": 143.73405999999886,
+      "y0": 183.78497907382553,
+      "x1": 223.86642399999982,
+      "y1": 240.9515292885908
      }
     },
     "b": {
-     "x": 184.252698327517,
-     "y": 212.92009679999978,
+     "x": 184.63174581879184,
+     "y": 212.80024199999934,
      "box": {
-      "x0": 172.81938828456396,
-      "y0": 196.89362399999936,
-      "x1": 195.68600837047006,
-      "y1": 228.9465696000002
+      "x0": 156.0484707114092,
+      "y0": 172.73405999999886,
+      "x1": 213.21502092617447,
+      "y1": 252.86642399999982
      }
     },
     "m": "P37",
@@ -342,7 +385,7 @@
    "ok": true,
    "detail": {
     "drawn": 1,
-    "mode": "satellite",
+    "mode": "hybrid",
     "failed": 0
    }
   },
@@ -382,13 +425,54 @@
    }
   },
   {
+   "name": "multi-part references: the tick is inside a part, never in the gap between parts",
+   "ok": true,
+   "detail": {
+    "WC15": {
+     "how": "small tick and reference",
+     "u": 26,
+     "along": 87,
+     "across": 42,
+     "parts": 1,
+     "of": 2,
+     "tick": {
+      "x": 168.60373759170676,
+      "y": 231.34333771221256,
+      "inPart": true
+     }
+    },
+    "WC07": {
+     "how": "status colour and reference",
+     "u": 0,
+     "along": 174,
+     "across": 18,
+     "parts": 10,
+     "of": 20,
+     "tick": null
+    },
+    "WC17": {
+     "how": "small tick and reference",
+     "u": 26,
+     "along": 87,
+     "across": 42,
+     "parts": 1,
+     "of": 2,
+     "tick": {
+      "x": 163.1260829728575,
+      "y": 227.4868707120765,
+      "inPart": true
+     }
+    }
+   }
+  },
+  {
    "name": "all references (one chip): shapes drawn, the few without one keep a marker",
    "ok": true,
    "detail": {
     "marks": 51,
     "drawn": 13,
     "kept": 2,
-    "done": 76,
+    "done": 74,
     "nativeDoneShaped": [],
     "failed": 0
    }
@@ -421,6 +505,19 @@
    }
   },
   {
+   "name": "T0266: its reference is plain text under the circle, no second box",
+   "ok": true,
+   "detail": {
+    "boxes": 0,
+    "texts": [
+     "T0258 (1)",
+     "T0266 (1)",
+     "COMPLETE · 1/1"
+    ],
+    "hit": "T0266"
+   }
+  },
+  {
    "name": "fencing map: the shape layer stands down",
    "ok": true,
    "detail": {
@@ -447,7 +544,7 @@
    "ok": true,
    "detail": {
     "page": 1,
-    "live": 218,
+    "live": 232,
     "blocked": 0
    }
   }

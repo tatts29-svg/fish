@@ -58,7 +58,8 @@ JS = r'''/* Author: Andrew Fisher. v10.60 - the Map explorer shows each referenc
 (function(W){
  'use strict';
  if (W.gc500ShapeLayer1060) return;
- const EXPLORER_BUILD = 'explorer.js?v=8586cb7d5008';
+ /* the reviewed explorer build: every script it loads, in order (any other build and the layer stands down) */
+ const EXPLORER_BUILD = ['explorer.js?v=8586cb7d5008', 'explorer-merge.js?v=97a4087210f3', 'fencing-map-core.js?v=0c26c3b7777f', 'fencing-map-explorer.js?v=e3a4bef6c17d', 'explorer-fix864.js?v=d7041320fc3f', 'explorer-fix887.js?v=6996471a6a0f'].join('|');
  const normRef = s => String(s || '').toUpperCase().replace(/[\s\-_.]+/g, ' ').trim();
  let memo = null;
  /* read-only: each placed reference's traced shape on the 2 Oct master, in sheet fractions, with doors and FWF chevrons */
@@ -73,6 +74,7 @@ JS = r'''/* Author: Andrew Fisher. v10.60 - the Map explorer shows each referenc
    keys.forEach(ref => {
     if (!M.placed(ref)) return;
     const s = M.shape(ref); if (!s || s.cancelled || !Array.isArray(s.components)) return;
+    if (s.components.some(c => c && !c.drawn_as && c.geometry && c.geometry !== 'polygon')) return;    /* barrier runs are lines, not shapes: they keep their marker */
     const out = [];
     s.components.forEach(c => {
      if (!c || c.drawn_as || !Array.isArray(c.poly) || c.poly.length < 3) return;
@@ -80,7 +82,8 @@ JS = r'''/* Author: Andrew Fisher. v10.60 - the Map explorer shows each referenc
      const tank = c.kind === 'waste_tank' || c.source === 'under_block' || !!c.under;
      const ds = (Array.isArray(c.doors) && c.doors.length ? c.doors : c.door ? [c.door] : []).map(d => {
       const sw = d && d.swing || {};
-      return {mid: pt(d && d.mid), out: pt(d && d.outward), arcs: (sw.arcs || (sw.arc ? [sw.arc] : [])).map(line), leaves: (sw.leaves || (sw.leaf ? [sw.leaf] : [])).map(line), landing: line(sw.landing)};
+      const land = Array.isArray(sw.landing) ? (sw.landing.length && pt(sw.landing[0]) ? [line(sw.landing)] : sw.landing.map(line)) : [];    /* a run of points, or a list of segments */
+      return {mid: pt(d && d.mid), out: pt(d && d.outward), arcs: (sw.arcs || (sw.arc ? [sw.arc] : [])).map(line), leaves: (sw.leaves || (sw.leaf ? [sw.leaf] : [])).map(line), landing: land.filter(l => l.length > 1)};
      }).filter(d => d.mid);
      const chev = (Array.isArray(c.marks) ? c.marks : []).filter(k => k && k.type === 'chevron').flatMap(k => (k.lines || []).map(line));
      out.push({kind: String(c.kind || ''), poly, std: !!c.standard || c.source === 'standard', tank, doors: ds, chev, centroid: pt(c.centroid)});
@@ -103,12 +106,12 @@ JS = r'''/* Author: Andrew Fisher. v10.60 - the Map explorer shows each referenc
  function frameMain(){
   'use strict';
   if (window.GC500Shape1060) return;
-  const need = ['drawMarks', 'markAt', 'itemAt887', 'done782List', 'tick897', 'badge1009', 'sheetToDevice', 'applyM', 'toGeo', 'currentView', 'mapStatus1009', 'fitReference1010', 'textWidth887', 'requestPaint'];
+  const need = ['drawMarks', 'markAt', 'itemAt887', 'done782List', 'tick897', 'badge1009', 'sheetToDevice', 'applyM', 'toGeo', 'currentView', 'mapStatus1009', 'label1009', 'fitReference1010', 'textWidth887', 'requestPaint'];
   if (need.some(n => typeof window[n] !== 'function')) return;
   const host = window.parent, stageEl = document.getElementById('stage'), native = document.getElementById('marks');
   if (!stageEl || !native) return;
   let LAYOUT = new Map(), SNAP = null, SIG = '', CACHE = new Map(), drawn = 0, kept = 0, off = 0, failed = 0, lastErr = '', frameDn = null, doneShaped = [];
-  const nativeDraw = window.drawMarks, nativeMarkAt = window.markAt, nativeItemAt = window.itemAt887, nativeDone = window.done782List, nativeTick = window.tick897;
+  const nativeDraw = window.drawMarks, nativeMarkAt = window.markAt, nativeItemAt = window.itemAt887, nativeDone = window.done782List, nativeTick = window.tick897, nativeLabel = window.label1009;
   const fencing = () => !!(window.GC500FencingMap && window.GC500FencingMap.active);
   const layer = document.createElement('canvas'); layer.id = 'shape1060'; layer.setAttribute('aria-hidden', 'true');
   layer.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;pointer-events:none';
@@ -182,7 +185,7 @@ JS = r'''/* Author: Andrew Fisher. v10.60 - the Map explorer shows each referenc
    g.setTransform(1, 0, 0, 1, 0, 0); g.clearRect(0, 0, layer.width, layer.height); paints++; BEAT.sel = null; BEAT.done = [];
    if (!shaped.length) { if (layer.style.display !== 'none') layer.style.display = 'none'; drawn = 0; return; }
    if (layer.style.display === 'none') layer.style.display = '';
-   const M = sheetToDevice(dpr * v.scale, canvas.width, canvas.height), s = dpr * v.scale, showText = marks.length <= 60 || s > 1.2;
+   const M = sheetToDevice(dpr * v.scale, canvas.width, canvas.height), s = dpr * v.scale, showText = marks.length <= 60 || s > 1.2, moving = typeof interacting !== 'undefined' && !!interacting;
    shaped.sort((a, b) => (a[0].it === selected) - (b[0].it === selected));
    let n = 0;
    for (const [m, sh] of shaped) {
@@ -198,7 +201,7 @@ JS = r'''/* Author: Andrew Fisher. v10.60 - the Map explorer shows each referenc
      const {c, pts, P} = part;
      g.save();
      path(g, pts);
-     if (!c.tank) { g.lineJoin = 'round'; g.strokeStyle = col + (sel ? '4d' : '2e'); g.lineWidth = (sel ? 16 : 10) * dpr; g.stroke(); g.strokeStyle = col + (sel ? '73' : '47'); g.lineWidth = (sel ? 9 : 5.5) * dpr; g.stroke(); }    /* the glow */
+     if (!c.tank && !moving) { g.lineJoin = 'round'; g.strokeStyle = col + (sel ? '4d' : '2e'); g.lineWidth = (sel ? 16 : 10) * dpr; g.stroke(); g.strokeStyle = col + (sel ? '73' : '47'); g.lineWidth = (sel ? 9 : 5.5) * dpr; g.stroke(); }    /* the glow */
      if (c.std) g.setLineDash([4 * dpr, 3 * dpr]);
      g.fillStyle = c.tank ? '#9aa4ad80' : col + (sel ? 'b3' : '66'); g.fill();
      if (sel) { g.strokeStyle = '#1b1009'; g.lineWidth = 6 * dpr; g.stroke(); g.strokeStyle = '#ff9a4d'; g.lineWidth = 2.6 * dpr; g.stroke(); }
@@ -206,14 +209,16 @@ JS = r'''/* Author: Andrew Fisher. v10.60 - the Map explorer shows each referenc
      g.setLineDash([]);
      /* the door: the master's swing where it has one; for an FWF the chevron on its edge (its door) */
      const door = (ctx, w) => {
-      for (const dr of c.doors) { [...dr.arcs, ...dr.leaves, dr.landing].forEach(l => { if (l && l.length > 1) { poly(ctx, l.map(P)); ctx.stroke(); } });
-       if (!dr.arcs.length && !dr.leaves.length && dr.mid && dr.out) { const a = P(dr.mid), e = P([dr.mid[0] + dr.out[0] * 0.002, dr.mid[1] + dr.out[1] * 0.002 * SHEET_W / SHEET_H]); const ux = e.x - a.x, uy = e.y - a.y, l = Math.hypot(ux, uy) || 1; ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(a.x + ux / l * 7 * dpr, a.y + uy / l * 7 * dpr); ctx.stroke(); } }
+      for (const dr of c.doors) {
+       dr.arcs.forEach(a => { if (a.length === 4) { const q = a.map(P); ctx.beginPath(); ctx.moveTo(q[0].x, q[0].y); ctx.bezierCurveTo(q[1].x, q[1].y, q[2].x, q[2].y, q[3].x, q[3].y); ctx.stroke(); } else if (a.length > 1) { poly(ctx, a.map(P)); ctx.stroke(); } });    /* the swing is a curve */
+       [...dr.leaves, ...dr.landing].forEach(l => { if (l && l.length > 1) { poly(ctx, l.map(P)); ctx.stroke(); } });
+       if (!dr.arcs.some(a => a.length > 1) && !dr.leaves.some(l => l.length > 1) && dr.mid && dr.out) { const a = P(dr.mid), e = P([dr.mid[0] + dr.out[0] * 0.002, dr.mid[1] + dr.out[1] * 0.002 * SHEET_W / SHEET_H]); const ux = e.x - a.x, uy = e.y - a.y, l = Math.hypot(ux, uy) || 1; ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(a.x + ux / l * 7 * dpr, a.y + uy / l * 7 * dpr); ctx.stroke(); } }
       for (const l of c.chev) if (l.length > 1) { poly(ctx, l.map(P)); ctx.stroke(); }
      };
      if (c.doors.length || c.chev.length) { g.lineCap = 'round'; g.lineJoin = 'round'; g.strokeStyle = '#0b0908'; g.lineWidth = 3.6 * dpr; door(g); g.strokeStyle = '#ffffff'; g.lineWidth = 1.7 * dpr; door(g); }
      g.restore();
     }
-    inner(m, L, status, sel, main, sel || (showText && !m.done));
+    inner(m, L, status, sel, main, sel || (showText && !m.done), s);
     const o = {parts: L.parts.filter(p => !p.c.tank).map(p => p.pts), mx: L.mx, my: L.my, r: Math.max(6 * dpr, Math.max(b.x1 - b.x0, b.y1 - b.y0) / 2)};
     if (sel) BEAT.sel = o; else if (m.done && BEAT.done.length < 160) BEAT.done.push(o);
    }
@@ -249,11 +254,27 @@ JS = r'''/* Author: Andrew Fisher. v10.60 - the Map explorer shows each referenc
      reference number inside the box too.. i dont want two boxes shown"). Selected: the status words under the reference
      when they fit. A shape too small to hold them keeps the tick (or its status fill) and the reference sits on it as
      plain text, still no box. */
-  function inner(m, L, status, sel, main, show){
-   const pts = []; L.parts.forEach(p => { if (!p.c.tank) pts.push(...p.pts); }); if (!pts.length) return;
+  function inner(m, L, status, sel, main, show, scale){
+   const solid = L.parts.filter(p => !p.c.tank); if (!solid.length) return;
+   /* lay out on the main part and the parts touching it: a run of FWFs stays one block; a second, separate block or run does not */
+   let group = solid;
+   if (main && solid.length > 1) {
+    const box = p => { let x0 = Infinity, y0 = Infinity, x1 = -Infinity, y1 = -Infinity; for (const q of p.pts) { x0 = Math.min(x0, q.x); y0 = Math.min(y0, q.y); x1 = Math.max(x1, q.x); y1 = Math.max(y1, q.y); } return {x0, y0, x1, y1}; };
+    const B = new Map(solid.map(p => [p, box(p)])), eps = Math.max(1.5 * dpr, 0.6 * (scale || 1));
+    const near = (a, b) => b.x0 <= a.x1 + eps && b.x1 >= a.x0 - eps && b.y0 <= a.y1 + eps && b.y1 >= a.y0 - eps;
+    group = [main]; let grew = true;
+    while (grew) { grew = false; for (const p of solid) if (!group.includes(p) && group.some(o => near(B.get(o), B.get(p)))) { group.push(p); grew = true; } }
+   }
+   const pts = []; group.forEach(p => pts.push(...p.pts));
    let mx = 0, my = 0; pts.forEach(q => { mx += q.x / pts.length; my += q.y / pts.length; });
-   let xx = 0, xy = 0, yy = 0; pts.forEach(q => { const dx = q.x - mx, dy = q.y - my; xx += dx * dx; xy += dx * dy; yy += dy * dy; });
-   let th = 0.5 * Math.atan2(2 * xy, xx - yy); if (th > Math.PI / 2) th -= Math.PI; if (th <= -Math.PI / 2) th += Math.PI;
+   /* turned to the group's own sides: the side giving the smallest box around it (a square FWF reads along one of its edges) */
+   let th = 0, bestA = Infinity, sq = false;
+   for (const p of group) { const P = p.pts; for (let i = 0; i < P.length; i++) { const a = P[i], c2 = P[(i + 1) % P.length], d = Math.hypot(c2.x - a.x, c2.y - a.y); if (d < 1e-6) continue;
+    const ex = (c2.x - a.x) / d, ey = (c2.y - a.y) / d; let a0 = Infinity, a1 = -Infinity, b0 = Infinity, b1 = -Infinity;
+    for (const r of pts) { const u1 = r.x * ex + r.y * ey, v1 = r.y * ex - r.x * ey; a0 = Math.min(a0, u1); a1 = Math.max(a1, u1); b0 = Math.min(b0, v1); b1 = Math.max(b1, v1); }
+    const A = (a1 - a0) * (b1 - b0); if (A < bestA - 1e-6) { bestA = A; th = Math.atan2(ey, ex) + ((b1 - b0) > (a1 - a0) ? Math.PI / 2 : 0); sq = Math.abs((a1 - a0) - (b1 - b0)) < 0.06 * Math.max(a1 - a0, b1 - b0); } } }
+   const norm = a => { while (a > Math.PI / 2) a -= Math.PI; while (a <= -Math.PI / 2) a += Math.PI; return a; };
+   th = norm(th); if (sq) { const o = norm(th + Math.PI / 2); if (Math.abs(o) < Math.abs(th)) th = o; }    /* a square: whichever side reads closer to level */
    const ux = Math.cos(th), uy = Math.sin(th);
    let a0 = Infinity, a1 = -Infinity, b0 = Infinity, b1 = -Infinity;
    pts.forEach(q => { const a = (q.x - mx) * ux + (q.y - my) * uy, b = (q.y - my) * ux - (q.x - mx) * uy; a0 = Math.min(a0, a); a1 = Math.max(a1, a); b0 = Math.min(b0, b); b1 = Math.max(b1, b); });
@@ -278,23 +299,24 @@ JS = r'''/* Author: Andrew Fisher. v10.60 - the Map explorer shows each referenc
     const x = Math.min(...c.map(p => p.x)), yy0 = Math.min(...c.map(p => p.y));
     labelBounds1010.push({it: m.it, x: x / dpr, y: yy0 / dpr, w: (Math.max(...c.map(p => p.x)) - x) / dpr, h: (Math.max(...c.map(p => p.y)) - yy0) / dpr});
    };
+   const inGroup = p => group.some(part => inside(p.x, p.y, part.pts));
    const tick = (a, size) => glyph(g, at(a, 0), size, status);
    const fillStatus = () => L.parts.forEach(p => { if (p.c.tank) return; path(g, p.pts); g.fillStyle = (status.colour || '#2fd06a') + 'd9'; g.fill(); g.strokeStyle = '#0b0908'; g.lineWidth = 1.4 * dpr; g.stroke(); });
-   const note = how => LAYOUT.set(m.it.code, {how, u: Math.round(u), along: Math.round(along), across: Math.round(across)});
+   const note = (how, tp) => LAYOUT.set(m.it.code, {how, u: Math.round(u), along: Math.round(along), across: Math.round(across), parts: group.length, of: solid.length, tick: tp ? {x: tp.x / dpr, y: tp.y / dpr, inPart: inGroup(tp)} : null});
    /* 1: the tick and the reference side by side (with the status words under it when selected and they fit) */
    const lines = [];
    if (ref) lines.push([ref, f, '#ffffff']);
    const withSub = sub && Math.max(tw, sw2) <= space && f + f2 + 2 * dpr <= across;
    if (withSub) lines.push([sub, f2, status.colour || '#e0e7ed']);
    const textW = withSub ? Math.max(tw, sw2) : tw, textH = withSub ? f + f2 + 2 * dpr : (ref ? f : 0);
-   if (u && (u + (ref ? gap : 0) + textW <= along) && Math.max(u, textH) <= across && (!ref || tw <= space)) {
+   if (u && (u + (ref ? gap : 0) + textW <= along) && Math.max(u, textH) <= across && (!ref || tw <= space) && inGroup(at(-(u + (ref ? gap : 0) + textW) / 2 + u / 2, 0))) {
     const total = u + (ref ? gap : 0) + textW, x0 = -total / 2;
-    tick(x0 + u / 2, u); if (lines.length) label(lines, x0 + u + gap); note('tick and reference'); return;
+    tick(x0 + u / 2, u); if (lines.length) label(lines, x0 + u + gap); note('tick and reference', at(x0 + u / 2, 0)); return;
    }
    /* 2: the same with a smaller tick and the bare reference */
    const fs = Math.round(Math.max(9 * dpr, Math.min(f, across * 0.9))), code = String(m.it.code || ''), cw = show ? W(fs, code) : 0;
-   if (u && show) { const us = Math.min(u, along - gap - cw); if (us >= 8 * dpr && Math.max(us, fs) <= across) { const total = us + gap + cw, x0 = -total / 2; tick(x0 + us / 2, us); label([[code, fs, '#ffffff']], x0 + us + gap); note('small tick and reference'); return; } }
-   if (u && !show) { tick(0, u); note('tick'); return; }
+   if (u && show) { const us = Math.min(u, along - gap - cw); if (us >= 8 * dpr && Math.max(us, fs) <= across && inGroup(at(-(us + gap + cw) / 2 + us / 2, 0))) { const total = us + gap + cw, x0 = -total / 2; tick(x0 + us / 2, us); label([[code, fs, '#ffffff']], x0 + us + gap); note('small tick and reference', at(x0 + us / 2, 0)); return; } }
+   if (u && !show && inGroup(at(0, 0))) { tick(0, u); note('tick', at(0, 0)); return; }
    /* 3: too small for a tick beside the reference: the shape takes its status colour and the reference sits on it, no box */
    if (status) fillStatus();
    if (show) {
@@ -326,6 +348,21 @@ JS = r'''/* Author: Andrew Fisher. v10.60 - the Map explorer shows each referenc
    const st = mapStatus1009(it); if (!st) return;
    const k = Math.min(1, r * 0.8 / (17.5 * dpr)); ctx.save(); ctx.translate(x, y); ctx.scale(k, k); badge1009(ctx, 0, 0, st); ctx.restore();
   };
+  /* a kept circle's reference: plain text under it, no box (one shape, not two boxes) */
+  window.label1009 = function(ctx, it, c, r, sel, colour){
+   if (fencing()) return nativeLabel.apply(this, arguments);
+   const st = mapStatus1009(it), q = sel && st && st.quantity1010, f = Math.round(12 * dpr), f2 = Math.round(10 * dpr);
+   ctx.save(); ctx.font = '800 ' + f + 'px Inter,sans-serif';
+   const ref = fitReference1010(it, st, Math.min(300 * dpr, canvas.width - 8 * dpr), t => textWidth887(ctx, t)), w = textWidth887(ctx, ref);
+   const sub = sel && st ? st.label.toUpperCase() + (q && q.summary ? ' · ' + q.summary : '') : '';
+   ctx.font = '800 ' + f2 + 'px Inter,sans-serif'; const w2 = sub ? textWidth887(ctx, sub) : 0, wm = Math.max(w, w2), h = f + (sub ? f2 + 2 * dpr : 0);
+   const x = Math.min(Math.max(4 * dpr + wm / 2, c.x), canvas.width - 4 * dpr - wm / 2), y = Math.min(c.y + r + 4 * dpr, canvas.height - h - 4 * dpr);
+   ctx.textAlign = 'center'; ctx.textBaseline = 'top'; ctx.lineJoin = 'round';
+   const put = (t, px, yy, fill) => { ctx.font = '800 ' + px + 'px Inter,sans-serif'; ctx.lineWidth = Math.max(3 * dpr, px * 0.28); ctx.strokeStyle = '#0b0908'; ctx.strokeText(t, x, yy); ctx.fillStyle = fill; ctx.fillText(t, x, yy); };
+   put(ref, f, y, sel ? '#ffd2b0' : '#ffffff'); if (sub) put(sub, f2, y + f + 2 * dpr, st.colour || '#e0e7ed');
+   ctx.restore();
+   labelBounds1010.push({it, x: (x - wm / 2) / dpr, y: y / dpr, w: wm / dpr, h: h / dpr});
+  };
   /* tapping inside a shape (CSS pixels, the explorer's own camera) */
   function inside(x, y, pts){ let c = false; for (let i = 0, j = pts.length - 1; i < pts.length; j = i++) { const a = pts[i], b = pts[j]; if ((a.y > y) !== (b.y > y) && x < (b.x - a.x) * (y - a.y) / (b.y - a.y) + a.x) c = !c; } return c; }
   function hit(x, y, list){
@@ -335,7 +372,11 @@ JS = r'''/* Author: Andrew Fisher. v10.60 - the Map explorer shows each referenc
    return best && best.m;
   }
   const shapedItems = () => (Array.isArray(ITEMS) ? ITEMS : []).filter(it => it.cat && shapeFor(it)).map(it => ({it, c: it.cat.c}));
-  window.markAt = function(x, y){ if (fencing() || !SNAP) return nativeMarkAt(x, y); return hit(x, y, marks) || nativeMarkAt(x, y); };
+  window.markAt = function(x, y){    /* what is drawn on top wins: a kept circle or a reference first, then the inside of a shape */
+   if (fencing() || !SNAP) return nativeMarkAt(x, y);
+   const all = marks; let k = null; marks = all.filter(m => !shapeFor(m.it)); try { k = nativeMarkAt(x, y); } finally { marks = all; }
+   return k || hit(x, y, all);
+  };
   window.itemAt887 = function(x, y){ if (fencing() || !SNAP) return nativeItemAt(x, y); const m = hit(x, y, marks) || hit(x, y, shapedItems()); return m ? {it: m.it, c: m.it.cat ? m.it.cat.c : m.c} : nativeItemAt(x, y); };
   window.GC500Shape1060 = Object.freeze({version: 'v10.60', pull,
    get state(){ return {available: !!SNAP, refs: SNAP ? SNAP.counts.refs : 0, drawn, kept, done: doneShaped.length, off, failed, lastErr, paints, beat: {selected: !!BEAT.sel, frames: BEAT.frames, still: still(), running: !!BEAT.raf}, wrapped: !!window.drawMarks.__shape1060}; },
@@ -356,7 +397,7 @@ JS = r'''/* Author: Andrew Fisher. v10.60 - the Map explorer shows each referenc
    if (!doc || !win || !doc.head || doc.readyState !== 'complete') return false;
    const url = new URL(doc.URL, location.href);
    if (url.origin !== location.origin || !/\/explorer\/index\.html$/.test(url.pathname)) return false;
-   if (!doc.querySelector('script[src="' + EXPLORER_BUILD + '"]')) return false;     /* a different explorer build: stand down */
+   if ([...doc.querySelectorAll('script[src]')].map(s => s.getAttribute('src')).join('|') !== EXPLORER_BUILD) return false;     /* a different explorer build: stand down */
    if (!doc.getElementById('stage') || !doc.getElementById('marks') || typeof win.drawMarks !== 'function') return false;
    if (win.GC500Shape1060) return true;
    const s = doc.createElement('script'); s.id = 'shape1060-script'; s.textContent = FRAME_JS; doc.head.appendChild(s);
