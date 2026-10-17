@@ -24,7 +24,7 @@ const SHAPE = ['P37', 'P36', 'WC21', 'WC07', 'WC69', 'WC15', 'P10', 'AA'];
  try {
   await p.waitForFunction(() => typeof SYNC !== 'undefined' && SYNC.status === 'live', null, {timeout: 180000});
   const before = await p.evaluate(() => JSON.stringify(S));
-  check('footer says v10.60', await p.evaluate(() => document.body.innerText.includes('v10.60')));
+  check('footer says expected release', await p.evaluate(v => document.body.innerText.includes(v), process.env.EXPECT_PAGE || 'v10.60'));
   const day7 = await p.evaluate(() => { const O = window.orders1054; if (!O) return null; const g = O.GROUPS.find(x => x.n === 7); return {seq: g && g.seq, rule: g && g.rule, wc17: O.groupsOf('WC17').map(x => x.n), days: O.GROUPS.length, rules: O.rulesOf('WC17').length}; });
   check('delivery orders: WC17 is on day 7, after P09 and P33, the day before P36 and P10 (Andrew, 17 Oct 2026)', day7 && day7.seq.join() === 'P09,P33,WC17' && day7.wc17.join() === '7' && day7.days === 11 && day7.rules === 1 && day7.rule === '', day7);    /* the WC17 rule shows once (its constraint), not again on day 7 */
   await p.waitForFunction(() => typeof EXP !== 'undefined' && EXP.frame && EXP.frame.contentWindow && EXP.frame.contentWindow.__ready, null, {timeout: 180000});
