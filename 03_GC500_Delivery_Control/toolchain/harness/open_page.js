@@ -9,7 +9,7 @@
 // Chromium: set CHROMIUM_PATH to a browser binary, or let Playwright use the one `npx playwright install chromium` put down.
 const {chromium, devices} = require('playwright'); const fs = require('fs'); const {curlFetch} = require('./curlfetch');
 const HOST = 'https://gc500-production.up.railway.app';
-async function open({pageFile, hash = '', W = 1440, H = 900, dpr = 1, mobile = false, gl = false}) {
+async function open({pageFile, hash = '', W = 1440, H = 900, dpr = 1, mobile = false, gl = false, init = '', cpu = 0}) {    // init: a script run before the page's own; cpu: CPU slow-down factor (4 = a mid phone)
   const launch = {args: gl ? ['--no-sandbox', '--use-gl=angle', '--use-angle=swiftshader', '--enable-unsafe-swiftshader', '--ignore-gpu-blocklist'] : ['--no-sandbox', '--lang=en-AU'],
     env: Object.assign({}, process.env, {LANG: 'en_AU.UTF-8', LANGUAGE: 'en_AU'})};
   if (process.env.CHROMIUM_PATH) launch.executablePath = process.env.CHROMIUM_PATH;
@@ -22,7 +22,9 @@ async function open({pageFile, hash = '', W = 1440, H = 900, dpr = 1, mobile = f
     const okPost = r.method() === 'POST' && u.startsWith('https://tile.googleapis.com/v1/createSession');
     if (r.method() !== 'GET' && !okPost) { counts.blocked++; return route.abort(); }
     let res; try { counts.live++; res = await curlFetch(u, r.headers(), r.method(), r.postData()); } catch (e) { if (process.env.GC500_DEBUG) console.error('FETCHFAIL', u.slice(0, 120), String(e && e.message).slice(-240).replace(/\n/g, ' ')); try { return await route.abort('failed'); } catch (_) { return; } } try { return await route.fulfill(res); } catch (e) { if (process.env.GC500_DEBUG) console.error('FULFILLFAIL', u.slice(0, 120), String(e && e.message).slice(0, 200)); } });
-  const page = await ctx.newPage(); const errors = []; page.on('pageerror', e => errors.push(e.message.slice(0, 200)));
+  if (init) await ctx.addInitScript(init);
+  const page = await ctx.newPage(); const errors = [];
+  if (cpu > 1) { const c = await ctx.newCDPSession(page); await c.send('Emulation.setCPUThrottlingRate', {rate: cpu}); } page.on('pageerror', e => errors.push(e.message.slice(0, 200)));
   await page.goto(HOST + '/v/Coates-GC500-2026/' + hash, {waitUntil: 'load', timeout: 180000}); return {browser, page, errors, counts};
 }
 module.exports = {open};
