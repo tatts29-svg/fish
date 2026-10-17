@@ -1,0 +1,27 @@
+{
+ "checked": "17 Oct 2026: every source swept for toilet references (live record and page data, Schedule 9, Baseplan, dockets, Event Portables plans and quotes, master plan D001 and D023, record backups, 2025 papers); 133 candidates each checked by an independent reviewer.",
+ "spares": [
+  {"no": "0164", "item": "FWF", "owner": "event-portables", "where": "Pit Lane", "note": "Spare on the record, no reference (recorded by Andrew Fisher 30 Sep 2026: \"Pit Lane\")"}
+ ],
+ "not_on_record": [
+  {"ref": "Tickford", "item": "FWF", "qty": 1, "units": [], "when": "21 Oct (planned)", "who": "Event Portables", "why": "Pit-lane team toilet on Schedule 9 (Event Week row 44: \"2026-10-21 | Toilet | FWF | 1 | Tickford | event p\"). Not on the site record, so not on the page. Blanchard, Brad Jones, Shell V-Power and Red Bull from the same block of rows are all on.", "source": "Schedule 9, Event Week row 44"},
+  {"ref": "Pit lane party (Q6847)", "item": "Luxury toilet trailer (Porta Lisa Plus)", "qty": 1, "units": [], "when": "22 Oct, 17:30 drop, 19:00-22:00 use, 23:00 collect; staff on site", "who": "Event Portables", "why": "Approved Event Portables quote for the V8s pit lane party, one night. No reference on the record.", "source": "Event Portables quote Q6847 (page data, rehire quotes)"},
+  {"ref": "VIP combo blocks (Q6845)", "item": "VIP 5 Star Combo toilet block", "qty": 3, "units": [], "when": "never allocated", "who": "Event Portables", "why": "On the Event Portables quote as an allowance only: \"No WC allocation - not on the load plan. Coates will advise if and where these are needed.\" Not ordered onto site.", "source": "Event Portables quote Q6845; EP plan 3 Oct"},
+  {"ref": "WC18", "item": "Toilet (drawn)", "qty": null, "units": [], "when": "", "who": "", "why": "Drawn on master D001 and called out on D023 only. On no schedule, contract, quote or record.", "source": "Master D001 (17 Sep and 2 Oct), D023"},
+  {"ref": "WC-BSF (WCBS)", "item": "Toilet (drawn)", "qty": null, "units": [], "when": "", "who": "", "why": "Drawn only, next to WC67 and WC69. On no schedule, contract or record; may be part of WC67/WC69 rather than a separate drop.", "source": "Master D001, D023"},
+  {"ref": "WC32", "item": "FWF", "qty": 1, "units": [], "when": "cancelled 3 Oct", "who": "", "why": "Cancelled (Andrew: \"wc32 is cancelled\"), deleted 17 Oct. Schedule 9 still lists it (Week 2 row 27).", "source": "Site record notes; Schedule 9"},
+  {"ref": "WC66", "item": "FWF", "qty": 2, "units": [], "when": "deleted 1 Oct", "who": "", "why": "\"Not on this job\" (deleted 1 Oct). Schedule 9 still lists it (Week 3 row 21).", "source": "Site record notes; Schedule 9"},
+  {"ref": "T0089 (Event Elec)", "item": "FWF", "qty": 1, "units": [], "when": "deleted 6 Oct", "who": "", "why": "\"Not on this job\" (deleted 6 Oct).", "source": "Site record notes; Schedule 9 Week 2 row 9"},
+  {"ref": "P13, P14, P15, P16", "item": "\"+ TOILET\" on the schedule", "qty": null, "units": [], "when": "", "who": "", "why": "Schedule 9 writes \"+ TOILET\" in the asset cell of these four team offices (WAU, Grove, Erebus, WFL). No toilet unit, contract line, docket line or record entry exists for any of them; the dockets carry the building only. Worth a look on site.", "source": "Schedule 9 Week 4 rows 2-5"}
+ ],
+ "paperwork": [
+  {"ref": "WC07", "record": "1317743 (Andrew's entry, 22 Sep)", "paper": "1317643 (Baseplan line 38, docket 26081411)", "note": "One of twenty; the other nineteen agree. Andrew's number stands; the plate settles it."},
+  {"ref": "WC01", "record": "3 units: 1317644 accessible, 1211958, 1211967", "paper": "Baseplan 9968955 line 140 adds 172824 as a fourth unit", "note": "WC01 asks 3 and has 3: a spare, a swap or a docket slip."},
+  {"ref": "WC21", "record": "6 FWF", "paper": "Baseplan adds 1083399 as a seventh", "note": "WC21 asks 6 and has 6: a spare, a swap or a docket slip."},
+  {"ref": "WC12", "record": "4 FWF incl. 1211963", "paper": "No contract hire line for 1211963 (3 lines for 4 units)", "note": "A charge to check, not a missing toilet."},
+  {"ref": "WC67", "record": "2 FWF (0793, 0769)", "paper": "Schedule shows 4 on 13 Oct, \"up from 2\"", "note": "Andrew 1 Oct: \"WC67 here and complete and installed. Assets no 0793 0769\". Whether 2 more were ever wanted is still open."},
+  {"ref": "WC09", "record": "10 FWF + 2 blocks (+ 6 pee panels)", "paper": "Schedule shows 4 FWF + 6 pee panels", "note": "The record is what is standing there."},
+  {"ref": "WC60", "record": "2 blocks (1087500, 1119489)", "paper": "Schedule 9 shows 1 block", "note": "The record is what is standing there."},
+  {"ref": "Event Portables FWF", "record": "193 on references + spare 0164 = 194", "paper": "Supplier total 194 (confirmed 6 Oct)", "note": "Agrees."}
+ ]
+}

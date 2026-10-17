@@ -1,6 +1,6 @@
 """Every toilet on the GC500 site record as an Excel register: one row per unit, plus a summary per reference.
 
-python3 -I make_register.py toilets_record_9704.json GC500_Toilet_Register.xlsx [not_on_record.json]
+python3 -I make_register.py toilets_record_9704.json GC500_Toilet_Register.xlsx register_extras.json
 
 Read-only: the input is read from the live page with read_toilets.cjs (GET only). Blank means the record does not say.
 """
@@ -98,8 +98,6 @@ def main(src, out, extra=None):
         lat, lon, src_pin = pin_of(r)
         area, us = area_of(r), units_of(r)
         name = r['name'] or ''
-        if name and not name.lower().startswith(r['key'].lower()):
-            name = name
         nums = []
         for i, (item, u) in enumerate(us, 1):
             n += 1
@@ -118,6 +116,13 @@ def main(src, out, extra=None):
             if not no:
                 ws.cell(row, 3).fill = WARN
         refs_out.append((r, us, nums, lat, lon, src_pin, area))
+    ex = json.load(open(extra)) if extra else {}
+    for s in ex.get('spares', []):  # a unit on the record with no reference: the reference stays blank
+        n += 1
+        totals[s['item']] = totals.get(s['item'], 0) + 1
+        ws.append(['', 1, s['no'], '', '', TYPE.get(s['item'], s['item']), 'spare', OWNER.get(s['owner'], ''),
+                   f"Spare · {s['where']}", '', '', None, 'spare on the record', None, None])
+        ws.cell(ws.max_row, 3).number_format = '@'
     style_sheet(ws, [11, 6, 12, 24, 34, 17, 9, 24, 40, 11, 30, 11, 10, 11, 11], n)
     for row in ws.iter_rows(min_row=2):
         for c in row:
@@ -144,18 +149,24 @@ def main(src, out, extra=None):
             c.border = BOX
             c.alignment = Alignment(vertical='top', wrap_text=c.column == 3)
 
-    if extra:
-        ex = json.load(open(extra))
-        ws3 = wb.create_sheet('Not on the record')
-        ws3.append(['Reference', 'Qty', 'Asset Nos', 'Type', 'What the sources say', 'Source'])
-        for e in ex:
-            ws3.append([e.get('ref', ''), e.get('qty'), ', '.join(e.get('units') or []), e.get('item', ''),
-                        e.get('why', ''), e.get('source', '')])
-        style_sheet(ws3, [11, 6, 30, 18, 70, 50], len(ex))
-        for row in ws3.iter_rows(min_row=2):
+    def table(title, head, rows, widths):
+        w = wb.create_sheet(title)
+        w.append(head)
+        for r in rows:
+            w.append(r)
+        style_sheet(w, widths, len(rows))
+        for row in w.iter_rows(min_row=2):
             for c in row:
                 c.border = BOX
                 c.alignment = Alignment(vertical='top', wrap_text=True)
+
+    if ex.get('not_on_record'):
+        table('Not on the record', ['Reference', 'Qty', 'Type', 'When', 'Supplier', 'What the sources say', 'Source'],
+              [[e['ref'], e.get('qty'), e.get('item', ''), e.get('when', ''), e.get('who', ''), e.get('why', ''),
+                e.get('source', '')] for e in ex['not_on_record']], [22, 6, 24, 22, 16, 70, 34])
+    if ex.get('paperwork'):
+        table('Paperwork differences', ['Reference', 'Site record (used here)', 'Paperwork says', 'Note'],
+              [[e['ref'], e['record'], e['paper'], e.get('note', '')] for e in ex['paperwork']], [20, 34, 40, 60])
 
     wn = wb.create_sheet('Notes')
     lines = [
@@ -163,8 +174,9 @@ def main(src, out, extra=None):
         ('Source', f'Live site record, version {data["version"]}, read {at:%d %b %Y %H:%M} (Gold Coast time)'),
         ('Covers', 'Every FWF, FWF trailer, accessible toilet, toilet block and 16-pan block on the record, including '
                    'pit garage (PG), T-numbered and team toilets. Waste tanks and pee panels are left out.'),
+        ('Checked', ex.get('checked', '')),
         ('References', len(refs_out)),
-        ('Units', n),
+        ('Units', f'{n}' + (f' (including {len(ex["spares"])} spare with no reference)' if ex.get('spares') else '')),
     ]
     lines += [(f'  {TYPE.get(k, k)}', v) for k, v in sorted(totals.items(), key=lambda kv: -kv[1])]
     lines += [
@@ -182,6 +194,15 @@ def main(src, out, extra=None):
         ('Status', 'Delivery state on the record. Blank where the reference has no delivery entry.'),
         ('WC31', 'Accessible toilet 1317645 (Coates) is recorded under the 16-pan line but labelled Accessible Toilet; '
                  'it is shown here as the accessible toilet. Blocks 12 and 74 are Event Portables.'),
+        ('Pit lane', 'Pit garages PG01, PG03, PG05 and PG29 are the only PG numbers anywhere (the master prints no '
+                     'garage numbers). Team toilets: T0162 Blanchard, T0176 Red Bull, BJR01 Brad Jones, SVP01 Shell '
+                     'V-Power; T0024 is the Coates compound toilet. Tickford (21 Oct) and the 22 Oct party trailer '
+                     'are on the "Not on the record" sheet.'),
+        ('T and F', 'The only standalone T toilet references are T0024, T0162, T0176 and T0243 (T0243 is the WC-TV '
+                    'block). Other T numbers are schedule rows inside a WC or PG reference. No F reference is a '
+                    'toilet: F01 is fencing, FL01-FL04 forklifts, FR01/FR02 fridges.'),
+        ('Other sheets', '"Not on the record": toilets on a schedule, quote or drawing but not on the site record. '
+                         '"Paperwork differences": where Baseplan, dockets or the schedule disagree with the record.'),
     ]
     for k, v in lines:
         wn.append([k, v])
