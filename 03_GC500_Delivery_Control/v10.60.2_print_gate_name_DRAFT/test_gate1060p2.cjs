@@ -8,7 +8,8 @@ let failed = 0, n = 0; const ok = (c, name, d) => { n++; if (!c) failed++; conso
  const h = await open({pageFile: live ? undefined : process.env.PAGE, mobile, W: mobile ? 390 : 1440, H: mobile ? 844 : 900, dpr: mobile ? 2 : 1}); const p = h.page;
  try {
   await p.waitForFunction(() => typeof SYNC !== 'undefined' && SYNC.status === 'live' && window.ts1053, null, {timeout: 240000});
-  ok(await p.evaluate(() => document.body.innerText.includes('v10.60.2')), 'footer says v10.60.2');
+  const expectedPage = process.env.EXPECT_PAGE || 'v10.60.2';
+  ok(await p.evaluate(v => document.body.innerText.includes(v), expectedPage), 'footer says ' + expectedPage);
   const state = () => p.evaluate(() => ({name: document.getElementById('ts1053n').value, dis: document.querySelector('[data-ts1053-go]').disabled, line: document.getElementById('ts1053w').textContent, need: document.getElementById('ts1053w').classList.contains('ts1053-need'), label: document.querySelector('.ts1053-nm').textContent}));
   // Andrew's screen: "Andrew" saved on the phone
   await p.evaluate(() => { localStorage.setItem('gc500.printedBy', 'Andrew'); ts1053.disarm(); ts1053.ask(); }); await p.waitForSelector('#ts1053');
@@ -26,7 +27,7 @@ let failed = 0, n = 0; const ok = (c, name, d) => { n++; if (!c) failed++; conso
   await p.evaluate(() => { localStorage.setItem('gc500.printedBy', 'Kyle'); ts1053.disarm(); ts1053.ask(); }); await p.waitForSelector('#ts1053');
   const k0 = await state(); ok(k0.name === 'Kyle', 'another short name is left as typed (not turned into Andrew Fisher)', k0);
   await p.check('#ts1053c'); const k1 = await state(); ok(k1.dis && /first and last name/.test(k1.line), 'and the line tells them to add a surname', k1);
-  if (mobile) await p.screenshot({path: __dirname + '/gate_phone_need_surname.png'});
+  if (mobile) await p.screenshot({path: process.env.OUT || __dirname + '/gate_phone_need_surname.png'});
   await p.click('[data-ts1053-no]');
   ok(h.errors.length === 0, 'no page errors', h.errors); ok(h.counts.blocked === 0, 'no writes attempted', h.counts);
  } catch (e) { ok(false, 'test ran to the end', String(e && e.stack || e).slice(0, 600)); }
