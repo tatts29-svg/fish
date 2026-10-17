@@ -55,6 +55,19 @@ The design was checked against an independent read of the explorer, the page's f
 a critic; its two corrections are in (shared outlines keep their marker; the position test measures from the marker
 to the outline, not to the centre).
 
+## v10.60.1 hotfix (built, waiting on Andrew's "Upload")
+
+The final independent review of v10.60 (round four, regression sweep) found that on the live page a tap 5-9 px beside
+a small drawn unit at an overview zoom could open a hidden unit from another category (Generators at 100%: GN01 +6 px
+opened BS01; Toilets: WC02 -6 px opened P41). v10.59 picked the drawn unit. `patch_v1060p1.py`: when a tap is inside no
+outline, the shaped units' old ring reach is tried before the explorer's any-chip fallback. Footer v10.60 -> v10.60.1.
+- New check reproduced it on live v10.60 (27 hidden picks in Generators alone; 61/62) and passes on the hotfix: 62/62
+  desktop and phone. Sweeps 24 tabs/7 links, 0 errors, 0 console messages, desktop and phone. Build 18,300,417 bytes,
+  sha256 `92c91a82174055f0…`.
+- Left for later (minor, reviewed): a kept circle's badge over shaped neighbours at overview zoom takes their taps
+  (T0258/T0266 over P52/P55; PG01 over WC16); a Done-chip unit enlarged to the 12 px minimum can sit under a
+  neighbour's reference on the phone (WC38/P08); the first ripple after a pick can start mid-way.
+
 ## Build and checks
 
 ```

@@ -1,8 +1,8 @@
 {
  "author": "Andrew Fisher",
- "page": "build/GC500_v10.60/GC500_Delivery_Control_hosted.html",
+ "page": "build/GC500_v10.60p1/GC500_Delivery_Control_hosted.html",
  "mobile": true,
- "passed": 61,
+ "passed": 62,
  "failed": 0,
  "results": [
   {
@@ -94,7 +94,7 @@
      "off": 0,
      "failed": 0,
      "lastErr": "",
-     "paints": 8,
+     "paints": 6,
      "beat": {
       "selected": false,
       "frames": 0,
@@ -192,7 +192,7 @@
   {
    "name": "shapes: at least 125 references drawn as their shape",
    "ok": true,
-   "detail": 127
+   "detail": 125
   },
   {
    "name": "pinned T0022: drawn as its shape once its pin has arrived",
@@ -232,10 +232,10 @@
      "off": 2,
      "failed": 0,
      "lastErr": "",
-     "paints": 33,
+     "paints": 31,
      "beat": {
       "selected": true,
-      "frames": 39,
+      "frames": 38,
       "still": false,
       "running": true
      },
@@ -350,11 +350,11 @@
    "name": "P37: the selected shape pulses on its own layer",
    "ok": true,
    "detail": {
-    "ink": 2737,
-    "frames": 191,
+    "ink": 2757,
+    "frames": 194,
     "selected": true,
     "idleHidden": true,
-    "paints": 58,
+    "paints": 59,
     "under": true
    }
   },
@@ -362,7 +362,7 @@
    "name": "P37: the pulse rests between ripples (its canvas off while resting)",
    "ok": true,
    "detail": {
-    "frames": 191,
+    "frames": 194,
     "idleHidden": true
    }
   },
@@ -390,7 +390,7 @@
    "name": "P37: the pulse comes back when motion is allowed again",
    "ok": true,
    "detail": {
-    "frames": 225
+    "frames": 187
    }
   },
   {
@@ -752,7 +752,7 @@
    "name": "panning: drawing the shapes stays light (layout reused while the map moves)",
    "ok": true,
    "detail": {
-    "ms": 1.11,
+    "ms": 0.82,
     "drawn": 13
    }
   },
@@ -798,8 +798,8 @@
    "ok": true,
    "detail": {
     "done": 74,
-    "f0": 856,
-    "f1": 885,
+    "f0": 805,
+    "f1": 834,
     "on": true
    }
   },
@@ -865,9 +865,27 @@
    "ok": true,
    "detail": {
     "parked": true,
-    "f0": 977,
-    "f1": 977,
+    "f0": 916,
+    "f1": 916,
     "running": false
+   }
+  },
+  {
+   "name": "near-miss taps beside a drawn unit never open a hidden unit from another chip (Generators, Toilets at 100%)",
+   "ok": true,
+   "detail": {
+    "Generators": {
+     "marks": 13,
+     "shaped": 11,
+     "taps": 55,
+     "bad": []
+    },
+    "Toilets": {
+     "marks": 68,
+     "shaped": 64,
+     "taps": 320,
+     "bad": []
+    }
    }
   },
   {
@@ -884,7 +902,7 @@
    "ok": true,
    "detail": {
     "page": 1,
-    "live": 283,
+    "live": 287,
     "blocked": 0
    }
   }

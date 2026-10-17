@@ -253,6 +253,19 @@ const SHAPE = ['P37', 'P36', 'WC21', 'WC07', 'WC69', 'WC15', 'P10', 'AA'];
   await frame.evaluate(() => GC500Explorer.find('P37')); await settle(); await closeCard(); await look('P37', 24); await p.waitForTimeout(800);
   const park = await p.evaluate(async () => { if (typeof expStash !== 'function') return {skip: true}; expStash(); await new Promise(r => setTimeout(r, 400)); const w = document.getElementById('expFrame').contentWindow, f0 = w.GC500Shape1060.state.beat.frames; await new Promise(r => setTimeout(r, 1500)); const s = w.GC500Shape1060.state.beat; return {parked: typeof w.shown887 === 'function' ? !w.shown887() : null, f0, f1: s.frames, running: s.running}; });
   check('another tab shown (map parked): the pulse stands down', park.skip || (park.parked && park.f1 - park.f0 <= 2 && !park.running), park);
+  /* a tap just beside a small drawn unit picks it, never a hidden unit from another chip (v10.60.1; v10.59 did the same) */
+  const nearMiss = {};
+  for (const chip of ['Generators', 'Toilets']) {
+   await frame.evaluate(chip => { if (DONE782_ON) document.getElementById('done782')?.click(); clearSelection813(); [...document.querySelectorAll('#chips [data-cat][aria-pressed="true"]')].forEach(b => b.click()); const b = [...document.querySelectorAll('#chips [data-cat]')].find(x => x.textContent.includes(chip)); if (b) b.click(); }, chip);
+   await settle(); await p.waitForTimeout(1200); await settle();
+   nearMiss[chip] = await frame.evaluate(() => { clearSelection813(); camera = {...camera, z: 1}; changeView(false); drawMarks(currentView());
+    const shown = new Set(marks.map(m => m.it.code)), bad = []; let taps = 0;
+    for (const code of GC500Shape1060.shaped()) { const c = GC500Shape1060.at(code); if (!c) continue;
+     for (const [ox, oy] of [[6, 0], [-6, 0], [0, 6], [0, -9], [9, 0]]) { const x = c.x + ox, y = c.y + oy; if (x < 0 || y < 0 || x > sw || y > sh) continue; taps++;
+      const k = markAt(x, y), i2 = k ? null : itemAt887(x, y), it = k ? k.it : i2 && i2.it; if (it && !shown.has(it.code)) bad.push(code + (ox ? (ox > 0 ? '+' : '') + ox + 'x' : (oy > 0 ? '+' : '') + oy + 'y') + '->' + it.code); } }
+    return {marks: marks.length, shaped: GC500Shape1060.shaped().length, taps, bad}; });
+  }
+  check('near-miss taps beside a drawn unit never open a hidden unit from another chip (Generators, Toilets at 100%)', Object.values(nearMiss).every(r => r.taps > 20 && r.bad.length === 0), nearMiss);
   /* nothing written, nothing broken */
   const after = await p.evaluate(() => JSON.stringify(S));
   check('record unchanged by the checks', after === before);

@@ -447,7 +447,9 @@ JS = r'''/* Author: Andrew Fisher. v10.60 - the Map explorer shows each referenc
    try { k = nativeMarkAt(x, y); } finally { marks = all; labelBounds1010 = lb; }
    if (k) return k;
    const top = selected && shapeFor(selected) ? hit(x, y, [{it: selected, c: selected.cat ? selected.cat.c : '#fff'}]) : null;
-   return top || labelHit1010(x, y) || hit(x, y, all);
+   const own = top || labelHit1010(x, y) || hit(x, y, all); if (own) return own;
+   marks = all.filter(m => shapeFor(m.it)); labelBounds1010 = [];    /* just beside a small drawn unit: its old ring's reach still picks it, so a hidden unit from another chip is never opened instead (v10.60.1) */
+   try { return nativeMarkAt(x, y); } finally { marks = all; labelBounds1010 = lb; }
   };
   window.itemAt887 = function(x, y){ if (fencing() || !SNAP) return nativeItemAt(x, y); const m = hit(x, y, marks) || hit(x, y, doneShaped.map(p => p[0]));    /* only shapes drawn now; otherwise the explorer's own pick */ return m ? {it: m.it, c: m.it.cat ? m.it.cat.c : m.c} : nativeItemAt(x, y); };
   window.GC500Shape1060 = Object.freeze({version: 'v10.60', pull,

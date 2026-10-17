@@ -1,8 +1,8 @@
 {
  "author": "Andrew Fisher",
- "page": "build/GC500_v10.60/GC500_Delivery_Control_hosted.html",
+ "page": "build/GC500_v10.60p1/GC500_Delivery_Control_hosted.html",
  "mobile": false,
- "passed": 61,
+ "passed": 62,
  "failed": 0,
  "results": [
   {
@@ -94,7 +94,7 @@
      "off": 0,
      "failed": 0,
      "lastErr": "",
-     "paints": 7,
+     "paints": 10,
      "beat": {
       "selected": false,
       "frames": 0,
@@ -232,10 +232,10 @@
      "off": 2,
      "failed": 0,
      "lastErr": "",
-     "paints": 28,
+     "paints": 26,
      "beat": {
       "selected": true,
-      "frames": 91,
+      "frames": 39,
       "still": false,
       "running": true
      },
@@ -350,11 +350,11 @@
    "name": "P37: the selected shape pulses on its own layer",
    "ok": true,
    "detail": {
-    "ink": 1355,
-    "frames": 191,
+    "ink": 1375,
+    "frames": 192,
     "selected": true,
     "idleHidden": true,
-    "paints": 48,
+    "paints": 41,
     "under": true
    }
   },
@@ -362,7 +362,7 @@
    "name": "P37: the pulse rests between ripples (its canvas off while resting)",
    "ok": true,
    "detail": {
-    "frames": 191,
+    "frames": 192,
     "idleHidden": true
    }
   },
@@ -390,7 +390,7 @@
    "name": "P37: the pulse comes back when motion is allowed again",
    "ok": true,
    "detail": {
-    "frames": 197
+    "frames": 38
    }
   },
   {
@@ -767,7 +767,7 @@
    "name": "panning: drawing the shapes stays light (layout reused while the map moves)",
    "ok": true,
    "detail": {
-    "ms": 0.89,
+    "ms": 0.86,
     "drawn": 17
    }
   },
@@ -819,8 +819,8 @@
    "ok": true,
    "detail": {
     "done": 74,
-    "f0": 837,
-    "f1": 866,
+    "f0": 680,
+    "f1": 710,
     "on": true
    }
   },
@@ -886,9 +886,27 @@
    "ok": true,
    "detail": {
     "parked": true,
-    "f0": 950,
-    "f1": 950,
+    "f0": 800,
+    "f1": 800,
     "running": false
+   }
+  },
+  {
+   "name": "near-miss taps beside a drawn unit never open a hidden unit from another chip (Generators, Toilets at 100%)",
+   "ok": true,
+   "detail": {
+    "Generators": {
+     "marks": 13,
+     "shaped": 11,
+     "taps": 55,
+     "bad": []
+    },
+    "Toilets": {
+     "marks": 68,
+     "shaped": 64,
+     "taps": 320,
+     "bad": []
+    }
    }
   },
   {
@@ -905,7 +923,7 @@
    "ok": true,
    "detail": {
     "page": 1,
-    "live": 316,
+    "live": 334,
     "blocked": 0
    }
   }
