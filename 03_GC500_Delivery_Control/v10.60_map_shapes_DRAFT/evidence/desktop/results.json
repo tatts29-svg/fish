@@ -2,7 +2,7 @@
  "author": "Andrew Fisher",
  "page": "build/GC500_v10.60/GC500_Delivery_Control_hosted.html",
  "mobile": false,
- "passed": 43,
+ "passed": 50,
  "failed": 0,
  "results": [
   {
@@ -77,7 +77,7 @@
      "off": 0,
      "failed": 0,
      "lastErr": "",
-     "paints": 6,
+     "paints": 7,
      "beat": {
       "selected": false,
       "frames": 0,
@@ -193,8 +193,8 @@
     "status": "complete",
     "glyph": "check",
     "arcs": 0,
-    "tick": 68,
-    "ink": 2280,
+    "tick": 66,
+    "ink": 2274,
     "old": 0,
     "at": {
      "x": 552.8189456760092,
@@ -237,7 +237,7 @@
    "name": "P37: the status is inside the shape (the tick, or the status colour when the shape is small)",
    "ok": true,
    "detail": {
-    "tick": 68,
+    "tick": 66,
     "status": "complete",
     "glyph": "check"
    }
@@ -255,8 +255,8 @@
     "native": 0,
     "ref": {
      "t": "P37 (1)",
-     "x": 547.342980499207,
-     "y": 286.8300317703378
+     "x": 547.5176362735034,
+     "y": 286.7718095966116
     },
     "box": {
      "x0": 516.504227382422,
@@ -268,7 +268,20 @@
     "texts": [
      "P37 (1)"
     ],
-    "hit": "P37"
+    "hit": "P37",
+    "layout": {
+     "how": "tick and reference",
+     "u": 17,
+     "along": 59,
+     "across": 28,
+     "parts": 1,
+     "of": 1,
+     "tick": {
+      "x": 535.0855942195332,
+      "y": 290.916092052574,
+      "inPart": true
+     }
+    }
    }
   },
   {
@@ -283,6 +296,23 @@
    "name": "P37: tapping the reference text still picks P37",
    "ok": true,
    "detail": "P37"
+  },
+  {
+   "name": "P37: the tick is drawn, inside its shape (never dropped when it fits)",
+   "ok": true,
+   "detail": {
+    "how": "tick and reference",
+    "u": 17,
+    "along": 59,
+    "across": 28,
+    "parts": 1,
+    "of": 1,
+    "tick": {
+     "x": 535.0855942195332,
+     "y": 290.916092052574,
+     "inPart": true
+    }
+   }
   },
   {
    "name": "P37: the shape glows (soft wide strokes in its colour under the outline)",
@@ -301,14 +331,14 @@
    "name": "P37: the selected shape pulses on its own layer",
    "ok": true,
    "detail": {
-    "ink": 1346,
+    "ink": 1325,
     "state": {
      "selected": true,
-     "frames": 296,
+     "frames": 297,
      "still": false,
      "running": true
     },
-    "paints": 48,
+    "paints": 47,
     "under": true
    }
   },
@@ -394,6 +424,7 @@
    "ok": true,
    "detail": {
     "strokes": 50,
+    "chev": 12,
     "drawn": 1,
     "shaped": true,
     "status": {
@@ -425,7 +456,7 @@
    }
   },
   {
-   "name": "multi-part references: the tick is inside a part, never in the gap between parts",
+   "name": "multi-part references: the tick is inside a part, never in the gap (or the status colour when a part is too small for a tick)",
    "ok": true,
    "detail": {
     "WC15": {
@@ -436,8 +467,8 @@
      "parts": 1,
      "of": 2,
      "tick": {
-      "x": 521.6815676749584,
-      "y": 327.1901583969571,
+      "x": 520.6821866616946,
+      "y": 327.1549789949161,
       "inPart": true
      }
     },
@@ -449,8 +480,8 @@
      "parts": 10,
      "of": 20,
      "tick": {
-      "x": -356.6869453329159,
-      "y": 760.8770796040457,
+      "x": 582.2829564045475,
+      "y": 329.89966320024524,
       "inPart": true
      }
     },
@@ -462,10 +493,53 @@
      "parts": 1,
      "of": 2,
      "tick": {
-      "x": 506.07272012700946,
-      "y": 315.05355857618275,
+      "x": 505.95996533204186,
+      "y": 316.0471814202296,
       "inPart": true
      }
+    },
+    "WC20": {
+     "how": "tick and reference",
+     "u": 24,
+     "along": 99,
+     "across": 47,
+     "parts": 1,
+     "of": 2,
+     "tick": {
+      "x": 499.5946480915033,
+      "y": 298.13094177306346,
+      "inPart": true
+     }
+    },
+    "WC09": {
+     "how": "tick and reference",
+     "u": 24,
+     "along": 99,
+     "across": 47,
+     "parts": 1,
+     "of": 12,
+     "tick": {
+      "x": 577.9490917918274,
+      "y": 258.57732545211485,
+      "inPart": true
+     }
+    }
+   }
+  },
+  {
+   "name": "a single square FWF (WC02) close up: the tick shows, with its reference",
+   "ok": true,
+   "detail": {
+    "how": "small tick and reference",
+    "u": 24,
+    "along": 47,
+    "across": 46,
+    "parts": 1,
+    "of": 1,
+    "tick": {
+     "x": 536.7412882701456,
+     "y": 303.0251714991265,
+     "inPart": true
     }
    }
   },
@@ -485,6 +559,33 @@
    "name": "Done chip: shaped finished units are not also given a loose tick",
    "ok": true,
    "detail": []
+  },
+  {
+   "name": "panning: drawing the shapes stays light (layout reused while the map moves)",
+   "ok": true,
+   "detail": {
+    "ms": 0.88,
+    "drawn": 17
+   }
+  },
+  {
+   "name": "overview: kept circles show no reference when the rest are decluttered (no PG01-PG29 pile-up)",
+   "ok": true,
+   "detail": {
+    "marks": 68,
+    "s": 0.32125890736342044,
+    "texts": []
+   }
+  },
+  {
+   "name": "Done chip shown a second time: its finished units beat again",
+   "ok": true,
+   "detail": {
+    "done": 74,
+    "f0": 590,
+    "f1": 619,
+    "on": true
+   }
   },
   {
    "name": "T0266 (keeps its marker): the status sits inside its circle, not beside it",
@@ -522,6 +623,15 @@
    }
   },
   {
+   "name": "no chip on: tapping a unit picks that unit, not an invisible shape around it (P68 in CP1)",
+   "ok": true,
+   "detail": {
+    "marks": 0,
+    "m": null,
+    "i": "P68"
+   }
+  },
+  {
    "name": "fencing map: the shape layer stands down",
    "ok": true,
    "detail": {
@@ -533,6 +643,16 @@
    "name": "3D view: the shape layer is hidden under it",
    "ok": true,
    "detail": "hidden"
+  },
+  {
+   "name": "another tab shown (map parked): the pulse stands down",
+   "ok": true,
+   "detail": {
+    "parked": true,
+    "f0": 715,
+    "f1": 715,
+    "running": false
+   }
   },
   {
    "name": "record unchanged by the checks",
@@ -548,7 +668,7 @@
    "ok": true,
    "detail": {
     "page": 1,
-    "live": 248,
+    "live": 310,
     "blocked": 0
    }
   }

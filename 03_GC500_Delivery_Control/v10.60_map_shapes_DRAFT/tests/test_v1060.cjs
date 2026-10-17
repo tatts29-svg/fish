@@ -34,7 +34,7 @@ const SHAPE = ['P37', 'P36', 'WC21', 'WC07', 'WC69', 'WC15', 'P10', 'AA'];
   const pg = await p.evaluate(() => { const s = gc500MapShapes1060(); const r = k => s.refs[k];
    return {available: s.available, counts: s.counts, sameObject: gc500MapShapes1060() === s, p37: r('P37') && {comps: r('P37').comps.length, doors: r('P37').comps.reduce((n, c) => n + c.doors.length, 0)},
     wc21: r('WC21') && {comps: r('WC21').comps.length, chev: r('WC21').comps.filter(c => c.chev.length).length}, shared: Object.values(s.refs).filter(x => x.shared).map(x => x.ref).sort(),
-    layer: !!window.gc500ShapeLayer1060 && gc500ShapeLayer1060.version, guard: gc500ShapeLayer1060.frameScript().includes('drawMarks') && ['explorer.js?v=8586cb7d5008', 'explorer-merge.js?v=97a4087210f3', 'fencing-map-explorer.js?v=e3a4bef6c17d', 'explorer-fix887.js?v=6996471a6a0f'].every(v => document.getElementById('shapes1060-script').textContent.includes(v)),
+    layer: !!window.gc500ShapeLayer1060 && gc500ShapeLayer1060.version, guard: gc500ShapeLayer1060.frameScript().includes('drawMarks') && document.getElementById('shapes1060-script').textContent.includes("['explorer.js?v=8586cb7d5008', 'explorer-merge.js?v=97a4087210f3', 'fencing-map-core.js?v=0c26c3b7777f', 'fencing-map-explorer.js?v=e3a4bef6c17d', 'explorer-fix864.js?v=d7041320fc3f', 'explorer-fix887.js?v=6996471a6a0f'].join('|')"),
     barriers: ['WB04', 'WB07', 'WB15', 'WB17', 'WB18'].filter(k => s.refs[k])}; });
   check('page: shape data available from the 2 Oct master', pg.available && pg.counts.refs >= 150 && pg.counts.doors >= 100 && pg.counts.chevrons >= 200, pg.counts);
   check('page: shape data read once and kept', pg.sameObject);
@@ -98,11 +98,12 @@ const SHAPE = ['P37', 'P36', 'WC21', 'WC07', 'WC69', 'WC15', 'P10', 'AA'];
    try { drawMarks(currentView()); } finally { g.roundRect = or; g.fillText = of; mctx.roundRect = onr; mctx.fillText = onf; }
    const at = GC500Shape1060.at('P37'), b = at.box, ref = texts.find(x => x.t.startsWith('P37'));
    const lb = labelBounds1010.find(x => x.it && x.it.code === 'P37');
-   return {boxes: rr.length, native: nat.length, ref, box: b, inBox: !!ref && ref.x >= b.x0 - 2 && ref.x <= b.x1 + 2 && ref.y >= b.y0 - 2 && ref.y <= b.y1 + 2, texts: texts.map(x => x.t), hit: !!lb && (() => { const h = labelHit1010(lb.x + lb.w / 2, lb.y + lb.h / 2); return h && h.it.code; })()};
+   return {boxes: rr.length, native: nat.length, ref, box: b, inBox: !!ref && ref.x >= b.x0 - 2 && ref.x <= b.x1 + 2 && ref.y >= b.y0 - 2 && ref.y <= b.y1 + 2, texts: texts.map(x => x.t), hit: !!ref && (() => { const h = markAt(ref.x, ref.y); return h && h.it && h.it.code; })(), layout: GC500Shape1060.layout('P37')};
   });
   check('P37: the reference is written inside its shape', lab.inBox, lab);
   check('P37: no label box beside the shape (one shape, not two boxes)', lab.boxes === 0 && lab.native === 0, {boxes: lab.boxes, native: lab.native});
   check('P37: tapping the reference text still picks P37', lab.hit === 'P37', lab.hit);
+  check('P37: the tick is drawn, inside its shape (never dropped when it fits)', lab.layout && lab.layout.tick && lab.layout.tick.inPart, lab.layout);
   /* glow and pulse (Andrew, 17 Oct: "Glow and pulsate too") */
   const glow = await frame.evaluate(() => { const g = document.getElementById('shape1060').getContext('2d'), ws = []; const os = g.stroke;
    g.stroke = function(){ ws.push({w: g.lineWidth / dpr, s: String(g.strokeStyle)}); return os.apply(this, arguments); };
@@ -145,14 +146,16 @@ const SHAPE = ['P37', 'P36', 'WC21', 'WC07', 'WC69', 'WC15', 'P10', 'AA'];
   /* an FWF run: each unit's chevron (its door), one tick */
   await frame.evaluate(() => { const b = [...document.querySelectorAll('#chips [data-cat]')].find(x => x.textContent.includes('Toilets')); if (b && b.getAttribute('aria-pressed') !== 'true') b.click(); });
   await frame.evaluate(() => clearSelection813()); await look('WC21', 90, 'original');
-  const wc21 = await frame.evaluate(() => { const strokes = []; const L = document.getElementById('shape1060'), g = L.getContext('2d'), os = g.stroke; let n = 0; g.stroke = function(...a){ n++; return os.apply(this, a); };
-   try { drawMarks(currentView()); } finally { g.stroke = os; } return {strokes: n, drawn: GC500Shape1060.state.drawn, shaped: GC500Shape1060.shaped().includes('WC21'), status: mapStatus1009(ITEMS.find(x => x.code === 'WC21'))}; });
-  check('WC21: drawn as six FWF squares with their chevrons', wc21.shaped && wc21.drawn >= 1 && wc21.strokes >= 6 * 2 + 6 * 2, wc21);
+  const wc21 = await frame.evaluate(() => { const L = document.getElementById('shape1060'), g = L.getContext('2d'), os = g.stroke; let n = 0, chev = 0; g.stroke = function(...a){ n++; if (String(g.strokeStyle) === '#ffffff' && Math.abs(g.lineWidth - 1.7 * dpr) < 1e-6) chev++; return os.apply(this, a); };
+   try { drawMarks(currentView()); } finally { g.stroke = os; } return {strokes: n, chev, drawn: GC500Shape1060.state.drawn, shaped: GC500Shape1060.shaped().includes('WC21'), status: mapStatus1009(ITEMS.find(x => x.code === 'WC21'))}; });
+  check('WC21: drawn as six FWF squares with their chevrons', wc21.shaped && wc21.drawn >= 1 && wc21.chev >= 6 * 2, wc21);
   await shot('wc21-fwf');
   const multi = {};
-  for (const k of ['WC15', 'WC07', 'WC17']) { if (!(await frame.evaluate(k => !!ITEMS.find(x => x.code === k), k))) continue; await look(k, 40);
+  for (const k of ['WC15', 'WC07', 'WC17', 'WC20', 'WC09']) { if (!(await frame.evaluate(k => !!ITEMS.find(x => x.code === k), k))) continue; await look(k, 40);
    multi[k] = await frame.evaluate(k => { drawMarks(currentView()); return GC500Shape1060.layout(k); }, k); }
-  check('multi-part references: the tick is inside a part, never in the gap between parts', Object.values(multi).length >= 2 && Object.values(multi).every(l => l && (!l.tick || l.tick.inPart)), multi);
+  check('multi-part references: the tick is inside a part, never in the gap (or the status colour when a part is too small for a tick)', Object.values(multi).length >= 3 && Object.values(multi).every(l => l && (l.tick ? l.tick.inPart : l.u === 0)), multi);
+  await look('WC02', 96); const wc02 = await frame.evaluate(() => { drawMarks(currentView()); return GC500Shape1060.layout('WC02'); });
+  check('a single square FWF (WC02) close up: the tick shows, with its reference', wc02 && wc02.tick && wc02.tick.inPart && /reference/.test(wc02.how), wc02);
   await look('WC15', 40); await shot('wc15-two-blocks');
 
   /* all the toilets and buildings, with the Done chip: finished units are shapes with the tick inside, not loose ticks */
@@ -164,6 +167,16 @@ const SHAPE = ['P37', 'P36', 'WC21', 'WC07', 'WC69', 'WC15', 'P10', 'AA'];
   check('all references (one chip): shapes drawn, the few without one keep a marker', all.marks >= 40 && all.drawn >= 5 && all.failed === 0, all);
   check('Done chip: shaped finished units are not also given a loose tick', all.nativeDoneShaped.length === 0, all.nativeDoneShaped);
   await shot('all-references');
+  const speed = await frame.evaluate(() => { const v = currentView(); interacting = true; const t0 = performance.now(); for (let i = 0; i < 20; i++) drawMarks(v); const ms = (performance.now() - t0) / 20; interacting = false; return {ms: +ms.toFixed(2), drawn: GC500Shape1060.state.drawn}; });
+  check('panning: drawing the shapes stays light (layout reused while the map moves)', speed.ms < 12, speed);
+  const declutter = await frame.evaluate(() => { const b = [...document.querySelectorAll('#chips [data-cat]')].find(x => x.textContent.includes('Toilets')); if (b && b.getAttribute('aria-pressed') !== 'true') b.click(); return true; });
+  await settle(); await p.waitForTimeout(1200); await frame.evaluate(() => { clearSelection813(); camera = {...camera, z: 1}; changeView(false); });
+  const ov = await frame.evaluate(() => { const texts = []; const of = mctx.fillText; mctx.fillText = function(t){ texts.push(String(t)); return of.apply(this, arguments); }; try { drawMarks(currentView()); } finally { mctx.fillText = of; } return {marks: marks.length, s: dpr * currentView().scale, texts}; });
+  check('overview: kept circles show no reference when the rest are decluttered (no PG01-PG29 pile-up)', ov.marks <= 60 || ov.s > 1.2 || !ov.texts.some(x => /^PG\d/.test(x)), ov);
+  await frame.evaluate(() => { const b = [...document.querySelectorAll('#chips [data-cat]')].find(x => x.textContent.includes('Portable buildings')); if (b && b.getAttribute('aria-pressed') !== 'true') b.click(); });
+  await settle(); await p.waitForTimeout(1200); await look('P37', mobile ? 22 : 14);
+  const beat2 = await frame.evaluate(async () => { const tg = () => document.getElementById('done782')?.click(); if (DONE782_ON) tg(); drawMarks(currentView()); await new Promise(r => setTimeout(r, 300)); tg(); drawMarks(currentView()); await new Promise(r => setTimeout(r, 400)); const f0 = GC500Shape1060.state.beat.frames; await new Promise(r => setTimeout(r, 500)); return {done: GC500Shape1060.state.done, f0, f1: GC500Shape1060.state.beat.frames, on: DONE782_ON}; });
+  check('Done chip shown a second time: its finished units beat again', !beat2.done || beat2.f1 > beat2.f0, beat2);
 
   /* a reference that keeps its marker: the tick is inside its circle */
   await frame.evaluate(() => { if (DONE782_ON) document.getElementById('done782')?.click(); });
@@ -179,6 +192,12 @@ const SHAPE = ['P37', 'P36', 'WC21', 'WC07', 'WC69', 'WC15', 'P10', 'AA'];
   check('T0266: its reference is plain text under the circle, no second box', t66b.boxes === 0 && t66b.texts.some(x => x.startsWith('T0266')) && t66b.hit === 'T0266', t66b);
   await shot('t0266-marker');
 
+  const p68 = await frame.evaluate(() => { const it = ITEMS.find(x => x.code === 'P68'); if (!it || !it.places.length) return {skip: true};
+   [...document.querySelectorAll('#chips [data-cat][aria-pressed="true"]')].forEach(b => b.click()); if (DONE782_ON) document.getElementById('done782')?.click(); clearSelection813();
+   const b = it.places[0]; camera = {...camera, cx: (b[0] + b[2]) / 2, cy: (b[1] + b[3]) / 2, z: 8}; changeView(false); drawMarks(currentView());
+   const v = currentView(), M = sheetToDevice(v.scale, sw, sh), g0 = toGeo((b[0] + b[2]) / 2, (b[1] + b[3]) / 2), c = applyM(M, g0.x, g0.y), m = markAt(c.x, c.y), i2 = itemAt887(c.x, c.y);
+   return {marks: marks.length, m: m && m.it && m.it.code, i: i2 && i2.it && i2.it.code}; });
+  check('no chip on: tapping a unit picks that unit, not an invisible shape around it (P68 in CP1)', p68.skip || (!p68.m && p68.i === 'P68'), p68);
   /* fencing and 3D are left alone */
   const fence = await frame.evaluate(async () => { if (!window.GC500FencingMap || typeof GC500FencingMap.open !== 'function') return {skip: true};
    GC500FencingMap.open(); await new Promise(r => setTimeout(r, 600)); drawMarks(currentView());
@@ -188,6 +207,9 @@ const SHAPE = ['P37', 'P36', 'WC21', 'WC07', 'WC69', 'WC15', 'P10', 'AA'];
   const three = await frame.evaluate(() => { document.body.classList.add('in3d'); const v = getComputedStyle(document.getElementById('shape1060')).visibility; document.body.classList.remove('in3d'); return v; });
   check('3D view: the shape layer is hidden under it', three === 'hidden', three);
 
+  await frame.evaluate(() => GC500Explorer.find('P37')); await settle(); await closeCard(); await look('P37', 24); await p.waitForTimeout(800);
+  const park = await p.evaluate(async () => { if (typeof expStash !== 'function') return {skip: true}; expStash(); await new Promise(r => setTimeout(r, 400)); const w = document.getElementById('expFrame').contentWindow, f0 = w.GC500Shape1060.state.beat.frames; await new Promise(r => setTimeout(r, 1500)); const s = w.GC500Shape1060.state.beat; return {parked: typeof w.shown887 === 'function' ? !w.shown887() : null, f0, f1: s.frames, running: s.running}; });
+  check('another tab shown (map parked): the pulse stands down', park.skip || (park.parked && park.f1 - park.f0 <= 2 && !park.running), park);
   /* nothing written, nothing broken */
   const after = await p.evaluate(() => JSON.stringify(S));
   check('record unchanged by the checks', after === before);
