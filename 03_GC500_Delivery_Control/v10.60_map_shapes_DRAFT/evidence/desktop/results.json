@@ -2,12 +2,29 @@
  "author": "Andrew Fisher",
  "page": "build/GC500_v10.60/GC500_Delivery_Control_hosted.html",
  "mobile": false,
- "passed": 56,
+ "passed": 60,
  "failed": 0,
  "results": [
   {
    "name": "footer says v10.60",
    "ok": true
+  },
+  {
+   "name": "delivery orders: WC17 is on day 7, after P09 and P33, the day before P36 and P10 (Andrew, 17 Oct 2026)",
+   "ok": true,
+   "detail": {
+    "seq": [
+     "P09",
+     "P33",
+     "WC17"
+    ],
+    "rule": "WC17's two toilet blocks come in on this day, the day before P36 and P10 (day 8)",
+    "wc17": [
+     7
+    ],
+    "days": 11,
+    "rules": 1
+   }
   },
   {
    "name": "page: shape data available from the 2 Oct master",
@@ -77,7 +94,7 @@
      "off": 0,
      "failed": 0,
      "lastErr": "",
-     "paints": 6,
+     "paints": 5,
      "beat": {
       "selected": false,
       "frames": 0,
@@ -175,7 +192,7 @@
   {
    "name": "shapes: at least 125 references drawn as their shape",
    "ok": true,
-   "detail": 125
+   "detail": 127
   },
   {
    "name": "pinned T0022: drawn as its shape once its pin has arrived",
@@ -215,10 +232,10 @@
      "off": 2,
      "failed": 0,
      "lastErr": "",
-     "paints": 34,
+     "paints": 29,
      "beat": {
       "selected": true,
-      "frames": 38,
+      "frames": 80,
       "still": false,
       "running": true
      },
@@ -333,11 +350,11 @@
    "name": "P37: the selected shape pulses on its own layer",
    "ok": true,
    "detail": {
-    "ink": 1359,
-    "frames": 191,
+    "ink": 1362,
+    "frames": 190,
     "selected": true,
     "idleHidden": true,
-    "paints": 51,
+    "paints": 45,
     "under": true
    }
   },
@@ -345,7 +362,7 @@
    "name": "P37: the pulse rests between ripples (its canvas off while resting)",
    "ok": true,
    "detail": {
-    "frames": 191,
+    "frames": 190,
     "idleHidden": true
    }
   },
@@ -373,7 +390,7 @@
    "name": "P37: the pulse comes back when motion is allowed again",
    "ok": true,
    "detail": {
-    "frames": 40
+    "frames": 209
    }
   },
   {
@@ -613,6 +630,82 @@
    }
   },
   {
+   "name": "a turned square FWF keeps a full-size tick as you zoom in (WC25, WC02 turned 70°)",
+   "ok": true,
+   "detail": {
+    "WC25": [
+     {
+      "z": 50,
+      "how": "tick over reference",
+      "tick": 11.7
+     },
+     {
+      "z": 70,
+      "how": "tick over reference",
+      "tick": 17.2
+     },
+     {
+      "z": 90,
+      "how": "tick over reference",
+      "tick": 23
+     },
+     {
+      "z": 120,
+      "how": "tick over reference",
+      "tick": 24
+     }
+    ],
+    "WC02": [
+     {
+      "z": 50,
+      "how": "tick",
+      "tick": 14.8
+     },
+     {
+      "z": 70,
+      "how": "tick over reference",
+      "tick": 17.5
+     },
+     {
+      "z": 90,
+      "how": "tick over reference",
+      "tick": 23
+     },
+     {
+      "z": 120,
+      "how": "tick over reference",
+      "tick": 24
+     }
+    ]
+   }
+  },
+  {
+   "name": "FWF runs (WC33, WC67) close up: the tick sits inside one unit, not lost to a status fill",
+   "ok": true,
+   "detail": {
+    "WC33": {
+     "how": "tick over reference",
+     "tick": {
+      "x": 548.7687859007124,
+      "y": 270.2411986505477,
+      "size": 24,
+      "inPart": true
+     },
+     "status": "complete"
+    },
+    "WC67": {
+     "how": "tick and reference",
+     "tick": {
+      "x": 455.10951606498094,
+      "y": 277.8232281366798,
+      "size": 24,
+      "inPart": true
+     },
+     "status": "complete"
+    }
+   }
+  },
+  {
    "name": "all references (one chip): shapes drawn, the few without one keep a marker",
    "ok": true,
    "detail": {
@@ -633,8 +726,16 @@
    "name": "panning: drawing the shapes stays light (layout reused while the map moves)",
    "ok": true,
    "detail": {
-    "ms": 0.93,
+    "ms": 0.97,
     "drawn": 17
+   }
+  },
+  {
+   "name": "panning: the pulse canvas is never shown while the map moves",
+   "ok": true,
+   "detail": {
+    "frames": 40,
+    "shown": 0
    }
   },
   {
@@ -643,15 +744,15 @@
    "detail": {
     "l": {
      "how": "small tick and reference",
-     "u": 9,
-     "along": 25,
-     "across": 12,
+     "u": 7,
+     "along": 19,
+     "across": 9,
      "parts": 1,
      "of": 1,
      "tick": {
-      "x": 542.5587347197807,
-      "y": 288.7683469687875,
-      "size": 7.041998396971224,
+      "x": 542.5624276554275,
+      "y": 288.42856173385894,
+      "size": 7.049724428007865,
       "inPart": true
      }
     },
@@ -677,8 +778,8 @@
    "ok": true,
    "detail": {
     "done": 74,
-    "f0": 685,
-    "f1": 715,
+    "f0": 800,
+    "f1": 829,
     "on": true
    }
   },
@@ -744,8 +845,8 @@
    "ok": true,
    "detail": {
     "parked": true,
-    "f0": 803,
-    "f1": 803,
+    "f0": 914,
+    "f1": 914,
     "running": false
    }
   },
@@ -763,7 +864,7 @@
    "ok": true,
    "detail": {
     "page": 1,
-    "live": 301,
+    "live": 323,
     "blocked": 0
    }
   }
