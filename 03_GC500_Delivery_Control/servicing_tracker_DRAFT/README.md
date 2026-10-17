@@ -24,5 +24,7 @@ time when the whole area was done."
 - Thursday (Andrew, 18 Oct: "Thursday is a just iin case. Im not sure"): the Thursday day stays on the tracker marked
   "if needed"; before the event it opens on Friday. The Event Portables count stays Fri/Sat/Sun (714) and the labels
   are unchanged; if Thursday is serviced, its ticks show it and the count can follow what was actually done.
+- WC100's two FWF trailers (Andrew, 18 Oct: "Trailers let not give.them a location yet.."): out of the Teams Area,
+  in their own "No location yet" group at the foot, no pin; still tickable and in the 257. Teams Area is now 6 units.
 - To check with Andrew: WC81 is 1.4 km from the
-  rest of area 11; WC100's two FWF trailers in the Teams Area; one QR for all or one per area sheet.
+  rest of area 11;  one QR for all or one per area sheet.
