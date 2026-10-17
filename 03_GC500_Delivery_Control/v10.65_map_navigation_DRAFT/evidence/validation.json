@@ -1,0 +1,31 @@
+{
+  "author": "Andrew Fisher",
+  "state": "validation in progress; not published",
+  "basePageSha256": "34ac94742f81bfce7e784589a502df515d76dffbee418c048fc3e07a238f2067",
+  "candidatePageSha256": "c62adee5817153a56d538e1db015b0ef66a8a6e75609bc4d6e09a47bedfafbd8",
+  "candidatePageBytes": 18302611,
+  "baseMachineSha256": "1348bf1bbcf69400aab0e510e7239d68dac567d40d103898323bf9abdef7bf6f",
+  "candidateMachineSha256": "8256bce609ce48d30fd319ac56bce74729cfe8a980ad051228379d09b06a15e6",
+  "unitChecks": {
+    "costs_scroll": 16,
+    "ripple": 15,
+    "ripple_transform": 5,
+    "hidden_equipment": 10,
+    "exact_build_guard": 182,
+    "publisher_mocked": 28
+  },
+  "focusedBrowser": {
+    "camera_reproduction_and_fix": 9,
+    "integrated_map_desktop": 16,
+    "integrated_map_phone": 16,
+    "costs_desktop": 5,
+    "costs_phone": 5
+  },
+  "readOnlyServerPreflightPassed": true,
+  "imageOrGeometryChanges": false,
+  "operationalRecordWrites": 0,
+  "notes": [
+    "Candidate byte reads and three-file union validated by shared publisher dry run.",
+    "Broader page speed remains assigned to Claude; this is a bounded defect release."
+  ]
+}
