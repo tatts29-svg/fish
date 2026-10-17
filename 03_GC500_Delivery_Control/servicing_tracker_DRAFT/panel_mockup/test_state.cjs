@@ -201,7 +201,7 @@ function summary(events, nowMs) {
   check('300 random logs: shuffled arrival order gives the same job states and times', !diff, diff);
 }
 
-section("the crew card's copy of the rule gives the same answers");
+section("the crew card embeds the same shared rule");
 const CARD = path.join(__dirname, '..', 'card', 'card_src.js');
 function lift(src, name) {
   const i = src.indexOf('function ' + name + '(');
@@ -215,10 +215,12 @@ if (!fs.existsSync(CARD)) {
 } else {
   const src = fs.readFileSync(CARD, 'utf8');
   const names = ['svcDay', 'dayOf', 'autoDay', 'tasksFor', 'jobKey', 'jobStates', 'refStats', 'groupStats'];
-  const bodies = names.map(n => lift(src, n));
+  const bodies = names.map(n => n === 'jobStates' && src.includes('var jobStates = SvcState.jobStates') ? 'var jobStates = SvcState.jobStates;' : lift(src, n));
+  const built = require('../card/build_card.js').buildCardHtml(DATA);
+  check('the crew card embeds state.js byte for byte', built.includes(fs.readFileSync(path.join(__dirname, 'state.js'), 'utf8')));
   check('the card has all eight rule functions (' + names.join(', ') + ')', bodies.every(Boolean), names.filter((n, i) => !bodies[i]));
   if (bodies.every(Boolean)) {
-    const ctx = { HOUR: 3600000, PLANS: DATA.plans, DAYS: DATA.days, DAY_IDS: DATA.days.map(d => d.id),
+    const ctx = { SvcState:S, D:DATA, HOUR: 3600000, PLANS: DATA.plans, DAYS: DATA.days, DAY_IDS: DATA.days.map(d => d.id),
       FIRST_REAL: (DATA.days.filter(d => !d.ifNeeded)[0] || DATA.days[0]).id };
     vm.createContext(ctx);
     vm.runInContext(bodies.join('\n') + '\nthis.C = {svcDay, autoDay, tasksFor, jobStates, refStats, groupStats};', ctx);

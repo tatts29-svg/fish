@@ -125,3 +125,12 @@ footer .wrap{padding-bottom:36px}
 .day:focus-visible,.job:focus-visible,.ahead:focus-visible,.nav:focus-visible,.cbtn:focus-visible,.bbtn:focus-visible,.showall:focus-visible{outline:3px solid var(--hivis);outline-offset:2px}
 @media (prefers-reduced-motion:reduce){.bar i{transition:none}}
 @media (max-width:380px){.job b{font-size:18px}.ltitle{font-size:24px}}
+
+/* Only the compact status/progress strip stays above the jobs. Alerts and day controls scroll normally. */
+.compact{display:flex;align-items:center;justify-content:space-between;gap:6px;font-size:13px;line-height:1.25;font-variant-numeric:tabular-nums}
+.compact span{min-width:0}.compact b{font-size:17px;white-space:nowrap}.compact-day{font-weight:700}
+#view{display:grid;gap:12px}.progress-detail{padding:12px 14px}.progress-detail h3{font-size:16px;margin:0 0 8px}
+.task-progress{display:grid;gap:6px;margin:0;padding:10px 14px}.task-progress>div{display:flex;justify-content:space-between;align-items:baseline;gap:12px;font-size:13px}
+.task-progress dt{font-weight:600;min-width:0}.task-progress dd{margin:0;white-space:nowrap;font-variant-numeric:tabular-nums}
+#banners:empty{display:none}
+@media(max-height:700px){header h1{font-size:19px}header .wrap{gap:3px;padding-bottom:6px}.compact b{font-size:16px}}

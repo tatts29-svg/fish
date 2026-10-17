@@ -28,17 +28,17 @@ Content-Security-Policy. Nothing on it ticks the job record, changes a delivery 
   before it undoes. Only that reference can be ticked; the service checks the signature (a wrong one is refused and the card says so).
 - **No code** (or a code with no signature): every area read only, with percentages and finish times, and a day chooser.
 - **Percentages**: a job is one task on one line, weighed by the line's units (WC07's 20 FWF weigh 20); rounded down, so 759 of
-  760 shows 99%. The sticky header shows this area's % and everything's % after every tap, and "Area finished hh:mm" (its last job).
+  760 shows 99%. The compact sticky header shows this area's % and everything's % after every tap, and "Area finished hh:mm" (its last job).
   On the current data: 760 jobs a night, 777 on Sunday.
 - **Day**: 08:00 to 08:00 Gold Coast time from the service's clock (`now` on every read). Before the event it opens on Friday;
   Thursday is "if needed". It moves on at 08:00 by itself and says so, offering "Stay on <day>" to a phone that ticked in the last
-  hour. A day picked by hand shows a loud banner naming it and lapses at the next 08:00. A day not started yet can be looked at,
+  hour. A past-day choice names its expiry and ends after two hours at most, or 30 minutes without a tap. Other manual choices lapse at the next 08:00. Recent taps are retained across new QR tabs, and a tap across the rollover first redraws the visible day instead of silently recording a different day. A day not started yet can be looked at,
   not ticked.
-- **No signal**: taps go to an outbox on the phone (`gc500.svc1063.<token>.*` keys only) and show "waiting for signal"; each tick
+- **No signal**: taps go to an outbox on the phone (`gc500.svc1067.<token>.*` keys only) and show "waiting for signal"; each tick
   has its own id, so a resend is never counted twice. An untick names the tick ids it cancels, so a late untick never wipes
   another phone's newer tick. Reads every 15 s while the page is visible, and on signal back, focus and a new scan (hashchange).
-  The epoch changing (a recovery or a void) makes it read everything again and resend anything the service lost.
-- **Refusals**: 400/403/409/413 drop that one tick with a plain message and send the rest; 429 waits for Retry-After; a JSON 404
+  Each waiting and saved tick has its own immutable storage key, so one tab cannot overwrite another tab’s queue. The epoch changing (a recovery or a void) makes it read everything again and resend anything the service lost; dependencies send before their undo.
+- **Refusals**: 400/403/409/413 drop a permanent refusal with a plain message and send the rest; `400 job_cap` retains the tick and retries slowly; 429 waits for Retry-After; a JSON 404
   `withdrawn` (and any 404 not marked `no_tracker`) or a 410 stops it for good, keeping unsent ticks on the phone; `no_tracker`
   or an HTML 404 (an older service) waits and tries again at 60 s; `507 full` and `503 no_key` say "ring" and retry slowly.
 
@@ -50,7 +50,7 @@ since the card loaded shows "Reload"). An "already" for a voided tick carries `v
 the epoch changes. The mock does the same.
 
 The mock's edit-link answers now match the live v5.89 server. They were aligned on 18 Oct after the end-to-end run on the
-real server (`../integration/`), so page v10.63 can be tested on the mock and still work live:
+real server (`../integration/`), so page v10.67 can be tested on the mock and still work live:
 - `GET /api/ticks?token=` carries `tracker`, not `config`; voided ticks are marked `voided: true`; voids are listed apart in
   `voids: [{vid, ids, at}]`. Without a token it gives `{now, service_day, trackers}`; an unknown token gives 404 `no_tracker`.
 - `POST /api/ticks/void` answers `{voided: [ids], already: [ids], epoch}`; an id that is not a tick gives 400 `unknown_ids`.
@@ -69,6 +69,25 @@ withdrawn/finished/older service on fake timers, and 360 px light and dark with 
 
 ## Still to do
 
-- The main page (v10.63) posts this HTML with `tracker_config.json` and prints the sheets; it passes the TEAM lead as
-  `--contact-name/--contact-phone` (or the card says "the project manager whose name is on your paperwork").
+- The main page (v10.67) posts this HTML with `tracker_config.json` and prints the sheets; it passes the TEAM lead as
+  `--contact-name/--contact-phone` (or the card says "Contact the Coates events project manager on site").
 - Nothing here has touched the live service. Deploy and the page release wait for Andrew's "Upload".
+
+## Reliability fixes for page v10.67 (18 Oct 2026, draft)
+
+- `card_src.js` and the panel embed exactly the same `panel_mockup/state.js`; task progress shows weighted done/total jobs for each area, as well as overall percentages.
+- Only a compact status/day/percentage strip stays sticky. Alerts, day choices and full totals scroll in the page, so multiple refusals cannot cover the job buttons.
+- Last confirmed tick snapshots and the service-clock offset stay on this phone. A fresh offline scan shows **Saved copy** with its time, not Live; without a prior service clock, ticking is disabled until a read succeeds.
+- `tracker_sw.js` caches only the exact `/d/<token>` HTML, with or without its trailing slash. It never handles the tick API, any write, another token, or the main page. A 404/410 removes the cached card. The v5.90 server serves this worker with token-specific scope and permits it only on tracker cards.
+- Open a sheet once with signal and wait for **Ready for offline scans** before relying on fresh offline scans on that phone. The worker must acknowledge a saved card before that message appears. A first-ever offline scan cannot work; storage/browser restrictions are reported honestly.
+- Stored events use `gc500.svc1067.<token>.ob.<id>` / `sent.<id>`. Snapshot keys are immutable; a stale tab cannot overwrite a newer confirmed snapshot. An undo is always explicit because a second tab may already be sending its target.
+
+New local-only regression sources: `test_reliability.cjs` (VM storage/time/state), `test_offline_tabs.cjs` (fresh offline scan, two real tabs, 08:00 and 360 × 640 header). Browser validation and real-server integration are release gates, not implied by the earlier v5.89 results above. No live tracker or operational record has been created by this work.
+
+## Source freeze and verification (18 Oct 2026)
+
+Author: Andrew Fisher. Production card SHA-256 `953233d43de21949f5a7704ee19c973c94b9864a789c86aef9f6d90437a85842` (85,771 bytes), script CSP pin `sha256-FH7yTunzdga9W3zQlEGG4smavLW5vYWlvt9ojHhil9Y=`. The accompanying v5.90 crew GET adds `card_script_hash` using the same exact stored-script function that supplies the response CSP. The card compares this with a digest of its own executed script. An old offline shell therefore cannot silently keep old quantities, tasks, contact data or code after reconnecting. A mismatch disables ticks and asks for Reload; a received identity with a still-pending digest also disables ticks until verified. The cached timestamp is dated explicitly.
+
+Completed local checks: `test_reliability.cjs` 18/18; `test_worker.cjs` 14/14 (including Cache Storage quota/access failure); final `test_offline_tabs.cjs` 18/18 (fresh offline tabs, two-tab persistence, small-phone header, same-day/same-timestamp quantity upgrade, pending digest). No page errors or CSP violations. The 360 × 640 screenshot `evidence/card_compact_late_360.png` was inspected: the sticky strip stays compact and the jobs scroll clear of it. The earlier full card suite passed 158/158 before the final pending-digest guard; a final full-suite repeat and exact-server protocol integration are tracked separately below rather than assumed complete.
+
+`test_server_protocol.cjs` is the focused real v5.90 integration driver: a throw-away local data directory, fake tokens, two synthetic references, and no remote requests. It checks crew/admin cursors, exact HTML/script/worker bytes, cached reopening, queued taps across tabs, same-token HTML changes, weighted totals and an unchanged job-record file. The main-page administrative flow has a separate owner/test. Real iPhone/Android camera scanning, private browsing persistence and carrier-network operation are not claimed by local Chromium results.

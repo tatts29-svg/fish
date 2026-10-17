@@ -1,0 +1,72 @@
+{
+  "author": "Andrew Fisher",
+  "checked_at_utc": "2026-10-17T23:37:46.385784+00:00",
+  "candidate_sha256": "fb69c73d65b1cc5d206f902d6be226a08b463e6d86abbe7b38292be5d3798524",
+  "candidate_bytes": 289048,
+  "local_fake_token_servers_only": true,
+  "live_writes": 0,
+  "baseline_full_suite": {
+    "author": "Andrew Fisher",
+    "checked_at_utc": "2026-10-17T23:22:35.899744+00:00",
+    "candidate_sha256": "afd7c216b5e5fa63964a7cb57b655fb7276f982029b3d9338a9847fd414ab1e8",
+    "candidate_bytes": 288809,
+    "local_fake_token_servers_only": true,
+    "live_writes": 0,
+    "checks": {
+      "test_tracker.js": {
+        "passed": 84,
+        "failed": 0
+      },
+      "test_tracker590.js": {
+        "passed": 20,
+        "failed": 0
+      },
+      "test_delivery_v586_on_v590.js": {
+        "passed": 45,
+        "failed": 0
+      },
+      "test_mms_sender_v587_on_v590.js": {
+        "passed": 14,
+        "failed": 0
+      },
+      "test_mms_v585_on_v590.js": {
+        "passed": 37,
+        "failed": 0
+      },
+      "rehearse_deploy.js": {
+        "passed": 14,
+        "failed": 0
+      }
+    },
+    "total": 214,
+    "browser_integration": "pending card owner",
+    "independent_review": "pending"
+  },
+  "final_revision_changes": [
+    "worker cache failure cannot discard successful network response",
+    "truthful missing contact fallback",
+    "crew GET exposes the exact served card script hash for cached-shell identity"
+  ],
+  "affected_checks_on_final_candidate": {
+    "test_tracker590.js": {
+      "passed": 25,
+      "failed": 0
+    },
+    "../servicing_tracker_DRAFT/card/test_worker.cjs": {
+      "passed": 14,
+      "failed": 0
+    },
+    "node_check": true,
+    "rebuild_identical": true,
+    "repeat_refused": true,
+    "worker_matches_card_source": true
+  },
+  "affected_check_total": 39,
+  "browser_integration": "pending card owner",
+  "independent_review": "Prior server changes source-reviewed; exact script-hash delta awaiting parent review. Browser integration remains pending.",
+  "previous_revision": {
+    "candidate_sha256": "28bf93197cf7428be2230da1958d3780ddb811fdbad3844e3e439f570dd24883",
+    "candidate_bytes": 289002,
+    "affected_check_total": 36
+  }
+}

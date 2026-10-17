@@ -99,7 +99,22 @@ function groupStats(cfg, refs, day, st) {
     units: units, unitsDone: unitsDone };
 }
 
+
+/* Per-crew job totals use the same unit weights and completed job states as the area percentage. */
+function taskStats(cfg, refs, day, st) {
+  var out = Object.create(null);
+  refs.forEach(function (r) { r.lines.forEach(function (l) {
+    tasksFor(cfg, l, day).forEach(function (t) {
+      var g = out[t] || (out[t] = { w: 0, d: 0, pct: 0 });
+      g.w += l.qty;
+      if (st[jobKey(l.id, t, day)]) g.d += l.qty;
+    });
+  }); });
+  Object.keys(out).forEach(function (t) { out[t].pct = pct(out[t].d, out[t].w); });
+  return out;
+}
+
 return { HOUR: HOUR, svcDay: svcDay, dayStart: dayStart, hm: hm, dayOf: dayOf, autoDay: autoDay, dayOpen: dayOpen,
-  tasksFor: tasksFor, jobKey: jobKey, jobStates: jobStates, jobAt: jobAt, pct: pct, refStats: refStats, groupStats: groupStats };
+  tasksFor: tasksFor, jobKey: jobKey, jobStates: jobStates, jobAt: jobAt, pct: pct, refStats: refStats, groupStats: groupStats, taskStats: taskStats };
 })();
 if (typeof module === 'object' && module && module.exports) module.exports = SvcState;

@@ -82,7 +82,9 @@ function buildCardHtml(data, opts) {
   const css = fs.readFileSync(path.join(HERE, 'card.css'), 'utf8');
   const src = fs.readFileSync(path.join(HERE, 'card_src.js'), 'utf8');
   if (src.indexOf('/*DATA*/null') < 0) throw new Error('card_src.js has lost its /*DATA*/null placeholder');
-  const script = src.replace('/*DATA*/null', () => scriptJson(cardData(data, opts)));
+  const state = fs.readFileSync(path.join(HERE, '..', 'panel_mockup', 'state.js'), 'utf8');
+  if (!src.includes('/*SHARED_STATE*/')) throw new Error('card must embed the shared state rule');
+  const script = src.replace('/*DATA*/null', () => scriptJson(cardData(data, opts))).replace('/*SHARED_STATE*/', () => state);
   if (/<\/script/i.test(script) || /<!--/.test(script)) throw new Error('the card script would close itself early');
   if (/<\/style/i.test(css)) throw new Error('the card styles would close themselves early');
   const html = '<!doctype html>\n<html lang="en-AU">\n<head>\n<meta charset="utf-8">\n'
@@ -93,16 +95,20 @@ function buildCardHtml(data, opts) {
     + '<!-- GC500 servicing tracker crew card. Author: Andrew Fisher. Track only: nothing here ticks the job record or changes a charge. Data: ' + escHtml(data.version || '') + ' -->\n'
     + '<header><div class="wrap">\n'
     + '<div class="top"><h1>GC500 Servicing</h1><span id="status" class="status">Connecting…</span></div>\n'
+    + '<div id="compact" class="compact" aria-label="Service day and progress"></div>\n'
+    + '</div></header>\n'
+    + '<main><div class="wrap">\n'
     + '<div id="banners" class="bars"></div>\n'
     + '<div class="days" id="days" role="group" aria-label="Service day, 08:00 to 08:00"></div>\n'
     + '<div class="window" id="window"></div>\n'
-    + '<div class="bars" id="bars"></div>\n'
-    + '</div></header>\n'
-    + '<main><div class="wrap" id="view"><noscript><p>This card needs JavaScript switched on to show and tick the servicing.</p></noscript></div></main>\n'
+    + '<div id="view"><noscript><p>This card needs JavaScript switched on to show and tick the servicing.</p></noscript></div>\n'
+    + '<section class="card progress-detail" aria-label="Progress totals"><div class="bars" id="bars"></div></section>\n'
+    + '<p class="note" id="readiness" role="status">Preparing offline scans…</p>\n'
+    + '</div></main>\n'
     + '<footer><div class="wrap"><p class="note">Track only: nothing here ticks the job record or changes a charge. Times are Gold Coast time; each service day runs 08:00 to 08:00.</p>'
     + '<p class="note">' + (opts && opts.contact && opts.contact.phone
       ? 'Questions: ring <a href="tel:' + escHtml(String(opts.contact.phone).replace(/[^0-9+]/g, '')) + '">' + escHtml(opts.contact.name || 'the Coates events project manager') + ' on ' + escHtml(opts.contact.phone) + '</a>.'
-      : 'Questions: ring the Coates events project manager whose name is on your paperwork.') + '</p>'
+      : 'Questions: contact the Coates events project manager on site.') + '</p>'
     + '<p class="note">GC500 · Coates · Author: Andrew Fisher</p></div></footer>\n'
     + '<div id="say" class="sr" aria-live="polite"></div>\n'
     + '<script>' + script + '</script>\n</body>\n</html>\n';

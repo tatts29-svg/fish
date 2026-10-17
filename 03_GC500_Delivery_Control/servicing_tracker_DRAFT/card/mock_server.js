@@ -31,7 +31,7 @@
 'use strict';
 const http = require('http'), fs = require('fs'), path = require('path'), crypto = require('crypto');
 
-const SERVER_JS = process.env.SERVER_JS || path.join(__dirname, '..', '..', 'server_v5.87_pictures_from_shared_number_LIVE', 'server.js');
+const SERVER_JS = process.env.SERVER_JS || path.join(__dirname, '..', '..', 'server_v5.89_servicing_tracker_DRAFT', 'server.js');
 const TASK_IDS = ['pump', 'water', 'clean', 'lock'];
 const CARD_TOKEN_RE = /^[A-Za-z0-9_-]{20,64}$/;
 const DAY_RE = /^\d{4}-\d{2}-\d{2}$/;
@@ -234,6 +234,15 @@ function createMock(opts) {
       return send(res, 404, { error: 'no such control' });
     }
 
+    if ((m = p.match(/^\/d\/([A-Za-z0-9_-]+)\/sw\.js$/)) && req.method === 'GET') {
+      const c = cards.get(m[1]);
+      if (!c || !c.tracker) return send(res, 404, { code: 'withdrawn' });
+      if (expired(c)) return send(res, 410, { code: 'expired' });
+      return send(res, 200, fs.readFileSync(path.join(__dirname, 'tracker_sw.js'), 'utf8'), {
+        'Content-Type': 'text/javascript; charset=utf-8', 'Service-Worker-Allowed': '/d/' + m[1],
+        'Content-Security-Policy': "default-src 'none'; connect-src 'self'; script-src 'self'", 'X-Content-Type-Options': 'nosniff'
+      });
+    }
     if ((m = p.match(/^\/d\/([A-Za-z0-9_-]+)\/report(\/scoped)?\/?$/))) {
       const has = cards.has(m[1]), c = has ? cards.get(m[1]) : null;
       if (c && c.tracker) return send(res, 404, { error: 'a servicing tracker takes no reports', code: 'no_reports' });
@@ -253,7 +262,7 @@ function createMock(opts) {
         const more = list.length > o.pageSize; if (more) list = list.slice(0, o.pageSize);
         /* as the v5.89 draft: when there is more, seq is the last one sent and more:true */
         return send(res, 200, { now: new Date(now()).toISOString(), epoch: st.epoch, seq: more ? list[list.length - 1].seq : st.seq, days: c.tracker.days,
-          ticks: list.map(pub), service_day: svcDay(now()), updated: c.updated, more });
+          ticks: list.map(pub), service_day: svcDay(now()), updated: c.updated, card_script_hash: cardScriptHash(c.html), more });
       }
       if (req.method === 'POST') return postTicks(req, res, token, c);
       return send(res, 405, { error: 'GET or POST' }, { Allow: 'GET, POST' });
@@ -265,7 +274,7 @@ function createMock(opts) {
       if (expired(c)) return send(res, 410, page('This card has expired', '<p>It stopped working after ' + c.expires + '.</p>'));
       c.opens++;
       return send(res, 200, c.html, {
-        'Content-Type': 'text/html; charset=utf-8', 'Content-Security-Policy': csp(cardScriptHash(c.html)),
+        'Content-Type': 'text/html; charset=utf-8', 'Content-Security-Policy': csp(cardScriptHash(c.html)) + (c.tracker ? "; worker-src 'self'" : ''),
         'X-Frame-Options': 'DENY', 'Referrer-Policy': 'no-referrer', 'X-Content-Type-Options': 'nosniff', 'Cache-Control': 'no-store',
       });
     }

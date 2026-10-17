@@ -8,13 +8,13 @@ const fs = require('fs'), path = require('path');
 process.env.PLAYWRIGHT_BROWSERS_PATH = process.env.PLAYWRIGHT_BROWSERS_PATH || '/opt/pw-browsers';
 let pw;
 try { pw = require(path.join(__dirname, '..', '..', 'toolchain', 'node_modules', 'playwright')); }
-catch (e) { pw = require('/opt/node-tools/node_modules/playwright'); }
+catch (e) { pw = require('playwright'); }
 const { chromium } = pw;
 const { createMock, cardCspFromServer, cardScriptHash, sigFor } = require('./mock_server.js');
 const { buildCardHtml, trackerConfig, cardScriptHash: genHash } = require('./build_card.js');
 
 const DATA = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'tracker_data.json'), 'utf8'));
-const SERVER_JS = path.join(__dirname, '..', '..', 'server_v5.87_pictures_from_shared_number_LIVE', 'server.js');
+const SERVER_JS = path.join(__dirname, '..', '..', 'server_v5.89_servicing_tracker_DRAFT', 'server.js');
 const EVID = path.join(__dirname, 'evidence'); fs.mkdirSync(EVID, { recursive: true });
 const wait = ms => new Promise(r => setTimeout(r, ms));
 let pass = 0, fail = 0; const fails = [];
@@ -114,12 +114,12 @@ const at = s => Date.parse(s);       /* '2026-10-23T22:00:00+10:00' */
   check('an untick that names nothing: 400', (await post([mk({ done: false, undoes: [] })])).status === 400);
   check('report routes on a tracker card: 404', (await api('POST', '/d/' + TOKEN + '/report', {})).status === 404 && (await api('POST', '/d/' + TOKEN + '/report/scoped', {})).status === 404);
   check('prototype names are not tokens (propertyIsEnumerable, constructor)', (await api('GET', '/d/propertyIsEnumerable/ticks')).status === 404 && (await api('GET', '/d/constructor_constructor_x/ticks')).status === 404);
-  check('the card page is served under the card CSP read from server.js', (await api('GET', '/d/' + TOKEN)).h.get('content-security-policy') === cardCspFromServer(SERVER_JS)(cardScriptHash(html)));
+  check('the card page is served under the card CSP read from server.js', (await api('GET', '/d/' + TOKEN)).h.get('content-security-policy') === cardCspFromServer(SERVER_JS)(cardScriptHash(html)) + "; worker-src 'self'");
   const csp = (await api('GET', '/d/' + TOKEN)).h.get('content-security-policy');
-  check('that CSP is the v5.87 card policy word for word', csp === "default-src 'none'; img-src data: blob:; style-src 'unsafe-inline'; font-src data:; script-src '" + cardScriptHash(html) + "'; connect-src 'self'; form-action 'none'; base-uri 'none'; frame-ancestors 'none'", csp);
+  check('tracker CSP keeps the pinned script and permits its own offline worker', csp === "default-src 'none'; img-src data: blob:; style-src 'unsafe-inline'; font-src data:; script-src '" + cardScriptHash(html) + "'; connect-src 'self'; form-action 'none'; base-uri 'none'; frame-ancestors 'none'; worker-src 'self'", csp);
 
   /* ================================================================ browser */
-  const browser = await chromium.launch();
+  const browser = await chromium.launch({ executablePath: process.env.CHROMIUM_PATH || undefined });
   const phones = [];
   async function phone(name, opts) {
     opts = opts || {};
@@ -144,7 +144,7 @@ const at = s => Date.parse(s);       /* '2026-10-23T22:00:00+10:00' */
   /* pages on fake timers are watched from here, with real sleeps */
   const until = async (P, fn, arg, ms) => { const end = Date.now() + (ms || 10000); while (Date.now() < end) { if (await P.page.evaluate(fn, arg)) return true; await wait(150); } return false; };
   const liveSlow = P => until(P, () => /^Live/.test(document.getElementById('status').textContent), null, 15000);
-  const settle = P => P.page.waitForFunction(() => window.svc1063 && window.svc1063.outbox().length === 0, null, { timeout: 30000 });
+  const settle = P => P.page.waitForFunction(() => window.svc1067 && window.svc1067.outbox().length === 0, null, { timeout: 30000 });
   const kick = P => P.page.evaluate(() => window.dispatchEvent(new Event('online')));
   const jobs = P => P.page.$$eval('[data-job]', bs => bs.map(b => ({ key: b.dataset.job, word: b.querySelector('b').textContent, sub: b.querySelector('small').textContent, pressed: b.getAttribute('aria-pressed'), cls: b.className, disabled: b.disabled })));
   const job = async (P, key) => (await jobs(P)).find(j => j.key === key);
@@ -169,21 +169,21 @@ const at = s => Date.parse(s);       /* '2026-10-23T22:00:00+10:00' */
   check('before the event the jobs are shut ("Opens Fri 23 08:00")', (await jobs(C)).every(j => j.disabled && /Opens Fri 23 08:00/.test(j.sub)), await jobs(C));
   check('a banner says servicing has not started', /Servicing has not started/.test(await banners(C)));
   const days = await C.page.evaluate(() => {
-    const f = window.svc1063.autoDay, p = s => Date.parse(s);
+    const f = window.svc1067.autoDay, p = s => Date.parse(s);
     return [f(p('2026-10-22T07:59:59+10:00')), f(p('2026-10-22T08:00:00+10:00')), f(p('2026-10-23T07:59:00+10:00')), f(p('2026-10-23T08:00:00+10:00')),
-      f(p('2026-10-25T23:59:00+10:00')), f(p('2026-10-26T07:59:00+10:00')), f(p('2026-10-26T09:00:00+10:00')), window.svc1063.svcDay(p('2026-10-24T08:00:00+10:00'))];
+      f(p('2026-10-25T23:59:00+10:00')), f(p('2026-10-26T07:59:00+10:00')), f(p('2026-10-26T09:00:00+10:00')), window.svc1067.svcDay(p('2026-10-24T08:00:00+10:00'))];
   });
   check('day boundaries: Thu 07:59:59 Fri, 08:00 Thu, Fri 07:59 Thu, 08:00 Fri, Sun late Sun, Mon 07:59 Sun, Mon 09:00 Sun', JSON.stringify(days) === JSON.stringify([FRI, '2026-10-22', '2026-10-22', FRI, SUN, SUN, SUN, SAT]), days);
   check('Thursday is labelled "if needed"', await C.page.$eval('#day-2026-10-22', b => b.textContent) === 'Thu 22if needed');
   await C.page.click('[data-job="WC07-FWF|pump"]', { force: true }).catch(() => {});
-  check('a shut job cannot be ticked', (await C.page.evaluate(() => window.svc1063.outbox().length)) === 0);
+  check('a shut job cannot be ticked', (await C.page.evaluate(() => window.svc1067.outbox().length)) === 0);
   await C.ctx.close();
 
   /* pure rules */
   const pure = await (async () => {
     const P = await phone('pure'); await P.page.goto(BASE); await live(P);
     const r = await P.page.evaluate(() => {
-      const S = window.svc1063, out = {};
+      const S = window.svc1067, out = {};
       const ev = (id, o) => Object.assign({ id, ref: 'WC07', line: 'WC07-FWF', task: 'pump', day: '2026-10-23', done: true, undoes: [] }, o);
       const nowMs = Date.parse('2026-10-23T14:00:00Z');
       let st = S.jobStates([ev('a', { at: '2026-10-23T12:10:00Z', tapped_at: '2026-10-23T12:05:00Z' }), ev('b', { at: '2026-10-23T12:20:00Z', tapped_at: '2026-10-23T12:01:00Z' })], nowMs);
@@ -288,9 +288,9 @@ const at = s => Date.parse(s);       /* '2026-10-23T22:00:00+10:00' */
   await tap(A, 'WC07-FWF|clean');
   await A.page.waitForFunction(() => /Not saved/.test(document.getElementById('banners').textContent), null, { timeout: 15000 }).catch(() => {});
   check('WC06\'s code on WC07: the service refuses it (403), the card says so and drops it', serverTicks().length === before07 && /Not saved:.*WC07.*Cleaned & restocked.*not the one printed for WC07/.test(await banners(A)) && (await job(A, 'WC07-FWF|clean')).pressed === 'false', await banners(A));
-  await A.page.click('[data-dismiss="n0"]');
+  await A.page.click('[data-dismiss="notices"]');
   await A.page.evaluate(() => { location.hash = '#r=WC07'; });
-  await A.page.waitForFunction(() => window.svc1063.mode() === 'view');
+  await A.page.waitForFunction(() => window.svc1067.mode() === 'view');
   check('a code with no signature: view only, says so, no tick buttons', (await A.page.$$('[data-job]')).length === 0 && /no completion code/.test(await banners(A)));
   await A.page.evaluate(() => { location.hash = '#r=ZZ99.abcdefghijklmnop'; });
   await A.page.waitForFunction(() => /not on this tracker/.test(document.getElementById('banners').textContent));
@@ -305,7 +305,7 @@ const at = s => Date.parse(s);       /* '2026-10-23T22:00:00+10:00' */
   await A.page.waitForFunction(() => /3 ticks waiting/.test(document.getElementById('status').textContent), null, { timeout: 15000 }).catch(() => {});
   check('offline: "No signal · 3 ticks waiting"', /No signal · 3 ticks waiting/.test(await A.page.textContent('#status')), await A.page.textContent('#status'));
   check('offline: the jobs show as waiting for signal', (await jobs(A)).every(j => /pending/.test(j.cls) && /waiting for signal/.test(j.sub)));
-  check('offline: 3 in the outbox on the phone, none on the service', (await A.page.evaluate(t => JSON.parse(localStorage.getItem('gc500.svc1063.' + t + '.outbox')).length, TOKEN)) === 3 && findTick({ ref: 'WC41' }).length === 0);
+  check('offline: 3 in the outbox on the phone, none on the service', (await A.page.evaluate(t => Object.keys(localStorage).filter(k => k.startsWith('gc500.svc1067.' + t + '.ob.')).length, TOKEN)) === 3 && findTick({ ref: 'WC41' }).length === 0);
   const area6 = AREA_OF.WC41, w6 = weight(area6.refs, FRI), q41 = REF.WC41.lines[0].qty;
   check('offline: the area percentage already counts them (' + pctOf(3 * q41, w6) + '%)', (await bars(A))[0].pct === pctOf(3 * q41, w6) + '%');
   mock.setNow('2026-10-23T13:05:00Z');     /* five minutes later */
@@ -328,7 +328,7 @@ const at = s => Date.parse(s);       /* '2026-10-23T22:00:00+10:00' */
   const a1 = findTick({ ref: 'WC11', task: 'pump' })[0];
   await A.ctx.setOffline(true);
   await tap(A, 'WC11-FWF|pump'); await A.page.click('[data-undo="WC11-FWF|pump"]');
-  check('A (offline) queues an untick naming its own tick', JSON.stringify((await A.page.evaluate(() => window.svc1063.outbox()))[0].undoes) === JSON.stringify([a1.id]));
+  check('A (offline) queues an untick naming its own tick', JSON.stringify((await A.page.evaluate(() => window.svc1067.outbox()))[0].undoes) === JSON.stringify([a1.id]));
   mock.setNow('2026-10-23T13:15:00Z');
   await tap(B, 'WC11-FWF|pump');                             /* B services it again, offline */
   await B.ctx.setOffline(false); await settle(B);
@@ -348,7 +348,7 @@ const at = s => Date.parse(s);       /* '2026-10-23T22:00:00+10:00' */
     if (route.request().method() === 'POST' && !cut) { cut = true; await route.fetch(); await route.abort(); } else await route.continue();
   });
   await tap(A, 'WC50-FWF|pump');
-  await A.page.waitForFunction(() => window.svc1063.outbox().length === 0, null, { timeout: 30000 }).catch(() => {});
+  await A.page.waitForFunction(() => window.svc1067.outbox().length === 0, null, { timeout: 30000 }).catch(() => {});
   const w50 = findTick({ ref: 'WC50', task: 'pump' });
   check('the service got it on the first try, the card retried, exactly 1 stored', cut && w50.length === 1 && mock.log.filter(l => l.what === 'ticks' && l.already === 1).length >= 1, { stored: w50.length });
   await A.page.unroute('**/ticks');
@@ -385,7 +385,7 @@ const at = s => Date.parse(s);       /* '2026-10-23T22:00:00+10:00' */
   const rec = mock.recover(TOKEN, 2);
   check('(service loses the newest 2 ticks, new epoch, seq reused)', rec.lost === 2 && lostIds.every(id => !serverTicks().some(t => t.id === id)), rec);
   await kick(A);
-  await A.page.waitForFunction(() => window.svc1063.outbox().length === 0, null, { timeout: 20000 }).catch(() => {});
+  await A.page.waitForFunction(() => window.svc1067.outbox().length === 0, null, { timeout: 20000 }).catch(() => {});
   await wait(1500); await kick(A); await wait(1000);
   check('the phone re-sent them (same ids)', lostIds.every(id => serverTicks().some(t => t.id === id)), serverTicks().filter(t => t.ref === 'WC50').map(t => t.id));
   check('and still shows WC50 done', (await jobs(A)).every(j => j.pressed === 'true'));
@@ -411,7 +411,7 @@ const at = s => Date.parse(s);       /* '2026-10-23T22:00:00+10:00' */
   mock.mode.noKey = true;
   await tap(A, 'WC23-FWF|clean');
   await A.page.waitForFunction(() => /cannot check completion codes/.test(document.getElementById('banners').textContent), null, { timeout: 10000 }).catch(() => {});
-  check('503 no_key: a banner, the tick kept on the phone', /cannot check completion codes/.test(await banners(A)) && (await A.page.evaluate(() => window.svc1063.outbox().length)) === 1);
+  check('503 no_key: a banner, the tick kept on the phone', /cannot check completion codes/.test(await banners(A)) && (await A.page.evaluate(() => window.svc1067.outbox().length)) === 1);
   mock.mode.noKey = false; await kick(A); await settle(A);
   check('and it goes once the service can', findTick({ ref: 'WC23', task: 'clean' }).length === 1 && !/cannot check/.test(await banners(A)));
 
@@ -486,8 +486,8 @@ const at = s => Date.parse(s);       /* '2026-10-23T22:00:00+10:00' */
   for (const P of [A, B]) {
     const keys = await P.page.evaluate(() => Object.keys(localStorage));
     const got = await P.page.evaluate(() => window.__lsget);
-    check(P.name + ': localStorage holds only gc500.svc1063.* keys', keys.length > 0 && keys.every(k => k.startsWith('gc500.svc1063.')), keys);
-    check(P.name + ': never reads gc500.edit, gc500.view or any other key', got.every(k => k.startsWith('gc500.svc1063.')), got.filter(k => !k.startsWith('gc500.svc1063.')));
+    check(P.name + ': localStorage holds only gc500.svc1067.* keys', keys.length > 0 && keys.every(k => k.startsWith('gc500.svc1067.')), keys);
+    check(P.name + ': never reads gc500.edit, gc500.view or any other key', got.every(k => k.startsWith('gc500.svc1067.')), got.filter(k => !k.startsWith('gc500.svc1067.')));
     check(P.name + ': no Content-Security-Policy violation', (await P.page.evaluate(() => window.__cspv)).length === 0, await P.page.evaluate(() => window.__cspv));
     check(P.name + ': every request stayed on the service (127.0.0.1)', P.reqs.every(r => new URL(r.url).hostname === '127.0.0.1'), P.reqs.filter(r => new URL(r.url).hostname !== '127.0.0.1').map(r => r.url));
     check(P.name + ': no script errors', P.errors.length === 0, P.errors);
@@ -519,9 +519,9 @@ const at = s => Date.parse(s);       /* '2026-10-23T22:00:00+10:00' */
   await W.page.unroute('**/ticks');
   await api('DELETE', '/api/cards/' + TW, null, E);
   await W.page.clock.runFor(16000);
-  await until(W, () => window.svc1063.final() === 'withdrawn');
-  check('withdrawn: banner, ticking stops', await W.page.evaluate(() => window.svc1063.final()) === 'withdrawn' && /withdrawn/i.test(await banners(W)) && (await jobs(W)).every(j => j.disabled), await banners(W));
-  check('withdrawn: the unsent tick is kept on the phone and said so', (await W.page.evaluate(() => window.svc1063.outbox().length)) === 1 && /1 unsent tick is kept/.test(await banners(W)));
+  await until(W, () => window.svc1067.final() === 'withdrawn');
+  check('withdrawn: banner, ticking stops', await W.page.evaluate(() => window.svc1067.final()) === 'withdrawn' && /withdrawn/i.test(await banners(W)) && (await jobs(W)).every(j => j.disabled), await banners(W));
+  check('withdrawn: the unsent tick is kept on the phone and said so', (await W.page.evaluate(() => window.svc1067.outbox().length)) === 1 && /1 unsent tick is kept/.test(await banners(W)));
   let n0 = W.reqs.filter(r => /\/ticks/.test(r.url)).length;
   await W.page.clock.runFor(61000);
   await W.page.evaluate(() => { window.dispatchEvent(new Event('online')); document.dispatchEvent(new Event('visibilitychange')); window.dispatchEvent(new HashChangeEvent('hashchange')); });
@@ -533,8 +533,8 @@ const at = s => Date.parse(s);       /* '2026-10-23T22:00:00+10:00' */
   await X.page.goto(tickUrl('WC12')); await liveSlow(X);
   mock.setNow('2026-10-26T14:30:00Z');     /* Tue 27 00:30 AEST: the card's expires day has passed */
   await X.page.clock.runFor(16000);
-  await until(X, () => window.svc1063.final() === 'expired');
-  check('finished (410): banner, ticking stops', await X.page.evaluate(() => window.svc1063.final()) === 'expired' && /Servicing has finished/.test(await banners(X)));
+  await until(X, () => window.svc1067.final() === 'expired');
+  check('finished (410): banner, ticking stops', await X.page.evaluate(() => window.svc1067.final()) === 'expired' && /Servicing has finished/.test(await banners(X)));
   n0 = X.reqs.filter(r => /\/ticks/.test(r.url)).length;
   await X.page.clock.runFor(61000); await wait(500);
   check('finished: no request for 60 s', X.reqs.filter(r => /\/ticks/.test(r.url)).length === n0);
@@ -546,7 +546,7 @@ const at = s => Date.parse(s);       /* '2026-10-23T22:00:00+10:00' */
   mock.mode.html404 = true;
   await Y.page.clock.runFor(16000);
   await until(Y, () => /being updated/.test(document.getElementById('banners').textContent));
-  check('an HTML 404 (older service): "being updated", not stopped', /being updated/.test(await banners(Y)) && await Y.page.evaluate(() => window.svc1063.final()) === null);
+  check('an HTML 404 (older service): "being updated", not stopped', /being updated/.test(await banners(Y)) && await Y.page.evaluate(() => window.svc1067.final()) === null);
   n0 = Y.reqs.filter(r => /\/ticks/.test(r.url)).length;
   await Y.page.clock.runFor(30000); await wait(400);
   const n30 = Y.reqs.filter(r => /\/ticks/.test(r.url)).length;
