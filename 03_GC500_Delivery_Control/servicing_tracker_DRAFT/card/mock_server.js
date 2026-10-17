@@ -92,7 +92,7 @@ function createMock(opts) {
   const stores = new Map();         /* token -> {events: [], byId, seq, epoch, voided:Set, jobs:Map} */
   const misses = new Map(), addrHits = new Map(), tokenHits = new Map();
   const log = [];                   /* what a test can read back: one line per request */
-  const mode = { html404: false, fail500: 0, abortNextPost: 0 };
+  const mode = { html404: false, fail500: 0, abortNextPost: 0, noKey: false };
 
   const newEpoch = () => crypto.randomBytes(6).toString('base64url');
   const storeFor = token => {
@@ -154,19 +154,21 @@ function createMock(opts) {
     const dayById = new Map(tr.days.map(d => [d.id, d]));
     const refs = new Set(tr.lines.map(l => l.ref));
     const fresh = [], answers = [], batchIds = new Map(), batchJobs = new Map();
-    for (const t of body.ticks) {
-      if (!plain(t)) return send(res, 400, { error: 'a tick is an object', code: 'shape' });
-      const bad = (msg, code) => send(res, 400, { error: msg, code: code || 'bad' });
-      if (typeof t.id !== 'string' || !/^[A-Za-z0-9_-]{16,64}$/.test(t.id)) return bad('a tick id is 16 to 64 letters, digits, - or _');
-      if (typeof t.ref !== 'string' || !refs.has(t.ref)) return bad('that reference is not on this tracker');
-      if (typeof t.sig !== 'string' || !sameStr(t.sig, sigFor(c.secret, token, t.ref))) return send(res, 403, { error: 'this QR code is not the one printed for ' + t.ref, code: 'sig' });
+    for (let i = 0; i < body.ticks.length; i++) {
+      const t = body.ticks[i];
+      const named = (status, code, msg) => send(res, status, { error: msg, code, index: i, id: t && typeof t.id === 'string' ? t.id.slice(0, 64) : null });
+      if (!plain(t)) return named(400, 'bad_tick', 'a tick is an object');
+      const bad = (msg, code) => named(400, code || 'bad_tick', msg);
+      if (typeof t.id !== 'string' || !/^[A-Za-z0-9_-]{16,64}$/.test(t.id)) return bad('a tick id is 16 to 64 letters, digits, - or _', 'bad_id');
+      if (typeof t.ref !== 'string' || !/^[A-Z0-9]{1,16}$/.test(t.ref) || typeof t.sig !== 'string' || !sameStr(t.sig, sigFor(c.secret, token, t.ref))) return named(403, 'bad_sig', 'this QR code is not the one printed for ' + t.ref);
+      if (!refs.has(t.ref)) return bad('that reference is not on this tracker', 'line');
       const line = lineById.get(t.line);
-      if (!line || line.ref !== t.ref) return bad('that line is not part of ' + t.ref);
+      if (!line || line.ref !== t.ref) return bad('that line is not part of ' + t.ref, 'line');
       const day = dayById.get(t.day);
-      if (!day) return bad('that day is not a service day');
-      if (t.day > cur) return bad(t.day + ' has not started yet', 'day');
+      if (!day) return bad('that day is not a service day', 'day');
+      if (t.day > cur) return bad(t.day + ' has not started yet', 'future_day');
       const allowed = tr.plans[line.kind][day.plan] || [];
-      if (allowed.indexOf(t.task) < 0) return bad('that job is not on ' + t.day + ' for this line');
+      if (allowed.indexOf(t.task) < 0) return bad('that job is not on ' + t.day + ' for this line', 'task');
       if (typeof t.done !== 'boolean') return bad('done is true or false');
       const undoes = t.undoes == null ? [] : t.undoes;
       if (!Array.isArray(undoes) || undoes.length > 20 || undoes.some(x => typeof x !== 'string')) return bad('undoes is a list of tick ids');
@@ -182,13 +184,13 @@ function createMock(opts) {
       const content = JSON.stringify([t.ref, t.line, t.task, t.day, t.done, undoes, t.tapped_at == null ? null : t.tapped_at]);
       const prior = st.byId.get(t.id) || (batchIds.get(t.id) && batchIds.get(t.id).content && { content: batchIds.get(t.id).content });
       if (prior) {
-        if (prior.content !== content) return send(res, 409, { error: 'a different tick already has that number', code: 'id' });
+        if (prior.content !== content) return named(409, 'id_reused', 'a different tick already has that number');
         if (st.byId.get(t.id)) { answers.push({ t, already: st.byId.get(t.id) }); continue; }
         continue;
       }
       const jk = t.line + '|' + t.task + '|' + t.day;
       const jn = (st.jobs.get(jk) || 0) + (batchJobs.get(jk) || 0);
-      if (jn >= o.perJobCap) return send(res, 409, { error: 'that job has been ticked and unticked too many times — ring the project manager', code: 'cap' });
+      if (jn >= o.perJobCap) return bad('that job has been ticked and unticked too many times — ring the project manager', 'job_cap');
       batchJobs.set(jk, (batchJobs.get(jk) || 0) + 1);
       const tap = Date.parse(t.tapped_at);
       const tapped = Number.isFinite(tap) && tap <= nowMs + 5 * 60000 && tap >= nowMs - 48 * H ? new Date(tap).toISOString() : null;
@@ -196,13 +198,15 @@ function createMock(opts) {
       batchIds.set(t.id, ev); fresh.push(ev); answers.push({ t, ev });
     }
     if (mode.fail500 > 0) { mode.fail500--; return send(res, 500, { error: 'pretend failure' }); }
+    if (mode.noKey) return send(res, 503, { error: 'this tracker has lost its key on the service', code: 'no_key' });
     const at = new Date(nowMs).toISOString();
     for (const ev of fresh) {
       ev.seq = ++st.seq; ev.at = at;
       st.events.push(ev); st.byId.set(ev.id, ev);
       const jk = ev.line + '|' + ev.task + '|' + ev.day; st.jobs.set(jk, (st.jobs.get(jk) || 0) + 1);
     }
-    const saved = answers.map(x => x.ev ? { id: x.ev.id, seq: x.ev.seq, at: x.ev.at, already: false } : { id: x.already.id, seq: x.already.seq, at: x.already.at, already: true });
+    const saved = answers.map(x => x.ev ? { id: x.ev.id, seq: x.ev.seq, at: x.ev.at, already: false }
+      : Object.assign({ id: x.already.id, seq: x.already.seq, at: x.already.at, already: true }, st.voided.has(x.already.id) ? { voided: true } : {}));
     log.push({ at, what: 'ticks', token, n: fresh.length, already: saved.filter(s => s.already).length });
     if (mode.abortNextPost > 0) { mode.abortNextPost--; req.socket.destroy(); return; }
     return send(res, 200, { saved, now: at, epoch: st.epoch });
@@ -238,8 +242,11 @@ function createMock(opts) {
       if (req.method === 'GET') {
         const st = storeFor(token);
         const since = Math.max(0, parseInt(url.searchParams.get('since') || '0', 10) || 0);
-        const list = st.events.filter(e => e.type === 'tick' && e.seq > since && !st.voided.has(e.id)).slice(0, o.pageSize).map(pub);
-        return send(res, 200, { now: new Date(now()).toISOString(), epoch: st.epoch, seq: st.seq, days: c.tracker.days, ticks: list });
+        let list = st.events.filter(e => e.type === 'tick' && e.seq > since && !st.voided.has(e.id));
+        const more = list.length > o.pageSize; if (more) list = list.slice(0, o.pageSize);
+        /* as the v5.89 draft: when there is more, seq is the last one sent and more:true */
+        return send(res, 200, { now: new Date(now()).toISOString(), epoch: st.epoch, seq: more ? list[list.length - 1].seq : st.seq, days: c.tracker.days,
+          ticks: list.map(pub), service_day: svcDay(now()), updated: c.updated, more });
       }
       if (req.method === 'POST') return postTicks(req, res, token, c);
       return send(res, 405, { error: 'GET or POST' }, { Allow: 'GET, POST' });
@@ -264,7 +271,7 @@ function createMock(opts) {
         if (!plain(body) || typeof body.html !== 'string' || !body.html.trim()) return send(res, 400, { error: 'a card needs its html' });
         if (body.expires != null && !DAY_RE.test(String(body.expires))) return send(res, 400, { error: 'expires is a day, yyyy-mm-dd' });
         let tracker = null;
-        if (body.tracker !== undefined) {
+        if (body.tracker !== undefined && body.tracker !== null) {
           const why = validTracker(body.tracker);
           if (why) return send(res, 400, { error: 'tracker: ' + why, code: 'tracker' });
           tracker = { days: body.tracker.days.map(d => ({ id: d.id, plan: d.plan })), lines: body.tracker.lines.map(l => ({ id: l.id, ref: l.ref, kind: l.kind, qty: l.qty })), plans: JSON.parse(JSON.stringify(body.tracker.plans)) };

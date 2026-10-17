@@ -37,15 +37,6 @@
    "final": [
     "pump"
    ]
-  },
-  "blockclean": {
-   "night": [
-    "clean"
-   ],
-   "final": [
-    "clean",
-    "lock"
-   ]
   }
  },
  "days": [
@@ -213,14 +204,13 @@
       {
        "id": "WC16-TOILETBL",
        "type": "Toilet Block 6m",
-       "kind": "blockclean",
+       "kind": "block",
        "label": "2 × Toilet block 6 m",
        "qty": 2,
        "nos": [
         "1322587",
         "1322588"
-       ],
-       "why": "sewer-connected"
+       ]
       }
      ]
     },
@@ -262,13 +252,12 @@
       {
        "id": "T0243-TOILETBL",
        "type": "Toilet Block 6m",
-       "kind": "blockclean",
+       "kind": "block",
        "label": "1 × Toilet block 6 m",
        "qty": 1,
        "nos": [
         "1311144"
-       ],
-       "why": "sewer-connected"
+       ]
       }
      ]
     },
@@ -285,14 +274,13 @@
       {
        "id": "WC15-TOILETBL",
        "type": "Toilet Block 6m",
-       "kind": "blockclean",
+       "kind": "block",
        "label": "2 × Toilet block 6 m",
        "qty": 2,
        "nos": [
         "1327226",
         "1303835"
-       ],
-       "why": "sewer-connected"
+       ]
       }
      ]
     },
@@ -354,14 +342,13 @@
       {
        "id": "WC20-TOILETBL",
        "type": "Toilet Block 6m",
-       "kind": "blockclean",
+       "kind": "block",
        "label": "2 × Toilet block 6 m",
        "qty": 2,
        "nos": [
         "1327228",
         "1327225"
-       ],
-       "why": "has its own waste tanks"
+       ]
       },
       {
        "id": "WC20-WASTETAN",
@@ -548,13 +535,12 @@
       {
        "id": "WC05-TOILETBL",
        "type": "Toilet Block 6m",
-       "kind": "blockclean",
+       "kind": "block",
        "label": "1 × Toilet block 6 m",
        "qty": 1,
        "nos": [
         "1097377"
-       ],
-       "why": "has its own waste tank"
+       ]
       },
       {
        "id": "WC05-WASTETAN",
@@ -882,13 +868,12 @@
       {
        "id": "WC27-TOILETBL",
        "type": "Toilet Block 6m",
-       "kind": "blockclean",
+       "kind": "block",
        "label": "1 × Toilet block 6 m",
        "qty": 1,
        "nos": [
         "1119484"
-       ],
-       "why": "has its own waste tank"
+       ]
       },
       {
        "id": "WC27-WASTETAN",
@@ -953,14 +938,13 @@
       {
        "id": "WC60-TOILETBL",
        "type": "Toilet Block 6m",
-       "kind": "blockclean",
+       "kind": "block",
        "label": "2 × Toilet block 6 m",
        "qty": 2,
        "nos": [
         "1087500",
         "1119489"
-       ],
-       "why": "has its own waste tanks"
+       ]
       },
       {
        "id": "WC60-WASTETAN",
@@ -2043,8 +2027,8 @@
   }
  ],
  "notes": {
-  "blockclean": "Andrew, 18 Oct 2026: blocks with their own waste tank (the tank takes the pump-out) and sewer-connected blocks are cleaned & restocked only",
   "sunday": "Andrew, 18 Oct 2026: \"need to be cleaned regardless\" - FWFs are still cleaned & restocked on Sunday night",
-  "otherblocks": "Andrew, 18 Oct 2026: \"Other ones lets just add a pump out too please regardless\" - WC09, WC17 and WC31's blocks: Pumped out + Cleaned & restocked whether or not they are sewer-connected"
+  "otherblocks": "Andrew, 18 Oct 2026: \"Other ones lets just add a pump out too please regardless\" - WC09, WC17 and WC31's blocks: Pumped out + Cleaned & restocked whether or not they are sewer-connected",
+  "blocks": "Andrew, 18 Oct 2026: \"With own wster tanks add a pump out too\", \"Sewer connected add pumo out\", \"Other ones lets just add a pump out too please regardless\" - every toilet block is Pumped out + Cleaned & restocked (Sunday adds Locked & confirmed empty); each waste tank is Pumped out as well"
  }
 }

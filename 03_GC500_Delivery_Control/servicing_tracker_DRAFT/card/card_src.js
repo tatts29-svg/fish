@@ -112,7 +112,7 @@ var inflight = Object.create(null);
 var final = null, degraded = null, full = false, pausedUntil = 0, pollPausedUntil = 0, backoffStep = 0;
 var sending = false, polling = false, pollAgain = false, lastOk = 0, netDown = false, busyUntil = 0;
 var notices = [];                      /* ticks the service would not take, named plainly */
-var needReconcile = false, stale = false;
+var needReconcile = false, stale = false, firstUpdated = null, noKey = false;
 var MY_DAYS = JSON.stringify(DAYS.map(function (d) { return [d.id, d.plan]; }));
 
 function bySeq(a, b) { return (a.seq || 0) - (b.seq || 0); }
@@ -221,7 +221,9 @@ function poll() {
       var t1 = Date.now(), j = r.j;
       if (r.status === 200 && j && Array.isArray(j.ticks)) {
         noteServer(j, t0, t1); netDown = false; degraded = null;
-        if (Array.isArray(j.days)) stale = JSON.stringify(j.days.map(function (d) { return [d && d.id, d && d.plan]; })) !== MY_DAYS;
+        if (j.updated && firstUpdated === null) firstUpdated = String(j.updated);
+        stale = (Array.isArray(j.days) && JSON.stringify(j.days.map(function (d) { return [d && d.id, d && d.plan]; })) !== MY_DAYS) ||
+          (!!j.updated && firstUpdated !== null && String(j.updated) !== firstUpdated);
         var ep = j.epoch == null ? null : String(j.epoch);
         var reset = (cursor > 0 && ep !== null && epoch !== null && ep !== String(epoch)) || (typeof j.seq === 'number' && j.seq < cursor);
         if (ep !== null && epoch !== null && ep !== String(epoch)) needReconcile = true;
@@ -232,7 +234,7 @@ function poll() {
         }
         var maxSeq = cursor;
         j.ticks.forEach(function (t) { if (t && t.id) { known[t.id] = t; if (t.seq > maxSeq) maxSeq = t.seq; } });
-        var more = j.ticks.length > 0 && typeof j.seq === 'number' && maxSeq < j.seq;
+        var more = j.ticks.length > 0 && (j.more === true || (typeof j.seq === 'number' && maxSeq < j.seq));
         cursor = j.ticks.length ? maxSeq : Math.max(cursor, typeof j.seq === 'number' ? j.seq : cursor);
         if (more && ++loops < 40) return step();
         Object.keys(acked).forEach(function (id) { if (known[id] || acked[id].seq <= cursor) delete acked[id]; });
@@ -287,7 +289,7 @@ function pump() {
     batch.forEach(function (e) { delete inflight[e.id]; });
     sending = false;
     if (r && r.status === 200 && j && Array.isArray(j.saved)) {
-      noteServer(j, t0, x.t1); netDown = false; backoffStep = 0; degraded = null; full = false;
+      noteServer(j, t0, x.t1); netDown = false; backoffStep = 0; degraded = null; full = false; noKey = false;
       if (j.epoch != null && epoch !== null && String(j.epoch) !== String(epoch)) pollAgain = true;
       var took = 0;
       j.saved.forEach(function (sv) {
@@ -295,6 +297,7 @@ function pump() {
         if (idx < 0) return;
         var ev = outbox[idx]; outbox.splice(idx, 1); took++;
         rememberSent(ev);
+        if (sv.voided) return;                        /* set aside on the edit link: it counts for nothing */
         var a = wire(ev); delete a.sig; a.seq = sv.seq; a.at = sv.at; acked[a.id] = a;
       });
       saveOutbox(); render();
@@ -304,8 +307,14 @@ function pump() {
       return;
     }
     if (r && [400, 401, 403, 409, 413, 422].indexOf(r.status) >= 0) {
-      if (batch.length > 1) { batch.forEach(function (e) { e.solo = true; }); saveOutbox(); pump(); return; }
-      var bad = batch[0];
+      /* the service names the tick it refused (nothing of that post was kept): drop that one, send the rest */
+      var named = null;
+      if (j && batch.length > 1) {
+        if (typeof j.id === 'string') named = batch.filter(function (e) { return e.id === j.id; })[0] || null;
+        if (!named && typeof j.index === 'number' && j.index >= 0 && j.index < batch.length) named = batch[j.index];
+      }
+      if (!named && batch.length > 1) { batch.forEach(function (e) { e.solo = true; }); saveOutbox(); pump(); return; }
+      var bad = named || batch[0];
       outbox = outbox.filter(function (o) { return o.id !== bad.id; }); saveOutbox();
       if (!bad.requeued) notices.push({ id: bad.id, text: tickName(bad) + ': ' + ((j && j.error) || reasonFor(r.status)) });
       render(); pump(); return;
@@ -313,6 +322,7 @@ function pump() {
     if (r && (r.status === 404 || r.status === 410) && onRefusal(r.status, j)) { render(); if (!final) schedulePump(pausedUntil - Date.now()); return; }
     if (r && r.status === 429) { pausedUntil = busyUntil = Date.now() + retryAfter(r.h); render(); schedulePump(pausedUntil - Date.now()); return; }
     if (r && r.status === 507 && j && j.full) { full = true; pausedUntil = Date.now() + SLOW_MS; render(); schedulePump(SLOW_MS); return; }
+    if (r && r.status === 503 && j && j.code === 'no_key') { noKey = true; pausedUntil = Date.now() + SLOW_MS; render(); schedulePump(SLOW_MS); return; }
     if (!r) netDown = true;
     var wait = BACKOFF[Math.min(backoffStep, BACKOFF.length - 1)] * 1000; backoffStep++;
     pausedUntil = Date.now() + wait; render(); schedulePump(wait);
@@ -408,6 +418,7 @@ function bannersHtml(day, auto) {
   if (final === 'expired') b.push('<div class="banner warn" role="alert"><strong>Servicing has finished</strong><span>This card stopped working after Monday 26 Oct.' + (waiting() ? ' ' + waiting() + ' unsent tick' + (waiting() === 1 ? ' is' : 's are') + ' kept on this phone.' : '') + ' ' + contactHtml() + '</span></div>');
   if (!final && degraded === 'updating') b.push('<div class="banner info"><span>The service is being updated. Your ticks are kept on this phone and go when it is back.</span></div>');
   if (!final && degraded === 'no_tracker') b.push('<div class="banner info"><span>Ticking is paused on the service. Your ticks are kept on this phone and go when it is back.</span></div>');
+  if (!final && noKey) b.push('<div class="banner warn" role="alert"><span>The service cannot check completion codes right now. Your ticks are kept on this phone. ' + contactHtml() + '</span></div>');
   if (!final && full) b.push('<div class="banner warn"><span>The service could not take more ticks. Your ticks are kept on this phone. ' + contactHtml() + '</span></div>');
   if (pick && pick.day !== auto) b.push('<div class="banner loud" role="alert"><strong>You are on ' + esc(longDay(pick.day)) + '\'s service</strong><span>Today\'s service is ' + esc(longDay(auto)) + '. This choice ends at 08:00.</span><div class="bacts"><button class="bbtn" type="button" data-back="1">Back to ' + esc(longDay(auto)) + '</button></div></div>');
   if (advance && !pick) b.push('<div class="banner info" role="status"><strong>Now ' + esc(longDay(advance.to)) + '\'s service</strong><span>It changed at 08:00.' + (advance.grace ? ' Still finishing ' + esc(longDay(advance.from)) + '\'s?' : '') + '</span><div class="bacts">' + (advance.grace ? '<button class="bbtn" type="button" data-stay="' + esc(advance.from) + '">Stay on ' + esc(longDay(advance.from)) + '</button>' : '') + '<button class="bbtn" type="button" data-dismiss="advance">OK</button></div></div>');
