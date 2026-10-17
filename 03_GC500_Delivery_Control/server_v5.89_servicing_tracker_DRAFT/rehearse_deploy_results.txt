@@ -1,0 +1,15 @@
+PASS 0. the live server is v5.87 d5a0d777…
+PASS 1. before: v5.87 boots from its blob (the start command line names it)
+PASS 2. stage: the v5.89 blob goes up under its SHA-256 and the inventory lists it beside v5.87
+PASS 3. a blob whose bytes do not match its name is refused (a cut-short upload cannot be booted)
+PASS 4. after the redeploy: the deploy log line names the v5.89 blob and sha256sum matches it
+PASS 5. /health: ok, build v5.89, the record version unchanged, nothing recovered, no ticks yet
+PASS 6. the banner names v5.89, keeps the server blobs off the public set, and says nothing was recovered
+PASS 7. a view key cannot see the tracker list (403)
+PASS 8. on v5.89 the tracker is made and WC07 is ticked
+PASS 9. ROLLBACK: v5.87 boots from its blob on the same volume, record version unchanged
+PASS 10. ...the tracker card still opens; its ticks route is the plain 404 page (phones keep their ticks and say "being updated")
+PASS 11. ...and the v5.89 blob is still on the volume for the roll forward
+PASS 12. roll forward: v5.89 again, WC07's tick still there, the printed signature still ticks
+PASS 13. a typo in SERVER_FILE: there is no such blob, and the live start command would boot the old SERVER_B64 server (roll back at once)
+14/14 v5.89 deploy rehearsal checks passed (local only)

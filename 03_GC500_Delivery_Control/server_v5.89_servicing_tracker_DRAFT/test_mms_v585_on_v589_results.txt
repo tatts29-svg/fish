@@ -1,0 +1,39 @@
+PASS server starts
+PASS health says build v5.89  - v5.89
+PASS GET /api/mms on the view link is refused  - 403
+PASS GET /api/mms on the edit link: configured, from Coates, limits  - {"configured":true,"from":"Coates","from_needed":false,"from_shared":false,"today":{"day":"2026-10-18","sent":0,"cap":5,"left":5},"at_once":50,"max_bytes":250000,"max_characters":1500,"max_characters_
+PASS the brief knows the service address from the Host header  - http://127.0.0.1:42057
+PASS POST on the view link is refused  - 403
+PASS no picture: 400, nothing sent  - nothing was sent. there is no picture
+PASS a PNG is refused  - nothing was sent. the picture must be a JPEG (image/jpeg)
+PASS bytes that are not a JPEG are refused  - nothing was sent. the picture is not a JPEG
+PASS a picture over 250 kB is refused  - nothing was sent. the picture is 260 kB - ClickSend takes at most 250 kB. Draw it smaller.
+PASS a body over 1,500 characters is refused  - that message is 1501 characters - a picture message carries 1500.
+PASS a landline is refused, named as a landline  - that is a landline — a text will not get there, it needs a ring
+PASS nothing reached ClickSend so far  - 0
+PASS no picture kept for a refused send
+PASS dry run: 200, sent false, one number twice is one message  - {"dry_run":true,"sent":false,"to":["+61412345678"],"text":"Coates GC500: P36 - Portable building","subject":"Coates GC500 P36 whe","shape":{"encoding":"GSM-7","
+PASS dry run: the subject is trimmed to 20  - Coates GC500 P36 whe
+PASS dry run: the picture is named by its hash and address  - http://127.0.0.1:42057/p/64c0d128d61b1d5f3f09bb7864254f919b658dd0882232f986b02be37202c416.jpg
+PASS dry run: nothing reached ClickSend
+PASS the picture is served with no key, as image/jpeg, cached a day  - 200 image/jpeg
+PASS HEAD works
+PASS an unknown hash is 404
+PASS a name that is not a hash never reaches the picture folder
+PASS no path escapes
+PASS send: 200, 1 of 1 went  - {"sent":1,"accepted":1,"rejected":0,"unknown":0,"of":1,"messages":[{"at":"2026-10-17T20:53:36.592Z","to":"+61412345678","text":"Coates GC500: P36 - Portable building\nGPS -27.986807, 153.428251 (maste
+PASS ClickSend was asked at /v3/mms/send with Basic auth  - /v3/mms/send
+PASS the request carries media_file, subject, body, to, from, source  - {"media_file":"http://127.0.0.1:42057/p/64c0d128d61b1d5f3f09bb7864254f919b658dd0882232f986b02be37202c416.jpg","messages":[{"source":"gc500","subject":"Coates GC500","body":"Coates GC500: P36 - Portable building\nGPS -27.
+PASS ClickSend could fetch the picture: 200 image/jpeg, the same bytes  - {"status":200,"type":"image/jpeg","bytes":1500,"sha":"64c0d128d61b1d5f3f09bb7864254f919b658dd0882232f986b02be37202c416","cache":"public, max-age=86400"}
+PASS the answer records ClickSend's price and message id  - {"at":"2026-10-17T20:53:36.592Z","to":"+61412345678","text":"Coates GC500: P36 - Portable building\nGPS -27.986807, 153.428251 (master plan)\nhttps://maps.google.com/?q=1","by":"test","kind":"mms","picture":"64c0d128d61b1d5f3f09bb7864254f919b658dd0882232f986b02be37202c416","bytes":1500,"parts":1,"encoding":"GSM-7","status":"SUCCESS","message_id":"mms-0","price":0.36,"why":null,"submission_status":"accepted","delivery_status":"pending"}
+PASS counted against today: 4 of 5 left  - 4
+PASS the brief lists the picture message with kind mms and its hash  - {"at":"2026-10-17T20:53:36.592Z","to":"+61412345678","text":"Coates GC500: P36 - Portable building\nGPS -27.986807, 153.428251 (master plan)\nhttps://maps.google.com/?q=1","by":"test","kind":"mms","pi
+PASS the texts brief shares the same log and cap (4 left)  - 4
+PASS the log on disk carries it
+PASS five more with four left: 429, nothing sent  - 429
+PASS one picture file, named by its hash  - 64c0d128d61b1d5f3f09bb7864254f919b658dd0882232f986b02be37202c416.jpg
+PASS without SMS_FROM a picture message is refused with the reason (501)  - A picture message needs a sender: set MMS_FROM to shared (or a dedicated MMS number), or SMS_FROM, on this service.
+PASS the brief says a sender is needed
+PASS the earlier picture is still served by the restarted service (kept on the disk)
+
+37 / 37 pass
