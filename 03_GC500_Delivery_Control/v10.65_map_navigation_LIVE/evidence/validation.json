@@ -1,6 +1,6 @@
 {
   "author": "Andrew Fisher",
-  "state": "READY TO UPLOAD; not published",
+  "state": "VERIFIED LIVE",
   "basePageSha256": "34ac94742f81bfce7e784589a502df515d76dffbee418c048fc3e07a238f2067",
   "candidatePageSha256": "c62adee5817153a56d538e1db015b0ef66a8a6e75609bc4d6e09a47bedfafbd8",
   "candidatePageBytes": 18302611,
@@ -46,5 +46,57 @@
       "consoleErrors": 0,
       "recordWriteAttempts": 0
     }
+  },
+  "liveBrowser": {
+    "desktop": {
+      "mapChecksPassed": 16,
+      "costsChecksPassed": 5,
+      "pageErrors": 0,
+      "recordWriteAttempts": 0,
+      "localPageSubstitutions": 0
+    },
+    "phone": {
+      "mapChecksPassed": 16,
+      "costsChecksPassed": 5,
+      "pageErrors": 0,
+      "recordWriteAttempts": 0,
+      "localPageSubstitutions": 0
+    }
+  },
+  "liveBrowserRuns": [
+    {
+      "check": "live-map-desktop",
+      "exit": 0,
+      "seconds": 10.1
+    },
+    {
+      "check": "live-map-phone",
+      "exit": 0,
+      "seconds": 16.5
+    },
+    {
+      "check": "live-costs-desktop",
+      "exit": 0,
+      "seconds": 43.4
+    },
+    {
+      "check": "live-costs-phone",
+      "exit": 0,
+      "seconds": 44.3
+    }
+  ],
+  "livePhoneScreenshotReviewed": true,
+  "verifiedUtc": "2026-10-17T22:02:57.471049+00:00",
+  "livePhoneTileSettle": {
+    "singleObservation": true,
+    "visibleTilesReady": 12,
+    "visibleTilesRequired": 12,
+    "sharpAtMsAfterPlanReturn": 540,
+    "prefetchDrainedAtMs": 1060,
+    "stillCompleteAtMs": 2580,
+    "pageErrors": 0,
+    "consoleWarnings": 0,
+    "recordWriteAttempts": 0,
+    "notes": "Fresh live browser/cache. Intermediate sharpening status resolved; this is a single observation, not a general performance guarantee."
   }
 }

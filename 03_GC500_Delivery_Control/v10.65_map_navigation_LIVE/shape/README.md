@@ -17,8 +17,8 @@ Validation:
 Run:
 
 ```sh
-PYTHONDONTWRITEBYTECODE=1 python3 -m unittest discover -s 03_GC500_Delivery_Control/v10.65_map_navigation_DRAFT/shape -p 'test_patch_ripple1065.py'
-node 03_GC500_Delivery_Control/v10.65_map_navigation_DRAFT/shape/test_ripple1065.cjs BASE_PAGE CANDIDATE_PAGE
+PYTHONDONTWRITEBYTECODE=1 python3 -m unittest discover -s 03_GC500_Delivery_Control/v10.65_map_navigation_LIVE/shape -p 'test_patch_ripple1065.py'
+node 03_GC500_Delivery_Control/v10.65_map_navigation_LIVE/shape/test_ripple1065.cjs BASE_PAGE CANDIDATE_PAGE
 ```
 
 The previously documented kept-circle / neighbouring-shape tap overlap and Done minimum-size / neighbouring-label overlap remain for a separate visually verified change. Reversing their current layering or hit priority without a clear interaction rule would risk selecting a shape hidden underneath a visible badge.
