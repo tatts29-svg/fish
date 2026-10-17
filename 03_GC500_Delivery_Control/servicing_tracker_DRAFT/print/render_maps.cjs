@@ -140,7 +140,7 @@ const centred = (p, aspect, groundW) => [p.x - groundW / 2, p.y - groundW / aspe
           const sx = (rect[0] - v.x) * k, sy = (rect[1] - v.y) * k, cw = (rect[2] - rect[0]) * k, ch = (rect[3] - rect[1]) * k;
           const W = Math.round(Math.min(px, cw)), H = Math.round(W * ch / cw), c = document.createElement('canvas'); c.width = W; c.height = H;
           const g = c.getContext('2d'); g.fillStyle = '#fff'; g.fillRect(0, 0, W, H); g.imageSmoothingEnabled = true; g.imageSmoothingQuality = 'high'; g.drawImage(bm, sx, sy, cw, ch, 0, 0, W, H);
-          return {url: c.toDataURL('image/jpeg', 0.86), W, H, bw: bm.width, bh: bm.height, sx, sy, cw, ch, toast: window.__expToast, name: window.__expName};
+          return {url: c.toDataURL('image/jpeg', 0.82), W, H, bw: bm.width, bh: bm.height, sx, sy, cw, ch, toast: window.__expToast, name: window.__expName};
         }, [j.rect, j.px]);
         if (/INCOMPLETE/.test(r.toast)) { log('retry', j.key, r.toast); continue; }
         if (r.sy < 0 || r.sy + r.ch > r.bh - 46 || r.sx < 0 || r.sx + r.cw > r.bw + 0.5) { log('FAIL', j.key, 'crop runs into the export edge or its credit bar', JSON.stringify(r).slice(0, 300)); break; }

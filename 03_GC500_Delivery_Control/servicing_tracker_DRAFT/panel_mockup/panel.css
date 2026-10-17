@@ -1,0 +1,60 @@
+/* Author: Andrew Fisher. Servicing tracker panel on the Event nights tab (MOCK-UP, 18 Oct 2026).
+   Scoped to #svc1063 and built only from the page's own pieces: .card (the cut-corner paper card), .card h3, .card .sub,
+   .btn / .btn.primary (as the run sheet's night buttons) and the page's colour tokens. It sets no ink or paper of its
+   own, so it follows the page's approved mixed palette: light paper cards in OS dark mode too (contrast1007css).
+   Numbers use the page's display face, Barlow Condensed, which the page carries in italic only. */
+#svc1063 .svc-ex{margin:0 0 12px;padding:8px 10px;border-left:4px solid var(--amber);border-radius:0 8px 8px 0;background:var(--amber-soft);color:var(--amber);font-size:12.5px;line-height:1.4}
+#svc1063 .svc-ex b{text-transform:uppercase;letter-spacing:.05em}
+#svc1063 .svc-days{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px;margin:0 0 8px}
+#svc1063 .svc-days .btn{white-space:normal;min-height:48px;padding:6px 4px;font-size:14px;font-weight:700;line-height:1.15;text-align:center}
+#svc1063 .svc-days .btn small{display:block;margin-top:2px;font-size:11px;font-weight:400;opacity:.85}
+#svc1063 .svc-win{margin:0 0 12px;font-size:12.5px;color:var(--slate)}
+#svc1063 .svc-win b{color:var(--ink)}
+#svc1063 .svc-all{display:grid;grid-template-columns:auto minmax(0,1fr);gap:8px 14px;align-items:center;padding:12px 0;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule)}
+#svc1063 .svc-big b{display:block;font:italic 800 46px/.9 'Barlow Condensed','Arial Narrow',Arial,sans-serif;letter-spacing:.01em}
+#svc1063 .svc-big span{display:block;margin-top:2px;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--slate)}
+#svc1063 .svc-allmeta{display:flex;flex-direction:column;gap:1px;font-size:13px;color:var(--ink2)}
+#svc1063 .svc-allmeta b{font-size:15px;color:var(--ink)}
+#svc1063 .svc-all .svc-bar{grid-column:1/-1;height:10px;border-radius:5px}
+#svc1063 .svc-bar{display:block;height:6px;border-radius:3px;background:var(--rule);overflow:hidden}
+#svc1063 .svc-bar i{display:block;height:100%;border-radius:inherit;background:var(--orange)}
+#svc1063 .svc-bar.full i{background:var(--green)}
+#svc1063 .fin{color:var(--green);font-weight:700}
+#svc1063 .svc-areas{display:grid;grid-template-columns:minmax(0,1fr)}
+#svc1063 .svc-area{border-bottom:1px solid var(--rule)}
+#svc1063 .svc-area>summary{display:grid;grid-template-columns:30px minmax(0,1fr) auto 12px;gap:3px 10px;align-items:center;min-height:44px;padding:10px 0;cursor:pointer;list-style:none}
+#svc1063 .svc-area>summary::-webkit-details-marker{display:none}
+#svc1063 .svc-area>summary::after{content:'';grid-column:4;grid-row:1/span 2;justify-self:center;width:7px;height:7px;border-right:2px solid var(--slate);border-bottom:2px solid var(--slate);transform:rotate(-45deg)}
+#svc1063 .svc-area[open]>summary::after{transform:rotate(45deg)}
+#svc1063 .svc-n{grid-row:1/span 2;font:italic 800 24px/1 'Barlow Condensed','Arial Narrow',Arial,sans-serif;text-align:center;color:var(--slate)}
+#svc1063 .svc-area.done .svc-n{color:var(--green)}
+#svc1063 .svc-name{min-width:0;font-size:14px;font-weight:700;line-height:1.25;overflow-wrap:anywhere}
+#svc1063 .svc-pct{grid-column:3;grid-row:1/span 2;font:italic 800 24px/1 'Barlow Condensed','Arial Narrow',Arial,sans-serif;text-align:right}
+#svc1063 .svc-meta{grid-column:2;font-size:12.5px;color:var(--slate)}
+#svc1063 .svc-area>summary .svc-bar{grid-column:2/4}
+#svc1063 .svc-refs{padding:0 0 12px}
+/* the page styles every table and th (min-width 640px, sticky, nowrap headers): the fold's table sets each of those itself */
+#svc1063 .svc-tbl{width:100%;min-width:0;table-layout:fixed;border-collapse:collapse;font-size:12.5px}
+#svc1063 .svc-tbl th,#svc1063 .svc-tbl td{position:static;z-index:auto;white-space:normal;border-right:0;border-bottom:0;letter-spacing:normal;text-transform:none;background:none}
+#svc1063 .svc-tbl thead th{padding:6px 3px;border-bottom:2px solid var(--rule);background:var(--tint2);font-size:11px;font-weight:700;line-height:1.2;text-align:center;vertical-align:bottom;color:var(--slate)}
+#svc1063 .svc-tbl thead th:first-child{width:40%;text-align:left;padding-left:0}
+#svc1063 .svc-tbl tr{border-bottom:1px solid var(--rule)}
+#svc1063 .svc-tbl tr.svc-rg{border-bottom:0}
+#svc1063 .svc-tbl tr.done{background:var(--green-soft)}
+#svc1063 .svc-tbl tbody th{padding:7px 4px 7px 6px;font-size:12.5px;font-weight:400;text-align:left;vertical-align:middle;overflow-wrap:break-word}
+#svc1063 .svc-tbl tbody th b{margin-right:3px;font:italic 800 17px/1 'Barlow Condensed','Arial Narrow',Arial,sans-serif;letter-spacing:.02em}
+#svc1063 .svc-tbl tbody th span{font-size:12.5px;font-weight:600}
+#svc1063 .svc-tbl tbody th em{display:block;margin-top:2px;font-size:11.5px;font-style:normal}
+#svc1063 .svc-tbl tr.svc-rg th{padding-bottom:0}
+#svc1063 .svc-tbl tr.svc-rg th em{display:inline;margin:0 0 0 8px}
+#svc1063 .svc-tbl tr.svc-rl th{padding-left:16px}
+#svc1063 .svc-tbl td{padding:7px 2px;border-left:1px solid var(--rule2);text-align:center;vertical-align:middle}
+#svc1063 .svc-tbl td.ok{font-weight:700;white-space:nowrap;color:var(--green)}
+#svc1063 .svc-tbl td.ok svg{width:11px;height:11px;margin-right:2px;vertical-align:-1px;fill:none;stroke:currentColor;stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}
+#svc1063 .svc-tbl td.ok time{font-variant-numeric:tabular-nums}
+#svc1063 .svc-tbl td.no{font-size:11.5px;color:var(--slate)}
+#svc1063 .svc-tbl td.na{color:var(--slate)}
+#svc1063 .svc-nw{white-space:nowrap}
+#svc1063 .vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+#svc1063 .svc-foot{margin:12px 0 2px;font-size:12.5px;color:var(--slate)}
+#svc1063 .svc-read{margin:0;font-size:11.5px;color:var(--mute)}
