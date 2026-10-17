@@ -25,6 +25,8 @@ const SHAPE = ['P37', 'P36', 'WC21', 'WC07', 'WC69', 'WC15', 'P10', 'AA'];
   await p.waitForFunction(() => typeof SYNC !== 'undefined' && SYNC.status === 'live', null, {timeout: 180000});
   const before = await p.evaluate(() => JSON.stringify(S));
   check('footer says v10.60', await p.evaluate(() => document.body.innerText.includes('v10.60')));
+  const day7 = await p.evaluate(() => { const O = window.orders1054; if (!O) return null; const g = O.GROUPS.find(x => x.n === 7); return {seq: g && g.seq, rule: g && g.rule, wc17: O.groupsOf('WC17').map(x => x.n), days: O.GROUPS.length, rules: O.rulesOf('WC17').length}; });
+  check('delivery orders: WC17 is on day 7, after P09 and P33, the day before P36 and P10 (Andrew, 17 Oct 2026)', day7 && day7.seq.join() === 'P09,P33,WC17' && day7.wc17.join() === '7' && day7.days === 11 && day7.rules === 1 && /day 8/.test(day7.rule), day7);
   await p.waitForFunction(() => typeof EXP !== 'undefined' && EXP.frame && EXP.frame.contentWindow && EXP.frame.contentWindow.__ready, null, {timeout: 180000});
   frame = p.frames().find(f => /\/explorer\/index\.html(?:\?|$)/.test(f.url()));
   await frame.evaluate(() => GC500Explorer.ready);
@@ -139,13 +141,13 @@ const SHAPE = ['P37', 'P36', 'WC21', 'WC07', 'WC69', 'WC15', 'P10', 'AA'];
   check('P37: tapping well outside the shape does not pick it', tap.off !== 'P37', tap.off);
   await shot('p37');
 
-  const qty = await frame.evaluate(() => { const it = ITEMS.find(x => x.code === 'WC01'), s0 = it && mapStatus1009(it); if (!s0 || !s0.quantity1010 || s0.quantity1010.items.length < 2) return {skip: true};
-   const b = it.places[0]; camera = {...camera, cx: (b[0] + b[2]) / 2, cy: (b[1] + b[3]) / 2, z: 160}; changeView(false); marks = [{it, c: it.cat.c}];
+  const qty = await frame.evaluate(z => { const it = ITEMS.find(x => x.code === 'WC01'), s0 = it && mapStatus1009(it); if (!s0 || !s0.quantity1010 || s0.quantity1010.items.length < 2) return {skip: true};
+   const b = it.places[0]; camera = {...camera, cx: (b[0] + b[2]) / 2, cy: (b[1] + b[3]) / 2, z}; changeView(false); marks = [{it, c: it.cat.c}];
    const texts = () => { const out = []; const g = document.getElementById('shape1060').getContext('2d'), of = g.fillText; g.fillText = function(t2){ out.push(String(t2)); return of.apply(this, arguments); }; try { drawMarks(currentView()); } finally { g.fillText = of; } return out.filter(x => x.startsWith('WC01')); };
    const before = texts(), orig = window.mapStatus1009;
    window.mapStatus1009 = x => { const s = orig(x); return x && x.code === 'WC01' && s ? {...s, quantity1010: {...s.quantity1010, items: s.quantity1010.items.map((r, i) => i ? r : {...r, quantity: (r.quantity || 0) + 7})}} : s; };
    let after; try { after = texts(); } finally { window.mapStatus1009 = orig; }
-   return {before, after, back: texts()}; });
+   return {before, after, back: texts()}; }, mobile ? 320 : 160);
   check('quantities: a changed quantity shows on the map at once (no stale layout)', qty.skip || !qty.before.some(x => x.includes('(')) || ( qty.after.join() !== qty.before.join() && qty.back.join() === qty.before.join()), qty);
   /* the shape follows the camera: rotate and satellite */
   const rot = await frame.evaluate(() => { const a = GC500Shape1060.at('P37'); camera = {...camera, rot: (camera.rot + 90) % 360}; changeView(false); drawMarks(currentView()); const b = GC500Shape1060.at('P37'), m = markAt(b.x, b.y); camera = {...camera, rot: (camera.rot + 270) % 360}; changeView(false); return {a, b, m: m && m.it.code, drawn: GC500Shape1060.state.drawn}; });
@@ -170,6 +172,18 @@ const SHAPE = ['P37', 'P36', 'WC21', 'WC07', 'WC69', 'WC15', 'P10', 'AA'];
   check('a single square FWF (WC02) close up: the tick shows, with its reference', wc02 && wc02.tick && wc02.tick.inPart && /reference/.test(wc02.how), wc02);
   await look('WC02', mobile ? 130 : 64); const wc02b = await frame.evaluate(() => { drawMarks(currentView()); return GC500Shape1060.layout('WC02'); });
   check('a square FWF keeps a full-size tick as you zoom in (no shrinking pip)', wc02.tick.size >= 12 && (!wc02b || !wc02b.tick || wc02b.tick.size <= wc02.tick.size + 0.5) && !/under/.test((wc02b && wc02b.how) || ''), {z96: wc02, z64: wc02b});
+  /* a square turned on the map keeps a full-size tick too (WC25 as it sits; WC02 with the map turned 70 degrees) */
+  const turned = {};
+  for (const [k, rot] of [['WC25', null], ['WC02', 70]]) { if (!(await frame.evaluate(k => !!ITEMS.find(x => x.code === k), k))) continue; turned[k] = [];
+   for (const z of (mobile ? [100, 150, 200, 260] : [50, 70, 90, 120])) { await look(k, z);
+    turned[k].push(await frame.evaluate(([k, rot]) => { const r0 = camera.rot; if (rot !== null) { camera = {...camera, rot}; changeView(false); } drawMarks(currentView()); const l = GC500Shape1060.layout(k); if (rot !== null) { camera = {...camera, rot: r0}; changeView(false); } return {z: camera.z, how: l && l.how, tick: l && l.tick && +l.tick.size.toFixed(1)}; }, [k, rot])); } }
+  const shrink = Object.entries(turned).filter(([k, ls]) => { let big = false; return ls.some(l => { if (l.tick >= 12) big = true; return big && (!l.tick || l.tick < 9); }); });
+  check('a turned square FWF keeps a full-size tick as you zoom in (WC25, WC02 turned 70°)', Object.keys(turned).length >= 1 && shrink.length === 0 && Object.values(turned).every(ls => ls.some(l => l.tick >= 12)), turned);
+  /* a curved or gapped FWF run: the tick goes in one unit rather than being lost */
+  const runs = {};
+  for (const [k, z] of (mobile ? [['WC33', 200], ['WC67', 400]] : [['WC33', 100], ['WC67', 240]])) { if (!(await frame.evaluate(k => !!ITEMS.find(x => x.code === k), k))) continue; await look(k, z);
+   runs[k] = await frame.evaluate(k => { drawMarks(currentView()); const l = GC500Shape1060.layout(k), s = mapStatus1009(ITEMS.find(x => x.code === k)); return {how: l && l.how, tick: l && l.tick, status: s && s.state}; }, k); }
+  check('FWF runs (WC33, WC67) close up: the tick sits inside one unit, not lost to a status fill', Object.keys(runs).length >= 1 && Object.values(runs).every(l => !l.status || (l.tick && l.tick.inPart)), runs);
   await look('WC15', 40); await shot('wc15-two-blocks');
 
   /* all the toilets and buildings, with the Done chip: finished units are shapes with the tick inside, not loose ticks */
@@ -183,6 +197,11 @@ const SHAPE = ['P37', 'P36', 'WC21', 'WC07', 'WC69', 'WC15', 'P10', 'AA'];
   await shot('all-references');
   const speed = await frame.evaluate(() => { const v = currentView(); interacting = true; const t0 = performance.now(); for (let i = 0; i < 20; i++) drawMarks(v); const ms = (performance.now() - t0) / 20; interacting = false; return {ms: +ms.toFixed(2), drawn: GC500Shape1060.state.drawn}; });
   check('panning: drawing the shapes stays light (layout reused while the map moves)', speed.ms < 12, speed);
+  const panBeat = await frame.evaluate(async () => { const it = ITEMS.find(x => x.code === 'P37'); selectCode(it.code); drawMarks(currentView()); await new Promise(r => setTimeout(r, 200));
+   const L = document.getElementById('shape1060beat'); let shown = 0, frames = 0; interacting = true;
+   try { for (let i = 0; i < 40; i++) { await new Promise(r => requestAnimationFrame(r)); camera = {...camera, cx: camera.cx + 0.0004}; changeView(false); drawMarks(currentView()); frames++; if (L.style.display !== 'none') shown++; } } finally { interacting = false; }
+   return {frames, shown}; });
+  check('panning: the pulse canvas is never shown while the map moves', panBeat.frames >= 30 && panBeat.shown === 0, panBeat);
   const tapsel = await frame.evaluate(() => { const it = ITEMS.find(x => x.code === 'P13'); if (!it) return {skip: true}; selectCode(it.code); const b = it.places[0]; camera = {...camera, cx: (b[0] + b[2]) / 2, cy: (b[1] + b[3]) / 2, z: 10}; changeView(false); drawMarks(currentView());
    const l = GC500Shape1060.layout('P13'); if (!l || !l.tick) return {l}; const m = markAt(l.tick.x, l.tick.y); return {l, m: m && m.it && m.it.code}; });
   check('taps: the selected building\'s own tick picks it, never a neighbour\'s text', tapsel.skip || !tapsel.l || !tapsel.l.tick || tapsel.m === 'P13', tapsel);

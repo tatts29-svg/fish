@@ -18,8 +18,9 @@ What changes in the Map explorer (the separate map in its own frame):
 - Finished units shown by the Done chip are drawn the same way (their shape with the tick inside), not as a loose tick.
 - The reference is written inside its shape, along it, beside the tick; no second box (Andrew, 17 Oct 2026: "Put the
   reference number inside the box too.. i dont want two boxes shown"). Selected, the status words go under it when
-  they fit. A shape too small at that zoom keeps the tick or its status fill and the reference sits on it as plain
-  text. Tapping the reference still opens the card; the selected reference is outlined in orange.
+  they fit. A shape too small at that zoom for its reference keeps the tick or its status fill and shows no reference;
+  the selected one has its reference as plain text just under the shape (no tap box, so it never covers a neighbour).
+  Tapping a level reference or anywhere inside the shape picks it; the selected reference is outlined in orange.
 - Tapping inside a shape selects it.
 - Glow and pulse (Andrew, 17 Oct 2026: "Glow and pulsate too"): every shape glows softly in its colour; the selected
   one ripples outward in its own outline; finished units beat twice when the Done chip shows them. Still while the map
@@ -41,14 +42,25 @@ explorer build (explorer.js?v=8586cb7d5008); on any other build it stands down a
 
 The explorer's own files, the record and every figure are unchanged. Footer v10.59 -> v10.60.
 
+Also in this release: WC17 joins delivery day 7, after P09 and P33, the day before P36 and P10 (Andrew, 17 Oct 2026:
+"wc 17 move to day 7"). The day groups are built into the page (v10.54), so the move rides a page release; source
+../sequences_17Oct2026/sequences.json.
+
     python3 patch_v1060.py path/to/page.html   (on the v10.59 page)
 """
+import json
 import sys
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE.parent / 'toolchain'))
 from rep import rep
+
+SEQ = json.load(open(HERE.parent / 'sequences_17Oct2026' / 'sequences.json', encoding='utf-8'))
+DAY7 = next(g for g in SEQ['groups'] if g['n'] == 7)
+DAY7_OLD = '{"n": 7, "seq": ["P09", "P33"], "rule": "", "when": "P33 14 Sep, P09 16 Sep (different days)"}'
+DAY7_NEW = json.dumps({'n': 7, 'seq': DAY7['sequence'], 'rule': DAY7.get('rule', ''), 'when': DAY7.get('delivered', '')}, ensure_ascii=False)
+assert DAY7['sequence'] == ['P09', 'P33', 'WC17'], DAY7['sequence']
 
 END = "</script>\n</body>\n</html>"
 LOAD_OLD = " f.addEventListener('load', () => { contrast1007Map(f); EXP.loaded = true;"
@@ -200,7 +212,7 @@ JS = r'''/* Author: Andrew Fisher. v10.60 - the Map explorer shows each referenc
     n++;
     /* the tick and the reference: laid out once per zoom, turn, selection, status and wording, then only moved while the map pans */
     const show = sel || (showText && !m.done), words = status ? status.glyph + status.label + (status.quantity1010 && status.quantity1010.summary || '') + '|' + referenceQuantity1010(m.it, status) : '-';
-    const pk = m.it.code + '|' + camKey + '|' + (sel ? 1 : 0) + (show ? 1 : 0) + '|' + words + '|' + Math.round(b.x1 - b.x0) + 'x' + Math.round(b.y1 - b.y0);
+    const pk = m.it.code + '|' + (m.it.places || []).map(bx => bx.join(',')).join(';') + '|' + camKey + '|' + (sel ? 1 : 0) + (show ? 1 : 0) + '|' + words + '|' + Math.round(b.x1 - b.x0) + 'x' + Math.round(b.y1 - b.y0);
     let plan = PLAN.get(pk);
     if (!plan) { plan = planFor(m, L, status, sel, show, s); plan.ax = L.mx; plan.ay = L.my; if (PLAN.size > 3000) PLAN.clear(); PLAN.set(pk, plan); }
     const dx = L.mx - plan.ax, dy = L.my - plan.ay;
@@ -239,7 +251,7 @@ JS = r'''/* Author: Andrew Fisher. v10.60 - the Map explorer shows each referenc
      fencing), is still while the map moves, and with reduced motion or the project's Motion Off. */
   const still = () => document.documentElement.classList.contains('d782still') || !!(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches);
   const seen = () => !document.hidden && (typeof shown887 !== 'function' || shown887()) && !fencing() && !(typeof under3d === 'function' && under3d()) && layer.style.display !== 'none';
-  function kick(){ if (BEAT.raf || !seen()) return; if (BEAT.sel || (BEAT.done.length && BEAT.doneStart)) { clearTimeout(BEAT.wait); beatLayer.style.display = ''; BEAT.raf = requestAnimationFrame(beat); } }
+  function kick(){ if (BEAT.raf || !seen()) return; if (BEAT.sel || (BEAT.done.length && BEAT.doneStart)) { clearTimeout(BEAT.wait); BEAT.raf = requestAnimationFrame(beat); } }    /* beat() shows its canvas in the frame it draws on it */
   function ripple(o, ph, colour, w){
    const k = 1 + 16 * dpr * ph / o.r; bg.save(); bg.globalAlpha = Math.max(0, 1 - ph) * 0.9; bg.lineJoin = 'round'; bg.strokeStyle = colour; bg.lineWidth = w * dpr;
    for (const pts of o.parts) { bg.beginPath(); pts.forEach((q, i) => { const x = o.mx + (q.x - o.mx) * k, y = o.my + (q.y - o.my) * k; if (i) bg.lineTo(x, y); else bg.moveTo(x, y); }); bg.closePath(); bg.stroke(); }
@@ -254,7 +266,8 @@ JS = r'''/* Author: Andrew Fisher. v10.60 - the Map explorer shows each referenc
    if (quiet || moving) { beatLayer.style.display = 'none'; BEAT.wait = setTimeout(kick, quiet ? 1000 : 300); return; }    /* looks again when motion is back or the map stops */
    const c = BEAT.doneStart ? (((t - BEAT.doneStart) % 3200) + 3200) % 3200 : 9999;
    const cs = BEAT.sel && BEAT.selStart ? (((t - BEAT.selStart) % 6400) + 6400) % 6400 : 9999, selOn = cs < 3200;    /* two ripples, then a rest */
-   if (selOn) { const ph = (cs % 1600) / 1600; ripple(BEAT.sel, ph, '#ff9a4d', 3); ripple(BEAT.sel, (ph + 0.5) % 1, '#ff821f', 2); }
+   if ((selOn || (BEAT.done.length && c < 1300)) && beatLayer.style.display) beatLayer.style.display = '';    /* shown only in a frame it draws on */
+   if (selOn) { const ph = (cs % 1600) / 1600; ripple(BEAT.sel, ph, '#ff9a4d', 3); if (cs >= 800 && cs < 2400) ripple(BEAT.sel, (ph + 0.5) % 1, '#ff821f', 2); }    /* the second ring starts small and finishes, never pops in or cuts off */
    const doneOn = BEAT.done.length && c < 1300; if (doneOn) { const ph = (c % 650) / 650; for (const o of BEAT.done) ripple(o, ph, '#4aff9a', 2.4); }
    BEAT.frames++;
    if (selOn || doneOn) { BEAT.raf = requestAnimationFrame(beat); return; }
@@ -268,7 +281,7 @@ JS = r'''/* Author: Andrew Fisher. v10.60 - the Map explorer shows each referenc
      it when selected and they fit); a smaller tick; the tick over the reference (a square FWF); the tick alone, the
      reference just under the shape; too small for a tick, the shape takes its status colour and the reference sits on it.
      A tick that fits is never dropped. Coordinates are kept as drawn, then shifted while the map pans. */
-  function planFor(m, L, status, sel, show, scale){
+  function planFor(m, L, status, sel, show, scale, mainOnly){
    const P = {how: '', fill: false, ticks: [], labels: [], plain: [], tickIn: false, u: 0, along: 0, across: 0, parts: 0, of: 0};
    const solid = L.parts.filter(p => !p.c.tank); if (!solid.length) { P.how = 'shape only'; return P; }
    let main = null, big = 0, near = Infinity;
@@ -281,7 +294,7 @@ JS = r'''/* Author: Andrew Fisher. v10.60 - the Map explorer shows each referenc
    const gapTo = (A, B) => { let d = Infinity; for (const [X, Y] of [[A, B], [B, A]]) for (const q of X) for (let i = 0; i < Y.length; i++) { d = Math.min(d, segD(q, Y[i], Y[(i + 1) % Y.length])); if (d === 0) return 0; } return d; };
    const eps = Math.max(1.5 * dpr, 0.6 * (scale || 1));
    let group = [main];
-   if (solid.length > 1) { let grew = true; while (grew) { grew = false; for (const p of solid) if (!group.includes(p) && group.some(o => gapTo(o.pts, p.pts) <= eps)) { group.push(p); grew = true; } } }
+   if (solid.length > 1 && !mainOnly) { let grew = true; while (grew) { grew = false; for (const p of solid) if (!group.includes(p) && group.some(o => gapTo(o.pts, p.pts) <= eps)) { group.push(p); grew = true; } } }
    /* the group's own frame: turned to the side giving the smallest box around it (a square reads along one of its edges) */
    const frame = grp => {
     const pts = []; grp.forEach(p => pts.push(...p.pts));
@@ -320,7 +333,9 @@ JS = r'''/* Author: Andrew Fisher. v10.60 - the Map explorer shows each referenc
    const done = how => { P.how = how; P.u = Math.round(u); P.along = Math.round(along); P.across = Math.round(across); P.parts = group.length; P.of = solid.length; return P; };
    /* the whole tick (its strokes and halo, drawn upright) and the whole label must sit inside the group, not just their middles */
    const tickFits = (tp, us) => { const r = Math.max(0.34 * us, 4 * dpr) / 2; return [[-0.42, 0.02], [-0.12, 0.32], [0.46, -0.34], [0.17, -0.01]].every(([a, b2]) => [[0, 0], [r, 0], [-r, 0], [0, r], [0, -r]].every(([ox, oy]) => inGroup({x: tp.x + a * us + ox, y: tp.y + b2 * us + oy}))); };
-   const labFits = (x0, b0, w, h) => [0, 0.25, 0.5, 0.75, 1].every(k => [-0.5, 0.5].every(j2 => inGroup(at(x0 + w * k, b0 + h * j2))));
+   const labFits = (x0, b0, w, h) => { const n = Math.max(4, Math.ceil(w / (2 * dpr))), k = Math.max(1, Math.ceil(h / (2 * dpr))); for (let i = 0; i <= n; i++) for (let j = 0; j <= k; j++) if ((j === 0 || j === k || i === 0 || i === n) && !inGroup(at(x0 + w * i / n, b0 - h / 2 + h * j / k))) return false; return true; };    /* its whole outline, every 2 px */
+   /* font sizes from the top down to the 8 px floor, the floor always tried (a 125% screen has a fractional pixel ratio) */
+   const sizes = top => { const o = []; for (let z = top; z > 8 * dpr + 1e-6; z -= dpr) o.push(z); o.push(8 * dpr); return o; };
    /* how much further the upright tick's long arm reaches along a turned shape, so it never runs into the first letter */
    const reach = us => us * Math.max(0, 0.46 * Math.cos(th) - 0.34 * Math.sin(th) - 0.46);
    const code = String(m.it.code || ''), fs = Math.round(Math.max(8 * dpr, Math.min(f, across * 0.9)));
@@ -334,22 +349,26 @@ JS = r'''/* Author: Andrew Fisher. v10.60 - the Map explorer shows each referenc
     if (total <= along && Math.max(u, textH) <= across && (!ref || tw <= space) && tickFits(tp, u) && (!lines.length || labFits(x0 + u + gap + rc, 0, textW, textH))) { tick(tp, u); if (lines.length) lab(lines, x0 + u + gap + rc, 0); return done(ref ? 'tick and reference' : 'tick'); } }
    /* the tick over the reference (a square FWF), the font stepping down; worked out first so a bigger stacked tick wins */
    let st = null;
-   if (u && show) for (let fz = fs; fz >= 8 * dpr; fz -= dpr) { const cz = W(fz, code), us = Math.min(u, across - 2 * dpr - fz); if (cz <= along && us >= 7 * dpr) { const h = us + 2 * dpr + fz, tp = at(0, -h / 2 + us / 2); if (tickFits(tp, us) && labFits(-cz / 2, h / 2 - fz / 2, cz, fz)) st = {fz, cz, us, h, tp}; break; } }
+   if (u && show) for (const fz of sizes(fs)) { const cz = W(fz, code); if (cz > along) continue;    /* a turned square: the tick shrinks until it fits before the font steps down */
+    for (let us = Math.min(u, across - 2 * dpr - fz); us >= 7 * dpr; us -= dpr) { const h = us + 2 * dpr + fz, tp = at(0, -h / 2 + us / 2); if (tickFits(tp, us) && labFits(-cz / 2, h / 2 - fz / 2, cz, fz)) { st = {fz, cz, us, h, tp}; break; } }
+    if (st) break; }
    /* 2: a smaller tick beside the reference, the font stepping down, when its tick is at least as big as the stacked one */
    if (u && show) { const gs = Math.max(3 * dpr, 0.25 * u);
-    for (let fz = fs; fz >= 8 * dpr; fz -= dpr) { const cz = W(fz, code), us0 = Math.min(u, along - gs - cz), us = us0 - reach(us0);
+    for (const fz of sizes(fs)) { const cz = W(fz, code), us0 = Math.min(u, along - gs - cz), us = Math.max(Math.min(us0, 7 * dpr), us0 - reach(us0));    /* the reach never pushes a tick under the 7 px floor */
      if (us >= 7 * dpr && Math.max(us, fz) <= across) { const rc = reach(us), total = us + gs + rc + cz, x0 = -total / 2, tp = at(x0 + us / 2, 0);
       if ((!st || us >= st.us) && tickFits(tp, us) && labFits(x0 + us + gs + rc, 0, cz, fz)) { tick(tp, us); lab([[code, fz, '#ffffff']], x0 + us + gs + rc, 0); return done('small tick and reference'); } break; } } }
    /* 3: the tick over the reference */
    if (st) { tick(st.tp, st.us); lab([[code, st.fz, '#ffffff']], -st.cz / 2, st.h / 2 - st.fz / 2); return done('tick over reference'); }
    /* the reference only ever inside its own shape; the selected one, when it cannot fit, as plain text just under it (drawn last, no tap box) */
-   const under = () => { if (sel) { const px = fs; P.plain.push({text: code, x: L.mx, y: L.box.y1 + 3 * dpr, px, w: W(px, code), base: 'top'}); } };
+   const under = () => { if (sel) { const px = Math.max(fs, Math.round(11 * dpr)); P.plain.push({text: code, x: L.mx, y: L.box.y1 + 3 * dpr, px, w: W(px, code), base: 'top'}); } };
    /* 4: the tick alone */
    if (u && tickFits(at(0, 0), u)) { tick(at(0, 0), u); under(); return done(sel ? 'tick, reference under it' : 'tick'); }
+   /* no tick fitted across a run (a curved or gapped row of FWFs): lay it out on the main unit alone */
+   if (group.length > 1 && !mainOnly) { const Q = planFor(m, L, status, sel, show, scale, true); if (Q.ticks.length) return Q; }
    /* 5: too small for a tick: the status colour, the reference on it when it fits inside */
    if (status) P.fill = true;
    if (show) {
-    for (let fz = fs; fz >= 8 * dpr; fz -= dpr) { const cz = W(fz, code); if (cz <= along && fz <= across * 1.2 && labFits(-cz / 2, 0, cz, fz)) { lab([[code, fz, '#ffffff']], -cz / 2, 0); return done(status ? 'status colour and reference' : 'reference'); } }
+    for (const fz of sizes(fs)) { const cz = W(fz, code); if (cz <= along && fz <= across * 1.2 && labFits(-cz / 2, 0, cz, fz)) { lab([[code, fz, '#ffffff']], -cz / 2, 0); return done(status ? 'status colour and reference' : 'reference'); } }
     under(); return done(status ? (sel ? 'status colour, reference under it' : 'status colour') : (sel ? 'reference under it' : 'shape only'));
    }
    return done(status ? 'status colour' : 'shape only');
@@ -460,6 +479,7 @@ JS = r'''/* Author: Andrew Fisher. v10.60 - the Map explorer shows each referenc
 PATCHES = [
     ('map shapes: the page function and the frame layer', END, '</script>\n<script id="shapes1060-script">' + JS + '</script>\n</body>\n</html>'),
     ('map shapes: mount on each explorer frame load', LOAD_OLD, LOAD_NEW),
+    ('delivery orders: WC17 joins day 7 (Andrew, 17 Oct 2026)', DAY7_OLD, DAY7_NEW),
     ('Release footer', "+ ' · v10.59'", "+ ' · v10.60'"),
 ]
 
@@ -470,4 +490,4 @@ if __name__ == '__main__':
     for what, old, new in PATCHES:
         t = rep(t, old, new, what, str(p))
     p.write_text(t, encoding='utf-8')
-    print('patch_v1060 applied: Map explorer references drawn as their own shapes with doors and the tick inside; footer v10.59 -> v10.60')
+    print('patch_v1060 applied: Map explorer references drawn as their own shapes with doors and the tick inside; WC17 joins day 7; footer v10.59 -> v10.60')
