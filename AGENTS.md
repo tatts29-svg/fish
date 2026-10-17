@@ -188,6 +188,10 @@ marks as a draft, or anything risky to the record, waits for his yes.
 
 ## Rules the page lives by (settled with Andrew — do not undo)
 
+- **What the page is for** (Andrew, 17 Oct 2026): "Remember gc500 is all about what we charge the v8s. But we capture all
+  other costs.too". Revenue — what Coates charges the V8s — is the point of every screen and figure; every cost (rehire,
+  sub-hire, transport, labour, supplier quotes) is captured beside it so the margin is true, but a cost never sets or
+  changes what the V8s are charged unless Andrew says so.
 - **Layout and design** (Andrew, 2 Oct 2026: "We are professional your taking away all the good work we did" ... "make sure we
   dont double up info" ... "Layout needs to be perfection now"):
   - keep every component as it was built: arrange, fold or pack it, never redraw or restyle it;
