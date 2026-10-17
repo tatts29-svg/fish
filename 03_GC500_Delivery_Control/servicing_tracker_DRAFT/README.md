@@ -63,5 +63,5 @@ clean. Sunday night will need a extra. locked and confirmed empty. No water will
 - Job rules (Andrew, 18 Oct 2026: "Corrext with 1. 2 is correct. 3 let go with need to be cleaned regardless"): blocks with
   their own waste tank (WC05, WC20, WC27, WC60) are Cleaned & restocked only and the tank takes the pump-out; sewer-connected
   blocks (WC15, WC16, T0243) are Cleaned & restocked only; FWFs are still cleaned & restocked on Sunday. Line kind
-  `blockclean` (night: clean; Sunday: clean, lock). WC09, WC17 and WC31's blocks stay Pumped out + Cleaned (the record
-  marks them neither sewer nor tanked). Jobs per night: 749 (Sunday 766).
+  `blockclean` (night: clean; Sunday: clean, lock). WC09, WC17 and WC31's blocks are Pumped out + Cleaned & restocked
+  regardless (Andrew: "Other ones lets just add a pump out too please regardless"). Jobs per night: 749 (Sunday 766).

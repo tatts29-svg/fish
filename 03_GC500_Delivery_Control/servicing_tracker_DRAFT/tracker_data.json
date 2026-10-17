@@ -2044,6 +2044,7 @@
  ],
  "notes": {
   "blockclean": "Andrew, 18 Oct 2026: blocks with their own waste tank (the tank takes the pump-out) and sewer-connected blocks are cleaned & restocked only",
-  "sunday": "Andrew, 18 Oct 2026: \"need to be cleaned regardless\" - FWFs are still cleaned & restocked on Sunday night"
+  "sunday": "Andrew, 18 Oct 2026: \"need to be cleaned regardless\" - FWFs are still cleaned & restocked on Sunday night",
+  "otherblocks": "Andrew, 18 Oct 2026: \"Other ones lets just add a pump out too please regardless\" - WC09, WC17 and WC31's blocks: Pumped out + Cleaned & restocked whether or not they are sewer-connected"
  }
 }
