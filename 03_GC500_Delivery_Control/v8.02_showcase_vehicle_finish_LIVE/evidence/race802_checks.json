@@ -1,0 +1,332 @@
+{
+  "author": "Andrew Fisher",
+  "scope": "CPU geometry and original source contract; no GPU, network or live writes",
+  "original": {
+    "path": "/workspace/private-v802-official70-stages/01_showcase794.html",
+    "sha256": "d3a142f3302669c285cae3948857f5aa1959d11abadfb402f657d7eaaaff7f9c",
+    "modelSha256": "e9d52aad1348ab1e9147a78ac5ee437e202a5c0f84489e27c90d1a93fc717b84"
+  },
+  "sourceSha256": "90ff54453c4ba4e3176d3223b5d13cdd0d6f05374a917f791ee1d19361886931",
+  "candidate": {
+    "path": "/workspace/private-v802-official70-stages/02_race800.html",
+    "sha256": "8731e315bc64a6eb33471cebf1e21a018a5cad16a011ba4edf115ec54e00eb15"
+  },
+  "metrics": {
+    "balanced": {
+      "original": {
+        "triangles": 82722,
+        "vertices": 61710,
+        "parts": 31,
+        "quality": "balanced",
+        "kind": "original parametric race coupe"
+      },
+      "current": {
+        "triangles": 81102,
+        "vertices": 61452,
+        "parts": 31,
+        "quality": "balanced",
+        "kind": "original parametric race coupe",
+        "visual800": {
+          "version": "v8.00",
+          "coherentSurfaceWinding": true,
+          "derivativeSurfaceNormals": true,
+          "projectorAssemblies": 4,
+          "segmentedRearLenses": 4,
+          "loftedForgedSpokes": 40,
+          "roundedWheelCarcasses": 4,
+          "closedWingSection": true,
+          "originalEnvelope": true,
+          "originalWheelPivots": true,
+          "perFrameGeometryWork": 0
+        }
+      },
+      "originalBytes": 2967384,
+      "currentBytes": 2939688,
+      "bounds": {
+        "min": [
+          -1.086,
+          0,
+          -0.46399999999999997
+        ],
+        "max": [
+          1.083,
+          0.5834307748951706,
+          0.46399999999999997
+        ]
+      },
+      "opposedNormalsBefore": 180,
+      "opposedNormalsAfter": 0,
+      "combinedOriginalAndNewBuildMs": 1488.18,
+      "geometrySha256": "db8432a9220ea07e6e5d8b203c33ea142c11d9e329f205d4f33d2912f1244280"
+    },
+    "high": {
+      "original": {
+        "triangles": 174446,
+        "vertices": 112070,
+        "parts": 31,
+        "quality": "high",
+        "kind": "original parametric race coupe"
+      },
+      "current": {
+        "triangles": 146246,
+        "vertices": 97312,
+        "parts": 31,
+        "quality": "high",
+        "kind": "original parametric race coupe",
+        "visual800": {
+          "version": "v8.00",
+          "coherentSurfaceWinding": true,
+          "derivativeSurfaceNormals": true,
+          "projectorAssemblies": 4,
+          "segmentedRearLenses": 4,
+          "loftedForgedSpokes": 40,
+          "roundedWheelCarcasses": 4,
+          "closedWingSection": true,
+          "originalEnvelope": true,
+          "originalWheelPivots": true,
+          "perFrameGeometryWork": 0
+        }
+      },
+      "originalBytes": 5679592,
+      "currentBytes": 4868936,
+      "bounds": {
+        "min": [
+          -1.086,
+          0,
+          -0.46399999999999997
+        ],
+        "max": [
+          1.083,
+          0.5834307748951706,
+          0.46399999999999997
+        ]
+      },
+      "opposedNormalsBefore": 210,
+      "opposedNormalsAfter": 0,
+      "combinedOriginalAndNewBuildMs": 2536.77,
+      "geometrySha256": "f68b28d704f52a1f2d13e702b47048d74059e9c09989bd5eb599fd8682a736fe"
+    }
+  },
+  "checks": [
+    {
+      "name": "only visual model API is introduced",
+      "pass": true
+    },
+    {
+      "name": "balanced finite complete vertex and index buffers",
+      "pass": true
+    },
+    {
+      "name": "balanced unit normals agree with every nondegenerate triangle",
+      "pass": true,
+      "detail": {
+        "originalOpposed": 180,
+        "currentOpposed": 0,
+        "minimumDot": 0.00004594902065232523
+      }
+    },
+    {
+      "name": "balanced no degenerate triangles after float32 storage",
+      "pass": true,
+      "detail": {
+        "count": 0
+      }
+    },
+    {
+      "name": "balanced original bounding envelope remains exact",
+      "pass": true
+    },
+    {
+      "name": "balanced original part names materials and wheel pivots retained",
+      "pass": true
+    },
+    {
+      "name": "balanced triangles and retained bytes below original budget",
+      "pass": true,
+      "detail": {
+        "originalTriangles": 82722,
+        "triangles": 81102,
+        "originalBytes": 2967384,
+        "bytes": 2939688
+      }
+    },
+    {
+      "name": "balanced draw-part count is unchanged",
+      "pass": true
+    },
+    {
+      "name": "balanced all four forged spoke assemblies are closed outward volumes",
+      "pass": true,
+      "detail": [
+        {
+          "name": "front-left-spokes",
+          "unclosed": 0,
+          "volume": 0.00005087111388848758
+        },
+        {
+          "name": "front-right-spokes",
+          "unclosed": 0,
+          "volume": 0.00005087111388848758
+        },
+        {
+          "name": "rear-left-spokes",
+          "unclosed": 0,
+          "volume": 0.00005087113001696081
+        },
+        {
+          "name": "rear-right-spokes",
+          "unclosed": 0,
+          "volume": 0.00005087113001696081
+        }
+      ]
+    },
+    {
+      "name": "balanced rear lights include filled lenses beyond the previous thin outlines",
+      "pass": true,
+      "detail": {
+        "oldMaximumFaceArea": 0.00008612155546865891,
+        "maximumFaceArea": 0.0012268916543486418
+      }
+    },
+    {
+      "name": "balanced actual projector lens geometry is present ahead of the cabin",
+      "pass": true,
+      "detail": {
+        "oldFrontLensVertices": 1800,
+        "frontLensVertices": 2476
+      }
+    },
+    {
+      "name": "balanced cache reuses immutable geometry without rebuilding",
+      "pass": true
+    },
+    {
+      "name": "balanced visual geometry materially changes while retaining source model",
+      "pass": true
+    },
+    {
+      "name": "high finite complete vertex and index buffers",
+      "pass": true
+    },
+    {
+      "name": "high unit normals agree with every nondegenerate triangle",
+      "pass": true,
+      "detail": {
+        "originalOpposed": 210,
+        "currentOpposed": 0,
+        "minimumDot": 0.00006882138559423681
+      }
+    },
+    {
+      "name": "high no degenerate triangles after float32 storage",
+      "pass": true,
+      "detail": {
+        "count": 0
+      }
+    },
+    {
+      "name": "high original bounding envelope remains exact",
+      "pass": true
+    },
+    {
+      "name": "high original part names materials and wheel pivots retained",
+      "pass": true
+    },
+    {
+      "name": "high triangles and retained bytes below original budget",
+      "pass": true,
+      "detail": {
+        "originalTriangles": 174446,
+        "triangles": 146246,
+        "originalBytes": 5679592,
+        "bytes": 4868936
+      }
+    },
+    {
+      "name": "high draw-part count is unchanged",
+      "pass": true
+    },
+    {
+      "name": "high all four forged spoke assemblies are closed outward volumes",
+      "pass": true,
+      "detail": [
+        {
+          "name": "front-left-spokes",
+          "unclosed": 0,
+          "volume": 0.00005087111388848758
+        },
+        {
+          "name": "front-right-spokes",
+          "unclosed": 0,
+          "volume": 0.00005087111388848758
+        },
+        {
+          "name": "rear-left-spokes",
+          "unclosed": 0,
+          "volume": 0.00005087113001696081
+        },
+        {
+          "name": "rear-right-spokes",
+          "unclosed": 0,
+          "volume": 0.00005087113001696081
+        }
+      ]
+    },
+    {
+      "name": "high rear lights include filled lenses beyond the previous thin outlines",
+      "pass": true,
+      "detail": {
+        "oldMaximumFaceArea": 0.00008612155546865891,
+        "maximumFaceArea": 0.0012268916543486418
+      }
+    },
+    {
+      "name": "high actual projector lens geometry is present ahead of the cabin",
+      "pass": true,
+      "detail": {
+        "oldFrontLensVertices": 1800,
+        "frontLensVertices": 2892
+      }
+    },
+    {
+      "name": "high cache reuses immutable geometry without rebuilding",
+      "pass": true
+    },
+    {
+      "name": "high visual geometry materially changes while retaining source model",
+      "pass": true
+    },
+    {
+      "name": "Ultra and unspecified requests retain the established High model contract",
+      "pass": true
+    },
+    {
+      "name": "livery surface callbacks retain exact placement",
+      "pass": true,
+      "detail": {
+        "samples": 1722,
+        "largestError": 0
+      }
+    },
+    {
+      "name": "window anchors and rear geometry callbacks remain compatible",
+      "pass": true
+    },
+    {
+      "name": "complete existing livery mesh is byte-identical on refined body",
+      "pass": true
+    },
+    {
+      "name": "balanced deterministic geometry without random state",
+      "pass": true
+    },
+    {
+      "name": "high deterministic geometry without random state",
+      "pass": true
+    },
+    {
+      "name": "candidate includes exact current visual module",
+      "pass": true
+    }
+  ]
+}

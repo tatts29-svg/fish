@@ -1,0 +1,184 @@
+{
+  "author": "Andrew Fisher",
+  "complete": true,
+  "supplier": "Event Portables",
+  "units": {
+    "WC61": [
+      "0645",
+      "0105",
+      "0945",
+      "0977",
+      "0547",
+      "0290",
+      "0038",
+      "0015"
+    ],
+    "WC40": [
+      "0152",
+      "0078",
+      "0010",
+      "0070",
+      "0958"
+    ]
+  },
+  "beforeVersion": 4761,
+  "afterVersion": 4808,
+  "nativeFreshReadbackVerified": true,
+  "leadingZeroesPreserved": true,
+  "unrelatedDocumentsUnchanged": true,
+  "deliveryStatusUnchanged": true,
+  "changes": [
+    {
+      "collection": "stamps",
+      "key": "subhire/WC61"
+    },
+    {
+      "collection": "stamps",
+      "key": "subhire/WC40"
+    },
+    {
+      "collection": "stamps",
+      "key": "units/WC40"
+    },
+    {
+      "collection": "stamps",
+      "key": "units/WC61"
+    },
+    {
+      "collection": "units",
+      "key": "WC61"
+    },
+    {
+      "collection": "units",
+      "key": "WC40"
+    },
+    {
+      "collection": "by",
+      "key": "subhire/WC61"
+    },
+    {
+      "collection": "by",
+      "key": "deleted/back/unit/WC61/0977"
+    },
+    {
+      "collection": "by",
+      "key": "deleted/back/unit/WC61/0547"
+    },
+    {
+      "collection": "by",
+      "key": "subhire/WC40"
+    },
+    {
+      "collection": "by",
+      "key": "deleted/back/unit/WC61/0105"
+    },
+    {
+      "collection": "by",
+      "key": "deleted/back/unit/WC61/0645"
+    },
+    {
+      "collection": "by",
+      "key": "deleted/back/unit/WC40/0078"
+    },
+    {
+      "collection": "by",
+      "key": "deleted/back/unit/WC61/0945"
+    },
+    {
+      "collection": "by",
+      "key": "deleted/back/unit/WC61/0015"
+    },
+    {
+      "collection": "by",
+      "key": "deleted/back/unit/WC40/0958"
+    },
+    {
+      "collection": "by",
+      "key": "units/WC40"
+    },
+    {
+      "collection": "by",
+      "key": "deleted/back/unit/WC40/0070"
+    },
+    {
+      "collection": "by",
+      "key": "deleted/back/unit/WC40/0010"
+    },
+    {
+      "collection": "by",
+      "key": "deleted/back/unit/WC40/0152"
+    },
+    {
+      "collection": "by",
+      "key": "units/WC61"
+    },
+    {
+      "collection": "by",
+      "key": "deleted/back/unit/WC61/0038"
+    },
+    {
+      "collection": "by",
+      "key": "deleted/back/unit/WC61/0290"
+    },
+    {
+      "collection": "subhire",
+      "key": "WC40"
+    },
+    {
+      "collection": "subhire",
+      "key": "WC61"
+    },
+    {
+      "collection": "deleted",
+      "key": "back/unit/WC61/0547"
+    },
+    {
+      "collection": "deleted",
+      "key": "back/unit/WC40/0152"
+    },
+    {
+      "collection": "deleted",
+      "key": "back/unit/WC61/0105"
+    },
+    {
+      "collection": "deleted",
+      "key": "back/unit/WC40/0078"
+    },
+    {
+      "collection": "deleted",
+      "key": "back/unit/WC40/0010"
+    },
+    {
+      "collection": "deleted",
+      "key": "back/unit/WC61/0977"
+    },
+    {
+      "collection": "deleted",
+      "key": "back/unit/WC61/0015"
+    },
+    {
+      "collection": "deleted",
+      "key": "back/unit/WC61/0645"
+    },
+    {
+      "collection": "deleted",
+      "key": "back/unit/WC40/0958"
+    },
+    {
+      "collection": "deleted",
+      "key": "back/unit/WC61/0945"
+    },
+    {
+      "collection": "deleted",
+      "key": "back/unit/WC61/0290"
+    },
+    {
+      "collection": "deleted",
+      "key": "back/unit/WC40/0070"
+    },
+    {
+      "collection": "deleted",
+      "key": "back/unit/WC61/0038"
+    }
+  ]
+}

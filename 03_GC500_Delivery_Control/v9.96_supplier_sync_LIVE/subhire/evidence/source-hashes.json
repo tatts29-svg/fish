@@ -1,0 +1,30 @@
+{
+  "author": "Andrew Fisher",
+  "baseVersion": "v9.94",
+  "baseSha256": "382311bc1faf33ca1333d1431368a442dbdf651a6d23874b56ef65bae7ed8dd8",
+  "files": {
+    "patch_supplier996.py": "be39c3ea26f0d25da437dd04ea040240682b2fb046d41945c2d30ebd3d689026",
+    "supplier996.css": "7f9190a6147ebb074dd2a1552ff975c7188d05e366bc0d27528e7cc08020a82b",
+    "supplier996.js": "6829448d02a6aec1de5861ae5edad90b1a757303ef074ee905cb09bdaa5788cb",
+    "supplier996_daily.js": "e741d7af9e127fc41696b05dc7d43724a9a1ae6b5b639e18205319e8cc9ade39",
+    "supplier996_pdf.js": "f61f1ef8f33e79da3be0020e58cb53b8eb75d8f9b2f4bf701ffb0636a4d543db",
+    "supplier996_ui.js": "6d378cc39f67df444c94b29d30bb5416e53b7e32348d2a4e2300a265f518bf55",
+    "tests/collections996.cjs": "7cecf1491ec760c47ad00f9b84cedcbb475a8930a5d6bb09f6c9d37050a2f6c3",
+    "tests/integration996.cjs": "be534dd183f3bbe22aaeee18457bed7a6802f2202b7b85237e21d94cf222f1b5",
+    "tests/pdf_scope996.cjs": "503c3bad0508259702609353d12e3844f1201a296f2c7f926bb08e82b8a0a576",
+    "tests/request_resolution996.cjs": "0cb21dc5775d911f451fd142452c32bfc3035844036cdbccecef8dd133727a2b"
+  },
+  "verification": {
+    "desktop": 24,
+    "phone": 21,
+    "independentPure": 16,
+    "operationalWrites": 0,
+    "combinedCollections": {
+      "previousPassed": 7,
+      "finalRerun": "blocked by Playwright CRSession protocol assertion / machine process exhaustion before application results; root integration recheck pending"
+    },
+    "latestChange": "All-dates remaining export; per-load recorded dates; FWF unallocated reconciliation and separate current blocks/panels. Eight pure export checks passed; root integrated real PDF text/layout check pending.",
+    "requestResolutionPure": 13,
+    "pdfScopePure": 8
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "author": "Andrew Fisher",
+  "sha256": "824192c81c4c719590d82bd5497cb8c6e5e0f93590d61035ce642e7490919b34",
+  "bytes": 12951708,
+  "uploadedUtc": "2026-10-09T22:24:51.812Z",
+  "uploadedAest": "10 Oct 2026 08:24 AEST",
+  "readySourceCommit": "a39f1c35",
+  "baseSha256": "b3c4ab269d79f0d2a1cbef5f834967769417e91a31a281f6fe4c3c46d63f514f",
+  "exactPublicBytes": true,
+  "nativeVersion": 5201,
+  "operationalWrites": 0,
+  "publicFinancialPhoneChecks": 39,
+  "publicShowcase": {
+    "pass": true,
+    "checks": 42,
+    "actualPublic": true,
+    "htmlSubstitution": false,
+    "nativeUnchanged": true,
+    "errors": 0,
+    "operationalWrites": 0
+  }
+}

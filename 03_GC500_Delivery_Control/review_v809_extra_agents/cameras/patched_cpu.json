@@ -1,0 +1,397 @@
+{
+  "author": "Andrew Fisher",
+  "source": "/workspace/private-v809-support/cameras/candidate/car-app.js",
+  "sourceHash": "39df72cf086d5a3b31f0288a2d3b6f11c4ed4161f5ff9f95f212e3a41d1542e1",
+  "mode": "patched",
+  "checks": [
+    {
+      "name": "first visible walker at logical sill position",
+      "previous": [
+        0,
+        0
+      ],
+      "phase": "crawlout",
+      "visible": true,
+      "logical": [
+        0.7,
+        0,
+        -1.5
+      ],
+      "drawn": [
+        0.7,
+        0,
+        -1.5
+      ],
+      "errorMetres": 0
+    },
+    {
+      "name": "walker exposed on door-complete frame",
+      "pass": true
+    },
+    {
+      "name": "first exposed root is current (regression expectation)",
+      "pass": true
+    },
+    {
+      "name": "zero-time sync retains crouch",
+      "pass": true
+    },
+    {
+      "name": "zero-time sync does not advance clock",
+      "pass": true
+    },
+    {
+      "name": "zero-time sync does not advance idle",
+      "pass": true
+    },
+    {
+      "name": "zero-time sync leaves all bone transforms finite",
+      "pass": true
+    },
+    {
+      "name": "next-frame root is current",
+      "pass": true
+    },
+    {
+      "name": "Reset driverHome hides former safe-point walker",
+      "pass": true
+    },
+    {
+      "name": "first visible walker at logical sill position",
+      "previous": [
+        -4.4,
+        -4.9
+      ],
+      "phase": "crawlout",
+      "visible": true,
+      "logical": [
+        0.7,
+        0,
+        -1.5
+      ],
+      "drawn": [
+        0.7,
+        0,
+        -1.5
+      ],
+      "errorMetres": 0
+    },
+    {
+      "name": "walker exposed on door-complete frame",
+      "pass": true
+    },
+    {
+      "name": "first exposed root is current (regression expectation)",
+      "pass": true
+    },
+    {
+      "name": "zero-time sync retains crouch",
+      "pass": true
+    },
+    {
+      "name": "zero-time sync does not advance clock",
+      "pass": true
+    },
+    {
+      "name": "zero-time sync does not advance idle",
+      "pass": true
+    },
+    {
+      "name": "zero-time sync leaves all bone transforms finite",
+      "pass": true
+    },
+    {
+      "name": "next-frame root is current",
+      "pass": true
+    },
+    {
+      "name": "real OrbitControls after scripted shot",
+      "aspect": 2.2,
+      "scriptedDistance": 11.258484776933077,
+      "drawnDistance": 11.258484776933077,
+      "maxAbsX": 0.49561410267390466,
+      "maxAbsY": 0.9270419212582504,
+      "allInside": true
+    },
+    {
+      "name": "door-shot silhouette projection",
+      "aspect": 2.2,
+      "camera": [
+        9.397486810659172,
+        4.017987706073916,
+        -7.056646176789862
+      ],
+      "target": [
+        -0.1822893010550075,
+        0.975,
+        -1.985
+      ],
+      "foot": [
+        -0.16373547029495203,
+        -0.46582114112333484,
+        0.9983799614689246
+      ],
+      "head": [
+        -0.17123158204412103,
+        0.2800832211914988,
+        0.9982966358331942
+      ],
+      "heightFraction": 0.3729521811574168,
+      "inside": true
+    },
+    {
+      "name": "real OrbitControls after scripted shot",
+      "aspect": 1.6,
+      "scriptedDistance": 11.258484776933077,
+      "drawnDistance": 11.258484776933077,
+      "maxAbsX": 0.681469391176619,
+      "maxAbsY": 0.9270419212582504,
+      "allInside": true
+    },
+    {
+      "name": "door-shot silhouette projection",
+      "aspect": 1.6,
+      "camera": [
+        9.397486810659172,
+        4.017987706073916,
+        -7.056646176789862
+      ],
+      "target": [
+        -0.1822893010550075,
+        0.975,
+        -1.985
+      ],
+      "foot": [
+        -0.22513627165555902,
+        -0.46582114112333484,
+        0.9983799614689246
+      ],
+      "head": [
+        -0.23544342531066642,
+        0.2800832211914988,
+        0.9982966358331942
+      ],
+      "heightFraction": 0.3729521811574168,
+      "inside": true
+    },
+    {
+      "name": "real OrbitControls after scripted shot",
+      "aspect": 1,
+      "scriptedDistance": 12.794701867241441,
+      "drawnDistance": 12.794701867241441,
+      "maxAbsX": 0.9311783322046688,
+      "maxAbsY": 0.7883856921106276,
+      "allInside": true
+    },
+    {
+      "name": "door-shot silhouette projection",
+      "aspect": 1,
+      "camera": [
+        10.704644574401522,
+        4.433202525145015,
+        -7.748670875241693
+      ],
+      "target": [
+        -0.1822893010550075,
+        0.975,
+        -1.985
+      ],
+      "foot": [
+        -0.31603998377660786,
+        -0.4086916581700704,
+        0.9986031780509127
+      ],
+      "head": [
+        -0.32866349681810847,
+        0.24436106772628755,
+        0.9985393957568057
+      ],
+      "heightFraction": 0.326526362948179,
+      "inside": true
+    },
+    {
+      "name": "real OrbitControls after scripted shot",
+      "aspect": 0.65,
+      "scriptedDistance": 18.38768845185805,
+      "drawnDistance": 18.38768845185805,
+      "maxAbsX": 0.935418433127751,
+      "maxAbsY": 0.510433391053322,
+      "allInside": true
+    },
+    {
+      "name": "door-shot silhouette projection",
+      "aspect": 0.65,
+      "camera": [
+        15.463682787627553,
+        5.944897016405048,
+        -10.268161694008414
+      ],
+      "target": [
+        -0.1822893010550075,
+        0.975,
+        -1.985
+      ],
+      "foot": [
+        -0.3361297063508071,
+        -0.2825361320255937,
+        0.999096093510482
+      ],
+      "head": [
+        -0.34529827176867983,
+        0.16687385691964013,
+        0.9990659818539911
+      ],
+      "heightFraction": 0.2247049944726169,
+      "inside": true
+    },
+    {
+      "name": "real OrbitControls after scripted shot",
+      "aspect": 0.552,
+      "scriptedDistance": 21.224710632460678,
+      "drawnDistance": 20,
+      "maxAbsX": 1.0013149357809725,
+      "maxAbsY": 0.4633423074612377,
+      "allInside": false
+    },
+    {
+      "name": "door-shot silhouette projection",
+      "aspect": 0.552,
+      "camera": [
+        17.87768767839438,
+        6.7116985699427465,
+        -11.54616428323791
+      ],
+      "target": [
+        -0.1822893010550075,
+        0.975,
+        -1.985
+      ],
+      "foot": [
+        -0.34222081521396147,
+        -0.24428637319508062,
+        0.999245543146408
+      ],
+      "head": [
+        -0.3502620987466537,
+        0.14375162601521174,
+        0.9992231154661502
+      ],
+      "heightFraction": 0.19401899960514618,
+      "inside": true
+    },
+    {
+      "name": "real OrbitControls after scripted shot",
+      "aspect": 0.524,
+      "scriptedDistance": 22.230198319151903,
+      "drawnDistance": 20,
+      "maxAbsX": 1.0548203140288108,
+      "maxAbsY": 0.4633423074612377,
+      "allInside": false
+    },
+    {
+      "name": "door-shot silhouette projection",
+      "aspect": 0.524,
+      "camera": [
+        18.733251025721774,
+        6.983465750858506,
+        -11.999109584764177
+      ],
+      "target": [
+        -0.1822893010550075,
+        0.975,
+        -1.985
+      ],
+      "foot": [
+        -0.3440018903881335,
+        -0.23310192428742843,
+        0.9992892430772935
+      ],
+      "head": [
+        -0.3517066560471196,
+        0.1370226671687122,
+        0.9992688439952868
+      ],
+      "heightFraction": 0.18506229572807031,
+      "inside": true
+    },
+    {
+      "name": "real OrbitControls after scripted shot",
+      "aspect": 0.5,
+      "scriptedDistance": 23.181676952958,
+      "drawnDistance": 20,
+      "maxAbsX": 1.105451689102194,
+      "maxAbsY": 0.4633423074612377,
+      "allInside": false
+    },
+    {
+      "name": "door-shot silhouette projection",
+      "aspect": 0.5,
+      "camera": [
+        19.54285839896415,
+        7.240635151770791,
+        -12.42772525295132
+      ],
+      "target": [
+        -0.1822893010550075,
+        0.975,
+        -1.985
+      ],
+      "foot": [
+        -0.3455433479616209,
+        -0.22342217930863734,
+        0.9993270638219771
+      ],
+      "head": [
+        -0.352954365299985,
+        0.13121065527257345,
+        0.9993083411539706
+      ],
+      "heightFraction": 0.17731641729060538,
+      "inside": true
+    },
+    {
+      "name": "real OrbitControls after scripted shot",
+      "aspect": 0.4,
+      "scriptedDistance": 28.207829290281293,
+      "drawnDistance": 19.999999999999996,
+      "maxAbsX": 1.381129270269046,
+      "maxAbsY": 0.4492460734679063,
+      "allInside": false
+    },
+    {
+      "name": "door-shot silhouette projection",
+      "aspect": 0.4,
+      "camera": [
+        23.96196531124546,
+        8,
+        -14.767252441806132
+      ],
+      "target": [
+        -0.1822893010550075,
+        0.975,
+        -1.985
+      ],
+      "foot": [
+        -0.35452939140085304,
+        -0.18234551760338505,
+        0.9994834936962876
+      ],
+      "head": [
+        -0.36025022929884276,
+        0.10993650864435624,
+        0.999471931521348
+      ],
+      "heightFraction": 0.14614101312387065,
+      "inside": true
+    },
+    {
+      "name": "real frame requests fit once driver-camera relinquishes control",
+      "pass": true
+    },
+    {
+      "name": "test coverage gap",
+      "fastForwardContainsAssemblyFit": false,
+      "realFrameGate": "if(assemblyFit&&!camTween&&!DXC.mode){fit(view);if(Math.abs(drive.spread-drive.spreadTarget)<.001&&drive.pulls.every((v,i)=>Math.abs(v-drive.pullTargets[i])<.001))assemblyFit=false;}"
+    }
+  ]
+}

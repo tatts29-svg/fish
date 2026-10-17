@@ -1,0 +1,172 @@
+--- /tmp/claude-0/stage3/machine_base/v8-audio.js	2026-09-26 09:44:09.358901566 +0000
++++ /tmp/claude-0/stage3/machine/v8-audio.js	2026-09-27 03:57:28.237489317 +0000
+@@ -237,18 +237,20 @@
+     if (this.hasV8Loops()) {
+       const mix = SampleBank.v8Mix(rpm), load = 0.55 + 0.45 * Math.min(1, Math.max(0, throttle));
+       for (const id of ['v8-idle', 'v8-cruise', 'v8-roar']) {
+-        const level = on && running && view !== 'cog' ? mix[id] * load : 0;
++        /* v6.92 — the driver hears his own V8: in the seat the loops play a little under the hall's level, through the firewall */
++        const level = on && running ? mix[id] * load * (view === 'cockpit' || view === 'cog' ? 0.85 : 1) : 0;
+         this.setLoop(id, level, rpm > 0 ? rpm / LOOP_RPM[id] : 1);
+       }
+     }
+-    const engineOn = on && running && view !== 'cog', norm = Math.min(1, Math.max(0, (rpm - 800) / 6400));
++    const inCab = view === 'cockpit' || view === 'cog', engineOn = on && running, norm = Math.min(1, Math.max(0, (rpm - 800) / 6400)), cab = inCab ? 0.5 : 1;
+     /* v5.79 — the chain drive is off the engine (the cog is the steering wheel); its loop stays in the pack unplayed */
+     this.setLoop('chain-run', 0, 1);
+-    this.setLoop('belt-run', engineOn ? Math.cos(norm * Math.PI / 2) * 0.10 : 0, 0.85 + norm * 0.5);
+-    this.setLoop('belt-run-fast', engineOn ? Math.sin(norm * Math.PI / 2) * 0.12 : 0, 0.9 + norm * 0.3);
+-    this.setLoop('fans-run', engineOn ? 0.06 + norm * 0.06 : 0, 0.9 + norm * 0.4);
+-    this.setLoop('dyno-rollers', on && view !== 'cog' && wheelSpeed > 0.02 ? Math.min(0.22, wheelSpeed * 0.9) : 0, 0.8 + Math.min(1, wheelSpeed) * 0.6);
+-    this.setLoop('machine-run', on && view === 'cog' && machineRunning ? 0.30 : 0, 1, {toAir: false});
++    this.setLoop('belt-run', engineOn ? Math.cos(norm * Math.PI / 2) * 0.10 * cab : 0, 0.85 + norm * 0.5);
++    this.setLoop('belt-run-fast', engineOn ? Math.sin(norm * Math.PI / 2) * 0.12 * cab : 0, 0.9 + norm * 0.3);
++    this.setLoop('fans-run', engineOn ? (0.06 + norm * 0.06) * cab : 0, 0.9 + norm * 0.4);
++    this.setLoop('dyno-rollers', on && wheelSpeed > 0.02 ? Math.min(0.22, wheelSpeed * 0.9) * cab : 0, 0.8 + Math.min(1, wheelSpeed) * 0.6);
++    /* the column's assist unit under the dash (the machine's own motor and box): a hum under the V8 in the seat, no longer instead of it */
++    this.setLoop('machine-run', on && inCab && machineRunning ? 0.14 : 0, 1, {toAir: false});
+     this.setLoop('workshop-tone', on ? 0.05 : 0, 1, {toAir: false, tc: 0.5});
+   }
+   stopAll() { for (const l of this.loops.values()) { try { l.gain.gain.setTargetAtTime(0, this.ctx.currentTime, 0.03); } catch (e) {} } }
+@@ -270,7 +272,11 @@
+          distance, exactly as it does walking away from a running car in a workshop. */
+       this.air = c.createBiquadFilter();
+       this.air.type = 'lowpass'; this.air.frequency.value = 3200; this.air.Q.value = 0.6;
+-      this.air.connect(this.master);
++      /* v6.92 — the duck: everything that comes through the air (the V8, its loops, the hall's clips) passes this gain, which the radio
++         pulls down about 10 dB while Coates FM plays. The cockpit's clicks and the radio itself go straight to the master. */
++      this.duck = c.createGain(); this.duck.gain.value = 1;
++      this.air.connect(this.duck); this.duck.connect(this.master);
++      this.foley = new Foley(c, this.master);
+ 
+       /* THE PIPE — fixed resonances AFTER the loop, so they do not pitch-shift with the revs.
+          Andrew Fisher, 22 Sep 2026: a deep, roaring, beautiful-sounding V8. Deep is the bottom two octaves:
+@@ -315,8 +321,48 @@
+       this.bank = new SampleBank(this.context, {air: this.air, master: this.master});
+       this.bank.warm().then(loaded => { this.bankLoaded = loaded; });
+     }
++    /* the radio follows the sound: off with it, and back on with it if the channel is still open */
++    if (!this.enabled) this.stopRadio(true); else if (this.radioWanted) { this.fx('radio-on'); this.startRadio(); }
+     return this.enabled;
+   }
++  /** v6.92 — a synthesised mechanical sound from the cockpit (Foley below). Silent when sound is off; never throws. */
++  fx(id, level = 1) { if (!this.enabled || !this.foley) return false; try { return this.foley.play(id, level); } catch (e) { return false; } }
++  /** v6.92 — the cockpit's running systems, once a frame: the fuel pump's hum while it runs, the radiator fans' whirr. */
++  ambient(state) { if (!this.foley) return; try { this.foley.ambient(this.enabled ? state : {}); } catch (e) {} }
++  /** v6.92 — COATES FM. RADIO on: a click and a burst of static, then assets/audio/coates-fm.mp3 through a radio's band (250 Hz to
++   *  5 kHz, a little saturation) with everything through the air ducked about 10 dB under it; RADIO again, or the end of the track,
++   *  and it clicks off and the V8 comes back up. The file is fetched only once sound is on (the bank loads it on the first RADIO); if it
++   *  is not there the radio is static, briefly, and nothing fails. onEnd is called when the track plays out. */
++  setRadio(on, {onEnd = null, volume = null} = {}) {
++    this.radioWanted = !!on; if (onEnd) this.radioOnEnd = onEnd; if (volume !== null) this.radioVolume = volume;
++    if (!this.enabled || !this.context) return false;
++    if (on) { this.fx('radio-on'); this.startRadio(); } else { this.fx('radio-off'); this.stopRadio(); }
++    return true;
++  }
++  setRadioVolume(v) { this.radioVolume = Math.max(0, Math.min(1, v)); if (this.radioOut && this.context) this.radioOut.gain.setTargetAtTime(1.6 * this.radioVolume, this.context.currentTime, 0.04); }
++  async startRadio() {
++    const c = this.context; if (!c || !this.bank) return;
++    const token = this.radioToken = (this.radioToken || 0) + 1;
++    const buf = await this.bank.load('coates-fm');
++    if (token !== this.radioToken || !this.radioWanted || !this.enabled) return;
++    if (!buf) { this.radioMissing = true; this.fx('static'); return; }
++    this.stopRadio(true);
++    const src = c.createBufferSource(); src.buffer = buf;
++    const hp = c.createBiquadFilter(); hp.type = 'highpass'; hp.frequency.value = 250; hp.Q.value = 0.7;
++    const lp = c.createBiquadFilter(); lp.type = 'lowpass'; lp.frequency.value = 5000; lp.Q.value = 0.7;
++    const sat = c.createWaveShaper(); sat.curve = Foley.saturation(1.8); sat.oversample = '2x';
++    const out = c.createGain(); out.gain.value = 0; out.gain.setTargetAtTime(1.6 * (this.radioVolume ?? 0.7), c.currentTime + 0.12, 0.05);
++    src.connect(hp); hp.connect(lp); lp.connect(sat); sat.connect(out); out.connect(this.master);
++    src.onended = () => { if (this.radioSrc !== src) return; this.radioSrc = null; this.duck.gain.setTargetAtTime(1, c.currentTime, 0.25); if (this.radioWanted) { this.radioWanted = false; this.fx('radio-off'); if (this.radioOnEnd) this.radioOnEnd(); } };
++    src.start(c.currentTime + 0.12); this.radioSrc = src; this.radioOut = out; this.radioPlaying = true;
++    this.duck.gain.setTargetAtTime(0.316, c.currentTime, 0.12);   /* −10 dB */
++  }
++  stopRadio(silent = false) {
++    this.radioToken = (this.radioToken || 0) + 1; this.radioPlaying = false;
++    const c = this.context; if (!c) return;
++    if (this.radioSrc) { const src = this.radioSrc, out = this.radioOut; this.radioSrc = null; try { out.gain.setTargetAtTime(0, c.currentTime, silent ? 0.01 : 0.03); src.stop(c.currentTime + 0.15); } catch (e) {} }
++    if (this.duck) this.duck.gain.setTargetAtTime(1, c.currentTime, 0.2);
++  }
+   /** One of the approved clips, once. Silent when sound is off or the clip is not in the bank. */
+   play(id, level = 1, opts) { if (!this.enabled || !this.bank) return false; return this.bank.oneShot(id, level, opts); }
+   /** The app's state for the sample loops, once per frame after update(). */
+@@ -358,5 +404,79 @@
+   }
+ 
+   quiet() { if (this.context) this.master.gain.setTargetAtTime(0, this.context.currentTime, 0.03); }
++  /** the pack's clip ids plus the synthesised ones, for a harness */
++  static get fxIds() { return Object.keys(FOLEY); }
+   dispose() { this.quiet(); this.context?.close(); this.context = null; }
+ }
++
++/** v6.92 — THE COCKPIT'S CLICKS AND CLANGS. Andrew Fisher, 27 Sep 2026: "more clicks and clangs operating systems inside the cockpit that
++ *  work". Every one is synthesised here with Web Audio at the moment it is needed — nothing is downloaded, nothing is paid for — from
++ *  four kinds of sound a real cockpit makes:
++ *    a CLICK: a burst of noise a few milliseconds long through a band-pass (the switch's contact, a button's dome, a detent);
++ *    a THUNK: a sine that drops in pitch and dies in tens of milliseconds (a body behind the click: a lever hitting its stop);
++ *    a RING: a handful of inharmonic sines, each dying at its own rate (metal struck: a clang, a toggle's spring);
++ *    a HUM or a WHINE: an oscillator through a filter under an envelope (the fuel pump, the fans, the static of a radio).
++ *  A RELAY is two clicks 8 to 15 ms apart (the armature, then its bounce). Everything plays into the master, so Sound off silences it
++ *  and the page's master level sets it. */
++const FOLEY = {
++  'toggle-on': (k, t, v) => { k.click(t, 0.9 * v, 3400, 0.004, 1.6); k.thunk(t + 0.002, 0.5 * v, 210, 120, 0.03); k.ring(t, 0.10 * v, [[2130, 1, 0.03], [3390, 0.7, 0.022], [5170, 0.5, 0.015]]); },
++  'toggle-off': (k, t, v) => { k.click(t, 0.8 * v, 3000, 0.004, 1.6); k.thunk(t + 0.002, 0.45 * v, 190, 110, 0.03); k.ring(t, 0.08 * v, [[1980, 1, 0.03], [3310, 0.7, 0.02]]); },
++  'guard-open': (k, t, v) => { k.swish(t, 0.35 * v, 900, 3200, 0.07); k.click(t + 0.075, 0.55 * v, 2600, 0.004, 1.2); k.thunk(t + 0.076, 0.25 * v, 320, 200, 0.02); },
++  'guard-close': (k, t, v) => { k.swish(t, 0.3 * v, 2800, 900, 0.06); k.click(t + 0.06, 0.7 * v, 2200, 0.005, 1.2); k.thunk(t + 0.061, 0.4 * v, 260, 150, 0.025); },
++  'button': (k, t, v) => { k.click(t, 0.75 * v, 5200, 0.0025, 2.2); k.thunk(t, 0.18 * v, 700, 500, 0.01); k.click(t + 0.075, 0.35 * v, 6600, 0.002, 2.2); },
++  'rotary': (k, t, v) => { k.click(t, 0.18 * v, 5200, 0.0015, 3); k.click(t + 0.018, 0.55 * v, 6100, 0.002, 3); k.thunk(t + 0.018, 0.1 * v, 900, 700, 0.008); },
++  'key': (k, t, v) => { for (let i = 0; i < 3; i++) k.click(t + i * 0.045, 0.4 * v, 4800 + i * 300, 0.002, 3); k.thunk(t + 0.14, 0.4 * v, 240, 160, 0.03); },
++  'relay': (k, t, v) => { k.click(t, 0.8 * v, 2500, 0.0018, 1.4); k.thunk(t, 0.25 * v, 720, 520, 0.008); k.click(t + 0.011, 0.5 * v, 3100, 0.0015, 1.4); },
++  'clang': (k, t, v) => { k.click(t, 0.7 * v, 1800, 0.006, 0.8); k.ring(t, 0.9 * v, [[418, 1, 0.34], [1043, 0.62, 0.22], [1757, 0.46, 0.15], [2687, 0.3, 0.1], [3811, 0.2, 0.07], [5230, 0.12, 0.05]]); },
++  'dog': (k, t, v) => { k.thunk(t, 0.9 * v, 95, 55, 0.08); k.click(t, 0.5 * v, 1200, 0.006, 1); k.ring(t + 0.004, 0.25 * v, [[640, 1, 0.08], [1490, 0.5, 0.05]]); },
++  'lever': (k, t, v) => { k.thunk(t, 0.6 * v, 170, 95, 0.05); k.click(t, 0.5 * v, 1500, 0.004, 1.2); k.ring(t, 0.12 * v, [[980, 1, 0.06], [2210, 0.5, 0.04]]); },
++  'paddle': (k, t, v) => { k.click(t, 0.85 * v, 2900, 0.003, 1.6); k.ring(t, 0.12 * v, [[2440, 1, 0.025], [4100, 0.6, 0.018]]); k.click(t + 0.09, 0.3 * v, 3500, 0.002, 2); },
++  'solenoid': (k, t, v) => { k.click(t, 0.8 * v, 1800, 0.004, 1); k.thunk(t, 1.0 * v, 78, 48, 0.07); k.noise(t, 0.35 * v, 420, 1, 0.035); },
++  'fuel-prime': (k, t, v) => { k.whine(t, 0.28 * v, 140, 215, 1.5, 'sawtooth', 900, 1.4); k.whine(t, 0.08 * v, 280, 430, 1.5, 'sine', 2400, 2); },
++  'selftest': (k, t, v) => { k.beep(t, 0.22 * v, 1800, 0.06, 'sine'); k.beep(t + 0.1, 0.22 * v, 2400, 0.08, 'sine'); },
++  'fan-spool': (k, t, v) => { FOLEY.relay(k, t, v); k.swish(t + 0.02, 0.4 * v, 240, 1100, 1.2, 1.2); },
++  'fan-stop': (k, t, v) => { FOLEY.relay(k, t, v); k.swish(t + 0.02, 0.3 * v, 1000, 200, 0.9, 1.2); },
++  'lamp': (k, t, v) => { FOLEY.relay(k, t, v); k.beep(t + 0.02, 0.05 * v, 3300, 0.03, 'sine'); },
++  'pit-on': (k, t, v) => { k.beep(t, 0.3 * v, 1600, 0.08, 'square'); k.beep(t + 0.14, 0.3 * v, 1600, 0.08, 'square'); },
++  'pit-off': (k, t, v) => { k.beep(t, 0.3 * v, 1100, 0.12, 'square'); },
++  'radio-on': (k, t, v) => { FOLEY.relay(k, t, v); k.noise(t + 0.02, 0.35 * v, 2100, 0.7, 0.28); k.beep(t + 0.3, 0.06 * v, 1250, 0.05, 'sine'); },
++  'radio-off': (k, t, v) => { k.click(t, 0.7 * v, 2600, 0.003, 1.4); k.noise(t + 0.004, 0.3 * v, 1900, 0.8, 0.07); },
++  'static': (k, t, v) => { k.noise(t, 0.3 * v, 1800, 0.5, 1.2); k.noise(t, 0.12 * v, 4200, 1.5, 0.9); },
++  'ratchet': (k, t, v) => { for (let i = 0; i < 7; i++) k.click(t + i * 0.024, (0.4 + i * 0.05) * v, 3000 + i * 180, 0.002, 2.4); k.thunk(t + 0.18, 0.5 * v, 150, 90, 0.05); },
++  'hb-release': (k, t, v) => { k.click(t, 0.6 * v, 4200, 0.003, 2); k.thunk(t + 0.1, 0.7 * v, 120, 70, 0.07); k.ring(t + 0.1, 0.15 * v, [[880, 1, 0.08], [1990, 0.5, 0.05]]); },
++  'arm': (k, t, v) => { FOLEY.relay(k, t, v); k.beep(t + 0.05, 0.18 * v, 950, 0.1, 'square'); k.beep(t + 0.2, 0.18 * v, 950, 0.1, 'square'); },
++  'disarm': (k, t, v) => { FOLEY.relay(k, t, v); k.beep(t + 0.05, 0.16 * v, 700, 0.14, 'square'); },
++};
++export const FOLEY_IDS = Object.keys(FOLEY);
++export class Foley {
++  constructor(ctx, out) {
++    this.ctx = ctx; this.out = ctx.createGain(); this.out.gain.value = 1.1; this.out.connect(out);
++    const n = ctx.sampleRate, b = ctx.createBuffer(1, n, n), d = b.getChannelData(0); let seed = 26;
++    for (let i = 0; i < n; i++) { seed = (Math.imul(seed, 1664525) + 1013904223) >>> 0; d[i] = seed / 2147483648 - 1; }
++    this.noiseBuf = b; this.loops = {};
++  }
++  static saturation(k = 2) { const n = 1024, c = new Float32Array(n); for (let i = 0; i < n; i++) { const x = i / (n - 1) * 2 - 1; c[i] = Math.tanh(k * x) / Math.tanh(k); } return c; }
++  play(id, level = 1) { const f = FOLEY[id]; if (!f) return false; f(this, this.ctx.currentTime + 0.005, level); return true; }
++  env(t, peak, attack, decay, hold = 0) { const g = this.ctx.createGain(); g.gain.setValueAtTime(0, t); g.gain.linearRampToValueAtTime(peak, t + attack); if (hold) g.gain.setValueAtTime(peak, t + attack + hold); g.gain.setTargetAtTime(0, t + attack + hold, decay / 3); g.connect(this.out); return g; }
++  src(t, dur) { const s = this.ctx.createBufferSource(); s.buffer = this.noiseBuf; s.start(t, Math.random() * 0.5); s.stop(t + dur + 0.05); s.onended = () => { try { s.disconnect(); } catch (e) {} }; return s; }
++  /* a click: a few milliseconds of band-passed noise */
++  click(t, v, f, dur = 0.003, q = 1.5) { const s = this.src(t, dur * 4), bp = this.ctx.createBiquadFilter(); bp.type = 'bandpass'; bp.frequency.value = f; bp.Q.value = q; s.connect(bp); bp.connect(this.env(t, v, 0.0004, dur)); }
++  /* noise with a body: a longer burst through a band-pass */
++  noise(t, v, f, q, dur) { const s = this.src(t, dur * 1.5), bp = this.ctx.createBiquadFilter(); bp.type = 'bandpass'; bp.frequency.value = f; bp.Q.value = q; s.connect(bp); bp.connect(this.env(t, v, 0.003, dur)); }
++  /* a swish: band-passed noise whose band sweeps (a cover flipping, a fan spooling) */
++  swish(t, v, f0, f1, dur, q = 1.5) { const s = this.src(t, dur * 1.3), bp = this.ctx.createBiquadFilter(); bp.type = 'bandpass'; bp.Q.value = q; bp.frequency.setValueAtTime(f0, t); bp.frequency.exponentialRampToValueAtTime(f1, t + dur); s.connect(bp); bp.connect(this.env(t, v, dur * 0.3, dur * 0.6, dur * 0.2)); }
++  /* a thunk: a sine falling in pitch, gone in tens of milliseconds */
++  thunk(t, v, f0, f1, dur) { const o = this.ctx.createOscillator(); o.type = 'sine'; o.frequency.setValueAtTime(f0, t); o.frequency.exponentialRampToValueAtTime(Math.max(20, f1), t + dur); o.connect(this.env(t, v, 0.001, dur)); o.start(t); o.stop(t + dur * 2 + 0.02); o.onended = () => { try { o.disconnect(); } catch (e) {} }; }
++  /* a ring: inharmonic partials [frequency, amplitude, decay seconds], each dying at its own rate — metal struck */
++  ring(t, v, partials) { for (const [f, a, d] of partials) { const o = this.ctx.createOscillator(); o.type = 'sine'; o.frequency.value = f; o.connect(this.env(t, v * a / partials.length * 2, 0.0008, d)); o.start(t); o.stop(t + d * 2.5 + 0.02); o.onended = () => { try { o.disconnect(); } catch (e) {} }; } }
++  beep(t, v, f, dur, type = 'sine') { const o = this.ctx.createOscillator(); o.type = type; o.frequency.value = f; const lp = this.ctx.createBiquadFilter(); lp.type = 'lowpass'; lp.frequency.value = 4000; o.connect(lp); lp.connect(this.env(t, v, 0.004, 0.02, dur)); o.start(t); o.stop(t + dur + 0.1); o.onended = () => { try { o.disconnect(); lp.disconnect(); } catch (e) {} }; }
++  /* a whine: an oscillator gliding up under a band-pass (the fuel pump priming) */
++  whine(t, v, f0, f1, dur, type, bpF, q) { const o = this.ctx.createOscillator(); o.type = type; o.frequency.setValueAtTime(f0, t); o.frequency.exponentialRampToValueAtTime(f1, t + dur * 0.4); const bp = this.ctx.createBiquadFilter(); bp.type = 'bandpass'; bp.frequency.value = bpF; bp.Q.value = q; o.connect(bp); bp.connect(this.env(t, v, 0.06, 0.12, dur - 0.15)); o.start(t); o.stop(t + dur + 0.4); o.onended = () => { try { o.disconnect(); bp.disconnect(); } catch (e) {} }; }
++  /* the running systems: a loop each, created the first time it is wanted and faded to its level every frame */
++  loop(id, make) { if (!this.loops[id]) { const g = this.ctx.createGain(); g.gain.value = 0; g.connect(this.out); make(g); this.loops[id] = g; } return this.loops[id]; }
++  ambient({fuelHum = false, fan = false} = {}) {
++    const t = this.ctx.currentTime;
++    if (fuelHum || this.loops.fuel) this.loop('fuel', g => { const o = this.ctx.createOscillator(); o.type = 'sawtooth'; o.frequency.value = 212; const o2 = this.ctx.createOscillator(); o2.type = 'sine'; o2.frequency.value = 5.3; const lfo = this.ctx.createGain(); lfo.gain.value = 3; o2.connect(lfo); lfo.connect(o.frequency); const bp = this.ctx.createBiquadFilter(); bp.type = 'bandpass'; bp.frequency.value = 850; bp.Q.value = 2.2; o.connect(bp); bp.connect(g); o.start(); o2.start(); }).gain.setTargetAtTime(fuelHum ? 0.035 : 0, t, 0.15);
++    if (fan || this.loops.fan) this.loop('fan', g => { const s = this.ctx.createBufferSource(); s.buffer = this.noiseBuf; s.loop = true; const bp = this.ctx.createBiquadFilter(); bp.type = 'bandpass'; bp.frequency.value = 900; bp.Q.value = 0.9; const lp = this.ctx.createBiquadFilter(); lp.type = 'lowpass'; lp.frequency.value = 2200; s.connect(bp); bp.connect(lp); lp.connect(g); s.start(); }).gain.setTargetAtTime(fan ? 0.07 : 0, t, fan ? 0.5 : 0.35);
++  }
++}

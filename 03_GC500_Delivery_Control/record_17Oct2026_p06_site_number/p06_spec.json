@@ -1,0 +1,9 @@
+{
+ "by": "Andrew Fisher",
+ "basis": "Andrew, 17 Oct 2026: \"It stays 1097453 my data is truth.. We use baseplan to understand missing gaps and understand how they charge. End of the day we want things to both align.\" Done after v10.55 went live, so P06 keeps the Baseplan 9968862 line 64 hire ($1,426.07) and shows Site vs Baseplan.",
+ "refs": ["P06"],
+ "ops": [
+  {"op": "number_on", "ref": "P06", "no": "1097453", "why": "Andrew's number for P06 (his photos of 30 Sep); the 15 Oct dockets fill had taken it off on docket 26094121 / Baseplan line 64"},
+  {"op": "number_off", "ref": "P06", "no": "1087453", "why": "the Baseplan number the 15 Oct fill put on; Baseplan keeps it on line 64 and the page shows it as the difference to align"}
+ ]
+}

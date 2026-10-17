@@ -1,0 +1,104 @@
+{
+  "author": "Andrew Fisher",
+  "state": "READY FOR COMBINED RELEASE",
+  "source_application_commit": "2861f996",
+  "test_harness_commit": "82dd912d",
+  "upstream_source": "822b06a8",
+  "standalone_base_sha256": "7e3fe251373c97582119f41002cbda0cfacb71bd23ec5fe1fdf2c3dde3d46abc",
+  "standalone_candidate_sha256": "637907dffeae5da71446d7bb8dc0344ca56741b79405bb0a2ab1fd62cb43ad7c",
+  "runtime_test_candidate_sha256": "3d2c69859ba80b32168094a6b7dcadbb00fcb485b745d4748b0af71fd668727a",
+  "combined_release_candidate_sha256": "592e73b38e8c5fb1d5bf98d00915c49550ab860b322f82fb957a99acc0369093",
+  "evidence_attribution": "Focused runtime checks ran on the immutable first combined v9.27 candidate. Scope checks carry them forward through the isolated v9.25 accessory description fix and v9.28 finance/Transport changes; final combined navigation and finance checks belong to release coordination.",
+  "features": {
+    "crew-desktop": {
+      "passed": 28,
+      "failed": 0,
+      "private_log_sha256": "e4c7643b27b6856982cc25488d9b78ee0e6346f824fce2b83e4b38ef22ba983e"
+    },
+    "crew-phone": {
+      "passed": 28,
+      "failed": 0,
+      "private_log_sha256": "4932e2c4b4d2f08940712bb234450017153bc1d7c61e004e7c14dfcedd7e8166"
+    },
+    "broadcast-desktop": {
+      "passed": 18,
+      "failed": 0,
+      "private_log_sha256": "69aa501cac30d767032b2992b6987c9b44947d55f7bac273a591733efddcbc24"
+    },
+    "broadcast-phone": {
+      "passed": 18,
+      "failed": 0,
+      "private_log_sha256": "7e5c33592bcc306818686a2fd83447baf7be20a194ccb859ba5c688e2d7a911a"
+    },
+    "split-desktop": {
+      "passed": 28,
+      "failed": 0,
+      "private_log_sha256": "6e0474f44ffe1c99d095b2a8b9a98a8d4b961d5c22d23ae52740ff7011279c22"
+    },
+    "split-phone": {
+      "passed": 28,
+      "failed": 0,
+      "private_log_sha256": "950706f94b504659781987999765cce0bd8e00eae7d799ade439a02246c0be40"
+    },
+    "lines-desktop": {
+      "passed": 43,
+      "failed": 0,
+      "private_log_sha256": "10ae687c99734e63b884c8b213a47e9f677eda6013c250e877c04be9bf95c0cb"
+    },
+    "lines-phone": {
+      "passed": 43,
+      "failed": 0,
+      "private_log_sha256": "f257afb5686881e4c37a00bc0d5e191a7e746f62b57d9582532b5451bbbbd2e5"
+    },
+    "vms-desktop": {
+      "passed": 56,
+      "failed": 0,
+      "private_log_sha256": "14ded915cf4782588def9907e3ec80ed77f882d4dc9aff6c479d86254693f494"
+    },
+    "vms-phone": {
+      "passed": 56,
+      "failed": 0,
+      "private_log_sha256": "aa65c646771466eefb97865cef6453f5df3a8d3ad78eaaa6136d7564466497df"
+    }
+  },
+  "comparison_fixtures": {
+    "crew": "d6b6ad6cadc574081934b75753906de4f384e9b4962143c06d294acad4c5bd8f",
+    "broadcast": "f43e83a466f35919c2f376a2d99c8ec6344512f18fba8b32e3bc3a07d6704e34",
+    "split": "7a7c8c5cd45f4a504ef00bff43a952fd0f5a56d713284a654a8db2ca448b8b1d",
+    "lines": "3b966678432292a633b2085f11407a43bf8ca31af443f9adedf312f81e93a6ae",
+    "vms": "d4013ecfa01b64ede7de6bd02426b11fc8f01f32a5edff1c26d3a1b241f9c78d"
+  },
+  "comparison_full_replay_byte_identical": true,
+  "checks": {
+    "existing_daily_staff_picker_preserved": true,
+    "crew_install_count_preserved": true,
+    "other_34_broadcast_takes_unchanged": true,
+    "take_duration_seconds": 16.03,
+    "natural_broadcast_advance": "17 to 18 on reused v9.18 player",
+    "wc09_assets": "1268858 and 1311146 assigned to the two Coates six-metre blocks",
+    "explicit_recorded_count_as_preserved": true,
+    "later_supplier_split_delivery_not_inferred_complete": true,
+    "vms_model_marker_navigation_and_money_identity": true,
+    "vms_documents_availability": "The VMS001 original remains explicitly catalogued as not hosted; its source-grounded notes are integrated.",
+    "runtime_page_and_console_errors": 0,
+    "service_writes_attempted": 0
+  },
+  "source_scope_chain_file": "source_scope_chain.json",
+  "media_manifest_sha256": "c20165af0f02dd0e1d20a9a73eb4c14d86cab1c020b3a1bfd8324251134881bd",
+  "media_assets": 1979,
+  "new_take_sha256": "c1f296379a281e22516d8f86a7d7f24097f7e5b47b4c6aa135dcb6e0dc352893",
+  "screenshots_reviewed": [
+    "phone crew roster",
+    "phone WC09 unit drawer",
+    "desktop VMS Questions",
+    "desktop D025 callout",
+    "phone VMS Documents details",
+    "phone D025 callout"
+  ],
+  "test_notes": [
+    "The first desktop broadcast attempt stopped at an optional screenshot timeout during WebGL playback. The rerun omits that optional screenshot and passes all 18 semantic assertions.",
+    "The original desktop VMS run passed 56 assertions but spent 370 seconds recomputing native helpers outside their render cache. The equivalent phone test uses native holdAssets around related model/document reads and passes 56 assertions in 35 seconds. Assertions and application bytes are unchanged.",
+    "Feature checks use a shared GET-only harness and software WebGL; captured fixtures do not save operational records."
+  ],
+  "private_evidence": "Raw logs, browser captures, team input, audio source and original documents are outside Git."
+}

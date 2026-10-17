@@ -1,0 +1,43 @@
+{
+  "author": "Andrew Fisher",
+  "version": "v9.87",
+  "sourceCommit": "dc6c4b56",
+  "readyCommit": "09d485f2",
+  "sha256": "554538d9203e9a8863a145b592a7f6b66a4f4d6307f398de3cf7f394c0bd1939",
+  "uploadedAEST": "10 Oct 2026 16:18 AEST",
+  "actualPublic": true,
+  "publicPhoneScreenshotsInspected": true,
+  "desktop": {
+    "pass": true,
+    "checks": 147,
+    "sha256": "554538d9203e9a8863a145b592a7f6b66a4f4d6307f398de3cf7f394c0bd1939",
+    "actualPublic": true,
+    "errors": 0,
+    "writes": 0
+  },
+  "phone": {
+    "pass": true,
+    "checks": 146,
+    "sha256": "554538d9203e9a8863a145b592a7f6b66a4f4d6307f398de3cf7f394c0bd1939",
+    "actualPublic": true,
+    "errors": 0,
+    "writes": 0
+  },
+  "nativePhone": {
+    "pass": true,
+    "checks": 5,
+    "sha256": "554538d9203e9a8863a145b592a7f6b66a4f4d6307f398de3cf7f394c0bd1939",
+    "actualPublic": true,
+    "errors": 0,
+    "writes": 0
+  },
+  "hydration": {
+    "pass": true,
+    "checks": 19,
+    "sha256": "554538d9203e9a8863a145b592a7f6b66a4f4d6307f398de3cf7f394c0bd1939",
+    "actualPublic": true,
+    "errors": 0,
+    "writes": 0
+  },
+  "verifiedAEST": "10 Oct 2026 16:22 AEST"
+}

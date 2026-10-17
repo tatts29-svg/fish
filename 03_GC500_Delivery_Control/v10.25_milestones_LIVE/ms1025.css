@@ -1,0 +1,38 @@
+/* Author: Andrew Fisher. Milestones (v10.25): the 100% badge on a plate, the burst, the summary section. */
+#gc500-work-board840 .tw840-card{position:relative}
+.tw840-card .ms1025-badge{display:inline-flex;vertical-align:middle;margin-left:8px;flex-direction:column;align-items:center;background:#ff6a13;color:#fff;font-weight:800;font-size:1.05em;line-height:1;padding:5px 9px;border-radius:8px;box-shadow:0 1px 3px rgba(0,0,0,.25)}
+.tw840-card .ms1025-badge small{font-weight:600;font-size:.62em;opacity:.95;margin-top:3px;letter-spacing:.02em}
+.tw840-card.ms1025-reached{box-shadow:0 0 0 2px rgba(255,106,19,.55)}
+.tw840-card .ms1025-fw,.ms1025-area .ms1025-fw{position:absolute;inset:0;pointer-events:none;z-index:5;border-radius:12px}
+.ms1025-area{position:relative}
+.ms1025-area.ms1025-glow{animation:ms1025glow 1.2s ease-in-out 2}
+.tw840-card.ms1025-glow{animation:ms1025glow 1.2s ease-in-out 2}
+@keyframes ms1025glow{0%{box-shadow:0 0 0 0 rgba(255,106,19,0)}50%{box-shadow:0 0 0 5px rgba(255,106,19,.5),0 0 32px rgba(255,106,19,.6)}100%{box-shadow:0 0 0 0 rgba(255,106,19,0)}}
+.ms1025{margin:18px 0 8px}
+.ms1025 h2{display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-size:1.15em;margin:0 0 8px}
+.ms1025 h2 .w{font-weight:400;color:var(--mute)}
+.ms1025 .btn.sm{font-size:.85em;padding:3px 9px}
+.ms1025-area{background:var(--paper);border:1px solid var(--rule);border-radius:12px;padding:8px 14px;margin:8px 0;box-shadow:var(--lift)}
+.ms1025-area.reached{border-top:3px solid #ff6a13}
+.ms1025-area summary{cursor:pointer;display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-size:1.02em}
+.ms1025-area summary .w{color:var(--mute);font-size:.9em}
+.ms1025-pct{background:var(--rule);color:var(--ink);font-weight:800;padding:2px 8px;border-radius:6px;font-size:.95em}
+.ms1025-pct.full{background:#ff6a13;color:#fff}
+.ms1025-body{padding:8px 0 4px}
+.ms1025-facts{width:100%;min-width:0!important;border-collapse:collapse;table-layout:fixed;font-size:.92em;margin:0 0 10px}
+.ms1025-facts th{width:34%;text-align:left;font-weight:600;color:var(--ink2);padding:5px 8px 5px 0;vertical-align:top;border-bottom:1px solid var(--rule)}
+.ms1025-facts td{padding:5px 0;vertical-align:top;border-bottom:1px solid var(--rule);word-break:break-word}
+.ms1025-days{width:100%;min-width:0!important;border-collapse:collapse;table-layout:fixed;font-size:.9em;margin:0 0 10px}
+.ms1025-days th{text-align:left;font-weight:600;color:var(--ink2);padding:4px 6px 4px 0;border-bottom:1px solid var(--rule)}
+.ms1025-days td{padding:3px 6px 3px 0;border-bottom:1px solid var(--rule)}
+.ms1025-days td.num{text-align:right;width:3.2em;font-variant-numeric:tabular-nums}
+.ms1025-days td.bar{width:26%}
+.ms1025-days td.bar i{display:block;height:9px;background:#118ab2;border-radius:2px}
+.ms1025-days td.bar i.c{background:#ff6a13}
+.ms1025-days tfoot td{font-weight:700;border-bottom:0}
+.ms1025-acts{display:flex;gap:8px;flex-wrap:wrap;margin:6px 0}
+.ms1025-src{font-size:.82em;color:var(--mute);margin:6px 0 0}
+.ms1025-none{font-size:.9em;color:var(--mute)}
+.ms1025-rest .ms1025-area{padding:4px 14px;box-shadow:none}
+@media (max-width:640px){.ms1025-facts th{width:40%}.ms1025-days td.bar{width:18%}}
+@media print{.ms1025 .btn,.ms1025-acts{display:none}}

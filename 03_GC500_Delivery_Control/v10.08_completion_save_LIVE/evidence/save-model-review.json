@@ -1,0 +1,150 @@
+{
+  "author": "Andrew Fisher",
+  "source": "/workspace/gc500-current-release/03_GC500_Delivery_Control/v10.08_completion_save_DRAFT/staff_save1008.js",
+  "checks": [
+    {
+      "name": "No attempt does not imply saved",
+      "pass": true
+    },
+    {
+      "name": "Persistence unfinished remains pending",
+      "pass": true
+    },
+    {
+      "name": "Undefined persistence result remains pending",
+      "pass": true
+    },
+    {
+      "name": "Failed persistence overrides an old exact acknowledgement",
+      "pass": true
+    },
+    {
+      "name": "Unsubmitted draft is not the acknowledged attempt",
+      "pass": true
+    },
+    {
+      "name": "New input removes old shared reassurance",
+      "pass": true
+    },
+    {
+      "name": "Validation error is shown literally",
+      "pass": true
+    },
+    {
+      "name": "Stale-record rejection is not swallowed",
+      "pass": true
+    },
+    {
+      "name": "Missing expected payload cannot claim shared",
+      "pass": true
+    },
+    {
+      "name": "Removed current record cannot claim shared",
+      "pass": true
+    },
+    {
+      "name": "Different current record prevents old acknowledgement",
+      "pass": true
+    },
+    {
+      "name": "No shared acknowledgement stays pending",
+      "pass": true
+    },
+    {
+      "name": "Old acknowledgement cannot confirm new attempt",
+      "pass": true
+    },
+    {
+      "name": "Late old reply cannot confirm second save",
+      "pass": true
+    },
+    {
+      "name": "Exact pending document in queue blocks shared",
+      "pass": true
+    },
+    {
+      "name": "Exact in-flight document blocks shared",
+      "pass": true
+    },
+    {
+      "name": "Exact acknowledged and current payload is shared",
+      "pass": true
+    },
+    {
+      "name": "Second exact acknowledged attempt becomes shared",
+      "pass": true
+    },
+    {
+      "name": "Offline with unacknowledged local data is local only",
+      "pass": true
+    },
+    {
+      "name": "Connecting without ack never claims shared",
+      "pass": true
+    },
+    {
+      "name": "Unreachable without ack remains local only",
+      "pass": true
+    },
+    {
+      "name": "Revoked without ack remains local only",
+      "pass": true
+    },
+    {
+      "name": "Write permission loss with cleared queues is explicit",
+      "pass": true
+    },
+    {
+      "name": "Previously exact acknowledged unchanged data remains saved on lost connection",
+      "pass": true
+    },
+    {
+      "name": "Already shared data remains saved when editing permission removed",
+      "pass": true
+    },
+    {
+      "name": "Queued edit plus readonly cannot appear shared",
+      "pass": true
+    },
+    {
+      "name": "Saving again resets dirty state",
+      "pass": true
+    },
+    {
+      "name": "Unrelated metadata is part of exact payload",
+      "pass": true
+    },
+    {
+      "name": "Status text stays useful after shared connection loss",
+      "pass": true
+    },
+    {
+      "name": "Bridge displays acknowledged status",
+      "pass": true
+    },
+    {
+      "name": "Unrelated queued document does not block target acknowledgement",
+      "pass": true
+    },
+    {
+      "name": "Queued tombstone is pending even when falsy",
+      "pass": true
+    },
+    {
+      "name": "Real input listener immediately marks draft unsaved",
+      "pass": true
+    },
+    {
+      "name": "Late redraw cannot erase new unsaved draft",
+      "pass": true
+    },
+    {
+      "name": "Bridge preserves rejection after redraw",
+      "pass": true
+    }
+  ],
+  "pass": true,
+  "count": 35,
+  "noNetwork": true,
+  "noNativeWrites": true
+}

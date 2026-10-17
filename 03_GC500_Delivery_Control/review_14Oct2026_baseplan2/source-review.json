@@ -1,0 +1,87 @@
+{
+  "author": "Andrew Fisher",
+  "status": "READ AND COMPARED; no import or live changes",
+  "source_files": [
+    {
+      "filename": "Baseplan SuperCars (1).xlsx",
+      "sha256": "6f6a20a3567d99ff0f1e0e97c8387d5a94907a358711c7d52cf5b1043e54956d"
+    },
+    {
+      "filename": "Baseplan SuperCars (2).xlsx",
+      "sha256": "3f103174c9cde2934f2de9f78189f1931a13d9bf277b12169e280b271d9daf96"
+    }
+  ],
+  "snapshot": {
+    "at": "2026-10-13T20:12:06.390Z",
+    "nativeVersion": 5814,
+    "publicSha256": "cde0aae30d5e528e85c2b16189bf0c0828397b87a7b3d10c1695362b19a58105",
+    "financialConsistencyChecks": 17,
+    "operationalWrites": 0
+  },
+  "comparison": {
+    "oldNumberedWorksheetRows": 295,
+    "newNumberedWorksheetRows": 296,
+    "oldUniqueContractLines": 295,
+    "newUniqueContractLines": 295,
+    "retained": 293,
+    "unchanged": 254,
+    "changed": 39,
+    "added": 2,
+    "removed": 2,
+    "changedCells": 92,
+    "operationalChangedCells": 43,
+    "fieldChanges": {
+      "Prebill Amount": 26,
+      "Rate 1": 22,
+      "Status": 14,
+      "Delivery Number": 10,
+      "Description": 7,
+      "Rate ID": 1,
+      "Serial Number": 3,
+      "Item": 3,
+      "Start Meter": 1,
+      "Booked Delivery Date": 3,
+      "Quantity": 1,
+      "Memo": 1
+    },
+    "addedSheets": [],
+    "removedSheets": [],
+    "operationalChangedLines": 23,
+    "duplicateNumberedWorksheetRows": 1,
+    "exactDuplicateContractLineKeys": [
+      "9961976-NVAC|48"
+    ],
+    "sourceNotesUnchanged": true,
+    "headersUnchanged": true,
+    "metadataModifiedUTC": "2026-10-13T20:05:44Z",
+    "metadataModifiedAEST": "14 Oct 2026 06:05:44 AEST"
+  },
+  "financial_review": {
+    "newlyPopulatedRate1Cells": 22,
+    "inventedDailyRates": 0,
+    "newLabourPriceEvidence": false,
+    "changedTransportChargeRows": 0,
+    "changedExistingBranchCodes": 0,
+    "changedSupplierCostAnnotations": 0
+  },
+  "workbook": {
+    "author": "Andrew Fisher",
+    "file": "/workspace/output/GC500_Baseplan2_Check_14Oct2026.xlsx",
+    "sha256": "a88c00a1bc4fc2910644c62b4624b5974739dafcb83e9045d2f9fe0f31bc9961",
+    "tabs": {
+      "Existing": 12,
+      "Needs fixing": 31
+    },
+    "basis": 5814,
+    "originalHash": "3f103174c9cde2934f2de9f78189f1931a13d9bf277b12169e280b271d9daf96",
+    "reviewOnly": true,
+    "noFormulas": true,
+    "allRowsHaveSourceComments": true
+  },
+  "independent_validation": {
+    "operationalChecks": 43,
+    "pricingChecks": 527,
+    "note": "Operational rows unchanged by the final pricing-only size-basis wording correction."
+  },
+  "liveChanges": 0
+}

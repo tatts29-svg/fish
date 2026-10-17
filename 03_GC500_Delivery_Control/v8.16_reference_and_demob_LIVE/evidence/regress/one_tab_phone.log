@@ -1,0 +1,25 @@
+PASS Today carries Where we are under its cards  ["rochip","panehead-today","dsnband","dsn","inst","dsn","hub","todaycols","pane-progress","maphint"]
+PASS one banner, Today's
+PASS one "View only" line
+PASS Where we are buttons at the top under "Today"  {"title":"Today","buttons":["View date","Email this","Print","Start showcase 10 scenes"]}
+PASS one set of those buttons on the page  1
+PASS instruments kept: lights, deliveries, programme card with its key dates
+PASS repeats left off: dial panel, strip, As at, Today date line  {"dial":true,"strip":true,"asat":true,"chicane":true,"todayDate":true}
+FAIL Today's Fencing card stays (its dockets, quote and week lines are on no other card); Costs card left off  ["Delivery updates today","Who to call"]
+FAIL roads card sits with the cards  ["Delivery updates today","Who to call"]
+FAIL By group, By branch, Money, On site and the detail all there  ["By group"]
+PASS Where we are off the tab row  ["Today","Timeline","Equipment","Demob","Map explorer","Coates Way"]
+PASS Where we are off the Tools list  15
+PASS no page wider than the screen  0
+PASS no figure doubles up between Today's cards and Where we are (bar the fencing dollars, kept by Andrew)  []
+PASS "Open the summary" goes to By group on Today  {"tab":"today","hash":"#today","top":12,"scroll":4201}
+PASS "Open the register" on the lights opens Plant
+PASS #progress opens Today with Where we are in it  {"hash":"#today","tab":"today"}
+FAIL round trip through four tabs comes back whole  {"order":["rochip","panehead-today","dsnband","dsn","inst","dsn","hub","todaycols","pane-progress","maphint"]}
+PASS the date control replays Where we are and stays on Today  {"embedded":"pane-today","hacts":1,"val":"2026-09-25","sub":"what is on site over the total on the job, as at 25 Sep"}
+PASS a By group plate opens Plant filtered to its trade  {"tab":"plant","disc":"Toilets & amenities","sd":"Toilets & amenities"}
+PASS Print starts the Where we are report and tidies up after  {"called":1,"on":true,"after":false}
+PASS on paper: the Where we are report as before, without Today's cards  {"todayCards":0,"head":true,"groups":true}
+PASS Start showcase opens the showcase  {"open":true}
+PASS no page errors  []
+phone: 20/24

@@ -1,0 +1,21 @@
+{
+  "author": "Andrew Fisher",
+  "file": "2025.xlsx",
+  "sha256": "35355a3f62fdf835c08fe98a7adb8e2f81b4db0e65a5d9b33d7c65af8e3dbe80",
+  "sheets": 18,
+  "data_rows": 507,
+  "charge_rows": 189,
+  "charge_item_counts": {
+    "INSTDISMEXTNL": 44,
+    "MISCCONS": 2,
+    "MISCCON": 1,
+    "LABOUR": 53,
+    "TRANSPORT": 82,
+    "INSTDISMFENCING": 1,
+    "CLEAN9": 1,
+    "PUMPOUT": 4,
+    "MISC": 1
+  },
+  "historical_only": true,
+  "live_changes": false
+}

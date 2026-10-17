@@ -1,0 +1,25 @@
+{
+  "author": "Andrew Fisher",
+  "review": "Read original workbooks, not summary only",
+  "baseplan": {
+    "path": "Private supplied Baseplan SuperCars workbook 9 Oct2026",
+    "sha256": "eb4a224fadbe1350d031adf8a1b12760d3dd748a2f0643119ea103d1df9b5b21",
+    "machine": "9987005-MEAD lines1/2 identify machine1272166 vs extension1262224; line3 generic transport package stays unallocated",
+    "container": "9974042-KINP line1 docket26112749; line2 refrigerated container separate; lines3/4 delivery/pickup500percontainer quantity2 reused exactlyonce"
+  },
+  "transportHelp": {
+    "sha256": "b4f06374a2caf6efc13c987055b1bc40c1639cb75784ba5875013d472aee5f91",
+    "tabsReviewed": [
+      "Sheet1",
+      "Sheet2"
+    ],
+    "containerDocket": "Sheet2 row171 corroborates26112749/9974042; system status not imported as onsite confirmation"
+  },
+  "rateCard": {
+    "sha256": "60a62f37d9d91634ca617f3b2840809e64ebc1f000303857f1abb5e00691d7d6",
+    "sheet": "Transport ",
+    "FWF": "M23 customer47.50 perlistedunit/leg",
+    "blocks": "M18,M24\u2013M29 customer500; PeePanel has no exact transport row"
+  },
+  "operationalWrites": 0
+}

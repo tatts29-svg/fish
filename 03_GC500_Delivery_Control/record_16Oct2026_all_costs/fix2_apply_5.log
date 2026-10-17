@@ -1,0 +1,14 @@
+all-costs APPLY - everything on site: every priced card line incl. fire extinguisher and demob, delivery and pick-up legs, complete - by Andrew Fisher
+before: record version 9515 updated 2026-10-16T09:20:53.660Z
+backup of the whole record before: /home/user/fish/03_GC500_Delivery_Control/record_16Oct2026_all_costs/backup_state_20261016T092054Z.json
+public page sha256 43c1c13be6fa5abc4ea66900d2202422972da11328fe7e41a088e9e1fdfd1204 matches (18096269 bytes)
+page loaded
+page record matches the before snapshot, document for document
+startup queue clear
+stage: 0 ticks on 0 references · {} · at the card $0 {} · complete ticked on 0 · stamps cleared 0 · left off as a person set: 0 ticks, complete off on 0 · e.g. 
+references: 0
+documents changed on the page: 0 ()
+acknowledged: 
+record version 9515 -> 9515; other documents unchanged in value: true
+VERIFIED - 0 ticks on 0 references · {} · at the card $0 {} · complete ticked on 0 · stamps cleared 0 · left off as a person set: 0 ticks, complete off on 0; every written document on the service as the page sent it
+report: /home/user/fish/03_GC500_Delivery_Control/record_16Oct2026_all_costs/report_20261016T092054Z.json

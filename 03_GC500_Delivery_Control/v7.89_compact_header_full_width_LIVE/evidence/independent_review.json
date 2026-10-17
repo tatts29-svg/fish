@@ -1,0 +1,40 @@
+{
+  "author": "Andrew Fisher",
+  "candidateSha256": "0d165f5f8829f0b4bdc4403d945ebfb09ef668cfbc7a09e0c139e40ba23634ac",
+  "candidateBytes": 8861306,
+  "checks": {
+    "header": {
+      "passed": 30,
+      "total": 30
+    },
+    "freshAfterSaveDesktop": {
+      "passed": 11,
+      "total": 11
+    },
+    "sweepDesktop": {
+      "tabs": 21,
+      "deepLinks": 7,
+      "pageErrors": 0,
+      "consoleErrors": 0
+    },
+    "sweepPhone": {
+      "tabs": 21,
+      "deepLinks": 7,
+      "pageErrors": 0,
+      "consoleErrors": 0
+    }
+  },
+  "phoneVisual": "Inspected fresh phone screenshot; header geometry matches live v7.87 at top and after scrolling.",
+  "desktopVisual": "Inspected laptop top and slim header screenshots; equal pods retain their content and navigation remains visible.",
+  "sourcePreservation": "All original bytes preserved; only three insertions: desktop CSS, release comment and passive scroll listener.",
+  "officialDryRun": {
+    "passed": true,
+    "liveBaseUnchanged": true,
+    "recordVersion": 3538,
+    "uploaded": false
+  },
+  "recordChanges": false,
+  "actualUpload": false,
+  "readinessAtReview": "READY TO UPLOAD; not published",
+  "publication": "LIVE, 02 Oct 2026 09:44 AEST; see release_verification.json"
+}

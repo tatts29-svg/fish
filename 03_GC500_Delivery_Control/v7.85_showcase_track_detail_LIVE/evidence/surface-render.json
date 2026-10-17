@@ -1,0 +1,278 @@
+{
+  "author": "Andrew Fisher",
+  "sourceSha256": "8908db45cee553841abc33c5c5bf87195d8486d2d6edfd058180d716bf702a5e",
+  "mainExport": {
+    "author": "Andrew Fisher",
+    "file": "build/GC500_v7.81/track_detail_preview.html",
+    "sha256": "8908db45cee553841abc33c5c5bf87195d8486d2d6edfd058180d716bf702a5e",
+    "rendering": "Software Chromium; still frames and optional fixed-step animation, not a real-time performance benchmark",
+    "state": {
+      "report": {
+        "author": "Andrew Fisher",
+        "version": "v7.81",
+        "publication": "preview only",
+        "enabled": true,
+        "scope": "One illustrative pit-straight section; photograph-informed details are not surveyed locations",
+        "camera": "chase",
+        "graphics": {
+          "version": "1.8",
+          "quality": "high",
+          "samples": 4,
+          "shadowMap": 2048,
+          "resolution": [
+            1440,
+            900
+          ],
+          "facades": "recessed glass and concrete",
+          "ambientContact": true,
+          "carStyle": "solid",
+          "steppedDownTo": null,
+          "bloom": true,
+          "reflections": true,
+          "shadowOn": true,
+          "drawnAt": "100%"
+        },
+        "track": {
+          "author": "Andrew Fisher",
+          "source": "Photo-informed temporary works; illustrative grid-relative placement, not surveyed",
+          "start_m": -100,
+          "end_m": 150,
+          "gantry_m": 45,
+          "bridge_m": 115,
+          "streetlights": 5,
+          "barrierSkins": 100,
+          "fixings": 208,
+          "mountingPlates": 114,
+          "kerbProfiles": 260,
+          "kerbSourceRule": "Existing nominal curvature-based footprints; decorative profiles only",
+          "triangles": 22036,
+          "bounds": {
+            "gantryClearance_m": 5.75,
+            "bridgeDeck_m": 5.85,
+            "barrierPanel_m": 5
+          }
+        },
+        "architecture": {
+          "garageModules": 0,
+          "garageDoors": 0,
+          "hospitalityBays": 0,
+          "towerParts": 14,
+          "roofParapets": 50,
+          "facadeFins": 18,
+          "facadeElevations": 50,
+          "balconySlabs": 670,
+          "balconyRails": 1340,
+          "balconyPosts": 1655,
+          "balconyDividers": 165,
+          "recessedGlazingBays": 874,
+          "verticalCores": 9,
+          "podiumBays": 80,
+          "duplicateFacadesSkipped": 0,
+          "hiddenFacadeSpansSkipped": 39,
+          "maxBalconyDepthM": 1.472,
+          "facadeProfiles": {
+            "white coastal wings": 2,
+            "sea glass balconies": 2,
+            "sandstone terraces": 3,
+            "ivory balconies": 7
+          },
+          "sourceShellsChanged": 0,
+          "sourceTopHeightsChanged": 0,
+          "triangles": 70740,
+          "drawCalls": 1,
+          "omittedNominalGarages": 26,
+          "source": "Existing nominal pit garage and unchanged OSM building shells; illustrative additive coastal balconies, not surveyed facade dimensions or event works"
+        },
+        "vegetation": {
+          "enabled": true,
+          "trees": 1392,
+          "sourceTrees": 1392,
+          "palms": 348,
+          "broadleaf": 1044,
+          "detailedTrees": 159,
+          "refinedTrees": 159,
+          "distantTrees": 1233,
+          "crownLobes": 468,
+          "leafSprays": 7848,
+          "palmFronds": 442,
+          "palmLeaflets": 11656,
+          "originalTriangles": 327318,
+          "triangles": 426142,
+          "vertices": 496962,
+          "addedTriangles": 98824,
+          "drawCalls": 1,
+          "additionalDrawCalls": 0,
+          "gpuBytes": 23004336,
+          "sourcePositionsUnchanged": true,
+          "relocatedTrees": 0,
+          "refinementRadiusWorld": 46,
+          "placementRngCalls": 0,
+          "source": "Existing accepted tree positions and dimensions; foliage geometry only, no new planting"
+        }
+      },
+      "clock": 7.666666666666847,
+      "s": 351.2383256821351,
+      "cam": {
+        "eye": [
+          -33.85538697446282,
+          0.5187322665280062,
+          11.824418758023247
+        ],
+        "tgt": [
+          -29.77312464761376,
+          0.25768193759345764,
+          8.563301293559277
+        ],
+        "fov": 58,
+        "name": "chase"
+      },
+      "car": {
+        "parts": 43,
+        "triangles": 180206,
+        "vertices": 115414,
+        "gpuBytes": 5855720,
+        "quality": "high"
+      },
+      "treeCount": 1392,
+      "treeGeometry": {
+        "trees": 1392,
+        "palms": 348,
+        "crownTriangles": 327318,
+        "trunkTriangles": 72732,
+        "physicalInAllModes": true,
+        "spatialLOD": true
+      },
+      "gl": 0,
+      "largeFrame": {
+        "canvas": [
+          3840,
+          2160
+        ],
+        "viewport": [
+          3840,
+          2160
+        ],
+        "gl": 0
+      }
+    },
+    "errors": [],
+    "requests": []
+  },
+  "kerbExport": {
+    "sourceSha256": "8908db45cee553841abc33c5c5bf87195d8486d2d6edfd058180d716bf702a5e",
+    "capture": {
+      "camera": {
+        "eye": [
+          -8.311933992053945,
+          0.2071560674770934,
+          -4.14528948697261
+        ],
+        "tgt": [
+          -7.480478009878684,
+          0.04715747877527329,
+          -4.0118364470072265
+        ],
+        "fov": 55
+      },
+      "sourceQuad": [
+        [
+          -8.343979544986938,
+          0.04231552206981855,
+          -3.5574994191772857
+        ],
+        [
+          -7.901625243784441,
+          0.04231552206981855,
+          -2.7167719531054026
+        ],
+        [
+          -6.174622173567933,
+          0.04231552206981855,
+          -3.6254460087652833
+        ],
+        [
+          -6.616976474770431,
+          0.04231552206981855,
+          -4.466173474837166
+        ]
+      ],
+      "gl": 0
+    },
+    "errors": [],
+    "requests": [],
+    "note": "Separate fixed-camera capture of the same standalone candidate."
+  },
+  "stills": [
+    {
+      "file": "surface-desktop.png",
+      "committed": true,
+      "bytes": 962689,
+      "sha256": "cc78c482b3d0100127d9e185765c3671078f3fd53d6e577b5057b387f4730700",
+      "pixels": [
+        1440,
+        900
+      ]
+    },
+    {
+      "file": "surface-track-level.png",
+      "committed": true,
+      "bytes": 915210,
+      "sha256": "fa1f4fa2aa23dcbb05cd970d06f7dc84f79aa8940455a91ceafb02d5dad07a87",
+      "pixels": [
+        1440,
+        900
+      ]
+    },
+    {
+      "file": "surface-kerb.png",
+      "committed": true,
+      "bytes": 1668787,
+      "sha256": "0e5c1a96381560c2304bd03b0dd0d373e67e04086d6f7d400728a68d5041b8d9",
+      "pixels": [
+        1440,
+        900
+      ]
+    },
+    {
+      "file": "surface-phone.png",
+      "committed": true,
+      "bytes": 220176,
+      "sha256": "6c0116144b6a45be27756cefa107f5207edbde6de35f57d14fb3a7696dcf7c0b",
+      "pixels": [
+        390,
+        844
+      ]
+    },
+    {
+      "file": "Showcase_4K_Still.png",
+      "committed": false,
+      "bytes": 4969470,
+      "sha256": "3d3e150d8d98265ffcc788be4f5e907ecc184e7e46094a20b8b1ad3760d82427",
+      "pixels": [
+        3840,
+        2160
+      ]
+    }
+  ],
+  "animation": {
+    "file": "surface-preview.mp4",
+    "sha256": "a31e17b8afb3cd97b9d1dd14b7a2c2b9172ad84a76eb4858b90319005c954cb7",
+    "probe": {
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "width": 1440,
+          "height": 900,
+          "r_frame_rate": "12/1",
+          "nb_frames": "72"
+        }
+      ],
+      "format": {
+        "duration": "6.000000",
+        "size": "4639886"
+      }
+    },
+    "timing": "72 frames; ten 1/120-second simulation steps per frame; encoded at 12 fps for six seconds. Software render, not a real-time benchmark."
+  }
+}

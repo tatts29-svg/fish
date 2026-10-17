@@ -1,0 +1,26 @@
+{
+  "author": "Andrew Fisher",
+  "sha256": "316b79caddd93779a98ec38e369a8a9acc35a9310b2be6b437fdcc627840cbb8",
+  "nativeVersion": 6052,
+  "checks": [
+    {
+      "name": "Actual Costs > Generators view opens",
+      "pass": true
+    },
+    {
+      "name": "Current year remains visible and no horizontal overflow",
+      "pass": true
+    },
+    {
+      "name": "Missing configuration is visibly pending without record mutation",
+      "pass": true
+    },
+    {
+      "name": "No browser errors or writes",
+      "pass": true
+    }
+  ],
+  "passed": 4,
+  "errors": [],
+  "writes": 0
+}

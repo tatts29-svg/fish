@@ -1,0 +1,507 @@
+--- GC500_Delivery_Control_hosted_v673.html	2026-09-26 07:15:55.618552346 +0000
++++ GC500_Delivery_Control_hosted_v679.html	2026-09-26 12:19:52.283808106 +0000
+@@ -5118,6 +5118,21 @@
+ @media (max-width:760px){ .dcpics{grid-template-columns:1fr 1fr} .dcpics .dcpl:nth-of-type(1){grid-column:1 / span 2;grid-row:1} .dcpics .dcpl:nth-of-type(2){grid-column:1 / span 2;grid-row:3}
+   .dcpics > .dcpic:nth-of-type(1),.dcpics > .dcpic:nth-of-type(2){grid-row:2} .dcpics > .dcpic:nth-of-type(3),.dcpics > .dcpic:nth-of-type(4){grid-row:4} }
+ @media print{ .dcpic .dcx{-webkit-print-color-adjust:exact;print-color-adjust:exact} }
++
++/* v6.78 - the running sheet and the questions page */
++.rstbl{font-size:12.5px} .rstbl td,.rstbl th{padding:5px 6px;vertical-align:middle;white-space:nowrap}
++.rstbl input,.rstbl select{font:inherit;font-size:12.5px;padding:3px 5px;border:1px solid var(--rule);border-radius:5px;background:#fff}
++.rstbl td.num input{text-align:right}
++.rstbl .w{font-size:11px;color:var(--mute)}
++.rsnav{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:6px 0 8px}
++.rsadd{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:10px 0 4px} .rsadd input,.rsadd select{font:inherit;padding:5px 7px;border:1px solid var(--rule);border-radius:6px}
++.rsrules{min-width:0;width:auto} .rsrules td{padding:4px 8px;font-size:13px;white-space:normal}
++.qlist{margin:0;padding-left:22px} .qlist li{margin:0 0 12px;line-height:1.4}
++.qlist li.answered b{color:var(--mute);text-decoration:line-through}
++.qwhy{display:block;font-size:12.5px;color:var(--ink2)} .qact{display:block;margin-top:2px;font-size:12.5px}
++.qans input{margin-top:5px;width:min(560px,100%);font:inherit;font-size:13px;padding:5px 8px;border:1px solid var(--rule);border-radius:6px}
++.qansv{display:block;margin-top:4px;font-size:13px;color:var(--green)}
++.qjump{display:flex;flex-wrap:wrap;gap:6px}
+ </style></head>
+ <body>
+ <!-- The delivery status instrument's materials, defined once and referenced by every instrument on the page:
+@@ -5277,7 +5292,9 @@
+   <section class="pane" id="pane-register"></section>
+   <section class="pane" id="pane-plant"></section>
+   <section class="pane" id="pane-fencing"></section>
+-  <section class="pane" id="pane-prestarts"></section>
++<section class="pane" id="pane-prestarts"></section>
++  <section class="pane" id="pane-runsheet"></section>
++  <section class="pane" id="pane-questions"></section>
+   <section class="pane" id="pane-coatesway"></section>
+   <section class="pane" id="pane-breakdowns"></section>
+   <section class="pane" id="pane-journal"></section>
+@@ -5580,6 +5597,8 @@
+  2026: the buildings probably carry minimum hire days — the card's are used until he says a
+  different one, and the different one is typed here with his name on it. */
+  minDays:{},
++ /* v6.78 - the running sheet's pay rules (Andrew's, editable) and the answers typed on the Questions page */
++ runRules:{}, answers:{},
+  /* SET ASIDE, NEVER DELETED. anything done can be edited, changed or
+  removed — nothing is ever deleted, only set aside with a way back. A cost line, a variance, a
+  docket, a breakdown or an added asset that somebody
+@@ -8141,7 +8160,7 @@
+ 
+ /* ------------------------------------------------------------------ tabs */
+ const TABS = [['today','Today'],['progress','Where we are'],['map','Map'],['docs','Documents'],['register','Register'],['plant','Plant'],['fencing','Fencing'],['prestarts','Pre-starts'],['coatesway','The Coates Way'],['journal','Journal'],['breakdowns','Breakdowns'],['variances','Variances'],
+- ['costs','Costs'],['edit','Edit'],['add','Add an asset'],['pricing','Pricing'],['timeline','Timeline'],['about','About this file']];
++ ['costs','Costs'],['edit','Edit'],['add','Add an asset'],['pricing','Pricing'],['timeline','Timeline'],['runsheet','Running sheet'],['questions','Questions'],['about','About this file']];
+ /* v5.86 - SET ASIDE, NOT DELETED. Variances, Journal and Add an asset come off the page. They
+  are off the tab row, the More menu and the Tools views, their cards and buttons are hidden, and a link that still asks
+  for one lands on Today and says so. The panes, their code and their records are untouched; taking a name out of this
+@@ -8867,6 +8886,245 @@
+  <p class="norate">Traffic and routes: TomTom.</p>
+  </div>`;
+ }
++/* ================================================================== v6.78 - THE RUNNING SHEET
++ Andrew's pay rules, 26 Sep 2026, held in the shared record's runRules map so a change reaches every copy. */
++const RUN_DEF = {cna_ord: 7.6, lh_ord: 7.5, ot_x15: 2, sat_x15: 2, wd_break: 30};
++const RUN_RULE_WORDS = {cna_ord: 'Coates CNA — normal hours a weekday', lh_ord: 'Labour hire — normal hours a weekday', ot_x15: 'Weekday overtime hours at ×1.5 before ×2',
++ sat_x15: 'Saturday hours at ×1.5 before ×2', wd_break: 'Weekday unpaid break (minutes) where none is typed'};
++function runRule(k){ const v = (S.runRules || {})[k], n = Number(v); return v != null && String(v).trim() !== '' && Number.isFinite(n) && n >= 0 ? n : RUN_DEF[k]; }
++function setRunRule(k, v){
++ if (!mayWrite('running sheet rule')) return; const who = whoAmI(); if (!who) return;
++ const s = String(v == null ? '' : v).trim();
++ if (s !== '' && !(Number.isFinite(Number(s)) && Number(s) >= 0)) { flash('That has to be a number — or leave it empty for the standard figure.'); return; }
++ S.runRules = S.runRules || {}; if (s === '') delete S.runRules[k]; else S.runRules[k] = s;
++ stampIt('runRules', k, who); save(); render();
++}
++/* the three kinds of worker, whatever the tracker called them */
++function runType(t){ const s = String(t || '').toLowerCase(); return /salary/.test(s) ? 'salary' : /external|hire/.test(s) ? 'hire' : /cna|internal|coates/.test(s) ? 'cna' : ''; }
++const RUN_TYPE_WORD = {salary: 'Salary', hire: 'Labour hire', cna: 'Coates CNA', '': 'type not set'};
++const RUN_TYPE_STORE = {salary: 'Salary', hire: 'External', cna: 'Internal CNA'};
++function runIsWeekend(iso){ const d = new Date(String(iso) + 'T00:00:00').getDay(); return d === 0 || d === 6; }
++/* the break taken off a shift: what is typed, else the weekday standard; weekend breaks are paid */
++function runBreak(c){ if (c.break_min != null && String(c.break_min).trim() !== '' && Number.isFinite(Number(c.break_min))) return Number(c.break_min); return runIsWeekend(c.date) ? 0 : runRule('wd_break'); }
++/* the hours of a shift: from start and finish, less the break, whenever both are there; else the hours typed */
++function runHours(c){
++ if (c.start && c.finish) { const h = shiftHours(c.start, c.finish, runBreak(c)); if (h != null) return h; }
++ const n = Number(c.hours); return c.hours != null && String(c.hours).trim() !== '' && Number.isFinite(n) ? n : null;
++}
++function splitHoursFor(h, iso, type){
++ const wd = new Date(String(iso) + 'T00:00:00').getDay(), x = Math.max(0, Number(h) || 0), r2 = n => Math.round(n * 100) / 100, t = runType(type);
++ if (t === 'salary') return {ordinary: r2(x), at_1_5: 0, at_2: 0, salary: true};
++ if (wd === 0) return {ordinary: 0, at_1_5: 0, at_2: r2(x)};
++ if (wd === 6) { const a = Math.min(x, runRule('sat_x15')); return {ordinary: 0, at_1_5: r2(a), at_2: r2(x - a)}; }
++ const ord = t === 'hire' ? runRule('lh_ord') : runRule('cna_ord'), X = runRule('ot_x15');
++ const o = Math.min(x, ord), a = Math.min(Math.max(x - ord, 0), X);
++ return {ordinary: r2(o), at_1_5: r2(a), at_2: r2(Math.max(x - ord - X, 0))};
++}
++/* pay for a split, where the person has a rate: normal x1, then x1.5 and x2; salary is the rate times the hours */
++function runPay(split, rate){ if (rate == null) return null; return Math.round((split.ordinary + 1.5 * split.at_1_5 + 2 * split.at_2) * rate * 100) / 100; }
++const RUN_MISC = [['R&M', 'rm', 'R&M'], ['Consumables', 'cons', 'Consumables'], ['Stationery', 'stat', 'Stationery']];
++function runMiscId(person, date, type){ return 'W-E-' + ourSlug(person) + '-' + String(date).replace(/-/g, '') + '-' + ourSlug(type); }
++/* everything the sheet shows for one day, read off ourCosts() - the list Costs reads */
++function runDay(iso){
++ const L = ourCosts(), r2 = n => Math.round(n * 100) / 100;
++ const people = L.filter(c => c.kind === 'person' && c.usable);
++ const pmap = new Map(people.map(p => [p.person, p]));
++ const names = new Set(people.map(p => p.person));
++ L.filter(c => c.date === iso && c.person && ['labour', 'meals', 'accommodation'].includes(c.kind)).forEach(c => names.add(c.person));
++ L.filter(c => c.date === iso && c.kind === 'misc' && c.who && pmap.has(c.who)).forEach(c => names.add(c.who));
++ const rows = [...names].sort((a, b) => a.localeCompare(b)).map(n => {
++ const P = pmap.get(n) || {person: n}, type = runType(P.type);
++ const rate = P.pay_rate != null && String(P.pay_rate).trim() !== '' && Number.isFinite(Number(P.pay_rate)) ? Number(P.pay_rate) : null;
++ const shift = L.find(c => c.kind === 'labour' && c.person === n && c.date === iso) || null;
++ const h = shift ? runHours(shift) : null, sp = h != null ? splitHoursFor(h, iso, P.type) : null;
++ const meal = L.find(c => c.kind === 'meals' && c.person === n && c.date === iso) || null;
++ const night = L.find(c => c.kind === 'accommodation' && c.person === n && c.date === iso) || null;
++ const misc = {}; RUN_MISC.forEach(([lab, k, typ]) => { misc[k] = L.find(c => c.id === runMiscId(n, iso, typ)) || null; });
++ const pay = sp ? runPay(sp, rate) : null;
++ const money = [pay, meal && meal.amount, night && night.amount, ...RUN_MISC.map(([, k]) => misc[k] && misc[k].amount)].filter(v => v != null && Number.isFinite(Number(v)));
++ return {name: n, P, type, rate, shift, hours: h, split: sp, brk: shift ? runBreak(shift) : null, pay, meal, night, misc, total: money.length ? r2(money.reduce((s, v) => s + Number(v), 0)) : null};
++ });
++ const team = L.filter(c => c.date === iso && c.kind === 'misc' && !RUN_MISC.some(([, , typ]) => c.id === runMiscId(c.who || '', iso, typ)) && !(c.who && pmap.has(c.who) && RUN_MISC.some(([, , typ]) => c.id === runMiscId(c.who, iso, typ))));
++ return {iso, rows, team};
++}
++/* the whole job, person by person: to date and the rest planned */
++function runTotals(){
++ const L = ourCosts(), td = todayIso(), r2 = n => Math.round(n * 100) / 100;
++ const pmap = new Map(L.filter(c => c.kind === 'person' && c.usable).map(p => [p.person, p]));
++ const per = new Map(), P0 = n => { if (!per.has(n)) { const P = pmap.get(n) || {}; per.set(n, {name: n, type: runType(P.type), rate: P.pay_rate != null && String(P.pay_rate).trim() !== '' ? Number(P.pay_rate) : null,
++ hours: 0, to_date: 0, ordinary: 0, at_1_5: 0, at_2: 0, pay: 0, pay_hours_unrated: 0, meals: 0, nights: 0, accommodation: 0, rm: 0, cons: 0, stat: 0}); } return per.get(n); };
++ L.filter(c => c.kind === 'labour' && c.usable && c.person).forEach(c => { const x = P0(c.person), h = runHours(c); if (h == null) return;
++ const sp = splitHoursFor(h, c.date, (pmap.get(c.person) || {}).type); x.hours += h; if (c.date <= td) x.to_date += h;
++ x.ordinary += sp.ordinary; x.at_1_5 += sp.at_1_5; x.at_2 += sp.at_2;
++ const p = runPay(sp, x.rate); if (p != null) x.pay += p; else x.pay_hours_unrated += h; });
++ L.filter(c => c.kind === 'meals' && c.person && c.amount != null).forEach(c => { P0(c.person).meals += Number(c.amount) || 0; });
++ L.filter(c => c.kind === 'accommodation' && c.person).forEach(c => { const x = P0(c.person); x.nights++; if (c.amount != null) x.accommodation += Number(c.amount) || 0; });
++ L.filter(c => c.kind === 'misc' && c.who && c.amount != null).forEach(c => { RUN_MISC.forEach(([, k, typ]) => { if (c.id === runMiscId(c.who, c.date, typ)) P0(c.who)[k] += Number(c.amount) || 0; }); });
++ const rows = [...per.values()].map(x => { Object.keys(x).forEach(k => { if (typeof x[k] === 'number' && k !== 'rate' && k !== 'nights') x[k] = r2(x[k]); }); x.total = r2(x.pay + x.meals + x.accommodation + x.rm + x.cons + x.stat); return x; })
++ .sort((a, b) => b.hours - a.hours || a.name.localeCompare(b.name));
++ const all = rows.reduce((s, x) => { ['hours', 'to_date', 'ordinary', 'at_1_5', 'at_2', 'pay', 'pay_hours_unrated', 'meals', 'nights', 'accommodation', 'rm', 'cons', 'stat', 'total'].forEach(k => s[k] = r2((s[k] || 0) + x[k])); return s; }, {});
++ return {rows, all};
++}
++/* the writes - each goes through the same line the Costs tab's forms use */
++function runSetShift(person, iso, patch){
++ const id = 'W-L-' + ourSlug(person) + '-' + String(iso).replace(/-/g, '');
++ const f = Object.assign({}, patch); if ('start' in f || 'finish' in f || 'break_min' in f) f.hours = '';
++ return ourRawOf(id) && !tombedHere(id) ? setOurCost(id, f) : !!addOurCost('labour', Object.assign({person, date: iso}, f));
++}
++function runSetMoney(kind, person, iso, v){
++ const id = (kind === 'meals' ? 'W-M-' : 'W-A-') + ourSlug(person) + '-' + String(iso).replace(/-/g, '');
++ const s = String(v == null ? '' : v).replace(/[$,\s]/g, '');
++ if (s === '' && kind === 'meals') { if (ourRawOf(id) && !tombedHere(id)) removeOurCost(id); return; }
++ return ourRawOf(id) && !tombedHere(id) ? setOurCost(id, {amount: s}) : !!addOurCost(kind, {person, date: iso, amount: s});
++}
++function runSetMisc(person, iso, type, v){
++ if (!mayWrite('running sheet line')) return; const who = whoAmI(); if (!who) return;
++ const id = runMiscId(person, iso, type), s = String(v == null ? '' : v).replace(/[$,\s]/g, '');
++ if (s === '') { if (ourRawOf(id) && !tombedHere(id)) removeOurCost(id); return; }
++ if (!Number.isFinite(Number(s))) { flash('That has to be a number, ex GST.'); return; }
++ const now = new Date().toISOString(), prior = ourRawOf(id);
++ const line = Object.assign({}, prior && !tombedHere(id) ? prior : {id, side: 'ours', kind: 'misc', category: 'Misc and other expenses', from: 'page', recorded_by: who, recorded_on: now, at: now, by: who},
++ {date: iso, type, who: person, description: type + ' — ' + person, amount: Math.round(Number(s) * 100) / 100, updated_at: now, updated_by: who});
++ if (tombedHere(id)) untomb(id, who);
++ S.costs = (S.costs || []).filter(c => c.id !== id); S.costs.push(line);
++ stampIt('ourcost', id, who); save(); render();
++}
++function runAddPerson(name, type){
++ const n = String(name || '').replace(/\s+/g, ' ').trim(); if (!n) { flash('Put the person’s name in first.'); return; }
++ if (ourCosts().some(c => c.kind === 'person' && c.person.toLowerCase() === n.toLowerCase())) { flash(n + ' is already on the sheet.'); return; }
++ setOurPerson(n, {type: RUN_TYPE_STORE[type] || ''}); render();
++}
++function runShiftDay(iso, d){ const x = new Date(iso + 'T00:00:00'); x.setDate(x.getDate() + d); return x.getFullYear() + '-' + String(x.getMonth() + 1).padStart(2, '0') + '-' + String(x.getDate()).padStart(2, '0'); }
++function renderRunsheet(){ return holdAssets(renderRunsheet_held); }
++function renderRunsheet_held(){
++ const iso = /^\d{4}-\d{2}-\d{2}$/.test(state.runDay || '') ? state.runDay : todayIso();
++ const D = runDay(iso), T = runTotals(), ed = canEdit(), f = fmtDay(iso), wk = runIsWeekend(iso);
++ const m = v => v == null || v === '' ? '' : String(Math.round(Number(v) * 100) / 100);
++ const inp = (attrs, val, ph, w) => ed ? `<input ${attrs} value="${esc(val == null ? '' : val)}" placeholder="${esc(ph || '')}" style="width:${w || 72}px">` : (val == null || val === '' ? '<span class="todo">—</span>' : esc(val));
++ const cellMoney = (attr, v) => inp(`type="text" inputmode="decimal" ${attr}`, m(v), '$', 70);
++ const tot = k => D.rows.reduce((s, r) => s + (r[k] == null ? 0 : Number(r[k])), 0);
++ const sumSplit = k => D.rows.reduce((s, r) => s + (r.split ? r.split[k] : 0), 0);
++ const hh = v => v == null ? '<span class="todo">—</span>' : esc(fmtNum(Math.round(v * 100) / 100));
++ const mz = v => v ? esc(money(v)) : '—';
++ $('#pane-runsheet').innerHTML = paneHeadingHtml('runsheet') + `
++ <div class="card runsheet">
++ <div class="hubtitle"><h3>Running sheet — ${esc(fmtDate(iso))}</h3><span class="chip ${wk ? 'act' : 'ref'}">${new Date(iso + 'T00:00:00').getDay() === 0 ? 'Sunday — all ×2, paid break' : new Date(iso + 'T00:00:00').getDay() === 6 ? 'Saturday — first ' + runRule('sat_x15') + ' h ×1.5, then ×2, paid break' : 'Weekday — ' + runRule('wd_break') + ' min unpaid break'}</span></div>
++ <div class="rsnav"><button class="btn" data-rsday="${runShiftDay(iso, -1)}">← ${esc(fmtDay(runShiftDay(iso, -1)).dm)}</button>
++ <input type="date" id="rsDate" value="${esc(iso)}" aria-label="Day on the running sheet" data-ro>
++ <button class="btn" data-rsday="${runShiftDay(iso, 1)}">${esc(fmtDay(runShiftDay(iso, 1)).dm)} →</button>
++ <button class="btn ghost" data-rsday="${todayIso()}">Today</button></div>
++ <p class="sub">Type or change anyone's start and finish — the hours, the normal / ×1.5 / ×2 split, the pay (where a rate is entered) and the day's total work themselves out. Every change carries your name and time and is the same line the Costs tab reads. Amounts ex GST.${ed ? '' : ' <b>View only</b> — open the editing link to change a line.'}</p>
++ <div class="tblwrap"><table class="rstbl"><thead><tr><th>Person</th><th>Type</th><th>Start</th><th>Finish</th><th class="num" title="unpaid break in minutes — empty takes the standard">Break</th><th class="num">Hours</th><th class="num">Normal</th><th class="num">×1.5</th><th class="num">×2</th><th class="num">Rate $/h</th><th class="num">Pay</th><th class="num">Meals</th><th class="num">Accom.</th><th class="num">R&amp;M</th><th class="num">Consum.</th><th class="num">Station.</th><th class="num">Day total</th><th>Note</th></tr></thead><tbody>
++ ${D.rows.map(r => { const n = esc(r.name); return `<tr>
++ <td><b>${n}</b>${r.P.employer ? `<br><span class="w">${esc(r.P.employer)}</span>` : ''}</td>
++ <td>${ed ? `<select data-rstype="${n}" aria-label="Type for ${n}">${['', 'cna', 'hire', 'salary'].map(t => `<option value="${t}"${r.type === t ? ' selected' : ''}>${t ? RUN_TYPE_WORD[t] : '—'}</option>`).join('')}</select>` : esc(RUN_TYPE_WORD[r.type])}</td>
++ <td>${inp(`type="time" step="60" data-rsf="start" data-rsp="${n}"`, r.shift && r.shift.start, '', 92)}</td>
++ <td>${inp(`type="time" step="60" data-rsf="finish" data-rsp="${n}"`, r.shift && r.shift.finish, '', 92)}</td>
++ <td class="num">${inp(`type="text" inputmode="numeric" data-rsf="break_min" data-rsp="${n}"`, r.shift && r.shift.break_min != null && String(r.shift.break_min) !== '' ? r.shift.break_min : '', r.shift ? String(r.brk) : '', 48)}</td>
++ <td class="num"><b>${hh(r.hours)}</b></td><td class="num">${hh(r.split && r.split.ordinary)}</td><td class="num">${hh(r.split && r.split.at_1_5)}</td><td class="num">${hh(r.split && r.split.at_2)}</td>
++ <td class="num">${inp(`type="text" inputmode="decimal" data-rsrate="${n}"`, r.rate != null ? m(r.rate) : '', 'optional', 64)}</td>
++ <td class="num">${r.pay != null ? esc(money(r.pay)) : r.hours != null ? '<span class="w" title="no pay rate entered for this person">no rate</span>' : '<span class="todo">—</span>'}</td>
++ <td class="num">${cellMoney(`data-rsm="meals" data-rsp="${n}"`, r.meal && r.meal.amount)}</td>
++ <td class="num">${cellMoney(`data-rsm="accommodation" data-rsp="${n}"`, r.night && r.night.amount)}${r.night && r.night.rate_from === 'person' ? '<br><span class="w">their rate</span>' : ''}</td>
++ ${RUN_MISC.map(([lab, k, typ]) => `<td class="num">${cellMoney(`data-rsx="${esc(typ)}" data-rsp="${n}"`, r.misc[k] && r.misc[k].amount)}</td>`).join('')}
++ <td class="num"><b>${r.total != null ? esc(money(r.total)) : '—'}</b></td>
++ <td>${inp(`type="text" data-rsf="note" data-rsp="${n}"`, r.shift && r.shift.note, '', 130)}</td></tr>`; }).join('')}
++ <tr class="total"><td><b>The day</b></td><td>${D.rows.length} people</td><td></td><td></td><td></td>
++ <td class="num"><b>${hh(tot('hours'))}</b></td><td class="num">${hh(sumSplit('ordinary'))}</td><td class="num">${hh(sumSplit('at_1_5'))}</td><td class="num">${hh(sumSplit('at_2'))}</td><td></td>
++ <td class="num">${tot('pay') ? esc(money(tot('pay'))) : '—'}</td><td class="num">${mz(D.rows.reduce((s, r) => s + (r.meal && r.meal.amount != null ? Number(r.meal.amount) : 0), 0))}</td>
++ <td class="num">${mz(D.rows.reduce((s, r) => s + (r.night && r.night.amount != null ? Number(r.night.amount) : 0), 0))}</td>
++ ${RUN_MISC.map(([, k]) => `<td class="num">${mz(D.rows.reduce((s, r) => s + (r.misc[k] && r.misc[k].amount != null ? Number(r.misc[k].amount) : 0), 0))}</td>`).join('')}
++ <td class="num"><b>${mz(tot('total'))}</b></td><td></td></tr></tbody></table></div>
++ ${D.team.length ? `<p class="norate">Also on this day, not against one person: ${D.team.map(c => `${esc(c.description || c.type || 'expense')}${c.amount != null ? ' ' + esc(money(c.amount)) : ''}`).join(' · ')}.</p>` : ''}
++ ${ed ? `<div class="rsadd"><input id="rsNewName" placeholder="Add a person — name" style="width:200px"><select id="rsNewType">${['cna', 'hire', 'salary'].map(t => `<option value="${t}">${RUN_TYPE_WORD[t]}</option>`).join('')}</select><button class="btn" id="rsAdd">Add person</button><span class="w">They go on the sheet for every day; type their times on the days they work.</span></div>` : ''}
++ <details class="sfold" data-sfold="runsheet|rules"${SFOLD_OPEN.has('runsheet|rules') ? ' open' : ''}><summary>Pay rules — change them here</summary><div class="sfoldbody">
++ <table class="rsrules"><tbody>${Object.keys(RUN_DEF).map(k => `<tr><td>${esc(RUN_RULE_WORDS[k])}</td><td class="num">${ed ? `<input type="text" inputmode="decimal" data-rsrule="${k}" value="${esc((S.runRules || {})[k] != null ? S.runRules[k] : '')}" placeholder="${esc(String(RUN_DEF[k]))}" style="width:70px">` : esc(String(runRule(k)))}</td><td class="w">${(S.runRules || {})[k] != null ? 'changed by ' + esc(stampBy('runRules', k) || 'unnamed') : 'standard'}</td></tr>`).join('')}</tbody></table>
++ <p class="norate">Coates CNA and labour hire: the normal hours above, then the overtime hours at ×1.5, then ×2. Saturday: the Saturday hours at ×1.5, then ×2. Sunday: every hour ×2. Weekend breaks are paid. Salary: hours only, no penalty rates. A break typed on a line always wins over the standard.</p>
++ </div></details>
++ </div>
++ <div class="card"><div class="hubtitle"><h3>Running totals — the whole job</h3><span class="chip ref">to date and planned</span></div>
++ <div class="tblwrap"><table class="rstbl"><thead><tr><th>Person</th><th>Type</th><th class="num">Hours</th><th class="num">to date</th><th class="num">Normal</th><th class="num">×1.5</th><th class="num">×2</th><th class="num">Pay</th><th class="num">Meals</th><th class="num">Nights</th><th class="num">Accom.</th><th class="num">R&amp;M</th><th class="num">Consum.</th><th class="num">Station.</th><th class="num">Total</th></tr></thead><tbody>
++ ${T.rows.map(x => `<tr><td><b>${esc(x.name)}</b></td><td>${esc(RUN_TYPE_WORD[x.type])}</td><td class="num">${hh(x.hours)}</td><td class="num">${hh(x.to_date)}</td><td class="num">${hh(x.ordinary)}</td><td class="num">${hh(x.at_1_5)}</td><td class="num">${hh(x.at_2)}</td>
++ <td class="num">${x.pay ? esc(money(x.pay)) : x.hours ? '<span class="w">no rate</span>' : '—'}</td><td class="num">${x.meals ? esc(money(x.meals)) : '—'}</td><td class="num">${x.nights || '—'}</td><td class="num">${x.accommodation ? esc(money(x.accommodation)) : x.nights ? '<span class="w">no rate</span>' : '—'}</td>
++ <td class="num">${x.rm ? esc(money(x.rm)) : '—'}</td><td class="num">${x.cons ? esc(money(x.cons)) : '—'}</td><td class="num">${x.stat ? esc(money(x.stat)) : '—'}</td><td class="num"><b>${esc(money(x.total) || '—')}</b></td></tr>`).join('')}
++ <tr class="total"><td><b>Everyone</b></td><td></td><td class="num"><b>${hh(T.all.hours)}</b></td><td class="num">${hh(T.all.to_date)}</td><td class="num">${hh(T.all.ordinary)}</td><td class="num">${hh(T.all.at_1_5)}</td><td class="num">${hh(T.all.at_2)}</td>
++ <td class="num">${T.all.pay ? esc(money(T.all.pay)) : '—'}</td><td class="num">${T.all.meals ? esc(money(T.all.meals)) : '—'}</td><td class="num">${T.all.nights || '—'}</td><td class="num">${T.all.accommodation ? esc(money(T.all.accommodation)) : '—'}</td>
++ <td class="num">${T.all.rm ? esc(money(T.all.rm)) : '—'}</td><td class="num">${T.all.cons ? esc(money(T.all.cons)) : '—'}</td><td class="num">${T.all.stat ? esc(money(T.all.stat)) : '—'}</td><td class="num"><b>${esc(money(T.all.total) || '—')}</b></td></tr></tbody></table></div>
++ <p class="norate">${T.all.pay_hours_unrated ? `<b>${esc(fmtNum(T.all.pay_hours_unrated))} h</b> have no pay rate yet, so no wage is put on them. ` : ''}Wages worked out here are not added to the known-cost total on Costs until the rates are confirmed.</p></div>`;
++ const pane = $('#pane-runsheet');
++ pane.querySelectorAll('[data-rsday]').forEach(b => b.onclick = () => { state.runDay = b.dataset.rsday; renderRunsheet(); });
++ const dt = pane.querySelector('#rsDate'); if (dt) dt.onchange = () => { if (/^\d{4}-\d{2}-\d{2}$/.test(dt.value)) { state.runDay = dt.value; renderRunsheet(); } };
++ pane.querySelectorAll('[data-rsf]').forEach(i => i.onchange = () => { runSetShift(i.dataset.rsp, iso, {[i.dataset.rsf]: i.value}); render(); });
++ pane.querySelectorAll('[data-rsm]').forEach(i => i.onchange = () => { runSetMoney(i.dataset.rsm, i.dataset.rsp, iso, i.value); render(); });
++ pane.querySelectorAll('[data-rsx]').forEach(i => i.onchange = () => runSetMisc(i.dataset.rsp, iso, i.dataset.rsx, i.value));
++ pane.querySelectorAll('[data-rsrate]').forEach(i => i.onchange = () => { const s = String(i.value || '').replace(/[$,\s]/g, ''); if (s !== '' && !Number.isFinite(Number(s))) { flash('The rate has to be a number of dollars an hour.'); return; } setOurPerson(i.dataset.rsrate, {pay_rate: s}); render(); });
++ pane.querySelectorAll('[data-rstype]').forEach(s => s.onchange = () => { setOurPerson(s.dataset.rstype, {type: RUN_TYPE_STORE[s.value] || ''}); render(); });
++ pane.querySelectorAll('[data-rsrule]').forEach(i => i.onchange = () => setRunRule(i.dataset.rsrule, i.value));
++ const ad = pane.querySelector('#rsAdd'); if (ad) ad.onclick = () => runAddPerson(pane.querySelector('#rsNewName').value, pane.querySelector('#rsNewType').value);
++}
++/* ================================================================== v6.78 - THE QUESTIONS PAGE
++ Every open question the record raises, worked out from the record each time - so a question that gets answered in
++ the record (a rate typed, a branch put on, a quote entered) drops off by itself - grouped the way Andrew asked:
++ by branch, fencing, transport, labour, then the schedule and the plant. An answer typed here is kept with its name
++ and time; it records the answer, and the figure it settles is still changed where it lives. */
++function qAnswer(id){ return (S.answers || {})[id] || ''; }
++function setQAnswer(id, v){
++ if (!mayWrite('answer')) return; const who = whoAmI(); if (!who) return;
++ const s = String(v == null ? '' : v).replace(/\s+/g, ' ').trim().slice(0, 600);
++ S.answers = S.answers || {}; if (!s) delete S.answers[id]; else S.answers[id] = s;
++ stampIt('answers', id, who); save(); render();
++}
++/* the fencing types behind the programme by today, each in its own unit (standalone: v6.77's helpers are not on this page) */
++function rsFenceGaps(ft){ return (ft || []).filter(t => t.planned != null && t.done < t.planned).map(t => ({name: t.name, unit: t.unit, done: t.done, planned: t.planned, short: Math.round((t.planned - t.done) * 100) / 100})); }
++function rsGapName(g){ const n = String(g.name || '').replace(/^Fence — /, ''); return n.charAt(0).toUpperCase() + n.slice(1); }
++function questionsList(){
++ const td = todayIso(), Q = [], add = (group, id, q, why, go) => Q.push({group, id, q, why, go});
++ let M = null; try { M = moneySummary(td); } catch (e) {}
++ /* by branch */
++ try { const R = branchRollup(td);
++ R.branches.forEach(g => { const c = g.contract || {}; const code = g.code || 'no branch';
++ if (c.unknown) add('By branch', 'br-norate-' + code, `${code}: ${c.unknown} contract line${c.unknown === 1 ? '' : 's'} with no rate — what is each one charged?`, 'Unknown, not nought — they are not in the charges until a rate is on them.', 'pricing');
++ (c.differs || []).forEach((x, i) => add('By branch', 'br-diff-' + code + '-' + i, contractDiffWords(x), 'The rule and Baseplan\'s prebill read differently — which is the correct bill?', 'costs')); });
++ if (R.none && R.none.lines && R.none.lines.length) add('By branch', 'br-none', `${R.none.lines.length} schedule line${R.none.lines.length === 1 ? ' has' : 's have'} no branch — which branch carries ${R.none.lines.length === 1 ? 'it' : 'them'}?`, 'A line with no branch carries no branch revenue or cost.', 'plant');
++ } catch (e) {}
++ /* fencing */
++ if (!fenceQuote()) add('Fencing', 'fe-quote', 'What quantities does Advanced Temporary Fencing\'s quote cover?', 'Until the quote is entered, no fencing line can be called over or under.', 'fencing');
++ try { (typeof FCOL !== 'undefined' ? FCOL : []).filter(c => c.card_state !== 'matched' && !c.settled_by && fenceRateFor(c.key).value == null).forEach(c => add('Fencing', 'fe-rate-' + c.key, `No charge rate for "${c.name_as_written}" — what do we charge for it?`, (c.card_why || 'The 2026 card has no line for it.') + ' A docket with it is not priced until a rate is typed.', 'fencing')); } catch (e) {}
++ try { rsFenceGaps(fenceTypes(progressAsOf(td))).forEach(g => add('Fencing', 'fe-gap-' + ourSlug(g.name), `${rsGapName(g)}: ${fmtNum(g.done)} of ${fmtNum(g.planned)}${g.unit === 'm' ? ' m' : ''} due by today — what is the plan to catch up, and by when?`, 'Early work on other fencing types does not make it up.', 'fencing')); } catch (e) {}
++ add('Fencing', 'fe-closure', 'Is the fencing closure plan (drawn on the 2019 base, project 19003 rev 13) approved for 2026?', 'The gates and fence lines printed under the handwriting are last year\'s.', 'fencing');
++ /* transport */
++ if (M) M.missing.filter(s => /transport/i.test(s)).forEach((s, i) => add('Transport', 'tr-miss-' + i, s.charAt(0).toUpperCase() + s.slice(1) + ' — when will the rest be known?', 'Transport not on the record is not in the known costs.', 'costs'));
++ try { const O = ourCosts().filter(c => c.kind === 'transport' && c.usable && c.amount == null); if (O.length) add('Transport', 'tr-await', `${O.length} of our transport line${O.length === 1 ? ' is' : 's are'} waiting for a cost — what did ${O.length === 1 ? 'it' : 'they'} cost?`, 'Our cost, not a charge.', 'costs'); } catch (e) {}
++ /* labour */
++ try { const T = runTotals(); const nr = T.rows.filter(x => x.rate == null && x.hours); if (nr.length) add('Labour', 'lb-rates', `Pay rates for ${nr.map(x => x.name).join(', ')} — what are they?`, `${fmtNum(T.all.pay_hours_unrated)} h on the running sheet have no rate, so no wage is put on them.`, 'runsheet');
++ const na = T.rows.filter(x => x.nights && !x.accommodation); if (na.length) add('Labour', 'lb-nights', `Accommodation rate a night for ${na.map(x => x.name).join(', ')}?`, `${na.reduce((s, x) => s + x.nights, 0)} nights have no rate.`, 'runsheet'); } catch (e) {}
++ try { const LP = labourPlan(); if (LP.all.unpriced) add('Labour', 'lb-noqty', `${LP.all.unpriced} labour lines sit on references with no readable quantity — how many units are they?`, 'No labour figure can be put on them until the quantity is known.', 'pricing'); } catch (e) {}
++ if (M) M.missing.filter(s => /event staff|not on the tracker/i.test(s)).forEach((s, i) => add('Labour', 'lb-miss-' + i, s.charAt(0).toUpperCase() + s.slice(1) + ' — who, and at what cost?', 'Not on the record, so not in the costs.', 'costs'));
++ /* schedule and plant */
++ try { const X = dsnState(td); const nq = X.rows.filter(r => r.noQty && !r.reloc).map(r => r.a.key); if (nq.length) add('Schedule & plant', 'sp-noqty', `${nq.length} references carry no quantity in the schedule (${nq.slice(0, 8).join(', ')}${nq.length > 8 ? ', …' : ''}) — how many units is each?`, 'Each is counted as one until confirmed.', 'plant'); } catch (e) {}
++ (DATA.open_items || []).filter(o => !/closed|resolved/i.test(String(o.status || ''))).forEach(o => add('Schedule & plant', 'oi-' + o.id, `${o.id} — ${o.title}`, o.finding || '', 'about'));
++ return Q;
++}
++function renderQuestions(){ return holdAssets(renderQuestions_held); }
++function renderQuestions_held(){
++ const Q = questionsList(), ed = canEdit();
++ const groups = ['By branch', 'Fencing', 'Transport', 'Labour', 'Schedule & plant'];
++ const open = Q.filter(q => !qAnswer(q.id)).length;
++ $('#pane-questions').innerHTML = paneHeadingHtml('questions') + `
++ <div class="card"><div class="hubtitle"><h3>Questions</h3><span class="chip ${open ? 'act' : 'ok'}">${open} open · ${Q.length - open} answered</span></div>
++ <p class="sub">Every open question the record raises, in one place, so the main pages can stay on the facts. They are worked out from the record each time: when the answer goes in where it lives — a rate typed, a branch put on, a quote entered — the question drops off by itself. An answer typed here is kept with your name and time.</p>
++ <div class="qjump">${groups.map(g => { const n = Q.filter(q => q.group === g).length; return n ? `<a class="chip ref" href="#questions" data-qg="${esc(g)}">${esc(g)} · ${n}</a>` : ''; }).join(' ')}</div></div>
++ ${groups.map(g => { const L = Q.filter(q => q.group === g); if (!L.length) return '';
++ return `<div class="card qgroup" id="qg-${esc(ourSlug(g))}"><h3>${esc(g)} <span class="chip ref">${L.length}</span></h3><ol class="qlist">${L.map(q => { const a = qAnswer(q.id);
++ return `<li class="${a ? 'answered' : ''}"><b>${esc(q.q)}</b>${q.why ? `<span class="qwhy">${esc(q.why)}</span>` : ''}
++ <span class="qact"><button type="button" class="linkish" data-qgo="${esc(q.go)}">Open where it lives →</button></span>
++ ${ed ? `<label class="qans"><span class="vh">Answer</span><input data-qa="${esc(q.id)}" value="${esc(a)}" placeholder="Type the answer — it keeps your name"></label>` : a ? `<span class="qansv">Answer: ${esc(a)}</span>` : ''}
++ ${a ? `<span class="edby">${esc(stampBy('answers', q.id) || 'unnamed')}</span>` : ''}</li>`; }).join('')}</ol></div>`; }).join('')}`;
++ const pane = $('#pane-questions');
++ pane.querySelectorAll('[data-qgo]').forEach(b => b.onclick = () => go(b.dataset.qgo));
++ pane.querySelectorAll('[data-qa]').forEach(i => i.onchange = () => setQAnswer(i.dataset.qa, i.value));
++ pane.querySelectorAll('[data-qg]').forEach(a => a.onclick = e => { e.preventDefault(); const el = document.getElementById('qg-' + ourSlug(a.dataset.qg)); if (el) el.scrollIntoView({behavior: 'smooth', block: 'start'}); });
++}
+ function renderToday(){ return holdAssets(renderToday_held); } /* v6.69 - one asset list for the whole draw */
+ function renderToday_held(){
+  const today = todayIso();
+@@ -13456,7 +13714,8 @@
+  {name: 'person', label: 'Name', type: 'text', req: true},
+  {name: 'type', label: 'Type', type: 'select', options: ['Salary', 'Internal CNA', 'External']},
+  {name: 'employer', label: 'Employer', type: 'text', list: 'employer'},
+- {name: 'accommodation_rate', label: 'Rate a night ex GST', type: 'money'},
++{name: 'accommodation_rate', label: 'Rate a night ex GST', type: 'money'},
++ {name: 'pay_rate', label: 'Pay rate $/h (optional)', type: 'money'},
+  {name: 'charged_as', label: 'Charged as on race weekend', type: 'role'},
+  {name: 'note', label: 'Note', type: 'text', wide: true}]},
+ ];
+@@ -13505,7 +13764,7 @@
+  awaiting = !has(c.amount); break;
+  case 'labour': {
+  if (!String(c.person || '').trim()) P.push('nobody is named as working it');
+- const h = has(c.hours) ? num(c.hours) : shiftHours(c.start, c.finish, c.break_min);
++const h = (c.start && c.finish && shiftHours(c.start, c.finish, 0) != null) ? runHours(c) : has(c.hours) ? num(c.hours) : shiftHours(c.start, c.finish, c.break_min); /* v6.78 - the running sheet's reading */
+  if (has(c.hours) && (h == null || h < 0 || h > 24)) P.push('the hours are not a number of hours in a day');
+  else if (h == null) P.push('no hours, and no start and finish to work them out from');
+  else hours = Math.round(h * 100) / 100;
+@@ -13844,7 +14103,7 @@
+  if (race.has(s.date)) { rw.hours += h; rw.shifts++; x.race += h;
+  const q = rw.people.get(s.person) || {name: s.person, hours: 0, days: {}}; q.hours += h; q.days[s.date] = (q.days[s.date] || 0) + h; rw.people.set(s.person, q);
+  if (!x.charged_as) { rw.unpriced_hours += h; rw.unpriced_people.add(s.person); } return; }
+- const b = splitHours(h, s.date);
++const b = splitHoursFor(h, s.date, personOf(s.person).type); /* v6.78 - by the person's type */
+  lab.hours += h; lab.shifts++; lab.ordinary += b.ordinary; lab.at_1_5 += b.at_1_5; lab.at_2 += b.at_2;
+  x.hours += h; x.ordinary += b.ordinary; x.at_1_5 += b.at_1_5; x.at_2 += b.at_2;
+  if (s.date <= day) { lab.to_date += h; x.to_date += h; } else { lab.planned += h; x.planned += h; }
+@@ -14179,7 +14438,7 @@
+  ${ln('On the contracts, by the rate', m0(c.contracts), `${c.contracts_lines} of ${c.contracts_all} lines${c.contracts_unknown ? ` · ${c.contracts_unknown} no rate` : ''}${c.contracts_differs ? ` · ${c.contracts_differs} to settle` : ''}`)}
+  ${c.race.scope ? ln('Event labour — the scope', m0(c.race.amount), `${esc(fmtNum(c.race.hours))} h of people ${esc(money0(c.race.people_amount))} + accommodation and travel ${esc(money0(c.race.at))}${c.race.edits ? ` · ${pl(c.race.edits, 'change')}` : ''}`)
+  : ln('Labour over the race weekend', c.race.amount != null ? m0(c.race.amount) : '<span class="todo">—</span>', c.race.hours ? `${esc(fmtNum(c.race.hours))} h on ${esc(c.race.days.map(d => fmtDay(d).dm).join(', '))}${c.race.unpriced_hours ? ` · ${esc(fmtNum(c.race.unpriced_hours))} h need a card role` : ' · by the hour'}` : (c.race.amount != null ? 'typed on the Pricing tab' : 'no race-day hours yet'))}
+- ${ln('Labour ticked on references', c.labour_ticks ? m0(c.labour) : '<span class="todo">—</span>', c.labour_ticks ? pl(c.labour_ticks, 'tick') : 'nothing ticked yet')}
++${(() => { const LP = labourPlan().all; return ln('Labour ticked on references', c.labour_ticks ? m0(c.labour) : '<span class="todo">—</span>', (c.labour_ticks ? pl(c.labour_ticks, 'tick') : 'nothing ticked yet') + ` · not in the total yet: ${money0(LP.expected)} expected on site to tick, ${money0(LP.tocome)} to come, ${money0(LP.later)} demob/cleaning later — by branch on the Pricing tab`); })()}
+  ${ln('Fencing — dockets at the 2026 card', c.fencing ? m0(c.fencing) : '<span class="todo">—</span>', pl(c.fencing_dockets, 'docket'))}
+  ${c.other_lines ? ln('Other charge lines', m0(c.other), pl(c.other_lines, 'line')) : ''}
+  ${ln('We charge the V8s', m0(c.total), '', 'total')}
+@@ -20864,6 +21123,8 @@
+  unitWordsFor(a, u) ? ' <span>' + esc(unitWordsFor(a, u)) + '</span>' : ''}</div>
+  <div class="labticks">${tickSet(u)}</div></div>`).join('')}</div>`
+  : `<div class="labticks">${tickSet(null)}</div>`;
++const exp = labourPlan().slots.filter(s => s.ref === a.key && s.item === l.item && s.state !== 'charged' && s.value != null);
++ const expWords = exp.length ? ` · still to tick: ${esc(money(exp.reduce((x, s) => x + s.value, 0)))} (${exp.length} line${exp.length === 1 ? '' : 's'}${exp.some(s => s.state === 'later') ? ', incl. demob/cleaning later' : ''})` : '';
+  const said = m.blocked ? esc(m.why || 'ticked, and the money is not known')
+  : m.ticked.length ? esc(money(m.total)) + ' labour ticked' + (m.perBuilding ? ' — one charge a building' : '')
+  : 'not ticked — no labour charged on this line yet';
+@@ -20871,7 +21132,7 @@
+  units.length ? ` <span class="chip ref" title="this reference carries ${units.length} asset numbers, so each one is ticked on its own">${units.length} buildings</span>` : ''}${
+  info.agreed_from ? ` <span class="chip cand" title="${esc('the hire rate is not settled — ' + info.agreed_from.join(', ') + ' could all be this item — but every one of them gives the same labour, so these are the card’s own figures')}">labour agreed across the card’s candidates</span>` : ''}
+  ${body}
+- <div class="w" style="font-size:11.5px;color:var(--mute)">${said}${
++<div class="w" style="font-size:11.5px;color:var(--mute)">${said}${expWords}${
+  info.withheld && info.withheld.length ? ` · <span title="${esc('not on this item: the card carries no figure for ' + info.withheld.join(', ').toLowerCase() + ' on its line')}">${info.withheld.length} other labour type${info.withheld.length === 1 ? '' : 's'} not priced on the card</span>` : ''}</div></div>`;
+  });
+  return out.join('');
+@@ -21071,6 +21332,69 @@
+  <td>${esc(m.from)}</td><td class="num">${m.refs}</td></tr>`; }).join('')}</tbody></table></div>
+  </div>`;
+ }
++/* v6.77 - EXPECTED LABOUR. Every priced labour line on every live reference, valued the way labourMoney values a
++ tick (one rate a building where the reference has several buildings, else the rate times the line's quantity), with
++ its state, its charge type and the branch on its reference. Worked out once per draw. */
++const LABOUR_LATER = /demob|clean/i;
++function labourPlan(){
++ if (RENDER_MEMO.has('labourPlan')) return RENDER_MEMO.get('labourPlan');
++ const td = todayIso();
++ let onMap = null; try { onMap = new Map(dsnState(td).rows.map(r => [r.a.key, !!r.on])); } catch (e) { onMap = new Map(); }
++ const slots = [];
++ allAssets().filter(a => !a._cancelled && !a.relocation && !movedAway(a.key)).forEach(a => {
++ const br = branchOf(a.key) || {}, code = br.code || '', on = !!onMap.get(a.key), units = labourUnits(a);
++ chargeLines(a).forEach(l => {
++ const q = qtyOf(l);
++ (units.length ? units : [null]).forEach(u => {
++ const info = labourLinesFor(a.key, l.discipline, l.item, a.key, u || undefined, a);
++ info.lines.forEach(L => {
++ const value = typeof L.rate !== 'number' ? null : u ? L.rate : (q == null ? null : L.rate * q);
++ const state = L.ticked ? 'charged' : LABOUR_LATER.test(L.name) ? 'later' : on ? 'expected' : 'tocome';
++ slots.push({ref: a.key, branch: code, item: l.item, disc: l.discipline, line: L.name, key: L.key, unit: u, rate: L.rate, qty: u ? 1 : q, value, state, by: L.by, at: L.at});
++ });
++ });
++ });
++ });
++ const zero = () => ({charged: 0, expected: 0, tocome: 0, later: 0, n: {charged: 0, expected: 0, tocome: 0, later: 0}, unpriced: 0});
++ const add = (o, s) => { if (s.value == null) { o.unpriced++; return; } o[s.state] += s.value; o.n[s.state]++; };
++ const all = zero(), byLine = new Map(), byBranch = new Map();
++ slots.forEach(s => { add(all, s);
++ if (!byLine.has(s.line)) byLine.set(s.line, zero()); add(byLine.get(s.line), s);
++ if (!byBranch.has(s.branch)) byBranch.set(s.branch, zero()); add(byBranch.get(s.branch), s); });
++ /* the charged total is the Costs tab's own figure, to the cent, so the two never differ by a rounding */
++ try { const ml = moneySummary(td).charge.labour; if (typeof ml === 'number') all.charged = ml; } catch (e) {}
++ const P = {slots, all, byLine, byBranch};
++ RENDER_MEMO.set('labourPlan', P);
++ return P;
++}
++const LAB_STATES = [['charged', 'Charged', 'ticked — in the charges'], ['expected', 'Expected', 'on site, to tick when complete'], ['tocome', 'To come', 'unit not on site yet'], ['later', 'Later', 'demob and cleaning, at the end']];
++function labourPlanRow(label, o, strong){
++ return `<tr${strong ? ' class="total"' : ''}><td>${strong ? `<b>${esc(label)}</b>` : esc(label)}</td>${LAB_STATES.map(([k]) => `<td class="num">${o[k] ? esc(money(o[k])) : '<span class="norate">—</span>'}${o.n[k] ? `<br><span class="w" style="font-size:11px;color:var(--mute)">${o.n[k]} line${o.n[k] === 1 ? '' : 's'}</span>` : ''}</td>`).join('')}<td class="num">${esc(money(o.charged + o.expected + o.tocome + o.later))}${o.unpriced ? `<br><span class="chip crit" title="lines on a reference with no readable quantity — no figure can be put on them">${o.unpriced} no qty</span>` : ''}</td></tr>`;
++}
++function labourPlanHtml(){
++ const P = labourPlan(), A = P.all;
++ const head = `<thead><tr><th></th>${LAB_STATES.map(([, n, w]) => `<th class="num" title="${esc(w)}">${esc(n)}</th>`).join('')}<th class="num">All labour</th></tr></thead>`;
++ const lines = [...P.byLine.entries()].sort((x, y) => (y[1].charged + y[1].expected + y[1].tocome + y[1].later) - (x[1].charged + x[1].expected + x[1].tocome + x[1].later));
++ const brs = [...P.byBranch.entries()].sort((x, y) => (x[0] ? 0 : 1) - (y[0] ? 0 : 1) || x[0].localeCompare(y[0]));
++ const bname = c => c ? `${c}${(branchInfo(c) || {}).name ? ' · ' + branchInfo(c).name : ''}` : 'No branch recorded';
++ return `<div class="labplan">
++ <div class="kpis" style="margin:8px 0 10px">${LAB_STATES.map(([k, n, w]) => `<div class="kpi"><div class="v">${esc(money0(A[k]) || '$0')}</div><div class="l">${esc(n)}</div><div class="q">${A.n[k]} line${A.n[k] === 1 ? '' : 's'} · ${esc(w)}</div></div>`).join('')}</div>
++ <p class="norate" style="margin:0 0 8px"><b>Only Charged is in the charges.</b> Every other line is listed and valued so nothing is forgotten; it becomes a charge when it is ticked as complete. Card rates, ex GST.</p>
++ <div class="tblwrap"><table class="progtbl"><caption class="vh">Labour by charge type</caption>${head.replace('<th></th>', '<th>Charge type</th>')}<tbody>${lines.map(([n, o]) => labourPlanRow(n, o)).join('')}${labourPlanRow('All labour', A, true)}</tbody></table></div>
++ <div class="tblwrap" style="margin-top:10px"><table class="progtbl"><caption class="vh">Labour by branch</caption>${head.replace('<th></th>', '<th>Branch</th>')}<tbody>${brs.map(([c, o]) => labourPlanRow(bname(c), o)).join('')}${labourPlanRow('All branches', A, true)}</tbody></table></div>
++ <p class="norate" style="margin-top:6px">A line's branch is the branch on its reference. Labour on a reference with no branch is under "No branch recorded" until one is put on.</p>
++ </div>`;
++}
++/* one branch's labour, as rows for its plate on Where we are */
++function labourPlateRows(code){
++ const o = labourPlan().byBranch.get(code || '');
++ if (!o || !(o.charged + o.expected + o.tocome + o.later)) return '';
++ return `<span class="hd">Labour per piece</span><b class="hd">card rates</b>
++ <span>Charged <small>· ${o.n.charged} ticked</small></span><b${o.charged ? '' : ' class="none"'}>${o.charged ? esc(money0(o.charged)) : '—'}</b>
++ <span>Expected <small>· on site, to tick</small></span><b class="none">${o.expected ? esc(money0(o.expected)) : '—'}</b>
++ <span>To come <small>· not on site yet</small></span><b class="none">${o.tocome ? esc(money0(o.tocome)) : '—'}</b>
++ <span>Later <small>· demob, cleaning</small></span><b class="none">${o.later ? esc(money0(o.later)) : '—'}</b>`;
++}
+ function labourCard(assets){
+  const live = assets.filter(a => !movedAway(a.key));
+  /* one row per item type × labour line the card offers on it */
+@@ -21126,7 +21450,8 @@
+  return `<div class="card"><h3>Labour per piece of equipment</h3>
+  <p class="sub">${lp ? esc(lp.why) + ' ' : ''}A tick per reference per line, at the card's rate for that item times the quantity on the reference.
+  <b>Unticked is not nought</b> — it is a charge nobody has recorded yet. Tick a reference on its own panel, or a whole item type here; every tick carries a name and a time.
+- The labour columns are headed <b>2025</b> on the 2026 card (and 2024 on traffic management), and they are shown as that year's rates, never as 2026.</p>
++The labour columns are headed <b>2025</b> on the 2026 card (and 2024 on traffic management), and they are shown as that year's rates, never as 2026.</p>
++ ${labourPlanHtml()}
+  ${rows.length ? `<div class="tblwrap"><table class="progtbl"><thead><tr><th>Trade</th><th>Item</th><th>Labour line</th><th class="num">Rate each</th><th class="num">Ticked</th><th class="num">Subtotal</th><th></th></tr></thead><tbody>${rows.join('')}</tbody></table></div>` : '<p class="norate">no item type on the job carries a labour line on the card</p>'}
+  <div class="kpis" style="margin-top:10px"><div class="kpi"><div class="v">${anyTick ? esc(money0(grand)) : '—'}</div><div class="l">Labour ticked</div>
+  <div class="q">${anyTick ? 'Every ticked line at its card rate times the reference\'s quantity; in the resolved subtotal above.' + (unknown ? ` ${unknown} ticked line${unknown === 1 ? '' : 's'} on a reference with no readable quantity ${unknown === 1 ? 'is' : 'are'} not in it.` : '') : 'Nothing ticked yet — so nothing charged, and this is not a total of nought.'}</div></div></div>
+@@ -24948,7 +25273,7 @@
+  locations: (j && j.locations) || {}, descs: (j && j.descs) || {}, by: (j && j.by) || {},
+  items: (j && j.items) || {}, qtys: (j && j.qtys) || {}, aside: (j && j.aside) || {},
+  moves: (j && j.moves) || {}, hireStart: (j && j.hireStart) || {}, mapRef: (j && j.mapRef) || {},
+- labour: (j && j.labour) || {}, eventHours: (j && j.eventHours) || {}, minDays: (j && j.minDays) || {},
++labour: (j && j.labour) || {}, eventHours: (j && j.eventHours) || {}, minDays: (j && j.minDays) || {}, runRules: (j && j.runRules) || {}, answers: (j && j.answers) || {},
+  dropPhotos: (j && j.dropPhotos) || {}, units: (j && j.units) || {},
+  deleted: (j && j.deleted) || {}, stamps: (j && j.stamps) || {},
+  added: (j && j.added) || [], accessories: (j && j.accessories) || {},
+@@ -25075,7 +25400,7 @@
+  reporting success. A pin is somebody standing somewhere and pressing a button; losing it in a merge is
+  worse than never taking it. Stamped per key like everything else here, so the later one wins and taking a
+  pin off travels as the deliberate clearing it is. */
+- ['rates', 'accRates', 'fenceRates', 'fenceCosts', 'weeks', 'rental', 'branch', 'locations', 'descs', 'items', 'qtys', 'moves', 'hireStart', 'mapRef', 'dropPhotos', 'units', 'labour', 'eventHours', 'minDays', 'fixes', 'entries', 'places'].forEach(f => { out[f] = {};
++ ['rates', 'accRates', 'fenceRates', 'fenceCosts', 'weeks', 'rental', 'branch', 'locations', 'descs', 'items', 'qtys', 'moves', 'hireStart', 'mapRef', 'dropPhotos', 'units', 'labour', 'eventHours', 'minDays', 'fixes', 'entries', 'places', 'runRules', 'answers'].forEach(f => { out[f] = {};
+  keysOf(A[f], B[f]).forEach(k => { const r = pick(`${f === 'fixes' ? 'the pinned spot for' : f === 'entries' ? 'the way in to' : f === 'places' ? 'the placed spot for' : f === 'weeks' ? 'weeks' : f === 'rental' ? 'Rental ID of' : f === 'branch' ? 'branch of' : f === 'locations' ? 'where' : f === 'descs' ? 'what' : f === 'items' ? 'item type of' : f === 'qtys' ? 'quantity of' : f === 'moves' ? 'the move of' : f === 'hireStart' ? 'hire start of' : f === 'mapRef' ? 'the map on' : f === 'dropPhotos' ? 'photos of' : f === 'units' ? 'the things inside' : f === 'labour' ? 'the labour tick' : f === 'eventHours' ? 'the hours' : f === 'minDays' ? 'the minimum hire of' : f === 'fenceRates' ? 'fence charge rate' : f === 'fenceCosts' ? 'fence cost rate' : 'rate'} ${k}`, (A[f] || {})[k], st(A, f + '/' + k), (B[f] || {})[k], st(B, f + '/' + k), f === 'rental' ? 'rental' : f === 'branch' ? 'branch' : null);
+  if (!empty(r.v)) out[f][k] = r.v;
+  if ((f === 'fixes' || f === 'entries' || f === 'places') && !empty(r.v) && J(r.v) !== J((A[f] || {})[k])) rep.pins++; }); });
+@@ -25318,7 +25643,7 @@
+  places: S.places || {},
+  givenRefs: S.givenRefs || {},
+  hireStart: S.hireStart || {},
+- labour: S.labour || {}, eventHours: S.eventHours || {}, minDays: S.minDays || {},
++labour: S.labour || {}, eventHours: S.eventHours || {}, minDays: S.minDays || {}, runRules: S.runRules || {}, answers: S.answers || {},
+  mapRef: S.mapRef || {},
+  by: S.by || {},
+  dropPhotos: S.dropPhotos || {},
+@@ -25507,7 +25832,7 @@
+  if (/[\u0000-\u0008\u000b\u000c\u000e-\u001f]/.test(v)) bad.push(where + ' holds control characters'); };
+  const count = (v, where) => { const n = Array.isArray(v) ? v.length : isObj(v) ? Object.keys(v).length : 0; if (n > IMPORT_MAX_ITEMS) bad.push(where + ' has more than ' + IMPORT_MAX_ITEMS + ' entries'); };
+  if (!isObj(rec)) return ['not a records file (an object is expected)'];
+- const known = ['operator', 'added', 'accessories', 'assetNumbers', 'notes', 'rates', 'accRates', 'fenceRates', 'fenceCosts', 'weeks', 'supplied', 'variances', 'fenceDockets', 'fenceQuote', 'fenceDone', 'deleted', 'breakdowns', 'delivery', 'stamps', 'saved', 'changes', 'lastExport', 'lastImport', 'syncId', 'contracts', 'rental', 'branch', 'loads', 'costs', 'purchaseOrders', 'crew', 'locations', 'descs', 'items', 'qtys', 'aside', 'moves', 'hireStart', 'mapRef', 'by', 'dropPhotos', 'units', 'docketPapers', 'actions', 'schema', 'labour', 'eventHours', 'minDays', 'fixes', 'entries', 'places', 'givenRefs'];
++ const known = ['operator', 'added', 'accessories', 'assetNumbers', 'notes', 'rates', 'accRates', 'fenceRates', 'fenceCosts', 'weeks', 'supplied', 'variances', 'fenceDockets', 'fenceQuote', 'fenceDone', 'deleted', 'breakdowns', 'delivery', 'stamps', 'saved', 'changes', 'lastExport', 'lastImport', 'syncId', 'contracts', 'rental', 'branch', 'loads', 'costs', 'purchaseOrders', 'crew', 'locations', 'descs', 'items', 'qtys', 'aside', 'moves', 'hireStart', 'mapRef', 'by', 'dropPhotos', 'units', 'docketPapers', 'actions', 'schema', 'labour', 'eventHours', 'minDays', 'fixes', 'entries', 'places', 'givenRefs', 'runRules', 'answers'];
+  /* v5.51 — the live map's key never travels in a record file (see LIVEMAP): one that arrives in an import is
+  dropped here, in words, before anything reads it */
+  if ('mapKeys' in rec) { bad.push('note: mapKeys is the live map key and never travels in a record file — left out; set it on the service or paste it on the hosted page'); delete rec.mapKeys; }
+@@ -25515,7 +25840,7 @@
+  /* a part the file leaves out is fine — this page fills it in. A part written as null is not the same thing:
+  it is a part that is there and the wrong shape, and the first line that reads it blanks the tab. */
+  ['added', 'variances', 'fenceDockets', 'breakdowns', 'costs', 'actions'].forEach(k => { if (k in rec && !Array.isArray(rec[k])) bad.push(k + ' is not a list'); count(rec[k], k); });
+- ['accessories', 'assetNumbers', 'notes', 'rates', 'accRates', 'fenceRates', 'fenceCosts', 'weeks', 'supplied', 'fenceDone', 'deleted', 'delivery', 'stamps', 'contracts', 'rental', 'branch', 'locations', 'descs', 'items', 'qtys', 'aside', 'moves', 'hireStart', 'mapRef', 'by', 'dropPhotos', 'units', 'docketPapers', 'loads', 'purchaseOrders', 'labour', 'eventHours', 'minDays'].forEach(k => { if (k in rec && !isObj(rec[k])) bad.push(k + ' is not a keyed object'); count(rec[k], k); });
++ ['accessories', 'assetNumbers', 'notes', 'rates', 'accRates', 'fenceRates', 'fenceCosts', 'weeks', 'supplied', 'fenceDone', 'deleted', 'delivery', 'stamps', 'contracts', 'rental', 'branch', 'locations', 'descs', 'items', 'qtys', 'aside', 'moves', 'hireStart', 'mapRef', 'by', 'dropPhotos', 'units', 'docketPapers', 'loads', 'purchaseOrders', 'labour', 'eventHours', 'minDays', 'runRules', 'answers'].forEach(k => { if (k in rec && !isObj(rec[k])) bad.push(k + ' is not a keyed object'); count(rec[k], k); });
+  /* a labour tick is only ever true; hours are a number of hours in a day */
+  Object.entries(isObj(rec.labour) ? rec.labour : {}).forEach(([k, v]) => { if (v !== true) bad.push('labour tick ' + k + ' is not a tick'); });
+  Object.entries(isObj(rec.eventHours) ? rec.eventHours : {}).forEach(([k, v]) => { const n = Number(v); if (v == null || v === '' || !Number.isFinite(n) || n < 0 || n > 24) bad.push('hours ' + k + ' is not a number of hours in a day'); });
+@@ -26694,7 +27019,8 @@
+  <div class="rows kinds">${g.lines.length ? `<span>On site</span><b>${g.onLines} <small>of ${g.lines.length} lines</small></b>` : ''}
+  <span class="hd">Charged, by kind</span><b class="hd">ex GST</b>${kindRows(g)}
+  ${g.pos.length ? `<span>Purchase orders</span><b>${g.pos.length} <small>· ${g.invoiced} invoiced</small></b>` : ''}
+- ${contractPlateRows(g.contract)}
++${contractPlateRows(g.contract)}
++ ${labourPlateRows(g.code)}
+  ${oursPlateRows(g)}
+  </div>
+  ${moreInfo('branch|' + (g.code || 'none'), `${contractPlateMore(g.contract)}${g.lines.length ? `<p class="src">For comparison only, never added: the 2026 ${esc(CARD_WORD)} card prices this branch's ${g.lines.length} schedule line${g.lines.length === 1 ? '' : 's'} at ${esc(money0(g.hire0) || '$0')} hire${g.transport0 ? ` and ${esc(money0(g.transport0))} transport` : ''} — the Pricing tab's estimate from the schedule, not what is charged.</p>` : ''}${g.fromRental ? `<p class="src">${g.fromRental} line${g.fromRental === 1 ? '' : 's'} on this branch from the rental system's contract${g.contracts.length === 1 ? ' ' + esc(g.contracts[0]) : 's'} — the rest as people record them.</p>` : ''}
+@@ -28805,6 +29131,8 @@
+  labour: {kind: 'value', get: () => S.labour, set: v => S.labour = v},
+  eventHours: {kind: 'value', get: () => S.eventHours, set: v => S.eventHours = v},
+  minDays: {kind: 'value', get: () => S.minDays, set: v => S.minDays = v},
++ runRules: {kind: 'value', get: () => S.runRules, set: v => S.runRules = v},
++ answers: {kind: 'value', get: () => S.answers, set: v => S.answers = v},
+  mapRef: {kind: 'value', get: () => S.mapRef, set: v => S.mapRef = v},
+  /* Where a thing actually went, taken off the phone standing at it (v5.49). Keyed by reference like the rest,
+  stamped like the rest, so a pin dropped on site reaches everybody else instead of staying on one phone. */
+@@ -30597,6 +30925,8 @@
+  else if (state.tab === 'edit') renderEdit();
+  else if (state.tab === 'pricing') renderPricing();
+  else if (state.tab === 'timeline') renderTimeline();
++ else if (state.tab === 'runsheet') renderRunsheet();
++ else if (state.tab === 'questions') renderQuestions();
+  else renderAbout();
+  hzTodayPod(); /* v6.10 - the banner's day pod reads the same record this pass drew */
+  applyCapability();

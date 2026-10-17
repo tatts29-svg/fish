@@ -1,0 +1,13 @@
+PASS seven equally weighted groups
+PASS quantity scale cannot alter index
+PASS fencing contributes one seventh
+PASS missing group is not dropped
+PASS unavailable fence is not guessed
+PASS range is propagated
+PASS lower bound cannot masquerade as exact
+PASS all green requires known full index
+PASS incomplete red milestones stop below five
+PASS stale records prevent all-go
+PASS invalid numeric values cannot populate index
+PASS loading record remains unavailable
+12/12 passed

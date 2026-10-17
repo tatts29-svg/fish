@@ -1,0 +1,141 @@
+{
+  "author": "Andrew Fisher",
+  "native_version": 5168,
+  "review_date": "2026-10-09",
+  "sources": {
+    "D024": {
+      "filename": "D024-26003-02-GENS_LTS.pdf",
+      "sha256": "ce483e4f905d422a9927579e2fc7e42295069de8bde20338e7a9aedfd2993960",
+      "page_reviewed": 1
+    },
+    "D023": {
+      "filename": "D023-26003-02-TOILETS.pdf",
+      "sha256": "cda5b2c106b0814af18daa90c58db2758f658c8d99f483c8f7768ddd4a9bdbe2",
+      "page_reviewed": 1
+    },
+    "D001": {
+      "filename": "D001-26003-03-MASTER.pdf",
+      "sha256": "8753d875cf90682e09afefae8c774144d9e9725ece87f726707882fb3711c56d",
+      "page_reviewed": 1
+    },
+    "Q6845": {
+      "filename": "Q6845_2.pdf",
+      "sha256": "e5a86ee60344b8e483ce31605d1848b9bb1cd3545f234c8135b4380d6eab3b43",
+      "page_reviewed": 1
+    },
+    "Baseplan": {
+      "filename": "source-workbook.xlsx",
+      "sha256": "eb4a224fadbe1350d031adf8a1b12760d3dd748a2f0643119ea103d1df9b5b21"
+    },
+    "Schedule7": {
+      "filename": "2-GC500-26-Schedule-7-.xlsx",
+      "sha256": "485f5d885b88d836b63e85ad4062474a95a484022386efec7be62429f958edac"
+    }
+  },
+  "verified_named_destinations": [
+    {
+      "ref": "GN25",
+      "label": "Seaway Carpark",
+      "source": "D024",
+      "page": 1,
+      "callout": "025",
+      "panel": "Top-left off-map destination panel",
+      "exact_position": false,
+      "asset_identity_unchanged": true
+    },
+    {
+      "ref": "LT05",
+      "label": "Seaway Car Park Transporter Compound",
+      "source": "D024",
+      "page": 1,
+      "callout": "05",
+      "panel": "Top-left off-map destination panel",
+      "also_in_current_asset_locations": true,
+      "exact_position": false
+    },
+    {
+      "ref": "LT06",
+      "label": "Seaway Car Park Transporter Compound",
+      "source": "D024",
+      "page": 1,
+      "callout": "06",
+      "panel": "Top-left off-map destination panel",
+      "also_in_current_asset_locations": true,
+      "exact_position": false
+    }
+  ],
+  "adjacent_panel_review": {
+    "GN028": "BSF Storage Yard - Molendinar; plan scope question remains, no asset created or spare alias inferred.",
+    "LT01-LT04": "BSF Storage Yard - Molendinar; aggregate T0002 already has Molendinar destination. No individual tower identity created.",
+    "warning": "Blue LTC fan symbols are a different plan class from the purple off-map towers; their positions are unchanged."
+  },
+  "remaining_destination_facts": [
+    {
+      "ref": "T0021",
+      "known": "Coates office 4.8 x 3 m, asset 960639; T0222 is its removal task.",
+      "required": "Which Coates site destination holds this particular office.",
+      "reviewed": [
+        "Schedule7 Week 5 E19/H19/I19",
+        "Baseplan 9968929-KINP row2, line1",
+        "D001 master COA area adjacent ABD/OPS",
+        "CW6 fencing plan page2: Coates Compound - Philip Park Carpark",
+        "Native5168: no T0021 pin or written destination"
+      ],
+      "reason": "Coates has more than one named compound; generic owner and T0022 lunchroom GPS do not prove this office location."
+    },
+    {
+      "ref": "WC85",
+      "known": "One FWF toilet; Event Portables load4 scheduled19Oct. Existing supplier-plan date correction retained.",
+      "required": "The specific installation destination for WC85.",
+      "reviewed": [
+        "Schedule7 Event Week A38:H38",
+        "Baseplan 9968955-KINP row131, line134",
+        "D023p1 full visual and text; no WC85 callout, OP85 is unrelated",
+        "D001p1 full visual and text; no WC85 unit tag",
+        "Q6845p1 event-level quote, no unit-specific place",
+        "EP supplier plan v10 load4 contains several distinct pit garage, team and Main Beach destinations",
+        "Native5168: no WC85 position, location note or move"
+      ],
+      "reason": "Adjacent rows/load membership do not identify which of the listed areas holds WC85."
+    },
+    {
+      "ref": "T0268",
+      "known": "Spare generator1197215,100kVA trailer; scheduled20Oct.",
+      "required": "Storage/staging destination of this spare generator.",
+      "reviewed": [
+        "Schedule7 Event Week A39:I39",
+        "Baseplan 9961976-NVAC row31,line36: SPARE-Generator,1197215; no storage place",
+        "D024p1 GN028 has BSF yard text but no asset-number identity tying it to1197215",
+        "Native5168: no T0268 position, location note or move"
+      ],
+      "reason": "A spare is not an installed GN reference; GN028 cannot be assigned by elimination."
+    }
+  ],
+  "expected_projection": {
+    "source_rows": 34,
+    "linked_existing_items": 31,
+    "source_only_tasks": 3,
+    "missing_reference_ids": 0,
+    "remaining_destination_facts": 3,
+    "remaining_vms_board_to_load_allocations": 5,
+    "remaining_rows": [
+      "T0021",
+      "WC85",
+      "T0268",
+      "T0128",
+      "T0158",
+      "T0159",
+      "T0169",
+      "T0170"
+    ]
+  },
+  "preservation": [
+    "All native documents",
+    "All source DATA",
+    "Physical asset identities and quantities",
+    "Receipt/installation state",
+    "Finance/rates/dates",
+    "Existing master and native coordinates"
+  ],
+  "limits": "Named areas are source associations only, not surveyed drop positions. Office date disagreement and VMS plan disagreement remain visible. No supplied original is copied into this evidence file."
+}

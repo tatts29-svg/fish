@@ -1,0 +1,25 @@
+{
+  "author": "Andrew Fisher",
+  "at": "2026-10-13T08:08:47.967Z",
+  "nativeVersion": 5698,
+  "candidateSHA256": "5aaa551ac313b712a7cffaf3037ef7be4d87b9d0ed0a4a979d14c5c11bb7df63",
+  "status": "Identified gaps; not blanket verified",
+  "knownArrivedGeneratorLabour": 2623.32,
+  "knownArrivedGeneratorTransport": 7200,
+  "gaps": [
+    {
+      "reference": "GN20",
+      "issue": "Install is included at $166.56; demob is absent from the offered mapping. Existing approval was installation-only; current user wants applicable demob included."
+    },
+    {
+      "reference": "GN20",
+      "issue": "Delivery and pickup are held/unpriced. Transport card 315 kVA row 59 is POA, no supported numeric substitution."
+    },
+    {
+      "reference": "9961976 lines 32 and 39",
+      "issue": "Future contract-only generators have hire forecast but no reference labour model. Reference transport query is absent; full transport model review delegated."
+    }
+  ],
+  "labourSplitBasis": "Existing application convention, not an explicit split written in the rate workbook. GN20 installation $166.56 on the 315 kVA basis was separately authorised and recorded 30 Sep; no new $333.12 charge added.",
+  "nativeWrites": 0
+}

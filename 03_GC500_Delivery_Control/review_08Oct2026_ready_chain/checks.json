@@ -1,0 +1,18 @@
+{
+  "author": "Andrew Fisher",
+  "state": "HELD, not live",
+  "page_base_sha256": "88a3584e919d8acd32ac3905099c1d606ec2fe5c1da2793363e8ff870f212457",
+  "corrected_page_sha256": "adc967ab0bcab45c78f952711386e94f3e34eaf8196923206911bdbc0881a113",
+  "existing_navigation_pins": 165,
+  "navigation_pins_changed": 0,
+  "unaffected_checks": {
+    "transport_desktop": 29,
+    "transport_phone": 29,
+    "costs_desktop": 33,
+    "costs_phone": 33,
+    "finance_desktop": 24,
+    "finance_phone": 24
+  },
+  "uploads": 0,
+  "operational_writes": 0
+}

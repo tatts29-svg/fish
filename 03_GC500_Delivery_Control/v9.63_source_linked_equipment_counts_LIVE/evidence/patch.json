@@ -1,0 +1,20 @@
+{
+  "author": "Andrew Fisher",
+  "pass": true,
+  "checks": 13,
+  "names": [
+    "actual v9.62 predecessor applies",
+    "repeat application rejected without changing bytes",
+    "wrong predecessor rejected atomically",
+    "missing anchor rejected atomically",
+    "allAssets source unchanged",
+    "chargeLines source unchanged",
+    "tradeCharges source unchanged",
+    "moneySummary source unchanged",
+    "ourCosts source unchanged",
+    "cj764Fencing source unchanged",
+    "fh866Model source unchanged",
+    "pricingAliases834 source unchanged",
+    "first-frame, end-frame and zero readings remain bounded"
+  ]
+}

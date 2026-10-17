@@ -1,0 +1,44 @@
+{
+  "author": "Andrew Fisher",
+  "source": "track_detail792_src.js",
+  "sourceSha256": "15e34c1dd932d99052bcccc2a68bb5e69ab6a1ab559176c23f6079400b0f2ade",
+  "passed": 9,
+  "checks": [
+    {
+      "name": "vertex allocation failure releases every allocated shader and partial program",
+      "passed": true
+    },
+    {
+      "name": "fragment allocation failure releases every allocated shader and partial program",
+      "passed": true
+    },
+    {
+      "name": "vertex compilation failure releases every allocated shader and partial program",
+      "passed": true
+    },
+    {
+      "name": "fragment compilation failure releases every allocated shader and partial program",
+      "passed": true
+    },
+    {
+      "name": "program allocation failure releases every allocated shader and partial program",
+      "passed": true
+    },
+    {
+      "name": "link failure releases every allocated shader and partial program",
+      "passed": true
+    },
+    {
+      "name": "Successful link releases shaders and transfers exactly one live program to the renderer",
+      "passed": true
+    },
+    {
+      "name": "Surface derivatives run before the first alpha discard",
+      "passed": true
+    },
+    {
+      "name": "Alpha masking retains premultiplied output for the established blend mode",
+      "passed": true
+    }
+  ]
+}

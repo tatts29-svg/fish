@@ -1,0 +1,214 @@
+{
+  "author": "Andrew Fisher",
+  "scope": "Exact official chain, isolated CPU component checks and protected source; no browser or live writes",
+  "baseline": {
+    "path": "/workspace/gc500-showcase-full-lap/03_GC500_Delivery_Control/build/GC500_v8.00/base_live.html",
+    "sha256": "dd16fa3bd21d9e2b3f7e412e56855670dae7ebe5d5b03954b5951ba699c7f43c"
+  },
+  "candidate": {
+    "path": "/workspace/gc500-showcase-full-lap/03_GC500_Delivery_Control/build/GC500_v8.00/GC500_Delivery_Control_hosted.html",
+    "sha256": "43a74f7bc8ca4ba4339f51dea142dedc845c86274e82107c68e49c68ac264a8f",
+    "bytes": 9038581
+  },
+  "stages": [
+    {
+      "name": "00_live_v796",
+      "path": "/workspace/private-v800-build-stages/00_live_v796.html",
+      "sha256": "dd16fa3bd21d9e2b3f7e412e56855670dae7ebe5d5b03954b5951ba699c7f43c",
+      "bytes": 8907669
+    },
+    {
+      "name": "01_photo797",
+      "path": "/workspace/private-v800-build-stages/01_photo797.html",
+      "sha256": "65bfc837f4ecfd8ea71f96b50706e31175a193c8724f6b92d9059601dcf3e136",
+      "bytes": 8917885
+    },
+    {
+      "name": "02_control798",
+      "path": "/workspace/private-v800-build-stages/02_control798.html",
+      "sha256": "9a52ec22c794a514d44936ef84335b62a6876c2664fa54f211a35f1315666d95",
+      "bytes": 8919805
+    },
+    {
+      "name": "03_showcase794",
+      "path": "/workspace/private-v800-build-stages/03_showcase794.html",
+      "sha256": "b5a3246f2781d72b71d0e3884816b1520dc9b1e2102587a9371976582cd02fb4",
+      "bytes": 9008883
+    },
+    {
+      "name": "04_race800",
+      "path": "/workspace/private-v800-build-stages/04_race800.html",
+      "sha256": "ea510aa57aceb51e53f8384c161099cd8e73eb3b746459b91bd00bc90b24dd0b",
+      "bytes": 9013171
+    },
+    {
+      "name": "05_plant800",
+      "path": "/workspace/private-v800-build-stages/05_plant800.html",
+      "sha256": "3e8bd7ab65bee0e77cb635194184609e1f2de6f3db356f717f8c7b11b7c8c172",
+      "bytes": 9025204
+    },
+    {
+      "name": "06_material800",
+      "path": "/workspace/private-v800-build-stages/06_material800.html",
+      "sha256": "4d498026000aa58e510b7086ce6cc4380becb337dc2f028cf5fa46ea5353d3f4",
+      "bytes": 9027566
+    },
+    {
+      "name": "07_camera800",
+      "path": "/workspace/private-v800-build-stages/07_camera800.html",
+      "sha256": "bfc5578665f28888ddf60753b2960bb8150c3ed1f8a2ec9c19ff7e4320cc13af",
+      "bytes": 9039423
+    },
+    {
+      "name": "08_release800_raw",
+      "path": "/workspace/private-v800-build-stages/08_release800_raw.html",
+      "sha256": "b4469d0c74c31e2ce96e48ed7a6af6636899ab0ced8378a547cba762cc1c38a2",
+      "bytes": 9039507
+    },
+    {
+      "name": "09_release800_scrubbed",
+      "path": "/workspace/private-v800-build-stages/09_release800_scrubbed.html",
+      "sha256": "43a74f7bc8ca4ba4339f51dea142dedc845c86274e82107c68e49c68ac264a8f",
+      "bytes": 9038581
+    }
+  ],
+  "sources": {
+    "v7.94_showcase_lap_cameras_DRAFT/architecture794_src.js": "2134722c2ce418842311d422ef30dd0905624aa8a0da61f6f0d28dea31cef02b",
+    "v7.94_showcase_lap_cameras_DRAFT/camera794_src.js": "a41dc01d0281caa0e5813f93d789c804a5e3accec0ca090d23fa945ca6589c85",
+    "v7.94_showcase_lap_cameras_DRAFT/corridor794_src.js": "cfaf3e0a4e2dbccceb594e1be3d87c2bf45ec9a5fd1eedf19175a335cbaab210",
+    "v7.94_showcase_lap_cameras_DRAFT/finish794_checks.py": "c4076019a48a7993fde0700ade1fb159b3562cbae38c8a37607d9eca3181853e",
+    "v7.94_showcase_lap_cameras_DRAFT/finish794_edges.glsl": "93bbd09abc4ff44069807f61bfb5c864983320fa9b1d58ff70f091da36bc9db3",
+    "v7.94_showcase_lap_cameras_DRAFT/finish794_patch.py": "301043193db92acfc80dc68c37bcb54adfd48f11d396e1dfa37cee4110152860",
+    "v7.94_showcase_lap_cameras_DRAFT/kerb794_src.js": "ca541d87c6e6b0dc728045addf96dac38f92797fe6fc6cfed57a4603b67f1599",
+    "v7.94_showcase_lap_cameras_DRAFT/patch_architecture794.py": "ef04334049eba72669ff0d9b1ae425b73dbe3d44b4b951ff54ec2c6a51c17083",
+    "v7.94_showcase_lap_cameras_DRAFT/patch_corridor794.py": "0a19f0c00e8254864a42d3d73ae011a0f6d8c24077c6ab64d85ba393ba7f018d",
+    "v7.94_showcase_lap_cameras_DRAFT/patch_kerb794.py": "951fad6e909b13ca93a27006230b774d0a2ae3e5d0164d443aaaa1d861039e09",
+    "v7.94_showcase_lap_cameras_DRAFT/patch_pit794.py": "ca7e37f55e9a98b27bb0847684534f2f8b84f5c4de9c9982563baf0fa1aa872c",
+    "v7.94_showcase_lap_cameras_DRAFT/patch_presentation794.py": "fc91b2cc58e8637c82d75111bb7a5e67337f6066ab49413f7d4206c0e064bc71",
+    "v7.94_showcase_lap_cameras_DRAFT/patch_v794.py": "f60c6fdbd6217b3716e504b5b08b76a8cee23b69da8b9e751a42fbeaefa7de7e",
+    "v7.94_showcase_lap_cameras_DRAFT/patch_vegetation794.py": "4bdfeb34e586bbde71fa25c87da6caa1a839c79a5ae02de291b544f16bf14f2a",
+    "v7.94_showcase_lap_cameras_DRAFT/pit794_src.js": "935ab0155eeb5ccc7e97c1e51e6d97fb9e3832036ccfe504e6ccc2b863a04292",
+    "v7.94_showcase_lap_cameras_DRAFT/playback794_src.js": "50a9c02318f6d8294a47218193f55fc7549cca0db29414e78401343d6d26019a",
+    "v7.94_showcase_lap_cameras_DRAFT/scenery794_src.js": "f1c47bac922eac694876de1489f94efdbc8f2968c966d5102495e1150bb06f87",
+    "v7.94_showcase_lap_cameras_DRAFT/showcase794_src.css": "49ab68004899774848ef2b3ee3ac58b906cbbfeeef496f994cd5be41dbb5aec2",
+    "v7.94_showcase_lap_cameras_DRAFT/showcase794_src.js": "f4341ccf7d8da66389a32355da8862d23c48e6ccc94b48bef800c0c73c37f0fa",
+    "v7.94_showcase_lap_cameras_DRAFT/vegetation794_src.js": "8993b038a6c0abf37bf2607d87372aef8f31a52205b4111e83479fb64a3510ee",
+    "v7.97_photo_outbox_durability_DRAFT/patch_v797.py": "553d0ac9785db249ffb49f93191522c322503edf0dbff54175881ad1199bfa1e",
+    "v7.97_photo_outbox_durability_DRAFT/photo797_src.js": "7ca939e5bbc47ebe5d0d2b42000c09a8b6bb5e22b124f0217af88071c19afb72",
+    "v7.98_control_state_reliability_DRAFT/control798_src.js": "78cc10c87bd4f2eb7d644bb92bb5ce6e77507598e64f5a961628f6633a3c6814",
+    "v7.98_control_state_reliability_DRAFT/patch_v798.py": "aa81e0eb10f72c766bf79e9513285ecd16a33c0ed2dd9cbef47cc16393b9a8b5",
+    "v8.00_vehicle_visuals_DRAFT/camera800_src.js": "34c657399b172e01047e3c9f7a8a10af7b9789504c13f0335b6d5ca3a00d4428",
+    "v8.00_vehicle_visuals_DRAFT/material800_src.glsl": "f900333bc19409fd8b74c6a6441b9acec58fd255908eca1a6978d313073d09ee",
+    "v8.00_vehicle_visuals_DRAFT/patch_camera800.py": "38d58f0549f841b6ad173ff9e520c6c9575e845d481cec12875a1f3806295768",
+    "v8.00_vehicle_visuals_DRAFT/patch_material800.py": "ddd1b34db5ac40b05d1def3f96b5485e41f84ddefef9aec4ebeb329281183f41",
+    "v8.00_vehicle_visuals_DRAFT/patch_plant800.py": "b5a3a477cf085124be10a2b965ad368ece9f3494fa6a820946d6e1195beec1ba",
+    "v8.00_vehicle_visuals_DRAFT/patch_racecar800.py": "451180b4e1a66b1b2ccda315a964fa2c90462aa231808344ffd405a5fef34e8c",
+    "v8.00_vehicle_visuals_DRAFT/patch_v800.py": "0468910e357c75fde3eee8ed18005c15b4aec00c9385e2125da820e293413a95",
+    "v8.00_vehicle_visuals_DRAFT/plant800_src.js": "0d4f961085ae1d2ae16570d3c03e8cbadd5edb0acd33c28470f88541e9159841",
+    "v8.00_vehicle_visuals_DRAFT/racecar800_src.js": "90ff54453c4ba4e3176d3223b5d13cdd0d6f05374a917f791ee1d19361886931"
+  },
+  "checks": [
+    {
+      "name": "fresh base is the verified live v7.96 page",
+      "pass": true
+    },
+    {
+      "name": "aggregate patch equals the four isolated components and final metadata",
+      "pass": true
+    },
+    {
+      "name": "exact official scrubbed rebuild matches final candidate",
+      "pass": true
+    },
+    {
+      "name": "one v8.00 release tag and sentinel",
+      "pass": true
+    },
+    {
+      "name": "existing Showcase reports identify the final v8.00 release",
+      "pass": true
+    },
+    {
+      "name": "v7.98 stage matches its frozen independently checked build",
+      "pass": true
+    },
+    {
+      "name": "entire business page before the renderer matches the declared v7.98 stage",
+      "pass": true
+    },
+    {
+      "name": "embedded operational record is byte-preserved from fresh live",
+      "pass": true
+    },
+    {
+      "name": "declared photo acknowledgement and print-note fixes remain present",
+      "pass": true
+    },
+    {
+      "name": "car driving hull and kinematic geometry is byte-preserved",
+      "pass": true
+    },
+    {
+      "name": "simulation, suspension, tyre marks and particle generation is byte-preserved",
+      "pass": true
+    },
+    {
+      "name": "fixed-step frame loop is byte-preserved",
+      "pass": true
+    },
+    {
+      "name": "vehicle selection and tuning handoff is byte-preserved",
+      "pass": true
+    },
+    {
+      "name": "rigid car transform is byte-preserved",
+      "pass": true
+    },
+    {
+      "name": "aggregate repeat application refuses",
+      "pass": true
+    },
+    {
+      "name": "aggregate partial application refuses",
+      "pass": true
+    },
+    {
+      "name": "missing full-lap prerequisite refuses",
+      "pass": true
+    },
+    {
+      "name": "missing photo prerequisite refuses",
+      "pass": true
+    },
+    {
+      "name": "component checks pass against their exact isolated stages",
+      "pass": true
+    },
+    {
+      "name": "official final-page static checks pass",
+      "pass": true
+    },
+    {
+      "name": "all source files stayed frozen throughout verification",
+      "pass": true
+    }
+  ],
+  "components": {
+    "racecar800": {
+      "evidence": "racecar800_integrated_checks.json",
+      "sha256": "5b981f6665d0fc7121d48ab33833a3259d194175022536d0d5828b220edbd5fc"
+    },
+    "plant800": {
+      "evidence": "plant800_integrated_checks.json",
+      "sha256": "ad633c670db955317f2f1b5cdbdd8e4bb58c97feba770fc8c1eddf0da5c831f0"
+    },
+    "material800": {
+      "evidence": "material800_integrated_checks.json",
+      "sha256": "ea8513635db92d9cb12bf5ec5f2973ba9d6cacc46cc421095bac2d146d046008"
+    },
+    "camera800": {
+      "evidence": "camera800_integrated_checks.json",
+      "sha256": "a6d9ff6c715c8a2ac31e855f0fee38b77a633e3b751a6e05ff4d46a0f46cacfe"
+    }
+  }
+}

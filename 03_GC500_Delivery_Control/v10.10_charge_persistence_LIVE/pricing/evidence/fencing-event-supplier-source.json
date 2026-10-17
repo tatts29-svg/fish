@@ -1,0 +1,55 @@
+{
+  "author": "Andrew Fisher",
+  "review_date_aest": "14 Oct 2026",
+  "source": {
+    "filename": "1-Coates-GC500-Event-2026-Hire-Quotation-27172-04-06-2026.pdf",
+    "sha256": "92ec81f92a34dd0bc5245bb01f78b3737a6b0870ed06dc8f74a2beff6e7f1f07",
+    "quote": "27172",
+    "date": "4 Jun 2026",
+    "supplier": "Advanced Temporary Fencing Pty Ltd",
+    "pages": [
+      2,
+      3
+    ],
+    "first_upload_caveat": "The earlier protected-wrapper upload is not a readable PDF. This review reads the later valid PDF reupload."
+  },
+  "quoted_cost_terms": {
+    "raceday_per_person_hour": 142,
+    "raceday_minimum_hours": 4,
+    "normal_hourly": 100,
+    "normal_window": "Mon\u2013Fri 07:00\u201316:30",
+    "afterhours_weekend_hourly": 142,
+    "team_leader_daily_each": 200,
+    "quoted_team_leaders": 2,
+    "transport": "Provided through Coates; no automatic supplier transport amount from this quote.",
+    "invoice_basis": "Daily event dockets presented for sign-off; weekly accounting/sign-off and event-week Purchase Order invoice.",
+    "quote_validity_days": 30
+  },
+  "application": {
+    "customer_hourly_revenue": 88.49,
+    "customer_rate_is_supplier_cost": false,
+    "supplier_rate_state": "Source-backed quote for forecasting; not evidence that labour has occurred, a PO has been receipted or an invoice has been received.",
+    "crew_quantity": 6,
+    "hours_rule": "Use the dated supplier shifts already recorded or a separately identified forecast; do not infer six 12-hour shifts from the different Coates crew roster.",
+    "team_leader_rule": "Separate quoted daily charge. Confirm dated scope/coverage before adding; do not assume whether six-person roster includes the two leaders or duplicate an existing daily charge.",
+    "history_rule": "Do not replace historical build/green-book $100 rate globally with $142. Raceday-specific supplier rate applies to the dated race crew only.",
+    "duplicate_control": "The same paid work must appear once: existing supplier green-book/docket coverage replaces an explicitly matched crew forecast. Where only possible same-day coverage exists, hold duplicate-sensitive additions for review rather than count twice.",
+    "customer_scope_rule": "The six-person customer event scope already supplies customer Revenue. Supplier crew roster/costing must not add a second customer charge."
+  },
+  "code_trace": {
+    "existing_green_book": "serviceNoteRows \u2192 fenceCostFor(labour) \u2192 greenBookTotals \u2192 moneySummary.cost.fencing_labour \u2192 fencePaidSplit \u2192 P&L 2142",
+    "existing_fence_dockets": "fencePaidSplit separates supplier gear 2126 and installation 2142; do not add PO amounts again",
+    "crew_forecast": "fin745Rows consumes native workforce hourly pay, currently without a crew-count multiplier. Aggregate roster at the customer rate is not a valid supplier labour cost.",
+    "customer_event": "scopeFigures fence line already has six people; do not derive extra customer Revenue from roster people."
+  },
+  "checks": {
+    "raceday142": true,
+    "minimum4hours": true,
+    "normal100": true,
+    "weekend142": true,
+    "teamleader2x200": true,
+    "subject_to_signed_daily_dockets": true,
+    "quotation30day_validity": true
+  },
+  "live_writes": 0
+}

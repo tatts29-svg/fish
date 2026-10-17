@@ -1,0 +1,91 @@
+/* Author: Andrew Fisher. v9.02: pack the existing Today components into a wider, clearer plate.
+   Screen-only arrangement; the native print layout, facts, links and animation lifecycle are unchanged. */
+@media screen {
+ #pane-today #where885 {padding:20px;}
+ #pane-today #where885 .w885-head {margin-bottom:16px;padding-bottom:14px;}
+ #pane-today #where885 .w885-body {gap:20px;}
+ #pane-today #where885 .w885-gauge {min-height:400px;padding:24px 20px 22px;box-shadow:0 2px 0 #375155;}
+ #pane-today #where885 .w885-lights {max-width:580px;padding:12px 16px 10px;gap:18px;}
+ #pane-today #where885 .w885-lights .tl841-lamp {max-width:88px;}
+ #pane-today #where885 .w885-lights .tl841-unit {gap:6px;}
+ #pane-today #where885 .w885-lights .tl841-unit small {font-size:14px;}
+ #pane-today #where885 .w885-title {font-size:clamp(24px,2.5cqi,34px);margin-top:15px;}
+ #pane-today #where885 .w885-reading {font-size:clamp(76px,8.2cqi,124px);margin-top:4px;}
+ #pane-today #where885 :is(.w885-title,.w885-reading,.w885-caption,.w885-note) {text-shadow:0 2px 12px #001017dd;}
+ #pane-today #where885 .w885-caption {font-size:15px;margin-top:10px;}
+ #pane-today #where885 .w885-note {font-size:13px;margin-top:4px;}
+ #pane-today #where885 .s896-wx {max-width:calc(100% - 24px);font-size:13px;margin-top:12px;padding:7px 14px;}
+ /* Keep the original source pixels: no blur, stretched image or enlarged replacement.
+    A local contrast shield protects the central instrument while equipment stays visible at the sides. */
+ #pane-today #where885 .s896-yard {--s902-yard-shade:#07171c24;opacity:.94;mask-image:none;-webkit-mask-image:none;background-position:50% 66%;}
+ #pane-today #where885 .s896-shield {background:radial-gradient(ellipse 35% 85% at 50% 52%,#07171ceb 0%,#07171ccc 44%,#07171c60 73%,#07171c00 100%),linear-gradient(180deg,#07171c38,#07171c08 38%,#07171c30);}
+ #pane-today #where885 .s896-r1 {opacity:.20;background-size:30px 64px;}
+ #pane-today #where885 .s896-r2 {opacity:.12;background-size:27px 58px;}
+ #pane-today #where885 .s896-sky:is([data-kind=pour],[data-kind=storm]) .s896-r1 {opacity:.28;}
+ #pane-today #where885 .s896-sky:is([data-kind=pour],[data-kind=storm]) .s896-r2 {opacity:.20;}
+ #pane-today #where885 .s896-c3 {opacity:.08;}
+ /* Three native programme blocks at natural height: calendar, next milestone, key dates. */
+ #pane-today #where885 .inst > .today-enhanced.racecard {gap:18px;align-items:start;}
+ #pane-today #where885 .inst > .today-enhanced.racecard .pstats {max-width:none;margin-bottom:0;}
+ #pane-today #where885 .inst > .today-enhanced.racecard .pstat b {font-size:42px;}
+ #pane-today #where885 .inst > .today-enhanced.racecard .pstat em {font-size:13px;margin-top:5px;}
+ #pane-today #where885 .inst > .today-enhanced.racecard .pstat i {font-size:11px;}
+ #pane-today #where885 .inst > .today-enhanced.racecard .pstat b + span {font-size:12px;}
+ #pane-today #where885 .inst > .today-enhanced.racecard .prail {margin-top:33px;}
+ #pane-today #where885 .inst > .today-enhanced.racecard .pweek {top:-19px;bottom:-19px;}
+ #pane-today #where885 .inst > .today-enhanced.racecard .pnote {margin-top:7px;font-size:11px;}
+ #pane-today #where885 .inst > .today-enhanced.racecard > .pnext {padding:16px;}
+ #pane-today #where885 .inst > .today-enhanced.racecard > .pkeys {padding-top:0;border-top:0;}
+ #pane-today #where885 .pkeyhead {min-height:32px;align-items:center;gap:8px;}
+ #pane-today #where885 .pkeyhead [role=link] {display:inline-flex;align-items:center;min-height:44px;}
+ #pane-today #where885 .pkeys ul {margin-top:2px;}
+ #pane-today #where885 .pkeys li {padding:6px 0;gap:12px;font-size:12px;}
+ #pane-today #where885 .pkeys li b {text-align:right;}
+ #pane-today #where885 .w885-groups {margin-top:18px;padding-top:16px;gap:10px;}
+ #pane-today #where885 .w885-group {grid-template-columns:minmax(0,1fr);gap:7px;align-content:start;padding:12px;}
+ #pane-today #where885 .w885-gname {overflow:visible;white-space:normal;font-size:13px;line-height:1.3;}
+ #pane-today #where885 .w885-group b {font-size:23px;}
+ #pane-today #where885 .w885-basis {margin-top:8px;}
+ @container w885 (min-width:1100px) {
+  #pane-today #where885 .inst > .today-enhanced.racecard {grid-template-columns:minmax(0,1.15fr) minmax(240px,.75fr) minmax(0,1fr);gap:24px;}
+  #pane-today #where885 .inst > .today-enhanced.racecard > .pgm {grid-column:auto;}
+ }
+ @container w885 (min-width:1700px) {
+  #pane-today #where885 .w885-gauge {min-height:440px;padding-top:18px;padding-bottom:18px;}
+  #pane-today #where885 .w885-lights {max-width:630px;gap:22px;}
+  #pane-today #where885 .w885-lights .tl841-lamp {max-width:94px;}
+  #pane-today #where885 .w885-reading {font-size:136px;}
+  #pane-today #where885 .w885-group {grid-template-columns:minmax(0,1fr) auto;gap:10px;align-items:baseline;}
+  #pane-today #where885 .w885-gname {font-size:14px;}
+ }
+ @container w885 (min-width:2800px) {
+  #pane-today #where885 .w885-gauge {min-height:480px;}
+  #pane-today #where885 .w885-lights {max-width:690px;}
+  #pane-today #where885 .w885-lights .tl841-lamp {max-width:104px;}
+  #pane-today #where885 .w885-reading {font-size:152px;}
+ }
+ @container w885 (max-width:639px) {
+  #pane-today #where885 .w885-gauge {min-height:0;padding:22px 10px 18px;}
+  #pane-today #where885 .w885-lights {gap:5px;padding:9px 5px 8px;}
+  #pane-today #where885 .w885-lights .tl841-unit small {font-size:12px;}
+  #pane-today #where885 .w885-title {font-size:25px;margin-top:18px;}
+  #pane-today #where885 .w885-reading {font-size:clamp(62px,20cqi,90px);}
+  #pane-today #where885 .w885-caption {max-width:26ch;font-size:14px;line-height:1.4;}
+  #pane-today #where885 .w885-note {font-size:12px;}
+  #pane-today #where885 .s896-wx {max-width:100%;border-radius:12px;font-size:12px;padding:8px 10px;gap:5px 8px;}
+  #pane-today #where885 .s896-shield {background:radial-gradient(ellipse 90% 85% at 50% 48%,#07171ce6,#07171cb0 60%,#07171c30);}
+  #pane-today #where885 .s896-yard {background-position:58% 66%;}
+  #pane-today #where885 .inst > .today-enhanced.racecard {grid-template-columns:minmax(0,1fr);gap:18px;}
+  #pane-today #where885 .inst > .today-enhanced.racecard > .pgm {grid-column:auto;}
+  #pane-today #where885 .pkeys li {font-size:12px;}
+  #pane-today #where885 .pends {height:48px;}
+  #pane-today #where885 .pends .a {max-width:90px;white-space:normal;}
+  #pane-today #where885 .pends .m {width:56px;white-space:normal;}
+  #pane-today #where885 .pends .z {width:58px;white-space:normal;}
+  #pane-today #where885 .w885-body {gap:20px;}
+ }
+}
+@media screen and (max-width:720px) {
+ #pane-today #where885 {padding:12px;}
+ #pane-today #where885 .w885-head {gap:10px;margin-bottom:12px;padding-bottom:12px;}
+}

@@ -1,0 +1,90 @@
+Author: Andrew Fisher
+GC500 v8.50 — source quantities matched to dockets
+State: VERIFIED LIVE — 5 Oct 2026 at 10:11 AEST. Implementation 1c2fb973; final READY c6b7ab7a.
+
+Base v8.49:
+924955d5560006bcac1fd07765dffb51692154e04585dae1eefcc292ef602fb1
+Candidate:
+1b24ad4e267d23f4ae20b03968551d275afda0c29d527f63aee62388ed9ac222
+Bytes: 10,932,100
+
+Scope and ownership
+A closed-by-default disclosure inside the existing Today and Fencing component
+section compares explicit supplier quantities with original docket components.
+Matched sources, source differences and programme-unit evidence remain distinct.
+Supplier units are not converted into programme openings or completion. Existing
+quantities, progress totals, percentages, estimates and all financial inputs and
+outputs stay unchanged. No shared-record changes or backend deployment.
+
+Codex owns source review, implementation, independent checks and publication.
+Claude remains intentionally paused; no Claude review is claimed. The separate
+held film is excluded and must rebuild on a later live base if resumed. Private
+originals, findings, financial values, input manifests and captures stay outside
+Git and public coordination.
+
+Completed offline checks
+The standard build passes all 11 inline scripts, author and credential checks.
+Independent exact preservation passes 22/22: all 70 original JSON declarations,
+DATA, source descriptors, existing models, media and the complete original page
+outside the allowed insertion remain byte-exact. All 27 supplier-evidence guards
+pass, including exact original hashes, docket ID/number/location/snapshot,
+calendar/week/scope, duplicates, changed sources and no conversion or addition.
+Source and quantity expectations were checked against the original papers.
+An independent synthetic-only patch review passes 12 checks for base/repeat and
+missing-input refusal, safe HTML/Unicode roundtrip, author preservation, helper
+binding, no executable string payloads and complete original-page preservation.
+
+Initial browser diagnostic retained
+An immediate test-forced redraw ran before the browser dispatched its queued
+native details toggle event. The unsaved guide values and native outputs remained
+exact, but the fold-cache assertion ran too early. Verification now waits for the
+native toggle state before exercising redraw. The initial diagnostic is retained
+privately; this test correction does not alter the frozen candidate.
+
+Final candidate checks
+The same frozen candidate passes 66/66 focused laptop/phone browser checks on
+Today and Fencing. Matched and differing source quantities agree with an
+independent original-paper oracle. Exact file identities, safe original/P/O
+links, date replay, changed-source and duplicate guards, normal toggle/redraw
+state, keyboard operation, local guide values and phone widths pass. Existing
+eight work readings, full DATA, financial outputs and all native shared state
+remain unchanged. Zero JavaScript errors or operational write attempts; the only
+blocked non-GET requests are native map-session requests.
+
+Both final desktop and phone sweeps pass 22 routes, seven deep links and Back
+with zero JavaScript or console errors. Read-only route permissions and redirect
+destinations match the previous verified release exactly. Root and reviewer
+inspected phone source/overview/conflict captures. Fresh PR comments contain no
+new Claude action; his current branch/board remains dacf75dd. No restart assumed.
+
+Codex owns guarded upload and actual-public verification. Candidate bytes and
+base are frozen; private originals and verification captures remain outside Git.
+
+Final display-copy refinement
+The previous READY candidate 4f62cc6 was not published. Final visual review
+improved date spacing and removed an internal field name from two explanatory
+strings. Independent comparison proves that only the source-unit row label and
+conclusion changed inside the supplementary catalogue; every HTML byte outside
+that catalogue and all source quotes, quantities, signatures and logic are exact.
+The final standard build and preservation22 pass. Navigation evidence from the
+previous candidate is retained because no routing or behaviour changed. Final candidate browser checks pass 66/66 after the display refinement;
+laptop and phone captures were inspected. No operational writes or runtime
+errors occurred. No change to the implementation source commit was required.
+
+Publication and actual-public verification
+Final READY c6b7ab7a follows implementation 1c2fb973. The guarded uploader checked
+the unchanged v8.49 base, published at 10:11 AEST on 5 Oct 2026, and verified the
+public view serves all 10,932,100 candidate bytes exactly.
+
+Actual-public laptop and phone checks pass 68/68. Upstream responses have the
+exact final candidate hash; browser responses differ only by normal UTF-8 BOM
+removal. Both public sessions used zero local HTML substitutions. Source models,
+original links, existing eight readings, DATA, financial outputs, unsaved guide
+state, normal redraw, phone layout and permissions pass. Zero JavaScript errors,
+unexpected console errors or operational write attempts. Published phone capture
+visually inspected.
+
+All 33 shared-record collection fingerprints, content hash and version remain
+unchanged before/after publication. Health is OK on backend v5.87; no server
+deployment. Existing tabs need one reload. Private originals, detailed findings,
+financial values, manifests and snapshots remain outside Git/public coordination.

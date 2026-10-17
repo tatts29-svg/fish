@@ -1,0 +1,33 @@
+{
+  "photo": {
+    "author": "the project manager",
+    "source": "Andrew’s circuit photos 21016–21162, visual construction character",
+    "referenceExamples": [
+      "21016.jpg",
+      "21044.jpg",
+      "21080.jpg",
+      "21154.jpg",
+      "21157.jpg"
+    ],
+    "paleConcrete": true,
+    "galvanisedFrames": true,
+    "liftingRecesses": 3644,
+    "framePlates": 457,
+    "sourceBoundariesUnchanged": true,
+    "roadWidthUnchanged": true,
+    "signageUnchanged": true,
+    "newLandmarkPlacements": 0,
+    "newGPUResources": 0,
+    "newDrawCalls": 0,
+    "perFrameWork": 0,
+    "surveyedReconstruction": false
+  },
+  "playing": true,
+  "paused": true,
+  "quality": "balanced",
+  "loop": true,
+  "failed": null,
+  "closed": true,
+  "errors": [],
+  "writes": 0
+}

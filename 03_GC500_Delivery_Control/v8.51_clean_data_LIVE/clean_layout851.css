@@ -1,0 +1,3 @@
+/* Author: Andrew Fisher. Equipment grid stays inside the available width. */
+#pane-plant.refresh-equipment .regsum{grid-template-columns:minmax(0,1fr)}
+#pane-plant.refresh-equipment .regsum>*{min-width:0}

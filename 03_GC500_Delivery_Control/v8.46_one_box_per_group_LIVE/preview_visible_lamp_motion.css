@@ -1,0 +1,13 @@
+
+/* Author: Andrew Fisher. Visible lamp-only brightness; status and figures stay fixed. */
+.race-lights .tl841-lamp.is-on .tl841-dots{animation:race-dots-red 2.4s ease-in-out infinite;animation-delay:var(--tl841-delay);animation-play-state:paused}
+.race-lights .tl841-lamp.is-on.is-finished .tl841-dots{animation-name:race-dots-green}
+.is-animating .race-lights .tl841-lamp.is-on .tl841-dots{animation-play-state:running}
+.race-lights .tl841-lamp.is-on .tl841-halo{animation-duration:2.4s}
+@keyframes race-dots-red{0%,70%,100%{fill:#ff514c}35%{fill:#ffc0b4}}
+@keyframes race-dots-green{0%,70%,100%{fill:#43d982}35%{fill:#bdffd5}}
+.state-example .tl841-lamp.is-on .tl841-halo{animation:gc500-race-preview-glow 2.4s ease-in-out infinite!important;animation-delay:var(--tl841-delay)!important;animation-play-state:paused!important}
+.state-example.is-animating .tl841-lamp.is-on .tl841-halo{animation-play-state:running!important}
+.state-example>.motion{margin:12px auto 0}
+@media(prefers-reduced-motion:reduce){.race-lights .tl841-lamp.is-on .tl841-dots,.state-example .tl841-lamp.is-on .tl841-halo{animation:none!important}}
+@media print{.race-lights .tl841-lamp.is-on .tl841-dots,.state-example .tl841-lamp.is-on .tl841-halo{animation:none!important}}

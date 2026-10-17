@@ -1,0 +1,52 @@
+{
+ "page": "/home/user/fish/03_GC500_Delivery_Control/build/GC500_v7.87/GC500_Delivery_Control_hosted.html",
+ "passed": 9,
+ "of": 9,
+ "tests": [
+  {
+   "name": "F1 every trade: the summary, then every location still to come at ten to a page (116 locations, 14 pages)",
+   "pass": true,
+   "detail": "{\"pages\":[\"lan\",\"lan\",\"por\",\"por\",\"por\",\"por\",\"por\",\"por\",\"por\",\"por\",\"por\",\"por\",\"por\",\"por\"],\"rows\":41,\"togo\":116}"
+  },
+  {
+   "name": "F2 the summary is one A4 portrait page when it fits, else two A4 landscape pages (every trade: 41 types)",
+   "pass": true,
+   "detail": "51 table rows · lan,lan,por,por,por,por,por,por,por,por,por,por,por,por"
+  },
+  {
+   "name": "F3 every page fits its sheet (nothing cut off)",
+   "pass": true,
+   "detail": "[]"
+  },
+  {
+   "name": "F4 every location with a position has a QR code that navigates to it; one with none says set it in Edit",
+   "pass": true,
+   "detail": "{\"qr\":116,\"none\":[]}"
+  },
+  {
+   "name": "F5 costed from the Pricing figure (assetTotal): a total in $, and lines with no rate counted, not added",
+   "pass": true,
+   "detail": "{\"money\":\"$200,062\",\"known\":{\"total\":200062.16667840004,\"unknown\":37,\"known\":168}}"
+  },
+  {
+   "name": "F6 \"P33\" is never printed as a destination",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "F7 one trade fits one A4 portrait summary page (Toilets & amenities: 7 types)",
+   "pass": true,
+   "detail": "por,por,por,por,por,por"
+  },
+  {
+   "name": "F8 Share PDF makes the file on this device and offers Open and Save (Share where the device can)",
+   "pass": true,
+   "detail": "{\"state\":\"ready\",\"name\":\"GC500_Inventory_Toilets-amenities_2026-10-02.pdf\",\"pages\":6,\"size\":2919494,\"togo\":46,\"rows\":7,\"orient\":[\"por\",\"por\",\"por\",\"por\",\"por\",\"por\"],\"say\":\"GC500_Inventory_Toilets-amenities_2026-10-02.pdf · 6 pages · 2.8 MB · 46 locations to come, each with a QR code\",\"acts\":[\"Open\",\"Save\"],\"panel\":true}"
+  },
+  {
+   "name": "E1 no page errors",
+   "pass": true,
+   "detail": "[]"
+  }
+ ]
+}

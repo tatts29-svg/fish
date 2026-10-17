@@ -1,0 +1,8 @@
+PASS the money summary is worked out once per opening of Today, not twice
+PASS folded By branch and On site wait to be opened
+PASS the By branch fold line still counts the branches
+PASS the On site fold line is unchanged
+PASS opening By branch draws its plates, word for word as a full draw
+PASS opening On site draws it, word for word as a full draw
+PASS both stay open once drawn
+PASS a redraw of the record keeps opened folds drawn

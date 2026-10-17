@@ -1,0 +1,24 @@
+{
+ "by": "Andrew Fisher",
+ "basis": "To run once v10.26 is live: its contract lines (Baseplan 15 Oct) carry these numbers on their references as the units, so the hand-made unit records and typed numbers for the same numbers would read as duplicates. Each is set aside (archived, who and when) and the line's own row stands, as it does for P52 and WC07. WC31 is left alone: its typed 1317645 would be hidden by a take-off tombstone on the line's row too.",
+ "ops": [
+  {
+   "op": "unit_archive",
+   "ref": "P63",
+   "no": "960719",
+   "why": "Baseplan line 121, Delivered"
+  },
+  {
+   "op": "unit_archive",
+   "ref": "P65",
+   "no": "1327217",
+   "why": "Baseplan line 110, Delivered"
+  },
+  {
+   "op": "unit_archive",
+   "ref": "P66",
+   "no": "1327222",
+   "why": "Baseplan line 113, Delivered"
+  }
+ ]
+}

@@ -1,0 +1,19 @@
+{
+  "author": "Andrew Fisher",
+  "mode": "candidate",
+  "sha256": "1cdd454f842bf2467fbb928179f2570a6d16f8f88d7dfa49674b3d34fcac0910",
+  "checks": 28,
+  "passed": true,
+  "browserErrors": 0,
+  "operationalWritesAttempted": 0,
+  "viewports": [
+    "390×844",
+    "1440×1000"
+  ],
+  "scope": [
+    "expanded Rules-table containment and independent scrolling",
+    "verified completion emblem and retained lights",
+    "reduced motion and Motion Off",
+    "isolated native availability Save and exact acknowledgement after collapse"
+  ]
+}

@@ -1,0 +1,10 @@
+/* Author: Andrew Fisher. Bounded presentation inside the existing Fencing quote fold. */
+#pane-fencing .fp-status.fp-summary{background:#edf3f7;color:#425a6d}
+#pane-fencing .fp-status.fp-recorded{background:#edf0f2;color:#46535e}
+#pane-fencing .fqe829 .tblwrap:focus-visible{outline:2px solid var(--fp-orange);outline-offset:3px}
+#pane-fencing .fqe829-basis,#pane-fencing .fqe829-entry{display:block;margin:12px 0 0;width:100%}
+#pane-fencing .fqe829 .fqe829-intro{color:var(--slate);font-size:12.5px;line-height:1.6;margin:0 0 12px}
+#pane-fencing .fqe829 .fp-source{line-height:1.6}
+#pane-fencing .fqe829 .tblwrap{max-width:100%;overflow-x:auto}
+@media(max-width:650px){#pane-fencing .fqe829 table{font-size:11px}#pane-fencing .fqe829 th{white-space:normal;min-width:95px}#pane-fencing .fqe829 th:first-child{min-width:130px}#pane-fencing .fqe829 .fqe829-intro,#pane-fencing .fqe829 .fp-book-note{font-size:11px;line-height:1.6}}
+@media print{#pane-fencing .fqe829-basis>summary,#pane-fencing .fqe829-entry>summary{display:none!important}#pane-fencing .fqe829-entry .form{display:none!important}#pane-fencing .fqe829 .tblwrap{overflow:visible!important}}

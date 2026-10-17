@@ -1,0 +1,44 @@
+{
+  "author": "Andrew Fisher",
+  "actualPublic": true,
+  "mobile": true,
+  "checks": 12,
+  "pass": true,
+  "landmarks": [
+    "PB1",
+    "PB2",
+    "OT4",
+    "PB3",
+    "OT5"
+  ],
+  "earlierPhotoFinish": true,
+  "startup": {
+    "prepared": true,
+    "shown": true,
+    "completed": 3,
+    "total": 3,
+    "pending": false,
+    "elapsedMs": 3458.7999999523163
+  },
+  "burnFrom": 1.35,
+  "burnTo": 2.15,
+  "maxOpeningSmoke": 96,
+  "playing": true,
+  "paused": true,
+  "quality": "balanced",
+  "loop": true,
+  "failed": null,
+  "hiddenMedia": {
+    "active": true,
+    "pausedVideos": 0,
+    "sceneGeometryChanged": false,
+    "preferencesChanged": false
+  },
+  "pageErrors": [],
+  "writeAttempts": 0,
+  "candidateSha256": "f182b59f07ea6f2fbd0a2b09d2efc4e219ef44c9c16a0109304f0f6e89437c5a",
+  "sourceCommit": "eddf7758",
+  "publishedAt": "2026-10-09T09:28:19.622Z",
+  "verificationNote": "First public verifier referenced trackDetailReport instead of dressStats. Corrected verifier passed all12 checks on identical published bytes; no product change or second upload.",
+  "nativeVersion": 5168
+}

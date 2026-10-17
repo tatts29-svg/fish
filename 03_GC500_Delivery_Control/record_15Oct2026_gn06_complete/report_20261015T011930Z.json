@@ -1,0 +1,133 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261015T011930Z",
+ "finished": "2026-10-15T01:19:40.086Z",
+ "mode": "apply",
+ "spec": {
+  "ref": "GN06",
+  "asset_no": "1320828",
+  "by": "Andrew Fisher",
+  "note": "Andrew, 15 Oct 2026 about 11:25 AEST in Claude chat: Also GN06 turned up. Complete this, asset no 1320828."
+ },
+ "pageSha256": "681da5c7c631a5ccefe25a0f294020feb79a204e2e89211ebb7ff191a9e73dac",
+ "version": {
+  "before": 6180,
+  "after": 6186
+ },
+ "updated": {
+  "before": "2026-10-15T01:18:06.878Z",
+  "after": "2026-10-15T01:19:39.123Z"
+ },
+ "stage": {
+  "number": "put on",
+  "done": "ticked"
+ },
+ "writes": [
+  {
+   "key": "delivery/GN06",
+   "status": 200
+  },
+  {
+   "key": "stamps/assetNumbers~2f~GN06~2f~1320828",
+   "status": 200
+  },
+  {
+   "key": "assetNumbers/GN06",
+   "status": 200
+  },
+  {
+   "key": "deleted/back~2f~num~2f~GN06~2f~1320828",
+   "status": 200
+  },
+  {
+   "key": "by/deleted~2f~back~2f~num~2f~GN06~2f~1320828",
+   "status": 200
+  },
+  {
+   "key": "by/assetNumbers~2f~GN06~2f~1320828",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 1,
+ "docs": {
+  "before": {
+   "delivery/GN06": {
+    "state": "not on site",
+    "set_at": "2026-10-03T10:28:14.270Z",
+    "by": "Andrew Fisher via Codex",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:14.270Z",
+      "by": "Andrew Fisher via Codex"
+     }
+    ],
+    "_k": "GN06"
+   },
+   "stamps/assetNumbers~2f~GN06~2f~1320828": null,
+   "assetNumbers/GN06": null,
+   "deleted/back~2f~num~2f~GN06~2f~1320828": null,
+   "by/deleted~2f~back~2f~num~2f~GN06~2f~1320828": null,
+   "by/assetNumbers~2f~GN06~2f~1320828": null
+  },
+  "after": {
+   "delivery/GN06": {
+    "state": "on site",
+    "set_at": "2026-10-15T01:19:36.586Z",
+    "by": "Andrew Fisher",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:14.270Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-15T01:19:36.586Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-15T01:19:36.586Z",
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-15T01:19:36.586Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "_k": "GN06"
+   },
+   "stamps/assetNumbers~2f~GN06~2f~1320828": {
+    "_k": "assetNumbers/GN06/1320828",
+    "v": "2026-10-15T01:19:36.119Z"
+   },
+   "assetNumbers/GN06": {
+    "_k": "GN06",
+    "v": [
+     "1320828"
+    ]
+   },
+   "deleted/back~2f~num~2f~GN06~2f~1320828": {
+    "_k": "back/num/GN06/1320828",
+    "v": "2026-10-15T01:19:36.119Z"
+   },
+   "by/deleted~2f~back~2f~num~2f~GN06~2f~1320828": {
+    "_k": "deleted/back/num/GN06/1320828",
+    "v": "Andrew Fisher"
+   },
+   "by/assetNumbers~2f~GN06~2f~1320828": {
+    "_k": "assetNumbers/GN06/1320828",
+    "v": "Andrew Fisher"
+   }
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}

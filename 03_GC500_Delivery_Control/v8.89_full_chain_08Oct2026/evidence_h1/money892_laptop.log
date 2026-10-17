@@ -1,0 +1,6 @@
+PASS  every figure on Costs & P&L is identical to the base (8912 numbers compared, 266 KB of models)
+PASS  the models read the same apart from the v8.92 words
+FAIL  the candidate footer says v8.92 and the base does not  {"base":"ts-1.0.0 · Today v8.20 · v8.95","cand":"ts-1.0.0 · Today v8.20 · v8.95"}
+PASS  no page errors on either
+PASS  no writes attempted
+laptop: 4/5

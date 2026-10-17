@@ -1,0 +1,22 @@
+{
+  "author": "Andrew Fisher",
+  "baseManifestSha256": "86eb69168f5e08b369ff1a41758140fabf36fc28fcc81fb705605322b128fcc3",
+  "candidateManifestSha256": "43c59fc5ea41cfabe9941d72cead4d4a61b6c2e86ec883e5b0f2b067f2962f7c",
+  "changedFiles": {
+    "explorer/explorer-merge.js": "97a4087210f34b891a83de69aee2929b21c3b284b52a9635971f9e52fbb76d15",
+    "explorer/index.html": "ae72ff762305d48a0b59372d42d55c85bd7c8d8ca361b4173fefcc37acefa27c",
+    "poc3d/equipment_viewer1027.js": "b0c798ceff649525aaca8f72a0bac2b62de1acb488a60800d662167f4e508363",
+    "poc3d/index.html": "f8403834a1336ce15e9e296f46413bbf3dfd132bc5011a02a49813340c694efb"
+  },
+  "addedFiles": {},
+  "protectedFiles": {
+    "poc3d/equipment_geometry1027.js": "ffa730387851677ce8a01dc39c852b66d6acb0fa28dceeac005d8c9e9099dacf",
+    "poc3d/equipment_layout1027.js": "b8c517cc15d31e9e2b087f53e097e1bb7a8ade5108f86e640239bfcfd66f496d"
+  },
+  "stagedBlobs": 4,
+  "otherFilesPreserved": 232,
+  "totalFiles": 236,
+  "published": true,
+  "recordWrites": 0,
+  "publicAssetsExact": true
+}

@@ -1,0 +1,87 @@
+{
+  "nativeVersion": 5806,
+  "milliseconds": 1890,
+  "assetBuilds": 1,
+  "indexes": {
+    "contractReferenceBranches1010": 1,
+    "currentFwfOwners1010": 1
+  },
+  "checks": [
+    {
+      "name": "Read starts outside render hold",
+      "pass": true
+    },
+    {
+      "name": "Published scope module installed",
+      "pass": true
+    },
+    {
+      "name": "Standalone hold clears on return",
+      "pass": true
+    },
+    {
+      "name": "Standalone financial values equal explicit held read",
+      "pass": true
+    },
+    {
+      "name": "Each standalone read builds one asset snapshot",
+      "pass": true
+    },
+    {
+      "name": "Each ownership/reference index builds once",
+      "pass": true
+    },
+    {
+      "name": "Standalone read completes within 15 seconds",
+      "pass": true
+    },
+    {
+      "name": "Financial reconciliation controls pass",
+      "pass": true
+    },
+    {
+      "name": "Shared record unchanged",
+      "pass": true
+    },
+    {
+      "name": "Original contract source unchanged",
+      "pass": true
+    },
+    {
+      "name": "Native version unchanged",
+      "pass": true
+    },
+    {
+      "name": "Final scope is empty",
+      "pass": true
+    },
+    {
+      "name": "No local page substitution",
+      "pass": true
+    },
+    {
+      "name": "No browser errors or operational write attempts",
+      "pass": true
+    }
+  ],
+  "author": "Andrew Fisher",
+  "at": "2026-10-13T18:26:09.666Z",
+  "sha256": "a37381b49fec5317fb9b354b7eee2e314f3c6e15215449314e9f1a14c9303557",
+  "bytes": 15125421,
+  "navigationResponses": [
+    {
+      "url": "https://gc500-production.up.railway.app/v/Coates-GC500-2026/",
+      "status": 200,
+      "bytes": 15125421,
+      "sha256": "a37381b49fec5317fb9b354b7eee2e314f3c6e15215449314e9f1a14c9303557"
+    }
+  ],
+  "errors": [],
+  "requests": {
+    "page": 0,
+    "live": 10,
+    "blocked": 0
+  },
+  "actualPublic": true,
+  "testSha256": "6d932eb9dc2fb8b8407e40416f67023245d5d88f3b1893143766370993e2315c"
+}

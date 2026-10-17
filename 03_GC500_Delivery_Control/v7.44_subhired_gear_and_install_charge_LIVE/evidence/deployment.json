@@ -1,0 +1,19 @@
+{
+  "author": "Andrew Fisher",
+  "version": "v7.44",
+  "authorisation": "Andrew Fisher: Make live, in response to the tested sub-hire update",
+  "uploaded_at_utc": "2026-09-30T11:53:31.798Z",
+  "live_aest": "30 Sep 2026 21:53 AEST",
+  "public_url": "https://gc500-production.up.railway.app/v/Coates-GC500-2026",
+  "tool": "toolchain/upload_page.py",
+  "unchanged_base_checked": true,
+  "forced": false,
+  "http_status": 200,
+  "bytes": 8329776,
+  "sha256": "66dc8be2b0536471feafb65b1716ceb2f52a201d0076ba4c1ff02d0c26f50435",
+  "served_byte_for_byte": true,
+  "record_writes": 0,
+  "financial_changes": false,
+  "showcase_or_dashboard_changes": false,
+  "gn20_install_rate_applied": false
+}

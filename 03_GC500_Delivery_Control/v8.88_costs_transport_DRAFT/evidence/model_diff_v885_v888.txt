@@ -1,0 +1,29 @@
+Model figures, v8.85 build against the v8.88 candidate, both read from the live record in the same minute (money_v8.85.json / money_v8.88.json in the scratch folder; amounts not copied here).
+
+Leaf values compared: 587; identical: 554; different: 33.
+
+Every difference is one of the documented changes:
+  length: /cj764/gaps
+  changed: /cj764/gaps[n]/owner
+  changed: /cj764/gaps[n]/what
+  changed: /cj764/gaps[n]/why
+  changed: /costsText
+  changed: /fh866/costTotal/by/KINP
+  changed: /fh866/costTotal/by/NVAC
+  changed: /fh866/costTotal/by/STPS
+  changed: /fh866/costs[n]/by/KINP
+  changed: /fh866/costs[n]/by/NVAC
+  changed: /fh866/costs[n]/by/STPS
+  changed: /fh866/demobBy/KINP
+  changed: /fh866/demobBy/NVAC
+  added: /fh866/demobBy/STPS
+  changed: /fh866/demobLoadsNoFigure
+  changed: /fh866/demobTotal
+  changed: /fh866/demobTransportNotInPl
+  changed: /fh866/demob[n]/by/KINP
+  changed: /fh866/demob[n]/by/NVAC
+  added: /fh866/demob[n]/by/STPS
+  changed: /fh866/demob[n]/total
+
+Unchanged: every moneySummary figure (charge, cost, difference, streams, categories, missing, caveats), every cj764Model row figure and total (known, toCome, job, revenue, wages), every pl770Model line and check, pl752Rows, the Additional transport forecast (buildingTransportModel831), acc761Model totals, the Finance handover cost total, demob charge and invoice block.
+Changed, as intended: fh866 transport cost split by branch (the loads' own branches); fh866 demob transport row (the P&L's cut); fh866 demobLoadsNoFigure and the new demobTransportNotInPl; cj764 gaps (one row added: the demob legs not forecast).

@@ -1,0 +1,754 @@
+{
+  "author": "Andrew Fisher",
+  "previewOnly": true,
+  "published": false,
+  "sha256": "747936f9bc9ffd1151ab812c696f3e377aa4d7b6ba8a9fc2df7eecb4d7609676",
+  "devices": {
+    "desktop": {
+      "width": 1440,
+      "height": 960,
+      "pass": true,
+      "completedChecks": 45,
+      "checks": [
+        {
+          "name": "Baseline capture clean",
+          "pass": true,
+          "detail": {
+            "errors": [],
+            "writes": 0
+          }
+        },
+        {
+          "name": "Today preview controller installed",
+          "pass": true
+        },
+        {
+          "name": "Date/email/print/showcase native controls retained once",
+          "pass": true
+        },
+        {
+          "name": "Native operator area retained once",
+          "pass": true
+        },
+        {
+          "name": "Native date filter and email hooks retained",
+          "pass": true
+        },
+        {
+          "name": "Original secondary navigation retained once with native handlers",
+          "pass": true
+        },
+        {
+          "name": "Where we are, work board and numeric gauges retained",
+          "pass": true
+        },
+        {
+          "name": "Native daily availability values and access rules retained",
+          "pass": true
+        },
+        {
+          "name": "Only native no-record staff is folded",
+          "pass": true,
+          "detail": {
+            "count": 1,
+            "day": "2026-10-11",
+            "token": "{\"day\":\"2026-10-11\",\"saved\":null,\"legacy\":null,\"roster\":[],\"ready\":true}",
+            "model": {
+              "ready": true,
+              "count": null,
+              "names": [],
+              "unnamed": 0
+            },
+            "heading": "Not recorded",
+            "empty": "No availability recorded.",
+            "names": [],
+            "edit": false,
+            "canEdit": false,
+            "fold": true,
+            "foldOpen": false,
+            "summaryDate": "2026-10-11"
+          }
+        },
+        {
+          "name": "No-record availability never presented as zero",
+          "pass": true
+        },
+        {
+          "name": "No-record staff starts folded",
+          "pass": true
+        },
+        {
+          "name": "Actions opens with keyboard",
+          "pass": true
+        },
+        {
+          "name": "Actions contains original secondary controls",
+          "pass": true
+        },
+        {
+          "name": "Repeated mount retains existing controls and listener-bearing nodes",
+          "pass": true
+        },
+        {
+          "name": "Actions open state survives native pack/render",
+          "pass": true
+        },
+        {
+          "name": "Repeated native render/pack keeps controls and navigation once",
+          "pass": true
+        },
+        {
+          "name": "Original models, category counts and gauge readings unchanged by layout refresh",
+          "pass": true,
+          "detail": {
+            "metrics": true,
+            "groups": true,
+            "where": true,
+            "work": true,
+            "gauges": true
+          }
+        },
+        {
+          "name": "Actions closes",
+          "pass": true
+        },
+        {
+          "name": "Actions immediate toggle/redraw preserves state",
+          "pass": true
+        },
+        {
+          "name": "Collapsed no-record staff displays actual native availability date",
+          "pass": true
+        },
+        {
+          "name": "Both native availability refresh paths retain no-record fold and immediate open/close state",
+          "pass": true,
+          "detail": [
+            {
+              "kind": "syncFooter",
+              "afterOpen": true,
+              "afterClose": true
+            },
+            {
+              "kind": "availability",
+              "afterOpen": true,
+              "afterClose": true
+            }
+          ]
+        },
+        {
+          "name": "Folded staff retains accessible original availability details",
+          "pass": true
+        },
+        {
+          "name": "Historical progress date does not mislabel current native staff availability",
+          "pass": true
+        },
+        {
+          "name": "Detached fixture: missing, unconfirmed and crane-only exclusion produce no invented method",
+          "pass": true
+        },
+        {
+          "name": "Detached fixture: explicit none retains its distinct meaning",
+          "pass": true
+        },
+        {
+          "name": "Detached fixture: unspecified crane retains qualification",
+          "pass": true
+        },
+        {
+          "name": "Detached fixture: repeated refresh never duplicates method captions",
+          "pass": true
+        },
+        {
+          "name": "Six native Monday loads retained",
+          "pass": true
+        },
+        {
+          "name": "Build numeric facts, product references and qualification labels exactly match native model",
+          "pass": true
+        },
+        {
+          "name": "Native status and one complete light gantry retained per reference",
+          "pass": true
+        },
+        {
+          "name": "Recorded unload captions match native method and provenance; no inferred methods",
+          "pass": true
+        },
+        {
+          "name": "Four Wednesday loads retain native order",
+          "pass": true
+        },
+        {
+          "name": "Wednesday four recorded tilt-tray instructions are visible",
+          "pass": true
+        },
+        {
+          "name": "Wednesday original facts/status/lights remain unchanged",
+          "pass": true
+        },
+        {
+          "name": "Monday cards fit viewport without horizontal overflow",
+          "pass": true,
+          "detail": [
+            {
+              "width": 1408,
+              "height": 166.484375,
+              "left": 16,
+              "right": 1424,
+              "overflow": 0
+            },
+            {
+              "width": 1408,
+              "height": 166.484375,
+              "left": 16,
+              "right": 1424,
+              "overflow": 0
+            },
+            {
+              "width": 1408,
+              "height": 166.484375,
+              "left": 16,
+              "right": 1424,
+              "overflow": 0
+            },
+            {
+              "width": 1408,
+              "height": 166.484375,
+              "left": 16,
+              "right": 1424,
+              "overflow": 0
+            },
+            {
+              "width": 1408,
+              "height": 196.875,
+              "left": 16,
+              "right": 1424,
+              "overflow": 0
+            },
+            {
+              "width": 1408,
+              "height": 204.890625,
+              "left": 16,
+              "right": 1424,
+              "overflow": 0
+            }
+          ]
+        },
+        {
+          "name": "Wednesday cards fit viewport without horizontal overflow",
+          "pass": true,
+          "detail": [
+            {
+              "width": 1408,
+              "height": 204.890625,
+              "left": 16,
+              "right": 1424,
+              "overflow": 0
+            },
+            {
+              "width": 1408,
+              "height": 166.484375,
+              "left": 16,
+              "right": 1424,
+              "overflow": 0
+            },
+            {
+              "width": 1408,
+              "height": 166.484375,
+              "left": 16,
+              "right": 1424,
+              "overflow": 0
+            },
+            {
+              "width": 1408,
+              "height": 166.484375,
+              "left": 16,
+              "right": 1424,
+              "overflow": 0
+            }
+          ]
+        },
+        {
+          "name": "Today leading controls and availability fit viewport",
+          "pass": true
+        },
+        {
+          "name": "All interactions and detached fixtures preserve the shared record exactly",
+          "pass": true
+        },
+        {
+          "name": "Baseline and candidate use identical shared records",
+          "pass": true
+        },
+        {
+          "name": "Exact native Today controls/operator/navigation match v9.92",
+          "pass": true
+        },
+        {
+          "name": "Where we are, category models and displayed numeric gauges match v9.92",
+          "pass": true
+        },
+        {
+          "name": "monday numeric facts and native statuses match v9.92",
+          "pass": true
+        },
+        {
+          "name": "wednesday numeric facts and native statuses match v9.92",
+          "pass": true
+        },
+        {
+          "name": "No browser errors",
+          "pass": true,
+          "detail": []
+        },
+        {
+          "name": "No attempted operational writes",
+          "pass": true,
+          "detail": 0
+        }
+      ],
+      "failures": [],
+      "errors": [],
+      "writes": 0,
+      "compactness": {
+        "todayControls": {
+          "before": 139,
+          "after": 74
+        },
+        "todayStaff": {
+          "before": 128.328125,
+          "after": 46
+        },
+        "mondayCards": [
+          {
+            "id": "2026-10-12|deliveries|booking:schedule6-T0261-dd-26120528",
+            "before": 218.484375,
+            "after": 166.484375
+          },
+          {
+            "id": "2026-10-12|deliveries|booking:schedule6-T0106-dd-26120550",
+            "before": 218.484375,
+            "after": 166.484375
+          },
+          {
+            "id": "2026-10-12|deliveries|booking:schedule6-T0260-dd-26121298",
+            "before": 169.5467529296875,
+            "after": 166.484375
+          },
+          {
+            "id": "2026-10-12|deliveries|booking:schedule6-T0260-dd-26121310",
+            "before": 169.547119140625,
+            "after": 166.484375
+          },
+          {
+            "id": "2026-10-12|deliveries|GN13",
+            "before": 196.875,
+            "after": 196.875
+          },
+          {
+            "id": "2026-10-12|deliveries|T0109",
+            "before": 202.078125,
+            "after": 204.890625
+          }
+        ],
+        "wednesdayCards": [
+          {
+            "id": "2026-10-14|deliveries|P25",
+            "before": 196.875,
+            "after": 204.890625
+          },
+          {
+            "id": "2026-10-14|deliveries|P66",
+            "before": 166.484375,
+            "after": 166.484375
+          },
+          {
+            "id": "2026-10-14|deliveries|P65",
+            "before": 166.484375,
+            "after": 166.484375
+          },
+          {
+            "id": "2026-10-14|deliveries|P67",
+            "before": 166.484375,
+            "after": 166.484375
+          }
+        ]
+      }
+    },
+    "phone": {
+      "width": 390,
+      "height": 844,
+      "pass": true,
+      "completedChecks": 45,
+      "checks": [
+        {
+          "name": "Baseline capture clean",
+          "pass": true,
+          "detail": {
+            "errors": [],
+            "writes": 0
+          }
+        },
+        {
+          "name": "Today preview controller installed",
+          "pass": true
+        },
+        {
+          "name": "Date/email/print/showcase native controls retained once",
+          "pass": true
+        },
+        {
+          "name": "Native operator area retained once",
+          "pass": true
+        },
+        {
+          "name": "Native date filter and email hooks retained",
+          "pass": true
+        },
+        {
+          "name": "Original secondary navigation retained once with native handlers",
+          "pass": true
+        },
+        {
+          "name": "Where we are, work board and numeric gauges retained",
+          "pass": true
+        },
+        {
+          "name": "Native daily availability values and access rules retained",
+          "pass": true
+        },
+        {
+          "name": "Only native no-record staff is folded",
+          "pass": true,
+          "detail": {
+            "count": 1,
+            "day": "2026-10-11",
+            "token": "{\"day\":\"2026-10-11\",\"saved\":null,\"legacy\":null,\"roster\":[],\"ready\":true}",
+            "model": {
+              "ready": true,
+              "count": null,
+              "names": [],
+              "unnamed": 0
+            },
+            "heading": "Not recorded",
+            "empty": "No availability recorded.",
+            "names": [],
+            "edit": false,
+            "canEdit": false,
+            "fold": true,
+            "foldOpen": false,
+            "summaryDate": "2026-10-11"
+          }
+        },
+        {
+          "name": "No-record availability never presented as zero",
+          "pass": true
+        },
+        {
+          "name": "No-record staff starts folded",
+          "pass": true
+        },
+        {
+          "name": "Actions opens with keyboard",
+          "pass": true
+        },
+        {
+          "name": "Actions contains original secondary controls",
+          "pass": true
+        },
+        {
+          "name": "Repeated mount retains existing controls and listener-bearing nodes",
+          "pass": true
+        },
+        {
+          "name": "Actions open state survives native pack/render",
+          "pass": true
+        },
+        {
+          "name": "Repeated native render/pack keeps controls and navigation once",
+          "pass": true
+        },
+        {
+          "name": "Original models, category counts and gauge readings unchanged by layout refresh",
+          "pass": true,
+          "detail": {
+            "metrics": true,
+            "groups": true,
+            "where": true,
+            "work": true,
+            "gauges": true
+          }
+        },
+        {
+          "name": "Actions closes",
+          "pass": true
+        },
+        {
+          "name": "Actions immediate toggle/redraw preserves state",
+          "pass": true
+        },
+        {
+          "name": "Collapsed no-record staff displays actual native availability date",
+          "pass": true
+        },
+        {
+          "name": "Both native availability refresh paths retain no-record fold and immediate open/close state",
+          "pass": true,
+          "detail": [
+            {
+              "kind": "syncFooter",
+              "afterOpen": true,
+              "afterClose": true
+            },
+            {
+              "kind": "availability",
+              "afterOpen": true,
+              "afterClose": true
+            }
+          ]
+        },
+        {
+          "name": "Folded staff retains accessible original availability details",
+          "pass": true
+        },
+        {
+          "name": "Historical progress date does not mislabel current native staff availability",
+          "pass": true
+        },
+        {
+          "name": "Detached fixture: missing, unconfirmed and crane-only exclusion produce no invented method",
+          "pass": true
+        },
+        {
+          "name": "Detached fixture: explicit none retains its distinct meaning",
+          "pass": true
+        },
+        {
+          "name": "Detached fixture: unspecified crane retains qualification",
+          "pass": true
+        },
+        {
+          "name": "Detached fixture: repeated refresh never duplicates method captions",
+          "pass": true
+        },
+        {
+          "name": "Six native Monday loads retained",
+          "pass": true
+        },
+        {
+          "name": "Build numeric facts, product references and qualification labels exactly match native model",
+          "pass": true
+        },
+        {
+          "name": "Native status and one complete light gantry retained per reference",
+          "pass": true
+        },
+        {
+          "name": "Recorded unload captions match native method and provenance; no inferred methods",
+          "pass": true
+        },
+        {
+          "name": "Four Wednesday loads retain native order",
+          "pass": true
+        },
+        {
+          "name": "Wednesday four recorded tilt-tray instructions are visible",
+          "pass": true
+        },
+        {
+          "name": "Wednesday original facts/status/lights remain unchanged",
+          "pass": true
+        },
+        {
+          "name": "Monday cards fit viewport without horizontal overflow",
+          "pass": true,
+          "detail": [
+            {
+              "width": 370,
+              "height": 408.2498779296875,
+              "left": 10,
+              "right": 380,
+              "overflow": 0
+            },
+            {
+              "width": 370,
+              "height": 408.250244140625,
+              "left": 10,
+              "right": 380,
+              "overflow": 0
+            },
+            {
+              "width": 370,
+              "height": 407.640625,
+              "left": 10,
+              "right": 380,
+              "overflow": 0
+            },
+            {
+              "width": 370,
+              "height": 407.640625,
+              "left": 10,
+              "right": 380,
+              "overflow": 0
+            },
+            {
+              "width": 370,
+              "height": 311.5625,
+              "left": 10,
+              "right": 380,
+              "overflow": 0
+            },
+            {
+              "width": 370,
+              "height": 456.968994140625,
+              "left": 10,
+              "right": 380,
+              "overflow": 0
+            }
+          ]
+        },
+        {
+          "name": "Wednesday cards fit viewport without horizontal overflow",
+          "pass": true,
+          "detail": [
+            {
+              "width": 370,
+              "height": 434.96875,
+              "left": 10,
+              "right": 380,
+              "overflow": 0
+            },
+            {
+              "width": 370,
+              "height": 385.640625,
+              "left": 10,
+              "right": 380,
+              "overflow": 0
+            },
+            {
+              "width": 370,
+              "height": 414.890625,
+              "left": 10,
+              "right": 380,
+              "overflow": 0
+            },
+            {
+              "width": 370,
+              "height": 385.640625,
+              "left": 10,
+              "right": 380,
+              "overflow": 0
+            }
+          ]
+        },
+        {
+          "name": "Today leading controls and availability fit viewport",
+          "pass": true
+        },
+        {
+          "name": "All interactions and detached fixtures preserve the shared record exactly",
+          "pass": true
+        },
+        {
+          "name": "Baseline and candidate use identical shared records",
+          "pass": true
+        },
+        {
+          "name": "Exact native Today controls/operator/navigation match v9.92",
+          "pass": true
+        },
+        {
+          "name": "Where we are, category models and displayed numeric gauges match v9.92",
+          "pass": true
+        },
+        {
+          "name": "monday numeric facts and native statuses match v9.92",
+          "pass": true
+        },
+        {
+          "name": "wednesday numeric facts and native statuses match v9.92",
+          "pass": true
+        },
+        {
+          "name": "No browser errors",
+          "pass": true,
+          "detail": []
+        },
+        {
+          "name": "No attempted operational writes",
+          "pass": true,
+          "detail": 0
+        }
+      ],
+      "failures": [],
+      "errors": [],
+      "writes": 0,
+      "compactness": {
+        "todayControls": {
+          "before": 265.796875,
+          "after": 122
+        },
+        "todayStaff": {
+          "before": 120.328125,
+          "after": 46
+        },
+        "mondayCards": [
+          {
+            "id": "2026-10-12|deliveries|booking:schedule6-T0261-dd-26120528",
+            "before": 382.5467529296875,
+            "after": 408.2498779296875
+          },
+          {
+            "id": "2026-10-12|deliveries|booking:schedule6-T0106-dd-26120550",
+            "before": 382.546875,
+            "after": 408.250244140625
+          },
+          {
+            "id": "2026-10-12|deliveries|booking:schedule6-T0260-dd-26121298",
+            "before": 365.53125,
+            "after": 407.640625
+          },
+          {
+            "id": "2026-10-12|deliveries|booking:schedule6-T0260-dd-26121310",
+            "before": 365.53125,
+            "after": 407.640625
+          },
+          {
+            "id": "2026-10-12|deliveries|GN13",
+            "before": 297.5625,
+            "after": 311.5625
+          },
+          {
+            "id": "2026-10-12|deliveries|T0109",
+            "before": 398.0625,
+            "after": 456.968994140625
+          }
+        ],
+        "wednesdayCards": [
+          {
+            "id": "2026-10-14|deliveries|P25",
+            "before": 379.875,
+            "after": 434.96875
+          },
+          {
+            "id": "2026-10-14|deliveries|P66",
+            "before": 330.546875,
+            "after": 385.640625
+          },
+          {
+            "id": "2026-10-14|deliveries|P65",
+            "before": 359.796875,
+            "after": 414.890625
+          },
+          {
+            "id": "2026-10-14|deliveries|P67",
+            "before": 330.546875,
+            "after": 385.640625
+          }
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,25 @@
+FAIL open today: never faded {"worst":0,"at":1963,"frames":1}
+PASS open today: arrival still marked {"arrived":true}
+FAIL open today: arrival cleared after it plays {}
+FAIL open timeline: never faded {"worst":0,"at":240,"frames":10}
+PASS open timeline: arrival still marked {"arrived":true}
+FAIL open timeline: arrival cleared after it plays {}
+FAIL open plant: never faded {"worst":0,"at":399,"frames":32}
+PASS open plant: arrival still marked {"arrived":true}
+FAIL open plant: arrival cleared after it plays {}
+FAIL open demob: never faded {"worst":0,"at":232,"frames":12}
+PASS open demob: arrival still marked {"arrived":true}
+FAIL open demob: arrival cleared after it plays {}
+FAIL open docs: never faded {"worst":0,"at":1105,"frames":5}
+PASS open docs: arrival still marked {"arrived":true}
+FAIL open docs: arrival cleared after it plays {}
+FAIL open coatesway: never faded {"worst":0,"at":410,"frames":35}
+PASS open coatesway: arrival still marked {"arrived":true}
+FAIL open coatesway: arrival cleared after it plays {}
+FAIL Today refresh: never faded {"worst":0,"at":646,"frames":24}
+FAIL Today refresh: banner picture kept, still decoded {"same":false,"complete":true,"w":1672}
+FAIL refresh during arrival: arrival stopped {"arriveAfterRefresh":true}
+PASS Motion: Off: no arrival animations {"running":0}
+PASS no page errors []
+PASS no writes attempted {"page":1,"live":80,"blocked":0}
+desktop: 9/24 pass

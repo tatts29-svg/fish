@@ -1,0 +1,298 @@
+{
+  "author": "Andrew Fisher",
+  "checks": [
+    {
+      "name": "same native shared version",
+      "pass": true
+    },
+    {
+      "name": "same local day for financial cut-off",
+      "pass": true
+    },
+    {
+      "name": "same complete financial capture scope",
+      "pass": true
+    },
+    {
+      "name": "nativeState unchanged",
+      "pass": true
+    },
+    {
+      "name": "eventConfig unchanged",
+      "pass": true
+    },
+    {
+      "name": "money unchanged",
+      "pass": true
+    },
+    {
+      "name": "pl unchanged",
+      "pass": true
+    },
+    {
+      "name": "job unchanged",
+      "pass": true
+    },
+    {
+      "name": "finance unchanged",
+      "pass": true
+    },
+    {
+      "name": "branches unchanged",
+      "pass": true
+    },
+    {
+      "name": "generator unchanged",
+      "pass": true
+    },
+    {
+      "name": "generatorInputs unchanged",
+      "pass": true
+    },
+    {
+      "name": "onsite unchanged",
+      "pass": true
+    },
+    {
+      "name": "contracts unchanged",
+      "pass": true
+    },
+    {
+      "name": "rates unchanged",
+      "pass": true
+    },
+    {
+      "name": "chargeScope unchanged",
+      "pass": true
+    },
+    {
+      "name": "supplier unchanged",
+      "pass": true
+    },
+    {
+      "name": "supplierPricing unchanged",
+      "pass": true
+    },
+    {
+      "name": "fencing unchanged",
+      "pass": true
+    },
+    {
+      "name": "labour unchanged",
+      "pass": true
+    },
+    {
+      "name": "transport unchanged",
+      "pass": true
+    },
+    {
+      "name": "buildingTransport unchanged",
+      "pass": true
+    },
+    {
+      "name": "wc09 unchanged",
+      "pass": true
+    },
+    {
+      "name": "baseline leaves all native state unchanged",
+      "pass": true
+    },
+    {
+      "name": "baseline has zero errors or operational writes",
+      "pass": true
+    },
+    {
+      "name": "baseline pl reconciles",
+      "pass": true
+    },
+    {
+      "name": "baseline branch reconciles",
+      "pass": true
+    },
+    {
+      "name": "baseline finance reconciles",
+      "pass": true
+    },
+    {
+      "name": "candidate leaves all native state unchanged",
+      "pass": true
+    },
+    {
+      "name": "candidate has zero errors or operational writes",
+      "pass": true
+    },
+    {
+      "name": "candidate pl reconciles",
+      "pass": true
+    },
+    {
+      "name": "candidate branch reconciles",
+      "pass": true
+    },
+    {
+      "name": "candidate finance reconciles",
+      "pass": true
+    },
+    {
+      "name": "Inventory existing type money unchanged: Access & plant|2.5T Forklift STD",
+      "pass": true
+    },
+    {
+      "name": "Inventory existing type money unchanged: Access & plant|3.5T Forklift Std",
+      "pass": true
+    },
+    {
+      "name": "Inventory existing type money unchanged: Access & plant|Forklift 2.5T",
+      "pass": true
+    },
+    {
+      "name": "Inventory existing type money unchanged: Access & plant|Forklift 2.5T RT",
+      "pass": true
+    },
+    {
+      "name": "Inventory existing type money unchanged: Access & plant|Forklift 5T",
+      "pass": true
+    },
+    {
+      "name": "Inventory existing type money unchanged: Furniture|Fridge",
+      "pass": true
+    },
+    {
+      "name": "Inventory existing type money unchanged: Furniture|Fridge Lge",
+      "pass": true
+    },
+    {
+      "name": "Inventory existing type money unchanged: Furniture|Pad Chair",
+      "pass": true
+    },
+    {
+      "name": "Inventory existing type money unchanged: Generators|100KVA TRAILER",
+      "pass": true
+    },
+    {
+      "name": "Inventory existing type money unchanged: Generators|150kva",
+      "pass": true
+    },
+    {
+      "name": "Inventory existing type money unchanged: Generators|200kva & cables",
+      "pass": true
+    },
+    {
+      "name": "Inventory existing type money unchanged: Generators|20kva",
+      "pass": true
+    },
+    {
+      "name": "Inventory existing type money unchanged: Generators|30kva",
+      "pass": true
+    },
+    {
+      "name": "Inventory existing type money unchanged: Generators|350kva",
+      "pass": true
+    },
+    {
+      "name": "Inventory existing type money unchanged: Generators|45kva",
+      "pass": true
+    },
+    {
+      "name": "Inventory existing type money unchanged: Generators|50kva",
+      "pass": true
+    },
+    {
+      "name": "Inventory existing type money unchanged: Generators|60kva",
+      "pass": true
+    },
+    {
+      "name": "Inventory existing type money unchanged: Generators|80kva",
+      "pass": true
+    },
+    {
+      "name": "Inventory existing type money unchanged: Ground protection|Trakmat",
+      "pass": true
+    },
+    {
+      "name": "Inventory existing type money unchanged: Lighting towers|Light Tower",
+      "pass": true
+    },
+    {
+      "name": "Inventory existing type money unchanged: Portable buildings|3.0m Cont",
+      "pass": true
+    },
+    {
+      "name": "Inventory existing type money unchanged: Portable buildings|6.0m Refrigerator Cont",
+      "pass": true
+    },
+    {
+      "name": "Inventory existing type money unchanged: Portable buildings|Building 12m",
+      "pass": true
+    },
+    {
+      "name": "Inventory existing type money unchanged: Portable buildings|Building 3.6m",
+      "pass": true
+    },
+    {
+      "name": "Inventory existing type money unchanged: Portable buildings|Building 4.8m",
+      "pass": true
+    },
+    {
+      "name": "Inventory existing type money unchanged: Portable buildings|Building 6m",
+      "pass": true
+    },
+    {
+      "name": "Inventory existing type money unchanged: Portable buildings|Building 9.6m",
+      "pass": true
+    },
+    {
+      "name": "Inventory existing type money unchanged: Portable buildings|Event Container",
+      "pass": true
+    },
+    {
+      "name": "Inventory existing type money unchanged: Portable buildings|Ticket Box 4.8m",
+      "pass": true
+    },
+    {
+      "name": "Inventory existing type money unchanged: Portable buildings|Ticket Box 6m",
+      "pass": true
+    },
+    {
+      "name": "Inventory existing type money unchanged: Toilets & amenities|16Pan Block",
+      "pass": true
+    },
+    {
+      "name": "Inventory existing type money unchanged: Toilets & amenities|Accessible Toilet",
+      "pass": true
+    },
+    {
+      "name": "Inventory existing type money unchanged: Toilets & amenities|FWF",
+      "pass": true
+    },
+    {
+      "name": "Inventory existing type money unchanged: Toilets & amenities|FWF Trailer",
+      "pass": true
+    },
+    {
+      "name": "Inventory existing type money unchanged: Toilets & amenities|Pee Panel",
+      "pass": true
+    },
+    {
+      "name": "Inventory existing type money unchanged: Toilets & amenities|Toilet Block 6m",
+      "pass": true
+    },
+    {
+      "name": "Inventory existing type money unchanged: Toilets & amenities|Waste tank",
+      "pass": true
+    },
+    {
+      "name": "Inventory existing type money unchanged: Variable message signs|VMS",
+      "pass": true
+    },
+    {
+      "name": "Inventory existing type money unchanged: Water-filled barriers|TL2",
+      "pass": true
+    }
+  ],
+  "failures": [],
+  "differences": [],
+  "nativeVersion": 6075,
+  "baselineSha": "3cbfd0d5c9bd53f02d5a89b274e83ee0c2d2c8dc17b03da59b68cf3a3db8673c",
+  "candidateSha": "5c0925948ce16c940fe56874da22a8b2980d0f87f005e382e67cb583542dac9f"
+}

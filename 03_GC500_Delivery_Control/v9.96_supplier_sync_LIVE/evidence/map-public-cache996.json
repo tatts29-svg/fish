@@ -1,0 +1,38 @@
+{
+  "author": "Andrew Fisher",
+  "cause": "Harness disk cache reused an old static index without respecting no-cache; no product source change required.",
+  "freshResponses": [
+    {
+      "url": "https://gc500-production.up.railway.app/w/Coates-GC500-2026/explorer/index.html?embed=1&trace=837&back=v",
+      "sha256": "f83fb82aab5ecb07e801a47cb95e6736f0e86383d8769370c7479b756980c0a6",
+      "cacheControl": "no-cache",
+      "newScriptKey": true
+    },
+    {
+      "url": "https://gc500-production.up.railway.app/w/Coates-GC500-2026/explorer/index.html",
+      "sha256": "f83fb82aab5ecb07e801a47cb95e6736f0e86383d8769370c7479b756980c0a6",
+      "cacheControl": "no-cache",
+      "newScriptKey": true
+    }
+  ],
+  "scripts": [
+    {
+      "url": "https://gc500-production.up.railway.app/w/Coates-GC500-2026/explorer/explorer.js?v=5a66caa035b4",
+      "sha256": "5a66caa035b46c82dae5a70a0ddd36f52ef05e128d7c8d42eaab3f8e944070e5",
+      "expectedSha256": "5a66caa035b46c82dae5a70a0ddd36f52ef05e128d7c8d42eaab3f8e944070e5",
+      "pass": true,
+      "cacheControl": "private, max-age=3600",
+      "etag": "\"5a66caa035b46c82dae5a70a0ddd36f5\""
+    },
+    {
+      "url": "https://gc500-production.up.railway.app/w/Coates-GC500-2026/explorer/explorer-merge.js?v=1dd20a619be4",
+      "sha256": "1dd20a619be4c534ac7ef3a6ed58c90df96287232b9217e745e088207b8ee50e",
+      "expectedSha256": "1dd20a619be4c534ac7ef3a6ed58c90df96287232b9217e745e088207b8ee50e",
+      "pass": true,
+      "cacheControl": "private, max-age=3600",
+      "etag": "\"1dd20a619be4c534ac7ef3a6ed58c90d\""
+    }
+  ],
+  "freshBrowserChecks": 16,
+  "operationalWrites": 0
+}

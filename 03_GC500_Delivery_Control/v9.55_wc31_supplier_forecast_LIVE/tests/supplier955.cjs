@@ -1,0 +1,38 @@
+/* Author: Andrew Fisher. Financial boundaries and exact ownership/coverage evidence. */
+'use strict';
+const assert=require('assert/strict'),S=require('../supplier955.js');let checks=0;
+const eq=(a,b,m)=>{assert.deepEqual(a,b,m);checks++};
+const unit=n=>({id:'unit-'+n,ref:'WC31',assetNo:String(n),owner:'event-portables',physical:true,item:'16Pan Block',source:'native'});
+const quote={quote:'Q6845',use_on:'2026-10-23',collect:'2026-10-25',groups:[{lines:[{description:'16 Pan Toilet Block',qty:1,unit_price:2750,total_price:2750}]}]};
+const input=()=>({active:true,approved:true,quote:structuredClone(quote),units:[unit(12),unit(74)],costs:[],branch:'KINP'});
+const calc=edit=>{const i=input();if(edit)edit(i);return S.calculate(i)};
+eq(calc().estimate,2750,'one extra unit × original unit price once');eq(calc().additional,1,'approved original quantity retained');
+eq(S.month(calc(),'2026-10'),2750,'event month once');for(const m of ['2026-09','2026-11','2027-10',''])eq(S.month(calc(),m),0,'no invented monthly accrual '+m);
+const original=input();S.calculate(original);eq(original,input(),'pure calculation preserves quote, units and costs');
+eq(calc(i=>i.active=false).estimate,0,'cancelled/moved-away inactive scope');eq(calc(i=>i.approved=false).held,true,'unapproved basis held');
+for(const bad of [null,-1,NaN,Infinity,'2750',true])eq(calc(i=>i.quote.groups[0].lines[0].unit_price=bad).held,true,'bad unit price held');
+for(const bad of [-1,1.1,'1',true,Infinity])eq(calc(i=>i.quote.groups[0].lines[0].qty=bad).held,true,'bad quoted quantity held');
+eq(calc(i=>i.quote.groups[0].lines[0].total_price=999).held,true,'quote line arithmetic must close');
+eq(calc(i=>i.quote.groups[0].lines.push({...i.quote.groups[0].lines[0]})).held,true,'duplicate exact quote line held');
+eq(calc(i=>i.quote.groups[0].lines[0].description='VIP 5 Star Combo Toilet Block').held,true,'same-priced different item not accepted');
+for(const change of [q=>q.use_on='2026-02-30',q=>q.collect='2026-10-22',q=>q.collect='2026-11-01',q=>q.use_on='2027-10-23'])eq(calc(i=>change(i.quote)).held,true,'invalid or different period held');
+eq(calc(i=>i.units=[unit(12)]).estimate,0,'original unit covered');eq(calc(i=>i.units=[]).estimate,0,'no current units');
+eq(calc(i=>i.units.push(unit(75))).estimate,5500,'extra current physical unit calculated, not hardcoded');
+eq(calc(i=>{i.quote.groups[0].lines[0].qty=2;i.quote.groups[0].lines[0].total_price=5500}).estimate,0,'updated approved quote quantity removes estimate');
+for(const field of [{owner:'coates'},{item:'Accessible Toilet'},{physical:false},{source:'history'},{ref:'WC32'}])eq(calc(i=>Object.assign(i.units[1],field)).estimate,0,'wrong/currently inactive unit excluded');
+eq(calc(i=>i.units[1].id=i.units[0].id).held,true,'duplicate identity held');eq(calc(i=>i.units[1].id='').held,true,'missing identity held');
+const cost={id:'invoice-1',side:'ours',usable:true,supplier:'Event Portables Australia',ref:'WC31',reference:'INV-1',amount:2750,description:'Second 16-pan block hire',note:'Q6845 variation, whole event',quantity:1};
+eq(calc(i=>i.costs=[cost]).estimate,0,'exact recorded additional hire replaces estimate');eq(calc(i=>i.costs=[cost]).state,'recorded-variation','recorded coverage explicit');
+eq(calc(i=>i.costs=[{...cost,amount:3000}]).estimate,0,'invoice amount need not equal the estimate');
+eq(calc(i=>i.costs=[{...cost,amount:0}]).estimate,0,'explicit no-charge variation is still coverage');
+for(const change of [{supplier:'Other company'},{ref:'WC32'},{side:'customer'},{usable:false},{amount:null},{amount:-1},{status:'forecast'},{forecast:true},{reference:''},{id:''},{description:'16-pan block hire',note:'Q6845 original whole event'},{description:'Second accessible toilet hire'},{description:'Second 16-pan block delivery'}])eq(calc(i=>i.costs=[{...cost,...change}]).estimate,2750,'unrelated/invalid/non-cost source does not suppress');
+eq(calc(i=>i.costs=[{...cost,note:'Q6844 variation whole event'}]).estimate,2750,'different quote cannot suppress');
+for(const change of [{note:'Q6845 variation partial payment'},{note:'Q6845 variation deposit, whole event'},{note:'Q6845 variation'},{quantity:0},{quantity:0.5},{quantity:3},{note:'Q6845 variation period 2026-10-23 to 2026-10-24'}]){const f=calc(i=>i.costs=[{...cost,...change}]);eq(f.estimate,0,'partial coverage not double-added');eq(f.held,true,'partial scope remains unresolved');}
+eq(calc(i=>i.costs=[{...cost,note:'Q6845 variation period 2026-10-23 to 2026-10-25'}]).state,'recorded-variation','exact event period covers estimate');
+eq(calc(i=>{i.units.push(unit(75));i.costs=[cost]}).held,true,'only one of two additional units covered: remaining scope held');
+const row={rental_contract:'9968955',line:98,branch_code:'KINP',item:'MISCITEM',description:'WC31 16 Pan Block',register_type:'16Pan Block',family:'toilet',quantity:2,match:{key:null}};
+eq(S.owner(row,[unit(12),unit(74)]).owner,'event-portables','exact current supplier units classify existing contract');
+for(const change of [{rental_contract:'9968956'},{line:99},{branch_code:'NVAC'},{item:'OTHER'},{description:'WC31 VIP Block'},{quantity:1},{family:'building'},{register_type:'FWF'},{charge_line:true},{supplier_sub_rental:'PREMAIR'},{match:{key:'WC32'}}])eq(S.owner({...row,...change},[unit(12),unit(74)]),null,'no broad MISCITEM ownership inference');
+for(const change of [{owner:'coates'},{assetNo:'75'},{physical:false},{item:'Accessible Toilet'},{source:'history'},{id:'unit-12'}])eq(S.owner(row,[unit(12),{...unit(74),...change}]),null,'exact two-unit ownership boundary');
+eq(S.owner(row,[unit(12),unit(74),unit(75)]),null,'quantity mismatch refuses classification');
+console.log(JSON.stringify({author:'Andrew Fisher',checks,passed:true,recordWrites:0}));

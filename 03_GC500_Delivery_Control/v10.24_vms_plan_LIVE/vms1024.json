@@ -1,0 +1,361 @@
+{
+ "author": "Andrew Fisher",
+ "source": {
+  "plan": "VMS001-26003-01 GC500 COATES VMS LOCATIONS (iEDM), 17 pages, sha256 9ef1527d (as uploaded to the record 9 Oct 2026); re-read 15 Oct 2026",
+  "emails": [
+   "Brenden Meek, Branch Manager - Relief (email, undated screenshot, 15 Oct 2026): 5x boards VMS13-17 will need to go out early. As track will be closed and they show everyone how to get out of the track.",
+   "Steve Haines, Safety and Traffic Coordinator, iEDM, email 'VMS gate 6' to Brenden Meek (screenshot 15 Oct 2026): Minor change to VMS 20, alter the location slightly and change orientation and message at midday; each morning Message 1 9am till 12pm, then from 12pm Message 2; spreadsheet and map updated.",
+   "Brenden Meek, email 'VMS', 7 Oct 2026 09:29: VMS 9 & 10 go out tomorrow. VMS 9 uses the board Andrew took from pit lane (turn on so it can be programmed). VMS 10 came down with the accessible toilet, a rehire unit from Premiair."
+  ],
+  "positions": "Positions are placed from the plan's own map crops against landmarks the page already holds to the metre (the master plan's gates, turn markers, WC16, P60, the pit lane line) or the named intersections (TomTom cross-street geocode, 15 Oct 2026), each within the metres stated on its line. D025's callout bubbles were checked on the 2022 aerial and sit tens of metres off the spots (several in the river), so they are not used. A pin taken on site or a lat/lon typed on the board's line overrides the plan position."
+ },
+ "windows": {
+  "construction": "Construction / demob period: from delivery (the eight Coates boards delivered 7 Sep 2026, docket 26053081 and following) to demob, 13 Nov 2026",
+  "event": "Event period: on site from Mon 19 Oct 2026 (VMS 9 and 10 from 8 Oct), off hire 26–28 Oct 2026",
+  "track": "Fri 23, Sat 24, Sun 25 Oct 2026: the five end-of-session boards (13*–17*) go in at the conclusion of track activity each day and come back to storage before it starts"
+ },
+ "boards": [
+  {
+   "pos": "01",
+   "phase": "construction",
+   "title": "Gold Coast Highway (median strip), south of Queen St intersection",
+   "lat": -27.9737,
+   "lon": 153.42028,
+   "basis": "plan crop: Gold Coast Highway median strip about 40 m south of the Queen St intersection, Broadwater Parklands opposite (placed on the median on the satellite view, 15 Oct 2026); about 25 m",
+   "page": 2,
+   "default_board": "vms1"
+  },
+  {
+   "pos": "02",
+   "phase": "construction",
+   "title": "Waterways Drive northbound",
+   "lat": -27.979,
+   "lon": 153.4228,
+   "basis": "plan crop against Waterways Drive / Gold Coast Highway (geocode -27.979514, 153.422109), the board 90 m up Waterways Drive; about 50 m",
+   "page": 3,
+   "default_board": "vms2",
+   "moves_to": "02a"
+  },
+  {
+   "pos": "03",
+   "phase": "construction",
+   "title": "Gold Coast Highway (southbound), north of Breaker St intersection",
+   "lat": -27.9804,
+   "lon": 153.42225,
+   "basis": "plan crop: Gold Coast Highway southbound about 150 m north of the Breaker St intersection (Gate G1 sits at Breaker St, master -27.981657, 153.423601), Helen Park beside; about 50 m (placed on the carriageway on the 2022 aerial, 15 Oct 2026)",
+   "page": 3,
+   "default_board": "vms3",
+   "moves_to": "03a"
+  },
+  {
+   "pos": "04",
+   "phase": "construction",
+   "title": "Admiralty Drive eastbound, Gold Coast Highway intersection",
+   "lat": -27.98672,
+   "lon": 153.427,
+   "basis": "plan crop: on Admiralty Drive 30 m west of the Gold Coast Highway intersection (geocode -27.986676, 153.427322); about 40 m",
+   "page": 4,
+   "default_board": "vms4"
+  },
+  {
+   "pos": "05",
+   "phase": "construction",
+   "title": "Gold Coast Highway (southbound), pit exit chevron",
+   "lat": -27.988,
+   "lon": 153.4279,
+   "basis": "plan crop: Gold Coast Highway southbound at the pit exit chevron, where the pit lane's south end meets the highway (page pit lane line); about 50 m",
+   "page": 4,
+   "default_board": "vms5",
+   "moves_to": "05a"
+  },
+  {
+   "pos": "06",
+   "phase": "construction",
+   "title": "Gold Coast Highway northbound at Birt Ave, median strip, 'The Marriott'",
+   "lat": -27.9927,
+   "lon": 153.428,
+   "basis": "plan crop against Birt Ave / Gold Coast Highway (geocode -27.992708, 153.42799), the median strip; about 40 m",
+   "page": 5,
+   "default_board": "vms6"
+  },
+  {
+   "pos": "07",
+   "phase": "construction",
+   "title": "Main Beach Parade southbound",
+   "lat": -27.9781,
+   "lon": 153.429,
+   "basis": "plan crop (the board at the John Kemp St crossing, Main Beach playground opposite) against the geocode -27.978078, 153.428919; about 40 m",
+   "page": 6,
+   "default_board": "vms7",
+   "moves_to": "07a"
+  },
+  {
+   "pos": "08",
+   "phase": "construction",
+   "title": "Gold Coast Highway northbound, south of Staghorn intersection",
+   "lat": -27.9955,
+   "lon": 153.4277,
+   "basis": "plan crop against Staghorn Ave / Gold Coast Highway (geocode -27.994921, 153.427835), the board 60 m south of it; about 50 m. D025 draws its 08 bubble 600 m away near the Esplanade, which does not match the plan's words — the plan is followed",
+   "page": 6,
+   "default_board": "vms8"
+  },
+  {
+   "pos": "22",
+   "phase": "construction",
+   "title": "South of Sundale Bridge (northbound traffic), in the traffic switch lane at Tedder Ave intersection",
+   "lat": -27.9812,
+   "lon": 153.4232,
+   "basis": "plan crop against Tedder Ave / Gold Coast Highway (geocode -27.981785, 153.423671); about 50 m. Not on D025",
+   "page": 7,
+   "board": "VMS22",
+   "board_basis": "named by its position number: contract 9961265 lists boards VMS11–VMS23 (sub-hire, pending) and Brenden Meek’s email calls the end-of-session boards VMS13–17 by their positions; the register on the Equipment tab supplies the owner, fleet number and plate once recorded"
+  },
+  {
+   "pos": "23",
+   "phase": "construction",
+   "title": "Gold Coast Highway (north of Sundale Bridge), eastern side of the road, for southbound traffic",
+   "lat": -27.9748,
+   "lon": 153.4207,
+   "basis": "plan crop: Gold Coast Highway on the eastern (Broadwater) side, about 150 m north of the Sundale Bridge, for southbound traffic (placed on the carriageway on the satellite view, 15 Oct 2026); about 30 m",
+   "page": 7,
+   "board": "VMS23",
+   "board_basis": "named by its position number: contract 9961265 lists boards VMS11–VMS23 (sub-hire, pending) and Brenden Meek’s email calls the end-of-session boards VMS13–17 by their positions; the register on the Equipment tab supplies the owner, fleet number and plate once recorded"
+  },
+  {
+   "pos": "02a",
+   "phase": "event",
+   "title": "Relocate VMS02 to Gold Coast Highway (southbound), top of path near S10",
+   "lat": -27.9834,
+   "lon": 153.4249,
+   "basis": "plan crop: Gold Coast Highway southbound beside the S10 stand (WC01 at -27.983425, 153.42525 is 'near S10'), top of the path; about 50 m",
+   "page": 9,
+   "from": "02",
+   "default_board": "vms2"
+  },
+  {
+   "pos": "03a",
+   "phase": "event",
+   "title": "Relocate VMS03 to Gold Coast Highway (southbound), outside Gate 1",
+   "lat": -27.9817,
+   "lon": 153.4234,
+   "basis": "plan crop: Gold Coast Highway southbound outside Gate 1 (master fence-line gate G1 -27.981657, 153.423601); about 40 m",
+   "page": 9,
+   "from": "03",
+   "default_board": "vms3"
+  },
+  {
+   "pos": "05a",
+   "phase": "event",
+   "title": "Relocate VMS05 to Gold Coast Highway (southbound), PB3",
+   "lat": -27.9826,
+   "lon": 153.4243,
+   "basis": "plan crop: Gold Coast Highway southbound at PB3, north of The Hill near Gate G9 (-27.981407, 153.425674); about 60 m (placed on the carriageway on the 2022 aerial, 15 Oct 2026)",
+   "page": 10,
+   "from": "05",
+   "default_board": "vms5"
+  },
+  {
+   "pos": "07a",
+   "phase": "event",
+   "title": "Relocate VMS07 to the eastern end of Macintosh Island Park bridge",
+   "lat": -27.9857,
+   "lon": 153.4296,
+   "basis": "plan crop: the eastern (Narrowneck) end of the Macintosh Island Park bridge over the Nerang River; about 60 m",
+   "page": 10,
+   "from": "07",
+   "default_board": "vms7"
+  },
+  {
+   "pos": "09",
+   "phase": "event",
+   "title": "Gold Coast Highway (northbound), north of T E Peters Dr intersection (southern end of the Convention Centre)",
+   "lat": -28.0288,
+   "lon": 153.43005,
+   "basis": "plan crop: Gold Coast Highway northbound carriageway just north of T E Peters Dr, the Convention Centre's southern end beside it (placed on the carriageway on the satellite view, 15 Oct 2026); about 30 m",
+   "page": 11,
+   "board": "VMS09",
+   "asset": "1211404",
+   "notes_default": "Brenden Meek, 7 Oct 2026: went out 8 Oct; the board Andrew took from pit lane (turned on so Brenden could program it). Contract 9961265 line 12, Coates 1211404."
+  },
+  {
+   "pos": "10",
+   "phase": "event",
+   "title": "Old Burleigh Rd (northbound), south of Queensland Ave intersection",
+   "lat": -28.02975,
+   "lon": 153.4341,
+   "basis": "plan crop: Old Burleigh Rd northbound carriageway about 30 m south of the Queensland Ave intersection (placed on the carriageway on the satellite view, 15 Oct 2026); about 30 m",
+   "page": 11,
+   "board": "VMS10",
+   "notes_default": "Brenden Meek, 7 Oct 2026: went out 8 Oct; a rehire unit from Premiair that came down with the accessible toilet (PremAir fleet 120T, rego V14221 on the register). Contract 9961265 line 13."
+  },
+  {
+   "pos": "11",
+   "phase": "event",
+   "title": "Macintosh Island Park, western end of Macintosh Island Park bridge",
+   "lat": -27.986,
+   "lon": 153.4286,
+   "basis": "plan crop: the western end of the Macintosh Island Park bridge, the island's north edge (park outline -27.986057, 153.428664); about 60 m",
+   "page": 12,
+   "board": "VMS11",
+   "board_basis": "named by its position number: contract 9961265 lists boards VMS11–VMS23 (sub-hire, pending) and Brenden Meek’s email calls the end-of-session boards VMS13–17 by their positions; the register on the Equipment tab supplies the owner, fleet number and plate once recorded"
+  },
+  {
+   "pos": "12",
+   "phase": "event",
+   "title": "Macintosh Island Park, co-located with WC16",
+   "lat": -27.985938,
+   "lon": 153.427692,
+   "basis": "co-located with WC16: the master-plan position of WC16's toilet blocks",
+   "page": 12,
+   "board": "VMS12",
+   "board_basis": "named by its position number: contract 9961265 lists boards VMS11–VMS23 (sub-hire, pending) and Brenden Meek’s email calls the end-of-session boards VMS13–17 by their positions; the register on the Equipment tab supplies the owner, fleet number and plate once recorded"
+  },
+  {
+   "pos": "13",
+   "phase": "event",
+   "title": "T14 DL — installed at the conclusion of track activity (Fri/Sat/Sun); stored in the Altus compound, Cypress Ave",
+   "lat": -27.9814,
+   "lon": 153.4244,
+   "basis": "plan crop: T14 at The Hill, by Gate G10 (master approach -27.981244, 153.424543); about 40 m",
+   "page": 13,
+   "session": true,
+   "stored": "Altus compound, Cypress Ave",
+   "notes_default": "Brenden Meek, 15 Oct 2026: VMS13–17 need to go out early — the track will be closed and they show everyone how to get out of the track.",
+   "board": "VMS13",
+   "board_basis": "named by its position number: contract 9961265 lists boards VMS11–VMS23 (sub-hire, pending) and Brenden Meek’s email calls the end-of-session boards VMS13–17 by their positions; the register on the Equipment tab supplies the owner, fleet number and plate once recorded"
+  },
+  {
+   "pos": "14",
+   "phase": "event",
+   "title": "Gold Coast Highway southbound — installed at the conclusion of track activity (Fri/Sat/Sun); stored in the Altus compound, Cypress Ave",
+   "lat": -27.9822,
+   "lon": 153.424,
+   "basis": "plan crop: Gold Coast Highway southbound at T15, east of The Hill; about 60 m (placed on the carriageway on the 2022 aerial, 15 Oct 2026)",
+   "page": 13,
+   "session": true,
+   "stored": "Altus compound, Cypress Ave",
+   "notes_default": "Brenden Meek, 15 Oct 2026: VMS13–17 need to go out early — the track will be closed and they show everyone how to get out of the track.",
+   "board": "VMS14",
+   "board_basis": "named by its position number: contract 9961265 lists boards VMS11–VMS23 (sub-hire, pending) and Brenden Meek’s email calls the end-of-session boards VMS13–17 by their positions; the register on the Equipment tab supplies the owner, fleet number and plate once recorded"
+  },
+  {
+   "pos": "15",
+   "phase": "event",
+   "title": "T4 runoff — installed at the conclusion of track activity (Fri/Sat/Sun); stored in the T2 runoff",
+   "lat": -27.991754,
+   "lon": 153.42945,
+   "basis": "T4 runoff: the master's Turn 4 marker (WB14's position); stored in the T2 runoff (-27.990144, 153.428562); about 40 m",
+   "page": 14,
+   "session": true,
+   "stored": "T2 runoff",
+   "notes_default": "Brenden Meek, 15 Oct 2026: VMS13–17 need to go out early — the track will be closed and they show everyone how to get out of the track.",
+   "board": "VMS15",
+   "board_basis": "named by its position number: contract 9961265 lists boards VMS11–VMS23 (sub-hire, pending) and Brenden Meek’s email calls the end-of-session boards VMS13–17 by their positions; the register on the Equipment tab supplies the owner, fleet number and plate once recorded"
+  },
+  {
+   "pos": "16",
+   "phase": "event",
+   "title": "T11 — installed at the conclusion of track activity (Fri/Sat/Sun); stored in the T11 runoff",
+   "lat": -27.981727,
+   "lon": 153.429072,
+   "basis": "T11: the master's Turn 11 marker (WB15's position, Main Beach Parade north); about 40 m",
+   "page": 14,
+   "session": true,
+   "stored": "T11 runoff",
+   "notes_default": "Brenden Meek, 15 Oct 2026: VMS13–17 need to go out early — the track will be closed and they show everyone how to get out of the track.",
+   "board": "VMS16",
+   "board_basis": "named by its position number: contract 9961265 lists boards VMS11–VMS23 (sub-hire, pending) and Brenden Meek’s email calls the end-of-session boards VMS13–17 by their positions; the register on the Equipment tab supplies the owner, fleet number and plate once recorded"
+  },
+  {
+   "pos": "17",
+   "phase": "event",
+   "title": "T12 runoff — installed at the conclusion of track activity (Fri/Sat/Sun); stored in the T10 runoff",
+   "lat": -27.9809,
+   "lon": 153.4277,
+   "basis": "plan crop: T12 runoff at Serisier Ave by Gate G8 (master approach -27.980874, 153.42781); stored in the T10 runoff; about 50 m (placed on the carriageway on the 2022 aerial, 15 Oct 2026)",
+   "page": 15,
+   "session": true,
+   "stored": "T10 runoff",
+   "notes_default": "Brenden Meek, 15 Oct 2026: VMS13–17 need to go out early — the track will be closed and they show everyone how to get out of the track.",
+   "board": "VMS17",
+   "board_basis": "named by its position number: contract 9961265 lists boards VMS11–VMS23 (sub-hire, pending) and Brenden Meek’s email calls the end-of-session boards VMS13–17 by their positions; the register on the Equipment tab supplies the owner, fleet number and plate once recorded"
+  },
+  {
+   "pos": "18",
+   "phase": "event",
+   "title": "Ocean Ave (westbound), Surfers Paradise Blvd intersection — Roadtek to remove/install Fri/Sat/Sun",
+   "lat": -27.993326,
+   "lon": 153.429388,
+   "basis": "Ocean Ave / Surfers Paradise Boulevard intersection (geocode); the board on the westbound approach; about 40 m",
+   "page": 15,
+   "roadtek": true,
+   "board": "VMS18",
+   "board_basis": "named by its position number: contract 9961265 lists boards VMS11–VMS23 (sub-hire, pending) and Brenden Meek’s email calls the end-of-session boards VMS13–17 by their positions; the register on the Equipment tab supplies the owner, fleet number and plate once recorded"
+  },
+  {
+   "pos": "19",
+   "phase": "event",
+   "title": "Concert egress, within the Palm Bar BOH compound",
+   "lat": -27.988,
+   "lon": 153.4283,
+   "basis": "plan crop: inside the Palm Bar BOH compound at the south-east of Macintosh Island Park, by the pit lane's south end; about 60 m",
+   "page": 16,
+   "board": "VMS19",
+   "board_basis": "named by its position number: contract 9961265 lists boards VMS11–VMS23 (sub-hire, pending) and Brenden Meek’s email calls the end-of-session boards VMS13–17 by their positions; the register on the Equipment tab supplies the owner, fleet number and plate once recorded"
+  },
+  {
+   "pos": "20",
+   "phase": "event",
+   "title": "The Esplanade (southbound), next to P60",
+   "lat": -27.99356,
+   "lon": 153.43025,
+   "basis": "plan crop: on the Esplanade's southbound carriageway next to P60 (P60's 14 Oct position -27.993601, 153.430601); the D025 bubble sits 30 m east on the sand and is not used; about 30 m (placed on the carriageway on the 2022 aerial, 15 Oct 2026)",
+   "page": 16,
+   "dates": "On site Mon 19 Oct 2026 09:00 to Mon 26 Oct 2026 17:00 (Steve Haines' spreadsheet, as read from his email)",
+   "messages": [
+    {
+     "name": "Message 1",
+     "when": "each morning 09:00 to 12:00, Fri 23 to Sun 25 Oct 2026",
+     "face": "facing westbound, towards Ocean Ave",
+     "lines": [
+      "TICKETS →",
+      "GATE 6 ←"
+     ]
+    },
+    {
+     "name": "Message 2",
+     "when": "from 12:00 each day, Fri 23 to Sun 25 Oct 2026 (to 21:00 Sunday)",
+     "face": "facing northbound, towards Gate 6",
+     "lines": [
+      "SURFERS PARADISE ↑",
+      "LIGHT RAIL →"
+     ]
+    }
+   ],
+   "notes_default": "Steve Haines (iEDM), 15 Oct 2026: minor change — location altered slightly, orientation and message change at midday; a Coates crew member to manage this each event day. Message texts read from his spreadsheet screenshot; confirm against the spreadsheet itself.",
+   "board": "VMS20",
+   "board_basis": "named by its position number: contract 9961265 lists boards VMS11–VMS23 (sub-hire, pending) and Brenden Meek’s email calls the end-of-session boards VMS13–17 by their positions; the register on the Equipment tab supplies the owner, fleet number and plate once recorded"
+  },
+  {
+   "pos": "21",
+   "phase": "event",
+   "title": "Staghorn Ave / Surfers Paradise Boulevard intersection (eastbound)",
+   "lat": -27.9952,
+   "lon": 153.4293,
+   "basis": "plan crop against the intersection (geocode -27.995213, 153.429577), the board on the approach 30 m west; about 40 m. Not on D025",
+   "page": 17,
+   "board": "VMS21",
+   "board_basis": "named by its position number: contract 9961265 lists boards VMS11–VMS23 (sub-hire, pending) and Brenden Meek’s email calls the end-of-session boards VMS13–17 by their positions; the register on the Equipment tab supplies the owner, fleet number and plate once recorded"
+  },
+  {
+   "pos": "24",
+   "phase": "event",
+   "title": "The Esplanade before Staghorn Ave intersection (northbound)",
+   "lat": -27.996,
+   "lon": 153.4306,
+   "basis": "plan crop against Staghorn Ave / The Esplanade (geocode -27.995342, 153.4305), the board 70 m south; about 50 m. Not on D025",
+   "page": 17,
+   "board_basis": "no contract board yet: the plan has 24 positions and the contract 23 boards (open item R16/R30)"
+  }
+ ]
+}

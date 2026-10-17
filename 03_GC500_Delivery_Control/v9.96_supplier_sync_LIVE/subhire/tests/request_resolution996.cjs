@@ -1,0 +1,21 @@
+/* Author: Andrew Fisher. Shared source-request collision and precedence regression checks. */
+'use strict';
+const assert=require('assert'),fs=require('fs'),path=require('path'),S=require('../supplier996.js'),[bjr,shell]=S.requests,checks=[];
+const test=(name,fn)=>{fn();checks.push({name,pass:true});};
+const asset=(key,name,extra={})=>({key,name,item_types:['FWF'],events:[],locations:[],...extra});
+const explicit=(r)=>({supplierRequest996:r.id,item:'FWF'});
+const result=(request,rows)=>S.resolveRequest(request,rows);
+test('Missing requests remain explicit missing',()=>assert.equal(result(bjr,[]).state,'missing'));
+test('Unique FWF name alias resolves once',()=>assert.equal(result(bjr,[asset('A','Brad Jones Racing')]).key,'A'));
+test('Building alias cannot fulfil a toilet request',()=>assert.equal(result(bjr,[asset('A','Brad Jones Racing',{item_types:['Building 6m']})]).state,'missing'));
+test('Explicit BJR identity outranks contradictory Shell name',()=>{const a=asset('A','Shell V-Power',{events:[explicit(bjr)]});assert.equal(result(bjr,[a]).key,'A');assert.equal(result(shell,[a]).state,'missing');assert.equal(S.requestMatch(a,shell),false);});
+test('Unique explicit native identity outranks a separate alias candidate',()=>{const rows=[asset('A','Other',{events:[explicit(bjr)]}),asset('B','Brad Jones Racing')];assert.equal(result(bjr,rows).key,'A');});
+test('Two source markers on one native ref are ambiguous for both',()=>{const a=asset('A','Combined',{events:[explicit(bjr),explicit(shell)]});for(const r of [bjr,shell]){const x=result(r,[a]);assert.equal(x.state,'ambiguous');assert.equal(x.key,null);assert.equal(x.asset,null);}});
+test('Cross-request name and location aliases are ambiguous for both',()=>{const a=asset('A','Brad Jones Racing',{locations:['Shell V-Power']});for(const r of [bjr,shell])assert.equal(result(r,[a]).state,'ambiguous');});
+test('Repeated same source marker does not invent a second request',()=>{const a=asset('A','Brad Jones Racing',{events:[explicit(bjr),explicit(bjr)]});assert.equal(result(bjr,[a]).state,'active');});
+test('Two native references explicitly claiming one request are ambiguous',()=>{assert.equal(result(bjr,[asset('A','One',{events:[explicit(bjr)]}),asset('B','Two',{events:[explicit(bjr)]})]).state,'ambiguous');});
+test('Cancelled explicit identity suppresses an alias fallback',()=>{const rows=[asset('A','Other',{events:[explicit(bjr)],_cancelled:true}),asset('B','Brad Jones Racing')];assert.equal(result(bjr,rows).state,'cancelled');});
+test('Deleted explicit native identity is not recreated from the source',()=>assert.equal(result(bjr,[asset('A','Brad Jones Racing',{events:[explicit(bjr)],_deleted:true})]).state,'cancelled'));
+test('A foreign source marker does not borrow a known alias',()=>assert.equal(result(bjr,[asset('A','Brad Jones Racing',{events:[{supplierRequest996:'OTHER-SOURCE'}]})]).state,'missing'));
+test('Resolver preserves all native input fields',()=>{const rows=[asset('A','Brad Jones Racing',{events:[explicit(bjr),explicit(shell)]})],before=JSON.stringify(rows);result(bjr,rows);assert.equal(JSON.stringify(rows),before);});
+const output={author:'Andrew Fisher',checks,passed:checks.length,operationalWrites:0,browser:false};if(process.env.OUT)fs.writeFileSync(process.env.OUT,JSON.stringify(output,null,2)+'\n');console.log(JSON.stringify({passed:checks.length,operationalWrites:0}));

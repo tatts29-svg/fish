@@ -1,0 +1,160 @@
+{
+ "author": "Andrew Fisher",
+ "given": "17 Oct 2026, in chat, as typed: \"This day this order p63 then p62 then p60. Must be on this exact sequence ... There will be more to come like this\"",
+ "rule": "Each group is one day's set of buildings, in the exact order given. More groups to come.",
+ "groups": [
+  {
+   "n": 1,
+   "as_typed": "p63 then p62 then p60",
+   "sequence": [
+    "P63",
+    "P62",
+    "P60"
+   ],
+   "delivered": "15 Oct (all three)",
+   "schedule_demob": "27 Oct (all three)"
+  },
+  {
+   "n": 2,
+   "as_typed": "p25 p66 p65 p66",
+   "sequence": [
+    "P25",
+    "P66",
+    "P65",
+    "P67"
+   ],
+   "check": "Confirmed by Andrew, 17 Oct 2026: \"Sorry last number should be 67\"",
+   "delivered": "14 Oct (all four)",
+   "schedule_demob": "27 Oct (all four)",
+   "confirmed": true
+  },
+  {
+   "n": 3,
+   "as_typed": "p45 p69",
+   "sequence": [
+    "P45",
+    "P69"
+   ],
+   "delivered": "12 Oct (both)",
+   "schedule_demob": "P69 28 Oct; P45 has no demob row"
+  },
+  {
+   "n": 4,
+   "as_typed": "p54 p56 p54 p52 p57",
+   "sequence": [
+    "P55",
+    "P56",
+    "P54",
+    "P52",
+    "P57"
+   ],
+   "check": "Confirmed by Andrew, 17 Oct 2026: \"P55 p56 p54 p52 p57 ... These need to locked in with theirs order for future records\"",
+   "delivered": "7 Oct (all five)",
+   "schedule_demob": "30 Oct (all five)",
+   "confirmed": true,
+   "as_corrected": "P55 p56 p54 p52 p57"
+  },
+  {
+   "n": 5,
+   "as_typed": "p46. P51 p08",
+   "sequence": [
+    "P46",
+    "P51",
+    "P08"
+   ],
+   "delivered": "6 Oct (all three)",
+   "schedule_demob": "P46, P51 29 Oct; P08 has no demob row"
+  },
+  {
+   "n": 6,
+   "as_typed": "p20 p18 p19 p21 p17",
+   "sequence": [
+    "P20",
+    "P18",
+    "P19",
+    "P21",
+    "P17"
+   ],
+   "delivered": "16 Sep (all five)",
+   "schedule_demob": "no demob rows"
+  },
+  {
+   "n": 7,
+   "as_typed": "p09 then p33",
+   "sequence": [
+    "P09",
+    "P33"
+   ],
+   "delivered": "P33 14 Sep, P09 16 Sep (different days)",
+   "schedule_demob": "no demob rows"
+  },
+  {
+   "n": 8,
+   "as_typed": "p36 . Hrp p10 p11 p12 p13",
+   "sequence": [
+    "P36",
+    "HRP",
+    "P10",
+    "P11",
+    "P12",
+    "P13"
+   ],
+   "delivered": "schedule 17 Sep for P36, HRP, P10, P11, P12; 21 Sep for P13",
+   "schedule_demob": "no demob rows"
+  },
+  {
+   "n": 9,
+   "as_typed": "Aa p37 p14 p15 p16",
+   "sequence": [
+    "AA",
+    "P37",
+    "P14",
+    "P15",
+    "P16"
+   ],
+   "delivered": "schedule 17 Sep for AA, P37; 21 Sep for P14, P15, P16",
+   "schedule_demob": "no demob rows"
+  },
+  {
+   "n": 10,
+   "as_typed": "p39 p38 p42 po6",
+   "sequence": [
+    "P39",
+    "P38",
+    "P42",
+    "P06"
+   ],
+   "delivered": "28 Sep (all four)",
+   "schedule_demob": "no demob rows"
+  },
+  {
+   "n": 11,
+   "as_typed": "p03 p01 p05 then wc05 waste tank then wc05 toilet block only after all of these bring in p04",
+   "sequence": [
+    "P03",
+    "P01",
+    "P05",
+    "WC05 waste tank",
+    "WC05 toilet block",
+    "P04"
+   ],
+   "rule": "P04 comes only after all of the others are in; the WC05 waste tank goes in before the WC05 toilet block",
+   "note": "Matches the page's existing delivery order for these references (ORDER782: P03, P01, P05, WC05, P04), now with the tank-then-block order inside WC05."
+  }
+ ],
+ "open": [
+  "Groups 7, 8 and 9 mix the 2026 delivery days (P09/P33; P13; P14-P16): kept as the order to follow, no date implied."
+ ],
+ "purpose": "Andrew, 17 Oct 2026: \"These need to locked in with theirs order for future records\" - each group is the delivery order to keep on record and follow next time, locked on every building in it.",
+ "constraints": [
+  {
+   "as_typed": "Wc17 ensure these 2 toilet blocks are Delivered before p36 and p10 so maybe day prior",
+   "rule": "WC17's two toilet blocks are delivered before P36 and P10 - the day before",
+   "refs": [
+    "WC17",
+    "P36",
+    "P10"
+   ]
+  }
+ ]
+}

@@ -1,0 +1,62 @@
+{
+  "author": "Andrew Fisher",
+  "release": "v9.57-extended-final",
+  "modes": {
+    "desktop": {
+      "routes": 22,
+      "deep_links": 7,
+      "all_routes_inspected": true,
+      "route_behaviour_preserved": true,
+      "page_errors": 0,
+      "console_errors": 0,
+      "go_errors": 0,
+      "blocked_write_attempts": 0,
+      "back": {
+        "hash": "#plant",
+        "pane": "pane-plant"
+      },
+      "print_bar": true,
+      "pass": true
+    },
+    "phone": {
+      "routes": 22,
+      "deep_links": 7,
+      "all_routes_inspected": true,
+      "route_behaviour_preserved": true,
+      "page_errors": 0,
+      "console_errors": 0,
+      "go_errors": 0,
+      "blocked_write_attempts": 0,
+      "back": {
+        "hash": "#plant",
+        "pane": "pane-plant"
+      },
+      "print_bar": true,
+      "pass": true
+    }
+  },
+  "sha256": "1f04615f0c941e1c6c2b45e0656fc92e2bd816998a7b5f2d428f1e1b0e4a6cb0",
+  "bytes": 12694230,
+  "pass": true,
+  "phone_visual": {
+    "visually_inspected": true,
+    "viewport_width": 390,
+    "component_label_readable": true,
+    "component_count": 19,
+    "flat_feet_metres_label_present": true,
+    "event_assessment_visible": true,
+    "internal_key_absent": true,
+    "horizontal_clipping": false,
+    "page_errors": 0,
+    "console_errors": 0,
+    "blocked_write_attempts": 0,
+    "screenshots": [
+      "phone-components.png",
+      "phone-assessment.png"
+    ],
+    "pass": true
+  },
+  "phone_visual_inspected": true,
+  "phone_components_label": "19 flat-feet CCBs",
+  "phone_source_assessment_visible": true
+}

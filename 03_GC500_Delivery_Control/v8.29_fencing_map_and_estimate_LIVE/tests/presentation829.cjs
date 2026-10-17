@@ -1,0 +1,25 @@
+/* Author: Andrew Fisher. Portable synthetic fixtures only; no records or network. */
+const fs=require('fs'),path=require('path'),vm=require('vm'),assert=require('assert/strict');
+const root=path.resolve(process.env.GC500_V829_SOURCE||path.join(__dirname,'..')),{fencingWorkingEstimate829:estimate}=require(path.join(root,'estimate_model.js'));let passed=0;const test=(n,f)=>{f();passed++};
+const columns=[{key:'clean',programme_type:'Clean (m)',name_as_written:'Clean',unit:'m'},{key:'relocation',programme_type:'Relocation (m)',name_as_written:'Relocation',unit:'m'},{key:'v_gates',programme_type:'Vehicle Gates',name_as_written:'Vehicle gates',unit:'each'}];
+const fencing={week_sheets:[{sheet:'CON A',phase:'Construction',rolled_forward:true,year:2026,totals:{'Clean (m)':10,'Relocation (m)':5,'Vehicle Gates':2}},{sheet:'CON B',phase:'Construction',rolled_forward:true,year:2026,totals:{'Clean (m)':10}},{sheet:'DECON A',phase:'Deconstruction',rolled_forward:true,year:2025,totals:{'Clean (m)':100}}]};
+const input={fencing,columns,fenceQuote:()=>null,fenceRateFor:k=>({value:k==='v_gates'?0:2,source:k==='v_gates'?'included':'card',card:columns.find(c=>c.key===k)}),fenceCostFor:k=>k==='relocation'?{value:null,hourly:10,source:'card',card:{unit:'m',cost_unit:'hr'}}:{value:1,source:'card',card:columns.find(c=>c.key===k)}};
+const before=JSON.stringify(fencing),model=estimate(input),clean=model.lines.find(x=>x.key==='clean'),move=model.lines.find(x=>x.key==='relocation');
+test('work movement total is not unique stock',()=>{assert.equal(clean.planningQuantity,20);assert.equal(clean.uniqueHireQuantity,null);assert.equal(clean.Revenue.amount,null)});
+test('repeated work never creates grand total',()=>assert.equal(model.grandTotal,null));
+test('matching-unit service may be estimated',()=>assert.equal(move.Revenue.amount,10));
+test('metres are never multiplied by hourly cost',()=>{assert.equal(move.directCosts.amount,null);assert.equal(move.directCosts.hourlyRate,10)});
+test('included zero is distinct from unpriced',()=>assert.equal(model.lines.find(x=>x.key==='v_gates').Revenue.state,'included'));
+test('reference demob is excluded',()=>assert.equal(model.excludedReferenceSheets.length,1));
+test('supplied quote takes precedence',()=>assert.equal(estimate({...input,fenceQuote:()=>({qty:{clean:3}})}).mode,'existing-native-quote'));
+test('model is read only',()=>assert.equal(JSON.stringify(fencing),before));
+test('invalid source quantity fails closed',()=>{const copy=JSON.parse(before);copy.week_sheets[1].totals['Clean (m)']='TBC';assert.equal(estimate({...input,fencing:copy}).lines.find(x=>x.key==='clean').planningQuantity,null)});
+let indexState='ready',files={summary:{sha256:'a'.repeat(64)}},papers=[];
+const ctx={FENCE_SUPPORT829:{sources:[{id:'summary',sha256:'a'.repeat(64),title:'Synthetic summary',rows:[{record_id:'fixture',docket_no:'test-1'}]}]},DOCS:{files:{}},photoIndex:()=>({state:indexState,files}),photoFor:({id})=>({state:files[id]?'ready':'missing',url:'/synthetic/'+id}),fencePrivatePapers:()=>papers,esc:s=>String(s).replace(/</g,'&lt;')};vm.createContext(ctx);vm.runInContext(fs.readFileSync(path.join(root,'coverage829_src.js'),'utf8'),ctx);ctx.fencePrivatePaperState=ctx.fenceSourceState829;const row={id:'fixture',docket_no:'test-1'};
+test('exact content join links supporting summary',()=>assert.equal(ctx.fenceSourceState829(row).key,'summary'));
+test('wrong record cannot inherit summary',()=>assert.equal(ctx.fenceSupportSources829({...row,id:'other'}).length,0));
+test('wrong source hash cannot link',()=>{files.summary.sha256='changed';assert.equal(ctx.fenceSupportSources829(row).length,0);files.summary.sha256='a'.repeat(64)});
+test('no source link does not erase docket record',()=>{files={};assert.equal(ctx.fenceSourceState829(row).text,'Docket recorded')});
+test('checking is distinct from missing',()=>{indexState='loading';assert.equal(ctx.fenceCoverageText829([row]),'Source links checking')});
+test('unavailable index is explicit',()=>{indexState='failed';assert.equal(ctx.fenceCoverageText829([row]),'Source links unavailable')});
+console.log(JSON.stringify({author:'Andrew Fisher',scope:'Synthetic offline fixtures',passed}));

@@ -1,0 +1,20 @@
+{
+  "author": "Andrew Fisher",
+  "candidateSha256": "cd3159be30b7ec931d5ffa907b90b585e6851a2210a2e7230d3fde74b0b46bee",
+  "checks": [
+    {
+      "name": "duplicate input refused without mutation",
+      "pass": true
+    },
+    {
+      "name": "changed-live input refused without mutation",
+      "pass": true
+    },
+    {
+      "name": "frozen integration replays exact final bytes",
+      "pass": true
+    }
+  ],
+  "passed": 3,
+  "total": 3
+}

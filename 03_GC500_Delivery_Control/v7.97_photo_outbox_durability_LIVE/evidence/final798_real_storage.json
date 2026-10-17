@@ -1,0 +1,227 @@
+{
+  "author": "Andrew Fisher",
+  "candidateSha256": "76939c32635b8628b05b577233f827f41c1a60a52fe65270304711abdc6b725e",
+  "photoSourceSha256": "7ca939e5bbc47ebe5d0d2b42000c09a8b6bb5e22b124f0217af88071c19afb72",
+  "nativeStorage": true,
+  "transport": "In-process synthetic file/doc mocks; no network; all non-GET blocked",
+  "checks": [
+    {
+      "name": "desktop native capabilities",
+      "pass": true,
+      "detail": {
+        "secure": true,
+        "idb": true,
+        "local": true,
+        "locks": true,
+        "crypto": true,
+        "blob": true
+      }
+    },
+    {
+      "name": "desktop send remains pending before doc ack",
+      "pass": true
+    },
+    {
+      "name": "desktop real IDB retains native blob and opaque receipt",
+      "pass": true,
+      "detail": {
+        "id": "synthetic-queued-photo.jpg",
+        "uploaded": {
+          "id": "synthetic-opaque-1",
+          "name": "synthetic-queued-photo.jpg",
+          "sha256": "f1340fd266a7fb8ddc7613060e8a66194d61a9785823d8ba6f9b2e23b9e51718",
+          "kind": "drop-photo"
+        },
+        "attempted": true,
+        "blobIsNative": true,
+        "bytes": 49,
+        "linkPlan": {
+          "link": {
+            "id": "synthetic-opaque-1",
+            "name": "synthetic-queued-photo.jpg",
+            "ref": "TEST",
+            "unit": "",
+            "slot": 0,
+            "by": "Synthetic review",
+            "at": "2026-10-02T01:00:00Z",
+            "caption": ""
+          },
+          "replace": null,
+          "replaceStamp": null
+        }
+      }
+    },
+    {
+      "name": "desktop no premature saved message",
+      "pass": true
+    },
+    {
+      "name": "desktop reload retains actual IDB receipt",
+      "pass": true
+    },
+    {
+      "name": "desktop reload completes without reupload",
+      "pass": true,
+      "detail": {
+        "uploads": 1,
+        "docWrites": 1
+      }
+    },
+    {
+      "name": "desktop confirmed message follows ack",
+      "pass": true
+    },
+    {
+      "name": "phone native capabilities",
+      "pass": true,
+      "detail": {
+        "secure": true,
+        "idb": true,
+        "local": true,
+        "locks": true,
+        "crypto": true,
+        "blob": true
+      }
+    },
+    {
+      "name": "phone send remains pending before doc ack",
+      "pass": true
+    },
+    {
+      "name": "phone real IDB retains native blob and opaque receipt",
+      "pass": true,
+      "detail": {
+        "id": "synthetic-queued-photo.jpg",
+        "uploaded": {
+          "id": "synthetic-opaque-1",
+          "name": "synthetic-queued-photo.jpg",
+          "sha256": "f1340fd266a7fb8ddc7613060e8a66194d61a9785823d8ba6f9b2e23b9e51718",
+          "kind": "drop-photo"
+        },
+        "attempted": true,
+        "blobIsNative": true,
+        "bytes": 49,
+        "linkPlan": {
+          "link": {
+            "id": "synthetic-opaque-1",
+            "name": "synthetic-queued-photo.jpg",
+            "ref": "TEST",
+            "unit": "",
+            "slot": 0,
+            "by": "Synthetic review",
+            "at": "2026-10-02T01:00:00Z",
+            "caption": ""
+          },
+          "replace": null,
+          "replaceStamp": null
+        }
+      }
+    },
+    {
+      "name": "phone no premature saved message",
+      "pass": true
+    },
+    {
+      "name": "phone reload retains actual IDB receipt",
+      "pass": true
+    },
+    {
+      "name": "phone reload completes without reupload",
+      "pass": true,
+      "detail": {
+        "uploads": 1,
+        "docWrites": 1
+      }
+    },
+    {
+      "name": "phone confirmed message follows ack",
+      "pass": true
+    },
+    {
+      "name": "native localStorage quota actually reached",
+      "pass": true,
+      "detail": {
+        "keys": 195,
+        "exception": "QuotaExceededError"
+      }
+    },
+    {
+      "name": "quota refuses reference save but retains real IDB receipt",
+      "pass": true
+    },
+    {
+      "name": "quota feedback never claims saved",
+      "pass": true
+    },
+    {
+      "name": "freeing native storage recovers without reupload",
+      "pass": true
+    },
+    {
+      "name": "aborted real IDB Forget reports still queued",
+      "pass": true
+    },
+    {
+      "name": "successful Forget deletes durable record",
+      "pass": true
+    },
+    {
+      "name": "stale caller after Forget cannot upload",
+      "pass": true
+    },
+    {
+      "name": "real IDB receipt transaction abort retains attempt",
+      "pass": true
+    },
+    {
+      "name": "reload after receipt abort reconciles name plus SHA without upload",
+      "pass": true
+    },
+    {
+      "name": "lost synthetic upload response remains pending",
+      "pass": true
+    },
+    {
+      "name": "reload lost-response recovery uses checksum match",
+      "pass": true
+    },
+    {
+      "name": "native Web Lock excludes second-tab send and Forget",
+      "pass": true,
+      "detail": {
+        "held": [
+          {
+            "clientId": "8EF584FB9E21237E8711226443946FFD",
+            "mode": "exclusive",
+            "name": "gc500.photo.synthetic-queued-photo.jpg"
+          }
+        ],
+        "pending": []
+      }
+    },
+    {
+      "name": "stale second-tab retry rereads deleted IDB record",
+      "pass": true
+    },
+    {
+      "name": "no browser exceptions",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "no external network attempted",
+      "pass": true,
+      "detail": {
+        "documents": 12,
+        "blocked": 0
+      }
+    }
+  ],
+  "errors": [],
+  "network": {
+    "documents": 12,
+    "blocked": 0
+  },
+  "browserVersion": "151.0.7922.173",
+  "passed": true
+}

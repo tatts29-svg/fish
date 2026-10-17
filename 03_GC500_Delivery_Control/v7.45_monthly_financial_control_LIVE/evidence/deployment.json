@@ -1,0 +1,22 @@
+{
+  "author": "Andrew Fisher",
+  "version": "v7.45",
+  "approved_by": "Andrew Fisher",
+  "approval": "U need to be clear and finish the job and release if we update",
+  "uploaded_at": "2026-09-30T12:17:24.057Z",
+  "live_aest": "30 Sep 2026 22:17 AEST",
+  "bytes": 8383024,
+  "sha256": "8d810104069b7bee5cc68fcf4fc2afb716656d91394f0855627fa75261593857",
+  "public_url": "https://gc500-production.up.railway.app/v/Coates-GC500-2026",
+  "model_checks": 70,
+  "desktop_practice_checks": 38,
+  "phone_practice_checks": 38,
+  "sweep_tabs_each": 21,
+  "sweep_deep_links_each": 7,
+  "unchanged_reference_financials": 202,
+  "record_changes": false,
+  "ledger_postings": false,
+  "gn20_install_amount_applied": false,
+  "shared_base_write_blocked": true,
+  "release_branch": "codex/gc500-v7.45-monthly-finance"
+}

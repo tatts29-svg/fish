@@ -1,0 +1,4916 @@
+{
+  "author": "Andrew Fisher",
+  "scope": "Selected-vehicle actual UI camera CPU checks",
+  "sourceSha256": "34c657399b172e01047e3c9f7a8a10af7b9789504c13f0335b6d5ca3a00d4428",
+  "baseSha256": "79e5d41900eaf519c2a49be1c86f0e3caf05489989731e1f8ef105aa5546ee21",
+  "pageSha256": "4facd278e70006e999057784ed4ad6cd95b3fd8bdf8220d5072bd9a8f89606c1",
+  "actualPoseFixtures": "e4b45c0e316e259d6200c7e0740fa801afa1f4262bd353fbbc31301f93b79d49",
+  "heldPoseSeconds": "per accepted captured pose",
+  "aspects": [
+    0.55,
+    0.75,
+    1.7777777777777777,
+    2.5
+  ],
+  "vehicleViews": 56,
+  "passed": 244,
+  "failed": 0,
+  "limitations": [
+    "CPU proof; final real Detail and Front detail desktop/phone screenshots still required.",
+    "CPU timing is a diagnostic on this host, not a browser/phone frame-rate benchmark.",
+    "Building height sampling uses supplied source-world footprints where available and a synthetic obstruction fixture otherwise."
+  ],
+  "timing": [
+    {
+      "vehicle": "car",
+      "iterations": 120,
+      "meanMilliseconds": 0.8647427416667294
+    },
+    {
+      "vehicle": "car_vms",
+      "iterations": 120,
+      "meanMilliseconds": 1.5722010833333722
+    },
+    {
+      "vehicle": "scissor",
+      "iterations": 120,
+      "meanMilliseconds": 0.5956893666666777
+    }
+  ],
+  "checks": [
+    {
+      "name": "candidate embeds exact camera extension",
+      "pass": true
+    },
+    {
+      "name": "protected G.step=function",
+      "pass": true
+    },
+    {
+      "name": "protected G.pose=function",
+      "pass": true
+    },
+    {
+      "name": "protected G.setVehicle=function",
+      "pass": true
+    },
+    {
+      "name": "protected G.trailerStep=function",
+      "pass": true
+    },
+    {
+      "name": "protected G.swayStep=function",
+      "pass": true
+    },
+    {
+      "name": "protected G.looStep=function",
+      "pass": true
+    },
+    {
+      "name": "protected G.raceCarMatrix=function",
+      "pass": true
+    },
+    {
+      "name": "existing seven-choice selection is unchanged",
+      "pass": true
+    },
+    {
+      "name": "car detail 0.55 complete animated conservative bounds visible",
+      "pass": true,
+      "detail": {
+        "vehicle": "car",
+        "view": "detail",
+        "aspect": 0.55,
+        "maxX": 0.7952514406378063,
+        "maxY": 0.21143484816869343,
+        "minDepth": 0.8224047934048936,
+        "clear": true,
+        "points": 344,
+        "eye": [
+          30.624648237735766,
+          0.31853345825723883,
+          -17.59933382068881
+        ],
+        "target": [
+          31.41004449891278,
+          0.13325049927961152,
+          -18.580731410006376
+        ],
+        "fov": 30
+      }
+    },
+    {
+      "name": "car detail 0.55 fence sight lines clear",
+      "pass": true,
+      "detail": {
+        "vehicle": "car",
+        "view": "detail",
+        "aspect": 0.55,
+        "maxX": 0.7952514406378063,
+        "maxY": 0.21143484816869343,
+        "minDepth": 0.8224047934048936,
+        "clear": true,
+        "points": 344,
+        "eye": [
+          30.624648237735766,
+          0.31853345825723883,
+          -17.59933382068881
+        ],
+        "target": [
+          31.41004449891278,
+          0.13325049927961152,
+          -18.580731410006376
+        ],
+        "fov": 30
+      }
+    },
+    {
+      "name": "car detail 0.55 fitting does not advance simulation/attachments",
+      "pass": true
+    },
+    {
+      "name": "car detail 0.55 exact source vertices with independently captured renderer matrices fit",
+      "pass": true,
+      "detail": {
+        "vertices": 64796,
+        "missingParts": 0,
+        "reusedIdenticalMotionGroups": 4
+      }
+    },
+    {
+      "name": "car detail 0.75 complete animated conservative bounds visible",
+      "pass": true,
+      "detail": {
+        "vehicle": "car",
+        "view": "detail",
+        "aspect": 0.75,
+        "maxX": 0.7952514406378062,
+        "maxY": 0.2883202475027637,
+        "minDepth": 0.8224047934048936,
+        "clear": true,
+        "points": 344,
+        "eye": [
+          30.624648237735766,
+          0.31853345825723883,
+          -17.59933382068881
+        ],
+        "target": [
+          31.41004449891278,
+          0.13325049927961152,
+          -18.580731410006376
+        ],
+        "fov": 30
+      }
+    },
+    {
+      "name": "car detail 0.75 fence sight lines clear",
+      "pass": true,
+      "detail": {
+        "vehicle": "car",
+        "view": "detail",
+        "aspect": 0.75,
+        "maxX": 0.7952514406378062,
+        "maxY": 0.2883202475027637,
+        "minDepth": 0.8224047934048936,
+        "clear": true,
+        "points": 344,
+        "eye": [
+          30.624648237735766,
+          0.31853345825723883,
+          -17.59933382068881
+        ],
+        "target": [
+          31.41004449891278,
+          0.13325049927961152,
+          -18.580731410006376
+        ],
+        "fov": 30
+      }
+    },
+    {
+      "name": "car detail 0.75 fitting does not advance simulation/attachments",
+      "pass": true
+    },
+    {
+      "name": "car detail 0.75 exact source vertices with independently captured renderer matrices fit",
+      "pass": true,
+      "detail": {
+        "vertices": 64796,
+        "missingParts": 0,
+        "reusedIdenticalMotionGroups": 4
+      }
+    },
+    {
+      "name": "car detail 1.7777777777777777 complete animated conservative bounds visible",
+      "pass": true,
+      "detail": {
+        "vehicle": "car",
+        "view": "detail",
+        "aspect": 1.7777777777777777,
+        "maxX": 0.7952514406378063,
+        "maxY": 0.6834257718584029,
+        "minDepth": 0.8224047934048936,
+        "clear": true,
+        "points": 344,
+        "eye": [
+          30.624648237735766,
+          0.31853345825723883,
+          -17.59933382068881
+        ],
+        "target": [
+          31.41004449891278,
+          0.13325049927961152,
+          -18.580731410006376
+        ],
+        "fov": 30
+      }
+    },
+    {
+      "name": "car detail 1.7777777777777777 fence sight lines clear",
+      "pass": true,
+      "detail": {
+        "vehicle": "car",
+        "view": "detail",
+        "aspect": 1.7777777777777777,
+        "maxX": 0.7952514406378063,
+        "maxY": 0.6834257718584029,
+        "minDepth": 0.8224047934048936,
+        "clear": true,
+        "points": 344,
+        "eye": [
+          30.624648237735766,
+          0.31853345825723883,
+          -17.59933382068881
+        ],
+        "target": [
+          31.41004449891278,
+          0.13325049927961152,
+          -18.580731410006376
+        ],
+        "fov": 30
+      }
+    },
+    {
+      "name": "car detail 1.7777777777777777 fitting does not advance simulation/attachments",
+      "pass": true
+    },
+    {
+      "name": "car detail 1.7777777777777777 exact source vertices with independently captured renderer matrices fit",
+      "pass": true,
+      "detail": {
+        "vertices": 64796,
+        "missingParts": 0,
+        "reusedIdenticalMotionGroups": 4
+      }
+    },
+    {
+      "name": "car detail 2.5 complete animated conservative bounds visible",
+      "pass": true,
+      "detail": {
+        "vehicle": "car",
+        "view": "detail",
+        "aspect": 2.5,
+        "maxX": 0.5655121355646623,
+        "maxY": 0.6834257718584029,
+        "minDepth": 0.8224047934048936,
+        "clear": true,
+        "points": 344,
+        "eye": [
+          30.624648237735766,
+          0.31853345825723883,
+          -17.59933382068881
+        ],
+        "target": [
+          31.41004449891278,
+          0.13325049927961152,
+          -18.580731410006376
+        ],
+        "fov": 30
+      }
+    },
+    {
+      "name": "car detail 2.5 fence sight lines clear",
+      "pass": true,
+      "detail": {
+        "vehicle": "car",
+        "view": "detail",
+        "aspect": 2.5,
+        "maxX": 0.5655121355646623,
+        "maxY": 0.6834257718584029,
+        "minDepth": 0.8224047934048936,
+        "clear": true,
+        "points": 344,
+        "eye": [
+          30.624648237735766,
+          0.31853345825723883,
+          -17.59933382068881
+        ],
+        "target": [
+          31.41004449891278,
+          0.13325049927961152,
+          -18.580731410006376
+        ],
+        "fov": 30
+      }
+    },
+    {
+      "name": "car detail 2.5 fitting does not advance simulation/attachments",
+      "pass": true
+    },
+    {
+      "name": "car detail 2.5 exact source vertices with independently captured renderer matrices fit",
+      "pass": true,
+      "detail": {
+        "vertices": 64796,
+        "missingParts": 0,
+        "reusedIdenticalMotionGroups": 4
+      }
+    },
+    {
+      "name": "car frontdetail 0.55 complete animated conservative bounds visible",
+      "pass": true,
+      "detail": {
+        "vehicle": "car",
+        "view": "frontdetail",
+        "aspect": 0.55,
+        "maxX": 0.701599942257146,
+        "maxY": 0.18423110814942179,
+        "minDepth": 0.857596316979912,
+        "clear": true,
+        "points": 344,
+        "eye": [
+          32.633799908126534,
+          0.3105274044742549,
+          -18.145101387419444
+        ],
+        "target": [
+          31.41004449891278,
+          0.13325049927961152,
+          -18.580731410006376
+        ],
+        "fov": 32
+      }
+    },
+    {
+      "name": "car frontdetail 0.55 fence sight lines clear",
+      "pass": true,
+      "detail": {
+        "vehicle": "car",
+        "view": "frontdetail",
+        "aspect": 0.55,
+        "maxX": 0.701599942257146,
+        "maxY": 0.18423110814942179,
+        "minDepth": 0.857596316979912,
+        "clear": true,
+        "points": 344,
+        "eye": [
+          32.633799908126534,
+          0.3105274044742549,
+          -18.145101387419444
+        ],
+        "target": [
+          31.41004449891278,
+          0.13325049927961152,
+          -18.580731410006376
+        ],
+        "fov": 32
+      }
+    },
+    {
+      "name": "car frontdetail 0.55 fitting does not advance simulation/attachments",
+      "pass": true
+    },
+    {
+      "name": "car frontdetail 0.55 exact source vertices with independently captured renderer matrices fit",
+      "pass": true,
+      "detail": {
+        "vertices": 64796,
+        "missingParts": 0,
+        "reusedIdenticalMotionGroups": 4
+      }
+    },
+    {
+      "name": "car frontdetail 0.75 complete animated conservative bounds visible",
+      "pass": true,
+      "detail": {
+        "vehicle": "car",
+        "view": "frontdetail",
+        "aspect": 0.75,
+        "maxX": 0.701599942257146,
+        "maxY": 0.2512242383855751,
+        "minDepth": 0.857596316979912,
+        "clear": true,
+        "points": 344,
+        "eye": [
+          32.633799908126534,
+          0.3105274044742549,
+          -18.145101387419444
+        ],
+        "target": [
+          31.41004449891278,
+          0.13325049927961152,
+          -18.580731410006376
+        ],
+        "fov": 32
+      }
+    },
+    {
+      "name": "car frontdetail 0.75 fence sight lines clear",
+      "pass": true,
+      "detail": {
+        "vehicle": "car",
+        "view": "frontdetail",
+        "aspect": 0.75,
+        "maxX": 0.701599942257146,
+        "maxY": 0.2512242383855751,
+        "minDepth": 0.857596316979912,
+        "clear": true,
+        "points": 344,
+        "eye": [
+          32.633799908126534,
+          0.3105274044742549,
+          -18.145101387419444
+        ],
+        "target": [
+          31.41004449891278,
+          0.13325049927961152,
+          -18.580731410006376
+        ],
+        "fov": 32
+      }
+    },
+    {
+      "name": "car frontdetail 0.75 fitting does not advance simulation/attachments",
+      "pass": true
+    },
+    {
+      "name": "car frontdetail 0.75 exact source vertices with independently captured renderer matrices fit",
+      "pass": true,
+      "detail": {
+        "vertices": 64796,
+        "missingParts": 0,
+        "reusedIdenticalMotionGroups": 4
+      }
+    },
+    {
+      "name": "car frontdetail 1.7777777777777777 complete animated conservative bounds visible",
+      "pass": true,
+      "detail": {
+        "vehicle": "car",
+        "view": "frontdetail",
+        "aspect": 1.7777777777777777,
+        "maxX": 0.701599942257146,
+        "maxY": 0.59549449098803,
+        "minDepth": 0.857596316979912,
+        "clear": true,
+        "points": 344,
+        "eye": [
+          32.633799908126534,
+          0.3105274044742549,
+          -18.145101387419444
+        ],
+        "target": [
+          31.41004449891278,
+          0.13325049927961152,
+          -18.580731410006376
+        ],
+        "fov": 32
+      }
+    },
+    {
+      "name": "car frontdetail 1.7777777777777777 fence sight lines clear",
+      "pass": true,
+      "detail": {
+        "vehicle": "car",
+        "view": "frontdetail",
+        "aspect": 1.7777777777777777,
+        "maxX": 0.701599942257146,
+        "maxY": 0.59549449098803,
+        "minDepth": 0.857596316979912,
+        "clear": true,
+        "points": 344,
+        "eye": [
+          32.633799908126534,
+          0.3105274044742549,
+          -18.145101387419444
+        ],
+        "target": [
+          31.41004449891278,
+          0.13325049927961152,
+          -18.580731410006376
+        ],
+        "fov": 32
+      }
+    },
+    {
+      "name": "car frontdetail 1.7777777777777777 fitting does not advance simulation/attachments",
+      "pass": true
+    },
+    {
+      "name": "car frontdetail 1.7777777777777777 exact source vertices with independently captured renderer matrices fit",
+      "pass": true,
+      "detail": {
+        "vertices": 64796,
+        "missingParts": 0,
+        "reusedIdenticalMotionGroups": 4
+      }
+    },
+    {
+      "name": "car frontdetail 2.5 complete animated conservative bounds visible",
+      "pass": true,
+      "detail": {
+        "vehicle": "car",
+        "view": "frontdetail",
+        "aspect": 2.5,
+        "maxX": 0.49891551449397037,
+        "maxY": 0.59549449098803,
+        "minDepth": 0.857596316979912,
+        "clear": true,
+        "points": 344,
+        "eye": [
+          32.633799908126534,
+          0.3105274044742549,
+          -18.145101387419444
+        ],
+        "target": [
+          31.41004449891278,
+          0.13325049927961152,
+          -18.580731410006376
+        ],
+        "fov": 32
+      }
+    },
+    {
+      "name": "car frontdetail 2.5 fence sight lines clear",
+      "pass": true,
+      "detail": {
+        "vehicle": "car",
+        "view": "frontdetail",
+        "aspect": 2.5,
+        "maxX": 0.49891551449397037,
+        "maxY": 0.59549449098803,
+        "minDepth": 0.857596316979912,
+        "clear": true,
+        "points": 344,
+        "eye": [
+          32.633799908126534,
+          0.3105274044742549,
+          -18.145101387419444
+        ],
+        "target": [
+          31.41004449891278,
+          0.13325049927961152,
+          -18.580731410006376
+        ],
+        "fov": 32
+      }
+    },
+    {
+      "name": "car frontdetail 2.5 fitting does not advance simulation/attachments",
+      "pass": true
+    },
+    {
+      "name": "car frontdetail 2.5 exact source vertices with independently captured renderer matrices fit",
+      "pass": true,
+      "detail": {
+        "vertices": 64796,
+        "missingParts": 0,
+        "reusedIdenticalMotionGroups": 4
+      }
+    },
+    {
+      "name": "car_vms detail 0.55 complete animated conservative bounds visible",
+      "pass": true,
+      "detail": {
+        "vehicle": "car_vms",
+        "view": "detail",
+        "aspect": 0.55,
+        "maxX": 0.8318149080272593,
+        "maxY": 0.3092878776880941,
+        "minDepth": 1.5933131823037305,
+        "clear": true,
+        "points": 480,
+        "eye": [
+          48.314051571640306,
+          0.7853500910847461,
+          -20.89206901868139
+        ],
+        "target": [
+          50.31484346603318,
+          0.42163373784178393,
+          -22.33612865961947
+        ],
+        "fov": 30
+      }
+    },
+    {
+      "name": "car_vms detail 0.55 fence sight lines clear",
+      "pass": true,
+      "detail": {
+        "vehicle": "car_vms",
+        "view": "detail",
+        "aspect": 0.55,
+        "maxX": 0.8318149080272593,
+        "maxY": 0.3092878776880941,
+        "minDepth": 1.5933131823037305,
+        "clear": true,
+        "points": 480,
+        "eye": [
+          48.314051571640306,
+          0.7853500910847461,
+          -20.89206901868139
+        ],
+        "target": [
+          50.31484346603318,
+          0.42163373784178393,
+          -22.33612865961947
+        ],
+        "fov": 30
+      }
+    },
+    {
+      "name": "car_vms detail 0.55 fitting does not advance simulation/attachments",
+      "pass": true
+    },
+    {
+      "name": "car_vms detail 0.55 exact source vertices with independently captured renderer matrices fit",
+      "pass": true,
+      "detail": {
+        "vertices": 75010,
+        "missingParts": 0,
+        "reusedIdenticalMotionGroups": 6
+      }
+    },
+    {
+      "name": "car_vms detail 0.75 complete animated conservative bounds visible",
+      "pass": true,
+      "detail": {
+        "vehicle": "car_vms",
+        "view": "detail",
+        "aspect": 0.75,
+        "maxX": 0.8318149080272592,
+        "maxY": 0.421756196847401,
+        "minDepth": 1.5933131823037305,
+        "clear": true,
+        "points": 480,
+        "eye": [
+          48.314051571640306,
+          0.7853500910847461,
+          -20.89206901868139
+        ],
+        "target": [
+          50.31484346603318,
+          0.42163373784178393,
+          -22.33612865961947
+        ],
+        "fov": 30
+      }
+    },
+    {
+      "name": "car_vms detail 0.75 fence sight lines clear",
+      "pass": true,
+      "detail": {
+        "vehicle": "car_vms",
+        "view": "detail",
+        "aspect": 0.75,
+        "maxX": 0.8318149080272592,
+        "maxY": 0.421756196847401,
+        "minDepth": 1.5933131823037305,
+        "clear": true,
+        "points": 480,
+        "eye": [
+          48.314051571640306,
+          0.7853500910847461,
+          -20.89206901868139
+        ],
+        "target": [
+          50.31484346603318,
+          0.42163373784178393,
+          -22.33612865961947
+        ],
+        "fov": 30
+      }
+    },
+    {
+      "name": "car_vms detail 0.75 fitting does not advance simulation/attachments",
+      "pass": true
+    },
+    {
+      "name": "car_vms detail 0.75 exact source vertices with independently captured renderer matrices fit",
+      "pass": true,
+      "detail": {
+        "vertices": 75010,
+        "missingParts": 0,
+        "reusedIdenticalMotionGroups": 6
+      }
+    },
+    {
+      "name": "car_vms detail 1.7777777777777777 complete animated conservative bounds visible",
+      "pass": true,
+      "detail": {
+        "vehicle": "car_vms",
+        "view": "detail",
+        "aspect": 1.7777777777777777,
+        "maxX": 0.7049005943173676,
+        "maxY": 0.8341854424026129,
+        "minDepth": 1.9230457209165737,
+        "clear": true,
+        "points": 480,
+        "eye": [
+          48.049541756718654,
+          0.8334343249073083,
+          -20.701160634140845
+        ],
+        "target": [
+          50.31484346603318,
+          0.42163373784178393,
+          -22.33612865961947
+        ],
+        "fov": 30
+      }
+    },
+    {
+      "name": "car_vms detail 1.7777777777777777 fence sight lines clear",
+      "pass": true,
+      "detail": {
+        "vehicle": "car_vms",
+        "view": "detail",
+        "aspect": 1.7777777777777777,
+        "maxX": 0.7049005943173676,
+        "maxY": 0.8341854424026129,
+        "minDepth": 1.9230457209165737,
+        "clear": true,
+        "points": 480,
+        "eye": [
+          48.049541756718654,
+          0.8334343249073083,
+          -20.701160634140845
+        ],
+        "target": [
+          50.31484346603318,
+          0.42163373784178393,
+          -22.33612865961947
+        ],
+        "fov": 30
+      }
+    },
+    {
+      "name": "car_vms detail 1.7777777777777777 fitting does not advance simulation/attachments",
+      "pass": true
+    },
+    {
+      "name": "car_vms detail 1.7777777777777777 exact source vertices with independently captured renderer matrices fit",
+      "pass": true,
+      "detail": {
+        "vertices": 75010,
+        "missingParts": 0,
+        "reusedIdenticalMotionGroups": 6
+      }
+    },
+    {
+      "name": "car_vms detail 2.5 complete animated conservative bounds visible",
+      "pass": true,
+      "detail": {
+        "vehicle": "car_vms",
+        "view": "detail",
+        "aspect": 2.5,
+        "maxX": 0.5012626448479058,
+        "maxY": 0.8341854424026129,
+        "minDepth": 1.9230457209165737,
+        "clear": true,
+        "points": 480,
+        "eye": [
+          48.049541756718654,
+          0.8334343249073083,
+          -20.701160634140845
+        ],
+        "target": [
+          50.31484346603318,
+          0.42163373784178393,
+          -22.33612865961947
+        ],
+        "fov": 30
+      }
+    },
+    {
+      "name": "car_vms detail 2.5 fence sight lines clear",
+      "pass": true,
+      "detail": {
+        "vehicle": "car_vms",
+        "view": "detail",
+        "aspect": 2.5,
+        "maxX": 0.5012626448479058,
+        "maxY": 0.8341854424026129,
+        "minDepth": 1.9230457209165737,
+        "clear": true,
+        "points": 480,
+        "eye": [
+          48.049541756718654,
+          0.8334343249073083,
+          -20.701160634140845
+        ],
+        "target": [
+          50.31484346603318,
+          0.42163373784178393,
+          -22.33612865961947
+        ],
+        "fov": 30
+      }
+    },
+    {
+      "name": "car_vms detail 2.5 fitting does not advance simulation/attachments",
+      "pass": true
+    },
+    {
+      "name": "car_vms detail 2.5 exact source vertices with independently captured renderer matrices fit",
+      "pass": true,
+      "detail": {
+        "vertices": 75010,
+        "missingParts": 0,
+        "reusedIdenticalMotionGroups": 6
+      }
+    },
+    {
+      "name": "car_vms frontdetail 0.55 complete animated conservative bounds visible",
+      "pass": true,
+      "detail": {
+        "vehicle": "car_vms",
+        "view": "frontdetail",
+        "aspect": 0.55,
+        "maxX": 0.8319730214244976,
+        "maxY": 0.34589951107008887,
+        "minDepth": 1.482839466591883,
+        "clear": true,
+        "points": 480,
+        "eye": [
+          52.21154823642934,
+          0.7380395367401884,
+          -21.002842157924775
+        ],
+        "target": [
+          50.31484346603318,
+          0.42163373784178393,
+          -22.33612865961947
+        ],
+        "fov": 32
+      }
+    },
+    {
+      "name": "car_vms frontdetail 0.55 fence sight lines clear",
+      "pass": true,
+      "detail": {
+        "vehicle": "car_vms",
+        "view": "frontdetail",
+        "aspect": 0.55,
+        "maxX": 0.8319730214244976,
+        "maxY": 0.34589951107008887,
+        "minDepth": 1.482839466591883,
+        "clear": true,
+        "points": 480,
+        "eye": [
+          52.21154823642934,
+          0.7380395367401884,
+          -21.002842157924775
+        ],
+        "target": [
+          50.31484346603318,
+          0.42163373784178393,
+          -22.33612865961947
+        ],
+        "fov": 32
+      }
+    },
+    {
+      "name": "car_vms frontdetail 0.55 fitting does not advance simulation/attachments",
+      "pass": true
+    },
+    {
+      "name": "car_vms frontdetail 0.55 exact source vertices with independently captured renderer matrices fit",
+      "pass": true,
+      "detail": {
+        "vertices": 75010,
+        "missingParts": 0,
+        "reusedIdenticalMotionGroups": 6
+      }
+    },
+    {
+      "name": "car_vms frontdetail 0.75 complete animated conservative bounds visible",
+      "pass": true,
+      "detail": {
+        "vehicle": "car_vms",
+        "view": "frontdetail",
+        "aspect": 0.75,
+        "maxX": 0.8319730214244975,
+        "maxY": 0.471681151459212,
+        "minDepth": 1.482839466591883,
+        "clear": true,
+        "points": 480,
+        "eye": [
+          52.21154823642934,
+          0.7380395367401884,
+          -21.002842157924775
+        ],
+        "target": [
+          50.31484346603318,
+          0.42163373784178393,
+          -22.33612865961947
+        ],
+        "fov": 32
+      }
+    },
+    {
+      "name": "car_vms frontdetail 0.75 fence sight lines clear",
+      "pass": true,
+      "detail": {
+        "vehicle": "car_vms",
+        "view": "frontdetail",
+        "aspect": 0.75,
+        "maxX": 0.8319730214244975,
+        "maxY": 0.471681151459212,
+        "minDepth": 1.482839466591883,
+        "clear": true,
+        "points": 480,
+        "eye": [
+          52.21154823642934,
+          0.7380395367401884,
+          -21.002842157924775
+        ],
+        "target": [
+          50.31484346603318,
+          0.42163373784178393,
+          -22.33612865961947
+        ],
+        "fov": 32
+      }
+    },
+    {
+      "name": "car_vms frontdetail 0.75 fitting does not advance simulation/attachments",
+      "pass": true
+    },
+    {
+      "name": "car_vms frontdetail 0.75 exact source vertices with independently captured renderer matrices fit",
+      "pass": true,
+      "detail": {
+        "vertices": 75010,
+        "missingParts": 0,
+        "reusedIdenticalMotionGroups": 6
+      }
+    },
+    {
+      "name": "car_vms frontdetail 1.7777777777777777 complete animated conservative bounds visible",
+      "pass": true,
+      "detail": {
+        "vehicle": "car_vms",
+        "view": "frontdetail",
+        "aspect": 1.7777777777777777,
+        "maxX": 0.6351576002587078,
+        "maxY": 0.8314842879042372,
+        "minDepth": 2.00275532660302,
+        "clear": true,
+        "points": 480,
+        "eye": [
+          52.632983280754175,
+          0.808342777373435,
+          -20.7065948638232
+        ],
+        "target": [
+          50.31484346603318,
+          0.42163373784178393,
+          -22.33612865961947
+        ],
+        "fov": 32
+      }
+    },
+    {
+      "name": "car_vms frontdetail 1.7777777777777777 fence sight lines clear",
+      "pass": true,
+      "detail": {
+        "vehicle": "car_vms",
+        "view": "frontdetail",
+        "aspect": 1.7777777777777777,
+        "maxX": 0.6351576002587078,
+        "maxY": 0.8314842879042372,
+        "minDepth": 2.00275532660302,
+        "clear": true,
+        "points": 480,
+        "eye": [
+          52.632983280754175,
+          0.808342777373435,
+          -20.7065948638232
+        ],
+        "target": [
+          50.31484346603318,
+          0.42163373784178393,
+          -22.33612865961947
+        ],
+        "fov": 32
+      }
+    },
+    {
+      "name": "car_vms frontdetail 1.7777777777777777 fitting does not advance simulation/attachments",
+      "pass": true
+    },
+    {
+      "name": "car_vms frontdetail 1.7777777777777777 exact source vertices with independently captured renderer matrices fit",
+      "pass": true,
+      "detail": {
+        "vertices": 75010,
+        "missingParts": 0,
+        "reusedIdenticalMotionGroups": 6
+      }
+    },
+    {
+      "name": "car_vms frontdetail 2.5 complete animated conservative bounds visible",
+      "pass": true,
+      "detail": {
+        "vehicle": "car_vms",
+        "view": "frontdetail",
+        "aspect": 2.5,
+        "maxX": 0.45166762685063666,
+        "maxY": 0.8314842879042372,
+        "minDepth": 2.00275532660302,
+        "clear": true,
+        "points": 480,
+        "eye": [
+          52.632983280754175,
+          0.808342777373435,
+          -20.7065948638232
+        ],
+        "target": [
+          50.31484346603318,
+          0.42163373784178393,
+          -22.33612865961947
+        ],
+        "fov": 32
+      }
+    },
+    {
+      "name": "car_vms frontdetail 2.5 fence sight lines clear",
+      "pass": true,
+      "detail": {
+        "vehicle": "car_vms",
+        "view": "frontdetail",
+        "aspect": 2.5,
+        "maxX": 0.45166762685063666,
+        "maxY": 0.8314842879042372,
+        "minDepth": 2.00275532660302,
+        "clear": true,
+        "points": 480,
+        "eye": [
+          52.632983280754175,
+          0.808342777373435,
+          -20.7065948638232
+        ],
+        "target": [
+          50.31484346603318,
+          0.42163373784178393,
+          -22.33612865961947
+        ],
+        "fov": 32
+      }
+    },
+    {
+      "name": "car_vms frontdetail 2.5 fitting does not advance simulation/attachments",
+      "pass": true
+    },
+    {
+      "name": "car_vms frontdetail 2.5 exact source vertices with independently captured renderer matrices fit",
+      "pass": true,
+      "detail": {
+        "vertices": 75010,
+        "missingParts": 0,
+        "reusedIdenticalMotionGroups": 6
+      }
+    },
+    {
+      "name": "car_loo detail 0.55 complete animated conservative bounds visible",
+      "pass": true,
+      "detail": {
+        "vehicle": "car_loo",
+        "view": "detail",
+        "aspect": 0.55,
+        "maxX": 0.8322640380886159,
+        "maxY": 0.24159152842796688,
+        "minDepth": 1.544187626450029,
+        "clear": true,
+        "points": 544,
+        "eye": [
+          48.41248350666455,
+          0.6455480304683412,
+          -20.937284756189303
+        ],
+        "target": [
+          50.36374782315269,
+          0.2908351073526942,
+          -22.34559816256592
+        ],
+        "fov": 30
+      }
+    },
+    {
+      "name": "car_loo detail 0.55 fence sight lines clear",
+      "pass": true,
+      "detail": {
+        "vehicle": "car_loo",
+        "view": "detail",
+        "aspect": 0.55,
+        "maxX": 0.8322640380886159,
+        "maxY": 0.24159152842796688,
+        "minDepth": 1.544187626450029,
+        "clear": true,
+        "points": 544,
+        "eye": [
+          48.41248350666455,
+          0.6455480304683412,
+          -20.937284756189303
+        ],
+        "target": [
+          50.36374782315269,
+          0.2908351073526942,
+          -22.34559816256592
+        ],
+        "fov": 30
+      }
+    },
+    {
+      "name": "car_loo detail 0.55 fitting does not advance simulation/attachments",
+      "pass": true
+    },
+    {
+      "name": "car_loo detail 0.55 exact source vertices with independently captured renderer matrices fit",
+      "pass": true,
+      "detail": {
+        "vertices": 77629,
+        "missingParts": 0,
+        "reusedIdenticalMotionGroups": 6
+      }
+    },
+    {
+      "name": "car_loo detail 0.75 complete animated conservative bounds visible",
+      "pass": true,
+      "detail": {
+        "vehicle": "car_loo",
+        "view": "detail",
+        "aspect": 0.75,
+        "maxX": 0.8322640380886158,
+        "maxY": 0.32944299331086385,
+        "minDepth": 1.544187626450029,
+        "clear": true,
+        "points": 544,
+        "eye": [
+          48.41248350666455,
+          0.6455480304683412,
+          -20.937284756189303
+        ],
+        "target": [
+          50.36374782315269,
+          0.2908351073526942,
+          -22.34559816256592
+        ],
+        "fov": 30
+      }
+    },
+    {
+      "name": "car_loo detail 0.75 fence sight lines clear",
+      "pass": true,
+      "detail": {
+        "vehicle": "car_loo",
+        "view": "detail",
+        "aspect": 0.75,
+        "maxX": 0.8322640380886158,
+        "maxY": 0.32944299331086385,
+        "minDepth": 1.544187626450029,
+        "clear": true,
+        "points": 544,
+        "eye": [
+          48.41248350666455,
+          0.6455480304683412,
+          -20.937284756189303
+        ],
+        "target": [
+          50.36374782315269,
+          0.2908351073526942,
+          -22.34559816256592
+        ],
+        "fov": 30
+      }
+    },
+    {
+      "name": "car_loo detail 0.75 fitting does not advance simulation/attachments",
+      "pass": true
+    },
+    {
+      "name": "car_loo detail 0.75 exact source vertices with independently captured renderer matrices fit",
+      "pass": true,
+      "detail": {
+        "vertices": 77629,
+        "missingParts": 0,
+        "reusedIdenticalMotionGroups": 6
+      }
+    },
+    {
+      "name": "car_loo detail 1.7777777777777777 complete animated conservative bounds visible",
+      "pass": true,
+      "detail": {
+        "vehicle": "car_loo",
+        "view": "detail",
+        "aspect": 1.7777777777777777,
+        "maxX": 0.832264038088616,
+        "maxY": 0.7809019100701959,
+        "minDepth": 1.544187626450029,
+        "clear": true,
+        "points": 544,
+        "eye": [
+          48.41248350666455,
+          0.6455480304683412,
+          -20.937284756189303
+        ],
+        "target": [
+          50.36374782315269,
+          0.2908351073526942,
+          -22.34559816256592
+        ],
+        "fov": 30
+      }
+    },
+    {
+      "name": "car_loo detail 1.7777777777777777 fence sight lines clear",
+      "pass": true,
+      "detail": {
+        "vehicle": "car_loo",
+        "view": "detail",
+        "aspect": 1.7777777777777777,
+        "maxX": 0.832264038088616,
+        "maxY": 0.7809019100701959,
+        "minDepth": 1.544187626450029,
+        "clear": true,
+        "points": 544,
+        "eye": [
+          48.41248350666455,
+          0.6455480304683412,
+          -20.937284756189303
+        ],
+        "target": [
+          50.36374782315269,
+          0.2908351073526942,
+          -22.34559816256592
+        ],
+        "fov": 30
+      }
+    },
+    {
+      "name": "car_loo detail 1.7777777777777777 fitting does not advance simulation/attachments",
+      "pass": true
+    },
+    {
+      "name": "car_loo detail 1.7777777777777777 exact source vertices with independently captured renderer matrices fit",
+      "pass": true,
+      "detail": {
+        "vertices": 77629,
+        "missingParts": 0,
+        "reusedIdenticalMotionGroups": 6
+      }
+    },
+    {
+      "name": "car_loo detail 2.5 complete animated conservative bounds visible",
+      "pass": true,
+      "detail": {
+        "vehicle": "car_loo",
+        "view": "detail",
+        "aspect": 2.5,
+        "maxX": 0.6298420644007328,
+        "maxY": 0.8320127967320943,
+        "minDepth": 1.4359010240123031,
+        "clear": true,
+        "points": 544,
+        "eye": [
+          48.49935048463948,
+          0.6297568127335947,
+          -20.99998048050495
+        ],
+        "target": [
+          50.36374782315269,
+          0.2908351073526942,
+          -22.34559816256592
+        ],
+        "fov": 30
+      }
+    },
+    {
+      "name": "car_loo detail 2.5 fence sight lines clear",
+      "pass": true,
+      "detail": {
+        "vehicle": "car_loo",
+        "view": "detail",
+        "aspect": 2.5,
+        "maxX": 0.6298420644007328,
+        "maxY": 0.8320127967320943,
+        "minDepth": 1.4359010240123031,
+        "clear": true,
+        "points": 544,
+        "eye": [
+          48.49935048463948,
+          0.6297568127335947,
+          -20.99998048050495
+        ],
+        "target": [
+          50.36374782315269,
+          0.2908351073526942,
+          -22.34559816256592
+        ],
+        "fov": 30
+      }
+    },
+    {
+      "name": "car_loo detail 2.5 fitting does not advance simulation/attachments",
+      "pass": true
+    },
+    {
+      "name": "car_loo detail 2.5 exact source vertices with independently captured renderer matrices fit",
+      "pass": true,
+      "detail": {
+        "vertices": 77629,
+        "missingParts": 0,
+        "reusedIdenticalMotionGroups": 6
+      }
+    },
+    {
+      "name": "car_loo frontdetail 0.55 complete animated conservative bounds visible",
+      "pass": true,
+      "detail": {
+        "vehicle": "car_loo",
+        "view": "frontdetail",
+        "aspect": 0.55,
+        "maxX": 0.8311946297877747,
+        "maxY": 0.26637649191208407,
+        "minDepth": 1.3927131747274233,
+        "clear": true,
+        "points": 544,
+        "eye": [
+          52.173975539752725,
+          0.592814917705171,
+          -21.073100609331885
+        ],
+        "target": [
+          50.36374782315269,
+          0.2908351073526942,
+          -22.34559816256592
+        ],
+        "fov": 32
+      }
+    },
+    {
+      "name": "car_loo frontdetail 0.55 fence sight lines clear",
+      "pass": true,
+      "detail": {
+        "vehicle": "car_loo",
+        "view": "frontdetail",
+        "aspect": 0.55,
+        "maxX": 0.8311946297877747,
+        "maxY": 0.26637649191208407,
+        "minDepth": 1.3927131747274233,
+        "clear": true,
+        "points": 544,
+        "eye": [
+          52.173975539752725,
+          0.592814917705171,
+          -21.073100609331885
+        ],
+        "target": [
+          50.36374782315269,
+          0.2908351073526942,
+          -22.34559816256592
+        ],
+        "fov": 32
+      }
+    },
+    {
+      "name": "car_loo frontdetail 0.55 fitting does not advance simulation/attachments",
+      "pass": true
+    },
+    {
+      "name": "car_loo frontdetail 0.55 exact source vertices with independently captured renderer matrices fit",
+      "pass": true,
+      "detail": {
+        "vertices": 77629,
+        "missingParts": 0,
+        "reusedIdenticalMotionGroups": 6
+      }
+    },
+    {
+      "name": "car_loo frontdetail 0.75 complete animated conservative bounds visible",
+      "pass": true,
+      "detail": {
+        "vehicle": "car_loo",
+        "view": "frontdetail",
+        "aspect": 0.75,
+        "maxX": 0.8311946297877747,
+        "maxY": 0.36324067078920547,
+        "minDepth": 1.3927131747274233,
+        "clear": true,
+        "points": 544,
+        "eye": [
+          52.173975539752725,
+          0.592814917705171,
+          -21.073100609331885
+        ],
+        "target": [
+          50.36374782315269,
+          0.2908351073526942,
+          -22.34559816256592
+        ],
+        "fov": 32
+      }
+    },
+    {
+      "name": "car_loo frontdetail 0.75 fence sight lines clear",
+      "pass": true,
+      "detail": {
+        "vehicle": "car_loo",
+        "view": "frontdetail",
+        "aspect": 0.75,
+        "maxX": 0.8311946297877747,
+        "maxY": 0.36324067078920547,
+        "minDepth": 1.3927131747274233,
+        "clear": true,
+        "points": 544,
+        "eye": [
+          52.173975539752725,
+          0.592814917705171,
+          -21.073100609331885
+        ],
+        "target": [
+          50.36374782315269,
+          0.2908351073526942,
+          -22.34559816256592
+        ],
+        "fov": 32
+      }
+    },
+    {
+      "name": "car_loo frontdetail 0.75 fitting does not advance simulation/attachments",
+      "pass": true
+    },
+    {
+      "name": "car_loo frontdetail 0.75 exact source vertices with independently captured renderer matrices fit",
+      "pass": true,
+      "detail": {
+        "vertices": 77629,
+        "missingParts": 0,
+        "reusedIdenticalMotionGroups": 6
+      }
+    },
+    {
+      "name": "car_loo frontdetail 1.7777777777777777 complete animated conservative bounds visible",
+      "pass": true,
+      "detail": {
+        "vehicle": "car_loo",
+        "view": "frontdetail",
+        "aspect": 1.7777777777777777,
+        "maxX": 0.80300525741953,
+        "maxY": 0.8284596797274429,
+        "minDepth": 1.448450277143589,
+        "clear": true,
+        "points": 544,
+        "eye": [
+          52.21915509674256,
+          0.6003517120689357,
+          -21.041341690164657
+        ],
+        "target": [
+          50.36374782315269,
+          0.2908351073526942,
+          -22.34559816256592
+        ],
+        "fov": 32
+      }
+    },
+    {
+      "name": "car_loo frontdetail 1.7777777777777777 fence sight lines clear",
+      "pass": true,
+      "detail": {
+        "vehicle": "car_loo",
+        "view": "frontdetail",
+        "aspect": 1.7777777777777777,
+        "maxX": 0.80300525741953,
+        "maxY": 0.8284596797274429,
+        "minDepth": 1.448450277143589,
+        "clear": true,
+        "points": 544,
+        "eye": [
+          52.21915509674256,
+          0.6003517120689357,
+          -21.041341690164657
+        ],
+        "target": [
+          50.36374782315269,
+          0.2908351073526942,
+          -22.34559816256592
+        ],
+        "fov": 32
+      }
+    },
+    {
+      "name": "car_loo frontdetail 1.7777777777777777 fitting does not advance simulation/attachments",
+      "pass": true
+    },
+    {
+      "name": "car_loo frontdetail 1.7777777777777777 exact source vertices with independently captured renderer matrices fit",
+      "pass": true,
+      "detail": {
+        "vertices": 77629,
+        "missingParts": 0,
+        "reusedIdenticalMotionGroups": 6
+      }
+    },
+    {
+      "name": "car_loo frontdetail 2.5 complete animated conservative bounds visible",
+      "pass": true,
+      "detail": {
+        "vehicle": "car_loo",
+        "view": "frontdetail",
+        "aspect": 2.5,
+        "maxX": 0.5710259608316657,
+        "maxY": 0.8284596797274429,
+        "minDepth": 1.448450277143589,
+        "clear": true,
+        "points": 544,
+        "eye": [
+          52.21915509674256,
+          0.6003517120689357,
+          -21.041341690164657
+        ],
+        "target": [
+          50.36374782315269,
+          0.2908351073526942,
+          -22.34559816256592
+        ],
+        "fov": 32
+      }
+    },
+    {
+      "name": "car_loo frontdetail 2.5 fence sight lines clear",
+      "pass": true,
+      "detail": {
+        "vehicle": "car_loo",
+        "view": "frontdetail",
+        "aspect": 2.5,
+        "maxX": 0.5710259608316657,
+        "maxY": 0.8284596797274429,
+        "minDepth": 1.448450277143589,
+        "clear": true,
+        "points": 544,
+        "eye": [
+          52.21915509674256,
+          0.6003517120689357,
+          -21.041341690164657
+        ],
+        "target": [
+          50.36374782315269,
+          0.2908351073526942,
+          -22.34559816256592
+        ],
+        "fov": 32
+      }
+    },
+    {
+      "name": "car_loo frontdetail 2.5 fitting does not advance simulation/attachments",
+      "pass": true
+    },
+    {
+      "name": "car_loo frontdetail 2.5 exact source vertices with independently captured renderer matrices fit",
+      "pass": true,
+      "detail": {
+        "vertices": 77629,
+        "missingParts": 0,
+        "reusedIdenticalMotionGroups": 6
+      }
+    },
+    {
+      "name": "forklift detail 0.55 complete animated conservative bounds visible",
+      "pass": true,
+      "detail": {
+        "vehicle": "forklift",
+        "view": "detail",
+        "aspect": 0.55,
+        "maxX": 0.825563176891623,
+        "maxY": 0.3644521752386793,
+        "minDepth": 0.804814056505057,
+        "clear": true,
+        "points": 144,
+        "eye": [
+          8.167822229356453,
+          0.44720056578050393,
+          -10.706354885710612
+        ],
+        "target": [
+          8.894381627162137,
+          0.2600904758784171,
+          -11.747227157460813
+        ],
+        "fov": 30
+      }
+    },
+    {
+      "name": "forklift detail 0.55 fence sight lines clear",
+      "pass": true,
+      "detail": {
+        "vehicle": "forklift",
+        "view": "detail",
+        "aspect": 0.55,
+        "maxX": 0.825563176891623,
+        "maxY": 0.3644521752386793,
+        "minDepth": 0.804814056505057,
+        "clear": true,
+        "points": 144,
+        "eye": [
+          8.167822229356453,
+          0.44720056578050393,
+          -10.706354885710612
+        ],
+        "target": [
+          8.894381627162137,
+          0.2600904758784171,
+          -11.747227157460813
+        ],
+        "fov": 30
+      }
+    },
+    {
+      "name": "forklift detail 0.55 fitting does not advance simulation/attachments",
+      "pass": true
+    },
+    {
+      "name": "forklift detail 0.55 exact source vertices with independently captured renderer matrices fit",
+      "pass": true,
+      "detail": {
+        "vertices": 15775,
+        "missingParts": 0,
+        "reusedIdenticalMotionGroups": 2
+      }
+    },
+    {
+      "name": "forklift detail 0.75 complete animated conservative bounds visible",
+      "pass": true,
+      "detail": {
+        "vehicle": "forklift",
+        "view": "detail",
+        "aspect": 0.75,
+        "maxX": 0.8255631768916227,
+        "maxY": 0.49698023896183524,
+        "minDepth": 0.804814056505057,
+        "clear": true,
+        "points": 144,
+        "eye": [
+          8.167822229356453,
+          0.44720056578050393,
+          -10.706354885710612
+        ],
+        "target": [
+          8.894381627162137,
+          0.2600904758784171,
+          -11.747227157460813
+        ],
+        "fov": 30
+      }
+    },
+    {
+      "name": "forklift detail 0.75 fence sight lines clear",
+      "pass": true,
+      "detail": {
+        "vehicle": "forklift",
+        "view": "detail",
+        "aspect": 0.75,
+        "maxX": 0.8255631768916227,
+        "maxY": 0.49698023896183524,
+        "minDepth": 0.804814056505057,
+        "clear": true,
+        "points": 144,
+        "eye": [
+          8.167822229356453,
+          0.44720056578050393,
+          -10.706354885710612
+        ],
+        "target": [
+          8.894381627162137,
+          0.2600904758784171,
+          -11.747227157460813
+        ],
+        "fov": 30
+      }
+    },
+    {
+      "name": "forklift detail 0.75 fitting does not advance simulation/attachments",
+      "pass": true
+    },
+    {
+      "name": "forklift detail 0.75 exact source vertices with independently captured renderer matrices fit",
+      "pass": true,
+      "detail": {
+        "vertices": 15775,
+        "missingParts": 0,
+        "reusedIdenticalMotionGroups": 2
+      }
+    },
+    {
+      "name": "forklift detail 1.7777777777777777 complete animated conservative bounds visible",
+      "pass": true,
+      "detail": {
+        "vehicle": "forklift",
+        "view": "detail",
+        "aspect": 1.7777777777777777,
+        "maxX": 0.5839062702546914,
+        "maxY": 0.8296387755558037,
+        "minDepth": 1.2149832866183004,
+        "clear": true,
+        "points": 144,
+        "eye": [
+          7.935560375131616,
+          0.507014720763683,
+          -10.37361550531301
+        ],
+        "target": [
+          8.894381627162137,
+          0.2600904758784171,
+          -11.747227157460813
+        ],
+        "fov": 30
+      }
+    },
+    {
+      "name": "forklift detail 1.7777777777777777 fence sight lines clear",
+      "pass": true,
+      "detail": {
+        "vehicle": "forklift",
+        "view": "detail",
+        "aspect": 1.7777777777777777,
+        "maxX": 0.5839062702546914,
+        "maxY": 0.8296387755558037,
+        "minDepth": 1.2149832866183004,
+        "clear": true,
+        "points": 144,
+        "eye": [
+          7.935560375131616,
+          0.507014720763683,
+          -10.37361550531301
+        ],
+        "target": [
+          8.894381627162137,
+          0.2600904758784171,
+          -11.747227157460813
+        ],
+        "fov": 30
+      }
+    },
+    {
+      "name": "forklift detail 1.7777777777777777 fitting does not advance simulation/attachments",
+      "pass": true
+    },
+    {
+      "name": "forklift detail 1.7777777777777777 exact source vertices with independently captured renderer matrices fit",
+      "pass": true,
+      "detail": {
+        "vertices": 15775,
+        "missingParts": 0,
+        "reusedIdenticalMotionGroups": 2
+      }
+    },
+    {
+      "name": "forklift detail 2.5 complete animated conservative bounds visible",
+      "pass": true,
+      "detail": {
+        "vehicle": "forklift",
+        "view": "detail",
+        "aspect": 2.5,
+        "maxX": 0.41522223662555835,
+        "maxY": 0.8296387755558037,
+        "minDepth": 1.2149832866183004,
+        "clear": true,
+        "points": 144,
+        "eye": [
+          7.935560375131616,
+          0.507014720763683,
+          -10.37361550531301
+        ],
+        "target": [
+          8.894381627162137,
+          0.2600904758784171,
+          -11.747227157460813
+        ],
+        "fov": 30
+      }
+    },
+    {
+      "name": "forklift detail 2.5 fence sight lines clear",
+      "pass": true,
+      "detail": {
+        "vehicle": "forklift",
+        "view": "detail",
+        "aspect": 2.5,
+        "maxX": 0.41522223662555835,
+        "maxY": 0.8296387755558037,
+        "minDepth": 1.2149832866183004,
+        "clear": true,
+        "points": 144,
+        "eye": [
+          7.935560375131616,
+          0.507014720763683,
+          -10.37361550531301
+        ],
+        "target": [
+          8.894381627162137,
+          0.2600904758784171,
+          -11.747227157460813
+        ],
+        "fov": 30
+      }
+    },
+    {
+      "name": "forklift detail 2.5 fitting does not advance simulation/attachments",
+      "pass": true
+    },
+    {
+      "name": "forklift detail 2.5 exact source vertices with independently captured renderer matrices fit",
+      "pass": true,
+      "detail": {
+        "vertices": 15775,
+        "missingParts": 0,
+        "reusedIdenticalMotionGroups": 2
+      }
+    },
+    {
+      "name": "forklift frontdetail 0.55 complete animated conservative bounds visible",
+      "pass": true,
+      "detail": {
+        "vehicle": "forklift",
+        "view": "frontdetail",
+        "aspect": 0.55,
+        "maxX": 0.8240652184828127,
+        "maxY": 0.3865650246250741,
+        "minDepth": 0.7192057271852401,
+        "clear": true,
+        "points": 144,
+        "eye": [
+          10.012713485110385,
+          0.418738588152139,
+          -11.429905080987906
+        ],
+        "target": [
+          8.894381627162137,
+          0.2600904758784171,
+          -11.747227157460813
+        ],
+        "fov": 32
+      }
+    },
+    {
+      "name": "forklift frontdetail 0.55 fence sight lines clear",
+      "pass": true,
+      "detail": {
+        "vehicle": "forklift",
+        "view": "frontdetail",
+        "aspect": 0.55,
+        "maxX": 0.8240652184828127,
+        "maxY": 0.3865650246250741,
+        "minDepth": 0.7192057271852401,
+        "clear": true,
+        "points": 144,
+        "eye": [
+          10.012713485110385,
+          0.418738588152139,
+          -11.429905080987906
+        ],
+        "target": [
+          8.894381627162137,
+          0.2600904758784171,
+          -11.747227157460813
+        ],
+        "fov": 32
+      }
+    },
+    {
+      "name": "forklift frontdetail 0.55 fitting does not advance simulation/attachments",
+      "pass": true
+    },
+    {
+      "name": "forklift frontdetail 0.55 exact source vertices with independently captured renderer matrices fit",
+      "pass": true,
+      "detail": {
+        "vertices": 15775,
+        "missingParts": 0,
+        "reusedIdenticalMotionGroups": 2
+      }
+    },
+    {
+      "name": "forklift frontdetail 0.75 complete animated conservative bounds visible",
+      "pass": true,
+      "detail": {
+        "vehicle": "forklift",
+        "view": "frontdetail",
+        "aspect": 0.75,
+        "maxX": 0.8240652184828127,
+        "maxY": 0.5271341244887373,
+        "minDepth": 0.7192057271852401,
+        "clear": true,
+        "points": 144,
+        "eye": [
+          10.012713485110385,
+          0.418738588152139,
+          -11.429905080987906
+        ],
+        "target": [
+          8.894381627162137,
+          0.2600904758784171,
+          -11.747227157460813
+        ],
+        "fov": 32
+      }
+    },
+    {
+      "name": "forklift frontdetail 0.75 fence sight lines clear",
+      "pass": true,
+      "detail": {
+        "vehicle": "forklift",
+        "view": "frontdetail",
+        "aspect": 0.75,
+        "maxX": 0.8240652184828127,
+        "maxY": 0.5271341244887373,
+        "minDepth": 0.7192057271852401,
+        "clear": true,
+        "points": 144,
+        "eye": [
+          10.012713485110385,
+          0.418738588152139,
+          -11.429905080987906
+        ],
+        "target": [
+          8.894381627162137,
+          0.2600904758784171,
+          -11.747227157460813
+        ],
+        "fov": 32
+      }
+    },
+    {
+      "name": "forklift frontdetail 0.75 fitting does not advance simulation/attachments",
+      "pass": true
+    },
+    {
+      "name": "forklift frontdetail 0.75 exact source vertices with independently captured renderer matrices fit",
+      "pass": true,
+      "detail": {
+        "vertices": 15775,
+        "missingParts": 0,
+        "reusedIdenticalMotionGroups": 2
+      }
+    },
+    {
+      "name": "forklift frontdetail 1.7777777777777777 complete animated conservative bounds visible",
+      "pass": true,
+      "detail": {
+        "vehicle": "forklift",
+        "view": "frontdetail",
+        "aspect": 1.7777777777777777,
+        "maxX": 0.5790884050620551,
+        "maxY": 0.8271858456591819,
+        "minDepth": 1.1014767920858726,
+        "clear": true,
+        "points": 144,
+        "eye": [
+          10.377089257649716,
+          0.4704294418650082,
+          -11.326514950467319
+        ],
+        "target": [
+          8.894381627162137,
+          0.2600904758784171,
+          -11.747227157460813
+        ],
+        "fov": 32
+      }
+    },
+    {
+      "name": "forklift frontdetail 1.7777777777777777 fence sight lines clear",
+      "pass": true,
+      "detail": {
+        "vehicle": "forklift",
+        "view": "frontdetail",
+        "aspect": 1.7777777777777777,
+        "maxX": 0.5790884050620551,
+        "maxY": 0.8271858456591819,
+        "minDepth": 1.1014767920858726,
+        "clear": true,
+        "points": 144,
+        "eye": [
+          10.377089257649716,
+          0.4704294418650082,
+          -11.326514950467319
+        ],
+        "target": [
+          8.894381627162137,
+          0.2600904758784171,
+          -11.747227157460813
+        ],
+        "fov": 32
+      }
+    },
+    {
+      "name": "forklift frontdetail 1.7777777777777777 fitting does not advance simulation/attachments",
+      "pass": true
+    },
+    {
+      "name": "forklift frontdetail 1.7777777777777777 exact source vertices with independently captured renderer matrices fit",
+      "pass": true,
+      "detail": {
+        "vertices": 15775,
+        "missingParts": 0,
+        "reusedIdenticalMotionGroups": 2
+      }
+    },
+    {
+      "name": "forklift frontdetail 2.5 complete animated conservative bounds visible",
+      "pass": true,
+      "detail": {
+        "vehicle": "forklift",
+        "view": "frontdetail",
+        "aspect": 2.5,
+        "maxX": 0.4117961991552391,
+        "maxY": 0.8271858456591819,
+        "minDepth": 1.1014767920858726,
+        "clear": true,
+        "points": 144,
+        "eye": [
+          10.377089257649716,
+          0.4704294418650082,
+          -11.326514950467319
+        ],
+        "target": [
+          8.894381627162137,
+          0.2600904758784171,
+          -11.747227157460813
+        ],
+        "fov": 32
+      }
+    },
+    {
+      "name": "forklift frontdetail 2.5 fence sight lines clear",
+      "pass": true,
+      "detail": {
+        "vehicle": "forklift",
+        "view": "frontdetail",
+        "aspect": 2.5,
+        "maxX": 0.4117961991552391,
+        "maxY": 0.8271858456591819,
+        "minDepth": 1.1014767920858726,
+        "clear": true,
+        "points": 144,
+        "eye": [
+          10.377089257649716,
+          0.4704294418650082,
+          -11.326514950467319
+        ],
+        "target": [
+          8.894381627162137,
+          0.2600904758784171,
+          -11.747227157460813
+        ],
+        "fov": 32
+      }
+    },
+    {
+      "name": "forklift frontdetail 2.5 fitting does not advance simulation/attachments",
+      "pass": true
+    },
+    {
+      "name": "forklift frontdetail 2.5 exact source vertices with independently captured renderer matrices fit",
+      "pass": true,
+      "detail": {
+        "vertices": 15775,
+        "missingParts": 0,
+        "reusedIdenticalMotionGroups": 2
+      }
+    },
+    {
+      "name": "boom detail 0.55 complete animated conservative bounds visible",
+      "pass": true,
+      "detail": {
+        "vehicle": "boom",
+        "view": "detail",
+        "aspect": 0.55,
+        "maxX": 0.8292730263413609,
+        "maxY": 0.2624778428104018,
+        "minDepth": 1.075598366529011,
+        "clear": true,
+        "points": 176,
+        "eye": [
+          2.1345713228200776,
+          0.4590208515089034,
+          -8.418290045728968
+        ],
+        "target": [
+          3.095253201150406,
+          0.21710192969488892,
+          -9.748938572456698
+        ],
+        "fov": 30
+      }
+    },
+    {
+      "name": "boom detail 0.55 fence sight lines clear",
+      "pass": true,
+      "detail": {
+        "vehicle": "boom",
+        "view": "detail",
+        "aspect": 0.55,
+        "maxX": 0.8292730263413609,
+        "maxY": 0.2624778428104018,
+        "minDepth": 1.075598366529011,
+        "clear": true,
+        "points": 176,
+        "eye": [
+          2.1345713228200776,
+          0.4590208515089034,
+          -8.418290045728968
+        ],
+        "target": [
+          3.095253201150406,
+          0.21710192969488892,
+          -9.748938572456698
+        ],
+        "fov": 30
+      }
+    },
+    {
+      "name": "boom detail 0.55 fitting does not advance simulation/attachments",
+      "pass": true
+    },
+    {
+      "name": "boom detail 0.55 exact source vertices with independently captured renderer matrices fit",
+      "pass": true,
+      "detail": {
+        "vertices": 15374,
+        "missingParts": 0,
+        "reusedIdenticalMotionGroups": 2
+      }
+    },
+    {
+      "name": "boom detail 0.75 complete animated conservative bounds visible",
+      "pass": true,
+      "detail": {
+        "vehicle": "boom",
+        "view": "detail",
+        "aspect": 0.75,
+        "maxX": 0.8292730263413607,
+        "maxY": 0.3579243311050933,
+        "minDepth": 1.075598366529011,
+        "clear": true,
+        "points": 176,
+        "eye": [
+          2.1345713228200776,
+          0.4590208515089034,
+          -8.418290045728968
+        ],
+        "target": [
+          3.095253201150406,
+          0.21710192969488892,
+          -9.748938572456698
+        ],
+        "fov": 30
+      }
+    },
+    {
+      "name": "boom detail 0.75 fence sight lines clear",
+      "pass": true,
+      "detail": {
+        "vehicle": "boom",
+        "view": "detail",
+        "aspect": 0.75,
+        "maxX": 0.8292730263413607,
+        "maxY": 0.3579243311050933,
+        "minDepth": 1.075598366529011,
+        "clear": true,
+        "points": 176,
+        "eye": [
+          2.1345713228200776,
+          0.4590208515089034,
+          -8.418290045728968
+        ],
+        "target": [
+          3.095253201150406,
+          0.21710192969488892,
+          -9.748938572456698
+        ],
+        "fov": 30
+      }
+    },
+    {
+      "name": "boom detail 0.75 fitting does not advance simulation/attachments",
+      "pass": true
+    },
+    {
+      "name": "boom detail 0.75 exact source vertices with independently captured renderer matrices fit",
+      "pass": true,
+      "detail": {
+        "vertices": 15374,
+        "missingParts": 0,
+        "reusedIdenticalMotionGroups": 2
+      }
+    },
+    {
+      "name": "boom detail 1.7777777777777777 complete animated conservative bounds visible",
+      "pass": true,
+      "detail": {
+        "vehicle": "boom",
+        "view": "detail",
+        "aspect": 1.7777777777777777,
+        "maxX": 0.8121512180041502,
+        "maxY": 0.8279474778022968,
+        "minDepth": 1.103472556379434,
+        "clear": true,
+        "points": 176,
+        "eye": [
+          2.1184294876566323,
+          0.4630856886281662,
+          -8.395931854465642
+        ],
+        "target": [
+          3.095253201150406,
+          0.21710192969488892,
+          -9.748938572456698
+        ],
+        "fov": 30
+      }
+    },
+    {
+      "name": "boom detail 1.7777777777777777 fence sight lines clear",
+      "pass": true,
+      "detail": {
+        "vehicle": "boom",
+        "view": "detail",
+        "aspect": 1.7777777777777777,
+        "maxX": 0.8121512180041502,
+        "maxY": 0.8279474778022968,
+        "minDepth": 1.103472556379434,
+        "clear": true,
+        "points": 176,
+        "eye": [
+          2.1184294876566323,
+          0.4630856886281662,
+          -8.395931854465642
+        ],
+        "target": [
+          3.095253201150406,
+          0.21710192969488892,
+          -9.748938572456698
+        ],
+        "fov": 30
+      }
+    },
+    {
+      "name": "boom detail 1.7777777777777777 fitting does not advance simulation/attachments",
+      "pass": true
+    },
+    {
+      "name": "boom detail 1.7777777777777777 exact source vertices with independently captured renderer matrices fit",
+      "pass": true,
+      "detail": {
+        "vertices": 15374,
+        "missingParts": 0,
+        "reusedIdenticalMotionGroups": 2
+      }
+    },
+    {
+      "name": "boom detail 2.5 complete animated conservative bounds visible",
+      "pass": true,
+      "detail": {
+        "vehicle": "boom",
+        "view": "detail",
+        "aspect": 2.5,
+        "maxX": 0.5775297550251736,
+        "maxY": 0.8279474778022968,
+        "minDepth": 1.103472556379434,
+        "clear": true,
+        "points": 176,
+        "eye": [
+          2.1184294876566323,
+          0.4630856886281662,
+          -8.395931854465642
+        ],
+        "target": [
+          3.095253201150406,
+          0.21710192969488892,
+          -9.748938572456698
+        ],
+        "fov": 30
+      }
+    },
+    {
+      "name": "boom detail 2.5 fence sight lines clear",
+      "pass": true,
+      "detail": {
+        "vehicle": "boom",
+        "view": "detail",
+        "aspect": 2.5,
+        "maxX": 0.5775297550251736,
+        "maxY": 0.8279474778022968,
+        "minDepth": 1.103472556379434,
+        "clear": true,
+        "points": 176,
+        "eye": [
+          2.1184294876566323,
+          0.4630856886281662,
+          -8.395931854465642
+        ],
+        "target": [
+          3.095253201150406,
+          0.21710192969488892,
+          -9.748938572456698
+        ],
+        "fov": 30
+      }
+    },
+    {
+      "name": "boom detail 2.5 fitting does not advance simulation/attachments",
+      "pass": true
+    },
+    {
+      "name": "boom detail 2.5 exact source vertices with independently captured renderer matrices fit",
+      "pass": true,
+      "detail": {
+        "vertices": 15374,
+        "missingParts": 0,
+        "reusedIdenticalMotionGroups": 2
+      }
+    },
+    {
+      "name": "boom frontdetail 0.55 complete animated conservative bounds visible",
+      "pass": true,
+      "detail": {
+        "vehicle": "boom",
+        "view": "frontdetail",
+        "aspect": 0.55,
+        "maxX": 0.826765184475624,
+        "maxY": 0.16273880951488337,
+        "minDepth": 0.9463712387070072,
+        "clear": true,
+        "points": 176,
+        "eye": [
+          4.541269154561555,
+          0.42319242372051014,
+          -9.313658071413924
+        ],
+        "target": [
+          3.095253201150406,
+          0.21710192969488892,
+          -9.748938572456698
+        ],
+        "fov": 32
+      }
+    },
+    {
+      "name": "boom frontdetail 0.55 fence sight lines clear",
+      "pass": true,
+      "detail": {
+        "vehicle": "boom",
+        "view": "frontdetail",
+        "aspect": 0.55,
+        "maxX": 0.826765184475624,
+        "maxY": 0.16273880951488337,
+        "minDepth": 0.9463712387070072,
+        "clear": true,
+        "points": 176,
+        "eye": [
+          4.541269154561555,
+          0.42319242372051014,
+          -9.313658071413924
+        ],
+        "target": [
+          3.095253201150406,
+          0.21710192969488892,
+          -9.748938572456698
+        ],
+        "fov": 32
+      }
+    },
+    {
+      "name": "boom frontdetail 0.55 fitting does not advance simulation/attachments",
+      "pass": true
+    },
+    {
+      "name": "boom frontdetail 0.55 exact source vertices with independently captured renderer matrices fit",
+      "pass": true,
+      "detail": {
+        "vertices": 15374,
+        "missingParts": 0,
+        "reusedIdenticalMotionGroups": 2
+      }
+    },
+    {
+      "name": "boom frontdetail 0.75 complete animated conservative bounds visible",
+      "pass": true,
+      "detail": {
+        "vehicle": "boom",
+        "view": "frontdetail",
+        "aspect": 0.75,
+        "maxX": 0.8267651844756236,
+        "maxY": 0.22191655842938637,
+        "minDepth": 0.9463712387070072,
+        "clear": true,
+        "points": 176,
+        "eye": [
+          4.541269154561555,
+          0.42319242372051014,
+          -9.313658071413924
+        ],
+        "target": [
+          3.095253201150406,
+          0.21710192969488892,
+          -9.748938572456698
+        ],
+        "fov": 32
+      }
+    },
+    {
+      "name": "boom frontdetail 0.75 fence sight lines clear",
+      "pass": true,
+      "detail": {
+        "vehicle": "boom",
+        "view": "frontdetail",
+        "aspect": 0.75,
+        "maxX": 0.8267651844756236,
+        "maxY": 0.22191655842938637,
+        "minDepth": 0.9463712387070072,
+        "clear": true,
+        "points": 176,
+        "eye": [
+          4.541269154561555,
+          0.42319242372051014,
+          -9.313658071413924
+        ],
+        "target": [
+          3.095253201150406,
+          0.21710192969488892,
+          -9.748938572456698
+        ],
+        "fov": 32
+      }
+    },
+    {
+      "name": "boom frontdetail 0.75 fitting does not advance simulation/attachments",
+      "pass": true
+    },
+    {
+      "name": "boom frontdetail 0.75 exact source vertices with independently captured renderer matrices fit",
+      "pass": true,
+      "detail": {
+        "vertices": 15374,
+        "missingParts": 0,
+        "reusedIdenticalMotionGroups": 2
+      }
+    },
+    {
+      "name": "boom frontdetail 1.7777777777777777 complete animated conservative bounds visible",
+      "pass": true,
+      "detail": {
+        "vehicle": "boom",
+        "view": "frontdetail",
+        "aspect": 1.7777777777777777,
+        "maxX": 0.8267651844756237,
+        "maxY": 0.5260244347955825,
+        "minDepth": 0.9463712387070072,
+        "clear": true,
+        "points": 176,
+        "eye": [
+          4.541269154561555,
+          0.42319242372051014,
+          -9.313658071413924
+        ],
+        "target": [
+          3.095253201150406,
+          0.21710192969488892,
+          -9.748938572456698
+        ],
+        "fov": 32
+      }
+    },
+    {
+      "name": "boom frontdetail 1.7777777777777777 fence sight lines clear",
+      "pass": true,
+      "detail": {
+        "vehicle": "boom",
+        "view": "frontdetail",
+        "aspect": 1.7777777777777777,
+        "maxX": 0.8267651844756237,
+        "maxY": 0.5260244347955825,
+        "minDepth": 0.9463712387070072,
+        "clear": true,
+        "points": 176,
+        "eye": [
+          4.541269154561555,
+          0.42319242372051014,
+          -9.313658071413924
+        ],
+        "target": [
+          3.095253201150406,
+          0.21710192969488892,
+          -9.748938572456698
+        ],
+        "fov": 32
+      }
+    },
+    {
+      "name": "boom frontdetail 1.7777777777777777 fitting does not advance simulation/attachments",
+      "pass": true
+    },
+    {
+      "name": "boom frontdetail 1.7777777777777777 exact source vertices with independently captured renderer matrices fit",
+      "pass": true,
+      "detail": {
+        "vertices": 15374,
+        "missingParts": 0,
+        "reusedIdenticalMotionGroups": 2
+      }
+    },
+    {
+      "name": "boom frontdetail 2.5 complete animated conservative bounds visible",
+      "pass": true,
+      "detail": {
+        "vehicle": "boom",
+        "view": "frontdetail",
+        "aspect": 2.5,
+        "maxX": 0.8215598933846764,
+        "maxY": 0.7438667934436396,
+        "minDepth": 0.633544745629174,
+        "clear": true,
+        "points": 176,
+        "eye": [
+          4.244471182825097,
+          0.38089189413321495,
+          -9.40300035670557
+        ],
+        "target": [
+          3.095253201150406,
+          0.21710192969488892,
+          -9.748938572456698
+        ],
+        "fov": 32
+      }
+    },
+    {
+      "name": "boom frontdetail 2.5 fence sight lines clear",
+      "pass": true,
+      "detail": {
+        "vehicle": "boom",
+        "view": "frontdetail",
+        "aspect": 2.5,
+        "maxX": 0.8215598933846764,
+        "maxY": 0.7438667934436396,
+        "minDepth": 0.633544745629174,
+        "clear": true,
+        "points": 176,
+        "eye": [
+          4.244471182825097,
+          0.38089189413321495,
+          -9.40300035670557
+        ],
+        "target": [
+          3.095253201150406,
+          0.21710192969488892,
+          -9.748938572456698
+        ],
+        "fov": 32
+      }
+    },
+    {
+      "name": "boom frontdetail 2.5 fitting does not advance simulation/attachments",
+      "pass": true
+    },
+    {
+      "name": "boom frontdetail 2.5 exact source vertices with independently captured renderer matrices fit",
+      "pass": true,
+      "detail": {
+        "vertices": 15374,
+        "missingParts": 0,
+        "reusedIdenticalMotionGroups": 2
+      }
+    },
+    {
+      "name": "scissor detail 0.55 complete animated conservative bounds visible",
+      "pass": true,
+      "detail": {
+        "vehicle": "scissor",
+        "view": "detail",
+        "aspect": 0.55,
+        "maxX": 0.8234350581321362,
+        "maxY": 0.4779111013952772,
+        "minDepth": 0.6703089116363401,
+        "clear": true,
+        "points": 144,
+        "eye": [
+          -0.1986419870656336,
+          0.4664585798271273,
+          -7.961520257186215
+        ],
+        "target": [
+          0.4046568345002709,
+          0.3137609650526742,
+          -8.803629831504661
+        ],
+        "fov": 30
+      }
+    },
+    {
+      "name": "scissor detail 0.55 fence sight lines clear",
+      "pass": true,
+      "detail": {
+        "vehicle": "scissor",
+        "view": "detail",
+        "aspect": 0.55,
+        "maxX": 0.8234350581321362,
+        "maxY": 0.4779111013952772,
+        "minDepth": 0.6703089116363401,
+        "clear": true,
+        "points": 144,
+        "eye": [
+          -0.1986419870656336,
+          0.4664585798271273,
+          -7.961520257186215
+        ],
+        "target": [
+          0.4046568345002709,
+          0.3137609650526742,
+          -8.803629831504661
+        ],
+        "fov": 30
+      }
+    },
+    {
+      "name": "scissor detail 0.55 fitting does not advance simulation/attachments",
+      "pass": true
+    },
+    {
+      "name": "scissor detail 0.55 exact source vertices with independently captured renderer matrices fit",
+      "pass": true,
+      "detail": {
+        "vertices": 16221,
+        "missingParts": 0,
+        "reusedIdenticalMotionGroups": 2
+      }
+    },
+    {
+      "name": "scissor detail 0.75 complete animated conservative bounds visible",
+      "pass": true,
+      "detail": {
+        "vehicle": "scissor",
+        "view": "detail",
+        "aspect": 0.75,
+        "maxX": 0.8234350581321361,
+        "maxY": 0.6516969564481052,
+        "minDepth": 0.6703089116363401,
+        "clear": true,
+        "points": 144,
+        "eye": [
+          -0.1986419870656336,
+          0.4664585798271273,
+          -7.961520257186215
+        ],
+        "target": [
+          0.4046568345002709,
+          0.3137609650526742,
+          -8.803629831504661
+        ],
+        "fov": 30
+      }
+    },
+    {
+      "name": "scissor detail 0.75 fence sight lines clear",
+      "pass": true,
+      "detail": {
+        "vehicle": "scissor",
+        "view": "detail",
+        "aspect": 0.75,
+        "maxX": 0.8234350581321361,
+        "maxY": 0.6516969564481052,
+        "minDepth": 0.6703089116363401,
+        "clear": true,
+        "points": 144,
+        "eye": [
+          -0.1986419870656336,
+          0.4664585798271273,
+          -7.961520257186215
+        ],
+        "target": [
+          0.4046568345002709,
+          0.3137609650526742,
+          -8.803629831504661
+        ],
+        "fov": 30
+      }
+    },
+    {
+      "name": "scissor detail 0.75 fitting does not advance simulation/attachments",
+      "pass": true
+    },
+    {
+      "name": "scissor detail 0.75 exact source vertices with independently captured renderer matrices fit",
+      "pass": true,
+      "detail": {
+        "vertices": 16221,
+        "missingParts": 0,
+        "reusedIdenticalMotionGroups": 2
+      }
+    },
+    {
+      "name": "scissor detail 1.7777777777777777 complete animated conservative bounds visible",
+      "pass": true,
+      "detail": {
+        "vehicle": "scissor",
+        "view": "detail",
+        "aspect": 1.7777777777777777,
+        "maxX": 0.46453782992670245,
+        "maxY": 0.829901897308735,
+        "minDepth": 1.3229707731952591,
+        "clear": true,
+        "points": 144,
+        "eye": [
+          -0.5746779255625502,
+          0.5616349481961473,
+          -7.436633662390366
+        ],
+        "target": [
+          0.4046568345002709,
+          0.3137609650526742,
+          -8.803629831504661
+        ],
+        "fov": 30
+      }
+    },
+    {
+      "name": "scissor detail 1.7777777777777777 fence sight lines clear",
+      "pass": true,
+      "detail": {
+        "vehicle": "scissor",
+        "view": "detail",
+        "aspect": 1.7777777777777777,
+        "maxX": 0.46453782992670245,
+        "maxY": 0.829901897308735,
+        "minDepth": 1.3229707731952591,
+        "clear": true,
+        "points": 144,
+        "eye": [
+          -0.5746779255625502,
+          0.5616349481961473,
+          -7.436633662390366
+        ],
+        "target": [
+          0.4046568345002709,
+          0.3137609650526742,
+          -8.803629831504661
+        ],
+        "fov": 30
+      }
+    },
+    {
+      "name": "scissor detail 1.7777777777777777 fitting does not advance simulation/attachments",
+      "pass": true
+    },
+    {
+      "name": "scissor detail 1.7777777777777777 exact source vertices with independently captured renderer matrices fit",
+      "pass": true,
+      "detail": {
+        "vertices": 16221,
+        "missingParts": 0,
+        "reusedIdenticalMotionGroups": 2
+      }
+    },
+    {
+      "name": "scissor detail 2.5 complete animated conservative bounds visible",
+      "pass": true,
+      "detail": {
+        "vehicle": "scissor",
+        "view": "detail",
+        "aspect": 2.5,
+        "maxX": 0.3303380123923217,
+        "maxY": 0.829901897308735,
+        "minDepth": 1.3229707731952591,
+        "clear": true,
+        "points": 144,
+        "eye": [
+          -0.5746779255625502,
+          0.5616349481961473,
+          -7.436633662390366
+        ],
+        "target": [
+          0.4046568345002709,
+          0.3137609650526742,
+          -8.803629831504661
+        ],
+        "fov": 30
+      }
+    },
+    {
+      "name": "scissor detail 2.5 fence sight lines clear",
+      "pass": true,
+      "detail": {
+        "vehicle": "scissor",
+        "view": "detail",
+        "aspect": 2.5,
+        "maxX": 0.3303380123923217,
+        "maxY": 0.829901897308735,
+        "minDepth": 1.3229707731952591,
+        "clear": true,
+        "points": 144,
+        "eye": [
+          -0.5746779255625502,
+          0.5616349481961473,
+          -7.436633662390366
+        ],
+        "target": [
+          0.4046568345002709,
+          0.3137609650526742,
+          -8.803629831504661
+        ],
+        "fov": 30
+      }
+    },
+    {
+      "name": "scissor detail 2.5 fitting does not advance simulation/attachments",
+      "pass": true
+    },
+    {
+      "name": "scissor detail 2.5 exact source vertices with independently captured renderer matrices fit",
+      "pass": true,
+      "detail": {
+        "vertices": 16221,
+        "missingParts": 0,
+        "reusedIdenticalMotionGroups": 2
+      }
+    },
+    {
+      "name": "scissor frontdetail 0.55 complete animated conservative bounds visible",
+      "pass": true,
+      "detail": {
+        "vehicle": "scissor",
+        "view": "frontdetail",
+        "aspect": 0.55,
+        "maxX": 0.8198470145403529,
+        "maxY": 0.4186654423168223,
+        "minDepth": 0.5963554187368166,
+        "clear": true,
+        "points": 144,
+        "eye": [
+          1.339168178766072,
+          0.44680465504300604,
+          -8.52604780484646
+        ],
+        "target": [
+          0.4046568345002709,
+          0.3137609650526742,
+          -8.803629831504661
+        ],
+        "fov": 32
+      }
+    },
+    {
+      "name": "scissor frontdetail 0.55 fence sight lines clear",
+      "pass": true,
+      "detail": {
+        "vehicle": "scissor",
+        "view": "frontdetail",
+        "aspect": 0.55,
+        "maxX": 0.8198470145403529,
+        "maxY": 0.4186654423168223,
+        "minDepth": 0.5963554187368166,
+        "clear": true,
+        "points": 144,
+        "eye": [
+          1.339168178766072,
+          0.44680465504300604,
+          -8.52604780484646
+        ],
+        "target": [
+          0.4046568345002709,
+          0.3137609650526742,
+          -8.803629831504661
+        ],
+        "fov": 32
+      }
+    },
+    {
+      "name": "scissor frontdetail 0.55 fitting does not advance simulation/attachments",
+      "pass": true
+    },
+    {
+      "name": "scissor frontdetail 0.55 exact source vertices with independently captured renderer matrices fit",
+      "pass": true,
+      "detail": {
+        "vertices": 16221,
+        "missingParts": 0,
+        "reusedIdenticalMotionGroups": 2
+      }
+    },
+    {
+      "name": "scissor frontdetail 0.75 complete animated conservative bounds visible",
+      "pass": true,
+      "detail": {
+        "vehicle": "scissor",
+        "view": "frontdetail",
+        "aspect": 0.75,
+        "maxX": 0.8198470145403529,
+        "maxY": 0.5709074213411213,
+        "minDepth": 0.5963554187368166,
+        "clear": true,
+        "points": 144,
+        "eye": [
+          1.339168178766072,
+          0.44680465504300604,
+          -8.52604780484646
+        ],
+        "target": [
+          0.4046568345002709,
+          0.3137609650526742,
+          -8.803629831504661
+        ],
+        "fov": 32
+      }
+    },
+    {
+      "name": "scissor frontdetail 0.75 fence sight lines clear",
+      "pass": true,
+      "detail": {
+        "vehicle": "scissor",
+        "view": "frontdetail",
+        "aspect": 0.75,
+        "maxX": 0.8198470145403529,
+        "maxY": 0.5709074213411213,
+        "minDepth": 0.5963554187368166,
+        "clear": true,
+        "points": 144,
+        "eye": [
+          1.339168178766072,
+          0.44680465504300604,
+          -8.52604780484646
+        ],
+        "target": [
+          0.4046568345002709,
+          0.3137609650526742,
+          -8.803629831504661
+        ],
+        "fov": 32
+      }
+    },
+    {
+      "name": "scissor frontdetail 0.75 fitting does not advance simulation/attachments",
+      "pass": true
+    },
+    {
+      "name": "scissor frontdetail 0.75 exact source vertices with independently captured renderer matrices fit",
+      "pass": true,
+      "detail": {
+        "vertices": 16221,
+        "missingParts": 0,
+        "reusedIdenticalMotionGroups": 2
+      }
+    },
+    {
+      "name": "scissor frontdetail 1.7777777777777777 complete animated conservative bounds visible",
+      "pass": true,
+      "detail": {
+        "vehicle": "scissor",
+        "view": "frontdetail",
+        "aspect": 1.7777777777777777,
+        "maxX": 0.4962978758273382,
+        "maxY": 0.8295548222576088,
+        "minDepth": 1.0780786888698086,
+        "clear": true,
+        "points": 144,
+        "eye": [
+          1.7967093720996852,
+          0.5119434776557038,
+          -8.390142326005067
+        ],
+        "target": [
+          0.4046568345002709,
+          0.3137609650526742,
+          -8.803629831504661
+        ],
+        "fov": 32
+      }
+    },
+    {
+      "name": "scissor frontdetail 1.7777777777777777 fence sight lines clear",
+      "pass": true,
+      "detail": {
+        "vehicle": "scissor",
+        "view": "frontdetail",
+        "aspect": 1.7777777777777777,
+        "maxX": 0.4962978758273382,
+        "maxY": 0.8295548222576088,
+        "minDepth": 1.0780786888698086,
+        "clear": true,
+        "points": 144,
+        "eye": [
+          1.7967093720996852,
+          0.5119434776557038,
+          -8.390142326005067
+        ],
+        "target": [
+          0.4046568345002709,
+          0.3137609650526742,
+          -8.803629831504661
+        ],
+        "fov": 32
+      }
+    },
+    {
+      "name": "scissor frontdetail 1.7777777777777777 fitting does not advance simulation/attachments",
+      "pass": true
+    },
+    {
+      "name": "scissor frontdetail 1.7777777777777777 exact source vertices with independently captured renderer matrices fit",
+      "pass": true,
+      "detail": {
+        "vertices": 16221,
+        "missingParts": 0,
+        "reusedIdenticalMotionGroups": 2
+      }
+    },
+    {
+      "name": "scissor frontdetail 2.5 complete animated conservative bounds visible",
+      "pass": true,
+      "detail": {
+        "vehicle": "scissor",
+        "view": "frontdetail",
+        "aspect": 2.5,
+        "maxX": 0.3529229339216627,
+        "maxY": 0.8295548222576088,
+        "minDepth": 1.0780786888698086,
+        "clear": true,
+        "points": 144,
+        "eye": [
+          1.7967093720996852,
+          0.5119434776557038,
+          -8.390142326005067
+        ],
+        "target": [
+          0.4046568345002709,
+          0.3137609650526742,
+          -8.803629831504661
+        ],
+        "fov": 32
+      }
+    },
+    {
+      "name": "scissor frontdetail 2.5 fence sight lines clear",
+      "pass": true,
+      "detail": {
+        "vehicle": "scissor",
+        "view": "frontdetail",
+        "aspect": 2.5,
+        "maxX": 0.3529229339216627,
+        "maxY": 0.8295548222576088,
+        "minDepth": 1.0780786888698086,
+        "clear": true,
+        "points": 144,
+        "eye": [
+          1.7967093720996852,
+          0.5119434776557038,
+          -8.390142326005067
+        ],
+        "target": [
+          0.4046568345002709,
+          0.3137609650526742,
+          -8.803629831504661
+        ],
+        "fov": 32
+      }
+    },
+    {
+      "name": "scissor frontdetail 2.5 fitting does not advance simulation/attachments",
+      "pass": true
+    },
+    {
+      "name": "scissor frontdetail 2.5 exact source vertices with independently captured renderer matrices fit",
+      "pass": true,
+      "detail": {
+        "vertices": 16221,
+        "missingParts": 0,
+        "reusedIdenticalMotionGroups": 2
+      }
+    },
+    {
+      "name": "tractor detail 0.55 complete animated conservative bounds visible",
+      "pass": true,
+      "detail": {
+        "vehicle": "tractor",
+        "view": "detail",
+        "aspect": 0.55,
+        "maxX": 0.8235188405413458,
+        "maxY": 0.4226224783876496,
+        "minDepth": 0.6885644016570798,
+        "clear": true,
+        "points": 152,
+        "eye": [
+          12.058086255750194,
+          0.40613561117486185,
+          -12.113287816567858
+        ],
+        "target": [
+          12.682644351638622,
+          0.2472357513091718,
+          -12.991918038223538
+        ],
+        "fov": 30
+      }
+    },
+    {
+      "name": "tractor detail 0.55 fence sight lines clear",
+      "pass": true,
+      "detail": {
+        "vehicle": "tractor",
+        "view": "detail",
+        "aspect": 0.55,
+        "maxX": 0.8235188405413458,
+        "maxY": 0.4226224783876496,
+        "minDepth": 0.6885644016570798,
+        "clear": true,
+        "points": 152,
+        "eye": [
+          12.058086255750194,
+          0.40613561117486185,
+          -12.113287816567858
+        ],
+        "target": [
+          12.682644351638622,
+          0.2472357513091718,
+          -12.991918038223538
+        ],
+        "fov": 30
+      }
+    },
+    {
+      "name": "tractor detail 0.55 fitting does not advance simulation/attachments",
+      "pass": true
+    },
+    {
+      "name": "tractor detail 0.55 exact source vertices with independently captured renderer matrices fit",
+      "pass": true,
+      "detail": {
+        "vertices": 15299,
+        "missingParts": 0,
+        "reusedIdenticalMotionGroups": 2
+      }
+    },
+    {
+      "name": "tractor detail 0.75 complete animated conservative bounds visible",
+      "pass": true,
+      "detail": {
+        "vehicle": "tractor",
+        "view": "detail",
+        "aspect": 0.75,
+        "maxX": 0.8235188405413457,
+        "maxY": 0.576303379619522,
+        "minDepth": 0.6885644016570798,
+        "clear": true,
+        "points": 152,
+        "eye": [
+          12.058086255750194,
+          0.40613561117486185,
+          -12.113287816567858
+        ],
+        "target": [
+          12.682644351638622,
+          0.2472357513091718,
+          -12.991918038223538
+        ],
+        "fov": 30
+      }
+    },
+    {
+      "name": "tractor detail 0.75 fence sight lines clear",
+      "pass": true,
+      "detail": {
+        "vehicle": "tractor",
+        "view": "detail",
+        "aspect": 0.75,
+        "maxX": 0.8235188405413457,
+        "maxY": 0.576303379619522,
+        "minDepth": 0.6885644016570798,
+        "clear": true,
+        "points": 152,
+        "eye": [
+          12.058086255750194,
+          0.40613561117486185,
+          -12.113287816567858
+        ],
+        "target": [
+          12.682644351638622,
+          0.2472357513091718,
+          -12.991918038223538
+        ],
+        "fov": 30
+      }
+    },
+    {
+      "name": "tractor detail 0.75 fitting does not advance simulation/attachments",
+      "pass": true
+    },
+    {
+      "name": "tractor detail 0.75 exact source vertices with independently captured renderer matrices fit",
+      "pass": true,
+      "detail": {
+        "vertices": 15299,
+        "missingParts": 0,
+        "reusedIdenticalMotionGroups": 2
+      }
+    },
+    {
+      "name": "tractor detail 1.7777777777777777 complete animated conservative bounds visible",
+      "pass": true,
+      "detail": {
+        "vehicle": "tractor",
+        "view": "detail",
+        "aspect": 1.7777777777777777,
+        "maxX": 0.5276966283595813,
+        "maxY": 0.8291639829828424,
+        "minDepth": 1.2118018868326925,
+        "clear": true,
+        "points": 152,
+        "eye": [
+          11.758177550522154,
+          0.4824382826908658,
+          -11.691375341354265
+        ],
+        "target": [
+          12.682644351638622,
+          0.2472357513091718,
+          -12.991918038223538
+        ],
+        "fov": 30
+      }
+    },
+    {
+      "name": "tractor detail 1.7777777777777777 fence sight lines clear",
+      "pass": true,
+      "detail": {
+        "vehicle": "tractor",
+        "view": "detail",
+        "aspect": 1.7777777777777777,
+        "maxX": 0.5276966283595813,
+        "maxY": 0.8291639829828424,
+        "minDepth": 1.2118018868326925,
+        "clear": true,
+        "points": 152,
+        "eye": [
+          11.758177550522154,
+          0.4824382826908658,
+          -11.691375341354265
+        ],
+        "target": [
+          12.682644351638622,
+          0.2472357513091718,
+          -12.991918038223538
+        ],
+        "fov": 30
+      }
+    },
+    {
+      "name": "tractor detail 1.7777777777777777 fitting does not advance simulation/attachments",
+      "pass": true
+    },
+    {
+      "name": "tractor detail 1.7777777777777777 exact source vertices with independently captured renderer matrices fit",
+      "pass": true,
+      "detail": {
+        "vertices": 15299,
+        "missingParts": 0,
+        "reusedIdenticalMotionGroups": 2
+      }
+    },
+    {
+      "name": "tractor detail 2.5 complete animated conservative bounds visible",
+      "pass": true,
+      "detail": {
+        "vehicle": "tractor",
+        "view": "detail",
+        "aspect": 2.5,
+        "maxX": 0.3752509357223689,
+        "maxY": 0.8291639829828424,
+        "minDepth": 1.2118018868326925,
+        "clear": true,
+        "points": 152,
+        "eye": [
+          11.758177550522154,
+          0.4824382826908658,
+          -11.691375341354265
+        ],
+        "target": [
+          12.682644351638622,
+          0.2472357513091718,
+          -12.991918038223538
+        ],
+        "fov": 30
+      }
+    },
+    {
+      "name": "tractor detail 2.5 fence sight lines clear",
+      "pass": true,
+      "detail": {
+        "vehicle": "tractor",
+        "view": "detail",
+        "aspect": 2.5,
+        "maxX": 0.3752509357223689,
+        "maxY": 0.8291639829828424,
+        "minDepth": 1.2118018868326925,
+        "clear": true,
+        "points": 152,
+        "eye": [
+          11.758177550522154,
+          0.4824382826908658,
+          -11.691375341354265
+        ],
+        "target": [
+          12.682644351638622,
+          0.2472357513091718,
+          -12.991918038223538
+        ],
+        "fov": 30
+      }
+    },
+    {
+      "name": "tractor detail 2.5 fitting does not advance simulation/attachments",
+      "pass": true
+    },
+    {
+      "name": "tractor detail 2.5 exact source vertices with independently captured renderer matrices fit",
+      "pass": true,
+      "detail": {
+        "vertices": 15299,
+        "missingParts": 0,
+        "reusedIdenticalMotionGroups": 2
+      }
+    },
+    {
+      "name": "tractor frontdetail 0.55 complete animated conservative bounds visible",
+      "pass": true,
+      "detail": {
+        "vehicle": "tractor",
+        "view": "frontdetail",
+        "aspect": 0.55,
+        "maxX": 0.82149223919871,
+        "maxY": 0.3691645073139567,
+        "minDepth": 0.6191730415113519,
+        "clear": true,
+        "points": 152,
+        "eye": [
+          13.660081249595585,
+          0.3862388699816541,
+          -12.705515443543401
+        ],
+        "target": [
+          12.682644351638622,
+          0.2472357513091718,
+          -12.991918038223538
+        ],
+        "fov": 32
+      }
+    },
+    {
+      "name": "tractor frontdetail 0.55 fence sight lines clear",
+      "pass": true,
+      "detail": {
+        "vehicle": "tractor",
+        "view": "frontdetail",
+        "aspect": 0.55,
+        "maxX": 0.82149223919871,
+        "maxY": 0.3691645073139567,
+        "minDepth": 0.6191730415113519,
+        "clear": true,
+        "points": 152,
+        "eye": [
+          13.660081249595585,
+          0.3862388699816541,
+          -12.705515443543401
+        ],
+        "target": [
+          12.682644351638622,
+          0.2472357513091718,
+          -12.991918038223538
+        ],
+        "fov": 32
+      }
+    },
+    {
+      "name": "tractor frontdetail 0.55 fitting does not advance simulation/attachments",
+      "pass": true
+    },
+    {
+      "name": "tractor frontdetail 0.55 exact source vertices with independently captured renderer matrices fit",
+      "pass": true,
+      "detail": {
+        "vertices": 15299,
+        "missingParts": 0,
+        "reusedIdenticalMotionGroups": 2
+      }
+    },
+    {
+      "name": "tractor frontdetail 0.75 complete animated conservative bounds visible",
+      "pass": true,
+      "detail": {
+        "vehicle": "tractor",
+        "view": "frontdetail",
+        "aspect": 0.75,
+        "maxX": 0.8214922391987097,
+        "maxY": 0.5034061463372136,
+        "minDepth": 0.6191730415113519,
+        "clear": true,
+        "points": 152,
+        "eye": [
+          13.660081249595585,
+          0.3862388699816541,
+          -12.705515443543401
+        ],
+        "target": [
+          12.682644351638622,
+          0.2472357513091718,
+          -12.991918038223538
+        ],
+        "fov": 32
+      }
+    },
+    {
+      "name": "tractor frontdetail 0.75 fence sight lines clear",
+      "pass": true,
+      "detail": {
+        "vehicle": "tractor",
+        "view": "frontdetail",
+        "aspect": 0.75,
+        "maxX": 0.8214922391987097,
+        "maxY": 0.5034061463372136,
+        "minDepth": 0.6191730415113519,
+        "clear": true,
+        "points": 152,
+        "eye": [
+          13.660081249595585,
+          0.3862388699816541,
+          -12.705515443543401
+        ],
+        "target": [
+          12.682644351638622,
+          0.2472357513091718,
+          -12.991918038223538
+        ],
+        "fov": 32
+      }
+    },
+    {
+      "name": "tractor frontdetail 0.75 fitting does not advance simulation/attachments",
+      "pass": true
+    },
+    {
+      "name": "tractor frontdetail 0.75 exact source vertices with independently captured renderer matrices fit",
+      "pass": true,
+      "detail": {
+        "vertices": 15299,
+        "missingParts": 0,
+        "reusedIdenticalMotionGroups": 2
+      }
+    },
+    {
+      "name": "tractor frontdetail 1.7777777777777777 complete animated conservative bounds visible",
+      "pass": true,
+      "detail": {
+        "vehicle": "tractor",
+        "view": "frontdetail",
+        "aspect": 1.7777777777777777,
+        "maxX": 0.5636998963784241,
+        "maxY": 0.8276970009530107,
+        "minDepth": 0.9779471845484005,
+        "clear": true,
+        "points": 152,
+        "eye": [
+          14.001217286352484,
+          0.4347524600659794,
+          -12.605557843957904
+        ],
+        "target": [
+          12.682644351638622,
+          0.2472357513091718,
+          -12.991918038223538
+        ],
+        "fov": 32
+      }
+    },
+    {
+      "name": "tractor frontdetail 1.7777777777777777 fence sight lines clear",
+      "pass": true,
+      "detail": {
+        "vehicle": "tractor",
+        "view": "frontdetail",
+        "aspect": 1.7777777777777777,
+        "maxX": 0.5636998963784241,
+        "maxY": 0.8276970009530107,
+        "minDepth": 0.9779471845484005,
+        "clear": true,
+        "points": 152,
+        "eye": [
+          14.001217286352484,
+          0.4347524600659794,
+          -12.605557843957904
+        ],
+        "target": [
+          12.682644351638622,
+          0.2472357513091718,
+          -12.991918038223538
+        ],
+        "fov": 32
+      }
+    },
+    {
+      "name": "tractor frontdetail 1.7777777777777777 fitting does not advance simulation/attachments",
+      "pass": true
+    },
+    {
+      "name": "tractor frontdetail 1.7777777777777777 exact source vertices with independently captured renderer matrices fit",
+      "pass": true,
+      "detail": {
+        "vertices": 15299,
+        "missingParts": 0,
+        "reusedIdenticalMotionGroups": 2
+      }
+    },
+    {
+      "name": "tractor frontdetail 2.5 complete animated conservative bounds visible",
+      "pass": true,
+      "detail": {
+        "vehicle": "tractor",
+        "view": "frontdetail",
+        "aspect": 2.5,
+        "maxX": 0.40085325964687935,
+        "maxY": 0.8276970009530107,
+        "minDepth": 0.9779471845484005,
+        "clear": true,
+        "points": 152,
+        "eye": [
+          14.001217286352484,
+          0.4347524600659794,
+          -12.605557843957904
+        ],
+        "target": [
+          12.682644351638622,
+          0.2472357513091718,
+          -12.991918038223538
+        ],
+        "fov": 32
+      }
+    },
+    {
+      "name": "tractor frontdetail 2.5 fence sight lines clear",
+      "pass": true,
+      "detail": {
+        "vehicle": "tractor",
+        "view": "frontdetail",
+        "aspect": 2.5,
+        "maxX": 0.40085325964687935,
+        "maxY": 0.8276970009530107,
+        "minDepth": 0.9779471845484005,
+        "clear": true,
+        "points": 152,
+        "eye": [
+          14.001217286352484,
+          0.4347524600659794,
+          -12.605557843957904
+        ],
+        "target": [
+          12.682644351638622,
+          0.2472357513091718,
+          -12.991918038223538
+        ],
+        "fov": 32
+      }
+    },
+    {
+      "name": "tractor frontdetail 2.5 fitting does not advance simulation/attachments",
+      "pass": true
+    },
+    {
+      "name": "tractor frontdetail 2.5 exact source vertices with independently captured renderer matrices fit",
+      "pass": true,
+      "detail": {
+        "vertices": 15299,
+        "missingParts": 0,
+        "reusedIdenticalMotionGroups": 2
+      }
+    },
+    {
+      "name": "car_vms equal-time camera settles consistently at30/60/120Hz",
+      "pass": true,
+      "detail": {
+        "delta": 0.00005989187595545342,
+        "endpoints": [
+          {
+            "hz": 30,
+            "eye": [
+              48.0463901598705,
+              0.8396905563095747,
+              -20.69888598787419
+            ],
+            "tgt": [
+              50.31484346603318,
+              0.42163373784178393,
+              -22.33612865961947
+            ]
+          },
+          {
+            "hz": 60,
+            "eye": [
+              48.04637711657622,
+              0.8397309916142895,
+              -20.69887657395417
+            ],
+            "tgt": [
+              50.31484346603318,
+              0.42163373784178393,
+              -22.33612865961947
+            ]
+          },
+          {
+            "hz": 120,
+            "eye": [
+              48.04637431831746,
+              0.8397504481855301,
+              -20.698874554327574
+            ],
+            "tgt": [
+              50.31484346603318,
+              0.42163373784178393,
+              -22.33612865961947
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "scissor equal-time camera settles consistently at30/60/120Hz",
+      "pass": true,
+      "detail": {
+        "delta": 0.000009730017346498698,
+        "endpoints": [
+          {
+            "hz": 30,
+            "eye": [
+              -0.5749671609923016,
+              0.5667996753863828,
+              -7.436229935553982
+            ],
+            "tgt": [
+              0.4046568345002709,
+              0.3137609650526742,
+              -8.803629831504661
+            ]
+          },
+          {
+            "hz": 60,
+            "eye": [
+              -0.5749718561237388,
+              0.5668008392593962,
+              -7.436223381894345
+            ],
+            "tgt": [
+              0.4046568345002709,
+              0.3137609650526742,
+              -8.803629831504661
+            ]
+          },
+          {
+            "hz": 120,
+            "eye": [
+              -0.574974131709863,
+              0.5668014033609797,
+              -7.436220205536635
+            ],
+            "tgt": [
+              0.4046568345002709,
+              0.3137609650526742,
+              -8.803629831504661
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "explicit portaloo detail stays on the full combination while its door opens",
+      "pass": true
+    },
+    {
+      "name": "paused scale change invalidates cached world bounds",
+      "pass": true
+    },
+    {
+      "name": "export aspect refits the active detail camera",
+      "pass": true
+    },
+    {
+      "name": "paused viewport resize refits the active detail camera",
+      "pass": true
+    },
+    {
+      "name": "794 overview is active before detail selection",
+      "pass": true
+    },
+    {
+      "name": "794 overview delegates to actual selected detail without lens mismatch",
+      "pass": true
+    },
+    {
+      "name": "source building footprint overrides an empty legacy height field",
+      "pass": true
+    },
+    {
+      "name": "camera raises above or avoids a source building without cropping",
+      "pass": true
+    },
+    {
+      "name": "unresolvable source obstruction reports false instead of claiming clearance",
+      "pass": true
+    }
+  ],
+  "rows": [
+    {
+      "vehicle": "car",
+      "view": "detail",
+      "aspect": 0.55,
+      "maxX": 0.7952514406378063,
+      "maxY": 0.21143484816869343,
+      "minDepth": 0.8224047934048936,
+      "clear": true,
+      "points": 344,
+      "eye": [
+        30.624648237735766,
+        0.31853345825723883,
+        -17.59933382068881
+      ],
+      "target": [
+        31.41004449891278,
+        0.13325049927961152,
+        -18.580731410006376
+      ],
+      "fov": 30
+    },
+    {
+      "vehicle": "car",
+      "view": "detail",
+      "aspect": 0.75,
+      "maxX": 0.7952514406378062,
+      "maxY": 0.2883202475027637,
+      "minDepth": 0.8224047934048936,
+      "clear": true,
+      "points": 344,
+      "eye": [
+        30.624648237735766,
+        0.31853345825723883,
+        -17.59933382068881
+      ],
+      "target": [
+        31.41004449891278,
+        0.13325049927961152,
+        -18.580731410006376
+      ],
+      "fov": 30
+    },
+    {
+      "vehicle": "car",
+      "view": "detail",
+      "aspect": 1.7777777777777777,
+      "maxX": 0.7952514406378063,
+      "maxY": 0.6834257718584029,
+      "minDepth": 0.8224047934048936,
+      "clear": true,
+      "points": 344,
+      "eye": [
+        30.624648237735766,
+        0.31853345825723883,
+        -17.59933382068881
+      ],
+      "target": [
+        31.41004449891278,
+        0.13325049927961152,
+        -18.580731410006376
+      ],
+      "fov": 30
+    },
+    {
+      "vehicle": "car",
+      "view": "detail",
+      "aspect": 2.5,
+      "maxX": 0.5655121355646623,
+      "maxY": 0.6834257718584029,
+      "minDepth": 0.8224047934048936,
+      "clear": true,
+      "points": 344,
+      "eye": [
+        30.624648237735766,
+        0.31853345825723883,
+        -17.59933382068881
+      ],
+      "target": [
+        31.41004449891278,
+        0.13325049927961152,
+        -18.580731410006376
+      ],
+      "fov": 30
+    },
+    {
+      "vehicle": "car",
+      "view": "frontdetail",
+      "aspect": 0.55,
+      "maxX": 0.701599942257146,
+      "maxY": 0.18423110814942179,
+      "minDepth": 0.857596316979912,
+      "clear": true,
+      "points": 344,
+      "eye": [
+        32.633799908126534,
+        0.3105274044742549,
+        -18.145101387419444
+      ],
+      "target": [
+        31.41004449891278,
+        0.13325049927961152,
+        -18.580731410006376
+      ],
+      "fov": 32
+    },
+    {
+      "vehicle": "car",
+      "view": "frontdetail",
+      "aspect": 0.75,
+      "maxX": 0.701599942257146,
+      "maxY": 0.2512242383855751,
+      "minDepth": 0.857596316979912,
+      "clear": true,
+      "points": 344,
+      "eye": [
+        32.633799908126534,
+        0.3105274044742549,
+        -18.145101387419444
+      ],
+      "target": [
+        31.41004449891278,
+        0.13325049927961152,
+        -18.580731410006376
+      ],
+      "fov": 32
+    },
+    {
+      "vehicle": "car",
+      "view": "frontdetail",
+      "aspect": 1.7777777777777777,
+      "maxX": 0.701599942257146,
+      "maxY": 0.59549449098803,
+      "minDepth": 0.857596316979912,
+      "clear": true,
+      "points": 344,
+      "eye": [
+        32.633799908126534,
+        0.3105274044742549,
+        -18.145101387419444
+      ],
+      "target": [
+        31.41004449891278,
+        0.13325049927961152,
+        -18.580731410006376
+      ],
+      "fov": 32
+    },
+    {
+      "vehicle": "car",
+      "view": "frontdetail",
+      "aspect": 2.5,
+      "maxX": 0.49891551449397037,
+      "maxY": 0.59549449098803,
+      "minDepth": 0.857596316979912,
+      "clear": true,
+      "points": 344,
+      "eye": [
+        32.633799908126534,
+        0.3105274044742549,
+        -18.145101387419444
+      ],
+      "target": [
+        31.41004449891278,
+        0.13325049927961152,
+        -18.580731410006376
+      ],
+      "fov": 32
+    },
+    {
+      "vehicle": "car_vms",
+      "view": "detail",
+      "aspect": 0.55,
+      "maxX": 0.8318149080272593,
+      "maxY": 0.3092878776880941,
+      "minDepth": 1.5933131823037305,
+      "clear": true,
+      "points": 480,
+      "eye": [
+        48.314051571640306,
+        0.7853500910847461,
+        -20.89206901868139
+      ],
+      "target": [
+        50.31484346603318,
+        0.42163373784178393,
+        -22.33612865961947
+      ],
+      "fov": 30
+    },
+    {
+      "vehicle": "car_vms",
+      "view": "detail",
+      "aspect": 0.75,
+      "maxX": 0.8318149080272592,
+      "maxY": 0.421756196847401,
+      "minDepth": 1.5933131823037305,
+      "clear": true,
+      "points": 480,
+      "eye": [
+        48.314051571640306,
+        0.7853500910847461,
+        -20.89206901868139
+      ],
+      "target": [
+        50.31484346603318,
+        0.42163373784178393,
+        -22.33612865961947
+      ],
+      "fov": 30
+    },
+    {
+      "vehicle": "car_vms",
+      "view": "detail",
+      "aspect": 1.7777777777777777,
+      "maxX": 0.7049005943173676,
+      "maxY": 0.8341854424026129,
+      "minDepth": 1.9230457209165737,
+      "clear": true,
+      "points": 480,
+      "eye": [
+        48.049541756718654,
+        0.8334343249073083,
+        -20.701160634140845
+      ],
+      "target": [
+        50.31484346603318,
+        0.42163373784178393,
+        -22.33612865961947
+      ],
+      "fov": 30
+    },
+    {
+      "vehicle": "car_vms",
+      "view": "detail",
+      "aspect": 2.5,
+      "maxX": 0.5012626448479058,
+      "maxY": 0.8341854424026129,
+      "minDepth": 1.9230457209165737,
+      "clear": true,
+      "points": 480,
+      "eye": [
+        48.049541756718654,
+        0.8334343249073083,
+        -20.701160634140845
+      ],
+      "target": [
+        50.31484346603318,
+        0.42163373784178393,
+        -22.33612865961947
+      ],
+      "fov": 30
+    },
+    {
+      "vehicle": "car_vms",
+      "view": "frontdetail",
+      "aspect": 0.55,
+      "maxX": 0.8319730214244976,
+      "maxY": 0.34589951107008887,
+      "minDepth": 1.482839466591883,
+      "clear": true,
+      "points": 480,
+      "eye": [
+        52.21154823642934,
+        0.7380395367401884,
+        -21.002842157924775
+      ],
+      "target": [
+        50.31484346603318,
+        0.42163373784178393,
+        -22.33612865961947
+      ],
+      "fov": 32
+    },
+    {
+      "vehicle": "car_vms",
+      "view": "frontdetail",
+      "aspect": 0.75,
+      "maxX": 0.8319730214244975,
+      "maxY": 0.471681151459212,
+      "minDepth": 1.482839466591883,
+      "clear": true,
+      "points": 480,
+      "eye": [
+        52.21154823642934,
+        0.7380395367401884,
+        -21.002842157924775
+      ],
+      "target": [
+        50.31484346603318,
+        0.42163373784178393,
+        -22.33612865961947
+      ],
+      "fov": 32
+    },
+    {
+      "vehicle": "car_vms",
+      "view": "frontdetail",
+      "aspect": 1.7777777777777777,
+      "maxX": 0.6351576002587078,
+      "maxY": 0.8314842879042372,
+      "minDepth": 2.00275532660302,
+      "clear": true,
+      "points": 480,
+      "eye": [
+        52.632983280754175,
+        0.808342777373435,
+        -20.7065948638232
+      ],
+      "target": [
+        50.31484346603318,
+        0.42163373784178393,
+        -22.33612865961947
+      ],
+      "fov": 32
+    },
+    {
+      "vehicle": "car_vms",
+      "view": "frontdetail",
+      "aspect": 2.5,
+      "maxX": 0.45166762685063666,
+      "maxY": 0.8314842879042372,
+      "minDepth": 2.00275532660302,
+      "clear": true,
+      "points": 480,
+      "eye": [
+        52.632983280754175,
+        0.808342777373435,
+        -20.7065948638232
+      ],
+      "target": [
+        50.31484346603318,
+        0.42163373784178393,
+        -22.33612865961947
+      ],
+      "fov": 32
+    },
+    {
+      "vehicle": "car_loo",
+      "view": "detail",
+      "aspect": 0.55,
+      "maxX": 0.8322640380886159,
+      "maxY": 0.24159152842796688,
+      "minDepth": 1.544187626450029,
+      "clear": true,
+      "points": 544,
+      "eye": [
+        48.41248350666455,
+        0.6455480304683412,
+        -20.937284756189303
+      ],
+      "target": [
+        50.36374782315269,
+        0.2908351073526942,
+        -22.34559816256592
+      ],
+      "fov": 30
+    },
+    {
+      "vehicle": "car_loo",
+      "view": "detail",
+      "aspect": 0.75,
+      "maxX": 0.8322640380886158,
+      "maxY": 0.32944299331086385,
+      "minDepth": 1.544187626450029,
+      "clear": true,
+      "points": 544,
+      "eye": [
+        48.41248350666455,
+        0.6455480304683412,
+        -20.937284756189303
+      ],
+      "target": [
+        50.36374782315269,
+        0.2908351073526942,
+        -22.34559816256592
+      ],
+      "fov": 30
+    },
+    {
+      "vehicle": "car_loo",
+      "view": "detail",
+      "aspect": 1.7777777777777777,
+      "maxX": 0.832264038088616,
+      "maxY": 0.7809019100701959,
+      "minDepth": 1.544187626450029,
+      "clear": true,
+      "points": 544,
+      "eye": [
+        48.41248350666455,
+        0.6455480304683412,
+        -20.937284756189303
+      ],
+      "target": [
+        50.36374782315269,
+        0.2908351073526942,
+        -22.34559816256592
+      ],
+      "fov": 30
+    },
+    {
+      "vehicle": "car_loo",
+      "view": "detail",
+      "aspect": 2.5,
+      "maxX": 0.6298420644007328,
+      "maxY": 0.8320127967320943,
+      "minDepth": 1.4359010240123031,
+      "clear": true,
+      "points": 544,
+      "eye": [
+        48.49935048463948,
+        0.6297568127335947,
+        -20.99998048050495
+      ],
+      "target": [
+        50.36374782315269,
+        0.2908351073526942,
+        -22.34559816256592
+      ],
+      "fov": 30
+    },
+    {
+      "vehicle": "car_loo",
+      "view": "frontdetail",
+      "aspect": 0.55,
+      "maxX": 0.8311946297877747,
+      "maxY": 0.26637649191208407,
+      "minDepth": 1.3927131747274233,
+      "clear": true,
+      "points": 544,
+      "eye": [
+        52.173975539752725,
+        0.592814917705171,
+        -21.073100609331885
+      ],
+      "target": [
+        50.36374782315269,
+        0.2908351073526942,
+        -22.34559816256592
+      ],
+      "fov": 32
+    },
+    {
+      "vehicle": "car_loo",
+      "view": "frontdetail",
+      "aspect": 0.75,
+      "maxX": 0.8311946297877747,
+      "maxY": 0.36324067078920547,
+      "minDepth": 1.3927131747274233,
+      "clear": true,
+      "points": 544,
+      "eye": [
+        52.173975539752725,
+        0.592814917705171,
+        -21.073100609331885
+      ],
+      "target": [
+        50.36374782315269,
+        0.2908351073526942,
+        -22.34559816256592
+      ],
+      "fov": 32
+    },
+    {
+      "vehicle": "car_loo",
+      "view": "frontdetail",
+      "aspect": 1.7777777777777777,
+      "maxX": 0.80300525741953,
+      "maxY": 0.8284596797274429,
+      "minDepth": 1.448450277143589,
+      "clear": true,
+      "points": 544,
+      "eye": [
+        52.21915509674256,
+        0.6003517120689357,
+        -21.041341690164657
+      ],
+      "target": [
+        50.36374782315269,
+        0.2908351073526942,
+        -22.34559816256592
+      ],
+      "fov": 32
+    },
+    {
+      "vehicle": "car_loo",
+      "view": "frontdetail",
+      "aspect": 2.5,
+      "maxX": 0.5710259608316657,
+      "maxY": 0.8284596797274429,
+      "minDepth": 1.448450277143589,
+      "clear": true,
+      "points": 544,
+      "eye": [
+        52.21915509674256,
+        0.6003517120689357,
+        -21.041341690164657
+      ],
+      "target": [
+        50.36374782315269,
+        0.2908351073526942,
+        -22.34559816256592
+      ],
+      "fov": 32
+    },
+    {
+      "vehicle": "forklift",
+      "view": "detail",
+      "aspect": 0.55,
+      "maxX": 0.825563176891623,
+      "maxY": 0.3644521752386793,
+      "minDepth": 0.804814056505057,
+      "clear": true,
+      "points": 144,
+      "eye": [
+        8.167822229356453,
+        0.44720056578050393,
+        -10.706354885710612
+      ],
+      "target": [
+        8.894381627162137,
+        0.2600904758784171,
+        -11.747227157460813
+      ],
+      "fov": 30
+    },
+    {
+      "vehicle": "forklift",
+      "view": "detail",
+      "aspect": 0.75,
+      "maxX": 0.8255631768916227,
+      "maxY": 0.49698023896183524,
+      "minDepth": 0.804814056505057,
+      "clear": true,
+      "points": 144,
+      "eye": [
+        8.167822229356453,
+        0.44720056578050393,
+        -10.706354885710612
+      ],
+      "target": [
+        8.894381627162137,
+        0.2600904758784171,
+        -11.747227157460813
+      ],
+      "fov": 30
+    },
+    {
+      "vehicle": "forklift",
+      "view": "detail",
+      "aspect": 1.7777777777777777,
+      "maxX": 0.5839062702546914,
+      "maxY": 0.8296387755558037,
+      "minDepth": 1.2149832866183004,
+      "clear": true,
+      "points": 144,
+      "eye": [
+        7.935560375131616,
+        0.507014720763683,
+        -10.37361550531301
+      ],
+      "target": [
+        8.894381627162137,
+        0.2600904758784171,
+        -11.747227157460813
+      ],
+      "fov": 30
+    },
+    {
+      "vehicle": "forklift",
+      "view": "detail",
+      "aspect": 2.5,
+      "maxX": 0.41522223662555835,
+      "maxY": 0.8296387755558037,
+      "minDepth": 1.2149832866183004,
+      "clear": true,
+      "points": 144,
+      "eye": [
+        7.935560375131616,
+        0.507014720763683,
+        -10.37361550531301
+      ],
+      "target": [
+        8.894381627162137,
+        0.2600904758784171,
+        -11.747227157460813
+      ],
+      "fov": 30
+    },
+    {
+      "vehicle": "forklift",
+      "view": "frontdetail",
+      "aspect": 0.55,
+      "maxX": 0.8240652184828127,
+      "maxY": 0.3865650246250741,
+      "minDepth": 0.7192057271852401,
+      "clear": true,
+      "points": 144,
+      "eye": [
+        10.012713485110385,
+        0.418738588152139,
+        -11.429905080987906
+      ],
+      "target": [
+        8.894381627162137,
+        0.2600904758784171,
+        -11.747227157460813
+      ],
+      "fov": 32
+    },
+    {
+      "vehicle": "forklift",
+      "view": "frontdetail",
+      "aspect": 0.75,
+      "maxX": 0.8240652184828127,
+      "maxY": 0.5271341244887373,
+      "minDepth": 0.7192057271852401,
+      "clear": true,
+      "points": 144,
+      "eye": [
+        10.012713485110385,
+        0.418738588152139,
+        -11.429905080987906
+      ],
+      "target": [
+        8.894381627162137,
+        0.2600904758784171,
+        -11.747227157460813
+      ],
+      "fov": 32
+    },
+    {
+      "vehicle": "forklift",
+      "view": "frontdetail",
+      "aspect": 1.7777777777777777,
+      "maxX": 0.5790884050620551,
+      "maxY": 0.8271858456591819,
+      "minDepth": 1.1014767920858726,
+      "clear": true,
+      "points": 144,
+      "eye": [
+        10.377089257649716,
+        0.4704294418650082,
+        -11.326514950467319
+      ],
+      "target": [
+        8.894381627162137,
+        0.2600904758784171,
+        -11.747227157460813
+      ],
+      "fov": 32
+    },
+    {
+      "vehicle": "forklift",
+      "view": "frontdetail",
+      "aspect": 2.5,
+      "maxX": 0.4117961991552391,
+      "maxY": 0.8271858456591819,
+      "minDepth": 1.1014767920858726,
+      "clear": true,
+      "points": 144,
+      "eye": [
+        10.377089257649716,
+        0.4704294418650082,
+        -11.326514950467319
+      ],
+      "target": [
+        8.894381627162137,
+        0.2600904758784171,
+        -11.747227157460813
+      ],
+      "fov": 32
+    },
+    {
+      "vehicle": "boom",
+      "view": "detail",
+      "aspect": 0.55,
+      "maxX": 0.8292730263413609,
+      "maxY": 0.2624778428104018,
+      "minDepth": 1.075598366529011,
+      "clear": true,
+      "points": 176,
+      "eye": [
+        2.1345713228200776,
+        0.4590208515089034,
+        -8.418290045728968
+      ],
+      "target": [
+        3.095253201150406,
+        0.21710192969488892,
+        -9.748938572456698
+      ],
+      "fov": 30
+    },
+    {
+      "vehicle": "boom",
+      "view": "detail",
+      "aspect": 0.75,
+      "maxX": 0.8292730263413607,
+      "maxY": 0.3579243311050933,
+      "minDepth": 1.075598366529011,
+      "clear": true,
+      "points": 176,
+      "eye": [
+        2.1345713228200776,
+        0.4590208515089034,
+        -8.418290045728968
+      ],
+      "target": [
+        3.095253201150406,
+        0.21710192969488892,
+        -9.748938572456698
+      ],
+      "fov": 30
+    },
+    {
+      "vehicle": "boom",
+      "view": "detail",
+      "aspect": 1.7777777777777777,
+      "maxX": 0.8121512180041502,
+      "maxY": 0.8279474778022968,
+      "minDepth": 1.103472556379434,
+      "clear": true,
+      "points": 176,
+      "eye": [
+        2.1184294876566323,
+        0.4630856886281662,
+        -8.395931854465642
+      ],
+      "target": [
+        3.095253201150406,
+        0.21710192969488892,
+        -9.748938572456698
+      ],
+      "fov": 30
+    },
+    {
+      "vehicle": "boom",
+      "view": "detail",
+      "aspect": 2.5,
+      "maxX": 0.5775297550251736,
+      "maxY": 0.8279474778022968,
+      "minDepth": 1.103472556379434,
+      "clear": true,
+      "points": 176,
+      "eye": [
+        2.1184294876566323,
+        0.4630856886281662,
+        -8.395931854465642
+      ],
+      "target": [
+        3.095253201150406,
+        0.21710192969488892,
+        -9.748938572456698
+      ],
+      "fov": 30
+    },
+    {
+      "vehicle": "boom",
+      "view": "frontdetail",
+      "aspect": 0.55,
+      "maxX": 0.826765184475624,
+      "maxY": 0.16273880951488337,
+      "minDepth": 0.9463712387070072,
+      "clear": true,
+      "points": 176,
+      "eye": [
+        4.541269154561555,
+        0.42319242372051014,
+        -9.313658071413924
+      ],
+      "target": [
+        3.095253201150406,
+        0.21710192969488892,
+        -9.748938572456698
+      ],
+      "fov": 32
+    },
+    {
+      "vehicle": "boom",
+      "view": "frontdetail",
+      "aspect": 0.75,
+      "maxX": 0.8267651844756236,
+      "maxY": 0.22191655842938637,
+      "minDepth": 0.9463712387070072,
+      "clear": true,
+      "points": 176,
+      "eye": [
+        4.541269154561555,
+        0.42319242372051014,
+        -9.313658071413924
+      ],
+      "target": [
+        3.095253201150406,
+        0.21710192969488892,
+        -9.748938572456698
+      ],
+      "fov": 32
+    },
+    {
+      "vehicle": "boom",
+      "view": "frontdetail",
+      "aspect": 1.7777777777777777,
+      "maxX": 0.8267651844756237,
+      "maxY": 0.5260244347955825,
+      "minDepth": 0.9463712387070072,
+      "clear": true,
+      "points": 176,
+      "eye": [
+        4.541269154561555,
+        0.42319242372051014,
+        -9.313658071413924
+      ],
+      "target": [
+        3.095253201150406,
+        0.21710192969488892,
+        -9.748938572456698
+      ],
+      "fov": 32
+    },
+    {
+      "vehicle": "boom",
+      "view": "frontdetail",
+      "aspect": 2.5,
+      "maxX": 0.8215598933846764,
+      "maxY": 0.7438667934436396,
+      "minDepth": 0.633544745629174,
+      "clear": true,
+      "points": 176,
+      "eye": [
+        4.244471182825097,
+        0.38089189413321495,
+        -9.40300035670557
+      ],
+      "target": [
+        3.095253201150406,
+        0.21710192969488892,
+        -9.748938572456698
+      ],
+      "fov": 32
+    },
+    {
+      "vehicle": "scissor",
+      "view": "detail",
+      "aspect": 0.55,
+      "maxX": 0.8234350581321362,
+      "maxY": 0.4779111013952772,
+      "minDepth": 0.6703089116363401,
+      "clear": true,
+      "points": 144,
+      "eye": [
+        -0.1986419870656336,
+        0.4664585798271273,
+        -7.961520257186215
+      ],
+      "target": [
+        0.4046568345002709,
+        0.3137609650526742,
+        -8.803629831504661
+      ],
+      "fov": 30
+    },
+    {
+      "vehicle": "scissor",
+      "view": "detail",
+      "aspect": 0.75,
+      "maxX": 0.8234350581321361,
+      "maxY": 0.6516969564481052,
+      "minDepth": 0.6703089116363401,
+      "clear": true,
+      "points": 144,
+      "eye": [
+        -0.1986419870656336,
+        0.4664585798271273,
+        -7.961520257186215
+      ],
+      "target": [
+        0.4046568345002709,
+        0.3137609650526742,
+        -8.803629831504661
+      ],
+      "fov": 30
+    },
+    {
+      "vehicle": "scissor",
+      "view": "detail",
+      "aspect": 1.7777777777777777,
+      "maxX": 0.46453782992670245,
+      "maxY": 0.829901897308735,
+      "minDepth": 1.3229707731952591,
+      "clear": true,
+      "points": 144,
+      "eye": [
+        -0.5746779255625502,
+        0.5616349481961473,
+        -7.436633662390366
+      ],
+      "target": [
+        0.4046568345002709,
+        0.3137609650526742,
+        -8.803629831504661
+      ],
+      "fov": 30
+    },
+    {
+      "vehicle": "scissor",
+      "view": "detail",
+      "aspect": 2.5,
+      "maxX": 0.3303380123923217,
+      "maxY": 0.829901897308735,
+      "minDepth": 1.3229707731952591,
+      "clear": true,
+      "points": 144,
+      "eye": [
+        -0.5746779255625502,
+        0.5616349481961473,
+        -7.436633662390366
+      ],
+      "target": [
+        0.4046568345002709,
+        0.3137609650526742,
+        -8.803629831504661
+      ],
+      "fov": 30
+    },
+    {
+      "vehicle": "scissor",
+      "view": "frontdetail",
+      "aspect": 0.55,
+      "maxX": 0.8198470145403529,
+      "maxY": 0.4186654423168223,
+      "minDepth": 0.5963554187368166,
+      "clear": true,
+      "points": 144,
+      "eye": [
+        1.339168178766072,
+        0.44680465504300604,
+        -8.52604780484646
+      ],
+      "target": [
+        0.4046568345002709,
+        0.3137609650526742,
+        -8.803629831504661
+      ],
+      "fov": 32
+    },
+    {
+      "vehicle": "scissor",
+      "view": "frontdetail",
+      "aspect": 0.75,
+      "maxX": 0.8198470145403529,
+      "maxY": 0.5709074213411213,
+      "minDepth": 0.5963554187368166,
+      "clear": true,
+      "points": 144,
+      "eye": [
+        1.339168178766072,
+        0.44680465504300604,
+        -8.52604780484646
+      ],
+      "target": [
+        0.4046568345002709,
+        0.3137609650526742,
+        -8.803629831504661
+      ],
+      "fov": 32
+    },
+    {
+      "vehicle": "scissor",
+      "view": "frontdetail",
+      "aspect": 1.7777777777777777,
+      "maxX": 0.4962978758273382,
+      "maxY": 0.8295548222576088,
+      "minDepth": 1.0780786888698086,
+      "clear": true,
+      "points": 144,
+      "eye": [
+        1.7967093720996852,
+        0.5119434776557038,
+        -8.390142326005067
+      ],
+      "target": [
+        0.4046568345002709,
+        0.3137609650526742,
+        -8.803629831504661
+      ],
+      "fov": 32
+    },
+    {
+      "vehicle": "scissor",
+      "view": "frontdetail",
+      "aspect": 2.5,
+      "maxX": 0.3529229339216627,
+      "maxY": 0.8295548222576088,
+      "minDepth": 1.0780786888698086,
+      "clear": true,
+      "points": 144,
+      "eye": [
+        1.7967093720996852,
+        0.5119434776557038,
+        -8.390142326005067
+      ],
+      "target": [
+        0.4046568345002709,
+        0.3137609650526742,
+        -8.803629831504661
+      ],
+      "fov": 32
+    },
+    {
+      "vehicle": "tractor",
+      "view": "detail",
+      "aspect": 0.55,
+      "maxX": 0.8235188405413458,
+      "maxY": 0.4226224783876496,
+      "minDepth": 0.6885644016570798,
+      "clear": true,
+      "points": 152,
+      "eye": [
+        12.058086255750194,
+        0.40613561117486185,
+        -12.113287816567858
+      ],
+      "target": [
+        12.682644351638622,
+        0.2472357513091718,
+        -12.991918038223538
+      ],
+      "fov": 30
+    },
+    {
+      "vehicle": "tractor",
+      "view": "detail",
+      "aspect": 0.75,
+      "maxX": 0.8235188405413457,
+      "maxY": 0.576303379619522,
+      "minDepth": 0.6885644016570798,
+      "clear": true,
+      "points": 152,
+      "eye": [
+        12.058086255750194,
+        0.40613561117486185,
+        -12.113287816567858
+      ],
+      "target": [
+        12.682644351638622,
+        0.2472357513091718,
+        -12.991918038223538
+      ],
+      "fov": 30
+    },
+    {
+      "vehicle": "tractor",
+      "view": "detail",
+      "aspect": 1.7777777777777777,
+      "maxX": 0.5276966283595813,
+      "maxY": 0.8291639829828424,
+      "minDepth": 1.2118018868326925,
+      "clear": true,
+      "points": 152,
+      "eye": [
+        11.758177550522154,
+        0.4824382826908658,
+        -11.691375341354265
+      ],
+      "target": [
+        12.682644351638622,
+        0.2472357513091718,
+        -12.991918038223538
+      ],
+      "fov": 30
+    },
+    {
+      "vehicle": "tractor",
+      "view": "detail",
+      "aspect": 2.5,
+      "maxX": 0.3752509357223689,
+      "maxY": 0.8291639829828424,
+      "minDepth": 1.2118018868326925,
+      "clear": true,
+      "points": 152,
+      "eye": [
+        11.758177550522154,
+        0.4824382826908658,
+        -11.691375341354265
+      ],
+      "target": [
+        12.682644351638622,
+        0.2472357513091718,
+        -12.991918038223538
+      ],
+      "fov": 30
+    },
+    {
+      "vehicle": "tractor",
+      "view": "frontdetail",
+      "aspect": 0.55,
+      "maxX": 0.82149223919871,
+      "maxY": 0.3691645073139567,
+      "minDepth": 0.6191730415113519,
+      "clear": true,
+      "points": 152,
+      "eye": [
+        13.660081249595585,
+        0.3862388699816541,
+        -12.705515443543401
+      ],
+      "target": [
+        12.682644351638622,
+        0.2472357513091718,
+        -12.991918038223538
+      ],
+      "fov": 32
+    },
+    {
+      "vehicle": "tractor",
+      "view": "frontdetail",
+      "aspect": 0.75,
+      "maxX": 0.8214922391987097,
+      "maxY": 0.5034061463372136,
+      "minDepth": 0.6191730415113519,
+      "clear": true,
+      "points": 152,
+      "eye": [
+        13.660081249595585,
+        0.3862388699816541,
+        -12.705515443543401
+      ],
+      "target": [
+        12.682644351638622,
+        0.2472357513091718,
+        -12.991918038223538
+      ],
+      "fov": 32
+    },
+    {
+      "vehicle": "tractor",
+      "view": "frontdetail",
+      "aspect": 1.7777777777777777,
+      "maxX": 0.5636998963784241,
+      "maxY": 0.8276970009530107,
+      "minDepth": 0.9779471845484005,
+      "clear": true,
+      "points": 152,
+      "eye": [
+        14.001217286352484,
+        0.4347524600659794,
+        -12.605557843957904
+      ],
+      "target": [
+        12.682644351638622,
+        0.2472357513091718,
+        -12.991918038223538
+      ],
+      "fov": 32
+    },
+    {
+      "vehicle": "tractor",
+      "view": "frontdetail",
+      "aspect": 2.5,
+      "maxX": 0.40085325964687935,
+      "maxY": 0.8276970009530107,
+      "minDepth": 0.9779471845484005,
+      "clear": true,
+      "points": 152,
+      "eye": [
+        14.001217286352484,
+        0.4347524600659794,
+        -12.605557843957904
+      ],
+      "target": [
+        12.682644351638622,
+        0.2472357513091718,
+        -12.991918038223538
+      ],
+      "fov": 32
+    }
+  ]
+}

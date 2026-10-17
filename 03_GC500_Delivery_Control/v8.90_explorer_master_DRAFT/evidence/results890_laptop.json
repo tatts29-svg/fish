@@ -1,0 +1,432 @@
+{
+ "results": [
+  {
+   "name": "scene is the 2 Oct issue (meta.sha256 8753d875…, issued 2 Oct 2026, frame 37792f0a…)",
+   "pass": true,
+   "detail": {
+    "sha": "8753d875cf90",
+    "issued": "2 Oct 2026",
+    "records": 301253
+   }
+  },
+  {
+   "name": "attribution says issued 2 Oct",
+   "pass": true,
+   "detail": {
+    "attrib": " Imagery ©2026 Airbus, Vexcel Imaging US, Inc. · Drawing © iEDM D001 rev 03 · issued 2 Oct",
+    "sub": "Map explorer · plan, satellite and 3D · D001 rev 03 · issued 2 Oct · Master Layout Plan"
+   }
+  },
+  {
+   "name": "pyramid manifest: 26 levels in the renamed level files",
+   "pass": true,
+   "detail": {
+    "levels": 26,
+    "files": [
+     "Llow-5c6a6ae30507.bin",
+     "L-0.75-5c6a6ae30507.bin",
+     "L-0.5-5c6a6ae30507.bin"
+    ]
+   }
+  },
+  {
+   "name": "pyramid tiles were fetched by byte range from the local level files",
+   "pass": true,
+   "detail": {
+    "ranges": 23,
+    "files": [
+     "assets/vt/manifest.json",
+     "assets/vt/Llow-5c6a6ae30507.bin",
+     "assets/vt/L-0.25-5c6a6ae30507.bin",
+     "assets/vt/L-0.5-5c6a6ae30507.bin"
+    ]
+   }
+  },
+  {
+   "name": "tiles held in every mode",
+   "pass": true,
+   "detail": {
+    "hybrid": {
+     "tiles": 8,
+     "mode": "hybrid",
+     "missing": null
+    },
+    "satellite": {
+     "tiles": 8,
+     "mode": "satellite",
+     "missing": null
+    },
+    "original": {
+     "tiles": 8,
+     "mode": "original",
+     "missing": null
+    }
+   }
+  },
+  {
+   "name": "no explorer file fell through to live (all served locally)",
+   "pass": true,
+   "detail": {
+    "liveExplorer": 0,
+    "missing": []
+   }
+  },
+  {
+   "name": "P45: found, and the camera lands on its 2 Oct place (sheet x ≈ 1206, y ≈ 326; 17 Sep was x ≈ 1331)",
+   "pass": true,
+   "detail": {
+    "found": true,
+    "inView": true,
+    "centre": [
+     1210,
+     329
+    ],
+    "labelBoxes": [
+     [
+      1207,
+      326,
+      1211,
+      333
+     ]
+    ],
+    "places": 1
+   }
+  },
+  {
+   "name": "WC10 (new on this issue) is findable and in view",
+   "pass": true,
+   "detail": {
+    "found": true,
+    "inView": true,
+    "centre": [
+     641,
+     654
+    ],
+    "labelBoxes": [
+     [
+      637,
+      649,
+      645,
+      660
+     ]
+    ],
+    "places": 1
+   }
+  },
+  {
+   "name": "WC51, WC38, WC39: found at their 2 Oct places",
+   "pass": true,
+   "detail": {
+    "WC51": {
+     "found": true,
+     "inView": true,
+     "centre": [
+      1953,
+      274
+     ],
+     "labelBoxes": [
+      [
+       1948,
+       272,
+       1958,
+       276
+      ]
+     ],
+     "places": 1
+    },
+    "WC38": {
+     "found": true,
+     "inView": true,
+     "centre": [
+      498,
+      1154
+     ],
+     "labelBoxes": [
+      [
+       492,
+       1153,
+       504,
+       1157
+      ]
+     ],
+     "places": 1
+    },
+    "WC39": {
+     "found": true,
+     "inView": true,
+     "centre": [
+      499,
+      1174
+     ],
+     "labelBoxes": [
+      [
+       493,
+       1172,
+       504,
+       1176
+      ]
+     ],
+     "places": 1
+    }
+   }
+  },
+  {
+   "name": "WC69 and WC40 carry one label each on the 2 Oct sheet (WC40a gone)",
+   "pass": true,
+   "detail": {
+    "WC69": 1,
+    "WC40": 1,
+    "WC40a": 0
+   }
+  },
+  {
+   "name": "WC32: no label on the 2 Oct drawing; the explorer has no place for it; the page keeps its 17 Sep pin, marked as such",
+   "pass": true,
+   "detail": {
+    "explorer": {
+     "found": false,
+     "inItems": false,
+     "places": 0,
+     "listed": null,
+     "labelHits": 0
+    },
+    "page": {
+     "pin": true,
+     "how": "tag on the unit, master D001 issued 17 Sep (not drawn on the 2 Oct issue)",
+     "inRegister": true,
+     "cancelled": true
+    }
+   }
+  },
+  {
+   "name": "fencing layer accepts the drawing: adapter hash is the 17 Sep frame, geometry drawn, no \"Master drawing changed\" alert",
+   "pass": true,
+   "detail": {
+    "active": true,
+    "geometryVisible": 127,
+    "rejected": [],
+    "stats": {
+     "tasks": 0,
+     "notices": 0,
+     "mapped": 0,
+     "complete": 0,
+     "unmapped": 0
+    },
+    "alert": "",
+    "summary": "5 source plans · 95 source annotations / anchors. Earlier and current routes are shown together; no additive fence totals.",
+    "masterHash": "37792f0a9d32e829f34d28ab41197fd2cf689fb62cd60a755aa89106cb5a0a2f"
+   }
+  },
+  {
+   "name": "a fence run (traced on the 17 Sep issue, master 37792f0a…) is drawn at its sheet place on the 2 Oct drawing",
+   "pass": true,
+   "detail": {
+    "run": {
+     "id": "cw4-p3-s08-orange-run",
+     "kind": "line",
+     "region": "main",
+     "master": "37792f0a9d32",
+     "n": 12,
+     "rect": [
+      686,
+      348,
+      831,
+      445
+     ]
+    },
+    "drawn": {
+     "visible": 127,
+     "active": true
+    }
+   }
+  },
+  {
+   "name": "deep zoom past the pyramid draws from the 2 Oct scene (sceneReady, 301,253 records)",
+   "pass": true,
+   "detail": {
+    "z": 131,
+    "sceneReady": true,
+    "records": 301253,
+    "err": null
+   }
+  },
+  {
+   "name": "no page errors (dashboard or explorer)",
+   "pass": true,
+   "detail": []
+  },
+  {
+   "name": "no failed requests for the explorer (every 4xx/5xx listed; the page's not-yet-uploaded v8.89 pictures excluded)",
+   "pass": true,
+   "detail": {
+    "bad": [],
+    "excluded": 5,
+    "consoleErrors": 5
+   }
+  },
+  {
+   "name": "no writes attempted (counts.blocked is 0)",
+   "pass": true,
+   "detail": {
+    "blocked": 0,
+    "live": 149,
+    "local": 282
+   }
+  }
+ ],
+ "counts": {
+  "page": 1,
+  "live": 149,
+  "blocked": 0,
+  "local": 282,
+  "ranges": 192,
+  "missing": [],
+  "localPaths": 93,
+  "liveExplorer": 0,
+  "badResponses": [
+   "404 https://gc500-production.up.railway.app/m/Coates-GC500-2026/5b1002f0eb3125eddda5a4f4f8c5f1f2e5e6fb6cf6a1206b38ac894da0ac9566.webp",
+   "404 https://gc500-production.up.railway.app/m/Coates-GC500-2026/89e4eb467cf2c065001444f07cdd853bb0ee42ee0676387e109d983f0d978241.webp",
+   "404 https://gc500-production.up.railway.app/m/Coates-GC500-2026/537d93c2caa00c0f629191d49b2969123e7d06be7b062a992020c0496f7315bf.webp",
+   "404 https://gc500-production.up.railway.app/m/Coates-GC500-2026/163ab9343d25c2e1d472f38be4ebf43730ad9d6428a3ce767a482d04aa90e812.webp",
+   "404 https://gc500-production.up.railway.app/m/Coates-GC500-2026/c3036dc5d492e480e331be84ca47cfc9105ef1a21cc25990f46afffb45ac019a.webp"
+  ]
+ },
+ "findResults": {
+  "P45": {
+   "found": true,
+   "inView": true,
+   "centre": [
+    1210,
+    329
+   ],
+   "labelBoxes": [
+    [
+     1207,
+     326,
+     1211,
+     333
+    ]
+   ],
+   "places": 1
+  },
+  "WC10": {
+   "found": true,
+   "inView": true,
+   "centre": [
+    641,
+    654
+   ],
+   "labelBoxes": [
+    [
+     637,
+     649,
+     645,
+     660
+    ]
+   ],
+   "places": 1
+  },
+  "WC51": {
+   "found": true,
+   "inView": true,
+   "centre": [
+    1953,
+    274
+   ],
+   "labelBoxes": [
+    [
+     1948,
+     272,
+     1958,
+     276
+    ]
+   ],
+   "places": 1
+  },
+  "WC38": {
+   "found": true,
+   "inView": true,
+   "centre": [
+    498,
+    1154
+   ],
+   "labelBoxes": [
+    [
+     492,
+     1153,
+     504,
+     1157
+    ]
+   ],
+   "places": 1
+  },
+  "WC39": {
+   "found": true,
+   "inView": true,
+   "centre": [
+    499,
+    1174
+   ],
+   "labelBoxes": [
+    [
+     493,
+     1172,
+     504,
+     1176
+    ]
+   ],
+   "places": 1
+  },
+  "WC69": {
+   "found": true,
+   "inView": true,
+   "centre": [
+    168,
+    1143
+   ],
+   "labelBoxes": [
+    [
+     164,
+     1138,
+     173,
+     1148
+    ]
+   ],
+   "places": 1
+  },
+  "WC40": {
+   "found": true,
+   "inView": true,
+   "centre": [
+    505,
+    1106
+   ],
+   "labelBoxes": [
+    [
+     502,
+     1100,
+     509,
+     1112
+    ]
+   ],
+   "places": 1
+  }
+ },
+ "modes": {
+  "hybrid": {
+   "tiles": 8,
+   "mode": "hybrid",
+   "missing": null
+  },
+  "satellite": {
+   "tiles": 8,
+   "mode": "satellite",
+   "missing": null
+  },
+  "original": {
+   "tiles": 8,
+   "mode": "original",
+   "missing": null
+  }
+ }
+}

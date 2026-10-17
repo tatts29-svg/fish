@@ -1,0 +1,114 @@
+{
+ "by": "Andrew Fisher",
+ "what": "16 Oct 2026, 10:12 AEST: a client's merge re-keyed the sixteen week-1 hire agreements into two copies each (the stale note 'Andrew Fisher' and the current 'Andrew'), dropping the plain ids, and put 36592's old reading back under its plain id. Every agreement is charged twice until the stale copies are set aside. This sets the sixteen stale copies aside through the page's own Set aside, puts the corrected 36592 back and sets its old reading aside.",
+ "ops": [
+  {
+   "op": "docket_aside",
+   "docket_no": "36601",
+   "id": "F-AF-0001·1f08",
+   "why": "the stale copy (note still 'Andrew Fisher') that a client's merge at 10:12 AEST 16 Oct re-keyed beside the current one; F-AF-0001·d9d2 stays"
+  },
+  {
+   "op": "docket_aside",
+   "docket_no": "36602",
+   "id": "F-AF-0002·78dd",
+   "why": "the stale copy (note still 'Andrew Fisher') that a client's merge at 10:12 AEST 16 Oct re-keyed beside the current one; F-AF-0002·90b4 stays"
+  },
+  {
+   "op": "docket_aside",
+   "docket_no": "36603",
+   "id": "F-AF-0003·1a4a",
+   "why": "the stale copy (note still 'Andrew Fisher') that a client's merge at 10:12 AEST 16 Oct re-keyed beside the current one; F-AF-0003·27c0 stays"
+  },
+  {
+   "op": "docket_aside",
+   "docket_no": "36604",
+   "id": "F-AF-0004·c299",
+   "why": "the stale copy (note still 'Andrew Fisher') that a client's merge at 10:12 AEST 16 Oct re-keyed beside the current one; F-AF-0004·c913 stays"
+  },
+  {
+   "op": "docket_aside",
+   "docket_no": "36605",
+   "id": "F-AF-0005·43c9",
+   "why": "the stale copy (note still 'Andrew Fisher') that a client's merge at 10:12 AEST 16 Oct re-keyed beside the current one; F-AF-0005·6d41 stays"
+  },
+  {
+   "op": "docket_aside",
+   "docket_no": "36606",
+   "id": "F-AF-0006·639c",
+   "why": "the stale copy (note still 'Andrew Fisher') that a client's merge at 10:12 AEST 16 Oct re-keyed beside the current one; F-AF-0006·93b3 stays"
+  },
+  {
+   "op": "docket_aside",
+   "docket_no": "36607",
+   "id": "F-AF-0007·f9b7",
+   "why": "the stale copy (note still 'Andrew Fisher') that a client's merge at 10:12 AEST 16 Oct re-keyed beside the current one; F-AF-0007·d98d stays"
+  },
+  {
+   "op": "docket_aside",
+   "docket_no": "36608",
+   "id": "F-AF-0008·3945",
+   "why": "the stale copy (note still 'Andrew Fisher') that a client's merge at 10:12 AEST 16 Oct re-keyed beside the current one; F-AF-0008·b23b stays"
+  },
+  {
+   "op": "docket_aside",
+   "docket_no": "36609",
+   "id": "F-AF-0009·8d07",
+   "why": "the stale copy (note still 'Andrew Fisher') that a client's merge at 10:12 AEST 16 Oct re-keyed beside the current one; F-AF-0009·b5dd stays"
+  },
+  {
+   "op": "docket_aside",
+   "docket_no": "36610",
+   "id": "F-AF-0010·4b38",
+   "why": "the stale copy (note still 'Andrew Fisher') that a client's merge at 10:12 AEST 16 Oct re-keyed beside the current one; F-AF-0010·84ec stays"
+  },
+  {
+   "op": "docket_aside",
+   "docket_no": "36611",
+   "id": "F-AF-0011·c68f",
+   "why": "the stale copy (note still 'Andrew Fisher') that a client's merge at 10:12 AEST 16 Oct re-keyed beside the current one; F-AF-0011·e470 stays"
+  },
+  {
+   "op": "docket_aside",
+   "docket_no": "36612",
+   "id": "F-AF-0012·c11e",
+   "why": "the stale copy (note still 'Andrew Fisher') that a client's merge at 10:12 AEST 16 Oct re-keyed beside the current one; F-AF-0012·9210 stays"
+  },
+  {
+   "op": "docket_aside",
+   "docket_no": "36613",
+   "id": "F-AF-0013·d3fb",
+   "why": "the stale copy (note still 'Andrew Fisher') that a client's merge at 10:12 AEST 16 Oct re-keyed beside the current one; F-AF-0013·6323 stays"
+  },
+  {
+   "op": "docket_aside",
+   "docket_no": "36614",
+   "id": "F-AF-0014·9aca",
+   "why": "the stale copy (note still 'Andrew Fisher') that a client's merge at 10:12 AEST 16 Oct re-keyed beside the current one; F-AF-0014·df44 stays"
+  },
+  {
+   "op": "docket_aside",
+   "docket_no": "36615",
+   "id": "F-AF-0015·c501",
+   "why": "the stale copy (note still 'Andrew Fisher') that a client's merge at 10:12 AEST 16 Oct re-keyed beside the current one; F-AF-0015·420a stays"
+  },
+  {
+   "op": "docket_aside",
+   "docket_no": "36616",
+   "id": "F-AF-0016·5987",
+   "why": "the stale copy (note still 'Andrew Fisher') that a client's merge at 10:12 AEST 16 Oct re-keyed beside the current one; F-AF-0016·b047 stays"
+  },
+  {
+   "op": "docket_putback",
+   "docket_no": "36592",
+   "id": "F-AFV-0035·2904",
+   "why": "the corrected record (137.5 m, 55 panels), the single copy on the record before the 14 Oct re-keying"
+  },
+  {
+   "op": "docket_aside",
+   "docket_no": "36592",
+   "id": "F-AFV-0035",
+   "why": "the old 9 Oct reading (132.5 m, 53 panels), re-keyed back to its plain id by the 10:12 AEST merge; the duplicate Andrew asked to remove"
+  }
+ ]
+}

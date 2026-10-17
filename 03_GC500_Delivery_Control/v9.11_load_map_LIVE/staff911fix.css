@@ -1,0 +1,30 @@
+/* Author: Andrew Fisher. Worker and traffic controls remain readable in edit and view links. */
+.crew883 .workers911-task{display:block;min-width:0;margin:0 0 14px;padding:0 0 12px;border-bottom:1px solid #526970}
+.crew883 .workers911-task>b{display:block;margin-bottom:9px;color:#fff;font-size:16px}
+.crew883 .workers911-task>button{margin:8px 6px 0 0}
+.crew883 .workers911-hint{color:#c6d7dd;font-size:12px;line-height:1.5}
+.crew883 .workers911-setup{padding:0 0 12px;display:flex;gap:8px;flex-wrap:wrap}
+.crew883 .workers911-setup p{width:100%;margin:0;color:#dce9ed}
+.crew883 .workers911-task fieldset{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;padding:12px;min-width:0}
+.crew883 .workers911-task fieldset>label:first-of-type{grid-column:1/-1}
+.crew883 .workers911-task fieldset>label:has(input[type=checkbox]){display:flex;align-items:center;gap:8px;min-height:44px;margin:0;font-size:13px}
+.crew883 .workers911-task fieldset>label input[type=checkbox]{margin:0;flex:0 0 auto}
+.crew883 .workers911-task fieldset>button{grid-column:1/-1;justify-self:start}
+.crew883[data-workers911] [data-crew883-order]{display:none}
+.crew883[data-workers911]>summary{color:#f4f8fa}
+body #pane-timeline .crew883 :is(input:not([type=checkbox]):not([type=radio]),select,textarea),
+body #drawer .crew883 :is(input:not([type=checkbox]):not([type=radio]),select,textarea),
+body #pane-timeline .ld .traffic903 select,body #drawer .traffic903 select{
+ color-scheme:light;color:#152e36;-webkit-text-fill-color:#152e36;background:#f6fafb;border:1px solid #93a6ab;opacity:1;min-height:44px;max-width:100%;box-sizing:border-box;transition:none
+}
+body #pane-timeline .crew883 :is(input:not([type=checkbox]):not([type=radio]),select,textarea):disabled,
+body #drawer .crew883 :is(input:not([type=checkbox]):not([type=radio]),select,textarea):disabled,
+body.viewonly #drawer .crew883 :is(input:not([type=checkbox]):not([type=radio]),select,textarea):disabled,
+body #pane-timeline .ld .traffic903 select:disabled,body #drawer .traffic903 select:disabled{
+ color-scheme:light;color:#324b54;-webkit-text-fill-color:#324b54;background:#dbe5e8;opacity:1;transition:none
+}
+body :is(#pane-timeline,#drawer) :is(.crew883,.traffic903) select :is(option,optgroup){color:#152e36;-webkit-text-fill-color:#152e36;background:#f6fafb}
+body #pane-timeline select :is(option,optgroup),body #drawer select.time907 :is(option,optgroup){color:#152e36;-webkit-text-fill-color:#152e36;background:#f6fafb;color-scheme:light}
+body :is(#pane-timeline,#drawer) .crew883 :is(input,textarea)::placeholder{color:#536c75;-webkit-text-fill-color:#536c75;opacity:1}
+body :is(#pane-timeline,#drawer) :is(.crew883,.traffic903) button:disabled{color:#edf5f7;-webkit-text-fill-color:#edf5f7;background:#435b66;border-color:#68848b;opacity:1;transition:none}
+body :is(#pane-timeline,#drawer) :is(.crew883,.traffic903) :is(button,input,select,textarea):focus-visible{outline:2px solid #ffad70;outline-offset:2px}

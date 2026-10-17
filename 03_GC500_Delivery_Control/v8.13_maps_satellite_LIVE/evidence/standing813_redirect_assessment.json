@@ -1,0 +1,96 @@
+{
+  "author": "Andrew Fisher",
+  "issue": "Runner originally required every source pane visible, rejecting existing intended redirects. Browser runs have zero errors and correct deep-link/back targets.",
+  "productChanged": false,
+  "sourceGuardsExact": 2,
+  "priorReleaseProof": [
+    {
+      "device": "desktop",
+      "priorSha256": "f20ec1f880444d9cf021cca9126796b4e27bbcaf6c1bc6403ceb7b62152c8cbe",
+      "currentSha256": "a28353ef88422e174178769d86be3e733fe3790af6d19cbd450d0331a2a4c447",
+      "identicalExpectedRedirects": {
+        "register": {
+          "shown": false,
+          "hash": "#plant",
+          "active": "Equipment",
+          "goerr": null
+        },
+        "journal": {
+          "shown": false,
+          "hash": "#today",
+          "active": "Today",
+          "goerr": null
+        },
+        "breakdowns": {
+          "shown": false,
+          "hash": "#today",
+          "active": "Today",
+          "goerr": null
+        },
+        "variances": {
+          "shown": false,
+          "hash": "#today",
+          "active": "Today",
+          "goerr": null
+        },
+        "edit": {
+          "shown": false,
+          "hash": "#today",
+          "active": "Today",
+          "goerr": null
+        },
+        "add": {
+          "shown": false,
+          "hash": "#today",
+          "active": "Today",
+          "goerr": null
+        }
+      }
+    },
+    {
+      "device": "phone",
+      "priorSha256": "bd7b4a0a11e9ef2d12f5598f8602d88dbae1cc990dc6b9d7438fc857cddacc0f",
+      "currentSha256": "fe021809f9886fe730e4aaacee066e1a59004bb812fb60ee637967c1fcf7f26c",
+      "identicalExpectedRedirects": {
+        "register": {
+          "shown": false,
+          "hash": "#plant",
+          "active": "Equipment",
+          "goerr": null
+        },
+        "journal": {
+          "shown": false,
+          "hash": "#today",
+          "active": "Today",
+          "goerr": null
+        },
+        "breakdowns": {
+          "shown": false,
+          "hash": "#today",
+          "active": "Today",
+          "goerr": null
+        },
+        "variances": {
+          "shown": false,
+          "hash": "#today",
+          "active": "Today",
+          "goerr": null
+        },
+        "edit": {
+          "shown": false,
+          "hash": "#today",
+          "active": "Today",
+          "goerr": null
+        },
+        "add": {
+          "shown": false,
+          "hash": "#today",
+          "active": "Today",
+          "goerr": null
+        }
+      }
+    }
+  ],
+  "incorrectAssessmentSha256": "448322eea3e869e2b4d741dd6cace4facbb4b8bd95bb3b0c0093789dd0fb6af9",
+  "resolution": "Correct only runner assessment and resume remaining packs. Raw browser results and already-passed packed desktop are retained without rerun."
+}

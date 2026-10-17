@@ -1,0 +1,50 @@
+{
+ "live": {
+  "label": "live v7.14",
+  "ready": true,
+  "z0": 1,
+  "oneNotch": {
+   "factor": 1.23,
+   "msToSettle": 228,
+   "anchorDriftSourcePx": {
+    "dx": 0,
+    "dy": 0
+   },
+   "samples": 7
+  },
+  "threeNotches": {
+   "factor": 1.96
+  },
+  "backOut": {
+   "z": 1,
+   "z0": 1
+  },
+  "errors": [
+   "console: Failed to load resource: net::ERR_FAILED"
+  ]
+ },
+ "draft": {
+  "label": "v7.58 draft",
+  "ready": true,
+  "z0": 1,
+  "oneNotch": {
+   "factor": 1.377,
+   "msToSettle": 287,
+   "anchorDriftSourcePx": {
+    "dx": 0,
+    "dy": 0
+   },
+   "samples": 12
+  },
+  "threeNotches": {
+   "factor": 2.612
+  },
+  "backOut": {
+   "z": 1,
+   "z0": 1
+  },
+  "errors": [
+   "console: Failed to load resource: net::ERR_FAILED"
+  ]
+ }
+}

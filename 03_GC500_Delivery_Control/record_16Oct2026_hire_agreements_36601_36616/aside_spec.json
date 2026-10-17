@@ -1,0 +1,12 @@
+{
+ "by": "Andrew Fisher",
+ "what": "Hire agreement 36592 (The Hill - Monster CZ, 9 Oct 2026) is on the record twice, both recorded on 9 Oct: F-AFV-0035·2904 at 137.5 m and F-AFV-0035·1e26 at 132.5 m. The photographed paper reads 132.5 m, 55 panels, 53 bases, 53 clamps, and the 9 Oct reviewed programme link expects 132.5 m. The 137.5 m copy is set aside through the page's own Set aside (kept, with who and when; Put back is under Tools -> Edit), so the paper is charged once and its programme link reads again.",
+ "ops": [
+  {
+   "op": "docket_aside",
+   "id": "F-AFV-0035·2904",
+   "docket_no": "36592",
+   "why": "duplicate of 36592; the paper reads 132.5 m, which F-AFV-0035·1e26 carries"
+  }
+ ]
+}

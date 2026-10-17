@@ -1,0 +1,40 @@
+{
+  "author": "Andrew Fisher",
+  "candidateSha256": "0030d7d3d6838fcad67773cdb19927ea0388591aa33cbc163e53d0d02d182443",
+  "candidateBytes": 14947935,
+  "implementationCommit": "89837f86",
+  "checkedAt": "2026-10-12T04:11:51.491411+00:00",
+  "financeModelChecks": 87,
+  "sourceChecks": 36,
+  "presentationChecks": 24,
+  "finalCandidateBrowserChecks": 383,
+  "finalCandidateNavigation": {
+    "desktop": {
+      "routes": 22,
+      "links": 7,
+      "back": true,
+      "errors": 0
+    },
+    "phone": {
+      "routes": 22,
+      "links": 7,
+      "back": true,
+      "errors": 0
+    }
+  },
+  "guards": {
+    "wrongBaseRejected": true,
+    "repeatRejected": true
+  },
+  "phoneVisualReviewed": true,
+  "note": "Phone financial 383-check evidence predates the final explicit >=450 kVA POA guard; final pure model and both navigation sweeps cover the final candidate. Actual-public desktop and phone checks passed on final bytes.",
+  "publicVerification": {
+    "desktopChecks": 18,
+    "phoneChecks": 18,
+    "publicSha256": "0030d7d3d6838fcad67773cdb19927ea0388591aa33cbc163e53d0d02d182443",
+    "uploadedAt": "2026-10-12T04:12:18.087Z",
+    "errors": 0,
+    "writes": 0,
+    "phoneVisualReviewed": true
+  }
+}

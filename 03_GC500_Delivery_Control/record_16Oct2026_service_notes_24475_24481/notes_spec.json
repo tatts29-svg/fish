@@ -1,0 +1,141 @@
+{
+ "by": "Andrew Fisher",
+ "what": "Seven Advanced Environmental Services service notes (24475-24481, 12 to 15 Oct 2026) and four Advanced Temporary Fencing collection forms (28557-28560, 12 and 15 Oct 2026), signed by Andrew on 16 Oct 2026 and photographed; recorded through the page's own green-book and blue-book forms (recordServiceNote, recordCollection). Hours are the total person-hours as the note writes them; crew size is not multiplied again. Collection forms: counts collected only, no charge, credit or metres inferred.",
+ "ops": [
+  {
+   "op": "service_note",
+   "note_no": "24475",
+   "date": "2026-10-12",
+   "location": "Madison Point to Ferry Rd",
+   "labour_hours": 3,
+   "crew_note": "1/2 hr x 6 men",
+   "metres": 135,
+   "note": "Had to walk panels in from Madison Point to Ferry Rd. Hire agreement invoice num 36596. No access for truck, concrete bollards already installed. Metres installed 135 metres.",
+   "signed_by": "Andrew Fisher"
+  },
+  {
+   "op": "service_note",
+   "note_no": "24476",
+   "date": "2026-10-13",
+   "location": "Helen Park",
+   "labour_hours": 2,
+   "crew_note": "1/2 hr - 4 men",
+   "metres": 82.5,
+   "note": "Scrim existing fence. 82.5 m.",
+   "signed_by": "Andrew Fisher"
+  },
+  {
+   "op": "service_note",
+   "note_no": "24477",
+   "date": "2026-10-13",
+   "location": "S.0.2 - B.O.H.",
+   "labour_hours": 1.5,
+   "crew_note": "15 mins x 6 men",
+   "metres": 75,
+   "note": "Scrim existing fence - 75 m.",
+   "signed_by": "Andrew Fisher"
+  },
+  {
+   "op": "service_note",
+   "note_no": "24478",
+   "date": "2026-10-12",
+   "location": "Philip Park - Advanced Compound",
+   "labour_hours": 0.5,
+   "crew_note": "1 man x 0.5 hr",
+   "metres": "",
+   "note": "XB60AQ - 13:45 - 14:15",
+   "signed_by": "Andrew Fisher"
+  },
+  {
+   "op": "service_note",
+   "note_no": "24479",
+   "date": "2026-10-13",
+   "location": "Philip Park - Advanced Compound",
+   "labour_hours": 0.5,
+   "crew_note": "1 man x 0.5 hrs",
+   "metres": "",
+   "note": "XB38ZP 12:15 - 12:45",
+   "signed_by": "Andrew Fisher"
+  },
+  {
+   "op": "service_note",
+   "note_no": "24480",
+   "date": "2026-10-14",
+   "location": "Philip Park - Advanced Compound",
+   "labour_hours": 1.5,
+   "crew_note": "1 man x 1 hr + 2 men x 0.25 hr each",
+   "metres": "",
+   "note": "XB77VR 9:45 - 10:15; 771CIK 10:15 - 10:45; 22CIRA 13:00 - 13:15 - 2 men x 0.25 hr each",
+   "signed_by": "Andrew Fisher"
+  },
+  {
+   "op": "service_note",
+   "note_no": "24481",
+   "date": "2026-10-15",
+   "location": "S.0.8 B.O.H.",
+   "labour_hours": 4,
+   "crew_note": "1 hr x 4 men",
+   "metres": 185,
+   "note": "Includes relocation of S.0.8 C.2 to S.0.8 B.O.H. 65 m. Also includes 120 m scrim. Hire agreement doct num 36614.",
+   "signed_by": "Andrew Fisher"
+  },
+  {
+   "op": "collection",
+   "collection_no": "28557",
+   "date": "2026-10-12",
+   "location": "Double stack - C.2",
+   "collected": {
+    "mesh_panel": 30,
+    "base": 28,
+    "clamp": 28,
+    "wheels": 2
+   },
+   "hire_agreements_written": "",
+   "signed_by": "Andrew Fisher",
+   "note": "Collected quantities as written. Hire agreement and issued counts blank; no charge, credit or metres inferred."
+  },
+  {
+   "op": "collection",
+   "collection_no": "28558",
+   "date": "2026-10-15",
+   "location": "Pit Lane",
+   "collected": {
+    "mesh_panel": 84,
+    "base": 86,
+    "clamp": 84,
+    "wheels": 2
+   },
+   "hire_agreements_written": "",
+   "signed_by": "Andrew Fisher",
+   "note": "Collected quantities as written. Hire agreement and issued counts blank; no charge, credit or metres inferred."
+  },
+  {
+   "op": "collection",
+   "collection_no": "28559",
+   "date": "2026-10-15",
+   "location": "Porsche Lounge",
+   "collected": {
+    "mesh_panel": 12,
+    "base": 10,
+    "clamp": 13
+   },
+   "hire_agreements_written": "",
+   "signed_by": "Andrew Fisher",
+   "note": "Collected quantities as written. Hire agreement and issued counts blank; no charge, credit or metres inferred."
+  },
+  {
+   "op": "collection",
+   "collection_no": "28560",
+   "date": "2026-10-15",
+   "location": "S18 - Grandstand",
+   "collected": {
+    "mesh_panel": 6,
+    "base": 6,
+    "clamp": 5
+   },
+   "hire_agreements_written": "",
+   "signed_by": "Andrew Fisher",
+   "note": "Collected quantities as written. Hire agreement and issued counts blank; no charge, credit or metres inferred."
+  }
+ ]
+}
