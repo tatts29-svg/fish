@@ -87,7 +87,7 @@ const ok = (tag, c, m) => { c ? pass++ : fail++; counts[tag] = counts[tag] || [0
    ok(tag, d['2026-09-14'].insideW === 9 && d['2026-09-14'].pctW === 69, '14 Sep against the windows re-sent before the day: 9 of 13 (one 12 m re-sent, P01/P03 still late)');
    ok(tag, d['2026-09-15'].n === 6 && d['2026-09-15'].inside === 3 && d['2026-09-15'].failed.join() === 'T0021' && /3 OF 6/.test(r.rows['2026-09-15'] || ''), '15 Sep 50%, 3 OF 6 with the failed T0021 counted: ' + r.rows['2026-09-15']);
    ok(tag, late('2026-09-15', 'T0022') === 240 && late('2026-09-15', 'T0025') === 270, '15 Sep T0022 4 h and T0025 4 h 30 min (site notes "turned up 14:30")');
-   ok(tag, late('2026-09-16', 'P17') === 30 && d['2026-09-16'].inside === 5, '16 Sep P17 30 min late (site note 14:30), 5 of 6');
+   ok(tag, late('2026-09-16', 'P17') === 30 && late('2026-09-16', 'P21') === 60 && d['2026-09-16'].inside === 4, '16 Sep P17 30 min late and P21 1 h late on their site notes (the site record wins over the 06:59 text), 4 of 6');
    ok(tag, d['2026-09-25'].n === 4 && d['2026-09-25'].inside === 0 && d['2026-09-25'].aside.join() === 'WC50' && /0 OF 4/.test(r.rows['2026-09-25'] || ''), '25 Sep 0 OF 4 with WC50 set aside: ' + r.rows['2026-09-25']);
    ok(tag, d['2026-10-08'].n === 4 && d['2026-10-08'].inside === 1 && late('2026-10-08', 'WC31') === 310, '8 Oct 1 of 4 with WC31 counted (5 h 10 min)');
    ok(tag, d['2026-09-30'].n === 1 && d['2026-09-30'].pct === 100 && /1 OF 1/.test(r.rows['2026-09-30'] || ''), '30 Sep 100%, 1 OF 1: ' + r.rows['2026-09-30']);
@@ -136,7 +136,8 @@ const ok = (tag, c, m) => { c ? pass++ : fail++; counts[tag] = counts[tag] || [0
    ok(tag, /^Coates on time\s*No Coates texts loaded after 16 Oct 2026 17:47\. Booked for this day before then: /.test(r.after19) && !r.card19, 'a day after the export (19 Oct, once past): no card row, More info says no texts loaded after 16 Oct 17:47 and lists what was booked');
    // review fixes
    ok(tag, /Coates on time 75 percent: 3 of 4/.test(r.ariaWx) && /Weather: Clear$/.test(r.ariaWx), 'the card label keeps the figure when the weather refresh rewrites "Weather: …": ' + r.ariaWx.slice(-140));
-   ok(tag, /Site note and Coates text disagree P21: site note on site 14:30, Coates text 06:59 \(booked 10:30–13:30\); counted on the earlier time, on the site note 1 h late/.test(r.m16t) && /P20: site note on site 10:00, Coates text 08:14 \(booked 09:00–12:00\); counted on the earlier time, inside the booked window either way/.test(r.m16t), '16 Sep: P21\'s site note (on site 14:30) is shown against its 06:59 Coates text, not hidden');
+   const clash16 = (/Site note and Coates text disagree .*?(?=Each Coates booking|$)/.exec(r.m16t) || [''])[0];
+   ok(tag, /P21: site note on site 14:30, Coates text 06:59 \(booked 10:30–13:30\); counted on the site note, the site record \(1 h late\)/.test(clash16) && /P20: site note on site 10:00, Coates text 08:14 \(booked 09:00–12:00\); counted on the site note, the site record \(inside the booked window either way\)/.test(clash16), '16 Sep: P21\'s site note (on site 14:30) is shown against its 06:59 Coates text, not hidden: ' + clash16.slice(0, 260));
    ok(tag, /Container 6 m · T0266 · programme T0266: no carrier, load 12:00 · booked 12:00–15:00/.test(r.m13t) && !/T0266: no carrier or load time/.test(r.m13t), '13 Oct T0266: the programme load 12:00 is named (not "no carrier or load time")');
    ok(tag, /Fork extension · T0109 · no programme row for this item that day/.test(r.m12t), '12 Oct fork extension: "no programme row for this item that day" (T0109\'s row is the forklift)');
    ok(tag, !r.overflow, 'no sideways scroll');

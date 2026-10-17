@@ -316,6 +316,10 @@ ORDER_NOTE = re.compile(r'\b(?:\d{1,2}[.:]\d{2}\s*(?:am|pm)?|was\b|now\b|after\b
 
 # Matches the rules cannot settle, reviewed against the sources named (17 Oct 2026).
 REVIEWED = {
+    # 16 Oct: the 'Senior + 2 items' (3 boards) and 'Senior + 1 items' (2 boards) texts are the 5 boards T0158 received on 16 Oct
+    # for Monday (receipt VMS:5 stamped 16 Oct); T0128 holds VMS11 and VMS12 (Andrew, 16 Oct: "VMS for today are VMS11 ... and VMS12").
+    ('2026-10-16', 'Variable Message Board Senior + 2 items', 0): (['T0158'], 'T0158\'s receipt of 5 boards on 16 Oct (3 + 2 on the two Senior texts); T0128 holds VMS11 and VMS12'),
+    ('2026-10-16', 'Variable Message Board Senior + 1 items', 0): (['T0158'], 'T0158\'s receipt of 5 boards on 16 Oct (3 + 2 on the two Senior texts); T0128 holds VMS11 and VMS12'),
     # 17 Sep: the cyclone 6.0 x 3.0 is HRP: the record gives HRP asset 1189410, register 9968862 line 93 (bdd drifted to 14 Sep).
     ('2026-09-17', 'Portable Building Shell 6.0M x 3.0M - Cyclo', 0): (['HRP'], 'asset number 1189410, which the record gives HRP (register 9968862 line 93)'),
     # 17 Sep: two plain 6.0 x 3.0 units for three plain 6 m buildings on the programme (P36, P37, AA): the texts cannot tell them apart.

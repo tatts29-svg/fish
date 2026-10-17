@@ -138,7 +138,8 @@ JS = r'''/* Author: Andrew Fisher. v10.57 - Coates on time on each completed Bui
    if (u.f && !u.t) { r.failed = true; M.failed.push(r); M.counted.push(r); return; }
    const text = u.td ? null : mn(u.t);
    let arr = text, src = 'text';
-   if (s && (text == null || s.min < text)) { arr = s.min; src = 'site'; }
+   /* the site record is the truth: a time written in the site note wins; otherwise the earlier of the text and the site tick (ticks can be entry stamps) */
+   if (s && (text == null || s.min < text || s.src === 'site note')) { arr = s.min; src = 'site'; }
    r.arr = arr; r.src = src;
    if (arr == null) { r.laterDay = true; M.counted.push(r); M.late.push(r); return; }
    r.lateBy = arr - mn(u.w[1]); r.in = r.lateBy <= 0; r.inW = arr <= mn((u.wf || u.w)[1]);
@@ -217,7 +218,7 @@ JS = r'''/* Author: Andrew Fisher. v10.57 - Coates on time on each completed Bui
   const cats = {}; bad.forEach(r => { cats[r.u.c] = (cats[r.u.c] || 0) + 1; });
   const parts = Object.entries(cats).sort((a, b) => b[1] - a[1]).map(([c, n]) => n > 1 ? c + ' ×' + n : c);
   let s = head + ' · ' + parts.join(', '), k = 0;
-  while (s.length > 42 && parts.length > 1) { parts.pop(); k++; s = head + ' · ' + parts.join(', ') + ' +' + k + ' more'; }
+  while (s.length > 64 && parts.length > 1) { parts.pop(); k++; s = head + ' · ' + parts.join(', ') + ' +' + k + ' more'; }
   return s;
  }
  function cardRow(iso){
@@ -254,9 +255,9 @@ JS = r'''/* Author: Andrew Fisher. v10.57 - Coates on time on each completed Bui
    '<li class="ot1057-li"><span><b>' + e((u.k === u.c ? u.c : u.c + ' · ' + u.k) + ' · ' + who(u)) + '</b> · ' + e('booked ' + win(u.w) + ' · Coates text ' + (u.td ? dd(u.td) + ' ' : '') + (u.t || '')) + '</span><small>' + e(u.x.why + ' Sources: ' + u.x.sources.join('; ') + '.') + '</small></li>').join('') + '</ul>';
   if (M.ontime.length) h += '<p class="ot1057-ok"><b>On time</b> ' + e(M.ontime.map(r => r.u.k + ' · ' + who(r.u) + ' · ' + (r.src === 'site' ? 'on site ' + ck(r.arr) : 'Coates text ' + r.u.t) + ' (booked ' + win(r.u.w) + ')').join('; ')) + '</p>';
   /* a time written in the site note that is well after the Coates "delivered" text: the two disagree; shown, never hidden */
-  const clash = M.ontime.filter(r => r.src === 'text' && r.site && r.site.src === 'site note' && r.u.t && r.site.min - mn(r.u.t) >= 30);
+  const clash = M.counted.filter(r => r.src === 'site' && r.site && r.site.src === 'site note' && r.u.t && r.site.min - mn(r.u.t) >= 30);
   if (clash.length) h += '<p class="ot1057-note"><b>Site note and Coates text disagree</b> ' + e(clash.map(r => { const by = r.site.min - mn(r.u.w[1]);
-   return who(r.u) + ': site note on site ' + ck(r.site.min) + ', Coates text ' + r.u.t + ' (booked ' + win(r.u.w) + '); counted on the earlier time' + (by > 0 ? ', on the site note ' + dur(by) + ' late' : ', inside the booked window either way'); }).join(' · ')) + '</p>';
+   return who(r.u) + ': site note on site ' + ck(r.site.min) + ', Coates text ' + r.u.t + ' (booked ' + win(r.u.w) + '); counted on the site note, the site record' + (by > 0 ? ' (' + dur(by) + ' late)' : ' (inside the booked window either way)'); }).join(' · ')) + '</p>';
   if (M.unpaired.length) h += '<p class="ot1057-note"><b>Site record, not paired</b> ' + e(M.unpaired.map(x => x.k + ', one of ' + x.refs.join('/') + ': ' + x.seen.join(', ') + '; the texts cannot tell which unit is which, so the Coates text times stand').join(' · ')) + '</p>';
   if (M.notext.length) h += '<p class="ot1057-note"><b>Booked, no delivered text (not counted)</b> ' + e(M.notext.map(({u}) => {
    const seen = (u.r || []).map(r => { const s = siteOf(r, iso); return s.times.length ? r + ' on site ' + ck(s.times[0]) : ''; }).filter(Boolean);
