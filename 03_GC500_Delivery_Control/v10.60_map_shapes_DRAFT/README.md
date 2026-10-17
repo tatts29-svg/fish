@@ -1,0 +1,59 @@
+# v10.60 — Map explorer: every reference as the shape of what it is, with its door, and the tick inside
+
+Author: Andrew Fisher · 17 Oct 2026
+
+Andrew, 17 Oct 2026: "the circle should be the shape of the icon. Also with the fwf the door is where it points to";
+"they need to be icons of what they are. With the green tick inside that equipment not outside it"; "when we see all
+the references the references is the shape of what it is and how it looks on the map if it has a door it show the
+door"; "And the green tick is inside the shape not outside". Then "Proceed. Approve. Upload".
+
+## What changes in the Map explorer
+
+- A reference with its own traced outline on the 2 Oct master (`MasterShapes926`) is drawn as that outline, turned the
+  way it sits, in its category colour: a building its footprint, a toilet block its block, an FWF its square. A
+  catalogue footprint (not traced) is dashed; a waste tank under its block is grey.
+- The door shows: the master's door swing (arc and leaf) where it has one. For an FWF, the chevron on its edge, which
+  is where its door is (Andrew's rule above). An FWF with no traced chevron shows no door rather than a guessed one.
+- The status sits inside the shape: the green tick when complete (amber dash, or the other states the same way), once
+  per reference, in its main part (on a run of FWFs, the one nearest the middle), sized to fit. A shape too small for
+  it at that zoom is filled in the status colour instead. No circle, glow or tick beside a shaped reference.
+- The Done chip's finished units are drawn the same way (their shape with the tick inside), not as loose ticks.
+- The label stays and still opens the card; the selected reference is outlined in orange; tapping inside a shape
+  picks it.
+- A reference keeps today's marker, so nothing disappears, when it has no traced shape, more than one place, an outline
+  it shares with other references, is furniture, or its marker sits more than 6 sheet points (about 4 m) off its
+  outline. On today's record that is 19 references: P26, P28, P34 (police fridges and chairs: they share the police
+  building's outline), PG01/03/05/29 (one shared FWF outline), WB01/05/06 (more than one place), WB02/03/19/20 (shared
+  barrier runs), WB13, WB14, WB16, T0258, T0266 (the traced outline is an area label away from the item). Their status
+  now sits inside their circle instead of beside it. 133 references are drawn as their shape.
+- The fencing map and the 3D view are unchanged; the PNG export is unchanged (it never carried the markers).
+
+## How
+
+The page gains `gc500MapShapes1060()` (read-only, built once from `MasterShapes926`) and `gc500ShapeLayer1060`. On each
+explorer frame load the page injects one inline script into the frame (same origin; the explorer's policy allows inline
+scripts). It wraps the explorer's own `drawMarks`, `done782List`, `tick897`, `markAt` and `itemAt887`, and paints the
+shapes on a canvas just under the native markers, through the explorer's own camera (`sheetToDevice`, `toGeo`,
+`applyM`), so they stay aligned while panning, zooming, turning and in the satellite inset. It runs only on the
+reviewed explorer build (`explorer.js?v=8586cb7d5008`) and stands down otherwise. The explorer's files, the record and
+every figure are unchanged. Footer v10.59 → v10.60.
+
+The design was checked against an independent read of the explorer, the page's frame hooks and the shape data, with
+a critic; its two corrections are in (shared outlines keep their marker; the position test measures from the marker
+to the outline, not to the centre).
+
+## Build and checks
+
+```
+bash toolchain/build.sh v10.60 v10.60_map_shapes_DRAFT/patch_v1060.py
+python3 toolchain/upload_page.py build/GC500_v10.60/GC500_Delivery_Control_hosted.html
+```
+
+- On live v10.59 `2b067249…`. check_page PASS.
+- `tests/test_v1060.cjs` 29/29 desktop and phone: shape data (P37's door swing, WC21's six chevrons, shared outlines);
+  the layer mounts once under the native markers; which references are shapes and which keep markers; P37 drawn as its
+  shape with no circle, the tick inside in the status colour and nothing in the old tick spot; tapping inside the
+  shape; turning the map and Satellite + plan; WC21's six FWFs and chevrons; the Done chip gives shaped units no loose
+  tick; T0266's tick inside its circle; the pinned T0022 drawn once its pin arrives; fencing and 3D stand the layer
+  down; record unchanged, no errors, no writes.
+- Screenshots in `evidence/desktop` and `evidence/phone`.

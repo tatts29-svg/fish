@@ -1,0 +1,363 @@
+{
+ "author": "Andrew Fisher",
+ "page": "build/GC500_v10.60/GC500_Delivery_Control_hosted.html",
+ "mobile": false,
+ "passed": 29,
+ "failed": 0,
+ "results": [
+  {
+   "name": "footer says v10.60",
+   "ok": true
+  },
+  {
+   "name": "page: shape data available from the 2 Oct master",
+   "ok": true,
+   "detail": {
+    "refs": 167,
+    "comps": 378,
+    "doors": 121,
+    "chevrons": 213,
+    "shared": 13
+   }
+  },
+  {
+   "name": "page: shape data read once and kept",
+   "ok": true
+  },
+  {
+   "name": "page: P37 has its door swing",
+   "ok": true,
+   "detail": {
+    "comps": 1,
+    "doors": 1
+   }
+  },
+  {
+   "name": "page: WC21 is six FWFs, each with its chevron",
+   "ok": true,
+   "detail": {
+    "comps": 6,
+    "chev": 6
+   }
+  },
+  {
+   "name": "page: shared outlines flagged (police block, PG, barrier runs)",
+   "ok": true,
+   "detail": [
+    "P26",
+    "P27",
+    "P28",
+    "P29",
+    "P34",
+    "PG01",
+    "PG03",
+    "PG05",
+    "PG29",
+    "WB02",
+    "WB03",
+    "WB19",
+    "WB20"
+   ]
+  },
+  {
+   "name": "page: layer loaded, only for the reviewed explorer build",
+   "ok": true
+  },
+  {
+   "name": "frame: layer mounted once, just under the native markers, not catching taps",
+   "ok": true,
+   "detail": {
+    "state": {
+     "available": true,
+     "refs": 167,
+     "drawn": 0,
+     "kept": 0,
+     "done": 0,
+     "off": 0,
+     "failed": 0,
+     "wrapped": true
+    },
+    "layer": true,
+    "under": true,
+    "noTaps": true,
+    "wrapped": true,
+    "oneScript": 1
+   }
+  },
+  {
+   "name": "frame: a second mount does not inject twice",
+   "ok": true
+  },
+  {
+   "name": "shapes: the item's own outline for P37, P36, WC21, WC07, WC69, WB17, P10, AA",
+   "ok": true,
+   "detail": {
+    "P26": "marker",
+    "P28": "marker",
+    "P34": "marker",
+    "PG01": "marker",
+    "PG03": "marker",
+    "PG05": "marker",
+    "PG29": "marker",
+    "T0258": "marker",
+    "T0266": "marker",
+    "WB13": "marker",
+    "WB14": "marker",
+    "WB16": "marker",
+    "P37": "shape",
+    "P36": "shape",
+    "WC21": "shape",
+    "WC07": "shape",
+    "WC69": "shape",
+    "WB17": "shape",
+    "P10": "shape",
+    "AA": "shape"
+   }
+  },
+  {
+   "name": "shapes: shared, furniture and area-label references keep their marker",
+   "ok": true,
+   "detail": {
+    "P26": "marker",
+    "P28": "marker",
+    "P34": "marker",
+    "PG01": "marker",
+    "PG03": "marker",
+    "PG05": "marker",
+    "PG29": "marker",
+    "T0258": "marker",
+    "T0266": "marker",
+    "WB13": "marker",
+    "WB14": "marker",
+    "WB16": "marker",
+    "P37": "shape",
+    "P36": "shape",
+    "WC21": "shape",
+    "WC07": "shape",
+    "WC69": "shape",
+    "WB17": "shape",
+    "P10": "shape",
+    "AA": "shape"
+   }
+  },
+  {
+   "name": "shapes: at least 125 references drawn as their shape",
+   "ok": true,
+   "detail": 133
+  },
+  {
+   "name": "pinned T0022: drawn as its shape once its pin has arrived",
+   "ok": true,
+   "detail": {
+    "placed": true,
+    "shaped": true
+   }
+  },
+  {
+   "name": "P37: selected and drawn as its shape",
+   "ok": true,
+   "detail": {
+    "sel": "P37",
+    "status": "complete",
+    "glyph": "check",
+    "arcs": 0,
+    "tick": 94,
+    "ink": 1336,
+    "old": 0,
+    "at": {
+     "x": 552.8189456760092,
+     "y": 284.92740559999993,
+     "box": {
+      "x0": 516.504227382422,
+      "y0": 259.0204303999999,
+      "x1": 589.1336639695965,
+      "y1": 310.83438079999996
+     }
+    },
+    "state": {
+     "available": true,
+     "refs": 167,
+     "drawn": 1,
+     "kept": 0,
+     "done": 0,
+     "off": 5,
+     "failed": 0,
+     "wrapped": true
+    },
+    "w": 73,
+    "hh": 52
+   }
+  },
+  {
+   "name": "P37: no circle drawn round it",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "name": "P37: the status tick is inside the shape, in the status colour",
+   "ok": true,
+   "detail": {
+    "tick": 94,
+    "status": "complete",
+    "glyph": "check"
+   }
+  },
+  {
+   "name": "P37: nothing in the old tick spot outside the item",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "name": "P37: tapping inside the shape picks P37",
+   "ok": true,
+   "detail": {
+    "m": "P37",
+    "i": "P37",
+    "corner": "P37",
+    "off": null
+   }
+  },
+  {
+   "name": "P37: turning the map turns the shape with it, and it can still be tapped",
+   "ok": true,
+   "detail": {
+    "a": {
+     "x": 552.8189456760092,
+     "y": 284.92740559999993,
+     "box": {
+      "x0": 516.504227382422,
+      "y0": 259.0204303999999,
+      "x1": 589.1336639695965,
+      "y1": 310.83438079999996
+     }
+    },
+    "b": {
+     "x": 553.5725944000001,
+     "y": 285.3189456760092,
+     "box": {
+      "x0": 527.6656192,
+      "y0": 249.00422738242196,
+      "x1": 579.4795696000001,
+      "y1": 321.63366396959645
+     }
+    },
+    "m": "P37",
+    "drawn": 1
+   }
+  },
+  {
+   "name": "P37: drawn in Satellite + plan too",
+   "ok": true,
+   "detail": {
+    "drawn": 1,
+    "mode": "satellite",
+    "failed": 0
+   }
+  },
+  {
+   "name": "WC21: drawn as six FWF squares with their chevrons",
+   "ok": true,
+   "detail": {
+    "strokes": 39,
+    "drawn": 1,
+    "shaped": true,
+    "status": {
+     "state": "complete",
+     "label": "Complete",
+     "colour": "#4aff9a",
+     "fill": "#128448",
+     "shape": "octagon",
+     "glyph": "check",
+     "detail": "COMPLETE",
+     "quantity1010": {
+      "summary": "6/6",
+      "lines": [
+       "6/6"
+      ],
+      "all": [
+       "6 × FWF"
+      ],
+      "items": [
+       {
+        "item": "FWF",
+        "quantity": 6,
+        "completed": 6,
+        "installed": 6
+       }
+      ]
+     }
+    }
+   }
+  },
+  {
+   "name": "all references (one chip): shapes drawn, the few without one keep a marker",
+   "ok": true,
+   "detail": {
+    "marks": 51,
+    "drawn": 125,
+    "kept": 2,
+    "done": 76,
+    "nativeDoneShaped": [],
+    "failed": 0
+   }
+  },
+  {
+   "name": "Done chip: shaped finished units are not also given a loose tick",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "name": "T0266 (keeps its marker): the status sits inside its circle, not beside it",
+   "ok": true,
+   "detail": {
+    "sel": "T0266",
+    "at": [
+     {
+      "x": 553,
+      "y": 285.5
+     },
+     {
+      "x": 553,
+      "y": 285.5
+     }
+    ],
+    "c": {
+     "x": 553,
+     "y": 285.5
+    },
+    "status": "complete"
+   }
+  },
+  {
+   "name": "fencing map: the shape layer stands down",
+   "ok": true,
+   "detail": {
+    "hidden": true,
+    "act": true
+   }
+  },
+  {
+   "name": "3D view: the shape layer is hidden under it",
+   "ok": true,
+   "detail": "hidden"
+  },
+  {
+   "name": "record unchanged by the checks",
+   "ok": true
+  },
+  {
+   "name": "no page errors",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "name": "no writes attempted",
+   "ok": true,
+   "detail": {
+    "page": 1,
+    "live": 211,
+    "blocked": 0
+   }
+  }
+ ]
+}
