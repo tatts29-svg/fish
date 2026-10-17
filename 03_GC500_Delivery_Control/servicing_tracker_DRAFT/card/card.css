@@ -4,18 +4,18 @@
    Below it: the reference's own card (completion QR) or the read-only list of areas (no QR code). */
 :root{
   --bg:#f3f1ec; --panel:#ffffff; --line:#d9d4c8; --ink:#1d1a15; --mute:#5f584d;
-  --hivis:#b35e00; --hivis-ink:#ffffff; --done:#14762f; --done-ink:#ffffff; --done-soft:#e3f3e7; --warn:#a33a1c;
+  --hivis:#b35e00; --hivis-ink:#ffffff; --done:#14762f; --done-ink:#ffffff; --done-soft:#e3f3e7; --warn:#a33a1c; --warn-ink:#ffffff;
   --warn-soft:#fbe7df; --track:#e6e1d6; --chip:#ece7dc; --wait:#7a5a00; --wait-soft:#fff3cf;
   --display:"Barlow Condensed","Arial Narrow",Arial,sans-serif; --body:Barlow,"Segoe UI",Roboto,Arial,sans-serif;
   color-scheme:light;
 }
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
   --bg:#14130f; --panel:#1e1c17; --line:#3a362e; --ink:#f2eee4; --mute:#b3ab9c;
-  --hivis:#ffb020; --hivis-ink:#1a1407; --done:#3ccf6a; --done-ink:#0b1f10; --done-soft:#17301f; --warn:#ff8a65;
+  --hivis:#ffb020; --hivis-ink:#1a1407; --done:#3ccf6a; --done-ink:#0b1f10; --done-soft:#17301f; --warn:#ff8a65; --warn-ink:#1f0b05;
   --warn-soft:#3a1d14; --track:#2d2a23; --chip:#2a2721; --wait:#ffd166; --wait-soft:#3a3115; color-scheme:dark}}
 :root[data-theme="dark"]{
   --bg:#14130f; --panel:#1e1c17; --line:#3a362e; --ink:#f2eee4; --mute:#b3ab9c;
-  --hivis:#ffb020; --hivis-ink:#1a1407; --done:#3ccf6a; --done-ink:#0b1f10; --done-soft:#17301f; --warn:#ff8a65;
+  --hivis:#ffb020; --hivis-ink:#1a1407; --done:#3ccf6a; --done-ink:#0b1f10; --done-soft:#17301f; --warn:#ff8a65; --warn-ink:#1f0b05;
   --warn-soft:#3a1d14; --track:#2d2a23; --chip:#2a2721; --wait:#ffd166; --wait-soft:#3a3115; color-scheme:dark}
 *{box-sizing:border-box}
 html,body{background:var(--bg);color:var(--ink);margin:0}
@@ -52,12 +52,12 @@ h1{font-family:var(--display);font-weight:800;font-size:clamp(20px,6vw,25px);let
 .bar.full i{background:var(--done)}
 .banner{border-radius:10px;padding:10px 12px;font-size:14px;display:grid;gap:8px;border:2px solid var(--line);background:var(--chip)}
 .banner strong{font-family:var(--display);font-size:20px;font-weight:800;letter-spacing:.02em;text-transform:uppercase;line-height:1.1}
-.banner.loud{background:var(--warn);border-color:var(--warn);color:#fff}
+.banner.loud{background:var(--warn);border-color:var(--warn);color:var(--warn-ink)}
 .banner.warn{background:var(--warn-soft);border-color:var(--warn)}
 .banner.info{background:var(--wait-soft);border-color:var(--wait)}
 .banner .bacts{display:flex;gap:8px;flex-wrap:wrap}
 .bbtn{border:2px solid currentColor;background:transparent;border-radius:9px;padding:8px 12px;min-height:44px;font-weight:700;cursor:pointer}
-.banner.loud .bbtn{background:#fff;color:var(--warn);border-color:#fff}
+.banner.loud .bbtn{background:var(--warn-ink);color:var(--warn);border-color:var(--warn-ink)}
 .banner a{color:inherit;font-weight:700}
 main .wrap{padding-top:14px;padding-bottom:24px;display:grid;gap:12px}
 .card{background:var(--panel);border:1px solid var(--line);border-radius:14px;overflow:hidden}
@@ -94,7 +94,7 @@ main .wrap{padding-top:14px;padding-bottom:24px;display:grid;gap:12px}
 .confirm p{margin:0;font-weight:700}
 .confirm .bacts{display:flex;gap:8px;flex-wrap:wrap}
 .cbtn{border:2px solid var(--line);background:var(--panel);border-radius:10px;padding:8px 14px;min-height:48px;font-weight:700;cursor:pointer}
-.cbtn.undo{border-color:var(--warn);background:var(--warn);color:#fff}
+.cbtn.undo{border-color:var(--warn);background:var(--warn);color:var(--warn-ink)}
 .showall{width:100%;border:1px solid var(--line);background:var(--panel);border-radius:12px;padding:12px;min-height:48px;font-weight:700;cursor:pointer}
 .viewonly{font-size:14px;color:var(--mute);margin:0}
 .area{background:var(--panel);border:1px solid var(--line);border-radius:14px;overflow:hidden}
