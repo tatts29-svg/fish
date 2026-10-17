@@ -20,6 +20,7 @@ import base64, hashlib, hmac, json, os, re, secrets, shutil, subprocess, sys, te
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
+sys.dont_write_bytecode = True   # no __pycache__ left in the folder
 sys.path.insert(0, str(HERE))
 import make_sheets as M  # noqa: E402
 

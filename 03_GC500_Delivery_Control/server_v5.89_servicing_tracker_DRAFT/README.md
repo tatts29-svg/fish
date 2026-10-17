@@ -1,8 +1,8 @@
-# Server v5.89 — the servicing tracker (DRAFT, not deployed)
+# Server v5.89 — the servicing tracker (LIVE 18 Oct 2026 07:35 AEST)
 
 Author: Andrew Fisher · 18 Oct 2026 · one patch on the live server v5.87 (`d5a0d777…`)
 
-**State: DRAFT.** Built and tested on this machine only. Nothing has been uploaded, staged or deployed, and nothing
+**State: LIVE** since 18 Oct 2026 07:35 AEST (blob cb32d00e…, one Railway change, verified; see STATUS.md). Before that: built and tested on this machine only; nothing
 live was called. Going live needs Andrew's "Upload" (steps below). The version still has to be claimed on `STATUS.md`
 (Codex's server v5.88 claim from 2 Oct is still on the board, with no files; this draft takes v5.89).
 

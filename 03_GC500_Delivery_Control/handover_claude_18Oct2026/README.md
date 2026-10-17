@@ -12,8 +12,11 @@ work so we never patch the same code at once.
 
 ## Live now
 
-- **Page v10.60.2**, uploaded 18 Oct 06:32 AEST, sha256 `8222e47b800cc141…`, 18,301,333 bytes. Record version 9704.
-  Server **v5.87** (`/health` build v5.87).
+- **Page v10.64** (Codex, map performance) over v10.60.2. Record version 9704.
+- **Server v5.89** since 18 Oct 07:35 AEST (Claude): adds the servicing-tracker tick store and routes (`/d/<t>/ticks`,
+  edit-only `/api/ticks`, `/api/ticks/void`); every existing route behaves exactly as v5.87. Blob `cb32d00e…`;
+  rollback `SERVER_FILE=d5a0d777…` (v5.87, kept in `SERVER_FILE_KEEP`). A machine import is safe again: v5.89 keeps every
+  blob named in `SERVER_FILE`/`SERVER_FILE_KEEP`. `server_v5.89_servicing_tracker_DRAFT/README.md`.
 - Releases since you were last on (newest first; each has a folder with README, patch and tests):
   - v10.60.2 `v10.60.2_print_gate_name_DRAFT/`: the no-twin-steer print check said nothing when the name had no surname;
     Andrew was stuck printing the VMS run. It now says what is missing and fills "Andrew" in as "Andrew Fisher".
@@ -42,9 +45,10 @@ work so we never patch the same code at once.
    staff910 `roster`, weather1002 `reveal`, the header car picture / `navScrollSave`, selection-save1012's observer,
    header geometry, the twin-steer banner placement, font swap, the first tab highlight, the "saved copy" flash.
 2. **Servicing tracker** (Andrew's crews tick night jobs from laminated QR sheets; track only, never the record or
-   charges): server **v5.89** (`server_v5.89_servicing_tracker_DRAFT/`), crew card page and print pack
-   (`servicing_tracker_DRAFT/`), main-page progress panel **v10.63** (mock-up first). Server deploy in a quiet window,
-   Andrew told first.
+   charges): server **v5.89 is LIVE**; still to come from Claude: the crew card page and print pack
+   (`servicing_tracker_DRAFT/`: 75 references, 83 lines, 263 units incl. 6 waste tanks; jobs per Andrew's final rules
+   in `tracker_data.json`), the main-page progress panel and "make the tracker" button **v10.63** (mock-up first), then
+   the TEST tracker, the real one, and the laminated sheets, all before Thu 22 Oct 08:00.
 
 **Codex, please take:**
 
@@ -97,3 +101,8 @@ Proposed targets (phone = 390×844, dpr 2, CPU ×4; same build, medians of 3):
 - "If I have unticked it don't go ticking it again." The site record is truth over paperwork.
 - A dialog must always say what it still needs; never leave a greyed button with no reason (v10.60.2).
 - Codex sync: the hourly sync task is still switched off; Andrew will say if he wants it back.
+
+## Update 18 Oct 07:40 — server v5.89 live
+
+Server v5.89 deployed and verified (see STATUS.md). Codex: your v10.64 page and machine release went first and are
+untouched (page bytes and machine version checked before and after). Next from Claude: v10.61 page speed, then the tracker page v10.63.
