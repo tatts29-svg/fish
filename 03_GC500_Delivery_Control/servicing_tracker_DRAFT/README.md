@@ -23,9 +23,22 @@ time when the whole area was done."
   addition (no edit key on phones) — deploy and page release on Andrew's "Upload".
 - Thursday (Andrew, 18 Oct: "Thursday is a just iin case. Im not sure"): the Thursday day stays on the tracker marked
   "if needed"; before the event it opens on Friday. The Event Portables count stays Fri/Sat/Sun (714) and the labels
-  are unchanged; if Thursday is serviced, its ticks show it and the count can follow what was actually done.
+  are unchanged. If Thursday is serviced its ticks show it, but ticks never change a count or a charge (AGENTS.md: "Scans and
+  ticks never change either figure"); only Andrew's word does.
 - WC100's two FWF trailers (Andrew, 18 Oct: "Trailers let not give.them a location yet.."): out of the Teams Area,
   in their own "No location yet" group at the foot, no pin; still tickable and in the 257. Teams Area is now 6 units.
 - QR codes (Andrew, 18 Oct: "Qr xodes one oer sheet"): one QR per area sheet, opening that area on the current day.
 - WC81 stays in area 11 (Andrew, 18 Oct: "Wc81 stays there"), though it is 1.4 km from the rest of it.
 - To check with Andrew: nothing open on the design.
+
+## Design and review (18 Oct 2026)
+
+`design_and_review_18Oct.json`: three code readers, a build spec and an adversarial review.
+- Approach: one drop card (server-minted token) opted in as a tracker; 14 sheets, each QR = the card link + `#a<n>`;
+  server v5.89 adds its own tick store and `/d/<t>/ticks` (GET shared ticks, POST tick/undo) and edit-only `/api/ticks`;
+  page v10.63 makes the card and shows progress read-only on Event nights. Nothing touches the record.
+- Review: not ready until fixed — rate limits per address and per token, per-row caps and an edit-only void route
+  (a photo of one sheet could flood or fake it); escape everything the panel shows (or no names at all); panel drawn so
+  the run sheet's own redraw cannot wipe it; 400/409 instead of silently dropping the tracker on a bad re-post; unticks
+  name the tick they cancel; snapshot epoch; trailing slash, hashchange and 413 handling; one tracker per load;
+  day pick lapses at 08:00; append-only tick file; hasOwnProperty on card tokens.
