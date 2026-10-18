@@ -79,3 +79,26 @@ supply control was used instead: `setSupplied(T0001, VMS, {qty_supplied: 7})`, t
 ticks are untouched. Backup first; three documents; record 9741 → 9744; VERIFIED (`report_20261018T105244Z.json`).
 Read-back on the live page: **VMS 16 on site · 24 in total**. The 24 is what is booked across all VMS deliveries, including
 T0158's other 4 and T0159/T0169/T0170 still to come.
+
+## Applied: bookings set to what was on site (T0001 7, T0158 5), 19 Oct 2026 02:40 AEST
+
+Andrew, 18 Oct: "Fix.this .saying only.4.onsite on main page". After T0159, T0169 and T0170 were removed, the milestone card
+read "0% · 4 of 4": T0001 and T0158 were ticked complete but supplied fewer than booked, which the page counts as a conflict.
+`node vms.cjs --apply --spec vms_qty_spec.json` (op `set_qty`, through the page's own `setQty`): T0001 8 → 7 and T0158 9 → 5.
+Backup first; six documents; record 9759 → 9765; VERIFIED (`report_20261018T164032Z.json`). Main page: VMS 16 of 16 on site.
+
+## Applied: T0158 back to its booked 9, VMS 16 of 20, 19 Oct 2026 03:16 AEST
+
+Andrew, 18 Oct: "There is still more due in", then he sent the iEDM drawing **D025-26003 rev 04, VMS Board Locations**
+(issued Fri 16 Oct 2026; sha256 a541b6fb…c761f07f; the file itself is not committed). It shows **20 VMS locations, 01–20**
+(04A, 05A, 07A and 2A are second positions for the same boards, and 13, 14, 16 and 17 are "installed at the conclusion of
+track activity (Fri/Sat/Sun)"). On site: 16 boards, VMS1–4 and 6–17. Still to come: **05, 18, 19 and 20**.
+
+T0158's own booking (contract 9961265 line 32) is 9, so returning it to the schedule's own quantity gives exactly the drawing's
+20: T0001 7 + T0103 2 + T0128 2 + T0158 9. T0169 and T0170 stay removed, since the drawing has no room for them.
+`node vms.cjs --apply --spec t0158_restore_spec.json` (op `set_qty` with `""`, the schedule's own). Backup first; two documents;
+record 9765 → 9767; VERIFIED (`report_20261018T171634Z.json`).
+
+T0158's complete tick stays on. A read-only probe compared the two: with the tick on, the milestone reads "80% · 16 of 20
+boards complete". Taking it off would drop T0158's five installed boards from the count ("55% · 11 of 20"), which is wrong.
+Live on v10.73: **VMS boards 16 boards · 16 of 20 on site** and **VMS boards 80% · 16 of 20 boards complete**.

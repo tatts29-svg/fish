@@ -16,3 +16,13 @@ Andrew, 18 Oct 2026: "Remove TO169 AND TO170". Both were VMS deliveries not on s
 VMS × 2, T0170 VMS × 1. Removed with the page's own Delete for good, with his words as their notes. Backup first; ten
 documents; record 9749 → 9759; VERIFIED (`report_20261018T144916Z.json`). The main page now reads **VMS 16 on site of 21**.
 The remaining 5 are bookings above what arrived: T0001 booked 8 (7 there) and T0158 booked 9 (5 there).
+
+## After: the drawing confirms 20 boards, 19 Oct 2026 03:16 AEST
+
+Andrew then said "There is still more due in" and sent drawing D025-26003 rev 04 (20 VMS locations). T0158 went back to its
+booked 9, so the page reads 16 of 20, with VMS05, 18, 19 and 20 to come (`record_18Oct2026_vms_regos/README.md`). T0169 and
+T0170 stay removed, because 7 + 2 + 2 + 9 already makes the drawing's 20.
+
+**T0159 was not a delivery.** It was "VMS × 5 · Relocate" on Mon 19 Oct, a job to move five boards. If that move is still on
+(the drawing's 04A, 05A, 07A and 2A second positions, or the four boards set out after track activity), it comes back from
+`backup_state_20261018T112605Z.json` on Andrew's word.
