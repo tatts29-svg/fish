@@ -68,6 +68,7 @@ spec.ops.forEach((o, i) => {
   else if (o.op === 'labour_on' || o.op === 'labour_off') { if (!REFRE.test(o.ref || '')) fail(at + 'needs a reference'); for (const f of ['disc', 'item', 'line', 'unit']) if (typeof o[f] !== 'string' || !o[f]) fail(at + 'needs ' + f); }
   else if (o.op === 'door') { if (!REFRE.test(o.ref || '')) fail(at + 'needs a reference'); if (!/^u\d{4,12}$/.test(o.id || '')) fail(at + 'needs a unit row id'); if (!['driver', 'passenger', 'na'].includes(o.side)) fail(at + 'side'); }
   else if (o.op === 'unit_archive') { if (!REFRE.test(o.ref || '')) fail(at + 'needs a reference'); if (!NORE.test(o.no || '')) fail(at + 'needs a number'); }
+  else if (o.op === 'supplied') { if (!REFRE.test(o.ref || '')) fail(at + 'needs a reference'); if (typeof o.item !== 'string' || !o.item) fail(at + 'needs an item'); if (!(Number.isInteger(o.qty) && o.qty >= 0)) fail(at + 'needs a whole number'); }
   else if (o.op === 'vms_fleet') { if (!/^(\d{7}|VMS\d{2})$/.test(o.key || '')) fail(at + 'needs a VMS board key'); if (!/^[0-9A-Z]{3,12}$/.test(o.fleet || '')) fail(at + 'needs a fleet/asset number'); }
   else if (o.op === 'vms_rego') { if (!/^(\d{7}|VMS\d{2})$/.test(o.key || '')) fail(at + 'needs a VMS board key'); if (!/^[A-Z0-9]{2,8}$/.test(o.rego || '')) fail(at + 'needs a rego'); }
   else if (o.op === 'set_qty') { if (!REFRE.test(o.ref || '')) fail(at + 'needs a reference'); if (!(o.qty === '' || (Number.isInteger(o.qty) && o.qty >= 0))) fail(at + 'qty must be a whole number or "" for the schedule\'s own'); }
@@ -248,6 +249,10 @@ function applyOps(spec) {
       } else if (op.op === 'door') {
         const a = assetOf(op.ref), now = loading872Side(a, op.id);
         if (now === op.side) r.result = 'already ' + op.side; else { loading872Set(op.ref, op.id, op.side); if (loading872Side(assetOf(op.ref), op.id) !== op.side) throw new Error(op.ref + ' ' + op.id + ' door side not held'); r.result = 'door side ' + op.side; }
+      } else if (op.op === 'supplied') {
+        const ok = setSupplied(op.ref, op.item, {supplied: op.item, qty_supplied: op.qty}); if (ok === false) throw new Error('setSupplied refused ' + op.ref);
+        const it = (((S.supplied || {})[op.ref] || {}).items || []).find(x => x.asked === op.item); if (!it || it.qty_supplied !== op.qty) throw new Error(op.ref + ' supplied did not take');
+        r.result = op.item + ' supplied ' + op.qty;
       } else if (op.op === 'vms_fleet') {
         if (!vms913Boards().some(b => b.key === op.key)) throw new Error('no VMS board ' + op.key);
         const ok = vms913Save(op.key, null, op.fleet, null, null, {fleet: true}, true);
@@ -393,6 +398,7 @@ function applyOps(spec) {
         if (op.op === 'labour_off' && (docs.labour || {})[op.ref + '/u' + op.unit.replace(/^u/, '') + '|' + op.disc + '|' + op.item + '|' + op.line]) problems.push(op.ref + ' ' + op.unit + ' ' + op.line + ' still ticked ' + where);
         if (op.op === 'complete' && (((docs.delivery || {})[op.ref] || {}).done) !== true) problems.push(op.ref + ' not complete ' + where);
         if (op.op === 'labour_on' && (((docs.labour || {})[((op.unit ? op.ref + '/u' + op.unit.replace(/^u/, '') : op.ref) + '|' + op.disc + '|' + op.item + '|' + op.line).replace(/\//g, '~2f~').replace(/\|/g, '~7c~').replace(/ /g, '~20~').replace(/&/g, '~26~')] || {}).v) !== true) problems.push(op.ref + ' ' + op.unit + ' ' + op.line + ' not ticked ' + where);
+        if (op.op === 'supplied' && !((((docs.supplied || {})[op.ref] || {}).items) || []).some(x => x.asked === op.item && x.qty_supplied === op.qty)) problems.push(op.ref + ' supplied is not ' + op.qty + ' ' + where);
         if (op.op === 'vms_fleet' && ((((docs.vmsboard || {})[op.key]) || {}).fleet) !== op.fleet) problems.push(op.key + ' fleet is not ' + op.fleet + ' ' + where);
         if (op.op === 'vms_rego' && ((((docs.vmsboard || {})[op.key]) || {}).rego) !== op.rego) problems.push(op.key + ' rego is not ' + op.rego + ' ' + where);
         if (op.op === 'set_qty' && op.qty !== '' && ((((docs.qtys || {})[op.ref] || {}).v)) !== op.qty) problems.push(op.ref + ' quantity is not ' + op.qty + ' ' + where);

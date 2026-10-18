@@ -68,3 +68,14 @@ the page's own `vms913Save(VMS13, fleet 1191657, {fleet:true})`. Backup first; t
 (`report_20261018T104832Z.json`). Read-back: VMS13 fleet 1191657, rego EN3803, on T0158, by Andrew Fisher. VMS11–17 arrival
 dates already read Friday 16 Oct (T0128 10:39 AEST, T0158 12:09 AEST). The contract line still says 1191957; that is the
 branch's to correct.
+
+## Applied: T0001 VMS supplied 7, so the main page reads VMS 16 on site, 18 Oct 2026 20:52 AEST
+
+Andrew, 18 Oct: "So you need to update the vms totals onsite then on main page". The Where-we-are by-type table read
+"VMS 17 on site · 24 in total". It counts each on-site delivery's booked quantity unless a supplied count says fewer: T0001
+is booked for 8 boards (with 1211404, the old VMS5, now VMS09 on T0103), while T0158 already had "supplied 5". Lowering
+T0001's quantity was refused by the page (it will not go below what is received or installed), so the page's own partial
+supply control was used instead: `setSupplied(T0001, VMS, {qty_supplied: 7})`, the same as T0158's 5 of 9. The booking and
+ticks are untouched. Backup first; three documents; record 9741 → 9744; VERIFIED (`report_20261018T105244Z.json`).
+Read-back on the live page: **VMS 16 on site · 24 in total**. The 24 is what is booked across all VMS deliveries, including
+T0158's other 4 and T0159/T0169/T0170 still to come.
