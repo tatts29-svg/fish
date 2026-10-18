@@ -8,23 +8,25 @@ Supplier servicing cost still used quoted quantities while customer servicing Re
 
 The shared cost projection feeds the Costs total, P&L cost split, supplier coverage and monthly provisional cost calculation. Original quote totals stay available as clearly labelled reference evidence. Customer rates, customer Revenue, water, other quote lines, delivery/pickup and existing branch attribution remain unchanged. Service ticks do not feed financial calculations.
 
-Missing or ambiguous supplier-rate sources are explicit incomplete costs. Known unrelated amounts remain available; quoted service quantities never substitute for missing site quantities. If a service cannot be matched to its quote line, that quote's cost is held rather than treated as a verified total. Original quotes remain untouched in `DATA.rehire_quotes`; the cost projection's quote-shaped objects must not be used to display source documents.
+Missing or ambiguous supplier-rate sources are explicit incomplete costs. Known unrelated amounts remain available as labelled subtotals; the full cost and recovery coverage remain unavailable. Quoted service quantities never substitute for missing site quantities. Missing required service mappings, duplicate quote identities, unknown transport and unsafe cent totals cannot produce a complete cost. If a service cannot be matched to its quote line, that quote's cost is held. If its quote identity is missing, all quote costs are held because the affected source cannot be identified safely. Original quotes remain untouched in `DATA.rehire_quotes`; the cost projection's quote-shaped objects must not be used to display source documents.
 
-Monthly review retains the existing provisional allocation across the quote's dated period, including its existing warning that Finance must confirm timing and invoice/payment coverage. It changes the projected amount, not the dates, status or branch. It does not post journals, recognise payment or infer completed services.
+Monthly review retains the existing provisional allocation across the quote's dated period, including its existing warning that Finance must confirm timing and invoice/payment coverage. Incomplete supplier rows display known subtotals and cannot be proposed as full accrual or planned amounts. Undated and unavailable amounts retain the existing costing branch. This does not change source dates or post journals, recognise payment or infer completed services.
 
 ## Files and local checks
 
 - `supplier_cost1068_src.js`: shared pure cost projection, exact cents and read-only page adapter.
 - `patch_v1068.py`: exact-once guarded integration, requiring v10.67 and refusing repetition.
-- `tests/test_supplier1068.cjs`: 19 synthetic checks covering source immutability, changed quantities/rates, line rounding, aggregate/split/monthly reconciliation, invalid and duplicate sources, zero quantities and preserved Revenue/water/transport.
+- `tests/test_supplier1068.cjs`: 31 synthetic checks covering source immutability, changed quantities/rates, exact line rounding, required mappings, duplicate quote identities, unavailable transport, overflow, zero quantities and preserved Revenue/water/transport.
+- `tests/test_consumers1068.cjs`: 13 read-only VM checks of real patched page functions and all inline-script syntax. Covers approved/unapproved projection, full versus known costs, recovery gates, forecast top-ups, ledger reconciliation, monthly allocations/actions, branch attribution and old-base/repeat refusals.
 
-Run the synthetic checks with:
+Run from `03_GC500_Delivery_Control`:
 
 ```sh
 node v10.68_servicing_cost_consistency_DRAFT/tests/test_supplier1068.cjs
+PAGE=/absolute/path/to/local-v10.67-candidate.html node v10.68_servicing_cost_consistency_DRAFT/tests/test_consumers1068.cjs
 ```
 
-The source seams were checked against captured v10.65 public page SHA-256 `c62adee5817153a56d538e1db015b0ef66a8a6e75609bc4d6e09a47bedfafbd8`. Every non-footer replacement matched exactly once. A memory-only fixture with a fictional v10.67 footer applied and parsed all inline scripts; old-base and repeat refusals passed. **That fixture is not a v10.67 build or release check.** Recheck every seam on the actual published v10.67 page.
+The 59 guarded replacements matched exactly once against the local v10.67 draft with SHA-256 `bb57d139e0aacf5e0f193e5238c260a7e28ef2f40f52d8eba2843fd91b9dabc9`. The consumer test patches that candidate in memory and uses synthetic amounts with the real consumer functions; it does not read or verify private original quotations. **This is not a verified-live v10.67 base or a release check.** Recheck every seam on the actual verified v10.67 page. The version/footer guard identifies compatible source structure; it does not itself prove a page was published.
 
 ## Required before READY
 

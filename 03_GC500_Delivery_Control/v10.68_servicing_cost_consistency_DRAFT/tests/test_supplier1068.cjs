@@ -143,4 +143,70 @@ test('quote totals remain explicitly reference-only', () => {
   const m = run(fixture()), text = model.summary(m, n => n.toFixed(2));
   assert.match(text, /site count: 13\.91/); assert.match(text, /Original quote servicing: 29\.84 ex GST, reference only/);
 });
+
+test('missing every mapping holds quote costs instead of reusing quoted servicing', () => {
+  const f = fixture(), m = model.project(f.source, [], f.quantities);
+  assert.equal(m.complete, false); assert.equal(m.total, null); assert.equal(m.knownTotal, null);
+  assert.ok(m.quotes.every(q => q.costTotal1068 === null && q.knownCostTotal1068 === null));
+});
+test('missing one required mapping cannot produce a complete supplier total', () => {
+  const f = fixture(); f.definitions.pop();
+  const m = run(f); assert.equal(m.complete, false); assert.equal(m.serviceTotal, null); assert.equal(m.total, null);
+  assert.ok(m.issues.some(s => /mapping is unavailable/.test(s)));
+});
+test('required native service kinds detect a missing source and missing derived row', () => {
+  const f = fixture(); f.definitions.pop(); f.quantities.pop();
+  const m = model.project(f.source, f.definitions, f.quantities, ['A','B','C']);
+  assert.equal(m.complete, false); assert.equal(m.total, null);
+});
+test('duplicate non-service quote identity never counts either copy as a verified cost', () => {
+  const f = fixture(); f.source.quotes.push(structuredClone(f.source.quotes[1]));
+  const m = run(f); assert.equal(m.complete, false); assert.equal(m.total, null);
+  assert.equal(m.knownTotal, 29.57); assert.match(m.issues.join(' '), /quote is duplicated/);
+  assert.ok(m.quotes.filter(q => q.quote === 'EX2').every(q => q.costTotal1068 === null && q.knownCostTotal1068 === null));
+});
+test('duplicate service quote cannot duplicate its water, hire or transport subtotal', () => {
+  const f = fixture(); f.source.quotes.push(structuredClone(f.source.quotes[0]));
+  const m = run(f); assert.equal(m.complete, false); assert.equal(m.knownTotal, 14);
+  assert.equal(m.total, null); assert.equal(m.serviceTotal, null);
+});
+test('incomplete quote exposes verified subtotal separately from unavailable full cost', () => {
+  const f = fixture(); delete f.source.quotes[0].groups[0].lines[0].unit_price;
+  const m = run(f); assert.equal(m.quotes[0].costTotal1068, null);
+  assert.equal(m.quotes[0].costComplete1068, false); assert.equal(m.quotes[0].sub_total, null);
+  assert.equal(m.quotes[0].knownCostTotal1068, 16.67); assert.equal(m.knownTotal, 30.67);
+});
+test('missing transport is unknown while the other verified amounts remain known', () => {
+  const f = fixture(); f.source.quotes[0].delivery_charge = null;
+  const m = run(f); assert.equal(m.complete, false); assert.equal(m.total, null);
+  assert.equal(m.quotes[0].costTotal1068, null); assert.equal(m.quotes[0].knownCostTotal1068, 27.57);
+  assert.equal(m.knownTotal, 41.57); assert.equal(m.serviceTotal, 13.91);
+});
+test('per-quote sum overflow cannot yield complete=true while dropping the quote', () => {
+  const f = fixture(); f.source.quotes[1].sub_total = '90071992547409.90'; f.source.quotes[1].delivery_charge = 1;
+  const m = run(f); assert.equal(m.complete, false); assert.equal(m.total, null);
+  assert.equal(m.quotes[1].costTotal1068, null); assert.match(m.issues.join(' '), /supported amount/);
+});
+test('cent conversion refuses amounts a dollar Number cannot retain exactly', () => {
+  assert.equal(model.cents('90071992547409.91'), null);
+});
+test('duplicate mappings clear inherited supplier fields without touching customer pricing', () => {
+  const f = fixture(); f.definitions.push({...f.definitions[0]});
+  const original={card_line:'A',qty:6,rate:21,amount:126,their_rate:999,their_amount:9999};
+  const service={card_lines:[original],lines:[original],total:126};
+  const m=model.decorate(service,f.source,f.definitions);
+  assert.equal(m.card_lines[0].their_amount,null); assert.equal(m.card_lines[0].their_rate,null);
+  assert.equal(m.card_lines[0].rate,21); assert.equal(m.card_lines[0].amount,126); assert.equal(m.total,126);
+  assert.equal(original.their_amount,9999);
+});
+test('malformed quote collections are held with an explicit issue, not a crash or free total', () => {
+  const f=fixture(); f.source.quotes[0].groups={}; const m=run(f);
+  assert.equal(m.complete,false); assert.equal(m.knownTotal,14); assert.equal(m.total,null);
+});
+test('lost mapping quote identity never reuses unidentified original service quantities', () => {
+  const f=fixture(); f.definitions[0].quote='MISSING'; const m=run(f);
+  assert.equal(m.complete,false); assert.equal(m.knownTotal,null); assert.equal(m.total,null);
+  assert.equal(m.serviceTotal,null); assert.match(m.issues.join(' '),/identity is unavailable/);
+});
+
 console.log(passed + ' synthetic supplier-cost checks passed');
