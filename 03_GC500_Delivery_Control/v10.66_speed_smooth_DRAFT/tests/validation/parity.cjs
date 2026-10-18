@@ -26,7 +26,11 @@ const [pageFile,outFile]=process.argv.slice(2); if(!pageFile||!outFile)throw new
    await p.evaluate(k=>go(k),tab); await C.settled(p,1300);
    if(tab==='plant'){await p.evaluate(()=>{if(typeof PLANT_REST!=='undefined'&&PLANT_REST.flush)PLANT_REST.flush();});await C.settled(p,1300);}
    if(tab==='timeline')await C.materializeBuild(p);
-   out.panes[tab]=await capture('#pane-'+tab);
+   out.panes[tab]=await C.capturePane(p,tab);
+   if(mobile&&tab==='today'){
+    await p.waitForFunction(()=>!document.querySelector('canvas.ms1026-screen'),null,{timeout:15000,polling:100});
+    await p.screenshot({path:C.path.join(C.path.dirname(C.path.resolve(outFile)),'v1066-phone-settled.png'),fullPage:false});
+   }
    console.log(JSON.stringify({phase:'pane',mobile,tab}));
   }
   await p.evaluate(()=>go('timeline')); await C.settled(p,1500);
@@ -55,6 +59,6 @@ const [pageFile,outFile]=process.argv.slice(2); if(!pageFile||!outFile)throw new
   if(!out.redelivery.unchanged||out.version!==out.versionAfter)throw new Error('Frozen record changed during capture');
   C.assertClean(s); out.pass=true;
  }catch(error){out.pass=false;out.error=String(error.stack||error);out.health=C.errorsOf(s);out.phase=await p.evaluate(()=>({tab:typeof state==='undefined'?null:state.tab,sync:typeof SYNC==='undefined'?null:SYNC.status,docs:typeof DOCS==='undefined'?null:DOCS.state,refresh:document.documentElement.getAttribute('data-refresh904')})).catch(()=>null);process.exitCode=1;}
- finally{C.writePrivate(outFile,out);await s.browser.close();}
+ finally{C.writePrivate(outFile,out);if(out.pass)C.writePrivate(outFile.replace(/\.json$/, '')+'-focus.json',{pass:true,method:'settled-native-screen-report-v1',pageSha256:out.pageSha256,mobile,clock:out.clock,version:out.version,recordSha256:out.fixtureSetup.recordSha256,panes:{today:out.panes.today,progress:out.panes.progress}});await s.browser.close();}
  console.log(JSON.stringify({pass:out.pass,mobile,tabs:Object.keys(out.panes).length,days:Object.keys(out.days).length,drawers:Object.keys(out.drawers).length,pageSha256:out.pageSha256,error:out.error?.split('\n')[0]}));
 })();
