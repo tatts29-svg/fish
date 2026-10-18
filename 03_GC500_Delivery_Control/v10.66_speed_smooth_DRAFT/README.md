@@ -71,7 +71,7 @@ the swiped strip position. Explicit day navigation continues to recenter it.
 
 ## READY TO UPLOAD — 18 Oct 2026
 
-Final candidate: SHA256 `4b5b727b781992e251968f81503ee064a3dbd3414a6087260258871ad83a0ec6`, 18,322,548 bytes. Built by the official toolchain from the exact live base above; 141 scripts parse. Production source is preserved in commit `4ac9fb2`; final validation and the later diagnosis are preserved together on the shared branch.
+Final upload candidate: SHA256 `9724e2a644833e7b6e56139b7954add2f639e348f03c6b6c9d109e0229cc821a`, 18,322,580 bytes. Built by the official toolchain from the exact live base above; 141 scripts parse. Production source is preserved in commit `4ac9fb2`; final validation and the later diagnosis are preserved together on the shared branch.
 
 All release correctness gates pass: 171/171 semantic comparisons per viewport; 21/21 boot/deep-link/offline/recovery cases per viewport; actual native Print and browser PDF parity; source/cache invalidation contracts; standing regressions including the corrected 154/154 receipt fixture and both five-case Costs scroll checks. Both final canonical sweeps pass 24 tabs, seven exact destinations, Back and intentional aliases, zero page/console errors and zero attempted writes. Their observation probes also recorded zero failed network responses. The settled phone presentation was inspected. Evidence: `tests/validation/RESULTS.md`, `tests/validation/SWEEP_STATUS.md`, `tests/standing/results.json`.
 
@@ -82,3 +82,5 @@ This is a measured incremental speed release. One controlled A/B pair per viewpo
 The new idle/merge-plan handover was compared against this frozen source. Existing clock, observer, folded-ring and unchanged-record protections are included. Stronger cache invalidation remains intentional. Equipment pump-budget and visible animation refinements remain follow-up; the handover adds no correctness blocker or ownership hold.
 
 Publication must use the guarded uploader, then exact public read-back and unchanged-record/retained-server verification. A LIVE entry will record the actual result.
+
+The service safely refused the original candidate because its early loading CSS moved the first GC500 identifier beyond the existing upload envelope check. The final upload adds only the 32-byte HTML comment `<!-- GC500 Delivery Control -->` after the doctype. Removing that single comment reproduces the complete previously tested 4b5b727b page byte-for-byte: every script, style, data value and visible element is unchanged. Official rebuild/static checks and the existing server envelope expression pass. This is an identity-envelope correction, not a bypass or server change. Evidence: `tests/page_envelope_result.json`.

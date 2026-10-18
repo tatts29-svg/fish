@@ -79,6 +79,9 @@ def patch(text, path='page.html'):
     text = apply_today_report(text, path)
     text = apply_boot_sync(text, path)
     text = rep(text, "+ ' · v10.65'", "+ ' · v10.66'", 'release footer', path)
+    # Keep the service's existing whole-page identity check valid despite the
+    # early loading CSS. This comment changes no markup, code, style or data.
+    text = rep(text, '<!doctype html>\n', '<!doctype html>\n<!-- GC500 Delivery Control -->\n', 'early page identity', path)
     return text
 
 def main():
