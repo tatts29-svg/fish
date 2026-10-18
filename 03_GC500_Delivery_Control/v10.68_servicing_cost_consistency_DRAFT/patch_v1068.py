@@ -21,7 +21,7 @@ def replacements():
          MARKER + '\n' + source + '\n/* Servicing quantities from the site record; customer rates remain separate. */'),
         ('decorate supplier cost without changing Revenue',
          'return Object.assign({}, base, {lines: all, card_lines: lines, total: cents(all.reduce((t, l) => t + l.amount, 0)), card_total: cents(lines.reduce((t, l) => t + l.amount, 0)), per1040: per, nights1040: N});',
-         "return SupplierService1068.decorate(Object.assign({}, base, {lines: all, card_lines: lines, total: cents(all.reduce((t, l) => t + l.amount, 0)), card_total: cents(lines.reduce((t, l) => t + l.amount, 0)), per1040: per, nights1040: N}), DATA.rehire_quotes, (DATA.toilet_servicing.lines || []).filter(l => NIGHT1040.some(n => n.card_line === l.card_line)), NIGHT1040.map(n => n.card_line));"),
+         "const service1068 = Object.assign({}, base, {lines: all, card_lines: lines, total: cents(all.reduce((t, l) => t + l.amount, 0)), card_total: cents(lines.reduce((t, l) => t + l.amount, 0)), per1040: per, nights1040: N});\n return SupplierService1068.decorate(service1068, DATA.rehire_quotes, (DATA.toilet_servicing.lines || []).filter(l => NIGHT1040.some(n => n.card_line === l.card_line)), NIGHT1040.map(n => n.card_line), supplierServiceQuantities1068(service1068));"),
         ('Costs shared supplier amount',
          'const rq = DATA.rehire_quotes && DATA.rehire_quotes.totals ? cents((DATA.rehire_quotes.totals.sub_totals || 0) + (DATA.rehire_quotes.totals.delivery_and_pickup || 0)) : null;',
          'const supplier1068 = supplierService1068(), rq = supplier1068 ? supplier1068.knownTotal : null, rqQuoted1068 = supplier1068 ? supplier1068.quotedTotal : null;'),

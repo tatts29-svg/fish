@@ -10,6 +10,30 @@ let count=0;const test=(name,f)=>{f();count++;console.log('PASS '+name);};
 const scripts=[...html.matchAll(/<script\b[^>]*>([\s\S]*?)<\/script>/gi)].map(m=>m[1]);
 test('every patched inline script parses',()=>scripts.forEach(s=>new vm.Script(s)));
 function lift(name,text=html){const start=text.indexOf('function '+name+'(');assert.ok(start>=0,name);for(let end=text.indexOf('}',start);end>=0;end=text.indexOf('}',end+1)){const code=text.slice(start,end+1);try{new vm.Script('('+code+')');return code;}catch(_){}}throw Error('Unclosed function '+name);}
+test('real native servicing keeps customer sewer rules while supplier cleans every eligible block',()=>{
+ const kind=[{kind:'fwf',card_line:'F',rate:2,unit:'FWF',units:'FWF'},{kind:'tank',card_line:'T',rate:3,unit:'tank',units:'tanks'},{kind:'sewer',card_line:'B',rate:4,unit:'block',units:'blocks'}];
+ const assets=[{key:'A',lines:[{item:'FWF',qty:4},{item:'Toilet Block',qty:3}]},{key:'B',lines:[{item:'Toilet Block',qty:2},{item:'Waste tank',qty:1}]},
+  {key:'C',_cancelled:true,lines:[{item:'Toilet Block',qty:7}]},{key:'D',moved:true,lines:[{item:'Toilet Block',qty:9}]},{key:'E',out:'2030-01-01',lines:[{item:'Toilet Block',qty:8}]},{key:'OWN',lines:[{item:'Toilet Block',qty:11}]}];
+ const defs=kind.map((k,i)=>({quote:'EX',description:'Source '+k.card_line,card_line:k.card_line,card_rate:k.rate,qty:20,their_rate:i+1,their_amount:20*(i+1)}));
+ const data={toilet_servicing:{lines:defs,not_on_the_card:[],their_total:120},rehire_quotes:{quotes:[{quote:'EX',sub_total:120,delivery_charge:0,pickup:0,groups:[{lines:defs.map(l=>({description:l.description,qty:l.qty,unit_price:l.their_rate,total_price:l.their_amount}))}]}],totals:{sub_totals:120,delivery_and_pickup:0}}};
+ const base={DATA:data,NIGHT1040:kind,allAssets:()=>assets,chargeLines:a=>a.lines,qtyOf:l=>l.qty,holdAssets:f=>f(),lr748Typed:()=>null,movedAway:key=>assets.find(a=>a.key===key).moved,effectiveDates:a=>({out_plan:a.out}),money:String,nights1040:()=>[{date:'2030-02-01',day:'Fri'},{date:'2030-02-02',day:'Sat'}]};
+ const old=vm.createContext({...base}),next=vm.createContext({...base});
+ const names=['servicing748base1040','nightRates1040','nightService1040','servicing748'];
+ vm.runInContext(names.map(n=>lift(n,original)).join('\n'),old);
+ vm.runInContext(fs.readFileSync(source,'utf8')+'\n'+names.map(n=>lift(n)).join('\n'),next);
+ const wrapStart=original.indexOf(' const beforeN = nightService1040;'),wrapEnd=original.indexOf('\n})(window);',wrapStart);
+ assert.ok(wrapStart>=0&&wrapEnd>wrapStart);const wrapper='const OWN1050=new Set(["OWN"]);const W=globalThis;'+original.slice(wrapStart,wrapEnd);
+ vm.runInContext(wrapper,old);vm.runInContext(wrapper,next);
+ const before=old.servicing748(),after=next.servicing748();
+ assert.deepEqual(after.card_lines.map(l=>l.qty),before.card_lines.map(l=>l.qty));
+ assert.deepEqual(Array.from(after.card_lines,l=>l.qty),[8,2,6]);
+ assert.deepEqual(Array.from(after.supplier1068.lines,l=>l.quantity),[8,2,10]);
+ for(const key of ['total','card_total','their_water','at_cost_total'])assert.equal(after[key],before[key]);
+ assert.equal(after.supplier1068.serviceTotal,42);assert.equal(after.supplier1068.complete,true);
+ assets[1].lines[0].qty=4;const changed=next.servicing748();
+ assert.equal(changed.card_lines[2].qty,6);assert.equal(changed.total,before.total);
+ assert.equal(changed.supplier1068.lines[2].quantity,14);assert.equal(changed.supplier1068.serviceTotal,54);
+});
 const native=['pl754Rehire','rh769Cover','rh766Model776Held','pl770Model','pl760BranchTable','acc763Action','acc763ActionNow','acc762RowStatus','acc763Future','acc762Round','acc762Money','acc762Date','acc762Status','acc762Share','acc762QuoteDateWarning','daysInclusive','acc761DaysIn','acc761LastDay'];
 const nativeSource=native.map(n=>lift(n)).join('\n');
 const pure=require(source),data={quotes:[{quote:'SYNTHETIC',sub_total:25,delivery_charge:1,pickup:1,delivery:'2030-02-01',collect:'2030-02-05',groups:[{lines:[{description:'Service A',qty:10,unit_price:2,total_price:20},{description:'Other hire',qty:1,unit_price:5,total_price:5}]}]}],totals:{sub_totals:25,delivery_and_pickup:2},supplier:{name:'Synthetic'}};

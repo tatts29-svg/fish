@@ -30,6 +30,21 @@
   const sum = values => values.some(v => v == null) ? null : safe(values.reduce((a, b) => a + BigInt(b), 0n));
   const knownSum = values => { const known = values.filter(v => v != null); return known.length ? sum(known) : null; };
   const signature = (quote, description) => JSON.stringify([quote, description]);
+  function transport(quote) {
+    let delivery = cents(quote.delivery_charge), pickup = cents(quote.pickup);
+    const blank = v => v == null || (typeof v === 'string' && !v.trim());
+    const missing = (delivery == null && blank(quote.delivery_charge)) || (pickup == null && blank(quote.pickup));
+    const subtotal = cents(quote.sub_total), gst = cents(quote.gst), total = cents(quote.total_amount), quoted = cents(quote.quoted_amount);
+    const known = [subtotal, gst, delivery == null && blank(quote.delivery_charge) ? 0 : delivery, pickup == null && blank(quote.pickup) ? 0 : pickup];
+    // A blank printed charge is zero only when both printed grand totals prove
+    // there is no residual amount. Missing or inconsistent evidence stays unknown.
+    const verifiedOmission = missing && total != null && total === quoted && sum(known) === total;
+    if (verifiedOmission) {
+      if (delivery == null && blank(quote.delivery_charge)) delivery = 0;
+      if (pickup == null && blank(quote.pickup)) pickup = 0;
+    }
+    return {delivery, pickup, verifiedOmission};
+  }
 
   function project(source, definitions, quantities, requiredCardLines) {
     const issues = [], lines = [], quotes = [];
@@ -110,7 +125,7 @@
         return {...l, qty: r.quantity, unit_price: r.rate, total_price: r.amount,
           quotedQuantity1068: l.qty, quotedAmount1068: l.total_price, serviceIssue1068: r.issue};
       })}));
-      const subtotal = cents(q.sub_total), delivery = cents(q.delivery_charge), pickup = cents(q.pickup);
+      const subtotal = cents(q.sub_total), {delivery, pickup, verifiedOmission} = transport(q);
       const adjusted = subtotal == null || !reconciled ? null : safe(BigInt(subtotal) + adjustment);
       if (adjusted == null || delivery == null || pickup == null) {
         complete = false; addIssue(q.quote + ': supplier quote total is unavailable.');
@@ -124,7 +139,7 @@
       quotes.push({...q, groups, sub_total: complete ? amount(adjusted) : null,
         quotedSubtotal1068: q.sub_total, knownSubtotal1068: amount(adjusted), costComplete1068: complete,
         costTotal1068: complete ? amount(totalCents) : null, costTotalCents1068: complete ? totalCents : null,
-        knownCostTotal1068: amount(knownCents), knownCostTotalCents1068: knownCents,
+        knownCostTotal1068: amount(knownCents), knownCostTotalCents1068: knownCents, transportOmissionVerified1068: verifiedOmission,
         costBasis1068: 'Site servicing quantities at supplier quote rates; other quoted lines unchanged.'});
     }
     const knownTotal = knownSum(quotes.map(q => q.knownCostTotalCents1068));
@@ -139,14 +154,47 @@
       quotedServiceTotal: amount(quotedService), quotedTotal: amount(quotedTotal)};
   }
 
-  function decorate(service, source, definitions, requiredCardLines) {
+  function quantities(service, assets, readLines, readQty, blockCardLine) {
+    // Customer sewer-connect servicing excludes a block sharing its reference
+    // with a waste tank. Supplier block cleaning includes that same block.
+    // Reuse native service eligibility/nights and the same recorded unit reader.
+    const result = (service && Array.isArray(service.card_lines) ? service.card_lines : []).map(l => ({...l}));
+    const block = result.find(l => l.card_line === blockCardLine);
+    if (!block) return result;
+    block.qty = null;
+    if (!service || !Array.isArray(service.per1040) || !Array.isArray(service.nights1040) || !Array.isArray(assets)) return result;
+    const refs = service.per1040.map(r => r && r.ref), wanted = new Set(refs);
+    if (refs.some(r => typeof r !== 'string' || !r) || wanted.size !== refs.length) return result;
+    const selected = assets.filter(a => a && wanted.has(a.key));
+    if (selected.length !== wanted.size || new Set(selected.map(a => a.key)).size !== wanted.size) return result;
+    let blocks = 0;
+    for (const asset of selected) {
+      const lines = readLines(asset);
+      if (!Array.isArray(lines)) return result;
+      for (const line of lines) if (/block/i.test(String(line.item || ''))) {
+        const raw = readQty(line), n = decimal(raw);
+        if (!n || !Number.isFinite(Number(raw)) || Number(raw) < 0) return result;
+        blocks += Number(raw);
+      }
+    }
+    const total = blocks * service.nights1040.length;
+    block.qty = Number.isFinite(total) && total >= 0 ? total : null;
+    return result;
+  }
+
+  function decorate(service, source, definitions, requiredCardLines, supplierQuantities) {
     if (!service) return service;
-    const model = project(source, definitions, service.card_lines, requiredCardLines);
+    const model = project(source, definitions, supplierQuantities || service.card_lines, requiredCardLines);
+    model.lines.forEach(row => {
+      const customer = service.card_lines.filter(l => l.card_line === row.card_line);
+      row.customerQuantity1068 = customer.length === 1 ? customer[0].qty : null;
+    });
     const enrich = line => {
       if (line.card_line == null) return line; // Water and other at-cost customer lines are unchanged.
       const rows = model.lines.filter(r => r.card_line === line.card_line);
       const row = rows.length === 1 ? rows[0] : null;
       return {...line, their_rate: row ? row.rate : null, their_amount: row ? row.amount : null,
+        supplier_qty1068: row ? row.quantity : null,
         quote_their_amount1068: row ? row.quotedAmount : null,
         supplier_issue1068: row ? row.issue : 'Supplier servicing mapping is unavailable or duplicated.'};
     };
@@ -157,14 +205,22 @@
     if (!model) return 'Supplier servicing cost is unavailable.';
     const priced = model.serviceTotal == null ? (model.serviceKnownTotal == null ? 'unavailable' : money(model.serviceKnownTotal) + ' known') + '; incomplete' : money(model.serviceTotal);
     const quoted = model.quotedServiceTotal == null ? 'not available' : money(model.quotedServiceTotal);
+    const separate = model.lines.filter(l => l.quantity != null && l.customerQuantity1068 != null && l.quantity !== l.customerQuantity1068)
+      .map(l => l.description + ': ' + l.quantity + ' supplier services; ' + l.customerQuantity1068 + ' customer sewer-connect services. Supplier cleaning also covers blocks with waste tanks.').join(' ');
     return 'Supplier servicing estimate on the site count: ' + priced + ' ex GST. Original quote servicing: ' + quoted + ' ex GST, reference only.' +
+      (separate ? ' ' + separate : '') +
       (model.issues.length ? ' ' + model.issues.join(' ') : '');
   }
-  const api = {project, decorate, summary, cents, multiply};
+  const api = {project, quantities, decorate, summary, cents, multiply};
   root.SupplierService1068 = api;
   if (typeof module !== 'undefined' && module.exports) module.exports = api;
 })(typeof window === 'undefined' ? globalThis : window);
 
+function supplierServiceQuantities1068(service) {
+  const block = NIGHT1040.find(line => line.kind === 'sewer');
+  const read = () => SupplierService1068.quantities(service, allAssets(), chargeLines, qtyOf, block && block.card_line);
+  return typeof holdAssets === 'function' ? holdAssets(read) : read();
+}
 function supplierService1068() {
   const read = () => { const service = servicing748(); return service && service.supplier1068; };
   return typeof heldMemo === 'function' ? heldMemo('supplierService1068', read) : read();

@@ -182,6 +182,23 @@ test('missing transport is unknown while the other verified amounts remain known
   assert.equal(m.quotes[0].costTotal1068, null); assert.equal(m.quotes[0].knownCostTotal1068, 27.57);
   assert.equal(m.knownTotal, 41.57); assert.equal(m.serviceTotal, 13.91);
 });
+test('blank printed transport is zero only when both original grand totals reconcile exactly', () => {
+  const f=fixture(),q=f.source.quotes[0];q.delivery_charge=null;q.pickup=null;q.gst=4.05;q.total_amount=44.55;q.quoted_amount=44.55;
+  const before=JSON.stringify(f.source),m=run(f);
+  assert.equal(m.complete,true);assert.equal(m.quotes[0].transportOmissionVerified1068,true);
+  assert.equal(m.quotes[0].costTotal1068,24.57);assert.equal(m.total,38.57);
+  assert.equal(JSON.stringify(f.source),before);
+});
+test('unreconciled or missing printed totals never turn unknown transport into zero', () => {
+  for(const problem of ['total_amount','quoted_amount','sub_total','gst','residual','invalid fee','negative fee']) {
+    const f=fixture(),q=f.source.quotes[0];q.delivery_charge=null;q.pickup=null;q.gst=4.05;q.total_amount=44.55;q.quoted_amount=44.55;
+    if(problem==='residual'){q.total_amount=45.55;q.quoted_amount=45.55;}
+    else if(problem==='invalid fee')q.delivery_charge='not confirmed';
+    else if(problem==='negative fee')q.delivery_charge=-1;
+    else delete q[problem];
+    const m=run(f);assert.equal(m.complete,false);assert.equal(m.quotes[0].transportOmissionVerified1068,false);assert.equal(m.total,null);
+  }
+});
 test('per-quote sum overflow cannot yield complete=true while dropping the quote', () => {
   const f = fixture(); f.source.quotes[1].sub_total = '90071992547409.90'; f.source.quotes[1].delivery_charge = 1;
   const m = run(f); assert.equal(m.complete, false); assert.equal(m.total, null);
@@ -207,6 +224,35 @@ test('lost mapping quote identity never reuses unidentified original service qua
   const f=fixture(); f.definitions[0].quote='MISSING'; const m=run(f);
   assert.equal(m.complete,false); assert.equal(m.knownTotal,null); assert.equal(m.total,null);
   assert.equal(m.serviceTotal,null); assert.match(m.issues.join(' '),/identity is unavailable/);
+});
+
+test('supplier block cleaning includes a tank-linked block without changing customer quantities', () => {
+  const service={card_lines:[{card_line:'A',qty:8},{card_line:'B',qty:2},{card_line:'C',qty:6}],
+    per1040:[{ref:'SEWER'},{ref:'TANK'}],nights1040:[{},{}]};
+  const assets=[{key:'SEWER',lines:[{item:'Toilet Block',qty:3}]},{key:'TANK',lines:[{item:'Toilet Block',qty:2},{item:'Waste tank',qty:1}]},
+    {key:'NOT_ELIGIBLE',lines:[{item:'Toilet Block',qty:9}]}];
+  const before=JSON.stringify({service,assets}),counts=model.quantities(service,assets,a=>a.lines,l=>l.qty,'C');
+  assert.deepEqual(counts.map(l=>l.qty),[8,2,10]);
+  assert.equal(JSON.stringify({service,assets}),before);
+  assets[1].lines[0].qty=4;
+  assert.equal(model.quantities(service,assets,a=>a.lines,l=>l.qty,'C')[2].qty,14);
+  assert.equal(service.card_lines[2].qty,6);
+});
+test('missing eligible block source cannot silently reuse the customer sewer-only quantity', () => {
+  const service={card_lines:[{card_line:'C',qty:6}],per1040:[{ref:'MISSING'}],nights1040:[{},{}]};
+  assert.equal(model.quantities(service,[],a=>a.lines,l=>l.qty,'C')[0].qty,null);
+  assert.equal(model.quantities(service,[{key:'MISSING',lines:[{item:'Toilet Block',qty:null}]}],a=>a.lines,l=>l.qty,'C')[0].qty,null);
+  service.per1040=[];
+  assert.equal(model.quantities(service,[],a=>a.lines,l=>l.qty,'C')[0].qty,0);
+});
+test('different supplier cleaning and customer sewer quantities remain explicit in generated wording', () => {
+  const f=fixture(),service={card_lines:f.quantities,lines:f.quantities,total:123};
+  const quantities=f.quantities.map(l=>({...l,qty:l.card_line==='C'?10:l.qty}));
+  const after=model.decorate(service,f.source,f.definitions,['A','B','C'],quantities);
+  assert.equal(after.card_lines[2].qty,0);assert.equal(after.card_lines[2].supplier_qty1068,10);
+  assert.equal(after.card_lines[2].their_amount,35);assert.equal(after.total,123);
+  assert.match(model.summary(after.supplier1068,String),/10 supplier services; 0 customer sewer-connect services/);
+  assert.match(model.summary(after.supplier1068,String),/blocks with waste tanks/);
 });
 
 console.log(passed + ' synthetic supplier-cost checks passed');
