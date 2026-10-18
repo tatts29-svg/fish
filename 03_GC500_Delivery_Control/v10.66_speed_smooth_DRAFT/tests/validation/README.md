@@ -151,3 +151,7 @@ Exact candidate SHA256: `4b5b727b781992e251968f81503ee064a3dbd3414a6087260258871
   the candidate retains eager original artwork.
 
 All raw records, exact changed paths, snapshots, PDFs, screenshots, traces and logs stay in private storage outside the repository.
+
+Final standard sweeps **pass** at desktop and phone sizes: 24 routes, seven exact destinations, intentional aliases,
+Back, zero page/console/early/network errors and zero operational writes. See [SWEEP_STATUS.md](SWEEP_STATUS.md)
+for the final results and separately retained earlier outage evidence. Publication is owned by the release coordinator.

@@ -64,3 +64,7 @@ not “no lag” or a pass of every aspirational target.
 
 Raw records, financial text, exact semantic deltas, PDFs, screenshots, browser logs and profiles remain outside the
 repository. `results.json` contains only source identities, validation outcomes and performance measurements.
+
+Final standard sweeps **pass** at desktop and phone sizes: 24 routes, seven exact destinations, intentional aliases,
+Back, zero page/console/early/network errors and zero operational writes. See [SWEEP_STATUS.md](SWEEP_STATUS.md)
+for the final results and separately retained earlier outage evidence. Publication is owned by the release coordinator.

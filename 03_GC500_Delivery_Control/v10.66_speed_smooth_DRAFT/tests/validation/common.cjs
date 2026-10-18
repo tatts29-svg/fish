@@ -117,6 +117,6 @@ function frozenVersions(){
   const read=suffix=>{const file=path.join(FIXTURE,sha(HOST+suffix)+'.body');return fs.existsSync(file)?JSON.parse(fs.readFileSync(file)).version:null;};
   const version=read('/api/version'),state=read('/api/state');return {version,state,consistent:typeof version==='number'&&version===state};
 }
-function errorsOf(s) {return {pageErrors:s.errors, consoleErrors:s.consoleErrors, blocked:s.counts.blocked, missingFixture:[...fixture.missing],fixtureVersions:frozenVersions()};}
+function errorsOf(s) {return {pageErrors:s.errors, consoleErrors:s.consoleErrors||consoleByPage.get(s.page)||[], blocked:s.counts.blocked, missingFixture:[...fixture.missing],fixtureVersions:frozenVersions()};}
 function assertClean(s) {const e=errorsOf(s); if(e.pageErrors.length||e.consoleErrors.length||e.blocked||e.missingFixture.length||!e.fixtureVersions.consistent)throw new Error('Read-only browser checks failed: '+JSON.stringify(e));}
 module.exports={fs,path,sha,fixture,launch,ready,mergeReport,settled,materializeBuild,capturePane,writePrivate,normaliseText,normaliseFooter,canonicalRecord,recordDelta,errorsOf,assertClean,CLOCK_ISO,HOST};

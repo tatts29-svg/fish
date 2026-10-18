@@ -305,5 +305,127 @@
     "Only whitespace/NBSP and exact release-footer version token normalised. No quantities, monetary figures, percentages, dates, references or ordered rows removed.",
     "Actual print checks exercise the real mandatory confirmation UI and compare report/model/extracted PDF text. They do not apply the screen finance filter or assert binary/PDF pixel identity.",
     "Standing regressions and standard sweeps are independently owned by the release coordinator."
-  ]
+  ],
+  "standardSweeps": {
+    "status": "passed",
+    "candidateSha256": "4b5b727b781992e251968f81503ee064a3dbd3414a6087260258871ad83a0ec6",
+    "transport": "unchanged canonical live-connected harness; fresh API and original static assets; observation-only error probe",
+    "canonicalSweepSha256": "51de9ee3765aa00a0a6c5fd8dbe00035a59a0dc523e12c5706b14306abe6c743",
+    "assertionCheckerSha256": "16cef1c9492e52c1e3d46e173d04ede9c48626e9855342b9bbf2fa0f9e7cf87e",
+    "strongAssertionExit": 0,
+    "verifiedAtUtc": "2026-10-18T02:23:21.265671+00:00",
+    "viewports": {
+      "desktop": {
+        "pass": true,
+        "tabs": 24,
+        "exactDeepLinks": 7,
+        "intentionalAliasesVerified": true,
+        "backToEquipment": true,
+        "pageErrors": 0,
+        "consoleErrors": 0,
+        "earlyPageErrors": 0,
+        "failedNetworkResponses": 0,
+        "operationalWriteAttempts": 0
+      },
+      "phone": {
+        "pass": true,
+        "tabs": 24,
+        "exactDeepLinks": 7,
+        "intentionalAliasesVerified": true,
+        "backToEquipment": true,
+        "pageErrors": 0,
+        "consoleErrors": 0,
+        "earlyPageErrors": 0,
+        "failedNetworkResponses": 0,
+        "operationalWriteAttempts": 0
+      }
+    },
+    "recoveredNetworkBaseline": {
+      "sourceSha256": "c62adee5817153a56d538e1db015b0ef66a8a6e75609bc4d6e09a47bedfafbd8",
+      "viewport": "desktop",
+      "pass": true,
+      "tabs": 24,
+      "exactDeepLinks": 7,
+      "backToEquipment": true,
+      "pageErrors": 0,
+      "consoleErrors": 0,
+      "failedNetworkResponses": 0,
+      "conclusion": "Network recovered during baseline verification; no claim that the earlier failure was reproduced on baseline."
+    },
+    "unchangedMapSections": [
+      {
+        "function": "expUrl",
+        "sha256": "39d76a08ddbe2d0d8ec00d9b9a52169710f68c05e5248611874a1769d42eb590",
+        "bytes": 444
+      },
+      {
+        "function": "expFrame",
+        "sha256": "603edc1d8ae2612a56781d5d11b7ddf0c766137892b3f2a41ba626cb8dedd69f",
+        "bytes": 706
+      },
+      {
+        "function": "expFlush",
+        "sha256": "2c0d22af28eec6d3a7da331917d7c7c395e53fa3ae97845c633422e8384cf629",
+        "bytes": 723
+      },
+      {
+        "function": "expFlush3d",
+        "sha256": "8f668b8918d09c6ade7c2ef7b8d08430dbd06f62486eb7266fc341c995b757ad",
+        "bytes": 650
+      },
+      {
+        "function": "loadCesium",
+        "sha256": "e097b26b73fc5931909c1318a60274f8922ad92ec3bcf6e691848daa4550f7e2",
+        "bytes": 989
+      }
+    ],
+    "previousBlockedAttempt": {
+      "status": "blocked",
+      "candidateSha256": "4b5b727b781992e251968f81503ee064a3dbd3414a6087260258871ad83a0ec6",
+      "transport": "canonical live-connected harness with fresh API and original static cache",
+      "canonicalSweepSha256": "51de9ee3765aa00a0a6c5fd8dbe00035a59a0dc523e12c5706b14306abe6c743",
+      "strongAssertionExit": 1,
+      "viewports": {
+        "desktop": {
+          "canonicalProcessExit": 0,
+          "tabsExercised": 24,
+          "linksExercised": 7,
+          "backToEquipment": true,
+          "pageErrors": 2,
+          "consoleErrors": 36,
+          "http503Messages": 36,
+          "operationalWriteAttempts": 0,
+          "errorHosts": {
+            "tile.googleapis.com": 2,
+            "api.mapbox.com": 25,
+            "cdn.jsdelivr.net": 9
+          }
+        },
+        "phone": {
+          "canonicalProcessExit": 0,
+          "tabsExercised": 24,
+          "linksExercised": 7,
+          "backToEquipment": true,
+          "pageErrors": 0,
+          "consoleErrors": 59,
+          "http503Messages": 59,
+          "operationalWriteAttempts": 0,
+          "errorHosts": {
+            "tile.googleapis.com": 8,
+            "api.mapbox.com": 46,
+            "cdn.jsdelivr.net": 5
+          }
+        }
+      },
+      "networkConclusion": "External map/CDN requests return503 from this execution environment; this is not a clean sweep pass or proof of a production outage.",
+      "earlierIsolatedAttempt": {
+        "status": "blocked",
+        "missingOriginalRequests": 16,
+        "phoneAttempted": false,
+        "networkFallback": false,
+        "placeholdersUsed": false
+      }
+    }
+  },
+  "validationOwnedScopeComplete": true
 }

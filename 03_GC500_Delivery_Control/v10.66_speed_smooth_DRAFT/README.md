@@ -1,4 +1,4 @@
-# v10.66 speed and smoothness — draft
+# v10.66 speed and smoothness — ready
 
 Author: Andrew Fisher
 
@@ -69,41 +69,16 @@ The two intended navigation changes are that a normal link opens Today instead
 of accidentally opening Map explorer, and a background Build refresh preserves
 the swiped strip position. Explicit day navigation continues to recenter it.
 
-## Release gates
+## READY TO UPLOAD — 18 Oct 2026
 
-This is not READY or LIVE. The owner must build through `toolchain/build.sh`, run
-the frozen-record/clock pane, day and drawer parity checks at both sizes, standing
-suites, both 24-tab sweeps, boot/failure/deep-link and cache-invalidation checks,
-inspect phone screenshots, and measure desktop plus CPU×4 phone A/B performance.
-Only that checked candidate may use the guarded uploader and exact live read-back.
+Final candidate: SHA256 `4b5b727b781992e251968f81503ee064a3dbd3414a6087260258871ad83a0ec6`, 18,322,548 bytes. Built by the official toolchain from the exact live base above; 141 scripts parse. Production source is preserved in commit `4ac9fb2`; final validation and the later diagnosis are preserved together on the shared branch.
 
-Direct source contract checks currently pass: 41 carried-cache assertions,
-109 history assertions, 27 native Build-reader parity assertions,
-31 DOM-batch assertions, 42 artwork lifecycle assertions
-for the excluded prototype, 22 native boot delivery assertions, four Today model/report tests,
-and three patch refusal tests. The history tests exercise
-the new helper against controlled histories; browser parity and native hydration
-checks are separate required gates. Initial combined CPU×4 phone measurement
-still misses the agreed speed targets. These passing source checks do not make
-the draft ready for publication.
+All release correctness gates pass: 171/171 semantic comparisons per viewport; 21/21 boot/deep-link/offline/recovery cases per viewport; actual native Print and browser PDF parity; source/cache invalidation contracts; standing regressions including the corrected 154/154 receipt fixture and both five-case Costs scroll checks. Both final canonical sweeps pass 24 tabs, seven exact destinations, Back and intentional aliases, zero page/console errors and zero attempted writes. Their observation probes also recorded zero failed network responses. The settled phone presentation was inspected. Evidence: `tests/validation/RESULTS.md`, `tests/validation/SWEEP_STATUS.md`, `tests/standing/results.json`.
 
-The current private assembled draft is 18,322,548 bytes, SHA256
-`4b5b727b781992e251968f81503ee064a3dbd3414a6087260258871ad83a0ec6`.
-It passes the static page check for all 141 inline scripts against the exact
-live base. This identifies the source under validation; it is not a new live
-release or an approval of its performance. Final desktop and phone parity,
-native hydration/recovery, print and standing regressions remain gates.
-The coordinated server v5.90 switch is recorded live on the shared board and
-its publication hold is lifted. Page publication still requires the final
-candidate's correctness checks and exact guarded read-back.
+A transient execution-network outage interrupted the final checks. Its failures were retained, then only the affected jobs were rerun on the same candidate after recovery. No assertions or production errors were suppressed.
 
-A diagnostic CPU×4 phone sample of the preceding `08a8d9c1` draft reached Today in 11.898 s.
-Measured tab completion was Build 6.282 s, Today 3.701 s, Equipment 2.314 s,
-Map 1.092 s and a Build revisit 3.120 s; selecting another Build day took
-2.229 s. The busy indicator had a frame opportunity within 13–32 ms, but
-the content completion times still fail the 500 ms target. This single sample
-is diagnostic, not a completed A/B performance gate. Raw records, logs and
-profiles remain private and are not committed with the patch.
-The timing targets remain improvement goals; they are not reported as met.
-A release decision must distinguish measured improvements from remaining
-performance work and still pass the functional, data-parity and safety gates.
+This is a measured incremental speed release. One controlled A/B pair per viewport showed first Build about 47% faster and Today about 45–49% faster. Full phone load/tab/idle goals remain unmet; the extended three-pair benchmark and remaining animation/polling work are follow-up. No claim of zero lag or complete performance remediation is made. Full numbers and limits are in the validation evidence. No operational record, rate or calculation changed.
+
+The new idle/merge-plan handover was compared against this frozen source. Existing clock, observer, folded-ring and unchanged-record protections are included. Stronger cache invalidation remains intentional. Equipment pump-budget and visible animation refinements remain follow-up; the handover adds no correctness blocker or ownership hold.
+
+Publication must use the guarded uploader, then exact public read-back and unchanged-record/retained-server verification. A LIVE entry will record the actual result.
