@@ -38,3 +38,10 @@ said "Came in 16 Oct 2026", and the five boards' regos were read off them on sit
 "Complete" was not pressed. Backup `backup_state_20261018T101930Z.json`. Four documents written; record 9730 → 9734;
 everything else unchanged in value; VERIFIED (`report_20261018T101930Z.json`). Still open from the note: VMS13's asset is
 1191957 on the contract and 1191657 as Andrew wrote it, "to be checked on the plate".
+
+## Applied: T0158 complete, 18 Oct 2026 20:21 AEST
+
+Asked what his "Approved" covered, Andrew chose "Press complete on VMS". Every other VMS delivery (T0001, T0103, T0128) was
+already complete. `node vms.cjs --apply --spec t0158_complete_spec.json` (op `complete`, through the page's own `setDone`,
+by Andrew Fisher). Backup `backup_state_20261018T102120Z.json`; one document (delivery/T0158); record 9734 → 9735;
+everything else unchanged in value; VERIFIED (`report_20261018T102120Z.json`).
