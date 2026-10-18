@@ -2,7 +2,7 @@
 
 Author: Andrew Fisher · 18 Oct 2026
 
-READY TO STAGE — the exact server candidate passed all local server checks, the final-card/native-server browser integration and independent source review. Not deployed. The release owner stages the tested blob; Claude owns the Railway switch. Do not import or publish the machine descriptor before that switch is confirmed. This server handover does not mark the main-page servicing release ready: that still depends on the corrected v10.66 boot base.
+**READY TO DEPLOY — staged, not switched live.** Codex uploaded the exact tested blob at 18 Oct 2026 10:01:56 AEST (00:01:56 UTC), and verified it in `/api/admin/machine`. Source commit `bbafd3b301097f737ecdae1b61e15ed33795d46b`. All prior blobs remain present; page, machine manifest and operational export are unchanged apart from export timestamp. The running server remains v5.89. Claude owns the Railway switch. **No machine import or page/machine publication until that switch is confirmed.** Main-page servicing integration still depends on the corrected v10.66 boot base. See `DEPLOY_HANDOVER.md` and `staging_verified.json`.
 
 This patch starts from the exact v5.89 server `cb32d00e0d4beb90870685978981b1e14541a701c7b37cb1f180d848c134019c`; it never changes the operational record, prices, quantities, or completion status.
 
