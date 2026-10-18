@@ -89,6 +89,19 @@ async function materializeBuild(p) {
 }
 function writePrivate(file, value) { file=privatePath(file,'output'); fs.mkdirSync(path.dirname(file),{recursive:true,mode:0o700}); fs.writeFileSync(file,JSON.stringify(value,null,2),{mode:0o600}); }
 function normaliseText(value) { return String(value??'').replace(/\u00a0/g,' ').replace(/\s+/g,' ').trim(); }
+async function capturePane(p,tab) {
+  if(tab==='today'||tab==='progress')await p.waitForFunction(()=>[...document.querySelectorAll('[data-w885-pct]')].every(el=>el.textContent===el.dataset.text),null,{timeout:15000,polling:100});
+  const capture=()=>p.evaluate(tab=>{const el=document.querySelector('#pane-'+tab);if(!el)throw new Error('Missing pane '+tab);const c=el.cloneNode(true);c.querySelectorAll('style,script').forEach(x=>x.remove());return {visible:el.innerText,full:c.textContent};},tab);
+  const out=await capture();
+  if(tab==='today'||tab==='progress'){
+    // Expose the deferred, screen-hidden report only for full-content comparison, then preserve the
+    // normal render() order: native operational finance filtering follows rendering. The independent
+    // Print suite must never apply this filter, because native printing has its own report lifecycle.
+    await p.evaluate(()=>{if(typeof TodayReport1066!=='undefined')TodayReport1066.flush();financeOperational857();});
+    out.full=(await capture()).full;
+  }
+  return out;
+}
 function canonicalRecord(value){if(Array.isArray(value))return value.map(canonicalRecord);if(value&&typeof value==='object')return Object.fromEntries(Object.keys(value).sort().map(key=>[key,canonicalRecord(value[key])]));return value;}
 function recordDelta(before,after){
   const changes=[];
@@ -106,4 +119,4 @@ function frozenVersions(){
 }
 function errorsOf(s) {return {pageErrors:s.errors, consoleErrors:s.consoleErrors, blocked:s.counts.blocked, missingFixture:[...fixture.missing],fixtureVersions:frozenVersions()};}
 function assertClean(s) {const e=errorsOf(s); if(e.pageErrors.length||e.consoleErrors.length||e.blocked||e.missingFixture.length||!e.fixtureVersions.consistent)throw new Error('Read-only browser checks failed: '+JSON.stringify(e));}
-module.exports={fs,path,sha,fixture,launch,ready,mergeReport,settled,materializeBuild,writePrivate,normaliseText,normaliseFooter,canonicalRecord,recordDelta,errorsOf,assertClean,CLOCK_ISO,HOST};
+module.exports={fs,path,sha,fixture,launch,ready,mergeReport,settled,materializeBuild,capturePane,writePrivate,normaliseText,normaliseFooter,canonicalRecord,recordDelta,errorsOf,assertClean,CLOCK_ISO,HOST};

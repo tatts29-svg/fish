@@ -5,7 +5,7 @@ if(!pageFile||!outFile)throw new Error('Usage: node boot.cjs candidate.html priv
 (async()=>{
  const mobile=process.env.MOB==='1',out={author:'Andrew Fisher',pageSha256:C.sha(C.fs.readFileSync(pageFile)),mobile,cases:[]};
  let s;
- const check=(label,pass,detail={})=>{out.cases.push({label,pass:!!pass,...detail});if(!pass)throw new Error(label);};
+ const check=(label,pass,detail={})=>{out.cases.push({label,pass:!!pass,...detail});console.log(JSON.stringify({phase:'boot',mobile,label,pass:!!pass}));if(!pass)throw new Error(label);};
  const snap=()=>s.page.evaluate(()=>({tab:state.tab,hash:location.hash,selected:document.querySelector('#tabs [aria-selected="true"]')?.dataset.tab||document.querySelector('#mmViews [aria-current="page"]')?.dataset.goto,refresh:document.documentElement.getAttribute('data-refresh904'),sync:SYNC.status,version:SYNC.db?.readVersion821(),states:window.__validation.states,visible:!!document.querySelector('#pane-'+state.tab)?.getClientRects().length}));
  try{
   for(const tab of ['today','timeline','map','costs']){

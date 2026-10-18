@@ -3,6 +3,7 @@
 // memory with writes aborted by the harness.
 //   node test_v1059.cjs path/to/page.html [evidence_dir]
 const {open} = require('../../toolchain/harness/open_page.js');
+const {prepareLateReceiptFixture} = require('../../handover_claude_18Oct2026/tests/late_receipt_fixture.cjs');
 const path = require('path'); const fs = require('fs');
 const page = process.argv[2]; const ev = process.argv[3] || path.join(__dirname, '..', 'evidence');
 let pass = 0, fail = 0; const counts = {};
@@ -143,6 +144,10 @@ const ok = (tag, c, m) => { c ? pass++ : fail++; counts[tag] = counts[tag] || [0
    ok(tag, /P21: site note on site 14:30, Coates text 06:59 \(window 10:30–13:30\); counted on the site note \(the site record\): 1 h late/.test(clash16) && /P20: site note on site 10:00, Coates text 08:14 \(window 09:00–12:00\); counted on the site note \(the site record\): within the window either way/.test(clash16), '16 Sep: P21\'s site note (on site 14:30) is shown against its 06:59 Coates text, not hidden: ' + clash16.slice(0, 260));
    ok(tag, /T0266 6\.0m Refrigerator Cont · Helen Park · Container 6 m · window 12:00–15:00 · done 16:59 · 1 h 59 min late/.test(r.m13t) && /T0109 2\.5T Forklift STD · Events · Forklift · window 07:00–10:00 · done 09:59/.test(r.m13t), '13 Oct: T0266 named; the rough-terrain forklift is T0109, on time at 09:59');
    ok(tag, /T0109 2\.5T Forklift STD · Events · Fork extension · window 07:00–10:00 · done 10:29 · 29 min late/.test(r.m12t), '12 Oct fork extension named by T0109 and its description');
+   // Part B has an explicit pre-entry fixture: the post-release record already contains these arrivals.
+   // Keep the native before/after, setter, idempotence and history-format assertions unchanged.
+   await p.evaluate(prepareLateReceiptFixture);
+   await p.waitForTimeout(500);
    // part B: an arrival entered later lands on the day it came (in page memory; the harness aborts every write)
    const b = await p.evaluate(async () => {
     const wait = ms => new Promise(res => setTimeout(res, ms));
