@@ -39,6 +39,10 @@ refuses a repeat, a wrong footer, or any different base bytes.
   arrays for every historical read. Public `histOf` callers still receive fresh
   arrays. The committed/local merge, deduplication and stable event ordering are
   unchanged. Raw histories do not depend on event pricing configuration.
+- `build_reads1066.py` uses that same raw-history snapshot for the private Build
+  category readers, removing duplicate event-configuration checks and array
+  copies. Every caller only reads the rows. The older arrival formatting and
+  all category error/fallback paths are retained.
 - `today1066_hunks.json` omits a Costs card that the existing Today presentation
   always removes, plus unused calculations left behind by that removal. All
   financial model functions and all final visible Today figures remain intact.
@@ -74,7 +78,8 @@ inspect phone screenshots, and measure desktop plus CPU×4 phone A/B performance
 Only that checked candidate may use the guarded uploader and exact live read-back.
 
 Direct source contract checks currently pass: 41 carried-cache assertions,
-109 history assertions, 31 DOM-batch assertions, 42 artwork lifecycle assertions
+109 history assertions, 27 native Build-reader parity assertions,
+31 DOM-batch assertions, 42 artwork lifecycle assertions
 for the excluded prototype, 22 native boot delivery assertions, four Today model/report tests,
 and three patch refusal tests. The history tests exercise
 the new helper against controlled histories; browser parity and native hydration
@@ -82,19 +87,23 @@ checks are separate required gates. Initial combined CPU×4 phone measurement
 still misses the agreed speed targets. These passing source checks do not make
 the draft ready for publication.
 
-The current private assembled draft is 18,322,476 bytes, SHA256
-`08a8d9c13cf185de9f5c8db39cebb7d4d3f82acf44b15d8f5dc0b0fde3f078b3`.
+The current private assembled draft is 18,322,548 bytes, SHA256
+`4b5b727b781992e251968f81503ee064a3dbd3414a6087260258871ad83a0ec6`.
 It passes the static page check for all 141 inline scripts against the exact
 live base. This identifies the source under validation; it is not a new live
 release or an approval of its performance. Final desktop and phone parity,
 native hydration/recovery, print and standing regressions remain gates.
-Publication and machine import are on hold pending the coordinated server
-switch; only the release owner may lift that hold from current evidence.
+The coordinated server v5.90 switch is recorded live on the shared board and
+its publication hold is lifted. Page publication still requires the final
+candidate's correctness checks and exact guarded read-back.
 
-A diagnostic CPU×4 phone sample of that exact draft reached Today in 11.898 s.
+A diagnostic CPU×4 phone sample of the preceding `08a8d9c1` draft reached Today in 11.898 s.
 Measured tab completion was Build 6.282 s, Today 3.701 s, Equipment 2.314 s,
 Map 1.092 s and a Build revisit 3.120 s; selecting another Build day took
 2.229 s. The busy indicator had a frame opportunity within 13–32 ms, but
 the content completion times still fail the 500 ms target. This single sample
 is diagnostic, not a completed A/B performance gate. Raw records, logs and
 profiles remain private and are not committed with the patch.
+The timing targets remain improvement goals; they are not reported as met.
+A release decision must distinguish measured improvements from remaining
+performance work and still pass the functional, data-parity and safety gates.

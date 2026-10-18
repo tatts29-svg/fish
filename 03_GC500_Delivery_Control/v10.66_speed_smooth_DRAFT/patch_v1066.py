@@ -14,6 +14,7 @@ sys.path.insert(0, str(HERE))
 sys.path.insert(0, str(HERE.parent / 'toolchain'))
 from rep import rep
 from history1066 import apply as apply_history
+from build_reads1066 import apply as apply_build_reads
 from dom_batch1066 import apply as apply_dom_batch
 from today_models1066 import apply as apply_today_models
 from today_report1066 import apply as apply_today_report
@@ -70,6 +71,7 @@ def patch(text, path='page.html'):
     new = "const current=makeCurrent(()=>typeof DATA==='undefined'?{}:DATA,()=>{try{if(typeof REC_EPOCH1066==='number')REC_EPOCH1066++;}catch(e){}try{if(typeof RENDER_MEMO!=='undefined')RENDER_MEMO.clear();}catch(e){}try{if(typeof HELD_MEMO!=='undefined')HELD_MEMO.clear();if(typeof ASSETS_HELD!=='undefined'&&ASSETS_HELD)HELD_STALE775=true;}catch(e){}});"
     text = rep(text, old, new, 'invalidate carried and held reads when event dates change', path)
     text = apply_history(text, path)
+    text = apply_build_reads(text, path)
     for row in json.loads((HERE / 'today1066_hunks.json').read_text(encoding='utf-8')):
         text = rep(text, row['old'], row['new'], row['id'], path)
     text = apply_dom_batch(text, path)

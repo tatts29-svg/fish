@@ -10,6 +10,7 @@ import re
 import subprocess
 import sys
 import time
+from assertion_evidence import assertions
 
 ROOT = Path(__file__).resolve().parents[3]
 PAGE = str(Path(sys.argv[1]).resolve())
@@ -51,7 +52,7 @@ for name, rel, screen, args in JOBS:
  if args:cmd += [PAGE,str(dest)]
  # Costs accepts only page paths, unlike the day-card suites with screenshot args.
  if name.startswith('costs-'):cmd=cmd[:-1]
- log=dest/'run.log';start=time.monotonic()
+ log=dest/'run.log';start=time.monotonic();started_ns=time.time_ns()
  print(json.dumps({'starting':name}),flush=True)
  with log.open('w') as out:
   result=subprocess.run(cmd,env=env,cwd=ROOT,stdout=out,stderr=subprocess.STDOUT)
@@ -66,9 +67,17 @@ for name, rel, screen, args in JOBS:
  elif name.startswith('costs-') and result.returncode==0:
   data=json.loads(next(l for l in reversed(tail) if l.startswith('{')))
   row.update(checks=5,errors=len(data['errors']),blockedWrites=data['blockedWrites'],passed=data['pass'] and not data['errors'] and data['blockedWrites']==0)
- else:row['passed']=result.returncode==0 and not row['failLines'] and (not totals or totals[-1][0]==totals[-1][1])
+ else:
+  evidence=None
+  if name.startswith(('interactions-','integrated-')):
+   artifact=dest/'evidence.json'
+   if artifact.is_file() and artifact.stat().st_mtime_ns >= started_ns:
+    try:evidence=json.loads(artifact.read_text())
+    except (ValueError,OSError):pass
+  proven,reason=assertions(name,content,evidence)
+  row.update(passed=result.returncode==0 and proven,assertionEvidence=reason)
  results.append(row)
  (PRIVATE/'standing'/'summary.json').write_text(json.dumps({'author':'Andrew Fisher','page':PAGE,'results':results},indent=2)+'\n')
  print(json.dumps(row),flush=True)
 print(json.dumps({'completed':len(results),'passed':sum(r['passed'] for r in results)}),flush=True)
-sys.exit(0 if all(r['passed'] for r in results) else 1)
+sys.exit(0 if results and all(r['passed'] for r in results) else 1)
