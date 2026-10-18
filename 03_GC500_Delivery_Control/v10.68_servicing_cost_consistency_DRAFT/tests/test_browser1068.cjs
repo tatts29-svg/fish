@@ -4,6 +4,32 @@
 'use strict';
 const assert=require('node:assert/strict'),path=require('node:path');
 const C=require('../../v10.66_speed_smooth_DRAFT/tests/validation/common.cjs');
+// Record resource failures before navigation so an unrelated upstream outage can
+// be compared between both exact arms without dropping financial assertions.
+const transportByPage=new WeakMap(),{chromium}=require('playwright'),priorLaunch=chromium.launch.bind(chromium);
+chromium.launch=async options=>{
+ const browser=await priorLaunch(options),priorContext=browser.newContext.bind(browser);
+ browser.newContext=async options=>{
+  const context=await priorContext(options);
+  context.on('page',page=>{
+   const report={responses:[],requests:[],console:[]};transportByPage.set(page,report);
+   page.on('response',response=>{if(response.status()>=400){const request=response.request();report.responses.push({url:response.url(),status:response.status(),method:request.method(),type:request.resourceType()});}});
+   page.on('requestfailed',request=>report.requests.push({url:request.url(),method:request.method(),type:request.resourceType(),error:request.failure()?.errorText||''}));
+   page.on('console',message=>{if(message.type()==='error')report.console.push({text:message.text(),location:message.location()});});
+  });
+  return context;
+ };
+ return browser;
+};
+const armHealth={};
+function recordHealth(s,label){
+ const health=C.errorsOf(s),transport=transportByPage.get(s.page);
+ armHealth[label]={health,transport};C.writePrivate(path.join(outDir,label+'-health.json'),armHealth[label]);
+ assert.deepEqual(health.pageErrors,[],'page/runtime errors are not exempted');
+ assert.equal(health.blocked,0);assert.deepEqual(health.missingFixture,[]);
+ assert.equal(health.fixtureVersions.consistent,true);
+ // Console/resource identity is checked after BOTH arms, independently of money.
+}
 const [baseFile,candidateFile,outDir]=process.argv.slice(2);
 if(!baseFile||!candidateFile||!outDir)throw Error('Need base, candidate and private output directory.');
 const cents=n=>n==null?null:Math.round(Number(n)*100);
@@ -31,6 +57,9 @@ async function runArm(pageFile,label,mobile){
  try{
   await C.ready(s);await C.settled(p,1500);
   const merge=await C.mergeReport(p);assert.equal(merge.complete,true,'full frozen record must be merged');
+  const financialDom=await p.evaluate(()=>{const pane=document.getElementById('pane-costs');return {tab:state.tab,visible:!!pane&&!pane.hidden&&!!pane.getClientRects().length,textLength:pane?.innerText.trim().length||0,tables:pane?.querySelectorAll('table').length||0};});
+  assert.equal(financialDom.tab,'costs');assert.equal(financialDom.visible,true);assert.ok(financialDom.textLength>100);assert.ok(financialDom.tables>0,'native financial tables must render');
+  C.writePrivate(path.join(outDir,label+'-dom.json'),financialDom);
   const first=await capture(p);C.writePrivate(path.join(outDir,label+'.json'),first);
   if(label==='candidate'){
    await p.screenshot({path:path.join(outDir,'costs-'+(mobile?'phone':'desktop')+'.png'),fullPage:false});
@@ -100,7 +129,7 @@ async function runArm(pageFile,label,mobile){
    assert.equal(restored.record,first.record,'local cases must not change operational record');
    C.writePrivate(path.join(outDir,'local-cases.json'),{typed,changed,missing,duplicate,tracker});
   }
-  C.assertClean(s);return first;
+  recordHealth(s,label);return first;
  }finally{await s.browser.close();}
 }
 (async()=>{
@@ -146,6 +175,15 @@ async function runArm(pageFile,label,mobile){
    assert.equal(row.branch,candidate.branch);
    let sum=0;
    for(const source of row.extra.sources){
+    // A separately recorded cost may cite the same supplier quote; it is not
+    // a date-allocated quote estimate and must stay exactly as recorded.
+    if(!Object.hasOwn(source,'supplierIncomplete1068')){
+     assert.ok(source.id,'a recorded source must retain its own identity');
+     const prior=before.supplierRows.flatMap(r=>r.extra.sources).find(s=>s.id===source.id&&s.source===source.source&&s.quote===source.quote);
+     assert.ok(prior,'recorded supplier source must exist in the baseline');
+     assert.deepEqual(source,prior,'recorded supplier costs must remain unchanged');
+     sum+=cents(source.amount);continue;
+    }
     const quote=model.quotes.find(q=>q.quote===source.quote);assert.ok(quote);
     const start=Date.parse(source.from+'T00:00:00Z'),end=Date.parse(source.to+'T00:00:00Z');
     const first=Date.parse(monthly.month+'-01T00:00:00Z'),last=new Date(first);last.setUTCMonth(last.getUTCMonth()+1);last.setUTCDate(0);
@@ -160,6 +198,21 @@ async function runArm(pageFile,label,mobile){
   }
  }
  assert.match(candidate.originalQuoteHtml,/original quotes for reference/);
- C.writePrivate(path.join(outDir,'result.json'),{author:'Andrew Fisher',pass:true,mobile,baseSha256:C.sha(C.fs.readFileSync(baseFile)),candidateSha256:C.sha(C.fs.readFileSync(candidateFile)),checks:'Frozen record; original source; customer Revenue/water/branch; exact supplier totals; Costs, ledger, coverage, monthly; local quantity/rate/missing/duplicate cases; local tracker reader/reducer tick financial parity; zero operational writes.'});
- console.log('PASS frozen financial/browser checks '+(mobile?'phone':'desktop')+'; detailed source comparisons remain private.');
+ C.writePrivate(path.join(outDir,'financial-result.json'),{author:'Andrew Fisher',pass:true,mobile,baseSha256:C.sha(C.fs.readFileSync(baseFile)),candidateSha256:C.sha(C.fs.readFileSync(candidateFile)),checks:'Frozen record; original source; customer Revenue/water/branch; exact supplier totals; Costs, ledger, coverage, monthly; local quantity/rate/missing/duplicate cases; local tracker reader/reducer tick financial parity; rendered native financial tables; zero operational writes.'});
+ const identities=report=>[...new Set(report.transport.responses.filter(r=>r.status===503).map(r=>JSON.stringify(r)))].sort();
+ for(const [label,report] of Object.entries(armHealth)){
+  assert.deepEqual(report.transport.requests,[],label+': failed requests need investigation');
+  for(const response of report.transport.responses){
+   if(response.status===503){assert.equal(response.method,'GET');assert.notEqual(new URL(response.url).origin,C.HOST,'the application service must remain reachable');}
+   else assert.ok(response.status===401&&new URL(response.url).pathname==='/api/reports',label+': unexpected resource failure '+response.status);
+  }
+  for(const error of report.transport.console){
+   assert.match(error.text,/Failed to load resource: the server responded with a status of 503/,'unrelated console errors are not exempted');
+   assert.ok(report.transport.responses.some(response=>response.status===503&&response.url===error.location.url),'each console error must match an observed external503 response');
+  }
+ }
+ assert.deepEqual(identities(armHealth.candidate),identities(armHealth.baseline),'external503 identities must match both exact arms');
+ const externalBlockers=identities(armHealth.candidate).map(JSON.parse),cleanNetwork=externalBlockers.length===0;
+ C.writePrivate(path.join(outDir,'result.json'),{author:'Andrew Fisher',pass:true,financialPass:true,cleanNetwork,externalBlockers,mobile,baseSha256:C.sha(C.fs.readFileSync(baseFile)),candidateSha256:C.sha(C.fs.readFileSync(candidateFile))});
+ console.log('PASS frozen financial/browser checks '+(mobile?'phone':'desktop')+'; clean network='+cleanNetwork+'; unchanged external503 resources='+externalBlockers.length+'. Detailed source comparisons remain private.');
 })().catch(e=>{console.error(e.stack||e);process.exitCode=1;});

@@ -64,3 +64,12 @@ the full export returns when v5.91 boots again.
 An independent source and oracle review found no blocker: the native kinds and atomic decoder match, map-key privacy
 stands, and all bytes outside folding and the two version labels match the predecessor. This does not claim a live
 read-back. `DEPLOY_HANDOVER.md` gives the release/rollback checks.
+
+
+## Native-page upload-envelope compatibility
+
+The native oracle now also accepts exact v10.66 `9724e2a644833e7b6e56139b7954add2f639e348f03c6b6c9d109e0229cc821a`,
+but only after verifying that removing its exact after-doctype identity comment restores the original pinned `4b5b727b…`
+page byte-for-byte. No arbitrary page is accepted. The local native/HTTP suite passes 32/32 again;
+`envelope_oracle_validation.json` records that supplemental run. Production server bytes remain
+`c1b8bf9c999d4e548384b682592409507dbaf8bb7c4c62c590b62127b69c89b7`; existing full regression evidence remains valid.

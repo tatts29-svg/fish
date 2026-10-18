@@ -1,0 +1,78 @@
+{
+  "author": "Andrew Fisher",
+  "status": "private chain browser validation; not published",
+  "checked_at_utc": "2026-10-18T02:32:25.585683+00:00",
+  "tested_predecessor_sha256": "2c3d560843a1efbc6c24f332e46492ddafebd81bf1203356eba0cfa82b95aea6",
+  "tested_candidate_sha256": "1d43cde32a478389d3ad1dedd280606fe4ed57ceab1e045de122b22c5de627bc",
+  "harness_sha256": "1d33137ef5e7ed529e2306c04473d05e1cf2501d209811aca51f2ce67a4d662a",
+  "patch_sha256": "f41ddddc291d4495564d2de5ad86185278a62787b8ec89186f1629e82a345cb8",
+  "synthetic_guards": {
+    "passed": 4,
+    "total": 4
+  },
+  "native_source_guards": {
+    "passed": 7,
+    "total": 7
+  },
+  "browser": {
+    "desktop": {
+      "passed": 16,
+      "total": 16,
+      "viewport": {
+        "width": 1440,
+        "height": 900,
+        "device_scale_factor": 1
+      },
+      "page_errors": 0,
+      "console_errors": 0,
+      "operational_writes": 0,
+      "missing_frozen_endpoints": 0,
+      "source_cards_with_original_thumbnails": 4,
+      "activity_dialog_horizontal_clipping": false
+    },
+    "phone": {
+      "passed": 16,
+      "total": 16,
+      "viewport": {
+        "width": 390,
+        "height": 844,
+        "device_scale_factor": 2
+      },
+      "page_errors": 0,
+      "console_errors": 0,
+      "operational_writes": 0,
+      "missing_frozen_endpoints": 0,
+      "source_cards_with_original_thumbnails": 4,
+      "activity_dialog_horizontal_clipping": false
+    }
+  },
+  "checks": [
+    "same complete shared record in both candidates",
+    "same frozen record version and embedded source data",
+    "existing financial totals unchanged",
+    "all native Costs, Revenue, supplier, ledger, forecast and monthly models unchanged",
+    "existing service labour hours and costs unchanged",
+    "all native assets, programme, loads, demob, daily and equipment models unchanged",
+    "installation headline and percentages unchanged",
+    "every installation and gate row unchanged",
+    "all four reviewed activities accepted by native source guards",
+    "existing activity decisions and pending issues preserved",
+    "only reviewed scrim work enters the separate activity display",
+    "scrim activity has no invented programme denominator or percentage",
+    "relocation increases only by the reviewed physical movement",
+    "only the reviewed relocation changes its separate overall detail row",
+    "native activity dialog is visible and fits the candidate viewport",
+    "all four native source cards render original thumbnails without placeholders"
+  ],
+  "validation_boundary": {
+    "api": "Complete frozen shared-record snapshot; matching version and state; all native collections merged.",
+    "media": "Canonical original media GETs and normal successful-response cache. No media override, placeholder or failed-response substitution.",
+    "screenshots": "Private native dialog, original-source thumbnail and relocation detail captures inspected on desktop and phone.",
+    "limits": [
+      "No live publication or live read-back is claimed.",
+      "This evidence applies to the exact tested private predecessor and candidate hashes.",
+      "Any release-envelope-only propagation must retain separate byte-equivalence evidence.",
+      "All-page standard release sweeps and guarded then-current-live publication remain parent release gates."
+    ]
+  }
+}

@@ -1,8 +1,8 @@
-# Supplier servicing cost consistency — draft v10.68
+# Supplier servicing cost consistency — v10.68
 
 Author: Andrew Fisher
 
-**DRAFT. Not ready to upload.** This patch is reserved for the verified v10.67 page after the speed and servicing-tracker releases. It does not modify the tracker, operational records or original supplier quotes.
+**READY FOR PREDECESSOR PUBLICATION.** Source, financial comparisons, standard sweeps and phone presentation checks are complete. Publication still requires the release owner to build from the exact verified-live v10.67 predecessor, reproduce the candidate hash below, and use the guarded upload and public read-back. This patch does not modify the tracker, operational records or original supplier quotes.
 
 Supplier servicing cost still used quoted quantities while customer servicing Revenue used the site's equipment count and event nights. This change uses the existing `servicing748` eligibility and nights, the same recorded unit quantities, and the matching original supplier quote rates. Supplier toilet-block cleaning includes blocks sharing a reference with a waste tank; the customer's existing sewer-connect servicing rule remains separate and unchanged. The explanation is generated from the differing quantities. Each supplier line rounds once to cents with decimal arithmetic. No current equipment count or supplier rate is hard-coded in the patch.
 
@@ -12,7 +12,7 @@ Missing or ambiguous supplier-rate sources are explicit incomplete costs. Known 
 
 A blank delivery or pickup field is a verified zero only when the original subtotal, GST and other transport amounts add exactly to both printed grand totals. Missing totals, an unexplained residual, or invalid/negative explicit amounts leave transport incomplete. This is source reconciliation, not a blanket null-to-zero conversion.
 
-Monthly review retains the existing provisional allocation across the quote's dated period, including its existing warning that Finance must confirm timing and invoice/payment coverage. Incomplete supplier rows display known subtotals and cannot be proposed as full accrual or planned amounts. Undated and unavailable amounts retain the existing costing branch. This does not change source dates or post journals, recognise payment or infer completed services.
+Monthly review retains the existing provisional allocation across the quote's dated period, including its existing warning that Finance must confirm timing and invoice/payment coverage. Incomplete supplier rows display known subtotals and cannot be proposed as full accrual or planned amounts. Undated and unavailable amounts retain the existing costing branch. Separately recorded monthly costs remain unchanged, including records that cite a quote without carrying its allocation dates. This does not change source dates or post journals, recognise payment or infer completed services.
 
 ## Files and local checks
 
@@ -34,18 +34,20 @@ For each desktop/phone browser comparison, clear inherited page/media overrides,
 
 The financial browser test follows native `renderPass` memo invalidation for its local simulated input changes. Its tracker check feeds local responses into the installed reader/reducer, verifies progress changes, and compares fresh financial snapshots. It never submits a service completion or changes the live tracker.
 
-The 59 guarded replacements matched exactly once against the frozen local v10.67 candidate `6ae970ca79aea9b198aa93042d1a81ceea1589e404f66f552da70351d6967387`. Current private v10.68 candidate: `101797711b79fde90b2fa6cb1a267cd89360dc42486f28c072e61fa1cc9329a0` (18,486,212 bytes); 142 inline scripts pass static checking. The consumer test patches its supplied candidate in memory and uses synthetic amounts with real consumer functions; it does not read or verify private original quotations. **This is not a verified-live v10.67 base or a release check.** Recheck every seam on the actual verified v10.67 page. The version/footer guard identifies compatible source structure; it does not itself prove a page was published.
+The 59 guarded replacements matched exactly once against frozen v10.67 candidate `6ae970ca79aea9b198aa93042d1a81ceea1589e404f66f552da70351d6967387`. The browser-tested v10.68 candidate is `101797711b79fde90b2fa6cb1a267cd89360dc42486f28c072e61fa1cc9329a0` (18,486,212 bytes); 142 inline scripts pass static checking. The consumer test patches its supplied candidate in memory and uses synthetic amounts with real consumer functions; it does not read or verify private original quotations. The version/footer guard identifies compatible source structure; it does not itself prove a page was published.
 
 Private original-source reconciliation on 18 Oct matched all four quotations, fourteen item lines and twenty-four subtotal/transport/GST/total fields to the embedded source data. A second reviewer independently re-extracted and checked the original PDFs, their source hashes, line arithmetic and grand totals, including the omitted-fee reconciliation. Independent code review covered block eligibility, immutable quotes, exact cents and incomplete-cost coverage; no source blocker remained.
 
-Both canonical standing sweeps passed on candidate `10179771…`: desktop and phone each covered 24 tabs, seven exact deep-link destinations and Back, including intentional aliases, with zero page/console errors and zero operational write attempts. `assert_sweeps1068.cjs` verifies these results. Current-record financial browser comparisons and phone screenshot inspection remain pending; their queued jobs were cancelled before launch to prioritise the predecessor's release gate.
+Both canonical standing sweeps passed on candidate `10179771…`: desktop and phone each covered 24 tabs, seven exact deep-link destinations and Back, including intentional aliases, with zero page/console errors and zero operational write attempts. `assert_sweeps1068.cjs` verifies these results. The final phone supplier-cost ledger screenshot was inspected in its native Costs context and passed presentation and no-write checks.
 
-## Required before READY
+Final financial comparisons also passed on desktop and phone with the same frozen operational record in both baseline and candidate arms. Costs, P&L, supplier coverage and monthly allocation agree to cents with independently reconciled source rates and eligible unit/night quantities. All customer Revenue components, water, branch attribution, original quotes and operational state remain unchanged. Local quantity changes update every supplier-cost consumer; customer-rate changes leave supplier costs unchanged; missing/duplicate sources remain incomplete. Local tracker reader/reducer progress changes leave financial snapshots unchanged. This tracker check is not a signed service completion or a live tracker write.
 
-1. Build from the current verified v10.67 page using the shared toolchain. Preserve its exact tracker/map script allowlists and release content.
-2. Review the current site quantities against the native unit/night model and the original supplier source. Keep the original documents, current operational values and detailed financial comparisons private.
-3. Read-only browser checks on desktop and phone: Costs, P&L ledger, supplier coverage, monthly review and original quote display must agree. Check a local simulated quantity change, a customer-rate change and tracker tick changes: only the quantity change changes supplier cost. Check missing/duplicate-source handling.
-4. Prove customer Revenue, water, other supplier lines, quote data and branch attribution are unchanged to cents; supplier cost changes exactly by the supported servicing-quantity difference. No operational write attempts.
-5. Run both standing route sweeps, inspect phone presentation, complete an independent source review and record exact base/candidate hashes before guarded publication and public read-back.
+Both final financial runs report `pass: true`, `financialPass: true`, `cleanNetwork: true`, no external blockers, no console/page/request/resource errors and zero operational write attempts. Earlier upstream network failures are retained as diagnostic evidence; the final clean results do not rely on an external-error exception. Private results, source reconciliation and screenshots remain outside the repository; no operational values or financial details are included here.
 
-No financial browser comparison, publication, operational writes or actual-live financial verification is claimed by this draft.
+## Final upload envelope and publication gate
+
+The upload identity fix adds only `<!-- GC500 Delivery Control -->` immediately after the existing doctype. On final v10.67 predecessor `f32b39bcf42637fd246e03c6b64547b9dd203015659b768411e232e77ffcfc86` (18,465,246 bytes), the unchanged v10.68 patch and canonical scrub produce final candidate **`851197de50912e51e5715c16d6a21271691593588ebba5bb0a0dd60608374534` (18,486,244 bytes)**.
+
+The shared `v10.67_servicing_tracker_DRAFT/tests/envelope_equivalence.json` proof confirms that removing this sole 32-byte non-rendered comment reproduces the browser-tested candidate exactly. Scripts, styles, data and all other bytes are identical. Browser evidence remains bound to `10179771…`; it is not relabelled as a browser run on `851197de…`.
+
+The release owner must verify live v10.67 is exactly `f32b39bc…`, reproduce `851197de…` through the shared build process, preserve the predecessor's tracker/map allowlists, then complete guarded publication and exact public read-back. No publication, operational writes or actual-live financial verification is claimed by this readiness record.

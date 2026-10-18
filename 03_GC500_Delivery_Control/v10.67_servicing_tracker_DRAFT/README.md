@@ -1,5 +1,11 @@
 # v10.67 servicing tracker — software checks complete
 
+## Final upload-envelope candidate — 18 Oct 2026
+
+The release candidate is `f32b39bcf42637fd246e03c6b64547b9dd203015659b768411e232e77ffcfc86` (18,465,246 bytes), built from verified live v10.66 `9724e2a644833e7b6e56139b7954add2f639e348f03c6b6c9d109e0229cc821a`. Its only difference from browser-tested `6ae970ca79aea9b198aa93042d1a81ceea1589e404f66f552da70351d6967387` is the inherited 32-byte `<!-- GC500 Delivery Control -->` comment immediately after the doctype. Removing that exact single comment restores all original bytes, including every script, style and data value. The patch now pins the corrected predecessor; no runtime function changed.
+
+`tests/envelope_equivalence.json` and `tests/test_envelope_identity.py` prove the exact relationship through v10.71. New-candidate build guards/boundaries pass 10/10 (`tests/envelope_build_results.json`), static checks pass, and the native server upload envelope accepts the page. Original integration/sweep evidence below retains its original hashes; these browser runs were not relabelled or repeated for a non-rendered comment. The publisher must reproduce the final candidate above and perform guarded upload/read-back.
+
 Author: Andrew Fisher · 18 Oct 2026
 
 This page change follows v10.66 and the now-live server v5.90 servicing fixes. It reads the crews’ separate tracker on Event
@@ -65,8 +71,8 @@ Both final standard sweeps pass: 24 panes, seven correct deep-link destinations 
 errors and zero attempted writes. Machine identity and record endpoint version were unchanged before and after.
 The sweeps used fresh live GETs, not an atomic frozen-record snapshot; sanitized evidence is `tests/sweep_results.json`.
 
-The release owner must still run the standard guarded build after v10.66 is verified live, confirm it produces these
-exact bytes, run the uploader dry-run and publish/read back through the guarded uploader. Rebuild and retest affected
+The release owner must still run the standard guarded build after v10.66 is verified live, confirm it produces the final upload-envelope
+bytes identified above, run the uploader dry-run and publish/read back through the guarded uploader. Rebuild and retest affected
 checks if the predecessor or output differs; the patch refuses a different predecessor.
 The v5.90 server switch has been verified and its publication hold is lifted. The software can ship with an honest
 empty setup state; contact nomination and physical sheet checks are required for real tracker/print rollout, not page-code release. No page, card or operational record has been published by this draft.
@@ -93,4 +99,4 @@ no directions or coordinates are guessed. Opening the public view link to tracke
 `RELEASE_CHECKLIST.md` contains the exact script/style/DATA allowlist, standard build and upload commands, current setup
 evidence and software-versus-operator gates. The metadata-only packaging correction is covered by 10/10 exact build checks
 in `tests/build_results.json`; the exact output also passed the final 22-check actual-page suite. The
-release candidate is `6ae970ca79aea9b198aa93042d1a81ceea1589e404f66f552da70351d6967387` (18,465,214 bytes).
+original browser-tested candidate is `6ae970ca79aea9b198aa93042d1a81ceea1589e404f66f552da70351d6967387` (18,465,214 bytes); the final upload-envelope candidate is identified above.

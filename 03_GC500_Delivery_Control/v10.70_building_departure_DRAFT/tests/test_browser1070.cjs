@@ -1,13 +1,38 @@
 /* Author: Andrew Fisher. Native output and print-layout checks, using frozen reads and blocked writes. */
 'use strict';
 const assert=require('node:assert/strict');
+const cached=process.env.GC500_CACHE_ONLY==='1'?require('../../v10.66_speed_smooth_DRAFT/tests/validation/cache_only.cjs'):null;
+const transport=require('../../toolchain/harness/curlfetch.js'),nativeFetch=transport.curlFetch;
+let arm='baseline';const external={baseline:[],candidate:[]};
+transport.curlFetch=async(...args)=>{const current=arm;try{const r=await nativeFetch(...args);if(r.status>=400)external[current].push({url:args[0],method:args[2],status:r.status});return r;}catch(e){external[current].push({url:args[0],method:args[2],error:e.code||e.name});throw e;}};
 const common=require('../../v10.66_speed_smooth_DRAFT/tests/validation/common.cjs');
-const {launch,ready,settled,mergeReport,assertClean,writePrivate}=common;
+const {launch,ready,settled,mergeReport,assertClean,writePrivate,canonicalRecord,sha,errorsOf}=common;
+const diagnostics={};
+function collectCleanliness(s,label){const e=errorsOf(s);diagnostics[label]={...e,external:external[label]};assert.equal(e.pageErrors.length,0,label+' genuine page exceptions');assert.equal(e.blocked,0,label+' attempted writes');assert.equal(e.missingFixture.length,0,label+' missing frozen endpoints');assert.ok(e.fixtureVersions.consistent,label+' frozen API coherence');const product=e.consoleErrors.filter(x=>!/^Failed to load resource: (?:the server responded with a status of [45][0-9]{2}|net::ERR_)/.test(x));assert.equal(product.length,0,label+' genuine console errors');if(e.consoleErrors.length)assert.ok(external[label].length,label+' resource errors have captured failed reads');return !e.consoleErrors.length&&!external[label].length;}
+async function nativeModels(p){return p.evaluate(()=>{const days=programmeDays();return {record:S,programme:days.map(d=>({iso:d.iso,deliveries:d.deliveries,removals:d.removals,unref:d.unref,loads:dpLoads(d)})),demob:demob816(),daily:days.map(d=>daily821Model(d.iso))};});}
+const exact=(a,b)=>JSON.stringify(canonicalRecord(a))===JSON.stringify(canonicalRecord(b));
 (async()=>{
- const s=await launch({pageFile:process.argv[2],mobile:process.env.MOB==='1'}),p=s.page;let checks=0;
+ let baseline=null;
+ if(process.argv[4]){const before=await launch({pageFile:process.argv[4],mobile:process.env.MOB==='1'});try{await ready(before);await settled(before.page);assert.ok((await mergeReport(before.page)).complete,'predecessor fully hydrated');baseline=await nativeModels(before.page);collectCleanliness(before,'baseline');}finally{await before.browser.close();}}
+ arm='candidate';const s=await launch({pageFile:process.argv[2],mobile:process.env.MOB==='1'}),p=s.page;let checks=0;
  const check=(ok,label)=>{assert.ok(ok,label);checks++;console.log('PASS '+label);};
  try{
   await ready(s);await settled(p);check((await mergeReport(p)).complete,'initial native record completely hydrated');
+  if(baseline){
+   const actual=await nativeModels(p);
+   check(exact(actual.record,baseline.record),'exact predecessor/candidate shared record parity');
+   check(exact(actual.programme,baseline.programme),'exact native programme, load, quantity, time and door-side model parity');
+   check(exact(actual.demob,baseline.demob),'exact native demob quantity and planning-time model parity');
+   const copy=x=>JSON.parse(JSON.stringify(x));const before=copy(baseline.daily),after=copy(actual.daily);let noteRows=0;
+   for(let i=0;i<before.length;i++)for(let j=0;j<before[i].loads.length;j++)for(let k=0;k<before[i].loads[j].rows.length;k++){
+    const a=before[i].loads[j].rows[k],b=after[i]?.loads[j]?.rows[k];assert.ok(b,'same native daily row exists');
+    const old=a.notes||[],next=b.notes||[];assert.deepEqual(next.slice(0,old.length),old,'all original daily notes retained in order');
+    assert.ok(next.length===old.length||next.length===old.length+1&&/^Buildings:|^Be on site|^For a departure|^No travel|^Week 4 onward/.test(next.at(-1)),'only the settled departure note may be appended');
+    delete a.notes;delete b.notes;noteRows++;
+   }
+   check(exact(before,after),'exact native daily model parity apart from appended departure notes');
+   check(noteRows>0,'all native daily note rows checked');
+  }
   const result=await p.evaluate(()=>{
    const R=BuildingDeparture1070,checks=[],ok=(v,label)=>checks.push({ok:!!v,label});
    const before=JSON.stringify(S),days=programmeDays(),selected=[],phases=new Set();
@@ -36,16 +61,23 @@ const {launch,ready,settled,mergeReport,assertClean,writePrivate}=common;
    return {checks,phases:selected.length};
   });
   for(const x of result.checks)check(x.ok,x.label);
-  const driver=await p.evaluate(()=>new Promise(resolve=>{const x=window.__departure1070Driver;if(!x)return resolve({missing:true});dpPrint(x.iso,'drv',{only:x.i,pdf:(r,wrap,done)=>{const out={...r,rule:wrap.innerText.includes('pick-up point before 07:00')};done();resolve(out);}});}));
+  await p.evaluate(()=>{try{window.print();}catch(e){if(!/twin-steer/.test(String(e)))throw e;}});
+  await p.locator('#ts1053c').check();await p.locator('#ts1053n').fill('Print Validation');await p.locator('[data-ts1053-go]').click();
+  check(await p.evaluate(()=>ts1053.armed()&&!document.getElementById('ts1053')),'native compliance gate acknowledged before print capture');
+  const driver=await p.evaluate(()=>new Promise(resolve=>{const x=window.__departure1070Driver;if(!x)return resolve({missing:true});dpPrint(x.iso,'drv',{only:x.i,pdf:(r,wrap,done)=>{const out={...r,rule:wrap.innerText.includes('pick-up point before 07:00')};window.__departure1070DriverDone=done;resolve(out);}});}));
   check(!driver.timeout&&!driver.missing,'native driver print completes');check(!driver.over?.length,'native driver A4 sheets fit');check(driver.failed===0,'native driver print images load');check(driver.rule,'building rule survives native driver pagination');
+  if(process.argv[3]){await p.evaluate(()=>{document.body.classList.remove('pdf7-make');document.body.classList.add('printing-day');});await p.emulateMedia({media:'print'});await p.locator('#dayprint .dp-page').first().screenshot({path:process.argv[3].replace(/\.json$/,'')+'-driver.png'});await p.emulateMedia({media:'screen'});}
+  await p.evaluate(()=>window.__departure1070DriverDone?.());
   // Use native demob rendering while suppressing the operating-system dialog only.
   await p.evaluate(()=>{const x=window.__departure1070Demob;window.__departure1070Print=window.print;window.print=()=>{};printDay816Before826(x.iso,'all','truck',x.n);});
   await p.emulateMedia({media:'print'});await p.waitForTimeout(150);
   const demob=await p.evaluate(()=>{const wrap=document.getElementById('dayprint');return {rule:wrap.innerText.includes('pick-up point before 07:00'),overflow:[...wrap.querySelectorAll('.dp-page')].some(pg=>{const b=pg.getBoundingClientRect();return pg.scrollHeight>pg.clientHeight+2||[...pg.children].some(e=>e.getBoundingClientRect().bottom>b.bottom+2);})};});
   check(demob.rule,'building rule survives native demob print');check(!demob.overflow,'native demob A4 sheet fits');
+  if(process.argv[3])await p.locator('#dayprint').screenshot({path:process.argv[3].replace(/\.json$/,'')+'-demob.png'});
   await p.evaluate(()=>{window.print=window.__departure1070Print;dispatchEvent(new Event('afterprint'));});await p.emulateMedia({media:'screen'});
-  assertClean(s);checks++;console.log('PASS no browser exceptions, writes or missing frozen endpoints');
-  const out={author:'Andrew Fisher',passed:true,checks,phases:result.phases,mobile:process.env.MOB==='1',driver:{pages:driver.pages,over:driver.over,failedImages:driver.failed},demob};
-  if(process.argv[3])writePrivate(process.argv[3],out);console.log(JSON.stringify(out));
+  check(!baseline||exact(await p.evaluate(()=>S),baseline.record),'printing leaves all shared record values unchanged');
+  const clean=collectCleanliness(s,'candidate');if(cached)check(cached.missing.length===0,'all media are original cached responses, no fallback');checks++;console.log('PASS no product exceptions, writes or missing frozen endpoints; resource cleanliness recorded separately');
+  const out={author:'Andrew Fisher',passed:true,clean,diagnostics,externalIdentityMatch:exact(external.baseline.map(x=>[x.url,x.method,x.status,x.error]).sort(),external.candidate.map(x=>[x.url,x.method,x.status,x.error]).sort()),checks,phases:result.phases,predecessorCompared:!!baseline,mobile:process.env.MOB==='1',driver:{pages:driver.pages,over:driver.over,failedImages:driver.failed},demob,cache:cached?{reads:cached.reads,missing:cached.missing.length,networkFallback:cached.networkFallback}:null};
+  if(process.argv[3])writePrivate(process.argv[3],out);console.log(JSON.stringify({passed:out.passed,clean:out.clean,checks:out.checks,phases:out.phases,mobile:out.mobile,externalIdentityMatch:out.externalIdentityMatch}));
  }finally{await s.browser.close();}
-})().catch(e=>{console.error(e.stack);process.exit(1);});
+})().catch(e=>{if(process.argv[3])writePrivate(process.argv[3],{author:'Andrew Fisher',passed:false,error:e.stack,diagnostics,external,cache:cached});console.error(e.stack);process.exit(1);});

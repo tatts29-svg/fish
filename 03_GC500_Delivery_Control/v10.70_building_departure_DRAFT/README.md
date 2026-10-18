@@ -68,10 +68,39 @@ Independent source review found no blocker in the bounded output adapters.
 `tests/test_browser1070.cjs` is prepared and syntax checked. It uses the shared
 frozen-read/write-blocking harness and covers native programme phases, full-page
 output builders, an unchanged shared-record snapshot, native driver pagination
-and demob A4 bounds. Run it on desktop and phone only under the serial browser
-lock, with private `GC500_FIXTURE` and result paths; it has not run yet.
+and demob A4 bounds. With a predecessor path it also compares the complete
+shared record, native programme/load and demob models, and every daily model
+field and original note; only the settled departure note may be appended. It
+saves driver/demob print screenshots and rejects browser errors, writes or
+missing frozen endpoints. Run it on desktop and phone only under the serial
+browser lock, with private `GC500_FIXTURE` and result paths.
 
-Still required: build on the actual final v10.69 page, test native full-page
-outputs and print fit on desktop/phone, check no duplicate wording or lost
-recorded time/door side, run relevant regressions and use guarded publication
-with exact live read-back. Nothing in this folder is READY or LIVE yet.
+Final desktop and phone checks each pass **59/59** on the frozen candidate.
+Both predecessor and candidate contexts are clean: zero page or console errors,
+failed external responses, attempted writes or missing frozen endpoints. Every
+programme/load, quantity, time, door-side and demob model field matches the
+predecessor; daily models retain every original field/note, with only the policy
+note appended. Six programme phases, native driver/drop/drawer/email outputs and
+demob outputs are covered. The native compliance checkbox/name gate was completed
+through its UI before print capture; driver pagination, all driver images, demob
+A4 fit and unchanged record after printing pass. Desktop/phone driver and demob
+screenshots were inspected and remain private.
+
+Earlier attempts stopped on missing original media, then on a harness screenshot
+that correctly encountered the unacknowledged native print lock. These were
+resolved before the final runs; no production source, output assertions or media
+were substituted. `tests/browser_results.json` records the sanitised final gate.
+
+The frozen draft chain was built on the final private v10.69 candidate
+`07cf8b6eedddc22397f301b9afae875137c608f5d62bae80a78249174cbfd88d`,
+then passed the common attribution scrub and static checks. The v10.70 result is
+`2c3d560843a1efbc6c24f332e46492ddafebd81bf1203356eba0cfa82b95aea6`
+(18,501,611 bytes, 143 inline scripts). All 93 source/native-output checks pass on
+these exact bytes. Embedded DATA and all 132 existing named script bodies remain
+byte-for-byte unchanged. A second build matches exactly; repeat and wrong-base
+application are refused. No browser was run for this private chain build.
+
+Still required: the official build on the published v10.69 predecessor must
+match those bytes, complete the release owner's remaining cross-page gates and
+use guarded publication with exact live read-back. This is a tested private
+candidate; no publication or live verification is claimed here.

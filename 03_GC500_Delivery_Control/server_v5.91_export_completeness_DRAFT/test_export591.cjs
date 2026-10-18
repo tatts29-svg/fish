@@ -41,7 +41,10 @@ const wait=ms=>new Promise(r=>setTimeout(r,ms));
 async function boot(server,dir){const port=await new Promise(resolve=>{const s=http.createServer();s.listen(0,'127.0.0.1',()=>{const p=s.address().port;s.close(()=>resolve(p));});});const log=fs.openSync(path.join(dir,'server.log'),'a');let exited=false;const child=spawn(process.execPath,[server],{env:{PATH:process.env.PATH,PORT:String(port),DATA_DIR:dir,VIEW_TOKEN:'local-export-view',EDIT_TOKEN:'local-export-edit'},stdio:['ignore',log,log]});child.once('exit',()=>exited=true);const stop=async()=>{if(!exited){child.kill('SIGTERM');for(let i=0;i<100&&!exited;i++)await wait(30);}};for(let i=0;i<100;i++){try{const h=await req(port,'/health');if(h.status===200)return {port,health:h.json,stop};}catch{}if(exited)break;await wait(30);}await stop();throw Error('local server boot failed');}
 function assertRouteBoundary(){const strip=s=>s.replace(/const BUILD = '[^\n]*/,'const BUILD = ALLOWED').replace(/build: 'v5\.9[01]'/,"build: 'ALLOWED'").replace(/function require_fold\(\) \{[\s\S]*?(?=\/\* v5\.84 — SIGTERM)/,'EXPORT_FOLD_ALLOWED\n');assert.equal(strip(source),strip(base));}
 (async()=>{
- check('exact v5.90 base and native page identity',()=>{assert.equal(hash(base),'55a19453304406e9fcf0891ae6151e8516357e83e22987fc334e2bf9428ad0ec');assert.equal(hash(page),'4b5b727b781992e251968f81503ee064a3dbd3414a6087260258871ad83a0ec6');});
+ check('exact v5.90 base and native page identity',()=>{assert.equal(hash(base),'55a19453304406e9fcf0891ae6151e8516357e83e22987fc334e2bf9428ad0ec');
+  const original='4b5b727b781992e251968f81503ee064a3dbd3414a6087260258871ad83a0ec6',envelope='9724e2a644833e7b6e56139b7954add2f639e348f03c6b6c9d109e0229cc821a';
+  if(hash(page)!==original){assert.equal(hash(page),envelope);assert.equal(hash(page.replace(/^(\uFEFF<!doctype html>\n)<!-- GC500 Delivery Control -->\n/,'$1')),original);}
+ });
  check('only export folding and two version markers change',assertRouteBoundary);
  check('56 native synced collections,55 exportable',()=>{assert.equal(Object.keys(schema).length,56);const d=body({docs:{}}).records;assert.deepStrictEqual(Object.keys(d).filter(k=>k!=='schema'&&k!=='operator').sort(),Object.keys(schema).filter(k=>k!=='mapKeys').sort());});
  matches({},'empty record');const docs=docsFixture();matches(docs,'all native kinds with false/zero/null/arrays');

@@ -15,7 +15,7 @@ Existing reference text checks the currently projected shape footprints, includi
 - Exact original shape-script SHA-256: `2ed1461a29f678593b744e871d60489f46de97c49d4901a0670217fe8596f7d2`.
 - `patch_v1069.py` production entry requires the final v10.68 predecessor. `apply_shape()` supports a v10.65 isolated map fixture only; that fixture is not a release candidate.
 - The patch refuses changed shape source, changed/expanded explorer allowlists, drifted anchors, a wrong predecessor or a second application. Every non-shape byte remains identical in the isolated transform; the production entry additionally advances the one release footer.
-- Final v10.68 base/candidate hashes, browser evidence and release read-back are pending. **Not READY TO UPLOAD.**
+- Focused map proof is complete on the exact current v10.68 draft/candidate hashes below. Final standing release checks and live read-back remain with the release owner; this folder is still DRAFT, not a claim of publication.
 
 ## Checks so far
 
@@ -23,7 +23,10 @@ Existing reference text checks the currently projected shape footprints, includi
 - Actual patched hit wrapper in VM: 13/13 (active/Done shapes, transparent ring gap, badge/ring priority, useful padding, native fencing fallback, hidden selection, shared-array preservation).
 - Source/patch contracts: 9/9 (shape-only bytes, exact build pins, duplicate/drift refusal, release boundary and prior ripple preservation).
 - Patched script parses in Node. Dry integration on the current v10.68 draft `101797711b79fde90b2fa6cb1a267cd89360dc42486f28c072e61fa1cc9329a0` yields `07cf8b6eedddc22397f301b9afae875137c608f5d62bae80a78249174cbfd88d` (18,491,946 bytes); `check_page.py` passes all 142 inline scripts and key/author checks. This predecessor is still a draft.
-- Overview phone/desktop before/after reproduction, visual inspection, existing shape regressions and final-page required checks: pending shared browser slot/final v10.68 base.
+- Focused before/after browser proof: predecessor 13/13 and candidate 109/109 at each viewport (390 × 844 at DPR 2 and 1440 × 900 at DPR 1). Each candidate covers 48 active/Done/zoom/rotation cases. The predecessor reproduced 34 misdirected sampled hits on phone and 12 on desktop, plus four label overlaps on each; the candidate has zero in either category. A real touch/click selects the visible Done shape.
+- Original master aerials and vector drawing are fully rendered and visually inspected on both sizes. Tests check 87 exact machine assets against the verified manifest; the real-tap reference photo is content-hash verified. No placeholders, page/console errors, shared-record writes or changed pins. Frozen API record 9704 keeps the comparison stable. This does not claim current third-party hybrid/satellite coverage or physical-phone testing.
+- Sanitised evidence: `evidence/browser_checks.json`; full screenshots/results stay in private evidence storage. Earlier network/cache and full-`/tmp` attempts are not counted as passes. The final run uses a dedicated writable `TMPDIR` and preserves exact packed-vector HTTP 206 byte-range semantics.
+- Final-page standing checks, affected existing shape regressions and verified-live predecessor/read-back remain with the release owner.
 
 Run from repository root, with authorised private local fixture paths:
 
@@ -34,3 +37,7 @@ PAGE=/private/candidate.html node 03_GC500_Delivery_Control/v10.69_map_pick_clar
 ```
 
 All browser checks use the existing GET-only harness and shared `/tmp/gc500-browser.lock`; no test may write an operational record. The release owner rebuilds from the actual verified v10.68, completes required sweeps and affected shape checks, then uses the unchanged guarded page publisher and exact content read-back.
+
+## Focused browser reproduction
+
+Use the exact private v10.68/v10.69 HTML files, frozen API fixture and verified machine manifest. Clear inherited media overrides. Set `NODE_PATH` to the shared toolchain dependencies, `CHROMIUM_PATH` to the installed browser, and `TMPDIR` to a private directory with enough space. Under `flock /tmp/gc500-browser.lock`, run `tests/test_browser1069.cjs /private/candidate.html` with `GC500_FIXTURE`, `GC500_CACHE`, `GC500_MAP_MANIFEST` and private `OUT` paths. `GC500_MAP_ALLOW_GET=1` allows canonical read-only GETs for uncached genuine assets; every machine response must match the pinned manifest. Use `MOB=1` for phone and `BASELINE=1` for the predecessor. API state remains frozen; no operational writes are permitted.

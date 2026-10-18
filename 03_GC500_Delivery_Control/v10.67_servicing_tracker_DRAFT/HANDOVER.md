@@ -1,5 +1,11 @@
 # Panel and print source handover — ready for guarded build
 
+## Final upload-envelope candidate — 18 Oct 2026
+
+The release candidate is `f32b39bcf42637fd246e03c6b64547b9dd203015659b768411e232e77ffcfc86` (18,465,246 bytes), built from verified live v10.66 `9724e2a644833e7b6e56139b7954add2f639e348f03c6b6c9d109e0229cc821a`. Its only difference from browser-tested `6ae970ca79aea9b198aa93042d1a81ceea1589e404f66f552da70351d6967387` is the inherited 32-byte `<!-- GC500 Delivery Control -->` comment immediately after the doctype. Removing that exact single comment restores all original bytes, including every script, style and data value. The patch now pins the corrected predecessor; no runtime function changed.
+
+`tests/envelope_equivalence.json` and `tests/test_envelope_identity.py` prove the exact relationship through v10.71. New-candidate build guards/boundaries pass 10/10 (`tests/envelope_build_results.json`), static checks pass, and the native server upload envelope accepts the page. Original integration/sweep evidence below retains its original hashes; these browser runs were not relabelled or repeated for a non-rendered comment. The publisher must reproduce the final candidate above and perform guarded upload/read-back.
+
 Author: Andrew Fisher · 18 Oct 2026
 
 ## What changed
@@ -38,7 +44,7 @@ Author: Andrew Fisher · 18 Oct 2026
 
 The frozen page SHA-256 is `6ae970ca79aea9b198aa93042d1a81ceea1589e404f66f552da70351d6967387`
 (18,465,214 bytes), built on exact final v10.66 `4b5b727b781992e251968f81503ee064a3dbd3414a6087260258871ad83a0ec6`.
-The patch pins this predecessor. These identify tested candidate bytes, not a live claim.
+These identify original browser-tested bytes. The patch now pins the corrected predecessor named above; no live claim is made here.
 
 ## Release owner’s next action
 
@@ -55,7 +61,7 @@ errors and zero attempted writes. Before/after machine identity and record endpo
 live GETs rather than an atomic frozen record; `tests/sweep_results.json` records the exact routing assertions.
 
 After v10.66 is verified live, the release owner runs the standard guarded v10.67 build and verifies the result matches
-the frozen candidate above, then uploader dry-run and guarded publication/read-back. No repeat browser run is needed
+the final upload-envelope candidate above, then uploader dry-run and guarded publication/read-back. No repeat browser run is needed
 when the final built bytes are identical; any changed predecessor or output requires the affected checks again. The
 server prerequisite is verified live and the publication hold is lifted. Missing contact nomination and physical
 paper scans gate real tracker/sheet rollout, not the empty-state page software. Exact commands are in `RELEASE_CHECKLIST.md`.
