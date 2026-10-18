@@ -1,11 +1,8 @@
-**STAGED / READY TO DEPLOY — 18 Oct2026 12:42 AEST.** Exact blob PUT and inventory verified; prior blobs, page, machine and full shared state unchanged. Server remainsv5.90. Claude owns Railway switch per Andrew. Exact settings and rollback posted in PR #1 comment6244841898; no import/prune before switch. Author: Andrew Fisher.
-
 # Server v5.91 — complete native record export
 
 Author: Andrew Fisher · 18 Oct 2026
 
-**READY TO STAGE — 282/282 assertions and three reproducibility/guard checks passed. Not staged or live.** The release owner stages the tested blob after
-the page publications; the named Railway owner switches it. No operational record change is part of this release.
+**VERIFIED LIVE — 18 Oct 2026 12:58 AEST.** Claude performed the Railway switch and recorded the running-file hash in PR #1 comment6244962648. Codex independently verified healthy v5.91, unchanged page/full shared state/machine, all retained server blobs and unauthenticated ticks rejection. At13:09 AEST, all55 exportable collections and54 native aliases matched the actual v10.71 native export field-for-field, including records, loads, fence_dockets and costs. No operational writes. Source4b106c0138e3d5706d58f274f8b966df3757db67; serverc1b8bf9c999d4e548384b682592409507dbaf8bb7c4c62c590b62127b69c89b7,292,090 bytes. Author: Andrew Fisher.
 
 The hosted export omitted eleven native record collections and wrapped signed-paper values incorrectly. That meant a
 record exported through the service could lose site information even though phones had synced it correctly. v5.91
@@ -64,8 +61,7 @@ while rolled back. Export completeness improvements disappear on v5.90, but the 
 the full export returns when v5.91 boots again.
 
 An independent source and oracle review found no blocker: the native kinds and atomic decoder match, map-key privacy
-stands, and all bytes outside folding and the two version labels match the predecessor. This does not claim a live
-read-back. `DEPLOY_HANDOVER.md` gives the release/rollback checks.
+stands, and all bytes outside folding and the two version labels match the predecessor. The read-only live verification is recorded above. `DEPLOY_HANDOVER.md` gives the release/rollback checks.
 
 
 ## Native-page upload-envelope compatibility

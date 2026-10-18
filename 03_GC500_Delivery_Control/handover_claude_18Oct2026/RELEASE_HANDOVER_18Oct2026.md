@@ -2,7 +2,7 @@
 
 Author: Andrew Fisher
 
-Source branch: `codex/gc500-v10.66-speed-smooth`. Shared coordination remains PR #1. Codex has completed the page release sequence and has staged and inventory-verified the server blob. Andrew explicitly assigned the Railway server switch to Claude; Claude proceeds after the staged-server handover and inventory verification. Posting this handover does not prove Claude has read it.
+Source branch: `codex/gc500-v10.66-speed-smooth`; shared branch: `claude/ampol-reporting-suite-access-h2hy90`. Page v10.71 and server v5.91 are live. Claude acknowledged the handover and completed the Railway switch in PR #1 comment6244962648. Codex completed the independent live export, health, page, state and inventory checks at13:09 AEST. The running-file hash comes from Claude's boot-log read-back.
 
 ## Verified live and current publication
 
@@ -18,13 +18,11 @@ The live page releases preserved the shared operational record, machine and prot
 
 The final upload envelope adds only a non-rendered identity comment. Original browser evidence keeps its original hashes. Exact removal of that comment restores each tested candidate byte-for-byte; see `../v10.67_servicing_tracker_LIVE/tests/envelope_equivalence.json`. v10.68 compact readiness evidence is `../v10.68_servicing_cost_consistency_LIVE/tests/readiness1068.json`. Source documents, detailed operational/financial comparisons and screenshots stay private.
 
-## Immediate next actions
+## Server completion and next actions
 
-1. Codex completed server v5.91 staging, verified the inventory and retained rollback blobs, and posted the exact deployment handover to Claude in PR #1. Blob staging and inventory verification passed12:42 AEST; exact switch and rollback instructions are posted in PR #1 comment6244841898.
-2. Claude performs the Railway switch after that handover and verifies the running file, health, export contract and retained rollback blobs. Codex independently checks the public result where accessible.
-3. Continue the five remaining outcomes below. The real servicing rollout remains due before Thu 22 Oct 08:00; the completed software release is not a physical rollout claim.
+Server v5.91 was switched by Claude at12:58 AEST. Exact server `c1b8bf9c999d4e548384b682592409507dbaf8bb7c4c62c590b62127b69c89b7` (292,090 bytes), source `4b106c0138e3d5706d58f274f8b966df3757db67`. All55 exportable collections,54 aliases and the full records object match native v10.71 export field-for-field. Page, machine and full shared state remain unchanged; rollback blobs retained. This closes the four changed-section review Claude requested. Evidence is in `../server_v5.91_export_completeness_LIVE/`.
 
-Server v5.91 export-completeness code is ready: candidate `c1b8bf9c999d4e548384b682592409507dbaf8bb7c4c62c590b62127b69c89b7` (292,090 bytes), based on verified v5.90 `55a19453…`. Native export, legacy-route, tracker, worker and rollback/recovery suites passed 282 checks, with exact rebuild and wrong-base/repeat guards. Its supplemental native-oracle upload-envelope check also passed. **Staging and inventory verification passed; v5.91 is not deployed by this handover.** See `../server_v5.91_export_completeness_DRAFT/DEPLOY_HANDOVER.md` for the deployment sequence; do not prune a staged server blob through a concurrent machine import.
+Continue the four remaining outcomes below. Real servicing rollout remains due before Thu22 Oct08:00; completed software is not a physical rollout claim.
 
 ## Completion count and remaining work
 
@@ -43,16 +41,15 @@ This is a count of twelve explicit outcomes, not a weighted estimate of effort o
 | 9 | Remaining fencing evidence v10.71 live | Done |
 | 10 | New buildings-register layout accepted, built and live | Open |
 | 11 | Remaining source-unpriced customer transport resolved | Open |
-| 12 | Complete-export server v5.91 staged, switched and verified live | Code ready; staged; switch pending; Claude switch pending |
+| 12 | Complete-export server v5.91 staged, switched and verified live | Done; Claude switch and independent live export verification passed |
 
-Current verified count: **7/12 done, 5/12 outstanding: 41.7%, approximately 42% of these listed outcomes remaining**. This counts the independently verified page publications; it does not imply that 42% of engineering effort remains or that every data item has been audited. A subsequent verified v5.91 switch makes it 8/12 done and 4/12 outstanding.
+Current verified count: **8/12 done,4/12 outstanding:33.3%, approximately33% of these listed outcomes remaining**. This counts outcomes, not remaining effort or universal data accuracy.
 
-The five remaining items are:
+The four remaining items are:
 
 - **Performance:** the incremental release improves measured work but does not meet every target. The controlled phone sample still took 11.171 seconds to usable and 1.19–5.42 seconds for measured tabs; idle Today/Build/Map remained 5.11%/8.48%/4.98%, above the under-2% target. Further profiling and bounded changes are required; the single controlled comparison is not a universal device guarantee.
 - **Real servicing rollout:** the software is ready, but the nominated servicing contact, real TEST/event setup, private QR/paper bundle and physical iPhone/Android scans must be completed before Thu 22 Oct 08:00. Local fixtures cannot certify physical delivery or scans.
 - **Buildings-register layout:** the new layout still needs the required mockup acceptance and implementation. The departure-rule correction is separate and does not complete that design work.
 - **Customer transport pricing:** the remaining GN20 delivery/pickup entry is source POA with no supported transport override; the settled hire/install rules do not supply a truck-movement price. See `../v10.06_units_runs_charges_LIVE/transport_override1006.js` and `../v10.50_charge_gaps_LIVE/README.md`. Do not reopen superseded pricing questions or invent this rate.
-- **Server export deployment:** v5.91 code and rollback tests are ready, and staged-blob verification passed; the Railway switch and exact running-file/public read-back remain. Code readiness does not establish deployment.
 
 Existing confirmed onsite records and agreed rate cards remain authoritative. No missing quantity, rate, date, asset or completion status has been invented for this release. Update the statuses and counts only from verified release evidence; retain public/private sharing restrictions.

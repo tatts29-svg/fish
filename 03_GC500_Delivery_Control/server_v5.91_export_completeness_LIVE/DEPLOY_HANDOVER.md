@@ -1,3 +1,7 @@
+**VERIFIED LIVE — 18 Oct 2026 12:58 AEST.** Claude performed the Railway switch and recorded the running-file hash in PR #1 comment6244962648. Codex independently verified healthy v5.91, unchanged page/full shared state/machine, all retained server blobs and unauthenticated ticks rejection. At13:09 AEST, all55 exportable collections and54 native aliases matched the actual v10.71 native export field-for-field, including records, loads, fence_dockets and costs. No operational writes. Source4b106c0138e3d5706d58f274f8b966df3757db67; serverc1b8bf9c999d4e548384b682592409507dbaf8bb7c4c62c590b62127b69c89b7,292,090 bytes. Author: Andrew Fisher.
+
+The staging instructions below are retained for reproduction and rollback; the deployment is complete.
+
 # v5.91 staging and Railway switch handover
 
 Author: Andrew Fisher · 18 Oct 2026
