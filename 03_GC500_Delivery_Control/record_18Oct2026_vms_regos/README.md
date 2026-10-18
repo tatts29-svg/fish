@@ -13,3 +13,14 @@ never run with `--apply`, and this folder wrote nothing.
 
 Read-back of `/api/state` (version 9728) confirms all eight regos on keys 1211354, 1211370, 1271129, 1191877, 1211359,
 1182999, 1211383 and VMS09. The board names VMS1–VMS8 are Codex's v10.72 page change.
+
+## Applied: VMS7 (1182999) ticked installed, 18 Oct 2026 19:59 AEST
+
+Andrew, 18 Oct: "I want them all tidked installed". On the record before, every VMS install tick was already on except
+T0001 unit 1182999 (VMS7), which he had taken off on 23 Sep. His word today is later and wins (AGENTS.md: when his own
+entries disagree, his later word wins). The other boards: T0001's other six units and the rest, T0103 (VMS9/VMS10) and T0128
+(VMS11/12) were already ticked. T0158 (VMS13–17) is "not on site" (in for Mon 19 Oct), so it was left alone.
+
+`node vms.cjs --apply --spec vms_install_spec.json` (op `labour_on`, through the page's own `setLabour`, by Andrew Fisher),
+with backup `backup_state_20261018T095944Z.json`. Two documents written, the tick and its stamp; record 9728 → 9730;
+every other document unchanged in value; VERIFIED on the service (`report_20261018T095944Z.json`).

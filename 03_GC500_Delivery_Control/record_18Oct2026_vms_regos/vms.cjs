@@ -63,7 +63,7 @@ spec.ops.forEach((o, i) => {
   else if (o.op === 'answer') { if (typeof o.id !== 'string' || !/^[a-z0-9][a-z0-9_-]{1,80}$/i.test(o.id)) fail(at + 'needs a question id'); if (typeof o.text !== 'string' || !o.text.trim() || o.text.length > 600) fail(at + 'needs text under 600 characters'); if (/\b(codex|claude|gpt|model|agent)\b/i.test(o.text)) fail(at + 'text names a system'); }
   else if (o.op === 'unit_reidentify') { if (!REFRE.test(o.ref || '')) fail(at + 'needs a reference'); if (!NORE.test(o.no || '')) fail(at + 'needs a number'); if (typeof o.item !== 'string' || !o.item.trim()) fail(at + 'needs an item type'); if (!['coates', 'event-portables'].includes(o.owner || 'coates')) fail(at + 'owner'); }
   else if (o.op === 'number_item') { if (!REFRE.test(o.ref || '')) fail(at + 'needs a reference'); if (!NORE.test(o.no || '')) fail(at + 'needs a number'); if (typeof o.item !== 'string' || !o.item.trim()) fail(at + 'needs an item'); }
-  else if (o.op === 'labour_off') { if (!REFRE.test(o.ref || '')) fail(at + 'needs a reference'); for (const f of ['disc', 'item', 'line', 'unit']) if (typeof o[f] !== 'string' || !o[f]) fail(at + 'needs ' + f); }
+  else if (o.op === 'labour_on' || o.op === 'labour_off') { if (!REFRE.test(o.ref || '')) fail(at + 'needs a reference'); for (const f of ['disc', 'item', 'line', 'unit']) if (typeof o[f] !== 'string' || !o[f]) fail(at + 'needs ' + f); }
   else if (o.op === 'door') { if (!REFRE.test(o.ref || '')) fail(at + 'needs a reference'); if (!/^u\d{4,12}$/.test(o.id || '')) fail(at + 'needs a unit row id'); if (!['driver', 'passenger', 'na'].includes(o.side)) fail(at + 'side'); }
   else if (o.op === 'unit_archive') { if (!REFRE.test(o.ref || '')) fail(at + 'needs a reference'); if (!NORE.test(o.no || '')) fail(at + 'needs a number'); }
   else if (o.op === 'vms_rego') { if (!/^(\d{7}|VMS\d{2})$/.test(o.key || '')) fail(at + 'needs a VMS board key'); if (!/^[A-Z0-9]{2,8}$/.test(o.rego || '')) fail(at + 'needs a rego'); }
@@ -230,6 +230,10 @@ function applyOps(spec) {
       } else if (op.op === 'number_item') {
         const ok = setNumberItem(op.ref, op.no, op.item); if (ok === false) throw new Error('setNumberItem refused ' + op.ref + ' ' + op.no);
         const cur = typeof numberItemOf === 'function' ? numberItemOf(assetOf(op.ref), op.no) : null; r.result = 'counts as ' + (cur || op.item);
+      } else if (op.op === 'labour_on') {
+        const k = labourKey(op.ref, op.disc, op.item, op.line, op.unit);
+        if (labourTicked(op.ref, op.disc, op.item, op.line, op.unit, assetOf(op.ref))) r.result = 'already on';
+        else { const ok = setLabour(op.ref, op.disc, op.item, op.line, true, op.unit); if (ok === false) throw new Error('setLabour refused ' + k); if (!labourTicked(op.ref, op.disc, op.item, op.line, op.unit, assetOf(op.ref))) throw new Error(k + ' did not tick'); r.result = 'ticked'; }
       } else if (op.op === 'labour_off') {
         const k = labourKey(op.ref, op.disc, op.item, op.line, op.unit);
         if (!labourTicked(op.ref, op.disc, op.item, op.line, op.unit, assetOf(op.ref))) r.result = 'already off';
@@ -373,6 +377,7 @@ function applyOps(spec) {
         if (op.op === 'unit_reidentify' && !Object.values(docs.loads || {}).some(u => u && u.kind === 'unit925-record' && u.ref === op.ref && String(u.assetNo) === op.no && u.item === op.item && u.active !== false && !u.removedBy)) problems.push(op.ref + ' has no active ' + op.item + ' unit ' + op.no + ' ' + where);
         if (op.op === 'unit_archive' && Object.values(docs.loads || {}).some(u => u && u.kind === 'unit925-record' && u.ref === op.ref && String(u.assetNo) === op.no && u.active !== false && !u.removedBy)) problems.push(op.ref + ' still has an active unit record for ' + op.no + ' ' + where);
         if (op.op === 'labour_off' && (docs.labour || {})[op.ref + '/u' + op.unit.replace(/^u/, '') + '|' + op.disc + '|' + op.item + '|' + op.line]) problems.push(op.ref + ' ' + op.unit + ' ' + op.line + ' still ticked ' + where);
+        if (op.op === 'labour_on' && (((docs.labour || {})[(op.ref + '/u' + op.unit.replace(/^u/, '') + '|' + op.disc + '|' + op.item + '|' + op.line).replace(/\//g, '~2f~').replace(/\|/g, '~7c~').replace(/ /g, '~20~').replace(/&/g, '~26~')] || {}).v) !== true) problems.push(op.ref + ' ' + op.unit + ' ' + op.line + ' not ticked ' + where);
         if (op.op === 'vms_rego' && ((((docs.vmsboard || {})[op.key]) || {}).rego) !== op.rego) problems.push(op.key + ' rego is not ' + op.rego + ' ' + where);
         if (op.op === 'set_qty' && op.qty !== '' && ((((docs.qtys || {})[op.ref] || {}).v)) !== op.qty) problems.push(op.ref + ' quantity is not ' + op.qty + ' ' + where);
       } return problems; };
