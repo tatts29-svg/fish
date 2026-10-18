@@ -1,0 +1,56 @@
+{
+  "author": "Andrew Fisher",
+  "review": "Vehicle material and geometry matched visual review",
+  "baseline": "5270f18bee891aabbd64173f0250e0e68d8061c8c2d935bddd74df3ec5e67ce5",
+  "firstCandidate": "43a74f7bc8ca4ba4339f51dea142dedc845c86274e82107c68e49c68ac264a8f",
+  "tunedCandidate": "c593d4fd12763068810a80f5254b3f6138442250fdcd6912d888f5b7d5a4d5ef",
+  "tunedShaderSha256": "03b4229b455ee3ca42a40bc3020ddf698e3d0b628196e65ef8ef50dbb5e968c3",
+  "status": "PASS: tuned shader 03b4229b frozen and parent-approved; exact final 85adb462 candidate passed 82 GPU checks including 4x AA, context recovery and teardown.",
+  "evidence": {
+    "baselinePrivate": "/workspace/private-v800-focus-final-before",
+    "firstPrivate": "/workspace/private-v800-focus-after",
+    "tunedPrivate": "/workspace/private-v800-material-tuned",
+    "baselineChecks": 60,
+    "tunedChecks": 28,
+    "tunedViews": [
+      "desktop-car-day",
+      "desktop-car-night",
+      "phone-car-wheel-high",
+      "phone-car-restored"
+    ],
+    "tunedErrors": [],
+    "tunedBlockedWrites": 0
+  },
+  "findings": [
+    "First candidate improved glazing, filled lamps, tyre/rim and plant-panel readability; broad race-orange coat was rejected because it washed the bonnet and roof toward salmon.",
+    "Bounded race-orange environment and coat energy restored vivid authored orange and yellow-number contrast; charcoal, glass, plant materials and all authored colour values stayed unchanged.",
+    "Matched desktop day/night and phone High wheel/context-restored Balanced captures compile and link both shaders, preserve exact cameras and actual poses, and report GL clear.",
+    "No visible detached wheel, fork or trailer fittings in the reviewed matched fleet images."
+  ],
+  "sampling": {
+    "cssImageRendering": "auto",
+    "adaptiveStepDown": null,
+    "balancedNativeDesktop": [
+      1280,
+      517
+    ],
+    "balancedSamplesObserved": 1,
+    "rgba16fSupportedSamples": [
+      4
+    ],
+    "rgba8SupportedSamples": [
+      4
+    ],
+    "depthStencilSupportedSamples": [
+      4
+    ],
+    "diagnosis": "Existing wanted=2 intersection rejects available4. Separate approved AA capability correction is pending."
+  },
+  "limits": [
+    "Controlled inspection smoke is cleared only after real simulation stepping. Normal opening/tour smoke is assessed separately.",
+    "Software-rendered stills at DPR 1 establish appearance and API/resource correctness, not real-device frame rate or motion quality.",
+    "Eight first-candidate captures completed before a zero-time undefined-versus-absent JSON key caused a false comparison failure; all actual values were equal, the comparison now ignores undefined keys only, and the tuned zero-time wheel check passes.",
+    "Earlier failed framing, inactive trailer lookup, GL-depth-state and gantry-obscured diagnostic runs are excluded from accepted visual evidence."
+  ],
+  "finalReleaseEvidence": "../v8.02_showcase_vehicle_finish_DRAFT/evidence/vehicle802_gpu_focus.json"
+}

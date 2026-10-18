@@ -1,0 +1,874 @@
+{
+  "schema": 1,
+  "author": "Andrew Fisher",
+  "source_file": "05_CW1_Fencing Installation Plan.pdf",
+  "sha256": "d7287c2cb05f69677d954c6daf9bd086666ba54535ecb91e7d8fe6e0847fa661",
+  "pages": 23,
+  "source_author": "John Brett",
+  "created_display": "9 Oct 2026 10:27 AEST",
+  "revision": "2026-10-09",
+  "email": {
+    "author": "John Brett",
+    "sent_display": "9 Oct 2026 10:34 AEST",
+    "provenance": "Email text supplied by Andrew Fisher in this chat; no mailbox retrieval claimed.",
+    "highlights": {
+      "2026-10-12": "South Main Beach Parade residents, Ferny Avenue residents, Supply Compound",
+      "2026-10-13": "North Main Beach Parade residents",
+      "2026-10-14": "Remaining residents; Esplanade braced and scrimmed now; Triangle CZ",
+      "2026-10-15": "Cable Street and Pacific under traffic control; Surfers Paradise Light Rail; Gate 6; Pit Building/Paddock removal and relocation",
+      "2026-10-16": "Main Beach Light Rail: Scottie and Wayne; Spit Fuel Compound; Cypress carpark; Esplanade residents fencing and CCB"
+    }
+  },
+  "rows": [
+    {
+      "id": "cw1-6",
+      "source_row951": 6,
+      "date": "2026-10-12",
+      "date_as_written954": "Monday, 12 October 2026",
+      "location": "Main Beach Pde",
+      "description": "Residents Fence - Rhapsody",
+      "fields": {
+        "Temporary Fence (m) — Clean": 8.0,
+        "Ped. Gates": 1.0
+      },
+      "source_pages954": [
+        2,
+        3
+      ],
+      "note": "Installed under BSF traffic control.",
+      "page": 2
+    },
+    {
+      "id": "cw1-7",
+      "source_row951": 7,
+      "date": "2026-10-12",
+      "date_as_written954": "Monday, 12 October 2026",
+      "location": "Main Beach Pde",
+      "description": "Residents Fence - Seacrest to Pacific Point (Hutchinson Construction Site)",
+      "fields": {
+        "Temporary Fence (m) — Clean": 145.0,
+        "Vehicle Gates": 4.0,
+        "Ped. Gates": 4.0
+      },
+      "source_pages954": [
+        2,
+        3
+      ],
+      "note": "Installed under BSF traffic control - only up to Hutchinson Construction Site",
+      "page": 2
+    },
+    {
+      "id": "cw1-8",
+      "source_row951": 8,
+      "date": "2026-10-12",
+      "date_as_written954": "Monday, 12 October 2026",
+      "location": "Main Beach Pde",
+      "description": "Demarcation CCB - Seacrest to Ferny Avenue",
+      "fields": {
+        "Crowd Control Barriers (m) — Demarcation": 240.0
+      },
+      "source_pages954": [
+        2,
+        3
+      ],
+      "note": "Installed under BSF traffic control.",
+      "page": 2
+    },
+    {
+      "id": "cw1-9",
+      "source_row951": 9,
+      "date": "2026-10-12",
+      "date_as_written954": "Monday, 12 October 2026",
+      "location": "Main Beach Pde",
+      "description": "Residents Fence - Maddison Point",
+      "fields": {
+        "Temporary Fence (m) — Clean": 98.0,
+        "Vehicle Gates": 1.0,
+        "Ped. Gates": 1.0
+      },
+      "source_pages954": [
+        2,
+        4
+      ],
+      "note": "Installed under BSF traffic control.",
+      "page": 2
+    },
+    {
+      "id": "cw1-10",
+      "source_row951": 10,
+      "date": "2026-10-12",
+      "date_as_written954": "Monday, 12 October 2026",
+      "location": "Main Beach Pde",
+      "description": "Demarcation CCB - Maddison Point - THIS MAY HAVE BEEN DONE",
+      "fields": {
+        "Crowd Control Barriers (m) — Demarcation": 91.0
+      },
+      "source_pages954": [
+        2
+      ],
+      "note": "Installed under BSF traffic control.",
+      "page": 2
+    },
+    {
+      "id": "cw1-11",
+      "source_row951": 11,
+      "date": "2026-10-12",
+      "date_as_written954": "Monday, 12 October 2026",
+      "location": "Main Beach Pde",
+      "description": "Demarcation CCB - Ferny Avenue (East) - THIS HAS BEEN STROCKPILED",
+      "fields": {
+        "Crowd Control Barriers (m) — Demarcation": 60.0
+      },
+      "source_pages954": [
+        2,
+        4
+      ],
+      "note": "Installed under BSF traffic control.",
+      "page": 2
+    },
+    {
+      "id": "cw1-12",
+      "source_row951": 12,
+      "date": "2026-10-12",
+      "date_as_written954": "Monday, 12 October 2026",
+      "location": "Ferny Ave",
+      "description": "Residents Fence - Equinox",
+      "fields": {
+        "Temporary Fence (m) — Clean": 100.0,
+        "Vehicle Gates": 1.0
+      },
+      "source_pages954": [
+        2,
+        4
+      ],
+      "note": "Installed under BSF traffic control - INCREASED FROM 40LM",
+      "page": 2
+    },
+    {
+      "id": "cw1-13",
+      "source_row951": 13,
+      "date": "2026-10-12",
+      "date_as_written954": "Monday, 12 October 2026",
+      "location": "Ferny Ave",
+      "description": "Narrowneck Lodge to Narrowneck Court",
+      "fields": {
+        "Temporary Fence (m) — Clean": 137.0,
+        "Vehicle Gates": 3.0,
+        "Ped. Gates": 1.0
+      },
+      "source_pages954": [
+        2,
+        4
+      ],
+      "note": "",
+      "page": 2
+    },
+    {
+      "id": "cw1-14",
+      "source_row951": 14,
+      "date": "2026-10-12",
+      "date_as_written954": "Monday, 12 October 2026",
+      "location": "Supply Compound",
+      "description": "Perimeter Fence - Supply Compound",
+      "fields": {
+        "Temporary Fence (m) — Braced for Scrim": 130.0,
+        "Vehicle Gates": 2.0
+      },
+      "source_pages954": [
+        2,
+        5
+      ],
+      "note": "",
+      "page": 2
+    },
+    {
+      "id": "cw1-16",
+      "source_row951": 16,
+      "date": "2026-10-13",
+      "date_as_written954": "Tuesday, 13 October 2026",
+      "location": "Main Beach Pde",
+      "description": "Residents Fence - Amira to Norfolk",
+      "fields": {
+        "Temporary Fence (m) — Clean": 165.0,
+        "Vehicle Gates": 1.0,
+        "Ped. Gates": 1.0
+      },
+      "source_pages954": [
+        6,
+        7
+      ],
+      "note": "Installed under BSF traffic control. - ADDITIONAL 30LM FOR SILVERPOINT",
+      "page": 6
+    },
+    {
+      "id": "cw1-17",
+      "source_row951": 17,
+      "date": "2026-10-13",
+      "date_as_written954": "Tuesday, 13 October 2026",
+      "location": "Main Beach Pde",
+      "description": "Demarcation CCB - Cable St to Breaker St",
+      "fields": {
+        "Crowd Control Barriers (m) — Demarcation": 155.0
+      },
+      "source_pages954": [
+        6,
+        7
+      ],
+      "note": "Installed under BSF traffic control.",
+      "page": 6
+    },
+    {
+      "id": "cw1-18",
+      "source_row951": 18,
+      "date": "2026-10-13",
+      "date_as_written954": "Tuesday, 13 October 2026",
+      "location": "Main Beach Pde",
+      "description": "Demarcation CCB - Ocean Isles to Amani",
+      "fields": {
+        "Temporary Fence (m) — Clean": 71.0,
+        "Vehicle Gates": 2.0,
+        "Ped. Gates": 1.0,
+        "Crowd Control Barriers (m) — Demarcation": 102.0
+      },
+      "source_pages954": [
+        6,
+        7
+      ],
+      "note": "Installed under BSF traffic control.",
+      "page": 6
+    },
+    {
+      "id": "cw1-19",
+      "source_row951": 19,
+      "date": "2026-10-13",
+      "date_as_written954": "Tuesday, 13 October 2026",
+      "location": "Main Beach Pde",
+      "description": "Residents Fencing - Ocean Isles to Amani to SLS Tower",
+      "fields": {
+        "Temporary Fence (m) — Clean": 152.0,
+        "Vehicle Gates": 1.0,
+        "Ped. Gates": 1.0
+      },
+      "source_pages954": [
+        6,
+        7
+      ],
+      "note": "Installed under BSF traffic control.",
+      "page": 6
+    },
+    {
+      "id": "cw1-20",
+      "source_row951": 20,
+      "date": "2026-10-13",
+      "date_as_written954": "Tuesday, 13 October 2026",
+      "location": "Breaker St",
+      "description": "Demarcation CCB - T11 DL",
+      "fields": {
+        "Crowd Control Barriers (m) — Flat Feet": 90.0
+      },
+      "source_pages954": [
+        6,
+        7
+      ],
+      "note": "Flat feet CCB required - Resident Fencing & Demarcation",
+      "page": 6
+    },
+    {
+      "id": "cw1-21",
+      "source_row951": 21,
+      "date": "2026-10-13",
+      "date_as_written954": "Tuesday, 13 October 2026",
+      "location": "Main Beach Pde",
+      "description": "Demarcation CCB - T11 Runoff",
+      "fields": {
+        "Temporary Fence (m) — Clean": 30.0,
+        "Vehicle Gates": 1.0,
+        "Crowd Control Barriers (m) — Demarcation": 155.0
+      },
+      "source_pages954": [
+        6,
+        7
+      ],
+      "note": "Installed under BSF traffic control. - WAS 155LM DEMARCATION & 30M 1.8M",
+      "page": 6
+    },
+    {
+      "id": "cw1-22",
+      "source_row951": 22,
+      "date": "2026-10-13",
+      "date_as_written954": "Tuesday, 13 October 2026",
+      "location": "Breaker St",
+      "description": "Residents Fence - Norfolk to Decks",
+      "fields": {
+        "Temporary Fence (m) — Clean": 55.0,
+        "Vehicle Gates": 1.0,
+        "Ped. Gates": 1.0
+      },
+      "source_pages954": [
+        6,
+        7
+      ],
+      "note": "Installed under BSF traffic control.",
+      "page": 6
+    },
+    {
+      "id": "cw1-23",
+      "source_row951": 23,
+      "date": "2026-10-13",
+      "date_as_written954": "Tuesday, 13 October 2026",
+      "location": "Breaker St",
+      "description": "Demarcation CCB - Norfolk to Decks",
+      "fields": {
+        "Crowd Control Barriers (m) — Demarcation": 60.0
+      },
+      "source_pages954": [
+        6,
+        7
+      ],
+      "note": "Installed under BSF traffic control.",
+      "page": 6
+    },
+    {
+      "id": "cw1-25",
+      "source_row951": 25,
+      "date": "2026-10-13",
+      "date_as_written954": "Tuesday, 13 October 2026",
+      "location": "Main Beach Pde / Breaker St",
+      "description": "Residents Fence - Bougainvillea to Sunbird (West)",
+      "fields": {
+        "Temporary Fence (m) — Clean": 152.0,
+        "Vehicle Gates": 2.0,
+        "Ped. Gates": 2.0
+      },
+      "source_pages954": [
+        6,
+        7
+      ],
+      "note": "Installed under BSF traffic control.",
+      "page": 6
+    },
+    {
+      "id": "cw1-26",
+      "source_row951": 26,
+      "date": "2026-10-13",
+      "date_as_written954": "Tuesday, 13 October 2026",
+      "location": "Main Beach Pde / Breaker St",
+      "description": "Demarcation Fence (Ocean Resort - Sunbird (West)",
+      "fields": {
+        "Crowd Control Barriers (m) — Demarcation": 320.0
+      },
+      "source_pages954": [
+        6,
+        7
+      ],
+      "note": "Installed under BSF traffic control.",
+      "page": 6
+    },
+    {
+      "id": "cw1-29",
+      "source_row951": 29,
+      "date": "2026-10-14",
+      "date_as_written954": "Wednesday, 14 October 2026",
+      "location": "Serisier Ave",
+      "description": "Residents Fence - Contessa West",
+      "fields": {
+        "Temporary Fence (m) — Clean": 70.0,
+        "Vehicle Gates": 2.0
+      },
+      "source_pages954": [
+        8,
+        9
+      ],
+      "note": "\"No Parking\" bollards in place - can use existing No Parking bollards outside COntessa",
+      "page": 8
+    },
+    {
+      "id": "cw1-30",
+      "source_row951": 30,
+      "date": "2026-10-14",
+      "date_as_written954": "Wednesday, 14 October 2026",
+      "location": "Hill Pde",
+      "description": "Residents Fence - Axis",
+      "fields": {
+        "Temporary Fence (m) — Clean": 48.0,
+        "Vehicle Gates": 2.0
+      },
+      "source_pages954": [
+        8,
+        9
+      ],
+      "note": "\"No Parking\" bollards installed nearby to allow for parking.",
+      "page": 8
+    },
+    {
+      "id": "cw1-31",
+      "source_row951": 31,
+      "date": "2026-10-14",
+      "date_as_written954": "Wednesday, 14 October 2026",
+      "location": "Breaker St",
+      "description": "Residents Fence - Aloha Lane - Breaker Street",
+      "fields": {
+        "Temporary Fence (m) — Clean": 36.0
+      },
+      "source_pages954": [
+        8,
+        9
+      ],
+      "note": "\"No Parking\" bollards installed nearby to allow for parking.",
+      "page": 8
+    },
+    {
+      "id": "cw1-32",
+      "source_row951": 32,
+      "date": "2026-10-14",
+      "date_as_written954": "Wednesday, 14 October 2026",
+      "location": "Breaker St",
+      "description": "Residents Fence - Fishermans Walk - Breaker Street",
+      "fields": {
+        "Temporary Fence (m) — Clean": 10.0,
+        "Ped. Gates": 1.0
+      },
+      "source_pages954": [
+        8,
+        9
+      ],
+      "note": "\"No Parking\" bollards installed nearby to allow for parking.",
+      "page": 8
+    },
+    {
+      "id": "cw1-33",
+      "source_row951": 33,
+      "date": "2026-10-14",
+      "date_as_written954": "Wednesday, 14 October 2026",
+      "location": "Breaker St",
+      "description": "Demarcation CCB - Aloha Lane to T12 Runoff",
+      "fields": {
+        "Crowd Control Barriers (m) — Demarcation": 139.0
+      },
+      "source_pages954": [
+        8,
+        9
+      ],
+      "note": "\"No Parking\" bollards installed nearby to allow for parking.",
+      "page": 8
+    },
+    {
+      "id": "cw1-34",
+      "source_row951": 34,
+      "date": "2026-10-14",
+      "date_as_written954": "Wednesday, 14 October 2026",
+      "location": "Breaker St",
+      "description": "Residents Fence - Main Beach Tower",
+      "fields": {
+        "Temporary Fence (m) — Clean": 38.0,
+        "Ped. Gates": 1.0
+      },
+      "source_pages954": [
+        8,
+        9
+      ],
+      "note": "",
+      "page": 8
+    },
+    {
+      "id": "cw1-35",
+      "source_row951": 35,
+      "date": "2026-10-14",
+      "date_as_written954": "Wednesday, 14 October 2026",
+      "location": "Breaker St",
+      "description": "Residents Fence - Axis to Malibu - Breaker Street",
+      "fields": {
+        "Temporary Fence (m) — Clean": 123.0,
+        "Vehicle Gates": 4.0,
+        "Ped. Gates": 1.0
+      },
+      "source_pages954": [
+        8,
+        9
+      ],
+      "note": "",
+      "page": 8
+    },
+    {
+      "id": "cw1-36",
+      "source_row951": 36,
+      "date": "2026-10-14",
+      "date_as_written954": "Wednesday, 14 October 2026",
+      "location": "Pacific / Cronin Ave",
+      "description": "Residents Fence - Aloha Lane & Crest & Fishermans Walk (Cronin)",
+      "fields": {
+        "Temporary Fence (m) — Clean": 150.0,
+        "Ped. Gates": 2.0
+      },
+      "source_pages954": [
+        8,
+        9
+      ],
+      "note": "Leave gate at the back of Crest fully open",
+      "page": 8
+    },
+    {
+      "id": "cw1-37",
+      "source_row951": 37,
+      "date": "2026-10-14",
+      "date_as_written954": "Wednesday, 14 October 2026",
+      "location": "Breaker St / Serisier",
+      "description": "Residents Fence - Inlet (Serisier)",
+      "fields": {
+        "Crowd Control Barriers (m) — Event": 30.0
+      },
+      "source_pages954": [
+        8,
+        9
+      ],
+      "note": "Additional request from Bree Andrews (17/10)",
+      "page": 8
+    },
+    {
+      "id": "cw1-39",
+      "source_row951": 39,
+      "date": "2026-10-14",
+      "date_as_written954": "Wednesday, 14 October 2026",
+      "location": "The Esplanade",
+      "description": "Exclusion Zone - Porsche Lounge CZ",
+      "fields": {
+        "Temporary Fence (m) — Clean": 35.0,
+        "Vehicle Gates": 3.0
+      },
+      "source_pages954": [
+        8,
+        10
+      ],
+      "note": "",
+      "page": 8
+    },
+    {
+      "id": "cw1-40",
+      "source_row951": 40,
+      "date": "2026-10-14",
+      "date_as_written954": "Wednesday, 14 October 2026",
+      "location": "The Esplanade",
+      "description": "Perimeter Fence - Support Categories",
+      "fields": {
+        "Temporary Fence (m) — Braced for Scrim": 185.0
+      },
+      "source_pages954": [
+        8,
+        10
+      ],
+      "note": "",
+      "page": 8
+    },
+    {
+      "id": "cw1-41",
+      "source_row951": 41,
+      "date": "2026-10-14",
+      "date_as_written954": "Wednesday, 14 October 2026",
+      "location": "The Esplanade",
+      "description": "Perimeter Fence - Support Categories",
+      "fields": {
+        "Temporary Fence (m) — Braced for Scrim": 190.0
+      },
+      "source_pages954": [
+        8,
+        10
+      ],
+      "note": "Gates to be left open",
+      "page": 8
+    },
+    {
+      "id": "cw1-triangle",
+      "source_row951": null,
+      "date": "2026-10-14",
+      "date_as_written954": "Wednesday, 14 October 2026",
+      "location": "Triangle CZ Fencing",
+      "description": "Construction Zone",
+      "fields": {
+        "Temporary Fence (m) — Clean": 126.0
+      },
+      "source_pages954": [
+        8,
+        11
+      ],
+      "note": "",
+      "page": 8
+    },
+    {
+      "id": "cw1-44",
+      "source_row951": 44,
+      "date": "2026-10-15",
+      "date_as_written954": "Thursday, 15 October 2026",
+      "location": "Cable St & Pacific St",
+      "description": "Residents Fence - Cable St & Pacific St",
+      "fields": {
+        "Temporary Fence (m) — Clean": 300.0,
+        "Vehicle Gates": 10.0,
+        "Ped. Gates": 2.0
+      },
+      "source_pages954": [
+        12,
+        13
+      ],
+      "note": "First task - c.06:30 start - Under traffic control",
+      "page": 12
+    },
+    {
+      "id": "cw1-45",
+      "source_row951": 45,
+      "date": "2026-10-15",
+      "date_as_written954": "Thursday, 15 October 2026",
+      "location": "Surfers Paradise Light Rail Station",
+      "description": "Perimeter Fence - Hi Surf (West)",
+      "fields": {
+        "Temporary Fence (m) — Clean": 70.0,
+        "Vehicle Gates": 1.0
+      },
+      "source_pages954": [
+        12,
+        14
+      ],
+      "note": "Installed under traffic control - after 12pm",
+      "page": 12
+    },
+    {
+      "id": "cw1-46",
+      "source_row951": 46,
+      "date": "2026-10-15",
+      "date_as_written954": "Thursday, 15 October 2026",
+      "location": "Surfers Paradise Light Rail Station",
+      "description": "CCB - Hi Surf (West) to Ocean Ave",
+      "fields": {
+        "Crowd Control Barriers (m) — Event": 115.0
+      },
+      "source_pages954": [
+        12,
+        14
+      ],
+      "note": "Installed under traffic control - after 12pm",
+      "page": 12
+    },
+    {
+      "id": "cw1-47",
+      "source_row951": 47,
+      "date": "2026-10-15",
+      "date_as_written954": "Thursday, 15 October 2026",
+      "location": "Surfers Paradise Light Rail Station",
+      "description": "Perimeter Fence - SPLRS",
+      "fields": {
+        "Temporary Fence (m) — Clean": 100.0
+      },
+      "source_pages954": [
+        12,
+        14
+      ],
+      "note": "Installed under traffic control - after 12pm",
+      "page": 12
+    },
+    {
+      "id": "cw1-gate6",
+      "source_row951": null,
+      "date": "2026-10-15",
+      "date_as_written954": "Wednesday, 14 October 2026",
+      "location": "The Esplanade",
+      "description": "Gate 6 Compound",
+      "fields": {
+        "Temporary Fence (m) — Clean": 45.0,
+        "Temporary Fence (m) — Braced for Scrim": 45.0
+      },
+      "source_pages954": [
+        10,
+        12,
+        15
+      ],
+      "note": "",
+      "page": 12
+    },
+    {
+      "id": "cw1-51",
+      "source_row951": 51,
+      "date": "2026-10-15",
+      "date_as_written954": "Thursday, 15 October 2026",
+      "location": "The Hill",
+      "description": "Monster Energy CZ Compound Fencing",
+      "fields": {
+        "Temporary Fence (m) — Clean": 135.0,
+        "Vehicle Gates": 1.0
+      },
+      "source_pages954": [
+        12
+      ],
+      "note": "NEW - CZ Fencing for Monster Energy build from Monday",
+      "page": 12
+    },
+    {
+      "id": "cw1-57",
+      "source_row951": 57,
+      "date": "2026-10-15",
+      "date_as_written954": "Thursday, 15 October 2026",
+      "location": "S14 Compound",
+      "description": "CZ Fencing",
+      "fields": {
+        "Temporary Fence (m) — Relocation": 29.0
+      },
+      "source_pages954": [
+        12,
+        16
+      ],
+      "note": "",
+      "page": 12
+    },
+    {
+      "id": "cw1-61",
+      "source_row951": 61,
+      "date": "2026-10-15",
+      "date_as_written954": "Friday, 16 October 2026",
+      "location": "Pit Building/Paddock",
+      "description": "Removal/Reinstatement - Pit Building CZ",
+      "fields": {
+        "Temporary Fence (m) — Relocation": 45.0,
+        "Temporary Fence (m) — Removal": 220.0,
+        "Vehicle Gates": 3.0
+      },
+      "source_pages954": [
+        12,
+        17,
+        18
+      ],
+      "note": "2 x Double-wide vehicle gates required (3 wheels) & Vehicle Gate",
+      "page": 12
+    },
+    {
+      "id": "cw1-59",
+      "source_row951": 59,
+      "date": "2026-10-16",
+      "date_as_written954": "Friday, 16 October 2026",
+      "location": "Main Beach Light Rail Station",
+      "description": "Perimeter Fence - MBLRS",
+      "fields": {
+        "Temporary Fence (m) — Clean": 155.0
+      },
+      "source_pages954": [
+        18,
+        19
+      ],
+      "note": "To be installed at 6am - Braced every 4th panel. (Must be people that are KDR inducted) - Brenden/Wayne/Scottie",
+      "page": 18
+    },
+    {
+      "id": "cw1-60",
+      "source_row951": 60,
+      "date": "2026-10-16",
+      "date_as_written954": "Friday, 16 October 2026",
+      "location": "The Spit",
+      "description": "Perimeter Fence - Fuel Compound",
+      "fields": {
+        "Temporary Fence (m) — Clean": 85.0,
+        "Temporary Fence (m) — Relocation": 35.0,
+        "Vehicle Gates": 1.0
+      },
+      "source_pages954": [
+        18,
+        20
+      ],
+      "note": "Double-wide vehicle gates required (3 wheels).",
+      "page": 18
+    },
+    {
+      "id": "cw1-62",
+      "source_row951": 62,
+      "date": "2026-10-16",
+      "date_as_written954": "Friday, 16 October 2026",
+      "location": "Cypress Ave Carpark",
+      "description": "Perimeter Fence - Cypress Carpark Compound",
+      "fields": {
+        "Temporary Fence (m) — Clean": 240.0,
+        "Vehicle Gates": 2.0
+      },
+      "source_pages954": [
+        18,
+        21,
+        22
+      ],
+      "note": "Use fencing from Paddock/Pit Lane",
+      "page": 18
+    },
+    {
+      "id": "cw1-63",
+      "source_row951": 63,
+      "date": "2026-10-16",
+      "date_as_written954": "Friday, 16 October 2026",
+      "location": "The Esplanade",
+      "description": "CCB - Pacific Plaza to The Triangle",
+      "fields": {
+        "Crowd Control Barriers (m) — Event": 285.0
+      },
+      "source_pages954": [
+        18,
+        23
+      ],
+      "note": "CCB - use Meriton Construction Lane (09:30-10:30) - JB to contact 30 minutes before required.",
+      "page": 18
+    },
+    {
+      "id": "cw1-64",
+      "source_row951": 64,
+      "date": "2026-10-16",
+      "date_as_written954": "Friday, 16 October 2026",
+      "location": "The Esplanade",
+      "description": "Perimeter Fence - Focus to Shore",
+      "fields": {
+        "Temporary Fence (m) — Clean": 185.0
+      },
+      "source_pages954": [
+        18,
+        23
+      ],
+      "note": "",
+      "page": 18
+    }
+  ],
+  "duplicate_pages": [
+    {
+      "pages": [
+        21,
+        22
+      ],
+      "task": "cw1-62",
+      "counted_once": true
+    }
+  ],
+  "visual_strikes": [
+    {
+      "page": 12,
+      "task": "cw1-51",
+      "meaning": "Crossed out; reason not stated"
+    },
+    {
+      "page": 18,
+      "task": "cw1-61",
+      "meaning": "Friday copy crossed out; Thursday map and email reschedule once"
+    }
+  ],
+  "printed_weekly_totals": {
+    "Temporary Fence (m) — Clean": 3168.5,
+    "Temporary Fence (m) — Braced for Scrim": 550,
+    "Temporary Fence (m) — Relocation": 74,
+    "Temporary Fence (m) — Removal": 220,
+    "Vehicle Gates": 49,
+    "Ped. Gates": 20,
+    "Crowd Control Barriers (m) — Event": 480,
+    "Crowd Control Barriers (m) — Demarcation": 1231,
+    "Crowd Control Barriers (m) — Flat Feet": 90
+  },
+  "printed_totals_used": false,
+  "stockpile_evidence": {
+    "date": "2026-10-14",
+    "page": 10,
+    "location": "The Esplanade / Gate 6",
+    "fields": {
+      "Crowd Control Barriers (m) — Event": 50
+    },
+    "note": "Stockpile 50 m CCB for Gate 6 queuing and ticket-booth queuing. Detail only; omitted from daily summary. Movement is not additional installed or unique hire stock.",
+    "additional_forecast": false
+  }
+}

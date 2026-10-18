@@ -1,0 +1,31 @@
+
+== phone ==
+PASS phone: parts fitted reads N / N with the 16 new parts  — 326 / 326 parts fitted
+PASS phone: register lists 326 physical components  — 326 physical components
+PASS phone: every new reference is in the register exactly once  — {"ENG-CLUTCH":["Twin-plate clutch & release bearing"],"ENG-TIMING-TENSIONER":["Timing belt tensioner & idler"],"ENG-OIL-GALLERIES":["Oil galleries & pressure feed"],"ENG-DIFF-PINION":["Final-drive pinion (10 teeth)"],"ENG-DIFF-CROWN-WHEEL":["Crown wheel (39 teeth) & differential carrier"],"ENG-DIFF-SPIDER-GEARS":["Differential spider gears & cross pin"],"ENG-DIFF-SIDE-GEAR-L":["Left differential side gear (16 teeth)"],"ENG-DIFF-SIDE-GEAR-R":["Right differential side gear (16 teeth)"],"ENG-BRAKE-MASTER":["Twin brake master cylinders & balance bar"],"ENG-BRAKE-LINES":["Brake lines, front and rear circuits"],"ENG-BRAKE-PADS-FL":["Left front brake pads & caliper pistons"],"ENG-BRAKE-PADS-FR":["Right front brake pads & caliper pistons"],"ENG-BRAKE-PADS-RL":["Left rear brake pads & caliper pistons"],"ENG-BRAKE-PADS-RR":["Right rear brake pads & caliper pistons"],"ENG-STEERING-KNUCKLE-L":["Left front upright & steering arm"],"ENG-STEERING-KNUCKLE-R":["Right front upright & steering arm"]}
+PASS phone: every new part is in the scene exactly once  — clutch:1 timing-tensioner:1 oil-galleries:1 diff-pinion:1 diff-crown-wheel:1 diff-spider-gears:1 diff-side-gear-left:1 diff-side-gear-right:1 brake-master-cylinders:1 brake-lines:1 brake-pads-front-left:1 brake-pads-front-right:1 brake-pads-rear-left:1 brake-pads-rear-right:1 steering-knuckle-left:1 steering-knuckle-right:1
+PASS phone: the rear discs' heat is mounted on the wheels' own hubs  — [true,true,true,true]
+PASS phone: the first starting frame already has the clutch out (the crank turns, the gearbox input does not)  — {"starting":true,"engaged":0,"crank":-0.0034999999999999996,"input":0}
+PASS phone: starting — the clutch opens and the gearbox input stands still while the crank turns  — [[true,0,-0.0062,0],[true,0,-0.0097,0],[true,0,-0.014,0],[true,0,-0.0191,0],[true,0,-0.0249,0],[true,0,-0.0315,0]]
+PASS phone: running in gear  — Stop V8 gear 1 clutch 1
+PASS phone: clutch disc and gearbox input turn with the crank  — crank -9.785 input -9.785
+PASS phone: pinion turns with the main shaft  — pinion -3.599 main -3.599
+PASS phone: crown wheel turns at 10/39 of the pinion  — 0.25641
+PASS phone: straight ahead the side gears average the crown wheel, the spiders turn only by their difference, and they part by no more than the wheel's sway  — L -0.9246 R -0.9210 crown -0.9228 spider -0.00285
+PASS phone: tensioner idler turns at belt speed, against the sprockets  — idler 17.798 ratio -1.819
+PASS phone: oil moves by the pump's turn (half the crank) × its displacement  — oil 0.3914
+PASS phone: full right lock — rack slides 0.074 to the left (+z)  — 0.074
+PASS phone: knuckles, front pads and front wheels all turn −18°  — -18.00 -18.00 -18.00 -18.00 -18.00 -18.00
+PASS phone: steered — left (outside) side gear faster than right by the turning geometry  — L/R 1.2356 expected 1.2356 split 0.1054
+PASS phone: steered — the spider gears turn on their pin by the difference × 16/10  — spider -0.1441
+PASS phone: brake — push rods in and lines under pressure  — pistons -0.0168,-0.0168 lines 0.96
+PASS phone: brake — every pad closes on its disc  — [0.0006,0.0006,0.0006,0.0006]
+PASS phone: brake — the turning rear discs heat and glow; the chocked fronts stay cold  — [0,0,0.2585,0.2585]
+PASS phone: brake off — the pads stand clear again  — [0.0036,0.0036,0.0036,0.0036]
+PASS phone: handbrake — the rear pads clamp; the front pads stand clear, the push rods stay home and the lines carry no pressure  — rear [0.0006,0.0006] front [0.0036,0.0036] pistons 0,0 lines 0
+PASS phone: handbrake off — every pad stands clear again  — [0.0036,0.0036,0.0036,0.0036]
+PASS phone: stopped — every new mechanism holds still  — Start V8
+PASS phone: clutch take-up passes the same turn however the frames fall (1/3 rad in 1, 2, 10 or 100 steps)  — {"1":0.333333,"2":0.333333,"10":0.333333,"100":0.333333}
+PASS phone: no page or console errors
+
+ALL PASSED

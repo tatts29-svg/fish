@@ -1,0 +1,58 @@
+{
+  "author": "Andrew Fisher",
+  "scope": "CPU resource failure injection; no GPU or service calls",
+  "passed": 7,
+  "total": 7,
+  "pixelShaderSourcesUnchanged": true,
+  "checks": [
+    {
+      "scope": "sky",
+      "case": "program-allocation",
+      "created": 0,
+      "deleted": 0,
+      "liveResources": 0
+    },
+    {
+      "scope": "sky",
+      "case": "shader-allocation",
+      "created": 2,
+      "deleted": 2,
+      "liveResources": 0
+    },
+    {
+      "scope": "sky",
+      "case": "fragment-compile",
+      "created": 3,
+      "deleted": 3,
+      "liveResources": 0
+    },
+    {
+      "scope": "sky",
+      "case": "program-link",
+      "created": 3,
+      "deleted": 3,
+      "liveResources": 0
+    },
+    {
+      "scope": "sky",
+      "case": "vao-allocation",
+      "created": 3,
+      "deleted": 3,
+      "liveResources": 0
+    },
+    {
+      "scope": "sky",
+      "case": "normal-dispose",
+      "created": 4,
+      "deleted": 4,
+      "liveResources": 0
+    },
+    {
+      "scope": "architecture",
+      "case": "upload-failure-after-link",
+      "created": 6,
+      "deleted": 6,
+      "liveResources": 0
+    }
+  ]
+}

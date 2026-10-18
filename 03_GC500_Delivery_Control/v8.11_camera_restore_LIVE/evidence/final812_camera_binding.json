@@ -1,0 +1,16 @@
+{
+  "author": "Andrew Fisher",
+  "componentSha256": "b9a8d98a0d2a189df5e6523923d8a332ee3b914fdf50734792c575c29dc3a576",
+  "finalSha256": "33d61cd71fa409b34f23ba0c7badbbdf7c4ae61ed5a4b8f080bea63e5d492cc0",
+  "passed": 2,
+  "checks": [
+    {
+      "name": "all six non-business scripts equal camera-restored component",
+      "passed": true
+    },
+    {
+      "name": "frozen patch hash",
+      "passed": true
+    }
+  ]
+}

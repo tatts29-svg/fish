@@ -1,0 +1,199 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261016T165112Z",
+ "finished": "2026-10-16T16:51:25.842Z",
+ "mode": "apply",
+ "spec": {
+  "by": "Andrew Fisher",
+  "basis": "Baseplan SuperCars export of 15 Oct 2026 (sha256 ba246d4a…), its Delivery Dockets sheet, and Schedule 9. Andrew, 15 Oct 2026 about 15:50 AEST: fix anything that is relevant to truth; we have all the data we need.",
+  "refs": [
+   "HRP",
+   "P36"
+  ],
+  "ops": [
+   {
+    "op": "number_off",
+    "ref": "P36",
+    "no": "1189410",
+    "why": "Andrew, 17 Oct 2026: \"AA and HRP should have asset numbers on them, where did my asset number go\". His record had 1189410 on HRP (recorded on site, photographed 18 Sep); the 15 Oct dockets fill moved it to P36 on a branch docket label. Put back."
+   },
+   {
+    "op": "number_on",
+    "ref": "HRP",
+    "no": "1189410",
+    "why": "back on HRP, as Andrew's record had it before 15 Oct"
+   },
+   {
+    "op": "number_on",
+    "ref": "P36",
+    "no": "1282487",
+    "why": "back on P36, as Andrew's record had it before 15 Oct (recorded on site, photographed 18 Sep)"
+   }
+  ]
+ },
+ "pageSha256": "43c1c13be6fa5abc4ea66900d2202422972da11328fe7e41a088e9e1fdfd1204",
+ "version": {
+  "before": 9515,
+  "after": 9527
+ },
+ "updated": {
+  "before": "2026-10-16T09:20:53.660Z",
+  "after": "2026-10-16T16:51:24.964Z"
+ },
+ "stage": [
+  {
+   "op": "number_off",
+   "ref": "P36",
+   "no": "1189410",
+   "why": "Andrew, 17 Oct 2026: \"AA and HRP should have asset numbers on them, where did my asset number go\". His record had 1189410 on HRP (recorded on site, photographed 18 Sep); the 15 Oct dockets fill moved it to P36 on a branch docket label. Put back.",
+   "result": "taken off"
+  },
+  {
+   "op": "number_on",
+   "ref": "HRP",
+   "no": "1189410",
+   "why": "back on HRP, as Andrew's record had it before 15 Oct",
+   "result": "put on"
+  },
+  {
+   "op": "number_on",
+   "ref": "P36",
+   "no": "1282487",
+   "why": "back on P36, as Andrew's record had it before 15 Oct (recorded on site, photographed 18 Sep)",
+   "result": "put on"
+  }
+ ],
+ "writes": [
+  {
+   "key": "stamps/assetNumbers~2f~HRP~2f~1189410",
+   "status": 200
+  },
+  {
+   "key": "stamps/assetNumbers~2f~P36~2f~1282487",
+   "status": 200
+  },
+  {
+   "key": "assetNumbers/P36",
+   "status": 200
+  },
+  {
+   "key": "assetNumbers/HRP",
+   "status": 200
+  },
+  {
+   "key": "deleted/num~2f~P36~2f~1189410",
+   "status": 200
+  },
+  {
+   "key": "deleted/back~2f~num~2f~HRP~2f~1189410",
+   "status": 200
+  },
+  {
+   "key": "deleted/back~2f~num~2f~P36~2f~1282487",
+   "status": 200
+  },
+  {
+   "key": "by/deleted~2f~num~2f~P36~2f~1189410",
+   "status": 200
+  },
+  {
+   "key": "by/deleted~2f~back~2f~num~2f~HRP~2f~1189410",
+   "status": 200
+  },
+  {
+   "key": "by/assetNumbers~2f~HRP~2f~1189410",
+   "status": 200
+  },
+  {
+   "key": "by/deleted~2f~back~2f~num~2f~P36~2f~1282487",
+   "status": 200
+  },
+  {
+   "key": "by/assetNumbers~2f~P36~2f~1282487",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 1,
+ "docs": {
+  "before": {
+   "stamps/assetNumbers~2f~HRP~2f~1189410": null,
+   "stamps/assetNumbers~2f~P36~2f~1282487": null,
+   "assetNumbers/P36": {
+    "_k": "P36",
+    "v": [
+     "1189410"
+    ]
+   },
+   "assetNumbers/HRP": null,
+   "deleted/num~2f~P36~2f~1189410": null,
+   "deleted/back~2f~num~2f~HRP~2f~1189410": null,
+   "deleted/back~2f~num~2f~P36~2f~1282487": null,
+   "by/deleted~2f~num~2f~P36~2f~1189410": null,
+   "by/deleted~2f~back~2f~num~2f~HRP~2f~1189410": null,
+   "by/assetNumbers~2f~HRP~2f~1189410": null,
+   "by/deleted~2f~back~2f~num~2f~P36~2f~1282487": null,
+   "by/assetNumbers~2f~P36~2f~1282487": null
+  },
+  "after": {
+   "stamps/assetNumbers~2f~HRP~2f~1189410": {
+    "_k": "assetNumbers/HRP/1189410",
+    "v": "2026-10-16T16:51:20.158Z"
+   },
+   "stamps/assetNumbers~2f~P36~2f~1282487": {
+    "_k": "assetNumbers/P36/1282487",
+    "v": "2026-10-16T16:51:20.703Z"
+   },
+   "assetNumbers/P36": {
+    "_k": "P36",
+    "v": [
+     "1282487"
+    ]
+   },
+   "assetNumbers/HRP": {
+    "_k": "HRP",
+    "v": [
+     "1189410"
+    ]
+   },
+   "deleted/num~2f~P36~2f~1189410": {
+    "_k": "num/P36/1189410",
+    "v": "2026-10-16T16:51:19.636Z"
+   },
+   "deleted/back~2f~num~2f~HRP~2f~1189410": {
+    "_k": "back/num/HRP/1189410",
+    "v": "2026-10-16T16:51:20.158Z"
+   },
+   "deleted/back~2f~num~2f~P36~2f~1282487": {
+    "_k": "back/num/P36/1282487",
+    "v": "2026-10-16T16:51:20.703Z"
+   },
+   "by/deleted~2f~num~2f~P36~2f~1189410": {
+    "_k": "deleted/num/P36/1189410",
+    "v": "Andrew Fisher"
+   },
+   "by/deleted~2f~back~2f~num~2f~HRP~2f~1189410": {
+    "_k": "deleted/back/num/HRP/1189410",
+    "v": "Andrew Fisher"
+   },
+   "by/assetNumbers~2f~HRP~2f~1189410": {
+    "_k": "assetNumbers/HRP/1189410",
+    "v": "Andrew Fisher"
+   },
+   "by/deleted~2f~back~2f~num~2f~P36~2f~1282487": {
+    "_k": "deleted/back/num/P36/1282487",
+    "v": "Andrew Fisher"
+   },
+   "by/assetNumbers~2f~P36~2f~1282487": {
+    "_k": "assetNumbers/P36/1282487",
+    "v": "Andrew Fisher"
+   }
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}

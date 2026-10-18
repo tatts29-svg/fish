@@ -1,0 +1,15 @@
+{
+  "author": "Andrew Fisher",
+  "sha256": "f27008ce5293921f69c5f0b812ff46f5dddb00453e7d3748d99909aa22561bd2",
+  "pass": true,
+  "mobile": false,
+  "localCostPropagation": true,
+  "remoteCostPropagation": true,
+  "branchPropagation": true,
+  "monthlyBranch": true,
+  "receiptValidation": true,
+  "allSixViews": true,
+  "nativeRestored": true,
+  "errors": [],
+  "writes": 0
+}

@@ -1,0 +1,51 @@
+{
+  "author": "Andrew Fisher",
+  "priorCandidateSha256": "33d61cd71fa409b34f23ba0c7badbbdf7c4ae61ed5a4b8f080bea63e5d492cc0",
+  "finalCandidateSha256": "cd3159be30b7ec931d5ffa907b90b585e6851a2210a2e7230d3fde74b0b46bee",
+  "exactOnlyChange": "Tools Showcase opener sets return target to visible Tools button after native showOpen.",
+  "byteDelta": 38,
+  "exactSingleReplacementProved": true,
+  "nativeShowOpenShowCloseAndAllCameraRendererSourceUnchanged": true,
+  "priorComponentRouteReceiptSourceProofStillBinds": true,
+  "browserResult": {
+    "report": "/workspace/private-v810-independent/focus-final-cd3159be/focus812_results.json",
+    "sha256": "c2a44cecd71a5aee51479d232404c6b4b2b2f7c6e73cff12dd4cc77b463e68e2",
+    "passed": 25,
+    "failed": 0,
+    "pageErrors": 0,
+    "operationalWrites": 0,
+    "backdrop": "black",
+    "GLMounted": false,
+    "phoneReopen": {
+      "ret": "moreBtn",
+      "active": "showBack",
+      "open": true,
+      "dialogHidden": false,
+      "viewChoice": "",
+      "viewPreference": "hero",
+      "menuHidden": true,
+      "inside": true,
+      "inertCount": 7,
+      "keys": true,
+      "vis": true,
+      "motion": true,
+      "tracked": [
+        [
+          "keydown",
+          1
+        ],
+        [
+          "visibilitychange",
+          1
+        ],
+        [
+          "gc500motionchange",
+          1
+        ]
+      ],
+      "back": "black",
+      "gl": false
+    },
+    "fixtureRecoveryRecorded": true
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "author": "Andrew Fisher",
+  "actualPublic": true,
+  "sha256": "fc7995c79cd5df18c47de4f2c05f1499382ba0313ae8b27dd23d783606a59068",
+  "results": [
+    {
+      "test": "profile",
+      "exit": 0,
+      "seconds": 19.6
+    },
+    {
+      "test": "charges-phone",
+      "exit": 0,
+      "seconds": 9.2
+    },
+    {
+      "test": "transport",
+      "exit": 0,
+      "seconds": 7.2
+    },
+    {
+      "test": "standdown",
+      "exit": 0,
+      "seconds": 12.4
+    },
+    {
+      "test": "runs-desktop",
+      "exit": 0,
+      "seconds": 7.8
+    },
+    {
+      "test": "runs-phone",
+      "exit": 0,
+      "seconds": 6.1
+    }
+  ]
+}

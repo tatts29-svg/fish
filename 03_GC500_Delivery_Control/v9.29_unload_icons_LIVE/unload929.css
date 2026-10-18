@@ -1,0 +1,17 @@
+/* Author: Andrew Fisher. v9.29 unload-order icons on the Arrange loads rows. Only this addition is styled. */
+#pane-timeline .unload929{display:flex;flex-wrap:wrap;align-items:center;gap:4px 6px;margin:5px 0 2px;color:#e9f2f4}
+#pane-timeline .unload929-stop{display:inline-flex;flex-wrap:wrap;align-items:center;gap:4px 7px}
+#pane-timeline .unload929-item{display:inline-flex;align-items:center;gap:2px;white-space:nowrap;line-height:1;color:#e9f2f4}
+#pane-timeline .unload929-item svg{display:block;flex:none;width:22px;height:22px}
+#pane-timeline .unload929-item.w svg{width:33px}
+#pane-timeline .unload929-item b{font-size:13px;font-weight:800;color:#fff}
+#pane-timeline .unload929-item em{font-style:normal;font-size:10px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;color:#c9d5d9;margin-left:1px}
+#pane-timeline .unload929-then{font-style:normal;font-size:14px;font-weight:900;line-height:1;color:#8fa8af}
+@media (max-width:700px){
+ #pane-timeline .unload929{gap:3px 4px;margin-top:4px}
+ #pane-timeline .unload929-stop{gap:3px 5px}
+ #pane-timeline .unload929-item svg{width:20px;height:20px}
+ #pane-timeline .unload929-item.w svg{width:30px}
+ #pane-timeline .unload929-item b{font-size:12px}
+ #pane-timeline .unload929-item em{font-size:9px}
+}

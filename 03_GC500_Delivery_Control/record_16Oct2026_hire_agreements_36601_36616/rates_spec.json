@@ -1,0 +1,16 @@
+{
+ "by": "Andrew Fisher",
+ "what": "The supplier rates Advanced actually bill, as the Week 2 invoice totals sheet against purchase order 4647519 (commercial approval 13 Oct 2026) shows them, typed on the Fencing tab's own rate inputs (Andrew, 16 Oct 2026: 'We go by what we are being charged for; you have the purchase orders on how we are being charged'). Pedestrian gate incl one wheel $61 each (the cost tracker's rate row said $36). Flat-feet CCB: Advanced billed 36591's barriers as Demarcation CCB at $5.40 a metre with no separate flat-feet line, so flat feet are paid at the CCB rate until an invoice says otherwise.",
+ "ops": [
+  {
+   "op": "fence_cost",
+   "key": "ped_gates",
+   "rate": 61
+  },
+  {
+   "op": "fence_cost",
+   "key": "flat_feet",
+   "rate": 5.4
+  }
+ ]
+}

@@ -1,0 +1,260 @@
+{
+  "author": "Andrew Fisher",
+  "sourceDir": "/workspace/gc500-current-release/03_GC500_Delivery_Control/v10.02_precise_destinations_DRAFT",
+  "recordVersion": 5324,
+  "checks": 62,
+  "passed": 62,
+  "failed": 0,
+  "results": [
+    {
+      "name": "Exactly41 independently reviewed remaining references have detailed labels",
+      "pass": true
+    },
+    {
+      "name": "Baseline WC49 resolves current native inputs to reviewed destination",
+      "pass": true
+    },
+    {
+      "name": "Baseline WC48 resolves current native inputs to reviewed destination",
+      "pass": true
+    },
+    {
+      "name": "Baseline WC51 resolves current native inputs to reviewed destination",
+      "pass": true
+    },
+    {
+      "name": "Baseline WC53 resolves current native inputs to reviewed destination",
+      "pass": true
+    },
+    {
+      "name": "Baseline WC46 resolves current native inputs to reviewed destination",
+      "pass": true
+    },
+    {
+      "name": "Baseline WC54 resolves current native inputs to reviewed destination",
+      "pass": true
+    },
+    {
+      "name": "Baseline WC55 resolves current native inputs to reviewed destination",
+      "pass": true
+    },
+    {
+      "name": "Baseline WC24 resolves current native inputs to reviewed destination",
+      "pass": true
+    },
+    {
+      "name": "Baseline WC13 resolves current native inputs to reviewed destination",
+      "pass": true
+    },
+    {
+      "name": "Baseline WC45 resolves current native inputs to reviewed destination",
+      "pass": true
+    },
+    {
+      "name": "Baseline WC47 resolves current native inputs to reviewed destination",
+      "pass": true
+    },
+    {
+      "name": "Baseline WC25 resolves current native inputs to reviewed destination",
+      "pass": true
+    },
+    {
+      "name": "Baseline WC23 resolves current native inputs to reviewed destination",
+      "pass": true
+    },
+    {
+      "name": "Baseline WC26 resolves current native inputs to reviewed destination",
+      "pass": true
+    },
+    {
+      "name": "Baseline WC57 resolves current native inputs to reviewed destination",
+      "pass": true
+    },
+    {
+      "name": "Baseline WC28 resolves current native inputs to reviewed destination",
+      "pass": true
+    },
+    {
+      "name": "Baseline WC34 resolves current native inputs to reviewed destination",
+      "pass": true
+    },
+    {
+      "name": "Baseline WC65 resolves current native inputs to reviewed destination",
+      "pass": true
+    },
+    {
+      "name": "Baseline WC69 resolves current native inputs to reviewed destination",
+      "pass": true
+    },
+    {
+      "name": "Baseline WC68 resolves current native inputs to reviewed destination",
+      "pass": true
+    },
+    {
+      "name": "Baseline WC70 resolves current native inputs to reviewed destination",
+      "pass": true
+    },
+    {
+      "name": "Baseline WC72 resolves current native inputs to reviewed destination",
+      "pass": true
+    },
+    {
+      "name": "Baseline WC39 resolves current native inputs to reviewed destination",
+      "pass": true
+    },
+    {
+      "name": "Baseline WC38 resolves current native inputs to reviewed destination",
+      "pass": true
+    },
+    {
+      "name": "Baseline WC40 resolves current native inputs to reviewed destination",
+      "pass": true
+    },
+    {
+      "name": "Baseline WC35 resolves current native inputs to reviewed destination",
+      "pass": true
+    },
+    {
+      "name": "Baseline WC62 resolves current native inputs to reviewed destination",
+      "pass": true
+    },
+    {
+      "name": "Baseline WC10 resolves current native inputs to reviewed destination",
+      "pass": true
+    },
+    {
+      "name": "Baseline WC85 resolves current native inputs to reviewed destination",
+      "pass": true
+    },
+    {
+      "name": "Baseline PG01 resolves current native inputs to reviewed destination",
+      "pass": true
+    },
+    {
+      "name": "Baseline PG03 resolves current native inputs to reviewed destination",
+      "pass": true
+    },
+    {
+      "name": "Baseline PG05 resolves current native inputs to reviewed destination",
+      "pass": true
+    },
+    {
+      "name": "Baseline PG29 resolves current native inputs to reviewed destination",
+      "pass": true
+    },
+    {
+      "name": "Baseline T0162 resolves current native inputs to reviewed destination",
+      "pass": true
+    },
+    {
+      "name": "Baseline EP-S7-EW49 resolves current native inputs to reviewed destination",
+      "pass": true
+    },
+    {
+      "name": "Baseline WC30 resolves current native inputs to reviewed destination",
+      "pass": true
+    },
+    {
+      "name": "Baseline WC29 resolves current native inputs to reviewed destination",
+      "pass": true
+    },
+    {
+      "name": "Baseline WC73 resolves current native inputs to reviewed destination",
+      "pass": true
+    },
+    {
+      "name": "Baseline WC19 resolves current native inputs to reviewed destination",
+      "pass": true
+    },
+    {
+      "name": "Baseline T0176 resolves current native inputs to reviewed destination",
+      "pass": true
+    },
+    {
+      "name": "Baseline EP-S7-EW50 resolves current native inputs to reviewed destination",
+      "pass": true
+    },
+    {
+      "name": "Typed location change immediately replaces reviewed description and discards old landmarks",
+      "pass": true
+    },
+    {
+      "name": "Coordinate-only change retires the old reviewed placement",
+      "pass": true
+    },
+    {
+      "name": "Removed exact pin retires the old reviewed placement",
+      "pass": true
+    },
+    {
+      "name": "New move timestamp retires old details even when name and coordinates match",
+      "pass": true
+    },
+    {
+      "name": "Changed existing move timestamp on WC85 wins over its previous compound review",
+      "pass": true
+    },
+    {
+      "name": "Baseline source-only Brad Jones request resolves without making an exact coordinate",
+      "pass": true
+    },
+    {
+      "name": "A newly recorded source-only team position is not labelled with stale reviewed text",
+      "pass": true
+    },
+    {
+      "name": "Unreviewed reference can use current map landmarks",
+      "pass": true
+    },
+    {
+      "name": "Unreviewed relocated reference excludes stale map landmarks",
+      "pass": true
+    },
+    {
+      "name": "Missing base location is stated honestly rather than invented",
+      "pass": true
+    },
+    {
+      "name": "Blank map landmarks add no empty separator",
+      "pass": true
+    },
+    {
+      "name": "Whitespace in native fields does not falsely discard a valid reviewed match",
+      "pass": true
+    },
+    {
+      "name": "Resolver does not mutate frozen source evidence",
+      "pass": true
+    },
+    {
+      "name": "Shared where resolver follows typed destination on next read",
+      "pass": true
+    },
+    {
+      "name": "Shared where resolver returns current pin after a coordinate change",
+      "pass": true
+    },
+    {
+      "name": "Shared where resolver retires details after native movement timestamp change",
+      "pass": true
+    },
+    {
+      "name": "Unreviewed reference still gains current master landmarks when master controls location",
+      "pass": true
+    },
+    {
+      "name": "Unreviewed native relocation suppresses old master detail at integration boundary",
+      "pass": true
+    },
+    {
+      "name": "Unreviewed reference with a new confirmed pin does not inherit old master landmarks",
+      "pass": true
+    },
+    {
+      "name": "All41 location resolutions leave asset, position, quantity and receipt data unchanged",
+      "pass": true
+    }
+  ],
+  "networkCalls": 0,
+  "recordWrites": 0
+}

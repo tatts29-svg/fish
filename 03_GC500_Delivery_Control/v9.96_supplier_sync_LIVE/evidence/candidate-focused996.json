@@ -1,0 +1,67 @@
+{
+  "author": "Andrew Fisher",
+  "sha256": "dc648c02fa4d083a78a7068c08526f31e8ad3adfaf3a6beffce4ba326a71a551",
+  "reports": {
+    "supplier-desktop": {
+      "checks": 26,
+      "errors": [],
+      "writes": 0
+    },
+    "supplier-phone": {
+      "checks": 21,
+      "errors": [],
+      "writes": 0
+    },
+    "collections": {
+      "checks": 8,
+      "errors": [],
+      "writes": 0
+    },
+    "demob-desktop": {
+      "checks": 23,
+      "errors": [],
+      "writes": 0
+    },
+    "demob-phone": {
+      "checks": 23,
+      "errors": [],
+      "writes": 0
+    },
+    "packing-desktop": {
+      "checks": 17,
+      "errors": [],
+      "writes": 0
+    },
+    "packing-phone": {
+      "checks": 17,
+      "errors": [],
+      "writes": 0
+    },
+    "finance": {
+      "checks": 22,
+      "errors": [],
+      "writes": 0
+    },
+    "maps-desktop": {
+      "checks": 17,
+      "errors": [],
+      "writes": 0
+    },
+    "maps-phone": {
+      "checks": 16,
+      "errors": [],
+      "writes": 0
+    },
+    "fencing-desktop": {
+      "checks": 25,
+      "errors": [],
+      "writes": 0
+    },
+    "fencing-phone": {
+      "checks": 25,
+      "errors": [],
+      "writes": 0
+    }
+  },
+  "scope": "Read-only final candidate; maps use routed candidate source and explicit tile/session fixtures."
+}

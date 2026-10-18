@@ -1,0 +1,258 @@
+{
+  "author": "Andrew Fisher",
+  "sha256": "072e565075025471ffb9bd765f2ca4887f5ce4982ec988e0321d960774e14a06",
+  "mobile": false,
+  "actualPublic": false,
+  "checks": [
+    "Original office photo relation applied",
+    "Two original-contract planned VMS groups applied",
+    "Three specific VMS source differences retained after compound directions",
+    "Default sound stays off without context",
+    "Existing photo detail and startup retained",
+    "Complete finite lap at 0.25x",
+    "Bounded grip and particles at 0.25x",
+    "Complete finite lap at 1x",
+    "Bounded grip and particles at 1x",
+    "Complete finite lap at 2x",
+    "Bounded grip and particles at 2x",
+    "Day smoke/car frame renders without GL error",
+    "Night frame renders without GL error",
+    "Audio starts with finite speed-linked RPM",
+    "Audio stops and clears engine",
+    "Back closes and disposes Showcase",
+    "Complete native record unchanged",
+    "Zero page errors or operational writes"
+  ],
+  "pass": true,
+  "sources": {
+    "office": {
+      "label": "Coates compound \u00b7 beside lunchroom T0022",
+      "kind": "named-place",
+      "exactPosition": false,
+      "relatedReferences": [
+        "T0022"
+      ],
+      "source": {
+        "kind": "item-photo-relation",
+        "photos": [
+          "drop_T0021_u960639_2_20260918-103849_d5e59ca718bd7b18.jpg",
+          "drop_T0022_1_20260918-103409_a57eced29fa6ea7f.jpg"
+        ],
+        "relatedAsset": "960634",
+        "limit": "Original photographs show both buildings together. No office coordinate is inferred from the lunchroom pin."
+      },
+      "basis": "Item-specific original photos show office 960639 beside lunchroom T0022."
+    },
+    "vms": [
+      {
+        "id": "T0128",
+        "key": "T0128",
+        "ref": "T0128",
+        "recordRef": "T0128",
+        "title": "VMS",
+        "item": "VMS",
+        "quantity": "2",
+        "relation": "item",
+        "linked": true,
+        "displayRef": "T0128",
+        "location": "Contract-planned destinations \u00b7 VMS11, VMS12",
+        "locationState": "contract-planned-group",
+        "boardReferences": [],
+        "exactPosition": false,
+        "required": "",
+        "why": "Current contract board descriptions, booked date and quantity match this schedule batch. This is a planned destination group; no received status or physical truck assignment is inferred.",
+        "source": "'Week 1'!A32:H32",
+        "date": "2026-10-16",
+        "sourceRow": {
+          "task_id": "T0128",
+          "sheet": "Week 1",
+          "date": "2026-10-16",
+          "product": "VMS",
+          "item": "VMS",
+          "quantity_display": "2",
+          "location": null,
+          "notes": null,
+          "asset_numbers": [],
+          "accessories": [],
+          "why": "No asset reference in the location text. Batch or unreferenced row \u2014 assign a reference to bring it into the register.",
+          "date_as_written": null,
+          "date_correction": null,
+          "phase": "Build",
+          "discipline": "Variable message signs",
+          "activity": null,
+          "source_range": "'Week 1'!A32:H32",
+          "quantity_flag": null,
+          "transport_cost_text": null,
+          "transport_cost": null
+        },
+        "sourceEvidence973": {
+          "kind": "contract-planned-group",
+          "file": "VMS001-26003-01_GC500_COATES_VMS_LOCATIONS.pdf",
+          "sha256": "9ef1527d1fd9c6c7ea70dd3db3ced96784b0c1b32eba0df2aa3fb5ecd61be382",
+          "pages": [
+            1,
+            17
+          ],
+          "relatedDrawing": "D025-26003-02-VMS.pdf",
+          "sourceRange": "'Week 1'!A32:H32",
+          "discrepancy": "",
+          "contract": "9961265-STPS",
+          "contractLines": [
+            15,
+            16
+          ],
+          "contractSource": "eb4a224fadbe1350d031adf8a1b12760d3dd748a2f0643119ea103d1df9b5b21",
+          "plannedBoards": [
+            "VMS11",
+            "VMS12"
+          ],
+          "limit": "Contract-planned group only; later saved board allocations and destinations take precedence."
+        },
+        "plannedBoardReferences": [
+          "VMS11",
+          "VMS12"
+        ]
+      },
+      {
+        "id": "T0158",
+        "key": "T0158",
+        "ref": "T0158",
+        "recordRef": "T0158",
+        "title": "VMS",
+        "item": "VMS",
+        "quantity": "9",
+        "relation": "item",
+        "linked": true,
+        "displayRef": "T0158",
+        "location": "Contract-planned destinations \u00b7 VMS13, VMS14, VMS15, VMS16, VMS17, VMS18, VMS19, VMS20, VMS23",
+        "locationState": "contract-planned-group",
+        "boardReferences": [],
+        "exactPosition": false,
+        "required": "",
+        "why": "Current contract board descriptions, booked date and quantity match this schedule batch. This is a planned destination group; no received status or physical truck assignment is inferred.",
+        "source": "'Event Week'!A28:H28",
+        "date": "2026-10-19",
+        "sourceRow": {
+          "task_id": "T0158",
+          "sheet": "Event Week",
+          "date": "2026-10-19",
+          "product": "VMS",
+          "item": "VMS",
+          "quantity_display": "9",
+          "location": null,
+          "notes": null,
+          "asset_numbers": [],
+          "accessories": [],
+          "why": "No asset reference in the location text. Batch or unreferenced row \u2014 assign a reference to bring it into the register.",
+          "date_as_written": null,
+          "date_correction": null,
+          "phase": "Event",
+          "discipline": "Variable message signs",
+          "activity": null,
+          "source_range": "'Event Week'!A28:H28",
+          "quantity_flag": null,
+          "transport_cost_text": null,
+          "transport_cost": null,
+          "source_revision875": {
+            "file": "Schedule5.xlsx",
+            "sha256": "6383ebdd66b2293453de07f85fd1812398d171c7ab75b2fad22196bbca8d4761",
+            "sheet": "Event Week",
+            "row": 28
+          }
+        },
+        "sourceEvidence973": {
+          "kind": "contract-planned-group",
+          "file": "VMS001-26003-01_GC500_COATES_VMS_LOCATIONS.pdf",
+          "sha256": "9ef1527d1fd9c6c7ea70dd3db3ced96784b0c1b32eba0df2aa3fb5ecd61be382",
+          "pages": [
+            1,
+            17
+          ],
+          "relatedDrawing": "D025-26003-02-VMS.pdf",
+          "sourceRange": "'Event Week'!A28:H28",
+          "discrepancy": "",
+          "contract": "9961265-STPS",
+          "contractLines": [
+            18,
+            19,
+            21,
+            22,
+            23,
+            24,
+            25,
+            26,
+            30
+          ],
+          "contractSource": "eb4a224fadbe1350d031adf8a1b12760d3dd748a2f0643119ea103d1df9b5b21",
+          "plannedBoards": [
+            "VMS13",
+            "VMS14",
+            "VMS15",
+            "VMS16",
+            "VMS17",
+            "VMS18",
+            "VMS19",
+            "VMS20",
+            "VMS23"
+          ],
+          "limit": "Contract-planned group only; later saved board allocations and destinations take precedence."
+        },
+        "plannedBoardReferences": [
+          "VMS13",
+          "VMS14",
+          "VMS15",
+          "VMS16",
+          "VMS17",
+          "VMS18",
+          "VMS19",
+          "VMS20",
+          "VMS23"
+        ]
+      }
+    ],
+    "remaining": [
+      "T0159",
+      "T0169",
+      "T0170"
+    ],
+    "count": 3
+  },
+  "track": [
+    {
+      "pace": 0.25,
+      "steps": 31544,
+      "complete": true,
+      "peakSlip": 0.13968110414718796,
+      "peakSmoke": 200,
+      "peakOpening": 40,
+      "peakWheelspin": 0.9927515251717268,
+      "finite": true,
+      "bounded": true
+    },
+    {
+      "pace": 1,
+      "steps": 8193,
+      "complete": true,
+      "peakSlip": 0.13871782236981675,
+      "peakSmoke": 184,
+      "peakOpening": 40,
+      "peakWheelspin": 0.9927515251717268,
+      "finite": true,
+      "bounded": true
+    },
+    {
+      "pace": 2,
+      "steps": 4301,
+      "complete": true,
+      "peakSlip": 0.13331240754322896,
+      "peakSmoke": 109,
+      "peakOpening": 40,
+      "peakWheelspin": 0.9927515251717268,
+      "finite": true,
+      "bounded": true
+    }
+  ],
+  "errors": [],
+  "operationalWrites": 0,
+  "scope": "Actual track fixed-step/rendered browser checks using software Chromium; not a physical-device frame-rate or subjective listening claim."
+}

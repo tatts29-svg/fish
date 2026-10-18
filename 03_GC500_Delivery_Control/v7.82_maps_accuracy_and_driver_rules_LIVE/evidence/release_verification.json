@@ -1,0 +1,84 @@
+{
+  "author": "Andrew Fisher",
+  "release": "v7.83",
+  "includes": [
+    "v7.82",
+    "v7.83"
+  ],
+  "verified_utc": "2026-10-01T19:24:02.068660+00:00",
+  "verified_aest": "2026-10-02T05:24:02.068682+10:00",
+  "page": {
+    "bytes": 8765480,
+    "sha256": "f654426216d6da4bee1c20958a4d37531dd76bbd4df791793b4b83729f33543e"
+  },
+  "explorer": {
+    "bytes": 127720,
+    "sha256": "dd6256bcd3e20cd89a70ba1c1d32e5f3b7b1acf09a2d19f1ac824f05fea93d3e"
+  },
+  "explorer_entry": {
+    "bytes": 23737,
+    "sha256": "634881d7832bfd4f892ec50ae1e7eacbce2ea8d37dc0479d22804f190e94095e"
+  },
+  "machine": {
+    "ready": true,
+    "version": "v7.82-explorer-done-markers",
+    "label": "The Coates Way machine and GC500 map explorer",
+    "built": null,
+    "entry": "index.html",
+    "files": 219,
+    "bytes": 172170689,
+    "registered": "2026-10-01T19:23:19.329Z",
+    "sha256": "1436f85afdfe6d8da043a0b4d134eb8f054c9fe4a28c23d8c2103299ad25c490"
+  },
+  "record_version_before": 3527,
+  "record_version_after": 3527,
+  "record_writes": 0,
+  "real_messages_sent": 0,
+  "showcase": "unchanged; preview remains unpublished",
+  "result": "PASS: public page, explorer script and entry byte-for-byte; active manifest exact",
+  "checks": {
+    "dispatch_calendar": {
+      "passed": 9,
+      "total": 9,
+      "deadline_minutes": 1440
+    },
+    "driver_print": {
+      "passed": 10,
+      "total": 10
+    },
+    "text_current": 201,
+    "text_time_variants": 198,
+    "mms_centres": 68,
+    "picture_dialogs": 2,
+    "inventory_pdf": {
+      "desktop": "9/9",
+      "phone": "9/9",
+      "inventory_types": 41,
+      "qr_targets": 116
+    },
+    "sweeps": {
+      "desktop": {
+        "tabs": 21,
+        "links": 7,
+        "page_errors": 0,
+        "console_errors": 0
+      },
+      "phone": {
+        "tabs": 21,
+        "links": 7,
+        "page_errors": 0,
+        "console_errors": 0
+      }
+    },
+    "explorer_isolated": "18/18; identical reviewed script",
+    "static": "PASS",
+    "upload_dry_run": "PASS"
+  },
+  "implementation_handover": "Full regression complete on f6544262; READY at 6bcd998",
+  "review_scope": "Independent dispatch, print, text, picture and PDF checks rerun on final f6544262; unchanged explorer reviewed separately.",
+  "limits": [
+    "No actual SMS/MMS was sent in these checks.",
+    "Phone viewport is emulated.",
+    "Unconfirmed operational directions remain visibly unresolved."
+  ]
+}

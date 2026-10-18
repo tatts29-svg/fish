@@ -1,0 +1,28 @@
+{
+ "by": "Andrew Fisher",
+ "basis": "Baseplan SuperCars export of 15 Oct 2026 (sha256 ba246d4a\u2026), its Delivery Dockets sheet, and Schedule 9. Andrew, 15 Oct 2026 about 15:50 AEST: fix anything that is relevant to truth; we have all the data we need.",
+ "refs": [
+  "HRP",
+  "P36"
+ ],
+ "ops": [
+  {
+   "op": "number_off",
+   "ref": "P36",
+   "no": "1189410",
+   "why": "Andrew, 17 Oct 2026: \"AA and HRP should have asset numbers on them, where did my asset number go\". His record had 1189410 on HRP (recorded on site, photographed 18 Sep); the 15 Oct dockets fill moved it to P36 on a branch docket label. Put back."
+  },
+  {
+   "op": "number_on",
+   "ref": "HRP",
+   "no": "1189410",
+   "why": "back on HRP, as Andrew's record had it before 15 Oct"
+  },
+  {
+   "op": "number_on",
+   "ref": "P36",
+   "no": "1282487",
+   "why": "back on P36, as Andrew's record had it before 15 Oct (recorded on site, photographed 18 Sep)"
+  }
+ ]
+}

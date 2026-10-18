@@ -1,0 +1,126 @@
+{
+  "author": "Andrew Fisher",
+  "baseSha256": "eaf5182106015aa68c06452493c208f6ca9551b7f164d56089e343920b9dc8f9",
+  "candidateSha256": "35024d43405947d59c106e858221f8c40ed9629bcf6b19b1081f87c4da6799ed",
+  "candidateBytes": 9101458,
+  "readySourceCommit": "9deab91f9c4e9d9341e060de2d4343a6a0968d32",
+  "checks": [
+    {
+      "name": "Exact imported READY file: .gitignore",
+      "pass": true
+    },
+    {
+      "name": "Exact imported READY file: README.md",
+      "pass": true
+    },
+    {
+      "name": "Exact imported READY file: layout799.cjs",
+      "pass": true
+    },
+    {
+      "name": "Exact imported READY file: results796_tests.cjs",
+      "pass": true
+    },
+    {
+      "name": "Exact imported READY file: run_all.sh",
+      "pass": true
+    },
+    {
+      "name": "Exact imported READY file: same_figures.js",
+      "pass": true
+    },
+    {
+      "name": "Exact imported READY file: speed799.cjs",
+      "pass": true
+    },
+    {
+      "name": "Exact imported READY file: v799_tests.js",
+      "pass": true
+    },
+    {
+      "name": "Exact imported READY file: patch_v799.py",
+      "pass": true
+    },
+    {
+      "name": "Official base is exact verified live v8.06",
+      "pass": true
+    },
+    {
+      "name": "Single v8.07 release marker",
+      "pass": true
+    },
+    {
+      "name": "Every DATA byte is unchanged",
+      "pass": true
+    },
+    {
+      "name": "Every DATA value is unchanged",
+      "pass": true
+    },
+    {
+      "name": "CW2 source plan and all historic fencing remain unchanged",
+      "pass": true
+    },
+    {
+      "name": "Same inline script count",
+      "pass": true
+    },
+    {
+      "name": "Only the existing main business script changes",
+      "detail": [
+        1
+      ],
+      "pass": true
+    },
+    {
+      "name": "All Showcase, vehicle, map and extension scripts are byte-identical",
+      "pass": true
+    },
+    {
+      "name": "Entire v8.06 phone drawer style is byte-identical",
+      "pass": true
+    },
+    {
+      "name": "Only the approved screen-only card placement CSS is added",
+      "pass": true
+    },
+    {
+      "name": "Final page is exactly the unchanged READY patch plus release metadata",
+      "pass": true
+    },
+    {
+      "name": "Wrapper deterministically reproduces official candidate",
+      "pass": true
+    },
+    {
+      "name": "Repeat application is rejected without changing any bytes",
+      "pass": true
+    },
+    {
+      "name": "wrong release is rejected without partial modification",
+      "pass": true
+    },
+    {
+      "name": "missing phone fix is rejected without partial modification",
+      "pass": true
+    },
+    {
+      "name": "missing CW2 plan is rejected without partial modification",
+      "pass": true
+    },
+    {
+      "name": "missing Wednesday bookings is rejected without partial modification",
+      "pass": true
+    },
+    {
+      "name": "missing Equipment component is rejected without partial modification",
+      "pass": true
+    },
+    {
+      "name": "changed exact Today anchor is rejected without partial modification",
+      "pass": true
+    }
+  ],
+  "passed": 28,
+  "total": 28
+}

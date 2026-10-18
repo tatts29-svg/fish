@@ -1,0 +1,59 @@
+{
+  "author": "Andrew Fisher",
+  "scope": "Read-only actual-public v9.69 startup and bounded simulation profile",
+  "sha256": "a271015a9cf6d099b1665d3bcef71bb6fe5b2671d7081739c91b0f04d52205b5",
+  "softwareRenderer": true,
+  "notPhysicalDeviceFps": true,
+  "openingWallMs": 2807.8,
+  "cpuSegments": [
+    {
+      "name": "opening",
+      "start": 0,
+      "simEnd": 2.0,
+      "frames": 120,
+      "frameNoRenderMs": 35.1,
+      "meanFrameNoRenderMs": 0.293,
+      "maxSmoke": 218,
+      "maxSparks": 0,
+      "maxMarks": 26,
+      "burn": 0.998,
+      "quality": "balanced"
+    },
+    {
+      "name": "burnout",
+      "start": 1.5,
+      "simEnd": 3.5,
+      "frames": 120,
+      "frameNoRenderMs": 6.5,
+      "meanFrameNoRenderMs": 0.054,
+      "maxSmoke": 218,
+      "maxSparks": 0,
+      "maxMarks": 79,
+      "burn": 0.196,
+      "quality": "balanced"
+    },
+    {
+      "name": "cruise",
+      "start": 12,
+      "simEnd": 14.0,
+      "frames": 120,
+      "frameNoRenderMs": 11.3,
+      "meanFrameNoRenderMs": 0.094,
+      "maxSmoke": 2,
+      "maxSparks": 0,
+      "maxMarks": 81,
+      "burn": 0.0,
+      "quality": "balanced"
+    }
+  ],
+  "startupStall": {
+    "name": "bufferData",
+    "phase": "installVegetation781",
+    "elapsed": 15548.3,
+    "start": 8040.4
+  },
+  "interpretation": "Fixed-step simulation is bounded and fast in this sample. The long startup wall stall occurs inside the vegetation mesh bufferData upload; driver backpressure is included, so it is not evidence of a slow vegetation JavaScript loop. Upload/draw times from SwiftShader are not physical-device performance claims.",
+  "pageErrors": [],
+  "nativeRecordUnchanged": true,
+  "operationalWriteAttempts": 0
+}

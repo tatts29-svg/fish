@@ -1,0 +1,277 @@
+{
+  "author": "Andrew Fisher",
+  "scope": "Independent pure quantity parsing, unit boundaries, precedence, shared line projection and original-source preservation",
+  "sourceSha256": "91920fe2aea7edd08d18241430872c6dae7b4b3366375e88ab134d5036d8b2f5",
+  "checks": [
+    {
+      "label": "missing FWF is one",
+      "pass": true
+    },
+    {
+      "label": "blank FWF is one",
+      "pass": true
+    },
+    {
+      "label": "recorded zero remains zero",
+      "pass": true
+    },
+    {
+      "label": "recorded four wins over description",
+      "pass": true
+    },
+    {
+      "label": "recorded numeric string wins",
+      "pass": true
+    },
+    {
+      "label": "recorded decimal remains decimal",
+      "pass": true
+    },
+    {
+      "label": "negative recorded quantity stays invalid",
+      "pass": true
+    },
+    {
+      "label": "nonfinite quantity stays invalid",
+      "pass": true
+    },
+    {
+      "label": "invalid recorded quantity stays invalid",
+      "pass": true
+    },
+    {
+      "label": "qty label",
+      "pass": true
+    },
+    {
+      "label": "uppercase label",
+      "pass": true
+    },
+    {
+      "label": "quantity equals label",
+      "pass": true
+    },
+    {
+      "label": "compact qty label",
+      "pass": true
+    },
+    {
+      "label": "zero description quantity",
+      "pass": true
+    },
+    {
+      "label": "thousands description quantity",
+      "pass": true
+    },
+    {
+      "label": "negative description quantity stays invalid",
+      "pass": true
+    },
+    {
+      "label": "incomplete label stays invalid",
+      "pass": true
+    },
+    {
+      "label": "invalid label stays invalid",
+      "pass": true
+    },
+    {
+      "label": "conflicting labels stay invalid",
+      "pass": true
+    },
+    {
+      "label": "duplicate matching labels count once",
+      "pass": true
+    },
+    {
+      "label": "leading multiplication",
+      "pass": true
+    },
+    {
+      "label": "leading compact multiplication",
+      "pass": true
+    },
+    {
+      "label": "leading typographic multiplication",
+      "pass": true
+    },
+    {
+      "label": "trailing multiplication",
+      "pass": true
+    },
+    {
+      "label": "trailing compact multiplication",
+      "pass": true
+    },
+    {
+      "label": "sized described item times count",
+      "pass": true
+    },
+    {
+      "label": "generator rating not quantity",
+      "pass": true
+    },
+    {
+      "label": "building length not quantity",
+      "pass": true
+    },
+    {
+      "label": "toilet capacity not quantity",
+      "pass": true
+    },
+    {
+      "label": "voltage and frequency not quantity",
+      "pass": true
+    },
+    {
+      "label": "millimetre dimensions not quantity",
+      "pass": true
+    },
+    {
+      "label": "metre dimensions not quantity",
+      "pass": true
+    },
+    {
+      "label": "prefixed unlabelled dimensions not quantity",
+      "pass": true
+    },
+    {
+      "label": "prefixed small dimensions not quantity",
+      "pass": true
+    },
+    {
+      "label": "three-part dimensions not quantity",
+      "pass": true
+    },
+    {
+      "label": "explicit quantity beside dimensions is recognised",
+      "pass": true
+    },
+    {
+      "label": "dimensions before name not quantity",
+      "pass": true
+    },
+    {
+      "label": "asset number not quantity",
+      "pass": true
+    },
+    {
+      "label": "reference number not quantity",
+      "pass": true
+    },
+    {
+      "label": "generator reference not quantity",
+      "pass": true
+    },
+    {
+      "label": "prose separator is not another item",
+      "pass": true
+    },
+    {
+      "label": "empty item remains without quantity",
+      "pass": true
+    },
+    {
+      "label": "line description explicit count is recognised",
+      "pass": true
+    },
+    {
+      "label": "context explicit count is recognised",
+      "pass": true
+    },
+    {
+      "label": "legacy default replaced by explicit description count",
+      "pass": true
+    },
+    {
+      "label": "typed quantity wins over old legacy metadata",
+      "pass": true
+    },
+    {
+      "label": "contract-derived quantity stays authoritative",
+      "pass": true
+    },
+    {
+      "label": "separate structured lines each count once",
+      "pass": true
+    },
+    {
+      "label": "inferred line clones source and becomes consistently priceable",
+      "pass": true
+    },
+    {
+      "label": "projection is idempotent including context quantity",
+      "pass": true
+    },
+    {
+      "label": "invalid explicit quantity cannot reach direct pricing as negative",
+      "pass": true
+    },
+    {
+      "label": "invalid description quantity cannot retain legacy positive price",
+      "pass": true
+    },
+    {
+      "label": "event explicit display preserved",
+      "pass": true
+    },
+    {
+      "label": "event explicit zero display preserved",
+      "pass": true
+    },
+    {
+      "label": "event partial delivery display preserved",
+      "pass": true
+    },
+    {
+      "label": "event explicit raw preserved",
+      "pass": true
+    },
+    {
+      "label": "event explicit zero raw preserved",
+      "pass": true
+    },
+    {
+      "label": "blank event derives sole shared item quantity",
+      "pass": true
+    },
+    {
+      "label": "mixed item reference context does not multiply another item",
+      "pass": true
+    },
+    {
+      "label": "reference prose cannot replace recorded shared quantity in blank event",
+      "pass": true
+    },
+    {
+      "label": "event description count wins for that event",
+      "pass": true
+    },
+    {
+      "label": "separate unquantified delivery descriptions each count one",
+      "pass": true
+    },
+    {
+      "label": "build and removal directions each retain full shared quantity",
+      "pass": true
+    }
+  ],
+  "passed": 63,
+  "total": 63,
+  "failures": [],
+  "patchSha256": "0bfa820aa7c3761592015effcbfd8d74dfa824cc216b228fc582b581b5867dfc",
+  "sourcePatchChecks": {
+    "appliesToReviewedLive": true,
+    "repeatRejected": true,
+    "changedAnchorRejected": true
+  },
+  "sourceReview": {
+    "rawSourceDataUnchanged": true,
+    "recordedQuantityPrecedesDescription": true,
+    "sharedLineProjectionUsedBeforePricing": true,
+    "nativeStateWrites": false,
+    "restOfAndAliasExclusionsPreserved": true,
+    "scheduleEventDisplayUsesSameRule": true,
+    "quantityChangesRequireNoRateChange": true
+  }
+}

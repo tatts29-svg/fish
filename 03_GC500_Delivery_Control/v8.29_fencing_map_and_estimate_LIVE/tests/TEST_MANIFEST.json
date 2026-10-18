@@ -1,0 +1,10 @@
+{
+  "author": "Andrew Fisher",
+  "purpose": "Synthetic portable tests separate from the frozen product package",
+  "files": {
+    "presentation829.cjs": {
+      "sha256": "1570f501c23bea88fa308363ab5f2f5bcf5640d42a11dba8e1e1097041d4ac9a",
+      "bytes": 4195
+    }
+  }
+}

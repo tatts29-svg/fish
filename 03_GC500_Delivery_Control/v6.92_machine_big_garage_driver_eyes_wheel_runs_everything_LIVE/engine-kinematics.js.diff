@@ -1,0 +1,23 @@
+--- /tmp/claude-0/stage3/machine_base/engine-kinematics.js	2026-09-26 09:44:00.940385730 +0000
++++ /tmp/claude-0/stage3/machine/engine-kinematics.js	2026-09-27 02:53:10.740379096 +0000
+@@ -39,7 +39,20 @@
+    (tests/engine.test.mjs measures the sightline) */
+ export const COCKPIT_EYE=Object.freeze({x:.39,y:1.02,z:-.30,lookX:-.30,lookY:.84,lookZ:-.29,fov:62});   /* v5.82: the eye looks 6 cm lower, so the whole wheel sits above the dock (Andrew Fisher: the cog wheel was hard to see for what was in the way) */
+ /* the wheel exhibit: where the camera stands when the wheel is taken apart in the cockpit — across the cabin on the passenger's side, three-quarters on to the column, so the separated stack has depth (Andrew Fisher, 24 Sep 2026: the cog taken apart like this, in the steering wheel concept) */
++/* v6.92 — RETIRED. Andrew Fisher, 27 Sep 2026: "the cockpit should only ever be from the driver's view." Nothing reads it now; it is
++   kept only so an older harness that imports it still loads. */
+ export const COCKPIT_WHEEL_EYE=Object.freeze({x:.42,y:1.02,z:-.01,lookX:.03,lookY:.80,lookZ:-.30,fov:62});   /* v5.81: the same 62° lens as the seat */
++/* v6.92 — THE DRIVER'S HEAD, AND HIS EYES IN IT. Andrew Fisher, 27 Sep 2026: "In the cockpit the view should be from the driver's.
++   Exactly the driver's eyes, whatever the driver sees you should see." The helmet is built round DRIVER_HEAD (car-driver.js), turning
++   on his neck at DRIVER_HEAD.neck; his eyes sit DRIVER_HEAD.eye inside it (forward of the helmet's centre and a little above it, as
++   eyes are). The head is placed so its eyes fall exactly on COCKPIT_EYE, the sightline over the rim every earlier still was measured
++   from, so the camera — which is now always at those eyes — sees what v5.82 framed. LOOK_LIMITS are a seated, belted driver's: the
++   head turns 100° each way, looks 50° down to the lever and the pedals and 30° up to the cage. */
++export const DRIVER_HEAD=Object.freeze({x:.465,y:.975,z:-.30,eye:Object.freeze({x:-.075,y:.045,z:0}),neck:Object.freeze({x:.50,y:.885,z:-.30})});
++export const LOOK_LIMITS=Object.freeze({yaw:100*Math.PI/180,down:-50*Math.PI/180,up:30*Math.PI/180});
++/* how far the wheel's stack spreads along the column in the driver's seat, as a share of the exhibit's own distances: the stack
++   comes toward the driver's chest along the column and stops short of it, every layer in front of his eyes (car-app.js) */
++export const COCKPIT_SPREAD=.5;
+ /* the direction the plates face for a yaw and a pitch — local +z after Ry(yaw) then Rz(pitch) (Euler 'ZYX') */
+ export function cogAxis(yaw,pitch){return {x:Math.sin(yaw)*Math.cos(pitch),y:Math.sin(yaw)*Math.sin(pitch),z:Math.cos(yaw)};}
+ /* one pose, whatever t a caller passes — the argument is kept so the callers of the old two-state path need not change */

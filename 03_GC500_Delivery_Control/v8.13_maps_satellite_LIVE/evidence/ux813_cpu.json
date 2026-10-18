@@ -1,0 +1,89 @@
+{
+  "author": "Andrew Fisher",
+  "scope": "Production source functions under CPU DOM fixture. Browser visibility, layout and focus order require independent actual-page evidence.",
+  "inputs": {
+    "base": "b312edb6cd07a02dcdad4f1ace57f06921b2f3d597d9e23cbd3de6c8f6e6cd43",
+    "explorer": "366897925de96b5f881485bec60c6a3a7263fd20d9b04d48231ac82d356020d0",
+    "merge": "6797644c8b96e11fb9dbfa5887ab54b464fdf7e41563803d8add934b553bedf1",
+    "helper": "37fc278257fbcfefb9e996175ef6ef335be5d17c74dbda4a8f766ec015aad3bf"
+  },
+  "checks": [
+    {
+      "id": "placed user pick stays in map and closes phone Find",
+      "pass": true
+    },
+    {
+      "id": "unplaced user pick retains phone Find and explains no location",
+      "pass": true
+    },
+    {
+      "id": "invalid reference does not move or close panel",
+      "pass": true
+    },
+    {
+      "id": "category including selected reference retains coherent selection",
+      "pass": true
+    },
+    {
+      "id": "category excluding selected reference clears shared card/ring state",
+      "pass": true
+    },
+    {
+      "id": "turning category off clears pick and group marks",
+      "pass": true
+    },
+    {
+      "id": "drawing-only result zero is not the first reference result",
+      "pass": true
+    },
+    {
+      "id": "Enter still chooses first reference result",
+      "pass": true
+    },
+    {
+      "id": "legend before drawing readiness remains closable",
+      "pass": true
+    },
+    {
+      "id": "Escape dismisses legend with input focus and returns visible Find",
+      "pass": true
+    },
+    {
+      "id": "Escape dismisses phone Find without clearing the selected pin",
+      "pass": true
+    },
+    {
+      "id": "desktop legend Close restores its existing source button",
+      "pass": true
+    },
+    {
+      "id": "Sources records actual provider while keeping limits and original metadata",
+      "pass": true
+    },
+    {
+      "id": "Fit and area source explicitly clear pick; ordinary zoom does not",
+      "pass": true
+    },
+    {
+      "id": "search result handler distinguishes drawing result from reference",
+      "pass": true
+    },
+    {
+      "id": "only explicit Open record invokes host drawer callback",
+      "pass": true
+    },
+    {
+      "id": "merge shared clear removes card and 3D ring without moving position",
+      "pass": true
+    },
+    {
+      "id": "master-plan and host placement construction remain byte-exact",
+      "pass": true
+    },
+    {
+      "id": "core georeference transforms remain byte-exact",
+      "pass": true
+    }
+  ],
+  "passed": 19
+}

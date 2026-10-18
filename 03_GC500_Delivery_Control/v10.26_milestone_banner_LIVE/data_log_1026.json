@@ -1,0 +1,5405 @@
+{
+ "baseplan": {
+  "added": [
+   {
+    "line": "9961265/31",
+    "branch": "STPS",
+    "item": "SUB-1101",
+    "description": "VMS24 Variable Message Board Senior",
+    "what": "Variable Message Board Senior",
+    "kind": "vms",
+    "register_type": "VMS",
+    "status": "Pending",
+    "booked_delivery_date": "2026-10-19",
+    "demob_date": "2026-10-26",
+    "has_rate": true,
+    "joined_to": null,
+    "via": null
+   },
+   {
+    "line": "9961265/32",
+    "branch": "STPS",
+    "item": "1191957",
+    "description": "VMS13 Variable Message Board Senior",
+    "what": "Variable Message Board Senior",
+    "kind": "vms",
+    "register_type": "VMS",
+    "status": "Del Req",
+    "booked_delivery_date": "2026-10-19",
+    "demob_date": "2026-10-27",
+    "has_rate": true,
+    "joined_to": null,
+    "via": null
+   },
+   {
+    "line": "9961265/34",
+    "branch": "STPS",
+    "item": "1201864",
+    "description": "VMS14 Variable Message Board Junior",
+    "what": "Variable Message Board Junior",
+    "kind": "vms",
+    "register_type": "VMS",
+    "status": "Del Req",
+    "booked_delivery_date": "2026-10-19",
+    "demob_date": "2026-10-27",
+    "has_rate": true,
+    "joined_to": null,
+    "via": null
+   },
+   {
+    "line": "9961265/35",
+    "branch": "STPS",
+    "item": "1211348",
+    "description": "VMS15 Variable Message Board Senior",
+    "what": "Variable Message Board Senior",
+    "kind": "vms",
+    "register_type": "VMS",
+    "status": "Del Req",
+    "booked_delivery_date": "2026-10-19",
+    "demob_date": "2026-10-27",
+    "has_rate": true,
+    "joined_to": null,
+    "via": null
+   },
+   {
+    "line": "9961265/37",
+    "branch": "STPS",
+    "item": "1211376",
+    "description": "VMS16 Variable Message Board Senior",
+    "what": "Variable Message Board Senior",
+    "kind": "vms",
+    "register_type": "VMS",
+    "status": "Del Req",
+    "booked_delivery_date": "2026-10-19",
+    "demob_date": "2026-10-27",
+    "has_rate": true,
+    "joined_to": null,
+    "via": null
+   },
+   {
+    "line": "9961265/39",
+    "branch": "STPS",
+    "item": "1211364",
+    "description": "VMS17 Variable Message Board Senior",
+    "what": "Variable Message Board Senior",
+    "kind": "vms",
+    "register_type": "VMS",
+    "status": "Del Req",
+    "booked_delivery_date": "2026-10-19",
+    "demob_date": "2026-10-27",
+    "has_rate": true,
+    "joined_to": null,
+    "via": null
+   },
+   {
+    "line": "9961976/44",
+    "branch": "NVAC",
+    "item": "1276503",
+    "description": "GN13 Generator - 60kVA (Diesel) DEL AS 45KVA",
+    "what": "Generator - 60kVA (Diesel) DEL AS 45KVA",
+    "kind": "generator",
+    "register_type": "60kva",
+    "status": "Delivered",
+    "booked_delivery_date": "2026-10-12",
+    "demob_date": "2026-11-12",
+    "has_rate": true,
+    "joined_to": "GN13",
+    "via": "asset number"
+   },
+   {
+    "line": "9961976/45",
+    "branch": "NVAC",
+    "item": "1261271",
+    "description": "SPARE-Generator - 60kVA (Diesel)",
+    "what": "Generator - 60kVA (Diesel)",
+    "kind": "generator",
+    "register_type": "60kva",
+    "status": "Pending",
+    "booked_delivery_date": "2026-10-15",
+    "demob_date": "2026-10-26",
+    "has_rate": false,
+    "joined_to": "GN13",
+    "via": "asset number"
+   },
+   {
+    "line": "9961976/46",
+    "branch": "NVAC",
+    "item": null,
+    "description": "Cable - Set of 5 to suit 200KVA",
+    "what": "Cable - Set of 5 to suit 200KVA",
+    "kind": "accessory",
+    "register_type": null,
+    "status": "Delivered",
+    "booked_delivery_date": "2026-10-12",
+    "demob_date": "2026-10-13",
+    "has_rate": true,
+    "joined_to": null,
+    "via": null
+   },
+   {
+    "line": "9961976/47",
+    "branch": "NVAC",
+    "item": "CABLESSDI120MM",
+    "description": "Cable - 120mm2 Single Double Insulated",
+    "what": "Cable - 120mm2 Single Double Insulated",
+    "kind": "accessory",
+    "register_type": null,
+    "status": "Delivered",
+    "booked_delivery_date": "2026-10-12",
+    "demob_date": "2026-10-13",
+    "has_rate": false,
+    "joined_to": null,
+    "via": null
+   },
+   {
+    "line": "9961976/48",
+    "branch": "NVAC",
+    "item": "1320828",
+    "description": "GN06 Generator - 60kVA (Diesel)",
+    "what": "Generator - 60kVA (Diesel)",
+    "kind": "generator",
+    "register_type": "60kva",
+    "status": "Del Req",
+    "booked_delivery_date": "2026-10-19",
+    "demob_date": "2026-10-26",
+    "has_rate": true,
+    "joined_to": "GN06",
+    "via": "asset number"
+   },
+   {
+    "line": "9961976/49",
+    "branch": "NVAC",
+    "item": "1277089",
+    "description": "GN24-Generator - 60kVA (Diesel) - Trailer Mounted",
+    "what": "Generator - 60kVA (Diesel) - Trailer Mounted",
+    "kind": "generator",
+    "register_type": "60kva",
+    "status": "Del Req",
+    "booked_delivery_date": "2026-10-19",
+    "demob_date": "2026-10-26",
+    "has_rate": true,
+    "joined_to": null,
+    "via": null
+   },
+   {
+    "line": "9961976/50",
+    "branch": "NVAC",
+    "item": "Delivery",
+    "description": "Delivery for Line Item(s) 7,14 15 Oct 2026",
+    "what": "Delivery for Line Item(s) 7,14 15 Oct 2026",
+    "kind": "transport",
+    "register_type": null,
+    "status": "Quoted",
+    "booked_delivery_date": null,
+    "demob_date": null,
+    "has_rate": false,
+    "joined_to": null,
+    "via": null
+   },
+   {
+    "line": "9968862/131",
+    "branch": "KINP",
+    "item": "107135",
+    "description": "P45 Portable Building Shell 6.0M x 3.0M",
+    "what": "Portable Building Shell 6.0M x 3.0M",
+    "kind": "building",
+    "register_type": "Building 6m",
+    "status": "Delivered",
+    "booked_delivery_date": "2026-10-12",
+    "demob_date": "2026-11-13",
+    "has_rate": true,
+    "joined_to": "P45",
+    "via": "asset number"
+   },
+   {
+    "line": "9968862/132",
+    "branch": "KINP",
+    "item": "1272751",
+    "description": "P46 Refrigerator",
+    "what": "Refrigerator",
+    "kind": "furniture",
+    "register_type": "Fridge Lge",
+    "status": "Pending",
+    "booked_delivery_date": "2026-09-14",
+    "demob_date": "2026-11-13",
+    "has_rate": true,
+    "joined_to": null,
+    "via": null
+   },
+   {
+    "line": "9972648/16",
+    "branch": "STPS",
+    "item": "ARMORZONMASHTL2",
+    "description": "WB06 Barrier - Crash Rated Water filled - Armorzone MASH TL2",
+    "what": "Barrier - Crash Rated Water filled - Armorzone MASH TL2",
+    "kind": "barrier",
+    "register_type": "TL2",
+    "status": "Delivered",
+    "booked_delivery_date": "2026-10-15",
+    "demob_date": "2026-10-27",
+    "has_rate": true,
+    "joined_to": null,
+    "via": null
+   },
+   {
+    "line": "9972648/17",
+    "branch": "STPS",
+    "item": "ARMORZONMASHTL2",
+    "description": "WB06 Barrier - Crash Rated Water filled - Armorzone MASH TL2",
+    "what": "Barrier - Crash Rated Water filled - Armorzone MASH TL2",
+    "kind": "barrier",
+    "register_type": "TL2",
+    "status": "Delivered",
+    "booked_delivery_date": "2026-10-15",
+    "demob_date": "2026-10-27",
+    "has_rate": true,
+    "joined_to": null,
+    "via": null
+   },
+   {
+    "line": "9987005/7",
+    "branch": "MEAD",
+    "item": "1281615",
+    "description": "Forklift Rough Terrain 2.5t 4WD Diesel",
+    "what": "Forklift Rough Terrain 2.5t 4WD Diesel",
+    "kind": "forklift",
+    "register_type": null,
+    "status": "Delivered",
+    "booked_delivery_date": "2026-10-13",
+    "demob_date": "2026-10-27",
+    "has_rate": true,
+    "joined_to": "T0109",
+    "via": "asset number"
+   },
+   {
+    "line": "9990776/1",
+    "branch": "STPS",
+    "item": "ARMORZONMASHTL2",
+    "description": "WB13 Barrier - Crash Rated Water filled - Armorzone MASH TL2",
+    "what": "Barrier - Crash Rated Water filled - Armorzone MASH TL2",
+    "kind": "barrier",
+    "register_type": "TL2",
+    "status": "Pending",
+    "booked_delivery_date": "2026-10-19",
+    "demob_date": "2026-10-26",
+    "has_rate": true,
+    "joined_to": null,
+    "via": null
+   },
+   {
+    "line": "9990776/2",
+    "branch": "STPS",
+    "item": "TEMPFENCEFEETRH",
+    "description": "Ped Gates",
+    "what": "Ped Gates",
+    "kind": "other",
+    "register_type": null,
+    "status": "Pending",
+    "booked_delivery_date": "2026-10-19",
+    "demob_date": "2026-10-26",
+    "has_rate": true,
+    "joined_to": null,
+    "via": null
+   },
+   {
+    "line": "9990776/3",
+    "branch": "STPS",
+    "item": "TEMPFENCEFEETRH",
+    "description": "1.8m Security Fence",
+    "what": "1.8m Security Fence",
+    "kind": "other",
+    "register_type": null,
+    "status": "Pending",
+    "booked_delivery_date": "2026-10-19",
+    "demob_date": "2026-10-26",
+    "has_rate": true,
+    "joined_to": null,
+    "via": null
+   },
+   {
+    "line": "9990776/4",
+    "branch": "STPS",
+    "item": "TEMPFENCEFEETRH",
+    "description": "Fence Relocation",
+    "what": "Fence Relocation",
+    "kind": "other",
+    "register_type": null,
+    "status": "Pending",
+    "booked_delivery_date": "2026-10-19",
+    "demob_date": "2026-10-26",
+    "has_rate": true,
+    "joined_to": null,
+    "via": null
+   },
+   {
+    "line": "9990776/5",
+    "branch": "STPS",
+    "item": "TEMPFENCEFEETRH",
+    "description": "1.8m Security Fence w/ Hoarding",
+    "what": "1.8m Security Fence w/ Hoarding",
+    "kind": "other",
+    "register_type": null,
+    "status": "Pending",
+    "booked_delivery_date": "2026-10-19",
+    "demob_date": "2026-10-26",
+    "has_rate": true,
+    "joined_to": null,
+    "via": null
+   },
+   {
+    "line": "9990776/6",
+    "branch": "STPS",
+    "item": "TEMPFENCEFEETRH",
+    "description": "1.8m Fence w/Scrim",
+    "what": "1.8m Fence w/Scrim",
+    "kind": "other",
+    "register_type": null,
+    "status": "Pending",
+    "booked_delivery_date": "2026-10-19",
+    "demob_date": "2026-10-26",
+    "has_rate": true,
+    "joined_to": null,
+    "via": null
+   },
+   {
+    "line": "9990776/7",
+    "branch": "STPS",
+    "item": "MISCITEM",
+    "description": "Barrier - Crowd Control",
+    "what": "Barrier - Crowd Control",
+    "kind": "barrier",
+    "register_type": "TL2",
+    "status": "Pending",
+    "booked_delivery_date": "2026-10-19",
+    "demob_date": "2026-10-26",
+    "has_rate": true,
+    "joined_to": null,
+    "via": null
+   },
+   {
+    "line": "9990776/8",
+    "branch": "STPS",
+    "item": "MISCITEM",
+    "description": "Barrier - Crowd Control Flat Feet",
+    "what": "Barrier - Crowd Control Flat Feet",
+    "kind": "barrier",
+    "register_type": "TL2",
+    "status": "Pending",
+    "booked_delivery_date": "2026-10-19",
+    "demob_date": "2026-10-26",
+    "has_rate": true,
+    "joined_to": null,
+    "via": null
+   },
+   {
+    "line": "9990776/9",
+    "branch": "STPS",
+    "item": "MISCITEM",
+    "description": "Demarcation CCB",
+    "what": "Demarcation CCB",
+    "kind": "other",
+    "register_type": null,
+    "status": "Pending",
+    "booked_delivery_date": "2026-10-19",
+    "demob_date": "2026-10-26",
+    "has_rate": true,
+    "joined_to": null,
+    "via": null
+   },
+   {
+    "line": "9990776/10",
+    "branch": "STPS",
+    "item": "SHADECLOTH",
+    "description": "Shade Cloth",
+    "what": "Shade Cloth",
+    "kind": "other",
+    "register_type": null,
+    "status": "Pending",
+    "booked_delivery_date": "2026-10-19",
+    "demob_date": null,
+    "has_rate": false,
+    "joined_to": null,
+    "via": null
+   },
+   {
+    "line": "9992300/1",
+    "branch": "MEAD",
+    "item": "1321364",
+    "description": "Forklift Rough Terrain 5.0t 4WD Diesel",
+    "what": "Forklift Rough Terrain 5.0t 4WD Diesel",
+    "kind": "forklift",
+    "register_type": null,
+    "status": "Del Req",
+    "booked_delivery_date": "2026-10-17",
+    "demob_date": "2026-10-27",
+    "has_rate": true,
+    "joined_to": null,
+    "via": null
+   },
+   {
+    "line": "9992300/2",
+    "branch": "MEAD",
+    "item": "1298390",
+    "description": "Forklift Rough Terrain 2.5t 4WD Diesel",
+    "what": "Forklift Rough Terrain 2.5t 4WD Diesel",
+    "kind": "forklift",
+    "register_type": null,
+    "status": "Del Req",
+    "booked_delivery_date": "2026-10-17",
+    "demob_date": "2026-10-27",
+    "has_rate": true,
+    "joined_to": null,
+    "via": null
+   },
+   {
+    "line": "9992300/3",
+    "branch": "MEAD",
+    "item": "MISCITEM",
+    "description": "Fork Extensions 2.4m",
+    "what": "Fork Extensions 2.4m",
+    "kind": "forklift accessory",
+    "register_type": null,
+    "status": "Del Req",
+    "booked_delivery_date": "2026-10-17",
+    "demob_date": "2026-10-27",
+    "has_rate": true,
+    "joined_to": null,
+    "via": null
+   },
+   {
+    "line": "9992300/4",
+    "branch": "MEAD",
+    "item": "1220903",
+    "description": "Scissor Lift With Operator Protection 43ft (13.0M) - Diesel",
+    "what": "Scissor Lift With Operator Protection 43ft (13.0M) - Diesel",
+    "kind": "access",
+    "register_type": null,
+    "status": "Del Req",
+    "booked_delivery_date": "2026-10-17",
+    "demob_date": "2026-10-26",
+    "has_rate": true,
+    "joined_to": null,
+    "via": null
+   },
+   {
+    "line": "9992300/5",
+    "branch": "MEAD",
+    "item": "1300290",
+    "description": "Knuckle Boom 61ft (18.6M) - Diesel",
+    "what": "Knuckle Boom 61ft (18.6M) - Diesel",
+    "kind": "access",
+    "register_type": null,
+    "status": "Pending",
+    "booked_delivery_date": "2026-10-17",
+    "demob_date": "2026-10-26",
+    "has_rate": true,
+    "joined_to": null,
+    "via": null
+   },
+   {
+    "line": "9992300/6",
+    "branch": "MEAD",
+    "item": "MISCITEM",
+    "description": "Trakmat",
+    "what": "Trakmat",
+    "kind": "ground protection",
+    "register_type": null,
+    "status": "Del Req",
+    "booked_delivery_date": "2026-10-17",
+    "demob_date": "2026-10-27",
+    "has_rate": true,
+    "joined_to": null,
+    "via": null
+   },
+   {
+    "line": "9992300/7",
+    "branch": "MEAD",
+    "item": "TRANSPORT",
+    "description": "Transport Charge 5T Forklift",
+    "what": "Transport Charge 5T Forklift",
+    "kind": "transport",
+    "register_type": null,
+    "status": "Pending",
+    "booked_delivery_date": null,
+    "demob_date": null,
+    "has_rate": false,
+    "joined_to": null,
+    "via": null
+   },
+   {
+    "line": "9992300/8",
+    "branch": "MEAD",
+    "item": "TRANSPORT",
+    "description": "Transport Charge 2.5T Forklift",
+    "what": "Transport Charge 2.5T Forklift",
+    "kind": "transport",
+    "register_type": null,
+    "status": "Pending",
+    "booked_delivery_date": null,
+    "demob_date": null,
+    "has_rate": false,
+    "joined_to": null,
+    "via": null
+   },
+   {
+    "line": "9992300/9",
+    "branch": "MEAD",
+    "item": "TRANSPORT",
+    "description": "Transport Charge 43' Scissorlift",
+    "what": "Transport Charge 43' Scissorlift",
+    "kind": "transport",
+    "register_type": null,
+    "status": "Pending",
+    "booked_delivery_date": null,
+    "demob_date": null,
+    "has_rate": false,
+    "joined_to": null,
+    "via": null
+   },
+   {
+    "line": "9992300/10",
+    "branch": "MEAD",
+    "item": "TRANSPORT",
+    "description": "Transport Charge 60' Boom",
+    "what": "Transport Charge 60' Boom",
+    "kind": "transport",
+    "register_type": null,
+    "status": "Pending",
+    "booked_delivery_date": null,
+    "demob_date": null,
+    "has_rate": false,
+    "joined_to": null,
+    "via": null
+   },
+   {
+    "line": "9992300/11",
+    "branch": "MEAD",
+    "item": "TRANSPORT",
+    "description": "Transport Charge Trakmat",
+    "what": "Transport Charge Trakmat",
+    "kind": "transport",
+    "register_type": null,
+    "status": "Pending",
+    "booked_delivery_date": null,
+    "demob_date": null,
+    "has_rate": false,
+    "joined_to": null,
+    "via": null
+   }
+  ],
+  "removed": [
+   {
+    "line": "9961265/18",
+    "item": "sub-17093",
+    "description": "VMS13 Variable Message Board Senior RPM",
+    "status": "Pending"
+   },
+   {
+    "line": "9961265/19",
+    "item": "sub-17093",
+    "description": "VMS14 Variable Message Board Senior RPM",
+    "status": "Pending"
+   },
+   {
+    "line": "9961265/21",
+    "item": "sub-17093",
+    "description": "VMS15 Variable Message Board Senior RPM",
+    "status": "Pending"
+   },
+   {
+    "line": "9961265/22",
+    "item": "sub-17093",
+    "description": "VMS16 Variable Message Board Senior RPM",
+    "status": "Pending"
+   },
+   {
+    "line": "9961265/23",
+    "item": "sub-17093",
+    "description": "VMS17 Variable Message Board RPM",
+    "status": "Pending"
+   },
+   {
+    "line": "9961976/12",
+    "item": "1261271",
+    "description": "GN13-Generator - 60kVA (Diesel)DEL AS 45KVA",
+    "status": "Pending"
+   },
+   {
+    "line": "9961976/29",
+    "item": "1262224",
+    "description": "SUPPLY- Telehandler Fork Extension 1800mm",
+    "status": "Pending"
+   },
+   {
+    "line": "9961976/30",
+    "item": "1214298",
+    "description": "EVENTS-Forklift 2.5t Container Diesel",
+    "status": "Pending"
+   },
+   {
+    "line": "9961976/32",
+    "item": "1197488",
+    "description": "SPARE-Generator - 300kVA (Diesel)",
+    "status": "Pending"
+   },
+   {
+    "line": "9961976/36",
+    "item": "1197215",
+    "description": "SPARE-Generator - 100kVA (Diesel) - Trailer Mounted",
+    "status": "Pending"
+   },
+   {
+    "line": "9961976/39",
+    "item": "1276505",
+    "description": "SPARE-Generator - 60kVA (Diesel)",
+    "status": "Pending"
+   },
+   {
+    "line": "9968862/82",
+    "item": "1327222",
+    "description": "P53 Portable Building Shell 6.0M x 3.0M - Cyclonic Rated",
+    "status": "Pending"
+   },
+   {
+    "line": "9968862/84",
+    "item": null,
+    "description": "P53 Refrigerator - Large",
+    "status": "Pending"
+   },
+   {
+    "line": "9968862/97",
+    "item": "DESK",
+    "description": "P46 Desk",
+    "status": "Pending"
+   },
+   {
+    "line": "9968862/98",
+    "item": "1327217",
+    "description": "P47 Portable Building Shell 6.0M x 3.0M - Cyclonic Rated",
+    "status": "Pending"
+   },
+   {
+    "line": "9968862/127",
+    "item": "CLEAN7",
+    "description": "Cleaning Fee",
+    "status": "Pending"
+   },
+   {
+    "line": "9968955/60",
+    "item": null,
+    "description": "WC41 Toilet Portable - Fresh Water Flush",
+    "status": "Del Req"
+   },
+   {
+    "line": "9968955/61",
+    "item": null,
+    "description": "WC41 Toilet Portable - Fresh Water Flush",
+    "status": "Del Req"
+   },
+   {
+    "line": "9968955/62",
+    "item": null,
+    "description": "WC41 Toilet Portable - Fresh Water Flush",
+    "status": "Del Req"
+   },
+   {
+    "line": "9968955/63",
+    "item": null,
+    "description": "WC41 Toilet Portable - Fresh Water Flush",
+    "status": "Del Req"
+   },
+   {
+    "line": "9968955/64",
+    "item": null,
+    "description": "WC41 Toilet Portable - Fresh Water Flush",
+    "status": "Del Req"
+   },
+   {
+    "line": "9968955/65",
+    "item": null,
+    "description": "WC41 Toilet Portable - Fresh Water Flush",
+    "status": "Del Req"
+   },
+   {
+    "line": "9968955/66",
+    "item": null,
+    "description": "WC41 Toilet Portable - Fresh Water Flush",
+    "status": "Del Req"
+   },
+   {
+    "line": "9968955/67",
+    "item": null,
+    "description": "WC41 Toilet Portable - Fresh Water Flush",
+    "status": "Del Req"
+   },
+   {
+    "line": "9968955/68",
+    "item": null,
+    "description": "WC41 Toilet Portable - Fresh Water Flush",
+    "status": "Del Req"
+   },
+   {
+    "line": "9968955/71",
+    "item": null,
+    "description": "WC43 Toilet Portable - Fresh Water Flush",
+    "status": "Del Req"
+   },
+   {
+    "line": "9968955/72",
+    "item": null,
+    "description": "WC43 Toilet Portable - Fresh Water Flush",
+    "status": "Del Req"
+   },
+   {
+    "line": "9968955/73",
+    "item": null,
+    "description": "WC43 Toilet Portable - Fresh Water Flush",
+    "status": "Del Req"
+   },
+   {
+    "line": "9968955/74",
+    "item": null,
+    "description": "WC43 Toilet Portable - Fresh Water Flush",
+    "status": "Del Req"
+   },
+   {
+    "line": "9968955/75",
+    "item": null,
+    "description": "WC43 Toilet Portable - Fresh Water Flush",
+    "status": "Del Req"
+   },
+   {
+    "line": "9968955/76",
+    "item": null,
+    "description": "WC43 Toilet Portable - Fresh Water Flush",
+    "status": "Del Req"
+   },
+   {
+    "line": "9968955/77",
+    "item": null,
+    "description": "WC43 Toilet Portable - Fresh Water Flush",
+    "status": "Del Req"
+   },
+   {
+    "line": "9968955/78",
+    "item": null,
+    "description": "WC43 Toilet Portable - Fresh Water Flush",
+    "status": "Del Req"
+   },
+   {
+    "line": "9968955/79",
+    "item": null,
+    "description": "WC43 Toilet Portable - Fresh Water Flush",
+    "status": "Del Req"
+   },
+   {
+    "line": "9968955/82",
+    "item": null,
+    "description": "WC66 Toilet Portable - Fresh Water Flush",
+    "status": "Pending"
+   },
+   {
+    "line": "9968955/83",
+    "item": null,
+    "description": "WC66 Toilet Portable - Fresh Water Flush",
+    "status": "Pending"
+   },
+   {
+    "line": "9968955/99",
+    "item": "MISCITEM",
+    "description": "WC32 Toilet Portable - Fresh Water Flush",
+    "status": "Pending"
+   },
+   {
+    "line": "9968955/135",
+    "item": "Delivery",
+    "description": "Delivery for HA Line Item(s) 22,* 23 Sep 2026",
+    "status": "Applied"
+   },
+   {
+    "line": "9968955/136",
+    "item": "Delivery",
+    "description": "Delivery for HA Line Item(s) 23,* 23 Sep 2026",
+    "status": "Applied"
+   },
+   {
+    "line": "9968955/137",
+    "item": "Delivery",
+    "description": "Delivery for HA Line Item(s) 45,* 23 Sep 2026",
+    "status": "Applied"
+   },
+   {
+    "line": "9987005/6",
+    "item": "1274555",
+    "description": "Events Forklift 2.5t Dual Fuel",
+    "status": "Del Req"
+   }
+  ],
+  "changed": [
+   {
+    "line": "9961265/1",
+    "fields": [
+     "booked_pickup_date",
+     "demob_date",
+     "return_number",
+     "status_as_written",
+     "term_date"
+    ],
+    "status": [
+     "Delivered",
+     "Returned"
+    ]
+   },
+   {
+    "line": "9961265/12",
+    "fields": [
+     "booked_delivery_date",
+     "delivered",
+     "delivery_number",
+     "start_date",
+     "status_as_written"
+    ],
+    "status": [
+     "Pending",
+     "Delivered"
+    ]
+   },
+   {
+    "line": "9961265/15",
+    "fields": [
+     "delivery_number",
+     "status_as_written"
+    ],
+    "status": [
+     "Pending",
+     "Del Req"
+    ]
+   },
+   {
+    "line": "9961265/16",
+    "fields": [
+     "delivery_number",
+     "status_as_written"
+    ],
+    "status": [
+     "Pending",
+     "Del Req"
+    ]
+   },
+   {
+    "line": "9961265/24",
+    "fields": [
+     "delivery_number",
+     "status_as_written"
+    ],
+    "status": [
+     "Pending",
+     "Del Req"
+    ]
+   },
+   {
+    "line": "9961265/25",
+    "fields": [
+     "delivery_number",
+     "status_as_written"
+    ],
+    "status": [
+     "Pending",
+     "Del Req"
+    ]
+   },
+   {
+    "line": "9961265/26",
+    "fields": [
+     "delivery_number",
+     "status_as_written"
+    ],
+    "status": [
+     "Pending",
+     "Del Req"
+    ]
+   },
+   {
+    "line": "9961265/30",
+    "fields": [
+     "delivery_number",
+     "status_as_written"
+    ],
+    "status": [
+     "Pending",
+     "Del Req"
+    ]
+   },
+   {
+    "line": "9961976/1",
+    "fields": [
+     "description",
+     "rate_1"
+    ],
+    "status": null
+   },
+   {
+    "line": "9961976/2",
+    "fields": [
+     "description",
+     "rate_1"
+    ],
+    "status": null
+   },
+   {
+    "line": "9961976/3",
+    "fields": [
+     "description",
+     "rate_1"
+    ],
+    "status": null
+   },
+   {
+    "line": "9961976/4",
+    "fields": [
+     "description",
+     "rate_1"
+    ],
+    "status": null
+   },
+   {
+    "line": "9961976/5",
+    "fields": [
+     "rate_1"
+    ],
+    "status": null
+   },
+   {
+    "line": "9961976/6",
+    "fields": [
+     "rate_1"
+    ],
+    "status": null
+   },
+   {
+    "line": "9961976/7",
+    "fields": [
+     "delivery_number",
+     "rate_1",
+     "status_as_written"
+    ],
+    "status": [
+     "Pending",
+     "Del Req"
+    ]
+   },
+   {
+    "line": "9961976/9",
+    "fields": [
+     "rate_1"
+    ],
+    "status": null
+   },
+   {
+    "line": "9961976/10",
+    "fields": [
+     "rate_1"
+    ],
+    "status": null
+   },
+   {
+    "line": "9961976/11",
+    "fields": [
+     "delivered",
+     "rate_1",
+     "start_date",
+     "status_as_written"
+    ],
+    "status": [
+     "Del Req",
+     "Delivered"
+    ]
+   },
+   {
+    "line": "9961976/13",
+    "fields": [
+     "description",
+     "location",
+     "rate_1",
+     "what"
+    ],
+    "status": null
+   },
+   {
+    "line": "9961976/14",
+    "fields": [
+     "delivery_number",
+     "rate_1",
+     "status_as_written"
+    ],
+    "status": [
+     "Pending",
+     "Del Req"
+    ]
+   },
+   {
+    "line": "9961976/15",
+    "fields": [
+     "asset_no",
+     "asset_no_is_plant_number",
+     "description",
+     "item",
+     "rate_1",
+     "what"
+    ],
+    "status": null
+   },
+   {
+    "line": "9961976/16",
+    "fields": [
+     "location",
+     "rate_1"
+    ],
+    "status": null
+   },
+   {
+    "line": "9961976/17",
+    "fields": [
+     "rate_1"
+    ],
+    "status": null
+   },
+   {
+    "line": "9961976/18",
+    "fields": [
+     "delivery_number",
+     "rate_1",
+     "status_as_written"
+    ],
+    "status": [
+     "Pending",
+     "Del Req"
+    ]
+   },
+   {
+    "line": "9961976/19",
+    "fields": [
+     "rate_1"
+    ],
+    "status": null
+   },
+   {
+    "line": "9961976/20",
+    "fields": [
+     "rate_1"
+    ],
+    "status": null
+   },
+   {
+    "line": "9961976/27",
+    "fields": [
+     "booked_delivery_date",
+     "contract_start"
+    ],
+    "status": null
+   },
+   {
+    "line": "9961976/35",
+    "fields": [
+     "booked_delivery_date",
+     "contract_start"
+    ],
+    "status": null
+   },
+   {
+    "line": "9961976/37",
+    "fields": [
+     "booked_delivery_date",
+     "contract_start"
+    ],
+    "status": null
+   },
+   {
+    "line": "9961976/38",
+    "fields": [
+     "rate_1"
+    ],
+    "status": null
+   },
+   {
+    "line": "9961976/42",
+    "fields": [
+     "delivered",
+     "description",
+     "rate_1",
+     "start_date",
+     "status_as_written"
+    ],
+    "status": [
+     "Del Req",
+     "Delivered"
+    ]
+   },
+   {
+    "line": "9961976/43",
+    "fields": [
+     "delivered",
+     "description",
+     "rate_1",
+     "start_date",
+     "status_as_written"
+    ],
+    "status": [
+     "Del Req",
+     "Delivered"
+    ]
+   },
+   {
+    "line": "9968862/4",
+    "fields": [
+     "asset_no",
+     "delivery_number",
+     "description",
+     "item",
+     "what"
+    ],
+    "status": null
+   },
+   {
+    "line": "9968862/61",
+    "fields": [
+     "description"
+    ],
+    "status": null
+   },
+   {
+    "line": "9968862/79",
+    "fields": [
+     "booked_delivery_date",
+     "delivered",
+     "start_date",
+     "status_as_written"
+    ],
+    "status": [
+     "Del Req",
+     "Delivered"
+    ]
+   },
+   {
+    "line": "9968862/81",
+    "fields": [
+     "asset_no",
+     "asset_no_is_plant_number",
+     "booked_delivery_date",
+     "delivered",
+     "item",
+     "start_date",
+     "status_as_written"
+    ],
+    "status": [
+     "Del Req",
+     "Delivered"
+    ]
+   },
+   {
+    "line": "9968862/85",
+    "fields": [
+     "booked_delivery_date",
+     "delivered",
+     "start_date",
+     "status_as_written"
+    ],
+    "status": [
+     "Del Req",
+     "Delivered"
+    ]
+   },
+   {
+    "line": "9968862/87",
+    "fields": [
+     "booked_delivery_date",
+     "delivered",
+     "start_date",
+     "status_as_written"
+    ],
+    "status": [
+     "Del Req",
+     "Delivered"
+    ]
+   },
+   {
+    "line": "9968862/89",
+    "fields": [
+     "description"
+    ],
+    "status": null
+   },
+   {
+    "line": "9968862/90",
+    "fields": [
+     "booked_delivery_date",
+     "delivered",
+     "start_date",
+     "status_as_written"
+    ],
+    "status": [
+     "Del Req",
+     "Delivered"
+    ]
+   },
+   {
+    "line": "9968862/91",
+    "fields": [
+     "asset_no",
+     "asset_no_is_plant_number",
+     "booked_delivery_date",
+     "delivered",
+     "item",
+     "start_date",
+     "status_as_written"
+    ],
+    "status": [
+     "Del Req",
+     "Delivered"
+    ]
+   },
+   {
+    "line": "9968862/94",
+    "fields": [
+     "asset_no",
+     "booked_delivery_date",
+     "delivered",
+     "description",
+     "item",
+     "start_date",
+     "status_as_written"
+    ],
+    "status": [
+     "Del Req",
+     "Delivered"
+    ]
+   },
+   {
+    "line": "9968862/96",
+    "fields": [
+     "asset_no",
+     "asset_no_is_plant_number",
+     "delivered",
+     "delivery_number",
+     "item",
+     "start_date",
+     "status_as_written"
+    ],
+    "status": [
+     "Pending",
+     "Delivered"
+    ]
+   },
+   {
+    "line": "9968862/100",
+    "fields": [
+     "description"
+    ],
+    "status": null
+   },
+   {
+    "line": "9968862/102",
+    "fields": [
+     "asset_no",
+     "asset_no_is_plant_number",
+     "delivered",
+     "delivery_number",
+     "item",
+     "start_date",
+     "status_as_written"
+    ],
+    "status": [
+     "Pending",
+     "Delivered"
+    ]
+   },
+   {
+    "line": "9968862/103",
+    "fields": [
+     "asset_no",
+     "asset_no_is_plant_number",
+     "booked_delivery_date",
+     "delivered",
+     "delivery_number",
+     "item",
+     "start_date",
+     "status_as_written"
+    ],
+    "status": [
+     "Pending",
+     "Delivered"
+    ]
+   },
+   {
+    "line": "9968862/105",
+    "fields": [
+     "booked_delivery_date",
+     "delivered",
+     "delivery_number",
+     "start_date",
+     "status_as_written"
+    ],
+    "status": [
+     "Pending",
+     "Delivered"
+    ]
+   },
+   {
+    "line": "9968862/107",
+    "fields": [
+     "asset_no",
+     "asset_no_is_plant_number",
+     "booked_delivery_date",
+     "delivered",
+     "delivery_number",
+     "item",
+     "start_date",
+     "status_as_written"
+    ],
+    "status": [
+     "Pending",
+     "Delivered"
+    ]
+   },
+   {
+    "line": "9968862/108",
+    "fields": [
+     "asset_no",
+     "booked_delivery_date",
+     "delivered",
+     "delivery_number",
+     "item",
+     "start_date",
+     "status_as_written"
+    ],
+    "status": [
+     "Pending",
+     "Delivered"
+    ]
+   },
+   {
+    "line": "9968862/110",
+    "fields": [
+     "asset_no",
+     "booked_delivery_date",
+     "delivered",
+     "delivery_number",
+     "description",
+     "item",
+     "start_date",
+     "status_as_written",
+     "what"
+    ],
+    "status": [
+     "Pending",
+     "Delivered"
+    ]
+   },
+   {
+    "line": "9968862/112",
+    "fields": [
+     "asset_no",
+     "asset_no_is_plant_number",
+     "booked_delivery_date",
+     "delivered",
+     "delivery_number",
+     "item",
+     "start_date",
+     "status_as_written"
+    ],
+    "status": [
+     "Pending",
+     "Delivered"
+    ]
+   },
+   {
+    "line": "9968862/113",
+    "fields": [
+     "asset_no",
+     "asset_no_is_plant_number",
+     "booked_delivery_date",
+     "delivered",
+     "delivery_number",
+     "item",
+     "start_date",
+     "status_as_written"
+    ],
+    "status": [
+     "Pending",
+     "Delivered"
+    ]
+   },
+   {
+    "line": "9968862/115",
+    "fields": [
+     "asset_no",
+     "asset_no_is_plant_number",
+     "booked_delivery_date",
+     "delivered",
+     "delivery_number",
+     "item",
+     "start_date",
+     "status_as_written"
+    ],
+    "status": [
+     "Pending",
+     "Delivered"
+    ]
+   },
+   {
+    "line": "9968862/116",
+    "fields": [
+     "booked_delivery_date",
+     "delivered",
+     "delivery_number",
+     "start_date",
+     "status_as_written"
+    ],
+    "status": [
+     "Pending",
+     "Delivered"
+    ]
+   },
+   {
+    "line": "9968862/118",
+    "fields": [
+     "booked_delivery_date",
+     "delivered",
+     "delivery_number",
+     "start_date",
+     "status_as_written"
+    ],
+    "status": [
+     "Pending",
+     "Delivered"
+    ]
+   },
+   {
+    "line": "9968862/120",
+    "fields": [
+     "asset_no",
+     "asset_no_is_plant_number",
+     "booked_delivery_date",
+     "delivered",
+     "delivery_number",
+     "item",
+     "start_date",
+     "status_as_written"
+    ],
+    "status": [
+     "Pending",
+     "Delivered"
+    ]
+   },
+   {
+    "line": "9968862/121",
+    "fields": [
+     "asset_no",
+     "booked_delivery_date",
+     "delivered",
+     "delivery_number",
+     "item",
+     "start_date",
+     "status_as_written"
+    ],
+    "status": [
+     "Pending",
+     "Delivered"
+    ]
+   },
+   {
+    "line": "9968862/126",
+    "fields": [
+     "asset_no",
+     "asset_no_is_plant_number",
+     "booked_delivery_date",
+     "delivered",
+     "item",
+     "start_date",
+     "status_as_written"
+    ],
+    "status": [
+     "Del Req",
+     "Delivered"
+    ]
+   },
+   {
+    "line": "9968862/128",
+    "fields": [
+     "asset_no",
+     "asset_no_is_plant_number",
+     "booked_delivery_date",
+     "delivered",
+     "item",
+     "start_date",
+     "status_as_written"
+    ],
+    "status": [
+     "Del Req",
+     "Delivered"
+    ]
+   },
+   {
+    "line": "9968929/5",
+    "fields": [
+     "asset_no",
+     "asset_no_is_plant_number",
+     "description",
+     "item",
+     "what"
+    ],
+    "status": null
+   },
+   {
+    "line": "9968955/4",
+    "fields": [
+     "description"
+    ],
+    "status": null
+   },
+   {
+    "line": "9968955/5",
+    "fields": [
+     "description"
+    ],
+    "status": null
+   },
+   {
+    "line": "9968955/6",
+    "fields": [
+     "description"
+    ],
+    "status": null
+   },
+   {
+    "line": "9968955/7",
+    "fields": [
+     "asset_no",
+     "delivery_number",
+     "item"
+    ],
+    "status": null
+   },
+   {
+    "line": "9968955/14",
+    "fields": [
+     "description"
+    ],
+    "status": null
+   },
+   {
+    "line": "9968955/15",
+    "fields": [
+     "description"
+    ],
+    "status": null
+   },
+   {
+    "line": "9968955/16",
+    "fields": [
+     "description"
+    ],
+    "status": null
+   },
+   {
+    "line": "9968955/18",
+    "fields": [
+     "description"
+    ],
+    "status": null
+   },
+   {
+    "line": "9968955/19",
+    "fields": [
+     "description"
+    ],
+    "status": null
+   },
+   {
+    "line": "9968955/22",
+    "fields": [
+     "description"
+    ],
+    "status": null
+   },
+   {
+    "line": "9968955/23",
+    "fields": [
+     "description"
+    ],
+    "status": null
+   },
+   {
+    "line": "9968955/24",
+    "fields": [
+     "description"
+    ],
+    "status": null
+   },
+   {
+    "line": "9968955/39",
+    "fields": [
+     "description"
+    ],
+    "status": null
+   },
+   {
+    "line": "9968955/44",
+    "fields": [
+     "description"
+    ],
+    "status": null
+   },
+   {
+    "line": "9968955/45",
+    "fields": [
+     "description"
+    ],
+    "status": null
+   },
+   {
+    "line": "9968955/46",
+    "fields": [
+     "description"
+    ],
+    "status": null
+   },
+   {
+    "line": "9968955/47",
+    "fields": [
+     "booked_delivery_date",
+     "delivered",
+     "start_date",
+     "status_as_written"
+    ],
+    "status": [
+     "Del Req",
+     "Delivered"
+    ]
+   },
+   {
+    "line": "9968955/48",
+    "fields": [
+     "booked_delivery_date",
+     "delivered",
+     "start_date",
+     "status_as_written"
+    ],
+    "status": [
+     "Del Req",
+     "Delivered"
+    ]
+   },
+   {
+    "line": "9968955/49",
+    "fields": [
+     "asset_no",
+     "asset_no_is_plant_number",
+     "booked_delivery_date",
+     "delivered",
+     "item",
+     "start_date",
+     "status_as_written"
+    ],
+    "status": [
+     "Del Req",
+     "Delivered"
+    ]
+   },
+   {
+    "line": "9968955/50",
+    "fields": [
+     "asset_no",
+     "asset_no_is_plant_number",
+     "booked_delivery_date",
+     "delivered",
+     "item",
+     "start_date",
+     "status_as_written"
+    ],
+    "status": [
+     "Del Req",
+     "Delivered"
+    ]
+   },
+   {
+    "line": "9968955/51",
+    "fields": [
+     "asset_no",
+     "asset_no_is_plant_number",
+     "booked_delivery_date",
+     "delivered",
+     "item",
+     "start_date",
+     "status_as_written"
+    ],
+    "status": [
+     "Del Req",
+     "Delivered"
+    ]
+   },
+   {
+    "line": "9968955/58",
+    "fields": [
+     "description"
+    ],
+    "status": null
+   },
+   {
+    "line": "9968955/59",
+    "fields": [
+     "asset_no",
+     "booked_delivery_date",
+     "delivered",
+     "item",
+     "quantity",
+     "start_date",
+     "status_as_written"
+    ],
+    "status": [
+     "Del Req",
+     "Delivered"
+    ]
+   },
+   {
+    "line": "9968955/69",
+    "fields": [
+     "description"
+    ],
+    "status": null
+   },
+   {
+    "line": "9968955/70",
+    "fields": [
+     "asset_no",
+     "booked_delivery_date",
+     "delivered",
+     "item",
+     "quantity",
+     "start_date",
+     "status_as_written"
+    ],
+    "status": [
+     "Del Req",
+     "Delivered"
+    ]
+   },
+   {
+    "line": "9968955/80",
+    "fields": [
+     "asset_no",
+     "delivered",
+     "delivery_number",
+     "item",
+     "start_date",
+     "status_as_written"
+    ],
+    "status": [
+     "Pending",
+     "Delivered"
+    ]
+   },
+   {
+    "line": "9968955/81",
+    "fields": [
+     "asset_no",
+     "delivered",
+     "delivery_number",
+     "item",
+     "start_date",
+     "status_as_written"
+    ],
+    "status": [
+     "Pending",
+     "Delivered"
+    ]
+   },
+   {
+    "line": "9968955/84",
+    "fields": [
+     "asset_no",
+     "delivered",
+     "delivery_number",
+     "item",
+     "start_date",
+     "status_as_written"
+    ],
+    "status": [
+     "Pending",
+     "Delivered"
+    ]
+   },
+   {
+    "line": "9968955/86",
+    "fields": [
+     "asset_no",
+     "delivered",
+     "delivery_number",
+     "item",
+     "start_date",
+     "status_as_written"
+    ],
+    "status": [
+     "Pending",
+     "Delivered"
+    ]
+   },
+   {
+    "line": "9968955/93",
+    "fields": [
+     "asset_no",
+     "asset_no_is_plant_number",
+     "booked_delivery_date",
+     "delivered",
+     "item",
+     "start_date",
+     "status_as_written"
+    ],
+    "status": [
+     "Del Req",
+     "Delivered"
+    ]
+   },
+   {
+    "line": "9968955/94",
+    "fields": [
+     "asset_no",
+     "asset_no_is_plant_number",
+     "booked_delivery_date",
+     "delivered",
+     "item",
+     "start_date",
+     "status_as_written"
+    ],
+    "status": [
+     "Del Req",
+     "Delivered"
+    ]
+   },
+   {
+    "line": "9968955/95",
+    "fields": [
+     "asset_no",
+     "asset_no_is_plant_number",
+     "booked_delivery_date",
+     "delivered",
+     "item",
+     "start_date",
+     "status_as_written"
+    ],
+    "status": [
+     "Del Req",
+     "Delivered"
+    ]
+   },
+   {
+    "line": "9968955/97",
+    "fields": [
+     "asset_no",
+     "asset_no_is_plant_number",
+     "booked_delivery_date",
+     "delivered",
+     "item",
+     "start_date",
+     "status_as_written"
+    ],
+    "status": [
+     "Del Req",
+     "Delivered"
+    ]
+   },
+   {
+    "line": "9968955/98",
+    "fields": [
+     "delivered",
+     "delivery_number",
+     "start_date",
+     "status_as_written"
+    ],
+    "status": [
+     "Pending",
+     "Delivered"
+    ]
+   },
+   {
+    "line": "9968955/101",
+    "fields": [
+     "delivered",
+     "delivery_number",
+     "start_date",
+     "status_as_written"
+    ],
+    "status": [
+     "Pending",
+     "Delivered"
+    ]
+   },
+   {
+    "line": "9968955/103",
+    "fields": [
+     "asset_no",
+     "asset_no_is_plant_number",
+     "booked_delivery_date",
+     "delivered",
+     "item",
+     "start_date",
+     "status_as_written"
+    ],
+    "status": [
+     "Del Req",
+     "Delivered"
+    ]
+   },
+   {
+    "line": "9968955/105",
+    "fields": [
+     "asset_no",
+     "asset_no_is_plant_number",
+     "booked_delivery_date",
+     "delivered",
+     "item",
+     "start_date",
+     "status_as_written"
+    ],
+    "status": [
+     "Del Req",
+     "Delivered"
+    ]
+   },
+   {
+    "line": "9968955/106",
+    "fields": [
+     "delivered",
+     "delivery_number",
+     "start_date",
+     "status_as_written"
+    ],
+    "status": [
+     "Pending",
+     "Delivered"
+    ]
+   },
+   {
+    "line": "9968955/111",
+    "fields": [
+     "delivery_number",
+     "status_as_written"
+    ],
+    "status": [
+     "Pending",
+     "Del Req"
+    ]
+   },
+   {
+    "line": "9968955/113",
+    "fields": [
+     "delivered",
+     "delivery_number",
+     "start_date",
+     "status_as_written"
+    ],
+    "status": [
+     "Pending",
+     "Delivered"
+    ]
+   },
+   {
+    "line": "9968955/138",
+    "fields": [
+     "booked_delivery_date",
+     "delivered",
+     "start_date",
+     "status_as_written"
+    ],
+    "status": [
+     "Del Req",
+     "Delivered"
+    ]
+   },
+   {
+    "line": "9968955/139",
+    "fields": [
+     "booked_delivery_date",
+     "delivered",
+     "start_date",
+     "status_as_written"
+    ],
+    "status": [
+     "Del Req",
+     "Delivered"
+    ]
+   },
+   {
+    "line": "9972648/4",
+    "fields": [
+     "delivery_number",
+     "quantity",
+     "status_as_written"
+    ],
+    "status": [
+     "Pending",
+     "Del Req"
+    ]
+   },
+   {
+    "line": "9972648/5",
+    "fields": [
+     "delivery_number",
+     "status_as_written"
+    ],
+    "status": [
+     "Pending",
+     "Del Req"
+    ]
+   },
+   {
+    "line": "9972648/6",
+    "fields": [
+     "booked_delivery_date",
+     "delivered",
+     "delivery_number",
+     "quantity",
+     "start_date",
+     "status_as_written"
+    ],
+    "status": [
+     "Pending",
+     "Delivered"
+    ]
+   },
+   {
+    "line": "9972648/8",
+    "fields": [
+     "delivery_number",
+     "status_as_written"
+    ],
+    "status": [
+     "Pending",
+     "Del Req"
+    ]
+   },
+   {
+    "line": "9974042/1",
+    "fields": [
+     "asset_no",
+     "asset_no_is_plant_number",
+     "booked_delivery_date",
+     "delivered",
+     "item",
+     "start_date",
+     "status_as_written"
+    ],
+    "status": [
+     "Del Req",
+     "Delivered"
+    ]
+   },
+   {
+    "line": "9974042/2",
+    "fields": [
+     "delivery_number"
+    ],
+    "status": null
+   },
+   {
+    "line": "9987005/2",
+    "fields": [
+     "booked_delivery_date",
+     "delivered",
+     "start_date",
+     "status_as_written"
+    ],
+    "status": [
+     "Del Req",
+     "Delivered"
+    ]
+   }
+  ],
+  "rejoined": [
+   {
+    "line": "9961976/15",
+    "was": "GN10",
+    "now": null,
+    "via": null
+   },
+   {
+    "line": "9968862/4",
+    "was": "P51",
+    "now": "P03",
+    "via": "asset number",
+    "source": "the register"
+   },
+   {
+    "line": "9968862/94",
+    "was": null,
+    "now": "P51",
+    "via": "asset number",
+    "source": "the shared record"
+   },
+   {
+    "line": "9968862/103",
+    "was": null,
+    "now": "P69",
+    "via": "asset number",
+    "source": "the shared record"
+   },
+   {
+    "line": "9968862/108",
+    "was": "HRP",
+    "now": "P67",
+    "via": "asset number",
+    "source": "the shared record"
+   },
+   {
+    "line": "9968862/110",
+    "was": null,
+    "now": "P65",
+    "via": "asset number",
+    "source": "the shared record"
+   },
+   {
+    "line": "9968862/113",
+    "was": null,
+    "now": "P66",
+    "via": "asset number",
+    "source": "the shared record"
+   },
+   {
+    "line": "9968862/121",
+    "was": "P36",
+    "now": "P63",
+    "via": "asset number",
+    "source": "the shared record"
+   },
+   {
+    "line": "9968955/7",
+    "was": "WC12",
+    "now": "WC21",
+    "via": "asset number",
+    "source": "the shared record"
+   },
+   {
+    "line": "9968955/94",
+    "was": null,
+    "now": "WC60",
+    "via": "asset number",
+    "source": "the shared record"
+   },
+   {
+    "line": "9968955/95",
+    "was": null,
+    "now": "WC60",
+    "via": "asset number",
+    "source": "the shared record"
+   },
+   {
+    "line": "9968955/97",
+    "was": null,
+    "now": "WC31",
+    "via": "asset number",
+    "source": "the shared record"
+   },
+   {
+    "line": "9968955/103",
+    "was": null,
+    "now": "WC09",
+    "via": "asset number",
+    "source": "the shared record"
+   },
+   {
+    "line": "9968955/105",
+    "was": null,
+    "now": "WC09",
+    "via": "asset number",
+    "source": "the shared record"
+   }
+  ],
+  "record_joined": [],
+  "held": [
+   {
+    "line": "9968862/81",
+    "asset_no": "1328953",
+    "serial_in_export": "1320019",
+    "description": "P52 Refrigerator - Large",
+    "status": "Delivered",
+    "why": "no reference carries this number - not on the shared record, not on the as-supplied record, not in the register; the line keeps its join by kind",
+    "join": "P52"
+   },
+   {
+    "line": "9968862/91",
+    "asset_no": "1280688",
+    "serial_in_export": "5514-05-29 00:00:00",
+    "description": "P57 Refrigerator - Large",
+    "status": "Delivered",
+    "why": "no reference carries this number - not on the shared record, not on the as-supplied record, not in the register; the line keeps its join by kind",
+    "join": "P57"
+   },
+   {
+    "line": "9968862/96",
+    "asset_no": "1328959",
+    "serial_in_export": "1320045",
+    "description": "P46 Refrigerator - Large",
+    "status": "Delivered",
+    "why": "no reference carries this number - not on the shared record, not on the as-supplied record, not in the register; the line keeps its join by kind",
+    "join": null
+   },
+   {
+    "line": "9968862/102",
+    "asset_no": "1328957",
+    "serial_in_export": "1320033",
+    "description": "P51 Refrigerator - Large",
+    "status": "Delivered",
+    "why": "no reference carries this number - not on the shared record, not on the as-supplied record, not in the register; the line keeps its join by kind",
+    "join": null
+   },
+   {
+    "line": "9968862/107",
+    "asset_no": "1260174",
+    "serial_in_export": "9181310200",
+    "description": "P25 Refrigerator - Large",
+    "status": "Delivered",
+    "why": "no reference carries this number - not on the shared record, not on the as-supplied record, not in the register; the line keeps its join by kind",
+    "join": null
+   },
+   {
+    "line": "9968862/112",
+    "asset_no": "1283982",
+    "serial_in_export": "1130189",
+    "description": "P65 Refrigerator - Large",
+    "status": "Delivered",
+    "why": "no reference carries this number - not on the shared record, not on the as-supplied record, not in the register; the line keeps its join by kind",
+    "join": null
+   },
+   {
+    "line": "9968862/115",
+    "asset_no": "1311990",
+    "serial_in_export": "2402200067",
+    "description": "P66 Refrigerator - Large",
+    "status": "Delivered",
+    "why": "no reference carries this number - not on the shared record, not on the as-supplied record, not in the register; the line keeps its join by kind",
+    "join": null
+   },
+   {
+    "line": "9968862/120",
+    "asset_no": "1254221",
+    "serial_in_export": "2006220059",
+    "description": "P62 Refrigerator - Large",
+    "status": "Delivered",
+    "why": "no reference carries this number - not on the shared record, not on the as-supplied record, not in the register; the line keeps its join by kind",
+    "join": null
+   },
+   {
+    "line": "9968862/128",
+    "asset_no": "1114312",
+    "serial_in_export": "1121NMF2A707",
+    "description": "P08 Refrigerator - Large",
+    "status": "Delivered",
+    "why": "no reference carries this number - not on the shared record, not on the as-supplied record, not in the register; the line keeps its join by kind",
+    "join": "P08"
+   }
+  ],
+  "plant_line_copies": [
+   {
+    "line": "T0085",
+    "contract_lines_before": 2,
+    "after": 1,
+    "added": [],
+    "gone": [
+     "9961976/29"
+    ]
+   },
+   {
+    "line": "T0109",
+    "contract_lines_before": 1,
+    "after": 0,
+    "added": [],
+    "gone": [
+     "9961976/30"
+    ]
+   },
+   {
+    "line": "T0268",
+    "contract_lines_before": 1,
+    "after": 0,
+    "added": [],
+    "gone": [
+     "9961976/36"
+    ]
+   }
+  ],
+  "flags": [
+   {
+    "asset_no": "1211404",
+    "lines": [
+     "9961265/1 Returned 2026-09-07..2026-10-12 Variable Message Board Senior",
+     "9961265/12 Delivered 2026-09-07..2026-10-27 VMS09 Variable Message Board Senior"
+    ],
+    "why": "one number on two priced lines: two machines with one misnumbered, or one machine charged twice"
+   },
+   {
+    "asset_no": "1220903",
+    "lines": [
+     "9968726/5 Pending 2026-10-20..2026-10-27 Scissor Lift With Operator Protection 43ft (13.0M) - Diesel",
+     "9992300/4 Del Req 2026-10-17..2026-10-26 Scissor Lift With Operator Protection 43ft (13.0M) - Diesel"
+    ],
+    "why": "one number on two priced lines: two machines with one misnumbered, or one machine charged twice"
+   },
+   {
+    "asset_no": "1298390",
+    "lines": [
+     "9968726/1 Pending 2026-10-19..2026-10-27 Forklift Rough Terrain 2.5t 4WD Diesel",
+     "9992300/2 Del Req 2026-10-17..2026-10-27 Forklift Rough Terrain 2.5t 4WD Diesel"
+    ],
+    "why": "one number on two priced lines: two machines with one misnumbered, or one machine charged twice"
+   },
+   {
+    "asset_no": "1300290",
+    "lines": [
+     "9968726/3 Pending 2026-10-21..2026-10-27 Knuckle Boom 61ft (18.6M) - Diesel",
+     "9992300/5 Pending 2026-10-17..2026-10-26 Knuckle Boom 61ft (18.6M) - Diesel"
+    ],
+    "why": "one number on two priced lines: two machines with one misnumbered, or one machine charged twice"
+   },
+   {
+    "asset_no": "1321364",
+    "lines": [
+     "9968726/7 Pending 2026-10-19..2026-10-27 Forklift Rough Terrain 5.0t 4WD Diesel",
+     "9992300/1 Del Req 2026-10-17..2026-10-27 Forklift Rough Terrain 5.0t 4WD Diesel"
+    ],
+    "why": "one number on two priced lines: two machines with one misnumbered, or one machine charged twice"
+   }
+  ],
+  "record_would_move": [
+   {
+    "line": "9968862/64",
+    "asset_no": "1087453",
+    "status": "Delivered",
+    "description": "P06 Portable Building Shell 6.0M x 3.0M",
+    "page_join": null,
+    "record": "P06",
+    "source": "the shared record"
+   },
+   {
+    "line": "9968862/79",
+    "asset_no": "1327211",
+    "status": "Delivered",
+    "description": "P52 Portable Building Shell 12.0M x 3.0M - Cyclonic Rated",
+    "page_join": null,
+    "record": "P52",
+    "source": "the shared record"
+   },
+   {
+    "line": "9968862/93",
+    "asset_no": "1189410",
+    "status": "Delivered",
+    "description": "P36 Portable Building Shell 6.0M x 3.0M - Cyclonic Rated",
+    "page_join": "HRP",
+    "record": "P36",
+    "source": "the shared record"
+   },
+   {
+    "line": "9968955/24",
+    "asset_no": "1002566",
+    "status": "Delivered",
+    "description": "WC07 Toilet Portable - Fresh Water Flush",
+    "page_join": null,
+    "record": "WC07",
+    "source": "the as-supplied record, 2026-09-22"
+   },
+   {
+    "line": "9968955/25",
+    "asset_no": "1317640",
+    "status": "Delivered",
+    "description": "WC07 Toilet Portable - Fresh Water Flush",
+    "page_join": null,
+    "record": "WC07",
+    "source": "the as-supplied record, 2026-09-22"
+   },
+   {
+    "line": "9968955/26",
+    "asset_no": "1211959",
+    "status": "Delivered",
+    "description": "WC07 Toilet Portable - Fresh Water Flush",
+    "page_join": null,
+    "record": "WC07",
+    "source": "the as-supplied record, 2026-09-22"
+   },
+   {
+    "line": "9968955/27",
+    "asset_no": "1317649",
+    "status": "Delivered",
+    "description": "WC07 Toilet Portable - Fresh Water Flush",
+    "page_join": null,
+    "record": "WC07",
+    "source": "the as-supplied record, 2026-09-22"
+   },
+   {
+    "line": "9968955/28",
+    "asset_no": "1317647",
+    "status": "Delivered",
+    "description": "WC07 Toilet Portable - Fresh Water Flush",
+    "page_join": null,
+    "record": "WC07",
+    "source": "the as-supplied record, 2026-09-22"
+   },
+   {
+    "line": "9968955/29",
+    "asset_no": "1317626",
+    "status": "Delivered",
+    "description": "WC07 Toilet Portable - Fresh Water Flush",
+    "page_join": null,
+    "record": "WC07",
+    "source": "the as-supplied record, 2026-09-22"
+   },
+   {
+    "line": "9968955/30",
+    "asset_no": "1317652",
+    "status": "Delivered",
+    "description": "WC07 Toilet Portable - Fresh Water Flush",
+    "page_join": null,
+    "record": "WC07",
+    "source": "the as-supplied record, 2026-09-22"
+   },
+   {
+    "line": "9968955/31",
+    "asset_no": "1317648",
+    "status": "Delivered",
+    "description": "WC07 Toilet Portable - Fresh Water Flush",
+    "page_join": null,
+    "record": "WC07",
+    "source": "the as-supplied record, 2026-09-22"
+   },
+   {
+    "line": "9968955/32",
+    "asset_no": "1212552",
+    "status": "Delivered",
+    "description": "WC07 Toilet Portable - Fresh Water Flush",
+    "page_join": null,
+    "record": "WC07",
+    "source": "the as-supplied record, 2026-09-22"
+   },
+   {
+    "line": "9968955/33",
+    "asset_no": "1200595",
+    "status": "Delivered",
+    "description": "WC07 Toilet Portable - Fresh Water Flush",
+    "page_join": null,
+    "record": "WC07",
+    "source": "the as-supplied record, 2026-09-22"
+   },
+   {
+    "line": "9968955/34",
+    "asset_no": "1181004",
+    "status": "Delivered",
+    "description": "WC07 Toilet Portable - Fresh Water Flush",
+    "page_join": null,
+    "record": "WC07",
+    "source": "the as-supplied record, 2026-09-22"
+   },
+   {
+    "line": "9968955/35",
+    "asset_no": "1002538",
+    "status": "Delivered",
+    "description": "WC07 Toilet Portable - Fresh Water Flush",
+    "page_join": null,
+    "record": "WC07",
+    "source": "the as-supplied record, 2026-09-22"
+   },
+   {
+    "line": "9968955/36",
+    "asset_no": "1317658",
+    "status": "Delivered",
+    "description": "WC07 Toilet Portable - Fresh Water Flush",
+    "page_join": null,
+    "record": "WC07",
+    "source": "the as-supplied record, 2026-09-22"
+   },
+   {
+    "line": "9968955/37",
+    "asset_no": "1317632",
+    "status": "Delivered",
+    "description": "WC07 Toilet Portable - Fresh Water Flush",
+    "page_join": null,
+    "record": "WC07",
+    "source": "the as-supplied record, 2026-09-22"
+   },
+   {
+    "line": "9968955/39",
+    "asset_no": "1317641",
+    "status": "Delivered",
+    "description": "WC07 Toilet Portable - Fresh Water Flush",
+    "page_join": null,
+    "record": "WC07",
+    "source": "the as-supplied record, 2026-09-22"
+   },
+   {
+    "line": "9968955/40",
+    "asset_no": "1002715",
+    "status": "Delivered",
+    "description": "WC07 Toilet Portable - Fresh Water Flush",
+    "page_join": null,
+    "record": "WC07",
+    "source": "the as-supplied record, 2026-09-22"
+   },
+   {
+    "line": "9968955/41",
+    "asset_no": "1083300",
+    "status": "Delivered",
+    "description": "WC07 Toilet Portable - Fresh Water Flush",
+    "page_join": null,
+    "record": "WC07",
+    "source": "the as-supplied record, 2026-09-22"
+   },
+   {
+    "line": "9968955/42",
+    "asset_no": "1192643",
+    "status": "Delivered",
+    "description": "WC07 Toilet Portable - Fresh Water Flush",
+    "page_join": null,
+    "record": "WC07",
+    "source": "the as-supplied record, 2026-09-22"
+   },
+   {
+    "line": "9968955/43",
+    "asset_no": "1002651",
+    "status": "Delivered",
+    "description": "WC07 Toilet Portable - Fresh Water Flush",
+    "page_join": null,
+    "record": "WC07",
+    "source": "the as-supplied record, 2026-09-22"
+   }
+  ],
+  "record_numbers_with_two_owners_left_out": [],
+  "hand_joins": [
+   {
+    "line": "9968862/93",
+    "was": "HRP",
+    "now": "P36",
+    "why": "docket 26085104 delivered 1189410 on 17 Sep 2026 as \"P36 Portable Building Shell\"; the line names P36; the old join to HRP came from an earlier register"
+   },
+   {
+    "line": "9968862/108",
+    "was": "P67",
+    "now": null,
+    "why": "the line names P67 and is Pending with 1189410, the number delivered to P36 on docket 26085104; P67 stands on site as unit 421107 on the record"
+   },
+   {
+    "line": "9968862/64",
+    "was": null,
+    "now": "P06",
+    "why": "docket 26094121 delivered 1087453 on 30 Sep 2026 as \"P06 Portable Building Shell\"; the schedule wrote 1097453 for the same building"
+   }
+  ],
+  "held_out": [
+   {
+    "line": "9968726/1",
+    "description": "Forklift Rough Terrain 2.5t 4WD Diesel",
+    "status": "Pending",
+    "why": "TV compound, superseded. The same four machines, 1321364, 12"
+   },
+   {
+    "line": "9968726/2",
+    "description": "Transport Charge Forklift",
+    "status": "Pending",
+    "why": "TV compound, superseded. The same four machines, 1321364, 12"
+   },
+   {
+    "line": "9968726/3",
+    "description": "Knuckle Boom 61ft (18.6M) - Diesel",
+    "status": "Pending",
+    "why": "TV compound, superseded. The same four machines, 1321364, 12"
+   },
+   {
+    "line": "9968726/4",
+    "description": "Transport Charge Knuckle Boom",
+    "status": "Pending",
+    "why": "TV compound, superseded. The same four machines, 1321364, 12"
+   },
+   {
+    "line": "9968726/5",
+    "description": "Scissor Lift With Operator Protection 43ft (13.0M) - Diesel",
+    "status": "Pending",
+    "why": "TV compound, superseded. The same four machines, 1321364, 12"
+   },
+   {
+    "line": "9968726/6",
+    "description": "Transport Charge Scissor Lift",
+    "status": "Pending",
+    "why": "TV compound, superseded. The same four machines, 1321364, 12"
+   },
+   {
+    "line": "9968726/7",
+    "description": "Forklift Rough Terrain 5.0t 4WD Diesel",
+    "status": "Pending",
+    "why": "TV compound, superseded. The same four machines, 1321364, 12"
+   },
+   {
+    "line": "9968726/8",
+    "description": "Transport Charge 5t Forklift",
+    "status": "Pending",
+    "why": "TV compound, superseded. The same four machines, 1321364, 12"
+   },
+   {
+    "line": "9968726/9",
+    "description": "Forklift Attachment - Extension",
+    "status": "Pending",
+    "why": "TV compound, superseded. The same four machines, 1321364, 12"
+   },
+   {
+    "line": "9990776/1",
+    "description": "WB13 Barrier - Crash Rated Water filled - Armorzone MASH TL2",
+    "status": "Pending",
+    "why": "Fencing. The page charges fencing from Advanced's measured d"
+   },
+   {
+    "line": "9990776/2",
+    "description": "Ped Gates",
+    "status": "Pending",
+    "why": "Fencing. The page charges fencing from Advanced's measured d"
+   },
+   {
+    "line": "9990776/3",
+    "description": "1.8m Security Fence",
+    "status": "Pending",
+    "why": "Fencing. The page charges fencing from Advanced's measured d"
+   },
+   {
+    "line": "9990776/4",
+    "description": "Fence Relocation",
+    "status": "Pending",
+    "why": "Fencing. The page charges fencing from Advanced's measured d"
+   },
+   {
+    "line": "9990776/5",
+    "description": "1.8m Security Fence w/ Hoarding",
+    "status": "Pending",
+    "why": "Fencing. The page charges fencing from Advanced's measured d"
+   },
+   {
+    "line": "9990776/6",
+    "description": "1.8m Fence w/Scrim",
+    "status": "Pending",
+    "why": "Fencing. The page charges fencing from Advanced's measured d"
+   },
+   {
+    "line": "9990776/7",
+    "description": "Barrier - Crowd Control",
+    "status": "Pending",
+    "why": "Fencing. The page charges fencing from Advanced's measured d"
+   },
+   {
+    "line": "9990776/8",
+    "description": "Barrier - Crowd Control Flat Feet",
+    "status": "Pending",
+    "why": "Fencing. The page charges fencing from Advanced's measured d"
+   },
+   {
+    "line": "9990776/9",
+    "description": "Demarcation CCB",
+    "status": "Pending",
+    "why": "Fencing. The page charges fencing from Advanced's measured d"
+   },
+   {
+    "line": "9990776/10",
+    "description": "Shade Cloth",
+    "status": "Pending",
+    "why": "Fencing. The page charges fencing from Advanced's measured d"
+   }
+  ],
+  "rate_check": [
+   {
+    "line": "9961265/1",
+    "description": "Variable Message Board Senior",
+    "register_type": "VMS",
+    "kind": "vms",
+    "rate_1": 53.61,
+    "rate_type": "W",
+    "card": 53.61,
+    "basis": "card daily",
+    "card_line": "VMS Board",
+    "difference": 0.0,
+    "agrees": true
+   },
+   {
+    "line": "9961265/3",
+    "description": "Variable Message Board Senior - REED",
+    "register_type": "VMS",
+    "kind": "vms",
+    "rate_1": 53.61,
+    "rate_type": "W",
+    "card": 53.61,
+    "basis": "card daily",
+    "card_line": "VMS Board",
+    "difference": 0.0,
+    "agrees": true
+   },
+   {
+    "line": "9961265/4",
+    "description": "Variable Message Board Senior - MARS",
+    "register_type": "VMS",
+    "kind": "vms",
+    "rate_1": 53.61,
+    "rate_type": "W",
+    "card": 53.61,
+    "basis": "card daily",
+    "card_line": "VMS Board",
+    "difference": 0.0,
+    "agrees": true
+   },
+   {
+    "line": "9961265/5",
+    "description": "Variable Message Board Senior",
+    "register_type": "VMS",
+    "kind": "vms",
+    "rate_1": 53.61,
+    "rate_type": "W",
+    "card": 53.61,
+    "basis": "card daily",
+    "card_line": "VMS Board",
+    "difference": 0.0,
+    "agrees": true
+   },
+   {
+    "line": "9961265/6",
+    "description": "Variable Message Board Senior",
+    "register_type": "VMS",
+    "kind": "vms",
+    "rate_1": 53.61,
+    "rate_type": "W",
+    "card": 53.61,
+    "basis": "card daily",
+    "card_line": "VMS Board",
+    "difference": 0.0,
+    "agrees": true
+   },
+   {
+    "line": "9961265/7",
+    "description": "Variable Message Board Senior",
+    "register_type": "VMS",
+    "kind": "vms",
+    "rate_1": 53.61,
+    "rate_type": "W",
+    "card": 53.61,
+    "basis": "card daily",
+    "card_line": "VMS Board",
+    "difference": 0.0,
+    "agrees": true
+   },
+   {
+    "line": "9961265/8",
+    "description": "Variable Message Board Senior",
+    "register_type": "VMS",
+    "kind": "vms",
+    "rate_1": 53.61,
+    "rate_type": "W",
+    "card": 53.61,
+    "basis": "card daily",
+    "card_line": "VMS Board",
+    "difference": 0.0,
+    "agrees": true
+   },
+   {
+    "line": "9961265/9",
+    "description": "Variable Message Board - Colour - Senior",
+    "register_type": "VMS",
+    "kind": "vms",
+    "rate_1": 53.61,
+    "rate_type": "W",
+    "card": 53.61,
+    "basis": "card daily",
+    "card_line": "VMS Board",
+    "difference": 0.0,
+    "agrees": true
+   },
+   {
+    "line": "9961265/12",
+    "description": "VMS09 Variable Message Board Senior",
+    "register_type": "VMS",
+    "kind": "vms",
+    "rate_1": 53.61,
+    "rate_type": "W",
+    "card": 53.61,
+    "basis": "card daily",
+    "card_line": "VMS Board",
+    "difference": 0.0,
+    "agrees": true
+   },
+   {
+    "line": "9961265/13",
+    "description": "VMS10 Variable Message Board Senior Premiair",
+    "register_type": "VMS",
+    "kind": "vms",
+    "rate_1": 53.61,
+    "rate_type": "W",
+    "card": 53.61,
+    "basis": "card daily",
+    "card_line": "VMS Board",
+    "difference": 0.0,
+    "agrees": true
+   },
+   {
+    "line": "9961265/15",
+    "description": "VMS11 Variable Message Board - Premiair",
+    "register_type": "VMS",
+    "kind": "vms",
+    "rate_1": 53.61,
+    "rate_type": "W",
+    "card": 53.61,
+    "basis": "card daily",
+    "card_line": "VMS Board",
+    "difference": 0.0,
+    "agrees": true
+   },
+   {
+    "line": "9961265/16",
+    "description": "VMS12 Variable Message Board Junior",
+    "register_type": "VMS",
+    "kind": "vms",
+    "rate_1": 53.61,
+    "rate_type": "W",
+    "card": 53.61,
+    "basis": "card daily",
+    "card_line": "VMS Board",
+    "difference": 0.0,
+    "agrees": true
+   },
+   {
+    "line": "9961265/24",
+    "description": "VMS18 Variable Message Board Senior Premiair",
+    "register_type": "VMS",
+    "kind": "vms",
+    "rate_1": 53.61,
+    "rate_type": "W",
+    "card": 53.61,
+    "basis": "card daily",
+    "card_line": "VMS Board",
+    "difference": 0.0,
+    "agrees": true
+   },
+   {
+    "line": "9961265/25",
+    "description": "VMS19 Variable Message Board Senior Premiair",
+    "register_type": "VMS",
+    "kind": "vms",
+    "rate_1": 53.61,
+    "rate_type": "W",
+    "card": 53.61,
+    "basis": "card daily",
+    "card_line": "VMS Board",
+    "difference": 0.0,
+    "agrees": true
+   },
+   {
+    "line": "9961265/26",
+    "description": "VMS20 Variable Message Board Senior Premiair",
+    "register_type": "VMS",
+    "kind": "vms",
+    "rate_1": 53.61,
+    "rate_type": "W",
+    "card": 53.61,
+    "basis": "card daily",
+    "card_line": "VMS Board",
+    "difference": 0.0,
+    "agrees": true
+   },
+   {
+    "line": "9961265/28",
+    "description": "VMS21 Variable Message Board Senior Premiair",
+    "register_type": "VMS",
+    "kind": "vms",
+    "rate_1": 53.61,
+    "rate_type": "W",
+    "card": 53.61,
+    "basis": "card daily",
+    "card_line": "VMS Board",
+    "difference": 0.0,
+    "agrees": true
+   },
+   {
+    "line": "9961265/29",
+    "description": "VMS22 Variable Message Board Senior Premiair",
+    "register_type": "VMS",
+    "kind": "vms",
+    "rate_1": 53.61,
+    "rate_type": "W",
+    "card": 53.61,
+    "basis": "card daily",
+    "card_line": "VMS Board",
+    "difference": 0.0,
+    "agrees": true
+   },
+   {
+    "line": "9961265/30",
+    "description": "VMS23 Variable Message Board Senior Premiair",
+    "register_type": "VMS",
+    "kind": "vms",
+    "rate_1": 53.61,
+    "rate_type": "W",
+    "card": 53.61,
+    "basis": "card daily",
+    "card_line": "VMS Board",
+    "difference": 0.0,
+    "agrees": true
+   },
+   {
+    "line": "9961265/31",
+    "description": "VMS24 Variable Message Board Senior",
+    "register_type": "VMS",
+    "kind": "vms",
+    "rate_1": 53.61,
+    "rate_type": "W",
+    "card": 53.61,
+    "basis": "card daily",
+    "card_line": "VMS Board",
+    "difference": 0.0,
+    "agrees": true
+   },
+   {
+    "line": "9961265/32",
+    "description": "VMS13 Variable Message Board Senior",
+    "register_type": "VMS",
+    "kind": "vms",
+    "rate_1": 53.61,
+    "rate_type": "W",
+    "card": 53.61,
+    "basis": "card daily",
+    "card_line": "VMS Board",
+    "difference": 0.0,
+    "agrees": true
+   },
+   {
+    "line": "9961265/34",
+    "description": "VMS14 Variable Message Board Junior",
+    "register_type": "VMS",
+    "kind": "vms",
+    "rate_1": 53.61,
+    "rate_type": "W",
+    "card": 53.61,
+    "basis": "card daily",
+    "card_line": "VMS Board",
+    "difference": 0.0,
+    "agrees": true
+   },
+   {
+    "line": "9961265/35",
+    "description": "VMS15 Variable Message Board Senior",
+    "register_type": "VMS",
+    "kind": "vms",
+    "rate_1": 53.61,
+    "rate_type": "W",
+    "card": 53.61,
+    "basis": "card daily",
+    "card_line": "VMS Board",
+    "difference": 0.0,
+    "agrees": true
+   },
+   {
+    "line": "9961265/37",
+    "description": "VMS16 Variable Message Board Senior",
+    "register_type": "VMS",
+    "kind": "vms",
+    "rate_1": 53.61,
+    "rate_type": "W",
+    "card": 53.61,
+    "basis": "card daily",
+    "card_line": "VMS Board",
+    "difference": 0.0,
+    "agrees": true
+   },
+   {
+    "line": "9961265/39",
+    "description": "VMS17 Variable Message Board Senior",
+    "register_type": "VMS",
+    "kind": "vms",
+    "rate_1": 53.61,
+    "rate_type": "W",
+    "card": 53.61,
+    "basis": "card daily",
+    "card_line": "VMS Board",
+    "difference": 0.0,
+    "agrees": true
+   },
+   {
+    "line": "9961976/1",
+    "description": "LT01 MOLENDINAR Lighting Tower LED Metro",
+    "register_type": "Light Tower",
+    "kind": "lighting tower",
+    "rate_1": 643.3,
+    "rate_type": "W",
+    "card": 450.34,
+    "basis": "card daily x 7 (weekly)",
+    "card_line": "Lighting Towers",
+    "difference": 192.96,
+    "agrees": false
+   },
+   {
+    "line": "9961976/2",
+    "description": "LT02 MOLENDINAR Lighting Tower LED Metro",
+    "register_type": "Light Tower",
+    "kind": "lighting tower",
+    "rate_1": 643.3,
+    "rate_type": "W",
+    "card": 450.34,
+    "basis": "card daily x 7 (weekly)",
+    "card_line": "Lighting Towers",
+    "difference": 192.96,
+    "agrees": false
+   },
+   {
+    "line": "9961976/3",
+    "description": "LT03 MOLENDINAR Lighting Tower LED 76500lm Hybrid",
+    "register_type": "Light Tower",
+    "kind": "lighting tower",
+    "rate_1": 643.3,
+    "rate_type": "W",
+    "card": 450.34,
+    "basis": "card daily x 7 (weekly)",
+    "card_line": "Lighting Towers",
+    "difference": 192.96,
+    "agrees": false
+   },
+   {
+    "line": "9961976/4",
+    "description": "LT04 MOLENDINAR Lighting Tower LED Metro",
+    "register_type": "Light Tower",
+    "kind": "lighting tower",
+    "rate_1": 643.3,
+    "rate_type": "W",
+    "card": 450.34,
+    "basis": "card daily x 7 (weekly)",
+    "card_line": "Lighting Towers",
+    "difference": 192.96,
+    "agrees": false
+   },
+   {
+    "line": "9961976/5",
+    "description": "MOLENDINAR Lighting Tower LED 76500lm Hybrid",
+    "register_type": "Light Tower",
+    "kind": "lighting tower",
+    "rate_1": 643.3,
+    "rate_type": "W",
+    "card": 450.34,
+    "basis": "card daily x 7 (weekly)",
+    "card_line": "Lighting Towers",
+    "difference": 192.96,
+    "agrees": false
+   },
+   {
+    "line": "9961976/7",
+    "description": "GN19-Generator - Diesel - 80kVA DEL AS 60KVA",
+    "register_type": "60kva",
+    "kind": "generator",
+    "rate_1": 1254.5,
+    "rate_type": "W",
+    "card": 1351.01,
+    "basis": "card daily x 7 (weekly)",
+    "card_line": "Generator 60 KVA",
+    "difference": -96.51,
+    "agrees": false
+   },
+   {
+    "line": "9961976/9",
+    "description": "GN23-Generator - Sync - Hardwire Only 150kVA Diesel",
+    "register_type": "150kva",
+    "kind": "generator",
+    "rate_1": 2412.54,
+    "rate_type": "W",
+    "card": 1876.4,
+    "basis": "card daily x 7 (weekly)",
+    "card_line": "Generator 150 KVA",
+    "difference": 536.14,
+    "agrees": false
+   },
+   {
+    "line": "9961976/10",
+    "description": "GN03-Generator - 30kVA (Diesel)",
+    "register_type": "30kva",
+    "kind": "generator",
+    "rate_1": 1132.28,
+    "rate_type": "W",
+    "card": 990.73,
+    "basis": "card daily x 7 (weekly)",
+    "card_line": "Generator 30 KVA",
+    "difference": 141.55,
+    "agrees": false
+   },
+   {
+    "line": "9961976/11",
+    "description": "GN18-Generator - 60kVA (Diesel)",
+    "register_type": "60kva",
+    "kind": "generator",
+    "rate_1": 2187.36,
+    "rate_type": "W",
+    "card": 1351.01,
+    "basis": "card daily x 7 (weekly)",
+    "card_line": "Generator 60 KVA",
+    "difference": 836.35,
+    "agrees": false
+   },
+   {
+    "line": "9961976/13",
+    "description": "SPARE-Generator - 60kVA",
+    "register_type": "60kva",
+    "kind": "generator",
+    "rate_1": 1184.82,
+    "rate_type": "W",
+    "card": 1351.01,
+    "basis": "card daily x 7 (weekly)",
+    "card_line": "Generator 60 KVA",
+    "difference": -166.19,
+    "agrees": false
+   },
+   {
+    "line": "9961976/14",
+    "description": "GN04-Generator - 30kVA (Diesel)",
+    "register_type": "30kva",
+    "kind": "generator",
+    "rate_1": 919.97,
+    "rate_type": "W",
+    "card": 990.73,
+    "basis": "card daily x 7 (weekly)",
+    "card_line": "Generator 30 KVA",
+    "difference": -70.76,
+    "agrees": false
+   },
+   {
+    "line": "9961976/15",
+    "description": "GN10-Generator - 45kVA (Diesel)",
+    "register_type": "20kva",
+    "kind": "generator",
+    "rate_1": 1142.96,
+    "rate_type": "W",
+    "card": 855.61,
+    "basis": "card daily x 7 (weekly)",
+    "card_line": "Generator 20 KVA",
+    "difference": 287.35,
+    "agrees": false
+   },
+   {
+    "line": "9961976/16",
+    "description": "GN01-Generator - 60kVA (Diesel)",
+    "register_type": "60kva",
+    "kind": "generator",
+    "rate_1": 1544.0,
+    "rate_type": "W",
+    "card": 1351.01,
+    "basis": "card daily x 7 (weekly)",
+    "card_line": "Generator 60 KVA",
+    "difference": 192.99,
+    "agrees": false
+   },
+   {
+    "line": "9961976/17",
+    "description": "GN-24 Generator - Diesel - 80kVA",
+    "register_type": "80kva",
+    "kind": "generator",
+    "rate_1": 984.33,
+    "rate_type": "W",
+    "card": 1531.12,
+    "basis": "card daily x 7 (weekly)",
+    "card_line": "Generator 80 KVA",
+    "difference": -546.79,
+    "agrees": false
+   },
+   {
+    "line": "9961976/18",
+    "description": "GN25-Generator - 20kVA (Diesel)",
+    "register_type": "20kva",
+    "kind": "generator",
+    "rate_1": 855.63,
+    "rate_type": "W",
+    "card": 855.61,
+    "basis": "card daily x 7 (weekly)",
+    "card_line": "Generator 20 KVA",
+    "difference": 0.02,
+    "agrees": true
+   },
+   {
+    "line": "9961976/19",
+    "description": "LT05/06-Lighting Tower POD Metro",
+    "register_type": "Light Tower",
+    "kind": "lighting tower",
+    "rate_1": 385.98,
+    "rate_type": "W",
+    "card": 450.34,
+    "basis": "card daily x 7 (weekly)",
+    "card_line": "Lighting Towers",
+    "difference": -64.36,
+    "agrees": false
+   },
+   {
+    "line": "9961976/20",
+    "description": "LT05/06-Lighting Tower POD Metro",
+    "register_type": "Light Tower",
+    "kind": "lighting tower",
+    "rate_1": 385.98,
+    "rate_type": "W",
+    "card": 450.34,
+    "basis": "card daily x 7 (weekly)",
+    "card_line": "Lighting Towers",
+    "difference": -64.36,
+    "agrees": false
+   },
+   {
+    "line": "9961976/38",
+    "description": "GN21-Generator - 60kVA (Diesel)",
+    "register_type": "60kva",
+    "kind": "generator",
+    "rate_1": 868.5,
+    "rate_type": "W",
+    "card": 1351.01,
+    "basis": "card daily x 7 (weekly)",
+    "card_line": "Generator 60 KVA",
+    "difference": -482.51,
+    "agrees": false
+   },
+   {
+    "line": "9961976/44",
+    "description": "GN13 Generator - 60kVA (Diesel) DEL AS 45KVA",
+    "register_type": "60kva",
+    "kind": "generator",
+    "rate_1": 1406.72,
+    "rate_type": "W",
+    "card": 1351.01,
+    "basis": "card daily x 7 (weekly)",
+    "card_line": "Generator 60 KVA",
+    "difference": 55.71,
+    "agrees": false
+   },
+   {
+    "line": "9961976/48",
+    "description": "GN06 Generator - 60kVA (Diesel)",
+    "register_type": "60kva",
+    "kind": "generator",
+    "rate_1": 1184.82,
+    "rate_type": "W",
+    "card": 1351.01,
+    "basis": "card daily x 7 (weekly)",
+    "card_line": "Generator 60 KVA",
+    "difference": -166.19,
+    "agrees": false
+   },
+   {
+    "line": "9961976/49",
+    "description": "GN24-Generator - 60kVA (Diesel) - Trailer Mounted",
+    "register_type": "60kva",
+    "kind": "generator",
+    "rate_1": 984.33,
+    "rate_type": "W",
+    "card": 1351.01,
+    "basis": "card daily x 7 (weekly)",
+    "card_line": "Generator 60 KVA",
+    "difference": -366.68,
+    "agrees": false
+   },
+   {
+    "line": "9968862/1",
+    "description": "P01 Portable Building Shell 12.0M x 3.0M - Cyclonic Rated",
+    "register_type": "Building 12m",
+    "kind": "building",
+    "rate_1": 1951.46,
+    "rate_type": "W",
+    "card": 1951.46,
+    "basis": "card hire rate (the whole-event bill)",
+    "card_line": "Portable Building - 12m x 3m",
+    "difference": 0.0,
+    "agrees": true
+   },
+   {
+    "line": "9968862/4",
+    "description": "P03 Portable Building Shell 12.0M x 3.0M - Cyclonic Ra",
+    "register_type": "Building 12m",
+    "kind": "building",
+    "rate_1": 1951.46,
+    "rate_type": "W",
+    "card": 1951.46,
+    "basis": "card hire rate (the whole-event bill)",
+    "card_line": "Portable Building - 12m x 3m",
+    "difference": 0.0,
+    "agrees": true
+   },
+   {
+    "line": "9968862/7",
+    "description": "P04 Portable Building Shell 12.0M x 3.0M - Cyclonic Rated",
+    "register_type": "Building 12m",
+    "kind": "building",
+    "rate_1": 1951.46,
+    "rate_type": "W",
+    "card": 1951.46,
+    "basis": "card hire rate (the whole-event bill)",
+    "card_line": "Portable Building - 12m x 3m",
+    "difference": 0.0,
+    "agrees": true
+   },
+   {
+    "line": "9968862/10",
+    "description": "P05 Portable Building Shell 6.0M x 3.0M - Cyclonic Rated",
+    "register_type": "Building 6m",
+    "kind": "building",
+    "rate_1": 1426.07,
+    "rate_type": "W",
+    "card": 1426.07,
+    "basis": "card hire rate (the whole-event bill)",
+    "card_line": "Portable Building - 6m x 3m",
+    "difference": 0.0,
+    "agrees": true
+   },
+   {
+    "line": "9968862/17",
+    "description": "CP1 P68 Portable Building Shell 6.0M x 3.0M",
+    "register_type": "Building 6m",
+    "kind": "building",
+    "rate_1": 1426.07,
+    "rate_type": "W",
+    "card": 1426.07,
+    "basis": "card hire rate (the whole-event bill)",
+    "card_line": "Portable Building - 6m x 3m",
+    "difference": 0.0,
+    "agrees": true
+   },
+   {
+    "line": "9968862/24",
+    "description": "P33 Portable Building Shell 9.6M x 3.0M",
+    "register_type": "Building 9.6m",
+    "kind": "building",
+    "rate_1": 1576.18,
+    "rate_type": "W",
+    "card": 1576.18,
+    "basis": "card hire rate (the whole-event bill)",
+    "card_line": "Portable Building - 9.6m x 3m",
+    "difference": 0.0,
+    "agrees": true
+   },
+   {
+    "line": "9968862/28",
+    "description": "P09 Portable Building Shell 6.0M x 3.0M - Cyclonic Rated",
+    "register_type": "Building 6m",
+    "kind": "building",
+    "rate_1": 1426.07,
+    "rate_type": "W",
+    "card": 1426.07,
+    "basis": "card hire rate (the whole-event bill)",
+    "card_line": "Portable Building - 6m x 3m",
+    "difference": 0.0,
+    "agrees": true
+   },
+   {
+    "line": "9968862/33",
+    "description": "P17 Portable Building Shell Cyclone Rated 9.6m x 3m",
+    "register_type": "Building 9.6m",
+    "kind": "building",
+    "rate_1": 1576.18,
+    "rate_type": "W",
+    "card": 1576.18,
+    "basis": "card hire rate (the whole-event bill)",
+    "card_line": "Portable Building - 9.6m x 3m",
+    "difference": 0.0,
+    "agrees": true
+   },
+   {
+    "line": "9968862/34",
+    "description": "P19 Portable Building Shell 6.0M x 3.0M",
+    "register_type": "Building 6m",
+    "kind": "building",
+    "rate_1": 1125.84,
+    "rate_type": "W",
+    "card": 1426.07,
+    "basis": "card hire rate (the whole-event bill)",
+    "card_line": "Portable Building - 6m x 3m",
+    "difference": -300.23,
+    "agrees": false
+   },
+   {
+    "line": "9968862/36",
+    "description": "P18 Portable Building Shell 4.8M x 2.4M",
+    "register_type": "Building 4.8m",
+    "kind": "building",
+    "rate_1": 1125.84,
+    "rate_type": "W",
+    "card": 1125.84,
+    "basis": "card hire rate (the whole-event bill)",
+    "card_line": "Portable Building - 4.8m x 3m",
+    "difference": 0.0,
+    "agrees": true
+   },
+   {
+    "line": "9968862/38",
+    "description": "P20 Portable Building Shell 4.8M x 2.4M",
+    "register_type": "Building 4.8m",
+    "kind": "building",
+    "rate_1": 1125.84,
+    "rate_type": "W",
+    "card": 1125.84,
+    "basis": "card hire rate (the whole-event bill)",
+    "card_line": "Portable Building - 4.8m x 3m",
+    "difference": 0.0,
+    "agrees": true
+   },
+   {
+    "line": "9968862/44",
+    "description": "P10 Portable Building Shell 4.8M x 2.4M",
+    "register_type": "Building 4.8m",
+    "kind": "building",
+    "rate_1": 1125.84,
+    "rate_type": "W",
+    "card": 1125.84,
+    "basis": "card hire rate (the whole-event bill)",
+    "card_line": "Portable Building - 4.8m x 3m",
+    "difference": 0.0,
+    "agrees": true
+   },
+   {
+    "line": "9968862/46",
+    "description": "P11 Portable Building Shell 4.8M x 2.4M",
+    "register_type": "Building 4.8m",
+    "kind": "building",
+    "rate_1": 1125.84,
+    "rate_type": "W",
+    "card": 1125.84,
+    "basis": "card hire rate (the whole-event bill)",
+    "card_line": "Portable Building - 4.8m x 3m",
+    "difference": 0.0,
+    "agrees": true
+   },
+   {
+    "line": "9968862/48",
+    "description": "P12 Portable Building Shell 4.8M x 2.4M",
+    "register_type": "Building 4.8m",
+    "kind": "building",
+    "rate_1": 1125.84,
+    "rate_type": "W",
+    "card": 1125.84,
+    "basis": "card hire rate (the whole-event bill)",
+    "card_line": "Portable Building - 4.8m x 3m",
+    "difference": 0.0,
+    "agrees": true
+   },
+   {
+    "line": "9968862/50",
+    "description": "P37 Portable Building Shell 6.0M x 3.0M",
+    "register_type": "Building 6m",
+    "kind": "building",
+    "rate_1": 1426.07,
+    "rate_type": "W",
+    "card": 1426.07,
+    "basis": "card hire rate (the whole-event bill)",
+    "card_line": "Portable Building - 6m x 3m",
+    "difference": 0.0,
+    "agrees": true
+   },
+   {
+    "line": "9968862/51",
+    "description": "P13 Portable Building Shell 4.8M x 2.4M",
+    "register_type": "Building 4.8m",
+    "kind": "building",
+    "rate_1": 1125.84,
+    "rate_type": "W",
+    "card": 1125.84,
+    "basis": "card hire rate (the whole-event bill)",
+    "card_line": "Portable Building - 4.8m x 3m",
+    "difference": 0.0,
+    "agrees": true
+   },
+   {
+    "line": "9968862/53",
+    "description": "P14 Portable Building Shell 4.8M x 2.4M",
+    "register_type": "Building 4.8m",
+    "kind": "building",
+    "rate_1": 1125.84,
+    "rate_type": "W",
+    "card": 1125.84,
+    "basis": "card hire rate (the whole-event bill)",
+    "card_line": "Portable Building - 4.8m x 3m",
+    "difference": 0.0,
+    "agrees": true
+   },
+   {
+    "line": "9968862/55",
+    "description": "P15 Portable Building Shell 4.8M x 2.4M",
+    "register_type": "Building 4.8m",
+    "kind": "building",
+    "rate_1": 1125.84,
+    "rate_type": "W",
+    "card": 1125.84,
+    "basis": "card hire rate (the whole-event bill)",
+    "card_line": "Portable Building - 4.8m x 3m",
+    "difference": 0.0,
+    "agrees": true
+   },
+   {
+    "line": "9968862/57",
+    "description": "P16 Portable Building Shell 4.8M x 2.4M",
+    "register_type": "Building 4.8m",
+    "kind": "building",
+    "rate_1": 1125.84,
+    "rate_type": "W",
+    "card": 1125.84,
+    "basis": "card hire rate (the whole-event bill)",
+    "card_line": "Portable Building - 4.8m x 3m",
+    "difference": 0.0,
+    "agrees": true
+   },
+   {
+    "line": "9968862/59",
+    "description": "P44 Portable Building Shell 6.0M x 3.0M - Cyclonic Rated",
+    "register_type": "Building 6m",
+    "kind": "building",
+    "rate_1": 1426.07,
+    "rate_type": "W",
+    "card": 1426.07,
+    "basis": "card hire rate (the whole-event bill)",
+    "card_line": "Portable Building - 6m x 3m",
+    "difference": 0.0,
+    "agrees": true
+   },
+   {
+    "line": "9968862/61",
+    "description": "P44 Portable Building Shell 6.0M x 3.0M",
+    "register_type": "Building 6m",
+    "kind": "building",
+    "rate_1": 1426.07,
+    "rate_type": "W",
+    "card": 1426.07,
+    "basis": "card hire rate (the whole-event bill)",
+    "card_line": "Portable Building - 6m x 3m",
+    "difference": 0.0,
+    "agrees": true
+   },
+   {
+    "line": "9968862/63",
+    "description": "P41 Portable Building Shell 6.0M x 3.0M",
+    "register_type": "Building 6m",
+    "kind": "building",
+    "rate_1": 1426.17,
+    "rate_type": "W",
+    "card": 1426.07,
+    "basis": "card hire rate (the whole-event bill)",
+    "card_line": "Portable Building - 6m x 3m",
+    "difference": 0.1,
+    "agrees": true
+   },
+   {
+    "line": "9968862/64",
+    "description": "P06 Portable Building Shell 6.0M x 3.0M",
+    "register_type": "Building 6m",
+    "kind": "building",
+    "rate_1": 1426.07,
+    "rate_type": "W",
+    "card": 1426.07,
+    "basis": "card hire rate (the whole-event bill)",
+    "card_line": "Portable Building - 6m x 3m",
+    "difference": 0.0,
+    "agrees": true
+   },
+   {
+    "line": "9968862/70",
+    "description": "P38 Portable Building Shell 6.0M x 3.0M - Cyclonic Rated",
+    "register_type": "Building 6m",
+    "kind": "building",
+    "rate_1": 1426.07,
+    "rate_type": "W",
+    "card": 1426.07,
+    "basis": "card hire rate (the whole-event bill)",
+    "card_line": "Portable Building - 6m x 3m",
+    "difference": 0.0,
+    "agrees": true
+   },
+   {
+    "line": "9968862/73",
+    "description": "P39 Portable Building Shell 6.0M x 3.0M - Cyclonic Rated",
+    "register_type": "Building 6m",
+    "kind": "building",
+    "rate_1": 1426.08,
+    "rate_type": "W",
+    "card": 1426.07,
+    "basis": "card hire rate (the whole-event bill)",
+    "card_line": "Portable Building - 6m x 3m",
+    "difference": 0.01,
+    "agrees": true
+   },
+   {
+    "line": "9968862/76",
+    "description": "P42 Portable Building Shell 6.0M x 3.0M - Cyclonic Rated",
+    "register_type": "Building 6m",
+    "kind": "building",
+    "rate_1": 1426.07,
+    "rate_type": "W",
+    "card": 1426.07,
+    "basis": "card hire rate (the whole-event bill)",
+    "card_line": "Portable Building - 6m x 3m",
+    "difference": 0.0,
+    "agrees": true
+   },
+   {
+    "line": "9968862/79",
+    "description": "P52 Portable Building Shell 12.0M x 3.0M - Cyclonic Rated",
+    "register_type": "Building 12m",
+    "kind": "building",
+    "rate_1": 1951.46,
+    "rate_type": "W",
+    "card": 1951.46,
+    "basis": "card hire rate (the whole-event bill)",
+    "card_line": "Portable Building - 12m x 3m",
+    "difference": 0.0,
+    "agrees": true
+   },
+   {
+    "line": "9968862/85",
+    "description": "P54 Portable Building Shell 6.0M x 3.0M - Cyclonic Rated",
+    "register_type": "Building 6m",
+    "kind": "building",
+    "rate_1": 1426.07,
+    "rate_type": "W",
+    "card": 1426.07,
+    "basis": "card hire rate (the whole-event bill)",
+    "card_line": "Portable Building - 6m x 3m",
+    "difference": 0.0,
+    "agrees": true
+   },
+   {
+    "line": "9968862/87",
+    "description": "P55 Ticket Office 6.0Mx3.0M",
+    "register_type": "Ticket Box 6m",
+    "kind": "building",
+    "rate_1": 1426.07,
+    "rate_type": "W",
+    "card": 1426.07,
+    "basis": "card hire rate (the whole-event bill)",
+    "card_line": "Ticket Box - 6m x 2.4m",
+    "difference": 0.0,
+    "agrees": true
+   },
+   {
+    "line": "9968862/89",
+    "description": "P56 Portable Building Shell Cyclone Rated 3.6m x 2.4m",
+    "register_type": "Building 3.6m",
+    "kind": "building",
+    "rate_1": 975.73,
+    "rate_type": "W",
+    "card": 975.73,
+    "basis": "card hire rate (the whole-event bill)",
+    "card_line": "Portable Building - 3.6m x 2.4m",
+    "difference": 0.0,
+    "agrees": true
+   },
+   {
+    "line": "9968862/90",
+    "description": "P57 Portable Building Shell Cyclone Rated 9.6m x 3m",
+    "register_type": "Building 9.6m",
+    "kind": "building",
+    "rate_1": 1576.18,
+    "rate_type": "W",
+    "card": 1576.18,
+    "basis": "card hire rate (the whole-event bill)",
+    "card_line": "Portable Building - 9.6m x 3m",
+    "difference": 0.0,
+    "agrees": true
+   },
+   {
+    "line": "9968862/92",
+    "description": "P21 Portable Building Shell 6.0M x 3.0M - Cyclonic Rated",
+    "register_type": "Building 6m",
+    "kind": "building",
+    "rate_1": 1125.84,
+    "rate_type": "W",
+    "card": 1426.07,
+    "basis": "card hire rate (the whole-event bill)",
+    "card_line": "Portable Building - 6m x 3m",
+    "difference": -300.23,
+    "agrees": false
+   },
+   {
+    "line": "9968862/93",
+    "description": "P36 Portable Building Shell 6.0M x 3.0M - Cyclonic Rated",
+    "register_type": "Building 6m",
+    "kind": "building",
+    "rate_1": 1426.07,
+    "rate_type": "W",
+    "card": 1426.07,
+    "basis": "card hire rate (the whole-event bill)",
+    "card_line": "Portable Building - 6m x 3m",
+    "difference": 0.0,
+    "agrees": true
+   },
+   {
+    "line": "9968862/94",
+    "description": "P51 Portable Building Shell 12.0M x 3.0M - Cyclonic Rated",
+    "register_type": "Building 12m",
+    "kind": "building",
+    "rate_1": 1951.46,
+    "rate_type": "W",
+    "card": 1951.46,
+    "basis": "card hire rate (the whole-event bill)",
+    "card_line": "Portable Building - 12m x 3m",
+    "difference": 0.0,
+    "agrees": true
+   },
+   {
+    "line": "9968862/100",
+    "description": "P46 Portable Building Shell 12.0M x 3.0M - Cyclonic Rated",
+    "register_type": "Building 12m",
+    "kind": "building",
+    "rate_1": 1951.46,
+    "rate_type": "W",
+    "card": 1951.46,
+    "basis": "card hire rate (the whole-event bill)",
+    "card_line": "Portable Building - 12m x 3m",
+    "difference": 0.0,
+    "agrees": true
+   },
+   {
+    "line": "9968862/103",
+    "description": "P69 Portable Building Shell 6.0M x 3.0M",
+    "register_type": "Building 6m",
+    "kind": "building",
+    "rate_1": 1426.07,
+    "rate_type": "W",
+    "card": 1426.07,
+    "basis": "card hire rate (the whole-event bill)",
+    "card_line": "Portable Building - 6m x 3m",
+    "difference": 0.0,
+    "agrees": true
+   },
+   {
+    "line": "9968862/105",
+    "description": "P25 Portable Building Shell 6.0M x 3.0M - Cyclonic Rated",
+    "register_type": "Building 6m",
+    "kind": "building",
+    "rate_1": 1125.84,
+    "rate_type": "W",
+    "card": 1426.07,
+    "basis": "card hire rate (the whole-event bill)",
+    "card_line": "Portable Building - 6m x 3m",
+    "difference": -300.23,
+    "agrees": false
+   },
+   {
+    "line": "9968862/108",
+    "description": "P67 Commentary Booth 6.0M x 3.0M",
+    "register_type": "Building 6m",
+    "kind": "building",
+    "rate_1": 1426.07,
+    "rate_type": "W",
+    "card": 1426.07,
+    "basis": "card hire rate (the whole-event bill)",
+    "card_line": "Portable Building - 6m x 3m",
+    "difference": 0.0,
+    "agrees": true
+   },
+   {
+    "line": "9968862/110",
+    "description": "P65 Portable Building Shell 6.0M x 3.0M - Cyclonic Rated",
+    "register_type": "Building 6m",
+    "kind": "building",
+    "rate_1": 1426.07,
+    "rate_type": "W",
+    "card": 1426.07,
+    "basis": "card hire rate (the whole-event bill)",
+    "card_line": "Portable Building - 6m x 3m",
+    "difference": 0.0,
+    "agrees": true
+   },
+   {
+    "line": "9968862/113",
+    "description": "P66 Portable Building Shell 6.0M x 3.0M",
+    "register_type": "Building 6m",
+    "kind": "building",
+    "rate_1": 1426.07,
+    "rate_type": "W",
+    "card": 1426.07,
+    "basis": "card hire rate (the whole-event bill)",
+    "card_line": "Portable Building - 6m x 3m",
+    "difference": 0.0,
+    "agrees": true
+   },
+   {
+    "line": "9968862/116",
+    "description": "P60 Ticket Office 4.8Mx2.4M",
+    "register_type": "Ticket Box 4.8m",
+    "kind": "building",
+    "rate_1": 1125.84,
+    "rate_type": "W",
+    "card": 1125.84,
+    "basis": "card hire rate (the whole-event bill)",
+    "card_line": "Ticket Box - 4.8m x 2.4m",
+    "difference": 0.0,
+    "agrees": true
+   },
+   {
+    "line": "9968862/118",
+    "description": "P62 Commentary Booth 6.0M x 3.0M",
+    "register_type": "Building 6m",
+    "kind": "building",
+    "rate_1": 1426.07,
+    "rate_type": "W",
+    "card": 1426.07,
+    "basis": "card hire rate (the whole-event bill)",
+    "card_line": "Portable Building - 6m x 3m",
+    "difference": 0.0,
+    "agrees": true
+   },
+   {
+    "line": "9968862/121",
+    "description": "P63 Portable Building Shell 6.0M x 3.0M",
+    "register_type": "Building 6m",
+    "kind": "building",
+    "rate_1": 1426.07,
+    "rate_type": "W",
+    "card": 1426.07,
+    "basis": "card hire rate (the whole-event bill)",
+    "card_line": "Portable Building - 6m x 3m",
+    "difference": 0.0,
+    "agrees": true
+   },
+   {
+    "line": "9968862/126",
+    "description": "P08 Portable Building Shell 6.0M x 3.0M",
+    "register_type": "Building 6m",
+    "kind": "building",
+    "rate_1": 1426.07,
+    "rate_type": "W",
+    "card": 1426.07,
+    "basis": "card hire rate (the whole-event bill)",
+    "card_line": "Portable Building - 6m x 3m",
+    "difference": 0.0,
+    "agrees": true
+   },
+   {
+    "line": "9968862/131",
+    "description": "P45 Portable Building Shell 6.0M x 3.0M",
+    "register_type": "Building 6m",
+    "kind": "building",
+    "rate_1": 1426.07,
+    "rate_type": "W",
+    "card": 1426.07,
+    "basis": "card hire rate (the whole-event bill)",
+    "card_line": "Portable Building - 6m x 3m",
+    "difference": 0.0,
+    "agrees": true
+   },
+   {
+    "line": "9968955/4",
+    "description": "WC12 Toilet Portable - Fresh Water Flush",
+    "register_type": "FWF",
+    "kind": "toilet",
+    "rate_1": 90.07,
+    "rate_type": "W",
+    "card": 90.07,
+    "basis": "card hire rate (the whole-event bill)",
+    "card_line": "Portable FWF Single",
+    "difference": 0.0,
+    "agrees": true
+   },
+   {
+    "line": "9968955/5",
+    "description": "WC12 Toilet Portable - Fresh Water Flush",
+    "register_type": "FWF",
+    "kind": "toilet",
+    "rate_1": 90.07,
+    "rate_type": "W",
+    "card": 90.07,
+    "basis": "card hire rate (the whole-event bill)",
+    "card_line": "Portable FWF Single",
+    "difference": 0.0,
+    "agrees": true
+   },
+   {
+    "line": "9968955/6",
+    "description": "WC11 Toilet Portable - Fresh Water Flush",
+    "register_type": "FWF",
+    "kind": "toilet",
+    "rate_1": 90.07,
+    "rate_type": "W",
+    "card": 90.07,
+    "basis": "card hire rate (the whole-event bill)",
+    "card_line": "Portable FWF Single",
+    "difference": 0.0,
+    "agrees": true
+   },
+   {
+    "line": "9968955/7",
+    "description": "WC21 Toilet Portable - Fresh Water Flush",
+    "register_type": "FWF",
+    "kind": "toilet",
+    "rate_1": 90.07,
+    "rate_type": "W",
+    "card": 90.07,
+    "basis": "card hire rate (the whole-event bill)",
+    "card_line": "Portable FWF Single",
+    "difference": 0.0,
+    "agrees": true
+   },
+   {
+    "line": "9968955/8",
+    "description": "WC21 Toilet Portable - Fresh Water Flush",
+    "register_type": "FWF",
+    "kind": "toilet",
+    "rate_1": 90.07,
+    "rate_type": "W",
+    "card": 90.07,
+    "basis": "card hire rate (the whole-event bill)",
+    "card_line": "Portable FWF Single",
+    "difference": 0.0,
+    "agrees": true
+   },
+   {
+    "line": "9968955/9",
+    "description": "WC21 Toilet Portable - Fresh Water Flush",
+    "register_type": "FWF",
+    "kind": "toilet",
+    "rate_1": 90.07,
+    "rate_type": "W",
+    "card": 90.07,
+    "basis": "card hire rate (the whole-event bill)",
+    "card_line": "Portable FWF Single",
+    "difference": 0.0,
+    "agrees": true
+   },
+   {
+    "line": "9968955/14",
+    "description": "WC21 Toilet Portable - Fresh Water Flush",
+    "register_type": "FWF",
+    "kind": "toilet",
+    "rate_1": 90.07,
+    "rate_type": "W",
+    "card": 90.07,
+    "basis": "card hire rate (the whole-event bill)",
+    "card_line": "Portable FWF Single",
+    "difference": 0.0,
+    "agrees": true
+   },
+   {
+    "line": "9968955/15",
+    "description": "WC06 Toilet Portable - Fresh Water Flush",
+    "register_type": "FWF",
+    "kind": "toilet",
+    "rate_1": 90.07,
+    "rate_type": "W",
+    "card": 90.07,
+    "basis": "card hire rate (the whole-event bill)",
+    "card_line": "Portable FWF Single",
+    "difference": 0.0,
+    "agrees": true
+   },
+   {
+    "line": "9968955/16",
+    "description": "WC21 Toilet Portable - Fresh Water Flush",
+    "register_type": "FWF",
+    "kind": "toilet",
+    "rate_1": 90.07,
+    "rate_type": "W",
+    "card": 90.07,
+    "basis": "card hire rate (the whole-event bill)",
+    "card_line": "Portable FWF Single",
+    "difference": 0.0,
+    "agrees": true
+   },
+   {
+    "line": "9968955/17",
+    "description": "WC12 Toilet Portable - Fresh Water Flush",
+    "register_type": "FWF",
+    "kind": "toilet",
+    "rate_1": 90.07,
+    "rate_type": "W",
+    "card": 90.07,
+    "basis": "card hire rate (the whole-event bill)",
+    "card_line": "Portable FWF Single",
+    "difference": 0.0,
+    "agrees": true
+   },
+   {
+    "line": "9968955/18",
+    "description": "WC21 Toilet Portable - Fresh Water Flush",
+    "register_type": "FWF",
+    "kind": "toilet",
+    "rate_1": 90.07,
+    "rate_type": "W",
+    "card": 90.07,
+    "basis": "card hire rate (the whole-event bill)",
+    "card_line": "Portable FWF Single",
+    "difference": 0.0,
+    "agrees": true
+   },
+   {
+    "line": "9968955/19",
+    "description": "WC21 Toilet Portable - Fresh Water Flush",
+    "register_type": "FWF",
+    "kind": "toilet",
+    "rate_1": 90.07,
+    "rate_type": "W",
+    "card": 90.07,
+    "basis": "card hire rate (the whole-event bill)",
+    "card_line": "Portable FWF Single",
+    "difference": 0.0,
+    "agrees": true
+   },
+   {
+    "line": "9968955/22",
+    "description": "WC50 Toilet Portable - Fresh Water Flush",
+    "register_type": "FWF",
+    "kind": "toilet",
+    "rate_1": 90.07,
+    "rate_type": "W",
+    "card": 90.07,
+    "basis": "card hire rate (the whole-event bill)",
+    "card_line": "Portable FWF Single",
+    "difference": 0.0,
+    "agrees": true
+   },
+   {
+    "line": "9968955/23",
+    "description": "WC11 Toilet Portable - Fresh Water Flush",
+    "register_type": "FWF",
+    "kind": "toilet",
+    "rate_1": 90.07,
+    "rate_type": "W",
+    "card": 90.07,
+    "basis": "card hire rate (the whole-event bill)",
+    "card_line": "Portable FWF Single",
+    "difference": 0.0,
+    "agrees": true
+   },
+   {
+    "line": "9968955/24",
+    "description": "WC07 Toilet Portable - Fresh Water Flush",
+    "register_type": "FWF",
+    "kind": "toilet",
+    "rate_1": 90.07,
+    "rate_type": "W",
+    "card": 90.07,
+    "basis": "card hire rate (the whole-event bill)",
+    "card_line": "Portable FWF Single",
+    "difference": 0.0,
+    "agrees": true
+   },
+   {
+    "line": "9968955/25",
+    "description": "WC07 Toilet Portable - Fresh Water Flush",
+    "register_type": "FWF",
+    "kind": "toilet",
+    "rate_1": 90.07,
+    "rate_type": "W",
+    "card": 90.07,
+    "basis": "card hire rate (the whole-event bill)",
+    "card_line": "Portable FWF Single",
+    "difference": 0.0,
+    "agrees": true
+   },
+   {
+    "line": "9968955/26",
+    "description": "WC07 Toilet Portable - Fresh Water Flush",
+    "register_type": "FWF",
+    "kind": "toilet",
+    "rate_1": 90.07,
+    "rate_type": "W",
+    "card": 90.07,
+    "basis": "card hire rate (the whole-event bill)",
+    "card_line": "Portable FWF Single",
+    "difference": 0.0,
+    "agrees": true
+   },
+   {
+    "line": "9968955/27",
+    "description": "WC07 Toilet Portable - Fresh Water Flush",
+    "register_type": "FWF",
+    "kind": "toilet",
+    "rate_1": 90.07,
+    "rate_type": "W",
+    "card": 90.07,
+    "basis": "card hire rate (the whole-event bill)",
+    "card_line": "Portable FWF Single",
+    "difference": 0.0,
+    "agrees": true
+   },
+   {
+    "line": "9968955/28",
+    "description": "WC07 Toilet Portable - Fresh Water Flush",
+    "register_type": "FWF",
+    "kind": "toilet",
+    "rate_1": 90.07,
+    "rate_type": "W",
+    "card": 90.07,
+    "basis": "card hire rate (the whole-event bill)",
+    "card_line": "Portable FWF Single",
+    "difference": 0.0,
+    "agrees": true
+   },
+   {
+    "line": "9968955/29",
+    "description": "WC07 Toilet Portable - Fresh Water Flush",
+    "register_type": "FWF",
+    "kind": "toilet",
+    "rate_1": 90.07,
+    "rate_type": "W",
+    "card": 90.07,
+    "basis": "card hire rate (the whole-event bill)",
+    "card_line": "Portable FWF Single",
+    "difference": 0.0,
+    "agrees": true
+   },
+   {
+    "line": "9968955/30",
+    "description": "WC07 Toilet Portable - Fresh Water Flush",
+    "register_type": "FWF",
+    "kind": "toilet",
+    "rate_1": 90.07,
+    "rate_type": "W",
+    "card": 90.07,
+    "basis": "card hire rate (the whole-event bill)",
+    "card_line": "Portable FWF Single",
+    "difference": 0.0,
+    "agrees": true
+   },
+   {
+    "line": "9968955/31",
+    "description": "WC07 Toilet Portable - Fresh Water Flush",
+    "register_type": "FWF",
+    "kind": "toilet",
+    "rate_1": 90.07,
+    "rate_type": "W",
+    "card": 90.07,
+    "basis": "card hire rate (the whole-event bill)",
+    "card_line": "Portable FWF Single",
+    "difference": 0.0,
+    "agrees": true
+   },
+   {
+    "line": "9968955/32",
+    "description": "WC07 Toilet Portable - Fresh Water Flush",
+    "register_type": "FWF",
+    "kind": "toilet",
+    "rate_1": 90.07,
+    "rate_type": "W",
+    "card": 90.07,
+    "basis": "card hire rate (the whole-event bill)",
+    "card_line": "Portable FWF Single",
+    "difference": 0.0,
+    "agrees": true
+   },
+   {
+    "line": "9968955/33",
+    "description": "WC07 Toilet Portable - Fresh Water Flush",
+    "register_type": "FWF",
+    "kind": "toilet",
+    "rate_1": 90.07,
+    "rate_type": "W",
+    "card": 90.07,
+    "basis": "card hire rate (the whole-event bill)",
+    "card_line": "Portable FWF Single",
+    "difference": 0.0,
+    "agrees": true
+   },
+   {
+    "line": "9968955/34",
+    "description": "WC07 Toilet Portable - Fresh Water Flush",
+    "register_type": "FWF",
+    "kind": "toilet",
+    "rate_1": 90.07,
+    "rate_type": "W",
+    "card": 90.07,
+    "basis": "card hire rate (the whole-event bill)",
+    "card_line": "Portable FWF Single",
+    "difference": 0.0,
+    "agrees": true
+   },
+   {
+    "line": "9968955/35",
+    "description": "WC07 Toilet Portable - Fresh Water Flush",
+    "register_type": "FWF",
+    "kind": "toilet",
+    "rate_1": 90.07,
+    "rate_type": "W",
+    "card": 90.07,
+    "basis": "card hire rate (the whole-event bill)",
+    "card_line": "Portable FWF Single",
+    "difference": 0.0,
+    "agrees": true
+   },
+   {
+    "line": "9968955/36",
+    "description": "WC07 Toilet Portable - Fresh Water Flush",
+    "register_type": "FWF",
+    "kind": "toilet",
+    "rate_1": 90.07,
+    "rate_type": "W",
+    "card": 90.07,
+    "basis": "card hire rate (the whole-event bill)",
+    "card_line": "Portable FWF Single",
+    "difference": 0.0,
+    "agrees": true
+   },
+   {
+    "line": "9968955/37",
+    "description": "WC07 Toilet Portable - Fresh Water Flush",
+    "register_type": "FWF",
+    "kind": "toilet",
+    "rate_1": 90.07,
+    "rate_type": "W",
+    "card": 90.07,
+    "basis": "card hire rate (the whole-event bill)",
+    "card_line": "Portable FWF Single",
+    "difference": 0.0,
+    "agrees": true
+   },
+   {
+    "line": "9968955/38",
+    "description": "WC07 Toilet Portable - Fresh Water Flush",
+    "register_type": "FWF",
+    "kind": "toilet",
+    "rate_1": 90.07,
+    "rate_type": "W",
+    "card": 90.07,
+    "basis": "card hire rate (the whole-event bill)",
+    "card_line": "Portable FWF Single",
+    "difference": 0.0,
+    "agrees": true
+   },
+   {
+    "line": "9968955/39",
+    "description": "WC07 Toilet Portable - Fresh Water Flush",
+    "register_type": "FWF",
+    "kind": "toilet",
+    "rate_1": 90.07,
+    "rate_type": "W",
+    "card": 90.07,
+    "basis": "card hire rate (the whole-event bill)",
+    "card_line": "Portable FWF Single",
+    "difference": 0.0,
+    "agrees": true
+   },
+   {
+    "line": "9968955/40",
+    "description": "WC07 Toilet Portable - Fresh Water Flush",
+    "register_type": "FWF",
+    "kind": "toilet",
+    "rate_1": 90.07,
+    "rate_type": "W",
+    "card": 90.07,
+    "basis": "card hire rate (the whole-event bill)",
+    "card_line": "Portable FWF Single",
+    "difference": 0.0,
+    "agrees": true
+   },
+   {
+    "line": "9968955/41",
+    "description": "WC07 Toilet Portable - Fresh Water Flush",
+    "register_type": "FWF",
+    "kind": "toilet",
+    "rate_1": 90.07,
+    "rate_type": "W",
+    "card": 90.07,
+    "basis": "card hire rate (the whole-event bill)",
+    "card_line": "Portable FWF Single",
+    "difference": 0.0,
+    "agrees": true
+   },
+   {
+    "line": "9968955/42",
+    "description": "WC07 Toilet Portable - Fresh Water Flush",
+    "register_type": "FWF",
+    "kind": "toilet",
+    "rate_1": 90.07,
+    "rate_type": "W",
+    "card": 90.07,
+    "basis": "card hire rate (the whole-event bill)",
+    "card_line": "Portable FWF Single",
+    "difference": 0.0,
+    "agrees": true
+   },
+   {
+    "line": "9968955/43",
+    "description": "WC07 Toilet Portable - Fresh Water Flush",
+    "register_type": "FWF",
+    "kind": "toilet",
+    "rate_1": 90.07,
+    "rate_type": "W",
+    "card": 90.07,
+    "basis": "card hire rate (the whole-event bill)",
+    "card_line": "Portable FWF Single",
+    "difference": 0.0,
+    "agrees": true
+   },
+   {
+    "line": "9968955/44",
+    "description": "WC04 Toilet Portable - Fresh Water Flush",
+    "register_type": "FWF",
+    "kind": "toilet",
+    "rate_1": 90.07,
+    "rate_type": "W",
+    "card": 90.07,
+    "basis": "card hire rate (the whole-event bill)",
+    "card_line": "Portable FWF Single",
+    "difference": 0.0,
+    "agrees": true
+   },
+   {
+    "line": "9968955/45",
+    "description": "WC02 Toilet Portable - Fresh Water Flush",
+    "register_type": "FWF",
+    "kind": "toilet",
+    "rate_1": 90.07,
+    "rate_type": "W",
+    "card": 90.07,
+    "basis": "card hire rate (the whole-event bill)",
+    "card_line": "Portable FWF Single",
+    "difference": 0.0,
+    "agrees": true
+   },
+   {
+    "line": "9968955/46",
+    "description": "WC01 Toilet Portable - Fresh Water Flush",
+    "register_type": "FWF",
+    "kind": "toilet",
+    "rate_1": 90.07,
+    "rate_type": "W",
+    "card": 90.07,
+    "basis": "card hire rate (the whole-event bill)",
+    "card_line": "Portable FWF Single",
+    "difference": 0.0,
+    "agrees": true
+   },
+   {
+    "line": "9968955/51",
+    "description": "Wc86 Toilet - Disabled Access",
+    "register_type": "Accessible Toilet",
+    "kind": "toilet",
+    "rate_1": 337.75,
+    "rate_type": "W",
+    "card": 337.75,
+    "basis": "card hire rate (the whole-event bill)",
+    "card_line": "Accessible Toilet 3.6 x 2.4",
+    "difference": 0.0,
+    "agrees": true
+   },
+   {
+    "line": "9968955/57",
+    "description": "WC01 Toilet - Accessible",
+    "register_type": "Accessible Toilet",
+    "kind": "toilet",
+    "rate_1": 337.75,
+    "rate_type": "W",
+    "card": 337.75,
+    "basis": "card hire rate (the whole-event bill)",
+    "card_line": "Accessible Toilet 3.6 x 2.4",
+    "difference": 0.0,
+    "agrees": true
+   },
+   {
+    "line": "9968955/58",
+    "description": "WC06 Toilet Portable - Fresh Water Flush",
+    "register_type": "FWF",
+    "kind": "toilet",
+    "rate_1": 90.07,
+    "rate_type": "W",
+    "card": 90.07,
+    "basis": "card hire rate (the whole-event bill)",
+    "card_line": "Portable FWF Single",
+    "difference": 0.0,
+    "agrees": true
+   },
+   {
+    "line": "9968955/59",
+    "description": "WC41 Toilet Portable - Fresh Water Flush",
+    "register_type": "FWF",
+    "kind": "toilet",
+    "rate_1": 90.07,
+    "rate_type": "W",
+    "card": 90.07,
+    "basis": "card hire rate (the whole-event bill)",
+    "card_line": "Portable FWF Single",
+    "difference": 0.0,
+    "agrees": true
+   },
+   {
+    "line": "9968955/69",
+    "description": "WC01 Toilet Portable - Fresh Water Flush",
+    "register_type": "FWF",
+    "kind": "toilet",
+    "rate_1": 90.07,
+    "rate_type": "W",
+    "card": 90.07,
+    "basis": "card hire rate (the whole-event bill)",
+    "card_line": "Portable FWF Single",
+    "difference": 0.0,
+    "agrees": true
+   },
+   {
+    "line": "9968955/70",
+    "description": "WC43 Toilet Portable - Fresh Water Flush",
+    "register_type": "FWF",
+    "kind": "toilet",
+    "rate_1": 90.07,
+    "rate_type": "W",
+    "card": 90.07,
+    "basis": "card hire rate (the whole-event bill)",
+    "card_line": "Portable FWF Single",
+    "difference": 0.0,
+    "agrees": true
+   },
+   {
+    "line": "9968955/80",
+    "description": "WC44 Toilet Portable - Fresh Water Flush",
+    "register_type": "FWF",
+    "kind": "toilet",
+    "rate_1": 90.07,
+    "rate_type": "W",
+    "card": 90.07,
+    "basis": "card hire rate (the whole-event bill)",
+    "card_line": "Portable FWF Single",
+    "difference": 0.0,
+    "agrees": true
+   },
+   {
+    "line": "9968955/81",
+    "description": "WC44 Toilet Portable - Fresh Water Flush",
+    "register_type": "FWF",
+    "kind": "toilet",
+    "rate_1": 90.07,
+    "rate_type": "W",
+    "card": 90.07,
+    "basis": "card hire rate (the whole-event bill)",
+    "card_line": "Portable FWF Single",
+    "difference": 0.0,
+    "agrees": true
+   },
+   {
+    "line": "9968955/84",
+    "description": "WC67 Toilet Portable - Fresh Water Flush",
+    "register_type": "FWF",
+    "kind": "toilet",
+    "rate_1": 90.07,
+    "rate_type": "W",
+    "card": 90.07,
+    "basis": "card hire rate (the whole-event bill)",
+    "card_line": "Portable FWF Single",
+    "difference": 0.0,
+    "agrees": true
+   },
+   {
+    "line": "9968955/85",
+    "description": "WC70 Toilet Portable - Fresh Water Flush",
+    "register_type": "FWF",
+    "kind": "toilet",
+    "rate_1": 90.07,
+    "rate_type": "W",
+    "card": 90.07,
+    "basis": "card hire rate (the whole-event bill)",
+    "card_line": "Portable FWF Single",
+    "difference": 0.0,
+    "agrees": true
+   },
+   {
+    "line": "9968955/86",
+    "description": "WC71 Toilet Portable - Fresh Water Flush",
+    "register_type": "FWF",
+    "kind": "toilet",
+    "rate_1": 90.07,
+    "rate_type": "W",
+    "card": 90.07,
+    "basis": "card hire rate (the whole-event bill)",
+    "card_line": "Portable FWF Single",
+    "difference": 0.0,
+    "agrees": true
+   },
+   {
+    "line": "9968955/87",
+    "description": "WC69 Toilet Portable - Fresh Water Flush",
+    "register_type": "FWF",
+    "kind": "toilet",
+    "rate_1": 90.07,
+    "rate_type": "W",
+    "card": 90.07,
+    "basis": "card hire rate (the whole-event bill)",
+    "card_line": "Portable FWF Single",
+    "difference": 0.0,
+    "agrees": true
+   },
+   {
+    "line": "9968955/88",
+    "description": "WC38 Toilet Portable - Fresh Water Flush",
+    "register_type": "FWF",
+    "kind": "toilet",
+    "rate_1": 90.07,
+    "rate_type": "W",
+    "card": 90.07,
+    "basis": "card hire rate (the whole-event bill)",
+    "card_line": "Portable FWF Single",
+    "difference": 0.0,
+    "agrees": true
+   },
+   {
+    "line": "9968955/89",
+    "description": "WC39 Toilet Portable - Fresh Water Flush",
+    "register_type": "FWF",
+    "kind": "toilet",
+    "rate_1": 90.07,
+    "rate_type": "W",
+    "card": 90.07,
+    "basis": "card hire rate (the whole-event bill)",
+    "card_line": "Portable FWF Single",
+    "difference": 0.0,
+    "agrees": true
+   },
+   {
+    "line": "9968955/90",
+    "description": "WC40 Toilet Portable - Fresh Water Flush",
+    "register_type": "FWF",
+    "kind": "toilet",
+    "rate_1": 90.07,
+    "rate_type": "W",
+    "card": 90.07,
+    "basis": "card hire rate (the whole-event bill)",
+    "card_line": "Portable FWF Single",
+    "difference": 0.0,
+    "agrees": true
+   },
+   {
+    "line": "9968955/96",
+    "description": "WC61 Toilet Portable - Fresh Water Flush",
+    "register_type": "FWF",
+    "kind": "toilet",
+    "rate_1": 90.07,
+    "rate_type": "W",
+    "card": 90.07,
+    "basis": "card hire rate (the whole-event bill)",
+    "card_line": "Portable FWF Single",
+    "difference": 0.0,
+    "agrees": true
+   },
+   {
+    "line": "9968955/97",
+    "description": "WC31 Toilet - Accessible",
+    "register_type": "Accessible Toilet",
+    "kind": "toilet",
+    "rate_1": 337.75,
+    "rate_type": "W",
+    "card": 337.75,
+    "basis": "card hire rate (the whole-event bill)",
+    "card_line": "Accessible Toilet 3.6 x 2.4",
+    "difference": 0.0,
+    "agrees": true
+   },
+   {
+    "line": "9968955/98",
+    "description": "WC31 16 Pan Block",
+    "register_type": "16Pan Block",
+    "kind": "toilet",
+    "rate_1": 2852.13,
+    "rate_type": "W",
+    "card": 2852.13,
+    "basis": "card hire rate (the whole-event bill)",
+    "card_line": "16 Pan Unit",
+    "difference": 0.0,
+    "agrees": true
+   },
+   {
+    "line": "9968955/100",
+    "description": "WC34 Toilet Portable - Fresh Water Flush",
+    "register_type": "FWF",
+    "kind": "toilet",
+    "rate_1": 90.07,
+    "rate_type": "W",
+    "card": 90.07,
+    "basis": "card hire rate (the whole-event bill)",
+    "card_line": "Portable FWF Single",
+    "difference": 0.0,
+    "agrees": true
+   },
+   {
+    "line": "9968955/101",
+    "description": "WC33 Toilet Portable - Fresh Water Flush",
+    "register_type": "FWF",
+    "kind": "toilet",
+    "rate_1": 90.07,
+    "rate_type": "W",
+    "card": 90.07,
+    "basis": "card hire rate (the whole-event bill)",
+    "card_line": "Portable FWF Single",
+    "difference": 0.0,
+    "agrees": true
+   },
+   {
+    "line": "9968955/102",
+    "description": "WC09 Toilet Portable - Fresh Water Flush",
+    "register_type": "FWF",
+    "kind": "toilet",
+    "rate_1": 90.07,
+    "rate_type": "W",
+    "card": 90.07,
+    "basis": "card hire rate (the whole-event bill)",
+    "card_line": "Portable FWF Single",
+    "difference": 0.0,
+    "agrees": true
+   },
+   {
+    "line": "9968955/106",
+    "description": "WC59 FWF Toilet",
+    "register_type": "FWF",
+    "kind": "toilet",
+    "rate_1": 90.07,
+    "rate_type": "W",
+    "card": 90.07,
+    "basis": "card hire rate (the whole-event bill)",
+    "card_line": "Portable FWF Single",
+    "difference": 0.0,
+    "agrees": true
+   },
+   {
+    "line": "9968955/107",
+    "description": "WC57 FWF Toilet",
+    "register_type": "FWF",
+    "kind": "toilet",
+    "rate_1": 90.07,
+    "rate_type": "W",
+    "card": 90.07,
+    "basis": "card hire rate (the whole-event bill)",
+    "card_line": "Portable FWF Single",
+    "difference": 0.0,
+    "agrees": true
+   },
+   {
+    "line": "9968955/108",
+    "description": "WC49 FWF Toilet",
+    "register_type": "FWF",
+    "kind": "toilet",
+    "rate_1": 90.07,
+    "rate_type": "W",
+    "card": 90.07,
+    "basis": "card hire rate (the whole-event bill)",
+    "card_line": "Portable FWF Single",
+    "difference": 0.0,
+    "agrees": true
+   },
+   {
+    "line": "9968955/109",
+    "description": "WC48 FWF Toilet",
+    "register_type": "FWF",
+    "kind": "toilet",
+    "rate_1": 90.07,
+    "rate_type": "W",
+    "card": 90.07,
+    "basis": "card hire rate (the whole-event bill)",
+    "card_line": "Portable FWF Single",
+    "difference": 0.0,
+    "agrees": true
+   },
+   {
+    "line": "9968955/110",
+    "description": "WC51 FWF Toilet",
+    "register_type": "FWF",
+    "kind": "toilet",
+    "rate_1": 90.07,
+    "rate_type": "W",
+    "card": 90.07,
+    "basis": "card hire rate (the whole-event bill)",
+    "card_line": "Portable FWF Single",
+    "difference": 0.0,
+    "agrees": true
+   },
+   {
+    "line": "9968955/111",
+    "description": "WC51 Toilet - Accessible",
+    "register_type": "Accessible Toilet",
+    "kind": "toilet",
+    "rate_1": 337.75,
+    "rate_type": "W",
+    "card": 337.75,
+    "basis": "card hire rate (the whole-event bill)",
+    "card_line": "Accessible Toilet 3.6 x 2.4",
+    "difference": 0.0,
+    "agrees": true
+   },
+   {
+    "line": "9968955/112",
+    "description": "WC54 FWF Toilet",
+    "register_type": "FWF",
+    "kind": "toilet",
+    "rate_1": 90.07,
+    "rate_type": "W",
+    "card": 90.07,
+    "basis": "card hire rate (the whole-event bill)",
+    "card_line": "Portable FWF Single",
+    "difference": 0.0,
+    "agrees": true
+   },
+   {
+    "line": "9968955/113",
+    "description": "WC56 FWF Toilet",
+    "register_type": "FWF",
+    "kind": "toilet",
+    "rate_1": 90.07,
+    "rate_type": "W",
+    "card": 90.07,
+    "basis": "card hire rate (the whole-event bill)",
+    "card_line": "Portable FWF Single",
+    "difference": 0.0,
+    "agrees": true
+   },
+   {
+    "line": "9968955/114",
+    "description": "WC10 Toilet Portable - Fresh Water Flush",
+    "register_type": "FWF",
+    "kind": "toilet",
+    "rate_1": 90.07,
+    "rate_type": "W",
+    "card": 90.07,
+    "basis": "card hire rate (the whole-event bill)",
+    "card_line": "Portable FWF Single",
+    "difference": 0.0,
+    "agrees": true
+   },
+   {
+    "line": "9968955/115",
+    "description": "WC45 Toilet Portable - Fresh Water Flush",
+    "register_type": "FWF",
+    "kind": "toilet",
+    "rate_1": 90.07,
+    "rate_type": "W",
+    "card": 90.07,
+    "basis": "card hire rate (the whole-event bill)",
+    "card_line": "Portable FWF Single",
+    "difference": 0.0,
+    "agrees": true
+   },
+   {
+    "line": "9968955/116",
+    "description": "WC47 Toilet Portable - Fresh Water Flush",
+    "register_type": "FWF",
+    "kind": "toilet",
+    "rate_1": 90.07,
+    "rate_type": "W",
+    "card": 90.07,
+    "basis": "card hire rate (the whole-event bill)",
+    "card_line": "Portable FWF Single",
+    "difference": 0.0,
+    "agrees": true
+   },
+   {
+    "line": "9968955/117",
+    "description": "WC19 Toilet Portable - Fresh Water Flush",
+    "register_type": "FWF",
+    "kind": "toilet",
+    "rate_1": 90.07,
+    "rate_type": "W",
+    "card": 90.07,
+    "basis": "card hire rate (the whole-event bill)",
+    "card_line": "Portable FWF Single",
+    "difference": 0.0,
+    "agrees": true
+   },
+   {
+    "line": "9968955/118",
+    "description": "WC25 Toilet Portable - Fresh Water Flush",
+    "register_type": "FWF",
+    "kind": "toilet",
+    "rate_1": 90.07,
+    "rate_type": "W",
+    "card": 90.07,
+    "basis": "card hire rate (the whole-event bill)",
+    "card_line": "Portable FWF Single",
+    "difference": 0.0,
+    "agrees": true
+   },
+   {
+    "line": "9968955/119",
+    "description": "WC23 Toilet Portable - Fresh Water Flush",
+    "register_type": "FWF",
+    "kind": "toilet",
+    "rate_1": 90.07,
+    "rate_type": "W",
+    "card": 90.07,
+    "basis": "card hire rate (the whole-event bill)",
+    "card_line": "Portable FWF Single",
+    "difference": 0.0,
+    "agrees": true
+   },
+   {
+    "line": "9968955/120",
+    "description": "WC26 Toilet Portable - Fresh Water Flush",
+    "register_type": "FWF",
+    "kind": "toilet",
+    "rate_1": 90.07,
+    "rate_type": "W",
+    "card": 90.07,
+    "basis": "card hire rate (the whole-event bill)",
+    "card_line": "Portable FWF Single",
+    "difference": 0.0,
+    "agrees": true
+   },
+   {
+    "line": "9968955/121",
+    "description": "WC24 Toilet Portable - Fresh Water Flush",
+    "register_type": "FWF",
+    "kind": "toilet",
+    "rate_1": 90.07,
+    "rate_type": "W",
+    "card": 90.07,
+    "basis": "card hire rate (the whole-event bill)",
+    "card_line": "Portable FWF Single",
+    "difference": 0.0,
+    "agrees": true
+   },
+   {
+    "line": "9968955/122",
+    "description": "WC13 Toilet Portable - Fresh Water Flush",
+    "register_type": "FWF",
+    "kind": "toilet",
+    "rate_1": 90.07,
+    "rate_type": "W",
+    "card": 90.07,
+    "basis": "card hire rate (the whole-event bill)",
+    "card_line": "Portable FWF Single",
+    "difference": 0.0,
+    "agrees": true
+   },
+   {
+    "line": "9968955/123",
+    "description": "WC28 Toilet Portable - Fresh Water Flush",
+    "register_type": "FWF",
+    "kind": "toilet",
+    "rate_1": 90.07,
+    "rate_type": "W",
+    "card": 90.07,
+    "basis": "card hire rate (the whole-event bill)",
+    "card_line": "Portable FWF Single",
+    "difference": 0.0,
+    "agrees": true
+   },
+   {
+    "line": "9968955/124",
+    "description": "WC29 Toilet Portable - Fresh Water Flush",
+    "register_type": "FWF",
+    "kind": "toilet",
+    "rate_1": 90.07,
+    "rate_type": "W",
+    "card": 90.07,
+    "basis": "card hire rate (the whole-event bill)",
+    "card_line": "Portable FWF Single",
+    "difference": 0.0,
+    "agrees": true
+   },
+   {
+    "line": "9968955/125",
+    "description": "WC30 Toilet Portable - Fresh Water Flush",
+    "register_type": "FWF",
+    "kind": "toilet",
+    "rate_1": 90.07,
+    "rate_type": "W",
+    "card": 90.07,
+    "basis": "card hire rate (the whole-event bill)",
+    "card_line": "Portable FWF Single",
+    "difference": 0.0,
+    "agrees": true
+   },
+   {
+    "line": "9968955/126",
+    "description": "WC35 Toilet Portable - Fresh Water Flush",
+    "register_type": "FWF",
+    "kind": "toilet",
+    "rate_1": 90.07,
+    "rate_type": "W",
+    "card": 90.07,
+    "basis": "card hire rate (the whole-event bill)",
+    "card_line": "Portable FWF Single",
+    "difference": 0.0,
+    "agrees": true
+   },
+   {
+    "line": "9968955/127",
+    "description": "WC46 Toilet Portable - Fresh Water Flush",
+    "register_type": "FWF",
+    "kind": "toilet",
+    "rate_1": 90.07,
+    "rate_type": "W",
+    "card": 90.07,
+    "basis": "card hire rate (the whole-event bill)",
+    "card_line": "Portable FWF Single",
+    "difference": 0.0,
+    "agrees": true
+   },
+   {
+    "line": "9968955/128",
+    "description": "WC55 Toilet Portable - Fresh Water Flush",
+    "register_type": "FWF",
+    "kind": "toilet",
+    "rate_1": 90.07,
+    "rate_type": "W",
+    "card": 90.07,
+    "basis": "card hire rate (the whole-event bill)",
+    "card_line": "Portable FWF Single",
+    "difference": 0.0,
+    "agrees": true
+   },
+   {
+    "line": "9968955/129",
+    "description": "WC62 Toilet Portable - Fresh Water Flush",
+    "register_type": "FWF",
+    "kind": "toilet",
+    "rate_1": 90.07,
+    "rate_type": "W",
+    "card": 90.07,
+    "basis": "card hire rate (the whole-event bill)",
+    "card_line": "Portable FWF Single",
+    "difference": 0.0,
+    "agrees": true
+   },
+   {
+    "line": "9968955/130",
+    "description": "WC65 Toilet Portable - Fresh Water Flush",
+    "register_type": "FWF",
+    "kind": "toilet",
+    "rate_1": 90.07,
+    "rate_type": "W",
+    "card": 90.07,
+    "basis": "card hire rate (the whole-event bill)",
+    "card_line": "Portable FWF Single",
+    "difference": 0.0,
+    "agrees": true
+   },
+   {
+    "line": "9968955/131",
+    "description": "WC68 Toilet Portable - Fresh Water Flush",
+    "register_type": "FWF",
+    "kind": "toilet",
+    "rate_1": 90.07,
+    "rate_type": "W",
+    "card": 90.07,
+    "basis": "card hire rate (the whole-event bill)",
+    "card_line": "Portable FWF Single",
+    "difference": 0.0,
+    "agrees": true
+   },
+   {
+    "line": "9968955/132",
+    "description": "WC72 Toilet Portable - Fresh Water Flush",
+    "register_type": "FWF",
+    "kind": "toilet",
+    "rate_1": 90.07,
+    "rate_type": "W",
+    "card": 90.07,
+    "basis": "card hire rate (the whole-event bill)",
+    "card_line": "Portable FWF Single",
+    "difference": 0.0,
+    "agrees": true
+   },
+   {
+    "line": "9968955/133",
+    "description": "WC73 Toilet Portable - Fresh Water Flush",
+    "register_type": "FWF",
+    "kind": "toilet",
+    "rate_1": 90.07,
+    "rate_type": "W",
+    "card": 90.07,
+    "basis": "card hire rate (the whole-event bill)",
+    "card_line": "Portable FWF Single",
+    "difference": 0.0,
+    "agrees": true
+   },
+   {
+    "line": "9968955/134",
+    "description": "WC85 Toilet Portable - Fresh Water Flush",
+    "register_type": "FWF",
+    "kind": "toilet",
+    "rate_1": 90.07,
+    "rate_type": "W",
+    "card": 90.07,
+    "basis": "card hire rate (the whole-event bill)",
+    "card_line": "Portable FWF Single",
+    "difference": 0.0,
+    "agrees": true
+   },
+   {
+    "line": "9968955/140",
+    "description": "WC01 Toilet Portable - Fresh Water Flush",
+    "register_type": "FWF",
+    "kind": "toilet",
+    "rate_1": 90.07,
+    "rate_type": "W",
+    "card": 90.07,
+    "basis": "card hire rate (the whole-event bill)",
+    "card_line": "Portable FWF Single",
+    "difference": 0.0,
+    "agrees": true
+   },
+   {
+    "line": "9973079/1",
+    "description": "Trakmat - 2.4M x 1.1M - TM4496",
+    "register_type": "Trakmat",
+    "kind": "trakmat",
+    "rate_1": 5.0,
+    "rate_type": "W",
+    "card": 4.83,
+    "basis": "card daily",
+    "card_line": "Track Mat (per metre)",
+    "difference": 0.17,
+    "agrees": false
+   }
+  ]
+ },
+ "schedule9": {
+  "dates_applied": [
+   {
+    "sheet": "Week 2",
+    "row": 30,
+    "ref": "WC09",
+    "item": "FWF",
+    "from": "2026-10-09",
+    "to": "2026-10-08"
+   },
+   {
+    "sheet": "Week 2",
+    "row": 31,
+    "ref": "WC09",
+    "item": "Pee Panel",
+    "from": "2026-10-09",
+    "to": "2026-10-08"
+   },
+   {
+    "sheet": "Week 1",
+    "row": 20,
+    "ref": "P26",
+    "item": "Fridge Lge",
+    "from": "2026-10-16",
+    "to": "2026-10-14"
+   },
+   {
+    "sheet": "Week 1",
+    "row": 21,
+    "ref": "P28",
+    "item": "Fridge Lge",
+    "from": "2026-10-16",
+    "to": "2026-10-14"
+   },
+   {
+    "sheet": "Week 1",
+    "row": 22,
+    "ref": "P34",
+    "item": "Pad Chair",
+    "from": "2026-10-16",
+    "to": "2026-10-14"
+   },
+   {
+    "sheet": "Event Week",
+    "row": 21,
+    "ref": "WC46",
+    "item": "FWF",
+    "from": "2026-10-15",
+    "to": "2026-10-19"
+   },
+   {
+    "sheet": "Event Week",
+    "row": 38,
+    "ref": "PG01",
+    "item": "FWF",
+    "from": "2026-10-19",
+    "to": "2026-10-20"
+   },
+   {
+    "sheet": "Event Week",
+    "row": 39,
+    "ref": "PG03",
+    "item": "FWF",
+    "from": "2026-10-19",
+    "to": "2026-10-20"
+   },
+   {
+    "sheet": "Event Week",
+    "row": 40,
+    "ref": "PG05",
+    "item": "FWF",
+    "from": "2026-10-19",
+    "to": "2026-10-20"
+   },
+   {
+    "sheet": "Event Week",
+    "row": 41,
+    "ref": "PG29",
+    "item": "FWF",
+    "from": "2026-10-19",
+    "to": "2026-10-20"
+   },
+   {
+    "sheet": "Event Week",
+    "row": 42,
+    "ref": "WC85",
+    "item": "FWF",
+    "from": "2026-10-19",
+    "to": "2026-10-20"
+   }
+  ],
+  "dates_held": [
+   {
+    "sheet": "Week 3",
+    "row": 4,
+    "ref": "WC01",
+    "item": "Accessible Toilet",
+    "from": "2026-09-28",
+    "to": "2026-09-30",
+    "held": "on site on the record; its first day is history"
+   },
+   {
+    "sheet": "Week 3",
+    "row": 13,
+    "ref": "WC50",
+    "item": "FWF",
+    "from": "2026-09-28",
+    "to": "2026-09-30",
+    "held": "on site on the record; its first day is history"
+   },
+   {
+    "sheet": "Week 2",
+    "row": 14,
+    "ref": "WC38",
+    "item": "FWF",
+    "from": "2026-10-09",
+    "to": "2026-10-07",
+    "held": "on site on the record; its first day is history"
+   },
+   {
+    "sheet": "Week 2",
+    "row": 15,
+    "ref": "WC39",
+    "item": "FWF",
+    "from": "2026-10-09",
+    "to": "2026-10-07",
+    "held": "on site on the record; its first day is history"
+   },
+   {
+    "sheet": "Week 2",
+    "row": 16,
+    "ref": "WC40",
+    "item": "FWF",
+    "from": "2026-10-09",
+    "to": "2026-10-07",
+    "held": "on site on the record; its first day is history"
+   },
+   {
+    "sheet": "Week 2",
+    "row": 24,
+    "ref": "WC61",
+    "item": "FWF",
+    "from": "2026-10-09",
+    "to": "2026-10-07",
+    "held": "on site on the record; its first day is history"
+   },
+   {
+    "sheet": "Week 2",
+    "row": 28,
+    "ref": "WC34",
+    "item": "FWF",
+    "from": "2026-10-09",
+    "to": "2026-10-08",
+    "held": "on site on the record; its first day is history"
+   },
+   {
+    "sheet": "Week 1",
+    "row": 7,
+    "ref": "WC57",
+    "item": "FWF",
+    "from": "2026-10-09",
+    "to": "2026-10-12",
+    "held": "on site on the record; its first day is history"
+   },
+   {
+    "sheet": "Week 1",
+    "row": 35,
+    "ref": "WB06",
+    "item": "TL2",
+    "from": "2026-10-16",
+    "to": "2026-10-15",
+    "held": "on site on the record; its first day is history"
+   },
+   {
+    "sheet": "Event Week",
+    "row": 18,
+    "ref": "WC29",
+    "item": "FWF",
+    "from": "2026-10-13",
+    "to": "2026-10-19",
+    "held": "on site on the record; its first day is history"
+   },
+   {
+    "sheet": "Event Week",
+    "row": 22,
+    "ref": "WC55",
+    "item": "FWF",
+    "from": "2026-10-15",
+    "to": "2026-10-19",
+    "held": "on site on the record; its first day is history"
+   },
+   {
+    "sheet": "Event Week",
+    "row": 25,
+    "ref": "WC68",
+    "item": "FWF",
+    "from": "2026-10-13",
+    "to": "2026-10-19",
+    "held": "on site on the record; its first day is history"
+   },
+   {
+    "sheet": "Event Week",
+    "row": 26,
+    "ref": "WC72",
+    "item": "FWF",
+    "from": "2026-10-13",
+    "to": "2026-10-19",
+    "held": "on site on the record; its first day is history"
+   }
+  ],
+  "quantities": [
+   {
+    "sheet": "Week 3",
+    "row": 24,
+    "ref": "WC60",
+    "item": "Toilet Block 6m",
+    "from": 2,
+    "to": 1
+   },
+   {
+    "sheet": "Week 1",
+    "row": 10,
+    "ref": "WC67",
+    "item": "FWF",
+    "from": 2,
+    "to": 4
+   },
+   {
+    "sheet": "Week 1",
+    "row": 37,
+    "ref": "WB04",
+    "item": "TL2",
+    "from": 14,
+    "to": 12
+   },
+   {
+    "sheet": "Event Week",
+    "row": 37,
+    "ref": "LT05",
+    "item": "Light Tower",
+    "from": 1,
+    "to": 2
+   }
+  ],
+  "rows_added": [
+   {
+    "sheet": "Week 1",
+    "row": 19,
+    "ref": "P46",
+    "item": "Fridge Lge",
+    "date": "2026-10-14"
+   },
+   {
+    "sheet": "Week 1",
+    "row": 27,
+    "ref": "P53",
+    "item": "Fridge Lge",
+    "date": "2026-10-15"
+   }
+  ],
+  "rows_without_a_page_event": [
+   {
+    "sheet": "Week 3",
+    "row": 25,
+    "ref": "WC60",
+    "item": "",
+    "date": null,
+    "qty": 1
+   },
+   {
+    "sheet": "Week 3",
+    "row": 26,
+    "ref": "WC60",
+    "item": "",
+    "date": null,
+    "qty": 2
+   },
+   {
+    "sheet": "Week 1",
+    "row": 14,
+    "ref": "P25",
+    "item": "Building 6m",
+    "date": "2026-10-14",
+    "qty": 1
+   },
+   {
+    "sheet": "Week 1",
+    "row": 19,
+    "ref": "P46",
+    "item": "fridge",
+    "date": "2026-10-14",
+    "qty": 1
+   },
+   {
+    "sheet": "Week 1",
+    "row": 27,
+    "ref": "P53",
+    "item": "fridge",
+    "date": "2026-10-15",
+    "qty": 1
+   },
+   {
+    "sheet": "Event Week",
+    "row": 4,
+    "ref": "GN10",
+    "item": "45kva",
+    "date": "2026-10-19",
+    "qty": 1
+   }
+  ],
+  "vms_rows_held": [
+   {
+    "sheet": "Demob Week 1",
+    "row": 8,
+    "local": "VMS11-23",
+    "item": "VMS",
+    "qty": 12,
+    "date": "2026-10-26"
+   },
+   {
+    "sheet": "Demob Week 1",
+    "row": 30,
+    "local": "VMS22",
+    "item": "VMS",
+    "qty": 1,
+    "date": "2026-10-28"
+   }
+  ]
+ },
+ "schedule_copies": [
+  {
+   "ref": "P63",
+   "number_removed": "1282487",
+   "why": "P63 stands as unit 960719 on the record and on Baseplan line 121; 1282487 is HRP (Schedule 9, Week 5 row for the Hire Republic crib room)"
+  },
+  {
+   "ref": "P27",
+   "number_removed": "1097343",
+   "why": "docket 26076747 delivered 1097343 to P18 on 16 Sep; P27 is not on site"
+  },
+  {
+   "ref": "P53",
+   "number_removed": "1327222",
+   "why": "docket 26126001 delivered 1327222 to P66 on 14 Oct"
+  },
+  {
+   "ref": "P36",
+   "number_removed": "1327222",
+   "why": "docket 26126001 delivered 1327222 to P66 on 14 Oct; P36 is 1189410 (docket 26085104)"
+  },
+  {
+   "ref": "P46",
+   "number_removed": "1327213",
+   "why": "docket 26064087 delivered 1327213 to P04 on 15 Sep; P46 is 1327215 on the record"
+  },
+  {
+   "ref": "P67",
+   "number_removed": "1189410",
+   "why": "docket 26085104 delivered 1189410 to P36 on 17 Sep; P67 is the commentary booth, unit 421107 on the record"
+  },
+  {
+   "ref": "GN06",
+   "number_removed": "1283681",
+   "why": "the 15 Oct export carries 1283681 as a spare generator; GN06 is 1320828, confirmed on site 15 Oct"
+  }
+ ]
+}

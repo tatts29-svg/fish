@@ -1,0 +1,42 @@
+{
+  "author": "Andrew Fisher",
+  "results": [
+    {
+      "test": "test_identity1006.cjs",
+      "exit": 0
+    },
+    {
+      "test": "check_receipts1006.cjs",
+      "exit": 0
+    },
+    {
+      "test": "tests/charges1006.cjs",
+      "exit": 0
+    },
+    {
+      "test": "tests/transport1006.cjs",
+      "exit": 0
+    },
+    {
+      "test": "tests/transport_override1006.cjs",
+      "exit": 0
+    },
+    {
+      "test": "test_roster1006.cjs",
+      "exit": 0
+    },
+    {
+      "test": "test_roster_built1006.cjs",
+      "exit": 0
+    },
+    {
+      "test": "test_profile1006.cjs",
+      "exit": 0
+    },
+    {
+      "test": "check_record_review1006.cjs",
+      "exit": 0
+    }
+  ],
+  "writes": 0
+}

@@ -1,0 +1,179 @@
+/* v7.00 - the Timeline day row: Pre-start, Drivers, Install, Email. The row is .tlday-ctl so a later control (v7.02 Edit)
+   can be added after Email: on a phone every control shares one line in equal columns, however many there are. */
+.dprow .btn.dp-off{opacity:.5;cursor:not-allowed}
+details.dpmail{position:relative;display:inline-block}
+details.dpmail > summary{list-style:none;display:inline-flex;align-items:center;user-select:none}
+details.dpmail > summary::-webkit-details-marker{display:none}
+details.dpmail[open] > summary{border-color:var(--orange-ink,#c2570c)}
+.dpmail-m{position:absolute;right:0;top:calc(100% + 6px);z-index:60;min-width:290px;background:var(--paper);color:var(--ink);border:1px solid var(--rule);
+  border-radius:12px 0 12px 0;box-shadow:0 10px 30px rgba(0,0,0,.18);padding:6px}
+.dpmail-r{display:flex;align-items:stretch;gap:6px;padding:3px}
+.dpmail-r + .dpmail-r{border-top:1px solid var(--rule)}
+.dpmail-r button{font:inherit;cursor:pointer;background:none;border:0;color:inherit;border-radius:8px;padding:8px 10px;text-align:left}
+.dpmail-r button:hover,.dpmail-r button:focus-visible{background:rgba(255,106,19,.12)}
+.dpmail-go{flex:1 1 auto;font-weight:700}
+.dpmail-go::before{content:'\2709';margin-right:8px;color:var(--orange-ink,#c2570c)}
+.dpmail-go.dp-off{opacity:.5;cursor:not-allowed}
+.dpmail-cp{flex:0 0 auto;font-size:12.5px!important;color:var(--mute)!important;text-decoration:underline}
+@media (max-width:600px){
+  .tlday-ctl{width:100%;display:grid!important;grid-auto-flow:column;grid-auto-columns:minmax(0,1fr);gap:5px}
+  .tlday-ctl > .btn,.tlday-ctl > details > summary{width:100%;justify-content:center;text-align:center;padding-left:2px;padding-right:2px;font-size:13px;white-space:nowrap}
+  .tlday-ctl > details{display:block;min-width:0}
+  .dpmail-m{min-width:0;width:min(92vw,340px)}
+}
+/* the bar over a document opened from an emailed link */
+#dpbar{position:fixed;left:0;right:0;top:0;z-index:250;display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:center;padding:10px 16px;
+  background:#15181a;color:#fff;font:600 14px/1.3 Inter,system-ui,sans-serif;box-shadow:0 2px 12px rgba(0,0,0,.25)}
+#dpbar .dpbar-t{flex:1 1 240px;min-width:0}
+#dpbar .btn{color:#15181a}
+#dpbar .btn.primary{color:#fff}
+body.dpbar-on{padding-top:64px}
+body.dpbar-on.printing-day #dayprint{margin:0 auto}
+@media screen{
+  body.printing-day #dayprint.dpwrap{background:#e6e8ea;width:auto!important;padding:12px 0}
+  body.printing-day #dayprint.dpwrap .dp-page{margin:0 auto 12px;box-shadow:0 2px 14px rgba(0,0,0,.18);outline:8mm solid #fff}
+}
+@media print{ #dpbar{display:none!important} body.dpbar-on{padding-top:0!important} }
+
+/* v7.00 - the day on paper: GC500-DRV-01 (drivers) and GC500-INS-01 (install team), one A4 page per load */
+#dayprint.dpwrap{width:194mm;max-width:none;margin:0;font:9pt/1.3 Inter,'Segoe UI',system-ui,sans-serif;color:#15181a;background:#fff}
+#dayprint .dp-page{--k:1;--acc:#ff6a13;--ink:#15181a;--mute:#5d6468;--hair:#d7dbde;box-sizing:border-box;width:194mm;height:280mm;overflow:hidden;
+  display:flex;flex-direction:column;gap:calc(2.1mm * var(--k));font-size:calc(9pt * var(--k));line-height:1.28;color:var(--ink);background:#fff;
+  break-after:page;page-break-after:always;break-inside:avoid;position:relative}
+#dayprint .dp-page:last-child{break-after:auto;page-break-after:auto}
+#dayprint .dp-page *{box-sizing:border-box}
+#dayprint .dp-page > *{flex:0 0 auto;min-width:0}
+#dayprint .dp-page b{font-weight:700}
+/* header */
+#dayprint .dp-hd{display:flex;align-items:center;gap:5mm;padding:0 0 2.2mm;border-bottom:.8mm solid var(--acc)}
+#dayprint .dp-hd-l{flex:0 0 auto;line-height:1}
+#dayprint .dp-hd-l b{display:block;font-size:21pt;font-weight:800;letter-spacing:-.025em;color:var(--acc);line-height:.9}
+#dayprint .dp-hd-l span{display:block;font-size:5.6pt;letter-spacing:.26em;text-transform:uppercase;color:var(--mute);margin-top:1mm}
+#dayprint .dp-hd-m{flex:1 1 auto;min-width:0;border-left:1px solid var(--hair);padding-left:5mm}
+#dayprint .dp-hd-m span{display:block;font-size:7pt;letter-spacing:.18em;text-transform:uppercase;color:var(--mute);font-weight:700}
+#dayprint .dp-hd-m h1{margin:.6mm 0 0;font-size:15pt;line-height:1.05;font-weight:800;letter-spacing:-.01em;color:var(--ink)}
+#dayprint .dp-hd-r{flex:0 0 auto;text-align:right;line-height:1.2}
+#dayprint .dp-hd-r b{display:block;font-size:10pt;letter-spacing:.06em;color:var(--ink)}
+#dayprint .dp-hd-r .dp-lx{display:inline-block;margin-top:1mm;background:var(--ink);color:#fff;font-weight:800;font-size:8.5pt;padding:.8mm 2.6mm;border-radius:1mm;letter-spacing:.08em;text-transform:uppercase}
+/* the hero: the reference as large as the band allows */
+#dayprint .dp-hero{flex:0 0 47mm;display:flex;gap:3mm;min-height:0}
+#dayprint .dp-refs{flex:1 1 auto;min-width:0;display:flex;flex-direction:column;background:#f4f5f6;border-left:1.6mm solid var(--acc);border-radius:0 1.2mm 1.2mm 0;padding:2mm 4mm 2.2mm}
+#dayprint .dp-lab{flex:0 0 auto;font-size:8pt;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--acc)}
+#dayprint .dp-refg{flex:1 1 auto;min-height:0;display:grid;grid-template-columns:repeat(var(--cols,1),minmax(0,1fr));grid-auto-rows:minmax(0,1fr);gap:0 4mm;align-items:center}
+#dayprint .dp-ref{min-width:0;min-height:0;display:flex;flex-direction:column;justify-content:flex-end;overflow:hidden}
+#dayprint .dp-ref b{display:inline-block;align-self:flex-start;font-family:'Barlow Condensed','Arial Narrow',Inter,sans-serif;font-style:italic;font-weight:700;
+  font-size:120pt;line-height:.8;letter-spacing:-.01em;color:var(--ink);white-space:nowrap;padding-right:1mm}
+#dayprint .dp-ref span{display:block;font-size:9.5pt;font-weight:700;line-height:1.2;margin-top:1.2mm;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#dayprint .dp-refg[style*="--cols: 3"] .dp-ref span,#dayprint .dp-refg[style*="--cols: 4"] .dp-ref span{white-space:normal;font-size:8pt}
+#dayprint .dp-facts{flex:0 0 64mm;display:flex;flex-direction:column;justify-content:space-between;border-top:.5mm solid var(--ink);border-bottom:.5mm solid var(--ink)}
+#dayprint .dp-f{flex:1 1 0;display:flex;align-items:center;justify-content:space-between;gap:2mm;border-bottom:1px solid var(--hair);min-height:0}
+#dayprint .dp-f:last-child{border-bottom:0}
+#dayprint .dp-f label{flex:0 0 auto;font-size:6.8pt;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--mute)}
+#dayprint .dp-f b{font-size:11pt;font-weight:800;text-align:right;line-height:1.1}
+#dayprint .dp-f b.dp-sm1{font-size:7.6pt;font-weight:700;max-width:46mm}
+#dayprint .dp-f span{font-size:7pt;color:var(--mute);margin-left:1mm}
+#dayprint .dp-f .dp-wr{flex:0 0 30mm}
+/* sections */
+#dayprint .dp-sec{min-width:0}
+#dayprint .dp-sec h2{display:flex;align-items:center;gap:2mm;margin:0 0 1.1mm;font-size:.84em;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--ink);line-height:1.2}
+#dayprint .dp-sec h2::before{content:'';flex:0 0 3.2mm;height:.9mm;background:var(--acc)}
+#dayprint .dp-sec h2::after{content:'';flex:1 1 auto;height:1px;background:var(--hair)}
+#dayprint .dp-sec.dp-ph{flex:1 1 0;min-height:0;display:flex;flex-direction:column}
+/* tables */
+#dayprint .dp-page table{font:inherit;color:inherit}
+#dayprint .dp-tbl{width:100%;border-collapse:collapse}
+#dayprint .dp-tbl th{text-align:left;font-size:.74em;letter-spacing:.14em;text-transform:uppercase;color:var(--mute);font-weight:700;padding:0 2mm .8mm 0;border-bottom:.4mm solid var(--ink)}
+#dayprint .dp-tbl td{border-bottom:1px solid var(--hair);padding:1.1mm 2mm 1.1mm 0;vertical-align:top;line-height:1.25}
+#dayprint .dp-tbl td > b{display:block;font-size:1.12em}
+#dayprint .dp-tbl td > span{display:block;color:var(--mute);font-size:.9em}
+#dayprint .dp-tbl td > b.dp-num{display:inline-block;margin-right:2.4mm}
+#dayprint .dp-tbl .dp-c1{width:16mm}
+#dayprint .dp-tbl td.dp-rk{font-family:'Barlow Condensed','Arial Narrow',Inter,sans-serif;font-style:italic;font-weight:700;font-size:1.9em;line-height:.95;white-space:nowrap}
+#dayprint .dp-num{font-family:ui-monospace,Menlo,Consolas,monospace;font-weight:700;white-space:nowrap}
+#dayprint .dp-acc{display:inline-flex;align-items:center;white-space:nowrap;margin-right:3mm}
+#dayprint .dp-wr{display:inline-block;min-width:32mm;height:3.6mm;border-bottom:1.1px solid var(--ink);vertical-align:bottom}
+#dayprint .dp-bx{display:inline-block;flex:0 0 auto;width:3.1mm;height:3.1mm;border:1.1px solid var(--ink);border-radius:.4mm;margin-right:1.4mm;background:#fff}
+/* where it goes */
+#dayprint .dp-where{display:flex;gap:3mm;align-items:stretch}
+#dayprint .dp-lines{flex:1 1 auto;min-width:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 5mm;align-content:start}
+#dayprint .dp-l{display:flex;gap:2mm;align-items:baseline;padding:.75mm 0;border-bottom:1px solid var(--hair);min-width:0}
+#dayprint .dp-l:first-child,#dayprint .dp-l.dp-w{grid-column:1 / -1}
+#dayprint .dp-l label{flex:0 0 19mm;font-size:.74em;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--mute)}
+#dayprint .dp-l > div{flex:1 1 auto;min-width:0}
+#dayprint .dp-l b{font-size:1.04em}
+#dayprint .dp-l b.dp-big{font-size:1.5em;line-height:1.1}
+#dayprint .dp-l span{color:var(--mute);font-size:.9em}
+#dayprint .dp-pos{flex:0 0 70mm;display:flex;gap:2.6mm;align-items:center;border:.4mm solid var(--ink);border-radius:1.2mm;padding:2mm 2.4mm}
+#dayprint .dp-pos .dp-qr{flex:0 0 auto;width:calc(29mm * var(--k))}
+#dayprint .dp-qr svg{display:block;width:100%;height:auto}
+#dayprint .dp-pos-t{min-width:0;display:flex;flex-direction:column;gap:.6mm}
+#dayprint .dp-pos-t label{font-size:.74em;letter-spacing:.14em;text-transform:uppercase;font-weight:800;color:var(--acc)}
+#dayprint .dp-ll{font-family:ui-monospace,Menlo,Consolas,monospace;font-weight:700;font-size:.96em;line-height:1.25;white-space:nowrap}
+#dayprint .dp-pos-t span{font-size:.86em;color:var(--mute);line-height:1.25}
+#dayprint .dp-pos-t em{font-style:normal;font-size:.8em;font-weight:800;letter-spacing:.1em;text-transform:uppercase}
+#dayprint .dp-way{margin:0 0 1mm;font-size:1em}
+#dayprint .dp-wtbl td .dp-ll{display:block;font-size:.95em;color:var(--ink)}
+#dayprint .dp-wtbl .dp-qc{width:calc(15mm * var(--k));text-align:center}
+#dayprint .dp-wtbl td.dp-qc{padding:.6mm 0}
+#dayprint .dp-wtbl .dp-qr{width:calc(12.5mm * var(--k));margin:0 auto}
+#dayprint .dp-wtbl td{padding-top:.7mm;padding-bottom:.7mm}
+/* photos: an even grid */
+#dayprint .dp-pics{flex:1 1 0;min-height:0;display:grid;grid-template-columns:repeat(var(--c,3),minmax(0,1fr));grid-template-rows:repeat(var(--r,1),minmax(0,1fr));gap:2mm}
+#dayprint .dp-fig{margin:0;min-width:0;min-height:0;display:flex;flex-direction:column;overflow:hidden;background:#fff}
+#dayprint .dp-win{flex:1 1 auto;min-height:0;position:relative;overflow:hidden;background:#eceef0;border-radius:1mm}
+#dayprint .dp-win img{position:absolute;left:0;top:0;width:100%;height:100%;object-fit:cover;max-width:none}
+#dayprint .dp-win.dp-fitc{background:#fff;border:1px solid var(--hair)}
+#dayprint .dp-win.dp-fitc img{object-fit:contain;background:#fff}
+#dayprint .dp-fig figcaption{flex:0 0 auto;padding:1mm 0 0;font-size:.88em;line-height:1.2;font-weight:700;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#dayprint .dp-fig figcaption b{color:var(--acc);margin-right:1.4mm}
+#dayprint .dp-ring{position:absolute;width:10mm;height:10mm;margin:-5mm 0 0 -5mm;border-radius:50%;border:.9mm solid #ff2d17;box-shadow:0 0 0 .5mm #fff,inset 0 0 0 .4mm #fff;pointer-events:none}
+#dayprint .dp-ring.dp-rs{width:5mm;height:5mm;margin:-2.5mm 0 0 -2.5mm;border-width:.7mm}
+#dayprint .dp-ring.dp-rl i{left:auto;right:100%;margin:0 .6mm 0 0}
+#dayprint .dp-ring i{position:absolute;left:100%;top:-1.2mm;margin-left:.6mm;background:var(--ink);color:#fff;font-style:normal;font-weight:800;font-size:7pt;line-height:1;padding:.5mm .9mm;border-radius:.6mm;white-space:nowrap}
+#dayprint .dp-miss{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;text-align:center;padding:3mm;font-size:.9em;color:var(--mute)}
+/* the install list */
+#dayprint .dp-work{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.9mm 4mm}
+#dayprint .dp-work span{display:flex;align-items:center;min-width:0;line-height:1.2}
+#dayprint .dp-work em{font-style:normal;color:var(--mute);font-size:.86em;margin-left:1.2mm}
+/* safety */
+#dayprint .dp-rline{font-size:.9em;margin:0 0 1.2mm;color:var(--ink)}
+#dayprint .dp-rline i{font-style:normal;color:var(--acc);margin:0 2mm;font-weight:800}
+#dayprint .dp-safe{display:grid;grid-template-columns:1fr;gap:2.4mm;margin-bottom:1.6mm}
+#dayprint .dp-safe.dp-two{grid-template-columns:1fr 1fr}
+#dayprint .dp-box{display:flex;align-items:center;gap:2.6mm;border-radius:1.2mm;padding:1.6mm 2.4mm}
+#dayprint .dp-box > b{flex:0 0 auto;font-size:.86em;font-weight:800;letter-spacing:.1em;padding:1.2mm 2.2mm;border-radius:.8mm;line-height:1.1;text-align:center;white-space:nowrap}
+#dayprint .dp-box p{margin:0;font-size:.86em;line-height:1.26}
+#dayprint .dp-jsea{border:.7mm solid #b42318;background:#fff5f3}
+#dayprint .dp-jsea > b{background:#b42318;color:#fff}
+#dayprint .dp-jsea p{font-weight:700}
+#dayprint .dp-t5{border:.5mm solid var(--ink);background:#fafafa}
+#dayprint .dp-t5 > b{background:var(--ink);color:#fff}
+#dayprint .dp-lsr-h{font-size:.8em;font-weight:800;letter-spacing:.1em;margin-bottom:.8mm}
+#dayprint .dp-lsr-g{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.9mm 1.4mm}
+#dayprint .dp-lsrow{display:flex;align-items:stretch;border-radius:.8mm;overflow:hidden;min-width:0;background:#f4f5f6}
+#dayprint .dp-lsrn{flex:0 0 15.5mm;display:flex;align-items:center;padding:.6mm 1.3mm;color:#fff;font-weight:800;font-size:.72em;line-height:1.1}
+#dayprint .dp-lsrt{flex:1 1 auto;min-width:0;padding:.6mm 1.3mm;font-size:.66em;line-height:1.18;color:var(--ink)}
+#dayprint .dp-lsrn.lsr-a{background:#c8463c} #dayprint .dp-lsrn.lsr-b{background:#8a8352} #dayprint .dp-lsrn.lsr-c{background:#3c4247}
+#dayprint .dp-lsrn.lsr-d{background:#ef6b1e} #dayprint .dp-lsrn.lsr-e{background:#4d7141} #dayprint .dp-lsrn.lsr-f{background:#1f3a5f}
+/* documents */
+#dayprint .dp-docs{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:2.4mm}
+#dayprint .dp-docs.n1,#dayprint .dp-docs.n2{grid-template-columns:repeat(2,minmax(0,1fr))}
+#dayprint .dp-docs.n3{grid-template-columns:repeat(3,minmax(0,1fr))}
+#dayprint .dp-docs.n5{grid-template-columns:repeat(5,minmax(0,1fr))}
+#dayprint .dp-doc{display:flex;gap:2mm;align-items:center;min-width:0}
+#dayprint .dp-doc .dp-qr{flex:0 0 auto;width:calc(19mm * var(--k))}
+#dayprint .dp-doc-t{min-width:0;display:flex;flex-direction:column;gap:.4mm;line-height:1.18}
+#dayprint .dp-doc-t b{font-size:.92em}
+#dayprint .dp-doc-t span{font-size:.78em;color:var(--mute)}
+#dayprint .dp-doc-t em{font-style:normal;font-size:.84em;font-weight:800;color:var(--ink)}
+/* contacts */
+#dayprint .dp-con{display:flex;flex-wrap:wrap;gap:.8mm 5mm;font-size:.92em;line-height:1.3}
+#dayprint .dp-con span{white-space:nowrap}
+#dayprint .dp-con i{font-style:normal;font-size:.8em;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--mute);margin-right:1.2mm}
+#dayprint .dp-con b{font-family:ui-monospace,Menlo,Consolas,monospace}
+#dayprint .dp-con .dp-000 b{color:#b42318}
+/* footer */
+#dayprint .dp-ft{margin-top:auto;display:flex;justify-content:space-between;gap:4mm;border-top:1px solid var(--hair);padding-top:1.2mm;font-size:6.8pt;color:var(--mute);line-height:1.3}
+#dayprint .dp-ft b{color:var(--ink)}
+#dayprint .dp-ft span:last-child{text-align:right;white-space:nowrap}
+@media print{ #dayprint .dp-page, #dayprint .dp-page *{-webkit-print-color-adjust:exact;print-color-adjust:exact} }

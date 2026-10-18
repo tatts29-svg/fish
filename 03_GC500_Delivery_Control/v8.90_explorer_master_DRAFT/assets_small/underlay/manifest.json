@@ -1,0 +1,1093 @@
+{
+ "note": "the drawing's own aerial photograph, as placed on the sheet; drawn in Original plan mode only, in record order; exported from the 2 Oct issue with the soft mask and the viewport clip as the alpha channel (lossy WebP with alpha), placed in the 17 Sep frame",
+ "items": [
+  {
+   "file": "underlay/x3-02oct.webp",
+   "xref": 3,
+   "bbox": [
+    836.0,
+    720.36,
+    1067.72,
+    852.3
+   ],
+   "px": [
+    483,
+    275
+   ],
+   "bytes": 1438,
+   "record_id": 0,
+   "alpha": true
+  },
+  {
+   "file": "underlay/x6-02oct.webp",
+   "xref": 6,
+   "bbox": [
+    74.96,
+    41.4,
+    2359.58,
+    1464.24
+   ],
+   "px": [
+    4760,
+    2965
+   ],
+   "bytes": 397788,
+   "record_id": 1,
+   "alpha": true
+  },
+  {
+   "file": "underlay/x12-02oct.webp",
+   "xref": 12,
+   "bbox": [
+    1600.76,
+    367.32,
+    2018.3,
+    550.68
+   ],
+   "px": [
+    870,
+    382
+   ],
+   "bytes": 1954,
+   "record_id": 3,
+   "alpha": true
+  },
+  {
+   "file": "underlay/x15-02oct.webp",
+   "xref": 15,
+   "bbox": [
+    74.96,
+    649.26,
+    213.56,
+    1317.24
+   ],
+   "px": [
+    289,
+    1392
+   ],
+   "bytes": 2284,
+   "record_id": 4,
+   "alpha": true
+  },
+  {
+   "file": "underlay/x18-02oct.webp",
+   "xref": 18,
+   "bbox": [
+    1974.32,
+    261.72,
+    2320.58,
+    626.34
+   ],
+   "px": [
+    722,
+    760
+   ],
+   "bytes": 2182,
+   "record_id": 5,
+   "alpha": true
+  },
+  {
+   "file": "underlay/x21-02oct.webp",
+   "xref": 21,
+   "bbox": [
+    2014.04,
+    393.84,
+    2308.16,
+    645.18
+   ],
+   "px": [
+    613,
+    524
+   ],
+   "bytes": 1952,
+   "record_id": 6,
+   "alpha": true
+  },
+  {
+   "file": "underlay/x24-02oct.webp",
+   "xref": 24,
+   "bbox": [
+    988.88,
+    539.94,
+    1498.52,
+    676.92
+   ],
+   "px": [
+    1062,
+    286
+   ],
+   "bytes": 1800,
+   "record_id": 7,
+   "alpha": true
+  },
+  {
+   "file": "underlay/x27-02oct.webp",
+   "xref": 27,
+   "bbox": [
+    74.96,
+    1265.52,
+    159.14,
+    1350.96
+   ],
+   "px": [
+    176,
+    178
+   ],
+   "bytes": 572,
+   "record_id": 8,
+   "alpha": true
+  },
+  {
+   "file": "underlay/x30-02oct.webp",
+   "xref": 30,
+   "bbox": [
+    127.16,
+    1144.02,
+    275.36,
+    1279.14
+   ],
+   "px": [
+    309,
+    282
+   ],
+   "bytes": 1000,
+   "record_id": 9,
+   "alpha": true
+  },
+  {
+   "file": "underlay/x33-02oct.webp",
+   "xref": 33,
+   "bbox": [
+    171.2,
+    723.9,
+    312.74,
+    1175.7
+   ],
+   "px": [
+    295,
+    942
+   ],
+   "bytes": 2056,
+   "record_id": 10,
+   "alpha": true
+  },
+  {
+   "file": "underlay/x36-02oct.webp",
+   "xref": 36,
+   "bbox": [
+    212.24,
+    426.84,
+    484.34,
+    648.6
+   ],
+   "px": [
+    567,
+    462
+   ],
+   "bytes": 1802,
+   "record_id": 11,
+   "alpha": true
+  },
+  {
+   "file": "underlay/x39-02oct.webp",
+   "xref": 39,
+   "bbox": [
+    1960.76,
+    862.44,
+    2120.72,
+    1117.5
+   ],
+   "px": [
+    334,
+    532
+   ],
+   "bytes": 586,
+   "record_id": 12,
+   "alpha": true
+  },
+  {
+   "file": "underlay/x42-02oct.webp",
+   "xref": 42,
+   "bbox": [
+    2083.4,
+    881.94,
+    2242.16,
+    1138.5
+   ],
+   "px": [
+    331,
+    535
+   ],
+   "bytes": 540,
+   "record_id": 13,
+   "alpha": true
+  },
+  {
+   "file": "underlay/x45-02oct.webp",
+   "xref": 45,
+   "bbox": [
+    1839.38,
+    831.66,
+    2005.22,
+    1095.42
+   ],
+   "px": [
+    346,
+    550
+   ],
+   "bytes": 802,
+   "record_id": 14,
+   "alpha": true
+  },
+  {
+   "file": "underlay/x48-02oct.webp",
+   "xref": 48,
+   "bbox": [
+    2201.48,
+    646.92,
+    2359.58,
+    1139.46
+   ],
+   "px": [
+    330,
+    1027
+   ],
+   "bytes": 1416,
+   "record_id": 15,
+   "alpha": true
+  },
+  {
+   "file": "underlay/x51-02oct.webp",
+   "xref": 51,
+   "bbox": [
+    1602.26,
+    713.58,
+    1900.82,
+    1022.4
+   ],
+   "px": [
+    622,
+    644
+   ],
+   "bytes": 2284,
+   "record_id": 16,
+   "alpha": true
+  },
+  {
+   "file": "underlay/x54-02oct.webp",
+   "xref": 54,
+   "bbox": [
+    149.54,
+    1181.28,
+    291.2,
+    1298.04
+   ],
+   "px": [
+    296,
+    244
+   ],
+   "bytes": 850,
+   "record_id": 17,
+   "alpha": true
+  },
+  {
+   "file": "underlay/x57-02oct.webp",
+   "xref": 57,
+   "bbox": [
+    751.04,
+    712.32,
+    966.68,
+    858.36
+   ],
+   "px": [
+    450,
+    305
+   ],
+   "bytes": 1086,
+   "record_id": 18,
+   "alpha": true
+  },
+  {
+   "file": "underlay/x66-02oct.webp",
+   "xref": 66,
+   "bbox": [
+    2258.48,
+    412.14,
+    2359.58,
+    668.22
+   ],
+   "px": [
+    211,
+    534
+   ],
+   "bytes": 874,
+   "record_id": 21,
+   "alpha": true
+  },
+  {
+   "file": "underlay/x69-02oct.webp",
+   "xref": 69,
+   "bbox": [
+    1629.8,
+    572.76,
+    1974.38,
+    624.54
+   ],
+   "px": [
+    718,
+    108
+   ],
+   "bytes": 872,
+   "record_id": 22,
+   "alpha": true
+  },
+  {
+   "file": "underlay/x72-02oct.webp",
+   "xref": 72,
+   "bbox": [
+    1881.26,
+    620.52,
+    1952.0,
+    831.96
+   ],
+   "px": [
+    148,
+    441
+   ],
+   "bytes": 668,
+   "record_id": 23,
+   "alpha": true
+  },
+  {
+   "file": "underlay/x84-02oct.webp",
+   "xref": 84,
+   "bbox": [
+    714.08,
+    645.42,
+    955.94,
+    817.02
+   ],
+   "px": [
+    504,
+    358
+   ],
+   "bytes": 1344,
+   "record_id": 27,
+   "alpha": true
+  },
+  {
+   "file": "underlay/x87-02oct.webp",
+   "xref": 87,
+   "bbox": [
+    730.22,
+    678.06,
+    964.4,
+    831.66
+   ],
+   "px": [
+    488,
+    320
+   ],
+   "bytes": 1144,
+   "record_id": 28,
+   "alpha": true
+  },
+  {
+   "file": "underlay/x90-02oct.webp",
+   "xref": 90,
+   "bbox": [
+    523.64,
+    800.16,
+    740.12,
+    979.98
+   ],
+   "px": [
+    451,
+    375
+   ],
+   "bytes": 1258,
+   "record_id": 29,
+   "alpha": true
+  },
+  {
+   "file": "underlay/x93-02oct.webp",
+   "xref": 93,
+   "bbox": [
+    1029.98,
+    793.44,
+    1702.76,
+    1464.24
+   ],
+   "px": [
+    1402,
+    1398
+   ],
+   "bytes": 7978,
+   "record_id": 30,
+   "alpha": true
+  },
+  {
+   "file": "underlay/x96-02oct.webp",
+   "xref": 96,
+   "bbox": [
+    1711.34,
+    281.1,
+    2042.96,
+    323.22
+   ],
+   "px": [
+    691,
+    88
+   ],
+   "bytes": 592,
+   "record_id": 31,
+   "alpha": true
+  },
+  {
+   "file": "underlay/x99-02oct.webp",
+   "xref": 99,
+   "bbox": [
+    263.66,
+    959.52,
+    538.58,
+    1180.08
+   ],
+   "px": [
+    573,
+    460
+   ],
+   "bytes": 1634,
+   "record_id": 32,
+   "alpha": true
+  },
+  {
+   "file": "underlay/x102-02oct.webp",
+   "xref": 102,
+   "bbox": [
+    1346.54,
+    305.76,
+    1711.4,
+    384.12
+   ],
+   "px": [
+    761,
+    164
+   ],
+   "bytes": 1084,
+   "record_id": 33,
+   "alpha": true
+  },
+  {
+   "file": "underlay/x108-02oct.webp",
+   "xref": 108,
+   "bbox": [
+    1312.16,
+    384.0,
+    1555.52,
+    537.3
+   ],
+   "px": [
+    507,
+    320
+   ],
+   "bytes": 996,
+   "record_id": 35,
+   "alpha": true
+  },
+  {
+   "file": "underlay/x111-02oct.webp",
+   "xref": 111,
+   "bbox": [
+    548.72,
+    844.92,
+    762.2,
+    1008.48
+   ],
+   "px": [
+    445,
+    341
+   ],
+   "bytes": 1072,
+   "record_id": 36,
+   "alpha": true
+  },
+  {
+   "file": "underlay/x114-02oct.webp",
+   "xref": 114,
+   "bbox": [
+    2303.9,
+    210.9,
+    2359.58,
+    528.84
+   ],
+   "px": [
+    116,
+    663
+   ],
+   "bytes": 648,
+   "record_id": 37,
+   "alpha": true
+  },
+  {
+   "file": "underlay/x117-02oct.webp",
+   "xref": 117,
+   "bbox": [
+    467.66,
+    329.34,
+    1349.36,
+    442.56
+   ],
+   "px": [
+    1837,
+    236
+   ],
+   "bytes": 2470,
+   "record_id": 38,
+   "alpha": true
+  },
+  {
+   "file": "underlay/x123-02oct.webp",
+   "xref": 123,
+   "bbox": [
+    1005.74,
+    576.48,
+    1554.74,
+    704.4
+   ],
+   "px": [
+    1144,
+    267
+   ],
+   "bytes": 1736,
+   "record_id": 40,
+   "alpha": true
+  },
+  {
+   "file": "underlay/x126-02oct.webp",
+   "xref": 126,
+   "bbox": [
+    565.22,
+    835.98,
+    843.26,
+    1049.88
+   ],
+   "px": [
+    580,
+    446
+   ],
+   "bytes": 1916,
+   "record_id": 41,
+   "alpha": true
+  },
+  {
+   "file": "underlay/x129-02oct.webp",
+   "xref": 129,
+   "bbox": [
+    187.34,
+    1035.3,
+    932.0,
+    1464.24
+   ],
+   "px": [
+    1552,
+    894
+   ],
+   "bytes": 5942,
+   "record_id": 42,
+   "alpha": true
+  },
+  {
+   "file": "underlay/x132-02oct.webp",
+   "xref": 132,
+   "bbox": [
+    518.48,
+    789.9,
+    719.42,
+    959.58
+   ],
+   "px": [
+    419,
+    354
+   ],
+   "bytes": 1136,
+   "record_id": 43,
+   "alpha": true
+  },
+  {
+   "file": "underlay/x135-02oct.webp",
+   "xref": 135,
+   "bbox": [
+    74.96,
+    1284.06,
+    160.82,
+    1384.26
+   ],
+   "px": [
+    179,
+    209
+   ],
+   "bytes": 576,
+   "record_id": 44,
+   "alpha": true
+  },
+  {
+   "file": "underlay/x138-02oct.webp",
+   "xref": 138,
+   "bbox": [
+    278.24,
+    993.84,
+    556.76,
+    1202.16
+   ],
+   "px": [
+    581,
+    434
+   ],
+   "bytes": 1572,
+   "record_id": 45,
+   "alpha": true
+  },
+  {
+   "file": "underlay/x141-02oct.webp",
+   "xref": 141,
+   "bbox": [
+    74.96,
+    399.66,
+    217.34,
+    661.02
+   ],
+   "px": [
+    297,
+    545
+   ],
+   "bytes": 866,
+   "record_id": 46,
+   "alpha": true
+  },
+  {
+   "file": "underlay/x144-02oct.webp",
+   "xref": 144,
+   "bbox": [
+    1997.72,
+    589.92,
+    2258.24,
+    887.52
+   ],
+   "px": [
+    543,
+    620
+   ],
+   "bytes": 1614,
+   "record_id": 47,
+   "alpha": true
+  },
+  {
+   "file": "underlay/x150-02oct.webp",
+   "xref": 150,
+   "bbox": [
+    310.16,
+    411.12,
+    1340.36,
+    1059.48
+   ],
+   "px": [
+    2147,
+    1351
+   ],
+   "bytes": 14654,
+   "record_id": 282,
+   "alpha": true
+  },
+  {
+   "file": "underlay/x159-02oct.webp",
+   "xref": 159,
+   "bbox": [
+    74.96,
+    112.44,
+    2359.58,
+    383.82
+   ],
+   "px": [
+    4760,
+    566
+   ],
+   "bytes": 11818,
+   "record_id": 297,
+   "alpha": true
+  },
+  {
+   "file": "underlay/x165-02oct.webp",
+   "xref": 165,
+   "bbox": [
+    74.96,
+    1328.1,
+    204.92,
+    1432.08
+   ],
+   "px": [
+    271,
+    217
+   ],
+   "bytes": 1088,
+   "record_id": 299,
+   "alpha": true
+  },
+  {
+   "file": "underlay/x168-02oct.webp",
+   "xref": 168,
+   "bbox": [
+    243.98,
+    1177.68,
+    390.32,
+    1302.42
+   ],
+   "px": [
+    305,
+    260
+   ],
+   "bytes": 1188,
+   "record_id": 300,
+   "alpha": true
+  },
+  {
+   "file": "underlay/x180-02oct.webp",
+   "xref": 180,
+   "bbox": [
+    74.96,
+    41.4,
+    2359.58,
+    285.06
+   ],
+   "px": [
+    4760,
+    508
+   ],
+   "bytes": 8238,
+   "record_id": 304,
+   "alpha": true
+  },
+  {
+   "file": "underlay/x183-02oct.webp",
+   "xref": 183,
+   "bbox": [
+    74.96,
+    623.94,
+    2359.58,
+    1464.24
+   ],
+   "px": [
+    4760,
+    1751
+   ],
+   "bytes": 39058,
+   "record_id": 305,
+   "alpha": true
+  },
+  {
+   "file": "underlay/x186-02oct.webp",
+   "xref": 186,
+   "bbox": [
+    678.56,
+    577.86,
+    873.86,
+    699.48
+   ],
+   "px": [
+    407,
+    254
+   ],
+   "bytes": 2534,
+   "record_id": 306,
+   "alpha": true
+  },
+  {
+   "file": "underlay/x189-02oct.webp",
+   "xref": 189,
+   "bbox": [
+    488.36,
+    643.98,
+    688.1,
+    807.96
+   ],
+   "px": [
+    417,
+    342
+   ],
+   "bytes": 2500,
+   "record_id": 307,
+   "alpha": true
+  },
+  {
+   "file": "underlay/x1655-02oct.webp",
+   "xref": 1655,
+   "bbox": [
+    1482.86,
+    873.42,
+    2334.08,
+    1464.18
+   ],
+   "px": [
+    1774,
+    1231
+   ],
+   "bytes": 104538,
+   "record_id": 267195,
+   "alpha": true
+  },
+  {
+   "file": "underlay/x1658-02oct.webp",
+   "xref": 1658,
+   "bbox": [
+    2069.72,
+    1221.06,
+    2169.86,
+    1391.58
+   ],
+   "px": [
+    209,
+    356
+   ],
+   "bytes": 774,
+   "record_id": 267196,
+   "alpha": true
+  },
+  {
+   "file": "underlay/x1670-02oct.webp",
+   "xref": 1670,
+   "bbox": [
+    1482.86,
+    966.12,
+    1801.28,
+    1330.8
+   ],
+   "px": [
+    664,
+    760
+   ],
+   "bytes": 1914,
+   "record_id": 267200,
+   "alpha": true
+  },
+  {
+   "file": "underlay/x1673-02oct.webp",
+   "xref": 1673,
+   "bbox": [
+    1494.8,
+    1098.3,
+    1788.92,
+    1349.64
+   ],
+   "px": [
+    613,
+    524
+   ],
+   "bytes": 1950,
+   "record_id": 267201,
+   "alpha": true
+  },
+  {
+   "file": "underlay/x1676-02oct.webp",
+   "xref": 1676,
+   "bbox": [
+    1722.8,
+    1351.38,
+    1889.42,
+    1464.18
+   ],
+   "px": [
+    348,
+    235
+   ],
+   "bytes": 704,
+   "record_id": 267202,
+   "alpha": true
+  },
+  {
+   "file": "underlay/x1679-02oct.webp",
+   "xref": 1679,
+   "bbox": [
+    1845.74,
+    1374.18,
+    2055.32,
+    1464.18
+   ],
+   "px": [
+    437,
+    188
+   ],
+   "bytes": 850,
+   "record_id": 267203,
+   "alpha": true
+  },
+  {
+   "file": "underlay/x1682-02oct.webp",
+   "xref": 1682,
+   "bbox": [
+    1889.6,
+    1147.02,
+    2105.0,
+    1399.56
+   ],
+   "px": [
+    449,
+    527
+   ],
+   "bytes": 1756,
+   "record_id": 267204,
+   "alpha": true
+  },
+  {
+   "file": "underlay/x1685-02oct.webp",
+   "xref": 1685,
+   "bbox": [
+    1739.24,
+    1116.6,
+    1891.28,
+    1372.62
+   ],
+   "px": [
+    317,
+    534
+   ],
+   "bytes": 1044,
+   "record_id": 267205,
+   "alpha": true
+  },
+  {
+   "file": "underlay/x1691-02oct.webp",
+   "xref": 1691,
+   "bbox": [
+    1784.66,
+    915.36,
+    2243.3,
+    1233.3
+   ],
+   "px": [
+    956,
+    663
+   ],
+   "bytes": 3930,
+   "record_id": 267207,
+   "alpha": true
+  },
+  {
+   "file": "underlay/x1694-02oct.webp",
+   "xref": 1694,
+   "bbox": [
+    2010.62,
+    1369.44,
+    2334.08,
+    1464.18
+   ],
+   "px": [
+    674,
+    198
+   ],
+   "bytes": 1266,
+   "record_id": 267208,
+   "alpha": true
+  },
+  {
+   "file": "underlay/x1700-02oct.webp",
+   "xref": 1700,
+   "bbox": [
+    1482.86,
+    1294.38,
+    1739.0,
+    1464.18
+   ],
+   "px": [
+    534,
+    354
+   ],
+   "bytes": 1104,
+   "record_id": 267210,
+   "alpha": true
+  },
+  {
+   "file": "underlay/x1706-02oct.webp",
+   "xref": 1706,
+   "bbox": [
+    1482.86,
+    873.42,
+    2334.08,
+    1068.42
+   ],
+   "px": [
+    1774,
+    407
+   ],
+   "bytes": 3408,
+   "record_id": 267212,
+   "alpha": true
+  },
+  {
+   "file": "underlay/x1709-02oct.webp",
+   "xref": 1709,
+   "bbox": [
+    1482.86,
+    873.42,
+    2334.08,
+    977.1
+   ],
+   "px": [
+    1774,
+    216
+   ],
+   "bytes": 1690,
+   "record_id": 267213,
+   "alpha": true
+  },
+  {
+   "file": "underlay/x1712-02oct.webp",
+   "xref": 1712,
+   "bbox": [
+    1482.86,
+    1328.34,
+    2334.08,
+    1464.18
+   ],
+   "px": [
+    1774,
+    283
+   ],
+   "bytes": 1034,
+   "record_id": 267214,
+   "alpha": true
+  },
+  {
+   "file": "underlay/x1846-02oct.webp",
+   "xref": 1846,
+   "bbox": [
+    1451.9,
+    1485.9,
+    1743.32,
+    1556.16
+   ],
+   "px": [
+    608,
+    147
+   ],
+   "bytes": 8446,
+   "record_id": 299558,
+   "alpha": true
+  },
+  {
+   "file": "underlay/x1848-02oct.webp",
+   "xref": 1848,
+   "bbox": [
+    1821.62,
+    1482.78,
+    2036.24,
+    1554.96
+   ],
+   "px": [
+    448,
+    151
+   ],
+   "bytes": 7302,
+   "record_id": 300459,
+   "alpha": true
+  }
+ ]
+}

@@ -1,0 +1,23 @@
+PASS all seven groups present and open
+FAIL Today uses the full content width (1760 of 2528 px)
+PASS side gutter kept (20 px)
+FAIL banner sits in a full-width dark band
+PASS banner picture centred inside the band
+PASS banner picture capped at 42% of the screen height (481 px)
+FAIL progress cards 3 across
+FAIL cards in a row share one height
+PASS Fencing card spans the full row
+PASS gauge titles on one line and not clipped
+FAIL contacts 4 across
+PASS Today pane is not a keyboard tab stop
+FAIL no focus outline drawn around the whole pane
+PASS no page-wide horizontal overflow
+PASS native automatic instrument animation
+PASS redraw retains scroll position
+FAIL redraw keeps the same layout
+PASS redraw does not change data or money
+PASS print layout untouched by the screen rules
+PASS no runtime errors
+PASS no attempted live writes
+[[687.859375,719.703125],[687.859375,664.015625],[687.859375,687.859375]] []
+2560 px: 14/21

@@ -1,0 +1,650 @@
+[
+ {
+  "tab": "Costs & charges",
+  "severity": "should",
+  "quote": "build and demob 1,260.1 ordinary, 202 at ×1.5, 69.4 at ×2, and 96 over the race weekend",
+  "why": "Confirmed. In costCategories the band() reducer sums bi.hours from p.hours + p.race (the tracker's start-to-finish hours, before the unpaid break: 1,606.5 + 96 = 1,702.5) while ordinary / at_1_5 / at_2 are the paid bands after the break (1,260.1 + 202 + 69.4 = 1,531.5 = 1,606.5 less 150 weekday shif",
+  "old": "— build and demob ${fmtNum(r1(bi.ordinary))} ordinary, ${fmtNum(r1(bi.at_1_5))} at ×1.5, ${fmtNum(r1(bi.at_2))} at ×2${bi.race ? `, and ${fmtNum(r1(bi.race))} over the race weekend` : ''}; wages are reviewed separately",
+  "new": "— rostered, before the unpaid weekday break${bi.race ? `, ${fmtNum(r1(bi.race))} of them over the race weekend` : ''}; build and demob paid after the break: ${fmtNum(r1(bi.ordinary))} ordinary, ${fmtNum(r1(bi.at_1_5))} at ×1.5, ${fmtNum(r1(bi.at_2))} at ×2; wages are reviewed separately",
+  "count_in_v773_build": 1
+ },
+ {
+  "tab": "Costs & charges",
+  "severity": "should",
+  "quote": "32 lines the branch has not put Rate 1 on yet",
+  "why": "Confirmed. cardLines counts every line whose contractCharge is filled 'card' or 'typed'. contractCharge() marks the MEAD forklift (9968726 line 1, Rate 1 $1,483.20 = $185.40 × 8 days) filled 'card' under forkliftWholeHire748 ('a forklift goes by its day rate', Andrew 1 Oct), so it is one of the 32 a",
+  "old": "`${pl(cardLines, 'line')} the branch has not put Rate 1 on yet",
+  "new": "`${pl(cardLines, 'line')} priced from the card (no Rate 1 on the line yet, or a forklift whose Rate 1 is the card’s day rate × its days written as one figure, charged by the day rate)",
+  "count_in_v773_build": 1
+ },
+ {
+  "tab": "Costs & charges",
+  "severity": "should",
+  "quote": "63 dockets · hire and installation in one card rate",
+  "why": "Confirmed. c.fencing_dockets is fenceDerived().dockets = every usable docket (63). The charge lines table and the September accrual read the dockets' charge lines, of which there are 59, and the 59 add to the same $120,913.08. The four without a charge line are 36519, 36523 and 36531 (bracing on run",
+  "old": "`${pl(c.fencing_dockets || 0, 'docket')} · hire and installation in one card rate`",
+  "new": "`${pl(c.fencing_dockets || 0, 'docket')}${(() => { try { const n = allDockets().filter(d => d.usable && d.cost_total).length; return n && n < (c.fencing_dockets || 0) ? `, ${fmtNum(n)} of them carrying a card charge — the rest carry no card charge of their own yet` : ''; } catch (e) { return ''; } })()} · hire and installation in one card rate`",
+  "count_in_v773_build": 1
+ },
+ {
+  "tab": "Costs & charges",
+  "severity": "should",
+  "quote": "2 subhired contract lines — their rehire cost is not on the record",
+  "why": "Confirmed. X.C.subhire.lines in costCategories is contractFigures' count of SUB-coded lines (ROY002, QUE011); the forklift marked hired in (subhired_machine) is not in that count, so the P&L says 2 while the Rehire by branch card says '3 suppliers’ costs not on the record' and the Not priced table s",
+  "old": " — their rehire cost is not on the record`",
+  "new": " — their rehire cost is not on the record, and nor is the supplier cost of the plant the project manager marked hired in (every missing cost is counted on the Rehire by branch card)`",
+  "count_in_v773_build": 1
+ },
+ {
+  "tab": "Costs & charges",
+  "severity": "should",
+  "quote": "52 loads with no transport figure yet",
+  "why": "Confirmed; the 52 is right and the basis under-describes it. In cj764Model the gap is loadsNoFig + loadsNoFigNoCard (27 + 25 = 52) but the basis prints cardRefs (26 references) for the first part: one reference carries two loads without a figure, and the card's transport cost is counted once per ref",
+  "old": "the card’s transport cost for ${fmtNum(cardRefs)} reference${cardRefs === 1 ? '' : 's'} still without a figure (${money0(cardCost)})",
+  "new": "the card’s transport cost, once a reference, for ${fmtNum(loadsNoFig)} load${loadsNoFig === 1 ? '' : 's'} on ${fmtNum(cardRefs)} reference${cardRefs === 1 ? '' : 's'} still without a figure (${money0(cardCost)})",
+  "count_in_v773_build": 1
+ },
+ {
+  "tab": "Costs & charges",
+  "severity": "should",
+  "quote": "the P&L’s fencing category $77,122 is the two together",
+  "why": "Confirmed. In the BY BRANCH rows (pl760 table) STPS's cost cell is fenceCost = cat('fencing').amount, the whole management category ($75,021.50 gear + $850 docket labour + $1,250 green book = $77,121.50), under a column headed 'Rehire cost · direct cost', with the sub-text \"Advanced's dockets at the",
+  "old": "costWords = \"Advanced's dockets at their own sheet\";",
+  "new": "costWords = \"Advanced's dockets at their own sheet — their gear (Rehire) and their crew (Installation — external contractors) together\";",
+  "count_in_v773_build": 1
+ },
+ {
+  "tab": "Costs & charges",
+  "severity": "should",
+  "quote": "64.5 h past hours awaiting confirmation or review",
+  "why": "Confirmed. fin745Summary keeps pendingHours (worked, before breaks: the 1 Oct shifts 11 + 10.5 + 10.5 + 10.5 + 11 + 11 = 64.5) separately from pendingPaidHours (61.5), and forecastHours (1,009) from forecastPaidHours (966.5); the Month-end control tiles print the before-break figures and the Labour ",
+  "old": " + ' past hours awaiting confirmation or review')",
+  "new": " + ' past hours, before breaks, awaiting confirmation or review')",
+  "count_in_v773_build": 1
+ },
+ {
+  "tab": "Costs & charges",
+  "severity": "should",
+  "quote": "Delivery for HA Line Item(s) 22,* 23 Sep 2026: delivery date missing",
+  "why": "Confirmed. acc761Model dates a delivery charge line from the contract line's start_date or booked_delivery_date only; these four KINP/STPS lines have neither, so $938 of Transport Revenue sits in 'no day to put it in' while the line's own name carries '23 Sep 2026' / '15 Sep 2026' and nothing says w",
+  "old": "(pickup ? 'pickup/return date missing' : 'delivery date missing')",
+  "new": "(pickup ? 'pickup/return date missing' : 'delivery date missing on the contract line — the date in the line’s name is not read as the delivery date')",
+  "count_in_v773_build": 1
+ },
+ {
+  "tab": "Costs & charges",
+  "severity": "should",
+  "quote": "Rehire Revenue at the card’s day rate × the days to the term date (Fri 11 Sep 2026 → Mon 26 Oct 2026) — the job figure",
+  "why": "Confirmed. span(forks) takes the earliest start and the latest term across both lines, so one window is printed for line 31 (45 days × $268.06 = $12,062.70) and line 34 (one day at $185.40 — its own dates, the card fold shows it at $185.40). Line 34 is not under-charged; the sentence just gives it t",
+  "old": "Rehire Revenue at the card’s day rate × the days to the term date (${span(forks) || 'dates on the lines'}) — the job figure",
+  "new": "Rehire Revenue at the card’s day rate × each line’s own days to its term date (${forks.map(r => `line ${r.line}: ${span([r]) || 'dates on the line'}`).join(' · ')}) — the job figure",
+  "count_in_v773_build": 1
+ },
+ {
+  "tab": "Costs & charges",
+  "severity": "should",
+  "quote": "197 of 197 lines carry a branch · 9 purchase orders",
+  "why": "Confirmed. In branchRollup, lines: rows.length and linked: rows.filter(r => branchOf(r.a.key).code).length count schedule references (assets), and each row's LINES cell is g.lines.length, the references on that branch — so MEAD shows 0 beside '1 contract' and $9,552 while the paragraph underneath sa",
+  "old": "${ALL.linked} of ${ALL.lines} lines carry a branch",
+  "new": "${ALL.linked} of ${ALL.lines} references on the schedule carry a branch",
+  "count_in_v773_build": 1
+ },
+ {
+  "tab": "Costs & charges",
+  "severity": "should",
+  "quote": "What each branch charges the V8s is its contract lines by the rate and its charge lines on the record by kind",
+  "why": "Confirmed. This working table adds the contracts by the rate and the charge lines on the record by kind; its LABOUR column is charge lines of kind labour (none typed), so REVENUE IN ALL ($496,981) leaves out the $19,170 of Labour Install ticks that the Forecast P&L's BY BRANCH table counts ($516,151",
+  "old": " its contract lines by the rate and its charge lines on the record by kind — by the branch on the line or on the asset it names;",
+  "new": " its contract lines by the rate and its charge lines on the record by kind — by the branch on the line or on the asset it names — before the labour ticked per piece, which sits on the Forecast P&L’s By branch table;",
+  "count_in_v773_build": 1
+ },
+ {
+  "tab": "Costs & charges",
+  "severity": "nit",
+  "quote": "×1.47: $551,552 charged against $375,787 Rehire cost and their crew to pay",
+  "why": "Confirmed. rh769Cover(rev, cost, withCrew) receives the combined figure (Rehire cost $373,687 + crew $2,100) and labels it with `what = 'Rehire cost and their crew'`, so the $375,787 reads as 'Rehire cost' a line below the tile's $373,687; same on STPS ($257,212 beside $255,112). The crew amount is ",
+  "old": "what = withCrew ? 'Rehire cost and their crew' : 'Rehire cost';",
+  "new": "what = withCrew ? 'Rehire cost and their crew, the two together,' : 'Rehire cost';",
+  "count_in_v773_build": 1
+ },
+ {
+  "tab": "Costs & charges",
+  "severity": "nit",
+  "quote": "known today = the P&L’s direct costs known, to the cent",
+  "why": "Confirmed. The reconciliation is true in the model (plParts equals plKnown in cents) but the page shows dollars rounded cell by cell, so the JOB FORECAST column adds to $444,412 against $444,411 and transport's parts to $44,375 against $44,376; a manager cannot see the cents, so 'to the cent' reads ",
+  "old": "known today = the P&amp;L’s direct costs known, to the cent",
+  "new": "known today = the P&amp;L’s direct costs known · each figure rounded to the dollar on its own, so a column can be $1 out from its parts",
+  "count_in_v773_build": 1
+ },
+ {
+  "tab": "Costs & charges",
+  "severity": "nit",
+  "quote": "$21,950 of cost where the month split is Finance’s call",
+  "why": "Confirmed. acc763Summary sets decisions = decide rows (1: the toilets' September share) + X.wip.length (1: the fencing paid ahead), and decide = the decide rows' total ($21,950), so the tile says '2 items' with a figure that covers one. X in the render is the same acc761 model (X.label, X.revenueTot",
+  "old": "${money0(S.decide)} of cost where the month split is Finance’s call",
+  "new": "${money0(S.decide)} of cost where the month split is Finance’s call${(X.wip || []).length ? ' · and the fencing paid ahead of the branch billing — the WIP question below' : ''}",
+  "count_in_v773_build": 1
+ },
+ {
+  "tab": "today",
+  "severity": "blocker",
+  "quote": "· branch KINP · Andrew Fisher via Codex",
+  "why": "Confirmed 4 times in the Today dump (desktop and phone). The name is not in the build at all — it is the recorded-by field on the shared record (the record naming rule in AGENTS.md), read live. The page prints it as is, so the only page-side fix is to drop the ' via …' suffix when displaying. The sa",
+  "old": "· ${esc(r.by || 'unnamed')}</span></li>",
+  "new": "· ${esc(String(r.by || 'unnamed').replace(/\\s+via\\s+\\S+$/i, ''))}</span></li>",
+  "count_in_v773_build": 1
+ },
+ {
+  "tab": "progress",
+  "severity": "blocker",
+  "quote": "Andrew Fisher via Codex ✓ complete",
+  "why": "Confirmed 7 times in the Where we are dump. Same cause as the Today card: the recorded-by name comes from the shared record and is printed unchanged in the Recorded by column. Strip the ' via …' suffix at display.",
+  "old": "<td>${esc(r.by || 'unnamed')}${r.d.done ? ' <span class=\"tick sm\">✓ complete</span>' : ''}</td>",
+  "new": "<td>${esc(String(r.by || 'unnamed').replace(/\\s+via\\s+\\S+$/i, ''))}${r.d.done ? ' <span class=\"tick sm\">✓ complete</span>' : ''}</td>",
+  "count_in_v773_build": 1
+ },
+ {
+  "tab": "today",
+  "severity": "should",
+  "quote": "Check the roads live before you back on it.",
+  "why": "Confirmed. A word is missing; 'rely on it' is what is meant. One literal in the roads card.",
+  "old": "Check the roads live before you back on it.",
+  "new": "Check the roads live before you rely on it.",
+  "count_in_v773_build": 1
+ },
+ {
+  "tab": "today",
+  "severity": "should",
+  "quote": "197 ASSETS",
+  "why": "Confirmed. The chip prints t.total followed by the word 'assets'; t.total is the count of references carrying a light (the Where we are tab calls the same 197 'references'; the job has 789 units). The word is wrong for a headline count.",
+  "old": "<span class=\"chip ref\">${t.total} assets</span>",
+  "new": "<span class=\"chip ref\">${t.total} references</span>",
+  "count_in_v773_build": 1
+ },
+ {
+  "tab": "today",
+  "severity": "should",
+  "quote": "what the plan asks for by today is on site",
+  "why": "Confirmed. The big figure under the lead tile is C.shortfall (0 today) with no visible label — the dashLeds that follow carry 'nothing behind' only as a title, which is why the dump shows a bare 0. Give the figure its label.",
+  "old": "<div class=\"ctbig\">${C.plan ? fmtNum(C.shortfall) : '—'}</div>",
+  "new": "<div class=\"ctbig\">${C.plan ? fmtNum(C.shortfall) : '—'}${C.plan ? '<small style=\"display:block;font-size:10.5px;font-weight:600;letter-spacing:0;line-height:1.3\">behind the plan</small>' : ''}</div>",
+  "count_in_v773_build": 1
+ },
+ {
+  "tab": "today",
+  "severity": "should",
+  "quote": "What TomTom said at 21 Sept 2026, 15:13",
+  "why": "Confirmed. The staleness is data (the snapshot in the JSON blob, refreshed only at build time) and the page already flags it. Patchable: 'Sept' comes from fmtWhen's en-AU short month, used for every timestamp in the roads list, so one fix gives 'Sep' page-wide. The summary line \"'reports'} from ${es",
+  "old": "function fmtWhen(iso){ try { const d = new Date(iso); return isNaN(d) ? '' : d.toLocaleString('en-AU', {timeZone: 'Australia/Brisbane', hour12: false, day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit'}); }",
+  "new": "function fmtWhen(iso){ try { const d = new Date(iso); return isNaN(d) ? '' : d.toLocaleString('en-AU', {timeZone: 'Australia/Brisbane', hour12: false, day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit'}).replace('Sept', 'Sep'); }",
+  "count_in_v773_build": 1
+ },
+ {
+  "tab": "today",
+  "severity": "should",
+  "quote": "a snapshot taken for this build, not a live feed",
+  "why": "Confirmed. 'Build' is the event phase everywhere else on the page. The same word sits in the Documents chip (\"${DOCS.files ? 'listed' : 'in this build'}\" → 'files') and in the roads notice ('when this build was made' — covered by the 'this morning' finding below).",
+  "old": " — a snapshot taken for this build, not a live feed.",
+  "new": " — a snapshot taken when this page was published, not a live feed.",
+  "count_in_v773_build": 1
+ },
+ {
+  "tab": "today",
+  "severity": "should",
+  "quote": "Calendar position only · work completion is tracked on the plates",
+  "why": "Confirmed on both tabs. The rail's race marker is the .pends .m span, hidden on phones by a media rule at max-width 640px. Keeping it at a slightly smaller size fits three labels at 390px; the same rule serves the Where we are strip (the rail is one function). Check a phone screenshot at 320px for o",
+  "old": "  .pends .m{display:none}",
+  "new": "  .pends .m{font-size:10.5px}",
+  "count_in_v773_build": 1
+ },
+ {
+  "tab": "progress",
+  "severity": "should",
+  "quote": "They don’t make up the gap.",
+  "why": "Confirmed. The sentence is fixed text inside the early-units paragraph; C.shortfall is in scope in the same template (used two lines above), so the wording can follow it.",
+  "old": "They don’t make up the gap.</p>",
+  "new": "${C.shortfall ? 'They don’t make up the gap.' : 'Early, not counted here.'}</p>",
+  "count_in_v773_build": 1
+ },
+ {
+  "tab": "progress",
+  "severity": "should",
+  "quote": "168 drawn on the sheets and 26 plant lines with no drawing reference",
+  "why": "Confirmed. refs excludes references flagged _added (added on the shared record) and lines counts plant lines, so 3 of the 197 are the added references and are named nowhere. Say so.",
+  "old": "${refs} drawn on the sheets and ${lines} plant lines with no drawing reference (VMS boards, forklifts, track mat). It counts",
+  "new": "${refs} drawn on the sheets, ${lines} plant lines with no drawing reference (VMS boards, forklifts, track mat)${all.length - refs - lines > 0 ? ` and ${all.length - refs - lines} added on the shared record` : ''}. It counts",
+  "count_in_v773_build": 1
+ },
+ {
+  "tab": "progress",
+  "severity": "should",
+  "quote": "On site comes from 58 asset numbers on hire in the rental system",
+  "why": "Confirmed. numbers counts asset numbers on rows matched to a schedule reference; the on-site list's 79 is every asset number on the contracts with a start date by the as-at day, matched or not. Both are right; say which this one is.",
+  "old": "<p>On site comes from ${numbers} asset number${numbers === 1 ? '' : 's'} on hire in the rental system",
+  "new": "<p>On site comes from ${numbers} asset number${numbers === 1 ? '' : 's'} on hire in the rental system and matched to a schedule reference (the on-site list below carries every asset number on the contracts, matched or not)",
+  "count_in_v773_build": 1
+ },
+ {
+  "tab": "progress",
+  "severity": "should",
+  "quote": "Not itemised here",
+  "why": "Confirmed. The table itemises contracts, fencing, event labour scope, labour ticked and other; the $99,052 remainder is ch.servicing — toilet pump-outs and cleans at the card's rates plus the water charged on at cost (servicing748Total), on no contract yet. Name it and keep 'Not itemised here' only ",
+  "old": "if (Math.abs(rest) >= 0.01) parts.push(['Not itemised here', rest]);",
+  "new": "if (ch.servicing) parts.push(['Toilet servicing and water charged on — pump-outs and cleans at the card, water at cost (on no contract yet)', ch.servicing]); if (Math.abs(rest - (ch.servicing || 0)) >= 0.01) parts.push(['Not itemised here', Math.round((rest - (ch.servicing || 0)) * 100) / 100]);",
+  "count_in_v773_build": 1
+ },
+ {
+  "tab": "progress",
+  "severity": "should",
+  "quote": "Subhire · 59 lines",
+  "why": "Confirmed twice (All branches and STPS). The label is the cost-kind label from the data ('subhire' → 'Subhire') via kindLabel; override the word in kindLabel so every kind row says Rehire. The fold sentence 'Subhire here is the 59 fencing dockets…' should be re-worded to match. The 59 v 63 docket co",
+  "old": "const kindLabel = k => (COST_KINDS.find(x => x.key === k) || {}).label || (k ? String(k) : '—');",
+  "new": "const kindLabel = k => String((COST_KINDS.find(x => x.key === k) || {}).label || (k ? String(k) : '—')).replace(/^Sub-?hire$/i, 'Rehire');",
+  "count_in_v773_build": 1
+ },
+ {
+  "tab": "progress",
+  "severity": "should",
+  "quote": "Dockets — paid to Advanced · Rehire + Installation (external contractors)",
+  "why": "Confirmed. The Money card's Fencing direct costs are fd.cost (the dockets, $75,872) plus cost.fencing_labour — greenBookTotals(), Advanced's labour and truck hours from the green book ($1,250, the 8.5 h in the fencing table). The plate shows only the dockets. Add the green book line so the two figur",
+  "old": "Dockets — paid to Advanced · Rehire + Installation (external contractors)</span><b>${fd.cost ? esc(money0(fd.cost)) : '—'}</b></div>",
+  "new": "Dockets — paid to Advanced · Rehire + Installation (external contractors)</span><b>${fd.cost ? esc(money0(fd.cost)) : '—'}</b></div>${(() => { const G = typeof greenBookTotals === 'function' ? greenBookTotals() : null; return G && G.notes && G.rate != null && G.amount ? `<div class=\"money\"><span title=\"${esc(PL_INSTALL)}\">Green book — Advanced’s labour and truck hours · Installation (external contractors) · with the dockets, the Fencing direct costs on the Money card</span><b>${esc(money0(G.amount))}</b></div>` : ''; })()}",
+  "count_in_v773_build": 1
+ },
+ {
+  "tab": "progress",
+  "severity": "should",
+  "quote": "1,626 paid/allocation hours unpriced",
+  "why": "Confirmed. The sentence is built in one return line and reads as system jargon. The cents ($31,823.98) come from money() in the pricedWords line above it — change that to money0 in the same release; not reachable in this one-line snippet.",
+  "old": "paid/allocation hours unpriced. Actuals, forecast & Finance journals separates verified costs, unconfirmed past estimates and future plans. These labour costs are not added to this P&L",
+  "new": "hours of Coates wages still unpriced. The “Actuals, forecast & Finance journals” section keeps verified costs, past estimates and forecasts apart; none of these wages are added to this P&L",
+  "count_in_v773_build": 1
+ },
+ {
+  "tab": "progress",
+  "severity": "nit",
+  "quote": "(he is on site from Mon 14 Sep)",
+  "why": "Confirmed. Nobody is named in the paragraph; the tab's form for him elsewhere is 'the project manager'. Cosmetic clarity — downgraded to nit.",
+  "old": "(he is on site from Mon 14 Sep)",
+  "new": "(the project manager is on site from Mon 14 Sep)",
+  "count_in_v773_build": 1
+ },
+ {
+  "tab": "progress",
+  "severity": "should",
+  "quote": "Delivery Delivery for HA Line Item(s) 22,*",
+  "why": "Confirmed twice (All branches and KINP folds; STPS has the same shape). contractItemWords prints the line's item ('Delivery', 'TRANSPORT') and then its description, which already starts with the same word. Print the item only when the description does not start with it, and drop the rental system's ",
+  "old": "${x.item ? x.item + ' ' : ''}${x.description || ''}${x.qty && x.qty !== 1",
+  "new": "${x.item && !String(x.description || '').toLowerCase().startsWith(String(x.item).toLowerCase()) ? x.item + ' ' : ''}${String(x.description || '').replace(/,\\*/g, '')}${x.qty && x.qty !== 1",
+  "count_in_v773_build": 1
+ },
+ {
+  "tab": "progress",
+  "severity": "should",
+  "quote": "6 of 6 forklifts on site",
+  "why": "Confirmed. next = cnt(placed.filter(r => r.next)) counts units due in the next 7 days whether or not they are already on site; r.on is on the same rows, so 'coming' can exclude what is already here. The Build table's NEXT 7 DAYS column is separate code with the same rule — align it in the same relea",
+  "old": "<span>Coming in the next ${PROG_NEXT_DAYS} days</span>${cell(next)}",
+  "new": "<span>Coming in the next ${PROG_NEXT_DAYS} days</span>${cell(cnt(placed.filter(r => r.next && !r.on)))}",
+  "count_in_v773_build": 1
+ },
+ {
+  "tab": "progress",
+  "severity": "nit",
+  "quote": "None recorded on site",
+  "why": "Confirmed. The plate is correct — the eight stand-alone furniture rows are not due yet — but fridges, chairs and sinks appear in the on-site list because they ride on the building rows. The groups carry an optional 'what' note (Toilets and Track mat have one); give Furniture one. Nit: wording, not a",
+  "old": "{name: 'Furniture', disc: 'Furniture', unit: ['item', 'items'], types: /./, acc: '#ff6a13'},",
+  "new": "{name: 'Furniture', disc: 'Furniture', unit: ['item', 'items'], types: /./, acc: '#ff6a13', what: 'the stand-alone furniture rows only — fridges, chairs and sinks delivered inside a building row are counted with that building'},",
+  "count_in_v773_build": 1
+ },
+ {
+  "tab": "progress",
+  "severity": "should",
+  "quote": "0 lines · 1 contract",
+  "why": "Confirmed. The header's 'lines' are schedule references on the branch (g.lines), while the body's 'By the rate · 9 of 9 lines' are contract lines. Name the header count; the body wording lives in contractPlateRows and should say 'contract lines' in the same release.",
+  "old": "<span>${g.lines.length} line${g.lines.length === 1 ? '' : 's'}${g.contracts.length ? ` · ${g.contracts.length} contract${g.contracts.length === 1 ? '' : 's'}` : ''}</span></div>",
+  "new": "<span>${g.lines.length} schedule reference${g.lines.length === 1 ? '' : 's'}${g.contracts.length ? ` · ${g.contracts.length} contract${g.contracts.length === 1 ? '' : 's'}` : ''}</span></div>",
+  "count_in_v773_build": 1
+ },
+ {
+  "tab": "progress",
+  "severity": "should",
+  "quote": "branch STPS · contract 9972648 · off hire Sun 27 Sep 2026",
+  "why": "Confirmed. The list is 'on hire is on site' from the start date; three lines have an off-hire date before the as-at day and nothing says so. asOf is the dsnOut parameter and demob_date is an ISO date like start_date, so the line can mark a passed date.",
+  "old": "${r.demob_date ? ' · off hire ' + esc(fmtDate(r.demob_date)) : ''}</span></li>`; }).join('')}</ul>",
+  "new": "${r.demob_date ? ' · off hire ' + esc(fmtDate(r.demob_date)) + (r.demob_date < asOf ? ' — passed; still listed as on site until the light says otherwise' : '') : ''}</span></li>`; }).join('')}</ul>",
+  "count_in_v773_build": 1
+ },
+ {
+  "tab": "progress",
+  "severity": "should",
+  "quote": "subhired · no Coates asset number · subhired 5 t forklift, with 1.8 m tynes 5T FORKLIFT 1.8TYNNES",
+  "why": "Confirmed. The first 'subhired' is the page's literal; the second is the record's reads_as text; the capitals are the contract line's own description and location (data, partly covered by the MACINTOSH fix below). Use Rehire and strip the duplicated word from the data text.",
+  "old": "subhired · no Coates asset number${o.subhire.reads_as ? ' · ' + esc(o.subhire.reads_as) : ''}</span>",
+  "new": "rehired · no Coates asset number${o.subhire.reads_as ? ' · ' + esc(String(o.subhire.reads_as).replace(/^sub-?hired\\s+/i, '')) : ''}</span>",
+  "count_in_v773_build": 1
+ },
+ {
+  "tab": "progress",
+  "severity": "should",
+  "quote": "CON WK5, CON WK3",
+  "why": "Confirmed. The sheet names and the timestamps are data joined into the sentence as they come, unsorted and with nested brackets. Sort the sheets, say whose they are, and drop the '(AEST)' tags — the words round them are the page's.",
+  "old": " — for ${(DATA.fencing.week_sheets || []).filter(w => w.plan_update).map(w => w.sheet).join(', ')} the day figures follow the later installation plan (${(DATA.fencing.week_sheets || []).filter(w => w.plan_update).map(w => w.plan_update.created_display).join('; ')}), on the Fencing tab with what it changed",
+  "new": " — for the contractor’s sheets ${(DATA.fencing.week_sheets || []).filter(w => w.plan_update).map(w => w.sheet).sort().join(' and ')} the day figures follow the later installation plan, issued ${(DATA.fencing.week_sheets || []).filter(w => w.plan_update).map(w => String(w.plan_update.created_display).replace(/\\s*\\(AEST\\)/g, '')).join(' and ')} — the Fencing tab shows what changed",
+  "count_in_v773_build": 1
+ },
+ {
+  "tab": "progress",
+  "severity": "should",
+  "quote": "Day 25 of 68 · 22 days to race day · 43 days to the end of demob",
+  "why": "Confirmed. The day count runs from the programme start (07 Sep), 'Week 3' is the programme week sheet from the data (counted from the first truck, 14 Sep) and the fencing note counts the 2026 programme's weeks from 07 Sep; nothing states a base. The day line can state its own base (fd and b.start ar",
+  "old": "<p class=\"pnote\" style=\"margin-top:12px\">Day <b>${dayNo < 1 ? 0 : dayNo > total ? total : dayNo}</b> of ${total}${",
+  "new": "<p class=\"pnote\" style=\"margin-top:12px\">Programme day <b>${dayNo < 1 ? 0 : dayNo > total ? total : dayNo}</b> of ${total}, counted from ${esc(fd(b.start))}${",
+  "count_in_v773_build": 1
+ },
+ {
+  "tab": "today",
+  "severity": "nit",
+  "quote": "one that matters this morning will not be in it",
+  "why": "Confirmed. The page is read at any hour, and the auto-fold moves this notice into a 'More info' details appended at the end of the card, so the TomTom list is above it on screen, not below. Also swaps 'build' for the page's publish.",
+  "old": "What TomTom said when this build was made is below, kept as the dated record it is — a closure listed there has very likely gone, and one that matters this morning will not be in it",
+  "new": "What TomTom said when this page was published is above, kept as the dated record it is — a closure listed there has very likely gone, and one that matters today will not be in it",
+  "count_in_v773_build": 1
+ },
+ {
+  "tab": "today",
+  "severity": "nit",
+  "quote": "63 dockets · $120,913.08 charged",
+  "why": "Confirmed. The Fencing hub card uses money() while every other card uses money0().",
+  "old": "<b>${esc(money(fcost) || '$0.00')}</b> charged</div>",
+  "new": "<b>${esc(money0(fcost) || '$0')}</b> charged</div>",
+  "count_in_v773_build": 1
+ },
+ {
+  "tab": "today",
+  "severity": "nit",
+  "quote": "· 1048.5 m still to do",
+  "why": "Confirmed. l.remaining is this week's plan less this week's dockets; the words do not say 'this week'. The 'CCB Demarc' and 'V Gates' names are the fencing data's own labels — not patched here.",
+  "old": "+ ' still to do'}</span>",
+  "new": "+ ' of this week’s plan still to do'}</span>",
+  "count_in_v773_build": 1
+ },
+ {
+  "tab": "today",
+  "severity": "nit",
+  "quote": "Toilets and servicing · direct costs $118,575",
+  "why": "Confirmed. The stream line labels only the direct cost in the muted span; the larger right-hand figure (s.charge0, the revenue) carries no word. Label both.",
+  "old": "· direct costs ${esc(money0(s.cost0))}</span>",
+  "new": "· revenue ${esc(money0(s.charge0))} · direct costs ${esc(money0(s.cost0))}</span>",
+  "count_in_v773_build": 1
+ },
+ {
+  "tab": "today",
+  "severity": "nit",
+  "quote": "Press / to search from anywhere",
+  "why": "Confirmed on phone and desktop (one literal, no phone variant). A keyboard shortcut is no use on a phone; say both ways.",
+  "old": "Press <b>/</b> to search from anywhere.",
+  "new": "Press <b>/</b> on a keyboard, or tap Search, to search from anywhere.",
+  "count_in_v773_build": 1
+ },
+ {
+  "tab": "progress",
+  "severity": "nit",
+  "quote": "Rate coverage incomplete · 2 hire lines with no rate",
+  "why": "Confirmed. Everywhere else the same two lines are 'contract lines'.",
+  "old": "hire line${unk === 1 ? '' : 's'} with no rate",
+  "new": "contract line${unk === 1 ? '' : 's'} with no rate",
+  "count_in_v773_build": 1
+ },
+ {
+  "tab": "progress",
+  "severity": "nit",
+  "quote": "started;programme is every 2026 week",
+  "why": "Confirmed. Missing space in the fencing plate's More info note.",
+  "old": "that have started;programme is every 2026 week",
+  "new": "that have started; programme is every 2026 week",
+  "count_in_v773_build": 1
+ },
+ {
+  "tab": "progress",
+  "severity": "nit",
+  "quote": "it. the project manager recorded it on 12 Sep 2026.",
+  "why": "Confirmed. Sentence starts lower case in the plate note. The Track mat note ('the schedule writes 20 and no unit…') is the group's 'what' phrase in DSN_GROUPS and would need its own capital — separate line.",
+  "old": "with the machine named on it. the project manager recorded ${subhires === 1 ? 'it' : 'them'} on 12 Sep 2026.",
+  "new": "with the machine named on it. The project manager recorded ${subhires === 1 ? 'it' : 'them'} on 12 Sep 2026.",
+  "count_in_v773_build": 1
+ },
+ {
+  "tab": "progress",
+  "severity": "nit",
+  "quote": "9 · 3 with a receipt ID",
+  "why": "Confirmed. The All-branches card says '3 invoiced' for the same nine purchase orders; the branch cards say 'with a receipt ID'. One wording.",
+  "old": "<small>· ${g.invoiced} with a receipt ID</small>",
+  "new": "<small>· ${g.invoiced} invoiced</small>",
+  "count_in_v773_build": 1
+ },
+ {
+  "tab": "progress",
+  "severity": "nit",
+  "quote": "On the contracts (Baseplan, Thu 24 Sep 2026)",
+  "why": "Confirmed 5 times, one template. 'Baseplan' is the rental system's product name; say what the date means for the figures. 'A week behind' would be computed, so the words stay general.",
+  "old": "' (Baseplan, ' + esc(fmtDate(ONHIRE.supplied_on)) + ')'",
+  "new": "' (the rental system as at ' + esc(fmtDate(ONHIRE.supplied_on)) + ' — deliveries since then are on the lights, not the contracts)'",
+  "count_in_v773_build": 1
+ },
+ {
+  "tab": "progress",
+  "severity": "nit",
+  "quote": "Andrew, 1 Oct:",
+  "why": "Confirmed. The water caveat names him by first name; the rest of the tab says 'the project manager'.",
+  "old": " — Andrew, 1 Oct: “what we charge should cover what we get charged” — until the branch puts a rate on`); caveats_short.push('water charged on at cost')",
+  "new": " — the project manager, 1 Oct: “what we charge should cover what we get charged” — until the branch puts a rate on`); caveats_short.push('water charged on at cost')",
+  "count_in_v773_build": 1
+ },
+ {
+  "tab": "progress",
+  "severity": "nit",
+  "quote": "77 lines · 279 things",
+  "why": "Confirmed. The page's word is units. The per-line '1 thing on site' is the neighbouring literal ${esc(u === 1 ? 'thing' : 'things')} on site — change it to unit/units in the same release.",
+  "old": " thing${personUnits === 1 ? '' : 's'}</span></h4></summary>",
+  "new": " unit${personUnits === 1 ? '' : 's'}</span></h4></summary>",
+  "count_in_v773_build": 1
+ },
+ {
+  "tab": "progress",
+  "severity": "nit",
+  "quote": "Macintosh · branch NVAC · contract 9961976 · MACINTOSH",
+  "why": "Confirmed twice (also MOLENDINAR, PHILLIP PARK). The contract line's location (r.location) is printed after a schedule line name that already carries the place. Skip it when the line name already contains it (l is in scope in the same arrow).",
+  "old": "branch ${esc(r.branch_code)} · contract ${esc(r.rental_contract)}${r.location ? ' · ' + esc(r.location) : ''}",
+  "new": "branch ${esc(r.branch_code)} · contract ${esc(r.rental_contract)}${r.location && !(l && String(l.name || '').toLowerCase().includes(String(r.location).toLowerCase())) ? ' · ' + esc(r.location) : ''}",
+  "count_in_v773_build": 1
+ },
+ {
+  "tab": "progress",
+  "severity": "nit",
+  "quote": "The detail, trade by trade",
+  "why": "Confirmed twice: the fold's summary line and the section h2 inside it carry the same words. Make the summary an action.",
+  "old": "<summary title=\"the programme tables behind the plates\">The detail, trade by trade</summary>",
+  "new": "<summary title=\"the programme tables behind the summary cards\">Open the detail, trade by trade ↓</summary>",
+  "count_in_v773_build": 1
+ },
+ {
+  "tab": "progress",
+  "severity": "nit",
+  "quote": "Andrew Fisher ✓ complete",
+  "why": "Confirmed. The Ref cell prints the key and then the drawing link's label, which is the key again on most rows ('WC33 WC33') and the unit tag on GN03 ('003'). Print the label only when it differs. The '1 STEPS INSTALLED' chip is a separate literal (${v.steps.length} steps installed) — fix its grammar",
+  "old": "${link ? ` <span class=\"w\" style=\"color:var(--mute)\">${esc(link.label)}</span>` : ''}</td>",
+  "new": "${link && link.label && link.label !== r.a.key ? ` <span class=\"w\" style=\"color:var(--mute)\">${esc(link.label)}</span>` : ''}</td>",
+  "count_in_v773_build": 1
+ },
+ {
+  "tab": "progress",
+  "severity": "nit",
+  "quote": "removal m\t115 m\t0 m\t115 m",
+  "why": "Confirmed. The name 'removal' is lower case in the fencing data (the other lines are capitalised); the table can capitalise the first letter when it prints the label.",
+  "old": "<td><b>${esc(l.name)}</b>${l.unit ? `",
+  "new": "<td><b>${esc(String(l.name || '').replace(/^[a-z]/, c => c.toUpperCase()))}</b>${l.unit ? `",
+  "count_in_v773_build": 1
+ },
+ {
+  "tab": "progress",
+  "severity": "nit",
+  "quote": "the programme tables behind the plates",
+  "why": "Confirmed twice (the summary's title attribute, handled in the heading finding above, and this visible subtitle). 'Plates' is the page's internal word for its summary cards. The rail note 'work completion is tracked on the plates' (<p class=\"pnote\">…) should get 'on the cards above' in the same rele",
+  "old": "<div class=\"sub\">the programme tables behind the plates",
+  "new": "<div class=\"sub\">the programme tables behind the summary cards",
+  "count_in_v773_build": 1
+ },
+ {
+  "tab": "docs",
+  "severity": "should",
+  "quote": "4 SWMS · 1 risk assessment · 1 HSEQ plan · 3 transport & lifting · 41 maps and plates · 29 packs · 194 photographs",
+  "why": "Confirmed in tab_docs.txt. The header template only appends photographs (COLL.photos = category Photographs = 194) and invoices; the 44 fencing dockets (kind 'docket') are counted in the 317 listed but never named, so the parts sum to 273. Verified in the harness: photos 194, dockets 44, listed 317.",
+  "old": "photoCount ? ` · ${photoCount} photograph${photoCount === 1 ? '' : 's'}` : ''}${",
+  "new": "photoCount ? ` · ${photoCount} photograph${photoCount === 1 ? '' : 's'}` : ''}${ COLL.countOf('docket') ? ` · ${COLL.countOf('docket')} fencing docket${COLL.countOf('docket') === 1 ? '' : 's'}` : ''}${",
+  "count_in_v773_build": 1
+ },
+ {
+  "tab": "docs",
+  "severity": "should",
+  "quote": "revision 18/09/2026 · 11 pages · 11 pages · A4",
+  "why": "Confirmed. The catalogue entry's doc_ref string already ends '· 11 pages' and the card then appends the pages field and paper, so the page count prints twice. The other SWMS doc_refs carry no page count. The fix is in the build's own catalogue entry (embedded JSON authored with the build, not the li",
+  "old": "· revision 18/09/2026 · 11 pages\",\"note\"",
+  "new": "· revision 18/09/2026\",\"note\"",
+  "count_in_v773_build": 1
+ },
+ {
+  "tab": "docs",
+  "severity": "should",
+  "quote": "rev iew on page 1 · 18/09/2026",
+  "why": "Confirmed. The catalogue entry carries \"rev_on_page\":\"iew\" (a parse of 'reviewed' in the note) and docCard prints 'rev ' + rev_on_page + ' on page 1'. The file's own revision is the date 18/09/2026, already in doc_ref and date_on_page, so nulling rev_on_page leaves 'Revision details: 18/09/2026'.",
+  "old": "\"rev_on_page\":\"iew\",",
+  "new": "\"rev_on_page\":null,",
+  "count_in_v773_build": 1
+ },
+ {
+  "tab": "docs",
+  "severity": "nit",
+  "quote": "Built by this page",
+  "why": "Confirmed (29 cards). docCard's source label falls through to 'Built by this page' for every pack, including the five uploaded pre-starts whose next line says 'uploaded 22 Sep 11:00'. docCard(d, uploaded) has the upload record in scope, so the label can say which it is.",
+  "old": "kind === 'transport' ? 'Coates procedure' : 'Built by this page';",
+  "new": "kind === 'transport' ? 'Coates procedure' : uploaded ? 'Uploaded to the service' : 'Made by this page';",
+  "count_in_v773_build": 1
+ },
+ {
+  "tab": "docs",
+  "severity": "nit",
+  "quote": "03 CW4 2026 Fencing Installation Plan",
+  "why": "Confirmed. The catalogue entry says title_from 'file name' while the CW6/CW5/CW3 plans carry typed titles. The CW4 week's dates are not in the catalogue note ('Received with the 2026 fencing programme'), so the title is given without dates rather than inventing them; the '04 2026 Fencing Programme C",
+  "old": "\"title\":\"03 CW4 2026 Fencing Installation Plan\",",
+  "new": "\"title\":\"CW4 fencing installation plan\",",
+  "count_in_v773_build": 1
+ },
+ {
+  "tab": "docs",
+  "severity": "nit",
+  "quote": "02_A3_Detailed_Map_Atlas.pdf",
+  "why": "Confirmed. The name comes from the service (not in the build), but docCollection sets an uploaded file's title to the raw file name when none was typed (title: f.title || nm). Dropping the extension and underscores reads '02 A3 Detailed Map Atlas' without inventing a title; the file name stays in na",
+  "old": "title: f.title || nm, name: nm,",
+  "new": "title: f.title || nm.replace(/[.][A-Za-z0-9]+$/, '').replace(/_+/g, ' ').trim() || nm, name: nm,",
+  "count_in_v773_build": 1
+ },
+ {
+  "tab": "docs",
+  "severity": "nit",
+  "quote": "Files are listed only when the build saw them",
+  "why": "Confirmed. The footer line is wrong on the hosted link (244 uploads are listed) and 'the build' is tooling language. The header's '(73 in the build catalogue + 244 uploaded since)' is the same wording; its unique snippet is ')} in the build catalogue + ${' → ')} from the original set + ${' if wanted",
+  "old": "Files are listed only when the build saw them;",
+  "new": "Every file this page knows of is listed here, uploads included;",
+  "count_in_v773_build": 1
+ },
+ {
+  "tab": "plant",
+  "severity": "should",
+  "quote": "· FWF Trailer",
+  "why": "Confirmed. WC100's register record has \"name\":null (the rental extract describes it as 'Toilet Portable - With Trailer' but no schedule name was parsed), and the row template prints name then ' · ' + item types unconditionally. Dropping the separator when the name is blank fixes the row without inve",
+  "old": "${esc(a.name || '')}${(a.item_types || []).length ? ' · ' + esc(a.item_types.join(', ')) : ''}</span>",
+  "new": "${esc(a.name || '')}${(a.item_types || []).length ? (a.name ? ' · ' : '') + esc(a.item_types.join(', ')) : ''}</span>",
+  "count_in_v773_build": 1
+ },
+ {
+  "tab": "plant",
+  "severity": "should",
+  "quote": "Committed at the last rebuild: 1 of 207 asked-for items have a supplied record, 1 of them differ.",
+  "why": "Confirmed. The note is a four-line template; 'Committed at the last rebuild' is tooling language and 207 is the item lines in the snapshot taken when the page was built. The first line is the patchable one; the grammar on the next line (<b>${cs.items_asked ?? 0}</b> asked-for items have a supplied r",
+  "old": "<p class=\"norate\">Committed at the last rebuild: <b>${cs.items_recorded_as_supplied ?? 0}</b> of",
+  "new": "<p class=\"norate\">As at the last update of this page: <b>${cs.items_recorded_as_supplied ?? 0}</b> of",
+  "count_in_v773_build": 1
+ },
+ {
+  "tab": "plant",
+  "severity": "nit",
+  "quote": "of the 197 references in this view, of 201 on the register",
+  "why": "Confirmed. The type chip counts things asked for (789) and the SHOW chip counts references (197); both are labelled 'All'. Naming the SHOW chip 'All references' (lightBar is used on every page that shows the lights, always over references) removes the clash; the type chip's unique snippet is title=\"",
+  "old": "${btn('', '', 'All', t.total, 'every reference in this list')}",
+  "new": "${btn('', '', 'All references', t.total, 'every reference in this list')}",
+  "count_in_v773_build": 1
+ },
+ {
+  "tab": "plant",
+  "severity": "nit",
+  "quote": "ROTATAOR 1302007, SPARE, SUPPLY 1.8 SLIPPERS",
+  "why": "Confirmed. The SITE cell for a rental-system contract prints the distinct 'location' fields of its lines, which the branch used for line notes (typos as typed in the rental system, not ours to correct). The template is patchable: label them as line notes rather than a site so the column reads honest",
+  "old": "<td>—</td><td class=\"mono\">—</td><td>—</td><td>${esc((rc.locations || []).join(', ') || '—')}</td>",
+  "new": "<td>—</td><td class=\"mono\">—</td><td>—</td><td>${(rc.locations || []).length ? `<span class=\"w\" style=\"font-size:11px;color:var(--mute)\" title=\"the location field on the contract lines, as typed in the rental system — not a site\">line notes: ${esc(rc.locations.join(', '))}</span>` : '—'}</td>",
+  "count_in_v773_build": 1
+ },
+ {
+  "tab": "plant",
+  "severity": "should",
+  "quote": "Clear on the still on",
+  "why": "Confirmed. 'still on' is the code's word for references not cancelled (skipped = cancelled ones left out), so the labels read 'Put on the 197 still on' / 'Clear on the still on'. Note 'still on' is not 'still on hire'. The Put button's unique snippet is <button class=\"btn primary\" id=\"branchPut\" ${l",
+  "old": "title=\"take the branch off every listed asset that is still on\">Clear on the ${skipped ? 'still on' : 'listed'}</button>",
+  "new": "title=\"take the branch off every listed asset that is not cancelled\">Clear the branch from the ${listed.length} ${skipped ? 'not cancelled' : 'listed'}</button>",
+  "count_in_v773_build": 1
+ },
+ {
+  "tab": "plant (phone)",
+  "severity": "nit",
+  "quote": "Nobody has entered anything. Not the same as nothing having happened.",
+  "why": "Confirmed: present in tab_plant.txt, absent in tab_plant_phone.txt. One CSS rule hides the explanations under 640px (.ccode .lg em{display:none}); the page's own comment says a colour system nobody has been told the rules of is decoration. Stacking each explanation under its chip keeps the phone pan",
+  "old": "@media(max-width:640px){.ccode .lg em{display:none}",
+  "new": "@media(max-width:640px){.ccode .lg{display:flex;flex-direction:column;align-items:flex-start;gap:2px}.ccode .lg em{display:block}",
+  "count_in_v773_build": 1
+ },
+ {
+  "tab": "plant",
+  "severity": "nit",
+  "quote": "scheduled 2026-10-20",
+  "why": "Confirmed (5 rows in the dump; every row). The list's DATES cell prints effectiveDates(a).in raw (ISO) beside 'due 20 Oct' which uses fmtDay. fmtDay(iso).dm gives '20 Oct' and falls back to the raw string if a date does not parse. The 'off hire 2026-11-13' chip in offhireChip and the cards view keep",
+  "old": "return 'scheduled ' + (e.in ? esc(e.in) : '—')",
+  "new": "return 'scheduled ' + (e.in ? esc(fmtDay(e.in).dm) : '—')",
+  "count_in_v773_build": 1
+ },
+ {
+  "tab": "plant",
+  "severity": "nit",
+  "quote": "PLANT LINE",
+  "why": "Confirmed (5 T-rows; CSS uppercases the chip). The chip's own title says what it is: 'a schedule row with no drawing reference, carried under the schedule's own task id'. The 'demob row' chip (if (st === 'demob row') return '<span class=\"chip ok\">demob row</span>'; unique) could read 'demob date set",
+  "old": "\">plant line</span>`)",
+  "new": "\">schedule row, not on a drawing</span>`)",
+  "count_in_v773_build": 1
+ },
+ {
+  "tab": "plant",
+  "severity": "nit",
+  "quote": "4 cancelled references listed here are left out",
+  "why": "Confirmed. The leading space is the separator after the previous sentence's full stop, broken onto a new line by the .nomark glyph span (layout, cosmetic); the wording 'listed here are left out' is the fixable part.",
+  "old": "listed here ${skipped === 1 ? 'is' : 'are'} left out</b>",
+  "new": "on this list ${skipped === 1 ? 'is' : 'are'} left out</b>",
+  "count_in_v773_build": 1
+ },
+ {
+  "tab": "plant",
+  "severity": "nit",
+  "quote": "every asset carries a branch code",
+  "why": "Confirmed. The heading count is branchesUsed().length — branches with assets recorded against them (KINP, NVAC, STPS); MEAD's contract 9968726 has 0 assets, so 'Branch 3' is right by its own definition but unlabelled beside a guide that lists four. Saying what the number counts fixes it without list",
+  "old": "<h3>Branch <span class=\"chip ref\">${used.length}</span></h3>",
+  "new": "<h3>Branches with assets <span class=\"chip ref\">${used.length}</span></h3>",
+  "count_in_v773_build": 1
+ }
+]

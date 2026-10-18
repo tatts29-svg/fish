@@ -1,0 +1,38 @@
+// Author: Andrew Fisher. Collection changes stock, never erases supported arrival charge coverage.
+const fs=require('fs'),path=require('path'),vm=require('vm'),assert=require('assert/strict');
+const root=path.resolve(__dirname,'../..'),out=process.env.AUDIT_DIR||'/workspace/private-gc500-fencing996';
+const base=fs.readFileSync(process.env.BASE_PAGE||path.join(root,'build/GC500_v9.95-final/GC500_Delivery_Control_hosted.html'),'utf8');
+const page=fs.readFileSync(process.env.PAGE||path.join(out,'stock-candidate.html'),'utf8');
+const fn=(s,n,next)=>s.slice(s.indexOf('function '+n+'('),s.indexOf('function '+next+'(',s.indexOf('function '+n+'(')));
+const before=fn(base,'arrivedChargeRows975','cleaningRevenue975'),after=fn(page,'arrivedChargeRows975','cleaningRevenue975');
+const nativeArrival=fn(base,'toiletItem962','toiletRows962'),arrivalBridge=fn(base,'toiletArrival962','toiletSupplierArrived962');
+const actualRows=base.slice(base.indexOf('function rows(asset,lines,slots,arrivals,exclusions)'),base.indexOf('const api={keys,cents,cleanForecast,rows};',base.indexOf('function rows(asset,lines,slots,arrivals,exclusions)')));
+const stock=fs.readFileSync(path.join(root,'v9.96_supplier_sync_DRAFT/stock996.js'),'utf8'),model=fs.readFileSync(path.join(root,'v9.96_supplier_sync_DRAFT/demob-weather/model996.js'),'utf8');
+const a={key:'WC1',product:'Toilet',discipline:'Toilets & amenities'},item='FWF',at='2026-10-09T01:00:00Z',day='2026-10-12',S={stamps:{},supplied:{}},ref={key:a.key,units:[{type:item,n:1}]};
+let record={state:'on site',recorded:true,set_at:at,history:[{state:'on site',at,by:'Andrew Fisher'}]};
+const context={S,keys:new Set(['install','levelling','steps','cleaning','demob']),todayIso:()=>day,isoIn:v=>new Date(v).toISOString().slice(0,10),chargeLines:()=>[{item,discipline:a.discipline,quantity:1}],qtyOf:l=>l.quantity,deliveryAsOf:()=>record,invOnSite:()=>record.state==='on site',itemRows:()=>[],labourUnits:()=>[],restArrived:()=>0,holdAssets:f=>f(),labourPlan:()=>({slots:['install','cleaning','demob'].map(key=>({ref:a.key,disc:a.discipline,item,key,line:key,qty:1,rate:36,value:36,state:'later'}))}),cents:n=>Math.round(n*100)/100};
+vm.createContext(context);vm.runInContext(model,context);context.DemobCollection996={read:(key,date)=>context.DemobProgress996.evidence(ref,record,date)};
+vm.runInContext(stock+'\nthis.Stock=CurrentStock996;\n'+nativeArrival+arrivalBridge+actualRows+'\nthis.ArrivalCharges975={rows};\n'+before+'\nthis.oldCharges=arrivedChargeRows975;',context);vm.runInContext(after,context);
+const checks=[],check=(name,f)=>{f();checks.push({name,pass:true});},clone=x=>JSON.parse(JSON.stringify(x));
+const beforeRows=clone(context.arrivedChargeRows975(a));
+check('Unchanged arrival produces original three charges',()=>{assert.deepEqual(beforeRows,clone(context.oldCharges(a)));assert.equal(beforeRows[0].total,108);});
+const collection={version:1,kind:'collection',id:'test',date:day,arrivalAt:at,requiredKey:context.DemobProgress996.fingerprint(ref.units),items:[{type:item,n:1}]};
+record={...record,state:'in transit',set_at:day+'T01:00:00Z',history:record.history.concat({state:'in transit',at:day+'T01:00:00Z',by:'Andrew Fisher',collection996:collection})};
+check('Original light-only arrival bug reproduced',()=>assert.equal(context.oldCharges(a).length,0));
+check('Validated full collection preserves all original arrival charge rows and amounts',()=>assert.deepEqual(clone(context.arrivedChargeRows975(a)),beforeRows));
+check('Same collection removes current stock',()=>{assert.equal(context.Stock.quantity(a,item,day,1),0);assert.equal(context.Stock.departed(a,day),true);});
+check('Historical day before collection never borrows later collected units',()=>assert.equal(context.Stock.received(a,item,'2026-10-11',0),0));
+check('Typed collection cannot supply unrelated item receipt',()=>assert.equal(context.Stock.received(a,'Waste Tank',day,0),0));
+check('Existing larger receipt remains authoritative and not doubled',()=>assert.equal(context.Stock.received(a,item,day,3),3));
+check('Unknown native receipt is not coerced into confirmed quantity',()=>assert.equal(context.Stock.received(a,item,day,null),null));
+check('Scope change holds typed floor',()=>{ref.units[0].n=2;assert.equal(context.Stock.received(a,item,day,0),0);ref.units[0].n=1;});
+check('Re-arrival does not borrow collection from previous cycle',()=>{record.history.push({state:'on site',at:day+'T02:00:00Z',by:'Andrew Fisher'});assert.equal(context.Stock.received(a,item,day,0),0);record.history.pop();});
+check('No global receipt wrapper or altered pricing',()=>{assert.equal(fn(base,'toiletArrival962','toiletSupplierArrived962'),fn(page,'toiletArrival962','toiletSupplierArrived962'));assert.equal(fn(base,'cleaningRevenue975','stairsChargeQty975'),fn(page,'cleaningRevenue975','stairsChargeQty975'));assert.equal(base.match(/^const FCOL = (.*)$/m)?.[0],page.match(/^const FCOL = (.*)$/m)?.[0]);});
+check('Shared operational state unchanged',()=>assert.deepEqual(S,{stamps:{},supplied:{}}));
+check('Pee-panel hire forecast remains4033.01 after full collection; no additional receipt patch needed',()=>{
+ const start=base.indexOf('<script id="pee-hire979-script">'),end=base.indexOf('const cardBefore979=',start),code=base.slice(base.indexOf('>',start)+1,end);
+ const oldLines=context.chargeLines,oldState=record.state;context.window=context;context.heldMemo=(key,f)=>f();context.ONHIRE_ROWS=[];context.assetOf=()=>({...a,key:'WC09'});context.chargeLines=()=>[{item:'Pee Panel',discipline:a.discipline,quantity:6}];
+ vm.runInContext(code,context);record.state='on site';const before=context.peeHireForecast979();record.state='in transit';const after=context.peeHireForecast979();
+ assert.equal(before.amount,4033.01);assert.deepEqual(clone(after),clone(before));context.chargeLines=oldLines;record.state=oldState;
+});
+fs.writeFileSync(path.join(out,'stock-model996.json'),JSON.stringify({author:'Andrew Fisher',pass:true,checks,networkCalls:0},null,2));console.log(JSON.stringify({pass:true,checks:checks.length,networkCalls:0}));

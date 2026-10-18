@@ -1,0 +1,17 @@
+{
+  "author": "Andrew Fisher",
+  "base": {
+    "bytes": 8682905,
+    "sha256": "303029e3e64d5a43654bafc400d09e5bed2efbb93060a964214502cc04b96fc7"
+  },
+  "full": {
+    "bytes": 8744684,
+    "sha256": "34e5defbe3fe39bcb40d8715d3d032ebb5c9841dbea35e90b47090c427bfbcb5"
+  },
+  "standalone": {
+    "bytes": 1138328,
+    "sha256": "4b07428254f7a84535820f65b0ed065b05df7f4c2acfb0f775fce43be98b1288"
+  },
+  "unchanged_prefix_bytes": 7540964,
+  "prefix_identical": true
+}

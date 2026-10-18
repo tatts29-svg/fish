@@ -1,0 +1,6521 @@
+[
+ {
+  "ref": "PG01",
+  "name": "Toilet (Pit Garage)",
+  "state": "on site",
+  "done": true,
+  "cancelled": false,
+  "moved": false,
+  "lines": [
+   {
+    "item": "FWF",
+    "qty": 1,
+    "hire": null,
+    "hireLines": [],
+    "lab": {
+     "install": {
+      "rate": 36.435,
+      "qty": 1,
+      "value": 36.44
+     },
+     "demob": {
+      "rate": 36.435,
+      "qty": 1,
+      "value": 36.44
+     }
+    },
+    "labTotal": 72.88,
+    "blocked": false,
+    "why": null,
+    "card": [
+     "install:36.435",
+     "demob:36.435"
+    ]
+   }
+  ],
+  "tr": {
+   "delivery": {
+    "charge": 47.5,
+    "units": 1,
+    "rows": 1,
+    "ticks": [
+     "on"
+    ]
+   },
+   "pickup": {
+    "charge": 47.5,
+    "units": 1,
+    "rows": 1,
+    "ticks": [
+     "on"
+    ]
+   }
+  },
+  "nights": {
+   "lines": [
+    {
+     "kind": "fwf",
+     "units": 1,
+     "rate": 72.87,
+     "per_night": 72.87,
+     "total": 218.61
+    }
+   ],
+   "per_night": 72.87,
+   "total": 218.61
+  },
+  "off": []
+ },
+ {
+  "ref": "PG03",
+  "name": "Toilet (Pit Garage)",
+  "state": "on site",
+  "done": true,
+  "cancelled": false,
+  "moved": false,
+  "lines": [
+   {
+    "item": "FWF",
+    "qty": 1,
+    "hire": null,
+    "hireLines": [],
+    "lab": {
+     "install": {
+      "rate": 36.435,
+      "qty": 1,
+      "value": 36.44
+     },
+     "demob": {
+      "rate": 36.435,
+      "qty": 1,
+      "value": 36.44
+     }
+    },
+    "labTotal": 72.88,
+    "blocked": false,
+    "why": null,
+    "card": [
+     "install:36.435",
+     "demob:36.435"
+    ]
+   }
+  ],
+  "tr": {
+   "delivery": {
+    "charge": 47.5,
+    "units": 1,
+    "rows": 1,
+    "ticks": [
+     "on"
+    ]
+   },
+   "pickup": {
+    "charge": 47.5,
+    "units": 1,
+    "rows": 1,
+    "ticks": [
+     "on"
+    ]
+   }
+  },
+  "nights": {
+   "lines": [
+    {
+     "kind": "fwf",
+     "units": 1,
+     "rate": 72.87,
+     "per_night": 72.87,
+     "total": 218.61
+    }
+   ],
+   "per_night": 72.87,
+   "total": 218.61
+  },
+  "off": []
+ },
+ {
+  "ref": "PG05",
+  "name": "Toilet (Pit Garage)",
+  "state": "on site",
+  "done": true,
+  "cancelled": false,
+  "moved": false,
+  "lines": [
+   {
+    "item": "FWF",
+    "qty": 1,
+    "hire": null,
+    "hireLines": [],
+    "lab": {
+     "install": {
+      "rate": 36.435,
+      "qty": 1,
+      "value": 36.44
+     },
+     "demob": {
+      "rate": 36.435,
+      "qty": 1,
+      "value": 36.44
+     }
+    },
+    "labTotal": 72.88,
+    "blocked": false,
+    "why": null,
+    "card": [
+     "install:36.435",
+     "demob:36.435"
+    ]
+   }
+  ],
+  "tr": {
+   "delivery": {
+    "charge": 47.5,
+    "units": 1,
+    "rows": 1,
+    "ticks": [
+     "on"
+    ]
+   },
+   "pickup": {
+    "charge": 47.5,
+    "units": 1,
+    "rows": 1,
+    "ticks": [
+     "on"
+    ]
+   }
+  },
+  "nights": {
+   "lines": [
+    {
+     "kind": "fwf",
+     "units": 1,
+     "rate": 72.87,
+     "per_night": 72.87,
+     "total": 218.61
+    }
+   ],
+   "per_night": 72.87,
+   "total": 218.61
+  },
+  "off": []
+ },
+ {
+  "ref": "PG29",
+  "name": "Toilet (Pit Garage)",
+  "state": "on site",
+  "done": true,
+  "cancelled": false,
+  "moved": false,
+  "lines": [
+   {
+    "item": "FWF",
+    "qty": 1,
+    "hire": null,
+    "hireLines": [],
+    "lab": {
+     "install": {
+      "rate": 36.435,
+      "qty": 1,
+      "value": 36.44
+     },
+     "demob": {
+      "rate": 36.435,
+      "qty": 1,
+      "value": 36.44
+     }
+    },
+    "labTotal": 72.88,
+    "blocked": false,
+    "why": null,
+    "card": [
+     "install:36.435",
+     "demob:36.435"
+    ]
+   }
+  ],
+  "tr": {
+   "delivery": {
+    "charge": 47.5,
+    "units": 1,
+    "rows": 1,
+    "ticks": [
+     "on"
+    ]
+   },
+   "pickup": {
+    "charge": 47.5,
+    "units": 1,
+    "rows": 1,
+    "ticks": [
+     "on"
+    ]
+   }
+  },
+  "nights": {
+   "lines": [
+    {
+     "kind": "fwf",
+     "units": 1,
+     "rate": 72.87,
+     "per_night": 72.87,
+     "total": 218.61
+    }
+   ],
+   "per_night": 72.87,
+   "total": 218.61
+  },
+  "off": []
+ },
+ {
+  "ref": "WC01",
+  "name": "Toilets",
+  "state": "on site",
+  "done": true,
+  "cancelled": false,
+  "moved": false,
+  "lines": [
+   {
+    "item": "Accessible Toilet",
+    "qty": 1,
+    "hire": 337.75,
+    "hireLines": [
+     {
+      "contract": "9968955",
+      "line": 57,
+      "assetNo": "1317644",
+      "qty": 1,
+      "amount": 337.75,
+      "ownUse": false,
+      "included": false
+     }
+    ],
+    "lab": {
+     "install": {
+      "rate": 88.485,
+      "qty": 1,
+      "value": 88.49
+     },
+     "demob": {
+      "rate": 88.485,
+      "qty": 1,
+      "value": 88.49
+     }
+    },
+    "labTotal": 176.98,
+    "blocked": false,
+    "why": null,
+    "card": [
+     "install:88.485",
+     "demob:88.485"
+    ]
+   },
+   {
+    "item": "FWF",
+    "qty": 2,
+    "hire": 180.14,
+    "hireLines": [
+     {
+      "contract": "9968955",
+      "line": 46,
+      "assetNo": "1211958",
+      "qty": 1,
+      "amount": 90.07,
+      "ownUse": false,
+      "included": false
+     },
+     {
+      "contract": "9968955",
+      "line": 69,
+      "assetNo": "1211967",
+      "qty": 1,
+      "amount": 90.07,
+      "ownUse": false,
+      "included": false
+     }
+    ],
+    "lab": {
+     "install": {
+      "rate": 36.435,
+      "qty": 2,
+      "value": 72.87
+     },
+     "demob": {
+      "rate": 36.435,
+      "qty": 2,
+      "value": 72.87
+     }
+    },
+    "labTotal": 145.74,
+    "blocked": false,
+    "why": null,
+    "card": [
+     "install:36.435",
+     "demob:36.435"
+    ]
+   }
+  ],
+  "tr": {
+   "delivery": {
+    "charge": 595,
+    "units": 3,
+    "rows": 2,
+    "ticks": [
+     "on",
+     "on"
+    ]
+   },
+   "pickup": {
+    "charge": 595,
+    "units": 3,
+    "rows": 2,
+    "ticks": [
+     "on",
+     "on"
+    ]
+   }
+  },
+  "nights": {
+   "lines": [
+    {
+     "kind": "fwf",
+     "units": 2,
+     "rate": 72.87,
+     "per_night": 145.74,
+     "total": 437.22
+    }
+   ],
+   "per_night": 145.74,
+   "total": 437.22
+  },
+  "off": [
+   "WC01|Toilets & amenities|FWF|install"
+  ]
+ },
+ {
+  "ref": "WC02",
+  "name": "Toilet",
+  "state": "on site",
+  "done": true,
+  "cancelled": false,
+  "moved": false,
+  "lines": [
+   {
+    "item": "FWF",
+    "qty": 1,
+    "hire": 90.07,
+    "hireLines": [
+     {
+      "contract": "9968955",
+      "line": 45,
+      "assetNo": "1058086",
+      "qty": 1,
+      "amount": 90.07,
+      "ownUse": false,
+      "included": false
+     }
+    ],
+    "lab": {
+     "install": {
+      "rate": 36.435,
+      "qty": 1,
+      "value": 36.44
+     },
+     "demob": {
+      "rate": 36.435,
+      "qty": 1,
+      "value": 36.44
+     }
+    },
+    "labTotal": 72.88,
+    "blocked": false,
+    "why": null,
+    "card": [
+     "install:36.435",
+     "demob:36.435"
+    ]
+   }
+  ],
+  "tr": {
+   "delivery": {
+    "charge": 0,
+    "units": 1,
+    "rows": 1,
+    "ticks": [
+     "held"
+    ]
+   },
+   "pickup": {
+    "charge": 47.5,
+    "units": 1,
+    "rows": 1,
+    "ticks": [
+     "on"
+    ]
+   }
+  },
+  "nights": {
+   "lines": [
+    {
+     "kind": "fwf",
+     "units": 1,
+     "rate": 72.87,
+     "per_night": 72.87,
+     "total": 218.61
+    }
+   ],
+   "per_night": 72.87,
+   "total": 218.61
+  },
+  "off": []
+ },
+ {
+  "ref": "WC04",
+  "name": "Toilet - QAS",
+  "state": "on site",
+  "done": true,
+  "cancelled": false,
+  "moved": false,
+  "lines": [
+   {
+    "item": "FWF",
+    "qty": 1,
+    "hire": 90.07,
+    "hireLines": [
+     {
+      "contract": "9968955",
+      "line": 44,
+      "assetNo": "1212502",
+      "qty": 1,
+      "amount": 90.07,
+      "ownUse": false,
+      "included": false
+     }
+    ],
+    "lab": {
+     "install": {
+      "rate": 36.435,
+      "qty": 1,
+      "value": 36.44
+     },
+     "demob": {
+      "rate": 36.435,
+      "qty": 1,
+      "value": 36.44
+     }
+    },
+    "labTotal": 72.88,
+    "blocked": false,
+    "why": null,
+    "card": [
+     "install:36.435",
+     "demob:36.435"
+    ]
+   }
+  ],
+  "tr": {
+   "delivery": {
+    "charge": 0,
+    "units": 1,
+    "rows": 1,
+    "ticks": [
+     "held"
+    ]
+   },
+   "pickup": {
+    "charge": 47.5,
+    "units": 1,
+    "rows": 1,
+    "ticks": [
+     "on"
+    ]
+   }
+  },
+  "nights": {
+   "lines": [
+    {
+     "kind": "fwf",
+     "units": 1,
+     "rate": 72.87,
+     "per_night": 72.87,
+     "total": 218.61
+    }
+   ],
+   "per_night": 72.87,
+   "total": 218.61
+  },
+  "off": []
+ },
+ {
+  "ref": "WC05",
+  "name": "Event Operations Compound Toilet - Combo Block (Tanked)",
+  "state": "on site",
+  "done": true,
+  "cancelled": false,
+  "moved": false,
+  "lines": [
+   {
+    "item": "Waste tank",
+    "qty": 1,
+    "hire": 0,
+    "hireLines": [
+     {
+      "contract": "9968955",
+      "line": 3,
+      "assetNo": "1328978",
+      "qty": 1,
+      "amount": 0,
+      "ownUse": false,
+      "included": true
+     }
+    ],
+    "lab": {
+     "install": {
+      "rate": 145.74,
+      "qty": 1,
+      "value": 145.74
+     },
+     "levelling": {
+      "rate": 104.1,
+      "qty": 1,
+      "value": 104.1
+     },
+     "cleaning": {
+      "rate": 156.15,
+      "qty": 1,
+      "value": 156.15
+     },
+     "demob": {
+      "rate": 145.74,
+      "qty": 1,
+      "value": 145.74
+     }
+    },
+    "labTotal": 551.73,
+    "blocked": false,
+    "why": null,
+    "card": [
+     "install:145.74",
+     "levelling:104.1",
+     "cleaning:156.15",
+     "demob:145.74"
+    ]
+   },
+   {
+    "item": "Toilet Block 6m",
+    "qty": 1,
+    "hire": 3227.41,
+    "hireLines": [
+     {
+      "contract": "9968955",
+      "line": 1,
+      "assetNo": "1097377",
+      "qty": 1,
+      "amount": 3227.41,
+      "ownUse": false,
+      "included": false
+     }
+    ],
+    "lab": {
+     "install": {
+      "rate": 145.74,
+      "qty": 1,
+      "value": 145.74
+     },
+     "steps": {
+      "rate": 156.15,
+      "qty": 1,
+      "value": 156.15
+     },
+     "levelling": {
+      "rate": 104.1,
+      "qty": 1,
+      "value": 104.1
+     },
+     "cleaning": {
+      "rate": 156.15,
+      "qty": 1,
+      "value": 156.15
+     },
+     "demob": {
+      "rate": 145.74,
+      "qty": 1,
+      "value": 145.74
+     }
+    },
+    "labTotal": 707.88,
+    "blocked": false,
+    "why": null,
+    "card": [
+     "install:145.74",
+     "steps:156.15",
+     "levelling:104.1",
+     "cleaning:156.15",
+     "demob:145.74"
+    ]
+   }
+  ],
+  "tr": {
+   "delivery": {
+    "charge": 500,
+    "units": 2,
+    "rows": 2,
+    "ticks": [
+     "held",
+     "on"
+    ]
+   },
+   "pickup": {
+    "charge": 500,
+    "units": 2,
+    "rows": 2,
+    "ticks": [
+     "held",
+     "on"
+    ]
+   }
+  },
+  "nights": {
+   "lines": [
+    {
+     "kind": "tank",
+     "units": 1,
+     "rate": 624.6,
+     "per_night": 624.6,
+     "total": 1873.8
+    }
+   ],
+   "per_night": 624.6,
+   "total": 1873.8
+  },
+  "off": []
+ },
+ {
+  "ref": "WC06",
+  "name": "Toilets - Race Admin",
+  "state": "on site",
+  "done": true,
+  "cancelled": false,
+  "moved": false,
+  "lines": [
+   {
+    "item": "FWF",
+    "qty": 2,
+    "hire": 180.14,
+    "hireLines": [
+     {
+      "contract": "9968955",
+      "line": 15,
+      "assetNo": "1195658",
+      "qty": 1,
+      "amount": 90.07,
+      "ownUse": false,
+      "included": false
+     },
+     {
+      "contract": "9968955",
+      "line": 58,
+      "assetNo": "1212523",
+      "qty": 1,
+      "amount": 90.07,
+      "ownUse": false,
+      "included": false
+     }
+    ],
+    "lab": {
+     "install": {
+      "rate": 36.435,
+      "qty": 2,
+      "value": 72.87
+     },
+     "demob": {
+      "rate": 36.435,
+      "qty": 2,
+      "value": 72.87
+     }
+    },
+    "labTotal": 145.74,
+    "blocked": false,
+    "why": null,
+    "card": [
+     "install:36.435",
+     "demob:36.435"
+    ]
+   }
+  ],
+  "tr": {
+   "delivery": {
+    "charge": 0,
+    "units": 2,
+    "rows": 1,
+    "ticks": [
+     "held"
+    ]
+   },
+   "pickup": {
+    "charge": 95,
+    "units": 2,
+    "rows": 1,
+    "ticks": [
+     "on"
+    ]
+   }
+  },
+  "nights": {
+   "lines": [
+    {
+     "kind": "fwf",
+     "units": 2,
+     "rate": 72.87,
+     "per_night": 145.74,
+     "total": 437.22
+    }
+   ],
+   "per_night": 145.74,
+   "total": 437.22
+  },
+  "off": []
+ },
+ {
+  "ref": "WC07",
+  "name": "Toilets - Merch Area",
+  "state": "on site",
+  "done": true,
+  "cancelled": false,
+  "moved": false,
+  "lines": [
+   {
+    "item": "FWF",
+    "qty": 20,
+    "hire": 1711.33,
+    "hireLines": [
+     {
+      "contract": "9968955",
+      "line": 24,
+      "assetNo": "1002566",
+      "qty": 1,
+      "amount": 90.07,
+      "ownUse": false,
+      "included": false
+     },
+     {
+      "contract": "9968955",
+      "line": 25,
+      "assetNo": "1317640",
+      "qty": 1,
+      "amount": 90.07,
+      "ownUse": false,
+      "included": false
+     },
+     {
+      "contract": "9968955",
+      "line": 26,
+      "assetNo": "1211959",
+      "qty": 1,
+      "amount": 90.07,
+      "ownUse": false,
+      "included": false
+     },
+     {
+      "contract": "9968955",
+      "line": 27,
+      "assetNo": "1317649",
+      "qty": 1,
+      "amount": 90.07,
+      "ownUse": false,
+      "included": false
+     },
+     {
+      "contract": "9968955",
+      "line": 28,
+      "assetNo": "1317647",
+      "qty": 1,
+      "amount": 90.07,
+      "ownUse": false,
+      "included": false
+     },
+     {
+      "contract": "9968955",
+      "line": 29,
+      "assetNo": "1317626",
+      "qty": 1,
+      "amount": 90.07,
+      "ownUse": false,
+      "included": false
+     },
+     {
+      "contract": "9968955",
+      "line": 30,
+      "assetNo": "1317652",
+      "qty": 1,
+      "amount": 90.07,
+      "ownUse": false,
+      "included": false
+     },
+     {
+      "contract": "9968955",
+      "line": 31,
+      "assetNo": "1317648",
+      "qty": 1,
+      "amount": 90.07,
+      "ownUse": false,
+      "included": false
+     },
+     {
+      "contract": "9968955",
+      "line": 32,
+      "assetNo": "1212552",
+      "qty": 1,
+      "amount": 90.07,
+      "ownUse": false,
+      "included": false
+     },
+     {
+      "contract": "9968955",
+      "line": 33,
+      "assetNo": "1200595",
+      "qty": 1,
+      "amount": 90.07,
+      "ownUse": false,
+      "included": false
+     },
+     {
+      "contract": "9968955",
+      "line": 34,
+      "assetNo": "1181004",
+      "qty": 1,
+      "amount": 90.07,
+      "ownUse": false,
+      "included": false
+     },
+     {
+      "contract": "9968955",
+      "line": 35,
+      "assetNo": "1002538",
+      "qty": 1,
+      "amount": 90.07,
+      "ownUse": false,
+      "included": false
+     },
+     {
+      "contract": "9968955",
+      "line": 36,
+      "assetNo": "1317658",
+      "qty": 1,
+      "amount": 90.07,
+      "ownUse": false,
+      "included": false
+     },
+     {
+      "contract": "9968955",
+      "line": 37,
+      "assetNo": "1317632",
+      "qty": 1,
+      "amount": 90.07,
+      "ownUse": false,
+      "included": false
+     },
+     {
+      "contract": "9968955",
+      "line": 39,
+      "assetNo": "1317641",
+      "qty": 1,
+      "amount": 90.07,
+      "ownUse": false,
+      "included": false
+     },
+     {
+      "contract": "9968955",
+      "line": 40,
+      "assetNo": "1002715",
+      "qty": 1,
+      "amount": 90.07,
+      "ownUse": false,
+      "included": false
+     },
+     {
+      "contract": "9968955",
+      "line": 41,
+      "assetNo": "1083300",
+      "qty": 1,
+      "amount": 90.07,
+      "ownUse": false,
+      "included": false
+     },
+     {
+      "contract": "9968955",
+      "line": 42,
+      "assetNo": "1192643",
+      "qty": 1,
+      "amount": 90.07,
+      "ownUse": false,
+      "included": false
+     },
+     {
+      "contract": "9968955",
+      "line": 43,
+      "assetNo": "1002651",
+      "qty": 1,
+      "amount": 90.07,
+      "ownUse": false,
+      "included": false
+     }
+    ],
+    "lab": {
+     "install": {
+      "rate": 36.435,
+      "qty": 20,
+      "value": 728.7
+     },
+     "demob": {
+      "rate": 36.435,
+      "qty": 20,
+      "value": 728.7
+     }
+    },
+    "labTotal": 1457.4,
+    "blocked": false,
+    "why": null,
+    "card": [
+     "install:36.435",
+     "demob:36.435"
+    ]
+   }
+  ],
+  "tr": {
+   "delivery": {
+    "charge": 950,
+    "units": 20,
+    "rows": 1,
+    "ticks": [
+     "on"
+    ]
+   },
+   "pickup": {
+    "charge": 950,
+    "units": 20,
+    "rows": 1,
+    "ticks": [
+     "on"
+    ]
+   }
+  },
+  "nights": {
+   "lines": [
+    {
+     "kind": "fwf",
+     "units": 20,
+     "rate": 72.87,
+     "per_night": 1457.4,
+     "total": 4372.2
+    }
+   ],
+   "per_night": 1457.4,
+   "total": 4372.2
+  },
+  "off": []
+ },
+ {
+  "ref": "WC09",
+  "name": "Toilets",
+  "state": "on site",
+  "done": true,
+  "cancelled": false,
+  "moved": false,
+  "lines": [
+   {
+    "item": "FWF",
+    "qty": 10,
+    "hire": 900.7,
+    "hireLines": [
+     {
+      "contract": "9968955",
+      "line": 102,
+      "assetNo": null,
+      "qty": 10,
+      "amount": 900.7,
+      "ownUse": false,
+      "included": false
+     }
+    ],
+    "lab": {
+     "install": {
+      "rate": 36.435,
+      "qty": 10,
+      "value": 364.35
+     },
+     "demob": {
+      "rate": 36.435,
+      "qty": 10,
+      "value": 364.35
+     }
+    },
+    "labTotal": 728.7,
+    "blocked": false,
+    "why": null,
+    "card": [
+     "install:36.435",
+     "demob:36.435"
+    ]
+   },
+   {
+    "item": "Pee Panel",
+    "qty": 6,
+    "hire": null,
+    "hireLines": [],
+    "lab": {
+     "install": {
+      "rate": 145.74,
+      "qty": 6,
+      "value": 874.44
+     },
+     "levelling": {
+      "rate": 104.1,
+      "qty": 6,
+      "value": 624.6
+     },
+     "cleaning": {
+      "rate": 156.15,
+      "qty": 6,
+      "value": 936.9
+     },
+     "demob": {
+      "rate": 145.74,
+      "qty": 6,
+      "value": 874.44
+     }
+    },
+    "labTotal": 3310.38,
+    "blocked": false,
+    "why": null,
+    "card": [
+     "install:145.74",
+     "levelling:104.1",
+     "cleaning:156.15",
+     "demob:145.74"
+    ]
+   },
+   {
+    "item": "Toilet Block 6m",
+    "qty": 2,
+    "hire": 4953.7,
+    "hireLines": [
+     {
+      "contract": "9968955",
+      "line": 103,
+      "assetNo": "1268858",
+      "qty": 1,
+      "amount": 2476.85,
+      "ownUse": false,
+      "included": false
+     },
+     {
+      "contract": "9968955",
+      "line": 105,
+      "assetNo": "1311146",
+      "qty": 1,
+      "amount": 2476.85,
+      "ownUse": false,
+      "included": false
+     }
+    ],
+    "lab": {
+     "install": {
+      "rate": 145.74,
+      "qty": 2,
+      "value": 291.48
+     },
+     "steps": {
+      "rate": 156.15,
+      "qty": 2,
+      "value": 312.3
+     },
+     "levelling": {
+      "rate": 104.1,
+      "qty": 2,
+      "value": 208.2
+     },
+     "cleaning": {
+      "rate": 156.15,
+      "qty": 2,
+      "value": 312.3
+     },
+     "demob": {
+      "rate": 145.74,
+      "qty": 2,
+      "value": 291.48
+     }
+    },
+    "labTotal": 1415.76,
+    "blocked": false,
+    "why": null,
+    "card": [
+     "install:145.74",
+     "steps:156.15",
+     "levelling:104.1",
+     "cleaning:156.15",
+     "demob:145.74"
+    ]
+   }
+  ],
+  "tr": {
+   "delivery": {
+    "charge": 1475,
+    "units": 18,
+    "rows": 3,
+    "ticks": [
+     "on",
+     "held",
+     "on"
+    ]
+   },
+   "pickup": {
+    "charge": 1475,
+    "units": 18,
+    "rows": 3,
+    "ticks": [
+     "on",
+     "held",
+     "on"
+    ]
+   }
+  },
+  "nights": {
+   "lines": [
+    {
+     "kind": "fwf",
+     "units": 10,
+     "rate": 72.87,
+     "per_night": 728.7,
+     "total": 2186.1
+    },
+    {
+     "kind": "sewer",
+     "units": 2,
+     "rate": 260.25,
+     "per_night": 520.5,
+     "total": 1561.5
+    }
+   ],
+   "per_night": 1249.2,
+   "total": 3747.6
+  },
+  "off": []
+ },
+ {
+  "ref": "WC10",
+  "name": "Toilets",
+  "state": "on site",
+  "done": true,
+  "cancelled": false,
+  "moved": false,
+  "lines": [
+   {
+    "item": "FWF",
+    "qty": 3,
+    "hire": 270.21,
+    "hireLines": [
+     {
+      "contract": "9968955",
+      "line": 114,
+      "assetNo": null,
+      "qty": 3,
+      "amount": 270.21,
+      "ownUse": false,
+      "included": false
+     }
+    ],
+    "lab": {
+     "install": {
+      "rate": 36.435,
+      "qty": 3,
+      "value": 109.31
+     },
+     "demob": {
+      "rate": 36.435,
+      "qty": 3,
+      "value": 109.31
+     }
+    },
+    "labTotal": 218.62,
+    "blocked": false,
+    "why": null,
+    "card": [
+     "install:36.435",
+     "demob:36.435"
+    ]
+   }
+  ],
+  "tr": {
+   "delivery": {
+    "charge": 142.5,
+    "units": 3,
+    "rows": 1,
+    "ticks": [
+     "on"
+    ]
+   },
+   "pickup": {
+    "charge": 142.5,
+    "units": 3,
+    "rows": 1,
+    "ticks": [
+     "on"
+    ]
+   }
+  },
+  "nights": {
+   "lines": [
+    {
+     "kind": "fwf",
+     "units": 3,
+     "rate": 72.87,
+     "per_night": 218.61,
+     "total": 655.83
+    }
+   ],
+   "per_night": 218.61,
+   "total": 655.83
+  },
+  "off": []
+ },
+ {
+  "ref": "WC100",
+  "name": null,
+  "state": "on site",
+  "done": true,
+  "cancelled": false,
+  "moved": false,
+  "lines": [
+   {
+    "item": "FWF Trailer",
+    "qty": 2,
+    "hire": 475.42,
+    "hireLines": [
+     {
+      "contract": "9968955",
+      "line": 12,
+      "assetNo": "1288823",
+      "qty": 1,
+      "amount": 237.71,
+      "ownUse": false,
+      "included": false
+     },
+     {
+      "contract": "9968955",
+      "line": 13,
+      "assetNo": "1248439",
+      "qty": 1,
+      "amount": 237.71,
+      "ownUse": false,
+      "included": false
+     }
+    ],
+    "lab": {},
+    "labTotal": 0,
+    "blocked": false,
+    "why": null,
+    "card": []
+   }
+  ],
+  "tr": {
+   "delivery": {
+    "charge": 0,
+    "units": 2,
+    "rows": 1,
+    "ticks": [
+     "held"
+    ]
+   },
+   "pickup": {
+    "charge": 0,
+    "units": 2,
+    "rows": 1,
+    "ticks": [
+     "held"
+    ]
+   }
+  },
+  "nights": {
+   "lines": [
+    {
+     "kind": "fwf",
+     "units": 2,
+     "rate": 72.87,
+     "per_night": 145.74,
+     "total": 437.22
+    }
+   ],
+   "per_night": 145.74,
+   "total": 437.22
+  },
+  "off": []
+ },
+ {
+  "ref": "WC11",
+  "name": "Toilets",
+  "state": "on site",
+  "done": true,
+  "cancelled": false,
+  "moved": false,
+  "lines": [
+   {
+    "item": "FWF",
+    "qty": 2,
+    "hire": 180.14,
+    "hireLines": [
+     {
+      "contract": "9968955",
+      "line": 6,
+      "assetNo": "1211969",
+      "qty": 1,
+      "amount": 90.07,
+      "ownUse": false,
+      "included": false
+     },
+     {
+      "contract": "9968955",
+      "line": 23,
+      "assetNo": "1211976",
+      "qty": 1,
+      "amount": 90.07,
+      "ownUse": false,
+      "included": false
+     }
+    ],
+    "lab": {
+     "install": {
+      "rate": 36.435,
+      "qty": 2,
+      "value": 72.87
+     },
+     "demob": {
+      "rate": 36.435,
+      "qty": 2,
+      "value": 72.87
+     }
+    },
+    "labTotal": 145.74,
+    "blocked": false,
+    "why": null,
+    "card": [
+     "install:36.435",
+     "demob:36.435"
+    ]
+   }
+  ],
+  "tr": {
+   "delivery": {
+    "charge": 95,
+    "units": 2,
+    "rows": 1,
+    "ticks": [
+     "on"
+    ]
+   },
+   "pickup": {
+    "charge": 95,
+    "units": 2,
+    "rows": 1,
+    "ticks": [
+     "on"
+    ]
+   }
+  },
+  "nights": {
+   "lines": [
+    {
+     "kind": "fwf",
+     "units": 2,
+     "rate": 72.87,
+     "per_night": 145.74,
+     "total": 437.22
+    }
+   ],
+   "per_night": 145.74,
+   "total": 437.22
+  },
+  "off": []
+ },
+ {
+  "ref": "WC12",
+  "name": "Toilets",
+  "state": "on site",
+  "done": true,
+  "cancelled": false,
+  "moved": false,
+  "lines": [
+   {
+    "item": "FWF",
+    "qty": 4,
+    "hire": 270.21,
+    "hireLines": [
+     {
+      "contract": "9968955",
+      "line": 4,
+      "assetNo": "1211961",
+      "qty": 1,
+      "amount": 90.07,
+      "ownUse": false,
+      "included": false
+     },
+     {
+      "contract": "9968955",
+      "line": 5,
+      "assetNo": "1200601",
+      "qty": 1,
+      "amount": 90.07,
+      "ownUse": false,
+      "included": false
+     },
+     {
+      "contract": "9968955",
+      "line": 17,
+      "assetNo": "1002565",
+      "qty": 1,
+      "amount": 90.07,
+      "ownUse": false,
+      "included": false
+     }
+    ],
+    "lab": {
+     "install": {
+      "rate": 36.435,
+      "qty": 4,
+      "value": 145.74
+     },
+     "demob": {
+      "rate": 36.435,
+      "qty": 4,
+      "value": 145.74
+     }
+    },
+    "labTotal": 291.48,
+    "blocked": false,
+    "why": null,
+    "card": [
+     "install:36.435",
+     "demob:36.435"
+    ]
+   }
+  ],
+  "tr": {
+   "delivery": {
+    "charge": 190,
+    "units": 4,
+    "rows": 1,
+    "ticks": [
+     "on"
+    ]
+   },
+   "pickup": {
+    "charge": 190,
+    "units": 4,
+    "rows": 1,
+    "ticks": [
+     "on"
+    ]
+   }
+  },
+  "nights": {
+   "lines": [
+    {
+     "kind": "fwf",
+     "units": 4,
+     "rate": 72.87,
+     "per_night": 291.48,
+     "total": 874.44
+    }
+   ],
+   "per_night": 291.48,
+   "total": 874.44
+  },
+  "off": []
+ },
+ {
+  "ref": "WC13",
+  "name": "Toilets",
+  "state": "on site",
+  "done": true,
+  "cancelled": false,
+  "moved": false,
+  "lines": [
+   {
+    "item": "FWF",
+    "qty": 2,
+    "hire": 180.14,
+    "hireLines": [
+     {
+      "contract": "9968955",
+      "line": 122,
+      "assetNo": null,
+      "qty": 2,
+      "amount": 180.14,
+      "ownUse": false,
+      "included": false
+     }
+    ],
+    "lab": {
+     "install": {
+      "rate": 36.435,
+      "qty": 2,
+      "value": 72.87
+     },
+     "demob": {
+      "rate": 36.435,
+      "qty": 2,
+      "value": 72.87
+     }
+    },
+    "labTotal": 145.74,
+    "blocked": false,
+    "why": null,
+    "card": [
+     "install:36.435",
+     "demob:36.435"
+    ]
+   }
+  ],
+  "tr": {
+   "delivery": {
+    "charge": 95,
+    "units": 2,
+    "rows": 1,
+    "ticks": [
+     "on"
+    ]
+   },
+   "pickup": {
+    "charge": 95,
+    "units": 2,
+    "rows": 1,
+    "ticks": [
+     "on"
+    ]
+   }
+  },
+  "nights": {
+   "lines": [
+    {
+     "kind": "fwf",
+     "units": 2,
+     "rate": 72.87,
+     "per_night": 145.74,
+     "total": 437.22
+    }
+   ],
+   "per_night": 145.74,
+   "total": 437.22
+  },
+  "off": []
+ },
+ {
+  "ref": "WC15",
+  "name": "Toilets (Sewer Connect)",
+  "state": "on site",
+  "done": true,
+  "cancelled": false,
+  "moved": false,
+  "lines": [
+   {
+    "item": "Toilet Block 6m",
+    "qty": 2,
+    "hire": 4953.7,
+    "hireLines": [
+     {
+      "contract": "9968955",
+      "line": 55,
+      "assetNo": "1327226",
+      "qty": 1,
+      "amount": 2476.85,
+      "ownUse": false,
+      "included": false
+     },
+     {
+      "contract": "9968955",
+      "line": 56,
+      "assetNo": "1303835",
+      "qty": 1,
+      "amount": 2476.85,
+      "ownUse": false,
+      "included": false
+     }
+    ],
+    "lab": {
+     "install": {
+      "rate": 145.74,
+      "qty": 2,
+      "value": 291.48
+     },
+     "steps": {
+      "rate": 156.15,
+      "qty": 2,
+      "value": 312.3
+     },
+     "levelling": {
+      "rate": 104.1,
+      "qty": 2,
+      "value": 208.2
+     },
+     "cleaning": {
+      "rate": 156.15,
+      "qty": 2,
+      "value": 312.3
+     },
+     "demob": {
+      "rate": 145.74,
+      "qty": 2,
+      "value": 291.48
+     }
+    },
+    "labTotal": 1415.76,
+    "blocked": false,
+    "why": null,
+    "card": [
+     "install:145.74",
+     "steps:156.15",
+     "levelling:104.1",
+     "cleaning:156.15",
+     "demob:145.74"
+    ]
+   }
+  ],
+  "tr": {
+   "delivery": {
+    "charge": 1000,
+    "units": 2,
+    "rows": 1,
+    "ticks": [
+     "on"
+    ]
+   },
+   "pickup": {
+    "charge": 1000,
+    "units": 2,
+    "rows": 1,
+    "ticks": [
+     "on"
+    ]
+   }
+  },
+  "nights": {
+   "lines": [
+    {
+     "kind": "sewer",
+     "units": 2,
+     "rate": 260.25,
+     "per_night": 520.5,
+     "total": 1561.5
+    }
+   ],
+   "per_night": 520.5,
+   "total": 1561.5
+  },
+  "off": []
+ },
+ {
+  "ref": "WC16",
+  "name": "S01 Corporate Toilets - 1x Female, x Male (Sewer)",
+  "state": "on site",
+  "done": true,
+  "cancelled": false,
+  "moved": false,
+  "lines": [
+   {
+    "item": "Toilet Block 6m",
+    "qty": 2,
+    "hire": 4953.7,
+    "hireLines": [
+     {
+      "contract": "9968955",
+      "line": 10,
+      "assetNo": "1322587",
+      "qty": 1,
+      "amount": 2476.85,
+      "ownUse": false,
+      "included": false
+     },
+     {
+      "contract": "9968955",
+      "line": 11,
+      "assetNo": "1322588",
+      "qty": 1,
+      "amount": 2476.85,
+      "ownUse": false,
+      "included": false
+     }
+    ],
+    "lab": {
+     "install": {
+      "rate": 145.74,
+      "qty": 2,
+      "value": 291.48
+     },
+     "steps": {
+      "rate": 156.15,
+      "qty": 2,
+      "value": 312.3
+     },
+     "levelling": {
+      "rate": 104.1,
+      "qty": 2,
+      "value": 208.2
+     },
+     "cleaning": {
+      "rate": 156.15,
+      "qty": 2,
+      "value": 312.3
+     },
+     "demob": {
+      "rate": 145.74,
+      "qty": 2,
+      "value": 291.48
+     }
+    },
+    "labTotal": 1415.76,
+    "blocked": false,
+    "why": null,
+    "card": [
+     "install:145.74",
+     "steps:156.15",
+     "levelling:104.1",
+     "cleaning:156.15",
+     "demob:145.74"
+    ]
+   }
+  ],
+  "tr": {
+   "delivery": {
+    "charge": 1000,
+    "units": 2,
+    "rows": 1,
+    "ticks": [
+     "on"
+    ]
+   },
+   "pickup": {
+    "charge": 1000,
+    "units": 2,
+    "rows": 1,
+    "ticks": [
+     "on"
+    ]
+   }
+  },
+  "nights": {
+   "lines": [
+    {
+     "kind": "sewer",
+     "units": 2,
+     "rate": 260.25,
+     "per_night": 520.5,
+     "total": 1561.5
+    }
+   ],
+   "per_night": 520.5,
+   "total": 1561.5
+  },
+  "off": []
+ },
+ {
+  "ref": "WC17",
+  "name": "S01 Corporate Toilets",
+  "state": "on site",
+  "done": true,
+  "cancelled": false,
+  "moved": false,
+  "lines": [
+   {
+    "item": "Toilet Block 6m",
+    "qty": 2,
+    "hire": 4953.7,
+    "hireLines": [
+     {
+      "contract": "9968955",
+      "line": 20,
+      "assetNo": "1327224",
+      "qty": 1,
+      "amount": 2476.85,
+      "ownUse": false,
+      "included": false
+     },
+     {
+      "contract": "9968955",
+      "line": 21,
+      "assetNo": "1327223",
+      "qty": 1,
+      "amount": 2476.85,
+      "ownUse": false,
+      "included": false
+     }
+    ],
+    "lab": {
+     "install": {
+      "rate": 145.74,
+      "qty": 2,
+      "value": 291.48
+     },
+     "steps": {
+      "rate": 156.15,
+      "qty": 2,
+      "value": 312.3
+     },
+     "levelling": {
+      "rate": 104.1,
+      "qty": 2,
+      "value": 208.2
+     },
+     "cleaning": {
+      "rate": 156.15,
+      "qty": 2,
+      "value": 312.3
+     },
+     "demob": {
+      "rate": 145.74,
+      "qty": 2,
+      "value": 291.48
+     }
+    },
+    "labTotal": 1415.76,
+    "blocked": false,
+    "why": null,
+    "card": [
+     "install:145.74",
+     "steps:156.15",
+     "levelling:104.1",
+     "cleaning:156.15",
+     "demob:145.74"
+    ]
+   }
+  ],
+  "tr": {
+   "delivery": {
+    "charge": 1000,
+    "units": 2,
+    "rows": 1,
+    "ticks": [
+     "on"
+    ]
+   },
+   "pickup": {
+    "charge": 1000,
+    "units": 2,
+    "rows": 1,
+    "ticks": [
+     "on"
+    ]
+   }
+  },
+  "nights": {
+   "lines": [
+    {
+     "kind": "sewer",
+     "units": 2,
+     "rate": 260.25,
+     "per_night": 520.5,
+     "total": 1561.5
+    }
+   ],
+   "per_night": 520.5,
+   "total": 1561.5
+  },
+  "off": []
+ },
+ {
+  "ref": "WC19",
+  "name": "Toilets",
+  "state": "on site",
+  "done": true,
+  "cancelled": false,
+  "moved": false,
+  "lines": [
+   {
+    "item": "FWF",
+    "qty": 1,
+    "hire": 90.07,
+    "hireLines": [
+     {
+      "contract": "9968955",
+      "line": 117,
+      "assetNo": null,
+      "qty": 1,
+      "amount": 90.07,
+      "ownUse": false,
+      "included": false
+     }
+    ],
+    "lab": {
+     "install": {
+      "rate": 36.435,
+      "qty": 1,
+      "value": 36.44
+     },
+     "demob": {
+      "rate": 36.435,
+      "qty": 1,
+      "value": 36.44
+     }
+    },
+    "labTotal": 72.88,
+    "blocked": false,
+    "why": null,
+    "card": [
+     "install:36.435",
+     "demob:36.435"
+    ]
+   }
+  ],
+  "tr": {
+   "delivery": {
+    "charge": 47.5,
+    "units": 1,
+    "rows": 1,
+    "ticks": [
+     "on"
+    ]
+   },
+   "pickup": {
+    "charge": 47.5,
+    "units": 1,
+    "rows": 1,
+    "ticks": [
+     "on"
+    ]
+   }
+  },
+  "nights": {
+   "lines": [
+    {
+     "kind": "fwf",
+     "units": 1,
+     "rate": 72.87,
+     "per_night": 72.87,
+     "total": 218.61
+    }
+   ],
+   "per_night": 72.87,
+   "total": 218.61
+  },
+  "off": []
+ },
+ {
+  "ref": "WC20",
+  "name": "Toilets (Tank Mounted)",
+  "state": "on site",
+  "done": true,
+  "cancelled": false,
+  "moved": false,
+  "lines": [
+   {
+    "item": "Toilet Block 6m",
+    "qty": 2,
+    "hire": 6454.82,
+    "hireLines": [
+     {
+      "contract": "9968955",
+      "line": 47,
+      "assetNo": "1327228",
+      "qty": 1,
+      "amount": 3227.41,
+      "ownUse": false,
+      "included": false
+     },
+     {
+      "contract": "9968955",
+      "line": 48,
+      "assetNo": "1327225",
+      "qty": 1,
+      "amount": 3227.41,
+      "ownUse": false,
+      "included": false
+     }
+    ],
+    "lab": {
+     "install": {
+      "rate": 145.74,
+      "qty": 2,
+      "value": 291.48
+     },
+     "steps": {
+      "rate": 156.15,
+      "qty": 2,
+      "value": 312.3
+     },
+     "levelling": {
+      "rate": 104.1,
+      "qty": 2,
+      "value": 208.2
+     },
+     "cleaning": {
+      "rate": 156.15,
+      "qty": 2,
+      "value": 312.3
+     },
+     "demob": {
+      "rate": 145.74,
+      "qty": 2,
+      "value": 291.48
+     }
+    },
+    "labTotal": 1415.76,
+    "blocked": false,
+    "why": null,
+    "card": [
+     "install:145.74",
+     "steps:156.15",
+     "levelling:104.1",
+     "cleaning:156.15",
+     "demob:145.74"
+    ]
+   },
+   {
+    "item": "Waste tank",
+    "qty": 2,
+    "hire": 0,
+    "hireLines": [
+     {
+      "contract": "9968955",
+      "line": 49,
+      "assetNo": "1311341",
+      "qty": 1,
+      "amount": 0,
+      "ownUse": false,
+      "included": true
+     },
+     {
+      "contract": "9968955",
+      "line": 50,
+      "assetNo": "1328982",
+      "qty": 1,
+      "amount": 0,
+      "ownUse": false,
+      "included": true
+     }
+    ],
+    "lab": {
+     "install": {
+      "rate": 145.74,
+      "qty": 2,
+      "value": 291.48
+     },
+     "levelling": {
+      "rate": 104.1,
+      "qty": 2,
+      "value": 208.2
+     },
+     "cleaning": {
+      "rate": 156.15,
+      "qty": 2,
+      "value": 312.3
+     },
+     "demob": {
+      "rate": 145.74,
+      "qty": 2,
+      "value": 291.48
+     }
+    },
+    "labTotal": 1103.46,
+    "blocked": false,
+    "why": null,
+    "card": [
+     "install:145.74",
+     "levelling:104.1",
+     "cleaning:156.15",
+     "demob:145.74"
+    ]
+   }
+  ],
+  "tr": {
+   "delivery": {
+    "charge": 1000,
+    "units": 4,
+    "rows": 2,
+    "ticks": [
+     "on",
+     "held"
+    ]
+   },
+   "pickup": {
+    "charge": 1000,
+    "units": 4,
+    "rows": 2,
+    "ticks": [
+     "on",
+     "held"
+    ]
+   }
+  },
+  "nights": {
+   "lines": [
+    {
+     "kind": "tank",
+     "units": 2,
+     "rate": 624.6,
+     "per_night": 1249.2,
+     "total": 3747.6
+    }
+   ],
+   "per_night": 1249.2,
+   "total": 3747.6
+  },
+  "off": []
+ },
+ {
+  "ref": "WC21",
+  "name": "Toilets",
+  "state": "on site",
+  "done": true,
+  "cancelled": false,
+  "moved": false,
+  "lines": [
+   {
+    "item": "FWF",
+    "qty": 6,
+    "hire": 540.42,
+    "hireLines": [
+     {
+      "contract": "9968955",
+      "line": 7,
+      "assetNo": "1211977",
+      "qty": 1,
+      "amount": 90.07,
+      "ownUse": false,
+      "included": false
+     },
+     {
+      "contract": "9968955",
+      "line": 8,
+      "assetNo": "1211964",
+      "qty": 1,
+      "amount": 90.07,
+      "ownUse": false,
+      "included": false
+     },
+     {
+      "contract": "9968955",
+      "line": 14,
+      "assetNo": "1002747",
+      "qty": 1,
+      "amount": 90.07,
+      "ownUse": false,
+      "included": false
+     },
+     {
+      "contract": "9968955",
+      "line": 16,
+      "assetNo": "1211971",
+      "qty": 1,
+      "amount": 90.07,
+      "ownUse": false,
+      "included": false
+     },
+     {
+      "contract": "9968955",
+      "line": 18,
+      "assetNo": "1212172",
+      "qty": 1,
+      "amount": 90.07,
+      "ownUse": false,
+      "included": false
+     },
+     {
+      "contract": "9968955",
+      "line": 19,
+      "assetNo": "1103497",
+      "qty": 1,
+      "amount": 90.07,
+      "ownUse": false,
+      "included": false
+     }
+    ],
+    "lab": {
+     "install": {
+      "rate": 36.435,
+      "qty": 6,
+      "value": 218.61
+     },
+     "demob": {
+      "rate": 36.435,
+      "qty": 6,
+      "value": 218.61
+     }
+    },
+    "labTotal": 437.22,
+    "blocked": false,
+    "why": null,
+    "card": [
+     "install:36.435",
+     "demob:36.435"
+    ]
+   }
+  ],
+  "tr": {
+   "delivery": {
+    "charge": 285,
+    "units": 6,
+    "rows": 1,
+    "ticks": [
+     "on"
+    ]
+   },
+   "pickup": {
+    "charge": 285,
+    "units": 6,
+    "rows": 1,
+    "ticks": [
+     "on"
+    ]
+   }
+  },
+  "nights": {
+   "lines": [
+    {
+     "kind": "fwf",
+     "units": 6,
+     "rate": 72.87,
+     "per_night": 437.22,
+     "total": 1311.66
+    }
+   ],
+   "per_night": 437.22,
+   "total": 1311.66
+  },
+  "off": []
+ },
+ {
+  "ref": "WC23",
+  "name": "Toilets",
+  "state": "on site",
+  "done": true,
+  "cancelled": false,
+  "moved": false,
+  "lines": [
+   {
+    "item": "FWF",
+    "qty": 5,
+    "hire": 450.35,
+    "hireLines": [
+     {
+      "contract": "9968955",
+      "line": 119,
+      "assetNo": null,
+      "qty": 5,
+      "amount": 450.35,
+      "ownUse": false,
+      "included": false
+     }
+    ],
+    "lab": {
+     "install": {
+      "rate": 36.435,
+      "qty": 5,
+      "value": 182.18
+     },
+     "demob": {
+      "rate": 36.435,
+      "qty": 5,
+      "value": 182.18
+     }
+    },
+    "labTotal": 364.36,
+    "blocked": false,
+    "why": null,
+    "card": [
+     "install:36.435",
+     "demob:36.435"
+    ]
+   }
+  ],
+  "tr": {
+   "delivery": {
+    "charge": 237.5,
+    "units": 5,
+    "rows": 1,
+    "ticks": [
+     "on"
+    ]
+   },
+   "pickup": {
+    "charge": 237.5,
+    "units": 5,
+    "rows": 1,
+    "ticks": [
+     "on"
+    ]
+   }
+  },
+  "nights": {
+   "lines": [
+    {
+     "kind": "fwf",
+     "units": 5,
+     "rate": 72.87,
+     "per_night": 364.35,
+     "total": 1093.05
+    }
+   ],
+   "per_night": 364.35,
+   "total": 1093.05
+  },
+  "off": []
+ },
+ {
+  "ref": "WC24",
+  "name": "Toilets",
+  "state": "on site",
+  "done": true,
+  "cancelled": false,
+  "moved": false,
+  "lines": [
+   {
+    "item": "FWF",
+    "qty": 1,
+    "hire": 90.07,
+    "hireLines": [
+     {
+      "contract": "9968955",
+      "line": 121,
+      "assetNo": null,
+      "qty": 1,
+      "amount": 90.07,
+      "ownUse": false,
+      "included": false
+     }
+    ],
+    "lab": {
+     "install": {
+      "rate": 36.435,
+      "qty": 1,
+      "value": 36.44
+     },
+     "demob": {
+      "rate": 36.435,
+      "qty": 1,
+      "value": 36.44
+     }
+    },
+    "labTotal": 72.88,
+    "blocked": false,
+    "why": null,
+    "card": [
+     "install:36.435",
+     "demob:36.435"
+    ]
+   }
+  ],
+  "tr": {
+   "delivery": {
+    "charge": 47.5,
+    "units": 1,
+    "rows": 1,
+    "ticks": [
+     "on"
+    ]
+   },
+   "pickup": {
+    "charge": 47.5,
+    "units": 1,
+    "rows": 1,
+    "ticks": [
+     "on"
+    ]
+   }
+  },
+  "nights": {
+   "lines": [
+    {
+     "kind": "fwf",
+     "units": 1,
+     "rate": 72.87,
+     "per_night": 72.87,
+     "total": 218.61
+    }
+   ],
+   "per_night": 72.87,
+   "total": 218.61
+  },
+  "off": []
+ },
+ {
+  "ref": "WC25",
+  "name": "Toilets",
+  "state": "on site",
+  "done": true,
+  "cancelled": false,
+  "moved": false,
+  "lines": [
+   {
+    "item": "FWF",
+    "qty": 1,
+    "hire": 90.07,
+    "hireLines": [
+     {
+      "contract": "9968955",
+      "line": 118,
+      "assetNo": null,
+      "qty": 1,
+      "amount": 90.07,
+      "ownUse": false,
+      "included": false
+     }
+    ],
+    "lab": {
+     "install": {
+      "rate": 36.435,
+      "qty": 1,
+      "value": 36.44
+     },
+     "demob": {
+      "rate": 36.435,
+      "qty": 1,
+      "value": 36.44
+     }
+    },
+    "labTotal": 72.88,
+    "blocked": false,
+    "why": null,
+    "card": [
+     "install:36.435",
+     "demob:36.435"
+    ]
+   }
+  ],
+  "tr": {
+   "delivery": {
+    "charge": 47.5,
+    "units": 1,
+    "rows": 1,
+    "ticks": [
+     "on"
+    ]
+   },
+   "pickup": {
+    "charge": 47.5,
+    "units": 1,
+    "rows": 1,
+    "ticks": [
+     "on"
+    ]
+   }
+  },
+  "nights": {
+   "lines": [
+    {
+     "kind": "fwf",
+     "units": 1,
+     "rate": 72.87,
+     "per_night": 72.87,
+     "total": 218.61
+    }
+   ],
+   "per_night": 72.87,
+   "total": 218.61
+  },
+  "off": []
+ },
+ {
+  "ref": "WC26",
+  "name": "Toilets",
+  "state": "on site",
+  "done": true,
+  "cancelled": false,
+  "moved": false,
+  "lines": [
+   {
+    "item": "FWF",
+    "qty": 1,
+    "hire": 90.07,
+    "hireLines": [
+     {
+      "contract": "9968955",
+      "line": 120,
+      "assetNo": null,
+      "qty": 1,
+      "amount": 90.07,
+      "ownUse": false,
+      "included": false
+     }
+    ],
+    "lab": {
+     "install": {
+      "rate": 36.435,
+      "qty": 1,
+      "value": 36.44
+     },
+     "demob": {
+      "rate": 36.435,
+      "qty": 1,
+      "value": 36.44
+     }
+    },
+    "labTotal": 72.88,
+    "blocked": false,
+    "why": null,
+    "card": [
+     "install:36.435",
+     "demob:36.435"
+    ]
+   }
+  ],
+  "tr": {
+   "delivery": {
+    "charge": 47.5,
+    "units": 1,
+    "rows": 1,
+    "ticks": [
+     "on"
+    ]
+   },
+   "pickup": {
+    "charge": 47.5,
+    "units": 1,
+    "rows": 1,
+    "ticks": [
+     "on"
+    ]
+   }
+  },
+  "nights": {
+   "lines": [
+    {
+     "kind": "fwf",
+     "units": 1,
+     "rate": 72.87,
+     "per_night": 72.87,
+     "total": 218.61
+    }
+   ],
+   "per_night": 72.87,
+   "total": 218.61
+  },
+  "off": []
+ },
+ {
+  "ref": "WC27",
+  "name": "Toilet (Tank Mounted)",
+  "state": "on site",
+  "done": true,
+  "cancelled": false,
+  "moved": false,
+  "lines": [
+   {
+    "item": "Toilet Block 6m",
+    "qty": 1,
+    "hire": 3227.41,
+    "hireLines": [
+     {
+      "contract": "9968955",
+      "line": 52,
+      "assetNo": "1119484",
+      "qty": 1,
+      "amount": 3227.41,
+      "ownUse": false,
+      "included": false
+     }
+    ],
+    "lab": {
+     "install": {
+      "rate": 145.74,
+      "qty": 1,
+      "value": 145.74
+     },
+     "steps": {
+      "rate": 156.15,
+      "qty": 1,
+      "value": 156.15
+     },
+     "levelling": {
+      "rate": 104.1,
+      "qty": 1,
+      "value": 104.1
+     },
+     "cleaning": {
+      "rate": 156.15,
+      "qty": 1,
+      "value": 156.15
+     },
+     "demob": {
+      "rate": 145.74,
+      "qty": 1,
+      "value": 145.74
+     }
+    },
+    "labTotal": 707.88,
+    "blocked": false,
+    "why": null,
+    "card": [
+     "install:145.74",
+     "steps:156.15",
+     "levelling:104.1",
+     "cleaning:156.15",
+     "demob:145.74"
+    ]
+   },
+   {
+    "item": "Waste tank",
+    "qty": 1,
+    "hire": 0,
+    "hireLines": [
+     {
+      "contract": "9968955",
+      "line": 54,
+      "assetNo": "1328979",
+      "qty": 1,
+      "amount": 0,
+      "ownUse": false,
+      "included": true
+     }
+    ],
+    "lab": {
+     "install": {
+      "rate": 145.74,
+      "qty": 1,
+      "value": 145.74
+     },
+     "levelling": {
+      "rate": 104.1,
+      "qty": 1,
+      "value": 104.1
+     },
+     "cleaning": {
+      "rate": 156.15,
+      "qty": 1,
+      "value": 156.15
+     },
+     "demob": {
+      "rate": 145.74,
+      "qty": 1,
+      "value": 145.74
+     }
+    },
+    "labTotal": 551.73,
+    "blocked": false,
+    "why": null,
+    "card": [
+     "install:145.74",
+     "levelling:104.1",
+     "cleaning:156.15",
+     "demob:145.74"
+    ]
+   }
+  ],
+  "tr": {
+   "delivery": {
+    "charge": 500,
+    "units": 2,
+    "rows": 2,
+    "ticks": [
+     "on",
+     "held"
+    ]
+   },
+   "pickup": {
+    "charge": 500,
+    "units": 2,
+    "rows": 2,
+    "ticks": [
+     "on",
+     "held"
+    ]
+   }
+  },
+  "nights": {
+   "lines": [
+    {
+     "kind": "tank",
+     "units": 1,
+     "rate": 624.6,
+     "per_night": 624.6,
+     "total": 1873.8
+    }
+   ],
+   "per_night": 624.6,
+   "total": 1873.8
+  },
+  "off": []
+ },
+ {
+  "ref": "WC28",
+  "name": "Toilets",
+  "state": "on site",
+  "done": true,
+  "cancelled": false,
+  "moved": false,
+  "lines": [
+   {
+    "item": "FWF",
+    "qty": 1,
+    "hire": 90.07,
+    "hireLines": [
+     {
+      "contract": "9968955",
+      "line": 123,
+      "assetNo": null,
+      "qty": 1,
+      "amount": 90.07,
+      "ownUse": false,
+      "included": false
+     }
+    ],
+    "lab": {
+     "install": {
+      "rate": 36.435,
+      "qty": 1,
+      "value": 36.44
+     },
+     "demob": {
+      "rate": 36.435,
+      "qty": 1,
+      "value": 36.44
+     }
+    },
+    "labTotal": 72.88,
+    "blocked": false,
+    "why": null,
+    "card": [
+     "install:36.435",
+     "demob:36.435"
+    ]
+   }
+  ],
+  "tr": {
+   "delivery": {
+    "charge": 47.5,
+    "units": 1,
+    "rows": 1,
+    "ticks": [
+     "on"
+    ]
+   },
+   "pickup": {
+    "charge": 47.5,
+    "units": 1,
+    "rows": 1,
+    "ticks": [
+     "on"
+    ]
+   }
+  },
+  "nights": {
+   "lines": [
+    {
+     "kind": "fwf",
+     "units": 1,
+     "rate": 72.87,
+     "per_night": 72.87,
+     "total": 218.61
+    }
+   ],
+   "per_night": 72.87,
+   "total": 218.61
+  },
+  "off": []
+ },
+ {
+  "ref": "WC29",
+  "name": "Toilets",
+  "state": "on site",
+  "done": true,
+  "cancelled": false,
+  "moved": false,
+  "lines": [
+   {
+    "item": "FWF",
+    "qty": 7,
+    "hire": 630.49,
+    "hireLines": [
+     {
+      "contract": "9968955",
+      "line": 124,
+      "assetNo": null,
+      "qty": 7,
+      "amount": 630.49,
+      "ownUse": false,
+      "included": false
+     }
+    ],
+    "lab": {
+     "install": {
+      "rate": 36.435,
+      "qty": 7,
+      "value": 255.05
+     },
+     "demob": {
+      "rate": 36.435,
+      "qty": 7,
+      "value": 255.05
+     }
+    },
+    "labTotal": 510.1,
+    "blocked": false,
+    "why": null,
+    "card": [
+     "install:36.435",
+     "demob:36.435"
+    ]
+   }
+  ],
+  "tr": {
+   "delivery": {
+    "charge": 332.5,
+    "units": 7,
+    "rows": 1,
+    "ticks": [
+     "on"
+    ]
+   },
+   "pickup": {
+    "charge": 332.5,
+    "units": 7,
+    "rows": 1,
+    "ticks": [
+     "on"
+    ]
+   }
+  },
+  "nights": {
+   "lines": [
+    {
+     "kind": "fwf",
+     "units": 7,
+     "rate": 72.87,
+     "per_night": 510.09,
+     "total": 1530.27
+    }
+   ],
+   "per_night": 510.09,
+   "total": 1530.27
+  },
+  "off": []
+ },
+ {
+  "ref": "WC30",
+  "name": "Toilets",
+  "state": "on site",
+  "done": true,
+  "cancelled": false,
+  "moved": false,
+  "lines": [
+   {
+    "item": "FWF",
+    "qty": 8,
+    "hire": 720.56,
+    "hireLines": [
+     {
+      "contract": "9968955",
+      "line": 125,
+      "assetNo": null,
+      "qty": 8,
+      "amount": 720.56,
+      "ownUse": false,
+      "included": false
+     }
+    ],
+    "lab": {
+     "install": {
+      "rate": 36.435,
+      "qty": 8,
+      "value": 291.48
+     },
+     "demob": {
+      "rate": 36.435,
+      "qty": 8,
+      "value": 291.48
+     }
+    },
+    "labTotal": 582.96,
+    "blocked": false,
+    "why": null,
+    "card": [
+     "install:36.435",
+     "demob:36.435"
+    ]
+   }
+  ],
+  "tr": {
+   "delivery": {
+    "charge": 380,
+    "units": 8,
+    "rows": 1,
+    "ticks": [
+     "on"
+    ]
+   },
+   "pickup": {
+    "charge": 380,
+    "units": 8,
+    "rows": 1,
+    "ticks": [
+     "on"
+    ]
+   }
+  },
+  "nights": {
+   "lines": [
+    {
+     "kind": "fwf",
+     "units": 8,
+     "rate": 72.87,
+     "per_night": 582.96,
+     "total": 1748.88
+    }
+   ],
+   "per_night": 582.96,
+   "total": 1748.88
+  },
+  "off": []
+ },
+ {
+  "ref": "WC31",
+  "name": "Toilets",
+  "state": "on site",
+  "done": true,
+  "cancelled": false,
+  "moved": false,
+  "lines": [
+   {
+    "item": "Accessible Toilet",
+    "qty": 1,
+    "hire": null,
+    "hireLines": [],
+    "lab": {
+     "install": {
+      "rate": 88.485,
+      "qty": 1,
+      "value": 88.49
+     },
+     "demob": {
+      "rate": 88.485,
+      "qty": 1,
+      "value": 88.49
+     }
+    },
+    "labTotal": 176.98,
+    "blocked": false,
+    "why": null,
+    "card": [
+     "install:88.485",
+     "demob:88.485"
+    ]
+   },
+   {
+    "item": "16Pan Block",
+    "qty": 2,
+    "hire": 6042.01,
+    "hireLines": [
+     {
+      "contract": "9968955",
+      "line": 97,
+      "assetNo": "1317645",
+      "qty": 1,
+      "amount": 337.75,
+      "ownUse": false,
+      "included": false
+     },
+     {
+      "contract": "9968955",
+      "line": 98,
+      "assetNo": null,
+      "qty": 2,
+      "amount": 5704.26,
+      "ownUse": false,
+      "included": false
+     }
+    ],
+    "lab": {
+     "install": {
+      "rate": 145.74,
+      "qty": 2,
+      "value": 291.48
+     },
+     "steps": {
+      "rate": 156.15,
+      "qty": 2,
+      "value": 312.3
+     },
+     "levelling": {
+      "rate": 104.1,
+      "qty": 2,
+      "value": 208.2
+     },
+     "cleaning": {
+      "rate": 156.15,
+      "qty": 2,
+      "value": 312.3
+     },
+     "demob": {
+      "rate": 145.74,
+      "qty": 2,
+      "value": 291.48
+     }
+    },
+    "labTotal": 1415.76,
+    "blocked": false,
+    "why": null,
+    "card": [
+     "install:145.74",
+     "steps:156.15",
+     "levelling:104.1",
+     "cleaning:156.15",
+     "demob:145.74"
+    ]
+   }
+  ],
+  "tr": {
+   "delivery": {
+    "charge": 1500,
+    "units": 3,
+    "rows": 2,
+    "ticks": [
+     "on",
+     "on"
+    ]
+   },
+   "pickup": {
+    "charge": 1500,
+    "units": 3,
+    "rows": 2,
+    "ticks": [
+     "on",
+     "on"
+    ]
+   }
+  },
+  "nights": {
+   "lines": [
+    {
+     "kind": "sewer",
+     "units": 2,
+     "rate": 260.25,
+     "per_night": 520.5,
+     "total": 1561.5
+    }
+   ],
+   "per_night": 520.5,
+   "total": 1561.5
+  },
+  "off": []
+ },
+ {
+  "ref": "WC32",
+  "name": "Toilets",
+  "state": "not on site",
+  "done": false,
+  "cancelled": true,
+  "moved": false,
+  "lines": [
+   {
+    "item": "FWF",
+    "qty": 1,
+    "hire": null,
+    "hireLines": [],
+    "lab": {},
+    "labTotal": 0,
+    "blocked": false,
+    "why": null,
+    "card": [
+     "install:36.435",
+     "demob:36.435"
+    ]
+   }
+  ],
+  "tr": {
+   "delivery": {
+    "charge": 0,
+    "units": 1,
+    "rows": 1,
+    "ticks": [
+     "excluded"
+    ]
+   },
+   "pickup": {
+    "charge": 0,
+    "units": 1,
+    "rows": 1,
+    "ticks": [
+     "excluded"
+    ]
+   }
+  },
+  "nights": null,
+  "off": []
+ },
+ {
+  "ref": "WC33",
+  "name": "Toilets",
+  "state": "on site",
+  "done": true,
+  "cancelled": false,
+  "moved": false,
+  "lines": [
+   {
+    "item": "FWF",
+    "qty": 17,
+    "hire": 1531.19,
+    "hireLines": [
+     {
+      "contract": "9968955",
+      "line": 101,
+      "assetNo": null,
+      "qty": 17,
+      "amount": 1531.19,
+      "ownUse": false,
+      "included": false
+     }
+    ],
+    "lab": {
+     "install": {
+      "rate": 36.435,
+      "qty": 17,
+      "value": 619.4
+     },
+     "demob": {
+      "rate": 36.435,
+      "qty": 17,
+      "value": 619.4
+     }
+    },
+    "labTotal": 1238.8,
+    "blocked": false,
+    "why": null,
+    "card": [
+     "install:36.435",
+     "demob:36.435"
+    ]
+   }
+  ],
+  "tr": {
+   "delivery": {
+    "charge": 807.5,
+    "units": 17,
+    "rows": 1,
+    "ticks": [
+     "on"
+    ]
+   },
+   "pickup": {
+    "charge": 807.5,
+    "units": 17,
+    "rows": 1,
+    "ticks": [
+     "on"
+    ]
+   }
+  },
+  "nights": {
+   "lines": [
+    {
+     "kind": "fwf",
+     "units": 17,
+     "rate": 72.87,
+     "per_night": 1238.79,
+     "total": 3716.37
+    }
+   ],
+   "per_night": 1238.79,
+   "total": 3716.37
+  },
+  "off": []
+ },
+ {
+  "ref": "WC34",
+  "name": "Toilets",
+  "state": "on site",
+  "done": true,
+  "cancelled": false,
+  "moved": false,
+  "lines": [
+   {
+    "item": "FWF",
+    "qty": 1,
+    "hire": 90.07,
+    "hireLines": [
+     {
+      "contract": "9968955",
+      "line": 100,
+      "assetNo": null,
+      "qty": 1,
+      "amount": 90.07,
+      "ownUse": false,
+      "included": false
+     }
+    ],
+    "lab": {
+     "install": {
+      "rate": 36.435,
+      "qty": 1,
+      "value": 36.44
+     },
+     "demob": {
+      "rate": 36.435,
+      "qty": 1,
+      "value": 36.44
+     }
+    },
+    "labTotal": 72.88,
+    "blocked": false,
+    "why": null,
+    "card": [
+     "install:36.435",
+     "demob:36.435"
+    ]
+   }
+  ],
+  "tr": {
+   "delivery": {
+    "charge": 47.5,
+    "units": 1,
+    "rows": 1,
+    "ticks": [
+     "on"
+    ]
+   },
+   "pickup": {
+    "charge": 47.5,
+    "units": 1,
+    "rows": 1,
+    "ticks": [
+     "on"
+    ]
+   }
+  },
+  "nights": {
+   "lines": [
+    {
+     "kind": "fwf",
+     "units": 1,
+     "rate": 72.87,
+     "per_night": 72.87,
+     "total": 218.61
+    }
+   ],
+   "per_night": 72.87,
+   "total": 218.61
+  },
+  "off": []
+ },
+ {
+  "ref": "WC35",
+  "name": "Toilets",
+  "state": "on site",
+  "done": true,
+  "cancelled": false,
+  "moved": false,
+  "lines": [
+   {
+    "item": "FWF",
+    "qty": 1,
+    "hire": 90.07,
+    "hireLines": [
+     {
+      "contract": "9968955",
+      "line": 126,
+      "assetNo": null,
+      "qty": 1,
+      "amount": 90.07,
+      "ownUse": false,
+      "included": false
+     }
+    ],
+    "lab": {
+     "install": {
+      "rate": 36.435,
+      "qty": 1,
+      "value": 36.44
+     },
+     "demob": {
+      "rate": 36.435,
+      "qty": 1,
+      "value": 36.44
+     }
+    },
+    "labTotal": 72.88,
+    "blocked": false,
+    "why": null,
+    "card": [
+     "install:36.435",
+     "demob:36.435"
+    ]
+   }
+  ],
+  "tr": {
+   "delivery": {
+    "charge": 47.5,
+    "units": 1,
+    "rows": 1,
+    "ticks": [
+     "on"
+    ]
+   },
+   "pickup": {
+    "charge": 47.5,
+    "units": 1,
+    "rows": 1,
+    "ticks": [
+     "on"
+    ]
+   }
+  },
+  "nights": {
+   "lines": [
+    {
+     "kind": "fwf",
+     "units": 1,
+     "rate": 72.87,
+     "per_night": 72.87,
+     "total": 218.61
+    }
+   ],
+   "per_night": 72.87,
+   "total": 218.61
+  },
+  "off": []
+ },
+ {
+  "ref": "WC38",
+  "name": "Toilet",
+  "state": "on site",
+  "done": true,
+  "cancelled": false,
+  "moved": false,
+  "lines": [
+   {
+    "item": "FWF",
+    "qty": 1,
+    "hire": 90.07,
+    "hireLines": [
+     {
+      "contract": "9968955",
+      "line": 88,
+      "assetNo": null,
+      "qty": 1,
+      "amount": 90.07,
+      "ownUse": false,
+      "included": false
+     }
+    ],
+    "lab": {
+     "install": {
+      "rate": 36.435,
+      "qty": 1,
+      "value": 36.44
+     },
+     "demob": {
+      "rate": 36.435,
+      "qty": 1,
+      "value": 36.44
+     }
+    },
+    "labTotal": 72.88,
+    "blocked": false,
+    "why": null,
+    "card": [
+     "install:36.435",
+     "demob:36.435"
+    ]
+   }
+  ],
+  "tr": {
+   "delivery": {
+    "charge": 47.5,
+    "units": 1,
+    "rows": 1,
+    "ticks": [
+     "on"
+    ]
+   },
+   "pickup": {
+    "charge": 47.5,
+    "units": 1,
+    "rows": 1,
+    "ticks": [
+     "on"
+    ]
+   }
+  },
+  "nights": {
+   "lines": [
+    {
+     "kind": "fwf",
+     "units": 1,
+     "rate": 72.87,
+     "per_night": 72.87,
+     "total": 218.61
+    }
+   ],
+   "per_night": 72.87,
+   "total": 218.61
+  },
+  "off": []
+ },
+ {
+  "ref": "WC39",
+  "name": "Toilets",
+  "state": "on site",
+  "done": true,
+  "cancelled": false,
+  "moved": false,
+  "lines": [
+   {
+    "item": "FWF",
+    "qty": 2,
+    "hire": 180.14,
+    "hireLines": [
+     {
+      "contract": "9968955",
+      "line": 89,
+      "assetNo": null,
+      "qty": 2,
+      "amount": 180.14,
+      "ownUse": false,
+      "included": false
+     }
+    ],
+    "lab": {
+     "install": {
+      "rate": 36.435,
+      "qty": 2,
+      "value": 72.87
+     },
+     "demob": {
+      "rate": 36.435,
+      "qty": 2,
+      "value": 72.87
+     }
+    },
+    "labTotal": 145.74,
+    "blocked": false,
+    "why": null,
+    "card": [
+     "install:36.435",
+     "demob:36.435"
+    ]
+   }
+  ],
+  "tr": {
+   "delivery": {
+    "charge": 95,
+    "units": 2,
+    "rows": 1,
+    "ticks": [
+     "on"
+    ]
+   },
+   "pickup": {
+    "charge": 95,
+    "units": 2,
+    "rows": 1,
+    "ticks": [
+     "on"
+    ]
+   }
+  },
+  "nights": {
+   "lines": [
+    {
+     "kind": "fwf",
+     "units": 2,
+     "rate": 72.87,
+     "per_night": 145.74,
+     "total": 437.22
+    }
+   ],
+   "per_night": 145.74,
+   "total": 437.22
+  },
+  "off": []
+ },
+ {
+  "ref": "WC40",
+  "name": "Toilets",
+  "state": "on site",
+  "done": true,
+  "cancelled": false,
+  "moved": false,
+  "lines": [
+   {
+    "item": "FWF",
+    "qty": 5,
+    "hire": 450.35,
+    "hireLines": [
+     {
+      "contract": "9968955",
+      "line": 90,
+      "assetNo": null,
+      "qty": 5,
+      "amount": 450.35,
+      "ownUse": false,
+      "included": false
+     }
+    ],
+    "lab": {
+     "install": {
+      "rate": 36.435,
+      "qty": 5,
+      "value": 182.18
+     },
+     "demob": {
+      "rate": 36.435,
+      "qty": 5,
+      "value": 182.18
+     }
+    },
+    "labTotal": 364.36,
+    "blocked": false,
+    "why": null,
+    "card": [
+     "install:36.435",
+     "demob:36.435"
+    ]
+   }
+  ],
+  "tr": {
+   "delivery": {
+    "charge": 237.5,
+    "units": 5,
+    "rows": 1,
+    "ticks": [
+     "on"
+    ]
+   },
+   "pickup": {
+    "charge": 237.5,
+    "units": 5,
+    "rows": 1,
+    "ticks": [
+     "on"
+    ]
+   }
+  },
+  "nights": {
+   "lines": [
+    {
+     "kind": "fwf",
+     "units": 5,
+     "rate": 72.87,
+     "per_night": 364.35,
+     "total": 1093.05
+    }
+   ],
+   "per_night": 364.35,
+   "total": 1093.05
+  },
+  "off": []
+ },
+ {
+  "ref": "WC41",
+  "name": "Toilets",
+  "state": "on site",
+  "done": true,
+  "cancelled": false,
+  "moved": false,
+  "lines": [
+   {
+    "item": "FWF",
+    "qty": 10,
+    "hire": 900.7,
+    "hireLines": [
+     {
+      "contract": "9968955",
+      "line": 59,
+      "assetNo": null,
+      "qty": 10,
+      "amount": 900.7,
+      "ownUse": false,
+      "included": false
+     }
+    ],
+    "lab": {
+     "install": {
+      "rate": 36.435,
+      "qty": 10,
+      "value": 364.35
+     },
+     "demob": {
+      "rate": 36.435,
+      "qty": 10,
+      "value": 364.35
+     }
+    },
+    "labTotal": 728.7,
+    "blocked": false,
+    "why": null,
+    "card": [
+     "install:36.435",
+     "demob:36.435"
+    ]
+   }
+  ],
+  "tr": {
+   "delivery": {
+    "charge": 475,
+    "units": 10,
+    "rows": 1,
+    "ticks": [
+     "on"
+    ]
+   },
+   "pickup": {
+    "charge": 475,
+    "units": 10,
+    "rows": 1,
+    "ticks": [
+     "on"
+    ]
+   }
+  },
+  "nights": {
+   "lines": [
+    {
+     "kind": "fwf",
+     "units": 10,
+     "rate": 72.87,
+     "per_night": 728.7,
+     "total": 2186.1
+    }
+   ],
+   "per_night": 728.7,
+   "total": 2186.1
+  },
+  "off": []
+ },
+ {
+  "ref": "WC42",
+  "name": "Toilets",
+  "state": "on site",
+  "done": true,
+  "cancelled": false,
+  "moved": false,
+  "lines": [
+   {
+    "item": "FWF",
+    "qty": 1,
+    "hire": null,
+    "hireLines": [],
+    "lab": {
+     "install": {
+      "rate": 36.435,
+      "qty": 1,
+      "value": 36.44
+     },
+     "demob": {
+      "rate": 36.435,
+      "qty": 1,
+      "value": 36.44
+     }
+    },
+    "labTotal": 72.88,
+    "blocked": false,
+    "why": null,
+    "card": [
+     "install:36.435",
+     "demob:36.435"
+    ]
+   }
+  ],
+  "tr": {
+   "delivery": {
+    "charge": 47.5,
+    "units": 1,
+    "rows": 1,
+    "ticks": [
+     "on"
+    ]
+   },
+   "pickup": {
+    "charge": 47.5,
+    "units": 1,
+    "rows": 1,
+    "ticks": [
+     "on"
+    ]
+   }
+  },
+  "nights": {
+   "lines": [
+    {
+     "kind": "fwf",
+     "units": 1,
+     "rate": 72.87,
+     "per_night": 72.87,
+     "total": 218.61
+    }
+   ],
+   "per_night": 72.87,
+   "total": 218.61
+  },
+  "off": []
+ },
+ {
+  "ref": "WC43",
+  "name": "Toilets",
+  "state": "on site",
+  "done": true,
+  "cancelled": false,
+  "moved": false,
+  "lines": [
+   {
+    "item": "FWF",
+    "qty": 10,
+    "hire": 900.7,
+    "hireLines": [
+     {
+      "contract": "9968955",
+      "line": 70,
+      "assetNo": null,
+      "qty": 10,
+      "amount": 900.7,
+      "ownUse": false,
+      "included": false
+     }
+    ],
+    "lab": {
+     "install": {
+      "rate": 36.435,
+      "qty": 10,
+      "value": 364.35
+     },
+     "demob": {
+      "rate": 36.435,
+      "qty": 10,
+      "value": 364.35
+     }
+    },
+    "labTotal": 728.7,
+    "blocked": false,
+    "why": null,
+    "card": [
+     "install:36.435",
+     "demob:36.435"
+    ]
+   }
+  ],
+  "tr": {
+   "delivery": {
+    "charge": 475,
+    "units": 10,
+    "rows": 1,
+    "ticks": [
+     "on"
+    ]
+   },
+   "pickup": {
+    "charge": 475,
+    "units": 10,
+    "rows": 1,
+    "ticks": [
+     "on"
+    ]
+   }
+  },
+  "nights": {
+   "lines": [
+    {
+     "kind": "fwf",
+     "units": 10,
+     "rate": 72.87,
+     "per_night": 728.7,
+     "total": 2186.1
+    }
+   ],
+   "per_night": 728.7,
+   "total": 2186.1
+  },
+  "off": []
+ },
+ {
+  "ref": "WC44",
+  "name": "Toilets",
+  "state": "on site",
+  "done": true,
+  "cancelled": false,
+  "moved": false,
+  "lines": [
+   {
+    "item": "FWF",
+    "qty": 2,
+    "hire": 180.14,
+    "hireLines": [
+     {
+      "contract": "9968955",
+      "line": 80,
+      "assetNo": null,
+      "qty": 1,
+      "amount": 90.07,
+      "ownUse": false,
+      "included": false
+     },
+     {
+      "contract": "9968955",
+      "line": 81,
+      "assetNo": null,
+      "qty": 1,
+      "amount": 90.07,
+      "ownUse": false,
+      "included": false
+     }
+    ],
+    "lab": {
+     "install": {
+      "rate": 36.435,
+      "qty": 2,
+      "value": 72.87
+     },
+     "demob": {
+      "rate": 36.435,
+      "qty": 2,
+      "value": 72.87
+     }
+    },
+    "labTotal": 145.74,
+    "blocked": false,
+    "why": null,
+    "card": [
+     "install:36.435",
+     "demob:36.435"
+    ]
+   }
+  ],
+  "tr": {
+   "delivery": {
+    "charge": 95,
+    "units": 2,
+    "rows": 1,
+    "ticks": [
+     "on"
+    ]
+   },
+   "pickup": {
+    "charge": 95,
+    "units": 2,
+    "rows": 1,
+    "ticks": [
+     "on"
+    ]
+   }
+  },
+  "nights": {
+   "lines": [
+    {
+     "kind": "fwf",
+     "units": 2,
+     "rate": 72.87,
+     "per_night": 145.74,
+     "total": 437.22
+    }
+   ],
+   "per_night": 145.74,
+   "total": 437.22
+  },
+  "off": []
+ },
+ {
+  "ref": "WC45",
+  "name": "Toilets",
+  "state": "on site",
+  "done": true,
+  "cancelled": false,
+  "moved": false,
+  "lines": [
+   {
+    "item": "FWF",
+    "qty": 8,
+    "hire": 720.56,
+    "hireLines": [
+     {
+      "contract": "9968955",
+      "line": 115,
+      "assetNo": null,
+      "qty": 8,
+      "amount": 720.56,
+      "ownUse": false,
+      "included": false
+     }
+    ],
+    "lab": {
+     "install": {
+      "rate": 36.435,
+      "qty": 8,
+      "value": 291.48
+     },
+     "demob": {
+      "rate": 36.435,
+      "qty": 8,
+      "value": 291.48
+     }
+    },
+    "labTotal": 582.96,
+    "blocked": false,
+    "why": null,
+    "card": [
+     "install:36.435",
+     "demob:36.435"
+    ]
+   }
+  ],
+  "tr": {
+   "delivery": {
+    "charge": 380,
+    "units": 8,
+    "rows": 1,
+    "ticks": [
+     "on"
+    ]
+   },
+   "pickup": {
+    "charge": 380,
+    "units": 8,
+    "rows": 1,
+    "ticks": [
+     "on"
+    ]
+   }
+  },
+  "nights": {
+   "lines": [
+    {
+     "kind": "fwf",
+     "units": 8,
+     "rate": 72.87,
+     "per_night": 582.96,
+     "total": 1748.88
+    }
+   ],
+   "per_night": 582.96,
+   "total": 1748.88
+  },
+  "off": []
+ },
+ {
+  "ref": "WC46",
+  "name": "Toilets",
+  "state": "on site",
+  "done": true,
+  "cancelled": false,
+  "moved": false,
+  "lines": [
+   {
+    "item": "FWF",
+    "qty": 1,
+    "hire": 90.07,
+    "hireLines": [
+     {
+      "contract": "9968955",
+      "line": 127,
+      "assetNo": null,
+      "qty": 1,
+      "amount": 90.07,
+      "ownUse": false,
+      "included": false
+     }
+    ],
+    "lab": {
+     "install": {
+      "rate": 36.435,
+      "qty": 1,
+      "value": 36.44
+     },
+     "demob": {
+      "rate": 36.435,
+      "qty": 1,
+      "value": 36.44
+     }
+    },
+    "labTotal": 72.88,
+    "blocked": false,
+    "why": null,
+    "card": [
+     "install:36.435",
+     "demob:36.435"
+    ]
+   }
+  ],
+  "tr": {
+   "delivery": {
+    "charge": 47.5,
+    "units": 1,
+    "rows": 1,
+    "ticks": [
+     "on"
+    ]
+   },
+   "pickup": {
+    "charge": 47.5,
+    "units": 1,
+    "rows": 1,
+    "ticks": [
+     "on"
+    ]
+   }
+  },
+  "nights": {
+   "lines": [
+    {
+     "kind": "fwf",
+     "units": 1,
+     "rate": 72.87,
+     "per_night": 72.87,
+     "total": 218.61
+    }
+   ],
+   "per_night": 72.87,
+   "total": 218.61
+  },
+  "off": []
+ },
+ {
+  "ref": "WC47",
+  "name": "Toilets",
+  "state": "on site",
+  "done": true,
+  "cancelled": false,
+  "moved": false,
+  "lines": [
+   {
+    "item": "FWF",
+    "qty": 1,
+    "hire": 90.07,
+    "hireLines": [
+     {
+      "contract": "9968955",
+      "line": 116,
+      "assetNo": null,
+      "qty": 1,
+      "amount": 90.07,
+      "ownUse": false,
+      "included": false
+     }
+    ],
+    "lab": {
+     "install": {
+      "rate": 36.435,
+      "qty": 1,
+      "value": 36.44
+     },
+     "demob": {
+      "rate": 36.435,
+      "qty": 1,
+      "value": 36.44
+     }
+    },
+    "labTotal": 72.88,
+    "blocked": false,
+    "why": null,
+    "card": [
+     "install:36.435",
+     "demob:36.435"
+    ]
+   }
+  ],
+  "tr": {
+   "delivery": {
+    "charge": 47.5,
+    "units": 1,
+    "rows": 1,
+    "ticks": [
+     "on"
+    ]
+   },
+   "pickup": {
+    "charge": 47.5,
+    "units": 1,
+    "rows": 1,
+    "ticks": [
+     "on"
+    ]
+   }
+  },
+  "nights": {
+   "lines": [
+    {
+     "kind": "fwf",
+     "units": 1,
+     "rate": 72.87,
+     "per_night": 72.87,
+     "total": 218.61
+    }
+   ],
+   "per_night": 72.87,
+   "total": 218.61
+  },
+  "off": []
+ },
+ {
+  "ref": "WC48",
+  "name": "Toilets",
+  "state": "on site",
+  "done": true,
+  "cancelled": false,
+  "moved": false,
+  "lines": [
+   {
+    "item": "FWF",
+    "qty": 4,
+    "hire": 360.28,
+    "hireLines": [
+     {
+      "contract": "9968955",
+      "line": 109,
+      "assetNo": null,
+      "qty": 4,
+      "amount": 360.28,
+      "ownUse": false,
+      "included": false
+     }
+    ],
+    "lab": {
+     "install": {
+      "rate": 36.435,
+      "qty": 4,
+      "value": 145.74
+     },
+     "demob": {
+      "rate": 36.435,
+      "qty": 4,
+      "value": 145.74
+     }
+    },
+    "labTotal": 291.48,
+    "blocked": false,
+    "why": null,
+    "card": [
+     "install:36.435",
+     "demob:36.435"
+    ]
+   }
+  ],
+  "tr": {
+   "delivery": {
+    "charge": 190,
+    "units": 4,
+    "rows": 1,
+    "ticks": [
+     "on"
+    ]
+   },
+   "pickup": {
+    "charge": 190,
+    "units": 4,
+    "rows": 1,
+    "ticks": [
+     "on"
+    ]
+   }
+  },
+  "nights": {
+   "lines": [
+    {
+     "kind": "fwf",
+     "units": 4,
+     "rate": 72.87,
+     "per_night": 291.48,
+     "total": 874.44
+    }
+   ],
+   "per_night": 291.48,
+   "total": 874.44
+  },
+  "off": []
+ },
+ {
+  "ref": "WC49",
+  "name": "Toilets",
+  "state": "on site",
+  "done": true,
+  "cancelled": false,
+  "moved": false,
+  "lines": [
+   {
+    "item": "FWF",
+    "qty": 3,
+    "hire": 270.21,
+    "hireLines": [
+     {
+      "contract": "9968955",
+      "line": 108,
+      "assetNo": null,
+      "qty": 3,
+      "amount": 270.21,
+      "ownUse": false,
+      "included": false
+     }
+    ],
+    "lab": {
+     "install": {
+      "rate": 36.435,
+      "qty": 3,
+      "value": 109.31
+     },
+     "demob": {
+      "rate": 36.435,
+      "qty": 3,
+      "value": 109.31
+     }
+    },
+    "labTotal": 218.62,
+    "blocked": false,
+    "why": null,
+    "card": [
+     "install:36.435",
+     "demob:36.435"
+    ]
+   }
+  ],
+  "tr": {
+   "delivery": {
+    "charge": 142.5,
+    "units": 3,
+    "rows": 1,
+    "ticks": [
+     "on"
+    ]
+   },
+   "pickup": {
+    "charge": 142.5,
+    "units": 3,
+    "rows": 1,
+    "ticks": [
+     "on"
+    ]
+   }
+  },
+  "nights": {
+   "lines": [
+    {
+     "kind": "fwf",
+     "units": 3,
+     "rate": 72.87,
+     "per_night": 218.61,
+     "total": 655.83
+    }
+   ],
+   "per_night": 218.61,
+   "total": 655.83
+  },
+  "off": []
+ },
+ {
+  "ref": "WC50",
+  "name": "Toilet",
+  "state": "on site",
+  "done": true,
+  "cancelled": false,
+  "moved": false,
+  "lines": [
+   {
+    "item": "FWF",
+    "qty": 1,
+    "hire": 90.07,
+    "hireLines": [
+     {
+      "contract": "9968955",
+      "line": 22,
+      "assetNo": "1211974",
+      "qty": 1,
+      "amount": 90.07,
+      "ownUse": false,
+      "included": false
+     }
+    ],
+    "lab": {
+     "install": {
+      "rate": 36.435,
+      "qty": 1,
+      "value": 36.44
+     },
+     "demob": {
+      "rate": 36.435,
+      "qty": 1,
+      "value": 36.44
+     }
+    },
+    "labTotal": 72.88,
+    "blocked": false,
+    "why": null,
+    "card": [
+     "install:36.435",
+     "demob:36.435"
+    ]
+   }
+  ],
+  "tr": {
+   "delivery": {
+    "charge": 47.5,
+    "units": 1,
+    "rows": 1,
+    "ticks": [
+     "on"
+    ]
+   },
+   "pickup": {
+    "charge": 47.5,
+    "units": 1,
+    "rows": 1,
+    "ticks": [
+     "on"
+    ]
+   }
+  },
+  "nights": {
+   "lines": [
+    {
+     "kind": "fwf",
+     "units": 1,
+     "rate": 72.87,
+     "per_night": 72.87,
+     "total": 218.61
+    }
+   ],
+   "per_night": 72.87,
+   "total": 218.61
+  },
+  "off": []
+ },
+ {
+  "ref": "WC51",
+  "name": "Toilets",
+  "state": "on site",
+  "done": true,
+  "cancelled": false,
+  "moved": false,
+  "lines": [
+   {
+    "item": "Accessible Toilet",
+    "qty": 1,
+    "hire": 337.75,
+    "hireLines": [
+     {
+      "contract": "9968955",
+      "line": 111,
+      "assetNo": null,
+      "qty": 1,
+      "amount": 337.75,
+      "ownUse": false,
+      "included": false
+     }
+    ],
+    "lab": {
+     "install": {
+      "rate": 88.485,
+      "qty": 1,
+      "value": 88.49
+     },
+     "demob": {
+      "rate": 88.485,
+      "qty": 1,
+      "value": 88.49
+     }
+    },
+    "labTotal": 176.98,
+    "blocked": false,
+    "why": null,
+    "card": [
+     "install:88.485",
+     "demob:88.485"
+    ]
+   },
+   {
+    "item": "FWF",
+    "qty": 6,
+    "hire": 540.42,
+    "hireLines": [
+     {
+      "contract": "9968955",
+      "line": 110,
+      "assetNo": null,
+      "qty": 6,
+      "amount": 540.42,
+      "ownUse": false,
+      "included": false
+     }
+    ],
+    "lab": {
+     "install": {
+      "rate": 36.435,
+      "qty": 6,
+      "value": 218.61
+     },
+     "demob": {
+      "rate": 36.435,
+      "qty": 6,
+      "value": 218.61
+     }
+    },
+    "labTotal": 437.22,
+    "blocked": false,
+    "why": null,
+    "card": [
+     "install:36.435",
+     "demob:36.435"
+    ]
+   }
+  ],
+  "tr": {
+   "delivery": {
+    "charge": 785,
+    "units": 7,
+    "rows": 2,
+    "ticks": [
+     "on",
+     "on"
+    ]
+   },
+   "pickup": {
+    "charge": 785,
+    "units": 7,
+    "rows": 2,
+    "ticks": [
+     "on",
+     "on"
+    ]
+   }
+  },
+  "nights": {
+   "lines": [
+    {
+     "kind": "fwf",
+     "units": 6,
+     "rate": 72.87,
+     "per_night": 437.22,
+     "total": 1311.66
+    }
+   ],
+   "per_night": 437.22,
+   "total": 1311.66
+  },
+  "off": []
+ },
+ {
+  "ref": "WC53",
+  "name": "Toilets",
+  "state": "on site",
+  "done": true,
+  "cancelled": false,
+  "moved": false,
+  "lines": [
+   {
+    "item": "FWF",
+    "qty": 3,
+    "hire": null,
+    "hireLines": [],
+    "lab": {
+     "install": {
+      "rate": 36.435,
+      "qty": 3,
+      "value": 109.31
+     },
+     "demob": {
+      "rate": 36.435,
+      "qty": 3,
+      "value": 109.31
+     }
+    },
+    "labTotal": 218.62,
+    "blocked": false,
+    "why": null,
+    "card": [
+     "install:36.435",
+     "demob:36.435"
+    ]
+   }
+  ],
+  "tr": {
+   "delivery": {
+    "charge": 142.5,
+    "units": 3,
+    "rows": 1,
+    "ticks": [
+     "on"
+    ]
+   },
+   "pickup": {
+    "charge": 142.5,
+    "units": 3,
+    "rows": 1,
+    "ticks": [
+     "on"
+    ]
+   }
+  },
+  "nights": {
+   "lines": [
+    {
+     "kind": "fwf",
+     "units": 3,
+     "rate": 72.87,
+     "per_night": 218.61,
+     "total": 655.83
+    }
+   ],
+   "per_night": 218.61,
+   "total": 655.83
+  },
+  "off": []
+ },
+ {
+  "ref": "WC54",
+  "name": "Toilets",
+  "state": "on site",
+  "done": true,
+  "cancelled": false,
+  "moved": false,
+  "lines": [
+   {
+    "item": "FWF",
+    "qty": 6,
+    "hire": 540.42,
+    "hireLines": [
+     {
+      "contract": "9968955",
+      "line": 112,
+      "assetNo": null,
+      "qty": 6,
+      "amount": 540.42,
+      "ownUse": false,
+      "included": false
+     }
+    ],
+    "lab": {
+     "install": {
+      "rate": 36.435,
+      "qty": 6,
+      "value": 218.61
+     },
+     "demob": {
+      "rate": 36.435,
+      "qty": 6,
+      "value": 218.61
+     }
+    },
+    "labTotal": 437.22,
+    "blocked": false,
+    "why": null,
+    "card": [
+     "install:36.435",
+     "demob:36.435"
+    ]
+   }
+  ],
+  "tr": {
+   "delivery": {
+    "charge": 285,
+    "units": 6,
+    "rows": 1,
+    "ticks": [
+     "on"
+    ]
+   },
+   "pickup": {
+    "charge": 285,
+    "units": 6,
+    "rows": 1,
+    "ticks": [
+     "on"
+    ]
+   }
+  },
+  "nights": {
+   "lines": [
+    {
+     "kind": "fwf",
+     "units": 6,
+     "rate": 72.87,
+     "per_night": 437.22,
+     "total": 1311.66
+    }
+   ],
+   "per_night": 437.22,
+   "total": 1311.66
+  },
+  "off": []
+ },
+ {
+  "ref": "WC55",
+  "name": "Toilets",
+  "state": "on site",
+  "done": true,
+  "cancelled": false,
+  "moved": false,
+  "lines": [
+   {
+    "item": "FWF",
+    "qty": 1,
+    "hire": 90.07,
+    "hireLines": [
+     {
+      "contract": "9968955",
+      "line": 128,
+      "assetNo": null,
+      "qty": 1,
+      "amount": 90.07,
+      "ownUse": false,
+      "included": false
+     }
+    ],
+    "lab": {
+     "install": {
+      "rate": 36.435,
+      "qty": 1,
+      "value": 36.44
+     },
+     "demob": {
+      "rate": 36.435,
+      "qty": 1,
+      "value": 36.44
+     }
+    },
+    "labTotal": 72.88,
+    "blocked": false,
+    "why": null,
+    "card": [
+     "install:36.435",
+     "demob:36.435"
+    ]
+   }
+  ],
+  "tr": {
+   "delivery": {
+    "charge": 47.5,
+    "units": 1,
+    "rows": 1,
+    "ticks": [
+     "on"
+    ]
+   },
+   "pickup": {
+    "charge": 47.5,
+    "units": 1,
+    "rows": 1,
+    "ticks": [
+     "on"
+    ]
+   }
+  },
+  "nights": {
+   "lines": [
+    {
+     "kind": "fwf",
+     "units": 1,
+     "rate": 72.87,
+     "per_night": 72.87,
+     "total": 218.61
+    }
+   ],
+   "per_night": 72.87,
+   "total": 218.61
+  },
+  "off": []
+ },
+ {
+  "ref": "WC56",
+  "name": "Toilets",
+  "state": "on site",
+  "done": true,
+  "cancelled": false,
+  "moved": false,
+  "lines": [
+   {
+    "item": "FWF",
+    "qty": 12,
+    "hire": 1080.84,
+    "hireLines": [
+     {
+      "contract": "9968955",
+      "line": 113,
+      "assetNo": null,
+      "qty": 12,
+      "amount": 1080.84,
+      "ownUse": false,
+      "included": false
+     }
+    ],
+    "lab": {
+     "install": {
+      "rate": 36.435,
+      "qty": 12,
+      "value": 437.22
+     },
+     "demob": {
+      "rate": 36.435,
+      "qty": 12,
+      "value": 437.22
+     }
+    },
+    "labTotal": 874.44,
+    "blocked": false,
+    "why": null,
+    "card": [
+     "install:36.435",
+     "demob:36.435"
+    ]
+   }
+  ],
+  "tr": {
+   "delivery": {
+    "charge": 570,
+    "units": 12,
+    "rows": 1,
+    "ticks": [
+     "on"
+    ]
+   },
+   "pickup": {
+    "charge": 570,
+    "units": 12,
+    "rows": 1,
+    "ticks": [
+     "on"
+    ]
+   }
+  },
+  "nights": {
+   "lines": [
+    {
+     "kind": "fwf",
+     "units": 12,
+     "rate": 72.87,
+     "per_night": 874.44,
+     "total": 2623.32
+    }
+   ],
+   "per_night": 874.44,
+   "total": 2623.32
+  },
+  "off": []
+ },
+ {
+  "ref": "WC57",
+  "name": "Toilets",
+  "state": "on site",
+  "done": true,
+  "cancelled": false,
+  "moved": false,
+  "lines": [
+   {
+    "item": "FWF",
+    "qty": 2,
+    "hire": 180.14,
+    "hireLines": [
+     {
+      "contract": "9968955",
+      "line": 107,
+      "assetNo": null,
+      "qty": 2,
+      "amount": 180.14,
+      "ownUse": false,
+      "included": false
+     }
+    ],
+    "lab": {
+     "install": {
+      "rate": 36.435,
+      "qty": 2,
+      "value": 72.87
+     },
+     "demob": {
+      "rate": 36.435,
+      "qty": 2,
+      "value": 72.87
+     }
+    },
+    "labTotal": 145.74,
+    "blocked": false,
+    "why": null,
+    "card": [
+     "install:36.435",
+     "demob:36.435"
+    ]
+   }
+  ],
+  "tr": {
+   "delivery": {
+    "charge": 95,
+    "units": 2,
+    "rows": 1,
+    "ticks": [
+     "on"
+    ]
+   },
+   "pickup": {
+    "charge": 95,
+    "units": 2,
+    "rows": 1,
+    "ticks": [
+     "on"
+    ]
+   }
+  },
+  "nights": {
+   "lines": [
+    {
+     "kind": "fwf",
+     "units": 2,
+     "rate": 72.87,
+     "per_night": 145.74,
+     "total": 437.22
+    }
+   ],
+   "per_night": 145.74,
+   "total": 437.22
+  },
+  "off": []
+ },
+ {
+  "ref": "WC59",
+  "name": "Toilets",
+  "state": "on site",
+  "done": true,
+  "cancelled": false,
+  "moved": false,
+  "lines": [
+   {
+    "item": "FWF",
+    "qty": 7,
+    "hire": 630.49,
+    "hireLines": [
+     {
+      "contract": "9968955",
+      "line": 106,
+      "assetNo": null,
+      "qty": 7,
+      "amount": 630.49,
+      "ownUse": false,
+      "included": false
+     }
+    ],
+    "lab": {
+     "install": {
+      "rate": 36.435,
+      "qty": 7,
+      "value": 255.05
+     },
+     "demob": {
+      "rate": 36.435,
+      "qty": 7,
+      "value": 255.05
+     }
+    },
+    "labTotal": 510.1,
+    "blocked": false,
+    "why": null,
+    "card": [
+     "install:36.435",
+     "demob:36.435"
+    ]
+   }
+  ],
+  "tr": {
+   "delivery": {
+    "charge": 332.5,
+    "units": 7,
+    "rows": 1,
+    "ticks": [
+     "on"
+    ]
+   },
+   "pickup": {
+    "charge": 332.5,
+    "units": 7,
+    "rows": 1,
+    "ticks": [
+     "on"
+    ]
+   }
+  },
+  "nights": {
+   "lines": [
+    {
+     "kind": "fwf",
+     "units": 7,
+     "rate": 72.87,
+     "per_night": 510.09,
+     "total": 1530.27
+    }
+   ],
+   "per_night": 510.09,
+   "total": 1530.27
+  },
+  "off": []
+ },
+ {
+  "ref": "WC60",
+  "name": "Toilets (Tank Mounted)",
+  "state": "on site",
+  "done": true,
+  "cancelled": false,
+  "moved": false,
+  "lines": [
+   {
+    "item": "Toilet Block 6m",
+    "qty": 2,
+    "hire": 6454.82,
+    "hireLines": [
+     {
+      "contract": "9968955",
+      "line": 91,
+      "assetNo": "1087500",
+      "qty": 1,
+      "amount": 3227.41,
+      "ownUse": false,
+      "included": false
+     },
+     {
+      "contract": "9968955",
+      "line": 93,
+      "assetNo": "1119489",
+      "qty": 1,
+      "amount": 3227.41,
+      "ownUse": false,
+      "included": false
+     }
+    ],
+    "lab": {
+     "install": {
+      "rate": 145.74,
+      "qty": 2,
+      "value": 291.48
+     },
+     "steps": {
+      "rate": 156.15,
+      "qty": 2,
+      "value": 312.3
+     },
+     "levelling": {
+      "rate": 104.1,
+      "qty": 2,
+      "value": 208.2
+     },
+     "cleaning": {
+      "rate": 156.15,
+      "qty": 2,
+      "value": 312.3
+     },
+     "demob": {
+      "rate": 145.74,
+      "qty": 2,
+      "value": 291.48
+     }
+    },
+    "labTotal": 1415.76,
+    "blocked": false,
+    "why": null,
+    "card": [
+     "install:145.74",
+     "steps:156.15",
+     "levelling:104.1",
+     "cleaning:156.15",
+     "demob:145.74"
+    ]
+   },
+   {
+    "item": "Waste tank",
+    "qty": 2,
+    "hire": 0,
+    "hireLines": [
+     {
+      "contract": "9968955",
+      "line": 94,
+      "assetNo": "1328980",
+      "qty": 1,
+      "amount": 0,
+      "ownUse": false,
+      "included": true
+     },
+     {
+      "contract": "9968955",
+      "line": 95,
+      "assetNo": "1328981",
+      "qty": 1,
+      "amount": 0,
+      "ownUse": false,
+      "included": true
+     }
+    ],
+    "lab": {
+     "install": {
+      "rate": 145.74,
+      "qty": 2,
+      "value": 291.48
+     },
+     "levelling": {
+      "rate": 104.1,
+      "qty": 2,
+      "value": 208.2
+     },
+     "cleaning": {
+      "rate": 156.15,
+      "qty": 2,
+      "value": 312.3
+     },
+     "demob": {
+      "rate": 145.74,
+      "qty": 2,
+      "value": 291.48
+     }
+    },
+    "labTotal": 1103.46,
+    "blocked": false,
+    "why": null,
+    "card": [
+     "install:145.74",
+     "levelling:104.1",
+     "cleaning:156.15",
+     "demob:145.74"
+    ]
+   }
+  ],
+  "tr": {
+   "delivery": {
+    "charge": 1000,
+    "units": 4,
+    "rows": 2,
+    "ticks": [
+     "on",
+     "held"
+    ]
+   },
+   "pickup": {
+    "charge": 1000,
+    "units": 4,
+    "rows": 2,
+    "ticks": [
+     "on",
+     "held"
+    ]
+   }
+  },
+  "nights": {
+   "lines": [
+    {
+     "kind": "tank",
+     "units": 2,
+     "rate": 624.6,
+     "per_night": 1249.2,
+     "total": 3747.6
+    }
+   ],
+   "per_night": 1249.2,
+   "total": 3747.6
+  },
+  "off": []
+ },
+ {
+  "ref": "WC61",
+  "name": "Toilets",
+  "state": "on site",
+  "done": true,
+  "cancelled": false,
+  "moved": false,
+  "lines": [
+   {
+    "item": "FWF",
+    "qty": 8,
+    "hire": 720.56,
+    "hireLines": [
+     {
+      "contract": "9968955",
+      "line": 96,
+      "assetNo": null,
+      "qty": 8,
+      "amount": 720.56,
+      "ownUse": false,
+      "included": false
+     }
+    ],
+    "lab": {
+     "install": {
+      "rate": 36.435,
+      "qty": 8,
+      "value": 291.48
+     },
+     "demob": {
+      "rate": 36.435,
+      "qty": 8,
+      "value": 291.48
+     }
+    },
+    "labTotal": 582.96,
+    "blocked": false,
+    "why": null,
+    "card": [
+     "install:36.435",
+     "demob:36.435"
+    ]
+   }
+  ],
+  "tr": {
+   "delivery": {
+    "charge": 380,
+    "units": 8,
+    "rows": 1,
+    "ticks": [
+     "on"
+    ]
+   },
+   "pickup": {
+    "charge": 380,
+    "units": 8,
+    "rows": 1,
+    "ticks": [
+     "on"
+    ]
+   }
+  },
+  "nights": {
+   "lines": [
+    {
+     "kind": "fwf",
+     "units": 8,
+     "rate": 72.87,
+     "per_night": 582.96,
+     "total": 1748.88
+    }
+   ],
+   "per_night": 582.96,
+   "total": 1748.88
+  },
+  "off": []
+ },
+ {
+  "ref": "WC62",
+  "name": "Toilets",
+  "state": "on site",
+  "done": true,
+  "cancelled": false,
+  "moved": false,
+  "lines": [
+   {
+    "item": "FWF",
+    "qty": 2,
+    "hire": 180.14,
+    "hireLines": [
+     {
+      "contract": "9968955",
+      "line": 129,
+      "assetNo": null,
+      "qty": 2,
+      "amount": 180.14,
+      "ownUse": false,
+      "included": false
+     }
+    ],
+    "lab": {
+     "install": {
+      "rate": 36.435,
+      "qty": 2,
+      "value": 72.87
+     },
+     "demob": {
+      "rate": 36.435,
+      "qty": 2,
+      "value": 72.87
+     }
+    },
+    "labTotal": 145.74,
+    "blocked": false,
+    "why": null,
+    "card": [
+     "install:36.435",
+     "demob:36.435"
+    ]
+   }
+  ],
+  "tr": {
+   "delivery": {
+    "charge": 95,
+    "units": 2,
+    "rows": 1,
+    "ticks": [
+     "on"
+    ]
+   },
+   "pickup": {
+    "charge": 95,
+    "units": 2,
+    "rows": 1,
+    "ticks": [
+     "on"
+    ]
+   }
+  },
+  "nights": {
+   "lines": [
+    {
+     "kind": "fwf",
+     "units": 2,
+     "rate": 72.87,
+     "per_night": 145.74,
+     "total": 437.22
+    }
+   ],
+   "per_night": 145.74,
+   "total": 437.22
+  },
+  "off": []
+ },
+ {
+  "ref": "WC65",
+  "name": "Toilets",
+  "state": "on site",
+  "done": true,
+  "cancelled": false,
+  "moved": false,
+  "lines": [
+   {
+    "item": "FWF",
+    "qty": 1,
+    "hire": 90.07,
+    "hireLines": [
+     {
+      "contract": "9968955",
+      "line": 130,
+      "assetNo": null,
+      "qty": 1,
+      "amount": 90.07,
+      "ownUse": false,
+      "included": false
+     }
+    ],
+    "lab": {
+     "install": {
+      "rate": 36.435,
+      "qty": 1,
+      "value": 36.44
+     },
+     "demob": {
+      "rate": 36.435,
+      "qty": 1,
+      "value": 36.44
+     }
+    },
+    "labTotal": 72.88,
+    "blocked": false,
+    "why": null,
+    "card": [
+     "install:36.435",
+     "demob:36.435"
+    ]
+   }
+  ],
+  "tr": {
+   "delivery": {
+    "charge": 47.5,
+    "units": 1,
+    "rows": 1,
+    "ticks": [
+     "on"
+    ]
+   },
+   "pickup": {
+    "charge": 47.5,
+    "units": 1,
+    "rows": 1,
+    "ticks": [
+     "on"
+    ]
+   }
+  },
+  "nights": {
+   "lines": [
+    {
+     "kind": "fwf",
+     "units": 1,
+     "rate": 72.87,
+     "per_night": 72.87,
+     "total": 218.61
+    }
+   ],
+   "per_night": 72.87,
+   "total": 218.61
+  },
+  "off": []
+ },
+ {
+  "ref": "WC67",
+  "name": "Toilets",
+  "state": "on site",
+  "done": true,
+  "cancelled": false,
+  "moved": false,
+  "lines": [
+   {
+    "item": "FWF",
+    "qty": 2,
+    "hire": 180.14,
+    "hireLines": [
+     {
+      "contract": "9968955",
+      "line": 84,
+      "assetNo": null,
+      "qty": 2,
+      "amount": 180.14,
+      "ownUse": false,
+      "included": false
+     }
+    ],
+    "lab": {
+     "install": {
+      "rate": 36.435,
+      "qty": 2,
+      "value": 72.87
+     },
+     "demob": {
+      "rate": 36.435,
+      "qty": 2,
+      "value": 72.87
+     }
+    },
+    "labTotal": 145.74,
+    "blocked": false,
+    "why": null,
+    "card": [
+     "install:36.435",
+     "demob:36.435"
+    ]
+   }
+  ],
+  "tr": {
+   "delivery": {
+    "charge": 95,
+    "units": 2,
+    "rows": 1,
+    "ticks": [
+     "on"
+    ]
+   },
+   "pickup": {
+    "charge": 95,
+    "units": 2,
+    "rows": 1,
+    "ticks": [
+     "on"
+    ]
+   }
+  },
+  "nights": {
+   "lines": [
+    {
+     "kind": "fwf",
+     "units": 2,
+     "rate": 72.87,
+     "per_night": 145.74,
+     "total": 437.22
+    }
+   ],
+   "per_night": 145.74,
+   "total": 437.22
+  },
+  "off": []
+ },
+ {
+  "ref": "WC68",
+  "name": "Toilets",
+  "state": "on site",
+  "done": true,
+  "cancelled": false,
+  "moved": false,
+  "lines": [
+   {
+    "item": "FWF",
+    "qty": 1,
+    "hire": 90.07,
+    "hireLines": [
+     {
+      "contract": "9968955",
+      "line": 131,
+      "assetNo": null,
+      "qty": 1,
+      "amount": 90.07,
+      "ownUse": false,
+      "included": false
+     }
+    ],
+    "lab": {
+     "install": {
+      "rate": 36.435,
+      "qty": 1,
+      "value": 36.44
+     },
+     "demob": {
+      "rate": 36.435,
+      "qty": 1,
+      "value": 36.44
+     }
+    },
+    "labTotal": 72.88,
+    "blocked": false,
+    "why": null,
+    "card": [
+     "install:36.435",
+     "demob:36.435"
+    ]
+   }
+  ],
+  "tr": {
+   "delivery": {
+    "charge": 47.5,
+    "units": 1,
+    "rows": 1,
+    "ticks": [
+     "on"
+    ]
+   },
+   "pickup": {
+    "charge": 47.5,
+    "units": 1,
+    "rows": 1,
+    "ticks": [
+     "on"
+    ]
+   }
+  },
+  "nights": {
+   "lines": [
+    {
+     "kind": "fwf",
+     "units": 1,
+     "rate": 72.87,
+     "per_night": 72.87,
+     "total": 218.61
+    }
+   ],
+   "per_night": 72.87,
+   "total": 218.61
+  },
+  "off": []
+ },
+ {
+  "ref": "WC69",
+  "name": "Toilets",
+  "state": "on site",
+  "done": true,
+  "cancelled": false,
+  "moved": false,
+  "lines": [
+   {
+    "item": "FWF",
+    "qty": 12,
+    "hire": 1080.84,
+    "hireLines": [
+     {
+      "contract": "9968955",
+      "line": 87,
+      "assetNo": null,
+      "qty": 12,
+      "amount": 1080.84,
+      "ownUse": false,
+      "included": false
+     }
+    ],
+    "lab": {
+     "install": {
+      "rate": 36.435,
+      "qty": 12,
+      "value": 437.22
+     },
+     "demob": {
+      "rate": 36.435,
+      "qty": 12,
+      "value": 437.22
+     }
+    },
+    "labTotal": 874.44,
+    "blocked": false,
+    "why": null,
+    "card": [
+     "install:36.435",
+     "demob:36.435"
+    ]
+   }
+  ],
+  "tr": {
+   "delivery": {
+    "charge": 570,
+    "units": 12,
+    "rows": 1,
+    "ticks": [
+     "on"
+    ]
+   },
+   "pickup": {
+    "charge": 570,
+    "units": 12,
+    "rows": 1,
+    "ticks": [
+     "on"
+    ]
+   }
+  },
+  "nights": {
+   "lines": [
+    {
+     "kind": "fwf",
+     "units": 12,
+     "rate": 72.87,
+     "per_night": 874.44,
+     "total": 2623.32
+    }
+   ],
+   "per_night": 874.44,
+   "total": 2623.32
+  },
+  "off": []
+ },
+ {
+  "ref": "WC70",
+  "name": "Toilet",
+  "state": "on site",
+  "done": true,
+  "cancelled": false,
+  "moved": false,
+  "lines": [
+   {
+    "item": "FWF",
+    "qty": 1,
+    "hire": 90.07,
+    "hireLines": [
+     {
+      "contract": "9968955",
+      "line": 85,
+      "assetNo": null,
+      "qty": 1,
+      "amount": 90.07,
+      "ownUse": false,
+      "included": false
+     }
+    ],
+    "lab": {
+     "install": {
+      "rate": 36.435,
+      "qty": 1,
+      "value": 36.44
+     },
+     "demob": {
+      "rate": 36.435,
+      "qty": 1,
+      "value": 36.44
+     }
+    },
+    "labTotal": 72.88,
+    "blocked": false,
+    "why": null,
+    "card": [
+     "install:36.435",
+     "demob:36.435"
+    ]
+   }
+  ],
+  "tr": {
+   "delivery": {
+    "charge": 47.5,
+    "units": 1,
+    "rows": 1,
+    "ticks": [
+     "on"
+    ]
+   },
+   "pickup": {
+    "charge": 47.5,
+    "units": 1,
+    "rows": 1,
+    "ticks": [
+     "on"
+    ]
+   }
+  },
+  "nights": {
+   "lines": [
+    {
+     "kind": "fwf",
+     "units": 1,
+     "rate": 72.87,
+     "per_night": 72.87,
+     "total": 218.61
+    }
+   ],
+   "per_night": 72.87,
+   "total": 218.61
+  },
+  "off": []
+ },
+ {
+  "ref": "WC71",
+  "name": "Toilets",
+  "state": "on site",
+  "done": true,
+  "cancelled": false,
+  "moved": false,
+  "lines": [
+   {
+    "item": "FWF",
+    "qty": 8,
+    "hire": 720.56,
+    "hireLines": [
+     {
+      "contract": "9968955",
+      "line": 86,
+      "assetNo": null,
+      "qty": 8,
+      "amount": 720.56,
+      "ownUse": false,
+      "included": false
+     }
+    ],
+    "lab": {
+     "install": {
+      "rate": 36.435,
+      "qty": 8,
+      "value": 291.48
+     },
+     "demob": {
+      "rate": 36.435,
+      "qty": 8,
+      "value": 291.48
+     }
+    },
+    "labTotal": 582.96,
+    "blocked": false,
+    "why": null,
+    "card": [
+     "install:36.435",
+     "demob:36.435"
+    ]
+   }
+  ],
+  "tr": {
+   "delivery": {
+    "charge": 380,
+    "units": 8,
+    "rows": 1,
+    "ticks": [
+     "on"
+    ]
+   },
+   "pickup": {
+    "charge": 380,
+    "units": 8,
+    "rows": 1,
+    "ticks": [
+     "on"
+    ]
+   }
+  },
+  "nights": {
+   "lines": [
+    {
+     "kind": "fwf",
+     "units": 8,
+     "rate": 72.87,
+     "per_night": 582.96,
+     "total": 1748.88
+    }
+   ],
+   "per_night": 582.96,
+   "total": 1748.88
+  },
+  "off": []
+ },
+ {
+  "ref": "WC72",
+  "name": "Toilets",
+  "state": "on site",
+  "done": true,
+  "cancelled": false,
+  "moved": false,
+  "lines": [
+   {
+    "item": "FWF",
+    "qty": 1,
+    "hire": 90.07,
+    "hireLines": [
+     {
+      "contract": "9968955",
+      "line": 132,
+      "assetNo": null,
+      "qty": 1,
+      "amount": 90.07,
+      "ownUse": false,
+      "included": false
+     }
+    ],
+    "lab": {
+     "install": {
+      "rate": 36.435,
+      "qty": 1,
+      "value": 36.44
+     },
+     "demob": {
+      "rate": 36.435,
+      "qty": 1,
+      "value": 36.44
+     }
+    },
+    "labTotal": 72.88,
+    "blocked": false,
+    "why": null,
+    "card": [
+     "install:36.435",
+     "demob:36.435"
+    ]
+   }
+  ],
+  "tr": {
+   "delivery": {
+    "charge": 47.5,
+    "units": 1,
+    "rows": 1,
+    "ticks": [
+     "on"
+    ]
+   },
+   "pickup": {
+    "charge": 47.5,
+    "units": 1,
+    "rows": 1,
+    "ticks": [
+     "on"
+    ]
+   }
+  },
+  "nights": {
+   "lines": [
+    {
+     "kind": "fwf",
+     "units": 1,
+     "rate": 72.87,
+     "per_night": 72.87,
+     "total": 218.61
+    }
+   ],
+   "per_night": 72.87,
+   "total": 218.61
+  },
+  "off": []
+ },
+ {
+  "ref": "WC73",
+  "name": "Toilets",
+  "state": "on site",
+  "done": true,
+  "cancelled": false,
+  "moved": false,
+  "lines": [
+   {
+    "item": "FWF",
+    "qty": 2,
+    "hire": 180.14,
+    "hireLines": [
+     {
+      "contract": "9968955",
+      "line": 133,
+      "assetNo": null,
+      "qty": 2,
+      "amount": 180.14,
+      "ownUse": false,
+      "included": false
+     }
+    ],
+    "lab": {
+     "install": {
+      "rate": 36.435,
+      "qty": 2,
+      "value": 72.87
+     },
+     "demob": {
+      "rate": 36.435,
+      "qty": 2,
+      "value": 72.87
+     }
+    },
+    "labTotal": 145.74,
+    "blocked": false,
+    "why": null,
+    "card": [
+     "install:36.435",
+     "demob:36.435"
+    ]
+   }
+  ],
+  "tr": {
+   "delivery": {
+    "charge": 95,
+    "units": 2,
+    "rows": 1,
+    "ticks": [
+     "on"
+    ]
+   },
+   "pickup": {
+    "charge": 95,
+    "units": 2,
+    "rows": 1,
+    "ticks": [
+     "on"
+    ]
+   }
+  },
+  "nights": {
+   "lines": [
+    {
+     "kind": "fwf",
+     "units": 2,
+     "rate": 72.87,
+     "per_night": 145.74,
+     "total": 437.22
+    }
+   ],
+   "per_night": 145.74,
+   "total": 437.22
+  },
+  "off": []
+ },
+ {
+  "ref": "WC81",
+  "name": "Toilet (Cypress)",
+  "state": "on site",
+  "done": true,
+  "cancelled": false,
+  "moved": false,
+  "lines": [
+   {
+    "item": "FWF",
+    "qty": 1,
+    "hire": null,
+    "hireLines": [],
+    "lab": {
+     "install": {
+      "rate": 36.435,
+      "qty": 1,
+      "value": 36.44
+     },
+     "demob": {
+      "rate": 36.435,
+      "qty": 1,
+      "value": 36.44
+     }
+    },
+    "labTotal": 72.88,
+    "blocked": false,
+    "why": null,
+    "card": [
+     "install:36.435",
+     "demob:36.435"
+    ]
+   }
+  ],
+  "tr": {
+   "delivery": {
+    "charge": 47.5,
+    "units": 1,
+    "rows": 1,
+    "ticks": [
+     "on"
+    ]
+   },
+   "pickup": {
+    "charge": 47.5,
+    "units": 1,
+    "rows": 1,
+    "ticks": [
+     "on"
+    ]
+   }
+  },
+  "nights": {
+   "lines": [
+    {
+     "kind": "fwf",
+     "units": 1,
+     "rate": 72.87,
+     "per_night": 72.87,
+     "total": 218.61
+    }
+   ],
+   "per_night": 72.87,
+   "total": 218.61
+  },
+  "off": []
+ },
+ {
+  "ref": "WC85",
+  "name": "Toilets",
+  "state": "on site",
+  "done": true,
+  "cancelled": false,
+  "moved": false,
+  "lines": [
+   {
+    "item": "FWF",
+    "qty": 1,
+    "hire": 90.07,
+    "hireLines": [
+     {
+      "contract": "9968955",
+      "line": 134,
+      "assetNo": null,
+      "qty": 1,
+      "amount": 90.07,
+      "ownUse": false,
+      "included": false
+     }
+    ],
+    "lab": {
+     "install": {
+      "rate": 36.435,
+      "qty": 1,
+      "value": 36.44
+     },
+     "demob": {
+      "rate": 36.435,
+      "qty": 1,
+      "value": 36.44
+     }
+    },
+    "labTotal": 72.88,
+    "blocked": false,
+    "why": null,
+    "card": [
+     "install:36.435",
+     "demob:36.435"
+    ]
+   }
+  ],
+  "tr": {
+   "delivery": {
+    "charge": 47.5,
+    "units": 1,
+    "rows": 1,
+    "ticks": [
+     "on"
+    ]
+   },
+   "pickup": {
+    "charge": 47.5,
+    "units": 1,
+    "rows": 1,
+    "ticks": [
+     "on"
+    ]
+   }
+  },
+  "nights": {
+   "lines": [
+    {
+     "kind": "fwf",
+     "units": 1,
+     "rate": 72.87,
+     "per_night": 72.87,
+     "total": 218.61
+    }
+   ],
+   "per_night": 72.87,
+   "total": 218.61
+  },
+  "off": []
+ },
+ {
+  "ref": "WC86",
+  "name": "Toilet",
+  "state": "on site",
+  "done": true,
+  "cancelled": false,
+  "moved": false,
+  "lines": [
+   {
+    "item": "Accessible Toilet",
+    "qty": 1,
+    "hire": 337.75,
+    "hireLines": [
+     {
+      "contract": "9968955",
+      "line": 51,
+      "assetNo": "1296899",
+      "qty": 1,
+      "amount": 337.75,
+      "ownUse": false,
+      "included": false
+     }
+    ],
+    "lab": {
+     "install": {
+      "rate": 88.485,
+      "qty": 1,
+      "value": 88.49
+     },
+     "demob": {
+      "rate": 88.485,
+      "qty": 1,
+      "value": 88.49
+     }
+    },
+    "labTotal": 176.98,
+    "blocked": false,
+    "why": null,
+    "card": [
+     "install:88.485",
+     "demob:88.485"
+    ]
+   }
+  ],
+  "tr": {
+   "delivery": {
+    "charge": 500,
+    "units": 1,
+    "rows": 1,
+    "ticks": [
+     "on"
+    ]
+   },
+   "pickup": {
+    "charge": 500,
+    "units": 1,
+    "rows": 1,
+    "ticks": [
+     "on"
+    ]
+   }
+  },
+  "nights": null,
+  "off": []
+ },
+ {
+  "ref": "T0024",
+  "name": "FWF",
+  "state": "on site",
+  "done": true,
+  "cancelled": false,
+  "moved": false,
+  "lines": [
+   {
+    "item": "FWF",
+    "qty": 1,
+    "hire": 0,
+    "hireLines": [
+     {
+      "contract": "9968929",
+      "line": 7,
+      "assetNo": "1211968",
+      "qty": 1,
+      "amount": 0,
+      "ownUse": true,
+      "included": false
+     }
+    ],
+    "lab": {
+     "install": {
+      "rate": 36.435,
+      "qty": 1,
+      "value": 36.44
+     },
+     "demob": {
+      "rate": 36.435,
+      "qty": 1,
+      "value": 36.44
+     }
+    },
+    "labTotal": 72.88,
+    "blocked": false,
+    "why": null,
+    "card": [
+     "install:36.435",
+     "demob:36.435"
+    ]
+   }
+  ],
+  "tr": {
+   "delivery": {
+    "charge": 0,
+    "units": 1,
+    "rows": 1,
+    "ticks": [
+     "excluded"
+    ]
+   },
+   "pickup": {
+    "charge": 0,
+    "units": 1,
+    "rows": 1,
+    "ticks": [
+     "excluded"
+    ]
+   }
+  },
+  "nights": {
+   "lines": [
+    {
+     "kind": "fwf",
+     "units": 1,
+     "rate": 72.87,
+     "per_night": 72.87,
+     "total": 218.61
+    }
+   ],
+   "per_night": 72.87,
+   "total": 218.61
+  },
+  "off": []
+ },
+ {
+  "ref": "T0243",
+  "name": "Toilet Block 6m · WC-TV (sewer connect)",
+  "state": "on site",
+  "done": true,
+  "cancelled": false,
+  "moved": false,
+  "lines": [
+   {
+    "item": "Toilet Block 6m",
+    "qty": 1,
+    "hire": 2476.85,
+    "hireLines": [
+     {
+      "contract": "9973977",
+      "line": 1,
+      "assetNo": "1311144",
+      "qty": 1,
+      "amount": 2476.85,
+      "ownUse": false,
+      "included": false
+     }
+    ],
+    "lab": {
+     "install": {
+      "rate": 145.74,
+      "qty": 1,
+      "value": 145.74
+     },
+     "steps": {
+      "rate": 156.15,
+      "qty": 1,
+      "value": 156.15
+     },
+     "levelling": {
+      "rate": 104.1,
+      "qty": 1,
+      "value": 104.1
+     },
+     "cleaning": {
+      "rate": 156.15,
+      "qty": 1,
+      "value": 156.15
+     },
+     "demob": {
+      "rate": 145.74,
+      "qty": 1,
+      "value": 145.74
+     }
+    },
+    "labTotal": 707.88,
+    "blocked": false,
+    "why": null,
+    "card": [
+     "install:145.74",
+     "steps:156.15",
+     "levelling:104.1",
+     "cleaning:156.15",
+     "demob:145.74"
+    ]
+   }
+  ],
+  "tr": {
+   "delivery": {
+    "charge": 500,
+    "units": 1,
+    "rows": 1,
+    "ticks": [
+     "on"
+    ]
+   },
+   "pickup": {
+    "charge": 500,
+    "units": 1,
+    "rows": 1,
+    "ticks": [
+     "on"
+    ]
+   }
+  },
+  "nights": {
+   "lines": [
+    {
+     "kind": "sewer",
+     "units": 1,
+     "rate": 260.25,
+     "per_night": 260.25,
+     "total": 780.75
+    }
+   ],
+   "per_night": 260.25,
+   "total": 780.75
+  },
+  "off": []
+ },
+ {
+  "ref": "T0162",
+  "name": "FWF · Blanchard Race",
+  "state": "on site",
+  "done": true,
+  "cancelled": false,
+  "moved": false,
+  "lines": [
+   {
+    "item": "FWF",
+    "qty": 1,
+    "hire": null,
+    "hireLines": [],
+    "lab": {
+     "install": {
+      "rate": 36.435,
+      "qty": 1,
+      "value": 36.44
+     },
+     "demob": {
+      "rate": 36.435,
+      "qty": 1,
+      "value": 36.44
+     }
+    },
+    "labTotal": 72.88,
+    "blocked": false,
+    "why": null,
+    "card": [
+     "install:36.435",
+     "demob:36.435"
+    ]
+   }
+  ],
+  "tr": {
+   "delivery": {
+    "charge": 47.5,
+    "units": 1,
+    "rows": 1,
+    "ticks": [
+     "on"
+    ]
+   },
+   "pickup": {
+    "charge": 47.5,
+    "units": 1,
+    "rows": 1,
+    "ticks": [
+     "on"
+    ]
+   }
+  },
+  "nights": {
+   "lines": [
+    {
+     "kind": "fwf",
+     "units": 1,
+     "rate": 72.87,
+     "per_night": 72.87,
+     "total": 218.61
+    }
+   ],
+   "per_night": 72.87,
+   "total": 218.61
+  },
+  "off": []
+ },
+ {
+  "ref": "T0176",
+  "name": "FWF × 2 · Redbull",
+  "state": "on site",
+  "done": true,
+  "cancelled": false,
+  "moved": false,
+  "lines": [
+   {
+    "item": "FWF",
+    "qty": 2,
+    "hire": null,
+    "hireLines": [],
+    "lab": {
+     "install": {
+      "rate": 36.435,
+      "qty": 2,
+      "value": 72.87
+     },
+     "demob": {
+      "rate": 36.435,
+      "qty": 2,
+      "value": 72.87
+     }
+    },
+    "labTotal": 145.74,
+    "blocked": false,
+    "why": null,
+    "card": [
+     "install:36.435",
+     "demob:36.435"
+    ]
+   }
+  ],
+  "tr": {
+   "delivery": {
+    "charge": 95,
+    "units": 2,
+    "rows": 1,
+    "ticks": [
+     "on"
+    ]
+   },
+   "pickup": {
+    "charge": 95,
+    "units": 2,
+    "rows": 1,
+    "ticks": [
+     "on"
+    ]
+   }
+  },
+  "nights": {
+   "lines": [
+    {
+     "kind": "fwf",
+     "units": 2,
+     "rate": 72.87,
+     "per_night": 145.74,
+     "total": 437.22
+    }
+   ],
+   "per_night": 145.74,
+   "total": 437.22
+  },
+  "off": []
+ },
+ {
+  "ref": "BJR01",
+  "name": "Brad Jones Racing",
+  "state": "on site",
+  "done": true,
+  "cancelled": false,
+  "moved": false,
+  "lines": [
+   {
+    "item": "FWF",
+    "qty": 1,
+    "hire": null,
+    "hireLines": [],
+    "lab": {
+     "install": {
+      "rate": 36.435,
+      "qty": 1,
+      "value": 36.44
+     },
+     "demob": {
+      "rate": 36.435,
+      "qty": 1,
+      "value": 36.44
+     }
+    },
+    "labTotal": 72.88,
+    "blocked": false,
+    "why": null,
+    "card": [
+     "install:36.435",
+     "demob:36.435"
+    ]
+   }
+  ],
+  "tr": {
+   "delivery": {
+    "charge": 47.5,
+    "units": 1,
+    "rows": 1,
+    "ticks": [
+     "on"
+    ]
+   },
+   "pickup": {
+    "charge": 47.5,
+    "units": 1,
+    "rows": 1,
+    "ticks": [
+     "on"
+    ]
+   }
+  },
+  "nights": {
+   "lines": [
+    {
+     "kind": "fwf",
+     "units": 1,
+     "rate": 72.87,
+     "per_night": 72.87,
+     "total": 218.61
+    }
+   ],
+   "per_night": 72.87,
+   "total": 218.61
+  },
+  "off": []
+ },
+ {
+  "ref": "SVP01",
+  "name": "Shell V-Power",
+  "state": "on site",
+  "done": true,
+  "cancelled": false,
+  "moved": false,
+  "lines": [
+   {
+    "item": "FWF",
+    "qty": 1,
+    "hire": null,
+    "hireLines": [],
+    "lab": {
+     "install": {
+      "rate": 36.435,
+      "qty": 1,
+      "value": 36.44
+     },
+     "demob": {
+      "rate": 36.435,
+      "qty": 1,
+      "value": 36.44
+     }
+    },
+    "labTotal": 72.88,
+    "blocked": false,
+    "why": null,
+    "card": [
+     "install:36.435",
+     "demob:36.435"
+    ]
+   }
+  ],
+  "tr": {
+   "delivery": {
+    "charge": 47.5,
+    "units": 1,
+    "rows": 1,
+    "ticks": [
+     "on"
+    ]
+   },
+   "pickup": {
+    "charge": 47.5,
+    "units": 1,
+    "rows": 1,
+    "ticks": [
+     "on"
+    ]
+   }
+  },
+  "nights": {
+   "lines": [
+    {
+     "kind": "fwf",
+     "units": 1,
+     "rate": 72.87,
+     "per_night": 72.87,
+     "total": 218.61
+    }
+   ],
+   "per_night": 72.87,
+   "total": 218.61
+  },
+  "off": []
+ }
+]

@@ -1,0 +1,166 @@
+{
+  "author": "Andrew Fisher",
+  "checkedAtUtc": "2026-10-09T09:13:13.396656+00:00",
+  "scope": "Read-only protected source comparison; not a publication or browser-performance assertion",
+  "base": {
+    "path": "/workspace/gc500-current-release/03_GC500_Delivery_Control/build/GC500_v9.69/GC500_Delivery_Control_hosted.html",
+    "bytes": 12815042,
+    "sha256": "a271015a9cf6d099b1665d3bcef71bb6fe5b2671d7081739c91b0f04d52205b5"
+  },
+  "candidate": {
+    "path": "/workspace/gc500-current-release/03_GC500_Delivery_Control/build/GC500_v9.71/GC500_Delivery_Control_hosted.html",
+    "bytes": 12831751,
+    "sha256": "f182b59f07ea6f2fbd0a2b09d2efc4e219ef44c9c16a0109304f0f6e89437c5a"
+  },
+  "pass": true,
+  "checks": [
+    {
+      "name": "operational prefix unchanged except declared hidden-media lifecycle hooks",
+      "pass": true,
+      "baseBytes": 10524111,
+      "candidateBytes": 10524111,
+      "baseSha256": "bbfab1d7fbe5c2afc59f9c31630d61a17829621d026b9b5f71a2e18c0c53dffb",
+      "candidateSha256": "bbfab1d7fbe5c2afc59f9c31630d61a17829621d026b9b5f71a2e18c0c53dffb"
+    },
+    {
+      "name": "embedded DATA literal is byte-identical",
+      "pass": true,
+      "baseBytes": 3682594,
+      "candidateBytes": 3682594,
+      "baseSha256": "a765ac57fd314a99681440925a69ab46d62ad07fb5bbd4285d61bb639be19155",
+      "candidateSha256": "a765ac57fd314a99681440925a69ab46d62ad07fb5bbd4285d61bb639be19155"
+    },
+    {
+      "name": "embedded DATA is semantically unchanged",
+      "pass": true
+    },
+    {
+      "name": "complete route, widths, curvature, speed profile and pit alignment construction unchanged",
+      "pass": true,
+      "baseBytes": 6446,
+      "candidateBytes": 6446,
+      "baseSha256": "418614ee1188961745605b0616f932a51ff0da465a2ce839d544f459741a9d60",
+      "candidateSha256": "418614ee1188961745605b0616f932a51ff0da465a2ce839d544f459741a9d60"
+    },
+    {
+      "name": "original metre scale unchanged",
+      "pass": true,
+      "baseBytes": 30,
+      "candidateBytes": 30,
+      "baseSha256": "622677457baf393ab46681f6abb325993a0e8f765544848e739e4f045f984c9c",
+      "candidateSha256": "622677457baf393ab46681f6abb325993a0e8f765544848e739e4f045f984c9c"
+    },
+    {
+      "name": "original unit conversions and pace control unchanged",
+      "pass": true,
+      "baseBytes": 4771,
+      "candidateBytes": 4771,
+      "baseSha256": "114db5e8f285461720dce2786bed7b971018d6b574b7f161bdccd1c59a70cd74",
+      "candidateSha256": "114db5e8f285461720dce2786bed7b971018d6b574b7f161bdccd1c59a70cd74"
+    },
+    {
+      "name": "original car hull and car model unchanged",
+      "pass": true,
+      "baseBytes": 9908,
+      "candidateBytes": 9908,
+      "baseSha256": "236bf7e09d9943b80ee3e8374267b7ff61846a8f473743efcefa4a85430ba2a3",
+      "candidateSha256": "236bf7e09d9943b80ee3e8374267b7ff61846a8f473743efcefa4a85430ba2a3"
+    },
+    {
+      "name": "original simulation reset and pose unchanged",
+      "pass": true,
+      "baseBytes": 2298,
+      "candidateBytes": 2298,
+      "baseSha256": "e959d0e15ee26a59f15d38549a1aa7ebd0cfe37b713c5b6f9976a4b38065d86c",
+      "candidateSha256": "e959d0e15ee26a59f15d38549a1aa7ebd0cfe37b713c5b6f9976a4b38065d86c"
+    },
+    {
+      "name": "dynamic meshes and car graphics unchanged",
+      "pass": true,
+      "baseBytes": 332244,
+      "candidateBytes": 332244,
+      "baseSha256": "4e15207f6407e8f1c1f5c76bfffb4f7caea173ebabeb15a5280d3d97ded05be2",
+      "candidateSha256": "4e15207f6407e8f1c1f5c76bfffb4f7caea173ebabeb15a5280d3d97ded05be2"
+    },
+    {
+      "name": "original view choices, camera director and frame function bodies unchanged",
+      "pass": true,
+      "baseBytes": 18586,
+      "candidateBytes": 18586,
+      "baseSha256": "5b4e0e67f628c9249ed4fda5ffeb715e5f8b7c15e27ff15f11f5ed8ce52a7f6c",
+      "candidateSha256": "5b4e0e67f628c9249ed4fda5ffeb715e5f8b7c15e27ff15f11f5ed8ce52a7f6c"
+    },
+    {
+      "name": "registered surroundings, pit lane and existing building source unchanged",
+      "pass": true,
+      "baseBytes": 30134,
+      "candidateBytes": 30134,
+      "baseSha256": "e9bcbe0c0ca126b765dc4162dda4151a422e40552d2b700e3dbff877561b8e85",
+      "candidateSha256": "e9bcbe0c0ca126b765dc4162dda4151a422e40552d2b700e3dbff877561b8e85"
+    },
+    {
+      "name": "original sound section unchanged",
+      "pass": true,
+      "baseBytes": 130255,
+      "candidateBytes": 130255,
+      "baseSha256": "23a2c2ae176e9935ee49b7b411c66f2eab0daf55f5597f1139ee0c1813a71dfc",
+      "candidateSha256": "23a2c2ae176e9935ee49b7b411c66f2eab0daf55f5597f1139ee0c1813a71dfc"
+    },
+    {
+      "name": "video media reference multiset unchanged",
+      "pass": true,
+      "baseReferences": 4,
+      "candidateReferences": 4,
+      "referenceSha256": "e384e6be9edeb724c4463518c510b19e0773c311e9cab6246b1840052c989477"
+    },
+    {
+      "name": "candidate has one original assignment per protected car/physics/camera function",
+      "pass": true,
+      "assignmentCounts": {
+        "step": 1,
+        "simReset": 1,
+        "pose": 1,
+        "carHull": 1,
+        "carModel": 1,
+        "camStep": 1,
+        "framedFov": 1,
+        "setView": 1,
+        "setPace": 1,
+        "units": 1,
+        "defaultTune": 1
+      }
+    },
+    {
+      "name": "short-section preview override is absent and complete-lap module present",
+      "pass": true
+    }
+  ],
+  "mutationChecks": [
+    {
+      "name": "prefix change",
+      "pass": true
+    },
+    {
+      "name": "car change",
+      "pass": true
+    },
+    {
+      "name": "pose change",
+      "pass": true
+    },
+    {
+      "name": "camera change",
+      "pass": true
+    },
+    {
+      "name": "extra camera override",
+      "pass": true
+    }
+  ],
+  "limits": [
+    "Declared static landmarks, culling, startup and hidden-media lifecycle changes are reviewed separately. smoke971.cjs checks approved opening tuning, allocation-free particle updates and unchanged normal driving from an equal go-state.",
+    "Original camera/physics bodies are identical; frame scheduling may pause while hidden or context-lost.",
+    "Source preservation is not verification of live records or GPU performance; browser checks remain required.",
+    "Function-assignment counting is a narrow guard, not a general JavaScript semantic proof."
+  ]
+}

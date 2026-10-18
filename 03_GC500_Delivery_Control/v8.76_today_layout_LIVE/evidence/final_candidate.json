@@ -1,0 +1,15 @@
+{
+  "author": "Andrew Fisher",
+  "state": "READY",
+  "sha256": "4ec46478f952b0f26fa2ae72f73e5477c41012bf4b479395bab6283265451254",
+  "bytes": 11116428,
+  "layout_desktop_phone": "18/18",
+  "finance_desktop_phone": "24/24",
+  "navigation_routes": 21,
+  "deep_links": 7,
+  "back": "PASS",
+  "preservation": "PASS 1366/390",
+  "ultrawide": "PASS",
+  "all_source_data_unchanged": true,
+  "runtime_errors": 0
+}

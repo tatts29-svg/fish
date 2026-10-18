@@ -1,0 +1,227 @@
+{
+ "joined": [
+  {
+   "line": "9972648/1",
+   "ref": "WB01",
+   "quantity": 12,
+   "status": "Delivered",
+   "start": "2026-09-14",
+   "agree": [
+    "quantity 12",
+    "install date 2026-09-14"
+   ]
+  },
+  {
+   "line": "9972648/2",
+   "ref": "WB03",
+   "quantity": 30,
+   "status": "Delivered",
+   "start": "2026-09-18",
+   "agree": [
+    "quantity 30",
+    "install date 2026-09-18"
+   ]
+  },
+  {
+   "line": "9972648/3",
+   "ref": "WB02",
+   "quantity": 34,
+   "status": "Delivered",
+   "start": "2026-09-21",
+   "agree": [
+    "quantity 34",
+    "install date 2026-09-21"
+   ]
+  },
+  {
+   "line": "9972648/4",
+   "ref": "WB04",
+   "quantity": 12,
+   "status": "Del Req",
+   "start": null,
+   "agree": []
+  },
+  {
+   "line": "9972648/5",
+   "ref": "WB05",
+   "quantity": 13,
+   "status": "Del Req",
+   "start": null,
+   "agree": []
+  },
+  {
+   "line": "9972648/6",
+   "ref": "WB06",
+   "quantity": 60,
+   "status": "Delivered",
+   "start": "2026-10-15",
+   "agree": [
+    "install date 2026-10-15"
+   ]
+  },
+  {
+   "line": "9972648/7",
+   "ref": "WB07",
+   "quantity": 17,
+   "status": "Pending",
+   "start": null,
+   "agree": []
+  },
+  {
+   "line": "9972648/8",
+   "ref": "WB13",
+   "quantity": 10,
+   "status": "Del Req",
+   "start": null,
+   "agree": [
+    "quantity 10"
+   ]
+  },
+  {
+   "line": "9972648/9",
+   "ref": "WB14",
+   "quantity": 2,
+   "status": "Pending",
+   "start": null,
+   "agree": [
+    "quantity 2"
+   ]
+  },
+  {
+   "line": "9972648/10",
+   "ref": "WB15",
+   "quantity": 4,
+   "status": "Pending",
+   "start": null,
+   "agree": [
+    "quantity 4"
+   ]
+  },
+  {
+   "line": "9972648/11",
+   "ref": "WB16",
+   "quantity": 13,
+   "status": "Pending",
+   "start": null,
+   "agree": [
+    "quantity 13"
+   ]
+  },
+  {
+   "line": "9972648/12",
+   "ref": "WB17",
+   "quantity": 6,
+   "status": "Pending",
+   "start": null,
+   "agree": [
+    "quantity 6"
+   ]
+  },
+  {
+   "line": "9972648/13",
+   "ref": "WB18",
+   "quantity": 2,
+   "status": "Pending",
+   "start": null,
+   "agree": [
+    "quantity 2"
+   ]
+  },
+  {
+   "line": "9972648/14",
+   "ref": "WB20",
+   "quantity": 30,
+   "status": "Pending",
+   "start": null,
+   "agree": [
+    "quantity 30"
+   ]
+  },
+  {
+   "line": "9972648/15",
+   "ref": "WB19",
+   "quantity": 34,
+   "status": "Pending",
+   "start": null,
+   "agree": [
+    "quantity 34"
+   ]
+  },
+  {
+   "line": "9972648/16",
+   "ref": "WB06",
+   "quantity": 60,
+   "status": "Delivered",
+   "start": "2026-10-15",
+   "agree": [
+    "install date 2026-10-15"
+   ]
+  },
+  {
+   "line": "9972648/17",
+   "ref": "WB06",
+   "quantity": 34,
+   "status": "Delivered",
+   "start": "2026-10-15",
+   "agree": [
+    "install date 2026-10-15"
+   ]
+  }
+ ],
+ "no_reference": [
+  {
+   "ref": "WB21",
+   "quantity": 0,
+   "location": "Main Beach Light Rail - Bus Stop",
+   "install": "2026-10-18",
+   "note": "Install during Downer road closure - Coates to install with their forklift and labour"
+  },
+  {
+   "ref": "WB22",
+   "quantity": 4,
+   "location": "Marriot pedestrian crossing closure",
+   "install": "2026-10-18",
+   "note": "Install during Downer road closure - Coates to install with their forklift and labour"
+  }
+ ],
+ "quantity_differs": [
+  {
+   "ref": "WB04",
+   "schedule": 14,
+   "programme": 13,
+   "contract": 12,
+   "programme_note": "Traffic control required - Coates to install with their forklift and labour"
+  },
+  {
+   "ref": "WB05",
+   "schedule": 13,
+   "programme": 12,
+   "contract": 13,
+   "programme_note": "Traffic control required - Coates to install with their forklift and labour"
+  },
+  {
+   "ref": "WB07",
+   "schedule": 17,
+   "programme": 0,
+   "contract": 17,
+   "programme_note": "Install during Downer road closure - Coates to install with their forklift and labour"
+  }
+ ],
+ "assignments": [
+  "WB01",
+  "WB02",
+  "WB03",
+  "WB04",
+  "WB05",
+  "WB06",
+  "WB07",
+  "WB13",
+  "WB14",
+  "WB15",
+  "WB16",
+  "WB17",
+  "WB18",
+  "WB19",
+  "WB20"
+ ]
+}

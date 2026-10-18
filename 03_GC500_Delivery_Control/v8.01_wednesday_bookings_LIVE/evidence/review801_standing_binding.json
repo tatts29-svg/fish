@@ -1,0 +1,64 @@
+{
+  "author": "Andrew Fisher",
+  "candidateSha256": "70ed0c49213a910ae33dd062ecd3ada5f1752a69b0c1665c19c6bb25bcea1f11",
+  "standingCandidateSha256": "f2a4abfd1d483840cc5e1346acddba62b9e1c9d6de1c1fdd6766bae90441c6fb",
+  "fullPageReconstructedByteForByte": true,
+  "changedScopes": [
+    "selected booking number helper",
+    "selected day card header",
+    "verified booking provenance events",
+    "verified booking provenance (events || [])"
+  ],
+  "standingSuitesAllPassed": [
+    {
+      "suite": "navigation",
+      "exit": 0
+    },
+    {
+      "suite": "equipment_desktop",
+      "exit": 0
+    },
+    {
+      "suite": "equipment_phone",
+      "exit": 0
+    },
+    {
+      "suite": "packed_desktop",
+      "exit": 0
+    },
+    {
+      "suite": "packed_phone",
+      "exit": 0
+    },
+    {
+      "suite": "rules",
+      "exit": 0
+    },
+    {
+      "suite": "fresh",
+      "exit": 0
+    },
+    {
+      "suite": "sweep_desktop",
+      "exit": 0
+    },
+    {
+      "suite": "sweep_phone",
+      "exit": 0
+    },
+    {
+      "suite": "control_cpu",
+      "exit": 0
+    },
+    {
+      "suite": "print_cpu",
+      "exit": 0
+    },
+    {
+      "suite": "control_browser",
+      "exit": 0
+    }
+  ],
+  "binding": "Reversing only these four selected-card display edits reproduces every byte of the fully tested f2 candidate. DATA, storage, sync, navigation, Equipment, packed Today, rules, freshness, print and drawer-status sources are unchanged. The final selected-card header/provenance behaviour receives focused booking source and actual desktop/phone card tests; the standing suite is not represented as rerun on the later hash.",
+  "liveWrites": 0
+}

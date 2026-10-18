@@ -1,0 +1,124 @@
+page.evaluate: Target page, context or browser has been closed
+Browser logs:
+
+<launching> /opt/pw-browsers/chromium --disable-field-trial-config --disable-background-networking --disable-background-timer-throttling --disable-backgrounding-occluded-windows --disable-back-forward-cache --disable-breakpad --disable-client-side-phishing-detection --disable-component-extensions-with-background-pages --disable-component-update --no-default-browser-check --disable-default-apps --disable-dev-shm-usage --disable-edgeupdater --disable-extensions --disable-features=AvoidUnnecessaryBeforeUnloadCheckSync,DestroyProfileOnBrowserClose,DialMediaRouteProvider,GlobalMediaControls,HttpsUpgrades,LensOverlay,MediaRouter,PaintHolding,ThirdPartyStoragePartitioning,BlockOriginHeaderModificationOnRedirect,Translate,AutoDeElevate,OptimizationHints,msForceBrowserSignIn,msEdgeUpdateLaunchServicesPreferredVersion --enable-features=CDPScreenshotNewSurface --allow-pre-commit-input --disable-hang-monitor --disable-ipc-flooding-protection --disable-popup-blocking --disable-prompt-on-repost --disable-renderer-backgrounding --disable-updater-scheduler --force-color-profile=srgb --metrics-recording-only --no-first-run --password-store=basic --use-mock-keychain --no-service-autorun --export-tagged-pdf --disable-search-engine-choice-screen --unsafely-disable-devtools-self-xss-warnings --edge-skip-compat-layer-relaunch --disable-infobars --disable-search-engine-choice-screen --disable-sync --enable-unsafe-swiftshader --headless --hide-scrollbars --mute-audio --blink-settings=primaryHoverType=2,availableHoverTypes=2,primaryPointerType=4,availablePointerTypes=4 --no-sandbox --no-sandbox --lang=en-AU --user-data-dir=/tmp/playwright_chromiumdev_profile-eBTh0i --remote-debugging-pipe --no-startup-window
+<launched> pid=13739
+[pid=13739][err] [13739:13753:1007/234158.044040:ERROR:dbus/bus.cc:408] Failed to connect to the bus: Failed to connect to socket /run/dbus/system_bus_socket: No such file or directory
+[pid=13739][err] [13739:13753:1007/234158.049342:ERROR:dbus/bus.cc:408] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+[pid=13739][err] [13739:13753:1007/234158.050216:ERROR:dbus/bus.cc:408] Failed to connect to the bus: Failed to connect to socket /run/dbus/system_bus_socket: No such file or directory
+[pid=13739][err] [13739:13753:1007/234158.050896:ERROR:dbus/bus.cc:408] Failed to connect to the bus: Failed to connect to socket /run/dbus/system_bus_socket: No such file or directory
+[pid=13739][err] [13739:13753:1007/234158.080557:ERROR:dbus/bus.cc:408] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+[pid=13739][err] [13739:13739:1007/234158.098127:ERROR:dbus/object_proxy.cc:573] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+[pid=13739][err] [13739:13753:1007/234158.098772:ERROR:dbus/bus.cc:408] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+[pid=13739][err] [13739:13753:1007/234158.098792:ERROR:dbus/bus.cc:408] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+[pid=13739][err] [13739:13753:1007/234158.099280:ERROR:dbus/bus.cc:408] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+[pid=13739][err] [13739:13753:1007/234158.099297:ERROR:dbus/bus.cc:408] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+[pid=13739][err] [13739:13753:1007/234158.099303:ERROR:dbus/bus.cc:408] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+[pid=13739][err] [13739:13739:1007/234158.111120:ERROR:dbus/object_proxy.cc:573] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+[pid=13739][err] [13739:13739:1007/234158.113121:ERROR:dbus/object_proxy.cc:573] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+[pid=13739][err] [13739:13739:1007/234158.113145:ERROR:dbus/object_proxy.cc:573] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+[pid=13739][err] [13739:13753:1007/234158.114515:ERROR:dbus/bus.cc:408] Failed to connect to the bus: Failed to connect to socket /run/dbus/system_bus_socket: No such file or directory
+[pid=13739][err] [13739:13753:1007/234158.115500:ERROR:dbus/bus.cc:408] Failed to connect to the bus: Failed to connect to socket /run/dbus/system_bus_socket: No such file or directory
+[pid=13739][err] [13739:13739:1007/234158.118600:ERROR:dbus/object_proxy.cc:573] Failed to call method: org.freedesktop.DBus.Properties.GetAll: object_path= /org/freedesktop/UPower/devices/DisplayDevice: unknown error type: 
+[pid=13739][err] [13769:13803:1007/234158.255610:ERROR:net/socket/ssl_client_socket_impl.cc:902] handshake failed; returned -1, SSL error code 1, net_error -202
+[pid=13739][err] [13813:13827:1007/234158.265026:ERROR:gpu/ipc/client/command_buffer_proxy_impl.cc:328] GPU state invalid after WaitForGetOffsetInRange.
+[pid=13739][err] [13769:13803:1007/234158.266825:ERROR:net/socket/ssl_client_socket_impl.cc:902] handshake failed; returned -1, SSL error code 1, net_error -202
+[pid=13739][err] [13769:13803:1007/234158.278159:ERROR:net/socket/ssl_client_socket_impl.cc:902] handshake failed; returned -1, SSL error code 1, net_error -202
+[pid=13739][err] [13769:13803:1007/234158.449943:ERROR:net/socket/ssl_client_socket_impl.cc:902] handshake failed; returned -1, SSL error code 1, net_error -202
+[pid=13739][err] [13769:13803:1007/234159.340546:ERROR:net/socket/ssl_client_socket_impl.cc:902] handshake failed; returned -1, SSL error code 1, net_error -202
+[pid=13739][err] [13769:13803:1007/234200.560556:ERROR:net/socket/ssl_client_socket_impl.cc:902] handshake failed; returned -1, SSL error code 1, net_error -202
+[pid=13739][err] [13769:13803:1007/234200.980532:ERROR:net/socket/ssl_client_socket_impl.cc:902] handshake failed; returned -1, SSL error code 1, net_error -202
+[pid=13739][err] [13769:13803:1007/234201.563769:ERROR:net/socket/ssl_client_socket_impl.cc:902] handshake failed; returned -1, SSL error code 1, net_error -202
+[pid=13739][err] [13769:13803:1007/234201.712086:ERROR:net/socket/ssl_client_socket_impl.cc:902] handshake failed; returned -1, SSL error code 1, net_error -202
+[pid=13739][err] [13769:13803:1007/234201.844364:ERROR:net/socket/ssl_client_socket_impl.cc:902] handshake failed; returned -1, SSL error code 1, net_error -202
+[pid=13739][err] [13769:13803:1007/234202.586886:ERROR:net/socket/ssl_client_socket_impl.cc:902] handshake failed; returned -1, SSL error code 1, net_error -202
+[pid=13739][err] [13769:13803:1007/234202.723493:ERROR:net/socket/ssl_client_socket_impl.cc:902] handshake failed; returned -1, SSL error code 1, net_error -202
+[pid=13739][err] [13769:13803:1007/234203.020844:ERROR:net/socket/ssl_client_socket_impl.cc:902] handshake failed; returned -1, SSL error code 1, net_error -202
+[pid=13739][err] [13769:13803:1007/234203.114832:ERROR:net/socket/ssl_client_socket_impl.cc:902] handshake failed; returned -1, SSL error code 1, net_error -202
+[pid=13739][err] [13769:13803:1007/234203.115852:ERROR:net/socket/ssl_client_socket_impl.cc:902] handshake failed; returned -1, SSL error code 1, net_error -202
+[pid=13739][err] [13769:13803:1007/234203.116435:ERROR:net/socket/ssl_client_socket_impl.cc:902] handshake failed; returned -1, SSL error code 1, net_error -202
+[pid=13739][err] [13769:13803:1007/234203.116885:ERROR:net/socket/ssl_client_socket_impl.cc:902] handshake failed; returned -1, SSL error code 1, net_error -202
+[pid=13739][err] [13769:13803:1007/234203.917392:ERROR:net/socket/ssl_client_socket_impl.cc:902] handshake failed; returned -1, SSL error code 1, net_error -202
+[pid=13739][err] [13769:13803:1007/234203.927853:ERROR:net/socket/ssl_client_socket_impl.cc:902] handshake failed; returned -1, SSL error code 1, net_error -202
+[pid=13739][err] [13769:13803:1007/234204.028995:ERROR:net/socket/ssl_client_socket_impl.cc:902] handshake failed; returned -1, SSL error code 1, net_error -202
+[pid=13739][err] [13769:13803:1007/234204.057992:ERROR:net/socket/ssl_client_socket_impl.cc:902] handshake failed; returned -1, SSL error code 1, net_error -202
+[pid=13739][err] [13769:13803:1007/234204.398875:ERROR:net/socket/ssl_client_socket_impl.cc:902] handshake failed; returned -1, SSL error code 1, net_error -202
+[pid=13739][err] [13769:13803:1007/234205.209114:ERROR:net/socket/ssl_client_socket_impl.cc:902] handshake failed; returned -1, SSL error code 1, net_error -202
+[pid=13739][err] [13769:13803:1007/234205.260941:ERROR:net/socket/ssl_client_socket_impl.cc:902] handshake failed; returned -1, SSL error code 1, net_error -202
+[pid=13739][err] [13769:13803:1007/234205.310609:ERROR:net/socket/ssl_client_socket_impl.cc:902] handshake failed; returned -1, SSL error code 1, net_error -202
+[pid=13739][err] [13769:13803:1007/234205.391933:ERROR:net/socket/ssl_client_socket_impl.cc:902] handshake failed; returned -1, SSL error code 1, net_error -202
+[pid=13739][err] [13769:13803:1007/234205.838211:ERROR:net/socket/ssl_client_socket_impl.cc:902] handshake failed; returned -1, SSL error code 1, net_error -202
+[pid=13739][err] [13769:13803:1007/234206.026014:ERROR:net/socket/ssl_client_socket_impl.cc:902] handshake failed; returned -1, SSL error code 1, net_error -202
+[pid=13739][err] [13769:13803:1007/234206.628504:ERROR:net/socket/ssl_client_socket_impl.cc:902] handshake failed; returned -1, SSL error code 1, net_error -202
+[pid=13739][err] [13769:13803:1007/234207.274450:ERROR:net/socket/ssl_client_socket_impl.cc:902] handshake failed; returned -1, SSL error code 1, net_error -202
+[pid=13739][err] [13769:13803:1007/234207.325900:ERROR:net/socket/ssl_client_socket_impl.cc:902] handshake failed; returned -1, SSL error code 1, net_error -202
+[pid=13739][err] [13769:13803:1007/234207.369480:ERROR:net/socket/ssl_client_socket_impl.cc:902] handshake failed; returned -1, SSL error code 1, net_error -202
+[pid=13739][err] [13769:13803:1007/234207.497374:ERROR:net/socket/ssl_client_socket_impl.cc:902] handshake failed; returned -1, SSL error code 1, net_error -202
+[pid=13739][err] [13769:13803:1007/234207.733723:ERROR:net/socket/ssl_client_socket_impl.cc:902] handshake failed; returned -1, SSL error code 1, net_error -202
+[pid=13739][err] [13769:13803:1007/234210.120528:ERROR:net/socket/ssl_client_socket_impl.cc:902] handshake failed; returned -1, SSL error code 1, net_error -202
+[pid=13739][err] [13769:13803:1007/234210.205183:ERROR:net/socket/ssl_client_socket_impl.cc:902] handshake failed; returned -1, SSL error code 1, net_error -202
+[pid=13739][err] [13769:13803:1007/234210.370935:ERROR:net/socket/ssl_client_socket_impl.cc:902] handshake failed; returned -1, SSL error code 1, net_error -202
+[pid=13739][err] [13769:13803:1007/234210.599498:ERROR:net/socket/ssl_client_socket_impl.cc:902] handshake failed; returned -1, SSL error code 1, net_error -202
+[pid=13739][err] [13769:13803:1007/234210.606816:ERROR:net/socket/ssl_client_socket_impl.cc:902] handshake failed; returned -1, SSL error code 1, net_error -202
+[pid=13739][err] [13769:13803:1007/234214.501573:ERROR:net/socket/ssl_client_socket_impl.cc:902] handshake failed; returned -1, SSL error code 1, net_error -202
+[pid=13739][err] [13769:13803:1007/234214.623594:ERROR:net/socket/ssl_client_socket_impl.cc:902] handshake failed; returned -1, SSL error code 1, net_error -202
+[pid=13739][err] [13769:13803:1007/234214.786924:ERROR:net/socket/ssl_client_socket_impl.cc:902] handshake failed; returned -1, SSL error code 1, net_error -202
+[pid=13739][err] [13769:13803:1007/234215.126563:ERROR:net/socket/ssl_client_socket_impl.cc:902] handshake failed; returned -1, SSL error code 1, net_error -202
+[pid=13739][err] [13769:13803:1007/234215.476075:ERROR:net/socket/ssl_client_socket_impl.cc:902] handshake failed; returned -1, SSL error code 1, net_error -202
+[pid=13739][err] [13769:13803:1007/234220.863434:ERROR:net/socket/ssl_client_socket_impl.cc:902] handshake failed; returned -1, SSL error code 1, net_error -202
+[pid=13739][err] [13769:13803:1007/234220.866165:ERROR:net/socket/ssl_client_socket_impl.cc:902] handshake failed; returned -1, SSL error code 1, net_error -202
+[pid=13739][err] [13769:13803:1007/234221.730473:ERROR:net/socket/ssl_client_socket_impl.cc:902] handshake failed; returned -1, SSL error code 1, net_error -202
+[pid=13739][err] [13769:13803:1007/234222.868717:ERROR:net/socket/ssl_client_socket_impl.cc:902] handshake failed; returned -1, SSL error code 1, net_error -202
+[pid=13739][err] [13769:13803:1007/234231.356734:ERROR:net/socket/ssl_client_socket_impl.cc:902] handshake failed; returned -1, SSL error code 1, net_error -202
+[pid=13739][err] [13769:13803:1007/234231.774219:ERROR:net/socket/ssl_client_socket_impl.cc:902] handshake failed; returned -1, SSL error code 1, net_error -202
+[pid=13739][err] [13769:13803:1007/234232.704728:ERROR:net/socket/ssl_client_socket_impl.cc:902] handshake failed; returned -1, SSL error code 1, net_error -202
+[pid=13739][err] [13769:13803:1007/234233.019901:ERROR:net/socket/ssl_client_socket_impl.cc:902] handshake failed; returned -1, SSL error code 1, net_error -202
+[pid=13739][err] [13769:13803:1007/234233.970152:ERROR:net/socket/ssl_client_socket_impl.cc:902] handshake failed; returned -1, SSL error code 1, net_error -202
+[pid=13739][err] [13769:13803:1007/234234.665856:ERROR:net/socket/ssl_client_socket_impl.cc:902] handshake failed; returned -1, SSL error code 1, net_error -202
+[pid=13739][err] [13769:13803:1007/234235.398774:ERROR:net/socket/ssl_client_socket_impl.cc:902] handshake failed; returned -1, SSL error code 1, net_error -202
+[pid=13739][err] [13769:13803:1007/234236.109775:ERROR:net/socket/ssl_client_socket_impl.cc:902] handshake failed; returned -1, SSL error code 1, net_error -202
+[pid=13739][err] [13769:13803:1007/234236.307167:ERROR:net/socket/ssl_client_socket_impl.cc:902] handshake failed; returned -1, SSL error code 1, net_error -202
+[pid=13739][err] [13769:13803:1007/234236.761060:ERROR:net/socket/ssl_client_socket_impl.cc:902] handshake failed; returned -1, SSL error code 1, net_error -202
+[pid=13739][err] [13769:13803:1007/234237.989846:ERROR:net/socket/ssl_client_socket_impl.cc:902] handshake failed; returned -1, SSL error code 1, net_error -202
+[pid=13739][err] [13769:13803:1007/234244.872915:ERROR:net/socket/ssl_client_socket_impl.cc:902] handshake failed; returned -1, SSL error code 1, net_error -202
+[pid=13739][err] [13769:13803:1007/234245.604508:ERROR:net/socket/ssl_client_socket_impl.cc:902] handshake failed; returned -1, SSL error code 1, net_error -202
+[pid=13739][err] [13769:13803:1007/234246.025049:ERROR:net/socket/ssl_client_socket_impl.cc:902] handshake failed; returned -1, SSL error code 1, net_error -202
+[pid=13739][err] [13769:13803:1007/234249.196660:ERROR:net/socket/ssl_client_socket_impl.cc:902] handshake failed; returned -1, SSL error code 1, net_error -202
+[pid=13739][err] [13769:13803:1007/234249.702400:ERROR:net/socket/ssl_client_socket_impl.cc:902] handshake failed; returned -1, SSL error code 1, net_error -202
+[pid=13739][err] [13769:13803:1007/234301.262904:ERROR:net/socket/ssl_client_socket_impl.cc:902] handshake failed; returned -1, SSL error code 1, net_error -202
+[pid=13739][err] [13769:13803:1007/234302.972398:ERROR:net/socket/ssl_client_socket_impl.cc:902] handshake failed; returned -1, SSL error code 1, net_error -202
+[pid=13739][err] [13769:13803:1007/234304.892213:ERROR:net/socket/ssl_client_socket_impl.cc:902] handshake failed; returned -1, SSL error code 1, net_error -202
+[pid=13739][err] [13769:13803:1007/234306.353504:ERROR:net/socket/ssl_client_socket_impl.cc:902] handshake failed; returned -1, SSL error code 1, net_error -202
+[pid=13739][err] [13769:13803:1007/234306.567625:ERROR:net/socket/ssl_client_socket_impl.cc:902] handshake failed; returned -1, SSL error code 1, net_error -202
+[pid=13739][err] [13769:13803:1007/234307.003342:ERROR:net/socket/ssl_client_socket_impl.cc:902] handshake failed; returned -1, SSL error code 1, net_error -202
+[pid=13739][err] [13769:13803:1007/234308.226192:ERROR:net/socket/ssl_client_socket_impl.cc:902] handshake failed; returned -1, SSL error code 1, net_error -202
+[pid=13739][err] [13769:13803:1007/234308.475479:ERROR:net/socket/ssl_client_socket_impl.cc:902] handshake failed; returned -1, SSL error code 1, net_error -202
+[pid=13739][err] [13769:13803:1007/234310.125255:ERROR:net/socket/ssl_client_socket_impl.cc:902] handshake failed; returned -1, SSL error code 1, net_error -202
+[pid=13739][err] [13769:13803:1007/234312.522585:ERROR:net/socket/ssl_client_socket_impl.cc:902] handshake failed; returned -1, SSL error code 1, net_error -202
+[pid=13739][err] [13769:13803:1007/234314.733450:ERROR:net/socket/ssl_client_socket_impl.cc:902] handshake failed; returned -1, SSL error code 1, net_error -202
+[pid=13739][err] [13769:13803:1007/234315.083227:ERROR:net/socket/ssl_client_socket_impl.cc:902] handshake failed; returned -1, SSL error code 1, net_error -202
+[pid=13739][err] [13769:13803:1007/234322.150725:ERROR:net/socket/ssl_client_socket_impl.cc:902] handshake failed; returned -1, SSL error code 1, net_error -202
+[pid=13739][err] [13769:13803:1007/234333.237250:ERROR:net/socket/ssl_client_socket_impl.cc:902] handshake failed; returned -1, SSL error code 1, net_error -202
+[pid=13739][err] [13769:13803:1007/234336.689249:ERROR:net/socket/ssl_client_socket_impl.cc:902] handshake failed; returned -1, SSL error code 1, net_error -202
+[pid=13739][err] [13769:13803:1007/234336.843673:ERROR:net/socket/ssl_client_socket_impl.cc:902] handshake failed; returned -1, SSL error code 1, net_error -202
+[pid=13739][err] [13769:13803:1007/234337.233274:ERROR:net/socket/ssl_client_socket_impl.cc:902] handshake failed; returned -1, SSL error code 1, net_error -202
+[pid=13739][err] [13769:13803:1007/234338.461455:ERROR:net/socket/ssl_client_socket_impl.cc:902] handshake failed; returned -1, SSL error code 1, net_error -202
+[pid=13739][err] [13769:13803:1007/234341.107499:ERROR:net/socket/ssl_client_socket_impl.cc:902] handshake failed; returned -1, SSL error code 1, net_error -202
+[pid=13739][err] [13769:13803:1007/234345.179009:ERROR:net/socket/ssl_client_socket_impl.cc:902] handshake failed; returned -1, SSL error code 1, net_error -202
+[pid=13739][err] [13769:13803:1007/234345.360431:ERROR:net/socket/ssl_client_socket_impl.cc:902] handshake failed; returned -1, SSL error code 1, net_error -202
+[pid=13739][err] [13769:13803:1007/234347.896162:ERROR:net/socket/ssl_client_socket_impl.cc:902] handshake failed; returned -1, SSL error code 1, net_error -202
+[pid=13739][err] [13769:13803:1007/234349.575886:ERROR:net/socket/ssl_client_socket_impl.cc:902] handshake failed; returned -1, SSL error code 1, net_error -202
+[pid=13739][err] [13769:13803:1007/234351.949240:ERROR:net/socket/ssl_client_socket_impl.cc:902] handshake failed; returned -1, SSL error code 1, net_error -202
+[pid=13739][err] [13769:13803:1007/234406.861418:ERROR:net/socket/ssl_client_socket_impl.cc:902] handshake failed; returned -1, SSL error code 1, net_error -202
+[pid=13739][err] [13769:13803:1007/234407.193390:ERROR:net/socket/ssl_client_socket_impl.cc:902] handshake failed; returned -1, SSL error code 1, net_error -202
+[pid=13739][err] [13769:13803:1007/234407.461321:ERROR:net/socket/ssl_client_socket_impl.cc:902] handshake failed; returned -1, SSL error code 1, net_error -202
+[pid=13739][err] [13769:13803:1007/234413.602639:ERROR:net/socket/ssl_client_socket_impl.cc:902] handshake failed; returned -1, SSL error code 1, net_error -202
+[pid=13739][err] [13769:13803:1007/234429.303667:ERROR:net/socket/ssl_client_socket_impl.cc:902] handshake failed; returned -1, SSL error code 1, net_error -202
+[pid=13739][err] [13769:13803:1007/234437.963148:ERROR:net/socket/ssl_client_socket_impl.cc:902] handshake failed; returned -1, SSL error code 1, net_error -202
+[pid=13739][err] [13769:13803:1007/234442.135128:ERROR:net/socket/ssl_client_socket_impl.cc:902] handshake failed; returned -1, SSL error code 1, net_error -202
+[pid=13739][err] [13769:13803:1007/234442.206504:ERROR:net/socket/ssl_client_socket_impl.cc:902] handshake failed; returned -1, SSL error code 1, net_error -202
+[pid=13739] <gracefully close start>
+[pid=13739][err] [13739:13739:1007/234500.399625:ERROR:content/common/zygote/zygote_communication_linux.cc:293] Failed to send GetTerminationStatus message to zygote
+    at /home/user/fish/03_GC500_Delivery_Control/v8.74_vms_today_LIVE/tests/test_vms874.cjs:14:21 {
+  log: []
+}

@@ -1,0 +1,171 @@
+{
+  "author": "Andrew Fisher",
+  "sources": [
+    {
+      "name": "packed_desktop",
+      "source": "v7.95_today_packed_DRAFT/evidence/packed_tests.js",
+      "sourceSha256": "82f7a0f74e524fa052d8116eb60e1b5d404c7c3c8969360dae896a9c2d95ad87",
+      "adaptedSha256": "03ca4e7071036669f38922dbe4ac61e0f485fb1c6b431f42992dcdb777d97b47",
+      "adaptations": [],
+      "mobile": false,
+      "minimumAssertions": 20,
+      "file": "/workspace/gc500-showcase-full-lap/03_GC500_Delivery_Control/review_v815_release/evidence/selection_final/runner_sources/packed_desktop.cjs"
+    },
+    {
+      "name": "packed_phone",
+      "source": "v7.95_today_packed_DRAFT/evidence/packed_tests.js",
+      "sourceSha256": "82f7a0f74e524fa052d8116eb60e1b5d404c7c3c8969360dae896a9c2d95ad87",
+      "adaptedSha256": "03ca4e7071036669f38922dbe4ac61e0f485fb1c6b431f42992dcdb777d97b47",
+      "adaptations": [],
+      "mobile": true,
+      "minimumAssertions": 14,
+      "file": "/workspace/gc500-showcase-full-lap/03_GC500_Delivery_Control/review_v815_release/evidence/selection_final/runner_sources/packed_phone.cjs"
+    },
+    {
+      "name": "equipment_desktop",
+      "source": "v7.96_equipment_tab_LIVE/evidence/equipment_tests.js",
+      "sourceSha256": "272f48bf29f1e1ace3b357627a39d17711eb5485cd8b9b9b9b147116f4d758e1",
+      "adaptedSha256": "43c8ff96b10dfa3bac215afb897b6dcd987be5b16dfcc728493e4ad4a99f57d7",
+      "adaptations": [],
+      "mobile": false,
+      "minimumAssertions": 22,
+      "file": "/workspace/gc500-showcase-full-lap/03_GC500_Delivery_Control/review_v815_release/evidence/selection_final/runner_sources/equipment_desktop.cjs"
+    },
+    {
+      "name": "equipment_phone",
+      "source": "v7.96_equipment_tab_LIVE/evidence/equipment_tests.js",
+      "sourceSha256": "272f48bf29f1e1ace3b357627a39d17711eb5485cd8b9b9b9b147116f4d758e1",
+      "adaptedSha256": "43c8ff96b10dfa3bac215afb897b6dcd987be5b16dfcc728493e4ad4a99f57d7",
+      "adaptations": [],
+      "mobile": true,
+      "minimumAssertions": 22,
+      "file": "/workspace/gc500-showcase-full-lap/03_GC500_Delivery_Control/review_v815_release/evidence/selection_final/runner_sources/equipment_phone.cjs"
+    },
+    {
+      "name": "rules",
+      "source": "v7.84_ways_in_from_andrew_LIVE/evidence/rules_tests.js",
+      "sourceSha256": "c34fce37d2519de7ac9c2b826783649403697d6250b5881ad80f9e4bf73de949",
+      "adaptedSha256": "7c56c12786c7c96d8476110cb3280b3a074e84fc8d489a8018ce4dca252a3a9d",
+      "adaptations": [],
+      "mobile": false,
+      "minimumAssertions": 45,
+      "file": "/workspace/gc500-showcase-full-lap/03_GC500_Delivery_Control/review_v815_release/evidence/selection_final/runner_sources/rules.cjs"
+    },
+    {
+      "name": "fresh_after_save",
+      "source": "v7.75_fresh_after_a_save_LIVE/evidence/fresh_after_save_tests.js",
+      "sourceSha256": "84c2cee38a8532be8e6f212bda6b39dacf27ca5d40e0f9c34f04047c215066b2",
+      "adaptedSha256": "c008d2c96c9982c0497a5f9ae73128c54c6e7c4c90bf17c9ed799b101c9c8542",
+      "adaptations": [],
+      "mobile": false,
+      "minimumAssertions": 11,
+      "file": "/workspace/gc500-showcase-full-lap/03_GC500_Delivery_Control/review_v815_release/evidence/selection_final/runner_sources/fresh_after_save.cjs"
+    },
+    {
+      "name": "today_desktop",
+      "source": "v7.99_today_faster_fuller_LIVE/evidence/v799_tests.js",
+      "sourceSha256": "2f50348da84682357ce75bc55587ecd8f1fce0560cc25acb38212ff7dd551c3b",
+      "adaptedSha256": "3fe3ad6df62e70a0cb09a9afc9db1c88f2127a793295be136cebba7ef4ae2b39",
+      "adaptations": [
+        "Only Today Ctrl+P may shorten; A4 report page-count equality retained."
+      ],
+      "mobile": false,
+      "minimumAssertions": 23,
+      "file": "/workspace/gc500-showcase-full-lap/03_GC500_Delivery_Control/review_v815_release/evidence/selection_final/runner_sources/today_desktop.cjs"
+    },
+    {
+      "name": "today_phone",
+      "source": "v7.99_today_faster_fuller_LIVE/evidence/v799_tests.js",
+      "sourceSha256": "2f50348da84682357ce75bc55587ecd8f1fce0560cc25acb38212ff7dd551c3b",
+      "adaptedSha256": "3fe3ad6df62e70a0cb09a9afc9db1c88f2127a793295be136cebba7ef4ae2b39",
+      "adaptations": [
+        "Only Today Ctrl+P may shorten; A4 report page-count equality retained."
+      ],
+      "mobile": true,
+      "minimumAssertions": 18,
+      "file": "/workspace/gc500-showcase-full-lap/03_GC500_Delivery_Control/review_v815_release/evidence/selection_final/runner_sources/today_phone.cjs"
+    },
+    {
+      "name": "results_desktop",
+      "source": "v7.99_today_faster_fuller_LIVE/evidence/results796_tests.cjs",
+      "sourceSha256": "03a98a6a50e1ce866e970d554cdad57fd4a6ceba09bc5b671e82e12e342ea605",
+      "adaptedSha256": "1175e73f78773130c37bb758df1b94c00758099465a8fbef5daf1fa7637e9695",
+      "adaptations": [],
+      "mobile": false,
+      "minimumAssertions": 9,
+      "file": "/workspace/gc500-showcase-full-lap/03_GC500_Delivery_Control/review_v815_release/evidence/selection_final/runner_sources/results_desktop.cjs"
+    },
+    {
+      "name": "results_phone",
+      "source": "v7.99_today_faster_fuller_LIVE/evidence/results796_tests.cjs",
+      "sourceSha256": "03a98a6a50e1ce866e970d554cdad57fd4a6ceba09bc5b671e82e12e342ea605",
+      "adaptedSha256": "1175e73f78773130c37bb758df1b94c00758099465a8fbef5daf1fa7637e9695",
+      "adaptations": [],
+      "mobile": true,
+      "minimumAssertions": 9,
+      "file": "/workspace/gc500-showcase-full-lap/03_GC500_Delivery_Control/review_v815_release/evidence/selection_final/runner_sources/results_phone.cjs"
+    },
+    {
+      "name": "one_tab_desktop",
+      "source": "v7.93_one_tab_today_DRAFT/evidence/one_tab_tests.js",
+      "sourceSha256": "5fe9bc1854d3d9c603512f46fb31f492260b0e479fa2ad963da89b3b30833ac9",
+      "adaptedSha256": "c647e5c9d9daa879491e88d3bdba3016733721277c545a4e9899fb1ba6ceca5d",
+      "adaptations": [
+        "Assert the actual #showcase modal, open state, dimensions, Back and focus; #showBackdrop is an optional selector intentionally hidden behind phone Options.",
+        "Fencing and roads presence replaced with authorised absence; Costs absence retained.",
+        "Section-presence selector includes established fold headings; none of the required headings waived.",
+        "Obsolete Today Fencing duplicate exception removed; all remaining duplicates still fail."
+      ],
+      "mobile": false,
+      "minimumAssertions": 24,
+      "file": "/workspace/gc500-showcase-full-lap/03_GC500_Delivery_Control/review_v815_release/evidence/selection_final/runner_sources/one_tab_desktop.cjs"
+    },
+    {
+      "name": "one_tab_phone",
+      "source": "v7.93_one_tab_today_DRAFT/evidence/one_tab_tests.js",
+      "sourceSha256": "5fe9bc1854d3d9c603512f46fb31f492260b0e479fa2ad963da89b3b30833ac9",
+      "adaptedSha256": "c647e5c9d9daa879491e88d3bdba3016733721277c545a4e9899fb1ba6ceca5d",
+      "adaptations": [
+        "Assert the actual #showcase modal, open state, dimensions, Back and focus; #showBackdrop is an optional selector intentionally hidden behind phone Options.",
+        "Fencing and roads presence replaced with authorised absence; Costs absence retained.",
+        "Section-presence selector includes established fold headings; none of the required headings waived.",
+        "Obsolete Today Fencing duplicate exception removed; all remaining duplicates still fail."
+      ],
+      "mobile": true,
+      "minimumAssertions": 24,
+      "file": "/workspace/gc500-showcase-full-lap/03_GC500_Delivery_Control/review_v815_release/evidence/selection_final/runner_sources/one_tab_phone.cjs"
+    },
+    {
+      "name": "same_figures",
+      "source": "v7.99_today_faster_fuller_LIVE/evidence/same_figures.js",
+      "sourceSha256": "3cf494fadd964f514681243cba26f0543cc89ef827a3697070c68edc233c47e3",
+      "adaptedSha256": "aeb1fff05f28f4cc91b32f77db3b7769ee988c4f21aad44a9207ba0e5363079d",
+      "adaptations": [
+        "Compare retained Today text after removing only authorised removed cards from both snapshots; all six destination tabs still exact."
+      ],
+      "mobile": false,
+      "minimumAssertions": 7,
+      "file": "/workspace/gc500-showcase-full-lap/03_GC500_Delivery_Control/review_v815_release/evidence/selection_final/runner_sources/same_figures.cjs"
+    },
+    {
+      "name": "sweep_desktop",
+      "source": "toolchain/harness/sweep.js",
+      "sourceSha256": "258eb0cdc7dbab558c260f04ebebc649c82394ff366162127f642a31c169e86e",
+      "adaptedSha256": "c98590d357315c99fc14e01908276b7faf86d8b4f80b784b07223e4a8329bb0e",
+      "adaptations": [],
+      "mobile": false,
+      "minimumAssertions": 21,
+      "file": "/workspace/gc500-showcase-full-lap/03_GC500_Delivery_Control/review_v815_release/evidence/selection_final/runner_sources/sweep_desktop.cjs"
+    },
+    {
+      "name": "sweep_phone",
+      "source": "toolchain/harness/sweep.js",
+      "sourceSha256": "258eb0cdc7dbab558c260f04ebebc649c82394ff366162127f642a31c169e86e",
+      "adaptedSha256": "c98590d357315c99fc14e01908276b7faf86d8b4f80b784b07223e4a8329bb0e",
+      "adaptations": [],
+      "mobile": true,
+      "minimumAssertions": 21,
+      "file": "/workspace/gc500-showcase-full-lap/03_GC500_Delivery_Control/review_v815_release/evidence/selection_final/runner_sources/sweep_phone.cjs"
+    }
+  ]
+}

@@ -1,0 +1,44 @@
+/* Author: Andrew Fisher. VMS boards tab (v10.24): phone first, one card per position. */
+#pane-vms .v1024-filters{display:flex;gap:6px;flex-wrap:wrap;margin:6px 0}
+#pane-vms .v1024-filters .btn small{opacity:.75;margin-left:4px}
+#pane-vms .v1024-src summary{cursor:pointer;font-weight:600}
+#pane-vms .v1024-src li{margin:4px 0;font-size:.92em}
+#pane-vms .v1024-list{display:grid;gap:12px}
+#pane-vms .v1024-card.done{border-left:5px solid #2e7d32}
+#pane-vms .v1024-h{display:flex;gap:10px;align-items:flex-start}
+#pane-vms .v1024-h h3{margin:0 0 2px;font-size:1.05em}
+#pane-vms .v1024-no{flex:none;background:#f07c2a;color:#fff;font-weight:800;padding:4px 9px;border-radius:4px;font-size:1.05em;white-space:nowrap}
+#pane-vms .v1024-pics{display:grid;grid-template-columns:1fr;gap:8px;margin:8px 0}
+#pane-vms .v1024-pics figure{margin:0;border:1px solid rgba(0,0,0,.12);border-radius:6px;overflow:hidden;background:#f3f4f5;position:relative}
+#pane-vms .v1024-pics img{display:block;width:100%;height:auto}
+#pane-vms .v1024-pics figcaption{font-size:.78em;opacity:.8;padding:3px 6px;position:relative;background:#f3f4f5}
+#pane-vms .v1024-im{display:block;position:relative;line-height:0}
+#pane-vms .v1024-sat .v1024-ring{position:absolute;left:50%;top:50%;width:34px;height:34px;margin:-17px 0 0 -17px;border:4px solid #f07c2a;border-radius:50%;box-shadow:0 0 0 2px rgba(255,255,255,.85),inset 0 0 0 2px rgba(255,255,255,.85);pointer-events:none}
+#pane-vms .v1024-sat .v1024-ring::before,#pane-vms .v1024-sat .v1024-ring::after{content:"";position:absolute;background:#f07c2a;left:50%;top:50%}
+#pane-vms .v1024-sat .v1024-ring::before{width:3px;height:54px;margin:-27px 0 0 -1.5px}
+#pane-vms .v1024-sat .v1024-ring::after{height:3px;width:54px;margin:-1.5px 0 0 -27px}
+#pane-vms .v1024-sat .v1024-scale{position:absolute;left:10px;bottom:10px;height:5px;background:#fff;border:1px solid #15181a;font-size:11px;line-height:1;color:#fff;text-shadow:0 0 2px #000,0 0 2px #000;padding-top:7px;box-sizing:content-box;white-space:nowrap}
+#pane-vms .v1024-sat .v1024-north{position:absolute;right:8px;top:6px;font-size:13px;font-weight:800;color:#fff;text-shadow:0 0 2px #000,0 0 3px #000}
+#pane-vms .v1024-wait{min-height:120px;display:flex;align-items:center;justify-content:center;font-size:.85em;opacity:.7;padding:8px;text-align:center}
+#pane-vms .v1024-nav{display:grid;grid-template-columns:96px 1fr;gap:10px;align-items:center;margin:6px 0}
+#pane-vms .v1024-qr svg{width:96px;height:96px;display:block}
+#pane-vms .v1024-nav small{opacity:.75}
+#pane-vms .v1024-nav .btn{margin-top:4px}
+#pane-vms .v1024-msg{border:1px solid #f07c2a;border-left:4px solid #f07c2a;background:rgba(240,124,42,.08);padding:4px 8px;margin:4px 0;font-size:.92em}
+#pane-vms .v1024-msg code{display:block;font-weight:800;font-size:1.05em;margin-top:2px}
+#pane-vms .v1024-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px}
+#pane-vms .v1024-grid label{display:flex;flex-direction:column;gap:2px;font-size:.85em}
+#pane-vms .v1024-grid label span{text-transform:uppercase;letter-spacing:.04em;font-size:.82em;opacity:.75}
+#pane-vms .v1024-grid .v1024-wide{grid-column:1/-1}
+#pane-vms .v1024-grid .v1024-tick{flex-direction:row;align-items:center;gap:8px;grid-column:1/-1}
+#pane-vms .v1024-grid .v1024-tick span{text-transform:none;letter-spacing:0;font-size:1em;opacity:1}
+#pane-vms .v1024-grid .v1024-tick input{width:24px;height:24px;margin:0}
+#pane-vms .v1024-grid .v1024-pin{grid-column:1/-1;justify-self:start}
+#pane-vms .v1024-txt{width:100%;min-height:30px;font:inherit;padding:3px 6px;box-sizing:border-box}
+#pane-vms .v1024-basis{margin:6px 0 0;opacity:.75}
+@media (min-width:760px){
+#pane-vms .v1024-list{grid-template-columns:1fr 1fr}
+#pane-vms .v1024-pics{grid-template-columns:1fr 1fr}
+#pane-vms .v1024-pics .v1024-plan{grid-column:1/-1;max-width:420px}
+}
+@media (min-width:1200px){#pane-vms .v1024-list{grid-template-columns:1fr 1fr 1fr}}

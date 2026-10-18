@@ -1,0 +1,144 @@
+{
+  "author": "Andrew Fisher",
+  "mobile": true,
+  "sha256": "382311bc1faf33ca1333d1431368a442dbdf651a6d23874b56ef65bae7ed8dd8",
+  "failures": [],
+  "counts": {
+    "page": 1,
+    "live": 70,
+    "blocked": 0
+  },
+  "errors": [],
+  "actualPublic": false,
+  "checks": [
+    {
+      "name": "Flow controller installed",
+      "pass": true
+    },
+    {
+      "name": "Costs selected section: summary",
+      "pass": true
+    },
+    {
+      "name": "Costs explicit return visibility: summary",
+      "pass": true
+    },
+    {
+      "name": "Costs selected section: pricing",
+      "pass": true
+    },
+    {
+      "name": "Costs explicit return visibility: pricing",
+      "pass": true
+    },
+    {
+      "name": "Costs selected section: fencing",
+      "pass": true
+    },
+    {
+      "name": "Costs explicit return visibility: fencing",
+      "pass": true
+    },
+    {
+      "name": "Costs selected section: runsheet",
+      "pass": true
+    },
+    {
+      "name": "Costs explicit return visibility: runsheet",
+      "pass": true
+    },
+    {
+      "name": "Costs selected section: handover",
+      "pass": true
+    },
+    {
+      "name": "Costs explicit return visibility: handover",
+      "pass": true
+    },
+    {
+      "name": "Costs selected section: transport",
+      "pass": true
+    },
+    {
+      "name": "Costs explicit return visibility: transport",
+      "pass": true
+    },
+    {
+      "name": "Back uses native Summary and returns focus/top",
+      "pass": true
+    },
+    {
+      "name": "Native company tabs available",
+      "pass": true
+    },
+    {
+      "name": "Company units immediate open/close survives native redraw: event-portables",
+      "pass": true
+    },
+    {
+      "name": "Company units immediate open/close survives native redraw: prem-air-hire",
+      "pass": true
+    },
+    {
+      "name": "Supplier delivery days/history retain viewing state",
+      "pass": true
+    },
+    {
+      "name": "Detached future delivery-day view state remains closed (DOM fixture)",
+      "pass": true
+    },
+    {
+      "name": "Supplier state survives switching companies",
+      "pass": true
+    },
+    {
+      "name": "Coates Way source actions are native keyboard buttons",
+      "pass": true
+    },
+    {
+      "name": "Coates Way Enter opens native destination",
+      "pass": true
+    },
+    {
+      "name": "Native upload form has one toggle and one Close (browser-only editable fixture)",
+      "pass": true
+    },
+    {
+      "name": "Document toggle describes expanded state",
+      "pass": true
+    },
+    {
+      "name": "Document native Close returns to original toggle",
+      "pass": true
+    },
+    {
+      "name": "Close/reopen preserves unsaved native file selection",
+      "pass": true
+    },
+    {
+      "name": "Shared operational record unchanged",
+      "pass": true
+    },
+    {
+      "name": "Native P&L model unchanged",
+      "pass": true
+    },
+    {
+      "name": "Native Demob model unchanged",
+      "pass": true
+    },
+    {
+      "name": "No browser errors",
+      "pass": true
+    },
+    {
+      "name": "No operational writes attempted",
+      "pass": true
+    },
+    {
+      "name": "Public mode uses no HTML substitution",
+      "pass": true
+    }
+  ],
+  "passed": 32
+}

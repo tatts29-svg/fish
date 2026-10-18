@@ -1,0 +1,256 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261016T205447Z",
+ "finished": "2026-10-16T20:54:58.103Z",
+ "mode": "apply",
+ "spec": {
+  "by": "Andrew Fisher",
+  "basis": "Andrew, 17 Oct 2026, in chat, as typed: \"P41 door ro driver\" (door to driver). P41 has one unit, 1189412; no door side was recorded.",
+  "refs": [
+   "P41"
+  ],
+  "ops": [
+   {
+    "op": "door",
+    "ref": "P41",
+    "id": "u1189412",
+    "side": "driver",
+    "why": "Andrew, 17 Oct 2026: P41 door to driver"
+   }
+  ]
+ },
+ "pageSha256": "0cfe02f8dd823bae3c89f3600db8343b2d384f432c8884bc0188323bc44c0b36",
+ "version": {
+  "before": 9568,
+  "after": 9569
+ },
+ "updated": {
+  "before": "2026-10-16T20:53:54.394Z",
+  "after": "2026-10-16T20:54:57.106Z"
+ },
+ "stage": [
+  {
+   "op": "door",
+   "ref": "P41",
+   "id": "u1189412",
+   "side": "driver",
+   "why": "Andrew, 17 Oct 2026: P41 door to driver",
+   "result": "door side driver"
+  }
+ ],
+ "writes": [
+  {
+   "key": "delivery/P41",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 1,
+ "docs": {
+  "before": {
+   "delivery/P41": {
+    "state": "on site",
+    "set_at": "2026-09-23T02:02:20.130Z",
+    "by": "Andrew Fisher",
+    "levelled": true,
+    "levelled_by": "Andrew Fisher",
+    "levelled_at": "2026-09-23T18:24:08.839Z",
+    "steps": true,
+    "steps_by": "Andrew Fisher",
+    "steps_at": "2026-09-27T17:43:30.264Z",
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-09-23T02:02:20.130Z",
+    "eta": "07:00",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-09-22T06:02:33.444Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "state": "on site",
+      "at": "2026-09-22T15:56:16.977Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "state": "not on site",
+      "at": "2026-09-22T15:56:18.107Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "state": "not on site",
+      "at": "2026-09-22T15:56:19.138Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "state": "on site",
+      "at": "2026-09-22T15:56:19.785Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "state": "not on site",
+      "at": "2026-09-22T15:57:10.041Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "state": "in transit",
+      "at": "2026-09-23T00:34:20.020Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "state": "not on site",
+      "at": "2026-09-23T00:34:20.784Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "state": "on site",
+      "at": "2026-09-23T02:02:20.130Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-09-22T06:02:33.444Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "done": false,
+      "at": "2026-09-22T06:02:54.573Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "done": true,
+      "at": "2026-09-23T02:02:20.130Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "levelled_history": [
+     {
+      "levelled": true,
+      "at": "2026-09-23T18:24:08.839Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "steps_history": [
+     {
+      "steps": true,
+      "at": "2026-09-27T17:43:30.264Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "_k": "P41"
+   }
+  },
+  "after": {
+   "delivery/P41": {
+    "state": "on site",
+    "set_at": "2026-09-23T02:02:20.130Z",
+    "by": "Andrew Fisher",
+    "levelled": true,
+    "levelled_by": "Andrew Fisher",
+    "levelled_at": "2026-09-23T18:24:08.839Z",
+    "steps": true,
+    "steps_by": "Andrew Fisher",
+    "steps_at": "2026-09-27T17:43:30.264Z",
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-09-23T02:02:20.130Z",
+    "eta": "07:00",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-09-22T06:02:33.444Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "state": "on site",
+      "at": "2026-09-22T15:56:16.977Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "state": "not on site",
+      "at": "2026-09-22T15:56:18.107Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "state": "not on site",
+      "at": "2026-09-22T15:56:19.138Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "state": "on site",
+      "at": "2026-09-22T15:56:19.785Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "state": "not on site",
+      "at": "2026-09-22T15:57:10.041Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "state": "in transit",
+      "at": "2026-09-23T00:34:20.020Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "state": "not on site",
+      "at": "2026-09-23T00:34:20.784Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "state": "on site",
+      "at": "2026-09-23T02:02:20.130Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-09-22T06:02:33.444Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "done": false,
+      "at": "2026-09-22T06:02:54.573Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "done": true,
+      "at": "2026-09-23T02:02:20.130Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "levelled_history": [
+     {
+      "levelled": true,
+      "at": "2026-09-23T18:24:08.839Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "steps_history": [
+     {
+      "steps": true,
+      "at": "2026-09-27T17:43:30.264Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "loading872": {
+     "u1189412": {
+      "side": "driver",
+      "by": "Andrew Fisher",
+      "at": "2026-10-16T20:54:54.842Z"
+     }
+    },
+    "_k": "P41"
+   }
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}

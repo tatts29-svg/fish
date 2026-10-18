@@ -1,0 +1,445 @@
+{
+  "author": "Andrew Fisher",
+  "checks": [
+    {
+      "name": "14 source rows on 13 original references",
+      "pass": true
+    },
+    {
+      "name": "28 units across all 14 source rows",
+      "pass": true
+    },
+    {
+      "name": "11 trucks and 4 unassigned FWF groups",
+      "pass": true
+    },
+    {
+      "name": "DD order wins over loading clock",
+      "pass": true
+    },
+    {
+      "name": "Distinct 05:00 SFL trucks P55/P56",
+      "pass": true
+    },
+    {
+      "name": "Rank 4 one shared container/toilet truck",
+      "pass": true
+    },
+    {
+      "name": "WC20 exactly four one-unit bookings",
+      "pass": true
+    },
+    {
+      "name": "WC20 tank sheets carry no toilet-block asset numbers",
+      "pass": true
+    },
+    {
+      "name": "WC20 block numbers map in supplied order",
+      "pass": true
+    },
+    {
+      "name": "GN18 sheet booked asset1261273 plus allocation conflict",
+      "pass": true
+    },
+    {
+      "name": "GN18/GN13 operational allocations untouched",
+      "pass": true
+    },
+    {
+      "name": "P52 supplied number13227211 kept",
+      "pass": true
+    },
+    {
+      "name": "Full-size fridges appear once per print cargo component",
+      "pass": true
+    },
+    {
+      "name": "FWF no invented carrier/order/load clock",
+      "pass": true
+    },
+    {
+      "name": "WC38 07–11 window remains note only",
+      "pass": true
+    },
+    {
+      "name": "No booking print hero invents site arrival or departure time",
+      "pass": true
+    },
+    {
+      "name": "No booking dispatch card invents site arrival",
+      "pass": true
+    },
+    {
+      "name": "Load pairing projection uses supplied references",
+      "pass": true
+    },
+    {
+      "name": "Load assets keep single cargo item quantity",
+      "pass": true
+    },
+    {
+      "name": "Driver email list carries rank and DD",
+      "pass": true
+    },
+    {
+      "name": "15 unique day-card identities",
+      "pass": true
+    },
+    {
+      "name": "Each booked truck opens only its own card",
+      "pass": true
+    },
+    {
+      "name": "Split WC20 schedule includes only selected DD",
+      "pass": true
+    },
+    {
+      "name": "Selected WC20 day-card header shows only its truck asset and quantity",
+      "pass": true
+    },
+    {
+      "name": "GN18 day-card labels booked number and keeps allocation conflict",
+      "pass": true
+    },
+    {
+      "name": "Explicit booking day cards do not carry old inferred movement badge",
+      "pass": true
+    },
+    {
+      "name": "Booking clocks never enter legacy departure or arrival calculations",
+      "pass": true
+    },
+    {
+      "name": "Full details explicitly distinguishes DD order and loading clocks",
+      "pass": true
+    },
+    {
+      "name": "All other day projections unchanged",
+      "pass": true
+    },
+    {
+      "name": "Other day print grouping unchanged",
+      "pass": true
+    },
+    {
+      "name": "Rescheduling does not reconfirm original booked clock",
+      "pass": true
+    },
+    {
+      "name": "Explicit unloaded-by ETA remains a plan without inferred booking departure",
+      "pass": true
+    },
+    {
+      "name": "Both print modes render all15 groups without exceptions",
+      "pass": true
+    }
+  ],
+  "groups": [
+    {
+      "rank": 1,
+      "dds": [
+        "26112709"
+      ],
+      "keys": [
+        "P55"
+      ],
+      "time": "05:00",
+      "carrier": "SFL",
+      "qty": [
+        [
+          "1"
+        ]
+      ],
+      "numbers": [
+        [
+          "172114"
+        ]
+      ]
+    },
+    {
+      "rank": 2,
+      "dds": [
+        "26112730"
+      ],
+      "keys": [
+        "P56"
+      ],
+      "time": "05:00",
+      "carrier": "SFL",
+      "qty": [
+        [
+          "1"
+        ]
+      ],
+      "numbers": [
+        [
+          "1268865"
+        ]
+      ]
+    },
+    {
+      "rank": 3,
+      "dds": [
+        "26112733"
+      ],
+      "keys": [
+        "P54"
+      ],
+      "time": "05:30",
+      "carrier": "READYS",
+      "qty": [
+        [
+          "1"
+        ]
+      ],
+      "numbers": [
+        [
+          "1327219"
+        ]
+      ]
+    },
+    {
+      "rank": 4,
+      "dds": [
+        "26112797",
+        "26112749"
+      ],
+      "keys": [
+        "WC86",
+        "T0258"
+      ],
+      "time": "05:30",
+      "carrier": "IRWINS",
+      "qty": [
+        [
+          "1"
+        ],
+        [
+          "1"
+        ]
+      ],
+      "numbers": [
+        [],
+        []
+      ]
+    },
+    {
+      "rank": 5,
+      "dds": [
+        "26112756"
+      ],
+      "keys": [
+        "P57"
+      ],
+      "time": "08:30",
+      "carrier": "READYS",
+      "qty": [
+        [
+          "1"
+        ]
+      ],
+      "numbers": [
+        [
+          "1268888"
+        ]
+      ]
+    },
+    {
+      "rank": 6,
+      "dds": [
+        "26112762"
+      ],
+      "keys": [
+        "P52"
+      ],
+      "time": "08:30",
+      "carrier": "READYS",
+      "qty": [
+        [
+          "1"
+        ]
+      ],
+      "numbers": [
+        [
+          "13227211"
+        ]
+      ]
+    },
+    {
+      "rank": 7,
+      "dds": [
+        "26112769"
+      ],
+      "keys": [
+        "WC20"
+      ],
+      "time": "06:30",
+      "carrier": "KEV",
+      "qty": [
+        [
+          "1"
+        ]
+      ],
+      "numbers": [
+        []
+      ]
+    },
+    {
+      "rank": 7,
+      "dds": [
+        "26112776"
+      ],
+      "keys": [
+        "WC20"
+      ],
+      "time": "07:00",
+      "carrier": "SFL",
+      "qty": [
+        [
+          "1"
+        ]
+      ],
+      "numbers": [
+        []
+      ]
+    },
+    {
+      "rank": 8,
+      "dds": [
+        "26112783"
+      ],
+      "keys": [
+        "WC20"
+      ],
+      "time": "09:00",
+      "carrier": "SFL",
+      "qty": [
+        [
+          "1"
+        ]
+      ],
+      "numbers": [
+        [
+          "1327228"
+        ]
+      ]
+    },
+    {
+      "rank": 8,
+      "dds": [
+        "26112786"
+      ],
+      "keys": [
+        "WC20"
+      ],
+      "time": "09:00",
+      "carrier": "SFL",
+      "qty": [
+        [
+          "1"
+        ]
+      ],
+      "numbers": [
+        [
+          "1327225"
+        ]
+      ]
+    },
+    {
+      "rank": null,
+      "dds": [
+        "26112495"
+      ],
+      "keys": [
+        "GN18"
+      ],
+      "time": "09:30",
+      "carrier": "KEV",
+      "qty": [
+        [
+          "1"
+        ]
+      ],
+      "numbers": [
+        [
+          "1261273"
+        ]
+      ]
+    },
+    {
+      "rank": null,
+      "dds": [],
+      "keys": [
+        "WC38"
+      ],
+      "time": null,
+      "carrier": "",
+      "qty": [
+        [
+          "1"
+        ]
+      ],
+      "numbers": [
+        []
+      ]
+    },
+    {
+      "rank": null,
+      "dds": [],
+      "keys": [
+        "WC39"
+      ],
+      "time": null,
+      "carrier": "",
+      "qty": [
+        [
+          "2"
+        ]
+      ],
+      "numbers": [
+        []
+      ]
+    },
+    {
+      "rank": null,
+      "dds": [],
+      "keys": [
+        "WC40"
+      ],
+      "time": null,
+      "carrier": "",
+      "qty": [
+        [
+          "5"
+        ]
+      ],
+      "numbers": [
+        []
+      ]
+    },
+    {
+      "rank": null,
+      "dds": [],
+      "keys": [
+        "WC61"
+      ],
+      "time": null,
+      "carrier": "",
+      "qty": [
+        [
+          "8"
+        ]
+      ],
+      "numbers": [
+        []
+      ]
+    }
+  ],
+  "candidateSha256": "70ed0c49213a910ae33dd062ecd3ada5f1752a69b0c1665c19c6bb25bcea1f11",
+  "errors": [],
+  "requests": {
+    "page": 1,
+    "live": 10,
+    "blocked": 0
+  }
+}

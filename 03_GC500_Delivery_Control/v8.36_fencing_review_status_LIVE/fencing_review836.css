@@ -1,0 +1,10 @@
+/* Author: Andrew Fisher. Compact context within the existing fencing card. */
+#pane-fencing .fp-review-po{display:inline-block;vertical-align:middle;font-size:10px;line-height:1.35;font-weight:700;white-space:nowrap;margin:3px 0}
+#pane-fencing .fp-review-po small{display:block;font-size:9px;font-weight:400;color:var(--fp-mute)}
+#pane-fencing .fp-review-statuses{display:flex;flex-direction:column;align-items:flex-end;gap:4px;max-width:100%}
+#pane-fencing .fp-review-note{display:flex;align-items:center;justify-content:flex-end;flex-wrap:wrap;gap:5px}
+#pane-fencing .fp-review-state{font-size:10px;font-weight:600;color:#46535e;line-height:1.4}
+#pane-fencing .fp-review-state+.fp-review-state:before{content:'·';margin-right:5px}
+#pane-fencing .fp-review-query,#pane-fencing .fp-review-needed{color:#74500e}
+#pane-fencing .fp-review-detail{border-bottom:1px solid var(--fp-line);margin-bottom:12px}
+@media(max-width:650px){#pane-fencing .fp-review-statuses{grid-column:1/-1;align-items:flex-start;max-width:100%}#pane-fencing .fp-review-note{justify-content:flex-start}#pane-fencing .fp-review-statuses .fp-status{white-space:normal}#pane-fencing .fp-review-po{white-space:normal;overflow-wrap:anywhere}}

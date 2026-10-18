@@ -1,0 +1,19 @@
+{
+  "author": "Andrew Fisher",
+  "integratedCommit": "8c821da439027bd09b01d4dbc2e84b53c966c397",
+  "sourceFiles": {
+    "docs815_src.js": {
+      "sha256": "da33522f35097ce2987e26ede691cd9d99b6e606e6522af8a0e02bb9e07cf134",
+      "matchesTestedSource": true
+    },
+    "patch_v815.py": {
+      "sha256": "2d0a8457f22049123ecf437c6ef05fcf9bdd781e98c8e3508783e1744ea2c161",
+      "matchesTestedSource": true
+    },
+    "v815.css": {
+      "sha256": "81c2bf72a6438adf8aaa8c6dd4072629671f01b8be4b1d4a8f34952798cd4e21",
+      "matchesTestedSource": true
+    }
+  },
+  "candidateSha256": "35ab136643f9b7b0fb5b4e237c501c58cb27bc31e4faaded75df013dad0f7770"
+}

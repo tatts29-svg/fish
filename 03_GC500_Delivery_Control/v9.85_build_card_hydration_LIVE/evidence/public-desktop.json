@@ -1,0 +1,59 @@
+{
+  "author": "Andrew Fisher",
+  "pass": true,
+  "checks": 62,
+  "mobile": false,
+  "actualPublic": true,
+  "sha256": "f36c42ebb6f85a49f62663b5c5454510308dee7ea0087e2bed01a860b5a2c3c8",
+  "geometry": {
+    "width": 400,
+    "height": 606,
+    "stripWidth": 1240,
+    "pageWidth": 1440,
+    "viewport": 1440,
+    "stampWidth": 390.031,
+    "stampX": 720.0000152587891,
+    "stampY": 408.12498474121094,
+    "faceX": 720,
+    "faceY": 408.125,
+    "contentFits": true,
+    "hasStampImage": true,
+    "stampFilter": "brightness(2.2) saturate(0.8) drop-shadow(rgba(101, 232, 163, 0.447) 0px 0px 8px) drop-shadow(rgba(84, 208, 145, 0.27) 0px 0px 21px)",
+    "stampAnimation": "bc984-stamp-pulse"
+  },
+  "weather": {
+    "kind": "wind",
+    "source": "bom-history",
+    "historical": true,
+    "date": "2026-10-09",
+    "lo": 18,
+    "hi": 28,
+    "expectedLo": 18,
+    "expectedHi": 28,
+    "periods": {
+      "min_c": "Minimum in the 24 hours to 09:00 AEST on the labelled date.",
+      "max_c": "Maximum in the 24 hours from 09:00 AEST on the labelled date.",
+      "rain_to_9am_mm": "Rain in the 24 hours to 09:00 AEST on the labelled date; not calendar-day rainfall.",
+      "wind_kph": "Higher of the available 09:00 and 15:00 ten-minute-average wind readings; not an all-day maximum.",
+      "gust_kph": "Strongest wind gust in the 24 hours to midnight AEST on the labelled date.",
+      "sky": "Only explicitly reported sky conditions are classified. Unreported cloud/rain/sun remains unknown."
+    },
+    "sourceUrl": "https://www.bom.gov.au/climate/dwo/202610/html/IDCJDW4050.202610.shtml",
+    "sceneFull": true,
+    "text": "WEATHER BOM RECORDEDGusts 37 km/h28°/ 18°",
+    "motion": "on",
+    "stampPlay": "running"
+  },
+  "fixtures": [
+    "sun",
+    "part",
+    "cloud",
+    "rain",
+    "pour",
+    "storm",
+    "fog",
+    "sleet"
+  ],
+  "errors": 0,
+  "writes": 0
+}

@@ -1,0 +1,41 @@
+/* Author: Andrew Fisher. Fresh public release proof; no page replacement or operational writes. */
+'use strict';
+const fs=require('fs'),{open}=require('../record_14Oct2026_purchase_order/readonly_page.cjs');
+const expected=JSON.parse(fs.readFileSync(process.env.EXPECTED,'utf8')).cases.current;
+(async()=>{let h;try{
+ h=await open({hash:'#asset/FL01',mobile:true,W:390,H:844});
+ await h.page.waitForFunction(()=>SYNC.status==='live'&&SYNC.first.size===Object.keys(SYNC_COLLS).length&&photoIndex().state==='ready',null,{timeout:180000});
+ await h.page.waitForFunction(()=>state.sel==='FL01'&&document.getElementById('drawer').classList.contains('on'),null,{timeout:30000});
+ const result=await h.page.evaluate(expected=>holdAssets(()=>{
+  const checks={},check=(name,value)=>checks[name]=!!value,cent=n=>Math.round(n*100),before=JSON.stringify(S);
+  check('public footer names v10.16',document.body.innerText.includes('v10.16'));
+  check('release modules present',!!window.Routes1016&&!!window.AccessorySearch1016&&!!window.SupplierScope1016&&!!window.VmsAssignment1016&&typeof docsRecovery1016==='function'&&typeof manualChargeBranches1016==='function'&&!!document.getElementById('presentation1016-style'));
+  check('fresh shared reference opens at its own address',location.hash==='#asset/FL01'&&state.sel==='FL01');
+  const assets=allAssets(),index=finderIndex(),accessories=assets.filter(a=>!a._cancelled&&!a._movedTo&&!movedAway(a.key)).flatMap(a=>(a.accessories||[]).filter(x=>x.active!==false&&x.asset_no).map(x=>({ref:a.key,no:String(x.asset_no).trim()})));
+  check('all current numbered contents searchable',accessories.every(x=>index.some(r=>r.kind==='unit'&&r.key===x.ref&&r.no===x.no)));
+  check('replacement fridge finds current reference',finderMatches('1272751').some(r=>r.key==='P46'&&r.no==='1272751'));
+  check('moved fridge finds destination only',finderMatches('1328957').filter(r=>r.no==='1328957').length===1&&finderMatches('1328957').find(r=>r.no==='1328957').key==='P54');
+  const supplier=Supplier996.model(),summary=todayWorkSummary848(todayIso()).byId.toilets;
+  check('Today requested scope and actual completion reconcile',summary.total===256&&summary.done===203&&summary.left===53&&Math.abs(summary.pct-203/256*100)<1e-9);
+  check('supplier remaining and separate accessible scope reconcile',supplier.summary.remaining===52&&summary.left===supplier.summary.remaining+1);
+  check('current VMS inventory excludes reviewed departure',inventory().list.find(r=>r.item==='VMS').on===9);
+  check('moved VMS retained as history',gcModel925(assetOf('T0001')).rows.some(r=>r.assetNo==='1211404'&&!r.physical&&r.source==='history'));
+  check('moved VMS search has one current destination',finderMatches('1211404').length===1&&finderMatches('1211404')[0].key==='T0103');
+  const money=moneySummary(),pl=pl770Model(),branch=branchFinancial978(pl752Rows(),money),finance=fh866Model(),generator=generatorModel1004();
+  const actual={recorded:money.charge.total,forecast:pl.revJob,direct:pl.direct,directJob:pl.directJob};
+  check('saved financial totals equal tested candidate',Object.keys(actual).every(k=>cent(actual[k])===cent(expected[k])));
+  check('saved branch model equals tested candidate',JSON.stringify(branch)===JSON.stringify(expected.branches));
+  check('P&L branch and Finance checks reconcile',Object.values(pl.checks).every(Boolean)&&Object.values(branch.checks).every(Boolean)&&Object.values(finance.invCheck).every(Boolean));
+  check('generator totals reconcile and commercial hire stops Sunday',cent(generator.actual+generator.remaining)===cent(generator.forecast)&&generator.rows.every(r=>r.offhire==='2026-10-25'));
+  check('optional waiver remains uncharged and not a required hold',pl.rev.find(r=>r.key==='waiver').optional===true&&!onsiteComplete979().holds.some(r=>r.item==='Damage waiver'));
+  check('saved P/O and dockets still reconcile',supplierPricing1014().orders.some(o=>o.number==='4647519'&&o.valid&&o.difference===0));
+  check('reading all models preserves native record',JSON.stringify(S)===before);
+  return {author:'Andrew Fisher',checks,nativeVersion:SYNC.backend.readVersion821(),accessories:accessories.length,actual};
+ }),expected);
+ result.checks['actual public page without replacement']=h.counts.page===0;
+ result.checks['no errors or operational write attempts']=h.errors.length===0&&h.counts.blocked===0;
+ result.pass=Object.values(result.checks).every(Boolean);result.counts=h.counts;
+ fs.writeFileSync(process.env.OUT,JSON.stringify(result,null,2)+'\n');
+ console.log(JSON.stringify({pass:result.pass,checks:Object.keys(result.checks).length,failed:Object.keys(result.checks).filter(k=>!result.checks[k]),nativeVersion:result.nativeVersion,counts:result.counts}));
+ if(!result.pass)process.exitCode=1;
+}finally{if(h)await h.browser.close();}})().catch(e=>{console.error(e.message);process.exitCode=1;});

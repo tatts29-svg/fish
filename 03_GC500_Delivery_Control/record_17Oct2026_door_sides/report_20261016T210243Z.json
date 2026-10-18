@@ -1,0 +1,194 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261016T210243Z",
+ "finished": "2026-10-16T21:02:55.015Z",
+ "mode": "apply",
+ "spec": {
+  "by": "Andrew Fisher",
+  "basis": "Andrew, 17 Oct 2026, in chat, as typed: \"P57 is door to passenger\". P57 has one unit, 1268888; no door side was recorded.",
+  "refs": [
+   "P57"
+  ],
+  "ops": [
+   {
+    "op": "door",
+    "ref": "P57",
+    "id": "u1268888",
+    "side": "passenger",
+    "why": "Andrew, 17 Oct 2026: P57 door to passenger"
+   }
+  ]
+ },
+ "pageSha256": "0cfe02f8dd823bae3c89f3600db8343b2d384f432c8884bc0188323bc44c0b36",
+ "version": {
+  "before": 9573,
+  "after": 9574
+ },
+ "updated": {
+  "before": "2026-10-16T21:02:07.383Z",
+  "after": "2026-10-16T21:02:54.111Z"
+ },
+ "stage": [
+  {
+   "op": "door",
+   "ref": "P57",
+   "id": "u1268888",
+   "side": "passenger",
+   "why": "Andrew, 17 Oct 2026: P57 door to passenger",
+   "result": "door side passenger"
+  }
+ ],
+ "writes": [
+  {
+   "key": "delivery/P57",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 1,
+ "docs": {
+  "before": {
+   "delivery/P57": {
+    "state": "on site",
+    "set_at": "2026-10-07T00:39:43.825Z",
+    "by": "Andrew Fisher",
+    "levelled": true,
+    "levelled_by": "Andrew Fisher",
+    "levelled_at": "2026-10-07T00:45:36.244Z",
+    "steps": true,
+    "steps_by": "Andrew Fisher",
+    "steps_at": "2026-10-07T00:45:36.890Z",
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-07T00:39:54.484Z",
+    "note": "Wed 07 Oct 2026 — Helen Park, then WC20: Wednesday will be Helen park these are craned in under traffic control. BSF cranes have been booked will be there from 7am. They will do there own inductions and lift plan will need to be signed off by David or Steve before they start. They will also install WC20 toilets after Helen park.",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:20.304Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-07T00:39:43.825Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-07T00:39:54.484Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "levelled_history": [
+     {
+      "levelled": true,
+      "at": "2026-10-07T00:45:36.244Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "steps_history": [
+     {
+      "steps": true,
+      "at": "2026-10-07T00:45:36.890Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "timeline841": {
+     "stage": 3,
+     "at": "2026-10-07T00:39:43.989Z",
+     "by": "Andrew Fisher",
+     "history": [
+      {
+       "stage": 3,
+       "at": "2026-10-07T00:39:43.989Z",
+       "by": "Andrew Fisher",
+       "recorded_at": "2026-10-07T00:39:43.989Z"
+      }
+     ],
+     "recorded_at": "2026-10-07T00:39:43.989Z"
+    },
+    "_k": "P57"
+   }
+  },
+  "after": {
+   "delivery/P57": {
+    "state": "on site",
+    "set_at": "2026-10-07T00:39:43.825Z",
+    "by": "Andrew Fisher",
+    "levelled": true,
+    "levelled_by": "Andrew Fisher",
+    "levelled_at": "2026-10-07T00:45:36.244Z",
+    "steps": true,
+    "steps_by": "Andrew Fisher",
+    "steps_at": "2026-10-07T00:45:36.890Z",
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-07T00:39:54.484Z",
+    "note": "Wed 07 Oct 2026 — Helen Park, then WC20: Wednesday will be Helen park these are craned in under traffic control. BSF cranes have been booked will be there from 7am. They will do there own inductions and lift plan will need to be signed off by David or Steve before they start. They will also install WC20 toilets after Helen park.",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:20.304Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-07T00:39:43.825Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-07T00:39:54.484Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "levelled_history": [
+     {
+      "levelled": true,
+      "at": "2026-10-07T00:45:36.244Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "steps_history": [
+     {
+      "steps": true,
+      "at": "2026-10-07T00:45:36.890Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "timeline841": {
+     "stage": 3,
+     "at": "2026-10-07T00:39:43.989Z",
+     "by": "Andrew Fisher",
+     "history": [
+      {
+       "stage": 3,
+       "at": "2026-10-07T00:39:43.989Z",
+       "by": "Andrew Fisher",
+       "recorded_at": "2026-10-07T00:39:43.989Z"
+      }
+     ],
+     "recorded_at": "2026-10-07T00:39:43.989Z"
+    },
+    "loading872": {
+     "u1268888": {
+      "side": "passenger",
+      "by": "Andrew Fisher",
+      "at": "2026-10-16T21:02:51.278Z"
+     }
+    },
+    "_k": "P57"
+   }
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}

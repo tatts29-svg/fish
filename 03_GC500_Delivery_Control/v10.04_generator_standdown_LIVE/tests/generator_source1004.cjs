@@ -1,0 +1,24 @@
+/* Author: Andrew Fisher. Source/identity regressions; no network or native writes. */
+const fs=require('fs'),vm=require('vm'),assert=require('assert'),path=require('path');
+const scope={};vm.createContext(scope);vm.runInContext(fs.readFileSync(path.join(__dirname,'../generator_source1004.js'),'utf8'),scope);
+const resolve=c=>JSON.parse(JSON.stringify(scope.generatorSourceResolve1004(c)));
+const asset={key:'GN01',discipline:'Generators',item_types:['45kva'],events:[{date:'2026-10-12',phase:'Build',movement:'place'}],drawing_links:[{sheet:'D024',label:'001'}],asset_numbers:['1111111']};
+const contract={kind:'generator',family:'generator',rental_contract:'9961976',branch_code:'NVAC',line:12,quantity:1,match:{key:'GN01'},asset_no:'1111111',asset_no_is_plant_number:true,booked_delivery_date:'2026-10-12',delivered:false};
+const base={assets:[asset],contractRows:[contract],state:{},delivery:()=>({state:'not on site'}),units:()=>[],lines:()=>[{quantity:1,item:'45kva'}],branch:()=>({code:'NVAC'}),destination:()=>({text:'Generator',source:'schedule'})};
+let checks=0;const eq=(a,b)=>{assert.deepStrictEqual(a,b);checks++;};
+let rows=resolve(base);eq(rows[0].assetNumbers,[]);eq(rows[0].actualIsConfirmed,false);eq(rows[0].plannedDate,'2026-10-12');eq(rows[0].contractRows.length,1);eq(rows[0].location,'D024 · callout 001');
+rows=resolve({...base,state:{assetNumbers:{GN01:['2222222']}},delivery:()=>({state:'on site',set_at:'2026-10-11T22:30:00Z'})});eq(rows[0].assetNumbers,['2222222']);eq(rows[0].deliveredDate,'2026-10-12');eq(rows[0].actualQuantity,1);eq(rows[0].item,'45kva');
+rows=resolve({...base,contractRows:[{...contract,delivered:true,start_date:'2026-10-10'}]});eq(rows[0].assetNumbers,['1111111']);eq(rows[0].deliveredDate,'2026-10-10');eq(rows[0].actualIsConfirmed,true);
+rows=resolve({...base,state:{assetNumbers:{GN01:[]}},contractRows:[{...contract,delivered:true,start_date:'2026-10-10'}]});eq(rows[0].assetNumbers,[]);
+rows=resolve({...base,units:()=>[{label:'Distribution Board for generator',asset_no:'3333333'}]});eq(rows[0].assetNumbers,[]);
+rows=resolve({...base,state:{hireStart:{GN01:'2026-10-09'}},delivery:()=>({state:'on site',set_at:'2026-10-12T00:00:00Z'})});eq(rows[0].deliveredDate,'2026-10-09');
+rows=resolve({...base,delivery:()=>({state:'not on site',date:'2026-10-20'})});eq(rows[0].plannedDate,'2026-10-20');eq(rows[0].deliveredDate,null);
+rows=resolve({...base,assets:[{...asset,_cancelled:{why:'Cancelled'}}]});eq(rows[0].cancelled,true);
+rows=resolve({...base,delivery:()=>({state:'on site'}),lines:()=>[{quantity:2}],branch:()=>({code:'MEAD'})});eq(rows[0].actualIsConfirmed,true);eq(rows[0].deliveredDate,null);eq(rows[0].issues.includes('Delivery date not recorded'),true);eq(rows[0].qty,2);eq(rows[0].branch,'MEAD');
+rows=resolve({...base,contractRows:[{...contract,line:12,match:{},description:'GN-01 Generator 60kVA'},{...contract,line:13,match:{},description:'SPARE Generator 60kVA',location:'SPARE'}]});eq(rows.length,2);eq(rows[0].contractRows.length,1);eq(rows[1].ref,null);eq(rows[1].location,null);eq(rows[1].issues.includes('Location not recorded'),true);
+rows=resolve({...base,lines:()=>[{quantity:2}],contractRows:[{...contract,line:12,delivered:true,start_date:'2026-10-12'},{...contract,line:13,asset_no:'2222222',delivered:false}]});eq(rows[0].qty,2);eq(rows[0].actualQuantity,1);eq(rows[0].assetNumbers,['1111111']);eq(rows[0].contractDeliveries[1].actualIsConfirmed,false);
+rows=resolve({...base,units:()=>[{label:'Generator 45kVA',asset_no:'3333333'}]});eq(rows[0].assetNumbers,[]);
+rows=resolve({...base,units:()=>[{label:'Generator 45kVA',asset_no:'3333333',by:'Andrew Fisher',at:'2026-10-12T00:00:00Z'}]});eq(rows[0].assetNumbers,['3333333']);
+rows=resolve({...base,assets:[{...asset,events:[{date:'2026-10-20',phase:'Build',movement:'place'}]}]});eq(rows[0].plannedDate,'2026-10-20');
+const frozen=JSON.stringify(base);resolve(base);eq(JSON.stringify(base),frozen);
+console.log(JSON.stringify({author:'Andrew Fisher',checks,pass:true}));

@@ -1,0 +1,54 @@
+{
+  "author": "Andrew Fisher",
+  "candidateSha256": "b2f0bc038dba361647247642001ae52b53be160d37ae49b1e1298b266aa8639a",
+  "results": [
+    {
+      "suite": "navigation",
+      "exit": 0
+    },
+    {
+      "suite": "control_cpu",
+      "exit": 0
+    },
+    {
+      "suite": "print_cpu",
+      "exit": 0
+    },
+    {
+      "suite": "equipment_desktop",
+      "exit": 0
+    },
+    {
+      "suite": "equipment_phone",
+      "exit": 0
+    },
+    {
+      "suite": "packed_desktop",
+      "exit": 0
+    },
+    {
+      "suite": "packed_phone",
+      "exit": 0
+    },
+    {
+      "suite": "rules",
+      "exit": 0
+    },
+    {
+      "suite": "fresh",
+      "exit": 0
+    },
+    {
+      "suite": "sweep_desktop",
+      "exit": 0
+    },
+    {
+      "suite": "sweep_phone",
+      "exit": 0
+    },
+    {
+      "suite": "control_browser",
+      "exit": 0
+    }
+  ]
+}

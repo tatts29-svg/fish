@@ -1,0 +1,318 @@
+{
+  "author": "Andrew Fisher",
+  "candidateSha256": "665f53fef3bd685260771c2d8e2867531263f3af7e9c84d870c316797f4c15fb",
+  "candidateBytes": 9116658,
+  "baseSha256": "6365fd0965e1ae1fcf75fdd6aad076b2662697443addfae49a3d6016a39f9fce",
+  "implementationSourceCommit": "c1f69890736fae4c004e4643ff4139bb19cebeeb",
+  "implementationSourceFiles": {
+    "docs815_src.js": "038e6fd2966c374a27b70a0d3195c50f27346e9c7f32f59a607bba6618093168",
+    "patch_v815.py": "2d0a8457f22049123ecf437c6ef05fcf9bdd781e98c8e3508783e1744ea2c161",
+    "v815.css": "81c2bf72a6438adf8aaa8c6dd4072629671f01b8be4b1d4a8f34952798cd4e21"
+  },
+  "originalBrowserResultSha256": "bdcb6f2ecd86d05281f70e2d4f1a47a850357e113af902b5e68119654e9679d0",
+  "runnerDesignSourceCommit": "6a0bb204d5bf55e4b65be8cf07866e7b3f1402df",
+  "runnerProvenanceNote": "The runner was originally designed for this earlier source. Its actual runtime page/base hashes above bind these results to the final candidate; all three adopted implementation files match the independent CPU-verified proposal.",
+  "passed": 60,
+  "total": 60,
+  "devices": [
+    {
+      "device": "desktop",
+      "passed": 30,
+      "total": 30,
+      "pageErrors": 0,
+      "consoleErrors": 0,
+      "blockedWrites": 0,
+      "checks": [
+        {
+          "name": "Tab reaches the first category control",
+          "pass": true
+        },
+        {
+          "name": "Enter opens the safety category",
+          "pass": true
+        },
+        {
+          "name": "Keyboard opening keeps focus on its control or inside its content",
+          "pass": true
+        },
+        {
+          "name": "Space closes the category and keeps focus on its control",
+          "pass": true
+        },
+        {
+          "name": "Typing filters results without losing search focus",
+          "pass": true
+        },
+        {
+          "name": "Registry-driven redraw preserves the active search and caret",
+          "pass": true
+        },
+        {
+          "name": "A retained safety-context note is available for the search check",
+          "pass": true
+        },
+        {
+          "name": "Filename plus a safety term found only in the note finds the merged paper",
+          "pass": true
+        },
+        {
+          "name": "Note starts folded",
+          "pass": true
+        },
+        {
+          "name": "Details reveals the full retained safety-context note",
+          "pass": true
+        },
+        {
+          "name": "Details closes the note and updates its expanded state",
+          "pass": true
+        },
+        {
+          "name": "Pre-start fold exists for the print-state check",
+          "pass": true
+        },
+        {
+          "name": "folded: native print includes the complete document list and photo groups",
+          "pass": true
+        },
+        {
+          "name": "folded: category, filter and fold state survive before/after print",
+          "pass": true
+        },
+        {
+          "name": "folded: browser generated a PDF",
+          "pass": true
+        },
+        {
+          "name": "filtered: native print includes the complete document list and photo groups",
+          "pass": true
+        },
+        {
+          "name": "filtered: category, filter and fold state survive before/after print",
+          "pass": true
+        },
+        {
+          "name": "filtered: browser generated a PDF",
+          "pass": true
+        },
+        {
+          "name": "A missing safety document is available for header selection",
+          "pass": true
+        },
+        {
+          "name": "Actual header selection shows and focuses the chosen missing document",
+          "pass": true
+        },
+        {
+          "name": "View link has no Add, upload or remove controls",
+          "pass": true
+        },
+        {
+          "name": "Practice edit mode starts with the upload form folded",
+          "pass": true
+        },
+        {
+          "name": "Add opens the form for Drawings and focuses file selection",
+          "pass": true
+        },
+        {
+          "name": "Photo selection offers its required reference without invoice fields",
+          "pass": true
+        },
+        {
+          "name": "An invoice kind is available for the field-toggle check",
+          "pass": true
+        },
+        {
+          "name": "Invoice selection offers reference and invoice fields",
+          "pass": true
+        },
+        {
+          "name": "Add closes the form and resets its expanded state",
+          "pass": true
+        },
+        {
+          "name": "Returning to view mode removes every editing control",
+          "pass": true
+        },
+        {
+          "name": "No page or console errors during supplemental checks",
+          "pass": true
+        },
+        {
+          "name": "No attempted service writes",
+          "pass": true
+        }
+      ]
+    },
+    {
+      "device": "phone",
+      "passed": 30,
+      "total": 30,
+      "pageErrors": 0,
+      "consoleErrors": 0,
+      "blockedWrites": 0,
+      "checks": [
+        {
+          "name": "Tab reaches the first category control",
+          "pass": true
+        },
+        {
+          "name": "Enter opens the safety category",
+          "pass": true
+        },
+        {
+          "name": "Keyboard opening keeps focus on its control or inside its content",
+          "pass": true
+        },
+        {
+          "name": "Space closes the category and keeps focus on its control",
+          "pass": true
+        },
+        {
+          "name": "Typing filters results without losing search focus",
+          "pass": true
+        },
+        {
+          "name": "Registry-driven redraw preserves the active search and caret",
+          "pass": true
+        },
+        {
+          "name": "A retained safety-context note is available for the search check",
+          "pass": true
+        },
+        {
+          "name": "Filename plus a safety term found only in the note finds the merged paper",
+          "pass": true
+        },
+        {
+          "name": "Note starts folded",
+          "pass": true
+        },
+        {
+          "name": "Details reveals the full retained safety-context note",
+          "pass": true
+        },
+        {
+          "name": "Details closes the note and updates its expanded state",
+          "pass": true
+        },
+        {
+          "name": "Pre-start fold exists for the print-state check",
+          "pass": true
+        },
+        {
+          "name": "folded: native print includes the complete document list and photo groups",
+          "pass": true
+        },
+        {
+          "name": "folded: category, filter and fold state survive before/after print",
+          "pass": true
+        },
+        {
+          "name": "folded: browser generated a PDF",
+          "pass": true
+        },
+        {
+          "name": "filtered: native print includes the complete document list and photo groups",
+          "pass": true
+        },
+        {
+          "name": "filtered: category, filter and fold state survive before/after print",
+          "pass": true
+        },
+        {
+          "name": "filtered: browser generated a PDF",
+          "pass": true
+        },
+        {
+          "name": "A missing safety document is available for header selection",
+          "pass": true
+        },
+        {
+          "name": "Actual header selection shows and focuses the chosen missing document",
+          "pass": true
+        },
+        {
+          "name": "View link has no Add, upload or remove controls",
+          "pass": true
+        },
+        {
+          "name": "Practice edit mode starts with the upload form folded",
+          "pass": true
+        },
+        {
+          "name": "Add opens the form for Drawings and focuses file selection",
+          "pass": true
+        },
+        {
+          "name": "Photo selection offers its required reference without invoice fields",
+          "pass": true
+        },
+        {
+          "name": "An invoice kind is available for the field-toggle check",
+          "pass": true
+        },
+        {
+          "name": "Invoice selection offers reference and invoice fields",
+          "pass": true
+        },
+        {
+          "name": "Add closes the form and resets its expanded state",
+          "pass": true
+        },
+        {
+          "name": "Returning to view mode removes every editing control",
+          "pass": true
+        },
+        {
+          "name": "No page or console errors during supplemental checks",
+          "pass": true
+        },
+        {
+          "name": "No attempted service writes",
+          "pass": true
+        }
+      ]
+    }
+  ],
+  "independentCpu": {
+    "sourceEvidence": "followup_e540cbc_proposal_results.json",
+    "sourceEvidenceSha256": "958b39761f30eff45db05bb9f6c09dca73694e0db56cbc1afad1ff41030115e3",
+    "proposalOriginCommit": "e540cbc31bef88500f9b781688c53f8693932514",
+    "passed": 43,
+    "total": 43,
+    "originalPositiveChecks": {
+      "passed": 28,
+      "total": 28
+    },
+    "proposalChecks": {
+      "passed": 15,
+      "total": 15
+    }
+  },
+  "visualReview": {
+    "reviewer": "release owner",
+    "status": "Inspection reported complete by the release owner; this evidence consolidation did not reopen images.",
+    "privateScreenshots": [
+      {
+        "name": "phone-keyboard.png",
+        "sha256": "b0da87d04be9abd489b8a972ab18ff56a89ab640b74fd43f67e43d61f69e956c"
+      },
+      {
+        "name": "desktop-after-print.png",
+        "sha256": "e56ca7d45f8febb36916c8d630b43436fb7f477f49727c4a45005594eb7607a1"
+      },
+      {
+        "name": "phone-after-print.png",
+        "sha256": "097a205925e80316556be62dc47c7373b4b8d16bfe229a75570cf75242625c53"
+      },
+      {
+        "name": "phone-upload-form.png",
+        "sha256": "0c764729d4b3c3584cb632038172daacc20de990b38bc38b93aa18b23fe26f3e"
+      }
+    ]
+  },
+  "privacy": "Only aggregate counts, generic check names, source/artifact hashes and pass states are copied. No screenshot, PDF, operational payload or raw browser detail is included.",
+  "releaseStatus": "Focused candidate validation only; standing-suite completion, pre-upload checks and publication remain with the release owner."
+}

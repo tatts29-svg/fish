@@ -1,0 +1,9 @@
+{
+  "author": "Andrew Fisher",
+  "sha256": "65bba5cb7477816d587cb72025ff256f2eb8c2dbc65eb4087dccc5ad49f4622a",
+  "bytes": 14950116,
+  "exactApprovedPatch": true,
+  "wrongBaseRejected": true,
+  "repeatRejected": true,
+  "generatorSourceUnchanged": true
+}

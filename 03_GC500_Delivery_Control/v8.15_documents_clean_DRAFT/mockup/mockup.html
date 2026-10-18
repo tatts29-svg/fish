@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en-AU"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Documents — mock-up</title>
+<!-- Mock-up only (Andrew Fisher, 3 Oct 2026). Real counts from the live Documents tab audit; nothing is wired. Author: Andrew Fisher. -->
+<style>
+:root{--esp:#1d1612;--esp2:#2b211b;--org:#f26b1d;--cream:#f4f1ec;--line:#e2dbd2;--ink:#1c1714;--mute:#6b625a;--g:#22c55e;--a:#f5b70a;--r:#ef4444}
+*{box-sizing:border-box}body{margin:0;background:#d9d4cd;font:15px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:var(--ink)}
+.stage{display:flex;gap:28px;padding:28px;align-items:flex-start;flex-wrap:wrap}.label{font:700 13px/1 system-ui;letter-spacing:.12em;text-transform:uppercase;color:#4b4038;margin:0 0 10px}
+.page{width:1180px;background:var(--cream);border-radius:12px;box-shadow:0 18px 50px #0004;overflow:hidden}.phone .page{width:390px}
+.top{background:linear-gradient(160deg,var(--esp),var(--esp2));color:#fff;padding:18px 22px 16px;border-bottom:3px solid var(--org)}
+.top h2{margin:0;font:900 italic 28px/1 "Arial Narrow",Impact,system-ui;letter-spacing:.01em;text-transform:uppercase}
+.search{margin-top:14px;display:flex;align-items:center;gap:10px;background:#fff;border-radius:12px;padding:12px 14px;color:var(--mute);font-size:16px;box-shadow:inset 0 0 0 2px #f26b1d55}
+.search b{color:var(--ink)}.search .k{margin-left:auto;font:700 11px system-ui;color:#9a8f86;border:1px solid #e5ded6;border-radius:6px;padding:2px 6px}
+.wrap{padding:18px 22px 22px;display:grid;gap:16px}
+.tiles{display:grid;grid-template-columns:repeat(6,1fr);gap:12px}.phone .tiles{grid-template-columns:repeat(2,1fr);gap:10px}
+.tile{position:relative;background:linear-gradient(160deg,#241b16,#15100d);color:#fff;padding:14px 14px 12px;clip-path:polygon(14px 0,100% 0,100% calc(100% - 14px),calc(100% - 14px) 100%,0 100%,0 14px);border-left:3px solid var(--org);min-height:132px;display:flex;flex-direction:column}
+.tile.on{background:linear-gradient(160deg,#f47a2f,#b8470c)}
+.tile .ic{width:30px;height:30px;color:var(--org)}.tile.on .ic{color:#fff}
+.tile .n{font:900 italic 40px/1 "Arial Narrow",Impact,system-ui;margin-top:auto}.tile .t{font:800 12px/1.2 system-ui;letter-spacing:.1em;text-transform:uppercase;color:#e9ddd3;margin-top:4px}
+.tl{position:absolute;top:12px;right:12px;display:flex;gap:3px;background:#0b0806;border-radius:7px;padding:3px 4px}.tl i{width:8px;height:8px;border-radius:50%;background:#2a2320}
+.tl i.g{background:var(--g);box-shadow:0 0 7px var(--g)}.tl i.r{background:var(--r);box-shadow:0 0 7px var(--r)}.tl i.a{background:var(--a);box-shadow:0 0 7px var(--a)}
+.sec{background:#fff;border:1px solid var(--line);clip-path:polygon(12px 0,100% 0,100% calc(100% - 12px),calc(100% - 12px) 100%,0 100%,0 12px);padding:14px 16px}
+.sec h3{margin:0 0 10px;font:900 italic 18px/1 "Arial Narrow",Impact,system-ui;text-transform:uppercase;letter-spacing:.02em;display:flex;align-items:center;gap:10px}
+.sec h3 small{font:600 13px system-ui;color:var(--mute);text-transform:none;letter-spacing:0;font-style:normal}
+.row{display:grid;grid-template-columns:auto 1fr auto auto;gap:12px;align-items:center;padding:9px 0;border-top:1px solid #f0ebe5}.row:first-of-type{border-top:0}
+.plate{display:inline-block;background:var(--org);color:#1d1612;font:900 italic 15px/1 "Arial Narrow",Impact,sans-serif;padding:5px 9px 4px;clip-path:polygon(0 0,84% 0,100% 30%,100% 100%,0 100%);min-width:56px;text-align:center}
+.plate.dk{background:#2b211b;color:#ffb27d}
+.ti b{display:block;font-size:14.5px}.ti span{color:var(--mute);font-size:12.5px}
+.dot{width:10px;height:10px;border-radius:50%;background:var(--g);box-shadow:0 0 6px var(--g)}.dot.r{background:var(--r);box-shadow:0 0 6px var(--r)}
+.open{border:1.5px solid var(--line);border-radius:9px;padding:6px 11px;font:700 13px system-ui;background:#fff}
+.fold{display:flex;justify-content:space-between;align-items:center;padding:11px 14px;border:1px dashed #d9cfc4;border-radius:10px;font:700 14px system-ui;background:#fbf9f6;margin-top:10px}.fold span{color:var(--org)}
+.two{display:grid;grid-template-columns:1.3fr 1fr;gap:16px}.phone .two{grid-template-columns:1fr}
+.recent{display:grid;gap:0}
+.foot{display:flex;gap:8px;justify-content:flex-end}.btn{border:1.5px solid var(--line);border-radius:9px;padding:7px 12px;font:700 13px system-ui;background:#fff}.btn.p{background:linear-gradient(180deg,#f47a2f,#c4500f);color:#fff;border-color:#b84a0d}
+.thumbs{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}.th{aspect-ratio:4/3;border-radius:8px;background:linear-gradient(135deg,#9aa3ab,#5d666e);position:relative}.th b{position:absolute;left:6px;bottom:6px;background:#000b;color:#fff;font:900 italic 11px "Arial Narrow",Impact,sans-serif;padding:3px 6px;border-radius:4px}
+.callout{position:relative}.callout:after{content:attr(data-n);position:absolute;top:-10px;right:-10px;width:24px;height:24px;border-radius:50%;background:#111;color:#fff;font:800 12px/24px system-ui;text-align:center;box-shadow:0 0 0 3px #fff;z-index:2}
+</style></head><body>
+<svg width="0" height="0" style="position:absolute"><defs>
+ <symbol id="i-safe" viewBox="0 0 24 24"><path d="M12 2l8 3v6c0 5-3.4 9.3-8 11-4.6-1.7-8-6-8-11V5z" fill="none" stroke="currentColor" stroke-width="2"/><path d="M8 12l3 3 5-6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></symbol>
+ <symbol id="i-truck" viewBox="0 0 24 24"><path d="M2 6h11v9H2zM13 9h5l3 3v3h-8z" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="6" cy="17" r="2" fill="currentColor"/><circle cx="17" cy="17" r="2" fill="currentColor"/></symbol>
+ <symbol id="i-map" viewBox="0 0 24 24"><path d="M3 6l6-2 6 2 6-2v14l-6 2-6-2-6 2z" fill="none" stroke="currentColor" stroke-width="2"/><path d="M9 4v14M15 6v14" stroke="currentColor" stroke-width="2"/></symbol>
+ <symbol id="i-pack" viewBox="0 0 24 24"><path d="M6 2h9l4 4v16H6z" fill="none" stroke="currentColor" stroke-width="2"/><path d="M9 11h7M9 15h7M9 19h4" stroke="currentColor" stroke-width="2"/></symbol>
+ <symbol id="i-photo" viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="15" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12.5" r="4" fill="none" stroke="currentColor" stroke-width="2"/><path d="M8 5l2-2h4l2 2" stroke="currentColor" stroke-width="2" fill="none"/></symbol>
+ <symbol id="i-fence" viewBox="0 0 24 24"><path d="M4 21V6l2-3 2 3v15M16 21V6l2-3 2 3v15M8 9h8M8 15h8" fill="none" stroke="currentColor" stroke-width="2"/></symbol>
+</defs></svg>
+
+<div class="stage" id="desk"><div>
+<p class="label">Documents — desktop (first screen) · counts are real, file rows are layout examples</p>
+<div class="page">
+ <div class="top"><h2>Documents</h2>
+  <div class="search callout" data-n="1">⌕ <span>Search every paper, drawing and photo — try <b>SWMS</b>, <b>D022</b>, <b>WC20</b></span><span class="k">/</span></div></div>
+ <div class="wrap">
+  <div class="tiles callout" data-n="2">
+   <div class="tile on"><div class="tl"><i></i><i></i><i class="g"></i></div><svg class="ic"><use href="#i-safe"/></svg><div class="n">6</div><div class="t">Safety · SWMS</div></div>
+   <div class="tile"><div class="tl"><i></i><i></i><i class="g"></i></div><svg class="ic"><use href="#i-truck"/></svg><div class="n">3</div><div class="t">Transport</div></div>
+   <div class="tile"><div class="tl"><i class="r"></i><i></i><i></i></div><svg class="ic"><use href="#i-map"/></svg><div class="n">42</div><div class="t">Drawings</div></div>
+   <div class="tile"><div class="tl"><i></i><i></i><i class="g"></i></div><svg class="ic"><use href="#i-pack"/></svg><div class="n">29</div><div class="t">Packs</div></div>
+   <div class="tile"><div class="tl"><i></i><i></i><i class="g"></i></div><svg class="ic"><use href="#i-photo"/></svg><div class="n">194</div><div class="t">Photos</div></div>
+   <div class="tile"><div class="tl"><i></i><i></i><i class="g"></i></div><svg class="ic"><use href="#i-fence"/></svg><div class="n">59</div><div class="t">Fencing dockets</div></div>
+  </div>
+  <div class="two">
+   <div class="sec><h3>Safety · SWMS <small>6 papers</small></h3>
+    <div class="row"><span class="plate">SWMS</span><div class="ti"><b>Coates — portable building install</b><span>8 pp · rev 02</span></div><i class="dot"></i><span class="open">Open</span></div>
+    <div class="row"><span class="plate">SWMS</span><div class="ti"><b>Coates — toilets and amenities</b><span>6 pp · rev 01</span></div><i class="dot"></i><span class="open">Open</span></div>
+    <div class="row"><span class="plate">SWMS</span><div class="ti"><b>Coates — light towers and generators</b><span>7 pp</span></div><i class="dot"></i><span class="open">Open</span></div>
+    <div class="row"><span class="plate">SWMS</span><div class="ti"><b>Advanced Fencing</b><span>not uploaded yet</span></div><i class="dot r"></i><span class="open">—</span></div>
+    <div class="row"><span class="plate dk">RA</span><div class="ti"><b>Risk assessment</b><span>12 pp</span></div><i class="dot"></i><span class="open">Open</span></div>
+    <div class="row"><span class="plate dk">HSEQ</span><div class="ti"><b>HSEQ plan</b><span>24 pp</span></div><i class="dot"></i><span class="open">Open</span></div>
+   </div>
+   <div class="sec><h3>Recent <small>last 5 added</small></h3>
+    <div class="row"><span class="plate dk">PHOTO</span><div class="ti"><b>WC20 — placed</b><span>today 07:12</span></div><i class="dot"></i><span class="open">View</span></div>
+    <div class="row"><span class="plate dk">DOCKET</span><div class="ti"><b>Fencing docket 68</b><span>yesterday</span></div><i class="dot"></i><span class="open">Open</span></div>
+    <div class="row"><span class="plate">D022</span><div class="ti"><b>Portable buildings plan</b><span>rev 03</span></div><i class="dot"></i><span class="open">Open</span></div>
+    <div class="row"><span class="plate dk">PACK</span><div class="ti"><b>Pre-start — Thu 1 Oct</b><span>2 pp</span></div><i class="dot"></i><span class="open">Open</span></div>
+    <div class="row"><span class="plate dk">PHOTO</span><div class="ti"><b>P42 — levelled</b><span>29 Sep</span></div><i class="dot"></i><span class="open">View</span></div>
+   </div>
+  </div>
+  <div class="sec><h3>Drawings <small>42 · the print set and daily pre-starts fold away</small></h3>
+    <div class="row"><span class="plate">D001</span><div class="ti"><b>Master plan</b><span>A1 · rev 03</span></div><i class="dot"></i><span class="open">Open</span></div>
+    <div class="row"><span class="plate">D022</span><div class="ti"><b>Portable buildings</b><span>A1 · rev 03</span></div><i class="dot"></i><span class="open">Open</span></div>
+    <div class="row"><span class="plate">D024</span><div class="ti"><b>Generators and light towers</b><span>A1 · rev 02</span></div><i class="dot"></i><span class="open">Open</span></div>
+    <div class="fold">A3 print set · 27 plates <span>Show ›</span></div>
+  </div>
+  <div class="foot"><span class="btn">Print this list</span><span class="btn">Refresh</span><span class="btn p">＋ Add (editors)</span></div>
+ </div>
+</div></div></div>
+
+<div class="stage phone" id="phone"><div>
+<p class="label">Phone — first screen</p>
+<div class="page">
+ <div class="top"><h2>Documents</h2><div class="search">⌕ <span>Search SWMS, D022, WC20…</span></div></div>
+ <div class="wrap">
+  <div class="tiles">
+   <div class="tile on"><div class="tl"><i></i><i></i><i class="g"></i></div><svg class="ic"><use href="#i-safe"/></svg><div class="n">6</div><div class="t">Safety · SWMS</div></div>
+   <div class="tile"><div class="tl"><i></i><i></i><i class="g"></i></div><svg class="ic"><use href="#i-truck"/></svg><div class="n">3</div><div class="t">Transport</div></div>
+   <div class="tile"><div class="tl"><i class="r"></i><i></i><i></i></div><svg class="ic"><use href="#i-map"/></svg><div class="n">42</div><div class="t">Drawings</div></div>
+   <div class="tile"><div class="tl"><i></i><i></i><i class="g"></i></div><svg class="ic"><use href="#i-pack"/></svg><div class="n">29</div><div class="t">Packs</div></div>
+   <div class="tile"><div class="tl"><i></i><i></i><i class="g"></i></div><svg class="ic"><use href="#i-photo"/></svg><div class="n">194</div><div class="t">Photos</div></div>
+   <div class="tile"><div class="tl"><i></i><i></i><i class="g"></i></div><svg class="ic"><use href="#i-fence"/></svg><div class="n">59</div><div class="t">Fencing dockets</div></div>
+  </div>
+  <div class="sec"><h3>Photos <small>by reference</small></h3>
+   <div class="thumbs"><div class="th"><b>WC20</b></div><div class="th"><b>P42</b></div><div class="th"><b>P46</b></div><div class="th"><b>GN13</b></div></div>
+   <div class="fold">All 194 photos <span>Show ›</span></div></div>
+ </div>
+</div></div></div>
+</body></html>

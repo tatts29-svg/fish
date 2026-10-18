@@ -1,0 +1,21 @@
+/* Author: Andrew Fisher. Reuse the native Today instrument with a compact fencing reading. */
+#gc500-work-board840 .tw853-overall{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:24px}
+#gc500-work-board840 .tw853-readings{min-width:0;display:grid;gap:18px}
+#gc500-work-board840 .tw853-scope{margin:0;color:#dceee6;font:500 16px/1.45 Inter,"Segoe UI",Arial,sans-serif}
+#gc500-work-board840 .tw853-scope strong{font-size:24px;font-variant-numeric:tabular-nums}
+#gc500-work-board840 .tw853-qualifier{margin:8px 0 0;color:#ffbd85;font:500 14px/1.4 Inter,"Segoe UI",Arial,sans-serif}
+#gc500-work-board840 .tw853-gates{margin:0}
+#gc500-work-board840 .tw853-gates caption{text-align:left;color:#dceee6;font:600 15px/1.4 Inter,"Segoe UI",Arial,sans-serif;padding:0 0 12px}
+#gc500-work-board840 .tw853-gates th:first-child{width:50%}
+#gc500-work-board840 .tw853-gates td{color:#eff8f6;font:600 20px/1.4 Inter,"Segoe UI",Arial,sans-serif;text-align:right}
+#gc500-work-board840 .tw853-gates thead th{font-size:13px}
+#gc500-work-board840 [data-tw853-quantity] small{font-size:.45em;letter-spacing:0}
+#gc500-work-board840 .tw846-indicator .tw840-reading.tw853-range{font-size:clamp(20px,6cqw,48px);letter-spacing:-.5px}
+#gc500-work-dialog840 .tw853-table-scroll{max-width:100%;overflow:auto;margin:20px 0}
+#gc500-work-dialog840 .tw853-detail-table{width:100%;border-collapse:collapse;color:inherit}
+#gc500-work-dialog840 .tw853-detail-table th,#gc500-work-dialog840 .tw853-detail-table td{padding:12px 10px;border-bottom:1px solid #52666b;text-align:right;white-space:nowrap}
+#gc500-work-dialog840 .tw853-detail-table th:first-child{text-align:left;white-space:normal;min-width:140px}
+#gc500-work-dialog840 .tw853-basis{margin:18px 0;border:1px solid #607980;border-radius:8px;padding:14px}
+#gc500-work-dialog840 .tw853-basis summary{cursor:pointer;min-height:30px;font-weight:600}
+@container tw846group (max-width:660px){#gc500-work-board840 .tw853-overall{grid-template-columns:minmax(0,1fr);gap:20px}}
+@media print{#gc500-work-board840 .tw853-overall{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}#gc500-work-board840 .tw853-qualifier,#gc500-work-board840 .tw853-scope,#gc500-work-board840 .tw853-gates td,#gc500-work-board840 .tw853-gates caption{color:#111!important}}

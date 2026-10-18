@@ -1,0 +1,23 @@
+Author: Andrew Fisher. Paired runs, one browser at a time, two rounds each: live v8.63 page + live explorer vs v8.64 page + prepared explorer.
+Headless Chromium without a GPU, so canvas painting costs more than on a real device; long task = main thread blocked over 50 ms.
+
+desktop live  zoomNormal   long tasks [15, 13]  blocked ms [1158, 1014]  worst ms [118, 102]  frames>50ms [14, 13]
+desktop live  fencingOpen  long tasks [1, 1]  blocked ms [128, 130]  worst ms [128, 130]  frames>50ms [1, 1]
+desktop live  idleFencing  long tasks [3, 3]  blocked ms [375, 326]  worst ms [155, 140]  frames>50ms [3, 3]
+desktop live  zoomFencing  long tasks [9, 9]  blocked ms [719, 724]  worst ms [116, 126]  frames>50ms [7, 10]
+
+desktop v8.64 zoomNormal   long tasks [10, 8]  blocked ms [739, 530]  worst ms [96, 90]  frames>50ms [11, 5]
+desktop v8.64 fencingOpen  long tasks [0, 0]  blocked ms [0, 0]  worst ms [0, 0]  frames>50ms [1, 1]
+desktop v8.64 idleFencing  long tasks [0, 0]  blocked ms [0, 0]  worst ms [0, 0]  frames>50ms [0, 0]
+desktop v8.64 zoomFencing  long tasks [2, 2]  blocked ms [116, 131]  worst ms [64, 76]  frames>50ms [2, 1]
+
+phone   live  zoomNormal   long tasks [6, 11]  blocked ms [804, 983]  worst ms [195, 154]  frames>50ms [7, 11]
+phone   live  fencingOpen  long tasks [1, 1]  blocked ms [152, 148]  worst ms [152, 148]  frames>50ms [1, 1]
+phone   live  idleFencing  long tasks [3, 3]  blocked ms [326, 322]  worst ms [115, 112]  frames>50ms [3, 3]
+phone   live  zoomFencing  long tasks [7, 2]  blocked ms [496, 180]  worst ms [142, 99]  frames>50ms [4, 4]
+
+phone   v8.64 zoomNormal   long tasks [0, 0]  blocked ms [0, 0]  worst ms [0, 0]  frames>50ms [0, 0]
+phone   v8.64 fencingOpen  long tasks [1, 0]  blocked ms [50, 0]  worst ms [50, 0]  frames>50ms [1, 1]
+phone   v8.64 idleFencing  long tasks [0, 1]  blocked ms [0, 110]  worst ms [0, 110]  frames>50ms [0, 1]
+phone   v8.64 zoomFencing  long tasks [0, 0]  blocked ms [0, 0]  worst ms [0, 0]  frames>50ms [0, 0]
+

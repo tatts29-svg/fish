@@ -1,0 +1,9 @@
+{
+  "author": "Andrew Fisher",
+  "rejectedCandidateSha256": "0fb42652b4d23574b90000bbdff9d566e5cd075af0ecb691fbfb554e1e5bb1e0",
+  "blocked": true,
+  "finding": "Attribution scrub removes required descendant spaces in JavaScript CSS selector strings. Drawer refresh selector changed from #drawer.on .ptag.sync b to #drawer.on.ptag.sync b, with similar damage to driver-check CSS. Exact-source control798 unit fails.",
+  "completedStandingTestsMayNotSignOffRejectedCandidate": true,
+  "terminatedOwnedProcesses": 21,
+  "liveWrites": 0
+}

@@ -1,0 +1,19 @@
+{
+  "author": "Andrew Fisher",
+  "status": "READY for parent integration; not published",
+  "base_sha256": "35ff0ab8c354de151f96da4502e8958d1de88662e9d459e20bff55b1e28adcf0",
+  "candidate_sha256": "5b0499baa6423081d7f0cd91f804f0b3f220de8de064c3d9726c656eb014b53b",
+  "pure_checks": 18,
+  "patch_checks": 6,
+  "actual_checks": 46,
+  "actual_passed": 46,
+  "widths": [
+    390,
+    1440
+  ],
+  "scripts_parsed": 42,
+  "operational_writes": 0,
+  "native_record_unchanged": true,
+  "runtime_errors": 0,
+  "private_images_inspected": true
+}

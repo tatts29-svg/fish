@@ -1,0 +1,134 @@
+# v8.19 checks · source commit 1cd16dcdc67a62299c7ca244cea5fa87dadeadcc · candidate sha256 0630371d2c662cbff820d429aec87f0142da24a947d7b3ef4441dd5671d7bf6c (9356879 bytes) · base (live at build) sha256 88a7b6b110194133ab59f5efa17b169f937f8fa21cb551dfd38f96eab6597919 (9293149 bytes) · run 2026-10-03T14:14:13Z
+# suite: photo · command: env BASE=/home/user/fish/03_GC500_Delivery_Control/build/GC500_v8.19/base_live.html flock /tmp/claude-0/-home-user-fish/710a1764-23a1-5338-9fe8-299f94961e8a/scratchpad/browser.lock node v8.19_meet_points_ep_plan_DRAFT/evidence/photo819.js
+   live base: 33 driver sheets on 5 days
+   build: 33 driver sheets on 5 days
+
+   day          load   base px   build px   change   meet points
+PASS 2026-09-28: the same 7 driver sheets on the base and the build  - {"base":7,"build":7}
+   2026-09-28      1     177.0      177.0   +   0.0   MEDIAN_PITSTOP
+PASS 2026-09-28 load 1: a meet point and its directions QR for every reference, on one page  - {"qrs":1,"mps":["MEDIAN_PITSTOP"],"refs":1,"over":false}
+   2026-09-28      2     166.3      166.3   +   0.0   MEDIAN_PITSTOP
+PASS 2026-09-28 load 2: a meet point and its directions QR for every reference, on one page  - {"qrs":1,"mps":["MEDIAN_PITSTOP"],"refs":1,"over":false}
+   2026-09-28      3     177.0      177.0   +   0.0   MEDIAN_PITSTOP
+PASS 2026-09-28 load 3: a meet point and its directions QR for every reference, on one page  - {"qrs":1,"mps":["MEDIAN_PITSTOP"],"refs":1,"over":false}
+   2026-09-28      4      14.6        0.0    -14.6   MEDIAN_PITSTOP, PITLANE, COMMODORE
+PASS 2026-09-28 load 4: a meet point and its directions QR for every reference, on one page  - {"qrs":3,"mps":["MEDIAN_PITSTOP","PITLANE","COMMODORE"],"refs":3,"over":false}
+   2026-09-28      5     165.9      165.9   +   0.0   MEDIAN_PITSTOP
+PASS 2026-09-28 load 5: a meet point and its directions QR for every reference, on one page  - {"qrs":1,"mps":["MEDIAN_PITSTOP"],"refs":1,"over":false}
+   2026-09-28      6     165.9      161.5     -4.4   MEDIAN_PITSTOP
+PASS 2026-09-28 load 6: a meet point and its directions QR for every reference, on one page  - {"qrs":1,"mps":["MEDIAN_PITSTOP"],"refs":1,"over":false}
+   2026-09-28      7     153.0      153.0   +   0.0   ISLAND_NORTH
+PASS 2026-09-28 load 7: a meet point and its directions QR for every reference, on one page  - {"qrs":1,"mps":["ISLAND_NORTH"],"refs":1,"over":false}
+PASS 2026-10-06: the same 6 driver sheets on the base and the build  - {"base":6,"build":6}
+   2026-10-06      1     131.6      131.6   +   0.0   COMMODORE
+PASS 2026-10-06 load 1: the photo strip is at least the live base's (131.6 -> 131.6 px)
+PASS 2026-10-06 load 1: a meet point and its directions QR for every reference, on one page  - {"qrs":1,"mps":["COMMODORE"],"refs":1,"over":false}
+PASS 2026-10-06 load 1: the site rules fit on the sheet's own rules line (11 -> 11 px)
+   2026-10-06      2     131.6      131.6   +   0.0   COMMODORE
+PASS 2026-10-06 load 2: the photo strip is at least the live base's (131.6 -> 131.6 px)
+PASS 2026-10-06 load 2: a meet point and its directions QR for every reference, on one page  - {"qrs":1,"mps":["COMMODORE"],"refs":1,"over":false}
+PASS 2026-10-06 load 2: the site rules fit on the sheet's own rules line (11 -> 11 px)
+   2026-10-06      3     131.6      131.6   +   0.0   COMMODORE
+PASS 2026-10-06 load 3: the photo strip is at least the live base's (131.6 -> 131.6 px)
+PASS 2026-10-06 load 3: a meet point and its directions QR for every reference, on one page  - {"qrs":1,"mps":["COMMODORE"],"refs":1,"over":false}
+PASS 2026-10-06 load 3: the site rules fit on the sheet's own rules line (11 -> 11 px)
+   2026-10-06      4     131.9      131.9   +   0.0   COMMODORE
+PASS 2026-10-06 load 4: the photo strip is at least the live base's (131.9 -> 131.9 px)
+PASS 2026-10-06 load 4: a meet point and its directions QR for every reference, on one page  - {"qrs":1,"mps":["COMMODORE"],"refs":1,"over":false}
+PASS 2026-10-06 load 4: the site rules fit on the sheet's own rules line (11 -> 11 px)
+   2026-10-06      5     176.7      176.7   +   0.0   PITLANE
+PASS 2026-10-06 load 5: the photo strip is at least the live base's (176.7 -> 176.7 px)
+PASS 2026-10-06 load 5: a meet point and its directions QR for every reference, on one page  - {"qrs":1,"mps":["PITLANE"],"refs":1,"over":false}
+PASS 2026-10-06 load 5: the site rules fit on the sheet's own rules line (11 -> 11 px)
+   2026-10-06      6     176.7      176.7   +   0.0   PITLANE
+PASS 2026-10-06 load 6: the photo strip is at least the live base's (176.7 -> 176.7 px)
+PASS 2026-10-06 load 6: a meet point and its directions QR for every reference, on one page  - {"qrs":1,"mps":["PITLANE"],"refs":1,"over":false}
+PASS 2026-10-06 load 6: the site rules fit on the sheet's own rules line (11 -> 11 px)
+PASS 2026-10-07: the same 11 driver sheets on the base and the build  - {"base":11,"build":11}
+   2026-10-07      1      87.5       87.5   +   0.0   HELEN_PARK
+PASS 2026-10-07 load 1: the photo strip is at least the live base's (87.5 -> 87.5 px)
+PASS 2026-10-07 load 1: a meet point and its directions QR for every reference, on one page  - {"qrs":1,"mps":["HELEN_PARK"],"refs":1,"over":false}
+PASS 2026-10-07 load 1: the site rules fit on the sheet's own rules line (11 -> 11 px)
+   2026-10-07      2      87.5       87.5   +   0.0   HELEN_PARK
+PASS 2026-10-07 load 2: the photo strip is at least the live base's (87.5 -> 87.5 px)
+PASS 2026-10-07 load 2: a meet point and its directions QR for every reference, on one page  - {"qrs":1,"mps":["HELEN_PARK"],"refs":1,"over":false}
+PASS 2026-10-07 load 2: the site rules fit on the sheet's own rules line (11 -> 11 px)
+   2026-10-07      3      87.5       87.5   +   0.0   HELEN_PARK
+PASS 2026-10-07 load 3: the photo strip is at least the live base's (87.5 -> 87.5 px)
+PASS 2026-10-07 load 3: a meet point and its directions QR for every reference, on one page  - {"qrs":1,"mps":["HELEN_PARK"],"refs":1,"over":false}
+PASS 2026-10-07 load 3: the site rules fit on the sheet's own rules line (11 -> 11 px)
+   2026-10-07      4      96.8       96.8   +   0.0   ISLAND_NORTH, PITLANE
+PASS 2026-10-07 load 4: the photo strip is at least the live base's (96.8 -> 96.8 px)
+PASS 2026-10-07 load 4: a meet point and its directions QR for every reference, on one page  - {"qrs":2,"mps":["ISLAND_NORTH","PITLANE"],"refs":2,"over":false}
+PASS 2026-10-07 load 4: the site rules fit on the sheet's own rules line (11 -> 11 px)
+   2026-10-07      5      87.5       87.5   +   0.0   HELEN_PARK
+PASS 2026-10-07 load 5: the photo strip is at least the live base's (87.5 -> 87.5 px)
+PASS 2026-10-07 load 5: a meet point and its directions QR for every reference, on one page  - {"qrs":1,"mps":["HELEN_PARK"],"refs":1,"over":false}
+PASS 2026-10-07 load 5: the site rules fit on the sheet's own rules line (11 -> 11 px)
+   2026-10-07      6      87.5       87.5   +   0.0   HELEN_PARK
+PASS 2026-10-07 load 6: the photo strip is at least the live base's (87.5 -> 87.5 px)
+PASS 2026-10-07 load 6: a meet point and its directions QR for every reference, on one page  - {"qrs":1,"mps":["HELEN_PARK"],"refs":1,"over":false}
+PASS 2026-10-07 load 6: the site rules fit on the sheet's own rules line (11 -> 11 px)
+   2026-10-07      7     108.2      108.2   +   0.0   ISLAND_NORTH
+PASS 2026-10-07 load 7: the photo strip is at least the live base's (108.2 -> 108.2 px)
+PASS 2026-10-07 load 7: a meet point and its directions QR for every reference, on one page  - {"qrs":1,"mps":["ISLAND_NORTH"],"refs":1,"over":false}
+PASS 2026-10-07 load 7: the site rules fit on the sheet's own rules line (11 -> 11 px)
+   2026-10-07      8     108.2      108.2   +   0.0   ISLAND_NORTH
+PASS 2026-10-07 load 8: the photo strip is at least the live base's (108.2 -> 108.2 px)
+PASS 2026-10-07 load 8: a meet point and its directions QR for every reference, on one page  - {"qrs":1,"mps":["ISLAND_NORTH"],"refs":1,"over":false}
+PASS 2026-10-07 load 8: the site rules fit on the sheet's own rules line (11 -> 11 px)
+   2026-10-07      9      89.3       89.3   +   0.0   ISLAND_NORTH
+PASS 2026-10-07 load 9: the photo strip is at least the live base's (89.3 -> 89.3 px)
+PASS 2026-10-07 load 9: a meet point and its directions QR for every reference, on one page  - {"qrs":1,"mps":["ISLAND_NORTH"],"refs":1,"over":false}
+PASS 2026-10-07 load 9: the site rules fit on the sheet's own rules line (11 -> 11 px)
+   2026-10-07     10      89.3       89.3   +   0.0   ISLAND_NORTH
+PASS 2026-10-07 load 10: the photo strip is at least the live base's (89.3 -> 89.3 px)
+PASS 2026-10-07 load 10: a meet point and its directions QR for every reference, on one page  - {"qrs":1,"mps":["ISLAND_NORTH"],"refs":1,"over":false}
+PASS 2026-10-07 load 10: the site rules fit on the sheet's own rules line (11 -> 11 px)
+   2026-10-07     11     132.6      132.6   +   0.0   COMMODORE
+PASS 2026-10-07 load 11: the photo strip is at least the live base's (132.6 -> 132.6 px)
+PASS 2026-10-07 load 11: a meet point and its directions QR for every reference, on one page  - {"qrs":1,"mps":["COMMODORE"],"refs":1,"over":false}
+PASS 2026-10-07 load 11: the site rules fit on the sheet's own rules line (11 -> 11 px)
+PASS 2026-10-08: the same 5 driver sheets on the base and the build  - {"base":5,"build":5}
+   2026-10-08      1     179.4      179.4   +   0.0   PITLANE
+PASS 2026-10-08 load 1: the photo strip is at least the live base's (179.4 -> 179.4 px)
+PASS 2026-10-08 load 1: a meet point and its directions QR for every reference, on one page  - {"qrs":1,"mps":["PITLANE"],"refs":1,"over":false}
+PASS 2026-10-08 load 1: the site rules fit on the sheet's own rules line (11 -> 11 px)
+   2026-10-08      2     115.0      115.0   +   0.0   MEDIAN_PITSTOP
+PASS 2026-10-08 load 2: the photo strip is at least the live base's (115.0 -> 115.0 px)
+PASS 2026-10-08 load 2: a meet point and its directions QR for every reference, on one page  - {"qrs":1,"mps":["MEDIAN_PITSTOP"],"refs":1,"over":false}
+PASS 2026-10-08 load 2: the site rules fit on the sheet's own rules line (11 -> 11 px)
+   2026-10-08      3     126.3      126.3   +   0.0   HILL_A47
+PASS 2026-10-08 load 3: the photo strip is at least the live base's (126.3 -> 126.3 px)
+PASS 2026-10-08 load 3: a meet point and its directions QR for every reference, on one page  - {"qrs":1,"mps":["HILL_A47"],"refs":1,"over":false}
+PASS 2026-10-08 load 3: the site rules fit on the sheet's own rules line (11 -> 11 px)
+   2026-10-08      4     141.9      141.9   +   0.0   MBP_LANDSIDE
+PASS 2026-10-08 load 4: the photo strip is at least the live base's (141.9 -> 141.9 px)
+PASS 2026-10-08 load 4: a meet point and its directions QR for every reference, on one page  - {"qrs":1,"mps":["MBP_LANDSIDE"],"refs":1,"over":false}
+PASS 2026-10-08 load 4: the site rules fit on the sheet's own rules line (11 -> 11 px)
+   2026-10-08      5     163.5      163.5   +   0.0   HILL_A47
+PASS 2026-10-08 load 5: the photo strip is at least the live base's (163.5 -> 163.5 px)
+PASS 2026-10-08 load 5: a meet point and its directions QR for every reference, on one page  - {"qrs":1,"mps":["HILL_A47"],"refs":1,"over":false}
+PASS 2026-10-08 load 5: the site rules fit on the sheet's own rules line (11 -> 11 px)
+PASS 2026-10-09: the same 4 driver sheets on the base and the build  - {"base":4,"build":4}
+   2026-10-09      1     164.1      164.1   +   0.0   COMMODORE
+PASS 2026-10-09 load 1: the photo strip is at least the live base's (164.1 -> 164.1 px)
+PASS 2026-10-09 load 1: a meet point and its directions QR for every reference, on one page  - {"qrs":1,"mps":["COMMODORE"],"refs":1,"over":false}
+PASS 2026-10-09 load 1: the site rules fit on the sheet's own rules line (11 -> 11 px)
+   2026-10-09      2     163.8      163.8   +   0.0   COMMODORE
+PASS 2026-10-09 load 2: the photo strip is at least the live base's (163.8 -> 163.8 px)
+PASS 2026-10-09 load 2: a meet point and its directions QR for every reference, on one page  - {"qrs":1,"mps":["COMMODORE"],"refs":1,"over":false}
+PASS 2026-10-09 load 2: the site rules fit on the sheet's own rules line (11 -> 11 px)
+   2026-10-09      3     163.8      163.8   +   0.0   COMMODORE
+PASS 2026-10-09 load 3: the photo strip is at least the live base's (163.8 -> 163.8 px)
+PASS 2026-10-09 load 3: a meet point and its directions QR for every reference, on one page  - {"qrs":1,"mps":["COMMODORE"],"refs":1,"over":false}
+PASS 2026-10-09 load 3: the site rules fit on the sheet's own rules line (11 -> 11 px)
+   2026-10-09      4     163.5      163.5   +   0.0   SEASIDE_NORTH
+PASS 2026-10-09 load 4: the photo strip is at least the live base's (163.5 -> 163.5 px)
+PASS 2026-10-09 load 4: a meet point and its directions QR for every reference, on one page  - {"qrs":1,"mps":["SEASIDE_NORTH"],"refs":1,"over":false}
+PASS 2026-10-09 load 4: the site rules fit on the sheet's own rules line (11 -> 11 px)
+PASS 33 driver sheets compared
+PASS 2026-10-07 load 4 (WC86 + T0258, two meet points, the sheet the review found at 0 px): photos at least the live base's, 96.8 -> 96.8 px  - {"load":"4","k":"0.8","pics":96.84375,"rline":11,"over":false,"qrs":2,"mps":["ISLAND_NORTH","PITLANE"],"refs":2,"park":false}
+PASS build: no page errors, no console errors, no write attempted  - {"errors":[],"cons":[],"counts":{"page":1,"live":205,"blocked":0}}
+
+93 passed, 0 failed

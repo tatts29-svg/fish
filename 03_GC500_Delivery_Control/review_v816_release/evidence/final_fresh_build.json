@@ -1,0 +1,14 @@
+{
+  "author": "Andrew Fisher",
+  "sourceCommit": "7f7d9066dbe6bda82eab12f1df0894410fd8845c",
+  "baseSha256": "35ab136643f9b7b0fb5b4e237c501c58cb27bc31e4faaded75df013dad0f7770",
+  "candidateSha256": "7ae89da4e80b070ade2977ef4e47ed3e766be6dc7722bd610e21ad78ddaa77d0",
+  "candidateBytes": 9244210,
+  "sourceFiles": {
+    "demob816_src.js": "3f18954e509eafd35c81f1c466963eaea886c23a68a570d1574bf8c72a740afc",
+    "drawer816_src.js": "6f87a42c4ac481bbbbceaab8c33e96adfd0f5b91fa7bc1780618a082d0882125",
+    "v816.css": "cd316ad919b0a9e721b3291e4c5dc2f5693f3f3d7734f26a5f4b763f71554d9b",
+    "patch_v816.py": "9b17360533c8a346b54ed7364c729dc890b4948a7c29be334e50c9a7e2a1d411"
+  },
+  "buildCheck": "PASS: seven inline scripts parse, no embedded secrets"
+}

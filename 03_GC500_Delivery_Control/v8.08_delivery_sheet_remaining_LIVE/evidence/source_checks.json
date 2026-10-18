@@ -1,0 +1,59 @@
+{
+  "author": "Andrew Fisher",
+  "base_sha256": "35024d43405947d59c106e858221f8c40ed9629bcf6b19b1081f87c4da6799ed",
+  "candidate_sha256": "b3c38f0ad23a48936b20278f71153cb3399ba93f8146fdc1653d9ffd08382a91",
+  "checks": [
+    {
+      "name": "candidate is exact guarded patch output",
+      "pass": true
+    },
+    {
+      "name": "helper source embedded exactly once",
+      "pass": true
+    },
+    {
+      "name": "reverse anchor 2",
+      "pass": true
+    },
+    {
+      "name": "reverse anchor 3",
+      "pass": true
+    },
+    {
+      "name": "reverse anchor 4",
+      "pass": true
+    },
+    {
+      "name": "reverse anchor 5",
+      "pass": true
+    },
+    {
+      "name": "reverse anchor 6",
+      "pass": true
+    },
+    {
+      "name": "reverse anchor 7",
+      "pass": true
+    },
+    {
+      "name": "reverse anchor 8",
+      "pass": true
+    },
+    {
+      "name": "exact reversal to entire original page",
+      "pass": true
+    },
+    {
+      "name": "repeat refuses without output mutation",
+      "pass": true
+    },
+    {
+      "name": "wrong version refuses without output mutation",
+      "pass": true
+    },
+    {
+      "name": "changed print component refuses without output mutation",
+      "pass": true
+    }
+  ]
+}

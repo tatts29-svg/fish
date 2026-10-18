@@ -1,0 +1,45 @@
+{
+  "author": "Andrew Fisher",
+  "scope": "Item-level toilet receipt and installation counts; read-only presentation",
+  "native_record_version": 5155,
+  "candidate_sha256": "b45a89db3e7e5ae8dc75fec5878ad9d8589d9509911a706ab204504573bd3cb9",
+  "candidate_bytes": 12755854,
+  "source_sha256": {
+    "toilets962.js": "9f45553b6c8dfe6c249c2ebc201794afe6c4cdec18c395d7922b3537001a3bea",
+    "patch_v962.py": "e6a6c7b41d68b0ee60656a6da9228f0f2cec1658693bd0d2609e14a64f63c0e1"
+  },
+  "component_assertions": 65,
+  "inline_scripts": 48,
+  "parse_pass": true,
+  "native_model_errors": [],
+  "native_record_unchanged": true,
+  "toilets": {
+    "schedule_units": 254,
+    "received": 137,
+    "installed": 131,
+    "without_confirmed_installation": 123,
+    "pct_lower_bound": 51.57,
+    "review_units": 1
+  },
+  "supplier": {
+    "identified_units": 91,
+    "received_units": 73,
+    "fwf_received": 71,
+    "fwf_confirmed_supply": 194,
+    "fwf_without_recorded_arrival": 123
+  },
+  "publication": "Root owns final combined verification and publication; not declared live.",
+  "strict_patch_guards": 5,
+  "strict_patch_pass": true,
+  "independent_review": "fencing_read_second: source and 65 assertions passed on candidate b45a89db3e7e5ae8dc75fec5878ad9d8589d9509911a706ab204504573bd3cb9; independent receipt range 0–4 preserves earlier block work and same-item future quantities stay outside review. Final combined browser verification remains root-owned.",
+  "native_update_regression": {
+    "wc09_fwf_receipt": 2,
+    "received": 139,
+    "installed": 131,
+    "review_units": 1,
+    "wc09_blocks_installed": 2,
+    "wc09_pee_installed": 0,
+    "exact_fixture_restoration": true,
+    "native_writes": false
+  }
+}
