@@ -3135,10 +3135,10 @@ async function route(req, res) {
       const c = cardOf(m[1]);   /* v5.89 — own property only: GET /d/propertyIsEnumerable is a wrong key, not a page */
       const ring = c && c.contact && c.contact.phone
         ? `<p>Ring <b>${esc(c.contact.name || 'the Coates events project manager')}</b> on <a href="tel:${esc(String(c.contact.phone).replace(/[^0-9+]/g, ''))}">${esc(c.contact.phone)}</a>.</p>`
-        : '<p>Contact the Coates events project manager on site.</p>';
+        : '<p>Ring the Coates events project manager whose name is on your paperwork.</p>';
       if (!c || !CARD_TOKEN_RE.test(m[1])) {
         return wrongKey(req, res, 404, page('Not found', '<p>That link is not one of ours, or it has been withdrawn.</p>'
-          + '<p>Contact the Coates events project manager on site.</p>'), { 'Content-Type': 'text/html; charset=utf-8' });
+          + '<p>Ring the Coates events project manager whose name is on your paperwork.</p>'), { 'Content-Type': 'text/html; charset=utf-8' });
       }
       if (cardExpired(c)) {
         if (c.tracker) {   /* v5.89 */

@@ -51,7 +51,7 @@
     }
   },
   "frozenCardEqualsCurrentGenerator": true,
-  "realServerSha256": "fb69c73d65b1cc5d206f902d6be226a08b463e6d86abbe7b38292be5d3798524",
+  "realServerSha256": "55a19453304406e9fcf0891ae6151e8516357e83e22987fc334e2bf9428ad0ec",
   "liveWrites": false,
   "remainingGates": [
     "Main-page admin integration has a separate owner",
@@ -60,5 +60,6 @@
   "limitations": [
     "Local Chromium validation does not claim physical iPhone/Android camera, private-browsing persistence or carrier-network testing",
     "A first-ever offline scan needs an earlier online load and Ready for offline scans confirmation"
-  ]
+  ],
+  "compatibilityEvidence": "card_v589_compatibility.json"
 }

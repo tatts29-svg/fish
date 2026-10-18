@@ -7,7 +7,7 @@ const {buildCardHtml,trackerConfig,cardScriptHash}=require('./build_card');
 const S=require('../panel_mockup/state');
 const SERVER=path.resolve(__dirname,'../../server_v5.90_servicing_tracker_DRAFT/server.js');
 const CLOCK=path.resolve(__dirname,'../../server_v5.89_servicing_tracker_DRAFT/fake_clock.js');
-const EXPECT_SERVER='fb69c73d65b1cc5d206f902d6be226a08b463e6d86abbe7b38292be5d3798524';
+const EXPECT_SERVER='55a19453304406e9fcf0891ae6151e8516357e83e22987fc334e2bf9428ad0ec';
 const EDIT='local-fixture-edit-1067',VIEW='local-fixture-view-1067',DAY='2026-10-23';
 const DATA={version:'synthetic-1067',tasks:{pump:'Pumped out',water:'Fresh water refilled',clean:'Cleaned & restocked'},plans:{fwf:{standard:['pump','water','clean']}},days:[{id:DAY,label:'Fri 23',to:'Sat 24',plan:'standard'}],areas:[{n:1,name:'Synthetic area',refs:['QA01','QA02'].map((ref,i)=>({ref,title:ref,lines:[{id:ref+'-FWF',kind:'fwf',type:'FWF',label:(i+1)+' × Synthetic FWF',qty:i+1,nos:[]}]}))}]};
 const sha=b=>crypto.createHash('sha256').update(b).digest('hex');

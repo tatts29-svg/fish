@@ -70,9 +70,7 @@ rep("""        const token = existing ? given : cardToken();   /* v5.89 — own 
             code: 'key_lost', token: given, reprint_required: true });
         }
         const token = existing ? given : cardToken();   /* v5.89 — own property only */""")
-# Do not refer a crew to contact details that were never supplied on their paperwork.
-rep("        : '<p>Ring the Coates events project manager whose name is on your paperwork.</p>';", "        : '<p>Contact the Coates events project manager on site.</p>';")
-rep("          + '<p>Ring the Coates events project manager whose name is on your paperwork.</p>'), { 'Content-Type': 'text/html; charset=utf-8' });", "          + '<p>Contact the Coates events project manager on site.</p>'), { 'Content-Type': 'text/html; charset=utf-8' });")
+# Legacy driver-card error wording remains byte-for-byte v5.89.
 # Worker served only for a live tracker. It controls exactly this card, never the main page or APIs.
 worker = (ROOT/'tracker_sw.js').read_text()
 worker_marker = "    /* v5.89 — THE SERVICING TRACKER'S TICKS"

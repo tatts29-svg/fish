@@ -183,8 +183,8 @@ function areaPct(ticks, areaLines, day) {
     S=await start(D,'2026-10-27T10:00:00+10:00');
     const missing=await req(S.port,'GET','/d/unknown_tracker_link');
     const expired=await req(S.port,'GET','/d/'+noContact);
-    check('withdrawn link never invents a contact on the paperwork',missing.status===404&&missing.text.includes('Contact the Coates events project manager on site.')&&!missing.text.includes('whose name is on your paperwork'));
-    check('expired tracker without contact uses truthful onsite fallback',expired.status===410&&expired.text.includes('Contact the Coates events project manager on site.')&&!expired.text.includes('whose name is on your paperwork'));
+    check('withdrawn link keeps the exact v5.89 fallback wording',missing.status===404&&missing.text.includes('Ring the Coates events project manager whose name is on your paperwork.')&&!missing.text.includes('Contact the Coates events project manager on site.'));
+    check('expired no-contact card keeps the exact v5.89 fallback wording',expired.status===410&&expired.text.includes('Ring the Coates events project manager whose name is on your paperwork.')&&!expired.text.includes('Contact the Coates events project manager on site.'));
     await S.stop(); S=null;
     console.log(`${pass}/${pass+fail} v5.90 additional reliability checks passed`);
     process.exitCode=fail?1:0;

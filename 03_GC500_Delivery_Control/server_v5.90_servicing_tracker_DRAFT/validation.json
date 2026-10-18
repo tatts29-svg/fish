@@ -1,72 +1,93 @@
 {
   "author": "Andrew Fisher",
-  "checked_at_utc": "2026-10-17T23:37:46.385784+00:00",
-  "candidate_sha256": "fb69c73d65b1cc5d206f902d6be226a08b463e6d86abbe7b38292be5d3798524",
-  "candidate_bytes": 289048,
+  "checked_at_utc": "2026-10-18T00:00:15.811020+00:00",
+  "candidate_sha256": "55a19453304406e9fcf0891ae6151e8516357e83e22987fc334e2bf9428ad0ec",
+  "candidate_bytes": 289090,
+  "base_sha256": "cb32d00e0d4beb90870685978981b1e14541a701c7b37cb1f180d848c134019c",
   "local_fake_token_servers_only": true,
   "live_writes": 0,
-  "baseline_full_suite": {
-    "author": "Andrew Fisher",
-    "checked_at_utc": "2026-10-17T23:22:35.899744+00:00",
-    "candidate_sha256": "afd7c216b5e5fa63964a7cb57b655fb7276f982029b3d9338a9847fd414ab1e8",
-    "candidate_bytes": 288809,
-    "local_fake_token_servers_only": true,
-    "live_writes": 0,
-    "checks": {
-      "test_tracker.js": {
-        "passed": 84,
-        "failed": 0
-      },
-      "test_tracker590.js": {
-        "passed": 20,
-        "failed": 0
-      },
-      "test_delivery_v586_on_v590.js": {
-        "passed": 45,
-        "failed": 0
-      },
-      "test_mms_sender_v587_on_v590.js": {
-        "passed": 14,
-        "failed": 0
-      },
-      "test_mms_v585_on_v590.js": {
-        "passed": 37,
-        "failed": 0
-      },
-      "rehearse_deploy.js": {
-        "passed": 14,
-        "failed": 0
-      }
+  "real_messages": 0,
+  "checks": {
+    "test_tracker.js": {
+      "passed": 84,
+      "failed": 0,
+      "source_sha256": "7d7e1076fede36a04d33b42d247f7503a8749d6bff3a10e37d638ba5710e1162"
     },
-    "total": 214,
-    "browser_integration": "pending card owner",
-    "independent_review": "pending"
-  },
-  "final_revision_changes": [
-    "worker cache failure cannot discard successful network response",
-    "truthful missing contact fallback",
-    "crew GET exposes the exact served card script hash for cached-shell identity"
-  ],
-  "affected_checks_on_final_candidate": {
     "test_tracker590.js": {
       "passed": 25,
-      "failed": 0
+      "failed": 0,
+      "source_sha256": "cb53a6680ae2d505dc12d82557ff2ec8df834d179392d537bd8bda1b9468bedd"
+    },
+    "test_delivery_v586_on_v590.js": {
+      "passed": 45,
+      "failed": 0,
+      "source_sha256": "87fd80fb92a3d06254b0eacec04fa463f7539470a34b15e3c6925e2cf52ee0f1"
+    },
+    "test_mms_sender_v587_on_v590.js": {
+      "passed": 14,
+      "failed": 0,
+      "source_sha256": "04e6013ec4665317c9c7bf69e3b53e149a6c3e5c79fc603da2db0ffbb3bbb918"
+    },
+    "test_mms_v585_on_v590.js": {
+      "passed": 37,
+      "failed": 0,
+      "source_sha256": "a2d5c9e0fefee1c3b87acdb81667694495a7d29c1aa8b79b4028611c7aac7782"
+    },
+    "rehearse_deploy.js": {
+      "passed": 19,
+      "failed": 0,
+      "source_sha256": "ab65f156563e23890475784aa1e02faeb6a44a37d35ff4050af8e5d0d3cbe0c0"
     },
     "../servicing_tracker_DRAFT/card/test_worker.cjs": {
       "passed": 14,
-      "failed": 0
-    },
-    "node_check": true,
-    "rebuild_identical": true,
-    "repeat_refused": true,
-    "worker_matches_card_source": true
+      "failed": 0,
+      "source_sha256": "a3101f529fa7238ff54a7042d5a3a7f9c388a1adbb38722c01e014f907054907"
+    }
   },
-  "affected_check_total": 39,
-  "browser_integration": "pending card owner",
-  "independent_review": "Prior server changes source-reviewed; exact script-hash delta awaiting parent review. Browser integration remains pending.",
-  "previous_revision": {
-    "candidate_sha256": "28bf93197cf7428be2230da1958d3780ddb811fdbad3844e3e439f570dd24883",
-    "candidate_bytes": 289002,
-    "affected_check_total": 36
-  }
+  "http_and_deploy_total": 224,
+  "worker_total": 14,
+  "total": 238,
+  "rollback": {
+    "order": [
+      "v5.89",
+      "v5.90",
+      "v5.89",
+      "v5.90"
+    ],
+    "fresh_signed_tick_accepted_while_rolled_back": true,
+    "active_ticks_preserved": true,
+    "void_history_preserved": true,
+    "original_signatures_preserved": true,
+    "operational_record_bytes_unchanged": true,
+    "earlier_keep_entries": 5
+  },
+  "reproducibility": "reproducibility.json",
+  "legacy_routes": "Delivery, MMS, driver CSP/cache and original shared 404/410 fallback wording regression checks passed.",
+  "browser_integration": {
+    "passed": 23,
+    "failed": 0,
+    "candidate_sha256": "55a19453304406e9fcf0891ae6151e8516357e83e22987fc334e2bf9428ad0ec",
+    "card_sha256": "953233d43de21949f5a7704ee19c973c94b9864a789c86aef9f6d90437a85842",
+    "evidence": "../servicing_tracker_DRAFT/card/evidence/card_real_server_protocol.json",
+    "reported_by": "release owner; independent final-source run",
+    "operational_record_unchanged": true,
+    "external_network_writes": 0,
+    "script_or_csp_errors": 0
+  },
+  "deployment": "Not deployed by this validation run. Release owner stages tested blob; Claude owns Railway switch.",
+  "physical_phone_print_checks": "Not performed by these local suites.",
+  "final_combination_total": 261,
+  "rollback_card_compatibility": {
+    "server_sha256": "cb32d00e0d4beb90870685978981b1e14541a701c7b37cb1f180d848c134019c",
+    "passed": 14,
+    "failed": 0,
+    "online_signed_ticks": true,
+    "open_tab_offline_queue": true,
+    "fresh_offline_qr": false,
+    "script_identity_field": false,
+    "honest_offline_not_ready": true,
+    "reported_by": "release owner"
+  },
+  "independent_source_review": "Final guarded server patch reviewed by release owner; no remaining server-source blocker reported.",
+  "readiness": "READY TO STAGE exact server only; full-page servicing integration pending corrected v10.66 boot base."
 }
