@@ -80,7 +80,7 @@ async function context(mobile,view){
   await page.locator('.svc1067-admin summary').click();await page.locator('[data-contact-name]').fill('Local fixture supervisor');await page.locator('[data-contact-phone]').fill('0400 000 000');
   await page.evaluate(()=>{document.getElementById('who').value='Local fixture operator';});
   const sBefore=await page.evaluate(()=>JSON.stringify(S));
-  await page.locator('[data-make="test"]').click();await page.waitForFunction(()=>document.querySelector('[data-admin-status]').textContent.includes('saved and read back'),null,{timeout:30000});
+  await page.locator('[data-make="test"]').click();await page.waitForFunction(()=>!document.querySelector('[data-make="test"]').disabled&&document.querySelector('[data-admin-status]').textContent.includes('saved and read back'),null,{timeout:30000});
   check('actual backend creates TEST card and verifies read-back',posts.length===1&&posts[0].load==='servicing-tracker:TEST');
   const list=JSON.parse((await req('/api/ticks')).body),token=list.trackers.find(t=>t.load==='servicing-tracker:TEST').token;
   const meta=JSON.parse((await req('/api/ticks?token='+token+'&links=1')).body),card=await req('/d/'+token);
@@ -92,7 +92,7 @@ async function context(mobile,view){
   await page.locator('details[data-svc-area="5"]').evaluate(e=>e.open=true);
   await page.evaluate(()=>{window.renderNights1022();SYNC.backend.redeliver();});await wait(500);
   check('native run-sheet redraw preserves admin and open area',await page.locator('details[data-svc-area="5"]').evaluate(e=>e.open)&&await page.locator('[data-contact-name]').inputValue()==='Local fixture supervisor');
-  await page.locator('[data-make="test"]').click();await page.waitForFunction(()=>document.querySelector('[data-admin-status]').textContent.includes('saved and read back'),null,{timeout:30000});
+  await page.locator('[data-make="test"]').click();await page.waitForFunction(()=>!document.querySelector('[data-make="test"]').disabled&&document.querySelector('[data-admin-status]').textContent.includes('saved and read back'),null,{timeout:30000});
   check('actual update explicitly reuses same token',posts.length===2&&posts[1].token===token);
   const meta2=JSON.parse((await req('/api/ticks?token='+token+'&links=1')).body);
   check('same-token update preserves printed signatures',JSON.stringify(meta.links)===JSON.stringify(meta2.links));
@@ -123,6 +123,6 @@ async function context(mobile,view){
   check('zero attempted main-record writes and zero page errors',blocked.length===0&&errors.length===0);
   check('server job record file remains byte-for-byte unchanged',hash(fs.readFileSync(path.join(dir,'records.json')))===recHash);
   console.log(JSON.stringify({passed:pass,failed:0,page_sha256:hash(fs.readFileSync(PAGE)),server_sha256:hash(fs.readFileSync(path.join(ROOT,'server_v5.90_servicing_tracker_DRAFT/server.js'))),local_only:true,nonessential_stubbed_paths:[...new Set(missing)],evidence:dir}));
- }catch(e){console.error(e);console.error(JSON.stringify({errors,blocked,private_evidence:dir}));process.exitCode=1;}
+ }catch(e){console.error(e);console.error(JSON.stringify({errors,blocked,card_posts:posts.length,private_evidence:dir}));process.exitCode=1;}
  finally{if(browser)await browser.close();if(server&&!exited){server.kill('SIGTERM');for(let n=0;n<100&&!exited;n++)await wait(50);}}
 })();

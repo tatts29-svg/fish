@@ -1,13 +1,13 @@
 {
   "author": "Andrew Fisher",
-  "checked_at_utc": "2026-10-18T00:06:27.975709+00:00",
+  "checked_at_utc": "2026-10-18T01:20:37.108666+00:00",
   "passed": 22,
   "failed": 0,
-  "page_sha256": "bb57d139e0aacf5e0f193e5238c260a7e28ef2f40f52d8eba2843fd91b9dabc9",
-  "page_bytes": 18465137,
-  "base_v1066_sha256": "08a8d9c13cf185de9f5c8db39cebb7d4d3f82acf44b15d8f5dc0b0fde3f078b3",
+  "page_sha256": "6ae970ca79aea9b198aa93042d1a81ceea1589e404f66f552da70351d6967387",
+  "page_bytes": 18465214,
+  "base_v1066_sha256": "4b5b727b781992e251968f81503ee064a3dbd3414a6087260258871ad83a0ec6",
   "server_sha256": "55a19453304406e9fcf0891ae6151e8516357e83e22987fc334e2bf9428ad0ec",
-  "test_source_sha256": "73702dbd5315865957caec10ba4601a0d4fdc8935aae1f71aa38ea53bf861553",
+  "test_source_sha256": "63d843da3ba9b38abc055f737888e2fcb56562ad4bf30f180771dc90bc5156d7",
   "local_only": true,
   "live_writes": 0,
   "attempted_job_record_writes": 0,
@@ -44,8 +44,8 @@
   ],
   "limits": [
     "Five local-token font URLs and an unused explorer frame were absent from the retained private fixture and stubbed; all outside network was intercepted.",
-    "This is development evidence on the named v10.66 candidate, not a guarded live-base build or live read-back.",
-    "Standard desktop/phone sweeps and rebase on any later v10.66 candidate remain release gates.",
+    "This is exact-candidate local integration evidence, not a guarded live-base build or live read-back.",
+    "Both standard final-candidate sweeps are recorded separately in sweep_results.json.",
     "Physical paper scans remain an operator check."
   ]
 }

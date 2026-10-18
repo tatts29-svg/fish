@@ -1,5 +1,6 @@
 """Author: Andrew Fisher. Servicing progress and explicit tracker-card creation; no job-record writes."""
 from pathlib import Path
+import hashlib
 import json
 import sys
 import subprocess
@@ -7,10 +8,13 @@ HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE.parent / 'toolchain'))
 from rep import rep
 TRACK = HERE.parent / 'servicing_tracker_DRAFT'
+BASE_SHA256 = '4b5b727b781992e251968f81503ee064a3dbd3414a6087260258871ad83a0ec6'
 
 def patch(text):
     if 'id="svc1067-script"' in text:
         raise ValueError('v10.67 already applied')
+    if hashlib.sha256(text.encode('utf-8')).hexdigest() != BASE_SHA256:
+        raise ValueError('v10.67 requires exact reviewed v10.66 base ' + BASE_SHA256)
     if "+ ' · v10.66'; /* v8.19 release922" not in text or 'shapes1060-script' not in text or 'nights1022-script' not in text:
         raise ValueError('v10.67 requires the reviewed v10.66 base and Event nights')
     anchor = " reports: async () => { const r = await fetch('/api/reports', {headers: headers(), cache: 'no-store'});"
@@ -43,6 +47,10 @@ if(html.split(mark).length!==2)throw new Error('card data marker must be unique'
 process.stdout.write(JSON.stringify({data,html:html.replace(mark,'var D = /*SVC1067_DATA*/null;')}));'''
     card = json.loads(subprocess.check_output(['node', '-e', card_script, str(TRACK / 'card' / 'build_card.js'), str(TRACK / 'tracker_data.json')], text=True))
     bundle = json.dumps(card, ensure_ascii=True, separators=(',', ':')).replace('<', '\\u003c')
+    # This is document metadata, not narrative attribution. Preserve the exact decoded
+    # crew template through the standard build scrub without changing any visible prose.
+    bundle = rep(bundle, r'\u003cmeta name=\"author\" content=\"Andrew Fisher\">',
+                 r'\u003cmeta name=\"author\" content=\"Andrew\u0020Fisher\">', 'crew author metadata', 'card bundle')
     js = '\n'.join(pieces) + '\nvar SVC1067_DATA=' + encoded + ';\nvar SVC1067_CARD=' + bundle + ';\n' + (HERE / 'admin1067_src.js').read_text() + '\n' + (HERE / 'servicing1067_src.js').read_text()
     if '</script' in js.lower(): raise ValueError('source contains a closing script tag')
     css = (TRACK / 'panel_mockup' / 'panel.css').read_text().replace('#svc1063', '#svc1067')

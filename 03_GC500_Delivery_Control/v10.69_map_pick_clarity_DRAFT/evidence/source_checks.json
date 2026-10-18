@@ -1,0 +1,30 @@
+{
+  "author": "Andrew Fisher",
+  "state": "DRAFT; browser reproduction and final predecessor integration pending",
+  "fixture_base": "c62adee5817153a56d538e1db015b0ef66a8a6e75609bc4d6e09a47bedfafbd8",
+  "shape_base": "2ed1461a29f678593b744e871d60489f46de97c49d4901a0670217fe8596f7d2",
+  "isolated_shape_candidate": "3d8e2e19ba46339fb97b576cce91e97e5be8a57c4c2df8bc287972ddf28afb79",
+  "checks": {
+    "geometry": 24,
+    "actual_hit_wrapper": 13,
+    "source_contracts": 9,
+    "patched_script_parse": true
+  },
+  "machine_changes": false,
+  "source_sha256": {
+    "map_pick1069_src.js": "be4b12320337ddb9f91629c78a737440dee7bbe43e3c2390cc6e6e7b5ae1a77e",
+    "patch_v1069.py": "c355da74b629a65088b6c13a70f6c427d589d12315a68722d04ff989cc4749a1",
+    "tests/test_browser1069.cjs": "1ad70a54cf5ab833cfa875172ff47ad33d7e50c0ff3ea0163b3225df4ddaae54",
+    "tests/test_geometry1069.cjs": "28d1e139b552b9e793186cf602fead7090ed64a070cdb60352df04a7799d3008",
+    "tests/test_patch1069.py": "7a21056230352cefd50341231b74dd370dc79b00ba2de3e14fedbfaed30a3697",
+    "tests/test_priority1069.cjs": "1b9864c74c70b227db4b2e0a9a853e9e606d9417cb254bed53964060a1143d42"
+  },
+  "integration_dry_build": {
+    "predecessor_is_draft": true,
+    "v1068_base_sha256": "101797711b79fde90b2fa6cb1a267cd89360dc42486f28c072e61fa1cc9329a0",
+    "v1069_candidate_sha256": "07cf8b6eedddc22397f301b9afae875137c608f5d62bae80a78249174cbfd88d",
+    "bytes": 18491946,
+    "check_page_scripts": 142,
+    "check_page_pass": true
+  }
+}

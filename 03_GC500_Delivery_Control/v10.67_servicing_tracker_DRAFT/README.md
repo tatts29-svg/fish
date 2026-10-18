@@ -1,8 +1,8 @@
-# v10.67 servicing tracker — DRAFT, not ready to publish
+# v10.67 servicing tracker — software checks complete
 
 Author: Andrew Fisher · 18 Oct 2026
 
-This page change follows v10.66 and the server v5.90 servicing fixes. It reads the crews’ separate tracker on Event
+This page change follows v10.66 and the now-live server v5.90 servicing fixes. It reads the crews’ separate tracker on Event
 nights and adds deliberate edit-only Create / update actions. It never writes the job record, a delivery or a charge.
 
 The progress headline uses the same figures as the crew card: completed references and completed unit-weighted jobs.
@@ -56,14 +56,20 @@ from this page’s source; it does not substitute another list silently.
 - Draft patch passed `check_page.py` (142 scripts). The phone screenshot was inspected: controls and saved state are
   readable at 390 px without horizontal overflow. This is development evidence, not a release read-back.
 
-Current tested page: `bb57d139e0aacf5e0f193e5238c260a7e28ef2f40f52d8eba2843fd91b9dabc9`
-(18,465,137 bytes), on boot-corrected v10.66 `08a8d9c13cf185de9f5c8db39cebb7d4d3f82acf44b15d8f5dc0b0fde3f078b3`,
-against final server `55a19453304406e9fcf0891ae6151e8516357e83e22987fc334e2bf9428ad0ec`.
-`tests/actual_page_results.json` binds the sanitized evidence to those exact sources.
+Exact tested candidate: `6ae970ca79aea9b198aa93042d1a81ceea1589e404f66f552da70351d6967387`
+(18,465,214 bytes), pinned to final v10.66 `4b5b727b781992e251968f81503ee064a3dbd3414a6087260258871ad83a0ec6`,
+against server `55a19453304406e9fcf0891ae6151e8516357e83e22987fc334e2bf9428ad0ec`.
+`tests/actual_page_results.json` binds the final 22/22 integration and inspected 390 px phone screenshot to these sources.
 
-Pending: both standard sweeps and the current live-base guarded build. Rebuild/retest if the v10.66 base changes.
-The server is staged separately and Claude owns the Railway switch; no machine import or page publication precedes
-confirmation. No page, card or operational record has been published by this draft.
+Both final standard sweeps pass: 24 panes, seven correct deep-link destinations and Back, zero page/console/navigation
+errors and zero attempted writes. Machine identity and record endpoint version were unchanged before and after.
+The sweeps used fresh live GETs, not an atomic frozen-record snapshot; sanitized evidence is `tests/sweep_results.json`.
+
+The release owner must still run the standard guarded build after v10.66 is verified live, confirm it produces these
+exact bytes, run the uploader dry-run and publish/read back through the guarded uploader. Rebuild and retest affected
+checks if the predecessor or output differs; the patch refuses a different predecessor.
+The v5.90 server switch has been verified and its publication hold is lifted. The software can ship with an honest
+empty setup state; contact nomination and physical sheet checks are required for real tracker/print rollout, not page-code release. No page, card or operational record has been published by this draft.
 
 `tests/test_actual_page.cjs` uses the real page and final v5.90 on localhost, a disposable private record store and
 intercepted outside networking. It waits for every initial collection merge plus live/ready signals. Before tracker
@@ -78,6 +84,13 @@ full 42-check PDF/QR suite covers all completion/location code decoding; physica
 
 ## Inputs kept honest
 
-No contact has been invented. The real creation/print flow requires it. T0024 keeps its workbook area 1 grouping and
+No contact has been invented. Fresh live card/record checks found no explicitly nominated servicing contact; the real creation/print flow requires it. T0024 keeps its workbook area 1 grouping and
 its master-plan SUPPLY position, shown as a separate far map. Seven unpinned references continue to say to ask on site;
 no directions or coordinates are guessed. Opening the public view link to tracker progress remains a separate choice.
+
+## Publisher handover
+
+`RELEASE_CHECKLIST.md` contains the exact script/style/DATA allowlist, standard build and upload commands, current setup
+evidence and software-versus-operator gates. The metadata-only packaging correction is covered by 10/10 exact build checks
+in `tests/build_results.json`; the exact output also passed the final 22-check actual-page suite. The
+release candidate is `6ae970ca79aea9b198aa93042d1a81ceea1589e404f66f552da70351d6967387` (18,465,214 bytes).

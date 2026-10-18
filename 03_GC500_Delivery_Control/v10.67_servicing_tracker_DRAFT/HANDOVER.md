@@ -1,4 +1,4 @@
-# Panel and print source handover — release checks pending
+# Panel and print source handover — ready for guarded build
 
 Author: Andrew Fisher · 18 Oct 2026
 
@@ -34,25 +34,40 @@ Author: Andrew Fisher · 18 Oct 2026
 | Complete PDF/QR suite | 42 passed, including every completion/location QR decode at 300 dpi |
 | Published-bundle print rehearsal | All 55 pages rendered; actual TEST day/contact present; event dates absent |
 | Actual full page with final native server | 22/22; zero errors or attempted record writes; exact record bytes unchanged |
-| Current provisional page static checks and phone inspection | 142 scripts parse; no new secrets; readable at 390 px; diff check clean |
+| Final candidate static checks and phone inspection | 142 scripts parse; no new secrets; readable at 390 px; diff check clean |
 
-The provisional page SHA-256 is `bb57d139e0aacf5e0f193e5238c260a7e28ef2f40f52d8eba2843fd91b9dabc9`
-(18,465,137 bytes), built on boot-corrected v10.66 `08a8d9c13cf185de9f5c8db39cebb7d4d3f82acf44b15d8f5dc0b0fde3f078b3`.
-These hashes identify development evidence only. They are not READY or live claims.
+The frozen page SHA-256 is `6ae970ca79aea9b198aa93042d1a81ceea1589e404f66f552da70351d6967387`
+(18,465,214 bytes), built on exact final v10.66 `4b5b727b781992e251968f81503ee064a3dbd3414a6087260258871ad83a0ec6`.
+The patch pins this predecessor. These identify tested candidate bytes, not a live claim.
 
-## Remaining release gate
+## Release owner’s next action
 
-The actual-page/native-server integration passes 22/22 against exact final v5.90
-`55a19453304406e9fcf0891ae6151e8516357e83e22987fc334e2bf9428ad0ec`. All first collection merges complete on the
-boot-corrected base. The test explicitly checks the native empty-map normalization and then whole-state stability;
-tracker actions preserve every state value and the record file bytes. It confirms TEST/event creation, exact read-back,
-same-token signatures, private bundle download, per-job/stale progress, redraw, permission revocation and fresh view privacy.
-The phone screenshot was inspected with readable controls and no horizontal overflow. Sanitized evidence is
-`tests/actual_page_results.json`; the private fixture, raw logs and screenshot are not published.
+The final actual-page/native-server integration passes 22/22 against v5.90
+`55a19453304406e9fcf0891ae6151e8516357e83e22987fc334e2bf9428ad0ec`. All first collection merges complete.
+The test explicitly checks native empty-map normalization and then whole-state stability; tracker actions preserve
+every state value and the record file bytes. It confirms TEST/event creation, exact read-back, same-token signatures,
+private bundle download, per-job/stale progress, redraw, permission revocation and fresh-view privacy. The inspected
+390 px phone screenshot has readable controls and no horizontal overflow. `tests/actual_page_results.json` is sanitized;
+the private fixture, raw logs and screenshot are not published.
 
-Still required: both standard page sweeps, a guarded build from the final deployed v10.66, and rerunning affected
-checks if that base changes. Claude owns the Railway switch; the page remains DRAFT pending its confirmed server
-switch and these release gates. Physical iPhone/Android paper scans remain an operator check.
+Both final standard sweeps pass: 24 panes, seven correct deep-link destinations and Back, zero page/console/navigation
+errors and zero attempted writes. Before/after machine identity and record endpoint version match. These used fresh
+live GETs rather than an atomic frozen record; `tests/sweep_results.json` records the exact routing assertions.
+
+After v10.66 is verified live, the release owner runs the standard guarded v10.67 build and verifies the result matches
+the frozen candidate above, then uploader dry-run and guarded publication/read-back. No repeat browser run is needed
+when the final built bytes are identical; any changed predecessor or output requires the affected checks again. The
+server prerequisite is verified live and the publication hold is lifted. Missing contact nomination and physical
+paper scans gate real tracker/sheet rollout, not the empty-state page software. Exact commands are in `RELEASE_CHECKLIST.md`.
 
 No commit, push, publication or live operational write was performed by the panel/print agent. No servicing contact,
 missing pin or access decision was invented. Physical iPhone/Android paper scans remain an operator check.
+
+## Packaging and current release instructions
+
+Standard publisher scrubbing initially changed the embedded crew author metadata. Its JSON space is now encoded,
+leaving the decoded template/data/runtime identical to the browser-tested candidate. Current packaging output:
+`6ae970ca79aea9b198aa93042d1a81ceea1589e404f66f552da70351d6967387` (18,465,214 bytes), on the exact final v10.66 base above.
+Ten exact-build checks pass, including native-script allowlist, unchanged DATA/styles/map scripts, exact card builder
+identity, repeat/wrong-base refusal and a byte-stable standard publisher scrub. `tests/build_results.json` and the final
+actual-page/sweep results all bind to the same frozen candidate. `RELEASE_CHECKLIST.md` gives publisher commands and setup evidence.
