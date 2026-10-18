@@ -1,3 +1,5 @@
+**VERIFIED LIVE — 18 Oct 2026.** This release is included in published v10.71, SHA256 `34a6b81b4f5adc76a46c2d28670d24d1f72e0233092d13dd3445f8b0805b1df2`,18,506,356 bytes, published12:41 AEST and independently read back. Source382d0ee. Earlier draft/testing notes below are retained as history. Author: Andrew Fisher.
+
 # v10.70 building departure coverage — draft
 
 Author: Andrew Fisher

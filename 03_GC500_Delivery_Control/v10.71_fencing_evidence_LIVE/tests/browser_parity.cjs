@@ -2,8 +2,8 @@
    GC500_FIXTURE=<private captured GET folder> node browser_parity.cjs base.html candidate.html private-bundle.json private-result.json
    The shared harness blocks every operational write. No original contents or financial values are printed. */
 'use strict';
-const cached=process.env.GC500_CACHE_ONLY==='1'?require('../../v10.66_speed_smooth_DRAFT/tests/validation/cache_only.cjs'):null;
-const C=require('../../v10.66_speed_smooth_DRAFT/tests/validation/common.cjs'),assert=require('assert/strict');
+const cached=process.env.GC500_CACHE_ONLY==='1'?require('../../v10.66_speed_smooth_LIVE/tests/validation/cache_only.cjs'):null;
+const C=require('../../v10.66_speed_smooth_LIVE/tests/validation/common.cjs'),assert=require('assert/strict');
 const [baseFile,candidateFile,bundleFile,outFile]=process.argv.slice(2);
 if(!outFile)throw Error('Expected base, candidate, private bundle and private output');
 const bundle=JSON.parse(C.fs.readFileSync(bundleFile));

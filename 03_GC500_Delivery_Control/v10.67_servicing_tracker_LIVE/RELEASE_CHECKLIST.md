@@ -32,10 +32,10 @@ Run from `03_GC500_Delivery_Control/` after the final v10.66 is verified live. U
 binding; never put its value in a command or file. The standard build fetches the live predecessor and saves its bytes.
 
 ```sh
-bash toolchain/build.sh v10.67 v10.67_servicing_tracker_DRAFT/patch_v1067.py
-python3 v10.67_servicing_tracker_DRAFT/tests/test_build.py build/GC500_v10.67/base_live.html build/GC500_v10.67/GC500_Delivery_Control_hosted.html
-node v10.67_servicing_tracker_DRAFT/tests/test_panel.cjs
-node v10.67_servicing_tracker_DRAFT/tests/test_admin.cjs
+bash toolchain/build.sh v10.67 v10.67_servicing_tracker_LIVE/patch_v1067.py
+python3 v10.67_servicing_tracker_LIVE/tests/test_build.py build/GC500_v10.67/base_live.html build/GC500_v10.67/GC500_Delivery_Control_hosted.html
+node v10.67_servicing_tracker_LIVE/tests/test_panel.cjs
+node v10.67_servicing_tracker_LIVE/tests/test_admin.cjs
 ```
 
 For a change beyond the exact comment-only equivalence documented above, rerun `tests/test_actual_page.cjs` on the new candidate with

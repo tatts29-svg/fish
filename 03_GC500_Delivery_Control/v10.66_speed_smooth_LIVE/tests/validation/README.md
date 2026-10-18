@@ -29,10 +29,10 @@ From the repository root, take the baseline snapshot with `GC500_CAPTURE=1`, the
 Use the same commands with `MOB=1` for the phone. The four captures are serial, under `/tmp/gc500-browser.lock`.
 
 ```bash
-GC500_CAPTURE=1 flock /tmp/gc500-browser.lock node 03_GC500_Delivery_Control/v10.66_speed_smooth_DRAFT/tests/validation/parity.cjs /dev/shm/gc500-test-maintenance-private-18oct/live.html /dev/shm/gc500-v1066-private/parity-base-desktop.json
-GC500_CAPTURE=0 flock /tmp/gc500-browser.lock node 03_GC500_Delivery_Control/v10.66_speed_smooth_DRAFT/tests/validation/parity.cjs 03_GC500_Delivery_Control/build/GC500_v10.66/GC500_Delivery_Control_hosted.html /dev/shm/gc500-v1066-private/parity-candidate-desktop.json
-node 03_GC500_Delivery_Control/v10.66_speed_smooth_DRAFT/tests/validation/compare.cjs /dev/shm/gc500-v1066-private/parity-base-desktop.json /dev/shm/gc500-v1066-private/parity-candidate-desktop.json
-GC500_CAPTURE=0 flock /tmp/gc500-browser.lock node 03_GC500_Delivery_Control/v10.66_speed_smooth_DRAFT/tests/validation/boot.cjs 03_GC500_Delivery_Control/build/GC500_v10.66/GC500_Delivery_Control_hosted.html /dev/shm/gc500-v1066-private/boot-desktop.json
+GC500_CAPTURE=1 flock /tmp/gc500-browser.lock node 03_GC500_Delivery_Control/v10.66_speed_smooth_LIVE/tests/validation/parity.cjs /dev/shm/gc500-test-maintenance-private-18oct/live.html /dev/shm/gc500-v1066-private/parity-base-desktop.json
+GC500_CAPTURE=0 flock /tmp/gc500-browser.lock node 03_GC500_Delivery_Control/v10.66_speed_smooth_LIVE/tests/validation/parity.cjs 03_GC500_Delivery_Control/build/GC500_v10.66/GC500_Delivery_Control_hosted.html /dev/shm/gc500-v1066-private/parity-candidate-desktop.json
+node 03_GC500_Delivery_Control/v10.66_speed_smooth_LIVE/tests/validation/compare.cjs /dev/shm/gc500-v1066-private/parity-base-desktop.json /dev/shm/gc500-v1066-private/parity-candidate-desktop.json
+GC500_CAPTURE=0 flock /tmp/gc500-browser.lock node 03_GC500_Delivery_Control/v10.66_speed_smooth_LIVE/tests/validation/boot.cjs 03_GC500_Delivery_Control/build/GC500_v10.66/GC500_Delivery_Control_hosted.html /dev/shm/gc500-v1066-private/boot-desktop.json
 ```
 
 Parity compares ordered visible and folded text of every tab, every third Build day, and every sixth reference drawer.
@@ -77,8 +77,8 @@ states must return, the temporary print style must disappear, and the complete c
 Run baseline and candidate at both desktop and phone sizes under the same lock:
 
 ```bash
-GC500_CAPTURE=0 flock /tmp/gc500-browser.lock node 03_GC500_Delivery_Control/v10.66_speed_smooth_DRAFT/tests/validation/print.cjs /dev/shm/gc500-test-maintenance-private-18oct/live.html /dev/shm/gc500-v1066-private/print-base-desktop.json
-GC500_CAPTURE=0 flock /tmp/gc500-browser.lock node 03_GC500_Delivery_Control/v10.66_speed_smooth_DRAFT/tests/validation/print.cjs 03_GC500_Delivery_Control/build/GC500_v10.66/GC500_Delivery_Control_hosted.html /dev/shm/gc500-v1066-private/print-candidate-desktop.json /dev/shm/gc500-v1066-private/print-base-desktop.json
+GC500_CAPTURE=0 flock /tmp/gc500-browser.lock node 03_GC500_Delivery_Control/v10.66_speed_smooth_LIVE/tests/validation/print.cjs /dev/shm/gc500-test-maintenance-private-18oct/live.html /dev/shm/gc500-v1066-private/print-base-desktop.json
+GC500_CAPTURE=0 flock /tmp/gc500-browser.lock node 03_GC500_Delivery_Control/v10.66_speed_smooth_LIVE/tests/validation/print.cjs 03_GC500_Delivery_Control/build/GC500_v10.66/GC500_Delivery_Control_hosted.html /dev/shm/gc500-v1066-private/print-candidate-desktop.json /dev/shm/gc500-v1066-private/print-base-desktop.json
 ```
 
 Optional diagnostic only: the unproven artwork deferral is excluded from the production patch. Do not run
@@ -104,8 +104,8 @@ are not an A/B speed comparison. `performance_minimum.cjs` validates and summari
 desktop baseline, desktop candidate, phone baseline, phone candidate, phone candidate idle.
 
 ```bash
-GC500_CAPTURE=0 MOB=1 CPU=4 PERF_MODE=all IDLE_SECONDS=60 flock /tmp/gc500-browser.lock node 03_GC500_Delivery_Control/v10.66_speed_smooth_DRAFT/tests/validation/performance.cjs PAGE.html /dev/shm/gc500-v1066-private/perf-phone-base-1.json
-node 03_GC500_Delivery_Control/v10.66_speed_smooth_DRAFT/tests/validation/performance_summary.cjs BASE1.json CANDIDATE1.json BASE2.json CANDIDATE2.json BASE3.json CANDIDATE3.json
+GC500_CAPTURE=0 MOB=1 CPU=4 PERF_MODE=all IDLE_SECONDS=60 flock /tmp/gc500-browser.lock node 03_GC500_Delivery_Control/v10.66_speed_smooth_LIVE/tests/validation/performance.cjs PAGE.html /dev/shm/gc500-v1066-private/perf-phone-base-1.json
+node 03_GC500_Delivery_Control/v10.66_speed_smooth_LIVE/tests/validation/performance_summary.cjs BASE1.json CANDIDATE1.json BASE2.json CANDIDATE2.json BASE3.json CANDIDATE3.json
 ```
 
 The summary reports every target as met/unmet: usable <8 s phone/<2 s desktop, post-usable tasks ≤250 ms, load/tab CLS

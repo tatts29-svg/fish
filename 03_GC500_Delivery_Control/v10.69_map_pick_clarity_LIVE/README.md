@@ -1,3 +1,5 @@
+**VERIFIED LIVE — 18 Oct 2026.** This release is included in published v10.71, SHA256 `34a6b81b4f5adc76a46c2d28670d24d1f72e0233092d13dd3445f8b0805b1df2`,18,506,356 bytes, published12:41 AEST and independently read back. Source382d0ee. Earlier draft/testing notes below are retained as history. Author: Andrew Fisher.
+
 # Map pick and reference clearance — DRAFT
 
 Author: Andrew Fisher.
@@ -31,9 +33,9 @@ Existing reference text checks the currently projected shape footprints, includi
 Run from repository root, with authorised private local fixture paths:
 
 ```sh
-node 03_GC500_Delivery_Control/v10.69_map_pick_clarity_DRAFT/tests/test_geometry1069.cjs
-BASE=/private/base.html python3 -m unittest discover -s 03_GC500_Delivery_Control/v10.69_map_pick_clarity_DRAFT/tests -p test_patch1069.py -v
-PAGE=/private/candidate.html node 03_GC500_Delivery_Control/v10.69_map_pick_clarity_DRAFT/tests/test_priority1069.cjs
+node 03_GC500_Delivery_Control/v10.69_map_pick_clarity_LIVE/tests/test_geometry1069.cjs
+BASE=/private/base.html python3 -m unittest discover -s 03_GC500_Delivery_Control/v10.69_map_pick_clarity_LIVE/tests -p test_patch1069.py -v
+PAGE=/private/candidate.html node 03_GC500_Delivery_Control/v10.69_map_pick_clarity_LIVE/tests/test_priority1069.cjs
 ```
 
 All browser checks use the existing GET-only harness and shared `/tmp/gc500-browser.lock`; no test may write an operational record. The release owner rebuilds from the actual verified v10.68, completes required sweeps and affected shape checks, then uses the unchanged guarded page publisher and exact content read-back.

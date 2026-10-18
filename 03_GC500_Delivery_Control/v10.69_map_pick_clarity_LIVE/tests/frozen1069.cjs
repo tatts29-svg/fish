@@ -24,6 +24,6 @@ net.curlFetch=async function(url,headers,method){
  if(range){const m=/^bytes=(\d+)-(\d+)$/.exec(range);if(!expected||!m)throw Error('Unsupported unverified Range');const from=Number(m[1]),to=Number(m[2]);if(from>to||to>=result.body.length)throw Error('Out-of-bounds Range');return {status:206,headers:{...result.headers,'content-range':`bytes ${from}-${to}/${result.body.length}`,'content-length':String(to-from+1),'accept-ranges':'bytes'},body:result.body.subarray(from,to+1)};}
  return result;
 };
-const common=require('../../v10.66_speed_smooth_DRAFT/tests/validation/common.cjs');
+const common=require('../../v10.66_speed_smooth_LIVE/tests/validation/common.cjs');
 exports.open=options=>common.launch({pageFile:options.pageFile,hash:options.hash,mobile:options.mobile,init:"try{localStorage.setItem('gc500.explorer.mode','original')}catch(e){}"});
 exports.evidence=async h=>{await Promise.allSettled([...pending]);const api=common.errorsOf(h);return {ok:!assets.missing.size&&!assets.bad.size&&!api.pageErrors.length&&!api.consoleErrors.length&&!api.blocked&&!api.missingFixture.length&&api.fixtureVersions.consistent&&api.fixtureVersions.state===9704,mode:'frozen API9704 + genuine original assets; manifest-checked machine bytes',machineRelease:manifest.sha256,staticHits:assets.hits,originalGets:assets.originalGets,verifiedMachineAssets:assets.verified.size,verifiedOriginalMedia:assets.media.size,missingAssets:[...assets.missing].map(([sha1,location])=>({sha1,...location})),badAssets:[...assets.bad],...api};};

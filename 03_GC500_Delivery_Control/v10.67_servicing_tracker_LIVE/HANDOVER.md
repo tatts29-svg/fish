@@ -26,7 +26,7 @@ Author: Andrew Fisher · 18 Oct 2026
 ## Owned paths
 
 `servicing_tracker_DRAFT/panel_mockup/`, `servicing_tracker_DRAFT/print/`, and
-`v10.67_servicing_tracker_DRAFT/`. The card and server have their own owners and evidence.
+`v10.67_servicing_tracker_LIVE/`. The card and server have their own owners and evidence.
 
 ## Checks completed
 

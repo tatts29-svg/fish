@@ -3,7 +3,7 @@
    Run under the shared browser flock; all operational writes are aborted by the canonical harness. */
 'use strict';
 const assert=require('node:assert/strict'),path=require('node:path');
-const C=require('../../v10.66_speed_smooth_DRAFT/tests/validation/common.cjs');
+const C=require('../../v10.66_speed_smooth_LIVE/tests/validation/common.cjs');
 // Record resource failures before navigation so an unrelated upstream outage can
 // be compared between both exact arms without dropping financial assertions.
 const transportByPage=new WeakMap(),{chromium}=require('playwright'),priorLaunch=chromium.launch.bind(chromium);

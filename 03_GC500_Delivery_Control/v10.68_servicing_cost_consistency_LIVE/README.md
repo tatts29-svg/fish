@@ -1,3 +1,5 @@
+**VERIFIED LIVE — 18 Oct 2026.** This release is included in published v10.71, SHA256 `34a6b81b4f5adc76a46c2d28670d24d1f72e0233092d13dd3445f8b0805b1df2`,18,506,356 bytes, published12:41 AEST and independently read back. Source382d0ee. Earlier draft/testing notes below are retained as history. Author: Andrew Fisher.
+
 # Supplier servicing cost consistency — v10.68
 
 Author: Andrew Fisher
@@ -26,8 +28,8 @@ Monthly review retains the existing provisional allocation across the quote's da
 Run from `03_GC500_Delivery_Control`:
 
 ```sh
-node v10.68_servicing_cost_consistency_DRAFT/tests/test_supplier1068.cjs
-PAGE=/absolute/path/to/local-v10.67-candidate.html node v10.68_servicing_cost_consistency_DRAFT/tests/test_consumers1068.cjs
+node v10.68_servicing_cost_consistency_LIVE/tests/test_supplier1068.cjs
+PAGE=/absolute/path/to/local-v10.67-candidate.html node v10.68_servicing_cost_consistency_LIVE/tests/test_consumers1068.cjs
 ```
 
 For each desktop/phone browser comparison, clear inherited page/media overrides, set `GC500_FIXTURE` to the same private frozen record, and use the installed Chromium through `CHROMIUM_PATH`. Set `MOB=1` for the phone run. Execute under `flock /tmp/gc500-browser.lock`, then run the unmodified `toolchain/harness/sweep.js` with fresh private caches for each release candidate. Pass its desktop and phone reports to `tests/assert_sweeps1068.cjs`.
@@ -48,6 +50,6 @@ Both final financial runs report `pass: true`, `financialPass: true`, `cleanNetw
 
 The upload identity fix adds only `<!-- GC500 Delivery Control -->` immediately after the existing doctype. On final v10.67 predecessor `f32b39bcf42637fd246e03c6b64547b9dd203015659b768411e232e77ffcfc86` (18,465,246 bytes), the unchanged v10.68 patch and canonical scrub produce final candidate **`851197de50912e51e5715c16d6a21271691593588ebba5bb0a0dd60608374534` (18,486,244 bytes)**.
 
-The shared `v10.67_servicing_tracker_DRAFT/tests/envelope_equivalence.json` proof confirms that removing this sole 32-byte non-rendered comment reproduces the browser-tested candidate exactly. Scripts, styles, data and all other bytes are identical. Browser evidence remains bound to `10179771…`; it is not relabelled as a browser run on `851197de…`.
+The shared `v10.67_servicing_tracker_LIVE/tests/envelope_equivalence.json` proof confirms that removing this sole 32-byte non-rendered comment reproduces the browser-tested candidate exactly. Scripts, styles, data and all other bytes are identical. Browser evidence remains bound to `10179771…`; it is not relabelled as a browser run on `851197de…`.
 
 The release owner must verify live v10.67 is exactly `f32b39bc…`, reproduce `851197de…` through the shared build process, preserve the predecessor's tracker/map allowlists, then complete guarded publication and exact public read-back. No publication, operational writes or actual-live financial verification is claimed by this readiness record.

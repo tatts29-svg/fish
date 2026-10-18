@@ -1,11 +1,11 @@
 /* Author: Andrew Fisher. Native output and print-layout checks, using frozen reads and blocked writes. */
 'use strict';
 const assert=require('node:assert/strict');
-const cached=process.env.GC500_CACHE_ONLY==='1'?require('../../v10.66_speed_smooth_DRAFT/tests/validation/cache_only.cjs'):null;
+const cached=process.env.GC500_CACHE_ONLY==='1'?require('../../v10.66_speed_smooth_LIVE/tests/validation/cache_only.cjs'):null;
 const transport=require('../../toolchain/harness/curlfetch.js'),nativeFetch=transport.curlFetch;
 let arm='baseline';const external={baseline:[],candidate:[]};
 transport.curlFetch=async(...args)=>{const current=arm;try{const r=await nativeFetch(...args);if(r.status>=400)external[current].push({url:args[0],method:args[2],status:r.status});return r;}catch(e){external[current].push({url:args[0],method:args[2],error:e.code||e.name});throw e;}};
-const common=require('../../v10.66_speed_smooth_DRAFT/tests/validation/common.cjs');
+const common=require('../../v10.66_speed_smooth_LIVE/tests/validation/common.cjs');
 const {launch,ready,settled,mergeReport,assertClean,writePrivate,canonicalRecord,sha,errorsOf}=common;
 const diagnostics={};
 function collectCleanliness(s,label){const e=errorsOf(s);diagnostics[label]={...e,external:external[label]};assert.equal(e.pageErrors.length,0,label+' genuine page exceptions');assert.equal(e.blocked,0,label+' attempted writes');assert.equal(e.missingFixture.length,0,label+' missing frozen endpoints');assert.ok(e.fixtureVersions.consistent,label+' frozen API coherence');const product=e.consoleErrors.filter(x=>!/^Failed to load resource: (?:the server responded with a status of [45][0-9]{2}|net::ERR_)/.test(x));assert.equal(product.length,0,label+' genuine console errors');if(e.consoleErrors.length)assert.ok(external[label].length,label+' resource errors have captured failed reads');return !e.consoleErrors.length&&!external[label].length;}

@@ -1,3 +1,5 @@
+**STAGED / READY TO DEPLOY — 18 Oct2026 12:42 AEST.** Exact blob PUT and inventory verified; prior blobs, page, machine and full shared state unchanged. Server remainsv5.90. Claude owns Railway switch per Andrew. Exact settings and rollback posted in PR #1 comment6244841898; no import/prune before switch. Author: Andrew Fisher.
+
 # Server v5.91 — complete native record export
 
 Author: Andrew Fisher · 18 Oct 2026
