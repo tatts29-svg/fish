@@ -24,3 +24,17 @@ entries disagree, his later word wins). The other boards: T0001's other six unit
 `node vms.cjs --apply --spec vms_install_spec.json` (op `labour_on`, through the page's own `setLabour`, by Andrew Fisher),
 with backup `backup_state_20261018T095944Z.json`. Two documents written, the tick and its stamp; record 9728 → 9730;
 every other document unchanged in value; VERIFIED on the service (`report_20261018T095944Z.json`).
+
+## Applied: T0158 (VMS13–17) on site from Fri 16 Oct and ticked installed, 18 Oct 2026 20:19 AEST
+
+Andrew, 18 Oct: "They are here already onsite. They turned up friday". T0158's light was "not on site". Its own note already
+said "Came in 16 Oct 2026", and the five boards' regos were read off them on site and saved Fri 16 Oct 02:09 UTC (12:09 AEST).
+`node vms.cjs --apply --spec t0158_spec.json`:
+- `light` T0158 → on site through the page's own `setLight`, dated 2026-10-16T02:09:00Z (the light and its history entry,
+  with Andrew's words as the entry's note). That is the earliest time the record itself proves they were on site; no time
+  was invented.
+- `labour_on` T0158|Variable message signs|VMS|install, a reference-level tick like T0128's, through `setLabour`.
+
+"Complete" was not pressed. Backup `backup_state_20261018T101930Z.json`. Four documents written; record 9730 → 9734;
+everything else unchanged in value; VERIFIED (`report_20261018T101930Z.json`). Still open from the note: VMS13's asset is
+1191957 on the contract and 1191657 as Andrew wrote it, "to be checked on the plate".

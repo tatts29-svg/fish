@@ -63,6 +63,7 @@ spec.ops.forEach((o, i) => {
   else if (o.op === 'answer') { if (typeof o.id !== 'string' || !/^[a-z0-9][a-z0-9_-]{1,80}$/i.test(o.id)) fail(at + 'needs a question id'); if (typeof o.text !== 'string' || !o.text.trim() || o.text.length > 600) fail(at + 'needs text under 600 characters'); if (/\b(codex|claude|gpt|model|agent)\b/i.test(o.text)) fail(at + 'text names a system'); }
   else if (o.op === 'unit_reidentify') { if (!REFRE.test(o.ref || '')) fail(at + 'needs a reference'); if (!NORE.test(o.no || '')) fail(at + 'needs a number'); if (typeof o.item !== 'string' || !o.item.trim()) fail(at + 'needs an item type'); if (!['coates', 'event-portables'].includes(o.owner || 'coates')) fail(at + 'owner'); }
   else if (o.op === 'number_item') { if (!REFRE.test(o.ref || '')) fail(at + 'needs a reference'); if (!NORE.test(o.no || '')) fail(at + 'needs a number'); if (typeof o.item !== 'string' || !o.item.trim()) fail(at + 'needs an item'); }
+  else if (o.op === 'labour_on' && !o.unit) { if (!REFRE.test(o.ref || '')) fail(at + 'needs a reference'); for (const f of ['disc', 'item', 'line']) if (typeof o[f] !== 'string' || !o[f]) fail(at + 'needs ' + f); }
   else if (o.op === 'labour_on' || o.op === 'labour_off') { if (!REFRE.test(o.ref || '')) fail(at + 'needs a reference'); for (const f of ['disc', 'item', 'line', 'unit']) if (typeof o[f] !== 'string' || !o[f]) fail(at + 'needs ' + f); }
   else if (o.op === 'door') { if (!REFRE.test(o.ref || '')) fail(at + 'needs a reference'); if (!/^u\d{4,12}$/.test(o.id || '')) fail(at + 'needs a unit row id'); if (!['driver', 'passenger', 'na'].includes(o.side)) fail(at + 'side'); }
   else if (o.op === 'unit_archive') { if (!REFRE.test(o.ref || '')) fail(at + 'needs a reference'); if (!NORE.test(o.no || '')) fail(at + 'needs a number'); }
@@ -178,7 +179,8 @@ function applyOps(spec) {
       } else if (op.op === 'light') {
         const d = deliveryOf(op.ref);
         if (d.state === op.state) r.result = 'already ' + op.state;
-        else { const ok = setLight(op.ref, op.state); if (!ok) throw new Error('setLight refused ' + op.ref); if (deliveryOf(op.ref).state !== op.state) throw new Error('light did not move'); r.result = 'set ' + op.state; }
+        else { const ok = setLight(op.ref, op.state); if (!ok) throw new Error('setLight refused ' + op.ref); if (deliveryOf(op.ref).state !== op.state) throw new Error('light did not move'); r.result = 'set ' + op.state;
+          if (op.at) { const dd = S.delivery[op.ref], h = dd.history && dd.history[dd.history.length - 1]; if (!h || h.state !== op.state) throw new Error('no history entry to date'); dd.set_at = op.at; h.at = op.at; if (op.why) h.note = op.why; r.result += ' at ' + op.at; } }
       } else if (op.op === 'acc_add') {
         if (accOf(op.ref, op.no)) { r.result = 'already on'; }
         else {
@@ -370,6 +372,7 @@ function applyOps(spec) {
       for (const op of spec.ops) {
         if (op.op === 'number_on' && !numsOf(op.ref).includes(op.no) && !(pageBefore.refs[op.ref].numbers.includes(op.no))) problems.push(op.ref + ' does not carry ' + op.no + ' ' + where);
         if (op.op === 'number_off' && numsOf(op.ref).includes(op.no)) problems.push(op.ref + ' still carries ' + op.no + ' ' + where);
+        if (op.op === 'light' && op.at && (((docs.delivery || {})[op.ref] || {}).set_at) !== op.at) problems.push(op.ref + ' light not dated ' + op.at + ' ' + where);
         if (op.op === 'light' && (((docs.delivery || {})[op.ref] || {}).state) !== op.state) problems.push(op.ref + ' light is not ' + op.state + ' ' + where);
         if (op.op === 'acc_add' && !((((docs.accessories || {})[op.ref] || {}).v) || []).some(x => String(x.asset_no || '') === op.no && x.type === op.type)) problems.push(op.ref + ' has no ' + op.type + ' ' + op.no + ' ' + where);
         if (op.op === 'acc_fix') { const v = (((docs.accessories || {})[op.ref] || {}).v) || []; if (!v.some(x => String(x.asset_no || '') === op.to && x.type === op.type) || v.some(x => String(x.asset_no || '') === op.from)) problems.push(op.ref + ' ' + op.type + ' is not ' + op.to + ' ' + where); }
@@ -377,7 +380,7 @@ function applyOps(spec) {
         if (op.op === 'unit_reidentify' && !Object.values(docs.loads || {}).some(u => u && u.kind === 'unit925-record' && u.ref === op.ref && String(u.assetNo) === op.no && u.item === op.item && u.active !== false && !u.removedBy)) problems.push(op.ref + ' has no active ' + op.item + ' unit ' + op.no + ' ' + where);
         if (op.op === 'unit_archive' && Object.values(docs.loads || {}).some(u => u && u.kind === 'unit925-record' && u.ref === op.ref && String(u.assetNo) === op.no && u.active !== false && !u.removedBy)) problems.push(op.ref + ' still has an active unit record for ' + op.no + ' ' + where);
         if (op.op === 'labour_off' && (docs.labour || {})[op.ref + '/u' + op.unit.replace(/^u/, '') + '|' + op.disc + '|' + op.item + '|' + op.line]) problems.push(op.ref + ' ' + op.unit + ' ' + op.line + ' still ticked ' + where);
-        if (op.op === 'labour_on' && (((docs.labour || {})[(op.ref + '/u' + op.unit.replace(/^u/, '') + '|' + op.disc + '|' + op.item + '|' + op.line).replace(/\//g, '~2f~').replace(/\|/g, '~7c~').replace(/ /g, '~20~').replace(/&/g, '~26~')] || {}).v) !== true) problems.push(op.ref + ' ' + op.unit + ' ' + op.line + ' not ticked ' + where);
+        if (op.op === 'labour_on' && (((docs.labour || {})[((op.unit ? op.ref + '/u' + op.unit.replace(/^u/, '') : op.ref) + '|' + op.disc + '|' + op.item + '|' + op.line).replace(/\//g, '~2f~').replace(/\|/g, '~7c~').replace(/ /g, '~20~').replace(/&/g, '~26~')] || {}).v) !== true) problems.push(op.ref + ' ' + op.unit + ' ' + op.line + ' not ticked ' + where);
         if (op.op === 'vms_rego' && ((((docs.vmsboard || {})[op.key]) || {}).rego) !== op.rego) problems.push(op.key + ' rego is not ' + op.rego + ' ' + where);
         if (op.op === 'set_qty' && op.qty !== '' && ((((docs.qtys || {})[op.ref] || {}).v)) !== op.qty) problems.push(op.ref + ' quantity is not ' + op.qty + ' ' + where);
       } return problems; };
