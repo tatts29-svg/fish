@@ -66,6 +66,17 @@ async function context(mobile,view){
   await page.waitForSelector('#svc1067-host:not([hidden])');
   check('actual page boots with connected edit authority',await page.evaluate(()=>capability()==='edit'&&SYNC.level==='edit'&&SYNC.backend.rest));
   check('no tracker writes on boot',posts.length===0);
+  // Establish the native redelivery baseline before any tracker operation. Initial mergeRecords omits
+  // empty mapKeys; syncFold later supplies {}. Verify that exact value-level change, never exclude a field.
+  const firstState=await page.evaluate(()=>JSON.parse(JSON.stringify(S)));
+  await page.evaluate(()=>SYNC.backend.redeliver());await wait(500);
+  const foldedState=await page.evaluate(()=>JSON.parse(JSON.stringify(S)));
+  if(!isDeepStrictEqual(firstState,foldedState)){
+   const changed=Object.keys({...firstState,...foldedState}).filter(k=>!isDeepStrictEqual(firstState[k],foldedState[k]));
+   check('native setup changes only absent mapKeys to an empty object',changed.length===1&&changed[0]==='mapKeys'&&!Object.prototype.hasOwnProperty.call(firstState,'mapKeys')&&isDeepStrictEqual(foldedState.mapKeys,{}));
+  }else check('native setup already has the same complete state',true);
+  await page.evaluate(()=>SYNC.backend.redeliver());await wait(500);
+  check('second native redelivery is value-stable with zero record writes',isDeepStrictEqual(foldedState,await page.evaluate(()=>JSON.parse(JSON.stringify(S))))&&blocked.length===0);
   await page.locator('.svc1067-admin summary').click();await page.locator('[data-contact-name]').fill('Local fixture supervisor');await page.locator('[data-contact-phone]').fill('0400 000 000');
   await page.evaluate(()=>{document.getElementById('who').value='Local fixture operator';});
   const sBefore=await page.evaluate(()=>JSON.stringify(S));

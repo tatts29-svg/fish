@@ -16,3 +16,7 @@ Validation used the captured live v10.65 page, SHA-256 `c62adee5817153a56d538e1d
 - Independent source review confirmed both expectations against current published source and the sequence data; no concerns. Claude did not review these edits.
 
 Raw browser logs remain private because they contain site details. These corrections are ready for the v10.66 standing checks.
+
+## Further standing-test maintenance — saved draft, not yet browser-verified
+
+The day-card suite now enters Build explicitly after hydration (cold hash routing has its own boot tests), accepts numeric later footer versions, and uses the already-published v10.58/v10.59 on-time/category presentation instead of superseded per-arrival rows. The exact unchanged-v10.65 comparison previously failed on these historical assertions. The changed test has passed syntax checks only; desktop/phone reruns remain required before v10.66 READY. The standing runner omits v10.57 part3 because v10.59 documents its own suite as the replacement; that replacement remains required. No production page or recorded quantities were changed for test maintenance.

@@ -20,7 +20,7 @@ JOBS = [
  ('daycards', 'v10.56_day_cards_LIVE/tests/test_daycards1056.cjs', 'both', True),
  ('part1', 'v10.57_build_tab_tidy_DRAFT/tests/test_part1.cjs', 'both', True),
  ('part2', 'v10.57_build_tab_tidy_DRAFT/tests/test_part2.cjs', 'both', True),
- ('part3', 'v10.57_build_tab_tidy_DRAFT/tests/test_part3.cjs', 'both', True),
+ # v10.59 README explicitly supersedes test_part3.cjs with test_v1059.cjs below.
  ('late', 'v10.59_late_desc_arrived_DRAFT/tests/test_v1059.cjs', 'both', True),
 ]
 for name, script in [

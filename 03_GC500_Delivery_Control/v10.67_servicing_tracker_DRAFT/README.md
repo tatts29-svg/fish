@@ -50,19 +50,27 @@ from this page’s source; it does not substitute another list silently.
 - `tests/test_panel_browser.cjs`: 28 checks passed at 360 and 1280 px with zero page errors/network writes,
   including the TEST next-day-label regression. All responses are local fixtures.
 - Existing shared state suite: 51 passed, including exact shared-source inclusion and random event-order checks.
-- Draft patch on the current v10.66 candidate passed `check_page.py` (142 scripts). This is development evidence,
-  not a final source/hash or release read-back; rebuild after the final v10.66 and card sources settle.
+- Actual full-page/native-server integration: **22/22 passed**, including fully merged boot, whole-state isolation,
+  create/update/read-back, downloaded TEST bundle, stale reads, immediate access-loss clearing and fresh-view privacy.
+  Zero page errors or attempted operational-record writes; the server record stayed byte-for-byte identical.
+- Draft patch passed `check_page.py` (142 scripts). The phone screenshot was inspected: controls and saved state are
+  readable at 390 px without horizontal overflow. This is development evidence, not a release read-back.
 
-Pending: actual-page phone screenshot inspection and local server v5.90 integration, both standard sweeps and
-current live-base guarded build. No page, card or operational record has been published by this draft.
+Current tested page: `bb57d139e0aacf5e0f193e5238c260a7e28ef2f40f52d8eba2843fd91b9dabc9`
+(18,465,137 bytes), on boot-corrected v10.66 `08a8d9c13cf185de9f5c8db39cebb7d4d3f82acf44b15d8f5dc0b0fde3f078b3`,
+against final server `55a19453304406e9fcf0891ae6151e8516357e83e22987fc334e2bf9428ad0ec`.
+`tests/actual_page_results.json` binds the sanitized evidence to those exact sources.
 
-The new `tests/test_actual_page.cjs` runs the full candidate against v5.90 on localhost with a disposable private
-record store and all outside networking intercepted. Its first run confirmed TEST/event creation, exact HTML/CSP
-read-back, same-token signatures and stale-progress recovery, but exposed an inherited main-page boot race:
-`syncFirst` can reach `ScopeSync1017` before that extension is registered; the existing backend catches the exception
-and can report live without the first merge completing. Root owns the main-page fix. Final integration remains
-blocked until the corrected v10.66 base is rebuilt; the test now waits for every initial collection merge as well
-as the live/ready signals. `GC500_DEBUG_BOOT=1` only adds catch logging to the disposable test copy to diagnose it.
+Pending: both standard sweeps and the current live-base guarded build. Rebuild/retest if the v10.66 base changes.
+The server is staged separately and Claude owns the Railway switch; no machine import or page publication precedes
+confirmation. No page, card or operational record has been published by this draft.
+
+`tests/test_actual_page.cjs` uses the real page and final v5.90 on localhost, a disposable private record store and
+intercepted outside networking. It waits for every initial collection merge plus live/ready signals. Before tracker
+operations it verifies the native first redelivery's exact empty-map normalization (absent `mapKeys` → `{}`), then
+requires the second redelivery and all later tracker actions to preserve the entire state. No field is excluded from
+that assertion. The full-page test confirmed the corrected boot path; `GC500_DEBUG_BOOT=1` is diagnostic only and
+was not used for the passing evidence.
 
 The print download path was also exercised with a synthetic TEST bundle: all 55 pages rendered with its actual
 rehearsal day and confirmed fixture contact, and no event dates. Seven print readiness checks pass. The existing

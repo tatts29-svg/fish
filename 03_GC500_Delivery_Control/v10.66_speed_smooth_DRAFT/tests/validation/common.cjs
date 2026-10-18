@@ -1,6 +1,8 @@
 /* Author: Andrew Fisher. Test-only adapter around the shared read-only browser harness. */
 'use strict';
 const fs = require('fs'), path = require('path'), crypto = require('crypto');
+const inheritedOverrides=['PAGE','GC500_MEDIA_BASE','MEDIA','MEDIA893','MEDIA889','ATLAS896'].filter(key=>process.env[key]);
+if(inheritedOverrides.length)throw new Error('Clear inherited browser/media overrides before validation: '+inheritedOverrides.join(', '));
 const TOOLCHAIN = path.resolve(__dirname, '../../../toolchain');
 const HOST = 'https://gc500-production.up.railway.app';
 const sha = value => crypto.createHash('sha256').update(value).digest('hex');
@@ -58,16 +60,45 @@ async function launch({pageFile, mobile=false, cpu=0, hash='#today', freezeClock
 async function ready(s, timeout=240000) {
   await s.page.waitForFunction(() => typeof SYNC!=='undefined' && SYNC.status==='live' && typeof DOCS!=='undefined' && DOCS.state==='ready' && document.documentElement.getAttribute('data-refresh904')!=='loading', null, {timeout, polling:250});
 }
+async function mergeReport(p){return p.evaluate(()=>{const names=Object.keys(SYNC_COLLS),missing=names.filter(name=>!SYNC.first.has(name)),pending=Object.keys(SYNC.pending),scopesConsistent=typeof ScopeSync1017!=='undefined'&&ScopeSync1017.same(SYNC_COLLS.qtys.get(),S);return {expected:names.length,missing,pending,scopesConsistent,complete:!missing.length&&!pending.length&&scopesConsistent};});}
 async function settled(p, quiet=1200, max=60000) {
   const started=Date.now();
   while(Date.now()-started<max){
-    const ok=await p.evaluate(quiet=>{const lt=window.__validation.lt,last=lt.length?lt.at(-1)[0]+lt.at(-1)[1]:0;return performance.now()-last>quiet;},quiet);
+    const ok=await p.evaluate(quiet=>{const lt=window.__validation.lt.filter(x=>x[1]>250),last=lt.length?lt.at(-1)[0]+lt.at(-1)[1]:0;return performance.now()-last>quiet;},quiet);
     if(ok&&Date.now()-started>=quiet)return; await p.waitForTimeout(250);
   }
   throw new Error('Page failed to reach a quiet interval');
 }
+// Baseline Build progress is deliberately demand-driven. Visit each pending card through its real viewport,
+// then restore scroll, so exact text parity compares completed facts rather than timing-dependent Loading… labels.
+async function materializeBuild(p) {
+  const saved=await p.evaluateHandle(()=>{const strip=document.querySelector('#pane-timeline .daystrip');if(!strip)throw new Error('Build strip missing');const ancestors=[];for(let el=strip;el;el=el.parentElement)ancestors.push({el,left:el.scrollLeft,top:el.scrollTop});return {left:strip.scrollLeft,ancestors};});
+  const started=Date.now();let visited=0;
+  try {
+    while(true){
+      const day=await p.evaluate(()=>document.querySelector('#pane-timeline .bc984-day[data-build-progress="pending"]')?.dataset.day||null);
+      if(!day)break;if(Date.now()-started>120000)throw new Error('Build progress did not finish within the demand-sweep limit');
+      await p.evaluate(async day=>{const card=[...document.querySelectorAll('#pane-timeline .bc984-day')].find(x=>x.dataset.day===day);if(!card)throw new Error('Build card disappeared');card.scrollIntoView({block:'nearest',inline:'center',behavior:'instant'});await new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r)));window.BuildProgress986?.sync();},day);
+      await p.waitForFunction(day=>{const card=[...document.querySelectorAll('#pane-timeline .bc984-day')].find(x=>x.dataset.day===day);return !!card&&card.dataset.buildProgress!=='pending';},day,{timeout:30000,polling:100});visited++;
+    }
+  } finally {
+    await p.evaluate(saved=>{for(const x of saved.ancestors)if(x.el.isConnected){x.el.scrollLeft=x.left;x.el.scrollTop=x.top;}const strip=document.querySelector('#pane-timeline .daystrip');if(strip)strip.scrollLeft=saved.left;},saved);
+    await saved.dispose();await p.evaluate(()=>new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r))));
+  }
+  return visited;
+}
 function writePrivate(file, value) { file=privatePath(file,'output'); fs.mkdirSync(path.dirname(file),{recursive:true,mode:0o700}); fs.writeFileSync(file,JSON.stringify(value,null,2),{mode:0o600}); }
 function normaliseText(value) { return String(value??'').replace(/\u00a0/g,' ').replace(/\s+/g,' ').trim(); }
+function canonicalRecord(value){if(Array.isArray(value))return value.map(canonicalRecord);if(value&&typeof value==='object')return Object.fromEntries(Object.keys(value).sort().map(key=>[key,canonicalRecord(value[key])]));return value;}
+function recordDelta(before,after){
+  const changes=[];
+  function visit(a,b,path){if(JSON.stringify(canonicalRecord(a))===JSON.stringify(canonicalRecord(b)))return;
+    if(a&&b&&typeof a==='object'&&typeof b==='object'&&Array.isArray(a)===Array.isArray(b)){
+      for(const key of new Set([...Object.keys(a),...Object.keys(b)]))visit(a[key],b[key],path.concat(key));
+    }else changes.push({path,beforeSha256:sha(JSON.stringify(a)??'undefined'),afterSha256:sha(JSON.stringify(b)??'undefined')});
+  }
+  visit(before,after,[]);return changes;
+}
 function normaliseFooter(value) {return normaliseText(value).replace(/ · v10\.(?:65|66)$/, ' · RELEASE');}
 function frozenVersions(){
   const read=suffix=>{const file=path.join(FIXTURE,sha(HOST+suffix)+'.body');return fs.existsSync(file)?JSON.parse(fs.readFileSync(file)).version:null;};
@@ -75,4 +106,4 @@ function frozenVersions(){
 }
 function errorsOf(s) {return {pageErrors:s.errors, consoleErrors:s.consoleErrors, blocked:s.counts.blocked, missingFixture:[...fixture.missing],fixtureVersions:frozenVersions()};}
 function assertClean(s) {const e=errorsOf(s); if(e.pageErrors.length||e.consoleErrors.length||e.blocked||e.missingFixture.length||!e.fixtureVersions.consistent)throw new Error('Read-only browser checks failed: '+JSON.stringify(e));}
-module.exports={fs,path,sha,fixture,launch,ready,settled,writePrivate,normaliseText,normaliseFooter,errorsOf,assertClean,CLOCK_ISO,HOST};
+module.exports={fs,path,sha,fixture,launch,ready,mergeReport,settled,materializeBuild,writePrivate,normaliseText,normaliseFooter,canonicalRecord,recordDelta,errorsOf,assertClean,CLOCK_ISO,HOST};
