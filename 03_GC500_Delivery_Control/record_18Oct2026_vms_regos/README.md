@@ -59,3 +59,12 @@ Read-back on the live page: T0001 7 boards (VMS01–04, 06–08), T0103 2 (VMS09
 VMS12 1211646), T0158 5 (VMS13–17) = **16 on site**. T0159, T0169 and T0170 are VMS deliveries not on site.
 Tried and dropped: putting the numbers on T0103/T0128/T0158 by hand. The page refused one (the ended contract line ties
 1211404 to T0001), and the others are already shown through the VMS register, so nothing was written for them.
+
+## Applied: VMS13 is 1191657, Andrew's number, 18 Oct 2026 20:48 AEST
+
+Andrew, 18 Oct: "Vms 11 -17 vms turned up friday. I gave you all numbers". His 16 Oct number for VMS13 is 1191657 (the
+contract line reads 1191957). Site record is truth (AGENTS.md), so the register now carries his number: `vms_fleet` through
+the page's own `vms913Save(VMS13, fleet 1191657, {fleet:true})`. Backup first; two documents; record 9739 → 9741; VERIFIED
+(`report_20261018T104832Z.json`). Read-back: VMS13 fleet 1191657, rego EN3803, on T0158, by Andrew Fisher. VMS11–17 arrival
+dates already read Friday 16 Oct (T0128 10:39 AEST, T0158 12:09 AEST). The contract line still says 1191957; that is the
+branch's to correct.

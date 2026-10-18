@@ -68,11 +68,12 @@ spec.ops.forEach((o, i) => {
   else if (o.op === 'labour_on' || o.op === 'labour_off') { if (!REFRE.test(o.ref || '')) fail(at + 'needs a reference'); for (const f of ['disc', 'item', 'line', 'unit']) if (typeof o[f] !== 'string' || !o[f]) fail(at + 'needs ' + f); }
   else if (o.op === 'door') { if (!REFRE.test(o.ref || '')) fail(at + 'needs a reference'); if (!/^u\d{4,12}$/.test(o.id || '')) fail(at + 'needs a unit row id'); if (!['driver', 'passenger', 'na'].includes(o.side)) fail(at + 'side'); }
   else if (o.op === 'unit_archive') { if (!REFRE.test(o.ref || '')) fail(at + 'needs a reference'); if (!NORE.test(o.no || '')) fail(at + 'needs a number'); }
+  else if (o.op === 'vms_fleet') { if (!/^(\d{7}|VMS\d{2})$/.test(o.key || '')) fail(at + 'needs a VMS board key'); if (!/^[0-9A-Z]{3,12}$/.test(o.fleet || '')) fail(at + 'needs a fleet/asset number'); }
   else if (o.op === 'vms_rego') { if (!/^(\d{7}|VMS\d{2})$/.test(o.key || '')) fail(at + 'needs a VMS board key'); if (!/^[A-Z0-9]{2,8}$/.test(o.rego || '')) fail(at + 'needs a rego'); }
   else if (o.op === 'set_qty') { if (!REFRE.test(o.ref || '')) fail(at + 'needs a reference'); if (!(o.qty === '' || (Number.isInteger(o.qty) && o.qty >= 0))) fail(at + 'qty must be a whole number or "" for the schedule\'s own'); }
   else fail(at + 'unknown op ' + o.op);
 });
-const VKEYS = [...new Set(spec.ops.filter(o => o.op === 'vms_rego').map(o => o.key))];
+const VKEYS = [...new Set(spec.ops.filter(o => o.op === 'vms_rego' || o.op === 'vms_fleet').map(o => o.key))];
 const REFS = [...new Set(spec.ops.filter(o => o.ref).map(o => o.ref))], QIDS = [...new Set(spec.ops.filter(o => o.op === 'answer').map(o => o.id))];
 /* the documents this operation may touch: the references' own delivery, assetNumbers and accessories documents, the
    answers documents named, and the audit documents the page keeps beside them (stamps, by, deleted, notes, spares) */
@@ -247,6 +248,12 @@ function applyOps(spec) {
       } else if (op.op === 'door') {
         const a = assetOf(op.ref), now = loading872Side(a, op.id);
         if (now === op.side) r.result = 'already ' + op.side; else { loading872Set(op.ref, op.id, op.side); if (loading872Side(assetOf(op.ref), op.id) !== op.side) throw new Error(op.ref + ' ' + op.id + ' door side not held'); r.result = 'door side ' + op.side; }
+      } else if (op.op === 'vms_fleet') {
+        if (!vms913Boards().some(b => b.key === op.key)) throw new Error('no VMS board ' + op.key);
+        const ok = vms913Save(op.key, null, op.fleet, null, null, {fleet: true}, true);
+        if (!ok) throw new Error('vms913Save refused ' + op.key + ': ' + ((typeof vms913St === 'function' && vms913St().said) || ''));
+        const r3 = (S.vmsboard || {})[op.key]; if (!r3 || r3.fleet !== op.fleet) throw new Error(op.key + ' fleet did not take');
+        Object.assign(r, {result: 'fleet saved', doc: JSON.parse(JSON.stringify(r3))});
       } else if (op.op === 'vms_rego') {
         if (typeof vms913Save !== 'function' || typeof vms913Boards !== 'function') throw new Error('the VMS register is not on this page');
         if (!vms913Boards().some(b => b.key === op.key)) throw new Error('no VMS board ' + op.key + ' on the register');
@@ -386,6 +393,7 @@ function applyOps(spec) {
         if (op.op === 'labour_off' && (docs.labour || {})[op.ref + '/u' + op.unit.replace(/^u/, '') + '|' + op.disc + '|' + op.item + '|' + op.line]) problems.push(op.ref + ' ' + op.unit + ' ' + op.line + ' still ticked ' + where);
         if (op.op === 'complete' && (((docs.delivery || {})[op.ref] || {}).done) !== true) problems.push(op.ref + ' not complete ' + where);
         if (op.op === 'labour_on' && (((docs.labour || {})[((op.unit ? op.ref + '/u' + op.unit.replace(/^u/, '') : op.ref) + '|' + op.disc + '|' + op.item + '|' + op.line).replace(/\//g, '~2f~').replace(/\|/g, '~7c~').replace(/ /g, '~20~').replace(/&/g, '~26~')] || {}).v) !== true) problems.push(op.ref + ' ' + op.unit + ' ' + op.line + ' not ticked ' + where);
+        if (op.op === 'vms_fleet' && ((((docs.vmsboard || {})[op.key]) || {}).fleet) !== op.fleet) problems.push(op.key + ' fleet is not ' + op.fleet + ' ' + where);
         if (op.op === 'vms_rego' && ((((docs.vmsboard || {})[op.key]) || {}).rego) !== op.rego) problems.push(op.key + ' rego is not ' + op.rego + ' ' + where);
         if (op.op === 'set_qty' && op.qty !== '' && ((((docs.qtys || {})[op.ref] || {}).v)) !== op.qty) problems.push(op.ref + ' quantity is not ' + op.qty + ' ' + where);
       } return problems; };
