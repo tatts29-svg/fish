@@ -45,3 +45,17 @@ Asked what his "Approved" covered, Andrew chose "Press complete on VMS". Every o
 already complete. `node vms.cjs --apply --spec t0158_complete_spec.json` (op `complete`, through the page's own `setDone`,
 by Andrew Fisher). Backup `backup_state_20261018T102120Z.json`; one document (delivery/T0158); record 9734 → 9735;
 everything else unchanged in value; VERIFIED (`report_20261018T102120Z.json`).
+
+## Applied: 1211404 off T0001 (it is VMS09 on T0103), 18 Oct 2026 20:46 AEST
+
+Andrew, 18 Oct: "Your vms number onsite is.wrong · I gave you asset number last week for 7 vms boards and rego". On site
+are his 9 today (VMS1–4, 6–10) plus last week's 7 (VMS11–17) = 16. The page counted 17, because 1211404 was still on
+T0001's numbers as well as being VMS09 on T0103 (his words today: "1211404 was orginally vms5 but was taken off and added
+to vms9"; 8 Oct: "take off that location and put on new location"). `node vms.cjs --apply --spec t0001_1211404_off_spec.json`
+(`number_off`, through the page's own `numberTakeOff`, with a tombstone). Backup first; three documents; record 9736 → 9739;
+VERIFIED (`report_20261018T104652Z.json`).
+
+Read-back on the live page: T0001 7 boards (VMS01–04, 06–08), T0103 2 (VMS09 1211404, VMS10 120T), T0128 2 (VMS11 467T,
+VMS12 1211646), T0158 5 (VMS13–17) = **16 on site**. T0159, T0169 and T0170 are VMS deliveries not on site.
+Tried and dropped: putting the numbers on T0103/T0128/T0158 by hand. The page refused one (the ended contract line ties
+1211404 to T0001), and the others are already shown through the VMS register, so nothing was written for them.
