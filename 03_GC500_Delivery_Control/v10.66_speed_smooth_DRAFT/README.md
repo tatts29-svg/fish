@@ -1,4 +1,4 @@
-# v10.66 speed and smoothness — ready
+# v10.66 speed and smoothness — live
 
 Author: Andrew Fisher
 
@@ -84,3 +84,5 @@ The new idle/merge-plan handover was compared against this frozen source. Existi
 Publication must use the guarded uploader, then exact public read-back and unchanged-record/retained-server verification. A LIVE entry will record the actual result.
 
 The service safely refused the original candidate because its early loading CSS moved the first GC500 identifier beyond the existing upload envelope check. The final upload adds only the 32-byte HTML comment `<!-- GC500 Delivery Control -->` after the doctype. Removing that single comment reproduces the complete previously tested 4b5b727b page byte-for-byte: every script, style, data value and visible element is unchanged. Official rebuild/static checks and the existing server envelope expression pass. This is an identity-envelope correction, not a bypass or server change. Evidence: `tests/page_envelope_result.json`.
+
+LIVE 18 Oct 2026 12:30 AEST. Release source `6a338fa`. Guarded upload and independent public read-back both match `9724e2a644833e7b6e56139b7954add2f639e348f03c6b6c9d109e0229cc821a`, 18,322,580 bytes. Shared record, machine descriptor and protected server inventory are unchanged; server v5.90 is healthy. The temporary directory suffix will be reconciled once dependent validation finishes using its shared test helpers.

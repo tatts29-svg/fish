@@ -8,7 +8,7 @@ HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE.parent / 'toolchain'))
 from rep import rep
 TRACK = HERE.parent / 'servicing_tracker_DRAFT'
-BASE_SHA256 = '4b5b727b781992e251968f81503ee064a3dbd3414a6087260258871ad83a0ec6'
+BASE_SHA256 = '9724e2a644833e7b6e56139b7954add2f639e348f03c6b6c9d109e0229cc821a'
 
 def patch(text):
     if 'id="svc1067-script"' in text:
