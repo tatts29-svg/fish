@@ -421,8 +421,8 @@ class Pack:
             sub = f'Each service day runs 08:00 to 08:00 (Gold Coast time). Jobs: {jobs_phrase(d, refs)}. A job is one task on one unit; the phone shows % complete for each area and for everything.'
         else:
             title = f'AREA {hi["n"]} · {hi["name"]} · WHERE IT IS ON THE SITE'; refs = hi['refs']
-            sub = (f'The master map of all {n_areas} areas with area {hi["n"]} in colour. Its own map, with every location circled, is on the area cover sheet.'
-                   + ('' if hi in located else ' This area is not on the master plan - ask on site.'))
+            sub = (f'The master map of all {n_areas} areas with area {hi["n"]} in colour. Its own map, with every location circled, is on the area cover sheet.' if hi in located else
+                   f'The master map of all {n_areas} areas. Area {hi["n"]} is not on the master plan, so it is not marked - ask on site. Its locations are listed on the area cover sheet.')
         txt(c, 9 * mm, top - 6 * mm, title, 'narrowb', fit(title, 'narrowb', 22, W - 90 * mm), acol(hi['n']) if hi else INK)
         units = d.units(refs)
         right = (f'Area {hi["n"]}: ' if hi else '') + f'{len(refs)} location{"s" if len(refs) != 1 else ""} · {units} unit{"s" if units != 1 else ""}'
@@ -589,6 +589,8 @@ class Pack:
                  'A service day runs 08:00 to 08:00 (Gold Coast time); the phone picks the day.']
         txt(c, x + 3 * mm, y + h - 5 * mm, 'HOW TO USE', 'bold', 8, MUTE)
         yy = y + h - 9 * mm; size = 8 if w > 100 * mm else 7.2
+        need = lambda sz: 9 * mm + sum(len(wrap(s, 'sans', sz, w - 11 * mm)) * sz * 0.42 * mm + 1.3 * mm for s in steps)
+        while size > 6 and need(size) > h - 1.5 * mm: size = round(size - 0.2, 1)   # all five steps, smaller if needed - never drop one
         for i, s in enumerate(steps):
             ls = wrap(s, 'sans', size, w - 11 * mm)
             if yy - len(ls) * size * 0.42 * mm < y + 1.5 * mm: break

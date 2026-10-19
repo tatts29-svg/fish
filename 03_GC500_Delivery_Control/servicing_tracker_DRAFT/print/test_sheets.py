@@ -127,6 +127,8 @@ def main():
             jobs_ok = all(str(data.jobs(a['refs'], p)) in t for p in data.plan_days())
             if not (ok and jobs_ok): check(f'cover {a["n"]}: name, counts, jobs, every reference', False, t[:300]); break
         else: check('every area cover: name, locations, units, jobs a night, every reference listed', True)
+        short = [a['n'] for i, (kind, a, rs) in enumerate(plan, 2) if kind == 'cover' and 'HOW TO USE' in norm[i - 1] and 'A service day runs 08:00 to 08:00' not in norm[i - 1]]
+        check('every How to use box has all five steps (none dropped for space)', not short, short)
         # reference blocks
         probs = []
         for x in data.refs:

@@ -120,11 +120,12 @@ an area grouping the pictures were not cut for.
 
 ## Checks (`test_sheets.py`, local only)
 
-`TMPDIR=<scratch> ZXING=<folder with zxing-cpp> python3 -I test_sheets.py`: **43 passed, 0 failed** (19 Oct 2026) (see
+`TMPDIR=<scratch> ZXING=<folder with zxing-cpp> python3 -I test_sheets.py`: **44 passed, 0 failed** (19 Oct 2026) (see
 `test_sheets_results.txt`). It builds into a temporary folder and reads the PDFs back with pdftotext and, for the QR
 codes, pdftoppm at 300 dpi and zxing-cpp:
 - 68 pages (1 + 14 covers + 13 area master maps + 40 location pages), master maps A4 landscape, the rest A4 portrait;
 - each of the 13 areas has its own master map straight after its cover, with its name, counts and the full legend;
+- every How to use box has all five steps (the box shrinks the type to fit rather than drop one; areas 2 and 12 had lost step 5);
 - every page: the track-only line, the twin-steer short form word for word, the DRAFT ribbon, Author: Andrew Fisher;
   every page with a map: the drawing credit;
 - master legend: every area, its locations and units; the totals; every cover: name, counts, jobs a night, every

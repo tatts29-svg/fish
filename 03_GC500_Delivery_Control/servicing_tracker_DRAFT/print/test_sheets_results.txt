@@ -16,6 +16,7 @@ PASS master map legend: locations and units for every area
 PASS master map: the totals
 PASS every one of the 13 areas has its own master map after its cover: its name, counts, the full legend
 PASS every area cover: name, locations, units, jobs a night, every reference listed
+PASS every How to use box has all five steps (none dropped for space)
 PASS every reference: big REF, how many per line, every asset number, its job words, both QR labels
 PASS FWF blocks say Sunday night: extra lock, no water
 PASS (no reference is a waste tank alone, so tank-only wording is shown inside its block)
@@ -42,4 +43,4 @@ PASS refuses a link naming another reference
 PASS refuses two different tokens
 PASS refuses a reference the tracker does not have
 
-43 passed, 0 failed
+44 passed, 0 failed
