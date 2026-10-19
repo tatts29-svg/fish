@@ -169,3 +169,11 @@ as it began. Then the VMS23 unit record (453T, `prem-air-hire`), supplied 8 → 
 `vms23_spec.json`; backup first; twelve documents; record 9812 → 9824; VERIFIED (`report_20261019T023812Z.json`).
 Live page: **VMS boards 20 of 20 on site**; milestone **95% · 19 of 20 boards complete** (T0158 "8 of 9 installed · 9
 received"; VMS23 waits for its complete).
+
+## Applied: VMS13 is 1191657 alone; the 1191957 arrival record set aside, 19 Oct 2026 14:37 AEST
+
+Andrew, 19 Oct 2026: "It should be 1191657 it a coates machine we need all these cleaned up please". T0158 carried VMS13
+twice: the register's 1191657 and the 16 Oct arrival record typed 1191957 (from contract line 32). New op
+`unit_archive_wrong` (the page's own take-off, `UnitIdentity1006.remove`, kept only when the right number is still on the
+reference) plus a note. `vms13_1191657_spec.json`; backup first; four documents; record 9858 → 9862; VERIFIED
+(`report_20261019T043742Z.json`). With page v10.75 the VMS counts now read 20 on site: Premiair Hire 6, Coates numbered 14.
