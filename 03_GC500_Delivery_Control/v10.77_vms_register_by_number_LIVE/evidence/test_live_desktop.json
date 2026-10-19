@@ -1,0 +1,8 @@
+{
+ "device": "desktop",
+ "pass": true,
+ "fails": [],
+ "head": "VMS board register 23 boards · 20 turned up · 3 still to come · 20 regos given",
+ "order": "VMS01 VMS02 VMS03 VMS04 VMS06 VMS07 VMS08 VMS09 VMS10 VMS11 VMS12 VMS13 VMS14 VMS15 VMS16 VMS17 VMS18 VMS19 VMS20 VMS21(to come) VMS22(to come) VMS23 VMS24(to come)",
+ "vmsRow": "VMS 20 Premiair Hire 6 0 20 14 0 3 23"
+}
