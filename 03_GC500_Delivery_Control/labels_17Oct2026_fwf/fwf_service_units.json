@@ -2704,7 +2704,7 @@
    "name": "Toilets",
    "loc": "WC67 - Toilets",
    "state": "on site",
-   "fwfUnits": 4,
+   "fwfUnits": 2,
    "lines": [
     "fwf 2 $437.22"
    ],
@@ -2737,21 +2737,8 @@
      "item": "FWF",
      "label": "Sub-hire: Event Portables",
      "owner": "event-portables"
-    },
-    {
-     "no": "0714",
-     "item": "FWF",
-     "label": "Sub-hire: Event Portables",
-     "owner": "event-portables"
-    },
-    {
-     "no": "172824",
-     "item": "FWF",
-     "label": "FWF",
-     "owner": "coates"
     }
-   ],
-   "note": "Andrew, 19 Oct 2026: WC67 is 4 FWF - 0714 (spare, sub-hired Event Portables) and Coates 172824 added (record 9941). lines is the 9527 read."
+   ]
   },
   {
    "ref": "WC68",

@@ -44,4 +44,3 @@ BASE=build/GC500_v10.78/base_live.html PAGE=build/GC500_v10.78/GC500_Delivery_Co
 
 - **The rest of the snapshot:** the tracker's reference list is still the 18 Oct (record 9704) read for every other reference. Check it against the record before the event tracker is created, and correct any other changes made since 9704.
 - **Event tracker:** the event tracker on the server, and its printed QR sheets, are made from the page's data with **Create / update event tracker**. If one was made before this release, update it, otherwise the panel will refuse percentages because the lists differ.
-- **Labels:** the FWF service labels in `labels_17Oct2026_fwf/` now include 0714 and 172824. If the 17 Oct label pack is already printed, print `GC500_FWF_labels_WC67_replacement_L7169.pdf` (one sheet, WC67 1 of 4 to 4 of 4) and swap out the old WC67 "of 2" labels.

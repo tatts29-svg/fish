@@ -1,5 +1,8 @@
 # FWF service labels — Avery 959030 (template L7169)
 
+**NOT IN USE.** Andrew, 19 Oct 2026: "We are not doing labels any more". Kept as history only. Do not rebuild,
+update or print these labels, and do not offer them when FWFs change.
+
 Author: Andrew Fisher · 17 Oct 2026
 
 Andrew, 17 Oct 2026: labels for the FWFs we pay to have pumped out, cleaned and restocked, with the WC, PG or reference
@@ -16,9 +19,6 @@ final pump-out box. "I don't want to over complicate it or have stickers taken o
   - a Final pump-out box ("before it is picked up; never load one that is not pumped out").
 - **WC31's** accessible toilet is Coates **1317645** (confirmed on site 9 Oct). The record keeps it under the 16-pan line,
   so the first run missed it and printed "Unit —"; corrected 17 Oct evening. Every label now carries a unit number.
-- **WC67 (19 Oct):** WC67 is now 4 FWF. Andrew added 0714 (a spare, sub-hired from Event Portables) and Coates 172824, so the pack has
-  **240 labels on 60 sheets**. If the earlier pack is already printed, print `GC500_FWF_labels_WC67_replacement_L7169.pdf`
-  (one sheet, WC67 1 of 4 to 4 of 4) and swap out the two old WC67 "of 2" labels.
 - **The sheet:** Avery 959030 = L7169, A4, 2 across × 2 down, 99.1 × 139 mm, top margin 9.5 mm, side margin 4.65 mm.
 - **Print at "Actual size" (100%), not "Fit to page".** Print `GC500_FWF_labels_alignment_test.pdf` on plain paper
   first and hold it over a label sheet against the light.
