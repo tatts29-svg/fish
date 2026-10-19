@@ -119,3 +119,11 @@ is "VMS19 Variable Message Board Senior Premiair" (SUB-2631, booked 19 Oct), one
 No time of arrival was given, so none is recorded. Nothing ticked. Backup first; ten documents; record 9771 → 9781; VERIFIED
 (`report_20261019T012723Z.json`). Live page: **VMS boards 17 of 20 on site**; milestone **80% · 16 of 20 boards
 complete** (VMS19 is in, not yet set up). Still to come: VMS05, VMS18 and VMS20.
+
+## Applied: GN25 (20kVA, 1244536) on site and complete, 19 Oct 2026 11:29 AEST
+
+Andrew, 19 Oct 2026: "Gn25 has turned up.and is complete Asset 1244536". GN25 is the 20kVA generator on T0137 (19 Oct),
+contract 9961976 NVAC line 18 (1244536, delivery 26134523). The record had its light "not on site" since 3 Oct.
+`node vms.cjs --apply --spec gn25_spec.json`: `light` on site (`setLight`, with his words), `number_on` 1244536 (already
+shown, from the contract line, so nothing written) and `complete` (`setDone`). No arrival time was given; the light carries
+the time it was recorded. One document; record 9781 → 9782; VERIFIED (`report_20261019T012957Z.json`).
