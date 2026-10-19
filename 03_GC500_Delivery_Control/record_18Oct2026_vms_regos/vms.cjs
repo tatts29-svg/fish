@@ -64,6 +64,7 @@ spec.ops.forEach((o, i) => {
   else if (o.op === 'unit_reidentify') { if (!REFRE.test(o.ref || '')) fail(at + 'needs a reference'); if (!/^[0-9A-Z]{3,12}$/.test(o.no || '')) fail(at + 'needs a number'); if (typeof o.item !== 'string' || !o.item.trim()) fail(at + 'needs an item type'); if (!['coates', 'event-portables', 'prem-air-hire'].includes(o.owner || 'coates')) fail(at + 'owner'); }
   else if (o.op === 'number_item') { if (!REFRE.test(o.ref || '')) fail(at + 'needs a reference'); if (!NORE.test(o.no || '')) fail(at + 'needs a number'); if (typeof o.item !== 'string' || !o.item.trim()) fail(at + 'needs an item'); }
   else if (o.op === 'complete') { if (!REFRE.test(o.ref || '')) fail(at + 'needs a reference'); }
+  else if (o.op === 'note_replace') { if (!REFRE.test(o.ref || '')) fail(at + 'needs a reference'); for (const f of ['old', 'new']) if (typeof o[f] !== 'string' || !o[f].trim() || o[f].length > 600) fail(at + 'needs ' + f + ' text under 600 characters'); if (/\b(codex|claude|gpt|model|agent)\b/i.test(o.new)) fail(at + 'text names a system'); }
   else if (o.op === 'unit_archive_wrong') { if (!REFRE.test(o.ref || '')) fail(at + 'needs a reference'); if (!NORE.test(o.no || '') || !NORE.test(o.keep || '') || o.no === o.keep) fail(at + 'needs the wrong number and the number that stays'); }
   else if (o.op === 'scope_refresh') { if (!REFRE.test(o.ref || '')) fail(at + 'needs a reference'); }
   else if (o.op === 'complete_again') { if (!REFRE.test(o.ref || '')) fail(at + 'needs a reference'); }
@@ -243,6 +244,11 @@ function applyOps(spec) {
       } else if (op.op === 'complete') {
         if (deliveryOf(op.ref).done) r.result = 'already complete';
         else { if (deliveryOf(op.ref).state !== 'on site') throw new Error(op.ref + ' is not on site'); const ok = setDone(op.ref, true); if (ok === false) throw new Error('setDone refused ' + op.ref); if (!deliveryOf(op.ref).done) throw new Error(op.ref + ' did not complete'); r.result = 'complete'; }
+      } else if (op.op === 'note_replace') {
+        /* one sentence of the delivery note corrected in place; the rest of the note kept word for word */
+        const cur = String(deliveryOf(op.ref).note || '');
+        if (!cur.includes(op.old)) { if (cur.includes(op.new)) r.result = 'note already corrected'; else throw new Error(op.ref + ' note does not hold the text to correct'); }
+        else { const ok = setDeliveryNote(op.ref, cur.replace(op.old, op.new)); if (ok === false) throw new Error('setDeliveryNote refused ' + op.ref); const now = String(deliveryOf(op.ref).note || ''); if (now.includes(op.old) || !now.includes(op.new)) throw new Error(op.ref + ' note did not take'); r.result = 'note corrected'; }
       } else if (op.op === 'unit_archive_wrong') {
         /* a unit record typed with the wrong number for a board the reference already carries under its right number: set
            aside (archived, who and when, photos and history kept), as the drawer's take-off does */
@@ -293,7 +299,9 @@ function applyOps(spec) {
         if (!vms913Boards().some(b => b.key === op.key)) throw new Error('no VMS board ' + op.key);
         const ok = vms913Save(op.key, null, op.fleet, null, null, {fleet: true}, true);
         if (!ok) throw new Error('vms913Save refused ' + op.key + ': ' + ((typeof vms913St === 'function' && vms913St().said) || ''));
-        const r3 = (S.vmsboard || {})[op.key]; if (!r3 || r3.fleet !== op.fleet) throw new Error(op.key + ' fleet did not take');
+        const r3 = (S.vmsboard || {})[op.key], shown = vms913Of(vms913Boards().find(b => b.key === op.key)).fleet;
+        /* a number equal to the contract line's is not stored over it: the record's own field clears and the contract's shows */
+        if (shown !== op.fleet || (r3 && r3.fleet != null && r3.fleet !== op.fleet)) throw new Error(op.key + ' fleet did not take (shows ' + shown + ')');
         Object.assign(r, {result: 'fleet saved', doc: JSON.parse(JSON.stringify(r3))});
       } else if (op.op === 'vms_rego') {
         if (typeof vms913Save !== 'function' || typeof vms913Boards !== 'function') throw new Error('the VMS register is not on this page');
@@ -443,13 +451,14 @@ function applyOps(spec) {
         if (op.op === 'unit_reidentify' && !Object.values(docs.loads || {}).some(u => u && u.kind === 'unit925-record' && u.ref === op.ref && String(u.assetNo) === op.no && u.item === op.item && u.active !== false && !u.removedBy)) problems.push(op.ref + ' has no active ' + op.item + ' unit ' + op.no + ' ' + where);
         if (op.op === 'unit_archive' && Object.values(docs.loads || {}).some(u => u && u.kind === 'unit925-record' && u.ref === op.ref && String(u.assetNo) === op.no && u.active !== false && !u.removedBy)) problems.push(op.ref + ' still has an active unit record for ' + op.no + ' ' + where);
         if (op.op === 'labour_off' && (docs.labour || {})[op.ref + '/u' + op.unit.replace(/^u/, '') + '|' + op.disc + '|' + op.item + '|' + op.line]) problems.push(op.ref + ' ' + op.unit + ' ' + op.line + ' still ticked ' + where);
+        if (op.op === 'note_replace') { const n = String(((docs.delivery || {})[op.ref] || {}).note || ''); if (n.includes(op.old) || !n.includes(op.new)) problems.push(op.ref + ' note not corrected ' + where); }
         if (op.op === 'unit_archive_wrong' && Object.values(docs.loads || {}).some(u => u && u.kind === 'unit925-record' && u.ref === op.ref && String(u.assetNo) === op.no && u.active !== false && !u.removedBy)) problems.push(op.ref + ' still has an active unit record for ' + op.no + ' ' + where);
         if (op.op === 'scope_refresh' && ((docs.qtys || {})[op.ref] || {}).v != null) problems.push(op.ref + ' carries a typed quantity ' + where);
         if (op.op === 'complete_again' && (((docs.delivery || {})[op.ref] || {}).done) !== true) problems.push(op.ref + ' not complete ' + where);
         if (op.op === 'complete' && (((docs.delivery || {})[op.ref] || {}).done) !== true) problems.push(op.ref + ' not complete ' + where);
         if (op.op === 'labour_on' && (((docs.labour || {})[((op.unit ? op.ref + '/u' + op.unit.replace(/^u/, '') : op.ref) + '|' + op.disc + '|' + op.item + '|' + op.line).replace(/\//g, '~2f~').replace(/\|/g, '~7c~').replace(/ /g, '~20~').replace(/&/g, '~26~')] || {}).v) !== true) problems.push(op.ref + ' ' + op.unit + ' ' + op.line + ' not ticked ' + where);
         if (op.op === 'supplied' && !((((docs.supplied || {})[op.ref] || {}).items) || []).some(x => x.asked === op.item && x.qty_supplied === op.qty)) problems.push(op.ref + ' supplied is not ' + op.qty + ' ' + where);
-        if (op.op === 'vms_fleet' && ((((docs.vmsboard || {})[op.key]) || {}).fleet) !== op.fleet) problems.push(op.key + ' fleet is not ' + op.fleet + ' ' + where);
+        if (op.op === 'vms_fleet' && ![op.fleet, null, undefined].includes((((docs.vmsboard || {})[op.key]) || {}).fleet)) problems.push(op.key + ' fleet is not ' + op.fleet + ' ' + where);
         if (op.op === 'vms_rego' && ((((docs.vmsboard || {})[op.key]) || {}).rego) !== op.rego) problems.push(op.key + ' rego is not ' + op.rego + ' ' + where);
         if (op.op === 'vms_board') { const vb = (((docs.vmsboard || {})[op.key]) || {}); if (vb.fleet !== op.fleet || vb.rego !== op.rego || vb.on !== op.on) problems.push(op.key + ' is not ' + op.fleet + '/' + op.rego + ' on ' + op.on + ' ' + where); }
         if (op.op === 'note_append' && !String(((docs.delivery || {})[op.ref] || {}).note || '').includes(op.text)) problems.push(op.ref + ' note lacks the added text ' + where);

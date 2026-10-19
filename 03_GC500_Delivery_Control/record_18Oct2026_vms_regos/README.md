@@ -177,3 +177,16 @@ twice: the register's 1191657 and the 16 Oct arrival record typed 1191957 (from 
 `unit_archive_wrong` (the page's own take-off, `UnitIdentity1006.remove`, kept only when the right number is still on the
 reference) plus a note. `vms13_1191657_spec.json`; backup first; four documents; record 9858 → 9862; VERIFIED
 (`report_20261019T043742Z.json`). With page v10.75 the VMS counts now read 20 on site: Premiair Hire 6, Coates numbered 14.
+
+## Applied: VMS13 back to 1191957, Andrew's later word, 19 Oct 2026 15:24 AEST
+
+Andrew, 19 Oct 2026: "vms13 should be 1191957", after "It should be 1191657" earlier the same day; his later word wins.
+1191957 is also what contract 9961265 line 32 says. `vms13_1191957_spec.json`:
+- `vms_fleet` VMS13 1191957. A number equal to the contract line's is not stored over it, so the register's own field
+  clears and the contract's 1191957 shows; the op's check now accepts that.
+- New op `note_replace`: T0158's earlier sentence ("VMS13 confirmed ... 1191657 ...") corrected in place to "VMS13 confirmed
+  by Andrew 19 Oct 2026: 1191957, a Coates machine, as contract line 32 says (not 1191657)."
+Backup first; four documents; record 9862 → 9866; VERIFIED (`report_20261019T052452Z.json`). The 1191957 arrival record set
+aside at 14:37 stays set aside: the register row now carries 1191957 itself, so T0158 shows VMS13 once, as 1191957.
+Live counts unchanged: 20 on site, Premiair Hire 6, Coates numbered 14, none without a number. Costs: STPS hire +$428.88
+(VMS13's number now matches contract line 32, so its hire is priced from that line); priced revenue $450,353.34.
