@@ -77,6 +77,8 @@ spec.ops.forEach((o, i) => {
   else if (o.op === 'vms_rego') { if (!/^(\d{7}|VMS\d{2})$/.test(o.key || '')) fail(at + 'needs a VMS board key'); if (!/^[A-Z0-9]{2,8}$/.test(o.rego || '')) fail(at + 'needs a rego'); }
   else if (o.op === 'vms_board') { if (!/^VMS\d{2}$/.test(o.key || '')) fail(at + 'needs a VMS board key'); if (!/^[0-9A-Z]{3,12}$/.test(o.fleet || '')) fail(at + 'needs a fleet/asset number'); if (!/^[A-Z0-9]{2,8}$/.test(o.rego || '')) fail(at + 'needs a rego'); if (!REFRE.test(o.on || '')) fail(at + 'needs the delivery it is on'); }
   else if (o.op === 'note_append') { if (!REFRE.test(o.ref || '')) fail(at + 'needs a reference'); if (typeof o.text !== 'string' || !o.text.trim() || o.text.length > 600) fail(at + 'needs text under 600 characters'); if (/\b(codex|claude|gpt|model|agent)\b/i.test(o.text)) fail(at + 'text names a system'); }
+  else if (o.op === 'spare_use') { if (!REFRE.test(o.ref || '')) fail(at + 'needs a reference'); if (!/^SP-[a-z0-9]{6,20}$/.test(o.id || '')) fail(at + 'needs a spare id'); if (!NORE.test(o.no || '')) fail(at + 'needs the spare\'s number'); }
+  else if (o.op === 'place') { if (!REFRE.test(o.ref || '')) fail(at + 'needs a reference'); if (!(o.lat <= -27 && o.lat >= -29 && o.lon >= 153 && o.lon <= 154)) fail(at + 'not a Gold Coast position'); if (typeof o.how !== 'string' || !o.how.trim() || o.how.length > 200) fail(at + 'needs how it was arrived at'); if (/\b(codex|claude|gpt|model|agent)\b/i.test(o.how + ' ' + (o.source || ''))) fail(at + 'text names a system'); }
   else if (o.op === 'set_qty') { if (!REFRE.test(o.ref || '')) fail(at + 'needs a reference'); if (!(o.qty === '' || (Number.isInteger(o.qty) && o.qty >= 0))) fail(at + 'qty must be a whole number or "" for the schedule\'s own'); }
   else fail(at + 'unknown op ' + o.op);
 });
@@ -84,10 +86,12 @@ const VKEYS = [...new Set(spec.ops.filter(o => o.op === 'vms_rego' || o.op === '
 const REFS = [...new Set(spec.ops.filter(o => o.ref).map(o => o.ref))], QIDS = [...new Set(spec.ops.filter(o => o.op === 'answer').map(o => o.id))];
 /* the documents this operation may touch: the references' own delivery, assetNumbers and accessories documents, the
    answers documents named, and the audit documents the page keeps beside them (stamps, by, deleted, notes, spares) */
-const ALLOWED_COLLS = new Set(['delivery', 'assetNumbers', 'accessories', 'answers', 'stamps', 'by', 'deleted', 'notes', 'spares', 'loads', 'qtys', 'units', 'labour', 'supplied', 'vmsboard']);
+const ALLOWED_COLLS = new Set(['delivery', 'assetNumbers', 'accessories', 'answers', 'stamps', 'by', 'deleted', 'notes', 'spares', 'loads', 'qtys', 'units', 'labour', 'supplied', 'vmsboard', 'places']);
+const SPARE_IDS = new Set(spec.ops.filter(o => o.op === 'spare_use').map(o => o.id)); /* a spare is named by its own id; only the ones the spec names */
 const docIdDecode = id => String(id).replace(/~2f~/g, '/').replace(/~7c~/g, '|').replace(/~20~/g, ' ').replace(/~26~/g, '&');
 const allowed = (k, body, docs) => { const c = k.slice(0, k.indexOf('/')), id = k.slice(k.indexOf('/') + 1); if (!ALLOWED_COLLS.has(c)) return false; const d = docIdDecode(id), parts = d.split('/');
   if (c === 'vmsboard') return VKEYS.includes(d);
+  if (c === 'spares' || (c === 'stamps' || c === 'by') && d.startsWith('spares/')) return SPARE_IDS.has(d.replace(/^spares\//, ''));
   if ((c === 'stamps' || c === 'by') && d.startsWith('vmsboard/')) return VKEYS.includes(d.slice('vmsboard/'.length));
   if (c === 'loads') return d.startsWith('unit925/') && !!body && REFS.includes(body.ref); /* a unit record is named by its uuid; its body names the reference */
   if ((c === 'stamps' || c === 'by') && d.startsWith('loads/unit925/')) { const u = ((docs || {}).loads || {})['unit925~2f~' + d.slice('loads/unit925/'.length)]; return !!u && REFS.includes(u.ref); } /* its audit stamps likewise */
@@ -321,6 +325,17 @@ function applyOps(spec) {
         const cur = String(deliveryOf(op.ref).note || '');
         if (cur.includes(op.text)) r.result = 'note already says it';
         else { const ok = setDeliveryNote(op.ref, (cur ? cur + ' ' : '') + op.text); if (ok === false) throw new Error('setDeliveryNote refused ' + op.ref); if (!String(deliveryOf(op.ref).note || '').endsWith(op.text)) throw new Error(op.ref + ' note did not take'); r.result = 'note added to'; }
+      } else if (op.op === 'spare_use') {
+        const s = (S.spares || {})[op.id]; if (!s) throw new Error('spare ' + op.id + ' is not in spares');
+        if (String(s.no || '') !== op.no) throw new Error('spare ' + op.id + ' is ' + s.no + ', not ' + op.no);
+        if (spareUse(op.id, op.ref) !== true) throw new Error('spareUse refused ' + op.no + ' onto ' + op.ref);
+        if ((S.spares || {})[op.id]) throw new Error(op.no + ' is still in spares');
+        if (!subOf(op.ref).some(x => String(x.no) === op.no)) throw new Error(op.ref + ' does not carry ' + op.no + ' after spareUse');
+        r.result = op.no + ' (' + s.co + ') out of spares and onto ' + op.ref;
+      } else if (op.op === 'place') {
+        const P = placeHere(op.ref, op.lat, op.lon, {how: op.how, source: op.source || null, note: op.note || null});
+        if (!P || P.lat !== op.lat || P.lon !== op.lon) throw new Error('placeHere refused ' + op.ref);
+        r.result = op.ref + ' placed at ' + op.lat + ', ' + op.lon + (P.outside ? ' (' + P.outside + (P.away_m != null ? ', ' + P.away_m + ' m from the drawings' : '') + ')' : '');
       } else if (op.op === 'set_qty') {
         const cur = ((S.qtys || {})[op.ref]);
         const ok = setQty(op.ref, op.qty === '' ? '' : String(op.qty)); if (ok === false) throw new Error('setQty refused ' + op.ref);
@@ -462,6 +477,8 @@ function applyOps(spec) {
         if (op.op === 'vms_rego' && ((((docs.vmsboard || {})[op.key]) || {}).rego) !== op.rego) problems.push(op.key + ' rego is not ' + op.rego + ' ' + where);
         if (op.op === 'vms_board') { const vb = (((docs.vmsboard || {})[op.key]) || {}); if (vb.fleet !== op.fleet || vb.rego !== op.rego || vb.on !== op.on) problems.push(op.key + ' is not ' + op.fleet + '/' + op.rego + ' on ' + op.on + ' ' + where); }
         if (op.op === 'note_append' && !String(((docs.delivery || {})[op.ref] || {}).note || '').includes(op.text)) problems.push(op.ref + ' note lacks the added text ' + where);
+        if (op.op === 'spare_use' && (docs.spares || {})[op.id]) problems.push(op.no + ' still in spares ' + where);
+        if (op.op === 'place') { const D = (docs.places || {})[op.ref] || {}, P = D.v || D; /* a value-kind collection: the document holds {v} */ if (P.lat !== op.lat || P.lon !== op.lon) problems.push(op.ref + ' is not placed at ' + op.lat + ', ' + op.lon + ' ' + where); }
         if (op.op === 'set_qty' && op.qty !== '' && ((((docs.qtys || {})[op.ref] || {}).v)) !== op.qty) problems.push(op.ref + ' quantity is not ' + op.qty + ' ' + where);
       } return problems; };
     const stageProblems = checkDocs(pageDocsAfter, 'after the stage'); if (stageProblems.length) fail(stageProblems.join(' | '));

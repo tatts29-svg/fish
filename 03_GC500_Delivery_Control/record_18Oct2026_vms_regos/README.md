@@ -202,3 +202,37 @@ Portables number (the sub-hired spare); 172824 is the Coates FWF on contract 996
 - `wc67_complete_spec.json`: supplied 4 and complete pressed again, so the page counts all four at the reference. Four
   documents; VERIFIED (`report_20261019T061854Z.json`).
 Live: WC67 FWF × 4, units 0793, 0769, 0714 (Event Portables) and 172824 (Coates); Today "4 of 4 installed · 4 received".
+
+## Applied: spare 0164 to WC05; pins for PG01, PG03, PG05, PG29 and WC85, 20 Oct 2026 09:15 AEST
+
+**Andrew (19–20 Oct):**
+- "We shouldn't have any spare now"
+- "Allocate it to eventco. Allocate it in here please" (Map explorer screenshot of the Event Operations Compound)
+- "Wc85 goes here https://maps.app.goo.gl/a5Ccvr1aXqedGv2K6"
+- "Add to this pinned locaction https://maps.google.com/?q=-27.986807,153.428013 ... pg05 pg29 pg01 pg03"
+
+**New runner steps:**
+- `spare_use`: the page's own `spareUse`, which moves a spare onto a reference and out of spares. A spare's document is allowed only when the spec names its id, and its removal only through `allowRemove`.
+- `place`: the page's own `placeHere`, a position put there from outside. A pin taken on site later replaces it.
+
+**What was done** (`spare_pins_spec.json`):
+- Event Portables FWF 0164 is on WC05 and spares are empty.
+- PG01, PG03, PG05 and PG29 are placed at -27.986807, 153.428013.
+- WC85 is placed at -27.938636, 153.426477.
+
+**Checks:**
+- A read-only in-memory run first: Costs unchanged.
+- The page refuses to type 0164 as an FWF on WC05 ("Choose a description from this reference"), so it stays a sub-hire unit there.
+- Backup first; 22 documents; record 9941 → 9963; VERIFIED (`report_20261019T231541Z.json`).
+
+## Applied: LT05 and LT06 here, installed and pinned, 20 Oct 2026 09:32 AEST
+
+**Andrew (20 Oct):** "LT06 is here and confirmed and installed asset no 1224791 at pinned location -27.93807, 153.4263 and LT05 is here asset no 1224783 and installed and pinned at same location".
+
+**What was done** (`lt0506_spec.json`):
+- Both numbers were already on their references (contract lines /19 and /20).
+- Each light was set on site, Complete ticked, and both placed at -27.93807, 153.4263 (Seaway Car Park Transporter Compound).
+
+**Checks:**
+- In-memory run first: Costs unchanged.
+- Backup first; 8 documents; record 9963 → 9971; VERIFIED (`report_20261019T233214Z.json`).

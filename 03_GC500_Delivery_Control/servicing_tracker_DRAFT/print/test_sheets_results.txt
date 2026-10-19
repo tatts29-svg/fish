@@ -1,7 +1,7 @@
 PASS draft builds
 PASS no reference block runs past its half page
 PASS urls.json is the placeholder set, one per reference
-PASS page count is 1 master + 14 covers + 13 area master maps + reference pages = 68
+PASS page count is 1 master + 14 covers + 13 area master maps + reference pages = 69
 PASS page sizes: master maps landscape, the rest portrait
 PASS text extracted for every page
 PASS every page: the track-only line
@@ -21,10 +21,10 @@ PASS every reference: big REF, how many per line, every asset number, its job wo
 PASS FWF blocks say Sunday night: extra lock, no water
 PASS (no reference is a waste tank alone, so tank-only wording is shown inside its block)
 PASS no QR is an edit (/e/) or view (/v/) link
-PASS every completion QR decodes at 300 dpi (75)
+PASS every completion QR decodes at 300 dpi (74)
 PASS each completion QR is on its own reference's page and nowhere else
 PASS each completion QR sits in its own half of the page
-PASS every pinned reference's location QR decodes to its Google Maps pin (63)
+PASS every pinned reference's location QR decodes to its Google Maps pin (68)
 PASS no other location QR (unpinned references have none)
 PASS no stray QR codes
 PASS nothing but completion and location QR codes on the covers and master map
@@ -32,7 +32,7 @@ PASS live-format run builds outside the repository
 PASS signed links default to TEST, not a crew-ready pack
 PASS contact fallback on every TEST page is honest
 PASS live-format run: the token is never printed as text
-PASS live-format completion QR codes (75, ~98 characters) all decode at 300 dpi
+PASS live-format completion QR codes (74, ~98 characters) all decode at 300 dpi
 PASS live run refuses to write inside the repository
 PASS real pack refuses without a confirmed contact
 PASS real pack refuses without a readiness receipt

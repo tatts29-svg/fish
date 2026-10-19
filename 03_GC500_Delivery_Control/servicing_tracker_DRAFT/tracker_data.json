@@ -76,7 +76,10 @@
      "title": "PG01",
      "where": "Toilet (Pit Garage)",
      "drop": "Pit lane entry",
-     "pin": null,
+     "pin": [
+      -27.986807,
+      153.428013
+     ],
      "lines": [
       {
        "id": "PG01-FWF",
@@ -95,7 +98,10 @@
      "title": "PG03",
      "where": "Toilet (Pit Garage)",
      "drop": "Pit lane entry",
-     "pin": null,
+     "pin": [
+      -27.986807,
+      153.428013
+     ],
      "lines": [
       {
        "id": "PG03-FWF",
@@ -114,7 +120,10 @@
      "title": "PG05",
      "where": "Toilet (Pit Garage)",
      "drop": "Pit lane entry",
-     "pin": null,
+     "pin": [
+      -27.986807,
+      153.428013
+     ],
      "lines": [
       {
        "id": "PG05-FWF",
@@ -133,7 +142,10 @@
      "title": "PG29",
      "where": "Toilet (Pit Garage)",
      "drop": "Pit lane entry",
-     "pin": null,
+     "pin": [
+      -27.986807,
+      153.428013
+     ],
      "lines": [
       {
        "id": "PG29-FWF",
@@ -210,25 +222,6 @@
        "nos": [
         "1322587",
         "1322588"
-       ]
-      }
-     ]
-    },
-    {
-     "ref": "SPARE",
-     "title": "Spare 0164 (no reference)",
-     "where": "Spare · Pit Lane",
-     "drop": "Pit Lane",
-     "pin": null,
-     "lines": [
-      {
-       "id": "SPARE-FWF",
-       "type": "FWF",
-       "kind": "fwf",
-       "label": "1 × FWF",
-       "qty": 1,
-       "nos": [
-        "0164"
        ]
       }
      ]
@@ -550,6 +543,16 @@
        "qty": 1,
        "nos": [
         "1328978"
+       ]
+      },
+      {
+       "id": "WC05-FWF",
+       "type": "FWF",
+       "kind": "fwf",
+       "label": "1 × FWF",
+       "qty": 1,
+       "nos": [
+        "0164"
        ]
       }
      ]
@@ -1985,7 +1988,10 @@
      "title": "WC85",
      "where": "Toilets",
      "drop": "",
-     "pin": null,
+     "pin": [
+      -27.938636,
+      153.426477
+     ],
      "lines": [
       {
        "id": "WC85-FWF",

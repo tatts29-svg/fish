@@ -58,7 +58,9 @@ def main():
     data = M.Data(HERE.parent / 'tracker_data.json')
     refs = [r['ref'] for r in data.refs]
     n_amaps = len([a for a in data.areas if a['n']])   # each of the 13 areas has its own master map after its cover
-    expect_pages = 1 + len(data.areas) + n_amaps + sum((len(a['refs']) + 1) // 2 for a in data.areas)
+    M.setup_fonts(); tall = lambda r: M.ref_too_tall(data, r)   # a reference too tall for half a page gets a whole one
+    ref_chunks = {a['n']: M.pair_refs(a['refs'], tall) for a in data.areas}
+    expect_pages = 1 + len(data.areas) + n_amaps + sum(len(v) for v in ref_chunks.values())
     tmp = tempfile.mkdtemp(prefix='gc500sheets_', dir=os.environ.get('TMPDIR'))
     try:
         # ---------------------------------------------------------------- the draft
@@ -74,7 +76,7 @@ def main():
         check(f'page count is 1 master + {len(data.areas)} covers + {n_amaps} area master maps + reference pages = {expect_pages}', n_pages == expect_pages, n_pages)
         sizes = subprocess.run(['pdfinfo', '-f', '1', '-l', str(n_pages), str(draft)], capture_output=True, text=True).stdout
         ps = re.findall(r'Page\s+(\d+) size:\s+([\d.]+) x ([\d.]+)', sizes)
-        kinds = ['master'] + [k for a in data.areas for k in ['cover'] + (['amaster'] if a['n'] else []) + ['refs'] * ((len(a['refs']) + 1) // 2)]
+        kinds = ['master'] + [k for a in data.areas for k in ['cover'] + (['amaster'] if a['n'] else []) + [kk for kk, _ in ref_chunks[a['n']]]]
         land = {i for i, k in enumerate(kinds, 1) if k in ('master', 'amaster')}
         check('page sizes: master maps landscape, the rest portrait', ps and all((abs(float(w) - 841.89) < 1 and abs(float(h) - 595.28) < 1) if int(n) in land else (abs(float(w) - 595.28) < 1 and abs(float(h) - 841.89) < 1) for n, w, h in ps), ps[:3])
         T = pdftext(draft)
@@ -93,13 +95,13 @@ def main():
         for a in data.areas:
             plan.append(('cover', a, None))
             if a['n']: plan.append(('amaster', a, None))
-            for i in range(0, len(a['refs']), 2): plan.append(('refs', a, a['refs'][i:i + 2]))
+            for kk, ch in ref_chunks[a['n']]: plan.append((kk, a, ch))
         maps = json.loads((HERE / 'maps' / 'maps.json').read_text())
         missing_credit = []
         for i, (kind, a, rs) in enumerate(plan, 2):
-            has_map = kind == 'amaster' or (kind == 'cover' and maps['areas'][str(a['n'])]['main']) or (kind == 'refs' and any(maps['positions'][x['ref']] for x in rs))
+            has_map = kind == 'amaster' or (kind == 'cover' and maps['areas'][str(a['n'])]['main']) or (kind in ('refs', 'ref_full') and any(maps['positions'][x['ref']] for x in rs))
             if has_map and credit not in norm[i - 1]: missing_credit.append(i)
-            if kind == 'refs':
+            if kind in ('refs', 'ref_full'):
                 for x in rs: page_of[x['ref']] = i
         check('every page with a map carries "Drawing © iEDM · D001"', not missing_credit, missing_credit)
         # the master map legend: every area, its counts
@@ -168,13 +170,14 @@ def main():
             # top block or bottom block
             half = []
             for a in data.areas:
-                for i in range(0, len(a['refs']), 2):
-                    for j, x in enumerate(a['refs'][i:i + 2]):
+                for kk, ch in ref_chunks[a['n']]:   # a whole-page reference has its QR in the top half too
+                    for j, x in enumerate(ch):
                         for n, fy in seen.get(urls[x['ref']], []):
                             if (fy < 0.5) != (j == 0): half.append(x['ref'])
             check('each completion QR sits in its own half of the page', not half, half)
             pinned = [x for x in data.refs if x['pin']]
-            loc_bad = [x['ref'] for x in pinned if M.maps_url(x['pin']) not in seen or any(n != page_of[x['ref']] for n, _ in seen[M.maps_url(x['pin'])])]
+            same_pin = lambda x: {page_of[y['ref']] for y in pinned if y['pin'] == x['pin']}   # PG01/03/05/29 share one pin (pit lane entry)
+            loc_bad = [x['ref'] for x in pinned if M.maps_url(x['pin']) not in seen or page_of[x['ref']] not in {n for n, _ in seen[M.maps_url(x['pin'])]} or any(n not in same_pin(x) for n, _ in seen[M.maps_url(x['pin'])])]
             check(f'every pinned reference\'s location QR decodes to its Google Maps pin ({len(pinned)})', not loc_bad, loc_bad)
             maps_qr = [q for q in seen if q.startswith('https://www.google.com/maps/')]
             check('no other location QR (unpinned references have none)', len(maps_qr) == len({M.maps_url(x['pin']) for x in pinned}), len(maps_qr))

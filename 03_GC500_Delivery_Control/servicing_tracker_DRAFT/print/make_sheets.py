@@ -357,6 +357,29 @@ def place_labels(c, mb, groups, rr, font_size=8):
             c.setStrokeColor(INK); c.setLineWidth(0.7); c.line(ex, ey, nx, ny)
         tag(c, cx, cy, label, 'bold', font_size, INK, WHITE, INK, anchor='c')
 
+# ---------------------------------------------------------------- reference pages
+HALF_H = (A4[1] - 7 * mm - 20 * mm - 6 * mm) / 2      # one reference block: half a portrait page
+def ref_too_tall(data, r, map_w_mm=100):
+    """True when a reference's left column (how many, asset numbers, jobs) cannot fit half a page even at the tightest
+    spacing - it then gets a page of its own (WC05: block + tank + FWF)"""
+    import io
+    p = Pack.__new__(Pack); p.d = data; p._scratch = None
+    lw = A4[0] - 18 * mm - map_w_mm * mm - 8.5 * mm
+    return -p.left_col(canvas.Canvas(io.BytesIO(), pagesize=A4), r, 0, lw, 0, 0.7) > HALF_H - 26 * mm
+
+def pair_refs(refs, tall):
+    """two references to a page, in order; one that is too tall for half a page gets a whole page"""
+    out, held = [], []
+    for r in refs:
+        if tall(r):
+            if held: out.append(('refs', held)); held = []
+            out.append(('ref_full', [r]))
+        else:
+            held.append(r)
+            if len(held) == 2: out.append(('refs', held)); held = []
+    if held: out.append(('refs', held))
+    return out
+
 # ---------------------------------------------------------------- the pack
 class Pack:
     def __init__(self, data, maps, maps_dir, urls, draft, printed, mode="draft", contact=None):
@@ -382,9 +405,10 @@ class Pack:
         for a in self.d.areas:
             self.pages.append(('cover', a, None))
             if a['n']: self.pages.append(('master', a, None))   # Andrew, 19 Oct 2026: "Each 13 sheets should have a master map"
-            for i in range(0, len(a['refs']), 2):
-                self.pages.append(('refs', a, a['refs'][i:i + 2]))
-                for r in a['refs'][i:i + 2]: self.ref_page[r['ref']] = len(self.pages)
+            mw = self.maps['layout']['ref_map']['w']
+            for kind, chunk in pair_refs(a['refs'], lambda r: ref_too_tall(self.d, r, mw)):
+                self.pages.append((kind, a, chunk))
+                for r in chunk: self.ref_page[r['ref']] = len(self.pages)
 
     # ------------------------------------------------------------ page furniture
     def frame(self, c, size, n):
@@ -518,9 +542,15 @@ class Pack:
                 txt(c, 9 * mm, y - 3 * mm, s, 'bold', fit(s, 'bold', 8.5, W - 18 * mm), RED); y -= 5.5 * mm
         else:
             h = 70 * mm
-            no_pin_panel(c, 9 * mm, y - h, W - 18 * mm, h, 'No pin',
-                         ('No location given yet. ' if n == 0 else 'None of these locations has a pin on the record or a place on the master plan yet. ') +
-                         'Ask on site; each sheet still has its asset numbers, its jobs and its completion QR.')
+            pinned = [r['ref'] for r in refs if r['pin']]; unpinned = [r['ref'] for r in refs if not r['pin']]
+            if pinned:
+                no_pin_panel(c, 9 * mm, y - h, W - 18 * mm, h, 'Off the plan',
+                             'These locations are not on the master plan drawing. ' + ', '.join(pinned) + (' has' if len(pinned) == 1 else ' have') +
+                             ' a Google Maps pin: scan its "Scan for directions" QR.' + (' ' + ', '.join(unpinned) + (' has' if len(unpinned) == 1 else ' have') + ' no pin yet - ask on site.' if unpinned else ''))
+            else:
+                no_pin_panel(c, 9 * mm, y - h, W - 18 * mm, h, 'No pin',
+                             ('No location given yet. ' if n == 0 else 'None of these locations has a pin on the record or a place on the master plan yet. ') +
+                             'Ask on site; each sheet still has its asset numbers, its jobs and its completion QR.')
             y -= h + 3 * mm
         # the locations
         y = self.table(c, a, y)
@@ -626,10 +656,12 @@ class Pack:
             note = 'Circled where the master plan has it' + ('' if r['pin'] else ' (no GPS pin on the record)') + '.'
             if others: note = f'Circled where the master plan has it: one spot for {", ".join([ref] + others)}' + ('' if r['pin'] else '; no GPS pin') + '.'
             txt(c, mx, my - 3.2 * mm, note, 'sans', fit(note, 'sans', 7, mw), MUTE)
+        elif r['pin']:   # pinned, but off the master plan drawing (WC85 at the Seaway): the directions QR is the way there
+            no_pin_panel(c, mx, my, mw, mh, 'Off the plan', 'Not on the master plan drawing. Scan "Scan for directions" for its Google Maps pin.')
         else:
             no_pin_panel(c, mx, my, mw, mh)
         # the two QR cards under the map: COMPLETION (orange, the one that ticks) and LOCATION
-        ctop = my - 5.2 * mm; cbot = y + 0.8 * mm; ch = ctop - cbot
+        ctop = my - 5.2 * mm; cbot = max(y + 0.8 * mm, ctop - 62 * mm); ch = ctop - cbot   # a whole-page reference keeps cards their usual size
         comp_w = 58 * mm; loc_w = mw - comp_w - 3 * mm
         qs = min(36 * mm, ch - (16 if self.draft else 12.5) * mm)
         c.setFillColor(WHITE); c.setStrokeColor(ORANGE); c.setLineWidth(2)
@@ -653,24 +685,12 @@ class Pack:
             txt(c, qx + ls / 2, qy + ls / 2 - 1 * mm, 'No pin', 'bold', 15, MUTE, 'c')
             s = 'No pin on the record - ask on site'
             txt(c, lx + loc_w / 2, qy - 4.2 * mm, s, 'bold', fit(s, 'bold', 8, loc_w - 2 * mm), INK, 'c')
-        # left column: how many, the asset numbers, the jobs
-        lx0, lw = x + 4.5 * mm, mx - x - 8.5 * mm; yy = top - 24 * mm
-        txt(c, lx0, yy, 'HOW MANY', 'bold', 7.5, MUTE); yy -= 6.6 * mm
-        for l in r['lines']:
-            txt(c, lx0, yy, l['label'], 'bold', fit(l['label'], 'bold', 15, lw), INK); yy -= 4.4 * mm
-            nos = l['nos']
-            if nos:
-                s = 'Asset no' + ('s' if len(nos) > 1 else '') + ': ' + '  '.join(nos)
-                for ln in wrap(s, 'sans', 8.6, lw): txt(c, lx0, yy, ln, 'sans', 8.6, INK); yy -= 3.7 * mm
-            else:
-                txt(c, lx0, yy, 'No asset numbers on the record', 'sans', 8.6, MUTE); yy -= 3.7 * mm
-            yy -= 1.6 * mm
-        yy -= 1 * mm
-        txt(c, lx0, yy, 'JOBS EACH SERVICE DAY (08:00 to 08:00)', 'bold', 7.5, MUTE); yy -= 2.2 * mm
-        groups = collections.OrderedDict()
-        for l in r['lines']: groups.setdefault(l['kind'], []).append(l)
-        for kind, ls in groups.items():
-            yy = self.jobs_grid(c, lx0, yy, lw, kind, ls if len(groups) > 1 else None) - 2 * mm
+        # left column: how many, the asset numbers, the jobs - closer spacing when a reference has many lines (WC05 has
+        # three: block, tank, FWF), measured first on a scratch page so nothing ever runs off its half page
+        lx0, lw = x + 4.5 * mm, mx - x - 8.5 * mm
+        k = 1.0
+        while k > 0.7 and self.left_col(self.scratch(), r, lx0, lw, top - 24 * mm, k) < y + 2 * mm: k = round(k - 0.05, 2)
+        yy = self.left_col(c, r, lx0, lw, top - 24 * mm, k)
         if yy < y + 2 * mm: print(f'warning: {ref} block runs {((y + 2 * mm) - yy) / mm:.1f} mm long', file=sys.stderr)
         # what to do, where there is room
         steps = ['Do the jobs for tonight (the dots above).',
@@ -685,17 +705,42 @@ class Pack:
                 txt(c, lx0 + 2.5 * mm, by + bh - 9 * mm - k * 4.3 * mm, str(k + 1), 'bold', 8.4, ORANGE)
                 txt(c, lx0 + 6.5 * mm, by + bh - 9 * mm - k * 4.3 * mm, s, 'sans', fit(s, 'sans', 8.4, lw - 8.5 * mm), INK)
 
-    def jobs_grid(self, c, x, y, w, kind, lines):
+    def scratch(self):
+        if not getattr(self, '_scratch', None):
+            import io
+            self._scratch = canvas.Canvas(io.BytesIO(), pagesize=A4)
+        return self._scratch
+
+    def left_col(self, c, r, lx0, lw, yy, k=1.0):
+        txt(c, lx0, yy, 'HOW MANY', 'bold', 7.5, MUTE); yy -= 6.6 * mm * k
+        for l in r['lines']:
+            txt(c, lx0, yy, l['label'], 'bold', fit(l['label'], 'bold', 15 if k >= 0.9 else 13, lw), INK); yy -= 4.4 * mm * k
+            nos = l['nos']
+            if nos:
+                s = 'Asset no' + ('s' if len(nos) > 1 else '') + ': ' + '  '.join(nos)
+                for ln in wrap(s, 'sans', 8.6, lw): txt(c, lx0, yy, ln, 'sans', 8.6, INK); yy -= 3.7 * mm * max(k, 0.9)
+            else:
+                txt(c, lx0, yy, 'No asset numbers on the record', 'sans', 8.6, MUTE); yy -= 3.7 * mm * max(k, 0.9)
+            yy -= 1.6 * mm * k
+        yy -= 1 * mm * k
+        txt(c, lx0, yy, 'JOBS EACH SERVICE DAY (08:00 to 08:00)', 'bold', 7.5, MUTE); yy -= 2.2 * mm
+        groups = collections.OrderedDict()
+        for l in r['lines']: groups.setdefault(l['kind'], []).append(l)
+        for kind, ls in groups.items():
+            yy = self.jobs_grid(c, lx0, yy, lw, kind, ls if len(groups) > 1 else None, k) - 2 * mm * k
+        return yy
+
+    def jobs_grid(self, c, x, y, w, kind, lines, k=1.0):
         d = self.d; days = d.days; plan = d.plans[kind]
         tasks = []
         for dd in days:
             for t in plan[dd['plan']]:
                 if t not in tasks: tasks.append(t)
         tasks.sort(key=lambda t: list(d.tasks).index(t))
-        colw = 9.6 * mm; name_w = w - len(days) * colw; rowh = 4.6 * mm
+        colw = 9.6 * mm; name_w = w - len(days) * colw; rowh = 4.6 * mm * max(k, 0.8)
         if lines:
             s = ' + '.join(l['label'] for l in lines)
-            txt(c, x, y - 3.4 * mm, s, 'bold', fit(s, 'bold', 8.2, w), INK); y -= 4.4 * mm
+            txt(c, x, y - 3.4 * mm, s, 'bold', fit(s, 'bold', 8.2, w), INK); y -= 4.4 * mm * max(k, 0.85)
         # header
         c.setFillColor(PAPER); c.rect(x, y - 6.6 * mm, w, 6.6 * mm, stroke=0, fill=1)
         for k, dd in enumerate(days):
@@ -705,7 +750,7 @@ class Pack:
             if sub: txt(c, cx, y - 5.7 * mm, sub, 'sans', 5.6, MUTE, 'c')
         y -= 6.6 * mm
         for t in tasks:
-            txt(c, x + 1 * mm, y - 3.3 * mm, d.tasks[t], 'bold', fit(d.tasks[t], 'bold', 8.4, name_w - 2 * mm), INK)
+            txt(c, x + 1 * mm, y - rowh / 2 - 1.1 * mm, d.tasks[t], 'bold', fit(d.tasks[t], 'bold', 8.4 if k >= 0.9 else 7.8, name_w - 2 * mm), INK)
             for k, dd in enumerate(days):
                 cx = x + name_w + k * colw + colw / 2; cy = y - rowh / 2
                 if t in plan[dd['plan']]:
@@ -720,7 +765,7 @@ class Pack:
         if last and (gone or extra):
             bits = ([f'extra: {", ".join(extra)}'] if extra else []) + [('no water' if t == 'water' else 'no ' + d.tasks[t].lower()) for t in gone]
             s = f'{last["label"]} night: ' + ' · '.join(bits) + '.'
-            txt(c, x, y - 3.4 * mm, s, 'bold', fit(s, 'bold', 7.6, w), INK); y -= 4.2 * mm
+            txt(c, x, y - 3.4 * mm, s, 'bold', fit(s, 'bold', 7.6, w), INK); y -= 4.2 * mm * max(k, 0.85)
         return y
 
     # ------------------------------------------------------------ render
@@ -733,6 +778,8 @@ class Pack:
             c.setPageSize(size)
             if kind == 'master': self.master(c, a)
             elif kind == 'cover': self.cover(c, a)
+            elif kind == 'ref_full':
+                W, H = A4; self.ref_block(c, a, refs[0], 9 * mm, 20 * mm, W - 18 * mm, 2 * HALF_H + 6 * mm)
             else:
                 W, H = A4; bh = (H - 7 * mm - 20 * mm - 6 * mm) / 2
                 self.ref_block(c, a, refs[0], 9 * mm, 20 * mm + bh + 6 * mm, W - 18 * mm, bh)
