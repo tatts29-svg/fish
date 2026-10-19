@@ -64,6 +64,7 @@ spec.ops.forEach((o, i) => {
   else if (o.op === 'unit_reidentify') { if (!REFRE.test(o.ref || '')) fail(at + 'needs a reference'); if (!/^[0-9A-Z]{3,12}$/.test(o.no || '')) fail(at + 'needs a number'); if (typeof o.item !== 'string' || !o.item.trim()) fail(at + 'needs an item type'); if (!['coates', 'event-portables', 'prem-air-hire'].includes(o.owner || 'coates')) fail(at + 'owner'); }
   else if (o.op === 'number_item') { if (!REFRE.test(o.ref || '')) fail(at + 'needs a reference'); if (!NORE.test(o.no || '')) fail(at + 'needs a number'); if (typeof o.item !== 'string' || !o.item.trim()) fail(at + 'needs an item'); }
   else if (o.op === 'complete') { if (!REFRE.test(o.ref || '')) fail(at + 'needs a reference'); }
+  else if (o.op === 'scope_refresh') { if (!REFRE.test(o.ref || '')) fail(at + 'needs a reference'); }
   else if (o.op === 'complete_again') { if (!REFRE.test(o.ref || '')) fail(at + 'needs a reference'); }
   else if (o.op === 'labour_on' && !o.unit) { if (!REFRE.test(o.ref || '')) fail(at + 'needs a reference'); for (const f of ['disc', 'item', 'line']) if (typeof o[f] !== 'string' || !o[f]) fail(at + 'needs ' + f); }
   else if (o.op === 'labour_on' || o.op === 'labour_off') { if (!REFRE.test(o.ref || '')) fail(at + 'needs a reference'); for (const f of ['disc', 'item', 'line', 'unit']) if (typeof o[f] !== 'string' || !o[f]) fail(at + 'needs ' + f); }
@@ -241,6 +242,18 @@ function applyOps(spec) {
       } else if (op.op === 'complete') {
         if (deliveryOf(op.ref).done) r.result = 'already complete';
         else { if (deliveryOf(op.ref).state !== 'on site') throw new Error(op.ref + ' is not on site'); const ok = setDone(op.ref, true); if (ok === false) throw new Error('setDone refused ' + op.ref); if (!deliveryOf(op.ref).done) throw new Error(op.ref + ' did not complete'); r.result = 'complete'; }
+      } else if (op.op === 'scope_refresh') {
+        /* the page keeps a received/installed baseline from the last quantity edit (Scope1017); a receipt recorded after the
+           last complete tick falls back to that baseline. Editing the quantity is the page's own way to take a new baseline:
+           one above the schedule's, then back to the schedule's own - the quantity ends as it began */
+        const a = assetOf(op.ref), sched = a && a._qtyOnTheSchedule; if (!Number.isInteger(sched)) throw new Error(op.ref + ' has no schedule quantity');
+        if ((S.qtys || {})[op.ref] != null) throw new Error(op.ref + ' carries a typed quantity - not refreshed');
+        const before = typeof Scope1017 === 'object' && Scope1017.record ? JSON.stringify(Scope1017.record(a)) : null;
+        if (setQty(op.ref, String(sched + 1)) === false) throw new Error('setQty refused ' + op.ref + ' ' + (sched + 1));
+        if (setQty(op.ref, '') === false) throw new Error('setQty refused ' + op.ref + ' back to the schedule');
+        if ((S.qtys || {})[op.ref] != null) throw new Error(op.ref + ' quantity did not go back to the schedule');
+        const now = Scope1017.record(a); if (!now || JSON.stringify(now) === before) throw new Error(op.ref + ' baseline did not refresh');
+        r.result = 'baseline refreshed: ' + now.items.map(i => i.item + ' ' + i.received + ' received / ' + i.installed + ' installed').join(', ');
       } else if (op.op === 'complete_again') {
         /* Complete pressed again on a reference already complete: the page then counts every unit received so far as installed
            (Scope1017: a newer complete tick installs what has arrived) */
@@ -417,6 +430,7 @@ function applyOps(spec) {
         if (op.op === 'unit_reidentify' && !Object.values(docs.loads || {}).some(u => u && u.kind === 'unit925-record' && u.ref === op.ref && String(u.assetNo) === op.no && u.item === op.item && u.active !== false && !u.removedBy)) problems.push(op.ref + ' has no active ' + op.item + ' unit ' + op.no + ' ' + where);
         if (op.op === 'unit_archive' && Object.values(docs.loads || {}).some(u => u && u.kind === 'unit925-record' && u.ref === op.ref && String(u.assetNo) === op.no && u.active !== false && !u.removedBy)) problems.push(op.ref + ' still has an active unit record for ' + op.no + ' ' + where);
         if (op.op === 'labour_off' && (docs.labour || {})[op.ref + '/u' + op.unit.replace(/^u/, '') + '|' + op.disc + '|' + op.item + '|' + op.line]) problems.push(op.ref + ' ' + op.unit + ' ' + op.line + ' still ticked ' + where);
+        if (op.op === 'scope_refresh' && ((docs.qtys || {})[op.ref] || {}).v != null) problems.push(op.ref + ' carries a typed quantity ' + where);
         if (op.op === 'complete_again' && (((docs.delivery || {})[op.ref] || {}).done) !== true) problems.push(op.ref + ' not complete ' + where);
         if (op.op === 'complete' && (((docs.delivery || {})[op.ref] || {}).done) !== true) problems.push(op.ref + ' not complete ' + where);
         if (op.op === 'labour_on' && (((docs.labour || {})[((op.unit ? op.ref + '/u' + op.unit.replace(/^u/, '') : op.ref) + '|' + op.disc + '|' + op.item + '|' + op.line).replace(/\//g, '~2f~').replace(/\|/g, '~7c~').replace(/ /g, '~20~').replace(/&/g, '~26~')] || {}).v) !== true) problems.push(op.ref + ' ' + op.unit + ' ' + op.line + ' not ticked ' + where);

@@ -154,3 +154,18 @@ SUB-2631, booked 19 Oct). `vms20_spec.json`: unit record VMS20 / 475T / `prem-ai
 VMS20 fleet 475T, rego TE88HN, on T0158; the arrival added to the note; then `complete_again` so the eight received count as
 installed. Backup first; ten documents; record 9802 → 9812; VERIFIED (`report_20261019T023258Z.json`). Live page:
 **VMS boards 95% · 19 of 20 boards complete**, 19 of 20 on site. Still to come: VMS05.
+
+## Applied: VMS23 (Premiair Hire 453T, rego TF54CQ) arrived on T0158, 19 Oct 2026 12:38 AEST
+
+Andrew, 19 Oct 2026: "Vms23 asset no 453t rego TF54CQ". Contract 9961265 line 30 ("VMS23 ... Premiair", SUB-2631, booked
+19 Oct). The nine 19 Oct boards on the contract (VMS13–20 and VMS23) are exactly T0158's nine. Not said to be complete, so
+nothing is ticked.
+
+A read-only probe found one trap: the page keeps a received/installed baseline from the last quantity edit (18 Oct:
+5 installed), and a receipt recorded after the last complete tick falls back to it, so adding VMS23 alone would have shown
+T0158 "5 of 9 installed". New op `scope_refresh`: the quantity set one above the schedule's and straight back to the
+schedule's own through `setQty`, the page's own way of taking a new baseline (8 received / 8 installed); the quantity ends
+as it began. Then the VMS23 unit record (453T, `prem-air-hire`), supplied 8 → 9, the register row and the note.
+`vms23_spec.json`; backup first; twelve documents; record 9812 → 9824; VERIFIED (`report_20261019T023812Z.json`).
+Live page: **VMS boards 20 of 20 on site**; milestone **95% · 19 of 20 boards complete** (T0158 "8 of 9 installed · 9
+received"; VMS23 waits for its complete).
