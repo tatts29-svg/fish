@@ -135,3 +135,14 @@ Same four ops as VMS19 (`vms18_spec.json`): unit record VMS18 / 472T / `prem-air
 register VMS18 fleet 472T, rego TE58GZ, on T0158; the arrival added to T0158's note. Nothing ticked, no time invented.
 Backup first; ten documents; record 9782 → 9792; VERIFIED (`report_20261019T015206Z.json`). VMS on site: 18 of 20.
 Still to come on the drawing: VMS05 and VMS20.
+
+## Applied: VMS18 and VMS19 complete, 19 Oct 2026 11:56 AEST
+
+Andrew, 19 Oct 2026: "COMPETED", answering that the milestone stays at 16 of 20 until VMS18 and VMS19 are set up. T0158
+carries one install tick for the whole delivery and was already complete for its first five boards, so the page held
+"5 of 9 installed · 7 received". A read-only probe showed that per-board install ticks are the wrong control here: the page
+turns the delivery's one tick into per-board ticks and counts 0 of 9. Pressing **Complete again** is the page's own rule for
+"everything received is now done" (Scope1017: a newer complete tick installs what has arrived): 7 of 9 installed. New op
+`complete_again` (`setDone` on a reference already complete, with a check that the tick's time moved).
+`node vms.cjs --apply --spec vms18_19_complete_spec.json`: one document; record 9792 → 9793; VERIFIED
+(`report_20261019T015616Z.json`). Live page: **VMS boards 90% · 18 of 20 boards complete**, 18 of 20 on site.
