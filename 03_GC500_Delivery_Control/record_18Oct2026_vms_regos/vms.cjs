@@ -71,10 +71,12 @@ spec.ops.forEach((o, i) => {
   else if (o.op === 'supplied') { if (!REFRE.test(o.ref || '')) fail(at + 'needs a reference'); if (typeof o.item !== 'string' || !o.item) fail(at + 'needs an item'); if (!(Number.isInteger(o.qty) && o.qty >= 0)) fail(at + 'needs a whole number'); }
   else if (o.op === 'vms_fleet') { if (!/^(\d{7}|VMS\d{2})$/.test(o.key || '')) fail(at + 'needs a VMS board key'); if (!/^[0-9A-Z]{3,12}$/.test(o.fleet || '')) fail(at + 'needs a fleet/asset number'); }
   else if (o.op === 'vms_rego') { if (!/^(\d{7}|VMS\d{2})$/.test(o.key || '')) fail(at + 'needs a VMS board key'); if (!/^[A-Z0-9]{2,8}$/.test(o.rego || '')) fail(at + 'needs a rego'); }
+  else if (o.op === 'vms_board') { if (!/^VMS\d{2}$/.test(o.key || '')) fail(at + 'needs a VMS board key'); if (!/^[0-9A-Z]{3,12}$/.test(o.fleet || '')) fail(at + 'needs a fleet/asset number'); if (!/^[A-Z0-9]{2,8}$/.test(o.rego || '')) fail(at + 'needs a rego'); if (!REFRE.test(o.on || '')) fail(at + 'needs the delivery it is on'); }
+  else if (o.op === 'note_append') { if (!REFRE.test(o.ref || '')) fail(at + 'needs a reference'); if (typeof o.text !== 'string' || !o.text.trim() || o.text.length > 600) fail(at + 'needs text under 600 characters'); if (/\b(codex|claude|gpt|model|agent)\b/i.test(o.text)) fail(at + 'text names a system'); }
   else if (o.op === 'set_qty') { if (!REFRE.test(o.ref || '')) fail(at + 'needs a reference'); if (!(o.qty === '' || (Number.isInteger(o.qty) && o.qty >= 0))) fail(at + 'qty must be a whole number or "" for the schedule\'s own'); }
   else fail(at + 'unknown op ' + o.op);
 });
-const VKEYS = [...new Set(spec.ops.filter(o => o.op === 'vms_rego' || o.op === 'vms_fleet').map(o => o.key))];
+const VKEYS = [...new Set(spec.ops.filter(o => o.op === 'vms_rego' || o.op === 'vms_fleet' || o.op === 'vms_board').map(o => o.key))];
 const REFS = [...new Set(spec.ops.filter(o => o.ref).map(o => o.ref))], QIDS = [...new Set(spec.ops.filter(o => o.op === 'answer').map(o => o.id))];
 /* the documents this operation may touch: the references' own delivery, assetNumbers and accessories documents, the
    answers documents named, and the audit documents the page keeps beside them (stamps, by, deleted, notes, spares) */
@@ -266,6 +268,17 @@ function applyOps(spec) {
         if (!ok) throw new Error('vms913Save refused ' + op.key + ': ' + ((typeof vms913St === 'function' && vms913St().said) || ''));
         const rr = r, r2 = (S.vmsboard || {})[op.key]; if (!r2 || r2.rego !== op.rego) throw new Error(op.key + ' rego did not take');
         Object.assign(rr, {key: op.key, rego: op.rego, result: 'rego saved', doc: JSON.parse(JSON.stringify(r2))});
+      } else if (op.op === 'vms_board') {
+        /* one save of the register form: fleet, rego and the delivery the board is on; the company stays as the contract names it */
+        if (!vms913Boards().some(b => b.key === op.key)) throw new Error('no VMS board ' + op.key + ' on the register');
+        const ok = vms913Save(op.key, null, op.fleet, op.rego, op.on, {fleet: true, rego: true, on: true}, true);
+        if (!ok) throw new Error('vms913Save refused ' + op.key + ': ' + ((typeof vms913St === 'function' && vms913St().said) || ''));
+        const r4 = (S.vmsboard || {})[op.key]; if (!r4 || r4.fleet !== op.fleet || r4.rego !== op.rego || r4.on !== op.on) throw new Error(op.key + ' did not take: ' + JSON.stringify(r4));
+        Object.assign(r, {result: 'board saved', doc: JSON.parse(JSON.stringify(r4))});
+      } else if (op.op === 'note_append') {
+        const cur = String(deliveryOf(op.ref).note || '');
+        if (cur.includes(op.text)) r.result = 'note already says it';
+        else { const ok = setDeliveryNote(op.ref, (cur ? cur + ' ' : '') + op.text); if (ok === false) throw new Error('setDeliveryNote refused ' + op.ref); if (!String(deliveryOf(op.ref).note || '').endsWith(op.text)) throw new Error(op.ref + ' note did not take'); r.result = 'note added to'; }
       } else if (op.op === 'set_qty') {
         const cur = ((S.qtys || {})[op.ref]);
         const ok = setQty(op.ref, op.qty === '' ? '' : String(op.qty)); if (ok === false) throw new Error('setQty refused ' + op.ref);
@@ -401,6 +414,8 @@ function applyOps(spec) {
         if (op.op === 'supplied' && !((((docs.supplied || {})[op.ref] || {}).items) || []).some(x => x.asked === op.item && x.qty_supplied === op.qty)) problems.push(op.ref + ' supplied is not ' + op.qty + ' ' + where);
         if (op.op === 'vms_fleet' && ((((docs.vmsboard || {})[op.key]) || {}).fleet) !== op.fleet) problems.push(op.key + ' fleet is not ' + op.fleet + ' ' + where);
         if (op.op === 'vms_rego' && ((((docs.vmsboard || {})[op.key]) || {}).rego) !== op.rego) problems.push(op.key + ' rego is not ' + op.rego + ' ' + where);
+        if (op.op === 'vms_board') { const vb = (((docs.vmsboard || {})[op.key]) || {}); if (vb.fleet !== op.fleet || vb.rego !== op.rego || vb.on !== op.on) problems.push(op.key + ' is not ' + op.fleet + '/' + op.rego + ' on ' + op.on + ' ' + where); }
+        if (op.op === 'note_append' && !String(((docs.delivery || {})[op.ref] || {}).note || '').includes(op.text)) problems.push(op.ref + ' note lacks the added text ' + where);
         if (op.op === 'set_qty' && op.qty !== '' && ((((docs.qtys || {})[op.ref] || {}).v)) !== op.qty) problems.push(op.ref + ' quantity is not ' + op.qty + ' ' + where);
       } return problems; };
     const stageProblems = checkDocs(pageDocsAfter, 'after the stage'); if (stageProblems.length) fail(stageProblems.join(' | '));

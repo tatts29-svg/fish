@@ -102,3 +102,20 @@ record 9765 → 9767; VERIFIED (`report_20261018T171634Z.json`).
 T0158's complete tick stays on. A read-only probe compared the two: with the tick on, the milestone reads "80% · 16 of 20
 boards complete". Taking it off would drop T0158's five installed boards from the count ("55% · 11 of 20"), which is wrong.
 Live on v10.73: **VMS boards 16 boards · 16 of 20 on site** and **VMS boards 80% · 16 of 20 boards complete**.
+
+## Applied: VMS19 (Premiair Hire 487T, rego TE02H0) arrived on T0158, 19 Oct 2026 11:27 AEST
+
+Andrew, 19 Oct 2026: "Vms 19 rego TE02H0 ASSET NO 487T subhire premiair hire this is turned up." Contract 9961265 line 25
+is "VMS19 Variable Message Board Senior Premiair" (SUB-2631, booked 19 Oct), one of the four still to come on T0158
+(VMS × 9, 19 Oct). Two new ops in `vms.cjs`: `vms_board` (one register save of fleet, rego and delivery through
+`vms913Save`, company left as the contract names it) and `note_append` (`setDeliveryNote` with the old note kept in front).
+`node vms.cjs --apply --spec vms19_spec.json`:
+- unit record on T0158: VMS19, owner `prem-air-hire`, number 487T, note "Arrival recorded by Andrew Fisher, 19 Oct 2026.
+  Rego TE02H0. Premiair Hire sub-hire, contract 9961265 line 25." (`unit925Save` via the `unit_reidentify` op);
+- T0158 supplied 5 → 6 (`setSupplied`);
+- register VMS19: fleet 487T, rego TE02H0, on T0158;
+- T0158 delivery note: "VMS19 arrived 19 Oct 2026: Premiair Hire sub-hire, fleet 487T, rego TE02H0 (contract 9961265 line 25)."
+
+No time of arrival was given, so none is recorded. Nothing ticked. Backup first; ten documents; record 9771 → 9781; VERIFIED
+(`report_20261019T012723Z.json`). Live page: **VMS boards 17 of 20 on site**; milestone **80% · 16 of 20 boards
+complete** (VMS19 is in, not yet set up). Still to come: VMS05, VMS18 and VMS20.
