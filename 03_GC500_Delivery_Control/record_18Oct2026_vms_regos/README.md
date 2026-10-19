@@ -146,3 +146,11 @@ turns the delivery's one tick into per-board ticks and counts 0 of 9. Pressing *
 `complete_again` (`setDone` on a reference already complete, with a check that the tick's time moved).
 `node vms.cjs --apply --spec vms18_19_complete_spec.json`: one document; record 9792 → 9793; VERIFIED
 (`report_20261019T015616Z.json`). Live page: **VMS boards 90% · 18 of 20 boards complete**, 18 of 20 on site.
+
+## Applied: VMS20 (Premiair Hire 475T, rego TE88HN) arrived and completed on T0158, 19 Oct 2026 12:33 AEST
+
+Andrew, 19 Oct 2026: "Vms20 asset no 475t rego TE88HN COMPLETED". Contract 9961265 line 26 ("VMS20 ... Premiair",
+SUB-2631, booked 19 Oct). `vms20_spec.json`: unit record VMS20 / 475T / `prem-air-hire` on T0158; supplied 7 → 8; register
+VMS20 fleet 475T, rego TE88HN, on T0158; the arrival added to the note; then `complete_again` so the eight received count as
+installed. Backup first; ten documents; record 9802 → 9812; VERIFIED (`report_20261019T023258Z.json`). Live page:
+**VMS boards 95% · 19 of 20 boards complete**, 19 of 20 on site. Still to come: VMS05.
