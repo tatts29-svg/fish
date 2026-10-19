@@ -127,3 +127,11 @@ contract 9961976 NVAC line 18 (1244536, delivery 26134523). The record had its l
 `node vms.cjs --apply --spec gn25_spec.json`: `light` on site (`setLight`, with his words), `number_on` 1244536 (already
 shown, from the contract line, so nothing written) and `complete` (`setDone`). No arrival time was given; the light carries
 the time it was recorded. One document; record 9781 → 9782; VERIFIED (`report_20261019T012957Z.json`).
+
+## Applied: VMS18 (Premiair Hire 472T, rego TE58GZ) arrived on T0158, 19 Oct 2026 11:52 AEST
+
+Andrew, 19 Oct 2026: "Vms18 rego TE58GZ ASSET NO 472T PREMIAIR HIRE". Contract 9961265 line 24 (SUB-2631, booked 19 Oct).
+Same four ops as VMS19 (`vms18_spec.json`): unit record VMS18 / 472T / `prem-air-hire` on T0158; T0158 supplied 6 → 7;
+register VMS18 fleet 472T, rego TE58GZ, on T0158; the arrival added to T0158's note. Nothing ticked, no time invented.
+Backup first; ten documents; record 9782 → 9792; VERIFIED (`report_20261019T015206Z.json`). VMS on site: 18 of 20.
+Still to come on the drawing: VMS05 and VMS20.
