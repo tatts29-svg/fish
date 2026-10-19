@@ -16,20 +16,28 @@ location yet.
 
 ## What the pack is
 
-`GC500_servicing_sheets_DRAFT.pdf`: A4, 55 pages, built from `../tracker_data.json` (the one data file the tracker uses)
+`GC500_servicing_sheets_DRAFT.pdf`: A4, 68 pages, built from `../tracker_data.json` (the one data file the tracker uses)
 and the master-plan pictures in `maps/`.
 
 | page | what |
 |---|---|
 | 1 | **Master map** (A4 landscape): the D001 master plan with the 13 areas outlined in their colours and numbered, a dot per location; legend with every area's name, locations and units (Teams Area and "No location yet" say "not on the map"); totals (75 locations, 263 units) and jobs a night (760 on Thu 22 if needed, Fri 23 and Sat 24; 777 on Sun 25 night). North arrow, approximate scale bar, drawing credit. |
-| 2-55 | **Each area**: a cover sheet, then its locations two to a page. Areas in Andrew's order 1-13, then "No location yet". |
+| 2-68 | **Each area**: a cover sheet, **its own master map** (areas 1-13), then its locations two to a page. Areas in Andrew's order 1-13, then "No location yet". |
 
 Page ranges for printing one area's pack several times (make_sheets.py prints them after every build):
-1 Pit Lane & Paddock 2-6 · 2 Island North / Freight 7-11 · 3 Island West / Merch 12-14 · 4 Commodore Park 15-17 ·
-5 Median Strip — Race Admin & Merch 18-19 · 6 Median Strip — FOAM / Other Toilets 20-22 · 7 Main Beach Parade / Seaside
-North 23-25 · 8 Main Beach Seaside — Supply / North 26-30 · 9 Main Beach Seaside — Mid-South 31-35 · 10 Main Beach
-Seaside — South 36-39 · 11 Surfers Paradise / Cypress 40-43 · 12 Helen Park / The Hill 44-49 · 13 Teams Area 50-53 ·
-No location yet 54-55.
+1 Pit Lane & Paddock 2-7 · 2 Island North / Freight 8-13 · 3 Island West / Merch 14-17 · 4 Commodore Park 18-21 ·
+5 Median Strip — Race Admin & Merch 22-24 · 6 Median Strip — FOAM / Other Toilets 25-28 · 7 Main Beach Parade / Seaside
+North 29-32 · 8 Main Beach Seaside — Supply / North 33-38 · 9 Main Beach Seaside — Mid-South 39-44 · 10 Main Beach
+Seaside — South 45-49 · 11 Surfers Paradise / Cypress 50-54 · 12 Helen Park / The Hill 55-61 · 13 Teams Area 62-66 ·
+No location yet 67-68.
+
+**Each area's own master map** (Andrew, 19 Oct 2026: "Each 13 sheets should have a master map. A map of the refence
+areas"): straight after the area's cover, A4 landscape. It is the same master map as page 1, but with that area in its
+colour (thick outline, filled) and the other 12 greyed. The legend rings that area. The heading reads "AREA n · name ·
+WHERE IT IS ON THE SITE" with the area's locations and units. Teams Area is not on the master plan, so its copy says so
+in red ("ask on site"). The area cover keeps its own map with every location circled, so each area pack carries both
+maps. Laminate the cover and its master map back to back. The master map is drawn 5 mm shorter than its box (same shape)
+so the legend's second row no longer runs into the footer, which was a fault on page 1 since 18 Oct.
 
 **Area cover**: number and name in the area's colour; "8 locations · 12 units: 10 × FWF · 2 × Toilet block 6 m"; jobs a
 night; the area map from the master plan with every location circled and labelled (locations at the same spot share one
@@ -48,7 +56,7 @@ where there is room.
 
 **Every page**: "Track only - nothing here ticks the job record or changes a charge", the NO TWIN-STEER TRUCKS short
 form word for word (v10.53 `WORDING.md`, every print-out; the 18 Oct review asked for it on these sheets), "Author:
-Andrew Fisher", page n of 55, printed time, the data version and hash, the page the maps came from. Every map carries
+Andrew Fisher", page n of 68, printed time, the data version and hash, the page the maps came from. Every map carries
 "Drawing © iEDM · D001 rev 03 · issued 2 Oct". The draft also has a red DRAFT ribbon, a see-through DRAFT watermark and
 "TEST CODE - NOT LIVE - opens nothing" under each completion QR.
 
@@ -112,10 +120,11 @@ an area grouping the pictures were not cut for.
 
 ## Checks (`test_sheets.py`, local only)
 
-`TMPDIR=<scratch> ZXING=<folder with zxing-cpp> python3 -I test_sheets.py`: **42 passed, 0 failed** (see
+`TMPDIR=<scratch> ZXING=<folder with zxing-cpp> python3 -I test_sheets.py`: **43 passed, 0 failed** (19 Oct 2026) (see
 `test_sheets_results.txt`). It builds into a temporary folder and reads the PDFs back with pdftotext and, for the QR
 codes, pdftoppm at 300 dpi and zxing-cpp:
-- 55 pages (1 + 14 covers + 40 location pages), page 1 A4 landscape, the rest A4 portrait;
+- 68 pages (1 + 14 covers + 13 area master maps + 40 location pages), master maps A4 landscape, the rest A4 portrait;
+- each of the 13 areas has its own master map straight after its cover, with its name, counts and the full legend;
 - every page: the track-only line, the twin-steer short form word for word, the DRAFT ribbon, Author: Andrew Fisher;
   every page with a map: the drawing credit;
 - master legend: every area, its locations and units; the totals; every cover: name, counts, jobs a night, every

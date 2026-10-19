@@ -1,5 +1,7 @@
 # v10.78 — WC67 is 4 FWF in the servicing tracker too
 
+**LIVE 19 Oct 2026 17:35 AEST.** Page `f6123867aed2d9ae091348e889c1136ec37f8153b7cb2ee7dec084241146a90a` (18,515,142 bytes) on live v10.77 `74e9b972…`; guarded upload, the view link serves it byte for byte. `test_v1078` passes on desktop, phone and the live page; both sweeps clean (0 errors, 7/7 links, Back). Record unchanged (9941).
+
 Author: Andrew Fisher · 19 Oct 2026
 
 **Andrew, 19 Oct 2026:** "Make sure the qty in w67 is 4 not 2".
@@ -27,8 +29,8 @@ Every tab and drawer already read 4. The one place still showing 2 was the servi
 - **Costs:** the tracker data does not feed Costs or the record, so neither changes.
 
 ```
-bash toolchain/build.sh v10.78 v10.78_wc67_servicing_DRAFT/patch_v1078.py
-BASE=build/GC500_v10.78/base_live.html PAGE=build/GC500_v10.78/GC500_Delivery_Control_hosted.html [MOB=1] node v10.78_wc67_servicing_DRAFT/test_v1078.cjs
+bash toolchain/build.sh v10.78 v10.78_wc67_servicing_LIVE/patch_v1078.py
+BASE=build/GC500_v10.78/base_live.html PAGE=build/GC500_v10.78/GC500_Delivery_Control_hosted.html [MOB=1] [LIVE=1] node v10.78_wc67_servicing_LIVE/test_v1078.cjs
 ```
 
 ## Checks

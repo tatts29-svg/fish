@@ -57,7 +57,8 @@ def decode_pages(pdf, tmp, dpi=300):
 def main():
     data = M.Data(HERE.parent / 'tracker_data.json')
     refs = [r['ref'] for r in data.refs]
-    expect_pages = 1 + len(data.areas) + sum((len(a['refs']) + 1) // 2 for a in data.areas)
+    n_amaps = len([a for a in data.areas if a['n']])   # each of the 13 areas has its own master map after its cover
+    expect_pages = 1 + len(data.areas) + n_amaps + sum((len(a['refs']) + 1) // 2 for a in data.areas)
     tmp = tempfile.mkdtemp(prefix='gc500sheets_', dir=os.environ.get('TMPDIR'))
     try:
         # ---------------------------------------------------------------- the draft
@@ -70,10 +71,12 @@ def main():
         check('urls.json is the placeholder set, one per reference', all(urls.get(k) == f'{M.BASE}/d/{M.TEST_TOKEN}#r={k}.0000' for k in refs) and len([k for k in urls if not k.startswith('_')]) == len(refs))
         info = subprocess.run(['pdfinfo', str(draft)], capture_output=True, text=True).stdout
         n_pages = int(re.search(r'Pages:\s+(\d+)', info).group(1))
-        check(f'page count is 1 master + {len(data.areas)} covers + reference pages = {expect_pages}', n_pages == expect_pages, n_pages)
+        check(f'page count is 1 master + {len(data.areas)} covers + {n_amaps} area master maps + reference pages = {expect_pages}', n_pages == expect_pages, n_pages)
         sizes = subprocess.run(['pdfinfo', '-f', '1', '-l', str(n_pages), str(draft)], capture_output=True, text=True).stdout
         ps = re.findall(r'Page\s+(\d+) size:\s+([\d.]+) x ([\d.]+)', sizes)
-        check('page sizes', ps and abs(float(ps[0][1]) - 841.89) < 1 and all(abs(float(w) - 595.28) < 1 and abs(float(h) - 841.89) < 1 for _, w, h in ps[1:]), ps[:3])
+        kinds = ['master'] + [k for a in data.areas for k in ['cover'] + (['amaster'] if a['n'] else []) + ['refs'] * ((len(a['refs']) + 1) // 2)]
+        land = {i for i, k in enumerate(kinds, 1) if k in ('master', 'amaster')}
+        check('page sizes: master maps landscape, the rest portrait', ps and all((abs(float(w) - 841.89) < 1 and abs(float(h) - 595.28) < 1) if int(n) in land else (abs(float(w) - 595.28) < 1 and abs(float(h) - 841.89) < 1) for n, w, h in ps), ps[:3])
         T = pdftext(draft)
         check('text extracted for every page', len(T) == n_pages, len(T))
         norm = [re.sub(r'\s+', ' ', t) for t in T]
@@ -89,11 +92,12 @@ def main():
         page_of = {}; plan = []
         for a in data.areas:
             plan.append(('cover', a, None))
+            if a['n']: plan.append(('amaster', a, None))
             for i in range(0, len(a['refs']), 2): plan.append(('refs', a, a['refs'][i:i + 2]))
         maps = json.loads((HERE / 'maps' / 'maps.json').read_text())
         missing_credit = []
         for i, (kind, a, rs) in enumerate(plan, 2):
-            has_map = (kind == 'cover' and maps['areas'][str(a['n'])]['main']) or (kind == 'refs' and any(maps['positions'][x['ref']] for x in rs))
+            has_map = kind == 'amaster' or (kind == 'cover' and maps['areas'][str(a['n'])]['main']) or (kind == 'refs' and any(maps['positions'][x['ref']] for x in rs))
             if has_map and credit not in norm[i - 1]: missing_credit.append(i)
             if kind == 'refs':
                 for x in rs: page_of[x['ref']] = i
@@ -105,6 +109,16 @@ def main():
         bad = [a['n'] for a in data.areas if f"{len(a['refs'])} location" not in norm[0] or f"{data.units(a['refs'])} unit" not in norm[0]]
         check('master map legend: locations and units for every area', not bad, bad)
         check('master map: the totals', f'{len(refs)} locations' in norm[0] and f'{data.units(data.refs)} units' in norm[0])
+        # each area's own master map, straight after its cover (Andrew, 19 Oct 2026: "Each 13 sheets should have a master map")
+        bad = []
+        for i, (kind, a, rs) in enumerate(plan, 2):
+            if kind != 'amaster': continue
+            t = norm[i - 1]
+            if plan[i - 3][0] != 'cover' or plan[i - 3][1] is not a: bad.append((a['n'], 'not straight after its cover'))
+            if f"AREA {a['n']} " not in t or 'WHERE IT IS ON THE SITE' not in t or f"Area {a['n']}: {len(a['refs'])} location" not in t: bad.append((a['n'], 'title/counts'))
+            if any(f"{len(b['refs'])} location" not in t for b in data.areas): bad.append((a['n'], 'legend'))
+            if not maps['areas'][str(a['n'])]['main'] and 'is not on the master plan - ask on site' not in t: bad.append((a['n'], 'not-on-plan warning'))
+        check(f'every one of the {n_amaps} areas has its own master map after its cover: its name, counts, the full legend', not bad and sum(k == 'amaster' for k, *_ in plan) == n_amaps, bad)
         # covers
         for i, (kind, a, rs) in enumerate(plan, 2):
             if kind != 'cover': continue
@@ -164,7 +178,7 @@ def main():
             check('no other location QR (unpinned references have none)', len(maps_qr) == len({M.maps_url(x['pin']) for x in pinned}), len(maps_qr))
             stray = [q for q in seen if q not in want_comp and not q.startswith('https://www.google.com/maps/search/?api=1&query=')]
             check('no stray QR codes', not stray, stray)
-            check('nothing but completion and location QR codes on the covers and master map', all(not pages.get(i) for i, (k, *_ ) in enumerate([('master',)] + plan, 1) if k in ('master', 'cover')))
+            check('nothing but completion and location QR codes on the covers and master map', all(not pages.get(i) for i, (k, *_ ) in enumerate([('master',)] + plan, 1) if k in ('master', 'amaster', 'cover')))
 
         # ---------------------------------------------------------------- live format (made-up token, never the real one)
         secret = secrets.token_bytes(32); token = base64.urlsafe_b64encode(secrets.token_bytes(24)).decode().rstrip('=')

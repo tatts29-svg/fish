@@ -2,7 +2,7 @@
    1. Static, BASE (live v10.77) against PAGE: the servicing tracker data and crew card differ only at WC67, which is now
       4 x FWF (0793, 0769, 0714, 172824); every other reference, task and plan is byte for byte the same.
    2. Browser, PAGE: WC67 on the record is 4 FWF units on site, the tracker data agrees with it, footer v10.78, no page errors.
-   BASE=... PAGE=... [MOB=1] node test_v1078.cjs */
+   BASE=... PAGE=... [MOB=1] [LIVE=1] node test_v1078.cjs */
 const fs = require('fs');
 const {open} = require('../toolchain/harness/open_page');
 const grab = (t, k) => { const i = t.indexOf('var ' + k + '='); if (i < 0 || t.indexOf('var ' + k + '=', i + 1) >= 0) throw new Error(k + ' not found once');
@@ -23,7 +23,8 @@ const strip = (d, ref) => JSON.stringify(d, (k, v) => (v && v.ref === ref && Arr
     out[k] = {refs: Object.keys(rp).length, fwfBefore: sum(rb), fwfAfter: sum(rp)};
     if (Object.keys(rb).length !== Object.keys(rp).length || sum(rp) - sum(rb) !== 2) fails.push(k + ' totals: ' + JSON.stringify(out[k]));
   }
-  const s = await open(MOB ? {pageFile: process.env.PAGE, W: 390, H: 844, dpr: 2, mobile: true} : {pageFile: process.env.PAGE, W: 1440, H: 900});
+  const pf = process.env.LIVE ? {} : {pageFile: process.env.PAGE};   // LIVE=1: the browser part opens the live view link
+  const s = await open(MOB ? {...pf, W: 390, H: 844, dpr: 2, mobile: true} : {...pf, W: 1440, H: 900});
   const p = s.page, errs = []; p.on('pageerror', e => errs.push(String(e)));
   await p.waitForFunction(() => typeof SYNC === 'object' && SYNC.status === 'live' && typeof allAssets === 'function', null, {timeout: 240000}); await p.waitForTimeout(3000);
   const r = await p.evaluate(() => {

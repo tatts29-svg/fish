@@ -55,6 +55,7 @@ AUTHOR = 'Author: Andrew Fisher'
 INK = colors.HexColor('#1d1d1b'); MUTE = colors.HexColor('#5f6368'); LINE = colors.HexColor('#c9c4b8')
 ORANGE = colors.HexColor('#E8641B'); PAPER = colors.HexColor('#f6f3ee'); RED = colors.HexColor('#b3261e')
 DONE = colors.HexColor('#16803a'); WHITE = colors.white
+GREYED = colors.HexColor('#a3a3a3')   # the other areas on an area's own master map
 AREA_COLOUR = {1: '#c62828', 2: '#1565c0', 3: '#2e7d32', 4: '#6a1b9a', 5: '#ad1457', 6: '#5d4037', 7: '#e65100',
                8: '#00838f', 9: '#827717', 10: '#283593', 11: '#00695c', 12: '#37474f', 13: '#757575', 0: '#757575'}
 def acol(n): return colors.HexColor(AREA_COLOUR.get(n, '#757575'))
@@ -380,6 +381,7 @@ class Pack:
         self.pages.append(('master', None, None))
         for a in self.d.areas:
             self.pages.append(('cover', a, None))
+            if a['n']: self.pages.append(('master', a, None))   # Andrew, 19 Oct 2026: "Each 13 sheets should have a master map"
             for i in range(0, len(a['refs']), 2):
                 self.pages.append(('refs', a, a['refs'][i:i + 2]))
                 for r in a['refs'][i:i + 2]: self.ref_page[r['ref']] = len(self.pages)
@@ -409,34 +411,45 @@ class Pack:
             txt(c, 0, -38 * mm, 'TEST QR CODES - NOT LIVE' if self.mode == 'draft' else 'PRACTICE ONLY', 'bold', 26, colors.Color(0.70, 0.15, 0.12, alpha=0.14), 'c'); c.restoreState()
 
     # ------------------------------------------------------------ master map
-    def master(self, c):
+    def master(self, c, hi=None):
+        """the master map; with hi (an area) it is that area's own copy: the area in colour, the others greyed"""
         W, H = landscape(A4); d = self.d; top = H - 9 * mm
         located = [a for a in d.areas if self.maps['areas'].get(str(a['n']), {}).get('main')]
-        txt(c, 9 * mm, top - 6 * mm, f'GC500 SERVICING · MASTER MAP · {len([a for a in d.areas if a["n"]])} AREAS', 'narrowb', 22, INK)
-        refs = d.refs; units = d.units(refs)
-        right = f'{len(refs)} locations · {units} units'
+        n_areas = len([a for a in d.areas if a['n']])
+        if hi is None:
+            title = f'GC500 SERVICING · MASTER MAP · {n_areas} AREAS'; refs = d.refs
+            sub = f'Each service day runs 08:00 to 08:00 (Gold Coast time). Jobs: {jobs_phrase(d, refs)}. A job is one task on one unit; the phone shows % complete for each area and for everything.'
+        else:
+            title = f'AREA {hi["n"]} · {hi["name"]} · WHERE IT IS ON THE SITE'; refs = hi['refs']
+            sub = (f'The master map of all {n_areas} areas with area {hi["n"]} in colour. Its own map, with every location circled, is on the area cover sheet.'
+                   + ('' if hi in located else ' This area is not on the master plan - ask on site.'))
+        txt(c, 9 * mm, top - 6 * mm, title, 'narrowb', fit(title, 'narrowb', 22, W - 90 * mm), acol(hi['n']) if hi else INK)
+        units = d.units(refs)
+        right = (f'Area {hi["n"]}: ' if hi else '') + f'{len(refs)} location{"s" if len(refs) != 1 else ""} · {units} unit{"s" if units != 1 else ""}'
         txt(c, W - 9 * mm, top - 6 * mm, right, 'narrowb', 16, INK, 'r')
         pd = d.plan_days()
-        sub = f'Each service day runs 08:00 to 08:00 (Gold Coast time). Jobs: {jobs_phrase(d, refs)}. A job is one task on one unit; the phone shows % complete for each area and for everything.'
-        txt(c, 9 * mm, top - 11.5 * mm, sub, 'sans', fit(sub, 'sans', 8.6, W - 18 * mm), MUTE)
+        txt(c, 9 * mm, top - 11.5 * mm, sub, 'sans', fit(sub, 'sans', 8.6, W - 18 * mm), RED if hi and hi not in located else MUTE)
         mm_box = self.maps.get('layout', {}).get('master_map') or {'w': 279, 'h': 150}
-        mb = MapBox(self.maps, 'master', 9 * mm, top - 14 * mm - mm_box['h'] * mm, mm_box['w'] * mm, mm_box['h'] * mm)
+        bh = mm_box['h'] - 5   # 5 mm off the map (it keeps its shape) so the legend's second row clears the footer
+        mb = MapBox(self.maps, 'master', 9 * mm, top - 14 * mm - bh * mm, mm_box['w'] * mm, bh * mm)
         mb.draw(c, self.maps_dir)
         badges = []
         R = 4.2 * mm
-        for a in located:
-            A = self.maps['areas'][str(a['n'])]; col = acol(a['n'])
+        for a in sorted(located, key=lambda x: x is hi):   # the highlighted area last, so it sits on top
+            A = self.maps['areas'][str(a['n'])]; lit = hi is None or a is hi
+            col = acol(a['n']) if lit else GREYED
+            line = ((4.2, WHITE, 0.9), (1.9, col, 1)) if hi is None else ((6.0, WHITE, 0.95), (3.2, col, 1)) if lit else ((2.4, WHITE, 0.6), (0.9, col, 0.9))
             for cl in [A['main']] + A['far']:
                 pts = [mb.at(self.pos[r]['x'], self.pos[r]['y']) for r in cl['refs']]
                 ring_pts = [(px + R * math.cos(t * math.pi / 12), py + R * math.sin(t * math.pi / 12)) for px, py in pts for t in range(24)]
                 hp = hull(ring_pts)
                 if len(hp) >= 3:
-                    for wdt, colr, alpha in ((4.2, WHITE, 0.9), (1.9, col, 1)):
+                    for wdt, colr, alpha in line:
                         c.saveState(); c.setStrokeColor(colr); c.setStrokeAlpha(alpha); c.setLineWidth(wdt); c.setLineJoin(1)
                         p = c.beginPath(); p.moveTo(*hp[0]); [p.lineTo(*q) for q in hp[1:]]; p.close(); c.drawPath(p, stroke=1, fill=0); c.restoreState()
-                    c.saveState(); c.setFillColor(col); c.setFillAlpha(0.10); p = c.beginPath(); p.moveTo(*hp[0]); [p.lineTo(*q) for q in hp[1:]]; p.close(); c.drawPath(p, stroke=0, fill=1); c.restoreState()
+                    c.saveState(); c.setFillColor(col); c.setFillAlpha(0.10 if hi is None else 0.24 if lit else 0.04); p = c.beginPath(); p.moveTo(*hp[0]); [p.lineTo(*q) for q in hp[1:]]; p.close(); c.drawPath(p, stroke=0, fill=1); c.restoreState()
                 for px, py in pts:
-                    c.setFillColor(col); c.setStrokeColor(WHITE); c.setLineWidth(0.6); c.circle(px, py, 1.1 * mm, stroke=1, fill=1)
+                    c.setFillColor(col); c.setStrokeColor(WHITE); c.setLineWidth(0.6); c.circle(px, py, (1.1 if lit else 0.8) * mm, stroke=1, fill=1)
                 xs = [q[0] for q in hp] or [pts[0][0]]; ys = [q[1] for q in hp] or [pts[0][1]]
                 bx0, bx1, by0, by1 = min(xs), max(xs), min(ys), max(ys); cx, cy = (bx0 + bx1) / 2, (by0 + by1) / 2
                 rb = 4.4 * mm; spot = None
@@ -447,12 +460,16 @@ class Pack:
                 spot = spot or (cx, cy); badges.append(spot)
                 c.setFillColor(col); c.setStrokeColor(WHITE); c.setLineWidth(1.6); c.circle(spot[0], spot[1], rb, stroke=1, fill=1)
                 txt(c, spot[0], spot[1] - 2.6 * mm, str(a['n']), 'bold', 12.5 if a['n'] < 10 else 11, WHITE, 'c')
+        if hi is not None and hi not in located:
+            tag(c, mb.x + mb.w / 2, mb.y + mb.h / 2, f'Area {hi["n"]} is not on the master plan - ask on site', 'bold', 14, RED, WHITE, RED, pad=2.5 * mm, anchor='c')
         mb.furniture(c)
         # legend: every area, with its counts
         y0 = mb.y - 1.6 * mm; cols = 7; cw = (W - 18 * mm) / cols; ch = 9.3 * mm
         for i, a in enumerate(d.areas):
             x = 9 * mm + (i % cols) * cw; y = y0 - (i // cols + 1) * ch
             col = acol(a['n']); onmap = a in located
+            if a is hi:
+                c.setStrokeColor(col); c.setLineWidth(1.6); c.roundRect(x + 0.2 * mm, y + 0.2 * mm, cw - 1.2 * mm, ch - 0.4 * mm, 1.5 * mm, stroke=1, fill=0)
             c.setFillColor(col if onmap else WHITE); c.setStrokeColor(col); c.setLineWidth(1)
             c.circle(x + 3.4 * mm, y + ch - 3.6 * mm, 3 * mm, stroke=1, fill=1)
             txt(c, x + 3.4 * mm, y + ch - 5.0 * mm, str(a['n']), 'bold', 9, WHITE if onmap else col, 'c')
@@ -712,7 +729,7 @@ class Pack:
         for n, (kind, a, refs) in enumerate(self.pages, 1):
             size = landscape(A4) if kind == 'master' else A4
             c.setPageSize(size)
-            if kind == 'master': self.master(c)
+            if kind == 'master': self.master(c, a)
             elif kind == 'cover': self.cover(c, a)
             else:
                 W, H = A4; bh = (H - 7 * mm - 20 * mm - 6 * mm) / 2
@@ -760,7 +777,7 @@ def main():
     for a in data.areas:
         pages = [n for n, (k, ar, _) in enumerate(pack.pages, 1) if ar is a]
         print(f"  area {a['n']:>2} {a['name']}: pages {pages[0]}-{pages[-1]}")
-    print('  master map: page 1')
+    print('  master map: page 1 (and each area\'s own copy straight after its cover)')
 
 if __name__ == '__main__':
     main()

@@ -1,8 +1,8 @@
 PASS draft builds
 PASS no reference block runs past its half page
 PASS urls.json is the placeholder set, one per reference
-PASS page count is 1 master + 14 covers + reference pages = 55
-PASS page sizes
+PASS page count is 1 master + 14 covers + 13 area master maps + reference pages = 68
+PASS page sizes: master maps landscape, the rest portrait
 PASS text extracted for every page
 PASS every page: the track-only line
 PASS every page: the NO TWIN-STEER TRUCKS short form, word for word
@@ -14,6 +14,7 @@ PASS every page with a map carries "Drawing © iEDM · D001"
 PASS master map legend names every area (as the legend wraps it)
 PASS master map legend: locations and units for every area
 PASS master map: the totals
+PASS every one of the 13 areas has its own master map after its cover: its name, counts, the full legend
 PASS every area cover: name, locations, units, jobs a night, every reference listed
 PASS every reference: big REF, how many per line, every asset number, its job words, both QR labels
 PASS FWF blocks say Sunday night: extra lock, no water
@@ -41,4 +42,4 @@ PASS refuses a link naming another reference
 PASS refuses two different tokens
 PASS refuses a reference the tracker does not have
 
-42 passed, 0 failed
+43 passed, 0 failed
