@@ -1,0 +1,155 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261019T061854Z",
+ "finished": "2026-10-19T06:19:05.399Z",
+ "mode": "apply",
+ "spec": {
+  "by": "Andrew Fisher",
+  "basis": "Andrew, 19 Oct 2026: 0714 and 172824 added to WC67, \"this will make the total 4 at this reference\". WC67 was already complete for its first two; the four at the reference are recorded as received and complete is pressed again so the page counts all four.",
+  "ops": [
+   {
+    "op": "supplied",
+    "ref": "WC67",
+    "item": "FWF",
+    "qty": 4
+   },
+   {
+    "op": "complete_again",
+    "ref": "WC67"
+   }
+  ]
+ },
+ "pageSha256": "1a4f83f16017aa28c237013a79888fc79a6b55c5f234ccb35175c7fd70be4c77",
+ "version": {
+  "before": 9937,
+  "after": 9941
+ },
+ "updated": {
+  "before": "2026-10-19T06:18:24.407Z",
+  "after": "2026-10-19T06:19:04.497Z"
+ },
+ "stage": [
+  {
+   "op": "supplied",
+   "ref": "WC67",
+   "item": "FWF",
+   "qty": 4,
+   "result": "FWF supplied 4"
+  },
+  {
+   "op": "complete_again",
+   "ref": "WC67",
+   "result": "complete again (was 2026-10-01T05:06:04.553Z)"
+  }
+ ],
+ "writes": [
+  {
+   "key": "delivery/WC67",
+   "status": 200
+  },
+  {
+   "key": "stamps/supplied~2f~WC67~2f~FWF",
+   "status": 200
+  },
+  {
+   "key": "supplied/WC67",
+   "status": 200
+  },
+  {
+   "key": "by/supplied~2f~WC67~2f~FWF",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 1,
+ "docs": {
+  "before": {
+   "delivery/WC67": {
+    "state": "on site",
+    "set_at": "2026-10-01T05:06:04.553Z",
+    "by": "Andrew Fisher via Codex",
+    "date": "2026-10-13",
+    "date_by": "Andrew Fisher",
+    "date_at": "2026-10-07T19:24:27.343Z",
+    "done": true,
+    "done_by": "Andrew Fisher via Codex",
+    "done_at": "2026-10-01T05:06:04.553Z",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-10-01T05:06:04.553Z",
+      "by": "Andrew Fisher via Codex"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-01T05:06:04.553Z",
+      "by": "Andrew Fisher via Codex"
+     }
+    ],
+    "_k": "WC67"
+   },
+   "stamps/supplied~2f~WC67~2f~FWF": null,
+   "supplied/WC67": null,
+   "by/supplied~2f~WC67~2f~FWF": null
+  },
+  "after": {
+   "delivery/WC67": {
+    "state": "on site",
+    "set_at": "2026-10-01T05:06:04.553Z",
+    "by": "Andrew Fisher via Codex",
+    "date": "2026-10-13",
+    "date_by": "Andrew Fisher",
+    "date_at": "2026-10-07T19:24:27.343Z",
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-19T06:19:01.900Z",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-10-01T05:06:04.553Z",
+      "by": "Andrew Fisher via Codex"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-01T05:06:04.553Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "done": true,
+      "at": "2026-10-19T06:19:01.900Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "_k": "WC67"
+   },
+   "stamps/supplied~2f~WC67~2f~FWF": {
+    "_k": "supplied/WC67/FWF",
+    "v": "2026-10-19T06:19:01.742Z"
+   },
+   "supplied/WC67": {
+    "items": [
+     {
+      "asked": "FWF",
+      "supplied": "FWF",
+      "qty_supplied": 4
+     }
+    ],
+    "_k": "WC67"
+   },
+   "by/supplied~2f~WC67~2f~FWF": {
+    "_k": "supplied/WC67/FWF",
+    "v": "Andrew Fisher"
+   }
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}

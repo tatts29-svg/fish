@@ -190,3 +190,15 @@ Backup first; four documents; record 9862 → 9866; VERIFIED (`report_20261019T0
 aside at 14:37 stays set aside: the register row now carries 1191957 itself, so T0158 shows VMS13 once, as 1191957.
 Live counts unchanged: 20 on site, Premiair Hire 6, Coates numbered 14, none without a number. Costs: STPS hire +$428.88
 (VMS13's number now matches contract line 32, so its hire is priced from that line); priced revenue $450,353.34.
+
+## Applied: WC67 FWF × 4 — 0714 (Event Portables spare) and 172824 (Coates) added, 19 Oct 2026 16:18 AEST
+
+Andrew, 19 Oct 2026: "Wc67. Fwf. Can i add asset no 0714 this was a spare subhired. And a coates asset no 172824 to reference
+wc67 this will make the total 4 at this reference". WC67 carried FWF × 2 (Event Portables 0793, 0769). 0714 is an Event
+Portables number (the sub-hired spare); 172824 is the Coates FWF on contract 9968955 KINP line 140 (described there as
+"WC01"; site record is truth, so it is recorded at WC67). No other reference held either number.
+- `wc67_spec.json`: quantity 2 → 4 (`setQty`); unit records 0714 (`event-portables`) and 172824 (`coates`) through
+  `unit925Save`. Nine documents; record 9928 → 9937; VERIFIED (`report_20261019T061811Z.json`).
+- `wc67_complete_spec.json`: supplied 4 and complete pressed again, so the page counts all four at the reference. Four
+  documents; VERIFIED (`report_20261019T061854Z.json`).
+Live: WC67 FWF × 4, units 0793, 0769, 0714 (Event Portables) and 172824 (Coates); Today "4 of 4 installed · 4 received".
