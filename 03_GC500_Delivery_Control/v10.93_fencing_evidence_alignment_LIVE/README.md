@@ -1,4 +1,4 @@
-# v10.93 fencing evidence alignment — DRAFT
+# v10.93 fencing evidence alignment
 
 Author: Andrew Fisher.
 
@@ -38,7 +38,7 @@ Local integrated validation is complete on the revised candidate:
 - Publication-only practice leaves native records and financial projections unchanged. After captured corrections, the final record snapshots match the catalogue exactly.
 - The affected phone view shows the concise operational note with no overflow or errors; the note remains present after its screenshot.
 - Both desktop and phone sweeps pass: 25 routes, seven deep links and Back, with zero page errors, console errors or attempted native writes.
-- The actual-public post-apply probe passes 11 synthetic checks without network access. Its live run remains pending a successful apply.
+- The actual-public post-apply probe passes 11 synthetic checks without network access and 25 checks on the published page after the successful native apply.
 
 Source validation completed: `python3 -B test_patch_v1093.py` passes 26 synthetic tests. These cover exact before states, hash locks, private-file location and symlink checks, duplicate and non-finite JSON rejection, identity and attribution protection, script-safe encoding, immutable inputs and page preservation. The preservation test also verifies the strict matcher's bytes independently. It detected and resolved a whitespace loss at the footer replacement.
 
@@ -59,6 +59,6 @@ Frozen pins:
 - Verified v10.92 predecessor: `4a94062d014c4c3c56cb94faba9622d75ed445cc1d5f1b625cb9a54845533da9`.
 - Reviewed private input: `7ad727591872ec5ee1a61ed4b838adc2c4593a625026452425290237688c52c9`.
 
-Current state: product patch frozen and all local integrated validation complete. Publication, exact public-byte verification, native application and final native read-back remain pending with the release owner. No publication or native application has been performed for this release.
+Current state: VERIFIED LIVE. Guarded publication and exact public-byte read-back passed. The reviewed native correction completed with every intended write acknowledged and full shared-document read-back verified. The actual public page then passed 25 checks with no local page replacement, native mutation attempts or page errors. All current corrected catalogue snapshots match; other shared documents remain unchanged. Public receipt hashes are in `release.json`; full source and financial evidence remains private.
 
 Routine cards show concise operational text. Full amendment provenance remains in the private correction specification and archived evidence.
