@@ -1,0 +1,22 @@
+{
+  "author": "Andrew Fisher",
+  "version": "v10.92",
+  "status": "VERIFIED LIVE",
+  "sourceCommit": "631ccc99de5674bcb8fefd87ffd638a2967ca0ac",
+  "baseSha256": "7562d69c41506d5e7404a52f7f7cb479a5e967c3f6935d567d2a5b845d2992bc",
+  "sha256": "4a94062d014c4c3c56cb94faba9622d75ed445cc1d5f1b625cb9a54845533da9",
+  "bytes": 18599465,
+  "uploadedAt": "2026-10-20T14:49:36.505Z",
+  "liveTime": "21 Oct 2026 00:49 AEST",
+  "guardedUpload": "PASS",
+  "exactPublicReadBack": "PASS",
+  "publicPhone": "PASS",
+  "localPageReplacement": false,
+  "nativeWrites": 0,
+  "errors": 0,
+  "testSha256": "6c335022188fc524c3785b9554baf701e2f0fd80e451d0dffb7367ac98c66214",
+  "phoneResultSha256": "9a069c83e3be04040ef6301daeb1e8e38a99ad44f04e9f8c8a0f1a1b4114afec",
+  "phoneScreenshotSha256": "228ec9fe98bb9d4ae8c9f4432936225b5cfe21611ac990b6898bb3fbe26d9df8",
+  "phoneVisualInspection": "PASS; readable current installer cards with unchanged background and separated attribution",
+  "otherAgentReview": "Not claimed"
+}
