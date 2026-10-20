@@ -1,6 +1,6 @@
 {
   "author": "Andrew Fisher",
-  "status": "READY TO UPLOAD",
+  "status": "VERIFIED LIVE",
   "baseVersion": "v10.89",
   "baseSha256": "2254fce73cefb76fdecb371509d7d37e1873d394d77193975842288f14ed3eae",
   "candidateSha256": "b447b32ee6afe9d1a64f45a8c53a67e7d01f4d11a5a04bbdcd04bf9ec2b13111",
@@ -24,7 +24,8 @@
     "originalTakesPreserved": 35,
     "modelAndBroadcastTests": "PASS",
     "focusedDesktopAndPhone": "PASS on 3ebb6a76e51aff06080c7a02a390524320765a4d1029e95ea331cf987112f417; exact Showcase/media module parity to final candidate independently verified",
-    "phoneVisualReview": "PASS"
+    "phoneVisualReview": "PASS",
+    "actualPublicPhone": "PASS: exact release before/after, no local page substitution, 25 scenes, 35 original takes, zero writes/errors"
   },
   "sweeps": {
     "desktop": {
