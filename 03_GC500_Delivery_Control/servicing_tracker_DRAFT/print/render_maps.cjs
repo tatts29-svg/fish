@@ -94,6 +94,28 @@ function onSheet(r) {
     /* metres on the ground per sheet unit: the plan's registration to z18 @2x pixels (0.264 m a pixel here). Image registration, not survey. */
     const mPerPx = 156543.03392 * Math.cos(lat * Math.PI / 180) / Math.pow(2, 19);
     const mPerUnit = Math.hypot(geo.M[0][0], geo.M[1][0]) * mPerPx;
+    /* Andrew, 20 Oct 2026: "I told you they are all here" (PG01, PG03, PG05, PG29 at his pin). The explorer places a
+       reference at its tag on the plan; where the tag is printed away from the toilet (the pit garage FWFs 125 m, T0024
+       663 m, WC81 618 m) the sheet drew the tag. A reference with a pin is drawn at its pin, put on the plan through the
+       plan's own registration (inverse of sheet -> z18@2x px), when that is more than 20 m from the tag. */
+    const [[a, b, c], [d, e, f]] = geo.M, det = a * e - b * d, moved = [];
+    const toSheet = (la, lo) => { const s = 256 * Math.pow(2, 19), X = (lo + 180) / 360 * s, r = la * Math.PI / 180,
+      Y = (1 - Math.log(Math.tan(r) + 1 / Math.cos(r)) / Math.PI) / 2 * s, u = X - c, v = Y - f; return {x: (e * u - b * v) / det, y: (a * v - d * u) / det}; };
+    for (const ar of data.areas) for (const r of ar.refs) {
+      if (!r.pin) continue;
+      const q = toSheet(r.pin[0], r.pin[1]);
+      if (q.x < 0 || q.y < 0 || q.x > geo.sheet[0] || q.y > geo.sheet[1]) continue;   // off the plan (WC85 at the Seaway)
+      const was = P[r.ref], off = was ? Math.hypot(q.x - was.x, q.y - was.y) * mPerUnit : Infinity;
+      if (off > 20) { P[r.ref] = {ref: r.ref, x: q.x, y: q.y, hw: 1.2, hh: 0.8}; moved.push(r.ref + (was ? ' ' + Math.round(off) + ' m' : ' (was not placed)')); }
+    }
+    if (moved.length) log('drawn at the pin, not the plan tag:', moved.join(', '));
+    /* a reference whose units stand at different pins (T0024: 0164 at EVL, Coates' own 1211968 at the Coates office,
+       Andrew 20 Oct 2026) gets one spot per line, so both toilets are on the map */
+    const lineSpots = {};
+    for (const ar of data.areas) for (const r of ar.refs) for (const l of r.lines) {
+      if (!l.pin) continue; const q = toSheet(l.pin[0], l.pin[1]);
+      if (q.x >= 0 && q.y >= 0 && q.x <= geo.sheet[0] && q.y <= geo.sheet[1]) lineSpots[l.id] = {ref: r.ref, x: +q.x.toFixed(3), y: +q.y.toFixed(3)};
+    }
 
     /* the jobs */
     const jobs = [];
@@ -167,7 +189,7 @@ function onSheet(r) {
       _about: 'Author: Andrew Fisher. Master-plan pictures for the servicing sheets, rendered read only from the live page\'s Map explorer (Original plan, as drawn, rotation 0) by render_maps.cjs. Positions and rectangles are in drawing sheet units (D001, 2384 x 1684). Picture x = (sheet x - rect x0) / (rect x1 - rect x0) x picture width; the same for y.',
       rendered_at: new Date().toISOString(), page: {file: path.relative(JOB, PAGE), sha256: sha, version: pageInfo.version}, explorer: geo.url,
       credit: CREDIT, north_on_sheet: geo.north, m_per_unit: +mPerUnit.toFixed(4), m_per_unit_note: 'image registration of the plan to satellite z18, not survey (the explorer says so); used for an approximate scale bar and distances only',
-      inset_region: geo.inset, sheet: geo.sheet, positions: Object.fromEntries(allRefs.map(k => [k, P[k] ? {x: +P[k].x.toFixed(3), y: +P[k].y.toFixed(3), hw: +P[k].hw.toFixed(3), hh: +P[k].hh.toFixed(3)} : null])),
+      inset_region: geo.inset, sheet: geo.sheet, line_spots: lineSpots, positions: Object.fromEntries(allRefs.map(k => [k, P[k] ? {x: +P[k].x.toFixed(3), y: +P[k].y.toFixed(3), hw: +P[k].hw.toFixed(3), hh: +P[k].hh.toFixed(3)} : null])),
       ref_image: refImg, areas, images};
     fs.writeFileSync(path.join(OUT, 'maps.json'), JSON.stringify(out, null, 1));
     log('wrote', path.join(OUT, 'maps.json'), Object.keys(images).length, 'pictures', failed ? failed + ' FAILED' : '');

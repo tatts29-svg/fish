@@ -105,7 +105,7 @@
  "areas": [
   {
    "n": 1,
-   "name": "Pit Lane & Paddock",
+   "name": "Pit Lane, Paddock & Teams",
    "refs": [
     {
      "ref": "PG01",
@@ -242,31 +242,92 @@
        ]
       }
      ]
-    }
-   ]
-  },
-  {
-   "n": 2,
-   "name": "Island North / Freight",
-   "refs": [
+    },
     {
-     "ref": "T0243",
-     "title": "T0243",
-     "where": "Toilet Block 6m · WC-TV (sewer connect)",
-     "drop": "Island north – by FREIGHT",
+     "ref": "BJR01",
+     "title": "BJR01",
+     "where": "Brad Jones Racing",
+     "drop": "",
      "pin": [
-      -27.987534,
-      153.428271
+      -27.985863,
+      153.427503
      ],
      "lines": [
       {
-       "id": "T0243-TOILETBL",
-       "type": "Toilet Block 6m",
-       "kind": "sewer",
-       "label": "1 × Toilet block 6 m",
+       "id": "BJR01-FWF",
+       "type": "FWF",
+       "kind": "fwf",
+       "label": "1 × FWF",
        "qty": 1,
        "nos": [
-        "1311144"
+        "0941"
+       ]
+      }
+     ]
+    },
+    {
+     "ref": "T0162",
+     "title": "T0162",
+     "where": "FWF · Blanchard Race",
+     "drop": "",
+     "pin": [
+      -27.985742,
+      153.427447
+     ],
+     "lines": [
+      {
+       "id": "T0162-FWF",
+       "type": "FWF",
+       "kind": "fwf",
+       "label": "1 × FWF",
+       "qty": 1,
+       "nos": [
+        "0990"
+       ]
+      }
+     ]
+    },
+    {
+     "ref": "T0176",
+     "title": "T0176",
+     "where": "FWF × 2 · Redbull",
+     "drop": "",
+     "pin": [
+      -27.986724,
+      153.42801
+     ],
+     "lines": [
+      {
+       "id": "T0176-FWF",
+       "type": "FWF",
+       "kind": "fwf",
+       "label": "2 × FWF",
+       "qty": 2,
+       "nos": [
+        "0994",
+        "0576"
+       ]
+      }
+     ]
+    },
+    {
+     "ref": "SVP01",
+     "title": "SVP01",
+     "where": "Shell V-Power",
+     "drop": "",
+     "pin": [
+      -27.986211,
+      153.427753
+     ],
+     "lines": [
+      {
+       "id": "SVP01-FWF",
+       "type": "FWF",
+       "kind": "fwf",
+       "label": "1 × FWF",
+       "qty": 1,
+       "nos": [
+        "0939"
        ]
       }
      ]
@@ -313,6 +374,88 @@
        "nos": [
         "1327224",
         "1327223"
+       ]
+      }
+     ]
+    },
+    {
+     "ref": "WC43",
+     "title": "WC43",
+     "where": "Toilets",
+     "drop": "Island north – by FREIGHT",
+     "pin": [
+      -27.986371,
+      153.427224
+     ],
+     "lines": [
+      {
+       "id": "WC43-FWF",
+       "type": "FWF",
+       "kind": "fwf",
+       "label": "10 × FWF",
+       "qty": 10,
+       "nos": [
+        "0723",
+        "0056",
+        "0161",
+        "0182",
+        "0528",
+        "0696",
+        "0420",
+        "0961",
+        "0646",
+        "0581"
+       ]
+      }
+     ]
+    },
+    {
+     "ref": "WC73",
+     "title": "WC73",
+     "where": "Toilets",
+     "drop": "Island north – by FREIGHT",
+     "pin": [
+      -27.986961,
+      153.428102
+     ],
+     "lines": [
+      {
+       "id": "WC73-FWF",
+       "type": "FWF",
+       "kind": "fwf",
+       "label": "2 × FWF",
+       "qty": 2,
+       "nos": [
+        "0765",
+        "0192"
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "n": 2,
+   "name": "Island North / Freight",
+   "refs": [
+    {
+     "ref": "T0243",
+     "title": "T0243",
+     "where": "Toilet Block 6m · WC-TV (sewer connect)",
+     "drop": "Island north – by FREIGHT",
+     "pin": [
+      -27.987534,
+      153.428271
+     ],
+     "lines": [
+      {
+       "id": "T0243-TOILETBL",
+       "type": "Toilet Block 6m",
+       "kind": "sewer",
+       "label": "1 × Toilet block 6 m",
+       "qty": 1,
+       "nos": [
+        "1311144"
        ]
       }
      ]
@@ -374,60 +517,6 @@
      ]
     },
     {
-     "ref": "WC43",
-     "title": "WC43",
-     "where": "Toilets",
-     "drop": "Island north – by FREIGHT",
-     "pin": [
-      -27.986371,
-      153.427224
-     ],
-     "lines": [
-      {
-       "id": "WC43-FWF",
-       "type": "FWF",
-       "kind": "fwf",
-       "label": "10 × FWF",
-       "qty": 10,
-       "nos": [
-        "0723",
-        "0056",
-        "0161",
-        "0182",
-        "0528",
-        "0696",
-        "0420",
-        "0961",
-        "0646",
-        "0581"
-       ]
-      }
-     ]
-    },
-    {
-     "ref": "WC73",
-     "title": "WC73",
-     "where": "Toilets",
-     "drop": "Island north – by FREIGHT",
-     "pin": [
-      -27.986961,
-      153.428102
-     ],
-     "lines": [
-      {
-       "id": "WC73-FWF",
-       "type": "FWF",
-       "kind": "fwf",
-       "label": "2 × FWF",
-       "qty": 2,
-       "nos": [
-        "0765",
-        "0192"
-       ]
-      }
-     ]
-    },
-    {
      "ref": "WC86",
      "title": "WC86",
      "where": "Toilet",
@@ -448,12 +537,280 @@
        ]
       }
      ]
+    },
+    {
+     "ref": "WC21",
+     "title": "WC21",
+     "where": "Toilets",
+     "drop": "",
+     "pin": [
+      -27.989159,
+      153.428619
+     ],
+     "lines": [
+      {
+       "id": "WC21-FWF",
+       "type": "FWF",
+       "kind": "fwf",
+       "label": "6 × FWF",
+       "qty": 6,
+       "nos": [
+        "1002747",
+        "1103497",
+        "1211964",
+        "1211971",
+        "1211977",
+        "1212172"
+       ]
+      }
+     ]
+    },
+    {
+     "ref": "WC44",
+     "title": "WC44",
+     "where": "Toilets",
+     "drop": "",
+     "pin": [
+      -27.988968,
+      153.428254
+     ],
+     "lines": [
+      {
+       "id": "WC44-FWF",
+       "type": "FWF",
+       "kind": "fwf",
+       "label": "2 × FWF",
+       "qty": 2,
+       "nos": [
+        "0146",
+        "0037"
+       ]
+      }
+     ]
     }
    ]
   },
   {
    "n": 3,
-   "name": "Island West / Merch",
+   "name": "Island West — EVL, Race Admin & Merch",
+   "refs": [
+    {
+     "ref": "T0024",
+     "title": "T0024",
+     "where": "EVL toilet and the Coates office toilet, 21 m apart (EVL / Coates compound)",
+     "drop": "",
+     "pin": [
+      -27.983217,
+      153.426642
+     ],
+     "lines": [
+      {
+       "id": "T0024-FWF",
+       "type": "FWF",
+       "kind": "fwf",
+       "label": "1 × FWF at EVL",
+       "qty": 1,
+       "nos": [
+        "0164"
+       ],
+       "pin": [
+        -27.983217,
+        153.426642
+       ]
+      },
+      {
+       "id": "T0024-COA",
+       "type": "FWF",
+       "kind": "fwf",
+       "label": "1 × FWF at the Coates office",
+       "qty": 1,
+       "nos": [
+        "1211968"
+       ],
+       "pin": [
+        -27.9831377,
+        153.4264433
+       ]
+      }
+     ]
+    },
+    {
+     "ref": "WC05",
+     "title": "WC05",
+     "where": "Event Operations Compound Toilet - Combo Block (Tanked)",
+     "drop": "Island west parkland entry – by the merch strip",
+     "pin": [
+      -27.983608,
+      153.426357
+     ],
+     "lines": [
+      {
+       "id": "WC05-TOILETBL",
+       "type": "Toilet Block 6m",
+       "kind": "block",
+       "label": "1 × Toilet block 6 m",
+       "qty": 1,
+       "nos": [
+        "1097377"
+       ]
+      },
+      {
+       "id": "WC05-WASTETAN",
+       "type": "Waste tank",
+       "kind": "tank",
+       "label": "1 × Waste tank",
+       "qty": 1,
+       "nos": [
+        "1328978"
+       ]
+      }
+     ]
+    },
+    {
+     "ref": "WC04",
+     "title": "WC04",
+     "where": "Toilet - QAS",
+     "drop": "Island west parkland entry – by the merch strip",
+     "pin": [
+      -27.983857,
+      153.426516
+     ],
+     "lines": [
+      {
+       "id": "WC04-FWF",
+       "type": "FWF",
+       "kind": "fwf",
+       "label": "1 × FWF",
+       "qty": 1,
+       "nos": [
+        "1212502"
+       ]
+      }
+     ]
+    },
+    {
+     "ref": "WC06",
+     "title": "WC06",
+     "where": "Toilets - Race Admin",
+     "drop": "Median strip meet-up – pit stop, by FOAM",
+     "pin": [
+      -27.984699,
+      153.426532
+     ],
+     "lines": [
+      {
+       "id": "WC06-FWF",
+       "type": "FWF",
+       "kind": "fwf",
+       "label": "2 × FWF",
+       "qty": 2,
+       "nos": [
+        "1195658",
+        "1212523"
+       ]
+      }
+     ]
+    },
+    {
+     "ref": "WC07",
+     "title": "WC07",
+     "where": "Toilets - Merch Area",
+     "drop": "Median strip meet-up – pit stop, by FOAM",
+     "pin": [
+      -27.984455,
+      153.426897
+     ],
+     "lines": [
+      {
+       "id": "WC07-FWF",
+       "type": "FWF",
+       "kind": "fwf",
+       "label": "20 × FWF",
+       "qty": 20,
+       "nos": [
+        "1181004",
+        "1002538",
+        "1212552",
+        "1002566",
+        "1083300",
+        "1200595",
+        "1211959",
+        "1002715",
+        "1192643",
+        "1002651",
+        "1317649",
+        "1317658",
+        "1317632",
+        "1317743",
+        "1317641",
+        "1317640",
+        "1317626",
+        "1317648",
+        "1317652",
+        "1317647"
+       ]
+      }
+     ]
+    },
+    {
+     "ref": "WC11",
+     "title": "WC11",
+     "where": "Toilets",
+     "drop": "Median strip meet-up – pit stop, by FOAM",
+     "pin": [
+      -27.984888,
+      153.426575
+     ],
+     "lines": [
+      {
+       "id": "WC11-FWF",
+       "type": "FWF",
+       "kind": "fwf",
+       "label": "2 × FWF",
+       "qty": 2,
+       "nos": [
+        "1211969",
+        "1211976"
+       ]
+      }
+     ]
+    },
+    {
+     "ref": "WC41",
+     "title": "WC41",
+     "where": "Toilets",
+     "drop": "Median strip meet-up – pit stop, by FOAM",
+     "pin": [
+      -27.984835,
+      153.426054
+     ],
+     "lines": [
+      {
+       "id": "WC41-FWF",
+       "type": "FWF",
+       "kind": "fwf",
+       "label": "10 × FWF",
+       "qty": 10,
+       "nos": [
+        "0521",
+        "0996",
+        "0191",
+        "0669",
+        "0643",
+        "0517",
+        "0682",
+        "0651",
+        "0065",
+        "0518"
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "n": 4,
+   "name": "Commodore Park & The Hill entry",
    "refs": [
     {
      "ref": "WC01",
@@ -510,89 +867,6 @@
       }
      ]
     },
-    {
-     "ref": "WC04",
-     "title": "WC04",
-     "where": "Toilet - QAS",
-     "drop": "Island west parkland entry – by the merch strip",
-     "pin": [
-      -27.983857,
-      153.426516
-     ],
-     "lines": [
-      {
-       "id": "WC04-FWF",
-       "type": "FWF",
-       "kind": "fwf",
-       "label": "1 × FWF",
-       "qty": 1,
-       "nos": [
-        "1212502"
-       ]
-      }
-     ]
-    },
-    {
-     "ref": "WC05",
-     "title": "WC05",
-     "where": "Event Operations Compound Toilet - Combo Block (Tanked)",
-     "drop": "Island west parkland entry – by the merch strip",
-     "pin": [
-      -27.983608,
-      153.426357
-     ],
-     "lines": [
-      {
-       "id": "WC05-TOILETBL",
-       "type": "Toilet Block 6m",
-       "kind": "block",
-       "label": "1 × Toilet block 6 m",
-       "qty": 1,
-       "nos": [
-        "1097377"
-       ]
-      },
-      {
-       "id": "WC05-WASTETAN",
-       "type": "Waste tank",
-       "kind": "tank",
-       "label": "1 × Waste tank",
-       "qty": 1,
-       "nos": [
-        "1328978"
-       ]
-      }
-     ]
-    },
-    {
-     "ref": "T0024",
-     "title": "T0024",
-     "where": "FWF",
-     "drop": "",
-     "pin": [
-      -27.983217,
-      153.426642
-     ],
-     "lines": [
-      {
-       "id": "T0024-FWF",
-       "type": "FWF",
-       "kind": "fwf",
-       "label": "2 × FWF",
-       "qty": 2,
-       "nos": [
-        "1211968",
-        "0164"
-       ]
-      }
-     ]
-    }
-   ]
-  },
-  {
-   "n": 4,
-   "name": "Commodore Park",
-   "refs": [
     {
      "ref": "WC38",
      "title": "WC38",
@@ -685,73 +959,80 @@
        ]
       }
      ]
-    }
-   ]
-  },
-  {
-   "n": 5,
-   "name": "Median Strip — Race Admin & Merch",
-   "refs": [
+    },
     {
-     "ref": "WC06",
-     "title": "WC06",
-     "where": "Toilets - Race Admin",
-     "drop": "Median strip meet-up – pit stop, by FOAM",
+     "ref": "WC31",
+     "title": "WC31",
+     "where": "Toilets",
+     "drop": "The Hill – entry point A47",
      "pin": [
-      -27.984699,
-      153.426532
+      -27.982533,
+      153.425151
      ],
      "lines": [
       {
-       "id": "WC06-FWF",
-       "type": "FWF",
-       "kind": "fwf",
-       "label": "2 × FWF",
+       "id": "WC31-ACCESSIB",
+       "type": "Accessible Toilet",
+       "kind": "access",
+       "label": "1 × Accessible toilet",
+       "qty": 1,
+       "nos": [
+        "1317645"
+       ]
+      },
+      {
+       "id": "WC31-16PANBLO",
+       "type": "16Pan Block",
+       "kind": "pan16",
+       "label": "2 × 16-pan toilet block",
        "qty": 2,
        "nos": [
-        "1195658",
-        "1212523"
+        "12",
+        "74"
        ]
       }
      ]
     },
     {
-     "ref": "WC07",
-     "title": "WC07",
-     "where": "Toilets - Merch Area",
-     "drop": "Median strip meet-up – pit stop, by FOAM",
+     "ref": "WC34",
+     "title": "WC34",
+     "where": "Toilets",
+     "drop": "The Hill – entry point A47",
      "pin": [
-      -27.984455,
-      153.426897
+      -27.982306,
+      153.425877
      ],
      "lines": [
       {
-       "id": "WC07-FWF",
+       "id": "WC34-FWF",
        "type": "FWF",
        "kind": "fwf",
-       "label": "20 × FWF",
-       "qty": 20,
+       "label": "1 × FWF",
+       "qty": 1,
        "nos": [
-        "1181004",
-        "1002538",
-        "1212552",
-        "1002566",
-        "1083300",
-        "1200595",
-        "1211959",
-        "1002715",
-        "1192643",
-        "1002651",
-        "1317649",
-        "1317658",
-        "1317632",
-        "1317743",
-        "1317641",
-        "1317640",
-        "1317626",
-        "1317648",
-        "1317652",
-        "1317647"
+        "0526"
+       ]
+      }
+     ]
+    },
+    {
+     "ref": "WC65",
+     "title": "WC65",
+     "where": "Toilets",
+     "drop": "The Hill – entry point A47",
+     "pin": [
+      -27.981478,
+      153.426408
+     ],
+     "lines": [
+      {
+       "id": "WC65-FWF",
+       "type": "FWF",
+       "kind": "fwf",
+       "label": "1 × FWF",
+       "qty": 1,
+       "nos": [
+        "0033"
        ]
       }
      ]
@@ -759,8 +1040,8 @@
    ]
   },
   {
-   "n": 6,
-   "name": "Median Strip — FOAM / Other Toilets",
+   "n": 5,
+   "name": "Median Strip — FOAM",
    "refs": [
     {
      "ref": "WC09",
@@ -829,55 +1110,51 @@
      ]
     },
     {
-     "ref": "WC11",
-     "title": "WC11",
+     "ref": "WC28",
+     "title": "WC28",
      "where": "Toilets",
-     "drop": "Median strip meet-up – pit stop, by FOAM",
+     "drop": "",
      "pin": [
-      -27.984888,
-      153.426575
+      -27.983401,
+      153.429161
      ],
      "lines": [
       {
-       "id": "WC11-FWF",
+       "id": "WC28-FWF",
        "type": "FWF",
        "kind": "fwf",
-       "label": "2 × FWF",
-       "qty": 2,
+       "label": "1 × FWF",
+       "qty": 1,
        "nos": [
-        "1211969",
-        "1211976"
+        "0102"
        ]
       }
      ]
     },
     {
-     "ref": "WC41",
-     "title": "WC41",
+     "ref": "WC29",
+     "title": "WC29",
      "where": "Toilets",
-     "drop": "Median strip meet-up – pit stop, by FOAM",
+     "drop": "",
      "pin": [
-      -27.984835,
-      153.426054
+      -27.983561,
+      153.428573
      ],
      "lines": [
       {
-       "id": "WC41-FWF",
+       "id": "WC29-FWF",
        "type": "FWF",
        "kind": "fwf",
-       "label": "10 × FWF",
-       "qty": 10,
+       "label": "7 × FWF",
+       "qty": 7,
        "nos": [
-        "0521",
-        "0996",
-        "0191",
-        "0669",
-        "0643",
-        "0517",
-        "0682",
-        "0651",
-        "0065",
-        "0518"
+        "0079",
+        "0546",
+        "0707",
+        "0564",
+        "0044",
+        "0441",
+        "0598"
        ]
       }
      ]
@@ -885,7 +1162,7 @@
    ]
   },
   {
-   "n": 7,
+   "n": 6,
    "name": "Main Beach Parade / Seaside North",
    "refs": [
     {
@@ -1024,55 +1301,82 @@
    ]
   },
   {
-   "n": 8,
+   "n": 7,
    "name": "Main Beach Seaside — Supply / North",
    "refs": [
     {
-     "ref": "WC13",
-     "title": "WC13",
+     "ref": "WC57",
+     "title": "WC57",
      "where": "Toilets",
-     "drop": "",
+     "drop": "Main Beach seaside – by the supply compound",
      "pin": [
-      -27.990956,
-      153.429519
+      -27.988206,
+      153.430076
      ],
      "lines": [
       {
-       "id": "WC13-FWF",
+       "id": "WC57-FWF",
        "type": "FWF",
        "kind": "fwf",
        "label": "2 × FWF",
        "qty": 2,
        "nos": [
-        "0036",
-        "0444"
+        "0915",
+        "0008"
        ]
       }
      ]
     },
     {
-     "ref": "WC21",
-     "title": "WC21",
+     "ref": "WC59",
+     "title": "WC59",
      "where": "Toilets",
-     "drop": "",
+     "drop": "Main Beach seaside – by the supply compound",
      "pin": [
-      -27.989159,
-      153.428619
+      -27.988183,
+      153.430169
      ],
      "lines": [
       {
-       "id": "WC21-FWF",
+       "id": "WC59-FWF",
        "type": "FWF",
        "kind": "fwf",
-       "label": "6 × FWF",
-       "qty": 6,
+       "label": "7 × FWF",
+       "qty": 7,
        "nos": [
-        "1002747",
-        "1103497",
-        "1211964",
-        "1211971",
-        "1211977",
-        "1212172"
+        "0492",
+        "0935",
+        "0497",
+        "0633",
+        "0064",
+        "0066",
+        "0533"
+       ]
+      }
+     ]
+    },
+    {
+     "ref": "WC23",
+     "title": "WC23",
+     "where": "Toilets",
+     "drop": "",
+     "pin": [
+      -27.989504,
+      153.429199
+     ],
+     "lines": [
+      {
+       "id": "WC23-FWF",
+       "type": "FWF",
+       "kind": "fwf",
+       "label": "5 × FWF",
+       "qty": 5,
+       "nos": [
+        "0992",
+        "0968",
+        "0960",
+        "0107",
+        "0969"
        ]
       }
      ]
@@ -1153,112 +1457,13 @@
        ]
       }
      ]
-    },
-    {
-     "ref": "WC57",
-     "title": "WC57",
-     "where": "Toilets",
-     "drop": "Main Beach seaside – by the supply compound",
-     "pin": [
-      -27.988206,
-      153.430076
-     ],
-     "lines": [
-      {
-       "id": "WC57-FWF",
-       "type": "FWF",
-       "kind": "fwf",
-       "label": "2 × FWF",
-       "qty": 2,
-       "nos": [
-        "0915",
-        "0008"
-       ]
-      }
-     ]
-    },
-    {
-     "ref": "WC59",
-     "title": "WC59",
-     "where": "Toilets",
-     "drop": "Main Beach seaside – by the supply compound",
-     "pin": [
-      -27.988183,
-      153.430169
-     ],
-     "lines": [
-      {
-       "id": "WC59-FWF",
-       "type": "FWF",
-       "kind": "fwf",
-       "label": "7 × FWF",
-       "qty": 7,
-       "nos": [
-        "0492",
-        "0935",
-        "0497",
-        "0633",
-        "0064",
-        "0066",
-        "0533"
-       ]
-      }
-     ]
     }
    ]
   },
   {
-   "n": 9,
-   "name": "Main Beach Seaside — Mid-South",
+   "n": 8,
+   "name": "Main Beach Seaside — Mid",
    "refs": [
-    {
-     "ref": "WC23",
-     "title": "WC23",
-     "where": "Toilets",
-     "drop": "",
-     "pin": [
-      -27.989504,
-      153.429199
-     ],
-     "lines": [
-      {
-       "id": "WC23-FWF",
-       "type": "FWF",
-       "kind": "fwf",
-       "label": "5 × FWF",
-       "qty": 5,
-       "nos": [
-        "0992",
-        "0968",
-        "0960",
-        "0107",
-        "0969"
-       ]
-      }
-     ]
-    },
-    {
-     "ref": "WC24",
-     "title": "WC24",
-     "where": "Toilets",
-     "drop": "",
-     "pin": [
-      -27.991038,
-      153.429656
-     ],
-     "lines": [
-      {
-       "id": "WC24-FWF",
-       "type": "FWF",
-       "kind": "fwf",
-       "label": "1 × FWF",
-       "qty": 1,
-       "nos": [
-        "0489"
-       ]
-      }
-     ]
-    },
     {
      "ref": "WC25",
      "title": "WC25",
@@ -1277,29 +1482,6 @@
        "qty": 1,
        "nos": [
         "0472"
-       ]
-      }
-     ]
-    },
-    {
-     "ref": "WC44",
-     "title": "WC44",
-     "where": "Toilets",
-     "drop": "",
-     "pin": [
-      -27.988968,
-      153.428254
-     ],
-     "lines": [
-      {
-       "id": "WC44-FWF",
-       "type": "FWF",
-       "kind": "fwf",
-       "label": "2 × FWF",
-       "qty": 2,
-       "nos": [
-        "0146",
-        "0037"
        ]
       }
      ]
@@ -1351,6 +1533,84 @@
        "qty": 1,
        "nos": [
         "0949"
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "n": 9,
+   "name": "Main Beach Seaside — Mid-South",
+   "refs": [
+    {
+     "ref": "WC13",
+     "title": "WC13",
+     "where": "Toilets",
+     "drop": "",
+     "pin": [
+      -27.990956,
+      153.429519
+     ],
+     "lines": [
+      {
+       "id": "WC13-FWF",
+       "type": "FWF",
+       "kind": "fwf",
+       "label": "2 × FWF",
+       "qty": 2,
+       "nos": [
+        "0036",
+        "0444"
+       ]
+      }
+     ]
+    },
+    {
+     "ref": "WC24",
+     "title": "WC24",
+     "where": "Toilets",
+     "drop": "",
+     "pin": [
+      -27.991038,
+      153.429656
+     ],
+     "lines": [
+      {
+       "id": "WC24-FWF",
+       "type": "FWF",
+       "kind": "fwf",
+       "label": "1 × FWF",
+       "qty": 1,
+       "nos": [
+        "0489"
+       ]
+      }
+     ]
+    },
+    {
+     "ref": "WC54",
+     "title": "WC54",
+     "where": "Toilets",
+     "drop": "",
+     "pin": [
+      -27.991588,
+      153.430458
+     ],
+     "lines": [
+      {
+       "id": "WC54-FWF",
+       "type": "FWF",
+       "kind": "fwf",
+       "label": "6 × FWF",
+       "qty": 6,
+       "nos": [
+        "0186",
+        "0619",
+        "0071",
+        "0295",
+        "0007",
+        "0087"
        ]
       }
      ]
@@ -1514,90 +1774,13 @@
        ]
       }
      ]
-    },
-    {
-     "ref": "WC54",
-     "title": "WC54",
-     "where": "Toilets",
-     "drop": "",
-     "pin": [
-      -27.991588,
-      153.430458
-     ],
-     "lines": [
-      {
-       "id": "WC54-FWF",
-       "type": "FWF",
-       "kind": "fwf",
-       "label": "6 × FWF",
-       "qty": 6,
-       "nos": [
-        "0186",
-        "0619",
-        "0071",
-        "0295",
-        "0007",
-        "0087"
-       ]
-      }
-     ]
     }
    ]
   },
   {
    "n": 11,
-   "name": "Surfers Paradise / Cypress",
+   "name": "Surfers Paradise / Cypress (north)",
    "refs": [
-    {
-     "ref": "WC28",
-     "title": "WC28",
-     "where": "Toilets",
-     "drop": "",
-     "pin": [
-      -27.983401,
-      153.429161
-     ],
-     "lines": [
-      {
-       "id": "WC28-FWF",
-       "type": "FWF",
-       "kind": "fwf",
-       "label": "1 × FWF",
-       "qty": 1,
-       "nos": [
-        "0102"
-       ]
-      }
-     ]
-    },
-    {
-     "ref": "WC29",
-     "title": "WC29",
-     "where": "Toilets",
-     "drop": "",
-     "pin": [
-      -27.983561,
-      153.428573
-     ],
-     "lines": [
-      {
-       "id": "WC29-FWF",
-       "type": "FWF",
-       "kind": "fwf",
-       "label": "7 × FWF",
-       "qty": 7,
-       "nos": [
-        "0079",
-        "0546",
-        "0707",
-        "0564",
-        "0044",
-        "0441",
-        "0598"
-       ]
-      }
-     ]
-    },
     {
      "ref": "WC30",
      "title": "WC30",
@@ -1671,112 +1854,13 @@
        ]
       }
      ]
-    },
-    {
-     "ref": "WC81",
-     "title": "WC81",
-     "where": "Toilet (Cypress)",
-     "drop": "",
-     "pin": [
-      -27.997509,
-      153.428455
-     ],
-     "lines": [
-      {
-       "id": "WC81-FWF",
-       "type": "FWF",
-       "kind": "fwf",
-       "label": "1 × FWF",
-       "qty": 1,
-       "nos": [
-        "0124"
-       ]
-      }
-     ]
     }
    ]
   },
   {
    "n": 12,
-   "name": "Helen Park / The Hill",
+   "name": "Helen Park",
    "refs": [
-    {
-     "ref": "WC31",
-     "title": "WC31",
-     "where": "Toilets",
-     "drop": "The Hill – entry point A47",
-     "pin": [
-      -27.982533,
-      153.425151
-     ],
-     "lines": [
-      {
-       "id": "WC31-ACCESSIB",
-       "type": "Accessible Toilet",
-       "kind": "access",
-       "label": "1 × Accessible toilet",
-       "qty": 1,
-       "nos": [
-        "1317645"
-       ]
-      },
-      {
-       "id": "WC31-16PANBLO",
-       "type": "16Pan Block",
-       "kind": "pan16",
-       "label": "2 × 16-pan toilet block",
-       "qty": 2,
-       "nos": [
-        "12",
-        "74"
-       ]
-      }
-     ]
-    },
-    {
-     "ref": "WC34",
-     "title": "WC34",
-     "where": "Toilets",
-     "drop": "The Hill – entry point A47",
-     "pin": [
-      -27.982306,
-      153.425877
-     ],
-     "lines": [
-      {
-       "id": "WC34-FWF",
-       "type": "FWF",
-       "kind": "fwf",
-       "label": "1 × FWF",
-       "qty": 1,
-       "nos": [
-        "0526"
-       ]
-      }
-     ]
-    },
-    {
-     "ref": "WC65",
-     "title": "WC65",
-     "where": "Toilets",
-     "drop": "The Hill – entry point A47",
-     "pin": [
-      -27.981478,
-      153.426408
-     ],
-     "lines": [
-      {
-       "id": "WC65-FWF",
-       "type": "FWF",
-       "kind": "fwf",
-       "label": "1 × FWF",
-       "qty": 1,
-       "nos": [
-        "0033"
-       ]
-      }
-     ]
-    },
     {
      "ref": "WC67",
      "title": "WC67",
@@ -1934,93 +2018,26 @@
   },
   {
    "n": 13,
-   "name": "Teams Area",
+   "name": "Cypress / Surfers Paradise Blvd",
    "refs": [
     {
-     "ref": "BJR01",
-     "title": "BJR01",
-     "where": "Brad Jones Racing",
+     "ref": "WC81",
+     "title": "WC81",
+     "where": "Toilet (Cypress)",
      "drop": "",
      "pin": [
-      -27.985863,
-      153.427503
+      -27.997509,
+      153.428455
      ],
      "lines": [
       {
-       "id": "BJR01-FWF",
+       "id": "WC81-FWF",
        "type": "FWF",
        "kind": "fwf",
        "label": "1 × FWF",
        "qty": 1,
        "nos": [
-        "0941"
-       ]
-      }
-     ]
-    },
-    {
-     "ref": "SVP01",
-     "title": "SVP01",
-     "where": "Shell V-Power",
-     "drop": "",
-     "pin": [
-      -27.986211,
-      153.427753
-     ],
-     "lines": [
-      {
-       "id": "SVP01-FWF",
-       "type": "FWF",
-       "kind": "fwf",
-       "label": "1 × FWF",
-       "qty": 1,
-       "nos": [
-        "0939"
-       ]
-      }
-     ]
-    },
-    {
-     "ref": "T0162",
-     "title": "T0162",
-     "where": "FWF · Blanchard Race",
-     "drop": "",
-     "pin": [
-      -27.985742,
-      153.427447
-     ],
-     "lines": [
-      {
-       "id": "T0162-FWF",
-       "type": "FWF",
-       "kind": "fwf",
-       "label": "1 × FWF",
-       "qty": 1,
-       "nos": [
-        "0990"
-       ]
-      }
-     ]
-    },
-    {
-     "ref": "T0176",
-     "title": "T0176",
-     "where": "FWF × 2 · Redbull",
-     "drop": "",
-     "pin": [
-      -27.986724,
-      153.42801
-     ],
-     "lines": [
-      {
-       "id": "T0176-FWF",
-       "type": "FWF",
-       "kind": "fwf",
-       "label": "2 × FWF",
-       "qty": 2,
-       "nos": [
-        "0994",
-        "0576"
+        "0124"
        ]
       }
      ]
@@ -2087,7 +2104,9 @@
   "assumed": "Not yet confirmed by Andrew (default used): WC100's FWF trailers are serviced like FWF.",
   "sewer": "Andrew, 20 Oct 2026 (map screenshots of T0243, WC17, WC15, WC16, WC09): \"these toilet blocks are swere connected cjhange this no to 9 which makes the rest with waste tanks\" - 9 sewer-connected blocks (T0243 x1, WC09 x2, WC15 x2, WC16 x2, WC17 x2): Clean & restock only. The other 6 blocks (WC05 x1, WC20 x2, WC27 x1, WC60 x2) have waste tanks: block Clean & restock, tank Pump out.",
   "areas_20oct": "Andrew, 20 Oct 2026: \"Refernce 1 makes no sense 2 diffiremt locations. And where is wc85 linked to\" - T0024 (EVL, 52 m from WC05) moved from Area 1 to Area 3; WC85 (Coates compound on the Seaway, 4.7 km from every other area) moved from Area 13 to its own Area 14.",
-  "practice_20oct": "Andrew, 20 Oct 2026: \"can we have set qr codes made now that dont change ... ill rather have this live for a couple of days. So i can have a play with it. And we can also delete this data later too\". Practice days Tue 20 - Thu 22 sit on the event tracker so the printed codes work now; each day's % is its own, so practice ticks never touch Fri-Sun. Removing the practice days later is a same-token update: the codes stay."
+  "practice_20oct": "Andrew, 20 Oct 2026: \"can we have set qr codes made now that dont change ... ill rather have this live for a couple of days. So i can have a play with it. And we can also delete this data later too\". Practice days Tue 20 - Thu 22 sit on the event tracker so the printed codes work now; each day's % is its own, so practice ticks never touch Fri-Sun. Removing the practice days later is a same-token update: the codes stay.",
+  "areas_20oct_pins": "Andrew, 20 Oct 2026: \"I told you they are all here\" (PG01/03/05/29 at his pin), \"Your also missing the toilets from here ... One that was a coates toilet and the other was one for EVL WHICH I PINNED BOTH OF THESE FOR YOU TODAY\", \"Group things together that are close\". Sheets draw every pinned reference at its pin. T0024 is two FWF: 0164 at EVL (Andrew's T0024 pin) and Coates' own 1211968 at the Coates office (Andrew's T0021 pin, 21 m away); which unit is at which spot is read from the record (Coates' own compound toilet = the Coates-numbered unit). WC13 Area 8 -> 9 (16 m from WC24), WC81 Area 11 -> 10 (462 m from WC49, 1.5 km from Area 11).",
+  "areas_20oct_regroup": "Andrew, 20 Oct 2026: \"Group things together that are close your making no bloody sense\" and \"Whole point of have areas so they are areas and dont cross into another area or are really far apart\". Areas regrouped by the pins: each is one patch (largest span 337 m, Area 4), none crosses another. Old 13 areas -> 14 + Seaway + no-location."
  },
  "extras": [
   "refill"
