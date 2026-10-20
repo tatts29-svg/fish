@@ -1,0 +1,81 @@
+{
+  "author": "Andrew Fisher",
+  "status": "READY TO UPLOAD",
+  "baseVersion": "v10.89",
+  "baseSha256": "2254fce73cefb76fdecb371509d7d37e1873d394d77193975842288f14ed3eae",
+  "candidateSha256": "b447b32ee6afe9d1a64f45a8c53a67e7d01f4d11a5a04bbdcd04bf9ec2b13111",
+  "bytes": 18595391,
+  "inlineScripts": 148,
+  "area": {
+    "pureChecks": 45,
+    "nativePhoneChecks": 48,
+    "serviceContractChecks": 6,
+    "independentWrapperChecks": 22,
+    "independentOutboxChecks": 10,
+    "independentReferenceChecks": 11,
+    "ordinaryCaptionComparisons": 160,
+    "areaCaptionChecks": 150,
+    "productionWrites": 0,
+    "uploads": 0
+  },
+  "showcase": {
+    "scenes": 25,
+    "newScenes": 15,
+    "originalTakesPreserved": 35,
+    "modelAndBroadcastTests": "PASS",
+    "focusedDesktopAndPhone": "PASS on 3ebb6a76e51aff06080c7a02a390524320765a4d1029e95ea331cf987112f417; exact Showcase/media module parity to final candidate independently verified",
+    "phoneVisualReview": "PASS"
+  },
+  "sweeps": {
+    "desktop": {
+      "routes": 25,
+      "links": 7,
+      "back": "#plant",
+      "pageErrors": 0,
+      "consoleErrors": 0,
+      "attemptedNativeWrites": 0
+    },
+    "phone": {
+      "routes": 25,
+      "links": 7,
+      "back": "#plant",
+      "pageErrors": 0,
+      "consoleErrors": 0,
+      "attemptedNativeWrites": 0
+    }
+  },
+  "preservation": {
+    "result": "PASS",
+    "existing_named_modules_unchanged": 228,
+    "reviewed_photo_integration_modules": [
+      "script#source-reference973-script",
+      "script#tidy1051-script",
+      "script#units925-script"
+    ],
+    "embedded_data_and_media_unchanged": true,
+    "servicing_script_sha256": "209f73992f7f8ac1deae3fdd9444654cfb6b30c44e0feff1f5cd15cb98290d0d",
+    "candidate_sha256": "b447b32ee6afe9d1a64f45a8c53a67e7d01f4d11a5a04bbdcd04bf9ec2b13111"
+  },
+  "independentSourceReview": "PASS: exact rebuild, embedded source, protected modules and private-detail checks",
+  "guardedDryRun": "PASS: edit access and unchanged live base; no upload",
+  "earlierValidationIssue": "One earlier desktop sweep received a 403 on the status GET. Fresh GET and unchanged-candidate desktop rerun passed. Cause not established; no product change made for this response.",
+  "sourceFiles": {
+    "area_photos1090.js": "3142a17747800f1052b65740b6274ef831d8d4d0e09badb308be69a358240811",
+    "crew_showcase1090.js": "a4612bc23aed3339d20060eb63f67c2ac094ddf26522317e7faa5c81077beeef",
+    "patch_area_photos1090.py": "b5f808f038610b60b8a3bdc79aab30dfc6484ad1dc65d0daccfb12bb0be2cb1d",
+    "patch_showcase1090.py": "333d109757e0099c229a1529ac11046186b1c140a723f762c953b55e916695b2",
+    "patch_v1090.py": "4459b483d9c68b1f1f53a187cf2ebbea8e21d7fad10554dcbb40fb78539b84f5",
+    "test_area_photos1090.cjs": "448f3cc433f167ea152cac7be59e442201cbe87b7412853085599c69ef0e3dc0",
+    "test_area_photos1090_runtime.cjs": "982a352c06bc6599739ce89d869f7927d66ad123e1c8752cb46b68126493f4b9",
+    "test_area_photos1090_server.cjs": "39f8b2acb82942713c2fcfdc9f174c95ba804a6adfd0d7ae1ed67f6a2f3cf0f5",
+    "test_broadcast1090.js": "41d16fd38b11290ebde74bc2692db9c9ab0ce9231938200632dc76497e5a3cdd",
+    "test_preservation1090.py": "9f2d7dc6c8f5a60ed71cc00280fce19285424994017980d5c298df9d3be624cf",
+    "test_showcase1090.js": "fb7158ca00fd949eae8cfb7c4c1858b356b8abfb5f8ef2d3d488702bc74d3edb",
+    "test_showcase_browser1090.js": "0cb7fd8b1e6bb8f3321ece192f011fdeacc66c1fedc1969127fbbd4a39308702"
+  },
+  "limits": [
+    "Native photo documents retain existing last-writer-wins semantics; no atomic cross-client compare-and-swap added.",
+    "No invented movement, distance, attendance or weather-exposure counts.",
+    "New detail scenes are silent; original narration and backgrounds are preserved."
+  ]
+}

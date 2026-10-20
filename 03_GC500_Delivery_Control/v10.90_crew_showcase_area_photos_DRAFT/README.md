@@ -2,9 +2,9 @@
 
 Author: Andrew Fisher.
 
-Status: DRAFT. Implementation is frozen for final browser checks. Not ready to upload.
+Status: READY TO UPLOAD. Required checks passed; guarded publication and public read-back are next.
 
-The official candidate is `b447b32ee6afe9d1a64f45a8c53a67e7d01f4d11a5a04bbdcd04bf9ec2b13111` (18,595,391 bytes). It passes the shared page checker and protected-source checks. Independent reviews cover physical metric meanings, narration order, photograph identity and context labels. Final native phone practice and both full navigation sweeps remain required before publication.
+The official candidate is `b447b32ee6afe9d1a64f45a8c53a67e7d01f4d11a5a04bbdcd04bf9ec2b13111` (18,595,391 bytes). It passes the shared page checker and protected-source checks. Independent reviews cover physical metric meanings, narration order, photograph identity and context labels. Final native phone practice passed 48 checks. Desktop and phone sweeps each passed 25 routes, seven links and Back with no errors or attempted native writes. The earlier isolated status-GET 403 is retained in private evidence; the unchanged candidate passed its rerun. See `validation.json` for exact checks and limits.
 
 Andrew requested a fuller account of both crews' recorded work in Showcase, allowing additional pages. He also requested an optional photograph of a whole area containing several items, linked consistently to the relevant references and assets.
 
