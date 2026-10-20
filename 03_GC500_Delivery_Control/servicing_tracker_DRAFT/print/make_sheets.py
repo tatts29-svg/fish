@@ -368,32 +368,105 @@ def what_here(refs):
         for l in r['lines']:
             k = SHORT.get(l['type'], l['type']); n[k] = n.get(k, 0) + l['qty']
     return ' · '.join(f'{q} {k}' for k, q in n.items())
-def toilet_icon(c, x, y, r, fill=ORANGE):
-    """a toilet pictogram on a disc: the marker for a servicing location on every map"""
-    c.setFillColor(WHITE); c.circle(x, y, r + 0.5 * mm, stroke=0, fill=1)
-    c.setFillColor(fill); c.setStrokeColor(INK); c.setLineWidth(0.5); c.circle(x, y, r, stroke=1, fill=1)
-    s = r * 1.15; c.setFillColor(WHITE)
-    c.roundRect(x - 0.36 * s, y + 0.08 * s, 0.72 * s, 0.30 * s, 0.06 * s, stroke=0, fill=1)        # cistern
-    p = c.beginPath(); p.moveTo(x - 0.42 * s, y + 0.02 * s); p.lineTo(x + 0.42 * s, y + 0.02 * s)
-    p.curveTo(x + 0.42 * s, y - 0.30 * s, x + 0.18 * s, y - 0.40 * s, x + 0.10 * s, y - 0.42 * s)
-    p.lineTo(x - 0.10 * s, y - 0.42 * s); p.curveTo(x - 0.18 * s, y - 0.40 * s, x - 0.42 * s, y - 0.30 * s, x - 0.42 * s, y + 0.02 * s)
-    p.close(); c.drawPath(p, stroke=0, fill=1)                                                          # bowl
-    c.rect(x - 0.16 * s, y - 0.56 * s, 0.32 * s, 0.16 * s, stroke=0, fill=1)                            # base
-def icon_legend(c, x, y, size=7.2):
-    toilet_icon(c, x + 2.2 * mm, y + 1.2 * mm, 2.0 * mm)
-    s = 'Servicing location - label: reference · what is there (FWF, block, tank, accessible, 16-pan). Asset numbers: table below and each sheet.'
-    txt(c, x + 5.6 * mm, y + 0.2 * mm, s, 'bold', size, INK)
+SYMBOL_LABELS = collections.OrderedDict((('toilet', 'Toilet'), ('block', 'Toilet block'),
+    ('pee', 'Pee panel'), ('pan16', '16-pan block'), ('accessible', 'Accessible'), ('tank', 'Waste tank')))
 
-def place_labels(c, mb, groups, rr, font_size=8):
+def symbol_kind(line):
+    """Use the equipment type, not its servicing tasks or quantities, to choose its symbol."""
+    name = re.sub(r'[^a-z0-9]', '', str(line.get('type', '')).lower())
+    if name in ('accessibletoilet', 'disabledtoilet', 'dda'): return 'accessible'
+    if name in ('16panblock', '16pantoiletblock'): return 'pan16'
+    if name in ('peepanel', 'peepanels', 'urinal', 'urinalpanel'): return 'pee'
+    if name in ('wastetank', 'holdingtank'): return 'tank'
+    if name in ('toiletblock', 'toiletblock6m'): return 'block'
+    if name in ('fwf', 'fwftrailer', 'toilet', 'portabletoilet'): return 'toilet'
+    # Kind is a fallback only where no equipment type was supplied. An unknown named
+    # type stays unknown; its service plan must not relabel it as a toilet.
+    if not name:
+        return {'fwf':'toilet', 'access':'accessible', 'pan16':'pan16', 'block':'block',
+                'sewer':'block', 'tank':'tank', 'pee':'pee'}.get(line.get('kind'), 'unknown')
+    return 'unknown'
+
+def symbol_kinds(lines):
+    return list(dict.fromkeys(symbol_kind(line) for line in lines))
+
+def equipment_icon(c, x, y, r, kind, fill=ORANGE):
+    """Print-safe vector silhouettes: recognisable without relying on colour or emoji fonts."""
+    c.saveState(); c.translate(x, y); c.scale(r, r)
+    c.setFillColor(WHITE); c.circle(0, 0, 1 + 0.5 * mm / r, stroke=0, fill=1)
+    c.setFillColor(fill); c.setStrokeColor(INK); c.setLineWidth(0.5 / r); c.circle(0, 0, 1, stroke=1, fill=1)
+    c.setFillColor(WHITE); c.setStrokeColor(WHITE); c.setLineWidth(0.13); c.setLineCap(1); c.setLineJoin(1)
+    if kind == 'toilet':
+        c.roundRect(-.42, .12, .84, .34, .07, stroke=0, fill=1)
+        p = c.beginPath(); p.moveTo(-.49, .02); p.lineTo(.49, .02)
+        p.curveTo(.49, -.37, .21, -.47, .12, -.49); p.lineTo(-.12, -.49)
+        p.curveTo(-.21, -.47, -.49, -.37, -.49, .02); p.close(); c.drawPath(p, stroke=0, fill=1)
+        c.rect(-.19, -.65, .38, .19, stroke=0, fill=1)
+    elif kind in ('block', 'pan16'):
+        c.rect(-.65, -.49, 1.3, .92, stroke=0, fill=1)
+        c.rect(-.72, .43, 1.44, .15, stroke=0, fill=1)
+        c.setFillColor(fill)
+        for dx in (-.49, -.13, .23): c.rect(dx, -.49, .26, .57 if kind == 'block' else .28, stroke=0, fill=1)
+        if kind == 'pan16':
+            c.setFont('Helvetica-Bold', .87); c.drawCentredString(0, -.04, '16')
+    elif kind == 'pee':
+        # Upright privacy panel with two wall-mounted urinal bowls.
+        c.line(-.63, -.55, -.63, .52); c.line(.63, -.55, .63, .52); c.line(0, -.55, 0, .52)
+        for dx in (-.32, .32):
+            c.roundRect(dx - .19, -.05, .38, .47, .06, stroke=0, fill=1)
+            p = c.beginPath(); p.moveTo(dx - .22, .05); p.lineTo(dx + .22, .05)
+            p.curveTo(dx + .22, -.4, dx - .22, -.4, dx - .22, .05); p.close(); c.drawPath(p, stroke=0, fill=1)
+    elif kind == 'accessible':
+        c.circle(.03, .56, .16, stroke=0, fill=1)
+        c.arc(-.61, -.64, .22, .18, startAng=60, extent=300)
+        p = c.beginPath(); p.moveTo(-.03, .31); p.lineTo(.03, -.13); p.lineTo(.4, -.13)
+        p.lineTo(.61, -.53); p.lineTo(.76, -.45); c.drawPath(p, stroke=1, fill=0)
+        c.line(0, .13, .36, .13)
+    elif kind == 'tank':
+        c.roundRect(-.65, -.4, 1.3, .76, .2, stroke=0, fill=1)
+        c.rect(-.16, .36, .32, .19, stroke=0, fill=1)
+        c.rect(-.47, -.57, .19, .22, stroke=0, fill=1); c.rect(.28, -.57, .19, .22, stroke=0, fill=1)
+        c.setStrokeColor(fill); c.setLineWidth(.08)
+        for dx in (-.29, .29): c.line(dx, -.28, dx, .24)
+    else:
+        c.setFont('Helvetica-Bold', 1.3); c.drawCentredString(0, -.46, '?')
+    c.restoreState()
+
+def equipment_marker(c, x, y, r, lines):
+    """One capsule centred on the recorded spot; one badge per distinct type, not per unit."""
+    kinds = symbol_kinds(lines) or ['unknown']
+    step = 2 * r + .5 * mm; half = (len(kinds) - 1) * step / 2
+    bounds = (x - half - r - .5 * mm, y - r - .5 * mm, x + half + r + .5 * mm, y + r + .5 * mm)
+    if len(kinds) > 1:
+        c.saveState(); c.setFillColor(WHITE); c.setStrokeColor(INK); c.setLineWidth(.6)
+        c.roundRect(bounds[0], bounds[1], bounds[2] - bounds[0], bounds[3] - bounds[1], r, stroke=1, fill=1)
+        c.restoreState()
+    for i, kind in enumerate(kinds): equipment_icon(c, x - half + i * step, y, r, kind)
+    return bounds
+
+def icon_legend(c, x, y, size=7.2):
+    for kind, label in SYMBOL_LABELS.items():
+        equipment_icon(c, x + 2.2 * mm, y + 1.2 * mm, 2 * mm, kind)
+        txt(c, x + 5 * mm, y + .2 * mm, label, 'bold', size, INK)
+        x += 8 * mm + sw(label, 'bold', size)
+
+def place_labels(c, mb, groups, rr, font_size=8, footprints=None):
     """groups: [(label, px, py)] circles of radius rr; labels placed so they do not overlap each other or the circles"""
-    taken = [(px - rr, py - rr, px + rr, py + rr) for _, px, py in groups]
+    taken = list(footprints) if footprints else [(px - rr, py - rr, px + rr, py + rr) for _, px, py in groups]
     dirs = [(1, 0.35), (-1, 0.35), (1, -0.35), (-1, -0.35), (0, 1), (0, -1), (0.75, 0.9), (-0.75, 0.9), (0.75, -0.9), (-0.75, -0.9)]
-    for label, px, py in groups:
-        w = sw(label, 'bold', font_size) + 2.2 * mm; h = font_size * 1.25 + 0.6 * mm; done = None
+    for index, (label, px, py) in enumerate(groups):
+        radius = max(rr, max(abs(footprints[index][0] - px), abs(footprints[index][2] - px),
+                             abs(footprints[index][1] - py), abs(footprints[index][3] - py))) if footprints else rr
+        size = fit(label, 'bold', font_size, mb.w - 4.2 * mm, 5.5)
+        w = sw(label, 'bold', size) + 2.2 * mm; h = size * 1.25 + 0.6 * mm; done = None
         for k in (1.0, 1.8, 2.8, 4.0):
             for dx, dy in dirs:
-                d = rr + 1.6 * mm * k
+                d = radius + 1.6 * mm * k
                 cx = px + dx * d + (w / 2 if dx > 0.2 else -w / 2 if dx < -0.2 else 0); cy = py + dy * d + (h / 2 * (1 if dy > 0 else -1) if abs(dx) <= 0.2 else 0)
+                # Edge pins still need a readable label inside the map. Clamp each
+                # candidate, then apply the same collision checks to its real box.
+                cx = min(max(cx, mb.x + mm + w / 2), mb.x + mb.w - mm - w / 2)
+                cy = min(max(cy, mb.y + 6 * mm + h / 2), mb.y + mb.h - mm - h / 2)
                 bx = (cx - w / 2, cy - h / 2, cx + w / 2, cy + h / 2)
                 if bx[0] < mb.x + 1 * mm or bx[2] > mb.x + mb.w - 1 * mm or bx[1] < mb.y + 6 * mm or bx[3] > mb.y + mb.h - 1 * mm: continue
                 if boxes_hit(bx, (mb.x + mb.w - 14 * mm, mb.y + mb.h - 14 * mm, mb.x + mb.w, mb.y + mb.h)): continue   # the north arrow
@@ -401,15 +474,24 @@ def place_labels(c, mb, groups, rr, font_size=8):
                 done = (cx, cy, bx); break
             if done: break
         if not done:
-            cx, cy = px, py + rr + h; done = (cx, cy, (cx - w / 2, cy - h / 2, cx + w / 2, cy + h / 2))
+            cx = min(max(px, mb.x + mm + w / 2), mb.x + mb.w - mm - w / 2)
+            cy = min(max(py + radius + h, mb.y + 6 * mm + h / 2), mb.y + mb.h - mm - h / 2)
+            done = (cx, cy, (cx - w / 2, cy - h / 2, cx + w / 2, cy + h / 2))
         cx, cy, bx = done; taken.append(bx)
         # leader from the circle edge to the label
-        ang = math.atan2(cy - py, cx - px); ex, ey = px + rr * math.cos(ang), py + rr * math.sin(ang)
+        ang = math.atan2(cy - py, cx - px)
+        edge = radius
+        if footprints:
+            x0, y0, x1, y1 = footprints[index]
+            vx, vy = math.cos(ang), math.sin(ang)
+            edge = min((x1 - px if vx > 0 else px - x0) / abs(vx) if abs(vx) > 1e-8 else math.inf,
+                       (y1 - py if vy > 0 else py - y0) / abs(vy) if abs(vy) > 1e-8 else math.inf)
+        ex, ey = px + edge * math.cos(ang), py + edge * math.sin(ang)
         nx, ny = min(max(ex, bx[0]), bx[2]), min(max(ey, bx[1]), bx[3])
         if math.hypot(nx - ex, ny - ey) > 0.8 * mm:
             c.setStrokeColor(WHITE); c.setLineWidth(2.2); c.line(ex, ey, nx, ny)
             c.setStrokeColor(INK); c.setLineWidth(0.7); c.line(ex, ey, nx, ny)
-        tag(c, cx, cy, label, 'bold', font_size, INK, WHITE, INK, anchor='c')
+        tag(c, cx, cy, label, 'bold', size, INK, WHITE, INK, anchor='c')
 
 # ---------------------------------------------------------------- reference pages
 HALF_H = (A4[1] - 7 * mm - 20 * mm - 6 * mm) / 2      # one reference block: half a portrait page
@@ -648,7 +730,7 @@ class Pack:
         return f'{how}{d} from the rest of this area{where}'
 
     def circles(self, c, mb, refs, rr):
-        """one toilet icon per spot, labelled 'REF — what is there'. A reference whose units stand at different pins
+        """One type-specific marker per spot, labelled 'REF — what is there'. Units at different pins
         (T0024: EVL and the Coates office, Andrew 20 Oct 2026) gets one icon per spot, each naming its own units."""
         spots = self.maps.get('line_spots', {}); byref = {x['ref']: x for x in self.d.refs}; order = [x['ref'] for x in self.d.refs]
         items = []   # (sheet x, sheet y, ref, lines, where)
@@ -665,12 +747,12 @@ class Pack:
             px, py = mb.at(sx, sy); k = (round(px / 0.4), round(py / 0.4))
             groups.setdefault(k, [px, py, []])[2].append((r, ls, at))
         ir = max(2.2 * mm, rr * 0.72)
-        for px, py, its in groups.values(): toilet_icon(c, px, py, ir)
+        footprints = [equipment_marker(c, px, py, ir, [l for _, ls, _ in its for l in ls]) for px, py, its in groups.values()]
         def label(its):
             its = sorted(its, key=lambda t: order.index(t[0]))
             what = what_here([{'lines': ls} for _, ls, _ in its]); at = ', '.join(a for _, _, a in its if a)
             return ' · '.join(dict.fromkeys(r for r, _, _ in its)) + ' — ' + what + (' (' + at + ')' if at else '')
-        place_labels(c, mb, [(label(its), px, py) for px, py, its in groups.values()], ir + 0.6 * mm, 7.6)
+        place_labels(c, mb, [(label(its), px, py) for px, py, its in groups.values()], ir + 0.6 * mm, 7.6, footprints)
 
     def table_height(self, a):
         """what table() will use, without drawing: the heading, the header row and every row"""
@@ -749,8 +831,10 @@ class Pack:
                 note = 'Markers show the units at each recorded location.'
             else:
                 px, py = mb.at(self.pos[ref]['x'], self.pos[ref]['y'])
-                ring(c, px, py, 8 * mm, ORANGE, 2.6); toilet_icon(c, px, py, 2.6 * mm)
-                tag(c, px + 8 * mm * 0.72, py + 8 * mm * 0.72 + 2 * mm, ref + ' — ' + what_here([r]) + (' (shared spot)' if others else ''), 'bold', 8.5, INK, WHITE, INK)
+                marker_radius = 2.6 * mm
+                ring_radius = max(8 * mm, (len(symbol_kinds(r['lines'])) - 1) * (2 * marker_radius + .5 * mm) / 2 + marker_radius + mm)
+                ring(c, px, py, ring_radius, ORANGE, 2.6); equipment_marker(c, px, py, marker_radius, r['lines'])
+                place_labels(c, mb, [(ref + ' — ' + what_here([r]) + (' (shared spot)' if others else ''), px, py)], ring_radius + .6 * mm, 8.5)
                 note = 'Circled where the master plan has it' + ('' if r['pin'] else ' (no GPS pin on the record)') + '.'
                 if others: note = f'Circled where the master plan has it: one spot for {", ".join([ref] + others)}' + ('' if r['pin'] else '; no GPS pin') + '.'
             mb.furniture(c)

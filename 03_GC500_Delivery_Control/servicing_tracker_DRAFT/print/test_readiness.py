@@ -78,7 +78,7 @@ class ReferenceMaps(unittest.TestCase):
             bounds = real_tag(*args, **kwargs); labels.append((args[3],bounds)); return bounds
         with mock.patch.object(M.MapBox,'draw',lambda mb,*args:draws.append(mb)), \
              mock.patch.object(M.MapBox,'furniture',lambda *args,**kwargs:None), \
-             mock.patch.object(M,'toilet_icon',wraps=M.toilet_icon) as icons, \
+             mock.patch.object(M,'equipment_marker',wraps=M.equipment_marker) as icons, \
              mock.patch.object(M,'ring',wraps=M.ring) as rings, \
              mock.patch.object(M,'tag',side_effect=record_tag), \
              mock.patch.object(M,'qr',wraps=M.qr) as codes:

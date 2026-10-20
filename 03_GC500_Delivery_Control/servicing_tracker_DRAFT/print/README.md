@@ -118,6 +118,17 @@ the reference-level LOCATION QR is unchanged. This rendering does not move pins 
 The master-map legend fits complete area names, quantities and location warnings into each existing three-line cell,
 reducing text only where it needs room rather than dropping words. Its two-row layout is unchanged.
 
+Area maps and reference crops use vector equipment symbols: toilet, toilet block, pee panel, 16-pan block,
+accessible toilet and waste tank. Each area-map key uses the same drawings. A mixed location has one capsule
+centred on its recorded coordinate, with a symbol for each distinct equipment type; quantities remain in its label.
+Line-specific positions stay separate. Unknown named types use a question mark, not a guessed toilet symbol.
+Symbol support does not add records or change servicing eligibility. The master overview retains its area dots
+and numbered area boundaries; detailed equipment symbols are on the area and reference maps.
+Labels account for the complete mixed-marker footprint and remain within the map margins.
+
+`python3 -B -I test_symbols.py` checks type selection, mixed locations, print-size vector shapes and the key
+(requires PyMuPDF). `test_readiness.py` also checks preservation of split-unit positions and QR destinations.
+
 ### Re-render the maps (only if positions or areas change)
 
 ```bash
