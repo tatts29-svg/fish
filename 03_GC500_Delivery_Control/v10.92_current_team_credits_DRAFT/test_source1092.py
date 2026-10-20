@@ -17,10 +17,9 @@ changed = []
 for i, (old, new) in enumerate(zip(a,b)):
     assert old[:2] == new[:2]
     if old != new:
-        assert old[0] == 'script'
-        assert 'crew-showcase1090-script' in old[1] or 'function showOrgChart()' in old[2]
+        assert ('crew-showcase1090-style' in old[1] if old[0]=='style' else 'crew-showcase1090-script' in old[1] or 'function showOrgChart()' in old[2])
         changed.append(i)
-assert len(changed) == 2
+assert len(changed) == 3
 outside = lambda s: re.sub(r'<(script|style)\b([^>]*)>([\s\S]*?)</\1>', '', s)
 assert outside(base) == outside(built)
 data = lambda s: re.search(r'const DATA = (\{.*?\});\n',s,re.S).group(1)
@@ -31,4 +30,4 @@ assert len(turns) == 35
 retired = next(t for t in turns if t['slot']==21)
 assert retired['audio']
 assert len([t for t in turns if t['slot']!=21]) == 34
-print(json.dumps({'author':'Andrew Fisher','result':'PASS','candidateSha256':hashlib.sha256(built.encode()).hexdigest(),'changedScriptBlocks':len(changed),'dataAndOriginalBroadcastUnchanged':True,'stylesAndMediaUnchanged':True,'otherModulesUnchanged':True,'patchGuards':'PASS'}))
+print(json.dumps({'author':'Andrew Fisher','result':'PASS','candidateSha256':hashlib.sha256(built.encode()).hexdigest(),'changedScriptBlocks':2,'scopedPhoneCreditStyleBlocks':1,'dataAndOriginalBroadcastUnchanged':True,'mediaAndUnrelatedStylesUnchanged':True,'otherModulesUnchanged':True,'patchGuards':'PASS'}))

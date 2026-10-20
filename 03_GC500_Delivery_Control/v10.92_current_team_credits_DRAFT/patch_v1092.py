@@ -40,6 +40,12 @@ def patch(text, path='page.html'):
     change("const originalTurns=bcTurns(),originalMap={...bcScenes()},voice=programme(originalTurns,originalMap,ORDER,BC_LOOP);",
            "/* Omit the retired support-credit take from playback only; source audio remains intact. */\nconst originalTurns=bcTurns().filter(t=>t.slot!==21),originalMap={...bcScenes()},voice=programme(originalTurns,originalMap,ORDER,BC_LOOP);",
            'omit retired spoken credit and reconnect programme')
+    change("if(body)body.toggleAttribute('data-crew1090',KEYS.includes(key));",
+           "if(body){body.toggleAttribute('data-crew1090',KEYS.includes(key));body.toggleAttribute('data-current-team1092',key==='lead'||key==='crew');}",
+           'scope current team phone readability')
+    change("#showBody[data-crew1090] .shbig small{display:block;font-size:max(12px,calc(var(--u)*1.5));line-height:1.25;margin:4px 0 0}\n}",
+           "#showBody[data-crew1090] .shbig small{display:block;font-size:max(12px,calc(var(--u)*1.5));line-height:1.25;margin:4px 0 0}\n#showBody[data-current-team1092] .shcard .shpn{font-size:max(14px,calc(var(--u)*1.58))}\n#showBody[data-current-team1092] .shcard.names .shpn{font-size:max(14px,calc(var(--u)*1.2))}\n#showBody[data-current-team1092] .shpr,#showBody[data-current-team1092] .shpt,#showBody[data-current-team1092] .shpm,#showBody[data-current-team1092] .shpp,#showBody[data-current-team1092] .shpe,#showBody[data-current-team1092] .shf,#showBody[data-current-team1092] .shglabel{font-size:max(12px,calc(var(--u)*.95))}\n#showcase[data-back=\"circuit3d\"] #showBody[data-current-team1092],#showcase[data-back=\"circuit3d_day\"] #showBody[data-current-team1092]{margin-bottom:48px;padding-bottom:calc(var(--u)*1)}\n}",
+           'keep seven installation credits readable with existing phone scrolling')
     return text
 
 if __name__ == '__main__':

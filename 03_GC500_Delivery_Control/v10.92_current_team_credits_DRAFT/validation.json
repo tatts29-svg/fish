@@ -1,0 +1,37 @@
+{
+  "author": "Andrew Fisher",
+  "version": "v10.92",
+  "status": "READY TO UPLOAD",
+  "baseSha256": "7562d69c41506d5e7404a52f7f7cb479a5e967c3f6935d567d2a5b845d2992bc",
+  "candidateSha256": "4a94062d014c4c3c56cb94faba9622d75ed445cc1d5f1b625cb9a54845533da9",
+  "bytes": 18599465,
+  "checks": {
+    "desktop": {
+      "sweep": "PASS",
+      "routes": 25,
+      "links": 7,
+      "back": "#plant",
+      "errors": 0,
+      "nativeWrites": 0,
+      "focused": "PASS",
+      "sweepReceiptSha256": "41d773ebbad54c646cc070030de27b552d2bd44be515c574a0f4355cb5e0477f",
+      "focusedReceiptSha256": "0efcf937f916742ba976eab6d47525fe510aa05faa4019a447d274256333b3e8"
+    },
+    "phone": {
+      "sweep": "PASS",
+      "routes": 25,
+      "links": 7,
+      "back": "#plant",
+      "errors": 0,
+      "nativeWrites": 0,
+      "focused": "PASS",
+      "sweepReceiptSha256": "e9569ce7db805d4e72b51c82fb2e1155c1af8ecf0e4b802c24d2c4e826275cab",
+      "focusedReceiptSha256": "713789c874f62c09be84b8d5fa5d72f242c659916447dee62911fa3e760b97c1"
+    },
+    "sourcePreservation": "PASS; only two scripts and scoped phone style change",
+    "staticInlineScripts": 148,
+    "phoneVisual": "PASS; all seven installer names reachable; 14px minimum; no overlap",
+    "guardedDryRun": "PASS; exact predecessor unchanged and edit access verified",
+    "review": "Implemented and tested by Codex; separate focused test review within Codex; no Claude review claimed"
+  }
+}
