@@ -2067,7 +2067,8 @@
  ],
  "notes": {
   "v2": "Andrew, 20 Oct 2026: each reference has a Pump out QR and a Clean & restock QR; scan, tap Complete (logs the time), Save & close. Waste tank: Pump out. Toilet block: Clean & restock (its waste tank is pumped). Sewer-connected (WC15, WC16, WC17, T0243): Clean & restock only. 16-pan, FWF and accessible: Pump out + Clean & restock; FWF and accessible also have a Refilled button that does not count toward the %. Sunday: FWF, accessible and 16-pan are one 'Pump out, clean & lock' completion. Nights: Fri, Sat, Sun (no Thursday). No names.",
-  "assumed": "Not yet confirmed by Andrew (defaults used): WC17's blocks are sewer-connected; WC09's blocks are self-contained (Pump out + Clean & restock); WC100's FWF trailers are serviced like FWF."
+  "assumed": "Not yet confirmed by Andrew (defaults used): WC09's blocks are self-contained (Pump out + Clean & restock); WC100's FWF trailers are serviced like FWF.",
+  "sewer": "Andrew, 20 Oct 2026: \"T0243,WC16,WC15,WC17 are sewer connected by the looks of it\" - their toilet blocks are Clean & restock only (no pump out)."
  },
  "extras": [
   "refill"
