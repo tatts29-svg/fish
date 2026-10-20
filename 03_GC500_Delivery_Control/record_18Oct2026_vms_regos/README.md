@@ -315,3 +315,13 @@ T0024's 0164 read 0 on site / 0 received.
 - `wc31_74_demob_spec.json` (10076 → 10079, VERIFIED): Andrew, "click the demob 16-pan block 74". WC31 now: 12 and 74
   install, levelling, cleaning, demob; 1317645 install and demob. Rule saved to AGENTS.md: anything on site carries all
   its charges.
+
+## Applied 20 Oct 2026 — every on-site charge in (record 10079 → 10112)
+Andrew: "rememeber anything onsiet we want all charges in", "delivery and pick up etc all costs need to be in for
+everything on gc500 that is onsite". Read-only sweep (`labourLinesFor` × `labourUnits` × `labourTicked`, 170 on-site
+references): 868 of 897 priced labour pieces ticked; 17 taken off by Andrew stay off (fire extinguishers, P06/P38/P39/P42
+steps, WC60 1087500 cleaning, VMS05 install, WC31 block 12 steps); WC31 block 74 steps stays off (no stairs).
+`onsite_all_charges_spec.json` ticks the other 11: GN04, GN10, GN19, GN25 install; LT05 and LT06 install + demob;
+WC67 172824 and 0714 demob; T0024 0164 demob (≈ $1,046). 33 documents, VERIFIED. Transport: 36 legs still held by the
+page for want of a card price (VMS POA, water barriers, GN20, WC09 pee panels, WC100 trailers, T0023, TM01, P34 chairs,
+GN04/GN19 delivery) - put to Andrew, nothing invented.
