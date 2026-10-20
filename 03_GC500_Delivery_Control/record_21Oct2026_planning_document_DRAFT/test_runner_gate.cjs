@@ -14,7 +14,8 @@ const spec = {source: {name: 'Synthetic plan.pdf', bytes: source.length, sha256:
   metadata: {kind: 'map', ref: '', title: 'Synthetic plan', note: 'Planning only'}};
 const HOST = 'https://fixture.invalid', OPERATOR = 'Andrew Fisher';
 const beforeFiles = {files: [{id: 'existing.pdf', name: 'existing.pdf', sha256: 'a'.repeat(64)}]};
-const beforeState = {version: 1, docs: {notes: {existing: {text: 'Keep'}}}};
+const beforeState = {version: 1, updated: '2026-01-01T00:00:00.000Z', level: 'view',
+  docs: {notes: {existing: {text: 'Keep'}}}};
 const template = {id: 'Synthetic_plan.pdf', name: spec.source.name, kind: 'map', ref: null,
   branch: null, invoice_no: null, title: spec.metadata.title, note: spec.metadata.note,
   bytes: source.length, sha256: spec.source.sha256, type: 'application/pdf',
@@ -27,6 +28,8 @@ function fixture(options = {}) {
     HOST, OPERATOR, beforeFiles: clone(beforeFiles), beforeState: clone(beforeState),
     fs: {readFileSync: () => options.changedSource ? Buffer.from('changed') : Buffer.from(source)},
     save: () => {}, freezeNativeWriter: async () => {}, pageSha: 'unused',
+    preserveNativeState: state => G.verifyNativeState(beforeState, state,
+      {observedAt: '2026-01-03T00:00:00.000Z', operator: OPERATOR}),
     getJson: async endpoint => {
       if (endpoint === '/api/files') {
         const value = clone(beforeFiles);
@@ -35,6 +38,14 @@ function fixture(options = {}) {
       }
       const value = clone(beforeState);
       if (options.changedState) value.docs.notes.existing.text = 'Concurrent change';
+      if (options.concurrentPhoto) {
+        const id = 'independent-photo.jpg', key = G.nativeId('photoLinks/' + id);
+        value.docs.photoLinks = {[id]: {id, _k: id, ref: 'EXAMPLE', at: '2026-01-02T00:00:00.000Z', by: 'Independent operator'}};
+        value.docs.stamps = {[key]: {_k: 'photoLinks/' + id, v: '2026-01-02T00:00:01.000Z'}};
+        value.docs.by = {[key]: {_k: 'photoLinks/' + id, v: 'Independent operator'}};
+        value.version = 4; value.updated = '2026-01-02T00:00:01.000Z';
+        if (options.incompletePhoto) delete value.docs.by[key];
+      }
       return value;
     },
     fetchSafe: async (url, headers, method, binary) => {
@@ -94,6 +105,14 @@ async function test(name, run) {
       assert.equal(f.snapshot().gate, false);
     });
   }
+  await test('A complete independent photo triplet preserves the single file upload', async () => {
+    const f = fixture({concurrentPhoto: true}); await f.run();
+    assert.equal(f.counts.forwards, 1); assert.equal(f.snapshot().fatal, false);
+  });
+  await test('An incomplete concurrent photo triplet closes the upload gate', async () => {
+    const f = fixture({concurrentPhoto: true, incompletePhoto: true}); await f.run();
+    assert.equal(f.counts.forwards, 0); assert.equal(f.snapshot().fatal, true);
+  });
   await test('Transport failure cannot trigger a second upload', async () => {
     const f = fixture({transportFailure: true}); await f.run(); await f.run();
     assert.equal(f.counts.forwards, 1); assert.equal(f.counts.aborts, 2);

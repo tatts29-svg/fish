@@ -82,4 +82,87 @@ function verifyRequest(method, url, headers, body, spec, operator, host) {
   for (const key of ['x-file-ref', 'x-file-branch', 'x-file-invoice']) insist(!h[key], 'Unexpected reference or financial filing header');
   return true;
 }
-module.exports = {hash, canonical, same, fileId, validateSpec, indexMap, indexHash, duplicates, requireNew, verifyFile, verifyIndex, verifyRequest};
+// Match the page's native document identity encoding; never infer an identity
+// by decoding the stored key, because the original key is carried in _k.
+function nativeId(key) {
+  const encoded = [...String(key)].map(ch => /[A-Za-z0-9_\-.:@+]/.test(ch) ? ch : '~' + ch.codePointAt(0).toString(16) + '~').join('');
+  return (encoded === '.' || encoded === '..' || !encoded) ? '~' + encoded.length + '~' : encoded.slice(0, 180);
+}
+function isoTime(value, label) {
+  insist(typeof value === 'string' && /^\d{4}-\d\d-\d\dT\d\d:\d\d:\d\d\.\d{3}Z$/.test(value)
+    && Number.isFinite(Date.parse(value)) && new Date(value).toISOString() === value, 'Invalid native ' + label);
+  return Date.parse(value);
+}
+function verifyNativeDocs(before, after, options) {
+  insist(before && after && options && typeof before === 'object' && typeof after === 'object'
+    && !Array.isArray(before) && !Array.isArray(after), 'Native documents unavailable');
+  insist(typeof options.operator === 'string' && options.operator.trim() === options.operator && options.operator,
+    'Native operation author required');
+  const since = isoTime(options.since, 'baseline time'), observed = isoTime(options.observedAt, 'observation time');
+  insist(observed >= since, 'Native observation predates the baseline');
+  const added = {photoLinks: [], stamps: [], by: []};
+  for (const collection of new Set([...Object.keys(before), ...Object.keys(after)])) {
+    const old = Object.hasOwn(before, collection) ? before[collection] : {};
+    const next = Object.hasOwn(after, collection) ? after[collection] : {};
+    insist(old && next && typeof old === 'object' && typeof next === 'object'
+      && !Array.isArray(old) && !Array.isArray(next), 'Invalid native collection');
+    for (const [id, record] of Object.entries(old))
+      insist(Object.hasOwn(next, id) && same(record, next[id]), 'Existing native record changed: ' + collection + '/' + id);
+    for (const id of Object.keys(next).filter(key => !Object.hasOwn(old, key))) {
+      insist(Object.hasOwn(added, collection), 'Unrelated native record added: ' + collection + '/' + id);
+      added[collection].push(id);
+    }
+  }
+  insist(added.stamps.length === added.photoLinks.length && added.by.length === added.photoLinks.length,
+    'Concurrent photo additions need complete provenance triplets');
+  const consumed = new Set(), additions = [];
+  for (const key of added.photoLinks) {
+    const photo = after.photoLinks[key];
+    insist(photo && typeof photo === 'object' && !Array.isArray(photo) && typeof photo.id === 'string'
+      && photo.id && photo._k === photo.id && nativeId(photo.id) === key, 'Concurrent photo identity differs');
+    insist(typeof photo.ref === 'string' && photo.ref.trim()
+      && !['removed', 'removed_by', 'removed_why'].some(field => Object.hasOwn(photo, field)),
+      'Concurrent photo must be an active new association');
+    const originalKey = 'photoLinks/' + photo.id, provenanceKey = nativeId(originalKey);
+    insist(added.stamps.includes(provenanceKey) && added.by.includes(provenanceKey) && !consumed.has(provenanceKey),
+      'Concurrent photo provenance is missing or ambiguous');
+    consumed.add(provenanceKey);
+    const stamp = after.stamps[provenanceKey], who = after.by[provenanceKey];
+    insist(stamp && who && same(Object.keys(stamp).sort(), ['_k', 'v']) && same(Object.keys(who).sort(), ['_k', 'v'])
+      && stamp._k === originalKey && who._k === originalKey, 'Concurrent photo provenance identity differs');
+    insist(typeof photo.by === 'string' && photo.by === photo.by.trim() && photo.by
+      && photo.by === who.v && photo.by !== options.operator, 'Concurrent photo author is not independent');
+    const at = isoTime(photo.at, 'photo time'), stamped = isoTime(stamp.v, 'photo stamp');
+    insist(at >= since && stamped >= at && stamped <= observed, 'Concurrent photo time is outside the observation window');
+    additions.push({id: photo.id, reference: photo.ref, by: photo.by, photoAt: photo.at, stampedAt: stamp.v});
+  }
+  return additions;
+}
+function verifyNativeState(before, after, options) {
+  insist(before && after && options, 'Native state unavailable');
+  const oldMeta = Object.fromEntries(Object.entries(before).filter(([key]) => !['version', 'updated', 'docs'].includes(key)));
+  const nextMeta = Object.fromEntries(Object.entries(after).filter(([key]) => !['version', 'updated', 'docs'].includes(key)));
+  insist(same(oldMeta, nextMeta), 'Native state metadata changed');
+  insist(Number.isSafeInteger(before.version) && before.version >= 0
+    && Number.isSafeInteger(after.version) && after.version >= before.version,
+    'Native record version moved backwards or is invalid');
+  const oldTime = isoTime(before.updated, 'baseline updated time'), nextTime = isoTime(after.updated, 'updated time');
+  insist(nextTime >= oldTime && nextTime <= isoTime(options.observedAt, 'observation time'),
+    'Native record time moved backwards or beyond observation');
+  insist(before.docs && after.docs, 'Native state documents unavailable');
+  for (const collection of Object.keys(before.docs))
+    insist(Object.hasOwn(after.docs, collection), 'Native collection was removed');
+  for (const collection of Object.keys(after.docs).filter(key => !Object.hasOwn(before.docs, key)))
+    insist(['photoLinks', 'stamps', 'by'].includes(collection) && Object.keys(after.docs[collection] || {}).length,
+      'Unrelated native collection was added');
+  const since = Object.hasOwn(options, 'since') ? options.since : before.updated;
+  insist(isoTime(since, 'operation baseline time') <= oldTime, 'Operation baseline follows the backed-up native state');
+  const additions = verifyNativeDocs(before.docs, after.docs, {...options, since});
+  if (additions.length) {
+    insist(after.version > before.version && additions.every(photo => Date.parse(photo.stampedAt) <= nextTime),
+      'Concurrent additions lack advancing native state provenance');
+  } else insist(before.version === after.version && before.updated === after.updated, 'Native metadata changed without an allowed photo addition');
+  return additions;
+}
+module.exports = {hash, canonical, same, fileId, validateSpec, indexMap, indexHash, duplicates, requireNew, verifyFile, verifyIndex, verifyRequest,
+  nativeId, verifyNativeDocs, verifyNativeState};

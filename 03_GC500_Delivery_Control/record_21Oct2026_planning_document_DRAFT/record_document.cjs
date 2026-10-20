@@ -24,9 +24,10 @@ fs.mkdirSync(OUT, {mode: 0o700});
 const runnerSha = G.hash(fs.readFileSync(__filename)), guardsSha = G.hash(fs.readFileSync(path.join(__dirname, 'document_guards.cjs')));
 const redact = value => token ? String(value).split(token).join('[redacted]') : String(value);
 const save = (name, value) => fs.writeFileSync(path.join(OUT, name), redact(JSON.stringify(value, null, 2)) + '\n', {mode: 0o600});
-const compactDocs = docs => Object.fromEntries(Object.entries(docs).filter(([, value]) => Object.keys(value || {}).length));
-const stateHash = state => G.hash(G.canonical(state.docs));
+const stateHash = state => G.hash(G.canonical(state));
 let seq = 0, browser, page, harness, fatal, gate = false, attempted = false;
+let nativeStartState, nativeCheckpoint, nativeSince;
+const concurrentPhotoAdditions = [];
 const requests = [], errors = [];
 const stop = message => { gate = false; fatal = fatal || Error(redact(message)); };
 const quote = value => '"' + String(value).replace(/\\/g, '\\\\').replace(/"/g, '\\"').replace(/\r/g, '\\r').replace(/\n/g, '\\n') + '"';
@@ -83,8 +84,22 @@ async function pageRecord() {
   save('page-record-' + (++seq) + '.json', value);
   return value;
 }
-function requireNativeUnchanged(record, state) {
-  if (!G.same(compactDocs(record.docs), compactDocs(state.docs))) throw Error('Page native documents differ from the backed-up shared record');
+function preserveNativeState(state, stage) {
+  const additions = G.verifyNativeState(nativeCheckpoint, state, {since: nativeSince,
+    observedAt: new Date().toISOString(), operator: OPERATOR});
+  concurrentPhotoAdditions.push(...additions.map(photo => ({stage, ...photo})));
+  nativeCheckpoint = state;
+  save('concurrent-photo-additions.json', concurrentPhotoAdditions);
+  save('native-checkpoint-' + stage + '.json', state);
+  return state;
+}
+async function requireNativePreserved(record, stage) {
+  const options = {since: nativeSince, observedAt: new Date().toISOString(), operator: OPERATOR};
+  G.verifyNativeDocs(nativeStartState.docs, record.docs, options);
+  const shared = preserveNativeState(await getJson('/api/state'), stage);
+  // A page may lag an independent photo addition, but every value it holds must
+  // also exist exactly in the fresh shared record. Local-only changes fail.
+  G.verifyNativeDocs(record.docs, shared.docs, {...options, observedAt: new Date().toISOString()});
 }
 async function verifyDownload(id) {
   const result = await fetchSafe(HOST + '/f/' + VIEW + '/' + encodeURIComponent(id) + '?verify=' + Date.now(), {'cache-control': 'no-cache'});
@@ -96,6 +111,7 @@ async function verifyDownload(id) {
   try {
     const beforeFiles = await getJson('/api/files'), beforeState = await getJson('/api/state');
     save('before-files.json', beforeFiles); save('before-state.json', beforeState);
+    nativeStartState = nativeCheckpoint = beforeState; nativeSince = beforeState.updated;
     const duplicate = G.duplicates(beforeFiles, spec);
     const inventory = {author: 'Andrew Fisher', sourceSha256: spec.source.sha256, sourceBytes: source.length,
       indexSha256: G.indexHash(beforeFiles), files: beforeFiles.files.length, duplicates: duplicate,
@@ -113,14 +129,18 @@ async function verifyDownload(id) {
       const practiceDir = privatePath(process.env.GC500_DOCUMENT_PRACTICE, true);
       const practice = JSON.parse(fs.readFileSync(path.join(practiceDir, 'result.json')));
       const requiredChecks = ['oneDocument', 'exactMetadata', 'existingCataloguePreserved', 'noReferenceAssigned',
-        'noCurrentMapReplacement', 'nativeRecordUnchanged', 'sourceOriginalUnchanged'];
-      if (practice.pass !== true || practice.mode !== 'practice' || practice.serverWrites !== 0 || practice.interceptedUploads !== 1
+        'noCurrentMapReplacement', 'existingNativeRecordsPreserved', 'sourceOriginalUnchanged'];
+      if (practice.pass !== true || practice.mode !== 'practice' || practice.serverWrites !== 0 || practice.nativeStateWrites !== 0 || practice.interceptedUploads !== 1
         || practice.pageSha256 !== spec.reviewed_page_sha || practice.specSha256 !== G.hash(rawSpec)
         || practice.runnerSha256 !== runnerSha || practice.guardsSha256 !== guardsSha
         || !G.same(Object.keys(practice.checks || {}).sort(), requiredChecks.sort()) || !requiredChecks.every(key => practice.checks[key] === true)
         || !Array.isArray(practice.errors) || practice.errors.length || practice.requests?.blocked !== 0) throw Error('A successful exact-source GET-only practice is required');
       if (G.hash(fs.readFileSync(path.join(practiceDir, 'frozen-spec.json'))) !== G.hash(rawSpec)) throw Error('Practice specification differs');
-      if (spec.expected_index_sha !== G.indexHash(beforeFiles) || spec.expected_state_sha !== stateHash(beforeState)) throw Error('Shared catalogue or native record changed since reviewed practice');
+      if (spec.expected_index_sha !== G.indexHash(beforeFiles)) throw Error('Shared catalogue changed since reviewed practice');
+      const practicedState = JSON.parse(fs.readFileSync(path.join(practiceDir, 'after-state.json')));
+      if (spec.expected_state_sha !== stateHash(practicedState)) throw Error('Reviewed practice native backup differs');
+      nativeCheckpoint = practicedState; nativeSince = practicedState.updated;
+      preserveNativeState(beforeState, 'since-reviewed-practice');
       const live = await fetchSafe(HOST + '/v/' + VIEW, {'cache-control': 'no-cache'});
       pageSha = G.hash(live.body);
       if (live.status !== 200 || !/^[a-f0-9]{64}$/.test(spec.reviewed_page_sha || '') || pageSha !== spec.reviewed_page_sha || pageSha !== process.env.GC500_EXPECTED_PAGE_SHA) throw Error('Published page differs from reviewed practice');
@@ -138,7 +158,8 @@ async function verifyDownload(id) {
             const uploadBody = request.postDataBuffer();
             G.verifyRequest(method, url, request.headers(), uploadBody, spec, OPERATOR, HOST);
             attempted = true; gate = false; // Consume the one-request budget before any asynchronous read.
-            if (G.indexHash(await getJson('/api/files')) !== G.indexHash(beforeFiles) || !G.same(await getJson('/api/state'), beforeState)) throw Error('Shared catalogue or record changed before upload');
+            if (G.indexHash(await getJson('/api/files')) !== G.indexHash(beforeFiles)) throw Error('Shared catalogue changed before upload');
+            preserveNativeState(await getJson('/api/state'), 'request-gate');
             if (!fs.readFileSync(sourcePath).equals(source)) throw Error('Original changed before upload');
             if (fatal) throw fatal;
             const receipt = {method, endpoint: '/api/files', sourceSha256: spec.source.sha256, bytes: source.length, started: new Date().toISOString(), status: null};
@@ -168,7 +189,7 @@ async function verifyDownload(id) {
     }
     await page.waitForFunction(() => SYNC.status === 'live' && SYNC.first.size === Object.keys(SYNC_COLLS).length && photoIndex().state === 'ready' && !DOCS.busy, null, {timeout: 180000});
     await freezeNativeWriter();
-    requireNativeUnchanged(await pageRecord(), beforeState);
+    await requireNativePreserved(await pageRecord(), 'page-ready');
     await page.evaluate(input => holdAssets(() => {
       if (docketNoInName(input.name) || docketNoInName(input.title)) throw Error('Source name or title would be filed as an existing docket');
     }), {name: spec.source.name, title: spec.metadata.title});
@@ -219,7 +240,8 @@ async function verifyDownload(id) {
       go('docs'); state.docAdd815 = true; renderDocs();
     });
     await page.locator('#docFile').setInputFiles(sourcePath);
-    if (G.indexHash(await getJson('/api/files')) !== G.indexHash(beforeFiles) || !G.same(await getJson('/api/state'), beforeState)) throw Error('Pre-upload record changed');
+    if (G.indexHash(await getJson('/api/files')) !== G.indexHash(beforeFiles)) throw Error('Pre-upload catalogue changed');
+    preserveNativeState(await getJson('/api/state'), 'pre-upload');
     gate = true;
     const response = await page.evaluate(async inputSpec => {
       const input = document.getElementById('docFile');
@@ -258,11 +280,11 @@ async function verifyDownload(id) {
     save('document-projection.json', displayed);
     await page.evaluate(title => { state.docQ815 = title; renderDocs(); }, spec.metadata.title);
     await page.screenshot({path: path.join(OUT, 'phone-document.png')});
-    requireNativeUnchanged(await pageRecord(), beforeState);
+    await requireNativePreserved(await pageRecord(), 'page-readback');
     const afterState = await getJson('/api/state'); save('after-state.json', afterState);
-    if (!G.same(afterState, beforeState)) throw Error('Operational shared record changed during file-only work');
+    preserveNativeState(afterState, 'after-upload');
     const checks = {oneDocument: true, exactMetadata: true, existingCataloguePreserved: true, noReferenceAssigned: true,
-      noCurrentMapReplacement: true, nativeRecordUnchanged: true, sourceOriginalUnchanged: fs.readFileSync(sourcePath).equals(source)};
+      noCurrentMapReplacement: true, existingNativeRecordsPreserved: true, sourceOriginalUnchanged: fs.readFileSync(sourcePath).equals(source)};
     if (!Object.values(checks).every(value => value === true)) throw Error('Final document checks failed');
     if (applying) {
       const download = await verifyDownload(expectedId); save('verified-download.json', download);
@@ -270,19 +292,21 @@ async function verifyDownload(id) {
       const finalPage = await fetchSafe(HOST + '/v/' + VIEW, {'cache-control': 'no-cache'});
       if (finalPage.status !== 200 || G.hash(finalPage.body) !== pageSha) throw Error('Published page changed during upload verification');
       const finalState = await getJson('/api/state'); save('final-state.json', finalState);
-      if (!G.same(finalState, beforeState)) throw Error('Operational record changed before final file verification completed');
+      preserveNativeState(finalState, 'final-verification');
       if (fatal || errors.length) throw fatal || Error('Page errors during final verification');
       save('result.json', {author: 'Andrew Fisher', pass: true, mode: 'apply', serverWrites: 1, pageSha256: pageSha,
-        specSha256: G.hash(rawSpec), runnerSha256: runnerSha, guardsSha256: guardsSha, checks, download, errors, recordVersion: afterState.version});
+        specSha256: G.hash(rawSpec), runnerSha256: runnerSha, guardsSha256: guardsSha, checks, download, errors,
+        nativeStateWrites: 0, concurrentPhotoAdditions, recordVersionBefore: beforeState.version, recordVersion: finalState.version});
     } else {
       if (G.hash(fs.readFileSync(process.env.PAGE)) !== pageSha) throw Error('Practice page changed');
       if (harness.errors.length || harness.counts.blocked) throw Error('Practice had page errors or unintended mutation attempts');
       if (G.indexHash(await getJson('/api/files')) !== G.indexHash(beforeFiles)) throw Error('Real file catalogue changed during practice');
-      const frozen = {...spec, expected_index_sha: G.indexHash(beforeFiles), expected_state_sha: stateHash(beforeState), reviewed_page_sha: pageSha};
+      const frozen = {...spec, expected_index_sha: G.indexHash(beforeFiles), expected_state_sha: stateHash(afterState), reviewed_page_sha: pageSha};
       save('frozen-spec.json', frozen);
       save('result.json', {author: 'Andrew Fisher', pass: true, mode: 'practice', serverWrites: 0, interceptedUploads: 1, pageSha256: pageSha,
         specSha256: G.hash(fs.readFileSync(path.join(OUT, 'frozen-spec.json'))), runnerSha256: runnerSha, guardsSha256: guardsSha,
-        checks, errors: harness.errors, requests: harness.counts, recordVersion: afterState.version});
+        checks, errors: harness.errors, requests: harness.counts, nativeStateWrites: 0, concurrentPhotoAdditions,
+        recordVersionBefore: beforeState.version, recordVersion: afterState.version});
     }
     console.log(JSON.stringify({pass: true, mode: mode.slice(2), serverWrites: applying ? 1 : 0, out: OUT}));
   } catch (error) {
