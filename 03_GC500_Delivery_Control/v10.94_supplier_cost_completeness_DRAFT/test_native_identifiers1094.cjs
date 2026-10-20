@@ -1,0 +1,26 @@
+/* Author: Andrew Fisher. Verify native guard rejection against a private rehearsal; print no operational details. */
+'use strict';
+const fs=require('fs'),path=require('path'),assert=require('node:assert/strict');
+const {verify}=require('./native_unit_identifiers1094.cjs');
+const directory=process.argv[2];
+if(!directory||!path.isAbsolute(directory))throw Error('Private absolute rehearsal directory required');
+const staged=JSON.parse(fs.readFileSync(path.join(directory,'native-proposal.json')));
+const plan=JSON.parse(fs.readFileSync(path.join(directory,'proposal.json')));
+assert.equal(verify(staged,plan).pass,true,'the exact native rehearsal must pass');
+let checks=1;
+const clone=x=>JSON.parse(JSON.stringify(x));
+const unit=Object.entries(staged.after.loads).find(([id,d])=>d.kind==='unit925-record'&&!plan.before.loads[id]);
+const [id,body]=unit,auditKey='loads~2f~'+id;
+const fail=(label,mutate)=>{const copy=clone(staged);mutate(copy);assert.equal(verify(copy,plan).pass,false,label);checks++;};
+fail('a nineteenth document is not allowed',x=>{x.after.notes={...x.after.notes,unapproved:{v:'changed'}};});
+fail('an existing document cannot change',x=>{const k=Object.keys(plan.before.loads)[0];x.after.loads[k]={...x.after.loads[k],extra:true};});
+fail('wrong native author is rejected',x=>{x.after.loads[id].by='Different operator';});
+fail('wrong audit author is rejected',x=>{x.after.by[auditKey].v='Different operator';});
+fail('wrong audit key is rejected',x=>{x.after.stamps[auditKey]._k='different';});
+fail('stamp before native unit is rejected',x=>{x.after.stamps[auditKey].v=new Date(Date.parse(body.at)-1).toISOString();});
+fail('stamp beyond native call is rejected',x=>{const r=x.results.find(r=>r.key===body._k);x.after.stamps[auditKey].v=new Date(Date.parse(r.finishedAt)+1).toISOString();});
+fail('moved unit is rejected',x=>{x.after.loads[id].ref='OTHER';});
+fail('quantity changes are rejected',x=>{x.record.supplier.summary.onSite++;});
+fail('supplier receipt change is rejected',x=>{x.record.supplier.inventory.find(r=>r.ref===body.ref&&r.item===body.item).received++;});
+fail('a cost-model difference is rejected',x=>{x.record.financial.money.unapprovedDifference=0.01;});
+console.log(JSON.stringify({pass:true,assertions:checks,scope:'native identity correction gate and timestamp bounds'}));

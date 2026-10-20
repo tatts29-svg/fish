@@ -3,14 +3,20 @@
 import pathlib,sys,hashlib
 ROOT=pathlib.Path(__file__).resolve().parent
 sys.path.insert(0,str(ROOT))
+sys.path.insert(0,str(ROOT.parent/'toolchain'))
+from rep import rep
 from installer_order1094 import apply as apply_current_team1094
 from quantity_identity1094 import apply as apply_quantity_identity1094
-BASE = "PENDING_VERIFIED_V10_93"
+BASE = "e07f45f9a9309e7cb5d20f59cb17b13222bbd9ed64285f163280457f8139e4b2"
 
 def replace_once(s,old,new):
     n=s.count(old)
     if n!=1: raise ValueError(f'Expected one match; got {n}: {old[:90]}')
-    return s.replace(old,new,1)
+    at=s.index(old)
+    bounded='@@V1094_BEGIN@@'+old+'@@V1094_END@@'
+    replacement=rep(bounded,bounded,new,'v10.94 exact isolated replacement','page.html',True)
+    if replacement!=new: raise ValueError('Shared replacement changed the exact replacement boundary')
+    return s[:at]+replacement+s[at+len(old):]
 
 def patch(s, path="page.html"):
     if hashlib.sha256(s.encode()).hexdigest()!=BASE: raise ValueError("Exact verified v10.93 predecessor hash required")

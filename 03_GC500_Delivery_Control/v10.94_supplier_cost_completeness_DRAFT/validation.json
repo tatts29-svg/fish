@@ -1,0 +1,164 @@
+{
+  "author": "Andrew Fisher",
+  "release": "v10.94",
+  "state": "READY TO UPLOAD WITH DOCUMENTED EXISTING TILE-SERVICE LIMITATION",
+  "created_at_utc": "2026-10-20T15:37:38.608512+00:00",
+  "predecessor": {
+    "version": "v10.93",
+    "sha256": "e07f45f9a9309e7cb5d20f59cb17b13222bbd9ed64285f163280457f8139e4b2"
+  },
+  "candidate": {
+    "sha256": "5f79b5f6c4ce953c3e69f7dfac939734f7176130808ec608715e8c23faf8cc79",
+    "bytes": 18619329
+  },
+  "static_checks": {
+    "inline_scripts_parsed": 148,
+    "author_check": "pass",
+    "secret_scan": "pass"
+  },
+  "source_checks": {
+    "hire": 32,
+    "completeness": 17,
+    "identity": 26,
+    "team": 14,
+    "exact_patch": 9,
+    "native_identity_verifier": 12
+  },
+  "financial_parity": {
+    "desktop": {
+      "passed": true,
+      "evidence_sha256": "3191a676dc50080c261378570eed8be2c98605bf54105627a17c0f216115afe9",
+      "customer_revenue_unchanged": true,
+      "native_record_unchanged": true,
+      "original_quotes_unchanged": true,
+      "invoice_payment_evidence_unchanged": true,
+      "supplier_only_delta_verified": true
+    },
+    "phone": {
+      "passed": true,
+      "evidence_sha256": "bfde16e4b4ae486a79c5437e6e474f546464fc1775c55b855cb794487e03128f",
+      "customer_revenue_unchanged": true,
+      "native_record_unchanged": true,
+      "original_quotes_unchanged": true,
+      "invoice_payment_evidence_unchanged": true,
+      "supplier_only_delta_verified": true
+    }
+  },
+  "integrated_team": {
+    "desktop": "pass",
+    "phone": "pass",
+    "native_writes": 0,
+    "historical_records_unchanged": true,
+    "original_media_unchanged": true,
+    "evidence_sha256": "02a404cfd827d6b901e49986ad3564bde38266351f89124ffedbf5c7e452f5db"
+  },
+  "native_identity_practice": {
+    "passed": true,
+    "invariants": 11,
+    "practice_only": true,
+    "server_writes": 0,
+    "full_financial_models_unchanged": true,
+    "evidence_sha256": "905979906faca76553c8bedf9f7a2420530749d2547b640c09e090a1cf8c33d8"
+  },
+  "standard_sweeps": {
+    "desktop": {
+      "passed": false,
+      "tabs": 25,
+      "deep_links": 7,
+      "page_errors": 0,
+      "console_errors": 2,
+      "native_writes": 0,
+      "view_redirects_expected": true,
+      "back_navigation_passed": true,
+      "evidence_sha256": "c41391d80246eb1dfaa24bba5d0a46aa7fb7ed62729144844eaba186eb36ced0",
+      "console_failures": [
+        {
+          "service": "Google tile API",
+          "http_status": 503,
+          "count": 2
+        }
+      ]
+    },
+    "phone": {
+      "passed": false,
+      "tabs": 25,
+      "deep_links": 7,
+      "page_errors": 0,
+      "console_errors": 1,
+      "native_writes": 0,
+      "view_redirects_expected": true,
+      "back_navigation_passed": true,
+      "evidence_sha256": "1f3b1b06b88d347053dcc573bbfaa89b1e3801ed84c2ce2399bf93c7fe7f7454",
+      "console_failures": [
+        {
+          "service": "Google tile API",
+          "http_status": 503,
+          "count": 1
+        }
+      ]
+    }
+  },
+  "visual_checks": {
+    "phone_supplier_card": "inspected",
+    "phone_and_desktop_current_team": "inspected"
+  },
+  "earlier_network_attempts": [
+    {
+      "test": "phone financial parity",
+      "resource_http_503_count": 3,
+      "endpoint_not_captured": true,
+      "frozen_api_responses_successful": true,
+      "unchanged_candidate_retry": "pass"
+    },
+    {
+      "test": "desktop standard sweep",
+      "resource_http_503_count": 4,
+      "service": "Google tile API",
+      "unchanged_candidate_retry": "Google tile HTTP503 persisted"
+    },
+    {
+      "test": "phone standard sweep",
+      "resource_http_503_count": 1,
+      "service": "Google tile API",
+      "unchanged_candidate_retry": "Google tile HTTP503 persisted"
+    }
+  ],
+  "secondary_source_review": {
+    "completed": true,
+    "remaining_findings": 0
+  },
+  "publication": "pending coordinating owner guarded upload and actual public read-back",
+  "release_owner_disposition": "Coordinating owner accepts the otherwise verified supplier/team release after the exact predecessor reproduces Google tile HTTP503. Standard sweep console failures remain explicit; map behavior is assigned to the next release.",
+  "source_sha256": {
+    "installer_order1094.py": "036208efc3ef5f67d5d463c7971fcf32a81c39a01766527187a7e9683df20d50",
+    "native_unit_identifiers1094.cjs": "eb4cb68558849c74ddd56be3b4b1e310d2e465b051489daaa1e331989af4dd33",
+    "patch_v1094.py": "752255b9e6694a78cb1016cad300c68aaeb8e1e6b2cdfef212c7ffc94c3c0d72",
+    "quantity_identity1094.js": "759b2f9d84c9de18b91db8890068e6ea1f9b9002ec3bfa868e05be1e6ed19c33",
+    "quantity_identity1094.py": "78287d86c304f303c0fcad7db3319056f8c2bf467b9164122062322f2d9e0577",
+    "record_unit_identifiers1094.cjs": "aeead0c8f63c4736849986c3cb818a01ccb6ae771320c3eb1f991e2255e4de55",
+    "supplier_cost_status1094.js": "3f64a058f4f7a8553fe80807a57fe75a360eb4b421250555eba1e5a31352b536",
+    "supplier_hire1094.js": "3bd4acd869cac7c4069bcbe64b23524fb7d4d0025c8b7f1bb13a1842a37aa799",
+    "test_browser1094.cjs": "eade0a91cbe20a5912d0e9d1439a65334bfe1f3fbd0a75f50525917bc6115d24",
+    "test_current_team1094.cjs": "ab9b17af27651f4b2551c49be2fdc38daa424d583f4ce9eff8532797fd3c32ba",
+    "test_current_team1094.py": "f7c960086138d0ecad1e0eb2da195cc1e50768c7a21fd8067a3489fd55ec24b4",
+    "test_hire1094.cjs": "3c7574ba77641f245c0d3e6df44177ea28ca98e8df1e23c65b8717d6f75d9934",
+    "test_native_identifiers1094.cjs": "50b7da303a137ce898d20fc3c2e69d92e2a83ef3c1dd996925c3c7d0eef02bcc",
+    "test_patch_v1094.py": "0a2c774b98365b9ce7e0944463ca0d3e513f8222bc18d26378f620bc9c993230",
+    "test_public1094.cjs": "43a69f72686dca0091a63eebdefa0da929be9aafad2133d21a53407e3efda36a",
+    "test_quantity_identity1094.py": "f520fab2e235a234b8a981df60111ddd025afee32029850b153f92bab196b2bf",
+    "test_status1094.cjs": "d976b78b139ba2a57fbd677cc406c9937a99dfa17b22f086fe757d1c42b387ed"
+  },
+  "targeted_predecessor_map_comparison": {
+    "source_sha256": "e07f45f9a9309e7cb5d20f59cb17b13222bbd9ed64285f163280457f8139e4b2",
+    "page_errors": 0,
+    "native_writes": 0,
+    "failed_resources": [
+      {
+        "status": 503,
+        "service": "https://tile.googleapis.com",
+        "route": "/v1/3dtiles/\u2026"
+      }
+    ],
+    "evidence_sha256": "aad5ee50db0d6d086ae5d16ccc41a3081acd2dfa05fbef59d1fc06f0a320c4a7"
+  }
+}

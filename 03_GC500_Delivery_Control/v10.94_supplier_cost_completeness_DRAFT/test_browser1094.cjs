@@ -3,6 +3,9 @@
    Run under flock /tmp/gc500-browser.lock; [MOB=1] selects phone. Never writes records. */
 'use strict';
 const assert=require('node:assert/strict'),path=require('node:path');
+// Observe initial resource failures too; output stays private and strips all query strings.
+const resourceFailures=new WeakMap(),{chromium}=require('playwright'),launchBrowser=chromium.launch.bind(chromium);
+chromium.launch=async options=>{const browser=await launchBrowser(options),newContext=browser.newContext.bind(browser);browser.newContext=async options=>{const ctx=await newContext(options);ctx.on('page',page=>{const failures=[];resourceFailures.set(page,failures);page.on('response',response=>{if(response.status()>=400){const u=new URL(response.url());failures.push({status:response.status(),origin:u.origin,path:u.pathname});}});});return ctx;};return browser;};
 const C=require('../v10.66_speed_smooth_LIVE/tests/validation/common.cjs');
 const [base,candidate,out]=process.argv.slice(2);if(!base||!candidate||!out)throw Error('Need BASE CANDIDATE private output');
 const mobile=process.env.MOB==='1';
@@ -38,7 +41,8 @@ async function arm(file,label){
    const restored=await capture(s.page);assert.deepEqual(restored.quotes,before.quotes);assert.equal(restored.record,before.record);assert.deepEqual(restored.money,before.money);
    C.writePrivate(path.join(out,'status-checks.json'),{status,missing});
   }
-  C.assertClean(s);C.writePrivate(path.join(out,label+'-health.json'),C.errorsOf(s));return before;
+  C.writePrivate(path.join(out,label+'-health.json'),{...C.errorsOf(s),resourceFailures:resourceFailures.get(s.page)||[]});
+  C.assertClean(s);return before;
  }finally{await s.browser.close();}
 }
 (async()=>{

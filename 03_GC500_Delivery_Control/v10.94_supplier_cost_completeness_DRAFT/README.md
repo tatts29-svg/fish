@@ -1,4 +1,4 @@
-# Current supplier hire and cost completeness — DRAFT
+# Current supplier hire and cost completeness — READY TO UPLOAD
 
 Author: Andrew Fisher.
 
@@ -19,21 +19,43 @@ identified. That identity helper retains the historical quantity record; partial
 duplicate, wrong-owner and wrong-type coverage retain their warnings. It does not write
 unit records.
 
-The exact verified predecessor must be v10.93. Its hash is not bound yet, so the main
-patch intentionally refuses a normal build. The private practice page is a structural
-test only and is not a verified predecessor or release candidate.
+The exact verified predecessor is v10.93
+`e07f45f9a9309e7cb5d20f59cb17b13222bbd9ed64285f163280457f8139e4b2`.
+The shared toolchain produced candidate
+`5f79b5f6c4ce953c3e69f7dfac939734f7176130808ec608715e8c23faf8cc79`
+(18,619,329 bytes). All 148 inline scripts parse. Nine source/build checks prove exact
+reproduction, predecessor guards, unchanged original DATA and unchanged servicing/tracker
+script bytes. Earlier private practice pages are structural tests only.
 
-Source checks so far: hire projection and completeness synthetic suites pass; a
-read-only private practice run produces the expected current supplier amount and all
-ledger reconciliation checks pass. Independent review found and prompted regression
-coverage for partial receipt, scoped additional-hire coverage, malformed source data
-and documentary wording. Full frozen-record financial deltas, desktop/phone checks,
-integrated helper checks, both standard sweeps, exact predecessor binding and guarded
-publication/read-back remain required.
+Source checks: 32 hire, 17 completeness, 26 identity, 14 team and 9 exact-patch checks pass
+on the verified predecessor. Focused financial checks pass on the final candidate and
+frozen current record at both desktop and phone sizes, including the expected supplier-only
+deltas and all ledger reconciliation checks. Both integrated team browser checks pass.
+The native identity rehearsal passes all 11 invariants, including full financial-model
+parity and no server writes; its verifier passes 12 mutation/guard checks. Phone supplier
+and team screenshots were visually inspected. A second source review prompted regression
+coverage for partial receipt, scoped additional-hire coverage, malformed source data and
+documentary wording; its final review reports no remaining finding.
+
+Both standard sweeps and one unchanged retry each reach all 25 tabs and 7 deep links with
+zero page exceptions, no record writes and the expected navigation. Their console checks
+are **not clean**: Google tile requests return intermittent HTTP 503 responses. The retry
+has two such responses on desktop and one on phone. A prior focused phone attempt also
+recorded resource 503s and passed unchanged on retry; the exact endpoint of that earlier
+attempt was not captured. Raw failed attempts remain in private evidence. Native API
+reads and the focused financial tests are healthy. `validation.json` records the exact
+receipts and targeted predecessor comparison, without hiding the tile-service failures.
+The exact verified v10.93 predecessor also returned a Google 3D tile HTTP 503 on its
+satellite route, with zero page exceptions or native writes. The coordinating release
+owner accepts this existing external map-loading limitation for the otherwise verified
+supplier/team release; the next release owns map behavior. This is a documented
+exception to the sweep console criterion, not a clean-sweep claim.
 
 Private source documents, native snapshots, financial reconciliation and the current-team
 input stay outside GitHub. Production publication and any separately authorised native
-unit assignment remain with the coordinating release owner. This is not READY TO UPLOAD.
+unit assignment remain with the coordinating release owner. The exact candidate is
+READY TO UPLOAD with that documented limitation. Guarded publication and actual public
+read-back remain pending; this is not a live claim.
 
 Run the pure suites:
 
@@ -41,8 +63,10 @@ Run the pure suites:
 node test_hire1094.cjs /private/verified-predecessor.html
 node test_status1094.cjs
 python test_quantity_identity1094.py /private/verified-predecessor.html
+python test_current_team1094.py /private/verified-predecessor.html \
+  /private/approved-input.json /private/team-source-results
 GC500_CURRENT_TEAM_INPUT1094=/private/approved-input.json \
-  python test_current_team1094.py /private/verified-predecessor.html
+  python test_patch_v1094.py /private/verified-predecessor.html /private/candidate.html
 ```
 
 Run `test_browser1094.cjs` against the exact predecessor and candidate with the shared

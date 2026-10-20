@@ -33,9 +33,10 @@ const apply=new Function('return function(plan){'+source+`
  if(canonical(Object.fromEntries(Object.keys(SYNC_COLLS).map(k=>[k,toDocs(k)])))!==canonical(plan.before))throw Error('Shared record changed before staging');
  const results=[];
  for(const op of plan.spec.ops){
+  const startedAt=new Date().toISOString();
   const result=unit925Save(op.ref,{item:op.item,owner:op.owner,assetNo:op.no,label:op.label,branch:'',note:op.note,sourceKey:''},'','null','');
   if(!result||!result.ok)throw Error('Native identifier save refused: '+JSON.stringify(result));
-  results.push(result);
+  results.push({...result,startedAt,finishedAt:new Date().toISOString()});
  }
  const record=capture();
  return clone({before:plan.before,after:record.docs,record,results,queue:SYNC.queue});
@@ -58,9 +59,11 @@ function verify(staged,plan){
   const u=d.after,op=plan.spec.ops.find(o=>o.no===u.assetNo);
   return op&&d.id==='unit925~2f~'+u.uuid&&u.kind==='unit925-record'&&u.ref===op.ref&&u.item===op.item&&u.owner===op.owner&&u.label===op.label&&u.note===op.note&&u.branch===''&&u.active===true&&u.by===plan.spec.by&&Number.isFinite(Date.parse(u.at))&&u.sourceKey===''&&u.sourceSnapshot===''&&u.nativeId==='slot:'+u.uuid;
  });
- checks['audit authors and timestamps match new units']=units.every(d=>{
+ checks['audit author and native call timestamps match new units']=units.every(d=>{
   const u=d.after,b=after.by?.['loads~2f~'+d.id],s=after.stamps?.['loads~2f~'+d.id];
-  return b?.v===plan.spec.by&&b?._k==='loads/'+u._k&&s?._k==='loads/'+u._k&&s?.v===u.at;
+  const result=staged.results.find(r=>r.key===u._k),at=Date.parse(u.at),stamp=Date.parse(s?.v);
+  return b?.v===plan.spec.by&&b?._k==='loads/'+u._k&&s?._k==='loads/'+u._k&&
+   result&&Date.parse(result.startedAt)<=at&&at<=stamp&&stamp<=Date.parse(result.finishedAt);
  });
  const previous=plan.record.supplier,current=staged.record.supplier;
  const stable=s=>{const x=JSON.parse(JSON.stringify(s));delete x.identified;delete x.quantityOnly;return x;};

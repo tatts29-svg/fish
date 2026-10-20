@@ -6,6 +6,7 @@ const fs=require('fs'),path=require('path'),crypto=require('crypto'),assert=requ
 const {open}=require('../toolchain/harness/open_page');
 const sha=x=>crypto.createHash('sha256').update(x).digest('hex');
 const dataLine=s=>s.split('\n').find(x=>x.startsWith('const DATA = '));
+const roleText=value=>String(value||'').trim().replace(/\s*\/\s*/g,'/');
 (async()=>{
  const file=process.env.PAGE,out=process.env.EVIDENCE,base=process.env.BASE,mobile=process.env.MOB==='1';
  assert(file&&base&&out&&path.isAbsolute(out),'PAGE, BASE and private absolute EVIDENCE required');
@@ -45,7 +46,8 @@ const dataLine=s=>s.split('\n').find(x=>x.startsWith('const DATA = '));
     detail:[...r.querySelectorAll('.tm-title')].map(e=>e.textContent.trim()).filter(t=>t!=='no number available')}));
   });
   assert.deepEqual(about.filter(p=>crewNames.includes(p.name)).map(p=>p.name),crewNames);
-  for(const wanted of model.supports){const matches=about.filter(p=>p.name===wanted.name);assert.equal(matches.length,1);assert.equal(matches[0].role,wanted.role);assert.equal(matches[0].links,0);assert.deepEqual(matches[0].detail,[]);}
+  const aboutSupportRoles=[];
+  for(const wanted of model.supports){const matches=about.filter(p=>p.name===wanted.name);assert.equal(matches.length,1);assert.equal(roleText(matches[0].role),roleText(wanted.role));assert.equal(matches[0].links,0);assert.deepEqual(matches[0].detail,[]);aboutSupportRoles.push(matches[0].role);}
   await p.screenshot({path:path.join(out,mode+'-team-about.png')});
   await p.evaluate(()=>go('today'));
   assert.deepEqual(await p.evaluate(()=>[...document.querySelectorAll('.teamhub .tm-person .tm-who > b')].map(e=>e.textContent.trim())),model.home);
@@ -76,7 +78,7 @@ const dataLine=s=>s.split('\n').find(x=>x.startsWith('const DATA = '));
   assert.equal(s.counts.blocked,0);assert.deepEqual(s.errors,[]);assert.equal(sha(fs.readFileSync(file)),sha(source),'Candidate changed during verification');
   const result={author:'Andrew Fisher',pass:true,mode,candidateSha256:sha(source),baseSha256:sha(original),
    testSha256:sha(fs.readFileSync(__filename)),currentCrew:9,installerRoles:7,supportRoles:model.supports.map(p=>p.role),
-   allFourCurrentViewsAgree:true,firstInstallerUnchanged:true,historicalDataUnchanged:true,originalMediaUnchanged:true,
+   allFourCurrentViewsAgree:true,firstInstallerUnchanged:true,historicalDataUnchanged:true,originalMediaUnchanged:true,aboutSupportRolesAsRendered:aboutSupportRoles,
    measurements,nativeWrites:0,errors:s.errors,counts:s.counts};
   fs.writeFileSync(path.join(out,mode+'-team-results.json'),JSON.stringify(result,null,2)+'\n',{mode:0o600});
   console.log(JSON.stringify(result));
