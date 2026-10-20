@@ -1,0 +1,23 @@
+{
+  "author": "Andrew Fisher",
+  "checks": 15,
+  "passed": [
+    "Original defect reproduced: same-position asset rename remains cached",
+    "Search catches a received record before its deferred parent redraw",
+    "Changed number replaces old map search results without reloading",
+    "Description changes update existing name query",
+    "Same-count unplaced replacement removes old identity",
+    "Moved marker rebinds once to new point and preserves selected identity",
+    "Removed selected reference removes ghost marker and card",
+    "Stage-only change refreshes open card without geometry rebuild",
+    "Unchanged snapshot does not rebuild lists or active card",
+    "Active query and scroll positions survive record refresh",
+    "Trade/layer information is part of the live signature",
+    "Unplaced references retain and search their asset identity",
+    "Sub-hired quantity-only rows search by owner without a fake number",
+    "A natively pinned reference keeps ownership and named destination",
+    "Entirely unplaced discipline stays searchable with zero mapped positions"
+  ],
+  "networkRequests": 0,
+  "recordWrites": 0
+}

@@ -1,0 +1,5 @@
+/* Author: Andrew Fisher. Pack the existing Timeline components without changing their design. */
+#pane-timeline .timeline968-days{display:flex;flex-wrap:nowrap;gap:6px;margin-left:auto}
+#pane-timeline .timeline908-plans>.timeline968-loading{grid-column:1/-1;padding:10px;min-width:0}
+#pane-timeline .timeline968-loading>.r924-body{padding:0}
+#pane-timeline .timeline968-loading>.r931-history>summary{min-height:44px;padding:8px 0}

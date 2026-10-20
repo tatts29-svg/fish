@@ -1,0 +1,69 @@
+
+== the data the rule runs on
+PASS 75 references, 83 lines, 263 units, 14 areas
+PASS weighted jobs: 760 on Thu/Fri/Sat, 777 on Sun
+PASS 263 units every day, 0 serviced, 0 of 75 locations, 0%, not finished
+PASS FWF plan: night = Pumped out, Fresh water refilled, Cleaned & restocked
+PASS FWF plan: Sunday = Pumped out, Cleaned & restocked, Locked & confirmed empty (no water)
+PASS toilet block: Pumped out + Cleaned & restocked; Sunday adds the lock
+PASS waste tank: Pumped out only, Sunday too
+PASS a day not configured has no jobs
+
+== a job is done while an uncancelled done:true tick exists
+PASS one tick: done at its tapped_at
+PASS other tasks of that line stay not done
+PASS another day stays not done
+PASS the earliest uncancelled tapped_at wins, not the first to arrive
+PASS never later than its server at
+PASS no usable tapped_at (null): its at
+PASS an unreadable tapped_at: its at
+PASS never in the future (a phone tick not yet at the service, clock ahead)
+
+== unticks name what they cancel
+PASS a late untick does not wipe another phone's newer tick (review problem 4)
+PASS the untick on its own clears the job
+PASS an untick naming a tick of a different job cancels nothing
+PASS an untick for another day cancels nothing
+PASS ticked, unticked, ticked again: the new tick time
+PASS order does not matter: the untick listed before its tick still cancels it
+
+== voids from the edit link
+PASS a tick marked voided counts for nothing
+PASS a voids event sets the named ticks aside
+PASS a voided untick cancels nothing
+
+== percentages weigh units and round down
+PASS WC07's 20 FWF weigh 20 (3 jobs x 20 = 60 of the area's 66)
+PASS WC07 done: 1 location of 2, 20 units serviced
+PASS two of three jobs done: the units are not serviced yet
+PASS 759 of 760 shows 99%, not finished
+PASS 262 of 263 units, 74 of 75 locations
+PASS the last job: 100%, finished at its time (00:47)
+PASS the area finished time is the latest done time of its jobs
+PASS an area all done before that is finished at its own last job
+PASS pct = floor(100 d / w) exactly for every d <= w <= 2000, and 100 only when d = w
+PASS pct of nothing is 0
+PASS Sunday: a Fresh water refilled tick is not a job
+PASS Sunday: Locked & confirmed empty counts (20 of 777)
+
+== days run 08:00 to 08:00, Gold Coast time
+PASS Fri 23 07:59:59 is still Thursday 22
+PASS Fri 23 08:00:00 is Friday 23
+PASS Sat 24 03:00 is Friday 23
+PASS dayStart(Sat 24) = Sat 24 08:00 AEST
+PASS before the event the chooser opens on Friday (Thursday is only in case)
+PASS Thu 22 07:59 still opens on Friday; from Thu 22 08:00 to Fri 23 08:00 it is Thursday's ("if needed") service
+PASS Sun 25 01:40 opens on Saturday 24
+PASS Mon 26 07:59 is still Sunday 25; after the event it stays on Sunday
+PASS a day after the current one is not open
+PASS hh:mm is Brisbane time
+
+== the same answer whatever order the ticks arrive in (random logs)
+PASS 300 random logs: shuffled arrival order gives the same job states and times
+
+== the crew card embeds the same shared rule
+PASS the crew card embeds state.js byte for byte
+PASS the card has all eight rule functions (svcDay, dayOf, autoDay, tasksFor, jobKey, jobStates, refStats, groupStats)
+PASS 250 random logs x 4 days x (everything, 14 areas, 75 references): same jobs, times, %, finish times, locations
+
+51 passed, 0 failed

@@ -1,0 +1,32 @@
+{
+  "author": "Andrew Fisher",
+  "sha256": "b5d99de88886d9f03aad7af2177b68b1239919542f6c27e2d80be7ec9a89bdfb",
+  "bytes": 15046568,
+  "checks": [
+    {
+      "name": "Exact authorised base",
+      "pass": true
+    },
+    {
+      "name": "Deterministic exact build",
+      "pass": true
+    },
+    {
+      "name": "repeat rejected",
+      "pass": true
+    },
+    {
+      "name": "wrong base rejected",
+      "pass": true
+    },
+    {
+      "name": "All embedded operational and rate-card DATA unchanged",
+      "pass": true,
+      "topLevelKeys": 83
+    },
+    {
+      "name": "Footer version v10.07",
+      "pass": true
+    }
+  ]
+}

@@ -1,0 +1,83 @@
+{
+ "status": "inset registration: the inset's embedded aerial (xref 1728) matched to the main plan's embedded aerial (same photograph), composed with the main plan's satellite registration, then checked and corrected directly against Mapbox satellite z18 @2x on a patch grid; not a survey",
+ "placement_sheet_pts": {
+  "x0": 1482.86,
+  "y0": 873.42,
+  "w": 851.22,
+  "h": 590.82,
+  "pw": 1774,
+  "ph": 1231
+ },
+ "sheet_region_pts": [
+  1482.86,
+  873.42,
+  2334.08,
+  1464.24
+ ],
+ "inset_to_main": {
+  "matches": 1211,
+  "inliers": 1169,
+  "scale_relative_to_main": 0.9998635690681338,
+  "residual_px_rms": 0.652941424236031,
+  "px_m": 0.339
+ },
+ "inset_sheet_to_main_sheet": [
+  [
+   0.9998635367766943,
+   0.00025411427914321267,
+   519.2010132354546
+  ],
+  [
+   -4.820676370614252e-05,
+   0.999944787767071,
+   -704.3164097669301
+  ],
+  [
+   0.0,
+   0.0,
+   1.0
+  ]
+ ],
+ "sheet_to_z18px": [
+  [
+   1.7541222535747083e-05,
+   -2.666729858487075,
+   124314492.88684578
+  ],
+  [
+   2.6886829616548065,
+   0.01105057213805883,
+   77983319.7610734
+  ],
+  [
+   0.0,
+   0.0,
+   1.0
+  ]
+ ],
+ "direct_satellite_check": {
+  "n": 5,
+  "rms_m": 0.9221830663153832,
+  "max_m": 1.454097823559836
+ },
+ "corners_wgs84": {
+  "tl": [
+   153.4312062379645,
+   -27.993161213146298
+  ],
+  "tr": [
+   153.43120627801375,
+   -27.998581541507754
+  ],
+  "bl": [
+   153.4269802638771,
+   -27.99317667619145
+  ],
+  "br": [
+   153.42698030392637,
+   -27.99859700377526
+  ]
+ },
+ "review_status": "unreviewed",
+ "suitable_for_setout": false
+}

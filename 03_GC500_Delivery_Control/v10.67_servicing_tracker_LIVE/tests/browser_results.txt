@@ -1,0 +1,29 @@
+PASS 360: absent tracker gives a truthful empty state
+PASS 360: no automatic publication
+PASS 360: event publish waits for explicit readiness
+PASS 360: TEST uses its actual day, not event dates
+PASS 360: posted card keeps contact and exact quantity
+PASS 360: TEST card includes a usable following-day label
+PASS 360: final card has one script and no unresolved template
+PASS 360: separate panel does not replace run-sheet draft
+PASS 360: run-sheet redraw preserves open tracker area
+PASS 360: update reuses published token
+PASS 360: missing key stops without re-key request
+PASS 360: no horizontal overflow
+PASS 360: idle REST permission update immediately removes all private panel details
+PASS 360: zero page errors or network writes
+PASS 1280: absent tracker gives a truthful empty state
+PASS 1280: no automatic publication
+PASS 1280: event publish waits for explicit readiness
+PASS 1280: TEST uses its actual day, not event dates
+PASS 1280: posted card keeps contact and exact quantity
+PASS 1280: TEST card includes a usable following-day label
+PASS 1280: final card has one script and no unresolved template
+PASS 1280: separate panel does not replace run-sheet draft
+PASS 1280: run-sheet redraw preserves open tracker area
+PASS 1280: update reuses published token
+PASS 1280: missing key stops without re-key request
+PASS 1280: no horizontal overflow
+PASS 1280: idle REST permission update immediately removes all private panel details
+PASS 1280: zero page errors or network writes
+28 passed, 0 failed

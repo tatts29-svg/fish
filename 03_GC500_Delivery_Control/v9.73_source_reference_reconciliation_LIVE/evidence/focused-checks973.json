@@ -1,0 +1,14 @@
+{
+  "author": "Andrew Fisher",
+  "release": "v9.73",
+  "sourceTests": {
+    "referenceSemantics": 79,
+    "documentAvailability": 12,
+    "identityGuards": 38,
+    "questionGuards": 25,
+    "actualBuildScrub": 5,
+    "independentVmsReview": 32
+  },
+  "allPass": true,
+  "operationalWrites": 0
+}

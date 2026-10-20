@@ -1,0 +1,48 @@
+--- /tmp/claude-0/stage3/machine_base/car-driver.js	2026-09-26 09:43:55.033923220 +0000
++++ /tmp/claude-0/stage3/machine/car-driver.js	2026-09-27 02:53:35.909199285 +0000
+@@ -16,6 +16,8 @@
+    chest and the back with THE COATES WAY under it, the 26 on the chest, Coates down the forearm and the
+    thigh; the helmet black carbon with the orange crown, Coates over the visor and on the chin. */
+ 
++import {DRIVER_HEAD} from './engine-kinematics.js';
++
+ /* v5.81 — {metric:true} gives the loft UVs in METRES along its surface (u the distance across the stations, v the
+    distance along each section), so a texture repeated N times a metre has one size all over it: the dash's twill is
+    4 mm a tow wherever the moulding curves (car-cockpit.js; tests/engine.test.mjs measures it). The default stays the
+@@ -186,11 +188,16 @@
+   const boot=new T.Mesh(new T.CapsuleGeometry(.045,.10,6,12),glove);boot.position.set(-.39,.49,zd+q*.11);boot.rotation.z=Math.PI/2+.5;add(boot,'Driver, boot');
+   const bootBand=new T.Mesh(new T.CylinderGeometry(.047,.047,.02,16),suitOrange);bootBand.position.set(-.35,.515,zd+q*.11);bootBand.rotation.z=Math.PI/2+.5;add(bootBand,'Driver, boot cuff');});
+  /* ---- the helmet, over the original head sphere, and its visor ---- */
+- {const helmet=new T.Mesh(new T.SphereGeometry(.122,48,32),helmetMat);helmet.position.set(...HEAD);helmet.rotation.y=Math.PI/2;helmet.scale.set(1,1.06,1);headParts.push(add(helmet,'Helmet'));
+-  const v=new T.Mesh(new T.SphereGeometry(.126,48,24,Math.PI*1.70,Math.PI*.60,Math.PI*.34,Math.PI*.24),visor);v.position.set(...HEAD);headParts.push(add(v,'Visor'));
+-  const rim=new T.Mesh(new T.TorusGeometry(.117,.006,8,48,Math.PI*.6),dark);rim.position.set(HEAD[0],HEAD[1]+.005,HEAD[2]);rim.rotation.set(0,Math.PI*1.2,0);headParts.push(add(rim,'Visor rim'));
+-  const vent=new T.Mesh(new T.BoxGeometry(.05,.012,.09),dark);vent.position.set(HEAD[0]-.06,HEAD[1]+.115,HEAD[2]);headParts.push(add(vent,'Helmet vent'));
+-  const chin=new T.Mesh(new T.BoxGeometry(.08,.05,.14),dark);chin.position.set(HEAD[0]-.09,HEAD[1]-.06,HEAD[2]);headParts.push(add(chin,'Helmet chin bar'));}
++/* v6.92 — the helmet is on a head that turns on the neck (DRIVER_HEAD.neck), placed so the eyes inside it (DRIVER_HEAD.eye, the
++    `eye` below) are the cockpit camera's eye point; car-app.js puts the camera there every frame and turns it with the head */
++ const head=new T.Group();head.name='Driver, head';head.position.set(DRIVER_HEAD.neck.x,DRIVER_HEAD.neck.y,DRIVER_HEAD.neck.z);driver.add(head);
++ const H=[DRIVER_HEAD.x-DRIVER_HEAD.neck.x,DRIVER_HEAD.y-DRIVER_HEAD.neck.y,DRIVER_HEAD.z-DRIVER_HEAD.neck.z];
++ const eye=new T.Object3D();eye.name='Driver, eyes';eye.position.set(H[0]+DRIVER_HEAD.eye.x,H[1]+DRIVER_HEAD.eye.y,H[2]+DRIVER_HEAD.eye.z);head.add(eye);
++ {const helmet=new T.Mesh(new T.SphereGeometry(.122,48,32),helmetMat);helmet.position.set(...H);helmet.rotation.y=Math.PI/2;helmet.scale.set(1,1.06,1);headParts.push(add(helmet,'Helmet',head));
++  const v=new T.Mesh(new T.SphereGeometry(.126,48,24,Math.PI*1.70,Math.PI*.60,Math.PI*.34,Math.PI*.24),visor);v.position.set(...H);headParts.push(add(v,'Visor',head));
++  const rim=new T.Mesh(new T.TorusGeometry(.117,.006,8,48,Math.PI*.6),dark);rim.position.set(H[0],H[1]+.005,H[2]);rim.rotation.set(0,Math.PI*1.2,0);headParts.push(add(rim,'Visor rim',head));
++  const vent=new T.Mesh(new T.BoxGeometry(.05,.012,.09),dark);vent.position.set(H[0]-.06,H[1]+.115,H[2]);headParts.push(add(vent,'Helmet vent',head));
++  const chin=new T.Mesh(new T.BoxGeometry(.08,.05,.14),dark);chin.position.set(H[0]-.09,H[1]-.06,H[2]);headParts.push(add(chin,'Helmet chin bar',head));}
+ 
+  /* ---- posing ---- */
+  const X=new T.Vector3(1,0,0),tmpA=new T.Vector3(),tmpB=new T.Vector3(),tmpC=new T.Vector3(),tmpN=new T.Vector3(),tgt=new T.Vector3(),knobP=new T.Vector3(),qTmp=new T.Quaternion();
+@@ -224,7 +231,13 @@
+  }
+  /* in the driver's seat the driver is you: the helmet, the neck and the HANS come off the camera's head */
+  function setFirstPerson(on){for(const m of headParts)m.visible=!on;}
++ /* v6.92 — THE HEAD MOVES WITH THE CAR AND THE WHEEL. steer is the wheel's share of full lock (−1 … 1, + clockwise): the driver looks
++    a little into the turn and leans his head with it; shake is the V8's rumble on its mounts (metres, car-app.js), which the head
++    rides a touch more loosely than the shell it is strapped into; t is the clock. The camera is at `eye`, so the view does all of it. */
++ function setHead({steer=0,shake=0,t=0}={}){const s=Math.max(-1,Math.min(1,steer));
++  head.rotation.set(-s*.07+shake*2.2*Math.sin(t*37.1),-s*.14,shake*1.6*Math.sin(t*29.3+1.1),'YXZ');
++  head.position.set(DRIVER_HEAD.neck.x,DRIVER_HEAD.neck.y+shake*1.5*Math.sin(t*43.7),DRIVER_HEAD.neck.z);}
+  setWheel(0);
+- driver.userData.setWheel=setWheel;driver.userData.setFirstPerson=setFirstPerson;driver.userData.arms=arms;
++ driver.userData.setWheel=setWheel;driver.userData.setFirstPerson=setFirstPerson;driver.userData.arms=arms;driver.userData.head=head;driver.userData.eye=eye;driver.userData.setHead=setHead;
+  return driver;
+ }

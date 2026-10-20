@@ -1,0 +1,28 @@
+{
+  "author": "Andrew Fisher",
+  "status": "Implementation verified; official rebuild and final sweeps pending live spelling release",
+  "candidate_sha256": "b3c38f0ad23a48936b20278f71153cb3399ba93f8146fdc1653d9ffd08382a91",
+  "base_sha256": "35024d43405947d59c106e858221f8c40ed9629bcf6b19b1081f87c4da6799ed",
+  "candidate_bytes": 9106228,
+  "native_checks": 55,
+  "source_checks": 13,
+  "files": {
+    "patch_v808.py": "370d040c7cf8e4a086f97d2b9892d3bd0ced2eaf71fd4804327a566c355d37b3",
+    "sheet_remaining808_src.js": "87d2d08fa7a2f4de1b08791bb35641b55501beeda587e3296a50248ffeacd6eb"
+  },
+  "screenshots": {
+    "phone-WC31.png": "5aeeefb6e1b35570329b6e23a3e8c0d1608bc375279e7c0e7d550cd661f656ea",
+    "drv-WC33.png": "50343746e8a5c6f6faae419e7365018f8d55a2d315c71fd7603408bc40eb593c",
+    "ins-WC32.png": "1e1986b5ff3295a065dbeea2025e1d1dbb86b5e3b6d6bfc0d6b9846025e3c659",
+    "drv-WC31.png": "efd5b20e0860072b8a819c37d308559b598d08bd2c6a9ce45ca85871389bbd3f",
+    "drv-WC32.png": "1d100b359a20fb56e4d1c0859df760fa97c9ed7ca396238b8bc35cf87b079d33",
+    "driver-WC20-block.png": "8457eacc0abe08f497cf13158f1519e29e0fe3cd2fae539e7f784838cfaa4211",
+    "ins-WC31.png": "47026052d4d41d22a6a9d906d3e61d023726f31ab054ff8435b212e8e6f7befa",
+    "driver-WC20-tank.png": "6bbd144becb129d6dddaf6c6193c650eaac45a43e7fdf53fe68738c505d97fc3",
+    "ins-WC33.png": "273a0291c238a47cdfab08e1a9d264f361ce5ca8feb68bddb2fb3bec247329df"
+  },
+  "independent_semantic_checks": 34,
+  "independent_source_checks": 13,
+  "independent_final_images": 6,
+  "independent_review": "Accepted on exact b3c38f0a candidate; native55 results reviewed, not separately rerun"
+}

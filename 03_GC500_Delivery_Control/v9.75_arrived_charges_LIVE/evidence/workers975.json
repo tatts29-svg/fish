@@ -1,0 +1,15 @@
+{
+  "author": "Andrew Fisher",
+  "scope": "Worker-only task assignments",
+  "userDecision": "Lets just add workers and not what the job is and roles are",
+  "implementation": "Optional empty role arrays in native and guarded validation. Worker selection and save remain primary. Saved role controls are read-only within Recorded roles. Existing location, unloading window, transport detail and checks remain under More info.",
+  "verification": {
+    "isolatedNativeAndPhoneDomChecks": 15,
+    "passed": true,
+    "networkUsed": false,
+    "nativeWrites": 0,
+    "guards": ["duplicate worker", "invalid recorded role", "stale day mapping", "invalid unloading window"],
+    "preserved": ["worker slots", "day names", "saved role arrays", "location and times", "visible save messages"]
+  },
+  "releaseStatus": "Component tested; root final candidate and public verification pending"
+}

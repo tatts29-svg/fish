@@ -1,0 +1,13 @@
+{
+  "author": "Andrew Fisher",
+  "actualPublic": true,
+  "sha256": "b3c4ab269d79f0d2a1cbef5f834967769417e91a31a281f6fe4c3c46d63f514f",
+  "bytes": 12929848,
+  "nativeUnchanged": true,
+  "onsiteGroups": 191,
+  "onsiteBranches": 3,
+  "onsiteHolds": 43,
+  "samePAndLFinanceValue": true,
+  "errors": 0,
+  "operationalWrites": 0
+}

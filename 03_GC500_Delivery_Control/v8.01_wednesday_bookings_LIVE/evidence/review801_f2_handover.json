@@ -1,0 +1,90 @@
+{
+  "author": "Andrew Fisher",
+  "candidateSha256": "f2a4abfd1d483840cc5e1346acddba62b9e1c9d6de1c1fdd6766bae90441c6fb",
+  "bytes": 8949877,
+  "status": "PASS: independent photo/status/print source review, all final standing suites, both sweeps and actual drawer behaviour. Root combines the separate final booking review before publication.",
+  "tests": {
+    "navigation": 21,
+    "equipmentDesktop": 22,
+    "equipmentPhone": 22,
+    "packedDesktop": 20,
+    "packedPhone": 14,
+    "rules": 45,
+    "freshAfterSave": 11,
+    "controlCPU": 13,
+    "printCPU": 10,
+    "drawerDesktop": 15,
+    "drawerPhone": 15,
+    "scrubRegressions": 3
+  },
+  "sweeps": {
+    "desktop": {
+      "tabRoutes": 21,
+      "deepLinks": 7,
+      "pageErrors": 0,
+      "goErrors": 0,
+      "inducedConsoleErrors": 1,
+      "reason": "Every non-GET request is aborted, including the Google tile-session POST.",
+      "retiredRouteRedirects": {
+        "register": "#plant",
+        "journal": "#today",
+        "breakdowns": "#today",
+        "variances": "#today",
+        "edit": "#today",
+        "add": "#today"
+      }
+    },
+    "phone": {
+      "tabRoutes": 21,
+      "deepLinks": 7,
+      "pageErrors": 0,
+      "goErrors": 0,
+      "inducedConsoleErrors": 1,
+      "reason": "Every non-GET request is aborted, including the Google tile-session POST.",
+      "retiredRouteRedirects": {
+        "register": "#plant",
+        "journal": "#today",
+        "breakdowns": "#today",
+        "variances": "#today",
+        "edit": "#today",
+        "add": "#today"
+      }
+    }
+  },
+  "nativePhoto": {
+    "checks": 29,
+    "sourceScopesIdentical": 19,
+    "evidence": "review801_photo_binding.json",
+    "scope": "Real Chromium IndexedDB/localStorage/Blob/SHA/Web Locks, synthetic blobs and mock transport. Receipt survives reload until document acknowledgement; no reupload after receipt; quota recovery; truthful failed Forget; cross-tab exclusion."
+  },
+  "prior798Print": {
+    "desktop": 31,
+    "phone": 31,
+    "sourceScopesIdentical": 11,
+    "evidence": "review801_control_binding.json"
+  },
+  "resolvedBlocker": "Whole-script attribution cleanup changed CSS descendant selectors. Fixed by disabling general whitespace/punctuation cleanup for code while keeping attribution removal and prose cleanup. Three black-box regression tests pass; old behaviour fails. Final source/control browser checks prove repair.",
+  "visualReview": {
+    "drawer": "/workspace/private-v801-review/f2a4abfd1d483840cc5e1346acddba62b9e1c9d6de1c1fdd6766bae90441c6fb/control",
+    "booking": "/workspace/private-gc500-audit/booking801-review/finalf2a",
+    "inspected": [
+      "phone-readonly-offline.png",
+      "desktop-readonly-offline.png",
+      "phone-day-load-7.png",
+      "phone-full-details-WC20.png",
+      "phone-tank-DD26112769.png",
+      "desktop-shared-rank4.png",
+      "desktop-generator-conflict.png"
+    ],
+    "observed": "Drawer Offline \u00b7 view only text fits on both devices. Phone print header is clear below the wrapped toolbar, with four photos retained. WC20 tank shows quantity1 and its DD; shared WC86/T0258 sheet shows one of each, fourth departure order and loading time separately. GN18 conflict note remains visible. Full-details phone text uses load time without inventing a departure clock."
+  },
+  "limits": [
+    "Phone checks use Chromium emulation, not physical iOS.",
+    "Native photo behaviour was tested on the earlier 76939c candidate and bound to final801 by byte-identical production sources; this is not represented as a second native-storage run.",
+    "Shared-host checks do not establish a performance target. Previously recorded layout/performance misses remain follow-ups.",
+    "Final booking UI/print assertions are owned by the separate app audit agent; root receives that handover directly."
+  ],
+  "blockedNonGETRequests": 9,
+  "liveWrites": 0,
+  "publicationPerformed": false
+}

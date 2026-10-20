@@ -1,0 +1,1854 @@
+{
+ "meta": {
+  "author": "Andrew Fisher",
+  "built": "9 Oct 2026",
+  "what": "Footprint catalogue from the drawings, by item type",
+  "scale": "1:2000 title block, 0.705556 m per pt; D022/D023/D024/D025 and K220 are on the same base (identical 1114 cyan 3.8 x 0.6 m concrete-barrier pieces) so the same factor applies",
+  "files": {
+   "D001-26003-03-MASTER.pdf": "8753d875cf90682e09afefae8c774144d9e9725ece87f726707882fb3711c56d",
+   "K220-K231-26003-02 COMBINED WFB.pdf": "fbfc4ff9eb41132f794681fc8c2e2440d022d6a38ee258906dbe454368b62fe7",
+   "D022-26003-02-PORT BUILDINGS.pdf": "d9419d878b4f6f06529f32e210961ded81679913da99b7163397a2a5ade561d5",
+   "D023-26003-02-TOILETS.pdf": "cda5b2c106b0814af18daa90c58db2758f658c8d99f483c8f7768ddd4a9bdbe2",
+   "D024-26003-02-GENS & LTS.pdf": "ce483e4f905d422a9927579e2fc7e42295069de8bde20338e7a9aedfd2993960",
+   "D025-26003-02-VMS.pdf": "49df16456567a92adf9373c0aedc9908f6e50c8b4e525d5e889691f16ebb760d",
+   "VMS001-26003-01_GC500_COATES_VMS_LOCATIONS.pdf": "9ef1527d1fd9c6c7ea70dd3db3ced96784b0c1b32eba0df2aa3fb5ecd61be382",
+   "shapes_v915.json": "c53e21d530f0d614a0d3d2488fe00c6770a914245f6c971c2e9e6fedd5701374"
+  },
+  "record_version": 4581,
+  "rule": "Every size cites a drawing measurement, a document line or the record; \"size to confirm\" where none exists.",
+  "spread_fields": "median/min/max/p10/p90/sd in metres over the instances counted in n_instances",
+  "scripts": "scratchpad/shapes_all/cat/census.py, join_v915.py, build_catalogue.py"
+ },
+ "types": {
+  "Building 6m": {
+   "size_m": [
+    5.99,
+    2.99
+   ],
+   "spread": {
+    "length": {
+     "median": 5.992,
+     "min": 5.975,
+     "max": 6.02,
+     "p10": 5.984,
+     "p90": 6.006,
+     "sd": 0.011
+    },
+    "width": {
+     "median": 2.992,
+     "min": 2.964,
+     "max": 3.031,
+     "p10": 2.985,
+     "p90": 3.018,
+     "sd": 0.014
+    },
+    "doors": {
+     "doors_per_unit": {
+      "1": 23
+     },
+     "door_edges": {
+      "long": 23
+     },
+     "door_centre_from_nearer_end_fraction": {
+      "median": 0.24,
+      "min": 0.23,
+      "max": 0.25,
+      "p10": 0.23,
+      "p90": 0.24,
+      "sd": 0.005
+     },
+     "door_width_m": {
+      "median": 0.78,
+      "min": 0.78,
+      "max": 0.78,
+      "p10": 0.78,
+      "p90": 0.78,
+      "sd": 0.0
+     },
+     "refs_without_door": []
+    }
+   },
+   "door_rule": "One door on a LONG side, opening outward (legend PORTABLE BUILDINGS: quarter-circle swing + leaf). Door centre about a quarter of the way along that side (0.23-0.25 of the edge from the nearer end, about 1.4 m in on a 6 m unit); swing radius 0.78 m. Which long side, and which end, is per unit: read it from the unit's own traced door (v9.15 door.faces).",
+   "n_instances": 23,
+   "sources": [
+    {
+     "file": "D001-26003-03-MASTER.pdf (2 Oct 2026 master, sha256 8753d875cf90...)",
+     "page": 1,
+     "how_measured": "v9.15 tracing (shapes_v915.json): outline = the PDF vector path itself at the tagged reference; length/width = mean of opposite edges of the 4-vertex path x 0.705556 m/pt (title block 1:2000); recomputed here from poly_pt, not the rounded size_m; refs: AA, CP1, HRP, P05, P06, P08, P09, P36, P37, P38, P39, P41, P42, P44, P45, P54, P58, P62, P63, P65, P66, P67, P69"
+    },
+    {
+     "file": "D022-26003-02-PORT BUILDINGS.pdf (17 Sep issue)",
+     "page": 1,
+     "how_measured": "census.py: same outline found within 0.2 pt of each master position after the frame shift (x+25.5, y+0.12 pt); sizes agree within 0.03 m"
+    }
+   ],
+   "drawn_as_m": [
+    5.99,
+    2.99
+   ],
+   "note": "P53 (Building 6m) is drawn 6.0 x 5.0 m on the master (not counted in the stats; size to confirm for P53). P26/P27/P28/P29/P34 share one 4-building block (4 outlines 6.0 x 3.0, no doors) and are left out of the stats so the block is not counted 5 times. P47 is not drawn on the 2 Oct master."
+  },
+  "Building 12m": {
+   "size_m": [
+    12.0,
+    2.99
+   ],
+   "spread": {
+    "length": {
+     "median": 11.998,
+     "min": 11.976,
+     "max": 12.004,
+     "p10": 11.976,
+     "p90": 12.004,
+     "sd": 0.011
+    },
+    "width": {
+     "median": 2.994,
+     "min": 2.98,
+     "max": 3.0,
+     "p10": 2.98,
+     "p90": 3.0,
+     "sd": 0.007
+    },
+    "doors": {
+     "doors_per_unit": {
+      "2": 6
+     },
+     "door_edges": {
+      "long": 12
+     },
+     "door_centre_from_nearer_end_fraction": {
+      "median": 0.12,
+      "min": 0.12,
+      "max": 0.13,
+      "p10": 0.12,
+      "p90": 0.13,
+      "sd": 0.004
+     },
+     "door_width_m": {
+      "median": 0.78,
+      "min": 0.78,
+      "max": 0.78,
+      "p10": 0.78,
+      "p90": 0.78,
+      "sd": 0.0
+     },
+     "refs_without_door": []
+    }
+   },
+   "door_rule": "Two doors, both on the SAME long side, near each end (door centres at 0.12 and 0.88 of the edge, about 1.4 m in from each end), opening outward, 0.78 m swing. Side per unit from v9.15.",
+   "n_instances": 6,
+   "sources": [
+    {
+     "file": "D001-26003-03-MASTER.pdf (2 Oct 2026 master, sha256 8753d875cf90...)",
+     "page": 1,
+     "how_measured": "v9.15 tracing (shapes_v915.json): outline = the PDF vector path itself at the tagged reference; length/width = mean of opposite edges of the 4-vertex path x 0.705556 m/pt (title block 1:2000); recomputed here from poly_pt, not the rounded size_m; refs: P01, P03, P04, P46, P51, P52"
+    },
+    {
+     "file": "D022-26003-02-PORT BUILDINGS.pdf (17 Sep issue)",
+     "page": 1,
+     "how_measured": "census.py: same outline found within 0.2 pt of each master position after the frame shift (x+25.5, y+0.12 pt); sizes agree within 0.03 m"
+    }
+   ],
+   "drawn_as_m": [
+    12.0,
+    2.99
+   ],
+   "note": null
+  },
+  "Building 9.6m": {
+   "size_m": [
+    9.6,
+    3.0
+   ],
+   "spread": {
+    "length": {
+     "median": 9.6,
+     "min": 9.588,
+     "max": 9.612,
+     "p10": 9.588,
+     "p90": 9.612,
+     "sd": 0.01
+    },
+    "width": {
+     "median": 2.997,
+     "min": 2.976,
+     "max": 2.998,
+     "p10": 2.976,
+     "p90": 2.998,
+     "sd": 0.01
+    },
+    "doors": {
+     "doors_per_unit": {
+      "2": 3
+     },
+     "door_edges": {
+      "long": 6
+     },
+     "door_centre_from_nearer_end_fraction": {
+      "median": 0.15,
+      "min": 0.15,
+      "max": 0.15,
+      "p10": 0.15,
+      "p90": 0.15,
+      "sd": 0.0
+     },
+     "door_width_m": {
+      "median": 0.78,
+      "min": 0.78,
+      "max": 0.78,
+      "p10": 0.78,
+      "p90": 0.78,
+      "sd": 0.0
+     },
+     "refs_without_door": []
+    }
+   },
+   "door_rule": "Two doors, both on the SAME long side, near each end (door centres at 0.15 and 0.85 of the edge, about 1.4 m in from each end), opening outward, 0.78 m swing. Side per unit from v9.15.",
+   "n_instances": 3,
+   "sources": [
+    {
+     "file": "D001-26003-03-MASTER.pdf (2 Oct 2026 master, sha256 8753d875cf90...)",
+     "page": 1,
+     "how_measured": "v9.15 tracing (shapes_v915.json): outline = the PDF vector path itself at the tagged reference; length/width = mean of opposite edges of the 4-vertex path x 0.705556 m/pt (title block 1:2000); recomputed here from poly_pt, not the rounded size_m; refs: P17, P33, P57"
+    },
+    {
+     "file": "D022-26003-02-PORT BUILDINGS.pdf (17 Sep issue)",
+     "page": 1,
+     "how_measured": "census.py: same outline found within 0.2 pt of each master position after the frame shift (x+25.5, y+0.12 pt); sizes agree within 0.03 m"
+    }
+   ],
+   "drawn_as_m": [
+    9.6,
+    3.0
+   ],
+   "note": null
+  },
+  "Ticket Box 6m": {
+   "size_m": [
+    6.01,
+    3.0
+   ],
+   "spread": {
+    "length": {
+     "median": 6.007,
+     "min": 6.007,
+     "max": 6.007,
+     "p10": 6.007,
+     "p90": 6.007,
+     "sd": 0.0
+    },
+    "width": {
+     "median": 2.999,
+     "min": 2.999,
+     "max": 2.999,
+     "p10": 2.999,
+     "p90": 2.999,
+     "sd": 0.0
+    },
+    "doors": {
+     "doors_per_unit": {
+      "1": 1
+     },
+     "door_edges": {
+      "long": 1
+     },
+     "door_centre_from_nearer_end_fraction": {
+      "median": 0.24,
+      "min": 0.24,
+      "max": 0.24,
+      "p10": 0.24,
+      "p90": 0.24,
+      "sd": 0.0
+     },
+     "door_width_m": {
+      "median": 0.78,
+      "min": 0.78,
+      "max": 0.78,
+      "p10": 0.78,
+      "p90": 0.78,
+      "sd": 0.0
+     },
+     "refs_without_door": []
+    }
+   },
+   "door_rule": "One door on a LONG side, opening outward (legend PORTABLE BUILDINGS: quarter-circle swing + leaf). Door centre about a quarter of the way along that side (0.23-0.25 of the edge from the nearer end, about 1.4 m in on a 6 m unit); swing radius 0.78 m. Which long side, and which end, is per unit: read it from the unit's own traced door (v9.15 door.faces).",
+   "n_instances": 1,
+   "sources": [
+    {
+     "file": "D001-26003-03-MASTER.pdf (2 Oct 2026 master, sha256 8753d875cf90...)",
+     "page": 1,
+     "how_measured": "v9.15 tracing (shapes_v915.json): outline = the PDF vector path itself at the tagged reference; length/width = mean of opposite edges of the 4-vertex path x 0.705556 m/pt (title block 1:2000); recomputed here from poly_pt, not the rounded size_m; refs: P55"
+    },
+    {
+     "file": "D022-26003-02-PORT BUILDINGS.pdf (17 Sep issue)",
+     "page": 1,
+     "how_measured": "census.py: same outline found within 0.2 pt of each master position after the frame shift (x+25.5, y+0.12 pt); sizes agree within 0.03 m"
+    }
+   ],
+   "drawn_as_m": [
+    6.01,
+    3.0
+   ],
+   "note": null
+  },
+  "Building 4.8m": {
+   "size_m": [
+    4.8,
+    3.01
+   ],
+   "spread": {
+    "length": {
+     "median": 6.004,
+     "min": 5.984,
+     "max": 6.033,
+     "p10": 5.988,
+     "p90": 6.011,
+     "sd": 0.011
+    },
+    "width": {
+     "median": 3.009,
+     "min": 2.992,
+     "max": 3.032,
+     "p10": 2.992,
+     "p90": 3.032,
+     "sd": 0.014
+    },
+    "doors": {
+     "doors_per_unit": {
+      "1": 12
+     },
+     "door_edges": {
+      "long": 12
+     },
+     "door_centre_from_nearer_end_fraction": {
+      "median": 0.24,
+      "min": 0.24,
+      "max": 0.25,
+      "p10": 0.24,
+      "p90": 0.25,
+      "sd": 0.005
+     },
+     "door_width_m": {
+      "median": 0.78,
+      "min": 0.78,
+      "max": 0.78,
+      "p10": 0.78,
+      "p90": 0.78,
+      "sd": 0.0
+     },
+     "refs_without_door": []
+    }
+   },
+   "door_rule": "As Building 6m: one door on a long side, opening outward, door centre about a quarter of the way along (0.24 of the edge from the nearer end on every traced instance), 0.78 m swing. On a 4.8 m unit the drawn position scales to about 1.2 m in from the end: to confirm on site. Refs drawn with no door: none",
+   "n_instances": 12,
+   "sources": [
+    {
+     "file": "GC500 schedule via DATA (v9.18 page)",
+     "page": null,
+     "how_measured": "LENGTH 4.8 m is the item name on the schedule line (\"Building 4.8m\"); no drawing draws a 4.8 m unit"
+    },
+    {
+     "file": "D001-26003-03-MASTER.pdf (2 Oct 2026 master, sha256 8753d875cf90...)",
+     "page": 1,
+     "how_measured": "v9.15 tracing (shapes_v915.json): outline = the PDF vector path itself at the tagged reference; length/width = mean of opposite edges of the 4-vertex path x 0.705556 m/pt (title block 1:2000); recomputed here from poly_pt, not the rounded size_m: WIDTH 3.0 m from the master; every Building 4.8m reference (P10, P11, P12, P13, P14, P15, P16, P18, P19, P20, P21, P25) is DRAWN 6.0 x 3.0 m, the same symbol as a 6 m building"
+    },
+    {
+     "file": "D022-26003-02-PORT BUILDINGS.pdf and D023-26003-02-TOILETS.pdf",
+     "page": 1,
+     "how_measured": "census.py at the same positions: also drawn 6.0 x 3.0 m"
+    },
+    {
+     "file": "record /api/state v4581, supplied/P21",
+     "page": null,
+     "how_measured": "P21 asked Building 4.8m, supplied Building 6m (recorded 4 Oct 2026)"
+    }
+   ],
+   "drawn_as_m": [
+    6.0,
+    3.01
+   ],
+   "conflict": "Drawings draw these as 6.0 x 3.0; the schedule says 4.8 m; P21 was supplied as a 6 m. Arrange loads should use the unit actually supplied (6.0 when the record says Building 6m). Length 4.8 m to confirm per unit."
+  },
+  "Ticket Box 4.8m": {
+   "size_m": [
+    4.8,
+    3.01
+   ],
+   "spread": {
+    "length": {
+     "median": 5.984,
+     "min": 5.984,
+     "max": 5.984,
+     "p10": 5.984,
+     "p90": 5.984,
+     "sd": 0.0
+    },
+    "width": {
+     "median": 3.013,
+     "min": 3.013,
+     "max": 3.013,
+     "p10": 3.013,
+     "p90": 3.013,
+     "sd": 0.0
+    },
+    "doors": {
+     "doors_per_unit": {
+      "1": 1
+     },
+     "door_edges": {
+      "long": 1
+     },
+     "door_centre_from_nearer_end_fraction": {
+      "median": 0.24,
+      "min": 0.24,
+      "max": 0.24,
+      "p10": 0.24,
+      "p90": 0.24,
+      "sd": 0.0
+     },
+     "door_width_m": {
+      "median": 0.78,
+      "min": 0.78,
+      "max": 0.78,
+      "p10": 0.78,
+      "p90": 0.78,
+      "sd": 0.0
+     },
+     "refs_without_door": []
+    }
+   },
+   "door_rule": "As Building 6m: one door on a long side, opening outward, door centre about a quarter of the way along (0.24 of the edge from the nearer end on every traced instance), 0.78 m swing. On a 4.8 m unit the drawn position scales to about 1.2 m in from the end: to confirm on site. Refs drawn with no door: none",
+   "n_instances": 1,
+   "sources": [
+    {
+     "file": "GC500 schedule via DATA (v9.18 page)",
+     "page": null,
+     "how_measured": "LENGTH 4.8 m is the item name on the schedule line (\"Ticket Box 4.8m\"); no drawing draws a 4.8 m unit"
+    },
+    {
+     "file": "D001-26003-03-MASTER.pdf (2 Oct 2026 master, sha256 8753d875cf90...)",
+     "page": 1,
+     "how_measured": "v9.15 tracing (shapes_v915.json): outline = the PDF vector path itself at the tagged reference; length/width = mean of opposite edges of the 4-vertex path x 0.705556 m/pt (title block 1:2000); recomputed here from poly_pt, not the rounded size_m: WIDTH 3.0 m from the master; every Ticket Box 4.8m reference (P60) is DRAWN 6.0 x 3.0 m, the same symbol as a 6 m building"
+    },
+    {
+     "file": "D022-26003-02-PORT BUILDINGS.pdf and D023-26003-02-TOILETS.pdf",
+     "page": 1,
+     "how_measured": "census.py at the same positions: also drawn 6.0 x 3.0 m"
+    },
+    {
+     "file": "record /api/state v4581, supplied/P21",
+     "page": null,
+     "how_measured": "P21 asked Building 4.8m, supplied Building 6m (recorded 4 Oct 2026)"
+    }
+   ],
+   "drawn_as_m": [
+    5.98,
+    3.01
+   ],
+   "conflict": "Drawings draw these as 6.0 x 3.0; the schedule says 4.8 m; P21 was supplied as a 6 m. Arrange loads should use the unit actually supplied (6.0 when the record says Building 6m). Length 4.8 m to confirm per unit."
+  },
+  "Building 3.6m": {
+   "size_m": [
+    3.6,
+    2.97
+   ],
+   "spread": {
+    "length": {
+     "median": 3.981,
+     "min": 3.981,
+     "max": 3.981,
+     "p10": 3.981,
+     "p90": 3.981,
+     "sd": 0.0
+    },
+    "width": {
+     "median": 2.969,
+     "min": 2.969,
+     "max": 2.969,
+     "p10": 2.969,
+     "p90": 2.969,
+     "sd": 0.0
+    },
+    "doors": {
+     "doors_per_unit": {
+      "0": 1
+     },
+     "door_edges": {},
+     "door_centre_from_nearer_end_fraction": null,
+     "door_width_m": null,
+     "refs_without_door": [
+      "P56"
+     ]
+    }
+   },
+   "door_rule": "No door drawn on the only instance (P56). Door side to confirm on site.",
+   "n_instances": 1,
+   "sources": [
+    {
+     "file": "GC500 schedule via DATA (v9.18 page)",
+     "page": null,
+     "how_measured": "LENGTH 3.6 m is the item name \"Building 3.6m\""
+    },
+    {
+     "file": "D001-26003-03-MASTER.pdf (2 Oct 2026 master, sha256 8753d875cf90...)",
+     "page": 1,
+     "how_measured": "v9.15 tracing (shapes_v915.json): outline = the PDF vector path itself at the tagged reference; length/width = mean of opposite edges of the 4-vertex path x 0.705556 m/pt (title block 1:2000); recomputed here from poly_pt, not the rounded size_m: P56 is DRAWN 3.98 x 2.97 m (also 4.0 x 3.0 on D022)"
+    }
+   ],
+   "drawn_as_m": [
+    3.98,
+    2.97
+   ],
+   "conflict": "Drawn 4.0 m long, schedule says 3.6 m: length to confirm. Width 3.0 m from the drawing."
+  },
+  "Fridge Lge": {
+   "size_m": null,
+   "spread": null,
+   "door_rule": "Not a footprint item: a fridge goes inside a building.",
+   "n_instances": 0,
+   "sources": [
+    {
+     "file": "D001-26003-03-MASTER.pdf",
+     "page": 1,
+     "how_measured": "P26/P28 carry only \"Fridge Lge\" on the schedule; the master draws the P34/24/26/27/28/29 block as 4 buildings 6.00 x 3.01 m (median of 4), no doors"
+    }
+   ],
+   "status": "no own footprint (contents)"
+  },
+  "Pad Chair": {
+   "size_m": null,
+   "spread": null,
+   "door_rule": "Not a footprint item: furniture inside a building (P34).",
+   "n_instances": 0,
+   "sources": [
+    {
+     "file": "D001-26003-03-MASTER.pdf",
+     "page": 1,
+     "how_measured": "P34 is a building in the 4-building block; no chair symbol"
+    }
+   ],
+   "status": "no own footprint (contents)"
+  },
+  "Toilet Block 6m": {
+   "size_m": [
+    6.0,
+    3.0
+   ],
+   "spread": {
+    "length": {
+     "median": 6.003,
+     "min": 5.986,
+     "max": 6.02,
+     "p10": 5.994,
+     "p90": 6.016,
+     "sd": 0.008
+    },
+    "width": {
+     "median": 2.999,
+     "min": 2.978,
+     "max": 3.027,
+     "p10": 2.983,
+     "p90": 3.013,
+     "sd": 0.013
+    },
+    "doors": {
+     "doors_per_unit": {
+      "1": 4,
+      "2": 11
+     },
+     "door_edges": {
+      "long": 26
+     },
+     "door_centre_from_nearer_end_fraction": {
+      "median": 0.09,
+      "min": 0.09,
+      "max": 0.1,
+      "p10": 0.09,
+      "p90": 0.1,
+      "sd": 0.003
+     },
+     "door_width_m": {
+      "median": 0.83,
+      "min": 0.83,
+      "max": 0.83,
+      "p10": 0.83,
+      "p90": 0.83,
+      "sd": 0.0
+     },
+     "refs_without_door": []
+    }
+   },
+   "door_rule": "Two doors, both on the SAME long side, one near each end (door centres at 0.09 and 0.91 of the edge, about 0.55 m in from each end), opening outward, 0.83 m swing, each with the step landing box drawn round it (legend TOILET BLOCK). Instances with one door drawn: see spread.doors. Side per unit from v9.15 door.faces.",
+   "n_instances": 15,
+   "sources": [
+    {
+     "file": "D001-26003-03-MASTER.pdf (2 Oct 2026 master, sha256 8753d875cf90...)",
+     "page": 1,
+     "how_measured": "v9.15 tracing (shapes_v915.json): outline = the PDF vector path itself at the tagged reference; length/width = mean of opposite edges of the 4-vertex path x 0.705556 m/pt (title block 1:2000); recomputed here from poly_pt, not the rounded size_m; refs: T0243, WC05, WC09, WC15, WC16, WC17, WC20, WC27, WC60"
+    },
+    {
+     "file": "D023-26003-02-TOILETS.pdf",
+     "page": 1,
+     "how_measured": "census.py: same 6.0 x 3.0 outline (line 0.48) at WC05, WC27"
+    }
+   ]
+  },
+  "16Pan Block": {
+   "size_m": [
+    6.0,
+    2.39
+   ],
+   "spread": {
+    "length": {
+     "median": 5.997,
+     "min": 5.997,
+     "max": 5.997,
+     "p10": 5.997,
+     "p90": 5.997,
+     "sd": 0.0
+    },
+    "width": {
+     "median": 2.388,
+     "min": 2.383,
+     "max": 2.392,
+     "p10": 2.383,
+     "p90": 2.392,
+     "sd": 0.004
+    },
+    "doors": {
+     "doors_per_unit": {
+      "16": 2
+     },
+     "door_edges": {
+      "long": 32
+     },
+     "door_centre_from_nearer_end_fraction": {
+      "median": 0.245,
+      "min": 0.05,
+      "max": 0.44,
+      "p10": 0.05,
+      "p90": 0.44,
+      "sd": 0.142
+     },
+     "door_width_m": {
+      "median": 0.66,
+      "min": 0.66,
+      "max": 0.66,
+      "p10": 0.66,
+      "p90": 0.66,
+      "sd": 0.0
+     },
+     "refs_without_door": []
+    }
+   },
+   "door_rule": "Cubicle doors on BOTH long sides: 8 per side, 16 per block, 0.66 m swings, opening outward. No single door side.",
+   "n_instances": 2,
+   "sources": [
+    {
+     "file": "D001-26003-03-MASTER.pdf (2 Oct 2026 master, sha256 8753d875cf90...)",
+     "page": 1,
+     "how_measured": "v9.15 tracing (shapes_v915.json): outline = the PDF vector path itself at the tagged reference; length/width = mean of opposite edges of the 4-vertex path x 0.705556 m/pt (title block 1:2000); recomputed here from poly_pt, not the rounded size_m; WC31 (2 blocks)"
+    },
+    {
+     "file": "D023-26003-02-TOILETS.pdf",
+     "page": 1,
+     "how_measured": "census.py: 6.0 x 2.39 at WC31"
+    }
+   ]
+  },
+  "Accessible Toilet": {
+   "size_m": [
+    2.41,
+    2.39
+   ],
+   "spread": {
+    "length": {
+     "median": 2.413,
+     "min": 2.403,
+     "max": 3.59,
+     "p10": 2.403,
+     "p90": 3.59,
+     "sd": 0.511
+    },
+    "width": {
+     "median": 2.392,
+     "min": 2.377,
+     "max": 2.409,
+     "p10": 2.377,
+     "p90": 2.409,
+     "sd": 0.011
+    },
+    "doors": {
+     "doors_per_unit": {
+      "1": 4
+     },
+     "door_edges": {
+      "long": 4
+     },
+     "door_centre_from_nearer_end_fraction": {
+      "median": 0.225,
+      "min": 0.22,
+      "max": 0.41,
+      "p10": 0.22,
+      "p90": 0.41,
+      "sd": 0.081
+     },
+     "door_width_m": {
+      "median": 0.83,
+      "min": 0.78,
+      "max": 0.83,
+      "p10": 0.78,
+      "p90": 0.83,
+      "sd": 0.022
+     },
+     "refs_without_door": []
+    },
+    "variants": {
+     "2.4 x 2.4": [
+      "WC31",
+      "WC51",
+      "WC86"
+     ],
+     "3.6 x 2.4": [
+      "WC01"
+     ]
+    }
+   },
+   "door_rule": "One door, opening outward, 0.8 m swing, on one side (on the 3.6 x 2.4 instance, a long side). Side per unit from v9.15.",
+   "n_instances": 4,
+   "sources": [
+    {
+     "file": "D001-26003-03-MASTER.pdf (2 Oct 2026 master, sha256 8753d875cf90...)",
+     "page": 1,
+     "how_measured": "v9.15 tracing (shapes_v915.json): outline = the PDF vector path itself at the tagged reference; length/width = mean of opposite edges of the 4-vertex path x 0.705556 m/pt (title block 1:2000); recomputed here from poly_pt, not the rounded size_m; refs WC01, WC31, WC51, WC86. WC01 is drawn 3.6 x 2.4 m, the other three 2.4 x 2.4 m"
+    },
+    {
+     "file": "D022/D023-26003-02",
+     "page": 1,
+     "how_measured": "census.py: WC86 2.41 x 2.41 on D022"
+    }
+   ],
+   "note": "Two sizes are drawn. WC01 uses the 3.6 x 2.4 outline; use each unit's traced outline, the catalogue size is the common one."
+  },
+  "FWF": {
+   "size_m": [
+    1.21,
+    1.19
+   ],
+   "spread": {
+    "length": {
+     "median": 1.207,
+     "min": 1.179,
+     "max": 1.234,
+     "p10": 1.188,
+     "p90": 1.217,
+     "sd": 0.012
+    },
+    "width": {
+     "median": 1.192,
+     "min": 1.174,
+     "max": 1.228,
+     "p10": 1.183,
+     "p90": 1.208,
+     "sd": 0.01
+    }
+   },
+   "door_rule": "NO door drawn. Legend SINGLE TOILET is a square with a chevron on one edge; the legend does not say what the chevron means, so the drawing does not give the door side. Door side = a person's choice in the picker (the chevron edge, kept in v9.15 marks, is the only drawn candidate).",
+   "n_instances": 213,
+   "sources": [
+    {
+     "file": "D001-26003-03-MASTER.pdf (2 Oct 2026 master, sha256 8753d875cf90...)",
+     "page": 1,
+     "how_measured": "v9.15 tracing (shapes_v915.json): outline = the PDF vector path itself at the tagged reference; length/width = mean of opposite edges of the 4-vertex path x 0.705556 m/pt (title block 1:2000); recomputed here from poly_pt, not the rounded size_m (213 traced at 53 references); whole sheet: 139 squares 1.2 x 1.2 m line 0.24 (legend SINGLE TOILET), includes symbols not tagged to a Coates reference"
+    }
+   ],
+   "schedule_units": 224,
+   "drawn_vs_schedule": [
+    "WC13 schedule 2 / drawn 3",
+    "WC45 schedule 8 / drawn 7",
+    "WC57 schedule 2 / drawn 7",
+    "WC59 schedule 7 / drawn 2",
+    "WC69 schedule 12 / drawn 9"
+   ],
+   "note": "Drawn count differs from the schedule at: WC13 schedule 2 / drawn 3; WC45 schedule 8 / drawn 7; WC57 schedule 2 / drawn 7; WC59 schedule 7 / drawn 2; WC69 schedule 12 / drawn 9. PG01/03/05/29, WC32, WC66, WC85 are not drawn."
+  },
+  "Pee Panel": {
+   "size_m": [
+    2.41,
+    0.6
+   ],
+   "spread": {
+    "length": {
+     "median": 2.41,
+     "min": 2.374,
+     "max": 2.41,
+     "p10": 2.374,
+     "p90": 2.41,
+     "sd": 0.014
+    },
+    "width": {
+     "median": 0.598,
+     "min": 0.598,
+     "max": 0.606,
+     "p10": 0.598,
+     "p90": 0.606,
+     "sd": 0.003
+    }
+   },
+   "door_rule": "No door (open urinal panel).",
+   "n_instances": 6,
+   "sources": [
+    {
+     "file": "D001-26003-03-MASTER.pdf (2 Oct 2026 master, sha256 8753d875cf90...)",
+     "page": 1,
+     "how_measured": "v9.15 tracing (shapes_v915.json): outline = the PDF vector path itself at the tagged reference; length/width = mean of opposite edges of the 4-vertex path x 0.705556 m/pt (title block 1:2000); recomputed here from poly_pt, not the rounded size_m; WC09 (6 panels)"
+    }
+   ]
+  },
+  "FWF Trailer": {
+   "size_m": null,
+   "spread": null,
+   "door_rule": "size to confirm",
+   "n_instances": 0,
+   "sources": [
+    {
+     "file": "all drawings searched (D001-26003-03, D022, D023)",
+     "page": null,
+     "how_measured": "WC100 (2 trailers, 1248439 and 1288823) is on no drawing; the page has a product photo only, no dimensions"
+    }
+   ],
+   "status": "size to confirm",
+   "closest_evidence": "FWF cubicle drawn 1.2 x 1.2 m; trailer chassis size not in any source held"
+  },
+  "Waste tank": {
+   "size_m": [
+    6.0,
+    3.0
+   ],
+   "spread": {
+    "length": {
+     "median": 6.003,
+     "min": 5.986,
+     "max": 6.02,
+     "p10": 5.994,
+     "p90": 6.016,
+     "sd": 0.008
+    },
+    "width": {
+     "median": 2.999,
+     "min": 2.978,
+     "max": 3.027,
+     "p10": 2.983,
+     "p90": 3.013,
+     "sd": 0.013
+    }
+   },
+   "door_rule": "No door. Same footprint as the toilet block it serves and sits UNDER it: same position and rotation as that block's traced outline. The master does not draw tanks (expected, not a gap). Draw greyed (grey fill lighter than the block) and labelled \"WASTE TANK\". In Arrange loads it is its own greyed block-shaped item.",
+   "n_instances": 6,
+   "sources": [
+    {
+     "file": "the project manager, 9 Oct 2026 ~00:10-00:20 AEST",
+     "page": null,
+     "how_measured": "\"same shape as the toilet block, under it\" (size and place); size taken from the Toilet Block 6m entry"
+    },
+    {
+     "file": "record /api/state v4581 (read only)",
+     "page": null,
+     "how_measured": "block-tank pairs: WC05 block 1097377 + tank 1328978 (record units/WC05); WC20 set 1 block 1311341 + tank 1327228 (record units/WC20); WC20 set 2 block 1327225 + tank 1328982 (record units/WC20); WC60 block 1119489 + tank 1328980 (record delivery/WC60 note, 1 Oct 2026); WC60 block 1087500 + tank 1328981 (record delivery/WC60 note, 1 Oct 2026); WC27 block 1119484 (schedule / Event Portables sheet) + tank 1328979 (record assetNumbers/WC27 (tank only) + EP inventory v6 (block))"
+    }
+   ],
+   "pairs": [
+    {
+     "ref": "WC05",
+     "block": "1097377",
+     "tank": "1328978",
+     "source": "record units/WC05"
+    },
+    {
+     "ref": "WC20 set 1",
+     "block": "1311341",
+     "tank": "1327228",
+     "source": "record units/WC20"
+    },
+    {
+     "ref": "WC20 set 2",
+     "block": "1327225",
+     "tank": "1328982",
+     "source": "record units/WC20"
+    },
+    {
+     "ref": "WC60",
+     "block": "1119489",
+     "tank": "1328980",
+     "source": "record delivery/WC60 note, 1 Oct 2026"
+    },
+    {
+     "ref": "WC60",
+     "block": "1087500",
+     "tank": "1328981",
+     "source": "record delivery/WC60 note, 1 Oct 2026"
+    },
+    {
+     "ref": "WC27",
+     "block": "1119484 (schedule / Event Portables sheet)",
+     "tank": "1328979",
+     "source": "record assetNumbers/WC27 (tank only) + EP inventory v6 (block)"
+    }
+   ],
+   "note": "WC31 16-pan block has no waste tank on the schedule. WC27's block number is from the schedule/Event Portables sheet, not the record."
+  },
+  "20kva": {
+   "size_m": [
+    2.54,
+    0.99
+   ],
+   "spread": {
+    "length": {
+     "median": 2.54,
+     "min": 2.54,
+     "max": 2.54,
+     "p10": 2.54,
+     "p90": 2.54,
+     "sd": 0.0
+    },
+    "width": {
+     "median": 0.995,
+     "min": 0.995,
+     "max": 0.995,
+     "p10": 0.995,
+     "p90": 0.995,
+     "sd": 0.0
+    },
+    "size_class": {
+     "2.5 x 1.0": {
+      "n": 14,
+      "L": {
+       "median": 2.506,
+       "min": 2.498,
+       "max": 2.54,
+       "p10": 2.498,
+       "p90": 2.52,
+       "sd": 0.011
+      },
+      "W": {
+       "median": 1.016,
+       "min": 0.995,
+       "max": 1.035,
+       "p10": 0.995,
+       "p90": 1.02,
+       "sd": 0.012
+      }
+     },
+     "2.9 x 1.2": {
+      "n": 5,
+      "L": {
+       "median": 2.908,
+       "min": 2.879,
+       "max": 2.923,
+       "p10": 2.879,
+       "p90": 2.923,
+       "sd": 0.018
+      },
+      "W": {
+       "median": 1.207,
+       "min": 1.187,
+       "max": 1.207,
+       "p10": 1.187,
+       "p90": 1.207,
+       "sd": 0.008
+      }
+     }
+    }
+   },
+   "door_rule": "No door. Legend GENERATORS: orange box with a diagonal and a dark triangle in one half (the triangle sits 0.2-0.35 of the half-length off centre, in no fixed relation to roads); the drawing gives no access side.",
+   "n_instances": 1,
+   "sources": [
+    {
+     "file": "D001-26003-03-MASTER.pdf (2 Oct 2026 master, sha256 8753d875cf90...)",
+     "page": 1,
+     "how_measured": "v9.15 tracing (shapes_v915.json): outline = the PDF vector path itself at the tagged reference; length/width = mean of opposite edges of the 4-vertex path x 0.705556 m/pt (title block 1:2000); recomputed here from poly_pt, not the rounded size_m; refs GN10"
+    },
+    {
+     "file": "D001-26003-03-MASTER.pdf",
+     "page": 1,
+     "how_measured": "census.py over every orange generator box on the sheet (tagged or not): 2.5 x 1.0 m class n=14; 2.9 x 1.2 m class n=5"
+    }
+   ],
+   "note": "GN25 (20 kVA) is not drawn; use this size. GN10 is the only tagged 20 kVA symbol."
+  },
+  "30kva": {
+   "size_m": [
+    2.51,
+    1.02
+   ],
+   "spread": {
+    "length": {
+     "median": 2.513,
+     "min": 2.507,
+     "max": 2.518,
+     "p10": 2.507,
+     "p90": 2.518,
+     "sd": 0.005
+    },
+    "width": {
+     "median": 1.019,
+     "min": 1.018,
+     "max": 1.02,
+     "p10": 1.018,
+     "p90": 1.02,
+     "sd": 0.001
+    },
+    "size_class": {
+     "2.5 x 1.0": {
+      "n": 14,
+      "L": {
+       "median": 2.506,
+       "min": 2.498,
+       "max": 2.54,
+       "p10": 2.498,
+       "p90": 2.52,
+       "sd": 0.011
+      },
+      "W": {
+       "median": 1.016,
+       "min": 0.995,
+       "max": 1.035,
+       "p10": 0.995,
+       "p90": 1.02,
+       "sd": 0.012
+      }
+     },
+     "2.9 x 1.2": {
+      "n": 5,
+      "L": {
+       "median": 2.908,
+       "min": 2.879,
+       "max": 2.923,
+       "p10": 2.879,
+       "p90": 2.923,
+       "sd": 0.018
+      },
+      "W": {
+       "median": 1.207,
+       "min": 1.187,
+       "max": 1.207,
+       "p10": 1.187,
+       "p90": 1.207,
+       "sd": 0.008
+      }
+     }
+    }
+   },
+   "door_rule": "No door. Legend GENERATORS: orange box with a diagonal and a dark triangle in one half (the triangle sits 0.2-0.35 of the half-length off centre, in no fixed relation to roads); the drawing gives no access side.",
+   "n_instances": 2,
+   "sources": [
+    {
+     "file": "D001-26003-03-MASTER.pdf (2 Oct 2026 master, sha256 8753d875cf90...)",
+     "page": 1,
+     "how_measured": "v9.15 tracing (shapes_v915.json): outline = the PDF vector path itself at the tagged reference; length/width = mean of opposite edges of the 4-vertex path x 0.705556 m/pt (title block 1:2000); recomputed here from poly_pt, not the rounded size_m; refs GN03, GN04"
+    },
+    {
+     "file": "D001-26003-03-MASTER.pdf",
+     "page": 1,
+     "how_measured": "census.py over every orange generator box on the sheet (tagged or not): 2.5 x 1.0 m class n=14; 2.9 x 1.2 m class n=5"
+    }
+   ],
+   "note": null
+  },
+  "45kva": {
+   "size_m": [
+    2.5,
+    1.0
+   ],
+   "spread": {
+    "length": {
+     "median": 2.5,
+     "min": 2.5,
+     "max": 2.5,
+     "p10": 2.5,
+     "p90": 2.5,
+     "sd": 0.0
+    },
+    "width": {
+     "median": 0.996,
+     "min": 0.996,
+     "max": 0.996,
+     "p10": 0.996,
+     "p90": 0.996,
+     "sd": 0.0
+    },
+    "size_class": {
+     "2.5 x 1.0": {
+      "n": 14,
+      "L": {
+       "median": 2.506,
+       "min": 2.498,
+       "max": 2.54,
+       "p10": 2.498,
+       "p90": 2.52,
+       "sd": 0.011
+      },
+      "W": {
+       "median": 1.016,
+       "min": 0.995,
+       "max": 1.035,
+       "p10": 0.995,
+       "p90": 1.02,
+       "sd": 0.012
+      }
+     },
+     "2.9 x 1.2": {
+      "n": 5,
+      "L": {
+       "median": 2.908,
+       "min": 2.879,
+       "max": 2.923,
+       "p10": 2.879,
+       "p90": 2.923,
+       "sd": 0.018
+      },
+      "W": {
+       "median": 1.207,
+       "min": 1.187,
+       "max": 1.207,
+       "p10": 1.187,
+       "p90": 1.207,
+       "sd": 0.008
+      }
+     }
+    }
+   },
+   "door_rule": "No door. Legend GENERATORS: orange box with a diagonal and a dark triangle in one half (the triangle sits 0.2-0.35 of the half-length off centre, in no fixed relation to roads); the drawing gives no access side.",
+   "n_instances": 1,
+   "sources": [
+    {
+     "file": "D001-26003-03-MASTER.pdf (2 Oct 2026 master, sha256 8753d875cf90...)",
+     "page": 1,
+     "how_measured": "v9.15 tracing (shapes_v915.json): outline = the PDF vector path itself at the tagged reference; length/width = mean of opposite edges of the 4-vertex path x 0.705556 m/pt (title block 1:2000); recomputed here from poly_pt, not the rounded size_m; refs none tagged; GN13: the 2 Oct generator symbol at its in-flight pin (seqno 203123, 0.14 m from the pin), 2.50 x 1.00 m - identity per the project manager's \"follow the master\", not by a tag"
+    },
+    {
+     "file": "D001-26003-03-MASTER.pdf",
+     "page": 1,
+     "how_measured": "census.py over every orange generator box on the sheet (tagged or not): 2.5 x 1.0 m class n=14; 2.9 x 1.2 m class n=5"
+    }
+   ],
+   "note": null
+  },
+  "50kva": {
+   "size_m": [
+    2.88,
+    1.21
+   ],
+   "spread": {
+    "length": {
+     "median": 2.88,
+     "min": 2.879,
+     "max": 2.881,
+     "p10": 2.879,
+     "p90": 2.881,
+     "sd": 0.001
+    },
+    "width": {
+     "median": 1.207,
+     "min": 1.207,
+     "max": 1.207,
+     "p10": 1.207,
+     "p90": 1.207,
+     "sd": 0.0
+    },
+    "size_class": {
+     "2.5 x 1.0": {
+      "n": 14,
+      "L": {
+       "median": 2.506,
+       "min": 2.498,
+       "max": 2.54,
+       "p10": 2.498,
+       "p90": 2.52,
+       "sd": 0.011
+      },
+      "W": {
+       "median": 1.016,
+       "min": 0.995,
+       "max": 1.035,
+       "p10": 0.995,
+       "p90": 1.02,
+       "sd": 0.012
+      }
+     },
+     "2.9 x 1.2": {
+      "n": 5,
+      "L": {
+       "median": 2.908,
+       "min": 2.879,
+       "max": 2.923,
+       "p10": 2.879,
+       "p90": 2.923,
+       "sd": 0.018
+      },
+      "W": {
+       "median": 1.207,
+       "min": 1.187,
+       "max": 1.207,
+       "p10": 1.187,
+       "p90": 1.207,
+       "sd": 0.008
+      }
+     }
+    }
+   },
+   "door_rule": "No door. Legend GENERATORS: orange box with a diagonal and a dark triangle in one half (the triangle sits 0.2-0.35 of the half-length off centre, in no fixed relation to roads); the drawing gives no access side.",
+   "n_instances": 2,
+   "sources": [
+    {
+     "file": "D001-26003-03-MASTER.pdf (2 Oct 2026 master, sha256 8753d875cf90...)",
+     "page": 1,
+     "how_measured": "v9.15 tracing (shapes_v915.json): outline = the PDF vector path itself at the tagged reference; length/width = mean of opposite edges of the 4-vertex path x 0.705556 m/pt (title block 1:2000); recomputed here from poly_pt, not the rounded size_m; refs GN06; GN18: the 2 Oct generator symbol at its in-flight pin (seqno 203765, 0.19 m from the pin), 2.88 x 1.21 m - identity per the project manager's \"follow the master\", not by a tag"
+    },
+    {
+     "file": "D001-26003-03-MASTER.pdf",
+     "page": 1,
+     "how_measured": "census.py over every orange generator box on the sheet (tagged or not): 2.5 x 1.0 m class n=14; 2.9 x 1.2 m class n=5"
+    }
+   ],
+   "note": null
+  },
+  "60kva": {
+   "size_m": [
+    2.91,
+    1.2
+   ],
+   "spread": {
+    "length": {
+     "median": 2.912,
+     "min": 2.908,
+     "max": 2.917,
+     "p10": 2.908,
+     "p90": 2.917,
+     "sd": 0.004
+    },
+    "width": {
+     "median": 1.195,
+     "min": 1.187,
+     "max": 1.203,
+     "p10": 1.187,
+     "p90": 1.203,
+     "sd": 0.008
+    },
+    "size_class": {
+     "2.5 x 1.0": {
+      "n": 14,
+      "L": {
+       "median": 2.506,
+       "min": 2.498,
+       "max": 2.54,
+       "p10": 2.498,
+       "p90": 2.52,
+       "sd": 0.011
+      },
+      "W": {
+       "median": 1.016,
+       "min": 0.995,
+       "max": 1.035,
+       "p10": 0.995,
+       "p90": 1.02,
+       "sd": 0.012
+      }
+     },
+     "2.9 x 1.2": {
+      "n": 5,
+      "L": {
+       "median": 2.908,
+       "min": 2.879,
+       "max": 2.923,
+       "p10": 2.879,
+       "p90": 2.923,
+       "sd": 0.018
+      },
+      "W": {
+       "median": 1.207,
+       "min": 1.187,
+       "max": 1.207,
+       "p10": 1.187,
+       "p90": 1.207,
+       "sd": 0.008
+      }
+     }
+    }
+   },
+   "door_rule": "No door. Legend GENERATORS: orange box with a diagonal and a dark triangle in one half (the triangle sits 0.2-0.35 of the half-length off centre, in no fixed relation to roads); the drawing gives no access side.",
+   "n_instances": 2,
+   "sources": [
+    {
+     "file": "D001-26003-03-MASTER.pdf (2 Oct 2026 master, sha256 8753d875cf90...)",
+     "page": 1,
+     "how_measured": "v9.15 tracing (shapes_v915.json): outline = the PDF vector path itself at the tagged reference; length/width = mean of opposite edges of the 4-vertex path x 0.705556 m/pt (title block 1:2000); recomputed here from poly_pt, not the rounded size_m; refs GN01, GN19, GN21"
+    },
+    {
+     "file": "D001-26003-03-MASTER.pdf",
+     "page": 1,
+     "how_measured": "census.py over every orange generator box on the sheet (tagged or not): 2.5 x 1.0 m class n=14; 2.9 x 1.2 m class n=5"
+    }
+   ],
+   "note": "GN19 (60 kVA, \"WAS A 20KVA\") is drawn 1.68 x 0.67 m, smaller than any other generator; the 60 kVA size here is the median of GN01/GN21 (2.91-2.92 x 1.19-1.20). GN19 size to confirm."
+  },
+  "80kva": {
+   "size_m": [
+    3.19,
+    1.2
+   ],
+   "spread": {
+    "length": {
+     "median": 3.188,
+     "min": 3.188,
+     "max": 3.188,
+     "p10": 3.188,
+     "p90": 3.188,
+     "sd": 0.0
+    },
+    "width": {
+     "median": 1.204,
+     "min": 1.204,
+     "max": 1.204,
+     "p10": 1.204,
+     "p90": 1.204,
+     "sd": 0.0
+    },
+    "size_class": {
+     "2.5 x 1.0": {
+      "n": 14,
+      "L": {
+       "median": 2.506,
+       "min": 2.498,
+       "max": 2.54,
+       "p10": 2.498,
+       "p90": 2.52,
+       "sd": 0.011
+      },
+      "W": {
+       "median": 1.016,
+       "min": 0.995,
+       "max": 1.035,
+       "p10": 0.995,
+       "p90": 1.02,
+       "sd": 0.012
+      }
+     },
+     "2.9 x 1.2": {
+      "n": 5,
+      "L": {
+       "median": 2.908,
+       "min": 2.879,
+       "max": 2.923,
+       "p10": 2.879,
+       "p90": 2.923,
+       "sd": 0.018
+      },
+      "W": {
+       "median": 1.207,
+       "min": 1.187,
+       "max": 1.207,
+       "p10": 1.187,
+       "p90": 1.207,
+       "sd": 0.008
+      }
+     }
+    }
+   },
+   "door_rule": "No door. Legend GENERATORS: orange box with a diagonal and a dark triangle in one half (the triangle sits 0.2-0.35 of the half-length off centre, in no fixed relation to roads); the drawing gives no access side.",
+   "n_instances": 1,
+   "sources": [
+    {
+     "file": "D001-26003-03-MASTER.pdf (2 Oct 2026 master, sha256 8753d875cf90...)",
+     "page": 1,
+     "how_measured": "v9.15 tracing (shapes_v915.json): outline = the PDF vector path itself at the tagged reference; length/width = mean of opposite edges of the 4-vertex path x 0.705556 m/pt (title block 1:2000); recomputed here from poly_pt, not the rounded size_m; refs GN24"
+    },
+    {
+     "file": "D001-26003-03-MASTER.pdf",
+     "page": 1,
+     "how_measured": "census.py over every orange generator box on the sheet (tagged or not): 2.5 x 1.0 m class n=14; 2.9 x 1.2 m class n=5"
+    }
+   ],
+   "note": null
+  },
+  "150kva": {
+   "size_m": [
+    3.51,
+    1.33
+   ],
+   "spread": {
+    "length": {
+     "median": 3.514,
+     "min": 3.514,
+     "max": 3.514,
+     "p10": 3.514,
+     "p90": 3.514,
+     "sd": 0.0
+    },
+    "width": {
+     "median": 1.329,
+     "min": 1.329,
+     "max": 1.329,
+     "p10": 1.329,
+     "p90": 1.329,
+     "sd": 0.0
+    },
+    "size_class": {
+     "2.5 x 1.0": {
+      "n": 14,
+      "L": {
+       "median": 2.506,
+       "min": 2.498,
+       "max": 2.54,
+       "p10": 2.498,
+       "p90": 2.52,
+       "sd": 0.011
+      },
+      "W": {
+       "median": 1.016,
+       "min": 0.995,
+       "max": 1.035,
+       "p10": 0.995,
+       "p90": 1.02,
+       "sd": 0.012
+      }
+     },
+     "2.9 x 1.2": {
+      "n": 5,
+      "L": {
+       "median": 2.908,
+       "min": 2.879,
+       "max": 2.923,
+       "p10": 2.879,
+       "p90": 2.923,
+       "sd": 0.018
+      },
+      "W": {
+       "median": 1.207,
+       "min": 1.187,
+       "max": 1.207,
+       "p10": 1.187,
+       "p90": 1.207,
+       "sd": 0.008
+      }
+     }
+    }
+   },
+   "door_rule": "No door. Legend GENERATORS: orange box with a diagonal and a dark triangle in one half (the triangle sits 0.2-0.35 of the half-length off centre, in no fixed relation to roads); the drawing gives no access side.",
+   "n_instances": 1,
+   "sources": [
+    {
+     "file": "D001-26003-03-MASTER.pdf (2 Oct 2026 master, sha256 8753d875cf90...)",
+     "page": 1,
+     "how_measured": "v9.15 tracing (shapes_v915.json): outline = the PDF vector path itself at the tagged reference; length/width = mean of opposite edges of the 4-vertex path x 0.705556 m/pt (title block 1:2000); recomputed here from poly_pt, not the rounded size_m; refs GN23"
+    },
+    {
+     "file": "D001-26003-03-MASTER.pdf",
+     "page": 1,
+     "how_measured": "census.py over every orange generator box on the sheet (tagged or not): 2.5 x 1.0 m class n=14; 2.9 x 1.2 m class n=5"
+    }
+   ],
+   "note": null
+  },
+  "350kva": {
+   "size_m": [
+    4.58,
+    1.98
+   ],
+   "spread": {
+    "length": {
+     "median": 4.579,
+     "min": 4.579,
+     "max": 4.579,
+     "p10": 4.579,
+     "p90": 4.579,
+     "sd": 0.0
+    },
+    "width": {
+     "median": 1.984,
+     "min": 1.984,
+     "max": 1.984,
+     "p10": 1.984,
+     "p90": 1.984,
+     "sd": 0.0
+    },
+    "size_class": {
+     "2.5 x 1.0": {
+      "n": 14,
+      "L": {
+       "median": 2.506,
+       "min": 2.498,
+       "max": 2.54,
+       "p10": 2.498,
+       "p90": 2.52,
+       "sd": 0.011
+      },
+      "W": {
+       "median": 1.016,
+       "min": 0.995,
+       "max": 1.035,
+       "p10": 0.995,
+       "p90": 1.02,
+       "sd": 0.012
+      }
+     },
+     "2.9 x 1.2": {
+      "n": 5,
+      "L": {
+       "median": 2.908,
+       "min": 2.879,
+       "max": 2.923,
+       "p10": 2.879,
+       "p90": 2.923,
+       "sd": 0.018
+      },
+      "W": {
+       "median": 1.207,
+       "min": 1.187,
+       "max": 1.207,
+       "p10": 1.187,
+       "p90": 1.207,
+       "sd": 0.008
+      }
+     }
+    }
+   },
+   "door_rule": "No door. Legend GENERATORS: orange box with a diagonal and a dark triangle in one half (the triangle sits 0.2-0.35 of the half-length off centre, in no fixed relation to roads); the drawing gives no access side.",
+   "n_instances": 1,
+   "sources": [
+    {
+     "file": "D001-26003-03-MASTER.pdf (2 Oct 2026 master, sha256 8753d875cf90...)",
+     "page": 1,
+     "how_measured": "v9.15 tracing (shapes_v915.json): outline = the PDF vector path itself at the tagged reference; length/width = mean of opposite edges of the 4-vertex path x 0.705556 m/pt (title block 1:2000); recomputed here from poly_pt, not the rounded size_m; refs GN20"
+    },
+    {
+     "file": "D001-26003-03-MASTER.pdf",
+     "page": 1,
+     "how_measured": "census.py over every orange generator box on the sheet (tagged or not): 2.5 x 1.0 m class n=14; 2.9 x 1.2 m class n=5"
+    }
+   ],
+   "note": null
+  },
+  "200kva & cables": {
+   "size_m": null,
+   "spread": null,
+   "door_rule": "No door. Legend GENERATORS: orange box with a diagonal and a dark triangle in one half (the triangle sits 0.2-0.35 of the half-length off centre, in no fixed relation to roads); the drawing gives no access side.",
+   "n_instances": 0,
+   "sources": [
+    {
+     "file": "D001-26003-03-MASTER.pdf / D024-26003-02",
+     "page": 1,
+     "how_measured": "\"GN?\" (Concert, 2 units 1316182/1316183) is not drawn; D024 draws numbered callouts only (\"REFER BOQ FOR SIZING\")"
+    }
+   ],
+   "status": "size to confirm",
+   "closest_evidence": "master symbols: 150 kVA (GN23) 3.51 x 1.33 m, 350 kVA (GN20) 4.58 x 1.98 m; an untagged 3.49 x 1.37 m box sits at sheet pt 1890,266. The page product photo says QAS 200 for 200 kVA and above (no dimensions)."
+  },
+  "100KVA TRAILER": {
+   "size_m": null,
+   "spread": null,
+   "door_rule": "No door. Legend GENERATORS: orange box with a diagonal and a dark triangle in one half (the triangle sits 0.2-0.35 of the half-length off centre, in no fixed relation to roads); the drawing gives no access side.",
+   "n_instances": 0,
+   "sources": [
+    {
+     "file": "schedule unreferenced row (DATA)",
+     "page": null,
+     "how_measured": "no reference, not on any drawing"
+    }
+   ],
+   "status": "size to confirm",
+   "closest_evidence": "80 kVA (GN24) drawn 3.19 x 1.20 m; 150 kVA (GN23) 3.51 x 1.33 m"
+  },
+  "Light Tower": {
+   "size_m": null,
+   "spread": null,
+   "door_rule": "size to confirm (no footprint drawn)",
+   "n_instances": 0,
+   "sources": [
+    {
+     "file": "D024-26003-02-GENS & LTS.pdf",
+     "page": 1,
+     "how_measured": "legend LIGHTING TOWERS is a numbered purple callout \"REFER BOQ FOR PROGRAM\"; LTC towers are a blue light-spread fan with the number at the apex; no tower outline at any of them (checked at LTC01)"
+    },
+    {
+     "file": "D001-26003-03-MASTER.pdf",
+     "page": 1,
+     "how_measured": "no light-tower legend entry and no symbol"
+    }
+   ],
+   "status": "size to confirm",
+   "closest_evidence": "position only: the fan apex on D024 (MASTER_LOC \"leader line from callout NN on D024\")"
+  },
+  "VMS": {
+   "size_m": null,
+   "spread": {
+    "D025_symbol_length": {
+     "median": 14.999,
+     "min": 14.937,
+     "max": 15.072,
+     "p10": 14.944,
+     "p90": 15.066,
+     "sd": 0.037
+    },
+    "D025_symbol_width": {
+     "median": 4.994,
+     "min": 4.96,
+     "max": 5.082,
+     "p10": 4.973,
+     "p90": 5.057,
+     "sd": 0.033
+    }
+   },
+   "door_rule": "Sign face direction: D025 draws each board as a magenta box with an arrow square to one LONG side and a small triangle on one short end (legend VARIABLE MESSAGE SIGNS); the arrow is the only drawn direction and is read as the face direction (the legend does not say so: confirm). VMS001-26003-01 gives the traffic direction each board serves in words (e.g. \"WATERWAYS DRIVE NORTHBOUND\"), not a drawn face.",
+   "n_instances": 19,
+   "sources": [
+    {
+     "file": "D025-26003-02-VMS.pdf",
+     "page": 1,
+     "how_measured": "census.py: 19 magenta boxes median 15.00 x 4.99 m at 1:2000 (same base as the master: 1114 cyan 3.8 x 0.6 concrete barriers on both). A 15 x 5 m box is a symbol, not a trailer footprint."
+    },
+    {
+     "file": "VMS001-26003-01_GC500_COATES_VMS_LOCATIONS.pdf (17 pages)",
+     "page": "2-17",
+     "how_measured": "each board is a red dot on a map crop and a street photo; no footprint or scale; direction in the location text (transcribed in scratchpad/vms001/result.json)"
+    }
+   ],
+   "status": "size to confirm",
+   "closest_evidence": "D025 symbol 15.0 x 5.0 m (symbolic); trailer footprint not in any source held"
+  },
+  "TL2": {
+   "size_m": [
+    2.0,
+    0.5
+   ],
+   "spread": {
+    "piece_length": {
+     "median": 1.998,
+     "min": 1.736,
+     "max": 2.032,
+     "p10": 1.973,
+     "p90": 2.017,
+     "sd": 0.027
+    },
+    "piece_width_straight": {
+     "median": 0.5,
+     "min": 0.458,
+     "max": 0.635,
+     "p10": 0.483,
+     "p90": 0.517,
+     "sd": 0.017
+    },
+    "yellow_pieces": 230,
+    "white_pieces": 175
+   },
+   "door_rule": "A LINE shape, not a box: a run of pieces alternating yellow and white (legend WATER-FILLED BARRIER). No door. Pieces in a run = run length / 2.00 m. Narrower pieces (down to 0.26 m) are wedge pieces on curves.",
+   "n_instances": 405,
+   "sources": [
+    {
+     "file": "D001-26003-03-MASTER.pdf",
+     "page": 1,
+     "how_measured": "census.py: every yellow (1,0.749,0) and white (0.98) filled 4-corner piece 1.6-2.4 m long, black 0.18 outline; length/width x 0.705556 m/pt"
+    },
+    {
+     "file": "K220-K231-26003-02 COMBINED WFB.pdf",
+     "page": "1, 7, 10, 12",
+     "how_measured": "K220 (key plan, same 1:2000 base) pieces 2.0 x 0.49-0.51 m. Detail sheets are NOT TO SCALE but every piece is drawn at 4.0:1 and ONE PIECE = ONE BARRIER: K226 4 pieces = callouts 2x+2x; K229 25 = 12+7+6; K231 31 = 31 (K225 27 vs 25, K230 56 vs 38 include legend/other pieces)"
+    },
+    {
+     "file": "Baseplan contracts (DATA rental_on_hire)",
+     "page": null,
+     "how_measured": "product on hire: \"Barrier - Crash Rated Water filled - Armorzone MASH TL2\"; no manufacturer length held"
+    }
+   ],
+   "status": "piece size from the drawing; product data sheet not held",
+   "note": "Run tracing and WB matching is in scratchpad/shapes_all/wfb_runs.json (another worker). DATA.barriers: K220 says 261 Coates / 207 contractor pieces."
+  },
+  "6.0m Refrigerator Cont": {
+   "size_m": null,
+   "spread": {
+    "master_untagged_outline_L": {
+     "median": 6.098,
+     "min": 5.992,
+     "max": 6.119,
+     "p10": 6.007,
+     "p90": 6.114,
+     "sd": 0.036
+    },
+    "master_untagged_outline_W": {
+     "median": 2.444,
+     "min": 2.383,
+     "max": 2.527,
+     "p10": 2.417,
+     "p90": 2.484,
+     "sd": 0.026
+    }
+   },
+   "door_rule": "size to confirm. Legend STORAGE CONTAINERS: a box with double doors on one SHORT end.",
+   "n_instances": 0,
+   "sources": [
+    {
+     "file": "D001-26003-03-MASTER.pdf",
+     "page": 1,
+     "how_measured": "no Coates reference for this line; 60 untagged black outlines 6.1 x 2.44 m on the sheet (n=60) are the closest drawn container-sized boxes, not proven to be this unit"
+    }
+   ],
+   "status": "size to confirm",
+   "closest_evidence": "untagged master outlines 6.1 x 2.44 m"
+  },
+  "Event Container": {
+   "size_m": null,
+   "spread": {
+    "master_untagged_outline_L": {
+     "median": 6.098,
+     "min": 5.992,
+     "max": 6.119,
+     "p10": 6.007,
+     "p90": 6.114,
+     "sd": 0.036
+    },
+    "master_untagged_outline_W": {
+     "median": 2.444,
+     "min": 2.383,
+     "max": 2.527,
+     "p10": 2.417,
+     "p90": 2.484,
+     "sd": 0.026
+    }
+   },
+   "door_rule": "size to confirm. Legend STORAGE CONTAINERS: a box with double doors on one SHORT end.",
+   "n_instances": 0,
+   "sources": [
+    {
+     "file": "D001-26003-03-MASTER.pdf",
+     "page": 1,
+     "how_measured": "no Coates reference for this line; 60 untagged black outlines 6.1 x 2.44 m on the sheet (n=60) are the closest drawn container-sized boxes, not proven to be this unit"
+    }
+   ],
+   "status": "size to confirm",
+   "closest_evidence": "untagged master outlines 6.1 x 2.44 m"
+  },
+  "3.0m Cont": {
+   "size_m": null,
+   "spread": {
+    "master_untagged_outline_L": {
+     "median": 3.1,
+     "min": 3.057,
+     "max": 3.293,
+     "p10": 3.081,
+     "p90": 3.115,
+     "sd": 0.039
+    },
+    "master_untagged_outline_W": {
+     "median": 2.4,
+     "min": 2.368,
+     "max": 2.485,
+     "p10": 2.383,
+     "p90": 2.426,
+     "sd": 0.021
+    }
+   },
+   "door_rule": "size to confirm. Legend STORAGE CONTAINERS: a box with double doors on one SHORT end.",
+   "n_instances": 0,
+   "sources": [
+    {
+     "file": "D001-26003-03-MASTER.pdf",
+     "page": 1,
+     "how_measured": "no Coates reference for this line; 28 untagged black outlines 3.1 x 2.4 m on the sheet (n=28) are the closest drawn container-sized boxes, not proven to be this unit"
+    }
+   ],
+   "status": "size to confirm",
+   "closest_evidence": "untagged master outlines 3.1 x 2.4 m"
+  },
+  "Trakmat": {
+   "size_m": null,
+   "spread": null,
+   "door_rule": "size to confirm",
+   "n_instances": 0,
+   "sources": [
+    {
+     "file": "all drawings searched",
+     "page": null,
+     "how_measured": "plant line with no reference; not drawn on any sheet"
+    }
+   ],
+   "status": "size to confirm",
+   "closest_evidence": "none in any drawing; page product photo only"
+  },
+  "Forklift 5T": {
+   "size_m": null,
+   "spread": null,
+   "door_rule": "size to confirm",
+   "n_instances": 0,
+   "sources": [
+    {
+     "file": "all drawings searched",
+     "page": null,
+     "how_measured": "plant line with no reference; not drawn on any sheet"
+    }
+   ],
+   "status": "size to confirm",
+   "closest_evidence": "none in any drawing; page product photo only"
+  },
+  "Forklift 2.5T": {
+   "size_m": null,
+   "spread": null,
+   "door_rule": "size to confirm",
+   "n_instances": 0,
+   "sources": [
+    {
+     "file": "all drawings searched",
+     "page": null,
+     "how_measured": "plant line with no reference; not drawn on any sheet"
+    }
+   ],
+   "status": "size to confirm",
+   "closest_evidence": "none in any drawing; page product photo only"
+  },
+  "Forklift 2.5T RT": {
+   "size_m": null,
+   "spread": null,
+   "door_rule": "size to confirm",
+   "n_instances": 0,
+   "sources": [
+    {
+     "file": "all drawings searched",
+     "page": null,
+     "how_measured": "plant line with no reference; not drawn on any sheet"
+    }
+   ],
+   "status": "size to confirm",
+   "closest_evidence": "none in any drawing; page product photo only"
+  },
+  "2.5T Forklift STD": {
+   "size_m": null,
+   "spread": null,
+   "door_rule": "size to confirm",
+   "n_instances": 0,
+   "sources": [
+    {
+     "file": "all drawings searched",
+     "page": null,
+     "how_measured": "plant line with no reference; not drawn on any sheet"
+    }
+   ],
+   "status": "size to confirm",
+   "closest_evidence": "none in any drawing; page product photo only"
+  },
+  "3.5T Forklift Std": {
+   "size_m": null,
+   "spread": null,
+   "door_rule": "size to confirm",
+   "n_instances": 0,
+   "sources": [
+    {
+     "file": "all drawings searched",
+     "page": null,
+     "how_measured": "plant line with no reference; not drawn on any sheet"
+    }
+   ],
+   "status": "size to confirm",
+   "closest_evidence": "none in any drawing; page product photo only"
+  }
+ }
+}

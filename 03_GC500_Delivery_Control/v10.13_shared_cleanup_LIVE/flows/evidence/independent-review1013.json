@@ -1,0 +1,75 @@
+{
+  "author": "Andrew Fisher",
+  "review_date": "2026-10-14",
+  "scope": "Independent source review and isolated VM regression of shared flow safeguards",
+  "source_sha256": {
+    "flows1013.js": "f59b17e427c2deaccbea6cd270527c2ab44059aa6f952a96593b404da98dd272",
+    "patch_flows1013.py": "2f0f402c25f9413092b785970df240e467851209a19521b27dd8efa961a06d57"
+  },
+  "test_sha256": "f1a75451eccff97384acc9c61c9d97f33300651e8c6e9df321ee8694ac09b319",
+  "command": "node test_flows1013.cjs",
+  "result": {
+    "checks": 11,
+    "passed": 11
+  },
+  "checks": [
+    {
+      "name": "Departure captures native Sub-hired fold state once",
+      "passed": true
+    },
+    {
+      "name": "Discarded pane restores open and closed duplicate-key folds independently",
+      "passed": true
+    },
+    {
+      "name": "One supplier never inherits another supplier's fold state",
+      "passed": true
+    },
+    {
+      "name": "A different viewing date never inherits the previous date's fold state",
+      "passed": true
+    },
+    {
+      "name": "Tab navigation never invokes full persistence capture or restore",
+      "passed": true
+    },
+    {
+      "name": "An unchanged visible view accepts its pending reveal",
+      "passed": true
+    },
+    {
+      "name": "A later user action cancels an older pending reveal",
+      "passed": true
+    },
+    {
+      "name": "A hidden pane refuses its pending reveal",
+      "passed": true
+    },
+    {
+      "name": "Leaving a tab cancels its pending reveal",
+      "passed": true
+    },
+    {
+      "name": "Changing the Inventory drill cancels the earlier drill reveal",
+      "passed": true
+    },
+    {
+      "name": "Registry refresh captures, calls native redraw and restores exactly once",
+      "passed": true
+    }
+  ],
+  "source_review": {
+    "blockers_found": [],
+    "findings": [
+      "Departure capture precedes native hidden-pane disposal.",
+      "Arrival replays disclosure booleans before native tab scrolling; it does not restore old fields, focus or scroll.",
+      "Supplier, date, finance and trade context separate cached views.",
+      "Registry redraw retains the original refresh function and adds synchronous main-pane preservation.",
+      "Inventory mutation handlers remain native; delayed reveals check current view and user intent."
+    ]
+  },
+  "implementation_modified_by_review": false,
+  "service_writes": 0,
+  "browser_run_in_this_review": false,
+  "limitations": "Uses synthetic DOM/state fixtures. Does not replace native browser, rendering, focus, scroll or service verification."
+}

@@ -1,0 +1,77 @@
+{
+  "author": "Andrew Fisher",
+  "pageSha256": "6365fd0965e1ae1fcf75fdd6aad076b2662697443addfae49a3d6016a39f9fce",
+  "baseSha256": "f07e92cc79ad416e75f0db2b6cfa1c302d1789cf7c93ff0da8142afc6dc8a7ec",
+  "sequential": true,
+  "requiredRuns": [
+    "packed_desktop",
+    "packed_phone",
+    "equipment_desktop",
+    "equipment_phone",
+    "rules",
+    "fresh_after_save",
+    "today_desktop",
+    "today_phone",
+    "results_desktop",
+    "results_phone",
+    "one_tab_desktop",
+    "one_tab_phone",
+    "same_figures",
+    "sweep_desktop",
+    "sweep_phone"
+  ],
+  "requestedRuns": [
+    "one_tab_desktop",
+    "one_tab_phone"
+  ],
+  "runs": [
+    {
+      "name": "one_tab_desktop",
+      "source": "v7.93_one_tab_today_DRAFT/evidence/one_tab_tests.js",
+      "sourceSha256": "5fe9bc1854d3d9c603512f46fb31f492260b0e479fa2ad963da89b3b30833ac9",
+      "adaptedSha256": "c647e5c9d9daa879491e88d3bdba3016733721277c545a4e9899fb1ba6ceca5d",
+      "adaptations": [
+        "Assert the actual #showcase modal, open state, dimensions, Back and focus; #showBackdrop is an optional selector intentionally hidden behind phone Options.",
+        "Fencing and roads presence replaced with authorised absence; Costs absence retained.",
+        "Section-presence selector includes established fold headings; none of the required headings waived.",
+        "Obsolete Today Fencing duplicate exception removed; all remaining duplicates still fail."
+      ],
+      "exitCode": 0,
+      "failLines": [],
+      "pageErrors": [],
+      "consoleErrors": [],
+      "contextsOpened": 1,
+      "contextsClosed": 1,
+      "passed": 24,
+      "total": 24,
+      "pass": true,
+      "privateLogSha256": "31de5411c501f9c1be234043dfab3d8f6738f3ad20895f2bfdeb4727d2d00d53",
+      "privateResultSha256": "30f0a399f55513ac4ae8633457290ec80981065fda188ae4852b7825d736fd1d"
+    },
+    {
+      "name": "one_tab_phone",
+      "source": "v7.93_one_tab_today_DRAFT/evidence/one_tab_tests.js",
+      "sourceSha256": "5fe9bc1854d3d9c603512f46fb31f492260b0e479fa2ad963da89b3b30833ac9",
+      "adaptedSha256": "c647e5c9d9daa879491e88d3bdba3016733721277c545a4e9899fb1ba6ceca5d",
+      "adaptations": [
+        "Assert the actual #showcase modal, open state, dimensions, Back and focus; #showBackdrop is an optional selector intentionally hidden behind phone Options.",
+        "Fencing and roads presence replaced with authorised absence; Costs absence retained.",
+        "Section-presence selector includes established fold headings; none of the required headings waived.",
+        "Obsolete Today Fencing duplicate exception removed; all remaining duplicates still fail."
+      ],
+      "exitCode": 0,
+      "failLines": [],
+      "pageErrors": [],
+      "consoleErrors": [],
+      "contextsOpened": 1,
+      "contextsClosed": 1,
+      "passed": 24,
+      "total": 24,
+      "pass": true,
+      "privateLogSha256": "c0c1373f90d593dd65756471bd438f06018f1df48263cd7ae6c3849ceb9b3a8d",
+      "privateResultSha256": "d2dd8bba35af4a5c4ee6e270e971283d3fef0587abd68a1860f7077ca5347a56"
+    }
+  ],
+  "complete": false,
+  "pass": true
+}

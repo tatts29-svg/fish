@@ -1,0 +1,85 @@
+{
+  "author": "Andrew Fisher",
+  "complete": true,
+  "beforeVersion": 5155,
+  "afterVersion": 5161,
+  "asset": "1317645",
+  "ref": "WC31",
+  "received": 1,
+  "installed": 1,
+  "changes": [
+    {
+      "collection": "stamps",
+      "key": "supplied/WC31/Accessible Toilet"
+    },
+    {
+      "collection": "stamps",
+      "key": "labour/WC31|Toilets & amenities|Accessible Toilet|install"
+    },
+    {
+      "collection": "supplied",
+      "key": "WC31"
+    },
+    {
+      "collection": "by",
+      "key": "supplied/WC31/Accessible Toilet"
+    },
+    {
+      "collection": "by",
+      "key": "labour/WC31|Toilets & amenities|Accessible Toilet|install"
+    },
+    {
+      "collection": "labour",
+      "key": "WC31|Toilets & amenities|Accessible Toilet|install"
+    }
+  ],
+  "unrelatedDocumentsUnchanged": true,
+  "sharedToilets": {
+    "planned": 254,
+    "received": 138,
+    "installed": 132,
+    "left": 122,
+    "pct": 51.97,
+    "review": 0
+  },
+  "wc31": {
+    "received": 3,
+    "installed": 3,
+    "complete": true,
+    "mapComplete": true
+  },
+  "errors": [],
+  "userConfirmationMessages": [
+    "You know the answrr i said it turned up",
+    "Installed",
+    "U have the asnwers"
+  ],
+  "installationChargeCaptured": true,
+  "installationChargeExGST": 88.49,
+  "installationCardRate": 88.485,
+  "identitiesPreserved": [
+    {
+      "number": "12",
+      "item": "16Pan Block",
+      "owner": "event-portables"
+    },
+    {
+      "number": "74",
+      "item": "16Pan Block",
+      "owner": "event-portables"
+    },
+    {
+      "number": "1317645",
+      "item": "Accessible Toilet",
+      "owner": "coates"
+    }
+  ],
+  "crossTabVerification": [
+    "Today",
+    "Equipment item types",
+    "Equipment Inventory",
+    "Timeline Finished",
+    "Map completion"
+  ],
+  "pageReleaseRequired": false
+}

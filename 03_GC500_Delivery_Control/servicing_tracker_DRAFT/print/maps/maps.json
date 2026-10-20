@@ -1,0 +1,2149 @@
+{
+ "_about": "Author: Andrew Fisher. Master-plan pictures for the servicing sheets, rendered read only from the live page's Map explorer (Original plan, as drawn, rotation 0) by render_maps.cjs. Positions and rectangles are in drawing sheet units (D001, 2384 x 1684). Picture x = (sheet x - rect x0) / (rect x1 - rect x0) x picture width; the same for y.",
+ "rendered_at": "2026-10-17T21:41:35.004Z",
+ "page": {
+  "file": "build/GC500_v10.60p1/GC500_Delivery_Control_hosted.html",
+  "sha256": "92c91a82174055f02524c416d0e7c864dc6aa183716c2a9b94d205f837e6bc84",
+  "version": "v10.60.1"
+ },
+ "explorer": "/w/Coates-GC500-2026/explorer/index.html",
+ "credit": "Drawing © iEDM · D001 rev 03 · issued 2 Oct",
+ "north_on_sheet": {
+  "x": -0.9999973133441512,
+  "y": -0.0023180389296286463
+ },
+ "m_per_unit": 0.7093,
+ "m_per_unit_note": "image registration of the plan to satellite z18, not survey (the explorer says so); used for an approximate scale bar and distances only",
+ "inset_region": [
+  1482.86,
+  873.42,
+  2334.08,
+  1464.24
+ ],
+ "sheet": [
+  2384,
+  1684
+ ],
+ "positions": {
+  "PG01": {
+   "x": 849.991,
+   "y": 698.995,
+   "hw": 1.2,
+   "hh": 0.8
+  },
+  "PG03": {
+   "x": 849.991,
+   "y": 698.995,
+   "hw": 1.2,
+   "hh": 0.8
+  },
+  "PG05": {
+   "x": 849.991,
+   "y": 698.995,
+   "hw": 1.2,
+   "hh": 0.8
+  },
+  "PG29": {
+   "x": 849.991,
+   "y": 698.995,
+   "hw": 1.2,
+   "hh": 0.8
+  },
+  "T0024": {
+   "x": 1250.003,
+   "y": 334.005,
+   "hw": 1.2,
+   "hh": 0.8
+  },
+  "WC12": {
+   "x": 791.512,
+   "y": 707.752,
+   "hw": 1.2,
+   "hh": 0.8
+  },
+  "WC16": {
+   "x": 866.56,
+   "y": 656.44,
+   "hw": 1.2,
+   "hh": 0.8
+  },
+  "T0243": {
+   "x": 1117.262,
+   "y": 576.433,
+   "hw": 1.2,
+   "hh": 0.8
+  },
+  "WC15": {
+   "x": 880.197,
+   "y": 601.104,
+   "hw": 1.2,
+   "hh": 0.8
+  },
+  "WC17": {
+   "x": 959.393,
+   "y": 600.514,
+   "hw": 1.2,
+   "hh": 0.8
+  },
+  "WC19": {
+   "x": 1227.951,
+   "y": 577.191,
+   "hw": 1.2,
+   "hh": 0.8
+  },
+  "WC20": {
+   "x": 1106.796,
+   "y": 589.4,
+   "hw": 1.2,
+   "hh": 0.8
+  },
+  "WC43": {
+   "x": 934.337,
+   "y": 721.661,
+   "hw": 1.2,
+   "hh": 0.8
+  },
+  "WC73": {
+   "x": 1027.266,
+   "y": 599.79,
+   "hw": 1.2,
+   "hh": 0.8
+  },
+  "WC86": {
+   "x": 1143.843,
+   "y": 582.344,
+   "hw": 1.2,
+   "hh": 0.8
+  },
+  "WC01": {
+   "x": 471.102,
+   "y": 995.497,
+   "hw": 1.2,
+   "hh": 0.8
+  },
+  "WC02": {
+   "x": 501.713,
+   "y": 932.801,
+   "hw": 1.2,
+   "hh": 0.8
+  },
+  "WC04": {
+   "x": 539.428,
+   "y": 819.232,
+   "hw": 1.2,
+   "hh": 0.8
+  },
+  "WC05": {
+   "x": 500.306,
+   "y": 841.495,
+   "hw": 1.2,
+   "hh": 0.8
+  },
+  "WC38": {
+   "x": 497.279,
+   "y": 1151.25,
+   "hw": 1.2,
+   "hh": 0.8
+  },
+  "WC39": {
+   "x": 502.285,
+   "y": 1170.279,
+   "hw": 1.2,
+   "hh": 0.8
+  },
+  "WC40": {
+   "x": 507.673,
+   "y": 1106.742,
+   "hw": 1.2,
+   "hh": 0.8
+  },
+  "WC42": {
+   "x": 448.383,
+   "y": 1052.315,
+   "hw": 1.2,
+   "hh": 0.8
+  },
+  "WC06": {
+   "x": 671.597,
+   "y": 817.397,
+   "hw": 1.2,
+   "hh": 0.8
+  },
+  "WC07": {
+   "x": 633.453,
+   "y": 766.607,
+   "hw": 1.2,
+   "hh": 0.8
+  },
+  "WC09": {
+   "x": 674.887,
+   "y": 609.44,
+   "hw": 1.2,
+   "hh": 0.8
+  },
+  "WC10": {
+   "x": 638.125,
+   "y": 652.803,
+   "hw": 1.2,
+   "hh": 0.8
+  },
+  "WC11": {
+   "x": 701.325,
+   "y": 811.402,
+   "hw": 1.2,
+   "hh": 0.8
+  },
+  "WC41": {
+   "x": 692.838,
+   "y": 883.864,
+   "hw": 1.2,
+   "hh": 0.8
+  },
+  "WC27": {
+   "x": 757.492,
+   "y": 410.408,
+   "hw": 1.2,
+   "hh": 0.8
+  },
+  "WC33": {
+   "x": 893.714,
+   "y": 401.567,
+   "hw": 1.2,
+   "hh": 0.8
+  },
+  "WC60": {
+   "x": 763.905,
+   "y": 327.807,
+   "hw": 1.2,
+   "hh": 0.8
+  },
+  "WC61": {
+   "x": 582.22,
+   "y": 359.13,
+   "hw": 1.2,
+   "hh": 0.8
+  },
+  "WC13": {
+   "x": 1654.782,
+   "y": 404.093,
+   "hw": 1.2,
+   "hh": 0.8
+  },
+  "WC21": {
+   "x": 1372.326,
+   "y": 528.574,
+   "hw": 1.2,
+   "hh": 0.8
+  },
+  "WC26": {
+   "x": 1316.755,
+   "y": 392.759,
+   "hw": 1.2,
+   "hh": 0.8
+  },
+  "WC50": {
+   "x": 1471.143,
+   "y": 361.656,
+   "hw": 1.2,
+   "hh": 0.8
+  },
+  "WC56": {
+   "x": 1476.602,
+   "y": 325.989,
+   "hw": 1.2,
+   "hh": 0.8
+  },
+  "WC57": {
+   "x": 1223.23,
+   "y": 325.585,
+   "hw": 1.2,
+   "hh": 0.8
+  },
+  "WC59": {
+   "x": 1219.631,
+   "y": 312.618,
+   "hw": 1.2,
+   "hh": 0.8
+  },
+  "WC23": {
+   "x": 1426.752,
+   "y": 448.062,
+   "hw": 1.2,
+   "hh": 0.8
+  },
+  "WC24": {
+   "x": 1667.656,
+   "y": 384.979,
+   "hw": 1.2,
+   "hh": 0.8
+  },
+  "WC25": {
+   "x": 1513.935,
+   "y": 498.464,
+   "hw": 1.2,
+   "hh": 0.8
+  },
+  "WC44": {
+   "x": 1342.287,
+   "y": 579.313,
+   "hw": 1.2,
+   "hh": 0.8
+  },
+  "WC45": {
+   "x": 1615.78,
+   "y": 560.856,
+   "hw": 1.2,
+   "hh": 0.8
+  },
+  "WC47": {
+   "x": 1532.96,
+   "y": 562.136,
+   "hw": 1.2,
+   "hh": 0.8
+  },
+  "WC55": {
+   "x": 1699.697,
+   "y": 360.578,
+   "hw": 1.2,
+   "hh": 0.8
+  },
+  "WC46": {
+   "x": 1853.584,
+   "y": 423.846,
+   "hw": 1.2,
+   "hh": 0.8
+  },
+  "WC48": {
+   "x": 2093.581,
+   "y": 274.441,
+   "hw": 1.2,
+   "hh": 0.8
+  },
+  "WC49": {
+   "x": 2103.403,
+   "y": 255.177,
+   "hw": 1.2,
+   "hh": 0.8
+  },
+  "WC51": {
+   "x": 1953.426,
+   "y": 273.818,
+   "hw": 1.2,
+   "hh": 0.8
+  },
+  "WC53": {
+   "x": 1923.03,
+   "y": 297.378,
+   "hw": 1.2,
+   "hh": 0.8
+  },
+  "WC54": {
+   "x": 1754.171,
+   "y": 273.549,
+   "hw": 1.2,
+   "hh": 0.8
+  },
+  "WC28": {
+   "x": 468.79,
+   "y": 451.059,
+   "hw": 1.2,
+   "hh": 0.8
+  },
+  "WC29": {
+   "x": 493.679,
+   "y": 532.986,
+   "hw": 1.2,
+   "hh": 0.8
+  },
+  "WC30": {
+   "x": 309.801,
+   "y": 635.929,
+   "hw": 1.2,
+   "hh": 0.8
+  },
+  "WC35": {
+   "x": 216.896,
+   "y": 645.326,
+   "hw": 1.2,
+   "hh": 0.8
+  },
+  "WC62": {
+   "x": 196.728,
+   "y": 442.522,
+   "hw": 1.2,
+   "hh": 0.8
+  },
+  "WC81": {
+   "x": 2164.124,
+   "y": 1257.729,
+   "hw": 1.2,
+   "hh": 0.8
+  },
+  "WC31": {
+   "x": 321.101,
+   "y": 984.904,
+   "hw": 1.2,
+   "hh": 0.8
+  },
+  "WC34": {
+   "x": 295.759,
+   "y": 907.592,
+   "hw": 1.2,
+   "hh": 0.8
+  },
+  "WC65": {
+   "x": 166.046,
+   "y": 833.479,
+   "hw": 1.2,
+   "hh": 0.8
+  },
+  "WC67": {
+   "x": 151.599,
+   "y": 1145.339,
+   "hw": 1.2,
+   "hh": 0.8
+  },
+  "WC68": {
+   "x": 168.525,
+   "y": 1107.533,
+   "hw": 1.2,
+   "hh": 0.8
+  },
+  "WC69": {
+   "x": 168.072,
+   "y": 1145.996,
+   "hw": 1.2,
+   "hh": 0.8
+  },
+  "WC70": {
+   "x": 193.581,
+   "y": 1162.836,
+   "hw": 1.2,
+   "hh": 0.8
+  },
+  "WC71": {
+   "x": 134.41,
+   "y": 1240.283,
+   "hw": 1.2,
+   "hh": 0.8
+  },
+  "WC72": {
+   "x": 267.413,
+   "y": 1167.803,
+   "hw": 1.2,
+   "hh": 0.8
+  },
+  "BJR01": null,
+  "SVP01": null,
+  "T0162": null,
+  "T0176": null,
+  "WC85": null,
+  "WC100": null
+ },
+ "ref_image": {
+  "PG01": "ref_PG01",
+  "PG03": "ref_PG01",
+  "PG05": "ref_PG01",
+  "PG29": "ref_PG01",
+  "T0024": "ref_T0024",
+  "WC12": "ref_WC12",
+  "WC16": "ref_WC16",
+  "T0243": "ref_T0243",
+  "WC15": "ref_WC15",
+  "WC17": "ref_WC17",
+  "WC19": "ref_WC19",
+  "WC20": "ref_WC20",
+  "WC43": "ref_WC43",
+  "WC73": "ref_WC73",
+  "WC86": "ref_WC86",
+  "WC01": "ref_WC01",
+  "WC02": "ref_WC02",
+  "WC04": "ref_WC04",
+  "WC05": "ref_WC05",
+  "WC38": "ref_WC38",
+  "WC39": "ref_WC39",
+  "WC40": "ref_WC40",
+  "WC42": "ref_WC42",
+  "WC06": "ref_WC06",
+  "WC07": "ref_WC07",
+  "WC09": "ref_WC09",
+  "WC10": "ref_WC10",
+  "WC11": "ref_WC11",
+  "WC41": "ref_WC41",
+  "WC27": "ref_WC27",
+  "WC33": "ref_WC33",
+  "WC60": "ref_WC60",
+  "WC61": "ref_WC61",
+  "WC13": "ref_WC13",
+  "WC21": "ref_WC21",
+  "WC26": "ref_WC26",
+  "WC50": "ref_WC50",
+  "WC56": "ref_WC56",
+  "WC57": "ref_WC57",
+  "WC59": "ref_WC59",
+  "WC23": "ref_WC23",
+  "WC24": "ref_WC24",
+  "WC25": "ref_WC25",
+  "WC44": "ref_WC44",
+  "WC45": "ref_WC45",
+  "WC47": "ref_WC47",
+  "WC55": "ref_WC55",
+  "WC46": "ref_WC46",
+  "WC48": "ref_WC48",
+  "WC49": "ref_WC49",
+  "WC51": "ref_WC51",
+  "WC53": "ref_WC53",
+  "WC54": "ref_WC54",
+  "WC28": "ref_WC28",
+  "WC29": "ref_WC29",
+  "WC30": "ref_WC30",
+  "WC35": "ref_WC35",
+  "WC62": "ref_WC62",
+  "WC81": "ref_WC81",
+  "WC31": "ref_WC31",
+  "WC34": "ref_WC34",
+  "WC65": "ref_WC65",
+  "WC67": "ref_WC67",
+  "WC68": "ref_WC68",
+  "WC69": "ref_WC69",
+  "WC70": "ref_WC70",
+  "WC71": "ref_WC71",
+  "WC72": "ref_WC72"
+ },
+ "areas": {
+  "0": {
+   "n": 0,
+   "name": "No location yet",
+   "main": null,
+   "far": [],
+   "unplaced": [
+    "WC100"
+   ]
+  },
+  "1": {
+   "n": 1,
+   "name": "Pit Lane & Paddock",
+   "main": {
+    "key": "area1",
+    "refs": [
+     "WC16",
+     "WC12",
+     "PG29",
+     "PG05",
+     "PG03",
+     "PG01"
+    ]
+   },
+   "far": [
+    {
+     "key": "area1_far1",
+     "refs": [
+      "T0024"
+     ]
+    }
+   ],
+   "unplaced": []
+  },
+  "2": {
+   "n": 2,
+   "name": "Island North / Freight",
+   "main": {
+    "key": "area2",
+    "refs": [
+     "WC86",
+     "WC73",
+     "WC43",
+     "WC20",
+     "WC19",
+     "WC17",
+     "WC15",
+     "T0243"
+    ]
+   },
+   "far": [],
+   "unplaced": []
+  },
+  "3": {
+   "n": 3,
+   "name": "Island West / Merch",
+   "main": {
+    "key": "area3",
+    "refs": [
+     "WC05",
+     "WC04",
+     "WC02",
+     "WC01"
+    ]
+   },
+   "far": [],
+   "unplaced": []
+  },
+  "4": {
+   "n": 4,
+   "name": "Commodore Park",
+   "main": {
+    "key": "area4",
+    "refs": [
+     "WC42",
+     "WC40",
+     "WC39",
+     "WC38"
+    ]
+   },
+   "far": [],
+   "unplaced": []
+  },
+  "5": {
+   "n": 5,
+   "name": "Median Strip — Race Admin & Merch",
+   "main": {
+    "key": "area5",
+    "refs": [
+     "WC07",
+     "WC06"
+    ]
+   },
+   "far": [],
+   "unplaced": []
+  },
+  "6": {
+   "n": 6,
+   "name": "Median Strip — FOAM / Other Toilets",
+   "main": {
+    "key": "area6",
+    "refs": [
+     "WC41",
+     "WC11",
+     "WC10",
+     "WC09"
+    ]
+   },
+   "far": [],
+   "unplaced": []
+  },
+  "7": {
+   "n": 7,
+   "name": "Main Beach Parade / Seaside North",
+   "main": {
+    "key": "area7",
+    "refs": [
+     "WC61",
+     "WC60",
+     "WC33",
+     "WC27"
+    ]
+   },
+   "far": [],
+   "unplaced": []
+  },
+  "8": {
+   "n": 8,
+   "name": "Main Beach Seaside — Supply / North",
+   "main": {
+    "key": "area8",
+    "refs": [
+     "WC59",
+     "WC57",
+     "WC56",
+     "WC50",
+     "WC13",
+     "WC26",
+     "WC21"
+    ]
+   },
+   "far": [],
+   "unplaced": []
+  },
+  "9": {
+   "n": 9,
+   "name": "Main Beach Seaside — Mid-South",
+   "main": {
+    "key": "area9",
+    "refs": [
+     "WC55",
+     "WC47",
+     "WC45",
+     "WC44",
+     "WC25",
+     "WC24",
+     "WC23"
+    ]
+   },
+   "far": [],
+   "unplaced": []
+  },
+  "10": {
+   "n": 10,
+   "name": "Main Beach Seaside — South",
+   "main": {
+    "key": "area10",
+    "refs": [
+     "WC54",
+     "WC53",
+     "WC51",
+     "WC49",
+     "WC48",
+     "WC46"
+    ]
+   },
+   "far": [],
+   "unplaced": []
+  },
+  "11": {
+   "n": 11,
+   "name": "Surfers Paradise / Cypress",
+   "main": {
+    "key": "area11",
+    "refs": [
+     "WC62",
+     "WC35",
+     "WC30",
+     "WC29",
+     "WC28"
+    ]
+   },
+   "far": [
+    {
+     "key": "area11_far1",
+     "refs": [
+      "WC81"
+     ]
+    }
+   ],
+   "unplaced": []
+  },
+  "12": {
+   "n": 12,
+   "name": "Helen Park / The Hill",
+   "main": {
+    "key": "area12",
+    "refs": [
+     "WC72",
+     "WC71",
+     "WC70",
+     "WC69",
+     "WC68",
+     "WC67",
+     "WC65",
+     "WC34",
+     "WC31"
+    ]
+   },
+   "far": [],
+   "unplaced": []
+  },
+  "13": {
+   "n": 13,
+   "name": "Teams Area",
+   "main": null,
+   "far": [],
+   "unplaced": [
+    "BJR01",
+    "SVP01",
+    "T0162",
+    "T0176",
+    "WC85"
+   ]
+  }
+ },
+ "images": {
+  "master": {
+   "file": "master.jpg",
+   "rect": [
+    40,
+    144.377,
+    2316.924,
+    1368.529
+   ],
+   "px": [
+    3000,
+    1613
+   ],
+   "source_px_per_unit": 1.5904,
+   "export": "GC500_D001_Rev03_original_137pct_3840x2057.png"
+  },
+  "area1": {
+   "file": "area1.jpg",
+   "rect": [
+    679.911,
+    610.64,
+    978.161,
+    753.552
+   ],
+   "px": [
+    2000,
+    958
+   ],
+   "source_px_per_unit": 12.8483,
+   "export": "GC500_D001_Rev03_original_1110pct_3840x2057.png"
+  },
+  "area1_far1": {
+   "file": "area1_far1.jpg",
+   "rect": [
+    1175.003,
+    280.779,
+    1325.003,
+    387.23
+   ],
+   "px": [
+    800,
+    568
+   ],
+   "source_px_per_unit": 18.2889,
+   "export": "GC500_D001_Rev03_original_1580pct_3840x2057.png"
+  },
+  "area2": {
+   "file": "area2.jpg",
+   "rect": [
+    833.997,
+    497.744,
+    1274.151,
+    800.35
+   ],
+   "px": [
+    2000,
+    1375
+   ],
+   "source_px_per_unit": 6.4337,
+   "export": "GC500_D001_Rev03_original_556pct_3840x2057.png"
+  },
+  "area3": {
+   "file": "area3.jpg",
+   "rect": [
+    310.455,
+    773.432,
+    700.075,
+    1041.297
+   ],
+   "px": [
+    2000,
+    1375
+   ],
+   "source_px_per_unit": 7.2682,
+   "export": "GC500_D001_Rev03_original_628pct_3840x2057.png"
+  },
+  "area4": {
+   "file": "area4.jpg",
+   "rect": [
+    325.617,
+    1006.515,
+    630.438,
+    1216.079
+   ],
+   "px": [
+    2000,
+    1375
+   ],
+   "source_px_per_unit": 9.2902,
+   "export": "GC500_D001_Rev03_original_803pct_3840x2057.png"
+  },
+  "area5": {
+   "file": "area5.jpg",
+   "rect": [
+    548.969,
+    720.807,
+    756.081,
+    863.197
+   ],
+   "px": [
+    2000,
+    1375
+   ],
+   "source_px_per_unit": 13.673,
+   "export": "GC500_D001_Rev03_original_1181pct_3840x2057.png"
+  },
+  "area6": {
+   "file": "area6.jpg",
+   "rect": [
+    403.525,
+    563.64,
+    935.925,
+    929.664
+   ],
+   "px": [
+    2000,
+    1375
+   ],
+   "source_px_per_unit": 5.319,
+   "export": "GC500_D001_Rev03_original_460pct_3840x2057.png"
+  },
+  "area7": {
+   "file": "area7.jpg",
+   "rect": [
+    536.02,
+    230.269,
+    939.914,
+    507.946
+   ],
+   "px": [
+    2000,
+    1375
+   ],
+   "source_px_per_unit": 7.0113,
+   "export": "GC500_D001_Rev03_original_606pct_3840x2057.png"
+  },
+  "area8": {
+   "file": "area8.jpg",
+   "rect": [
+    1173.431,
+    239.25,
+    1700.982,
+    601.942
+   ],
+   "px": [
+    2000,
+    1375
+   ],
+   "source_px_per_unit": 5.3679,
+   "export": "GC500_D001_Rev03_original_464pct_3840x2057.png"
+  },
+  "area9": {
+   "file": "area9.jpg",
+   "rect": [
+    1295.294,
+    314.778,
+    1746.69,
+    625.113
+   ],
+   "px": [
+    2000,
+    1375
+   ],
+   "source_px_per_unit": 6.2735,
+   "export": "GC500_D001_Rev03_original_542pct_3840x2057.png"
+  },
+  "area10": {
+   "file": "area10.jpg",
+   "rect": [
+    1707.971,
+    187.7,
+    2149.603,
+    491.322
+   ],
+   "px": [
+    2000,
+    1375
+   ],
+   "source_px_per_unit": 6.4122,
+   "export": "GC500_D001_Rev03_original_554pct_3840x2057.png"
+  },
+  "area11": {
+   "file": "area11.jpg",
+   "rect": [
+    40,
+    396.722,
+    654.409,
+    691.126
+   ],
+   "px": [
+    2000,
+    958
+   ],
+   "source_px_per_unit": 6.2369,
+   "export": "GC500_D001_Rev03_original_539pct_3840x2057.png"
+  },
+  "area11_far1": {
+   "file": "area11_far1.jpg",
+   "rect": [
+    2089.124,
+    1204.503,
+    2239.124,
+    1310.955
+   ],
+   "px": [
+    800,
+    568
+   ],
+   "source_px_per_unit": 18.2889,
+   "export": "GC500_D001_Rev03_original_1580pct_3840x2057.png"
+  },
+  "area12": {
+   "file": "area12.jpg",
+   "rect": [
+    40,
+    787.679,
+    764.951,
+    1286.083
+   ],
+   "px": [
+    2000,
+    1375
+   ],
+   "source_px_per_unit": 3.9062,
+   "export": "GC500_D001_Rev03_original_338pct_3840x2057.png"
+  },
+  "ref_PG01": {
+   "file": "ref_PG01.jpg",
+   "rect": [
+    769.991,
+    655.795,
+    929.991,
+    742.195
+   ],
+   "px": [
+    1150,
+    621
+   ],
+   "source_px_per_unit": 22.5334,
+   "export": "GC500_D001_Rev03_original_1947pct_3840x2057.png",
+   "refs": [
+    "PG01",
+    "PG03",
+    "PG05",
+    "PG29"
+   ]
+  },
+  "ref_T0024": {
+   "file": "ref_T0024.jpg",
+   "rect": [
+    1170.003,
+    290.805,
+    1330.003,
+    377.205
+   ],
+   "px": [
+    1150,
+    621
+   ],
+   "source_px_per_unit": 22.5334,
+   "export": "GC500_D001_Rev03_original_1947pct_3840x2057.png",
+   "refs": [
+    "T0024"
+   ]
+  },
+  "ref_WC12": {
+   "file": "ref_WC12.jpg",
+   "rect": [
+    711.512,
+    664.552,
+    871.512,
+    750.952
+   ],
+   "px": [
+    1150,
+    621
+   ],
+   "source_px_per_unit": 22.5334,
+   "export": "GC500_D001_Rev03_original_1947pct_3840x2057.png",
+   "refs": [
+    "WC12"
+   ]
+  },
+  "ref_WC16": {
+   "file": "ref_WC16.jpg",
+   "rect": [
+    786.56,
+    613.24,
+    946.56,
+    699.64
+   ],
+   "px": [
+    1150,
+    621
+   ],
+   "source_px_per_unit": 22.5334,
+   "export": "GC500_D001_Rev03_original_1947pct_3840x2057.png",
+   "refs": [
+    "WC16"
+   ]
+  },
+  "ref_T0243": {
+   "file": "ref_T0243.jpg",
+   "rect": [
+    1037.262,
+    533.233,
+    1197.262,
+    619.633
+   ],
+   "px": [
+    1150,
+    621
+   ],
+   "source_px_per_unit": 22.5334,
+   "export": "GC500_D001_Rev03_original_1947pct_3840x2057.png",
+   "refs": [
+    "T0243"
+   ]
+  },
+  "ref_WC15": {
+   "file": "ref_WC15.jpg",
+   "rect": [
+    800.197,
+    557.904,
+    960.197,
+    644.304
+   ],
+   "px": [
+    1150,
+    621
+   ],
+   "source_px_per_unit": 22.5334,
+   "export": "GC500_D001_Rev03_original_1947pct_3840x2057.png",
+   "refs": [
+    "WC15"
+   ]
+  },
+  "ref_WC17": {
+   "file": "ref_WC17.jpg",
+   "rect": [
+    879.393,
+    557.314,
+    1039.393,
+    643.714
+   ],
+   "px": [
+    1150,
+    621
+   ],
+   "source_px_per_unit": 22.5334,
+   "export": "GC500_D001_Rev03_original_1947pct_3840x2057.png",
+   "refs": [
+    "WC17"
+   ]
+  },
+  "ref_WC19": {
+   "file": "ref_WC19.jpg",
+   "rect": [
+    1147.951,
+    533.991,
+    1307.951,
+    620.391
+   ],
+   "px": [
+    1150,
+    621
+   ],
+   "source_px_per_unit": 22.5334,
+   "export": "GC500_D001_Rev03_original_1947pct_3840x2057.png",
+   "refs": [
+    "WC19"
+   ]
+  },
+  "ref_WC20": {
+   "file": "ref_WC20.jpg",
+   "rect": [
+    1026.796,
+    546.2,
+    1186.796,
+    632.6
+   ],
+   "px": [
+    1150,
+    621
+   ],
+   "source_px_per_unit": 22.5334,
+   "export": "GC500_D001_Rev03_original_1947pct_3840x2057.png",
+   "refs": [
+    "WC20"
+   ]
+  },
+  "ref_WC43": {
+   "file": "ref_WC43.jpg",
+   "rect": [
+    854.337,
+    678.461,
+    1014.337,
+    764.861
+   ],
+   "px": [
+    1150,
+    621
+   ],
+   "source_px_per_unit": 22.5334,
+   "export": "GC500_D001_Rev03_original_1947pct_3840x2057.png",
+   "refs": [
+    "WC43"
+   ]
+  },
+  "ref_WC73": {
+   "file": "ref_WC73.jpg",
+   "rect": [
+    947.266,
+    556.59,
+    1107.266,
+    642.99
+   ],
+   "px": [
+    1150,
+    621
+   ],
+   "source_px_per_unit": 22.5334,
+   "export": "GC500_D001_Rev03_original_1947pct_3840x2057.png",
+   "refs": [
+    "WC73"
+   ]
+  },
+  "ref_WC86": {
+   "file": "ref_WC86.jpg",
+   "rect": [
+    1063.843,
+    539.144,
+    1223.843,
+    625.544
+   ],
+   "px": [
+    1150,
+    621
+   ],
+   "source_px_per_unit": 22.5334,
+   "export": "GC500_D001_Rev03_original_1947pct_3840x2057.png",
+   "refs": [
+    "WC86"
+   ]
+  },
+  "ref_WC01": {
+   "file": "ref_WC01.jpg",
+   "rect": [
+    391.102,
+    952.297,
+    551.102,
+    1038.697
+   ],
+   "px": [
+    1150,
+    621
+   ],
+   "source_px_per_unit": 22.5334,
+   "export": "GC500_D001_Rev03_original_1947pct_3840x2057.png",
+   "refs": [
+    "WC01"
+   ]
+  },
+  "ref_WC02": {
+   "file": "ref_WC02.jpg",
+   "rect": [
+    421.713,
+    889.601,
+    581.713,
+    976.001
+   ],
+   "px": [
+    1150,
+    621
+   ],
+   "source_px_per_unit": 22.5334,
+   "export": "GC500_D001_Rev03_original_1947pct_3840x2057.png",
+   "refs": [
+    "WC02"
+   ]
+  },
+  "ref_WC04": {
+   "file": "ref_WC04.jpg",
+   "rect": [
+    459.428,
+    776.032,
+    619.428,
+    862.432
+   ],
+   "px": [
+    1150,
+    621
+   ],
+   "source_px_per_unit": 22.5334,
+   "export": "GC500_D001_Rev03_original_1947pct_3840x2057.png",
+   "refs": [
+    "WC04"
+   ]
+  },
+  "ref_WC05": {
+   "file": "ref_WC05.jpg",
+   "rect": [
+    420.306,
+    798.295,
+    580.306,
+    884.695
+   ],
+   "px": [
+    1150,
+    621
+   ],
+   "source_px_per_unit": 22.5334,
+   "export": "GC500_D001_Rev03_original_1947pct_3840x2057.png",
+   "refs": [
+    "WC05"
+   ]
+  },
+  "ref_WC38": {
+   "file": "ref_WC38.jpg",
+   "rect": [
+    417.279,
+    1108.05,
+    577.279,
+    1194.45
+   ],
+   "px": [
+    1150,
+    621
+   ],
+   "source_px_per_unit": 22.5334,
+   "export": "GC500_D001_Rev03_original_1947pct_3840x2057.png",
+   "refs": [
+    "WC38"
+   ]
+  },
+  "ref_WC39": {
+   "file": "ref_WC39.jpg",
+   "rect": [
+    422.285,
+    1127.079,
+    582.285,
+    1213.479
+   ],
+   "px": [
+    1150,
+    621
+   ],
+   "source_px_per_unit": 22.5334,
+   "export": "GC500_D001_Rev03_original_1947pct_3840x2057.png",
+   "refs": [
+    "WC39"
+   ]
+  },
+  "ref_WC40": {
+   "file": "ref_WC40.jpg",
+   "rect": [
+    427.673,
+    1063.542,
+    587.673,
+    1149.942
+   ],
+   "px": [
+    1150,
+    621
+   ],
+   "source_px_per_unit": 22.5334,
+   "export": "GC500_D001_Rev03_original_1947pct_3840x2057.png",
+   "refs": [
+    "WC40"
+   ]
+  },
+  "ref_WC42": {
+   "file": "ref_WC42.jpg",
+   "rect": [
+    368.383,
+    1009.115,
+    528.383,
+    1095.515
+   ],
+   "px": [
+    1150,
+    621
+   ],
+   "source_px_per_unit": 22.5334,
+   "export": "GC500_D001_Rev03_original_1947pct_3840x2057.png",
+   "refs": [
+    "WC42"
+   ]
+  },
+  "ref_WC06": {
+   "file": "ref_WC06.jpg",
+   "rect": [
+    591.597,
+    774.197,
+    751.597,
+    860.597
+   ],
+   "px": [
+    1150,
+    621
+   ],
+   "source_px_per_unit": 22.5334,
+   "export": "GC500_D001_Rev03_original_1947pct_3840x2057.png",
+   "refs": [
+    "WC06"
+   ]
+  },
+  "ref_WC07": {
+   "file": "ref_WC07.jpg",
+   "rect": [
+    553.453,
+    723.407,
+    713.453,
+    809.807
+   ],
+   "px": [
+    1150,
+    621
+   ],
+   "source_px_per_unit": 22.5334,
+   "export": "GC500_D001_Rev03_original_1947pct_3840x2057.png",
+   "refs": [
+    "WC07"
+   ]
+  },
+  "ref_WC09": {
+   "file": "ref_WC09.jpg",
+   "rect": [
+    594.887,
+    566.24,
+    754.887,
+    652.64
+   ],
+   "px": [
+    1150,
+    621
+   ],
+   "source_px_per_unit": 22.5334,
+   "export": "GC500_D001_Rev03_original_1947pct_3840x2057.png",
+   "refs": [
+    "WC09"
+   ]
+  },
+  "ref_WC10": {
+   "file": "ref_WC10.jpg",
+   "rect": [
+    558.125,
+    609.603,
+    718.125,
+    696.003
+   ],
+   "px": [
+    1150,
+    621
+   ],
+   "source_px_per_unit": 22.5334,
+   "export": "GC500_D001_Rev03_original_1947pct_3840x2057.png",
+   "refs": [
+    "WC10"
+   ]
+  },
+  "ref_WC11": {
+   "file": "ref_WC11.jpg",
+   "rect": [
+    621.325,
+    768.202,
+    781.325,
+    854.602
+   ],
+   "px": [
+    1150,
+    621
+   ],
+   "source_px_per_unit": 22.5334,
+   "export": "GC500_D001_Rev03_original_1947pct_3840x2057.png",
+   "refs": [
+    "WC11"
+   ]
+  },
+  "ref_WC41": {
+   "file": "ref_WC41.jpg",
+   "rect": [
+    612.838,
+    840.664,
+    772.838,
+    927.064
+   ],
+   "px": [
+    1150,
+    621
+   ],
+   "source_px_per_unit": 22.5334,
+   "export": "GC500_D001_Rev03_original_1947pct_3840x2057.png",
+   "refs": [
+    "WC41"
+   ]
+  },
+  "ref_WC27": {
+   "file": "ref_WC27.jpg",
+   "rect": [
+    677.492,
+    367.208,
+    837.492,
+    453.608
+   ],
+   "px": [
+    1150,
+    621
+   ],
+   "source_px_per_unit": 22.5334,
+   "export": "GC500_D001_Rev03_original_1947pct_3840x2057.png",
+   "refs": [
+    "WC27"
+   ]
+  },
+  "ref_WC33": {
+   "file": "ref_WC33.jpg",
+   "rect": [
+    813.714,
+    358.367,
+    973.714,
+    444.767
+   ],
+   "px": [
+    1150,
+    621
+   ],
+   "source_px_per_unit": 22.5334,
+   "export": "GC500_D001_Rev03_original_1947pct_3840x2057.png",
+   "refs": [
+    "WC33"
+   ]
+  },
+  "ref_WC60": {
+   "file": "ref_WC60.jpg",
+   "rect": [
+    683.905,
+    284.607,
+    843.905,
+    371.007
+   ],
+   "px": [
+    1150,
+    621
+   ],
+   "source_px_per_unit": 22.5334,
+   "export": "GC500_D001_Rev03_original_1947pct_3840x2057.png",
+   "refs": [
+    "WC60"
+   ]
+  },
+  "ref_WC61": {
+   "file": "ref_WC61.jpg",
+   "rect": [
+    502.22,
+    315.93,
+    662.22,
+    402.33
+   ],
+   "px": [
+    1150,
+    621
+   ],
+   "source_px_per_unit": 22.5334,
+   "export": "GC500_D001_Rev03_original_1947pct_3840x2057.png",
+   "refs": [
+    "WC61"
+   ]
+  },
+  "ref_WC13": {
+   "file": "ref_WC13.jpg",
+   "rect": [
+    1574.782,
+    360.893,
+    1734.782,
+    447.293
+   ],
+   "px": [
+    1150,
+    621
+   ],
+   "source_px_per_unit": 22.5334,
+   "export": "GC500_D001_Rev03_original_1947pct_3840x2057.png",
+   "refs": [
+    "WC13"
+   ]
+  },
+  "ref_WC21": {
+   "file": "ref_WC21.jpg",
+   "rect": [
+    1292.326,
+    485.374,
+    1452.326,
+    571.774
+   ],
+   "px": [
+    1150,
+    621
+   ],
+   "source_px_per_unit": 22.5334,
+   "export": "GC500_D001_Rev03_original_1947pct_3840x2057.png",
+   "refs": [
+    "WC21"
+   ]
+  },
+  "ref_WC26": {
+   "file": "ref_WC26.jpg",
+   "rect": [
+    1236.755,
+    349.559,
+    1396.755,
+    435.959
+   ],
+   "px": [
+    1150,
+    621
+   ],
+   "source_px_per_unit": 22.5334,
+   "export": "GC500_D001_Rev03_original_1947pct_3840x2057.png",
+   "refs": [
+    "WC26"
+   ]
+  },
+  "ref_WC50": {
+   "file": "ref_WC50.jpg",
+   "rect": [
+    1391.143,
+    318.456,
+    1551.143,
+    404.856
+   ],
+   "px": [
+    1150,
+    621
+   ],
+   "source_px_per_unit": 22.5334,
+   "export": "GC500_D001_Rev03_original_1947pct_3840x2057.png",
+   "refs": [
+    "WC50"
+   ]
+  },
+  "ref_WC56": {
+   "file": "ref_WC56.jpg",
+   "rect": [
+    1396.602,
+    282.789,
+    1556.602,
+    369.189
+   ],
+   "px": [
+    1150,
+    621
+   ],
+   "source_px_per_unit": 22.5334,
+   "export": "GC500_D001_Rev03_original_1947pct_3840x2057.png",
+   "refs": [
+    "WC56"
+   ]
+  },
+  "ref_WC57": {
+   "file": "ref_WC57.jpg",
+   "rect": [
+    1143.23,
+    282.385,
+    1303.23,
+    368.785
+   ],
+   "px": [
+    1150,
+    621
+   ],
+   "source_px_per_unit": 22.5334,
+   "export": "GC500_D001_Rev03_original_1947pct_3840x2057.png",
+   "refs": [
+    "WC57"
+   ]
+  },
+  "ref_WC59": {
+   "file": "ref_WC59.jpg",
+   "rect": [
+    1139.631,
+    269.418,
+    1299.631,
+    355.818
+   ],
+   "px": [
+    1150,
+    621
+   ],
+   "source_px_per_unit": 22.5334,
+   "export": "GC500_D001_Rev03_original_1947pct_3840x2057.png",
+   "refs": [
+    "WC59"
+   ]
+  },
+  "ref_WC23": {
+   "file": "ref_WC23.jpg",
+   "rect": [
+    1346.752,
+    404.862,
+    1506.752,
+    491.262
+   ],
+   "px": [
+    1150,
+    621
+   ],
+   "source_px_per_unit": 22.5334,
+   "export": "GC500_D001_Rev03_original_1947pct_3840x2057.png",
+   "refs": [
+    "WC23"
+   ]
+  },
+  "ref_WC24": {
+   "file": "ref_WC24.jpg",
+   "rect": [
+    1587.656,
+    341.779,
+    1747.656,
+    428.179
+   ],
+   "px": [
+    1150,
+    621
+   ],
+   "source_px_per_unit": 22.5334,
+   "export": "GC500_D001_Rev03_original_1947pct_3840x2057.png",
+   "refs": [
+    "WC24"
+   ]
+  },
+  "ref_WC25": {
+   "file": "ref_WC25.jpg",
+   "rect": [
+    1433.935,
+    455.264,
+    1593.935,
+    541.664
+   ],
+   "px": [
+    1150,
+    621
+   ],
+   "source_px_per_unit": 22.5334,
+   "export": "GC500_D001_Rev03_original_1947pct_3840x2057.png",
+   "refs": [
+    "WC25"
+   ]
+  },
+  "ref_WC44": {
+   "file": "ref_WC44.jpg",
+   "rect": [
+    1262.287,
+    536.113,
+    1422.287,
+    622.513
+   ],
+   "px": [
+    1150,
+    621
+   ],
+   "source_px_per_unit": 22.5334,
+   "export": "GC500_D001_Rev03_original_1947pct_3840x2057.png",
+   "refs": [
+    "WC44"
+   ]
+  },
+  "ref_WC45": {
+   "file": "ref_WC45.jpg",
+   "rect": [
+    1535.78,
+    517.656,
+    1695.78,
+    604.056
+   ],
+   "px": [
+    1150,
+    621
+   ],
+   "source_px_per_unit": 22.5334,
+   "export": "GC500_D001_Rev03_original_1947pct_3840x2057.png",
+   "refs": [
+    "WC45"
+   ]
+  },
+  "ref_WC47": {
+   "file": "ref_WC47.jpg",
+   "rect": [
+    1452.96,
+    518.936,
+    1612.96,
+    605.336
+   ],
+   "px": [
+    1150,
+    621
+   ],
+   "source_px_per_unit": 22.5334,
+   "export": "GC500_D001_Rev03_original_1947pct_3840x2057.png",
+   "refs": [
+    "WC47"
+   ]
+  },
+  "ref_WC55": {
+   "file": "ref_WC55.jpg",
+   "rect": [
+    1619.697,
+    317.378,
+    1779.697,
+    403.778
+   ],
+   "px": [
+    1150,
+    621
+   ],
+   "source_px_per_unit": 22.5334,
+   "export": "GC500_D001_Rev03_original_1947pct_3840x2057.png",
+   "refs": [
+    "WC55"
+   ]
+  },
+  "ref_WC46": {
+   "file": "ref_WC46.jpg",
+   "rect": [
+    1773.584,
+    380.646,
+    1933.584,
+    467.046
+   ],
+   "px": [
+    1150,
+    621
+   ],
+   "source_px_per_unit": 22.5334,
+   "export": "GC500_D001_Rev03_original_1947pct_3840x2057.png",
+   "refs": [
+    "WC46"
+   ]
+  },
+  "ref_WC48": {
+   "file": "ref_WC48.jpg",
+   "rect": [
+    2013.581,
+    231.241,
+    2173.581,
+    317.641
+   ],
+   "px": [
+    1150,
+    621
+   ],
+   "source_px_per_unit": 22.5334,
+   "export": "GC500_D001_Rev03_original_1947pct_3840x2057.png",
+   "refs": [
+    "WC48"
+   ]
+  },
+  "ref_WC49": {
+   "file": "ref_WC49.jpg",
+   "rect": [
+    2023.403,
+    211.977,
+    2183.403,
+    298.377
+   ],
+   "px": [
+    1150,
+    621
+   ],
+   "source_px_per_unit": 22.5334,
+   "export": "GC500_D001_Rev03_original_1947pct_3840x2057.png",
+   "refs": [
+    "WC49"
+   ]
+  },
+  "ref_WC51": {
+   "file": "ref_WC51.jpg",
+   "rect": [
+    1873.426,
+    230.618,
+    2033.426,
+    317.018
+   ],
+   "px": [
+    1150,
+    621
+   ],
+   "source_px_per_unit": 22.5334,
+   "export": "GC500_D001_Rev03_original_1947pct_3840x2057.png",
+   "refs": [
+    "WC51"
+   ]
+  },
+  "ref_WC53": {
+   "file": "ref_WC53.jpg",
+   "rect": [
+    1843.03,
+    254.178,
+    2003.03,
+    340.578
+   ],
+   "px": [
+    1150,
+    621
+   ],
+   "source_px_per_unit": 22.5334,
+   "export": "GC500_D001_Rev03_original_1947pct_3840x2057.png",
+   "refs": [
+    "WC53"
+   ]
+  },
+  "ref_WC54": {
+   "file": "ref_WC54.jpg",
+   "rect": [
+    1674.171,
+    230.349,
+    1834.171,
+    316.749
+   ],
+   "px": [
+    1150,
+    621
+   ],
+   "source_px_per_unit": 22.5334,
+   "export": "GC500_D001_Rev03_original_1947pct_3840x2057.png",
+   "refs": [
+    "WC54"
+   ]
+  },
+  "ref_WC28": {
+   "file": "ref_WC28.jpg",
+   "rect": [
+    388.79,
+    407.859,
+    548.79,
+    494.259
+   ],
+   "px": [
+    1150,
+    621
+   ],
+   "source_px_per_unit": 22.5334,
+   "export": "GC500_D001_Rev03_original_1947pct_3840x2057.png",
+   "refs": [
+    "WC28"
+   ]
+  },
+  "ref_WC29": {
+   "file": "ref_WC29.jpg",
+   "rect": [
+    413.679,
+    489.786,
+    573.679,
+    576.186
+   ],
+   "px": [
+    1150,
+    621
+   ],
+   "source_px_per_unit": 22.5334,
+   "export": "GC500_D001_Rev03_original_1947pct_3840x2057.png",
+   "refs": [
+    "WC29"
+   ]
+  },
+  "ref_WC30": {
+   "file": "ref_WC30.jpg",
+   "rect": [
+    229.801,
+    592.729,
+    389.801,
+    679.129
+   ],
+   "px": [
+    1150,
+    621
+   ],
+   "source_px_per_unit": 22.5334,
+   "export": "GC500_D001_Rev03_original_1947pct_3840x2057.png",
+   "refs": [
+    "WC30"
+   ]
+  },
+  "ref_WC35": {
+   "file": "ref_WC35.jpg",
+   "rect": [
+    136.896,
+    602.126,
+    296.896,
+    688.526
+   ],
+   "px": [
+    1150,
+    621
+   ],
+   "source_px_per_unit": 22.5334,
+   "export": "GC500_D001_Rev03_original_1947pct_3840x2057.png",
+   "refs": [
+    "WC35"
+   ]
+  },
+  "ref_WC62": {
+   "file": "ref_WC62.jpg",
+   "rect": [
+    116.728,
+    399.322,
+    276.728,
+    485.722
+   ],
+   "px": [
+    1150,
+    621
+   ],
+   "source_px_per_unit": 22.5334,
+   "export": "GC500_D001_Rev03_original_1947pct_3840x2057.png",
+   "refs": [
+    "WC62"
+   ]
+  },
+  "ref_WC81": {
+   "file": "ref_WC81.jpg",
+   "rect": [
+    2084.124,
+    1214.529,
+    2244.124,
+    1300.929
+   ],
+   "px": [
+    1150,
+    621
+   ],
+   "source_px_per_unit": 22.5334,
+   "export": "GC500_D001_Rev03_original_1947pct_3840x2057.png",
+   "refs": [
+    "WC81"
+   ]
+  },
+  "ref_WC31": {
+   "file": "ref_WC31.jpg",
+   "rect": [
+    241.101,
+    941.704,
+    401.101,
+    1028.104
+   ],
+   "px": [
+    1150,
+    621
+   ],
+   "source_px_per_unit": 22.5334,
+   "export": "GC500_D001_Rev03_original_1947pct_3840x2057.png",
+   "refs": [
+    "WC31"
+   ]
+  },
+  "ref_WC34": {
+   "file": "ref_WC34.jpg",
+   "rect": [
+    215.759,
+    864.392,
+    375.759,
+    950.792
+   ],
+   "px": [
+    1150,
+    621
+   ],
+   "source_px_per_unit": 22.5334,
+   "export": "GC500_D001_Rev03_original_1947pct_3840x2057.png",
+   "refs": [
+    "WC34"
+   ]
+  },
+  "ref_WC65": {
+   "file": "ref_WC65.jpg",
+   "rect": [
+    86.046,
+    790.279,
+    246.046,
+    876.679
+   ],
+   "px": [
+    1150,
+    621
+   ],
+   "source_px_per_unit": 22.5334,
+   "export": "GC500_D001_Rev03_original_1947pct_3840x2057.png",
+   "refs": [
+    "WC65"
+   ]
+  },
+  "ref_WC67": {
+   "file": "ref_WC67.jpg",
+   "rect": [
+    71.599,
+    1102.139,
+    231.599,
+    1188.539
+   ],
+   "px": [
+    1150,
+    621
+   ],
+   "source_px_per_unit": 22.5334,
+   "export": "GC500_D001_Rev03_original_1947pct_3840x2057.png",
+   "refs": [
+    "WC67"
+   ]
+  },
+  "ref_WC68": {
+   "file": "ref_WC68.jpg",
+   "rect": [
+    88.525,
+    1064.333,
+    248.525,
+    1150.733
+   ],
+   "px": [
+    1150,
+    621
+   ],
+   "source_px_per_unit": 22.5334,
+   "export": "GC500_D001_Rev03_original_1947pct_3840x2057.png",
+   "refs": [
+    "WC68"
+   ]
+  },
+  "ref_WC69": {
+   "file": "ref_WC69.jpg",
+   "rect": [
+    88.072,
+    1102.796,
+    248.072,
+    1189.196
+   ],
+   "px": [
+    1150,
+    621
+   ],
+   "source_px_per_unit": 22.5334,
+   "export": "GC500_D001_Rev03_original_1947pct_3840x2057.png",
+   "refs": [
+    "WC69"
+   ]
+  },
+  "ref_WC70": {
+   "file": "ref_WC70.jpg",
+   "rect": [
+    113.581,
+    1119.636,
+    273.581,
+    1206.036
+   ],
+   "px": [
+    1150,
+    621
+   ],
+   "source_px_per_unit": 22.5334,
+   "export": "GC500_D001_Rev03_original_1947pct_3840x2057.png",
+   "refs": [
+    "WC70"
+   ]
+  },
+  "ref_WC71": {
+   "file": "ref_WC71.jpg",
+   "rect": [
+    54.41,
+    1197.083,
+    214.41,
+    1283.483
+   ],
+   "px": [
+    1150,
+    621
+   ],
+   "source_px_per_unit": 22.5334,
+   "export": "GC500_D001_Rev03_original_1947pct_3840x2057.png",
+   "refs": [
+    "WC71"
+   ]
+  },
+  "ref_WC72": {
+   "file": "ref_WC72.jpg",
+   "rect": [
+    187.413,
+    1124.603,
+    347.413,
+    1211.003
+   ],
+   "px": [
+    1150,
+    621
+   ],
+   "source_px_per_unit": 22.5334,
+   "export": "GC500_D001_Rev03_original_1947pct_3840x2057.png",
+   "refs": [
+    "WC72"
+   ]
+  }
+ }
+}

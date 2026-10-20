@@ -1,0 +1,361 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261019T015853Z",
+ "finished": "2026-10-19T01:59:13.242Z",
+ "mode": "apply",
+ "spec": {
+  "by": "Andrew Fisher",
+  "what": "Five Advanced Temporary Fencing hire agreements 36596-36600, installed 12 Oct 2026, signed and photographed (Andrew, 19 Oct 2026: \"Please see attached more fencing dockets\"); recorded through the page's own red-book form (recordHireAgreement) and charged at the 2026 card. Every figure double-read by two independent readers. CCB event or demarcation from the programme request: 36596's CCB is Demarcation (CON WK1 rows 8 and 10; CON WK1's 12 Oct total is Event 0 m, Demarcation 379 m).",
+  "ops": [
+   {
+    "op": "hire_agreement",
+    "docket_no": "36596",
+    "date": "2026-10-12",
+    "location": "Main Beach Pde - Madison Point to Ferny Ave, Higman St to Equinox, Ferny Ave southern side, Seacrest to Pacific Point",
+    "map_ref": "",
+    "quantities": {
+     "clean": 385,
+     "ccb_demarc": 287.5,
+     "ped_gates": 5
+    },
+    "components": {
+     "mesh_panel": 164,
+     "cc_barrier": 115,
+     "base": 164,
+     "clamp": 160,
+     "wheels": 12
+    },
+    "signed_by": "Andrew Fisher",
+    "note": "Mesh fence 385 m (164 panels), CC barrier 287.5 m (115 barriers), 5 pedestrian gates, 12 wheels, 164 bases, 160 clamps. Install includes: Madison Point to Ferny Ave; Higman St to Equinox; Ferny Ave southern side; Seacrest to Pacific Point. Programme CON WK1 rows 7-10 (12 Oct): Residents Fence Seacrest to Pacific Point (221 m, 4 pedestrian gates) and Maddison Point (98 m, 1 pedestrian gate); Demarcation CCB Seacrest to Pacific Point (228 m) and Maddison Point (91 m) - so the CCB is Demarcation. 164 panels would make 410 m against 385 m written; the paper's metres are recorded. Service note 24475 (3 h walking 135 m of these panels in from Madison Point to Ferny Ave, no truck access) is this paper's labour, not extra metres. Installation date written 12/10/24 (the year a slip; installed 12 Oct 2026). Owner sign-off dated 20.10.26 on the paper, photographed 19 Oct 2026. Prices and totals blank on the paper."
+   },
+   {
+    "op": "hire_agreement",
+    "docket_no": "36597",
+    "date": "2026-10-12",
+    "location": "The Spit - McMahon's/HTH Compound",
+    "map_ref": "",
+    "quantities": {},
+    "components_only": true,
+    "components": {
+     "base": 14,
+     "clamp": 14,
+     "brace": 7
+    },
+    "signed_by": "Andrew Fisher",
+    "note": "Bracing added to the existing front fence line: 14 bases, 14 clamps, 7 braces. Paper reads \"McMahon's // Harry's Compound (Spit)\" and \"Notched braced to front fence line\". No metres and no charge line on the paper; components only, as 36519 (bracing an existing fence) and 36620. The compound is the programme's CON WK6 row 7, The Spit - Perimeter Fence - McMahon's/HTH/Fuel Bund Compound (9 Sep). Owner sign-off dated 20.10.26 on the paper, photographed 19 Oct 2026."
+   },
+   {
+    "op": "hire_agreement",
+    "docket_no": "36598",
+    "date": "2026-10-12",
+    "location": "Main Beach Pde - Rhapsody",
+    "map_ref": "",
+    "quantities": {
+     "clean": 7.5
+    },
+    "components": {
+     "mesh_panel": 3,
+     "base": 9,
+     "clamp": 7,
+     "brace": 2
+    },
+    "signed_by": "Andrew Fisher",
+    "note": "Mesh fence 7.5 m (3 panels), 9 bases, 7 clamps, 2 braces. Programme CON WK1 row 6 (12 Oct): Residents Fence - Rhapsody, 8 m and 1 pedestrian gate planned; no gate on the paper. Owner sign-off dated 20.10.26 on the paper, photographed 19 Oct 2026. Prices and totals blank on the paper."
+   },
+   {
+    "op": "hire_agreement",
+    "docket_no": "36599",
+    "date": "2026-10-12",
+    "location": "Supply Compound",
+    "map_ref": "",
+    "quantities": {
+     "clean": 147.5,
+     "scrim": 147.5
+    },
+    "components": {
+     "mesh_panel": 59,
+     "base": 136,
+     "clamp": 138,
+     "brace": 42
+    },
+    "signed_by": "Andrew Fisher",
+    "note": "Mesh fence 147.5 m (59 panels), 136 bases, 138 clamps, 42 braces. \"Braced & Scrimmed\" (read at full size; one reading was 'Screwed'), so scrim for the same metres, the clean-plus-scrim convention Andrew set on 2 Oct. Programme CON WK1 row 14 (12 Oct): Supply Compound - Perimeter Fence, 130 m braced for scrim and 2 vehicle gates planned; no gates on the paper. Owner sign-off dated 20.10.26 on the paper, photographed 19 Oct 2026. Prices and totals blank on the paper."
+   },
+   {
+    "op": "hire_agreement",
+    "docket_no": "36600",
+    "date": "2026-10-12",
+    "location": "I.E.D.M - Compound",
+    "map_ref": "",
+    "quantities": {},
+    "components_only": true,
+    "components": {
+     "base": 200
+    },
+    "signed_by": "Andrew Fisher",
+    "note": "Drop off: 200 bases delivered to the iEDM compound (\"Drop off. Bases only.\"). No fence installed and no charge line on the paper; components only, as 36620. Owner sign-off dated 20.10.26 on the paper, photographed 19 Oct 2026."
+   }
+  ]
+ },
+ "pageSha256": "31f1a9f5ea7d46057ad84e5b210d8a76102192386f7e52a5496ab572f46e6922",
+ "version": {
+  "before": 9793,
+  "after": 9802
+ },
+ "updated": {
+  "before": "2026-10-19T01:56:25.918Z",
+  "after": "2026-10-19T01:59:12.302Z"
+ },
+ "stage": [
+  {
+   "op": "hire_agreement",
+   "no": "36596",
+   "id": "F-AF-0023",
+   "charge": 10163.29,
+   "paid": 5707.5,
+   "cost_state": "priced",
+   "result": "recorded as F-AF-0023 - 385 clean, 287.5 ccb_demarc, 5 ped_gates - F-AF-0023 saved in this browser — $10,163.29 charged at the 2026 card, $5,707.50 paid. Export and rebuild to put it on the record. | Hire agreement 36596 recorded as F-AF-0023 - $10,163.29 charged at the 2026 card, $5,707.50 paid to Advanced. By Andrew Fisher."
+  },
+  {
+   "op": "hire_agreement",
+   "no": "36597",
+   "id": "F-AF-0024",
+   "charge": 0,
+   "paid": 0,
+   "cost_state": "nothing to price",
+   "result": "recorded as F-AF-0024 -  - Hire agreement 36597 recorded: components only; no charge quantity confirmed."
+  },
+  {
+   "op": "hire_agreement",
+   "no": "36598",
+   "id": "F-AF-0025",
+   "charge": 121.21,
+   "paid": 75,
+   "cost_state": "priced",
+   "result": "recorded as F-AF-0025 - 7.5 clean - F-AF-0025 saved in this browser — $121.21 charged at the 2026 card, $75.00 paid. Export and rebuild to put it on the record. | Hire agreement 36598 recorded as F-AF-0025 - $121.21 charged at the 2026 card, $75.00 paid to Advanced. By Andrew Fisher."
+  },
+  {
+   "op": "hire_agreement",
+   "no": "36599",
+   "id": "F-AF-0026",
+   "charge": 6149.38,
+   "paid": 5074,
+   "cost_state": "priced",
+   "result": "recorded as F-AF-0026 - 147.5 clean, 147.5 scrim - F-AF-0026 saved in this browser — $6,149.38 charged at the 2026 card, $5,074.00 paid. Export and rebuild to put it on the record. | Hire agreement 36599 recorded as F-AF-0026 - $6,149.38 charged at the 2026 card, $5,074.00 paid to Advanced. By Andrew Fisher."
+  },
+  {
+   "op": "hire_agreement",
+   "no": "36600",
+   "id": "F-AF-0027",
+   "charge": 0,
+   "paid": 0,
+   "cost_state": "nothing to price",
+   "result": "recorded as F-AF-0027 -  - Hire agreement 36600 recorded: components only; no charge quantity confirmed."
+  }
+ ],
+ "writes": [
+  {
+   "key": "stamps/fenceDockets~2f~F-AF-0024",
+   "status": 200
+  },
+  {
+   "key": "stamps/fenceDockets~2f~F-AF-0027",
+   "status": 200
+  },
+  {
+   "key": "by/fenceDockets~2f~F-AF-0024",
+   "status": 200
+  },
+  {
+   "key": "by/fenceDockets~2f~F-AF-0027",
+   "status": 200
+  },
+  {
+   "key": "fenceDockets/F-AF-0023",
+   "status": 200
+  },
+  {
+   "key": "fenceDockets/F-AF-0024",
+   "status": 200
+  },
+  {
+   "key": "fenceDockets/F-AF-0025",
+   "status": 200
+  },
+  {
+   "key": "fenceDockets/F-AF-0026",
+   "status": 200
+  },
+  {
+   "key": "fenceDockets/F-AF-0027",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 1,
+ "docs": {
+  "before": {
+   "stamps/fenceDockets~2f~F-AF-0024": null,
+   "stamps/fenceDockets~2f~F-AF-0027": null,
+   "by/fenceDockets~2f~F-AF-0024": null,
+   "by/fenceDockets~2f~F-AF-0027": null,
+   "fenceDockets/F-AF-0023": null,
+   "fenceDockets/F-AF-0024": null,
+   "fenceDockets/F-AF-0025": null,
+   "fenceDockets/F-AF-0026": null,
+   "fenceDockets/F-AF-0027": null
+  },
+  "after": {
+   "stamps/fenceDockets~2f~F-AF-0024": {
+    "_k": "fenceDockets/F-AF-0024",
+    "v": "2026-10-19T01:59:02.159Z"
+   },
+   "stamps/fenceDockets~2f~F-AF-0027": {
+    "_k": "fenceDockets/F-AF-0027",
+    "v": "2026-10-19T01:59:08.192Z"
+   },
+   "by/fenceDockets~2f~F-AF-0024": {
+    "_k": "fenceDockets/F-AF-0024",
+    "v": "Andrew Fisher"
+   },
+   "by/fenceDockets~2f~F-AF-0027": {
+    "_k": "fenceDockets/F-AF-0027",
+    "v": "Andrew Fisher"
+   },
+   "fenceDockets/F-AF-0023": {
+    "id": "F-AF-0023",
+    "date": "2026-10-12",
+    "week": "Week 1",
+    "docket_no": "36596",
+    "crew": "Advanced Temporary Fencing",
+    "map_ref": null,
+    "location": "Main Beach Pde - Madison Point to Ferny Ave, Higman St to Equinox, Ferny Ave southern side, Seacrest to Pacific Point",
+    "quantities": {
+     "clean": 385,
+     "ccb_demarc": 287.5,
+     "ped_gates": 5
+    },
+    "note": "Mesh fence 385 m (164 panels), CC barrier 287.5 m (115 barriers), 5 pedestrian gates, 12 wheels, 164 bases, 160 clamps. Install includes: Madison Point to Ferny Ave; Higman St to Equinox; Ferny Ave southern side; Seacrest to Pacific Point. Programme CON WK1 rows 7-10 (12 Oct): Residents Fence Seacrest to Pacific Point (221 m, 4 pedestrian gates) and Maddison Point (98 m, 1 pedestrian gate); Demarcation CCB Seacrest to Pacific Point (228 m) and Maddison Point (91 m) - so the CCB is Demarcation. 164 panels would make 410 m against 385 m written; the paper's metres are recorded. Service note 24475 (3 h walking 135 m of these panels in from Madison Point to Ferny Ave, no truck access) is this paper's labour, not extra metres. Installation date written 12/10/24 (the year a slip; installed 12 Oct 2026). Owner sign-off dated 20.10.26 on the paper, photographed 19 Oct 2026. Prices and totals blank on the paper.",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-10-19",
+    "components": {
+     "mesh_panel": 164,
+     "cc_barrier": 115,
+     "base": 164,
+     "clamp": 160,
+     "wheels": 12
+    },
+    "signed_by": "Andrew Fisher",
+    "scope": "programme",
+    "source": "Advanced Temporary Fencing hire agreement 36596, signed paper photographed on site",
+    "origin": "captured",
+    "_k": "F-AF-0023"
+   },
+   "fenceDockets/F-AF-0024": {
+    "id": "F-AF-0024",
+    "date": "2026-10-12",
+    "week": "Week 1",
+    "docket_no": "36597",
+    "crew": "Advanced Temporary Fencing",
+    "map_ref": null,
+    "location": "The Spit - McMahon's/HTH Compound",
+    "quantities": {},
+    "components": {
+     "base": 14,
+     "clamp": 14,
+     "brace": 7
+    },
+    "components_only": true,
+    "note": "Bracing added to the existing front fence line: 14 bases, 14 clamps, 7 braces. Paper reads \"McMahon's // Harry's Compound (Spit)\" and \"Notched braced to front fence line\". No metres and no charge line on the paper; components only, as 36519 (bracing an existing fence) and 36620. The compound is the programme's CON WK6 row 7, The Spit - Perimeter Fence - McMahon's/HTH/Fuel Bund Compound (9 Sep). Owner sign-off dated 20.10.26 on the paper, photographed 19 Oct 2026.",
+    "signed_by": "Andrew Fisher",
+    "scope": "programme",
+    "source": "Advanced Temporary Fencing hire agreement 36597, signed paper photographed on site",
+    "origin": "captured",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-10-19",
+    "_k": "F-AF-0024"
+   },
+   "fenceDockets/F-AF-0025": {
+    "id": "F-AF-0025",
+    "date": "2026-10-12",
+    "week": "Week 1",
+    "docket_no": "36598",
+    "crew": "Advanced Temporary Fencing",
+    "map_ref": null,
+    "location": "Main Beach Pde - Rhapsody",
+    "quantities": {
+     "clean": 7.5
+    },
+    "note": "Mesh fence 7.5 m (3 panels), 9 bases, 7 clamps, 2 braces. Programme CON WK1 row 6 (12 Oct): Residents Fence - Rhapsody, 8 m and 1 pedestrian gate planned; no gate on the paper. Owner sign-off dated 20.10.26 on the paper, photographed 19 Oct 2026. Prices and totals blank on the paper.",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-10-19",
+    "components": {
+     "mesh_panel": 3,
+     "base": 9,
+     "clamp": 7,
+     "brace": 2
+    },
+    "signed_by": "Andrew Fisher",
+    "scope": "programme",
+    "source": "Advanced Temporary Fencing hire agreement 36598, signed paper photographed on site",
+    "origin": "captured",
+    "_k": "F-AF-0025"
+   },
+   "fenceDockets/F-AF-0026": {
+    "id": "F-AF-0026",
+    "date": "2026-10-12",
+    "week": "Week 1",
+    "docket_no": "36599",
+    "crew": "Advanced Temporary Fencing",
+    "map_ref": null,
+    "location": "Supply Compound",
+    "quantities": {
+     "clean": 147.5,
+     "scrim": 147.5
+    },
+    "note": "Mesh fence 147.5 m (59 panels), 136 bases, 138 clamps, 42 braces. \"Braced & Scrimmed\" (read at full size; one reading was 'Screwed'), so scrim for the same metres, the clean-plus-scrim convention Andrew set on 2 Oct. Programme CON WK1 row 14 (12 Oct): Supply Compound - Perimeter Fence, 130 m braced for scrim and 2 vehicle gates planned; no gates on the paper. Owner sign-off dated 20.10.26 on the paper, photographed 19 Oct 2026. Prices and totals blank on the paper.",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-10-19",
+    "components": {
+     "mesh_panel": 59,
+     "base": 136,
+     "clamp": 138,
+     "brace": 42
+    },
+    "signed_by": "Andrew Fisher",
+    "scope": "programme",
+    "source": "Advanced Temporary Fencing hire agreement 36599, signed paper photographed on site",
+    "origin": "captured",
+    "_k": "F-AF-0026"
+   },
+   "fenceDockets/F-AF-0027": {
+    "id": "F-AF-0027",
+    "date": "2026-10-12",
+    "week": "Week 1",
+    "docket_no": "36600",
+    "crew": "Advanced Temporary Fencing",
+    "map_ref": null,
+    "location": "I.E.D.M - Compound",
+    "quantities": {},
+    "components": {
+     "base": 200
+    },
+    "components_only": true,
+    "note": "Drop off: 200 bases delivered to the iEDM compound (\"Drop off. Bases only.\"). No fence installed and no charge line on the paper; components only, as 36620. Owner sign-off dated 20.10.26 on the paper, photographed 19 Oct 2026.",
+    "signed_by": "Andrew Fisher",
+    "scope": "programme",
+    "source": "Advanced Temporary Fencing hire agreement 36600, signed paper photographed on site",
+    "origin": "captured",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-10-19",
+    "_k": "F-AF-0027"
+   }
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}

@@ -1,0 +1,18 @@
+PASS D001 sheet is the 2 Oct issue, v8.93 picture
+PASS 17 Sep and v8.89 sheet pictures leave the media list
+PASS drawing register shows the 2 Oct issue and what it replaces
+PASS every changed pin carries its 2 Oct position, navigation pin and pictures
+PASS P45 satellite pin follows the 2 Oct master
+PASS P45 drive and walk links go to its 2 Oct pin
+PASS WC10 has a master position, a sector and a pin on the master sheet
+PASS WC32 keeps its pin, noted as not on the 2 Oct issue
+PASS WC69 and WC40 carry one tag each
+PASS inset pins back on their 17 Sep positions (the inset did not move on the paper)
+PASS every new picture is named in the media list
+PASS new sheet picture loads at 2600 x 1837
+PASS new P45 close-up loads at 771 x 491
+PASS new P45 context picture loads at 937 x 613
+PASS Map tab opens with the new master
+PASS no runtime errors
+PASS no attempted live writes
+desktop: 17/17 (media served locally: 3)

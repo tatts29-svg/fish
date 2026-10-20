@@ -1,0 +1,27 @@
+{
+  "author": "Andrew Fisher",
+  "checked_at": "2026-10-02T01:20:38.034372+10:00",
+  "candidate_sha256": "cd8bbbc5207541836de42001ff1e1dc471f9ec8d54e40ba69c131c0dadd5db7b",
+  "candidate_bytes": 8725360,
+  "sweeps": {
+    "desktop": {
+      "tabs": 21,
+      "deep_links": 7,
+      "page_errors": [],
+      "console_errors": [],
+      "hidden_tabs_match_released_v780_baseline": true,
+      "navigation_errors": [],
+      "stderr": ""
+    },
+    "phone": {
+      "tabs": 21,
+      "deep_links": 7,
+      "page_errors": [],
+      "console_errors": [],
+      "hidden_tabs_match_released_v780_baseline": true,
+      "navigation_errors": [],
+      "stderr": ""
+    }
+  },
+  "scope": "Normal full-page sweeps only; all live writes blocked by harness. No source edits, uploads, public messages or real texts."
+}

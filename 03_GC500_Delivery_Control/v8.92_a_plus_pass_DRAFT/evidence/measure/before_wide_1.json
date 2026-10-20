@@ -1,0 +1,629 @@
+{
+ "tag": "before",
+ "device": "2560x1370",
+ "page": "GC500_Delivery_Control_hosted.html",
+ "bytes": 11256999,
+ "at": "2026-10-07T18:16:32.492Z",
+ "load": {
+  "domInteractive": 2963.8,
+  "domContentLoaded": 2964.2,
+  "loadEvent": 3149.7,
+  "todayDrawn": 3990.9,
+  "recordLive": 4156.7,
+  "heapMB": 35,
+  "nodes": 8201
+ },
+ "tabs": {
+  "map": {
+   "first": {
+    "sync": 65,
+    "painted": 103,
+    "nodes": 1557,
+    "h": 1113
+   },
+   "again": {
+    "sync": 52,
+    "painted": 85,
+    "nodes": 1557,
+    "h": 1113
+   }
+  },
+  "docs": {
+   "first": {
+    "sync": 831,
+    "painted": 854,
+    "nodes": 3722,
+    "h": 479
+   },
+   "again": {
+    "sync": 605,
+    "painted": 629,
+    "nodes": 3722,
+    "h": 479
+   }
+  },
+  "plant": {
+   "first": {
+    "sync": 187,
+    "painted": 259,
+    "nodes": 8158,
+    "h": 1613
+   },
+   "again": {
+    "sync": 156,
+    "painted": 206,
+    "nodes": 8158,
+    "h": 1613
+   }
+  },
+  "demob": {
+   "first": {
+    "sync": 154,
+    "painted": 178,
+    "nodes": 4465,
+    "h": 2696
+   },
+   "again": {
+    "sync": 98,
+    "painted": 130,
+    "nodes": 4465,
+    "h": 2696
+   }
+  },
+  "fencing": {
+   "first": {
+    "sync": 842,
+    "painted": 935,
+    "nodes": 14649,
+    "h": 15085
+   },
+   "again": {
+    "sync": 1104,
+    "painted": 1192,
+    "nodes": 14649,
+    "h": 15085
+   }
+  },
+  "prestarts": {
+   "first": {
+    "sync": 149,
+    "painted": 242,
+    "nodes": 4810,
+    "h": 3144
+   },
+   "again": {
+    "sync": 79,
+    "painted": 102,
+    "nodes": 4810,
+    "h": 3144
+   }
+  },
+  "coatesway": {
+   "first": {
+    "sync": 274,
+    "painted": 290,
+    "nodes": 5158,
+    "h": 3375
+   },
+   "again": {
+    "sync": 207,
+    "painted": 226,
+    "nodes": 5158,
+    "h": 3375
+   }
+  },
+  "costs": {
+   "first": {
+    "sync": 891,
+    "painted": 1071,
+    "nodes": 19251,
+    "h": 2643
+   },
+   "again": {
+    "sync": 966,
+    "painted": 1141,
+    "nodes": 19251,
+    "h": 2643
+   }
+  },
+  "change": {
+   "first": {
+    "sync": 140,
+    "painted": 164,
+    "nodes": 5907,
+    "h": 1981
+   },
+   "again": {
+    "sync": 106,
+    "painted": 126,
+    "nodes": 5907,
+    "h": 1981
+   }
+  },
+  "pricing": {
+   "first": {
+    "sync": 263,
+    "painted": 313,
+    "nodes": 9558,
+    "h": 15216
+   },
+   "again": {
+    "sync": 279,
+    "painted": 333,
+    "nodes": 9558,
+    "h": 15216
+   }
+  },
+  "timeline": {
+   "first": {
+    "sync": 264,
+    "painted": 332,
+    "nodes": 10002,
+    "h": 3725
+   },
+   "again": {
+    "sync": 196,
+    "painted": 295,
+    "nodes": 10532,
+    "h": 3725
+   }
+  },
+  "questions": {
+   "first": {
+    "sync": 232,
+    "painted": 253,
+    "nodes": 6608,
+    "h": 2878
+   },
+   "again": {
+    "sync": 277,
+    "painted": 297,
+    "nodes": 6608,
+    "h": 2878
+   }
+  },
+  "about": {
+   "first": {
+    "sync": 114,
+    "painted": 172,
+    "nodes": 7232,
+    "h": 8401
+   },
+   "again": {
+    "sync": 99,
+    "painted": 149,
+    "nodes": 7232,
+    "h": 8401
+   }
+  }
+ },
+ "drawer": {
+  "key": "WC01",
+  "openSync": 239,
+  "openPainted": 329,
+  "on": true,
+  "closeSync": 18,
+  "closePainted": 52
+ },
+ "scroll": {
+  "today": {
+   "frames": 203,
+   "wallMs": 5831,
+   "p50": 17.3,
+   "p95": 75.1,
+   "max": 88.1,
+   "over33": 69,
+   "over100": 0,
+   "scrolledPx": 3674,
+   "asked": 3720
+  },
+  "timeline": {
+   "frames": 201,
+   "wallMs": 5036,
+   "p50": 23.1,
+   "p95": 49.4,
+   "max": 104.2,
+   "over33": 48,
+   "over100": 1,
+   "scrolledPx": 2523,
+   "asked": 2580
+  }
+ },
+ "redraw": {
+  "today": {
+   "sync": 496,
+   "painted": 706,
+   "scrollBefore": 900,
+   "scrollAfter": 900,
+   "held": true
+  },
+  "timeline": {
+   "sync": 184,
+   "painted": 361,
+   "scrollBefore": 900,
+   "scrollAfter": 946,
+   "held": false
+  },
+  "plant": {
+   "sync": 142,
+   "painted": 282,
+   "scrollBefore": 497,
+   "scrollAfter": 417,
+   "held": false
+  },
+  "costs": {
+   "sync": 937,
+   "painted": 1164,
+   "scrollBefore": 900,
+   "scrollAfter": 900,
+   "held": true
+  },
+  "fencing": {
+   "sync": 807,
+   "painted": 939,
+   "scrollBefore": 900,
+   "scrollAfter": 900,
+   "held": true
+  }
+ },
+ "search": {
+  "slowEvents": 15,
+  "maxDuration": 160,
+  "maxDelay": 13,
+  "maxProc": 73,
+  "finderRows": 3,
+  "finderOpen": true
+ },
+ "phases": {
+  "load": {
+   "longTasks": 15,
+   "longMs": 3802,
+   "longMax": 1229,
+   "cls": 0.1444,
+   "visits": 1
+  },
+  "tab:map": {
+   "longTasks": 2,
+   "longMs": 289,
+   "longMax": 195,
+   "cls": 0.0003,
+   "visits": 2
+  },
+  "after:tab:map": {
+   "longTasks": 17,
+   "longMs": 3806,
+   "longMax": 817,
+   "cls": 0,
+   "visits": 2
+  },
+  "tab:today": {
+   "longTasks": 7,
+   "longMs": 405,
+   "longMax": 70,
+   "cls": 0,
+   "visits": 29
+  },
+  "after:tab:today": {
+   "longTasks": 30,
+   "longMs": 9095,
+   "longMax": 1117,
+   "cls": 0,
+   "visits": 29
+  },
+  "tab:docs": {
+   "longTasks": 0,
+   "longMs": 0,
+   "longMax": 0,
+   "cls": 0,
+   "visits": 2
+  },
+  "after:tab:docs": {
+   "longTasks": 3,
+   "longMs": 1303,
+   "longMax": 631,
+   "cls": 0.0002,
+   "visits": 2
+  },
+  "tab:plant": {
+   "longTasks": 1,
+   "longMs": 65,
+   "longMax": 65,
+   "cls": 0.084,
+   "visits": 4
+  },
+  "after:tab:plant": {
+   "longTasks": 4,
+   "longMs": 1456,
+   "longMax": 604,
+   "cls": 0,
+   "visits": 4
+  },
+  "tab:demob": {
+   "longTasks": 0,
+   "longMs": 0,
+   "longMax": 0,
+   "cls": 0,
+   "visits": 2
+  },
+  "after:tab:demob": {
+   "longTasks": 4,
+   "longMs": 1277,
+   "longMax": 560,
+   "cls": 0,
+   "visits": 2
+  },
+  "tab:fencing": {
+   "longTasks": 2,
+   "longMs": 135,
+   "longMax": 84,
+   "cls": 0.084,
+   "visits": 3
+  },
+  "after:tab:fencing": {
+   "longTasks": 2,
+   "longMs": 1311,
+   "longMax": 671,
+   "cls": 0,
+   "visits": 3
+  },
+  "tab:prestarts": {
+   "longTasks": 0,
+   "longMs": 0,
+   "longMax": 0,
+   "cls": 0,
+   "visits": 2
+  },
+  "after:tab:prestarts": {
+   "longTasks": 3,
+   "longMs": 1385,
+   "longMax": 746,
+   "cls": 0,
+   "visits": 2
+  },
+  "tab:coatesway": {
+   "longTasks": 0,
+   "longMs": 0,
+   "longMax": 0,
+   "cls": 0,
+   "visits": 2
+  },
+  "after:tab:coatesway": {
+   "longTasks": 3,
+   "longMs": 1286,
+   "longMax": 667,
+   "cls": 0,
+   "visits": 2
+  },
+  "tab:costs": {
+   "longTasks": 3,
+   "longMs": 436,
+   "longMax": 166,
+   "cls": 0.084,
+   "visits": 3
+  },
+  "after:tab:costs": {
+   "longTasks": 2,
+   "longMs": 1316,
+   "longMax": 679,
+   "cls": 0,
+   "visits": 3
+  },
+  "tab:change": {
+   "longTasks": 0,
+   "longMs": 0,
+   "longMax": 0,
+   "cls": 0,
+   "visits": 2
+  },
+  "after:tab:change": {
+   "longTasks": 3,
+   "longMs": 1326,
+   "longMax": 633,
+   "cls": 0,
+   "visits": 2
+  },
+  "tab:pricing": {
+   "longTasks": 0,
+   "longMs": 0,
+   "longMax": 0,
+   "cls": 0,
+   "visits": 2
+  },
+  "after:tab:pricing": {
+   "longTasks": 4,
+   "longMs": 1306,
+   "longMax": 620,
+   "cls": 0,
+   "visits": 2
+  },
+  "tab:timeline": {
+   "longTasks": 3,
+   "longMs": 258,
+   "longMax": 130,
+   "cls": 0.084,
+   "visits": 4
+  },
+  "after:tab:timeline": {
+   "longTasks": 11,
+   "longMs": 1929,
+   "longMax": 579,
+   "cls": 0,
+   "visits": 4
+  },
+  "tab:questions": {
+   "longTasks": 0,
+   "longMs": 0,
+   "longMax": 0,
+   "cls": 0,
+   "visits": 2
+  },
+  "after:tab:questions": {
+   "longTasks": 4,
+   "longMs": 1545,
+   "longMax": 794,
+   "cls": 0,
+   "visits": 2
+  },
+  "tab:about": {
+   "longTasks": 0,
+   "longMs": 0,
+   "longMax": 0,
+   "cls": 0,
+   "visits": 2
+  },
+  "after:tab:about": {
+   "longTasks": 3,
+   "longMs": 1201,
+   "longMax": 578,
+   "cls": 0,
+   "visits": 2
+  },
+  "drawer-open": {
+   "longTasks": 1,
+   "longMs": 80,
+   "longMax": 80,
+   "cls": 0,
+   "visits": 1
+  },
+  "drawer-close": {
+   "longTasks": 0,
+   "longMs": 0,
+   "longMax": 0,
+   "cls": 0,
+   "visits": 1
+  },
+  "after:drawer-close": {
+   "longTasks": 1,
+   "longMs": 570,
+   "longMax": 570,
+   "cls": 0,
+   "visits": 1
+  },
+  "scroll:today": {
+   "longTasks": 2,
+   "longMs": 143,
+   "longMax": 78,
+   "cls": 0.084,
+   "visits": 1
+  },
+  "after:scroll:today": {
+   "longTasks": 1,
+   "longMs": 231,
+   "longMax": 231,
+   "cls": 0,
+   "visits": 1
+  },
+  "scroll:timeline": {
+   "longTasks": 2,
+   "longMs": 207,
+   "longMax": 104,
+   "cls": 0.084,
+   "visits": 1
+  },
+  "after:scroll:timeline": {
+   "longTasks": 1,
+   "longMs": 622,
+   "longMax": 622,
+   "cls": 0,
+   "visits": 1
+  },
+  "redraw:today": {
+   "longTasks": 1,
+   "longMs": 579,
+   "longMax": 579,
+   "cls": 0,
+   "visits": 1
+  },
+  "after:redraw:today": {
+   "longTasks": 1,
+   "longMs": 290,
+   "longMax": 290,
+   "cls": 0,
+   "visits": 1
+  },
+  "redraw:timeline": {
+   "longTasks": 3,
+   "longMs": 469,
+   "longMax": 292,
+   "cls": 0,
+   "visits": 1
+  },
+  "after:redraw:timeline": {
+   "longTasks": 1,
+   "longMs": 288,
+   "longMax": 288,
+   "cls": 0,
+   "visits": 1
+  },
+  "redraw:plant": {
+   "longTasks": 2,
+   "longMs": 263,
+   "longMax": 180,
+   "cls": 0.084,
+   "visits": 1
+  },
+  "after:redraw:plant": {
+   "longTasks": 1,
+   "longMs": 1189,
+   "longMax": 1189,
+   "cls": 0,
+   "visits": 1
+  },
+  "redraw:costs": {
+   "longTasks": 2,
+   "longMs": 1133,
+   "longMax": 967,
+   "cls": 0.084,
+   "visits": 1
+  },
+  "after:redraw:costs": {
+   "longTasks": 1,
+   "longMs": 786,
+   "longMax": 786,
+   "cls": 0,
+   "visits": 1
+  },
+  "redraw:fencing": {
+   "longTasks": 1,
+   "longMs": 886,
+   "longMax": 886,
+   "cls": 0.084,
+   "visits": 1
+  },
+  "after:redraw:fencing": {
+   "longTasks": 1,
+   "longMs": 735,
+   "longMax": 735,
+   "cls": 0,
+   "visits": 1
+  },
+  "search": {
+   "longTasks": 4,
+   "longMs": 1112,
+   "longMax": 537,
+   "cls": 0,
+   "visits": 1
+  },
+  "after:search": {
+   "longTasks": 0,
+   "longMs": 0,
+   "longMax": 0,
+   "cls": 0,
+   "visits": 1
+  }
+ },
+ "all": {
+  "longTasks": 152,
+  "longMs": 44515,
+  "longMax": 1229,
+  "cls": 0.901,
+  "heapMB": 42
+ },
+ "errors": [],
+ "counts": {
+  "page": 1,
+  "live": 147,
+  "blocked": 0
+ },
+ "wallSeconds": 98
+}

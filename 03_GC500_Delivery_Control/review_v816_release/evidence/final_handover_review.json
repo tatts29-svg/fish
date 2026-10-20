@@ -1,0 +1,623 @@
+{
+  "author": "Andrew Fisher",
+  "scope": "Final independent source/CPU handover review; safe aggregate only. No browser, live records, operational writes or product edits.",
+  "frozenSourceCommit": "7f7d9066dbe6bda82eab12f1df0894410fd8845c",
+  "baseSha256": "35ab136643f9b7b0fb5b4e237c501c58cb27bc31e4faaded75df013dad0f7770",
+  "baseBytes": 9118422,
+  "candidateSha256": "7ae89da4e80b070ade2977ef4e47ed3e766be6dc7722bd610e21ad78ddaa77d0",
+  "candidateBytes": 9244210,
+  "sourceSha256": {
+    "demob816_src.js": "3f18954e509eafd35c81f1c466963eaea886c23a68a570d1574bf8c72a740afc",
+    "patch_v816.py": "9b17360533c8a346b54ed7364c729dc890b4948a7c29be334e50c9a7e2a1d411",
+    "drawer816_src.js": "6f87a42c4ac481bbbbceaab8c33e96adfd0f5b91fa7bc1780618a082d0882125",
+    "v816.css": "cd316ad919b0a9e721b3291e4c5dc2f5693f3f3d7734f26a5f4b763f71554d9b"
+  },
+  "independentCpu": [
+    {
+      "suite": "streams",
+      "fixture": "followup_abbb01b_streams.cjs",
+      "fixtureRecoveredFrom": "6b1066d",
+      "executedScriptSha256": "f3f9038bd39bcec67a5d8387a1b539c7f15d81c9a4d0490ff35bdf1321f126de",
+      "changes": "none",
+      "passed": 20,
+      "failed": 0,
+      "checks": [
+        {
+          "name": "supplier_25_packs_24_and_1",
+          "pass": true
+        },
+        {
+          "name": "supplier_25_confirmation_preserves_days",
+          "pass": true
+        },
+        {
+          "name": "view_preserves_record",
+          "pass": true
+        },
+        {
+          "name": "supplier_25_to_24_conserves_units",
+          "pass": true
+        },
+        {
+          "name": "supplier_25_to_zero_has_no_truck_or_pump_task",
+          "pass": true
+        },
+        {
+          "name": "supplier_25_to_unknown_keeps_uncertain_portions",
+          "pass": true
+        },
+        {
+          "name": "coates_25_packs_12_12_1",
+          "pass": true
+        },
+        {
+          "name": "coates_render_does_not_claim_capacity_24",
+          "pass": true
+        },
+        {
+          "name": "coates_email_identifies_its_capacity",
+          "pass": true
+        },
+        {
+          "name": "mixed_owner_streams_stay_separate",
+          "pass": true
+        },
+        {
+          "name": "mixed_reference_is_listed_on_each_load_day",
+          "pass": true
+        },
+        {
+          "name": "mixed_first_day_confirmation_finds_the_reference",
+          "pass": true
+        },
+        {
+          "name": "mixed_confirmation_preserves_stream_days",
+          "pass": true
+        },
+        {
+          "name": "unknown_owner_creates_no_guessed_run",
+          "pass": true
+        },
+        {
+          "name": "unknown_owner_is_explained_on_pickup_row",
+          "pass": true
+        },
+        {
+          "name": "supplier_pickup_has_no_model_travel_times",
+          "pass": true
+        },
+        {
+          "name": "supplier_null_travel_times_do_not_render_midnight",
+          "pass": true
+        },
+        {
+          "name": "supplier_print_this_load_selects_supplier_run",
+          "pass": true
+        },
+        {
+          "name": "supplier_tank_dependency_is_detected",
+          "pass": true
+        },
+        {
+          "name": "supplier_tank_dependency_is_visible_in_truck_output",
+          "pass": true
+        }
+      ]
+    },
+    {
+      "suite": "ui",
+      "fixture": "followup_8c821da_ui.cjs",
+      "fixtureRecoveredFrom": "6b1066d",
+      "executedScriptSha256": "ad635c714e725a9cde8f953c89dfc2ec3a3169522d6cb56c9198c8d6e650a3d7",
+      "changes": "none",
+      "passed": 20,
+      "failed": 0,
+      "checks": [
+        {
+          "name": "coates_load_card_shows_actual_capacity_12",
+          "pass": true
+        },
+        {
+          "name": "coates_email_identifies_capacity_12",
+          "pass": true
+        },
+        {
+          "name": "coates_load_card_identifies_stream",
+          "pass": true
+        },
+        {
+          "name": "unknown_owner_explained_on_pickup_row",
+          "pass": true
+        },
+        {
+          "name": "unknown_owner_explained_in_toilet_view",
+          "pass": true
+        },
+        {
+          "name": "unknown_owner_explained_in_email",
+          "pass": true
+        },
+        {
+          "name": "supplier_no_midnight_times_in_truck_view",
+          "pass": true
+        },
+        {
+          "name": "supplier_actual_wired_print_selects_one_list",
+          "pass": true
+        },
+        {
+          "name": "supplier_print_has_no_midnight_or_kingston_departure",
+          "pass": true
+        },
+        {
+          "name": "supplier_print_includes_asset_and_empty_requirement",
+          "pass": true
+        },
+        {
+          "name": "printing_does_not_change_shared_record",
+          "pass": true
+        },
+        {
+          "name": "same_day_stream_buttons_have_distinct_ids",
+          "pass": true
+        },
+        {
+          "name": "wired_sub1_prints_only_its_selected_stream",
+          "pass": true
+        },
+        {
+          "name": "wired_coates1_prints_only_its_selected_stream",
+          "pass": true
+        },
+        {
+          "name": "supplier_tank_dependency_visible_in_truck_view",
+          "pass": true
+        },
+        {
+          "name": "supplier_tank_dependency_visible_in_sheet",
+          "pass": true
+        },
+        {
+          "name": "capacity_handler_writes_selected_device_key",
+          "pass": true
+        },
+        {
+          "name": "capacity_change_does_not_change_shared_record",
+          "pass": true
+        },
+        {
+          "name": "reduced_truck_capacity_never_exceeds_accepted_capacity",
+          "pass": true
+        },
+        {
+          "name": "reduced_truck_capacity_is_not_labelled_full_without_overload_warning",
+          "pass": true
+        }
+      ]
+    },
+    {
+      "suite": "roads",
+      "fixture": "followup_8c821da_roads.cjs",
+      "fixtureRecoveredFrom": "6b1066d",
+      "executedScriptSha256": "661ec02f4a48c67ff9b8b89e3ed12c4812a84db862f878065672d3234ee9ce97",
+      "changes": "roads source SHA assertion updated to final exact hash only",
+      "passed": 16,
+      "failed": 0,
+      "checks": [
+        {
+          "name": "ordinary run sheet renders without the removed A.run dereference",
+          "pass": true
+        },
+        {
+          "name": "Coates toilet run sheet renders with per-run travel",
+          "pass": true
+        },
+        {
+          "name": "oversize checkbox and warning render for a flagged single load",
+          "pass": true
+        },
+        {
+          "name": "oversize permit and computed warning survive into the sheet",
+          "pass": true
+        },
+        {
+          "name": "unflagged branch load offers a checkbox without an oversize declaration",
+          "pass": true
+        },
+        {
+          "name": "travel editor is now rendered in Trucks and times",
+          "pass": true
+        },
+        {
+          "name": "actual travel and oversize change handlers are attached",
+          "pass": true
+        },
+        {
+          "name": "travel handler saves the entered run value and redraws",
+          "pass": true
+        },
+        {
+          "name": "editing branch travel leaves Coates run independent",
+          "pass": true
+        },
+        {
+          "name": "oversize handler persists the checked flag and redraws",
+          "pass": true
+        },
+        {
+          "name": "oversize handler can clear the flag",
+          "pass": true
+        },
+        {
+          "name": "blank travel entry remains explicitly unconfirmed",
+          "pass": true
+        },
+        {
+          "name": "blank Coates/branch travel prints unconfirmed without invented midnight",
+          "pass": true
+        },
+        {
+          "name": "supplier screen omits Kingston truck movements and midnight times",
+          "pass": true
+        },
+        {
+          "name": "supplier sheet renders a pick-up list without fabricated movement times",
+          "pass": true
+        },
+        {
+          "name": "supplier sheet keeps the recorded emptying attribution",
+          "pass": true
+        }
+      ]
+    }
+  ],
+  "independentPassed": 56,
+  "independentFailed": 0,
+  "sourceDeltaSince6837e9f": "One Demob legend sentence only; see final_legend_comparison.json.",
+  "ownerEvidenceStamps": [
+    {
+      "file": "demob_cpu_audit_now.json",
+      "testedJsSha256": "3f18954e509eafd35c81f1c466963eaea886c23a68a570d1574bf8c72a740afc",
+      "fixtureRunDemobSha256": null,
+      "fixtureProvenance": "/tmp/tmp.tNMdBBBhSm",
+      "base": "35ab136643f9b7b0fb5b4e237c501c58cb27bc31e4faaded75df013dad0f7770",
+      "candidateSha256": "7ae89da4e80b070ade2977ef4e47ed3e766be6dc7722bd610e21ad78ddaa77d0",
+      "stampsMatchFinal": true
+    },
+    {
+      "file": "followup_24cb316_cpu_now.json",
+      "testedJsSha256": "3f18954e509eafd35c81f1c466963eaea886c23a68a570d1574bf8c72a740afc",
+      "fixtureRunDemobSha256": "767f8fd39e2d5b82cc0275903f634aabf3308ed7a3fe6493bf7feb9819504c7f",
+      "fixtureProvenance": "24cb316b9a4440356cd438e0fb83738183d02569",
+      "base": "35ab136643f9b7b0fb5b4e237c501c58cb27bc31e4faaded75df013dad0f7770",
+      "candidateSha256": "7ae89da4e80b070ade2977ef4e47ed3e766be6dc7722bd610e21ad78ddaa77d0",
+      "stampsMatchFinal": true
+    },
+    {
+      "file": "followup_6a0bb20_cpu_now.json",
+      "testedJsSha256": "3f18954e509eafd35c81f1c466963eaea886c23a68a570d1574bf8c72a740afc",
+      "fixtureRunDemobSha256": "767f8fd39e2d5b82cc0275903f634aabf3308ed7a3fe6493bf7feb9819504c7f",
+      "fixtureProvenance": "6a0bb204d5bf55e4b65be8cf07866e7b3f1402df",
+      "base": "35ab136643f9b7b0fb5b4e237c501c58cb27bc31e4faaded75df013dad0f7770",
+      "candidateSha256": "7ae89da4e80b070ade2977ef4e47ed3e766be6dc7722bd610e21ad78ddaa77d0",
+      "stampsMatchFinal": true
+    },
+    {
+      "file": "followup_6a0bb20_timeline_now.json",
+      "testedJsSha256": "3f18954e509eafd35c81f1c466963eaea886c23a68a570d1574bf8c72a740afc",
+      "fixtureRunDemobSha256": null,
+      "fixtureProvenance": "6a0bb204d5bf55e4b65be8cf07866e7b3f1402df",
+      "base": "35ab136643f9b7b0fb5b4e237c501c58cb27bc31e4faaded75df013dad0f7770",
+      "candidateSha256": "7ae89da4e80b070ade2977ef4e47ed3e766be6dc7722bd610e21ad78ddaa77d0",
+      "stampsMatchFinal": true
+    },
+    {
+      "file": "followup_8c821da_roads_now.json",
+      "testedJsSha256": "3f18954e509eafd35c81f1c466963eaea886c23a68a570d1574bf8c72a740afc",
+      "fixtureRunDemobSha256": "3f18954e509eafd35c81f1c466963eaea886c23a68a570d1574bf8c72a740afc",
+      "fixtureProvenance": "8c821da439027bd09b01d4dbc2e84b53c966c397",
+      "base": "35ab136643f9b7b0fb5b4e237c501c58cb27bc31e4faaded75df013dad0f7770",
+      "candidateSha256": "7ae89da4e80b070ade2977ef4e47ed3e766be6dc7722bd610e21ad78ddaa77d0",
+      "stampsMatchFinal": true
+    },
+    {
+      "file": "followup_8c821da_ui_now.json",
+      "testedJsSha256": "3f18954e509eafd35c81f1c466963eaea886c23a68a570d1574bf8c72a740afc",
+      "fixtureRunDemobSha256": "3f18954e509eafd35c81f1c466963eaea886c23a68a570d1574bf8c72a740afc",
+      "fixtureProvenance": "8c821da439027bd09b01d4dbc2e84b53c966c397",
+      "base": "35ab136643f9b7b0fb5b4e237c501c58cb27bc31e4faaded75df013dad0f7770",
+      "candidateSha256": "7ae89da4e80b070ade2977ef4e47ed3e766be6dc7722bd610e21ad78ddaa77d0",
+      "stampsMatchFinal": true
+    },
+    {
+      "file": "followup_abbb01b_streams_now.json",
+      "testedJsSha256": "3f18954e509eafd35c81f1c466963eaea886c23a68a570d1574bf8c72a740afc",
+      "fixtureRunDemobSha256": "3f18954e509eafd35c81f1c466963eaea886c23a68a570d1574bf8c72a740afc",
+      "fixtureProvenance": "abbb01baf3318d39d970313063c29cdb30990d33",
+      "base": "35ab136643f9b7b0fb5b4e237c501c58cb27bc31e4faaded75df013dad0f7770",
+      "candidateSha256": "7ae89da4e80b070ade2977ef4e47ed3e766be6dc7722bd610e21ad78ddaa77d0",
+      "stampsMatchFinal": true
+    },
+    {
+      "file": "followup_abbb01b_timeline_now.json",
+      "testedJsSha256": "3f18954e509eafd35c81f1c466963eaea886c23a68a570d1574bf8c72a740afc",
+      "fixtureRunDemobSha256": null,
+      "fixtureProvenance": "abbb01baf3318d39d970313063c29cdb30990d33",
+      "base": "35ab136643f9b7b0fb5b4e237c501c58cb27bc31e4faaded75df013dad0f7770",
+      "candidateSha256": "7ae89da4e80b070ade2977ef4e47ed3e766be6dc7722bd610e21ad78ddaa77d0",
+      "stampsMatchFinal": true
+    },
+    {
+      "file": "followup_cpu_968aefb_now.json",
+      "testedJsSha256": "3f18954e509eafd35c81f1c466963eaea886c23a68a570d1574bf8c72a740afc",
+      "fixtureRunDemobSha256": null,
+      "fixtureProvenance": "/tmp/tmp.tNMdBBBhSm",
+      "base": "35ab136643f9b7b0fb5b4e237c501c58cb27bc31e4faaded75df013dad0f7770",
+      "candidateSha256": "7ae89da4e80b070ade2977ef4e47ed3e766be6dc7722bd610e21ad78ddaa77d0",
+      "stampsMatchFinal": true
+    },
+    {
+      "file": "followup_cpu_now.json",
+      "testedJsSha256": "3f18954e509eafd35c81f1c466963eaea886c23a68a570d1574bf8c72a740afc",
+      "fixtureRunDemobSha256": null,
+      "fixtureProvenance": "/tmp/tmp.tNMdBBBhSm",
+      "base": "35ab136643f9b7b0fb5b4e237c501c58cb27bc31e4faaded75df013dad0f7770",
+      "candidateSha256": "7ae89da4e80b070ade2977ef4e47ed3e766be6dc7722bd610e21ad78ddaa77d0",
+      "stampsMatchFinal": true
+    },
+    {
+      "file": "followup_e540cbc_cpu_now.json",
+      "testedJsSha256": "3f18954e509eafd35c81f1c466963eaea886c23a68a570d1574bf8c72a740afc",
+      "fixtureRunDemobSha256": "767f8fd39e2d5b82cc0275903f634aabf3308ed7a3fe6493bf7feb9819504c7f",
+      "fixtureProvenance": "e540cbc31bef88500f9b781688c53f8693932514",
+      "base": "35ab136643f9b7b0fb5b4e237c501c58cb27bc31e4faaded75df013dad0f7770",
+      "candidateSha256": "7ae89da4e80b070ade2977ef4e47ed3e766be6dc7722bd610e21ad78ddaa77d0",
+      "stampsMatchFinal": true
+    },
+    {
+      "file": "followup_e540cbc_timeline_now.json",
+      "testedJsSha256": "3f18954e509eafd35c81f1c466963eaea886c23a68a570d1574bf8c72a740afc",
+      "fixtureRunDemobSha256": null,
+      "fixtureProvenance": "e540cbc31bef88500f9b781688c53f8693932514",
+      "base": "35ab136643f9b7b0fb5b4e237c501c58cb27bc31e4faaded75df013dad0f7770",
+      "candidateSha256": "7ae89da4e80b070ade2977ef4e47ed3e766be6dc7722bd610e21ad78ddaa77d0",
+      "stampsMatchFinal": true
+    }
+  ],
+  "ownerShimmedSourceSha256": "767f8fd39e2d5b82cc0275903f634aabf3308ed7a3fe6493bf7feb9819504c7f",
+  "findings": [
+    {
+      "id": "O1",
+      "round": "Original 8",
+      "issue": "Outgoing pump gate, actor/time evidence",
+      "disposition": "Closed within agreed outgoing/incoming interpretation; forced collection always gated.",
+      "evidence": "Prior independent gate checks; current owner fixtures 1\u20134/R1; unchanged gate."
+    },
+    {
+      "id": "O2",
+      "round": "Original 8",
+      "issue": "Reuse and newer revocation",
+      "disposition": "Closed: new arrival revokes old evidence; newer false and stale-before-arrival rules retained.",
+      "evidence": "Prior independent reuse/clock checks; owner 5/5b/5c."
+    },
+    {
+      "id": "O3",
+      "round": "Original 8",
+      "issue": "Pump evidence merge durability",
+      "disposition": "Closed: merge preserves value/actor/time/history and false precedence.",
+      "evidence": "Prior actual merge tests; patch unchanged."
+    },
+    {
+      "id": "O4",
+      "round": "Original 8",
+      "issue": "Split load dates",
+      "disposition": "Closed: durable portions retained, including mixed-owner repair.",
+      "evidence": "Final independent streams; owner F2/I1\u2013I4."
+    },
+    {
+      "id": "O5",
+      "round": "Original 8",
+      "issue": "Toilet before tank across runs",
+      "disposition": "Closed for represented same-reference relationships; supplier dependency held visibly.",
+      "evidence": "Final stream/UI checks; owner I9. No cross-reference relationship inference claimed."
+    },
+    {
+      "id": "O6",
+      "round": "Original 8",
+      "issue": "Unknown quantity invented as one",
+      "disposition": "Closed: uncertain quantity remains explicit.",
+      "evidence": "Final streams; owner unknown checks."
+    },
+    {
+      "id": "O7",
+      "round": "Original 8",
+      "issue": "Typed removal missing on added reference",
+      "disposition": "Closed: actual removal-event test replaces plan-fallback exclusion.",
+      "evidence": "Prior 17/17 Timeline; exact patch unchanged."
+    },
+    {
+      "id": "O8",
+      "round": "Original 8",
+      "issue": "Cancelled drawer Out date hidden",
+      "disposition": "Closed: authoritative date fallback and cancellation/source label.",
+      "evidence": "Prior 17/17 drawer; exact drawer unchanged."
+    },
+    {
+      "id": "F1",
+      "round": "968aefb 7",
+      "issue": "Reused pump-out clearance",
+      "disposition": "Closed, overlaps O2.",
+      "evidence": "Prior recurrence fixture; unchanged gate/setter."
+    },
+    {
+      "id": "F2",
+      "round": "968aefb 7",
+      "issue": "Confirmation collapses split days",
+      "disposition": "Closed, overlaps O4.",
+      "evidence": "Final independent streams; stored per-owner portions."
+    },
+    {
+      "id": "F3",
+      "round": "968aefb 7",
+      "issue": "First split day lacks pump task",
+      "disposition": "Closed: every portion day contributes to prerequisite tasks.",
+      "evidence": "Owner F3 and prior independent 49-unit fixture."
+    },
+    {
+      "id": "F4",
+      "round": "968aefb 7",
+      "issue": "Confirmed unknown disappears / tank alone",
+      "disposition": "Closed: uncertain work retained; supplier/tank hold explicit.",
+      "evidence": "Final independent streams/UI."
+    },
+    {
+      "id": "F5",
+      "round": "968aefb 7",
+      "issue": "Incoming purpose inferred from missing history",
+      "disposition": "Resolved interpretation: supplied incoming date/no prior arrival/cutoff exception; outgoing collection forced.",
+      "evidence": "Agreed rule; prior positive toilet/tank cases; unchanged gate."
+    },
+    {
+      "id": "F6",
+      "round": "968aefb 7",
+      "issue": "Equal-time clearance conflict order dependence",
+      "disposition": "Closed: fail-closed false and clash retained.",
+      "evidence": "Prior actual merge/conflict fixtures; unchanged patch."
+    },
+    {
+      "id": "F7",
+      "round": "968aefb 7",
+      "issue": "Added explicit remove loses plan precedence",
+      "disposition": "Closed: dated remove event preserved.",
+      "evidence": "Prior 17/17 exact date fixtures."
+    },
+    {
+      "id": "G1",
+      "round": "6a0bb20 3 new",
+      "issue": "Same-day second portion dropped",
+      "disposition": "Closed: all matching portions retained.",
+      "evidence": "Prior independent confirmation fixture; owner G1."
+    },
+    {
+      "id": "G2",
+      "round": "6a0bb20 3 new",
+      "issue": "Quantity change drifts from portions",
+      "disposition": "Closed within stated owner allocation: reconcile per stream, show changes/unplanned/unknown owner.",
+      "evidence": "Final streams; owner G2/I4 and old ownership-supplied fixtures."
+    },
+    {
+      "id": "G3",
+      "round": "6a0bb20 3 new",
+      "issue": "Uncertain load labelled full",
+      "disposition": "Closed: uncertainty takes precedence.",
+      "evidence": "Final streams; owner G3."
+    },
+    {
+      "id": "H1",
+      "round": "e540cbc 1",
+      "issue": "Known zero creates phantom pickup",
+      "disposition": "Closed: reference visible, no truck/pump task.",
+      "evidence": "Final independent streams 25\u21920."
+    },
+    {
+      "id": "I1",
+      "round": "abbb01b 5",
+      "issue": "Mixed-owner dates collapse",
+      "disposition": "Closed: stream saved on each portion.",
+      "evidence": "Final independent mixed-owner confirmation checks."
+    },
+    {
+      "id": "I2",
+      "round": "abbb01b 5",
+      "issue": "Coates capacity and stream label wrong",
+      "disposition": "Closed: actual stream/capacity displayed.",
+      "evidence": "Final independent streams/UI."
+    },
+    {
+      "id": "I3",
+      "round": "abbb01b 5",
+      "issue": "Supplier Print this load selects nothing",
+      "disposition": "Closed: stream ID flows through actual handler/dispatcher.",
+      "evidence": "Final independent UI actual handler and stream selection."
+    },
+    {
+      "id": "I4",
+      "round": "abbb01b 5",
+      "issue": "Unknown owner omitted without explanation",
+      "disposition": "Closed: row/view/email state owner-to-confirm.",
+      "evidence": "Final independent UI."
+    },
+    {
+      "id": "I5",
+      "round": "abbb01b 5",
+      "issue": "Supplier-before-tank dependency hidden",
+      "disposition": "Closed: HOLD/after-supplier instruction replaces tank time.",
+      "evidence": "Final independent stream/UI; owner I9."
+    },
+    {
+      "id": "J1",
+      "round": "abbb01b roads 4",
+      "issue": "A.run print exception",
+      "disposition": "Closed: sheet uses per-run travel.",
+      "evidence": "Final independent roads and actual UI printing."
+    },
+    {
+      "id": "J2",
+      "round": "abbb01b roads 4",
+      "issue": "Oversize control/warnings disconnected",
+      "disposition": "Closed: flag handler, state, warning and permit-review output connected.",
+      "evidence": "Final independent roads."
+    },
+    {
+      "id": "J3",
+      "round": "abbb01b roads 4",
+      "issue": "Travel editor missing / old override ignored",
+      "disposition": "Closed: editor/blank state and legacy migration present.",
+      "evidence": "Final independent roads; migration source/owner I7. Minor provenance-label limitation retained."
+    },
+    {
+      "id": "J4",
+      "round": "abbb01b roads 4",
+      "issue": "Supplier null times render midnight",
+      "disposition": "Closed: untimed supplier view and sheet.",
+      "evidence": "Final independent roads/UI."
+    },
+    {
+      "id": "K1",
+      "round": "8c821da 2 blockers",
+      "issue": "Mixed-owner dates still collapse",
+      "disposition": "Closed, repeat of I1.",
+      "evidence": "Final independent streams."
+    },
+    {
+      "id": "K2",
+      "round": "8c821da 2 blockers",
+      "issue": "Lower capacity accepted but load exceeds it",
+      "disposition": "Closed: overflow re-packed; overload display guarded.",
+      "evidence": "Final independent UI; owner J1/J2."
+    },
+    {
+      "id": "K3",
+      "round": "8c821da 2 qualifications",
+      "issue": "Legacy draft travel migration absent",
+      "disposition": "Closed functionally: carry over explicit value and retain new explicit settings.",
+      "evidence": "Inspected current migration; owner I7; minor shared label limitation below."
+    },
+    {
+      "id": "K4",
+      "round": "8c821da 2 qualifications",
+      "issue": "Road window presented as legal entitlement",
+      "disposition": "Engineering wording corrected to project planning window/permit check; original guide remains unverified.",
+      "evidence": "Inspected OVWIN/screen/sheet; original document limitation retained."
+    }
+  ],
+  "remainingRuntimeBlockersInReviewedScope": [],
+  "limitations": [
+    "Original Queensland guide PDF was not read; supplied excerpts are not independent source validation.",
+    "No full browser, visual, live-record or deployment approval is asserted by this CPU review.",
+    "Same-reference toilet/tank relationships and explicit supplier holds are covered; no inference of undocumented cross-reference physical relationships.",
+    "Existing planning defaults and device-local settings are not verified route/vehicle facts.",
+    "Legacy migration uses a shared _from provenance label; a run edit can alter the other run label without changing its value.",
+    "Stale README tested-source paragraph, roads remaining[] literals and nested historic Timeline source-hash map are superseded by this exact source/hash mapping."
+  ]
+}

@@ -1,0 +1,341 @@
+{
+  "author": "Andrew Fisher",
+  "checks": [
+    {
+      "name": "Current inventory is83items, not91identified receipts",
+      "pass": true,
+      "detail": {
+        "onSite": 83,
+        "onsiteUnknown": 0,
+        "received": 83,
+        "identified": 91,
+        "quantityOnly": 6,
+        "remaining": 113,
+        "references": 14,
+        "spares": 1,
+        "fwf": {
+          "confirmed": 194,
+          "received": 75,
+          "onSite": 75,
+          "pending": 113,
+          "unallocated": 6,
+          "over": 0
+        }
+      }
+    },
+    {
+      "name": "Scheduled outstanding includes113items",
+      "pass": true
+    },
+    {
+      "name": "194scope reconciles75received+113scheduled+6unallocated",
+      "pass": true
+    },
+    {
+      "name": "WC69 six assigned numbers do not imply arrival",
+      "pass": true
+    },
+    {
+      "name": "All daily supplier quantities equal113",
+      "pass": true
+    },
+    {
+      "name": "All portable loads respect24/6capacity",
+      "pass": true
+    },
+    {
+      "name": "Each16pan block has its own truck",
+      "pass": true
+    },
+    {
+      "name": "Supplier demob equals83currentitems",
+      "pass": true
+    },
+    {
+      "name": "Outside-island demob precedes inside",
+      "pass": true
+    },
+    {
+      "name": "Both source-only requests join22Oct once",
+      "pass": true
+    },
+    {
+      "name": "Receipt6 propagates inventory remainder daily loads demob",
+      "pass": true,
+      "detail": {
+        "m": {
+          "onSite": 89,
+          "onsiteUnknown": 0,
+          "received": 89,
+          "identified": 91,
+          "quantityOnly": 6,
+          "remaining": 107,
+          "references": 14,
+          "spares": 1,
+          "fwf": {
+            "confirmed": 194,
+            "received": 81,
+            "onSite": 81,
+            "pending": 107,
+            "unallocated": 6,
+            "over": 0
+          }
+        },
+        "row": {
+          "ref": "WC69",
+          "item": "FWF",
+          "name": "Toilets",
+          "quantity": 12,
+          "received": 6,
+          "installed": 0,
+          "collected": 0,
+          "onSite": 6,
+          "remainingNumbers": [
+            "0152",
+            "0078",
+            "0010",
+            "0070",
+            "0958",
+            "0647"
+          ],
+          "collectionIssues": [],
+          "numbers": [
+            "0010",
+            "0070",
+            "0078",
+            "0152",
+            "0647",
+            "0958"
+          ],
+          "quantityOnly": false,
+          "events": [
+            {
+              "id": "T0263",
+              "date": "2026-10-13",
+              "quantity": 12
+            }
+          ],
+          "movedDate": "",
+          "location": "Gate 1 · Tedder Ave / Helen Park",
+          "locationBasis": "Master plan reference position",
+          "url": "https://www.google.com/maps/dir/?api=1&destination=-27.981496,153.424162&travelmode=driving",
+          "coordinates": "-27.981496, 153.424162",
+          "side": "outside",
+          "zone": "gate1",
+          "status": "6 of 12 received · 0 installed",
+          "arrivalBasis": "Receipt, allocation and installation remain separate.",
+          "emptied": false,
+          "emptyRecord": {
+            "on": false,
+            "by": null,
+            "at": null,
+            "unproven": false,
+            "stale": false
+          },
+          "supplierBasis": "Current supplier plan matched to scheduled item",
+          "outDate": "",
+          "outSource": "",
+          "dispatchHold": false,
+          "remaining": 6,
+          "locationConflict": false
+        },
+        "inbound": 6,
+        "demob": 6
+      }
+    },
+    {
+      "name": "Quantity edit12to10 updates every remaining projection",
+      "pass": true,
+      "detail": {
+        "summary": {
+          "onSite": 89,
+          "onsiteUnknown": 0,
+          "received": 89,
+          "identified": 91,
+          "quantityOnly": 6,
+          "remaining": 105,
+          "references": 14,
+          "spares": 1,
+          "fwf": {
+            "confirmed": 194,
+            "received": 81,
+            "onSite": 81,
+            "pending": 105,
+            "unallocated": 8,
+            "over": 0
+          }
+        },
+        "row": {
+          "ref": "WC69",
+          "item": "FWF",
+          "name": "Toilets",
+          "quantity": 10,
+          "received": 6,
+          "installed": 0,
+          "collected": 0,
+          "onSite": 6,
+          "remainingNumbers": [
+            "0152",
+            "0078",
+            "0010",
+            "0070",
+            "0958",
+            "0647"
+          ],
+          "collectionIssues": [],
+          "numbers": [
+            "0010",
+            "0070",
+            "0078",
+            "0152",
+            "0647",
+            "0958"
+          ],
+          "quantityOnly": false,
+          "events": [
+            {
+              "id": "T0263",
+              "date": "2026-10-13",
+              "quantity": 12
+            }
+          ],
+          "movedDate": "",
+          "location": "Gate 1 · Tedder Ave / Helen Park",
+          "locationBasis": "Master plan reference position",
+          "url": "https://www.google.com/maps/dir/?api=1&destination=-27.981496,153.424162&travelmode=driving",
+          "coordinates": "-27.981496, 153.424162",
+          "side": "outside",
+          "zone": "gate1",
+          "status": "6 of 10 received · 0 installed",
+          "arrivalBasis": "Receipt, allocation and installation remain separate.",
+          "emptied": false,
+          "emptyRecord": {
+            "on": false,
+            "by": null,
+            "at": null,
+            "unproven": false,
+            "stale": false
+          },
+          "supplierBasis": "Current supplier plan matched to scheduled item",
+          "outDate": "",
+          "outSource": "",
+          "dispatchHold": false,
+          "remaining": 4,
+          "locationConflict": false
+        },
+        "inbound": 4
+      }
+    },
+    {
+      "name": "Local record fixture restored exactly",
+      "pass": true
+    },
+    {
+      "name": "No viewport overflow",
+      "pass": true
+    },
+    {
+      "name": "inventoryPDF generated",
+      "pass": true,
+      "detail": {
+        "name": "GC500_Event_Portables_Inventory_2026-10-12.pdf",
+        "pages": 4,
+        "size": 76101
+      }
+    },
+    {
+      "name": "remainingPDF generated",
+      "pass": true,
+      "detail": {
+        "name": "GC500_Event_Portables_Remaining_2026-10-13.pdf",
+        "pages": 4,
+        "size": 58812
+      }
+    },
+    {
+      "name": "demobPDF generated",
+      "pass": true,
+      "detail": {
+        "name": "GC500_Event_Portables_Demob_Proposed_2026-10-12.pdf",
+        "pages": 8,
+        "size": 92274
+      }
+    },
+    {
+      "name": "Document dialog has Back and Close",
+      "pass": true
+    },
+    {
+      "name": "Back restores inventory button focus",
+      "pass": true
+    },
+    {
+      "name": "Escape closes document dialog",
+      "pass": true
+    },
+    {
+      "name": "Source request resolution prevents cancelled or ambiguous fallback",
+      "pass": true,
+      "detail": {
+        "missing": "missing",
+        "active": "active",
+        "cancelled": "cancelled",
+        "ambiguous": "ambiguous",
+        "conflictOnSite": 0,
+        "unknown": 2
+      }
+    },
+    {
+      "name": "Conflicting fleet locations never inflate certain on-site count",
+      "pass": true,
+      "detail": {
+        "missing": "missing",
+        "active": "active",
+        "cancelled": "cancelled",
+        "ambiguous": "ambiguous",
+        "conflictOnSite": 0,
+        "unknown": 2
+      }
+    },
+    {
+      "name": "No browser errors",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "No operational writes",
+      "pass": true,
+      "detail": {
+        "page": 1,
+        "live": 50,
+        "blocked": 0,
+        "localMapSessions": 1
+      }
+    }
+  ],
+  "counts": {
+    "page": 1,
+    "live": 50,
+    "blocked": 0,
+    "localMapSessions": 1
+  },
+  "errors": [],
+  "summary": {
+    "onSite": 83,
+    "onsiteUnknown": 0,
+    "received": 83,
+    "identified": 91,
+    "quantityOnly": 6,
+    "remaining": 113,
+    "references": 14,
+    "spares": 1,
+    "fwf": {
+      "confirmed": 194,
+      "received": 75,
+      "onSite": 75,
+      "pending": 113,
+      "unallocated": 6,
+      "over": 0
+    }
+  }
+}

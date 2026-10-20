@@ -1,0 +1,81 @@
+{
+  "author": "Andrew Fisher",
+  "readyCommit": "9deab91f9c4e9d9341e060de2d4343a6a0968d32",
+  "patchLastChangedCommit": "9deab91f9c4e9d9341e060de2d4343a6a0968d32",
+  "supersedesReadyCommit": "4b878455debde93ca8836251b4a57cd89a277889",
+  "change": "The sole product-source delta draws an unpainted jump target fold synchronously before landing.",
+  "files": [
+    {
+      "path": "03_GC500_Delivery_Control/v7.99_today_faster_fuller_DRAFT/.gitignore",
+      "bytes": 76,
+      "sha256": "a4c7c01cf2ddf0e6e9802815847094a712dcf4bbee5119a959c370012f91f064",
+      "publishedPath": "03_GC500_Delivery_Control/v7.99_today_faster_fuller_LIVE/.gitignore",
+      "publishedSha256": "a4c7c01cf2ddf0e6e9802815847094a712dcf4bbee5119a959c370012f91f064"
+    },
+    {
+      "path": "03_GC500_Delivery_Control/v7.99_today_faster_fuller_DRAFT/README.md",
+      "bytes": 12070,
+      "sha256": "d95dcf83ddc30f963340f6f86fbc0021cac4bb9e7dc3ae10ad18d4866e37f9ea",
+      "publishedPath": "03_GC500_Delivery_Control/v7.99_today_faster_fuller_LIVE/README.md",
+      "publishedSha256": "d95dcf83ddc30f963340f6f86fbc0021cac4bb9e7dc3ae10ad18d4866e37f9ea"
+    },
+    {
+      "path": "03_GC500_Delivery_Control/v7.99_today_faster_fuller_DRAFT/evidence/layout799.cjs",
+      "bytes": 4875,
+      "sha256": "14d96108318c33d79dd292d134a5dd4455c36f244f6b5ef8df9320f8591dc41d",
+      "publishedPath": "03_GC500_Delivery_Control/v7.99_today_faster_fuller_LIVE/evidence/layout799.cjs",
+      "publishedSha256": "14d96108318c33d79dd292d134a5dd4455c36f244f6b5ef8df9320f8591dc41d"
+    },
+    {
+      "path": "03_GC500_Delivery_Control/v7.99_today_faster_fuller_DRAFT/evidence/results796_tests.cjs",
+      "bytes": 4211,
+      "sha256": "03a98a6a50e1ce866e970d554cdad57fd4a6ceba09bc5b671e82e12e342ea605",
+      "publishedPath": "03_GC500_Delivery_Control/v7.99_today_faster_fuller_LIVE/evidence/results796_tests.cjs",
+      "publishedSha256": "03a98a6a50e1ce866e970d554cdad57fd4a6ceba09bc5b671e82e12e342ea605"
+    },
+    {
+      "path": "03_GC500_Delivery_Control/v7.99_today_faster_fuller_DRAFT/evidence/run_all.sh",
+      "bytes": 3005,
+      "sha256": "1c588bb09dfa433a96d14de1683501e458a0f504efd0af86c79661c87e2e7f4d",
+      "publishedPath": "03_GC500_Delivery_Control/v7.99_today_faster_fuller_LIVE/evidence/run_all.sh",
+      "publishedSha256": "0437aac48786c80a0cf1dd9fe207c1dc7ca18ec88e0665279251850d6e45ed24",
+      "sourceArchivePath": "03_GC500_Delivery_Control/v7.99_today_faster_fuller_LIVE/provenance/run_all_READY_9deab91.sh",
+      "localChange": "Path-only runner update for published source folders; exact original retained in provenance."
+    },
+    {
+      "path": "03_GC500_Delivery_Control/v7.99_today_faster_fuller_DRAFT/evidence/same_figures.js",
+      "bytes": 1894,
+      "sha256": "3cf494fadd964f514681243cba26f0543cc89ef827a3697070c68edc233c47e3",
+      "publishedPath": "03_GC500_Delivery_Control/v7.99_today_faster_fuller_LIVE/evidence/same_figures.js",
+      "publishedSha256": "3cf494fadd964f514681243cba26f0543cc89ef827a3697070c68edc233c47e3"
+    },
+    {
+      "path": "03_GC500_Delivery_Control/v7.99_today_faster_fuller_DRAFT/evidence/speed799.cjs",
+      "bytes": 1500,
+      "sha256": "9e2d3e24ed2530e0dcfb66b903b23b3917e20dad63c51467785b69e0802b35a2",
+      "publishedPath": "03_GC500_Delivery_Control/v7.99_today_faster_fuller_LIVE/evidence/speed799.cjs",
+      "publishedSha256": "9e2d3e24ed2530e0dcfb66b903b23b3917e20dad63c51467785b69e0802b35a2"
+    },
+    {
+      "path": "03_GC500_Delivery_Control/v7.99_today_faster_fuller_DRAFT/evidence/v799_tests.js",
+      "bytes": 15109,
+      "sha256": "2f50348da84682357ce75bc55587ecd8f1fce0560cc25acb38212ff7dd551c3b",
+      "publishedPath": "03_GC500_Delivery_Control/v7.99_today_faster_fuller_LIVE/evidence/v799_tests.js",
+      "publishedSha256": "2f50348da84682357ce75bc55587ecd8f1fce0560cc25acb38212ff7dd551c3b"
+    },
+    {
+      "path": "03_GC500_Delivery_Control/v7.99_today_faster_fuller_DRAFT/patch_v799.py",
+      "bytes": 14759,
+      "sha256": "32020bcb82d59748dbaa0d4e5b8354464bf696da0a8d301b39ac1368b2f8d384",
+      "publishedPath": "03_GC500_Delivery_Control/v7.99_today_faster_fuller_LIVE/patch_v799.py",
+      "publishedSha256": "32020bcb82d59748dbaa0d4e5b8354464bf696da0a8d301b39ac1368b2f8d384"
+    }
+  ],
+  "publication": {
+    "release": "v8.07",
+    "liveAest": "2 Oct 2026 17:02 AEST",
+    "publicSha256": "35024d43405947d59c106e858221f8c40ed9629bcf6b19b1081f87c4da6799ed",
+    "publicBytes": 9101458,
+    "note": "Original commit paths and hashes retained; published paths identify relocated files. Only the inherited aggregate runner has path-only edits, with its exact imported bytes archived."
+  }
+}

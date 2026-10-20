@@ -1,0 +1,640 @@
+{
+ "author": "Andrew Fisher",
+ "date": "8 Oct 2026",
+ "drawing": "D001-26003-03 Master Layout Plan, issued 2 Oct 2026",
+ "pdf_sha256": "8753d875cf90682e09afefae8c774144d9e9725ece87f726707882fb3711c56d",
+ "frame": {
+  "pdf_sha256": "37792f0a9d32e829f34d28ab41197fd2cf689fb62cd60a755aa89106cb5a0a2f",
+  "issued": "17 Sep 2026",
+  "why": "the fencing lines were traced on it and both satellite registrations were measured on it"
+ },
+ "what_moved_on_the_paper_pt": {
+  "main": {
+   "new_minus_old": [
+    -25.5,
+    -0.12
+   ],
+   "matched_records": 40455,
+   "share_at_the_mode": 0.364
+  },
+  "inset": {
+   "new_minus_old": [
+    0.0,
+    -0.06
+   ],
+   "matched_records": 5414,
+   "share_at_the_mode": 0.489
+  },
+  "legend": {
+   "new_minus_old": [
+    0.0,
+    -0.12
+   ],
+   "matched_records": 697,
+   "share_at_the_mode": 0.382
+  },
+  "border": {
+   "new_minus_old": [
+    0.0,
+    -0.06
+   ],
+   "matched_records": 217,
+   "share_at_the_mode": 0.498
+  }
+ },
+ "translation_applied_pt": {
+  "main": [
+   25.5,
+   0.12
+  ],
+  "inset": [
+   -0.0,
+   0.06
+  ],
+  "legend": [
+   -0.0,
+   0.12
+  ],
+  "border": [
+   -0.0,
+   0.06
+  ]
+ },
+ "phase_correlation_check": {
+  "main_drawing_area_pt": [
+   25.523,
+   0.042
+  ],
+  "inset_pt": [
+   -0.011,
+   0.033
+  ],
+  "note": "the two sheets rendered at 2 px per pt; a sub-pixel peak fit; agrees with the vector measurement to 0.03 pt"
+ },
+ "viewport_clips": "kept where the paper has them (the main plan window, the inset window, the legend strip, the border); the drawn content, its soft masks and the small symbol clips move back onto the 17 Sep frame",
+ "western_strip": "the 2 Oct sheet shows 9 mm (25.5 pt) less of the western edge of the main plan; that strip is blank in the explorer, as it is on the page picture",
+ "labels": {
+  "live_17_sep": 958,
+  "kept": 809,
+  "moved": 86,
+  "removed": [
+   "A12",
+   "A13",
+   "3m Clear Span",
+   "WC32",
+   "OP21",
+   "OP02",
+   "WC69",
+   "OP11",
+   "OP85",
+   "WC40a",
+   "TV",
+   "SE",
+   "HOUSE",
+   "USE",
+   "HOUSE",
+   "HOUSE",
+   "HOUSE",
+   "HOUSE",
+   "HOUSE",
+   "HOUSE",
+   "MAIN BEACH TOWER",
+   "G8",
+   "CRONIN AVE",
+   "PEARL",
+   "ER",
+   "G7",
+   "EMERGENCY HELIPAD",
+   "HELIPAD",
+   "PONTOON",
+   "FAF",
+   "MERCH MERCH",
+   "MERCH",
+   "MERCH",
+   "HERO",
+   "GRM",
+   "GO",
+   "MERCH",
+   "OP05",
+   "HELI",
+   "MERCH",
+   "MERCH",
+   "LOCK",
+   "FOR",
+   "MERCH",
+   "MERCH",
+   "MERCH",
+   "MERCH",
+   "MERCH",
+   "MERCH",
+   "STUNTZ",
+   "FOOD",
+   "FOOD",
+   "UNIVERSITY",
+   "RACE TEAMS",
+   "COFF",
+   "ATM",
+   "BAR 19",
+   "BAR 3",
+   "JET BOATS",
+   "BAR14",
+   "CA",
+   "OP12",
+   "MED"
+  ],
+  "added": [
+   "BAR 18",
+   "BAR",
+   "SCA",
+   "COFFEE",
+   "FOOD",
+   "FOOD",
+   "FOOD",
+   "FOOD",
+   "FOOD",
+   "COFFEE",
+   "DRINK",
+   "FOOD",
+   "BAR 9",
+   "FOOD",
+   "FOOD",
+   "FOOD",
+   "FOOD",
+   "BAR",
+   "OP21",
+   "OP76",
+   "GEMA",
+   "GEMA",
+   "WC10",
+   "EVL"
+  ],
+  "on_the_2_oct_sheet": 919,
+  "moved_over_1_m": [
+   {
+    "text": "FOOD",
+    "moved_m": 1.0
+   },
+   {
+    "text": "OP54",
+    "moved_m": 1.3
+   },
+   {
+    "text": "OP54",
+    "moved_m": 1.3
+   },
+   {
+    "text": "FOOD",
+    "moved_m": 1.3
+   },
+   {
+    "text": "THE",
+    "moved_m": 1.4
+   },
+   {
+    "text": "DECK",
+    "moved_m": 1.4
+   },
+   {
+    "text": "FOOD",
+    "moved_m": 1.4
+   },
+   {
+    "text": "BAR 11",
+    "moved_m": 1.4
+   },
+   {
+    "text": "BAR",
+    "moved_m": 1.4
+   },
+   {
+    "text": "FOOD",
+    "moved_m": 1.6
+   },
+   {
+    "text": "FOOD",
+    "moved_m": 1.6
+   },
+   {
+    "text": "P44",
+    "moved_m": 1.6
+   },
+   {
+    "text": "BAR 5",
+    "moved_m": 1.7
+   },
+   {
+    "text": "FOOD",
+    "moved_m": 1.9
+   },
+   {
+    "text": "FOOD",
+    "moved_m": 1.9
+   },
+   {
+    "text": "FOOD",
+    "moved_m": 2.0
+   },
+   {
+    "text": "P08",
+    "moved_m": 2.0
+   },
+   {
+    "text": "P51",
+    "moved_m": 2.0
+   },
+   {
+    "text": "BAR",
+    "moved_m": 2.0
+   },
+   {
+    "text": "FOOD",
+    "moved_m": 2.1
+   },
+   {
+    "text": "FOOD",
+    "moved_m": 2.2
+   },
+   {
+    "text": "WC20",
+    "moved_m": 2.2
+   },
+   {
+    "text": "FOOD",
+    "moved_m": 2.3
+   },
+   {
+    "text": "FOOD",
+    "moved_m": 2.3
+   },
+   {
+    "text": "FOOD",
+    "moved_m": 2.4
+   },
+   {
+    "text": "FOOD",
+    "moved_m": 2.6
+   },
+   {
+    "text": "COMMODORE",
+    "moved_m": 2.7
+   },
+   {
+    "text": "PARK",
+    "moved_m": 2.7
+   },
+   {
+    "text": "COOL",
+    "moved_m": 2.7
+   },
+   {
+    "text": "BS10",
+    "moved_m": 2.8
+   },
+   {
+    "text": "FOOD",
+    "moved_m": 2.8
+   },
+   {
+    "text": "FOOD",
+    "moved_m": 3.0
+   },
+   {
+    "text": "FOOD",
+    "moved_m": 3.2
+   },
+   {
+    "text": "FOOD",
+    "moved_m": 3.3
+   },
+   {
+    "text": "FOOD",
+    "moved_m": 3.5
+   },
+   {
+    "text": "FOOD",
+    "moved_m": 3.8
+   },
+   {
+    "text": "BAR12",
+    "moved_m": 4.0
+   },
+   {
+    "text": "CATERING",
+    "moved_m": 4.2
+   },
+   {
+    "text": "S1&2",
+    "moved_m": 4.2
+   },
+   {
+    "text": "EVL",
+    "moved_m": 4.2
+   },
+   {
+    "text": "FOOD",
+    "moved_m": 4.4
+   },
+   {
+    "text": "FOOD",
+    "moved_m": 5.2
+   },
+   {
+    "text": "FOOD",
+    "moved_m": 5.3
+   },
+   {
+    "text": "FH",
+    "moved_m": 5.9
+   },
+   {
+    "text": "BAR",
+    "moved_m": 6.1
+   },
+   {
+    "text": "6m Clear Span x 3m Bay",
+    "moved_m": 6.3
+   },
+   {
+    "text": "K3w",
+    "moved_m": 6.3
+   },
+   {
+    "text": "3m Clear Span",
+    "moved_m": 6.4
+   },
+   {
+    "text": "OP77",
+    "moved_m": 6.4
+   },
+   {
+    "text": "STAGE",
+    "moved_m": 6.4
+   },
+   {
+    "text": "8M",
+    "moved_m": 6.4
+   },
+   {
+    "text": "HD6 GRIP",
+    "moved_m": 6.8
+   },
+   {
+    "text": "TV MEDIA",
+    "moved_m": 6.9
+   },
+   {
+    "text": "FOOD",
+    "moved_m": 7.1
+   },
+   {
+    "text": "WC39",
+    "moved_m": 9.1
+   },
+   {
+    "text": "FOOD",
+    "moved_m": 11.3
+   },
+   {
+    "text": "FOOD",
+    "moved_m": 13.4
+   },
+   {
+    "text": "WC38",
+    "moved_m": 13.4
+   },
+   {
+    "text": "BAR",
+    "moved_m": 13.6
+   },
+   {
+    "text": "BAR",
+    "moved_m": 15.3
+   },
+   {
+    "text": "FOOD",
+    "moved_m": 16.7
+   },
+   {
+    "text": "FOOD",
+    "moved_m": 17.2
+   },
+   {
+    "text": "WC51",
+    "moved_m": 17.9
+   },
+   {
+    "text": "FOOD",
+    "moved_m": 19.9
+   },
+   {
+    "text": "BAR",
+    "moved_m": 20.2
+   },
+   {
+    "text": "CR",
+    "moved_m": 21.2
+   },
+   {
+    "text": "FOOD",
+    "moved_m": 21.4
+   },
+   {
+    "text": "A25",
+    "moved_m": 24.0
+   },
+   {
+    "text": "FOH",
+    "moved_m": 24.9
+   },
+   {
+    "text": "BAR13",
+    "moved_m": 29.5
+   },
+   {
+    "text": "FOOD",
+    "moved_m": 29.7
+   },
+   {
+    "text": "BAR 10",
+    "moved_m": 31.5
+   },
+   {
+    "text": "FOOD",
+    "moved_m": 42.6
+   },
+   {
+    "text": "FOOD",
+    "moved_m": 45.9
+   },
+   {
+    "text": "FOOD",
+    "moved_m": 53.2
+   },
+   {
+    "text": "FOOD",
+    "moved_m": 61.9
+   },
+   {
+    "text": "BAR",
+    "moved_m": 85.5
+   },
+   {
+    "text": "P45",
+    "moved_m": 85.7
+   },
+   {
+    "text": "3m Clear Span",
+    "moved_m": 98.1
+   },
+   {
+    "text": "FOOD",
+    "moved_m": 132.9
+   }
+  ],
+  "removed_in_the_western_strip": [
+   "WC69",
+   "OP11",
+   "SE",
+   "HOUSE",
+   "USE",
+   "HOUSE",
+   "HOUSE",
+   "HOUSE",
+   "HOUSE",
+   "HOUSE",
+   "HOUSE",
+   "MAIN BEACH TOWER",
+   "G8",
+   "CRONIN AVE",
+   "PEARL",
+   "ER",
+   "G7"
+  ]
+ },
+ "images": {
+  "total": 595,
+  "aerial_underlay": 64,
+  "raster_symbol": 531,
+  "underlay_bytes": 683172
+ },
+ "scene": {
+  "records": 301253,
+  "styles": 27193,
+  "contexts": 1095,
+  "defs": 1835,
+  "labels": 919,
+  "broad": 66,
+  "json_bytes": 51166275,
+  "gzip_bytes": 14340912,
+  "sha256": "5c6a6ae3050767533184bf4aa65011d36377278f14a6b459c8b7c443f8a82e54"
+ },
+ "records": {
+  "old": 254316,
+  "new": 301253
+ },
+ "georeferencing": "main and inset sheet_to_z18px transforms unchanged; pdf_sha256 updated; frame recorded",
+ "pyramid_against_the_17_sep_tiles": {
+  "-0.75": {
+   "identical": 0,
+   "different": 6,
+   "only_live": 0,
+   "only_new": 0
+  },
+  "-0.5": {
+   "identical": 0,
+   "different": 12,
+   "only_live": 0,
+   "only_new": 0
+  },
+  "-0.25": {
+   "identical": 0,
+   "different": 12,
+   "only_live": 0,
+   "only_new": 0
+  },
+  "0": {
+   "identical": 0,
+   "different": 20,
+   "only_live": 0,
+   "only_new": 0
+  },
+  "0.25": {
+   "identical": 0,
+   "different": 24,
+   "only_live": 0,
+   "only_new": 0
+  },
+  "0.5": {
+   "identical": 0,
+   "different": 35,
+   "only_live": 0,
+   "only_new": 0
+  },
+  "0.75": {
+   "identical": 0,
+   "different": 48,
+   "only_live": 0,
+   "only_new": 0
+  },
+  "1": {
+   "identical": 0,
+   "different": 70,
+   "only_live": 0,
+   "only_new": 0
+  },
+  "1.25": {
+   "identical": 2,
+   "different": 88,
+   "only_live": 0,
+   "only_new": 1
+  },
+  "1.5": {
+   "identical": 2,
+   "different": 130,
+   "only_live": 0,
+   "only_new": 7
+  },
+  "1.75": {
+   "identical": 0,
+   "different": 176,
+   "only_live": 0,
+   "only_new": 0
+  },
+  "2": {
+   "identical": 7,
+   "different": 240,
+   "only_live": 0,
+   "only_new": 0
+  },
+  "2.25": {
+   "identical": 18,
+   "different": 336,
+   "only_live": 0,
+   "only_new": 1
+  },
+  "2.5": {
+   "identical": 33,
+   "different": 463,
+   "only_live": 0,
+   "only_new": 12
+  },
+  "2.75": {
+   "identical": 64,
+   "different": 620,
+   "only_live": 0,
+   "only_new": 13
+  },
+  "3": {
+   "identical": 119,
+   "different": 845,
+   "only_live": 0,
+   "only_new": 1
+  },
+  "3.25": {
+   "identical": 215,
+   "different": 1152,
+   "only_live": 0,
+   "only_new": 1
+  }
+ }
+}

@@ -1,0 +1,28 @@
+/* Author: Andrew Fisher. Reviewed movement, replacement and historical stock fixtures. */
+const assert=require('assert'),V=require('./vms1016.js');let checks=0;const check=(name,fn)=>{fn();checks++;console.log('PASS '+name);};
+const boards=[{key:'BOARD-A',asset:'10001',load:'NEW',folded:[{load:'OLD'}]}];let assignment={on:'NEW',src:'word'},word={from:'OLD',on:'NEW',said:'8 Oct 2026'};
+global.todayIso=()=>'2026-10-14';
+global.heldMemo=(_,f)=>f();global.vms913Boards=()=>boards;global.vms913OnOf=()=>assignment;global.vms913WordOf=()=>word;global.vms913Of=()=>({fleet:'10001'});global.vms913TidOf=a=>a.tid;global.vms913ShownKey=k=>k;
+const a={key:'OLD',tid:'OLD',asset_numbers:['10001','10002','10003']};global.unitsOf=()=>[];
+check('Explicit reviewed movement identifies its original source',()=>assert.equal(V.forAsset(a).length,1));
+check('A source contract alone does not establish a reviewed move',()=>assert.equal(V.reviewed(boards,()=>({on:'NEW',src:'contract'}),()=>word,()=>({fleet:'10001'})).length,0));
+check('Invalid recorded assignment does not suppress source stock',()=>assert.equal(V.reviewed(boards,()=>({on:null,src:'record',bad:'invalid'}),()=>word,()=>({fleet:'10001'})).length,0));
+check('Assignment returned to original source removes its outgoing move',()=>{assignment={on:'OLD',src:'record',at:'2026-10-09T02:00:00Z'};assert.equal(V.forAsset(a).length,0);assignment={on:'NEW',src:'word'};});
+check('Move date uses Brisbane date for native timestamps',()=>assert.equal(V.evidenceDay('2026-10-07T15:00:00Z'),'2026-10-08'));
+check('Reviewed date-only source retains its full day',()=>assert.equal(V.evidenceDay('8 Oct 2026'),'2026-10-08'));
+check('Later rego edit cannot redraft the reviewed movement date',()=>{assignment={on:'NEW',src:'record',at:'2026-10-12T02:00:00Z'};assert.equal(V.forAsset(a,'2026-10-09')[0].day,'2026-10-08');assignment={on:'NEW',src:'word'};});
+check('Different undated assignment affects current stock without invented historical date',()=>{assignment={on:'OTHER',src:'record',at:'2026-10-09T02:00:00Z'};assert.equal(V.forAsset(a,'2026-10-10').length,0);assert.equal(V.forAsset(a,'2026-10-14').length,1);assignment={on:'NEW',src:'word'};});
+const original={ref:'OLD',rows:['10001','10002','10003'].map(assetNo=>({assetNo,item:'VMS',owner:'coates',physical:true,source:'native'})),groups:[{item:'VMS',quantity:3,units:[],pending:0}]};
+const projected=V.model(a,original);
+check('Moved board is retained as history, with one current owner',()=>{assert.equal(projected.rows[0].source,'history');assert.equal(projected.rows[0].physical,false);assert.equal(projected.rows[0].movement1016.to,'NEW');});
+check('Other physical boards and source asked quantity remain unchanged',()=>{assert.equal(projected.rows.filter(r=>r.physical).length,2);assert.equal(projected.groups[0].quantity,3);assert.equal(projected.groups[0].pending,0);assert.equal(original.rows[0].physical,true);});
+check('Explicit moved identity overrides a legacy native description without losing its history',()=>{const stale={...original.rows[0],item:'vms5'},fixture={...original,rows:[stale,...original.rows.slice(1)],groups:[original.groups[0],{item:'Description to confirm',quantity:null,units:[stale],pending:null}]};const p=V.model(a,fixture);assert.equal(p.rows[0].source,'history');assert.equal(p.rows[0].sourceItem1016,'vms5');assert.equal(p.rows[0].physical,false);assert.equal(p.groups.length,1);assert.equal(p.groups[0].pending,0);assert.equal(stale.physical,true);});
+global.gcModel925=()=>projected;
+check('Current stock subtracts moved board once',()=>assert.equal(V.quantity(a,'VMS','2026-10-14',3),2));
+check('Historical stock before the confirmed move remains unchanged',()=>assert.equal(V.quantity(a,'VMS','2026-10-07',3),3));
+check('Zero received never becomes a receipt from identity alone',()=>assert.equal(V.quantity(a,'VMS','2026-10-14',0),0));
+check('Unidentified received stock remains counted',()=>{global.gcModel925=()=>({rows:[projected.rows[1]]});assert.equal(V.quantity(a,'VMS','2026-10-14',5),4);});
+check('Later physical replacement fills moved slot without subtracting it again',()=>{global.gcModel925=()=>({rows:projected.rows.concat({assetNo:'10004',item:'VMS',owner:'coates',physical:true,source:'native'})});assert.equal(V.quantity(a,'VMS','2026-10-14',3),3);});
+check('Current replacement cannot be replayed into the period before it arrived',()=>{global.gcModel925=()=>({rows:projected.rows.concat({assetNo:'10004',item:'VMS',owner:'coates',physical:true,source:'identified',metadata:{at:'2026-10-12T02:00:00Z'}})});assert.equal(V.quantity(a,'VMS','2026-10-09',3),2);assert.equal(V.quantity(a,'VMS','2026-10-14',3),3);});
+check('Other equipment current stock is unaffected',()=>assert.equal(V.quantity(a,'Building','2026-10-14',3),3));
+console.log(JSON.stringify({checks,passed:checks}));

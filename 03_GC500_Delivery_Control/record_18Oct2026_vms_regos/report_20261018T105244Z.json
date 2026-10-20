@@ -1,0 +1,84 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261018T105244Z",
+ "finished": "2026-10-18T10:52:53.963Z",
+ "mode": "apply",
+ "spec": {
+  "by": "Andrew Fisher",
+  "ops": [
+   {
+    "op": "supplied",
+    "ref": "T0001",
+    "item": "VMS",
+    "qty": 7
+   }
+  ]
+ },
+ "pageSha256": "ad9d7c0cdb4a63a55072712ea89c31fd88437bfd1b930b76a2feaa831894e587",
+ "version": {
+  "before": 9741,
+  "after": 9744
+ },
+ "updated": {
+  "before": "2026-10-18T10:48:41.961Z",
+  "after": "2026-10-18T10:52:53.227Z"
+ },
+ "stage": [
+  {
+   "op": "supplied",
+   "ref": "T0001",
+   "item": "VMS",
+   "qty": 7,
+   "result": "VMS supplied 7"
+  }
+ ],
+ "writes": [
+  {
+   "key": "stamps/supplied~2f~T0001~2f~VMS",
+   "status": 200
+  },
+  {
+   "key": "supplied/T0001",
+   "status": 200
+  },
+  {
+   "key": "by/supplied~2f~T0001~2f~VMS",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 1,
+ "docs": {
+  "before": {
+   "stamps/supplied~2f~T0001~2f~VMS": null,
+   "supplied/T0001": null,
+   "by/supplied~2f~T0001~2f~VMS": null
+  },
+  "after": {
+   "stamps/supplied~2f~T0001~2f~VMS": {
+    "_k": "supplied/T0001/VMS",
+    "v": "2026-10-18T10:52:51.512Z"
+   },
+   "supplied/T0001": {
+    "items": [
+     {
+      "asked": "VMS",
+      "supplied": "VMS",
+      "qty_supplied": 7
+     }
+    ],
+    "_k": "T0001"
+   },
+   "by/supplied~2f~T0001~2f~VMS": {
+    "_k": "supplied/T0001/VMS",
+    "v": "Andrew Fisher"
+   }
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}

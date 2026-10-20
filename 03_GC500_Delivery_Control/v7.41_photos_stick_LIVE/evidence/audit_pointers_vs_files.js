@@ -1,0 +1,17 @@
+const {open} = require('/tmp/claude-0/stage18/lh18au');
+(async () => { const s = await open({pageFile: process.env.PAGE, hash: '', W: 1440, H: 1000, dpr: 1, gl: false}); const p = s.page;
+ await p.waitForFunction(() => typeof allAssets === 'function' && allAssets().length > 50 && typeof docsRefresh === 'function', null, {timeout: 200000}); await p.waitForTimeout(5000);
+ await p.evaluate(() => docsRefresh(true)); await p.waitForFunction(() => DOCS.state === 'ready' || DOCS.state === 'failed', null, {timeout: 120000}); await p.waitForTimeout(1000);
+ const R = await p.evaluate(() => { const files = DOCS.files || {}; const kinds = {}; Object.values(files).forEach(f => { kinds[f.kind || '?'] = (kinds[f.kind || '?'] || 0) + 1; });
+  const keys = Object.keys(S.dropPhotos || {}); let n = 0; const bad = [], byState = {}, perKey = [];
+  keys.forEach(k => { const ph = dropPhotosOf(k); n += ph.length; const a = assetOf(k); const nums = a ? buildingNumbersOf(a).map(String) : [];
+   const orphanUnit = ph.filter(x => x.unit && !nums.includes(String(x.unit))).length;
+   perKey.push([k, ph.length, orphanUnit, (S.stamps || {})['dropPhotos/' + k] || null, ((S.by || {})['dropPhotos/' + k]) || null]);
+   ph.forEach(x => { const r = photoFor(x); byState[r.state] = (byState[r.state] || 0) + 1; if (r.state !== 'ready') bad.push([k, x.unit || '', x.slot, x.id, x.name, x.by, x.at, r.state]); }); });
+  const dropFiles = Object.values(files).filter(f => f.kind === 'drop-photo');
+  const pointed = new Set(); keys.forEach(k => dropPhotosOf(k).forEach(x => pointed.add(String(x.id))));
+  const orphanFiles = dropFiles.filter(f => !pointed.has(String(f.id))).map(f => [f.id, f.name, f.title, f.uploaded || f.at || '', f.by || '']);
+  const tombs = Object.keys(S.deleted || {}).filter(k => /photo|drop/i.test(k)).slice(0, 20);
+  return {docsState: DOCS.state, filesTotal: Object.keys(files).length, kinds, keysWithPhotos: keys.length, photos: n, byState, bad, perKey: perKey.sort((x, y) => String(y[3] || '').localeCompare(String(x[3] || ''))).slice(0, 25), dropFiles: dropFiles.length, orphanFiles: orphanFiles.length, orphanSample: orphanFiles.slice(0, 40), tombs, hasHistory: typeof S.dropPhotoHistory}; });
+ require('fs').writeFileSync('phaudit.json', JSON.stringify(R, null, 1)); console.log(JSON.stringify({docsState: R.docsState, filesTotal: R.filesTotal, kinds: R.kinds, keys: R.keysWithPhotos, photos: R.photos, byState: R.byState, badN: R.bad.length, dropFiles: R.dropFiles, orphanFiles: R.orphanFiles, tombs: R.tombs}));
+ await s.browser.close(); })().catch(e => { console.error(e); process.exit(1); });

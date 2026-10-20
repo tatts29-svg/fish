@@ -1,0 +1,46 @@
+{
+  "author": "Andrew Fisher",
+  "sha256": "826ce44a2bf33cd93eccb23d7c68aa8ac06a740c16970279cdbde8acd1049b4f",
+  "cases": [
+    {
+      "mode": "desktop",
+      "checks": {
+        "22 routes including established redirects": true,
+        "7 deep links": true,
+        "print overlay": true,
+        "Back returns Equipment": true,
+        "zero browser and console errors": true
+      },
+      "aliases": {
+        "register": "plant",
+        "journal": "today",
+        "breakdowns": "today",
+        "variances": "today",
+        "edit": "today",
+        "add": "today"
+      }
+    },
+    {
+      "mode": "phone",
+      "checks": {
+        "22 routes including established redirects": true,
+        "7 deep links": true,
+        "print overlay": true,
+        "Back returns Equipment": true,
+        "zero browser and console errors": true
+      },
+      "aliases": {
+        "register": "plant",
+        "journal": "today",
+        "breakdowns": "today",
+        "variances": "today",
+        "edit": "today",
+        "add": "today"
+      }
+    }
+  ],
+  "tested_sha256": "826ce44a2bf33cd93eccb23d7c68aa8ac06a740c16970279cdbde8acd1049b4f",
+  "applies_to_candidate_sha256": "b5d99de88886d9f03aad7af2177b68b1239919542f6c27e2d80be7ec9a89bdfb",
+  "applicability": "Only paired danger-button colours and the header search placeholder changed; all bytes outside contrast1007 CSS, including navigation scripts and markup, are identical.",
+  "source_equivalence_evidence": "contrast-matrix1007.json"
+}

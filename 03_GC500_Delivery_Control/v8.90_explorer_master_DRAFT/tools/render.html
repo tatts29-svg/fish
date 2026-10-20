@@ -1,0 +1,24 @@
+<!doctype html>
+<!-- Author: Andrew Fisher. The explorer's own renderer, bare: scene-worker.js builds the SVG for a view and Chromium
+     rasterises it onto a canvas, exactly as the explorer does for a pyramid tile. ?scene=<url>&underlay=<json ids> -->
+<html><head><meta charset="utf-8"><title>render</title></head><body>
+<script>
+const q = new URLSearchParams(location.search);
+const UNDERLAY = JSON.parse(q.get('underlay') || '[]');
+const w = new Worker('scene-worker.js'); const cbs = new Map(); let id = 0;
+window.__ready = false; window.__error = null;
+w.onmessage = e => { const m = e.data;
+  if (m.t === 'ready') { window.__ready = true; window.__meta = m.meta; window.__count = m.count; }
+  else if (m.t === 'svg') { const cb = cbs.get(m.id); cbs.delete(m.id); cb && cb(m); }
+  else if (m.t === 'error') { window.__error = m.message; const cb = cbs.get(m.id); cbs.delete(m.id); cb && cb(m); } };
+w.onerror = e => { window.__error = String(e.message || e); };
+w.postMessage({t: 'load', url: new URL(q.get('scene') || 'assets/drawing-scene.bin', location.href).href, underlay: UNDERLAY});
+window.svgFromWorker = (view, W, H, mode, all) => new Promise(r => { const i = ++id; cbs.set(i, r); w.postMessage({t: 'svg', id: i, view, width: W, height: H, mode, all: !!all}); });
+window.loadSvg = svg => new Promise((res, rej) => { const url = URL.createObjectURL(new Blob([svg], {type: 'image/svg+xml'})); const img = new Image();
+  img.onload = () => res({img, url}); img.onerror = () => { URL.revokeObjectURL(url); rej(new Error('svg did not load')); }; img.src = url; });
+/* one tile or view: PNG base64, or null when nothing is drawn there */
+window.renderView = async (view, W, H, mode, white) => { const res = await svgFromWorker(view, W, H, mode); if (res.t === 'error') throw new Error(res.message); if (!res.count && !white) return null;
+  const c = document.createElement('canvas'); c.width = W; c.height = H; const g = c.getContext('2d'); if (white) { g.fillStyle = '#fff'; g.fillRect(0, 0, W, H); }
+  if (res.count) { const {img, url} = await loadSvg(res.svg); g.drawImage(img, 0, 0, W, H); URL.revokeObjectURL(url); }
+  return c.toDataURL('image/png').split(',')[1]; };
+</script></body></html>

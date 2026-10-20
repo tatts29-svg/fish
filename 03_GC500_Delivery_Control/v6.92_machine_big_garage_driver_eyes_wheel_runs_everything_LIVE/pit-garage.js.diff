@@ -1,0 +1,260 @@
+--- /tmp/claude-0/stage3/machine_base/pit-garage.js	2026-09-26 09:44:06.652430415 +0000
++++ /tmp/claude-0/stage3/machine/pit-garage.js	2026-09-27 03:49:29.765686978 +0000
+@@ -20,6 +20,7 @@
+ import * as T from './vendor/three.module.js';
+ import {Reflector} from './vendor/addons/objects/Reflector.js';
+ import {mergeGeometries} from './vendor/addons/utils/BufferGeometryUtils.js';
++import {buildMachinery,craneRunY} from './pit-machinery.js';
+ 
+ export const COATES_ORANGE = '#FF6A13';
+ /* THE HALL. Andrew Fisher, 23 Sep 2026: a huge Coates garage, with no wall in the way when
+@@ -27,14 +28,19 @@
+    middle on the dyno, and at the camera's full zoom-out (16 m) still no wall in the way. The car sits with its
+    nose at x = -2.5 and its tail at +2.5, tyres on y = 0, centred on z = 0; the roller door is in the front wall
+    (x = front), open to the pit lane. */
++/* v6.92 — BIGGER, AND SHUT. Andrew Fisher, 27 Sep 2026: "Pit needs to be bigger. More detail. More mechanical things operating. Almost like
++   its 360 view everywhere so you can't look outside the pit." The hall is half as big again — 54 m long, 42 m wide, 12 m to the roof — the
++   roller door is down, the pit lane and the grandstand are gone, and the camera cannot leave the four walls (car-app.js confineCamera).
++   The car, the dyno cell, the crew's aisles and the forklift's bays are exactly where they were; the walls moved out round them and the
++   floor between is full of machines at work (pit-machinery.js). */
+ export const GARAGE = Object.freeze({
+-  front: -18, back: 18,          /* the front wall (roller door) and the back wall, along x */
+-  near: 14, far: -14,            /* the side walls along z: the working wall is far (-z), the transporter is near (+z) */
+-  height: 9.0, lintel: 6.5,      /* roof, and the underside of the roller-door beam */
+-  doorNear: 5.5, doorFar: -5.5,  /* the roller door opening, along z */
++  front: -27, back: 27,          /* the front wall (the roller door, shut) and the back wall, along x */
++  near: 21, far: -21,            /* the side walls along z: the working wall is far (-z), the transporter is near (+z) */
++  height: 12.0, lintel: 6.5,     /* roof, and the underside of the roller-door beam */
++  doorNear: 5.5, doorFar: -5.5,  /* the roller door, along z */
+   bayNear: 3.4, bayFar: -3.4,    /* the painted outline of the dyno cell round the #26 */
+   bayFront: -6.2, bayBack: 5.2,
+-  pitWall: -30,                  /* the pit wall, across the pit lane from the door */
++  pitWall: -39,                  /* v6.92: nothing is built out there any more; kept for anything that still reads it */
+ });
+ /* THE DYNO. The rear wheels (axle x = 1.222, radius .334, at z = ±.83 — car-gc500.js CAR_AXLES) sit in the cradle
+    between two rollers each side; the geometry below puts the roller axes where a .334 tyre touches both. */
+@@ -297,6 +303,17 @@
+ ]);
+ 
+ /* the canvases the dyno cell draws on: the roller's knurl, the console screen, the stack light, the haze, the pegboard */
++/* v6.92 — the roller door's face: ribbed slats, a hazard-striped bottom rail, PIT 26 stencilled across it */
++function rollerDoor() {
++  return textCanvas(1024, 1024, (g, W, H) => {
++    g.fillStyle = '#5d676e'; g.fillRect(0, 0, W, H);
++    for (let y = 0; y < H; y += 26) { g.fillStyle = '#6f7a81'; g.fillRect(0, y, W, 13); g.fillStyle = '#3e464c'; g.fillRect(0, y + 22, W, 4); }
++    g.save(); g.beginPath(); g.rect(0, H - 70, W, 70); g.clip(); for (let x = -80; x < W + 80; x += 60) { g.fillStyle = '#f2b400'; g.beginPath(); g.moveTo(x, H); g.lineTo(x + 30, H); g.lineTo(x + 100, H - 70); g.lineTo(x + 70, H - 70); g.closePath(); g.fill(); } g.restore();
++    g.fillStyle = '#101417'; g.fillRect(0, H - 74, W, 6);
++    g.font = '900 210px Arial, Helvetica, sans-serif'; g.textAlign = 'center'; g.textBaseline = 'middle'; g.fillStyle = 'rgba(255,106,19,.92)'; g.fillText('PIT 26', W / 2, H * .46);
++    g.font = '800 64px Arial, Helvetica, sans-serif'; g.fillStyle = 'rgba(243,244,242,.85)'; g.fillText('COATES · GC500 2026', W / 2, H * .64);
++  });
++}
+ function rollerStripe() {
+   const t = textCanvas(64, 64, (g, W, H) => { g.fillStyle = '#7d868c'; g.fillRect(0, 0, W, H); g.fillStyle = '#4a5257'; for (let y = 0; y < H; y += 8) g.fillRect(0, y, W, 3); g.fillStyle = '#9aa3a8'; for (let y = 4; y < H; y += 8) g.fillRect(0, y, W, 1); });
+   t.wrapS = t.wrapT = T.RepeatWrapping; t.repeat.set(2, 24); return t;
+@@ -427,12 +444,13 @@
+   const floorW = G.back - G.front, floorD = G.near - G.far;
+ 
+   /* ---- the floor: asphalt outside, the epoxy across the whole hall, the dyno cell marked on it */
+-  const ground = new T.Mesh(plane(200, 200), M.asphalt); ground.rotation.x = -Math.PI / 2; ground.position.set(-20, -.03, 0); ground.receiveShadow = true; root.add(ground);
++  const ground = new T.Mesh(plane(floorW + .6, floorD + .6), M.asphalt);   /* v6.92: under the walls' full thickness */ ground.rotation.x = -Math.PI / 2; ground.position.set(0, -.03, 0); ground.receiveShadow = true; root.add(ground);
+   const reflector = new Reflector(plane(reflectorSize[0], reflectorSize[1]), {clipBias: .003, textureWidth: reflectorTexture[0], textureHeight: reflectorTexture[1], color: 0x23282c});
+   reflector.rotation.x = -Math.PI / 2; reflector.position.set(0, -.009, 0); reflector.visible = false; root.add(reflector); root.userData.reflector = reflector;
+   const floorTex = floorMap(), floorRough = floorRoughness(); floorTex.repeat.set(floorW / 2.4, floorD / 2.4); floorRough.repeat.set(floorW / 2.4, floorD / 2.4);
+   const epoxy = new T.Mesh(plane(floorW, floorD), new T.MeshPhysicalMaterial({color: 0xffffff, map: floorTex, roughnessMap: floorRough, roughness: 1, metalness: .04, clearcoat: 1, clearcoatRoughness: .10, transparent: true, opacity: 1, depthWrite: false, envMapIntensity: 1.0}));
+   epoxy.material.userData.solid = {opacity: 1, envMapIntensity: 1.0}; epoxy.material.userData.overReflector = {opacity: .80, envMapIntensity: .35};
++  M.wall.emissive = new T.Color(0x1b2226); M.ceiling.emissive = new T.Color(0x0c1114); M.wallDark.emissive = new T.Color(0x0d1216);   /* v6.92: the hall is bigger than its lamps' reach */
+   M.asphalt.envMapIntensity = .15; M.wall.envMapIntensity = .45; M.wallDark.envMapIntensity = .4; M.ceiling.envMapIntensity = .3; M.concrete.envMapIntensity = .3;
+   epoxy.rotation.x = -Math.PI / 2; epoxy.position.set(0, -.004, 0); epoxy.receiveShadow = true; epoxy.name = 'epoxy'; root.add(epoxy); root.userData.epoxy = epoxy;
+   /* the dyno cell: an orange line round it, yellow hatching at its head and foot, the 26 painted at its head, walkways along the hall */
+@@ -447,7 +465,6 @@
+   const hz = new T.Mesh(plane(.8, G.doorNear - G.doorFar), new T.MeshBasicMaterial({map: hatch(), transparent: true, opacity: .75, depthWrite: false}));
+   hz.material.map.repeat.set(1, 12); hz.material.map.wrapS = hz.material.map.wrapT = T.RepeatWrapping;
+   hz.rotation.set(-Math.PI / 2, 0, 0); hz.position.set(G.front + .5, .002, 0); root.add(hz);
+-  B.add(M.line, box(.10, .004, 60), G.front - 5, lineY, 0).add(M.line, box(.10, .004, 60), G.front - 10, lineY, 0);
+ 
+   /* ---- drawn shadows: a fade up each wall and out across the floor, discs under everything that stands */
+   const shadeUp = new T.MeshBasicMaterial({color: 0x000000, transparent: true, alphaMap: ramp(), depthWrite: false, opacity: .62, fog: false});
+@@ -469,10 +486,14 @@
+ 
+   /* ---- walls, columns, roof steel, the roller door */
+   const wallT = .3;
+-  B.add(M.wall, box(floorW, G.height, wallT), 0, G.height / 2, G.far - wallT / 2);                       /* far (working) wall */
+-  B.add(M.wall, box(floorW, G.height, wallT), 0, G.height / 2, G.near + wallT / 2);                      /* near wall */
+-  B.add(M.wall, box(wallT, G.height, floorD + 2 * wallT), G.back + wallT / 2, G.height / 2, 0);          /* back wall */
+-  for (const [z0, z1] of [[G.far - wallT, G.doorFar], [G.doorNear, G.near + wallT]]) B.add(M.wall, box(wallT, G.height, z1 - z0), G.front - wallT / 2, G.height / 2, (z0 + z1) / 2);   /* the front wall either side of the door */
++  /* v6.92: every wall goes 0.4 m below the floor, so a ray grazing the floor at the far end of the hall meets the wall and never slips
++     through the slot between the floor's surface and the wall's foot (the 360 check found two such pixels) */
++  const sink = .4, WH = G.height + sink, wy = (G.height - sink) / 2;
++  B.add(M.wall, box(floorW + 2 * wallT, WH, wallT), 0, wy, G.far - wallT / 2);                       /* far (working) wall */
++  B.add(M.wall, box(floorW + 2 * wallT, WH, wallT), 0, wy, G.near + wallT / 2);                      /* near wall */
++  B.add(M.wall, box(wallT, WH, floorD + 2 * wallT), G.back + wallT / 2, wy, 0);          /* back wall */
++  for (const [z0, z1] of [[G.far - wallT, G.doorFar], [G.doorNear, G.near + wallT]]) B.add(M.wall, box(wallT, WH, z1 - z0), G.front - wallT / 2, wy, (z0 + z1) / 2);   /* the front wall either side of the door */
++  B.add(M.wall, box(wallT, sink + .05, G.doorNear - G.doorFar), G.front - wallT / 2, -sink / 2, 0);   /* and under the door */
+   B.add(M.wall, box(wallT, G.height - G.lintel, G.doorNear - G.doorFar), G.front - wallT / 2, (G.height + G.lintel) / 2, 0);   /* over the door */
+   B.add(M.ceiling, box(floorW + 2 * wallT, .3, floorD + 2 * wallT), 0, G.height + .15, 0);
+   /* the orange band and the steel rail along the working wall, the LED skirting at the floor */
+@@ -497,13 +518,19 @@
+   for (let x = G.front + 4.5; x < G.back; x += 6) for (let z = G.far + 3.5; z < G.near; z += 7) {
+     B.add(M.black, cyl(.5, .42, .28, 18), x, G.height - 1.2, z).add(M.ledPanel, cyl(.38, .38, .02, 18), x, G.height - 1.35, z);
+   }
+-  for (const [x, z] of [[-3.5, 0], [2.5, 0], [-.5, -4]]) { const l = new T.PointLight(0xffe7c8, 16, 16, 1.5); l.position.set(x, G.height - 1.6, z); root.add(l); lights.push(l); }
+-  for (const [x, z] of [[-12, 4], [12, 6]]) { const l = new T.PointLight(0xdfeeff, 14, 26, 1.4); l.position.set(x, G.height - 1.6, z); root.add(l); lights.push(l); }
++  for (const [x, z] of [[-3.5, 0], [2.5, 0], [-.5, -4]]) { const l = new T.PointLight(0xffe7c8, 16, 16, 1.5); l.position.set(x, 7.4, z); root.add(l); lights.push(l); }   /* v6.92: the cell's lamps stay 7.4 m up, over the car, as they were */
++  for (const [x, z] of [[-15, 7], [15, -7]]) { const l = new T.PointLight(0xdfeeff, 16, 38, 1.3); l.position.set(x, G.height - 2.2, z); root.add(l); lights.push(l); }
+   /* the roller door: the beam, the drum, the number on the beam, the company\'s name beside it */
+   B.add(M.black, box(.5, G.height - G.lintel + .1, G.doorNear - G.doorFar + 1.2), G.front - .2, (G.height + G.lintel) / 2 - .05, 0);
+   B.add(M.orange, box(.52, .1, G.doorNear - G.doorFar + 1.2), G.front - .2, G.lintel + .05, 0);
+   for (const z of [G.doorFar - .3, G.doorNear + .3]) B.add(M.black, box(.5, G.lintel, .6), G.front - .2, G.lintel / 2, z);
+   B.add(M.steel, cyl(.3, .3, G.doorNear - G.doorFar - .4, 24), G.front + .5, G.lintel + .4, 0, Math.PI / 2, 0, 0);
++  /* v6.92 — the roller door is down: ribbed steel slats from the floor to the beam, the bottom rail in hazard stripes, PIT 26 stencilled
++     across it, in its guides, its motor and hand chain beside the drum. It closes the opening edge to edge, so nothing outside shows. */
++  { const door = new T.Mesh(box(.1, G.lintel + .1, G.doorNear - G.doorFar + .1), new T.MeshStandardMaterial({color: 0xffffff, map: rollerDoor(), roughness: .5, metalness: .55}));
++    door.position.set(G.front + .06, (G.lintel + .1) / 2 - .02, 0); door.name = 'roller door, shut'; door.receiveShadow = true; root.add(door);
++    for (const z of [G.doorFar - .12, G.doorNear + .12]) B.add(M.steel, box(.22, G.lintel, .14), G.front + .12, G.lintel / 2, z);
++    B.add(M.black, box(.5, .5, .6), G.front + .45, G.lintel + .4, G.doorNear + .1).add(M.steel, box(.02, 3.0, .02), G.front + .72, G.lintel - 1.1, G.doorNear + .25).add(M.steel, box(.02, 3.0, .02), G.front + .72, G.lintel - 1.1, G.doorNear + .31); }
+   const beamSign = new T.Mesh(plane(3.6, .7), new T.MeshBasicMaterial({map: sign('PIT 26', {w: 1024, h: 196, bg: '#0d1216', size: 150})}));
+   beamSign.position.set(G.front - .46, (G.height + G.lintel) / 2, -2.4); beamSign.rotation.y = -Math.PI / 2; root.add(beamSign);
+   const beamSign2 = new T.Mesh(plane(4.6, .7), new T.MeshBasicMaterial({map: sign('COATES · INDUSTRIAL SOLUTIONS', {w: 1536, h: 240, bg: '#0d1216', fg: '#f3f4f2', size: 120, letter: .08})}));
+@@ -527,45 +554,27 @@
+   /* ---- THE OVERHEAD CRANE. Andrew Fisher, 23 Sep 2026: a huge engine hoist crane. A gantry crane
+      on runway beams the length of the hall: the bridge across it, the trolley and hoist, cables to the hook block,
+      chains to a lifting beam, and a spare V8 in its cradle hanging from it. */
+-  const runY = G.height - 1.55, bridgeX = 8.5, trolleyZ = -3.2, hookY = 4.6;
++  const runY = craneRunY(G);
+   for (const z of [G.far + .95, G.near - .95]) { B.add(M.orange, box(floorW - 1, .5, .32), 0, runY, z); B.add(M.steel, box(floorW - 1, .06, .12), 0, runY + .28, z); }
+-  for (const z of [G.far + .95, G.near - .95]) B.add(M.black, box(1.6, .7, .5), bridgeX, runY + .35, z).add(M.rubber, cyl(.18, .18, .2, 12), bridgeX - .5, runY + .35, z, Math.PI / 2, 0, 0).add(M.rubber, cyl(.18, .18, .2, 12), bridgeX + .5, runY + .35, z, Math.PI / 2, 0, 0);
+-  B.add(M.orange, box(.7, 1.1, floorD - 2.6), bridgeX, runY + .95, 0);
+-  B.add(M.steel, box(.9, .08, floorD - 2.8), bridgeX, runY + 1.54, 0);
+-  B.add(M.black, box(1.4, .9, 1.6), bridgeX, runY + .55, trolleyZ).add(M.steel, cyl(.28, .28, 1.0, 16), bridgeX, runY + .55, trolleyZ, 0, 0, Math.PI / 2).add(M.orange, box(1.6, .12, .3), bridgeX, runY + 1.05, trolleyZ);
+-  const craneSign = new T.Mesh(plane(3.2, .5), new T.MeshBasicMaterial({map: sign('COATES · OVERHEAD CRANE', {w: 1536, h: 240, bg: COATES_ORANGE, fg: '#ffffff', size: 120, letter: .06})}));
+-  craneSign.position.set(bridgeX - .36, runY + 1.0, 4.5); craneSign.rotation.y = -Math.PI / 2; root.add(craneSign);
+-  for (const dz of [-.3, .3]) between(B, M.steel, [bridgeX, runY + .1, trolleyZ + dz], [bridgeX, hookY + .5, trolleyZ + dz], .03, .03);
+-  B.add(M.black, box(.5, .7, .3), bridgeX, hookY + .3, trolleyZ).add(M.steel, new T.TorusGeometry(.22, .05, 10, 24, Math.PI * 1.5), bridgeX, hookY - .12, trolleyZ, 0, Math.PI / 2, Math.PI * .25);
+-  const beamY = hookY - .95;
+-  for (const dx of [-1.2, 1.2]) between(B, M.steel, [bridgeX, hookY - .3, trolleyZ], [bridgeX + dx, beamY, trolleyZ], .04, .04);
+-  B.add(M.orange, box(2.9, .14, .14), bridgeX, beamY, trolleyZ);
+-  for (const dx of [-1.0, 1.0]) between(B, M.steel, [bridgeX + dx, beamY - .07, trolleyZ], [bridgeX + dx * .55, beamY - .9, trolleyZ], .035, .035);
+-  /* the spare V8 in its cradle: block, heads, sump, a bellhousing, on a lifting frame — a shape, not the working model */
+-  const ey = beamY - 1.45;
+-  B.add(M.black, box(1.1, .55, .7), bridgeX, ey, trolleyZ).add(M.alu, box(1.0, .18, .34), bridgeX, ey + .36, trolleyZ - .3, .45, 0, 0).add(M.alu, box(1.0, .18, .34), bridgeX, ey + .36, trolleyZ + .3, -.45, 0, 0)
+-   .add(M.steel, box(.9, .3, .5), bridgeX, ey - .42, trolleyZ).add(M.steel, cyl(.32, .36, .4, 16), bridgeX + .7, ey - .05, trolleyZ, 0, 0, Math.PI / 2).add(M.orange, box(1.5, .06, .9), bridgeX, ey - .6, trolleyZ);
+-  for (let i = 0; i < 8; i++) B.add(M.alu, cyl(.04, .04, .16, 8), bridgeX - .42 + i * .12, ey + .55, trolleyZ + (i % 2 ? -.3 : .3), i % 2 ? -.45 : .45, 0, 0);
+-  const crateSign = new T.Mesh(plane(1.5, .28), new T.MeshBasicMaterial({map: sign('COATES · SPARE V8 · HANDLE WITH CARE', {w: 1536, h: 280, bg: COATES_ORANGE, fg: '#ffffff', size: 110, letter: .04})}));
+-  crateSign.position.set(bridgeX, ey - .78, trolleyZ + .46); root.add(crateSign);
++  /* v6.92 — the bridge, the end trucks, the trolley, the ropes, the hook block and the spare V8 are built in pit-machinery.js, and travel */
+ 
+   /* ---- THE MEZZANINE OFFICE over the back of the hall: steel deck, glass office, railing, a stair */
+-  const mzX0 = G.back - 7, mzY = 4.6;
+-  B.add(M.steel, box(7, .3, 12), mzX0 + 3.5, mzY, -8).add(M.orange, box(7, .12, .12), mzX0 + 3.5, mzY + .15, -2.06);
+-  for (const x of [mzX0 + .4, mzX0 + 3.5, G.back - .4]) for (const z of [-13.6, -8, -2.4]) B.add(M.steel, box(.3, mzY, .3), x, mzY / 2, z);
+-  for (let x = mzX0 + .3; x <= G.back - .3; x += 1.4) B.add(M.steel, box(.05, 1.1, .05), x, mzY + .7, -2.1);
+-  B.add(M.steel, box(7, .05, .05), mzX0 + 3.5, mzY + 1.25, -2.1).add(M.steel, box(7, .05, .05), mzX0 + 3.5, mzY + .75, -2.1);
+-  B.add(M.black, box(6.2, .15, 7), mzX0 + 3.7, mzY + 3.0, -9.5);   /* the office roof */
+-  for (const [w, h, d, x, y, z] of [[6.2, .1, .1, mzX0 + 3.7, mzY + 1.55, -6], [6.2, .1, .1, mzX0 + 3.7, mzY + 1.55, -13], [.1, .1, 7, mzX0 + .6, mzY + 1.55, -9.5]]) B.add(M.black, box(w, h, d), x, y, z);
+-  const office = new T.Mesh(box(6.2, 2.8, 7), M.glass); office.position.set(mzX0 + 3.7, mzY + 1.55, -9.5); office.name = 'office-glass'; root.add(office);
++  const mzX0 = G.back - 7, mzY = 4.6, mz = G.far + 14;   /* v6.92: mz keeps it in the far corner of the bigger hall */
++  B.add(M.steel, box(7, .3, 12), mzX0 + 3.5, mzY, -8 + mz).add(M.orange, box(7, .12, .12), mzX0 + 3.5, mzY + .15, -2.06 + mz);
++  for (const x of [mzX0 + .4, mzX0 + 3.5, G.back - .4]) for (const z of [-13.6 + mz, -8 + mz, -2.4 + mz]) B.add(M.steel, box(.3, mzY, .3), x, mzY / 2, z);
++  for (let x = mzX0 + .3; x <= G.back - .3; x += 1.4) B.add(M.steel, box(.05, 1.1, .05), x, mzY + .7, -2.1 + mz);
++  B.add(M.steel, box(7, .05, .05), mzX0 + 3.5, mzY + 1.25, -2.1 + mz).add(M.steel, box(7, .05, .05), mzX0 + 3.5, mzY + .75, -2.1 + mz);
++  B.add(M.black, box(6.2, .15, 7), mzX0 + 3.7, mzY + 3.0, -9.5 + mz);   /* the office roof */
++  for (const [w, h, d, x, y, z] of [[6.2, .1, .1, mzX0 + 3.7, mzY + 1.55, -6 + mz], [6.2, .1, .1, mzX0 + 3.7, mzY + 1.55, -13 + mz], [.1, .1, 7, mzX0 + .6, mzY + 1.55, -9.5 + mz]]) B.add(M.black, box(w, h, d), x, y, z);
++  const office = new T.Mesh(box(6.2, 2.8, 7), M.glass); office.position.set(mzX0 + 3.7, mzY + 1.55, -9.5 + mz); office.name = 'office-glass'; root.add(office);
+   const officeSign = new T.Mesh(plane(3.6, .5), new T.MeshBasicMaterial({map: sign('COATES · ENGINEERING', {w: 1536, h: 240, bg: '#0d1216', fg: COATES_ORANGE, size: 120, letter: .08})}));
+-  officeSign.position.set(mzX0 + .58, mzY + 2.5, -9.5); officeSign.rotation.y = -Math.PI / 2; root.add(officeSign);
+-  B.add(M.ledCool, box(5.8, .04, .12), mzX0 + 3.7, mzY + 2.85, -9.5);
+-  { const l = new T.PointLight(0xdfeeff, 5, 9, 1.6); l.position.set(mzX0 + 3.7, mzY + 2.4, -9.5); root.add(l); lights.push(l); }
+-  for (let i = 0; i < 3; i++) B.add(M.black, box(.9, .05, .9), mzX0 + 3.7, mzY + .9, -12.5 + i * 3).add(M.screenGlass, box(.5, .3, .04), mzX0 + 3.7 + .3, mzY + 1.2, -12.5 + i * 3).add(M.steel, box(.06, .9, .06), mzX0 + 3.7, mzY + .45, -12.5 + i * 3);
++  officeSign.position.set(mzX0 + .58, mzY + 2.5, -9.5 + mz); officeSign.rotation.y = -Math.PI / 2; root.add(officeSign);
++  B.add(M.ledCool, box(5.8, .04, .12), mzX0 + 3.7, mzY + 2.85, -9.5 + mz);
++  { const l = new T.PointLight(0xdfeeff, 5, 9, 1.6); l.position.set(mzX0 + 3.7, mzY + 2.4, -9.5 + mz); root.add(l); lights.push(l); }
++  for (let i = 0; i < 3; i++) B.add(M.black, box(.9, .05, .9), mzX0 + 3.7, mzY + .9, -12.5 + i * 3 + mz).add(M.screenGlass, box(.5, .3, .04), mzX0 + 3.7 + .3, mzY + 1.2, -12.5 + i * 3 + mz).add(M.steel, box(.06, .9, .06), mzX0 + 3.7, mzY + .45, -12.5 + i * 3 + mz);
+   /* the stair, from the floor at z = 0 up to the deck */
+-  for (let i = 0; i < 12; i++) B.add(M.steel, box(1.1, .06, .34), mzX0 + 3.7, .38 * (i + 1), 2.2 - i * .34).add(M.black, box(1.1, .36, .05), mzX0 + 3.7, .38 * i + .19, 2.37 - i * .34);
+-  B.add(M.orange, box(.05, .05, 4.6), mzX0 + 3.15, 2.9, .4, -.85, 0, 0).add(M.orange, box(.05, .05, 4.6), mzX0 + 4.25, 2.9, .4, -.85, 0, 0);
++  for (let i = 0; i < 12; i++) B.add(M.steel, box(1.1, .06, .34), mzX0 + 3.7, .38 * (i + 1), 2.2 - i * .34 + mz).add(M.black, box(1.1, .36, .05), mzX0 + 3.7, .38 * i + .19, 2.37 - i * .34 + mz);
++  B.add(M.orange, box(.05, .05, 4.6), mzX0 + 3.15, 2.9, .4 + mz, -.85, 0, 0).add(M.orange, box(.05, .05, 4.6), mzX0 + 4.25, 2.9, .4 + mz, -.85, 0, 0);
+ 
+   /* ---- THE TRANSPORTER along the near wall: the Coates race transporter, the #26\'s own truck */
+   const tX = 4, tZ = G.near - 2.6;
+@@ -619,7 +628,7 @@
+     blob(x, G.far + .6, 1.3, 1.6);
+   };
+   chest(1.2); chest(2.2); chest(3.2); chest(11.5);
+-  const reel = (x) => { B.add(M.steel, box(.12, .5, .08), x, 1.9, G.far + .06).add(M.orange, cyl(.3, .3, .16, 20), x, 1.9, G.far + .2, Math.PI / 2, 0, 0).add(M.black, cyl(.1, .1, .18, 12), x, 1.9, G.far + .2, Math.PI / 2, 0, 0); };
++  const reel = (x) => { B.add(M.steel, box(.12, .5, .08), x, 1.9, G.far + .06); };   /* v6.92: the drums pay out and wind in (pit-machinery.js) */
+   reel(-7.5); reel(4.3); reel(12.8);
+   const boardTex = sign('26', {w: 512, h: 768, bg: '#0d1216', fg: COATES_ORANGE, size: 330, sub: 'FISHER'});
+   const board = new T.Mesh(plane(.7, 1.05), new T.MeshStandardMaterial({map: boardTex, roughness: .7})); board.position.set(-10.5, .58, G.far + .2); board.rotation.x = -.16; root.add(board);
+@@ -638,29 +647,23 @@
+     for (const x0 of [-15, -12.6, -10.2]) { for (const y of [.02, .95, 1.88]) B.add(M.steel, box(2.0, .04, .9), x0 + 1, y, rackZ); for (const dx of [0, 2.0]) B.add(M.steel, box(.04, 2.6, .04), x0 + dx, 1.3, rackZ - .42).add(M.steel, box(.04, 2.6, .04), x0 + dx, 1.3, rackZ + .42);
+       for (const y of [.38, 1.31, 2.24]) for (const dx of [.25, .75, 1.25, 1.75]) { m.compose(new T.Vector3(x0 + dx, y, rackZ), q.setFromEuler(new T.Euler(0, 0, Math.PI / 2)), sc); tyre.setMatrixAt(i, m); rim.setMatrixAt(i, m); i++; } } }
+   tyre.name = 'slicks'; rim.name = 'slick-rims'; root.add(tyre, rim);
+-  const tx = G.back - 2.2, tz = G.far + 2.4;
++  const tx = G.back - 2.2, tz = G.near - 2.6;   /* v6.92: in the near back corner, facing the hall (the mezzanine has the far one) */
+   B.add(M.orange, box(1.3, .7, .9), tx, .62, tz).add(M.black, box(1.32, .05, .92), tx, .28, tz).add(M.steel, box(1.5, .06, .1), tx, .24, tz);
+-  for (const dx of [-.55, .55]) B.add(M.rubber, cyl(.19, .19, .16, 14), tx + dx, .19, tz + .55, Math.PI / 2, 0, 0);
+-  B.add(M.orange, cyl(.07, .07, 4.0, 10), tx + .35, 2.9, tz - .25).add(M.steel, cyl(.045, .045, 3.6, 10), tx + .35, 5.5, tz - .25);
+-  B.add(M.black, box(.9, .06, .06), tx + .35, 7.2, tz - .25);
+-  for (const dx of [-.33, -.11, .11, .33]) B.add(M.black, box(.16, .22, .10), tx + .35 + dx, 7.05, tz - .25).add(M.ledPanel, box(.13, .18, .012), tx + .35 + dx, 7.05, tz - .19);
+-  { const l = new T.PointLight(0xfff0d0, 6, 9, 1.8); l.position.set(tx + .35, 6.6, tz + .4); root.add(l); lights.push(l); }
++  for (const dx of [-.55, .55]) B.add(M.rubber, cyl(.19, .19, .16, 14), tx + dx, .19, tz - .55, Math.PI / 2, 0, 0);
++  B.add(M.orange, cyl(.07, .07, 4.0, 10), tx + .35, 2.9, tz + .25).add(M.steel, cyl(.045, .045, 3.6, 10), tx + .35, 5.5, tz + .25);
++  B.add(M.black, box(.9, .06, .06), tx + .35, 7.2, tz + .25);
++  for (const dx of [-.33, -.11, .11, .33]) B.add(M.black, box(.16, .22, .10), tx + .35 + dx, 7.05, tz + .25).add(M.ledPanel, box(.13, .18, .012), tx + .35 + dx, 7.05, tz + .19);
++  { const l = new T.PointLight(0xfff0d0, 6, 9, 1.8); l.position.set(tx + .35, 6.6, tz - .4); root.add(l); lights.push(l); }
+   const towerSign = new T.Mesh(plane(1.0, .34), new T.MeshBasicMaterial({map: sign('Coates', {w: 768, h: 260, bg: COATES_ORANGE, fg: '#ffffff', weight: 900, size: 190, letter: -.02})}));
+-  towerSign.position.set(tx, .64, tz + .451); root.add(towerSign);
+-  const gx = G.back - 5, gz = G.far + 2.2;
++  towerSign.position.set(tx, .64, tz - .451); towerSign.rotation.y = Math.PI; root.add(towerSign);
++  const gx = G.back - 5, gz = G.near - 2.4;
+   B.add(M.orange, box(1.9, 1.15, 1.0), gx, .7, gz).add(M.black, box(1.92, .12, 1.02), gx, .18, gz).add(M.black, box(1.7, .04, .8), gx, 1.29, gz);
+   for (let i = 0; i < 7; i++) B.add(M.black, box(.02, .06, .9), gx - .96, .45 + i * .1, gz);
+   const genSign = new T.Mesh(plane(1.2, .40), new T.MeshBasicMaterial({map: sign('Coates', {w: 768, h: 260, bg: COATES_ORANGE, fg: '#ffffff', weight: 900, size: 190, letter: -.02})}));
+-  genSign.position.set(gx - .3, .82, gz + .501); root.add(genSign);
++  genSign.position.set(gx - .3, .82, gz - .501); genSign.rotation.y = Math.PI; root.add(genSign);
+   blob(tx, tz, 2.4, 1.8); blob(gx, gz, 3.0, 1.9);
+ 
+-  /* ---- outside: the pit wall and its gantry across the lane, the grandstand\'s dark bulk beyond */
+-  B.add(M.concrete, box(.3, 1.1, 60), G.pitWall, .55, 0).add(M.steel, box(.05, 1.9, 60), G.pitWall + .1, 2.0, 0);
+-  for (let z = -28; z <= 28; z += 2.5) B.add(M.steel, box(.08, 2.0, .08), G.pitWall + .1, 2.05, z);
+-  const fence = new T.Mesh(plane(60, 1.9), M.mesh); fence.position.set(G.pitWall + .12, 2.05, 0); fence.rotation.y = Math.PI / 2; root.add(fence);
+-  for (let z = -24; z <= 24; z += 6) { B.add(M.black, box(.5, .08, .08), G.pitWall - .1, 3.7, z).add(M.black, box(.08, 1.7, .08), G.pitWall - .3, 2.9, z).add(M.ledCool, box(.26, .04, .12), G.pitWall - .1, 3.62, z + .18); }
+-  B.add(M.wallDark, box(6, 12, 80), G.pitWall - 6, 6, 0);
+-  for (let z = -30; z <= 30; z += 4) B.add(M.ledCool, box(.1, .1, 1.2), G.pitWall - 2.9, 11.6, z);
++  /* ---- outside: nothing. v6.92 — the pit wall, its gantry and the grandstand went with the open door: the door is shut */
+ 
+   /* ---- the two Coates sheets, sharp: the Life Saving Rules by the door where the shift signs on, the values wheel on the back wall by the office, each lit */
+   const rules = new T.Mesh(plane(1.8, 2.4), new T.MeshStandardMaterial({map: lifeSavingRules(), roughness: .85, metalness: 0, envMapIntensity: .35}));
+@@ -772,6 +775,10 @@
+   const haze = new T.Points(hazeGeo, new T.PointsMaterial({map: hazeSprite(), size: .55, transparent: true, opacity: 0, depthWrite: false, blending: T.AdditiveBlending, color: 0xd8c8b8, sizeAttenuation: true}));
+   haze.name = 'exhaust-haze'; haze.frustumCulled = false; haze.renderOrder = 5; root.add(haze);
+ 
++  /* ---- v6.92 — THE HALL AT WORK: the crane, the lift, the compressor, the washer, the drill, the tyre machines, the carousel, the fans, the
++     beacons, the reels and the board (pit-machinery.js), ticked with the dyno below */
++  const MX = buildMachinery({G, M, sign, blob}); root.add(MX.group); root.userData.machinery = MX;
++
+   /* ---- what the pointer can pick: one box per exhibit, over the thing it stands for, clear of the car and the cog */
+   exhibitBox(root, 'dyno', 1.7, .44, 2.9, D.axleX, -pit.depth / 2 - .04, 0);
+   exhibitBox(root, 'straps', .5, .3, .5, 3.6, .12, -1.5); exhibitBox(root, 'straps', .5, .3, .5, 3.6, .12, 1.5); exhibitBox(root, 'straps', .5, .3, .5, -4.1, .12, -1.5); exhibitBox(root, 'straps', .5, .3, .5, -4.1, .12, 1.5);
+@@ -779,9 +786,10 @@
+   
+   exhibitBox(root, 'console', 2.0, 2.7, .8, cx, 1.4, cz);
+   exhibitBox(root, 'stack', .3, .7, .3, cx + 1.05, 2.85, cz);
+-  exhibitBox(root, 'crane', 3.4, 4.6, 3.2, bridgeX, ey + 1.4, trolleyZ); exhibitBox(root, 'crane', 1.2, 1.4, floorD - 2.6, bridgeX, runY + .75, 0);
++  /* v6.92 — the crane's two pick boxes ride it: one round the hook block and its load, one along the bridge */
++  { const a = exhibitBox(root, 'crane', 3.4, 4.6, 3.2, 0, 0, 0), b = exhibitBox(root, 'crane', 1.2, 1.4, floorD - 2.6, 0, 0, 0); MX.crane.hook.add(a); a.position.set(0, -1.0, 0); MX.crane.bridge.add(b); b.position.set(0, runY + .95, 0); }
+   exhibitBox(root, 'transporter', 14, 5, 3, tX, 2.6, tZ); exhibitBox(root, 'transporter', 2.8, 3.6, 2.8, tX - 8.2, 2, tZ);
+-  exhibitBox(root, 'mezzanine', 6.4, 3.2, 7.2, mzX0 + 3.7, mzY + 1.6, -9.5);
++  exhibitBox(root, 'mezzanine', 6.4, 3.2, 7.2, mzX0 + 3.7, mzY + 1.6, -9.5 + mz);
+   exhibitBox(root, 'workbench', 6.2, 3.2, 1.2, wbX, 1.6, G.far + .55);
+   exhibitBox(root, 'rules', 1.9, 2.5, .14, G.front + 2.4, 2.4, G.far + .08);
+   exhibitBox(root, 'values', .16, 3.3, 3.3, G.back - .08, 2.9, 9);
+@@ -831,6 +839,7 @@
+   const rm = new T.Matrix4(), rq = new T.Quaternion(), rs = new T.Vector3(1, 1, 1), rp = new T.Vector3();
+   root.userData.tick = (dt, d) => {
+     d = d || {};
++    MX.tick(dt, d);
+     const running = !!d.running, winding = !!d.winding, open = !!d.open;
+     /* rollers: the tyre\'s surface speed over the roller\'s radius */
+     const wheelOmega = d.wheelOmega || 0;

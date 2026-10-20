@@ -1,0 +1,6 @@
+PASS F1 the typed rate moves what the dockets paid — {"total0":"$77,121.50","paid0":75871.5,"boxes":11,"pick":"clean","paid1":60166.5,"keptPaid":60166.5,"total1":"$61,416.50","want1":"$61,416.50","total2":"$77,121.50","paid2":75871.5,"calls":10,"built":
+PASS F2 straight after the handler the kept split is the fresh one — kept 60166.5 · fresh 60166.5 · before 75871.5
+PASS F3 the card on screen shows the new total — screen $61,416.50 · want $61,416.50 · before $77,121.50
+PASS F4 the rate put back: the card shows the original total and S is as found — $77,121.50 vs $77,121.50
+PASS F5 a draw with no save works the split out once at most per tab change — calls 10 · built 2 over two tab changes
+5/5 desktop · page errors 0

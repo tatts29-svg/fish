@@ -1,0 +1,234 @@
+{
+  "author": "Andrew Fisher",
+  "review_date": "2 Oct 2026",
+  "scope": "Original Map Explorer source cross-check for the v7.94 Showcase draft; no implementation or record writes",
+  "source": {
+    "file": "D001-26003-03-MASTER.pdf",
+    "pages": 1,
+    "sheet_size_pts": [
+      2384,
+      1684
+    ],
+    "drawing": "D001",
+    "project": "26003",
+    "revision": "03",
+    "sha256": "37792f0a9d32e829f34d28ab41197fd2cf689fb62cd60a755aa89106cb5a0a2f",
+    "matches_explorer_pdf_sha256": true,
+    "original_visually_read": true,
+    "newer_revision_status": "Not established in this audit; owner has asked the coordinating agent for newer source information"
+  },
+  "asset_files": [
+    {
+      "file": "georeferencing.json",
+      "sha256": "bb7509af2a9281706dd1b6aacc570bf9f835a031fc037a5354a3ea2e2b386328"
+    },
+    {
+      "file": "source-labels.json",
+      "sha256": "788ced50bc2c4acaa626e6d932f4a698935b349f3994fda106ae746f7c9664d6"
+    },
+    {
+      "file": "register.json",
+      "sha256": "dcb76c5231657de348f654f25a735aa5714cccad64ffec4cda4637d4ddb1a974"
+    }
+  ],
+  "distinct_showcase_source": {
+    "file": "K220-K231-26003-02 COMBINED WFB.pdf",
+    "sha256": "fbfc4ff9eb41132f794681fc8c2e2440d022d6a38ee258906dbe454368b62fe7",
+    "original_pdf_read_in_this_audit": false,
+    "embedded_metadata_read": true,
+    "limitation": "The Surfers Paradise street circuit as iEDM drew it in the key plan on sheet K220-K231-26003-02 \u2014 the ring of red fill in the sheet's bottom margin, read off the PDF vectors, with the street grid around it. Not a survey, not to scale, not the centreline; the sheet's own orientation (north is not up)."
+  },
+  "registration": {
+    "main_rms_m": 0.669719671487297,
+    "main_worst_m": 1.6108470785844329,
+    "main_independent_checks": 20,
+    "inset_rms_m": 0.9221830663153832,
+    "review_status": "unreviewed",
+    "suitable_for_setout": false,
+    "rotation_to_north_deg": 89.86773769125644,
+    "separate_main_and_inset_transforms": true,
+    "coordinate_limit": "Image registration; printed symbol/label coordinates must not be presented as surveyed positions. D001 sheet points are not K220 keyplan scene coordinates."
+  },
+  "visual_review": {
+    "overview": true,
+    "detail_clips_read": [
+      "pit_and_ot1.png",
+      "beach_bridge_chicane.png",
+      "south_ot2_ot3.png",
+      "pb2_midwest.png",
+      "ot4_pb3_southwest.png",
+      "pit_entry_ot5.png",
+      "legend.png"
+    ],
+    "private_pixels_kept_out_of_repo": true,
+    "inset_interpretation": "The closed racing loop is on the main plan. The lower-right inset continues surrounding streets and support areas, not an extra racing lap section."
+  },
+  "features": [
+    {
+      "key": "PB1",
+      "type": "Pedestrian crossing",
+      "source_context": "Main Beach Parade straight, sheet-right/geographic south of the T6\u2013T10 chicane",
+      "source_label_bbox_sheet_pts": [
+        1078.175,
+        341.044,
+        1084.599,
+        352.545
+      ],
+      "coordinate_meaning": "printed label bounding box only; not support footings or a surveyed construction anchor",
+      "visually_reviewed_private_clip": "beach_bridge_chicane.png",
+      "status": "verified on original D001; not applied to Showcase"
+    },
+    {
+      "key": "PB2",
+      "type": "Pedestrian crossing",
+      "source_context": "Breaker Street at Pacific Street",
+      "source_label_bbox_sheet_pts": [
+        200.537,
+        640.054,
+        211.816,
+        646.314
+      ],
+      "coordinate_meaning": "printed label bounding box only; not support footings or a surveyed construction anchor",
+      "visually_reviewed_private_clip": "pb2_midwest.png",
+      "status": "verified on original D001; not applied to Showcase"
+    },
+    {
+      "key": "PB3",
+      "type": "Pedestrian crossing",
+      "source_context": "Gold Coast Highway after the T15 / The Hill corner, before pit entry",
+      "source_label_bbox_sheet_pts": [
+        362.974,
+        1091.931,
+        374.568,
+        1104.636
+      ],
+      "coordinate_meaning": "printed label bounding box only; not support footings or a surveyed construction anchor",
+      "visually_reviewed_private_clip": "ot4_pb3_southwest.png",
+      "status": "verified on original D001; not applied to Showcase"
+    },
+    {
+      "key": "OT1",
+      "type": "Over-track signage",
+      "source_context": "Gold Coast Highway beyond the pit exit merge and before T1",
+      "source_label_bbox_sheet_pts": [
+        1273.376,
+        569.552,
+        1284.595,
+        586.861
+      ],
+      "coordinate_meaning": "printed label bounding box only; not support footings or a surveyed construction anchor",
+      "visually_reviewed_private_clip": "pit_and_ot1.png",
+      "status": "verified on original D001; not applied to Showcase"
+    },
+    {
+      "key": "OT2",
+      "type": "Over-track signage",
+      "source_context": "Main Beach Parade approaching T5 at Higman Street",
+      "source_label_bbox_sheet_pts": [
+        1625.077,
+        364.373,
+        1633.284,
+        380.414
+      ],
+      "coordinate_meaning": "printed label bounding box only; not support footings or a surveyed construction anchor",
+      "visually_reviewed_private_clip": "south_ot2_ot3.png",
+      "status": "verified on original D001; not applied to Showcase"
+    },
+    {
+      "key": "OT3",
+      "type": "Over-track signage",
+      "source_context": "Surfers Paradise Boulevard just beyond T3, by Higman Street",
+      "source_label_bbox_sheet_pts": [
+        1639.512,
+        496.138,
+        1653.619,
+        514.041
+      ],
+      "coordinate_meaning": "printed label bounding box only; not support footings or a surveyed construction anchor",
+      "visually_reviewed_private_clip": "south_ot2_ot3.png",
+      "status": "verified on original D001; not applied to Showcase"
+    },
+    {
+      "key": "OT4",
+      "type": "Over-track signage",
+      "source_context": "Hill Parade before T14 / The Hill",
+      "source_label_bbox_sheet_pts": [
+        258.887,
+        973.461,
+        272.095,
+        982.654
+      ],
+      "coordinate_meaning": "printed label bounding box only; not support footings or a surveyed construction anchor",
+      "visually_reviewed_private_clip": "ot4_pb3_southwest.png",
+      "status": "verified on original D001; not applied to Showcase"
+    },
+    {
+      "key": "OT5",
+      "type": "Over-track signage",
+      "source_context": "Gold Coast Highway at the upstream pit-entry split by S11",
+      "source_label_bbox_sheet_pts": [
+        649.047,
+        877.445,
+        661.391,
+        890.531
+      ],
+      "coordinate_meaning": "printed label bounding box only; not support footings or a surveyed construction anchor",
+      "visually_reviewed_private_clip": "pit_entry_ot5.png",
+      "status": "verified on original D001; not applied to Showcase"
+    }
+  ],
+  "other_verified_features": [
+    {
+      "feature": "Existing river pedestrian bridge",
+      "detail": "The separately labelled bridge crosses the Nerang River between Macintosh Island and the beachfront park behind S07/S08; it is distinct from PB1\u2013PB3."
+    },
+    {
+      "feature": "Pit complex",
+      "detail": "S01/S02 modular rows, PIT LANE, PODIUM and the pit-entry/exit splits are shown; D001 supplies no verified heights or construction sections for the current open-pit typology."
+    },
+    {
+      "feature": "Barrier legend",
+      "detail": "Concrete barriers & 1.5 m debris fence; separate late-install/early-removal barriers, 1 m spectator demarcation fence, 1.8 m precinct security fence and water-filled barriers."
+    },
+    {
+      "feature": "Stands",
+      "detail": "D001 locations differ from the current rule-spaced illustrative stands; S12 and S25 are shown. The programme-derived current list includes S22B. This is a source crosswalk question, not authority to edit operational records."
+    }
+  ],
+  "showcase_comparison": {
+    "route": "Current DATA.circuit is the registered K220 rev02 keyplan schematic; D001 does not establish missing lap length from its inset.",
+    "road_width": "Current DATA.circuit.roadWidth explicitly measures the whole carriageway from 2022 aerial, not event barriers. D001 visibly distinguishes race surface, pit lane and unused carriageway. The v7.94 coherent corridor remains illustrative, not an extracted D001 barrier alignment.",
+    "structures": "Existing source creates one rule-selected longest-straight pedestrian bridge and a nominal start gantry; it does not identify PB1\u2013PB3 or OT1\u2013OT5. This audit does not relocate these objects.",
+    "stands": "DATA.circuit.stands says names from the fencing programme and NOMINAL placement spaced round the circuit. D001 can improve decorative siting after a source crosswalk; source schedule names and operational placements must be preserved.",
+    "pit_and_buildings": "D001 validates site identity and horizontal context. It cannot substantiate exact facade appearance or structural heights; photo-informed detail inside existing nominal envelopes remains the appropriate description."
+  },
+  "prioritised_enhancements": [
+    {
+      "priority": 1,
+      "proposal": "Introduce source-indexed PB/OT structure anchors and distinguish walking bridges from thin advertising spans",
+      "first_bounded_candidate": "PB2 at Breaker/Pacific has an unambiguous perpendicular crossing and drawn approaches",
+      "required_before_rendering": "Establish and independently check D001 main-sheet to existing schematic scene transform; extract actual crossing/support geometry rather than label centre; check clearances against the retained centreline/cameras and current buildings; suppress any replaced nominal object explicitly to avoid duplicates",
+      "status": "Recommended; not implemented"
+    },
+    {
+      "priority": 2,
+      "proposal": "Use D001 to cross-reference existing nominal stands to the correct circuit precincts",
+      "required_before_rendering": "Reconcile D001 stand identity with programme names without changing source records; derive decorative anchors only from verified geometry",
+      "status": "Recommended; not implemented"
+    },
+    {
+      "priority": 3,
+      "proposal": "Model the existing river footbridge as a separate scene landmark",
+      "required_before_rendering": "Verify source endpoints and map transform; retain water clearance and do not confuse this bridge with PB1\u2013PB3; photos needed for verified material/height detail",
+      "status": "Recommended; not implemented"
+    }
+  ],
+  "changes": {
+    "production_code": false,
+    "source_data": false,
+    "operational_placements": false,
+    "live_record": false,
+    "external_messages_sent_by_this_audit": false,
+    "evidence_only": true
+  }
+}

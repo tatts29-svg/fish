@@ -1,0 +1,34 @@
+{
+  "author": "Andrew Fisher",
+  "scope": "Source registry recovery after shared connection failure",
+  "candidate_sha256": "1837b854182b50ff44762ab22db6e17c07feafe72c6772deacd2d5413bfcba2b",
+  "base_sha256": "bc7885b1bed08bafd75353ec3666ca9a4c52a59d17ad3bb0eb5896f011586f67",
+  "checks": {
+    "offline initial registry failure remains visibly unavailable": true,
+    "explicit Retry restores file evidence and progress": true,
+    "explicit recovery preserves record version": true,
+    "explicit recovery returns exact reviewed forecast and P&L": true,
+    "continued file failure is throttled rather than flooded": true,
+    "failed file evidence cannot mark reviews as matched": true,
+    "same-version automatic poll restores failed source": true,
+    "automatic source recovery restores exact financial models": true,
+    "automatic source recovery preserves open reference and position": true,
+    "automatic connection recovery works without Retry": true,
+    "automatic connection recovery restores exact forecast and P&L": true,
+    "no browser errors or operational writes": true
+  },
+  "pass": true,
+  "counts": {
+    "page": 3,
+    "live": 186,
+    "blocked": 0,
+    "blockedMapSessions": 1
+  },
+  "errors": [],
+  "native_versions": [
+    6075
+  ],
+  "phone_visual": "Recovered open drawer reviewed; selected reference, open section and reading position preserved",
+  "pure_guard_checks": 12,
+  "source_guard_checks": 6
+}

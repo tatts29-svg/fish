@@ -1,0 +1,70 @@
+{
+  "author": "Andrew Fisher",
+  "candidateSha256": "a77dc6fbf3ade015216a8ae8da06c8c2193bc0374ff19390714d42abe29f8d98",
+  "pass": true,
+  "checks": [
+    {
+      "name": "fencing reference shows dollars and cents",
+      "pass": true
+    },
+    {
+      "name": "Finance reference shows same dollars and cents",
+      "pass": true
+    },
+    {
+      "name": "Finance cost stream references read shared amount",
+      "pass": true
+    },
+    {
+      "name": "shared trace heading reads the live order",
+      "pass": true
+    },
+    {
+      "name": "existing numeric input preserved",
+      "pass": true
+    },
+    {
+      "name": "both native Save buttons remain",
+      "pass": true
+    },
+    {
+      "name": "copy for Finance carries cents",
+      "pass": true
+    },
+    {
+      "name": "Finance CSV carries numeric amount",
+      "pass": true
+    },
+    {
+      "name": "PO identity remains single",
+      "pass": true
+    },
+    {
+      "name": "receipting unchanged",
+      "pass": true
+    },
+    {
+      "name": "customer Revenue and Direct costs unchanged",
+      "pass": true
+    },
+    {
+      "name": "editing once updates subsequent labels",
+      "pass": true
+    },
+    {
+      "name": "explicit zero shows currency",
+      "pass": true
+    },
+    {
+      "name": "unknown amount stays reference alone",
+      "pass": true
+    },
+    {
+      "name": "full record and purchase orders restored",
+      "pass": true
+    }
+  ],
+  "pageErrors": [],
+  "attemptedNativeWrites": 0,
+  "note": "Label checks preceded the final branch-summary whitespace fix; final rendered-DOM/startup test covers the final candidate."
+}

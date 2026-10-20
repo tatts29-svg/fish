@@ -1,0 +1,16 @@
+{
+ "day": "2026-10-16",
+ "by": "Andrew Fisher",
+ "branch": "MEAD",
+ "rows": [
+  {"key": "FL03", "disc": "Other", "type": "Forklift 5T", "no": "1321364", "loc": "TV compound", "from": "2026-10-17",
+   "name": "Forklift 5T · TV compound (broadcast)",
+   "note": "Turned up 16 Oct 2026 for the broadcast compound (contract 9992300 line 1, Forklift Rough Terrain 5.0t 4WD Diesel, dd 26133345); the order said 17 Oct."},
+  {"key": "FL04", "disc": "Other", "type": "Forklift 2.5T", "no": "1298390", "loc": "TV compound", "from": "2026-10-17",
+   "name": "Forklift 2.5T · TV compound (broadcast)",
+   "note": "Turned up 16 Oct 2026 for the broadcast compound (contract 9992300 line 2, Forklift Rough Terrain 2.5t 4WD Diesel, dd 26133373, with fork extensions line 3); the order said 17 Oct."},
+  {"key": "TM01", "disc": "Ground protection", "type": "Trakmat", "no": "", "qty": 10, "loc": "TV compound", "from": "2026-10-17",
+   "name": "Trakmat × 10 · TV compound (broadcast)",
+   "note": "Ten track mats turned up 16 Oct 2026 for the broadcast compound (contract 9992300 line 6, dd 26133383); the order said 17 Oct."}
+ ]
+}

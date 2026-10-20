@@ -1,0 +1,32 @@
+{
+  "author": "Andrew Fisher",
+  "files": [
+    {
+      "filename": "Q6844_2.pdf",
+      "bytes": 718346,
+      "sha256": "8c795f410ff1444fe206bdbfdcfce894baa89b975068a465f0ddaf8c78de0177",
+      "registry_and_public_bytes_verified": true
+    },
+    {
+      "filename": "Q6845_2.pdf",
+      "bytes": 678874,
+      "sha256": "e5a86ee60344b8e483ce31605d1848b9bb1cd3545f234c8135b4380d6eab3b43",
+      "registry_and_public_bytes_verified": true
+    },
+    {
+      "filename": "Q6846_2.pdf",
+      "bytes": 718189,
+      "sha256": "e47a7ac7f921074a489c088fcc6371a73379ef0fab3617ee3248012eb2f78c2a",
+      "registry_and_public_bytes_verified": true
+    },
+    {
+      "filename": "Q6847_2.pdf",
+      "bytes": 720205,
+      "sha256": "4d395843cc37d7d70f5e9b576df869c8df06f5cf54d53b7b8cbfcae970bd1f16",
+      "registry_and_public_bytes_verified": true
+    }
+  ],
+  "record_version": 4599,
+  "operational_documents_unchanged": true,
+  "existing_file_registry_unchanged": true
+}

@@ -1,0 +1,283 @@
+{
+  "author": "Andrew Fisher",
+  "complete": true,
+  "beforeVersion": 4969,
+  "afterVersion": 5104,
+  "entries": [
+    {
+      "ref": "CP1",
+      "item": "Building 6m",
+      "key": "install",
+      "ticked": true
+    },
+    {
+      "ref": "CP1",
+      "item": "Building 6m",
+      "key": "steps",
+      "ticked": true
+    },
+    {
+      "ref": "CP1",
+      "item": "Building 6m",
+      "key": "levelling",
+      "ticked": true
+    },
+    {
+      "ref": "GN18",
+      "item": "50kva",
+      "key": "install",
+      "ticked": true
+    },
+    {
+      "ref": "P06",
+      "item": "Building 6m",
+      "key": "steps",
+      "ticked": true
+    },
+    {
+      "ref": "P08",
+      "item": "Building 6m",
+      "key": "install",
+      "ticked": true
+    },
+    {
+      "ref": "P08",
+      "item": "Building 6m",
+      "key": "steps",
+      "ticked": true
+    },
+    {
+      "ref": "P08",
+      "item": "Building 6m",
+      "key": "levelling",
+      "ticked": true
+    },
+    {
+      "ref": "P38",
+      "item": "Building 6m",
+      "key": "steps",
+      "ticked": true
+    },
+    {
+      "ref": "P39",
+      "item": "Building 6m",
+      "key": "steps",
+      "ticked": true
+    },
+    {
+      "ref": "P46",
+      "item": "Building 12m",
+      "key": "install",
+      "ticked": true
+    },
+    {
+      "ref": "P46",
+      "item": "Building 12m",
+      "key": "steps",
+      "ticked": true
+    },
+    {
+      "ref": "P46",
+      "item": "Building 12m",
+      "key": "levelling",
+      "ticked": true
+    },
+    {
+      "ref": "P51",
+      "item": "Building 12m",
+      "key": "install",
+      "ticked": true
+    },
+    {
+      "ref": "P51",
+      "item": "Building 12m",
+      "key": "steps",
+      "ticked": true
+    },
+    {
+      "ref": "P51",
+      "item": "Building 12m",
+      "key": "levelling",
+      "ticked": true
+    },
+    {
+      "ref": "P52",
+      "item": "Building 12m",
+      "key": "install",
+      "ticked": true
+    },
+    {
+      "ref": "P52",
+      "item": "Building 12m",
+      "key": "steps",
+      "ticked": true
+    },
+    {
+      "ref": "P52",
+      "item": "Building 12m",
+      "key": "levelling",
+      "ticked": true
+    },
+    {
+      "ref": "P54",
+      "item": "Building 6m",
+      "key": "install",
+      "ticked": true
+    },
+    {
+      "ref": "P54",
+      "item": "Building 6m",
+      "key": "steps",
+      "ticked": true
+    },
+    {
+      "ref": "P54",
+      "item": "Building 6m",
+      "key": "levelling",
+      "ticked": true
+    },
+    {
+      "ref": "P55",
+      "item": "Ticket Box 6m",
+      "key": "install",
+      "ticked": true
+    },
+    {
+      "ref": "P55",
+      "item": "Ticket Box 6m",
+      "key": "steps",
+      "ticked": true
+    },
+    {
+      "ref": "P55",
+      "item": "Ticket Box 6m",
+      "key": "levelling",
+      "ticked": true
+    },
+    {
+      "ref": "P56",
+      "item": "Building 3.6m",
+      "key": "install",
+      "ticked": true
+    },
+    {
+      "ref": "P56",
+      "item": "Building 3.6m",
+      "key": "steps",
+      "ticked": true
+    },
+    {
+      "ref": "P56",
+      "item": "Building 3.6m",
+      "key": "levelling",
+      "ticked": true
+    },
+    {
+      "ref": "P57",
+      "item": "Building 9.6m",
+      "key": "install",
+      "ticked": true
+    },
+    {
+      "ref": "P57",
+      "item": "Building 9.6m",
+      "key": "steps",
+      "ticked": true
+    },
+    {
+      "ref": "P57",
+      "item": "Building 9.6m",
+      "key": "levelling",
+      "ticked": true
+    },
+    {
+      "ref": "WC09",
+      "item": "Toilet Block 6m",
+      "key": "install",
+      "ticked": true
+    },
+    {
+      "ref": "WC09",
+      "item": "Toilet Block 6m",
+      "key": "steps",
+      "ticked": true
+    },
+    {
+      "ref": "WC09",
+      "item": "Toilet Block 6m",
+      "key": "levelling",
+      "ticked": true
+    },
+    {
+      "ref": "WC31",
+      "item": "16Pan Block",
+      "key": "install",
+      "ticked": true
+    },
+    {
+      "ref": "WC33",
+      "item": "FWF",
+      "key": "install",
+      "ticked": true
+    },
+    {
+      "ref": "WC86",
+      "item": "Accessible Toilet",
+      "key": "install",
+      "ticked": true
+    },
+    {
+      "ref": "T0001",
+      "item": "VMS",
+      "key": "install",
+      "ticked": true
+    },
+    {
+      "ref": "T0002",
+      "item": "Light Tower",
+      "key": "install",
+      "ticked": true
+    },
+    {
+      "ref": "T0021",
+      "item": "Building 4.8m",
+      "key": "install",
+      "ticked": true
+    },
+    {
+      "ref": "T0021",
+      "item": "Building 4.8m",
+      "key": "steps",
+      "ticked": true
+    },
+    {
+      "ref": "T0021",
+      "item": "Building 4.8m",
+      "key": "levelling",
+      "ticked": true
+    },
+    {
+      "ref": "T0024",
+      "item": "FWF",
+      "key": "install",
+      "ticked": true
+    },
+    {
+      "ref": "T0025",
+      "item": "Trakmat",
+      "key": "install",
+      "ticked": true
+    },
+    {
+      "ref": "T0103",
+      "item": "VMS",
+      "key": "install",
+      "ticked": true
+    }
+  ],
+  "fwfLocations": 61,
+  "allFWFHaveInstallAndDemob": true,
+  "changes": 135,
+  "unrelatedDocumentsUnchanged": true,
+  "errors": []
+}

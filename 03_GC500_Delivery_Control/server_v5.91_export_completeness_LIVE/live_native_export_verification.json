@@ -1,0 +1,452 @@
+{
+  "checked_at_utc": "2026-10-18T03:09:34.611Z",
+  "author": "Andrew Fisher",
+  "native_page_sha256": "34a6b81b4f5adc76a46c2d28670d24d1f72e0233092d13dd3445f8b0805b1df2",
+  "collection_count": 55,
+  "collection_results": [
+    {
+      "collection": "delivery",
+      "pass": true
+    },
+    {
+      "collection": "supplied",
+      "pass": true
+    },
+    {
+      "collection": "fenceDone",
+      "pass": true
+    },
+    {
+      "collection": "notes",
+      "pass": true
+    },
+    {
+      "collection": "accessories",
+      "pass": true
+    },
+    {
+      "collection": "assetNumbers",
+      "pass": true
+    },
+    {
+      "collection": "rates",
+      "pass": true
+    },
+    {
+      "collection": "lineRates",
+      "pass": true
+    },
+    {
+      "collection": "accRates",
+      "pass": true
+    },
+    {
+      "collection": "fenceRates",
+      "pass": true
+    },
+    {
+      "collection": "fenceCosts",
+      "pass": true
+    },
+    {
+      "collection": "weeks",
+      "pass": true
+    },
+    {
+      "collection": "stamps",
+      "pass": true
+    },
+    {
+      "collection": "added",
+      "pass": true
+    },
+    {
+      "collection": "variances",
+      "pass": true
+    },
+    {
+      "collection": "fenceDockets",
+      "pass": true
+    },
+    {
+      "collection": "serviceNotes",
+      "pass": true
+    },
+    {
+      "collection": "fenceCollections",
+      "pass": true
+    },
+    {
+      "collection": "docketPapers",
+      "pass": true
+    },
+    {
+      "collection": "breakdowns",
+      "pass": true
+    },
+    {
+      "collection": "fenceQuote",
+      "pass": true
+    },
+    {
+      "collection": "contracts",
+      "pass": true
+    },
+    {
+      "collection": "rental",
+      "pass": true
+    },
+    {
+      "collection": "branch",
+      "pass": true
+    },
+    {
+      "collection": "locations",
+      "pass": true
+    },
+    {
+      "collection": "descs",
+      "pass": true
+    },
+    {
+      "collection": "items",
+      "pass": true
+    },
+    {
+      "collection": "qtys",
+      "pass": true
+    },
+    {
+      "collection": "aside",
+      "pass": true
+    },
+    {
+      "collection": "moves",
+      "pass": true
+    },
+    {
+      "collection": "hireStart",
+      "pass": true
+    },
+    {
+      "collection": "labour",
+      "pass": true
+    },
+    {
+      "collection": "eventHours",
+      "pass": true
+    },
+    {
+      "collection": "minDays",
+      "pass": true
+    },
+    {
+      "collection": "runRules",
+      "pass": true
+    },
+    {
+      "collection": "answers",
+      "pass": true
+    },
+    {
+      "collection": "finance745",
+      "pass": true
+    },
+    {
+      "collection": "mapRef",
+      "pass": true
+    },
+    {
+      "collection": "fixes",
+      "pass": true
+    },
+    {
+      "collection": "entries",
+      "pass": true
+    },
+    {
+      "collection": "places",
+      "pass": true
+    },
+    {
+      "collection": "givenRefs",
+      "pass": true
+    },
+    {
+      "collection": "by",
+      "pass": true
+    },
+    {
+      "collection": "dropPhotos",
+      "pass": true
+    },
+    {
+      "collection": "photoLinks",
+      "pass": true
+    },
+    {
+      "collection": "gates",
+      "pass": true
+    },
+    {
+      "collection": "units",
+      "pass": true
+    },
+    {
+      "collection": "spares",
+      "pass": true
+    },
+    {
+      "collection": "subhire",
+      "pass": true
+    },
+    {
+      "collection": "vmsboard",
+      "pass": true
+    },
+    {
+      "collection": "deleted",
+      "pass": true
+    },
+    {
+      "collection": "loads",
+      "pass": true
+    },
+    {
+      "collection": "costs",
+      "pass": true
+    },
+    {
+      "collection": "purchaseOrders",
+      "pass": true
+    },
+    {
+      "collection": "actions",
+      "pass": true
+    }
+  ],
+  "alias_count": 54,
+  "alias_results": [
+    {
+      "alias": "supplied",
+      "pass": true
+    },
+    {
+      "alias": "variances",
+      "pass": true
+    },
+    {
+      "alias": "delivery",
+      "pass": true
+    },
+    {
+      "alias": "fence_dockets",
+      "pass": true
+    },
+    {
+      "alias": "service_notes",
+      "pass": true
+    },
+    {
+      "alias": "fence_collections",
+      "pass": true
+    },
+    {
+      "alias": "fence_quote",
+      "pass": true
+    },
+    {
+      "alias": "breakdowns",
+      "pass": true
+    },
+    {
+      "alias": "actions",
+      "pass": true
+    },
+    {
+      "alias": "fence_done",
+      "pass": true
+    },
+    {
+      "alias": "contracts",
+      "pass": true
+    },
+    {
+      "alias": "rental",
+      "pass": true
+    },
+    {
+      "alias": "costs",
+      "pass": true
+    },
+    {
+      "alias": "purchaseOrders",
+      "pass": true
+    },
+    {
+      "alias": "branch",
+      "pass": true
+    },
+    {
+      "alias": "loads",
+      "pass": true
+    },
+    {
+      "alias": "locations",
+      "pass": true
+    },
+    {
+      "alias": "descs",
+      "pass": true
+    },
+    {
+      "alias": "items",
+      "pass": true
+    },
+    {
+      "alias": "qtys",
+      "pass": true
+    },
+    {
+      "alias": "aside",
+      "pass": true
+    },
+    {
+      "alias": "moves",
+      "pass": true
+    },
+    {
+      "alias": "fixes",
+      "pass": true
+    },
+    {
+      "alias": "entries",
+      "pass": true
+    },
+    {
+      "alias": "places",
+      "pass": true
+    },
+    {
+      "alias": "givenRefs",
+      "pass": true
+    },
+    {
+      "alias": "hireStart",
+      "pass": true
+    },
+    {
+      "alias": "labour",
+      "pass": true
+    },
+    {
+      "alias": "eventHours",
+      "pass": true
+    },
+    {
+      "alias": "minDays",
+      "pass": true
+    },
+    {
+      "alias": "runRules",
+      "pass": true
+    },
+    {
+      "alias": "answers",
+      "pass": true
+    },
+    {
+      "alias": "finance745",
+      "pass": true
+    },
+    {
+      "alias": "lineRates",
+      "pass": true
+    },
+    {
+      "alias": "mapRef",
+      "pass": true
+    },
+    {
+      "alias": "by",
+      "pass": true
+    },
+    {
+      "alias": "dropPhotos",
+      "pass": true
+    },
+    {
+      "alias": "photoLinks",
+      "pass": true
+    },
+    {
+      "alias": "gates",
+      "pass": true
+    },
+    {
+      "alias": "units",
+      "pass": true
+    },
+    {
+      "alias": "spares",
+      "pass": true
+    },
+    {
+      "alias": "subhire",
+      "pass": true
+    },
+    {
+      "alias": "vmsboard",
+      "pass": true
+    },
+    {
+      "alias": "deleted",
+      "pass": true
+    },
+    {
+      "alias": "stamps",
+      "pass": true
+    },
+    {
+      "alias": "added",
+      "pass": true
+    },
+    {
+      "alias": "accessories",
+      "pass": true
+    },
+    {
+      "alias": "assetNumbers",
+      "pass": true
+    },
+    {
+      "alias": "notes",
+      "pass": true
+    },
+    {
+      "alias": "rates",
+      "pass": true
+    },
+    {
+      "alias": "accRates",
+      "pass": true
+    },
+    {
+      "alias": "fenceRates",
+      "pass": true
+    },
+    {
+      "alias": "fenceCosts",
+      "pass": true
+    },
+    {
+      "alias": "weeks",
+      "pass": true
+    }
+  ],
+  "all_records_exact": true,
+  "source_state_unchanged": true,
+  "credentials_excluded": true,
+  "live_writes": 0,
+  "failed": 0
+}

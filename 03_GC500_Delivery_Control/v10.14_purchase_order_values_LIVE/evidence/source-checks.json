@@ -1,0 +1,12 @@
+{
+  "author": "Andrew Fisher",
+  "pass": true,
+  "checks": {
+    "candidate_matches_source": true,
+    "one_pricing_engine": true,
+    "one_attribution_adapter": true,
+    "repeat": true,
+    "wrong_base": true
+  },
+  "candidateSha256": "b1bd7bc843632a5ccb99bcead3dfd47a31f2d9810ac1459b4218d1d13d91df7a"
+}

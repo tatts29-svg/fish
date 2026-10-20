@@ -1,0 +1,156 @@
+{
+  "author": "Andrew Fisher",
+  "candidateSha256": "4b5b727b781992e251968f81503ee064a3dbd3414a6087260258871ad83a0ec6",
+  "candidateBytes": 18322548,
+  "initialOutage": "Two Costs jobs and both sweeps were blocked by transport503s. Exact unchanged candidate reruns passed after recovery; initial failures retained privately.",
+  "results": [
+    {
+      "name": "twinsteer",
+      "totals": [
+        "36",
+        "36"
+      ],
+      "assertionEvidence": "36 assertions",
+      "passed": true
+    },
+    {
+      "name": "daycards",
+      "totals": [
+        "24",
+        "24"
+      ],
+      "assertionEvidence": "24 assertions",
+      "passed": true
+    },
+    {
+      "name": "part1",
+      "totals": [
+        "72",
+        "72"
+      ],
+      "assertionEvidence": "72 assertions",
+      "passed": true
+    },
+    {
+      "name": "part2",
+      "totals": [
+        "107",
+        "107"
+      ],
+      "assertionEvidence": "107 assertions",
+      "passed": true
+    },
+    {
+      "name": "late",
+      "totals": [
+        "154",
+        "154"
+      ],
+      "assertionEvidence": "failure output",
+      "passed": true,
+      "evidence": "Corrected pre-entry fixture; all original assertions retained; full desktop77/77 and phone77/77."
+    },
+    {
+      "name": "printgate-desktop",
+      "totals": [
+        "12",
+        "12"
+      ],
+      "assertionEvidence": "12 assertions",
+      "passed": true
+    },
+    {
+      "name": "printgate-phone",
+      "totals": [
+        "12",
+        "12"
+      ],
+      "assertionEvidence": "12 assertions",
+      "passed": true
+    },
+    {
+      "name": "shapes-desktop",
+      "totals": [
+        "62",
+        "62"
+      ],
+      "assertionEvidence": "62 assertions",
+      "passed": true
+    },
+    {
+      "name": "shapes-phone",
+      "totals": [
+        "62",
+        "62"
+      ],
+      "assertionEvidence": "62 assertions",
+      "passed": true
+    },
+    {
+      "name": "interactions-desktop",
+      "totals": null,
+      "assertionEvidence": "11 map assertions",
+      "passed": true
+    },
+    {
+      "name": "interactions-phone",
+      "totals": null,
+      "assertionEvidence": "11 map assertions",
+      "passed": true
+    },
+    {
+      "name": "integrated-desktop",
+      "totals": null,
+      "assertionEvidence": "16 map assertions",
+      "passed": true
+    },
+    {
+      "name": "integrated-phone",
+      "totals": null,
+      "assertionEvidence": "16 map assertions",
+      "passed": true
+    },
+    {
+      "name": "costs-desktop",
+      "totals": [
+        "5",
+        "5"
+      ],
+      "assertionEvidence": "missing assertion summary",
+      "passed": true,
+      "evidence": "Unchanged native test, fresh API after connection recovery."
+    },
+    {
+      "name": "costs-phone",
+      "totals": [
+        "5",
+        "5"
+      ],
+      "assertionEvidence": "missing assertion summary",
+      "passed": true,
+      "evidence": "Unchanged native test, fresh API after connection recovery."
+    },
+    {
+      "name": "sweep-desktop",
+      "totals": [
+        "2026",
+        "37"
+      ],
+      "passed": true,
+      "tabs": 24,
+      "links": 7,
+      "evidence": "Exact destination, Back and alias checker passed; fresh API and original assets."
+    },
+    {
+      "name": "sweep-phone",
+      "totals": [
+        "2026",
+        "1821"
+      ],
+      "passed": true,
+      "tabs": 24,
+      "links": 7,
+      "evidence": "Exact destination, Back and alias checker passed; fresh API and original assets."
+    }
+  ]
+}

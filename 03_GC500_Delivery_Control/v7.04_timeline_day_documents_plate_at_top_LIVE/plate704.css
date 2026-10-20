@@ -1,0 +1,53 @@
+/* v7.04 - the day's documents: a Coates data plate at the top of the Timeline (dark on purpose, like the header plates) */
+.dplate{--pl-ink:#f4f1ec;--pl-mute:#aab3ba;--pl-edge:#2d353b;--pl-or:#ff6a13;
+ position:relative;z-index:20;margin:0 0 16px;padding:18px 20px 20px 28px;border-radius:14px;color:var(--pl-ink);
+ background:repeating-linear-gradient(90deg,rgba(255,255,255,.02) 0 2px,transparent 2px 5px),linear-gradient(160deg,#222a2f,#121517 72%);
+ border:1px solid var(--pl-edge);box-shadow:inset 0 1px 0 rgba(255,255,255,.07),0 10px 26px rgba(0,0,0,.2)}
+.dplate::before{content:'';position:absolute;left:0;top:0;bottom:0;width:8px;border-radius:14px 0 0 14px;background:linear-gradient(180deg,#ff8a3d,var(--pl-or))}
+.dplate::after{content:'';position:absolute;inset:9px 10px 9px 18px;pointer-events:none;
+ background:radial-gradient(circle,#6a747c 0 2px,#2a3136 2.6px,transparent 3.2px) left top/8px 8px no-repeat,
+ radial-gradient(circle,#6a747c 0 2px,#2a3136 2.6px,transparent 3.2px) right top/8px 8px no-repeat,
+ radial-gradient(circle,#6a747c 0 2px,#2a3136 2.6px,transparent 3.2px) left bottom/8px 8px no-repeat,
+ radial-gradient(circle,#6a747c 0 2px,#2a3136 2.6px,transparent 3.2px) right bottom/8px 8px no-repeat}
+.dplate-h{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin:0 6px 16px 0}
+.dplate-id{min-width:0}
+.dplate-k{display:block;font:700 11px/1 'Inter',var(--sans,system-ui,sans-serif);letter-spacing:.2em;text-transform:uppercase;color:var(--pl-or)}
+.dplate-d{display:flex;align-items:center;flex-wrap:wrap;gap:10px;margin-top:9px}
+.dplate-d b{font:800 28px/1 'Barlow Condensed','Arial Narrow',var(--sans,system-ui,sans-serif);letter-spacing:.05em;text-transform:uppercase}
+.dplate-d em{font:700 11px/1 'Inter',var(--sans,system-ui,sans-serif);font-style:normal;letter-spacing:.14em;text-transform:uppercase;background:var(--pl-or);color:#15191c;padding:5px 8px;border-radius:5px}
+.dplate-f{display:block;margin-top:7px;color:var(--pl-mute);font-size:13px}
+.dplate-nav{display:flex;gap:6px;flex:0 0 auto}
+.dplate-step{width:42px;height:42px;border-radius:10px;border:1px solid var(--pl-edge);background:#1b2024;color:var(--pl-ink);font-size:24px;line-height:1;cursor:pointer}
+.dplate-step:hover,.dplate-step:focus-visible{border-color:var(--pl-or);outline:none}
+.dplate-t{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.dpt{display:grid;grid-template-columns:auto minmax(0,1fr);grid-template-rows:auto auto auto;column-gap:12px;row-gap:3px;align-items:center;width:100%;text-align:left;
+ padding:14px 14px 12px;border-radius:11px;min-height:104px;cursor:pointer;font:inherit;color:var(--pl-ink);
+ background:linear-gradient(180deg,#252c31,#1a1f23);border:1px solid #353e45;border-top:3px solid var(--pl-or);
+ box-shadow:inset 0 1px 0 rgba(255,255,255,.05);transition:transform .12s,border-color .12s,background .12s}
+.dpt:hover{transform:translateY(-1px);border-color:#4b565e;border-top-color:#ff8a3d;background:linear-gradient(180deg,#2a3238,#1c2226)}
+.dpt:focus-visible{outline:2px solid var(--pl-or);outline-offset:2px}
+.dpt-i{grid-row:1 / span 2;width:42px;height:42px;border-radius:10px;display:grid;place-items:center;background:rgba(255,106,19,.15);color:var(--pl-or)}
+.dpt-i svg{width:23px;height:23px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.dpt-w{font:800 24px/1 'Barlow Condensed','Arial Narrow',var(--sans,system-ui,sans-serif);letter-spacing:.05em;text-transform:uppercase;align-self:end}
+.dpt-s{grid-column:2;font-size:12.5px;line-height:1.3;color:var(--pl-mute);align-self:start}
+.dpt-c{grid-column:1 / -1;margin-top:9px;padding-top:8px;border-top:1px dashed #3b454c;font:700 10.5px/1 var(--mono,ui-monospace,monospace);letter-spacing:.12em;color:#c9ced3;text-transform:uppercase}
+.dpt.dp-off{opacity:.55;cursor:not-allowed;border-top-color:#5b656d;transform:none}
+.dpt.dp-off .dpt-i{background:rgba(255,255,255,.06);color:#8f99a1}
+details.dpt-mail{display:block;position:relative;min-width:0}
+details.dpt-mail > summary.dpt{display:grid;list-style:none;user-select:none}   /* beats v7.00's inline-flex summary */
+details.dpt-mail > summary.dpt::-webkit-details-marker{display:none}
+details.dpt-mail[open] > summary.dpt{border-color:var(--pl-or)}
+/* the row under the day strip holds the same four: while the plate is on the page it is their one home */
+#pane-timeline.has-dplate .dprow.tlday-ctl{display:none !important}
+@media (max-width:760px){
+ .dplate{padding:14px 12px 14px 20px;margin-bottom:12px}
+ .dplate-h{margin-bottom:12px}
+ .dplate-d b{font-size:23px}
+ .dplate-t{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+ .dpt{min-height:88px;padding:11px 10px 10px;column-gap:9px}
+ .dpt-i{width:34px;height:34px}.dpt-i svg{width:20px;height:20px}
+ .dpt-w{font-size:20px}
+ .dpt-c{display:none}
+ .dplate-step{width:38px;height:38px}
+}
+@media print{.dplate{display:none !important}}

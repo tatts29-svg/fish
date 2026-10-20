@@ -1,0 +1,82 @@
+{
+  "author": "Andrew Fisher",
+  "sourcePath": "/workspace/private-maps813/reliability/explorer.performance813.js",
+  "sourceSha256": "b312edb6cd07a02dcdad4f1ace57f06921b2f3d597d9e23cbd3de6c8f6e6cd43",
+  "testSha256": "08ed078526551c872921f06e2ee1dcc4674e299c8bc1d9150577f569ec5c7eb2",
+  "checkedAtUtc": "2026-10-02T09:19:08.929Z",
+  "scope": "Exact extracted candidate satellite/session functions, controlled fetch and bitmap promises, and a fake clock. No browser, network or service calls.",
+  "limits": "These checks cover request ownership, retry state, slot accounting and cache bounds. They do not establish rendering quality, real network behaviour or device performance.",
+  "checks": [
+    {
+      "name": "Stale provider decode closes its bitmap and cannot replace a newer tile",
+      "pass": true,
+      "detail": {
+        "oldBitmapClosed": 1,
+        "currentBitmapClosed": 0
+      }
+    },
+    {
+      "name": "Stale provider error cannot clear a renewed session or downgrade its source",
+      "pass": true
+    },
+    {
+      "name": "Intentional cancellation records no failed tile or retry attempt",
+      "pass": true
+    },
+    {
+      "name": "Pruning a decode in the same generation closes and rejects its late bitmap",
+      "pass": true
+    },
+    {
+      "name": "Failed tile and retry caches stay bounded on phone",
+      "pass": true,
+      "detail": {
+        "configuredCap": 90,
+        "failedEntries": 90,
+        "retryEntries": 180,
+        "requests": 287
+      }
+    },
+    {
+      "name": "Failed tile and retry caches stay bounded on desktop",
+      "pass": true,
+      "detail": {
+        "configuredCap": 200,
+        "failedEntries": 200,
+        "retryEntries": 400,
+        "requests": 617
+      }
+    },
+    {
+      "name": "Cancel releases eight hung slots immediately and late finally cannot release newer slots",
+      "pass": true
+    },
+    {
+      "name": "Explicit Retry immediately releases all eight pending tile slots",
+      "pass": true
+    },
+    {
+      "name": "Twenty-second deadlines release pending slots and register retryable failures",
+      "pass": true,
+      "detail": {
+        "timedOutRequests": 8,
+        "nextQueuedRequestStarted": true
+      }
+    },
+    {
+      "name": "Concurrent Google session callers share one request",
+      "pass": true
+    },
+    {
+      "name": "Google session 503 recovers through explicit Retry",
+      "pass": true
+    },
+    {
+      "name": "Google session deadline settles and explicit Retry can start a fresh session",
+      "pass": true
+    }
+  ],
+  "extractedFunctionsSha256": "bdb3af31b52e2939e3e0a1d4f852711287b4a5fce3eff4b146d0ec5f622bf435",
+  "passed": 12,
+  "total": 12
+}

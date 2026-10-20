@@ -1,0 +1,154 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261015T232819Z",
+ "finished": "2026-10-15T23:28:30.003Z",
+ "mode": "apply",
+ "spec": {
+  "by": "Andrew Fisher",
+  "what": "Hire agreement 36592 (The Hill - Monster CZ, 9 Oct 2026) is on the record twice, both recorded on 9 Oct: F-AFV-0035·2904 at 137.5 m and F-AFV-0035·1e26 at 132.5 m. The photographed paper reads 132.5 m, 55 panels, 53 bases, 53 clamps, and the 9 Oct reviewed programme link expects 132.5 m. The 137.5 m copy is set aside through the page's own Set aside (kept, with who and when; Put back is under Tools -> Edit), so the paper is charged once and its programme link reads again.",
+  "ops": [
+   {
+    "op": "docket_aside",
+    "id": "F-AFV-0035·2904",
+    "docket_no": "36592",
+    "why": "duplicate of 36592; the paper reads 132.5 m, which F-AFV-0035·1e26 carries"
+   }
+  ]
+ },
+ "pageSha256": "d72e7f6198111f51d392cd910ea35abc56e06dee3c9b9c8b7cb6abd1b3aedb3a",
+ "version": {
+  "before": 6693,
+  "after": 6699
+ },
+ "updated": {
+  "before": "2026-10-15T23:24:13.756Z",
+  "after": "2026-10-15T23:28:29.269Z"
+ },
+ "stage": [
+  {
+   "op": "docket_aside",
+   "no": "36592",
+   "id": "F-AFV-0035·2904",
+   "result": "set aside F-AFV-0035·2904 ({\"clean\":137.5}); F-AFV-0035·1e26 ({\"clean\":132.5}) stays - duplicate of 36592; the paper reads 132.5 m, which F-AFV-0035·1e26 carries"
+  }
+ ],
+ "writes": [
+  {
+   "key": "stamps/aside~2f~F-AFV-0035~b7~2904",
+   "status": 200
+  },
+  {
+   "key": "deleted/F-AFV-0035~b7~2904",
+   "status": 200
+  },
+  {
+   "key": "by/deleted~2f~F-AFV-0035~b7~2904",
+   "status": 200
+  },
+  {
+   "key": "by/aside~2f~F-AFV-0035~b7~2904",
+   "status": 200
+  },
+  {
+   "key": "fenceDockets/F-AFV-0035~b7~2904",
+   "status": 200
+  },
+  {
+   "key": "aside/F-AFV-0035~b7~2904",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 1,
+ "docs": {
+  "before": {
+   "stamps/aside~2f~F-AFV-0035~b7~2904": null,
+   "deleted/F-AFV-0035~b7~2904": null,
+   "by/deleted~2f~F-AFV-0035~b7~2904": null,
+   "by/aside~2f~F-AFV-0035~b7~2904": null,
+   "fenceDockets/F-AFV-0035~b7~2904": {
+    "id": "F-AFV-0035·2904",
+    "date": "2026-10-09",
+    "week": "Week 2",
+    "docket_no": "36592",
+    "crew": "Advanced Temporary Fencing",
+    "map_ref": null,
+    "location": "The Hill — Monster CZ",
+    "quantities": {
+     "clean": 137.5
+    },
+    "note": "No scrim completion written. Rates/amounts blank on paper; existing 2026 card and supplier rates apply only to supported categories.",
+    "recorded_by": "Andrew Fisher via Codex",
+    "recorded_on": "2026-10-09",
+    "components": {
+     "mesh_panel": 55,
+     "base": 53,
+     "clamp": 53
+    },
+    "signed_by": "Andrew Fisher",
+    "scope": "programme",
+    "source": "Advanced Temporary Fencing hire agreement 36592, signed paper photographed on site",
+    "origin": "captured",
+    "_k": "F-AFV-0035·2904"
+   },
+   "aside/F-AFV-0035~b7~2904": null
+  },
+  "after": {
+   "stamps/aside~2f~F-AFV-0035~b7~2904": {
+    "_k": "aside/F-AFV-0035·2904",
+    "v": "2026-10-15T23:28:26.347Z"
+   },
+   "deleted/F-AFV-0035~b7~2904": {
+    "_k": "F-AFV-0035·2904",
+    "v": "2026-10-15T23:28:26.347Z"
+   },
+   "by/deleted~2f~F-AFV-0035~b7~2904": {
+    "_k": "deleted/F-AFV-0035·2904",
+    "v": "Andrew Fisher"
+   },
+   "by/aside~2f~F-AFV-0035~b7~2904": {
+    "_k": "aside/F-AFV-0035·2904",
+    "v": "Andrew Fisher"
+   },
+   "fenceDockets/F-AFV-0035~b7~2904": null,
+   "aside/F-AFV-0035~b7~2904": {
+    "_k": "F-AFV-0035·2904",
+    "v": {
+     "coll": "fenceDockets",
+     "rec": {
+      "id": "F-AFV-0035·2904",
+      "date": "2026-10-09",
+      "week": "Week 2",
+      "docket_no": "36592",
+      "crew": "Advanced Temporary Fencing",
+      "map_ref": null,
+      "location": "The Hill — Monster CZ",
+      "quantities": {
+       "clean": 137.5
+      },
+      "note": "No scrim completion written. Rates/amounts blank on paper; existing 2026 card and supplier rates apply only to supported categories.",
+      "recorded_by": "Andrew Fisher via Codex",
+      "recorded_on": "2026-10-09",
+      "components": {
+       "mesh_panel": 55,
+       "base": 53,
+       "clamp": 53
+      },
+      "signed_by": "Andrew Fisher",
+      "scope": "programme",
+      "source": "Advanced Temporary Fencing hire agreement 36592, signed paper photographed on site",
+      "origin": "captured"
+     },
+     "at": "2026-10-15T23:28:26.347Z",
+     "by": "Andrew Fisher"
+    }
+   }
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}

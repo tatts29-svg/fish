@@ -1,0 +1,10 @@
+const {open} = require('./popen.cjs');
+(async () => { const s = await open({pageFile: process.env.PAGE}); const p = s.page;
+ await p.waitForFunction(() => typeof SYNC !== 'undefined' && SYNC.status === 'live' && document.documentElement.getAttribute('data-refresh904') !== 'loading', null, {timeout: 240000});
+ await p.waitForTimeout(6000);
+ const pick = () => p.evaluate(() => { const t = (document.getElementById('pane-timeline') || {}).innerText || ''; const L = t.split('\n'); const i = L.indexOf('OCTOBER 2026'); const j = L.findIndex((x, k) => k > 0 && /^(DAY’S (DELIVERIES|LOADS))$/.test(x) && L.slice(Math.max(0, k - 12), k).includes('08')); return {landed: null, hit: j >= 0 ? L.slice(j, j + 3).join(' | ') : null, fwf: L.filter(x => /^\d+ FWF$/.test(x)).slice(0, 3).join(',')}; });
+ const landed = await p.evaluate(() => state.tab);
+ await p.evaluate(() => go('timeline')); await p.waitForTimeout(4000); const a = await pick();
+ await p.evaluate(() => { try { sharedCache975(); } catch (e) {} render(); }); await p.waitForTimeout(4000); const b = await pick();
+ await p.evaluate(() => go('today')); await p.waitForTimeout(2000); await p.evaluate(() => go('timeline')); await p.waitForTimeout(4000); const c = await pick();
+ console.log(process.env.PAGE, 'landed', landed, '| first', JSON.stringify(a), '| after cache clear+render', JSON.stringify(b), '| after revisit', JSON.stringify(c)); await s.browser.close(); })();

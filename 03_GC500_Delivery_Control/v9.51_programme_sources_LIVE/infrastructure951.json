@@ -1,0 +1,282 @@
+{
+  "schema": 1,
+  "author": "Andrew Fisher",
+  "reviewed": "2026-10-09",
+  "source": "P003-26003-01 Programme Coates Inf V1 14.8.26 (2).xlsx",
+  "sha256": "fc39ba08ded1f6c6d4823b755b44d1463cf72262829b11dce4fa65f87506bcb7",
+  "previousSha256": "fd522077f05f1d36ff8cae5a95726f546c6764ad74763db6e64d9d449193dddd",
+  "sourceSheets": 12,
+  "distinctCellSets": 2,
+  "canonicalProgrammeSheet": "Base information (4)",
+  "programmeCloneSheets": 11,
+  "canonicalDemobSheet": "DEMOB WK 1",
+  "demobUnchanged": true,
+  "authority": "Workbook evidence only. Current operational delivery, completion, physical identity, photos, schedule bookings and financial records remain authoritative. No automatic completion or date import.",
+  "rows": [
+    {
+      "reference": "WC86",
+      "facility": "WC86 - Toilet - S04",
+      "row": 90,
+      "sourceSheet": "Base information (4)",
+      "duplicateSheetsIgnored": 10,
+      "changes": {
+        "J": {
+          "before": null,
+          "after": "7th October"
+        },
+        "I": {
+          "before": null,
+          "after": "Complete"
+        }
+      },
+      "statusAsWritten": "Complete",
+      "completeDateAsWritten": "7th October",
+      "noteAsWritten": null,
+      "operationalCompletionImported": false
+    },
+    {
+      "reference": "GN18",
+      "facility": "GN18 - Generator - Commodore Park",
+      "row": 91,
+      "sourceSheet": "Base information (4)",
+      "duplicateSheetsIgnored": 10,
+      "changes": {
+        "J": {
+          "before": null,
+          "after": "7th October"
+        },
+        "I": {
+          "before": null,
+          "after": "Complete"
+        },
+        "K": {
+          "before": null,
+          "after": "Dropped but needs to be put into final location"
+        }
+      },
+      "statusAsWritten": "Complete",
+      "completeDateAsWritten": "7th October",
+      "noteAsWritten": "Dropped but needs to be put into final location",
+      "operationalCompletionImported": false,
+      "caveat": "Source says dropped but still needs final location; Complete is not final-position readiness."
+    },
+    {
+      "reference": "P45",
+      "facility": "P45 - St John's Supply First Aid - Supply",
+      "row": 103,
+      "sourceSheet": "Base information (4)",
+      "duplicateSheetsIgnored": 10,
+      "changes": {
+        "E": {
+          "before": null,
+          "after": "45942"
+        },
+        "B": {
+          "before": null,
+          "after": "Portable Building Delivery - 6m x 3m"
+        },
+        "C": {
+          "before": null,
+          "after": "Portable Building"
+        },
+        "G": {
+          "before": null,
+          "after": "NEW THIS YEAR"
+        },
+        "A": {
+          "before": null,
+          "after": "P45 - St John's Supply First Aid - Supply"
+        },
+        "D": {
+          "before": null,
+          "after": "46307"
+        }
+      },
+      "statusAsWritten": null,
+      "completeDateAsWritten": null,
+      "noteAsWritten": null,
+      "operationalCompletionImported": false,
+      "installStart": "2026-10-12",
+      "installEndAsWritten": "2025-10-12",
+      "dateHeld": true,
+      "caveat": "End precedes start: no end-date correction or duplicate delivery imported. Existing native P45 remains authoritative."
+    },
+    {
+      "reference": "P57",
+      "facility": "P57 - Radio Distribution Office - Helen Park",
+      "row": 88,
+      "sourceSheet": "Base information (4)",
+      "duplicateSheetsIgnored": 10,
+      "changes": {
+        "J": {
+          "before": null,
+          "after": "7th October"
+        },
+        "I": {
+          "before": null,
+          "after": "Complete"
+        }
+      },
+      "statusAsWritten": "Complete",
+      "completeDateAsWritten": "7th October",
+      "noteAsWritten": null,
+      "operationalCompletionImported": false
+    },
+    {
+      "reference": "P11",
+      "facility": "P11 - Team Office - DJR",
+      "row": 37,
+      "sourceSheet": "Base information (4)",
+      "duplicateSheetsIgnored": 10,
+      "changes": {
+        "J": {
+          "before": "16th September",
+          "after": "17th September"
+        }
+      },
+      "statusAsWritten": "Complete",
+      "completeDateAsWritten": "17th September",
+      "noteAsWritten": null,
+      "operationalCompletionImported": false
+    },
+    {
+      "reference": "P55",
+      "facility": "P55 - Gate 1 Ticket Box - Helen Park",
+      "row": 86,
+      "sourceSheet": "Base information (4)",
+      "duplicateSheetsIgnored": 10,
+      "changes": {
+        "J": {
+          "before": null,
+          "after": "7th October"
+        },
+        "I": {
+          "before": null,
+          "after": "Complete"
+        }
+      },
+      "statusAsWritten": "Complete",
+      "completeDateAsWritten": "7th October",
+      "noteAsWritten": null,
+      "operationalCompletionImported": false
+    },
+    {
+      "reference": "WC20",
+      "facility": "WC20 - Toilets (Tank Mounted) - S04",
+      "row": 89,
+      "sourceSheet": "Base information (4)",
+      "duplicateSheetsIgnored": 10,
+      "changes": {
+        "J": {
+          "before": null,
+          "after": "7th October"
+        },
+        "I": {
+          "before": null,
+          "after": "Complete"
+        }
+      },
+      "statusAsWritten": "Complete",
+      "completeDateAsWritten": "7th October",
+      "noteAsWritten": null,
+      "operationalCompletionImported": false
+    },
+    {
+      "reference": "P52",
+      "facility": "P52 - Gate 1 Volunteer Check-In - Helen Park",
+      "row": 83,
+      "sourceSheet": "Base information (4)",
+      "duplicateSheetsIgnored": 10,
+      "changes": {
+        "J": {
+          "before": null,
+          "after": "7th October"
+        },
+        "I": {
+          "before": null,
+          "after": "Complete"
+        }
+      },
+      "statusAsWritten": "Complete",
+      "completeDateAsWritten": "7th October",
+      "noteAsWritten": null,
+      "operationalCompletionImported": false
+    },
+    {
+      "reference": "P56",
+      "facility": "P56 - Gate 1 Ticket BOH - Helen Park",
+      "row": 87,
+      "sourceSheet": "Base information (4)",
+      "duplicateSheetsIgnored": 10,
+      "changes": {
+        "J": {
+          "before": null,
+          "after": "7th October"
+        },
+        "I": {
+          "before": null,
+          "after": "Complete"
+        }
+      },
+      "statusAsWritten": "Complete",
+      "completeDateAsWritten": "7th October",
+      "noteAsWritten": null,
+      "operationalCompletionImported": false
+    },
+    {
+      "reference": "P54",
+      "facility": "P54 - Accred Centre BOH - Helen Park",
+      "row": 85,
+      "sourceSheet": "Base information (4)",
+      "duplicateSheetsIgnored": 10,
+      "changes": {
+        "J": {
+          "before": null,
+          "after": "7th October"
+        },
+        "I": {
+          "before": null,
+          "after": "Complete"
+        }
+      },
+      "statusAsWritten": "Complete",
+      "completeDateAsWritten": "7th October",
+      "noteAsWritten": null,
+      "operationalCompletionImported": false
+    },
+    {
+      "reference": "P10",
+      "facility": "P10 - Team Office - 888 Racing",
+      "row": 36,
+      "sourceSheet": "Base information (4)",
+      "duplicateSheetsIgnored": 10,
+      "changes": {
+        "J": {
+          "before": "16th September",
+          "after": "17th September"
+        }
+      },
+      "statusAsWritten": "Complete",
+      "completeDateAsWritten": "17th September",
+      "noteAsWritten": null,
+      "operationalCompletionImported": false
+    },
+    {
+      "reference": "P12",
+      "facility": "P12 - Team 18",
+      "row": 38,
+      "sourceSheet": "Base information (4)",
+      "duplicateSheetsIgnored": 10,
+      "changes": {
+        "J": {
+          "before": "16th September",
+          "after": "17th September"
+        }
+      },
+      "statusAsWritten": "Complete",
+      "completeDateAsWritten": "17th September",
+      "noteAsWritten": null,
+      "operationalCompletionImported": false
+    }
+  ]
+}

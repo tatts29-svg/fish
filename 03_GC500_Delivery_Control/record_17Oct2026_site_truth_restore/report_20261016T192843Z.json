@@ -1,0 +1,749 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261016T192843Z",
+ "finished": "2026-10-16T19:28:58.639Z",
+ "mode": "apply",
+ "spec": {
+  "by": "Andrew Fisher",
+  "basis": "Andrew, 17 Oct 2026: \"Why remember my records were truth. Confirm proceed and action\" and \"number I allocate is truth\". The site-truth audit (audit_17Oct2026_site_truth/, three-lens verification) confirmed these as his own site entries overridden by record operations on branch paperwork.",
+  "refs": [
+   "T0001",
+   "P65",
+   "P66",
+   "WC86"
+  ],
+  "ops": [
+   {
+    "op": "labour_off",
+    "ref": "T0001",
+    "disc": "Variable message signs",
+    "item": "VMS",
+    "line": "install",
+    "unit": "1182999",
+    "why": "Andrew unticked install on board 1182999 on 23 Sep 2026; a 9 Oct agent run re-ticked the whole reference. A tick he took off stays off."
+   },
+   {
+    "op": "door",
+    "ref": "P65",
+    "id": "u1327217",
+    "side": "passenger",
+    "why": "Andrew recorded P65 passenger side on 9 Oct (07:03 AEST) before the unit was numbered; carried onto the numbered unit"
+   },
+   {
+    "op": "door",
+    "ref": "P66",
+    "id": "u1327222",
+    "side": "driver",
+    "why": "Andrew recorded P66 driver side on 9 Oct (07:02 AEST); carried onto the numbered unit"
+   },
+   {
+    "op": "door",
+    "ref": "WC86",
+    "id": "u1296899",
+    "side": "na",
+    "why": "Andrew recorded WC86 door side not applicable on 7 Oct; carried onto the numbered unit"
+   }
+  ],
+  "note": "WC09: left as it is. The page already shows both of Andrew's toilet blocks, 1268858 and 1311146, with his photos, through the 15 Oct unit records; putting his typed numbers back changes nothing on the page (tested in page memory, 17 Oct).",
+  "allowRemove": [
+   "labour/T0001~7c~Variable~20~message~20~signs~7c~VMS~7c~install"
+  ],
+  "allowRemoveWhy": "the page spreads the 9 Oct reference-level install tick onto each board (v5.58) before taking 1182999 off; the other seven boards stay ticked, each with its own tick"
+ },
+ "pageSha256": "43c1c13be6fa5abc4ea66900d2202422972da11328fe7e41a088e9e1fdfd1204",
+ "version": {
+  "before": 9527,
+  "after": 9555
+ },
+ "updated": {
+  "before": "2026-10-16T16:51:24.964Z",
+  "after": "2026-10-16T19:28:57.686Z"
+ },
+ "stage": [
+  {
+   "op": "labour_off",
+   "ref": "T0001",
+   "disc": "Variable message signs",
+   "item": "VMS",
+   "line": "install",
+   "unit": "1182999",
+   "why": "Andrew unticked install on board 1182999 on 23 Sep 2026; a 9 Oct agent run re-ticked the whole reference. A tick he took off stays off.",
+   "result": "taken off"
+  },
+  {
+   "op": "door",
+   "ref": "P65",
+   "id": "u1327217",
+   "side": "passenger",
+   "why": "Andrew recorded P65 passenger side on 9 Oct (07:03 AEST) before the unit was numbered; carried onto the numbered unit",
+   "result": "door side passenger"
+  },
+  {
+   "op": "door",
+   "ref": "P66",
+   "id": "u1327222",
+   "side": "driver",
+   "why": "Andrew recorded P66 driver side on 9 Oct (07:02 AEST); carried onto the numbered unit",
+   "result": "door side driver"
+  },
+  {
+   "op": "door",
+   "ref": "WC86",
+   "id": "u1296899",
+   "side": "na",
+   "why": "Andrew recorded WC86 door side not applicable on 7 Oct; carried onto the numbered unit",
+   "result": "door side na"
+  }
+ ],
+ "writes": [
+  {
+   "key": "delivery/P66",
+   "status": 200
+  },
+  {
+   "key": "delivery/WC86",
+   "status": 200
+  },
+  {
+   "key": "delivery/P65",
+   "status": 200
+  },
+  {
+   "key": "stamps/labour~2f~T0001~2f~u1182999~7c~Variable~20~message~20~signs~7c~VMS~7c~install",
+   "status": 200
+  },
+  {
+   "key": "stamps/labour~2f~T0001~7c~Variable~20~message~20~signs~7c~VMS~7c~install",
+   "status": 200
+  },
+  {
+   "key": "stamps/labour~2f~T0001~2f~u1211370~7c~Variable~20~message~20~signs~7c~VMS~7c~install",
+   "status": 200
+  },
+  {
+   "key": "stamps/labour~2f~T0001~2f~u1211354~7c~Variable~20~message~20~signs~7c~VMS~7c~install",
+   "status": 200
+  },
+  {
+   "key": "stamps/labour~2f~T0001~2f~u1191877~7c~Variable~20~message~20~signs~7c~VMS~7c~install",
+   "status": 200
+  },
+  {
+   "key": "stamps/labour~2f~T0001~2f~u1211359~7c~Variable~20~message~20~signs~7c~VMS~7c~install",
+   "status": 200
+  },
+  {
+   "key": "stamps/labour~2f~T0001~2f~u1211383~7c~Variable~20~message~20~signs~7c~VMS~7c~install",
+   "status": 200
+  },
+  {
+   "key": "stamps/labour~2f~T0001~2f~u1271129~7c~Variable~20~message~20~signs~7c~VMS~7c~install",
+   "status": 200
+  },
+  {
+   "key": "stamps/labour~2f~T0001~2f~urest~7c~Variable~20~message~20~signs~7c~VMS~7c~install",
+   "status": 200
+  },
+  {
+   "key": "by/labour~2f~T0001~7c~Variable~20~message~20~signs~7c~VMS~7c~install",
+   "status": 200
+  },
+  {
+   "key": "by/labour~2f~T0001~2f~u1211370~7c~Variable~20~message~20~signs~7c~VMS~7c~install",
+   "status": 200
+  },
+  {
+   "key": "by/labour~2f~T0001~2f~u1211354~7c~Variable~20~message~20~signs~7c~VMS~7c~install",
+   "status": 200
+  },
+  {
+   "key": "by/labour~2f~T0001~2f~u1191877~7c~Variable~20~message~20~signs~7c~VMS~7c~install",
+   "status": 200
+  },
+  {
+   "key": "by/labour~2f~T0001~2f~u1211359~7c~Variable~20~message~20~signs~7c~VMS~7c~install",
+   "status": 200
+  },
+  {
+   "key": "by/labour~2f~T0001~2f~u1211383~7c~Variable~20~message~20~signs~7c~VMS~7c~install",
+   "status": 200
+  },
+  {
+   "key": "by/labour~2f~T0001~2f~u1271129~7c~Variable~20~message~20~signs~7c~VMS~7c~install",
+   "status": 200
+  },
+  {
+   "key": "by/labour~2f~T0001~2f~urest~7c~Variable~20~message~20~signs~7c~VMS~7c~install",
+   "status": 200
+  },
+  {
+   "key": "labour/T0001~7c~Variable~20~message~20~signs~7c~VMS~7c~install",
+   "status": 200
+  },
+  {
+   "key": "labour/T0001~2f~u1211370~7c~Variable~20~message~20~signs~7c~VMS~7c~install",
+   "status": 200
+  },
+  {
+   "key": "labour/T0001~2f~u1211354~7c~Variable~20~message~20~signs~7c~VMS~7c~install",
+   "status": 200
+  },
+  {
+   "key": "labour/T0001~2f~u1191877~7c~Variable~20~message~20~signs~7c~VMS~7c~install",
+   "status": 200
+  },
+  {
+   "key": "labour/T0001~2f~u1211359~7c~Variable~20~message~20~signs~7c~VMS~7c~install",
+   "status": 200
+  },
+  {
+   "key": "labour/T0001~2f~u1211383~7c~Variable~20~message~20~signs~7c~VMS~7c~install",
+   "status": 200
+  },
+  {
+   "key": "labour/T0001~2f~u1271129~7c~Variable~20~message~20~signs~7c~VMS~7c~install",
+   "status": 200
+  },
+  {
+   "key": "labour/T0001~2f~urest~7c~Variable~20~message~20~signs~7c~VMS~7c~install",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 1,
+ "docs": {
+  "before": {
+   "delivery/P66": {
+    "state": "on site",
+    "set_at": "2026-10-13T22:32:06.614Z",
+    "by": "Andrew Fisher",
+    "levelled": true,
+    "levelled_by": "Andrew Fisher",
+    "levelled_at": "2026-10-13T22:32:08.569Z",
+    "steps": true,
+    "steps_by": "Andrew Fisher",
+    "steps_at": "2026-10-13T22:32:10.409Z",
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-13T22:32:06.614Z",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:20.919Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-13T22:32:06.614Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-13T22:32:06.614Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "levelled_history": [
+     {
+      "levelled": true,
+      "at": "2026-10-13T22:32:08.569Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "steps_history": [
+     {
+      "steps": true,
+      "at": "2026-10-13T22:32:10.409Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "handling875": {
+     "method": "tilt-tray",
+     "by": "Andrew Fisher",
+     "at": "2026-10-08T21:01:59.949Z"
+    },
+    "loading872": {
+     "item:Building 6m": {
+      "side": "driver",
+      "by": "Andrew Fisher",
+      "at": "2026-10-08T21:02:44.106Z"
+     }
+    },
+    "_k": "P66"
+   },
+   "delivery/WC86": {
+    "state": "on site",
+    "set_at": "2026-10-06T22:34:56.409Z",
+    "by": "Andrew Fisher",
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-07T00:45:48.073Z",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:37.279Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-06T22:34:56.409Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-07T00:45:48.073Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "handling875": {
+     "method": "franna",
+     "by": "Andrew Fisher",
+     "at": "2026-10-07T12:29:46.174Z"
+    },
+    "loading872": {
+     "item:Accessible Toilet": {
+      "side": "na",
+      "by": "Andrew Fisher",
+      "at": "2026-10-07T02:54:54.088Z"
+     }
+    },
+    "timeline841": {
+     "stage": 3,
+     "at": "2026-10-06T22:35:58.376Z",
+     "by": "Andrew Fisher",
+     "history": [
+      {
+       "stage": 3,
+       "at": "2026-10-06T22:34:56.538Z",
+       "by": "Andrew Fisher",
+       "recorded_at": "2026-10-06T22:34:56.538Z"
+      },
+      {
+       "stage": 3,
+       "at": "2026-10-06T22:35:46.230Z",
+       "by": "Andrew Fisher",
+       "recorded_at": "2026-10-06T22:35:46.230Z"
+      },
+      {
+       "stage": 3,
+       "at": "2026-10-06T22:35:47.918Z",
+       "by": "Andrew Fisher",
+       "recorded_at": "2026-10-06T22:35:47.918Z"
+      },
+      {
+       "stage": 3,
+       "at": "2026-10-06T22:35:58.376Z",
+       "by": "Andrew Fisher",
+       "recorded_at": "2026-10-06T22:35:58.376Z"
+      }
+     ],
+     "recorded_at": "2026-10-06T22:35:58.376Z"
+    },
+    "_k": "WC86"
+   },
+   "delivery/P65": {
+    "state": "on site",
+    "set_at": "2026-10-13T22:29:29.784Z",
+    "by": "Andrew Fisher",
+    "levelled": true,
+    "levelled_by": "Andrew Fisher",
+    "levelled_at": "2026-10-13T22:29:31.514Z",
+    "steps": true,
+    "steps_by": "Andrew Fisher",
+    "steps_at": "2026-10-13T22:29:33.059Z",
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-13T22:29:29.784Z",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-10-13T22:29:29.784Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-13T22:29:29.784Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "levelled_history": [
+     {
+      "levelled": true,
+      "at": "2026-10-13T22:29:31.514Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "steps_history": [
+     {
+      "steps": true,
+      "at": "2026-10-13T22:29:33.059Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "handling875": {
+     "method": "tilt-tray",
+     "by": "Andrew Fisher",
+     "at": "2026-10-08T21:04:40.165Z"
+    },
+    "loading872": {
+     "item:Building 6m": {
+      "side": "passenger",
+      "by": "Andrew Fisher",
+      "at": "2026-10-08T21:03:24.824Z"
+     }
+    },
+    "_k": "P65"
+   },
+   "stamps/labour~2f~T0001~2f~u1182999~7c~Variable~20~message~20~signs~7c~VMS~7c~install": {
+    "_k": "labour/T0001/u1182999|Variable message signs|VMS|install",
+    "v": "2026-09-23T02:07:06.365Z"
+   },
+   "stamps/labour~2f~T0001~7c~Variable~20~message~20~signs~7c~VMS~7c~install": {
+    "_k": "labour/T0001|Variable message signs|VMS|install",
+    "v": "2026-10-09T02:15:57.801Z"
+   },
+   "stamps/labour~2f~T0001~2f~u1211370~7c~Variable~20~message~20~signs~7c~VMS~7c~install": null,
+   "stamps/labour~2f~T0001~2f~u1211354~7c~Variable~20~message~20~signs~7c~VMS~7c~install": null,
+   "stamps/labour~2f~T0001~2f~u1191877~7c~Variable~20~message~20~signs~7c~VMS~7c~install": null,
+   "stamps/labour~2f~T0001~2f~u1211359~7c~Variable~20~message~20~signs~7c~VMS~7c~install": null,
+   "stamps/labour~2f~T0001~2f~u1211383~7c~Variable~20~message~20~signs~7c~VMS~7c~install": null,
+   "stamps/labour~2f~T0001~2f~u1271129~7c~Variable~20~message~20~signs~7c~VMS~7c~install": null,
+   "stamps/labour~2f~T0001~2f~urest~7c~Variable~20~message~20~signs~7c~VMS~7c~install": null,
+   "by/labour~2f~T0001~7c~Variable~20~message~20~signs~7c~VMS~7c~install": {
+    "_k": "labour/T0001|Variable message signs|VMS|install",
+    "v": "Andrew Fisher via Codex"
+   },
+   "by/labour~2f~T0001~2f~u1211370~7c~Variable~20~message~20~signs~7c~VMS~7c~install": null,
+   "by/labour~2f~T0001~2f~u1211354~7c~Variable~20~message~20~signs~7c~VMS~7c~install": null,
+   "by/labour~2f~T0001~2f~u1191877~7c~Variable~20~message~20~signs~7c~VMS~7c~install": null,
+   "by/labour~2f~T0001~2f~u1211359~7c~Variable~20~message~20~signs~7c~VMS~7c~install": null,
+   "by/labour~2f~T0001~2f~u1211383~7c~Variable~20~message~20~signs~7c~VMS~7c~install": null,
+   "by/labour~2f~T0001~2f~u1271129~7c~Variable~20~message~20~signs~7c~VMS~7c~install": null,
+   "by/labour~2f~T0001~2f~urest~7c~Variable~20~message~20~signs~7c~VMS~7c~install": null,
+   "labour/T0001~7c~Variable~20~message~20~signs~7c~VMS~7c~install": {
+    "_k": "T0001|Variable message signs|VMS|install",
+    "v": true
+   },
+   "labour/T0001~2f~u1211370~7c~Variable~20~message~20~signs~7c~VMS~7c~install": null,
+   "labour/T0001~2f~u1211354~7c~Variable~20~message~20~signs~7c~VMS~7c~install": null,
+   "labour/T0001~2f~u1191877~7c~Variable~20~message~20~signs~7c~VMS~7c~install": null,
+   "labour/T0001~2f~u1211359~7c~Variable~20~message~20~signs~7c~VMS~7c~install": null,
+   "labour/T0001~2f~u1211383~7c~Variable~20~message~20~signs~7c~VMS~7c~install": null,
+   "labour/T0001~2f~u1271129~7c~Variable~20~message~20~signs~7c~VMS~7c~install": null,
+   "labour/T0001~2f~urest~7c~Variable~20~message~20~signs~7c~VMS~7c~install": null
+  },
+  "after": {
+   "delivery/P66": {
+    "state": "on site",
+    "set_at": "2026-10-13T22:32:06.614Z",
+    "by": "Andrew Fisher",
+    "levelled": true,
+    "levelled_by": "Andrew Fisher",
+    "levelled_at": "2026-10-13T22:32:08.569Z",
+    "steps": true,
+    "steps_by": "Andrew Fisher",
+    "steps_at": "2026-10-13T22:32:10.409Z",
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-13T22:32:06.614Z",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:20.919Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-13T22:32:06.614Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-13T22:32:06.614Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "levelled_history": [
+     {
+      "levelled": true,
+      "at": "2026-10-13T22:32:08.569Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "steps_history": [
+     {
+      "steps": true,
+      "at": "2026-10-13T22:32:10.409Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "handling875": {
+     "method": "tilt-tray",
+     "by": "Andrew Fisher",
+     "at": "2026-10-08T21:01:59.949Z"
+    },
+    "loading872": {
+     "item:Building 6m": {
+      "side": "driver",
+      "by": "Andrew Fisher",
+      "at": "2026-10-08T21:02:44.106Z"
+     },
+     "u1327222": {
+      "side": "driver",
+      "by": "Andrew Fisher",
+      "at": "2026-10-16T19:28:51.964Z"
+     }
+    },
+    "_k": "P66"
+   },
+   "delivery/WC86": {
+    "state": "on site",
+    "set_at": "2026-10-06T22:34:56.409Z",
+    "by": "Andrew Fisher",
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-07T00:45:48.073Z",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:37.279Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-06T22:34:56.409Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-07T00:45:48.073Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "handling875": {
+     "method": "franna",
+     "by": "Andrew Fisher",
+     "at": "2026-10-07T12:29:46.174Z"
+    },
+    "loading872": {
+     "item:Accessible Toilet": {
+      "side": "na",
+      "by": "Andrew Fisher",
+      "at": "2026-10-07T02:54:54.088Z"
+     },
+     "u1296899": {
+      "side": "na",
+      "by": "Andrew Fisher",
+      "at": "2026-10-16T19:28:52.690Z"
+     }
+    },
+    "timeline841": {
+     "stage": 3,
+     "at": "2026-10-06T22:35:58.376Z",
+     "by": "Andrew Fisher",
+     "history": [
+      {
+       "stage": 3,
+       "at": "2026-10-06T22:34:56.538Z",
+       "by": "Andrew Fisher",
+       "recorded_at": "2026-10-06T22:34:56.538Z"
+      },
+      {
+       "stage": 3,
+       "at": "2026-10-06T22:35:46.230Z",
+       "by": "Andrew Fisher",
+       "recorded_at": "2026-10-06T22:35:46.230Z"
+      },
+      {
+       "stage": 3,
+       "at": "2026-10-06T22:35:47.918Z",
+       "by": "Andrew Fisher",
+       "recorded_at": "2026-10-06T22:35:47.918Z"
+      },
+      {
+       "stage": 3,
+       "at": "2026-10-06T22:35:58.376Z",
+       "by": "Andrew Fisher",
+       "recorded_at": "2026-10-06T22:35:58.376Z"
+      }
+     ],
+     "recorded_at": "2026-10-06T22:35:58.376Z"
+    },
+    "_k": "WC86"
+   },
+   "delivery/P65": {
+    "state": "on site",
+    "set_at": "2026-10-13T22:29:29.784Z",
+    "by": "Andrew Fisher",
+    "levelled": true,
+    "levelled_by": "Andrew Fisher",
+    "levelled_at": "2026-10-13T22:29:31.514Z",
+    "steps": true,
+    "steps_by": "Andrew Fisher",
+    "steps_at": "2026-10-13T22:29:33.059Z",
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-13T22:29:29.784Z",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-10-13T22:29:29.784Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-13T22:29:29.784Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "levelled_history": [
+     {
+      "levelled": true,
+      "at": "2026-10-13T22:29:31.514Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "steps_history": [
+     {
+      "steps": true,
+      "at": "2026-10-13T22:29:33.059Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "handling875": {
+     "method": "tilt-tray",
+     "by": "Andrew Fisher",
+     "at": "2026-10-08T21:04:40.165Z"
+    },
+    "loading872": {
+     "item:Building 6m": {
+      "side": "passenger",
+      "by": "Andrew Fisher",
+      "at": "2026-10-08T21:03:24.824Z"
+     },
+     "u1327217": {
+      "side": "passenger",
+      "by": "Andrew Fisher",
+      "at": "2026-10-16T19:28:51.465Z"
+     }
+    },
+    "_k": "P65"
+   },
+   "stamps/labour~2f~T0001~2f~u1182999~7c~Variable~20~message~20~signs~7c~VMS~7c~install": {
+    "_k": "labour/T0001/u1182999|Variable message signs|VMS|install",
+    "v": "2026-10-16T19:28:50.699Z"
+   },
+   "stamps/labour~2f~T0001~7c~Variable~20~message~20~signs~7c~VMS~7c~install": {
+    "_k": "labour/T0001|Variable message signs|VMS|install",
+    "v": "2026-10-16T19:28:50.699Z"
+   },
+   "stamps/labour~2f~T0001~2f~u1211370~7c~Variable~20~message~20~signs~7c~VMS~7c~install": {
+    "_k": "labour/T0001/u1211370|Variable message signs|VMS|install",
+    "v": "2026-10-16T19:28:50.699Z"
+   },
+   "stamps/labour~2f~T0001~2f~u1211354~7c~Variable~20~message~20~signs~7c~VMS~7c~install": {
+    "_k": "labour/T0001/u1211354|Variable message signs|VMS|install",
+    "v": "2026-10-16T19:28:50.699Z"
+   },
+   "stamps/labour~2f~T0001~2f~u1191877~7c~Variable~20~message~20~signs~7c~VMS~7c~install": {
+    "_k": "labour/T0001/u1191877|Variable message signs|VMS|install",
+    "v": "2026-10-16T19:28:50.699Z"
+   },
+   "stamps/labour~2f~T0001~2f~u1211359~7c~Variable~20~message~20~signs~7c~VMS~7c~install": {
+    "_k": "labour/T0001/u1211359|Variable message signs|VMS|install",
+    "v": "2026-10-16T19:28:50.699Z"
+   },
+   "stamps/labour~2f~T0001~2f~u1211383~7c~Variable~20~message~20~signs~7c~VMS~7c~install": {
+    "_k": "labour/T0001/u1211383|Variable message signs|VMS|install",
+    "v": "2026-10-16T19:28:50.699Z"
+   },
+   "stamps/labour~2f~T0001~2f~u1271129~7c~Variable~20~message~20~signs~7c~VMS~7c~install": {
+    "_k": "labour/T0001/u1271129|Variable message signs|VMS|install",
+    "v": "2026-10-16T19:28:50.699Z"
+   },
+   "stamps/labour~2f~T0001~2f~urest~7c~Variable~20~message~20~signs~7c~VMS~7c~install": {
+    "_k": "labour/T0001/urest|Variable message signs|VMS|install",
+    "v": "2026-10-16T19:28:50.699Z"
+   },
+   "by/labour~2f~T0001~7c~Variable~20~message~20~signs~7c~VMS~7c~install": {
+    "_k": "labour/T0001|Variable message signs|VMS|install",
+    "v": "Andrew Fisher"
+   },
+   "by/labour~2f~T0001~2f~u1211370~7c~Variable~20~message~20~signs~7c~VMS~7c~install": {
+    "_k": "labour/T0001/u1211370|Variable message signs|VMS|install",
+    "v": "Andrew Fisher"
+   },
+   "by/labour~2f~T0001~2f~u1211354~7c~Variable~20~message~20~signs~7c~VMS~7c~install": {
+    "_k": "labour/T0001/u1211354|Variable message signs|VMS|install",
+    "v": "Andrew Fisher"
+   },
+   "by/labour~2f~T0001~2f~u1191877~7c~Variable~20~message~20~signs~7c~VMS~7c~install": {
+    "_k": "labour/T0001/u1191877|Variable message signs|VMS|install",
+    "v": "Andrew Fisher"
+   },
+   "by/labour~2f~T0001~2f~u1211359~7c~Variable~20~message~20~signs~7c~VMS~7c~install": {
+    "_k": "labour/T0001/u1211359|Variable message signs|VMS|install",
+    "v": "Andrew Fisher"
+   },
+   "by/labour~2f~T0001~2f~u1211383~7c~Variable~20~message~20~signs~7c~VMS~7c~install": {
+    "_k": "labour/T0001/u1211383|Variable message signs|VMS|install",
+    "v": "Andrew Fisher"
+   },
+   "by/labour~2f~T0001~2f~u1271129~7c~Variable~20~message~20~signs~7c~VMS~7c~install": {
+    "_k": "labour/T0001/u1271129|Variable message signs|VMS|install",
+    "v": "Andrew Fisher"
+   },
+   "by/labour~2f~T0001~2f~urest~7c~Variable~20~message~20~signs~7c~VMS~7c~install": {
+    "_k": "labour/T0001/urest|Variable message signs|VMS|install",
+    "v": "Andrew Fisher"
+   },
+   "labour/T0001~7c~Variable~20~message~20~signs~7c~VMS~7c~install": null,
+   "labour/T0001~2f~u1211370~7c~Variable~20~message~20~signs~7c~VMS~7c~install": {
+    "_k": "T0001/u1211370|Variable message signs|VMS|install",
+    "v": true
+   },
+   "labour/T0001~2f~u1211354~7c~Variable~20~message~20~signs~7c~VMS~7c~install": {
+    "_k": "T0001/u1211354|Variable message signs|VMS|install",
+    "v": true
+   },
+   "labour/T0001~2f~u1191877~7c~Variable~20~message~20~signs~7c~VMS~7c~install": {
+    "_k": "T0001/u1191877|Variable message signs|VMS|install",
+    "v": true
+   },
+   "labour/T0001~2f~u1211359~7c~Variable~20~message~20~signs~7c~VMS~7c~install": {
+    "_k": "T0001/u1211359|Variable message signs|VMS|install",
+    "v": true
+   },
+   "labour/T0001~2f~u1211383~7c~Variable~20~message~20~signs~7c~VMS~7c~install": {
+    "_k": "T0001/u1211383|Variable message signs|VMS|install",
+    "v": true
+   },
+   "labour/T0001~2f~u1271129~7c~Variable~20~message~20~signs~7c~VMS~7c~install": {
+    "_k": "T0001/u1271129|Variable message signs|VMS|install",
+    "v": true
+   },
+   "labour/T0001~2f~urest~7c~Variable~20~message~20~signs~7c~VMS~7c~install": {
+    "_k": "T0001/urest|Variable message signs|VMS|install",
+    "v": true
+   }
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}

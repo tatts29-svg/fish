@@ -1,0 +1,7 @@
+/* Author: Andrew Fisher. Pack standdown facts into the existing responsive Finance row. */
+#generators1004 dl.generator1005-standdown{grid-template-columns:max-content max-content;gap:6px 10px;margin:0;font-size:12px;line-height:1.4;justify-content:end;min-width:172px}
+#generators1004 .generator1005-standdown dt{font-weight:400;color:#52636e}
+#generators1004 .generator1005-standdown dd{text-align:right;white-space:nowrap}
+#generators1004 .generator1005-standdown dt:nth-last-child(2),#generators1004 .generator1005-standdown dd:last-child{border-top:1px solid #d2dce1;padding-top:6px}
+#generators1004 .generator1005-standdown dd:last-child{font-size:14px}
+@media(max-width:900px){#generators1004 dl.generator1005-standdown{min-width:0;grid-template-columns:minmax(0,1fr) max-content;gap:6px 8px}#generators1004 .generator1005-standdown dt{font-size:11px}}

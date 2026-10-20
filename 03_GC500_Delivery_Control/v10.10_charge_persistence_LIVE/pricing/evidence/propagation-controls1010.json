@@ -1,0 +1,982 @@
+{
+  "author": "Andrew Fisher",
+  "sha256": "8cdd8e1ac7421e020a69333c4d82c1cb7f90ee6ee220209901aa0ec8325e6461",
+  "nativeVersion": 5806,
+  "browserErrors": [],
+  "requests": {
+    "page": 1,
+    "live": 9,
+    "blocked": 0
+  },
+  "pricingModuleSha256": "ec00fe700069d98dc059d5552458a3aa83de4afa4392c0583dfd83e1cd947b0b",
+  "testScriptSha256": "4dc9498bcd0a72092cc1634c751f9c657db88409739451591c4078eabcd6c27c",
+  "checks": [
+    {
+      "name": "baseline Costs = P&L current",
+      "pass": true,
+      "actual": 789908.36,
+      "expected": 789908.36
+    },
+    {
+      "name": "baseline Finance = P&L job",
+      "pass": true,
+      "actual": 1066859.61,
+      "expected": 1066859.61
+    },
+    {
+      "name": "baseline P&L controls",
+      "pass": true,
+      "actual": true,
+      "expected": true
+    },
+    {
+      "name": "baseline Branch controls",
+      "pass": true,
+      "actual": true,
+      "expected": true
+    },
+    {
+      "name": "baseline automatic work totals agree",
+      "pass": true,
+      "actual": 64323.58,
+      "expected": 64323.58
+    },
+    {
+      "name": "baseline received subtotal ties branch totals",
+      "pass": true,
+      "actual": 384101.58,
+      "expected": 384101.58
+    },
+    {
+      "name": "baseline generator actual + remaining = forecast",
+      "pass": true,
+      "actual": 37530.13,
+      "expected": 37530.13
+    },
+    {
+      "name": "baseline Rehire branches tie customer revenue",
+      "pass": true,
+      "actual": 571910.33,
+      "expected": 571910.33
+    },
+    {
+      "name": "baseline Rehire branches retain supplier cost total",
+      "pass": true,
+      "actual": 416257.51,
+      "expected": 416257.51
+    },
+    {
+      "name": "Four confirmed FWF classify as Event Portables",
+      "pass": true,
+      "actual": "event-portables",
+      "expected": "event-portables"
+    },
+    {
+      "name": "Separate Coates blocks stay owned hire",
+      "pass": true,
+      "actual": true,
+      "expected": true
+    },
+    {
+      "name": "Contract Rehire unit count is 109 FWF plus two 16-pan blocks, without six stale WC09 units",
+      "pass": true,
+      "actual": 111,
+      "expected": 111
+    },
+    {
+      "name": "Verified missing owner allocations cover 39 contract lines",
+      "pass": true,
+      "actual": 39,
+      "expected": 39
+    },
+    {
+      "name": "Verified classification moves 9817.63 once",
+      "pass": true,
+      "actual": 9817.63,
+      "expected": 9817.63
+    },
+    {
+      "name": "full hire edited Costs = P&L current",
+      "pass": true,
+      "actual": 788875.35,
+      "expected": 788875.35
+    },
+    {
+      "name": "full hire edited Finance = P&L job",
+      "pass": true,
+      "actual": 1065826.6,
+      "expected": 1065826.6
+    },
+    {
+      "name": "full hire edited P&L controls",
+      "pass": true,
+      "actual": true,
+      "expected": true
+    },
+    {
+      "name": "full hire edited Branch controls",
+      "pass": true,
+      "actual": true,
+      "expected": true
+    },
+    {
+      "name": "full hire edited automatic work totals agree",
+      "pass": true,
+      "actual": 64323.58,
+      "expected": 64323.58
+    },
+    {
+      "name": "full hire edited received subtotal ties branch totals",
+      "pass": true,
+      "actual": 383068.57,
+      "expected": 383068.57
+    },
+    {
+      "name": "full hire edited generator actual + remaining = forecast",
+      "pass": true,
+      "actual": 37530.13,
+      "expected": 37530.13
+    },
+    {
+      "name": "full hire edited Rehire branches tie customer revenue",
+      "pass": true,
+      "actual": 570877.32,
+      "expected": 570877.32
+    },
+    {
+      "name": "full hire edited Rehire branches retain supplier cost total",
+      "pass": true,
+      "actual": 416257.51,
+      "expected": 416257.51
+    },
+    {
+      "name": "Edited full hire = six \u00d7 500",
+      "pass": true,
+      "actual": 3000,
+      "expected": 3000
+    },
+    {
+      "name": "Edited shared hire amount",
+      "pass": true,
+      "actual": 3000,
+      "expected": 3000
+    },
+    {
+      "name": "Edited hire current delta",
+      "pass": true,
+      "actual": -1033.01,
+      "expected": -1033.01
+    },
+    {
+      "name": "Edited hire job delta",
+      "pass": true,
+      "actual": -1033.01,
+      "expected": -1033.01
+    },
+    {
+      "name": "Edited hire card value",
+      "pass": true,
+      "actual": 500,
+      "expected": 500
+    },
+    {
+      "name": "Edited hire visible in item drawer",
+      "pass": true,
+      "actual": true,
+      "expected": true
+    },
+    {
+      "name": "branch edited Costs = P&L current",
+      "pass": true,
+      "actual": 789908.36,
+      "expected": 789908.36
+    },
+    {
+      "name": "branch edited Finance = P&L job",
+      "pass": true,
+      "actual": 1066859.61,
+      "expected": 1066859.61
+    },
+    {
+      "name": "branch edited P&L controls",
+      "pass": true,
+      "actual": true,
+      "expected": true
+    },
+    {
+      "name": "branch edited Branch controls",
+      "pass": true,
+      "actual": true,
+      "expected": true
+    },
+    {
+      "name": "branch edited automatic work totals agree",
+      "pass": true,
+      "actual": 64323.58,
+      "expected": 64323.58
+    },
+    {
+      "name": "branch edited received subtotal ties branch totals",
+      "pass": true,
+      "actual": 384101.58,
+      "expected": 384101.58
+    },
+    {
+      "name": "branch edited generator actual + remaining = forecast",
+      "pass": true,
+      "actual": 37530.13,
+      "expected": 37530.13
+    },
+    {
+      "name": "branch edited Rehire branches tie customer revenue",
+      "pass": true,
+      "actual": 571910.33,
+      "expected": 571910.33
+    },
+    {
+      "name": "branch edited Rehire branches retain supplier cost total",
+      "pass": true,
+      "actual": 416257.51,
+      "expected": 416257.51
+    },
+    {
+      "name": "Native WC09 branch changed",
+      "pass": true,
+      "actual": "NVAC",
+      "expected": "NVAC"
+    },
+    {
+      "name": "Pee hire follows recorded reference branch",
+      "pass": true,
+      "actual": "NVAC",
+      "expected": "NVAC"
+    },
+    {
+      "name": "Branch edit does not change total",
+      "pass": true,
+      "actual": 789908.36,
+      "expected": 789908.36
+    },
+    {
+      "name": "Branch edit does not change full forecast",
+      "pass": true,
+      "actual": 1066859.61,
+      "expected": 1066859.61
+    },
+    {
+      "name": "Onsite WC09 rows follow new branch",
+      "pass": true,
+      "actual": true,
+      "expected": true
+    },
+    {
+      "name": "Whole WC09 revenue moves once KINP",
+      "pass": true,
+      "actual": -16744.61,
+      "expected": -16744.61
+    },
+    {
+      "name": "Whole WC09 revenueJob moves once KINP",
+      "pass": true,
+      "actual": -16744.61,
+      "expected": -16744.61
+    },
+    {
+      "name": "October Finance branch allocation moves once KINP",
+      "pass": true,
+      "actual": -16744.61,
+      "expected": -16744.61
+    },
+    {
+      "name": "Rehire customer hire allocation moves once KINP",
+      "pass": true,
+      "actual": -4393.29,
+      "expected": -4393.29
+    },
+    {
+      "name": "Supplier cost branch does not follow customer edit KINP",
+      "pass": true,
+      "actual": 124970.48,
+      "expected": 124970.48
+    },
+    {
+      "name": "Whole WC09 revenue moves once NVAC",
+      "pass": true,
+      "actual": 16744.61,
+      "expected": 16744.61
+    },
+    {
+      "name": "Whole WC09 revenueJob moves once NVAC",
+      "pass": true,
+      "actual": 16744.61,
+      "expected": 16744.61
+    },
+    {
+      "name": "October Finance branch allocation moves once NVAC",
+      "pass": true,
+      "actual": 16744.61,
+      "expected": 16744.61
+    },
+    {
+      "name": "Rehire customer hire allocation moves once NVAC",
+      "pass": true,
+      "actual": 4393.29,
+      "expected": 4393.29
+    },
+    {
+      "name": "Supplier cost branch does not follow customer edit NVAC",
+      "pass": true,
+      "actual": 0,
+      "expected": 0
+    },
+    {
+      "name": "Original billed snapshot unchanged by allocation",
+      "pass": true,
+      "actual": 69357,
+      "expected": 69357
+    },
+    {
+      "name": "Original Baseplan summary unchanged",
+      "pass": true,
+      "actual": {
+        "n": 321,
+        "billed": 0,
+        "billedAmount": 0,
+        "supplied_on": "2026-10-09",
+        "scope": "Contract export snapshot only; not a current unbilled balance or confirmation that all streams remain unbilled."
+      },
+      "expected": {
+        "n": 321,
+        "billed": 0,
+        "billedAmount": 0,
+        "supplied_on": "2026-10-09",
+        "scope": "Contract export snapshot only; not a current unbilled balance or confirmation that all streams remain unbilled."
+      }
+    },
+    {
+      "name": "pending building branch edited Costs = P&L current",
+      "pass": true,
+      "actual": 789908.36,
+      "expected": 789908.36
+    },
+    {
+      "name": "pending building branch edited Finance = P&L job",
+      "pass": true,
+      "actual": 1066859.61,
+      "expected": 1066859.61
+    },
+    {
+      "name": "pending building branch edited P&L controls",
+      "pass": true,
+      "actual": true,
+      "expected": true
+    },
+    {
+      "name": "pending building branch edited Branch controls",
+      "pass": true,
+      "actual": true,
+      "expected": true
+    },
+    {
+      "name": "pending building branch edited automatic work totals agree",
+      "pass": true,
+      "actual": 64323.58,
+      "expected": 64323.58
+    },
+    {
+      "name": "pending building branch edited received subtotal ties branch totals",
+      "pass": true,
+      "actual": 384101.58,
+      "expected": 384101.58
+    },
+    {
+      "name": "pending building branch edited generator actual + remaining = forecast",
+      "pass": true,
+      "actual": 37530.13,
+      "expected": 37530.13
+    },
+    {
+      "name": "pending building branch edited Rehire branches tie customer revenue",
+      "pass": true,
+      "actual": 571910.33,
+      "expected": 571910.33
+    },
+    {
+      "name": "pending building branch edited Rehire branches retain supplier cost total",
+      "pass": true,
+      "actual": 416257.51,
+      "expected": 416257.51
+    },
+    {
+      "name": "Pending branch change does not invent current hire",
+      "pass": true,
+      "actual": 789908.36,
+      "expected": 789908.36
+    },
+    {
+      "name": "Pending branch change preserves full job scope",
+      "pass": true,
+      "actual": 1066859.61,
+      "expected": 1066859.61
+    },
+    {
+      "name": "Pending branch change moves full future package once",
+      "pass": true,
+      "actual": 2873.7,
+      "expected": 2873.7
+    },
+    {
+      "name": "Pending allocation takes recorded branch",
+      "pass": true,
+      "actual": "STPS",
+      "expected": "STPS"
+    },
+    {
+      "name": "generator branch edited Costs = P&L current",
+      "pass": true,
+      "actual": 789908.36,
+      "expected": 789908.36
+    },
+    {
+      "name": "generator branch edited Finance = P&L job",
+      "pass": true,
+      "actual": 1066859.61,
+      "expected": 1066859.61
+    },
+    {
+      "name": "generator branch edited P&L controls",
+      "pass": true,
+      "actual": true,
+      "expected": true
+    },
+    {
+      "name": "generator branch edited Branch controls",
+      "pass": true,
+      "actual": true,
+      "expected": true
+    },
+    {
+      "name": "generator branch edited automatic work totals agree",
+      "pass": true,
+      "actual": 64323.58,
+      "expected": 64323.58
+    },
+    {
+      "name": "generator branch edited received subtotal ties branch totals",
+      "pass": true,
+      "actual": 384101.58,
+      "expected": 384101.58
+    },
+    {
+      "name": "generator branch edited generator actual + remaining = forecast",
+      "pass": true,
+      "actual": 37530.13,
+      "expected": 37530.13
+    },
+    {
+      "name": "generator branch edited Rehire branches tie customer revenue",
+      "pass": true,
+      "actual": 571910.33,
+      "expected": 571910.33
+    },
+    {
+      "name": "generator branch edited Rehire branches retain supplier cost total",
+      "pass": true,
+      "actual": 416257.51,
+      "expected": 416257.51
+    },
+    {
+      "name": "Generator branch edit leaves total unchanged",
+      "pass": true,
+      "actual": 789908.36,
+      "expected": 789908.36
+    },
+    {
+      "name": "Generator branch edit leaves job unchanged",
+      "pass": true,
+      "actual": 1066859.61,
+      "expected": 1066859.61
+    },
+    {
+      "name": "Generator received row follows new branch",
+      "pass": true,
+      "actual": "STPS",
+      "expected": "STPS"
+    },
+    {
+      "name": "generator rate edited Costs = P&L current",
+      "pass": true,
+      "actual": 791566.84,
+      "expected": 791566.84
+    },
+    {
+      "name": "generator rate edited Finance = P&L job",
+      "pass": true,
+      "actual": 1068518.09,
+      "expected": 1068518.09
+    },
+    {
+      "name": "generator rate edited P&L controls",
+      "pass": true,
+      "actual": true,
+      "expected": true
+    },
+    {
+      "name": "generator rate edited Branch controls",
+      "pass": true,
+      "actual": true,
+      "expected": true
+    },
+    {
+      "name": "generator rate edited automatic work totals agree",
+      "pass": true,
+      "actual": 64323.58,
+      "expected": 64323.58
+    },
+    {
+      "name": "generator rate edited received subtotal ties branch totals",
+      "pass": true,
+      "actual": 385760.06,
+      "expected": 385760.06
+    },
+    {
+      "name": "generator rate edited generator actual + remaining = forecast",
+      "pass": true,
+      "actual": 39188.61,
+      "expected": 39188.61
+    },
+    {
+      "name": "generator rate edited Rehire branches tie customer revenue",
+      "pass": true,
+      "actual": 571910.33,
+      "expected": 571910.33
+    },
+    {
+      "name": "generator rate edited Rehire branches retain supplier cost total",
+      "pass": true,
+      "actual": 416257.51,
+      "expected": 416257.51
+    },
+    {
+      "name": "Generator new hire current delta",
+      "pass": true,
+      "actual": 1658.48,
+      "expected": 1658.48
+    },
+    {
+      "name": "Generator new hire job delta",
+      "pass": true,
+      "actual": 1658.48,
+      "expected": 1658.48
+    },
+    {
+      "name": "Generator reference hire updates",
+      "pass": true,
+      "actual": 4650,
+      "expected": 4650
+    },
+    {
+      "name": "generator start edited Costs = P&L current",
+      "pass": true,
+      "actual": 788557.35,
+      "expected": 788557.35
+    },
+    {
+      "name": "generator start edited Finance = P&L job",
+      "pass": true,
+      "actual": 1065508.6,
+      "expected": 1065508.6
+    },
+    {
+      "name": "generator start edited P&L controls",
+      "pass": true,
+      "actual": true,
+      "expected": true
+    },
+    {
+      "name": "generator start edited Branch controls",
+      "pass": true,
+      "actual": true,
+      "expected": true
+    },
+    {
+      "name": "generator start edited automatic work totals agree",
+      "pass": true,
+      "actual": 64323.58,
+      "expected": 64323.58
+    },
+    {
+      "name": "generator start edited received subtotal ties branch totals",
+      "pass": true,
+      "actual": 382750.57,
+      "expected": 382750.57
+    },
+    {
+      "name": "generator start edited generator actual + remaining = forecast",
+      "pass": true,
+      "actual": 36179.12,
+      "expected": 36179.12
+    },
+    {
+      "name": "generator start edited Rehire branches tie customer revenue",
+      "pass": true,
+      "actual": 571910.33,
+      "expected": 571910.33
+    },
+    {
+      "name": "generator start edited Rehire branches retain supplier cost total",
+      "pass": true,
+      "actual": 416257.51,
+      "expected": 416257.51
+    },
+    {
+      "name": "Generator start updates current",
+      "pass": true,
+      "actual": -1351.01,
+      "expected": -1351.01
+    },
+    {
+      "name": "Generator start updates job",
+      "pass": true,
+      "actual": -1351.01,
+      "expected": -1351.01
+    },
+    {
+      "name": "Generator start updates reference",
+      "pass": true,
+      "actual": 1640.51,
+      "expected": 1640.51
+    },
+    {
+      "name": "install source rate edited Costs = P&L current",
+      "pass": true,
+      "actual": 790233.92,
+      "expected": 790233.92
+    },
+    {
+      "name": "install source rate edited Finance = P&L job",
+      "pass": true,
+      "actual": 1067185.17,
+      "expected": 1067185.17
+    },
+    {
+      "name": "install source rate edited P&L controls",
+      "pass": true,
+      "actual": true,
+      "expected": true
+    },
+    {
+      "name": "install source rate edited Branch controls",
+      "pass": true,
+      "actual": true,
+      "expected": true
+    },
+    {
+      "name": "install source rate edited automatic work totals agree",
+      "pass": true,
+      "actual": 64649.14,
+      "expected": 64649.14
+    },
+    {
+      "name": "install source rate edited received subtotal ties branch totals",
+      "pass": true,
+      "actual": 384427.14,
+      "expected": 384427.14
+    },
+    {
+      "name": "install source rate edited generator actual + remaining = forecast",
+      "pass": true,
+      "actual": 37530.13,
+      "expected": 37530.13
+    },
+    {
+      "name": "install source rate edited Rehire branches tie customer revenue",
+      "pass": true,
+      "actual": 571910.33,
+      "expected": 571910.33
+    },
+    {
+      "name": "install source rate edited Rehire branches retain supplier cost total",
+      "pass": true,
+      "actual": 416257.51,
+      "expected": 416257.51
+    },
+    {
+      "name": "Install source rate updates current",
+      "pass": true,
+      "actual": 325.56,
+      "expected": 325.56
+    },
+    {
+      "name": "Install source rate updates job",
+      "pass": true,
+      "actual": 325.56,
+      "expected": 325.56
+    },
+    {
+      "name": "Install source rate updates item charges",
+      "pass": true,
+      "actual": 1200,
+      "expected": 1200
+    },
+    {
+      "name": "transport POA priced Costs = P&L current",
+      "pass": true,
+      "actual": 792130.57,
+      "expected": 792130.57
+    },
+    {
+      "name": "transport POA priced Finance = P&L job",
+      "pass": true,
+      "actual": 1069081.82,
+      "expected": 1069081.82
+    },
+    {
+      "name": "transport POA priced P&L controls",
+      "pass": true,
+      "actual": true,
+      "expected": true
+    },
+    {
+      "name": "transport POA priced Branch controls",
+      "pass": true,
+      "actual": true,
+      "expected": true
+    },
+    {
+      "name": "transport POA priced automatic work totals agree",
+      "pass": true,
+      "actual": 64323.58,
+      "expected": 64323.58
+    },
+    {
+      "name": "transport POA priced received subtotal ties branch totals",
+      "pass": true,
+      "actual": 386323.79,
+      "expected": 386323.79
+    },
+    {
+      "name": "transport POA priced generator actual + remaining = forecast",
+      "pass": true,
+      "actual": 37530.13,
+      "expected": 37530.13
+    },
+    {
+      "name": "transport POA priced Rehire branches tie customer revenue",
+      "pass": true,
+      "actual": 571910.33,
+      "expected": 571910.33
+    },
+    {
+      "name": "transport POA priced Rehire branches retain supplier cost total",
+      "pass": true,
+      "actual": 416257.51,
+      "expected": 416257.51
+    },
+    {
+      "name": "Transport current adds two trips once",
+      "pass": true,
+      "actual": 2222.21,
+      "expected": 2222.21
+    },
+    {
+      "name": "Transport job adds two trips once",
+      "pass": true,
+      "actual": 2222.21,
+      "expected": 2222.21
+    },
+    {
+      "name": "Transport reference uses same total",
+      "pass": true,
+      "actual": 2222.21,
+      "expected": 2222.21
+    },
+    {
+      "name": "Customer transport leaves supplier direct costs unchanged",
+      "pass": true,
+      "actual": 317708.4,
+      "expected": 317708.4
+    },
+    {
+      "name": "pee received quantity edited Costs = P&L current",
+      "pass": true,
+      "actual": 787752.04,
+      "expected": 787752.04
+    },
+    {
+      "name": "pee received quantity edited Finance = P&L job",
+      "pass": true,
+      "actual": 1066859.61,
+      "expected": 1066859.61
+    },
+    {
+      "name": "pee received quantity edited P&L controls",
+      "pass": true,
+      "actual": true,
+      "expected": true
+    },
+    {
+      "name": "pee received quantity edited Branch controls",
+      "pass": true,
+      "actual": true,
+      "expected": true
+    },
+    {
+      "name": "pee received quantity edited automatic work totals agree",
+      "pass": true,
+      "actual": 63511.6,
+      "expected": 63511.6
+    },
+    {
+      "name": "pee received quantity edited received subtotal ties branch totals",
+      "pass": true,
+      "actual": 381653.78,
+      "expected": 381653.78
+    },
+    {
+      "name": "pee received quantity edited generator actual + remaining = forecast",
+      "pass": true,
+      "actual": 37530.13,
+      "expected": 37530.13
+    },
+    {
+      "name": "pee received quantity edited Rehire branches tie customer revenue",
+      "pass": true,
+      "actual": 571910.33,
+      "expected": 571910.33
+    },
+    {
+      "name": "pee received quantity edited Rehire branches retain supplier cost total",
+      "pass": true,
+      "actual": 416257.51,
+      "expected": 416257.51
+    },
+    {
+      "name": "Received panels = four",
+      "pass": true,
+      "actual": 4,
+      "expected": 4
+    },
+    {
+      "name": "Received hire partitions without duplication",
+      "pass": true,
+      "actual": [
+        2688.67,
+        1344.34,
+        4033.01
+      ],
+      "expected": [
+        2688.67,
+        1344.34,
+        4033.01
+      ]
+    },
+    {
+      "name": "Received hire reference matches",
+      "pass": true,
+      "actual": 2688.67,
+      "expected": 2688.67
+    },
+    {
+      "name": "reset restores all source totals Costs = P&L current",
+      "pass": true,
+      "actual": 789908.36,
+      "expected": 789908.36
+    },
+    {
+      "name": "reset restores all source totals Finance = P&L job",
+      "pass": true,
+      "actual": 1066859.61,
+      "expected": 1066859.61
+    },
+    {
+      "name": "reset restores all source totals P&L controls",
+      "pass": true,
+      "actual": true,
+      "expected": true
+    },
+    {
+      "name": "reset restores all source totals Branch controls",
+      "pass": true,
+      "actual": true,
+      "expected": true
+    },
+    {
+      "name": "reset restores all source totals automatic work totals agree",
+      "pass": true,
+      "actual": 64323.58,
+      "expected": 64323.58
+    },
+    {
+      "name": "reset restores all source totals received subtotal ties branch totals",
+      "pass": true,
+      "actual": 384101.58,
+      "expected": 384101.58
+    },
+    {
+      "name": "reset restores all source totals generator actual + remaining = forecast",
+      "pass": true,
+      "actual": 37530.13,
+      "expected": 37530.13
+    },
+    {
+      "name": "reset restores all source totals Rehire branches tie customer revenue",
+      "pass": true,
+      "actual": 571910.33,
+      "expected": 571910.33
+    },
+    {
+      "name": "reset restores all source totals Rehire branches retain supplier cost total",
+      "pass": true,
+      "actual": 416257.51,
+      "expected": 416257.51
+    },
+    {
+      "name": "Reset restores current",
+      "pass": true,
+      "actual": 789908.36,
+      "expected": 789908.36
+    },
+    {
+      "name": "Reset restores forecast",
+      "pass": true,
+      "actual": 1066859.61,
+      "expected": 1066859.61
+    },
+    {
+      "name": "Reset restores published full hire",
+      "pass": true,
+      "actual": 672.1677000000001,
+      "expected": 672.1677000000001
+    },
+    {
+      "name": "All native state restored exactly",
+      "pass": true
+    },
+    {
+      "name": "Original contract source unchanged",
+      "pass": true,
+      "actual": true,
+      "expected": true
+    },
+    {
+      "name": "No native record version changed",
+      "pass": true,
+      "actual": 5806,
+      "expected": 5806
+    },
+    {
+      "name": "Original source card restored",
+      "pass": true,
+      "actual": true,
+      "expected": true
+    },
+    {
+      "name": "No browser errors or operational write attempts",
+      "pass": true
+    }
+  ],
+  "modelErrors": [],
+  "pass": true,
+  "scope": "Isolated in-memory mutations of native input-shaped values and one source work-rate fixture; no save functions or operational writes. Native state and source rows restored and checked exactly."
+}

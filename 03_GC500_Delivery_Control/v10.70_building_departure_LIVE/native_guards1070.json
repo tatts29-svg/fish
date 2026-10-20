@@ -1,0 +1,7 @@
+[
+  "const LOAD782 = 'LOAD: for a morning delivery (on site before 07:00), loaded and away from Kingston by 05:00. Load in the delivery order - about 70 min to site. NO travel to the Gold Coast 07:00-09:00 or 16:00-18:00. A delivery with a time asked for gets one leave-by time that meets all of these.';",
+  "const LOAD_SMS782 = 'LOAD: Kingston by 05:00, in order.';",
+  "const TIME782 = 'TIME: the time given is when you must be UNLOADED by - not when you arrive. Unloading takes at least 30 min, so be on site 30 min before it - and no travel to the Gold Coast 07:00-09:00 or 16:00-18:00, so a run that would hit those hours comes in before them. Miss it and the other crews wait, or the area is closed (barriers in, no traffic control). Time frames must be kept.';",
+  "function rules782Optional(a){ const o = order782(a); return [o && o.seq ? LOAD_SMS782 : '', park782(a) ? PARK782 : '', STAGGER782].filter(Boolean); }",
+  "const LOAD_BY782 = 5 * 60;"
+]

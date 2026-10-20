@@ -1,0 +1,57 @@
+/* Author: Andrew Fisher. Read-only interaction, density, bounded work and refresh checks. */
+'use strict';
+const fs=require('fs'),path=require('path'),{open}=require('./readonly1018.cjs');
+const mobile=process.env.MOB==='1',out=process.env.OUT||'/tmp/private-gc500-visual1018/map/runtime';fs.mkdirSync(out,{recursive:true});
+let h;const report={author:'Andrew Fisher',mobile,checks:[],measurements:{}};
+const check=(name,pass,detail)=>report.checks.push({name,pass:!!pass,detail});
+(async()=>{try{
+ h=await open({pageFile:process.env.PAGE,hash:'#sheet/__explorer',mobile,W:+process.env.W||(mobile?390:3840),H:+process.env.H||(mobile?844:2160),dpr:+process.env.DPR||(mobile?3:1)});const p=h.page;
+ await p.waitForFunction(()=>SYNC.status==='live'&&SYNC.first.size===Object.keys(SYNC_COLLS).length,null,{timeout:120000});
+ await p.waitForFunction(()=>EXP.frame&&EXP.frame.contentWindow.__ready,null,{timeout:120000});
+ const f=p.frames().find(f=>/\/explorer\/index\.html(?:\?|$)/.test(f.url()));await f.evaluate(()=>GC500Explorer.ready);await f.evaluate(()=>GC500Explorer.refresh());
+ const before=await p.evaluate(()=>({native:JSON.stringify(S),version:SYNC.backend.readVersion821()}));report.version=before.version;
+ check('View event capability exported',await f.evaluate(()=>GC500Explorer.viewEvents1018===true));
+ await f.evaluate(()=>{window.events1018=0;window.addEventListener('gc500viewchange1018',()=>window.events1018++);setMode('original');camera.z=Math.pow(2,.035)/(fitScale*dpr);changeView(false)});
+ await p.waitForTimeout(350);
+ const density=await f.evaluate(()=>({dpr,dprFull,raw:devicePixelRatio,w:canvas.width,h:canvas.height,sw,sh,level:levelFor(currentView()),need:Math.log2(currentView().scale*dpr)}));report.measurements.density=density;
+ check('Rest drawing level meets device pixel density',density.level+1e-9>=density.need,density);
+ check('Backing store matches permitted physical density',Math.abs(density.w-density.sw*density.dpr)<1&&density.dpr===density.dprFull&&density.dpr<=density.raw+.01,density);
+ await f.evaluate(()=>rotateTo(35));await f.waitForFunction(()=>!rotAnim&&!interacting,null,{timeout:7000});
+ check('Rotation releases motion and restores full DPR',await f.evaluate(()=>rotAnim===0&&!interacting&&dpr===dprFull));
+ const events=await f.evaluate(()=>window.events1018);await p.waitForTimeout(300);
+ check('No idle camera event polling',await f.evaluate(n=>window.events1018===n,events),events);
+ const modeEvent=await f.evaluate(()=>{const n=window.events1018;setMode('hybrid');return window.events1018>n});check('Mode transition emits a current view event',modeEvent);
+ const resizeEvent=await f.evaluate(()=>{const n=window.events1018;resize();return window.events1018>n});check('Resize emits a current view event',resizeEvent);
+ await f.evaluate(()=>{stopCameraMotion813();camera={cx:1192,cy:842,z:2.6103617316844017,rot:45};changeView(false)});
+ const coverage=await f.evaluate(()=>{const v=currentView();return regionsForTiles(v).map(R=>{const q=satelliteView1018(v,R),r=satRange(R,q.requestedZ,v.x,v.y,v.x+v.w,v.y+v.h);return {z:q.z,requested:q.requestedZ,visible:q.cells.length,box:(r.tx1-r.tx0+1)*(r.ty1-r.ty0+1),limited:q.limited,mosaic:(q.range.tx1-q.range.tx0+1)*(q.range.ty1-q.range.ty0+1)}})});report.measurements.coverage=coverage;
+ check('Rotated viewport retains visible imagery within memory bounds',coverage.length>0&&coverage.every(q=>q.visible>0&&q.visible<=(mobile?74:164)&&q.mosaic<=(mobile?96:256)),coverage);
+ check('Supported screen preserves source-selected satellite level',coverage.every(q=>q.z===q.requested),coverage);
+ await f.waitForFunction(()=>running===0&&queue.size===0&&vtBusy===0&&vtQueue.size===0,null,{timeout:45000}).catch(()=>{});
+ await p.screenshot({path:path.join(out,'rotated-map.png')});
+ const memory=await f.evaluate(()=>({satellite:tiles.size,satelliteCap:TILE_CAP,vector:vtiles.size,vectorCap:VT_CAP,mosaics:[...mosaics].map(([key,m])=>({key,width:m.canvas.width,height:m.canvas.height})),frames:window.__frames.slice(-40)}));report.measurements.memory=memory;
+ check('Satellite cache remains bounded',memory.satellite<=memory.satelliteCap,memory.satellite);
+ await f.evaluate(()=>{stopCameraMotion813();setMode('original')});await f.evaluate(()=>GC500Explorer.find('WC09'));await f.waitForFunction(()=>!gotoAnim887&&!interacting,null,{timeout:7000});
+ const refresh=await f.evaluate(()=>{
+  const prior=hostPlan,priorBuild=buildItems,priorSearch=search,cameraBefore=JSON.stringify(camera),selectedBefore=selected.code;let calls=0,builds=0,searches=0;
+  hostPlan=()=>{calls++;const m=prior();return {...m,unplaced:m.unplaced.map((r,i)=>i? r:{...r,visualFixture1018:true})}};
+  buildItems=function(){builds++;return priorBuild.apply(this,arguments)};search=function(){searches++;return priorSearch.apply(this,arguments)};
+  const t=performance.now();try{GC500Explorer.refresh(true);return {calls,builds,searches,ms:performance.now()-t,cameraPreserved:cameraBefore===JSON.stringify(camera),selectedPreserved:selected.code===selectedBefore}}finally{hostPlan=prior;buildItems=priorBuild;search=priorSearch;GC500Explorer.refresh(true)}
+ });report.measurements.refresh=refresh;
+ check('Changed refresh builds one shared plan without moving selection',refresh.calls===1&&refresh.builds===1&&refresh.cameraPreserved&&refresh.selectedPreserved,refresh);
+ await f.evaluate(()=>startPulse());await p.waitForTimeout(80);
+ check('Selected feedback has finite opacity-only animation',await f.evaluate(()=>{const el=$('pulse').querySelector('b'),s=getComputedStyle(el);return s.animationIterationCount==='1'&&s.animationName==='mapSelected1018'}));
+ await p.screenshot({path:path.join(out,'selected-map.png')});await p.waitForTimeout(1000);
+ check('Selection remains after pulse expires',await f.evaluate(()=>pulseRAF===0&&$('pulse').hidden&&selected.code==='WC09'));
+ const originalMotion=await p.evaluate(()=>document.documentElement.getAttribute('data-motion'));
+ await p.evaluate(()=>document.documentElement.setAttribute('data-motion','off'));
+ check('App motion off controls map camera and feedback',await f.evaluate(()=>{rotateTo(75);startPulse();return calm()&&rotAnim===0&&$('pulse').classList.contains('motion1018-off')}));
+ await p.evaluate(v=>v===null?document.documentElement.removeAttribute('data-motion'):document.documentElement.setAttribute('data-motion',v),originalMotion);
+ await p.emulateMedia({reducedMotion:'reduce'});
+ check('OS reduced motion controls map camera',await f.evaluate(()=>{rotateTo(15);return calm()&&rotAnim===0}));await p.emulateMedia({reducedMotion:'no-preference'});
+ await f.evaluate(()=>startPulse());
+ const hidden=await f.evaluate(()=>{const before=perf.frames;firstSharp=true;GC500Explorer.setHostShown(false);requestPaint();return {before,hidden:$('pulse').hidden}});await p.waitForTimeout(250);
+ check('Hidden map clears feedback and stops canvas redraw',hidden.hidden&&await f.evaluate(n=>perf.frames<=n+1,hidden.before));
+ await f.evaluate(()=>GC500Explorer.setHostShown(true));
+ check('No native records changed',await p.evaluate(s=>JSON.stringify(S)===s,before.native));
+ check('No operational write attempts',h.counts.blocked===0,h.counts);check('No browser errors',h.errors.length===0,h.errors);
+}catch(e){report.failure=String(e.stack||e);process.exitCode=1}finally{if(report.checks.some(c=>!c.pass))process.exitCode=1;if(h){report.counts=h.counts;report.errors=h.errors;await h.browser.close()}fs.writeFileSync(path.join(out,'runtime.json'),JSON.stringify(report,null,2));console.log(JSON.stringify({version:report.version,checks:report.checks.length,failed:report.checks.filter(c=>!c.pass),measurements:report.measurements.coverage,refresh:report.measurements.refresh,errors:report.errors,failure:report.failure}));}})();

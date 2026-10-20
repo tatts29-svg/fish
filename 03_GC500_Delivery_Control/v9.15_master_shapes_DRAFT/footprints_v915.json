@@ -1,0 +1,1867 @@
+{
+ "meta": {
+  "author": "Andrew Fisher",
+  "built": "9 Oct 2026",
+  "what": "footprint by item type: the size used for a unit the master does not draw, reconciled from the drawings catalogue and the documents catalogue",
+  "rule": "agree within 10%: the size measured on the master where the drawing evidence is direct, else the written size. Disagree by more than 10%, or one says \"size to confirm\": both recorded; the drawn size is used only where the drawing evidence is direct; otherwise \"size to confirm\", with the best sourced size still drawn and flagged. A traced unit always uses its own traced outline.",
+  "direct": "the drawings catalogue size was measured on the master from instances of that type (not from an item name, not a symbol)",
+  "inputs": {
+   "inputs/catalogue_drawings.json": "ebb65594614903d6376baf43bf2c858c1afa180ebea9abf9093f1e8e4667e055",
+   "inputs/catalogue_documents.json": "e56977e8426f15db3d38a2d47cf38dac65a0dd56616d23db6b73ec2fb088658a"
+  }
+ },
+ "types": {
+  "100KVA TRAILER": {
+   "key": "100KVA TRAILER",
+   "footprint": true,
+   "size_m": [
+    3.42,
+    1.45
+   ],
+   "size_state": "size to confirm",
+   "confirm": true,
+   "why": "size to confirm: closest sourced evidence coates_lrg_2023.pdf page 45, text lines 438-445: CUMMINS Generator - 100kVA 3420 x 1450 mm (a skid unit, the largest Coates 100 kVA footprint; no trailer-mounted 100 kVA row)",
+   "drawn": {
+    "size_m": null,
+    "drawn_as_m": null,
+    "n_instances": 0,
+    "direct": false,
+    "status": "size to confirm",
+    "closest_evidence": "80 kVA (GN24) drawn 3.19 x 1.20 m; 150 kVA (GN23) 3.51 x 1.33 m",
+    "note": null,
+    "sources": [
+     "schedule unreferenced row (DATA): no reference, not on any drawing"
+    ]
+   },
+   "written": {
+    "size_m": null,
+    "size_state": "size to confirm",
+    "size_basis": "Trailer mounted; the fleet guide's 100 kVA rows are skid units (Atlas Copco 2940 x 1100 and 3380 x 1180, Cummins 3420 x 1450 and 3600 x 1140 mm). No trailer-mounted 100 kVA row.",
+    "conflicts": null,
+    "variants": null,
+    "sources": [
+     "coates_lrg_2023.pdf page 45, text lines 396-403: ATLAS COPCO Generator - 100kVA (Diesel): length 2940 mm, width 1100 mm, height 1780 mm",
+     "coates_lrg_2023.pdf page 45, text lines 438-445: CUMMINS Generator - 100kVA (Diesel): length 3420 mm, width 1450 mm, height 1750 mm",
+     "coates_lrg_2023.pdf page 48, text lines 26-33: ATLAS COPCO Generator - 100kVA (Diesel): length 3380 mm, width 1180 mm, height 1930 mm",
+     "coates_lrg_2023.pdf page 48, text lines 40-47: CUMMINS Generator - 100kVA (Diesel): length 3600 mm, width 1140 mm, height 1900 mm"
+    ]
+   },
+   "disagree_pct": null,
+   "door_rule": {
+    "drawings": "No door. Legend GENERATORS: orange box with a diagonal and a dark triangle in one half (the triangle sits 0.2-0.35 of the half-length off centre, in no fixed relation to roads); the drawing gives no access side.",
+    "documents": "No door. The fleet guide says skid-based equipment is placed with its length along the deck (page 43 line 12). Loading door side (which way the door faces on the truck) is the project manager's choice per unit on the record (loading872: door to driver side / door to passenger side / not applicable; v8.72-v8.73 READMEs). It is never set automatically, and the same choice is what Arrange loads should offer (STATUS.md, 9 Oct ~00:30: \"Remember when we pick the loads we can select the driver to door selection here too. As we can see the door side on the pics.\")."
+   },
+   "closest_evidence": "coates_lrg_2023.pdf page 45, text lines 438-445: CUMMINS Generator - 100kVA 3420 x 1450 mm (a skid unit, the largest Coates 100 kVA footprint; no trailer-mounted 100 kVA row)"
+  },
+  "150kva": {
+   "key": "150kva",
+   "footprint": true,
+   "size_m": [
+    3.51,
+    1.33
+   ],
+   "size_state": "drawn on the master",
+   "confirm": false,
+   "why": "no written size; the drawing evidence is direct (measured on the master), so the drawn size is used",
+   "drawn": {
+    "size_m": [
+     3.51,
+     1.33
+    ],
+    "drawn_as_m": null,
+    "n_instances": 1,
+    "direct": true,
+    "status": null,
+    "closest_evidence": null,
+    "note": null,
+    "sources": [
+     "D001-26003-03-MASTER.pdf (2 Oct 2026 master, sha256 8753d875cf90...) 1: v9.15 tracing (shapes_v915.json): outline = the PDF vector path itself at the tagged reference; length/width = mean of opposite edges of the 4-vertex path x 0.705556 m/pt (title block 1:2000); recomputed here from poly_pt, not the rounded size_m; refs GN23",
+     "D001-26003-03-MASTER.pdf 1: census.py over every orange generator box on the sheet (tagged or not): 2.5 x 1.0 m class n=14; 2.9 x 1.2 m class n=5"
+    ]
+   },
+   "written": {
+    "size_m": null,
+    "size_state": "size to confirm",
+    "size_basis": "Three Coates 150 kVA models in the fleet guide: Allight 3558 x 1130, Atlas Copco 3470 x 1440, Cummins 4040 x 1660 mm. The contract does not say which.",
+    "conflicts": null,
+    "variants": null,
+    "sources": [
+     "coates_lrg_2023.pdf page 45, text lines 354-361: ALLIGHT Generator - 150kVA (Diesel): length 3558 mm, width 1130 mm, height 1943 mm",
+     "coates_lrg_2023.pdf page 48, text lines 54-61: ATLAS COPCO Generator - 150kVA (Diesel): length 3470 mm, width 1440 mm, height 2330 mm",
+     "coates_lrg_2023.pdf page 48, text lines 96-103: CUMMINS Generator - 150kVA (Diesel): length 4040 mm, width 1660 mm, height 2025 mm",
+     "Street_Rate_Card_2026.pdf text lines 269-371: Generator 12 to 650 KVA lines (no sizes)"
+    ]
+   },
+   "disagree_pct": null,
+   "door_rule": {
+    "drawings": "No door. Legend GENERATORS: orange box with a diagonal and a dark triangle in one half (the triangle sits 0.2-0.35 of the half-length off centre, in no fixed relation to roads); the drawing gives no access side.",
+    "documents": "No door. The fleet guide says skid-based equipment is placed with its length along the deck (page 43 line 12). Loading door side (which way the door faces on the truck) is the project manager's choice per unit on the record (loading872: door to driver side / door to passenger side / not applicable; v8.72-v8.73 READMEs). It is never set automatically, and the same choice is what Arrange loads should offer (STATUS.md, 9 Oct ~00:30: \"Remember when we pick the loads we can select the driver to door selection here too. As we can see the door side on the pics.\")."
+   },
+   "closest_evidence": null
+  },
+  "16Pan Block": {
+   "key": "16Pan Block",
+   "footprint": true,
+   "size_m": [
+    6.0,
+    2.39
+   ],
+   "size_state": "drawn on the master",
+   "confirm": false,
+   "why": "the written size differs by 14.3%; the drawing evidence is direct (measured on the master), so the drawn size is used",
+   "drawn": {
+    "size_m": [
+     6.0,
+     2.39
+    ],
+    "drawn_as_m": null,
+    "n_instances": 2,
+    "direct": true,
+    "status": null,
+    "closest_evidence": null,
+    "note": null,
+    "sources": [
+     "D001-26003-03-MASTER.pdf (2 Oct 2026 master, sha256 8753d875cf90...) 1: v9.15 tracing (shapes_v915.json): outline = the PDF vector path itself at the tagged reference; length/width = mean of opposite edges of the 4-vertex path x 0.705556 m/pt (title block 1:2000); recomputed here from poly_pt, not the rounded size_m; WC31 (2 blo",
+     "D023-26003-02-TOILETS.pdf 1: census.py: 6.0 x 2.39 at WC31"
+    ]
+   },
+   "written": {
+    "size_m": [
+     7.0,
+     2.5
+    ],
+    "size_state": "written (2025 line for the supplier's 16-pan block; the 2026 line has no size)",
+    "size_basis": "The 2025 contract line for the Event Portables 16-pan block reads \"Toilet Block 16 Pan 7.0M X 2.5M\". The 2026 line (WC31, qty 2, MISCITEM) is \"16 Pan Block\" with no size, and the card line is \"16 Pan Unit\" with no size. Same supplier both years; whether the 2026 units are the same model is not written.",
+    "conflicts": null,
+    "variants": null,
+    "sources": [
+     "Baseplan_2025_Contracts.xlsx Sheet11!F53: Toilet Block 16 Pan 7.0M X 2.5M",
+     "reference_2025_contracts_and_invoices/contracts_2025_as_read.md lines 87, 107: Toilet Block 16 Pan 7.0M x 2.5M (SUB-14032, Event Portables)",
+     "Baseplan_SuperCars_07Oct.xlsx 9968955-KINP!F96: WC31 16 Pan Block, qty 2",
+     "Street_Rate_Card_2026.pdf text line 147: 16 Pan Unit"
+    ]
+   },
+   "disagree_pct": 14.3,
+   "door_rule": {
+    "drawings": "Cubicle doors on BOTH long sides: 8 per side, 16 per block, 0.66 m swings, opening outward. No single door side.",
+    "documents": "No written door rule (cubicle count only: 16 pans; LRG Appendix 1 calls them \"16 User ... Event Blocks\"). No written document says which wall the door is on; that comes only from the drawing (see the drawings catalogue / v9.15 door.faces). Loading door side (which way the door faces on the truck) is the project manager's choice per unit on the record (loading872: door to driver side / door to passenger side / not applicable; v8.72-v8.73 READMEs). It is never set automatically, and the same choice is what Arrange loads should offer (STATUS.md, 9 Oct ~00:30: \"Remember when we pick the loads we can select the driver to door selection here too. As we can see the door side on the pics.\")."
+   },
+   "closest_evidence": null
+  },
+  "2.5T Forklift STD": {
+   "key": "2.5T Forklift STD",
+   "footprint": true,
+   "size_m": [
+    3.63,
+    1.21
+   ],
+   "size_state": "size to confirm",
+   "confirm": true,
+   "why": "size to confirm: the written size is used as the best sourced size",
+   "drawn": {
+    "size_m": null,
+    "drawn_as_m": null,
+    "n_instances": 0,
+    "direct": false,
+    "status": "size to confirm",
+    "closest_evidence": "none in any drawing; page product photo only",
+    "note": null,
+    "sources": [
+     "all drawings searched: plant line with no reference; not drawn on any sheet"
+    ]
+   },
+   "written": {
+    "size_m": [
+     3.63,
+     1.21
+    ],
+    "size_state": "written (contract model matches a fleet guide row)",
+    "size_basis": "T0109 asset 1214298, contract \"EVENTS-Forklift 2.5t Container Diesel\"; the fleet guide lists \"CLARK Forklift 2.5t Container Diesel\" at 3630 x 1210 mm.",
+    "conflicts": null,
+    "variants": null,
+    "sources": [
+     "coates_lrg_2023.pdf page 12, text lines 106-113: CLARK Forklift 2.5t Container Diesel: length 3630 mm, width 1210 mm, height 2135 mm",
+     "Baseplan_SuperCars_07Oct.xlsx 9961976-NVAC!F26; 9987005-MEAD!F5: EVENTS-/Event Forklift 2.5t Container Diesel (1214298)"
+    ]
+   },
+   "disagree_pct": null,
+   "door_rule": {
+    "drawings": "size to confirm",
+    "documents": "No door. Loading door side (which way the door faces on the truck) is the project manager's choice per unit on the record (loading872: door to driver side / door to passenger side / not applicable; v8.72-v8.73 READMEs). It is never set automatically, and the same choice is what Arrange loads should offer (STATUS.md, 9 Oct ~00:30: \"Remember when we pick the loads we can select the driver to door selection here too. As we can see the door side on the pics.\")."
+   },
+   "closest_evidence": null
+  },
+  "200kva & cables": {
+   "key": "200kva & cables",
+   "footprint": true,
+   "size_m": [
+    4.2,
+    1.6
+   ],
+   "size_state": "size to confirm",
+   "confirm": true,
+   "why": "size to confirm: closest sourced evidence coates_lrg_2023.pdf page 50, text lines 38-45: CUMMINS Generator - 200kVA 4200 x 1600 mm (the larger of the two Coates 200 kVA models; ATLAS COPCO 3470 x 1440 mm is the other; the contract does not say which)",
+   "drawn": {
+    "size_m": null,
+    "drawn_as_m": null,
+    "n_instances": 0,
+    "direct": false,
+    "status": "size to confirm",
+    "closest_evidence": "master symbols: 150 kVA (GN23) 3.51 x 1.33 m, 350 kVA (GN20) 4.58 x 1.98 m; an untagged 3.49 x 1.37 m box sits at sheet pt 1890,266. The page product photo says QAS 200 for 200 kVA and above (no dimensions).",
+    "note": null,
+    "sources": [
+     "D001-26003-03-MASTER.pdf / D024-26003-02 1: \"GN?\" (Concert, 2 units 1316182/1316183) is not drawn; D024 draws numbered callouts only (\"REFER BOQ FOR SIZING\")"
+    ]
+   },
+   "written": {
+    "size_m": null,
+    "size_state": "size to confirm",
+    "size_basis": "Two Coates 200 kVA models: Atlas Copco 3470 x 1440 mm, Cummins 4200 x 1600 mm. Contract does not say which; schedule note \"Synced BRAND NEW UNITS\".",
+    "conflicts": null,
+    "variants": null,
+    "sources": [
+     "coates_lrg_2023.pdf page 48, text lines 68-75: ATLAS COPCO Generator - 200kVA (Diesel): length 3470 mm, width 1440 mm, height 2330 mm",
+     "coates_lrg_2023.pdf page 50, text lines 38-45: CUMMINS Generator - 200kVA (Diesel): length 4200 mm, width 1600 mm, height 2080 mm",
+     "Street_Rate_Card_2026.pdf text lines 269-371: Generator 12 to 650 KVA lines (no sizes)",
+     "Baseplan_SuperCars_07Oct.xlsx 9961976-NVAC!F36,F37: GN CONCERT Generator - 200kVA (Diesel) (1316182, 1316183)"
+    ]
+   },
+   "disagree_pct": null,
+   "door_rule": {
+    "drawings": "No door. Legend GENERATORS: orange box with a diagonal and a dark triangle in one half (the triangle sits 0.2-0.35 of the half-length off centre, in no fixed relation to roads); the drawing gives no access side.",
+    "documents": "No door. The fleet guide says skid-based equipment is placed with its length along the deck (page 43 line 12). Loading door side (which way the door faces on the truck) is the project manager's choice per unit on the record (loading872: door to driver side / door to passenger side / not applicable; v8.72-v8.73 READMEs). It is never set automatically, and the same choice is what Arrange loads should offer (STATUS.md, 9 Oct ~00:30: \"Remember when we pick the loads we can select the driver to door selection here too. As we can see the door side on the pics.\")."
+   },
+   "closest_evidence": "coates_lrg_2023.pdf page 50, text lines 38-45: CUMMINS Generator - 200kVA 4200 x 1600 mm (the larger of the two Coates 200 kVA models; ATLAS COPCO 3470 x 1440 mm is the other; the contract does not say which)"
+  },
+  "20kva": {
+   "key": "20kva",
+   "footprint": true,
+   "size_m": [
+    2.54,
+    0.99
+   ],
+   "size_state": "drawn on the master",
+   "confirm": false,
+   "why": "the written size differs by 26.8%; the drawing evidence is direct (measured on the master), so the drawn size is used",
+   "drawn": {
+    "size_m": [
+     2.54,
+     0.99
+    ],
+    "drawn_as_m": null,
+    "n_instances": 1,
+    "direct": true,
+    "status": null,
+    "closest_evidence": null,
+    "note": "GN25 (20 kVA) is not drawn; use this size. GN10 is the only tagged 20 kVA symbol.",
+    "sources": [
+     "D001-26003-03-MASTER.pdf (2 Oct 2026 master, sha256 8753d875cf90...) 1: v9.15 tracing (shapes_v915.json): outline = the PDF vector path itself at the tagged reference; length/width = mean of opposite edges of the 4-vertex path x 0.705556 m/pt (title block 1:2000); recomputed here from poly_pt, not the rounded size_m; refs GN10",
+     "D001-26003-03-MASTER.pdf 1: census.py over every orange generator box on the sheet (tagged or not): 2.5 x 1.0 m class n=14; 2.9 x 1.2 m class n=5"
+    ]
+   },
+   "written": {
+    "size_m": [
+     1.86,
+     0.811
+    ],
+    "size_state": "written (fleet guide, one Coates 20 kVA model; the asset make is not on the contract)",
+    "size_basis": "Coates fleet guide: Atlas Copco Generator - 20kVA (Diesel) 1860 x 811 mm, the only 20 kVA row.",
+    "conflicts": [
+     "GN03: schedule and contract say 30kVA (9961976-NVAC!F10); the iEDM programme says 20KVA (Sheet1!F69)."
+    ],
+    "variants": null,
+    "sources": [
+     "coates_lrg_2023.pdf page 45, text lines 60-67: ATLAS COPCO Generator - 20kVA (Diesel): length 1860 mm, width 811 mm, height 957 mm",
+     "Street_Rate_Card_2026.pdf text lines 269-371: Generator 12 to 650 KVA lines (no sizes)",
+     "Baseplan_SuperCars_07Oct.xlsx 9961976-NVAC!F15,F18: GN10, GN25 Generator - 20kVA (Diesel)"
+    ]
+   },
+   "disagree_pct": 26.8,
+   "door_rule": {
+    "drawings": "No door. Legend GENERATORS: orange box with a diagonal and a dark triangle in one half (the triangle sits 0.2-0.35 of the half-length off centre, in no fixed relation to roads); the drawing gives no access side.",
+    "documents": "No door. The fleet guide says skid-based equipment is placed with its length along the deck (page 43 line 12). Loading door side (which way the door faces on the truck) is the project manager's choice per unit on the record (loading872: door to driver side / door to passenger side / not applicable; v8.72-v8.73 READMEs). It is never set automatically, and the same choice is what Arrange loads should offer (STATUS.md, 9 Oct ~00:30: \"Remember when we pick the loads we can select the driver to door selection here too. As we can see the door side on the pics.\")."
+   },
+   "closest_evidence": null
+  },
+  "3.0m Cont": {
+   "key": "3.0m Cont",
+   "footprint": true,
+   "size_m": [
+    3.0,
+    2.4
+   ],
+   "size_state": "size to confirm",
+   "confirm": true,
+   "why": "size to confirm: the written size is used as the best sourced size",
+   "drawn": {
+    "size_m": null,
+    "drawn_as_m": null,
+    "n_instances": 0,
+    "direct": false,
+    "status": "size to confirm",
+    "closest_evidence": "untagged master outlines 3.1 x 2.4 m",
+    "note": null,
+    "sources": [
+     "D001-26003-03-MASTER.pdf 1: no Coates reference for this line; 28 untagged black outlines 3.1 x 2.4 m on the sheet (n=28) are the closest drawn container-sized boxes, not proven to be this unit"
+    ]
+   },
+   "written": {
+    "size_m": [
+     3.0,
+     2.4
+    ],
+    "size_state": "written",
+    "size_basis": "Contract \"Container 3.0M x 2.4M\" (9974042 line 1, Del Req). The record has the loading door side \"not applicable\" for T0258 unit 1134386.",
+    "conflicts": null,
+    "variants": null,
+    "sources": [
+     "Baseplan_SuperCars_07Oct.xlsx 9974042-KINP!F2: Container  3.0M x 2.4M"
+    ]
+   },
+   "disagree_pct": null,
+   "door_rule": {
+    "drawings": "size to confirm. Legend STORAGE CONTAINERS: a box with double doors on one SHORT end.",
+    "documents": "No written door rule. Loading door side (which way the door faces on the truck) is the project manager's choice per unit on the record (loading872: door to driver side / door to passenger side / not applicable; v8.72-v8.73 READMEs). It is never set automatically, and the same choice is what Arrange loads should offer (STATUS.md, 9 Oct ~00:30: \"Remember when we pick the loads we can select the driver to door selection here too. As we can see the door side on the pics.\")."
+   },
+   "closest_evidence": null
+  },
+  "3.5T Forklift Std": {
+   "key": "3.5T Forklift Std",
+   "footprint": true,
+   "size_m": [
+    4.24,
+    2.26
+   ],
+   "size_state": "size to confirm",
+   "confirm": true,
+   "why": "size to confirm: closest sourced evidence coates_lrg_2023.pdf page 15, text lines 173-180: CLARK Forklift 5t Diesel 4240 x 2260 mm (the contract calls asset 1272166 a 5.0t forklift)",
+   "drawn": {
+    "size_m": null,
+    "drawn_as_m": null,
+    "n_instances": 0,
+    "direct": false,
+    "status": "size to confirm",
+    "closest_evidence": "none in any drawing; page product photo only",
+    "note": null,
+    "sources": [
+     "all drawings searched: plant line with no reference; not drawn on any sheet"
+    ]
+   },
+   "written": {
+    "size_m": null,
+    "size_state": "size to confirm",
+    "size_basis": "T0085 asset 1272166 is on the contracts as \"Supply Forklift 5.0t Diesel\" / \"Forklift 5.0t Diesel\", not 3.5 t; a separate line \"SUPPLY-Forklift 3.5t Diesel\" (1210921) is pending. Fleet guide: CLARK Forklift 5t Diesel 4240 x 2260 mm; no 3.5 t forklift row.",
+    "conflicts": [
+     "schedule 3.5T vs contract 5.0t for asset 1272166"
+    ],
+    "variants": null,
+    "sources": [
+     "coates_lrg_2023.pdf page 15, text lines 173-180: CLARK Forklift 5t Diesel: length 4240 mm, width 2260 mm, height 2338 mm",
+     "Baseplan_SuperCars_07Oct.xlsx 9987005-MEAD!F2; 9968726-MEAD!F11: Supply Forklift 5.0t Diesel / Forklift 5.0t Diesel (1272166)",
+     "Baseplan_SuperCars_07Oct.xlsx 9961976-NVAC!F24: SUPPLY-Forklift 3.5t Diesel (1210921)"
+    ]
+   },
+   "disagree_pct": null,
+   "door_rule": {
+    "drawings": "size to confirm",
+    "documents": "No door. Loading door side (which way the door faces on the truck) is the project manager's choice per unit on the record (loading872: door to driver side / door to passenger side / not applicable; v8.72-v8.73 READMEs). It is never set automatically, and the same choice is what Arrange loads should offer (STATUS.md, 9 Oct ~00:30: \"Remember when we pick the loads we can select the driver to door selection here too. As we can see the door side on the pics.\")."
+   },
+   "closest_evidence": "coates_lrg_2023.pdf page 15, text lines 173-180: CLARK Forklift 5t Diesel 4240 x 2260 mm (the contract calls asset 1272166 a 5.0t forklift)"
+  },
+  "30kva": {
+   "key": "30kva",
+   "footprint": true,
+   "size_m": [
+    2.51,
+    1.02
+   ],
+   "size_state": "drawn on the master",
+   "confirm": false,
+   "why": "no written size; the drawing evidence is direct (measured on the master), so the drawn size is used",
+   "drawn": {
+    "size_m": [
+     2.51,
+     1.02
+    ],
+    "drawn_as_m": null,
+    "n_instances": 2,
+    "direct": true,
+    "status": null,
+    "closest_evidence": null,
+    "note": null,
+    "sources": [
+     "D001-26003-03-MASTER.pdf (2 Oct 2026 master, sha256 8753d875cf90...) 1: v9.15 tracing (shapes_v915.json): outline = the PDF vector path itself at the tagged reference; length/width = mean of opposite edges of the 4-vertex path x 0.705556 m/pt (title block 1:2000); recomputed here from poly_pt, not the rounded size_m; refs GN03, ",
+     "D001-26003-03-MASTER.pdf 1: census.py over every orange generator box on the sheet (tagged or not): 2.5 x 1.0 m class n=14; 2.9 x 1.2 m class n=5"
+    ]
+   },
+   "written": {
+    "size_m": null,
+    "size_state": "size to confirm",
+    "size_basis": "The fleet guide has no 30 kVA row. Closest written evidence: Atlas Copco 25 kVA and 35 kVA, both 2080 x 951 mm.",
+    "conflicts": null,
+    "variants": null,
+    "sources": [
+     "coates_lrg_2023.pdf page 45, text lines 139-145: ATLAS COPCO Generator - 25kVA (Diesel): length 2080 mm, width 951 mm, height 1157 mm",
+     "coates_lrg_2023.pdf page 45, text lines 154-161: ATLAS COPCO Generator - 35kVA (Diesel): length 2080 mm, width 951 mm, height 1157 mm",
+     "Street_Rate_Card_2026.pdf text lines 269-371: Generator 12 to 650 KVA lines (no sizes)",
+     "Baseplan_SuperCars_07Oct.xlsx 9961976-NVAC!F10,F14: GN03, GN04 Generator - 30kVA (Diesel)"
+    ]
+   },
+   "disagree_pct": null,
+   "door_rule": {
+    "drawings": "No door. Legend GENERATORS: orange box with a diagonal and a dark triangle in one half (the triangle sits 0.2-0.35 of the half-length off centre, in no fixed relation to roads); the drawing gives no access side.",
+    "documents": "No door. The fleet guide says skid-based equipment is placed with its length along the deck (page 43 line 12). Loading door side (which way the door faces on the truck) is the project manager's choice per unit on the record (loading872: door to driver side / door to passenger side / not applicable; v8.72-v8.73 READMEs). It is never set automatically, and the same choice is what Arrange loads should offer (STATUS.md, 9 Oct ~00:30: \"Remember when we pick the loads we can select the driver to door selection here too. As we can see the door side on the pics.\")."
+   },
+   "closest_evidence": null
+  },
+  "350kva": {
+   "key": "350kva",
+   "footprint": true,
+   "size_m": [
+    4.58,
+    1.98
+   ],
+   "size_state": "drawn on the master",
+   "confirm": false,
+   "why": "no written size; the drawing evidence is direct (measured on the master), so the drawn size is used",
+   "drawn": {
+    "size_m": [
+     4.58,
+     1.98
+    ],
+    "drawn_as_m": null,
+    "n_instances": 1,
+    "direct": true,
+    "status": null,
+    "closest_evidence": null,
+    "note": null,
+    "sources": [
+     "D001-26003-03-MASTER.pdf (2 Oct 2026 master, sha256 8753d875cf90...) 1: v9.15 tracing (shapes_v915.json): outline = the PDF vector path itself at the tagged reference; length/width = mean of opposite edges of the 4-vertex path x 0.705556 m/pt (title block 1:2000); recomputed here from poly_pt, not the rounded size_m; refs GN20",
+     "D001-26003-03-MASTER.pdf 1: census.py over every orange generator box on the sheet (tagged or not): 2.5 x 1.0 m class n=14; 2.9 x 1.2 m class n=5"
+    ]
+   },
+   "written": {
+    "size_m": null,
+    "size_state": "size to confirm",
+    "size_basis": "The contract says 365 kVA, the schedule and programme 350 kVA; the fleet guide has Cummins 350 kVA 5400 x 2050 mm and Atlas Copco 320 kVA 4020 x 1390 mm, no 365 kVA row.",
+    "conflicts": null,
+    "variants": null,
+    "sources": [
+     "coates_lrg_2023.pdf page 50, text lines 122-129: CUMMINS Generator - 350kVA (Diesel): length 5400 mm, width 2050 mm, height 2650 mm",
+     "coates_lrg_2023.pdf page 50, text lines 50-57: ATLAS COPCO Generator - 320kVA (Diesel): length 4020 mm, width 1390 mm, height 2310 mm",
+     "Street_Rate_Card_2026.pdf text lines 269-371: Generator 12 to 650 KVA lines (no sizes)",
+     "Baseplan_SuperCars_07Oct.xlsx 9961976-NVAC!F7: GN20-S01-Generator 365kVA Diesel"
+    ]
+   },
+   "disagree_pct": null,
+   "door_rule": {
+    "drawings": "No door. Legend GENERATORS: orange box with a diagonal and a dark triangle in one half (the triangle sits 0.2-0.35 of the half-length off centre, in no fixed relation to roads); the drawing gives no access side.",
+    "documents": "No door. The fleet guide says skid-based equipment is placed with its length along the deck (page 43 line 12). Loading door side (which way the door faces on the truck) is the project manager's choice per unit on the record (loading872: door to driver side / door to passenger side / not applicable; v8.72-v8.73 READMEs). It is never set automatically, and the same choice is what Arrange loads should offer (STATUS.md, 9 Oct ~00:30: \"Remember when we pick the loads we can select the driver to door selection here too. As we can see the door side on the pics.\")."
+   },
+   "closest_evidence": null
+  },
+  "45kva": {
+   "key": "45kva",
+   "footprint": true,
+   "size_m": [
+    2.5,
+    1.0
+   ],
+   "size_state": "agreed",
+   "confirm": false,
+   "why": "drawn and written agree within 9.1%; the size measured on the master is used",
+   "drawn": {
+    "size_m": [
+     2.5,
+     1.0
+    ],
+    "drawn_as_m": null,
+    "n_instances": 1,
+    "direct": true,
+    "status": null,
+    "closest_evidence": null,
+    "note": null,
+    "sources": [
+     "D001-26003-03-MASTER.pdf (2 Oct 2026 master, sha256 8753d875cf90...) 1: v9.15 tracing (shapes_v915.json): outline = the PDF vector path itself at the tagged reference; length/width = mean of opposite edges of the 4-vertex path x 0.705556 m/pt (title block 1:2000); recomputed here from poly_pt, not the rounded size_m; refs none t",
+     "D001-26003-03-MASTER.pdf 1: census.py over every orange generator box on the sheet (tagged or not): 2.5 x 1.0 m class n=14; 2.9 x 1.2 m class n=5"
+    ]
+   },
+   "written": {
+    "size_m": [
+     2.45,
+     1.1
+    ],
+    "size_state": "written (fleet guide, one Coates 45 kVA model; asset make not on the contract)",
+    "size_basis": "Atlas Copco Generator - 45kVA 2450 x 1100 mm. GN13 was delivered as 45 kVA on a 60 kVA line (\"DEL AS 45KVA\").",
+    "conflicts": null,
+    "variants": null,
+    "sources": [
+     "coates_lrg_2023.pdf page 45, text lines 299-305: ATLAS COPCO Generator - 45kVA (Diesel): length 2450 mm, width 1100 mm, height 1770 mm",
+     "Street_Rate_Card_2026.pdf text lines 269-371: Generator 12 to 650 KVA lines (no sizes)",
+     "Baseplan_SuperCars_07Oct.xlsx 9961976-NVAC!F12: GN13-Generator - 60kVA (Diesel)DEL AS 45KVA",
+     "P003-26003-01_Programme_-_Coates_Inf_V1_14.8.26.xlsx Sheet1!F101: GN13 45KVA"
+    ]
+   },
+   "disagree_pct": 9.1,
+   "door_rule": {
+    "drawings": "No door. Legend GENERATORS: orange box with a diagonal and a dark triangle in one half (the triangle sits 0.2-0.35 of the half-length off centre, in no fixed relation to roads); the drawing gives no access side.",
+    "documents": "No door. The fleet guide says skid-based equipment is placed with its length along the deck (page 43 line 12). Loading door side (which way the door faces on the truck) is the project manager's choice per unit on the record (loading872: door to driver side / door to passenger side / not applicable; v8.72-v8.73 READMEs). It is never set automatically, and the same choice is what Arrange loads should offer (STATUS.md, 9 Oct ~00:30: \"Remember when we pick the loads we can select the driver to door selection here too. As we can see the door side on the pics.\")."
+   },
+   "closest_evidence": null
+  },
+  "50kva": {
+   "key": "50kva",
+   "footprint": true,
+   "size_m": [
+    2.88,
+    1.21
+   ],
+   "size_state": "agreed",
+   "confirm": false,
+   "why": "drawn and written agree within 6.9%; the size measured on the master is used",
+   "drawn": {
+    "size_m": [
+     2.88,
+     1.21
+    ],
+    "drawn_as_m": null,
+    "n_instances": 2,
+    "direct": true,
+    "status": null,
+    "closest_evidence": null,
+    "note": null,
+    "sources": [
+     "D001-26003-03-MASTER.pdf (2 Oct 2026 master, sha256 8753d875cf90...) 1: v9.15 tracing (shapes_v915.json): outline = the PDF vector path itself at the tagged reference; length/width = mean of opposite edges of the 4-vertex path x 0.705556 m/pt (title block 1:2000); recomputed here from poly_pt, not the rounded size_m; refs GN06; ",
+     "D001-26003-03-MASTER.pdf 1: census.py over every orange generator box on the sheet (tagged or not): 2.5 x 1.0 m class n=14; 2.9 x 1.2 m class n=5"
+    ]
+   },
+   "written": {
+    "size_m": [
+     2.85,
+     1.3
+    ],
+    "size_state": "written (fleet guide, one Coates 50 kVA model; asset make not on the contract)",
+    "size_basis": "Cummins Generator - 50kVA 2850 x 1300 mm.",
+    "conflicts": [
+     "GN18: schedule and programme say 50 kVA; contract line 9961976-NVAC!F11 says 60kVA with no \"DEL AS\". GN21: programme 50KVA, schedule 60kva (\"Changed from 50KVA\"), contract 60kVA."
+    ],
+    "variants": null,
+    "sources": [
+     "coates_lrg_2023.pdf page 45, text lines 326-333: CUMMINS Generator - 50kVA (Diesel): length 2850 mm, width 1300 mm, height 1600 mm",
+     "Street_Rate_Card_2026.pdf text lines 269-371: Generator 12 to 650 KVA lines (no sizes)",
+     "Baseplan_SuperCars_07Oct.xlsx 9961976-NVAC!F13,F11: GN06 60kVA DEL AS 50KVA; GN18 Generator - 60kVA (Diesel)",
+     "P003-26003-01_Programme_-_Coates_Inf_V1_14.8.26.xlsx Sheet1!F67,F91,F110: GN21 50KVA, GN18 50KVA, GN06 50KVA"
+    ]
+   },
+   "disagree_pct": 6.9,
+   "door_rule": {
+    "drawings": "No door. Legend GENERATORS: orange box with a diagonal and a dark triangle in one half (the triangle sits 0.2-0.35 of the half-length off centre, in no fixed relation to roads); the drawing gives no access side.",
+    "documents": "No door. The fleet guide says skid-based equipment is placed with its length along the deck (page 43 line 12). Loading door side (which way the door faces on the truck) is the project manager's choice per unit on the record (loading872: door to driver side / door to passenger side / not applicable; v8.72-v8.73 READMEs). It is never set automatically, and the same choice is what Arrange loads should offer (STATUS.md, 9 Oct ~00:30: \"Remember when we pick the loads we can select the driver to door selection here too. As we can see the door side on the pics.\")."
+   },
+   "closest_evidence": null
+  },
+  "6.0m Refrigerator Cont": {
+   "key": "6.0m Refrigerator Cont",
+   "footprint": true,
+   "size_m": [
+    6.0,
+    2.4
+   ],
+   "size_state": "size to confirm",
+   "confirm": true,
+   "why": "size to confirm: the written size is used as the best sourced size",
+   "drawn": {
+    "size_m": null,
+    "drawn_as_m": null,
+    "n_instances": 0,
+    "direct": false,
+    "status": "size to confirm",
+    "closest_evidence": "untagged master outlines 6.1 x 2.44 m",
+    "note": null,
+    "sources": [
+     "D001-26003-03-MASTER.pdf 1: no Coates reference for this line; 60 untagged black outlines 6.1 x 2.44 m on the sheet (n=60) are the closest drawn container-sized boxes, not proven to be this unit"
+    ]
+   },
+   "written": {
+    "size_m": [
+     6.0,
+     2.4
+    ],
+    "size_state": "written",
+    "size_basis": "Contract \"Container - Refrigerated 6.0M x 2.4M\" (SUB-2131, pending).",
+    "conflicts": null,
+    "variants": null,
+    "sources": [
+     "Baseplan_SuperCars_07Oct.xlsx 9974042-KINP!F3: Container - Refrigerated 6.0M x 2.4M"
+    ]
+   },
+   "disagree_pct": null,
+   "door_rule": {
+    "drawings": "size to confirm. Legend STORAGE CONTAINERS: a box with double doors on one SHORT end.",
+    "documents": "No written door rule. Loading door side (which way the door faces on the truck) is the project manager's choice per unit on the record (loading872: door to driver side / door to passenger side / not applicable; v8.72-v8.73 READMEs). It is never set automatically, and the same choice is what Arrange loads should offer (STATUS.md, 9 Oct ~00:30: \"Remember when we pick the loads we can select the driver to door selection here too. As we can see the door side on the pics.\")."
+   },
+   "closest_evidence": null
+  },
+  "60kva": {
+   "key": "60kva",
+   "footprint": true,
+   "size_m": [
+    2.91,
+    1.2
+   ],
+   "size_state": "drawn on the master",
+   "confirm": false,
+   "why": "no written size; the drawing evidence is direct (measured on the master), so the drawn size is used",
+   "drawn": {
+    "size_m": [
+     2.91,
+     1.2
+    ],
+    "drawn_as_m": null,
+    "n_instances": 2,
+    "direct": true,
+    "status": null,
+    "closest_evidence": null,
+    "note": "GN19 (60 kVA, \"WAS A 20KVA\") is drawn 1.68 x 0.67 m, smaller than any other generator; the 60 kVA size here is the median of GN01/GN21 (2.91-2.92 x 1.19-1.20). GN19 size to confirm.",
+    "sources": [
+     "D001-26003-03-MASTER.pdf (2 Oct 2026 master, sha256 8753d875cf90...) 1: v9.15 tracing (shapes_v915.json): outline = the PDF vector path itself at the tagged reference; length/width = mean of opposite edges of the 4-vertex path x 0.705556 m/pt (title block 1:2000); recomputed here from poly_pt, not the rounded size_m; refs GN01, ",
+     "D001-26003-03-MASTER.pdf 1: census.py over every orange generator box on the sheet (tagged or not): 2.5 x 1.0 m class n=14; 2.9 x 1.2 m class n=5"
+    ]
+   },
+   "written": {
+    "size_m": null,
+    "size_state": "size to confirm",
+    "size_basis": "The fleet guide has no 60 kVA row. Closest written evidence: Cummins 56 kVA 3420 x 1450 mm; Atlas Copco 70 kVA 2562 x 1031 mm.",
+    "conflicts": null,
+    "variants": null,
+    "sources": [
+     "coates_lrg_2023.pdf page 45, text lines 368-375: CUMMINS Generator - 56kVA (Diesel): length 3420 mm, width 1450 mm, height 1750 mm",
+     "coates_lrg_2023.pdf page 45, text lines 382-389: CUMMINS Generator - 56kVA (Diesel): length 3420 mm, width 1450 mm, height 1750 mm",
+     "coates_lrg_2023.pdf page 45, text lines 235-241: ATLAS COPCO Generator - 70kVA (Diesel): length 2562 mm, width 1031 mm, height 1307 mm",
+     "Street_Rate_Card_2026.pdf text lines 269-371: Generator 12 to 650 KVA lines (no sizes)"
+    ]
+   },
+   "disagree_pct": null,
+   "door_rule": {
+    "drawings": "No door. Legend GENERATORS: orange box with a diagonal and a dark triangle in one half (the triangle sits 0.2-0.35 of the half-length off centre, in no fixed relation to roads); the drawing gives no access side.",
+    "documents": "No door. The fleet guide says skid-based equipment is placed with its length along the deck (page 43 line 12). Loading door side (which way the door faces on the truck) is the project manager's choice per unit on the record (loading872: door to driver side / door to passenger side / not applicable; v8.72-v8.73 READMEs). It is never set automatically, and the same choice is what Arrange loads should offer (STATUS.md, 9 Oct ~00:30: \"Remember when we pick the loads we can select the driver to door selection here too. As we can see the door side on the pics.\")."
+   },
+   "closest_evidence": null
+  },
+  "80kva": {
+   "key": "80kva",
+   "footprint": true,
+   "size_m": [
+    3.19,
+    1.2
+   ],
+   "size_state": "drawn on the master",
+   "confirm": false,
+   "why": "the written size differs by 19.7%; the drawing evidence is direct (measured on the master), so the drawn size is used",
+   "drawn": {
+    "size_m": [
+     3.19,
+     1.2
+    ],
+    "drawn_as_m": null,
+    "n_instances": 1,
+    "direct": true,
+    "status": null,
+    "closest_evidence": null,
+    "note": null,
+    "sources": [
+     "D001-26003-03-MASTER.pdf (2 Oct 2026 master, sha256 8753d875cf90...) 1: v9.15 tracing (shapes_v915.json): outline = the PDF vector path itself at the tagged reference; length/width = mean of opposite edges of the 4-vertex path x 0.705556 m/pt (title block 1:2000); recomputed here from poly_pt, not the rounded size_m; refs GN24",
+     "D001-26003-03-MASTER.pdf 1: census.py over every orange generator box on the sheet (tagged or not): 2.5 x 1.0 m class n=14; 2.9 x 1.2 m class n=5"
+    ]
+   },
+   "written": {
+    "size_m": [
+     2.562,
+     1.031
+    ],
+    "size_state": "written (fleet guide, one Coates 80 kVA model; asset make not on the contract)",
+    "size_basis": "Atlas Copco Generator - 80kVA 2562 x 1031 mm.",
+    "conflicts": null,
+    "variants": null,
+    "sources": [
+     "coates_lrg_2023.pdf page 45, text lines 250-257: ATLAS COPCO Generator - 80kVA (Diesel): length 2562 mm, width 1031 mm, height 1307 mm",
+     "Street_Rate_Card_2026.pdf text lines 269-371: Generator 12 to 650 KVA lines (no sizes)",
+     "Baseplan_SuperCars_07Oct.xlsx 9961976-NVAC!F17: GN-24 Generator - Diesel - 80kVA"
+    ]
+   },
+   "disagree_pct": 19.7,
+   "door_rule": {
+    "drawings": "No door. Legend GENERATORS: orange box with a diagonal and a dark triangle in one half (the triangle sits 0.2-0.35 of the half-length off centre, in no fixed relation to roads); the drawing gives no access side.",
+    "documents": "No door. The fleet guide says skid-based equipment is placed with its length along the deck (page 43 line 12). Loading door side (which way the door faces on the truck) is the project manager's choice per unit on the record (loading872: door to driver side / door to passenger side / not applicable; v8.72-v8.73 READMEs). It is never set automatically, and the same choice is what Arrange loads should offer (STATUS.md, 9 Oct ~00:30: \"Remember when we pick the loads we can select the driver to door selection here too. As we can see the door side on the pics.\")."
+   },
+   "closest_evidence": null
+  },
+  "Accessible Toilet": {
+   "key": "Accessible Toilet",
+   "footprint": true,
+   "size_m": [
+    2.41,
+    2.39
+   ],
+   "size_state": "drawn on the master",
+   "confirm": false,
+   "why": "the written size differs by 33.1%; the drawing evidence is direct (measured on the master), so the drawn size is used",
+   "drawn": {
+    "size_m": [
+     2.41,
+     2.39
+    ],
+    "drawn_as_m": null,
+    "n_instances": 4,
+    "direct": true,
+    "status": null,
+    "closest_evidence": null,
+    "note": "Two sizes are drawn. WC01 uses the 3.6 x 2.4 outline; use each unit's traced outline, the catalogue size is the common one.",
+    "sources": [
+     "D001-26003-03-MASTER.pdf (2 Oct 2026 master, sha256 8753d875cf90...) 1: v9.15 tracing (shapes_v915.json): outline = the PDF vector path itself at the tagged reference; length/width = mean of opposite edges of the 4-vertex path x 0.705556 m/pt (title block 1:2000); recomputed here from poly_pt, not the rounded size_m; refs WC01, ",
+     "D022/D023-26003-02 1: census.py: WC86 2.41 x 2.41 on D022"
+    ]
+   },
+   "written": {
+    "size_m": [
+     3.6,
+     2.4
+    ],
+    "size_state": "written (rate card product line); the 2026 contract lines carry no size",
+    "size_basis": "The 2026 card names the product \"Accessible Toilet 3.6 x 2.4\". The 2026 contract lines are \"Toilet - Accessible\" / \"Wc86 Toilet - Disabled Access\" with no size; 2025 \"Toilet - Disabled Access\" had none either. Which make each unit is (Coates 1317644, 1317645, 1296899; WC51 not numbered) is not written.",
+    "conflicts": null,
+    "variants": null,
+    "sources": [
+     "Street_Rate_Card_2026.pdf text line 167: Accessible Toilet 3.6 x 2.4",
+     "reference_2025_contracts_and_invoices/toilets_how_charged_2025.md line 85: Accessible Toilet 3.6 x 2.4 (card line)",
+     "Baseplan_SuperCars_07Oct.xlsx 9968955-KINP!F51,F56,F95,F108: Wc86 Toilet - Disabled Access; WC01 Toilet - Accessible (1317644); WC31 Toilet - Accessible; WC51 Toilet - Accessible",
+     "Baseplan_2025_Contracts.xlsx Sheet11!F21,F54: WC01 / WC31 - Toilet - Disabled Access (no size)"
+    ]
+   },
+   "disagree_pct": 33.1,
+   "door_rule": {
+    "drawings": "One door, opening outward, 0.8 m swing, on one side (on the 3.6 x 2.4 instance, a long side). Side per unit from v9.15.",
+    "documents": "No written door rule. The record holds \"not applicable\" as the loading door side for WC86 (item:Accessible Toilet). No written document says which wall the door is on; that comes only from the drawing (see the drawings catalogue / v9.15 door.faces). Loading door side (which way the door faces on the truck) is the project manager's choice per unit on the record (loading872: door to driver side / door to passenger side / not applicable; v8.72-v8.73 READMEs). It is never set automatically, and the same choice is what Arrange loads should offer (STATUS.md, 9 Oct ~00:30: \"Remember when we pick the loads we can select the driver to door selection here too. As we can see the door side on the pics.\")."
+   },
+   "closest_evidence": null
+  },
+  "Building 12m": {
+   "key": "Building 12m",
+   "footprint": true,
+   "size_m": [
+    12.0,
+    2.99
+   ],
+   "size_state": "agreed",
+   "confirm": false,
+   "why": "drawn and written agree within 0.3%; the size measured on the master is used",
+   "drawn": {
+    "size_m": [
+     12.0,
+     2.99
+    ],
+    "drawn_as_m": [
+     12.0,
+     2.99
+    ],
+    "n_instances": 6,
+    "direct": true,
+    "status": null,
+    "closest_evidence": null,
+    "note": null,
+    "sources": [
+     "D001-26003-03-MASTER.pdf (2 Oct 2026 master, sha256 8753d875cf90...) 1: v9.15 tracing (shapes_v915.json): outline = the PDF vector path itself at the tagged reference; length/width = mean of opposite edges of the 4-vertex path x 0.705556 m/pt (title block 1:2000); recomputed here from poly_pt, not the rounded size_m; refs: P01, ",
+     "D022-26003-02-PORT BUILDINGS.pdf (17 Sep issue) 1: census.py: same outline found within 0.2 pt of each master position after the frame shift (x+25.5, y+0.12 pt); sizes agree within 0.03 m"
+    ]
+   },
+   "written": {
+    "size_m": [
+     12.0,
+     3.0
+    ],
+    "size_state": "written",
+    "size_basis": "Contract lines \"Portable Building Shell 12.0M x 3.0M - Cyclonic Rated\"; programme \"12m x 3m\"; card \"Portable Building - 12m x 3m\".",
+    "conflicts": null,
+    "variants": null,
+    "sources": [
+     "Baseplan_SuperCars_07Oct.xlsx 9968862-KINP!F2,F4,F6,F53,F64,F68: Portable Building Shell 12.0M x 3.0M - Cyclonic Rated (P01, P03, P04, P52, P46, P51)",
+     "P003-26003-01_Programme_-_Coates_Inf_V1_14.8.26.xlsx Sheet1!B6-B8,B79,B81,B83: Portable Building Delivery - 12m x 3m",
+     "Street_Rate_Card_2026.pdf text line 44: Portable Building - 12m x 3m",
+     "Coates Load Restraint Guide 2023 Edition page 85 text line 20: Maximum building size 3.0m x 12m"
+    ]
+   },
+   "disagree_pct": 0.3,
+   "door_rule": {
+    "drawings": "Two doors, both on the SAME long side, near each end (door centres at 0.12 and 0.88 of the edge, about 1.4 m in from each end), opening outward, 0.78 m swing. Side per unit from v9.15.",
+    "documents": "No written door count or wall. No written document says which wall the door is on; that comes only from the drawing (see the drawings catalogue / v9.15 door.faces). Loading door side (which way the door faces on the truck) is the project manager's choice per unit on the record (loading872: door to driver side / door to passenger side / not applicable; v8.72-v8.73 READMEs). It is never set automatically, and the same choice is what Arrange loads should offer (STATUS.md, 9 Oct ~00:30: \"Remember when we pick the loads we can select the driver to door selection here too. As we can see the door side on the pics.\")."
+   },
+   "closest_evidence": null
+  },
+  "Building 3.6m": {
+   "key": "Building 3.6m",
+   "footprint": true,
+   "size_m": [
+    3.6,
+    2.4
+   ],
+   "size_state": "size to confirm",
+   "confirm": true,
+   "why": "size to confirm: the written size is used as the best sourced size (it differs from the drawing catalogue by 19.2%)",
+   "drawn": {
+    "size_m": [
+     3.6,
+     2.97
+    ],
+    "drawn_as_m": [
+     3.98,
+     2.97
+    ],
+    "n_instances": 1,
+    "direct": false,
+    "status": null,
+    "closest_evidence": null,
+    "note": "Drawn 4.0 m long, schedule says 3.6 m: length to confirm. Width 3.0 m from the drawing.",
+    "sources": [
+     "GC500 schedule via DATA (v9.18 page): LENGTH 3.6 m is the item name \"Building 3.6m\"",
+     "D001-26003-03-MASTER.pdf (2 Oct 2026 master, sha256 8753d875cf90...) 1: v9.15 tracing (shapes_v915.json): outline = the PDF vector path itself at the tagged reference; length/width = mean of opposite edges of the 4-vertex path x 0.705556 m/pt (title block 1:2000); recomputed here from poly_pt, not the rounded size_m: P56 is DRAW"
+    ]
+   },
+   "written": {
+    "size_m": [
+     3.6,
+     2.4
+    ],
+    "size_state": "written",
+    "size_basis": "Contract \"Portable Building Shell Cyclone Rated 3.6m x 2.4m\" (asset 1268865, which the record ties to P56); programme and 2025 agree; card \"Portable Building - 3.6m x 2.4m\".",
+    "conflicts": null,
+    "variants": null,
+    "sources": [
+     "Baseplan_SuperCars_07Oct.xlsx 9968862-KINP!F59: Portable Building Shell Cyclone Rated 3.6m x 2.4m (asset 1268865)",
+     "P003-26003-01_Programme_-_Coates_Inf_V1_14.8.26.xlsx Sheet1!B87: P56 Portable Building Delivery - 3.6m x 2.4m",
+     "Street_Rate_Card_2026.pdf text line 19: Portable Building - 3.6m x 2.4m",
+     "shared record v4581 docs.delivery.P56.loading872: unit u1268865 at P56"
+    ]
+   },
+   "disagree_pct": 19.2,
+   "door_rule": {
+    "drawings": "No door drawn on the only instance (P56). Door side to confirm on site.",
+    "documents": "No written door rule. No written document says which wall the door is on; that comes only from the drawing (see the drawings catalogue / v9.15 door.faces). Loading door side (which way the door faces on the truck) is the project manager's choice per unit on the record (loading872: door to driver side / door to passenger side / not applicable; v8.72-v8.73 READMEs). It is never set automatically, and the same choice is what Arrange loads should offer (STATUS.md, 9 Oct ~00:30: \"Remember when we pick the loads we can select the driver to door selection here too. As we can see the door side on the pics.\")."
+   },
+   "closest_evidence": null
+  },
+  "Building 4.8m": {
+   "key": "Building 4.8m",
+   "footprint": true,
+   "size_m": [
+    4.8,
+    2.4
+   ],
+   "size_state": "size to confirm",
+   "confirm": true,
+   "why": "size to confirm: the written size is used as the best sourced size (it differs from the drawing catalogue by 20.3%)",
+   "drawn": {
+    "size_m": [
+     4.8,
+     3.01
+    ],
+    "drawn_as_m": [
+     6.0,
+     3.01
+    ],
+    "n_instances": 12,
+    "direct": false,
+    "status": null,
+    "closest_evidence": null,
+    "note": "Drawings draw these as 6.0 x 3.0; the schedule says 4.8 m; P21 was supplied as a 6 m. Arrange loads should use the unit actually supplied (6.0 when the record says Building 6m). Length 4.8 m to confirm per unit.",
+    "sources": [
+     "GC500 schedule via DATA (v9.18 page): LENGTH 4.8 m is the item name on the schedule line (\"Building 4.8m\"); no drawing draws a 4.8 m unit",
+     "D001-26003-03-MASTER.pdf (2 Oct 2026 master, sha256 8753d875cf90...) 1: v9.15 tracing (shapes_v915.json): outline = the PDF vector path itself at the tagged reference; length/width = mean of opposite edges of the 4-vertex path x 0.705556 m/pt (title block 1:2000); recomputed here from poly_pt, not the rounded size_m: WIDTH 3.0 m",
+     "D022-26003-02-PORT BUILDINGS.pdf and D023-26003-02-TOILETS.pdf 1: census.py at the same positions: also drawn 6.0 x 3.0 m",
+     "record /api/state v4581, supplied/P21: P21 asked Building 4.8m, supplied Building 6m (recorded 4 Oct 2026)"
+    ]
+   },
+   "written": {
+    "size_m": [
+     4.8,
+     2.4
+    ],
+    "size_state": "written, varies by unit (use per_reference)",
+    "size_basis": "The 2026 contract lines for the team offices (P10-P16, P18, P20) read \"Portable Building Shell 4.8M x 2.4M\", as the 2025 contracts did; the Coates office and lunchroom (T0021, T0022, assets 960639, 960634) are \"4.8M x 3.0M\". Three references the schedule calls Building 4.8m are 6.0 x 3.0 m units on the contract: P19 (1110619), P21 (1327220), P25 (1189408).",
+    "conflicts": [
+     "iEDM programme says 4.8m x 3m for P10-P16, P18-P20, P25, P27; the contracts say 4.8 x 2.4 (team offices) or 6.0 x 3.0 (P19, P25). The contract names the unit hired.",
+     "P15: inventory asset 127579 is not on the 7 Oct export; the contract line for P15 is asset 1097345 (4.8M x 2.4M). P27 shares asset 1097343 with P18 in the unit list; the programme marks P27 NOT IN COATES SCOPE (Sheet1!G29)."
+    ],
+    "variants": [
+     {
+      "size_m": [
+       4.8,
+       2.4
+      ],
+      "refs": [
+       "P10",
+       "P11",
+       "P12",
+       "P13",
+       "P14",
+       "P15",
+       "P16",
+       "P18",
+       "P20",
+       "P27"
+      ],
+      "source": "contract 2026 (and 2025)"
+     },
+     {
+      "size_m": [
+       4.8,
+       3.0
+      ],
+      "refs": [
+       "T0021",
+       "T0022"
+      ],
+      "source": "contract 9968929-KINP!F2,F3"
+     },
+     {
+      "size_m": [
+       6.0,
+       3.0
+      ],
+      "refs": [
+       "P19",
+       "P21",
+       "P25"
+      ],
+      "source": "contract 2026: these are 6 m units though the schedule says Building 4.8m"
+     }
+    ],
+    "sources": [
+     "Baseplan_SuperCars_07Oct.xlsx 9968862-KINP!F29-F33,F35-F38: Portable Building Shell 4.8M x 2.4M (P18, P20, P10, P11, P12, P13, P14, P15, P16)",
+     "Baseplan_SuperCars_07Oct.xlsx 9968929-KINP!F2,F3: Portable Building Shell 4.8M x 3.0M (assets 960639, 960634: Coates office and lunchroom)",
+     "Baseplan_SuperCars_07Oct.xlsx 9968862-KINP!F28,F62,F71: P19, P21, P25 Portable Building Shell 6.0M x 3.0M",
+     "P003-26003-01_Programme_-_Coates_Inf_V1_14.8.26.xlsx Sheet1!B26-B29,B36-B38,B40-B43,B106: Portable Building Delivery - 4.8m x 3m (the programme writes 3 m for every 4.8 m unit)"
+    ]
+   },
+   "disagree_pct": 20.3,
+   "door_rule": {
+    "drawings": "As Building 6m: one door on a long side, opening outward, door centre about a quarter of the way along (0.24 of the edge from the nearer end on every traced instance), 0.78 m swing. On a 4.8 m unit the drawn position scales to about 1.2 m in from the end: to confirm on site. Refs drawn with no door: none",
+    "documents": "No written door count or wall. No written document says which wall the door is on; that comes only from the drawing (see the drawings catalogue / v9.15 door.faces). Loading door side (which way the door faces on the truck) is the project manager's choice per unit on the record (loading872: door to driver side / door to passenger side / not applicable; v8.72-v8.73 READMEs). It is never set automatically, and the same choice is what Arrange loads should offer (STATUS.md, 9 Oct ~00:30: \"Remember when we pick the loads we can select the driver to door selection here too. As we can see the door side on the pics.\")."
+   },
+   "closest_evidence": null
+  },
+  "Building 6m": {
+   "key": "Building 6m",
+   "footprint": true,
+   "size_m": [
+    5.99,
+    2.99
+   ],
+   "size_state": "agreed",
+   "confirm": false,
+   "why": "drawn and written agree within 0.3%; the size measured on the master is used",
+   "drawn": {
+    "size_m": [
+     5.99,
+     2.99
+    ],
+    "drawn_as_m": [
+     5.99,
+     2.99
+    ],
+    "n_instances": 23,
+    "direct": true,
+    "status": null,
+    "closest_evidence": null,
+    "note": "P53 (Building 6m) is drawn 6.0 x 5.0 m on the master (not counted in the stats; size to confirm for P53). P26/P27/P28/P29/P34 share one 4-building block (4 outlines 6.0 x 3.0, no doors) and are left out of the stats so the block is not counted 5 times. P47 is not drawn on the 2 Oct master.",
+    "sources": [
+     "D001-26003-03-MASTER.pdf (2 Oct 2026 master, sha256 8753d875cf90...) 1: v9.15 tracing (shapes_v915.json): outline = the PDF vector path itself at the tagged reference; length/width = mean of opposite edges of the 4-vertex path x 0.705556 m/pt (title block 1:2000); recomputed here from poly_pt, not the rounded size_m; refs: AA, C",
+     "D022-26003-02-PORT BUILDINGS.pdf (17 Sep issue) 1: census.py: same outline found within 0.2 pt of each master position after the frame shift (x+25.5, y+0.12 pt); sizes agree within 0.03 m"
+    ]
+   },
+   "written": {
+    "size_m": [
+     6.0,
+     3.0
+    ],
+    "size_state": "written",
+    "size_basis": "Every 2026 contract line for a 6 m building reads \"Portable Building Shell 6.0M x 3.0M\" (some \"- Cyclonic Rated\"); the iEDM programme and the 2025 contracts agree; the rate card line is \"Portable Building - 6m x 3m\". Length is the long side.",
+    "conflicts": [
+     "P58: 2026 contract 9968862-KINP!F40 \"P58 Portable Building Shell 6.0M x 3.0M\" (asset 198481) vs iEDM programme Sheet1!B49 and 2025 Sheet4 \"3.6m x 2.4m\". The 2026 contract names the unit hired."
+    ],
+    "variants": null,
+    "sources": [
+     "Baseplan_SuperCars_07Oct.xlsx 9968862-KINP!F8,F14,F23,F28,F34,F39-F42,F47,F49,F51,F55,F57,F62,F63,F67,F70,F71,F76,F81,F85: Portable Building Shell 6.0M x 3.0M (P05, CP1/P68, P09, P19, P37, P44, P58, P41, P06, P38, P39, P42, P53, P54, P21, P36, P47, P69, P25, P66, P63, P08)",
+     "Baseplan_SuperCars_07Oct.xlsx 9968862-KINP!F73,F74,F79: Commentary Booth 6.0M x 3.0M (P67, P65, P62)",
+     "P003-26003-01_Programme_-_Coates_Inf_V1_14.8.26.xlsx Sheet1!B9,B10,B24,B30,B32-B35,B48,B50,B57,B60-B62,B80,B82,B84,B85,B102,B107-B109,B112,B113: Portable Building Delivery - 6m x 3m",
+     "Street_Rate_Card_2026.pdf text line 29: Portable Building - 6m x 3m"
+    ]
+   },
+   "disagree_pct": 0.3,
+   "door_rule": {
+    "drawings": "One door on a LONG side, opening outward (legend PORTABLE BUILDINGS: quarter-circle swing + leaf). Door centre about a quarter of the way along that side (0.23-0.25 of the edge from the nearer end, about 1.4 m in on a 6 m unit); swing radius 0.78 m. Which long side, and which end, is per unit: read it from the unit's own traced door (v9.15 door.faces).",
+    "documents": "One door is the norm in no written source; the Schedule 6 BOQ marks one 6 m building \"2 doors\" (BOQ!D74, reference not given). No written document says which wall the door is on; that comes only from the drawing (see the drawings catalogue / v9.15 door.faces). Loading door side (which way the door faces on the truck) is the project manager's choice per unit on the record (loading872: door to driver side / door to passenger side / not applicable; v8.72-v8.73 READMEs). It is never set automatically, and the same choice is what Arrange loads should offer (STATUS.md, 9 Oct ~00:30: \"Remember when we pick the loads we can select the driver to door selection here too. As we can see the door side on the pics.\")."
+   },
+   "closest_evidence": null
+  },
+  "Building 9.6m": {
+   "key": "Building 9.6m",
+   "footprint": true,
+   "size_m": [
+    9.6,
+    3.0
+   ],
+   "size_state": "agreed",
+   "confirm": false,
+   "why": "drawn and written agree within 0.0%; the size measured on the master is used",
+   "drawn": {
+    "size_m": [
+     9.6,
+     3.0
+    ],
+    "drawn_as_m": [
+     9.6,
+     3.0
+    ],
+    "n_instances": 3,
+    "direct": true,
+    "status": null,
+    "closest_evidence": null,
+    "note": null,
+    "sources": [
+     "D001-26003-03-MASTER.pdf (2 Oct 2026 master, sha256 8753d875cf90...) 1: v9.15 tracing (shapes_v915.json): outline = the PDF vector path itself at the tagged reference; length/width = mean of opposite edges of the 4-vertex path x 0.705556 m/pt (title block 1:2000); recomputed here from poly_pt, not the rounded size_m; refs: P17, ",
+     "D022-26003-02-PORT BUILDINGS.pdf (17 Sep issue) 1: census.py: same outline found within 0.2 pt of each master position after the frame shift (x+25.5, y+0.12 pt); sizes agree within 0.03 m"
+    ]
+   },
+   "written": {
+    "size_m": [
+     9.6,
+     3.0
+    ],
+    "size_state": "written",
+    "size_basis": "Contract \"Portable Building Shell 9.6M x 3.0M\" / \"Cyclone Rated 9.6m x 3m\"; programme and card agree.",
+    "conflicts": null,
+    "variants": null,
+    "sources": [
+     "Baseplan_SuperCars_07Oct.xlsx 9968862-KINP!F20,F27,F60: P33 9.6M x 3.0M; P17, P57 Cyclone Rated 9.6m x 3m",
+     "P003-26003-01_Programme_-_Coates_Inf_V1_14.8.26.xlsx Sheet1!B15,B25,B88: Portable Building Delivery - 9.6m x 3m",
+     "Street_Rate_Card_2026.pdf text lines 34, 39, 79: Portable Building / Timing & Scoring Building / Commentary Booth 9.6m x 3m"
+    ]
+   },
+   "disagree_pct": 0.0,
+   "door_rule": {
+    "drawings": "Two doors, both on the SAME long side, near each end (door centres at 0.15 and 0.85 of the edge, about 1.4 m in from each end), opening outward, 0.78 m swing. Side per unit from v9.15.",
+    "documents": "No written door count or wall. No written document says which wall the door is on; that comes only from the drawing (see the drawings catalogue / v9.15 door.faces). Loading door side (which way the door faces on the truck) is the project manager's choice per unit on the record (loading872: door to driver side / door to passenger side / not applicable; v8.72-v8.73 READMEs). It is never set automatically, and the same choice is what Arrange loads should offer (STATUS.md, 9 Oct ~00:30: \"Remember when we pick the loads we can select the driver to door selection here too. As we can see the door side on the pics.\")."
+   },
+   "closest_evidence": null
+  },
+  "Distribution Board Lifeguard 17": {
+   "key": "Distribution Board Lifeguard 17",
+   "footprint": true,
+   "size_m": null,
+   "size_state": "size to confirm",
+   "confirm": true,
+   "why": "size to confirm: no drawing or document gives a size",
+   "drawn": null,
+   "written": {
+    "size_m": null,
+    "size_state": "size to confirm",
+    "size_basis": "Contract line only, no size.",
+    "conflicts": null,
+    "variants": null,
+    "sources": [
+     "Baseplan_SuperCars_07Oct.xlsx 9961976-NVAC!F35: GN23-Distribution Board Lifeguard 17 (1189078)"
+    ]
+   },
+   "disagree_pct": null,
+   "door_rule": {
+    "drawings": null,
+    "documents": "No door rule written."
+   },
+   "closest_evidence": null,
+   "geometry": "point"
+  },
+  "Event Container": {
+   "key": "Event Container",
+   "footprint": true,
+   "size_m": [
+    6.0,
+    2.4
+   ],
+   "size_state": "size to confirm",
+   "confirm": true,
+   "why": "size to confirm: the written size is used as the best sourced size",
+   "drawn": {
+    "size_m": null,
+    "drawn_as_m": null,
+    "n_instances": 0,
+    "direct": false,
+    "status": "size to confirm",
+    "closest_evidence": "untagged master outlines 6.1 x 2.44 m",
+    "note": null,
+    "sources": [
+     "D001-26003-03-MASTER.pdf 1: no Coates reference for this line; 60 untagged black outlines 6.1 x 2.44 m on the sheet (n=60) are the closest drawn container-sized boxes, not proven to be this unit"
+    ]
+   },
+   "written": {
+    "size_m": [
+     6.0,
+     2.4
+    ],
+    "size_state": "written",
+    "size_basis": "T0023 (asset 1257261) matches contract 9968929 line 5 \"Container 6.0M x 2.4M\" in DATA; 2025 \"Coates Container - 6.0M x 2.4M\".",
+    "conflicts": null,
+    "variants": null,
+    "sources": [
+     "Baseplan_SuperCars_07Oct.xlsx 9968929-KINP!F4: Container  6.0M x 2.4M (line 5)",
+     "live page v9.18 DATA.plant_lines T0023 rental: contract 9968929 line 5",
+     "Baseplan_2025_Contracts.xlsx Sheet3!F4: Coates Container - 6.0M x 2.4M"
+    ]
+   },
+   "disagree_pct": null,
+   "door_rule": {
+    "drawings": "size to confirm. Legend STORAGE CONTAINERS: a box with double doors on one SHORT end.",
+    "documents": "No written door rule. Loading door side (which way the door faces on the truck) is the project manager's choice per unit on the record (loading872: door to driver side / door to passenger side / not applicable; v8.72-v8.73 READMEs). It is never set automatically, and the same choice is what Arrange loads should offer (STATUS.md, 9 Oct ~00:30: \"Remember when we pick the loads we can select the driver to door selection here too. As we can see the door side on the pics.\")."
+   },
+   "closest_evidence": null
+  },
+  "FWF": {
+   "key": "FWF",
+   "footprint": true,
+   "size_m": [
+    1.21,
+    1.19
+   ],
+   "size_state": "agreed",
+   "confirm": false,
+   "why": "drawn and written agree within 0.8%; the size measured on the master is used",
+   "drawn": {
+    "size_m": [
+     1.21,
+     1.19
+    ],
+    "drawn_as_m": null,
+    "n_instances": 213,
+    "direct": true,
+    "status": null,
+    "closest_evidence": null,
+    "note": "Drawn count differs from the schedule at: WC13 schedule 2 / drawn 3; WC45 schedule 8 / drawn 7; WC57 schedule 2 / drawn 7; WC59 schedule 7 / drawn 2; WC69 schedule 12 / drawn 9. PG01/03/05/29, WC32, WC66, WC85 are not drawn.",
+    "sources": [
+     "D001-26003-03-MASTER.pdf (2 Oct 2026 master, sha256 8753d875cf90...) 1: v9.15 tracing (shapes_v915.json): outline = the PDF vector path itself at the tagged reference; length/width = mean of opposite edges of the 4-vertex path x 0.705556 m/pt (title block 1:2000); recomputed here from poly_pt, not the rounded size_m (213 traced "
+    ]
+   },
+   "written": {
+    "size_m": [
+     1.22,
+     1.2
+    ],
+    "size_state": "written (Coates fleet guide for the Coates FWF; Event Portables units size to confirm)",
+    "size_basis": "The Coates Load Restraint Guide lists \"Toilet Portable - Fresh Water Flush\" (the exact 2026 contract description) at 1220 x 1200 mm. Event Portables units (sub-hire) are not in any written source; the closest evidence is the Coates unit.",
+    "conflicts": null,
+    "variants": null,
+    "sources": [
+     "coates_lrg_2023.pdf page 53, text lines 51-58: MERLIN Toilet Portable - Fresh Water Flush: length 1220 mm, width 1200 mm, height 2220 mm",
+     "Baseplan_SuperCars_07Oct.xlsx 9968955-KINP!F4-F46,F57-F89,F97-F131,F137; 9968929-KINP!F5: Toilet Portable - Fresh Water Flush / FWF Toilet",
+     "Street_Rate_Card_2026.pdf text line 162: Portable FWF Single (no size)"
+    ]
+   },
+   "disagree_pct": 0.8,
+   "door_rule": {
+    "drawings": "NO door drawn. Legend SINGLE TOILET is a square with a chevron on one edge; the legend does not say what the chevron means, so the drawing does not give the door side. Door side = a person's choice in the picker (the chevron edge, kept in v9.15 marks, is the only drawn candidate).",
+    "documents": "No door rule in any written source; the fleet guide diagram labels the water tank and waste tank only (page 53). No written document says which wall the door is on; that comes only from the drawing (see the drawings catalogue / v9.15 door.faces). Loading door side (which way the door faces on the truck) is the project manager's choice per unit on the record (loading872: door to driver side / door to passenger side / not applicable; v8.72-v8.73 READMEs). It is never set automatically, and the same choice is what Arrange loads should offer (STATUS.md, 9 Oct ~00:30: \"Remember when we pick the loads we can select the driver to door selection here too. As we can see the door side on the pics.\")."
+   },
+   "closest_evidence": null
+  },
+  "FWF Trailer": {
+   "key": "FWF Trailer",
+   "footprint": true,
+   "size_m": [
+    2.4,
+    1.4
+   ],
+   "size_state": "size to confirm",
+   "confirm": true,
+   "why": "size to confirm: the written size is used as the best sourced size",
+   "drawn": {
+    "size_m": null,
+    "drawn_as_m": null,
+    "n_instances": 0,
+    "direct": false,
+    "status": "size to confirm",
+    "closest_evidence": "FWF cubicle drawn 1.2 x 1.2 m; trailer chassis size not in any source held",
+    "note": null,
+    "sources": [
+     "all drawings searched (D001-26003-03, D022, D023): WC100 (2 trailers, 1248439 and 1288823) is on no drawing; the page has a product photo only, no dimensions"
+    ]
+   },
+   "written": {
+    "size_m": [
+     2.4,
+     1.4
+    ],
+    "size_state": "written (Coates fleet guide)",
+    "size_basis": "The fleet guide lists \"Toilet Portable - With Trailer\" (the exact 2026 contract description, WC100 assets 1288823 and 1248439) at 2400 x 1400 mm, a light trailer.",
+    "conflicts": null,
+    "variants": null,
+    "sources": [
+     "coates_lrg_2023.pdf page 36, text lines 154-161: MERLIN Toilet Portable - With Trailer: length 2400 mm, width 1400 mm, height 2800 mm",
+     "Baseplan_SuperCars_07Oct.xlsx 9968955-KINP!F12,F13: WC100 Toilet Portable - With Trailer (1288823, 1248439)",
+     "P003-26003-01_Programme_-_Coates_Inf_V1_14.8.26.xlsx Sheet1!F16: 2x Trailer Mounted Single Toilets"
+    ]
+   },
+   "disagree_pct": null,
+   "door_rule": {
+    "drawings": "size to confirm",
+    "documents": "No written door rule. The record holds \"not applicable\" for WC100 unit 1248439. Loading door side (which way the door faces on the truck) is the project manager's choice per unit on the record (loading872: door to driver side / door to passenger side / not applicable; v8.72-v8.73 READMEs). It is never set automatically, and the same choice is what Arrange loads should offer (STATUS.md, 9 Oct ~00:30: \"Remember when we pick the loads we can select the driver to door selection here too. As we can see the door side on the pics.\")."
+   },
+   "closest_evidence": null
+  },
+  "Forklift 2.5T": {
+   "key": "Forklift 2.5T",
+   "footprint": true,
+   "size_m": [
+    3.738,
+    1.237
+   ],
+   "size_state": "size to confirm",
+   "confirm": true,
+   "why": "size to confirm: the written size is used as the best sourced size",
+   "drawn": {
+    "size_m": null,
+    "drawn_as_m": null,
+    "n_instances": 0,
+    "direct": false,
+    "status": "size to confirm",
+    "closest_evidence": "none in any drawing; page product photo only",
+    "note": null,
+    "sources": [
+     "all drawings searched: plant line with no reference; not drawn on any sheet"
+    ]
+   },
+   "written": {
+    "size_m": [
+     3.738,
+     1.237
+    ],
+    "size_state": "written (contract model matches a fleet guide row)",
+    "size_basis": "FL02 / T0004 is asset 1197839, contract \"COATES Forklift 3.0t Container Diesel\"; the fleet guide lists \"CLARK Forklift 3.0t Container Diesel\" at 3738 x 1237 mm. The schedule calls it 2.5T.",
+    "conflicts": [
+     "schedule \"Forklift 2.5T\" vs contract 3.0t for asset 1197839"
+    ],
+    "variants": null,
+    "sources": [
+     "coates_lrg_2023.pdf page 15, text lines 33-40: CLARK Forklift 3.0t Container Diesel: length 3738 mm, width 1237 mm, height 2165 mm",
+     "Baseplan_SuperCars_07Oct.xlsx 9961976-NVAC!F21: COATES Forklift 3.0t Container Diesel (1197839)"
+    ]
+   },
+   "disagree_pct": null,
+   "door_rule": {
+    "drawings": "size to confirm",
+    "documents": "No door. Loading door side (which way the door faces on the truck) is the project manager's choice per unit on the record (loading872: door to driver side / door to passenger side / not applicable; v8.72-v8.73 READMEs). It is never set automatically, and the same choice is what Arrange loads should offer (STATUS.md, 9 Oct ~00:30: \"Remember when we pick the loads we can select the driver to door selection here too. As we can see the door side on the pics.\")."
+   },
+   "closest_evidence": null
+  },
+  "Forklift 2.5T RT": {
+   "key": "Forklift 2.5T RT",
+   "footprint": true,
+   "size_m": [
+    2.95,
+    1.45
+   ],
+   "size_state": "size to confirm",
+   "confirm": true,
+   "why": "size to confirm: closest sourced evidence coates_lrg_2023.pdf page 12, text lines 138-145: MANITOU Forktruck Rt Container 2.5t 4wd 2950 x 1450 mm (closest row; the contract models are not in the guide)",
+   "drawn": {
+    "size_m": null,
+    "drawn_as_m": null,
+    "n_instances": 0,
+    "direct": false,
+    "status": "size to confirm",
+    "closest_evidence": "none in any drawing; page product photo only",
+    "note": null,
+    "sources": [
+     "all drawings searched: plant line with no reference; not drawn on any sheet"
+    ]
+   },
+   "written": {
+    "size_m": null,
+    "size_state": "size to confirm",
+    "size_basis": "T0005 assets 1247787 (\"Rough Terrain 2.5t With Switchable 2WD to 4WD\") and 1312577 (\"Rough Terrain 4WD With Rotator 2.5t Diesel\"). The fleet guide has no row with these descriptions; closest: \"MANITOU Forktruck Rt Container 2.5t 4wd\" 2950 x 1450 mm.",
+    "conflicts": null,
+    "variants": null,
+    "sources": [
+     "coates_lrg_2023.pdf page 12, text lines 138-145: MANITOU Forktruck Rt Container 2.5t 4wd: length 2950 mm, width 1450 mm, height 1990 mm",
+     "Baseplan_SuperCars_07Oct.xlsx 9961976-NVAC!F22,F23,F29,F30: Forklift Rough Terrain 2.5t lines",
+     "Baseplan_SuperCars_07Oct.xlsx 9968726-MEAD!F2: Forklift Rough Terrain 2.5t 4WD Diesel (1298390)"
+    ]
+   },
+   "disagree_pct": null,
+   "door_rule": {
+    "drawings": "size to confirm",
+    "documents": "No door. Loading door side (which way the door faces on the truck) is the project manager's choice per unit on the record (loading872: door to driver side / door to passenger side / not applicable; v8.72-v8.73 READMEs). It is never set automatically, and the same choice is what Arrange loads should offer (STATUS.md, 9 Oct ~00:30: \"Remember when we pick the loads we can select the driver to door selection here too. As we can see the door side on the pics.\")."
+   },
+   "closest_evidence": "coates_lrg_2023.pdf page 12, text lines 138-145: MANITOU Forktruck Rt Container 2.5t 4wd 2950 x 1450 mm (closest row; the contract models are not in the guide)"
+  },
+  "Forklift 5T": {
+   "key": "Forklift 5T",
+   "footprint": true,
+   "size_m": [
+    4.24,
+    2.26
+   ],
+   "size_state": "size to confirm",
+   "confirm": true,
+   "why": "size to confirm: closest sourced evidence coates_lrg_2023.pdf page 15, text lines 173-180: CLARK Forklift 5t Diesel 4240 x 2260 mm (with 1.8 m tynes the length is more)",
+   "drawn": {
+    "size_m": null,
+    "drawn_as_m": null,
+    "n_instances": 0,
+    "direct": false,
+    "status": "size to confirm",
+    "closest_evidence": "none in any drawing; page product photo only",
+    "note": null,
+    "sources": [
+     "all drawings searched: plant line with no reference; not drawn on any sheet"
+    ]
+   },
+   "written": {
+    "size_m": null,
+    "size_state": "size to confirm",
+    "size_basis": "FL01 / T0003 is contract line \"COATES- 5T FORKLIFT 1.8TYNNES\" (MISCITEM, no asset, no model). Closest written evidence: fleet guide \"CLARK Forklift 5t Diesel\" 4240 x 2260 mm (with 1.8 m tynes the length is more).",
+    "conflicts": null,
+    "variants": null,
+    "sources": [
+     "coates_lrg_2023.pdf page 15, text lines 173-180: CLARK Forklift 5t Diesel: length 4240 mm, width 2260 mm, height 2338 mm",
+     "Baseplan_SuperCars_07Oct.xlsx 9961976-NVAC!F27: COATES- 5T FORKLIFT 1.8TYNNES",
+     "live page v9.18 DATA.plant_lines T0003 note: Long Tines"
+    ]
+   },
+   "disagree_pct": null,
+   "door_rule": {
+    "drawings": "size to confirm",
+    "documents": "No door. Loading door side (which way the door faces on the truck) is the project manager's choice per unit on the record (loading872: door to driver side / door to passenger side / not applicable; v8.72-v8.73 READMEs). It is never set automatically, and the same choice is what Arrange loads should offer (STATUS.md, 9 Oct ~00:30: \"Remember when we pick the loads we can select the driver to door selection here too. As we can see the door side on the pics.\")."
+   },
+   "closest_evidence": "coates_lrg_2023.pdf page 15, text lines 173-180: CLARK Forklift 5t Diesel 4240 x 2260 mm (with 1.8 m tynes the length is more)"
+  },
+  "Fridge": {
+   "key": "Fridge",
+   "footprint": false,
+   "why": "n/a",
+   "drawn": null,
+   "written": {
+    "size_m": null,
+    "size_state": "not a footprint item"
+   }
+  },
+  "Fridge Lge": {
+   "key": "Fridge Lge",
+   "footprint": false,
+   "why": "n/a",
+   "drawn": {
+    "size_m": null,
+    "status": "no own footprint (contents)"
+   },
+   "written": {
+    "size_m": null,
+    "size_state": "not a footprint item"
+   }
+  },
+  "Generator 200kva": {
+   "key": "Generator 200kva",
+   "footprint": true,
+   "size_m": [
+    4.2,
+    1.6
+   ],
+   "size_state": "size to confirm",
+   "confirm": true,
+   "why": "size to confirm: closest sourced evidence coates_lrg_2023.pdf page 50, text lines 38-45: CUMMINS Generator - 200kVA 4200 x 1600 mm (the larger of the two Coates 200 kVA models)",
+   "drawn": null,
+   "written": {
+    "size_m": null,
+    "size_state": "size to confirm",
+    "size_basis": "T0019 is the old GN22 line, superseded by GN20 (350 kVA); probably no separate unit. If one exists: Atlas Copco 3470 x 1440 or Cummins 4200 x 1600 mm.",
+    "conflicts": null,
+    "variants": null,
+    "sources": [
+     "coates_lrg_2023.pdf page 48, text lines 68-75: ATLAS COPCO Generator - 200kVA (Diesel): length 3470 mm, width 1440 mm, height 2330 mm",
+     "coates_lrg_2023.pdf page 50, text lines 38-45: CUMMINS Generator - 200kVA (Diesel): length 4200 mm, width 1600 mm, height 2080 mm",
+     "Street_Rate_Card_2026.pdf text lines 269-371: Generator 12 to 650 KVA lines (no sizes)",
+     "live page v9.18 DATA.plant_lines T0019 note: WAS GN22 NOW 350KVA GN22-GN20 BEING DEL WEEK 3 SEPT 30"
+    ]
+   },
+   "disagree_pct": null,
+   "door_rule": {
+    "drawings": null,
+    "documents": "No door. The fleet guide says skid-based equipment is placed with its length along the deck (page 43 line 12). Loading door side (which way the door faces on the truck) is the project manager's choice per unit on the record (loading872: door to driver side / door to passenger side / not applicable; v8.72-v8.73 READMEs). It is never set automatically, and the same choice is what Arrange loads should offer (STATUS.md, 9 Oct ~00:30: \"Remember when we pick the loads we can select the driver to door selection here too. As we can see the door side on the pics.\")."
+   },
+   "closest_evidence": "coates_lrg_2023.pdf page 50, text lines 38-45: CUMMINS Generator - 200kVA 4200 x 1600 mm (the larger of the two Coates 200 kVA models)"
+  },
+  "Light Tower": {
+   "key": "Light Tower",
+   "footprint": true,
+   "size_m": [
+    2.5,
+    1.75
+   ],
+   "size_state": "size to confirm",
+   "confirm": true,
+   "why": "size to confirm: closest sourced evidence coates_lrg_2023.pdf page 36, text lines 105-112: JLG Lighting Tower 6000W Hydraulic 2500 x 1750 mm (a different model from the LED Metro / Hybrid / POD towers on the contract)",
+   "drawn": {
+    "size_m": null,
+    "drawn_as_m": null,
+    "n_instances": 0,
+    "direct": false,
+    "status": "size to confirm",
+    "closest_evidence": "position only: the fan apex on D024 (MASTER_LOC \"leader line from callout NN on D024\")",
+    "note": null,
+    "sources": [
+     "D024-26003-02-GENS & LTS.pdf 1: legend LIGHTING TOWERS is a numbered purple callout \"REFER BOQ FOR PROGRAM\"; LTC towers are a blue light-spread fan with the number at the apex; no tower outline at any of them (checked at LTC01)",
+     "D001-26003-03-MASTER.pdf 1: no light-tower legend entry and no symbol"
+    ]
+   },
+   "written": {
+    "size_m": null,
+    "size_state": "size to confirm",
+    "size_basis": "The contract names the models (Lighting Tower LED Metro: 1264929, 1314284, 1188888; LED 76500lm Hybrid: 1264899, 1249499; POD Metro: 1224783, 1224791 at LT05/06). The fleet guide lists only \"JLG Lighting Tower 6000W Hydraulic\" 2500 x 1750 mm, a different model. The card line \"Lighting Towers\" has no size.",
+    "conflicts": null,
+    "variants": null,
+    "sources": [
+     "coates_lrg_2023.pdf page 36, text lines 105-112: JLG Lighting Tower 6000W Hydraulic: length 2500 mm, width 1750 mm, height 2400 mm (closest written evidence, different model)",
+     "Baseplan_SuperCars_07Oct.xlsx 9961976-NVAC!F2-F6,F19,F20: Lighting Tower LED Metro / LED 76500lm Hybrid / POD Metro",
+     "Street_Rate_Card_2026.pdf text line 379: Lighting Towers (no size)"
+    ]
+   },
+   "disagree_pct": null,
+   "door_rule": {
+    "drawings": "size to confirm (no footprint drawn)",
+    "documents": "No door. Loading door side (which way the door faces on the truck) is the project manager's choice per unit on the record (loading872: door to driver side / door to passenger side / not applicable; v8.72-v8.73 READMEs). It is never set automatically, and the same choice is what Arrange loads should offer (STATUS.md, 9 Oct ~00:30: \"Remember when we pick the loads we can select the driver to door selection here too. As we can see the door side on the pics.\")."
+   },
+   "closest_evidence": "coates_lrg_2023.pdf page 36, text lines 105-112: JLG Lighting Tower 6000W Hydraulic 2500 x 1750 mm (a different model from the LED Metro / Hybrid / POD towers on the contract)"
+  },
+  "Pad Chair": {
+   "key": "Pad Chair",
+   "footprint": false,
+   "why": "n/a",
+   "drawn": {
+    "size_m": null,
+    "status": "no own footprint (contents)"
+   },
+   "written": {
+    "size_m": null,
+    "size_state": "not a footprint item"
+   }
+  },
+  "Pee Panel": {
+   "key": "Pee Panel",
+   "footprint": true,
+   "size_m": [
+    2.41,
+    0.6
+   ],
+   "size_state": "drawn on the master",
+   "confirm": false,
+   "why": "no written size; the drawing evidence is direct (measured on the master), so the drawn size is used",
+   "drawn": {
+    "size_m": [
+     2.41,
+     0.6
+    ],
+    "drawn_as_m": null,
+    "n_instances": 6,
+    "direct": true,
+    "status": null,
+    "closest_evidence": null,
+    "note": null,
+    "sources": [
+     "D001-26003-03-MASTER.pdf (2 Oct 2026 master, sha256 8753d875cf90...) 1: v9.15 tracing (shapes_v915.json): outline = the PDF vector path itself at the tagged reference; length/width = mean of opposite edges of the 4-vertex path x 0.705556 m/pt (title block 1:2000); recomputed here from poly_pt, not the rounded size_m; WC09 (6 pan"
+    ]
+   },
+   "written": {
+    "size_m": null,
+    "size_state": "size to confirm",
+    "size_basis": "No written size: the 2026 lines and the Event Portables plan give counts only (WC09: 6 pee panels); the card line \"Pee Panel\" and the 2025 quote line \"6 Pee Panel\" carry no size.",
+    "conflicts": null,
+    "variants": null,
+    "sources": [
+     "Street_Rate_Card_2026.pdf text line 102: Pee Panel (no size)",
+     "reference_2025_contracts_and_invoices/Event_Portables_2025_po_lines.csv line 9: Quote: Q6127 - 6 Pee Panel (no size)",
+     "GC500_26_Schedule_6.xlsx Week 2 sheet row 30 (DATA source_range): Pee Panel 6 at WC09"
+    ]
+   },
+   "disagree_pct": null,
+   "door_rule": {
+    "drawings": "No door (open urinal panel).",
+    "documents": "No door (open urinal panel) - no written rule either way. Loading door side (which way the door faces on the truck) is the project manager's choice per unit on the record (loading872: door to driver side / door to passenger side / not applicable; v8.72-v8.73 READMEs). It is never set automatically, and the same choice is what Arrange loads should offer (STATUS.md, 9 Oct ~00:30: \"Remember when we pick the loads we can select the driver to door selection here too. As we can see the door side on the pics.\")."
+   },
+   "closest_evidence": null
+  },
+  "Steel Plate": {
+   "key": "Steel Plate",
+   "footprint": false,
+   "why": "n/a",
+   "drawn": null,
+   "written": {
+    "size_m": [
+     3.0,
+     1.2
+    ],
+    "size_state": "written (no reference carries it in DATA)"
+   }
+  },
+  "TL2": {
+   "key": "TL2",
+   "footprint": true,
+   "size_m": [
+    2.0,
+    0.5
+   ],
+   "size_state": "drawn on the master",
+   "confirm": false,
+   "why": "no written size; the drawing evidence is direct (measured on the master), so the drawn size is used",
+   "drawn": {
+    "size_m": [
+     2.0,
+     0.5
+    ],
+    "drawn_as_m": null,
+    "n_instances": 405,
+    "direct": true,
+    "status": "piece size from the drawing; product data sheet not held",
+    "closest_evidence": null,
+    "note": "Run tracing and WB matching is in scratchpad/shapes_all/wfb_runs.json (another worker). DATA.barriers: K220 says 261 Coates / 207 contractor pieces.",
+    "sources": [
+     "D001-26003-03-MASTER.pdf 1: census.py: every yellow (1,0.749,0) and white (0.98) filled 4-corner piece 1.6-2.4 m long, black 0.18 outline; length/width x 0.705556 m/pt",
+     "K220-K231-26003-02 COMBINED WFB.pdf 1, 7, 10, 12: K220 (key plan, same 1:2000 base) pieces 2.0 x 0.49-0.51 m. Detail sheets are NOT TO SCALE but every piece is drawn at 4.0:1 and ONE PIECE = ONE BARRIER: K226 4 pieces = callouts 2x+2x; K229 25 = 12+7+6; K231 31 = 31 (K225 27 vs 25, K230 56 vs 38 include leg",
+     "Baseplan contracts (DATA rental_on_hire): product on hire: \"Barrier - Crash Rated Water filled - Armorzone MASH TL2\"; no manufacturer length held"
+    ]
+   },
+   "written": {
+    "size_m": null,
+    "size_state": "size to confirm (piece length not written)",
+    "size_basis": "Barriers are LINE shapes (runs of pieces). Written: the contract lines \"Barrier - Crash Rated Water filled - Armorzone MASH TL2\" give the pieces per WB (WB01 12, WB02 34, WB03 30, WB04 14, WB05 13, WB06 154, WB07 17, WB13 10, WB14 2, WB15 4, WB16 13, WB17 6, WB18 2, WB19 34, WB20 30); the card charges \"Armorzone (per barrier)\"; the fleet guide (Section J) gives stacking, not dimensions. No document found in the repo or scratch gives the length or width of one Armorzone piece, so a run length cannot be turned into pieces from documents alone.",
+    "conflicts": null,
+    "variants": null,
+    "sources": [
+     "Baseplan_SuperCars_07Oct.xlsx Hre Contract-9972648-STPS!F2-F16: WBnn Barrier - Crash Rated Water filled - Armorzone MASH TL2, quantity column G = pieces",
+     "Street_Rate_Card_2026.pdf text line 398: Armorzone (per barrier)",
+     "Coates Load Restraint Guide 2023 Edition page 67 lines 4-21; page 68 line 15: Water-filled barriers: interlocked, slugs of 3, max 5 slugs a layer for ArmorZone (no dimensions)",
+     "03_GC500_Delivery_Control/STATUS.md line 63 (sha a29e4ec0): \"Water barrier have shapes theirs is the white and yellow long lines.\""
+    ]
+   },
+   "disagree_pct": null,
+   "door_rule": {
+    "drawings": "A LINE shape, not a box: a run of pieces alternating yellow and white (legend WATER-FILLED BARRIER). No door. Pieces in a run = run length / 2.00 m. Narrower pieces (down to 0.26 m) are wedge pieces on curves.",
+    "documents": "No door. Line shape; the project manager: \"Water barrier have shapes theirs is the white and yellow long lines\" (STATUS.md line 63, sha a29e4ec0)."
+   },
+   "closest_evidence": null
+  },
+  "Ticket Box 4.8m": {
+   "key": "Ticket Box 4.8m",
+   "footprint": true,
+   "size_m": [
+    4.8,
+    2.4
+   ],
+   "size_state": "size to confirm",
+   "confirm": true,
+   "why": "size to confirm: the written size is used as the best sourced size (it differs from the drawing catalogue by 20.3%)",
+   "drawn": {
+    "size_m": [
+     4.8,
+     3.01
+    ],
+    "drawn_as_m": [
+     5.98,
+     3.01
+    ],
+    "n_instances": 1,
+    "direct": false,
+    "status": null,
+    "closest_evidence": null,
+    "note": "Drawings draw these as 6.0 x 3.0; the schedule says 4.8 m; P21 was supplied as a 6 m. Arrange loads should use the unit actually supplied (6.0 when the record says Building 6m). Length 4.8 m to confirm per unit.",
+    "sources": [
+     "GC500 schedule via DATA (v9.18 page): LENGTH 4.8 m is the item name on the schedule line (\"Ticket Box 4.8m\"); no drawing draws a 4.8 m unit",
+     "D001-26003-03-MASTER.pdf (2 Oct 2026 master, sha256 8753d875cf90...) 1: v9.15 tracing (shapes_v915.json): outline = the PDF vector path itself at the tagged reference; length/width = mean of opposite edges of the 4-vertex path x 0.705556 m/pt (title block 1:2000); recomputed here from poly_pt, not the rounded size_m: WIDTH 3.0 m",
+     "D022-26003-02-PORT BUILDINGS.pdf and D023-26003-02-TOILETS.pdf 1: census.py at the same positions: also drawn 6.0 x 3.0 m",
+     "record /api/state v4581, supplied/P21: P21 asked Building 4.8m, supplied Building 6m (recorded 4 Oct 2026)"
+    ]
+   },
+   "written": {
+    "size_m": [
+     4.8,
+     2.4
+    ],
+    "size_state": "written",
+    "size_basis": "Contract \"P60 Ticket Office 4.8Mx2.4M\" (asset 1015699), 2025 the same, card \"Ticket Box - 4.8m x 2.4m\"; only the programme says 4.8m x 3m.",
+    "conflicts": [
+     "programme 4.8m x 3m vs contract and card 4.8 x 2.4"
+    ],
+    "variants": null,
+    "sources": [
+     "Baseplan_SuperCars_07Oct.xlsx 9968862-KINP!F78: P60 Ticket Office 4.8Mx2.4M (asset 1015699)",
+     "Baseplan_2025_Contracts.xlsx Sheet3!F14: P60 - Ticket Office 4.8Mx2.4M - Gate 5 Ticket Box",
+     "Street_Rate_Card_2026.pdf text line 59: Ticket Box - 4.8m x 2.4m",
+     "P003-26003-01_Programme_-_Coates_Inf_V1_14.8.26.xlsx Sheet1!B111: P60 Portable Ticket Box Delivery - 4.8m x 3m"
+    ]
+   },
+   "disagree_pct": 20.3,
+   "door_rule": {
+    "drawings": "As Building 6m: one door on a long side, opening outward, door centre about a quarter of the way along (0.24 of the edge from the nearer end on every traced instance), 0.78 m swing. On a 4.8 m unit the drawn position scales to about 1.2 m in from the end: to confirm on site. Refs drawn with no door: none",
+    "documents": "No written door or window rule. No written document says which wall the door is on; that comes only from the drawing (see the drawings catalogue / v9.15 door.faces). Loading door side (which way the door faces on the truck) is the project manager's choice per unit on the record (loading872: door to driver side / door to passenger side / not applicable; v8.72-v8.73 READMEs). It is never set automatically, and the same choice is what Arrange loads should offer (STATUS.md, 9 Oct ~00:30: \"Remember when we pick the loads we can select the driver to door selection here too. As we can see the door side on the pics.\")."
+   },
+   "closest_evidence": null
+  },
+  "Ticket Box 6m": {
+   "key": "Ticket Box 6m",
+   "footprint": true,
+   "size_m": [
+    6.01,
+    3.0
+   ],
+   "size_state": "agreed",
+   "confirm": false,
+   "why": "drawn and written agree within 0.2%; the size measured on the master is used",
+   "drawn": {
+    "size_m": [
+     6.01,
+     3.0
+    ],
+    "drawn_as_m": [
+     6.01,
+     3.0
+    ],
+    "n_instances": 1,
+    "direct": true,
+    "status": null,
+    "closest_evidence": null,
+    "note": null,
+    "sources": [
+     "D001-26003-03-MASTER.pdf (2 Oct 2026 master, sha256 8753d875cf90...) 1: v9.15 tracing (shapes_v915.json): outline = the PDF vector path itself at the tagged reference; length/width = mean of opposite edges of the 4-vertex path x 0.705556 m/pt (title block 1:2000); recomputed here from poly_pt, not the rounded size_m; refs: P55",
+     "D022-26003-02-PORT BUILDINGS.pdf (17 Sep issue) 1: census.py: same outline found within 0.2 pt of each master position after the frame shift (x+25.5, y+0.12 pt); sizes agree within 0.03 m"
+    ]
+   },
+   "written": {
+    "size_m": [
+     6.0,
+     3.0
+    ],
+    "size_state": "written, sources disagree on width",
+    "size_basis": "The 2026 contract line for the unit (asset 172114) reads \"P55 Ticket Office 6.0Mx3.0M\", as in 2025. The iEDM programme and the card say a 6 m ticket box is 6m x 2.4m. The contract names the unit hired, so 6.0 x 3.0.",
+    "conflicts": [
+     "width 3.0 m (contract 2026, 2025) vs 2.4 m (programme, card)"
+    ],
+    "variants": null,
+    "sources": [
+     "Baseplan_SuperCars_07Oct.xlsx 9968862-KINP!F58: P55 Ticket Office 6.0Mx3.0M (asset 172114)",
+     "P003-26003-01_Programme_-_Coates_Inf_V1_14.8.26.xlsx Sheet1!B86: P55 Portable Ticket Box Delivery - 6m x 2.4m",
+     "Street_Rate_Card_2026.pdf text line 64: Ticket Box - 6m x 2.4m"
+    ]
+   },
+   "disagree_pct": 0.2,
+   "door_rule": {
+    "drawings": "One door on a LONG side, opening outward (legend PORTABLE BUILDINGS: quarter-circle swing + leaf). Door centre about a quarter of the way along that side (0.23-0.25 of the edge from the nearer end, about 1.4 m in on a 6 m unit); swing radius 0.78 m. Which long side, and which end, is per unit: read it from the unit's own traced door (v9.15 door.faces).",
+    "documents": "No written door or window rule. No written document says which wall the door is on; that comes only from the drawing (see the drawings catalogue / v9.15 door.faces). Loading door side (which way the door faces on the truck) is the project manager's choice per unit on the record (loading872: door to driver side / door to passenger side / not applicable; v8.72-v8.73 READMEs). It is never set automatically, and the same choice is what Arrange loads should offer (STATUS.md, 9 Oct ~00:30: \"Remember when we pick the loads we can select the driver to door selection here too. As we can see the door side on the pics.\")."
+   },
+   "closest_evidence": null
+  },
+  "Toilet Block 6m": {
+   "key": "Toilet Block 6m",
+   "footprint": true,
+   "size_m": [
+    6.0,
+    3.0
+   ],
+   "size_state": "agreed",
+   "confirm": false,
+   "why": "drawn and written agree within 0.0%; the size measured on the master is used",
+   "drawn": {
+    "size_m": [
+     6.0,
+     3.0
+    ],
+    "drawn_as_m": null,
+    "n_instances": 15,
+    "direct": true,
+    "status": null,
+    "closest_evidence": null,
+    "note": null,
+    "sources": [
+     "D001-26003-03-MASTER.pdf (2 Oct 2026 master, sha256 8753d875cf90...) 1: v9.15 tracing (shapes_v915.json): outline = the PDF vector path itself at the tagged reference; length/width = mean of opposite edges of the 4-vertex path x 0.705556 m/pt (title block 1:2000); recomputed here from poly_pt, not the rounded size_m; refs: T0243",
+     "D023-26003-02-TOILETS.pdf 1: census.py: same 6.0 x 3.0 outline (line 0.48) at WC05, WC27"
+    ]
+   },
+   "written": {
+    "size_m": [
+     6.0,
+     3.0
+    ],
+    "size_state": "written",
+    "size_basis": "Contract lines \"Toilet Block 6.0M x 3.0M\" and \"Toilet Block Male Female Cyclone Rated 6m x 3m\"; card \"Sewer Combo / Sewer Connect Female / Male / Tank Mount Combo / Female / Male 6m x 3m\".",
+    "conflicts": [
+     "WC20: the record (units.WC20) labels 1327228 \"Waste tank - Set 1 (toilet 1311341)\", but contract 9968955-KINP!F47 lists 1327228 as \"WC20 Toilet Block Male Female Cyclone Rated 6m x 3m\" and the two WC20 Sewage Holding Tank lines (F49, F50) carry no asset number. Which number is the tank is for the project manager to confirm (STATUS.md already asks)."
+    ],
+    "variants": null,
+    "sources": [
+     "Baseplan_SuperCars_07Oct.xlsx 9968955-KINP!F2,F52,F90,F91,F101,F102: Toilet Block 6.0M x 3.0M (WC05, WC27, WC60 x2, WC09 x2)",
+     "Baseplan_SuperCars_07Oct.xlsx 9968955-KINP!F10,F11,F20,F21,F47,F48,F54,F55; 9973977-KINP!F2: Toilet Block Male Female Cyclone Rated 6m x 3m (WC16 x2, WC17 x2, WC20 x2, WC15 x2, WCTV)",
+     "Street_Rate_Card_2026.pdf text lines 107-137: Sewer Combo 6m x 3m; Sewer Connect Female/Male 6m x 3m; Tank Mount Combo/Female/Male 6m x 3m",
+     "P003-26003-01_Programme_-_Coates_Inf_V1_14.8.26.xlsx Sheet1!F12,F14,F22,F53,F54,F74,F89,F99: Combo - Tanked; 1x Sewer - Female / Male; 1x Tanked - Female / Male"
+    ]
+   },
+   "disagree_pct": 0.0,
+   "door_rule": {
+    "drawings": "Two doors, both on the SAME long side, one near each end (door centres at 0.09 and 0.91 of the edge, about 0.55 m in from each end), opening outward, 0.83 m swing, each with the step landing box drawn round it (legend TOILET BLOCK). Instances with one door drawn: see spread.doors. Side per unit from v9.15 door.faces.",
+    "documents": "Written: each block is a Female, a Male or a Combo block (programme: \"1x Sewer - Female / 1x Sewer - Male\" for WC15, WC16, WC17, WC09; \"1x Tanked - Female / 1x Tanked - Male\" for WC20, WC60; \"Combo - Tanked\" for WC05, WC27). No written source gives the door count or wall. No written document says which wall the door is on; that comes only from the drawing (see the drawings catalogue / v9.15 door.faces). Loading door side (which way the door faces on the truck) is the project manager's choice per unit on the record (loading872: door to driver side / door to passenger side / not applicable; v8.72-v8.73 READMEs). It is never set automatically, and the same choice is what Arrange loads should offer (STATUS.md, 9 Oct ~00:30: \"Remember when we pick the loads we can select the driver to door selection here too. As we can see the door side on the pics.\")."
+   },
+   "closest_evidence": null
+  },
+  "Trakmat": {
+   "key": "Trakmat",
+   "footprint": true,
+   "size_m": [
+    2.4,
+    1.1
+   ],
+   "size_state": "size to confirm",
+   "confirm": true,
+   "why": "size to confirm: the written size is used as the best sourced size",
+   "drawn": {
+    "size_m": null,
+    "drawn_as_m": null,
+    "n_instances": 0,
+    "direct": false,
+    "status": "size to confirm",
+    "closest_evidence": "none in any drawing; page product photo only",
+    "note": null,
+    "sources": [
+     "all drawings searched: plant line with no reference; not drawn on any sheet"
+    ]
+   },
+   "written": {
+    "size_m": [
+     2.4,
+     1.1
+    ],
+    "size_state": "written",
+    "size_basis": "Contract \"Trakmat - 2.4M x 1.1M - TM4496\", qty 20 (T0025, record supplied 20); 2025 the same size. The card charges Track Mat per metre.",
+    "conflicts": null,
+    "variants": null,
+    "sources": [
+     "Baseplan_SuperCars_07Oct.xlsx 9973079-STPS!F2: Trakmat - 2.4M x 1.1M - TM4496, qty 20",
+     "reference_2025_contracts_and_invoices/contracts_2025_as_read.md line 113: Trakmat 2.4M x 1.1M",
+     "shared record v4581 docs.supplied.T0025: Trakmat qty_supplied 20"
+    ]
+   },
+   "disagree_pct": null,
+   "door_rule": {
+    "drawings": "size to confirm",
+    "documents": "No door. Flat mat."
+   },
+   "closest_evidence": null
+  },
+  "VMS": {
+   "key": "VMS",
+   "footprint": true,
+   "size_m": [
+    3.835,
+    2.0
+   ],
+   "size_state": "size to confirm",
+   "confirm": true,
+   "why": "size to confirm: the written size is used as the best sourced size",
+   "drawn": {
+    "size_m": null,
+    "drawn_as_m": null,
+    "n_instances": 19,
+    "direct": false,
+    "status": "size to confirm",
+    "closest_evidence": "D025 symbol 15.0 x 5.0 m (symbolic); trailer footprint not in any source held",
+    "note": null,
+    "sources": [
+     "D025-26003-02-VMS.pdf 1: census.py: 19 magenta boxes median 15.00 x 4.99 m at 1:2000 (same base as the master: 1114 cyan 3.8 x 0.6 concrete barriers on both). A 15 x 5 m box is a symbol, not a trailer footprint.",
+     "VMS001-26003-01_GC500_COATES_VMS_LOCATIONS.pdf (17 pages) 2-17: each board is a red dot on a map crop and a street photo; no footprint or scale; direction in the location text (transcribed in scratchpad/vms001/result.json)"
+    ]
+   },
+   "written": {
+    "size_m": [
+     3.835,
+     2.0
+    ],
+    "size_state": "written for Coates \"Variable Message Board Senior\"; other models size to confirm",
+    "size_basis": "The fleet guide lists \"A1 ROADLINES Variable Message Board Senior\" at 3835 x 2000 mm (trailer, overall). Coates boards on contract 9961265 are \"Variable Message Board Senior\" (1211404, 1182999, 1191877, 1211359, 1211383; REED 1211370; MARS 1211354; Colour 1271129). The Junior (VMS12, 1211646), Premiair and RPM boards (VMS10, 11, 13-19, sub-hired) have no written size.",
+    "conflicts": null,
+    "variants": null,
+    "sources": [
+     "coates_lrg_2023.pdf page 36, text lines 119-126: A1 ROADLINES Variable Message Board Senior: length 3835 mm, width 2000 mm, height 2819 mm",
+     "Baseplan_SuperCars_07Oct.xlsx 9961265-STPS!F2-F20: Variable Message Board Senior / Colour / Junior / Premiair / RPM",
+     "Street_Rate_Card_2026.pdf text line 402: VMS Board (no size)"
+    ]
+   },
+   "disagree_pct": null,
+   "door_rule": {
+    "drawings": "Sign face direction: D025 draws each board as a magenta box with an arrow square to one LONG side and a small triangle on one short end (legend VARIABLE MESSAGE SIGNS); the arrow is the only drawn direction and is read as the face direction (the legend does not say so: confirm). VMS001-26003-01 gives the traffic direction each board serves in words (e.g. \"WATERWAYS DRIVE NORTHBOUND\"), not a drawn face.",
+    "documents": "No door. Sign face direction is not in any written source (drawing only). Loading door side (which way the door faces on the truck) is the project manager's choice per unit on the record (loading872: door to driver side / door to passenger side / not applicable; v8.72-v8.73 READMEs). It is never set automatically, and the same choice is what Arrange loads should offer (STATUS.md, 9 Oct ~00:30: \"Remember when we pick the loads we can select the driver to door selection here too. As we can see the door side on the pics.\")."
+   },
+   "closest_evidence": null
+  },
+  "Waste tank": {
+   "key": "Waste tank",
+   "footprint": true,
+   "size_m": [
+    6.0,
+    3.0
+   ],
+   "size_state": "the block it sits under",
+   "confirm": false,
+   "why": "the project manager, 9 Oct 2026 ~00:15-00:20 AEST: same shape as the toilet block, under it; each tank takes its own block's traced outline (the contract writes the tank 6.0 x 2.4 m, inside the block's 6.0 x 3.0 m)",
+   "drawn": {
+    "size_m": [
+     6.0,
+     3.0
+    ],
+    "drawn_as_m": null,
+    "n_instances": 6,
+    "direct": true,
+    "status": null,
+    "closest_evidence": null,
+    "note": "WC31 16-pan block has no waste tank on the schedule. WC27's block number is from the schedule/Event Portables sheet, not the record.",
+    "sources": [
+     "the project manager, 9 Oct 2026 ~00:10-00:20 AEST: \"same shape as the toilet block, under it\" (size and place); size taken from the Toilet Block 6m entry",
+     "record /api/state v4581 (read only): block-tank pairs: WC05 block 1097377 + tank 1328978 (record units/WC05); WC20 set 1 block 1311341 + tank 1327228 (record units/WC20); WC20 set 2 block 1327225 + tank 1328982 (record units/WC20); WC60 block 1119489 + tank 1328980 (record delivery/WC60 note, 1"
+    ]
+   },
+   "written": {
+    "size_m": [
+     6.0,
+     3.0
+    ],
+    "size_state": "project manager direction (overrides the written tank size for drawing)",
+    "size_basis": "Draw each waste tank with the SAME footprint, position and rotation as the toilet block it serves, greyed and labelled \"WASTE TANK\" (STATUS.md, 9 Oct ~00:10-00:20). The contract writes the tank itself as \"Sewage Holding Tank 6.0M x 2.4M\" and the card as \"Waste Tank 6m (Additional)\": 6.0 m long like the block, 2.4 m wide, so it sits within the block's 6.0 x 3.0 m footprint - consistent with \"under the toilets\".",
+    "conflicts": null,
+    "variants": null,
+    "sources": [
+     "03_GC500_Delivery_Control/STATUS.md line 64 (sha a29e4ec0): \"Waste tank almost need to be same shape as the toilet block greyed. Clearly to say waste tank.\"",
+     "03_GC500_Delivery_Control/STATUS.md line 66 (sha a29e4ec0): \"Waste tanks are under the toilets so u wont see on master.\"",
+     "03_GC500_Delivery_Control/STATUS.md line 1849 (sha a29e4ec0): \"...if there is a toilet block ontop it requires a crane truck to take off the toilet block...\"",
+     "Baseplan_SuperCars_07Oct.xlsx 9968955-KINP!F3,F49,F50,F53,F92,F93: Sewage Holding Tank 6.0M x 2.4M (WC05 1328978, WC20 x2 no asset, WC27 1328979, WC60 x2 no asset)"
+    ]
+   },
+   "disagree_pct": 0.0,
+   "door_rule": {
+    "drawings": "No door. Same footprint as the toilet block it serves and sits UNDER it: same position and rotation as that block's traced outline. The master does not draw tanks (expected, not a gap). Draw greyed (grey fill lighter than the block) and labelled \"WASTE TANK\". In Arrange loads it is its own greyed block-shaped item.",
+    "documents": "No door (a tank). It sits UNDER its block: \"with the sewer tank if there is a toilet block ontop it requires a crane truck to take off the toilet block. Once thats gone we can then do the waste tank\" (STATUS.md). Loading: it travels as its own item; Loading door side (which way the door faces on the truck) is the project manager's choice per unit on the record (loading872: door to driver side / door to passenger side / not applicable; v8.72-v8.73 READMEs). It is never set automatically, and the same choice is what Arrange loads should offer (STATUS.md, 9 Oct ~00:30: \"Remember when we pick the loads we can select the driver to door selection here too. As we can see the door side on the pics.\")."
+   },
+   "closest_evidence": null
+  },
+  "fencing": {
+   "key": "fencing",
+   "footprint": false,
+   "why": "Gates only where the fencing papers say (not a unit door).",
+   "drawn": null,
+   "written": {
+    "size_m": null,
+    "size_state": "written panel size; line shape"
+   }
+  }
+ }
+}

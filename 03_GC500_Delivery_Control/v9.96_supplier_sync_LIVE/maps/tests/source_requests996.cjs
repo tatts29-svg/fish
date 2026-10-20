@@ -1,0 +1,25 @@
+/* Author: Andrew Fisher. Real shared supplier resolver, request factory and read-only map projection. */
+'use strict';
+const fs=require('fs'),path=require('path'),vm=require('vm'),assert=require('node:assert/strict');
+let native=[];
+const c={document:{},epInventory860:()=>[],Subhire975:{},allAssets:()=>native,DATA:{assets:[]},S:{added:[]},console};
+vm.createContext(c);
+vm.runInContext(fs.readFileSync(path.join(__dirname,'../../subhire/supplier996.js'),'utf8'),c);
+const identity=fs.readFileSync(path.join(__dirname,'../identity996.js'),'utf8');
+vm.runInContext(identity.slice(0,identity.indexOf('const planItems996')),c);
+const project=model=>{c.model=model;return vm.runInContext('MapIdentity996.sourceRequests(model,Supplier996)',c);};
+const blank=()=>({items:[],unplaced:[],placed:[],trades:[],layers:[]});
+const asset=(key,name,more={})=>({key,name,discipline:'Toilets & amenities',item_types:['FWF'],events:[],locations:[],...more});
+const [bjr,shell]=c.Supplier996.requests,checks=[];
+const test=(name,fn)=>{fn();checks.push({name,pass:true});};
+const ids=model=>model.unplaced.map(row=>row.key);
+test('Missing BJR and Shell requests are named once with date quantity and supplier',()=>{const m=project(blank());assert.deepEqual(Array.from(ids(m)),[bjr.id,shell.id]);for(const r of m.unplaced){const s=c.Supplier996.requests.find(x=>x.id===r.key);assert.equal(r.name,s.name);assert.equal(r.quantity,1);assert.equal(r.item,'FWF');assert.equal(r.requestDate,'2026-10-22');assert.equal(r.ownership,'SUB-HIRED · Event Portables');assert(r.drawing.includes('Event Week'));}});
+test('Source requests have no invented number arrival state or coordinate',()=>{for(const r of project(blank()).unplaced){assert.equal(r.assets,'');for(const field of ['pt','ll','lat','lon','received','arrived','installed'])assert(!(field in r));}});
+test('Projection is idempotent and does not change native model or operational inputs',()=>{const m=blank(),before=JSON.stringify([m,native,c.DATA,c.S]);const once=project(m);const twice=project(once);assert.equal(twice.unplaced.length,2);assert.equal(JSON.stringify([m,native,c.DATA,c.S]),before);});
+test('A future unique native FWF reference replaces the earlier fallback',()=>{const previous=project(blank());native=[asset('WC-BJR','Brad Jones Racing')];previous.unplaced.push({key:'WC-BJR',name:'Brad Jones Racing',trade:'Toilets & amenities'});const m=project(previous);assert(!ids(m).includes(bjr.id));assert.equal(ids(m).filter(k=>k==='WC-BJR').length,1);assert(ids(m).includes(shell.id));});
+test('Cancelled matching request stays held without source recreation',()=>{native=[asset('WC-BJR','Brad Jones Racing',{_cancelled:true})];const m=project(blank());assert(!ids(m).includes(bjr.id));assert(ids(m).includes(shell.id));});
+test('Ambiguous matches do not add a duplicate source request',()=>{native=[asset('A','Brad Jones Racing'),asset('B','Brad Jones Racing')];const m=blank();m.unplaced=native.map(a=>({key:a.key,trade:a.discipline,name:a.name}));const out=project(m);assert(!ids(out).includes(bjr.id));assert.equal(ids(out).filter(k=>k==='A').length,1);assert.equal(ids(out).filter(k=>k==='B').length,1);});
+test('Matching building name never lends its pin to the FWF request',()=>{native=[asset('P-BJR','Brad Jones Racing',{item_types:['Building 6m']})];const m=blank();m.items=[{key:'P-BJR',name:'Brad Jones Racing',trade:'Portable buildings',pt:[.2,.3]}];const out=project(m),r=out.unplaced.find(r=>r.key===bjr.id);assert(r);assert(!('pt' in r));assert.deepEqual(out.items[0].pt,[.2,.3]);});
+test('An already represented key cannot create another map row',()=>{native=[];const m=blank();m.unplaced=[{key:bjr.id,name:bjr.name,trade:'Toilets & amenities'}];const out=project(m);assert.equal(ids(out).filter(k=>k===bjr.id).length,1);});
+const result={author:'Andrew Fisher',checks,passed:checks.length,operationalWrites:0,browser:false};
+if(process.env.OUT)fs.writeFileSync(process.env.OUT,JSON.stringify(result,null,2)+'\n');console.log(JSON.stringify({passed:checks.length,operationalWrites:0}));

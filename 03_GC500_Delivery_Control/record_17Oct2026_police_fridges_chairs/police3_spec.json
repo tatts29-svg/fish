@@ -1,0 +1,18 @@
+{
+ "by": "Andrew Fisher",
+ "ops": [
+  {
+   "op": "date",
+   "ref": "FR01",
+   "iso": "2026-10-17"
+  },
+  {
+   "op": "date",
+   "ref": "FR02",
+   "iso": "2026-10-17"
+  }
+ ],
+ "reorderOk": [
+  "accessories/P46"
+ ]
+}

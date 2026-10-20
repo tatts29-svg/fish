@@ -1,0 +1,63 @@
+// Author: Andrew Fisher. Read-only CPU audit of frozen v8.16 source 968aefb.
+// node timeline_drawer_recheck_968aefb.cjs /path/to/unpatched_v8.13.html /path/to/frozen/source_directory
+'use strict';
+const fs = require('fs'), vm = require('vm'), assert = require('assert');
+assert(process.argv[2] && process.argv[3], 'Usage: node timeline_drawer_recheck_968aefb.cjs <unpatched v8.13 HTML> <frozen v8.16 source directory>');
+const baseline = process.argv[2], sourceDir = process.argv[3];
+const get = name => fs.readFileSync(sourceDir + '/' + name, 'utf8');
+const html = fs.readFileSync(baseline, 'utf8'), patch = get('patch_v816.py'), drawer = get('drawer816_src.js');
+const hunk = patch.match(/# 5\. CODEX SCOPE[\s\S]*?t = rep\(t, """([\s\S]*?)""",\s*"""([\s\S]*?)""",/);
+assert(hunk, 'exact Timeline hunk located');
+const original = html.slice(html.indexOf('function programmeDaysBefore801(){'), html.indexOf('function holidayOn('));
+assert.equal(original.split(hunk[1]).length, 2, 'hunk matches the baseline once');
+const eff = html.slice(html.indexOf('function effectiveDates(a){'), html.indexOf('/* the source correction on the day'));
+let assets = [], records = {}, cancelled = false;
+const context = {allAssets: () => assets, unreferencedRows: () => [], rowOff: () => cancelled, deliveryOf: key => records[key] || {}, dateCorrectionOf: () => null, DATA: {}, weekOf: () => null};
+vm.createContext(context); vm.runInContext(eff + '\n' + original.replace(hunk[1], hunk[2]), context);
+const run = () => vm.runInContext('programmeDaysBefore801()', context);
+const removalKeys = iso => (run().find(d => d.iso === iso) || {removals: []}).removals.map(r => r.a.key);
+const checks = [];
+const check = (name, test) => { assert(test, name); checks.push(name); };
+assets = [{key: 'ADDED', _added: true, first_date: '2026-10-20', last_date: '2026-10-20', events: []}]; records = {ADDED: {out_date: '2026-11-04'}};
+check('same-day added reference now has one typed removal', removalKeys('2026-11-04').join() === 'ADDED');
+check('same-day added reference retains its original delivery', run().find(d => d.iso === '2026-10-20').deliveries.length === 1);
+records = {};
+check('clearing typed date removes the synthetic removal', run().every(d => !d.removals.length));
+assets = [{key: 'P42', first_date: '2026-10-20', events: [{movement: 'place', date: '2026-10-20'}]}]; records = {P42: {out_date: '2026-11-04'}};
+check('ordinary missing-remove case remains correct', removalKeys('2026-11-04').join() === 'P42');
+records.P42.out_date = '2026-11-05';
+check('changing typed date leaves no removal on previous date', !removalKeys('2026-11-04').length && removalKeys('2026-11-05').join() === 'P42');
+assets[0].events.push({movement: 'remove', date: '2026-11-01'});
+check('existing plan removal is moved once without duplication', removalKeys('2026-11-05').join() === 'P42' && !removalKeys('2026-11-01').length);
+cancelled = true;
+check('cancelled reference gets no active Timeline removal', run().every(d => !d.removals.length));
+const outDeclarations = drawer.slice(drawer.indexOf('const cxOut ='), drawer.indexOf('\n\tconst word ='));
+const output = drawer.match(/(<div class="ctile \$\{M && M\.src === 'proposed'[\s\S]*?)\n\$\{dForm/)[1];
+const renderOut = ({M = null, d = {}, eff = {}, a = {_cancelled: true}, contract = null} = {}) => {
+  const ctx = {M, d, eff, a, contract816: () => ({early: contract}), DM816: {end: '2026-11-13'}, esc: x => String(x), dayWords816: x => x, srcChip816: x => '<span>' + x + '</span>', week816: () => 2};
+  vm.createContext(ctx); return vm.runInContext(outDeclarations + '\n`' + output + '`', ctx);
+};
+let rendered = renderOut({d: {out_date: '2026-11-04'}, eff: {out: '2026-11-04'}});
+check('cancelled typed out date remains visible and says cancelled', rendered.includes('2026-11-04') && rendered.includes('cancelled · the due-out typed on it'));
+rendered = renderOut({eff: {out: '2026-11-03', out_plan: '2026-11-03'}});
+check('cancelled plan date remains visible with its source', rendered.includes('2026-11-03') && rendered.includes("the plan's remove event"));
+rendered = renderOut({contract: '2026-11-02'});
+check('cancelled early contract date remains visible with its source', rendered.includes('2026-11-02') && rendered.includes('contract off-hire'));
+rendered = renderOut({M: {iso: '2026-11-06', src: 'proposed', side: 'inside'}, a: {}});
+check('active proposed date retains proposal styling and wording', rendered.includes('pr816') && rendered.includes('2026-11-06') && rendered.includes('proposed'));
+rendered = renderOut({M: {iso: '2026-11-04', src: 'confirmed'}, d: {out_by: 'Fixture'}, a: {}});
+check('active confirmed date retains confirmed source and recorder', rendered.includes('2026-11-04') && rendered.includes('confirmed by Fixture'));
+// New regression: added records preserve explicit events through buildAllAssets.
+// Suppress the same-day last_date fallback only when no dated remove event exists.
+assets = [{key: 'ADDED', _added: true, first_date: '2026-10-20', last_date: '2026-10-20', events: [{date: '2026-10-20', movement: 'place'}, {date: '2026-11-05', movement: 'remove'}]}];
+records = {}; cancelled = false;
+const demobContext = {allAssets: () => assets, unreferencedRows: () => [], rowOff: () => false, deliveryOf: () => ({}), dateCorrectionOf: () => null, DATA: {}, weekOf: () => null, branchOf: () => ({code: 'KINP'}), refKind: () => 'building', subhireOf: () => null};
+vm.createContext(demobContext);
+vm.runInContext(get('demob816_src.js') + '\n' + eff + '\n' + original.replace(hunk[1], hunk[2]), demobContext);
+vm.runInContext("zone816=()=>({zone:'none',side:'outside'});units816=()=>[];needsEmpty816=()=>false;emptiedOf816=()=>({on:false});contract816=()=>({early:null,last:null});", demobContext);
+const planRegression = vm.runInContext("({effective:effectiveDates(allAssets()[0]),demob:((r)=>({src:r.src,iso:r.iso}))(demob816().byKey.get('ADDED')),timeline:programmeDaysBefore801().filter(d=>d.removals.length).map(d=>({iso:d.iso,refs:d.removals.map(r=>r.a.key)}))})", demobContext);
+assert.equal(planRegression.effective.out_plan, '2026-11-05');
+assert.equal(planRegression.timeline[0].iso, '2026-11-05');
+assert.equal(planRegression.demob.src, 'proposed');
+assert.equal(planRegression.demob.iso, '2026-10-26');
+console.log(JSON.stringify({author: 'Andrew Fisher', source: '968aefb', baseline, checks: checks.length, passed: checks, newFinding: {file: 'demob816_src.js', line: 139, fixture: assets[0], result: planRegression}}, null, 2));

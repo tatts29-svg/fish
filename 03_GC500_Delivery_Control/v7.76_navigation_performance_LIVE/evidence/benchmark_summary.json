@@ -1,0 +1,354 @@
+{
+  "author": "Andrew Fisher",
+  "baseline": {
+    "release": "v7.74",
+    "bytes": 8673113,
+    "sha256": "59e58833ab1ee8c6fb0ad2f8c2b3ff5e7b13c14923cd3e70459bc32503fda7d8"
+  },
+  "candidate": {
+    "release": "v7.76",
+    "bytes": 8674101,
+    "sha256": "449f9d0c292d64388c7cb804bcab13307bac3d7cd48118160f147742a9a9e1d1"
+  },
+  "method": "Five warmed navigations per tab and build in a single Chromium at a time, fixed shared record/document index/clock, reduced motion. Phone is a 390x844 emulated viewport on the same host; p95 is the maximum with five samples. The shared harness blocks live record writes. Synthetic in-memory edits are restored.",
+  "checks": "36/36 on desktop and phone: six DOM snapshots, finance/labour/asset outputs, capability changes, next-frame record freshness, expense change/removal, standalone held-cache freshness after existing upstream RENDER_MEMO invalidation, exception cleanup and builder counts. Zero page or console errors.",
+  "results": {
+    "desktop": {
+      "passed": 36,
+      "total": 36,
+      "timing_ms": {
+        "about": {
+          "goMs": {
+            "median": [
+              52.2,
+              41.9
+            ],
+            "p95": [
+              56.3,
+              49.4
+            ]
+          },
+          "paintMs": {
+            "median": [
+              59.5,
+              49.5
+            ],
+            "p95": [
+              67.8,
+              57.3
+            ]
+          },
+          "go_median_improvement_pct": 19.7
+        },
+        "docs": {
+          "goMs": {
+            "median": [
+              310.1,
+              275.1
+            ],
+            "p95": [
+              331.4,
+              282.9
+            ]
+          },
+          "paintMs": {
+            "median": [
+              330.5,
+              295
+            ],
+            "p95": [
+              352.4,
+              303.8
+            ]
+          },
+          "go_median_improvement_pct": 11.3
+        },
+        "today": {
+          "goMs": {
+            "median": [
+              395.2,
+              365.3
+            ],
+            "p95": [
+              485.3,
+              408.3
+            ]
+          },
+          "paintMs": {
+            "median": [
+              416.5,
+              387.9
+            ],
+            "p95": [
+              516.8,
+              429.2
+            ]
+          },
+          "go_median_improvement_pct": 7.6
+        },
+        "progress": {
+          "goMs": {
+            "median": [
+              194.6,
+              180
+            ],
+            "p95": [
+              214,
+              199.6
+            ]
+          },
+          "paintMs": {
+            "median": [
+              214.5,
+              205.2
+            ],
+            "p95": [
+              237.4,
+              224.2
+            ]
+          },
+          "go_median_improvement_pct": 7.5
+        },
+        "costs": {
+          "goMs": {
+            "median": [
+              426,
+              330.5
+            ],
+            "p95": [
+              469.2,
+              353.9
+            ]
+          },
+          "paintMs": {
+            "median": [
+              501.1,
+              404.7
+            ],
+            "p95": [
+              575,
+              437.6
+            ]
+          },
+          "go_median_improvement_pct": 22.4
+        },
+        "plant": {
+          "goMs": {
+            "median": [
+              72.7,
+              66.1
+            ],
+            "p95": [
+              94.3,
+              85.5
+            ]
+          },
+          "paintMs": {
+            "median": [
+              130.6,
+              121.8
+            ],
+            "p95": [
+              149.9,
+              146
+            ]
+          },
+          "go_median_improvement_pct": 9.1
+        }
+      },
+      "asset_builds_per_navigation": [
+        3,
+        1
+      ],
+      "costs_forecast_model_builds_per_navigation": [
+        [
+          5
+        ],
+        [
+          1
+        ]
+      ],
+      "costs_rehire_model_builds_per_navigation": [
+        [
+          2
+        ],
+        [
+          1
+        ]
+      ],
+      "costs_width": {
+        "viewport": 1440,
+        "page": 1440
+      }
+    },
+    "phone": {
+      "passed": 36,
+      "total": 36,
+      "timing_ms": {
+        "about": {
+          "goMs": {
+            "median": [
+              50.9,
+              43.3
+            ],
+            "p95": [
+              57.9,
+              51.2
+            ]
+          },
+          "paintMs": {
+            "median": [
+              60.2,
+              49.8
+            ],
+            "p95": [
+              65.5,
+              58.3
+            ]
+          },
+          "go_median_improvement_pct": 14.9
+        },
+        "docs": {
+          "goMs": {
+            "median": [
+              289,
+              266.5
+            ],
+            "p95": [
+              309.3,
+              279.5
+            ]
+          },
+          "paintMs": {
+            "median": [
+              306.2,
+              282.3
+            ],
+            "p95": [
+              325.3,
+              295.2
+            ]
+          },
+          "go_median_improvement_pct": 7.8
+        },
+        "today": {
+          "goMs": {
+            "median": [
+              375.1,
+              332.1
+            ],
+            "p95": [
+              403.2,
+              380
+            ]
+          },
+          "paintMs": {
+            "median": [
+              399,
+              352
+            ],
+            "p95": [
+              425.4,
+              396
+            ]
+          },
+          "go_median_improvement_pct": 11.5
+        },
+        "progress": {
+          "goMs": {
+            "median": [
+              167.3,
+              165.1
+            ],
+            "p95": [
+              186.8,
+              173.1
+            ]
+          },
+          "paintMs": {
+            "median": [
+              186.3,
+              186.3
+            ],
+            "p95": [
+              209.1,
+              193.4
+            ]
+          },
+          "go_median_improvement_pct": 1.3
+        },
+        "costs": {
+          "goMs": {
+            "median": [
+              368.8,
+              312.8
+            ],
+            "p95": [
+              422.8,
+              354.6
+            ]
+          },
+          "paintMs": {
+            "median": [
+              442.1,
+              383.8
+            ],
+            "p95": [
+              504.3,
+              426.4
+            ]
+          },
+          "go_median_improvement_pct": 15.2
+        },
+        "plant": {
+          "goMs": {
+            "median": [
+              51.1,
+              45.8
+            ],
+            "p95": [
+              98.5,
+              48.7
+            ]
+          },
+          "paintMs": {
+            "median": [
+              117.5,
+              102.4
+            ],
+            "p95": [
+              173.6,
+              108.5
+            ]
+          },
+          "go_median_improvement_pct": 10.4
+        }
+      },
+      "asset_builds_per_navigation": [
+        3,
+        1
+      ],
+      "costs_forecast_model_builds_per_navigation": [
+        [
+          5
+        ],
+        [
+          1
+        ]
+      ],
+      "costs_rehire_model_builds_per_navigation": [
+        [
+          2
+        ],
+        [
+          1
+        ]
+      ],
+      "costs_width": {
+        "viewport": 390,
+        "page": 390
+      }
+    }
+  },
+  "visual": "Candidate Costs phone screenshot inspected: text and heading readable, page and viewport both 390 CSS px, no presentation change."
+}

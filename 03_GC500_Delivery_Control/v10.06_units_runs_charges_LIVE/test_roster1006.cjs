@@ -1,0 +1,24 @@
+/* Author: Andrew Fisher. Confirmed night labels must not imply hours or preserve stale return questions. */
+const assert=require('assert');const m=require('./roster1006');
+const spec={dates:['2026-10-23','2026-10-24','2026-10-25'],unconfirmed:[{name:'Kyle Gover'}]};
+const rows=spec.dates.map((date,i)=>({kind:'labour',person:'Kyle Gover',date,id:String(i),note:m.NIGHT_NOTE+' Times not supplied.',hours:null,start:null,finish:null}));
+assert.deepStrictEqual(m.confirmedNights(spec,[]),[]);
+assert.deepStrictEqual(m.confirmedNights(spec,rows.slice(0,2)),[]);
+assert.strictEqual(m.confirmedNights(spec,rows)[0].hoursKnown,false);
+assert.strictEqual(m.confirmedNights(spec,rows)[0].shiftIds.length,3);
+assert.deepStrictEqual(m.confirmedNights(spec,rows.map(r=>({...r,note:'Return assumed; confirm.'}))),[]);
+assert.strictEqual(m.isNight({...rows[0],kind:'person'}),false);
+assert.strictEqual(m.confirmedNights(spec,rows.map(r=>({...r,start:'18:00',finish:'06:00'})))[0].hoursKnown,true);
+console.log('Seven roster fact checks passed');
+const helpers={date:d=>/^2026-10-\d\d$/.test(d),includes:r=>!r.excluded,worked:r=>r.hours,hours:r=>r.hours};
+const missingFixture=[{id:'missing',person:'Kyle Gover',kind:'labour',date:'2026-10-13',hours:null},{id:'zero',person:'Other',kind:'labour',date:'2026-10-13',hours:0},{id:'known',person:'Other',kind:'labour',date:'2026-10-13',hours:8},{id:'gone',person:'Other',kind:'labour',date:'2026-10-13',hours:null,excluded:true},{id:'bad-date',person:'Other',kind:'labour',date:'',hours:null}];
+assert.deepStrictEqual(m.missingHours(missingFixture,helpers),[{id:'missing',person:'Kyle Gover',date:'2026-10-13'}]);
+assert.strictEqual(m.missingHours(missingFixture.concat(missingFixture[0]),helpers).length,1);
+assert.strictEqual(m.missingHours([],helpers).length,0);
+console.log('Three missing-hours checks passed; zero actual hours are not missing hours');
+assert.strictEqual(m.isNight({kind:'labour',note:'Night shift confirmed by Andrew Fisher, 13 Oct 2026. Start, finish and paid hours have not been supplied.'}),true);
+assert.strictEqual(m.isNight({kind:'labour',note:'Night shift confirmed 13 Oct 2026. Start, finish and paid hours have not been supplied.'}),true);
+assert.strictEqual(m.isNight({kind:'labour',note:'Night shift confirmed 13 Oct 2026.extra'}),false);
+assert.strictEqual(m.isNight({kind:'labour',note:'Night shift confirmed 12 Oct 2026.'}),false);
+assert.strictEqual(m.isNight({kind:'labour',note:'Unconfirmed: Night shift confirmed 13 Oct 2026.'}),false);
+console.log('Five attribution-scrub boundary checks passed');

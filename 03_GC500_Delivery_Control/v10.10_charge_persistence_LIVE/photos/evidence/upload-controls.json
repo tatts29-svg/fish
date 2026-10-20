@@ -1,0 +1,42 @@
+{
+  "author": "Andrew Fisher",
+  "pass": true,
+  "checks": [
+    {
+      "name": "Exactly one durable queue entry uses the reference and FWF group token",
+      "pass": true
+    },
+    {
+      "name": "New group photo has no previous photo to remove",
+      "pass": true
+    },
+    {
+      "name": "Queue title describes the FWF location",
+      "pass": true
+    },
+    {
+      "name": "Native sender receives only the queued entry",
+      "pass": true
+    },
+    {
+      "name": "Changed scope after image processing never enters the queue",
+      "pass": true
+    },
+    {
+      "name": "Concurrent occupied slot never queues an accidental replacement",
+      "pass": true
+    },
+    {
+      "name": "Explicit legacy replacement preserves legacy unit association and target",
+      "pass": true
+    },
+    {
+      "name": "Explicit replacement preserves existing caption",
+      "pass": true
+    },
+    {
+      "name": "Session becoming read-only during image processing never queues a photo",
+      "pass": true
+    }
+  ]
+}

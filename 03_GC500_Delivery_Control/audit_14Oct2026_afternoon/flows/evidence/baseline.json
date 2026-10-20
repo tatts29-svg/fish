@@ -1,0 +1,741 @@
+{
+  "author": "Andrew Fisher",
+  "source_sha256": "bc7885b1bed08bafd75353ec3666ca9a4c52a59d17ad3bb0eb5896f011586f67",
+  "native_version": 6075,
+  "scope": "Current live mobile route, disclosure, scroll and background-refresh audit",
+  "checks": [
+    {
+      "name": "today opens its native destination",
+      "pass": true,
+      "details": {
+        "tab": "today",
+        "pane": "pane-today",
+        "shown": true,
+        "folds": 68,
+        "expectedDestination": "today"
+      }
+    },
+    {
+      "name": "today background update preserves open disclosures",
+      "pass": true,
+      "details": {
+        "before": 9,
+        "after": 9,
+        "missing": []
+      }
+    },
+    {
+      "name": "today background update preserves reading position",
+      "pass": true,
+      "details": {
+        "before": 6404,
+        "after": 6404,
+        "maxAfter": 8134,
+        "documentBefore": 109,
+        "documentAfter": 109
+      }
+    },
+    {
+      "name": "progress opens its native destination",
+      "pass": true,
+      "details": {
+        "tab": "today",
+        "pane": "pane-today",
+        "shown": true,
+        "folds": 68,
+        "expectedDestination": "today"
+      }
+    },
+    {
+      "name": "progress background update preserves open disclosures",
+      "pass": true,
+      "details": {
+        "before": 9,
+        "after": 9,
+        "missing": []
+      }
+    },
+    {
+      "name": "progress background update preserves reading position",
+      "pass": true,
+      "details": {
+        "before": 6404,
+        "after": 6404,
+        "maxAfter": 8134,
+        "documentBefore": 109,
+        "documentAfter": 109
+      }
+    },
+    {
+      "name": "map opens its native destination",
+      "pass": true,
+      "details": {
+        "tab": "map",
+        "pane": "pane-map",
+        "shown": true,
+        "folds": 0,
+        "expectedDestination": "map"
+      }
+    },
+    {
+      "name": "map background update preserves open disclosures",
+      "pass": true,
+      "details": {
+        "before": 0,
+        "after": 0,
+        "missing": []
+      }
+    },
+    {
+      "name": "map background update preserves reading position",
+      "pass": true,
+      "details": {
+        "before": 7,
+        "after": 7,
+        "maxAfter": 16,
+        "documentBefore": 0,
+        "documentAfter": 0
+      }
+    },
+    {
+      "name": "docs opens its native destination",
+      "pass": true,
+      "details": {
+        "tab": "docs",
+        "pane": "pane-docs",
+        "shown": true,
+        "folds": 2,
+        "expectedDestination": "docs"
+      }
+    },
+    {
+      "name": "docs background update preserves open disclosures",
+      "pass": true,
+      "details": {
+        "before": 2,
+        "after": 2,
+        "missing": []
+      }
+    },
+    {
+      "name": "docs background update preserves reading position",
+      "pass": true,
+      "details": {
+        "before": 988,
+        "after": 988,
+        "maxAfter": 2805,
+        "documentBefore": 0,
+        "documentAfter": 0
+      }
+    },
+    {
+      "name": "register opens its native destination",
+      "pass": true,
+      "details": {
+        "tab": "plant",
+        "pane": "pane-plant",
+        "shown": true,
+        "folds": 12,
+        "expectedDestination": "plant"
+      }
+    },
+    {
+      "name": "register background update preserves open disclosures",
+      "pass": true,
+      "details": {
+        "before": 3,
+        "after": 3,
+        "missing": []
+      }
+    },
+    {
+      "name": "register background update preserves reading position",
+      "pass": true,
+      "details": {
+        "before": 3701,
+        "after": 3701,
+        "maxAfter": 13428,
+        "documentBefore": 0,
+        "documentAfter": 0
+      }
+    },
+    {
+      "name": "plant opens its native destination",
+      "pass": true,
+      "details": {
+        "tab": "plant",
+        "pane": "pane-plant",
+        "shown": true,
+        "folds": 12,
+        "expectedDestination": "plant"
+      }
+    },
+    {
+      "name": "plant background update preserves open disclosures",
+      "pass": true,
+      "details": {
+        "before": 3,
+        "after": 3,
+        "missing": []
+      }
+    },
+    {
+      "name": "plant background update preserves reading position",
+      "pass": true,
+      "details": {
+        "before": 3701,
+        "after": 3701,
+        "maxAfter": 13428,
+        "documentBefore": 0,
+        "documentAfter": 0
+      }
+    },
+    {
+      "name": "demob opens its native destination",
+      "pass": true,
+      "details": {
+        "tab": "demob",
+        "pane": "pane-demob",
+        "shown": true,
+        "folds": 25,
+        "expectedDestination": "demob"
+      }
+    },
+    {
+      "name": "demob background update preserves open disclosures",
+      "pass": true,
+      "details": {
+        "before": 2,
+        "after": 2,
+        "missing": []
+      }
+    },
+    {
+      "name": "demob background update preserves reading position",
+      "pass": true,
+      "details": {
+        "before": 4647,
+        "after": 4647,
+        "maxAfter": 7636,
+        "documentBefore": 0,
+        "documentAfter": 0
+      }
+    },
+    {
+      "name": "fencing opens its native destination",
+      "pass": true,
+      "details": {
+        "tab": "fencing",
+        "pane": "pane-fencing",
+        "shown": true,
+        "folds": 189,
+        "expectedDestination": "fencing"
+      }
+    },
+    {
+      "name": "fencing background update preserves open disclosures",
+      "pass": true,
+      "details": {
+        "before": 2,
+        "after": 2,
+        "missing": []
+      }
+    },
+    {
+      "name": "fencing background update preserves reading position",
+      "pass": true,
+      "details": {
+        "before": 12955,
+        "after": 12955,
+        "maxAfter": 27950,
+        "documentBefore": 110,
+        "documentAfter": 110
+      }
+    },
+    {
+      "name": "prestarts opens its native destination",
+      "pass": true,
+      "details": {
+        "tab": "prestarts",
+        "pane": "pane-prestarts",
+        "shown": true,
+        "folds": 2,
+        "expectedDestination": "prestarts"
+      }
+    },
+    {
+      "name": "prestarts background update preserves open disclosures",
+      "pass": true,
+      "details": {
+        "before": 2,
+        "after": 2,
+        "missing": []
+      }
+    },
+    {
+      "name": "prestarts background update preserves reading position",
+      "pass": true,
+      "details": {
+        "before": 0,
+        "after": 0,
+        "maxAfter": 6534,
+        "documentBefore": 0,
+        "documentAfter": 0
+      }
+    },
+    {
+      "name": "coatesway opens its native destination",
+      "pass": true,
+      "details": {
+        "tab": "coatesway",
+        "pane": "pane-coatesway",
+        "shown": true,
+        "folds": 6,
+        "expectedDestination": "coatesway"
+      }
+    },
+    {
+      "name": "coatesway background update preserves open disclosures",
+      "pass": true,
+      "details": {
+        "before": 2,
+        "after": 2,
+        "missing": []
+      }
+    },
+    {
+      "name": "coatesway background update preserves reading position",
+      "pass": true,
+      "details": {
+        "before": 1727,
+        "after": 1727,
+        "maxAfter": 4573,
+        "documentBefore": 0,
+        "documentAfter": 0
+      }
+    },
+    {
+      "name": "journal opens its native destination",
+      "pass": true,
+      "details": {
+        "tab": "today",
+        "pane": "pane-today",
+        "shown": true,
+        "folds": 68,
+        "expectedDestination": "today"
+      }
+    },
+    {
+      "name": "journal background update preserves open disclosures",
+      "pass": true,
+      "details": {
+        "before": 9,
+        "after": 9,
+        "missing": []
+      }
+    },
+    {
+      "name": "journal background update preserves reading position",
+      "pass": true,
+      "details": {
+        "before": 6404,
+        "after": 6404,
+        "maxAfter": 8134,
+        "documentBefore": 109,
+        "documentAfter": 109
+      }
+    },
+    {
+      "name": "breakdowns opens its native destination",
+      "pass": true,
+      "details": {
+        "tab": "today",
+        "pane": "pane-today",
+        "shown": true,
+        "folds": 68,
+        "expectedDestination": "today"
+      }
+    },
+    {
+      "name": "breakdowns background update preserves open disclosures",
+      "pass": true,
+      "details": {
+        "before": 9,
+        "after": 9,
+        "missing": []
+      }
+    },
+    {
+      "name": "breakdowns background update preserves reading position",
+      "pass": true,
+      "details": {
+        "before": 6404,
+        "after": 6404,
+        "maxAfter": 8134,
+        "documentBefore": 109,
+        "documentAfter": 109
+      }
+    },
+    {
+      "name": "variances opens its native destination",
+      "pass": true,
+      "details": {
+        "tab": "today",
+        "pane": "pane-today",
+        "shown": true,
+        "folds": 68,
+        "expectedDestination": "today"
+      }
+    },
+    {
+      "name": "variances background update preserves open disclosures",
+      "pass": true,
+      "details": {
+        "before": 9,
+        "after": 9,
+        "missing": []
+      }
+    },
+    {
+      "name": "variances background update preserves reading position",
+      "pass": true,
+      "details": {
+        "before": 6404,
+        "after": 6404,
+        "maxAfter": 8134,
+        "documentBefore": 109,
+        "documentAfter": 109
+      }
+    },
+    {
+      "name": "costs opens its native destination",
+      "pass": true,
+      "details": {
+        "tab": "costs",
+        "pane": "pane-costs",
+        "shown": true,
+        "folds": 98,
+        "expectedDestination": "costs"
+      }
+    },
+    {
+      "name": "costs background update preserves open disclosures",
+      "pass": true,
+      "details": {
+        "before": 3,
+        "after": 3,
+        "missing": []
+      }
+    },
+    {
+      "name": "costs background update preserves reading position",
+      "pass": true,
+      "details": {
+        "before": 0,
+        "after": 0,
+        "maxAfter": 5829,
+        "documentBefore": 0,
+        "documentAfter": 0
+      }
+    },
+    {
+      "name": "edit opens its native destination",
+      "pass": true,
+      "details": {
+        "tab": "today",
+        "pane": "pane-today",
+        "shown": true,
+        "folds": 68,
+        "expectedDestination": "today"
+      }
+    },
+    {
+      "name": "edit background update preserves open disclosures",
+      "pass": true,
+      "details": {
+        "before": 9,
+        "after": 9,
+        "missing": []
+      }
+    },
+    {
+      "name": "edit background update preserves reading position",
+      "pass": true,
+      "details": {
+        "before": 6404,
+        "after": 6404,
+        "maxAfter": 8134,
+        "documentBefore": 109,
+        "documentAfter": 109
+      }
+    },
+    {
+      "name": "change opens its native destination",
+      "pass": true,
+      "details": {
+        "tab": "change",
+        "pane": "pane-change",
+        "shown": true,
+        "folds": 0,
+        "expectedDestination": "change"
+      }
+    },
+    {
+      "name": "change background update preserves open disclosures",
+      "pass": true,
+      "details": {
+        "before": 0,
+        "after": 0,
+        "missing": []
+      }
+    },
+    {
+      "name": "change background update preserves reading position",
+      "pass": true,
+      "details": {
+        "before": 300,
+        "after": 300,
+        "maxAfter": 6498,
+        "documentBefore": 0,
+        "documentAfter": 0
+      }
+    },
+    {
+      "name": "add opens its native destination",
+      "pass": true,
+      "details": {
+        "tab": "today",
+        "pane": "pane-today",
+        "shown": true,
+        "folds": 68,
+        "expectedDestination": "today"
+      }
+    },
+    {
+      "name": "add background update preserves open disclosures",
+      "pass": true,
+      "details": {
+        "before": 9,
+        "after": 9,
+        "missing": []
+      }
+    },
+    {
+      "name": "add background update preserves reading position",
+      "pass": true,
+      "details": {
+        "before": 6404,
+        "after": 6404,
+        "maxAfter": 8134,
+        "documentBefore": 109,
+        "documentAfter": 109
+      }
+    },
+    {
+      "name": "pricing opens its native destination",
+      "pass": true,
+      "details": {
+        "tab": "costs",
+        "pane": "pane-costs",
+        "shown": true,
+        "folds": 12,
+        "expectedDestination": "costs"
+      }
+    },
+    {
+      "name": "pricing background update preserves open disclosures",
+      "pass": true,
+      "details": {
+        "before": 2,
+        "after": 2,
+        "missing": []
+      }
+    },
+    {
+      "name": "pricing background update preserves reading position",
+      "pass": true,
+      "details": {
+        "before": 17979,
+        "after": 17979,
+        "maxAfter": 23219,
+        "documentBefore": 0,
+        "documentAfter": 0
+      }
+    },
+    {
+      "name": "timeline opens its native destination",
+      "pass": true,
+      "details": {
+        "tab": "timeline",
+        "pane": "pane-timeline",
+        "shown": true,
+        "folds": 10,
+        "expectedDestination": "timeline"
+      }
+    },
+    {
+      "name": "timeline background update preserves open disclosures",
+      "pass": true,
+      "details": {
+        "before": 2,
+        "after": 2,
+        "missing": []
+      }
+    },
+    {
+      "name": "timeline background update preserves reading position",
+      "pass": true,
+      "details": {
+        "before": 1208,
+        "after": 1208,
+        "maxAfter": 7758,
+        "documentBefore": 0,
+        "documentAfter": 0
+      }
+    },
+    {
+      "name": "subhired opens its native destination",
+      "pass": true,
+      "details": {
+        "tab": "subhired",
+        "pane": "pane-subhired",
+        "shown": true,
+        "folds": 30,
+        "expectedDestination": "subhired"
+      }
+    },
+    {
+      "name": "subhired background update preserves open disclosures",
+      "pass": true,
+      "details": {
+        "before": 8,
+        "after": 8,
+        "missing": []
+      }
+    },
+    {
+      "name": "subhired background update preserves reading position",
+      "pass": true,
+      "details": {
+        "before": 0,
+        "after": 0,
+        "maxAfter": 4754,
+        "documentBefore": 0,
+        "documentAfter": 0
+      }
+    },
+    {
+      "name": "questions opens its native destination",
+      "pass": true,
+      "details": {
+        "tab": "questions",
+        "pane": "pane-questions",
+        "shown": true,
+        "folds": 109,
+        "expectedDestination": "questions"
+      }
+    },
+    {
+      "name": "questions background update preserves open disclosures",
+      "pass": true,
+      "details": {
+        "before": 2,
+        "after": 2,
+        "missing": []
+      }
+    },
+    {
+      "name": "questions background update preserves reading position",
+      "pass": true,
+      "details": {
+        "before": 0,
+        "after": 0,
+        "maxAfter": 3149,
+        "documentBefore": 0,
+        "documentAfter": 0
+      }
+    },
+    {
+      "name": "about opens its native destination",
+      "pass": true,
+      "details": {
+        "tab": "about",
+        "pane": "pane-about",
+        "shown": true,
+        "folds": 9,
+        "expectedDestination": "about"
+      }
+    },
+    {
+      "name": "about background update preserves open disclosures",
+      "pass": true,
+      "details": {
+        "before": 2,
+        "after": 2,
+        "missing": []
+      }
+    },
+    {
+      "name": "about background update preserves reading position",
+      "pass": true,
+      "details": {
+        "before": 5617,
+        "after": 5617,
+        "maxAfter": 13756,
+        "documentBefore": 0,
+        "documentAfter": 0
+      }
+    },
+    {
+      "name": "Browser Back returns to Equipment",
+      "pass": true
+    },
+    {
+      "name": "Subhired reference drawer stays open during update",
+      "pass": true,
+      "details": {
+        "tab": "subhired",
+        "ref": "WC09",
+        "on": true
+      }
+    },
+    {
+      "name": "Drawer Back returns to supplier page and remains closed",
+      "pass": true
+    },
+    {
+      "name": "Read-only flows preserve the unchanged native version",
+      "pass": true,
+      "details": {
+        "version": 6075
+      }
+    },
+    {
+      "name": "No runtime errors",
+      "pass": true,
+      "details": []
+    },
+    {
+      "name": "No operational writes attempted",
+      "pass": true,
+      "details": {
+        "page": 1,
+        "live": 121,
+        "blocked": 0,
+        "blockedMapSessions": 1
+      }
+    }
+  ],
+  "requests": {
+    "page": 1,
+    "live": 121,
+    "blocked": 0,
+    "blockedMapSessions": 1
+  },
+  "errors": [],
+  "result": {
+    "checks": 72,
+    "passed": 72
+  },
+  "limits": "Read-only current record. The audit does not cover every operational edit path; separate focused work reproduces cold shared-reference and map-history bugs."
+}

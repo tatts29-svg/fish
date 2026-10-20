@@ -1,0 +1,232 @@
+{
+  "author": "Andrew Fisher",
+  "scope": "Independent original PDF visual read of all 15 pages including maps, row/quantity/prerequisite audit and existing model consumer review; no live writes",
+  "sourceSha256": "c6d7f4ec14d8853d4901a700c3328207265d18a53fcca626995c680699c5cbf0",
+  "dataSha256": "9f1c91d3248d164bbd596b7d9cfb2f76524fd37d6af88be80c2407d2a9946b63",
+  "accepted": true,
+  "checks": [
+    {
+      "name": "exactly 26 unique source rows",
+      "pass": true
+    },
+    {
+      "name": "site-closed matches the dated summary quantity and date",
+      "pass": true
+    },
+    {
+      "name": "tv-parking matches the dated summary quantity and date",
+      "pass": true
+    },
+    {
+      "name": "gate2 matches the dated summary quantity and date",
+      "pass": true
+    },
+    {
+      "name": "pit-stairs matches the dated summary quantity and date",
+      "pass": true
+    },
+    {
+      "name": "fire-hydrant matches the dated summary quantity and date",
+      "pass": true
+    },
+    {
+      "name": "toilet-infill matches the dated summary quantity and date",
+      "pass": true
+    },
+    {
+      "name": "club-storage matches the dated summary quantity and date",
+      "pass": true
+    },
+    {
+      "name": "club-creek matches the dated summary quantity and date",
+      "pass": true
+    },
+    {
+      "name": "s04-demarc matches the dated summary quantity and date",
+      "pass": true
+    },
+    {
+      "name": "s04-relocate matches the dated summary quantity and date",
+      "pass": true
+    },
+    {
+      "name": "tv-garden matches the dated summary quantity and date",
+      "pass": true
+    },
+    {
+      "name": "qps matches the dated summary quantity and date",
+      "pass": true
+    },
+    {
+      "name": "s19-walkthrough matches the dated summary quantity and date",
+      "pass": true
+    },
+    {
+      "name": "s20-walkthrough matches the dated summary quantity and date",
+      "pass": true
+    },
+    {
+      "name": "s21-walkthrough matches the dated summary quantity and date",
+      "pass": true
+    },
+    {
+      "name": "scrim-wed matches the dated summary quantity and date",
+      "pass": true
+    },
+    {
+      "name": "helen-perimeter matches the dated summary quantity and date",
+      "pass": true
+    },
+    {
+      "name": "helen-reconfigure matches the dated summary quantity and date",
+      "pass": true
+    },
+    {
+      "name": "s23-cz matches the dated summary quantity and date",
+      "pass": true
+    },
+    {
+      "name": "wc20-kitchen matches the dated summary quantity and date",
+      "pass": true
+    },
+    {
+      "name": "s01-north matches the dated summary quantity and date",
+      "pass": true
+    },
+    {
+      "name": "podium matches the dated summary quantity and date",
+      "pass": true
+    },
+    {
+      "name": "teams matches the dated summary quantity and date",
+      "pass": true
+    },
+    {
+      "name": "event-ops matches the dated summary quantity and date",
+      "pass": true
+    },
+    {
+      "name": "club-cz matches the dated summary quantity and date",
+      "pass": true
+    },
+    {
+      "name": "scrim-fri matches the dated summary quantity and date",
+      "pass": true
+    },
+    {
+      "name": "all nine weekly-summary columns reconcile independently",
+      "pass": true
+    },
+    {
+      "name": "initial QPS work is not held for later GEMA/COW installation",
+      "pass": true
+    },
+    {
+      "name": "structural sign-off holds remain on three pit tasks and three walkthroughs",
+      "pass": true
+    },
+    {
+      "name": "flat-feet shortage permits the available work",
+      "pass": true
+    },
+    {
+      "name": "all Helen gate tasks retain keep-open condition",
+      "pass": true
+    },
+    {
+      "name": "quantity conflicts remain unresolved and paired with their source tasks",
+      "pass": true
+    },
+    {
+      "name": "source date discrepancy remains explicitly recorded",
+      "pass": true
+    },
+    {
+      "name": "relocation note quotes direction-neutral source wording",
+      "pass": true
+    },
+    {
+      "name": "original PDF hash, page count, author and source time match metadata",
+      "pass": true
+    }
+  ],
+  "visualPages": [
+    {
+      "page": 1,
+      "sha256": "46da001b1e7ffdec232e55aee4253a2f0e9aadacb1252b5a5741e06568a1c14f"
+    },
+    {
+      "page": 2,
+      "sha256": "e670d38da0ab0680f409f72ce67d89f8bec13b66a1da554b41fd44799a226139"
+    },
+    {
+      "page": 3,
+      "sha256": "ae6fc96d6f2cd596d551dd2b855b1426e68f394cc6375a9b3394e4a81c320f78"
+    },
+    {
+      "page": 4,
+      "sha256": "1a0d21c9ca1ac022fd5506473b0be690cfbd467bdaed8470b8e020135da93f3c"
+    },
+    {
+      "page": 5,
+      "sha256": "cbe1b04b82a2e4f6fd7658e4f223a3ea9371c496947f04e1f5070d2265b92baf"
+    },
+    {
+      "page": 6,
+      "sha256": "ae1fc93928f251e351f8eb070fbcabbb5a0db9e4e30e1e8714c2444f8ba1d723"
+    },
+    {
+      "page": 7,
+      "sha256": "0c9b9e12b5fa98d305ef70c8f61966a4c657734fc161e6dc0a6a9887ab79b0c8"
+    },
+    {
+      "page": 8,
+      "sha256": "4d5263e81d6836daaa048fe1acb5c617a7a29c91ac9a71f8d8b687bf35fca305"
+    },
+    {
+      "page": 9,
+      "sha256": "20b705a438c3c759013837619b8db265b5621bef530820794b9af758ac176296"
+    },
+    {
+      "page": 10,
+      "sha256": "08a0982078dbe6f165c94d5cff388d8c3aabefc4ff995dd3a572c07634523ad7"
+    },
+    {
+      "page": 11,
+      "sha256": "1869e4cd66c240d7d2097a6c3126934f3d69299db2d205cabca9fa3b2f26b004"
+    },
+    {
+      "page": 12,
+      "sha256": "fb5a6c334a1b3bcb6ec8a89a1a7251f971c8b7e32a00bcbfd9f301d84b10b584"
+    },
+    {
+      "page": 13,
+      "sha256": "c0654ac4d83337a04da82e8aa2514a683535683c76a06bf0d90fc40d0adb8816"
+    },
+    {
+      "page": 14,
+      "sha256": "d28dbb56b3d7971d7bf4b8d83becdd8a78c90b275092b7b025b6e73d4861baac"
+    },
+    {
+      "page": 15,
+      "sha256": "cc5457e97bc7ac1993946b0dbf4299fe597ada7a93476c21b3dfa91b2fc2be49"
+    }
+  ],
+  "resolvedFindings": [
+    "Flower-bed relocation note now quotes the source without choosing an inferred direction.",
+    "Helen perimeter task now carries the page-wide gate-open condition."
+  ],
+  "provisionalBasis": "Page 1 is explicitly the planning basis; source-internal 2/4 QPS gates, 40 m braced/30 m clean Club storage, and 48/50 m Helen CCB conflicts remain awaiting confirmation. These are provisional source-summary quantities, not completion or docket quantities.",
+  "consumerReview": [
+    "CON WK2 totals and days feed plannedFor/plannedToDay, fenceByWeek, Today fenceTypes and remaining-work forecasts.",
+    "Existing planUpdateCard presents changes/flags/notes; the new dated table is needed to present rows_by_day and their prerequisite checklist.",
+    "The Fencing day strip is based on dockets, not future planned tasks; no fake docket should be added for the plan.",
+    "DATA.fence is the separate pricing/docket workbook and remains protected.",
+    "No Helen/S23 task is present in current CON WK5 row-level plan data. The source moved-from-CW5 note is provenance, not authority to subtract arbitrary historical totals."
+  ],
+  "limits": [
+    "This accepts the source transcription and prerequisite scope only. Runtime checklist persistence, latest final HTML, desktop/phone presentation and publication are separate checks.",
+    "The three quantity conflicts remain unconfirmed; the Friday 10/9 heading discrepancy and incomplete page 9 note are preserved.",
+    "Map overlays were read visually; no surveyed coordinates or lengths were invented from their pixels."
+  ]
+}

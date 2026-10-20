@@ -1,0 +1,75 @@
+{
+  "schedule_review1021": {
+    "schema": 1,
+    "author": "Andrew Fisher",
+    "reviewed": "2026-10-15",
+    "source": "GC500 26 Schedule 7.1 (uploaded as 196709b7-GC500_26_Schedule_7_1.xlsx)",
+    "sha256": "98b6db43c734fc0d6ea4c02efccc1c5b2b1071f83b6a85b33df07843b9183fe4",
+    "saved": "2026-09-30T15:59:45+10:00",
+    "sheets": 12,
+    "cells": 2809,
+    "formulas": 0,
+    "comparison": "Schedule 7 (485f5d885b88d836b63e85ad4062474a95a484022386efec7be62429f958edac) as applied in v9.50, and Schedule 2 (d65d5f7acd486c97b693555d8ea2be893fa2b06b2ccdc4473b11b6257b9c1a88)",
+    "identical_to": "Schedule 2 of 30 Sep 2026: every stored cell of all 12 sheets is the same",
+    "changed_cells": 0,
+    "new_rows": 0,
+    "rows_only_in_schedule_7": 7,
+    "rows_only_in_schedule_7_1": 1,
+    "applied": [],
+    "held": [
+      "The workbook content is the 30 Sep 2026 issue; the page holds Schedule 7 of 9 Oct 2026 and the site record, which are later, so nothing in it is new to the page",
+      "Where the two differ (dockets, carriers, load times, transport costs, four fencing semi loads, two WAU requests, generator numbers, VMS counts) the page keeps the later source and the site record",
+      "Schedule 8 of 12 Oct 2026 remains reviewed and not applied (review_12Oct2026_schedule8_baseplan); its workbook is not in this environment"
+    ]
+  },
+  "infrastructure_review1021": {
+    "schema": 1,
+    "author": "Andrew Fisher",
+    "reviewed": "2026-10-15",
+    "source": "P003-26003-01 Programme - Coates Inf V1 14.8.26 (uploaded as 6579a510-P003-26003-01_Programme_-_Coates_Inf_V1_14.8.26_1.xlsx)",
+    "sha256": "078dd52a9c0680fd5ace780332fd4d5b5a5d9f8fdf8e83a9e3f110f276abb96b",
+    "saved": "2026-10-15T01:04:19+10:00",
+    "previousSha256": "fc39ba08ded1f6c6d4823b755b44d1463cf72262829b11dce4fa65f87506bcb7",
+    "sourceSheets": 12,
+    "canonicalProgrammeSheet": "Base information (4)",
+    "baseSheetUnchangedFromPrevious": true,
+    "changedCells": 3,
+    "changedCellsWhere": "CON WK 2!I101:I103 only; the Base information (4) sheet and the other nine copies do not carry these three marks",
+    "authority": "Workbook evidence only. Current operational delivery, completion, physical identity, photos, schedule bookings and financial records remain authoritative. No automatic completion or date import.",
+    "rows": [
+      {
+        "reference": "GN13",
+        "facility": "GN13 - Generator",
+        "sourceSheet": "CON WK 2",
+        "row": 101,
+        "cell": "I101",
+        "statusAsWritten": "Complete",
+        "completeDateAsWritten": null,
+        "baseSheetStatus": null,
+        "operationalCompletionImported": false
+      },
+      {
+        "reference": "P69",
+        "facility": "P69 - Supply Building",
+        "sourceSheet": "CON WK 2",
+        "row": 102,
+        "cell": "I102",
+        "statusAsWritten": "Complete",
+        "completeDateAsWritten": null,
+        "baseSheetStatus": null,
+        "operationalCompletionImported": false
+      },
+      {
+        "reference": "P45",
+        "facility": "P45 - St John's Supply First Aid - Supply",
+        "sourceSheet": "CON WK 2",
+        "row": 103,
+        "cell": "I103",
+        "statusAsWritten": "Complete",
+        "completeDateAsWritten": null,
+        "baseSheetStatus": null,
+        "operationalCompletionImported": false
+      }
+    ]
+  }
+}

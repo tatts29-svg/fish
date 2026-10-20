@@ -1,0 +1,41 @@
+PASS eligible
+PASS other
+PASS driver
+PASS passenger
+PASS invalid
+PASS editor
+PASS sheet
+PASS truck
+PASS supplier
+PASS drop
+PASS check
+PASS merge
+PASS na
+PASS naEditor
+PASS naPrint
+PASS naWarning
+PASS naMerge
+PASS naPersist
+PASS allocation
+PASS card
+PASS expanded
+PASS currentDoor
+PASS currentDrop
+PASS currentTruck
+PASS splitUnknown
+PASS splitMatch
+PASS persist
+PASS empty
+PASS clear
+PASS money
+PASS one
+PASS day
+PASS preview
+PASS readonly
+PASS cancel
+PASS restore
+PASS asset identifiers on cards
+PASS no horizontal overflow
+PASS no runtime errors
+PASS no attempted live writes
+desktop: 40/40

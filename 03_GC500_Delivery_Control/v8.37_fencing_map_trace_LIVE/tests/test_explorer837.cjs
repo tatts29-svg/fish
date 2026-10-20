@@ -1,0 +1,19 @@
+/* Author: Andrew Fisher. Exercise actual patched marker/filter functions with synthetic state. */
+'use strict';
+const fs=require('fs'),vm=require('vm'),assert=require('node:assert/strict'),test=require('node:test');
+const asset=process.env.ASSET;
+if(!asset){console.error('Set ASSET to the privately built fencing-map-explorer.js');process.exit(2);}
+const src=fs.readFileSync(asset,'utf8');
+function extract(name,next){return src.slice(src.indexOf('function '+name+'('),src.indexOf('function '+next+'('));}
+function fixture(){
+ const nodes={};for(const id of ['fmSourceLines','fmSource','fmStatus','fmQuery'])nodes[id]={checked:true,value:'old'};
+ const geometry=['signed','recorded','stale'].map(id=>({id,role:'area-signoff',kind:'anchor',region:'main',source_sha256:'plan',task_ids:[],label:id,area_evidence_names:[id],points:[[10,20]]}));
+ const c={model:{masterValid:true,geometry,rows:[]},snapshot:{areaEvidence:[{name:'signed',done:true}],trace:{areas:geometry.map(g=>({id:g.id,geometry_id:g.id,state:'current'})),rows:[{state:'current',area_ids:['recorded']},{state:'unavailable',area_ids:['stale']}]}},filters:{source:'all',status:'all',day:'',types:[],query:''},C:{key:x=>String(x).toLowerCase()},$:id=>nodes[id],source:()=>({sha256:'plan'}),panel:{querySelectorAll:()=>[]},adapter:{panel:x=>{c.panelOpen=x}},updateDays:()=>{c.daysUpdated=true},choose:(id,zoom)=>{c.chosen={id,zoom}},nodes};
+ vm.createContext(c);vm.runInContext(extract('areaMarkers','render')+extract('revealTraceTarget837','setActive'),c);return c;
+}
+test('reviewed work adds a neutral marker without manufacturing area completion',()=>{const c=fixture(),rows=c.areaMarkers();assert.deepEqual(Array.from(rows,r=>r.id),['signed','recorded']);assert.equal(rows[0].areaRecords.length,1);assert.equal(rows[1].areaRecords.length,0);assert.equal(rows[1].traceRecorded,true);assert.equal(c.snapshot.areaEvidence.length,1);});
+test('area-complete filter still excludes merely recorded work',()=>{const c=fixture();c.filters.status='area';assert.deepEqual(Array.from(c.areaMarkers(),r=>r.id),['signed']);});
+test('existing visibility/source/search filters still apply',()=>{const c=fixture();c.nodes.fmSourceLines.checked=false;assert.equal(c.areaMarkers().length,0);c.nodes.fmSourceLines.checked=true;c.filters.query='recorded';assert.deepEqual(Array.from(c.areaMarkers(),r=>r.id),['recorded']);c.filters.source='different';c.source=()=>({sha256:'other'});assert.equal(c.areaMarkers().length,0);});
+test('reverse action reveals exact target despite conflicting source and all filters',()=>{const c=fixture();c.filters={source:'wrong',status:'complete',day:'2026-01-01',query:'other',types:['clean']};c.nodes.fmSourceLines.checked=false;assert.equal(c.revealTraceTarget837('recorded'),true);assert.equal(c.filters.source,'all');assert.equal(c.filters.status,'all');assert.equal(c.filters.day,'');assert.equal(c.filters.query,'');assert.equal(c.filters.types.length,0);assert.equal(c.nodes.fmSourceLines.checked,true);assert.equal(c.chosen.id,'recorded');assert.equal(c.chosen.zoom,true);assert.equal(c.panelOpen,true);});
+test('unknown reverse target does not reset the existing map state',()=>{const c=fixture();c.filters.query='retain';assert.equal(c.revealTraceTarget837('missing'),false);assert.equal(c.filters.query,'retain');assert.equal(c.chosen,undefined);});
+test('actual paint keeps completed and merely recorded markers distinct',()=>{const c=fixture(),strokes=[],labels=[];c.active=true;c.selected='recorded';c.hits=[];c.colour={};c.visibleGeometry=()=>c.areaMarkers();vm.runInContext(extract('drawGeometry','nearSegment'),c);const context={save(){},restore(){},setLineDash(){},beginPath(){},arc(){},fill(){},stroke(){strokes.push(this.strokeStyle)},fillText(t){labels.push(t)}};c.drawGeometry(context,{dpr:1,project:p=>p},true);assert.deepEqual(strokes,['#40db9a','#ffad64']);assert.deepEqual(labels,['Recorded work']);assert.equal(c.hits.length,2);});

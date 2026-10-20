@@ -1,0 +1,12 @@
+const {chromium} = require('playwright');
+(async () => { const browser = await chromium.launch({executablePath: '/opt/pw-browsers/chromium', args: ['--no-sandbox']});
+  const page = await (await browser.newContext({viewport: {width: 1366, height: 768}})).newPage(); const errs = [];
+  page.on('pageerror', e => errs.push(e.message));
+  await page.goto(process.argv[2], {waitUntil: 'load', timeout: 120000}); await page.waitForTimeout(3500);
+  await page.evaluate(() => go('coatesway')); await page.waitForTimeout(1500);
+  const cw = await page.evaluate(() => ({mopen: document.querySelectorAll('#cwmachine [data-mopen]').length, open: !!document.querySelector('#cwOpenMachine')}));
+  await page.evaluate(() => go('plant')); await page.waitForTimeout(2500);
+  const row = await page.evaluate(() => { const tr = [...document.querySelectorAll('main tr')].find(r => /T0024/.test(r.textContent)); if (!tr) return null; tr.scrollIntoView(); return tr.textContent.replace(/\s+/g, ' ').trim().slice(0, 400); });
+  const el = await page.evaluateHandle(() => [...document.querySelectorAll('main tr')].find(r => /T0024/.test(r.textContent)));
+  if (row) await el.asElement().screenshot({path: 'shot_t0024_row.png'});
+  console.log(JSON.stringify({cw, row, errs})); await browser.close(); })();

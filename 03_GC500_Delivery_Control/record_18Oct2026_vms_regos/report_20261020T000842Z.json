@@ -1,0 +1,807 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261020T000842Z",
+ "finished": "2026-10-20T00:08:59.898Z",
+ "mode": "apply",
+ "spec": {
+  "by": "Andrew Fisher",
+  "basis": "Andrew, 20 Oct 2026: \"there is a VMS05 now asset no 1211356 Rego no ER9244 pinned location 27°58'57.5\\\"S 153°25'28.7\\\"E\" (= -27.982639, 153.424639). On 19 Oct VMS05 was removed (T0001 quantity 7, supplied 7). VMS05 is a Coates board on T0001 (\"VMS x 8\", the Coates boards VMS01-08); no contract line names it or 1211356 yet - page v10.80 puts it on the register on his word. The pin is 34 m from VMS plan position 05a (\"Relocate VMS05 to Gold Coast Highway (southbound), PB3\"). Not said to be installed, so nothing is ticked. Same day, Andrew's pins for VMS07 (https://maps.app.goo.gl/52F2ieQfjar4jAn96 -> -27.985575, 153.429741; plan 07a, 20 m), VMS13 (-27.98178329772029, 153.42445159739486; plan 13, 43 m), VMS14 (-27.98257576843371, 153.4243927676852; plan 14, 57 m), VMS16 (-27.981781685729203, 153.42914032314948; plan 16, 9 m) and VMS17 (-27.981594044132482, 153.4270381140577; plan 17, 101 m), rounded to 6 places as the page keeps them. And VMS19 (-27.985077763788354, 153.42726708916737; plan 19).",
+  "ops": [
+   {
+    "op": "set_qty",
+    "ref": "T0001",
+    "qty": ""
+   },
+   {
+    "op": "supplied",
+    "ref": "T0001",
+    "item": "VMS",
+    "qty": 8
+   },
+   {
+    "op": "unit_reidentify",
+    "ref": "T0001",
+    "no": "1211356",
+    "item": "VMS",
+    "owner": "coates",
+    "label": "VMS05",
+    "note": "Arrival recorded by Andrew Fisher, 20 Oct 2026. Rego ER9244. Coates; no contract line yet."
+   },
+   {
+    "op": "vms_board",
+    "key": "VMS05",
+    "fleet": "1211356",
+    "rego": "ER9244",
+    "on": "T0001"
+   },
+   {
+    "op": "vms_plan",
+    "pos": "05a",
+    "lat": -27.982639,
+    "lon": 153.424639,
+    "how": "Andrew Fisher's pinned location for VMS05, 20 Oct 2026 (27°58'57.5\"S 153°25'28.7\"E)"
+   },
+   {
+    "op": "vms_plan",
+    "pos": "07a",
+    "lat": -27.985575,
+    "lon": 153.429741,
+    "how": "Andrew Fisher's pinned location for VMS07, 20 Oct 2026"
+   },
+   {
+    "op": "vms_plan",
+    "pos": "13",
+    "lat": -27.981783,
+    "lon": 153.424452,
+    "how": "Andrew Fisher's pinned location for VMS13, 20 Oct 2026"
+   },
+   {
+    "op": "vms_plan",
+    "pos": "14",
+    "lat": -27.982576,
+    "lon": 153.424393,
+    "how": "Andrew Fisher's pinned location for VMS14, 20 Oct 2026"
+   },
+   {
+    "op": "vms_plan",
+    "pos": "16",
+    "lat": -27.981782,
+    "lon": 153.42914,
+    "how": "Andrew Fisher's pinned location for VMS16, 20 Oct 2026"
+   },
+   {
+    "op": "vms_plan",
+    "pos": "17",
+    "lat": -27.981594,
+    "lon": 153.427038,
+    "how": "Andrew Fisher's pinned location for VMS17, 20 Oct 2026"
+   },
+   {
+    "op": "vms_plan",
+    "pos": "19",
+    "lat": -27.985078,
+    "lon": 153.427267,
+    "how": "Andrew Fisher's pinned location for VMS19, 20 Oct 2026"
+   },
+   {
+    "op": "note_append",
+    "ref": "T0001",
+    "text": "VMS05 back 20 Oct 2026 (Andrew): Coates 1211356, rego ER9244, at 05a - Gold Coast Hwy southbound, PB3 - pinned -27.982639, 153.424639. No contract line yet."
+   }
+  ]
+ },
+ "pageSha256": "6a509831956221160fc78798a28b5fcee3eb3bd0740709b6f12f77b4efbcc478",
+ "version": {
+  "before": 9978,
+  "after": 10012
+ },
+ "updated": {
+  "before": "2026-10-19T23:51:30.054Z",
+  "after": "2026-10-20T00:08:59.081Z"
+ },
+ "stage": [
+  {
+   "op": "set_qty",
+   "ref": "T0001",
+   "qty": "",
+   "result": "quantity 7 -> the schedule's own"
+  },
+  {
+   "op": "supplied",
+   "ref": "T0001",
+   "item": "VMS",
+   "qty": 8,
+   "result": "VMS supplied 8"
+  },
+  {
+   "op": "unit_reidentify",
+   "ref": "T0001",
+   "no": "1211356",
+   "item": "VMS",
+   "owner": "coates",
+   "label": "VMS05",
+   "note": "Arrival recorded by Andrew Fisher, 20 Oct 2026. Rego ER9244. Coates; no contract line yet.",
+   "result": "identified as VMS"
+  },
+  {
+   "op": "vms_board",
+   "key": "VMS05",
+   "fleet": "1211356",
+   "rego": "ER9244",
+   "on": "T0001",
+   "result": "board saved",
+   "doc": {
+    "co": null,
+    "fleet": null,
+    "rego": "ER9244",
+    "on": "T0001",
+    "line": "/",
+    "by": "Andrew Fisher",
+    "at": "2026-10-20T00:08:50.087Z"
+   }
+  },
+  {
+   "op": "vms_plan",
+   "pos": "05a",
+   "lat": -27.982639,
+   "lon": 153.424639,
+   "how": "Andrew Fisher's pinned location for VMS05, 20 Oct 2026 (27°58'57.5\"S 153°25'28.7\"E)",
+   "result": "VMS plan 05a pinned at -27.982639, 153.424639"
+  },
+  {
+   "op": "vms_plan",
+   "pos": "07a",
+   "lat": -27.985575,
+   "lon": 153.429741,
+   "how": "Andrew Fisher's pinned location for VMS07, 20 Oct 2026",
+   "result": "VMS plan 07a pinned at -27.985575, 153.429741"
+  },
+  {
+   "op": "vms_plan",
+   "pos": "13",
+   "lat": -27.981783,
+   "lon": 153.424452,
+   "how": "Andrew Fisher's pinned location for VMS13, 20 Oct 2026",
+   "result": "VMS plan 13 pinned at -27.981783, 153.424452"
+  },
+  {
+   "op": "vms_plan",
+   "pos": "14",
+   "lat": -27.982576,
+   "lon": 153.424393,
+   "how": "Andrew Fisher's pinned location for VMS14, 20 Oct 2026",
+   "result": "VMS plan 14 pinned at -27.982576, 153.424393"
+  },
+  {
+   "op": "vms_plan",
+   "pos": "16",
+   "lat": -27.981782,
+   "lon": 153.42914,
+   "how": "Andrew Fisher's pinned location for VMS16, 20 Oct 2026",
+   "result": "VMS plan 16 pinned at -27.981782, 153.42914"
+  },
+  {
+   "op": "vms_plan",
+   "pos": "17",
+   "lat": -27.981594,
+   "lon": 153.427038,
+   "how": "Andrew Fisher's pinned location for VMS17, 20 Oct 2026",
+   "result": "VMS plan 17 pinned at -27.981594, 153.427038"
+  },
+  {
+   "op": "vms_plan",
+   "pos": "19",
+   "lat": -27.985078,
+   "lon": 153.427267,
+   "how": "Andrew Fisher's pinned location for VMS19, 20 Oct 2026",
+   "result": "VMS plan 19 pinned at -27.985078, 153.427267"
+  },
+  {
+   "op": "note_append",
+   "ref": "T0001",
+   "result": "note added to"
+  }
+ ],
+ "writes": [
+  {
+   "key": "delivery/T0001",
+   "status": 200
+  },
+  {
+   "key": "stamps/dnote~2f~T0001",
+   "status": 200
+  },
+  {
+   "key": "stamps/supplied~2f~T0001~2f~VMS",
+   "status": 200
+  },
+  {
+   "key": "stamps/qtys~2f~T0001",
+   "status": 200
+  },
+  {
+   "key": "stamps/loads~2f~unit925~2f~a972a3f8-103f-45ff-95d1-bed613e924cd",
+   "status": 200
+  },
+  {
+   "key": "stamps/vmsboard~2f~VMS05",
+   "status": 200
+  },
+  {
+   "key": "stamps/loads~2f~vms1024~2f~05a",
+   "status": 200
+  },
+  {
+   "key": "stamps/loads~2f~vms1024~2f~07a",
+   "status": 200
+  },
+  {
+   "key": "stamps/loads~2f~vms1024~2f~13",
+   "status": 200
+  },
+  {
+   "key": "stamps/loads~2f~vms1024~2f~14",
+   "status": 200
+  },
+  {
+   "key": "stamps/loads~2f~vms1024~2f~16",
+   "status": 200
+  },
+  {
+   "key": "stamps/loads~2f~vms1024~2f~17",
+   "status": 200
+  },
+  {
+   "key": "stamps/loads~2f~vms1024~2f~19",
+   "status": 200
+  },
+  {
+   "key": "loads/unit925~2f~a972a3f8-103f-45ff-95d1-bed613e924cd",
+   "status": 200
+  },
+  {
+   "key": "loads/vms1024~2f~05a",
+   "status": 200
+  },
+  {
+   "key": "loads/vms1024~2f~07a",
+   "status": 200
+  },
+  {
+   "key": "loads/vms1024~2f~13",
+   "status": 200
+  },
+  {
+   "key": "loads/vms1024~2f~14",
+   "status": 200
+  },
+  {
+   "key": "loads/vms1024~2f~16",
+   "status": 200
+  },
+  {
+   "key": "loads/vms1024~2f~17",
+   "status": 200
+  },
+  {
+   "key": "loads/vms1024~2f~19",
+   "status": 200
+  },
+  {
+   "key": "supplied/T0001",
+   "status": 200
+  },
+  {
+   "key": "by/loads~2f~unit925~2f~a972a3f8-103f-45ff-95d1-bed613e924cd",
+   "status": 200
+  },
+  {
+   "key": "by/vmsboard~2f~VMS05",
+   "status": 200
+  },
+  {
+   "key": "by/loads~2f~vms1024~2f~05a",
+   "status": 200
+  },
+  {
+   "key": "by/loads~2f~vms1024~2f~07a",
+   "status": 200
+  },
+  {
+   "key": "by/loads~2f~vms1024~2f~13",
+   "status": 200
+  },
+  {
+   "key": "by/loads~2f~vms1024~2f~14",
+   "status": 200
+  },
+  {
+   "key": "by/loads~2f~vms1024~2f~16",
+   "status": 200
+  },
+  {
+   "key": "by/loads~2f~vms1024~2f~17",
+   "status": 200
+  },
+  {
+   "key": "by/loads~2f~vms1024~2f~19",
+   "status": 200
+  },
+  {
+   "key": "by/dnote~2f~T0001",
+   "status": 200
+  },
+  {
+   "key": "qtys/T0001",
+   "status": 200
+  },
+  {
+   "key": "vmsboard/VMS05",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 1,
+ "docs": {
+  "before": {
+   "delivery/T0001": {
+    "state": "on site",
+    "set_at": "2026-09-06T21:00:00Z",
+    "by": "Andrew Fisher",
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-09-14T03:56:21Z",
+    "eta": "12:00",
+    "note": "All eight boards turned up 07 Sep and are complete · time is the rental contract’s 07:00 hire start, not a time recorded on site · entered 14 Sep 13:56 from site notes",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-09-06T21:00:00Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-09-14T03:56:21Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "_k": "T0001"
+   },
+   "stamps/dnote~2f~T0001": {
+    "_k": "dnote/T0001",
+    "v": "2026-09-14T03:56:21Z"
+   },
+   "stamps/supplied~2f~T0001~2f~VMS": {
+    "_k": "supplied/T0001/VMS",
+    "v": "2026-10-18T10:52:51.512Z"
+   },
+   "stamps/qtys~2f~T0001": {
+    "_k": "qtys/T0001",
+    "v": "2026-10-18T16:40:38.852Z"
+   },
+   "stamps/loads~2f~unit925~2f~a972a3f8-103f-45ff-95d1-bed613e924cd": null,
+   "stamps/vmsboard~2f~VMS05": null,
+   "stamps/loads~2f~vms1024~2f~05a": null,
+   "stamps/loads~2f~vms1024~2f~07a": null,
+   "stamps/loads~2f~vms1024~2f~13": null,
+   "stamps/loads~2f~vms1024~2f~14": null,
+   "stamps/loads~2f~vms1024~2f~16": null,
+   "stamps/loads~2f~vms1024~2f~17": null,
+   "stamps/loads~2f~vms1024~2f~19": null,
+   "loads/unit925~2f~a972a3f8-103f-45ff-95d1-bed613e924cd": null,
+   "loads/vms1024~2f~05a": null,
+   "loads/vms1024~2f~07a": null,
+   "loads/vms1024~2f~13": null,
+   "loads/vms1024~2f~14": null,
+   "loads/vms1024~2f~16": null,
+   "loads/vms1024~2f~17": null,
+   "loads/vms1024~2f~19": null,
+   "supplied/T0001": {
+    "items": [
+     {
+      "asked": "VMS",
+      "supplied": "VMS",
+      "qty_supplied": 7
+     }
+    ],
+    "_k": "T0001"
+   },
+   "by/loads~2f~unit925~2f~a972a3f8-103f-45ff-95d1-bed613e924cd": null,
+   "by/vmsboard~2f~VMS05": null,
+   "by/loads~2f~vms1024~2f~05a": null,
+   "by/loads~2f~vms1024~2f~07a": null,
+   "by/loads~2f~vms1024~2f~13": null,
+   "by/loads~2f~vms1024~2f~14": null,
+   "by/loads~2f~vms1024~2f~16": null,
+   "by/loads~2f~vms1024~2f~17": null,
+   "by/loads~2f~vms1024~2f~19": null,
+   "by/dnote~2f~T0001": null,
+   "qtys/T0001": {
+    "_k": "T0001",
+    "v": 7,
+    "scope1017": {
+     "kind": "quantityScope1017",
+     "ref": "T0001",
+     "firstQuantity": 8,
+     "items": [
+      {
+       "item": "VMS",
+       "quantity": 8,
+       "received": 7,
+       "installed": 7,
+       "receipts": [
+        {
+         "at": "2026-10-18T10:52:51.512Z",
+         "quantity": 7
+        }
+       ],
+       "receiptAt": "2026-10-18T10:52:51.512Z",
+       "supplied": 7,
+       "suppliedAt": "2026-10-18T10:52:51.512Z",
+       "on": true,
+       "onAt": "2026-09-06T21:00:00Z",
+       "done": true,
+       "doneAt": "2026-09-14T03:56:21Z",
+       "install": false,
+       "installAt": "2026-09-14T03:56:21Z",
+       "rest": 0,
+       "unitWork": {
+        "T0001/u1182999|Variable message signs|VMS|install": {
+         "on": true,
+         "at": "2026-10-18T09:59:50.507Z"
+        },
+        "T0001/u1191877|Variable message signs|VMS|install": {
+         "on": true,
+         "at": "2026-10-16T19:28:50.699Z"
+        },
+        "T0001/u1211354|Variable message signs|VMS|install": {
+         "on": true,
+         "at": "2026-10-16T19:28:50.699Z"
+        },
+        "T0001/u1211359|Variable message signs|VMS|install": {
+         "on": true,
+         "at": "2026-10-16T19:28:50.699Z"
+        },
+        "T0001/u1211370|Variable message signs|VMS|install": {
+         "on": true,
+         "at": "2026-10-16T19:28:50.699Z"
+        },
+        "T0001/u1211383|Variable message signs|VMS|install": {
+         "on": true,
+         "at": "2026-10-16T19:28:50.699Z"
+        },
+        "T0001/u1271129|Variable message signs|VMS|install": {
+         "on": true,
+         "at": "2026-10-16T19:28:50.699Z"
+        }
+       }
+      }
+     ],
+     "typed": 7,
+     "at": "2026-10-18T16:40:38.852Z",
+     "by": "Andrew Fisher"
+    }
+   },
+   "vmsboard/VMS05": null
+  },
+  "after": {
+   "delivery/T0001": {
+    "state": "on site",
+    "set_at": "2026-09-06T21:00:00Z",
+    "by": "Andrew Fisher",
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-09-14T03:56:21Z",
+    "eta": "12:00",
+    "note": "All eight boards turned up 07 Sep and are complete · time is the rental contract’s 07:00 hire start, not a time recorded on site · entered 14 Sep 13:56 from site notes VMS05 back 20 Oct 2026 (Andrew): Coates 1211356, rego ER9244, at 05a - Gold Coast Hwy southbound, PB3 - pinned -27.982639, 153.424639. No contract line yet.",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-09-06T21:00:00Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-09-14T03:56:21Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "_k": "T0001"
+   },
+   "stamps/dnote~2f~T0001": {
+    "_k": "dnote/T0001",
+    "v": "2026-10-20T00:08:53.733Z"
+   },
+   "stamps/supplied~2f~T0001~2f~VMS": {
+    "_k": "supplied/T0001/VMS",
+    "v": "2026-10-20T00:08:49.546Z"
+   },
+   "stamps/qtys~2f~T0001": {
+    "_k": "qtys/T0001",
+    "v": "2026-10-20T00:08:48.990Z"
+   },
+   "stamps/loads~2f~unit925~2f~a972a3f8-103f-45ff-95d1-bed613e924cd": {
+    "_k": "loads/unit925/a972a3f8-103f-45ff-95d1-bed613e924cd",
+    "v": "2026-10-20T00:08:49.716Z"
+   },
+   "stamps/vmsboard~2f~VMS05": {
+    "_k": "vmsboard/VMS05",
+    "v": "2026-10-20T00:08:50.087Z"
+   },
+   "stamps/loads~2f~vms1024~2f~05a": {
+    "_k": "loads/vms1024/05a",
+    "v": "2026-10-20T00:08:50.474Z"
+   },
+   "stamps/loads~2f~vms1024~2f~07a": {
+    "_k": "loads/vms1024/07a",
+    "v": "2026-10-20T00:08:50.915Z"
+   },
+   "stamps/loads~2f~vms1024~2f~13": {
+    "_k": "loads/vms1024/13",
+    "v": "2026-10-20T00:08:51.377Z"
+   },
+   "stamps/loads~2f~vms1024~2f~14": {
+    "_k": "loads/vms1024/14",
+    "v": "2026-10-20T00:08:51.836Z"
+   },
+   "stamps/loads~2f~vms1024~2f~16": {
+    "_k": "loads/vms1024/16",
+    "v": "2026-10-20T00:08:52.321Z"
+   },
+   "stamps/loads~2f~vms1024~2f~17": {
+    "_k": "loads/vms1024/17",
+    "v": "2026-10-20T00:08:52.761Z"
+   },
+   "stamps/loads~2f~vms1024~2f~19": {
+    "_k": "loads/vms1024/19",
+    "v": "2026-10-20T00:08:53.266Z"
+   },
+   "loads/unit925~2f~a972a3f8-103f-45ff-95d1-bed613e924cd": {
+    "ref": "T0001",
+    "owner": "coates",
+    "assetNo": "1211356",
+    "item": "VMS",
+    "label": "VMS05",
+    "branch": "",
+    "note": "Arrival recorded by Andrew Fisher, 20 Oct 2026. Rego ER9244. Coates; no contract line yet.",
+    "kind": "unit925-record",
+    "uuid": "a972a3f8-103f-45ff-95d1-bed613e924cd",
+    "nativeId": "slot:a972a3f8-103f-45ff-95d1-bed613e924cd",
+    "transportId": "[\"T0001\",\"coates\",\"native\",\"slot:a972a3f8-103f-45ff-95d1-bed613e924cd\"]",
+    "sourceKey": "",
+    "sourceSnapshot": "",
+    "active": true,
+    "by": "Andrew Fisher",
+    "at": "2026-10-20T00:08:49.716Z",
+    "_k": "unit925/a972a3f8-103f-45ff-95d1-bed613e924cd"
+   },
+   "loads/vms1024~2f~05a": {
+    "lat": -27.982639,
+    "lon": 153.424639,
+    "posHow": "Andrew Fisher's pinned location for VMS05, 20 Oct 2026 (27°58'57.5\"S 153°25'28.7\"E)",
+    "posBy": "Andrew Fisher",
+    "posAt": "2026-10-20T00:08:50.473Z",
+    "acc": null,
+    "kind": "vms1024",
+    "pos": "05a",
+    "by": "Andrew Fisher",
+    "at": "2026-10-20T00:08:50.474Z",
+    "_k": "vms1024/05a"
+   },
+   "loads/vms1024~2f~07a": {
+    "lat": -27.985575,
+    "lon": 153.429741,
+    "posHow": "Andrew Fisher's pinned location for VMS07, 20 Oct 2026",
+    "posBy": "Andrew Fisher",
+    "posAt": "2026-10-20T00:08:50.914Z",
+    "acc": null,
+    "kind": "vms1024",
+    "pos": "07a",
+    "by": "Andrew Fisher",
+    "at": "2026-10-20T00:08:50.915Z",
+    "_k": "vms1024/07a"
+   },
+   "loads/vms1024~2f~13": {
+    "lat": -27.981783,
+    "lon": 153.424452,
+    "posHow": "Andrew Fisher's pinned location for VMS13, 20 Oct 2026",
+    "posBy": "Andrew Fisher",
+    "posAt": "2026-10-20T00:08:51.376Z",
+    "acc": null,
+    "kind": "vms1024",
+    "pos": "13",
+    "by": "Andrew Fisher",
+    "at": "2026-10-20T00:08:51.377Z",
+    "_k": "vms1024/13"
+   },
+   "loads/vms1024~2f~14": {
+    "lat": -27.982576,
+    "lon": 153.424393,
+    "posHow": "Andrew Fisher's pinned location for VMS14, 20 Oct 2026",
+    "posBy": "Andrew Fisher",
+    "posAt": "2026-10-20T00:08:51.835Z",
+    "acc": null,
+    "kind": "vms1024",
+    "pos": "14",
+    "by": "Andrew Fisher",
+    "at": "2026-10-20T00:08:51.836Z",
+    "_k": "vms1024/14"
+   },
+   "loads/vms1024~2f~16": {
+    "lat": -27.981782,
+    "lon": 153.42914,
+    "posHow": "Andrew Fisher's pinned location for VMS16, 20 Oct 2026",
+    "posBy": "Andrew Fisher",
+    "posAt": "2026-10-20T00:08:52.320Z",
+    "acc": null,
+    "kind": "vms1024",
+    "pos": "16",
+    "by": "Andrew Fisher",
+    "at": "2026-10-20T00:08:52.321Z",
+    "_k": "vms1024/16"
+   },
+   "loads/vms1024~2f~17": {
+    "lat": -27.981594,
+    "lon": 153.427038,
+    "posHow": "Andrew Fisher's pinned location for VMS17, 20 Oct 2026",
+    "posBy": "Andrew Fisher",
+    "posAt": "2026-10-20T00:08:52.760Z",
+    "acc": null,
+    "kind": "vms1024",
+    "pos": "17",
+    "by": "Andrew Fisher",
+    "at": "2026-10-20T00:08:52.761Z",
+    "_k": "vms1024/17"
+   },
+   "loads/vms1024~2f~19": {
+    "lat": -27.985078,
+    "lon": 153.427267,
+    "posHow": "Andrew Fisher's pinned location for VMS19, 20 Oct 2026",
+    "posBy": "Andrew Fisher",
+    "posAt": "2026-10-20T00:08:53.265Z",
+    "acc": null,
+    "kind": "vms1024",
+    "pos": "19",
+    "by": "Andrew Fisher",
+    "at": "2026-10-20T00:08:53.266Z",
+    "_k": "vms1024/19"
+   },
+   "supplied/T0001": {
+    "items": [
+     {
+      "asked": "VMS",
+      "supplied": "VMS",
+      "qty_supplied": 8
+     }
+    ],
+    "_k": "T0001"
+   },
+   "by/loads~2f~unit925~2f~a972a3f8-103f-45ff-95d1-bed613e924cd": {
+    "_k": "loads/unit925/a972a3f8-103f-45ff-95d1-bed613e924cd",
+    "v": "Andrew Fisher"
+   },
+   "by/vmsboard~2f~VMS05": {
+    "_k": "vmsboard/VMS05",
+    "v": "Andrew Fisher"
+   },
+   "by/loads~2f~vms1024~2f~05a": {
+    "_k": "loads/vms1024/05a",
+    "v": "Andrew Fisher"
+   },
+   "by/loads~2f~vms1024~2f~07a": {
+    "_k": "loads/vms1024/07a",
+    "v": "Andrew Fisher"
+   },
+   "by/loads~2f~vms1024~2f~13": {
+    "_k": "loads/vms1024/13",
+    "v": "Andrew Fisher"
+   },
+   "by/loads~2f~vms1024~2f~14": {
+    "_k": "loads/vms1024/14",
+    "v": "Andrew Fisher"
+   },
+   "by/loads~2f~vms1024~2f~16": {
+    "_k": "loads/vms1024/16",
+    "v": "Andrew Fisher"
+   },
+   "by/loads~2f~vms1024~2f~17": {
+    "_k": "loads/vms1024/17",
+    "v": "Andrew Fisher"
+   },
+   "by/loads~2f~vms1024~2f~19": {
+    "_k": "loads/vms1024/19",
+    "v": "Andrew Fisher"
+   },
+   "by/dnote~2f~T0001": {
+    "_k": "dnote/T0001",
+    "v": "Andrew Fisher"
+   },
+   "qtys/T0001": {
+    "_k": "T0001",
+    "v": null,
+    "scope1017": {
+     "kind": "quantityScope1017",
+     "ref": "T0001",
+     "firstQuantity": 7,
+     "items": [
+      {
+       "item": "VMS",
+       "quantity": 7,
+       "received": 7,
+       "installed": 7,
+       "receipts": [
+        {
+         "at": "2026-10-18T10:52:51.512Z",
+         "quantity": 7
+        }
+       ],
+       "receiptAt": "2026-10-18T10:52:51.512Z",
+       "supplied": 7,
+       "suppliedAt": "2026-10-18T10:52:51.512Z",
+       "on": true,
+       "onAt": "2026-09-06T21:00:00Z",
+       "done": true,
+       "doneAt": "2026-09-14T03:56:21Z",
+       "install": false,
+       "installAt": "2026-10-16T19:28:50.699Z",
+       "rest": 0,
+       "unitWork": {
+        "T0001/u1182999|Variable message signs|VMS|install": {
+         "on": true,
+         "at": "2026-10-18T09:59:50.507Z"
+        },
+        "T0001/u1191877|Variable message signs|VMS|install": {
+         "on": true,
+         "at": "2026-10-16T19:28:50.699Z"
+        },
+        "T0001/u1211354|Variable message signs|VMS|install": {
+         "on": true,
+         "at": "2026-10-16T19:28:50.699Z"
+        },
+        "T0001/u1211359|Variable message signs|VMS|install": {
+         "on": true,
+         "at": "2026-10-16T19:28:50.699Z"
+        },
+        "T0001/u1211370|Variable message signs|VMS|install": {
+         "on": true,
+         "at": "2026-10-16T19:28:50.699Z"
+        },
+        "T0001/u1211383|Variable message signs|VMS|install": {
+         "on": true,
+         "at": "2026-10-16T19:28:50.699Z"
+        },
+        "T0001/u1271129|Variable message signs|VMS|install": {
+         "on": true,
+         "at": "2026-10-16T19:28:50.699Z"
+        }
+       }
+      }
+     ],
+     "typed": null,
+     "at": "2026-10-20T00:08:48.990Z",
+     "by": "Andrew Fisher"
+    }
+   },
+   "vmsboard/VMS05": {
+    "co": null,
+    "fleet": null,
+    "rego": "ER9244",
+    "on": "T0001",
+    "line": "/",
+    "by": "Andrew Fisher",
+    "at": "2026-10-20T00:08:50.087Z",
+    "_k": "VMS05"
+   }
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}

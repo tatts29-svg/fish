@@ -1,0 +1,21 @@
+/* Author: Andrew Fisher. Synthetic ownership defaults and identity preservation. */
+'use strict';
+const assert=require('node:assert/strict'),O=require('../ownership944.js');let n=0;
+const ok=(v,m)=>{assert(v,m);n++;};
+for(const value of [null,undefined,'','unknown','Owner to confirm','Supplier not named','other:supplier-not-named','supplier not on the record','Unconfirmed'])ok(O.owner(value)==='coates','Unspecified ownership defaults to Coates');
+for(const value of ['Event Portables','event-portables','PremAir Hire','prem-air-hire','PRE808','Advanced Temporary Fencing','other:real-company'])ok(O.owner(value)===value&&O.named(value),'Named supplier ownership is retained');
+for(const value of ['Coates','coates','Coates Hire','coates-hire'])ok(O.owner(value)==='coates'&&!O.named(value),'Coates is not a supplier');
+const a={id:'["REF","unknown","asset","12345"]',ref:'REF',owner:'unknown',assetNo:'12345',sourceKey:'stable-key',sourceToken:'stable-token',item:'Aircon',label:'Aircon',physical:true},b={id:'named-unit',owner:'event-portables',assetNo:'EP1',item:'FWF',physical:true};
+const input={ref:'REF',rows:[a,b],groups:[{item:'Aircon',units:[a]},{item:'FWF',units:[b]}]},before=JSON.stringify(input),m=O.model(input);
+ok(m.rows[0].owner==='coates'&&m.rows[0].recordedOwner944==='unknown','Coates ownership retains original-owner provenance');
+ok(m.rows[0].id===a.id&&m.rows[0].sourceKey===a.sourceKey&&m.rows[0].sourceToken===a.sourceToken,'Photograph and record identities stay stable');
+ok(m.groups[0].units[0]===m.rows[0],'Group and row ownership remain identical');
+ok(m.rows[1]===b,'Named row is unchanged');ok(JSON.stringify(input)===before,'Shared input is never mutated');
+const unnamed={...a,owner:'other:supplier-not-named',label:'Sub-hire: Supplier not named'};ok(O.model({rows:[unnamed],groups:[]}).rows[0].label==='Aircon','Derived label cannot contradict corrected ownership');
+let x=O.runOwners(10,false,[],null,0,[]);ok(x.streams.length===1&&x.streams[0].s==='coates'&&x.streams[0].n===10&&x.ownerUnk===0,'Unallocated ownership moves into the Coates run');
+x=O.runOwners(10,false,[],null,0,[{type:'FWF',n:4},{type:'Pee Panel',n:6}]);ok(x.streams[0].s==='sub'&&x.streams[0].n===10&&x.co==='Event Portables','Explicit item-level supplier plan is retained');
+x=O.runOwners(6,false,[{co:'Event Portables'}],null,2,[{n:3}]);ok(x.streams.find(s=>s.s==='sub').n===3&&x.streams.find(s=>s.s==='coates').n===3,'Named units and their planned items are not double counted');
+x=O.runOwners(4,false,[],{co:'PremAir Hire'},1,[]);ok(x.streams.find(s=>s.s==='sub').n===3&&x.streams.find(s=>s.s==='coates').n===1,'Named reference allocation retains contrary Coates units');
+x=O.runOwners(0,true,[],null,0,[]);ok(x.streams[0].s==='coates'&&x.streams[0].n===0&&x.ownerUnk===0,'Unknown quantity is never invented');
+x=O.runOwners(0,false,[],null,0,[]);ok(x.streams.length===0&&x.ownerUnk===0,'Known zero remains zero');
+console.log(JSON.stringify({author:'Andrew Fisher',passed:true,syntheticChecks:n}));

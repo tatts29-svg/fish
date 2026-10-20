@@ -1,0 +1,4 @@
+checked /tmp/claude-0/-home-user-fish/710a1764-23a1-5338-9fe8-299f94961e8a/scratchpad/sched71/build/GC500_v10.21/GC500_Delivery_Control_hosted.html: 120 inline scripts, 15,290,353 bytes, secrets {'google key': 0, 'mapbox token': 0}
+PASS all checks
+e22bf2aec03cd29517291112887bd84f6fd58ccf1efb75b25ffaa36c03f62b69  /tmp/claude-0/-home-user-fish/710a1764-23a1-5338-9fe8-299f94961e8a/scratchpad/sched71/build/GC500_v10.21/GC500_Delivery_Control_hosted.html
+15290353 /tmp/claude-0/-home-user-fish/710a1764-23a1-5338-9fe8-299f94961e8a/scratchpad/sched71/build/GC500_v10.21/GC500_Delivery_Control_hosted.html

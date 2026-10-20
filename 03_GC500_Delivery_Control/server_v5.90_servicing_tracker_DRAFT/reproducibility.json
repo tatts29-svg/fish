@@ -1,0 +1,11 @@
+{
+  "author": "Andrew Fisher",
+  "repeat_refused": true,
+  "wrong_base_refused": true,
+  "rebuild_identical": true,
+  "worker_matches_card_source": true,
+  "candidate_sha256": "55a19453304406e9fcf0891ae6151e8516357e83e22987fc334e2bf9428ad0ec",
+  "candidate_bytes": 289090,
+  "base_sha256": "cb32d00e0d4beb90870685978981b1e14541a701c7b37cb1f180d848c134019c",
+  "node_syntax_check": true
+}

@@ -1,0 +1,55 @@
+{
+  "author": "Andrew Fisher",
+  "sha256": "cde0aae30d5e528e85c2b16189bf0c0828397b87a7b3d10c1695362b19a58105",
+  "bytes": 15164541,
+  "checks": [
+    {
+      "name": "Exact reviewed rebuild",
+      "pass": true
+    },
+    {
+      "name": "Repeat rejected",
+      "pass": true
+    },
+    {
+      "name": "Wrong base rejected",
+      "pass": true
+    },
+    {
+      "name": "const DATA = source unchanged",
+      "pass": true
+    },
+    {
+      "name": "const COMMITTED = source unchanged",
+      "pass": true
+    },
+    {
+      "name": "loading_save1012.js exact source embedded",
+      "pass": true
+    },
+    {
+      "name": "selection_save/selection_save1012.js exact source embedded",
+      "pass": true
+    },
+    {
+      "name": "control_contrast1012.css exact source embedded",
+      "pass": true
+    },
+    {
+      "name": "loading_save1012.css exact source embedded",
+      "pass": true
+    },
+    {
+      "name": "selection_save/selection_save1012.css exact source embedded",
+      "pass": true
+    },
+    {
+      "name": "pricing1010-script unchanged",
+      "pass": true
+    },
+    {
+      "name": "financial-scopes1011-script unchanged",
+      "pass": true
+    }
+  ]
+}

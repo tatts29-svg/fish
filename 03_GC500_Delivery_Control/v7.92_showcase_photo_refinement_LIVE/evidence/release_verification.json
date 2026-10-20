@@ -1,0 +1,19 @@
+{
+  "author": "Andrew Fisher",
+  "release": "v7.92",
+  "status": "LIVE",
+  "liveAtAEST": "02 Oct 2026 11:19 AEST",
+  "verifiedAtAEST": "2026-10-02T11:20:53.094706+10:00",
+  "bytes": 8883495,
+  "sha256": "476f0dcca3d97de07d55c8eb7c85618a8672abf99f2c00f2892c11690b7bc265",
+  "publicViewMatchesCandidate": true,
+  "recordVersionBefore": 3538,
+  "recordVersionAfter": 3538,
+  "recordVersionUnchanged": true,
+  "pageOnlyUpload": true,
+  "recordChanges": false,
+  "journalsPosted": false,
+  "realMessagesSent": false,
+  "checks": "74/74 full lap, 28/28 rendering/recovery, 23/23 hosted integration, two 21-tab/7-link sweeps, source/geometry/storage/shader checks, 26 lap images and hosted desktop/phone visual inspection, exact rebuild, static checks, dry-run and fresh-base guard.",
+  "limits": "Software-rendered Chromium verifies behaviour and errors, not physical-device FPS. Final successor independently implemented/reviewed within Codex; no external collaborator review of this final candidate claimed."
+}

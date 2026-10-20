@@ -1,0 +1,83 @@
+{
+  "author": "Andrew Fisher",
+  "checks": [
+    {
+      "name": "All question checks ran",
+      "pass": true
+    },
+    {
+      "name": "Source-backed FL01 fleet is visible",
+      "pass": true
+    },
+    {
+      "name": "FL01 answer is in history",
+      "pass": true
+    },
+    {
+      "name": "Unresolved allocation and duplicate loads stay open",
+      "pass": true
+    },
+    {
+      "name": "Temporary fencing work is distinguished from removal",
+      "pass": true
+    },
+    {
+      "name": "Drawing question uses the held master revision",
+      "pass": true
+    },
+    {
+      "name": "Notes and session draft workflow are live",
+      "pass": true
+    },
+    {
+      "name": "Revenue is unchanged",
+      "pass": true
+    },
+    {
+      "name": "Approved Forecast P&L is live",
+      "pass": true
+    },
+    {
+      "name": "All branch totals reconcile with the contracts",
+      "pass": true
+    },
+    {
+      "name": "Branch Rehire details are live",
+      "pass": true
+    },
+    {
+      "name": "Known Direct costs are unchanged",
+      "pass": true
+    },
+    {
+      "name": "Unknown accessory rates remain visible",
+      "pass": true
+    },
+    {
+      "name": "Wages are not presented as verified actuals",
+      "pass": true
+    },
+    {
+      "name": "No mobile overflow",
+      "pass": true
+    },
+    {
+      "name": "Review does not change the record",
+      "pass": true
+    },
+    {
+      "name": "No page errors",
+      "pass": true
+    },
+    {
+      "name": "No attempted writes",
+      "pass": true
+    }
+  ],
+  "revenue": 555929.94,
+  "questions": {
+    "open": 16,
+    "pending": 8,
+    "answered": 33
+  }
+}

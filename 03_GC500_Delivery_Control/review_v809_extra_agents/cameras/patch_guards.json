@@ -1,0 +1,8 @@
+{
+  "author": "Andrew Fisher",
+  "successfulBuild": true,
+  "exactCandidateSha256": "39df72cf086d5a3b31f0288a2d3b6f11c4ed4161f5ff9f95f212e3a41d1542e1",
+  "rejectsExistingDestination": true,
+  "rejectsInPlaceWrite": true,
+  "rejectsPatchedWrongBase": true
+}

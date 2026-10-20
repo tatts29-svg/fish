@@ -1,0 +1,230 @@
+{
+  "author": "Andrew Fisher",
+  "scope": "Verified native 3840\u00d72160 full film and matching1920\u00d71080 preview/poster",
+  "mobile": true,
+  "actualPublic": true,
+  "sha256": "7403761db76a2bffb2eac99fb97669f5be09de946a6cc7c7592ff65287841975",
+  "checks": [
+    {
+      "name": "Actual public HTML, no substitution",
+      "pass": true
+    },
+    {
+      "name": "Public bytes match verified candidate",
+      "pass": true
+    },
+    {
+      "name": "Other initial page downloads no machine movie",
+      "pass": true
+    },
+    {
+      "name": "One lazy muted inline looping video; no eager source",
+      "pass": true
+    },
+    {
+      "name": "Motion off shows native poster without movie download",
+      "pass": true
+    },
+    {
+      "name": "Reduced motion retains poster and no film source",
+      "pass": true
+    },
+    {
+      "name": "Complete16:9 poster fits inside original hero without cropping",
+      "pass": true
+    },
+    {
+      "name": "CSS viewport chooses one preview source",
+      "pass": true
+    },
+    {
+      "name": "Selected media actually decodes at declared dimensions",
+      "pass": true
+    },
+    {
+      "name": "Only the chosen movie is fetched",
+      "pass": true
+    },
+    {
+      "name": "Entire decoded movie frame fits inside hero without clipping geometry",
+      "pass": true
+    },
+    {
+      "name": "Actual decoded frames and playback time advance",
+      "pass": true
+    },
+    {
+      "name": "Film remains mounted and playing through16seconds and3nativeversionpolls",
+      "pass": true
+    },
+    {
+      "name": "Actual media loops across the end without stopping",
+      "pass": true
+    },
+    {
+      "name": "Decoded film is visible without an incorrect picture-loading overlay",
+      "pass": true
+    },
+    {
+      "name": "Film pauses when card leaves the viewport",
+      "pass": true
+    },
+    {
+      "name": "Tools Motion off pauses active film",
+      "pass": true
+    },
+    {
+      "name": "Print pauses film",
+      "pass": true
+    },
+    {
+      "name": "Hidden document pauses film",
+      "pass": true
+    },
+    {
+      "name": "Native Open machine pauses background film",
+      "pass": true
+    },
+    {
+      "name": "Native Escape closes machine and returns original hero focus",
+      "pass": true
+    },
+    {
+      "name": "Tab exit 1 pauses film",
+      "pass": true
+    },
+    {
+      "name": "Return 1 has one owned lifecycle and one source",
+      "pass": true
+    },
+    {
+      "name": "Tab exit 2 pauses film",
+      "pass": true
+    },
+    {
+      "name": "Return 2 has one owned lifecycle and one source",
+      "pass": true
+    },
+    {
+      "name": "Tab exit 3 pauses film",
+      "pass": true
+    },
+    {
+      "name": "Return 3 has one owned lifecycle and one source",
+      "pass": true
+    },
+    {
+      "name": "Live OS reduced-motion change pauses film",
+      "pass": true
+    },
+    {
+      "name": "Film leaves operational records and P&L unchanged",
+      "pass": true
+    },
+    {
+      "name": "No horizontal document overflow",
+      "pass": true
+    },
+    {
+      "name": "No browser errors",
+      "pass": true
+    },
+    {
+      "name": "No operational writes",
+      "pass": true
+    }
+  ],
+  "posterBounds": {
+    "fit": "contain",
+    "ratio": 1.7777777777777777,
+    "paintWidth": 320,
+    "paintHeight": 180,
+    "width": 320,
+    "height": 184,
+    "inside": true,
+    "heroRatio": 1.7777777777777777
+  },
+  "filmBounds": {
+    "fit": "contain",
+    "width": 320,
+    "height": 184,
+    "paintWidth": 320,
+    "paintHeight": 180,
+    "inside": true
+  },
+  "steadyLoop": {
+    "seconds": 16.5,
+    "versionPolls": 4,
+    "before": {
+      "mounted": true,
+      "mounts": 1,
+      "disposals": 0,
+      "active": 1,
+      "quality": "preview",
+      "sourceLoads": 1,
+      "seen": true,
+      "allowed": true,
+      "paused": false,
+      "time": 0.396101,
+      "width": 1920,
+      "height": 1080,
+      "pending": false
+    },
+    "after": {
+      "mounted": true,
+      "mounts": 1,
+      "disposals": 0,
+      "active": 1,
+      "quality": "preview",
+      "sourceLoads": 1,
+      "seen": true,
+      "allowed": true,
+      "paused": false,
+      "time": 2.872677,
+      "width": 1920,
+      "height": 1080,
+      "pending": false
+    }
+  },
+  "pass": true,
+  "lifecycle": {
+    "mounted": true,
+    "mounts": 4,
+    "disposals": 3,
+    "active": 1,
+    "quality": "preview",
+    "sourceLoads": 1,
+    "seen": true,
+    "allowed": true,
+    "paused": false,
+    "time": 4.62351,
+    "width": 1920,
+    "height": 1080,
+    "pending": false
+  },
+  "requests": [
+    {
+      "file": "62704a18288c49d6a66a00af305338905175aef2385445e7c372a330fa33a17f.webp",
+      "range": null
+    },
+    {
+      "file": "d48eb3382ab23898262a90ed3beebac5aa6eda4b6def884f33989ac5d30bfc20.mp4",
+      "range": "bytes=0-"
+    },
+    {
+      "file": "d48eb3382ab23898262a90ed3beebac5aa6eda4b6def884f33989ac5d30bfc20.mp4",
+      "range": "bytes=0-"
+    },
+    {
+      "file": "d48eb3382ab23898262a90ed3beebac5aa6eda4b6def884f33989ac5d30bfc20.mp4",
+      "range": "bytes=0-"
+    },
+    {
+      "file": "d48eb3382ab23898262a90ed3beebac5aa6eda4b6def884f33989ac5d30bfc20.mp4",
+      "range": "bytes=0-"
+    }
+  ],
+  "errors": [],
+  "writes": 0,
+  "screenshot_review": "Passed: original card, branding and native controls retained; complete frame visible with no stand, cropping, picture-loading overlay or horizontal overflow."
+}

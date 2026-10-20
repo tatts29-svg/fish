@@ -1,0 +1,9 @@
+
+/* v7.40 - signed fencing papers */
+.papercard .invchips{margin:6px 0 4px}
+.paperform{margin-top:8px}
+.paperform .papergrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px;margin:4px 0 10px}
+.paperform .papergrid .f{margin:0}
+.paperform .papergrid label .w{font-weight:400;color:var(--mute)}
+.paperform > label{display:block;font-weight:600;margin-top:8px}
+@media (max-width:640px){.paperform .papergrid{grid-template-columns:repeat(2,1fr)}}

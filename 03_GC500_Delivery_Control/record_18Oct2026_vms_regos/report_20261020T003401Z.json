@@ -1,0 +1,97 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261020T003401Z",
+ "finished": "2026-10-20T00:34:12.887Z",
+ "mode": "apply",
+ "spec": {
+  "by": "Andrew Fisher",
+  "basis": "Andrew, 20 Oct 2026: \"T0024 is https://maps.app.goo.gl/n8Q6Cp7YdSznhoPV6\" (resolves to -27.9832171, 153.4263719; rounded -27.983217, 153.426372).",
+  "ops": [
+   {
+    "op": "place",
+    "ref": "T0024",
+    "lat": -27.983217,
+    "lon": 153.426372,
+    "how": "Andrew Fisher's Google Maps pin, 20 Oct 2026",
+    "source": "https://maps.app.goo.gl/n8Q6Cp7YdSznhoPV6"
+   }
+  ]
+ },
+ "pageSha256": "e4cb536810736c1e138cdfd80acb01b26178fa172a246df865ea81ea1405e592",
+ "version": {
+  "before": 10036,
+  "after": 10039
+ },
+ "updated": {
+  "before": "2026-10-20T00:14:00.976Z",
+  "after": "2026-10-20T00:34:11.566Z"
+ },
+ "stage": [
+  {
+   "op": "place",
+   "ref": "T0024",
+   "lat": -27.983217,
+   "lon": 153.426372,
+   "how": "Andrew Fisher's Google Maps pin, 20 Oct 2026",
+   "source": "https://maps.app.goo.gl/n8Q6Cp7YdSznhoPV6",
+   "result": "T0024 placed at -27.983217, 153.426372"
+  }
+ ],
+ "writes": [
+  {
+   "key": "stamps/places~2f~T0024",
+   "status": 200
+  },
+  {
+   "key": "by/places~2f~T0024",
+   "status": 200
+  },
+  {
+   "key": "places/T0024",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 1,
+ "docs": {
+  "before": {
+   "stamps/places~2f~T0024": null,
+   "by/places~2f~T0024": null,
+   "places/T0024": null
+  },
+  "after": {
+   "stamps/places~2f~T0024": {
+    "_k": "places/T0024",
+    "v": "2026-10-20T00:34:09.030Z"
+   },
+   "by/places~2f~T0024": {
+    "_k": "places/T0024",
+    "v": "Andrew Fisher"
+   },
+   "places/T0024": {
+    "_k": "T0024",
+    "v": {
+     "lat": -27.983217,
+     "lon": 153.426372,
+     "at": "2026-10-20T00:34:09.029Z",
+     "by": "Andrew Fisher",
+     "how": "Andrew Fisher's Google Maps pin, 20 Oct 2026",
+     "source": "https://maps.app.goo.gl/n8Q6Cp7YdSznhoPV6",
+     "note": null,
+     "ax": 0.1703950800293794,
+     "ay": 0.555599534216601,
+     "outside": null,
+     "away_m": null,
+     "ref": "T0024",
+     "unit": null
+    }
+   }
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}

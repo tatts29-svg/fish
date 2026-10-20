@@ -1,0 +1,20 @@
+// the headline figures each tab shows, side by side, to check they agree
+const {chromium} = require('playwright');
+(async () => { const browser = await chromium.launch({executablePath: '/opt/pw-browsers/chromium', args: ['--no-sandbox']});
+  const page = await (await browser.newContext({viewport: {width: 1280, height: 800}})).newPage(); const errs = [];
+  page.on('pageerror', e => errs.push(String(e).slice(0, 200)));
+  await page.goto(process.argv[2], {waitUntil: 'load'}); await page.waitForTimeout(2500);
+  const out = {};
+  out.fn = await page.evaluate(() => holdAssets(() => { const t = todayIso(), f = todayFigures(), P = progressAsOf(t), days = programmeDays();
+    const td = days.find(d => d.iso === t); const all = allAssets();
+    const st = {}; all.forEach(a => { const d = deliveryOf(a.key); const k = d.recorded ? d.state + (d.done ? '+done' : '') + (d.where === 'rental' ? '(rental)' : '') : 'none'; st[k] = (st[k] || 0) + 1; });
+    return {today: t, todayIsProgDay: !!td, todayDeliveries: td ? td.deliveries.length : null, pod: {due: f.due, onsite: f.onsite, notYet: f.notYet, day: f.d.dm, dayNow: f.dayNow}, P: P.all, assets: all.length, states: st}; }));
+  const grab = async (tab, sel) => { await page.evaluate(t => go(t), tab); await page.waitForTimeout(1500); return page.evaluate(s => [...document.querySelectorAll(s)].map(e => e.innerText.replace(/\s+/g, ' ').trim()).filter(Boolean).slice(0, 14), sel); };
+  out.todayPod = await grab('today', '#hztd .tdf');
+  out.todayCards = await grab('today', '#pane-today .kpi, #pane-today .grp, #pane-today .hubcard b, #pane-today .lightbar, #pane-today .lbar');
+  out.progress = await grab('progress', '#pane-progress .cwpc, #pane-progress .chero, #pane-progress .sig, #pane-progress .dsig span');
+  out.plant = await grab('plant', '#pane-plant .filters .btn, #pane-plant .lightbar, #pane-plant .lbar, #pane-plant .norate');
+  out.map = await grab('map', '#pane-map .legend, #pane-map .lgd, #pane-map .maplegend, #pane-map [class*=legend]');
+  out.timeline = await grab('timeline', '#pane-timeline .kpi, #pane-timeline .tsum, #pane-timeline .daystrip .day.on');
+  out.errs = errs;
+  console.log(JSON.stringify(out, null, 1)); await browser.close(); })();

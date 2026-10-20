@@ -1,0 +1,18 @@
+{
+  "author": "Andrew Fisher",
+  "base": {
+    "bytes": 8767811,
+    "sha256": "c9958a42085aef90aab8f7e81fdafddf6e49859669bf2b15fecff5818139a725"
+  },
+  "full": {
+    "bytes": 8834099,
+    "sha256": "d5cd59c5df09caadfa835f3c10f1aef2a073852ec6922474107f97efefb67c21"
+  },
+  "standalone": {
+    "bytes": 1142904,
+    "sha256": "8908db45cee553841abc33c5c5bf87195d8486d2d6edfd058180d716bf702a5e"
+  },
+  "unchanged_prefix_bytes": 7625870,
+  "prefix_identical": true,
+  "scope": "Renderer-only opt-in extension; operations, MP4, weather and speedos before the renderer are identical to live v7.84."
+}

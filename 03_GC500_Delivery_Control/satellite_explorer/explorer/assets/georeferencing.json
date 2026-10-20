@@ -1,0 +1,115 @@
+{
+ "version": 1,
+ "date": "2026-09-25",
+ "pdf_sha256": "37792f0a9d32e829f34d28ab41197fd2cf689fb62cd60a755aa89106cb5a0a2f",
+ "tile_scheme": "global Web Mercator pixels at z18, 512 px tiles (XYZ); px_z = px_z18 * 2^(z-18)",
+ "main": {
+  "sheet_region_pts": [
+   49.46,
+   41.4,
+   2334.08,
+   1464.24
+  ],
+  "exclude_pts": [
+   [
+    1482.86,
+    873.42,
+    2334.08,
+    1464.24
+   ]
+  ],
+  "sheet_to_z18px": [
+   [
+    0.006209606192736599,
+    -2.678811572270095,
+    124312606.97781198
+   ],
+   [
+    2.6899847635931895,
+    0.006687497663555323,
+    77981931.41801661
+   ],
+   [
+    0.0,
+    0.0,
+    1.0
+   ]
+  ],
+  "rotation_to_north_deg": 89.86773769125644,
+  "check": {
+   "n": 20,
+   "rms_m": 0.669719671487297,
+   "p95_m": 1.0401245322198562,
+   "max_m": 1.6108470785844329,
+   "method": "a quarter of the inlier registration points held out of the fit; residual in z18 pixels x 0.264 m per pixel"
+  },
+  "points": {
+   "candidates": 104,
+   "inliers": 79,
+   "used_for_fit": 59,
+   "held_out_checks": 20,
+   "sheet_cells_covered": {
+    "cols": [
+     0,
+     1,
+     2,
+     3,
+     4
+    ],
+    "rows": [
+     1,
+     2,
+     3
+    ]
+   }
+  },
+  "status": "image registration, main plan: the drawing's embedded aerial (xref 6) matched to Mapbox satellite z18 @2x by normalised cross-correlation on a grid, affine fit; not a survey",
+  "review_status": "unreviewed"
+ },
+ "inset": {
+  "sheet_region_pts": [
+   1482.86,
+   873.42,
+   2334.08,
+   1464.24
+  ],
+  "sheet_to_z18px": [
+   [
+    1.7541222535747083e-05,
+    -2.666729858487075,
+    124314492.88684578
+   ],
+   [
+    2.6886829616548065,
+    0.01105057213805883,
+    77983319.7610734
+   ],
+   [
+    0.0,
+    0.0,
+    1.0
+   ]
+  ],
+  "check": {
+   "n": 5,
+   "rms_m": 0.9221830663153832,
+   "max_m": 1.454097823559836
+  },
+  "inset_to_main": {
+   "matches": 1211,
+   "inliers": 1169,
+   "scale_relative_to_main": 0.9998635690681338,
+   "residual_px_rms": 0.652941424236031,
+   "px_m": 0.339
+  },
+  "status": "inset registration: the inset's embedded aerial (xref 1728) matched to the main plan's embedded aerial (same photograph), composed with the main plan's satellite registration, then checked and corrected directly against Mapbox satellite z18 @2x on a patch grid; not a survey",
+  "review_status": "unreviewed"
+ },
+ "imagery": {
+  "provider": "Mapbox Satellite (mapbox.satellite), @2x tiles",
+  "capture_date": null,
+  "native_resolution": null,
+  "attribution": "\u00a9 Mapbox \u00a9 OpenStreetMap \u00a9 Maxar"
+ },
+ "suitable_for_setout": false
+}

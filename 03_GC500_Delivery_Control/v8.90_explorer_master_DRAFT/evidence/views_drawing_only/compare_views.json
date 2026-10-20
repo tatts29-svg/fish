@@ -1,0 +1,104 @@
+{
+ "fit_sheet": {
+  "pixels": 1444300,
+  "differing": 244318,
+  "share": 0.16916,
+  "max_abs": 255
+ },
+ "z1000_P45_new": {
+  "pixels": 1296000,
+  "differing": 195997,
+  "share": 0.15123,
+  "max_abs": 255
+ },
+ "z1000_P45_old": {
+  "pixels": 1296000,
+  "differing": 276678,
+  "share": 0.21349,
+  "max_abs": 255
+ },
+ "z1000_WC10": {
+  "pixels": 1296000,
+  "differing": 247340,
+  "share": 0.19085,
+  "max_abs": 255
+ },
+ "z1000_WC32_WC40a": {
+  "pixels": 1296000,
+  "differing": 207167,
+  "share": 0.15985,
+  "max_abs": 255
+ },
+ "z1000_WC38_WC39": {
+  "pixels": 1296000,
+  "differing": 144413,
+  "share": 0.11143,
+  "max_abs": 255
+ },
+ "z1000_WC51": {
+  "pixels": 1296000,
+  "differing": 117901,
+  "share": 0.09097,
+  "max_abs": 255
+ },
+ "z1000_WC69": {
+  "pixels": 1296000,
+  "differing": 165849,
+  "share": 0.12797,
+  "max_abs": 255
+ },
+ "z1000_inset_WC81": {
+  "pixels": 1296000,
+  "differing": 99939,
+  "share": 0.07711,
+  "max_abs": 175
+ },
+ "z1000_title_block": {
+  "pixels": 864000,
+  "differing": 11506,
+  "share": 0.01332,
+  "max_abs": 119
+ },
+ "z316_pit_island": {
+  "pixels": 1200600,
+  "differing": 246821,
+  "share": 0.20558,
+  "max_abs": 255
+ },
+ "z4000_P45_new_detail": {
+  "pixels": 1500000,
+  "differing": 140741,
+  "share": 0.09383,
+  "max_abs": 255
+ },
+ "z4000_WC10_detail": {
+  "pixels": 1500000,
+  "differing": 233671,
+  "share": 0.15578,
+  "max_abs": 255
+ },
+ "z4000_inset_detail": {
+  "pixels": 1500000,
+  "differing": 1921,
+  "share": 0.00128,
+  "max_abs": 255
+ },
+ "z4000_unchanged_beach": {
+  "pixels": 1500000,
+  "differing": 81642,
+  "share": 0.05443,
+  "max_abs": 255
+ },
+ "z4000_unchanged_pit": {
+  "pixels": 1500000,
+  "differing": 106270,
+  "share": 0.07085,
+  "max_abs": 255
+ },
+ "z4000_west_edge": {
+  "pixels": 1500000,
+  "differing": 33158,
+  "share": 0.02211,
+  "max_abs": 255
+ }
+}

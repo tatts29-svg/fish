@@ -1,0 +1,27 @@
+{
+  "author": "Andrew Fisher",
+  "candidate_sha256": "33d61cd71fa409b34f23ba0c7badbbdf7c4ae61ed5a4b8f080bea63e5d492cc0",
+  "native_passed": 55,
+  "native_total": 55,
+  "page_errors": [],
+  "operational_writes": 0,
+  "blocked_requests": [
+    {
+      "method": "POST",
+      "path": "/v1/createSession"
+    }
+  ],
+  "pdf_pages": 1,
+  "pdf_a4": true,
+  "pdf_recorded_accessible_zero": true,
+  "pdf_recorded_block_one": true,
+  "pdf_remaining_one": true,
+  "source_binding": {
+    "author": "Andrew Fisher",
+    "candidate_sha256": "33d61cd71fa409b34f23ba0c7badbbdf7c4ae61ed5a4b8f080bea63e5d492cc0",
+    "helper_sha256": "87d2d08fa7a2f4de1b08791bb35641b55501beeda587e3296a50248ffeacd6eb",
+    "helper_embedded_exactly_once": true
+  },
+  "phone_screenshot_sha256": "e3cffba31131a60bb546975ad2108db95511dd64dd39c5afc3b285b4f168c19a",
+  "scope": "Exact final build, frozen record3552. All15Wednesday driver+installer A4; WC31/WC33/WC32; unknown, malformed, split, mixed counts; native390px phone; no timing or GPU suites."
+}

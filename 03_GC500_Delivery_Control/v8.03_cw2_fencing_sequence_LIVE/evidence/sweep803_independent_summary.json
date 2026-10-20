@@ -1,0 +1,52 @@
+{
+  "author": "Andrew Fisher",
+  "candidateSha256": "fa32b0a1937b329077923b960688a8927fbaaa2e6283d4d1ce2c6732eb98c213",
+  "scope": "Final official v803 plan-only release: selected-week UI plus sequential desktop/phone standard sweeps",
+  "ui": {
+    "passed": 29,
+    "failed": 0,
+    "pageErrors": [],
+    "blockedWrites": 0,
+    "sourceTasksRepresented": 26,
+    "sourceQuantityConflicts": 3,
+    "actualSnapshotSha256": "48c1421dfceebbe164ce2fbd2f5e74c48faac9888b63d45f057d7a55382b129f",
+    "privateScreenshots": "/workspace/private-cw2-fencing/ui-official-fa32"
+  },
+  "devices": {
+    "desktop": {
+      "tabs": 21,
+      "deepLinks": 7,
+      "pageErrors": [],
+      "consoleErrors": [],
+      "goErrors": {},
+      "back": {
+        "hash": "#plant",
+        "pane": "pane-plant"
+      },
+      "network": {
+        "page": 1,
+        "live": 239,
+        "blocked": 0
+      },
+      "candidateUnchanged": true
+    },
+    "phone": {
+      "tabs": 21,
+      "deepLinks": 7,
+      "pageErrors": [],
+      "consoleErrors": [],
+      "goErrors": {},
+      "back": {
+        "hash": "#plant",
+        "pane": "pane-plant"
+      },
+      "network": {
+        "page": 1,
+        "live": 272,
+        "blocked": 0
+      },
+      "candidateUnchanged": true
+    }
+  },
+  "productChangesDuringFinalVerification": false
+}
