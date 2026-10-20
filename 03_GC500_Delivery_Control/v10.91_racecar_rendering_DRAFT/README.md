@@ -22,4 +22,4 @@ Tests and evidence:
 
 Private screenshots and detailed browser evidence remain outside the repository. Chromium uses ANGLE SwiftShader software rendering here; its timings are comparative diagnostics, never claims about physical-device frame rate.
 
-Status: development implementation and tests frozen; development desktop controls and independent review passed. Not ready to upload. Final v10.90 rebase, desktop/phone controls, required sweeps and guarded publication are outstanding. `validation_development.json` records exact source and evidence hashes.
+Status: development implementation and tests frozen; development desktop/phone controls and independent review passed. Not ready to upload. Final v10.90 rebase, desktop/phone controls, required sweeps and guarded publication are outstanding. `validation_development.json` records exact source and evidence hashes.

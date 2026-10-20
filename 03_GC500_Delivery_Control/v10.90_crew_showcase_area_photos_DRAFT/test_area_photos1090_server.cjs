@@ -1,0 +1,23 @@
+/* Author: Andrew Fisher. Exact repository service functions, isolated CPU state, no network or disk writes. */
+'use strict';
+const assert=require('node:assert/strict'),vm=require('node:vm');
+const {execFileSync}=require('node:child_process');
+const {createHash}=require('node:crypto');
+const source=execFileSync('git',['show','HEAD:03_GC500_Delivery_Control/server_v5.91_export_completeness_LIVE/server.js'],{encoding:'utf8',maxBuffer:1024*1024});
+assert.equal(createHash('sha256').update(source).digest('hex'),'c1b8bf9c999d4e548384b682592409507dbaf8bb7c4c62c590b62127b69c89b7');
+const setDoc=source.slice(source.indexOf('function setDoc('),source.indexOf('function deleteDoc('));
+const fold=source.slice(source.indexOf('function require_fold()'),source.indexOf('/* v5.84 — SIGTERM AND SIGINT FLUSH'));
+const saved=[],context={state:{docs:{},version:0},logWrite(){},persist(){saved.push(JSON.stringify(context.state));return Promise.resolve(null);},SEG:/^[A-Za-z0-9_\-.~:@+]{1,200}$/,protoKey:k=>['__proto__','constructor','prototype'].includes(String(k).toLowerCase())};
+vm.createContext(context);
+vm.runInContext(setDoc+'\n'+fold,context);
+const body={_k:'example.jpg',id:'example.jpg',ref:'EXAMPLE-A',slot:0,area1090:{version:1,label:'Example area',targets:[{ref:'EXAMPLE-B',unitId:'example-unit',signature:'["example-unit","EXAMPLE-B","example-owner","EXAMPLE-001","Example item"]',label:'Example item'}],by:'Example recorder',at:'2026-10-20T00:00:00Z'}};
+for(const ref of ['EXAMPLE-C','EXAMPLE-D'])body.area1090.targets.push({scope:'reference',ref,items:['Example unnumbered item'],signature:JSON.stringify(['reference',ref,['Example unnumbered item']]),label:'Reference context'});
+context.setDoc('photoLinks','example.jpg',body,'Example recorder');
+assert.deepEqual(context.state.docs.photoLinks['example.jpg'],body);
+assert.deepEqual(JSON.parse(saved[0]).docs.photoLinks['example.jpg'],body);
+const exported=JSON.parse(JSON.stringify(context.require_fold()(context.state)));
+assert.deepEqual(exported.photoLinks['example.jpg'].area1090,body.area1090);
+assert.deepEqual(exported.records.photoLinks['example.jpg'].area1090,body.area1090);
+assert.match(source,/if \(!body \|\| typeof body !== 'object' \|\| Array\.isArray\(body\)\)/);
+assert.match(source,/return answerSaved\(res, setDoc\(coll, id, body,/);
+console.log('Service metadata contract: 6 checks passed; no production writes.');

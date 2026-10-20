@@ -71,8 +71,9 @@
     "Balanced and High exact geometry and draw ordering",
     "independent native draw function semantic review at three speeds",
     "optional filtering capability fallbacks",
-    "actual desktop controls, cleanup, zero GL/page errors, zero native writes",
-    "independent shader/adaptive fixtures including restored minimum-scale state"
+    "actual desktop and phone controls, cleanup, zero GL/page errors, zero native writes",
+    "independent shader/adaptive fixtures including restored minimum-scale state",
+    "phone screenshot visually inspected; car, surrounding scene and controls intact"
   ],
   "outstanding": [
     "final verified-live v10.90 base pin",
@@ -94,6 +95,8 @@
     "fixed-base-frontdetail.png": "b176c906e115396386340a767ec65737a2efe78bec3a6d46cac9ba46425584d8",
     "fixed-final-frontdetail.png": "f2b2b0d3603f9cff2fbb596ffc5fd8b999a7e1101d0b80b89f62f49c31bf6e63",
     "draw-semantics.json": "6904fe99b1832d7b31e2b44156506a153d5e97ef00bb3b7642e059b7f90e8bf1",
-    "shader-adaptive.json": "7bb4be43224d67dda830cfb4e2b5989b3f82f24b00b36a3da7c8bb2de85b18fc"
+    "shader-adaptive.json": "7bb4be43224d67dda830cfb4e2b5989b3f82f24b00b36a3da7c8bb2de85b18fc",
+    "controls-phone.json": "0b88e8212ebc5b2990396f456396ac880eea02472f9244e3f418c5945ff956ac",
+    "controls-phone.png": "bf48a34912946046ca608da2645a63c2de3b9dabe3d5b98de0b230a52991ef46"
   }
 }
