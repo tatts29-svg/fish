@@ -202,6 +202,12 @@ marks as a draft, or anything risky to the record, waits for his yes.
 
 - **Master plan wins** (v6.85, confirmed 29 Sep 2026): a reference the master plan D001-26003-03 tags on the unit
   takes its position from the plan, always. Pins are used only where the plan has no unit tag.
+- **Approved saved pins take precedence** (v10.84/v10.87, 20 Oct 2026): this supersedes the older master-plan rule
+  where the existing `andrewPin1084(a)` rule accepts Andrew's saved pin. Operational map markers, navigation,
+  equipment views and print maps use that approved reference destination. Preserve native coordinates and
+  individual-unit identity; a reference destination does not establish every unit's position. Older master
+  placements remain the fallback where no eligible approved pin exists. Do not promote imported or legacy
+  placements into approved pins, infer new coordinates, or move historical drawing geometry to fit a saved pin.
 - **The pit lane is the way in** (v7.42): everything in Macintosh Island Park comes off the Gold Coast Highway into
   the pit lane at its north-west end and drives it the way the race cars go.
 - **Photos: one document per photograph** (v7.41), sent from an outbox on the phone until the service has them.

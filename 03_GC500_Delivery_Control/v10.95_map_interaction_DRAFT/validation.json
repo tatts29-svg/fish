@@ -1,0 +1,348 @@
+{
+  "author": "Andrew Fisher",
+  "state": "READY_FOR_GUARDED_PUBLICATION",
+  "predecessor_sha256": "5f79b5f6c4ce953c3e69f7dfac939734f7176130808ec608715e8c23faf8cc79",
+  "candidate_sha256": "87b47dc52dc52dc9d078e8f77f79ed3c9e835244e5855e075a075aab1b338b47",
+  "candidate_bytes": 18621865,
+  "build": {
+    "static_check": "PASS",
+    "inline_scripts": 148
+  },
+  "source_checks": {
+    "exact_base_and_reapplication_guards": "PASS",
+    "approved_pin_precedence_and_fallback": "PASS",
+    "live_map_real_unit_pin_retention": "PASS",
+    "visible_multi_unit_reference_scope": "PASS"
+  },
+  "focused_final_phone": {
+    "pass": true,
+    "one_current_reference_marker": true,
+    "no_stale_footprint": true,
+    "identities_preserved": true,
+    "reference_scope_visible_without_more_info": true,
+    "page_errors": 0,
+    "record_write_attempts": 0,
+    "screenshots": "Inspected privately; not checked into repository"
+  },
+  "profiles": {
+    "desktop": {
+      "page_sha256": "b8ac824a1324e139638e1a62725ce0bd634878d750e255a7ee8e3b421c1e4b29",
+      "environment": {
+        "browser": "151.0.7922.173",
+        "softwareGraphics": true,
+        "viewport": "1440x1000 DPR1"
+      },
+      "cases": [
+        {
+          "mode": "original",
+          "zoom_percent": 800,
+          "javascript_draw": {
+            "median_ms": 1.3,
+            "p95_ms": 4.1
+          },
+          "raf_interval": {
+            "median_ms": 50,
+            "p95_ms": 116.6
+          },
+          "detail_ready": true,
+          "mode_selection_zoom_ready_ms": 2102,
+          "canvas_pixels": [
+            1106,
+            572
+          ],
+          "selection_preserved": true
+        },
+        {
+          "mode": "original",
+          "zoom_percent": 3200,
+          "javascript_draw": {
+            "median_ms": 0.9,
+            "p95_ms": 1.7
+          },
+          "raf_interval": {
+            "median_ms": 50,
+            "p95_ms": 83.3
+          },
+          "detail_ready": true,
+          "mode_selection_zoom_ready_ms": 1270,
+          "canvas_pixels": [
+            1106,
+            572
+          ],
+          "selection_preserved": true
+        },
+        {
+          "mode": "original",
+          "zoom_percent": 16000,
+          "javascript_draw": {
+            "median_ms": 0.9,
+            "p95_ms": 1.5
+          },
+          "raf_interval": {
+            "median_ms": 49.9,
+            "p95_ms": 83.4
+          },
+          "detail_ready": true,
+          "mode_selection_zoom_ready_ms": 417,
+          "canvas_pixels": [
+            1106,
+            572
+          ],
+          "selection_preserved": true
+        },
+        {
+          "mode": "hybrid",
+          "zoom_percent": 800,
+          "javascript_draw": {
+            "median_ms": 1.3,
+            "p95_ms": 4.6
+          },
+          "raf_interval": {
+            "median_ms": 50,
+            "p95_ms": 166.6
+          },
+          "detail_ready": true,
+          "mode_selection_zoom_ready_ms": 1227,
+          "canvas_pixels": [
+            1106,
+            572
+          ],
+          "selection_preserved": true
+        },
+        {
+          "mode": "hybrid",
+          "zoom_percent": 3200,
+          "javascript_draw": {
+            "median_ms": 1,
+            "p95_ms": 6.9
+          },
+          "raf_interval": {
+            "median_ms": 50,
+            "p95_ms": 83.4
+          },
+          "detail_ready": true,
+          "mode_selection_zoom_ready_ms": 237,
+          "canvas_pixels": [
+            1106,
+            572
+          ],
+          "selection_preserved": true
+        },
+        {
+          "mode": "hybrid",
+          "zoom_percent": 16000,
+          "javascript_draw": {
+            "median_ms": 1,
+            "p95_ms": 2
+          },
+          "raf_interval": {
+            "median_ms": 33.4,
+            "p95_ms": 66.8
+          },
+          "detail_ready": true,
+          "mode_selection_zoom_ready_ms": 1360,
+          "canvas_pixels": [
+            1106,
+            572
+          ],
+          "selection_preserved": true
+        }
+      ],
+      "refresh_preserved": true,
+      "hidden_paints": 0,
+      "runtime_checks": [
+        "an eligible approved reference with typed quantity is available",
+        "explicit refresh propagates changed host quantity into existing iframe",
+        "existing iframe uses changed approved pin coordinates",
+        "refresh retains exact camera at 16000 percent and rotated view",
+        "refresh retains selected reference",
+        "refresh retains open card sections and reading position",
+        "approved pin has no historical footprint",
+        "synthetic pin and quantity getter restored exactly",
+        "a master-only reference is available for tiny-move regression",
+        "tiny approved move suppresses stale footprint at deep rotated zoom",
+        "selected approved marker remains a precise hit target",
+        "tiny-move source restored exactly"
+      ],
+      "verified_refresh_round_trip_ms_including_test_readback": 880.6,
+      "page_errors": 0,
+      "record_write_attempts": 0
+    },
+    "phone": {
+      "page_sha256": "b8ac824a1324e139638e1a62725ce0bd634878d750e255a7ee8e3b421c1e4b29",
+      "environment": {
+        "browser": "151.0.7922.173",
+        "softwareGraphics": true,
+        "viewport": "390x844 DPR2"
+      },
+      "cases": [
+        {
+          "mode": "original",
+          "zoom_percent": 800,
+          "javascript_draw": {
+            "median_ms": 1.9,
+            "p95_ms": 3.9
+          },
+          "raf_interval": {
+            "median_ms": 33.4,
+            "p95_ms": 66.7
+          },
+          "detail_ready": true,
+          "mode_selection_zoom_ready_ms": 1344,
+          "canvas_pixels": [
+            736,
+            854
+          ],
+          "selection_preserved": true
+        },
+        {
+          "mode": "original",
+          "zoom_percent": 3200,
+          "javascript_draw": {
+            "median_ms": 0.8,
+            "p95_ms": 1.5
+          },
+          "raf_interval": {
+            "median_ms": 16.7,
+            "p95_ms": 33.5
+          },
+          "detail_ready": true,
+          "mode_selection_zoom_ready_ms": 1065,
+          "canvas_pixels": [
+            736,
+            854
+          ],
+          "selection_preserved": true
+        },
+        {
+          "mode": "original",
+          "zoom_percent": 16000,
+          "javascript_draw": {
+            "median_ms": 0.8,
+            "p95_ms": 1.6
+          },
+          "raf_interval": {
+            "median_ms": 16.7,
+            "p95_ms": 50
+          },
+          "detail_ready": true,
+          "mode_selection_zoom_ready_ms": 479,
+          "canvas_pixels": [
+            736,
+            854
+          ],
+          "selection_preserved": true
+        },
+        {
+          "mode": "hybrid",
+          "zoom_percent": 800,
+          "javascript_draw": {
+            "median_ms": 1.3,
+            "p95_ms": 4.5
+          },
+          "raf_interval": {
+            "median_ms": 33.3,
+            "p95_ms": 66.6
+          },
+          "detail_ready": true,
+          "mode_selection_zoom_ready_ms": 1273,
+          "canvas_pixels": [
+            736,
+            854
+          ],
+          "selection_preserved": true
+        },
+        {
+          "mode": "hybrid",
+          "zoom_percent": 3200,
+          "javascript_draw": {
+            "median_ms": 1.2,
+            "p95_ms": 2.4
+          },
+          "raf_interval": {
+            "median_ms": 16.7,
+            "p95_ms": 33.4
+          },
+          "detail_ready": true,
+          "mode_selection_zoom_ready_ms": 1194,
+          "canvas_pixels": [
+            736,
+            854
+          ],
+          "selection_preserved": true
+        },
+        {
+          "mode": "hybrid",
+          "zoom_percent": 16000,
+          "javascript_draw": {
+            "median_ms": 0.8,
+            "p95_ms": 1.3
+          },
+          "raf_interval": {
+            "median_ms": 16.7,
+            "p95_ms": 33.4
+          },
+          "detail_ready": true,
+          "mode_selection_zoom_ready_ms": 990,
+          "canvas_pixels": [
+            736,
+            854
+          ],
+          "selection_preserved": true
+        }
+      ],
+      "refresh_preserved": true,
+      "hidden_paints": 0,
+      "runtime_checks": [
+        "an eligible approved reference with typed quantity is available",
+        "explicit refresh propagates changed host quantity into existing iframe",
+        "existing iframe uses changed approved pin coordinates",
+        "refresh retains exact camera at 16000 percent and rotated view",
+        "refresh retains selected reference",
+        "refresh retains open card sections and reading position",
+        "approved pin has no historical footprint",
+        "synthetic pin and quantity getter restored exactly",
+        "a master-only reference is available for tiny-move regression",
+        "tiny approved move suppresses stale footprint at deep rotated zoom",
+        "selected approved marker remains a precise hit target",
+        "tiny-move source restored exactly"
+      ],
+      "verified_refresh_round_trip_ms_including_test_readback": 802.1,
+      "page_errors": 0,
+      "record_write_attempts": 0
+    }
+  },
+  "profile_scope": "Core map changes measured before the final existing-card text adjustment. Final exact bytes have the focused phone assertion; required full sweeps are recorded separately. Software graphics results are not a hardware-device frame-rate guarantee. Detail-readiness timings include mode/selection/zoom and fetched detail; they are not pure draw timings.",
+  "sweeps": {
+    "desktop": {
+      "state": "PASS",
+      "page_sha256": "87b47dc52dc52dc9d078e8f77f79ed3c9e835244e5855e075a075aab1b338b47",
+      "route_entries": 25,
+      "deep_links": 7,
+      "page_errors": 0,
+      "console_errors": 0,
+      "record_write_attempts": 0,
+      "navigation": "Active panes visible; historical register/tool entries follow documented redirects; Back returns Equipment"
+    },
+    "phone": {
+      "state": "PASS",
+      "page_sha256": "87b47dc52dc52dc9d078e8f77f79ed3c9e835244e5855e075a075aab1b338b47",
+      "route_entries": 25,
+      "deep_links": 7,
+      "page_errors": 0,
+      "console_errors": 0,
+      "record_write_attempts": 0,
+      "navigation": "Active panes visible; historical register/tool entries follow documented redirects; Back returns Equipment"
+    }
+  },
+  "publication": {
+    "state": "NOT_PUBLISHED",
+    "actual_public_test": "test_public1095.cjs; requires exact GC500_EXPECTED_PAGE_SHA and rejects PAGE replacement"
+  },
+  "limits": [
+    "Historical master drawing remains context and is not moved to follow saved pins.",
+    "Approved pins outside the drawing extent are not forced into an invented sheet position.",
+    "Separate servicing-line coordinates are not exposed by the current operational shared source; no print-only unit locations are imported.",
+    "External imagery availability and detail limits remain visible; no speculative cache or camera rewrite was introduced."
+  ]
+}

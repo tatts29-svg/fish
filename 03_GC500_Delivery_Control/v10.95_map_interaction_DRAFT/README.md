@@ -1,0 +1,21 @@
+# Map interaction and position consistency — v10.95 DRAFT
+
+Author: Andrew Fisher
+
+Ready for guarded publication; final desktop and phone checks passed. Base: exact v10.94 page SHA-256 `5f79b5f6c4ce953c3e69f7dfac939734f7176130808ec608715e8c23faf8cc79`. Candidate: `87b47dc52dc52dc9d078e8f77f79ed3c9e835244e5855e075a075aab1b338b47`, 18,621,865 bytes. Not published.
+
+The operational map and equipment projection were still choosing an older master position before the already approved saved-pin rule used by navigation. This release routes eligible `andrewPin1084` locations through the existing map placement adapter once per reference, retains legacy master positions as the fallback, and keeps actual unit GPS markers separate. It does not edit native positions, reference identities, quantities, status, prices or servicing data.
+
+An approved pin does not move the historical building footprint. The map uses the pin marker at that location and retains the drawing as context. The legacy Live map labels synthetic master positions honestly and displays approved nearby pins without losing real unit fixes. Navigation text identifies the approved destination. An implementation comment that leaked into visible page text becomes an HTML comment.
+
+For an approved reference with confirmed quantity greater than one, the existing visible card field now says “Reference location · individual units may be elsewhere.” It keeps all unit identities and leaves single-unit, unknown-quantity and legacy wording unchanged. The final phone check verifies the note is readable without opening More info, the selected marker uses the saved destination, and the old footprint is absent.
+
+The current explorer already supports 16,000% zoom (maximum 64,000%). Tests exercised 800%, 3,200% and 16,000% in Plan and Satellite + plan on desktop and phone viewports. The canvas stayed at viewport size, independently of zoom. In headless Chromium with software graphics, median JavaScript draws were 0.8–1.9 ms; animation-frame intervals were 16.7–50 ms. Those are different measurements: JavaScript draw time does not guarantee display frame rate. Existing tile deadlines and retries are preserved. Mode/selection/zoom detail readiness took about 0.2–2.1 seconds in the measured cases. This does not promise network or imagery availability on a physical phone, and no performance gain is claimed.
+
+The equipment model currently has one location per reference. Separate servicing-line locations are retained by the servicing tracker; its per-line coordinates are not exposed by the current page adapter. Approved grouped markers are labelled Reference location; equipment notes explicitly say separate unit positions are not supplied to that view. Expanding exact per-unit map positions needs a fresh shared coordinate source and reviewed identity join; print-only coordinates are not imported into operational fields.
+
+Validation: exact predecessor/reapplication guards, unchanged data-script checks, approved-pin versus master conflicts, multi-unit GPS retention, nearby marker source labels, actual host/child alignment, and fresh source updates. Desktop and phone tests propagated a synthetic pin and quantity change to the existing iframe while preserving camera, selection, expanded sections and scroll. The 16,000% rotated hit target remained exact; temporary sources were restored, hidden-map paints were zero, and no record write was attempted. Profiles and the 12 interaction checks used the same core patch before the final card-text adjustment; final exact-byte focused checks and route sweeps are listed in `validation.json`.
+
+Final exact-byte desktop and phone sweeps each visited 25 route entries and seven deep links, with zero page errors, console errors or record-write attempts. Historical retired routes still follow their documented redirects, and Back returns to Equipment. The final focused phone screenshots were inspected privately.
+
+The public read-back is `test_public1095.cjs`: set `GC500_EXPECTED_PAGE_SHA`, private `OUT`, and optional `MOB=1`, `FOCUS_REF`, and `SCREENSHOT=1`. It rejects `PAGE` substitution and verifies the actual HTTP response hash. Candidate profiling uses `test_interactions1095.cjs`; the short visible-card proof uses `test_focus1095.cjs`. Full pages, native records, identities, screenshots and profiles remain private.
