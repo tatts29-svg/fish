@@ -1,0 +1,61 @@
+{
+  "schema": 1,
+  "release": "v10.93",
+  "candidate_sha256": "e07f45f9a9309e7cb5d20f59cb17b13222bbd9ed64285f163280457f8139e4b2",
+  "candidate_bytes": 18600236,
+  "predecessor_sha256": "4a94062d014c4c3c56cb94faba9622d75ed445cc1d5f1b625cb9a54845533da9",
+  "source_sha256": {
+    "patch_v1093.py": "6911ac982df5ae5d7b3a565b0e88d679f0cdd093ea4d1d58f07f400133f79244",
+    "test_patch_v1093.py": "305f19c56f19d64195e01ff229dfdc6bc240ffb44b95a35f946e45486d4624e6",
+    "native_evidence.cjs": "6b46b6046f20caef583d7fe9905211f6842dc82871d35a159b31969d04c4cf72",
+    "record_evidence.cjs": "85ed2f9a36b62cd274bbacbf50b66c9aca42cb2c872c9a9f4aa34004b8683478",
+    "verify_public_evidence.cjs": "640bd2a6944a44e9769b8e4e9e2a0bae1793b7cf199336a7506a85f541ca286c",
+    "README.md": "46946ec92bca578507639fce4442051075cd0ef1f9adbd40dfd6ddc93ba73002"
+  },
+  "checks": {
+    "inline_script_count": 148,
+    "synthetic_patch_tests_passed": 26,
+    "preservation_pass": true,
+    "strict_matcher_bytes_unchanged": true
+  },
+  "practice": {
+    "result_sha256": "51c3028eba550bbf36b94bb032d13ae8e43b43e6eec89ddcca360b24a23737e9",
+    "verification_sha256": "4c76a0f34ca73c87b3d1e458ec3ccd4d22748ac12adcb4302297f7193c5fd7a9",
+    "frozen_spec_sha256": "f2f0353f2a5a9f7965f2daeaa1b7ba36fcaea4df2173117d85fe9c7b6f2e8013",
+    "guard_receipt_sha256": "2f4b857c09ee32ec3c0b06f729c99f5f6a2ba96056f608c70aa146ad092ed6ac",
+    "passed_check_count": 34,
+    "passed_guard_count": 12,
+    "native_server_write_count": 0,
+    "focused_card_sha256": "09adb0959006e07d51f3b384169614231a4705391404c20bfce9349b578f288e",
+    "focused_phone_sha256": "a3ba24333a4f1e22116b9fa42b9348991bbe575b212c46ec31cf8e8cd0af9946",
+    "focused_phone_overflow": false
+  },
+  "sweeps": {
+    "desktop": {
+      "receipt_sha256": "38e1dec1408fc51d4073daad02bd68d5bd06c01cc1b0f0e6d34326de25184816",
+      "route_count": 25,
+      "deep_link_count": 7,
+      "back_pass": true,
+      "page_error_count": 0,
+      "console_error_count": 0,
+      "native_mutation_attempt_count": 0
+    },
+    "phone": {
+      "receipt_sha256": "47de627198136ef324f80063b38f393d1fb56d7310ed8c950541510a1a5ab1a9",
+      "route_count": 25,
+      "deep_link_count": 7,
+      "back_pass": true,
+      "page_error_count": 0,
+      "console_error_count": 0,
+      "native_mutation_attempt_count": 0
+    }
+  },
+  "post_apply_probe": {
+    "synthetic_receipt_sha256": "49a41637aafece2284317d2f7b1476751c741dfbc77a41a28a83a8562ca3a53f",
+    "passed_synthetic_check_count": 11,
+    "actual_network_request_count": 0,
+    "actual_public_run": "pending successful native application"
+  },
+  "publication": "pending release owner",
+  "native_application": "not applied"
+}

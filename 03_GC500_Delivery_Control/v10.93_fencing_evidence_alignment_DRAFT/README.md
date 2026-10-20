@@ -30,11 +30,15 @@ The native runner's apply mode also requires `GC500_EXPECTED_SPEC_SHA` to equal 
 
 After a successful apply, `verify_public_evidence.cjs` opens the actual public page with all mutations blocked. It requires the same page/specification hashes, the frozen specification, `GC500_APPLY_EVIDENCE_DIR` pointing to the successful apply receipt, and a private `GC500_RECORD_OUT`. It rejects local page/media replacement, compares every fresh shared document with the apply read-back, checks the current native projections and exact catalogue coverage, then verifies the public page bytes and full shared record again. It reads the current record without replaying the correction plan.
 
-The revised candidate is undergoing final integrated validation:
+Local integrated validation is complete on the revised candidate:
 
 - The official build passes the standard page checks; all 148 scripts parse.
 - All 26 synthetic patch tests and the exact catalogue/page preservation check pass.
-- Final native practice, affected phone inspection and both route sweeps are being repeated after the routine-card text was shortened.
+- Final native practice passes 34 checks with zero server writes. Stale, forbidden, hidden, duplicate, source, P/O and financial changes are rejected outside the reviewed scope.
+- Publication-only practice leaves native records and financial projections unchanged. After captured corrections, the final record snapshots match the catalogue exactly.
+- The affected phone view shows the concise operational note with no overflow or errors; the note remains present after its screenshot.
+- Both desktop and phone sweeps pass: 25 routes, seven deep links and Back, with zero page errors, console errors or attempted native writes.
+- The actual-public post-apply probe passes 11 synthetic checks without network access. Its live run remains pending a successful apply.
 
 Source validation completed: `python3 -B test_patch_v1093.py` passes 26 synthetic tests. These cover exact before states, hash locks, private-file location and symlink checks, duplicate and non-finite JSON rejection, identity and attribution protection, script-safe encoding, immutable inputs and page preservation. The preservation test also verifies the strict matcher's bytes independently. It detected and resolved a whitespace loss at the footer replacement.
 
@@ -55,6 +59,6 @@ Frozen pins:
 - Verified v10.92 predecessor: `4a94062d014c4c3c56cb94faba9622d75ed445cc1d5f1b625cb9a54845533da9`.
 - Reviewed private input: `7ad727591872ec5ee1a61ed4b838adc2c4593a625026452425290237688c52c9`.
 
-Current state: product patch frozen; final integrated verification pending. Publication, exact public-byte verification, native application and final native read-back remain pending with the release owner. No publication or native application has been performed for this release.
+Current state: product patch frozen and all local integrated validation complete. Publication, exact public-byte verification, native application and final native read-back remain pending with the release owner. No publication or native application has been performed for this release.
 
 Routine cards show concise operational text. Full amendment provenance remains in the private correction specification and archived evidence.
