@@ -1,8 +1,8 @@
-# v10.91 racecar rendering — DRAFT
+# v10.91 racecar rendering — READY TO UPLOAD
 
 Author: Andrew Fisher
 
-Andrew requested a better-looking car and smoother, faster rendering on 20 Oct 2026. The surrounding Showcase backgrounds and photographs are preserved. This release follows v10.90 and must rebuild on its verified live bytes.
+Andrew requested a better-looking car and smoother, faster rendering on 20 Oct 2026. The surrounding Showcase backgrounds and photographs are preserved. This release is rebuilt on verified live v10.90, pinned in `base.json` to `b447b32ee6afe9d1a64f45a8c53a67e7d01f4d11a5a04bbdcd04bf9ec2b13111`.
 
 The solid-car shader ignored the adaptive reflection-off flag: its report said reflections were off while four facade rays remained active. The fix honours the flag, makes that quality step available from the default Balanced setting, and recognises the same remaining work after state restoration.
 
@@ -22,4 +22,6 @@ Tests and evidence:
 
 Private screenshots and detailed browser evidence remain outside the repository. Chromium uses ANGLE SwiftShader software rendering here; its timings are comparative diagnostics, never claims about physical-device frame rate.
 
-Status: development implementation and tests frozen; development desktop/phone controls and independent review passed. Not ready to upload. Final v10.90 rebase, desktop/phone controls, required sweeps and guarded publication are outstanding. `validation_development.json` records exact source and evidence hashes.
+Final candidate: `7562d69c41506d5e7404a52f7f7cb479a5e967c3f6935d567d2a5b845d2992bc` (18,598,425 bytes). The official live-base build and 148-script static check pass. Final source/geometry/atlas/native-draw/shader-adaptive proofs and desktop/phone runtime controls pass; both screenshots were inspected. The final car-render and adaptive scripts are byte-identical to the development candidate used for controlled appearance and draw comparisons.
+
+Status: READY TO UPLOAD. Final desktop and phone full sweeps each passed 25 routes, seven links and Back with zero errors or attempted native writes. Independent final-source review and guarded dry run also passed. Implementation and tests are frozen; guarded publication, exact public-byte read-back and actual public phone controls follow. `validation_development.json` and `validation_final.json` record exact source and evidence hashes. No live v10.91 claim is made.

@@ -1,0 +1,80 @@
+{
+  "author": "Andrew Fisher",
+  "status": "READY TO UPLOAD",
+  "baseVersion": "v10.90",
+  "baseSha256": "b447b32ee6afe9d1a64f45a8c53a67e7d01f4d11a5a04bbdcd04bf9ec2b13111",
+  "candidateVersion": "v10.91",
+  "candidateSha256": "7562d69c41506d5e7404a52f7f7cb479a5e967c3f6935d567d2a5b845d2992bc",
+  "candidateBytes": 18598425,
+  "baseDescriptorSha256": "672027cd254b9bb50e2b0a58996defbba13f04b63f4349a8194bccba1775fd3d",
+  "implementationAndTestsSha256": "9dff1eb9599f08343fe1411d2da8beecff2c4b699f1e9ac8ce101051f30d8918",
+  "officialBuild": {
+    "fetchedLiveBaseExact": true,
+    "developmentFlag": false,
+    "inlineScripts": 148,
+    "parseSecretsAuthorChecks": "PASS"
+  },
+  "protectedSources": [
+    "authored car geometry byte-identical",
+    "physical simulation byte-identical",
+    "camera/director byte-identical",
+    "scene background rendering byte-identical",
+    "surroundings byte-identical",
+    "sound byte-identical",
+    "all named data, contact, operational and Showcase scripts byte-identical",
+    "modified base and repeated application rejected"
+  ],
+  "finalChecks": {
+    "source": "PASS",
+    "geometryBalancedAndHigh": "PASS; 43 to 28 draws; exact attributes, triangles and blended order",
+    "atlasCapabilities": "4 cases PASS",
+    "nativeDrawSemantics": "6 moving/detail states PASS",
+    "shaderAdaptive": "8 contracts PASS",
+    "desktopControls": "PASS; zero GL/page errors or native writes",
+    "phoneControls": "PASS; zero GL/page errors or native writes",
+    "phoneAndDesktopScreenshots": "visually inspected; car, backgrounds and controls intact",
+    "developmentCarRenderAndAdaptiveScriptParity": "exact byte equality; controlled development appearance and submission evidence retained"
+  },
+  "evidenceFiles": {
+    "atlas.json": "da8aa74b62f5414b09f3f04f1659f1bec4159036d9f26736844e95e2824e0bdf",
+    "controls-desktop.json": "5f19cf508a22413d7691497b5eec062d8cb2006087d0e88b22b079016cd9b263",
+    "controls-desktop.png": "052bbe8cc70c726f8f812777004523202a22d3712e01f7b9817ba87480c4cfea",
+    "controls-phone.json": "626f2172ad25d2109d003ec748d3314965fe54b27d952d57591e743a434b7f58",
+    "controls-phone.png": "bf48a34912946046ca608da2645a63c2de3b9dabe3d5b98de0b230a52991ef46",
+    "development-parity.json": "56fb7d44fce6af3afe74706230fe066a15117fa5ac64b929d5e7991471cfe917",
+    "draw-semantics.json": "27317191e38a6190cafebe0b6fd002cdab3ea78f1374ca1180373de78f7e3efc",
+    "geometry.json": "d190e421a5891b4b413cd72ba1f344a8d39aa99f9ec6868d4031b9491bd61580",
+    "shader-adaptive.json": "f64d45dfa9537020613d87b18f38923185dd39305dfeb87e84cd8b9335f38191",
+    "source.json": "5f7160d5b6884e16365ae2c57404620cea10424e233a28a6f6f9bc74ac9efc84"
+  },
+  "outstanding": [
+    "guarded publication and exact public-byte read-back",
+    "actual public phone controls verification"
+  ],
+  "rendererLimitation": "Chromium ANGLE SwiftShader; no physical-device FPS claim",
+  "sweeps": {
+    "desktop": {
+      "routes": 25,
+      "links": 7,
+      "back": "#plant",
+      "pageErrors": 0,
+      "consoleErrors": 0,
+      "attemptedNativeWrites": 0,
+      "evidenceSha256": "53efb83b5a689a11837bb808150fccc53710369dcd513573bf07e00e2ae4462f"
+    },
+    "phone": {
+      "routes": 25,
+      "links": 7,
+      "back": "#plant",
+      "pageErrors": 0,
+      "consoleErrors": 0,
+      "attemptedNativeWrites": 0,
+      "evidenceSha256": "5932b6180a213e57b39e37504357ba8285d3bbb62388ac36e3cff76cefff1cb9"
+    }
+  },
+  "independentReview": {
+    "result": "PASS",
+    "sha256": "f5c1dd8cc5c00514e45bb08639a490d2f707a37acd6563fdf1bb092c01209fa8"
+  },
+  "guardedDryRun": "PASS: edit access and exact unchanged live base"
+}
