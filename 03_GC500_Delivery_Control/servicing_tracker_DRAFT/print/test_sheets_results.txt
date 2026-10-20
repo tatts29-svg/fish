@@ -1,7 +1,7 @@
 PASS draft builds
 PASS no reference block runs past its half page
 PASS urls.json is the placeholder set, one per reference
-PASS page count is 1 master + 14 covers + 13 area master maps + reference pages = 68
+PASS page count is 1 master + 15 covers + 14 area master maps + reference pages = 70
 PASS page sizes: master maps landscape, the rest portrait
 PASS text extracted for every page
 PASS every page: the track-only line
@@ -14,15 +14,18 @@ PASS every page with a map carries "Drawing © iEDM · D001"
 PASS master map legend names every area (as the legend wraps it)
 PASS master map legend: locations and units for every area
 PASS master map: the totals
-PASS every one of the 13 areas has its own master map after its cover: its name, counts, the full legend
+PASS every one of the 14 areas has its own master map after its cover: its name, counts, the full legend
 PASS every area cover: name, locations, units, jobs a night, every reference listed
 PASS every How to use box has all five steps (none dropped for space)
 PASS every reference: big REF, how many per line, every asset number, its job words, both QR labels
-PASS FWF blocks say Sunday night: extra lock, no water
+PASS FWF, accessible and 16-pan say Sunday night: one job - Pump out, clean & lock
+PASS sewer-connected (T0243, WC09, WC15, WC16, WC17): blocks are Clean & restock only; a sewer-only reference gets the Clean & restock code alone
+PASS FWF and accessible show Refilled marked (not in %)
 PASS (no reference is a waste tank alone, so tank-only wording is shown inside its block)
 PASS no QR is an edit (/e/) or view (/v/) link
-PASS every completion QR decodes at 300 dpi (74)
-PASS each completion QR is on its own reference's page and nowhere else
+PASS every job code (Pump out / Clean & restock) decodes at 300 dpi (144 for 74 references)
+PASS each job code is on its own reference's page and nowhere else
+PASS no reference prints a bare code without its job (~pump / ~clean)
 PASS each completion QR sits in its own half of the page
 PASS every pinned reference's location QR decodes to its Google Maps pin (73)
 PASS no other location QR (unpinned references have none)
@@ -32,7 +35,7 @@ PASS live-format run builds outside the repository
 PASS signed links default to TEST, not a crew-ready pack
 PASS contact fallback on every TEST page is honest
 PASS live-format run: the token is never printed as text
-PASS live-format completion QR codes (74, ~98 characters) all decode at 300 dpi
+PASS live-format completion QR codes (74, ~104 characters) all decode at 300 dpi
 PASS live run refuses to write inside the repository
 PASS real pack refuses without a confirmed contact
 PASS real pack refuses without a readiness receipt
@@ -43,4 +46,4 @@ PASS refuses a link naming another reference
 PASS refuses two different tokens
 PASS refuses a reference the tracker does not have
 
-44 passed, 0 failed
+47 passed, 0 failed

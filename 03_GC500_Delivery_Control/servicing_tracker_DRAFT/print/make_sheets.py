@@ -58,7 +58,7 @@ GROUP_COL = {'pump': ORANGE, 'clean': BLUE}   # the Pump out code orange, the Cl
 DONE = colors.HexColor('#16803a'); WHITE = colors.white
 GREYED = colors.HexColor('#a3a3a3')   # the other areas on an area's own master map
 AREA_COLOUR = {1: '#c62828', 2: '#1565c0', 3: '#2e7d32', 4: '#6a1b9a', 5: '#ad1457', 6: '#5d4037', 7: '#e65100',
-               8: '#00838f', 9: '#827717', 10: '#283593', 11: '#00695c', 12: '#37474f', 13: '#757575', 0: '#757575'}
+               8: '#00838f', 9: '#827717', 10: '#283593', 11: '#00695c', 12: '#37474f', 13: '#757575', 0: '#757575', 14: '#f9a825'}
 def acol(n): return colors.HexColor(AREA_COLOUR.get(n, '#757575'))
 
 # ---------------------------------------------------------------- fonts (Liberation Sans / Carlito; Helvetica if missing)
@@ -344,6 +344,32 @@ def no_pin_panel(c, x, y, w, h, big='No pin', small='No pin on the record and no
     lines = wrap(small, 'sans', 9, w - 10 * mm)
     for i, s in enumerate(lines): txt(c, x + w / 2, y + h / 2 - 5 * mm - i * 4 * mm, s, 'sans', 9, MUTE, 'c')
 
+SHORT = {'FWF': 'FWF', 'FWF Trailer': 'FWF trailer', 'Accessible Toilet': 'accessible', 'Toilet Block 6m': 'block',
+         'Waste tank': 'tank', '16Pan Block': '16-pan'}
+def what_here(refs):
+    """'4 FWF', '1 block · 1 tank', '2 16-pan · 1 accessible' - what stands at a spot, in plain words (Andrew, 20 Oct
+    2026: "all toilets are on map with the correct icons. Clearly marked. Easy to understand")"""
+    n = collections.OrderedDict()
+    for r in refs:
+        for l in r['lines']:
+            k = SHORT.get(l['type'], l['type']); n[k] = n.get(k, 0) + l['qty']
+    return ' · '.join(f'{q} {k}' for k, q in n.items())
+def toilet_icon(c, x, y, r, fill=ORANGE):
+    """a toilet pictogram on a disc: the marker for a servicing location on every map"""
+    c.setFillColor(WHITE); c.circle(x, y, r + 0.5 * mm, stroke=0, fill=1)
+    c.setFillColor(fill); c.setStrokeColor(INK); c.setLineWidth(0.5); c.circle(x, y, r, stroke=1, fill=1)
+    s = r * 1.15; c.setFillColor(WHITE)
+    c.roundRect(x - 0.36 * s, y + 0.08 * s, 0.72 * s, 0.30 * s, 0.06 * s, stroke=0, fill=1)        # cistern
+    p = c.beginPath(); p.moveTo(x - 0.42 * s, y + 0.02 * s); p.lineTo(x + 0.42 * s, y + 0.02 * s)
+    p.curveTo(x + 0.42 * s, y - 0.30 * s, x + 0.18 * s, y - 0.40 * s, x + 0.10 * s, y - 0.42 * s)
+    p.lineTo(x - 0.10 * s, y - 0.42 * s); p.curveTo(x - 0.18 * s, y - 0.40 * s, x - 0.42 * s, y - 0.30 * s, x - 0.42 * s, y + 0.02 * s)
+    p.close(); c.drawPath(p, stroke=0, fill=1)                                                          # bowl
+    c.rect(x - 0.16 * s, y - 0.56 * s, 0.32 * s, 0.16 * s, stroke=0, fill=1)                            # base
+def icon_legend(c, x, y, size=7.2):
+    toilet_icon(c, x + 2.2 * mm, y + 1.2 * mm, 2.0 * mm)
+    s = 'Servicing location - label: reference · what is there (FWF, block, tank, accessible, 16-pan). Asset numbers: table below and each sheet.'
+    txt(c, x + 5.6 * mm, y + 0.2 * mm, s, 'bold', size, INK)
+
 def place_labels(c, mb, groups, rr, font_size=8):
     """groups: [(label, px, py)] circles of radius rr; labels placed so they do not overlap each other or the circles"""
     taken = [(px - rr, py - rr, px + rr, py + rr) for _, px, py in groups]
@@ -502,7 +528,7 @@ class Pack:
             tag(c, mb.x + mb.w / 2, mb.y + mb.h / 2, f'Area {hi["n"]} is not on the master plan - ask on site', 'bold', 14, RED, WHITE, RED, pad=2.5 * mm, anchor='c')
         mb.furniture(c)
         # legend: every area, with its counts
-        y0 = mb.y - 1.6 * mm; cols = 7; cw = (W - 18 * mm) / cols; ch = 9.3 * mm
+        y0 = mb.y - 1.6 * mm; cols = max(7, math.ceil(len(d.areas) / 2)); cw =(W - 18 * mm) / cols; ch = 9.3 * mm
         for i, a in enumerate(d.areas):
             x = 9 * mm + (i % cols) * cw; y = y0 - (i // cols + 1) * ch
             col = acol(a['n']); onmap = a in located
@@ -546,9 +572,13 @@ class Pack:
         if A.get('main'):
             split = bool(A['far']); bx = box_split if split else box_full
             mh_ = bx['h'] - 7   # 7 mm back for the crew line above (the map keeps its shape)
+            if not split:   # a long table: give the How to use box room for all five steps by taking it off the map
+                spare = (y - mh_ * mm - 6.5 * mm) - self.table_height(a) - 19 * mm - 2 * mm
+                if spare < 31 * mm: mh_ -= (31 * mm - spare) / mm
             mb = MapBox(self.maps, A['main']['key'], 9 * mm, y - mh_ * mm, bx['w'] * mm, mh_ * mm)
             mb.draw(c, self.maps_dir); self.circles(c, mb, A['main']['refs'], 3.4 * mm); mb.furniture(c)
-            y = mb.y - 3 * mm
+            icon_legend(c, 9 * mm, mb.y - 4.6 * mm, 7)
+            y = mb.y - 6.5 * mm
             if split:
                 fx = 9 * mm
                 for far in A['far']:
@@ -605,9 +635,19 @@ class Pack:
         for r in refs:
             p = self.pos[r]; px, py = mb.at(p['x'], p['y']); k = (round(px / 0.4), round(py / 0.4))
             groups.setdefault(k, [px, py, []])[2].append(r)
-        for px, py, rs in groups.values(): ring(c, px, py, rr, ORANGE, 1.8)
-        order = [x['ref'] for x in self.d.refs]
-        place_labels(c, mb, [(' · '.join(sorted(rs, key=order.index)), px, py) for px, py, rs in groups.values()], rr, 8)
+        byref = {x['ref']: x for x in self.d.refs}; order = [x['ref'] for x in self.d.refs]
+        ir = max(2.2 * mm, rr * 0.72)
+        for px, py, rs in groups.values(): toilet_icon(c, px, py, ir)
+        place_labels(c, mb, [(' · '.join(sorted(rs, key=order.index)) + ' — ' + what_here([byref[k] for k in rs]), px, py) for px, py, rs in groups.values()], ir + 0.6 * mm, 7.6)
+
+    def table_height(self, a):
+        """what table() will use, without drawing: the heading, the header row and every row"""
+        d = self.d; h = 6 * mm + 5.4 * mm + 2 * mm
+        for r in a['refs']:
+            how = ' + '.join(l['label'] for l in r['lines'])
+            where = ' · '.join(x for x in [r['title'] if r['title'] != r['ref'] else '', r['where'], ('drop point: ' + r['drop']) if r['drop'] else ''] if x)
+            h += max(len(wrap(where or '-', 'sans', 8, 82 * mm)[:2]), len(wrap(how, 'bold', 8.5, 49 * mm)[:2])) * 3.6 * mm + 2.4 * mm
+        return h
 
     def table(self, c, a, y):
         W, H = A4; x0, x1 = 9 * mm, W - 9 * mm; d = self.d
@@ -673,8 +713,8 @@ class Pack:
             mb = MapBox(self.maps, self.maps['ref_image'][ref], mx, my, mw, mh); mb.draw(c, self.maps_dir)
             others = [k for k, v in self.maps['ref_image'].items() if v == self.maps['ref_image'][ref] and k != ref]
             px, py = mb.at(self.pos[ref]['x'], self.pos[ref]['y'])
-            ring(c, px, py, 8 * mm, ORANGE, 2.6)
-            tag(c, px + 8 * mm * 0.72, py + 8 * mm * 0.72 + 2 * mm, ref + (' (shared spot)' if others else ''), 'bold', 9, INK, WHITE, INK)
+            ring(c, px, py, 8 * mm, ORANGE, 2.6); toilet_icon(c, px, py, 2.6 * mm)
+            tag(c, px + 8 * mm * 0.72, py + 8 * mm * 0.72 + 2 * mm, ref + ' — ' + what_here([r]) + (' (shared spot)' if others else ''), 'bold', 8.5, INK, WHITE, INK)
             mb.furniture(c)
             note = 'Circled where the master plan has it' + ('' if r['pin'] else ' (no GPS pin on the record)') + '.'
             if others: note = f'Circled where the master plan has it: one spot for {", ".join([ref] + others)}' + ('' if r['pin'] else '; no GPS pin') + '.'

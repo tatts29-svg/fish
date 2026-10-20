@@ -106,7 +106,7 @@ def main():
                 for x in rs: page_of[x['ref']] = i
         check('every page with a map carries "Drawing © iEDM · D001"', not missing_credit, missing_credit)
         # the master map legend: every area, its counts
-        M.setup_fonts(); cw = (841.89 - 18 * M.mm) / 7 - 8.5 * M.mm
+        M.setup_fonts(); cw = (841.89 - 18 * M.mm) / max(7, -(-len(data.areas) // 2)) - 8.5 * M.mm
         bad = [a['name'] for a in data.areas if not all(line in norm[0] for line in M.wrap(a['name'], 'narrowb', 7.6, cw))]
         check('master map legend names every area (as the legend wraps it)', not bad, bad)
         bad = [a['n'] for a in data.areas if f"{len(a['refs'])} location" not in norm[0] or f"{data.units(a['refs'])} unit" not in norm[0]]

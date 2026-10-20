@@ -175,29 +175,6 @@
      ]
     },
     {
-     "ref": "T0024",
-     "title": "T0024",
-     "where": "FWF",
-     "drop": "",
-     "pin": [
-      -27.983217,
-      153.426642
-     ],
-     "lines": [
-      {
-       "id": "T0024-FWF",
-       "type": "FWF",
-       "kind": "fwf",
-       "label": "2 × FWF",
-       "qty": 2,
-       "nos": [
-        "1211968",
-        "0164"
-       ]
-      }
-     ]
-    },
-    {
      "ref": "WC12",
      "title": "WC12",
      "where": "Toilets",
@@ -562,6 +539,29 @@
        "qty": 1,
        "nos": [
         "1328978"
+       ]
+      }
+     ]
+    },
+    {
+     "ref": "T0024",
+     "title": "T0024",
+     "where": "FWF",
+     "drop": "",
+     "pin": [
+      -27.983217,
+      153.426642
+     ],
+     "lines": [
+      {
+       "id": "T0024-FWF",
+       "type": "FWF",
+       "kind": "fwf",
+       "label": "2 × FWF",
+       "qty": 2,
+       "nos": [
+        "1211968",
+        "0164"
        ]
       }
      ]
@@ -2003,7 +2003,13 @@
        ]
       }
      ]
-    },
+    }
+   ]
+  },
+  {
+   "n": 14,
+   "name": "Coates Compound (Seaway)",
+   "refs": [
     {
      "ref": "WC85",
      "title": "WC85",
@@ -2058,7 +2064,8 @@
  "notes": {
   "v2": "Andrew, 20 Oct 2026: each reference has a Pump out QR and a Clean & restock QR; scan, tap Complete (logs the time), Save & close. Waste tank: Pump out. Toilet block: Clean & restock (its waste tank is pumped). Sewer-connected (WC15, WC16, WC17, T0243): Clean & restock only. 16-pan, FWF and accessible: Pump out + Clean & restock; FWF and accessible also have a Refilled button that does not count toward the %. Sunday: FWF, accessible and 16-pan are one 'Pump out, clean & lock' completion. Nights: Fri, Sat, Sun (no Thursday). No names.",
   "assumed": "Not yet confirmed by Andrew (default used): WC100's FWF trailers are serviced like FWF.",
-  "sewer": "Andrew, 20 Oct 2026 (map screenshots of T0243, WC17, WC15, WC16, WC09): \"these toilet blocks are swere connected cjhange this no to 9 which makes the rest with waste tanks\" - 9 sewer-connected blocks (T0243 x1, WC09 x2, WC15 x2, WC16 x2, WC17 x2): Clean & restock only. The other 6 blocks (WC05 x1, WC20 x2, WC27 x1, WC60 x2) have waste tanks: block Clean & restock, tank Pump out."
+  "sewer": "Andrew, 20 Oct 2026 (map screenshots of T0243, WC17, WC15, WC16, WC09): \"these toilet blocks are swere connected cjhange this no to 9 which makes the rest with waste tanks\" - 9 sewer-connected blocks (T0243 x1, WC09 x2, WC15 x2, WC16 x2, WC17 x2): Clean & restock only. The other 6 blocks (WC05 x1, WC20 x2, WC27 x1, WC60 x2) have waste tanks: block Clean & restock, tank Pump out.",
+  "areas_20oct": "Andrew, 20 Oct 2026: \"Refernce 1 makes no sense 2 diffiremt locations. And where is wc85 linked to\" - T0024 (EVL, 52 m from WC05) moved from Area 1 to Area 3; WC85 (Coates compound on the Seaway, 4.7 km from every other area) moved from Area 13 to its own Area 14."
  },
  "extras": [
   "refill"

@@ -1,10 +1,10 @@
 {
  "_about": "Author: Andrew Fisher. Master-plan pictures for the servicing sheets, rendered read only from the live page's Map explorer (Original plan, as drawn, rotation 0) by render_maps.cjs. Positions and rectangles are in drawing sheet units (D001, 2384 x 1684). Picture x = (sheet x - rect x0) / (rect x1 - rect x0) x picture width; the same for y.",
- "rendered_at": "2026-10-17T21:41:35.004Z",
+ "rendered_at": "2026-10-20T06:44:49.939Z",
  "page": {
-  "file": "build/GC500_v10.60p1/GC500_Delivery_Control_hosted.html",
-  "sha256": "92c91a82174055f02524c416d0e7c864dc6aa183716c2a9b94d205f837e6bc84",
-  "version": "v10.60.1"
+  "file": "build/GC500_v10.85/GC500_Delivery_Control_hosted.html",
+  "sha256": "ab4d064d997f8e94e71c4041e8e195ee6fd9717c8f6c9d493199ed4783daaca9",
+  "version": "v10.85"
  },
  "explorer": "/w/Coates-GC500-2026/explorer/index.html",
  "credit": "Drawing © iEDM · D001 rev 03 · issued 2 Oct",
@@ -46,12 +46,6 @@
   "PG29": {
    "x": 849.991,
    "y": 698.995,
-   "hw": 1.2,
-   "hh": 0.8
-  },
-  "T0024": {
-   "x": 1250.003,
-   "y": 334.005,
    "hw": 1.2,
    "hh": 0.8
   },
@@ -136,6 +130,12 @@
   "WC05": {
    "x": 500.306,
    "y": 841.495,
+   "hw": 1.2,
+   "hh": 0.8
+  },
+  "T0024": {
+   "x": 1250.003,
+   "y": 334.005,
    "hw": 1.2,
    "hh": 0.8
   },
@@ -433,10 +433,30 @@
    "hw": 1.2,
    "hh": 0.8
   },
-  "BJR01": null,
-  "SVP01": null,
-  "T0162": null,
-  "T0176": null,
+  "BJR01": {
+   "x": 854.644,
+   "y": 682.845,
+   "hw": 1.2,
+   "hh": 0.8
+  },
+  "SVP01": {
+   "x": 909.349,
+   "y": 648.178,
+   "hw": 1.2,
+   "hh": 0.8
+  },
+  "T0162": {
+   "x": 835.633,
+   "y": 690.595,
+   "hw": 1.2,
+   "hh": 0.8
+  },
+  "T0176": {
+   "x": 989.954,
+   "y": 612.597,
+   "hw": 1.2,
+   "hh": 0.8
+  },
   "WC85": null,
   "WC100": null
  },
@@ -445,7 +465,6 @@
   "PG03": "ref_PG01",
   "PG05": "ref_PG01",
   "PG29": "ref_PG01",
-  "T0024": "ref_T0024",
   "WC12": "ref_WC12",
   "WC16": "ref_WC16",
   "T0243": "ref_T0243",
@@ -460,6 +479,7 @@
   "WC02": "ref_WC02",
   "WC04": "ref_WC04",
   "WC05": "ref_WC05",
+  "T0024": "ref_T0024",
   "WC38": "ref_WC38",
   "WC39": "ref_WC39",
   "WC40": "ref_WC40",
@@ -508,7 +528,11 @@
   "WC69": "ref_WC69",
   "WC70": "ref_WC70",
   "WC71": "ref_WC71",
-  "WC72": "ref_WC72"
+  "WC72": "ref_WC72",
+  "BJR01": "ref_BJR01",
+  "SVP01": "ref_SVP01",
+  "T0162": "ref_T0162",
+  "T0176": "ref_T0176"
  },
  "areas": {
   "0": {
@@ -534,14 +558,7 @@
      "PG01"
     ]
    },
-   "far": [
-    {
-     "key": "area1_far1",
-     "refs": [
-      "T0024"
-     ]
-    }
-   ],
+   "far": [],
    "unplaced": []
   },
   "2": {
@@ -575,7 +592,14 @@
      "WC01"
     ]
    },
-   "far": [],
+   "far": [
+    {
+     "key": "area3_far1",
+     "refs": [
+      "T0024"
+     ]
+    }
+   ],
    "unplaced": []
   },
   "4": {
@@ -735,13 +759,24 @@
   "13": {
    "n": 13,
    "name": "Teams Area",
+   "main": {
+    "key": "area13",
+    "refs": [
+     "T0176",
+     "T0162",
+     "SVP01",
+     "BJR01"
+    ]
+   },
+   "far": [],
+   "unplaced": []
+  },
+  "14": {
+   "n": 14,
+   "name": "Coates Compound (Seaway)",
    "main": null,
    "far": [],
    "unplaced": [
-    "BJR01",
-    "SVP01",
-    "T0162",
-    "T0176",
     "WC85"
    ]
   }
@@ -765,32 +800,17 @@
   "area1": {
    "file": "area1.jpg",
    "rect": [
-    679.911,
+    725.1,
     610.64,
-    978.161,
+    932.972,
     753.552
    ],
    "px": [
     2000,
-    958
+    1375
    ],
-   "source_px_per_unit": 12.8483,
-   "export": "GC500_D001_Rev03_original_1110pct_3840x2057.png"
-  },
-  "area1_far1": {
-   "file": "area1_far1.jpg",
-   "rect": [
-    1175.003,
-    280.779,
-    1325.003,
-    387.23
-   ],
-   "px": [
-    800,
-    568
-   ],
-   "source_px_per_unit": 18.2889,
-   "export": "GC500_D001_Rev03_original_1580pct_3840x2057.png"
+   "source_px_per_unit": 13.623,
+   "export": "GC500_D001_Rev03_original_1177pct_3840x2057.png"
   },
   "area2": {
    "file": "area2.jpg",
@@ -810,17 +830,32 @@
   "area3": {
    "file": "area3.jpg",
    "rect": [
-    310.455,
+    225.754,
     773.432,
-    700.075,
+    784.776,
     1041.297
    ],
    "px": [
     2000,
-    1375
+    958
    ],
-   "source_px_per_unit": 7.2682,
-   "export": "GC500_D001_Rev03_original_628pct_3840x2057.png"
+   "source_px_per_unit": 6.8548,
+   "export": "GC500_D001_Rev03_original_592pct_3840x2057.png"
+  },
+  "area3_far1": {
+   "file": "area3_far1.jpg",
+   "rect": [
+    1175.003,
+    280.779,
+    1325.003,
+    387.23
+   ],
+   "px": [
+    800,
+    568
+   ],
+   "source_px_per_unit": 18.2889,
+   "export": "GC500_D001_Rev03_original_1580pct_3840x2057.png"
   },
   "area4": {
    "file": "area4.jpg",
@@ -972,6 +1007,21 @@
    "source_px_per_unit": 3.9062,
    "export": "GC500_D001_Rev03_original_338pct_3840x2057.png"
   },
+  "area13": {
+   "file": "area13.jpg",
+   "rect": [
+    789.433,
+    566.786,
+    1036.154,
+    736.406
+   ],
+   "px": [
+    2000,
+    1375
+   ],
+   "source_px_per_unit": 11.4779,
+   "export": "GC500_D001_Rev03_original_992pct_3840x2057.png"
+  },
   "ref_PG01": {
    "file": "ref_PG01.jpg",
    "rect": [
@@ -991,24 +1041,6 @@
     "PG03",
     "PG05",
     "PG29"
-   ]
-  },
-  "ref_T0024": {
-   "file": "ref_T0024.jpg",
-   "rect": [
-    1170.003,
-    290.805,
-    1330.003,
-    377.205
-   ],
-   "px": [
-    1150,
-    621
-   ],
-   "source_px_per_unit": 22.5334,
-   "export": "GC500_D001_Rev03_original_1947pct_3840x2057.png",
-   "refs": [
-    "T0024"
    ]
   },
   "ref_WC12": {
@@ -1261,6 +1293,24 @@
    "export": "GC500_D001_Rev03_original_1947pct_3840x2057.png",
    "refs": [
     "WC05"
+   ]
+  },
+  "ref_T0024": {
+   "file": "ref_T0024.jpg",
+   "rect": [
+    1170.003,
+    290.805,
+    1330.003,
+    377.205
+   ],
+   "px": [
+    1150,
+    621
+   ],
+   "source_px_per_unit": 22.5334,
+   "export": "GC500_D001_Rev03_original_1947pct_3840x2057.png",
+   "refs": [
+    "T0024"
    ]
   },
   "ref_WC38": {
@@ -2143,6 +2193,78 @@
    "export": "GC500_D001_Rev03_original_1947pct_3840x2057.png",
    "refs": [
     "WC72"
+   ]
+  },
+  "ref_BJR01": {
+   "file": "ref_BJR01.jpg",
+   "rect": [
+    774.644,
+    639.645,
+    934.644,
+    726.045
+   ],
+   "px": [
+    1150,
+    621
+   ],
+   "source_px_per_unit": 22.5334,
+   "export": "GC500_D001_Rev03_original_1947pct_3840x2057.png",
+   "refs": [
+    "BJR01"
+   ]
+  },
+  "ref_SVP01": {
+   "file": "ref_SVP01.jpg",
+   "rect": [
+    829.349,
+    604.978,
+    989.349,
+    691.378
+   ],
+   "px": [
+    1150,
+    621
+   ],
+   "source_px_per_unit": 22.5334,
+   "export": "GC500_D001_Rev03_original_1947pct_3840x2057.png",
+   "refs": [
+    "SVP01"
+   ]
+  },
+  "ref_T0162": {
+   "file": "ref_T0162.jpg",
+   "rect": [
+    755.633,
+    647.395,
+    915.633,
+    733.795
+   ],
+   "px": [
+    1150,
+    621
+   ],
+   "source_px_per_unit": 22.5334,
+   "export": "GC500_D001_Rev03_original_1947pct_3840x2057.png",
+   "refs": [
+    "T0162"
+   ]
+  },
+  "ref_T0176": {
+   "file": "ref_T0176.jpg",
+   "rect": [
+    909.954,
+    569.397,
+    1069.954,
+    655.797
+   ],
+   "px": [
+    1150,
+    621
+   ],
+   "source_px_per_unit": 22.5334,
+   "export": "GC500_D001_Rev03_original_1947pct_3840x2057.png",
+   "refs": [
+    "T0176"
    ]
   }
  }
