@@ -1,0 +1,10 @@
+{
+ "by": "Andrew Fisher",
+ "basis": "Andrew, 20 Oct 2026: \"Brad jones racing gets pinned here https://maps.app.goo.gl/Qc33GTum79TD6Y6g8\" (-27.985863, 153.427503), \"Blanchard race gets pinned here https://maps.google.com/?q=-27.985742,153.427447 ... To162\", \"Shell v power gets pinned here https://maps.app.goo.gl/zjcEbX5erApUU8z67\" (-27.986211, 153.427753), \"T0176 redbull gets pinner here https://maps.app.goo.gl/CPXbwTDvT79rUKmE7\" (-27.986724, 153.428010). WC85's link is the one already placed on 20 Oct (-27.938636, 153.426477) - no change.",
+ "ops": [
+  {"op": "place", "ref": "BJR01", "lat": -27.985863, "lon": 153.427503, "how": "Andrew Fisher's Google Maps pin, 20 Oct 2026 (Brad Jones Racing)", "source": "https://maps.app.goo.gl/Qc33GTum79TD6Y6g8"},
+  {"op": "place", "ref": "T0162", "lat": -27.985742, "lon": 153.427447, "how": "Andrew Fisher's pinned location, 20 Oct 2026 (Blanchard Race)", "source": "https://maps.google.com/?q=-27.985742,153.427447"},
+  {"op": "place", "ref": "SVP01", "lat": -27.986211, "lon": 153.427753, "how": "Andrew Fisher's Google Maps pin, 20 Oct 2026 (Shell V-Power)", "source": "https://maps.app.goo.gl/zjcEbX5erApUU8z67"},
+  {"op": "place", "ref": "T0176", "lat": -27.986724, "lon": 153.42801, "how": "Andrew Fisher's Google Maps pin, 20 Oct 2026 (Red Bull)", "source": "https://maps.app.goo.gl/CPXbwTDvT79rUKmE7"}
+ ]
+}

@@ -1911,7 +1911,10 @@
      "title": "BJR01",
      "where": "Brad Jones Racing",
      "drop": "",
-     "pin": null,
+     "pin": [
+      -27.985863,
+      153.427503
+     ],
      "lines": [
       {
        "id": "BJR01-FWF",
@@ -1930,7 +1933,10 @@
      "title": "SVP01",
      "where": "Shell V-Power",
      "drop": "",
-     "pin": null,
+     "pin": [
+      -27.986211,
+      153.427753
+     ],
      "lines": [
       {
        "id": "SVP01-FWF",
@@ -1949,7 +1955,10 @@
      "title": "T0162",
      "where": "FWF · Blanchard Race",
      "drop": "",
-     "pin": null,
+     "pin": [
+      -27.985742,
+      153.427447
+     ],
      "lines": [
       {
        "id": "T0162-FWF",
@@ -1968,7 +1977,10 @@
      "title": "T0176",
      "where": "FWF × 2 · Redbull",
      "drop": "",
-     "pin": null,
+     "pin": [
+      -27.986724,
+      153.42801
+     ],
      "lines": [
       {
        "id": "T0176-FWF",

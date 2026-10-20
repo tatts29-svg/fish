@@ -257,3 +257,11 @@ Page v10.80 (live 10:07) put VMS05 on the register first.
 | `vms_pins_15_spec.json` | pin for 15 | → 10018 |
 | `vms_pins_18_spec.json` | pin for 18 | → 10021 |
 | `vms_pins_20_spec.json` | pin for 20 | → 10024 |
+
+## Applied: pins for the Teams Area toilets, 20 Oct 2026 10:13 AEST
+
+**Andrew's pins:** Brad Jones Racing, Blanchard Race (T0162), Shell V-Power and T0176 Red Bull (Google Maps links, resolved). WC85's link is the spot placed earlier, so WC85 wasn't changed.
+
+**What was done** (`teams_pins_spec.json`): BJR01 at -27.985863, 153.427503; T0162 at -27.985742, 153.427447; SVP01 at -27.986211, 153.427753; T0176 at -27.986724, 153.42801.
+
+**Checks:** dry run first, backup first; 12 documents; record 10024 → 10036; VERIFIED (`report_20261020T001350Z.json`).
