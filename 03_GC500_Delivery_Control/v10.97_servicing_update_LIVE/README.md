@@ -1,4 +1,4 @@
-# Bounded servicing update — ready to upload
+# Bounded servicing update — live
 
 Author: Andrew Fisher.
 
@@ -20,8 +20,8 @@ tracker, retaining the full private source and line-specific print-map positions
 servicing configuration with this earlier snapshot.
 
 ```sh
-bash toolchain/build.sh v10.97 v10.97_servicing_update_DRAFT/patch_v1097.py
-python3 -B -I v10.97_servicing_update_DRAFT/test_patch.py
+bash toolchain/build.sh v10.97 v10.97_servicing_update_LIVE/patch_v1097.py
+python3 -B -I v10.97_servicing_update_LIVE/test_patch.py
 ```
 
 After the final page passes release checks and guarded publication, update the existing event tracker through
@@ -40,3 +40,20 @@ own payload without sending it and verified the unchanged template, contact, exi
 job record. Guarded uploader access passed. Native publication/read-back is recorded separately.
 
 READY TO UPLOAD: 21 Oct 2026 08:43 AEST. Candidate SHA-256 `d584e292ec8647532ef7e93e3873dd41a48efd5890a4a9e32435318e7871b1dc`, 18,622,270 bytes. Print regression 49/49 and private synthetic preview 100/100 also passed. Publication and exact native tracker read-back remain the next step.
+
+
+LIVE: 21 Oct 2026 08:44 AEST for the hosted page; native tracker update verified at 08:45 AEST.
+Release source: `928ebdc6174aed02571107781223da2ea8fe10ea`.
+Guarded upload and a separate public GET matched the candidate byte for byte. Exactly one native existing-token
+tracker POST followed a fresh complete private backup. Native and independent GET read-back matched the exact
+crew HTML/configuration; all earlier signatures, ticks and contact details survived. The complete job record and
+version remained identical. Read-only iPhone and Android emulation confirmed the new action and directions,
+without completing any real job. Local, emulated and printed-code decode checks do not establish physical scans.
+
+The private PDF passed 107/107 checks after the final caption correction. All original codes remain present.
+The print renderer also fits long references into their cover-table column and uses a neutral servicing-location
+caption for points based on a supplied pin. The PDF stays a scan-check artifact until physical checks are complete.
+Private full source, map additions, native download, backups and artifacts are held in the servicing owner's
+`gc500-servicing-21oct-private/extension` workspace, outside every Git checkout; do not copy those into GitHub.
+
+The separate v10.96 map draft must be rebuilt by its existing owner against this release. Its pause is not lifted.

@@ -835,8 +835,8 @@ class Pack:
                 ring_radius = max(8 * mm, (len(symbol_kinds(r['lines'])) - 1) * (2 * marker_radius + .5 * mm) / 2 + marker_radius + mm)
                 ring(c, px, py, ring_radius, ORANGE, 2.6); equipment_marker(c, px, py, marker_radius, r['lines'])
                 place_labels(c, mb, [(ref + ' — ' + what_here([r]) + (' (shared spot)' if others else ''), px, py)], ring_radius + .6 * mm, 8.5)
-                note = 'Circled where the master plan has it' + ('' if r['pin'] else ' (no GPS pin on the record)') + '.'
-                if others: note = f'Circled where the master plan has it: one spot for {", ".join([ref] + others)}' + ('' if r['pin'] else '; no GPS pin') + '.'
+                note = 'Circled servicing location' + ('' if r['pin'] else ' (no GPS pin on the record)') + '.'
+                if others: note = f'Circled servicing location: one spot for {", ".join([ref] + others)}' + ('' if r['pin'] else '; no GPS pin') + '.'
             mb.furniture(c)
             txt(c, mx, my - 3.2 * mm, note, 'sans', fit(note, 'sans', 7, mw), MUTE)
         elif r['pin']:   # pinned, but off the master plan drawing (WC85 at the Seaway): the directions QR is the way there
