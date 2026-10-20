@@ -16,7 +16,8 @@ const save=(name,value)=>fs.writeFileSync(path.join(out,name),JSON.stringify(val
  const s=await open({hash:'#subhired',W:390,H:844,dpr:2,mobile:true});
  try{
   await s.page.waitForFunction(()=>SYNC.status==='live'&&SYNC.first.size===Object.keys(SYNC_COLLS).length&&window.GC500Refresh904?.report().settled,null,{timeout:180000});
-  const actual=await s.page.evaluate(()=>holdAssets(()=>({recordVersion:SYNC.version,quotes:DATA.rehire_quotes,service:servicing748(),money:moneySummary(),ledger:pl770Model(),rehire:rh766Model(),status:epCostStatus1094Model(),supplier:Supplier996.model()})));
+  const actual=await s.page.evaluate(()=>holdAssets(()=>({recordVersion:SYNC.backend.readVersion821(),quotes:DATA.rehire_quotes,service:servicing748(),money:moneySummary(),ledger:pl770Model(),rehire:rh766Model(),status:epCostStatus1094Model(),supplier:Supplier996.model()})));
+  assert(Number.isSafeInteger(actual.recordVersion)&&actual.recordVersion>=0,'native record version captured');
   assert.equal(actual.status.complete,true);assert.equal(actual.status.label,'All supplied rates recorded');
   assert.equal(actual.service.supplier1068.total,expected.service.supplier1068.total);
   assert.deepEqual(actual.money.charge,expected.money.charge,'verified customer Revenue');

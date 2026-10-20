@@ -1,4 +1,4 @@
-# Current supplier hire and cost completeness — READY TO UPLOAD
+# Current supplier hire and cost completeness — LIVE
 
 Author: Andrew Fisher.
 
@@ -13,6 +13,10 @@ Routine supplier cards show a concise rate-completion label, current cost and re
 forecast. The existing More info component contains the source basis and exclusions.
 Recorded rates do not establish a final invoice, payment or completed future service.
 
+Uploaded 21 Oct 2026 01:39:31 AEST (20 Oct 2026 15:39:31.332 UTC) using the guarded
+release process, from source `c586e95cd3f9e752ceed817545ba131bfc1da9c0`.
+The public view serves the exact tested page hash recorded below.
+
 The release also integrates bounded, separately tested helpers for current team details
 from an approved private build input and for quantity-only inventory becoming fully
 identified. That identity helper retains the historical quantity record; partial,
@@ -21,7 +25,7 @@ unit records.
 
 The exact verified predecessor is v10.93
 `e07f45f9a9309e7cb5d20f59cb17b13222bbd9ed64285f163280457f8139e4b2`.
-The shared toolchain produced candidate
+The shared toolchain produced the live page
 `5f79b5f6c4ce953c3e69f7dfac939734f7176130808ec608715e8c23faf8cc79`
 (18,619,329 bytes). All 148 inline scripts parse. Nine source/build checks prove exact
 reproduction, predecessor guards, unchanged original DATA and unchanged servicing/tracker
@@ -52,10 +56,15 @@ supplier/team release; the next release owns map behavior. This is a documented
 exception to the sweep console criterion, not a clean-sweep claim.
 
 Private source documents, native snapshots, financial reconciliation and the current-team
-input stay outside GitHub. Production publication and any separately authorised native
-unit assignment remain with the coordinating release owner. The exact candidate is
-READY TO UPLOAD with that documented limitation. Guarded publication and actual public
-read-back remain pending; this is not a live claim.
+input stay outside GitHub. The coordinating release owner completed the guarded upload
+and separately authorised identifier operation: 18 successful record writes, version
+10263 → 10281, with exact read-back and unchanged financial models.
+
+An actual-public financial probe verifies the live page hash before and after reading
+the current service record. Supplier costs, customer Revenue, source quotations and
+ledger reconciliation match the tested candidate. It uses no local page or API fixture,
+attempts no record writes and reports zero page exceptions. `validation.json` carries
+the public-safe receipt; the existing tile-service exception above remains explicit.
 
 Run the pure suites:
 
