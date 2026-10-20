@@ -1,0 +1,83 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261020T015527Z",
+ "finished": "2026-10-20T01:55:37.513Z",
+ "mode": "apply",
+ "spec": {
+  "by": "Andrew Fisher",
+  "why": "Andrew, 20 Oct 2026: \"click the demob 16-pan block 74\" - WC31 block 74 demob ticked to match block 12.",
+  "ops": [
+   {
+    "op": "labour_on",
+    "ref": "WC31",
+    "unit": "74",
+    "disc": "Toilets & amenities",
+    "item": "16Pan Block",
+    "line": "demob"
+   }
+  ]
+ },
+ "pageSha256": "396ea971e968e55182b054a936de316a82fa3751df6ba6d7cc566973d578bc0b",
+ "version": {
+  "before": 10076,
+  "after": 10079
+ },
+ "updated": {
+  "before": "2026-10-20T01:52:44.984Z",
+  "after": "2026-10-20T01:55:36.743Z"
+ },
+ "stage": [
+  {
+   "op": "labour_on",
+   "ref": "WC31",
+   "unit": "74",
+   "disc": "Toilets & amenities",
+   "item": "16Pan Block",
+   "line": "demob",
+   "result": "ticked"
+  }
+ ],
+ "writes": [
+  {
+   "key": "stamps/labour~2f~WC31~2f~u74~7c~Toilets~20~~26~~20~amenities~7c~16Pan~20~Block~7c~demob",
+   "status": 200
+  },
+  {
+   "key": "by/labour~2f~WC31~2f~u74~7c~Toilets~20~~26~~20~amenities~7c~16Pan~20~Block~7c~demob",
+   "status": 200
+  },
+  {
+   "key": "labour/WC31~2f~u74~7c~Toilets~20~~26~~20~amenities~7c~16Pan~20~Block~7c~demob",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 1,
+ "docs": {
+  "before": {
+   "stamps/labour~2f~WC31~2f~u74~7c~Toilets~20~~26~~20~amenities~7c~16Pan~20~Block~7c~demob": null,
+   "by/labour~2f~WC31~2f~u74~7c~Toilets~20~~26~~20~amenities~7c~16Pan~20~Block~7c~demob": null,
+   "labour/WC31~2f~u74~7c~Toilets~20~~26~~20~amenities~7c~16Pan~20~Block~7c~demob": null
+  },
+  "after": {
+   "stamps/labour~2f~WC31~2f~u74~7c~Toilets~20~~26~~20~amenities~7c~16Pan~20~Block~7c~demob": {
+    "_k": "labour/WC31/u74|Toilets & amenities|16Pan Block|demob",
+    "v": "2026-10-20T01:55:34.329Z"
+   },
+   "by/labour~2f~WC31~2f~u74~7c~Toilets~20~~26~~20~amenities~7c~16Pan~20~Block~7c~demob": {
+    "_k": "labour/WC31/u74|Toilets & amenities|16Pan Block|demob",
+    "v": "Andrew Fisher"
+   },
+   "labour/WC31~2f~u74~7c~Toilets~20~~26~~20~amenities~7c~16Pan~20~Block~7c~demob": {
+    "_k": "WC31/u74|Toilets & amenities|16Pan Block|demob",
+    "v": true
+   }
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}

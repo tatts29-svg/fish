@@ -312,3 +312,6 @@ T0024's 0164 read 0 on site / 0 received.
   block 74 levelling and cleaning ticked to match block 12 (16-pan install already ticked for the line). Andrew,
   "accesable toilets only get the install and demob": 1317645 already has Accessible Toilet install and demob, so its
   old levelling/cleaning (filed under the 16-pan, no longer charged) are not re-ticked.
+- `wc31_74_demob_spec.json` (10076 → 10079, VERIFIED): Andrew, "click the demob 16-pan block 74". WC31 now: 12 and 74
+  install, levelling, cleaning, demob; 1317645 install and demob. Rule saved to AGENTS.md: anything on site carries all
+  its charges.
