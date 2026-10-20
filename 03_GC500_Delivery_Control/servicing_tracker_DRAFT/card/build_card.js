@@ -25,7 +25,7 @@ function cardData(data, opts) {
     plans: data.plans,
     extras: data.extras || [],
     groups: data.groups || {},
-    days: data.days.map(d => pick(d, ['id', 'label', 'to', 'plan', 'ifNeeded'])),
+    days: data.days.map(d => pick(d, ['id', 'label', 'to', 'plan', 'ifNeeded', 'practice'])),
     areas: data.areas.map(a => ({
       n: a.n, name: a.name,
       refs: a.refs.map(r => Object.assign(pick(r, ['ref', 'title', 'where', 'drop', 'pin']), {

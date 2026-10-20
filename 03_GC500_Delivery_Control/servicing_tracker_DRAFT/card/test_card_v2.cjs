@@ -29,7 +29,10 @@ const FRI = '2026-10-23', SAT = '2026-10-24', SUN = '2026-10-25';
 
 (async () => {
   section('1. the v2 rules in the data');
-  check('three service days: Fri 23, Sat 24, Sun 25 (no Thursday)', JSON.stringify(DATA.days.map(d => d.id)) === JSON.stringify([FRI, SAT, SUN]) && DATA.days.every(d => !d.ifNeeded));
+  const EVENT = DATA.days.filter(d => !d.practice), PRACTICE = DATA.days.filter(d => d.practice);
+  check('three service days: Fri 23, Sat 24, Sun 25 (no Thursday)', JSON.stringify(EVENT.map(d => d.id)) === JSON.stringify([FRI, SAT, SUN]) && DATA.days.every(d => !d.ifNeeded));
+  check('practice days Tue 20 - Thu 22 come before the event, labelled Practice, full night jobs', JSON.stringify(PRACTICE.map(d => d.id)) === JSON.stringify(['2026-10-20', '2026-10-21', '2026-10-22'])
+    && PRACTICE.every(d => /^Practice /.test(d.label) && d.plan === 'night') && DATA.days.indexOf(EVENT[0]) === PRACTICE.length);
   const P = DATA.plans;
   check('FWF and accessible: Pump out + Clean & restock + Refilled; Sunday one Pump out, clean & lock',
     ['fwf', 'access'].every(k => P[k].night.join() === 'pump,clean,refill' && P[k].final.join() === 'lockup'));
@@ -83,7 +86,7 @@ const FRI = '2026-10-23', SAT = '2026-10-24', SUN = '2026-10-25';
   const areaPct = () => page.$eval('#bars > div .pl em', e => parseInt(e.textContent, 10));
 
   await open(url('WC07', 'pump'));
-  check('three day buttons, no Thursday', JSON.stringify(await page.$$eval('.day', bs => bs.map(b => b.dataset.day))) === JSON.stringify([FRI, SAT, SUN]));
+  check('day buttons: three practice, then Fri, Sat, Sun', JSON.stringify(await page.$$eval('.day', bs => bs.map(b => b.dataset.day))) === JSON.stringify(['2026-10-20', '2026-10-21', '2026-10-22', FRI, SAT, SUN]));
   check('Pump out code: the tag says so, and the only job is Pump out', /Pump out code/.test(await page.textContent('.qrtag')) && JSON.stringify((await jobs()).map(j => j.key)) === JSON.stringify(['WC07-FWF|pump']), await jobs());
   check('the button says "Tap to complete"', (await jobs())[0].sub === 'Tap to complete');
   const before = await areaPct();

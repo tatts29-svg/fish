@@ -496,14 +496,14 @@ function bannersHtml(day, auto) {
 }
 function daysHtml(day, auto) {
   return DAYS.map(function (d) {
-    var sub = d.ifNeeded ? 'if needed' : 'to ' + d.to;
+    var sub = d.practice ? 'practice' : d.ifNeeded ? 'if needed' : 'to ' + d.to;
     return '<button class="day' + (d.id === auto ? ' today' : '') + '" type="button" id="day-' + esc(d.id) + '" data-day="' + esc(d.id) + '" aria-pressed="' + (d.id === day) + '" aria-label="' + esc(longDay(d.id) + ', 08:00 to 08:00' + (d.ifNeeded ? ', if needed' : '') + (d.id === auto ? ', today' : '')) + '"><b>' + esc(d.label) + '</b><span>' + esc(sub) + '</span></button>';
   }).join('');
 }
 function windowHtml(day) {
   var d = dayOf(day), s = dayStart(day), e = s + 24 * HOUR, n = now();
   var state = !synced ? 'Waiting for the service clock' : pick && pick.late ? 'Late ticks for ' + longDay(day) + '\'s service' : n < s ? 'Opens ' + d.label + ' 08:00' : n >= e ? 'Closed ' + d.to + ' 08:00' : 'Open now · closes 08:00 ' + d.to;
-  return '<span><b>' + esc(d.label + ' 08:00 → ' + d.to + ' 08:00') + '</b>' + (d.ifNeeded ? ' · only if Thursday is serviced' : '') + (d.plan === 'final' ? ' · last night' : '') + '</span><span>' + esc(state) + '</span>';
+  return '<span><b>' + esc(d.label + ' 08:00 → ' + d.to + ' 08:00') + '</b>' + (d.practice ? ' · practice only, not the event' : '') + (d.ifNeeded ? ' · only if Thursday is serviced' : '') + (d.plan === 'final' ? ' · last night' : '') + '</span><span>' + esc(state) + '</span>';
 }
 function progHtml(label, s, refWord) {
   return '<div><div class="pl"><span class="pn">' + esc(label) + '</span><em>' + s.pct + '%</em></div>' + bar(s.pct, !!s.finished) +

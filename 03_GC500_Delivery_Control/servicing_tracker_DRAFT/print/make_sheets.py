@@ -109,7 +109,8 @@ class Data:
     def __init__(self, path=None, raw=None):
         raw = Path(path).read_bytes() if raw is None else raw; d = json.loads(raw)
         self.sha = hashlib.sha256(raw).hexdigest(); self.version = d.get('version', '')
-        self.tasks, self.plans, self.days, self.areas = d['tasks'], d['plans'], d['days'], d['areas']
+        self.tasks, self.plans, self.areas = d['tasks'], d['plans'], d['areas']
+        self.days = [x for x in d['days'] if not x.get('practice')]   # practice days (Andrew, 20 Oct 2026) are on the phone, never on paper
         # v2, Andrew 20 Oct 2026: a Pump out QR and a Clean & restock QR per reference; Refilled is ticked, never counted
         self.extras, self.groups = d.get('extras', []), d.get('groups', {})
         self.refs = [r for a in self.areas for r in a['refs']]
