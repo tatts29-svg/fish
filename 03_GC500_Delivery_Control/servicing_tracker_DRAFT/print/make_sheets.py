@@ -632,14 +632,29 @@ class Pack:
         return f'{how}{d} from the rest of this area{where}'
 
     def circles(self, c, mb, refs, rr):
-        groups = collections.OrderedDict()
+        """one toilet icon per spot, labelled 'REF — what is there'. A reference whose units stand at different pins
+        (T0024: EVL and the Coates office, Andrew 20 Oct 2026) gets one icon per spot, each naming its own units."""
+        spots = self.maps.get('line_spots', {}); byref = {x['ref']: x for x in self.d.refs}; order = [x['ref'] for x in self.d.refs]
+        items = []   # (sheet x, sheet y, ref, lines, where)
         for r in refs:
-            p = self.pos[r]; px, py = mb.at(p['x'], p['y']); k = (round(px / 0.4), round(py / 0.4))
-            groups.setdefault(k, [px, py, []])[2].append(r)
-        byref = {x['ref']: x for x in self.d.refs}; order = [x['ref'] for x in self.d.refs]
+            own = [l for l in byref[r]['lines'] if l['id'] in spots]
+            rest = [l for l in byref[r]['lines'] if l['id'] not in spots]
+            for l in own:
+                at = l['label'].split(' at ', 1)[1] if ' at ' in l['label'] else ''
+                at = (at + ' · ' if at else '') + 'asset ' + ', '.join(l['nos']) if l.get('nos') else at   # Andrew: "mention all asset numbers too"
+                items.append((spots[l['id']]['x'], spots[l['id']]['y'], r, [l], at))
+            if rest: items.append((self.pos[r]['x'], self.pos[r]['y'], r, rest, ''))
+        groups = collections.OrderedDict()
+        for sx, sy, r, ls, at in items:
+            px, py = mb.at(sx, sy); k = (round(px / 0.4), round(py / 0.4))
+            groups.setdefault(k, [px, py, []])[2].append((r, ls, at))
         ir = max(2.2 * mm, rr * 0.72)
-        for px, py, rs in groups.values(): toilet_icon(c, px, py, ir)
-        place_labels(c, mb, [(' · '.join(sorted(rs, key=order.index)) + ' — ' + what_here([byref[k] for k in rs]), px, py) for px, py, rs in groups.values()], ir + 0.6 * mm, 7.6)
+        for px, py, its in groups.values(): toilet_icon(c, px, py, ir)
+        def label(its):
+            its = sorted(its, key=lambda t: order.index(t[0]))
+            what = what_here([{'lines': ls} for _, ls, _ in its]); at = ', '.join(a for _, _, a in its if a)
+            return ' · '.join(dict.fromkeys(r for r, _, _ in its)) + ' — ' + what + (' (' + at + ')' if at else '')
+        place_labels(c, mb, [(label(its), px, py) for px, py, its in groups.values()], ir + 0.6 * mm, 7.6)
 
     def table_height(self, a):
         """what table() will use, without drawing: the heading, the header row and every row"""

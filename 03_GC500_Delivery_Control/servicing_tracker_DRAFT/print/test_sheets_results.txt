@@ -1,7 +1,7 @@
 PASS draft builds
 PASS no reference block runs past its half page
 PASS urls.json is the placeholder set, one per reference
-PASS page count is 1 master + 15 covers + 14 area master maps + reference pages = 70
+PASS page count is 1 master + 15 covers + 14 area master maps + reference pages = 71
 PASS page sizes: master maps landscape, the rest portrait
 PASS text extracted for every page
 PASS every page: the track-only line
