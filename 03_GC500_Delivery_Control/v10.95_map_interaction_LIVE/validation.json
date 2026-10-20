@@ -1,6 +1,6 @@
 {
   "author": "Andrew Fisher",
-  "state": "READY_FOR_GUARDED_PUBLICATION",
+  "state": "VERIFIED_LIVE",
   "predecessor_sha256": "5f79b5f6c4ce953c3e69f7dfac939734f7176130808ec608715e8c23faf8cc79",
   "candidate_sha256": "87b47dc52dc52dc9d078e8f77f79ed3c9e835244e5855e075a075aab1b338b47",
   "candidate_bytes": 18621865,
@@ -336,8 +336,22 @@
     }
   },
   "publication": {
-    "state": "NOT_PUBLISHED",
-    "actual_public_test": "test_public1095.cjs; requires exact GC500_EXPECTED_PAGE_SHA and rejects PAGE replacement"
+    "state": "VERIFIED_LIVE",
+    "source_commit": "453b5cd7712d1dc2933875b9c04f88e173b6af06",
+    "uploaded_at": "2026-10-20T16:50:14.574Z",
+    "public_sha256": "87b47dc52dc52dc9d078e8f77f79ed3c9e835244e5855e075a075aab1b338b47",
+    "public_bytes": 18621865,
+    "guarded_upload_and_full_byte_readback": "PASS",
+    "actual_public_phone": {
+      "pass": true,
+      "local_page_substitution": false,
+      "reference_position_and_identity_checks": "PASS",
+      "refresh_preserved": true,
+      "hidden_paints": 0,
+      "page_errors": 0,
+      "native_write_attempts": 0,
+      "screenshot": "Inspected privately"
+    }
   },
   "limits": [
     "Historical master drawing remains context and is not moved to follow saved pins.",

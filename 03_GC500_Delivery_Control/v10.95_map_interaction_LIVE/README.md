@@ -1,8 +1,8 @@
-# Map interaction and position consistency — v10.95 DRAFT
+# Map interaction and position consistency — v10.95 LIVE
 
 Author: Andrew Fisher
 
-Ready for guarded publication; final desktop and phone checks passed. Base: exact v10.94 page SHA-256 `5f79b5f6c4ce953c3e69f7dfac939734f7176130808ec608715e8c23faf8cc79`. Candidate: `87b47dc52dc52dc9d078e8f77f79ed3c9e835244e5855e075a075aab1b338b47`, 18,621,865 bytes. Not published.
+Verified live 21 Oct 2026 02:50 AEST; source `453b5cd7712d1dc2933875b9c04f88e173b6af06`. Guarded upload and exact public-byte read-back passed. Base: exact v10.94 page SHA-256 `5f79b5f6c4ce953c3e69f7dfac939734f7176130808ec608715e8c23faf8cc79`. Candidate: `87b47dc52dc52dc9d078e8f77f79ed3c9e835244e5855e075a075aab1b338b47`, 18,621,865 bytes. Actual-public phone verification passed with no local page substitution, page errors or attempted native writes; saved reference position, visible scope note, identities, retained refresh and zero hidden paints were checked. Public phone screenshot inspected privately.
 
 The operational map and equipment projection were still choosing an older master position before the already approved saved-pin rule used by navigation. This release routes eligible `andrewPin1084` locations through the existing map placement adapter once per reference, retains legacy master positions as the fallback, and keeps actual unit GPS markers separate. It does not edit native positions, reference identities, quantities, status, prices or servicing data.
 
