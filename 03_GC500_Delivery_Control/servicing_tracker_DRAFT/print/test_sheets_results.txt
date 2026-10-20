@@ -24,7 +24,7 @@ PASS no QR is an edit (/e/) or view (/v/) link
 PASS every completion QR decodes at 300 dpi (74)
 PASS each completion QR is on its own reference's page and nowhere else
 PASS each completion QR sits in its own half of the page
-PASS every pinned reference's location QR decodes to its Google Maps pin (72)
+PASS every pinned reference's location QR decodes to its Google Maps pin (73)
 PASS no other location QR (unpinned references have none)
 PASS no stray QR codes
 PASS nothing but completion and location QR codes on the covers and master map

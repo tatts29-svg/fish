@@ -265,3 +265,11 @@ Page v10.80 (live 10:07) put VMS05 on the register first.
 **What was done** (`teams_pins_spec.json`): BJR01 at -27.985863, 153.427503; T0162 at -27.985742, 153.427447; SVP01 at -27.986211, 153.427753; T0176 at -27.986724, 153.42801.
 
 **Checks:** dry run first, backup first; 12 documents; record 10024 → 10036; VERIFIED (`report_20261020T001350Z.json`).
+
+## Applied: T0024 pinned, 20 Oct 2026 10:34 AEST
+
+**Andrew:** "T0024 is https://maps.app.goo.gl/n8Q6Cp7YdSznhoPV6" → -27.983217, 153.426372 (EVL, Macintosh Island).
+
+**What was done** (`t0024_pin_spec.json`): T0024 placed at that spot.
+
+**Checks:** dry run first; 3 documents; record 10036 → 10039; VERIFIED (`report_20261020T003401Z.json`).

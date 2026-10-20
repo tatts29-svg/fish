@@ -1,0 +1,5 @@
+{
+ "by": "Andrew Fisher",
+ "basis": "Andrew, 20 Oct 2026: \"T0024 is https://maps.app.goo.gl/n8Q6Cp7YdSznhoPV6\" (resolves to -27.9832171, 153.4263719; rounded -27.983217, 153.426372).",
+ "ops": [{"op": "place", "ref": "T0024", "lat": -27.983217, "lon": 153.426372, "how": "Andrew Fisher's Google Maps pin, 20 Oct 2026", "source": "https://maps.app.goo.gl/n8Q6Cp7YdSznhoPV6"}]
+}
