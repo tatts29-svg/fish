@@ -1,0 +1,30 @@
+{
+  "author": "Andrew Fisher",
+  "status": "ready to upload",
+  "version": "v10.89",
+  "base_sha256": "690d5995b0c76e56127242487c0d55b877548eb3bc10dae1855320247323d2b0",
+  "page_sha256": "2254fce73cefb76fdecb371509d7d37e1873d394d77193975842288f14ed3eae",
+  "bytes": 18546467,
+  "inline_scripts_checked": 146,
+  "checks": {
+    "pure_suites_passed": 2,
+    "focused_desktop_scenes": 10,
+    "focused_phone_scenes": 10,
+    "desktop_routes": 25,
+    "phone_routes": 25,
+    "deep_links_each": 7,
+    "back_each": true,
+    "page_errors": 0,
+    "console_errors": 0,
+    "attempted_native_writes": 0,
+    "phone_screenshots_inspected": true,
+    "source_privacy_review": true,
+    "source_reproduction": true,
+    "servicing_unchanged": true,
+    "historical_team_and_finance_unchanged": true,
+    "guarded_uploader_dry_run": true
+  },
+  "servicing_whole_script_sha256": "209f73992f7f8ac1deae3fdd9444654cfb6b30c44e0feff1f5cd15cb98290d0d",
+  "review": "Implementation and independent source review by separate Codex agents; no Claude review claimed",
+  "private_evidence": "Original sources, identities, screenshots, native model snapshots and raw logs remain in private storage."
+}
