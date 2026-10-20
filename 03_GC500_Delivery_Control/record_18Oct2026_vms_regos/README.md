@@ -343,3 +343,8 @@ See `../record_20Oct2026_fire_extinguishers/`.
 `vms05_installed_spec.json`: Andrew, "vms05 is intsalled i gave u the opinned location too". T0001 unit 1211356 install
 ticked (he had taken it off on 16 Oct when VMS05 left; he has now said it is installed). His pin was already on plan
 position 05a. VERIFIED.
+
+## Applied 20 Oct 2026 — T0021 Coates office pinned
+`t0021_pin_spec.json`: Andrew, "Coates office pinned at https://maps.app.goo.gl/GPAiY1C8x1bXKjR48" → -27.9831377,
+153.4264433, placed as "Andrew Fisher's pinned location" (leads Navigate under v10.84). VERIFIED. The fire extinguisher
+QR sheet was rebuilt: 39 of 39 codes decode.
