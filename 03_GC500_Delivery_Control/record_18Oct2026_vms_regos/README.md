@@ -236,3 +236,24 @@ Live: WC67 FWF × 4, units 0793, 0769, 0714 (Event Portables) and 172824 (Coates
 **Checks:**
 - In-memory run first: Costs unchanged.
 - Backup first; 8 documents; record 9963 → 9971; VERIFIED (`report_20261019T233214Z.json`).
+
+## Applied: VMS05 back on T0001, and Andrew's board pins, 20 Oct 2026 10:08–10:11 AEST
+
+**Andrew:** "there is a VMW05 now asset no 1211356 Rego no ER9244 pinned location 27°58'57.5"S 153°25'28.7"E", then pins for VMS07, VMS13, VMS14, VMS16, VMS17, VMS19, VMS11, VMS15, VMS18 and VMS20.
+
+Page v10.80 (live 10:07) put VMS05 on the register first.
+
+**Runner changes:**
+- New step `vms_plan`: the VMS tab's own `VMS1024.setPosition` for a plan position (`loads/vms1024/<pos>`, allowed only for the positions the spec names).
+- The `vms_board` checks now accept a fleet number the page leaves blank because it equals the board's own number.
+- `pin_boards.py` writes a spec from "BOARD:pos:lat:lon" and prints each pin's distance from the plan's spot.
+
+**Runs** (dry run first, backup first, VERIFIED):
+
+| Spec | What it did | Record |
+|---|---|---|
+| `vms05_spec.json` | T0001 quantity to the schedule's own 8, supplied 8, unit 1211356 VMS05, register rego ER9244 on T0001, pins for 05a, 07a, 13, 14, 16, 17, 19, T0001 note | 9978 → 10012 (34 documents) |
+| `vms_pins_11_spec.json` | pin for 11 | 10012 → 10015 |
+| `vms_pins_15_spec.json` | pin for 15 | → 10018 |
+| `vms_pins_18_spec.json` | pin for 18 | → 10021 |
+| `vms_pins_20_spec.json` | pin for 20 | → 10024 |
