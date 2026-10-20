@@ -45,6 +45,11 @@ class EquipmentSymbols(unittest.TestCase):
         self.assertEqual(M.symbol_kind(line('Pee Panels')), 'pee')
         self.assertEqual(M.symbol_kind(line('Pee Panel')), 'pee')
 
+    def test_trailer_toilet_symbol_does_not_depend_on_its_servicing_plan(self):
+        trailer = line('Trailer Toilet', 'pump_only')
+        self.assertEqual(M.symbol_kind(trailer), 'toilet')
+        self.assertEqual(M.what_here([{'lines': [trailer]}]), '1 trailer toilet')
+
     def test_unrecognised_equipment_does_not_masquerade_as_a_toilet(self):
         self.assertEqual(M.symbol_kind(line('Unclassified fixture', 'unclassified')), 'unknown')
 
@@ -150,6 +155,27 @@ class EquipmentSymbols(unittest.TestCase):
         self.assertGreaterEqual(box[1], mb.y)
         self.assertLessEqual(box[3], mb.y+mb.h)
         self.assertFalse(M.boxes_hit(box, footprint, gap=0))
+
+    def test_long_cover_reference_stays_inside_its_column(self):
+        refs = [{'ref': code, 'title': code, 'where': 'Fixture location', 'drop': '',
+                 'pin': None, 'lines': [{'label': '1 × fixture toilet'}]}
+                for code in ['WC01', 'TRAILER099']]
+        pack = SimpleNamespace(d=None, ref_page={r['ref']: 1 for r in refs})
+        memory = io.BytesIO()
+        c = M.canvas.Canvas(memory, pagesize=M.A4)
+        M.Pack.table(pack, c, {'refs': refs}, 250 * M.mm)
+        c.save()
+        with fitz.open(stream=memory.getvalue(), filetype='pdf') as doc:
+            spans = [span for block in doc[0].get_text('dict')['blocks']
+                     if 'lines' in block for row in block['lines'] for span in row['spans']]
+            for code in ['WC01', 'TRAILER099']:
+                span = next(span for span in spans if span['text'] == code)
+                self.assertGreaterEqual(span['bbox'][0], 10.5 * M.mm - 0.5)
+                self.assertLessEqual(span['bbox'][2], 25.5 * M.mm + 0.5,
+                                     'reference must not cover the How many column')
+            short = next(span for span in spans if span['text'] == 'WC01')
+            self.assertAlmostEqual(short['size'], 10.5)
+            self.assertEqual(doc[0].get_text().count('1 × fixture toilet'), 2)
 
     def test_all_repository_map_labels_fit_without_covering_symbols_or_each_other(self):
         data = M.Data(HERE.parent/'tracker_data.json')

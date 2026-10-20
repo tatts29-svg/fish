@@ -358,7 +358,7 @@ def no_pin_panel(c, x, y, w, h, big='No pin', small='No pin on the record and no
     lines = wrap(small, 'sans', 9, w - 10 * mm)
     for i, s in enumerate(lines): txt(c, x + w / 2, y + h / 2 - 5 * mm - i * 4 * mm, s, 'sans', 9, MUTE, 'c')
 
-SHORT = {'FWF': 'FWF', 'FWF Trailer': 'FWF trailer', 'Accessible Toilet': 'accessible', 'Toilet Block 6m': 'block',
+SHORT = {'FWF': 'FWF', 'FWF Trailer': 'FWF trailer', 'Trailer Toilet': 'trailer toilet', 'Accessible Toilet': 'accessible', 'Toilet Block 6m': 'block',
          'Waste tank': 'tank', '16Pan Block': '16-pan'}
 def what_here(refs):
     """'4 FWF', '1 block · 1 tank', '2 16-pan · 1 accessible' - what stands at a spot, in plain words (Andrew, 20 Oct
@@ -379,7 +379,7 @@ def symbol_kind(line):
     if name in ('peepanel', 'peepanels', 'urinal', 'urinalpanel'): return 'pee'
     if name in ('wastetank', 'holdingtank'): return 'tank'
     if name in ('toiletblock', 'toiletblock6m'): return 'block'
-    if name in ('fwf', 'fwftrailer', 'toilet', 'portabletoilet'): return 'toilet'
+    if name in ('fwf', 'fwftrailer', 'trailertoilet', 'toilet', 'portabletoilet'): return 'toilet'
     # Kind is a fallback only where no equipment type was supplied. An unknown named
     # type stays unknown; its service plan must not relabel it as a toilet.
     if not name:
@@ -777,7 +777,7 @@ class Pack:
             wl = wrap(where or '-', 'sans', 8, cols[2][1] - 3 * mm)[:2]; hl = wrap(how, 'bold', 8.5, cols[1][1] - 3 * mm)[:2]
             rh = max(len(wl), len(hl)) * 3.6 * mm + 2.4 * mm
             cx = x0
-            txt(c, cx + 1.5 * mm, y - 4.4 * mm, r['ref'], 'bold', 10.5, INK); cx += cols[0][1]
+            txt(c, cx + 1.5 * mm, y - 4.4 * mm, r['ref'], 'bold', fit(r['ref'], 'bold', 10.5, cols[0][1] - 3 * mm), INK); cx += cols[0][1]
             for i, s in enumerate(hl): txt(c, cx + 1.5 * mm, y - 4.2 * mm - i * 3.6 * mm, s, 'bold', 8.5, INK)
             cx += cols[1][1]
             for i, s in enumerate(wl): txt(c, cx + 1.5 * mm, y - 4.2 * mm - i * 3.6 * mm, s, 'sans', 8, INK)
