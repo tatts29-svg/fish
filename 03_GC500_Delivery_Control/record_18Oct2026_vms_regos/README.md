@@ -332,3 +332,9 @@ and unit 1277089 counted as 60kva (Schedule 11: "SPARE GN24 60KVA TRAILER 127708
 runner step `item_type` (the page's `setItemType`; collection `items`). In-memory first: Costs unchanged (trakmat has no
 card rate; the spare is not priced). GN10 stays 20 kVA: Andrew, charge what was requested (AGENTS.md). See
 `../review_20Oct2026_schedule11/`.
+
+## Applied 20 Oct 2026 — WC31 complete; fire extinguishers (record 10141 → 10185)
+The WC31 Accessible Toilet's supplied record was re-stamped by this morning's retype, so its 9 Oct install no longer
+counted. Install re-dated: `wc31_access_install_off_spec.json` (off, 10141 → 10144), then on inside `fire_wc31_spec.json`,
+with 39 fire extinguishers (`fire_ext`, new step, +$2,029.95). `labour_off` now also works at item level (no unit).
+See `../record_20Oct2026_fire_extinguishers/`.

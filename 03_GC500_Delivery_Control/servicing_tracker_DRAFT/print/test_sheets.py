@@ -56,6 +56,7 @@ def decode_pages(pdf, tmp, dpi=300):
 
 def main():
     data = M.Data(HERE.parent / 'tracker_data.json')
+    REF = {x['ref']: x for x in data.refs}
     refs = [r['ref'] for r in data.refs]
     n_amaps = len([a for a in data.areas if a['n']])   # each of the 13 areas has its own master map after its cover
     M.setup_fonts(); tall = lambda r: M.ref_too_tall(data, r)   # a reference too tall for half a page gets a whole one
@@ -144,12 +145,17 @@ def main():
                 for day in data.days:
                     for task in data.plans[l['kind']][day['plan']]:
                         if data.tasks[task] not in t: probs.append((x['ref'], data.tasks[task]))
-            if 'Scan when done - tick your jobs' not in t: probs.append((x['ref'], 'completion label'))
+            if 'Scan - tap Complete - Save & close' not in t: probs.append((x['ref'], 'job code label'))
+            for g in data.groups_for(x):
+                if g and data.groups[g]['label'].upper() not in t: probs.append((x['ref'], g + ' code'))
             if x['pin'] and 'Scan for directions' not in t: probs.append((x['ref'], 'location label'))
-            if not x['pin'] and 'No pin on the record - ask on site' not in t: probs.append((x['ref'], 'no pin label'))
+            if not x['pin'] and 'No pin - ask on site' not in t: probs.append((x['ref'], 'no pin label'))
         check('every reference: big REF, how many per line, every asset number, its job words, both QR labels', not probs, probs[:10])
-        fwf_sun = [x['ref'] for x in data.refs if any(l['kind'] == 'fwf' for l in x['lines']) and 'Sun 25 night: extra: Locked & confirmed empty · no water.' not in norm[page_of[x['ref']] - 1]]
-        check('FWF blocks say Sunday night: extra lock, no water', not fwf_sun, fwf_sun[:5])
+        fwf_sun = [x['ref'] for x in data.refs if any(l['kind'] in ('fwf', 'access', 'pan16') for l in x['lines']) and 'Sun 25 night: one job - Pump out, clean & lock.' not in norm[page_of[x['ref']] - 1]]
+        check('FWF, accessible and 16-pan say Sunday night: one job - Pump out, clean & lock', not fwf_sun, fwf_sun[:5])
+        check('sewer-connected references get the Clean & restock code only: ' + ', '.join(x['ref'] for x in data.refs if data.groups_for(x) == ['clean']), sorted(x['ref'] for x in data.refs if data.groups_for(x) == ['clean']) == ['T0243', 'WC15', 'WC16', 'WC17'])
+        refill = [x['ref'] for x in data.refs if any(l['kind'] in ('fwf', 'access') for l in x['lines']) and 'Refilled (not in %)' not in norm[page_of[x['ref']] - 1]]
+        check('FWF and accessible show Refilled marked (not in %)', not refill, refill[:5])
         tank_only = [x['ref'] for x in data.refs if all(l['kind'] == 'tank' for l in x['lines'])]
         check('(no reference is a waste tank alone, so tank-only wording is shown inside its block)', True, tank_only)
         # QR codes
@@ -157,22 +163,25 @@ def main():
         if pages is None:
             check('QR codes decode (SKIPPED: ' + why + ')', False, why)
         else:
-            want_comp = {urls[k]: k for k in refs}
+            jobs_url = lambda k, g: urls[k] + ('~' + g if g else '')
+            want_comp = {jobs_url(k, g): k for k in refs for g in data.groups_for(REF[k])}
             seen = {}
             bad_links = [q for qs in pages.values() for q, *_ in qs if '/e/' in q or '/v/' in q]
             check('no QR is an edit (/e/) or view (/v/) link', not bad_links, bad_links)
             for n, qs in pages.items():
                 for q, x, y, size in qs: seen.setdefault(q, []).append((n, y / size[1]))
-            missing = [k for k in refs if urls[k] not in seen]
-            check(f'every completion QR decodes at 300 dpi ({len(refs)})', not missing, missing)
-            wrong_page = [k for k in refs if urls[k] in seen and any(n != page_of[k] for n, _ in seen[urls[k]])]
-            check('each completion QR is on its own reference\'s page and nowhere else', not wrong_page, wrong_page)
+            missing = [u for u in want_comp if u not in seen]
+            check(f'every job code (Pump out / Clean & restock) decodes at 300 dpi ({len(want_comp)} for {len(refs)} references)', not missing, missing[:5])
+            wrong_page = [k for u, k in want_comp.items() if u in seen and any(n != page_of[k] for n, _ in seen[u])]
+            check('each job code is on its own reference\'s page and nowhere else', not wrong_page, wrong_page)
+            bare = [k for k in refs if urls[k] in seen]
+            check('no reference prints a bare code without its job (~pump / ~clean)', not bare, bare)
             # top block or bottom block
             half = []
             for a in data.areas:
                 for kk, ch in ref_chunks[a['n']]:   # a whole-page reference has its QR in the top half too
                     for j, x in enumerate(ch):
-                        for n, fy in seen.get(urls[x['ref']], []):
+                        for n, fy in [s for g in data.groups_for(x) for s in seen.get(jobs_url(x['ref'], g), [])]:
                             if (fy < 0.5) != (j == 0): half.append(x['ref'])
             check('each completion QR sits in its own half of the page', not half, half)
             pinned = [x for x in data.refs if x['pin']]
@@ -200,7 +209,7 @@ def main():
             pl, why = decode_pages(live, tmp)
             if pl is not None:
                 got = {q for qs in pl.values() for q, *_ in qs}
-                exp = {f'{M.BASE}/d/{token}#r={k}.{sig(k)}' for k in refs}
+                exp = {f'{M.BASE}/d/{token}#r={k}.{sig(k)}' + ('~' + g if g else '') for k in refs for g in data.groups_for(REF[k])}
                 check(f'live-format completion QR codes ({len(refs)}, ~{len(next(iter(exp)))} characters) all decode at 300 dpi', exp <= got, len(exp - got))
         r = run(['--links', str(links), '--out', str(HERE / 'should_not_exist.pdf')])
         check('live run refuses to write inside the repository', r.returncode != 0 and 'refused' in (r.stderr + r.stdout) and not (HERE / 'should_not_exist.pdf').exists(), r.stderr)

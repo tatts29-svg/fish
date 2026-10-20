@@ -53,7 +53,8 @@ TWIN_STEER = ('NO TWIN-STEER TRUCKS: not on the track, the Esplanade or inside M
 AUTHOR = 'Author: Andrew Fisher'
 
 INK = colors.HexColor('#1d1d1b'); MUTE = colors.HexColor('#5f6368'); LINE = colors.HexColor('#c9c4b8')
-ORANGE = colors.HexColor('#E8641B'); PAPER = colors.HexColor('#f6f3ee'); RED = colors.HexColor('#b3261e')
+ORANGE = colors.HexColor('#E8641B'); BLUE = colors.HexColor('#1565c0'); PAPER = colors.HexColor('#f6f3ee'); RED = colors.HexColor('#b3261e')
+GROUP_COL = {'pump': ORANGE, 'clean': BLUE}   # the Pump out code orange, the Clean & restock code blue
 DONE = colors.HexColor('#16803a'); WHITE = colors.white
 GREYED = colors.HexColor('#a3a3a3')   # the other areas on an area's own master map
 AREA_COLOUR = {1: '#c62828', 2: '#1565c0', 3: '#2e7d32', 4: '#6a1b9a', 5: '#ad1457', 6: '#5d4037', 7: '#e65100',
@@ -109,6 +110,8 @@ class Data:
         raw = Path(path).read_bytes() if raw is None else raw; d = json.loads(raw)
         self.sha = hashlib.sha256(raw).hexdigest(); self.version = d.get('version', '')
         self.tasks, self.plans, self.days, self.areas = d['tasks'], d['plans'], d['days'], d['areas']
+        # v2, Andrew 20 Oct 2026: a Pump out QR and a Clean & restock QR per reference; Refilled is ticked, never counted
+        self.extras, self.groups = d.get('extras', []), d.get('groups', {})
         self.refs = [r for a in self.areas for r in a['refs']]
         self.area_of = {r['ref']: a for a in self.areas for r in a['refs']}
         for r in self.refs:
@@ -122,7 +125,18 @@ class Data:
         out = collections.OrderedDict()
         for d in self.days: out.setdefault(d['plan'], []).append(d)
         return out
-    def jobs(self, refs, plan): return sum(l['qty'] * len(self.plans[l['kind']][plan]) for r in refs for l in r['lines'])
+    def jobs(self, refs, plan): return sum(l['qty'] * len([t for t in self.plans[l['kind']][plan] if t not in self.extras]) for r in refs for l in r['lines'])
+    def ref_tasks(self, r):
+        out = []
+        for l in r['lines']:
+            for d in self.days:
+                for t in self.plans[l['kind']][d['plan']]:
+                    if t not in out: out.append(t)
+        return out
+    def groups_for(self, r):
+        """the job QR codes this reference gets: only the groups it has a job in (a waste tank alone: Pump out only)"""
+        ts = self.ref_tasks(r)
+        return [g for g, v in self.groups.items() if any(t in ts for t in v['tasks'])] or [None]
     def units(self, refs): return sum(l['qty'] for r in refs for l in r['lines'])
     @staticmethod
     def thing(label):
@@ -614,7 +628,7 @@ class Pack:
         c.setFillColor(PAPER); c.setStrokeColor(LINE); c.setLineWidth(0.6); c.roundRect(x, y, w, h, 2 * mm, stroke=1, fill=1)
         steps = ['Before the run, open any sheet with signal. Wait for Ready for offline scans. Later scans work offline on that phone; waiting ticks send when signal returns.',
                  'LOCATION QR: scan for directions (Google Maps). No pin: ask on site.',
-                 'When the jobs are done, scan that location\'s COMPLETION QR and tap each job. The phone records the time. It only ticks that location.',
+                 'When a job is done, scan that location\'s PUMP OUT or CLEAN & RESTOCK code, tap Complete (the phone records the time), then Save & close. It only ticks that location. Refilled is a tick of its own and does not count in the %.',
                  'The phone shows each job, area and overall progress. Wait for Saved before treating a tap as received; Waiting ticks are still on this phone.',
                  'A service day runs 08:00 to 08:00 (Gold Coast time); the phone picks the day.']
         txt(c, x + 3 * mm, y + h - 5 * mm, 'HOW TO USE', 'bold', 8, MUTE)
@@ -660,31 +674,40 @@ class Pack:
             no_pin_panel(c, mx, my, mw, mh, 'Off the plan', 'Not on the master plan drawing. Scan "Scan for directions" for its Google Maps pin.')
         else:
             no_pin_panel(c, mx, my, mw, mh)
-        # the two QR cards under the map: COMPLETION (orange, the one that ticks) and LOCATION
-        ctop = my - 5.2 * mm; cbot = max(y + 0.8 * mm, ctop - 62 * mm); ch = ctop - cbot   # a whole-page reference keeps cards their usual size
-        comp_w = 58 * mm; loc_w = mw - comp_w - 3 * mm
-        qs = min(36 * mm, ch - (16 if self.draft else 12.5) * mm)
-        c.setFillColor(WHITE); c.setStrokeColor(ORANGE); c.setLineWidth(2)
-        c.roundRect(mx, cbot, comp_w, ch, 2.2 * mm, stroke=1, fill=1)
-        qr(c, self.urls[ref], mx + (comp_w - qs) / 2, ctop - 1.5 * mm - qs, qs)
-        cy = ctop - 1.5 * mm - qs - 4.2 * mm
-        txt(c, mx + comp_w / 2, cy, 'Scan when done - tick your jobs', 'bold', fit('Scan when done - tick your jobs', 'bold', 9.4, comp_w - 3 * mm), INK, 'c')
-        sub = f'Ticks only {ref} · shows the area % and the overall %'
-        txt(c, mx + comp_w / 2, cy - 3.5 * mm, sub, 'sans', fit(sub, 'sans', 6.8, comp_w - 3 * mm), MUTE, 'c')
-        if self.draft: txt(c, mx + comp_w / 2, cy - 7 * mm, ('TEST CODE - NOT LIVE - opens nothing' if self.mode == 'draft' else 'TEST CODE - PRACTICE ONLY'), 'bold', 7, RED, 'c')
-        lx = mx + comp_w + 3 * mm; ls = min(30 * mm, loc_w - 6 * mm, ch - 12.5 * mm)
+        # v2 (Andrew, 20 Oct 2026: "each refernce will have a Pump out QR code and a Clean and Restock barcode. you scan it.
+        # and click complete and it logs a time it was done. then push a button to save and close"): one card per job
+        # code this reference has (a sewer-connected block has no pump out), then the LOCATION card, side by side
+        ctop = my - 5.2 * mm; cbot = max(y + 0.8 * mm, ctop - 62 * mm); ch = ctop - cbot
+        groups = d.groups_for(r); gap = 2.2 * mm; loc_w = 27 * mm
+        job_w = (mw - loc_w - gap * len(groups)) / len(groups)
+        qs = min(32 * mm, job_w - 4 * mm, ch - (18 if self.draft else 14.5) * mm)
+        gx = mx; mine = d.ref_tasks(r)
+        for g in groups:
+            colr = GROUP_COL.get(g, ORANGE); label = (d.groups[g]['label'] if g else 'Completion').upper()
+            c.setFillColor(WHITE); c.setStrokeColor(colr); c.setLineWidth(2); c.roundRect(gx, cbot, job_w, ch, 2.2 * mm, stroke=1, fill=1)
+            c.setFillColor(colr); c.roundRect(gx, ctop - 6.2 * mm, job_w, 6.2 * mm, 2.2 * mm, stroke=0, fill=1); c.rect(gx, ctop - 6.2 * mm, job_w, 3 * mm, stroke=0, fill=1)
+            txt(c, gx + job_w / 2, ctop - 4.5 * mm, label, 'bold', fit(label, 'bold', 10, job_w - 3 * mm), WHITE, 'c')
+            qr(c, self.job_url(ref, g), gx + (job_w - qs) / 2, ctop - 7.4 * mm - qs, qs)
+            cy = ctop - 7.4 * mm - qs - 3.8 * mm
+            s1 = 'Scan - tap Complete - Save & close'
+            txt(c, gx + job_w / 2, cy, s1, 'bold', fit(s1, 'bold', 7.8, job_w - 2.5 * mm), INK, 'c')
+            names = [d.tasks[t] + (' (not in %)' if t in d.extras else '') for t in (d.groups[g]['tasks'] if g else mine) if t in mine]
+            s2 = 'Jobs: ' + ' · '.join(names)
+            for k2, ln in enumerate(wrap(s2, 'sans', 6.2, job_w - 2.5 * mm)[:2]): txt(c, gx + job_w / 2, cy - 3.2 * mm - k2 * 2.7 * mm, ln, 'sans', 6.2, MUTE, 'c')
+            if self.draft: txt(c, gx + job_w / 2, cbot + 1.6 * mm, ('TEST CODE - NOT LIVE' if self.mode == 'draft' else 'TEST CODE - PRACTICE'), 'bold', fit('TEST CODE - NOT LIVE', 'bold', 6.6, job_w - 2 * mm), RED, 'c')
+            gx += job_w + gap
+        lx = gx; ls = min(22 * mm, loc_w - 4 * mm, ch - 13.5 * mm)
         c.setStrokeColor(LINE); c.setLineWidth(0.8); c.roundRect(lx, cbot, loc_w, ch, 2.2 * mm, stroke=1, fill=0)
-        qx = lx + (loc_w - ls) / 2; qy = ctop - 1.5 * mm - ls
+        txt(c, lx + loc_w / 2, ctop - 4.5 * mm, 'LOCATION', 'bold', 8, MUTE, 'c')
+        qx = lx + (loc_w - ls) / 2; qy = ctop - 7.4 * mm - ls
         if r['pin']:
             qr(c, maps_url(r['pin']), qx, qy, ls)
-            txt(c, lx + loc_w / 2, qy - 4.2 * mm, 'Scan for directions', 'bold', fit('Scan for directions', 'bold', 9, loc_w - 2 * mm), INK, 'c')
-            pin_s = f'Google Maps pin {r["pin"][0]:.5f}, {r["pin"][1]:.5f}'
-            txt(c, lx + loc_w / 2, qy - 7.6 * mm, pin_s, 'sans', fit(pin_s, 'sans', 6, loc_w - 2 * mm), MUTE, 'c')
+            txt(c, lx + loc_w / 2, qy - 3.8 * mm, 'Scan for directions', 'bold', fit('Scan for directions', 'bold', 7.6, loc_w - 2 * mm), INK, 'c')
+            for k2, ln in enumerate([f'{r["pin"][0]:.5f},', f'{r["pin"][1]:.5f}']): txt(c, lx + loc_w / 2, qy - 6.8 * mm - k2 * 2.6 * mm, ln, 'sans', 5.8, MUTE, 'c')
         else:
             c.setFillColor(PAPER); c.roundRect(qx, qy, ls, ls, 2 * mm, stroke=0, fill=1)
-            txt(c, qx + ls / 2, qy + ls / 2 - 1 * mm, 'No pin', 'bold', 15, MUTE, 'c')
-            s = 'No pin on the record - ask on site'
-            txt(c, lx + loc_w / 2, qy - 4.2 * mm, s, 'bold', fit(s, 'bold', 8, loc_w - 2 * mm), INK, 'c')
+            txt(c, qx + ls / 2, qy + ls / 2 - 1 * mm, 'No pin', 'bold', 12, MUTE, 'c')
+            for k2, ln in enumerate(wrap('No pin - ask on site', 'bold', 7, loc_w - 2 * mm)[:2]): txt(c, lx + loc_w / 2, qy - 3.8 * mm - k2 * 2.8 * mm, ln, 'bold', 7, INK, 'c')
         # left column: how many, the asset numbers, the jobs - closer spacing when a reference has many lines (WC05 has
         # three: block, tank, FWF), measured first on a scratch page so nothing ever runs off its half page
         lx0, lw = x + 4.5 * mm, mx - x - 8.5 * mm
@@ -693,9 +716,10 @@ class Pack:
         yy = self.left_col(c, r, lx0, lw, top - 24 * mm, k)
         if yy < y + 2 * mm: print(f'warning: {ref} block runs {((y + 2 * mm) - yy) / mm:.1f} mm long', file=sys.stderr)
         # what to do, where there is room
-        steps = ['Do the jobs for tonight (the dots above).',
-                 f'Scan the orange COMPLETION QR. It opens {ref} only.',
-                 'Tap each job as it is done. The phone keeps the time.']
+        codes = ' or '.join(d.groups[g]['label'].upper() for g in d.groups_for(r) if g) or 'COMPLETION'
+        steps = ['Do tonight\'s jobs (the dots above).',
+                 f'Scan the {codes} code for the job you did. It opens {ref} only.',
+                 'Tap Complete on each job, then Save & close. The phone keeps the time.']
         bh = 6.5 * mm + len(steps) * 4.3 * mm
         if yy - bh - 2 * mm > y + 0.8 * mm:
             by = y + 0.8 * mm
@@ -704,6 +728,10 @@ class Pack:
             for k, s in enumerate(steps):
                 txt(c, lx0 + 2.5 * mm, by + bh - 9 * mm - k * 4.3 * mm, str(k + 1), 'bold', 8.4, ORANGE)
                 txt(c, lx0 + 6.5 * mm, by + bh - 9 * mm - k * 4.3 * mm, s, 'sans', fit(s, 'sans', 8.4, lw - 8.5 * mm), INK)
+
+    def job_url(self, ref, group):
+        """the reference's signed link plus its job group (#r=REF.sig~pump): the card shows only that code's jobs"""
+        return self.urls[ref] + ('~' + group if group else '')
 
     def scratch(self):
         if not getattr(self, '_scratch', None):
@@ -750,7 +778,8 @@ class Pack:
             if sub: txt(c, cx, y - 5.7 * mm, sub, 'sans', 5.6, MUTE, 'c')
         y -= 6.6 * mm
         for t in tasks:
-            txt(c, x + 1 * mm, y - rowh / 2 - 1.1 * mm, d.tasks[t], 'bold', fit(d.tasks[t], 'bold', 8.4 if k >= 0.9 else 7.8, name_w - 2 * mm), INK)
+            tl = d.tasks[t] + (' (not in %)' if t in d.extras else '')
+            txt(c, x + 1 * mm, y - rowh / 2 - 1.1 * mm, tl, 'bold', fit(tl, 'bold', 8.4 if k >= 0.9 else 7.8, name_w - 2 * mm), MUTE if t in d.extras else INK)
             for k, dd in enumerate(days):
                 cx = x + name_w + k * colw + colw / 2; cy = y - rowh / 2
                 if t in plan[dd['plan']]:
@@ -763,8 +792,8 @@ class Pack:
         gone = [t for t in night if t not in final]; extra = [d.tasks[t] for t in final if t not in night]
         last = next((dd for dd in days if dd['plan'] == 'final'), None)
         if last and (gone or extra):
-            bits = ([f'extra: {", ".join(extra)}'] if extra else []) + [('no water' if t == 'water' else 'no ' + d.tasks[t].lower()) for t in gone]
-            s = f'{last["label"]} night: ' + ' · '.join(bits) + '.'
+            if len(final) == 1 and extra: s = f'{last["label"]} night: one job - {d.tasks[final[0]]}.'   # FWF, accessible, 16-pan
+            else: s = f'{last["label"]} night: ' + ' · '.join(([f'extra: {", ".join(extra)}'] if extra else []) + ['no ' + d.tasks[t].lower() for t in gone if t not in d.extras]) + '.'
             txt(c, x, y - 3.4 * mm, s, 'bold', fit(s, 'bold', 7.6, w), INK); y -= 4.2 * mm * max(k, 0.85)
         return y
 

@@ -68,7 +68,7 @@ spec.ops.forEach((o, i) => {
   else if (o.op === 'unit_archive_wrong') { if (!REFRE.test(o.ref || '')) fail(at + 'needs a reference'); if (!NORE.test(o.no || '') || !NORE.test(o.keep || '') || o.no === o.keep) fail(at + 'needs the wrong number and the number that stays'); }
   else if (o.op === 'scope_refresh') { if (!REFRE.test(o.ref || '')) fail(at + 'needs a reference'); }
   else if (o.op === 'complete_again') { if (!REFRE.test(o.ref || '')) fail(at + 'needs a reference'); }
-  else if (o.op === 'labour_on' && !o.unit) { if (!REFRE.test(o.ref || '')) fail(at + 'needs a reference'); for (const f of ['disc', 'item', 'line']) if (typeof o[f] !== 'string' || !o[f]) fail(at + 'needs ' + f); }
+  else if ((o.op === 'labour_on' || o.op === 'labour_off') && !o.unit) { if (!REFRE.test(o.ref || '')) fail(at + 'needs a reference'); for (const f of ['disc', 'item', 'line']) if (typeof o[f] !== 'string' || !o[f]) fail(at + 'needs ' + f); }
   else if (o.op === 'labour_on' || o.op === 'labour_off') { if (!REFRE.test(o.ref || '')) fail(at + 'needs a reference'); for (const f of ['disc', 'item', 'line', 'unit']) if (typeof o[f] !== 'string' || !o[f]) fail(at + 'needs ' + f); }
   else if (o.op === 'door') { if (!REFRE.test(o.ref || '')) fail(at + 'needs a reference'); if (!/^u\d{4,12}$/.test(o.id || '')) fail(at + 'needs a unit row id'); if (!['driver', 'passenger', 'na'].includes(o.side)) fail(at + 'side'); }
   else if (o.op === 'unit_archive') { if (!REFRE.test(o.ref || '')) fail(at + 'needs a reference'); if (!NORE.test(o.no || '')) fail(at + 'needs a number'); }
@@ -81,6 +81,7 @@ spec.ops.forEach((o, i) => {
   else if (o.op === 'vms_plan') { if (!/^\d{2}[a-z]?$/.test(o.pos || '')) fail(at + 'needs a VMS plan position'); if (!(o.lat <= -27 && o.lat >= -29 && o.lon >= 153 && o.lon <= 154)) fail(at + 'not a Gold Coast position'); if (typeof o.how !== 'string' || !o.how.trim() || o.how.length > 200) fail(at + 'needs how it was arrived at'); if (/\b(codex|claude|gpt|model|agent)\b/i.test(o.how)) fail(at + 'text names a system'); }
   else if (o.op === 'sub_move') { if (!REFRE.test(o.from || '') || !REFRE.test(o.to || '') || o.from === o.to) fail(at + 'needs two references'); if (!/^[A-Za-z0-9-]{1,12}$/.test(o.no || '')) fail(at + 'needs the unit number'); if (typeof o.co !== 'string' || !o.co.trim()) fail(at + 'needs the sub-hire company'); }
   else if (o.op === 'place') { if (!REFRE.test(o.ref || '')) fail(at + 'needs a reference'); if (!(o.lat <= -27 && o.lat >= -29 && o.lon >= 153 && o.lon <= 154)) fail(at + 'not a Gold Coast position'); if (typeof o.how !== 'string' || !o.how.trim() || o.how.length > 200) fail(at + 'needs how it was arrived at'); if (/\b(codex|claude|gpt|model|agent)\b/i.test(o.how + ' ' + (o.source || ''))) fail(at + 'text names a system'); }
+  else if (o.op === 'fire_ext') { if (!REFRE.test(o.ref || '')) fail(at + 'needs a reference'); if (!(Number.isInteger(o.qty) && o.qty >= 1 && o.qty <= 99)) fail(at + 'needs a fire extinguisher count 1-99'); }
   else if (o.op === 'item_type') { if (!REFRE.test(o.ref || '')) fail(at + 'needs a reference'); if (typeof o.item !== 'string' || !o.item.trim() || o.item.length > 80) fail(at + 'needs the item type'); }
   else if (o.op === 'set_qty') { if (!REFRE.test(o.ref || '')) fail(at + 'needs a reference'); if (!(o.qty === '' || (Number.isInteger(o.qty) && o.qty >= 0))) fail(at + 'qty must be a whole number or "" for the schedule\'s own'); }
   else fail(at + 'unknown op ' + o.op);
@@ -251,6 +252,9 @@ function applyOps(spec) {
       } else if (op.op === 'number_item') {
         const ok = setNumberItem(op.ref, op.no, op.item); if (ok === false) throw new Error('setNumberItem refused ' + op.ref + ' ' + op.no);
         const cur = typeof numberItemOf === 'function' ? numberItemOf(assetOf(op.ref), op.no) : null; r.result = 'counts as ' + (cur || op.item);
+      } else if (op.op === 'fire_ext') { /* 20 Oct: fire extinguishers attached through the page's own fire914Save */
+        if (fire914Qty(op.ref) >= op.qty) r.result = 'already ' + fire914Qty(op.ref);
+        else { const ok = fire914Save(op.ref, op.qty); if (ok === false) throw new Error('fire914Save refused ' + op.ref); if (fire914Qty(op.ref) !== op.qty) throw new Error(op.ref + ' fire extinguishers did not take'); r.result = 'fire extinguishers ' + op.qty; }
       } else if (op.op === 'item_type') { /* v20 Oct: the reference's item type through the page's own setItemType */
         const ok = setItemType(op.ref, op.item); if (ok === false) throw new Error('setItemType refused ' + op.ref + ' ' + op.item + ' (or it already reads that)');
         r.result = 'item type ' + ((S.items || {})[op.ref] || op.item);
@@ -491,13 +495,14 @@ function applyOps(spec) {
         if (op.op === 'answer') { const nid = (results.find(x => x.op === 'answer' && x.id === op.id) || {}).noteId || op.id; if ((((docs.answers || {})[nid] || {}).v) !== op.text) problems.push('note ' + nid + ' is not held ' + where); }
         if (op.op === 'unit_reidentify' && !Object.values(docs.loads || {}).some(u => u && u.kind === 'unit925-record' && u.ref === op.ref && String(u.assetNo) === op.no && u.item === op.item && u.active !== false && !u.removedBy)) problems.push(op.ref + ' has no active ' + op.item + ' unit ' + op.no + ' ' + where);
         if (op.op === 'unit_archive' && Object.values(docs.loads || {}).some(u => u && u.kind === 'unit925-record' && u.ref === op.ref && String(u.assetNo) === op.no && u.active !== false && !u.removedBy)) problems.push(op.ref + ' still has an active unit record for ' + op.no + ' ' + where);
-        if (op.op === 'labour_off' && (docs.labour || {})[op.ref + '/u' + op.unit.replace(/^u/, '') + '|' + op.disc + '|' + op.item + '|' + op.line]) problems.push(op.ref + ' ' + op.unit + ' ' + op.line + ' still ticked ' + where);
+        if (op.op === 'labour_off' && (docs.labour || {})[((op.unit ? op.ref + '/u' + op.unit.replace(/^u/, '') : op.ref) + '|' + op.disc + '|' + op.item + '|' + op.line).replace(/\//g, '~2f~').replace(/\|/g, '~7c~').replace(/ /g, '~20~').replace(/&/g, '~26~')]) problems.push(op.ref + ' ' + op.unit + ' ' + op.line + ' still ticked ' + where);
         if (op.op === 'note_replace') { const n = String(((docs.delivery || {})[op.ref] || {}).note || ''); if (n.includes(op.old) || !n.includes(op.new)) problems.push(op.ref + ' note not corrected ' + where); }
         if (op.op === 'unit_archive_wrong' && Object.values(docs.loads || {}).some(u => u && u.kind === 'unit925-record' && u.ref === op.ref && String(u.assetNo) === op.no && u.active !== false && !u.removedBy)) problems.push(op.ref + ' still has an active unit record for ' + op.no + ' ' + where);
         if (op.op === 'scope_refresh' && ((docs.qtys || {})[op.ref] || {}).v != null) problems.push(op.ref + ' carries a typed quantity ' + where);
         if (op.op === 'complete_again' && (((docs.delivery || {})[op.ref] || {}).done) !== true) problems.push(op.ref + ' not complete ' + where);
         if (op.op === 'complete' && (((docs.delivery || {})[op.ref] || {}).done) !== true) problems.push(op.ref + ' not complete ' + where);
         if (op.op === 'labour_on' && (((docs.labour || {})[((op.unit ? op.ref + '/u' + op.unit.replace(/^u/, '') : op.ref) + '|' + op.disc + '|' + op.item + '|' + op.line).replace(/\//g, '~2f~').replace(/\|/g, '~7c~').replace(/ /g, '~20~').replace(/&/g, '~26~')] || {}).v) !== true) problems.push(op.ref + ' ' + op.unit + ' ' + op.line + ' not ticked ' + where);
+        if (op.op === 'fire_ext') { const raw = (docs.accessories || {})[op.ref]; const list = Array.isArray(raw) ? raw : (raw && (raw.v || raw.rows || raw.items)) || []; const q = (Array.isArray(list) ? list : []).filter(x => x && x.type === 'Fire extinguisher').reduce((n, x) => n + (Number(x.qty) > 0 ? Number(x.qty) : 0), 0); if (q < op.qty) problems.push(op.ref + ' has ' + q + ' fire extinguisher(s), not ' + op.qty + ' ' + where); }
         if (op.op === 'item_type') { const iv = ((docs.items || {})[op.ref]); if (!iv || (typeof iv === 'object' ? iv.v : iv) !== op.item) problems.push(op.ref + ' item type is not ' + op.item + ' ' + where); }
         if (op.op === 'supplied' && !((((docs.supplied || {})[op.ref] || {}).items) || []).some(x => x.asked === op.item && x.qty_supplied === op.qty)) problems.push(op.ref + ' supplied is not ' + op.qty + ' ' + where);
         if (op.op === 'vms_fleet' && ![op.fleet, null, undefined].includes((((docs.vmsboard || {})[op.key]) || {}).fleet)) problems.push(op.key + ' fleet is not ' + op.fleet + ' ' + where);
