@@ -308,3 +308,7 @@ T0024's 0164 read 0 on site / 0 received.
   and 1317645 taken off (labour_off takes the unit number without the "u").
 - Read back on the live page: WC31 16Pan Block 2 received / 2 on site (12, 74); T0024 FWF 1 received / 1 on site
   (0164); no holds, no inventory issues for either.
+- `wc31_74_labour_spec.json` (10070 → 10076, VERIFIED): Andrew, "16 pans get the install and leveling, cleaning" —
+  block 74 levelling and cleaning ticked to match block 12 (16-pan install already ticked for the line). Andrew,
+  "accesable toilets only get the install and demob": 1317645 already has Accessible Toilet install and demob, so its
+  old levelling/cleaning (filed under the 16-pan, no longer charged) are not re-ticked.
