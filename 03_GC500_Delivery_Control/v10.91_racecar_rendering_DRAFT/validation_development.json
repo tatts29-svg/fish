@@ -1,0 +1,99 @@
+{
+  "author": "Andrew Fisher",
+  "status": "DEVELOPMENT VERIFIED; final v10.90 rebase and release checks pending",
+  "baseVersion": "v10.89",
+  "baseSha256": "2254fce73cefb76fdecb371509d7d37e1873d394d77193975842288f14ed3eae",
+  "developmentCandidateSha256": "1f6405873eb17e8c0253df57b2baf0d2a34d32c85915d08fd3533e7ed09c05b9",
+  "implementationAndTestsSha256": "9dff1eb9599f08343fe1411d2da8beecff2c4b699f1e9ac8ce101051f30d8918",
+  "sourceFiles": {
+    "patch_v1091.py": "64e8c38d32dc164828a605125c936c7ce05c119263cc49dede0fddd4a1cb1429",
+    "car_batches1091.js": "2873d64bb9629029d83f4639fc86ed1417b5834a9d605682087a996ef2237ba5",
+    "tests/atlas1091.cjs": "1b75ab514a3970414fa9dec1b6797ea1b9e26bf474e018b330f596675f4868d1",
+    "tests/capture1091.cjs": "c807c2fc901f737b52bc250dcda4e979c32a4e23b8ad461d4e7f531fad53bda6",
+    "tests/controls1091.cjs": "1ac2ce91897e2bbb2183e3eef9b303b64f9c73a8f7674a1a04de67ca71cebad2",
+    "tests/draw-semantics1091.cjs": "2c92c9de243a55403c58173d3a1092c2b90831e42c8b2702e25aafc7a9f597ac",
+    "tests/geometry1091.cjs": "7ceef13ac672cbb919d12a279348d2d4096afd12a4fbd2c2a769983ed83e8264",
+    "tests/pixel_compare1091.py": "e5447a42273d596e2f030e4a84a13df1d5b8852095606184c4f1698701174122",
+    "tests/shader-adaptive1091.cjs": "a38f66612bc6ec52ad713e6cacd1ba7fe63e21b911986dcf4f958d660242d469",
+    "tests/source1091.py": "bc74be493d069b56fe4a999b8e8ba568d5f05150964933f29b4ae4f6c90ecd7e"
+  },
+  "geometry": {
+    "balanced": {
+      "triangles": 86862,
+      "vertices": 64796
+    },
+    "high": {
+      "triangles": 152006,
+      "vertices": 100656
+    },
+    "drawsBefore": 43,
+    "drawsAfter": 28,
+    "attributesTrianglesTransformsMaterialsBlendAndDecalOrderPreserved": true
+  },
+  "reflectionControl": {
+    "priorFlagTrueGpuCount": 4,
+    "fixedFlagTrueGpuCount": 0,
+    "manualRestores": 4,
+    "balancedRungReachable": true,
+    "restoredMinimumScaleBudgetCorrect": true
+  },
+  "controlledComparison": {
+    "performanceOnlyPixelDifferences": {
+      "detail": 0,
+      "frontdetail": 0
+    },
+    "fullAppearancePixelChangesConfinedToCarRegion": true,
+    "wholeFrameDraws": {
+      "detail": [
+        97,
+        82
+      ],
+      "frontdetail": [
+        125,
+        110
+      ]
+    },
+    "submittedIndicesBeforeAfter": {
+      "detail": [
+        2642128,
+        2642128
+      ],
+      "frontdetail": [
+        2903404,
+        2903404
+      ]
+    },
+    "performanceOnlyCandidateSha256": "fbc471a8f7ea5776510cabd9f2abdacae5bb390c832fa5a3f987f6846af4b097"
+  },
+  "passed": [
+    "146 inline scripts parse; no new credentials",
+    "protected source parity and patch guards",
+    "Balanced and High exact geometry and draw ordering",
+    "independent native draw function semantic review at three speeds",
+    "optional filtering capability fallbacks",
+    "actual desktop controls, cleanup, zero GL/page errors, zero native writes",
+    "independent shader/adaptive fixtures including restored minimum-scale state"
+  ],
+  "outstanding": [
+    "final verified-live v10.90 base pin",
+    "final rebase and desktop/phone controls",
+    "parent-owned sweeps and guarded publication"
+  ],
+  "rendererLimitation": "Chromium ANGLE SwiftShader; no physical-device FPS claim",
+  "evidenceFiles": {
+    "geometry.json": "294a5a62b250e61ca6057bdcf6683a6434aaec3dd06234dcd838a6030b8f6c63",
+    "source.json": "1fe016f1a579bacfc1eec672e684e516d0851d78d4f9d1a84884b7243bd0b6ab",
+    "atlas.json": "da8aa74b62f5414b09f3f04f1659f1bec4159036d9f26736844e95e2824e0bdf",
+    "controls-desktop.json": "edb2d403f167220f796ff26420fe286326516e790406246854ca648bd663e436",
+    "pixel-difference.json": "f8a4801245b2cf4da6fc9647afcbffe534944c6e386772334169e1e75862ce20",
+    "fixed-base-compare.json": "5ccef9ccce2bbc04fa891a02f70969c1bdc2efbd53ba24f0ee8cd2f44c864b56",
+    "fixed-parity-compare.json": "0702cc90a267b55b3723d3f1c13db2942858bb2f2e09fb4955f0da079b3c4f29",
+    "fixed-final-compare.json": "4ab832d99d95159c4bb26685468c137d0849dbae9c44eb8735d8449395c9f469",
+    "fixed-base-detail.png": "dda2ba87b3aab151479b540d8fc360d3ec40e91496b098edbf91517245f999c7",
+    "fixed-final-detail.png": "11d5dbef88ab6a9555899a7dfaef79c99e1a4c1aa6d6bc87ed4478602ecaebf4",
+    "fixed-base-frontdetail.png": "b176c906e115396386340a767ec65737a2efe78bec3a6d46cac9ba46425584d8",
+    "fixed-final-frontdetail.png": "f2b2b0d3603f9cff2fbb596ffc5fd8b999a7e1101d0b80b89f62f49c31bf6e63",
+    "draw-semantics.json": "6904fe99b1832d7b31e2b44156506a153d5e97ef00bb3b7642e059b7f90e8bf1",
+    "shader-adaptive.json": "7bb4be43224d67dda830cfb4e2b5989b3f82f24b00b36a3da7c8bb2de85b18fc"
+  }
+}
