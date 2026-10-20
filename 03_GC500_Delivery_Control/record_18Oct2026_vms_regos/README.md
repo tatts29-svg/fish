@@ -338,3 +338,8 @@ The WC31 Accessible Toilet's supplied record was re-stamped by this morning's re
 counted. Install re-dated: `wc31_access_install_off_spec.json` (off, 10141 → 10144), then on inside `fire_wc31_spec.json`,
 with 39 fire extinguishers (`fire_ext`, new step, +$2,029.95). `labour_off` now also works at item level (no unit).
 See `../record_20Oct2026_fire_extinguishers/`.
+
+## Applied 20 Oct 2026 — VMS05 installed
+`vms05_installed_spec.json`: Andrew, "vms05 is intsalled i gave u the opinned location too". T0001 unit 1211356 install
+ticked (he had taken it off on 16 Oct when VMS05 left; he has now said it is installed). His pin was already on plan
+position 05a. VERIFIED.

@@ -1,0 +1,2 @@
+{"by": "Andrew Fisher", "why": "Andrew, 20 Oct 2026: \"vms05 is intsalled i gave u the opinned location too\". VMS05 (Coates 1211356, rego ER9244; delivered 20 Oct, Micks, docket 26141143 on Schedule 11) install ticked on T0001. Andrew took this tick off on 16 Oct when VMS05 left; he has now said it is installed. His pin is already on plan position 05a (vms05_spec.json, 20 Oct).",
+ "ops": [{"op": "labour_on", "ref": "T0001", "unit": "1211356", "disc": "Variable message signs", "item": "VMS", "line": "install"}]}
