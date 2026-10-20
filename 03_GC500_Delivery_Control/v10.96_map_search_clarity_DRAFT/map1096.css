@@ -1,0 +1,15 @@
+/* Author: Andrew Fisher. Opaque controls and consistent high-contrast focus at every resolution. */
+#q { min-height:44px; color:#f5f8fa; background:#101c23; border:1px solid #9aaeb9; font-size:14px; }
+#q::placeholder { color:#c8d5dd; opacity:1; }
+#q:focus-visible, button:focus-visible { outline:3px solid #ffad66; outline-offset:2px; }
+.results button, .findlist button { color:#f5f8fa; background:#15252f; border-bottom:1px solid #607786; min-height:48px; }
+.results button small, .findlist button small, .rh { color:#cbd7df; }
+.results button:hover, .results button.map1096-active { background:#2c424f; box-shadow:inset 4px 0 #ff8a38; }
+.results button b { color:#ffb27a; }
+.chip { color:#f5f8fa; border:1px solid #71828b; min-height:36px; }
+.chip small { color:#d2dce3; }
+.chip i { box-shadow:0 0 0 2px #101c23,0 0 0 3px #bccad2; }
+.console button, .console input { color:#f5f8fa; background:#101c23; border:1px solid #81949f; min-height:40px; }
+.map1009-icon { filter:drop-shadow(0 1px 1px #05090c); }
+@media (pointer:coarse) { .chip, .console button, .console input { min-height:44px; } }
+@media (prefers-reduced-motion:reduce) { .results button { transition:none; } }
