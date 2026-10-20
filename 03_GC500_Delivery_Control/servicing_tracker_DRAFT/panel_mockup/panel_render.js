@@ -34,7 +34,7 @@ function cellHtml(M, cfg, st, l, t) {
 function tableHtml(M, cfg, st, a) {
   var used = {}; a.refs.forEach(function (r) { r.lines.forEach(function (l) { M.S.tasksFor(cfg, l, M.day).forEach(function (t) { used[t] = 1; }); }); });
   var cols = Object.keys(M.D.tasks).filter(function (t) { return used[t]; });
-  var head = '<thead><tr><th scope="col">Reference</th>' + cols.map(function (t) { return '<th scope="col">' + esc(M.D.tasks[t]) + '</th>'; }).join('') + '</tr></thead>';
+  var head = '<thead><tr><th scope="col">Reference</th>' + cols.map(function (t) { return '<th scope="col">' + esc(M.D.tasks[t]) + (M.S.isExtra(cfg, t) ? '<small> not in %</small>' : '') + '</th>'; }).join('') + '</tr></thead>';
   var body = a.refs.map(function (r) {
     var s = M.S.refStats(cfg, r, M.day, st), one = r.lines.length === 1, cls = s.done ? ' done' : '';
     var fin = s.done ? '<em class="fin">done ' + esc(M.S.hm(s.last)) + '</em>' : '';
@@ -63,7 +63,7 @@ function areaHtml(M, cfg, st, a) {
     '<div class="svc-refs">' + tasksHtml(M, cfg, st, a.refs) + tableHtml(M, cfg, st, a) + '</div></details>';
 }
 function svcPanelHtml(M) {
-  var S = M.S, D = M.D, cfg = { plans: D.plans, days: D.days };
+  var S = M.S, D = M.D, cfg = { plans: D.plans, days: D.days, extras: D.extras };
   var st = S.jobStates(M.events || [], M.now), day = S.dayOf(cfg, M.day) || D.days[0];
   var all = [].concat.apply([], D.areas.map(function (a) { return a.refs; }));
   var g = S.groupStats(cfg, all, day.id, st), cur = S.svcDay(M.now);

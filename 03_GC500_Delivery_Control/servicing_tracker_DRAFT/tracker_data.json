@@ -1,33 +1,65 @@
 {
- "version": "tracker-data 18 Oct 2026 (Andrew's job rules), record 9704, Andrew's 13 areas",
+ "version": "tracker-data 20 Oct 2026 v2 (Andrew's job QRs: Pump out / Clean & restock; Fri-Sat-Sun nights; refill not counted), record 10051, Andrew's 13 areas",
  "tasks": {
-  "pump": "Pumped out",
-  "water": "Fresh water refilled",
-  "clean": "Cleaned & restocked",
-  "lock": "Locked & confirmed empty"
+  "pump": "Pump out",
+  "clean": "Clean & restock",
+  "lockup": "Pump out, clean & lock",
+  "refill": "Refilled"
  },
  "plans": {
   "fwf": {
    "night": [
     "pump",
-    "water",
+    "clean",
+    "refill"
+   ],
+   "final": [
+    "lockup"
+   ]
+  },
+  "access": {
+   "night": [
+    "pump",
+    "clean",
+    "refill"
+   ],
+   "final": [
+    "lockup"
+   ]
+  },
+  "pan16": {
+   "night": [
+    "pump",
     "clean"
    ],
    "final": [
-    "pump",
-    "clean",
-    "lock"
+    "lockup"
    ]
   },
   "block": {
+   "night": [
+    "clean"
+   ],
+   "final": [
+    "clean"
+   ]
+  },
+  "selfblock": {
    "night": [
     "pump",
     "clean"
    ],
    "final": [
     "pump",
-    "clean",
-    "lock"
+    "clean"
+   ]
+  },
+  "sewer": {
+   "night": [
+    "clean"
+   ],
+   "final": [
+    "clean"
    ]
   },
   "tank": {
@@ -40,13 +72,6 @@
   }
  },
  "days": [
-  {
-   "id": "2026-10-22",
-   "label": "Thu 22",
-   "to": "Fri 23",
-   "plan": "night",
-   "ifNeeded": true
-  },
   {
    "id": "2026-10-23",
    "label": "Fri 23",
@@ -220,7 +245,7 @@
       {
        "id": "WC16-TOILETBL",
        "type": "Toilet Block 6m",
-       "kind": "block",
+       "kind": "sewer",
        "label": "2 × Toilet block 6 m",
        "qty": 2,
        "nos": [
@@ -249,7 +274,7 @@
       {
        "id": "T0243-TOILETBL",
        "type": "Toilet Block 6m",
-       "kind": "block",
+       "kind": "sewer",
        "label": "1 × Toilet block 6 m",
        "qty": 1,
        "nos": [
@@ -271,7 +296,7 @@
       {
        "id": "WC15-TOILETBL",
        "type": "Toilet Block 6m",
-       "kind": "block",
+       "kind": "sewer",
        "label": "2 × Toilet block 6 m",
        "qty": 2,
        "nos": [
@@ -294,7 +319,7 @@
       {
        "id": "WC17-TOILETBL",
        "type": "Toilet Block 6m",
-       "kind": "block",
+       "kind": "sewer",
        "label": "2 × Toilet block 6 m",
        "qty": 2,
        "nos": [
@@ -427,7 +452,7 @@
       {
        "id": "WC86-ACCESSIB",
        "type": "Accessible Toilet",
-       "kind": "fwf",
+       "kind": "access",
        "label": "1 × Accessible toilet",
        "qty": 1,
        "nos": [
@@ -466,7 +491,7 @@
       {
        "id": "WC01-ACCESSIB",
        "type": "Accessible Toilet",
-       "kind": "fwf",
+       "kind": "access",
        "label": "1 × Accessible toilet",
        "qty": 1,
        "nos": [
@@ -758,7 +783,7 @@
       {
        "id": "WC09-TOILETBL",
        "type": "Toilet Block 6m",
-       "kind": "block",
+       "kind": "selfblock",
        "label": "2 × Toilet block 6 m",
        "qty": 2,
        "nos": [
@@ -1446,7 +1471,7 @@
       {
        "id": "WC51-ACCESSIB",
        "type": "Accessible Toilet",
-       "kind": "fwf",
+       "kind": "access",
        "label": "1 × Accessible toilet",
        "qty": 1,
        "nos": [
@@ -1677,7 +1702,7 @@
       {
        "id": "WC31-ACCESSIB",
        "type": "Accessible Toilet",
-       "kind": "fwf",
+       "kind": "access",
        "label": "1 × Accessible toilet",
        "qty": 1,
        "nos": [
@@ -1687,7 +1712,7 @@
       {
        "id": "WC31-16PANBLO",
        "type": "16Pan Block",
-       "kind": "block",
+       "kind": "pan16",
        "label": "2 × 16-pan toilet block",
        "qty": 2,
        "nos": [
@@ -2041,8 +2066,27 @@
   }
  ],
  "notes": {
-  "sunday": "Andrew, 18 Oct 2026: \"need to be cleaned regardless\" - FWFs are still cleaned & restocked on Sunday night",
-  "otherblocks": "Andrew, 18 Oct 2026: \"Other ones lets just add a pump out too please regardless\" - WC09, WC17 and WC31's blocks: Pumped out + Cleaned & restocked whether or not they are sewer-connected",
-  "blocks": "Andrew, 18 Oct 2026: \"With own wster tanks add a pump out too\", \"Sewer connected add pumo out\", \"Other ones lets just add a pump out too please regardless\" - every toilet block is Pumped out + Cleaned & restocked (Sunday adds Locked & confirmed empty); each waste tank is Pumped out as well"
+  "v2": "Andrew, 20 Oct 2026: each reference has a Pump out QR and a Clean & restock QR; scan, tap Complete (logs the time), Save & close. Waste tank: Pump out. Toilet block: Clean & restock (its waste tank is pumped). Sewer-connected (WC15, WC16, WC17, T0243): Clean & restock only. 16-pan, FWF and accessible: Pump out + Clean & restock; FWF and accessible also have a Refilled button that does not count toward the %. Sunday: FWF, accessible and 16-pan are one 'Pump out, clean & lock' completion. Nights: Fri, Sat, Sun (no Thursday). No names.",
+  "assumed": "Not yet confirmed by Andrew (defaults used): WC17's blocks are sewer-connected; WC09's blocks are self-contained (Pump out + Clean & restock); WC100's FWF trailers are serviced like FWF."
+ },
+ "extras": [
+  "refill"
+ ],
+ "groups": {
+  "pump": {
+   "label": "Pump out",
+   "tasks": [
+    "pump",
+    "lockup"
+   ]
+  },
+  "clean": {
+   "label": "Clean & restock",
+   "tasks": [
+    "clean",
+    "lockup",
+    "refill"
+   ]
+  }
  }
 }

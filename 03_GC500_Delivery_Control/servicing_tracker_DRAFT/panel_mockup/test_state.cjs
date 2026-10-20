@@ -6,7 +6,9 @@
 'use strict';
 const fs = require('fs'), path = require('path'), vm = require('vm');
 const S = require('./state.js');
-const DATA = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'tracker_data.json'), 'utf8'));
+/* TRACKER_DATA: written for the v1 rules (Thursday, water, lock); run it on fixtures/tracker_data_v1_18Oct.json. The v2
+   rules (Refilled not counted, Fri/Sat/Sun) are checked by ../card/test_card_v2.cjs. */
+const DATA = JSON.parse(fs.readFileSync(process.env.TRACKER_DATA || path.join(__dirname, '..', 'tracker_data.json'), 'utf8'));
 const CFG = { plans: DATA.plans, days: DATA.days };
 const ALL = [].concat(...DATA.areas.map(a => a.refs));
 const REF = Object.fromEntries(ALL.map(r => [r.ref, r]));

@@ -292,3 +292,19 @@ Page v10.80 (live 10:07) put VMS05 on the register first.
 **Checks:**
 - In-memory run first: Costs and the FWF counts unchanged.
 - Backup first; dry run first; 12 documents; record 10039 → 10051; VERIFIED (`report_20261020T005533Z.json`).
+
+## Applied 20 Oct 2026 — Event Portables inventory: WC31 and T0024 (record 10051 → 10065)
+
+Andrew, 20 Oct 2026 (inventory screenshot): "please make sure we update this" — WC31's 16-pan blocks 12 and 74 and
+T0024's 0164 read 0 on site / 0 received.
+
+- `wc31_t0024_spec.json` (10051 → 10057): WC31 Coates 1317645 retyped as the Accessible Toilet (it was counted as a
+  16Pan Block, so the 16-pan line had three units with mixed ownership); T0024 quantity 2 (Andrew: "Set T0024 to 2 FWF").
+  In-memory run first: Costs move $5,704 from Hire to Rehire revenue (both 16-pans are Event Portables) and $156.15 of
+  per-unit 16-pan labour on 1317645 stops counting; Andrew chose "Apply it".
+- `t0024_two_fwf_spec.json` (10057 → 10061): T0024 supplied 2 FWF and complete again (Coates 1211968 + Event
+  Portables 0164 both on site).
+- `wc31_no_stairs_spec.json` (10061 → 10065): Andrew, "wc31 nothing there has stairs" — the steps ticks on units 12
+  and 1317645 taken off (labour_off takes the unit number without the "u").
+- Read back on the live page: WC31 16Pan Block 2 received / 2 on site (12, 74); T0024 FWF 1 received / 1 on site
+  (0164); no holds, no inventory issues for either.

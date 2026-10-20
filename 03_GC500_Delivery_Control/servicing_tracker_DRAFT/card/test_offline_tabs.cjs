@@ -26,11 +26,11 @@ let count=0; const check=(name,good)=>{assert.ok(good,name); count++; console.lo
   check('fresh second QR opens without signal after initial cache',await b.locator('#refh').innerText()==='WC07');
   check('fresh offline card retains another reference confirmed tick',await b.evaluate(()=>svc1067.groupStats(svc1067.areas.flatMap(a=>a.refs),'2026-10-23',svc1067.jobStates(Object.keys(localStorage).filter(k=>k.includes('.snapshot.')).map(k=>JSON.parse(localStorage.getItem(k))).sort((a,b)=>b.serverAt-a.serverAt||b.cursor-a.cursor)[0].ticks,svc1067.now())).d)>0);
   await b.locator('[data-job="WC07-FWF|pump"]').click();
-  await a.locator('[data-job="WC06-FWF|water"]').click();
+  await a.locator('[data-job="WC06-FWF|clean"]').click();
   check('two open tabs keep both offline taps',await a.evaluate(()=>svc1067.outbox().length)===2);
   await b.close(); await ctx.setOffline(false); await a.evaluate(()=>window.dispatchEvent(new Event('online')));
   await a.waitForFunction(()=>svc1067.outbox().length===0);
-  check('closing second tab cannot lose its queued tick',mock.ticks(token).some(t=>t.ref==='WC07'&&t.task==='pump') && mock.ticks(token).some(t=>t.ref==='WC06'&&t.task==='water'));
+  check('closing second tab cannot lose its queued tick',mock.ticks(token).some(t=>t.ref==='WC07'&&t.task==='pump') && mock.ticks(token).some(t=>t.ref==='WC06'&&t.task==='clean'));
   mock.setNow('2026-10-23T22:01:00Z'); const c=await ctx.newPage(); await c.goto(url('WC09')); await c.waitForFunction(()=>/^Live/.test(document.querySelector('#status').textContent));
   check('fresh scan after 08:00 offers previous-day Stay',await c.locator('[data-stay]').count()===1);
   await c.locator('[data-stay]').click();

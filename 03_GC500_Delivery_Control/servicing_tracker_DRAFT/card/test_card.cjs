@@ -13,7 +13,9 @@ const { chromium } = pw;
 const { createMock, cardCspFromServer, cardScriptHash, sigFor } = require('./mock_server.js');
 const { buildCardHtml, trackerConfig, cardScriptHash: genHash } = require('./build_card.js');
 
-const DATA = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'tracker_data.json'), 'utf8'));
+/* TRACKER_DATA: this suite was written for the v1 rules (Thursday, water, lock); run it on the v1 snapshot for the
+   protocol and reliability checks. test_card_v2.cjs covers the v2 rules on the current data. */
+const DATA = JSON.parse(fs.readFileSync(process.env.TRACKER_DATA || path.join(__dirname, '..', 'tracker_data.json'), 'utf8'));
 const SERVER_JS = path.join(__dirname, '..', '..', 'server_v5.89_servicing_tracker_DRAFT', 'server.js');
 const EVID = path.join(__dirname, 'evidence'); fs.mkdirSync(EVID, { recursive: true });
 const wait = ms => new Promise(r => setTimeout(r, ms));
@@ -238,7 +240,7 @@ const at = s => Date.parse(s);       /* '2026-10-23T22:00:00+10:00' */
   let t1 = findTick({ ref: 'WC06', task: 'pump' });
   check('the tap reached the service once, as WC06 · Pumped out · Fri 23', t1.length === 1 && t1[0].line === 'WC06-FWF' && t1[0].day === FRI && t1[0].done === true, t1);
   J = await jobs(A);
-  check('the button shows "Done hh:mm" with the tap time', (J.find(j => j.key === 'WC06-FWF|pump') || {}).sub === 'Done ' + hm(tickTime(t1[0])), J);
+  check('the button shows "Done hh:mm" with the tap time', (J.find(j => j.key === 'WC06-FWF|pump') || {}).sub === 'Completed ' + hm(tickTime(t1[0])), J);
   let BA = await bars(A);
   check('after the tap: this area ' + pctOf(q06, w5) + '% and everything ' + pctOf(q06, wAll) + '% (weighted by units)', BA[0].pct === pctOf(q06, w5) + '%' && BA[1].pct === pctOf(q06, wAll) + '%' && /Area 5/.test(BA[0].label), BA);
   check('the counts say the jobs done of the jobs there are', BA[0].meta.indexOf(q06 + ' of ' + w5 + ' jobs') >= 0 && BA[1].meta.indexOf(q06 + ' of ' + wAll + ' jobs') >= 0, BA);
@@ -315,7 +317,7 @@ const at = s => Date.parse(s);       /* '2026-10-23T22:00:00+10:00' */
   check('signal back: the outbox drains, 3 on the service', t41.length === 3, t41.length);
   check('each keeps the time it was tapped (earlier than the service received it)', t41.length === 3 && t41.every(t => Date.parse(t.tapped_at) < Date.parse(t.at) - 60000), t41.map(t => [t.tapped_at, t.at]));
   J = await jobs(A);
-  check('the buttons show the tap time, not the arrival time', J.length === 3 && J.every(j => { const t = t41.find(x => x.task === j.key.split('|')[1]); return t && j.sub === 'Done ' + hm(tickTime(t)) && j.sub !== 'Done ' + hm(Date.parse(t.at)); }), J.map(j => j.sub));
+  check('the buttons show the tap time, not the arrival time', J.length === 3 && J.every(j => { const t = t41.find(x => x.task === j.key.split('|')[1]); return t && j.sub === 'Completed ' + hm(tickTime(t)) && j.sub !== 'Completed ' + hm(Date.parse(t.at)); }), J.map(j => j.sub));
   await kick(B); await B.page.waitForFunction(p => (document.querySelector('#a6 .apct') || {}).textContent === p, pctOf(3 * q41, w6) + '%', { timeout: 15000 }).catch(() => {});
   check('phone B sees them', await areaPct(B, 6) === pctOf(3 * q41, w6) + '%', await areaPct(B, 6));
 
@@ -338,7 +340,7 @@ const at = s => Date.parse(s);       /* '2026-10-23T22:00:00+10:00' */
   await kick(A); await kick(B); await wait(1500);
   const bTick = w11.find(t => t.done && t.id !== a1.id);
   check('WC11 · Pumped out still done on both phones, at B\'s time', (await job(A, 'WC11-FWF|pump')).pressed === 'true' && (await job(B, 'WC11-FWF|pump')).pressed === 'true' &&
-    (await job(A, 'WC11-FWF|pump')).sub === 'Done ' + hm(tickTime(bTick)), [await job(A, 'WC11-FWF|pump'), await job(B, 'WC11-FWF|pump')]);
+    (await job(A, 'WC11-FWF|pump')).sub === 'Completed ' + hm(tickTime(bTick)), [await job(A, 'WC11-FWF|pump'), await job(B, 'WC11-FWF|pump')]);
 
   /* ================================================================ 7. reply lost: the retry is not counted twice */
   section('7. a lost reply is retried and counted once');

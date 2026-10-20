@@ -23,6 +23,8 @@ function cardData(data, opts) {
     version: data.version,
     tasks: data.tasks,
     plans: data.plans,
+    extras: data.extras || [],
+    groups: data.groups || {},
     days: data.days.map(d => pick(d, ['id', 'label', 'to', 'plan', 'ifNeeded'])),
     areas: data.areas.map(a => ({
       n: a.n, name: a.name,
@@ -74,6 +76,19 @@ function checkData(data) {
     if (!Array.isArray(t) || !t.length) problems.push('no ' + d.plan + ' plan for ' + k);
     else t.forEach(x => { if (!data.tasks[x]) problems.push('task ' + x + ' has no wording'); });
   }));
+  /* Andrew, 20 Oct 2026: a Pump out QR and a Clean & restock QR per reference. Every task a plan names must be on
+     at least one QR, or nobody could ever tick it; an extra (Refilled) must be a real task. */
+  const groups = data.groups || {}, onQr = new Set();
+  Object.keys(groups).forEach(g => {
+    if (!/^[a-z]{1,12}$/.test(g)) problems.push('QR group ' + g + ' is not a plain lower-case word');
+    const gt = groups[g] && groups[g].tasks;
+    if (!groups[g] || !groups[g].label || !Array.isArray(gt) || !gt.length) problems.push('QR group ' + g + ' needs a label and tasks');
+    else gt.forEach(x => { if (!data.tasks[x]) problems.push('QR group ' + g + ' names unknown task ' + x); onQr.add(x); });
+  });
+  (data.extras || []).forEach(x => { if (!data.tasks[x]) problems.push('extra ' + x + ' is not a task'); });
+  if (Object.keys(groups).length) kinds.forEach(k => Object.keys(data.plans[k] || {}).forEach(p => (data.plans[k][p] || []).forEach(x => {
+    if (!onQr.has(x)) problems.push('task ' + x + ' (' + k + ' ' + p + ') is on no QR');
+  })));
   if (problems.length) throw new Error('tracker data: ' + problems.join('; '));
 }
 

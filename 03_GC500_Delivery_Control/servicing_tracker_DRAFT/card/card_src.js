@@ -1,8 +1,11 @@
 /* GC500 servicing tracker: the crew card's one script. Author: Andrew Fisher.
    Andrew, 18 Oct 2026: "purely just a track". Nothing here ticks the job record, changes a delivery state or a charge.
    Two ways in:
-     /d/<token>#r=REF.sig  completion QR for ONE reference: tap its jobs for the service day (only that reference).
-     /d/<token>            no code: read-only view of every area, with a day chooser. No ticking.
+     /d/<token>#r=REF.sig~pump   Andrew, 20 Oct 2026: "each refernce will have a Pump out QR code and a Clean and
+     /d/<token>#r=REF.sig~clean  Restock barcode. you scan it. and click complete and it logs a time it was done. then
+                                 push a button to save and close". Each code shows only its own jobs at that reference.
+     /d/<token>#r=REF.sig        (no ~group) every job at that reference, as before.
+     /d/<token>                  no code: read-only view of every area, with the manager's audit list. No ticking.
    Days run 08:00 to 08:00 Brisbane time, worked out from the SERVICE's clock (GET .../ticks answers `now`).
    Ticks go through an outbox kept on the phone, so no signal never loses a tap; each tick has its own id, so a resend
    is never counted twice. No names exist anywhere: "Just times". */
@@ -13,7 +16,8 @@ var D = /*DATA*/null;
 
 var HOUR = 3600000, POLL_MS = 15000, SLOW_MS = 60000, BACKOFF = [5, 10, 20, 40, 60];
 var BODY_MAX = 1900;        /* the service takes 2 KB a post; keep under it */
-var TASKS = D.tasks, PLANS = D.plans, DAYS = D.days, AREAS = D.areas;
+var TASKS = D.tasks, PLANS = D.plans, DAYS = D.days, AREAS = D.areas, EXTRAS = D.extras || [], GROUPS = D.groups || {};
+function isExtra(task) { return EXTRAS.indexOf(task) >= 0; }
 var DAY_IDS = DAYS.map(function (d) { return d.id; });
 var FIRST_REAL = (DAYS.filter(function (d) { return !d.ifNeeded; })[0] || DAYS[0]).id;   /* before the event: Friday */
 var REFS = Object.create(null), AREA_OF = Object.create(null), LINE = Object.create(null), REF_OF_LINE = Object.create(null);
@@ -77,6 +81,8 @@ function dayOpen(id) { return synced && id <= svcDay(now()); }       /* the serv
 
 /* ---- what a line needs on a day: the plan's tasks for its kind (Sunday drops the water, adds the lock) */
 function tasksFor(line, dayId) { var d = dayOf(dayId); var p = PLANS[line.kind]; return (p && d && p[d.plan]) || []; }
+/* the jobs this QR code shows: its group's tasks only (a Pump out code never shows Clean & restock) */
+function shownTasks(line, dayId) { var g = curGroup && GROUPS[curGroup]; return tasksFor(line, dayId).filter(function (t) { return !g || g.tasks.indexOf(t) >= 0; }); }
 function jobKey(line, task, day) { return line + '|' + task + '|' + day; }
 
 /* Exactly the same rule is embedded in the main-page panel. */
@@ -156,14 +162,15 @@ function lastTap() {
 }
 
 /* ---- where the phone is: mode, reference, day */
-var mode = 'view', curRef = null, curSig = null, hashNote = null, focusArea = null, focusPending = true;
+var mode = 'view', curRef = null, curSig = null, curGroup = null, closing = false, logAll = false, hashNote = null, focusArea = null, focusPending = true;
 var openAreas = Object.create(null), confirmKey = null, showAll = false;
 var pick = null; /* Past-day choices last at most two hours, or 30 minutes without a tap. */
 var lastAuto = null, advance = null, drawnDay = null, boundaryTimer = null;
 function readHash() {
   var h = location.hash || '';
-  var m = /^#r=([A-Za-z0-9]+)(?:\.([A-Za-z0-9_-]*))?$/.exec(h);
-  hashNote = null; focusArea = null; confirmKey = null;
+  var m = /^#r=([A-Za-z0-9]+)(?:\.([A-Za-z0-9_-]*?))?(?:~([a-z]{1,12}))?$/.exec(h);
+  hashNote = null; focusArea = null; confirmKey = null; closing = false;
+  curGroup = m && m[3] && GROUPS[m[3]] ? m[3] : null;
   if (m) {
     var ref = m[1].toUpperCase();
     if (!REFS[ref]) { mode = 'view'; curRef = null; curSig = null; hashNote = 'That QR code names ' + m[1] + ', which is not on this tracker. Showing every area, view only.'; return; }
@@ -398,7 +405,7 @@ function tapJob(key) {
   if (!validDrawnDay()) return;
   var day = drawnDay;
   var p = key.split('|'), lineId = p[0], task = p[1];
-  if (REF_OF_LINE[lineId] !== curRef) return;              /* only this QR code's reference */
+  if (REF_OF_LINE[lineId] !== curRef || shownTasks(LINE[lineId], day).indexOf(task) < 0) return;   /* only this QR code's reference and jobs */
   var st = jobStates(allEvents(), now())[jobKey(lineId, task, day)];
   if (st) { confirmKey = confirmKey === key ? null : key; render(); refocus('j-' + key); if (confirmKey) reveal('c-' + key); return; }
   var ev = { id: newId(), ref: curRef, sig: curSig, line: lineId, task: task, day: day, done: true, undoes: [], tapped_at: iso(now()), tries: 0 };
@@ -422,6 +429,7 @@ function undoJob(key) {
   pump();
 }
 function announce(lineId, task, day) {
+  if (isExtra(task)) { say(curRef + ' ' + (TASKS[task] || task) + ' noted ' + hm(now()) + '. Not counted in the percentage.'); return; }
   var st = jobStates(allEvents(), now()), a = AREA_OF[curRef];
   var as = groupStats(a.refs, day, st), os = groupStats(ALL_REFS, day, st);
   say(curRef + ' ' + (TASKS[task] || task) + ' done ' + hm(now()) + '. ' + areaLabel(a) + ' ' + as.pct + ' percent' + (as.finished ? ', area finished' : '') + '. Everything ' + os.pct + ' percent.');
@@ -480,7 +488,7 @@ function bannersHtml(day, auto) {
   if (!final && full) b.push('<div class="banner warn"><span>The service could not take more ticks. Your ticks are kept on this phone. ' + contactHtml() + '</span></div>');
   if (pick && pick.day !== auto) b.push('<div class="banner loud" role="alert"><strong>You are on ' + esc(longDay(pick.day)) + '\'s service</strong><span>Today\'s service is ' + esc(longDay(auto)) + '. This choice ends ' + hm(pickEnds()) + ' ' + esc(shortDay(svcDay(pickEnds()))) + ' (or after 30 minutes without a tap for late ticks).</span><div class="bacts"><button class="bbtn" type="button" data-back="1">Back to ' + esc(longDay(auto)) + '</button></div></div>');
   if (advance && !pick) b.push('<div class="banner info" role="status"><strong>Now ' + esc(longDay(advance.to)) + '\'s service</strong><span>It changed at 08:00.' + (advance.grace ? ' Still finishing ' + esc(longDay(advance.from)) + '\'s?' : '') + '</span><div class="bacts">' + (advance.grace ? '<button class="bbtn" type="button" data-stay="' + esc(advance.from) + '">Stay on ' + esc(longDay(advance.from)) + '</button>' : '') + '<button class="bbtn" type="button" data-dismiss="advance">OK</button></div></div>');
-  if (svcDay(now()) < DAY_IDS[0] && synced) b.push('<div class="banner info"><span>Servicing has not started. It opens ' + esc(longDay(DAY_IDS[0])) + ' Oct 08:00 if needed, then ' + esc(longDay(FIRST_REAL)) + ' Oct 08:00.' + (mode === 'tick' ? ' Nothing can be ticked yet.' : '') + '</span></div>');
+  if (svcDay(now()) < DAY_IDS[0] && synced) b.push('<div class="banner info"><span>Servicing has not started. It opens ' + esc(longDay(DAY_IDS[0])) + ' Oct 08:00' + (DAY_IDS[0] !== FIRST_REAL ? ' if needed, then ' + esc(longDay(FIRST_REAL)) + ' Oct 08:00' : '') + '.' + (mode === 'tick' ? ' Nothing can be ticked yet.' : '') + '</span></div>');
   if (stale && !final) b.push('<div class="banner warn" role="alert"><span>This card has been changed on the service. Reload it to get the new one.</span><div class="bacts"><button class="bbtn" type="button" data-reload="1">Reload</button></div></div>');
   if (hashNote) b.push('<div class="banner info"><span>' + esc(hashNote) + '</span></div>');
   if (notices.length) b.push('<div class="banner warn" role="alert"><span><b>Not saved: ' + notices.length + ' tick' + (notices.length === 1 ? '' : 's') + '</b></span>' + (notices.length === 1 ? '<span>' + esc(notices[0].text) + '</span>' : '<details><summary>More info</summary><ul>' + notices.map(function (n) { return '<li>' + esc(n.text) + '</li>'; }).join('') + '</ul></details>') + '<div class="bacts"><button class="bbtn" type="button" data-dismiss="notices">OK</button></div></div>');
@@ -515,29 +523,66 @@ function compactHtml(day, os, st) {
 }
 function jobHtml(r, l, task, day, st, open) {
   var key = l.id + '|' + task, s = st[jobKey(l.id, task, day)], label = TASKS[task] || task;
-  var cls = 'job' + (s ? (s.local ? ' pending' : ' done') : '');
-  var sub = !synced ? 'Waiting for the service clock' : !open ? 'Opens ' + shortDay(day) + ' 08:00' : s ? 'Done ' + hm(s.at) + (s.local ? ' · waiting for signal' : '') : 'Tap when done';
-  var aria = label + ', ' + l.label + ', ' + (s ? 'done at ' + hm(s.at) + (s.local ? ', waiting for signal' : '') + '. Tap to undo.' : open ? 'not done yet' : 'not open yet');
+  var extra = isExtra(task), cls = 'job' + (extra ? ' extra' : '') + (s ? (s.local ? ' pending' : ' done') : '');
+  var sub = !synced ? 'Waiting for the service clock' : !open ? 'Opens ' + shortDay(day) + ' 08:00' : s ? 'Completed ' + hm(s.at) + (s.local ? ' · waiting for signal' : '') : extra ? 'Tap if refilled · not counted in %' : 'Tap to complete';
+  var aria = label + (extra ? ' (not counted in the percentage)' : '') + ', ' + l.label + ', ' + (s ? 'completed at ' + hm(s.at) + (s.local ? ', waiting for signal' : '') + '. Tap to undo.' : open ? 'not done yet' : 'not open yet');
   var h = '<button class="' + cls + '" type="button" id="j-' + esc(key) + '" data-job="' + esc(key) + '" aria-pressed="' + (!!s) + '" aria-label="' + esc(aria) + '"' + (open && !final && !stale && !identityPending() ? '' : ' disabled') + '><span class="jbox">' + TICK + '</span><span class="jtxt"><b>' + esc(label) + '</b><small>' + esc(sub) + '</small></span></button>';
   if (confirmKey === key && s) h += '<div class="confirm" id="c-' + esc(key) + '" role="group" aria-label="Undo ' + esc(label) + '"><p>Undo “' + esc(label) + '” for ' + esc(l.label) + '?</p><div class="bacts"><button class="cbtn undo" type="button" id="u-' + esc(key) + '" data-undo="' + esc(key) + '">Yes, undo</button><button class="cbtn" type="button" data-keep="1">Keep it done</button></div></div>';
   return h;
 }
 function tickView(day, st) {
-  var r = REFS[curRef], a = AREA_OF[curRef], open = dayOpen(day), n = unitsOf(r);
-  var h = '<section class="card refcard" aria-labelledby="refh"><h2 class="bigref" id="refh">' + esc(r.ref) + '</h2>' +
+  if (closing) return savedView(day, st);
+  var r = REFS[curRef], a = AREA_OF[curRef], open = dayOpen(day), n = unitsOf(r), g = curGroup && GROUPS[curGroup];
+  var shown = r.lines.filter(function (l) { return shownTasks(l, day).length; });
+  var h = '<section class="card refcard" aria-labelledby="refh">' + (g ? '<div class="qrtag">' + esc(g.label) + ' code</div>' : '') + '<h2 class="bigref" id="refh">' + esc(r.ref) + '</h2>' +
     (r.title && r.title !== r.ref ? '<div class="reftitle">' + esc(r.title) + '</div>' : '') +
     '<div class="refarea">' + (a.n ? 'Area ' + a.n + ' <span>· ' + esc(a.name) + '</span>' : esc(a.name)) + '</div>' +
     '<div class="count">' + n + ' unit' + (n === 1 ? '' : 's') + ' at ' + esc(r.ref) + (r.lines.length > 1 ? ' · ' + r.lines.length + ' completion lines' : '') + '</div>' +
     ((r.where || r.drop) ? '<div class="where">' + esc([r.where, r.drop].filter(Boolean).join(' · ')) + '</div>' : '') + navHtml(r);
-  r.lines.forEach(function (l) {
+  shown.forEach(function (l) {
     h += '<div class="line"><h3 class="ltitle">' + esc(l.label) + '</h3>' + (l.nos && l.nos.length ? '<p class="nos"><b>Asset nos</b> ' + esc(l.nos.join(', ')) + '</p>' : '') +
-      '<div class="jobs" role="group" aria-label="' + esc(l.label + ', ' + longDay(day) + '\'s jobs') + '">' + tasksFor(l, day).map(function (t) { return jobHtml(r, l, t, day, st, open); }).join('') + '</div></div>';
+      '<div class="jobs" role="group" aria-label="' + esc(l.label + ', ' + longDay(day) + '\'s jobs') + '">' + shownTasks(l, day).map(function (t) { return jobHtml(r, l, t, day, st, open); }).join('') + '</div></div>';
   });
+  if (!shown.length) h += '<p class="nojobs">No ' + esc(g ? g.label : 'jobs') + ' at ' + esc(r.ref) + ' on ' + esc(longDay(day)) + '\'s service.' + (g ? ' Scan the other code on the sheet.' : '') + '</p>';
+  else h += '<div class="savebox"><button class="saveclose" type="button" id="saveclose" data-save="1"' + (final ? ' disabled' : '') + '>Save &amp; close</button><p>Each Complete is sent as you tap it. Save &amp; close checks every tap has reached the service.</p></div>';
   h += '</section>';
   h += '<section class="card progress-detail"><h3>' + esc(areaLabel(a)) + ' · jobs</h3>' + taskProgress(a.refs, day, st) + '</section>';
   h += '<button class="showall" type="button" data-showall="1" aria-expanded="' + showAll + '">' + (showAll ? 'Hide the other areas' : 'Show every area (view only)') + '</button>';
   if (showAll) h += areasHtml(day, st, curRef);
   return h;
+}
+/* after Save & close: the taps are on the service (or kept on this phone until signal), the area's new %, and the
+   tab tries to close itself (a browser only lets it when the scan opened it) */
+function savedView(day, st) {
+  var a = AREA_OF[curRef], as = groupStats(a.refs, day, st), os = groupStats(ALL_REFS, day, st), n = waiting();
+  var head = n ? (netDown || !navigator.onLine ? 'Kept on this phone' : 'Saving…') : 'Saved';
+  var msg = n ? n + ' tap' + (n === 1 ? '' : 's') + (netDown || !navigator.onLine ? ' will send when there is signal. They also go the next time any code is scanned with signal.' : ' still sending. Keep this page open a moment.')
+    : 'Everything from ' + curRef + ' is on the service.';
+  return '<section class="card saved' + (n ? ' wait' : '') + '" role="status"><h2>' + esc(head) + (n ? '' : ' ' + TICK) + '</h2><p>' + esc(msg) + '</p>' +
+    '<p class="savedpct">' + esc(areaLabel(a)) + ' <b>' + as.pct + '%</b>' + (as.finished ? ' · area finished ' + hm(as.finished) : '') + '<br>Everything <b>' + os.pct + '%</b></p>' +
+    (n ? '' : '<p>You can close this page and scan the next code.</p>') +
+    '<div class="bacts"><button class="bbtn" type="button" data-unsave="1">Back to ' + esc(curRef) + '</button></div></section>';
+}
+/* the manager's view (no code): areas finished and ready to audit, and every completion of the day with its time */
+function auditHtml(day, st) {
+  var fin = [], going = 0;
+  AREAS.forEach(function (a) { var s = groupStats(a.refs, day, st); if (s.finished) fin.push({ a: a, at: s.finished }); else if (s.d) going++; });
+  fin.sort(function (x, y) { return x.at - y.at; });
+  var log = [];
+  ALL_REFS.forEach(function (r) { r.lines.forEach(function (l) { tasksFor(l, day).forEach(function (t) {
+    var s = st[jobKey(l.id, t, day)]; if (s) log.push({ at: s.at, local: s.local, r: r, l: l, t: t });
+  }); }); });
+  log.sort(function (x, y) { return y.at - x.at; });
+  var shown = logAll ? log : log.slice(0, 20);
+  return '<section class="card audit" aria-labelledby="audh"><h3 id="audh">Ready to audit · ' + esc(longDay(day)) + '</h3>' +
+    (fin.length ? '<ul class="fin-list">' + fin.map(function (f) { return '<li><a href="#a' + f.a.n + '">' + esc(areaLabel(f.a)) + '</a><span>finished ' + hm(f.at) + '</span></li>'; }).join('') + '</ul>'
+      : '<p class="mute">No area finished yet.</p>') +
+    '<p class="mute">' + fin.length + ' of ' + AREAS.length + ' areas finished · ' + going + ' under way</p>' +
+    '<h3>Completions · newest first</h3>' + (log.length ? '<ol class="log">' + shown.map(function (e) {
+      var a = AREA_OF[e.r.ref];
+      return '<li' + (isExtra(e.t) ? ' class="x"' : '') + '><time>' + hm(e.at) + '</time><span><b>' + esc(e.r.ref) + '</b> ' + esc(TASKS[e.t] || e.t) + (isExtra(e.t) ? ' (not in %)' : '') + '<small>' + esc(e.l.label) + ' · ' + (a.n ? 'Area ' + a.n : esc(a.name)) + (e.local ? ' · waiting for signal' : '') + '</small></span></li>';
+    }).join('') + '</ol>' + (log.length > 20 ? '<button class="showall" type="button" data-logall="1" aria-expanded="' + logAll + '">' + (logAll ? 'Show the latest 20' : 'Show all ' + log.length + ' completions') + '</button>' : '')
+      : '<p class="mute">Nothing completed yet for this service day.</p>') + '</section>';
 }
 function orowHtml(r, day, st) {
   var rs = refStats(r, day, st);
@@ -561,7 +606,7 @@ function areasHtml(day, st, skipRef) {
   }).join('');
 }
 function viewHtml(day, st) {
-  return '<p class="viewonly">View only. To tick a reference, scan the completion QR code printed for it.</p>' + areasHtml(day, st);
+  return '<p class="viewonly">View only. To complete a job, scan the Pump out or Clean &amp; restock QR code printed for that reference.</p>' + auditHtml(day, st) + areasHtml(day, st);
 }
 
 var lastParts = {};
@@ -582,6 +627,7 @@ function render() {
     view: mode === 'tick' ? tickView(day, st) : viewHtml(day, st),
   };
   /* only a part that changed is redrawn, so a poll that changes nothing never replaces a button under a finger */
+  if (closing && mode === 'tick' && !waiting()) tryClose();
   var changed = Object.keys(parts).filter(function (k) { return lastParts[k] !== parts[k]; });
   if (!changed.length) return;
   var focusId = document.activeElement && document.activeElement.id;
@@ -592,7 +638,7 @@ function render() {
 }
 
 document.addEventListener('click', function (ev) {
-  var b = ev.target.closest('[data-day],[data-job],[data-undo],[data-keep],[data-area],[data-showall],[data-back],[data-stay],[data-dismiss],[data-reload]');
+  var b = ev.target.closest('[data-day],[data-job],[data-undo],[data-keep],[data-area],[data-showall],[data-back],[data-stay],[data-dismiss],[data-reload],[data-save],[data-unsave],[data-logall]');
   if (!b || b.disabled) return;
   var ds = b.dataset;
   if (ds.day) { choose(ds.day); render(); refocus('day-' + ds.day); return; }
@@ -601,11 +647,16 @@ document.addEventListener('click', function (ev) {
   if (ds.keep) { var k = confirmKey; confirmKey = null; render(); if (k) refocus('j-' + k); return; }
   if (ds.area) { var n = +ds.area; if (openAreas[n]) delete openAreas[n]; else openAreas[n] = 1; render(); refocus('ah-' + n); return; }
   if (ds.showall) { showAll = !showAll; render(); return; }
+  if (ds.logall) { logAll = !logAll; render(); return; }
+  if (ds.save) { closing = true; closeTried = false; confirmKey = null; pump(); poll(); render(); window.scrollTo(0, 0); if (!waiting()) tryClose(); return; }
+  if (ds.unsave) { closing = false; render(); return; }
   if (ds.reload) { location.reload(); return; }
   if (ds.back) { pick = null; advance = null; render(); return; }
   if (ds.stay) { choose(ds.stay); render(); return; }
   if (ds.dismiss) { if (ds.dismiss === 'advance') advance = null; else if (ds.dismiss === 'notices') notices = []; else notices.splice(+ds.dismiss.slice(1), 1); render(); }
 });
+var closeTried = false;
+function tryClose() { if (closeTried) return; closeTried = true; setTimeout(function () { try { if (closing && !waiting()) window.close(); } catch (e) {} }, 1200); }
 window.addEventListener('hashchange', function () { readHash(); render(); scrollToFocus(); focusPending = true; poll(); });
 ['touchstart', 'wheel', 'keydown'].forEach(function (t) { window.addEventListener(t, function () { focusPending = false; }, { passive: true }); });
 window.addEventListener('online', function () { netDown = false; if (!busyUntil || Date.now() >= busyUntil) { pausedUntil = 0; backoffStep = 0; } poll(); pump(); render(); });
@@ -630,7 +681,7 @@ setInterval(function () { if (final) { renderStatus(); return; } watchClock(); r
 
 /* for the tests only: pure functions and a read-only look at the state */
 window.svc1067 = { svcDay: svcDay, autoDay: autoDay, jobStates: jobStates, groupStats: groupStats, refStats: refStats,
-  tasksFor: tasksFor, shownDay: shownDay, now: now, offset: function () { return offset; },
+  tasksFor: tasksFor, shownTasks: shownTasks, group: function () { return curGroup; }, closing: function () { return closing; }, shownDay: shownDay, now: now, offset: function () { return offset; },
   outbox: function () { return outbox.map(wire); }, mode: function () { return mode; }, final: function () { return final; },
   areas: AREAS, days: DAYS };
 

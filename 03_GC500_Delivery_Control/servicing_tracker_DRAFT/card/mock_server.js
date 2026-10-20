@@ -32,7 +32,7 @@
 const http = require('http'), fs = require('fs'), path = require('path'), crypto = require('crypto');
 
 const SERVER_JS = process.env.SERVER_JS || path.join(__dirname, '..', '..', 'server_v5.89_servicing_tracker_DRAFT', 'server.js');
-const TASK_IDS = ['pump', 'water', 'clean', 'lock'];
+const TASK_WORD = /^[a-z][a-z0-9_]{0,23}$/;   /* the live service's TRACK_WORD_RE (v5.91) for kinds, plans and tasks: pan16, lockup, refill */
 const CARD_TOKEN_RE = /^[A-Za-z0-9_-]{20,64}$/;
 const DAY_RE = /^\d{4}-\d{2}-\d{2}$/;
 const H = 3600000;
@@ -61,11 +61,11 @@ function validTracker(t) {
   const kinds = Object.keys(t.plans);
   if (!kinds.length || kinds.length > 10) return 'tracker.plans needs 1 to 10 kinds';
   for (const k of kinds) {
-    if (!/^[a-z]{1,16}$/.test(k) || !plain(t.plans[k])) return 'bad plan kind';
+    if (!TASK_WORD.test(k) || !plain(t.plans[k])) return 'bad plan kind';
     for (const p of Object.keys(t.plans[k])) {
-      if (!/^[a-z]{1,16}$/.test(p)) return 'bad plan name';
+      if (!TASK_WORD.test(p)) return 'bad plan name';
       const tasks = t.plans[k][p];
-      if (!Array.isArray(tasks) || !tasks.length || tasks.some(x => TASK_IDS.indexOf(x) < 0)) return 'bad tasks in plan ' + k + '.' + p;
+      if (!Array.isArray(tasks) || !tasks.length || tasks.some(x => !TASK_WORD.test(String(x)))) return 'bad tasks in plan ' + k + '.' + p;
     }
   }
   if (!Array.isArray(t.days) || !t.days.length || t.days.length > 10) return 'tracker.days needs 1 to 10 days';

@@ -14,6 +14,9 @@
      another phone. A voided tick (`voided`/`void`, or listed in a `voids` event from the edit link) counts for nothing.
    - A job's time is the earliest uncancelled tapped_at, never later than that tick's service `at`, never in the future.
      A tick with no usable tapped_at (the service drops one that is nowhere near its day) takes its `at`.
+   - Andrew, 20 Oct 2026: "a button for if these were refilled but not to become part of a completion percentage".
+     A task listed in cfg.extras (Refilled) is ticked and timed like any job but is left out of every percentage,
+     every job count, a reference's "done" and an area's finished time.
    - Percentages (area and everything) = done jobs / all jobs for that day, each job weighed by its line's units
      (WC07's 20 FWF weigh 20), rounded DOWN so 99.x never shows 100.
    - A reference (a location) is done when every job on every one of its lines is done. A unit is serviced when every
@@ -45,6 +48,8 @@ function dayOpen(id, ms) { return id <= svcDay(ms); }       /* the service refus
 /* ---- what a line needs on a day: the plan's tasks for its kind */
 function tasksFor(cfg, line, dayId) { var d = dayOf(cfg, dayId); var p = cfg.plans[line.kind]; return (p && d && p[d.plan]) || []; }
 function jobKey(line, task, day) { return line + '|' + task + '|' + day; }
+function isExtra(cfg, task) { return !!(cfg.extras && cfg.extras.indexOf(task) >= 0); }
+function countedFor(cfg, line, dayId) { return tasksFor(cfg, line, dayId).filter(function (t) { return !isExtra(cfg, t); }); }
 
 /* ---- the state of every job from the ticks (any order: cancelling goes by id, not by arrival) */
 function jobStates(events, nowMs) {
@@ -79,7 +84,7 @@ function pct(d, w) { return w ? Math.floor(d * 100 / w) : 0; }
 function refStats(cfg, r, day, st) {
   var w = 0, d = 0, last = 0, pend = false, units = 0, unitsDone = 0;
   r.lines.forEach(function (l) {
-    var ts = tasksFor(cfg, l, day), all = ts.length > 0;
+    var ts = countedFor(cfg, l, day), all = ts.length > 0;
     ts.forEach(function (t) {
       w += l.qty; var s = st[jobKey(l.id, t, day)];
       if (s) { d += l.qty; if (s.at > last) last = s.at; if (s.local) pend = true; } else all = false;
@@ -104,7 +109,7 @@ function groupStats(cfg, refs, day, st) {
 function taskStats(cfg, refs, day, st) {
   var out = Object.create(null);
   refs.forEach(function (r) { r.lines.forEach(function (l) {
-    tasksFor(cfg, l, day).forEach(function (t) {
+    countedFor(cfg, l, day).forEach(function (t) {
       var g = out[t] || (out[t] = { w: 0, d: 0, pct: 0 });
       g.w += l.qty;
       if (st[jobKey(l.id, t, day)]) g.d += l.qty;
@@ -115,6 +120,6 @@ function taskStats(cfg, refs, day, st) {
 }
 
 return { HOUR: HOUR, svcDay: svcDay, dayStart: dayStart, hm: hm, dayOf: dayOf, autoDay: autoDay, dayOpen: dayOpen,
-  tasksFor: tasksFor, jobKey: jobKey, jobStates: jobStates, jobAt: jobAt, pct: pct, refStats: refStats, groupStats: groupStats, taskStats: taskStats };
+  tasksFor: tasksFor, countedFor: countedFor, isExtra: isExtra, jobKey: jobKey, jobStates: jobStates, jobAt: jobAt, pct: pct, refStats: refStats, groupStats: groupStats, taskStats: taskStats };
 })();
 if (typeof module === 'object' && module && module.exports) module.exports = SvcState;
