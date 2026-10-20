@@ -533,11 +533,20 @@ class Pack:
         pd = d.plan_days()
         line3 = f'Jobs: {jobs_phrase(d, refs)}. The phone shows this area\'s % complete and the overall %.'
         txt(c, 37 * mm, top - 26 * mm, line3, 'sans', fit(line3, 'sans', 8.8, W - 46 * mm), MUTE)
-        y = top - 30 * mm
+        # which code is whose (Andrew, 20 Oct 2026: crews by role, never by name; no one is allocated an area)
+        c.setFillColor(PAPER); c.roundRect(9 * mm, top - 35.2 * mm, W - 18 * mm, 6.6 * mm, 1.6 * mm, stroke=0, fill=1)
+        xx = 12 * mm; yy = top - 32.9 * mm
+        bits = (('Pump trucks: scan the ', INK), ('orange PUMP OUT code', ORANGE), ('   ·   Cleaners: scan the ', INK), ('blue CLEAN & RESTOCK code', BLUE), ('   ·   Water truck: tap ', INK), ('Refilled', INK))
+        fs = 9
+        while fs > 6 and sum(sw(w, 'bold', fs) for w, _ in bits) > W - 24 * mm: fs = round(fs - 0.2, 1)
+        for words, colr in bits:
+            txt(c, xx, yy, words, 'bold', fs, colr); xx += sw(words, 'bold', fs)
+        y = top - 37 * mm
         box_full, box_split, box_far = (self.maps['layout'][k] for k in ('area_map_full', 'area_map_split', 'area_map_far'))
         if A.get('main'):
             split = bool(A['far']); bx = box_split if split else box_full
-            mb = MapBox(self.maps, A['main']['key'], 9 * mm, y - bx['h'] * mm, bx['w'] * mm, bx['h'] * mm)
+            mh_ = bx['h'] - 7   # 7 mm back for the crew line above (the map keeps its shape)
+            mb = MapBox(self.maps, A['main']['key'], 9 * mm, y - mh_ * mm, bx['w'] * mm, mh_ * mm)
             mb.draw(c, self.maps_dir); self.circles(c, mb, A['main']['refs'], 3.4 * mm); mb.furniture(c)
             y = mb.y - 3 * mm
             if split:
