@@ -81,6 +81,7 @@ spec.ops.forEach((o, i) => {
   else if (o.op === 'vms_plan') { if (!/^\d{2}[a-z]?$/.test(o.pos || '')) fail(at + 'needs a VMS plan position'); if (!(o.lat <= -27 && o.lat >= -29 && o.lon >= 153 && o.lon <= 154)) fail(at + 'not a Gold Coast position'); if (typeof o.how !== 'string' || !o.how.trim() || o.how.length > 200) fail(at + 'needs how it was arrived at'); if (/\b(codex|claude|gpt|model|agent)\b/i.test(o.how)) fail(at + 'text names a system'); }
   else if (o.op === 'sub_move') { if (!REFRE.test(o.from || '') || !REFRE.test(o.to || '') || o.from === o.to) fail(at + 'needs two references'); if (!/^[A-Za-z0-9-]{1,12}$/.test(o.no || '')) fail(at + 'needs the unit number'); if (typeof o.co !== 'string' || !o.co.trim()) fail(at + 'needs the sub-hire company'); }
   else if (o.op === 'place') { if (!REFRE.test(o.ref || '')) fail(at + 'needs a reference'); if (!(o.lat <= -27 && o.lat >= -29 && o.lon >= 153 && o.lon <= 154)) fail(at + 'not a Gold Coast position'); if (typeof o.how !== 'string' || !o.how.trim() || o.how.length > 200) fail(at + 'needs how it was arrived at'); if (/\b(codex|claude|gpt|model|agent)\b/i.test(o.how + ' ' + (o.source || ''))) fail(at + 'text names a system'); }
+  else if (o.op === 'item_type') { if (!REFRE.test(o.ref || '')) fail(at + 'needs a reference'); if (typeof o.item !== 'string' || !o.item.trim() || o.item.length > 80) fail(at + 'needs the item type'); }
   else if (o.op === 'set_qty') { if (!REFRE.test(o.ref || '')) fail(at + 'needs a reference'); if (!(o.qty === '' || (Number.isInteger(o.qty) && o.qty >= 0))) fail(at + 'qty must be a whole number or "" for the schedule\'s own'); }
   else fail(at + 'unknown op ' + o.op);
 });
@@ -88,7 +89,7 @@ const VKEYS = [...new Set(spec.ops.filter(o => o.op === 'vms_rego' || o.op === '
 const REFS = [...new Set(spec.ops.flatMap(o => [o.ref, o.from, o.to]).filter(Boolean))], QIDS = [...new Set(spec.ops.filter(o => o.op === 'answer').map(o => o.id))];
 /* the documents this operation may touch: the references' own delivery, assetNumbers and accessories documents, the
    answers documents named, and the audit documents the page keeps beside them (stamps, by, deleted, notes, spares) */
-const ALLOWED_COLLS = new Set(['delivery', 'assetNumbers', 'accessories', 'answers', 'stamps', 'by', 'deleted', 'notes', 'spares', 'loads', 'qtys', 'units', 'labour', 'supplied', 'vmsboard', 'places']);
+const ALLOWED_COLLS = new Set(['delivery', 'assetNumbers', 'accessories', 'answers', 'stamps', 'by', 'deleted', 'notes', 'spares', 'loads', 'qtys', 'units', 'labour', 'supplied', 'vmsboard', 'places', 'items']);
 const VPOS = new Set(spec.ops.filter(o => o.op === 'vms_plan').map(o => o.pos)); /* VMS plan positions (vms1024/<pos> on loads) the spec names */
 const SPARE_IDS = new Set(spec.ops.filter(o => o.op === 'spare_use').map(o => o.id)); /* a spare is named by its own id; only the ones the spec names */
 const docIdDecode = id => String(id).replace(/~2f~/g, '/').replace(/~7c~/g, '|').replace(/~20~/g, ' ').replace(/~26~/g, '&');
@@ -250,6 +251,9 @@ function applyOps(spec) {
       } else if (op.op === 'number_item') {
         const ok = setNumberItem(op.ref, op.no, op.item); if (ok === false) throw new Error('setNumberItem refused ' + op.ref + ' ' + op.no);
         const cur = typeof numberItemOf === 'function' ? numberItemOf(assetOf(op.ref), op.no) : null; r.result = 'counts as ' + (cur || op.item);
+      } else if (op.op === 'item_type') { /* v20 Oct: the reference's item type through the page's own setItemType */
+        const ok = setItemType(op.ref, op.item); if (ok === false) throw new Error('setItemType refused ' + op.ref + ' ' + op.item + ' (or it already reads that)');
+        r.result = 'item type ' + ((S.items || {})[op.ref] || op.item);
       } else if (op.op === 'complete') {
         if (deliveryOf(op.ref).done) r.result = 'already complete';
         else { if (deliveryOf(op.ref).state !== 'on site') throw new Error(op.ref + ' is not on site'); const ok = setDone(op.ref, true); if (ok === false) throw new Error('setDone refused ' + op.ref); if (!deliveryOf(op.ref).done) throw new Error(op.ref + ' did not complete'); r.result = 'complete'; }
@@ -494,6 +498,7 @@ function applyOps(spec) {
         if (op.op === 'complete_again' && (((docs.delivery || {})[op.ref] || {}).done) !== true) problems.push(op.ref + ' not complete ' + where);
         if (op.op === 'complete' && (((docs.delivery || {})[op.ref] || {}).done) !== true) problems.push(op.ref + ' not complete ' + where);
         if (op.op === 'labour_on' && (((docs.labour || {})[((op.unit ? op.ref + '/u' + op.unit.replace(/^u/, '') : op.ref) + '|' + op.disc + '|' + op.item + '|' + op.line).replace(/\//g, '~2f~').replace(/\|/g, '~7c~').replace(/ /g, '~20~').replace(/&/g, '~26~')] || {}).v) !== true) problems.push(op.ref + ' ' + op.unit + ' ' + op.line + ' not ticked ' + where);
+        if (op.op === 'item_type') { const iv = ((docs.items || {})[op.ref]); if (!iv || (typeof iv === 'object' ? iv.v : iv) !== op.item) problems.push(op.ref + ' item type is not ' + op.item + ' ' + where); }
         if (op.op === 'supplied' && !((((docs.supplied || {})[op.ref] || {}).items) || []).some(x => x.asked === op.item && x.qty_supplied === op.qty)) problems.push(op.ref + ' supplied is not ' + op.qty + ' ' + where);
         if (op.op === 'vms_fleet' && ![op.fleet, null, undefined].includes((((docs.vmsboard || {})[op.key]) || {}).fleet)) problems.push(op.key + ' fleet is not ' + op.fleet + ' ' + where);
         if (op.op === 'vms_rego' && ((((docs.vmsboard || {})[op.key]) || {}).rego) !== op.rego) problems.push(op.key + ' rego is not ' + op.rego + ' ' + where);

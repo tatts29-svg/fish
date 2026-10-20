@@ -325,3 +325,10 @@ steps, WC60 1087500 cleaning, VMS05 install, WC31 block 12 steps); WC31 block 74
 WC67 172824 and 0714 demob; T0024 0164 demob (≈ $1,046). 33 documents, VERIFIED. Transport: 36 legs still held by the
 page for want of a card price (VMS POA, water barriers, GN20, WC09 pee panels, WC100 trailers, T0023, TM01, P34 chairs,
 GN04/GN19 delivery) - put to Andrew, nothing invented.
+
+## Applied 20 Oct 2026 — from Schedule 11 (record 10135 → 10141)
+`gn24_tm01_spec.json`: TM01 quantity 10 (named "Trakmat × 10"; 10 trakmats 16 Oct, docket 26133383); GN24 item type 60kva
+and unit 1277089 counted as 60kva (Schedule 11: "SPARE GN24 60KVA TRAILER 1277089"; Andrew chose "60 kVA trailer"). New
+runner step `item_type` (the page's `setItemType`; collection `items`). In-memory first: Costs unchanged (trakmat has no
+card rate; the spare is not priced). GN10 stays 20 kVA: Andrew, charge what was requested (AGENTS.md). See
+`../review_20Oct2026_schedule11/`.
