@@ -37,7 +37,7 @@ const FRI = '2026-10-23', SAT = '2026-10-24', SUN = '2026-10-25';
   check('waste tank: Pump out every night', P.tank.night.join() === 'pump' && P.tank.final.join() === 'pump');
   check('toilet block (own tank) and sewer-connected: Clean & restock only', ['block', 'sewer'].every(k => P[k].night.join() === 'clean' && P[k].final.join() === 'clean'));
   check('every tanked block has its waste tank at the same reference', ALL_REFS.every(r => !r.lines.some(l => l.kind === 'block') || r.lines.some(l => l.kind === 'tank')));
-  check('sewer-connected are WC15, WC16, WC17, T0243', JSON.stringify(ALL_REFS.filter(r => r.lines.some(l => l.kind === 'sewer')).map(r => r.ref).sort()) === JSON.stringify(['T0243', 'WC15', 'WC16', 'WC17']));
+  check('sewer-connected are T0243, WC09, WC15, WC16, WC17 (9 blocks; the other 6 have waste tanks)', JSON.stringify(ALL_REFS.filter(r => r.lines.some(l => l.kind === 'sewer')).map(r => r.ref).sort()) === JSON.stringify(['T0243', 'WC09', 'WC15', 'WC16', 'WC17']) && ALL_REFS.reduce((n, r) => n + r.lines.filter(l => l.kind === 'sewer').reduce((m, l) => m + l.qty, 0), 0) === 9 && ALL_REFS.reduce((n, r) => n + r.lines.filter(l => l.kind === 'block').reduce((m, l) => m + l.qty, 0), 0) === 6);
   check('accessible toilets are their own kind; 16-pan its own kind', ALL_REFS.every(r => r.lines.every(l => (l.type === 'Accessible Toilet') === (l.kind === 'access') && (l.type === '16Pan Block') === (l.kind === 'pan16'))));
   check('Refilled is an extra; the two QR groups cover every task', DATA.extras.join() === 'refill' && DATA.groups.pump.tasks.join() === 'pump,lockup' && DATA.groups.clean.tasks.join() === 'clean,lockup,refill');
   const bad = JSON.parse(JSON.stringify(DATA)); bad.groups.clean.tasks = ['clean', 'lockup'];

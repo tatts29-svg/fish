@@ -153,7 +153,9 @@ def main():
         check('every reference: big REF, how many per line, every asset number, its job words, both QR labels', not probs, probs[:10])
         fwf_sun = [x['ref'] for x in data.refs if any(l['kind'] in ('fwf', 'access', 'pan16') for l in x['lines']) and 'Sun 25 night: one job - Pump out, clean & lock.' not in norm[page_of[x['ref']] - 1]]
         check('FWF, accessible and 16-pan say Sunday night: one job - Pump out, clean & lock', not fwf_sun, fwf_sun[:5])
-        check('sewer-connected references get the Clean & restock code only: ' + ', '.join(x['ref'] for x in data.refs if data.groups_for(x) == ['clean']), sorted(x['ref'] for x in data.refs if data.groups_for(x) == ['clean']) == ['T0243', 'WC15', 'WC16', 'WC17'])
+        sewer = sorted(x['ref'] for x in data.refs if any(l['kind'] == 'sewer' for l in x['lines']))
+        only = [x['ref'] for x in data.refs if all(l['kind'] == 'sewer' for l in x['lines'])]
+        check('sewer-connected (' + ', '.join(sewer) + '): blocks are Clean & restock only; a sewer-only reference gets the Clean & restock code alone', sewer == ['T0243', 'WC09', 'WC15', 'WC16', 'WC17'] and all(data.groups_for(next(x for x in data.refs if x['ref'] == k)) == ['clean'] for k in only), (sewer, only))
         refill = [x['ref'] for x in data.refs if any(l['kind'] in ('fwf', 'access') for l in x['lines']) and 'Refilled (not in %)' not in norm[page_of[x['ref']] - 1]]
         check('FWF and accessible show Refilled marked (not in %)', not refill, refill[:5])
         tank_only = [x['ref'] for x in data.refs if all(l['kind'] == 'tank' for l in x['lines'])]
