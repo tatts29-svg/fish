@@ -273,3 +273,22 @@ Page v10.80 (live 10:07) put VMS05 on the register first.
 **What was done** (`t0024_pin_spec.json`): T0024 placed at that spot.
 
 **Checks:** dry run first; 3 documents; record 10036 → 10039; VERIFIED (`report_20261020T003401Z.json`).
+
+## Applied: 0164 to T0024 at EVL; T0024 and WC31 placed, 20 Oct 2026 10:55 AEST
+
+**Andrew:**
+- "asset no 0164 you have in wrong area it belong here EVL ... this is an event portable toilet"
+- "pinned location is -27.983217488199138, 153.4266422001142"
+- He chose "Add to T0024".
+- WC31's 16-pan blocks 12 and 74 are at -27.98253262858165, 153.42515075329888.
+
+**New runner step:** `sub_move`, which takes a sub-hire unit off one reference with the drawer's `unitRemove` and puts it on another with `invPutOn`.
+
+**What was done** (`evl_wc31_spec.json`):
+- 0164 moved WC05 → T0024.
+- T0024 placed at -27.983217, 153.426642.
+- WC31 placed at -27.982533, 153.425151.
+
+**Checks:**
+- In-memory run first: Costs and the FWF counts unchanged.
+- Backup first; dry run first; 12 documents; record 10039 → 10051; VERIFIED (`report_20261020T005533Z.json`).

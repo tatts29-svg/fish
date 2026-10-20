@@ -79,12 +79,13 @@ spec.ops.forEach((o, i) => {
   else if (o.op === 'note_append') { if (!REFRE.test(o.ref || '')) fail(at + 'needs a reference'); if (typeof o.text !== 'string' || !o.text.trim() || o.text.length > 600) fail(at + 'needs text under 600 characters'); if (/\b(codex|claude|gpt|model|agent)\b/i.test(o.text)) fail(at + 'text names a system'); }
   else if (o.op === 'spare_use') { if (!REFRE.test(o.ref || '')) fail(at + 'needs a reference'); if (!/^SP-[a-z0-9]{6,20}$/.test(o.id || '')) fail(at + 'needs a spare id'); if (!NORE.test(o.no || '')) fail(at + 'needs the spare\'s number'); }
   else if (o.op === 'vms_plan') { if (!/^\d{2}[a-z]?$/.test(o.pos || '')) fail(at + 'needs a VMS plan position'); if (!(o.lat <= -27 && o.lat >= -29 && o.lon >= 153 && o.lon <= 154)) fail(at + 'not a Gold Coast position'); if (typeof o.how !== 'string' || !o.how.trim() || o.how.length > 200) fail(at + 'needs how it was arrived at'); if (/\b(codex|claude|gpt|model|agent)\b/i.test(o.how)) fail(at + 'text names a system'); }
+  else if (o.op === 'sub_move') { if (!REFRE.test(o.from || '') || !REFRE.test(o.to || '') || o.from === o.to) fail(at + 'needs two references'); if (!/^[A-Za-z0-9-]{1,12}$/.test(o.no || '')) fail(at + 'needs the unit number'); if (typeof o.co !== 'string' || !o.co.trim()) fail(at + 'needs the sub-hire company'); }
   else if (o.op === 'place') { if (!REFRE.test(o.ref || '')) fail(at + 'needs a reference'); if (!(o.lat <= -27 && o.lat >= -29 && o.lon >= 153 && o.lon <= 154)) fail(at + 'not a Gold Coast position'); if (typeof o.how !== 'string' || !o.how.trim() || o.how.length > 200) fail(at + 'needs how it was arrived at'); if (/\b(codex|claude|gpt|model|agent)\b/i.test(o.how + ' ' + (o.source || ''))) fail(at + 'text names a system'); }
   else if (o.op === 'set_qty') { if (!REFRE.test(o.ref || '')) fail(at + 'needs a reference'); if (!(o.qty === '' || (Number.isInteger(o.qty) && o.qty >= 0))) fail(at + 'qty must be a whole number or "" for the schedule\'s own'); }
   else fail(at + 'unknown op ' + o.op);
 });
 const VKEYS = [...new Set(spec.ops.filter(o => o.op === 'vms_rego' || o.op === 'vms_fleet' || o.op === 'vms_board').map(o => o.key))];
-const REFS = [...new Set(spec.ops.filter(o => o.ref).map(o => o.ref))], QIDS = [...new Set(spec.ops.filter(o => o.op === 'answer').map(o => o.id))];
+const REFS = [...new Set(spec.ops.flatMap(o => [o.ref, o.from, o.to]).filter(Boolean))], QIDS = [...new Set(spec.ops.filter(o => o.op === 'answer').map(o => o.id))];
 /* the documents this operation may touch: the references' own delivery, assetNumbers and accessories documents, the
    answers documents named, and the audit documents the page keeps beside them (stamps, by, deleted, notes, spares) */
 const ALLOWED_COLLS = new Set(['delivery', 'assetNumbers', 'accessories', 'answers', 'stamps', 'by', 'deleted', 'notes', 'spares', 'loads', 'qtys', 'units', 'labour', 'supplied', 'vmsboard', 'places']);
@@ -342,6 +343,17 @@ function applyOps(spec) {
         if (!VMS1024.setPosition(op.pos, op.lat, op.lon, op.how)) throw new Error('setPosition refused ' + op.pos);
         const R = VMS1024.rec(op.pos) || {}; if (R.lat !== op.lat || R.lon !== op.lon) throw new Error(op.pos + ' did not take the position');
         r.result = 'VMS plan ' + op.pos + ' pinned at ' + op.lat + ', ' + op.lon;
+      } else if (op.op === 'sub_move') {
+        /* a sub-hire unit from one reference to another: the drawer's own take-off on the first, the put-on on the second */
+        if (op.from && !isRef(op.from)) throw new Error(op.from + ' is not a reference on the page');
+        if (op.to && !isRef(op.to)) throw new Error(op.to + ' is not a reference on the page');
+        const u = unitsOf(op.from).find(x => String(x.asset_no || '') === op.no); if (!u) throw new Error(op.no + ' is not on ' + op.from);
+        if (!/^Sub-hire:/i.test(String(u.label || ''))) throw new Error(op.no + ' on ' + op.from + ' is not a sub-hire unit (' + u.label + ')');
+        if (!unitRemove(op.from, {asset_no: op.no})) throw new Error('unitRemove refused ' + op.no + ' on ' + op.from);
+        if (!invPutOn(op.to, op.co, op.no, who)) throw new Error('invPutOn refused ' + op.no + ' onto ' + op.to);
+        if (unitsOf(op.from).some(x => String(x.asset_no || '') === op.no)) throw new Error(op.no + ' still on ' + op.from);
+        if (!subOf(op.to).some(x => String(x.no) === op.no)) throw new Error(op.to + ' does not carry ' + op.no);
+        r.result = op.no + ' (' + op.co + ') moved from ' + op.from + ' to ' + op.to;
       } else if (op.op === 'place') {
         const P = placeHere(op.ref, op.lat, op.lon, {how: op.how, source: op.source || null, note: op.note || null});
         if (!P || P.lat !== op.lat || P.lon !== op.lon) throw new Error('placeHere refused ' + op.ref);
@@ -489,6 +501,7 @@ function applyOps(spec) {
         if (op.op === 'vms_board') { const vb = (((docs.vmsboard || {})[op.key]) || {}); if (![op.fleet, null, undefined].includes(vb.fleet) || vb.rego !== op.rego || vb.on !== op.on) problems.push(op.key + ' is not ' + op.fleet + '/' + op.rego + ' on ' + op.on + ' ' + where); }
         if (op.op === 'note_append' && !String(((docs.delivery || {})[op.ref] || {}).note || '').includes(op.text)) problems.push(op.ref + ' note lacks the added text ' + where);
         if (op.op === 'spare_use' && (docs.spares || {})[op.id]) problems.push(op.no + ' still in spares ' + where);
+        if (op.op === 'sub_move') { const has = r => (((docs.units || {})[r] || {}).units || []).some(u => String(u.asset_no || '') === op.no); if (has(op.from) || !has(op.to)) problems.push(op.no + ' is not moved from ' + op.from + ' to ' + op.to + ' ' + where); }
         if (op.op === 'place') { const D = (docs.places || {})[op.ref] || {}, P = D.v || D; /* a value-kind collection: the document holds {v} */ if (P.lat !== op.lat || P.lon !== op.lon) problems.push(op.ref + ' is not placed at ' + op.lat + ', ' + op.lon + ' ' + where); }
         if (op.op === 'set_qty' && op.qty !== '' && ((((docs.qtys || {})[op.ref] || {}).v)) !== op.qty) problems.push(op.ref + ' quantity is not ' + op.qty + ' ' + where);
       } return problems; };
