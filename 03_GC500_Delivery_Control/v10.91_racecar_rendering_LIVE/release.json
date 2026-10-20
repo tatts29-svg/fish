@@ -1,0 +1,30 @@
+{
+  "author": "Andrew Fisher",
+  "scope": "Actual public phone; PAGE unset; read-only software-rendered controls",
+  "publicUrl": "https://gc500-production.up.railway.app/v/Coates-GC500-2026",
+  "beforeSha256": "7562d69c41506d5e7404a52f7f7cb479a5e967c3f6935d567d2a5b845d2992bc",
+  "afterSha256": "7562d69c41506d5e7404a52f7f7cb479a5e967c3f6935d567d2a5b845d2992bc",
+  "bytes": 18598425,
+  "PAGE": null,
+  "testSha256": "1ac2ce91897e2bbb2183e3eef9b303b64f9c73a8f7674a1a04de67ca71cebad2",
+  "resultSha256": "a5b13a2e33d8803b4c1e28b9720987b7ada087a2f949bb7b3ef9e35609caf456",
+  "screenshotSha256": "bf48a34912946046ca608da2645a63c2de3b9dabe3d5b98de0b230a52991ef46",
+  "counts": {
+    "page": 0,
+    "live": 73,
+    "blocked": 0
+  },
+  "pageErrors": 0,
+  "glError": 0,
+  "pass": true,
+  "screenshotInspection": "PASS; car, surroundings and phone controls visually inspected; PNG exactly matches final candidate phone screenshot",
+  "version": "v10.91",
+  "status": "VERIFIED LIVE",
+  "sourceCommit": "73333ce695efc011ed1fb32fdce5c765819490f2",
+  "uploadedAt": "2026-10-20T11:28:04.224Z",
+  "liveTime": "20 Oct 2026 21:28 AEST",
+  "baseSha256": "b447b32ee6afe9d1a64f45a8c53a67e7d01f4d11a5a04bbdcd04bf9ec2b13111",
+  "guardedUpload": "PASS",
+  "exactPublicReadBack": "PASS",
+  "physicalDeviceFPS": "Not measured; validation renderer is ANGLE SwiftShader"
+}

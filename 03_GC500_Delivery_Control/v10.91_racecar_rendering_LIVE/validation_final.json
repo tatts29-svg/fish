@@ -1,6 +1,6 @@
 {
   "author": "Andrew Fisher",
-  "status": "READY TO UPLOAD",
+  "status": "VERIFIED LIVE",
   "baseVersion": "v10.90",
   "baseSha256": "b447b32ee6afe9d1a64f45a8c53a67e7d01f4d11a5a04bbdcd04bf9ec2b13111",
   "candidateVersion": "v10.91",
@@ -47,10 +47,7 @@
     "shader-adaptive.json": "f64d45dfa9537020613d87b18f38923185dd39305dfeb87e84cd8b9335f38191",
     "source.json": "5f7160d5b6884e16365ae2c57404620cea10424e233a28a6f6f9bc74ac9efc84"
   },
-  "outstanding": [
-    "guarded publication and exact public-byte read-back",
-    "actual public phone controls verification"
-  ],
+  "outstanding": [],
   "rendererLimitation": "Chromium ANGLE SwiftShader; no physical-device FPS claim",
   "sweeps": {
     "desktop": {
@@ -76,5 +73,22 @@
     "result": "PASS",
     "sha256": "f5c1dd8cc5c00514e45bb08639a490d2f707a37acd6563fdf1bb092c01209fa8"
   },
-  "guardedDryRun": "PASS: edit access and exact unchanged live base"
+  "guardedDryRun": "PASS: edit access and exact unchanged live base",
+  "guardedUploadAndExactReadBack": "PASS",
+  "actualPublicPhone": {
+    "result": "PASS",
+    "localPageSubstitution": false,
+    "readRequests": 73,
+    "attemptedWrites": 0,
+    "pageErrors": 0,
+    "glErrors": 0,
+    "reflectionUniforms": [
+      4,
+      0,
+      4
+    ],
+    "bothQualitiesDraws": 28,
+    "nativeRecordAndSimulationPreserved": true,
+    "screenshotExactCandidateMatch": true
+  }
 }

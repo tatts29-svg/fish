@@ -1,4 +1,4 @@
-# v10.91 racecar rendering — READY TO UPLOAD
+# v10.91 racecar rendering — VERIFIED LIVE
 
 Author: Andrew Fisher
 
@@ -24,4 +24,4 @@ Private screenshots and detailed browser evidence remain outside the repository.
 
 Final candidate: `7562d69c41506d5e7404a52f7f7cb479a5e967c3f6935d567d2a5b845d2992bc` (18,598,425 bytes). The official live-base build and 148-script static check pass. Final source/geometry/atlas/native-draw/shader-adaptive proofs and desktop/phone runtime controls pass; both screenshots were inspected. The final car-render and adaptive scripts are byte-identical to the development candidate used for controlled appearance and draw comparisons.
 
-Status: READY TO UPLOAD. Final desktop and phone full sweeps each passed 25 routes, seven links and Back with zero errors or attempted native writes. Independent final-source review and guarded dry run also passed. Implementation and tests are frozen; guarded publication, exact public-byte read-back and actual public phone controls follow. `validation_development.json` and `validation_final.json` record exact source and evidence hashes. No live v10.91 claim is made.
+Status: VERIFIED LIVE — 20 Oct 2026 21:28 AEST. Source `73333ce695efc011ed1fb32fdce5c765819490f2`. Final desktop and phone full sweeps each passed 25 routes, seven links and Back with zero errors or attempted native writes. Independent final-source review, guarded upload and exact public-byte read-back passed. Actual public phone controls also pass, with no local page replacement, no GL/page errors or attempted writes, and matching full content hashes before and after. The public phone screenshot matches the tested candidate exactly. `release.json`, `validation_development.json` and `validation_final.json` record publication, source and evidence hashes.

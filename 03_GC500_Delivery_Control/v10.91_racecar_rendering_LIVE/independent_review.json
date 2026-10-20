@@ -1,0 +1,60 @@
+{
+  "author": "Andrew Fisher",
+  "status": "PASS",
+  "blocking_findings": [],
+  "candidate_version": "v10.91",
+  "candidate_sha256": "7562d69c41506d5e7404a52f7f7cb479a5e967c3f6935d567d2a5b845d2992bc",
+  "candidate_bytes": 18598425,
+  "base_sha256": "b447b32ee6afe9d1a64f45a8c53a67e7d01f4d11a5a04bbdcd04bf9ec2b13111",
+  "reviewed_development_sha256": "1f6405873eb17e8c0253df57b2baf0d2a34d32c85915d08fd3533e7ed09c05b9",
+  "implementation_sha256": {
+    "patch_v1091.py": "64e8c38d32dc164828a605125c936c7ce05c119263cc49dede0fddd4a1cb1429",
+    "car_batches1091.js": "2873d64bb9629029d83f4639fc86ed1417b5834a9d605682087a996ef2237ba5"
+  },
+  "exact_source_proof": {
+    "all_named_modules_unchanged": true,
+    "unchanged_script_count": 145,
+    "changed_script_count": 3,
+    "main_application_change": "footer version only",
+    "non_script_markup_styles_media_unchanged": true,
+    "car_and_adaptive_scripts_match_development": true,
+    "inherited_v1090_photo_showcase_audio_data_finance_servicing_preserved": true
+  },
+  "independent_cpu_checks": {
+    "source_guard_and_preservation": "PASS",
+    "geometry_both_qualities": "PASS",
+    "atlas_capability_cases": 4,
+    "native_transform_material_blend_depth_states": 6,
+    "shader_and_adaptive_contracts": 8
+  },
+  "owner_native_runtime_evidence_review": {
+    "desktop": "PASS",
+    "phone": "PASS",
+    "actual_reflection_uniforms": [
+      4,
+      0,
+      4
+    ],
+    "native_record_and_simulation_unchanged": true,
+    "page_gl_errors": 0,
+    "blocked_write_attempts": 0,
+    "evidence_manifest_sha256": "a3713d9f9e48988db756bb9cff4df3ddb4be38a2f2ff9068ba43ad7ddc3f9b46",
+    "all_manifest_file_hashes_verified": true,
+    "provenance": "Manifest ties result hashes to final candidate; owner confirmed exact PAGE path, successful sessions95352/62269 and unchanged candidate before/after runs.",
+    "state_equality_scope": "Vehicle-mode round trip; source preservation and CPU checks independently cover rendering/adaptive changes."
+  },
+  "review_evidence": [
+    "final-parity.json",
+    "final-source.json",
+    "final-geometry.json",
+    "final-atlas.json",
+    "final-draw-semantics.json",
+    "final-shader-adaptive.json",
+    "runtime-evidence-final.json"
+  ],
+  "remaining_release_checks": "Parent-owned full desktop/phone sweeps, guarded publication and public-byte read-back. This review does not claim those are complete.",
+  "limits": [
+    "Reviewer ran source/CPU checks only; no browser or live writes.",
+    "Owner runtime evidence uses ANGLE SwiftShader; no physical-device FPS claim."
+  ]
+}
