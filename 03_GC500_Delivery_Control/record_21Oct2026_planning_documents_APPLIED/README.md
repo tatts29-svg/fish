@@ -2,6 +2,8 @@
 
 Author: Andrew Fisher.
 
+Applied and verified 21 Oct 2026. Fifteen individually reviewed originals were added through fifteen successful native saves and exact downloaded-byte checks, following fifteen read-only practices. The library grew from 533 to 548 entries; all prior entries and the complete native state remained unchanged. The exact v10.95 public page was preserved. Source `0909a9cedbbd5c904f9c6e8fd6b5f40bce2bfaf7`; sanitized evidence is in `validation.json`.
+
 This is a file-library operation, not a page release. The private reviewed specification names one PDF and its approved ordinary library metadata. No attachment contents, private filenames, credentials or detailed findings belong in this folder.
 
 `record_document.cjs` uses the existing page's `SYNC.backend.upload` function. It never assigns an asset reference, changes a current-map pointer, or imports operational data. The document appears in the existing Maps and drawings collection. The library keeps its current audience.

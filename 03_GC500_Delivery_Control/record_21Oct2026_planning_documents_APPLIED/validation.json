@@ -1,0 +1,27 @@
+{
+  "author": "Andrew Fisher",
+  "state": "APPLIED_VERIFIED",
+  "source_commit": "0909a9cedbbd5c904f9c6e8fd6b5f40bce2bfaf7",
+  "page_sha256": "87b47dc52dc52dc9d078e8f77f79ed3c9e835244e5855e075a075aab1b338b47",
+  "runner_sha256": "817c5534cc7820ee064be2723d37f13d9dbe4e969da7b7c33513baa5d5526f55",
+  "guards_sha256": "1cb736306e6e1893010f0c1c1dc5c04e51f04e33519ef5dbdd0677433144edc2",
+  "completed_receipt_at": "2026-10-20T17:05:47.689767+00:00",
+  "practice_runs_passed": 15,
+  "native_file_uploads": 15,
+  "original_byte_download_checks_passed": 15,
+  "native_record_writes": 0,
+  "catalogue_before": 533,
+  "catalogue_after": 548,
+  "all_existing_file_entries_unchanged": true,
+  "native_state_unchanged_across_batch": true,
+  "native_version_before": 10353,
+  "native_version_after": 10353,
+  "native_projection_and_map_choice_checks": "PASS for every addition",
+  "final_public_page_hash_unchanged": true,
+  "source_checks": {
+    "focused_cpu_cases_passed": 199,
+    "independent_checkpoint_cases_passed": 9,
+    "captured_concurrency_fixture": "PASS"
+  },
+  "private_evidence": "Originals, metadata, identities, screenshots, backups and per-file read-backs retained outside GitHub."
+}
