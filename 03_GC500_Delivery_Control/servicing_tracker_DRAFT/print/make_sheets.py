@@ -100,6 +100,19 @@ def fit(s, font, size, width, smallest=5):
     while size > smallest and sw(s, font, size) > width: size -= 0.25
     return size
 
+def legend_cell(name, meta, width):
+    """Fit full name/counts into three lines; keep the more legible of the two allocations."""
+    choices = []
+    for name_limit in (2, 1):
+        fitted = []
+        for text, font, size, limit in ((name, 'narrowb', 7.6, name_limit), (meta, 'narrow', 7, 3 - name_limit)):
+            lines = wrap(text, font, size, width)
+            while len(lines) > limit and size > 4:
+                size = round(size - 0.2, 1); lines = wrap(text, font, size, width)
+            fitted.append((lines, size))
+        choices.append(fitted)
+    return max(choices, key=lambda x: (min(x[0][1], x[1][1]), x[0][1] + x[1][1]))
+
 # ---------------------------------------------------------------- data
 def natural(ref):
     m = re.match(r'([A-Z]+)(\d+)', ref)
@@ -456,7 +469,9 @@ class Pack:
         W, H = size
         if self.draft:
             c.setFillColor(RED); c.rect(0, H - 6.5 * mm, W, 6.5 * mm, stroke=0, fill=1)
-            txt(c, W / 2, H - 4.6 * mm, ('DRAFT - TEST QR CODES (TEST-TOKEN-NOT-LIVE) - NOT LIVE - DO NOT LAMINATE OR HAND OUT' if self.mode == 'draft' else 'TEST TRACKER - PRACTICE ONLY - DO NOT LAMINATE OR HAND OUT'), 'bold', 8.5, WHITE, 'c')
+            banner = ('DRAFT - TEST QR CODES (TEST-TOKEN-NOT-LIVE) - NOT LIVE - DO NOT LAMINATE OR HAND OUT' if self.mode == 'draft' else
+                      'SCAN CHECK - SIGNED TRACKER CODES - DO NOT SAVE TEST COMPLETIONS - DO NOT LAMINATE OR HAND OUT')
+            txt(c, W / 2, H - 4.6 * mm, banner, 'bold', fit(banner, 'bold', 8.5, W - 18 * mm), WHITE, 'c')
         # footer
         x0, x1 = 9 * mm, W - 9 * mm
         c.setStrokeColor(INK); c.setLineWidth(0.6); c.line(x0, 18.1 * mm, x1, 18.1 * mm)
@@ -472,8 +487,9 @@ class Pack:
         txt(c, x0, 2.6 * mm, meta, 'sans', fit(meta, 'sans', 5.6, x1 - x0, 4), MUTE)
         if self.draft:   # see-through, so the page underneath (and its QR codes) still reads
             c.saveState(); c.translate(W / 2, H / 2); c.rotate(math.degrees(math.atan2(H, W)))
-            txt(c, 0, -20 * mm, 'DRAFT' if self.mode == 'draft' else 'TEST', 'bold', 150, colors.Color(0.70, 0.15, 0.12, alpha=0.09), 'c')
-            txt(c, 0, -38 * mm, 'TEST QR CODES - NOT LIVE' if self.mode == 'draft' else 'PRACTICE ONLY', 'bold', 26, colors.Color(0.70, 0.15, 0.12, alpha=0.14), 'c'); c.restoreState()
+            mark = 'DRAFT' if self.mode == 'draft' else 'SCAN CHECK'
+            txt(c, 0, -20 * mm, mark, 'bold', fit(mark, 'bold', 150, math.hypot(W, H) * 0.72), colors.Color(0.70, 0.15, 0.12, alpha=0.09), 'c')
+            txt(c, 0, -38 * mm, 'TEST QR CODES - NOT LIVE' if self.mode == 'draft' else 'SIGNED TRACKER CODES', 'bold', 26, colors.Color(0.70, 0.15, 0.12, alpha=0.14), 'c'); c.restoreState()
 
     # ------------------------------------------------------------ master map
     def master(self, c, hi=None):
@@ -538,12 +554,12 @@ class Pack:
             c.setFillColor(col if onmap else WHITE); c.setStrokeColor(col); c.setLineWidth(1)
             c.circle(x + 3.4 * mm, y + ch - 3.6 * mm, 3 * mm, stroke=1, fill=1)
             txt(c, x + 3.4 * mm, y + ch - 5.0 * mm, str(a['n']), 'bold', 9, WHITE if onmap else col, 'c')
-            name = wrap(a['name'], 'narrowb', 7.6, cw - 8.5 * mm)[:2]
-            for k, s in enumerate(name): txt(c, x + 7.6 * mm, y + ch - 2.9 * mm - k * 2.8 * mm, s, 'narrowb', 7.6, INK)
             n_loc = len(a['refs']); n_u = d.units(a['refs'])
             meta = f'{n_loc} location{"s" if n_loc != 1 else ""} · {n_u} unit{"s" if n_u != 1 else ""}' + ('' if onmap else ' · not on the map')
-            for k, s in enumerate(wrap(meta, 'narrow', 7, cw - 8.5 * mm)[:3 - len(name)]):
-                txt(c, x + 7.6 * mm, y + ch - 2.9 * mm - (len(name) + k) * 2.8 * mm - 0.2 * mm, s, 'narrow', 7, MUTE)
+            (name, name_size), (meta_lines, meta_size) = legend_cell(a['name'], meta, cw - 8.5 * mm)
+            for k, s in enumerate(name): txt(c, x + 7.6 * mm, y + ch - 2.9 * mm - k * 2.8 * mm, s, 'narrowb', name_size, INK)
+            for k, s in enumerate(meta_lines):
+                txt(c, x + 7.6 * mm, y + ch - 2.9 * mm - (len(name) + k) * 2.8 * mm - 0.2 * mm, s, 'narrow', meta_size, MUTE)
 
     # ------------------------------------------------------------ area cover
     def cover(self, c, a):
@@ -728,12 +744,16 @@ class Pack:
         if self.pos[ref]:
             mb = MapBox(self.maps, self.maps['ref_image'][ref], mx, my, mw, mh); mb.draw(c, self.maps_dir)
             others = [k for k, v in self.maps['ref_image'].items() if v == self.maps['ref_image'][ref] and k != ref]
-            px, py = mb.at(self.pos[ref]['x'], self.pos[ref]['y'])
-            ring(c, px, py, 8 * mm, ORANGE, 2.6); toilet_icon(c, px, py, 2.6 * mm)
-            tag(c, px + 8 * mm * 0.72, py + 8 * mm * 0.72 + 2 * mm, ref + ' — ' + what_here([r]) + (' (shared spot)' if others else ''), 'bold', 8.5, INK, WHITE, INK)
+            if any(l['id'] in self.maps.get('line_spots', {}) for l in r['lines']):
+                self.circles(c, mb, [ref], 3.4 * mm)
+                note = 'Markers show the units at each recorded location.'
+            else:
+                px, py = mb.at(self.pos[ref]['x'], self.pos[ref]['y'])
+                ring(c, px, py, 8 * mm, ORANGE, 2.6); toilet_icon(c, px, py, 2.6 * mm)
+                tag(c, px + 8 * mm * 0.72, py + 8 * mm * 0.72 + 2 * mm, ref + ' — ' + what_here([r]) + (' (shared spot)' if others else ''), 'bold', 8.5, INK, WHITE, INK)
+                note = 'Circled where the master plan has it' + ('' if r['pin'] else ' (no GPS pin on the record)') + '.'
+                if others: note = f'Circled where the master plan has it: one spot for {", ".join([ref] + others)}' + ('' if r['pin'] else '; no GPS pin') + '.'
             mb.furniture(c)
-            note = 'Circled where the master plan has it' + ('' if r['pin'] else ' (no GPS pin on the record)') + '.'
-            if others: note = f'Circled where the master plan has it: one spot for {", ".join([ref] + others)}' + ('' if r['pin'] else '; no GPS pin') + '.'
             txt(c, mx, my - 3.2 * mm, note, 'sans', fit(note, 'sans', 7, mw), MUTE)
         elif r['pin']:   # pinned, but off the master plan drawing (WC85 at the Seaway): the directions QR is the way there
             no_pin_panel(c, mx, my, mw, mh, 'Off the plan', 'Not on the master plan drawing. Scan "Scan for directions" for its Google Maps pin.')
@@ -759,7 +779,9 @@ class Pack:
             names = [d.tasks[t] + (' (not in %)' if t in d.extras else '') for t in (d.groups[g]['tasks'] if g else mine) if t in mine]
             s2 = 'Jobs: ' + ' · '.join(names)
             for k2, ln in enumerate(wrap(s2, 'sans', 6.2, job_w - 2.5 * mm)[:2]): txt(c, gx + job_w / 2, cy - 3.2 * mm - k2 * 2.7 * mm, ln, 'sans', 6.2, MUTE, 'c')
-            if self.draft: txt(c, gx + job_w / 2, cbot + 1.6 * mm, ('TEST CODE - NOT LIVE' if self.mode == 'draft' else 'TEST CODE - PRACTICE'), 'bold', fit('TEST CODE - NOT LIVE', 'bold', 6.6, job_w - 2 * mm), RED, 'c')
+            if self.draft:
+                code_label = 'TEST CODE - NOT LIVE' if self.mode == 'draft' else 'SIGNED TRACKER CODE'
+                txt(c, gx + job_w / 2, cbot + 1.6 * mm, code_label, 'bold', fit(code_label, 'bold', 6.6, job_w - 2 * mm), RED, 'c')
             gx += job_w + gap
         lx = gx; ls = min(22 * mm, loc_w - 4 * mm, ch - 13.5 * mm)
         c.setStrokeColor(LINE); c.setLineWidth(0.8); c.roundRect(lx, cbot, loc_w, ch, 2.2 * mm, stroke=1, fill=0)
@@ -890,7 +912,7 @@ def main():
     ap.add_argument('--urls', default=str(HERE / 'urls.json'))
     ap.add_argument('--links', help='{"token":..., "links":{REF: sig}} from the edit link (kept outside the repo)')
     ap.add_argument('--out')
-    ap.add_argument('--mode', choices=['draft', 'test', 'real'], help='default draft for placeholders, test for signed links; real needs a readiness receipt')
+    ap.add_argument('--mode', choices=['draft', 'test', 'real'], help='default draft for placeholders, test (scan-check copy) for signed links; real needs a readiness receipt')
     ap.add_argument('--contact-name', default='')
     ap.add_argument('--contact-phone', default='')
     ap.add_argument('--readiness', help='private JSON confirming TEST checks and real tracker read-back; required for real sheets')

@@ -12,7 +12,7 @@ What it checks
     sits on its own block; each pinned reference's location QR is exactly the Google Maps pin; no unpinned reference
     has one; no QR is an /e/ or /v/ link
   - a live-format run (a made-up 32-character token and 16-character codes, made the way the server makes them, in a
-    temporary folder) prints no DRAFT and its denser QR codes decode
+    temporary folder) prints SCAN CHECK with no practice/sandbox claim and its denser QR codes decode
   - refusals: an /e/ link, a missing reference, a link naming another reference, two tokens, a live run writing
     inside the repository
 """
@@ -107,8 +107,14 @@ def main():
         check('every page with a map carries "Drawing © iEDM · D001"', not missing_credit, missing_credit)
         # the master map legend: every area, its counts
         M.setup_fonts(); cw = (841.89 - 18 * M.mm) / max(7, -(-len(data.areas) // 2)) - 8.5 * M.mm
-        bad = [a['name'] for a in data.areas if not all(line in norm[0] for line in M.wrap(a['name'], 'narrowb', 7.6, cw))]
-        check('master map legend names every area (as the legend wraps it)', not bad, bad)
+        bad = []
+        for a in data.areas:
+            n=len(a['refs']); units=data.units(a['refs'])
+            meta=f'{n} location{"s" if n!=1 else ""} · {units} unit{"s" if units!=1 else ""}'
+            if not maps['areas'][str(a['n'])]['main']:meta+=' · not on the map'
+            name_lines,meta_lines=M.legend_cell(a['name'],meta,cw)
+            if not all(line in norm[0] for line in name_lines[0]+meta_lines[0]):bad.append(a['name'])
+        check('master map legend prints every full area name, quantity and location warning', not bad, bad)
         bad = [a['n'] for a in data.areas if f"{len(a['refs'])} location" not in norm[0] or f"{data.units(a['refs'])} unit" not in norm[0]]
         check('master map legend: locations and units for every area', not bad, bad)
         check('master map: the totals', f'{len(refs)} locations' in norm[0] and f'{data.units(data.refs)} units' in norm[0])
@@ -205,8 +211,10 @@ def main():
         check('live-format run builds outside the repository', r.returncode == 0 and live.exists(), r.stderr + r.stdout)
         if live.exists():
             Tl = [re.sub(r'\s+', ' ', t) for t in pdftext(live)]
-            check('signed links default to TEST, not a crew-ready pack', all('TEST TRACKER - PRACTICE ONLY' in t for t in Tl) and not any('opens nothing' in t for t in Tl))
-            check('contact fallback on every TEST page is honest', all('Servicing contact not confirmed' in t for t in Tl))
+            check('signed links default to a scan-check copy with an explicit no-save warning on every page', all('SCAN CHECK - SIGNED TRACKER CODES - DO NOT SAVE TEST COMPLETIONS - DO NOT LAMINATE OR HAND OUT' in t for t in Tl))
+            check('signed scan-check copy makes no practice, sandbox or non-live claim', not any(s in t for t in Tl for s in ('PRACTICE ONLY', 'TEST CODE - PRACTICE', 'TEST TRACKER', 'NOT LIVE', 'opens nothing')))
+            check('every signed completion block is labelled as a signed tracker code', all(len(re.findall(r'\bSIGNED TRACKER CODE\b', Tl[n - 1])) == sum(len(data.groups_for(x)) for x in data.refs if page_of[x['ref']] == n) for n in set(page_of.values())))
+            check('contact fallback on every scan-check page is honest', all('Servicing contact not confirmed' in t for t in Tl))
             check('live-format run: the token is never printed as text', not any(token in t for t in Tl))
             pl, why = decode_pages(live, tmp)
             if pl is not None:

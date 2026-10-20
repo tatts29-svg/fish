@@ -1,5 +1,11 @@
 # Servicing sheets: the laminated print pack (DRAFT)
 
+## Current generator checks — 21 Oct 2026
+
+Author: Andrew Fisher. Signed `--mode test` output is a scan-check copy and explicitly warns against saving test completions. Reference crops show the existing per-line positions where supplied, using the same labels as area maps. The master legend fits complete names, counts and not-on-map warnings without changing its two-row layout. Source data, map coordinates, code destinations and real-mode readiness guards are unchanged.
+
+Validation: `test_readiness.py` 10/10; the complete `test_sheets.py` assertions 49/49 using in-memory PyMuPDF rasterisation at 300 dpi with zxing-cpp. The focused drawing checks cover split-position labels, the unchanged ordinary marker path and full legend text. These are source/tool checks, not physical-phone or lamination readiness. The dated page counts and examples below describe earlier snapshots; use the generator output for the current pack.
+
 Author: Andrew Fisher · 18 Oct 2026 · DRAFT: test QR codes, not live. Nothing here was uploaded, deployed or written to the
 live service.
 
@@ -90,10 +96,13 @@ python3 -I make_sheets.py --placeholder   # rewrite urls.json with the placehold
 1. Create the TEST tracker from Event nights. Download its private QR bundle **outside the repository** and build
    `python3 -I make_sheets.py --links /private/test_links.json --out /private/TEST_sheets.pdf`. The bundle supplies
    its actual rehearsal dates and confirmed contact. Run the rehearsal before making the event tracker.
-2. Create/read back the event tracker and download its own bundle. Build a practice-marked copy of its sheets with
+2. Read back the existing event tracker and download its own bundle. Build a scan-check copy of its sheets with
    `python3 -I make_sheets.py --links /private/event_links.json --out /private/event_scan_check.pdf`. Signed links
-   default to TEST print mode. Scan the completion and location QRs using both iPhone and Android cameras. Verify
-   the correct reference/day and offline preparation; record those checks in the private readiness receipt.
+   default to `--mode test`, which prints **SCAN CHECK**, **SIGNED TRACKER CODES** and **DO NOT SAVE TEST COMPLETIONS**.
+   This print mode does not create a practice tracker or make the signed codes harmless: event codes still open the
+   event tracker. Scan the completion and location QRs using both iPhone and Android cameras without saving test
+   completions. Verify the correct reference/day and offline preparation; record those checks in the private
+   readiness receipt. Do not laminate or hand out this scan-check copy.
 3. `python3 -I make_sheets.py --links /private/event_links.json --mode real --readiness /private/readiness.json --out /private/GC500_servicing_sheets.pdf`
    A real run requires the matching receipt, token, data hash and confirmed contact. It refuses a PDF or link file
    inside the repository, links outside `/d/<token>#r=REF.<16-character code>`, a wrong/missing reference or mixed
@@ -102,6 +111,12 @@ python3 -I make_sheets.py --placeholder   # rewrite urls.json with the placehold
    a new token or replacement key requires reprinting. The page does not offer either destructive action.
 
 Legacy `{token, links}` or `--urls` files remain supported, but supply their matching data/contact explicitly.
+
+References with existing per-line map positions use the same asset-labelled markers on their reference crops as on
+the area maps. Each marker shows the units at that recorded position. Ordinary references keep their single marker;
+the reference-level LOCATION QR is unchanged. This rendering does not move pins or change the source record.
+The master-map legend fits complete area names, quantities and location warnings into each existing three-line cell,
+reducing text only where it needs room rather than dropping words. Its two-row layout is unchanged.
 
 ### Re-render the maps (only if positions or areas change)
 
@@ -135,7 +150,7 @@ codes, pdftoppm at 300 dpi and zxing-cpp:
 - all 75 completion QRs decode to exactly their link, each on its own page and in its own half; all 63 pinned location
   QRs decode to exactly their Google Maps pin; the 12 unpinned references have none; no stray QR; no `/e/` or `/v/`;
 - a live-format run (a made-up 32-character token and 16-character codes made the way the server makes them, in a
-  temporary folder): TEST practice labels, token never printed, all 75 denser QRs (98 characters) decode at 300 dpi; the live run
+  temporary folder): scan-check labels with no practice/sandbox claim, token never printed, all 75 denser QRs (98 characters) decode at 300 dpi; the live run
   refuses to write inside the repository;
 - refusals: an `/e/` link, a `/v/` link, a missing reference, a link naming another reference, two tokens, an unknown
   reference.
@@ -164,8 +179,9 @@ WC07 (20 FWF), WC09 (FWF + blocks), WC31, the Teams Area (no pin) and "No locati
 ## Readiness fixes for the next release (18 Oct 2026)
 
 Author: Andrew Fisher. The generator now distinguishes three modes. Placeholder links default to **DRAFT**. Signed
-links default to **TEST**, with a practice-only banner on every page; merely possessing a correctly shaped token no
-longer labels a pack LIVE. `--mode real` is explicit and requires a confirmed contact and private readiness receipt.
+links default to the **scan-check copy** (`--mode test`), with a signed-code/no-test-completions warning on every page;
+this print mode does not change the destination tracker or its ability to save. Merely possessing a correctly shaped
+token does not label a pack LIVE. `--mode real` is explicit and requires a confirmed contact and private readiness receipt.
 
 Use the same contact as the crew card with `--contact-name` and `--contact-phone`. Every page carries it. Without a
 contact, DRAFT/TEST pages say to check with the site supervisor before the run, rather than pointing to absent contact
