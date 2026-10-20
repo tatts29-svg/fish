@@ -29,9 +29,9 @@ projections, remaining physical forecast, source links and phone display.
 Document-catalogue readiness is required before comparing projections because
 existing reviewed task attribution depends on source-file verification.
 
-Use `toolchain/build.sh v10.88 v10.88_fencing_alignment_DRAFT/patch_v1088.py`,
+Use `toolchain/build.sh v10.88 v10.88_fencing_alignment_LIVE/patch_v1088.py`,
 then the focused tests, desktop and phone sweeps, and guarded uploader. Private
 fixtures, source PDFs, amounts, raw logs and screenshots stay outside Git.
 The bounded native writer is in `record_20Oct2026_fencing_alignment/`.
 
-Status: READY TO UPLOAD. Core 34/34; runtime integration 35/35; native practice 29/29 with zero server writes; both 25-route/seven-link/Back sweeps passed with zero page or console errors and zero attempted native writes. Desktop and phone screenshots inspected. Independent code review and exact patch reproduction passed. Candidate SHA-256 `690d5995b0c76e56127242487c0d55b877548eb3bc10dae1855320247323d2b0`, 18,535,697 bytes. Uploader dry run confirmed edit access and unchanged live base.
+Status: VERIFIED LIVE at 20 Oct 2026 19:40 AEST. Source `2dbc576ecbd9e05159060e5b81f2b3314dd3dbd6`. Guarded upload and exact public-byte read-back passed. The bounded native allocation subsequently passed its full-state read-back; fresh actual public phone verification passed 34/34. Core 34/34; runtime integration 35/35; native practice 29/29 with zero server writes; both 25-route/seven-link/Back sweeps passed with zero page or console errors and zero attempted native writes. Desktop and phone screenshots inspected. Independent code review and exact patch reproduction passed. Candidate SHA-256 `690d5995b0c76e56127242487c0d55b877548eb3bc10dae1855320247323d2b0`, 18,535,697 bytes. Uploader dry run confirmed edit access and unchanged live base.

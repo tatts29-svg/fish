@@ -1,0 +1,29 @@
+{
+  "author": "Andrew Fisher",
+  "status": "verified live",
+  "version": "v10.88",
+  "source_commit": "2dbc576ecbd9e05159060e5b81f2b3314dd3dbd6",
+  "base_source_commit": "4ce07ad29e84d3fce637ec15e56e10a26be3076d",
+  "base_sha256": "e073add8b16cdb735929b66ede2cdb45b69b7a0a31aef1208ab60f5e3c3e35f2",
+  "page_sha256": "690d5995b0c76e56127242487c0d55b877548eb3bc10dae1855320247323d2b0",
+  "bytes": 18535697,
+  "uploaded_utc": "2026-10-20T09:40:41.743Z",
+  "servicing_script_sha256": "209f73992f7f8ac1deae3fdd9444654cfb6b30c44e0feff1f5cd15cb98290d0d",
+  "checks": {
+    "core": 34,
+    "runtime": 35,
+    "native_practice": 29,
+    "fresh_public_verification": 34,
+    "desktop_routes": 25,
+    "phone_routes": 25,
+    "deep_links_each": 7,
+    "back_each": true,
+    "page_errors": 0,
+    "console_errors": 0,
+    "test_native_writes": 0,
+    "exact_public_bytes": true,
+    "servicing_script_unchanged": true
+  },
+  "review": "Codex implementation and independent subagent code review; no Claude source review claimed",
+  "private_evidence": "Original sources, operational fields, financial values, screenshots and raw logs are retained privately."
+}
