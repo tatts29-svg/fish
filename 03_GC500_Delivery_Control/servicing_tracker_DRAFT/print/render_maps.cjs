@@ -104,7 +104,7 @@ function onSheet(r) {
     for (const ar of data.areas) for (const r of ar.refs) {
       if (!r.pin) continue;
       const q = toSheet(r.pin[0], r.pin[1]);
-      if (q.x < 0 || q.y < 0 || q.x > geo.sheet[0] || q.y > geo.sheet[1]) continue;   // off the plan (WC85 at the Seaway)
+      if (q.x < 0 || q.y < 0 || q.x > geo.sheet[0] || q.y > geo.sheet[1]) { P[r.ref] = null; continue; } // A current off-plan pin replaces any old plan tag.
       const was = P[r.ref], off = was ? Math.hypot(q.x - was.x, q.y - was.y) * mPerUnit : Infinity;
       if (off > 20) { P[r.ref] = {ref: r.ref, x: q.x, y: q.y, hw: 1.2, hh: 0.8}; moved.push(r.ref + (was ? ' ' + Math.round(off) + ' m' : ' (was not placed)')); }
     }
