@@ -1,6 +1,6 @@
 {
   "author": "Andrew Fisher",
-  "status": "DRAFT: focused checks passed; required release sweeps/publication remain with release owner",
+  "status": "READY TO UPLOAD; guarded publication and native read-back pending",
   "base_sha256": "d4a10a7fe07637fdfbb97f31ff2a07f48af4a632479acce8fd29aeb9cf9c97d7",
   "candidate_sha256": "eb8373a49087060adaf4fac26668c4ad02c87482dabfdcf14155ad3137322395",
   "candidate_bytes": 20925976,
@@ -24,5 +24,22 @@
     "vms_completion1101_src.js": "745f876637daf7809474a12cdda048da6c7e9181644a017414c177e8413c91a3",
     "test_vms_completion1101.cjs": "17c7135ecff1fcd315b4ed05c63a030fa20ee5c688fa6da2e92f1616e9b86033",
     "test_patch_v1101.py": "81bc1aeec90fb4cd45e745be88d0925d82631f2e023906b4864261375d7f0ca9"
+  },
+  "source_commit": "f2e918c043ddef2e0e35baede082aad0c2cf3956",
+  "full_page_sweeps": {
+    "desktop": {
+      "routes": 25,
+      "links": 7,
+      "back": true,
+      "page_errors": 0,
+      "console_errors": 0
+    },
+    "phone": {
+      "routes": 25,
+      "links": 7,
+      "back": true,
+      "page_errors": 0,
+      "console_errors": 0
+    }
   }
 }
