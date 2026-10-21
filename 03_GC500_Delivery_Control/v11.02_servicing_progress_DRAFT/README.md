@@ -2,7 +2,7 @@
 
 Author: Andrew Fisher
 
-DRAFT — implementation and independent source review complete; focused presentation checks and controller integration pass. Final full-page sweeps and guarded publication remain pending. Owner: accepted servicing session on the branch named in STATUS.md.
+READY TO UPLOAD — final candidate checks complete. Source `15d6ed347d9fc8b9e7487ec9c52d8acf914fe601`; owner: accepted servicing session on the branch named in STATUS.md. Guarded publication and actual native read-back remain pending.
 
 Servicing progress previously replaced the whole panel when a displayed clock or completion changed, temporarily detaching the map and active controls. The controller now reconciles keyed values in place, retaining the map, open areas, focus and scroll. Map area/reference controls also retain their nodes and unchanged progress avoids a repaint.
 
@@ -23,3 +23,5 @@ The patch requires exact verified v11.01 SHA-256 `eb8373a49087060adaf4fac26668c4
 Frozen candidate: SHA-256 `4b1ee468727cb98b3c52f751c77ce6d4b0258b7dca32c14b40c1ae41a95bcfd5`, 20,941,279 bytes. Official build parses all 150 inline scripts. All 13 patch guards and 44 focused presentation checks pass, including the actual candidate CSS on phone and desktop. Separate final source review confirms exact reproducibility and unchanged protected spans.
 
 Controller coverage includes unchanged reads across a displayed-minute boundary, saved completion, undo, pending ticks, selected night, midnight/service-day rollover, failed reads, shared manual-refresh requests and loss of edit access. The old controller detached the map during a normal clock update; the new controller preserves existing map/details/buttons/meters throughout. Local timings describe the controlled browser fixture, not a promise about physical phones or network latency.
+
+Final controller suite: 190 checks pass, zero external requests, writes or browser errors. Desktop and phone full-page sweeps each pass all 25 routes, seven links and Back with zero page/console/navigation errors. Independent source review and phone/desktop presentation review pass. No review or acknowledgement from the other external assistant is claimed.

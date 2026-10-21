@@ -1,6 +1,6 @@
 {
   "author": "Andrew Fisher",
-  "status": "DRAFT_FINAL_CHECKS",
+  "status": "READY TO UPLOAD",
   "base_sha256": "eb8373a49087060adaf4fac26668c4ad02c87482dabfdcf14155ad3137322395",
   "candidate_sha256": "4b1ee468727cb98b3c52f751c77ce6d4b0258b7dca32c14b40c1ae41a95bcfd5",
   "candidate_bytes": 20941279,
@@ -99,6 +99,24 @@
         "childAdded": 12,
         "childRemoved": 12
       }
-    ]
+    ],
+    "timing_scope": "Three-reference synthetic fixture; not full production workload or a physical-device/network guarantee."
+  },
+  "source_commit": "15d6ed347d9fc8b9e7487ec9c52d8acf914fe601",
+  "full_page_sweeps": {
+    "desktop": {
+      "routes": 25,
+      "links": 7,
+      "back": true,
+      "page_errors": 0,
+      "console_errors": 0
+    },
+    "phone": {
+      "routes": 25,
+      "links": 7,
+      "back": true,
+      "page_errors": 0,
+      "console_errors": 0
+    }
   }
 }
