@@ -1,6 +1,6 @@
 {
   "author": "Andrew Fisher",
-  "state": "READY TO UPLOAD",
+  "state": "VERIFIED LIVE",
   "base_sha256": "198242a69a69e675dc733f0945bc1e092d2813d1090af20d1f5fcefb0b348eab",
   "candidate_sha256": "56fcb00987640d249e363936a61fefed8574e2a03c17933dca32b1e8c20b985c",
   "candidate_bytes": 21041620,
@@ -37,7 +37,7 @@
     "unrelated_prices_costs_and_operational_state_unchanged": true,
     "native_cache_save_clear_and_hydration_verified": true,
     "fresh_browser_replay_exact": true,
-    "native_action": "separately rehearsed and independently reviewed; not yet applied"
+    "native_action": "Separately authorised action applied through existing native handler and independently verified"
   },
   "independent_review": "Source and bounded native action reviewed within the same Codex session; no Claude review claimed",
   "source_sha256": {
@@ -49,5 +49,22 @@
     "test_patch_v1105.py": "0f8858c2bee1a57b6c71e809018b24304b31052ae65c5dfd7d8ab4d4b31d9623",
     "private_input1105.py": "06b89786ba009981abc69b448309fd840b46634e9d6e7c22d1a37fa2fac40a49",
     "integrate_financial1105.py": "cbf38ee9b91f175ef908b500c8c18d96eb461982207eb695af7aa2c1f6a8040b"
+  },
+  "release_source_commit": "dd7ee25f8ad720777c79f232cdb1ce79b76beaeb",
+  "published_at_utc": "2026-10-21T05:33:26.549Z",
+  "page_publication": {
+    "guarded_upload": "passed",
+    "independent_public_bytes_and_full_record_unchanged": "passed"
+  },
+  "native_action": {
+    "completed_at_utc": "2026-10-21T05:34:59.029Z",
+    "allowed_documents": 3,
+    "acknowledged": 3,
+    "exact_full_state_and_fresh_browser": "passed",
+    "independent_actual_live_checks": 30,
+    "independent_write_attempts": 0,
+    "independent_script_errors": 0,
+    "actual_costs_screenshot": "reviewed",
+    "unrelated_prices_costs_and_operational_state": "preserved"
   }
 }
