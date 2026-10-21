@@ -1,6 +1,6 @@
 {
   "author": "Andrew Fisher",
-  "state": "ready to upload",
+  "state": "verified live",
   "candidate_sha256": "d4a10a7fe07637fdfbb97f31ff2a07f48af4a632479acce8fd29aeb9cf9c97d7",
   "candidate_bytes": 20922036,
   "base_sha256": "fddc937937d41bc0a1651556b4ef28749085789271fc61c3145ed044db22f8cf",
@@ -58,5 +58,15 @@
     "pan_and_unchanged_refresh_marker_replacements": 0
   },
   "private_sources_and_operational_evidence_included": false,
-  "source_commit": "42b5528f745122af6ccdfd9974fb90c47c51087e"
+  "source_commit": "42b5528f745122af6ccdfd9974fb90c47c51087e",
+  "published_at": "2026-10-21T02:20:00.950Z",
+  "native_live_checks": 426,
+  "native_mutation_attempts": 0,
+  "live_unchanged": [
+    "full job record",
+    "tracker configuration",
+    "permanent codes",
+    "saved completions"
+  ],
+  "public_exact_readback": true
 }
