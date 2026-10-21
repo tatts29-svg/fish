@@ -2,7 +2,9 @@
 
 Author: Andrew Fisher
 
-FROZEN DRAFT — handed over to Claude at Andrew’s request. Not READY TO UPLOAD and not live. Focused/source/visual checks and both final navigation sweeps pass; bounded native verification and guarded publication/read-back remain incomplete. Codex has stopped new execution; Claude receipt is not claimed. The separate v10.96 draft remains paused with its existing owner.
+LIVE 22 Oct 2026 03:36 AEST (Claude). Public sha256 7c3f21cef9a5d161bcd1dbf317465707b7f93df9e70fa873c3f1505e32e94716 (21,050,643 bytes), byte for byte, on v11.05 56fcb009. Rebuilt from live by Claude to the exact candidate hash; test_patch1106 8/8, test_resize1106 42/42, test_servicingRace1106 42/42 (fixture from live GETs), desktop and phone sweeps 25 tabs / 7 links / Back with 0 errors, servicing e2e 21/21, edit-link read-only probe on live data (0% Wed 21, Area 6 1%, Area 7 3%). Codex's original note follows.
+
+FROZEN DRAFT — handed over to Claude at Andrew’s request. Focused/source/visual checks and both final navigation sweeps pass; bounded native verification and guarded publication/read-back remain incomplete. Codex has stopped new execution; Claude receipt is not claimed. The separate v10.96 draft remains paused with its existing owner.
 
 Andrew requested one visible Whole Night percentage, larger area lights, stronger glow in each area's existing colour, and clear matching area identities. Normal view retains the large whole-night hero; Big screen shows its already-bound map counterpart. Both bindings and all progress calculations remain intact. Area cards and the chooser show the existing canonical area number and full name; the unlocated scope uses its authoritative name without inventing a number. Selected cards, chooser and drawing outline use their existing shared colour. Saved completion alone enables the pulsing outline; the lamps retain their native eligibility gates. Reduced-motion and hidden-panel pause remain supported. Original drawings, photographs, geometry, permanent codes, print sheets and operational records are unchanged.
 
