@@ -8,6 +8,8 @@ Equipment showed supplied-description coverage as its percentage. Individually r
 
 This change reads completion from the same qualified scope as Today. Physical boards appear once across Equipment, Inventory and Today, including boards without a delivery association. Search, status filters, detail actions and pending PDF rows use those same identities. Original delivery references remain the source for financial calculations. Recorded accessories outside requested equipment lines appear in a separate list without inventing arrival or completion evidence.
 
+Explicit forklift and access-machine descriptions also appear in their shared Equipment group when their stored classification is generic. Boom lifts remain machines; fork extensions and rotators remain attachments. This presentation grouping preserves the original business classification and rate keys. Equipment, Today and the filtered inventory PDF use the same physical references, with aliases counted once.
+
 Current pins and navigation remain authoritative; superseded plan crops are identified as original planned positions. Milestone summaries and A4 sheets use qualified percentages: unknown remains unknown, and an incomplete figure cannot round up to 100%. Planned scope, extra recorded stock, selected dates and servicing nights retain their distinct meanings.
 
 Automatic current-day views also refresh when the date changes or the browser wakes on a later day. The existing clock triggers one shared redraw; explicit historical dates, closed views and servicing-night selection are preserved.
@@ -23,8 +25,10 @@ node v11.03_equipment_consistency_DRAFT/test_additionalEquipment1103.cjs
 node v11.03_equipment_consistency_DRAFT/test_milestoneProgress1103.cjs
 node v11.03_equipment_consistency_DRAFT/test_vmsLocationWords1103.cjs
 node v11.03_equipment_consistency_DRAFT/test_dayRefresh1103.cjs
+node v11.03_equipment_consistency_DRAFT/test_equipmentGroups1103.cjs
+node v11.03_equipment_consistency_DRAFT/test_equipment_refresh1103.cjs
 ```
 
-Candidate SHA-256 `5aefcff6579add71ce7029dcbdddbca19f6ad02c5b7929eb8ba2e3c95d814350` (20,983,497 bytes). Build validation passes all 150 inline scripts. Focused checks pass: 13 patch/protected-source, 93 equipment progress, 61 physical-board projection, 49 additional equipment, 70 milestone, 14 location-caption and 49 date-refresh checks.
+Candidate SHA-256 `5bc48bc9543a149e4c4cb1efb099951f14d8eb2e3366975acc0a773e754f5f32` (20,988,815 bytes). Build validation passes all 150 inline scripts. Focused checks pass: 13 patch/protected-source, 93 equipment progress, 61 physical-board projection, 49 additional equipment, 70 milestone, 14 location-caption, 49 date-refresh, 56 presentation-grouping and 15 late-refresh summary checks.
 
 Final native candidate checks, desktop/phone sweeps, source and screenshot review, guarded publication and exact native read-back are required before a LIVE claim. The other external assistant has not reviewed or acknowledged this change.

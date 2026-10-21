@@ -8,6 +8,7 @@ HERE = Path(__file__).resolve().parent
 ROOT = HERE.parent
 sys.path.insert(0, str(ROOT / 'toolchain'))
 from rep import rep
+from equipmentGroups1103_patch import integrate as integrate_groups
 
 BASE_SHA256 = '4b1ee468727cb98b3c52f751c77ce6d4b0258b7dca32c14b40c1ae41a95bcfd5'
 
@@ -43,6 +44,9 @@ def patch(text):
     change("const refs = eq796Fold('Every reference', words, keep.concat(tables)); refs.classList.add('eqrefs');",
            "const refs = eq796Fold('Every reference', words, keep.concat(tables)); refs.classList.add('eqrefs');\n if (one && prog) refs.querySelector('summary > span').setAttribute('data-equipment-progress1103', '');",
            'identify visible folded completion summary')
+    change("if (refs) { const sub = refs.querySelector('summary > span'); if (sub) sub.textContent = (state.list || []).length + ' references · lights, dates, asset numbers, asked and supplied'; refs.classList.add('refresh-reference'); }",
+           "if (refs) { refs.classList.add('refresh-reference'); }",
+           'preserve qualified equipment summary during late presentation refresh')
 
     # The saved pin and every existing navigation payload stay unchanged. Only
     # the caption of the superseded planned position is qualified.
@@ -76,6 +80,7 @@ def patch(text):
 
     # VMS and additional equipment integration follows below.
     text = integrate_equipment(text)
+    text = integrate_groups(text)
     change('const total = completionRefs1098.length, units = {done: A.done, total: A.total, left: A.remaining};',
            'const progress1103 = MilestoneProgress1103.read(A, asOf), total = completionRefs1098.length, units = {done: progress1103.done, total: progress1103.total, left: progress1103.left};',
            'milestone uses qualified completion scope')
