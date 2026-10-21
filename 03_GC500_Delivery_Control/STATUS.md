@@ -3056,3 +3056,5 @@ Author: Andrew Fisher
   deep links: 15 panes displayed directly, six redirected by design, and there were 0 page errors, 0 console
   errors and 0 navigation exceptions. `upload_page.py --dry-run` confirmed HTTP 200 edit-level access and stopped
   before upload. No page upload or live-record change was made.
+CLAIM — v11.06 servicing-map viewport centre preservation (Codex), 21 Oct 2026. Owner: root Codex session on codex/gc500-servicing-handover-21oct, starting source 3fc3590e990d78979600cfbf21f78e6a9a6cda78. Repair the confirmed pre-existing resize callback so fullscreen, orientation and viewport changes retain the viewed map centre. Build from verified v11.05 after its owner completes publication and read-back. Preserve map geometry, servicing data, permanent codes and operational records. IN PROGRESS / NOT READY TO UPLOAD. The separate v10.96 remains paused with its existing owner. Author: Andrew Fisher.
+
