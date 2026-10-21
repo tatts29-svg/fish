@@ -54,3 +54,4 @@ __pycache__/
 # built pages and the base copy of the live page: rebuilt on demand, never committed
 03_GC500_Delivery_Control/build/
 03_GC500_Delivery_Control/toolchain/node_modules/
+03_GC500_Delivery_Control/node_modules

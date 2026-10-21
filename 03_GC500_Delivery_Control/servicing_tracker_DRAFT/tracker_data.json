@@ -1,5 +1,5 @@
 {
- "version": "tracker-data 20 Oct 2026 v2 (Andrew's job QRs: Pump out / Clean & restock; Fri-Sat-Sun nights; refill not counted), record 10051, Andrew's 13 areas",
+ "version": "tracker-data 21 Oct 2026; confirmed servicing-only trailer addition; existing site records retained",
  "tasks": {
   "pump": "Pump out",
   "clean": "Clean & restock",
@@ -53,6 +53,14 @@
    ]
   },
   "tank": {
+   "night": [
+    "pump"
+   ],
+   "final": [
+    "pump"
+   ]
+  },
+  "pump_only": {
    "night": [
     "pump"
    ],
@@ -175,12 +183,12 @@
     },
     {
      "ref": "PG29",
-     "title": "PG29",
-     "where": "Toilet (Pit Garage)",
-     "drop": "Pit lane entry",
+     "title": "Tickford Racing",
+     "where": "",
+     "drop": "",
      "pin": [
-      -27.986807,
-      153.428013
+      -27.986625595032358,
+      153.42784306878124
      ],
      "lines": [
       {
@@ -1636,6 +1644,26 @@
        ]
       }
      ]
+    },
+    {
+     "ref": "SPASHDOWN",
+     "title": "Spashdown",
+     "where": "Spashdown",
+     "drop": "",
+     "pin": [
+      -27.9916629,
+      153.4302417
+     ],
+     "lines": [
+      {
+       "id": "SPASHDOWN-1",
+       "type": "Trailer Toilet",
+       "kind": "pump_only",
+       "label": "1 × 4-person trailer toilet",
+       "qty": 1,
+       "nos": []
+      }
+     ]
     }
    ]
   },
@@ -2106,7 +2134,8 @@
   "areas_20oct": "Andrew, 20 Oct 2026: \"Refernce 1 makes no sense 2 diffiremt locations. And where is wc85 linked to\" - T0024 (EVL, 52 m from WC05) moved from Area 1 to Area 3; WC85 (Coates compound on the Seaway, 4.7 km from every other area) moved from Area 13 to its own Area 14.",
   "practice_20oct": "Andrew, 20 Oct 2026: \"can we have set qr codes made now that dont change ... ill rather have this live for a couple of days. So i can have a play with it. And we can also delete this data later too\". Practice days Tue 20 - Thu 22 sit on the event tracker so the printed codes work now; each day's % is its own, so practice ticks never touch Fri-Sun. Removing the practice days later is a same-token update: the codes stay.",
   "areas_20oct_pins": "Andrew, 20 Oct 2026: \"I told you they are all here\" (PG01/03/05/29 at his pin), \"Your also missing the toilets from here ... One that was a coates toilet and the other was one for EVL WHICH I PINNED BOTH OF THESE FOR YOU TODAY\", \"Group things together that are close\". Sheets draw every pinned reference at its pin. T0024 is two FWF: 0164 at EVL (Andrew's T0024 pin) and Coates' own 1211968 at the Coates office (Andrew's T0021 pin, 21 m away); which unit is at which spot is read from the record (Coates' own compound toilet = the Coates-numbered unit). WC13 Area 8 -> 9 (16 m from WC24), WC81 Area 11 -> 10 (462 m from WC49, 1.5 km from Area 11).",
-  "areas_20oct_regroup": "Andrew, 20 Oct 2026: \"Group things together that are close your making no bloody sense\" and \"Whole point of have areas so they are areas and dont cross into another area or are really far apart\". Areas regrouped by the pins: each is one patch (largest span 337 m, Area 4), none crosses another. Old 13 areas -> 14 + Seaway + no-location."
+  "areas_20oct_regroup": "Andrew, 20 Oct 2026: \"Group things together that are close your making no bloody sense\" and \"Whole point of have areas so they are areas and dont cross into another area or are really far apart\". Areas regrouped by the pins: each is one patch (largest span 337 m, Area 4), none crosses another. Old 13 areas -> 14 + Seaway + no-location.",
+  "live_source_21oct": "21 Oct 2026: Codex's v10.97/v10.98 updated the live tracker from a private source file that never reached the repo. Recovered from the live v11.05 page's crew-card bundle (SVC1067_CARD data), read-only: PG29 is Tickford Racing at Andrew's corrected pin (record, 21 Oct 00:35 UTC); SPASHDOWN (Area 9, 1 x 4-person trailer toilet, pump out only, no asset number yet) added; plan pump_only. The card bundle drops line pins, so T0024's two line pins are kept here from the repo. This file is the source of truth again."
  },
  "extras": [
   "refill"
