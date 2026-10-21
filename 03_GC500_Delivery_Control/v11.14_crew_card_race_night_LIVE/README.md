@@ -1,6 +1,6 @@
 # v11.14 — the crews' QR pages, race-night: dark, glowing, and every total says how much is to go
 
-Author: Andrew Fisher. Built on live v11.13 `3be11b11…`. LIVE line and hashes in STATUS.md.
+Author: Andrew Fisher. Built on live v11.13 `3be11b11…`. **LIVE 22 Oct 2026 08:33 AEST**, sha256 `4d421ade78a7e0f77617463d0c47e4c78ec1e22545ce771d9426d874dc5d6299` (21,075,255 bytes); the live crew card re-posted under its existing token at 08:34 and verified (75 signed links unchanged, key kept, 13 ticks unchanged). Status in STATUS.md.
 
 Andrew, 22 Oct 2026: "Lets work on the qr pages where they click complete.. lets glow this up and darken this up push
 your limits with this one. Lets make this look good. We want the teams to know whats been done. How much more to go."
