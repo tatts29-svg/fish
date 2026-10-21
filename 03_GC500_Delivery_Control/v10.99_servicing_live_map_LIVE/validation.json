@@ -1,6 +1,6 @@
 {
   "author": "Andrew Fisher",
-  "state": "READY TO UPLOAD",
+  "state": "LIVE; final native UI read-back running",
   "source_commit": "017a9cff13972edf5f1bbc393fa4f71d855aa9dd",
   "base_sha256": "6a1d77fe216ab6a1088a89e75ebd4602bb24e084342881a5aa963448adc34e64",
   "candidate_sha256": "fddc937937d41bc0a1651556b4ef28749085789271fc61c3145ed044db22f8cf",
@@ -20,5 +20,11 @@
     "Physical paper scans not performed",
     "Other agent acknowledgement not claimed"
   ],
-  "production_mutations_by_tests": 0
+  "production_mutations_by_tests": 0,
+  "published_at": "2026-10-21T00:50:07.035Z",
+  "independent_public_readback": {
+    "verified_at": "2026-10-21T00:50:52.919341+00:00",
+    "exact_candidate_match": true
+  },
+  "native_ui_readback": "queued behind all-code phone verification"
 }

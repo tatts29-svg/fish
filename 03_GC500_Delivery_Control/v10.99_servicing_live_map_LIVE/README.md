@@ -1,4 +1,4 @@
-# Live servicing map — draft
+# Live servicing map — v10.99
 
 Author: Andrew Fisher.
 
@@ -29,4 +29,6 @@ Use the shared `toolchain/build.sh` and `check_page.py`. The publisher owns fina
 - `test_map1099.cjs`: private candidate geometry with synthetic progress; desktop/phone rendering, viewport retention, overlap selection, keyboard zoom, 16000% cap, reduced motion and access clearing. Runs with no network requests; Chromium receives a credential-free environment. `PAGE` selects the private candidate and `MAP_EVIDENCE` selects private screenshots.
 - `test_servicing_flow.cjs` and `test_servicing_flow_runtime.cjs`: actual local service, crew card, saved-event reader and map integration. The final exact-candidate run passed 182 checks, including five-second refresh, failure backoff, hidden-pane pause, access clearing and keyboard focus across native redraws. No production writes or physical paper-scan claim. Set `FLOW_EVIDENCE` to a private directory and `FLOW_CONTROLLER_CANDIDATE` to the candidate when running this test under `flock /tmp/gc500-browser.lock`; omitting the candidate explicitly skips the native-controller boundary checks.
 
-State: source frozen after local verification: geometry guards 10/10, model checks 12/12, layout checks 38/38 and local-server flow/controller checks 182/182. The final local candidate is 19,918,495 bytes, SHA-256 `fddc937937d41bc0a1651556b4ef28749085789271fc61c3145ed044db22f8cf`; all 150 inline scripts parse, with no new credential markers. Desktop and phone map screenshots were inspected. The publisher still owns final full-page route sweeps and guarded publication. No v10.99 publication claim. Private screenshots, source maps, operational data and test receipts stay outside GitHub.
+State: source frozen after local verification: geometry guards 10/10, model checks 12/12, layout checks 38/38 and local-server flow/controller checks 182/182. The final local candidate is 19,918,495 bytes, SHA-256 `fddc937937d41bc0a1651556b4ef28749085789271fc61c3145ed044db22f8cf`; all 150 inline scripts parse, with no new credential markers. Desktop and phone map screenshots were inspected. Final full-page sweeps and guarded publication are recorded below. Private screenshots, source maps, operational data and test receipts stay outside GitHub.
+
+Published 21 Oct 2026 at 10:50 AEST through the guarded uploader. Source commit `017a9cff13972edf5f1bbc393fa4f71d855aa9dd`; independent public GET matches the candidate bytes exactly. Both final desktop/phone sweeps passed 25 routes, seven links and Back with no errors or write attempts. Final native live-map and all-code phone-route read-backs are running; physical scans remain unverified.
