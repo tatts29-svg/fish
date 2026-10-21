@@ -1,6 +1,6 @@
 # v11.09 — dockets and invoices are the truth; Eric off the installers
 
-Author: Andrew Fisher. Built on live v11.08 `522dbc09…`. Candidate sha256
+Author: Andrew Fisher. Built on live v11.08 `522dbc09…`. **LIVE 22 Oct 2026 05:05 AEST**, sha256
 `4741d5cddb17582515cd0be85b9491ab5a4b068b9c58f05d306c7a83fefa4de5` (21,060,059 bytes). Status in STATUS.md.
 
 Andrew, 22 Oct 2026: "Our dockets and whats been invoiced is truth"; "please remove eric from the names in installers";
