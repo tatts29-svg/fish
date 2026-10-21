@@ -1,6 +1,6 @@
 # v11.15 — the crews' QR pages, v3.1: rings that fill, the chequered strip, the tick that draws itself, the finished moment
 
-Author: Andrew Fisher. Built on live v11.14 `4d421ade…`. LIVE line and hashes in STATUS.md.
+Author: Andrew Fisher. Built on live v11.14 `4d421ade…`. **LIVE 22 Oct 2026 08:46 AEST**, sha256 `d253cecd6a68962a38e2fd05d9c6dcad89e04ac2bbe16042c5b12da23cfaa8a3` (21,081,456 bytes); the live crew card re-posted under its existing token at 08:46 and verified (75 signed links unchanged, key kept, 13 ticks unchanged, 107,775 bytes). Status in STATUS.md.
 
 Andrew, 22 Oct 2026, after v11.14: "Remember i need this to look amazing.. thankyou so much".
 
