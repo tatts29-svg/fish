@@ -1,6 +1,7 @@
 # v11.08 — one fencing model on every fencing display
 
-Author: Andrew Fisher. Built on v11.07 `dc641835…`. Status in STATUS.md.
+Author: Andrew Fisher. Built on v11.07 `dc641835…`. **LIVE 22 Oct 2026 04:33 AEST**, sha256
+`522dbc09fbed279e1873b245828f25d32b0b2019e03018da22560d01fb125a76` (21,054,259 bytes); sweeps desktop + phone clean. Status in STATUS.md.
 
 Andrew, 21–22 Oct 2026: "Fencing is still not complete its not 100% yet"; "We need fencing correct we need this fixed.
 You have all the dockets. You have all the maps and schedule".
