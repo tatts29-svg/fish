@@ -30,12 +30,20 @@
   "network_writes_during_tests": 0,
   "final_phone_and_board_screenshots_reviewed": true,
   "external_claude_review": false,
-  "separate_follow_on": "Root Codex owns the category-progress investigation and authorised rate-association correction",
+  "separate_follow_on": "Root Codex owns v11.04 Servicing presentation and category-progress correction, then v11.05 financial source association",
   "source_commit": "eb37197ee6a3a494994c29f20aebab6c3eb8c345",
   "uploaded_at": "2026-10-21T04:54:22.160Z",
   "guarded_upload": "passed",
   "independent_exact_public_readback": "passed",
   "actual_live_native_checks": 267,
   "full_state_unchanged_during_publication": true,
-  "native_equipment_additions": "pending guarded native apply"
+  "native_equipment_additions": "saved through exact native allowlist and independently verified",
+  "native_equipment_saved_at": "2026-10-21T05:02:07.081Z",
+  "independent_post_save_checks": 44,
+  "independent_post_save_matches_approved_after_state": true,
+  "independent_post_save_writes": 0,
+  "independent_post_save_script_errors": 0,
+  "no_arrival_or_completion_inferred": true,
+  "servicing_financial_and_protected_boards_preserved": true,
+  "post_save_phone_screenshots_reviewed": true
 }
