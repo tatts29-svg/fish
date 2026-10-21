@@ -1,6 +1,6 @@
 {
   "author": "Andrew Fisher",
-  "status": "READY TO UPLOAD",
+  "status": "VERIFIED LIVE",
   "base_sha256": "eb8373a49087060adaf4fac26668c4ad02c87482dabfdcf14155ad3137322395",
   "candidate_sha256": "4b1ee468727cb98b3c52f751c77ce6d4b0258b7dca32c14b40c1ae41a95bcfd5",
   "candidate_bytes": 20941279,
@@ -37,20 +37,20 @@
         "viewport": "desktop",
         "refreshRoundTripMs": {
           "n": 12,
-          "median": 50.01681000000008,
-          "p95": 58.253674000000046,
-          "max": 58.253674000000046
+          "median": 49.98990499999991,
+          "p95": 54.67523100000017,
+          "max": 54.67523100000017
         },
         "wakeScriptingMs": {
           "n": 12,
-          "median": 0.800000011920929,
-          "p95": 1,
-          "max": 1
+          "median": 0.699999988079071,
+          "p95": 0.9000000059604645,
+          "max": 0.9000000059604645
         },
         "panelReconcileMapUpdateMs": {
           "n": 24,
-          "median": 1,
-          "p95": 1.2999999821186066,
+          "median": 0.9000000059604645,
+          "p95": 1.300000011920929,
           "max": 1.4000000059604645
         },
         "map": true,
@@ -70,21 +70,21 @@
         "viewport": "phone",
         "refreshRoundTripMs": {
           "n": 12,
-          "median": 49.972281000000294,
-          "p95": 56.58807900000102,
-          "max": 56.58807900000102
+          "median": 49.96306600000025,
+          "p95": 51.19068200000038,
+          "max": 51.19068200000038
         },
         "wakeScriptingMs": {
           "n": 12,
-          "median": 0.800000011920929,
-          "p95": 1,
-          "max": 1
+          "median": 0.7000000178813934,
+          "p95": 0.800000011920929,
+          "max": 0.800000011920929
         },
         "panelReconcileMapUpdateMs": {
           "n": 24,
           "median": 1,
-          "p95": 1.4000000059604645,
-          "max": 1.5
+          "p95": 1.2999999821186066,
+          "max": 1.300000011920929
         },
         "map": true,
         "world": true,
@@ -100,7 +100,8 @@
         "childRemoved": 12
       }
     ],
-    "timing_scope": "Three-reference synthetic fixture; not full production workload or a physical-device/network guarantee."
+    "timing_scope": "Three-reference synthetic fixture; not full production workload or a physical-device/network guarantee.",
+    "final_fixture_charset": "UTF-8"
   },
   "source_commit": "15d6ed347d9fc8b9e7487ec9c52d8acf914fe601",
   "full_page_sweeps": {
@@ -118,5 +119,20 @@
       "page_errors": 0,
       "console_errors": 0
     }
+  },
+  "published_at": "2026-10-21T03:07:26.570Z",
+  "guarded_exact_public_readback": true,
+  "independent_native_readback": {
+    "checked_at": "2026-10-21T03:08:47.781Z",
+    "checks_passed": 2530,
+    "all_native_nights_checked": true,
+    "exact_page_hash": true,
+    "shared_panel_map_meters_agree": true,
+    "nodes_focus_scroll_viewport_retained": true,
+    "full_job_and_version_unchanged": true,
+    "tracker_codes_ticks_history_and_card_metadata_unchanged": true,
+    "native_phone_and_desktop_screenshots_reviewed": true,
+    "attempted_writes": 0,
+    "errors": 0
   }
 }
