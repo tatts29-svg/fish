@@ -19,4 +19,4 @@ the three delivery documents allowed through once each, every other document ver
 verified on the service.
 
 Today after: buildings 52 of 52 (unchanged); the buildings facts now read 42 with steps (was 45). The race-day
-broadcast's turn 8 said forty-five and is re-voiced to forty-two in v11.16 so the call and the record say the same.
+broadcast's turn 8 said forty-five and is re-voiced to forty-two in v11.16 (LIVE 09:11, `v11.16_stairs_count_LIVE/`) so the call and the record say the same.
