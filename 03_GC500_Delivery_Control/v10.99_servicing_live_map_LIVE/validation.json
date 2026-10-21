@@ -1,6 +1,6 @@
 {
   "author": "Andrew Fisher",
-  "state": "LIVE; final native UI read-back running",
+  "state": "VERIFIED LIVE",
   "source_commit": "017a9cff13972edf5f1bbc393fa4f71d855aa9dd",
   "base_sha256": "6a1d77fe216ab6a1088a89e75ebd4602bb24e084342881a5aa963448adc34e64",
   "candidate_sha256": "fddc937937d41bc0a1651556b4ef28749085789271fc61c3145ed044db22f8cf",
@@ -14,7 +14,8 @@
     "desktop_sweep": "25 routes, 7 links, Back; errors 0, writes 0",
     "phone_sweep": "25 routes, 7 links, Back; errors 0, writes 0",
     "independent_source_review": "passed",
-    "private_pdf_decode": "all expected codes at 300 and 150 dpi"
+    "private_pdf_decode": "all 219 exact QR values at 300 and 150 dpi; delivered PDF matches audited bytes",
+    "phone_task_routes": "every printed task code passed on iPhone and Android emulation; no writes/errors"
   },
   "limitations": [
     "Physical paper scans not performed",
@@ -26,5 +27,14 @@
     "verified_at": "2026-10-21T00:50:52.919341+00:00",
     "exact_candidate_match": true
   },
-  "native_ui_readback": "queued behind all-code phone verification"
+  "native_ui_readback": {
+    "verified_at": "2026-10-21T01:02:29Z",
+    "checks": 423,
+    "saved_reference_area_overall_map_totals": "match live saved ticks",
+    "selected_days": "verified",
+    "refresh_viewport_focus": "preserved",
+    "mutation_attempts": 0,
+    "script_or_bridge_errors": 0,
+    "job_tracker_and_codes": "unchanged"
+  }
 }
