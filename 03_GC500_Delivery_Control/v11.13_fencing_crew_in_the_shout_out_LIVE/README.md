@@ -1,6 +1,6 @@
 # v11.13 — Wayne's fencing crew named in the final shout-out
 
-Author: Andrew Fisher. Built on live v11.12 `39492d28…`. LIVE line and hashes in STATUS.md.
+Author: Andrew Fisher. Built on live v11.12 `39492d28…`. **LIVE 22 Oct 2026 08:21 AEST**, sha256 `3be11b11ca40423ce957d49ea0719b85568071d5fc6cfee2b8660f21c947a816` (21,069,283 bytes); media manifest `a863fbd626a877df…` (1,983 files) registered first. Status in STATUS.md.
 
 Andrew, 22 Oct 2026: "Can you add Wayne's crew names into the final shout out".
 
