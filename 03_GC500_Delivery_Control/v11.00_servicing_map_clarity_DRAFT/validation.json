@@ -1,6 +1,6 @@
 {
   "author": "Andrew Fisher",
-  "state": "verification in progress; not live",
+  "state": "ready to upload",
   "candidate_sha256": "d4a10a7fe07637fdfbb97f31ff2a07f48af4a632479acce8fd29aeb9cf9c97d7",
   "candidate_bytes": 20922036,
   "base_sha256": "fddc937937d41bc0a1651556b4ef28749085789271fc61c3145ed044db22f8cf",
@@ -14,7 +14,22 @@
     "shared_model": 12,
     "focused_map": 35,
     "actual_local_server_flow": 185,
-    "performance_behavior": 34
+    "performance_behavior": 34,
+    "actual_geometry_layout": 51,
+    "phone_sweep": {
+      "routes": 25,
+      "links": 7,
+      "back": true,
+      "page_errors": 0,
+      "console_errors": 0
+    },
+    "desktop_sweep": {
+      "routes": 25,
+      "links": 7,
+      "back": true,
+      "page_errors": 0,
+      "console_errors": 0
+    }
   },
   "original_source_detail_px": [
     4096,
@@ -42,5 +57,6 @@
     "phone_zoom_p95_ms": 17,
     "pan_and_unchanged_refresh_marker_replacements": 0
   },
-  "private_sources_and_operational_evidence_included": false
+  "private_sources_and_operational_evidence_included": false,
+  "source_commit": "42b5528f745122af6ccdfd9974fb90c47c51087e"
 }
