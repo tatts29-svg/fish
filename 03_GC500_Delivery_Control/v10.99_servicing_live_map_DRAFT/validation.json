@@ -1,0 +1,24 @@
+{
+  "author": "Andrew Fisher",
+  "state": "READY TO UPLOAD",
+  "source_commit": "017a9cff13972edf5f1bbc393fa4f71d855aa9dd",
+  "base_sha256": "6a1d77fe216ab6a1088a89e75ebd4602bb24e084342881a5aa963448adc34e64",
+  "candidate_sha256": "fddc937937d41bc0a1651556b4ef28749085789271fc61c3145ed044db22f8cf",
+  "bytes": 19918495,
+  "inline_scripts": 150,
+  "checks": {
+    "geometry": 10,
+    "model": 12,
+    "layout": 38,
+    "local_service_controller": 182,
+    "desktop_sweep": "25 routes, 7 links, Back; errors 0, writes 0",
+    "phone_sweep": "25 routes, 7 links, Back; errors 0, writes 0",
+    "independent_source_review": "passed",
+    "private_pdf_decode": "all expected codes at 300 and 150 dpi"
+  },
+  "limitations": [
+    "Physical paper scans not performed",
+    "Other agent acknowledgement not claimed"
+  ],
+  "production_mutations_by_tests": 0
+}
