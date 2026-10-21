@@ -1,6 +1,6 @@
 {
   "author": "Andrew Fisher",
-  "state": "READY TO UPLOAD",
+  "state": "VERIFIED LIVE",
   "base_sha256": "312c5a31536a4af0e01cf5850828994b1076d6d3c123d4098158030146af986e",
   "candidate_sha256": "198242a69a69e675dc733f0945bc1e092d2813d1090af20d1f5fcefb0b348eab",
   "candidate_bytes": 21022969,
@@ -23,7 +23,7 @@
     "fencingProgress1104_src.js": "30f5429c722186bab117a70d85e4de6e46c767ea28d6e276cd57692140e18406",
     "test_servicingRace1104.cjs": "3e70e6407405880658af6cffe7f4bd1093f48318265b7a83c9fb1ffe952aef4f"
   },
-  "scope_notes": "Native progress calculations were checked before the final presentation-only fixes; final focused screenshots and controller suite use the exact final candidate. Publication and independent live verification remain required.",
+  "scope_notes": "Final candidate was independently read back live. Synthetic completion screenshots do not represent event completion. Map centring after a large viewport resize is under separate follow-on investigation.",
   "navigation_sweeps": {
     "desktop": {
       "sections": 25,
@@ -46,5 +46,23 @@
       "console_errors": 0
     }
   },
-  "upload_dry_run": "PASS: exact live base unchanged; edit access verified; no upload performed"
+  "upload_dry_run": "PASS: exact live base unchanged; edit access verified; no upload performed",
+  "release_source_commit": "d852f5466b870b9512db4790103c863ad5fabcd1",
+  "published_utc": "2026-10-21T05:21:14.352Z",
+  "published_aest": "21 Oct 2026 15:21 AEST",
+  "live_sha256": "198242a69a69e675dc733f0945bc1e092d2813d1090af20d1f5fcefb0b348eab",
+  "independent_live_verification": {
+    "checks": 2544,
+    "at": "2026-10-21T05:22:44.960Z",
+    "exact_candidate": true,
+    "whole_job_tracker_codes_ticks_cards_unchanged": true,
+    "mutations": 0,
+    "errors": 0
+  },
+  "root_readback": {
+    "at": "2026-10-21T05:21:42.243930Z",
+    "exact_public_bytes": true,
+    "whole_native_documents_unchanged": true,
+    "writes": 0
+  }
 }
