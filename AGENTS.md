@@ -169,6 +169,17 @@ marks as a draft, or anything risky to the record, waits for his yes.
     dockets and the contracts, and settle it yourself. Ask him only when no source settles it. WC20 is the example:
     on 7 Oct he took 1327225 off; on 8 Oct he said "two blocks and two tanks". The schedule, the dockets and
     contract 9968955 line 48 all name 1327225 as the second block.
+- **Our dockets and what has been invoiced are the truth for work done** (Andrew, 22 Oct 2026: "Our dockets and whats
+  been invoiced is truth"). What a signed docket records as done, as it was recorded on the page, and what the
+  supplier has invoiced, counts as done: a programme row, a plan quantity marked TBC or a reviewer's "to confirm" does
+  not hold a docketed or invoiced quantity back. A docket's own classification (for example CC barrier recorded as
+  demarcation from the paper's notes or the programme row it installs) stands as recorded until a docket or invoice
+  says otherwise. An invoiced quantity with no docket date is still done; it is placed in the week it was invoiced.
+  The programme and the plan are what the done work is measured against, never a reason to discount it.
+- **One figure, everywhere** (Andrew, 22 Oct 2026: "Everywhere needs to talk updates and place updates everywhere
+  else"). Every card, tab, Showcase scene, milestone, copy text and print that shows the same fact reads the same
+  function on the same record, so a change in one place shows in every place at once. Never a second model of the
+  same thing for another tab (the two fencing models fixed in v11.08 are the example to avoid).
 - **Work it out from the data before asking** (Andrew, 15 Oct 2026: "You have all the data, you are the brains, I
   need you to work it out"; 17 Oct 2026: "You should know if that number should, you know").
   - Before a question goes to Andrew, search the live record (including history, notes and deleted entries), the
