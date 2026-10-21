@@ -55,3 +55,20 @@ python verify_print_contracts.py \
   --previous-decoded /private/previous-decoded.json \
   --final-decoded /private/final-decoded.json --out /private/contracts.json
 ```
+
+### Overview header clearance
+
+Overview headings reserve the measured statistics width plus a 6 mm gap. The
+full title remains at least 10 pt; a heading that cannot fit raises an error
+instead of overlapping the totals. This changes only printed heading layout.
+
+Run the synthetic regression from this folder:
+
+```sh
+python test_overview_headers.py --generator ../servicing_tracker_DRAFT/print/make_sheets.py
+```
+
+The test renders synthetic titles and counts, measures the actual PDF text
+bounds, checks margins and baseline alignment, and rejects an oversized title.
+Private print audits also verify every actual overview heading; operational
+values, signed URLs and generated sheets are not repository fixtures.

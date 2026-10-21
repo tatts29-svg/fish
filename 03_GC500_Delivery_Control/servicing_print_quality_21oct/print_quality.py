@@ -30,6 +30,21 @@ def revised_source(source):
         ("(mb.x + mb.w - 14 * mm, mb.y + mb.h - 14 * mm, mb.x + mb.w, mb.y + mb.h)",
          "(mb.x + mb.w - 18 * mm, mb.y + mb.h - 18 * mm, mb.x + mb.w, mb.y + mb.h)"),
     ]
+    replacements.append((
+        """        txt(c, 9 * mm, top - 6 * mm, title, 'narrowb', fit(title, 'narrowb', 22, W - 90 * mm), acol(hi['n']) if hi else INK)
+        units = d.units(refs)
+        right = (f'Area {hi["n"]}: ' if hi else '') + f'{len(refs)} location{"s" if len(refs) != 1 else ""} · {units} unit{"s" if units != 1 else ""}'
+        txt(c, W - 9 * mm, top - 6 * mm, right, 'narrowb', 16, INK, 'r')""",
+        """        units = d.units(refs)
+        right = (f'Area {hi["n"]}: ' if hi else '') + f'{len(refs)} location{"s" if len(refs) != 1 else ""} · {units} unit{"s" if units != 1 else ""}'
+        # Reserve the actual statistics width plus a clear gap. A fixed
+        # reservation allowed long area titles to overlap the unit totals.
+        title_width = W - 18 * mm - sw(right, 'narrowb', 16) - 6 * mm
+        title_size = fit(title, 'narrowb', 22, title_width, 10)
+        if sw(title, 'narrowb', title_size) > title_width:
+            raise ValueError('Overview title requires more print space')
+        txt(c, 9 * mm, top - 6 * mm, title, 'narrowb', title_size, acol(hi['n']) if hi else INK)
+        txt(c, W - 9 * mm, top - 6 * mm, right, 'narrowb', 16, INK, 'r')"""))
     for old, new in replacements:
         if source.count(old) != 1:
             raise ValueError('print source replacement mismatch')
