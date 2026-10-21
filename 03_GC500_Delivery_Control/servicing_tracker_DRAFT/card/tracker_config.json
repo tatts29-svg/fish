@@ -1,6 +1,14 @@
 {
  "days": [
   {
+   "id": "2026-10-20",
+   "plan": "night"
+  },
+  {
+   "id": "2026-10-21",
+   "plan": "night"
+  },
+  {
    "id": "2026-10-22",
    "plan": "night"
   },
@@ -43,12 +51,6 @@
    "qty": 1
   },
   {
-   "id": "T0024-FWF",
-   "ref": "T0024",
-   "kind": "fwf",
-   "qty": 1
-  },
-  {
    "id": "WC12-FWF",
    "ref": "WC12",
    "kind": "fwf",
@@ -57,32 +59,62 @@
   {
    "id": "WC16-TOILETBL",
    "ref": "WC16",
-   "kind": "block",
+   "kind": "sewer",
    "qty": 2
   },
   {
-   "id": "SPARE-FWF",
-   "ref": "SPARE",
+   "id": "BJR01-FWF",
+   "ref": "BJR01",
    "kind": "fwf",
    "qty": 1
   },
   {
-   "id": "T0243-TOILETBL",
-   "ref": "T0243",
-   "kind": "block",
+   "id": "T0162-FWF",
+   "ref": "T0162",
+   "kind": "fwf",
+   "qty": 1
+  },
+  {
+   "id": "T0176-FWF",
+   "ref": "T0176",
+   "kind": "fwf",
+   "qty": 2
+  },
+  {
+   "id": "SVP01-FWF",
+   "ref": "SVP01",
+   "kind": "fwf",
    "qty": 1
   },
   {
    "id": "WC15-TOILETBL",
    "ref": "WC15",
-   "kind": "block",
+   "kind": "sewer",
    "qty": 2
   },
   {
    "id": "WC17-TOILETBL",
    "ref": "WC17",
-   "kind": "block",
+   "kind": "sewer",
    "qty": 2
+  },
+  {
+   "id": "WC43-FWF",
+   "ref": "WC43",
+   "kind": "fwf",
+   "qty": 10
+  },
+  {
+   "id": "WC73-FWF",
+   "ref": "WC73",
+   "kind": "fwf",
+   "qty": 2
+  },
+  {
+   "id": "T0243-TOILETBL",
+   "ref": "T0243",
+   "kind": "sewer",
+   "qty": 1
   },
   {
    "id": "WC19-FWF",
@@ -103,44 +135,32 @@
    "qty": 2
   },
   {
-   "id": "WC43-FWF",
-   "ref": "WC43",
-   "kind": "fwf",
-   "qty": 10
-  },
-  {
-   "id": "WC73-FWF",
-   "ref": "WC73",
-   "kind": "fwf",
-   "qty": 2
-  },
-  {
    "id": "WC86-ACCESSIB",
    "ref": "WC86",
-   "kind": "fwf",
+   "kind": "access",
    "qty": 1
   },
   {
-   "id": "WC01-FWF",
-   "ref": "WC01",
+   "id": "WC21-FWF",
+   "ref": "WC21",
+   "kind": "fwf",
+   "qty": 6
+  },
+  {
+   "id": "WC44-FWF",
+   "ref": "WC44",
    "kind": "fwf",
    "qty": 2
   },
   {
-   "id": "WC01-ACCESSIB",
-   "ref": "WC01",
+   "id": "T0024-FWF",
+   "ref": "T0024",
    "kind": "fwf",
    "qty": 1
   },
   {
-   "id": "WC02-FWF",
-   "ref": "WC02",
-   "kind": "fwf",
-   "qty": 1
-  },
-  {
-   "id": "WC04-FWF",
-   "ref": "WC04",
+   "id": "T0024-COA",
+   "ref": "T0024",
    "kind": "fwf",
    "qty": 1
   },
@@ -154,6 +174,54 @@
    "id": "WC05-WASTETAN",
    "ref": "WC05",
    "kind": "tank",
+   "qty": 1
+  },
+  {
+   "id": "WC04-FWF",
+   "ref": "WC04",
+   "kind": "fwf",
+   "qty": 1
+  },
+  {
+   "id": "WC06-FWF",
+   "ref": "WC06",
+   "kind": "fwf",
+   "qty": 2
+  },
+  {
+   "id": "WC07-FWF",
+   "ref": "WC07",
+   "kind": "fwf",
+   "qty": 20
+  },
+  {
+   "id": "WC11-FWF",
+   "ref": "WC11",
+   "kind": "fwf",
+   "qty": 2
+  },
+  {
+   "id": "WC41-FWF",
+   "ref": "WC41",
+   "kind": "fwf",
+   "qty": 10
+  },
+  {
+   "id": "WC01-FWF",
+   "ref": "WC01",
+   "kind": "fwf",
+   "qty": 2
+  },
+  {
+   "id": "WC01-ACCESSIB",
+   "ref": "WC01",
+   "kind": "access",
+   "qty": 1
+  },
+  {
+   "id": "WC02-FWF",
+   "ref": "WC02",
+   "kind": "fwf",
    "qty": 1
   },
   {
@@ -181,16 +249,28 @@
    "qty": 1
   },
   {
-   "id": "WC06-FWF",
-   "ref": "WC06",
-   "kind": "fwf",
+   "id": "WC31-ACCESSIB",
+   "ref": "WC31",
+   "kind": "access",
+   "qty": 1
+  },
+  {
+   "id": "WC31-16PANBLO",
+   "ref": "WC31",
+   "kind": "pan16",
    "qty": 2
   },
   {
-   "id": "WC07-FWF",
-   "ref": "WC07",
+   "id": "WC34-FWF",
+   "ref": "WC34",
    "kind": "fwf",
-   "qty": 20
+   "qty": 1
+  },
+  {
+   "id": "WC65-FWF",
+   "ref": "WC65",
+   "kind": "fwf",
+   "qty": 1
   },
   {
    "id": "WC09-FWF",
@@ -201,7 +281,7 @@
   {
    "id": "WC09-TOILETBL",
    "ref": "WC09",
-   "kind": "block",
+   "kind": "sewer",
    "qty": 2
   },
   {
@@ -211,16 +291,16 @@
    "qty": 3
   },
   {
-   "id": "WC11-FWF",
-   "ref": "WC11",
+   "id": "WC28-FWF",
+   "ref": "WC28",
    "kind": "fwf",
-   "qty": 2
+   "qty": 1
   },
   {
-   "id": "WC41-FWF",
-   "ref": "WC41",
+   "id": "WC29-FWF",
+   "ref": "WC29",
    "kind": "fwf",
-   "qty": 10
+   "qty": 7
   },
   {
    "id": "WC27-TOILETBL",
@@ -259,16 +339,22 @@
    "qty": 8
   },
   {
-   "id": "WC13-FWF",
-   "ref": "WC13",
+   "id": "WC57-FWF",
+   "ref": "WC57",
    "kind": "fwf",
    "qty": 2
   },
   {
-   "id": "WC21-FWF",
-   "ref": "WC21",
+   "id": "WC59-FWF",
+   "ref": "WC59",
    "kind": "fwf",
-   "qty": 6
+   "qty": 7
+  },
+  {
+   "id": "WC23-FWF",
+   "ref": "WC23",
+   "kind": "fwf",
+   "qty": 5
   },
   {
    "id": "WC26-FWF",
@@ -289,40 +375,10 @@
    "qty": 12
   },
   {
-   "id": "WC57-FWF",
-   "ref": "WC57",
-   "kind": "fwf",
-   "qty": 2
-  },
-  {
-   "id": "WC59-FWF",
-   "ref": "WC59",
-   "kind": "fwf",
-   "qty": 7
-  },
-  {
-   "id": "WC23-FWF",
-   "ref": "WC23",
-   "kind": "fwf",
-   "qty": 5
-  },
-  {
-   "id": "WC24-FWF",
-   "ref": "WC24",
-   "kind": "fwf",
-   "qty": 1
-  },
-  {
    "id": "WC25-FWF",
    "ref": "WC25",
    "kind": "fwf",
    "qty": 1
-  },
-  {
-   "id": "WC44-FWF",
-   "ref": "WC44",
-   "kind": "fwf",
-   "qty": 2
   },
   {
    "id": "WC45-FWF",
@@ -337,9 +393,33 @@
    "qty": 1
   },
   {
+   "id": "WC13-FWF",
+   "ref": "WC13",
+   "kind": "fwf",
+   "qty": 2
+  },
+  {
+   "id": "WC24-FWF",
+   "ref": "WC24",
+   "kind": "fwf",
+   "qty": 1
+  },
+  {
+   "id": "WC54-FWF",
+   "ref": "WC54",
+   "kind": "fwf",
+   "qty": 6
+  },
+  {
    "id": "WC55-FWF",
    "ref": "WC55",
    "kind": "fwf",
+   "qty": 1
+  },
+  {
+   "id": "SPASHDOWN-1",
+   "ref": "SPASHDOWN",
+   "kind": "pump_only",
    "qty": 1
   },
   {
@@ -369,7 +449,7 @@
   {
    "id": "WC51-ACCESSIB",
    "ref": "WC51",
-   "kind": "fwf",
+   "kind": "access",
    "qty": 1
   },
   {
@@ -377,24 +457,6 @@
    "ref": "WC53",
    "kind": "fwf",
    "qty": 3
-  },
-  {
-   "id": "WC54-FWF",
-   "ref": "WC54",
-   "kind": "fwf",
-   "qty": 6
-  },
-  {
-   "id": "WC28-FWF",
-   "ref": "WC28",
-   "kind": "fwf",
-   "qty": 1
-  },
-  {
-   "id": "WC29-FWF",
-   "ref": "WC29",
-   "kind": "fwf",
-   "qty": 7
   },
   {
    "id": "WC30-FWF",
@@ -415,40 +477,10 @@
    "qty": 2
   },
   {
-   "id": "WC81-FWF",
-   "ref": "WC81",
-   "kind": "fwf",
-   "qty": 1
-  },
-  {
-   "id": "WC31-ACCESSIB",
-   "ref": "WC31",
-   "kind": "fwf",
-   "qty": 1
-  },
-  {
-   "id": "WC31-16PANBLO",
-   "ref": "WC31",
-   "kind": "block",
-   "qty": 2
-  },
-  {
-   "id": "WC34-FWF",
-   "ref": "WC34",
-   "kind": "fwf",
-   "qty": 1
-  },
-  {
-   "id": "WC65-FWF",
-   "ref": "WC65",
-   "kind": "fwf",
-   "qty": 1
-  },
-  {
    "id": "WC67-FWF",
    "ref": "WC67",
    "kind": "fwf",
-   "qty": 2
+   "qty": 4
   },
   {
    "id": "WC68-FWF",
@@ -481,28 +513,10 @@
    "qty": 1
   },
   {
-   "id": "BJR01-FWF",
-   "ref": "BJR01",
+   "id": "WC81-FWF",
+   "ref": "WC81",
    "kind": "fwf",
    "qty": 1
-  },
-  {
-   "id": "SVP01-FWF",
-   "ref": "SVP01",
-   "kind": "fwf",
-   "qty": 1
-  },
-  {
-   "id": "T0162-FWF",
-   "ref": "T0162",
-   "kind": "fwf",
-   "qty": 1
-  },
-  {
-   "id": "T0176-FWF",
-   "ref": "T0176",
-   "kind": "fwf",
-   "qty": 2
   },
   {
    "id": "WC85-FWF",
@@ -521,27 +535,57 @@
   "fwf": {
    "night": [
     "pump",
-    "water",
-    "clean"
+    "clean",
+    "refill"
    ],
    "final": [
-    "pump",
-    "clean",
-    "lock"
+    "lockup"
    ]
   },
-  "block": {
+  "access": {
+   "night": [
+    "pump",
+    "clean",
+    "refill"
+   ],
+   "final": [
+    "lockup"
+   ]
+  },
+  "pan16": {
    "night": [
     "pump",
     "clean"
    ],
    "final": [
-    "pump",
-    "clean",
-    "lock"
+    "lockup"
+   ]
+  },
+  "block": {
+   "night": [
+    "clean"
+   ],
+   "final": [
+    "clean"
+   ]
+  },
+  "sewer": {
+   "night": [
+    "clean"
+   ],
+   "final": [
+    "clean"
    ]
   },
   "tank": {
+   "night": [
+    "pump"
+   ],
+   "final": [
+    "pump"
+   ]
+  },
+  "pump_only": {
    "night": [
     "pump"
    ],

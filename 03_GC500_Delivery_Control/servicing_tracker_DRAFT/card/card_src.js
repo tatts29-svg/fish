@@ -505,21 +505,29 @@ function windowHtml(day) {
   var state = !synced ? 'Waiting for the service clock' : pick && pick.late ? 'Late ticks for ' + longDay(day) + '\'s service' : n < s ? 'Opens ' + d.label + ' 08:00' : n >= e ? 'Closed ' + d.to + ' 08:00' : 'Open now · closes 08:00 ' + d.to;
   return '<span><b>' + esc(d.label + ' 08:00 → ' + d.to + ' 08:00') + '</b>' + (d.practice ? ' · practice only, not the event' : '') + (d.ifNeeded ? ' · only if Thursday is serviced' : '') + (d.plan === 'final' ? ' · last night' : '') + '</span><span>' + esc(state) + '</span>';
 }
+/* v3, 22 Oct 2026: every total says what is done AND how much is to go */
+function togoHtml(s) {
+  var left = Math.max(0, s.w - s.d), refsLeft = Math.max(0, s.refs - s.refsDone);
+  if (!left) return '<span class="togo zero">All done</span>';
+  return '<span class="togo">' + left + ' job' + (left === 1 ? '' : 's') + ' to go · ' + refsLeft + ' reference' + (refsLeft === 1 ? '' : 's') + ' left</span>';
+}
 function progHtml(label, s, refWord) {
-  return '<div><div class="pl"><span class="pn">' + esc(label) + '</span><em>' + s.pct + '%</em></div>' + bar(s.pct, !!s.finished) +
-    '<div class="pm">' + (s.finished ? '<span class="fin">' + (refWord === 'area' ? 'Area finished ' : 'All finished ') + hm(s.finished) + '</span> · ' : '') + s.refsDone + ' of ' + s.refs + ' references · ' + s.d + ' of ' + s.w + ' jobs</div></div>';
+  var full = s.w > 0 && s.d >= s.w;
+  return '<div><div class="pl"><span class="pn">' + esc(label) + '</span><em' + (full ? ' class="full"' : '') + '>' + s.pct + '%</em></div>' + bar(s.pct, !!s.finished) +
+    '<div class="pm">' + (s.finished ? '<span class="fin">' + (refWord === 'area' ? 'Area finished ' : 'All finished ') + hm(s.finished) + '</span>' : '') + '<span>' + s.refsDone + ' of ' + s.refs + ' references · ' + s.d + ' of ' + s.w + ' jobs</span>' + togoHtml(s) + '</div></div>';
 }
 function taskProgress(refs, day, st) {
   var stats = SvcState.taskStats(D, refs, day, st);
   return '<dl class="task-progress">' + Object.keys(stats).map(function (task) {
     var s = stats[task];
-    return '<div><dt>' + esc(TASKS[task] || task) + '</dt><dd>' + s.d + '/' + s.w + ' jobs · ' + s.pct + '%</dd></div>';
+    return '<div><dt>' + esc(TASKS[task] || task) + '</dt><dd' + (s.w > 0 && s.d >= s.w ? ' class="full"' : '') + '>' + s.d + '/' + s.w + ' jobs · ' + s.pct + '%' + (s.w > s.d ? ' · ' + (s.w - s.d) + ' to go' : '') + '</dd></div>';
   }).join('') + '</dl>';
 }
 function compactHtml(day, os, st) {
   var a = mode === 'tick' ? AREA_OF[curRef] : null;
   var as = a ? groupStats(a.refs, day, st) : null;
-  return '<span class="compact-day">' + esc(shortDay(day)) + '</span>' + (as ? '<span>' + (a.n ? 'Area ' + a.n : esc(a.name)) + ' <b>' + as.pct + '%</b></span>' : '') + '<span>Everything <b>' + os.pct + '%</b></span>';
+  var cell = function (label, s) { var full = s.w > 0 && s.d >= s.w, left = Math.max(0, s.w - s.d); return '<span>' + label + ' <b' + (full ? ' class="full"' : '') + '>' + s.pct + '%</b><small>' + (full ? 'all done' : left + ' to go') + '</small></span>'; };
+  return '<span class="compact-day">' + esc(shortDay(day)) + '</span>' + (as ? cell(a.n ? 'Area ' + a.n : esc(a.name), as) : '') + cell('Everything', os);
 }
 function jobHtml(r, l, task, day, st, open) {
   var key = l.id + '|' + task, s = st[jobKey(l.id, task, day)], label = TASKS[task] || task;
@@ -545,11 +553,18 @@ function tickView(day, st) {
   });
   if (!shown.length) h += '<p class="nojobs">No ' + esc(g ? g.label : 'jobs') + ' at ' + esc(r.ref) + ' on ' + esc(longDay(day)) + '\'s service.' + (g ? ' Scan the other code on the sheet.' : '') + '</p>';
   else h += '<div class="savebox"><button class="saveclose" type="button" id="saveclose" data-save="1"' + (final ? ' disabled' : '') + '>Save &amp; close</button><p>Each Complete is sent as you tap it. Save &amp; close checks every tap has reached the service.</p></div>';
-  h += '</section>';
+  h += leftHtml(a, day, st) + '</section>';
   h += '<section class="card progress-detail"><h3>' + esc(areaLabel(a)) + ' · jobs</h3>' + taskProgress(a.refs, day, st) + '</section>';
   h += '<button class="showall" type="button" data-showall="1" aria-expanded="' + showAll + '">' + (showAll ? 'Hide the other areas' : 'Show every area (view only)') + '</button>';
   if (showAll) h += areasHtml(day, st, curRef);
   return h;
+}
+/* v3: the references in this area still to go (every job done = done), newest first by name; the crew sees what is left */
+function leftHtml(a, day, st) {
+  var left = a.refs.filter(function (r) { return !refStats(r, day, st).done; });
+  return '<div class="left-list"><h3>Still to go in ' + esc(a.n ? 'Area ' + a.n : a.name) + '</h3>' + (left.length
+    ? '<div class="chips">' + left.map(function (r) { var rs = refStats(r, day, st); return '<span class="chip' + (r.ref === curRef ? ' left' : '') + '">' + esc(r.ref) + (rs.d ? ' ' + rs.d + '/' + rs.w : '') + '</span>'; }).join('') + '</div>'
+    : '<p class="alldone">Every reference in this area is done.</p>') + '</div>';
 }
 /* after Save & close: the taps are on the service (or kept on this phone until signal), the area's new %, and the
    tab tries to close itself (a browser only lets it when the scan opened it) */
@@ -559,7 +574,7 @@ function savedView(day, st) {
   var msg = n ? n + ' tap' + (n === 1 ? '' : 's') + (netDown || !navigator.onLine ? ' will send when there is signal. They also go the next time any code is scanned with signal.' : ' still sending. Keep this page open a moment.')
     : 'Everything from ' + curRef + ' is on the service.';
   return '<section class="card saved' + (n ? ' wait' : '') + '" role="status"><h2>' + esc(head) + (n ? '' : ' ' + TICK) + '</h2><p>' + esc(msg) + '</p>' +
-    '<p class="savedpct">' + esc(areaLabel(a)) + ' <b>' + as.pct + '%</b>' + (as.finished ? ' · area finished ' + hm(as.finished) : '') + '<br>Everything <b>' + os.pct + '%</b></p>' +
+    '<p class="savedpct">' + esc(areaLabel(a)) + ' <b' + (as.w > 0 && as.d >= as.w ? ' class="full"' : '') + '>' + as.pct + '%</b>' + (as.finished ? ' · area finished ' + hm(as.finished) : ' · ' + Math.max(0, as.w - as.d) + ' to go') + '<br>Everything <b' + (os.w > 0 && os.d >= os.w ? ' class="full"' : '') + '>' + os.pct + '%</b>' + (os.w > os.d ? ' · ' + (os.w - os.d) + ' to go' : '') + '</p>' +
     (n ? '' : '<p>You can close this page and scan the next code.</p>') +
     '<div class="bacts"><button class="bbtn" type="button" data-unsave="1">Back to ' + esc(curRef) + '</button></div></section>';
 }
@@ -601,7 +616,7 @@ function areasHtml(day, st, skipRef) {
     var s = groupStats(a.refs, day, st), isOpen = !!openAreas[a.n];
     return '<section class="area' + (s.finished ? ' complete' : '') + '" id="a' + a.n + '"><button class="ahead" type="button" id="ah-' + a.n + '" data-area="' + a.n + '" aria-expanded="' + isOpen + '">' +
       '<span class="anum">' + (a.n || '–') + '</span><span class="aname">' + esc(a.name) + '</span><span class="apct">' + s.pct + '%</span>' +
-      '<span class="ameta">' + (s.finished ? '<span class="fin">Area finished ' + hm(s.finished) + '</span> · ' : '') + s.refsDone + ' of ' + s.refs + ' references · ' + a.refs.reduce(function (n, r) { return n + unitsOf(r); }, 0) + ' units</span>' +
+      '<span class="ameta">' + (s.finished ? '<span class="fin">Area finished ' + hm(s.finished) + '</span>' : '') + '<span>' + s.refsDone + ' of ' + s.refs + ' references · ' + a.refs.reduce(function (n, r) { return n + unitsOf(r); }, 0) + ' units</span>' + togoHtml(s) + '</span>' +
       bar(s.pct, !!s.finished) + '</button>' + (isOpen ? '<div class="rows">' + taskProgress(a.refs, day, st) + a.refs.map(function (r) { return orowHtml(r, day, st); }).join('') + '</div>' : '') + '</section>';
   }).join('');
 }
