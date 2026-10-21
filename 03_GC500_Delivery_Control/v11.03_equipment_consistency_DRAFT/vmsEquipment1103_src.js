@@ -21,8 +21,9 @@ function received(status,day){
  if(status.evidence?.state==='not confirmed')return false;
  return value;
 }
-function positionAssociation(p,boards,identities){
+function positionAssociation(p,boards,identities,onConflict){
  const values=list(boards),ids=identities||{},id=p.identity||{},r=p.record||{},key=clean(p.board||p.default_board||id.board);
+ const reject=reason=>{if(typeof onConflict==='function')onConflict(reason);return null;};
  const norm=v=>clean(v).toUpperCase(),fleet=b=>clean(ids[b.key]?.fleet??b.asset),owner=b=>clean(ids[b.key]?.co??b.co),rego=b=>clean(ids[b.key]?.rego??b.rego);
  const same=(a,b)=>!clean(a)||!clean(b)||norm(a)===norm(b);
  const unique=rows=>{const keys=[...new Set(rows.map(b=>clean(b.key)).filter(Boolean))];return keys.length===1?values.find(b=>clean(b.key)===keys[0]):null;};
@@ -33,13 +34,38 @@ function positionAssociation(p,boards,identities){
  const mentions=saved?[...clean(r.posHow).matchAll(/\bpinned location for\s+(VMS\s*\d+)\b/gi)].map(m=>norm(m[1]).replace(/\s+/g,'')):[];
  if(mentions.length){
   const names=[...new Set(mentions)],named=names.length===1?unique(values.filter(b=>norm(b.name).replace(/\s+/g,'')===names[0])):null;
-  if(!named||direct&&direct.key!==named.key||!same(r.asset,fleet(named))||!same(r.rego,rego(named))||!same(r.co,owner(named)))return null;
+  if(!named||direct&&direct.key!==named.key||!same(r.asset,fleet(named))||!same(r.rego,rego(named))||!same(r.co,owner(named)))return reject('The authored board pin conflicts with the physical identity or cannot be resolved uniquely.');
   return {key:clean(named.key),via:'saved-reference',at:r.posAt||r.at};
  }
- if(direct)return same(id.asset||id.fleet,fleet(direct))&&same(id.co,owner(direct))&&same(id.rego,rego(direct))?{key:clean(direct.key),via:'board-key'}:null;
+ if(direct)return same(id.asset||id.fleet,fleet(direct))&&same(id.co,owner(direct))&&same(id.rego,rego(direct))?{key:clean(direct.key),via:'board-key'}:reject('The saved identity conflicts with the assigned physical board.');
  const number=clean(id.asset||id.fleet||p.asset);if(!number)return null;
- const matched=unique(values.filter(b=>norm(fleet(b))===norm(number)&&same(id.co,owner(b))&&same(id.rego,rego(b))));
- return matched?{key:clean(matched.key),via:'fleet-identity'}:null;
+ const fleetMatches=values.filter(b=>norm(fleet(b))===norm(number)),matched=unique(fleetMatches.filter(b=>same(id.co,owner(b))&&same(id.rego,rego(b))));
+ return matched?{key:clean(matched.key),via:'fleet-identity'}:fleetMatches.length?reject('The saved fleet identity conflicts with the physical registry or is ambiguous.'):null;
+}
+function canonicalPositions(raw,options){
+ const opt=options||{},text=v=>String(v??'').trim(),list=v=>Array.isArray(v)?v:[],bs=list(opt.boards),ids=opt.identities||{},out=[];
+ const same=(a,b)=>text(a).toUpperCase()===text(b).toUpperCase();
+ const dayOf=t=>Number.isFinite(Date.parse(t))?new Date(Date.parse(t)+10*60*60*1000).toISOString().slice(0,10):'';
+ for(const b of list(raw)){
+  let rejected='';
+  const id=opt.identity(b)||{},r=opt.rec(b.pos)||{},originalBoard1103=b.board||b.default_board||'',baseFleet=text(opt.defaultAsset(b)),match=opt.associate({...b,identity:id,record:r},bs,ids,reason=>{rejected=reason;});
+  if(!match){
+   const savedFleet=text(id.asset||id.fleet);
+   if(rejected||baseFleet&&savedFleet&&!same(baseFleet,savedFleet))out.push({...b,canonicalIdentityConflict1103:true,canonicalIdentityReason1103:rejected||'The saved fleet identity differs from the original physical identity and has no confirmed association.'});
+   else out.push(b);
+   continue;
+  }
+  const events=list(r.events1098||(r.arrival1098?[r.arrival1098]:[])).concat(list(r.completionEvents1101||(r.completion1101?[r.completion1101]:[])));
+  const hasHistory=events.length||typeof r.inPlace==='boolean';
+  const conflictingBoard=events.some(e=>e.board&&e.board!==match.key);
+  const targetFleet=text(ids[match.key]?.fleet??bs.find(x=>x.key===match.key)?.asset);
+  const samePhysical=baseFleet&&targetFleet&&same(baseFleet,targetFleet);
+  const pinAt=Date.parse(match.at),pinDay=dayOf(match.at);
+  const namedHistory=match.via==='saved-reference'&&Number.isFinite(pinAt)&&events.length&&events.every(e=>Number.isFinite(Date.parse(e.recorded_at))&&Date.parse(e.recorded_at)>=pinAt&&/^\d{4}-\d{2}-\d{2}$/.test(e.effective_date||'')&&e.effective_date>=pinDay&&(!e.board||e.board===match.key));
+  if(conflictingBoard||originalBoard1103!==match.key&&!samePhysical&&(match.via!=='saved-reference'||hasHistory&&!namedHistory)){out.push({...b,canonicalIdentityConflict1103:true,canonicalIdentityReason1103:'The physical board association conflicts with the original identity or saved history.'});continue;}
+  out.push({...b,board:match.key,originalBoard1103,canonicalAssociation1103:match.via});
+ }
+ return out;
 }
 function project(input,day){
  day=asDay(day);input=input||{};
@@ -74,7 +100,7 @@ function model(day){
   rows.forEach(s=>{s.recorded=!!d.recorded;s.state=d.state;/* Only a whole confirmed load proves each linked board was received. */s.received=receivedCount>=rows.length;});
  }
  const identities={};boards.forEach(b=>{identities[b.key]=typeof vms913Of==='function'?vms913Of(b):{};});
- const positions=list(root.VMS1024?.boards()).map(p=>{const pin=root.VMS1024.position(p)||{};return {pos:p.pos,board:p.board||p.default_board,identity:root.VMS1024.identity?.(p)||{},record:root.VMS1024.rec?.(p.pos)||null,title:root.VmsLocationWords1103?.title(p,pin)??p.title??'',originalTitle:p.title||'',phase:p.phase||'',session:!!p.session,lat:pin.lat,lon:pin.lon,how:pin.how||''};});
+ const positions=list(root.VMS1024?.boards()).map(p=>{const pin=root.VMS1024.position(p)||{};return {pos:p.pos,board:p.originalBoard1103||p.board||p.default_board,identity:root.VMS1024.identity?.(p)||{},record:root.VMS1024.rec?.(p.pos)||null,title:root.VmsLocationWords1103?.title(p,pin)??p.title??'',originalTitle:p.title||'',phase:p.phase||'',session:!!p.session,lat:pin.lat,lon:pin.lon,how:pin.how||''};});
  return project({boards,statuses,identities,positions},day);
 }
 function filterBoards(boards,filter){
@@ -198,6 +224,6 @@ function open(key,pos){
 }
 const bound=new WeakSet();
 function bind(host){if(!host?.addEventListener||bound.has(host))return;bound.add(host);host.addEventListener('click',e=>{const b=e.target.closest?.('[data-vms-open1103]');if(!b||!host.contains(b)||e.defaultPrevented||b.closest('#gc500-work-dialog840'))return;e.preventDefault();open(b.dataset.vmsOpen1103,b.dataset.vmsPos1103);});}
-const api={project,model,received,positionAssociation,filterBoards,filteredBoards,lightBar,inventoryProjection,financialRows,drillHtml,remainingHtml,outstanding,outstandingHtml,pdfHtml,equipmentHtml,todayRows,todayRowHtml,plan,typeProjection,open,bind};
+const api={project,model,received,positionAssociation,canonicalPositions,filterBoards,filteredBoards,lightBar,inventoryProjection,financialRows,drillHtml,remainingHtml,outstanding,outstandingHtml,pdfHtml,equipmentHtml,todayRows,todayRowHtml,plan,typeProjection,open,bind};
 root.VmsEquipment1103=api;if(typeof module!=='undefined'&&module.exports)module.exports=api;
 })(typeof window==='undefined'?globalThis:window);

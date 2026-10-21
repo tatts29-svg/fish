@@ -11,6 +11,8 @@ from rep import rep
 from equipmentGroups1103_patch import integrate as integrate_groups
 
 BASE_SHA256 = '4b1ee468727cb98b3c52f751c77ce6d4b0258b7dca32c14b40c1ae41a95bcfd5'
+NATIVE_STATUS_GUARD = " if(board(pos).canonicalIdentityConflict1103&&['inPlace','arrival1098','complete1101'].some(k=>Object.prototype.hasOwnProperty.call(patch||{},k))){flash('Review this position’s board identity before changing its status.');return false;}"
+NATIVE_STATUS_FALLBACK = ', W.VMSArrival1098.status(board(pos).board || board(pos).default_board)'
 
 
 def patch(text):
@@ -28,6 +30,58 @@ def patch(text):
                'vmsEquipment1103_src.js', 'additionalEquipment1103_src.js']
     change('function inventory(){', '\n'.join((HERE / f).read_text() for f in modules) +
            '\nfunction inventory(){', 'shared read-only equipment projections')
+
+    change('function boards(){ return PLAN.boards || []; }',
+           '''function boards(){
+ const raw=PLAN.boards||[], helper=W.VmsEquipment1103;
+ if(!helper?.canonicalPositions||typeof vms913Boards!=='function'||typeof vms913Of!=='function')return raw;
+ const physical=vms913Boards(),identities=Object.fromEntries(physical.map(b=>[b.key,vms913Of(b)]));
+ return helper.canonicalPositions(raw,{boards:physical,identities,identity,rec,defaultAsset,associate:helper.positionAssociation});
+}''', 'native plan cards and actions use the same verified physical board')
+    change("function label(b){ return 'VMS ' + b.pos.toUpperCase().replace(/A$/, 'a') + (b.session ? '*' : ''); }",
+           "function label(b){ return 'VMS ' + b.pos.toUpperCase().replace(/A$/, 'a') + (b.session ? '*' : ''); }\nfunction boardName1103(b){const key=b.board||b.default_board||'';const physical=typeof vms913Boards==='function'?vms913Boards().find(row=>row.key===key):null;return physical?.name||key;}",
+           'native board captions use the physical VMS name while preserving stable keys')
+    change("${esc(id.board || '—')}${id.co ? ' · ' + esc(id.co) : ''}",
+           "${esc(boardName1103(b) || '—')}${id.co ? ' · ' + esc(id.co) : ''}",
+           'native card displays the physical VMS number')
+    change("${esc(id.board || '')}${id.co ? ' · ' + esc(id.co) : ''}",
+           "${esc(boardName1103(b) || '')}${id.co ? ' · ' + esc(id.co) : ''}",
+           'native print sheet displays the same physical VMS number')
+    change('function write(pos, patch, what){\n if (!board(pos)) return false;',
+           'function write(pos, patch, what){\n if (!board(pos)) return false;\n' + NATIVE_STATUS_GUARD,
+           'reject status changes while historical board identity conflicts')
+    change('old, W.VMSArrival1098.recordFor(board(pos).board || board(pos).default_board));',
+           ' old, W.VMSArrival1098.recordFor(board(pos).board || board(pos).default_board), W.VMSArrival1098.status(board(pos).board || board(pos).default_board));',
+           'completion validates existing native arrival status without inventing arrival history')
+    change('function prepare(patch,who,now,old,shared){',
+           'function prepare(patch,who,now,old,shared,confirmedStatus){', 'native completion status fallback input')
+    change('if(done&&(!arriving?.on||!arriving.installed))return null;',
+           'if(done&&!(arriving?arriving.on&&arriving.installed:confirmedStatus?.on===true&&confirmedStatus.installed===true))return null;',
+           'confirmed delivery permits re-completion only without contrary saved arrival evidence')
+    change("if(own(p,'complete1101')||closing&&prior?.done){",
+           " if(own(p,'complete1101')||closing&&(prior?prior.done:confirmedStatus?.done===true)){",
+           'explicit uninstall closes confirmed completion without fabricating arrival')
+    change('finished=here&&(saved?saved.done:!!r.done),',
+           'finished=here&&(e?.inPlace===false?false:saved?saved.done:!!r.done),',
+           'explicit uninstall defeats historical delivery completion fallback')
+    change('installed=here&&(e?.inPlace===false?false:finished||!!(e&&e.installed));',
+           'installed=here&&(e?.inPlace===false?false:finished||!!(e&&e.installed)||!e&&!!r.done);',
+           'completion untick preserves independently confirmed installation')
+    change("const b=root.VMS1024?.board(pos);if(!b||typeof done!=='boolean'||!(b.board||b.default_board))return false;",
+           "const b=root.VMS1024?.board(pos);if(!b||b.canonicalIdentityConflict1103||typeof done!=='boolean'||!(b.board||b.default_board))return false;",
+           'ambiguous native board completion is rejected')
+    change('${msgs}\n <div class="v1024-grid">',
+           '${msgs}\n ${b.canonicalIdentityConflict1103 ? \'<p class="notice warn" role="alert">Board identity needs review. Status changes are disabled for this plan position.</p>\' : \'\'}\n <div class="v1024-grid">',
+           'conflicting history is visible on the native plan card')
+    change('${r.inPlace ? \' checked\' : \'\'}><span>In place as drawn',
+           '${r.inPlace ? \' checked\' : \'\'}${b.canonicalIdentityConflict1103 ? \' disabled\' : \'\'}><span>In place as drawn',
+           'disable in-place action for conflicting historical identity')
+    change("${!done1101 && !complete1101?.installed ? ' disabled' : ''}",
+           "${b.canonicalIdentityConflict1103 || !done1101 && !complete1101?.installed ? ' disabled' : ''}",
+           'disable complete action for conflicting historical identity')
+    change('<p class="v-sub">${esc(phaseWord(b))}',
+           '${b.canonicalIdentityConflict1103 ? \'<p class="v-sub"><b>Board identity needs review for this plan position.</b></p>\' : \'\'}\n <p class="v-sub">${esc(phaseWord(b))}',
+           'printed plan sheet preserves the same identity warning')
 
     change("function plantTable(group, list){\n if (!list.length) return '';",
            "function plantTable(group, list){\n if (group === 'VMS boards') return VmsEquipment1103.equipmentHtml(todayIso(), {q: state.q, light: state.light});\n if (!list.length) return '';",
@@ -116,11 +170,17 @@ def patch(text):
            'refresh automatic current-day views after date rollover or wake')
     change("+' · v11.02'; /* v8.19 release922", "+' · v11.03'; /* v8.19 release922", 'release footer')
 
+    def writer(value):
+        start = value.index('function write(pos, patch, what){')
+        return value[start:value.index('/* --------------------------------------------------------------------------------------------------------- the tab */', start)]
+    normalized_writer = writer(text).replace('\n' + NATIVE_STATUS_GUARD, '').replace(NATIVE_STATUS_FALLBACK, '')
+    if normalized_writer != writer(original):
+        raise ValueError('native writer changed beyond the reviewed identity guard and current-status validation')
+
     for begin, end in [
         ('var SvcState =', 'module.exports = SvcState;'),
         ('var SVC1067_DATA=', '/* Author: Andrew Fisher. Deliberate edit-only tracker publication;'),
         ('var SVC1099_MAP_DATA=', '/* Author: Andrew Fisher. Saved servicing progress'),
-        ('function write(pos, patch, what){', '/* --------------------------------------------------------------------------------------------------------- the tab */'),
     ]:
         def span(value):
             start = value.index(begin)
