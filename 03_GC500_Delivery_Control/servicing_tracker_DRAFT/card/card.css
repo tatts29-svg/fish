@@ -182,3 +182,57 @@ footer .wrap{padding-bottom:36px}
 .log time{font-weight:700;font-variant-numeric:tabular-nums;color:var(--done2)}
 .log small{display:block;color:var(--mute);font-size:12.5px}
 .log li.x{opacity:.75}
+
+/* v3.1, 22 Oct 2026 ("Remember I need this to look amazing"): rings that fill, a chequered race strip, a tick that draws
+   itself, and a proper finished moment. All CSS and the same markup hooks; reduced motion stops every animation. */
+header::before{content:"";display:block;height:7px;background:repeating-conic-gradient(#f3f7fb 0 25%,#0b0f14 0 50%) 0 0/14px 14px;opacity:.9}
+header::after{content:"";display:block;height:2px;background:linear-gradient(90deg,transparent,var(--hivis),var(--hivis2),var(--hivis),transparent);box-shadow:0 0 12px rgba(255,138,50,.8);position:absolute;left:0;right:0;bottom:-2px}
+header{position:sticky;overflow:visible}
+body{background:radial-gradient(1200px 500px at 50% -200px,#1a2a3a 0%,transparent 60%),repeating-linear-gradient(0deg,transparent 0 38px,rgba(255,255,255,.025) 38px 39px),var(--bg)}
+.ring{--p:0;position:relative;display:inline-grid;place-items:center;width:70px;height:70px;border-radius:50%;flex-shrink:0;
+  background:conic-gradient(var(--hivis2) calc(var(--p)*1%),#1b2630 0);box-shadow:0 0 16px rgba(255,138,50,.55),0 0 0 2px #0e151c inset;transition:--p .5s}
+.ring::before{content:"";position:absolute;inset:7px;border-radius:50%;background:radial-gradient(circle at 50% 40%,#17212b,#0e151c);box-shadow:inset 0 2px 8px rgba(0,0,0,.7)}
+.ring::after{content:"";position:absolute;inset:-3px;border-radius:50%;border:1px solid rgba(255,138,50,.25);pointer-events:none}
+.ring em,.ring b{position:relative;z-index:1;font-family:var(--display);font-weight:800;font-style:normal;font-size:22px;line-height:1;color:var(--hivis2);text-shadow:var(--glow-h);font-variant-numeric:tabular-nums}
+.ring.full{background:conic-gradient(var(--done2) 100%,#1b2630 0);box-shadow:var(--glow-d),0 0 0 2px #0e151c inset;animation:svc-ringdone 2.2s ease-in-out infinite}
+.ring.full::after{border-color:rgba(46,240,171,.45)}
+.ring.full em,.ring.full b{color:var(--done2);text-shadow:var(--glow-d)}
+.ring.sm{width:58px;height:58px}.ring.sm::before{inset:6px}.ring.sm b{font-size:19px}
+.pl{align-items:center}
+.pl em.full{color:var(--done2)}
+.compact{align-items:center;gap:8px}
+.ccell{display:inline-flex;align-items:center;gap:8px;min-width:0}
+.ctxt{display:grid;line-height:1.15;font-weight:700;font-size:14px}
+.ctxt small{font-size:11.5px}
+.compact-day{font-size:15px}
+.apct{display:flex;justify-content:flex-end}
+.apct .ring{width:62px;height:62px}.apct .ring em{font-size:20px}
+.area .ahead{gap:6px 12px}
+.job svg path{stroke-dasharray:40;stroke-dashoffset:40}
+.job.done svg path{animation:svc-draw .45s ease-out forwards}
+.job.pending svg path{stroke-dashoffset:0}
+.job .jbox{transition:background .25s,border-color .25s,box-shadow .25s}
+.job:not(.done):not(.pending):not([disabled]) .jbox{box-shadow:inset 0 0 0 1px rgba(255,138,50,.25),0 0 10px rgba(255,138,50,.2)}
+.job:not(.done):not(.pending):not([disabled]):hover,.job:not(.done):not(.pending):not([disabled]):focus-visible{box-shadow:0 0 0 1px rgba(255,138,50,.4),0 0 22px rgba(255,138,50,.35)}
+.bigref{animation:svc-ignite .9s ease-out}
+.qrtag::after{content:"";position:absolute;inset:-4px;border-radius:999px;border:1px solid rgba(255,179,71,.5);pointer-events:none}
+.saveclose{position:relative;overflow:hidden}
+.saveclose::after{content:"";position:absolute;inset:0;background:linear-gradient(100deg,transparent 35%,rgba(255,255,255,.45) 50%,transparent 65%);background-size:220% 100%;animation:svc-sheen 3.2s linear infinite}
+.saved{position:relative;overflow:hidden}
+.saved::before{content:"";position:absolute;inset:-40%;background:conic-gradient(from 0deg,transparent 0 10%,rgba(46,240,171,.10) 12% 14%,transparent 16% 30%,rgba(46,240,171,.10) 32% 34%,transparent 36% 55%,rgba(46,240,171,.10) 57% 59%,transparent 61% 80%,rgba(46,240,171,.10) 82% 84%,transparent 86%);animation:svc-rays 18s linear infinite;pointer-events:none}
+.saved>*{position:relative}
+.stamp{display:inline-block;font-family:var(--display);font-weight:800;font-size:22px;letter-spacing:.08em;text-transform:uppercase;color:var(--done2);border:3px solid var(--done2);border-radius:10px;padding:4px 12px;transform:rotate(-3deg);box-shadow:var(--glow-d),inset 0 0 14px rgba(46,240,171,.25);text-shadow:var(--glow-d);animation:svc-stamp .5s cubic-bezier(.2,1.4,.4,1)}
+.stamp-at{font-family:var(--display);font-weight:800;font-size:20px;color:var(--done2)}
+.left-list .alldone{line-height:1.6}
+.area.complete{animation:svc-ringdone 2.6s ease-in-out infinite}
+.orow.done .when{text-shadow:0 0 8px rgba(46,240,171,.5)}
+@keyframes svc-draw{to{stroke-dashoffset:0}}
+@keyframes svc-ringdone{0%,100%{box-shadow:0 0 14px rgba(46,240,171,.6),0 0 0 2px #0e151c inset}50%{box-shadow:0 0 26px rgba(46,240,171,1),0 0 60px rgba(46,240,171,.45),0 0 0 2px #0e151c inset}}
+@keyframes svc-ignite{0%{text-shadow:0 0 0 rgba(255,138,50,0);opacity:.6}60%{text-shadow:0 0 30px rgba(255,138,50,1),0 0 70px rgba(255,138,50,.6)}100%{text-shadow:0 0 16px rgba(255,138,50,.75),0 0 48px rgba(255,138,50,.35);opacity:1}}
+@keyframes svc-rays{to{transform:rotate(360deg)}}
+@keyframes svc-stamp{0%{transform:rotate(-12deg) scale(1.6);opacity:0}100%{transform:rotate(-3deg) scale(1);opacity:1}}
+@media (prefers-reduced-motion:reduce){.ring.full,.area.complete,.bigref,.saved::before,.stamp,.saveclose::after,.job.done svg path{animation:none!important}.job svg path{stroke-dashoffset:0}}
+/* three digits fit the ring */
+.ring.full em,.ring.full b{font-size:18px;letter-spacing:-.02em}
+.ring.sm.full b{font-size:16px}
+.apct .ring.full em{font-size:16px}

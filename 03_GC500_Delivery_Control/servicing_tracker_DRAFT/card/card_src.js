@@ -513,7 +513,7 @@ function togoHtml(s) {
 }
 function progHtml(label, s, refWord) {
   var full = s.w > 0 && s.d >= s.w;
-  return '<div><div class="pl"><span class="pn">' + esc(label) + '</span><em' + (full ? ' class="full"' : '') + '>' + s.pct + '%</em></div>' + bar(s.pct, !!s.finished) +
+  return '<div><div class="pl"><span class="pn">' + esc(label) + '</span><span class="ring' + (full ? ' full' : '') + '" style="--p:' + s.pct + '"><em' + (full ? ' class="full"' : '') + '>' + s.pct + '%</em></span></div>' + bar(s.pct, !!s.finished) +
     '<div class="pm">' + (s.finished ? '<span class="fin">' + (refWord === 'area' ? 'Area finished ' : 'All finished ') + hm(s.finished) + '</span>' : '') + '<span>' + s.refsDone + ' of ' + s.refs + ' references · ' + s.d + ' of ' + s.w + ' jobs</span>' + togoHtml(s) + '</div></div>';
 }
 function taskProgress(refs, day, st) {
@@ -526,7 +526,7 @@ function taskProgress(refs, day, st) {
 function compactHtml(day, os, st) {
   var a = mode === 'tick' ? AREA_OF[curRef] : null;
   var as = a ? groupStats(a.refs, day, st) : null;
-  var cell = function (label, s) { var full = s.w > 0 && s.d >= s.w, left = Math.max(0, s.w - s.d); return '<span>' + label + ' <b' + (full ? ' class="full"' : '') + '>' + s.pct + '%</b><small>' + (full ? 'all done' : left + ' to go') + '</small></span>'; };
+  var cell = function (label, s) { var full = s.w > 0 && s.d >= s.w, left = Math.max(0, s.w - s.d); return '<span class="ccell"><span class="ring sm' + (full ? ' full' : '') + '" style="--p:' + s.pct + '"><b' + (full ? ' class="full"' : '') + '>' + s.pct + '%</b></span><span class="ctxt">' + label + '<small>' + (full ? 'all done' : left + ' to go') + '</small></span></span>'; };
   return '<span class="compact-day">' + esc(shortDay(day)) + '</span>' + (as ? cell(a.n ? 'Area ' + a.n : esc(a.name), as) : '') + cell('Everything', os);
 }
 function jobHtml(r, l, task, day, st, open) {
@@ -564,7 +564,7 @@ function leftHtml(a, day, st) {
   var left = a.refs.filter(function (r) { return !refStats(r, day, st).done; });
   return '<div class="left-list"><h3>Still to go in ' + esc(a.n ? 'Area ' + a.n : a.name) + '</h3>' + (left.length
     ? '<div class="chips">' + left.map(function (r) { var rs = refStats(r, day, st); return '<span class="chip' + (r.ref === curRef ? ' left' : '') + '">' + esc(r.ref) + (rs.d ? ' ' + rs.d + '/' + rs.w : '') + '</span>'; }).join('') + '</div>'
-    : '<p class="alldone">Every reference in this area is done.</p>') + '</div>';
+    : '<p class="alldone"><span class="stamp">Area finished</span>' + (function () { var gs = groupStats(a.refs, day, st); return gs.finished ? ' <span class="stamp-at">' + hm(gs.finished) + '</span>' : ''; })() + '<br>Every reference in ' + esc(a.n ? 'Area ' + a.n : a.name) + ' is done. On to the next one!</p>') + '</div>';
 }
 /* after Save & close: the taps are on the service (or kept on this phone until signal), the area's new %, and the
    tab tries to close itself (a browser only lets it when the scan opened it) */
@@ -615,7 +615,7 @@ function areasHtml(day, st, skipRef) {
   return AREAS.map(function (a) {
     var s = groupStats(a.refs, day, st), isOpen = !!openAreas[a.n];
     return '<section class="area' + (s.finished ? ' complete' : '') + '" id="a' + a.n + '"><button class="ahead" type="button" id="ah-' + a.n + '" data-area="' + a.n + '" aria-expanded="' + isOpen + '">' +
-      '<span class="anum">' + (a.n || '–') + '</span><span class="aname">' + esc(a.name) + '</span><span class="apct">' + s.pct + '%</span>' +
+      '<span class="anum">' + (a.n || '–') + '</span><span class="aname">' + esc(a.name) + '</span><span class="apct"><span class="ring' + (s.finished ? ' full' : '') + '" style="--p:' + s.pct + '"><em>' + s.pct + '%</em></span></span>' +
       '<span class="ameta">' + (s.finished ? '<span class="fin">Area finished ' + hm(s.finished) + '</span>' : '') + '<span>' + s.refsDone + ' of ' + s.refs + ' references · ' + a.refs.reduce(function (n, r) { return n + unitsOf(r); }, 0) + ' units</span>' + togoHtml(s) + '</span>' +
       bar(s.pct, !!s.finished) + '</button>' + (isOpen ? '<div class="rows">' + taskProgress(a.refs, day, st) + a.refs.map(function (r) { return orowHtml(r, day, st); }).join('') + '</div>' : '') + '</section>';
   }).join('');
