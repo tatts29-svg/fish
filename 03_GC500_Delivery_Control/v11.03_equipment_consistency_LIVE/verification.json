@@ -1,6 +1,6 @@
 {
   "author": "Andrew Fisher",
-  "status": "READY TO UPLOAD",
+  "status": "VERIFIED LIVE",
   "candidate_sha256": "312c5a31536a4af0e01cf5850828994b1076d6d3c123d4098158030146af986e",
   "candidate_bytes": 20997235,
   "base_sha256": "4b1ee468727cb98b3c52f751c77ce6d4b0258b7dca32c14b40c1ae41a95bcfd5",
@@ -30,5 +30,12 @@
   "network_writes_during_tests": 0,
   "final_phone_and_board_screenshots_reviewed": true,
   "external_claude_review": false,
-  "separate_follow_on": "Root Codex owns the category-progress investigation and authorised rate-association correction"
+  "separate_follow_on": "Root Codex owns the category-progress investigation and authorised rate-association correction",
+  "source_commit": "eb37197ee6a3a494994c29f20aebab6c3eb8c345",
+  "uploaded_at": "2026-10-21T04:54:22.160Z",
+  "guarded_upload": "passed",
+  "independent_exact_public_readback": "passed",
+  "actual_live_native_checks": 267,
+  "full_state_unchanged_during_publication": true,
+  "native_equipment_additions": "pending guarded native apply"
 }
