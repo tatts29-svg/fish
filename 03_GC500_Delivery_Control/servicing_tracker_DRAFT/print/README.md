@@ -1,5 +1,20 @@
 # Servicing sheets: the laminated print pack (DRAFT)
 
+## Scan layout draft — 21 Oct 2026
+
+Author: Andrew Fisher. Each reference has a full-width scan row with fixed lanes: **Pump out**, **Clean & restock**,
+then **Location**. Each card repeats the reference as well as its action; the labels identify the action without relying
+on colour. Cards have 8 mm gutters. QR squares are 30 mm on paired sheets and 40 mm on full sheets, with their original
+quiet zones and exact destinations preserved. Missing task lanes stay blank; a reference without a pin has no location
+code. Normal-size details are measured before pairing; dense references get a full page with a larger, undistorted map.
+The existing equipment-shaped symbols, assets, service plans and contact rules are unchanged.
+
+Mode markings render behind content, so opaque white cards keep watermarks out of every QR and its quiet zone.
+`test_scan_layout.py` checks exact destinations, lane order despite native JSON key order, measured separation, repeated
+labels, and white quiet zones in rasterised output. Validation: scan layout 3/3; readiness 10/10; symbols 12/12; all
+existing sheet assertions 49/49, including QR decoding at 300 dpi. Digital checks do not replace the existing physical
+phone scan/readiness receipt required before real-mode output and handout.
+
 ## Current generator checks — 21 Oct 2026
 
 Author: Andrew Fisher. Signed `--mode test` output is a scan-check copy and explicitly warns against saving test completions. Reference crops show the existing per-line positions where supplied, using the same labels as area maps. The master legend fits complete names, counts and not-on-map warnings without changing its two-row layout. Source data, map coordinates, code destinations and real-mode readiness guards are unchanged.

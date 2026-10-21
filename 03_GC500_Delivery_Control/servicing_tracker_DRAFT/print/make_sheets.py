@@ -495,13 +495,18 @@ def place_labels(c, mb, groups, rr, font_size=8, footprints=None):
 
 # ---------------------------------------------------------------- reference pages
 HALF_H = (A4[1] - 7 * mm - 20 * mm - 6 * mm) / 2      # one reference block: half a portrait page
+SCAN_GUTTER = 8 * mm
+SCAN_ROW_H = 50 * mm
+SCAN_QR_SIZE = 30 * mm
+DETAIL_TOP = 23 * mm
+
 def ref_too_tall(data, r, map_w_mm=100):
-    """True when a reference's left column (how many, asset numbers, jobs) cannot fit half a page even at the tightest
-    spacing - it then gets a page of its own (WC05: block + tank + FWF)"""
+    """Keep normal-size details clear of the full-width scan row; dense records get a page."""
     import io
     p = Pack.__new__(Pack); p.d = data; p._scratch = None
     lw = A4[0] - 18 * mm - map_w_mm * mm - 8.5 * mm
-    return -p.left_col(canvas.Canvas(io.BytesIO(), pagesize=A4), r, 0, lw, 0, 0.7) > HALF_H - 26 * mm
+    used = -p.left_col(canvas.Canvas(io.BytesIO(), pagesize=A4), r, 0, lw, 0, 1.0)
+    return DETAIL_TOP + used + 3 * mm > HALF_H - SCAN_ROW_H - .8 * mm
 
 def pair_refs(refs, tall):
     """two references to a page, in order; one that is too tall for half a page gets a whole page"""
@@ -820,9 +825,19 @@ class Pack:
         if where: txt(c, rx + 1 * mm, top - 12.4 * mm, where, 'sans', fit(where, 'sans', 9, x + w - rx - 4 * mm), INK)
         txt(c, x + w, top - 6.6 * mm, f'location {i} of {n}', 'sans', 8, MUTE, 'r')
         c.setStrokeColor(INK); c.setLineWidth(0.8); c.line(x, top - 18.5 * mm, x + w, top - 18.5 * mm)
-        # right column: map, then the two QR codes
+        full = h > HALF_H + mm
+        row_h = 72 * mm if full else SCAN_ROW_H
+        row_y = y + (4 if full else .8) * mm
         lay = self.maps['layout']['ref_map']; mw, mh = lay['w'] * mm, lay['h'] * mm
         mx, my = x + w - mw, top - 20.5 * mm - mh
+        if full:
+            # Use the extra page space for an undistorted map, sized after measuring all details.
+            yy = self.left_col(c, r, x + 4.5*mm, w - 9*mm, top - DETAIL_TOP, 1.0)
+            mx, mw = x + 4.5*mm, w - 9*mm
+            my = row_y + row_h + 15*mm
+            mh = yy - 7*mm - my
+            if mh < 24*mm:
+                raise ValueError('Reference details leave insufficient room for its map and scan row')
         if self.pos[ref]:
             mb = MapBox(self.maps, self.maps['ref_image'][ref], mx, my, mw, mh); mb.draw(c, self.maps_dir)
             others = [k for k, v in self.maps['ref_image'].items() if v == self.maps['ref_image'][ref] and k != ref]
@@ -838,67 +853,63 @@ class Pack:
                 note = 'Circled servicing location' + ('' if r['pin'] else ' (no GPS pin on the record)') + '.'
                 if others: note = f'Circled servicing location: one spot for {", ".join([ref] + others)}' + ('' if r['pin'] else '; no GPS pin') + '.'
             mb.furniture(c)
-            txt(c, mx, my - 3.2 * mm, note, 'sans', fit(note, 'sans', 7, mw), MUTE)
+            txt(c, mb.x, mb.y - 3.2 * mm, note, 'sans', fit(note, 'sans', 7, mb.w), MUTE)
         elif r['pin']:   # pinned, but off the master plan drawing (WC85 at the Seaway): the directions QR is the way there
             no_pin_panel(c, mx, my, mw, mh, 'Off the plan', 'Not on the master plan drawing. Scan "Scan for directions" for its Google Maps pin.')
         else:
             no_pin_panel(c, mx, my, mw, mh)
-        # v2 (Andrew, 20 Oct 2026: "each refernce will have a Pump out QR code and a Clean and Restock barcode. you scan it.
-        # and click complete and it logs a time it was done. then push a button to save and close"): one card per job
-        # code this reference has (a sewer-connected block has no pump out), then the LOCATION card, side by side
-        ctop = my - 5.2 * mm; cbot = max(y + 0.8 * mm, ctop - 62 * mm); ch = ctop - cbot
-        groups = d.groups_for(r); gap = 2.2 * mm; loc_w = 27 * mm
-        job_w = (mw - loc_w - gap * len(groups)) / len(groups)
-        qs = min(32 * mm, job_w - 4 * mm, ch - (18 if self.draft else 14.5) * mm)
-        gx = mx; mine = d.ref_tasks(r)
-        for g in groups:
-            colr = GROUP_COL.get(g, ORANGE); label = (d.groups[g]['label'] if g else 'Completion').upper()
-            c.setFillColor(WHITE); c.setStrokeColor(colr); c.setLineWidth(2); c.roundRect(gx, cbot, job_w, ch, 2.2 * mm, stroke=1, fill=1)
-            c.setFillColor(colr); c.roundRect(gx, ctop - 6.2 * mm, job_w, 6.2 * mm, 2.2 * mm, stroke=0, fill=1); c.rect(gx, ctop - 6.2 * mm, job_w, 3 * mm, stroke=0, fill=1)
-            txt(c, gx + job_w / 2, ctop - 4.5 * mm, label, 'bold', fit(label, 'bold', 10, job_w - 3 * mm), WHITE, 'c')
-            qr(c, self.job_url(ref, g), gx + (job_w - qs) / 2, ctop - 7.4 * mm - qs, qs)
-            cy = ctop - 7.4 * mm - qs - 3.8 * mm
-            s1 = 'Scan - tap Complete - Save & close'
-            txt(c, gx + job_w / 2, cy, s1, 'bold', fit(s1, 'bold', 7.8, job_w - 2.5 * mm), INK, 'c')
-            names = [d.tasks[t] + (' (not in %)' if t in d.extras else '') for t in (d.groups[g]['tasks'] if g else mine) if t in mine]
-            s2 = 'Jobs: ' + ' · '.join(names)
-            for k2, ln in enumerate(wrap(s2, 'sans', 6.2, job_w - 2.5 * mm)[:2]): txt(c, gx + job_w / 2, cy - 3.2 * mm - k2 * 2.7 * mm, ln, 'sans', 6.2, MUTE, 'c')
-            if self.draft:
-                code_label = 'TEST CODE - NOT LIVE' if self.mode == 'draft' else 'SIGNED TRACKER CODE'
-                txt(c, gx + job_w / 2, cbot + 1.6 * mm, code_label, 'bold', fit(code_label, 'bold', 6.6, job_w - 2 * mm), RED, 'c')
-            gx += job_w + gap
-        lx = gx; ls = min(22 * mm, loc_w - 4 * mm, ch - 13.5 * mm)
-        c.setStrokeColor(LINE); c.setLineWidth(0.8); c.roundRect(lx, cbot, loc_w, ch, 2.2 * mm, stroke=1, fill=0)
-        txt(c, lx + loc_w / 2, ctop - 4.5 * mm, 'LOCATION', 'bold', 8, MUTE, 'c')
-        qx = lx + (loc_w - ls) / 2; qy = ctop - 7.4 * mm - ls
-        if r['pin']:
-            qr(c, maps_url(r['pin']), qx, qy, ls)
-            txt(c, lx + loc_w / 2, qy - 3.8 * mm, 'Scan for directions', 'bold', fit('Scan for directions', 'bold', 7.6, loc_w - 2 * mm), INK, 'c')
-            for k2, ln in enumerate([f'{r["pin"][0]:.5f},', f'{r["pin"][1]:.5f}']): txt(c, lx + loc_w / 2, qy - 6.8 * mm - k2 * 2.6 * mm, ln, 'sans', 5.8, MUTE, 'c')
-        else:
-            c.setFillColor(PAPER); c.roundRect(qx, qy, ls, ls, 2 * mm, stroke=0, fill=1)
-            txt(c, qx + ls / 2, qy + ls / 2 - 1 * mm, 'No pin', 'bold', 12, MUTE, 'c')
-            for k2, ln in enumerate(wrap('No pin - ask on site', 'bold', 7, loc_w - 2 * mm)[:2]): txt(c, lx + loc_w / 2, qy - 3.8 * mm - k2 * 2.8 * mm, ln, 'bold', 7, INK, 'c')
-        # left column: how many, the asset numbers, the jobs - closer spacing when a reference has many lines (WC05 has
-        # three: block, tank, FWF), measured first on a scratch page so nothing ever runs off its half page
-        lx0, lw = x + 4.5 * mm, mx - x - 8.5 * mm
-        k = 1.0
-        while k > 0.7 and self.left_col(self.scratch(), r, lx0, lw, top - 24 * mm, k) < y + 2 * mm: k = round(k - 0.05, 2)
-        yy = self.left_col(c, r, lx0, lw, top - 24 * mm, k)
-        if yy < y + 2 * mm: print(f'warning: {ref} block runs {((y + 2 * mm) - yy) / mm:.1f} mm long', file=sys.stderr)
-        # what to do, where there is room
-        codes = ' or '.join(d.groups[g]['label'].upper() for g in d.groups_for(r) if g) or 'COMPLETION'
-        steps = ['Do tonight\'s jobs (the dots above).',
-                 f'Scan the {codes} code for the job you did. It opens {ref} only.',
-                 'Tap Complete on each job, then Save & close. The phone keeps the time.']
-        bh = 6.5 * mm + len(steps) * 4.3 * mm
-        if yy - bh - 2 * mm > y + 0.8 * mm:
-            by = y + 0.8 * mm
-            c.setFillColor(PAPER); c.setStrokeColor(LINE); c.setLineWidth(0.6); c.roundRect(lx0, by, lw, bh, 2 * mm, stroke=1, fill=1)
-            txt(c, lx0 + 2.5 * mm, by + bh - 4.4 * mm, 'WHEN THE JOBS ARE DONE', 'bold', 7.2, MUTE)
-            for k, s in enumerate(steps):
-                txt(c, lx0 + 2.5 * mm, by + bh - 9 * mm - k * 4.3 * mm, str(k + 1), 'bold', 8.4, ORANGE)
-                txt(c, lx0 + 6.5 * mm, by + bh - 9 * mm - k * 4.3 * mm, s, 'sans', fit(s, 'sans', 8.4, lw - 8.5 * mm), INK)
+        # The scan actions span the page width. Stable lanes and generous gutters let a
+        # crew member aim at one code without its neighbour filling the same camera view.
+        self.scan_cards(c, r, x, row_y, w, row_h, large=full)
+        if not full:
+            lx0, lw = x + 4.5 * mm, mx - x - 8.5 * mm
+            yy = self.left_col(c, r, lx0, lw, top - DETAIL_TOP, 1.0)
+        if yy < row_y + row_h + 3 * mm:
+            print(f'warning: {ref} details overlap the scan row', file=sys.stderr)
+        if full:
+            txt(c, x, row_y + row_h + 5 * mm, 'SCAN ONE CODE FOR THE JOB YOU DID', 'bold', 11, INK)
+            txt(c, x + w, row_y + row_h + 5 * mm, 'Check the reference before you save', 'sans', 9, MUTE, 'r')
+
+    def scan_cards(self, c, r, x, y, w, h, large=False):
+        """Three fixed lanes: pump, clean, directions. Empty task lanes stay blank."""
+        d = self.d; ref = r['ref']; groups = d.groups_for(r)
+        ordered = [g for g in ('pump', 'clean') if g in groups] + [g for g in groups if g not in ('pump', 'clean')]
+        if len(ordered) > 2:
+            raise ValueError('The servicing sheet supports at most two job-code lanes per reference')
+        lanes = {}; remaining = [0, 1]
+        for g in ordered:
+            lane = {'pump':0, 'clean':1}.get(g)
+            if lane is None: lane = remaining[0]
+            lanes[g] = lane; remaining.remove(lane)
+        cw = (w - 2 * SCAN_GUTTER) / 3
+        qs = 40 * mm if large else SCAN_QR_SIZE
+        header_h = (12 if large else 8.5) * mm
+        code_top = y + h - (16 if large else 10.5) * mm
+        code_y = code_top - qs
+        def card(lane, label, col, value, directions=False):
+            cx = x + lane * (cw + SCAN_GUTTER)
+            c.setFillColor(WHITE); c.setStrokeColor(col); c.setLineWidth(1.1)
+            c.roundRect(cx, y, cw, h, 2.2 * mm, stroke=1, fill=1)
+            c.setFillColor(col)
+            c.roundRect(cx, y + h - header_h, cw, header_h, 2.2 * mm, stroke=0, fill=1)
+            c.rect(cx, y + h - header_h, cw, header_h / 2, stroke=0, fill=1)
+            txt(c, cx + cw/2, y + h - (4.6 if large else 3.0)*mm, ref, 'bold', 10 if large else 7.5, WHITE, 'c')
+            txt(c, cx + cw/2, y + h - (9.7 if large else 6.9)*mm, label, 'bold', fit(label, 'bold', 12 if large else 10, cw - 5*mm), WHITE, 'c')
+            if value:
+                qr(c, value, cx + (cw - qs)/2, code_y, qs)
+            else:
+                txt(c, cx + cw/2, code_y + qs/2, 'No pin', 'bold', 15, MUTE, 'c')
+            instruction = ('Scan for directions' if value else 'No pin - ask on site') if directions else 'Scan - tap Complete - Save & close'
+            txt(c, cx + cw/2, code_y - (5 if large else 4)*mm, instruction, 'bold', fit(instruction, 'bold', 9 if large else 7.2, cw - 5*mm), INK, 'c')
+            if directions and value:
+                coords = f'{r["pin"][0]:.5f}, {r["pin"][1]:.5f}'
+                txt(c, cx + cw/2, y + (4 if large else 1.8)*mm, coords, 'sans', 7 if large else 5.8, MUTE, 'c')
+            elif not directions and self.draft:
+                label = 'TEST CODE - NOT LIVE' if self.mode == 'draft' else 'SIGNED TRACKER CODE'
+                txt(c, cx + cw/2, y + (4 if large else 1.8)*mm, label, 'bold', 7 if large else 6.2, RED, 'c')
+        for g in ordered:
+            card(lanes[g], (d.groups[g]['label'] if g else 'Completion').upper(), GROUP_COL.get(g, ORANGE), self.job_url(ref, g))
+        card(2, 'LOCATION', INK, maps_url(r['pin']) if r['pin'] else None, directions=True)
 
     def job_url(self, ref, group):
         """the reference's signed link plus its job group (#r=REF.sig~pump): the card shows only that code's jobs"""
@@ -976,6 +987,8 @@ class Pack:
         for n, (kind, a, refs) in enumerate(self.pages, 1):
             size = landscape(A4) if kind == 'master' else A4
             c.setPageSize(size)
+            # Put mode markings behind content: every QR card stays opaque white, including its quiet zone.
+            self.frame(c, size, n)
             if kind == 'master': self.master(c, a)
             elif kind == 'cover': self.cover(c, a)
             elif kind == 'ref_full':
@@ -985,7 +998,6 @@ class Pack:
                 self.ref_block(c, a, refs[0], 9 * mm, 20 * mm + bh + 6 * mm, W - 18 * mm, bh)
                 c.setStrokeColor(LINE); c.setDash(2, 2); c.setLineWidth(0.5); c.line(9 * mm, 20 * mm + bh + 3 * mm, W - 9 * mm, 20 * mm + bh + 3 * mm); c.setDash()
                 if len(refs) > 1: self.ref_block(c, a, refs[1], 9 * mm, 20 * mm, W - 18 * mm, bh)
-            self.frame(c, size, n)
             c.showPage()
         c.save()
 

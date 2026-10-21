@@ -187,7 +187,8 @@ def main():
             # top block or bottom block
             half = []
             for a in data.areas:
-                for kk, ch in ref_chunks[a['n']]:   # a whole-page reference has its QR in the top half too
+                for kk, ch in ref_chunks[a['n']]:
+                    if kk == 'ref_full': continue  # a full-page reference owns the whole page
                     for j, x in enumerate(ch):
                         for n, fy in [s for g in data.groups_for(x) for s in seen.get(jobs_url(x['ref'], g), [])]:
                             if (fy < 0.5) != (j == 0): half.append(x['ref'])
