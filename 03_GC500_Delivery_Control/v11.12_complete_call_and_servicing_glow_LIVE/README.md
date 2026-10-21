@@ -1,6 +1,6 @@
 # v11.12 — the race call speaks as complete; the servicing cards glow for the big screen
 
-Author: Andrew Fisher. Built on live v11.11 `9aee0e49…`. LIVE line and hashes in STATUS.md.
+Author: Andrew Fisher. Built on live v11.11 `9aee0e49…`. **LIVE 22 Oct 2026 08:11 AEST**, sha256 `39492d284905cbaefc16055e73811e6fff88c6151210b38ce14b8f5f5f56494b` (21,069,050 bytes); media manifest `e7b812bd7b915972…` (1,983 files) registered first. Status in STATUS.md.
 
 Andrew, 22 Oct 2026, after v11.11 went live: "Can we talk like everything is complete and talk in numbers that
 everything is complete. Fencing complete as per schedule and we don't include the demob. Barriers all done. We mention
