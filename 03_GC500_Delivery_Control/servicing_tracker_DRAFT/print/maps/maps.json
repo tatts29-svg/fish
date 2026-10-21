@@ -1,10 +1,10 @@
 {
  "_about": "Author: Andrew Fisher. Master-plan pictures for the servicing sheets, rendered read only from the live page's Map explorer (Original plan, as drawn, rotation 0) by render_maps.cjs. Positions and rectangles are in drawing sheet units (D001, 2384 x 1684). Picture x = (sheet x - rect x0) / (rect x1 - rect x0) x picture width; the same for y.",
- "rendered_at": "2026-10-20T09:05:17.308Z",
+ "rendered_at": "2026-10-21T17:21:19.153Z",
  "page": {
-  "file": "build/GC500_v10.86/GC500_Delivery_Control_hosted.html",
-  "sha256": "d18ac8bff7966fd10a4c1ba954a8856b676bd747dfcbd716a5e3354d130f7f76",
-  "version": "v10.86"
+  "file": "../../../../tmp/claude-0/-home-user-fish/b3d08fad-688f-5986-9fd9-2f1442b3bb1a/scratchpad/live_now.html",
+  "sha256": "56fcb00987640d249e363936a61fefed8574e2a03c17933dca32b1e8c20b985c",
+  "version": ""
  },
  "explorer": "/w/Coates-GC500-2026/explorer/index.html",
  "credit": "Drawing © iEDM · D001 rev 03 · issued 2 Oct",
@@ -56,8 +56,8 @@
    "hh": 0.8
   },
   "PG29": {
-   "x": 1002.982,
-   "y": 612.209,
+   "x": 974.451,
+   "y": 635.794,
    "hw": 1.2,
    "hh": 0.8
   },
@@ -236,8 +236,8 @@
    "hh": 0.8
   },
   "WC31": {
-   "x": 321.101,
-   "y": 984.904,
+   "x": 331.192,
+   "y": 1008.975,
    "hw": 1.2,
    "hh": 0.8
   },
@@ -379,6 +379,12 @@
    "hw": 1.2,
    "hh": 0.8
   },
+  "SPASHDOWN": {
+   "x": 1765.914,
+   "y": 303.796,
+   "hw": 1.2,
+   "hh": 0.8
+  },
   "WC46": {
    "x": 1853.584,
    "y": 423.846,
@@ -463,12 +469,7 @@
    "hw": 1.2,
    "hh": 0.8
   },
-  "WC81": {
-   "x": 2164.124,
-   "y": 1257.729,
-   "hw": 1.2,
-   "hh": 0.8
-  },
+  "WC81": null,
   "WC85": null,
   "WC100": null
  },
@@ -476,7 +477,7 @@
   "PG01": "ref_PG01",
   "PG03": "ref_PG01",
   "PG05": "ref_PG01",
-  "PG29": "ref_PG01",
+  "PG29": "ref_PG29",
   "WC12": "ref_WC12",
   "WC16": "ref_WC16",
   "BJR01": "ref_BJR01",
@@ -530,6 +531,7 @@
   "WC24": "ref_WC24",
   "WC54": "ref_WC54",
   "WC55": "ref_WC55",
+  "SPASHDOWN": "ref_SPASHDOWN",
   "WC46": "ref_WC46",
   "WC48": "ref_WC48",
   "WC49": "ref_WC49",
@@ -543,8 +545,7 @@
   "WC69": "ref_WC69",
   "WC70": "ref_WC70",
   "WC71": "ref_WC71",
-  "WC72": "ref_WC72",
-  "WC81": "ref_WC81"
+  "WC72": "ref_WC72"
  },
  "areas": {
   "0": {
@@ -600,7 +601,7 @@
   },
   "3": {
    "n": 3,
-   "name": "Island West & Median Strip — EVL, Race Admin & Merch",
+   "name": "Island West — EVL, Race Admin & Merch",
    "main": {
     "key": "area3",
     "refs": [
@@ -703,6 +704,7 @@
    "main": {
     "key": "area9",
     "refs": [
+     "SPASHDOWN",
      "WC55",
      "WC54",
      "WC24",
@@ -762,14 +764,11 @@
   "13": {
    "n": 13,
    "name": "Cypress / Surfers Paradise Blvd",
-   "main": {
-    "key": "area13",
-    "refs": [
-     "WC81"
-    ]
-   },
+   "main": null,
    "far": [],
-   "unplaced": []
+   "unplaced": [
+    "WC81"
+   ]
   },
   "14": {
    "n": 14,
@@ -787,15 +786,15 @@
    "rect": [
     40,
     144.377,
-    2316.924,
-    1368.529
+    2284.474,
+    1351.083
    ],
    "px": [
     3000,
     1613
    ],
-   "source_px_per_unit": 1.5904,
-   "export": "GC500_D001_Rev03_original_137pct_3840x2057.png"
+   "source_px_per_unit": 1.6134,
+   "export": "GC500_D001_Rev03_original_139pct_3840x2057.png"
   },
   "area1": {
    "file": "area1.jpg",
@@ -920,9 +919,9 @@
   "area9": {
    "file": "area9.jpg",
    "rect": [
-    1542.918,
+    1548.789,
     227.749,
-    1866.036,
+    1871.907,
     449.893
    ],
    "px": [
@@ -977,21 +976,6 @@
    "source_px_per_unit": 8.6779,
    "export": "GC500_D001_Rev03_original_750pct_3840x2057.png"
   },
-  "area13": {
-   "file": "area13.jpg",
-   "rect": [
-    2079.124,
-    1199.292,
-    2249.124,
-    1316.167
-   ],
-   "px": [
-    2000,
-    1375
-   ],
-   "source_px_per_unit": 16.6578,
-   "export": "GC500_D001_Rev03_original_1439pct_3840x2057.png"
-  },
   "ref_PG01": {
    "file": "ref_PG01.jpg",
    "rect": [
@@ -1009,7 +993,24 @@
    "refs": [
     "PG01",
     "PG03",
-    "PG05",
+    "PG05"
+   ]
+  },
+  "ref_PG29": {
+   "file": "ref_PG29.jpg",
+   "rect": [
+    894.451,
+    592.594,
+    1054.451,
+    678.994
+   ],
+   "px": [
+    1150,
+    621
+   ],
+   "source_px_per_unit": 22.5334,
+   "export": "GC500_D001_Rev03_original_1947pct_3840x2057.png",
+   "refs": [
     "PG29"
    ]
   },
@@ -1538,10 +1539,10 @@
   "ref_WC31": {
    "file": "ref_WC31.jpg",
    "rect": [
-    241.101,
-    941.704,
-    401.101,
-    1028.104
+    251.192,
+    965.775,
+    411.192,
+    1052.175
    ],
    "px": [
     1150,
@@ -1967,6 +1968,24 @@
     "WC55"
    ]
   },
+  "ref_SPASHDOWN": {
+   "file": "ref_SPASHDOWN.jpg",
+   "rect": [
+    1685.914,
+    260.596,
+    1845.914,
+    346.996
+   ],
+   "px": [
+    1150,
+    621
+   ],
+   "source_px_per_unit": 22.5334,
+   "export": "GC500_D001_Rev03_original_1947pct_3840x2057.png",
+   "refs": [
+    "SPASHDOWN"
+   ]
+  },
   "ref_WC46": {
    "file": "ref_WC46.jpg",
    "rect": [
@@ -2217,24 +2236,6 @@
    "export": "GC500_D001_Rev03_original_1947pct_3840x2057.png",
    "refs": [
     "WC72"
-   ]
-  },
-  "ref_WC81": {
-   "file": "ref_WC81.jpg",
-   "rect": [
-    2084.124,
-    1214.529,
-    2244.124,
-    1300.929
-   ],
-   "px": [
-    1150,
-    621
-   ],
-   "source_px_per_unit": 22.5334,
-   "export": "GC500_D001_Rev03_original_1947pct_3840x2057.png",
-   "refs": [
-    "WC81"
    ]
   }
  }
