@@ -29,6 +29,8 @@ node v11.03_equipment_consistency_DRAFT/test_equipmentGroups1103.cjs
 node v11.03_equipment_consistency_DRAFT/test_equipment_refresh1103.cjs
 ```
 
-Candidate SHA-256 `5bc48bc9543a149e4c4cb1efb099951f14d8eb2e3366975acc0a773e754f5f32` (20,988,815 bytes). Build validation passes all 150 inline scripts. Focused checks pass: 13 patch/protected-source, 93 equipment progress, 61 physical-board projection, 49 additional equipment, 70 milestone, 14 location-caption, 49 date-refresh, 56 presentation-grouping and 15 late-refresh summary checks.
+Candidate SHA-256 `24de664c6064ea3066b51b97bed74f8b854ec71bec8c1f54717338a52d2dacd9` (20,993,137 bytes). Build validation passes all 150 inline scripts. Focused checks pass: 13 patch/protected-source, 105 equipment progress, 78 physical-board projection, 49 additional equipment, 70 milestone, 14 location-caption, 49 date-refresh, 56 presentation-grouping and 15 late-refresh summary checks.
 
 Final native candidate checks, desktop/phone sweeps, source and screenshot review, guarded publication and exact native read-back are required before a LIVE claim. The other external assistant has not reviewed or acknowledged this change.
+
+Current final checks confirm the compact phone percentage is visible and the expanded meter retains the full quantities. Exact physical identities resolve legacy plan keys without ordinal matching; authored current pins take precedence over inherited legacy associations, conflicting identities are rejected, and historical links say “Plan position”. Navigation re-resolves the current card and respects later user intent. A remaining legacy detail-screen/action binding is under review before READY; the candidate remains a draft. No native record correction has been applied.

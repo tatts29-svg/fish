@@ -19,7 +19,7 @@ function project(input,options){
  const received=health.ready&&number(o.received)?o.received:null,installed=health.ready&&number(o.installed)?o.installed:null;
  return {group:o.group||'',asOf:o.day||null,unit:o.unit||'units',total,knownTotal,done,pct,left:number(total)&&number(done)?Math.max(0,total-done):null,
   complete,lowerBound,unknown:total==null,health,filtered:!!o.filtered,received,installed,refs:rows.map(r=>r.key),
-  excluded:[...new Set(o.excluded||[])],scopeNote:o.scopeNote||'',basis:'Confirmed completion · quantities, not supplied-description entries'};
+  excluded:[...new Set(o.excluded||[])],scopeNote:o.scopeNote||'',planScope:!!o.planScope,basis:'Confirmed completion · quantities, not supplied-description entries'};
 }
 function nativeEnvironment(){
  return {
@@ -75,7 +75,7 @@ function model(group,list,options,environment){
  const canonical=area&&!o.filtered&&assets.length?native.summary?.byId?.[area.id]:null;
  const allReceived=rows.length>0&&rows.every(r=>number(r.arrived962));
  return project(rows,{group,day,unit:area?.unit||'units',health,filtered:o.filtered,excluded,canonical,
-  received:allReceived?rows.reduce((n,r)=>n+r.arrived962,0):null,
+  received:allReceived?rows.reduce((n,r)=>n+r.arrived962,0):null,planScope:group==='Lighting towers'&&!!canonical?.scopeNote960,
   scopeNote:canonical?.scopeNote960||canonical?.scope||(!area?'Registered item quantities':o.filtered?'Selected references':'Same completion scope as Today')});
 }
 function displayPct(m){
@@ -89,14 +89,20 @@ function summary(m){
  if(m.total===0)return 'No completion scope in this view';
  return (m.lowerBound?'At least ':'')+m.done+' of '+m.total+' '+m.unit+' confirmed complete'+(displayPct(m)==null?'':' · '+displayPct(m)+'%');
 }
+function compact(m){
+ if(!m.health.ready)return m.health.loading?'Loading':'Unavailable';
+ if(!number(m.total)||displayPct(m)==null)return m.total===0?'No scope':'Unconfirmed';
+ return (m.health.stale?'Last ':'')+(m.lowerBound?'≥':'')+displayPct(m)+'%'+(m.planScope?' plan':'');
+}
 function html(m){
  const title=summary(m),width=number(m.pct)?Math.max(0,Math.min(100,m.pct)):0;
+ const fullTitle=[title,m.scopeNote,m.health.stale?'Last shared reading':null].filter(Boolean).join(' · ');
  const separate=[number(m.received)?m.received+' received':null,number(m.installed)?m.installed+' installed':null].filter(Boolean).join(' · ');
  const note=[m.filtered?'Selected view':null,m.scopeNote,m.excluded.length?m.excluded.length+' reference(s) outside completion scope':null,m.health.stale?'Last shared reading':null].filter(Boolean).join(' · ');
- return '<div class="prog" data-equipment-progress1103 role="img" aria-label="'+escape(title)+'"><div class="track"><i style="width:'+width+'%"></i></div><span>'+escape(title)+'</span></div>'+
+ return '<div class="prog" data-equipment-progress1103 data-equipment-compact1103="'+escape(compact(m))+'" title="'+escape(fullTitle)+'" role="img" aria-label="'+escape(fullTitle)+'"><div class="track"><i style="width:'+width+'%"></i></div><span>'+escape(title)+'</span></div>'+
   (separate?'<p class="sub" data-equipment-receipt1103>'+escape(separate)+'</p>':'')+
   (note?'<p class="sub" data-equipment-scope1103>'+escape(note)+'</p>':'');
 }
-const api=Object.freeze({project,model,fallbackRows,typeRows,summary,html,displayPct});
+const api=Object.freeze({project,model,fallbackRows,typeRows,summary,compact,html,displayPct});
 root.EquipmentProgress1103=api;if(typeof module!=='undefined'&&module.exports)module.exports=api;
 })(typeof window==='undefined'?globalThis:window);

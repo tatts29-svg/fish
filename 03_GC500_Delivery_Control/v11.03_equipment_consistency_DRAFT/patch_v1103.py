@@ -39,11 +39,14 @@ def patch(text):
     end = text.index('\n ${state.plantView', start)
     change(text[start:end], ' ${EquipmentProgress1103.html(progress1103)}', 'completion meter with shared scope')
     change(" const words = `${n} reference${n === 1 ? '' : 's'}${one ? '' : ' across ' + tables.length + ' trades'}${prog ? ' · ' + prog : ''} · lights, dates, asset numbers, contracts, asked and supplied`;",
-           " const scope1103 = one && state.plantGroup === 'Lighting towers' ? (tables[0]?.querySelector('[data-equipment-scope1103]')?.textContent || '') : '';\n const words = `${n} reference${n === 1 ? '' : 's'}${one ? '' : ' across ' + tables.length + ' trades'}${prog ? ' · ' + prog : ''}${scope1103 ? ' · ' + scope1103 : ''} · lights, dates, asset numbers, contracts, asked and supplied`;",
+           " const meter1103 = one ? tables[0]?.querySelector('.prog') : null, compact1103 = meter1103?.dataset.equipmentCompact1103 || '';\n const scope1103 = one && state.plantGroup === 'Lighting towers' ? (tables[0]?.querySelector('[data-equipment-scope1103]')?.textContent || '') : '';\n const words = `${n} reference${n === 1 ? '' : 's'}${one ? '' : ' across ' + tables.length + ' trades'}${prog ? ' · ' + prog : ''}${scope1103 ? ' · ' + scope1103 : ''} · lights, dates, asset numbers, contracts, asked and supplied`;",
            'keep planned lighting scope and recorded surplus visible')
     change("const refs = eq796Fold('Every reference', words, keep.concat(tables)); refs.classList.add('eqrefs');",
-           "const refs = eq796Fold('Every reference', words, keep.concat(tables)); refs.classList.add('eqrefs');\n if (one && prog) refs.querySelector('summary > span').setAttribute('data-equipment-progress1103', '');",
+           "const refs = eq796Fold('Every reference', (compact1103 ? compact1103 + ' · ' : '') + words, keep.concat(tables)); refs.classList.add('eqrefs');\n if (one && prog) { const summary1103 = refs.querySelector('summary > span'); summary1103.setAttribute('data-equipment-progress1103', ''); summary1103.title = meter1103?.title || words; }",
            'identify visible folded completion summary')
+    change("if (one) tables.forEach(tb => { const h = tb.querySelector(':scope > h3'), pr = tb.querySelector(':scope > .prog'); if (h) h.remove(); if (pr) pr.remove(); });",
+           "if (one) tables.forEach(tb => { const h = tb.querySelector(':scope > h3'); if (h) h.remove(); });",
+           'keep full completion quantities visible inside the expanded reference fold')
     change("if (refs) { const sub = refs.querySelector('summary > span'); if (sub) sub.textContent = (state.list || []).length + ' references · lights, dates, asset numbers, asked and supplied'; refs.classList.add('refresh-reference'); }",
            "if (refs) { refs.classList.add('refresh-reference'); }",
            'preserve qualified equipment summary during late presentation refresh')

@@ -21,13 +21,34 @@ function received(status,day){
  if(status.evidence?.state==='not confirmed')return false;
  return value;
 }
+function positionAssociation(p,boards,identities){
+ const values=list(boards),ids=identities||{},id=p.identity||{},r=p.record||{},key=clean(p.board||p.default_board||id.board);
+ const norm=v=>clean(v).toUpperCase(),fleet=b=>clean(ids[b.key]?.fleet??b.asset),owner=b=>clean(ids[b.key]?.co??b.co),rego=b=>clean(ids[b.key]?.rego??b.rego);
+ const same=(a,b)=>!clean(a)||!clean(b)||norm(a)===norm(b);
+ const unique=rows=>{const keys=[...new Set(rows.map(b=>clean(b.key)).filter(Boolean))];return keys.length===1?values.find(b=>clean(b.key)===keys[0]):null;};
+ const direct=unique(values.filter(b=>clean(b.key)===key));
+ /* This is an explicit authored pin association, not a number inferred from a
+    plan label. An inherited legacy fleet must not outrank a newer named pin. */
+ const saved=Number.isFinite(r.lat)&&Math.abs(r.lat)<=90&&Number.isFinite(r.lon)&&Math.abs(r.lon)<=180&&clean(r.posBy||r.by)&&Number.isFinite(Date.parse(r.posAt||r.at));
+ const mentions=saved?[...clean(r.posHow).matchAll(/\bpinned location for\s+(VMS\s*\d+)\b/gi)].map(m=>norm(m[1]).replace(/\s+/g,'')):[];
+ if(mentions.length){
+  const names=[...new Set(mentions)],named=names.length===1?unique(values.filter(b=>norm(b.name).replace(/\s+/g,'')===names[0])):null;
+  if(!named||direct&&direct.key!==named.key||!same(r.asset,fleet(named))||!same(r.rego,rego(named))||!same(r.co,owner(named)))return null;
+  return {key:clean(named.key),via:'saved-reference',at:r.posAt||r.at};
+ }
+ if(direct)return same(id.asset||id.fleet,fleet(direct))&&same(id.co,owner(direct))&&same(id.rego,rego(direct))?{key:clean(direct.key),via:'board-key'}:null;
+ const number=clean(id.asset||id.fleet||p.asset);if(!number)return null;
+ const matched=unique(values.filter(b=>norm(fleet(b))===norm(number)&&same(id.co,owner(b))&&same(id.rego,rego(b))));
+ return matched?{key:clean(matched.key),via:'fleet-identity'}:null;
+}
 function project(input,day){
  day=asDay(day);input=input||{};
  const statuses=new Map(list(input.statuses?.boards||input.statuses).map(s=>[text(s.key),s]));
- const identities=input.identities||{},seen=new Set(),boards=[];
+ const identities=input.identities||{},seen=new Set(),boards=[],associated=list(input.positions).map(p=>({p,match:positionAssociation(p,input.boards,identities)}));
  for(const source of list(input.boards)){
   const key=clean(source.key);if(!key||seen.has(key))continue;seen.add(key);
-  const status=statuses.get(key)||{},id=identities[key]||{},positions=list(input.positions).filter(p=>text(p.board||p.default_board)===key).map(p=>({...p}));
+  const status=statuses.get(key)||{},id=identities[key]||{},positions=associated.filter(x=>x.match?.key===key).map(({p,match})=>{const {identity,record,...position}=p;return {...position,association1103:match.via,associationAt1103:match.at||''};});
+  const order={'saved-reference':0,'board-key':1,'fleet-identity':2};positions.sort((a,b)=>order[a.association1103]-order[b.association1103]||b.associationAt1103.localeCompare(a.associationAt1103));
   const on=!!status.on,done=on&&!!status.done,installed=on&&!!status.installed;
   const evidence=status.evidence||null,recorded=!!(evidence&&evidence.state!==null||status.recorded||on);
   const board={vmsBoard1103:true,key,name:clean(source.name)||key,contract:clean(source.contract),line:source.line??null,
@@ -53,7 +74,7 @@ function model(day){
   rows.forEach(s=>{s.recorded=!!d.recorded;s.state=d.state;/* Only a whole confirmed load proves each linked board was received. */s.received=receivedCount>=rows.length;});
  }
  const identities={};boards.forEach(b=>{identities[b.key]=typeof vms913Of==='function'?vms913Of(b):{};});
- const positions=list(root.VMS1024?.boards()).map(p=>{const pin=root.VMS1024.position(p)||{};return {pos:p.pos,board:p.board||p.default_board,title:root.VmsLocationWords1103?.title(p,pin)??p.title??'',originalTitle:p.title||'',phase:p.phase||'',session:!!p.session,lat:pin.lat,lon:pin.lon,how:pin.how||''};});
+ const positions=list(root.VMS1024?.boards()).map(p=>{const pin=root.VMS1024.position(p)||{};return {pos:p.pos,board:p.board||p.default_board,identity:root.VMS1024.identity?.(p)||{},record:root.VMS1024.rec?.(p.pos)||null,title:root.VmsLocationWords1103?.title(p,pin)??p.title??'',originalTitle:p.title||'',phase:p.phase||'',session:!!p.session,lat:pin.lat,lon:pin.lon,how:pin.how||''};});
  return project({boards,statuses,identities,positions},day);
 }
 function filterBoards(boards,filter){
@@ -95,7 +116,7 @@ function action(b,label,pos){return '<button type="button" class="btn sm" data-v
 function pinUrl(p){return Number.isFinite(p?.lat)&&Number.isFinite(p?.lon)&&Math.abs(p.lat)<=90&&Math.abs(p.lon)<=180?'https://www.google.com/maps/dir/?api=1&destination='+encodeURIComponent(p.lat+','+p.lon):'';}
 function positionsHtml(b,print){
  if(!b.positions.length)return '<span class="w">No plan position recorded</span>';
- return b.positions.map(p=>{const url=pinUrl(p),name='VMS '+text(p.pos).toUpperCase();return '<span class="vms-position1103">'+(print?'<b>'+esc(name)+'</b>':action(b,name,p.pos))+(p.title?' · '+esc(p.title):'')+(url?' <a class="btn sm" href="'+esc(url)+'" target="_blank" rel="noopener noreferrer">Directions</a>':'')+'</span>';}).join('<br>');
+ return b.positions.map(p=>{const url=pinUrl(p),name='Plan position '+text(p.pos).toUpperCase(),phase=p.phase==='construction'?'Construction / demob':p.phase==='event'?'Event period':'';return '<span class="vms-position1103">'+(print?'<b>'+esc(name)+'</b>':action(b,name,p.pos))+(phase?' · '+esc(phase):'')+(p.title?' · '+esc(p.title):'')+(url?' <a class="btn sm" href="'+esc(url)+'" target="_blank" rel="noopener noreferrer">Directions</a>':'')+'</span>';}).join('<br>');
 }
 function identityText(b){return [b.co,b.fleet?'Asset '+b.fleet:'Asset number not recorded',b.rego?'Rego '+b.rego:''].filter(Boolean).join(' · ');}
 function boardLine(b,print){return '<li data-vms-inventory1103="'+esc(b.key)+'"><strong>'+(print?esc(b.name):action(b))+'</strong> · '+esc(b.status)+'<br>'+esc(identityText(b))+'<br>'+positionsHtml(b,print)+'</li>';}
@@ -116,7 +137,7 @@ function outstanding(I,disc){
 function outstandingHtml(e,print){
  if(!e?.vmsBoard1103)return null;if(!print)return boardLine(e.board1103,false);
  const b=e.board1103,urls=[...new Set(b.positions.map(pinUrl).filter(Boolean))],url=urls.length===1?urls[0]:'',q=url&&typeof qrSvg==='function'?qrSvg(url,3):'';
- const names=b.positions.map(p=>'VMS '+text(p.pos).toUpperCase()+(p.title?' · '+p.title:''));
+ const names=b.positions.map(p=>'Plan position '+text(p.pos).toUpperCase()+(p.phase==='construction'?' · Construction / demob':p.phase==='event'?' · Event period':'')+(p.title?' · '+p.title:''));
  return '<div class="card ln87p" data-vms-inventory1103="'+esc(b.key)+'"><div class="c1"><span class="ref">'+esc(b.name)+'</span><span class="due">'+esc(b.due||'No date yet')+'</span><div class="nm">'+esc(identityText(b))+'</div></div><div class="c2"><span class="lb">Still to come</span><div class="it">1 × VMS</div><div class="tgs"><span class="st gy">'+esc(b.status)+'</span></div></div><div class="c3"><div class="lw"><span class="lb">Plan position</span><div class="lo">'+esc(names.join(' · ')||'No position recorded')+'</div>'+(url?'<a href="'+esc(url)+'">Directions</a>':'')+'</div></div><div class="qr">'+(q?q+'<span>Scan to navigate</span>':'<div class="nq">'+(urls.length>1?'Multiple plan positions · use the VMS plan':'No navigation QR available')+'</div>')+'</div></div>';
 }
 function pdfHtml(I,disc){
@@ -149,17 +170,34 @@ function todayRowHtml(row,mode){
  if(!row?.vmsBoard1103)return null;const b=row.board1103,n=mode==='done'?row.done:mode==='left'?row.remaining:row.quantity;
  return '<article class="tw840-detail-row" data-vms-today1103="'+esc(b.key)+'"><div>'+action(b)+'<p>'+esc(b.status)+'</p><p>'+esc(identityText(b))+'</p>'+positionsHtml(b,false)+'</div><strong>'+n+' board'+(n===1?'':'s')+'</strong></article>';
 }
+let opening1103=0;
+function reveal1103(tab,find){
+ const seq=++opening1103,intent=root.Flows1013?.intentToken?.();
+ const current=()=>seq===opening1103&&(typeof state==='undefined'||!state.tab||state.tab===tab)&&(!intent||!root.Flows1013?.current||root.Flows1013.current(intent));
+ const show=()=>{
+  if(!current())return false;const node=find();if(!node||node.isConnected===false)return false;
+  /* The Today dialog releases its modal scroll restraint after close. Read the
+     current card again after that lifecycle; never keep a detached render node. */
+  const main=node.closest?.('main')||root.document.querySelector?.('main');
+  if(main?.getBoundingClientRect&&node.getBoundingClientRect)main.scrollTop+=node.getBoundingClientRect().top-main.getBoundingClientRect().top-12;
+  else node.scrollIntoView?.({block:'start',behavior:'auto'});
+  node.setAttribute?.('tabindex','-1');node.focus?.({preventScroll:true});return true;
+ };
+ const found=show();
+ if(root.requestAnimationFrame)root.requestAnimationFrame(()=>{if(current()){show();root.requestAnimationFrame(()=>show());}});
+ return found;
+}
 function open(key,pos){
  const b=model().boards.find(b=>b.key===key);if(!b||!root.document)return false;
  const dialog=root.document.getElementById('gc500-work-dialog840');if(dialog?.open)dialog.close();
  const p=b.positions.find(p=>p.pos===pos)||b.positions[0];
- if(p&&root.VMS1024){if(typeof go==='function')go('vms');root.VMS1024.filter='all';root.VMS1024.render();const card=[...root.document.querySelectorAll('#pane-vms .v1024-card[data-pos]')].find(e=>e.dataset.pos===text(p.pos));if(card){card.scrollIntoView({block:'center',behavior:'auto'});card.setAttribute('tabindex','-1');card.focus({preventScroll:true});}return true;}
+ if(p&&root.VMS1024){if(typeof go==='function')go('vms');root.VMS1024.filter='all';root.VMS1024.render();reveal1103('vms',()=>[...root.document.querySelectorAll('#pane-vms .v1024-card[data-pos]')].find(e=>e.dataset.pos===text(p.pos)));return true;}
  if(typeof state!=='undefined'){state.plantGroup='VMS boards';state.light=null;state.q='';}
  if(typeof go==='function')go('plant');if(typeof vms913Mount==='function')vms913Mount();
- const row=[...root.document.querySelectorAll('[data-vms913-row]')].find(e=>e.dataset.vms913Row===key);if(row){const fold=row.closest('details');if(fold)fold.open=true;row.scrollIntoView({block:'center',behavior:'auto'});return true;}return false;
+ const find=()=>[...root.document.querySelectorAll('[data-vms913-row]')].find(e=>e.dataset.vms913Row===key),row=find();if(row){const fold=row.closest('details');if(fold)fold.open=true;return reveal1103('plant',find);}return false;
 }
 const bound=new WeakSet();
 function bind(host){if(!host?.addEventListener||bound.has(host))return;bound.add(host);host.addEventListener('click',e=>{const b=e.target.closest?.('[data-vms-open1103]');if(!b||!host.contains(b)||e.defaultPrevented||b.closest('#gc500-work-dialog840'))return;e.preventDefault();open(b.dataset.vmsOpen1103,b.dataset.vmsPos1103);});}
-const api={project,model,received,filterBoards,filteredBoards,lightBar,inventoryProjection,financialRows,drillHtml,remainingHtml,outstanding,outstandingHtml,pdfHtml,equipmentHtml,todayRows,todayRowHtml,plan,typeProjection,open,bind};
+const api={project,model,received,positionAssociation,filterBoards,filteredBoards,lightBar,inventoryProjection,financialRows,drillHtml,remainingHtml,outstanding,outstandingHtml,pdfHtml,equipmentHtml,todayRows,todayRowHtml,plan,typeProjection,open,bind};
 root.VmsEquipment1103=api;if(typeof module!=='undefined'&&module.exports)module.exports=api;
 })(typeof window==='undefined'?globalThis:window);

@@ -62,4 +62,18 @@ m=api.model('Other',[{key:'A'}],{},multipleEnv);check(m.total,5);check(m.done,2)
 // Canonical plan scope may deliberately exclude an additional physical unit; retain its source note.
 m=api.project([row('A',4,4)],{canonical:{total:3,done:3,pct:100,pctKind:'confirmed'},scopeNote:'Plan scope; additional recorded equipment is separate'});check(m.total,3);check(m.done,3);check(m.complete,true);check(m.scopeNote.includes('Plan scope'),true);
 const t=api.html(api.model('VMS boards',assets,{},env));check(t.includes('data-equipment-progress1103'),true);check(t.includes('2 received · 2 installed'),true);check(t.includes('confirmed complete'),true);check(t.includes('supplied-description'),false);
+// A phone's collapsed summary starts with the qualified reading; complete facts remain in the expanded meter.
+check(api.compact(api.project([row('A',24,23)])),'95.83%');
+check(api.compact(api.project([row('A',24,23)],{canonical:{total:24,done:23,pct:23/24*100,pctKind:'lower-bound'}})),'≥95.83%');
+check(api.compact(api.project([row('A',100000,99999)])),'99.99%');
+check(api.compact(api.project([row('A',null,0)])),'Unconfirmed');
+check(api.compact(api.project([])),'No scope');
+check(api.compact(api.project([],{health:{ready:false,loading:true}})),'Loading');
+check(api.compact(api.project([],{health:{ready:false,loading:false}})),'Unavailable');
+check(api.compact(api.project([row('A',2,1)],{health:{ready:true,stale:true}})),'Last 50%');
+check(api.compact(api.project([row('A',2,2)],{planScope:true})),'100% plan');
+const compactHtml=api.html(api.project([row('A',24,23)],{scopeNote:'Physical board scope'}));
+check(compactHtml.includes('data-equipment-compact1103="95.83%"'),true);
+check(compactHtml.includes('<span>23 of 24 units confirmed complete · 95.83%</span>'),true);
+check(compactHtml.includes('title="23 of 24 units confirmed complete · 95.83% · Physical board scope"'),true);
 console.log(JSON.stringify({status:'passed',checks,syntheticOnly:true,mutationFunctionsCalled:0}));
