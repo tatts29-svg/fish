@@ -1,0 +1,53 @@
+{
+  "author": "Andrew Fisher",
+  "state": "READY TO UPLOAD",
+  "base_sha256": "198242a69a69e675dc733f0945bc1e092d2813d1090af20d1f5fcefb0b348eab",
+  "candidate_sha256": "56fcb00987640d249e363936a61fefed8574e2a03c17933dca32b1e8c20b985c",
+  "candidate_bytes": 21041620,
+  "checks": {
+    "javascript_synthetic": 100,
+    "private_input_guards": 7,
+    "release_wrapper_guards": 5,
+    "inline_scripts_parsed": 153,
+    "native_rehearsal": 47,
+    "independent_native_guard_cases": 39,
+    "desktop_sweep": {
+      "tabs": 25,
+      "links": 7,
+      "back": "passed",
+      "page_errors": 0,
+      "console_errors": 0
+    },
+    "phone_sweep": {
+      "tabs": 25,
+      "links": 7,
+      "back": "passed",
+      "page_errors": 0,
+      "console_errors": 0
+    },
+    "phone_and_desktop_visual_review": "passed; native whole-event label and amount inspected"
+  },
+  "native_proof": {
+    "production_writes": 0,
+    "script_errors": 0,
+    "full_record_unchanged": true,
+    "raw_source_preserved": true,
+    "pending_until_explicit_override": true,
+    "single_hire_agrees_across_views": true,
+    "unrelated_prices_costs_and_operational_state_unchanged": true,
+    "native_cache_save_clear_and_hydration_verified": true,
+    "fresh_browser_replay_exact": true,
+    "native_action": "separately rehearsed and independently reviewed; not yet applied"
+  },
+  "independent_review": "Source and bounded native action reviewed within the same Codex session; no Claude review claimed",
+  "source_sha256": {
+    "test_financialAssociation1105.cjs": "c4b4ee5f53222128008454413a149fc6f70a5e17e63fc87cda0be9c779763964",
+    "test_private_input1105.py": "9e1407502191b3fceac94827cfa14406f1bef22d0c070461712999763f990288",
+    "financialAssociation1105_browser.js": "61cd276d50854ffeaee0a617419cd962971afd4a2aaadf7649010e57adfeed14",
+    "financialAssociation1105_src.js": "2f07f2037aa7d60d901c6c61a8f68d60b8dbff00a7cb1bd1d030e3e54aa44974",
+    "patch_v1105.py": "f4d4150ebef15db6abfcf5ea0982aae52cf14a45c29e5e4f6b2b527d703133e6",
+    "test_patch_v1105.py": "0f8858c2bee1a57b6c71e809018b24304b31052ae65c5dfd7d8ab4d4b31d9623",
+    "private_input1105.py": "06b89786ba009981abc69b448309fd840b46634e9d6e7c22d1a37fa2fac40a49",
+    "integrate_financial1105.py": "cbf38ee9b91f175ef908b500c8c18d96eb461982207eb695af7aa2c1f6a8040b"
+  }
+}
