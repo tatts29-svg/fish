@@ -72,3 +72,24 @@ The test renders synthetic titles and counts, measures the actual PDF text
 bounds, checks margins and baseline alignment, and rejects an oversized title.
 Private print audits also verify every actual overview heading; operational
 values, signed URLs and generated sheets are not repository fixtures.
+
+### Portable PDF export
+
+`flatten_pdf.py` produces a compatible print copy with one opaque 300 dpi image
+per page. It removes nested form/font dependencies while keeping page geometry,
+order, existing watermark and link annotations. Standard indexed RGB and PNG
+prediction keep the pack smaller than a high-quality JPEG-only export. It makes
+no network calls and does not regenerate codes or write to any service.
+
+```sh
+python flatten_pdf.py /private/source.pdf /private/compatible.pdf \
+  --expected-source-sha256 EXACT_REVIEWED_SOURCE_SHA256
+```
+
+The input hash guard prevents silently converting a different source. The output
+is **pending verification**, not automatically print-ready: decode every page's
+QR payloads at 150 and 300 dpi against the reviewed original, render all pages
+with an independent engine, and review the page images. A palette conversion
+that fails a code check must be rerun with `--rgb` for an opaque RGB fallback. Keep the existing
+scan-check readiness guard until the separate physical print/phone check passes.
+Private PDFs, raster pages and QR payload manifests stay outside the repository.
