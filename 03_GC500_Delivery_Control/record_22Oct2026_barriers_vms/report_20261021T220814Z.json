@@ -1,0 +1,315 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261021T220814Z",
+ "finished": "2026-10-21T22:08:38.568Z",
+ "mode": "apply",
+ "spec": {
+  "by": "Andrew Fisher",
+  "basis": "Andrew, 22 Oct 2026 (AEST), the day before the first race day: \"Barriers all done\"; \"We mention vms boards there is 24 in total everyone is towed around the track and set to location\". Today's Water barriers group read 303 of 311 because WB17 (6 racing kerbs, T6/7/8/9) and WB18 (2 racing kerbs, T2) had stood 'not on site' since 3 Oct, and the VMS boards group read 23 of 24 because VMS21 (plan position 21, contract 9961265 line 28) had its 21 Oct arrival withdrawn to 'not confirmed'. Each is set through the page's own controls: the delivery light (on site) and Complete for WB17 and WB18; the VMS plan's in-place tick and complete tick for VMS21. No arrival day is invented: the light and the arrival are dated when they are pressed.",
+  "ops": [
+   {
+    "op": "light",
+    "ref": "WB17",
+    "state": "on site"
+   },
+   {
+    "op": "complete",
+    "ref": "WB17"
+   },
+   {
+    "op": "light",
+    "ref": "WB18",
+    "state": "on site"
+   },
+   {
+    "op": "complete",
+    "ref": "WB18"
+   },
+   {
+    "op": "vms_inplace",
+    "pos": "21",
+    "board": "VMS21"
+   },
+   {
+    "op": "vms_complete",
+    "pos": "21",
+    "board": "VMS21"
+   }
+  ]
+ },
+ "pageSha256": "9aee0e49460de11ba3758370308013bf1eb8833bb9f43468252ef90e2cd8a5d9",
+ "version": {
+  "before": 10484,
+  "after": 10489
+ },
+ "updated": {
+  "before": "2026-10-21T18:53:22.555Z",
+  "after": "2026-10-21T22:08:37.675Z"
+ },
+ "stage": [
+  {
+   "op": "light",
+   "ref": "WB17",
+   "state": "on site",
+   "result": "set on site"
+  },
+  {
+   "op": "complete",
+   "ref": "WB17",
+   "result": "complete"
+  },
+  {
+   "op": "light",
+   "ref": "WB18",
+   "state": "on site",
+   "result": "set on site"
+  },
+  {
+   "op": "complete",
+   "ref": "WB18",
+   "result": "complete"
+  },
+  {
+   "op": "vms_inplace",
+   "pos": "21",
+   "board": "VMS21",
+   "result": "on site and in place (2026-10-22)"
+  },
+  {
+   "op": "vms_complete",
+   "pos": "21",
+   "board": "VMS21",
+   "result": "complete"
+  }
+ ],
+ "writes": [
+  {
+   "key": "delivery/WB17",
+   "status": 200
+  },
+  {
+   "key": "delivery/WB18",
+   "status": 200
+  },
+  {
+   "key": "stamps/loads~2f~vms1024~2f~21",
+   "status": 200
+  },
+  {
+   "key": "loads/vms1024~2f~21",
+   "status": 200
+  },
+  {
+   "key": "by/loads~2f~vms1024~2f~21",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 1,
+ "docs": {
+  "before": {
+   "delivery/WB17": {
+    "state": "not on site",
+    "set_at": "2026-10-03T10:28:26.008Z",
+    "by": "Andrew Fisher via Codex",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:26.008Z",
+      "by": "Andrew Fisher via Codex"
+     }
+    ],
+    "_k": "WB17"
+   },
+   "delivery/WB18": {
+    "state": "not on site",
+    "set_at": "2026-10-03T10:28:26.169Z",
+    "by": "Andrew Fisher via Codex",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:26.169Z",
+      "by": "Andrew Fisher via Codex"
+     }
+    ],
+    "_k": "WB18"
+   },
+   "stamps/loads~2f~vms1024~2f~21": {
+    "_k": "loads/vms1024/21",
+    "v": "2026-10-21T01:17:44.507Z"
+   },
+   "loads/vms1024~2f~21": {
+    "lat": -27.9952,
+    "lon": 153.4293,
+    "posHow": "Planned position only — awaiting arrival",
+    "posBy": "Andrew Fisher via Codex",
+    "posAt": "2026-10-21T01:17:44.506Z",
+    "acc": null,
+    "inPlace": false,
+    "arrival1098": {
+     "state": "not confirmed",
+     "effective_date": "2026-10-21",
+     "recorded_at": "2026-10-21T01:17:44.506Z",
+     "by": "Andrew Fisher via Codex"
+    },
+    "events1098": [
+     {
+      "state": "on site",
+      "effective_date": "2026-10-21",
+      "recorded_at": "2026-10-21T00:36:01.744Z",
+      "by": "Andrew Fisher via Codex",
+      "inPlace": true
+     },
+     {
+      "state": "not confirmed",
+      "effective_date": "2026-10-21",
+      "recorded_at": "2026-10-21T01:17:44.506Z",
+      "by": "Andrew Fisher via Codex",
+      "inPlace": false
+     }
+    ],
+    "kind": "vms1024",
+    "pos": "21",
+    "by": "Andrew Fisher via Codex",
+    "at": "2026-10-21T01:17:44.507Z",
+    "_k": "vms1024/21"
+   },
+   "by/loads~2f~vms1024~2f~21": {
+    "_k": "loads/vms1024/21",
+    "v": "Andrew Fisher via Codex"
+   }
+  },
+  "after": {
+   "delivery/WB17": {
+    "state": "on site",
+    "set_at": "2026-10-21T22:08:21.215Z",
+    "by": "Andrew Fisher",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:26.008Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-21T22:08:21.215Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-21T22:08:22.040Z",
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-21T22:08:22.040Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "_k": "WB17"
+   },
+   "delivery/WB18": {
+    "state": "on site",
+    "set_at": "2026-10-21T22:08:22.744Z",
+    "by": "Andrew Fisher",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:26.169Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-21T22:08:22.744Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-21T22:08:23.415Z",
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-21T22:08:23.415Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "_k": "WB18"
+   },
+   "stamps/loads~2f~vms1024~2f~21": {
+    "_k": "loads/vms1024/21",
+    "v": "2026-10-21T22:08:25.134Z"
+   },
+   "loads/vms1024~2f~21": {
+    "lat": -27.9952,
+    "lon": 153.4293,
+    "posHow": "Planned position only — awaiting arrival",
+    "posBy": "Andrew Fisher via Codex",
+    "posAt": "2026-10-21T01:17:44.506Z",
+    "acc": null,
+    "inPlace": true,
+    "arrival1098": {
+     "state": "on site",
+     "effective_date": "2026-10-22",
+     "recorded_at": "2026-10-21T22:08:24.160Z",
+     "by": "Andrew Fisher"
+    },
+    "events1098": [
+     {
+      "state": "on site",
+      "effective_date": "2026-10-21",
+      "recorded_at": "2026-10-21T00:36:01.744Z",
+      "by": "Andrew Fisher via Codex",
+      "inPlace": true
+     },
+     {
+      "state": "not confirmed",
+      "effective_date": "2026-10-21",
+      "recorded_at": "2026-10-21T01:17:44.506Z",
+      "by": "Andrew Fisher via Codex",
+      "inPlace": false
+     },
+     {
+      "state": "on site",
+      "effective_date": "2026-10-22",
+      "recorded_at": "2026-10-21T22:08:24.160Z",
+      "by": "Andrew Fisher",
+      "inPlace": true,
+      "sequence1101": 1
+     }
+    ],
+    "kind": "vms1024",
+    "pos": "21",
+    "by": "Andrew Fisher",
+    "at": "2026-10-21T22:08:25.097Z",
+    "completion1101": {
+     "done": true,
+     "effective_date": "2026-10-22",
+     "recorded_at": "2026-10-21T22:08:25.097Z",
+     "by": "Andrew Fisher",
+     "sequence1101": 2
+    },
+    "completionEvents1101": [
+     {
+      "done": true,
+      "effective_date": "2026-10-22",
+      "recorded_at": "2026-10-21T22:08:25.097Z",
+      "by": "Andrew Fisher",
+      "sequence1101": 2
+     }
+    ],
+    "_k": "vms1024/21"
+   },
+   "by/loads~2f~vms1024~2f~21": {
+    "_k": "loads/vms1024/21",
+    "v": "Andrew Fisher"
+   }
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}
