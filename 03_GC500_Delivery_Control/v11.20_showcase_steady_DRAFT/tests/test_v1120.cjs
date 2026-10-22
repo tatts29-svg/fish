@@ -45,7 +45,6 @@ const check = (name, ok, detail) => { results.push({name, ok: !!ok, detail}); if
    check('the base mount was timed', typeof m.steady.mountMs === 'number' && m.steady.mountMs > 0, m.steady);
    const over = m.steady.mountMs > m.steady.budgetMs;
    check(over ? 'over budget here: static detail skipped and the report says so' : 'within budget here: static detail kept', over ? (m.steady.detail === 'skipped' && m.report && m.report.limitedByDevice === true && /detail skipped/.test(m.report.detailError || '')) : (m.steady.detail === 'kept' && m.report && !m.report.detailError), {steady: m.steady, report: m.report});
-   check('the stands follow the same budget (' + m.steady.stands + ')', m.steady.stands === 'skipped' || m.steady.stands === 'kept', m.steady);
    if (over) { await p.waitForTimeout(12000); const n = await p.evaluate(() => window.__n); check('no static detail installer ran on the over-budget device', n.veg === 0 && n.arch === 0 && n.track === 0, n); }
   }
   console.log('open:', JSON.stringify(o)); console.log('mount:', JSON.stringify({steady: m.steady, report: m.report && {limited: m.report.limitedByDevice, err: m.report.detailError}}));

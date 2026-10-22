@@ -27,9 +27,10 @@ is software rendering at 7–18 s a frame, which is the harness, not a device wi
 1. **The dialog paints first.** The first 3D mount of an opening is deferred 150 ms past `showOpen()`, so the countdown, the
    words and the flat circuit are on screen before the heavy build. `showOpen()` now returns in 1.6 s at 4× CPU (was 15.8 s);
    0.36 s on the phone emulation.
-2. **A budget, read off the device.** The base mount is timed. Past 1.5 s, the grandstands are left out of that mount and the
-   static detail stages are not attempted, through the scene's own limited-by-device path (`fullLapReport788` says
-   `detail skipped: the base circuit took N s…`). The circuit, car, city and kerbs stay. Within budget nothing changes.
+2. **A budget, read off the device.** The base mount is timed. Past 1.5 s, the static detail stages are not attempted,
+   through the scene's own limited-by-device path (`fullLapReport788` says `detail skipped: the base circuit took N s…`).
+   The circuit, car, city, kerbs and grandstands stay. Within budget nothing changes. (A variant that also left the
+   grandstands out of a slow mount hung the page in its checks and was dropped; the mount is left whole.)
 3. **A phone that never chose a backdrop opens on the flat circuit.** A phone that chose 3D keeps it; a laptop keeps the 3D
    circuit at night as before (the project manager's default of 26 Sep 2026). `showBackPref` carries the rule.
 4. **The scene warm-up is paced**: one scene per 400 ms, first at 1.5 s (the v11.10 module ran one per 40 ms from 250 ms,
@@ -41,7 +42,7 @@ is software rendering at 7–18 s a frame, which is the harness, not a device wi
 | 3D day backdrop, 4× CPU | v11.19 | v11.20 |
 |---|---|---|
 | `showOpen()` before the dialog paints | 15.8 s | 1.6 s (0.26 s of it the backdrop) |
-| geometry building on the main thread, total | 31 s in four blocks | one block after the dialog (12.7 s; less with the stands left out) |
+| geometry building on the main thread, total | 31 s in four blocks | one block after the dialog (12.7 s) |
 | static detail installers run | 3 | 0 on this device |
 | JS heap | 497 MB | 290 MB |
 | long tasks over 1 s in the first minute, not counting software-GL frames | 7 | 2 |

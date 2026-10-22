@@ -16,22 +16,13 @@
 (function(root){
 'use strict';
 if(typeof show3dSyncInner!=='function'||!root.GC3D||typeof GC3D.mount!=='function')return;
-const STEADY={pending:0,still:false,deferred:0,mountMs:null,mountStart:0,detail:null,stands:null,budgetMs:1500,delayMs:150};
+const STEADY={pending:0,still:false,deferred:0,mountMs:null,detail:null,budgetMs:1500,delayMs:150};
 const G=root.GC3D;
-/* 2. the mount, timed; the detail budget decided from what this device just did. The grandstands are the last thing the
-   mount builds: when the circuit, car and city have already used the budget, they are left out on this device too. */
-if(typeof G.setStands==='function'){
- const stands=G.setStands;
- G.setStands=function(){
-  const since=STEADY.mountStart?performance.now()-STEADY.mountStart:0;
-  if(since>STEADY.budgetMs){STEADY.stands='skipped';if(G.S)G.S.standsSkipped1120='the circuit had taken '+(since/1000).toFixed(1)+' s to build before the stands; stands left out on this device (budget '+(STEADY.budgetMs/1000).toFixed(1)+' s)';return null;}
-  STEADY.stands='kept';return stands.apply(this,arguments);
- };
-}
+/* 2. the mount, timed; the detail budget decided from what this device just did. The mount itself (circuit, car, city,
+   kerbs, grandstands) is left whole: a build that left the grandstands out did not survive its checks. */
 const mount=G.mount;
 G.mount=function(){
- const t0=performance.now();STEADY.mountStart=t0;STEADY.stands=null;
- const r=mount.apply(this,arguments),dt=performance.now()-t0;
+ const t0=performance.now(),r=mount.apply(this,arguments),dt=performance.now()-t0;
  STEADY.mountMs=Math.round(dt);
  try{
   const S=G.S;
@@ -67,5 +58,5 @@ root.showPhone1120=function(){
   return coarse&&noHover&&shortest<=520;
  }catch(e){return false;}
 };
-root.ShowcaseSteady1120={state:()=>({pending:!!STEADY.pending,deferred:STEADY.deferred,mountMs:STEADY.mountMs,detail:STEADY.detail,stands:STEADY.stands,budgetMs:STEADY.budgetMs,delayMs:STEADY.delayMs,phone:root.showPhone1120()})};
+root.ShowcaseSteady1120={state:()=>({pending:!!STEADY.pending,deferred:STEADY.deferred,mountMs:STEADY.mountMs,detail:STEADY.detail,budgetMs:STEADY.budgetMs,delayMs:STEADY.delayMs,phone:root.showPhone1120()})};
 })(window);

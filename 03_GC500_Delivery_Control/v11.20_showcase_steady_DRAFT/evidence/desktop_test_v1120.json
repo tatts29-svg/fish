@@ -1,5 +1,5 @@
 {
- "at": "2026-10-22T04:54:44.500Z",
+ "at": "2026-10-22T06:09:55.521Z",
  "live": false,
  "mobile": false,
  "results": [
@@ -32,7 +32,7 @@
    "ok": true,
    "detail": {
     "pref": "circuit3d_day",
-    "openMs": 1568,
+    "openMs": 1595,
     "hiddenAfter": false,
     "bodyChars": 224,
     "mountedAtOpen": false,
@@ -53,7 +53,7 @@
    "ok": true,
    "detail": {
     "pref": "circuit3d_day",
-    "openMs": 1568,
+    "openMs": 1595,
     "hiddenAfter": false,
     "bodyChars": 224,
     "mountedAtOpen": false,
@@ -78,7 +78,7 @@
     "steady": {
      "pending": false,
      "deferred": 1,
-     "mountMs": 7425,
+     "mountMs": 15084,
      "detail": "skipped",
      "budgetMs": 1500,
      "delayMs": 150,
@@ -90,7 +90,7 @@
      "enabled": false,
      "scope": "Existing complete circuit; visual refinement only",
      "limitedByDevice": true,
-     "detailError": "detail skipped: the base circuit took 7.4 s to build on this device (budget 1.5 s)",
+     "detailError": "detail skipped: the base circuit took 15.1 s to build on this device (budget 1.5 s)",
      "lapMetres": 2910.1086655413205,
      "track": null,
      "architecture": null,
@@ -131,7 +131,7 @@
    "detail": {
     "pending": false,
     "deferred": 1,
-    "mountMs": 7425,
+    "mountMs": 15084,
     "detail": "skipped",
     "budgetMs": 1500,
     "delayMs": 150,
@@ -145,7 +145,7 @@
     "steady": {
      "pending": false,
      "deferred": 1,
-     "mountMs": 7425,
+     "mountMs": 15084,
      "detail": "skipped",
      "budgetMs": 1500,
      "delayMs": 150,
@@ -157,7 +157,7 @@
      "enabled": false,
      "scope": "Existing complete circuit; visual refinement only",
      "limitedByDevice": true,
-     "detailError": "detail skipped: the base circuit took 7.4 s to build on this device (budget 1.5 s)",
+     "detailError": "detail skipped: the base circuit took 15.1 s to build on this device (budget 1.5 s)",
      "lapMetres": 2910.1086655413205,
      "track": null,
      "architecture": null,
@@ -212,13 +212,13 @@
    }
   },
   {
-   "name": "the deck is playing: a chapter title and a scene on screen, the deck past the countdown",
-   "ok": false,
+   "name": "the deck is on screen: a chapter title and a scene with words",
+   "ok": true,
    "detail": {
     "scene": 1,
     "open": true,
     "chapter": "Countdown to race day",
-    "body": 0
+    "body": 215
    }
   },
   {
@@ -244,7 +244,7 @@
    "ok": true,
    "detail": {
     "page": 1,
-    "live": 89,
+    "live": 73,
     "blocked": 0
    }
   }
