@@ -1,0 +1,137 @@
+{
+ "at": "2026-10-22T23:51:15.307Z",
+ "live": false,
+ "results": [
+  {
+   "name": "footer says the expected release",
+   "ok": true
+  },
+  {
+   "name": "card template carries the view, the gestures, the tile loader and the manifest (levels 0 to 3)",
+   "ok": true,
+   "detail": {
+    "len": 198230
+   }
+  },
+  {
+   "name": "the plan starts at the computed crop with the tile layer, the veil, + and − (no Fit until moved), and touch-action none on the plan",
+   "ok": true,
+   "detail": {
+    "vb": [
+     341.8,
+     241.2,
+     230,
+     165.6
+    ],
+    "tiles": true,
+    "veil": true,
+    "buttons": [
+     "out",
+     "in"
+    ],
+    "rMe": 7.9,
+    "fs": 10.1,
+    "level": 1,
+    "touchAction": "none"
+   }
+  },
+  {
+   "name": "+ halves the view about its centre; the pin and the label scale with it so they keep their size on the screen; Fit appears; a deeper tile level is asked for",
+   "ok": true,
+   "detail": {
+    "vb": [
+     399.3,
+     282.6,
+     115,
+     82.8
+    ],
+    "view": {
+     "cx": 456.8,
+     "cy": 324,
+     "w": 115
+    },
+    "rMe": 3.9,
+    "fs": 5,
+    "buttons": [
+     "out",
+     "in",
+     "fit"
+    ],
+    "level": 2,
+    "wanted": 6,
+    "pins": 14
+   }
+  },
+  {
+   "name": "a deep view on PG01 (20 plan px wide) asks for level 3 tiles that cover the view, each tile 32 plan px across, with PG01 still drawn",
+   "ok": true,
+   "detail": {
+    "vb": [
+     491.5,
+     298.9,
+     20,
+     14.4
+    ],
+    "L": 3,
+    "want": 1,
+    "first": {
+     "key": "3/15_9",
+     "x": 480,
+     "y": 288,
+     "span": 32
+    },
+    "me": true,
+    "spanOk": true
+   }
+  },
+  {
+   "name": "the tiles are asked for by byte range from the explorer’s vt files (nothing served in this tab, so they fail cleanly, no page error)",
+   "ok": true,
+   "detail": [
+    {
+     "u": "L1-84e7872ac157.bin",
+     "range": "bytes=1002254-1143037"
+    },
+    {
+     "u": "L1-84e7872ac157.bin",
+     "range": "bytes=1661832-1802727"
+    },
+    {
+     "u": "L1-84e7872ac157.bin",
+     "range": "bytes=2197440-2318705"
+    },
+    {
+     "u": "L1-84e7872ac157.bin",
+     "range": "bytes=1143038-1352739"
+    }
+   ]
+  },
+  {
+   "name": "a tap on a symbol, Closer / Wider and Fit each drop the moved view",
+   "ok": true,
+   "detail": {
+    "afterTap": null,
+    "afterZoomBtn": null,
+    "afterFit": null
+   }
+  },
+  {
+   "name": "record unchanged by the run",
+   "ok": true
+  },
+  {
+   "name": "no page errors",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "name": "no writes attempted",
+   "ok": true,
+   "detail": {
+    "page": 1,
+    "live": 74,
+    "blocked": 0
+   }
+  }
+ ]
+}
