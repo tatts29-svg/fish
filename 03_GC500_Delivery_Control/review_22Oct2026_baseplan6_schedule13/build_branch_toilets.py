@@ -62,8 +62,11 @@ N = T['ofwf']; A = T['oacc']; BLK = T['oblk'] + T['opan']; SEW = T['oblk'] - 6; 
 cs = wb.create_sheet('9968955 charge lines')
 cs.append(['Line', 'Baseplan line', 'Baseplan qty', 'Rate', 'Baseplan $', 'Correct qty', 'Correct $', 'Billable now $', 'Later $', 'Basis'])
 for c in cs[1]: c.font = Font(bold=True)
+SUMS = collections.Counter()
 def row(ln, qty, basis, now_frac):
-    d = svc[ln]; amt = round(qty * d['Price'], 2); cs.append([ln, d['Description'], d['Quantity'], d['Price'], d['Prebill Amount'], qty, amt, round(amt * now_frac, 2), round(amt * (1 - now_frac), 2), basis])
+    d = svc[ln]; amt = round(qty * d['Price'], 2); now = round(amt * now_frac, 2)
+    cs.append([ln, d['Description'], d['Quantity'], d['Price'], d['Prebill Amount'], qty, amt, now, round(amt - now, 2), basis])
+    SUMS['bp'] += d['Prebill Amount']; SUMS['ok'] += amt; SUMS['now'] += now; SUMS['later'] += amt - now
 row('141', (N + A) * NIGHTS, f"{N} FWF + {A} accessible on site = {N + A} units x {NIGHTS} race nights (Fri, Sat, Sun). Nothing done yet; invoice from the tracker ticks after each night", 0)
 row('142', TK * NIGHTS, f"{T['otank']} waste tanks + {T['opan']} sixteen-pan blocks = {TK} x {NIGHTS} nights; agrees with Baseplan", 0)
 row('143', SEW * NIGHTS, f"{SEW} sewer-connected blocks x {NIGHTS} nights (the {T['oblk'] - SEW} tank-mounted blocks are cleaned under line 142); agrees with Baseplan", 0)
@@ -73,7 +76,7 @@ row('146', N * 2, f"{N} FWF x 2 (install $36.44 done, demob $36.44 at demob)", 0
 row('147', BLK * 2, f"{BLK} blocks x 2 legs at $500; delivery done, return at demob", 0.5)
 row('148', A * 2, f"{A} accessible x 2 legs at $500; delivery done, return at demob", 0.5)
 row('149', N * 2, f"{N} FWF x 2 legs at $47.50; delivery done, return at demob. Baseplan already charges the Event Portables units this way", 0.5)
-cs.append([]); cs.append(['TOTAL', '', '', '', sum(svc[l]['Prebill Amount'] for l in svc if l in ('141', '142', '143', '144', '145', '146', '147', '148', '149')), '', sum(r[6] for r in cs.iter_rows(min_row=2, max_row=cs.max_row - 1, values_only=True) if isinstance(r[6], (int, float))), sum(r[7] for r in cs.iter_rows(min_row=2, max_row=cs.max_row - 1, values_only=True) if isinstance(r[7], (int, float))), sum(r[8] for r in cs.iter_rows(min_row=2, max_row=cs.max_row - 1, values_only=True) if isinstance(r[8], (int, float))), ''])
+cs.append([]); cs.append(['TOTAL', '', '', '', round(SUMS['bp'], 2), '', round(SUMS['ok'], 2), round(SUMS['now'], 2), round(SUMS['later'], 2), ''])
 for c in cs[cs.max_row]: c.font = Font(bold=True)
 for i, w in enumerate([6, 40, 10, 8, 12, 10, 12, 13, 11, 90]): cs.column_dimensions[chr(65 + i)].width = w
 cs.freeze_panes = 'A2'
