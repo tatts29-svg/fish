@@ -67,5 +67,29 @@ n.append(['kVA', 'Card line', 'Full daily rate 2026', 'Standby rate 2026']); [se
 for k, (daily, sb) in RATES.items(): n.append([k, 'Generator ' + ('315 KVA (next size down; no 350 line)' if k == '350' else k + ' KVA'), daily, sb])
 n.append([]); n.append(['Basis: the 2026 street card, ex GST. Standby rate every day from the day the set lands until 22 Oct; full daily rate on the race days 23, 24 and 25 Oct; no hire charge after 25 Oct. The rate follows the size the customer asked for, not the size sent. On-site dates are the site record. Author: Andrew Fisher, 22 Oct 2026.'])
 for i, w in enumerate([8, 42, 20, 18]): n.column_dimensions[col(i + 1)].width = w
+# labour and transport a set: the card's install and demob (one each), transport each way by size
+LAB = {'20': 145.74, '30': 145.74, '45': 145.74, '50': 145.74, '60': 145.74, '80': 145.74, '150': 166.56, '200': 166.56, '350': 166.56}
+TR = {'20': 300.0, '30': 300.0, '45': 300.0, '50': 450.0, '60': 450.0, '80': 450.0, '150': 450.0, '200': 600.0, '350': 600.0}
+lt = wb.create_sheet('Labour & transport', 1)
+lt.append(['Ref', 'kVA', 'On site', 'Install (done)', 'Demob (at demob)', 'Transport each way', 'Delivery leg (done)', 'Pickup leg (at demob)', 'Hire standby to 22 Oct', 'Hire race days', 'Hire total', 'Set total now (hire + install + delivery)', 'Set total later (demob + pickup)', 'Set total', 'Note'])
+for c in lt[1]: c.font = H; c.alignment = Alignment(wrap_text=True, horizontal='center')
+T2 = {k: 0.0 for k in ('inst', 'demob', 'del', 'pick', 'sb', 'race', 'now', 'later', 'all')}
+for row in ws.iter_rows(min_row=3, max_row=ws.max_row - 1, values_only=True):
+    ref, kva = row[0], row[1]; sbm, rm = row[f0 + len(days)], row[f0 + len(days) + 2]; note = row[-1]
+    if ref == 'GN20': sbm_ok = sbm
+    inst = LAB[kva]; dem = LAB[kva]; tr = TR[kva]
+    now = sbm + rm + inst + tr; later = dem + tr
+    n2 = ('350 kVA: no card line for labour or transport; the 200 kVA figures are used' if kva == '350' else '')
+    lt.append([ref, kva, row[3], inst, dem, tr, tr, tr, sbm, rm, round(sbm + rm, 2), round(now, 2), round(later, 2), round(now + later, 2), n2 or note])
+    for k, v in (('inst', inst), ('demob', dem), ('del', tr), ('pick', tr), ('sb', sbm), ('race', rm), ('now', now), ('later', later), ('all', now + later)): T2[k] += v
+lt.append([]); lt.append(['TOTAL', '15 sets', '', round(T2['inst'], 2), round(T2['demob'], 2), '', round(T2['del'], 2), round(T2['pick'], 2), round(T2['sb'], 2), round(T2['race'], 2), round(T2['sb'] + T2['race'], 2), round(T2['now'], 2), round(T2['later'], 2), round(T2['all'], 2), ''])
+for c in lt[lt.max_row]: c.font = H; c.fill = TOT
+lt.append([]); lt.append(['Baseplan 9961976 lines 51-55: labour 11 x $291.48 + 4 x $333.12 = $4,538.76 (install + demob a set, the card\'s figures, on 15 sets); transport 10 x $300 + 14 x $450 + 6 x $600 = $12,900 (both legs, 15 sets). Both count GN20\'s 1276701, which never came: labour and transport are 14 sets.'])
+for i, w in enumerate([7, 6, 8, 10, 10, 10, 10, 10, 12, 10, 10, 14, 14, 10, 50]): lt.column_dimensions[col(i + 1)].width = w
+for rw in lt.iter_rows(min_row=2, max_row=lt.max_row):
+    for c in rw:
+        if isinstance(c.value, float): c.number_format = '#,##0.00'
+lt.freeze_panes = 'D2'
 out = HERE / 'GC500_9961976_Generators_DayByDay_22Oct2026.xlsx'; wb.save(out)
+print('labour/transport', {k: round(v, 2) for k, v in T2.items()})
 print('written', out.name, {k: round(v, 2) for k, v in G.items()})
