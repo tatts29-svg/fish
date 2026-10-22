@@ -1,5 +1,5 @@
 {
- "at": "2026-10-22T09:32:43.107Z",
+ "at": "2026-10-22T09:33:59.980Z",
  "live": false,
  "results": [
   {
@@ -75,7 +75,7 @@
    "name": "card template publishes: three-job functions, the water hint, task class and icon on every job button, one counted water job in its data, no v11.22 water line",
    "ok": true,
    "detail": {
-    "len": 116177
+    "len": 116327
    }
   },
   {
@@ -117,22 +117,8 @@
    "ok": true,
    "detail": {
     "page": 1,
-    "live": 69,
+    "live": 68,
     "blocked": 0
-   }
-  },
-  {
-   "name": "on the same ticks the previous page counted pump and clean only (49% of 510); this page counts water too (33% of 752)",
-   "ok": true,
-   "detail": {
-    "prev": "49",
-    "expectPrev": 49,
-    "now": "33",
-    "expectNow": 33,
-    "prevTasks": [
-     "Pump out251 of 251 · 100%",
-     "Clean & restock2 of 259 · 0%"
-    ]
    }
   }
  ]

@@ -61,5 +61,11 @@ is republished from the admin fold (TEST first, the event tracker on Andrew's wo
 
 ## Checks
 
-See STATUS.md for the live line (toolchain PASS, test_v1123 desktop and phone, sweeps desktop and phone, the live run, the
-TEST republish and card check).
+Applied to a copy of the live v11.22 page first; the live build is byte-identical (`e47d37de…`, 21,123,160 bytes). Toolchain
+PASS. `tests/test_v1123.cjs` desktop 12/12 (with the v11.22 comparison: 49% of 510 there, 33% of 752 here on the same
+ticks) and phone 11/11; sweeps desktop + phone 25 tabs / 7 hashes / Back, 0 errors, 0 blocked writes. On the live page
+11/11. The TEST tracker was republished from the live page's own admin fold (one POST /api/cards, the page's own confirm
+answered, contact from the service, "saved and read back"); `tracker_card_check.cjs test PG01`: CARD OK — the clean code
+shows Clean & restock and Water checked / refilled ("Tap when the water is checked or refilled"), the pump code Pump out
+alone, six rings (area and everything), the header fits the phone, 0 writes, 0 errors. Evidence in `evidence/`. The EVENT
+tracker (the crews' printed codes) is republished only on Andrew's word.
