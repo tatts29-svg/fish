@@ -1,0 +1,130 @@
+{
+ "author": "Andrew Fisher",
+ "page": "live",
+ "passed": 9,
+ "failed": 0,
+ "results": [
+  {
+   "name": "footer says the expected release",
+   "ok": true
+  },
+  {
+   "name": "line 6 / 1276701 is off the on-hire rows and in the source history as never delivered",
+   "ok": true,
+   "detail": {
+    "line6OnHire": false,
+    "anyAsset": false,
+    "hist": true,
+    "gn20": true,
+    "summaryLines": 298,
+    "contractLines": 36,
+    "genIds": [
+     "ref:GN01",
+     "ref:GN03",
+     "ref:GN04",
+     "ref:GN06",
+     "ref:GN10",
+     "ref:GN13",
+     "ref:GN18",
+     "ref:GN19",
+     "ref:GN21",
+     "ref:GN23",
+     "ref:GN24",
+     "ref:GN25",
+     "ref:GN?",
+     "contract:9961976:13",
+     "contract:9961976:45"
+    ],
+    "genHas1276701": false,
+    "genHasGN20": false
+   }
+  },
+  {
+   "name": "GN20 carries no number and says why",
+   "ok": true,
+   "detail": {
+    "line6OnHire": false,
+    "anyAsset": false,
+    "hist": true,
+    "gn20": true,
+    "summaryLines": 298,
+    "contractLines": 36,
+    "genIds": [
+     "ref:GN01",
+     "ref:GN03",
+     "ref:GN04",
+     "ref:GN06",
+     "ref:GN10",
+     "ref:GN13",
+     "ref:GN18",
+     "ref:GN19",
+     "ref:GN21",
+     "ref:GN23",
+     "ref:GN24",
+     "ref:GN25",
+     "ref:GN?",
+     "contract:9961976:13",
+     "contract:9961976:45"
+    ],
+    "genHas1276701": false,
+    "genHasGN20": false
+   }
+  },
+  {
+   "name": "on-hire summary and the 9961976 contract are recounted (298 lines, 36 on the contract)",
+   "ok": true,
+   "detail": {
+    "summaryLines": 298,
+    "contractLines": 36
+   }
+  },
+  {
+   "name": "the generator costing no longer carries 1276701 or GN20",
+   "ok": true,
+   "detail": {
+    "ids": [
+     "ref:GN01",
+     "ref:GN03",
+     "ref:GN04",
+     "ref:GN06",
+     "ref:GN10",
+     "ref:GN13",
+     "ref:GN18",
+     "ref:GN19",
+     "ref:GN21",
+     "ref:GN23",
+     "ref:GN24",
+     "ref:GN25",
+     "ref:GN?",
+     "contract:9961976:13",
+     "contract:9961976:45"
+    ]
+   }
+  },
+  {
+   "name": "Generators tab: 1276701 gone from the view",
+   "ok": true,
+   "detail": {
+    "actual": "25,526.52"
+   }
+  },
+  {
+   "name": "record unchanged by the checks",
+   "ok": true
+  },
+  {
+   "name": "no page errors",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "name": "no writes attempted",
+   "ok": true,
+   "detail": {
+    "page": 0,
+    "live": 11,
+    "blocked": 0
+   }
+  }
+ ]
+}
