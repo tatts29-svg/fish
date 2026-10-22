@@ -1,0 +1,107 @@
+{
+ "author": "Andrew Fisher",
+ "record_version": 10505,
+ "buildings": {
+  "install": 47,
+  "steps": 40,
+  "levelling": 47,
+  "cleaning": 47,
+  "fire_ext": 10,
+  "demob": 47,
+  "buildings": 47
+ },
+ "our_building_labour_at_card": 27805.11,
+ "baseplan_133": 29512.35,
+ "transport_legs": {
+  "small": 76,
+  "big": 18,
+  "baseplan_small": 72,
+  "baseplan_big": 18
+ },
+ "toilets": {
+  "bp_fwf": 221,
+  "trk_fwf": 231,
+  "bp_access": 4,
+  "trk_access": 4,
+  "bp_block": 14,
+  "trk_block": 14,
+  "bp_tank": 6,
+  "trk_tank": 6,
+  "bp_pan16": 2,
+  "trk_pan16": 2
+ },
+ "toilet_service_lines": {
+  "141": {
+   "qty": 678,
+   "price": 72.87,
+   "prebill": 49405.86
+  },
+  "142": {
+   "qty": 24,
+   "price": 624.6,
+   "prebill": 14990.4
+  },
+  "143": {
+   "qty": 24,
+   "price": 260.25,
+   "prebill": 6246
+  },
+  "144": {
+   "qty": 16,
+   "price": 603.78,
+   "prebill": 9660.48
+  },
+  "145": {
+   "qty": 8,
+   "price": 88.49,
+   "prebill": 707.92
+  },
+  "146": {
+   "qty": 444,
+   "price": 36.44,
+   "prebill": 16179.36
+  },
+  "147": {
+   "qty": 32,
+   "price": 500,
+   "prebill": 16000
+  },
+  "148": {
+   "qty": 8,
+   "price": 500,
+   "prebill": 4000
+  },
+  "149": {
+   "qty": 444,
+   "price": 47.5,
+   "prebill": 21090
+  },
+  "150": {
+   "qty": 4,
+   "price": 0,
+   "prebill": 0
+  }
+ },
+ "unmatched_toilet_assets": [
+  [
+   9,
+   "1083399",
+   "WC21 Toilet Portable - Fresh Water Flush",
+   "Delivered"
+  ],
+  [
+   38,
+   "1317643",
+   "WC07 Toilet Portable - Fresh Water Flush",
+   "Delivered"
+  ]
+ ],
+ "fixes": 29,
+ "diff_5_to_7": {
+  "added": 56,
+  "gone": 4,
+  "changed": 67,
+  "dd_added": 54,
+  "dd_gone": 5
+ }
+}
