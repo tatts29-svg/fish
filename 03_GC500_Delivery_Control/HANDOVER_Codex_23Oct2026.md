@@ -19,6 +19,10 @@ tonight so nothing already done is done again. Everything below is recorded in S
 
 | Release | What | Live |
 |---|---|---|
+| v11.41 | "Where it is": every VMS board and every generator on satellite under the Map explorer (filter) and the boards under the VMS boards tab; GN25 listed as having no position | 07:43 |
+| v11.40 | Satellite maps capped at Esri's sharpest real imagery (zoom 20) | 07:27 |
+| v11.39 | VMS removals map (colour-coded, dotted line to each board's spot), Friday morning added, closures satellite layer fixed | 07:15 |
+| v11.38 | Closure lines re-placed on the footpath side, thin neon, Plan / Satellite | 07:03 |
 | v11.37 | Crew card plan zooms to 16000% on the Map explorer's tiles (pinch, drag, double tap, wheel, + / − / Fit); both trackers republished | 05:06 |
 | v11.36 | Fence closures tab: the closure lines on the 2026 plan as neon lines (nine lines, three colours), zoom to 16000% | 05:00 |
 | v11.35 | Twin-steer tick before printing off; Build tab stops at 22 Oct; Coates on time rebuilt from the 22 Oct texts | 03:56 |
