@@ -52,8 +52,15 @@ a day, 7-day minimum), install done / demob later ($88.49 each), the $150 legs, 
 hire to 22 Oct $20,908.50, to 25 Oct $24,982.96 (Baseplan prebills $33,345.42 to each line's expected term). Fixes: VMS21
 fleet 97T; VMS22 and VMS24 start 22 Oct (Andrew's word, docket 26143911); VMS14, 15 start 16 Oct (docket 26134263); VMS05a
 1211356 is the board at 05a (rego ER9244) and stays on hire; labour and transport billed whole before demob and pickup.
-Questions: VMS09 start (8 Oct on Baseplan, docket 12 Oct, line 1's return docket also 12 Oct); VMS13, 16, 17 day; the 8 site
-shifts (our record shows two); the $150 leg (card POA).
+Questions: VMS13, 16, 17 day; the 8 site shifts (our record shows two); the $150 leg (card POA). VMS09 and VMS10 are on
+site 8 Oct by Andrew's word on the page (the 12 Oct docket is paperwork), and the register holds VMS10 as 120T / V14221.
+
+**9961265 VMS day by day** (14:20, Andrew: "a sheet with days onsite like the generator and charges and install ... pick up and
+delivery then a link to mapped location"). `GC500_9961265_VMS_DayByDay_22Oct2026.xlsx` (`build_vms_days.py`, from the page's own
+VMS model read read-only): a column a day 7 Sep - 25 Oct at $53.6115 from the board's on-site day (VMS is charged from
+delivery, not only race days), install $88.49 done, demob $88.49 later, delivery and pickup legs at Baseplan's $150, and a
+Google Maps link to each board's position (the pin taken on site where Andrew took one, else the plan). 24 boards: hire to
+22 Oct $22,516.83, race days $3,860.03, billable now $28,240.47, at demob $5,723.64.
 
 **AA and HRP** (13:22): tracked only, each customer pays on its own contract (HS 9968926, HS 9974238); the Costs tab's charge
 ticks came off both (`../record_22Oct2026_aa_hrp_tracking_only/`), the branch building list is 45 charged + 2 tracked, and

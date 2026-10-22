@@ -13,6 +13,12 @@ bp = json.load(open(PRIV / 'bp6.json')); st = json.load(open(PRIV / 'state_now.j
 RATE = 53.6115; LAB_EACH = 88.485; LAB_LINE = 176.97; TODAY = dt.date(2026, 10, 22); RACE_END = dt.date(2026, 10, 25); MIN_DAYS = 7
 LOADS = {'T0001': '2026-09-07', 'T0128': '2026-10-16', 'T0158': '2026-10-19'}   # the Timeline loads the record points at
 vb = docs['vmsboard']
+M = json.load(open(PRIV / 'vms_model.json')); IDN = {}; ONWORD = {}
+for p_ in M['positions']:
+    i_ = p_.get('identity') or {}; IDN.setdefault(p_['board'], i_)
+for b_ in M['boards913']:
+    o_ = b_.get('on') or {}
+    if o_.get('src') == 'word' and o_.get('said'): ONWORD[b_['key']] = dt.datetime.strptime(o_['said'], '%d %b %Y').date().isoformat()
 # our on-site day for each board, and where it comes from. The record's own arrival events first (VMS21, 22, 24 carry them);
 # else the day Andrew recorded the board on site (AEST); the Timeline load it is recorded on is shown beside it.
 pos_events = {}
@@ -26,8 +32,12 @@ def aest_day(iso):
 WORD = {'VMS22': ('2026-10-22', "Andrew, 22 Oct: today's delivery (docket 26143911); our record said 21 Oct and is to be corrected"),
         'VMS24': ('2026-10-22', "Andrew, 22 Oct: today's delivery (docket 26143911); our record said 21 Oct and is to be corrected")}
 def ours(board_key, item):
-    rec = vb.get(board_key) or vb.get(item) or {}
+    rec = dict(vb.get(board_key) or vb.get(item) or {})
+    idn = IDN.get(board_key) or IDN.get(item) or {}
+    if not rec.get('fleet') and idn.get('asset') and not str(idn.get('asset')).isdigit(): rec['fleet'] = idn['asset']   # a Premiair fleet number the register holds
+    if not rec.get('rego') and idn.get('rego'): rec['rego'] = idn['rego']
     pos = board_key[3:] if board_key.startswith('VMS') else None
+    if board_key in ONWORD and board_key not in WORD: return ONWORD[board_key], f"Andrew's word on the page: on site {ONWORD[board_key]}", rec
     if board_key in WORD: return WORD[board_key][0], WORD[board_key][1], rec
     if pos and pos in pos_events: return pos_events[pos], 'arrival on the record', rec
     if rec.get('on') in LOADS and rec.get('at'):
@@ -70,14 +80,14 @@ for d in bp['9961265']:
     else: days22 = h22 = race = h25 = None
     if bpfleet and rec.get('fleet') and bpfleet != rec.get('fleet'): fix.append(f"fleet: Baseplan {bpfleet}, our record {rec.get('fleet')}"); fill = RED
     if not bpfleet and rec.get('fleet') and 'Premiair' in desc: fix.append(f"add fleet {rec.get('fleet')} (rego {rec.get('rego')}) to the line"); fill = RED
-    if bpfleet and not rec.get('fleet') and board: fix.append(f"our register lacks fleet {bpfleet} - our fix, on Andrew's word"); fill = fill or AMB
+    if bpfleet and not rec.get('fleet') and board: fix.append(f"our register lacks fleet {bpfleet}"); fill = fill or AMB
     if on and bstart != on:
         diff = (dt.date.fromisoformat(bstart) - dt.date.fromisoformat(on)).days
         fix.append(f"start {bstart} -> {on} ({'Baseplan ' + str(diff) + ' day(s) short' if diff > 0 else 'Baseplan ' + str(-diff) + ' day(s) over'})"); fill = RED
     if on and outd and outd[0] != on: fix.append(f"docket out {outd[0]} differs from our day {on}"); fill = fill or AMB
     if not on: fix.append('our record has no on-site day: start from the docket ' + (outd[0] if outd else '?') + ' unless Andrew says otherwise'); fill = fill or AMB
     if board == 'VMS05a':
-        fix.append("Baseplan: a new board 1211356 for one day (20-21 Oct) with a $289.52 delivery. Our record: a board with rego ER9244 pinned at position 05a on 20 Oct 10:08 AEST (the plan's relocation of VMS05), still on site. Confirm 1211356 = ER9244; then the line stays on hire to demob (term 21 Oct is wrong) and the $289.52 is either a delivery or one of the $150 site shifts, not both"); fill = RED
+        fix.append("our register has 1211356 (rego ER9244) as the board at position 05a, pinned by Andrew 20 Oct 10:08 AEST, docket 26141143 the same morning, still on site: the line stays on hire to demob, so the 21 Oct term is wrong. The $289.52 delivery differs from the $150 a leg on line 41 - one rate or the other"); fill = RED
     if bexp and on and bexp <= '2026-10-25' and board != 'VMS05a': fix.append(f'expected term {bexp} is before the race ends; boards stay to demob')
     if board == 'VMS21': fix.append('billed 4 days (22-25 Oct) with no 7-day minimum, while VMS18-20 and 23 are billed the 7-day minimum - one rule or the other')
     if board == 'VMS13': fix.append('VMS14 and VMS15 on the same docket (26134263, 16 Oct) were recorded on site 16 Oct; VMS13 was recorded 19 Oct - confirm 16 Oct with Andrew, then start 16 Oct')
