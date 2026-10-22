@@ -46,6 +46,15 @@ list on Andrew's word; GN24 the 60 kVA 1277089 from 19 Oct): hire $26,491.52, in
 legs $11,700. Baseplan: hire $20,450.61 with wrong sizes and dates on several lines, labour and transport on 15 sets
 (GN20's 1276701, which never came) with demob and pickup charged before the work, GN24 line 49 Off Rent at $0.
 
+**9961265 VMS for the branch** (13:50). `GC500_9961265_VMS_for_Branch_22Oct2026.xlsx` (`build_branch_vms.py`): one row a board with
+our fleet, rego and on-site day against Baseplan's start and the docket, hire at the card from the day it went in ($53.6115
+a day, 7-day minimum), install done / demob later ($88.49 each), the $150 legs, and the fix or question on each. 24 boards;
+hire to 22 Oct $20,908.50, to 25 Oct $24,982.96 (Baseplan prebills $33,345.42 to each line's expected term). Fixes: VMS21
+fleet 97T; VMS22 and VMS24 start 22 Oct (Andrew's word, docket 26143911); VMS14, 15 start 16 Oct (docket 26134263); VMS05a
+1211356 is the board at 05a (rego ER9244) and stays on hire; labour and transport billed whole before demob and pickup.
+Questions: VMS09 start (8 Oct on Baseplan, docket 12 Oct, line 1's return docket also 12 Oct); VMS13, 16, 17 day; the 8 site
+shifts (our record shows two); the $150 leg (card POA).
+
 **AA and HRP** (13:22): tracked only, each customer pays on its own contract (HS 9968926, HS 9974238); the Costs tab's charge
 ticks came off both (`../record_22Oct2026_aa_hrp_tracking_only/`), the branch building list is 45 charged + 2 tracked, and
 9968862 line 93 (1189410) comes off that contract.
