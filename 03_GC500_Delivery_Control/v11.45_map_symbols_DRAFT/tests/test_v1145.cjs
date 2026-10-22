@@ -1,0 +1,41 @@
+/* Author: Andrew Fisher. Read-only explorer symbol, area, interaction and rendering checks. */
+'use strict';
+const fs=require('fs'),path=require('path'),assert=require('assert/strict');
+const {open}=require('../../toolchain/harness/open_page');
+const mobile=process.env.MOB==='1',out=process.env.OUT;if(!out)throw Error('OUT must be a private evidence directory');fs.mkdirSync(out,{recursive:true});
+let n=0;const check=(name,ok)=>{assert.ok(ok,name);n++;console.log('PASS '+name);};
+(async()=>{const h=await open({pageFile:process.env.LIVE==='1'?undefined:process.env.PAGE,hash:'#map',mobile,W:mobile?390:1440,H:mobile?844:1000,dpr:mobile?2:1,gl:true});try{
+ const p=h.page;await p.waitForFunction(()=>typeof EXP!=='undefined'&&EXP.frame?.contentWindow?.MapUnits1145?.state,null,{timeout:90000}).catch(async e=>{console.error('READINESS',JSON.stringify({errors:h.errors,frames:await p.evaluate(()=>({hasModule:!!window.MapUnits1145,exp:typeof EXP,frame:typeof EXP!=='undefined'&&!!EXP.frame,ready:typeof EXP!=='undefined'&&EXP.frame?.contentWindow?.MapUnits1145?.state,shape:typeof EXP!=='undefined'&&EXP.frame?.contentWindow?.GC500Shape1060?.state}))}));throw e;});
+ const f=await(await p.$('#expFrame')).contentFrame();await f.evaluate(()=>GC500Explorer.ready);await f.waitForFunction(()=>MapUnits1145.state.ready,null,{timeout:10000});
+ const original=await f.evaluate(()=>({places:JSON.stringify(ITEMS.map(i=>[i.code,i.places])),camera:JSON.stringify(camera)}));
+ const checks=await p.evaluate(()=>{
+  const M=MapUnits1145,pairs=[['FWF','toilet'],['Sewer-connected toilet','sewer'],['Waste tank','tank'],['Toilet Block 6m','block'],['16Pan Block','pan16'],['Pee Panel','pee'],['Accessible Toilet','accessible'],['Toilet Trailer','trailer'],['200kva & cables','generator'],['Light tower','light'],['Variable message sign','vms'],['TL2','barrier'],['Scissor Lift','plant'],['Building 12m','building'],['Unspecified type','unknown']];
+  return {types:pairs.every(([label,want])=>M.kind(label)===want),mixed:M.kinds({code:'TEST'}, {quantity1010:{items:[{item:'Toilet Block 6m'},{item:'Waste Tank'},{item:'Toilet Block 6m'}]}}).join(',')==='block,tank',unknown:M.kind('Unspecified type')==='unknown',areas:M.areas().map(a=>({id:a.id,parts:a.polygons.length})),options:[...document.querySelector('#map1145-controls select').options].map(o=>({id:o.value,disabled:o.disabled})),key:document.querySelectorAll('.map1145-key svg').length,bar:document.querySelectorAll('#map1145-controls').length};
+ });
+ check('all equipment types have the required distinct symbols',checks.types);check('mixed references show distinct block and tank symbols without duplicate kinds',checks.mixed);check('unconfirmed kind stays explicit',checks.unknown);
+ check('all recorded areas have separate identity and a selector option',checks.areas.length===15&&checks.areas.every(a=>checks.options.some(o=>o.id===a.id&&o.disabled===(a.parts===0))));
+ check('one area control and a complete equipment key',checks.bar===1&&checks.key===15);
+ const label=await f.evaluate(()=>{const i=ITEMS.find(i=>i.code==='WC01'),status=mapStatus1009(i);return {text:referenceQuantity1010(i,status),plain:i.code,kind:parent.MapUnits1145.kinds(i,status),status:status.quantity1010.all};});
+ check('reference identity retained; bracket counts replaced with equipment symbols',label.text.startsWith(label.plain+' ')&&!/[()]/.test(label.text)&&/[\uE100-\uE1FF]/.test(label.text));
+ check('selected details still retain their unit quantities',label.status.length>0&&label.status.every(t=>/\d/.test(t)));
+ const available=checks.areas.filter(a=>a.parts&&a.id!=='0');
+ await p.locator('#map1145-controls select').selectOption(available[0].id);await f.waitForFunction(()=>!gotoAnim887&&!zAnim);await p.waitForTimeout(400);
+ let state=await f.evaluate(()=>MapUnits1145.state);check('choosing one area draws only that area',state.filter===available[0].id&&state.shown.length===1&&state.shown[0]===available[0].id);
+ const independent=await f.evaluate(id=>{const before=JSON.stringify(camera);MapUnits1145.select(id);return {before,filter:MapUnits1145.state.filter};},available[1].id);await f.waitForFunction(()=>!gotoAnim887&&!zAnim);await p.waitForTimeout(300);
+ state=await f.evaluate(()=>({state:MapUnits1145.state,camera:JSON.stringify(camera)}));check('a second area has its own outline and fitted view',state.state.shown.join()===available[1].id&&state.camera!==independent.before);
+ await p.locator('#map1145-controls select').selectOption('off');await p.waitForTimeout(200);check('area overlay can be hidden without removing the map',await f.evaluate(()=>MapUnits1145.state.shown.length===0&&!!document.querySelector('#marks')));
+ await p.locator('#map1145-controls select').selectOption('');await f.evaluate(()=>GC500Explorer.find('WC01'));await f.waitForFunction(()=>!gotoAnim887&&!zAnim);await p.waitForTimeout(500);
+ const interaction=await f.evaluate(()=>{const s=GC500Shape1060.at('WC01'),pt=s?{x:s.x,y:s.y}:null;return {selected:selected?.code,point:pt,hit:pt?itemAt887(pt.x,pt.y)?.it?.code:null,shape:GC500Shape1060.state,labels:labelBounds1010.filter(b=>b.it.code==='WC01').length};});
+ check('reference selection and traced shape hit target still work',interaction.selected==='WC01'&&(!interaction.point||interaction.hit==='WC01'));
+ check('shape renderer has no failed paints',interaction.shape.failed===0);
+ const refresh=await f.evaluate(()=>{const before=JSON.stringify(camera),code=selected?.code;GC500Explorer.refresh(true);GC500Shape1060.pull();return {camera:before===JSON.stringify(camera),selected:code===selected?.code,places:JSON.stringify(ITEMS.map(i=>[i.code,i.places]))};});
+ check('refresh preserves view, selection and every recorded map position',refresh.camera&&refresh.selected&&refresh.places===original.places);
+ await p.locator('#map1145-controls summary').click();await p.locator('#map1145-controls').screenshot({path:path.join(out,(mobile?'phone':'desktop')+'-key.png')});
+ check('area controls fit the available width',await p.evaluate(()=>{const b=document.querySelector('#map1145-controls').getBoundingClientRect();return b.width>100&&b.right<=innerWidth+2&&b.left>=-2&&document.querySelector('#map1145-controls').scrollWidth<=b.width+2;}));
+ await p.locator('#map1145-controls summary').click();await p.locator('#expFrame').screenshot({path:path.join(out,(mobile?'phone':'desktop')+'-symbols.png')});
+ await p.locator('#map1145-controls select').selectOption(available[0].id);await f.waitForFunction(()=>!gotoAnim887&&!zAnim);await p.waitForTimeout(300);await p.locator('#expFrame').screenshot({path:path.join(out,(mobile?'phone':'desktop')+'-area.png')});
+ const timing=await f.evaluate(()=>{const t=performance.now();for(let i=0;i<30;i++)MapUnits1145.draw(currentView());return (performance.now()-t)/30;});check('area overlay paint averages below 16 ms',timing<16);
+ await p.evaluate(()=>go('today'));await p.waitForTimeout(300);const a=await f.evaluate(()=>MapUnits1145.state.paints);await p.waitForTimeout(900);const b=await f.evaluate(()=>MapUnits1145.state.paints);check('hidden map has no independent animation loop',a===b);
+ check('no page errors',h.errors.length===0);check('no record writes attempted',h.counts.blocked===0);
+ fs.writeFileSync(path.join(out,(mobile?'phone':'desktop')+'.json'),JSON.stringify({author:'Andrew Fisher',passed:n,areaPaintMs:timing,errors:h.errors,counts:h.counts},null,2));console.log(n+' checks passed');
+ }finally{await h.page.locator('#expFrame').screenshot({path:path.join(out,'last-view.png'),timeout:5000}).catch(()=>{});await h.browser.close();}})().catch(e=>{console.error(e.stack);process.exitCode=1});
