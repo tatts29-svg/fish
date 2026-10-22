@@ -2,7 +2,7 @@
 import json, os, sys, io, urllib.request
 from PIL import Image
 S = '/tmp/claude-0/-home-user-fish/b3d08fad-688f-5986-9fd9-2f1442b3bb1a/scratchpad/tiles'
-M = json.load(open('/home/user/fish/03_GC500_Delivery_Control/v11.37_card_zoom_DRAFT/tiles1137_manifest.json'))
+M = json.load(open('/home/user/fish/03_GC500_Delivery_Control/v11.36_closures_map_LIVE/tiles1136_manifest.json'))
 HOST = 'https://gc500-production.up.railway.app'
 def lv(L): return [l for l in M['levels'] if l['L'] == L][0]
 def tile(L, x, y):
