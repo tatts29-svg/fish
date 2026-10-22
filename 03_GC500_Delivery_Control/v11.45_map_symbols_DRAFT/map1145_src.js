@@ -96,7 +96,7 @@ function frameMain(){
   const all=H.areas();if(id!==''&&id!=='off'&&!all.some(a=>a.id===id&&a.polygons.length))return false;
   filter=id;
   const pts=all.find(a=>a.id===id)?.polygons.flat();
-  if(pts?.length){const xs=pts.map(p=>p.x),ys=pts.map(p=>p.y),pad=35;stopCameraMotion813();gotoRect([Math.min(...xs)-pad,Math.min(...ys)-pad,Math.max(...xs)+pad,Math.max(...ys)+pad],'Area '+id);}
+  if(pts?.length){const xs=pts.map(p=>p.x),ys=pts.map(p=>p.y),pad=35;clearSelection813();highlight=null;stopCameraMotion813();gotoRect([Math.min(...xs)-pad,Math.min(...ys)-pad,Math.max(...xs)+pad,Math.max(...ys)+pad],'Area '+id);}
   // Clear an old highlight immediately even when the map is just below the viewport.
   draw(currentView());requestPaint();return true;
  }
@@ -104,13 +104,13 @@ function frameMain(){
  H.controls(window);
 }
 function controls(win){
- const frame=win.frameElement;if(!frame||!frame.parentNode)return;
- let bar=document.getElementById('map1145-controls');if(bar)bar.remove();
+ const frame=win.frameElement,wrap=frame?.closest('#expwrap');if(!wrap||!wrap.closest('#expcard'))return;
+ let bar=document.getElementById('map1145-controls');if(bar&&bar.parentNode===wrap.parentNode)return;if(bar)bar.remove();
  bar=document.createElement('section');bar.id='map1145-controls';bar.setAttribute('aria-label','Map area and equipment key');
  const label=document.createElement('label');label.textContent='Highlight area ';
  const select=document.createElement('select');select.setAttribute('aria-label','Highlight servicing area');select.setAttribute('data-ro','');
  for(const [value,text,disabled] of [['','All areas · separate outlines',false],['off','Hide area highlights',false],...areas().map(a=>[a.id,(a.id==='0'?'':`Area ${a.id} · `)+a.name+(a.polygons.length?'':' · '+a.locationNote),!a.polygons.length])]){const o=document.createElement('option');o.value=value;o.textContent=text;o.disabled=disabled;select.append(o);}
- select.onchange=()=>win.MapUnits1145.select(select.value);label.append(select);bar.append(label);
+ select.value=win.MapUnits1145.state.filter;select.onchange=()=>win.MapUnits1145.select(select.value);label.append(select);bar.append(label);
  const details=document.createElement('details'),summary=document.createElement('summary');summary.textContent='Equipment symbols';details.append(summary);
  const key=document.createElement('div');key.className='map1145-key';
  for(const [name,s] of Object.entries(DATA1145.symbols)){
@@ -119,8 +119,11 @@ function controls(win){
   row.append(svg,document.createTextNode(s.label));key.append(row);
  }details.append(key);bar.append(details);
  const hint=document.createElement('small');hint.textContent='Area numbers match the servicing sheets. Outlines group recorded locations; they are not surveyed boundaries.';bar.append(hint);
- frame.before(bar);
+ wrap.before(bar);if(typeof W.expSize==='function')W.expSize();
+ details.addEventListener('toggle',()=>{if(typeof W.expSize==='function')W.expSize();});
 }
 const style=document.createElement('style');style.id='map1145-style';style.textContent='#map1145-controls{display:flex;flex-wrap:wrap;align-items:center;gap:10px 20px;padding:12px;border:1px solid #49616c;border-radius:10px;background:#111c22;color:#edf6fa;margin:10px 0}#map1145-controls label{display:flex;align-items:center;gap:10px;font-weight:750;flex:1;min-width:0}#map1145-controls select{min-width:0;max-width:100%;width:100%;padding:9px;background:#202e35;color:#fff;border:1px solid #68818d;border-radius:6px}#map1145-controls small{flex-basis:100%;color:#b8cbd4}#map1145-controls details{max-width:100%}#map1145-controls summary{cursor:pointer;font-weight:750;padding:8px}#map1145-controls details[open]{flex-basis:100%;order:2}.map1145-key{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px;padding:10px}.map1145-key span{display:flex;align-items:center;gap:8px}.map1145-key svg{flex:none;width:28px;height:28px;fill:none;stroke:#a1f2ff;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}@media(max-width:650px){#map1145-controls label{align-items:flex-start;flex-direction:column;flex-basis:100%}#map1145-controls{gap:6px;padding:10px}.map1145-key{grid-template-columns:1fr 1fr;font-size:12px;padding:5px;gap:10px 6px}}';document.head.append(style);
 W.MapUnits1145=Object.freeze({kind,kinds,areas,controls,data:DATA1145,mount(win){if(win.MapUnits1145)return;const s=win.document.createElement('script');s.id='mapunits1145-frame';s.textContent='('+frameMain.toString()+')();';win.document.head.append(s);}});
+const render=W.renderExplorerTab;
+if(typeof render==='function')W.renderExplorerTab=function(){const result=render.apply(this,arguments),win=document.getElementById('expFrame')?.contentWindow;if(win?.MapUnits1145)controls(win);return result;};
 })(window);
