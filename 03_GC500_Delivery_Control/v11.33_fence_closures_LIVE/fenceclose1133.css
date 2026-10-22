@@ -1,0 +1,37 @@
+/* Author: Andrew Fisher. Fence closures tab (v11.33): phone first, big ticks, one card per closure point. */
+#pane-fenceclose .f1133-days{display:flex;gap:6px;flex-wrap:wrap}
+#pane-fenceclose .f1133-days .btn small{display:block;font-weight:400;font-size:.78em;opacity:.8}
+#pane-fenceclose .f1133-tl{list-style:none;margin:4px 0 8px;padding:0}
+#pane-fenceclose .f1133-tl li{display:flex;gap:10px;padding:5px 6px;border-bottom:1px solid rgba(0,0,0,.08);align-items:baseline}
+#pane-fenceclose .f1133-tl li i{font-style:normal;font-weight:700;min-width:84px;flex:none;font-variant-numeric:tabular-nums}
+#pane-fenceclose .f1133-tl li.hard i{color:#b4521a}
+#pane-fenceclose .f1133-tl li.hard span{font-weight:600}
+#pane-fenceclose .f1133-tl li.us{background:rgba(255,179,71,.14);border-radius:6px}
+#pane-fenceclose .f1133-sum{display:flex;flex-wrap:wrap;gap:6px 14px;margin:6px 0;font-size:.95em}
+#pane-fenceclose .f1133-sum b{font-size:1.15em}
+#pane-fenceclose .f1133-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:6px}
+#pane-fenceclose .f1133-point{display:grid;grid-template-columns:1fr 1fr;gap:6px 10px;padding:10px 0;border-bottom:1px solid rgba(0,0,0,.08);align-items:start}
+#pane-fenceclose .f1133-point.done{background:rgba(46,125,50,.06)}
+#pane-fenceclose .f1133-p{grid-column:1/-1;display:flex;gap:6px 10px;align-items:baseline;flex-wrap:wrap}
+#pane-fenceclose .f1133-p b{font-size:1.25em;display:inline-flex;align-items:center;gap:6px}
+#pane-fenceclose .f1133-p .f1133-col{font-size:.7em;font-weight:600;text-transform:uppercase;letter-spacing:.06em;opacity:.7}
+#pane-fenceclose .f1133-p span{opacity:.85;font-size:.95em;flex-basis:100%}
+#pane-fenceclose .f1133-t{display:flex;gap:10px;align-items:center;flex-wrap:wrap;font-size:.9em}
+#pane-fenceclose .f1133-t>span{min-width:110px}
+#pane-fenceclose .f1133-t>span small{display:block;opacity:.7;font-size:.85em}
+#pane-fenceclose .f1133-t.wide{padding:8px 0;border-bottom:1px solid rgba(0,0,0,.08);align-items:flex-start}
+#pane-fenceclose .f1133-t.wide>span{flex:1;min-width:200px}
+#pane-fenceclose .f1133-t small{opacity:.7;font-size:.8em}
+#pane-fenceclose .f1133-t>small{display:block;width:100%}
+#pane-fenceclose .f1133-tick{width:28px;height:28px;margin:0;flex:none}
+#pane-fenceclose .f1133-n{grid-column:1/-1;display:flex;flex-direction:column;gap:2px;font-size:.78em}
+#pane-fenceclose .f1133-n span,#pane-fenceclose .f1133-signgrid label span{text-transform:uppercase;letter-spacing:.04em;font-size:.85em;opacity:.75}
+#pane-fenceclose .f1133-txt{width:100%;min-height:30px;font:inherit;padding:3px 6px;box-sizing:border-box}
+#pane-fenceclose .f1133-signgrid{display:grid;grid-template-columns:1fr;gap:8px;margin-bottom:6px}
+#pane-fenceclose .f1133-signgrid label{display:flex;flex-direction:column;gap:2px;font-size:.85em}
+@media (min-width:760px){
+#pane-fenceclose .f1133-point{grid-template-columns:minmax(260px,1.6fr) 1fr 1fr 1.4fr}
+#pane-fenceclose .f1133-p{grid-column:auto;flex-direction:column;align-items:flex-start;gap:2px}
+#pane-fenceclose .f1133-n{grid-column:auto}
+#pane-fenceclose .f1133-signgrid{grid-template-columns:1fr 2fr}
+}

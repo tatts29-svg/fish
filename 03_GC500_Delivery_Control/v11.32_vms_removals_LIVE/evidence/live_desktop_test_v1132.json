@@ -1,0 +1,203 @@
+{
+ "at": "2026-10-22T16:53:38.923Z",
+ "live": true,
+ "results": [
+  {
+   "name": "footer says the expected release",
+   "ok": true
+  },
+  {
+   "name": "the tab is in the list as VMS removals, #vmsoff shows it",
+   "ok": true,
+   "detail": {
+    "inTabs": true,
+    "shown": true,
+    "hash": "#vmsoff",
+    "heading": "VMS daily removals · the five end-of-session boards"
+   }
+  },
+  {
+   "name": "five boards, earliest first: VMS 14, 16, 17 from 03:00 then VMS 13 and 15 not before 06:00",
+   "ok": true,
+   "detail": [
+    {
+     "pos": "14",
+     "label": "VMS 14*",
+     "from": "03:00",
+     "must": false,
+     "where": "Gold Coast Highway southbound",
+     "store": "Altus compound, Cypress Ave",
+     "lat": -27.982576,
+     "lon": 153.424393
+    },
+    {
+     "pos": "16",
+     "label": "VMS 16*",
+     "from": "03:00",
+     "must": false,
+     "where": "T11",
+     "store": "behind 2 Breaker St, Main Beach",
+     "lat": -27.981782,
+     "lon": 153.42914,
+     "storeLat": -27.9817267,
+     "storeLon": 153.42943
+    },
+    {
+     "pos": "17",
+     "label": "VMS 17*",
+     "from": "03:00",
+     "must": false,
+     "where": "T12 runoff",
+     "store": "T10 runoff",
+     "lat": -27.981594,
+     "lon": 153.427038
+    },
+    {
+     "pos": "13",
+     "label": "VMS 13*",
+     "from": "06:00",
+     "must": true,
+     "where": "T14 DL",
+     "store": "Altus compound, Cypress Ave",
+     "lat": -27.981783,
+     "lon": 153.424452
+    },
+    {
+     "pos": "15",
+     "label": "VMS 15*",
+     "from": "06:00",
+     "must": true,
+     "where": "T4 runoff",
+     "store": "T2 runoff",
+     "lat": -27.991937,
+     "lon": 153.429354,
+     "storeLat": -27.990144,
+     "storeLon": 153.428562
+    }
+   ]
+  },
+  {
+   "name": "VMS 16 goes behind 2 Breaker St, Main Beach, with the spot pinned; VMS 15 to the T2 runoff with its pin; VMS 13 to the Altus compound; positions from the plan",
+   "ok": true,
+   "detail": {
+    "b16": {
+     "pos": "16",
+     "label": "VMS 16*",
+     "from": "03:00",
+     "must": false,
+     "where": "T11",
+     "store": "behind 2 Breaker St, Main Beach",
+     "lat": -27.981782,
+     "lon": 153.42914,
+     "storeLat": -27.9817267,
+     "storeLon": 153.42943
+    },
+    "b15": {
+     "pos": "15",
+     "label": "VMS 15*",
+     "from": "06:00",
+     "must": true,
+     "where": "T4 runoff",
+     "store": "T2 runoff",
+     "lat": -27.991937,
+     "lon": 153.429354,
+     "storeLat": -27.990144,
+     "storeLon": 153.428562
+    },
+    "b13": {
+     "pos": "13",
+     "label": "VMS 13*",
+     "from": "06:00",
+     "must": true,
+     "where": "T14 DL",
+     "store": "Altus compound, Cypress Ave",
+     "lat": -27.981783,
+     "lon": 153.424452
+    }
+   }
+  },
+  {
+   "name": "the tab shows the five boards with their time badges, 7 navigation links (5 boards, VMS 16 spot, VMS 15 spot), Breaker St, the fence closure and opening-lap times, three mornings and the Supercars access table",
+   "ok": true,
+   "detail": {
+    "boards": 5,
+    "f03": 3,
+    "f06": 2,
+    "nav": 7,
+    "breaker": true,
+    "fence": true,
+    "opening": true,
+    "access": 5,
+    "accessTimes": true,
+    "mornings": [
+     "2026-10-24",
+     "2026-10-25",
+     "2026-10-26"
+    ],
+    "ticks": 12,
+    "ticked": 0,
+    "printBtn": true,
+    "overflow": 0
+   }
+  },
+  {
+   "name": "nothing is pre-ticked: 12 ticks on a morning with a back-out tick (5 off, 5 back out, sign-off, audit), none checked; no horizontal overflow",
+   "ok": true,
+   "detail": {
+    "ticks": 12,
+    "ticked": 0,
+    "overflow": 0
+   }
+  },
+  {
+   "name": "Monday is the final removal: 7 ticks (5 off, sign-off, audit), no back-out tick, roads reopen 17:00",
+   "ok": true,
+   "detail": {
+    "ticks": 7,
+    "heading": "Monday · Mon 26 Oct 2026 after Sunday night",
+    "roads": true,
+    "noOut": true
+   }
+  },
+  {
+   "name": "a tick on the view link is refused and springs back; nothing is written",
+   "ok": true,
+   "detail": {
+    "checkedAfter": false,
+    "anyChecked": 0,
+    "recs": 0
+   }
+  },
+  {
+   "name": "the removals sheet prints on #print/vmsoff/<date>: one A4 page with the five boards, the times and Breaker St",
+   "ok": true,
+   "detail": {
+    "rows": 5,
+    "title": "Saturday morning · Sat 24 Oct 2026",
+    "zoom": "1",
+    "breaker": true,
+    "fence": true,
+    "cols": 7,
+    "bar": true
+   }
+  },
+  {
+   "name": "record unchanged by the run",
+   "ok": true
+  },
+  {
+   "name": "no page errors",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "name": "no writes attempted",
+   "ok": true,
+   "detail": {
+    "page": 0,
+    "live": 54,
+    "blocked": 0
+   }
+  }
+ ]
+}
