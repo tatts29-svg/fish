@@ -19,6 +19,7 @@ tonight so nothing already done is done again. Everything below is recorded in S
 
 | Release | What | Live |
 |---|---|---|
+| v11.44 | The satellite maps turned to the plan's way up (beach along the top) | 09:24 |
 | v11.43 | Showcase opens on the flat circuit on a device that was slow building the 3D, "3D circuit" one press away | 09:09 |
 | v11.42 | The finder finds anything: tabs, the Showcase, VMS boards by number, removal spots and mornings, register asset numbers | 08:09 |
 | v11.41 | "Where it is": every VMS board and every generator on satellite under the Map explorer (filter) and the boards under the VMS boards tab; GN25 listed as having no position | 07:43 |
