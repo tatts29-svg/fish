@@ -1,0 +1,89 @@
+# Handover for Codex — GC500 Delivery Control, Friday 23 Oct 2026, 05:20 AEST
+
+Author: Andrew Fisher. Read AGENTS.md first, then STATUS.md (newest entry on top). This note says where the page is up to
+tonight so nothing already done is done again. Everything below is recorded in STATUS.md with hashes; this is the short form.
+
+## Where we are
+
+- Live page: v11.37 (sha db0d582a…, 21,318,762 bytes), uploaded 05:06 AEST from `build/GC500_v11.37/`. Every release since
+  v11.29 went live tonight in order (v11.29 … v11.37); the folders are `v11.NN_<name>_LIVE/` with a patch, tests and evidence
+  each. A patch applies only to the exact live page it names by SHA-256 (`BASE_SHA256` in the folder), so a new release is
+  built on the current live build, never on an older one.
+- The race weekend is on. The crew card (servicing tracker) is in use on phones through the printed QR codes: do not change
+  any QR code or the EVENT tracker's codes. The TEST and EVENT trackers were last republished 05:07 (v11.37 card).
+- Working branch `ccr-061f77e8-ivjhrv`, draft PR #32. Last commit 72e28efb. The repository holds the patches, tests and
+  evidence; it never holds the edit key, private link files (`private_links_*.json`, gitignored), signed link bundles, print
+  packs, card backups, the raw SMS export or the Baseplan / schedule files.
+
+## What went live tonight (newest first)
+
+| Release | What | Live |
+|---|---|---|
+| v11.37 | Crew card plan zooms to 16000% on the Map explorer's tiles (pinch, drag, double tap, wheel, + / − / Fit); both trackers republished | 05:06 |
+| v11.36 | Fence closures tab: the closure lines on the 2026 plan as neon lines (nine lines, three colours), zoom to 16000% | 05:00 |
+| v11.35 | Twin-steer tick before printing off; Build tab stops at 22 Oct; Coates on time rebuilt from the 22 Oct texts | 03:56 |
+| v11.34 | Crew card: a symbol per reference (toilet, block, accessible, trailer, sewer, tank); tap zooms to it; key | 03:10 |
+| v11.33 | Fence closures tab (#fenceclose): ten points, three race days, closed / opened ticks, printable sheet | 03:01 |
+| v11.32 | VMS removals tab (#vmsoff): five end-of-session boards, earliest off-track times, where each goes, ticks, sheet | 02:51 |
+| v11.31 | Crew card labels laid out clear; Closer / Wider | 02:22 |
+| v11.30 | Crew card plan loads as a blob (the card's CSP refuses img URLs) | 01:59 |
+| v11.29 | Crew card: the scanned reference's area on the plan with a pin per reference | 01:44 |
+
+## Andrew's standing rules (verbatim where it matters)
+
+- "The edit key never goes in a file, a commit, a log, a screenshot or a message." Tests are GET-only. A record change goes
+  through the page's own functions, with a backup first, as "Andrew Fisher via Claude" (or via Codex), in a
+  `record_<date>_<what>/` folder.
+- No AI or agent names anywhere on the page. The scrub step (`toolchain/scrub_attributions.py`) runs in the build.
+- The site record is truth; "Our dockets and whats been invoiced is truth". A door side is never guessed. "If I have unticked
+  it don't go ticking it again." "we charge for the works we do we cant charge for things that have not been done."
+- Never read Railway variables. "Dont change any qr codes from servicing. I have already printed all sheets."
+- Commits as Andrew Fisher; a release is not done until the live page's bytes match the build and the live tests pass.
+
+## How a release is made (the toolchain)
+
+1. Dry: copy `build/GC500_vPREV/GC500_Delivery_Control_hosted.html` to scratch, run the patch, run `scrub_attributions.py`,
+   then `check_page.py --base <prev build>`; run the release's tests (`PAGE=… node tests/test_vNNNN.cjs`, `MOB=1` for phone)
+   and the regressions; sweeps `toolchain/harness/sweep.js` desktop and phone (27 tabs, 7 hashes, Back, 0 console, 0 blocked).
+2. Real: `bash toolchain/build.sh vX.YY patch.py` (fetches live, applies, scrubs, checks) — must be byte-identical to the dry
+   page (compare sha256).
+3. `python3 toolchain/upload_page.py build/GC500_vX.YY/GC500_Delivery_Control_hosted.html`; then `LIVE=1` tests.
+4. For a card change: `node tracker_update.cjs test` then `event` (from the release folder, private links beside it), then
+   `tracker_card_check.cjs test|event PG01`.
+5. STATUS.md entry on top, README in the folder, rename `_DRAFT` to `_LIVE`, commit, push.
+Gotchas: `rep()` in `toolchain/rep.py` consumes the old text's leading whitespace, so a replacement that starts where a space
+was must begin with that space. Dated "Andrew Fisher, 23 Oct 2026" strings in page text are scrubbed to "the project
+manager, …", so compare hashes after the scrub.
+
+## Open asks from Andrew, in his order of priority
+
+1. **Fence closures map (v11.36) — refine.** His rules, 23 Oct: "a clean bright neon line along the footpaths", "no breaks in
+   the lines", "follow the foot path on one side of the road, then cross at stages and do the other side", "you don't walk
+   on buildings", "show it so it's the one side of foot path when shown and when the other side we show that"; "use a new map
+   or a satellite map" is on the table. The lines live in `v11.36_closures_map_LIVE/closures_lines.json`; to move one, edit
+   the waypoint in `lift/routes.json` and re-snap with `lift/snap_lines.py` (needs the scratch tile fetcher, see the README).
+   In hand now: thinner strokes, each line offset onto its footpath side, the two corners that cut across cleaned, a
+   satellite base if the page's CSP allows it.
+2. **VMS removals map.** "Vms removals boards lets colour code lets have a map with the colour have a dotted line on where
+   they go. They get taken off track first thing this morning." Also: "Today is friday they get taken off the track this
+   morning" — the v11.32 tab's mornings start Saturday 24; Friday 23 must be added. Board positions are the VMS1024 boards on
+   the page; where each goes is in the tab's RULES (VMS 16 behind 2 Breaker St −27.9817267 153.42943; VMS 15 the T2 runoff;
+   VMS 13 and 14 the Altus compound, Cypress Ave; VMS 17 the T10 runoff).
+3. **Crew card lists: kind words and symbols, not a count in brackets.** "We want to know is it a toilet flush or sewer tank
+   and toilet block. Or sewer tank toilet. Pee panels. Or disabled toilets." The map symbols exist since v11.34 (kindOf1134,
+   symHtml1134); the list lines still say the record's type words ("1 × FWF"). "Area must be in highlight so we want to show
+   the areas not just in bulk as one."
+4. Unanswered questions to Andrew: what "Rest can be placed on yellow side of the barrier" refers to; where the bracketed
+   count he saw is.
+
+## Where things are
+
+- Plan geometry: the explorer's sheet is 2384 × 1684 pt (1 pt ≈ 0.71 m); tiles at
+  `/w/Coates-GC500-2026/explorer/assets/vt/` (manifest.json; levels −3 … 3.25; 512 px WEBP tiles packed in `.bin` files,
+  served by byte range). Georeferencing (sheet → Web Mercator z18 px, 512-px tiles) is in the explorer's
+  `georeferencing.json`. The slim manifest used by the card and the closures map is `tiles1137_manifest.json` /
+  `tiles1136_manifest.json`.
+- The card template is `var SVC1067_CARD` on the page; card patches chain (V29 → V30 → V31 → V34 → V37) by importing the
+  previous patch's strings; the card's handle is `window.SvcMap1129`.
+- The closures record is `DATA.closures` (marks, windows, plate); the Fence closures tab is `fenceclose1133`, its map card
+  `closuremap1136`; the VMS tab is `vmsoff1132`.
