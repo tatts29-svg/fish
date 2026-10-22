@@ -1,6 +1,6 @@
 # v11.46 — The crew card names each line in the crew's words, with its symbol
 
-Author: Andrew Fisher. Built on live v11.44 `471bb02f…`. LIVE line and hashes in STATUS.md.
+Author: Andrew Fisher. Built on live v11.44 `471bb02f…`. LIVE 23 Oct 2026 09:55 AEST, page `9763bea1f82b5a0a…` (21,378,737 bytes; full hash in STATUS.md).
 
 ## Andrew's word, 23 Oct 2026
 
@@ -36,8 +36,10 @@ Author: Andrew Fisher. Built on live v11.44 `471bb02f…`. LIVE line and hashes 
 ## Checks
 
 - Dry build on a scratch copy of live v11.44, scrubbed as the build is, check_page PASS; then the real build from live,
-  byte for byte the same (hash in STATUS.md).
-- `tests/test_v1146.cjs`: 11/11 desktop and phone on the build (evidence/dry/); on live after the upload.
-- Regressions on the build: v11.37 (card zoom) and v11.34 (card symbols), desktop and phone (evidence/dry/regress/).
-- Sweeps, desktop and phone (evidence/dry/sweep_*.json).
-- Trackers: TEST republished first and checked with `tracker_card_check.cjs`, then EVENT on the same codes.
+  byte for byte the same (`9763bea1…`).
+- `tests/test_v1146.cjs`: 11/11 desktop and phone on the build (evidence/dry/); 11/11 desktop and phone on live (evidence/live_*).
+- Regressions on the build: v11.37 (card zoom) 10/10 and v11.34 (card symbols) 8/8, desktop and phone (evidence/dry/regress/).
+- Sweeps, desktop and phone: 27 tabs, 7 hashes, Back, 0 errors, 0 console, 0 writes blocked (evidence/dry/sweep_*.json).
+- Trackers: TEST republished 09:56 AEST on the v11.46 card (saved and read back, 75 entries, one POST /api/cards, 0 page
+  errors); `tracker_card_check.cjs test PG01` CARD OK, 0 writes blocked, 0 page errors (evidence/tracker_test_*). EVENT not
+  republished: it waits for Andrew's word; the printed codes stay the same either way.
