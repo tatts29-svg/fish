@@ -2,7 +2,7 @@
 
 Author: Andrew Fisher · 22 Oct 2026, 12:00 AEST
 
-Status: **READ AND COMPARED — no import, no page release.** Live record 10505 (GET only for the comparison). One record
+Status: **READ AND COMPARED — no import, no page release.** Live record 10509 (GET only for the comparison). One record
 change came out of it, run separately: the Costs tab's Steps labour tick off P60, P62 and P63
 (`../record_22Oct2026_steps_ticks/`). Andrew, 22 Oct 2026: "our data is truth"; "we charge for the works we do we cant
 charge for things that have not been done"; "we should be able to work out pump outs from my data and what we have onsite".
@@ -37,7 +37,7 @@ ticked; steps on 40 (none on P06, P38, P39, P42, P60, P62, P63); a fire extingui
 accessory quantity, which is how the Costs tab charges it). At the card that is $29,730.96 — Baseplan is $218.61 under in
 total, but on 45 buildings not 47, with steps on 45 not 40, and with demob in the package before it is done. Transport: Baseplan 72 small legs + 18 large; the
 record ticks 76 + 18. Lines to fix: 93 is HRP's building (1189410), not P36 — P36 is 1282487 and has no line; 59 is P58's
-building (1273656), labelled P44; 64 P06 carries 1087453, the site number is 1097453; AA (142514) has no hire line at all.
+building (1273656), labelled P44; AA (142514) has no hire line at all. (Line 64 P06 carried 1087453 against a site number of 1097453 until 12:08, when Andrew settled P06 as 1087453 and the record was changed: `../record_22Oct2026_p06_number/`.)
 Demob ($6,558.30) and the return legs ($25,200) are charged before the work.
 
 **9968955 toilets.** The pump-out line (141) is 678 = 226 units × 3 nights. The servicing tracker has 231 FWF and 4
