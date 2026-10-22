@@ -5,14 +5,14 @@
  vegetation 1.2 s, architecture 0.5 s) in three more blocks, each a frozen page; under 4x CPU the first block was 15.8 s.
  The 3D scene held 497 MB of heap against 98 MB on the flat circuit. The scenes themselves cost 0.1-0.25 s each.
 
- Three rules, none of which changes what the scene draws when the device can carry it:
+ Two rules, neither of which changes what the scene draws when the device can carry it:
  1. The dialog paints first. The first 3D mount of an opening is deferred by a short timer, so the countdown, the words and
     the flat circuit are on screen before the heavy build starts. Nothing else about the sync changes.
  2. The base circuit is timed as it builds. When it took longer than the budget, the static detail stages are not attempted
     on this device (the scene's own "limited by device" path, which it already uses when a stage fails): the circuit, the
     car and the stands stay; trees, facades and kerb detail are left out, and the report says why.
- 3. A phone that never chose a backdrop opens on the flat circuit. A phone that chose 3D keeps its choice.
- The scene warm-up pacing (one scene per 400 ms, first at 1.5 s) is a text change on the v11.10 module beside this. */
+ The 3D circuit at night stays the never-chosen default on every device (Andrew, 22 Oct 2026: "I want the 3d race track as
+ default"). The scene warm-up pacing (one scene per 400 ms, first at 1.5 s) is a text change on the v11.10 module beside this. */
 (function(root){
 'use strict';
 if(typeof show3dSyncInner!=='function'||!root.GC3D||typeof GC3D.mount!=='function')return;
@@ -49,14 +49,5 @@ show3dSyncInner=function(still){
 };
 const closeBefore=showClose;
 showClose=function(){if(STEADY.pending){clearTimeout(STEADY.pending);STEADY.pending=0;}return closeBefore.apply(this,arguments);};
-/* 3. the phone default: see showBackPref, which asks this */
-root.showPhone1120=function(){
- try{
-  const mm=root.matchMedia?root.matchMedia.bind(root):null;
-  const coarse=!!(mm&&mm('(pointer: coarse)').matches),noHover=!!(mm&&mm('(hover: none)').matches);
-  const shortest=Math.min(root.innerWidth||1280,root.innerHeight||720);
-  return coarse&&noHover&&shortest<=520;
- }catch(e){return false;}
-};
-root.ShowcaseSteady1120={state:()=>({pending:!!STEADY.pending,deferred:STEADY.deferred,mountMs:STEADY.mountMs,detail:STEADY.detail,budgetMs:STEADY.budgetMs,delayMs:STEADY.delayMs,phone:root.showPhone1120()})};
+root.ShowcaseSteady1120={state:()=>({pending:!!STEADY.pending,deferred:STEADY.deferred,mountMs:STEADY.mountMs,detail:STEADY.detail,budgetMs:STEADY.budgetMs,delayMs:STEADY.delayMs})};
 })(window);

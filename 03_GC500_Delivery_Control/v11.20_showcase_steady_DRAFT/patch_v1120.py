@@ -7,9 +7,9 @@ paint, then three more blocks for the static detail; 497 MB of heap against 98 M
 
 - steady1120.js (one module, appended before the page's last </body>): the first 3D mount of an opening is deferred past the
   dialog's paint; the base mount is timed and, over a 1.5 s budget, the static detail stages are skipped on that device
-  through the scene's own limited-by-device path; a phone that never chose a backdrop opens on the flat circuit;
+  through the scene's own limited-by-device path;
 - the v11.10 warm loop paces one scene per 400 ms (was 40 ms), first at 1.5 s (was 250 ms);
-- showBackPref: the never-chosen default is the flat circuit on a phone, 3D night elsewhere, as before;
+- the never-chosen backdrop stays the 3D circuit at night on every device (Andrew, 22 Oct: "I want the 3d race track as default");
 - footer v11.19 -> v11.20.
 
     python3 patch_v1120.py page.html      (in place, on the live v11.19 page)
@@ -29,9 +29,7 @@ def patch(text):
     # the warm loop's pace (the v11.10 module)
     text = rep(text, 'warmTimer=setTimeout(warm,40);', 'warmTimer=setTimeout(warm,400);', 'warm loop pace', 'page')
     text = rep(text, 'function scheduleWarm(){if(warmTimer)clearTimeout(warmTimer);warmTimer=setTimeout(warm,250);}', 'function scheduleWarm(){if(warmTimer)clearTimeout(warmTimer);warmTimer=setTimeout(warm,1500);}', 'first warm', 'page')
-    # the never-chosen default: a phone opens on the flat circuit
-    text = rep(text, " return show3dAvailable() ? 'circuit3d' : 'black';\n}\nfunction showSetBack(v){",
-               " if (show3dAvailable() && typeof showPhone1120 === 'function' && showPhone1120()) return 'circuit'; /* v11.20 - a phone never chose: the flat circuit; the 3D is a choice away */\n return show3dAvailable() ? 'circuit3d' : 'black';\n}\nfunction showSetBack(v){", 'phone default', 'page')
+    # the never-chosen default stays the 3D circuit at night on every device (Andrew, 22 Oct 2026: "I want the 3d race track as default")
     # the module, before the page's last </body>
     k = text.rfind('</body>')
     if k < 0: raise ValueError('no </body>')
@@ -43,4 +41,4 @@ def patch(text):
 if __name__ == '__main__':
     p = Path(sys.argv[1]); t = p.read_text(encoding='utf-8')
     p.write_text(patch(t), encoding='utf-8')
-    print('patch_v1120 applied: steady1120 module, warm pace 400 ms, phone default flat circuit, footer v11.19 -> v11.20')
+    print('patch_v1120 applied: steady1120 module, warm pace 400 ms, footer v11.19 -> v11.20')

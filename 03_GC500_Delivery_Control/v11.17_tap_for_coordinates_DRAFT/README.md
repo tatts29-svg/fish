@@ -1,5 +1,8 @@
 # v11.17 — Map explorer: press and hold anywhere for that spot's coordinates; share them with a picture of the map
 
+**Went live as v11.21** (`../v11.21_tap_for_coordinates_LIVE/`), the same layer rebased onto live v11.20 on Andrew's word of
+22 Oct 2026 ("Go live with everything"). This folder is the design record and the original evidence.
+
 Author: Andrew Fisher. Built on live v11.16 `8a19fcce…`. **BUILT and tested, not uploaded** — on Andrew's word (race night is
 23 Oct). Build: `build/GC500_v11.17/` (made by `bash toolchain/build.sh v11.17 v11.17_tap_for_coordinates_DRAFT/patch_v1117.py`).
 

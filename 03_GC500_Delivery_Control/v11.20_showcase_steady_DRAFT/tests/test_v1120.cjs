@@ -21,10 +21,9 @@ const check = (name, ok, detail) => { results.push({name, ok: !!ok, detail}); if
   await p.waitForTimeout(2500);
   const before = await p.evaluate(() => JSON.stringify(S));
   check('footer says the expected release', await p.evaluate(v => document.body.innerText.includes(v), process.env.EXPECT_PAGE || 'v11.20'));
-  const d0 = await p.evaluate(() => { try { localStorage.removeItem('gc500.showback'); } catch (e) {} return {module: typeof ShowcaseSteady1120 === 'object', phone: typeof showPhone1120 === 'function' && showPhone1120(), def: showBackPref(), warmText: (document.documentElement.outerHTML.match(/setTimeout\(warm,(\d+)\)/g) || []).join(' ')}; });
+  const d0 = await p.evaluate(() => { try { localStorage.removeItem('gc500.showback'); } catch (e) {} return {module: typeof ShowcaseSteady1120 === 'object', def: showBackPref(), warmText: (document.documentElement.outerHTML.match(/setTimeout\(warm,(\d+)\)/g) || []).join(' ')}; });
   check('module present; warm loop text paces 400 ms and 1500 ms', d0.module && /warm,400/.test(d0.warmText) && /warm,1500/.test(d0.warmText) && !/warm,40\)/.test(d0.warmText) && !/warm,250\)/.test(d0.warmText), d0);
-  if (MOB) check('phone never chose: default is the flat circuit', d0.phone === true && d0.def === 'circuit', d0);
-  else check('desktop never chose: default stays the 3D circuit at night', d0.phone === false && d0.def === 'circuit3d', d0);
+  check((MOB ? 'phone' : 'desktop') + ' never chose: the default is the 3D circuit at night, as Andrew wants', d0.def === 'circuit3d', d0);
   const cdp = await p.context().newCDPSession(p);
   if (!MOB) await cdp.send('Emulation.setCPUThrottlingRate', {rate: 4});
   // a chosen 3D day backdrop, opened: the dialog must be on screen before any mount
