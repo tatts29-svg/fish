@@ -19,6 +19,7 @@ tonight so nothing already done is done again. Everything below is recorded in S
 
 | Release | What | Live |
 |---|---|---|
+| v11.42 | The finder finds anything: tabs, the Showcase, VMS boards by number, removal spots and mornings, register asset numbers | 08:09 |
 | v11.41 | "Where it is": every VMS board and every generator on satellite under the Map explorer (filter) and the boards under the VMS boards tab; GN25 listed as having no position | 07:43 |
 | v11.40 | Satellite maps capped at Esri's sharpest real imagery (zoom 20) | 07:27 |
 | v11.39 | VMS removals map (colour-coded, dotted line to each board's spot), Friday morning added, closures satellite layer fixed | 07:15 |
@@ -68,8 +69,8 @@ manager, …", so compare hashes after the scrub.
    highlight each area on its own. The crew card's six symbols (v11.34, `kindOf1134` / `symHtml1134`) can be mirrored.
 2. **Codex — positions the record lacks.** GN25 (1244536) has no position; the Altus compound (Cypress Ave) spot for
    VMS 13 / 14 is at the street until pinned. Record a pin from Andrew through the page's own pin function.
-3. **Claude — finder (v11.42, open now).** Tabs, VMS boards by number, removal spots and register asset numbers findable.
-   Do not touch `finderIndex` / `finderMatches` / `finderPick` / `finderRow` while it is open.
+3. **Claude — finder (v11.42, LIVE 08:09).** Tabs, the Showcase, VMS boards by number, removal spots and mornings, register
+   asset numbers are findable; the finder functions are free again.
 4. **Claude — Showcase.** Measured on live v11.41 at 4× CPU: opens 1.9 s, the 3D base circuit 8.6 s on the main thread
    after it; the slow-device option goes to Andrew.
 5. **Claude — crew card list wording** and the open questions to Andrew.
