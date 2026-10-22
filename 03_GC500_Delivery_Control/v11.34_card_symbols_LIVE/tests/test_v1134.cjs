@@ -24,7 +24,8 @@ const kindOf = o => { const lines = o.lines || []; let best = 'fwf', rank = -1; 
   check('card template draws symbols and zooms on a tap; the old "tap a pin to navigate" is gone', card.includes('function kindOf1134') && card.includes('function symHtml1134') && card.includes("closest('.amap-svg a[data-ref]')") && !card.includes('tap a pin to navigate') && (card.match(/<script/g) || []).length === 1, {len: card.length, refs: refs.length});
   const expected = {}; refs.forEach(o => { expected[o.ref] = kindOf(o); });
   const kinds = Object.values(expected).reduce((m, k) => (m[k] = (m[k] || 0) + 1, m), {});
-  check('the record gives the kinds: toilets the many, with blocks, accessible units, trailers, sewer-connected units and tanks among them', kinds.fwf > 40 && kinds.block >= 3 && kinds.access >= 3 && kinds.trailer >= 1 && kinds.tank >= 1, kinds);
+  /* no reference is a tank alone on the record (the four waste tanks sit with toilets), so the tank symbol has no pin to carry it yet; it stays in the key */
+  check('the record gives the kinds: toilets the many, with blocks, accessible units, a trailer and sewer-connected units among them', kinds.fwf > 40 && kinds.block >= 3 && kinds.access >= 3 && kinds.trailer >= 1 && kinds.sewer >= 1, kinds);
   const c = await p.context().newPage();
   await c.route('**/*', r => { if (r.request().method() !== 'GET') return r.abort(); if (r.request().url() === 'https://card.test/') return r.fulfill({status: 200, contentType: 'text/html; charset=utf-8', body: card}); return r.fulfill({status: 404, body: ''}); });
   await c.goto('https://card.test/', {waitUntil: 'domcontentloaded'});
@@ -39,7 +40,7 @@ const kindOf = o => { const lines = o.lines || []; let best = 'fwf', rank = -1; 
    }
    host.remove(); return {pins, noSym: noSym.slice(0, 5), wrong: [...new Set(wrong)].slice(0, 8), seen: Object.keys(seen).length, key};
   }, expected);
-  check('every pin on every map carries the symbol the record gives it, over its coloured disc; the key shows six symbols', drawn.pins > 70 && drawn.noSym.length === 0 && drawn.wrong.length === 0 && drawn.seen === refs.length && drawn.key === 6, drawn);
+  check('every pin on every map carries the symbol the record gives it, over its coloured disc (WC85, off the sheet, draws no map); the key shows six symbols', drawn.pins > 70 && drawn.noSym.length === 0 && drawn.wrong.length === 0 && drawn.seen === refs.length - 1 && drawn.key === 6, drawn);
   const tap = await c.evaluate(() => {
    const host = document.createElement('div'); host.id = 'tap-host'; host.style.cssText = 'position:absolute;left:0;top:0;width:390px;'; document.body.appendChild(host);
    window.SvcMap1129.setZoom(false); host.innerHTML = window.SvcMap1129.html('PG01');
