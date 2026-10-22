@@ -59,6 +59,21 @@ Gotchas: `rep()` in `toolchain/rep.py` consumes the old text's leading whitespac
 was must begin with that space. Dated "Andrew Fisher, 23 Oct 2026" strings in page text are scrubbed to "the project
 manager, …", so compare hashes after the scrub.
 
+## Assignments, 23 Oct 2026 08:05 AEST (posted on PR #1; reply "taking" there)
+
+1. **Codex — Map explorer pin labels and areas.** Andrew: "Can we have symbols of what they are. Confusing a number on
+   how many there in brackets. We want to know is it a toilet flush or sewer tank and toilet block. Or sewer tank toilet.
+   Pee panels. Or disabled toilets"; "Area must be in highlight so we want to show the areas not just in bulk as one".
+   The explorer's pin labels read "GN23 (1)" / "GN? (2)"; show the unit kind as a symbol instead of a count, and
+   highlight each area on its own. The crew card's six symbols (v11.34, `kindOf1134` / `symHtml1134`) can be mirrored.
+2. **Codex — positions the record lacks.** GN25 (1244536) has no position; the Altus compound (Cypress Ave) spot for
+   VMS 13 / 14 is at the street until pinned. Record a pin from Andrew through the page's own pin function.
+3. **Claude — finder (v11.42, open now).** Tabs, VMS boards by number, removal spots and register asset numbers findable.
+   Do not touch `finderIndex` / `finderMatches` / `finderPick` / `finderRow` while it is open.
+4. **Claude — Showcase.** Measured on live v11.41 at 4× CPU: opens 1.9 s, the 3D base circuit 8.6 s on the main thread
+   after it; the slow-device option goes to Andrew.
+5. **Claude — crew card list wording** and the open questions to Andrew.
+
 ## Open asks from Andrew, in his order of priority
 
 1. **Fence closures map (v11.36) — refine.** His rules, 23 Oct: "a clean bright neon line along the footpaths", "no breaks in
