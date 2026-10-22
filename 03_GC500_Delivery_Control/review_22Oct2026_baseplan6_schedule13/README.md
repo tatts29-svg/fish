@@ -33,8 +33,9 @@ off rent 26 Oct. The two "Steps Toilet Block" lines went.
 
 **9968862 buildings.** Baseplan charges one $655.83 labour package on 45 buildings (install + steps + levelling +
 cleaning + fire extinguisher + demob) = $29,512.35. The record has 47 buildings on site with install, levelling, cleaning
-ticked; steps on 40 (none on P06, P38, P39, P42, P60, P62, P63); fire extinguishers on 10. At the card that is
-$27,805.11 — Baseplan is $1,707.24 over, and on the wrong count. Transport: Baseplan 72 small legs + 18 large; the
+ticked; steps on 40 (none on P06, P38, P39, P42, P60, P62, P63); a fire extinguisher on all 47 (recorded 20 Oct as an
+accessory quantity, which is how the Costs tab charges it). At the card that is $29,730.96 — Baseplan is $218.61 under in
+total, but on 45 buildings not 47, with steps on 45 not 40, and with demob in the package before it is done. Transport: Baseplan 72 small legs + 18 large; the
 record ticks 76 + 18. Lines to fix: 93 is HRP's building (1189410), not P36 — P36 is 1282487 and has no line; 59 is P58's
 building (1273656), labelled P44; 64 P06 carries 1087453, the site number is 1097453; AA (142514) has no hire line at all.
 Demob ($6,558.30) and the return legs ($25,200) are charged before the work.

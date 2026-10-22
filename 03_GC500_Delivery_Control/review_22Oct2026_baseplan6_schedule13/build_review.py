@@ -37,6 +37,9 @@ def ticks(ref):
         if r != ref: continue
         out[(p[2], unit)][p[3]] = bool(v.get('v'))
     return out
+def fire_qty(ref):   # v9.14: a fire extinguisher is an accessory quantity on the reference; it replaces the per-building tick
+    raw = st.get('accessories', {}).get(ref); lst = raw if isinstance(raw, list) else (raw and (raw.get('v') or raw.get('rows') or raw.get('items'))) or []
+    return sum(int(x.get('qty') or 0) for x in (lst if isinstance(lst, list) else []) if x and str(x.get('type', '')).lower().startswith('fire'))
 a2r = collections.defaultdict(set)   # asset number -> references, from every place the record keeps one
 for ref, v in units.items():
     for u in v.get('units', []):
@@ -104,6 +107,7 @@ for ref in bld_refs:
     rate = ', '.join(str(d.get('Rate 1')) for _, d in bl) or ', '.join(str(d.get('Rate 1')) for d in bp_bld.get(ref, [])) or '-'
     for (item, unit), t in T.items():
         if not item or not t.get('install'): continue
+        if fire_qty(ref) > 0: t = dict(t, fire_ext=True)
         big = bool(BIG.search(item)); legs = (2 if t.get('delivery') and t.get('pickup') else 1 if t.get('delivery') or t.get('pickup') else 0)
         if big: legs_big += legs
         else: legs_small += legs
@@ -123,8 +127,8 @@ sheet('9968862 buildings', ['Ref', 'Building (record)', 'Our asset no(s)', 'Base
       rows, [7, 18, 16, 12, 9, 12, 10, 9, 8, 8, 8, 7, 7, 7, 7, 7, 7, 11, 9, 60], 19)
 bp133 = next(d for d in bp['9968862'] if str(d.get('Line')) == '133'); bp134 = next(d for d in bp['9968862'] if str(d.get('Line')) == '134'); bp135 = next(d for d in bp['9968862'] if str(d.get('Line')) == '135')
 fix('9968862', '133', f"Install & Demob {bp133['Quantity']} x ${PKG} = ${bp133['Prebill Amount']:,} (the whole labour package on every building: install, steps, levelling, cleaning, fire extinguisher, demob)",
-    f"{tot['buildings']} buildings ticked on the record: install {tot['install']}, levelling {tot['levelling']}, cleaning {tot['cleaning']}, demob {tot['demob']}, steps {tot['steps']} (none on P06, P38, P39, P42, P60, P62, P63), fire extinguisher {tot['fire_ext']}. At the card that is ${our_labour:,.2f}",
-    f"Charge each line by the building, not a flat package: steps only where fitted, fire extinguisher only where supplied. Difference ${bp133['Prebill Amount'] - our_labour:,.2f} over on Baseplan as it stands (and it is on {bp133['Quantity']} buildings where the record has {tot['buildings']})", 'Baseplan (branch)')
+    f"{tot['buildings']} buildings ticked on the record: install {tot['install']}, levelling {tot['levelling']}, cleaning {tot['cleaning']}, demob {tot['demob']}, steps {tot['steps']} (none on P06, P38, P39, P42, P60, P62, P63), fire extinguisher {tot['fire_ext']} (one in every building, recorded 20 Oct). At the card that is ${our_labour:,.2f}",
+    f"Charge each line by the building, not a flat package: steps only where fitted (40, not 45), and on all {tot['buildings']} buildings, not {bp133['Quantity']}. Net Baseplan is ${our_labour - bp133['Prebill Amount']:,.2f} under as it stands; demob is in the package before it is done", 'Baseplan (branch)')
 fix('9968862', '134-135', f"Transport {bp134['Quantity']} x $500 (up to 6 m) + {bp135['Quantity']} x $800 (9.6/12 m) = ${bp134['Prebill Amount'] + bp135['Prebill Amount']:,}",
     f"Delivery and pickup ticked on the record: {legs_small} legs small buildings, {legs_big} legs large", f"Small-building legs: Baseplan {bp134['Quantity']}, record {legs_small}; large: Baseplan {bp135['Quantity']}, record {legs_big}. Align the count to the buildings table", 'Baseplan (branch)')
 for ref in bld_refs:

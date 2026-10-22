@@ -6,11 +6,11 @@
   "steps": 40,
   "levelling": 47,
   "cleaning": 47,
-  "fire_ext": 10,
+  "fire_ext": 47,
   "demob": 47,
   "buildings": 47
  },
- "our_building_labour_at_card": 27805.11,
+ "our_building_labour_at_card": 29730.96,
  "baseplan_133": 29512.35,
  "transport_legs": {
   "small": 76,
