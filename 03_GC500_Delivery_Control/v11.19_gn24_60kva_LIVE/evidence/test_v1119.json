@@ -1,0 +1,131 @@
+{
+ "at": "2026-10-22T03:23:49.092Z",
+ "live": false,
+ "results": [
+  {
+   "name": "footer says the expected release",
+   "ok": true
+  },
+  {
+   "name": "line 17 / 1276412 is off the on-hire rows and in the source history as never delivered",
+   "ok": true,
+   "detail": {
+    "line17OnHire": false,
+    "anyAsset": false,
+    "line49": 1,
+    "hist": true,
+    "gn24Why": true,
+    "summaryLines": 297,
+    "contractLines": 35,
+    "holdNote": "GN24: settled 22 Oct 2026 on the instruction - the set at GN24 is the 60 kVA trailer 1277089 on line 49; the 80 kVA on line 17 never came and is in the source history.",
+    "gn24": {
+     "qty": 1,
+     "item": "60kva",
+     "deliveredDate": "2026-10-19",
+     "actualIsConfirmed": true,
+     "actualQuantity": 1,
+     "issues": [],
+     "deliveries": [
+      "9961976:49"
+     ]
+    },
+    "genHas1276412": false,
+    "genCount": 15
+   }
+  },
+  {
+   "name": "line 49 / 1277089 stays on the contract for GN24",
+   "ok": true,
+   "detail": {
+    "line17OnHire": false,
+    "anyAsset": false,
+    "line49": 1,
+    "hist": true,
+    "gn24Why": true,
+    "summaryLines": 297,
+    "contractLines": 35,
+    "holdNote": "GN24: settled 22 Oct 2026 on the instruction - the set at GN24 is the 60 kVA trailer 1277089 on line 49; the 80 kVA on line 17 never came and is in the source history.",
+    "gn24": {
+     "qty": 1,
+     "item": "60kva",
+     "deliveredDate": "2026-10-19",
+     "actualIsConfirmed": true,
+     "actualQuantity": 1,
+     "issues": [],
+     "deliveries": [
+      "9961976:49"
+     ]
+    },
+    "genHas1276412": false,
+    "genCount": 15
+   }
+  },
+  {
+   "name": "GN24 in the register says why; the rate-hold note is settled",
+   "ok": true,
+   "detail": {
+    "holdNote": "GN24: settled 22 Oct 2026 on the instruction - the set at GN24 is the 60 kVA trailer 1277089 on line 49; the 80 kVA on line 17 never came and is in the source history."
+   }
+  },
+  {
+   "name": "on-hire summary and the 9961976 contract are recounted (297 lines, 35 on the contract)",
+   "ok": true,
+   "detail": {
+    "summaryLines": 297,
+    "contractLines": 35
+   }
+  },
+  {
+   "name": "the generator costing sees GN24 as one 60 kVA set, confirmed on site 19 Oct, line 49 alone, no issue",
+   "ok": true,
+   "detail": {
+    "qty": 1,
+    "item": "60kva",
+    "deliveredDate": "2026-10-19",
+    "actualIsConfirmed": true,
+    "actualQuantity": 1,
+    "issues": [],
+    "deliveries": [
+     "9961976:49"
+    ]
+   }
+  },
+  {
+   "name": "1276412 is on no contract line, row or number the generator costing reads (the register's why-note is the only mention)",
+   "ok": true,
+   "detail": {
+    "genCount": 15
+   }
+  },
+  {
+   "name": "Generators tab: GN24 is 1 × 60kva from 19 Oct, priced $386.00 standby + race = $965.01, nothing \"Not priced\"",
+   "ok": true,
+   "detail": {
+    "block": "\nGN24\nD024-26003-02 · callout 024\nMap\n\t\n1 × 60kva\nMore info\n\t\nOff hire 25 Oct\n\t\nNVAC\n\t\nRate / unit / day\n$96.50\nActual start\n19 Oct\nEnd\n22 Oct\nTotal days\n4\nTotal\n$386.00\n\t\n$965.01\n\t\n$0.00\n\t\n$965.01\n\n"
+   }
+  },
+  {
+   "name": "Generators tab: 1276412 and GN-24 gone from the view",
+   "ok": true,
+   "detail": {}
+  },
+  {
+   "name": "record unchanged by the read",
+   "ok": true
+  },
+  {
+   "name": "no page errors",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "name": "no writes attempted",
+   "ok": true,
+   "detail": {
+    "page": 1,
+    "live": 32,
+    "blocked": 0
+   }
+  }
+ ]
+}

@@ -40,6 +40,16 @@ record ticks 76 + 18. Lines to fix: 93 is HRP's building (1189410), not P36 — 
 building (1273656), labelled P44; AA (142514) has no hire line at all. (Line 64 P06 carried 1087453 against a site number of 1097453 until 12:08, when Andrew settled P06 as 1087453 and the record was changed: `../record_22Oct2026_p06_number/`.)
 Demob ($6,558.30) and the return legs ($25,200) are charged before the work.
 
+**9961976 generators** (added 13:00). `GC500_9961976_Generators_DayByDay_22Oct2026.xlsx`: a column a day from 28 Sep to 25 Oct
+(standby rate to 22 Oct, full rate on 23-25 Oct) and a Labour & transport sheet, one row a set. 14 sets (GN20 off the
+list on Andrew's word; GN24 the 60 kVA 1277089 from 19 Oct): hire $26,491.52, install + demob $4,205.64, transport both
+legs $11,700. Baseplan: hire $20,450.61 with wrong sizes and dates on several lines, labour and transport on 15 sets
+(GN20's 1276701, which never came) with demob and pickup charged before the work, GN24 line 49 Off Rent at $0.
+
+**AA and HRP** (13:22): tracked only, each customer pays on its own contract (HS 9968926, HS 9974238); the Costs tab's charge
+ticks came off both (`../record_22Oct2026_aa_hrp_tracking_only/`), the branch building list is 45 charged + 2 tracked, and
+9968862 line 93 (1189410) comes off that contract.
+
 **9968955 toilets.** The pump-out line (141) is 678 = 226 units × 3 nights. The servicing tracker has 231 FWF and 4
 accessible units placed (= 705 services over Fri, Sat, Sun), and the by-reference sheet names where Baseplan's hire
 list is short: PG01, PG03, PG05, PG29, WC42, WC53, WC81 missing; WC12 3 v 4; WC67 2 v 4; WC21 7 v 6; WC01 3 v 2. Tank
