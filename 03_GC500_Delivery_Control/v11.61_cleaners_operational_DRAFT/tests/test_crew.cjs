@@ -58,7 +58,9 @@ const results=[];function check(name,ok,detail){results.push({name,ok:!!ok,detai
   const p=await ctx.newPage();p.on('pageerror',e=>errors.push(e.message));
   const ready=()=>p.waitForFunction(()=>/^Live/.test(document.getElementById('status').textContent)&&!document.querySelector('[data-job]')?.disabled);
   const settle=()=>p.waitForFunction(()=>svc1067.outbox().length===0,null,{timeout:30000});
-  await p.goto(url('WC07','clean'));await ready();await p.click('[data-job="WC07-FWF|clean"]');await settle();
+  await p.goto(url('WC07','clean'));await ready();await p.click('#crew-map1161 summary');await p.click('[data-job="WC07-FWF|clean"]');await settle();
+  check('map remains open after a saved completion refresh',await p.locator('#crew-map1161').getAttribute('open')!==null);
+  await p.click('#crew-map1161 summary');
   await p.click('#saveclose');check('partial clean save names water still needed',await p.locator('.saved-own1161').innerText()==='Still to do for this code: Water checked / refilled');
   await p.click('[data-unsave]');await p.click('[data-job="WC07-FWF|refill"]');await settle();await p.click('#saveclose');
   check('cleaner finished: own jobs complete; pump clearly separate',await p.locator('.saved-own1161').innerText()==='Your jobs at WC07 are complete.'&&await p.locator('.saved-other1161').innerText()==='Other work at WC07: Pump out');
