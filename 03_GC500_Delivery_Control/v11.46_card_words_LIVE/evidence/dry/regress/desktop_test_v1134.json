@@ -1,0 +1,78 @@
+{
+ "at": "2026-10-22T23:51:23.111Z",
+ "live": false,
+ "results": [
+  {
+   "name": "footer says the expected release",
+   "ok": true
+  },
+  {
+   "name": "card template draws symbols and zooms on a tap; the old \"tap a pin to navigate\" is gone",
+   "ok": true,
+   "detail": {
+    "len": 198230,
+    "refs": 74
+   }
+  },
+  {
+   "name": "the record gives the kinds: toilets the many, with blocks, accessible units, a trailer and sewer-connected units among them",
+   "ok": true,
+   "detail": {
+    "fwf": 60,
+    "sewer": 5,
+    "block": 4,
+    "access": 4,
+    "trailer": 1
+   }
+  },
+  {
+   "name": "every pin on every map carries the symbol the record gives it, over its coloured disc (WC85, off the sheet, draws no map); the key shows six symbols",
+   "ok": true,
+   "detail": {
+    "pins": 535,
+    "noSym": [],
+    "wrong": [],
+    "seen": 73,
+    "key": 6
+   }
+  },
+  {
+   "name": "a tap on WC43 is kept on the card: the plan zooms to WC43 (Closer crop centred on it), WC43 is named under the plan with its units and a Navigate link; the second tap is let through to navigate; Wider lets the focus go",
+   "ok": true,
+   "detail": {
+    "log": [
+     true,
+     false
+    ],
+    "afterFirst": {
+     "focus": "WC43",
+     "zoom": true
+    },
+    "focusRef": "WC43",
+    "vbw": 154.2,
+    "centred": true,
+    "footText": "WC43 · 10 flush toilets Navigate ↗",
+    "nav": "https://www.google.com/maps/dir/?api=1&destination=-27.986371,153.427224",
+    "wider": null
+   }
+  },
+  {
+   "name": "record unchanged by the run",
+   "ok": true
+  },
+  {
+   "name": "no page errors",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "name": "no writes attempted",
+   "ok": true,
+   "detail": {
+    "page": 1,
+    "live": 68,
+    "blocked": 0
+   }
+  }
+ ]
+}

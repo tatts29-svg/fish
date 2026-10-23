@@ -19,6 +19,8 @@ tonight so nothing already done is done again. Everything below is recorded in S
 
 | Release | What | Live |
 |---|---|---|
+| v11.46 | The crew card names each line in the crew's words with its symbol ("8 flush toilets", not "8 × FWF"); TEST tracker republished, EVENT on Andrew's word | 09:55 |
+| v11.44 | The satellite maps turned to the plan's way up (beach along the top) | 09:24 |
 | v11.43 | Showcase opens on the flat circuit on a device that was slow building the 3D, "3D circuit" one press away | 09:09 |
 | v11.42 | The finder finds anything: tabs, the Showcase, VMS boards by number, removal spots and mornings, register asset numbers | 08:09 |
 | v11.41 | "Where it is": every VMS board and every generator on satellite under the Map explorer (filter) and the boards under the VMS boards tab; GN25 listed as having no position | 07:43 |
@@ -74,7 +76,7 @@ manager, …", so compare hashes after the scrub.
    asset numbers are findable; the finder functions are free again.
 4. **Claude — Showcase (v11.43, LIVE 09:09).** Andrew: "What ever makes it quicker please" — a device that was slow opens on
    the flat circuit with the 3D one press away.
-5. **Claude — crew card list wording** and the open questions to Andrew.
+5. **Claude — crew card list wording (v11.46, LIVE 09:55; TEST tracker on it, EVENT on Andrew's word)** and the open questions to Andrew.
 
 ## Open asks from Andrew, in his order of priority
 
