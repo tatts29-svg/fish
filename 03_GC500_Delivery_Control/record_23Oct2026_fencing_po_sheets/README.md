@@ -1,7 +1,8 @@
 # Record: the supplier's Commercial Approval sheets for construction weeks 3 and 4 on their purchase orders
 
-Author: Andrew Fisher. Applied 23 Oct 2026 14:48 AEST on the live v11.55 page (`7262dbfc…`), by Andrew Fisher via Claude, through the
-page's own purchase-order control (`setPo`): record 10560 → 10563 (4647515) → 10566 (4647517), three documents an order
+Author: Andrew Fisher. Applied 23 Oct 2026 14:48 AEST on the live v11.55 page (`7262dbfc…`) for weeks 3 and 4, and 16:01 AEST on the live v11.58 page
+(`50ae2d0f…`) for week 5, by Andrew Fisher via Claude, through the page's own purchase-order control (`setPo`): record 10560 → 10563
+(4647515) → 10566 (4647517), then 10575 → 10578 (4647509), three documents an order
 (the order, its stamp, its name). Full-record backups before each write: `runs/apply_spec_4647515_…/before-public.json`,
 `runs/apply_spec_4647517_…/before-public.json`; readbacks, planned and actual writes, and the verification in the same folders.
 
@@ -18,7 +19,7 @@ Approval.pdf`). The PDFs stay out of the repository (supplier documents); each i
 | CW2 | 4647519 | 13 Oct | $28,246.50 | $28,246.50 | already there (14 Oct) | — |
 | **CW3** | **4647515** | 6 Oct | **$50,154.00** | $50,154.00 | **21 dockets, 5 team-leader days — this record** | **+$6,110.00** |
 | **CW4** | **4647517** | 29 Sep | **$26,695.00** | $26,695.00 | **31 dockets, 5 team-leader days — this record** | **+$1,417.00** |
-| CW5 | 4647509 | 22 Sep | $33,670.50 | $33,670.00 | **held** — 50 cents apart (`spec_4647509_HELD.json`) | — |
+| **CW5** | **4647509** | 22 Sep | **$33,670.50** | $33,670.00 (receipted in full, receipt 4922398) | **33 dockets and notes, 5 team-leader days — this record, 16:01 AEST** (the sheet is 50 cents over the receipted order; the order stands as the cost, v11.59) | **+$1,050.00** |
 | CW6 | 4647508 | — | — | $8,992.00 | no sheet supplied | — |
 
 Every sheet re-adds to the cent: quantity totals, the rate line, the money totals and the invoice total (`parse_sheets.py` in the
@@ -51,7 +52,11 @@ on the paper, yet 132.5 m billed). Those are Andrew's to rule on; nothing on the
 
 ## Files
 
-- `spec_4647515.json`, `spec_4647517.json` — what was written (the sheet, line by line); `spec_4647509_HELD.json` — ready, not applied.
+- `spec_4647515.json`, `spec_4647517.json`, `spec_4647509.json` — what was written (the sheet, line by line). Week 5 went on at 16:01 AEST on the
+  live v11.58 page (`50ae2d0f…`): record 10575 → 10578, three documents; `runs/apply_spec_4647509_…/` holds the backup, the read-back and the
+  verification (pass). Its order is receipted in full ($33,670, receipt 4922398) and the sheet reads $33,670.50: the writer asserts the receipt
+  fields unchanged and the stated 50-cent difference; the page (v11.59) carries the receipted amount as the cost and says so on the order.
+  Docket 36524 (17 Sep, $1,375 at the sheet rates) is on our record for week 5 but not on the sheet.
 - `record_pricing.cjs`, `native_pricing.cjs`, `readonly_page.cjs` — the 14 Oct writer, copied: runs kept beside the spec; operator name;
   a receipted order may take its sheet (its receipt fields are asserted and must not move); the dockets of weeks 3–6 are the page's
   captured dockets, so identity is checked against the same rows the page matches (one row by book and id, the same by number, same

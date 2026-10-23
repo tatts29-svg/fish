@@ -29,7 +29,9 @@ function preflight(spec){
  if(!pricing||pricing.schema!==1||pricing.currency!=='AUD'||pricing.basis!=='ex GST'||!pricing.source?.file||!/^[a-f0-9]{64}$/.test(pricing.source.sha256||''))throw Error('Approved source provenance missing');
  if(pricing.supplier_code!==po.supplier_code||pricing.branch!==po.branch)throw Error('Source supplier or branch does not match P/O');
  if(!expected||!Array.isArray(pricing.records)||pricing.records.length!==expected.records||!Array.isArray(pricing.extras)||pricing.extras.length!==expected.extras)throw Error('Source component count changed');
- if(!Number.isFinite(pricing.total)||cents(pricing.total)!==cents(po.amount))throw Error('Supplier source and approved P/O amount differ');
+ // 23 Oct 2026: a receipted order may carry a sheet that differs from it by a stated amount; the order stands as the cost
+ if(!Number.isFinite(pricing.total))throw Error('Supplier source total missing');
+ if(cents(pricing.total)!==cents(po.amount)&&!(po.receipted&&spec.expected&&Number.isFinite(spec.expected.difference)&&cents(pricing.total)-cents(po.amount)===cents(spec.expected.difference)))throw Error('Supplier source and approved P/O amount differ');
  const names={red:['fenceDockets','docket_no'],green:['serviceNotes','note_no'],blue:['fenceCollections','collection_no']},columns=new Set(['clean','scrim','v_gates','ped_gates','ccb_event','ccb_demarc','flat_feet','labour','team_leader','relocation','removal']);
  let total=0;const seen=new Set();
  function lineAmount(line){
@@ -87,7 +89,7 @@ function verify(staged,plan){
  for(const [field,value]of Object.entries(spec.expected_po))checks['retained '+field]=(r.po[field]??null)===(value??null);
  const matched=r.supplierOrder;
  checks['supplier breakdown valid']=!!matched&&matched.valid===true&&(!matched.errors||matched.errors.length===0);
- checks['supplier total matches PO']=!!matched&&cents(matched.total)===cents(r.po.amount)&&cents(matched.difference)===0;
+ checks['supplier total against the PO is the stated difference']=!!matched&&cents(matched.total)-cents(r.po.amount)===cents(e.difference||0)&&cents(matched.difference)===cents(e.difference||0);
  checks['source book totals match']=!!matched&&cents(matched.red)===cents(e.red_total)&&cents(matched.green)===cents(e.green_total)&&cents(matched.extrasTotal)===cents(e.extra_total);
  checks['receipt fields unchanged']=(r.po.invoice_no??null)===(b.po.invoice_no??null)&&(r.po.receipted??null)===(b.po.receipted??null)&&(r.po.receipted_amount??null)===(b.po.receipted_amount??null)&&r.financePo.receipt.key===b.financePo.receipt.key&&r.receiptedSum===b.receiptedSum;
  checks['customer Revenue unchanged']=same(r.financial.revenue,b.financial.revenue)&&r.financial.revNow===b.financial.revNow&&r.financial.revJob===b.financial.revJob;

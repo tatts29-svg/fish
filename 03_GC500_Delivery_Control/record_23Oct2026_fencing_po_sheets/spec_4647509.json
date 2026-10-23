@@ -33,7 +33,8 @@
     "36515: the sheet lists it under 2026-09-16; our record's date 2026-09-15 (the signed paper) is used",
     "36523: the sheet lists it under 2026-09-16; our record's date 2026-09-17 (the signed paper) is used",
     "36525: the sheet lists it under 2026-09-18; our record's date 2026-09-17 (the signed paper) is used",
-    "24455: the sheet prints 0.8 h; its own $425.00 installer total and our note 24455 (0.75 h) make it 0.75"
+    "24455: the sheet prints 0.8 h; its own $425.00 installer total and our note 24455 (0.75 h) make it 0.75",
+    "The sheet adds to $33,670.50; the order was raised and receipted at $33,670.00 (receipt 4922398). The order stands as the cost (the project manager, 23 Oct 2026: \"amount and dockets should be what it is\"); the sheet is kept as the docket-level breakdown, 50 cents over the order."
    ],
    "tax_basis_note": "Allocated as ex GST under the project convention in AGENTS.md; the sheet states no tax basis.",
    "reading": "Every row read from the sheet by column position; the quantity totals, the rate line, the money totals and the invoice total all re-add to the cent. Clean credits (\"as above panels already installed - deducted\") stay on their docket as negative clean lines, as the sheet prints them. The team-leader daily charge is a dated extra, not allocated to any docket. Collections (removal) carry counts only, no charge."
@@ -867,6 +868,7 @@
   "extra_total": 2000.0,
   "direct_delta": 9666.0,
   "supplier_delta": 9666.0,
-  "branch": "STPS"
+  "branch": "STPS",
+  "difference": 0.5
  }
 }
