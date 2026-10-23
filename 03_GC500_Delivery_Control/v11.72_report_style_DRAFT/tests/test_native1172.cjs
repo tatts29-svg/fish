@@ -31,6 +31,11 @@ function read(url){return new Promise((resolve,reject)=>{
   const dialog=p.locator('.svc-shift1168'),print=dialog.getByRole('button',{name:'Print / save PDF',exact:true});
   await print.waitFor();await p.waitForFunction(()=>!document.querySelector('.svc-shift1168 button:nth-child(1)')?.disabled&&document.querySelector('.shift1168-report'));
   check(await print.isEnabled(),'ready to print');
+  check(await dialog.locator('.svc-share1164-head').evaluate(el=>{
+   const ink=getComputedStyle(el.querySelector('h3')).color,paper=getComputedStyle(el).backgroundColor;
+   const lum=x=>x.match(/[\d.]+/g).slice(0,3).map(v=>{v=Number(v)/255;return v<=.04045?v/12.92:Math.pow((v+.055)/1.055,2.4);}).reduce((a,v,i)=>a+v*[.2126,.7152,.0722][i],0);
+   const a=lum(ink),b=lum(paper);return (Math.max(a,b)+.05)/(Math.min(a,b)+.05)>=4.5;
+  }),'dialog heading has readable contrast');
   const result=await p.evaluate(()=>{
    const M=window.shiftInput,before=performance.now(),s=SvcShift1168.snapshot(M),html=SvcShift1168.html(s),elapsed=performance.now()-before;
    const states=M.S.jobStates(M.events,M.now),saved=Object.fromEntries(Object.entries(states).filter(([,s])=>!s.local));

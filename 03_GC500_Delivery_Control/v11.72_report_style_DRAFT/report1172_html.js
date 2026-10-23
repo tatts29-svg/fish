@@ -3,7 +3,7 @@ function html(s) {
   var g=s.overall;
   function section(n,title,sub) { return '<div class="report1172-section"><span>'+n+'</span><div><h2>'+esc(title)+'</h2>'+(sub?'<p>'+esc(sub)+'</p>':'')+'</div></div>'; }
   function num(v,kind) { return '<strong class="report1172-number '+(kind||'')+'">'+esc(v)+'</strong>'; }
-  function equipment(r,l) { return '<b class="report1172-ref">'+esc(r.ref)+'</b><span class="report1172-equipment">'+esc(l.label)+'</span><span class="report1172-qty">Equipment quantity: '+esc(l.qty)+'</span>'; }
+  function equipment(r,l) { var label=String(l.label||''),prefix=String(l.qty)+' × ';if(label.indexOf(prefix)===0)label=label.slice(prefix.length);return '<b class="report1172-ref">'+esc(r.ref)+'</b><span class="report1172-equipment"><span class="report1172-qty">Qty '+esc(l.qty)+'</span> · '+esc(label)+'</span>'; }
   function taskName(t) { return esc(t.label)+(t.optional?' (optional)':''); }
   function time(ms) { return esc(stamp(ms).replace(' AEST','')).replace(' ','<br/>'); }
   var body='<article class="shift1168-report report1172"><section class="report1172-cover">'+

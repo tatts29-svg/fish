@@ -25,7 +25,7 @@
 .report1172 .report1172-explain{background:#f5f6f7;border-left:4px solid #ff6a13;padding:13px 16px;margin:18px 0 24px;break-inside:avoid}.report1172-explain h3{font-size:14px;margin:0 0 7px}.report1172-explain p{font-size:11px;margin:7px 0}
 .report1172 .shift1168-note{font-size:11px;color:#59626b;margin:10px 0 16px}
 .report1172 .report1172-area h3{font-size:15px;margin:20px 0 0;padding:10px 12px;background:#242629;color:#fff;border-left:5px solid #ff6a13;break-after:avoid}
-.report1172-ref{display:block;font-size:14px}.report1172-equipment{display:block;margin:3px 0}.report1172-qty{display:block;color:#59626b;font-size:10px}
+.report1172-ref{display:block;font-size:14px}.report1172-equipment{display:block;margin:3px 0}.report1172-qty{display:inline;color:#59626b;font-size:10px}
 .report1172-task{display:flex;gap:8px;margin:3px 0 7px;line-height:1.4}.report1172-task>span{color:#9a3900;font-weight:700}.report1172-task small{display:block;color:#9a3900;font-size:10px;margin-top:2px}
 .report1172 .shift1168-done{display:block;color:#256345}.report1172 .shift1168-missing{display:block;color:#9a3900;font-weight:400}.report1172 small{display:block;font-size:10px;line-height:1.4;margin-top:4px}.report1172-kpis small{display:inline;font-size:18px;margin:0}
 .report1172-na{color:#71777c;font-size:10px}
@@ -43,6 +43,6 @@
  .report1172 .report1172-kpis{grid-template-columns:repeat(3,minmax(0,1fr))}.report1172-kpis strong{font-size:36px}.report1172-kpis small{font-size:18px}.report1172-kpis span{font-size:12px}
  .report1172 table{font-size:11px}.report1172 th,.report1172 td{padding:7px 8px}.report1172 th:first-child{width:43%}
  .report1172 .shift1168-scroll{overflow:visible}.report1172 .shift1168-ledger{break-before:page;display:block;margin-top:0}.report1172 .shift1168-ledger>summary{display:none}.report1172 .shift1168-ledger table{min-width:0;font-size:10px}
- .report1172 .report1172-section{margin-top:0}.report1172 .report1172-area h3{margin-top:17px}.report1172 .report1172-area{break-inside:auto}.report1172 .report1172-number{font-size:14px}
+ .report1172 .report1172-section{margin-top:0}.report1172 .report1172-area h3{margin-top:17px}.report1172 .report1172-area{break-inside:auto}.report1172 .report1172-task{margin:2px 0 4px}.report1172 .shift1168-ledger th,.report1172 .shift1168-ledger td{padding:6px 7px}.report1172 .report1172-number{font-size:14px}
  .report1172 .report1172-brand{color:#fff;background:#242629}.report1172 .report1172-area h3{color:#fff;background:#242629}
 }
