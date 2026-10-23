@@ -11,7 +11,8 @@ record to race weekend, Fri 23 Oct 2026 (SCRIPT.md beside this file names each s
 the one used is the one whose words, checked against the script, came out cleanest (takes/takes.json says which). Same
 mix as v11.11: broadcast EQ, the circuit bed about 17 dB under the voice, -16 LUFS, mono 96 kbps MP3.
 
-Only DATA.broadcast, its DATA.media entries and the hosted media manifest change, plus the footer. The v11.11 module
+Only DATA.broadcast, its DATA.media entries and the hosted media manifest change, plus the footer; two superseded
+machine-film renders leave the media table so the manifest stays inside the service's 2,000-file limit. The v11.11 module
 (RaceDayBroadcast1111) already rebuilds the Showcase programme from each turn's scene, chains 1 -> ... -> 50 -> 51 and,
 while Loop is on, rejoins at turn 3 ("So settle in, grab a cold drink"), never replaying the welcome; it is not added again. All 25 Showcase scenes are spoken
 (the kilometre card now has its own line). The transcript follows the v5.97 rule ("the project manager" where the take
@@ -34,6 +35,13 @@ N = 51
 # welcome, settle-in + the team, what they built, the fencing, weather/effort/dates, one hundred per cent, one team + finish, loop
 SECTION = {1: (1, 2), 2: (3, 12), 3: (13, 24), 4: (25, 35), 5: (36, 41), 6: (42, 43), 7: (44, 49), 8: (50, 51)}
 # v5.97 rule: the page's prose says "the project manager"; these keep the scrubbed lines reading cleanly
+# The service holds at most 2,000 files in a page's media manifest (server.js: assets.length>2000 -> "invalid media
+# manifest"); 1,983 - 33 + 51 would be 2,001. The machine film's original v9.95 renders (MP4 and WebM, recorded in
+# v9.95_machine_film_LIVE/RENDER_README.md) were replaced by the current film and nothing on the page or in the live
+# record names them any more; they leave the page's media table (they stay on the service's disk).
+RETIRE = ['0871900727ba7e070fe2abb52f44e18697ee34f2ba4cda8c6bd94c5ef66a1b34',
+          'fb84697a6d4640eece234d02ef98547816a619e830f5ad8781c394ec3922e4df']
+MAX_MEDIA_FILES = 2000
 TRANSCRIPT = {4: ('the project manager — Andrew Fisher!', 'the project manager!'),
               47: ('Andrew Fisher! Aaron Zelvis!', 'The project manager! Aaron Zelvis!')}
 
@@ -81,6 +89,11 @@ def patch(text, page_path):
         if sha not in obj['media']: raise ValueError('old take %s is not in DATA.media' % sha[:12])
         obj['media'].pop(sha)
 
+    for sha in RETIRE:
+        if sha not in obj['media'] or not obj['media'][sha]['type'].startswith('video/'): raise ValueError('retired film %s not as expected' % sha[:12])
+        if sha in rest or sha in text[:i] or sha in text[j:] or sha in json.dumps(obj['broadcast']): raise ValueError('retired film %s is still named' % sha[:12])
+        obj['media'].pop(sha)
+
     turns, added = [], {}
     for t in script['turns']:
         slot = int(t['slot']); src = takes / ('turn%02d.mp3' % slot)
@@ -120,6 +133,7 @@ def patch(text, page_path):
                   'stated': 'Every turn carries its own take over the scene it names; all 25 Showcase scenes are spoken.'}}
 
     assets = sorted([dict(sorted(a.items())) for a in obj['media'].values()], key=lambda a: a['file'])
+    if len(assets) > MAX_MEDIA_FILES: raise ValueError('%d media files: the service takes at most %d' % (len(assets), MAX_MEDIA_FILES))
     digest = hashlib.sha256(canonical({'schema': 'gc500-media-v1', 'assets': assets}).encode('utf-8')).hexdigest()
     obj['hostedMedia']['manifest'] = digest
     (out_dir / 'media_manifest_v1165.json').write_text(json.dumps({'schema': 'gc500-media-v1', 'sha256': digest, 'assets': assets}, indent=1))
@@ -127,8 +141,8 @@ def patch(text, page_path):
 
     text = text[:i] + 'const DATA = ' + json.dumps(obj, ensure_ascii=False, separators=(',', ':')) + ';' + text[j:]
     text = rep(text, "+' · %s'; /* v8.19 release922" % base, "+' · v11.65'; /* v8.19 release922", 'release footer', 'page')
-    print('v11.65 on %s: %d takes in, %d old out, media %d files, manifest %s, body %.1f s + loop %.1f s'
-          % (base, N, len(old), len(assets), digest[:12], body_s, loop_s))
+    print('v11.65 on %s: %d takes in, %d old out, %d retired film renders out, media %d files, manifest %s, body %.1f s + loop %.1f s'
+          % (base, N, len(old), len(RETIRE), len(assets), digest[:12], body_s, loop_s))
     return text
 
 

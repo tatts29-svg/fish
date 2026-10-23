@@ -35,6 +35,8 @@ function canonical(v){if(Array.isArray(v))return '['+v.map(canonical).join(',')+
  const audio=Object.values(DATA.media).filter(m=>m.type==='audio/mpeg');
  ok(audio.length===58,'58 audio files in the media table (51 takes + 7 effects); got '+audio.length);
  ok(OLD.length===33&&OLD.every(s=>!html.includes(s)),'the 33 takes of 22 Oct are gone from the page');
+ ok(['0871900727ba7e070fe2abb52f44e18697ee34f2ba4cda8c6bd94c5ef66a1b34','fb84697a6d4640eece234d02ef98547816a619e830f5ad8781c394ec3922e4df'].every(s=>!html.includes(s)),'the two superseded film renders are off the page');
+ ok(Object.keys(DATA.media).length===1999&&Object.keys(DATA.media).length<=2000,'1,999 media files, inside the service limit of 2,000; got '+Object.keys(DATA.media).length);
  const assets=Object.values(DATA.media).map(m=>({bytes:m.bytes,file:m.file,scope:m.scope,sha256:m.sha256,type:m.type})).sort((a,b)=>a.file<b.file?-1:a.file>b.file?1:0);
  const digest=crypto.createHash('sha256').update(canonical({schema:'gc500-media-v1',assets})).digest('hex');
  ok(DATA.hostedMedia.manifest===digest,'hostedMedia.manifest is the digest of the media table');
