@@ -1,0 +1,180 @@
+{
+  "author": "Andrew Fisher",
+  "status": "VERIFIED LIVE",
+  "base_sha256": "c59fbc57dd1c17d1b831a93ad936c205a0128703d842e7579af5896b2d812da6",
+  "candidate_sha256": "10d3e9484e7b650b65555dab7b5a0c2db40582897add645f56a84038fe2ff213",
+  "candidate_bytes": 21566999,
+  "inline_scripts": 170,
+  "checks": {
+    "desktop": {
+      "functional_passed": 16,
+      "sweep_registered_tabs": 27,
+      "sweep_shown_tabs": 19,
+      "page_errors": 0,
+      "console_errors": 0,
+      "blocked_writes": 0
+    },
+    "phone": {
+      "functional_passed": 16,
+      "sweep_registered_tabs": 27,
+      "sweep_shown_tabs": 19,
+      "page_errors": 0,
+      "console_errors": 0,
+      "blocked_writes": 0
+    }
+  },
+  "gpu_contract": "PASS: one outstanding frame, zero-timeout waits, pause/quality guards, deferred old-context cleanup",
+  "phone_screenshot_inspected": true,
+  "playback": {
+    "opening_ms": 256.8,
+    "closing_ms": 717.1,
+    "scene_changes": 10,
+    "page_errors": 0,
+    "attempted_writes": 0
+  },
+  "cpu_probe": {
+    "throttle": 4,
+    "drawing": "disabled to isolate construction; not a frame-rate test",
+    "opening_ms": 723.8,
+    "largest_construction_task_ms": 3328.4,
+    "maximum_heartbeat_gap_ms": 4246.3,
+    "heartbeat_ticks_during_preparation": 742,
+    "final_adapter_ms": 33.5
+  },
+  "limitation": "Native context creation is not interruptible; software GPU timings do not establish big-screen hardware frame rate.",
+  "live_at": "2026-10-23T05:19:36.125Z",
+  "source_commit": "18bdf3ec4691b9a7d3c0d9fc8bc3807f451b71d3",
+  "merge_commit": "5b53b5731ac27d9566311acf2c716b367db093e9",
+  "readback": {
+    "checked_at": "2026-10-23T05:20:11.961357+00:00",
+    "url": "https://gc500-production.up.railway.app/v/Coates-GC500-2026",
+    "bytes": 21566999,
+    "sha256": "10d3e9484e7b650b65555dab7b5a0c2db40582897add645f56a84038fe2ff213",
+    "exact_candidate_match": true,
+    "version_present": true,
+    "scripts": {
+      "smooth1157-script": true,
+      "numbers1155-script": true,
+      "gates1156-script": true
+    }
+  },
+  "live_checks": {
+    "desktop": [
+      {
+        "name": "live version and performance repair present",
+        "ok": true
+      },
+      {
+        "name": "opening starts interruptible 3D preparation",
+        "ok": true
+      },
+      {
+        "name": "closing cancels and restores the dashboard",
+        "ok": true
+      },
+      {
+        "name": "navigation and pause respond",
+        "ok": true
+      },
+      {
+        "name": "record untouched",
+        "ok": true
+      },
+      {
+        "name": "no errors or attempted writes",
+        "ok": true
+      }
+    ],
+    "phone": [
+      {
+        "name": "live version and performance repair present",
+        "ok": true
+      },
+      {
+        "name": "opening starts interruptible 3D preparation",
+        "ok": true
+      },
+      {
+        "name": "closing cancels and restores the dashboard",
+        "ok": true
+      },
+      {
+        "name": "navigation and pause respond",
+        "ok": true
+      },
+      {
+        "name": "record untouched",
+        "ok": true
+      },
+      {
+        "name": "no errors or attempted writes",
+        "ok": true
+      }
+    ]
+  },
+  "follow_on_readback": {
+    "checked_at": "2026-10-23T05:43:56.988863+00:00",
+    "url": "https://gc500-production.up.railway.app/v/Coates-GC500-2026",
+    "version": "v11.58",
+    "bytes": 21570676,
+    "sha256": "50ae2d0ff89b57cf83ed3f896adecb2d6b66d4f3760a3e78d232201d6e9786a7",
+    "showcase_module_exact_match": true,
+    "all_generated_constructors_preserved": true,
+    "scene_and_hidden_render_fixes_preserved": true
+  },
+  "follow_on_source_commit": "8e9a0d7c98b3918436a964ee0c67526d27198b81",
+  "follow_on_live_checks": {
+    "desktop": [
+      {
+        "name": "live version and performance repair present",
+        "ok": true
+      },
+      {
+        "name": "opening starts interruptible 3D preparation",
+        "ok": true
+      },
+      {
+        "name": "closing cancels and restores the dashboard",
+        "ok": true
+      },
+      {
+        "name": "navigation and pause respond",
+        "ok": true
+      },
+      {
+        "name": "record untouched",
+        "ok": true
+      },
+      {
+        "name": "no errors or attempted writes",
+        "ok": true
+      }
+    ],
+    "phone": [
+      {
+        "name": "live version and performance repair present",
+        "ok": true
+      },
+      {
+        "name": "opening starts interruptible 3D preparation",
+        "ok": true
+      },
+      {
+        "name": "closing cancels and restores the dashboard",
+        "ok": true
+      },
+      {
+        "name": "navigation and pause respond",
+        "ok": true
+      },
+      {
+        "name": "record untouched",
+        "ok": true
+      },
+      {
+        "name": "no errors or attempted writes",
+        "ok": true
+      }
+    ]
+  }
+}

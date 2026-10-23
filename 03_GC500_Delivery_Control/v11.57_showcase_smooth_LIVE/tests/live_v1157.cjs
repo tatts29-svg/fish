@@ -6,7 +6,7 @@ const check=(name,ok)=>{checks.push({name,ok:!!ok});console.log((ok?'PASS ':'FAI
 try{
  await p.waitForFunction(()=>typeof SYNC!=='undefined'&&SYNC.status==='live',null,{timeout:180000});
  const before=await p.evaluate(()=>JSON.stringify(S));
- check('live version and performance repair present',await p.evaluate(()=>document.body.innerText.includes('v11.57')&&!!window.ShowcaseSmooth1157&&!!window.ShowcaseGPU1157));
+ check('live version and performance repair present',await p.evaluate(v=>document.body.innerText.includes(v)&&!!window.ShowcaseSmooth1157&&!!window.ShowcaseGPU1157,process.env.EXPECT_VERSION||'v11.57'));
  const state=await p.evaluate(()=>{localStorage.removeItem('gc500.showback');localStorage.removeItem('gc500.show3d.mount');showOpen();const started=ShowcaseSmooth1157.state().pending,hidden=getComputedStyle(document.querySelector('.app')).display==='none';showClose();return {started,hidden,cancelled:!ShowcaseSmooth1157.state().pending&&!GC3D.S,restored:getComputedStyle(document.querySelector('.app')).display!=='none'};});
  check('opening starts interruptible 3D preparation',state.started&&state.hidden);
  check('closing cancels and restores the dashboard',state.cancelled&&state.restored);
