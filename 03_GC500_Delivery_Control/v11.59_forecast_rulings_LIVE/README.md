@@ -1,13 +1,16 @@
-# v11.59 — the forecast on the project manager's six rulings of 23 Oct — DRAFT
+# v11.59 — the forecast on the project manager's six rulings of 23 Oct — LIVE
 
 Author: Andrew Fisher. Built on live v11.58 `50ae2d0ff89b57cf83ed3f896adecb2d6b66d4f3760a3e78d232201d6e9786a7`.
-(LIVE hash, bytes and time: see STATUS.md once uploaded.)
+**LIVE 23 Oct 2026 16:46 AEST**, page `b6a8fc0e613b508e051f91f4b565cca7351efe33855520936d05077a1111f54c`, 21,585,915 bytes, the view
+link byte for byte (guarded upload; record version 10578 unchanged). Source commit 90410968.
 
 ## Andrew's words, 23 Oct 2026
 
 > "Wages and salary we will only track hrs no hrly rate. Event portaloos we do what we know. Damage waiver etc we dont worry
 > about unless I tell you different when they invoice. Fix the timeline. You should know this: Alfie's 20 accommodation
 > nights, Kyle Gover's 3 shifts without hours. No sheet for week 6: amount and dockets should be what it is. Make it work."
+
+And after the build, on the receipted orders: "What ever the invoice amount is" (23 Oct 2026, 16:45 AEST).
 
 ## The record first (through the page's own functions, backups beside each runner)
 

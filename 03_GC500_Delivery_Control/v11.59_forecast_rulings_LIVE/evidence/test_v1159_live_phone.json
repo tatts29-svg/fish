@@ -1,0 +1,655 @@
+{
+ "when": "2026-10-23T06:48:28.860Z",
+ "live": true,
+ "MOB": true,
+ "failed": 0,
+ "results": [
+  {
+   "name": "footer says the expected release",
+   "ok": true
+  },
+  {
+   "name": "the gaps that are not gaps are gone",
+   "ok": true,
+   "detail": [
+    "Fencing still to come — relocation and removal by the hour",
+    "Transport — final carrier figures and bookings",
+    "36 planned transport movements — rate or scope to confirm",
+    "17 demob movements still unpriced",
+    "1 non-equipment schedule task with no transport basis"
+   ]
+  },
+  {
+   "name": "the gaps left are transport and the fencing demob by the hour",
+   "ok": true,
+   "detail": [
+    "Fencing still to come — relocation and removal by the hour",
+    "Transport — final carrier figures and bookings",
+    "36 planned transport movements — rate or scope to confirm",
+    "17 demob movements still unpriced",
+    "1 non-equipment schedule task with no transport basis"
+   ]
+  },
+  {
+   "name": "Coates wages and salary are hours only on the model: 1471.5 h",
+   "ok": true,
+   "detail": {
+    "wages": {
+     "toDate": 22956.32,
+     "toCome": 60007.95,
+     "unpricedHours": 0,
+     "hoursOnly": 1471.5,
+     "hoursOnlyToDate": 877,
+     "hoursOnlyPeople": [
+      "Aaron Zelvis",
+      "Alfie Harris",
+      "Andrew Fisher",
+      "Jayden Paul",
+      "Wayne Crimmin",
+      "Frank Devilles",
+      "Ludwig Chee"
+     ],
+     "hoursByType": {
+      "cna": 1005.5,
+      "salary": 466
+     },
+     "hoursOnly1159": true,
+     "known": 22956.32,
+     "toCome2": 60007.95,
+     "allowanceForecast": 14700,
+     "job": 82964.27
+    },
+    "hoursOnly": 1471.5
+   }
+  },
+  {
+   "name": "the wages priced are the hired-in people plus the salary allowance",
+   "ok": true,
+   "detail": {
+    "job": 82964.27,
+    "hire": 68264.27,
+    "allowance": 14700
+   }
+  },
+  {
+   "name": "Month-end control counts no Coates hour as unpriced",
+   "ok": true,
+   "detail": {
+    "unpricedHours": 0,
+    "unpricedCount": 0,
+    "hoursOnly": 1471.5,
+    "hoursOnlyCount": 141,
+    "complete": false,
+    "missing": 0,
+    "orphans": 15,
+    "card": "Confirmed worked hours · this month 0 h 766.78 h past hours, before breaks, awaiting confirmation or review Verified payroll / invoice cost · this month Not verified 0 shift costs evidenced; calculated wages are not ledger actuals Future planned labour · this month $38,958.15 613.5 h future work; 19 shifts in hours only, no dollars Whole-job labour outlook $68,264.27 PARTIAL — 15 prior confirmations with no source shift · Coates wages and salary 1,471.5 h in hours only; includes unresolved past estimates"
+   }
+  },
+  {
+   "name": "ended fencing weeks are out of the forecast",
+   "ok": true,
+   "detail": {
+    "behind": [],
+    "weeks": [
+     {
+      "week": "Event Week",
+      "past": false,
+      "cost": 35156.4
+     },
+     {
+      "week": "Demob Week 1",
+      "past": false,
+      "cost": 9600
+     },
+     {
+      "week": "Demob Week 2",
+      "past": false,
+      "cost": 750
+     },
+     {
+      "week": "Demob Week 3",
+      "past": false,
+      "cost": 0
+     }
+    ],
+    "cost": 45506.4,
+    "revenue": 86179.09
+   }
+  },
+  {
+   "name": "the receipted orders stand at their amount: 4647508 and 4647509 adjusted, 4647517 not",
+   "ok": true,
+   "detail": [
+    {
+     "number": "4647508",
+     "amount": 8992,
+     "receipt": "4918492",
+     "weeks": [
+      "Week 6"
+     ],
+     "dockets": 6,
+     "notes": 0,
+     "extras": 0,
+     "counted": 10869,
+     "sheet": null,
+     "noSheet": true,
+     "adjustment": -1877
+    },
+    {
+     "number": "4647509",
+     "amount": 33670,
+     "receipt": "4922398",
+     "weeks": [
+      "Week 5"
+     ],
+     "dockets": 29,
+     "notes": 5,
+     "extras": 5,
+     "counted": 35045.5,
+     "sheet": 33670.5,
+     "noSheet": false,
+     "adjustment": -1375.5
+    },
+    {
+     "number": "4647517",
+     "amount": 26695,
+     "receipt": "4926209",
+     "weeks": [
+      "Week 4"
+     ],
+     "dockets": 23,
+     "notes": 5,
+     "extras": 5,
+     "counted": 26695,
+     "sheet": 26695,
+     "noSheet": false,
+     "adjustment": 0
+    }
+   ]
+  },
+  {
+   "name": "the fencing cost is the sheet rates plus the receipted difference, on every card",
+   "ok": true,
+   "detail": {
+    "fd": {
+     "cost": 213589.5,
+     "sheet_cost": 216842,
+     "dockets": 123
+    },
+    "adj": -3252.5,
+    "split": {
+     "clean": true,
+     "gear": 203339.5,
+     "sheet_gear": 206592,
+     "lab": 10250,
+     "paid": 213589.5,
+     "other": 0
+    },
+    "fencing_paid": 213589.5,
+    "catFencing": 217739.5,
+    "green": 4150
+   }
+  },
+  {
+   "name": "the P&L still reconciles to the cent and its Rehire basis names the receipted orders",
+   "ok": true,
+   "detail": {
+    "checks": {
+     "revenue": true,
+     "revenueJob": true,
+     "costs": true,
+     "costsJob": true,
+     "quotes": true
+    },
+    "basis": "he dockets at their own sheet $203,340 (4 orders invoiced and matched to the cent, $171,368; the other dockets await their invoice, counted at the sheet rates) · receipted orders stand at their amount: 4647508 $8,992.00 (receipt 4918492 · 6 dockets as recorded, no sheet) and 4647509 $33,670.00 (receipt 4922398 · sheet $33,670.50) — $3,252.50 less than the sheet rates, carried on Rehire (the project manager, 23 Oct 2026) · to job end adds the fencing programme to come at Advanced’s rates, $45,506"
+   }
+  },
+  {
+   "name": "the damage waiver is $0, not unpriced",
+   "ok": true,
+   "detail": {
+    "now": 0,
+    "job": 0,
+    "basis": "Not charged on this job unless the project manager says otherwise when the V8s are invoiced (23 Oct 2026). The card’s rule stands if it ever is: on the hire only — never on labour, steps, cleaning, install, demob or pump-outs."
+   }
+  },
+  {
+   "name": "every tie-out ties, the Timeline one on the references’ own loads",
+   "ok": true,
+   "detail": {
+    "bad": [],
+    "tl": {
+     "group": "Operational",
+     "what": "References with a load on the Timeline’s days — Timeline and Transport (each reference’s own loads; a supplier’s delivery of its own gear is on neither side)",
+     "parts": [
+      {
+       "where": "Timeline",
+       "v": 89
+      },
+      {
+       "where": "Transport",
+       "v": 89
+      }
+     ],
+     "ok": true,
+     "eps": 0.005
+    }
+   }
+  },
+  {
+   "name": "the Purchase orders card: 4647508 receipted, the order stands, 6 dockets, no sheet",
+   "ok": true,
+   "detail": {
+    "state": "receipted",
+    "n": 6,
+    "est": 10869,
+    "words": "invoiced · $8,992.00 · receipt 4918492 · 6 dockets as recorded, no sheet — the order stands"
+   }
+  },
+  {
+   "name": "the Purchase orders card: 4647509 receipted, the sheet 50 cents over, the order stands",
+   "ok": true,
+   "detail": {
+    "state": "receipted",
+    "n": 0,
+    "est": 0,
+    "words": "sheet recorded · $33,670.50 · 50 cents over the receipted order — the order $33,670.00 stands (receipt 4922398)",
+    "total": 33670.5
+   }
+  },
+  {
+   "name": "the Purchase orders card: 4647517 matched to the cent with its receipt; 4647515 matched; the counts say so",
+   "ok": true,
+   "detail": {
+    "w4": {
+     "state": "matched",
+     "n": 0,
+     "est": 0,
+     "words": "invoice matched to the cent · $26,695 · receipt 4926209",
+     "total": 26695
+    },
+    "w3": {
+     "state": "matched",
+     "n": 0,
+     "est": 0,
+     "words": "invoice matched to the cent · $50,154",
+     "total": 50154
+    },
+    "counts": {
+     "matched": 4,
+     "awaiting": 3,
+     "other": 0,
+     "receipted": 2
+    }
+   }
+  },
+  {
+   "name": "Alfie’s nights are forecast at his own average and the line says so",
+   "ok": true,
+   "detail": {
+    "note": "Alfie Harris: 20 nights at the person’s own average, $208.72 a night, until the invoice comes (the project manager, 23 Oct 2026)",
+    "toCome": 4174.31
+   }
+  },
+  {
+   "name": "the Questions settle the wage rates and Alfie’s nights",
+   "ok": true,
+   "detail": {
+    "lb": {
+     "st": "done",
+     "q": "Labour costs — Coates wages and salary in hours only",
+     "why": "The project manager’s rule (23 Oct 2026): wages and salary are tracked in hours, with no hourly rate on anyone — 1,471.5 h on the running sheet (Aaron Zelvis, Alfie Harris, Andrew Fisher, Jayden Paul, Wayne Crimmin, Frank Devilles, Ludwig Chee). The hired-in people are priced at the rates on the record: $68,264.27 to job end, plus the typed salary allowance forecast $14,700.00. None of it is added to the P&L’s direct costs."
+    },
+    "alfie": {
+     "st": "done",
+     "q": "Alfie Harris: 20 nights at Alfie’s own average",
+     "why": "20 nights without a typed rate are forecast at the average of Alfie’s 19 priced nights, $208.72 a night ($4,174.40) — the project manager’s call (23 Oct 2026). The invoice sets the actual when it comes; nothing is typed and no other person’s rate is used."
+    }
+   }
+  },
+  {
+   "name": "Installation Recovery speaks of hours only",
+   "ok": true,
+   "detail": "not readable yet: $99,307 charged against $14,400to pay Advanced’s crew — our own people’s install hours are tracked in hours only (1,471.5 h), not priced, and the fencing install sits inside the fence rate"
+  },
+  {
+   "name": "the Costs tab no longer calls Coates hours or Alfie’s nights unpriced",
+   "ok": true,
+   "detail": {
+    "bad": [],
+    "chips": [
+     "5 cost gaps"
+    ]
+   }
+  },
+  {
+   "name": "the Costs tab says hours only where the wages are",
+   "ok": true,
+   "detail": {
+    "n": 28
+   }
+  },
+  {
+   "name": "the Purchase orders card renders the receipted state and the header counts it",
+   "ok": true,
+   "detail": {
+    "head": "6 of 9 pairings confirmed · 4 with a receipt ID · 4 invoicesmatched to the cent · 3 not matched yet · 2 receipted — the order stands",
+    "w6": {
+     "po": "4647508899200",
+     "state": "inv1158-receipted",
+     "words": "invoiced · $8,992.00 · receipt 4918492 · 6 dockets as recorded, no sheet — the order stands"
+    },
+    "w5": {
+     "po": "46475093367000",
+     "state": "inv1158-receipted",
+     "words": "sheet recorded · $33,670.50 · 50 cents over the receipted order — the order $33,670.00 stands (receipt 4922398)"
+    },
+    "pos": [
+     "4647508899200:inv1158-receipted",
+     "46475093367000:inv1158-receipted",
+     ":null",
+     ":null",
+     ":null",
+     ":null",
+     ":null",
+     ":null",
+     ":null",
+     ":null",
+     ":null",
+     ":null",
+     ":null",
+     ":null",
+     ":null",
+     ":null",
+     ":null",
+     ":null",
+     ":null",
+     ":null",
+     ":null",
+     ":null",
+     ":null",
+     ":null",
+     ":null",
+     ":null",
+     ":null",
+     ":null",
+     ":null",
+     ":null",
+     ":null",
+     ":null",
+     ":null",
+     ":null",
+     ":null",
+     ":null",
+     ":null",
+     ":null",
+     ":null",
+     ":null",
+     "46475155015400:inv1158-matched",
+     ":null",
+     ":null",
+     ":null",
+     ":null",
+     ":null",
+     ":null",
+     ":null",
+     ":null",
+     ":null",
+     ":null",
+     ":null",
+     ":null",
+     ":null",
+     ":null",
+     ":null",
+     ":null",
+     ":null",
+     ":null",
+     ":null",
+     ":null",
+     ":null",
+     ":null",
+     ":null",
+     ":null",
+     ":null",
+     ":null",
+     "46475172669500:inv1158-matched",
+     ":null",
+     ":null",
+     ":null",
+     ":null",
+     ":null",
+     ":null",
+     ":null",
+     ":null",
+     ":null",
+     ":null",
+     ":null",
+     ":null",
+     ":null",
+     ":null",
+     ":null",
+     ":null",
+     ":null",
+     ":null",
+     ":null",
+     ":null",
+     ":null",
+     ":null",
+     ":null",
+     ":null",
+     ":null",
+     ":null",
+     ":null",
+     ":null",
+     ":null",
+     ":null",
+     ":null",
+     ":null",
+     ":null",
+     ":null",
+     ":null",
+     ":null",
+     "46475192824650:inv1158-matched",
+     ":null",
+     ":null",
+     ":null",
+     ":null",
+     ":null",
+     ":null",
+     ":null",
+     ":null",
+     ":null",
+     ":null",
+     ":null",
+     ":null",
+     ":null",
+     ":null",
+     ":null",
+     ":null",
+     ":null",
+     ":null",
+     ":null",
+     ":null",
+     ":null",
+     ":null",
+     ":null",
+     ":null",
+     ":null",
+     ":null",
+     ":null",
+     ":null",
+     ":null",
+     ":null",
+     ":null",
+     ":null",
+     ":null",
+     ":null",
+     ":null",
+     ":null",
+     ":null",
+     "46475206627200:inv1158-matched",
+     ":null",
+     ":null",
+     ":null",
+     ":null",
+     ":null",
+     ":null",
+     ":null",
+     ":null",
+     ":null",
+     ":null",
+     ":null",
+     ":null",
+     ":null",
+     ":null",
+     ":null",
+     ":null",
+     ":null",
+     ":null",
+     ":null",
+     ":null",
+     ":null",
+     ":null",
+     ":null",
+     ":null",
+     ":null",
+     ":null",
+     ":null",
+     ":null",
+     ":null",
+     ":null",
+     ":null",
+     ":null",
+     ":null",
+     ":null",
+     ":null",
+     ":null",
+     ":null",
+     ":null",
+     ":null",
+     ":null",
+     ":null",
+     ":null",
+     ":null",
+     ":null",
+     "4647522:inv1158-awaiting",
+     "4647523:inv1158-awaiting",
+     "465885019500:inv1158-awaiting"
+    ]
+   }
+  },
+  {
+   "name": "the record is untouched",
+   "ok": true,
+   "detail": {
+    "blocked": 0
+   }
+  },
+  {
+   "name": "no page errors",
+   "ok": true,
+   "detail": []
+  }
+ ],
+ "facts": {
+  "gaps": [
+   "Fencing still to come — relocation and removal by the hour",
+   "Transport — final carrier figures and bookings",
+   "36 planned transport movements — rate or scope to confirm",
+   "17 demob movements still unpriced",
+   "1 non-equipment schedule task with no transport basis"
+  ],
+  "wages": {
+   "toDate": 22956.32,
+   "toCome": 60007.95,
+   "unpricedHours": 0,
+   "hoursOnly": 1471.5,
+   "hoursOnlyToDate": 877,
+   "hoursOnlyPeople": [
+    "Aaron Zelvis",
+    "Alfie Harris",
+    "Andrew Fisher",
+    "Jayden Paul",
+    "Wayne Crimmin",
+    "Frank Devilles",
+    "Ludwig Chee"
+   ],
+   "hoursByType": {
+    "cna": 1005.5,
+    "salary": 466
+   },
+   "hoursOnly1159": true,
+   "known": 22956.32,
+   "toCome2": 60007.95,
+   "allowanceForecast": 14700,
+   "job": 82964.27
+  },
+  "fd": {
+   "cost": 213589.5,
+   "sheet_cost": 216842,
+   "dockets": 123
+  },
+  "adj": -3252.5,
+  "orders": [
+   {
+    "number": "4647508",
+    "amount": 8992,
+    "receipt": "4918492",
+    "weeks": [
+     "Week 6"
+    ],
+    "dockets": 6,
+    "notes": 0,
+    "extras": 0,
+    "counted": 10869,
+    "sheet": null,
+    "noSheet": true,
+    "adjustment": -1877
+   },
+   {
+    "number": "4647509",
+    "amount": 33670,
+    "receipt": "4922398",
+    "weeks": [
+     "Week 5"
+    ],
+    "dockets": 29,
+    "notes": 5,
+    "extras": 5,
+    "counted": 35045.5,
+    "sheet": 33670.5,
+    "noSheet": false,
+    "adjustment": -1375.5
+   },
+   {
+    "number": "4647517",
+    "amount": 26695,
+    "receipt": "4926209",
+    "weeks": [
+     "Week 4"
+    ],
+    "dockets": 23,
+    "notes": 5,
+    "extras": 5,
+    "counted": 26695,
+    "sheet": 26695,
+    "noSheet": false,
+    "adjustment": 0
+   }
+  ],
+  "split": {
+   "clean": true,
+   "gear": 203339.5,
+   "sheet_gear": 206592,
+   "lab": 10250,
+   "paid": 213589.5,
+   "other": 0
+  },
+  "counts": {
+   "matched": 4,
+   "awaiting": 3,
+   "other": 0,
+   "receipted": 2
+  }
+ }
+}
