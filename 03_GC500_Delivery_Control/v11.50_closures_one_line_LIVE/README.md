@@ -1,6 +1,7 @@
 # v11.50 — The fence closure lines redrawn from the marked plan of 23 Oct: one bright colour, straight, on the footpaths
 
-Author: Andrew Fisher. Built on live v11.48 `d87a23c8…`. LIVE line and hashes in STATUS.md.
+Author: Andrew Fisher. Built on live v11.48 `d87a23c8…`. LIVE 23 Oct 2026 11:11 AEST, page `13f89f1924ff73c5…` (21,394,449
+bytes; full hash in STATUS.md).
 
 ## Andrew's words, 23 Oct 2026, on the v11.38 map (with his marked plan)
 
@@ -44,5 +45,9 @@ really good".
 
 - Dry build on a copy of live v11.48, scrubbed as the build is, check_page PASS; the real build from live byte for byte
   the same (`13f89f19…`, 21,394,449 bytes).
-- `tests/test_v1150.cjs`: 11/11 desktop and phone on the build (evidence/dry/); on live after the upload.
-- Regressions on the build (evidence/dry/regress/) and sweeps (evidence/dry/sweep_*.json): see STATUS.md.
+- `tests/test_v1150.cjs`: 11/11 desktop and phone on the build (evidence/dry/); 11/11 desktop and phone on live
+  (evidence/live_*, evidence/closures_*_live_*.png).
+- Regressions on the build: v11.33 (Fence closures tab) 12/12 desktop and phone, v11.44 (satellite maps) 11/11, v11.46 (crew
+  card) 11/11 (evidence/dry/regress/).
+- Sweeps, desktop and phone: 27 tabs (19 shown), 7 hashes, Back, 0 errors, 0 console, 0 writes blocked
+  (evidence/dry/sweep_*.json).
