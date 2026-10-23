@@ -21,6 +21,7 @@ function read(url){return new Promise((resolve,reject)=>{
    window.capability=()=> 'edit';window.mayWrite=()=>false;SYNC.readonly=false;SYNC.level='edit';SYNC.claims='edit';go('servicing');renderServicing1084();
   });
   await p.waitForFunction(()=>window.shiftInput&&!window.shiftInput.readStatus&&!window.shiftInput.test1164,null,{timeout:90000});
+  if(process.env.REPORT_DAY){await p.evaluate(day=>{const b=document.querySelector('[data-svc-day="'+day+'"]');if(!b)throw Error('Requested report night unavailable');b.click();},process.env.REPORT_DAY);await p.waitForFunction(day=>window.shiftInput?.day===day,process.env.REPORT_DAY);}
   const scopeCheck=await p.evaluate(()=>{const M=window.shiftInput;return !M.D.areas.some(a=>a.refs.some(r=>r.ref==='SPASHDOWN'))&&M.D.history1170.some(a=>a.refs.some(r=>r.ref==='SPASHDOWN'));});check(scopeCheck,'removed reference excluded, historical data retained');
   const launch=p.locator('#pane-servicing [data-shift1168]');check(await launch.count()===1,'one report button');await launch.click();
   const dialog=p.locator('.svc-shift1168'),print=dialog.getByRole('button',{name:'Print / save PDF',exact:true});
@@ -38,7 +39,7 @@ function read(url){return new Promise((resolve,reject)=>{
   check((await dialog.innerText()).includes('Not recorded complete'),'honest missing-state label');
   check(await dialog.evaluate(el=>el.scrollWidth<=el.clientWidth+1),'phone dialog does not overflow');
   check(await dialog.locator('.shift1168-report table').first().evaluate(el=>el.getBoundingClientRect().width<=el.parentElement.clientWidth+1),'summary shows every count without sideways scrolling');
-  const dir=process.env.EVIDENCE;if(dir){fs.mkdirSync(dir,{recursive:true});await p.screenshot({path:path.join(dir,'shift-report.png')});}
+  const dir=process.env.EVIDENCE;if(dir){fs.mkdirSync(dir,{recursive:true});fs.writeFileSync(path.join(dir,'summary.txt'),result.summary); await p.screenshot({path:path.join(dir,'shift-report.png')});}
   const downloaded=p.waitForEvent('download');await dialog.getByRole('button',{name:'Download CSV',exact:true}).click();const download=await downloaded;
   check(download.suggestedFilename()==='GC500-servicing-shift-'+result.day+'.csv','night in CSV filename');
   const file=await download.path(),actual=fs.readFileSync(file,'utf8');check(actual===result.csv,'CSV exact snapshot');check(actual.includes('"Author: Andrew Fisher"'),'export author retained');if(dir)await download.saveAs(path.join(dir,download.suggestedFilename()));
