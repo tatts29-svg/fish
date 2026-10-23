@@ -1,6 +1,8 @@
 # v11.52 — Not charged here: six references on their own hire schedules; waste-tank labour one charge with the block
 
-Author: Andrew Fisher. Built on live v11.51 `da4e1ef9…`. LIVE line and hashes in STATUS.md.
+Author: Andrew Fisher. Built on live v11.51 `da4e1ef9…`. LIVE 23 Oct 2026 12:13 AEST: page
+`d1fd288a1ec9ecdc7a3f729813e022a4064cdaf3b0a6297a9d0e40c8dd0213a0` (21,405,118 bytes), guarded page upload, byte for byte;
+no media change, no record change. Full entry in STATUS.md.
 
 ## Andrew's words, 23 Oct 2026
 
@@ -71,7 +73,10 @@ The included-charge rows and their count (507) are unchanged: the work is still 
 
 - Dry build on a copy of live v11.51, scrubbed as the build is, check_page PASS; the real build from live byte for
   byte the same (hash in STATUS.md).
-- `tests/test_v1152.cjs`: see STATUS.md for the counts on the build (evidence/dry/) and on live.
-- Regressions on the build: v11.48 (tabs set aside), v11.51 (areas with the toilets), v11.50 (closures), v11.46 (card
-  words) — evidence/dry/regress/.
-- Sweeps, desktop and phone, on the build — evidence/dry/sweep_*.json.
+- `tests/test_v1152.cjs`: 16/16 desktop and phone on the build (evidence/dry/) and 16/16 desktop and phone on the live page
+  after the upload (evidence/live_*_test_v1152.json, the held-out figures in evidence/*_held_out_figures.json, screenshots
+  `*_live_*.png`).
+- Regressions on the build: v11.48 (tabs set aside) 12/12, v11.51 (areas with the toilets) 10/10, v11.50 (closures) 11/11,
+  v11.46 (card words) 11/11 — evidence/dry/regress/.
+- Sweeps, desktop and phone, on the build: 27 tabs (19 shown) / 7 hashes / Back, 0 errors, 0 console, 0 blocked writes —
+  evidence/dry/sweep_*.json.
