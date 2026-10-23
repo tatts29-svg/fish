@@ -49,10 +49,11 @@ def patch(text):
     if SCOPE['document'] != 'C004-26003-01 Coates Event Labour Scope' or len(SCOPE['lines']) != 7 or [l['key'] for l in SCOPE['lines']] != [l['key'] for l in old['lines']]: raise ValueError('the 2026 transcription is not the seven lines of the 2025 one')
     for bad in ('Claude', 'Codex', 'GPT', 'Gemini'):
         if bad in json.dumps(SCOPE): raise ValueError('an agent name in the scope: ' + bad)
+    mentions = text.count('C004-25003-01') - text[i:j].count('C004-25003-01')  # the 2025 document's name stays only in the v5.83 code comment
     new = json.dumps(SCOPE, separators=(',', ':'), ensure_ascii=True)
     text = text[:i] + new + text[j:]
     text = rep(text, "+' · v11.53'; /* v8.19 release922", "+' · v11.54'; /* v8.19 release922", 'release footer', 'page')
-    for needle, n in [('C004-26003-01 Coates Event Labour Scope', 1), ('C004-25003-01', 0), ('"gc500-event-labour-scope-1"', 1), ('TO BE UPDATED OFF ACCESS PLAN', 0), ("+' · v11.54'; /* v8.19 release922", 1)]:
+    for needle, n in [('C004-26003-01 Coates Event Labour Scope', 1), ('C004-25003-01', mentions), ('"gc500-event-labour-scope-1"', 1), ('TO BE UPDATED OFF ACCESS PLAN', 0), ("+' · v11.54'; /* v8.19 release922", 1)]:
         if text.count(needle) != n: raise ValueError('v11.54 did not land cleanly: ' + needle + ' x' + str(text.count(needle)) + ' (expected ' + str(n) + ')')
     return text
 

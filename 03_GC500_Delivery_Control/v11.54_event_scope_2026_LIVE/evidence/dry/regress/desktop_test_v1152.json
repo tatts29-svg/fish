@@ -1,0 +1,710 @@
+{
+ "at": "2026-10-23T02:41:49.859Z",
+ "live": false,
+ "results": [
+  {
+   "name": "footer says the expected release",
+   "ok": true
+  },
+  {
+   "name": "the six references are on the page and every one is held: hire, labour, transport and total at nought on each, every line marked, the handle names them",
+   "ok": true,
+   "detail": {
+    "totals": {
+     "T0024": {
+      "known": 0,
+      "total": 0,
+      "labour": 0,
+      "transport": 0,
+      "held": true,
+      "lines": [
+       [
+        "FWF",
+        0,
+        true,
+        0
+       ]
+      ]
+     },
+     "T0162": {
+      "known": 0,
+      "total": 0,
+      "labour": 0,
+      "transport": 0,
+      "held": true,
+      "lines": [
+       [
+        "FWF",
+        0,
+        true,
+        0
+       ]
+      ]
+     },
+     "T0176": {
+      "known": 0,
+      "total": 0,
+      "labour": 0,
+      "transport": 0,
+      "held": true,
+      "lines": [
+       [
+        "FWF",
+        0,
+        true,
+        0
+       ]
+      ]
+     },
+     "BJR01": {
+      "known": 0,
+      "total": 0,
+      "labour": 0,
+      "transport": 0,
+      "held": true,
+      "lines": [
+       [
+        "FWF",
+        0,
+        true,
+        0
+       ]
+      ]
+     },
+     "SVP01": {
+      "known": 0,
+      "total": 0,
+      "labour": 0,
+      "transport": 0,
+      "held": true,
+      "lines": [
+       [
+        "FWF",
+        0,
+        true,
+        0
+       ]
+      ]
+     },
+     "PG29": {
+      "known": 0,
+      "total": 0,
+      "labour": 0,
+      "transport": 0,
+      "held": true,
+      "lines": [
+       [
+        "FWF",
+        0,
+        true,
+        0
+       ]
+      ]
+     }
+    },
+    "api": [
+     "T0024",
+     "T0162",
+     "T0176",
+     "BJR01",
+     "SVP01",
+     "PG29"
+    ]
+   }
+  },
+  {
+   "name": "their labour lines stay as card lines for the included-on-arrival rows, each at a rate of nought and marked, with every install tick still on the record",
+   "ok": true,
+   "detail": {
+    "T0024": [
+     {
+      "item": "FWF",
+      "lines": [
+       [
+        "install",
+        0,
+        "rate",
+        true,
+        true
+       ],
+       [
+        "demob",
+        0,
+        "rate",
+        true,
+        true
+       ]
+      ],
+      "held": true
+     }
+    ],
+    "T0162": [
+     {
+      "item": "FWF",
+      "lines": [
+       [
+        "install",
+        0,
+        "rate",
+        true,
+        true
+       ],
+       [
+        "demob",
+        0,
+        "rate",
+        true,
+        true
+       ]
+      ],
+      "held": true
+     }
+    ],
+    "T0176": [
+     {
+      "item": "FWF",
+      "lines": [
+       [
+        "install",
+        0,
+        "rate",
+        true,
+        true
+       ],
+       [
+        "demob",
+        0,
+        "rate",
+        true,
+        true
+       ]
+      ],
+      "held": true
+     }
+    ],
+    "BJR01": [
+     {
+      "item": "FWF",
+      "lines": [
+       [
+        "install",
+        0,
+        "rate",
+        true,
+        true
+       ],
+       [
+        "demob",
+        0,
+        "rate",
+        true,
+        true
+       ]
+      ],
+      "held": true
+     }
+    ],
+    "SVP01": [
+     {
+      "item": "FWF",
+      "lines": [
+       [
+        "install",
+        0,
+        "rate",
+        true,
+        true
+       ],
+       [
+        "demob",
+        0,
+        "rate",
+        true,
+        true
+       ]
+      ],
+      "held": true
+     }
+    ],
+    "PG29": [
+     {
+      "item": "FWF",
+      "lines": [
+       [
+        "install",
+        0,
+        "rate",
+        true,
+        true
+       ],
+       [
+        "demob",
+        0,
+        "rate",
+        true,
+        true
+       ]
+      ],
+      "held": true
+     }
+    ]
+   }
+  },
+  {
+   "name": "no event-night servicing on any of them, and the servicing model lists none of them",
+   "ok": true,
+   "detail": {
+    "night": [
+     null,
+     null,
+     null,
+     null,
+     null,
+     null
+    ],
+    "perRefs": 68
+   }
+  },
+  {
+   "name": "their transport legs are excluded with the reason, nothing arrived counted",
+   "ok": true,
+   "detail": {
+    "T0024": [
+     [
+      {
+       "leg": "delivery",
+       "state": "excluded",
+       "actual": 0,
+       "additional": 0,
+       "reasons": [
+        "Coates own use"
+       ],
+       "gross": 95
+      },
+      {
+       "leg": "pickup",
+       "state": "excluded",
+       "actual": 0,
+       "additional": 0,
+       "reasons": [
+        "Coates own use"
+       ],
+       "gross": 95
+      }
+     ]
+    ],
+    "T0162": [
+     [
+      {
+       "leg": "delivery",
+       "state": "excluded",
+       "actual": 0,
+       "additional": 0,
+       "reasons": [
+        "Not charged here: hire schedule 9977410 (Blanchard Race)"
+       ],
+       "gross": 47.5
+      },
+      {
+       "leg": "pickup",
+       "state": "excluded",
+       "actual": 0,
+       "additional": 0,
+       "reasons": [
+        "Not charged here: hire schedule 9977410 (Blanchard Race)"
+       ],
+       "gross": 47.5
+      }
+     ]
+    ],
+    "T0176": [
+     [
+      {
+       "leg": "delivery",
+       "state": "excluded",
+       "actual": 0,
+       "additional": 0,
+       "reasons": [
+        "Not charged here: hire schedule 9989424 (Redbull)"
+       ],
+       "gross": 95
+      },
+      {
+       "leg": "pickup",
+       "state": "excluded",
+       "actual": 0,
+       "additional": 0,
+       "reasons": [
+        "Not charged here: hire schedule 9989424 (Redbull)"
+       ],
+       "gross": 95
+      }
+     ]
+    ],
+    "BJR01": [
+     [
+      {
+       "leg": "delivery",
+       "state": "excluded",
+       "actual": 0,
+       "additional": 0,
+       "reasons": [
+        "Not charged here: hire schedule 9983884 (Brad Jones Racing)"
+       ],
+       "gross": 47.5
+      },
+      {
+       "leg": "pickup",
+       "state": "excluded",
+       "actual": 0,
+       "additional": 0,
+       "reasons": [
+        "Not charged here: hire schedule 9983884 (Brad Jones Racing)"
+       ],
+       "gross": 47.5
+      }
+     ]
+    ],
+    "SVP01": [
+     [
+      {
+       "leg": "delivery",
+       "state": "excluded",
+       "actual": 0,
+       "additional": 0,
+       "reasons": [
+        "Not charged here: hire schedule 9980337 (Shell V-Power)"
+       ],
+       "gross": 47.5
+      },
+      {
+       "leg": "pickup",
+       "state": "excluded",
+       "actual": 0,
+       "additional": 0,
+       "reasons": [
+        "Not charged here: hire schedule 9980337 (Shell V-Power)"
+       ],
+       "gross": 47.5
+      }
+     ]
+    ],
+    "PG29": [
+     [
+      {
+       "leg": "delivery",
+       "state": "excluded",
+       "actual": 0,
+       "additional": 0,
+       "reasons": [
+        "Not charged here: hire schedule 9990100 (Tickford Racing)"
+       ],
+       "gross": 47.5
+      },
+      {
+       "leg": "pickup",
+       "state": "excluded",
+       "actual": 0,
+       "additional": 0,
+       "reasons": [
+        "Not charged here: hire schedule 9990100 (Tickford Racing)"
+       ],
+       "gross": 47.5
+      }
+     ]
+    ]
+   }
+  },
+  {
+   "name": "what is held out is real money on the record today: labour, servicing, transport and card hire each above nought",
+   "ok": true,
+   "detail": {
+    "labour": 582.96,
+    "servicing": 1311.66,
+    "transport": 760,
+    "hire": 720.54
+   }
+  },
+  {
+   "name": "every waste tank's labour prices at nought (its lines and included rows kept, marked one charge with the block) and the block beside it keeps its rates",
+   "ok": true,
+   "detail": [
+    {
+     "ref": "WC05",
+     "lines": [
+      {
+       "item": "Waste tank",
+       "tank": true,
+       "rates": [
+        0,
+        0,
+        0,
+        0
+       ],
+       "money": [
+        "rate",
+        "rate",
+        "rate",
+        "rate"
+       ],
+       "included": true,
+       "total": 0,
+       "ticks": 4
+      },
+      {
+       "item": "Toilet Block 6m",
+       "tank": false,
+       "rates": [
+        145.74,
+        156.15,
+        104.1,
+        156.15,
+        145.74
+       ],
+       "money": [
+        "rate",
+        "rate",
+        "rate",
+        "rate",
+        "rate"
+       ],
+       "included": false,
+       "total": 707.88,
+       "ticks": 5
+      }
+     ]
+    },
+    {
+     "ref": "WC20",
+     "lines": [
+      {
+       "item": "Toilet Block 6m",
+       "tank": false,
+       "rates": [
+        145.74,
+        156.15,
+        104.1,
+        156.15,
+        145.74
+       ],
+       "money": [
+        "rate",
+        "rate",
+        "rate",
+        "rate",
+        "rate"
+       ],
+       "included": false,
+       "total": 1415.76,
+       "ticks": 5
+      },
+      {
+       "item": "Waste tank",
+       "tank": true,
+       "rates": [
+        0,
+        0,
+        0,
+        0
+       ],
+       "money": [
+        "rate",
+        "rate",
+        "rate",
+        "rate"
+       ],
+       "included": true,
+       "total": 0,
+       "ticks": 4
+      }
+     ]
+    },
+    {
+     "ref": "WC27",
+     "lines": [
+      {
+       "item": "Toilet Block 6m",
+       "tank": false,
+       "rates": [
+        145.74,
+        156.15,
+        104.1,
+        156.15,
+        145.74
+       ],
+       "money": [
+        "rate",
+        "rate",
+        "rate",
+        "rate",
+        "rate"
+       ],
+       "included": false,
+       "total": 707.88,
+       "ticks": 5
+      },
+      {
+       "item": "Waste tank",
+       "tank": true,
+       "rates": [
+        0,
+        0,
+        0,
+        0
+       ],
+       "money": [
+        "rate",
+        "rate",
+        "rate",
+        "rate"
+       ],
+       "included": true,
+       "total": 0,
+       "ticks": 4
+      }
+     ]
+    },
+    {
+     "ref": "WC60",
+     "lines": [
+      {
+       "item": "Toilet Block 6m",
+       "tank": false,
+       "rates": [
+        145.74,
+        156.15,
+        104.1,
+        156.15,
+        145.74
+       ],
+       "money": [
+        "rate",
+        "rate",
+        "rate",
+        "rate",
+        "rate"
+       ],
+       "included": false,
+       "total": 1259.61,
+       "ticks": 5
+      },
+      {
+       "item": "Waste tank",
+       "tank": true,
+       "rates": [
+        0,
+        0,
+        0,
+        0
+       ],
+       "money": [
+        "rate",
+        "rate",
+        "rate",
+        "rate"
+       ],
+       "included": true,
+       "total": 0,
+       "ticks": 4
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "name": "contract 9968929: every line Coates own use at nought, the renamed container line 5 among them",
+   "ok": true,
+   "detail": [
+    {
+     "line": 1,
+     "desc": "Portable Building Shell 4.8M x 3.0M",
+     "how": "Coates own use",
+     "amount": 0
+    },
+    {
+     "line": 3,
+     "desc": "Portable Building Shell 4.8M x 3.0M",
+     "how": "Coates own use",
+     "amount": 0
+    },
+    {
+     "line": 5,
+     "desc": "Shop Front - Shut Down",
+     "how": "Coates own use",
+     "amount": 0
+    },
+    {
+     "line": 7,
+     "desc": "Toilet Portable - Fresh Water Flush",
+     "how": "Coates own use",
+     "amount": 0
+    }
+   ]
+  },
+  {
+   "name": "the P&L labour is the sum of the references' labour (the held ones adding nought), the summary names the six and the waste tanks",
+   "ok": true,
+   "detail": {
+    "labour": 72542.48,
+    "labourSum": 72542.48,
+    "words": "T0024 (Coates' own compound, HS 9977412 & 9968929), T0162 (Blanchard Race, HS 9977410), T0176 (Redbull, HS 9989424), BJR01 (Brad Jones Racing, HS 9983884), SVP0"
+   }
+  },
+  {
+   "name": "the Costs & P&L summary says what is not charged here in its \"Not in it yet\" list, naming the references and the waste tanks",
+   "ok": true,
+   "detail": {
+    "html": 776336,
+    "n": 6,
+    "li": "Not charged here: T0024 (Coates' own compound, HS 9977412 & 9968929), T0162 (Blanchard Race, HS 9977410), T0176 (Redbull, HS 9989424), BJR01 (Brad Jones Racing, HS 9983884), SVP01 (Shell V-Power, HS 9980337), PG29 (Tickford Racing, HS 9990100) are on their own hire schedules, a different contract — tracked on this page, charged there; and the labour on each waste tank is one charge with its toilet block (the project manager, 23 Oct 2026).",
+    "ledger": false
+   }
+  },
+  {
+   "name": "the Where-we-are money cards carry the one-line note",
+   "ok": true,
+   "detail": {
+    "where": "Not charged here: 6 references on their own hire schedules, not charged here; waste-tank labour one charge with the block"
+   }
+  },
+  {
+   "name": "Pricing prices the job without the six and lists them with their hire schedules",
+   "ok": true,
+   "detail": {
+    "kpi": "176",
+    "expected": 176,
+    "note": "references on their own hire schedules (PG29 · HS 9990100, T0024 · HS 9977412 & 9968929, T0162 · HS 9977410, T0176 · HS 9989424, BJR01 · HS 9983884, SVP01 · HS 9980337) are tracked here and not priced here — a different contract, charged there (the project manager, 23 Oct 2026)."
+   }
+  },
+  {
+   "name": "the drawer for T0162 says not charged here on the hire line, on each charge row and in the charges table; the included-on-arrival rows stay; no hire or labour money is shown",
+   "ok": true,
+   "detail": {
+    "on": true,
+    "rows": 2,
+    "rowsOn": 2,
+    "held": true,
+    "labText": "FWF · 1 receivedInstall not charged here · × 1 · IncludedDemob not charged here · × 1 · IncludedNot charged here: on hire schedule 9977410 (Blanchard Race), a different contract. Tracked on this page; charged there (the project manager, 23 Oct 2026).",
+    "hireText": "Not charged here: on hire schedule 9977410 (Blanchard Race), a different contract. Tracked on this page; charged there (the project manager, 23 Oct 2026).1 × FWF — not charged here"
+   }
+  },
+  {
+   "name": "record unchanged by the run",
+   "ok": true
+  },
+  {
+   "name": "no page errors",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "name": "no writes attempted",
+   "ok": true,
+   "detail": {
+    "page": 1,
+    "live": 57,
+    "blocked": 0
+   }
+  }
+ ]
+}
