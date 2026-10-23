@@ -30,13 +30,16 @@ function snapshot(M, G, target) {
           else tasks.push({label:D.tasks[t] || t, pending:!!s, optional:S.isExtra(D,t)});
         });
         if (!tasks.length) return;
-        rows.push({label:gl && gl.label || l.label || l.kind, qty:l.qty, tasks:tasks});
+        var row={label:gl && gl.label || l.label || l.kind, qty:l.qty, tasks:tasks,pointIndex:-1};rows.push(row);
         if (p && G && Number.isFinite(p.x) && Number.isFinite(p.y) && p.x >= G.rect[0] && p.x <= G.rect[2] && p.y >= G.rect[1] && p.y <= G.rect[3]) {
-          if (!points.some(function(q){return q.x === p.x && q.y === p.y;})) points.push({x:p.x,y:p.y});
+          row.pointIndex=points.findIndex(function(q){return q.x === p.x && q.y === p.y;});
+          if(row.pointIndex<0){row.pointIndex=points.length;points.push({x:p.x,y:p.y});}
         } else missing = true;
         var pin = gl && gl.pin || g && g.pin, url = pinUrl(pin);
         if (url && !nav.some(function(n){return n.url === url;})) nav.push({label:gl && gl.label || l.label || r.ref,url:url,coordinates:pin.join(', ')});
       });
+      points.forEach(function(p,i){p.label=r.ref+(points.length>1?'-'+(i+1):'');});
+      rows.forEach(function(l){l.mapLabel=l.pointIndex>=0?points[l.pointIndex].label:'';delete l.pointIndex;});
       refs.push({ref:r.ref,area:area,title:g && g.title || r.ref,rows:rows,points:points,nav:nav,missing:missing});
     });
   });
@@ -54,7 +57,7 @@ function shareText(s) {
   if (!s.outstanding.length) out.push('No unfinished jobs recorded for this selection.');
   s.outstanding.forEach(function(r) {
     out.push('',r.ref + ' · ' + r.title, r.area);
-    r.rows.forEach(function(l){out.push(l.label + ' · Qty ' + l.qty + ': ' + l.tasks.map(taskText).join('; '));});
+    r.rows.forEach(function(l){out.push((l.mapLabel&&l.mapLabel!==r.ref?'Map '+l.mapLabel+' · ':'')+l.label + ' · Qty ' + l.qty + ': ' + l.tasks.map(taskText).join('; '));});
     if (r.missing) out.push('Some equipment is outside the drawing or has no recorded map position.');
     r.nav.forEach(function(n){out.push('Directions · ' + n.label + ': ' + n.url);});
     if (!r.nav.length) out.push('Navigation pin not recorded.');
@@ -106,7 +109,7 @@ async function picture(s, G, I) {
   s.outstanding.forEach(function(r){
     text(r.ref+(r.title!==r.ref?' · '+r.title:''),32,'#14242b',true,2);
     if(s.kind!=='area')text(r.area,25,'#455965',false,4);
-    r.rows.forEach(function(l){text(l.label+' · Qty '+l.qty,27,'#14242b',true,1);text(l.tasks.map(taskText).join(' · '),27,'#8a3900',false,10);});
+    r.rows.forEach(function(l){text((l.mapLabel&&l.mapLabel!==r.ref?'Map '+l.mapLabel+' · ':'')+l.label+' · Qty '+l.qty,27,'#14242b',true,1);text(l.tasks.map(taskText).join(' · '),27,'#8a3900',false,10);});
     if(r.missing)text('Some equipment is outside this drawing / location not recorded.',24,'#8a3900',false,3);
     r.nav.forEach(function(n){text('Navigation pin: '+n.coordinates,23,'#455965',false,1);});
     if(!r.nav.length)text('Navigation pin not recorded.',24,'#455965',false,3);
@@ -117,7 +120,7 @@ async function picture(s, G, I) {
   if(y>16000)throw new Error('This area has too much detail for one picture. Share one reference at a time.');
   canvas.width=width;canvas.height=Math.ceil(y+28);c.fillStyle='#fff';c.fillRect(0,0,width,canvas.height);c.textBaseline='top';
   blocks.forEach(function(b){c.font=(b.bold?'700 ':'')+b.size+'px Arial';c.fillStyle=b.color;c.fillText(b.text,b.x,b.y);});
-  var points=[];s.outstanding.forEach(function(r){r.points.forEach(function(p){points.push({x:p.x,y:p.y,ref:r.ref});});});
+  var points=[];s.outstanding.forEach(function(r){r.points.forEach(function(p){points.push({x:p.x,y:p.y,ref:p.label});});});
   var crop=cropFor(points,G.rect,img.naturalWidth,img.naturalHeight);
   var scale=1000/img.naturalWidth,ow=1000,oh=overviewH,ox=40;
   c.drawImage(img,ox,overviewY,ow,oh);

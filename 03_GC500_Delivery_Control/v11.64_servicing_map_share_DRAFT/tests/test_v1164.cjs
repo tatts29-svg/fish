@@ -35,6 +35,7 @@ function equalSource(base,candidate,start,end){let take=s=>{let i=s.indexOf(star
    check(all.outstanding[1].rows[0].tasks.length===1&&all.outstanding[1].rows[0].tasks[0].label==='Clean & restock','block task rules');
    check(all.outstanding[1].rows[1].tasks[0].label==='Pump out','tank task rules');
    check(all.outstanding[1].points.length===2,'all equipment positions');
+   check(all.outstanding[1].rows[0].mapLabel==='TEST-B-1'&&all.outstanding[1].rows[1].mapLabel==='TEST-B-2'&&all.outstanding[1].points[1].label==='TEST-B-2','equipment in different spots has matching labels');
    var txt=SvcShare1164.shareText(all);check(txt.includes('destination=-27.98%2C153.42')&&txt.includes('Qty 3'),'navigation from actual pin and quantities');
    check(!txt.includes('synthetic')&&!txt.includes('saved\"')&&!txt.includes('contact'),'no credentials or event identifiers');
    var missing=SvcShare1164.snapshot(M,G,{kind:'ref',id:'TEST-C'});check(missing.refs[0].missing&&missing.refs[0].nav.length===0,'honest missing location');
@@ -64,7 +65,7 @@ function equalSource(base,candidate,start,end){let take=s=>{let i=s.indexOf(star
   yes(await dialog.evaluate(el=>el.scrollWidth<=el.clientWidth+1));
   yes(await dialog.locator('img').evaluate(el=>el.naturalWidth===1080&&el.naturalHeight>1400));
   if(evidence){fs.mkdirSync(evidence,{recursive:true});await p.screenshot({path:path.join(evidence,mobile?'phone.png':'desktop.png')});
-   const bytes=await dialog.locator('img').evaluate(async el=>Array.from(new Uint8Array(await(await fetch(el.src)).arrayBuffer())));fs.writeFileSync(path.join(evidence,mobile?'phone-picture.png':'desktop-picture.png'),Buffer.from(bytes));}
+   const data=await dialog.locator('img').evaluate(async el=>{const blob=await(await fetch(el.src)).blob();return new Promise((resolve,reject)=>{const r=new FileReader();r.onload=()=>resolve(r.result);r.onerror=reject;r.readAsDataURL(blob);});});fs.writeFileSync(path.join(evidence,mobile?'phone-picture.png':'desktop-picture.png'),Buffer.from(data.split(',')[1],'base64'));}
   await dialog.getByRole('button',{name:'Share picture',exact:true}).click();
   yes(await p.evaluate(()=>__shared.type==='image/png'&&__shared.size>20000&&__shared.text.includes('TEST-B')&&!__shared.text.includes('TEST-C')));
   await p.evaluate(()=>Object.defineProperty(navigator,'share',{configurable:true,value:async()=>{throw new DOMException('Cancelled','AbortError');}}));
