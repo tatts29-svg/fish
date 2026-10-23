@@ -2,7 +2,7 @@
    Display only. Shared register/status supplies kinds; existing servicing geometry supplies areas. */
 (function(W){
 'use strict';
-const DATA1145=__SYMBOLS1145__;
+const DATA1147=__SYMBOLS1147__;
 const COLORS=['#e6534b','#2187c7','#42945a','#8958bd','#b84b87','#806052','#d77d26','#248d97','#939339','#515da7','#32816e','#576b7b','#6c7281','#ba6944'];
 function kind(value){
  const s=String(value||'').toLowerCase();
@@ -46,10 +46,10 @@ function areas(){
 }
 function frameMain(){
  'use strict';
- if(window.MapUnits1145)return;
- const H=parent.MapUnits1145;if(!H)return;
+ if(window.MapUnits1147)return;
+ const H=parent.MapUnits1147;if(!H)return;
  let ready=false,filter='',paints=0,shown=[],lastAreas=[];
- const family='GC500MapUnits1145';
+ const family='GC500MapUnits1147';
  // Already embedded application bytes: no font URL or extra request is needed.
  const face=new FontFace(family,Uint8Array.from(atob(H.data.font),c=>c.charCodeAt(0)));
  face.load().then(font=>{document.fonts.add(font);ready=true;requestPaint();}).catch(()=>{ready=false;});
@@ -59,10 +59,10 @@ function frameMain(){
  }
  window.referenceQuantity1010=reference;
  window.fitReference1010=function(it,status){return reference(it,status);};
- const areaCanvas=document.createElement('canvas');areaCanvas.id='areas1145';areaCanvas.setAttribute('aria-hidden','true');areaCanvas.style.cssText='position:absolute;inset:0;width:100%;height:100%;pointer-events:none';
+ const areaCanvas=document.createElement('canvas');areaCanvas.id='areas1147';areaCanvas.setAttribute('aria-hidden','true');areaCanvas.style.cssText='position:absolute;inset:0;width:100%;height:100%;pointer-events:none';
  document.getElementById('marks').before(areaCanvas);
  const ctx=areaCanvas.getContext('2d');
- const css=document.createElement('style');css.textContent='body.in3d #areas1145,body.fencing-map #areas1145{display:none!important}';document.head.append(css);
+ const css=document.createElement('style');css.textContent='body.in3d #areas1147,body.fencing-map #areas1147{display:none!important}';document.head.append(css);
  function draw(v){
   if(areaCanvas.width!==canvas.width||areaCanvas.height!==canvas.height){areaCanvas.width=canvas.width;areaCanvas.height=canvas.height;}
   ctx.clearRect(0,0,areaCanvas.width,areaCanvas.height);shown=[];
@@ -101,20 +101,20 @@ function frameMain(){
   // Clear an old highlight immediately even when the map is just below the viewport.
   draw(currentView());requestPaint();return true;
  }
- window.MapUnits1145=Object.freeze({reference,draw,select,get state(){return {ready,filter,paints,shown:[...shown],areas:lastAreas.map(a=>({id:a.id,name:a.name,parts:a.polygons.length}))};}});
+ window.MapUnits1147=Object.freeze({reference,draw,select,get state(){return {ready,filter,paints,shown:[...shown],areas:lastAreas.map(a=>({id:a.id,name:a.name,parts:a.polygons.length}))};}});
  H.controls(window);
 }
 function controls(win){
  const frame=win.frameElement,wrap=frame?.closest('#expwrap');if(!wrap||!wrap.closest('#expcard'))return;
- let bar=document.getElementById('map1145-controls');if(bar&&bar.parentNode===wrap.parentNode)return;if(bar)bar.remove();
- bar=document.createElement('section');bar.id='map1145-controls';bar.setAttribute('aria-label','Map area and equipment key');
+ let bar=document.getElementById('map1147-controls');if(bar&&bar.parentNode===wrap.parentNode)return;if(bar)bar.remove();
+ bar=document.createElement('section');bar.id='map1147-controls';bar.setAttribute('aria-label','Map area and equipment key');
  const label=document.createElement('label');label.textContent='Highlight area ';
  const select=document.createElement('select');select.setAttribute('aria-label','Highlight servicing area');select.setAttribute('data-ro','');
  for(const [value,text,disabled] of [['','All areas · separate outlines',false],['off','Hide area highlights',false],...areas().map(a=>[a.id,(a.id==='0'?'':`Area ${a.id} · `)+a.name+(a.polygons.length?'':' · '+a.locationNote),!a.polygons.length])]){const o=document.createElement('option');o.value=value;o.textContent=text;o.disabled=disabled;select.append(o);}
- select.value=win.MapUnits1145.state.filter;select.onchange=()=>win.MapUnits1145.select(select.value);label.append(select);bar.append(label);
+ select.value=win.MapUnits1147.state.filter;select.onchange=()=>win.MapUnits1147.select(select.value);label.append(select);bar.append(label);
  const details=document.createElement('details'),summary=document.createElement('summary');summary.textContent='Equipment symbols';details.append(summary);
- const key=document.createElement('div');key.className='map1145-key';
- for(const [name,s] of Object.entries(DATA1145.symbols)){
+ const key=document.createElement('div');key.className='map1147-key';
+ for(const [name,s] of Object.entries(DATA1147.symbols)){
   const row=document.createElement('span');const svg=document.createElementNS('http://www.w3.org/2000/svg','svg');svg.setAttribute('viewBox','0 0 26 26');svg.setAttribute('aria-hidden','true');
   for(const line of s.lines){const p=document.createElementNS(svg.namespaceURI,'polyline');p.setAttribute('points',line.map(p=>p.join(',')).join(' '));svg.append(p);}
   row.append(svg,document.createTextNode(s.label));key.append(row);
@@ -123,8 +123,8 @@ function controls(win){
  wrap.before(bar);if(typeof W.expSize==='function')W.expSize();
  details.addEventListener('toggle',()=>{if(typeof W.expSize==='function')W.expSize();});
 }
-const style=document.createElement('style');style.id='map1145-style';style.textContent='#map1145-controls{display:flex;flex-wrap:wrap;align-items:center;gap:10px 20px;padding:12px;border:1px solid #49616c;border-radius:10px;background:#111c22;color:#edf6fa;margin:10px 0}#map1145-controls label{display:flex;align-items:center;gap:10px;font-weight:750;flex:1;min-width:0;white-space:nowrap}#map1145-controls select{min-width:0;max-width:100%;width:100%;padding:9px;background:#202e35;color:#fff;border:1px solid #68818d;border-radius:6px}#map1145-controls small{flex-basis:100%;color:#b8cbd4}#map1145-controls details{max-width:100%}#map1145-controls summary{cursor:pointer;font-weight:750;padding:8px}#map1145-controls details[open]{flex-basis:100%;order:2}.map1145-key{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px;padding:10px}.map1145-key span{display:flex;align-items:center;gap:8px}.map1145-key svg{flex:none;width:28px;height:28px;fill:none;stroke:#a1f2ff;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}@media(max-width:650px){#map1145-controls label{align-items:flex-start;flex-direction:column;flex-basis:100%}#map1145-controls{gap:6px;padding:10px}.map1145-key{grid-template-columns:1fr 1fr;font-size:12px;padding:5px;gap:10px 6px}}';document.head.append(style);
-W.MapUnits1145=Object.freeze({kind,kinds,areas,controls,data:DATA1145,mount(win){if(win.MapUnits1145)return;const s=win.document.createElement('script');s.id='mapunits1145-frame';s.textContent='('+frameMain.toString()+')();';win.document.head.append(s);}});
+const style=document.createElement('style');style.id='map1147-style';style.textContent='#map1147-controls{display:flex;flex-wrap:wrap;align-items:center;gap:10px 20px;padding:12px;border:1px solid #49616c;border-radius:10px;background:#111c22;color:#edf6fa;margin:10px 0}#map1147-controls label{display:flex;align-items:center;gap:10px;font-weight:750;flex:1;min-width:0;white-space:nowrap}#map1147-controls select{min-width:0;max-width:100%;width:100%;padding:9px;background:#202e35;color:#fff;border:1px solid #68818d;border-radius:6px}#map1147-controls small{flex-basis:100%;color:#b8cbd4}#map1147-controls details{max-width:100%}#map1147-controls summary{cursor:pointer;font-weight:750;padding:8px}#map1147-controls details[open]{flex-basis:100%;order:2}.map1147-key{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px;padding:10px}.map1147-key span{display:flex;align-items:center;gap:8px}.map1147-key svg{flex:none;width:28px;height:28px;fill:none;stroke:#a1f2ff;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}@media(max-width:650px){#map1147-controls label{align-items:flex-start;flex-direction:column;flex-basis:100%}#map1147-controls{gap:6px;padding:10px}.map1147-key{grid-template-columns:1fr 1fr;font-size:12px;padding:5px;gap:10px 6px}}';document.head.append(style);
+W.MapUnits1147=Object.freeze({kind,kinds,areas,controls,data:DATA1147,mount(win){if(win.MapUnits1147)return;const s=win.document.createElement('script');s.id='mapunits1147-frame';s.textContent='('+frameMain.toString()+')();';win.document.head.append(s);}});
 const render=W.renderExplorerTab;
-if(typeof render==='function')W.renderExplorerTab=function(){const result=render.apply(this,arguments),win=document.getElementById('expFrame')?.contentWindow;if(win?.MapUnits1145)controls(win);return result;};
+if(typeof render==='function')W.renderExplorerTab=function(){const result=render.apply(this,arguments),win=document.getElementById('expFrame')?.contentWindow;if(win?.MapUnits1147)controls(win);return result;};
 })(window);
