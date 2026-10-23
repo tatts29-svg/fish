@@ -1,0 +1,9 @@
+/* Author: Andrew Fisher. Sharing controls follow the existing servicing controls. */
+.svc1099 [data-share1164-ref],.svc1099 [data-share1164-area]{min-height:44px;margin:8px 0}
+.svc-share1164{box-sizing:border-box;width:min(680px,calc(100vw - 24px));max-height:92dvh;padding:16px;border:1px solid #56717d;border-radius:12px;background:#1b252a;color:#edf5f8;overflow:auto;font:16px/1.45 Arial,sans-serif}
+.svc-share1164::backdrop{background:rgba(0,0,0,.7)}
+.svc-share1164 *{box-sizing:border-box}.svc-share1164-head{display:flex;gap:12px;align-items:start;justify-content:space-between}.svc-share1164 h3{margin:0;font-size:20px;overflow-wrap:anywhere}
+.svc-share1164 button,.svc-share1164-nav a{min-height:44px;padding:10px 14px;border:1px solid #60808e;border-radius:7px;background:#243740;color:#edf5f8;font:inherit;cursor:pointer;white-space:normal;text-align:center}
+.svc-share1164 button:disabled{opacity:.5;cursor:wait}.svc-share1164 button:focus-visible,.svc-share1164 a:focus-visible{outline:3px solid #ffb46a;outline-offset:2px}
+.svc-share1164-actions{display:flex;flex-wrap:wrap;gap:8px}.svc-share1164-actions button{flex:1 1 42%}.svc-share1164 img{display:block;width:100%;height:auto;margin-top:12px;border-radius:6px}.svc-share1164 [hidden]{display:none!important}
+.svc-share1164-nav a{display:block;text-decoration:underline;margin:8px 0}.svc-share1164-nav p{font-size:14px;color:#c6d7df}.svc-share1164 textarea{width:100%;min-height:180px;font:16px/1.4 Arial}
