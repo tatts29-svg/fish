@@ -1,0 +1,22 @@
+{
+  "author": "Author: Andrew Fisher",
+  "status": "STAGED_NOT_LIVE",
+  "source": "2d86df2fa6d7c0a61f4e0528358c3ac4506893c7",
+  "server_sha256": "bdb058ffe1d7e269be978546581383a85f11bd7fc7078f569d41de33b6efe396",
+  "server_bytes": 292810,
+  "staged_at": "2026-10-23T23:13:09.147022+00:00",
+  "focused_http_checks": 23,
+  "legacy_http_checks": 205,
+  "phone_local_server_checks": 23,
+  "upload_hash_and_size_verified": true,
+  "inventory_verified": true,
+  "state_unchanged": true,
+  "cards_unchanged": true,
+  "page_and_machine_unchanged": true,
+  "prior_inventory_unchanged": true,
+  "live_test_completions": 0,
+  "running_service_at_check": "v5.91",
+  "owner_next_action": "Claude: existing guarded Railway switch and exact boot/health/preservation readback",
+  "handover_comment_id": 6376612716,
+  "acknowledged": false
+}

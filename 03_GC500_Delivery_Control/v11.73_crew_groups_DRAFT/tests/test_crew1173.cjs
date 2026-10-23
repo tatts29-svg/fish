@@ -44,6 +44,18 @@ dropPosts=false;await p.evaluate(()=>window.dispatchEvent(new Event('online')));
 r=await req('GET','/api/ticks?token='+token);check(r.j.ticks.find(t=>t.ref==='BBB'&&t.done).crew_group==='pump2','retry persists original group after selection cleared');
 await p.reload();await p.waitForFunction(()=>document.querySelector('[data-job="BBB-FWF|pump"]').classList.contains('done'));
 check((await p.locator('[data-job="BBB-FWF|pump"]').innerText()).includes('Test group 3'),'fresh phone read gets saved group');
+await ctx.route('**/ticks?*',async route=>{const q=route.request();if(new URL(q.url()).hostname!=='127.0.0.1')return route.abort();const response=await route.fetch(),j=await response.json();delete j.crew_groups_version;return route.fulfill({response,json:j});});
+await p.goto(base+'#r=AAA.'+links.AAA+'~clean');await p.waitForFunction(()=>document.querySelector('#crew1173-help').parentElement.textContent.includes('Waiting for the service'));
+await p.selectOption('#crew1173-choice','cleaners');check(await p.locator('[data-job="AAA-FWF|clean"]').isDisabled(),'old server cannot silently discard new attribution');
+check(await p.locator('[data-job="AAA-FWF|refill"]').isEnabled(),'saved history and undo remain accessible while server is unavailable');
+await ctx.unroute('**/ticks?*');await p.reload();await p.waitForFunction(()=>!document.querySelector('#crew1173-help').parentElement.textContent.includes('Waiting for the service'));
+let badAckPosted=false,polledAfterBadAck=false;
+await ctx.route('**/ticks?*',async route=>{const response=await route.fetch();await route.fulfill({response});if(badAckPosted)polledAfterBadAck=true;});
+await ctx.route('**/ticks',route=>{const q=route.request();if(q.method()!=='POST')return route.continue();const ticks=JSON.parse(q.postData()).ticks;badAckPosted=true;return route.fulfill({json:{saved:ticks.map(t=>({id:t.id,seq:999,at:'2026-10-23T19:00:00Z'})),now:'2026-10-23T19:00:00Z',epoch:'invalid-ack-test'}});});
+await p.selectOption('#crew1173-choice','cleaners');await p.locator('[data-job="AAA-FWF|clean"]').click();
+for(let i=0;i<200&&!polledAfterBadAck;i++)await sleep(50);assert(polledAfterBadAck,'malformed acknowledgement was processed and followed by a fresh read');
+check(await p.evaluate(()=>svc1067.outbox().some(t=>t.crew_group==='cleaners')),'acknowledgement missing crew keeps durable outbox');
+check(!await p.locator('[data-job="AAA-FWF|clean"]').evaluate(b=>b.classList.contains('done')),'missing acknowledgement never claims saved');
 check(await p.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1),'phone fits');check(!errors.length,'zero page errors');check(!externalWrites,'no writes outside localhost');
 if(process.env.EVIDENCE){fs.mkdirSync(process.env.EVIDENCE,{recursive:true});await p.screenshot({path:process.env.EVIDENCE+'/crew-groups-phone.png'});}
 console.log(JSON.stringify({checks,errors,externalWrites,localOnly:true}));

@@ -1,0 +1,48 @@
+{
+  "author": "Author: Andrew Fisher",
+  "status": "CHECKS_COMPLETE_AWAITING_VERIFIED_SERVER_SWITCH",
+  "checked_at": "2026-10-23T23:20:49.941675+00:00",
+  "implementation_source": "2d86df2fa6d7c0a61f4e0528358c3ac4506893c7",
+  "base_page_sha256": "84cb7d6c1eccf57ba1cca2802e149fd7ef28b4300c94ae2441f0164697af50ea",
+  "page_sha256": "0a02e5fdba577f678a3494ffdccca474a126bc7be13dac2015a09d3a1c88dd9f",
+  "page_bytes": 21753853,
+  "crew_html_sha256": "bf53b806563c907780700f861485ac29585bd39e58787174fb091a2ddd1d8db3",
+  "server_sha256": "bdb058ffe1d7e269be978546581383a85f11bd7fc7078f569d41de33b6efe396",
+  "checks": {
+    "build_inline_scripts": 173,
+    "pure_report": 54,
+    "phone_local_server": 23,
+    "native_desktop": 33,
+    "native_phone": 33,
+    "sweep_desktop": {
+      "tabs": 27,
+      "shown": 19,
+      "deep_links": 7,
+      "back": true,
+      "errors": 0
+    },
+    "sweep_phone": {
+      "tabs": 27,
+      "shown": 19,
+      "deep_links": 7,
+      "back": true,
+      "errors": 0
+    },
+    "native_update_dry_assertions": 72,
+    "main_upload_dry": "PASS",
+    "phone_and_a4_visual": "PASS",
+    "focused_server": 23,
+    "legacy_server": 205
+  },
+  "live_test_completions": 0,
+  "main_published": false,
+  "crew_published": false,
+  "server_staged": true,
+  "server_deployed": false,
+  "claude_acknowledged": false,
+  "owners": {
+    "main_and_crew": "Codex",
+    "railway_switch": "Claude"
+  },
+  "blocker": "Railway switch credential unavailable in Codex execution environment; exact staged-server handover posted in PR #1."
+}

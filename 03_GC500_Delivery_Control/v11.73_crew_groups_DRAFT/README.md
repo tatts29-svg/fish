@@ -1,4 +1,4 @@
-# Servicing crew groups — draft
+# Servicing crew groups — checks complete, awaiting server deployment
 
 Author: Andrew Fisher · 24 Oct 2026
 
@@ -6,6 +6,14 @@ Andrew requested five crew groups, selected when completing work so each referen
 
 Build from exact live v11.72 `84cb7d6c1eccf57ba1cca2802e149fd7ef28b4300c94ae2441f0164697af50ea`. Set `GC500_CREW_ROSTER` to the authorised private JSON roster (five objects, `id` and `label` only). IDs in order: `cleaners`, `pump1`, `pump2`, `pump3`, `water`. Do not commit that file or contact details. The build adds only these group labels to tracker display data; operational records are not rewritten.
 
-Dependent server v5.92 must be deployed and verified first. Codex owns page/card implementation, checks and guarded publication; Claude owns the Railway switch. This folder is not READY TO UPLOAD while final browser checks and publication guards are pending. No live change has been made by this draft and no second-agent review is claimed.
+Dependent server v5.92 must be deployed and verified first. Codex owns page/card implementation, checks and guarded publication; Claude owns the Railway switch. All candidate checks and dry publication guards are complete. This is conditionally ready after the server switch and its exact read-back; do not publish the crew card on v5.91. No page/card publication has occurred and no second-agent review is claimed.
 
-Tests so far: 54 pure/report checks, 19 actual phone-to-local-server checks; 23 focused server and 205 legacy server checks in the dependent server folder. Native report and full desktop/phone sweeps are in progress. Test fixtures are synthetic or read-only snapshots; tests never write to live servicing.
+Validation: 54 pure/report checks; 23 actual phone-to-local-server checks, including unsupported-server and malformed-acknowledgement cases; 33 native report checks on each of desktop and phone; both complete sweeps (27 tabs, 19 shown, 7 deep links and Back), zero page/console errors. The phone selector and A4 completion ledger were visually inspected. The native crew-update dry rehearsal passed 72 assertions (71 recorded before receipt serialization), with zero live posts or unexpected writes. The main uploader dry-run verified edit access and the unchanged base. Test fixtures are synthetic or read-only snapshots; tests never write to live servicing. The dependent server passed 23 focused HTTP and 205 existing regression checks.
+
+## Candidate and release sequence
+
+Exact page: `0a02e5fdba577f678a3494ffdccca474a126bc7be13dac2015a09d3a1c88dd9f` (21,753,853 bytes). Exact generated crew HTML: `bf53b806563c907780700f861485ac29585bd39e58787174fb091a2ddd1d8db3`. Existing live crew HTML: `960faf8c41a0fbd79860420f342fd0c3635052f827dc9e09cfcba20c0c86f1ab`. Private candidate, roster, backup snapshots, native payload and screenshots remain in authorised private storage; no phone numbers are added to the candidate.
+
+Claude's server switch handover is [PR #1 comment 6376612716](https://github.com/tatts29-svg/fish/pull/1#issuecomment-6376612716). Its tested implementation is source `2d86df2fa6d7c0a61f4e0528358c3ac4506893c7`; the server source hash is unchanged by final client-test/documentation updates. The server blob is staged, not deployed. No receipt or agreement is inferred from posting.
+
+After a verified exact v5.92 switch, refresh the branch, board, conversation and live state, confirm ownership, then use the guarded main uploader. If the live page changed, rebuild and rerun affected checks. Update the existing crew card with `tests/update_crew1173.cjs`; its default is dry capture, and execute additionally requires `GC500_NATIVE_TRACKER_EXECUTE=1`. The execute gate requires healthy v5.92 with `crew_groups_version: 1`, the exact candidate main page, unchanged existing crew HTML, matching private roster and unchanged tracker configuration/signatures/history. Read all required input names in the script before running. Verify exact served main and crew bytes, preserved records/history/signatures, and actual read-only phone behaviour; then record LIVE. No live test completions.
