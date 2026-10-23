@@ -1,0 +1,382 @@
+{
+ "at": "2026-10-23T04:56:22.357Z",
+ "live": true,
+ "results": [
+  {
+   "name": "footer says the expected release",
+   "ok": true
+  },
+  {
+   "name": "twelve gates from the master plan, G1 to G10 with 5A, 5B and 8A",
+   "ok": true,
+   "detail": [
+    "G1",
+    "G2",
+    "G3",
+    "G4",
+    "G5A",
+    "G5B",
+    "G6",
+    "G7",
+    "G8",
+    "G8A",
+    "G9",
+    "G10"
+   ]
+  },
+  {
+   "name": "one point a gate: G1 and G8A on the fence line where the master draws it, G6 the approach on the main sheet (not the inset copy)",
+   "ok": true,
+   "detail": {
+    "g1": {
+     "kind": "gate",
+     "id": "G1",
+     "face": "G1",
+     "num": "1",
+     "label": "Gate 1",
+     "master": "Gate G1",
+     "lat": -27.981657,
+     "lon": 153.423601,
+     "src": "D001-26003-03",
+     "where": "on the fence line",
+     "name": "spectator gate · master plan D001-26003-03",
+     "how": "master plan D001-26003-03 — on the fence line, as the master draws it (image registration, not survey)",
+     "colour": "#ffffff"
+    },
+    "g6": {
+     "kind": "gate",
+     "id": "G6",
+     "face": "G6",
+     "num": "6",
+     "label": "Gate 6",
+     "master": "Gate G6",
+     "lat": -27.993254,
+     "lon": 153.430472,
+     "src": "D001-26003-03",
+     "where": "the approach",
+     "name": "spectator gate · master plan D001-26003-03",
+     "how": "master plan D001-26003-03 — the approach, as the master draws it (image registration, not survey)",
+     "colour": "#ffffff"
+    },
+    "g8a": {
+     "kind": "gate",
+     "id": "G8A",
+     "face": "G8A",
+     "num": "8A",
+     "label": "Gate 8A",
+     "master": "Gate G8a",
+     "lat": -27.981585,
+     "lon": 153.427812,
+     "src": "D001-26003-03",
+     "where": "on the fence line",
+     "name": "spectator gate · master plan D001-26003-03",
+     "how": "master plan D001-26003-03 — on the fence line, as the master draws it (image registration, not survey)",
+     "colour": "#ffffff"
+    }
+   }
+  },
+  {
+   "name": "\"gate 6\", \"g6\" and \"gate 10\" put that gate first; \"gate 1\" is Gate 1, not Gate 10",
+   "ok": true,
+   "detail": {
+    "gate 6": [
+     "gate:Gate 6",
+     "asset:P67",
+     "asset:P52",
+     "asset:P55",
+     "asset:P56",
+     "asset:P60",
+     "asset:P62",
+     "asset:P63",
+     "unit:P55",
+     "unit:P56",
+     "unit:P56",
+     "unit:P60",
+     "place:G1",
+     "place:G10"
+    ],
+    "g6": [
+     "gate:Gate 6",
+     "place:G6",
+     "place:G6",
+     "place:G6",
+     "place:Gate G6",
+     "place:Gate G6"
+    ],
+    "gate 5a": [
+     "gate:Gate 5A",
+     "place:G5A",
+     "place:G5A",
+     "place:G5A",
+     "place:Gate G5A",
+     "place:Gate G5A"
+    ],
+    "gate 5": [
+     "gate:Gate 5A",
+     "gate:Gate 5B",
+     "asset:P60",
+     "asset:P62",
+     "asset:P63",
+     "asset:P52",
+     "asset:P55",
+     "asset:P56",
+     "unit:P52",
+     "unit:P52",
+     "unit:P52",
+     "unit:P52",
+     "place:G5A",
+     "place:G5A"
+    ],
+    "gate 1": [
+     "gate:Gate 1",
+     "asset:P52",
+     "asset:P55",
+     "asset:P56",
+     "vms:VMS 03a",
+     "asset:P60",
+     "asset:P62",
+     "asset:P63",
+     "asset:P67",
+     "unit:P52",
+     "unit:P52",
+     "unit:P52",
+     "unit:P52",
+     "place:G1"
+    ],
+    "gates": [
+     "gate:Gate 1",
+     "gate:Gate 2",
+     "gate:Gate 3",
+     "gate:Gate 4",
+     "gate:Gate 5A",
+     "gate:Gate 5B",
+     "gate:Gate 6",
+     "gate:Gate 7",
+     "gate:Gate 8",
+     "gate:Gate 8A",
+     "gate:Gate 9",
+     "gate:Gate 10",
+     "tab:Fence closures"
+    ],
+    "gate 10": [
+     "gate:Gate 10",
+     "asset:P60",
+     "asset:P67",
+     "unit:P60",
+     "unit:P67",
+     "place:G10",
+     "place:G10",
+     "place:Gate G10"
+    ],
+    "P33": [
+     "asset:P33",
+     "place:P33",
+     "unit:P33"
+    ]
+   }
+  },
+  {
+   "name": "\"gate 5a\" is Gate 5A; \"gate 5\" offers 5A and 5B; \"gates\" lists all twelve first; an ordinary search is untouched",
+   "ok": true,
+   "detail": {
+    "gate 6": [
+     "gate:Gate 6",
+     "asset:P67",
+     "asset:P52",
+     "asset:P55",
+     "asset:P56",
+     "asset:P60",
+     "asset:P62",
+     "asset:P63",
+     "unit:P55",
+     "unit:P56",
+     "unit:P56",
+     "unit:P60",
+     "place:G1",
+     "place:G10"
+    ],
+    "g6": [
+     "gate:Gate 6",
+     "place:G6",
+     "place:G6",
+     "place:G6",
+     "place:Gate G6",
+     "place:Gate G6"
+    ],
+    "gate 5a": [
+     "gate:Gate 5A",
+     "place:G5A",
+     "place:G5A",
+     "place:G5A",
+     "place:Gate G5A",
+     "place:Gate G5A"
+    ],
+    "gate 5": [
+     "gate:Gate 5A",
+     "gate:Gate 5B",
+     "asset:P60",
+     "asset:P62",
+     "asset:P63",
+     "asset:P52",
+     "asset:P55",
+     "asset:P56",
+     "unit:P52",
+     "unit:P52",
+     "unit:P52",
+     "unit:P52",
+     "place:G5A",
+     "place:G5A"
+    ],
+    "gate 1": [
+     "gate:Gate 1",
+     "asset:P52",
+     "asset:P55",
+     "asset:P56",
+     "vms:VMS 03a",
+     "asset:P60",
+     "asset:P62",
+     "asset:P63",
+     "asset:P67",
+     "unit:P52",
+     "unit:P52",
+     "unit:P52",
+     "unit:P52",
+     "place:G1"
+    ],
+    "gates": [
+     "gate:Gate 1",
+     "gate:Gate 2",
+     "gate:Gate 3",
+     "gate:Gate 4",
+     "gate:Gate 5A",
+     "gate:Gate 5B",
+     "gate:Gate 6",
+     "gate:Gate 7",
+     "gate:Gate 8",
+     "gate:Gate 8A",
+     "gate:Gate 9",
+     "gate:Gate 10",
+     "tab:Fence closures"
+    ],
+    "gate 10": [
+     "gate:Gate 10",
+     "asset:P60",
+     "asset:P67",
+     "unit:P60",
+     "unit:P67",
+     "place:G10",
+     "place:G10",
+     "place:Gate G10"
+    ],
+    "P33": [
+     "asset:P33",
+     "place:P33",
+     "unit:P33"
+    ]
+   }
+  },
+  {
+   "name": "the finder row for the gate says what it is and what opens",
+   "ok": true,
+   "detail": {
+    "first": "gate:Gate 6",
+    "row": "\n G6Gate 6\n spectator gate · master plan D001-26003-03 · the approach, as the master draws itopens the Maps tab with the satellite map ringed on the gate; \"On the plan\" under the map shows it on the master drawingGate"
+   }
+  },
+  {
+   "name": "picking the gate opens the Maps tab in its explorer view, closes the finder, no page reload (hash moves only)",
+   "ok": true,
+   "detail": {
+    "tab": "map",
+    "hash": "#sheet/__explorer",
+    "sheet": "__explorer",
+    "mapShown": true,
+    "finderOpen": false,
+    "navs": [
+     "https://gc500-production.up.railway.app/v/Coates-GC500-2026/#map",
+     "https://gc500-production.up.railway.app/v/Coates-GC500-2026/#sheet/__explorer",
+     "https://gc500-production.up.railway.app/v/Coates-GC500-2026/#map",
+     "https://gc500-production.up.railway.app/v/Coates-GC500-2026/#sheet/MASTER"
+    ]
+   }
+  },
+  {
+   "name": "the satellite map is zoomed on Gate 6 and ringed",
+   "ok": true,
+   "detail": {
+    "pct": 1600,
+    "ring": true,
+    "ringGate": "G6"
+   }
+  },
+  {
+   "name": "the satellite map carries the twelve gates: items, pins, a Gates filter and a list",
+   "ok": true,
+   "detail": {
+    "tab": "map",
+    "hash": "#sheet/__explorer",
+    "sheet": "__explorer",
+    "sel": "null",
+    "mapShown": true,
+    "pct": 1600,
+    "ring": true,
+    "ringGate": "G6",
+    "ringKids": 0,
+    "ringErr": "Cannot read properties of undefined (reading '0')",
+    "gateItems": 12,
+    "pins": 12,
+    "filterBtn": true,
+    "filterText": "Gates (12)",
+    "listRows": 12,
+    "g6pin": "Gate 6 · spectator gate · master plan D001-26003-03G6Gate 6",
+    "finderOpen": false
+   }
+  },
+  {
+   "name": "the Gates filter shows the gates alone",
+   "ok": true,
+   "detail": {
+    "filter": "gate",
+    "pins": 12,
+    "gatePins": 12,
+    "hiddenOthers": true
+   }
+  },
+  {
+   "name": "\"On the plan\" shows the gate on the master drawing, no page reload",
+   "ok": true,
+   "detail": {
+    "Pl": {
+     "btn": true,
+     "sheet": "MASTER",
+     "hash": "#sheet/MASTER",
+     "sel": "null"
+    },
+    "navs": [
+     "https://gc500-production.up.railway.app/v/Coates-GC500-2026/#map",
+     "https://gc500-production.up.railway.app/v/Coates-GC500-2026/#sheet/__explorer",
+     "https://gc500-production.up.railway.app/v/Coates-GC500-2026/#map",
+     "https://gc500-production.up.railway.app/v/Coates-GC500-2026/#sheet/MASTER"
+    ]
+   }
+  },
+  {
+   "name": "record unchanged by the run",
+   "ok": true
+  },
+  {
+   "name": "no page errors",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "name": "no writes attempted",
+   "ok": true,
+   "detail": {
+    "page": 0,
+    "live": 137,
+    "blocked": 0
+   }
+  }
+ ]
+}
