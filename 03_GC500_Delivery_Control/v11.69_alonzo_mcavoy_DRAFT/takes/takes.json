@@ -1,0 +1,18 @@
+[
+ {
+  "slot": 25,
+  "take": "b",
+  "file": "takes/turn25.mp3",
+  "bytes": 302856,
+  "sha256": "3473a136bb36fff489c22ad384583030028443708206b00861e471b70f771434",
+  "measured_s": 25.21
+ },
+ {
+  "slot": 47,
+  "take": "a",
+  "file": "takes/turn47.mp3",
+  "bytes": 412257,
+  "sha256": "5cdcc6d27add323f88ae0430b43afd02df46d33d08fadee60f766eca11505c5e",
+  "measured_s": 34.32
+ }
+]
