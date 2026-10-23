@@ -36,6 +36,24 @@ const tag = (live ? 'live_' : '') + (MOB ? 'phone' : 'desktop');
    R.p34.rows.some(r => r.asked === 'Pad Chair' && r.qty_supplied === 2) && R.eq.rows.some(r => r.qty_supplied === 1) && R.eq.light === 'on site' && /1277089/.test(R.gn.text) && (!R.spNums || R.spNums.st === 'done' || !(R.spNums.rows || []).some(r => /^GN24\b/.test(r))) && (!R.spShort || R.spShort.st === 'done' || !(R.spShort.rows || []).some(r => /EQ0005/.test(r))),
    {p34: R.p34.rows, eq: R.eq, gn: R.gn, spNums: R.spNums, spShort: R.spShort});
   check('no failed check on the Questions tab', R.fails.length === 0, R.fails);
+  /* v11.55 - a unit identified on a reference carries its number */
+  const N = await p.evaluate(() => holdAssets(() => {
+   const one = k => { const a = assetOf(k); return a ? {text: displayNumbersText744(a), html: displayNumbersHtml744(a), loc: locNums(a), native: assetNumbersOf(a), own: displayNumbers744(a).own} : null; };
+   const diff = []; allAssets().forEach(a => { try { const d = displayNumbers744(a), nat = assetNumbersOf(a); const add = d.own.filter(n => !nat.includes(n)); if (add.length) diff.push(a.key + ':' + add.join('/')); } catch (e) { diff.push(a.key + ':ERR ' + e.message); } });
+   const locUp = []; allAssets().forEach(a => { try { const r = locNums(a); if (r && r.identified1155) locUp.push(a.key + ':+' + r.identified1155 + '=' + r.n + '/' + r.q); } catch (e) { locUp.push(a.key + ':ERR'); } });
+   const units = Object.keys((S && S.loads) || {}).filter(k => /unit925/.test(k)).length;
+   /* independently: every reference with an active Coates unit record whose number is not on its own list */
+   const expect = {}; Object.values((S && S.loads) || {}).forEach(u => { if (!u || u.kind !== 'unit925-record' || u.active === false || u.removedBy || String(u.owner || 'coates') !== 'coates') return; const no = String(u.assetNo || '').trim(); if (!/^\d{4,8}$/.test(no)) return; const a = assetOf(u.ref); if (!a || assetNumbersOf(a).includes(no)) return; (expect[u.ref] = expect[u.ref] || []).push(no); });
+   const expectList = Object.keys(expect).map(k => k + ':' + [...new Set(expect[k])].join('/'));
+   const gi = finderIndex().find(it => it.kind === 'asset' && it.key === 'GN24');
+   return {gn24: one('GN24'), gn10: one('GN10'), p67: one('P67'), wc09: one('WC09'), pg29: one('PG29'), diff, locUp, units, expectList, hayHas: !!(gi && gi.hay.includes('1277089')), matchesSrc: String(finderMatches).slice(0, 160), finder: finderMatches('1277089').map(it => it.kind + ':' + it.key), finder2: finderMatches('421107').map(it => it.kind + ':' + it.key)};
+  }));
+  check('GN24 reads its identified number 1277089, 1 of 1 numbered', N.gn24 && /1277089/.test(N.gn24.text) && /1277089/.test(N.gn24.html) && N.gn24.loc && N.gn24.loc.n === 1 && N.gn24.loc.q === 1, N.gn24);
+  check('GN10 reads 1283681 and P67 reads 421107 the same way', N.gn10 && /1283681/.test(N.gn10.text) && N.gn10.loc.n === 1 && N.p67 && /421107/.test(N.p67.text) && N.p67.loc.n === 1, {gn10: N.gn10, p67: N.p67});
+  check('exactly the references with an identified Coates unit off their own list gain its number (GN10, GN24, P67 among them); no asset errors', N.diff.length === N.expectList.length && N.diff.every(x => N.expectList.includes(x)) && ['GN10:1283681', 'GN24:1277089', 'P67:421107'].every(x => N.diff.includes(x)) && !N.diff.some(x => /ERR/.test(x)), {diff: N.diff, expect: N.expectList});
+  check('"n of q numbered" counts identified units and never beyond q', N.locUp.length >= 3 && N.locUp.every(x => { const m = /=(\d+)\/(\d+)$/.exec(x); return m && Number(m[1]) <= Number(m[2]); }), N.locUp);
+  check('the finder finds GN24 by 1277089 and P67 by 421107 (the reference, not only the unit inside it)', N.hayHas && N.finder.includes('asset:GN24') && N.finder2.includes('asset:P67'), {hayHas: N.hayHas, f1: N.finder, f2: N.finder2, units: N.units, src: N.matchesSrc});
+  console.log('   unit925 records in S.loads: ' + N.units + ' · WC09 ' + JSON.stringify(N.wc09 && N.wc09.loc) + ' · PG29 ' + JSON.stringify(N.pg29 && N.pg29.text));
   console.log('   needs an answer now: ' + JSON.stringify(R.open));
   await p.waitForTimeout(1200);
   await p.screenshot({path: path.join(out, 'questions_' + tag + '.png'), fullPage: false});
