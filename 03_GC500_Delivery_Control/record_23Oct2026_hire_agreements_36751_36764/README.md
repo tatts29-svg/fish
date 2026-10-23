@@ -55,5 +55,6 @@ the plan printed), then `--apply` with the backup, the page hash checked against
 the thirteen papers' own documents, the record read back and every other document compared unchanged. The key is never printed,
 logged or stored.
 
-Still to come from Andrew: more dockets ("I have fencing dockets more to send you"); green note 24490; Advanced's sheet for the
-event week on order 4647522 — until it comes the Purchase orders card reads "invoice not matched yet · 13 dockets so far".
+What came next: the rest of the event week's papers (hire agreements 36623–36650, service notes 24482–24491 including the 24490
+this batch pointed to, and collection forms 28569–28579) are in `record_23Oct2026_event_week_papers/`. Still to come: Advanced's
+sheet for the event week on order 4647522 — until it comes the Purchase orders card reads "invoice not matched yet".
