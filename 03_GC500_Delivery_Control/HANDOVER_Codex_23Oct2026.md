@@ -20,6 +20,7 @@ tonight so nothing already done is done again. Everything below is recorded in S
 | Release | What | Live |
 |---|---|---|
 | v11.54 | The 2026 Event Labour Scope C004-26003-01 on the page (2026 access plan, $150.11 / $91.14, the shifts as written); race-weekend charge $55,816.56 → $56,744.47 | 12:46 |
+| v11.55 | pad chairs counted by quantity; a unit identified on a reference carries its number (GN24 1277089, GN10, P67 and six more) | LIVE 23 Oct 14:31 AEST | 7262dbfc63ef6f67 | base v11.54 d23c1278 · source 31fecc08 | test_v1155 14/14 dry + live, desktop + phone; sweeps clean |
 | v11.53 | Questions tab closed off: the identity check no longer fails on the VMS boards (51 → 2 locations without numbers), nine settled questions to history, NVAC lines treated; 3 / 2 / 51 | 12:32 |
 | v11.52 | Not charged here: the six references on their own hire schedules (T0024, T0162, T0176, BJR01, SVP01, PG29) out of every charge and cost; waste-tank labour one charge with the block | 12:13 |
 | v11.51 | The Map explorer's servicing areas only with the toilets: outlines while the Toilets & amenities filter is on or one area is chosen (inside Codex's v11.47 block) | 11:24 |
