@@ -35,7 +35,7 @@ function equalSource(base,candidate,start,end){let take=s=>{let i=s.indexOf(star
    check(all.outstanding[1].rows[0].tasks.length===1&&all.outstanding[1].rows[0].tasks[0].label==='Clean & restock','block task rules');
    check(all.outstanding[1].rows[1].tasks[0].label==='Pump out','tank task rules');
    check(all.outstanding[1].points.length===2,'all equipment positions');
-   var txt=SvcShare1164.shareText(all);check(txt.includes('destination=-27.98%2C153.42')&&txt.includes('Qty')===false,'navigation from actual pin');
+   var txt=SvcShare1164.shareText(all);check(txt.includes('destination=-27.98%2C153.42')&&txt.includes('Qty 3'),'navigation from actual pin and quantities');
    check(!txt.includes('synthetic')&&!txt.includes('saved\"')&&!txt.includes('contact'),'no credentials or event identifiers');
    var missing=SvcShare1164.snapshot(M,G,{kind:'ref',id:'TEST-C'});check(missing.refs[0].missing&&missing.refs[0].nav.length===0,'honest missing location');
    var undone=Object.assign({},M,{events:[tick('done','a','clean'),{id:'undo',line:'a',task:'clean',day,done:false,undoes:['done']}]});
@@ -46,6 +46,7 @@ function equalSource(base,candidate,start,end){let take=s=>{let i=s.indexOf(star
    check(SvcShare1164.snapshot(Object.assign({},M,{readStatus:'Offline'}),G,{kind:'area',id:1}).stale,'stale status retained');
    var crop=SvcShare1164.cropFor([{x:50,y:50,ref:'P'},{x:99,y:99,ref:'Q'}],[0,0,100,100],1000,1000);
    check(crop.points[0].x===500&&crop.points[1].y===990,'registered projection');check(crop.points.every(p=>p.x>=crop.x&&p.x<=crop.x+crop.w&&p.y>=crop.y&&p.y<=crop.y+crop.h),'crop retains all positions');
+   var edge=SvcShare1164.cropFor([{x:0,y:0},{x:100,y:100}],[0,0,100,100],2000,1000);check(edge.x===0&&edge.y===0&&edge.w===2000&&edge.h===1000,'opposite drawing corners remain inside crop');
    var host=document.createElement('div');host.id='fixture1164';host.style.cssText='position:relative;z-index:1;background:#1b252a;color:#fff;max-width:1100px;margin:16px auto;padding:12px';document.body.prepend(host);
    window.__shareFixture={host,M,G,tick};M.refresh=async function(){window.__refreshes=(window.__refreshes||0)+1;SvcMap1099.update(host,M);};SvcMap1099.update(host,M);
    Object.defineProperty(navigator,'canShare',{configurable:true,value:()=>true});Object.defineProperty(navigator,'share',{configurable:true,value:async payload=>{window.__shared={title:payload.title,text:payload.text,name:payload.files[0].name,type:payload.files[0].type,size:payload.files[0].size};}});
@@ -58,7 +59,7 @@ function equalSource(base,candidate,start,end){let take=s=>{let i=s.indexOf(star
   await dialog.getByRole('button',{name:'Share picture',exact:true}).waitFor();
   await p.waitForFunction(()=>!!document.querySelector('.svc-share1164 img')?.src&&document.querySelector('.svc-share1164 img').complete);
   yes(await dialog.locator('h3').innerText().then(x=>x.includes('Area 1')));
-  yes(await dialog.getByRole('link').count()===2);
+  yes(await dialog.locator('a').count()===2);
   yes(await p.evaluate(()=>window.__refreshes===1));
   yes(await dialog.evaluate(el=>el.scrollWidth<=el.clientWidth+1));
   yes(await dialog.locator('img').evaluate(el=>el.naturalWidth===1080&&el.naturalHeight>1400));
@@ -72,13 +73,19 @@ function equalSource(base,candidate,start,end){let take=s=>{let i=s.indexOf(star
   const download=p.waitForEvent('download');await dialog.getByRole('button',{name:'Save picture',exact:true}).click();yes((await download).suggestedFilename()==='GC500-area-1-2026-10-23.png');
   await p.evaluate(()=>{var f=__shareFixture;f.M.events.push(f.tick('pump-saved','a','pump'),f.tick('water-saved','a','refill'));});
   await dialog.getByRole('button',{name:'Refresh picture',exact:true}).click();await p.waitForFunction(()=>document.querySelector('.svc-share1164-actions button').disabled===false);
-  yes(await dialog.getByRole('link').count()===1);
+  yes(await dialog.locator('a').count()===1);
   await p.evaluate(()=>{var f=__shareFixture;f.M.day='2026-10-25';SvcMap1099.update(f.host,f.M);});yes(await dialog.count()===0);
   await host.locator('.svc1099-references summary').click();await host.locator('[data-svc1099-reference="TEST-A"]').click();
   await p.evaluate(()=>Object.defineProperty(navigator,'canShare',{configurable:true,value:()=>false}));
   await host.locator('[data-share1164-ref="TEST-A"]').click();await p.waitForFunction(()=>!!document.querySelector('.svc-share1164 img')?.src);
   yes(await dialog.getByRole('button',{name:'Share picture',exact:true}).isHidden());
   yes(await dialog.getByRole('button',{name:'Save picture',exact:true}).isEnabled());
+  await dialog.locator('summary').click();yes(await dialog.getByRole('link').first().getAttribute('href').then(x=>x.startsWith('https://www.google.com/maps/dir/?api=1&destination=')));
+  await p.evaluate(()=>{__shareFixture.M.refresh=async()=>{throw Error('synthetic offline');};});
+  await dialog.getByRole('button',{name:'Refresh picture',exact:true}).click();await p.waitForFunction(()=>document.querySelector('.svc-share1164-actions button').disabled===false);
+  yes(await dialog.getByRole('status').innerText().then(t=>t.includes('Last verified progress only')));
+  await p.evaluate(()=>Object.defineProperty(navigator,'clipboard',{configurable:true,value:{writeText:async()=>{throw Error('synthetic unavailable');}}}));
+  await dialog.getByRole('button',{name:'Copy jobs + directions',exact:true}).click();yes(await dialog.locator('textarea').inputValue().then(t=>t.includes('Pump out, clean & lock')&&t.includes('maps/dir/')));
   await p.evaluate(()=>{var f=__shareFixture;f.M.context1164='different-tracker';SvcMap1099.update(f.host,f.M);});yes(await dialog.count()===0);
   await host.locator('[data-share1164-ref="TEST-A"]').click();await p.waitForFunction(()=>!!document.querySelector('.svc-share1164 img')?.src);
   await p.evaluate(()=>SvcMap1099.clear(__shareFixture.host));yes(await dialog.count()===0);

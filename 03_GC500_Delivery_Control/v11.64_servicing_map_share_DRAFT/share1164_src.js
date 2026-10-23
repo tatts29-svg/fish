@@ -54,7 +54,7 @@ function shareText(s) {
   if (!s.outstanding.length) out.push('No unfinished jobs recorded for this selection.');
   s.outstanding.forEach(function(r) {
     out.push('',r.ref + ' · ' + r.title, r.area);
-    r.rows.forEach(function(l){out.push(l.label + ': ' + l.tasks.map(taskText).join('; '));});
+    r.rows.forEach(function(l){out.push(l.label + ' · Qty ' + l.qty + ': ' + l.tasks.map(taskText).join('; '));});
     if (r.missing) out.push('Some equipment is outside the drawing or has no recorded map position.');
     r.nav.forEach(function(n){out.push('Directions · ' + n.label + ': ' + n.url);});
     if (!r.nav.length) out.push('Navigation pin not recorded.');
@@ -99,7 +99,7 @@ async function picture(s, G, I) {
   text('Saved progress verified: '+s.verified,24,'#455965',false,4);
   if(s.stale)text('LAST VERIFIED PROGRESS ONLY — refresh unavailable',26,'#9d3a00',true,6);
   text('Where on site',25,'#14242b',true,4);
-  var overviewY=y; y+=225;
+  var overviewY=y,overviewH=1000*img.naturalHeight/img.naturalWidth; y+=overviewH+24;
   text('Closer view · marked references match the jobs below',25,'#14242b',true,4);
   var mapY=y; y+=630;
   text(s.outstanding.length ? 'Still to do · '+s.outstanding.length+' location'+(s.outstanding.length===1?'':'s') : 'No unfinished jobs recorded for this selection.',32,'#14242b',true,12);
@@ -119,10 +119,9 @@ async function picture(s, G, I) {
   blocks.forEach(function(b){c.font=(b.bold?'700 ':'')+b.size+'px Arial';c.fillStyle=b.color;c.fillText(b.text,b.x,b.y);});
   var points=[];s.outstanding.forEach(function(r){r.points.forEach(function(p){points.push({x:p.x,y:p.y,ref:r.ref});});});
   var crop=cropFor(points,G.rect,img.naturalWidth,img.naturalHeight);
-  var scale=Math.min(1000/img.naturalWidth,205/img.naturalHeight),ow=img.naturalWidth*scale,oh=img.naturalHeight*scale,ox=(1080-ow)/2;
-  c.fillStyle='#eef2f3';c.fillRect(40,overviewY,1000,205);c.drawImage(img,ox,overviewY,ow,oh);
+  var scale=1000/img.naturalWidth,ow=1000,oh=overviewH,ox=40;
+  c.drawImage(img,ox,overviewY,ow,oh);
   c.strokeStyle='#de491c';c.lineWidth=4;c.strokeRect(ox+crop.x*scale,overviewY+crop.y*scale,crop.w*scale,crop.h*scale);
-  c.font='700 23px Arial';c.fillStyle='#14242b';c.fillText('Closer view',52,overviewY+8);
   var closeScale=Math.min(1000/crop.w,600/crop.h),dw=crop.w*closeScale,dh=crop.h*closeScale,dx=40+(1000-dw)/2,dy=mapY+(600-dh)/2;
   c.fillStyle='#eef2f3';c.fillRect(40,mapY,1000,600);c.drawImage(img,crop.x,crop.y,crop.w,crop.h,dx,dy,dw,dh);
   c.strokeStyle='#c1cdd2';c.lineWidth=2;c.strokeRect(40,mapY,1000,600);
@@ -148,7 +147,7 @@ function open(I,target) {
   if(!I.M||I.dead)return;close();
   var dialog=element('dialog','',{'class':'svc-share1164','aria-labelledby':'svc-share1164-title','data-ro':''}), head=element('div','',{'class':'svc-share1164-head'});
   var title=element('h3','Map + unfinished jobs',{id:'svc-share1164-title'}), cancel=element('button','Close',{type:'button','data-ro':''}), status=element('p','Preparing picture…',{role:'status'});
-  var preview=element('img','',{alt:'Map location and unfinished servicing jobs'}), actions=element('div','',{'class':'svc-share1164-actions'}), nav=element('div','',{'class':'svc-share1164-nav'});
+  var preview=element('img','',{alt:'Map location and unfinished servicing jobs'}), actions=element('div','',{'class':'svc-share1164-actions'}), nav=element('details','',{'class':'svc-share1164-nav'});
   head.append(title,cancel);dialog.append(head,status,actions,nav,preview);document.body.appendChild(dialog);
   var a={I:I,dialog:dialog,context:I.M.context1164,day:I.M.day||(I.M.S||SvcState).autoDay(I.M.D,I.M.now),focus:document.activeElement,serial:0,url:null,file:null,s:null};active=a;
   function button(label,fn){var b=element('button',label,{type:'button','data-ro':''});b.onclick=fn;actions.appendChild(b);return b;}
@@ -162,7 +161,7 @@ function open(I,target) {
     finally{if(active===a)share.disabled=false;}
   });
   var download=button('Save picture',save), copy=button('Copy jobs + directions',async function(){
-    if(!a.s)return;try{await navigator.clipboard.writeText(shareText(a.s));status.textContent='Jobs and directions copied.';}catch(e){var box=nav.querySelector('textarea');if(!box){box=element('textarea','',{'aria-label':'Jobs and directions to copy',readonly:''});nav.appendChild(box);}box.value=shareText(a.s);box.focus();box.select();status.textContent='Select and copy the jobs and directions below.';}
+    if(!a.s)return;try{await navigator.clipboard.writeText(shareText(a.s));status.textContent='Jobs and directions copied.';}catch(e){var box=nav.querySelector('textarea');if(!box){box=element('textarea','',{'aria-label':'Jobs and directions to copy',readonly:''});nav.appendChild(box);}nav.open=true;box.value=shareText(a.s);box.focus();box.select();status.textContent='Select and copy the jobs and directions below.';}
   }), refresh=button('Refresh picture',prepare);
   cancel.onclick=function(){close(I);};dialog.addEventListener('cancel',function(e){e.preventDefault();close(I);});dialog.showModal();cancel.focus();
   async function prepare(){
@@ -178,6 +177,7 @@ function open(I,target) {
       title.textContent=s.title+' · map + jobs';status.textContent=(s.stale?'Last verified progress only. ':'')+'Saved progress verified '+s.verified+'. Choose where to share.';
       var canFiles=false;try{canFiles=!!navigator.share&&!!navigator.canShare&&navigator.canShare({files:[a.file]});}catch(e){}
       share.hidden=!canFiles;
+      nav.appendChild(element('summary','Open directions',{'data-ro':''}));
       s.outstanding.forEach(function(r){r.nav.forEach(function(n){nav.appendChild(element('a','Directions · '+r.ref+' · '+n.label,{href:n.url,target:'_blank',rel:'noopener noreferrer','data-ro':''}));});});
       nav.appendChild(element('p','Directions links are included in the shared text. If your messaging app keeps only the picture, use Copy jobs + directions. Use approved event access routes.'));
       [share,download,copy].forEach(function(b){b.disabled=false;});

@@ -28,6 +28,10 @@ replace("var selectedIndex=m.areas.findIndex(function(a){return a.id===I.filter;
         "q('[data-share1164-area]').hidden=!I.filter;\nvar selectedIndex=m.areas.findIndex(function(a){return a.id===I.filter;});", 'share selected area')
 replace("if(b.hasAttribute('data-map-refresh')){",
         "if(b.hasAttribute('data-share1164-ref')){SvcShare1164.open(I,{kind:'ref',id:b.getAttribute('data-share1164-ref')});return;}\n    if(b.hasAttribute('data-share1164-area')){if(I.filter)SvcShare1164.open(I,{kind:'area',id:I.filter});return;}\n    if(b.hasAttribute('data-map-refresh')){", 'share delegated actions')
+replace("if(b.hasAttribute('data-svc1099-area')){I.filter=b.getAttribute('data-svc1099-area');q('[data-map-area]').value=I.filter;refreshStats();fit(I.filter);return;}",
+        "if(b.hasAttribute('data-svc1099-area')){I.filter=b.getAttribute('data-svc1099-area');q('[data-map-area]').value=I.filter;refreshStats();fit(I.filter);q('.svc1099-area-chooser').scrollIntoView({block:'nearest'});return;}", 'bring selected area sharing controls into view')
+replace("if(ref||group){I.selected=ref?[ref]:group.split('|');showDetail();}",
+        "if(ref||group){I.selected=ref?[ref]:group.split('|');showDetail();q('.svc1099-detail').scrollIntoView({block:'nearest'});}", 'bring selected reference sharing controls into view')
 replace("I.M=M;var G=geometry(M);I.m=model(M);",
         "I.M=M;SvcShare1164.context(I);var G=geometry(M);I.m=model(M);", 'invalidate changed night or tracker')
 replace("I.destroy=function(){I.dead=true;I.detailToken++;", "I.destroy=function(){SvcShare1164.close(I);I.dead=true;I.detailToken++;", 'close private snapshot on unmount')

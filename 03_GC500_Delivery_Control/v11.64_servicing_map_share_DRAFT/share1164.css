@@ -6,4 +6,5 @@
 .svc-share1164 button,.svc-share1164-nav a{min-height:44px;padding:10px 14px;border:1px solid #60808e;border-radius:7px;background:#243740;color:#edf5f8;font:inherit;cursor:pointer;white-space:normal;text-align:center}
 .svc-share1164 button:disabled{opacity:.5;cursor:wait}.svc-share1164 button:focus-visible,.svc-share1164 a:focus-visible{outline:3px solid #ffb46a;outline-offset:2px}
 .svc-share1164-actions{display:flex;flex-wrap:wrap;gap:8px}.svc-share1164-actions button{flex:1 1 42%}.svc-share1164 img{display:block;width:100%;height:auto;margin-top:12px;border-radius:6px}.svc-share1164 [hidden]{display:none!important}
+.svc-share1164-nav summary{padding:12px 0;min-height:44px;cursor:pointer}.svc-share1164-head{position:sticky;top:-16px;background:#1b252a;padding:8px 0;z-index:1}
 .svc-share1164-nav a{display:block;text-decoration:underline;margin:8px 0}.svc-share1164-nav p{font-size:14px;color:#c6d7df}.svc-share1164 textarea{width:100%;min-height:180px;font:16px/1.4 Arial}
