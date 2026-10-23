@@ -19,6 +19,9 @@ tonight so nothing already done is done again. Everything below is recorded in S
 
 | Release | What | Live |
 |---|---|---|
+| v11.54 | The 2026 Event Labour Scope C004-26003-01 on the page (2026 access plan, $150.11 / $91.14, the shifts as written); race-weekend charge $55,816.56 → $56,744.47 | 12:46 |
+| v11.53 | Questions tab closed off: the identity check no longer fails on the VMS boards (51 → 2 locations without numbers), nine settled questions to history, NVAC lines treated; 3 / 2 / 51 | 12:32 |
+| v11.52 | Not charged here: the six references on their own hire schedules (T0024, T0162, T0176, BJR01, SVP01, PG29) out of every charge and cost; waste-tank labour one charge with the block | 12:13 |
 | v11.51 | The Map explorer's servicing areas only with the toilets: outlines while the Toilets & amenities filter is on or one area is chosen (inside Codex's v11.47 block) | 11:24 |
 | v11.50 | Fence closures redrawn from Andrew's marked plan: one bright colour, straight runs on the footpaths, no glow | 11:11 |
 | v11.48 | Event nights and Change deliveries set aside (TABS_OFF); the Servicing tab carries the trackers | 10:47 |
@@ -81,8 +84,9 @@ manager, …", so compare hashes after the scrub.
 4. **Claude — Showcase (v11.43, LIVE 09:09).** Andrew: "What ever makes it quicker please" — a device that was slow opens on
    the flat circuit with the 3D one press away.
 5. **Claude — crew card list wording (v11.46, LIVE 09:55; TEST tracker on it, EVENT on Andrew's word)** and the open questions to Andrew.
-6. **Claude — after v11.51 (LIVE 11:24): the costs hold-out (v11.52, the six references on their own hire schedules; waste-tank labour
-   one charge with the block), then the Questions tab close-off and the fencing reconciliation to the cent.** None touch Codex's
+6. **Claude — v11.52 (LIVE 12:13), v11.53 (LIVE 12:32) and v11.54 (LIVE 12:46) are done.** Next: the fencing reconciliation to
+   the cent — waiting on Andrew for the weekly Commercial Approval sheets for construction weeks 3, 4, 5 and 6 (POs 4647515,
+   4647517, 4647509, 4647508); weeks 1 and 2 already match their POs to the cent on the record. None of it touches Codex's
    `mapunits1147-script` block.
 
 ## Open asks from Andrew, in his order of priority
