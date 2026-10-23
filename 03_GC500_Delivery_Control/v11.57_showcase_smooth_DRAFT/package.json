@@ -1,0 +1,1 @@
+{"name":"gc500-showcase-preparation-source","private":true,"author":"Andrew Fisher","description":"Optional regeneration of reviewed constructor counterparts; normal release builds do not need npm","dependencies":{"acorn":"8.15.0"}}
