@@ -47,7 +47,7 @@ fb.setupCharacterMap({0xE100+i:name for i,name in enumerate(symbols)})
 fb.setupGlyf({name:glyph(symbols[name][1]) if name in symbols else TTGlyphPen(None).glyph() for name in names})
 fb.setupHorizontalMetrics({name:(1200,0) for name in names})
 fb.setupHorizontalHeader(ascent=1000,descent=-200)
-fb.setupNameTable({'familyName':'GC500 Map Units','styleName':'Regular','uniqueFontIdentifier':'GC500-Map-Units-1147','fullName':'GC500 Map Units','psName':'GC500MapUnits'})
+fb.setupNameTable({'familyName':'GC500 Map Units','styleName':'Regular','uniqueFontIdentifier':'GC500-Map-Units-1145','fullName':'GC500 Map Units','psName':'GC500MapUnits'})
 fb.setupOS2(sTypoAscender=1000,sTypoDescender=-200,usWinAscent=1000,usWinDescent=200)
 fb.setupPost();fb.setupMaxp();fb.font['head'].created=fb.font['head'].modified=2082844800
 fb.font.recalcTimestamp=False;fb.font.flavor='woff';out=io.BytesIO();fb.font.save(out)
