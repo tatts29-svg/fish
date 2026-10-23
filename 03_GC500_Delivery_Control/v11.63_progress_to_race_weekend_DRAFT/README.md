@@ -1,4 +1,8 @@
-# v11.63 — progress to race weekend
+# v11.63 — progress to race weekend — LIVE
+
+**LIVE 23 Oct 2026 22:24 AEST**: page `88a1d5e1cca8a7b005e40b27c0681b69c72934095c2654d993935ec6bfd15dcf` (21,671,214 bytes), built
+on live v11.62 `c4badfeb…`, guarded upload; the view link serves the build byte for byte. Tests 42/42 on the build, desktop and
+phone (real clock, page clock 27 Oct, page clock 3 Nov); sweeps 27 tabs / 19 shown / 0 errors / 0 console, desktop and phone.
 
 Author: Andrew Fisher. Andrew, 23 Oct 2026: "Just with the progress we are doing progress of up to race weekend. Not after
 friday 23/10/2026. Or things will look like they are not complete if that makes sense." Then: "We need to get this perfect."
