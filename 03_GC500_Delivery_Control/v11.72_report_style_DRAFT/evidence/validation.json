@@ -1,0 +1,44 @@
+{
+  "author": "Author: Andrew Fisher",
+  "state": "READY TO UPLOAD",
+  "implementation_source": "40bba55b6b6e727f249762236289fb1810936c20",
+  "base_sha256": "f6394233f1e42df04ebbf84bee7fdfd7df892020a06c267311faae1c69708cf4",
+  "candidate_sha256": "84cb7d6c1eccf57ba1cca2802e149fd7ef28b4300c94ae2441f0164697af50ea",
+  "bytes": 21747846,
+  "build": "PASS; 173 inline scripts",
+  "rules_checks": 45,
+  "native_desktop_checks": 31,
+  "native_phone_checks": 31,
+  "report_pages": 12,
+  "phone_and_print_visually_inspected": true,
+  "shared_toolchain_unchanged": true,
+  "snapshot_and_csv_unchanged": true,
+  "shared_state_and_data_and_entire_crew_bundle_unchanged": true,
+  "second_agent_review": false,
+  "sweeps": {
+    "desktop": {
+      "tabs": 27,
+      "shown": 19,
+      "deep_links": 7,
+      "back": {
+        "hash": "#plant",
+        "pane": "pane-plant"
+      },
+      "page_errors": 0,
+      "console_errors": 0,
+      "writes": 0
+    },
+    "phone": {
+      "tabs": 27,
+      "shown": 19,
+      "deep_links": 7,
+      "back": {
+        "hash": "#plant",
+        "pane": "pane-plant"
+      },
+      "page_errors": 0,
+      "console_errors": 0,
+      "writes": 0
+    }
+  }
+}
