@@ -99,5 +99,8 @@ function equalSource(base,candidate,start,end){let take=s=>{let i=s.indexOf(star
   await p.evaluate(()=>SvcMap1099.clear(__shareFixture.host));yes(await dialog.count()===0);
   yes(s.errors.length===0);yes(cons.length===0);yes(s.counts.blocked===0);
   console.log(JSON.stringify({passed:checks,mobile,errors:s.errors,consoleErrors:cons,blockedWrites:s.counts.blocked}));
+ }catch(e){
+  console.error('Synthetic fixture state',await p.evaluate(()=>({dialog:!!document.querySelector('.svc-share1164'),status:document.querySelector('.svc-share1164 [role="status"]')?.textContent,image:!!document.querySelector('.svc-share1164 img')?.src,day:window.__shareFixture?.M.day,context:window.__shareFixture?.M.context1164})).catch(()=>({unresponsive:true})));
+  throw e;
  }finally{await s.browser.close();}
 })().catch(e=>{console.error(e.stack);process.exit(1);});
