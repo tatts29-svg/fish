@@ -1,0 +1,70 @@
+{
+  "author": "Andrew Fisher",
+  "version": "v11.66",
+  "state": "READY TO UPLOAD",
+  "implementation_source": "47f4d6823ad9d1172ee2eef4bab5c8df07b88ac5",
+  "base_sha256": "f9a7d41802e62b004e9c24cced57d28b442314dfe0079f1384f69e9bf83721ab",
+  "candidate_sha256": "c425b68866e4f32d4234854c02b0b080b53a5e46ab93512a98d39cf616859e9f",
+  "candidate_bytes": 21708919,
+  "static_inline_scripts": 173,
+  "phone_picture_inspected": true,
+  "broadcast_and_media_DATA_exactly_preserved": true,
+  "desktop": {
+    "passed": 52,
+    "mobile": false,
+    "errors": [],
+    "consoleErrors": [],
+    "blockedWrites": 0
+  },
+  "phone": {
+    "passed": 52,
+    "mobile": true,
+    "errors": [],
+    "consoleErrors": [],
+    "blockedWrites": 0
+  },
+  "native": {
+    "nativeServicing": "PASS",
+    "livePage": false,
+    "authenticatedGetOnly": true,
+    "authenticatedReads": 12,
+    "pictureWidth": 1080,
+    "errors": [],
+    "blockedWrites": 0
+  },
+  "sweep_desktop": {
+    "tabs": 27,
+    "shown": 19,
+    "links": 7,
+    "back": {
+      "hash": "#plant",
+      "pane": "pane-plant"
+    },
+    "errors": [],
+    "consoleErrors": [],
+    "blockedWrites": 0
+  },
+  "sweep_phone": {
+    "tabs": 27,
+    "shown": 19,
+    "links": 7,
+    "back": {
+      "hash": "#plant",
+      "pane": "pane-plant"
+    },
+    "errors": [],
+    "consoleErrors": [],
+    "blockedWrites": 0
+  },
+  "geometry_audit": {
+    "references": 75,
+    "areas": 15,
+    "registeredPoints": 82,
+    "rendered": 90,
+    "missingPositionsExplicit": 2,
+    "exactCanvasAnchors": true,
+    "errors": [],
+    "blockedWrites": 0,
+    "source_note": "Rendered on the prior v11.64 candidate; feature module, map geometry and crew bundle compared byte-identical after the v11.65 rebase."
+  }
+}
