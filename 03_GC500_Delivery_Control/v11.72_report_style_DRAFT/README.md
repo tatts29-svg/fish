@@ -1,5 +1,11 @@
-# Coates servicing report and print
+# Coates servicing report and printing
 
 Author: Andrew Fisher
 
-DRAFT — claimed by Codex. CLAIM — v11.72 Coates-styled servicing shift report and easy print (Codex), 24 Oct 2026 AEST. Andrew directly requested a Coates-style report, easier reading and printing from Servicing in the Codex chat. Bounded scope: report presentation, explicit Print report entry and print layout; retain shared servicing rules, active-scope exclusion, saved history and PDF/CSV exports. No operational record, quantities, pricing, tracker or crew-card change. Branch codex/gc500-report-style-24oct; starts at 7836d34eb6c819015bffcd1a9f19f082d002ac4f on ccr-061f77e8-ivjhrv and exact live v11.71 f6394233f1e42df04ebbf84bee7fdfd7df892020a06c267311faae1c69708cf4. Codex implements, tests and publishes via guarded release process. Folder v11.72_report_style_DRAFT/. Author: Andrew Fisher.
+DRAFT. Andrew directly requested a Coates-style report, easy reading and printing from Servicing in the Codex chat on 24 October 2026.
+
+The report uses Coates orange, charcoal and white, a clear shift summary, area overview, follow-up list and full completion record. Servicing has one prominent Print report entry above the map; the report preview has Print / save PDF, CSV and copy actions. The same styling is used in the preview and A4 print output. Saved history remains outside active totals.
+
+Scope is presentation and print access only. The shared servicing state, snapshot calculations, CSV export, entire crew bundle, DATA and broadcast stay unchanged. No operational records, rates, task plans, quantities or completion status are changed. Unrecorded work is labelled for crew confirmation; it is not declared missed.
+
+Base v11.71: f6394233f1e42df04ebbf84bee7fdfd7df892020a06c267311faae1c69708cf4. Source base 7836d34eb6c819015bffcd1a9f19f082d002ac4f; Codex claim 1d7a5c316deb7d8f72422c7bc5e005de537d28d5. Build and 45 focused checks pass; native phone/desktop print checks and both full sweeps are in progress. Not yet published. Private record snapshots, PDFs and screenshots stay outside Git.

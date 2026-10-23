@@ -1,0 +1,11 @@
+/* Author: Andrew Fisher. Clear entry and actions inside Servicing. */
+.svc1099 .report1172-launch{display:flex;align-items:center;justify-content:space-between;gap:15px;border:1px solid #ff6a13;border-left:5px solid #ff6a13;border-radius:8px;padding:13px 15px;margin:12px 0 16px;background:#fff6ed;color:#242629}
+.report1172-launch b{display:block;font-size:16px}.report1172-launch p{margin:4px 0 0;font-size:12px;color:#4d5359}
+.svc1099 .report1172-launch [data-shift1168]{margin:0;background:#ff6a13;color:#242629;border:1px solid #ff6a13;min-height:46px;padding:10px 18px;font-weight:800;white-space:nowrap}
+.svc-shift1168{width:min(960px,calc(100vw - 20px));max-height:92vh;padding:18px;background:#f0f2f4;color:#242629;border:1px solid #c8cdd0;border-top:6px solid #ff6a13}
+.svc-shift1168 .svc-share1164-head{color:#242629}.svc-shift1168 .svc-share1164-head h3{color:#242629}.svc-shift1168>.svc-share1164-actions{position:sticky;top:-18px;z-index:2;background:#f0f2f4;padding:10px 0;border-bottom:1px solid #ccd1d4;margin-bottom:14px}
+.svc-shift1168 .svc-share1164-actions button,.svc-shift1168 .svc-share1164-head button{background:#fff;color:#242629;border:1px solid #a6afb6;min-height:44px;padding:10px 13px;font-size:13px;font-weight:600;border-radius:5px}
+.svc-shift1168 .svc-share1164-actions button:first-child{background:#ff6a13;color:#242629;border-color:#ff6a13;font-weight:800}
+.svc-shift1168 button:focus-visible,.report1172-launch button:focus-visible{outline:3px solid #242629;outline-offset:3px}.svc-shift1168 button:disabled{opacity:.5}
+.svc-shift1168>.shift1168-preview{background:#fff;border-radius:0;padding:24px;box-shadow:0 2px 8px #0001}.svc-shift1168>[role=status]{font-size:12px;color:#4d5359}
+@media(max-width:540px){.svc1099 .report1172-launch{align-items:stretch;flex-direction:column;gap:10px}.svc1099 .report1172-launch [data-shift1168]{width:100%}.svc-shift1168{padding:12px}.svc-shift1168>.shift1168-preview{padding:12px}.svc-shift1168>.svc-share1164-actions{top:-12px}.svc-shift1168 .svc-share1164-actions button:first-child{flex-basis:100%}}
