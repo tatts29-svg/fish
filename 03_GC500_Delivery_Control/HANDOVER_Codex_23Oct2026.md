@@ -19,6 +19,10 @@ tonight so nothing already done is done again. Everything below is recorded in S
 
 | Release | What | Live |
 |---|---|---|
+| v11.51 | The Map explorer's servicing areas only with the toilets: outlines while the Toilets & amenities filter is on or one area is chosen (inside Codex's v11.47 block) | 11:24 |
+| v11.50 | Fence closures redrawn from Andrew's marked plan: one bright colour, straight runs on the footpaths, no glow | 11:11 |
+| v11.48 | Event nights and Change deliveries set aside (TABS_OFF); the Servicing tab carries the trackers | 10:47 |
+| v11.47 | Codex: unit-kind symbols beside the Map explorer codes; each servicing area outlined and named | 10:16 |
 | v11.46 | The crew card names each line in the crew's words with its symbol ("8 flush toilets", not "8 × FWF"); TEST tracker republished, EVENT on Andrew's word | 09:55 |
 | v11.44 | The satellite maps turned to the plan's way up (beach along the top) | 09:24 |
 | v11.43 | Showcase opens on the flat circuit on a device that was slow building the 3D, "3D circuit" one press away | 09:09 |
@@ -77,6 +81,9 @@ manager, …", so compare hashes after the scrub.
 4. **Claude — Showcase (v11.43, LIVE 09:09).** Andrew: "What ever makes it quicker please" — a device that was slow opens on
    the flat circuit with the 3D one press away.
 5. **Claude — crew card list wording (v11.46, LIVE 09:55; TEST tracker on it, EVENT on Andrew's word)** and the open questions to Andrew.
+6. **Claude — after v11.51 (LIVE 11:24): the costs hold-out (v11.52, the six references on their own hire schedules; waste-tank labour
+   one charge with the block), then the Questions tab close-off and the fencing reconciliation to the cent.** None touch Codex's
+   `mapunits1147-script` block.
 
 ## Open asks from Andrew, in his order of priority
 
