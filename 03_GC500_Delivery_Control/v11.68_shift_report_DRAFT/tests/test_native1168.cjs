@@ -36,6 +36,7 @@ function read(url){return new Promise((resolve,reject)=>{
   });checks+=3;
   check((await dialog.innerText()).includes('Not recorded complete'),'honest missing-state label');
   check(await dialog.evaluate(el=>el.scrollWidth<=el.clientWidth+1),'phone dialog does not overflow');
+  check(await dialog.locator('.shift1168-report table').first().evaluate(el=>el.getBoundingClientRect().width<=el.parentElement.clientWidth+1),'summary shows every count without sideways scrolling');
   const dir=process.env.EVIDENCE;if(dir){fs.mkdirSync(dir,{recursive:true});await p.screenshot({path:path.join(dir,'shift-report.png')});}
   const downloaded=p.waitForEvent('download');await dialog.getByRole('button',{name:'Download CSV',exact:true}).click();const download=await downloaded;
   check(download.suggestedFilename()==='GC500-servicing-shift-'+result.day+'.csv','night in CSV filename');
