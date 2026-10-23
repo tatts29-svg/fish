@@ -13,7 +13,7 @@ raw = path.read_bytes()
 text = raw.decode('utf-8')
 assert 'var SvcShare1164 =' not in text, 'v11.64 already applied'
 assert hashlib.sha256(raw).hexdigest() == (HERE / 'BASE_SHA256').read_text().strip(), 'Wrong live base; rebuild and retest'
-assert 'rwDay1163' in text, 'Missing v11.63 base'
+assert 'rwDay1163' in text and "+' · v11.65';" in text, 'Missing v11.65 base'
 
 def replace(old, new, label):
     global text
@@ -40,5 +40,5 @@ replace("I.destroy=function(){I.dead=true;I.detailToken++;", "I.destroy=function
 replace("mapInput1099 = {D:data,S:SvcState,events:model.events,now:now,lastRead:clockNow,day:day,readStatus:status,refresh:function(){failures1099=0;return poll();}};",
         "mapInput1099 = {D:data,S:SvcState,events:model.events,now:now,lastRead:clockNow,day:day,context1164:selected,test1164:meta.load!=='servicing-tracker:GC500-2026',readStatus:status,refresh:function(){failures1099=0;return poll();}};", 'scope snapshot to tracker and service night')
 replace('</head>\n<body>', '<style>\n' + (HERE / 'share1164.css').read_text() + '\n</style>\n</head>\n<body>', 'picture preview styles')
-replace("+' · v11.63';", "+' · v11.64';", 'release footer')
+replace("+' · v11.65';", "+' · v11.66';", 'release footer')
 path.write_text(text, encoding='utf-8')

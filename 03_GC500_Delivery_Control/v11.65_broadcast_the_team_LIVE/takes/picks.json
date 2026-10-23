@@ -1,0 +1,257 @@
+{
+ "1": {
+  "take": "a",
+  "why": "closer to the script or level (1.000 vs 1.000)",
+  "ratio": 1.0
+ },
+ "2": {
+  "take": "a",
+  "why": "closer to the script or level (1.000 vs 1.000)",
+  "ratio": 1.0
+ },
+ "3": {
+  "take": "a",
+  "why": "closer to the script or level (1.000 vs 1.000)",
+  "ratio": 1.0
+ },
+ "4": {
+  "take": "a",
+  "why": "closer to the script or level (0.978 vs 0.978)",
+  "ratio": 0.978
+ },
+ "5": {
+  "take": "b",
+  "why": "says \"Aaron Zelvis\" cleanly",
+  "ratio": 0.943
+ },
+ "6": {
+  "take": "a",
+  "why": "closer to the script or level (1.000 vs 1.000)",
+  "ratio": 1.0
+ },
+ "7": {
+  "take": "a",
+  "why": "closer to the script or level (1.000 vs 1.000)",
+  "ratio": 1.0
+ },
+ "8": {
+  "take": "a",
+  "why": "closer to the script or level (0.974 vs 0.974)",
+  "ratio": 0.974
+ },
+ "9": {
+  "take": "a",
+  "why": "closer to the script or level (1.000 vs 1.000)",
+  "ratio": 1.0
+ },
+ "10": {
+  "take": "b",
+  "why": "closer to the script (0.972 vs 0.944)",
+  "ratio": 0.972
+ },
+ "11": {
+  "take": "a",
+  "why": "closer to the script or level (1.000 vs 1.000)",
+  "ratio": 1.0
+ },
+ "12": {
+  "take": "a",
+  "why": "closer to the script or level (0.944 vs 0.944)",
+  "ratio": 0.944
+ },
+ "13": {
+  "take": "a",
+  "why": "closer to the script or level (0.975 vs 0.950)",
+  "ratio": 0.975
+ },
+ "14": {
+  "take": "a",
+  "why": "closer to the script or level (0.959 vs 0.939)",
+  "ratio": 0.959
+ },
+ "15": {
+  "take": "a",
+  "why": "closer to the script or level (0.981 vs 0.962)",
+  "ratio": 0.981
+ },
+ "16": {
+  "take": "b",
+  "why": "closer to the script (0.949 vs 0.929)",
+  "ratio": 0.949
+ },
+ "17": {
+  "take": "b",
+  "why": "closer to the script (1.000 vs 0.963)",
+  "ratio": 1.0
+ },
+ "18": {
+  "take": "b",
+  "why": "closer to the script (1.000 vs 0.978)",
+  "ratio": 1.0
+ },
+ "19": {
+  "take": "b",
+  "why": "closer to the script (0.949 vs 0.872)",
+  "ratio": 0.949
+ },
+ "20": {
+  "take": "b",
+  "why": "closer to the script (0.889 vs 0.742)",
+  "ratio": 0.889
+ },
+ "21": {
+  "take": "b",
+  "why": "closer to the script (0.971 vs 0.932)",
+  "ratio": 0.971
+ },
+ "22": {
+  "take": "a",
+  "why": "closer to the script or level (0.896 vs 0.896)",
+  "ratio": 0.896
+ },
+ "23": {
+  "take": "b",
+  "why": "closer to the script (0.974 vs 0.949)",
+  "ratio": 0.974
+ },
+ "24": {
+  "take": "a",
+  "why": "closer to the script or level (0.953 vs 0.953)",
+  "ratio": 0.953
+ },
+ "25": {
+  "take": "a",
+  "why": "says \"Chase Hireni\" cleanly",
+  "ratio": 0.947
+ },
+ "26": {
+  "take": "a",
+  "why": "closer to the script or level (1.000 vs 1.000)",
+  "ratio": 1.0
+ },
+ "27": {
+  "take": "b",
+  "why": "closer to the script (1.000 vs 0.974)",
+  "ratio": 1.0
+ },
+ "28": {
+  "take": "a",
+  "why": "closer to the script or level (0.921 vs 0.880)",
+  "ratio": 0.921
+ },
+ "29": {
+  "take": "a",
+  "why": "closer to the script or level (0.974 vs 0.974)",
+  "ratio": 0.974
+ },
+ "30": {
+  "take": "a",
+  "why": "closer to the script or level (1.000 vs 1.000)",
+  "ratio": 1.0
+ },
+ "31": {
+  "take": "a",
+  "why": "closer to the script or level (0.899 vs 0.899)",
+  "ratio": 0.899
+ },
+ "32": {
+  "take": "a",
+  "why": "closer to the script or level (1.000 vs 0.981)",
+  "ratio": 1.0
+ },
+ "33": {
+  "take": "a",
+  "why": "closer to the script or level (1.000 vs 1.000)",
+  "ratio": 1.0
+ },
+ "34": {
+  "take": "a",
+  "why": "closer to the script or level (1.000 vs 1.000)",
+  "ratio": 1.0
+ },
+ "35": {
+  "take": "b",
+  "why": "closer to the script (0.959 vs 0.932)",
+  "ratio": 0.959
+ },
+ "36": {
+  "take": "b",
+  "why": "closer to the script (1.000 vs 0.989)",
+  "ratio": 1.0
+ },
+ "37": {
+  "take": "a",
+  "why": "closer to the script or level (1.000 vs 1.000)",
+  "ratio": 1.0
+ },
+ "38": {
+  "take": "a",
+  "why": "closer to the script or level (0.972 vs 0.972)",
+  "ratio": 0.972
+ },
+ "39": {
+  "take": "b",
+  "why": "closer to the script (0.974 vs 0.883)",
+  "ratio": 0.974
+ },
+ "40": {
+  "take": "a",
+  "why": "closer to the script or level (0.882 vs 0.882)",
+  "ratio": 0.882
+ },
+ "41": {
+  "take": "a",
+  "why": "closer to the script or level (1.000 vs 0.962)",
+  "ratio": 1.0
+ },
+ "42": {
+  "take": "a",
+  "why": "closer to the script or level (1.000 vs 1.000)",
+  "ratio": 1.0
+ },
+ "43": {
+  "take": "a",
+  "why": "closer to the script or level (1.000 vs 0.965)",
+  "ratio": 1.0
+ },
+ "44": {
+  "take": "a",
+  "why": "closer to the script or level (0.938 vs 0.938)",
+  "ratio": 0.938
+ },
+ "45": {
+  "take": "b",
+  "why": "closer to the script (0.919 vs 0.865)",
+  "ratio": 0.919
+ },
+ "46": {
+  "take": "a",
+  "why": "closer to the script or level (0.977 vs 0.977)",
+  "ratio": 0.977
+ },
+ "47": {
+  "take": "b",
+  "why": "\"Aaron Zelvis\" and \"Owen Cowell McPaul\" cleanest",
+  "ratio": 0.832
+ },
+ "48": {
+  "take": "b",
+  "why": "holds the pauses in the quiet, emotional line (five pauses of 1.0-1.7 s)",
+  "ratio": 1.0
+ },
+ "49": {
+  "take": "a",
+  "why": "closer to the script or level (1.000 vs 0.947)",
+  "ratio": 1.0
+ },
+ "50": {
+  "take": "a",
+  "why": "closer to the script or level (0.884 vs 0.837)",
+  "ratio": 0.884
+ },
+ "51": {
+  "take": "a",
+  "why": "closer to the script or level (0.972 vs 0.972)",
+  "ratio": 0.972
+ }
+}

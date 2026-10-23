@@ -10,6 +10,8 @@ function equalSource(base,candidate,start,end){let take=s=>{let i=s.indexOf(star
   equalSource(b,c,'var SvcState =','module.exports = SvcState;');checks++;
   equalSource(b,c,'var SVC1067_CARD=',';\n');checks++;
   equalSource(b,c,'var SVC1099_MAP_DATA=',';\n');checks++;
+  equalSource(b,c,'const DATA =',';\n');checks++;
+  yes(c.includes("+' · v11.66';"));
  }
  const mobile=!!process.env.MOB,s=await open({pageFile,W:mobile?390:1440,H:mobile?844:1000,mobile,dpr:mobile?2:1}),p=s.page;
  try{
@@ -97,6 +99,10 @@ function equalSource(base,candidate,start,end){let take=s=>{let i=s.indexOf(star
   await p.evaluate(()=>{var f=__shareFixture;f.M.context1164='different-tracker';SvcMap1099.update(f.host,f.M);});yes(await dialog.count()===0);
   await host.locator('[data-share1164-ref="TEST-A"]').click();await p.waitForFunction(()=>!!document.querySelector('.svc-share1164 img')?.src);
   await p.evaluate(()=>SvcMap1099.clear(__shareFixture.host));yes(await dialog.count()===0);
+  // Await settled panes: the Timeline deliberately uses a #day/... route.
+  await p.evaluate(()=>go('plant'));await p.waitForFunction(()=>location.hash==='#plant'&&!document.querySelector('#pane-plant').hidden);
+  await p.evaluate(()=>go('timeline'));await p.waitForFunction(()=>!document.querySelector('#pane-timeline').hidden&&location.hash.startsWith('#day/'));
+  await p.goBack();await p.waitForFunction(()=>location.hash==='#plant'&&!document.querySelector('#pane-plant').hidden&&document.querySelector('#pane-timeline').hidden,null,{timeout:30000});checks++;
   yes(s.errors.length===0);yes(cons.length===0);yes(s.counts.blocked===0);
   console.log(JSON.stringify({passed:checks,mobile,errors:s.errors,consoleErrors:cons,blockedWrites:s.counts.blocked}));
  }catch(e){
