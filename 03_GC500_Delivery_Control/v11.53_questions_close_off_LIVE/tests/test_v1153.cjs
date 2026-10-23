@@ -12,7 +12,7 @@ const out = process.env.OUT || path.join(__dirname, '..', 'evidence'); fs.mkdirS
 const results = []; let failed = 0;
 const check = (name, ok, detail) => { results.push({name, ok: !!ok, detail}); if (!ok) failed++; console.log((ok ? 'PASS ' : 'FAIL ') + name + (ok || detail === undefined ? '' : ' :: ' + JSON.stringify(detail).slice(0, 1200))); };
 const tag = (live ? 'live_' : '') + (MOB ? 'phone' : 'desktop');
-const SETTLED = ['fe-quote', 'fe-closure', 'fe-gap', 'fe-rate-team_leader', 'oi-R10', 'oi-R26', 'oi-R29', 'oi-TX03'];
+const SETTLED = ['fe-quote', 'fe-closure', 'fe-gap', 'fe-rate-team_leader', 'oi-R30', 'oi-R10', 'oi-R26', 'oi-R29', 'oi-TX03'];
 (async () => {
  const h = await open(MOB ? {pageFile, hash: '#questions', W: 390, H: 844, dpr: 2, mobile: true} : {pageFile, hash: '#questions', W: 1440, H: 1000});
  const p = h.page;
@@ -39,14 +39,14 @@ const SETTLED = ['fe-quote', 'fe-closure', 'fe-gap', 'fe-rate-team_leader', 'oi-
   }), SETTLED);
   check('the identity check runs: no failed check and no identity error; the fleet numbers on the record are counted (at least 30 received lines covered)', R.fails.length === 0 && !R.identityError && R.identities && R.identities.covered >= 30, {fails: R.fails, identityError: R.identityError, identities: R.identities && {pending: R.identities.pending, covered: R.identities.covered}});
   check('the asset-number question counts received units numbered and lists only the lines still short (under a dozen), the Pit Garage toilets with their numbers no longer among them', R.sp && (R.sp.st === 'done' || (R.sp.n > 0 && R.sp.n < 12 && R.sp.rows.every(r => /received units numbered/.test(r)) && !R.sp.rows.some(r => /^(PG01|PG03|PG05|PG29|WC10|WC30) /.test(r)))), R.sp);
-  check('the eight settled questions sit in Answered or history with their decision, the saved notes kept', R.settled.every(x => x.st === 'done') && R.settled.filter(x => x.note).length >= 6, R.settled);
+  check('the nine settled questions sit in Answered or history with their decision, the saved notes kept', R.settled.every(x => x.st === 'done') && R.settled.filter(x => x.note).length >= 7, R.settled);
   check('labour cost basis is Pending / later with the payroll words; it is not in Needs an answer', R.lb && R.lb.st === 'later' && /payroll/.test(R.lb.need) && !R.open.includes('lb-rates'), R.lb);
   check('NVAC has no unpriced contract line: the four 9961976 lines carry their treatment at nought and the P&L counts no unrated line for them', R.nvacRows.length === 4 && R.nvacRows.every(r => r.amount === 0 && r.kind) && (!R.nvac || R.nvac.st === 'done') && !R.open.includes('br-norate-NVAC') && !R.later.includes('br-norate-NVAC'), {nvac: R.nvac, rows: R.nvacRows, unknown: R.unknown});
-  check('Needs an answer is down to the questions the record cannot answer yet (at most four), none of them the settled ones', R.open.length <= 4 && !R.open.some(id => SETTLED.includes(id) || id === 'fe-quote'), {open: R.open, later: R.later});
-  check('the tab says Questions reviewed · 23 Oct 2026 and the handle names the settled questions', R.reviewed && R.handle === 8, {reviewed: R.reviewed, handle: R.handle});
+  check('Needs an answer is down to the questions the record cannot answer yet (at most three), none of them the settled ones', R.open.length <= 3 && !R.open.some(id => SETTLED.includes(id) || id === 'fe-quote'), {open: R.open, later: R.later});
+  check('the tab says Questions reviewed · 23 Oct 2026 and the handle names the settled questions', R.reviewed && R.handle === 9, {reviewed: R.reviewed, handle: R.handle});
   await p.waitForTimeout(1500);
   const pane = await p.evaluate(() => { const el = document.getElementById('pane-questions'); return {text: el.innerText, warn: /checks didn’t run|checks didn't run/.test(el.innerText), counts: (el.innerText.match(/(\d+)\s+NEED AN ANSWER[\s\S]*?(\d+)\s+PENDING \/ LATER[\s\S]*?(\d+)\s+ANSWERED OR HISTORY/) || []).slice(1).map(Number)}; });
-  check('the pane shows no "checks didn’t run" warning, its counts match (need ≤ 4, answered ≥ 48) and it reads 23 Oct 2026', !pane.warn && pane.counts.length === 3 && pane.counts[0] <= 4 && pane.counts[2] >= 48 && /Questions reviewed · 23 Oct 2026/.test(pane.text), {warn: pane.warn, counts: pane.counts});
+  check('the pane shows no "checks didn’t run" warning, its counts match (need ≤ 3, answered ≥ 50) and it reads 23 Oct 2026', !pane.warn && pane.counts.length === 3 && pane.counts[0] <= 3 && pane.counts[2] >= 50 && /Questions reviewed · 23 Oct 2026/.test(pane.text), {warn: pane.warn, counts: pane.counts});
   await p.evaluate(() => { const el = document.querySelector('#pane-questions [data-answers754]'); if (el) el.scrollIntoView({block: 'start'}); });
   await p.waitForTimeout(600);
   await p.screenshot({path: path.join(out, 'questions_top_' + tag + '.png'), fullPage: false});
