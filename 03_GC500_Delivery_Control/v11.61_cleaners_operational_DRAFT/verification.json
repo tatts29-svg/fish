@@ -1,0 +1,52 @@
+{
+  "author": "Andrew Fisher",
+  "state": "READY TO UPLOAD",
+  "base_sha256": "e17bd3d868b00f421f23a249c39f39c94801c05b57533ae8d4bfcd7674cf683f",
+  "candidate_sha256": "bf54c4a68843a460f0b23728ece16d91c60bc9a2ea036a9dc2740f4425300ed2",
+  "candidate_bytes": 21590895,
+  "crew_checks": {
+    "passed": 46,
+    "failed": 0,
+    "widths": [
+      360,
+      390,
+      1440
+    ],
+    "local_mock_only": true
+  },
+  "toolchain_inline_scripts": 172,
+  "sweeps": {
+    "desktop": {
+      "registered_tabs": 27,
+      "shown_tabs": 19,
+      "page_errors": 0,
+      "console_errors": 0,
+      "writes": 0
+    },
+    "phone": {
+      "registered_tabs": 27,
+      "shown_tabs": 19,
+      "page_errors": 0,
+      "console_errors": 0,
+      "writes": 0
+    }
+  },
+  "static": {
+    "author": "Andrew Fisher",
+    "only_crew_template_and_footer_changed": true,
+    "tracker_data_equal": true,
+    "base_sha256": "e17bd3d868b00f421f23a249c39f39c94801c05b57533ae8d4bfcd7674cf683f",
+    "candidate_sha256": "bf54c4a68843a460f0b23728ece16d91c60bc9a2ea036a9dc2740f4425300ed2"
+  },
+  "native_dry": {
+    "status": "passed",
+    "live_posts": 0,
+    "record_writes": 0,
+    "completion_writes": 0,
+    "printed_links_preserved": 75,
+    "config_and_contact_unchanged": true,
+    "crew_sha256": "0c6ee326a3b3c6ff06fdad04d4968cbec9bb0822226f84d478286f719cffa0a3"
+  },
+  "phone_screenshot_inspected": true,
+  "other_agent_source_review": false
+}
