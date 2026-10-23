@@ -1,0 +1,27 @@
+{
+  "author": "Andrew Fisher",
+  "state": "VERIFIED LIVE",
+  "live_at_aest": "23 Oct 2026 10:16 AEST",
+  "release_source_commit": "025c7dfaccf0b9800a80d56d8d6332c26f196e5e",
+  "tested_source_head": "bd19183571602ad46f2cff35bf9bb8b764a46145",
+  "readback": {
+    "stage": "after-tests",
+    "at": "2026-10-23T00:17:20.855999+00:00",
+    "status": 200,
+    "sha256": "beb194ddf20a232a595f9b547d1b2ae2c1f10ef0c06e517df7de9a54965226d9",
+    "bytes": 21396852
+  },
+  "tests": {
+    "desktop": {
+      "passed": 19,
+      "errors": 0,
+      "write_attempts": 0
+    },
+    "phone": {
+      "passed": 19,
+      "errors": 0,
+      "write_attempts": 0
+    }
+  },
+  "independent_other_agent_review": false
+}
