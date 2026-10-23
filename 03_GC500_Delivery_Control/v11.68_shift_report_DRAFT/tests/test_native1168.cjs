@@ -40,7 +40,7 @@ function read(url){return new Promise((resolve,reject)=>{
   const dir=process.env.EVIDENCE;if(dir){fs.mkdirSync(dir,{recursive:true});await p.screenshot({path:path.join(dir,'shift-report.png')});}
   const downloaded=p.waitForEvent('download');await dialog.getByRole('button',{name:'Download CSV',exact:true}).click();const download=await downloaded;
   check(download.suggestedFilename()==='GC500-servicing-shift-'+result.day+'.csv','night in CSV filename');
-  const file=await download.path(),actual=fs.readFileSync(file,'utf8');check(actual===result.csv,'CSV exact snapshot');if(dir)await download.saveAs(path.join(dir,download.suggestedFilename()));
+  const file=await download.path(),actual=fs.readFileSync(file,'utf8');check(actual===result.csv,'CSV exact snapshot');check(actual.includes('"Author: Andrew Fisher"'),'export author retained');if(dir)await download.saveAs(path.join(dir,download.suggestedFilename()));
   await p.evaluate(()=>Object.defineProperty(navigator,'clipboard',{configurable:true,value:{writeText:async()=>{throw Error('denied');}}}));
   await dialog.getByRole('button',{name:'Copy summary',exact:true}).click();const copy=dialog.locator('textarea');await copy.waitFor();check(await copy.inputValue()===result.summary,'clipboard fallback exact summary');
   const popupEvent=p.waitForEvent('popup');await print.click();const popup=await popupEvent;await popup.waitForLoadState('domcontentloaded');

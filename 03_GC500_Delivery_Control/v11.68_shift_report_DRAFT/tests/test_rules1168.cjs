@@ -7,7 +7,8 @@ assert.equal(state,extract(base,'var SvcState = (function () {','module.exports 
 assert(extract(page,'const DATA = ',';\n')===extract(base,'const DATA = ',';\n'),'DATA declaration must remain unchanged');
 assert(extract(page,'var SVC1067_CARD=',';\n')===extract(base,'var SVC1067_CARD=',';\n'),'Crew bundle must remain unchanged');
 const ctx={module:{exports:{}}};vm.runInNewContext(state,ctx);const S=ctx.module.exports;
-const report=require(dir+'/shift1168_src.js'),day='2026-10-23',now=Date.parse('2026-10-24T05:00:00+10:00');
+const reportCtx={module:{exports:{}}};vm.runInNewContext(extract(page,'var SvcShift1168 =','module.exports=SvcShift1168;'),reportCtx);
+const report=reportCtx.module.exports,day='2026-10-23',now=Date.parse('2026-10-24T05:00:00+10:00');
 const D={days:[{id:day,label:'Fri 23',to:'Sat 24',plan:'night'},{id:'2026-10-24',label:'Sat 24',to:'Sun 25',plan:'night'},{id:'2026-10-25',label:'Sun 25',to:'Mon 26',plan:'final'},{id:'2026-10-22',label:'Practice',plan:'night',practice:true}],tasks:{pump:'Pump out',clean:'Clean & restock',refill:'Water checked / refilled',lockup:'Pump out, clean & lock',extra:'Optional check'},extras:['extra'],plans:{block:{night:['pump','clean','refill','extra'],final:['lockup']},pee:{night:['pump','clean'],final:['pump']}},areas:[{n:1,name:'Example area',refs:[{ref:'TEST-A',lines:[{id:'block',kind:'block',qty:2,label:'2 × toilet blocks'}]},{ref:'TEST-B',lines:[{id:'pee',kind:'pee',qty:1,label:'1 × pee panel'}]}]},{n:0,name:'No location yet',refs:[{ref:'TEST-C',lines:[{id:'other',kind:'pee',qty:1,label:'1 × pee panel'}]}]}]};
 const tick=(id,line,task,extra={})=>Object.assign({id,line,task,day,done:true,at:'2026-10-24T04:30:00+10:00'},extra);
 const model=events=>({D,S,day,events,now,lastRead:now});let checks=3;
@@ -35,6 +36,7 @@ check(!ht.includes('<img src=x')&&ht.includes('&lt;img'),'HTML text escaped');
 check(csv.includes("\"'=HYPERLINK(\"\"bad\"\")\""),'spreadsheet formula neutralised');
 check(report.documentHtml(s).includes('class="shift1168-ledger" open'),'print includes full ledger');
 check(report.csv(s).includes('Waiting to sync — not recorded complete'),'CSV distinguishes pending');
+check(report.csv(s).includes('"Author: Andrew Fisher"'),'compiled CSV preserves author attribution');
 check(report.summary(s).includes('Water checked / refilled: 0 of 2'),'summary uses same task totals');
 check(report.summary(s).includes('Author: Andrew Fisher'),'author attribution');
 check(report.html(empty).includes('Not required'),'nonapplicable cells distinct from unfinished');
