@@ -1,4 +1,4 @@
-# Servicing shift report — ready to upload
+# Servicing shift report — LIVE
 
 Author: Andrew Fisher
 
@@ -6,10 +6,10 @@ Andrew requested a report of completed and unfinished servicing after the crew l
 
 The report uses the existing shared servicing rules and refreshes the tracker before making a snapshot. Pending local entries remain waiting to sync; missing ticks say “not recorded complete”, because an absent tick is not proof the work was missed. A failed refresh labels the last verified progress. Changing tracker/night, leaving Servicing or losing access closes the private report.
 
-READY TO UPLOAD; not yet live. Implementation and tests: `33f2f8f3d7309606ea6a8d5f6b6a0c634f946fee`. Starting shared source: `5736b536f0224f5d0c0f49a26bc24bd120ec8db7`; ownership claim: `8a165df338727edf3e8891f0b52722132def4634` on `ccr-061f77e8-ivjhrv`. Page base is live v11.67 `2a8671b792492953eb560a4123b2234dc036c144970e778276f40b3b5dc27683`. Candidate v11.68: `f98be3c630965d0e7ff65af3ff9151cbceb6812df320c3596d179ed020221d61`, 21,725,009 bytes.
+LIVE 24 Oct 2026 05:41 AEST. Guarded upload confirmed the v11.67 base was unchanged and the public view served the complete candidate byte for byte. A separate public GET matched the full hash, byte count, report module and v11.68 footer. The actual live phone page passed all 22 native checks with zero errors or writes; its screenshot and complete PDF/CSV exports were inspected. READY source `182960c32c44ac136d1f498a9101cef13fa48c44`; PR #39 merged as `9ccf792cf7345a14cb58fc1b5ab119af29052f13`. Implementation and tests: `33f2f8f3d7309606ea6a8d5f6b6a0c634f946fee`. Starting shared source: `5736b536f0224f5d0c0f49a26bc24bd120ec8db7`; ownership claim: `8a165df338727edf3e8891f0b52722132def4634` on `ccr-061f77e8-ivjhrv`. Page base is live v11.67 `2a8671b792492953eb560a4123b2234dc036c144970e778276f40b3b5dc27683`. Candidate v11.68: `f98be3c630965d0e7ff65af3ff9151cbceb6812df320c3596d179ed020221d61`, 21,725,009 bytes.
 
 Final-candidate validation: shared toolchain PASS (173 inline scripts); 28 focused rule checks; 22 native checks on desktop and 22 on phone; both shared full sweeps covered 27 tabs / 19 shown / 7 links / Back to Equipment, with zero page/console errors and zero blocked writes. Phone screenshot inspected; summary counts fit without horizontal scrolling. Actual PDF and CSV exports checked for complete reference coverage and author attribution; printable ledger expands in full. Native report rendering measured 14 ms desktop / 20 ms phone in this environment.
 
 The shared SvcState rules, full DATA declaration including broadcast/media and crew bundle are byte-identical to the base. No record writes, crew-card, QR, pricing or broadcast changes; no new hosted media. Private report rows, PDF/CSV files and screenshots stay outside GitHub. Only validation metadata is committed.
 
-Build from the pinned live base with `bash toolchain/build.sh v11.68 v11.68_shift_report_DRAFT/patch_v1168.py`. Publish with the existing unchanged-base guarded uploader, then independently read back the full bytes/footer and run the native phone checks on the live page before marking LIVE. Implementation, testing and publication are independently owned in the shared board; no second-agent review is claimed.
+Build from the pinned live base with `bash toolchain/build.sh v11.68 v11.68_shift_report_LIVE/patch_v1168.py`. The existing unchanged-base guarded uploader, separate exact public read-back and live native phone check were completed. Later candidates must start from this live hash and preserve this report module. Implementation, testing and publication are independently owned in the shared board; no second-agent review is claimed.
