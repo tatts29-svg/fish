@@ -1,0 +1,75 @@
+{
+  "author": "Author: Andrew Fisher",
+  "state": "VERIFIED LIVE",
+  "implementation_source": "c1eac404dc41c70cfcf7d27766343bfa13e89ed0",
+  "base_sha256": "1a0c2dc11be081cae5a792662a4fcdd3854212e0fb6bc9174cef7143dc2948a7",
+  "candidate_sha256": "adb39788bd3e20ac67cab53d5895e4e428eabbd4186ea6c6c92160d15eeb33e5",
+  "bytes": 21727625,
+  "build": "PASS; 173 scripts",
+  "focused_rules": 41,
+  "synthetic_crew": 13,
+  "native_report_desktop": 23,
+  "native_report_phone": 23,
+  "sweeps": {
+    "desktop": {
+      "tabs": 27,
+      "shown": 19,
+      "deep_links": 7,
+      "back": {
+        "hash": "#plant",
+        "pane": "pane-plant"
+      },
+      "errors": 0,
+      "console_errors": 0,
+      "blocked_writes": 0
+    },
+    "phone": {
+      "tabs": 27,
+      "shown": 19,
+      "deep_links": 7,
+      "back": {
+        "hash": "#plant",
+        "pane": "pane-plant"
+      },
+      "errors": 0,
+      "console_errors": 0,
+      "blocked_writes": 0
+    }
+  },
+  "native_update_dry": "PASS; zero live POSTs; fresh backup and exact configuration/history/signature guards",
+  "phone_and_pdf_inspected": true,
+  "toolchain_files_match_shared_source": 25,
+  "second_agent_review": false,
+  "ready_source": "e12837f0ae7869fbe75c51694a767fda2b9378c0",
+  "merged_source": "45e81997d00c46a73eb1e44098d5fe60fa90983f",
+  "publication_guard_source": "a7af9dc9477aa427dafef5d570d78384f46fa593",
+  "main_live_aest": "2026-10-24 07:54",
+  "crew_live_aest": "2026-10-24 07:57",
+  "crew_sha256": "960faf8c41a0fbd79860420f342fd0c3635052f827dc9e09cfcba20c0c86f1ab",
+  "native_update_live": {
+    "status": "passed",
+    "at": "2026-10-23T21:57:26.148Z",
+    "live_posts": 1,
+    "unexpected_writes": 0,
+    "errors": 0,
+    "exact_crew_html_readback": true,
+    "prior_ticks_and_configuration_preserved": true,
+    "job_record_and_version_unchanged": true
+  },
+  "public_page_readback": {
+    "at": "2026-10-23T21:55:03.450314+00:00",
+    "exact_candidate_match": true,
+    "footer": "v11.70"
+  },
+  "actual_live_report_phone": {
+    "checks": 23,
+    "errors": 0,
+    "writes": 0
+  },
+  "actual_live_crew_phone": {
+    "checks": 7,
+    "errors": 0,
+    "writes": 0
+  },
+  "updated_report": "Generated privately from the live page after both publications; explicit servicing night, history separate from active totals; PDF and CSV checked"
+}
