@@ -1,9 +1,15 @@
-# Servicing shift report — draft
+# Servicing shift report — ready to upload
 
 Author: Andrew Fisher
 
-Andrew requested a report of completed and unfinished servicing after the crew left and confirmed “Yes—report and button”. The Shift report button in main Servicing prepares the selected night's complete record, a follow-up list, area totals and recorded completion times. Print / save PDF, Download CSV and Copy summary are available. Counts come from the existing shared servicing rules; pending local completions do not count as saved. Missing ticks say “not recorded complete”, because an absent tick is not proof the work was missed.
+Andrew requested a report of completed and unfinished servicing after the crew left and confirmed “Yes—report and button”. In main Servicing, select the night and choose **Shift report**. It covers all areas for that night, with recorded completion times, work not recorded complete, area totals, Print / save PDF, Download CSV and Copy summary.
 
-DRAFT, not ready or live. Source base is shared commit `5736b536f0224f5d0c0f49a26bc24bd120ec8db7`; page base is v11.67 `2a8671b792492953eb560a4123b2234dc036c144970e778276f40b3b5dc27683`. Toolchain files match that source exactly. The patch is isolated and pins the live hash. No record writes, crew-card/QR changes or broadcast changes. The existing map and sharing controls remain in use.
+The report uses the existing shared servicing rules and refreshes the tracker before making a snapshot. Pending local entries remain waiting to sync; missing ticks say “not recorded complete”, because an absent tick is not proof the work was missed. A failed refresh labels the last verified progress. Changing tracker/night, leaving Servicing or losing access closes the private report.
 
-Build with `bash toolchain/build.sh v11.68 v11.68_shift_report_DRAFT/patch_v1168.py`. Tests, both full sweeps, phone inspection and exact live read-back are required before LIVE. Operational report rows, PDF/CSV files and screenshots remain in private storage; only non-sensitive validation metadata belongs in this folder.
+READY TO UPLOAD; not yet live. Implementation and tests: `33f2f8f3d7309606ea6a8d5f6b6a0c634f946fee`. Starting shared source: `5736b536f0224f5d0c0f49a26bc24bd120ec8db7`; ownership claim: `8a165df338727edf3e8891f0b52722132def4634` on `ccr-061f77e8-ivjhrv`. Page base is live v11.67 `2a8671b792492953eb560a4123b2234dc036c144970e778276f40b3b5dc27683`. Candidate v11.68: `f98be3c630965d0e7ff65af3ff9151cbceb6812df320c3596d179ed020221d61`, 21,725,009 bytes.
+
+Final-candidate validation: shared toolchain PASS (173 inline scripts); 28 focused rule checks; 22 native checks on desktop and 22 on phone; both shared full sweeps covered 27 tabs / 19 shown / 7 links / Back to Equipment, with zero page/console errors and zero blocked writes. Phone screenshot inspected; summary counts fit without horizontal scrolling. Actual PDF and CSV exports checked for complete reference coverage and author attribution; printable ledger expands in full. Native report rendering measured 14 ms desktop / 20 ms phone in this environment.
+
+The shared SvcState rules, full DATA declaration including broadcast/media and crew bundle are byte-identical to the base. No record writes, crew-card, QR, pricing or broadcast changes; no new hosted media. Private report rows, PDF/CSV files and screenshots stay outside GitHub. Only validation metadata is committed.
+
+Build from the pinned live base with `bash toolchain/build.sh v11.68 v11.68_shift_report_DRAFT/patch_v1168.py`. Publish with the existing unchanged-base guarded uploader, then independently read back the full bytes/footer and run the native phone checks on the live page before marking LIVE. Implementation, testing and publication are independently owned in the shared board; no second-agent review is claimed.
