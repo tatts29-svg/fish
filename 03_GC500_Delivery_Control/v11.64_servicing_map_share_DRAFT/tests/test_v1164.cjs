@@ -24,6 +24,8 @@ function equalSource(base,candidate,start,end){let take=s=>{let i=s.indexOf(star
     areas:[{n:1,name:'Example north area',refs:[{ref:'TEST-A',lines:[{id:'a',label:'Flush toilets',qty:3,kind:'fwf'}]},{ref:'TEST-B',lines:[{id:'b',label:'Toilet block',qty:1,kind:'block'},{id:'t',label:'Waste tank',qty:1,kind:'tank'}]}]},
     {n:2,name:'Example south area',refs:[{ref:'TEST-C',lines:[{id:'c',label:'Other toilet',qty:1,kind:'fwf'}]}]}]};
    var G=Object.assign({},SVC1099_MAP_DATA,{refs:{'TEST-A':{title:'Example gate',pin:[-27.98,153.42],lines:{a:{label:'Flush toilets',point:{x:620,y:550},pin:[-27.98,153.42]}}},'TEST-B':{title:'Example path',pin:[-27.981,153.421],lines:{b:{label:'Toilet block',point:{x:730,y:550}},t:{label:'Waste tank',point:{x:740,y:580}}}},'TEST-C':{title:'Other area',lines:{c:{label:'Other toilet'}}}}});
+   // Synthetic coordinates must never be illustrated on the real site plan.
+   G.image=G.detailImage='data:image/svg+xml;charset=utf-8,'+encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="3000" height="1613"><rect width="3000" height="1613" fill="#e4ebed"/><path d="M0 400H3000M0 800H3000M0 1200H3000M750 0V1613M1500 0V1613M2250 0V1613" stroke="#bac9cf" stroke-width="8"/><text x="100" y="150" font-family="Arial" font-size="70" fill="#283b44">SYNTHETIC TEST MAP — NOT SITE LOCATIONS</text></svg>');
    var tick=(id,line,task,d,local)=>({id,line,task,day:d||day,done:true,at:'2026-10-23T13:00:00Z',local:!!local});
    var M={D,S:SvcState,geometry:G,day,now,lastRead:now,events:[tick('saved','a','clean'),tick('old','a','refill','2026-10-22'),tick('pending','a','pump',day,true)],context1164:'synthetic',test1164:true};
    var snap=SvcShare1164.snapshot(M,G,{kind:'ref',id:'TEST-A'});
@@ -35,6 +37,8 @@ function equalSource(base,candidate,start,end){let take=s=>{let i=s.indexOf(star
    check(all.outstanding[1].rows[0].tasks.length===1&&all.outstanding[1].rows[0].tasks[0].label==='Clean & restock','block task rules');
    check(all.outstanding[1].rows[1].tasks[0].label==='Pump out','tank task rules');
    check(all.outstanding[1].points.length===2,'all equipment positions');
+   check(all.outstanding[1].points[0].kinds[0]==='block'&&all.outstanding[1].points[1].kinds[0]==='tank','native equipment icon classification');
+   check(all.regions.length>0&&all.regions[0].color===SvcMap1099.areaColor1164(0),'native area geometry and colour');
    check(all.outstanding[1].rows[0].mapLabel==='TEST-B-1'&&all.outstanding[1].rows[1].mapLabel==='TEST-B-2'&&all.outstanding[1].points[1].label==='TEST-B-2','equipment in different spots has matching labels');
    var txt=SvcShare1164.shareText(all);check(txt.includes('destination=-27.98%2C153.42')&&txt.includes('Qty 3'),'navigation from actual pin and quantities');
    check(!txt.includes('synthetic')&&!txt.includes('saved\"')&&!txt.includes('contact'),'no credentials or event identifiers');
@@ -48,6 +52,9 @@ function equalSource(base,candidate,start,end){let take=s=>{let i=s.indexOf(star
    var crop=SvcShare1164.cropFor([{x:50,y:50,ref:'P'},{x:99,y:99,ref:'Q'}],[0,0,100,100],1000,1000);
    check(crop.points[0].x===500&&crop.points[1].y===990,'registered projection');check(crop.points.every(p=>p.x>=crop.x&&p.x<=crop.x+crop.w&&p.y>=crop.y&&p.y<=crop.y+crop.h),'crop retains all positions');
    var edge=SvcShare1164.cropFor([{x:0,y:0},{x:100,y:100}],[0,0,100,100],2000,1000);check(edge.x===0&&edge.y===0&&edge.w===2000&&edge.h===1000,'opposite drawing corners remain inside crop');
+   var dense=Array.from({length:14},(_,i)=>({x:480+i*2,y:270+i*2,w:125,h:44})),labels=SvcShare1164.layoutCallouts(dense,{x:0,y:0,w:1000,h:600});
+   check(labels.every((b,i)=>labels.every((q,j)=>i===j||b.x+b.w<=q.x||q.x+q.w<=b.x||b.y+b.h<=q.y||q.y+q.h<=b.y)),'dense location labels do not overlap');
+   check(labels.every((b,i)=>b.anchorX===dense[i].x&&b.anchorY===dense[i].y),'callouts retain exact recorded anchor positions');
    var host=document.createElement('div');host.id='fixture1164';host.style.cssText='position:relative;z-index:1;background:#1b252a;color:#fff;max-width:1100px;margin:16px auto;padding:12px';document.body.prepend(host);
    window.__shareFixture={host,M,G,tick};M.refresh=async function(){window.__refreshes=(window.__refreshes||0)+1;SvcMap1099.update(host,M);};SvcMap1099.update(host,M);
    Object.defineProperty(navigator,'canShare',{configurable:true,value:()=>true});Object.defineProperty(navigator,'share',{configurable:true,value:async payload=>{window.__shared={title:payload.title,text:payload.text,name:payload.files[0].name,type:payload.files[0].type,size:payload.files[0].size};}});

@@ -34,6 +34,8 @@ replace("if(ref||group){I.selected=ref?[ref]:group.split('|');showDetail();}",
         "if(ref||group){I.selected=ref?[ref]:group.split('|');showDetail();q('.svc1099-detail').scrollIntoView({block:'nearest'});}", 'bring selected reference sharing controls into view')
 replace("I.M=M;var G=geometry(M);I.m=model(M);",
         "I.M=M;SvcShare1164.context(I);var G=geometry(M);I.m=model(M);", 'invalidate changed night or tracker')
+replace('symbol:symbol,icon:icon,clusters:clusters,markerClusters:markerClusters,hull:hull,envelope:envelope,pathOf:pathOf',
+        'symbol:symbol,icon:icon,areaColor1164:areaColor,clusters:clusters,markerClusters:markerClusters,hull:hull,envelope:envelope,pathOf:pathOf', 'reuse native area colours')
 replace("I.destroy=function(){I.dead=true;I.detailToken++;", "I.destroy=function(){SvcShare1164.close(I);I.dead=true;I.detailToken++;", 'close private snapshot on unmount')
 replace("mapInput1099 = {D:data,S:SvcState,events:model.events,now:now,lastRead:clockNow,day:day,readStatus:status,refresh:function(){failures1099=0;return poll();}};",
         "mapInput1099 = {D:data,S:SvcState,events:model.events,now:now,lastRead:clockNow,day:day,context1164:selected,test1164:meta.load!=='servicing-tracker:GC500-2026',readStatus:status,refresh:function(){failures1099=0;return poll();}};", 'scope snapshot to tracker and service night')
