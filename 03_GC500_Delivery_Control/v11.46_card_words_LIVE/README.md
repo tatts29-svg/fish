@@ -32,6 +32,8 @@ Author: Andrew Fisher. Built on live v11.44 `471bb02f…`. LIVE 23 Oct 2026 09:5
   small, the spoken labels in words; the focused reference under the plan; the card tab error-free; record unchanged, no
   errors, no writes. Screenshot of PG01's card.
 - `tracker_update.cjs`, `tracker_card_check.cjs` — as v11.37 (the private links file beside them is gitignored).
+- `card_words_check.cjs` — opens the published card at one reference's clean or pump code (GET only, from the private links
+  file, printing no code) and checks each line's title is in words with its symbol and the record's label small.
 
 ## Checks
 
@@ -41,5 +43,8 @@ Author: Andrew Fisher. Built on live v11.44 `471bb02f…`. LIVE 23 Oct 2026 09:5
 - Regressions on the build: v11.37 (card zoom) 10/10 and v11.34 (card symbols) 8/8, desktop and phone (evidence/dry/regress/).
 - Sweeps, desktop and phone: 27 tabs, 7 hashes, Back, 0 errors, 0 console, 0 writes blocked (evidence/dry/sweep_*.json).
 - Trackers: TEST republished 09:56 AEST on the v11.46 card (saved and read back, 75 entries, one POST /api/cards, 0 page
-  errors); `tracker_card_check.cjs test PG01` CARD OK, 0 writes blocked, 0 page errors (evidence/tracker_test_*). EVENT not
-  republished: it waits for Andrew's word; the printed codes stay the same either way.
+  errors); `tracker_card_check.cjs test PG01` CARD OK, 0 writes blocked, 0 page errors (evidence/tracker_test_*). EVENT
+  republished 10:24 AEST on Andrew's "go" from the live page as it then was (v11.47, which carries this card template byte
+  for byte): saved and read back, 75 entries, one POST, 0 page errors; `tracker_card_check.cjs event PG01` CARD OK;
+  `card_words_check.cjs` (GET only) on the published EVENT card at PG01, WC16 and WC20 (pump code): WORDS OK, and the TEST
+  card the same (evidence/tracker_event_*). The printed codes are unchanged on both trackers.

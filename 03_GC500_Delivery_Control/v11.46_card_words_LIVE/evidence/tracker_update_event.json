@@ -1,0 +1,21 @@
+{
+ "at": "2026-10-23T00:24:16.825Z",
+ "mode": "event",
+ "status": "Event tracker saved and read back. Run the iPhone and Android paper scans before laminating.",
+ "contact": "Andrew Fisher, site PM, 0429 352 788 · Kyle, nightshift supervisor",
+ "dialogs": [
+  "Update the existing event tracker? Its printed completion codes will stay the same."
+ ],
+ "cards": 1,
+ "blocked": [
+  "POST /v1/createSession"
+ ],
+ "errors": [],
+ "view": {
+  "title": "GC500 Servicing",
+  "bars": "Everything · Friday 23 0% 0 of 75 references · 0 of 752 jobs 752 jobs to go · 75 references left 0% Pump out 0 of 251 · 251 to go 0% Clean & restock 0 of 259 · 259 to go 0% Water checked / refilled 0 of 242 · 242 to go",
+  "rings": 3,
+  "compact": 3,
+  "chips": 15
+ }
+}
