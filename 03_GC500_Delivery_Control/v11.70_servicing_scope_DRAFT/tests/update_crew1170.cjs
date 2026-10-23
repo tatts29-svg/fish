@@ -67,10 +67,12 @@ function crewData(html){const start=html.indexOf('var D = ')+8;guard(start>8,'cr
     guard(eq(crewData(payload.html),crewData(oldHtml)),'crew reference data unchanged');
     guard(payload.html.includes('var SvcScope1170 =')&&!oldHtml.includes('var SvcScope1170 ='),'new scope template replaces old template');
     save('native-payload.json',payload);save('candidate-crew.html',payload.html);
-    if(!EXECUTE)return route.fulfill({status:409,contentType:'application/json',body:'{"error":"Dry run captured; nothing sent"}'});
-    guard(unexpected===0&&sha(await get('/v/Coates-GC500-2026',false))===candidateHash,'candidate still live before update');
+    guard(unexpected===0&&sha(await get('/v/Coates-GC500-2026',false))===liveHash,'page unchanged before update');
     const fresh=await snapshot('immediate-before');
-    guard(eq(fresh.meta.tracker,before.meta.tracker)&&eq(fresh.meta.links,before.meta.links)&&fresh.html_sha256===before.html_sha256&&eq(fresh.card,before.card)&&historyPreserved(before,fresh),'tracker unchanged before update');
+    // Reading /d/<token> updates last_open; every other card field is protected.
+    const oldCard={...before.card},freshCard={...fresh.card};delete oldCard.last_open;delete freshCard.last_open;
+    guard(eq(fresh.meta.tracker,before.meta.tracker)&&eq(fresh.meta.links,before.meta.links)&&fresh.html_sha256===before.html_sha256&&eq(freshCard,oldCard)&&historyPreserved(before,fresh),'tracker unchanged before update');
+    if(!EXECUTE)return route.fulfill({status:409,contentType:'application/json',body:'{"error":"Dry run captured; nothing sent"}'});
     livePosts++;return route.fulfill(await bridge(r.url(),r.headers(),'POST',r.postData()));
    }catch(e){stage=e.message;return route.fulfill({status:409,contentType:'application/json',body:'{"error":"Guard stopped update"}'});}
   }
