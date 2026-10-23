@@ -1,5 +1,5 @@
 {
- "at": "2026-10-23T01:57:32.010Z",
+ "at": "2026-10-23T02:10:57.630Z",
  "live": false,
  "results": [
   {
@@ -113,7 +113,7 @@
    }
   },
   {
-   "name": "their labour lines stay for the ticks, each at nought and marked, with every install tick still on the record",
+   "name": "their labour lines stay as card lines for the included-on-arrival rows, each at a rate of nought and marked, with every install tick still on the record",
    "ok": true,
    "detail": {
     "T0024": [
@@ -123,14 +123,14 @@
        [
         "install",
         0,
-        "zero",
+        "rate",
         true,
         true
        ],
        [
         "demob",
         0,
-        "zero",
+        "rate",
         true,
         true
        ]
@@ -145,14 +145,14 @@
        [
         "install",
         0,
-        "zero",
+        "rate",
         true,
         true
        ],
        [
         "demob",
         0,
-        "zero",
+        "rate",
         true,
         true
        ]
@@ -167,14 +167,14 @@
        [
         "install",
         0,
-        "zero",
+        "rate",
         true,
         true
        ],
        [
         "demob",
         0,
-        "zero",
+        "rate",
         true,
         true
        ]
@@ -189,14 +189,14 @@
        [
         "install",
         0,
-        "zero",
+        "rate",
         true,
         true
        ],
        [
         "demob",
         0,
-        "zero",
+        "rate",
         true,
         true
        ]
@@ -211,14 +211,14 @@
        [
         "install",
         0,
-        "zero",
+        "rate",
         true,
         true
        ],
        [
         "demob",
         0,
-        "zero",
+        "rate",
         true,
         true
        ]
@@ -233,14 +233,14 @@
        [
         "install",
         0,
-        "zero",
+        "rate",
         true,
         true
        ],
        [
         "demob",
         0,
-        "zero",
+        "rate",
         true,
         true
        ]
@@ -426,7 +426,7 @@
    }
   },
   {
-   "name": "every waste tank's labour prices at nought (lines kept, marked one charge with the block) and the block beside it keeps its rates",
+   "name": "every waste tank's labour prices at nought (its lines and included rows kept, marked one charge with the block) and the block beside it keeps its rates",
    "ok": true,
    "detail": [
     {
@@ -442,14 +442,14 @@
         0
        ],
        "money": [
-        "zero",
-        "zero",
-        "zero",
-        "zero"
+        "rate",
+        "rate",
+        "rate",
+        "rate"
        ],
        "included": true,
        "total": 0,
-       "ticks": 0
+       "ticks": 4
       },
       {
        "item": "Toilet Block 6m",
@@ -508,14 +508,14 @@
         0
        ],
        "money": [
-        "zero",
-        "zero",
-        "zero",
-        "zero"
+        "rate",
+        "rate",
+        "rate",
+        "rate"
        ],
        "included": true,
        "total": 0,
-       "ticks": 0
+       "ticks": 4
       }
      ]
     },
@@ -553,14 +553,14 @@
         0
        ],
        "money": [
-        "zero",
-        "zero",
-        "zero",
-        "zero"
+        "rate",
+        "rate",
+        "rate",
+        "rate"
        ],
        "included": true,
        "total": 0,
-       "ticks": 0
+       "ticks": 4
       }
      ]
     },
@@ -598,14 +598,14 @@
         0
        ],
        "money": [
-        "zero",
-        "zero",
-        "zero",
-        "zero"
+        "rate",
+        "rate",
+        "rate",
+        "rate"
        ],
        "included": true,
        "total": 0,
-       "ticks": 0
+       "ticks": 4
       }
      ]
     }
@@ -651,14 +651,21 @@
    }
   },
   {
-   "name": "the Costs & P&L summary says what is not charged here, naming the references",
-   "ok": false,
-   "detail": "View only · More info\nP&L summary\nCustomer rates & charges\nFencing costs & dockets\nWorkforce costs\nFinance handover\nTransport\nGenerators\nCosts & P&L — Boost Mobile Gold Coast 500\n🔓\nTicks · not locked"
+   "name": "the Costs & P&L summary says what is not charged here in its \"Not in it yet\" list, naming the references and the waste tanks",
+   "ok": true,
+   "detail": {
+    "html": 780079,
+    "n": 6,
+    "li": "Not charged here: T0024 (Coates' own compound, HS 9977412 & 9968929), T0162 (Blanchard Race, HS 9977410), T0176 (Redbull, HS 9989424), BJR01 (Brad Jones Racing, HS 9983884), SVP01 (Shell V-Power, HS 9980337), PG29 (Tickford Racing, HS 9990100) are on their own hire schedules, a different contract — tracked on this page, charged there; and the labour on each waste tank is one charge with its toilet block (the project manager, 23 Oct 2026).",
+    "ledger": false
+   }
   },
   {
-   "name": "Where we are carries the one-line note on its money card",
-   "ok": false,
-   "detail": "Where we are — Boost Mobile Gold Coast 500\nBy group\nwhat is on site over the total on the job, as at 23 Oct\nOpen the Fencing tab\nFencing\n9 types on the 2026 pro"
+   "name": "the Where-we-are money cards carry the one-line note",
+   "ok": true,
+   "detail": {
+    "where": "Not charged here: 6 references on their own hire schedules, not charged here; waste-tank labour one charge with the block"
+   }
   },
   {
    "name": "Pricing prices the job without the six and lists them with their hire schedules",
@@ -670,14 +677,15 @@
    }
   },
   {
-   "name": "the drawer for T0162 says not charged here on the hire line and the charges table, keeps its labour ticks, and shows no hire or labour money",
-   "ok": false,
+   "name": "the drawer for T0162 says not charged here on the hire line, on each charge row and in the charges table; the included-on-arrival rows stay; no hire or labour money is shown",
+   "ok": true,
    "detail": {
     "on": true,
-    "ticks": 0,
+    "rows": 2,
+    "rowsOn": 2,
     "held": true,
-    "money": null,
-    "where": "Not charged here."
+    "labText": "FWF · 1 receivedInstall not charged here · × 1 · IncludedDemob not charged here · × 1 · IncludedNot charged here: on hire schedule 9977410 (Blanchard Race), a different contract. Tracked on this page; charged there (the project manager, 23 Oct 2026).",
+    "hireText": "Not charged here: on hire schedule 9977410 (Blanchard Race), a different contract. Tracked on this page; charged there (the project manager, 23 Oct 2026).1 × FWF — not charged here"
    }
   },
   {
@@ -694,7 +702,7 @@
    "ok": true,
    "detail": {
     "page": 1,
-    "live": 76,
+    "live": 62,
     "blocked": 0
    }
   }

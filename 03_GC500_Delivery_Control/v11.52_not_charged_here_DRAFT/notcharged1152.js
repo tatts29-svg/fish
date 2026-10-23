@@ -34,14 +34,15 @@
    short: TEAMS.length + ' references on their own hire schedules, not charged here; waste-tank labour one charge with the block'}),
   unwrapped: {}};
  W.NotChargedHere1152 = api;
- /* labour: the lines stay (the ticks are the record of the work done); the money on them goes */
+ /* labour: the lines stay as card lines (the included charges on arrival are the record of the work done), each at a
+    rate of nought, so every table keeps its rows and counts and the money on them is nought */
  const beforeL = W.labourLinesFor;
  const gL = function(ref, disc, item, key, unit, asset){
   const r = beforeL.apply(this, arguments);
   if (!r || !Array.isArray(r.lines) || !r.lines.length) return r;
   const held = api.has(ref) ? why(ref) : null, tank = !held && api.tank(item) ? TANK_WORDS : null;
   if (!held && !tank) return r;
-  const lines = r.lines.map(L => Object.assign({}, L, {rate: 0, money: 'zero', money_note: (held || tank) + (L.money_note ? ' ' + L.money_note : ''),
+  const lines = r.lines.map(L => Object.assign({}, L, {rate: 0, money: 'rate', money_note: (held || tank) + (L.money_note ? ' ' + L.money_note : ''),
    held1152: held || undefined, included1152: tank || undefined}));
   return Object.assign({}, r, {lines, held1152: held || null, included1152: tank || null});
  };

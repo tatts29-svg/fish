@@ -34,8 +34,15 @@ WRAPPED = ['function assetTotal(', 'function labourLinesFor(', 'const OWN1050 = 
 
 EDITS = [
     # the tick wording: a held reference's lines and a waste tank's lines say why they price at nought
-    (": L.money === 'zero' ? '$0.00 on the card'",
-     ": L.money === 'zero' ? (L.held1152 ? 'not charged here' : L.included1152 ? 'one charge with the toilet block' : '$0.00 on the card')", 'tick words'),
+    ("const labWords = L => L.money === 'rate' ? money(L.rate)",
+     "const labWords = L => L.held1152 ? 'not charged here' : L.included1152 ? 'one charge with the toilet block' : L.money === 'rate' ? money(L.rate)", 'tick words'),
+    # the drawer's charge rows (v10.06): the included-on-arrival rows stay, their rate words say why there is no money
+    ("esc(Number.isFinite(r.rate)?chargeRateDisplay977(r.rate):'Rate to confirm')",
+     "esc(r.held1152?'not charged here':r.included1152?'one charge with the toilet block':Number.isFinite(r.rate)?chargeRateDisplay977(r.rate):'Rate to confirm')", 'drawer automatic charge words'),
+    ("' <span class=\"w\">'+esc(money(r.rate))+'</span></label>'",
+     "' <span class=\"w\">'+esc(r.held1152?'not charged here':r.included1152?'one charge with the toilet block':money(r.rate))+'</span></label>'", 'drawer manual charge words'),
+    ("<small>Charges included · '+esc(p.total==null?'Total to confirm':money(p.total)+' ex GST')+'</small></div>'",
+     "<small>'+(info.held1152?esc(info.held1152):info.included1152?esc(info.included1152):'Charges included · '+esc(p.total==null?'Total to confirm':money(p.total)+' ex GST'))+'</small></div>'", 'drawer charges line'),
     ("const said = m.blocked ? esc(m.why || 'ticked, and the money is not known')",
      "const said = info.held1152 ? esc(info.held1152) : info.included1152 ? esc(info.included1152) : m.blocked ? esc(m.why || 'ticked, and the money is not known')", 'tick summary words'),
     ("const exp = labourPlan().slots.filter(s => s.ref === a.key && s.item === l.item && s.state !== 'charged' && s.value != null);",
@@ -78,7 +85,7 @@ def patch(text):
     for old, new, what in EDITS: text = rep(text, old, new, what, 'page')
     text = rep(text, ANCHOR, '<script id="notcharged1152-script">\n' + BLOCK + '</script>\n' + ANCHOR, 'the block before the spot1117 script', 'page')  # after the edits: the offsets have moved
     text = rep(text, "+' · v11.51'; /* v8.19 release922", "+' · v11.52'; /* v8.19 release922", 'release footer', 'page')
-    for needle, n in [('notcharged1152-script', 1), ('W.NotChargedHere1152 = api', 1), ('NotChargedHere1152.has(a.key)', 2), ('excluded1152', 11), ('held1152', 22), ('included1152', 5), ("+' · v11.52'; /* v8.19 release922", 1)]:
+    for needle, n in [('notcharged1152-script', 1), ('W.NotChargedHere1152 = api', 1), ('NotChargedHere1152.has(a.key)', 2), ('excluded1152', 11), ('held1152', 26), ('included1152', 9), ("+' · v11.52'; /* v8.19 release922", 1)]:
         if text.count(needle) != n: raise ValueError('v11.52 did not land cleanly: ' + needle + ' x' + str(text.count(needle)) + ' (expected ' + str(n) + ')')
     return text
 
