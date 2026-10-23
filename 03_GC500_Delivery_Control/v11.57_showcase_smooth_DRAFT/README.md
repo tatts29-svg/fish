@@ -6,7 +6,7 @@ The Showcase blocks the page while building its 3D circuit, and closing it can w
 
 The existing geometry, selected look, figures and record stay intact. The original synchronous constructors remain for standalone callers; generator counterparts retain their lexical scope, sequence and random seeds. Exact constructor digests and the full live-page SHA prevent applying the patch to changed source. GPU waits poll with zero timeout and old-context cleanup cannot touch a newly opened scene.
 
-Rebased on live v11.55, SHA-256 7262dbfc63ef6f67744fa8f84bf5a734b60eb48d4655b98c3c9faebaccd63c4e. Gate search v11.56 is separately owned. The uploader must rebuild if that release lands before this one.
+Built on live v11.56, SHA-256 c59fbc57dd1c17d1b831a93ad936c205a0128703d842e7579af5896b2d812da6, preserving its gate search and the preceding equipment update. The candidate also stops calculating equipment totals on information scenes that never use them.
 
 Intermediate candidate: 15/15 read-only desktop functional checks, including every static mesh/line byte and circuit/car statistic against the unchanged synchronous constructors; record unchanged, no errors or attempted writes. GPU scheduling and deferred-cleanup unit checks pass. Final desktop/phone runs, sustained playback, sweeps and publication checks remain pending. **Not ready to upload; not live.** Raw captures remain private.
 

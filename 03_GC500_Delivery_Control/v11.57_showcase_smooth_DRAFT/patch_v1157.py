@@ -15,7 +15,9 @@ def patch(html):
         if len(matches)!=1: raise ValueError('Constructor changed: '+entry['label'])
         original=matches[0]
         html=rep(html,original,entry['prefix']+original+'\n'+entry['generator'],entry['label'],'page')
-    html=rep(html,"+' · v11.55'; /* v8.19 release922","+' · v11.57'; /* v8.19 release922",'footer','page')
+    html=rep(html,"+' · v11.56'; /* v8.19 release922","+' · v11.57'; /* v8.19 release922",'footer','page')
+    html=rep(html,"const C = completionAsOf(asOf), t = lightTally(allAssets(), asOf); /* both as at the day (B03) */", "const C = ['equipment','site'].includes(key) ? completionAsOf(asOf) : null, t = ['equipment','complete','site'].includes(key) ? lightTally(allAssets(), asOf) : null; /* Compute only figures this scene uses, as at the day. */", 'avoid unused scene calculations','page')
+    html=rep(html,"const html=holdAssets(()=>inner(key,d));", "const html=['countdown','lead','crew','fencing'].includes(key)?inner(key,d):holdAssets(()=>inner(key,d));",'skip unused asset holds on information scenes','page')
     html=rep(html,"function visibleMotionTarget(node) {\n    const p = pane();","function visibleMotionTarget(node) {\n    if(document.body.classList.contains('showing'))return null;\n    const p = pane();",'stop hidden instrument layout work','page')
     html=rep(html,'body.showing{overflow:hidden}','body.showing{overflow:hidden}\nbody.showing>.app{display:none}','skip the covered dashboard paint','page')
     script=(HERE/'smooth1157.js').read_text()

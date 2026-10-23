@@ -10,6 +10,8 @@ try{
  await p.waitForFunction(()=>typeof SYNC!=='undefined'&&SYNC.status==='live'&&window.ShowcaseSmooth1157,null,{timeout:180000});
  const before=await p.evaluate(()=>JSON.stringify(S));
  check('expected release',await p.evaluate(()=>document.body.innerText.includes('v11.57')));
+ const info=await p.evaluate(()=>{const before=completionAsOf;let calls=0;completionAsOf=function(){calls++;return before.apply(this,arguments);};try{const text=['countdown','lead','crew','fencing'].map(k=>showScene(k,'2026-10-24'));return {calls,hasContent:text.every(x=>x.length>100)};}finally{completionAsOf=before;}});
+ check('information scenes do not calculate unused equipment totals',info.calls===0&&info.hasContent,info);
  // Avoid software GPU raster time in the constructor equivalence test. A separate
  // playback probe restores the real frame function and observes actual drawing.
  await p.evaluate(()=>{window.actualFrame1157=GC3D.frame;GC3D.frame=()=>{};localStorage.removeItem('gc500.showback');localStorage.removeItem('gc500.show3d.mount');});
