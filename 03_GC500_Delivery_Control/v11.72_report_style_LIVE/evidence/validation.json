@@ -1,6 +1,6 @@
 {
   "author": "Author: Andrew Fisher",
-  "state": "READY TO UPLOAD",
+  "state": "VERIFIED LIVE",
   "implementation_source": "40bba55b6b6e727f249762236289fb1810936c20",
   "base_sha256": "f6394233f1e42df04ebbf84bee7fdfd7df892020a06c267311faae1c69708cf4",
   "candidate_sha256": "84cb7d6c1eccf57ba1cca2802e149fd7ef28b4300c94ae2441f0164697af50ea",
@@ -40,5 +40,23 @@
       "console_errors": 0,
       "writes": 0
     }
-  }
+  },
+  "live_aest": "2026-10-24 08:51",
+  "ready_source": "37a2a19b92284b61c24d5fe0f2dce9020fb862c3",
+  "public_readback": {
+    "author": "Author: Andrew Fisher",
+    "checked_at": "2026-10-23T22:51:58.780046+00:00",
+    "sha256": "84cb7d6c1eccf57ba1cca2802e149fd7ef28b4300c94ae2441f0164697af50ea",
+    "bytes": 21747846,
+    "exact_candidate_match": true,
+    "footer_v1172": true
+  },
+  "actual_live_phone": {
+    "checks": 31,
+    "errors": 0,
+    "writes": 0
+  },
+  "private_report_regenerated_after_publication": true,
+  "crew_publication": false,
+  "operational_record_writes": 0
 }
