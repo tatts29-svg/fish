@@ -2,7 +2,7 @@
 
 Author: Andrew Fisher
 
-DRAFT — final checks running; not published.
+READY TO UPLOAD — final candidate checked; not published.
 
 Andrew, 23 Oct 2026, directly in the working chat: “Servicing is going to be operational now can we remove all previous day please”.
 
@@ -25,3 +25,5 @@ PAGE=03_GC500_Delivery_Control/build/GC500_v11.60/GC500_Delivery_Control_hosted.
 CHROMIUM_PATH=/usr/bin/chromium PAGE=/absolute/candidate.html OUT=/private/evidence flock /tmp/gc500-browser.lock node 03_GC500_Delivery_Control/v11.60_operational_nights_DRAFT/tests/test_v1160.cjs
 # Repeat with MOB=1, then run both shared harness sweeps.
 ```
+
+Validation: 172 inline scripts pass the toolchain check. Native desktop and phone each pass all 37 recorded checks, with zero write attempts and no saved-tick changes during the runs. Both full-page sweeps pass: 27 registered tabs, 19 shown, zero page/console errors and zero writes. Quantity weighting, water, undo, night isolation, final-night plan and 08:00 AEST boundary fixtures pass. The phone screenshot was inspected. Guarded-upload access dry run passes on the unchanged v11.59 base. Implemented and checked independently; no second source review claimed. Exact implementation and test source: `8143bcc2881146150e0ad9c9745d5835ebe792cd`.
