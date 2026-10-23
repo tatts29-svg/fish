@@ -7,9 +7,9 @@ Twenty of them are on the record and were corrected through the page's own docke
 36520, 36523, 36529, 36531, 36532, 36539, 36544, 36547) are committed fencing data in the page (DATA.ops.fencing.dockets)
 and change only by a build: this patch sets their quantities to the sheet's scrim metres (the clean line keeps the paper's
 metres, gates inside the card's metre), writes the correction into each note, rebuilds the docket's own priced lines at the
-card so the build figure beside the live figure agrees, and moves the footer v11.60 -> v11.62. Data only; no logic changes.
+card so the build figure beside the live figure agrees, and moves the footer v11.61 -> v11.62. Data only; no logic changes.
 
-    python3 patch_v1162.py page.html      (in place, on the live v11.60 page)
+    python3 patch_v1162.py page.html      (in place, on the live v11.61 page)
 """
 import hashlib, json, sys
 from pathlib import Path
@@ -63,14 +63,16 @@ def dumps(o):
 
 def columns(text):
     """the committed fencing columns (name, programme type, unit, card rate) as the page carries them"""
-    i = text.find('"columns":[{"key":"clean"')
-    if i < 0: raise ValueError('fencing columns not found')
-    j = text.find('[', i); cols = json.loads(text[j:array_end(text, j)])
-    return {c['key']: c for c in cols}
+    i = -1
+    while True:
+        i = text.find('"columns":[{"key":"clean"', i + 1)
+        if i < 0: raise ValueError('fencing columns with the card rates not found')
+        j = text.find('[', i); cols = {c['key']: c for c in json.loads(text[j:array_end(text, j)])}
+        if cols.get('scrim', {}).get('rate') == 25.53 and cols.get('ccb_demarc', {}).get('rate') == 13.08 and cols.get('clean', {}).get('rate') == 16.1607: return cols
 
 
 def patch(text):
-    if hashlib.sha256(text.encode('utf-8')).hexdigest() != BASE_SHA256: raise ValueError('v11.62 requires the live v11.60 page ' + BASE_SHA256)
+    if hashlib.sha256(text.encode('utf-8')).hexdigest() != BASE_SHA256: raise ValueError('v11.62 requires the live v11.61 page ' + BASE_SHA256)
     cols = columns(text)
     for fix in FIXES:
         no = fix['docket_no']
@@ -92,7 +94,7 @@ def patch(text):
         new = dumps(d)
         text = rep(text, old, new, 'committed docket ' + no, 'page')
         if text.count(new) != 1 or text.count(old) != 0: raise ValueError('docket ' + no + ' did not land once')
-    text = rep(text, "+' · v11.60'; /* v8.19 release922", "+' · v11.62'; /* v8.19 release922", 'release footer', 'page')
+    text = rep(text, "+' · v11.61'; /* v8.19 release922", "+' · v11.62'; /* v8.19 release922", 'release footer', 'page')
     for needle, n in [("+' · v11.62'; /* v8.19 release922", 1), ('"docket_no":"36532","crew":"Advanced Temporary Fencing","map_ref":null,"location":"S10 compound","note":"Written on the docket:', 1), ('CORRECTED 23 Oct 2026 (Andrew: \\"Please make sure we price correctly. Numbers match up\\")', 13)]:
         if text.count(needle) != n: raise ValueError('v11.62 did not land cleanly: ' + needle[:60] + ' x' + str(text.count(needle)))
     return text
@@ -101,4 +103,4 @@ def patch(text):
 if __name__ == '__main__':
     p = Path(sys.argv[1]); t = p.read_text(encoding='utf-8')
     p.write_text(patch(t), encoding='utf-8')
-    print('patch_v1162 applied: thirteen committed dockets of weeks 4-5 at the sheets\' scrim metres; footer v11.60 -> v11.62')
+    print('patch_v1162 applied: thirteen committed dockets of weeks 4-5 at the sheets\' scrim metres; footer v11.61 -> v11.62')

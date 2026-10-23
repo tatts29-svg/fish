@@ -170,13 +170,32 @@ relocation 0 against 295 m (the relocations are on the green notes as hours and 
 4 below); vehicle gates 0 against 27 (gates are wheels on the papers and inside the card's metre). Fencing cost to date on the
 Costs tab moved $247,111.20 → $252,784.20 with the paid estimate.
 
+## "Please make sure we price correctly. Numbers match up." — the sheets' scrim on every docket (second run, 19:43 AEST)
+
+Andrew's word on item 1 below, 23 Oct evening. Every hire agreement on the five sheets now carries the scrim metres its sheet
+bills — up on twenty-four, down on nine (where the sheet bills fewer scrim metres than the paper's reading: the gate panels and
+the part of the fence Advanced billed as clean): **thirty-three dockets, +1,372.5 m of scrim net, +$35,039.93 charged to the
+V8s** at the card's scrim line; the clean line keeps the paper's metres with the gates inside the card's metre, and 36609 keeps
+the 420 m its signed scrim note of 22 Oct records (the week 1 sheet carries 125 m of it). Two paths, the same corrections:
+
+- **Twenty on the record** (36560, 36566, 36568, 36569, 36570, 36574, 36575, 36577, 36579, 36581, 36583, 36587, 36588, 36597,
+  36598, 36603, 36611, 36614, 36615, 36617): `scrim_match_spec_record.json`, dry run then `--apply` on the live v11.61 page
+  `bf54c4a6…` (Codex's crew-card release went up between the dry run and the apply, so the dry run was run again on it), by
+  Andrew Fisher through the page's own correction, **record 10719 → 10777** (58 documents), backup
+  `backup_state_20261023T094349Z.json`, report `report_20261023T094349Z.json`, every other document unchanged in value.
+  Their paid side is the sheet already (unchanged).
+- **Thirteen built into the page** (36506, 36513, 36514, 36518, 36519, 36520, 36523, 36529, 36531, 36532, 36539, 36544,
+  36547 — the September papers, committed data the record form cannot reach): `scrim_match_committed.json`, carried by the
+  page build **v11.62** (`v11.62_scrim_to_the_sheets_LIVE/`), a data-only patch of their quantities and notes.
+
+After both, `tests/test_v1162.cjs` reads every red-book paper on the five sheets against our record: **0 differences** in
+scrim (36609 excepted), desktop and phone.
+
 ## What the previous data does not settle — for Andrew, in numbers
 
-1. **Braced-for-scrim metres Advanced billed in weeks 1–5 that our record charges as clean.** The open question of the 16 Oct
-   audit ("is braced, not scrimmed, fence charged as scrim?"), now across all five sheets: **1,740 m on 24 dockets, $44,422.20**
-   at the card's scrim line, not charged to the V8s. Their papers write braces (or, on 36532 and 36609, "not scrimmed as
-   requested"); Advanced's invoices bill them braced for scrim and we have paid or will pay those invoices ("we go by what we
-   are being charged for", 16 Oct). The table is below. One docket-fix run puts them on; say the word.
+1. ~~Braced-for-scrim metres Advanced billed in weeks 1–5 that our record charges as clean~~ — **done, above** on Andrew's
+   word ("Please make sure we price correctly. Numbers match up"). The table below is the before picture: 1,740 m on 24
+   dockets, $44,422.20, plus 367.5 m taken off nine dockets the sheets bill lower.
 2. **Scrim lines on the notes not yet placed on a fence**: 24487 "S04 / Podium / S01 kitchen = 325 m" and 24488's PB2 65, S04 35,
    PB1 27.5, Helen Park 30, "Supply" 27.5, PB3 7.5 — 517.5 m ($13,212 at the card). Some of those fences already carry scrim on
    their own papers (podium 36585 + 36631, S01–S02 stairs 36575, S04 toilets 36589, supply compound 36599, PB03 footings
