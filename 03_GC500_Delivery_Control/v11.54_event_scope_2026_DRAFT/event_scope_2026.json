@@ -1,0 +1,574 @@
+{
+ "schema": "gc500-event-labour-scope-1",
+ "document": "C004-26003-01 Coates Event Labour Scope",
+ "file": "C004-26003-01_Coates_Event_Labour_Scope.xlsx (held privately; not in the repository)",
+ "sha256": "8820914e91caafce487d2802c9681dadd81c41019f10f06e4a970be0a4292778",
+ "supplied_by": "Andrew Fisher",
+ "supplied_on": "2026-10-23",
+ "sent_as": "please analyse these costs and update where we need to this is what we charge the v8's",
+ "workbook": {
+  "sheet": "Sheet1",
+  "created": "2022-10-25 by Matt Koleczko",
+  "last_saved": "2026-10-23 12:30 by Fisher, Andrew (North)"
+ },
+ "is": "What Coates charges the V8s for people over the event: the staffing requirement on each race day and for the entertainment, worked out from the 2026 access plan's times, and accommodation and travel. Transcribed formula by formula from the workbook; every hour and dollar the page works out from it is checked against the workbook's own figures by the release's scope2026.py and tests/test_v1154.cjs.",
+ "rounding": "a time rounded down (floor) or up (ceiling) is rounded to the quarter hour, as the workbook's FLOOR and CEILING do",
+ "access_plan": {
+  "fields": [
+   {
+    "key": "accredited_gates_open",
+    "label": "Accredited gates open",
+    "col": "B"
+   },
+   {
+    "key": "patron_gates_open",
+    "label": "Patron gates open",
+    "col": "C"
+   },
+   {
+    "key": "gate_closure",
+    "label": "Gate closure commences",
+    "col": "D"
+   },
+   {
+    "key": "track_opening",
+    "label": "Track opening",
+    "col": "E"
+   },
+   {
+    "key": "entertainment_concludes",
+    "label": "Entertainment concludes",
+    "col": "F"
+   }
+  ],
+  "days": [
+   {
+    "day": "Fri",
+    "date": "2026-10-23",
+    "row": 3,
+    "accredited_gates_open": "09:30",
+    "patron_gates_open": "09:30",
+    "gate_closure": "07:00",
+    "track_opening": "18:00",
+    "entertainment_concludes": "20:30"
+   },
+   {
+    "day": "Sat",
+    "date": "2026-10-24",
+    "row": 4,
+    "accredited_gates_open": "08:00",
+    "patron_gates_open": "08:00",
+    "gate_closure": "07:00",
+    "track_opening": "18:00",
+    "entertainment_concludes": "20:30"
+   },
+   {
+    "day": "Sun",
+    "date": "2026-10-25",
+    "row": 5,
+    "accredited_gates_open": "08:00",
+    "patron_gates_open": "08:00",
+    "gate_closure": "07:00",
+    "track_opening": "17:40",
+    "entertainment_concludes": null
+   }
+  ],
+  "as_written": "the 2026 access plan as the workbook carries it on 23 Oct 2026: accredited and patron gates Fri 09:30, Sat and Sun 08:00; gate closure 07:00 each day; track opening 18:00, 18:00 and 17:40; entertainment concludes 20:30 Friday and Saturday, none Sunday",
+  "dates_from": "the three race days on the record (Fri 23, Sat 24 and Sun 25 Oct 2026); the workbook names the days only"
+ },
+ "lines": [
+  {
+   "key": "pm",
+   "section": "day",
+   "role": "Project Manager",
+   "card_role": "Project Manager (per hr)",
+   "rate": 150.11,
+   "rows": "8–13",
+   "window": "accredited gate opening to approx 30 min post track opening (Sunday approx 1.5 h)",
+   "invoicing": "3.14 Portable Building Hire and 3.16 Toilet Hire, the hours split in half",
+   "days": {
+    "Fri": {
+     "people": 1,
+     "start": {
+      "at": "accredited_gates_open"
+     },
+     "finish": {
+      "at": "track_opening",
+      "plus_min": 30,
+      "round": "floor"
+     }
+    },
+    "Sat": {
+     "people": 1,
+     "start": {
+      "at": "accredited_gates_open"
+     },
+     "finish": {
+      "at": "track_opening",
+      "plus_min": 30,
+      "round": "floor"
+     }
+    },
+    "Sun": {
+     "people": 1,
+     "start": {
+      "at": "accredited_gates_open"
+     },
+     "finish": {
+      "at": "track_opening",
+      "plus_min": 90,
+      "round": "ceiling"
+     }
+    }
+   },
+   "as_written": {
+    "start": {
+     "Fri": "09:30",
+     "Sat": "08:00",
+     "Sun": "08:00"
+    },
+    "finish": {
+     "Fri": "18:30",
+     "Sat": "18:30",
+     "Sun": "19:15"
+    },
+    "hours": {
+     "Fri": 9.0,
+     "Sat": 10.5,
+     "Sun": 11.25
+    },
+    "total_hours": 30.75,
+    "amount": 4615.8825
+   }
+  },
+  {
+   "key": "gentech",
+   "section": "day",
+   "role": "Gen Tech",
+   "card_role": "Gen Tech (per hr)",
+   "rate": 150.11,
+   "rows": "15–20",
+   "window": "30 min before patron gates to the conclusion of racing",
+   "invoicing": "3.06 Electrical",
+   "days": {
+    "Fri": {
+     "people": 1,
+     "start": {
+      "at": "patron_gates_open",
+      "day": "Fri",
+      "plus_min": -30,
+      "round": "floor"
+     },
+     "finish": {
+      "at": "track_opening",
+      "plus_min": 15,
+      "round": "floor"
+     }
+    },
+    "Sat": {
+     "people": 1,
+     "start": {
+      "at": "patron_gates_open",
+      "day": "Fri",
+      "plus_min": -30,
+      "round": "floor"
+     },
+     "finish": {
+      "at": "track_opening",
+      "plus_min": 15,
+      "round": "floor"
+     }
+    },
+    "Sun": {
+     "people": 1,
+     "start": {
+      "at": "patron_gates_open",
+      "day": "Fri",
+      "plus_min": -30,
+      "round": "floor"
+     },
+     "finish": {
+      "at": "track_opening",
+      "plus_min": 15,
+      "round": "floor"
+     }
+    }
+   },
+   "as_written": {
+    "start": {
+     "Fri": "09:00",
+     "Sat": "09:00",
+     "Sun": "09:00"
+    },
+    "finish": {
+     "Fri": "18:15",
+     "Sat": "18:15",
+     "Sun": "17:45"
+    },
+    "hours": {
+     "Fri": 9.25,
+     "Sat": 9.25,
+     "Sun": 8.75
+    },
+    "total_hours": 27.25,
+    "amount": 4090.4975
+   }
+  },
+  {
+   "key": "fence",
+   "section": "day",
+   "role": "Fence team",
+   "card_role": "Labour - Fence Team (per hr)",
+   "rate": 91.14,
+   "rows": "22–27",
+   "window": "15 min before gate closure to approx 15 min after track opening (Sunday approx 1.5 h)",
+   "invoicing": "3.15 Security & Demarcation Fencing",
+   "days": {
+    "Fri": {
+     "people": 6,
+     "start": {
+      "at": "gate_closure",
+      "plus_min": -15,
+      "round": "ceiling"
+     },
+     "finish": {
+      "at": "track_opening",
+      "plus_min": 15,
+      "round": "floor"
+     }
+    },
+    "Sat": {
+     "people": 6,
+     "start": {
+      "at": "gate_closure",
+      "plus_min": -15,
+      "round": "floor"
+     },
+     "finish": {
+      "at": "track_opening",
+      "plus_min": 15,
+      "round": "ceiling"
+     }
+    },
+    "Sun": {
+     "people": 6,
+     "start": {
+      "at": "gate_closure",
+      "plus_min": -15,
+      "round": "floor"
+     },
+     "finish": {
+      "at": "track_opening",
+      "plus_min": 90,
+      "round": "ceiling"
+     }
+    }
+   },
+   "as_written": {
+    "start": {
+     "Fri": "06:45",
+     "Sat": "06:45",
+     "Sun": "06:45"
+    },
+    "finish": {
+     "Fri": "18:15",
+     "Sat": "18:15",
+     "Sun": "19:15"
+    },
+    "hours": {
+     "Fri": 69.0,
+     "Sat": 69.0,
+     "Sun": 75.0
+    },
+    "total_hours": 213.0,
+    "amount": 19412.82
+   }
+  },
+  {
+   "key": "toilets",
+   "section": "day",
+   "role": "Toilets",
+   "card_role": "Labour - Toilets (per hr)",
+   "rate": 91.14,
+   "rows": "29–34",
+   "window": "30 min before patron gates to the conclusion of racing",
+   "invoicing": "3.16 Toilet Hire",
+   "days": {
+    "Fri": {
+     "people": 1,
+     "start": {
+      "at": "patron_gates_open",
+      "day": "Fri",
+      "plus_min": -30,
+      "round": "floor"
+     },
+     "finish": {
+      "at": "track_opening",
+      "plus_min": 15,
+      "round": "floor"
+     }
+    },
+    "Sat": {
+     "people": 1,
+     "start": {
+      "at": "patron_gates_open",
+      "day": "Fri",
+      "plus_min": -30,
+      "round": "floor"
+     },
+     "finish": {
+      "at": "track_opening",
+      "plus_min": 15,
+      "round": "floor"
+     }
+    },
+    "Sun": {
+     "people": 1,
+     "start": {
+      "at": "patron_gates_open",
+      "day": "Fri",
+      "plus_min": -30,
+      "round": "floor"
+     },
+     "finish": {
+      "at": "track_opening",
+      "plus_min": 15,
+      "round": "floor"
+     }
+    }
+   },
+   "as_written": {
+    "start": {
+     "Fri": "09:00",
+     "Sat": "09:00",
+     "Sun": "09:00"
+    },
+    "finish": {
+     "Fri": "18:15",
+     "Sat": "18:15",
+     "Sun": "17:45"
+    },
+    "hours": {
+     "Fri": 9.25,
+     "Sat": 9.25,
+     "Sun": 8.75
+    },
+    "total_hours": 27.25,
+    "amount": 2483.565
+   }
+  },
+  {
+   "key": "vms",
+   "section": "day",
+   "role": "VMS board movements",
+   "card_role": null,
+   "rate": 91.14,
+   "rows": "39–44",
+   "window": "gate closure to track opening, as the times are written (the note beside them still reads 30 min pre patron gates to the conclusion of racing)",
+   "invoicing": "Traffic (no cost code on the line)",
+   "rate_from": "the VMS section’s own rate cell (B39) — the card has no VMS role",
+   "days": {
+    "Fri": {
+     "people": 2,
+     "start": {
+      "at": "gate_closure"
+     },
+     "finish": {
+      "at": "track_opening"
+     }
+    },
+    "Sat": {
+     "people": 2,
+     "start": {
+      "at": "gate_closure"
+     },
+     "finish": {
+      "at": "track_opening"
+     }
+    },
+    "Sun": {
+     "people": 2,
+     "start": {
+      "at": "gate_closure"
+     },
+     "finish": {
+      "at": "track_opening"
+     }
+    }
+   },
+   "as_written": {
+    "start": {
+     "Fri": "07:00",
+     "Sat": "07:00",
+     "Sun": "07:00"
+    },
+    "finish": {
+     "Fri": "18:00",
+     "Sat": "18:00",
+     "Sun": "17:40"
+    },
+    "hours": {
+     "Fri": 22.0,
+     "Sat": 22.0,
+     "Sun": 21.3333
+    },
+    "total_hours": 65.3333,
+    "amount": 5954.48
+   }
+  },
+  {
+   "key": "gentech_ent",
+   "section": "entertainment",
+   "role": "Gen Tech — entertainment",
+   "card_role": "Gen Tech (per hr)",
+   "rate": 150.11,
+   "rows": "49–54",
+   "window": "the day staff's shift end to the conclusion of the entertainment",
+   "invoicing": "7.04 Concert",
+   "days": {
+    "Fri": {
+     "people": 1,
+     "start": {
+      "line": "gentech"
+     },
+     "finish": {
+      "at": "entertainment_concludes"
+     },
+     "only_if": "entertainment_concludes"
+    },
+    "Sat": {
+     "people": 1,
+     "start": {
+      "line": "gentech"
+     },
+     "finish": {
+      "at": "entertainment_concludes"
+     },
+     "only_if": "entertainment_concludes"
+    },
+    "Sun": {
+     "people": 0,
+     "start": {
+      "line": "gentech"
+     },
+     "finish": {
+      "at": "entertainment_concludes"
+     },
+     "only_if": "entertainment_concludes"
+    }
+   },
+   "as_written": {
+    "start": {
+     "Fri": "18:15",
+     "Sat": "18:15",
+     "Sun": null
+    },
+    "finish": {
+     "Fri": "20:30",
+     "Sat": "20:30",
+     "Sun": null
+    },
+    "hours": {
+     "Fri": 2.25,
+     "Sat": 2.25,
+     "Sun": 0.0
+    },
+    "total_hours": 4.5,
+    "amount": 675.495
+   }
+  },
+  {
+   "key": "toilets_ent",
+   "section": "entertainment",
+   "role": "Toilets — entertainment",
+   "card_role": "Labour - Toilets (per hr)",
+   "rate": 91.14,
+   "rows": "56–61",
+   "window": "the day staff's shift end to the conclusion of the entertainment",
+   "invoicing": "7.04 Concert",
+   "days": {
+    "Fri": {
+     "people": 1,
+     "start": {
+      "line": "toilets"
+     },
+     "finish": {
+      "at": "entertainment_concludes"
+     },
+     "only_if": "entertainment_concludes"
+    },
+    "Sat": {
+     "people": 1,
+     "start": {
+      "line": "toilets"
+     },
+     "finish": {
+      "at": "entertainment_concludes"
+     },
+     "only_if": "entertainment_concludes"
+    },
+    "Sun": {
+     "people": 0,
+     "start": {
+      "line": "toilets"
+     },
+     "finish": {
+      "at": "entertainment_concludes"
+     },
+     "only_if": "entertainment_concludes"
+    }
+   },
+   "as_written": {
+    "start": {
+     "Fri": "18:15",
+     "Sat": "18:15",
+     "Sun": null
+    },
+    "finish": {
+     "Fri": "20:30",
+     "Sat": "20:30",
+     "Sun": null
+    },
+    "hours": {
+     "Fri": 2.25,
+     "Sat": 2.25,
+     "Sun": 0.0
+    },
+    "total_hours": 4.5,
+    "amount": 410.13
+   }
+  }
+ ],
+ "accommodation_travel": {
+  "amount": 19101.6,
+  "row": 68,
+  "split": [
+   {
+    "cost_code": "3.14",
+    "name": "Portable Building Hire",
+    "amount": 9550.8
+   },
+   {
+    "cost_code": "3.16",
+    "name": "Toilet Hire",
+    "amount": 9550.8
+   }
+  ],
+  "as_written": "a figure typed in the workbook, charged half under Portable Building Hire and half under Toilet Hire"
+ },
+ "totals_as_written": {
+  "day_staffing": 30602.765,
+  "vms_moves": 5954.48,
+  "entertainment": 1085.625,
+  "accommodation_travel": 19101.6,
+  "people": 37642.87,
+  "grand": 56744.47
+ },
+ "read_notes": [
+  "The rate cells are the workbook's own: $150.11 an hour for the Project Manager and Gen Tech, $91.14 for the fence team, toilets and VMS — 3% over the 2025 card roles the page's rate card lists ($145.74 and $88.49). The workbook's cells are what is charged.",
+  "Gen Tech and Toilets start 30 minutes before Friday's patron-gate time on all three days — the workbook points Saturday's and Sunday's start at the Friday cell (C3): 09:00 every day, while Saturday's and Sunday's gates open at 08:00. Read as written.",
+  "VMS board movements run gate closure (07:00) to track opening, as the times are written, at the VMS section's rate cell ($91.14); the note beside them still reads 30 min pre patron gates to the conclusion of racing.",
+  "The VMS section's invoicing total (M46) adds up M20:M44, which takes in the day-staffing total (M36) and the fence and toilet lines a second time, and reads $58,453.63; the VMS lines themselves come to $5,954.48. The page adds up the lines, never that cell.",
+  "The entertainment hours run from the day staff's finish (18:15) to the end of the entertainment (20:30) on Friday and Saturday. Sunday has no entertainment time and no one on the line, so none."
+ ]
+}
