@@ -73,6 +73,8 @@ fences (below).
 
 | Form | Removal date | Where | Collected |
 |---|---|---|---|
+| 28566 | 21 Oct | Porsche C.Z. | 12 mesh panels, 13 bases, 10 clamps, 4 wheels (owner's signature dated 20 Oct) — sent later, second run |
+| 28567 | 21 Oct | Triangle C.Z. | 31 mesh panels, 27 bases, 28 clamps, 2 wheels (owner's signature dated 20 Oct) — sent later, second run |
 | 28569 | 21 Oct | S15 – C.Z. | 38 mesh panels, 39 bases, 37 clamps, 2 wheels |
 | 28570 | 21 Oct | Club 500 – creek protection zone | 19 bases, 19 flat-feet CCBs |
 | 28571 | 22 Oct | The Hill – Monster C.Z. | 59 mesh panels, 53 bases, 53 clamps, 2 wheels (owner's signature dated 21 Oct) |
@@ -83,7 +85,7 @@ fences (below).
 | 28578 | 22 Oct | S21 | 4 mesh panels, 22 CC barriers, 2 bases, 6 clamps, 2 wheels |
 | 28579 | 22 Oct | Monster Energy C.Z. | 1 mesh panel — a single stroke in the box, read as 1; may be a stray mark (the compound's own collection is 28571) |
 
-28573 and 28576 have not been seen; nor has hire agreement 36641.
+28568, 28573 and 28576 have not been seen; nor has hire agreement 36641.
 
 ## How the lines were read
 
@@ -143,6 +145,12 @@ v11.60 page `e17bd3d868b00f421f23a249c39f39c94801c05b57533ae8d4bfcd7674cf683f` (
 the whole record first: `backup_state_20261023T073919Z.json`; the run, the 88 acknowledged writes and the read-back:
 `report_20261023T073919Z.json` ("other documents unchanged in value: true"). The page now holds 105 hire agreements, 31 service
 notes and 16 collection forms.
+
+**Second run, 18:50 AEST — collection forms 28566 and 28567** (sent after the forty-six): `cf_spec_28566_28567.json`, dry run
+then `--apply` on the same live page, record **10690 → 10696** (6 documents: FC-AF-0014 and FC-AF-0015, their stamps and names;
+the record had moved 10681 → 10690 in between through the page's ordinary use, not this work), backup
+`backup_state_20261023T085020Z.json`, report `report_20261023T085020Z.json`; photographs filed, files 607 → 609
+(`photo_upload_20261023T084409Z.json`). The page now holds 18 collection forms.
 
 Filed: the forty-six photographs went up as Documents, kind docket, named by number, with 480 px previews
 (`upload_originals.cjs`; SHA-256 read back; `photo_upload_20261023T074037Z.json`), files 561 → 607. The second 24489 photograph
