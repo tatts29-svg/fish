@@ -2,7 +2,7 @@
 
 Author: Andrew Fisher
 
-READY TO UPLOAD — final candidate checked; not published.
+VERIFIED LIVE — 23 Oct 2026 17:10 AEST. Guarded upload and a separate public read-back returned the candidate byte for byte.
 
 Andrew, 23 Oct 2026, directly in the working chat: “Servicing is going to be operational now can we remove all previous day please”.
 
@@ -19,11 +19,13 @@ Checks use native edit-mode rendering with the sender held before hydration and 
 Run with the shared toolchain:
 
 ```sh
-bash 03_GC500_Delivery_Control/toolchain/build.sh v11.60 03_GC500_Delivery_Control/v11.60_operational_nights_DRAFT/patch_v1160.py
-PAGE=03_GC500_Delivery_Control/build/GC500_v11.60/GC500_Delivery_Control_hosted.html node 03_GC500_Delivery_Control/v11.60_operational_nights_DRAFT/tests/test_math.cjs
+bash 03_GC500_Delivery_Control/toolchain/build.sh v11.60 03_GC500_Delivery_Control/v11.60_operational_nights_LIVE/patch_v1160.py
+PAGE=03_GC500_Delivery_Control/build/GC500_v11.60/GC500_Delivery_Control_hosted.html node 03_GC500_Delivery_Control/v11.60_operational_nights_LIVE/tests/test_math.cjs
 # OUT must be an absolute private evidence directory outside the checkout.
-CHROMIUM_PATH=/usr/bin/chromium PAGE=/absolute/candidate.html OUT=/private/evidence flock /tmp/gc500-browser.lock node 03_GC500_Delivery_Control/v11.60_operational_nights_DRAFT/tests/test_v1160.cjs
+CHROMIUM_PATH=/usr/bin/chromium PAGE=/absolute/candidate.html OUT=/private/evidence flock /tmp/gc500-browser.lock node 03_GC500_Delivery_Control/v11.60_operational_nights_LIVE/tests/test_v1160.cjs
 # Repeat with MOB=1, then run both shared harness sweeps.
 ```
 
 Validation: 172 inline scripts pass the toolchain check. Native desktop and phone each pass all 37 recorded checks, with zero write attempts and no saved-tick changes during the runs. Both full-page sweeps pass: 27 registered tabs, 19 shown, zero page/console errors and zero writes. Quantity weighting, water, undo, night isolation, final-night plan and 08:00 AEST boundary fixtures pass. The phone screenshot was inspected. Guarded-upload access dry run passes on the unchanged v11.59 base. Implemented and checked independently; no second source review claimed. Exact implementation and test source: `8143bcc2881146150e0ad9c9745d5835ebe792cd`.
+
+Live verification: both desktop and phone pass all 36 recorded native checks against freshly fetched public HTML, rendered at the native edit origin with GET-only reads. Zero write attempts; saved ticks and printed-link metadata unchanged during these checks. Live SHA-256 is the candidate above. PR #36 merged at `9bfcb589555148a9bae13201a9dc92aa42330e0c`; READY source/evidence `d8b46296708a592d8f6065d55f1453bdf857261b`. Further page releases must start on v11.60.
