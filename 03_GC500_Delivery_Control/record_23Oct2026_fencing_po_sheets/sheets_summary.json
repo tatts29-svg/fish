@@ -1,0 +1,61 @@
+{
+ "CW3": {
+  "po": "4647515",
+  "held": false,
+  "po_amount": 50154,
+  "sheet_total": 50154.0,
+  "records": 21,
+  "extras": 5,
+  "red": 47504.0,
+  "green": 650.0,
+  "extra": 2000.0,
+  "current_paid_estimate": 44044.0,
+  "delta": 6110.0,
+  "not_on_sheet": [],
+  "notes": [
+   "36532 -> 36562: printed 36532 on the sheet; 36532 is the S10 compound docket of 18 Sep already on the week 5 sheet, and 36562 (29 Sep, S.01 to Gate 6 beach run, 327.5 m clean) is the docket this row describes",
+   "24463: the sheet prints 0.8 h; its own $375.00 relocation total and our note 24463 (0.75 h) make it 0.75",
+   "24465: the sheet lists it under 2026-10-02; our record's date 2026-10-01 (the signed paper) is used"
+  ]
+ },
+ "CW4": {
+  "po": "4647517",
+  "held": false,
+  "po_amount": 26695,
+  "sheet_total": 26695.0,
+  "records": 31,
+  "extras": 5,
+  "red": 24570.0,
+  "green": 525.0,
+  "extra": 1600.0,
+  "current_paid_estimate": 25278.0,
+  "delta": 1417.0,
+  "not_on_sheet": [],
+  "notes": []
+ },
+ "CW5": {
+  "po": "4647509",
+  "held": true,
+  "po_amount": 33670,
+  "sheet_total": 33670.5,
+  "records": 33,
+  "extras": 5,
+  "red": 31245.5,
+  "green": 425.0,
+  "extra": 2000.0,
+  "current_paid_estimate": 24004.5,
+  "delta": 9666.0,
+  "not_on_sheet": [
+   "36524"
+  ],
+  "notes": [
+   "36518: the sheet lists it under 2026-09-14; our record's date 2026-09-16 (the signed paper) is used",
+   "36517: the sheet lists it under 2026-09-14; our record's date 2026-09-16 (the signed paper) is used",
+   "36506: the sheet lists it under 2026-09-15; our record's date 2026-09-14 (the signed paper) is used",
+   "36515: the sheet lists it under 2026-09-16; our record's date 2026-09-15 (the signed paper) is used",
+   "36523: the sheet lists it under 2026-09-16; our record's date 2026-09-17 (the signed paper) is used",
+   "36525: the sheet lists it under 2026-09-18; our record's date 2026-09-17 (the signed paper) is used",
+   "24455: the sheet prints 0.8 h; its own $425.00 installer total and our note 24455 (0.75 h) make it 0.75"
+  ]
+ }
+}

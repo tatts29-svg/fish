@@ -1,0 +1,40 @@
+{
+  "pass": true,
+  "checks": {
+    "only the existing PO and its audit fields changed": true,
+    "recorded check: none before, or cleared by the page for re-checking": true,
+    "all other existing PO fields retained": true,
+    "approved breakdown saved exactly": true,
+    "one matching purchase order": true,
+    "PO value and total retained": true,
+    "retained period": true,
+    "retained programme_sheet": true,
+    "retained amount": true,
+    "retained confirmed": true,
+    "retained supplier_code": true,
+    "retained branch": true,
+    "retained stream": true,
+    "retained invoice_no": true,
+    "retained receipted": true,
+    "retained receipted_amount": true,
+    "supplier breakdown valid": true,
+    "supplier total matches PO": true,
+    "source book totals match": true,
+    "receipt fields unchanged": true,
+    "customer Revenue unchanged": true,
+    "Direct costs change once to source total": true,
+    "no duplicate invoice cost or claim": true,
+    "fencing supplier Direct costs change once": true,
+    "supplier branch carries exact change": true,
+    "other finance cost categories unchanged": true,
+    "physical dockets, quantities and customer rates untouched": true,
+    "named audit author": true,
+    "Finance text retains exact currency": true,
+    "Finance CSV retains same value": true
+  },
+  "changed": [
+    "stamps/po~2f~4647517",
+    "by/po~2f~4647517",
+    "purchaseOrders/4647517"
+  ]
+}
