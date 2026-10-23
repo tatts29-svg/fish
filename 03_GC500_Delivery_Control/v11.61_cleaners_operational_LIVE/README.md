@@ -4,7 +4,7 @@ Author: Andrew Fisher.
 
 Andrew: “We are live now. So we need to ensure we are making things really easy for these cleaners.”
 
-READY TO UPLOAD — not yet published. Base: v11.60, `e17bd3d868b00f421f23a249c39f39c94801c05b57533ae8d4bfcd7674cf683f`.
+LIVE — 23 Oct 2026 19:38 AEST. Main page published 19:37 AEST; native event crew card updated and read back at 19:38 AEST. Base: v11.60, `e17bd3d868b00f421f23a249c39f39c94801c05b57533ae8d4bfcd7674cf683f`.
 
 The phone review found practice days alongside tonight and a map and long asset list ahead of the completion buttons. Previous nights now fold into saved history; the existing map and long asset lists open on demand. The reference, area name, location, quantity and job buttons remain visible. Closing historical nights returns to the current operational night. The saved screen distinguishes this code's jobs from other work at the reference, so a cleaner who finished cleaning and water is not told their own jobs still require pump-out.
 
@@ -17,3 +17,13 @@ No change to task rules, completion weights, signing, token, tracker configurati
 `tests/publish_tracker.cjs` captures the page's native update in dry mode without sending it. Execute mode requires `--execute` and `GC500_NATIVE_TRACKER_EXECUTE=1`, an exact live page match, a fresh private backup, an existing key/token, unchanged configuration/contact/metadata, one native POST, exact crew HTML read-back, every printed signature retained and all prior ticks preserved. It permits no completion or job-record writes. Publication backup/read-back GETs of the crew page are part of the release, not test scans; the service may record those views. `native_bridge.py` restricts routes and keeps credentials on stdin/environment only.
 
 Build uses the shared `toolchain/build.sh`; full desktop/phone sweeps and guarded main-page upload remain required. The local rehearsal is the TEST check for this unchanged configuration; the previously confirmed event area placement/directions are retained byte for byte. Final checks passed: 46 local crew checks, 172 inline scripts, full desktop and phone sweeps (27 registered / 19 shown; zero page errors, console errors or writes), native dry run (one captured request, zero sent) and guarded upload dry run. Phone screenshot inspected. Only the crew template and release footer differ from the live base. Candidate `bf54c4a68843a460f0b23728ece16d91c60bc9a2ea036a9dc2740f4425300ed2` (21,590,895 bytes); native crew HTML `0c6ee326a3b3c6ff06fdad04d4968cbec9bb0822226f84d478286f719cffa0a3`. No second source review claimed.
+
+## Publication and read-back
+
+Source/test/evidence commit `300ba7aefadc95db5e5ebc4d528d21063e9824b4`; PR #37 merged at `6eebbdeff69f8f34059eea3dc0fc08b26bfa2dd3`. Guarded page upload and separate public read-back matched the full candidate hash. The page’s own event-tracker update then sent exactly one POST `/api/cards`, with the existing token and completion key. Fresh private backups and exact crew HTML read-back passed; all 75 printed signatures, tracker configuration, contact, data and prior ticks were retained, with zero completion writes, zero job-record writes and the job record unchanged. The TEST rehearsal was local; the separate live TEST tracker was not republished. Publication backup/read-back fetched the crew page and can add view-log entries; no fake crew completion was sent.
+
+Current page SHA-256: `bf54c4a68843a460f0b23728ece16d91c60bc9a2ea036a9dc2740f4425300ed2` (21,590,895 bytes).
+
+Current EVENT crew HTML SHA-256: `0c6ee326a3b3c6ff06fdad04d4968cbec9bb0822226f84d478286f719cffa0a3`.
+
+Cleaners use their same printed code. A card already open on the older script uses its existing reload notice; new scans load the updated card. Existing pending-tap storage and retry code are unchanged. Scope complete. Future page builds start on v11.61; Claude retains operational reconciliation. No second source review or reply to this final handover is claimed.

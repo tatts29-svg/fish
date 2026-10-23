@@ -1,6 +1,6 @@
 {
   "author": "Andrew Fisher",
-  "state": "READY TO UPLOAD",
+  "state": "VERIFIED LIVE",
   "base_sha256": "e17bd3d868b00f421f23a249c39f39c94801c05b57533ae8d4bfcd7674cf683f",
   "candidate_sha256": "bf54c4a68843a460f0b23728ece16d91c60bc9a2ea036a9dc2740f4425300ed2",
   "candidate_bytes": 21590895,
@@ -48,5 +48,26 @@
     "crew_sha256": "0c6ee326a3b3c6ff06fdad04d4968cbec9bb0822226f84d478286f719cffa0a3"
   },
   "phone_screenshot_inspected": true,
-  "other_agent_source_review": false
+  "other_agent_source_review": false,
+  "source_commit": "300ba7aefadc95db5e5ebc4d528d21063e9824b4",
+  "merge_commit": "6eebbdeff69f8f34059eea3dc0fc08b26bfa2dd3",
+  "public_readback": {
+    "author": "Andrew Fisher",
+    "at": "2026-10-23T09:38:10.355656+00:00",
+    "sha256": "bf54c4a68843a460f0b23728ece16d91c60bc9a2ea036a9dc2740f4425300ed2",
+    "bytes": 21590895,
+    "status": "exact public byte match"
+  },
+  "native_publication": {
+    "at": "2026-10-23T09:38:36.510Z",
+    "one_native_tracker_post": true,
+    "printed_links_preserved": 75,
+    "all_prior_ticks_preserved": true,
+    "config_contact_data_preserved": true,
+    "record_unchanged": true,
+    "record_writes": 0,
+    "completion_writes": 0,
+    "crew_sha256": "0c6ee326a3b3c6ff06fdad04d4968cbec9bb0822226f84d478286f719cffa0a3",
+    "exact_served_byte_match": true
+  }
 }
