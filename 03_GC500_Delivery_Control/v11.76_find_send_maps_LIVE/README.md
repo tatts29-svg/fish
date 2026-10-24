@@ -1,4 +1,6 @@
-# v11.76 — find it on the map, picture it and send it
+# v11.76 — find it on the map, picture it and send it — LIVE
+
+**LIVE 24 Oct 2026 12:11 AEST**, page `862c9a63880169e2cfdb0f293b9fd662e2643c6c792a824f2ffc4bc454618b01` (21,793,715 bytes); guarded upload, the view link serves the build byte for byte (independent read-back matched). Live tests 35/35 desktop and 35/35 phone (`evidence/live/`).
 
 Author: Andrew Fisher. Built on live v11.75 `4ed371e093ecf70323b28dacc0259b8831dba36e0bb4bc742ab8e037c6d9dc9e`.
 
@@ -58,4 +60,4 @@ Nothing is written to the record; no crew card, QR code or server change.
 - Sweeps: desktop and phone 27 tabs / 19 shown / 7 hashes / Back, zero errors, zero console errors, zero blocked writes.
 - Screenshots in `evidence/` (phone box, Gate 6, S21 and VMS 10 cards, stands on satellite).
 
-Build: `bash toolchain/build.sh v11.76 v11.76_find_send_maps_DRAFT/patch_v1176.py`.
+Build: `bash toolchain/build.sh v11.76 v11.76_find_send_maps_LIVE/patch_v1176.py`.
