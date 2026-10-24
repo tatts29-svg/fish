@@ -1,6 +1,8 @@
-# v11.79 verification — READY TO UPLOAD
+# v11.79 verification — LIVE
 
 Author: Andrew Fisher
+
+READY source: `6255337f44cc3fda680547c87b850866a74731d2`.
 
 Implementation source: `96662fbf75d9577c947c4d29f6db9042319f0b37` on `ccr-061f77e8-ivjhrv`.
 
@@ -19,3 +21,5 @@ Candidate: SHA-256 `52fe0d1a8266bbd91c32bcce7e2f5e86ee05cfed869527ecf44484c3fe62
 - Guarded upload dry-run: edit access and unchanged base verified; no upload performed by the dry-run.
 
 No operational record, crew card, QR code or server change. No second-agent review claimed.
+
+Publication: guarded unchanged-base upload at 24 Oct 2026 13:20 AEST (service receipt 03:19:55.342 UTC). The uploader confirmed exact public bytes; a separate uncached public GET at 13:20:18 AEST matched the entire candidate and SHA-256 above. Actual public phone verification passed 9/9, with two error-free native frames, Day retained, selectable truck/scenery present, garage visible, cache/scene released on Close, shared record unchanged and no attempted writes. Public phone screenshot inspected privately.

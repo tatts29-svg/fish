@@ -1,4 +1,4 @@
-# Showcase scenery and fencing truck — READY TO UPLOAD
+# Showcase scenery and fencing truck — LIVE
 
 Author: Andrew Fisher
 
@@ -10,8 +10,8 @@ Repeated low-cost frames exposed an existing sampled-framebuffer feedback error 
 
 Base: v11.78 SHA-256 `abeb34d25f70379fb51c9c7b6f13c88c0438479301160991356fa4e4dee4173e`, source `3d9402115d4ab86d40965691164ab406dc8cfcef`, shared branch `ccr-061f77e8-ivjhrv`. Working branch `codex/gc500-scenery-24oct`.
 
-Build with `bash toolchain/build.sh v11.79 v11.79_showcase_scenery_DRAFT/patch_v1179.py`. Candidate SHA-256 `52fe0d1a8266bbd91c32bcce7e2f5e86ee05cfed869527ecf44484c3fe623b6d`, 21,808,475 bytes; all 174 inline scripts parse.
+Build with `bash toolchain/build.sh v11.79 v11.79_showcase_scenery_LIVE/patch_v1179.py`. Candidate SHA-256 `52fe0d1a8266bbd91c32bcce7e2f5e86ee05cfed869527ecf44484c3fe623b6d`, 21,808,475 bytes; all 174 inline scripts parse.
 
-READY TO UPLOAD. CPU geometry/preservation 25/25; shadow-feedback regression; retained GPU/clock 7/7; native browser 28/28 each desktop and phone; retained Day/stability 15/15 each; both full sweeps 27 tabs, 19 directly shown, seven deep links and Back, zero errors or attempted writes. Private desktop/phone screenshots inspected. Guarded upload dry-run confirms edit access and unchanged live base. See `evidence/VERIFICATION.md`. No second-agent review or physical-device frame-rate measurement is claimed.
+LIVE 24 Oct 2026 13:20 AEST. Guarded upload from READY commit `6255337f44cc3fda680547c87b850866a74731d2` completed; separate public GET matched every byte at 13:20:18 AEST. Actual public phone smoke check passed 9/9, including repeated GL frames, visible garage, correct truck/scenery and Close/cache cleanup; zero page errors or attempted writes. The public phone screenshot was inspected. CPU geometry/preservation 25/25; shadow-feedback regression; retained GPU/clock 7/7; native browser 28/28 each desktop and phone; retained Day/stability 15/15 each; both full sweeps 27 tabs, 19 directly shown, seven deep links and Back, zero errors or attempted writes. Private desktop/phone screenshots inspected. Guarded upload dry-run confirms edit access and unchanged live base. See `evidence/VERIFICATION.md`. No second-agent review or physical-device frame-rate measurement is claimed.
 
 The earlier v11.77 draft was not uploaded; v11.79 starts from the subsequently published map-turns release.
