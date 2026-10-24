@@ -1,7 +1,7 @@
 /* Author: Andrew Fisher. Native viewport, load-envelope, driving and lifecycle checks. */
 const fs=require('fs'),path=require('path'),{open}=require('../../toolchain/harness/open_page');
 (async()=>{const out=process.env.OUT;fs.mkdirSync(out,{recursive:true});const h=await open({pageFile:process.env.PAGE,gl:true,W:390,H:844,mobile:true,dpr:1}),p=h.page,checks=[];
-function check(name,ok,detail){checks.push({name,ok:!!ok,detail});console.log((ok?'PASS ':'FAIL ')+name);}
+function check(name,ok,detail){checks.push({name,ok:!!ok,detail});console.log((ok?'PASS ':'FAIL ')+name+(!ok?' '+JSON.stringify(detail):''));}
 try{
  await p.waitForFunction(()=>typeof SYNC!=='undefined'&&SYNC.status==='live'&&window.GC3D,null,{timeout:180000});const record=await p.evaluate(()=>JSON.stringify(S));
  await p.evaluate(()=>{window.finishRender=GC3D.render;GC3D.render=()=>{};GC3D.frame=()=>{};localStorage.setItem('gc500.showquality','balanced');localStorage.setItem('gc500.clarity1182','1');localStorage.setItem('gc500.showback','circuit3d_day');localStorage.setItem('gc500.showvehicle','fencing_truck');showOpen();showPause();});
@@ -11,14 +11,15 @@ try{
  for(const x of [b.min[0],b.max[0]])for(const y of [b.min[1],b.max[1]])for(const z of [b.min[2],b.max[2]]){const q=[x,y,z,1],v=[0,1,2,3].map(j=>q.reduce((a,n,k)=>a+n*M[k*4+j],0));pts.push([v[0]/v[3],v[1]/v[3],v[3]]);}return {inside:pts.every(v=>v[2]>0&&Math.abs(v[0])<.911&&Math.abs(v[1])<.911),maxX:Math.max(...pts.map(v=>Math.abs(v[0]))),maxY:Math.max(...pts.map(v=>Math.abs(v[1])))};};
  window.finishPose=function(view,s){Q.sim.s=s;Q.sim.lat=0;Q.sim.latV=0;Q.sim.slip=0;Q.sim.air=0;Q.sim.v=0;Q.sim.pitch=0;Q.sim.roll=0;Q.sim.squash=0;Q.clock=30;Q.camBase=null;Q.camAnchor=null;Q.camYaw=null;Q.camDebug=null;Q.camRoll=0;Q.fovKick=0;if(Q.fw)Q.fw.cam=false;G.pose();Q.forceShot=view;G.camStep(0);};
  });
- let total=0,failures=[];
+ let total=0,failures=[],occlusions=[];
  for(const [width,height] of [[360,800],[390,844],[844,390],[1280,800],[1920,1080]]){
   await p.setViewportSize({width,height});await p.waitForTimeout(100);
-  const r=await p.evaluate(()=>{const G=GC3D,Q=G.S,failures=[];let n=0;for(const view of ['hero','grid','chase','quarter','detail','frontdetail','low','brake','nose','orbit','heli'])for(const shift of [0,.38])for(const at of [.05,.25,.50,.75,.95]){Q.tune.shiftX=shift;finishPose(view,Q.CL.L*at);const b=finishBounds();n++;if(!b.inside)failures.push({view,shift,at,...b});}return {n,failures};});total+=r.n;failures.push(...r.failures.map(f=>({width,height,...f})));
+  const r=await p.evaluate(()=>{const G=GC3D,Q=G.S,failures=[],occlusions=[];const clear=c=>{if(!Q.heightAt)return true;const h=Q.heightAt(c.eye[0],c.eye[2]);if(h>0&&h>c.eye[1]-1)return false;for(let k=1;k<=12;k++){const f=k/12,x=c.tgt[0]+(c.eye[0]-c.tgt[0])*f,z=c.tgt[2]+(c.eye[2]-c.tgt[2])*f,h=Q.heightAt(x,z);if(h>0&&h>c.tgt[1]+(c.eye[1]-c.tgt[1])*f-.8)return false;}return true;};let n=0;for(const view of ['hero','grid','chase','quarter','detail','frontdetail','low','brake','nose','orbit','heli'])for(const shift of [0,.38])for(const at of [.05,.25,.50,.75,.95]){Q.tune.shiftX=shift;finishPose(view,Q.CL.L*at);const b=finishBounds();n++;if(!b.inside)failures.push({view,shift,at,...b});if(clear({eye:Q.camBase.eye.map((n,i)=>n+(Q.camShake?.[i]||0)),tgt:Q.camBase.tgt.map((n,i)=>n+(Q.camShake?.[i]||0)*.30)})&&!clear(Q.cam))occlusions.push({view,shift,at});}return {n,failures,occlusions};});total+=r.n;failures.push(...r.failures.map(f=>({width,height,...f})));occlusions.push(...r.occlusions.map(f=>({width,height,...f})));
  }
  check('whole load fits exterior cameras across five viewport shapes and circuit positions',failures.length===0,{samples:total,failures:failures.slice(0,10)});
+ check('framing does not move a clear camera into scenery',occlusions.length===0,{failures:occlusions});
  await p.setViewportSize({width:390,height:844});await p.waitForTimeout(100);
- const moving=await p.evaluate(()=>{const G=GC3D,Q=G.S;Q.tune.shiftX=.38;finishPose('detail',Q.CL.L*.2);let lost=0,maxStep=0,prev=null;for(let i=0;i<1800;i++){G.step(1/60);G.camStep(1/60);if(!finishBounds().inside)lost++;const extra=Q.truckFit1186.distance;if(prev!==null)maxStep=Math.max(maxStep,Math.abs(extra-prev));prev=extra;}return {lost,maxFitStep:maxStep,s:Q.sim.s,finite:Number.isFinite(Q.sim.s),distance:Q.sim.s-Q.CL.L*.2};});check('moving truck stays framed through steering and body movement',moving.lost===0&&moving.finite&&moving.distance>0,moving);
+ const moving=await p.evaluate(()=>{const G=GC3D,Q=G.S;Q.tune.shiftX=.38;finishPose('detail',Q.CL.L*.2);let lost=0,maxStep=0,prev=null;for(let i=0;i<1800;i++){G.step(1/60);G.camStep(1/60);if(!finishBounds().inside)lost++;const extra=Q.truckFit1186.fov;if(prev!==null)maxStep=Math.max(maxStep,Math.abs(extra-prev));prev=extra;}return {lost,maxFovStep:maxStep,s:Q.sim.s,finite:Number.isFinite(Q.sim.s),distance:Q.sim.s-Q.CL.L*.2};});check('moving truck stays framed through steering and body movement',moving.lost===0&&moving.finite&&moving.distance>0,moving);
  const driver=await p.evaluate(()=>{finishPose('onboard',380);return !GC3D.S.truckFit1186&&GC3D.S.shotName==='onboard';});check('driver view keeps its cab perspective',driver);
  check('vehicle-neutral camera choices use existing controls',await p.locator('#showView').locator('option').allTextContents().then(a=>a.includes('Vehicle follow')&&a.includes('Vehicle detail')&&a.includes('Auto — vehicle cameras')));
  async function render(view,name){

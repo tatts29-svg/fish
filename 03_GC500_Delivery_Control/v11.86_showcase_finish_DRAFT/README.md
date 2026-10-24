@@ -2,7 +2,7 @@
 
 Author: Andrew Fisher
 
-The loaded truck was cut off in the detail camera, and exterior views could lose their margin as the viewport and lens shift changed. The truck now has suitable detail and low camera rigs, plus framing from the complete load envelope at the current aspect ratio and body attitude. The camera moves out immediately when needed and eases back in. The driver view keeps its existing position. The truck’s contact shadow spans its full tray, and the existing camera menu uses vehicle-neutral labels.
+The loaded truck was cut off in the detail camera, and exterior views could lose their margin as the viewport and lens shift changed. The truck now has suitable detail and low camera rigs, plus framing from the complete load envelope at the current aspect ratio and body attitude. The lens widens when needed and eases back in, preserving the camera positions already cleared against buildings. The driver view keeps its existing position. The truck’s contact shadow spans its full tray, and the existing camera menu uses vehicle-neutral labels.
 
 The existing model, stock, branding, scenery, layout, simulation, record and 4K renderer are retained. No operational data or media changes. This is a bounded correction to the existing illustrated Showcase, not a new photographic reconstruction.
 
