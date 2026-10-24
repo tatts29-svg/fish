@@ -1,5 +1,7 @@
 # v11.87 Message the servicing teams
 
+**LIVE 24 Oct 2026 17:29 AEST.** Page `b18acda01b96e653ff39612f12ed2dae29123d0dded5e8757fd680ac8b13bdfa` (21,908,533 bytes) on base v11.86 `b8366b09…`, guarded upload; the view link serves the build byte for byte. On the live page `tests/test_native1187.cjs` passed 35/35 desktop and 35/35 phone (nothing sent); `/health` v5.92, crew groups 1, 215 completions (tonight's first ticks arriving). Screenshots in `evidence/live/`.
+
 Author: Andrew Fisher · 24 Oct 2026
 
 Andrew, 24 Oct 2026 (this chat, about servicing): "Please make sure the services is functioning and improvements are done. Lets do a
@@ -86,9 +88,9 @@ charges or the servicing count.
 - **Phone and desktop screenshots** are in `evidence/` and were inspected.
 
 ```
-toolchain/build.sh v11.87 v11.87_message_teams_DRAFT/patch_v1187.py
-PAGE=build/GC500_v11.87/GC500_Delivery_Control_hosted.html BASE=build/GC500_v11.87/base_live.html node v11.87_message_teams_DRAFT/tests/test_rules1187.cjs
-PAGE=build/GC500_v11.87/GC500_Delivery_Control_hosted.html [MOB=1] node v11.87_message_teams_DRAFT/tests/test_native1187.cjs
+toolchain/build.sh v11.87 v11.87_message_teams_LIVE/patch_v1187.py
+PAGE=build/GC500_v11.87/GC500_Delivery_Control_hosted.html BASE=build/GC500_v11.87/base_live.html node v11.87_message_teams_LIVE/tests/test_rules1187.cjs
+PAGE=build/GC500_v11.87/GC500_Delivery_Control_hosted.html [MOB=1] node v11.87_message_teams_LIVE/tests/test_native1187.cjs
 ```
 
 Built on live v11.86 `b8366b090459abf3e2e571ab995551b81355c4f2f23a294749eb9eab64588840`. Implemented and tested by Claude, for Andrew;
