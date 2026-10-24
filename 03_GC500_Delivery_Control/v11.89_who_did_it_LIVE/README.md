@@ -1,7 +1,13 @@
 # v11.89 Servicing: tap a place to see who did it
 
-**READY TO UPLOAD (not live yet).** Built page `e8b601db60ccb0788e258a203598bf1c480e2aa966613a05e1f5d3983acea52d` (21,938,983 bytes)
-on live v11.88 `f5a383605877e87621652520250dfbeb5006f3abf3861845b759492d534e462c`.
+**LIVE 24 Oct 2026 18:28 AEST.**
+- Page `e8b601db60ccb0788e258a203598bf1c480e2aa966613a05e1f5d3983acea52d` (21,938,983 bytes), built on v11.88 `f5a38360…`.
+- Guarded upload. The view link serves the build byte for byte; a separate public download at 18:28:33 matched every byte.
+- On the live page, `tests/test_native1189.cjs` passed 30/30 on desktop and 30/30 on phone. Screenshots are in `evidence/live/`.
+- Earlier releases still pass on the new live page:
+  - v11.87 `test_native1187.cjs`: 35/35 on desktop and phone (nothing sent).
+  - v11.88 `test_native1188.cjs`: 21/21 on desktop and phone. One phone run first missed its "only the site plan shows" check: the plan
+    card had no height yet at the 800 ms mark. On rerun it passed 21/21, on this page and on the old v11.88 page.
 
 Author: Andrew Fisher · 24 Oct 2026
 
@@ -77,9 +83,9 @@ Every component is kept as built.
   out before each picture.
 
 ```
-toolchain/build.sh v11.89 v11.89_who_did_it_DRAFT/patch_v1189.py
-PAGE=build/GC500_v11.89/GC500_Delivery_Control_hosted.html BASE=build/GC500_v11.89/base_live.html node v11.89_who_did_it_DRAFT/tests/test_rules1189.cjs
-PAGE=build/GC500_v11.89/GC500_Delivery_Control_hosted.html [MOB=1] [EVIDENCE=dir] node v11.89_who_did_it_DRAFT/tests/test_native1189.cjs
+toolchain/build.sh v11.89 v11.89_who_did_it_LIVE/patch_v1189.py
+PAGE=build/GC500_v11.89/GC500_Delivery_Control_hosted.html BASE=build/GC500_v11.89/base_live.html node v11.89_who_did_it_LIVE/tests/test_rules1189.cjs
+PAGE=build/GC500_v11.89/GC500_Delivery_Control_hosted.html [MOB=1] [EVIDENCE=dir] node v11.89_who_did_it_LIVE/tests/test_native1189.cjs
 ```
 
 Built on live v11.88 `f5a383605877e87621652520250dfbeb5006f3abf3861845b759492d534e462c`. Implemented and tested by Claude, for Andrew;
