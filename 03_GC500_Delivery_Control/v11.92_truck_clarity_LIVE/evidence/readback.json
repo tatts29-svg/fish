@@ -1,0 +1,17 @@
+{
+  "author": "Andrew Fisher",
+  "version": "v11.92",
+  "state": "LIVE",
+  "ready_source": "0e9f9da52e775ae5644f95a6031e574e9fc70283",
+  "sha256": "1ca10ac4c8498f4e07a47aa5de4d4f59ef9c17a218961340fe275480eb90e2a3",
+  "bytes": 21955920,
+  "live_time_aest": "25 Oct 2026 00:38 AEST",
+  "checked_at_utc": "2026-10-24T14:40:28.758243+00:00",
+  "readback_time_aest": "25 Oct 2026 00:40:28 AEST",
+  "exact_public_bytes": true,
+  "guarded_unchanged_base": true,
+  "public_ui_check": "PASS 10/10",
+  "public_ui_checked_at_utc": "2026-10-24T14:42:12.929503+00:00",
+  "phone_frame_visually_inspected": true,
+  "ui_scope": "Actual public page: balanced truck frame, phone Options, 4K selector target, Close, record preservation, zero errors/writes. Native 4K rendering separately passed on the byte-identical candidate."
+}

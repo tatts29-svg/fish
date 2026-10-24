@@ -2,7 +2,7 @@
 
 Author: Andrew Fisher
 
-Status: READY TO UPLOAD — implementation and selected checks complete. Publication is owned by Codex; no second-agent review claimed.
+Status: LIVE — 25 Oct 2026 00:38 AEST. Implemented, tested and published independently; no second-agent review claimed.
 
 Andrew asked to improve the smudgy Showcase, especially the loaded fencing truck,
 and to have it tip onto two wheels around corners. This is decorative animation;
@@ -40,12 +40,14 @@ Software WebGL verifies rendering, not physical-device frame rate.
 Build from the exact current live base with the shared toolchain:
 
 ```sh
-bash toolchain/build.sh v11.92 v11.92_truck_clarity_DRAFT/patch_v1192.py
+bash toolchain/build.sh v11.92 v11.92_truck_clarity_LIVE/patch_v1192.py
 ```
 
 Do not bypass the unchanged-live-base guard. If a newer release appears, update the
 base and footer expectation, rebuild, and rerun the affected checks before upload.
 
-Validated candidate: `1ca10ac4c8498f4e07a47aa5de4d4f59ef9c17a218961340fe275480eb90e2a3` (21,955,920 bytes).
+Verified live page: `1ca10ac4c8498f4e07a47aa5de4d4f59ef9c17a218961340fe275480eb90e2a3` (21,955,920 bytes).
 
 Checks: 185 inline scripts parse; model 33/33; stunt/contact 17/17; preservation 16/16; native browser 14/14; UHD 5/5. Both full sweeps pass 27 routes, 7 deep links and Back, with zero errors, console errors or attempted writes. Phone and desktop screenshots and the actual 3840 × 2160 PNG were inspected. The native phone frame has a 2160 × 3267 target, four-sample MSAA and a 2048 sun-shadow map. Bounded desktop/UHD captures disable the optional sun-shadow and reflection passes; contact shadows remain.
+
+READY source: `0e9f9da52e775ae5644f95a6031e574e9fc70283`. The guarded upload passed on the unchanged v11.91 base. A separate public GET at 25 Oct 2026 00:40:28 AEST matched all 21,955,920 bytes and the SHA-256 above. Actual public-page phone checks passed 10/10, including the loaded truck frame, Options, the 4K selector target, Close, record preservation and zero errors/writes. The public phone screenshot was inspected. See `evidence/readback.json` and `evidence/public_phone.json`.
