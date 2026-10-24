@@ -1,4 +1,6 @@
-# v11.78 — the turns on the map: find, picture and send a track turn
+# v11.78 — the turns on the map: find, picture and send a track turn — LIVE
+
+**LIVE 24 Oct 2026 12:59 AEST**, page `abeb34d25f70379fb51c9c7b6f13c88c0438479301160991356fa4e4dee4173e` (21,798,296 bytes); guarded upload, the view link serves the build byte for byte (independent read-back matched). Live tests 44/44 desktop and 44/44 phone (`evidence/live/`).
 
 Author: Andrew Fisher. Built on live v11.76 `862c9a63880169e2cfdb0f293b9fd662e2643c6c792a824f2ffc4bc454618b01`.
 
