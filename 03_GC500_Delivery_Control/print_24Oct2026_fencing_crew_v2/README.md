@@ -1,5 +1,8 @@
 # The fencing crew's book, v2: "What you built" (GC500 2026)
 
+**Superseded on 24 Oct 2026 by `../print_24Oct2026_fencing_crew_v3/`** (the showpiece: six full-bleed pages and ten matching
+certificates). v3 still reads this folder's `map_inputs_24Oct2026.json` and `fonts_italic.css`, so keep them.
+
 Author: Andrew Fisher. Andrew, 24 Oct 2026, on the first print-out (`../print_24Oct2026_fencing_crew/`): "Lets do something like
 this as an example but 1000% better please".
 
