@@ -1,4 +1,4 @@
-# Showcase 4K clarity and loaded Advanced truck — READY TO UPLOAD
+# Showcase 4K clarity and loaded Advanced truck — SUPERSEDED, NEVER UPLOADED
 
 Author: Andrew Fisher
 
@@ -12,3 +12,5 @@ Build: `bash toolchain/build.sh v11.82 v11.82_truck_load_DRAFT/patch_v1182.py`.
 Base: exact public v11.81.1 `1c355e7d80e4703e01c4daa942d4298dfa451780b63db9c9e08dae60f6c816df`, preserving the intervening fencing/broadcast release. The v11.80 source folder is required by the guarded patch. Wrong-base and duplicate applications are refused.
 
 Current state: READY TO UPLOAD by Codex. All 177 scripts parse; model/camera/data preservation 33/33, GPU/clock 7/7, final desktop UHD 5/5, phone 21/21, retained Day/stability 15/15 and both full sweeps 27/19/7/Back pass. Zero page errors or attempted writes; 4K and phone screenshots inspected. See `evidence/VERIFICATION.md`. Candidate `1eda8a422b7098189c404d2af71394ab013bb4d6d413ff58855ad828c02a77cc`, 21,864,699 bytes. No second-agent review is claimed. Publication and public read-back are still pending.
+
+The guarded uploader refused this candidate after v11.83 changed the live base. Do not upload this draft. The same Showcase change continues as v11.84, preserving the newer broadcast data and release ordering.
