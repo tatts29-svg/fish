@@ -2,6 +2,8 @@
 
 Author: Andrew Fisher
 
+LIVE 25 Oct 2026 03:59 AEST: guarded upload, and a separate public GET at 03:59:59 matched every byte (`6e92bd7e…`, 21,999,244 bytes). Native 8/8 desktop and phone on the live bytes; screenshots in `evidence/`.
+
 Andrew, 25 Oct 2026, sent a screenshot of the Today card "Asset numbers delivered against two references · 1 NUMBER · 1189908 P41 (inside it — air conditioner, delivered) and P62 (inside it — air conditioner, delivered)" with: "Can we remove this looks messy on todays page".
 
 ## What changes
