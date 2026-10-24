@@ -2,7 +2,7 @@
 
 Author: Andrew Fisher
 
-READY TO UPLOAD. Claimed at 252bfa75967e65b2f3328bce9f6c9ecb97182863 after
+LIVE — 25 Oct 2026 02:15 AEST. Claimed at 252bfa75967e65b2f3328bce9f6c9ecb97182863 after
 the ownership handover in PR #1 comments 6385723149 and 6385815351.
 
 The read-only phone reproduction at 390 × 844 gives the actual plan stage only
@@ -24,10 +24,16 @@ exit, selector/route regression (v11.88), small-phone/landscape/desktop views,
 record preservation, both navigation sweeps, guarded upload and live read-back.
 Private screenshots and raw records are not committed.
 
-Candidate: `f8a93ce25459abd4493e65a28d9e9170d031237302b35af2ea1cf419bca08b68`, 21,999,025 bytes; base is verified live v11.95 `5868677a6bb4a59b4a9ffb6c8b2014a5be0b07661dfafeec74f8e149d1e3000b` (READY source `3f41c4cc1680c834568db9ae82b16c946de8756f`, LIVE archive `de9524717057e0c9c527f46e96b57304ad187213`). The shared checker parses 189 scripts. Native phone checks 17/17 and preservation 7/7 pass. At 390 × 844, the plan stage is 355 px (was 140) and 706 px in full screen; at 375 × 667 it is 186 px / 529 px. Portrait and full-screen screenshots inspected. The v11.88 selector regression passes 21/21 on both desktop and phone; the phone setup opens Map tools, with all original assertions retained. Desktop and phone navigation sweeps pass: 27 routes, 19 direct panes, seven deep links and Back; zero page errors, console errors or attempted writes. Guarded publication and public UI read-back are next.
+Candidate: `f8a93ce25459abd4493e65a28d9e9170d031237302b35af2ea1cf419bca08b68`, 21,999,025 bytes; base is verified live v11.95 `5868677a6bb4a59b4a9ffb6c8b2014a5be0b07661dfafeec74f8e149d1e3000b` (READY source `3f41c4cc1680c834568db9ae82b16c946de8756f`, LIVE archive `de9524717057e0c9c527f46e96b57304ad187213`). The shared checker parses 189 scripts. Native phone checks 17/17 and preservation 7/7 pass. At 390 × 844, the plan stage is 355 px (was 140) and 706 px in full screen; at 375 × 667 it is 186 px / 529 px. Portrait and full-screen screenshots inspected. The v11.88 selector regression passes 21/21 on both desktop and phone; the phone setup opens Map tools, with all original assertions retained. Desktop and phone navigation sweeps pass: 27 routes, 19 direct panes, seven deep links and Back; zero page errors, console errors or attempted writes. Guarded upload passed. A separate public GET at 02:16:14 AEST matched every byte, including the footer, viewport module, fifth-lap scene and truck. The same 17/17 native checks pass on the actual public page; portrait and full-screen screenshots inspected.
 
 The initial desktop sweep encountered one transient HTTP 502 on an existing map
 asset. A separate GET then returned 200; the repeated full desktop sweep passed with
 its strict console/error checks unchanged. The guarded upload dry run passed.
 No second-agent review is claimed. The fifth-lap scene, fencing truck, map selector
 and gate modules remain byte-identical, as does the embedded record.
+
+READY source: `b711815480033ab1e55ac75e6e54bb520d306af1`.
+The unchanged-base guard and server media check passed. Implemented, tested and
+published independently; no second-agent review. Claude retains v11.97 Build cards
+at `8798dede0501f78ba8eaf8f27738380942670a7a`, still DRAFT pending the mock-up
+response. Its owner rebuilds on v11.96 and reruns checks before READY.
