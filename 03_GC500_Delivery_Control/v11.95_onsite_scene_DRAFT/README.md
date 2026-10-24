@@ -2,7 +2,7 @@
 
 Author: Andrew Fisher
 
-Status: DRAFT — rendering and release checks in progress. Not ready to upload.
+Status: READY TO UPLOAD — all final-candidate checks complete. Codex owns publication.
 
 Andrew requested an Onsite-branded race car against a barrier with flames every
 five laps, with the branding readable. The scene is fictional Showcase decoration.
@@ -44,4 +44,4 @@ Publication requires the current live base guard, the exact READY source, succes
 checks, public byte read-back and actual public UI verification. No second-agent
 review or physical-device frame-rate measurement is claimed.
 
-Candidate on v11.94: `5868677a6bb4a59b4a9ffb6c8b2014a5be0b07661dfafeec74f8e149d1e3000b`, 21,995,841 bytes. The shared checker parses 188 scripts. Rules/preservation 31/31; actual browser lifecycle and contact 19/19; native 3840 × 2160 render/export 5/5. Phone, desktop and the 4K image inspected. The native GPU test uses a bounded software-GPU frame with shadows/reflections disabled; it does not measure real-phone frame rate. Full navigation checks and publication remain pending.
+Candidate on v11.94: `5868677a6bb4a59b4a9ffb6c8b2014a5be0b07661dfafeec74f8e149d1e3000b`, 21,995,841 bytes. The shared checker parses 188 scripts. Rules/preservation 31/31; actual browser lifecycle and contact 19/19; native 3840 × 2160 render/export 5/5. Phone, desktop and the 4K image inspected. The native GPU test uses a bounded software-GPU frame with shadows/reflections disabled; it does not measure real-phone frame rate. Desktop and phone sweeps pass: 27 routes, 19 direct panes, seven deep links and Back; zero page errors, console errors and attempted record writes. The upload dry run passed. Guarded publication and public verification are next.
