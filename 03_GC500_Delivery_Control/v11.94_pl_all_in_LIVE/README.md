@@ -1,8 +1,9 @@
 # v11.94 Costs: the P&L all in
 
-**READY 25 Oct 2026.**
-- Built on live v11.93 `e49bca1a706ee7297f9f05ac04d0e91cbbbfcffdc216e8e1e8d1fb1326ff6ea3`.
-- Build `0df3556fc262a022b8ccd6fce04c780ce3e415bbc3677832392572ff9ef9194b` (21,978,916 bytes).
+**LIVE 25 Oct 2026 01:25 AEST.**
+- Page `0df3556fc262a022b8ccd6fce04c780ce3e415bbc3677832392572ff9ef9194b` (21,978,916 bytes), built on v11.93 `e49bca1a…`.
+- Guarded upload. The view link serves the build byte for byte; a separate public download at 01:25:02 matched every byte.
+- On the live page, `tests/test_native1194.cjs` passed 13/13 on desktop and 13/13 on phone. Screenshots are in `evidence/live/`.
 
 Author: Andrew Fisher · 25 Oct 2026
 
@@ -82,9 +83,9 @@ The 17 demob movements and 36 planned movements have no rate on the record. They
 made up. Give the rates, or say "use the average so far", and they go in. Then the only open line is fencing.
 
 ```
-toolchain/build.sh v11.94 v11.94_pl_all_in_DRAFT/patch_v1194.py
-PAGE=build/GC500_v11.94/GC500_Delivery_Control_hosted.html BASE=build/GC500_v11.94/base_live.html node v11.94_pl_all_in_DRAFT/tests/test_rules1194.cjs
-PAGE=build/GC500_v11.94/GC500_Delivery_Control_hosted.html [MOB=1] [EVIDENCE=dir] node v11.94_pl_all_in_DRAFT/tests/test_native1194.cjs
+toolchain/build.sh v11.94 v11.94_pl_all_in_LIVE/patch_v1194.py
+PAGE=build/GC500_v11.94/GC500_Delivery_Control_hosted.html BASE=build/GC500_v11.94/base_live.html node v11.94_pl_all_in_LIVE/tests/test_rules1194.cjs
+PAGE=build/GC500_v11.94/GC500_Delivery_Control_hosted.html [MOB=1] [EVIDENCE=dir] node v11.94_pl_all_in_LIVE/tests/test_native1194.cjs
 ```
 
 Implemented and tested by Claude, for Andrew; not reviewed by Codex.
