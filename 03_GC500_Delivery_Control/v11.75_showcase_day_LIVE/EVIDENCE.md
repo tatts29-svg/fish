@@ -14,6 +14,6 @@ Exact live v11.75: `4ed371e093ecf70323b28dacc0259b8831dba36e0bb4bc742ab8e037c6d9
 - Desktop and phone low-detail screenshots inspected. Geometry/placement unchanged; culling cells retain every original source index.
 - Controlled-camera workload: normal submitted indices 5,336,577 → 4,233,003; low 2,886,495 → 1,785,972. Draw calls 130 → 324 and 95 → 268 respectively. These are workload counts, not physical-device FPS evidence.
 
-Software rendering does not establish smoothness on Andrew's computer. His continued v11.74 failure report remains valid; v11.75 awaits his device result. No second-agent review or agreement claimed. Raw images, timing traces and operational data stay private.
+Andrew confirmed “Playing normally” on 24 Oct 2026 in response to the v11.75 reload / 3D — day check on his computer. This is user confirmation on his tested setup, not a measured FPS result. His earlier v11.74 failure remains part of the release history. No second-agent review or agreement claimed. Raw images, timing traces and operational data stay private.
 
 Published with the shared guarded uploader on 24 Oct 2026 at 11:43:54 AEST from READY source `312e2946cbed0c02bc65308b660bac16effdee16`. The base was unchanged; service accepted the page; the uploader read the exact complete bytes back. A separate public GET at 11:44:10.062688 AEST independently matched the complete build and SHA-256 above. Actual-live desktop and phone repeated the 15 focused browser assertions each, with no page errors or attempted writes. No live operational record mutation was performed.
