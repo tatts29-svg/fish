@@ -26,6 +26,20 @@ function rayRing(p,n,ring){let best=Infinity,hit=null;
   if(t>0&&u>=0&&u<=1&&t<best){best=t;hit={distance:t,point:[p[0]+n[0]*t,p[1]+n[1]*t],tangent:d.map(x=>x/Math.hypot(...d))};}}
  return hit;
 }
+// Match the visible concrete, including its bevel and mitered corners. A ring
+// offset alone is not the contact surface at bumper height. Run once per variant.
+function concreteContact(S,origin,direction,maxDistance){
+ const variant=S.corridor794?.variants.find(v=>v.key==='trackConcrete'),active=!!S.corridor794?.active;
+ const vertices=variant?(active?variant.vertices:variant.sourceVertices):S.trackConcrete?.v,indices=variant?(active?variant.indices:variant.sourceIndices):S.trackConcrete?.i;
+ if(!vertices||!indices)return null;
+ const sub=(a,b)=>a.map((v,i)=>v-b[i]),dot=(a,b)=>a.reduce((v,n,i)=>v+n*b[i],0),cross=(a,b)=>[a[1]*b[2]-a[2]*b[1],a[2]*b[0]-a[0]*b[2],a[0]*b[1]-a[1]*b[0]];
+ let nearest=maxDistance;
+ for(let i=0;i<indices.length;i+=3){const [a,b,c]=[indices[i],indices[i+1],indices[i+2]].map(j=>[vertices[j*9],vertices[j*9+1],vertices[j*9+2]]),e1=sub(b,a),e2=sub(c,a),h=cross(direction,e2),det=dot(e1,h);
+  if(Math.abs(det)<1e-12)continue;const inv=1/det,s=sub(origin,a),u=dot(s,h)*inv;if(u<0||u>1)continue;
+  const q=cross(s,e1),v=dot(direction,q)*inv;if(v<0||u+v>1)continue;const t=dot(e2,q)*inv;if(t>=0&&t<nearest)nearest=t;
+ }
+ return nearest<maxDistance?nearest:null;
+}
 function placement(S){
  const scale=S.tune.carS,L=S.CL.L,corridor=S.corridor794?.active?S.corridor794:null,outer=corridor?corridor.outer:S.outer,inner=corridor?corridor.inner:S.inner;let best=null;
  // A visible trackside position with room beside the racing line. This is
@@ -37,15 +51,20 @@ function placement(S){
    const score=Math.abs(h.distance/scale-2.8)+k*.025;if(best&&best.score<=score)continue;
    let wall=h.tangent;if(wall[0]*t[0]+wall[1]*t[1]<0)wall=wall.map(v=>-v);
    let normal=[-wall[1],0,wall[0]];if(normal[0]*n[0]+normal[2]*n[1]<0)normal=normal.map(v=>-v);
-   const f=[wall[0]*Math.cos(.42)+normal[0]*Math.sin(.42),0,wall[1]*Math.cos(.42)+normal[2]*Math.sin(.42)],rt=[-f[2],0,f[0]];
+   const f=[wall[0]*Math.cos(.72)+normal[0]*Math.sin(.72),0,wall[1]*Math.cos(.72)+normal[2]*Math.sin(.72)],rt=[-f[2],0,f[0]];
    best={at,side,score,f,rt,normal,scale,boundaryDistance:h.distance,hit:h.point,corridor:!!corridor};
   }
  }
  if(!best)return null;
- const {f,rt,normal:N,scale:s}=best;let reach=-Infinity;
- for(const p of model().parts)for(let i=0;i<p.vertices.length;i+=8){const x=p.vertices[i],z=p.vertices[i+2];reach=Math.max(reach,(f[0]*x+rt[0]*z)*N[0]+(f[2]*x+rt[2]*z)*N[2]);}
- const clearance=.012*s,inset=reach*s+clearance+(corridor?0:.45),pos=best.pos=[best.hit[0]-N[0]*inset,S.tune.deckH,best.hit[1]-N[2]*inset];
- best.frontClearance=clearance;best.roadClearance=best.boundaryDistance-inset-.37*s;
+ const {f,rt,normal:N,scale:s}=best;let reach=-Infinity,front;
+ for(const p of model().parts)for(let i=0;i<p.vertices.length;i+=8){const x=p.vertices[i],z=p.vertices[i+2],extent=(f[0]*x+rt[0]*z)*N[0]+(f[2]*x+rt[2]*z)*N[2];if(extent>reach){reach=extent;front=[x,p.vertices[i+1],z];}}
+ // The original barrier front is offset OUTWARD by .45 scene units; the
+ // corrected measured corridor uses zero offset. Match the visible variant.
+ const clearance=.012*s,inset=reach*s+clearance-(corridor?0:.45),pos=best.pos=[best.hit[0]-N[0]*inset,S.tune.deckH,best.hit[1]-N[2]*inset];
+ const world=[pos[0]+s*(f[0]*front[0]+rt[0]*front[2]),pos[1]+s*front[1],pos[2]+s*(f[2]*front[0]+rt[2]*front[2])],origin=world.map((v,i)=>v-N[i]*s),contact=concreteContact(S,origin,N,s*2);
+ if(contact===null)return null;
+ const shift=contact-s-clearance;pos[0]+=N[0]*shift;pos[2]+=N[2]*shift;
+ best.frontClearance=clearance;best.contactCorrection=shift;best.roadClearance=best.boundaryDistance-inset+shift-.37*s;
  best.matrix=new Float32Array([f[0]*s,0,f[2]*s,0,0,s,0,0,rt[0]*s,0,rt[2]*s,0,...pos,1]);return best;
 }
 let cachedModel;

@@ -21,8 +21,9 @@ Procedural flames cover the bonnet, roof and rear, with smoke above. The near do
 remains readable. A brief automatic trackside camera shows the scene on approach;
 manual camera choices remain unchanged.
 
-Base: verified public v11.92, SHA-256
-`1ca10ac4c8498f4e07a47aa5de4d4f59ef9c17a218961340fe275480eb90e2a3`.
+Base: public v11.93, SHA-256
+`e49bca1a706ee7297f9f05ac04d0e91cbbbfcffdc216e8e1e8d1fb1326ff6ea3`.
+This retains the preceding truck changes and the latest Today release.
 Claim: `57f1dae01cdbdfbd6b1a7f55fcb43c9eea2ffb6e` on `ccr-061f77e8-ivjhrv`.
 The patch refuses a different live base or a second application.
 
