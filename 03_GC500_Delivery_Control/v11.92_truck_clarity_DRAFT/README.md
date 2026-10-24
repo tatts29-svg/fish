@@ -2,7 +2,7 @@
 
 Author: Andrew Fisher
 
-Status: DRAFT — final rendered checks and full page sweeps in progress.
+Status: READY TO UPLOAD — implementation and selected checks complete. Publication is owned by Codex; no second-agent review claimed.
 
 Andrew asked to improve the smudgy Showcase, especially the loaded fencing truck,
 and to have it tip onto two wheels around corners. This is decorative animation;
@@ -45,3 +45,7 @@ bash toolchain/build.sh v11.92 v11.92_truck_clarity_DRAFT/patch_v1192.py
 
 Do not bypass the unchanged-live-base guard. If a newer release appears, update the
 base and footer expectation, rebuild, and rerun the affected checks before upload.
+
+Validated candidate: `1ca10ac4c8498f4e07a47aa5de4d4f59ef9c17a218961340fe275480eb90e2a3` (21,955,920 bytes).
+
+Checks: 185 inline scripts parse; model 33/33; stunt/contact 17/17; preservation 16/16; native browser 14/14; UHD 5/5. Both full sweeps pass 27 routes, 7 deep links and Back, with zero errors, console errors or attempted writes. Phone and desktop screenshots and the actual 3840 × 2160 PNG were inspected. The native phone frame has a 2160 × 3267 target, four-sample MSAA and a 2048 sun-shadow map. Bounded desktop/UHD captures disable the optional sun-shadow and reflection passes; contact shadows remain.

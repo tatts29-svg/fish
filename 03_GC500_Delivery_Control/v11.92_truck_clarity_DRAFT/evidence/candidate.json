@@ -1,0 +1,14 @@
+{
+  "author": "Andrew Fisher",
+  "state": "READY TO UPLOAD",
+  "implementation_source": "8242128f606401aabcd665635cfc74145befc55d",
+  "base_version": "v11.91",
+  "base_sha256": "ffacee9978f388e43559a02bf62a9ad01d2de0c3bf3b3326eb5c5cd19b279e6b",
+  "candidate_sha256": "1ca10ac4c8498f4e07a47aa5de4d4f59ef9c17a218961340fe275480eb90e2a3",
+  "bytes": 21955920,
+  "inline_scripts": 185,
+  "uhd_png_sha256": "c896218d7a28538a08bfa6ce9dfa534e7a5bc8b118413fb16e5bd57080ece227",
+  "native_frames_reviewed": true,
+  "second_agent_review": false,
+  "physical_device_fps_measured": false
+}
