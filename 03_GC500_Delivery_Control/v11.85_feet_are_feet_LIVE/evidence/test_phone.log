@@ -1,0 +1,25 @@
+  ok  footer v11.85
+  ok  the hire agreements carry 8,235 feet to race weekend ["ready",8235,123,11]
+  ok  Today summary line reads Feet / bases ["Feet / bases",8235,123]
+  ok  its note says blocks are feet and the 216 are counted once: Feet (bases) the crew wrote in the component boxes of the usable hire agreements: feet, bases and blocks are one item. 8,235 on 123 hire agreements. 11 hire agreements with panels or braces left the box blank; those are not estimated. The 216 on the card's Fence Blocks charge line (docket 36566) are these feet, counted once here. No programme total is supplied.
+  ok  no line called Fence blocks in the fencing summary ["Clean fence","Braced for scrim","Vehicle gates","Pedestrian gates","Crowd control · event","Crowd control · demarcation","Relocations","Removed or stacked down","CCB flat feet","Feet / bases","Labour recorded","Scrim applied to existing fence"]
+  ok  the Today work rows carry it {"label":"Feet / bases","done":8235,"total":null}
+  ok  Progress line reads Feet / bases 8,235, no plan {"name":"Feet / bases","done":8235,"planned":null,"behind":null,"blocks":{"name":"Fence blocks","done":216}}
+  ok  the race-weekend merge keeps it {"name":"Feet / bases","done":8235}
+  ok  the breakdown lists every hire agreement with its feet [123,8235,216,474,112]
+  ok  the breakdown says what it counts: 11 hire agreements with panels or braces left the box blank; those are not estimated.
+  ok  the Fence Blocks charge line is unchanged
+  ok  an earlier day (20 Sep, before 36566) shows its feet too {"label":"Feet / bases","recorded":1499,"comp":1499}
+  ok  fencing still reads 100%, five green ["ready",100,100,true]
+  ok  the programme still runs turns 1 to 51
+  ok  turn 30 carries its line and take 6fb5d349009b
+  ok  turn 30 take served {"status":200,"type":"audio/mpeg","bytes":241103}
+  ok  no turn says concrete blocks
+  ok  the other 50 turns are exactly as on the base page
+  ok  the programme note names the v11.85 revision
+  ok  Today table row on screen: Feet / basesRecorded work only · eachDated installation plan unconfirmed—8,235—
+  ok  the breakdown on screen lists 123 hire agreements under Feet / bases
+  ok  Progress table row on screen (the table writes whole numbers plain, as every row): Feet / bases each — 8235 —
+  ok  no page or console errors, no writes []
+
+23 passed, 0 failed

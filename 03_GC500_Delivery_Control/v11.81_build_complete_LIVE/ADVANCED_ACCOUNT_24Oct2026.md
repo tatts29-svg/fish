@@ -44,8 +44,8 @@ Scrim, relocations and removals are work on the same fence; they are never added
 |---|---|---|---|---|---|---|---|
 | 5,223 | 41 | 8,235 | 7,977 | 1,426 | 278 | 2,903 | 117 |
 
-**Feet (corrected 24 Oct 2026):** feet, bases and blocks are one item. 8,235 are written on the dockets; 10 papers left the feet
-box blank (230 panels, 4 braces, about 240 more), so about 8,475 were used. The gear agrees: one foot per panel (5,264 incl. the
+**Feet (corrected 24 Oct 2026):** feet, bases and blocks are one item. 8,235 are written on the dockets; 11 papers left the feet
+box blank (230 panels, 15 braces, about 260 more), so about 8,495 were used. The gear agrees: one foot per panel (5,264 incl. the
 hoarding panels, shared at the joins) + two per brace (2,852; every bracing-only docket shows exactly two) + 300 dropped at the
 iEDM compound + 19 under the Club 500 flat-feet barriers = 8,435, plus one at the open end of each run. An earlier version of this
 file listed "216 concrete blocks" as a separate item: those are the 216 feet on docket 36566, charged on the card's Fence Blocks

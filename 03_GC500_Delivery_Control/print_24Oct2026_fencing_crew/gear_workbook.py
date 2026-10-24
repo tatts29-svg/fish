@@ -159,8 +159,8 @@ def main():
     line('Under flat-feet barriers, Club 500 (36591)', 19)
     line('Feet worked out from the gear', f'=SUM(B{r - 4}:B{r - 1})', bold=True, note='Plus one more at the open end of each straight run.')
     line('Feet written on the dockets', ref('L'), bold=True)
-    line('Dockets with the feet box left blank', 10, note='230 panels and 4 braces on them: about 240 feet not written.')
-    line('Feet used, about', f'=B{r - 2}+240', bold=True, note='Written + the blank papers. The gear says the same.')
+    line('Dockets with the feet box left blank', 11, note='230 panels and 15 braces on them (36629 alone has 11 braces): about 260 feet not written.')
+    line('Feet used, about', f'=B{r - 2}+260', bold=True, note='Written + the blank papers. The gear says the same, with one more at the open end of each run.')
     sm.cell(row=r, column=1, value=('If braces actually took three feet each (not what the dockets show), add one more per brace: '
                                     '1,426 more, about 9,900 in all.')).font = Font(size=9, italic=True, color=MUTE); r += 1
     sm.cell(row=r, column=1, value=('The 216 "fence blocks" on the page were the 216 feet on docket 36566 (108 braces at the rear of the pit building), '
