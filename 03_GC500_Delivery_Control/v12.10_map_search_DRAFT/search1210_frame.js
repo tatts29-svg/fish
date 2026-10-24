@@ -59,6 +59,8 @@ function searchFrame1210(){
    const b=document.createElement('button');b.type='button';b.className='chip';b.dataset.cat=cat.id;b.setAttribute('aria-pressed','false');b.style.setProperty('--c',cat.c);b.innerHTML='<i></i>'+esc(cat.name)+' <small>'+entries.length+'</small>';$('chips').appendChild(b);
   }
  }
+ // Source landmarks are not hire equipment: do not append an unknown-unit glyph.
+ for(const key of ['referenceQuantity1010','fitReference1010']){const previous=window[key];if(typeof previous==='function')window[key]=function(it){return it?.cat?.key||it?.cat?.id==='turn1210'?it.code:previous.apply(this,arguments);};}
  const build0=buildItems;buildItems=function(){const r=build0.apply(this,arguments);enrich();return r;};
  function matches(q){
   const tt=tokens(q),query=n(q);if(!tt.length)return [];

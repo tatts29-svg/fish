@@ -7,6 +7,7 @@ try{
  await p.waitForFunction(()=>document.querySelector('#expFrame')?.contentWindow?.GC500Search1210?.state.sourceOK&&SYNC.status==='live',null,{timeout:180000});const f=p.frames().find(f=>f.url().includes('/explorer/index.html'));const record=await p.evaluate(()=>JSON.stringify(S));
  const expected={firstaid:6,information:3,police:1,photographer:12,broadcast:20,marshal:25,yellowflag:1,emergency:24,hydrant:18};const state=await f.evaluate(()=>GC500Search1210.state);
  check('reviewed drawing identity and all 110 source occurrences available',state.sourceOK&&Object.entries(expected).every(([k,n])=>state.symbolCounts[k]===n),state.symbolCounts);
+ check('source landmarks have clean labels without unknown equipment icons',await f.evaluate(()=>ITEMS.filter(it=>it.cat.key||it.cat.id==='turn1210').every(it=>referenceQuantity1010(it,mapStatus1009(it))===it.code&&fitReference1010(it,mapStatus1009(it))===it.code)));
  await p.locator('#f1176q').fill('first aid');await p.waitForTimeout(500);
  check('actual parent search shows all first-aid locations',await p.locator('[data-f1176-hit]').count()===6&&await f.evaluate(()=>GC500Search1210.state.marked===6));
  await p.locator('#f1176find form button[type=submit]').click();await p.waitForTimeout(750);
