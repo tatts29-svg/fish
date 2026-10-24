@@ -1,0 +1,139 @@
+[
+  {
+    "name": "release and stable 3D repair present",
+    "ok": true
+  },
+  {
+    "name": "old slow-device memory cannot replace Day with K220",
+    "ok": true
+  },
+  {
+    "name": "Day scene prepared without error",
+    "ok": true
+  },
+  {
+    "name": "extra static meshes retain every index in culling cells",
+    "ok": true,
+    "detail": {
+      "bMesh": {
+        "source": 232275,
+        "prepared": true,
+        "covered": 232275
+      },
+      "trackConcrete": {
+        "source": 109320,
+        "prepared": true,
+        "covered": 109320
+      },
+      "trackFencePosts": {
+        "source": 461886,
+        "prepared": true,
+        "covered": 461886
+      },
+      "cityDetail": {
+        "source": 464652,
+        "prepared": true,
+        "covered": 464652
+      },
+      "standDecor": {
+        "source": 443280,
+        "prepared": true,
+        "covered": 443280
+      },
+      "standMesh": {
+        "source": 1620,
+        "prepared": false
+      }
+    }
+  },
+  {
+    "name": "normal Day frame uses colour conversion",
+    "ok": true,
+    "detail": {
+      "colour": 1,
+      "blur": 4,
+      "bright": 2,
+      "day": 1,
+      "detail": false
+    }
+  },
+  {
+    "name": "low-cost frame keeps Day and colour conversion",
+    "ok": true,
+    "detail": {
+      "colour": 1,
+      "blur": 0,
+      "bright": 0,
+      "day": 1,
+      "look": "day",
+      "back": "circuit3d_day",
+      "sceneTarget": true,
+      "glow": false,
+      "detail": false
+    }
+  },
+  {
+    "name": "low-cost frame eliminates six glow passes",
+    "ok": true,
+    "detail": {
+      "high": {
+        "colour": 1,
+        "blur": 4,
+        "bright": 2,
+        "day": 1,
+        "detail": false
+      },
+      "low": {
+        "colour": 1,
+        "blur": 0,
+        "bright": 0,
+        "day": 1,
+        "look": "day",
+        "back": "circuit3d_day",
+        "sceneTarget": true,
+        "glow": false,
+        "detail": false
+      }
+    }
+  },
+  {
+    "name": "low quality never changes the backdrop",
+    "ok": true
+  },
+  {
+    "name": "fallback API cannot force a flat scene",
+    "ok": true
+  },
+  {
+    "name": "reopening preserves Day despite old timing record",
+    "ok": true
+  },
+  {
+    "name": "explicit Night selection still works",
+    "ok": true
+  },
+  {
+    "name": "explicit flat selection, navigation and pause still work",
+    "ok": true
+  },
+  {
+    "name": "Close cancels preparation and restores dashboard",
+    "ok": true
+  },
+  {
+    "name": "shared record untouched",
+    "ok": true
+  },
+  {
+    "name": "no page errors or attempted writes",
+    "ok": true,
+    "detail": {
+      "errors": [],
+      "counts": {
+        "page": 1,
+        "live": 82,
+        "blocked": 0
+      }
+    }
+  }
+]

@@ -35,7 +35,7 @@ try{
  check('loaded truck with company logo stays within geometry budget',info.stats.stockLoaded&&info.stats.loadVersion===1182&&info.stats.brandVersion===1180&&info.stats.logoCopies===3&&info.stats.newTextures===0&&info.stats.triangles<20000&&info.parts<45,info);console.log('MODEL',JSON.stringify(info));
  check('whole truck and load fit native camera',info.frames);
  await p.screenshot({path:path.join(out,(mobile?'phone':'desktop')+'-truck.png'),timeout:120000});
- if(mobile){await p.locator('#showQuality').selectOption('balanced');check('explicit Balanced remains available',await p.evaluate(()=>GC3D.S.quality.name==='balanced'&&showQualityGet()==='balanced'));}
+ if(mobile){await p.getByRole('button',{name:'Options',exact:true}).click();await p.locator('#showQuality').selectOption('balanced');check('explicit Balanced remains available',await p.evaluate(()=>GC3D.S.quality.name==='balanced'&&showQualityGet()==='balanced'));}
  await frame('quarter');await p.screenshot({path:path.join(out,(mobile?'phone':'desktop')+'-quarter.png'),timeout:120000});
  await frame('chase');await p.screenshot({path:path.join(out,(mobile?'phone':'desktop')+'-load.png'),timeout:120000});
  await frame('onboard');await p.screenshot({path:path.join(out,(mobile?'phone':'desktop')+'-onboard.png'),timeout:120000});
