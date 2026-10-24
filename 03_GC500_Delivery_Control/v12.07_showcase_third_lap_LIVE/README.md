@@ -1,4 +1,4 @@
-# v12.07 · Third-lap Showcase scene — READY TO UPLOAD
+# v12.07 · Third-lap Showcase scene — LIVE
 
 Author: Andrew Fisher.
 
@@ -12,4 +12,4 @@ Final validation: shared toolchain PASS; rules/model/whole-page preservation 34/
 
 The 4K test establishes exact rendered dimensions and successful GPU submission using software rendering; it does not establish frame rates on every display or physical device. This release was implemented and tested independently; no second-agent review claimed.
 
-READY TO UPLOAD from this commit. Publication still requires the unchanged-base guard, exact public byte read-back and the actual public scene checks. No LIVE claim yet.
+LIVE 25 Oct 2026 07:52:06 AEST. READY source `517e561411d92c06e92609aa56de5f84b9978495`. The guarded uploader confirmed the unchanged base and exact public bytes; a separate public GET at 07:52:26 matched the complete candidate and footer. Actual public scene checks 6/6, with the phone frame inspected: third-lap scene and person rendered, loaded fencing truck retained, clean close, unchanged shared record and zero errors/writes. Exact read-back in `evidence/live.json`.
