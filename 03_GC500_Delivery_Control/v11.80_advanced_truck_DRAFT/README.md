@@ -1,4 +1,4 @@
-# Advanced Temporary Fencing Showcase truck — DRAFT
+# Advanced Temporary Fencing Showcase truck — READY TO UPLOAD
 
 Author: Andrew Fisher
 
@@ -10,4 +10,4 @@ Public references: [company website](https://advtempfence.com.au/about), its `as
 
 Exact base: live v11.79 `52fe0d1a8266bbd91c32bcce7e2f5e86ee05cfed869527ecf44484c3fe623b6d`. Use the shared toolchain and this release's `patch_v1180.py`; its predecessor source in v11.79 is required. The guard refuses a changed base or repeated application. If another page publishes first, reconcile the new live bytes and retest before publication.
 
-The other vehicles, current scene, playback repairs, Maps, broadcast/data, servicing and operational records remain unchanged. Model checks pass (27 assertions); all 174 scripts parse. Desktop/phone rendering and full sweeps are in progress. Not ready to upload and not live.
+The other vehicles, current scene, playback repairs, Maps, broadcast/data, servicing and operational records remain unchanged. Model checks pass (27 assertions); all 174 scripts parse. Desktop/phone native checks pass 14/14 each; both full sweeps pass 27 routes, 19 direct panes, seven deep links and Back, with zero errors or attempted writes. Phone and desktop front/load screenshots inspected. Exact candidate: `8d59f9ff6f9801deb509ae2d4a7dd0c0864be7fbf3e1799df3331c578ffdae7e` (21,843,890 bytes). Implementation source `b7ed19a7042331c60d5374aa0d502a8c8ba20f86`. Guarded dry run passed; ready for publication, not yet live. No second-agent review or physical-device performance claim.
