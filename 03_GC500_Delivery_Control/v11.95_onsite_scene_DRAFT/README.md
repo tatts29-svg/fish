@@ -21,9 +21,10 @@ Procedural flames cover the bonnet, roof and rear, with smoke above. The near do
 remains readable. A brief automatic trackside camera shows the scene on approach;
 manual camera choices remain unchanged.
 
-Base: public v11.93, SHA-256
-`e49bca1a706ee7297f9f05ac04d0e91cbbbfcffdc216e8e1e8d1fb1326ff6ea3`.
-This retains the preceding truck changes and the latest Today release.
+Base: public v11.94, SHA-256
+`0df3556fc262a022b8ccd6fce04c780ce3e415bbc3677832392572ff9ef9194b`.
+This retains the preceding truck changes and the latest Today and Costs/P&L releases.
+Claude v11.94 source: `e97efe697b7c63798198b73e2040acccd015a0fd`.
 Claim: `57f1dae01cdbdfbd6b1a7f55fcb43c9eea2ffb6e` on `ccr-061f77e8-ivjhrv`.
 The patch refuses a different live base or a second application.
 
@@ -42,3 +43,5 @@ network calls, additional animation loop, vehicle-force changes or record writes
 Publication requires the current live base guard, the exact READY source, successful
 checks, public byte read-back and actual public UI verification. No second-agent
 review or physical-device frame-rate measurement is claimed.
+
+Candidate on v11.94: `5868677a6bb4a59b4a9ffb6c8b2014a5be0b07661dfafeec74f8e149d1e3000b`, 21,995,841 bytes. The shared checker parses 188 scripts. Rules/preservation 31/31; actual browser lifecycle and contact 19/19; native 3840 × 2160 render/export 5/5. Phone, desktop and the 4K image inspected. The native GPU test uses a bounded software-GPU frame with shadows/reflections disabled; it does not measure real-phone frame rate. Full navigation checks and publication remain pending.

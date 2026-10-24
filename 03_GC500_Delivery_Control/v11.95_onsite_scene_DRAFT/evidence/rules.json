@@ -1,0 +1,131 @@
+{
+  "author": "Andrew Fisher",
+  "candidate_sha256": "5868677a6bb4a59b4a9ffb6c8b2014a5be0b07661dfafeec74f8e149d1e3000b",
+  "passed": 31,
+  "checks": [
+    {
+      "name": "no scene on completed lap 0",
+      "ok": true
+    },
+    {
+      "name": "no scene on completed lap 1",
+      "ok": true
+    },
+    {
+      "name": "no scene on completed lap 2",
+      "ok": true
+    },
+    {
+      "name": "no scene on completed lap 3",
+      "ok": true
+    },
+    {
+      "name": "no scene on completed lap 4",
+      "ok": true
+    },
+    {
+      "name": "scene begins on completed lap 5",
+      "ok": true
+    },
+    {
+      "name": "one trigger per lap 5",
+      "ok": true
+    },
+    {
+      "name": "scene stays for following pass 5",
+      "ok": true
+    },
+    {
+      "name": "scene clears at next completed lap 5",
+      "ok": true
+    },
+    {
+      "name": "scene begins on completed lap 10",
+      "ok": true
+    },
+    {
+      "name": "one trigger per lap 10",
+      "ok": true
+    },
+    {
+      "name": "scene stays for following pass 10",
+      "ok": true
+    },
+    {
+      "name": "scene clears at next completed lap 10",
+      "ok": true
+    },
+    {
+      "name": "scene begins on completed lap 15",
+      "ok": true
+    },
+    {
+      "name": "one trigger per lap 15",
+      "ok": true
+    },
+    {
+      "name": "scene stays for following pass 15",
+      "ok": true
+    },
+    {
+      "name": "scene clears at next completed lap 15",
+      "ok": true
+    },
+    {
+      "name": "restart clears scene and trigger counter",
+      "ok": true
+    },
+    {
+      "name": "rewind clears scene",
+      "ok": true
+    },
+    {
+      "name": "seek across milestones creates one scene only",
+      "ok": true
+    },
+    {
+      "name": "calm drive suppresses scene",
+      "ok": true
+    },
+    {
+      "name": "static empty branded model is cached",
+      "ok": true
+    },
+    {
+      "name": "bounded static geometry",
+      "ok": true
+    },
+    {
+      "name": "geometry indices and values valid",
+      "ok": true
+    },
+    {
+      "name": "whole car has tyres on the road",
+      "ok": true
+    },
+    {
+      "name": "one scene module added",
+      "ok": true
+    },
+    {
+      "name": "only renderer hook and release footer change in retained scripts",
+      "ok": true
+    },
+    {
+      "name": "shared embedded record identical",
+      "ok": true
+    },
+    {
+      "name": "ShowcaseTruck1192 exact preservation",
+      "ok": true
+    },
+    {
+      "name": "ShowcaseGPU1175 exact preservation",
+      "ok": true
+    },
+    {
+      "name": "ShowcaseStable1175 exact preservation",
+      "ok": true
+    }
+  ]
+}

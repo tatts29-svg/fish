@@ -4,7 +4,7 @@ from pathlib import Path
 HERE=Path(__file__).resolve().parent
 sys.path.insert(0,str(HERE.parent/'toolchain'))
 from rep import rep
-BASE='84e993ca45b433746045313ae1921f93ef466bda240d33cbf3d541e4c819006d'
+BASE='5868677a6bb4a59b4a9ffb6c8b2014a5be0b07661dfafeec74f8e149d1e3000b'
 def patch(html):
     if 'MapViewport1196' in html:raise ValueError('v11.96 already applied')
     if hashlib.sha256(html.encode()).hexdigest()!=BASE:raise ValueError('Wrong live base; rebuild and retest against current release')

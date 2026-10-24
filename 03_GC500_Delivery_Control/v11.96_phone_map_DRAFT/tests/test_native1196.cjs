@@ -7,6 +7,7 @@ try{await p.waitForFunction(()=>typeof SYNC!=='undefined'&&SYNC.status==='live'&
  await p.waitForFunction(()=>document.querySelector('#expFrame')?.contentDocument?.getElementById('stage')&&document.getElementById('map1147-controls'),null,{timeout:180000});await p.waitForTimeout(800);
  let m=await measure();check('phone plan stage grows from 140px to at least 330px',m.stage.height>=330,m);check('map stays above the footer without horizontal overflow',m.wrap.bottom<=844&&!m.overflow,m);
  check('map selection and Find remain visible',await p.locator('.map1188-pick select').isVisible()&&await p.getByRole('button',{name:'Find',exact:true}).isVisible());
+ check('Full screen is visible above the map without scrolling',await p.evaluate(()=>{const b=document.getElementById('expFull').getBoundingClientRect(),m=document.getElementById('expwrap').getBoundingClientRect();return b.top>=0&&b.bottom<=m.top&&b.bottom<innerHeight;}));
  await p.screenshot({path:path.join(out,'phone-map.png')});
  await p.locator('[data-map1196-tools]').click();check('Map tools reveals the original area filter and equipment key',await p.locator('#map1147-controls').isVisible()&&await p.getByText('Equipment symbols',{exact:true}).isVisible());
  await p.locator('[data-map1196-tools]').click();check('Map tools closes without rebuilding or losing the map',!(await p.locator('#map1147-controls').isVisible())&&await p.evaluate(()=>!!document.querySelector('#expFrame').contentDocument.getElementById('stage')));
