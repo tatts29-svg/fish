@@ -1,4 +1,4 @@
-/* Author: Andrew Fisher. v12.02 - the Night report button on the Servicing tab (edit link only, where the tracker is read). */
+/* Author: Andrew Fisher. v12.05 (claimed as v12.02) - the Night report button on the Servicing tab (edit link only, where the tracker is read). */
 #svc1067-host .svc1202-bar{display:flex;align-items:center;flex-wrap:wrap;gap:8px 12px;margin:4px 0 12px}
 #svc1067-host .svc1202-btn{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:10px 16px;font-weight:800;letter-spacing:.02em}
 #svc1067-host .svc1202-btn svg{width:17px;height:17px;fill:#ffc21a;filter:drop-shadow(0 0 4px #ffb30066)}

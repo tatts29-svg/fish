@@ -1,8 +1,10 @@
-# v12.02 Servicing night report: a Coates report for each service night, rated out of five stars
+# v12.05 Servicing night report: a Coates report for each service night, rated out of five stars
 
 Author: Andrew Fisher
 
-DRAFT, 25 Oct 2026. The mock-up went to Andrew at about 06:00 AEST, built from the event tracker's real ticks with crew names blurred. It isn't uploaded until he says yes.
+Claimed as v12.02. Renumbered to v12.05 because Codex's v12.03 went live first (the footer never goes backwards). It publishes in one build with v12.04, the Build cards.
+
+READY TO UPLOAD, 25 Oct 2026. Andrew saw the mock-up (built from the event tracker's real ticks, crew names blurred) and said "build it".
 
 Andrew, 25 Oct 2026, in this chat: "Can we also work on a new coates report for the servicing to be printed off of nights completion. Make this look elite and proffesional. Anything over 90% is exceptionally good. We should rate the night out of 5 stars. So be good to work out where this sits. And we have 5 stars that fill up like a gauge. This report will be sent to the buisness as well as event portables. So really make this stand out. And we talk about team effort."
 
@@ -47,11 +49,11 @@ Fonts: the page hands its own font files (already in its cache) to the report wi
 
 - `report1202_src.js`: the rating, the model (`model`), the report (`html`, two A4 pages plus a measured pager) and the button.
 - `report1202.css`: the button on the Servicing tab.
-- `patch_v1202.py`:
+- `patch_v1205.py`:
   - exposes `svcNight1202` inside the Servicing tab's own script;
   - inserts the style and script before `steady1143-script`;
-  - moves the footer to v12.02;
-  - runs on live v12.00 `2261fdc8…`, or after `patch_v1201.py` in the same build.
+  - moves the footer to v12.05;
+  - runs on live v12.03 `682fcc85…`, or after `patch_v1204.py` in the same build.
 - `tests/test_native1202.cjs`: read only, 14 checks.
   - On the view link, no button and the panel hands over nothing.
   - On the edit link, the report's night, percentage and each job equal what the panel draws.
@@ -63,7 +65,8 @@ Fonts: the page hands its own font files (already in its cache) to the report wi
 
 ## Where it's up to
 
-- Candidate `0f7bd1f0…` on live v12.00 `2261fdc8c1043bad0ed582fac9240366ef112e1275e4962ced62068089c2de51`.
-- Native 14/14 on desktop and on phone.
-- Waiting on Andrew's yes. It can publish with v12.01 in one build.
+- Rebuilt on live v12.03 `682fcc85862c2ba91c2d201b4406901d8d881f4d9e64bdc8e3ef30d00c1c0e69` with v12.04 in the same build (earlier candidates: `0f7bd1f0…` on v12.00).
+- Candidate `68a8da20f7576dc58357757efdb54471967c67deb49df68265ee4bf1ed1dc895`, 15,226,860 bytes.
+- Native 14/14 on desktop and on phone; with v12.04's suites and both sweeps clean.
+- Next: guarded upload, public bytes check, tests on the live page, LIVE.
 - Open for Andrew: WC85 (Coates Compound) and WC100 (2 trailers, no location yet) are on the servicing list and weren't serviced on either night. If they shouldn't be, they can come off the totals (as SPASHDOWN does, no QR change), and Saturday would read 99%.

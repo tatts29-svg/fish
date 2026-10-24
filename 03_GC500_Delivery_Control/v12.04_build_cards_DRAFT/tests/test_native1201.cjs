@@ -1,7 +1,9 @@
-// Author: Andrew Fisher. v12.01 on the real Build and Demob tabs, reading the live record, writing nothing: a closed day card
-// has no CLOSED label and its stamp is ink (no glow, no pulse, its own angle), centred in the gap beside the date; a late delivery
-// whose Coates booking text names no reference is called by the text's own words, and "Item" is printed nowhere in the on-time list.
-//   PAGE=build/GC500_v12.01/GC500_Delivery_Control_hosted.html [MOB=1] [EVIDENCE=dir] node tests/test_native1201.cjs
+// Author: Andrew Fisher. v12.04 (claimed as v12.01) on the real Build and Demob tabs, reading the live record, writing nothing: a
+// closed day card has no CLOSED label and its stamp is ink (no glow, no pulse, its own angle), centred in the gap beside the date;
+// a late delivery whose Coates booking text names no reference is called by the text's own words, and "Item" is printed nowhere in
+// the on-time list; the tidy-up: 440 px cards on a computer screen (phones unchanged), the chart key on one line without counts,
+// What went in without boxes, and the 8 Oct card no longer crowded (it was 1,097 px tall).
+//   PAGE=build/GC500_v12.05/GC500_Delivery_Control_hosted.html [MOB=1] [EVIDENCE=dir] node tests/test_native1201.cjs
 const assert = require('node:assert/strict'), fs = require('node:fs'), path = require('node:path');
 const {open} = require('../../toolchain/harness/open_page');
 (async () => {
@@ -55,11 +57,30 @@ const {open} = require('../../toolchain/harness/open_page');
     const worst = closed.reduce((a, x) => ({dx: Math.max(a.dx, Math.abs(x.dx)), dy: Math.max(a.dy, Math.abs(x.dy)), clear: Math.min(a.clear, x.clearLeft, x.clearRight, x.clearTop, x.clearBottom)}), {dx: 0, dy: 0, clear: 1e9});
     check(worst.dx <= 10 && worst.dy <= 10 && worst.clear >= 4, 'the stamp is centred in the gap beside the date on every closed card, clear of the date, the label line and the weather (worst ' + JSON.stringify(worst) + ')');
 
+    /* the tidy-up, on 8 Oct: card width, the key, What went in, the height */
+    await day('2026-10-08');
+    const tidy = await p.evaluate(() => { const d = document.querySelector('#pane-timeline .bc984-day[data-day="2026-10-08"]'), c = d.querySelector('.bc984-card');
+      const key = c.querySelector('.bw1197-key'), cats = [...c.querySelectorAll('.bw1197-cat')], tiles = [...c.querySelectorAll('.dc1057-tile')];
+      const tops = new Set([...key.querySelectorAll('.bw1197-cat, [class^="bw1197-key-"]:not(.bw1197-key-cats):not(.bw1197-key-done)')].map(x => Math.round(x.getBoundingClientRect().top)));
+      return {w: Math.round(d.getBoundingClientRect().width), h: Math.round(c.getBoundingClientRect().height), vw: innerWidth, keyRow: getComputedStyle(key).flexDirection, keyLines: tops.size,
+        counts: cats.filter(k => k.querySelector('b') && getComputedStyle(k.querySelector('b')).display !== 'none').length, cats: cats.length,
+        boxes: tiles.filter(t => { const s = getComputedStyle(t); return parseFloat(s.borderTopWidth) > 0 || parseFloat(s.borderRadius) > 0 || (s.backgroundColor !== 'rgba(0, 0, 0, 0)' && s.backgroundColor !== 'transparent'); }).length, tiles: tiles.length}; });
+    check(mobile ? tidy.w <= 390 : tidy.w === 440, 'card width ' + tidy.w + ' px on a ' + tidy.vw + ' px screen (' + (mobile ? 'phone unchanged' : '440 on a computer') + ')');
+    check(tidy.keyRow === 'row' && tidy.keyLines <= 2 && tidy.cats >= 2 && tidy.counts === 0, 'the chart key runs along one line (' + tidy.keyLines + ' line' + (tidy.keyLines === 1 ? '' : 's') + ' at this width), no counts printed');
+    check(tidy.tiles >= 3 && tidy.boxes === 0, 'What went in: ' + tidy.tiles + ' plain lines, no boxes');
+    check(tidy.h <= (mobile ? 960 : 920), '8 Oct card ' + tidy.h + ' px tall (was 1,097 px)');
+
     if (dir) { fs.mkdirSync(dir, {recursive: true});
+      /* a window tall enough for the whole card (the page scrolls inside main, so a short window clips the shot); same width */
+      await p.setViewportSize({width: mobile ? 390 : 1440, height: 2200});
       await p.addStyleTag({content: '.staff988 li,.tm-person,.bc984-names span{filter:blur(7px)}'});
-      const el = await p.$('#pane-timeline .bc984-day[data-day="2026-10-21"]');
-      await el.evaluate(n => { n.scrollIntoView({block: 'start', inline: 'center'}); document.querySelector('main').scrollTop -= 8; });
-      await p.waitForTimeout(800); await el.screenshot({path: path.join(dir, tag + '-card-2026-10-21.png')});
+      for (const iso of ['2026-10-21', '2026-10-08']) {
+        await day(iso);
+        const el = await p.$('#pane-timeline .bc984-day[data-day="' + iso + '"] .bc984-card');
+        await el.evaluate(n => { n.scrollIntoView({block: 'start', inline: 'center'}); document.querySelector('main').scrollTop -= 8; });
+        await p.waitForTimeout(800); await el.screenshot({path: path.join(dir, tag + '-card-' + iso + '.png')});
+      }
+      await p.setViewportSize({width: mobile ? 390 : 1440, height: mobile ? 844 : 1000});
     }
 
     /* Demob: the same rule there */

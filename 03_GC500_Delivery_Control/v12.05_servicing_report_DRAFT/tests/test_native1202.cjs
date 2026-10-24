@@ -1,8 +1,8 @@
-// Author: Andrew Fisher. v12.02 on the real Servicing tab, writing nothing. On the view link there is no Night report. On the edit
+// Author: Andrew Fisher. v12.05 on the real Servicing tab, writing nothing. On the view link there is no Night report. On the edit
 // link the "Night report" button opens a report whose every figure is the panel's own: the same tracker read, clock and night,
 // through the one state rule; the percentage and each job match what the panel draws. The tracker is served from a saved snapshot
 // of the event tracker (TICKS=...), so the test never calls the tracker service; every other write is aborted by the harness.
-//   PAGE=build/GC500_v12.02/GC500_Delivery_Control_hosted.html TICKS=/path/ticks_snapshot.json [MOB=1] [EVIDENCE=dir] node tests/test_native1202.cjs
+//   PAGE=build/GC500_v12.05/GC500_Delivery_Control_hosted.html TICKS=/path/ticks_snapshot.json [MOB=1] [EVIDENCE=dir] node tests/test_native1202.cjs
 const assert = require('node:assert/strict'), fs = require('node:fs'), path = require('node:path');
 const {open} = require('../../toolchain/harness/open_page');
 (async () => {
@@ -13,7 +13,7 @@ const {open} = require('../../toolchain/harness/open_page');
   const popErrors = [];
   try {
     await p.waitForFunction(() => typeof SYNC !== 'undefined' && SYNC.status === 'live', null, {timeout: 120000});
-    check(await p.evaluate(() => !!(window.report1202 && window.report1202.version === 'v12.02' && typeof window.svcNight1202 === 'function')), 'v12.02 loaded: the report and the panel hook are there');
+    check(await p.evaluate(() => !!(window.report1202 && window.report1202.version === 'v12.05' && typeof window.svcNight1202 === 'function')), 'v12.05 loaded: the report and the panel hook are there');
 
     /* the view link: no report, nothing private */
     await p.evaluate(() => go('servicing')); await p.waitForTimeout(2500);

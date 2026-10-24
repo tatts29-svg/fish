@@ -1,4 +1,4 @@
-/* Author: Andrew Fisher. v12.02 - the servicing night report: a two-page Coates report for one service night, to print or
+/* Author: Andrew Fisher. v12.05 (claimed as v12.02) - the servicing night report: a two-page Coates report for one service night, to print or
    save as a PDF.
    Andrew, 25 Oct 2026: "Can we also work on a new coates report for the servicing to be printed off of nights completion.
    Make this look elite and proffesional. Anything over 90% is exceptionally good. We should rate the night out of 5 stars.
@@ -9,7 +9,7 @@
    writes anything, or touches a QR code, crew card or tracker link. No money and no hidden tabs: it goes to Event Portables. */
 (function (root) {
 'use strict';
-const VERSION = 'v12.02', EVENT_LOAD = 'servicing-tracker:GC500-2026', VIEW = 'Coates-GC500-2026';
+const VERSION = 'v12.05', EVENT_LOAD = 'servicing-tracker:GC500-2026', VIEW = 'Coates-GC500-2026';
 const DAYS = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
@@ -228,7 +228,7 @@ h2 i{width:2.2mm;height:2.2mm;border-radius:50%;background:var(--or)}
 `;
 }
 
-/* v12.02 - whole blocks move to a fresh A4 page when they do not fit above the footer, so nothing is ever cut off; then
+/* v12.05 - whole blocks move to a fresh A4 page when they do not fit above the footer, so nothing is ever cut off; then
    every page is numbered; on a phone the sheets are scaled to the screen (print is always true A4) */
 const PAGER = "(function(){function go(){var s=document.querySelector('.sheet.flow'),guard=0;while(s&&guard++<20){var b=s.querySelector('.body'),f=s.querySelector('.foot');" +
   "var over=function(){var l=b.lastElementChild;return !!l&&l.getBoundingClientRect().bottom>f.getBoundingClientRect().top-8;};if(!over()){var x=s.nextElementSibling;s=x&&x.classList.contains('flow')?x:null;continue;}" +
