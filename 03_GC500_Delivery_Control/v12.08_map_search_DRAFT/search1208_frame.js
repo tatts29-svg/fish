@@ -34,17 +34,17 @@ function searchFrame1208(){
   return name;
  };
  function enrich(){
-  if(!Array.isArray(ITEMS)||!Array.isArray(CATS_NOW))return;
+  if(!Array.isArray(ITEMS)||!Array.isArray(CATS_NOW)||!GEO?.main||!P?.labels)return;
   ITEMS=ITEMS.filter(it=>!it.source1208).map(it=>it.cat?.host?it:Object.assign({},it,{places:it.places.filter(onGround)}));CATS_NOW=CATS_NOW.filter(c=>!c.source1208);
   const vehicle=CATS_NOW.find(c=>c.id==='egress');if(vehicle)vehicle.name='Vehicle entry / exit points';
   const turnCat={id:'turn1208',name:'Track turns',c:'#ff6a13',source1208:true,aliases:'turn corner'};
   CATS_NOW.push(turnCat);
-  for(const t of parent.Find1176?.turns?.()||[]){const xy=ap(inv(GEO.main.sheet_to_z18px),...parent.MapArea1206.core.merc({lat:t.lat,lon:t.lon}));ITEMS.push({code:t.face||t.label,places:[[xy[0]-1,xy[1]-1,xy[0]+1,xy[1]+1]],reg:{name:t.label},cat:turnCat,names:[],source1208:true,sourceLabel1208:t.label});}
+  for(const t of parent.Find1176?.turns?.()||[]){const xy=ap(inv(GEO.main.sheet_to_z18px),...parent.MapArea1206.core.merc({lat:t.lat,lon:t.lon}));ITEMS.push({code:norm(t.face||t.label),places:[[xy[0]-1,xy[1]-1,xy[0]+1,xy[1]+1]],reg:{name:t.label},cat:turnCat,names:[],source1208:true,sourceLabel1208:t.label});}
   if(!sourceOK())return;
   for(const cat of cats){
    const entries=(catalog.symbols[cat.key]||[]).filter(x=>onGround(x.box));if(!entries.length)continue;
    CATS_NOW.push(cat);
-   entries.forEach((x,i)=>ITEMS.push({code:cat.name.toUpperCase()+' · '+(i+1),places:[x.box.slice()],reg:{name:x.label?cat.name+' · '+x.label:cat.name},cat,names:[],source1208:true,sourceLabel1208:x.label||''}));
+   entries.forEach((x,i)=>ITEMS.push({code:norm(cat.name+' · '+(i+1)),places:[x.box.slice()],reg:{name:x.label?cat.name+' · '+x.label:cat.name},cat,names:[],source1208:true,sourceLabel1208:x.label||''}));
    const b=document.createElement('button');b.type='button';b.className='chip';b.dataset.cat=cat.id;b.setAttribute('aria-pressed','false');b.style.setProperty('--c',cat.c);b.innerHTML='<i></i>'+esc(cat.name)+' <small>'+entries.length+'</small>';$('chips').appendChild(b);
   }
  }
@@ -54,6 +54,8 @@ function searchFrame1208(){
   const stand=/^(?:grand ?stand|stand|s) ?0*(\d{1,2})([a-z]?)$/.exec(query),turn=/^(?:turn|corner|t) ?0*(\d{1,2})$/.exec(query);
   if(stand)return ITEMS.filter(it=>it.code==='S'+stand[1].padStart(2,'0')+stand[2].toUpperCase());
   if(turn)return ITEMS.filter(it=>it.cat.id==='turn1208'&&Number(String(it.sourceLabel1208).replace(/\D/g,''))===Number(turn[1]));
+  const reference=/^(gate|g|vms(?: board)?|wc|p|gn|ltc?|pb|bs|ot|eep|a) ?0*(\d+)([a-z]?)$/.exec(query);
+  if(reference){const prefix=reference[1].replace('gate','g').replace(' board',''),num=Number(reference[2]),suffix=reference[3];return ITEMS.filter(it=>{const m=/^([a-z]+)0*(\d+)([a-z]?)$/.exec(n(it.code).replace(/ /g,''));return m&&m[1]===prefix&&Number(m[2])===num&&m[3]===suffix;});}
   const phrase=query.replace(/\bposts?\b/g,'').replace(/\s+/g,' ').trim();
   const kinds={ 'first aid':['firstaid'],'medical':['firstaid'],'information':['information'],'information booths':['information'],'info':['information'],'police':['police'],'photographer':['photographer'],'photographers':['photographer'],'photography':['photographer'],'broadcast camera':['broadcast'],'broadcast cameras':['broadcast'],'camera':['photographer','broadcast'],'cameras':['photographer','broadcast'],'marshal':['marshal'],'marshals':['marshal'],'marshall':['marshal'],'marshalls':['marshal'],'mp':['marshal'],'yellow flag repeater lights':['yellowflag'],'yellow flag':['yellowflag'],'yfr':['yellowflag'],'emergency':['emergency'],'emergency egress':['emergency'],'emergency egress points':['emergency'],'emergency exit':['emergency'],'emergency exits':['emergency'],'egress':['emergency'],'ep':['emergency'],'fire hydrants':['hydrant'],'fire hydrant':['hydrant'],'hydrants':['hydrant'],'hydrant':['hydrant'],'fh':['hydrant'],'pit lane fire hydrants':['hydrant'] };
   if(sourceOK()&&kinds[phrase])return ITEMS.filter(it=>kinds[phrase].includes(it.cat.key));
@@ -97,5 +99,6 @@ function searchFrame1208(){
  const click0=$('results').onclick;$('results').onclick=e=>{const all=e.target.closest('[data-search1208-all]');if(all){show(activeQuery);pickedLocation813();stage.focus({preventScroll:true});return;}const b=e.target.closest('[data-search1208-code]');if(b){select(b.dataset.search1208Code,0);return;}return click0?.(e);};
  buildItems();
  window.GC500Search1208=Object.freeze({version:'v12.08',search:q=>show(q),showAll:()=>show(activeQuery),select,get state(){return {query:activeQuery,placed:last?.placed||0,unplaced:last?.unplaced||0,marked:marks.reduce((a,m)=>a+m.it.places.length,0),sourceOK:sourceOK(),symbolCounts:Object.fromEntries(cats.map(c=>[c.key,ITEMS.filter(i=>i.cat.id===c.id).length]))};}});
- const input=parent.document.querySelector('#f1176q');if(input?.value)input.dispatchEvent(new parent.Event('input',{bubbles:true}));
+ const rerun=()=>{buildItems();const input=parent.document.querySelector('#f1176q');if(input?.value)input.dispatchEvent(new parent.Event('input',{bubbles:true}));};
+ window.GC500Explorer.ready.then(rerun);
 }

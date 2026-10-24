@@ -4,9 +4,9 @@ const fs=require('fs'),path=require('path'),assert=require('assert'),{open}=requ
 fs.mkdirSync(out,{recursive:true});const consoles=[];p.on('console',m=>{if(m.type()==='error')consoles.push(m.text());});
 function check(name,ok,detail){checks.push({name,ok:!!ok,detail});fs.writeFileSync(path.join(out,'checks.json'),JSON.stringify(checks,null,2));console.log((ok?'PASS ':'FAIL ')+name);assert(ok,name);}
 try{
- await p.waitForFunction(()=>document.querySelector('#expFrame')?.contentWindow?.GC500Search1208&&SYNC.status==='live',null,{timeout:180000});const f=p.frames().find(f=>f.url().includes('/explorer/index.html'));const record=await p.evaluate(()=>JSON.stringify(S));
+ await p.waitForFunction(()=>document.querySelector('#expFrame')?.contentWindow?.GC500Search1208?.state.sourceOK&&SYNC.status==='live',null,{timeout:180000});const f=p.frames().find(f=>f.url().includes('/explorer/index.html'));const record=await p.evaluate(()=>JSON.stringify(S));
  const expected={firstaid:6,information:3,police:1,photographer:12,broadcast:20,marshal:25,yellowflag:1,emergency:24,hydrant:18};const state=await f.evaluate(()=>GC500Search1208.state);
- check('reviewed drawing identity and all 130 source occurrences available',state.sourceOK&&Object.entries(expected).every(([k,n])=>state.symbolCounts[k]===n),state.symbolCounts);
+ check('reviewed drawing identity and all 110 source occurrences available',state.sourceOK&&Object.entries(expected).every(([k,n])=>state.symbolCounts[k]===n),state.symbolCounts);
  await p.locator('#f1176q').fill('first aid');await p.waitForTimeout(500);
  check('actual parent search shows all first-aid locations',await p.locator('[data-f1176-hit]').count()===6&&await f.evaluate(()=>GC500Search1208.state.marked===6));
  await p.locator('#f1176find form button[type=submit]').click();await p.waitForTimeout(750);
@@ -19,6 +19,7 @@ try{
  check('toilets are not truncated to ten or twenty matches',toilets.rows>20&&toilets.placed>20&&toilets.unplaced>0,toilets);
  check('unplaced references never become pit-lane equipment pins',toilets.noFalsePins);
  for(const [q,count]of [['stand 5',1],['turn 2',1],['stand 26',0],['turn 16',0]])check(q+' keeps exact reference semantics',await f.evaluate(({q,count})=>GC500Search1208.search(q).rows.length===count,{q,count}));
+ for(const q of ['gate 6','VMS 10','WC 41']){const r=await f.evaluate(q=>{const r=GC500Search1208.search(q);return {count:r.rows.length,ids:r.rows.map(x=>x.code1208)};},q);check(q+' retains spaced reference matching',r.count>0,r);}
  const armco=await f.evaluate(()=>{const r=GC500Search1208.search('armco');return {n:r.placed,clear:marks.every(m=>m.it.places.every(b=>b[1]<1466))};});check('all Armco positions exclude the legend sample',armco.n>20&&armco.clear,armco);
  await p.locator('#expFull').click();await p.waitForTimeout(200);
  await f.evaluate(()=>panel813(true));await f.locator('#q').fill('first aid');await p.waitForTimeout(600);
@@ -27,8 +28,9 @@ try{
  await p.screenshot({path:path.join(out,'all-first-aid.png')});
  await f.evaluate(()=>panel813(true));await f.locator('[data-cat="legend1208-marshal"]').click();await p.waitForTimeout(500);
  check('legend category chip highlights all 25 marshal posts',await f.evaluate(()=>marks.reduce((n,m)=>n+m.it.places.length,0)===25));
+ const picks=await f.evaluate(()=>['first aid','photographer','MP','FH','turn 2'].map(q=>{const L=GC500Search1208.search(q).rows[0];return !!L&&GC500Search1208.select(L.code1208,L.place1208)&&selected?.code===L.code1208;}));check('every symbol type and turn can be individually selected',picks.every(Boolean),picks);
  const sourceGuard=await f.evaluate(()=>{const original=P.meta.sha256;try{P.meta.sha256='test changed drawing';buildItems();return !GC500Search1208.state.sourceOK&&!ITEMS.some(i=>i.cat.key);}finally{P.meta.sha256=original;buildItems();}});check('changed drawing stands down the extra source positions',sourceGuard);
- const fresh=await f.evaluate(()=>{for(let i=0;i<3;i++)GC500Explorer.refresh(true);return {count:ITEMS.filter(i=>i.cat.key).length,chips:document.querySelectorAll('[data-cat^="legend1208-"]').length};});check('repeated native refresh does not duplicate symbols or chips',fresh.count===130&&fresh.chips===9,fresh);
+ const fresh=await f.evaluate(()=>{for(let i=0;i<3;i++)GC500Explorer.refresh(true);return {count:ITEMS.filter(i=>i.cat.key).length,chips:document.querySelectorAll('[data-cat^="legend1208-"]').length};});check('repeated native refresh does not duplicate symbols or chips',fresh.count===110&&fresh.chips===9,fresh);
  const multi=await f.evaluate(()=>{const old=P.labels,origin=ITEMS.find(i=>i.places.length).places[0],b=origin.slice(),other=b.map((x,i)=>x+(i%2?10:20));try{P.labels=old.concat([['Unique source label1208',...b],['Unique source label1208',...other],['Unique source label1208',100,1500,110,1510]]);const r=GC500Search1208.search('Unique source label1208');return {placed:r.placed,rows:r.rows.length,marked:GC500Search1208.state.marked};}finally{P.labels=old;}});check('free-text drawing search keeps all locations and excludes legend text',multi.placed===2&&multi.rows===2&&multi.marked===2,multi);
  await f.evaluate(()=>GC500Search1208.search(''));check('clearing the search clears stale markers',await f.evaluate(()=>GC500Search1208.state.marked===0));
  check('unknown search creates no location',await f.evaluate(()=>GC500Search1208.search('unrecorded place xyz1208').rows.length===0&&GC500Search1208.state.marked===0));
@@ -36,5 +38,5 @@ try{
  check('Showcase version and prior area sharing preserved',await p.evaluate(()=>ShowcaseIncident1207.version===1207&&MapArea1206.version==='v12.06')&&await f.evaluate(()=>GC500Area1206.version==='v12.06'));
  check('shared record unchanged',record===await p.evaluate(()=>JSON.stringify(S)));
  check('zero page or console errors and attempted writes',!h.errors.length&&!consoles.length&&!h.counts.blocked,{errors:h.errors,consoles,writes:h.counts.blocked});
-}finally{await h.browser.close();}console.log(checks.length+'/'+checks.length);
+}catch(e){console.error('Page errors',h.errors);throw e;}finally{await h.browser.close();}console.log(checks.length+'/'+checks.length);
 })().catch(e=>{console.error(e);process.exit(1)});

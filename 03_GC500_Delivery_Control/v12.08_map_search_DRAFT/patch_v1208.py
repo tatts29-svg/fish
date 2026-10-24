@@ -22,6 +22,7 @@ def patch(html):
  code=rep(code,code[a:b],"function search(q){ return W.MapSearch1208.search(q); }",'complete parent matches','finder')
  code=rep(code,'function open(L){\n if (!L) return null;','function open(L){\n if (!L) return null;\n if(L.code1208)W.MapSearch1208.select(L);','select map search result','finder')
  code=rep(code,'if (rows.length) open(rows[0]);','if (rows.length) W.MapSearch1208.showAll();','submit shows all','finder')
+ code=rep(code,'  list.innerHTML = !String(q.value).trim()',"  list.hidden=false;list.innerHTML = !String(q.value).trim()",'open matches while typing','finder')
  code=rep(code,'rows.length ? rows.map(rowHtml).join(\'\')',"rows.length ? '<p class=\"hint\">'+r.placed+' mapped locations · '+r.unplaced+' without an exact position</p><button type=\"button\" class=\"btn sm\" data-showall1208>Show all locations</button>'+rows.map(rowHtml).join('')",'result totals','finder')
  code=rep(code,"list.addEventListener('click', ev => { const b", "list.addEventListener('click', ev => { if(ev.target.closest('[data-showall1208]')){W.MapSearch1208.showAll();return;} const b",'all locations button','finder')
  code=rep(code,'Asset no, reference, gate, VMS, stand or turn — e.g. 1244536, WC41, gate 6, VMS 10, stand 5, turn 2','Reference, asset no or map symbol — e.g. toilets, first aid, hydrants, camera, gate 6','search examples','finder')

@@ -12,7 +12,7 @@ check('all bytes outside map search, spot extension and footer unchanged',rest==
 check('one map module only',page.count('id="search1208-script"')==1)
 check('catalog has exact drawing and frame source identities',all(len(json.loads((D/'legend1208.json').read_text())[k])==64 for k in ['scene_sha256','drawing_sha256','frame_sha256']))
 c=json.loads((D/'legend1208.json').read_text());expected={'firstaid':6,'information':3,'police':1,'photographer':12,'broadcast':20,'emergency':24,'marshal':25,'yellowflag':1,'hydrant':18}
-check('130 inspected source-symbol and label occurrences', {k:len(v) for k,v in c['symbols'].items()}==expected)
+check('110 inspected source-symbol and label occurrences', {k:len(v) for k,v in c['symbols'].items()}==expected)
 check('legend samples excluded from source catalog',all(x['box'][1]<1466 for a in c['symbols'].values() for x in a))
 check('only explicitly labelled MP circles used as marshal posts',all(x.get('label','').startswith('MP') for x in c['symbols']['marshal']))
 spec=importlib.util.spec_from_file_location('patch',D/'patch_v1208.py');mod=importlib.util.module_from_spec(spec);spec.loader.exec_module(mod)

@@ -49,4 +49,7 @@ def extract(raw):
  out['hydrant']=[{'box':l[1:],'label':'FH','records':[]} for l in s['labels'] if l[0].strip()=='FH' and l[2]<1466]
  return {'author':'Andrew Fisher','scene_sha256':hashlib.sha256(raw).hexdigest(),'drawing_sha256':s['meta']['sha256'],'frame_sha256':s['meta'].get('frame_sha256'),'dimensions':[s['w'],s['h']],'symbols':out}
 if __name__=='__main__':
- result=extract(Path(sys.argv[1]).read_bytes());Path(sys.argv[2]).write_text(json.dumps(result,separators=(',',':'))+'\n');print({k:len(v) for k,v in result['symbols'].items()})
+ result=extract(Path(sys.argv[1]).read_bytes());
+ for values in result['symbols'].values():
+  for v in values:v.pop('records',None)
+ Path(sys.argv[2]).write_text(json.dumps(result,separators=(',',':'))+'\n');print({k:len(v) for k,v in result['symbols'].items()})
