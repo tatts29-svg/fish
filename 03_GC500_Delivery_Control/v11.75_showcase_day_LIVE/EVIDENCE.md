@@ -5,7 +5,7 @@ Author: Andrew Fisher
 Implementation: `68a551033a1f6beb6ea58f8834e920434e6dbaf7` on `ccr-061f77e8-ivjhrv`. Claim: `e79c1e9db76b8afa853e7094d9465540863f0f9f`.
 
 Base v11.74: `98a4d37322b8cd216b93922d365ef8fac1fa3617821909548dd5974577abeb46`.
-Candidate v11.75: `4ed371e093ecf70323b28dacc0259b8831dba36e0bb4bc742ab8e037c6d9dc9e`, 21,753,217 bytes.
+Exact live v11.75: `4ed371e093ecf70323b28dacc0259b8831dba36e0bb4bc742ab8e037c6d9dc9e`, 21,753,217 bytes.
 
 - Shared build/check passes; 173 inline scripts parse.
 - GPU/clock regressions pass: simulation continues while drawing waits; paused dirty redraw and hidden resume; severe/moderate quality handling; deferred resource disposal and quality changes; lost context; retained 3D under severe stalls; unchanged core physics/audio clock.
@@ -16,4 +16,4 @@ Candidate v11.75: `4ed371e093ecf70323b28dacc0259b8831dba36e0bb4bc742ab8e037c6d9d
 
 Software rendering does not establish smoothness on Andrew's computer. His continued v11.74 failure report remains valid; v11.75 awaits his device result. No second-agent review or agreement claimed. Raw images, timing traces and operational data stay private.
 
-Publication and separate exact public read-back pending. Use the unchanged-base guarded uploader, then native live checks; archive as LIVE only after those complete.
+Published with the shared guarded uploader on 24 Oct 2026 at 11:43:54 AEST from READY source `312e2946cbed0c02bc65308b660bac16effdee16`. The base was unchanged; service accepted the page; the uploader read the exact complete bytes back. A separate public GET at 11:44:10.062688 AEST independently matched the complete build and SHA-256 above. Actual-live desktop and phone repeated the 15 focused browser assertions each, with no page errors or attempted writes. No live operational record mutation was performed.
