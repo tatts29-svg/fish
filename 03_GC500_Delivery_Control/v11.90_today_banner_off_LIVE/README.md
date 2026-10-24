@@ -1,7 +1,12 @@
 # v11.90 Today: the "areas at 100%" banner comes off
 
-**READY TO UPLOAD (not live yet).** Built page `6b8b06f21cc1b1c5b7717cc945ef12b00654346ad88bf2537b72c869816c9673` (21,940,091 bytes)
-on live v11.89 `e8b601db60ccb0788e258a203598bf1c480e2aa966613a05e1f5d3983acea52d`.
+**LIVE 24 Oct 2026 20:16 AEST.**
+- Page `6b8b06f21cc1b1c5b7717cc945ef12b00654346ad88bf2537b72c869816c9673` (21,940,091 bytes), built on v11.89 `e8b601db…`.
+- Guarded upload. The view link serves the build byte for byte; a separate public download at 20:16:22 matched every byte.
+- On the live page, `tests/test_native1190.cjs` passed 13/13 on desktop and 13/13 on phone. Screenshots are in `evidence/live/`, with
+  the staff names blurred.
+- The first live run hit a syntax slip in the test itself: a `//` comment left on the screenshot line. It was fixed and rerun. The page
+  was never affected.
 
 Author: Andrew Fisher · 24 Oct 2026
 
@@ -46,9 +51,9 @@ cleaning this up and making all pages mpre ogranjsed now".
 - Neither is part of this change.
 
 ```
-toolchain/build.sh v11.90 v11.90_today_banner_off_DRAFT/patch_v1190.py
-PAGE=build/GC500_v11.90/GC500_Delivery_Control_hosted.html BASE=build/GC500_v11.90/base_live.html node v11.90_today_banner_off_DRAFT/tests/test_rules1190.cjs
-PAGE=build/GC500_v11.90/GC500_Delivery_Control_hosted.html [MOB=1] [EVIDENCE=dir] node v11.90_today_banner_off_DRAFT/tests/test_native1190.cjs
+toolchain/build.sh v11.90 v11.90_today_banner_off_LIVE/patch_v1190.py
+PAGE=build/GC500_v11.90/GC500_Delivery_Control_hosted.html BASE=build/GC500_v11.90/base_live.html node v11.90_today_banner_off_LIVE/tests/test_rules1190.cjs
+PAGE=build/GC500_v11.90/GC500_Delivery_Control_hosted.html [MOB=1] [EVIDENCE=dir] node v11.90_today_banner_off_LIVE/tests/test_native1190.cjs
 ```
 
 Implemented and tested by Claude, for Andrew; not reviewed by Codex.

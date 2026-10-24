@@ -38,7 +38,7 @@ const {open} = require('../../toolchain/harness/open_page');
     await ready(); await p.waitForTimeout(800);
     L = await look();
     check(!L.banner && L.section && L.printAll, 'on the edit link too');
-    if (dir) { fs.mkdirSync(dir, {recursive: true}); await p.evaluate(() => { window.scrollTo(0, 0); document.querySelectorAll('*').forEach(e => { if (e.scrollTop > 0) e.scrollTop = 0; }); document.querySelectorAll('.staff988 li').forEach(li => { li.style.filter = 'blur(7px)'; }); });    // no staff names in a picture await p.waitForTimeout(1200); await p.screenshot({path: path.join(dir, tag + '-today-top.png')}); }
+    if (dir) { fs.mkdirSync(dir, {recursive: true}); await p.evaluate(() => { window.scrollTo(0, 0); document.querySelectorAll('*').forEach(e => { if (e.scrollTop > 0) e.scrollTop = 0; }); /* no staff names in a picture: a rule, so a redraw keeps it */ const st = document.createElement('style'); st.textContent = '.staff988 li{filter:blur(7px)}'; document.head.appendChild(st); }); await p.waitForTimeout(1200); await p.screenshot({path: path.join(dir, tag + '-today-top.png')}); }
     check(await p.evaluate(() => window.MS1026.screenBurst(1) === true && !!document.querySelector('canvas.ms1026-screen')), 'the screen burst itself still works (Celebrate again)');
     check(await p.evaluate(() => typeof location !== 'undefined') && await p.evaluate(() => { location.hash = '#print/milestone/all'; return true; }), 'Print all route reachable');
     await p.waitForTimeout(1500);
