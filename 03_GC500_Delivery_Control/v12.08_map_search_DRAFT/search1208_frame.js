@@ -37,6 +37,17 @@ function searchFrame1208(){
   if(!Array.isArray(ITEMS)||!Array.isArray(CATS_NOW)||!GEO?.main||!P?.labels)return;
   ITEMS=ITEMS.filter(it=>!it.source1208).map(it=>it.cat?.host?it:Object.assign({},it,{places:it.places.filter(onGround)}));CATS_NOW=CATS_NOW.filter(c=>!c.source1208);
   const vehicle=CATS_NOW.find(c=>c.id==='egress');if(vehicle)vehicle.name='Vehicle entry / exit points';
+  // Preserve the existing finder's current VMS pins and removal spots, including
+  // road positions outside the drawing. These are read-only existing coordinates.
+  const located=(parent.finderIndex?.()||[]).filter(i=>['vms','spot'].includes(i.kind));
+  for(const kind of ['vms','spot']){
+   const entries=located.filter(i=>i.kind===kind),existing=kind==='vms'?CATS_NOW.find(c=>c.host==='layer'&&c.name==='VMS boards'):null;
+   const cat=existing||{id:kind+'live1208',name:kind==='vms'?'VMS board positions':'VMS removal spots',c:'#b98cf5',source1208:true,aliases:'vms board position removal spot'};
+   if(!existing)CATS_NOW.push(cat);else{ITEMS=ITEMS.filter(i=>i.cat!==existing);cat.count=String(entries.length);cat.why='existing VMS record and plan positions';}
+   for(const e of entries){const L=parent.Find1176.locate(e);if(!L)continue;const placed=!L.none&&Number.isFinite(L.lat)&&Number.isFinite(L.lon),xy=placed?ap(inv(GEO.main.sheet_to_z18px),...parent.MapArea1206.core.merc(L)):null;
+    ITEMS.push({code:norm(kind==='spot'?'REMOVAL · '+L.label:L.label),searchRef1208:e.label,places:xy?[[xy[0]-1,xy[1]-1,xy[0]+1,xy[1]+1]]:[],reg:{name:L.what||L.label},cat,names:[],source1208:true,location1208:L});}
+   let b=document.querySelector('[data-cat="'+cat.id+'"]');if(!b){b=document.createElement('button');b.type='button';b.className='chip';b.dataset.cat=cat.id;b.setAttribute('aria-pressed','false');b.style.setProperty('--c',cat.c);$('chips').appendChild(b);}b.innerHTML='<i></i>'+esc(cat.name)+' <small>'+entries.length+'</small>';
+  }
   const turnCat={id:'turn1208',name:'Track turns',c:'#ff6a13',source1208:true,aliases:'turn corner'};
   CATS_NOW.push(turnCat);
   for(const t of parent.Find1176?.turns?.()||[]){const xy=ap(inv(GEO.main.sheet_to_z18px),...parent.MapArea1206.core.merc({lat:t.lat,lon:t.lon}));ITEMS.push({code:norm(t.face||t.label),places:[[xy[0]-1,xy[1]-1,xy[0]+1,xy[1]+1]],reg:{name:t.label},cat:turnCat,names:[],source1208:true,sourceLabel1208:t.label});}
@@ -51,11 +62,11 @@ function searchFrame1208(){
  const build0=buildItems;buildItems=function(){const r=build0.apply(this,arguments);enrich();return r;};
  function matches(q){
   const tt=tokens(q),query=n(q);if(!tt.length)return [];
-  const stand=/^(?:grand ?stand|stand|s) ?0*(\d{1,2})([a-z]?)$/.exec(query),turn=/^(?:turn|corner|t) ?0*(\d{1,2})$/.exec(query);
+  const stand=/^(?:grand ?stand|stand|gs|s) ?0*(\d{1,2})([a-z]?)$/.exec(query),turn=/^(?:turn|corner|trn|t) ?0*(\d{1,2})$/.exec(query);
   if(stand)return ITEMS.filter(it=>it.code==='S'+stand[1].padStart(2,'0')+stand[2].toUpperCase());
   if(turn)return ITEMS.filter(it=>it.cat.id==='turn1208'&&Number(String(it.sourceLabel1208).replace(/\D/g,''))===Number(turn[1]));
   const reference=/^(gate|g|vms(?: board)?|wc|p|gn|ltc?|pb|bs|ot|eep|a) ?0*(\d+)([a-z]?)$/.exec(query);
-  if(reference){const prefix=reference[1].replace('gate','g').replace(' board',''),num=Number(reference[2]),suffix=reference[3];return ITEMS.filter(it=>{const m=/^([a-z]+)0*(\d+)([a-z]?)$/.exec(n(it.code).replace(/ /g,''));return m&&m[1]===prefix&&Number(m[2])===num&&m[3]===suffix;});}
+  if(reference){const prefix=reference[1].replace('gate','g').replace(' board',''),num=Number(reference[2]),suffix=reference[3];return ITEMS.filter(it=>{const m=/^([a-z]+) ?0*(\d+)([a-z]?)(?: +\d+)?$/.exec(n(it.searchRef1208||it.code));return m&&m[1]===prefix&&Number(m[2])===num&&m[3]===suffix;});}
   const phrase=query.replace(/\bposts?\b/g,'').replace(/\s+/g,' ').trim();
   const kinds={ 'first aid':['firstaid'],'medical':['firstaid'],'information':['information'],'information booths':['information'],'info':['information'],'police':['police'],'photographer':['photographer'],'photographers':['photographer'],'photography':['photographer'],'broadcast camera':['broadcast'],'broadcast cameras':['broadcast'],'camera':['photographer','broadcast'],'cameras':['photographer','broadcast'],'marshal':['marshal'],'marshals':['marshal'],'marshall':['marshal'],'marshalls':['marshal'],'mp':['marshal'],'yellow flag repeater lights':['yellowflag'],'yellow flag':['yellowflag'],'yfr':['yellowflag'],'emergency':['emergency'],'emergency egress':['emergency'],'emergency egress points':['emergency'],'emergency exit':['emergency'],'emergency exits':['emergency'],'egress':['emergency'],'ep':['emergency'],'fire hydrants':['hydrant'],'fire hydrant':['hydrant'],'hydrants':['hydrant'],'hydrant':['hydrant'],'fh':['hydrant'],'pit lane fire hydrants':['hydrant'] };
   if(sourceOK()&&kinds[phrase])return ITEMS.filter(it=>kinds[phrase].includes(it.cat.key));
@@ -75,7 +86,7 @@ function searchFrame1208(){
    const a=it.cat?.host==='trade'&&typeof parent.assetOf==='function'?parent.assetOf(it.code):null;
    if(!it.places.length){rows.push({kind:'map1208',id:it.code,label:it.code,what:it.reg?.name||it.cat.name,none:'No exact position on the master plan yet',a,code1208:it.code});continue;}
    it.places.forEach((b,i)=>{const ll=sheetToLL((b[0]+b[2])/2,(b[1]+b[3])/2);if(!ll)return;
-    rows.push({kind:'map1208',id:it.code+':'+i,label:it.sourceLabel1208||it.code,what:it.cat.name+(it.reg?.name&&it.reg.name!==it.cat.name?' · '+it.reg.name:''),lat:ll.lat,lon:ll.lon,tag:it.sourceLabel1208||it.code,how:'Position shown on the master plan; not a surveyed position',a,code1208:it.code,place1208:i});});
+    rows.push({kind:'map1208',id:it.code+':'+i,label:it.sourceLabel1208||it.code,what:it.cat.name+(it.reg?.name&&it.reg.name!==it.cat.name?' · '+it.reg.name:''),lat:ll.lat,lon:ll.lon,tag:it.sourceLabel1208||it.code,how:it.location1208?.how||'Position shown on the master plan; not a surveyed position',a,code1208:it.code,place1208:i});});
   }
   return {items,rows,placed:rows.filter(r=>!r.none).length,unplaced:rows.filter(r=>r.none).length,note:sourceOK()?'':'The drawing changed; the additional symbol index is unavailable until checked.'};
  }
