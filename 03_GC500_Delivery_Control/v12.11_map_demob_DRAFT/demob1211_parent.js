@@ -15,7 +15,7 @@
    return {type:u.type,n:u.n,units,unidentified:Math.max(0,u.n-units.length)};
   });
   const loading=W.MapArea1206.metadata(key).loading;
-  return {key,name:String(x.r.a?.name||x.r.a?.location||key),items,hold,loading,token:JSON.stringify([x.token,hold,loading]),complete:x.reading.complete};
+  return {key,name:String(x.r.a?.name||x.r.a?.location||key),items,hold,loading,token:JSON.stringify([x.token,hold,loading]),complete:x.reading.complete,departure:W.Departure1211?.project(x.reading)};
  }
  function coatesFWF(){
   const out=[];
@@ -23,7 +23,7 @@
    if(a._cancelled||rowOff(a.key)||movedAway(a.key))continue;
    const candidates=gcUnits925(a,{loading:false}).filter(u=>u.physical&&u.owner==='coates'&&fwf(u));if(!candidates.length)continue;
    const x=W.DemobCollection996.snapshot(a.key),used=new Set(x?.reading.events.flatMap(c=>c.items.flatMap(u=>u.unitIds||[]))||[]);
-   const units=candidates.filter(u=>!used.has(u.id));
+   const units=candidates.filter(u=>!used.has(u.id)&&!(x?.reading.remaining.find(r=>norm(r.type)===norm(u.item))?.n===0));
    if(units.length&&!x?.reading.complete)out.push({key:a.key,units:units.map(u=>({id:u.id,number:u.assetNo||'',item:u.item,owner:u.owner})),name:a.name||a.location||a.key});
   }
   return out;
@@ -49,6 +49,7 @@
   const form=document.querySelector('#f1176find form');if(!form||document.getElementById('coatesfwf1211'))return;
   const b=document.createElement('button');b.type='button';b.id='coatesfwf1211';b.className='btn';b.textContent='Coates FWF';b.title='Show recorded Coates FWF locations and asset numbers';
   b.onclick=()=>{const q=document.getElementById('f1176q');if(q){q.value='Coates FWF';q.dispatchEvent(new Event('input',{bubbles:true}));}};form.after(b);
+  for(const [label,query] of [['Still to leave','Demob remaining'],['Left site','Demob departed']]){const action=document.createElement('button');action.type='button';action.className='btn';action.textContent=label;action.onclick=()=>{const q=document.getElementById('f1176q');q.value=query;q.dispatchEvent(new Event('input',{bubbles:true}));};b.after(action);}
  }
  W.MapDemob1211=Object.freeze({version:'v12.11',reference:key=>holdAssets(()=>reference(key)),coatesFWF:()=>holdAssets(coatesFWF),validate:rows=>holdAssets(()=>validate(rows)),company,mount});
  const old=W.renderMap;if(typeof old==='function')W.renderMap=function(){const r=old.apply(this,arguments);mount();setTimeout(mount,120);setTimeout(mount,900);return r;};
