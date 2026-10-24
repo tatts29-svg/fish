@@ -39,7 +39,8 @@ function demobFrame1211(){
   out.push('','Navigation to selected area: '+directions(ll),'Navigation is to the map reference, not an approved truck route. Follow site traffic control.','Macintosh Island Park: enter from Gold Coast Highway into the north-west end of pit lane and follow race direction.','Buildings: on site before 07:00; truck leaves the pickup point before the 07:00–09:00 travel restriction.','Mapped reference positions are registered to the master plan, not surveyed. Individual units without plotted positions are not assigned an exact place inside the square.','Author: Andrew Fisher');return out;
  }
  function selectedSnapshot(rows){return {...area,rows:refs.filter(r=>rows.some(x=>x.key===r.key)).map(r=>r.map)};}
- function assertFresh(){consent();H.validate(selected());if(!ready)throw new Error('Prepare the pickup pack first.');}
+ function mapFresh(rows){const fresh=A.snapshot(area.pin),signature=r=>r?JSON.stringify([r.code,r.points,r.parts,r.loading,r.how]):'';if(rows.some(r=>signature(refs.find(x=>x.key===r.key)?.map)!==signature(fresh?.rows.find(x=>x.code===r.key))))throw new Error('The mapped location or door details changed. Reopen Demob and review the area.');}
+ function assertFresh(){consent();mapFresh(H.validate(selected()));if(!ready)throw new Error('Prepare the pickup pack first.');}
  function download(file){const u=URL.createObjectURL(file),a=document.createElement('a');a.href=u;a.download=file.name;a.click();setTimeout(()=>URL.revokeObjectURL(u),60000);}
  function save(){try{assertFresh();download(ready.pdf);status('PDF saved. Attach it to your email or message.');}catch(err){invalidate();status(err.message);}}
  async function send(mail){
@@ -51,12 +52,12 @@ function demobFrame1211(){
  }
  async function prepare(){
   if(running)return;invalidate();let rows;
-  try{consent();rows=H.validate(selected());}catch(err){status(err.message);return;}
+  try{consent();rows=H.validate(selected());mapFresh(rows);}catch(err){status(err.message);return;}
   const serial=generation,s=selectedSnapshot(rows),selection=selected(),text=lines(rows).join('\n');running=true;panel.querySelector('[data-prepare]').disabled=true;status('Preparing sharp map pictures and PDF…');
   try{
    const blob=await A.picture(s);if(serial!==generation)return;
    const pdf=await parent.MapDemobPdf1211.make({blob,rows:rows.map(r=>({...r,map:refs.find(x=>x.key===r.key).map})),text,centre:s.pin.ll});
-   if(serial!==generation)return;H.validate(selection);consent();
+   if(serial!==generation)return;mapFresh(H.validate(selection));consent();
    const stamp=new Date().toISOString().replace(/[:.]/g,'-'),base='GC500-demob-'+stamp,urls=[URL.createObjectURL(blob),URL.createObjectURL(pdf)];
    ready={text,pdf:new File([pdf],base+'.pdf',{type:'application/pdf'}),png:new File([blob],base+'.png',{type:'image/png'}),txt:new File([text],base+'.txt',{type:'text/plain'}),urls};
    panel.querySelector('[data-ready]').innerHTML='<a href="'+urls[1]+'" target="_blank" rel="noopener">Preview PDF</a><details><summary>Preview selected map</summary><img class="dm-preview" alt="Pickup area, equipment symbols and recorded plan door arrows" src="'+urls[0]+'"></details>';

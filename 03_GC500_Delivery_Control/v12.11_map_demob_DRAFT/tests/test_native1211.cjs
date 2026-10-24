@@ -18,7 +18,11 @@ try{
  check('unit selection is available in the native dialog',await f.locator('[data-unit]').count()>0);
  await f.locator('[data-unit]').first().check();await f.locator('[data-prepare]').click();check('new pack requires its own no-twin-steer checkbox',/Tick that no twin-steer/.test(await f.locator('[data-status]').innerText()));
  check('global print confirmation remains disabled',await p.evaluate(()=>ts1053.armed()));
- await f.locator('[data-no-twin]').check();await f.locator('[data-prepare]').click();await p.waitForFunction(()=>document.querySelector('#expFrame').contentWindow.GC500Demob1211.state.ready,null,{timeout:180000});
+ await f.locator('[data-no-twin]').check();
+ await f.evaluate(()=>{const r=GC500Area1206.state.rows.find(x=>parent.MapDemob1211.reference(x.code)?.items.some(i=>i.units.length)),it=ITEMS.find(x=>x.code===r.code);window.__moved1211={it,places:it.places};it.places=it.places.map(b=>b.map(x=>x+.05));});
+ await f.locator('[data-prepare]').click();check('changed map position blocks preparation against an old pin snapshot',/mapped location or door details changed/.test(await f.locator('[data-status]').innerText()));
+ await f.evaluate(()=>{__moved1211.it.places=__moved1211.places;delete window.__moved1211;});
+ await f.locator('[data-prepare]').click();await p.waitForFunction(()=>document.querySelector('#expFrame').contentWindow.GC500Demob1211.state.ready,null,{timeout:180000});
  check('native PDF and map prepared successfully',await f.evaluate(()=>GC500Demob1211.state.ready));
  check('outstanding native pickup holds are presented',await f.evaluate(()=>{const r=GC500Area1206.state.rows.map(x=>parent.MapDemob1211.reference(x.code)).filter(Boolean);return r.flatMap(x=>x.hold).every(h=>document.getElementById('demob1211').textContent.includes(h));}));
  check('phone dialog fits within viewport without horizontal overflow',await f.evaluate(()=>{const d=document.querySelector('#demob1211'),b=d.getBoundingClientRect();return b.left>=0&&b.right<=innerWidth&&b.height<=innerHeight&&d.scrollWidth<=d.clientWidth+1;}));
