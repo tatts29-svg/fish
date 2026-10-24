@@ -1,4 +1,4 @@
-# The last build papers (24 Oct 2026) — IN PROGRESS, photos filed here, not yet on the record
+# The last build papers (24 Oct 2026) — RECORDED, FILED, VERIFIED
 
 Author: Andrew Fisher. Andrew, 24 Oct 2026: "I have more dockets this will be the last for the build yah", then photographs of
 signed Advanced Temporary Fencing papers. None of them is on the record yet (checked against /api/state, GET only, record 10796).
@@ -16,6 +16,25 @@ signed Advanced Temporary Fencing papers. None of them is on the record yet (che
 book runs 36765–36768. 36757 is the gap in the 36751–36764 batch; 24492 follows service note 24491. Company Coates V8s, contact
 Brendan, owner/site supervisor signature without a name, prices blank, on every paper.
 
-Next: Andrew confirms whether more are coming and the CCB category (Event proposed for 36766 and 36768); then the papers go on
-the record through the page's own forms (recordHireAgreement, recordServiceNote) with the papers_fill runner, a full backup first,
-and the photos are filed as Documents.
+Andrew then: "So we need fencing to be 100% now and we work off number we have for completion of build" — these are the last
+papers. CCB category: Event for 36766 (smoking zones have been Event since Andrew accepted it on 2 Oct) and 36768 (no programme
+row; Club 500's programme CCB is Event), as Andrew was told would be recorded unless he said otherwise.
+
+**Recorded** 24 Oct 2026 13:13 AEST on the live v11.78 page (`abeb34d2…`) through the page's own forms (`recordHireAgreement`,
+`recordServiceNote`) with `papers_fill.cjs` (unchanged from the event-week batch) and `ha_spec.json`: dry run first, then `--apply`
+with the whole record backed up (`backup_state_20261024T031320Z.json`), the page hash checked, the write gate open only to the new
+papers' documents; record **10796 → 10804**, eight documents (F-AF-0068 to F-AF-0072, N-AF-0018 with its stamp and name), every
+other document unchanged in value; report `report_20261024T031320Z.json`.
+
+| Paper | Record | Charged (2026 card) / paid to Advanced |
+|---|---|---|
+| 36757 | F-AF-0068 · 70 m clean | $1,131.25 / $700.00 |
+| 24492 | N-AF-0018 · 0.5 h, 30 m relocated | — / $50.00 |
+| 36765 | F-AF-0069 · 5 m clean | $80.80 / $50.00 |
+| 36766 | F-AF-0070 · 10 m CCB Event | $75.10 / $54.00 |
+| 36767 | F-AF-0071 · 7.5 m clean | $121.21 / $75.00 |
+| 36768 | F-AF-0072 · 50 m CCB Event | $375.50 / $270.00 |
+| **Total** | | **$1,783.86 / $1,199.00** (hire agreements $1,149.00 + the note's $50.00) |
+
+**Filed**: the six photographs as Documents, kind docket, named by number, with 360 × 480 previews (`upload_originals.cjs`,
+sha256 read back); files 613 → 619.
