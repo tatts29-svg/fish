@@ -23,7 +23,7 @@ const scripts=h=>Array.from(h.matchAll(/<script\b[^>]*>([\s\S]*?)<\/script>/gi),
 const b=scripts(base),p=scripts(page);check('no added script block',b.length===p.length);
 const edited=b.map((s,i)=>s===p[i]?null:i).filter(i=>i!==null);console.log('Edited scripts',edited);
 // Maps and graphics scheduling repairs are exact source-preservation checks.
-for(const marker of ['ShowcaseStable1175','function gpuBusy1175','MapFind1176']){const i=b.findIndex(x=>x.includes(marker));if(i>=0)check(marker+' preserved',b[i]===p[i]);}
+for(const marker of ['ShowcaseStable1175','function gpuBusy1175','W.Find1176.open']){const i=b.findIndex(x=>x.includes(marker));if(i>=0)check(marker+' preserved',b[i]===p[i]);}
 check('shared embedded data preserved',base.match(/const DATA = (.*);/)[1]===page.match(/const DATA = (.*);/)[1]);
 check('eight garage choices and selector present',page.includes("['fencing_truck', 'Advanced Fencing', 'Fencing truck']")&&page.includes('<option value="fencing_truck">'));
 if(process.env.OUT)fs.writeFileSync(process.env.OUT,JSON.stringify(out,null,2));

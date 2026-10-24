@@ -36,12 +36,16 @@ G.sceneryBannersSteps1177=function*(S,k){
    const a=pts[i],b=pts[(i+1)%pts.length],dx=b.p[0]-a.p[0],dz=b.p[1]-a.p[1],len=Math.hypot(dx,dz);
    if(len<step*.88||len>step*1.12)continue;
    const t=[dx/len,dz/len],n=[-t[1]*sg,t[0]*sg],off=.45-.012/M,m=[(a.p[0]+b.p[0])/2+n[0]*off,(a.p[1]+b.p[1])/2+n[1]*off],q=nearest(m),style=G.sceneryStyle1177(q.s,S.CL.L,q.side,i),f=[-n[0],-n[1]],hb=hgt*.86,c=[m[0],H+hgt*.48,m[1]];
-   if((S.standDecor.i.length-begin)/3>report.triangleBudget-1000)break;
-   const vertexStart=S.standDecor.nv,labelStart=S.photoLabels792.length;
+   const drawName=i%2===0&&(S.standDecor.i.length-begin)/3<report.triangleBudget-1200?style.name:'';
+   const vertexStart=S.standDecor.nv,labelStart=S.photoLabels792.length,indexStart=S.standDecor.i.length;
    panel(c,f,len*.90,hb,style.paper,.004);
-   text(c,f,style.name||' ',Math.min(hb*.70/7,len*.86/Math.max(1,style.name.length*6-1)),style.ink,.009);
+   text(c,f,drawName||' ',Math.min(hb*.70/7,len*.86/Math.max(1,drawName.length*6-1)),style.ink,.009);
+   // Wall-facing quads need one outward face. Keep label ranges exact for the existing atlas path.
+   const indices=S.standDecor.i,tail=indices.slice(indexStart);indices.length=indexStart;
+   for(let j=0;j<tail.length;j+=12)indices.push(...tail.slice(j,j+6));
+   S.photoLabels792[labelStart].indexStart=indexStart+6;S.photoLabels792[labelStart].indexEnd=indices.length;
    S.bannerRanges794.push({vertexStart,vertexEnd:S.standDecor.nv,labelStart,labelEnd:S.photoLabels792.length,loop:li,centre:m.slice(),tangent:t.slice(),outward:n.slice(),wallFace1177:true});
-   report.panels++;stats.banners++;if(style.name){report.labels++;report.labelsByName[style.name]=(report.labelsByName[style.name]||0)+1;}
+   report.panels++;stats.banners++;if(drawName){report.labels++;report.labelsByName[drawName]=(report.labelsByName[drawName]||0)+1;}
   }
  }report.triangles=(S.standDecor.i.length-begin)/3;
 };

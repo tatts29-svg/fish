@@ -30,6 +30,7 @@ def patch(html):
         start=html.index(head);pos=html.index(needle,start);before=html[start:pos+len(needle)];after=before[:-len(needle)]+pine
         html=rep(html,before,after,'tiered roadside crowns '+label,'page')
     html=rep(html,"conifer:!q.palm&&q.mid&&q.h/Math.max(q.r,.001)>1.65&&hash(q.x,q.z,731)<.32", "conifer:!!q.conifer1177||(!q.palm&&q.mid&&q.h/Math.max(q.r,.001)>1.65&&hash(q.x,q.z,731)<.32)",'retain crown in enhanced detail','page')
+    html=rep(html,'sync.call(root,!SHOW.playing||SHOW.reduced||motionOff());\n show3dNote();','sync.call(root,!SHOW.playing||SHOW.reduced||motionOff());\n showViewSync();\n show3dNote();','show vehicle controls after asynchronous mount','page')
     return rep(html,"+' · v11.76'; /* v8.19 release922","+' · v11.77'; /* v8.19 release922",'footer','page')
 if __name__=='__main__':
     p=Path(sys.argv[1]);p.write_text(patch(p.read_text()));print('v11.77 Showcase scenery and fencing truck applied')
