@@ -20,7 +20,9 @@ const {open} = require('../../toolchain/harness/open_page');
       expanded: bar ? bar.querySelector('.b1191-btn').getAttribute('aria-expanded') : '', h: Math.round(T.getBoundingClientRect().height),
       stored: (() => { try { return localStorage.getItem('gc500.build1191'); } catch (e) { return 'x'; } })(), over: document.documentElement.scrollWidth > innerWidth + 1};
   });
-  const tap = () => p.evaluate(() => document.querySelector('#build1191 .b1191-btn').click());
+  // A tap, then the layout settles: the first open after a load re-measures the embedded view's screen-only packed cards in the
+  // next frame (222 to 1,192 px on a desktop). One live run measured in the same instant and read 5,567 px instead of 6,615.
+  const tap = async () => { await p.evaluate(() => document.querySelector('#build1191 .b1191-btn').click()); await p.waitForTimeout(400); };
   const shot = async name => { if (!dir) return; fs.mkdirSync(dir, {recursive: true});
     await p.evaluate(() => { const st = document.getElementById('blur1191') || Object.assign(document.createElement('style'), {id: 'blur1191', textContent: '.staff988 li,.tm-person{filter:blur(7px)}'}); document.head.appendChild(st); });
     await p.waitForTimeout(600); await p.screenshot({path: path.join(dir, tag + '-' + name + '.png')}); };

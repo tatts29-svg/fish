@@ -1,8 +1,21 @@
 # v11.91 Today: the finished build folds away
 
-**READY 24 Oct 2026.**
-- Built on live v11.90 `6b8b06f21cc1b1c5b7717cc945ef12b00654346ad88bf2537b72c869816c9673`.
-- Build `ffacee9978f388e43559a02bf62a9ad01d2de0c3bf3b3326eb5c5cd19b279e6b` (21,948,407 bytes).
+**LIVE 24 Oct 2026 23:59 AEST.**
+- Page `ffacee9978f388e43559a02bf62a9ad01d2de0c3bf3b3326eb5c5cd19b279e6b` (21,948,407 bytes), built on v11.90 `6b8b06f2…`.
+- Guarded upload. The view link serves the build byte for byte; a separate public download at 23:59:10 matched every byte.
+- On the live page, `tests/test_native1191.cjs` passed 27/27 on desktop and 26/26 on phone. Screenshots are in `evidence/live/`,
+  with staff names and Who to call blurred.
+- **One live check missed first time, and the cause was the test.** The first desktop run on live read Today with the fold open at
+  5,567 px (6,615 on the build).
+  - The first time the fold opens after a load, the embedded Where we are view re-measures its screen-only packed cards in the next
+    frame (222 to 1,192 px), and the test measured in that same instant.
+  - Its content was all there while folded: 14,430 characters and 5 cards, the same as open and the same as v11.90.
+  - The test now lets the layout settle for 400 ms after a tap. The rerun passed 27/27 desktop and 26/26 phone.
+- **Also checked on live:**
+  - The On site, Trade by trade and By group jumps, each as the first open after a fresh load, finish where they do on v11.90:
+    desktop 225 / 12 / 12 px from the top, phone 12 / 12 / 12. On site stops at 225 px on a desktop because that's the foot of the
+    page, the same on v11.90.
+  - The embedded Where we are view takes no space on paper on v11.90 either, so paper prints as before.
 
 Author: Andrew Fisher · 24 Oct 2026
 
@@ -80,9 +93,9 @@ No other component, and no record, servicing, crew card, QR code, server or char
 - **Screenshots** in `evidence/`: Today with the fold closed and open, on phone and desktop. Staff names and Who to call are blurred.
 
 ```
-toolchain/build.sh v11.91 v11.91_today_build_fold_DRAFT/patch_v1191.py
-PAGE=build/GC500_v11.91/GC500_Delivery_Control_hosted.html BASE=build/GC500_v11.91/base_live.html node v11.91_today_build_fold_DRAFT/tests/test_rules1191.cjs
-PAGE=build/GC500_v11.91/GC500_Delivery_Control_hosted.html [MOB=1] [EVIDENCE=dir] node v11.91_today_build_fold_DRAFT/tests/test_native1191.cjs
+toolchain/build.sh v11.91 v11.91_today_build_fold_LIVE/patch_v1191.py
+PAGE=build/GC500_v11.91/GC500_Delivery_Control_hosted.html BASE=build/GC500_v11.91/base_live.html node v11.91_today_build_fold_LIVE/tests/test_rules1191.cjs
+PAGE=build/GC500_v11.91/GC500_Delivery_Control_hosted.html [MOB=1] [EVIDENCE=dir] node v11.91_today_build_fold_LIVE/tests/test_native1191.cjs
 ```
 
 Implemented and tested by Claude, for Andrew; not reviewed by Codex.
