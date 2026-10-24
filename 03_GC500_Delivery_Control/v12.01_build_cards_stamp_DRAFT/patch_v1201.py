@@ -12,16 +12,16 @@ lot saying item late. I want to know what was late".
   across two lines. Every figure, window and time is unchanged.
   Footer -> v12.01. No record, rate, servicing, crew card, QR code or server change.
 
-    python3 patch_v1201.py page.html      (in place, on the live v11.99 page named by BASE)
+    python3 patch_v1201.py page.html      (in place, on the live v12.00 page named by BASE)
 """
 import hashlib, sys
 from pathlib import Path
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE.parent / 'toolchain'))
 from rep import rep
-BASE = '2c653073230aa8533fd2121cf87f3459c6fbde66a0aac22df564dc55161e671e'
+BASE = '2261fdc8c1043bad0ed582fac9240366ef112e1275e4962ced62068089c2de51'
 ANCHOR = '<script id="steady1143-script">'
-FOOT_OLD, FOOT_NEW = "+' · v11.99'; /* v8.19 release922", "+' · v12.01'; /* v8.19 release922"
+FOOT_OLD, FOOT_NEW = "+' · v12.00'; /* v8.19 release922", "+' · v12.01'; /* v8.19 release922"
 WHAT = "const what = (u, r) => r && r.src === 'site' && r.site && r.site.ref ? named(r.site.ref, u.k).trim() : u.r && u.r.length === 1 ? named(u.r[0], u.k).trim() : u.r && u.r.length ? 'one of ' + u.r.map(x => named(x, u.k).trim()).join(' or ') : u.k;"
 WHAT_NEW = "const what = (u, r) => r && r.src === 'site' && r.site && r.site.ref ? named(r.site.ref, itm1201(u)).trim() : u.r && u.r.length === 1 ? named(u.r[0], itm1201(u)).trim() : u.r && u.r.length ? 'one of ' + u.r.map(x => named(x, itm1201(u)).trim()).join(' or ') : said1201(u);"
 HELPERS = (" /* v12.01 - a booking text that names no reference is called by its own words, not \"Item\" (Andrew, 25 Oct 2026: \"Theres is\n"
@@ -50,7 +50,7 @@ EDITS = [
 
 def patch(html):
     if 'cards1201-style' in html or 'const said1201' in html: raise ValueError('v12.01 already applied')
-    if hashlib.sha256(html.encode('utf-8')).hexdigest() != BASE: raise ValueError('Wrong live base for v12.01 (expected v11.99 2c653073...)')
+    if hashlib.sha256(html.encode('utf-8')).hexdigest() != BASE: raise ValueError('Wrong live base for v12.01 (expected v12.00 2261fdc8...)')
     if 'cards1197-script' not in html: raise ValueError('v11.99 Build cards are not on this page')
     k = html.index('<script id="ontime1057-script">'); e = html.index('</script>', k)
     for old, new, what in EDITS + [(WHAT, '', 'what')]:

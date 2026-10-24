@@ -29,11 +29,12 @@ Every figure, window and time is unchanged. No record, rate, servicing, crew car
 ## Files
 
 - `cards1201.css`: CLOSED off, the stamp, the one-piece late time.
-- `patch_v1201.py`: the CSS before `steady1143-script`; eight edits inside `ontime1057-script` (the naming helpers `said1201`, `kind1201`, `lbl1201`, `itm1201`); footer v12.01. It refuses a base other than live v11.99 `2c653073…`.
+- `patch_v1201.py`: the CSS before `steady1143-script`; eight edits inside `ontime1057-script` (the naming helpers `said1201`, `kind1201`, `lbl1201`, `itm1201`); footer v12.01. It refuses a base other than live v12.00 `2261fdc8…`.
 - `tests/test_native1201.cjs`: read only. 11 checks: the naming rule, 21 Oct names, "Item" nowhere on 23 days of rows and More info, CLOSED off 46 closed cards and the Demob ones, the stamp is ink at 4 angles, centred within 2 px and clear of the date, the label line and the weather, no page errors, zero writes.
 
 ## Where it's up to
 
-- Candidate `d80a9f7b…` on live v11.99 `2c653073230aa8533fd2121cf87f3459c6fbde66a0aac22df564dc55161e671e`.
-- Tests: native 11/11 on desktop and on phone.
-- Next: Andrew's yes, then sweeps, upload and LIVE. If Codex's v12.00 publishes first, this rebuilds on it.
+- First candidate `d80a9f7b…` on v11.99. Codex's v12.00 went live at 05:14, so it was rebuilt on it.
+- Candidate `dfd22e88…` on live v12.00 `2261fdc8c1043bad0ed582fac9240366ef112e1275e4962ced62068089c2de51`.
+- Tests: native 11/11 on desktop and on phone, on both bases.
+- Next: Andrew's yes, then sweeps, upload and LIVE. It can publish with v12.02 in one build.
