@@ -1,5 +1,7 @@
 # The fencing crew's print-out — "What you built" (GC500 2026)
 
+**Superseded on 24 Oct 2026 by `../print_24Oct2026_fencing_crew_v2/`** (Andrew: "something like this as an example but 1000% better"). Its gear workbook stays current here.
+
 Author: Andrew Fisher. Andrew, 24 Oct 2026: "the boys have asked for a print out of what they have done. As in fencing could you
 put something together. Something that looks really good they want to know how much they have done ... Something neat".
 
