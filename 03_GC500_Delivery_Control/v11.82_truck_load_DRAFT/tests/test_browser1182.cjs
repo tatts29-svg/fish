@@ -17,6 +17,7 @@ try{
  check('v11.82 company vehicle source present',await p.evaluate(()=>document.body.innerText.includes('v11.82')&&GC3D.fencingLoad1182?.version===1182));
  await p.evaluate(()=>{GC3D.frame=()=>{};localStorage.setItem('gc500.showback','circuit3d_day');localStorage.setItem('gc500.showvehicle','car');showOpen();showPause();});
  await p.waitForFunction(()=>!!(GC3D.S?.cv?.isConnected&&!ShowcaseSmooth1157.state().pending),null,{timeout:180000});
+ console.log('MOUNT',await p.evaluate(()=>({quality:GC3D.S.quality?.name,choice:GC3D.S.qualityChoice,step:GC3D.stepDown.toString().slice(0,450),safe:GC3D.stepDown.safe1175,smooth:GC3D.stepDown.smooth792,mount:GC3D.mount.toString().slice(0,400)})));
  check('garage visible after paused mount',await p.locator('#seTrig').isVisible());
  await p.locator('#seTrig').click();check('eight vehicle choices',await p.locator('#sePanel .se-item').count()===8);
  await p.locator('#sePanel [data-v="fencing_truck"]').click();await p.locator('#sePanel .se-x').click();
@@ -34,6 +35,7 @@ try{
  check('loaded truck with company logo stays within geometry budget',info.stats.stockLoaded&&info.stats.loadVersion===1182&&info.stats.brandVersion===1180&&info.stats.logoCopies===3&&info.stats.newTextures===0&&info.stats.triangles<20000&&info.parts<45,info);console.log('MODEL',JSON.stringify(info));
  check('whole truck and load fit native camera',info.frames);
  await p.screenshot({path:path.join(out,(mobile?'phone':'desktop')+'-truck.png'),timeout:120000});
+ if(mobile){await p.locator('#showQuality').selectOption('balanced');check('explicit Balanced remains available',await p.evaluate(()=>GC3D.S.quality.name==='balanced'&&showQualityGet()==='balanced'));}
  await frame('quarter');await p.screenshot({path:path.join(out,(mobile?'phone':'desktop')+'-quarter.png'),timeout:120000});
  await frame('chase');await p.screenshot({path:path.join(out,(mobile?'phone':'desktop')+'-load.png'),timeout:120000});
  await frame('onboard');await p.screenshot({path:path.join(out,(mobile?'phone':'desktop')+'-onboard.png'),timeout:120000});

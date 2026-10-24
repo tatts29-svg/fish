@@ -22,6 +22,13 @@ G.setQuality=function(name,automatic){
  }
  return result===false?false:G.graphicsReport();
 };
+// Cooperative preparation mounts the completed scene before the old UI sync
+// sees it. Apply the preference here too, including paused first openings.
+const mount=G.mount;
+G.mount=function(){const result=mount.apply(this,arguments);
+ if(/^mounted/.test(result)&&G.S)G.setQuality(typeof root.showQualityGet==='function'?root.showQualityGet():'crisp');
+ return result;
+};
 const report=G.graphicsReport;
 G.graphicsReport=function(){const r=report.apply(this,arguments);if(G.S?.quality?.name==='crisp'){
  r.resolutionLocked=true;r.drawnAt='4K clarity';
