@@ -40,9 +40,17 @@ Scrim, relocations and removals are work on the same fence; they are never added
 
 ## The gear (components on the hire agreements)
 
-| Mesh panels | Feet / bases | Clamps | Braces | Gate wheels | CCB units | Flat-feet CCB | Hoarding panels | Concrete blocks |
-|---|---|---|---|---|---|---|---|---|
-| 5,223 | 8,235 | 7,977 | 1,426 | 278 | 2,903 | 117 | 41 | 216 |
+| Mesh panels | Hoarding panels | Feet / bases / blocks | Clamps | Braces | Gate wheels | CCB units | Flat-feet CCB |
+|---|---|---|---|---|---|---|---|
+| 5,223 | 41 | 8,235 | 7,977 | 1,426 | 278 | 2,903 | 117 |
+
+**Feet (corrected 24 Oct 2026):** feet, bases and blocks are one item. 8,235 are written on the dockets; 10 papers left the feet
+box blank (230 panels, 4 braces, about 240 more), so about 8,475 were used. The gear agrees: one foot per panel (5,264 incl. the
+hoarding panels, shared at the joins) + two per brace (2,852; every bracing-only docket shows exactly two) + 300 dropped at the
+iEDM compound + 19 under the Club 500 flat-feet barriers = 8,435, plus one at the open end of each run. An earlier version of this
+file listed "216 concrete blocks" as a separate item: those are the 216 feet on docket 36566, charged on the card's Fence Blocks
+line, and already inside the 8,235. No separate concrete blocks were used. Docket by docket:
+`../print_24Oct2026_fencing_crew/GC500_2026_fencing_gear_used_by_docket.xlsx`.
 
 Collected back on the 25 collection forms so far: 476 mesh panels, 491 bases, 474 clamps, 45 CCB, 35 flat-feet CCB, 19 wheels,
 5 braces, 1 pedestrian gate.
