@@ -1,4 +1,4 @@
-/* Author: Andrew Fisher. Read-only, source-bound timings; actual main scroller. */
+/* Author: Andrew Fisher. Read-only, source-bound timings; tab and search response. */
 const fs=require('fs'),crypto=require('crypto'),{open}=require('../../toolchain/harness/open_page');
 const hash=()=>crypto.createHash('sha256').update(fs.readFileSync(process.env.PAGE)).digest('hex');
 const init=`(()=>{const P=window.__speed1200={long:[],marks:{}};

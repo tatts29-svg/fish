@@ -1,0 +1,33 @@
+{
+  "author": "Andrew Fisher",
+  "base_version": "v11.99",
+  "base_sha256": "2c653073230aa8533fd2121cf87f3459c6fbde66a0aac22df564dc55161e671e",
+  "base_bytes": 22045297,
+  "candidate_version": "v12.00",
+  "candidate_sha256": "2261fdc8c1043bad0ed582fac9240366ef112e1275e4962ced62068089c2de51",
+  "candidate_bytes": 15175515,
+  "uncompressed_reduction_percent": 31.16,
+  "source_image_reencoding": false,
+  "inline_scripts_parsed": 191,
+  "baseline_public_wire": {
+    "encoding": "br",
+    "bytes": 7844902,
+    "decompressed_sha256": "2c653073230aa8533fd2121cf87f3459c6fbde66a0aac22df564dc55161e671e"
+  },
+  "phone_screenshot_inspected": true,
+  "record_writes": 0,
+  "second_agent_review": false,
+  "physical_device_frame_rate_verified": false,
+  "publication_state": "READY TO UPLOAD",
+  "uhd_screenshot_inspected": true,
+  "checks": {
+    "preservation": 18,
+    "native_desktop": 32,
+    "native_phone": 32,
+    "build1199_desktop": 26,
+    "build1199_phone": 26,
+    "uhd": 5,
+    "sweeps": "27 routes/19 direct panes/7 deep links/Back on desktop and phone; zero page/console errors and attempted writes"
+  },
+  "upload_dry_run": "PASS; edit access and unchanged live v11.99 base"
+}

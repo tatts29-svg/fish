@@ -1,6 +1,6 @@
 """Author: Andrew Fisher. Byte-preserving media extraction and bounded startup work.
 
-Build from exact live v11.98. Generated media and manifests stay in ignored build/.
+Build from exact live v11.99. Generated media and manifests stay in ignored build/.
 No records, rates, image pixels, servicing QR codes or crew-card source change.
 """
 import base64
@@ -14,7 +14,7 @@ HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE.parent / 'toolchain'))
 from rep import rep
 
-BASE = '6e92bd7e5fb09b86d2d184638a9cea3d41d02509c4fdd4243b8ce5ab273c7dc7'
+BASE = '2c653073230aa8533fd2121cf87f3459c6fbde66a0aac22df564dc55161e671e'
 HOST = 'https://gc500-production.up.railway.app'
 MEDIA = re.compile(r'data:(image/(?:webp|jpeg|png|gif)|font/(?:woff2|woff));base64,([A-Za-z0-9+/=]+)')
 EXT = {'image/jpeg': 'jpg', 'image/webp': 'webp', 'image/png': 'png', 'image/gif': 'gif', 'font/woff2': 'woff2', 'font/woff': 'woff'}
@@ -26,7 +26,7 @@ def canonical(value):
 
 def patch(html, output):
     if hashlib.sha256(html.encode()).hexdigest() != BASE:
-        raise ValueError('v12.00 requires exact live v11.98; rebuild/rebase if another release is live')
+        raise ValueError('v12.00 requires exact live v11.99; rebuild/rebase if another release is live')
     start = html.index('const DATA = ') + len('const DATA = ')
     data, end = json.JSONDecoder().raw_decode(html[start:])
     end += start
@@ -106,7 +106,7 @@ def patch(html, output):
     html = rep(html, old, new, 'one review identity roster per draw', 'page')
     html = rep(html, '</script>\n</body>\n</html>', '</script>\n<script id="loading1200">\n' +
         (HERE / 'loading1200_src.js').read_text() + '\n</script>\n</body>\n</html>', 'finder index freshness', 'page')
-    html = rep(html, "+' · v11.98'; /* v8.19 release922", "+' · v12.00'; /* v8.19 release922", 'release footer', 'page')
+    html = rep(html, "+' · v11.99'; /* v8.19 release922", "+' · v12.00'; /* v8.19 release922", 'release footer', 'page')
     return html
 
 
