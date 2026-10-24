@@ -1,4 +1,4 @@
-"""Author: Andrew Fisher. v11.97 - Build cards: delivery windows and the recorded weather.
+"""Author: Andrew Fisher. v11.99 (claimed as v11.97) - Build cards: delivery windows and the recorded weather.
 
 Andrew, 25 Oct 2026 (this chat): "Lets push our limits and do improvement with the build cards. Also we shouldc have a delivery
 window can we mention this Delivery booked betweem this time and this time".
@@ -8,20 +8,20 @@ window can we mention this Delivery booked betweem this time and this time".
   history1197.json: the Build card weather for 10-22 Oct 2026 from the Bureau of Meteorology's Gold Coast Seaway daily
   observations (IDCJDW4050.202610), converted by weather1197.py on v9.84's rules after it reproduced all 33 archived rows;
   added to the v9.84 archive (BuildHistory984) under its own source entry. Nothing estimated.
-  Footer -> v11.97. No record, rate, servicing, crew card, QR code or server change.
+  Footer -> v11.99. No record, rate, servicing, crew card, QR code or server change.
 
-    python3 patch_v1197.py page.html      (in place, on the live v11.95 page named by BASE)
+    python3 patch_v1197.py page.html      (in place, on the live v11.98 page named by BASE)
 """
 import hashlib, json, sys
 from pathlib import Path
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE.parent / 'toolchain'))
 from rep import rep
-BASE = '5868677a6bb4a59b4a9ffb6c8b2014a5be0b07661dfafeec74f8e149d1e3000b'
+BASE = '6e92bd7e5fb09b86d2d184638a9cea3d41d02509c4fdd4243b8ce5ab273c7dc7'
 ANCHOR = '<script id="steady1143-script">'
 ARCHIVE_NOTE = 'Reviewed historical station observations; no forecast substitution or record writes.'
 ARCHIVE_AT = 'const ARCHIVE = '
-FOOT_OLD, FOOT_NEW = "+' · v11.95'; /* v8.19 release922", "+' · v11.97'; /* v8.19 release922"
+FOOT_OLD, FOOT_NEW = "+' · v11.98'; /* v8.19 release922", "+' · v11.99'; /* v8.19 release922"
 
 
 def weather(html):
@@ -44,8 +44,8 @@ def weather(html):
 
 
 def patch(html):
-    if 'cards1197-script' in html: raise ValueError('v11.97 already applied')
-    if hashlib.sha256(html.encode('utf-8')).hexdigest() != BASE: raise ValueError('Wrong live base for v11.97 (expected v11.95 5868677a...)')
+    if 'cards1197-script' in html: raise ValueError('v11.99 already applied')
+    if hashlib.sha256(html.encode('utf-8')).hexdigest() != BASE: raise ValueError('Wrong live base for v11.99 (expected v11.98 6e92bd7e...)')
     for need in ('ontime1057-script', 'loadcards991-script', 'function timeline846Line(d, g, n, open, timed) {', 'function ldLine(d, g, n, open, timed){ return timeline846Line(d, g, n, open, timed); }',
                  "W.ontime1057 = {version: 'v10.59', what, model, siteOf, cardRow, moreHtml, toDate, units: U, exportAt: T.export_at};",
                  '</span><span class="ld-x" aria-hidden="true"></span></button>', '<span class="bc984-crew"><span class="bc984-crew-head">',
@@ -66,4 +66,4 @@ def patch(html):
 if __name__ == '__main__':
     p = Path(sys.argv[1])
     p.write_text(patch(p.read_text(encoding='utf-8')), encoding='utf-8')
-    print('v11.97 Build cards applied')
+    print('v11.99 Build cards applied')

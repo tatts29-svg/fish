@@ -1,7 +1,7 @@
-// Author: Andrew Fisher. v11.97 on the real Build tab, reading the live record, writing nothing: every Build day card with a Coates
+// Author: Andrew Fisher. v11.99 on the real Build tab, reading the live record, writing nothing: every Build day card with a Coates
 // booking text has one delivery-window row after DAY'S DELIVERIES, its dots are the on-time model's own; every Coates load says
 // "Delivery booked between HH:MM and HH:MM"; Event Portables loads say nothing; the weather for 10-22 Oct is the Bureau's.
-//   PAGE=build/GC500_v11.97/GC500_Delivery_Control_hosted.html [MOB=1] [EVIDENCE=dir] node tests/test_native1197.cjs
+//   PAGE=build/GC500_v11.99/GC500_Delivery_Control_hosted.html [MOB=1] [EVIDENCE=dir] node tests/test_native1197.cjs
 const assert = require('node:assert/strict'), fs = require('node:fs'), path = require('node:path');
 const {open} = require('../../toolchain/harness/open_page');
 (async () => {
@@ -15,7 +15,7 @@ const {open} = require('../../toolchain/harness/open_page');
     await p.evaluate(() => { window.capability = () => 'edit'; window.mayWrite = () => false; SYNC.readonly = false; SYNC.level = 'edit'; SYNC.claims = 'edit'; applyCapability(); });
     await day('2026-09-14');
     const w = await p.evaluate(() => ({v: window.cards1197 && window.cards1197.version, card: !!(BuildCards984.html && BuildCards984.html.__bw1197), line: !!(window.timeline846Line && window.timeline846Line.__bw1197)}));
-    check(w.v === 'v11.97' && w.card && w.line, 'v11.97 loaded: the day card and the load line are wrapped');
+    check(w.v === 'v11.99' && w.card && w.line, 'v11.99 loaded: the day card and the load line are wrapped');
 
     /* every card: a row exactly where the day has a booked window, in the right place, its dots the on-time model's */
     const cards = await p.evaluate(() => holdAssets(() => {
@@ -44,15 +44,26 @@ const {open} = require('../../toolchain/harness/open_page');
     /* the loads, in Andrew's words */
     const loads14 = await p.evaluate(() => [...document.querySelectorAll('#pane-timeline .ld.lc991')].map(c => {
       const b = c.querySelectorAll('.bw1197-band');
-      return {refs: b[0] ? b[0].dataset.bw1197Load : null, n: b.length, says: b[0] ? [...b[0].querySelectorAll('.bw1197-say')].map(x => x.innerText.replace(/\s+/g, ' ').trim()) : [], inSummary: !b[0] || !!b[0].closest('.lc991-summary'),
+      const t = n => n ? n.innerText.replace(/\s+/g, ' ').trim() : '';
+      return {refs: b[0] ? b[0].dataset.bw1197Load : null, n: b.length, says: b[0] ? [...b[0].querySelectorAll('.bw1197-say')].map(x => [t(x.querySelector('.bw1197-line'))].concat([...x.querySelectorAll('.bw1197-re')].map(t)).join(' ')) : [],
+        done: b[0] ? [...b[0].querySelectorAll('.bw1197-done')].map(t) : [], inSummary: !b[0] || !!b[0].closest('.lc991-summary'),
         fits: !b[0] || b[0].getBoundingClientRect().right <= c.getBoundingClientRect().right + 1};
     }));
     const L = ref => loads14.find(x => x.refs === ref) || {says: []};
     check(loads14.every(x => x.n <= 1) && loads14.filter(x => x.n).length === 8, '14 Sep: eight of the loads carry one window band each');
-    check(JSON.stringify(L('P05').says) === JSON.stringify(['Delivery booked between 05:00 and 08:00 Re-booked 05:00–10:00 · Coates text 9 Sep 13:29']), 'P05: ' + L('P05').says.join(' / '));
+    check(JSON.stringify(L('P05').says) === JSON.stringify(['Delivery booked between 05:00 and 08:00 Re-booked 05:00–10:00 · Coates text 9 Sep 13:29']) && L('P05').done.length === 1 && /^Done \d\d:\d\d, /.test(L('P05').done[0]), 'P05: ' + L('P05').says.join(' / ') + ' · ' + L('P05').done.join(' / '));
     check(L('WC05').says.length === 2 && /^Waste tank: delivery booked between 08:00 and 12:30$/.test(L('WC05').says[0]) && /^Toilet block: delivery booked between 08:30 and 11:30 Re-booked 08:30–13:00/.test(L('WC05').says[1]), 'WC05: ' + L('WC05').says.join(' / '));
     check(JSON.stringify(L('P01').says) === JSON.stringify(['Delivery booked between 04:30 and 07:30']), 'P01: ' + L('P01').says.join(' / '));
     check(loads14.every(x => x.inSummary && x.fits), 'each band sits in the load card summary, inside the card');
+    const look = await p.evaluate(() => { const b = [...document.querySelectorAll('#pane-timeline .bw1197-band')].find(x => x.dataset.bw1197Load === 'WC05');
+      return {tracks: b ? b.querySelectorAll('.bw1197-track').length : 0, wins: b ? [...b.querySelectorAll('.bw1197-win')].map(w => w.className) : [], chips: b ? [...b.querySelectorAll('.bw1197-done')].map(c => c.className + ' ' + c.textContent) : []}; });
+    check(look.tracks === 2 && look.wins.every(c => /cat-wc/.test(c)) && look.chips.length === 2 && look.chips.every(c => /late Done \d\d:\d\d, \d+ h \d+ min late/.test(c)), 'WC05: two windows on their own tracks, toilet colour, each with its done chip: ' + look.chips.join(' / '));
+    const ring = await p.evaluate(() => { const c = document.querySelector('#pane-timeline .bc984-day[data-day="2026-09-14"] .bw1197-ring'); return c ? {p: c.style.getPropertyValue('--p'), text: c.textContent} : null; });
+    check(ring && ring.p === '31' && ring.text === '31%', 'Coates on time ring on 14 Sep: ' + JSON.stringify(ring));
+    const cats = await p.evaluate(() => [...document.querySelectorAll('#pane-timeline .bc984-day[data-day="2026-09-14"] .bw1197-cat')].map(c => c.textContent.replace(/\s+/g, ' ').trim()));
+    check(JSON.stringify(cats) === JSON.stringify(['Buildings 7', 'Toilets 7']), '14 Sep key: ' + cats.join(', '));
+    const stamp = await p.evaluate(() => { const s = document.querySelector('#pane-timeline .bc984-day.past984 .bc984-stamp'); return s ? +getComputedStyle(s).opacity : null; });
+    check(stamp !== null && stamp <= 0.1, 'the closed-day stamp steps back: opacity ' + stamp);
 
     await day('2026-10-08');
     const ep = await p.evaluate(() => [...document.querySelectorAll('#pane-timeline .ld.lc991')].map(c => ({carrier: ((c.querySelector('.ld-t em') || {}).textContent || '').trim(), refs: [...c.querySelectorAll('.tl841-ref')].map(r => r.dataset.tl841Ref).join('/'), band: !!c.querySelector('.bw1197-band')})));
@@ -101,4 +112,4 @@ const {open} = require('../../toolchain/harness/open_page');
     check(s.counts.blocked === 0, 'zero record writes');
     console.log(JSON.stringify({checks, mobile, cards: cards.length, withText: withText.length}));
   } finally { await s.browser.close(); }
-})().catch(e => { console.error('FAIL v11.97 native: ' + String(e && e.message).slice(0, 400)); process.exit(1); });
+})().catch(e => { console.error('FAIL v11.99 native: ' + String(e && e.message).slice(0, 400)); process.exit(1); });

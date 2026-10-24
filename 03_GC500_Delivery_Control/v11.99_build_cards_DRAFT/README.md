@@ -1,8 +1,10 @@
-# v11.97 Build cards: delivery windows and the recorded weather
+# v11.99 Build cards: delivery windows, the recorded weather and the cards lifted (claimed as v11.97)
 
 Author: Andrew Fisher
 
-DRAFT, 25 Oct 2026. The mock-up on the real page went to Andrew at 02:03 AEST. It isn't uploaded until he says yes.
+DRAFT, 25 Oct 2026. It was claimed as v11.97 and renumbered v11.99 because v11.98 published first, so the footer never goes backwards. The first mock-up went to Andrew at 02:03 AEST.
+
+Andrew then wrote: "What happned to add the delivering window are we upgrdaing pushing the limits with the build cards. Make these look 10000% better". The upgraded mock-up went to him before 04:16 AEST. It isn't uploaded until he says yes.
 
 Andrew, 25 Oct 2026: "Lets push our limits and do improvement with the build cards. Also we shouldc have a delivery window can we mention this Delivery booked betweem this time and this time".
 
@@ -33,7 +35,17 @@ Andrew, 25 Oct 2026: "Lets push our limits and do improvement with the build car
    - The 13 new days go into the v9.84 archive under their own source entry. The archived rows are untouched.
    - The new days classify no sky conditions, which is v9.84's rule. None are partial.
 
-Footer reads v11.97. No record, rate, servicing, crew card, QR code, map position or server change.
+Footer reads v11.99. No record, rate, servicing, crew card, QR code, map position or server change.
+
+## The look (upgrade, 25 Oct)
+
+- **Gear colours.** Each kind of gear has one colour, the same on the day's time line, its key and each load: Buildings orange, Toilets blue, VMS violet, Water barriers teal, Forklifts yellow, Track mat lime, Plant pink, anything else grey.
+- **Two-part key.** One part counts what was booked (e.g. Buildings 7, Toilets 7). The other shows how it was done: green dot in the window, yellow dot late, red ✕ not delivered, arrow a later day, outline no delivered text, hatched set aside.
+- **Each load's own track.** It shows the window on the same 04:00–18:00 day, with a chip saying what the on-time model counted for that load's own texts, e.g. "Done 16:09, 3 h 39 min late" or "Done 10:34, in the window".
+  - There's no chip where a text could be one of several references, or where one text served a set of references. The page can't tell which unit it was.
+- **Coates on time** draws its own percentage as a ring, green, amber or red by its existing tone.
+- **Whole build** draws its own percentage as a segmented rev bar.
+- **The closed-day stamp** steps back to a faint watermark (opacity 0.1) so the figures read.
 
 ## Files
 
@@ -42,20 +54,20 @@ Footer reads v11.97. No record, rate, servicing, crew card, QR code, map positio
   - `BuildCards984.html`: puts the row before Coates on time.
 - `cards1197.css`: styles in the card's own type and rules, with phone widths.
 - `weather1197.py`, `history1197.json`: the Bureau conversion and the 13 added days.
-- `patch_v1197.py`: the patch. It accepts only the exact live base below.
+- `patch_v1199.py`: the patch. It accepts only the exact live base below.
 
 ## Base and candidate
 
-- Base: live v11.95 (Codex) `5868677a6bb4a59b4a9ffb6c8b2014a5be0b07661dfafeec74f8e149d1e3000b`, 21,995,841 bytes.
-- Candidate: `938bb27a43e7d7e9dc82235189dfc6f49b35a8b8aba271bf35d4b3602bc84e98`, 22,031,947 bytes, 189 inline scripts. `check_page` passes.
+- Base: live v11.98 (Claude) `6e92bd7e5fb09b86d2d184638a9cea3d41d02509c4fdd4243b8ce5ab273c7dc7`, 21,999,244 bytes.
+- Candidate: `ec3db53854506c10a1c9e4f59ff5d32e44a490274ee649f5a340367a05a2a083`, 22,044,860 bytes, 190 inline scripts. `check_page` passes.
 
 ## Checks
 
 | Check | Result |
 |---|---|
-| `tests/test_rules1197.cjs` | 30/30 |
-| `tests/test_native1197.cjs` desktop | 22/22 |
-| `tests/test_native1197.cjs` phone | 22/22 |
+| `tests/test_rules1197.cjs` | 36/36 |
+| `tests/test_native1197.cjs` desktop | 26/26 |
+| `tests/test_native1197.cjs` phone | 26/26 |
 | Sweeps, desktop and phone | 27 tabs, 19 shown, 7 routes and Back; 0 errors; 0 writes |
 
 - **Rules test** runs on the real booking texts in the built page. It checks:

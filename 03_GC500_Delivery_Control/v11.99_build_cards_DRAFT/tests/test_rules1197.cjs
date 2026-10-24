@@ -1,9 +1,9 @@
-// Author: Andrew Fisher. v11.97 rules: the delivery-window core on the real Coates booking texts carried by the built page,
+// Author: Andrew Fisher. v11.99 rules: the delivery-window core on the real Coates booking texts carried by the built page,
 // and the weather extension against the v9.84 archive. Reads files only; no browser, no network, no record.
-//   node tests/test_rules1197.cjs build/GC500_v11.97/GC500_Delivery_Control_hosted.html
+//   node tests/test_rules1197.cjs build/GC500_v11.99/GC500_Delivery_Control_hosted.html
 const fs = require('fs'), path = require('path'), vm = require('vm');
 const HERE = path.resolve(__dirname, '..');
-const page = fs.readFileSync(process.argv[2] || path.join(HERE, '..', 'build', 'GC500_v11.97', 'GC500_Delivery_Control_hosted.html'), 'utf8');
+const page = fs.readFileSync(process.argv[2] || path.join(HERE, '..', 'build', 'GC500_v11.99', 'GC500_Delivery_Control_hosted.html'), 'utf8');
 let pass = 0, fail = 0;
 const ok = (c, m) => { if (c) { pass++; console.log('ok   ' + m); } else { fail++; console.log('FAIL ' + m); } };
 
@@ -39,6 +39,23 @@ ok(words('2026-10-25', ['WB17'], '').length === 0 && words('2026-09-11', ['T0002
 const paired = B.lines(B.forLoad(by, '2026-10-16', ['WB04'], '', u => u.id === '1016-97' ? 'WB04' : u.id === '1016-98' ? 'WB05' : null));
 ok(paired.length === 1 && B.said(paired[0]) === 'Delivery booked between 06:30 and 09:30 · matched by arrival order', '16 Oct WB04: the on-time pairing is used and said (the two texts differ)');
 
+// what the on-time model counted, said on the load (its own texts only)
+{
+  const res = B.forLoad(by, '2026-09-14', ['WC05'], 'SFL', null), L = B.lines(res);
+  const M5 = {counted: [{u: {id: '0914-04'}, arr: 969, in: false, lateBy: 219}, {u: {id: '0914-06'}, arr: 819, in: false, lateBy: 129}]};
+  const o = L.map(g => B.outcome(g, M5));
+  ok(o[0] && o[0].state === 'late' && o[0].words === 'Done 16:09, 3 h 39 min late' && o[1].words === 'Done 13:39, 2 h 9 min late', 'WC05 outcomes: ' + o.map(x => x && x.words).join(' / '));
+  const share = B.lines(B.forLoad(by, '2026-10-19', ['GN04'], '', null));
+  ok(share.length === 1 && share[0].own === false && B.outcome(share[0], {counted: [{u: {id: '1019-111'}, arr: 789, in: false, lateBy: 69}]}) === null, 'a text for one of five generators: no done time on any one load');
+  const inW = B.lines(B.forLoad(by, '2026-10-21', ['WB14'], '', null));
+  ok(B.outcome(inW[0], {counted: []}) === null, 'nothing counted: no chip');
+  const one = B.lines(B.forLoad(by, '2026-09-15', ['T0023'], '', null));
+  const oo = B.outcome(one[0], {counted: [{u: {id: '0915-17'}, arr: 634, in: true, lateBy: -26}]});
+  ok(oo && oo.state === 'in' && oo.words === 'Done 10:34, in the window' && oo.dots.length === 1 && oo.dots[0].in, '15 Sep T0023: ' + (oo && oo.words));
+  const f = B.outcome({own: true, units: [{id: 'x', f: '07:59'}]}, {counted: [{u: {id: 'x', f: '07:59'}, failed: true}]});
+  ok(f && f.state === 'failed' && f.words === 'Not delivered' && f.fails[0] === 479, 'failed: "Not delivered", the cross at the Coates text time');
+  ok(B.catOf('Buildings') === 'bld' && B.catOf('Toilets') === 'wc' && B.catOf('VMS boards') === 'vms' && B.catOf('Nonsense') === 'oth', 'gear colours: buildings, toilets, VMS, anything else');
+}
 // the day card model, against the on-time figures it is handed
 const M = {counted: [{u: {id: 'a'}, arr: 400, in: true}, {u: {id: 'b'}, arr: 700, in: false, lateBy: 40}, {u: {id: 'c'}, failed: true}, {u: {id: 'd'}, laterDay: true}], aside: [{u: {id: 'e'}}]};
 const units = [{id: 'a', w: ['06:00', '09:00']}, {id: 'b', w: ['08:00', '11:00']}, {id: 'c', w: ['07:00', '10:00'], f: '07:59'}, {id: 'd', w: ['12:00', '15:00']}, {id: 'e', w: ['07:00', '10:00']}, {id: 'f', w: ['13:00', '16:00']}, {id: 'g'}];
