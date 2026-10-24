@@ -38,13 +38,17 @@ function ready(S){
  // Only uninterrupted visible playback is a speed sample. A completed frame
  // taking ten seconds is a real stall, not a reason to ignore the slow device.
  if(!document.hidden&&!S.paused&&!q.interrupted){
-  q.slow=elapsed>100?(q.slow||0)+1:0;
+  const slow=G.shouldReduceQuality792?G.shouldReduceQuality792({...S,fps:1000/Math.max(1,elapsed)}):elapsed>100;
+  if(slow){if(!q.slow)q.slowAt=q.at;q.slow=(q.slow||0)+1;}else q.slow=0;
   if(!G.noGuard&&(elapsed>1000||q.slow>=2)&&performance.now()>(q.reducedAt||0)+2000){
    // Severe stalls need the existing low-cost 3D settings immediately. Waiting
    // two frames per rung can leave the picture stuck for minutes. Geometry,
    // chosen look and the original quality controls are preserved.
    const severe=elapsed>1000;
-   if(severe&&S.reflOff&&S.shadowOff&&S.bloom===false&&(S.o?.ss||1)<=.55&&root.ShowcaseQuick1143?.fallback){
+   if(S.reflOff&&S.shadowOff&&S.bloom===false&&(S.o?.ss||1)<=.55&&root.ShowcaseQuick1143?.fallback){
+    // At minimum detail, require sustained below-target drawing, or one severe
+    // stall. A brief hitch must not replace the chosen 3D backdrop.
+    if(!severe&&performance.now()-q.slowAt<2000)return true;
     q.fallbackPending=true;
     setTimeout(()=>{q.fallbackPending=false;if(root.ShowcaseQuick1143.fallback(S,elapsed))stats.fallbacks++;},0);
     return false;

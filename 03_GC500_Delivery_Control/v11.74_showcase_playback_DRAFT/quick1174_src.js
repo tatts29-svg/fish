@@ -21,7 +21,7 @@ if(typeof pref0==='function') root.showBackPref=function(){
  const v=pref0.apply(this,arguments); F.applied=null;
  if(!is3d(v)) return v;
  if(typeof SHOW!=='undefined'&&SHOW&&SHOW.want3d1143) return v;
- const l=last(); if(l&&l.ms>BUDGET){ F.applied=v; F.lastMs=l.ms; F.why=l.kind==='playback'?'3D playback remained too slow on this device':'the 3D circuit took '+(l.ms/1000).toFixed(1)+' s to build here last time'; return 'circuit'; }
+ const l=last(); if(l&&(l.kind==='playback'||l.ms>BUDGET)){ F.applied=v; F.lastMs=l.ms; F.why=l.kind==='playback'?'3D playback remained too slow on this device':'the 3D circuit took '+(l.ms/1000).toFixed(1)+' s to build here last time'; return 'circuit'; }
  return v;
 };
 function button(){
@@ -45,7 +45,7 @@ if(typeof close0==='function') root.showClose=function(){ if(typeof SHOW!=='unde
 function fallback(S,ms){
  if(!root.GC3D||GC3D.S!==S||GC3D.noGuard||typeof SHOW==='undefined'||!SHOW.open||document.hidden||S.paused)return false;
  if(!is3d(document.getElementById('showcase')?.getAttribute('data-back')))return false;
- F.playback={ms:Math.max(BUDGET+1,Math.round(ms)),at:new Date().toISOString(),kind:'playback'};
+ F.playback={ms:Math.round(ms),at:new Date().toISOString(),kind:'playback'};
  try{localStorage.setItem(KEY,JSON.stringify(F.playback));}catch(e){}
  SHOW.want3d1143=false;root.showApplyBack();root.show3dSyncInner(!SHOW.playing);
  return true;

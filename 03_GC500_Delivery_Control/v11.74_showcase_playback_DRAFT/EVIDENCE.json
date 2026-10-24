@@ -1,0 +1,29 @@
+{
+  "author": "Andrew Fisher",
+  "status": "DRAFT; final-candidate browser checks and sweeps pending",
+  "base_sha256": "0a02e5fdba577f678a3494ffdccca474a126bc7be13dac2015a09d3a1c88dd9f",
+  "candidate_sha256": "98a4d37322b8cd216b93922d365ef8fac1fa3617821909548dd5974577abeb46",
+  "deterministic_clock": {
+    "animation_callbacks_hz": 60,
+    "gpu_frame_ms": 200,
+    "wall_seconds": 2,
+    "before_simulation_seconds": 0.5,
+    "after_simulation_seconds": 2.0,
+    "maximum_outstanding_gpu_frames": 1,
+    "core_physics_and_audio_update_unchanged": true
+  },
+  "actual_webgl": {
+    "environment": "Chromium with SwiftShader software rendering, 1280x800; not physical-device FPS evidence",
+    "fallbacks": 1,
+    "quality_reductions": 7,
+    "old_contexts_pending_disposal": 0,
+    "slide_changes": 7,
+    "open_call_ms": 114.8,
+    "close_call_ms": 269.6,
+    "page_errors": 0,
+    "attempted_record_writes": 0,
+    "tested_candidate": "2ffc7a7c9e4ef9102df0294e51a33a13a89cf7c222bf8318aff69d5f7179f382"
+  },
+  "preservation": "Exact base equality after reversing the footer and two scheduling/fallback modules; no geometry, content, servicing, crew, report or other page code changed.",
+  "independent_second_agent_review": false
+}

@@ -34,6 +34,7 @@ pause.document.hidden=false;pause.tick(60000);assert.equal(pause.S.clock,clock);
 console.log('PASS paused redraw retained, hidden interval excluded, no resume jump');
 const slow=rig(fixed);slow.delay(12000);for(let i=0;i<=720;i++)slow.tick(i*1000/60);
 assert.equal(slow.stats().reductions,8,'severe completed GPU frame reaches bounded existing quality ladder');assert(Math.abs(slow.S.clock-12)<.0001);
+const target=rig(fixed);target.G.shouldReduceQuality792=S=>S.fps<45;target.delay(40);for(let i=0;i<=180;i++)target.tick(i*1000/60);assert(target.stats().reductions>0,'actual drawing speed uses existing quality target even with fast callbacks');
 const manual=rig(fixed);manual.G.noGuard=true;manual.delay(12000);for(let i=0;i<=720;i++)manual.tick(i*1000/60);assert.equal(manual.stats().reductions,0);
 const moderate=rig(fixed);for(let i=0;i<=180;i++)moderate.tick(i*1000/60);assert.equal(moderate.stats().reductions,1);
 console.log('PASS >10-second stalls trigger guard, moderate slowdown is gradual, manual quality respected');
@@ -49,6 +50,11 @@ fallback.S.reflOff=true;fallback.S.shadowOff=true;fallback.S.bloom=false;fallbac
 fallback.tick(0);fallback.tick(12000);assert.equal(fallback.stats().draws,1);assert.equal(handedBack,0);
 fallback.timers.shift()();assert.equal(handedBack,1);assert.equal(fallback.window.ShowcaseGPU1174.state().fallbacks,1);
 console.log('PASS minimum-detail severe stall yields to deferred flat-circuit handback');
+const sustained=rig(fixed);let restored=0;sustained.G.shouldReduceQuality792=S=>S.fps<26;sustained.window.ShowcaseQuick1143={fallback:()=>{restored++;return true;}};
+Object.assign(sustained.S,{reflOff:true,shadowOff:true,bloom:false});sustained.S.o.ss=.5;sustained.delay(50);
+for(let i=0;i<120;i++)sustained.tick(i*1000/60);assert.equal(sustained.timers.length,0,'short low-FPS interval does not trigger fallback');
+for(let i=120;i<=150;i++)sustained.tick(i*1000/60);assert.equal(sustained.timers.length,1);sustained.timers.shift()();assert.equal(restored,1);
+console.log('PASS sustained below-target drawing at minimum detail triggers fallback after two seconds');
 
 // Only the footer, GPU scheduler and fallback timing module may differ; all data, circuit, crew,
 // report and unrelated feature code remain byte-identical.
