@@ -4,7 +4,7 @@ Author: Andrew Fisher
 
 Claimed as v12.01. Renumbered to v12.04 because Codex's v12.03 went live first (the footer never goes backwards). It publishes in one build with v12.05, the Servicing night report.
 
-READY TO UPLOAD, 25 Oct 2026. Andrew saw the mock-ups on the real page and said "build it".
+LIVE 25 Oct 2026 07:01:54 AEST, in one build with v12.05. Guarded upload passed; a separate public GET at 07:02:06 matched the build byte for byte (68a8da20f7576dc58357757efdb54471967c67deb49df68265ee4bf1ed1dc895, 15,226,860 bytes, footer v12.05). Every test reran on the live bytes and passed. Andrew saw the mock-ups on the real page and said "build it".
 
 Andrew, 25 Oct 2026, in this chat:
 - "Remove the closed and have stamp here like its been stamped with a stamp"
@@ -64,5 +64,6 @@ Every figure, window and time is unchanged. No record, rate, servicing, crew car
 
 - Rebuilt on live v12.03 `682fcc85862c2ba91c2d201b4406901d8d881f4d9e64bdc8e3ef30d00c1c0e69` with v12.05 in the same build.
 - Candidate `68a8da20f7576dc58357757efdb54471967c67deb49df68265ee4bf1ed1dc895`, 15,226,860 bytes.
-- Tests on desktop and phone: native 15/15, Build suite 28/28, v12.05 native 14/14, sweeps 27/19/7/Back with zero errors and zero writes.
-- Next: guarded upload, public bytes check, tests on the live page, LIVE.
+- Tests on desktop and phone, on the candidate and again on the live bytes: native 15/15, Build suite 28/28, v12.05 native 14/14; sweeps 27/19/7/Back with zero errors and zero writes.
+- LIVE 07:01:54 AEST; public GET 07:02:06 identical to the build.
+- `evidence/`: the 8 and 21 Oct cards from the live page, desktop and phone, staff names blurred.

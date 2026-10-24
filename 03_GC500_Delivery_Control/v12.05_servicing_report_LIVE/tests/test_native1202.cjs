@@ -72,7 +72,7 @@ const {open} = require('../../toolchain/harness/open_page');
     check(!rep.sideways, 'no sideways scroll in the report window on this screen');
     check(/^GC500 Servicing Report – /.test(rep.title), 'the PDF name: "' + rep.title + '"');
     if (dir) { fs.mkdirSync(dir, {recursive: true});
-      await pop.addStyleTag({content: '.crew-name{filter:blur(5px)}'});
+      await pop.addStyleTag({content: '.crew-name{filter:blur(5px)} .bar{visibility:hidden}'}); /* the on-screen Print bar is never printed; hidden so it does not sit over a sheet's top in the shot */
       const sheets = await pop.$$('.sheet');
       for (let i = 0; i < sheets.length; i++) await sheets[i].screenshot({path: path.join(dir, tag + '-report-p' + (i + 1) + '.png')});
       await p.addStyleTag({content: '.crew1173-report,.staff988 li,.tm-person{filter:blur(6px)}'});

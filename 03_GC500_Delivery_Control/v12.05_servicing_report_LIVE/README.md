@@ -4,7 +4,7 @@ Author: Andrew Fisher
 
 Claimed as v12.02. Renumbered to v12.05 because Codex's v12.03 went live first (the footer never goes backwards). It publishes in one build with v12.04, the Build cards.
 
-READY TO UPLOAD, 25 Oct 2026. Andrew saw the mock-up (built from the event tracker's real ticks, crew names blurred) and said "build it".
+LIVE 25 Oct 2026 07:01:54 AEST, in one build with v12.04. Guarded upload passed; a separate public GET at 07:02:06 matched the build byte for byte (68a8da20f7576dc58357757efdb54471967c67deb49df68265ee4bf1ed1dc895, 15,226,860 bytes, footer v12.05). Every test reran on the live bytes and passed. Andrew saw the mock-up (built from the event tracker's real ticks, crew names blurred) and said "build it".
 
 Andrew, 25 Oct 2026, in this chat: "Can we also work on a new coates report for the servicing to be printed off of nights completion. Make this look elite and proffesional. Anything over 90% is exceptionally good. We should rate the night out of 5 stars. So be good to work out where this sits. And we have 5 stars that fill up like a gauge. This report will be sent to the buisness as well as event portables. So really make this stand out. And we talk about team effort."
 
@@ -67,6 +67,7 @@ Fonts: the page hands its own font files (already in its cache) to the report wi
 
 - Rebuilt on live v12.03 `682fcc85862c2ba91c2d201b4406901d8d881f4d9e64bdc8e3ef30d00c1c0e69` with v12.04 in the same build (earlier candidates: `0f7bd1f0…` on v12.00).
 - Candidate `68a8da20f7576dc58357757efdb54471967c67deb49df68265ee4bf1ed1dc895`, 15,226,860 bytes.
-- Native 14/14 on desktop and on phone; with v12.04's suites and both sweeps clean.
-- Next: guarded upload, public bytes check, tests on the live page, LIVE.
+- Native 14/14 on desktop and on phone, on the candidate and again on the live bytes; with v12.04's suites and both sweeps clean.
+- LIVE 07:01:54 AEST; public GET 07:02:06 identical to the build.
+- `evidence/`: the report's two pages and the Night report button from the live page, desktop and phone, crew names blurred (the on-screen Print bar hidden in the shots; it never prints).
 - Open for Andrew: WC85 (Coates Compound) and WC100 (2 trailers, no location yet) are on the servicing list and weren't serviced on either night. If they shouldn't be, they can come off the totals (as SPASHDOWN does, no QR change), and Saturday would read 99%.
