@@ -1,6 +1,6 @@
 {
   "author": "Andrew Fisher",
-  "status": "READY TO UPLOAD; publication and live smoke pending",
+  "status": "VERIFIED LIVE",
   "base_sha256": "0a02e5fdba577f678a3494ffdccca474a126bc7be13dac2015a09d3a1c88dd9f",
   "candidate_sha256": "98a4d37322b8cd216b93922d365ef8fac1fa3617821909548dd5974577abeb46",
   "deterministic_clock": {
@@ -58,5 +58,21 @@
       "attempted_writes": 0
     }
   },
-  "phone_visual_inspection": "Passed on final candidate: readable controls, retry visible, no horizontal clipping"
+  "phone_visual_inspection": "Passed on final candidate: readable controls, retry visible, no horizontal clipping",
+  "live_at": "2026-10-24T01:19:05.676Z",
+  "exact_public_readback": {
+    "author": "Author: Andrew Fisher",
+    "version": "v11.74",
+    "sha256": "98a4d37322b8cd216b93922d365ef8fac1fa3617821909548dd5974577abeb46",
+    "bytes": 21756603,
+    "readback_at": "2026-10-24T01:20:53.727937+00:00",
+    "exact_match": true,
+    "build_source_commit": "e1527b626d0b3ca823bd102a217f73775bcdfc1e"
+  },
+  "live_browser_checks": {
+    "desktop": 6,
+    "phone": 6,
+    "errors": 0,
+    "attempted_writes": 0
+  }
 }
