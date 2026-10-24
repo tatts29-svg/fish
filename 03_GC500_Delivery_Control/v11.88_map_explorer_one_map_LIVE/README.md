@@ -1,5 +1,7 @@
 # v11.88 Map explorer, one map at a time
 
+**LIVE 24 Oct 2026 17:45 AEST.** Page `f5a383605877e87621652520250dfbeb5006f3abf3861845b759492d534e462c` (21,917,455 bytes) on base v11.87 `b18acda0…`, guarded upload; the view link serves the build byte for byte. On the live page `tests/test_native1188.cjs` passed 21/21 desktop and 21/21 phone, and v11.87's `test_native1187.cjs` still passes 35/35 (nothing sent). Screenshots in `evidence/live/`.
+
 Author: Andrew Fisher · 24 Oct 2026
 
 Andrew, 24 Oct 2026 (this chat): "can we look at map explorer it look very over corwed very confising we need to make this simple and
@@ -48,8 +50,8 @@ A five-line note also sat under "Highlight area".
 - **Phone and desktop screenshots** of both views are in `evidence/` and were inspected.
 
 ```
-toolchain/build.sh v11.88 v11.88_map_explorer_one_map_DRAFT/patch_v1188.py
-PAGE=build/GC500_v11.88/GC500_Delivery_Control_hosted.html [MOB=1] node v11.88_map_explorer_one_map_DRAFT/tests/test_native1188.cjs
+toolchain/build.sh v11.88 v11.88_map_explorer_one_map_LIVE/patch_v1188.py
+PAGE=build/GC500_v11.88/GC500_Delivery_Control_hosted.html [MOB=1] node v11.88_map_explorer_one_map_LIVE/tests/test_native1188.cjs
 ```
 
 Built on live v11.87 `b18acda01b96e653ff39612f12ed2dae29123d0dded5e8757fd680ac8b13bdfa`. Implemented and tested by Claude, for Andrew;
