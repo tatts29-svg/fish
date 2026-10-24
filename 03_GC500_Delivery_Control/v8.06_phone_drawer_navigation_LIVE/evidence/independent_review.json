@@ -1,0 +1,26 @@
+{
+  "author": "Andrew Fisher",
+  "candidateSha256": "eaf5182106015aa68c06452493c208f6ca9551b7f164d56089e343920b9dc8f9",
+  "status": "Independent phone sweep/source/visual review passed",
+  "phoneTabs": 21,
+  "phoneDeepLinks": 7,
+  "pageErrors": [],
+  "productConsoleErrors": [],
+  "inducedConsoleErrors": [
+    "Failed to load resource: net::ERR_FAILED @ https://tile.googleapis.com/v1/createSession?key=REDACTED"
+  ],
+  "blockedRequests": [
+    {
+      "method": "POST",
+      "host": "tile.googleapis.com",
+      "path": "/v1/createSession"
+    }
+  ],
+  "liveServiceWriteAttempts": 0,
+  "visualFilesInspected": [
+    "drawer806-320-WC31.png",
+    "drawer806-390-WC31.png"
+  ],
+  "visualResult": "SHORT fully clear; native Navigate labels and master-plan badge contained. Header height unchanged at320 (209.953125px) and390 (156.109375px).",
+  "sourceProof": "source_review.json: exact reversal tofa32b0a1; all inline scripts and original page byte-preserved."
+}

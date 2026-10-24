@@ -1,0 +1,517 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261017T021317Z",
+ "finished": "2026-10-17T02:13:49.779Z",
+ "mode": "apply",
+ "spec": {
+  "by": "Andrew Fisher",
+  "ops": [
+   {
+    "op": "acc_off",
+    "ref": "P46",
+    "type": "Fridge",
+    "no": "1311992"
+   },
+   {
+    "op": "acc_off",
+    "ref": "P46",
+    "type": "Fridge",
+    "no": "1283996"
+   },
+   {
+    "op": "number_on",
+    "ref": "P26",
+    "no": "1311992"
+   },
+   {
+    "op": "number_on",
+    "ref": "P28",
+    "no": "1283996"
+   },
+   {
+    "op": "desc",
+    "ref": "P26",
+    "text": "Fridge · Police 2-storey building"
+   },
+   {
+    "op": "desc",
+    "ref": "P28",
+    "text": "Fridge · Police 2-storey building"
+   },
+   {
+    "op": "light",
+    "ref": "P26",
+    "state": "on site"
+   },
+   {
+    "op": "light",
+    "ref": "P28",
+    "state": "on site"
+   },
+   {
+    "op": "light",
+    "ref": "P34",
+    "state": "on site"
+   },
+   {
+    "op": "note",
+    "ref": "P26",
+    "text": "Fridge 1311992 for the Police, in the 2-storey building. It came on 14 Oct 2026, the day it was due, with T0265's four fridges; it was put on P46 (QPS Command Post) on 15 Oct and moved here 17 Oct. Andrew, 17 Oct 2026: \"1311992 - These were for the Police\" ... \"The ones for police can go in 2 story building are P26 & P28\" ... \"So did the fridges\" (turned up on the correct day). Recorded on site 17 Oct; on site since 14 Oct."
+   },
+   {
+    "op": "note",
+    "ref": "P28",
+    "text": "Fridge 1283996 for the Police, in the 2-storey building. It came on 14 Oct 2026, the day it was due, with T0265's four fridges; it was put on P46 (QPS Command Post) on 15 Oct and moved here 17 Oct. Andrew, 17 Oct 2026: \"1283996 - These were for the Police\" ... \"The ones for police can go in 2 story building are P26 & P28\" ... \"So did the fridges\" (turned up on the correct day). Recorded on site 17 Oct; on site since 14 Oct."
+   },
+   {
+    "op": "note",
+    "ref": "P34",
+    "text": "The chairs came on 14 Oct 2026, the day they were due. Andrew, 17 Oct 2026: \"the swivel chairs turned up on the correct day\". The schedule calls them Pad Chair x 2. Recorded on site 17 Oct; on site since 14 Oct."
+   }
+  ]
+ },
+ "pageSha256": "3afd6b5b7ce3d2aba54849db82a66b8768bada34848176b5a009a92c80f62c2b",
+ "version": {
+  "before": 9638,
+  "after": 9667
+ },
+ "updated": {
+  "before": "2026-10-16T22:57:30.851Z",
+  "after": "2026-10-17T02:13:48.466Z"
+ },
+ "stage": [
+  {
+   "op": "acc_off",
+   "ref": "P46",
+   "type": "Fridge",
+   "no": "1311992",
+   "accId": "Fridge|Fridge|2026-10-15T04:16:43.942Z",
+   "result": "taken off (Put back is under the list)"
+  },
+  {
+   "op": "acc_off",
+   "ref": "P46",
+   "type": "Fridge",
+   "no": "1283996",
+   "accId": "Fridge|Fridge|2026-10-15T04:16:45.670Z",
+   "result": "taken off (Put back is under the list)"
+  },
+  {
+   "op": "number_on",
+   "ref": "P26",
+   "no": "1311992",
+   "result": "put on"
+  },
+  {
+   "op": "number_on",
+   "ref": "P28",
+   "no": "1283996",
+   "result": "put on"
+  },
+  {
+   "op": "desc",
+   "ref": "P26",
+   "result": "now reads Fridge · Police 2-storey building"
+  },
+  {
+   "op": "desc",
+   "ref": "P28",
+   "result": "now reads Fridge · Police 2-storey building"
+  },
+  {
+   "op": "light",
+   "ref": "P26",
+   "state": "on site",
+   "result": "set on site"
+  },
+  {
+   "op": "light",
+   "ref": "P28",
+   "state": "on site",
+   "result": "set on site"
+  },
+  {
+   "op": "light",
+   "ref": "P34",
+   "state": "on site",
+   "result": "set on site"
+  },
+  {
+   "op": "note",
+   "ref": "P26",
+   "result": "noted"
+  },
+  {
+   "op": "note",
+   "ref": "P28",
+   "result": "noted"
+  },
+  {
+   "op": "note",
+   "ref": "P34",
+   "result": "noted"
+  }
+ ],
+ "writes": [
+  {
+   "key": "delivery/P26",
+   "status": 200
+  },
+  {
+   "key": "delivery/P28",
+   "status": 200
+  },
+  {
+   "key": "delivery/P34",
+   "status": 200
+  },
+  {
+   "key": "stamps/assetNumbers~2f~P26~2f~1311992",
+   "status": 200
+  },
+  {
+   "key": "stamps/assetNumbers~2f~P28~2f~1283996",
+   "status": 200
+  },
+  {
+   "key": "stamps/descs~2f~P26",
+   "status": 200
+  },
+  {
+   "key": "stamps/descs~2f~P28",
+   "status": 200
+  },
+  {
+   "key": "stamps/dnote~2f~P26",
+   "status": 200
+  },
+  {
+   "key": "stamps/dnote~2f~P28",
+   "status": 200
+  },
+  {
+   "key": "stamps/dnote~2f~P34",
+   "status": 200
+  },
+  {
+   "key": "assetNumbers/P26",
+   "status": 200
+  },
+  {
+   "key": "assetNumbers/P28",
+   "status": 200
+  },
+  {
+   "key": "deleted/acc~2f~P46~2f~Fridge~7c~Fridge~7c~2026-10-15T04:16:43.942Z",
+   "status": 200
+  },
+  {
+   "key": "deleted/acc~2f~P46~2f~Fridge~7c~Fridge~7c~2026-10-15T04:16:45.670Z",
+   "status": 200
+  },
+  {
+   "key": "deleted/back~2f~num~2f~P26~2f~1311992",
+   "status": 200
+  },
+  {
+   "key": "deleted/back~2f~num~2f~P28~2f~1283996",
+   "status": 200
+  },
+  {
+   "key": "by/deleted~2f~acc~2f~P46~2f~Fridge~7c~Fridge~7c~2026-10-15T04:16:43.942Z",
+   "status": 200
+  },
+  {
+   "key": "by/deleted~2f~acc~2f~P46~2f~Fridge~7c~Fridge~7c~2026-10-15T04:16:45.670Z",
+   "status": 200
+  },
+  {
+   "key": "by/deleted~2f~back~2f~num~2f~P26~2f~1311992",
+   "status": 200
+  },
+  {
+   "key": "by/assetNumbers~2f~P26~2f~1311992",
+   "status": 200
+  },
+  {
+   "key": "by/deleted~2f~back~2f~num~2f~P28~2f~1283996",
+   "status": 200
+  },
+  {
+   "key": "by/assetNumbers~2f~P28~2f~1283996",
+   "status": 200
+  },
+  {
+   "key": "by/descs~2f~P26",
+   "status": 200
+  },
+  {
+   "key": "by/descs~2f~P28",
+   "status": 200
+  },
+  {
+   "key": "by/dnote~2f~P26",
+   "status": 200
+  },
+  {
+   "key": "by/dnote~2f~P28",
+   "status": 200
+  },
+  {
+   "key": "by/dnote~2f~P34",
+   "status": 200
+  },
+  {
+   "key": "descs/P26",
+   "status": 200
+  },
+  {
+   "key": "descs/P28",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 1,
+ "docs": {
+  "before": {
+   "delivery/P26": {
+    "state": "not on site",
+    "set_at": "2026-10-03T10:28:19.034Z",
+    "by": "Andrew Fisher via Codex",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:19.034Z",
+      "by": "Andrew Fisher via Codex"
+     }
+    ],
+    "_k": "P26"
+   },
+   "delivery/P28": {
+    "state": "not on site",
+    "set_at": "2026-10-03T10:28:19.191Z",
+    "by": "Andrew Fisher via Codex",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:19.191Z",
+      "by": "Andrew Fisher via Codex"
+     }
+    ],
+    "_k": "P28"
+   },
+   "delivery/P34": {
+    "state": "not on site",
+    "set_at": "2026-10-03T10:28:19.351Z",
+    "by": "Andrew Fisher via Codex",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:19.351Z",
+      "by": "Andrew Fisher via Codex"
+     }
+    ],
+    "_k": "P34"
+   },
+   "stamps/assetNumbers~2f~P26~2f~1311992": null,
+   "stamps/assetNumbers~2f~P28~2f~1283996": null,
+   "stamps/descs~2f~P26": null,
+   "stamps/descs~2f~P28": null,
+   "stamps/dnote~2f~P26": null,
+   "stamps/dnote~2f~P28": null,
+   "stamps/dnote~2f~P34": null,
+   "assetNumbers/P26": null,
+   "assetNumbers/P28": null,
+   "deleted/acc~2f~P46~2f~Fridge~7c~Fridge~7c~2026-10-15T04:16:43.942Z": null,
+   "deleted/acc~2f~P46~2f~Fridge~7c~Fridge~7c~2026-10-15T04:16:45.670Z": null,
+   "deleted/back~2f~num~2f~P26~2f~1311992": null,
+   "deleted/back~2f~num~2f~P28~2f~1283996": null,
+   "by/deleted~2f~acc~2f~P46~2f~Fridge~7c~Fridge~7c~2026-10-15T04:16:43.942Z": null,
+   "by/deleted~2f~acc~2f~P46~2f~Fridge~7c~Fridge~7c~2026-10-15T04:16:45.670Z": null,
+   "by/deleted~2f~back~2f~num~2f~P26~2f~1311992": null,
+   "by/assetNumbers~2f~P26~2f~1311992": null,
+   "by/deleted~2f~back~2f~num~2f~P28~2f~1283996": null,
+   "by/assetNumbers~2f~P28~2f~1283996": null,
+   "by/descs~2f~P26": null,
+   "by/descs~2f~P28": null,
+   "by/dnote~2f~P26": null,
+   "by/dnote~2f~P28": null,
+   "by/dnote~2f~P34": null,
+   "descs/P26": null,
+   "descs/P28": null
+  },
+  "after": {
+   "delivery/P26": {
+    "state": "on site",
+    "set_at": "2026-10-17T02:13:36.418Z",
+    "by": "Andrew Fisher",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:19.034Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-17T02:13:36.418Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "note": "Fridge 1311992 for the Police, in the 2-storey building. It came on 14 Oct 2026, the day it was due, with T0265's four fridges; it was put on P46 (QPS Command Post) on 15 Oct and moved here 17 Oct. Andrew, 17 Oct 2026: \"1311992 - These were for the Police\" ... \"The ones for police can go in 2 story building are P26 & P28\" ... \"So did the fridges\" (turned up on the correct day). Recorded on site 17 Oct; on site since 14 Oct.",
+    "_k": "P26"
+   },
+   "delivery/P28": {
+    "state": "on site",
+    "set_at": "2026-10-17T02:13:38.184Z",
+    "by": "Andrew Fisher",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:19.191Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-17T02:13:38.184Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "note": "Fridge 1283996 for the Police, in the 2-storey building. It came on 14 Oct 2026, the day it was due, with T0265's four fridges; it was put on P46 (QPS Command Post) on 15 Oct and moved here 17 Oct. Andrew, 17 Oct 2026: \"1283996 - These were for the Police\" ... \"The ones for police can go in 2 story building are P26 & P28\" ... \"So did the fridges\" (turned up on the correct day). Recorded on site 17 Oct; on site since 14 Oct.",
+    "_k": "P28"
+   },
+   "delivery/P34": {
+    "state": "on site",
+    "set_at": "2026-10-17T02:13:39.869Z",
+    "by": "Andrew Fisher",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:19.351Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-17T02:13:39.869Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "note": "The chairs came on 14 Oct 2026, the day they were due. Andrew, 17 Oct 2026: \"the swivel chairs turned up on the correct day\". The schedule calls them Pad Chair x 2. Recorded on site 17 Oct; on site since 14 Oct.",
+    "_k": "P34"
+   },
+   "stamps/assetNumbers~2f~P26~2f~1311992": {
+    "_k": "assetNumbers/P26/1311992",
+    "v": "2026-10-17T02:13:29.352Z"
+   },
+   "stamps/assetNumbers~2f~P28~2f~1283996": {
+    "_k": "assetNumbers/P28/1283996",
+    "v": "2026-10-17T02:13:31.017Z"
+   },
+   "stamps/descs~2f~P26": {
+    "_k": "descs/P26",
+    "v": "2026-10-17T02:13:32.715Z"
+   },
+   "stamps/descs~2f~P28": {
+    "_k": "descs/P28",
+    "v": "2026-10-17T02:13:34.464Z"
+   },
+   "stamps/dnote~2f~P26": {
+    "_k": "dnote/P26",
+    "v": "2026-10-17T02:13:41.632Z"
+   },
+   "stamps/dnote~2f~P28": {
+    "_k": "dnote/P28",
+    "v": "2026-10-17T02:13:42.100Z"
+   },
+   "stamps/dnote~2f~P34": {
+    "_k": "dnote/P34",
+    "v": "2026-10-17T02:13:42.550Z"
+   },
+   "assetNumbers/P26": {
+    "_k": "P26",
+    "v": [
+     "1311992"
+    ]
+   },
+   "assetNumbers/P28": {
+    "_k": "P28",
+    "v": [
+     "1283996"
+    ]
+   },
+   "deleted/acc~2f~P46~2f~Fridge~7c~Fridge~7c~2026-10-15T04:16:43.942Z": {
+    "_k": "acc/P46/Fridge|Fridge|2026-10-15T04:16:43.942Z",
+    "v": "2026-10-17T02:13:25.167Z"
+   },
+   "deleted/acc~2f~P46~2f~Fridge~7c~Fridge~7c~2026-10-15T04:16:45.670Z": {
+    "_k": "acc/P46/Fridge|Fridge|2026-10-15T04:16:45.670Z",
+    "v": "2026-10-17T02:13:27.651Z"
+   },
+   "deleted/back~2f~num~2f~P26~2f~1311992": {
+    "_k": "back/num/P26/1311992",
+    "v": "2026-10-17T02:13:29.352Z"
+   },
+   "deleted/back~2f~num~2f~P28~2f~1283996": {
+    "_k": "back/num/P28/1283996",
+    "v": "2026-10-17T02:13:31.017Z"
+   },
+   "by/deleted~2f~acc~2f~P46~2f~Fridge~7c~Fridge~7c~2026-10-15T04:16:43.942Z": {
+    "_k": "deleted/acc/P46/Fridge|Fridge|2026-10-15T04:16:43.942Z",
+    "v": "Andrew Fisher"
+   },
+   "by/deleted~2f~acc~2f~P46~2f~Fridge~7c~Fridge~7c~2026-10-15T04:16:45.670Z": {
+    "_k": "deleted/acc/P46/Fridge|Fridge|2026-10-15T04:16:45.670Z",
+    "v": "Andrew Fisher"
+   },
+   "by/deleted~2f~back~2f~num~2f~P26~2f~1311992": {
+    "_k": "deleted/back/num/P26/1311992",
+    "v": "Andrew Fisher"
+   },
+   "by/assetNumbers~2f~P26~2f~1311992": {
+    "_k": "assetNumbers/P26/1311992",
+    "v": "Andrew Fisher"
+   },
+   "by/deleted~2f~back~2f~num~2f~P28~2f~1283996": {
+    "_k": "deleted/back/num/P28/1283996",
+    "v": "Andrew Fisher"
+   },
+   "by/assetNumbers~2f~P28~2f~1283996": {
+    "_k": "assetNumbers/P28/1283996",
+    "v": "Andrew Fisher"
+   },
+   "by/descs~2f~P26": {
+    "_k": "descs/P26",
+    "v": "Andrew Fisher"
+   },
+   "by/descs~2f~P28": {
+    "_k": "descs/P28",
+    "v": "Andrew Fisher"
+   },
+   "by/dnote~2f~P26": {
+    "_k": "dnote/P26",
+    "v": "Andrew Fisher"
+   },
+   "by/dnote~2f~P28": {
+    "_k": "dnote/P28",
+    "v": "Andrew Fisher"
+   },
+   "by/dnote~2f~P34": {
+    "_k": "dnote/P34",
+    "v": "Andrew Fisher"
+   },
+   "descs/P26": {
+    "_k": "P26",
+    "v": "Fridge · Police 2-storey building"
+   },
+   "descs/P28": {
+    "_k": "P28",
+    "v": "Fridge · Police 2-storey building"
+   }
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}

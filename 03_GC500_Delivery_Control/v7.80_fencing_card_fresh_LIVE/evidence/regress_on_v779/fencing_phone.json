@@ -1,0 +1,34 @@
+{
+ "page": "/home/user/fish/03_GC500_Delivery_Control/build/GC500_v7.80/GC500_Delivery_Control_hosted.html",
+ "mobile": true,
+ "passed": 5,
+ "of": 5,
+ "errors": [],
+ "tests": [
+  {
+   "name": "F1 the typed rate moves what the dockets paid",
+   "pass": true,
+   "detail": "{\"total0\":\"$77,121.50\",\"paid0\":75871.5,\"boxes\":10,\"pick\":\"clean\",\"paid1\":60166.5,\"keptPaid\":60166.5,\"total1\":\"$61,416.50\",\"want1\":\"$61,416.50\",\"total2\":\"$77,121.50\",\"paid2\":75871.5,\"calls\":10,\"built\":2}"
+  },
+  {
+   "name": "F2 straight after the handler the kept split is the fresh one",
+   "pass": true,
+   "detail": "kept 60166.5 · fresh 60166.5 · before 75871.5"
+  },
+  {
+   "name": "F3 the card on screen shows the new total",
+   "pass": true,
+   "detail": "screen $61,416.50 · want $61,416.50 · before $77,121.50"
+  },
+  {
+   "name": "F4 the rate put back: the card shows the original total and S is as found",
+   "pass": true,
+   "detail": "$77,121.50 vs $77,121.50"
+  },
+  {
+   "name": "F5 a draw with no save works the split out once at most per tab change",
+   "pass": true,
+   "detail": "calls 10 · built 2 over two tab changes"
+  }
+ ]
+}

@@ -1,0 +1,13 @@
+{
+  "author": "Andrew Fisher",
+  "sha256": "22ac12d01aa8938c4d1f40113229a2dccf4aece3917ff0db592db6e1afb843ba",
+  "bytes": 1117998,
+  "network_patterns": {
+    "fetch call": false,
+    "XHR": false,
+    "WebSocket": false,
+    "API path": false,
+    "URL": false,
+    "beacon": false
+  }
+}

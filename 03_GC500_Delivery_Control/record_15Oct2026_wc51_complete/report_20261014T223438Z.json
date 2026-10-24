@@ -1,0 +1,133 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261014T223438Z",
+ "finished": "2026-10-14T22:34:48.458Z",
+ "mode": "apply",
+ "spec": {
+  "ref": "WC51",
+  "asset_no": "1197174",
+  "by": "Andrew Fisher",
+  "note": "Andrew, 15 Oct 2026 about 08:20 AEST in Claude chat: Asset no 1197174, WC51 accessible toilet turned up in location. Coates asset, mark as complete."
+ },
+ "pageSha256": "681da5c7c631a5ccefe25a0f294020feb79a204e2e89211ebb7ff191a9e73dac",
+ "version": {
+  "before": 6128,
+  "after": 6134
+ },
+ "updated": {
+  "before": "2026-10-14T21:34:20.056Z",
+  "after": "2026-10-14T22:34:47.710Z"
+ },
+ "stage": {
+  "number": "put on",
+  "done": "ticked"
+ },
+ "writes": [
+  {
+   "key": "delivery/WC51",
+   "status": 200
+  },
+  {
+   "key": "stamps/assetNumbers~2f~WC51~2f~1197174",
+   "status": 200
+  },
+  {
+   "key": "assetNumbers/WC51",
+   "status": 200
+  },
+  {
+   "key": "deleted/back~2f~num~2f~WC51~2f~1197174",
+   "status": 200
+  },
+  {
+   "key": "by/deleted~2f~back~2f~num~2f~WC51~2f~1197174",
+   "status": 200
+  },
+  {
+   "key": "by/assetNumbers~2f~WC51~2f~1197174",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 1,
+ "docs": {
+  "before": {
+   "delivery/WC51": {
+    "state": "not on site",
+    "set_at": "2026-10-03T10:28:33.424Z",
+    "by": "Andrew Fisher via Codex",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:33.424Z",
+      "by": "Andrew Fisher via Codex"
+     }
+    ],
+    "_k": "WC51"
+   },
+   "stamps/assetNumbers~2f~WC51~2f~1197174": null,
+   "assetNumbers/WC51": null,
+   "deleted/back~2f~num~2f~WC51~2f~1197174": null,
+   "by/deleted~2f~back~2f~num~2f~WC51~2f~1197174": null,
+   "by/assetNumbers~2f~WC51~2f~1197174": null
+  },
+  "after": {
+   "delivery/WC51": {
+    "state": "on site",
+    "set_at": "2026-10-14T22:34:45.431Z",
+    "by": "Andrew Fisher",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:33.424Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-14T22:34:45.431Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-14T22:34:45.431Z",
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-14T22:34:45.431Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "_k": "WC51"
+   },
+   "stamps/assetNumbers~2f~WC51~2f~1197174": {
+    "_k": "assetNumbers/WC51/1197174",
+    "v": "2026-10-14T22:34:44.863Z"
+   },
+   "assetNumbers/WC51": {
+    "_k": "WC51",
+    "v": [
+     "1197174"
+    ]
+   },
+   "deleted/back~2f~num~2f~WC51~2f~1197174": {
+    "_k": "back/num/WC51/1197174",
+    "v": "2026-10-14T22:34:44.863Z"
+   },
+   "by/deleted~2f~back~2f~num~2f~WC51~2f~1197174": {
+    "_k": "deleted/back/num/WC51/1197174",
+    "v": "Andrew Fisher"
+   },
+   "by/assetNumbers~2f~WC51~2f~1197174": {
+    "_k": "assetNumbers/WC51/1197174",
+    "v": "Andrew Fisher"
+   }
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}

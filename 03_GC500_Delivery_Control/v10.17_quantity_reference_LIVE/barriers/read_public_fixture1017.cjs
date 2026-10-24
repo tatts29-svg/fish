@@ -1,0 +1,8 @@
+// Author: Andrew Fisher. Prototype classifier against current public data; non-GET blocked.
+const fs=require('fs'),path=require('path'),assert=require('node:assert/strict');const{open}=require('../../record_14Oct2026_purchase_order/readonly_page.cjs');
+(async()=>{const h=await open({W:390,H:844,mobile:true});try{const p=h.page;await p.waitForFunction(()=>SYNC.status==='live'&&GC500Refresh904.report().settled,null,{timeout:150000});
+ const before=await p.evaluate(()=>JSON.stringify(S));await p.addScriptTag({content:fs.readFileSync(path.join(__dirname,'barriers1017.js'),'utf8')});
+ const result=await p.evaluate(()=>holdAssets(()=>({rows:waterBarrierPlacements1017(),workfronts:allAssets().filter(a=>/^WB\d/.test(a.key)).length,onsite:inventory().list.find(r=>r.type==='Water-filled barriers|TL2').on,global:typeof window.waterBarrierPlacement1017==='function',note:waterBarrierPlacementsNote1017()})));
+ const after=await p.evaluate(()=>JSON.stringify(S));assert.equal(before,after,'classifier does not change native state');assert.equal(result.rows.length,2);assert.equal(result.rows.reduce((s,r)=>s+r.quantity,0),64);assert.equal(result.workfronts,15);assert.equal(result.onsite,76);assert.equal(result.global,true);assert.equal(h.counts.blocked,0);assert.equal(h.errors.length,0);
+ console.log(JSON.stringify({author:'Andrew Fisher',global:result.global,rows:result.rows.map(r=>({key:r.key,sourceRef:r.sourceRef,quantity:r.quantity,date:r.date})),workfronts:result.workfronts,onsite:result.onsite,stateUnchanged:before===after,counts:h.counts,errors:h.errors}));
+ }finally{await h.browser.close();}})().catch(e=>{console.error(e.stack);process.exit(1)});

@@ -1,0 +1,20 @@
+{
+  "author": "Andrew Fisher",
+  "candidateSha256": "476f0dcca3d97de07d55c8eb7c85618a8672abf99f2c00f2892c11690b7bc265",
+  "reviewed": [
+    "desktop-showcase.png",
+    "phone-showcase.png"
+  ],
+  "blockingFindings": [],
+  "review": "Actual hosted-page screenshots inspected; scene and controls visible, phone layout wraps without clipping.",
+  "screenshots": [
+    {
+      "file": "desktop-showcase.png",
+      "sha256": "9c1cff7dd1835bd39ec709aae3f49fd09ae696160e981f33d79ac5d2da10ba5c"
+    },
+    {
+      "file": "phone-showcase.png",
+      "sha256": "98d180830e656a2d9cab7ce631ddeaab0a3db496ba31f973ad8a23c0aed9d6d8"
+    }
+  ]
+}

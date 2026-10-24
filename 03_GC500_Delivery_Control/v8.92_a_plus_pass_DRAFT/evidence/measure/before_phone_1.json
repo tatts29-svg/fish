@@ -1,0 +1,629 @@
+{
+ "tag": "before",
+ "device": "phone",
+ "page": "GC500_Delivery_Control_hosted.html",
+ "bytes": 11256999,
+ "at": "2026-10-07T18:13:20.720Z",
+ "load": {
+  "domInteractive": 1918.3,
+  "domContentLoaded": 1919,
+  "loadEvent": 2528.2,
+  "todayDrawn": 2647.9,
+  "recordLive": 3428.2,
+  "heapMB": 34,
+  "nodes": 8176
+ },
+ "tabs": {
+  "map": {
+   "first": {
+    "sync": 108,
+    "painted": 146,
+    "nodes": 1542,
+    "h": 528
+   },
+   "again": {
+    "sync": 52,
+    "painted": 73,
+    "nodes": 1542,
+    "h": 528
+   }
+  },
+  "docs": {
+   "first": {
+    "sync": 742,
+    "painted": 769,
+    "nodes": 3712,
+    "h": 1206
+   },
+   "again": {
+    "sync": 645,
+    "painted": 668,
+    "nodes": 3712,
+    "h": 1206
+   }
+  },
+  "plant": {
+   "first": {
+    "sync": 311,
+    "painted": 444,
+    "nodes": 8143,
+    "h": 3927
+   },
+   "again": {
+    "sync": 172,
+    "painted": 216,
+    "nodes": 8143,
+    "h": 3927
+   }
+  },
+  "demob": {
+   "first": {
+    "sync": 113,
+    "painted": 130,
+    "nodes": 4450,
+    "h": 7447
+   },
+   "again": {
+    "sync": 133,
+    "painted": 151,
+    "nodes": 4450,
+    "h": 7447
+   }
+  },
+  "fencing": {
+   "first": {
+    "sync": 815,
+    "painted": 913,
+    "nodes": 14640,
+    "h": 22281
+   },
+   "again": {
+    "sync": 749,
+    "painted": 820,
+    "nodes": 14640,
+    "h": 22281
+   }
+  },
+  "prestarts": {
+   "first": {
+    "sync": 78,
+    "painted": 90,
+    "nodes": 4795,
+    "h": 6673
+   },
+   "again": {
+    "sync": 92,
+    "painted": 103,
+    "nodes": 4795,
+    "h": 6673
+   }
+  },
+  "coatesway": {
+   "first": {
+    "sync": 240,
+    "painted": 264,
+    "nodes": 5143,
+    "h": 5671
+   },
+   "again": {
+    "sync": 278,
+    "painted": 308,
+    "nodes": 5143,
+    "h": 5671
+   }
+  },
+  "costs": {
+   "first": {
+    "sync": 874,
+    "painted": 1093,
+    "nodes": 19236,
+    "h": 5550
+   },
+   "again": {
+    "sync": 821,
+    "painted": 1046,
+    "nodes": 19236,
+    "h": 5550
+   }
+  },
+  "change": {
+   "first": {
+    "sync": 119,
+    "painted": 143,
+    "nodes": 5892,
+    "h": 4581
+   },
+   "again": {
+    "sync": 173,
+    "painted": 196,
+    "nodes": 5892,
+    "h": 4581
+   }
+  },
+  "pricing": {
+   "first": {
+    "sync": 287,
+    "painted": 364,
+    "nodes": 9543,
+    "h": 22938
+   },
+   "again": {
+    "sync": 284,
+    "painted": 352,
+    "nodes": 9543,
+    "h": 22938
+   }
+  },
+  "timeline": {
+   "first": {
+    "sync": 288,
+    "painted": 347,
+    "nodes": 9977,
+    "h": 6455
+   },
+   "again": {
+    "sync": 189,
+    "painted": 250,
+    "nodes": 10507,
+    "h": 6488
+   }
+  },
+  "questions": {
+   "first": {
+    "sync": 200,
+    "painted": 218,
+    "nodes": 6593,
+    "h": 5636
+   },
+   "again": {
+    "sync": 228,
+    "painted": 243,
+    "nodes": 6593,
+    "h": 5636
+   }
+  },
+  "about": {
+   "first": {
+    "sync": 61,
+    "painted": 84,
+    "nodes": 7217,
+    "h": 11927
+   },
+   "again": {
+    "sync": 86,
+    "painted": 105,
+    "nodes": 7217,
+    "h": 11927
+   }
+  }
+ },
+ "drawer": {
+  "key": "WC01",
+  "openSync": 388,
+  "openPainted": 487,
+  "on": true,
+  "closeSync": 35,
+  "closePainted": 58
+ },
+ "scroll": {
+  "today": {
+   "frames": 168,
+   "wallMs": 2640,
+   "p50": 16,
+   "p95": 33.4,
+   "max": 45.2,
+   "over33": 9,
+   "over100": 0,
+   "scrolledPx": 3600,
+   "asked": 3600
+  },
+  "timeline": {
+   "frames": 156,
+   "wallMs": 3794,
+   "p50": 21,
+   "p95": 49.3,
+   "max": 74.2,
+   "over33": 37,
+   "over100": 0,
+   "scrolledPx": 3600,
+   "asked": 3600
+  }
+ },
+ "redraw": {
+  "today": {
+   "sync": 545,
+   "painted": 785,
+   "scrollBefore": 900,
+   "scrollAfter": 900,
+   "held": true
+  },
+  "timeline": {
+   "sync": 261,
+   "painted": 409,
+   "scrollBefore": 900,
+   "scrollAfter": 982,
+   "held": false
+  },
+  "plant": {
+   "sync": 120,
+   "painted": 292,
+   "scrollBefore": 900,
+   "scrollAfter": 900,
+   "held": true
+  },
+  "costs": {
+   "sync": 805,
+   "painted": 991,
+   "scrollBefore": 900,
+   "scrollAfter": 900,
+   "held": true
+  },
+  "fencing": {
+   "sync": 802,
+   "painted": 968,
+   "scrollBefore": 900,
+   "scrollAfter": 900,
+   "held": true
+  }
+ },
+ "search": {
+  "slowEvents": 16,
+  "maxDuration": 64,
+  "maxDelay": 4,
+  "maxProc": 41,
+  "finderRows": 3,
+  "finderOpen": true
+ },
+ "phases": {
+  "load": {
+   "longTasks": 8,
+   "longMs": 2637,
+   "longMax": 1033,
+   "cls": 0.1147,
+   "visits": 1
+  },
+  "tab:map": {
+   "longTasks": 1,
+   "longMs": 69,
+   "longMax": 69,
+   "cls": 0.0049,
+   "visits": 2
+  },
+  "after:tab:map": {
+   "longTasks": 6,
+   "longMs": 1545,
+   "longMax": 716,
+   "cls": 0,
+   "visits": 2
+  },
+  "tab:today": {
+   "longTasks": 4,
+   "longMs": 230,
+   "longMax": 68,
+   "cls": 0.0002,
+   "visits": 29
+  },
+  "after:tab:today": {
+   "longTasks": 27,
+   "longMs": 8386,
+   "longMax": 880,
+   "cls": 0.0002,
+   "visits": 29
+  },
+  "tab:docs": {
+   "longTasks": 0,
+   "longMs": 0,
+   "longMax": 0,
+   "cls": 0,
+   "visits": 2
+  },
+  "after:tab:docs": {
+   "longTasks": 2,
+   "longMs": 1065,
+   "longMax": 551,
+   "cls": 0,
+   "visits": 2
+  },
+  "tab:plant": {
+   "longTasks": 1,
+   "longMs": 51,
+   "longMax": 51,
+   "cls": 0.0001,
+   "visits": 4
+  },
+  "after:tab:plant": {
+   "longTasks": 3,
+   "longMs": 1656,
+   "longMax": 639,
+   "cls": 0.0004,
+   "visits": 4
+  },
+  "tab:demob": {
+   "longTasks": 0,
+   "longMs": 0,
+   "longMax": 0,
+   "cls": 0,
+   "visits": 2
+  },
+  "after:tab:demob": {
+   "longTasks": 3,
+   "longMs": 1146,
+   "longMax": 550,
+   "cls": 0,
+   "visits": 2
+  },
+  "tab:fencing": {
+   "longTasks": 2,
+   "longMs": 146,
+   "longMax": 81,
+   "cls": 0,
+   "visits": 3
+  },
+  "after:tab:fencing": {
+   "longTasks": 2,
+   "longMs": 1378,
+   "longMax": 714,
+   "cls": 0,
+   "visits": 3
+  },
+  "tab:prestarts": {
+   "longTasks": 0,
+   "longMs": 0,
+   "longMax": 0,
+   "cls": 0,
+   "visits": 2
+  },
+  "after:tab:prestarts": {
+   "longTasks": 2,
+   "longMs": 1097,
+   "longMax": 561,
+   "cls": 0,
+   "visits": 2
+  },
+  "tab:coatesway": {
+   "longTasks": 0,
+   "longMs": 0,
+   "longMax": 0,
+   "cls": 0,
+   "visits": 2
+  },
+  "after:tab:coatesway": {
+   "longTasks": 2,
+   "longMs": 1135,
+   "longMax": 592,
+   "cls": 0.0094,
+   "visits": 2
+  },
+  "tab:costs": {
+   "longTasks": 3,
+   "longMs": 520,
+   "longMax": 176,
+   "cls": 0,
+   "visits": 3
+  },
+  "after:tab:costs": {
+   "longTasks": 2,
+   "longMs": 1491,
+   "longMax": 760,
+   "cls": 0,
+   "visits": 3
+  },
+  "tab:change": {
+   "longTasks": 0,
+   "longMs": 0,
+   "longMax": 0,
+   "cls": 0,
+   "visits": 2
+  },
+  "after:tab:change": {
+   "longTasks": 2,
+   "longMs": 1200,
+   "longMax": 653,
+   "cls": 0,
+   "visits": 2
+  },
+  "tab:pricing": {
+   "longTasks": 2,
+   "longMs": 121,
+   "longMax": 62,
+   "cls": 0,
+   "visits": 2
+  },
+  "after:tab:pricing": {
+   "longTasks": 2,
+   "longMs": 1139,
+   "longMax": 574,
+   "cls": 0,
+   "visits": 2
+  },
+  "tab:timeline": {
+   "longTasks": 2,
+   "longMs": 118,
+   "longMax": 62,
+   "cls": 0,
+   "visits": 4
+  },
+  "after:tab:timeline": {
+   "longTasks": 5,
+   "longMs": 1392,
+   "longMax": 621,
+   "cls": 0,
+   "visits": 4
+  },
+  "tab:questions": {
+   "longTasks": 0,
+   "longMs": 0,
+   "longMax": 0,
+   "cls": 0,
+   "visits": 2
+  },
+  "after:tab:questions": {
+   "longTasks": 2,
+   "longMs": 1022,
+   "longMax": 513,
+   "cls": 0,
+   "visits": 2
+  },
+  "tab:about": {
+   "longTasks": 0,
+   "longMs": 0,
+   "longMax": 0,
+   "cls": 0,
+   "visits": 2
+  },
+  "after:tab:about": {
+   "longTasks": 2,
+   "longMs": 1146,
+   "longMax": 615,
+   "cls": 0,
+   "visits": 2
+  },
+  "drawer-open": {
+   "longTasks": 1,
+   "longMs": 53,
+   "longMax": 53,
+   "cls": 0,
+   "visits": 1
+  },
+  "drawer-close": {
+   "longTasks": 0,
+   "longMs": 0,
+   "longMax": 0,
+   "cls": 0,
+   "visits": 1
+  },
+  "after:drawer-close": {
+   "longTasks": 1,
+   "longMs": 643,
+   "longMax": 643,
+   "cls": 0,
+   "visits": 1
+  },
+  "scroll:today": {
+   "longTasks": 0,
+   "longMs": 0,
+   "longMax": 0,
+   "cls": 0,
+   "visits": 1
+  },
+  "after:scroll:today": {
+   "longTasks": 1,
+   "longMs": 336,
+   "longMax": 336,
+   "cls": 0,
+   "visits": 1
+  },
+  "scroll:timeline": {
+   "longTasks": 0,
+   "longMs": 0,
+   "longMax": 0,
+   "cls": 0,
+   "visits": 1
+  },
+  "after:scroll:timeline": {
+   "longTasks": 1,
+   "longMs": 826,
+   "longMax": 826,
+   "cls": 0,
+   "visits": 1
+  },
+  "redraw:today": {
+   "longTasks": 1,
+   "longMs": 634,
+   "longMax": 634,
+   "cls": 0,
+   "visits": 1
+  },
+  "after:redraw:today": {
+   "longTasks": 1,
+   "longMs": 292,
+   "longMax": 292,
+   "cls": 0,
+   "visits": 1
+  },
+  "redraw:timeline": {
+   "longTasks": 1,
+   "longMs": 345,
+   "longMax": 345,
+   "cls": 0,
+   "visits": 1
+  },
+  "after:redraw:timeline": {
+   "longTasks": 1,
+   "longMs": 321,
+   "longMax": 321,
+   "cls": 0,
+   "visits": 1
+  },
+  "redraw:plant": {
+   "longTasks": 2,
+   "longMs": 265,
+   "longMax": 151,
+   "cls": 0,
+   "visits": 1
+  },
+  "after:redraw:plant": {
+   "longTasks": 1,
+   "longMs": 927,
+   "longMax": 927,
+   "cls": 0,
+   "visits": 1
+  },
+  "redraw:costs": {
+   "longTasks": 2,
+   "longMs": 964,
+   "longMax": 827,
+   "cls": 0,
+   "visits": 1
+  },
+  "after:redraw:costs": {
+   "longTasks": 1,
+   "longMs": 914,
+   "longMax": 914,
+   "cls": 0,
+   "visits": 1
+  },
+  "redraw:fencing": {
+   "longTasks": 2,
+   "longMs": 913,
+   "longMax": 854,
+   "cls": 0,
+   "visits": 1
+  },
+  "after:redraw:fencing": {
+   "longTasks": 1,
+   "longMs": 647,
+   "longMax": 647,
+   "cls": 0,
+   "visits": 1
+  },
+  "search": {
+   "longTasks": 4,
+   "longMs": 1265,
+   "longMax": 615,
+   "cls": 0.0202,
+   "visits": 1
+  },
+  "after:search": {
+   "longTasks": 0,
+   "longMs": 0,
+   "longMax": 0,
+   "cls": 0,
+   "visits": 1
+  }
+ },
+ "all": {
+  "longTasks": 106,
+  "longMs": 38035,
+  "longMax": 1033,
+  "cls": 0.1503,
+  "heapMB": 72
+ },
+ "errors": [],
+ "counts": {
+  "page": 1,
+  "live": 156,
+  "blocked": 0
+ },
+ "wallSeconds": 94
+}

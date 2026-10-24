@@ -1,0 +1,17 @@
+// Dump the live Costs area: every heading, every money figure with its nearest label, in all four finance views.
+const {open} = require('/home/user/fish/03_GC500_Delivery_Control/toolchain/harness/open_page'); const fs = require('fs');
+(async () => { const s = await open({pageFile: process.env.PAGE, W: 1440, H: 900}); const p = s.page; const OUT = process.env.OUT;
+  await p.waitForFunction(() => typeof go === 'function' && typeof TABS !== 'undefined', null, {timeout: 150000}); await p.waitForTimeout(3000);
+  await p.evaluate(() => go('costs')); await p.waitForFunction(() => { try { return moneySummary().charge.labour >= 0; } catch (e) { return false; } }, null, {timeout: 30000}); await p.waitForTimeout(1500);
+  const views = ['summary', 'pricing', 'fencing', 'runsheet']; const out = {};
+  for (const v of views) {
+    await p.evaluate(v => { const b = document.querySelector(`[data-finance857="${v}"]`); if (b) b.click(); }, v); await p.waitForTimeout(1500);
+    await p.evaluate(() => document.querySelectorAll('#pane-costs details').forEach(d => d.open = true)); await p.waitForTimeout(800);
+    out[v] = await p.evaluate(() => { const pane = document.getElementById('pane-costs'); const text = pane.innerText; const lines = text.split('\n').map(x => x.trim()).filter(Boolean);
+      const money = []; const walker = document.createTreeWalker(pane, NodeFilter.SHOW_TEXT); let n; while ((n = walker.nextNode())) { const t = n.textContent; if (/\$\s?[\d,]+(\.\d\d)?/.test(t)) { let el = n.parentElement; let label = ''; for (let e = el, i = 0; e && i < 6 && !label; e = e.parentElement, i++) { const h = e.querySelector && (e.querySelector('h2,h3,h4,summary,b,th,.k,.lab,label')); if (h && h.textContent.trim() && h.textContent.trim() !== t.trim()) label = h.textContent.trim().slice(0, 80); } const sec = (() => { let e = el; while (e && e !== pane) { if (e.matches && e.matches('section,.card,details,article,div.hub,div.plcard,[id]')) return (e.id || e.className || e.tagName).toString().slice(0, 40); e = e.parentElement; } return ''; })(); money.push({t: t.trim().slice(0, 240), label, sec}); } }
+      return {headings: [...pane.querySelectorAll('h2,h3,summary')].map(h => h.textContent.trim().replace(/\s+/g, ' ').slice(0, 140)), lines, money}; });
+    await p.screenshot({path: `${OUT}/costs_${v}.png`, fullPage: true});
+  }
+  // the raw models
+  out.models = await p.evaluate(() => { const M = moneySummary(); const safe = o => JSON.parse(JSON.stringify(o, (k, v) => v instanceof Map ? [...v] : v)); const r = {money: safe(M)}; try { r.pl770 = safe(pl770Model()); } catch (e) { r.pl770 = String(e); } try { r.fin745 = safe(fin745Summary(null)); } catch (e) { r.fin745 = String(e); } try { r.ticks760 = safe(pl760Ticks()); } catch (e) {} try { r.rh766 = safe(rh766Model()); } catch (e) {} try { r.cj764 = safe(cj764Model()); } catch (e) {} try { r.pl752 = safe(pl752Rows()); } catch (e) {} try { r.allow858 = typeof labourAllowance858 === 'function' ? safe(labourAllowance858()) : null; } catch (e) { r.allow858 = String(e); } try { r.rev858 = typeof labourRevenue858 === 'function' ? safe(labourRevenue858()) : null; } catch (e) { r.rev858 = String(e); } try { r.staff833 = typeof eventStaffing833 === 'function' ? safe(eventStaffing833()) : null; } catch (e) {} return r; });
+  fs.writeFileSync(`${OUT}/costs_dump.json`, JSON.stringify(out, null, 1)); console.log('ok', Object.keys(out), s.errors.length, 'errors', s.counts); await s.browser.close(); })().catch(e => { console.error('FAIL', e.stack); process.exit(1); });

@@ -1,0 +1,9 @@
+{
+  "old": "4b5b727b781992e251968f81503ee064a3dbd3414a6087260258871ad83a0ec6",
+  "sha256": "9724e2a644833e7b6e56139b7954add2f639e348f03c6b6c9d109e0229cc821a",
+  "bytes": 18322580,
+  "onlyDifference": "one non-rendered page identity HTML comment",
+  "scriptsStylesDataByteIdentical": true,
+  "serverEnvelopePass": true,
+  "author": "Andrew Fisher"
+}

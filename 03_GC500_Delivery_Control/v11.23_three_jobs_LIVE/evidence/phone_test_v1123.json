@@ -1,0 +1,125 @@
+{
+ "at": "2026-10-22T09:32:52.196Z",
+ "live": false,
+ "results": [
+  {
+   "name": "footer says the expected release",
+   "ok": true
+  },
+  {
+   "name": "definition: one water job \"Water checked / refilled\" (key refill), no \"check\", no extras (water counts), on the clean code, in the FWF and accessible night plans",
+   "ok": true,
+   "detail": {
+    "tasks": {
+     "pump": "Pump out",
+     "clean": "Clean & restock",
+     "lockup": "Pump out, clean & lock",
+     "refill": "Water checked / refilled"
+    },
+    "extras": [],
+    "planFwf": [
+     "pump",
+     "clean",
+     "refill"
+    ],
+    "cleanGroup": [
+     "clean",
+     "lockup",
+     "refill"
+    ],
+    "pumpGroup": [
+     "pump",
+     "lockup"
+    ]
+   }
+  },
+  {
+   "name": "panel: three rings under the whole-night meter - Pump out 251 of 251 all done, Clean & restock 2 of 259, Water checked / refilled 2 of 242 last 22:04, no \"not in the completion\" note",
+   "ok": true,
+   "detail": [
+    "100%Pump out251 of 251 · all done · last 21:58",
+    "0%Clean & restock2 of 259 · 257 to go · last 22:03",
+    "0%Water checked / refilled2 of 242 · 240 to go · last 22:04"
+   ]
+  },
+  {
+   "name": "panel: three chips on each area row (15 areas); the v11.22 water line is gone",
+   "ok": true,
+   "detail": {
+    "chipAreas": 15,
+    "chipText": "100%6%8%",
+    "water1122": 0
+   }
+  },
+  {
+   "name": "panel: whole-night completion counts pump, clean and water: 33% = (251 + 2×2) of 752, worked out independently; water is among the counted jobs; its table column no longer says \"not in %\"",
+   "ok": true,
+   "detail": {
+    "meterPct": "33",
+    "expectNow": 33,
+    "meterText": "33%In progress3 / 75 references255 / 752 jobs20%40%60%80%100%",
+    "tasks": [
+     "Pump out251 of 251 · 100%",
+     "Clean & restock2 of 259 · 0%",
+     "Water checked / refilled2 of 242 · 0%"
+    ],
+    "cols": [
+     "Reference",
+     "Pump out",
+     "Clean & restock",
+     "Water checked / refilled"
+    ]
+   }
+  },
+  {
+   "name": "card template publishes: three-job functions, the water hint, task class and icon on every job button, one counted water job in its data, no v11.22 water line",
+   "ok": true,
+   "detail": {
+    "len": 116177
+   }
+  },
+  {
+   "name": "crew card (view mode): three rings under the Everything bar (Pump out 0 of 251, Clean & restock 0 of 259, Water checked / refilled 0 of 242)",
+   "ok": true,
+   "detail": [
+    "0%Pump out0 of 251 · 251 to go",
+    "0%Clean & restock0 of 259 · 259 to go",
+    "0%Water checked / refilled0 of 242 · 242 to go"
+   ]
+  },
+  {
+   "name": "crew card: sticky header carries the three small rings and fits the screen; every area header carries three chips",
+   "ok": true,
+   "detail": {
+    "compact": [
+     "ccell pump",
+     "ccell clean",
+     "ccell refill"
+    ],
+    "fits": true,
+    "vw": 390,
+    "lastRight": 374,
+    "chipIn": 15,
+    "compactText": "Practice Thu 22Everything0%251to go0%259to go0%242to go"
+   }
+  },
+  {
+   "name": "record unchanged by the run",
+   "ok": true
+  },
+  {
+   "name": "no page errors",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "name": "no writes attempted",
+   "ok": true,
+   "detail": {
+    "page": 1,
+    "live": 73,
+    "blocked": 0
+   }
+  }
+ ]
+}

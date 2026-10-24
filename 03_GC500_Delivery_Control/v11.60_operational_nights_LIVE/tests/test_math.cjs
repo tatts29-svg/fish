@@ -1,0 +1,23 @@
+/* Author: Andrew Fisher. Independent expected outcomes for the unchanged servicing calculation. */
+'use strict';
+const fs=require('node:fs'),vm=require('node:vm'),assert=require('node:assert/strict');
+const html=fs.readFileSync(process.env.PAGE,'utf8');
+const start=html.indexOf('var SvcState = (function () {');
+const end=html.indexOf("if (typeof module === 'object' && module && module.exports) module.exports = SvcState;",start);
+assert(start>0&&end>start);const context={};vm.createContext(context);vm.runInContext(html.slice(start,end),context);
+const S=context.SvcState,day='2026-10-23',now=Date.parse(day+'T12:00:00Z');
+const D={days:[{id:day,plan:'night'},{id:'2026-10-25',plan:'final'}],plans:{fwf:{night:['pump','clean','refill'],final:['lockup']}},extras:[]};
+const ref={ref:'fixture',lines:[{id:'fixture-line',kind:'fwf',qty:2}]};
+const tick=(task,id)=>({id,line:'fixture-line',task,day,done:true,at:day+'T11:00:00Z',tapped_at:day+'T11:00:00Z'});
+const stats=events=>S.groupStats(D,[ref],day,S.jobStates(events,now));
+const pump=tick('pump','p'),clean=tick('clean','c'),water=tick('refill','w');
+assert.equal(stats([]).pct,0);
+assert.equal(stats([pump]).d,2);assert.equal(stats([pump]).w,6);assert.equal(stats([pump]).pct,33);
+assert.equal(stats([pump,clean]).pct,66);
+assert.equal(stats([pump,clean,water]).pct,100);
+assert.equal(stats([pump,clean,water,{id:'u',line:'fixture-line',task:'refill',day,done:false,undoes:['w']}]).pct,66);
+assert.equal(stats([{...water,day:'2026-10-22'}]).d,0);
+assert.equal(S.groupStats(D,[ref],'2026-10-25',S.jobStates([],now)).w,2);
+assert.equal(S.svcDay(Date.parse('2026-10-23T21:59:59Z')),'2026-10-23');
+assert.equal(S.svcDay(Date.parse('2026-10-23T22:00:00Z')),'2026-10-24');
+console.log('PASS quantity weighting, water completion, undo, separate nights, final-night plan and 08:00 AEST boundary');

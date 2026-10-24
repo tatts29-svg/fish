@@ -1,0 +1,13 @@
+{
+ "by": "Andrew Fisher",
+ "ops": [
+  {"op": "number_off", "ref": "FR01", "no": "1318501"},
+  {"op": "number_off", "ref": "FR02", "no": "1260164"},
+  {"op": "acc_add", "ref": "P46", "type": "Fridge", "no": "1318501", "qty": 1, "desc": "Police fridge, from T0265's 14 Oct delivery"},
+  {"op": "acc_add", "ref": "P46", "type": "Fridge", "no": "1260164", "qty": 1, "desc": "Police fridge, from T0265's 14 Oct delivery"},
+  {"op": "number_on", "ref": "FR01", "no": "1129733"},
+  {"op": "number_on", "ref": "FR02", "no": "1157786"},
+  {"op": "note", "ref": "FR01", "text": "Fridge 1129733 for the broadcast compound (TV compound). It came in on 17 Oct 2026. Andrew, 17 Oct 2026: \"1129733 - Came in Today\" and \"the 2 that you mentioed are for broadcast\". Corrected 17 Oct: 1318501, recorded here that morning, is one of the four police fridges from T0265's 14 Oct delivery and is on P46 (\"the 4 that were for police 2 went to p46 then 2 went to p26 and p28\")."},
+  {"op": "note", "ref": "FR02", "text": "Fridge 1157786 for the broadcast compound (TV compound). It came in on 17 Oct 2026. Andrew, 17 Oct 2026: \"1157786 - Came in Today\" and \"the 2 that you mentioed are for broadcast\". Corrected 17 Oct: 1260164, recorded here that morning, is one of the four police fridges from T0265's 14 Oct delivery and is on P46 (\"the 4 that were for police 2 went to p46 then 2 went to p26 and p28\")."}
+ ]
+}

@@ -1,0 +1,21 @@
+{
+  "author": "Andrew Fisher",
+  "live_at": "2026-10-01T17:02:42+10:00",
+  "bytes": 8637431,
+  "sha256": "ea4643899d33b677c0911b679b0b3e97e5610fe686ab383a39a239a34baf2c43",
+  "verified_public_bytes": true,
+  "base_bytes": 8626587,
+  "checks": {
+    "desktop": 18,
+    "phone": 18,
+    "tank_phone": 16,
+    "synthetic_tank_cases": 7,
+    "desktop_sweep_tabs": 21,
+    "phone_sweep_tabs": 21,
+    "deep_links_each": 7,
+    "page_errors": 0,
+    "console_errors": 0
+  },
+  "phone_screenshots_inspected": true,
+  "record_changes": "separate authorised follow-up; page upload does not change records"
+}

@@ -1,0 +1,304 @@
+{
+ "at": "2026-10-22T18:55:08.520Z",
+ "live": false,
+ "results": [
+  {
+   "name": "footer says the expected release",
+   "ok": true
+  },
+  {
+   "name": "the card sits under the head: the 2026 sheet in an SVG at the whole-sheet view, nine lines (3 pink, 2 teal, 4 orange) each with halo, glow and core strokes, zoom buttons, Fit, 100%, Open the Map explorer",
+   "ok": true,
+   "detail": {
+    "afterHead": true,
+    "sheetSrc": "/w/Coates-GC500-2026/explorer/assets/sheet-overview.webp",
+    "vb": "0 -1.735 2384 1687.47",
+    "w": 332,
+    "hgt": 234.515625,
+    "lines": [
+     {
+      "colour": "pink",
+      "title": "Esplanade south side, Ocean Ave, Surfers Paradise Blvd, back up the diagonal (Gate 6 block)",
+      "paths": [
+       "halo",
+       "glow",
+       "core"
+      ],
+      "d": "M1566 350.5L1588 343.59L1594 345.12L1600"
+     },
+     {
+      "colour": "pink",
+      "title": "Esplanade north side, Gate 6 to Gate 5A",
+      "paths": [
+       "halo",
+       "glow",
+       "core"
+      ],
+      "d": "M1699.31 287.37L1701.35 288.11L1706.85 2"
+     },
+     {
+      "colour": "pink",
+      "title": "Main Beach Pde north side west to Gate 7, across, south side east to Breaker St, down Breaker St west side to Gate 8",
+      "paths": [
+       "halo",
+       "glow",
+       "core"
+      ],
+      "d": "M451.91 441.75L448.31 448.46L438.78 451."
+     },
+     {
+      "colour": "teal",
+      "title": "Cable St west side, round Cable Beach, Pacific St north side",
+      "paths": [
+       "halo",
+       "glow",
+       "core"
+      ],
+      "d": "M454.21 457.7L450.19 462.35L449.98 464.2"
+     },
+     {
+      "colour": "teal",
+      "title": "Main Beach Pde south side, Narrowneck Court corner to past Higman St",
+      "paths": [
+       "halo",
+       "glow",
+       "core"
+      ],
+      "d": "M1337.94 384.25L1353.44 384.13L1363.15 3"
+     },
+     {
+      "colour": "orange",
+      "title": "Main Beach Pde river side from the chicane to Madison Point, then Ferny Ave to Narrowneck Court",
+      "paths": [
+       "halo",
+       "glow",
+       "core"
+      ],
+      "d": "M771.94 373.76L781.59 372.11L814.74 360."
+     },
+     {
+      "colour": "orange",
+      "title": "Breaker St east side (Norfolk), Serisier Ave north side, Hill Pde east side",
+      "paths": [
+       "halo",
+       "glow",
+       "core"
+      ],
+      "d": "M227.28 467.98L217.95 476.05L216.24 481."
+     },
+     {
+      "colour": "orange",
+      "title": "Serisier Ave south side, Hill Pde west side",
+      "paths": [
+       "halo",
+       "glow",
+       "core"
+      ],
+      "d": "M196.53 754.13L202.71 758.6L208.94 758.7"
+     },
+     {
+      "colour": "orange",
+      "title": "Breaker St west side south of Gate 8",
+      "paths": [
+       "halo",
+       "glow",
+       "core"
+      ],
+      "d": "M197.2 636.66L193.85 640.03L193.18 647.7"
+     }
+    ],
+    "legend": [
+     "pinkEsplanade south side, Ocean Ave, Surfers Paradise Blvd, back up the diagonal (Gate 6 block)Esplanade north side, Gate 6 to Gate 5AMain Beach Pde north side west to Gate 7, across, south side east to Breaker St, down Breaker St west side to Gate 8",
+     "tealCable St west side, round Cable Beach, Pacific St north sideMain Beach Pde south side, Narrowneck Court corner to past Higman St",
+     "orangeMain Beach Pde river side from the chicane to Madison Point, then Ferny Ave to Narrowneck CourtBreaker St east side (Norfolk), Serisier Ave north side, Hill Pde east sideSerisier Ave south side, Hill Pde west sideBreaker St west side south of Gate 8"
+    ],
+    "dots": 3,
+    "buttons": [
+     "out",
+     "in",
+     "fit"
+    ],
+    "go": true,
+    "pct": "100%",
+    "noNumbers": true,
+    "noAgent": true,
+    "text": "The closure lines on the 2026 plan\n \n −100%+FitOpen the Map explorer\n Esplanade south side, Ocean Ave, Surfers Paradise Blvd, back up the diagonal (Gate 6 block)Esplanade north side, Gate 6 to Gate 5AMain Beach Pde north side west to Gate 7, across, south side east to Breaker St, down Breaker St west side to Gate 8Cable St west side, round Cable Beach, Pacific St north sideMain Beach Pde south side, Narrowneck Court corner to past Higman StMain Beach Pde river side from the chicane to Madison Point, then Ferny Ave to Narrowneck CourtBreaker St east side (Norfolk), Serisier Ave north side, Hill Pde east sideSerisier Ave south side, Hill Pde west sideBreaker St west side south of Gate 8\n pinkEsplanade south side, Ocean Ave, Surfers Paradise Blvd, back up the diagonal (Gate 6 block)Esplanade north side, Gate 6 to Gate 5AMain Beach Pde north side west to Gate 7, across, south side east to Breaker St, down Breaker St west side to Gate 8tealCable St west side, round Cable Beach, Pacific St north sideMain Beach Pde south side, Narrowneck Court corner to past Higman StorangeMain Beach Pde river side from the chicane to Madison Point, then Ferny Ave to Narrowneck CourtBreaker St east side (Norfolk), Serisier Ave north side, Hill Pde east sideSerisier Ave south side, Hill Pde west sideBreaker St west side south of Gate 8\n More infoThe lines highlighted on the marked plan, drawn on the 2026 master layout (D001-26003-03) along the fence line on the side of the road the pen marked: both sides where the pen was on both sides, one side where it was on one. Each colour runs unbroken until the next colour starts; the pink crosses Main Beach Pde at Gate 7 as the pen does. No numbers. Pinch, scroll or use the buttons to zoom to 16000%; drag to move; double-tap to zoom in.Lines read off the marked 2019 plate laid on the 2026 sheet D001-26003-03 (lift/homography.json) for where each colour starts and ends and which side of the road it is on; each line then placed on the 2026 drawing its"
+   }
+  },
+  {
+   "name": "the legend lists the three colours with their places, no mark numbers, no agent names",
+   "ok": true,
+   "detail": [
+    "pinkEsplanade south side, Ocean Ave, Surfers Paradise Blvd, back up the diagonal (Gate 6 block)Esplanade north side, Gate 6 to Gate 5AMain Beach Pde north side west to Gate 7, across, south side east to Breaker St, down Breaker St west side to Gate 8",
+    "tealCable St west side, round Cable Beach, Pacific St north sideMain Beach Pde south side, Narrowneck Court corner to past Higman St",
+    "orangeMain Beach Pde river side from the chicane to Madison Point, then Ferny Ave to Narrowneck CourtBreaker St east side (Norfolk), Serisier Ave north side, Hill Pde east sideSerisier Ave south side, Hill Pde west sideBreaker St west side south of Gate 8"
+   ]
+  },
+  {
+   "name": "the lines run where the marked plan puts them: the pink loop round the Gate 6 block (Esplanade, Ocean Ave, Surfers Paradise Blvd, the diagonal) with its reach west along the Esplanade; the pink Esplanade north side Gate 6 to Gate 5A; the pink Main Beach Pde line crossing at Gate 7 and ending at Gate 8; teal round Cable Beach to Pacific St and along Main Beach Pde at Mustang past Higman St; orange from the chicane to Madison Point and down Ferny Ave, and both sides of Breaker St, Serisier Ave and Hill Pde",
+   "ok": true,
+   "detail": [
+    [
+     "pink",
+     "Esplanade south side, Ocean Av",
+     56,
+     [
+      1566,
+      350.5
+     ],
+     [
+      1692.32,
+      316.93
+     ]
+    ],
+    [
+     "pink",
+     "Esplanade north side, Gate 6 t",
+     27,
+     [
+      1699.31,
+      287.37
+     ],
+     [
+      2300.13,
+      249.05
+     ]
+    ],
+    [
+     "pink",
+     "Main Beach Pde north side west",
+     37,
+     [
+      451.91,
+      441.75
+     ],
+     [
+      196,
+      628
+     ]
+    ],
+    [
+     "teal",
+     "Cable St west side, round Cabl",
+     16,
+     [
+      454.21,
+      457.7
+     ],
+     [
+      326,
+      613
+     ]
+    ],
+    [
+     "teal",
+     "Main Beach Pde south side, Nar",
+     26,
+     [
+      1337.94,
+      384.25
+     ],
+     [
+      1782.6,
+      420.2
+     ]
+    ],
+    [
+     "orange",
+     "Main Beach Pde river side from",
+     37,
+     [
+      771.94,
+      373.76
+     ],
+     [
+      1497.01,
+      482.99
+     ]
+    ],
+    [
+     "orange",
+     "Breaker St east side (Norfolk)",
+     32,
+     [
+      227.28,
+      467.98
+     ],
+     [
+      286.77,
+      947.77
+     ]
+    ],
+    [
+     "orange",
+     "Serisier Ave south side, Hill ",
+     17,
+     [
+      196.53,
+      754.13
+     ],
+     [
+      262,
+      948
+     ]
+    ],
+    [
+     "orange",
+     "Breaker St west side south of ",
+     23,
+     [
+      197.2,
+      636.66
+     ],
+     [
+      181.5,
+      835
+     ]
+    ]
+   ]
+  },
+  {
+   "name": "zoom in twice gives 256% (the view 2.56 times narrower), Fit returns to 100%, 16000% at Gate 7 shows a 15 pt wide view at tile level 3 with the explorer tiles arriving as blobs; no horizontal overflow",
+   "ok": true,
+   "detail": {
+    "w1": 931.25,
+    "p1": 256,
+    "w2": 2384,
+    "p2": 100,
+    "w3": 14.9,
+    "p3": 16000,
+    "lvl": 3,
+    "tiles": 17,
+    "b": {
+     "x": 100.55,
+     "y": 455.72665662650604,
+     "w": 14.9,
+     "h": 10.546686746987952
+    },
+    "overflow": 0,
+    "hrefs": [
+     "blob:",
+     "blob:"
+    ]
+   }
+  },
+  {
+   "name": "record unchanged by the run",
+   "ok": true
+  },
+  {
+   "name": "no page errors",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "name": "no writes attempted",
+   "ok": true,
+   "detail": {
+    "page": 1,
+    "live": 86,
+    "blocked": 0
+   }
+  }
+ ]
+}

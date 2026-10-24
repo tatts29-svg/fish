@@ -1,0 +1,46 @@
+{
+  "author": "Andrew Fisher",
+  "pass": true,
+  "sha256": "f4d3e6aa147b2012d9347dc844bc46b11e361b414c0716a6623215e98618e7d7",
+  "items": [
+    {
+      "ref": "WC09",
+      "item": "FWF",
+      "rate": "$36.435",
+      "bounds": {
+        "viewport": 390,
+        "scroll": 390,
+        "table": 329,
+        "box": 329,
+        "qtyHeaderHeight": 30.25
+      }
+    },
+    {
+      "ref": "WC09",
+      "item": "Toilet Block 6m",
+      "rate": "$145.74",
+      "bounds": {
+        "viewport": 390,
+        "scroll": 390,
+        "table": 329,
+        "box": 329,
+        "qtyHeaderHeight": 30.25
+      }
+    },
+    {
+      "ref": "T0103",
+      "item": "VMS",
+      "rate": "$88.485",
+      "bounds": {
+        "viewport": 390,
+        "scroll": 390,
+        "table": 329,
+        "box": 329,
+        "qtyHeaderHeight": 30.25
+      }
+    }
+  ],
+  "nativeUnchanged": true,
+  "pageErrors": [],
+  "operationalWrites": 0
+}

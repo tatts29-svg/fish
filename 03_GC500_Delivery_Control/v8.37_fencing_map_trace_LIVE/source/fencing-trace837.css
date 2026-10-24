@@ -1,0 +1,12 @@
+/* Author: Andrew Fisher. Scoped additions within existing map details. */
+#fmDetails .fm-trace837{margin-top:14px;padding-top:12px;border-top:1px solid #73563e}
+#fmDetails .fm-trace837 h4{font-size:13px;color:#fff;margin:12px 0 6px}
+#fmDetails .fm-trace-row837,#fmDetails .fm-trace-order837{padding:8px 0;border-bottom:1px solid #473e35}
+#fmDetails .fm-trace837 a{display:inline-flex;align-items:center;min-height:44px;color:#ffd1a9;font-size:12px;padding:4px 6px}
+#fmList .fm-unmapped837,#fmList .fm-trace-areas837{font-size:12px;line-height:1.5}
+#fmList .fm-unmapped837 button,#fmList .fm-trace-areas837 button{display:block;width:100%;margin-top:6px;overflow-wrap:anywhere}
+#fencePanel .fm-legend .fm-recorded-work:before{border:0;border-radius:50%;width:8px;height:8px;background:#ffad64}
+#fmDetails .fm-trace837 details{margin:8px 0;font-size:12px;line-height:1.45}
+#fmDetails .fm-trace837 summary{cursor:pointer;min-height:32px;display:list-item;align-content:center;color:#ffd1a9}
+#fmDetails .fm-trace-allocation837{margin:10px 0;padding:6px 0}
+#fmDetails .fm-trace-allocation837 small{display:block;margin-top:4px;color:#c7b8a8}

@@ -1,0 +1,86 @@
+PASS 1. /health says build v5.89 and keeps no ticks yet
+PASS 2. the view link cannot make a tracker (403)
+PASS 3. no key cannot make a tracker (401)
+PASS 4. every broken tracker list is refused 400 with its reason (16 kinds), never quietly dropped
+PASS 5. ...and nothing was made by any of them: no card, no tracker file
+PASS 6. the edit link makes the tracker: a token, and tracker.links holds a 16-character signature for all 75 references (SPARE too)
+PASS 7. a tracker card files under no reference: keys [] and targets [] even when posted with them; its 83 lines and 4 days are kept
+PASS 8. all 75 signatures are different
+PASS 9. a driver card is made exactly as before: no tracker on it
+PASS 10. a second live tracker for the same load with no token: 409 and the token of the one already live
+PASS 11. ...the same with a token that is not a card (409, the live token)
+PASS 12. ...and turning another card into a second tracker for the load (409)
+PASS 13. a tracker card re-posted without its tracker: 409, and the tracker still answers
+PASS 14. the secret is 32 random bytes, on the service only (one key line in the tracker file)
+PASS 15. each signature is base64url(HMAC-SHA256(secret, token:REF)) cut to 16
+PASS 16. WC07's signature cannot tick WC06 (403)
+PASS 17. a tick with no signature is refused (403)
+PASS 18. a right signature cannot reach another reference's line (400 line)
+PASS 19. WC06 with its own signature: saved, seq 1
+PASS 20. no water on Sunday (400 task)
+PASS 21. locked & confirmed empty refused before Sunday, taken on Sunday
+PASS 22. a waste tank is only pumped out (clean, water and lock refused)
+PASS 23. a toilet block (WC17) is pumped out and cleaned, never watered; Sunday adds the lock
+PASS 23b. a block with its own tank (WC20) or on the sewer (WC15) is pumped out and cleaned too (Andrew, 18 Oct: 'With own wster tanks add a pump out too', 'Sewer connected add pumo out'); Sunday adds the lock
+PASS 24. a day that is not on the tracker is refused (400 day)
+PASS 25. Thursday ("is a just in case") takes the night jobs
+PASS 26. the same tick again (a lost reply, a retry): already, same seq, nothing new stored or logged
+PASS 27. the same id for a different tick: 409, nothing stored
+PASS 28. one bad tick in a POST keeps none of it (the phone drops that one and sends the rest)
+PASS 29. 1 to 20 ticks a POST: 21 and 0 are refused
+PASS 30. 10 full-size ticks fit one 2 KB POST, and all 10 are saved with consecutive seqs
+PASS 31. phone A's late untick cancels only A's tick: B's newer tick stands and the job stays done at B's time
+PASS 32. ...and when B unticks its own, the job is not done
+PASS 33. an untick must name a tick of the same job and day; a tick cancels nothing (all 400 undoes)
+PASS 34. a tick and its untick in one POST (an outbox draining): both kept, job not done
+PASS 35. the phone's time is kept as the phone's when it is sensible: earlier than arrival kept
+PASS 36. ...a phone clock ahead of the service is held to the arrival time (never in the future)
+PASS 37. ...a time days before its service day, or one that is not a time, is dropped (null)
+PASS 38. ...a time up to 6 h before 08:00 of its day is kept (a crew that started early)
+PASS 39. WC07 weighs its 20 FWF: all three of its Saturday jobs done makes area 5 90% (60 of 66 jobs, rounded down)
+PASS 40. 60 POSTs a minute from one address; the 61st gets 429 with Retry-After; another address is not held
+PASS 41. 120 reads a minute from one address; the 121st gets 429
+PASS 42. a job takes 12 ticks and unticks on one day; the 13th is refused (400 job_cap)
+PASS 43. voiding two of them (a flood) makes room again
+PASS 44. unknown tokens on /ticks are wrong keys and counted: 404 "withdrawn" thirty times, then 429 (as JSON, for the card)
+PASS 45. a driver card on /ticks is a right key: 404 "no_tracker", never counted (35 of them, then the tracker still answers)
+PASS 46. both report routes answer 404 on a tracker card ("no_reports"), not counted (36 of them, then the tracker still answers)
+PASS 47. a body over 2 KB is answered 413 before it is read
+PASS 48. an oversized body with no length is cut off and the service stays up
+PASS 49. 40 reads change nothing on the disk (cards.json, writes.log, the tracker file)
+PASS 50. ten scans of the tracker card: all served with the card CSP, written once (one "card open" line), not ten times
+PASS 51. propertyIsEnumerable is not a card on any /d/ route (404 each, where v5.87 served a blank 200)
+PASS 52. DELETE /api/cards/constructor is 404; /api/reports?token=constructor is an empty 200 (v5.87: 500); /api/ticks for inherited names is 404
+PASS 53. /api/ticks: the view link 403, no key 401
+PASS 54. /api/ticks on the edit link: the list (83 lines), the 75 signatures, every tick, the key kept
+PASS 55. /api/ticks with no token lists the trackers, without signatures
+PASS 56. a void is one line of its own (nothing removed), the epoch moves on, the voided ticks leave the phones' read and stay on the edit link marked
+PASS 57. a phone sending a voided tick again is told "already" (voided) and it does not come back
+PASS 58. void: an id that is not a tick 400; the view link 403; voiding again says already
+PASS 59. "Update the tracker": the same token, the same 75 signatures (the laminated sheets keep working), every tick kept
+PASS 60. no signature in the phones' read, the card list, the tracker list, writes.log, cards.json, the tick store or the server log
+PASS 61. the secret appears nowhere but its own store (not even on the edit link)
+PASS 62. NO RECORD WRITES: records.json byte for byte, /api/version unchanged, no op:set or op:delete in writes.log, every line a card or tracker line
+PASS 63. the tick file is only ever appended: same file (inode), the first bytes unchanged, every line whole JSON
+PASS 64. the start-up banner names v5.89 and the tracker
+PASS 65. after a restart: the same epoch, every tick, and the old signatures still tick
+PASS 66. the ticks are snapshotted at start, and at once when a tracker key is made
+PASS 67. a last line cut short (a crash mid-write): the service starts, drops it and says so; nothing else lost; no recovery, same epoch
+PASS 68. a damaged line in the middle: set aside, every good line kept, the snapshot fills the gap, the epoch changes, /health names it
+PASS 69. the tick file lost: recovered from the newest snapshot, the key with it (old signatures still tick), a new epoch, /health says so
+PASS 70. a tick the disk would not take is answered 507 and kept nowhere; the retry is saved (not "already") at the next seq, once
+PASS 71. ...and after a restart the file reads clean with that tick once (no half line glued to the next)
+PASS 72. after 26 Oct the tracker has finished: 410 to a read, a tick and the card page ("servicing tracker has finished"); the edit link still has every tick
+PASS 73. ROLLBACK: v5.87 starts on v5.89's data and still serves the tracker card
+PASS 74. ...its /ticks is v5.87's plain page 404 (the card says "being updated"), never counted (35, then the card still opens)
+PASS 75. ...and v5.87's card list carries no signature and no secret (the secret is not on the card)
+PASS 76. ...and back on v5.89: every tick, the same epoch, the old signatures still tick
+PASS 77. at 07:59 on Friday it is still Thursday's service: a Friday tick is refused (future_day), Thursday's is taken
+PASS 78. at 08:00 Friday's service starts: Friday is taken, Saturday is still refused
+PASS 79. before the event (18 Oct) no day can be ticked, Thursday included
+PASS 80. 1,200 unsigned junk POSTs do not use up the tracker: a signed tick from another phone is still taken
+PASS 80b. signed ticks do spend it: after 1,200 an hour the next is 429 from any address; reads still answer
+PASS 81. the store holds 25,000 ticks in all; the next is refused 507 "full"
+PASS 82. a damaged tick file with no snapshot never stops the service: it starts, sets the file aside and starts the ticks empty, and says so
+84/84 v5.89 servicing tracker checks passed
+data folders (throw-away): gc500-589-main-U8uyhV, gc500-589-rollback-SFPXcl, gc500-589-boundary-NfyWG7, gc500-589-pertoken-U489aP, gc500-589-full-SCGBBH, gc500-589-nosnap-jU4e5k

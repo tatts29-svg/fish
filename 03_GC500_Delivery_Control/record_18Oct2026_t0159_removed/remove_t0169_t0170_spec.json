@@ -1,0 +1,9 @@
+{
+ "by": "Andrew Fisher",
+ "basis": "Andrew, 18 Oct 2026, in chat: \"Remove TO169 AND TO170\", after he was told the VMS total of 24 included T0169 (VMS x 2) and T0170 (VMS x 1), neither on site. The 16 on site are VMS1-4, 6-17.",
+ "refs": ["T0169", "T0170"],
+ "ops": [
+  {"op": "asset_delete", "ref": "T0169", "why": "Removed on Andrew's word 18 Oct 2026 - VMS x 2 not coming; the 16 on site are VMS1-4, 6-17."},
+  {"op": "asset_delete", "ref": "T0170", "why": "Removed on Andrew's word 18 Oct 2026 - VMS x 1 not coming; the 16 on site are VMS1-4, 6-17."}
+ ]
+}

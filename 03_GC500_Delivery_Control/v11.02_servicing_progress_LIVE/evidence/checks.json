@@ -1,0 +1,138 @@
+{
+  "author": "Andrew Fisher",
+  "status": "VERIFIED LIVE",
+  "base_sha256": "eb8373a49087060adaf4fac26668c4ad02c87482dabfdcf14155ad3137322395",
+  "candidate_sha256": "4b1ee468727cb98b3c52f751c77ce6d4b0258b7dca32c14b40c1ae41a95bcfd5",
+  "candidate_bytes": 20941279,
+  "patch_guards_passed": 13,
+  "inline_script_parse_checks": 150,
+  "presentation_checks_passed": 44,
+  "actual_candidate_css_phone_desktop": "PASS",
+  "independent_source_review": "PASS exact candidate reproducibility, protected spans and zero-task completion gate",
+  "protected_state_data_card_geometry_unchanged": true,
+  "operational_writes": 0,
+  "source_sha256": {
+    "controller1102_src.js": "2de36fd482b36d54f038e6f76be15ebd6451fa2e9dd3d244a4c790e1dc265d79",
+    "map1102_src.js": "fb7edf2221a5e5de1312ec6f194c0f4eea490bf732a1bd4dd15654e958ef7ef4",
+    "panel1102_src.js": "a72b771a205ab369afeb48b7aa3cdd4ddda7e7c87fd228eef931a663d5e37af6",
+    "patch_v1102.py": "bc1d42d68e01d04fd622c5df10fd3a2dc0d0c1a6fe2fa4ab81cdd58ad9f20ec0",
+    "progress1102.css": "a9c1b7d1cbf940bb83764551d968d895f8e6d9146de1146dc2664d81e5711ef8",
+    "progress1102_src.js": "a2a829a4ebc5a71b0985a1529e9c4601af6f429b0211b241d90baf927c4611c3",
+    "test_controller1102.cjs": "c6a0088bc0a15846f9fdc0c6e298f8d5985fb1afabf81581a2231941efdee2fa",
+    "test_patch1102.py": "8318038f725ece1bdb64bca97c4da491fab08612a8dd8d662530d6224a41cd82",
+    "test_progress1102.cjs": "2d32d769217485832c123909e1a7578fb3560b860cec5033cf8c6331d52ff1a9"
+  },
+  "controller_checks": {
+    "passed": 190,
+    "failed": 0,
+    "candidate_sha256": "4b1ee468727cb98b3c52f751c77ce6d4b0258b7dca32c14b40c1ae41a95bcfd5",
+    "mode": "Synthetic loopback GET snapshots with exact candidate CSS; no live reads or writes",
+    "no_detached_map_details_buttons_meters": true,
+    "focus_and_scroll_retained": true,
+    "external_requests": 0,
+    "writes": 0,
+    "browser_errors": 0,
+    "local_measurements": [
+      {
+        "viewport": "desktop",
+        "refreshRoundTripMs": {
+          "n": 12,
+          "median": 49.98990499999991,
+          "p95": 54.67523100000017,
+          "max": 54.67523100000017
+        },
+        "wakeScriptingMs": {
+          "n": 12,
+          "median": 0.699999988079071,
+          "p95": 0.9000000059604645,
+          "max": 0.9000000059604645
+        },
+        "panelReconcileMapUpdateMs": {
+          "n": 24,
+          "median": 0.9000000059604645,
+          "p95": 1.300000011920929,
+          "max": 1.4000000059604645
+        },
+        "map": true,
+        "world": true,
+        "area": true,
+        "day": true,
+        "focus": true,
+        "scroll": 0,
+        "mapRemoved": 0,
+        "areaRemoved": 0,
+        "dayRemoved": 0,
+        "meterRemoved": 0,
+        "childAdded": 12,
+        "childRemoved": 12
+      },
+      {
+        "viewport": "phone",
+        "refreshRoundTripMs": {
+          "n": 12,
+          "median": 49.96306600000025,
+          "p95": 51.19068200000038,
+          "max": 51.19068200000038
+        },
+        "wakeScriptingMs": {
+          "n": 12,
+          "median": 0.7000000178813934,
+          "p95": 0.800000011920929,
+          "max": 0.800000011920929
+        },
+        "panelReconcileMapUpdateMs": {
+          "n": 24,
+          "median": 1,
+          "p95": 1.2999999821186066,
+          "max": 1.300000011920929
+        },
+        "map": true,
+        "world": true,
+        "area": true,
+        "day": true,
+        "focus": true,
+        "scroll": 0,
+        "mapRemoved": 0,
+        "areaRemoved": 0,
+        "dayRemoved": 0,
+        "meterRemoved": 0,
+        "childAdded": 12,
+        "childRemoved": 12
+      }
+    ],
+    "timing_scope": "Three-reference synthetic fixture; not full production workload or a physical-device/network guarantee.",
+    "final_fixture_charset": "UTF-8"
+  },
+  "source_commit": "15d6ed347d9fc8b9e7487ec9c52d8acf914fe601",
+  "full_page_sweeps": {
+    "desktop": {
+      "routes": 25,
+      "links": 7,
+      "back": true,
+      "page_errors": 0,
+      "console_errors": 0
+    },
+    "phone": {
+      "routes": 25,
+      "links": 7,
+      "back": true,
+      "page_errors": 0,
+      "console_errors": 0
+    }
+  },
+  "published_at": "2026-10-21T03:07:26.570Z",
+  "guarded_exact_public_readback": true,
+  "independent_native_readback": {
+    "checked_at": "2026-10-21T03:08:47.781Z",
+    "checks_passed": 2530,
+    "all_native_nights_checked": true,
+    "exact_page_hash": true,
+    "shared_panel_map_meters_agree": true,
+    "nodes_focus_scroll_viewport_retained": true,
+    "full_job_and_version_unchanged": true,
+    "tracker_codes_ticks_history_and_card_metadata_unchanged": true,
+    "native_phone_and_desktop_screenshots_reviewed": true,
+    "attempted_writes": 0,
+    "errors": 0
+  }
+}

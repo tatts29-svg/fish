@@ -1,0 +1,52 @@
+/* Author: Andrew Fisher. Wider Build cards and a shorter date/weather hierarchy. */
+#pane-timeline .daystrip{gap:14px;align-items:stretch;padding:4px 2px 16px;scroll-padding-inline:2px;overscroll-behavior-inline:contain}
+#pane-timeline .daystrip>.day{width:292px;min-width:292px;flex:0 0 292px;max-width:none;transition:transform 160ms ease,background 160ms ease}
+#pane-timeline .daystrip>.day .dface{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);grid-template-areas:'head head' 'date weather' 'phase phase' 'data data' 'foot foot';gap:12px;padding:16px;height:100%;box-sizing:border-box;align-content:start}
+#pane-timeline .day .dhead{grid-area:head}
+#pane-timeline .day .dnum{grid-area:date;align-self:center;gap:7px}
+#pane-timeline .day .dnum .dd{font-size:64px}
+#pane-timeline .day .dmy b{font-size:13px}
+#pane-timeline .day .dwx{grid-area:weather;min-width:0;width:100%;margin:0;align-self:center}
+#pane-timeline .day .dwk{grid-area:phase;white-space:normal;overflow:visible;line-height:1.4;letter-spacing:.055em;min-height:27px}
+#pane-timeline .day .dpan{grid-area:data;margin:0;padding:12px;gap:8px}
+#pane-timeline .day .dfig .din b{font-size:30px}
+#pane-timeline .day .dfig .dout b{font-size:24px}
+#pane-timeline .day .dfoot{grid-area:foot;min-width:0}
+#pane-timeline .day .dmotto{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#pane-timeline .daynav{gap:8px;flex-wrap:wrap;margin-top:14px}
+#pane-timeline .daynav .btn{min-height:44px;border-radius:9px;padding-inline:14px}
+#pane-timeline .daynav .btn[aria-pressed=true]{background:var(--orange);border-color:var(--orange);color:#172027;font-weight:700}
+#pane-timeline .ldlist{gap:18px}
+#pane-timeline .ld.tl846{border-radius:16px}
+#pane-timeline .ld.tl846 .tl846-layout{gap:24px;grid-template-columns:minmax(0,1.35fr) minmax(320px,1fr)}
+@media(max-width:760px){
+ #pane-timeline .daystrip>.day{width:min(304px,calc(100vw - 52px));min-width:0;flex-basis:min(304px,calc(100vw - 52px))}
+ #pane-timeline .daystrip>.day .dface{padding:14px;gap:10px}
+ #pane-timeline .ld.tl846 .tl846-layout{grid-template-columns:minmax(0,1fr);gap:16px}
+ #pane-timeline .daynav .btn{padding-inline:10px}
+}
+@media(prefers-reduced-motion:reduce){#pane-timeline .daystrip>.day{transition:none;transform:none!important}}
+html[data-motion=off] #pane-timeline .daystrip>.day{transition:none;transform:none!important}
+@media print{#pane-timeline .daystrip>.day{width:auto;min-width:0;flex-basis:auto}#pane-timeline .daystrip>.day .dface{display:flex;height:auto}}
+/* Weather depth uses the native forecast layers and active/visible motion gate. */
+#pane-timeline .day.on[data-weather-card]{transform:perspective(900px) rotateX(var(--wx983-pitch,0deg)) rotateY(var(--wx983-yaw,0deg));transform-origin:50% 60%}
+#pane-timeline .day.on[data-weather-card] .wm-card-scene svg{transform:translate3d(var(--wx983-x,0px),var(--wx983-y,0px),0) scale(1.06);transform-origin:50% 45%;transition:transform 180ms ease-out}
+#pane-timeline .day.on[data-weather-card] .wm-cloud-front>g{filter:drop-shadow(0px 7px 5px rgba(8,28,46,.32))}
+#pane-timeline .day.on[data-weather-card] .wm-cloud-near>g{filter:drop-shadow(0px 11px 7px rgba(5,21,35,.45))}
+#pane-timeline .day.on[data-weather-card] .wm-cloud-back>g{filter:blur(.35px)}
+#pane-timeline .day.on[data-weather-card] .wm-radiance{animation-name:wx983-sun;animation-duration:9s}
+#pane-timeline .day.on[data-weather-card] .wm-shaft{opacity:.55;filter:drop-shadow(0 0 2px rgba(255,235,182,.28))}
+#pane-timeline .day.on[data-weather-card] .wm-cloud-front{animation-duration:10s}
+#pane-timeline .day.on[data-weather-card] .wm-cloud-back{animation-duration:18s}
+#pane-timeline .day.on[data-weather-card] .wm-cloud-near{animation-duration:13s}
+#pane-timeline .day.on[data-weather-card]:has(.wxflag.wind) .wm-cloud-front{animation-duration:5s}
+#pane-timeline .day.on[data-weather-card]:has(.wxflag.wind) .wm-cloud-back{animation-duration:9s}
+#pane-timeline .day.on[data-weather-card]:has(.wxflag.wind) .wm-cloud-near{animation-duration:6s}
+@keyframes wx983-sun{0%,100%{opacity:.85;transform:scale(1)}50%{opacity:1;transform:scale(1.04)}}
+@media(max-width:760px){#pane-timeline .day.on[data-weather-card] .wm-cloud-back>g{filter:none}}
+@media(prefers-reduced-motion:reduce){#pane-timeline .day.on[data-weather-card],#pane-timeline .day.on[data-weather-card] .wm-card-scene svg{transform:none!important;transition:none!important}}
+html[data-motion=off] #pane-timeline .day.on[data-weather-card],html[data-motion=off] #pane-timeline .day.on[data-weather-card] .wm-card-scene svg{transform:none!important;transition:none!important}
+#pane-timeline .day .dwx .wxp.nof{width:100%;min-width:0;box-sizing:border-box;padding:22px 9px 9px;min-height:92px}
+#pane-timeline .day .dwx .wxp.nof::before{display:none}
+#pane-timeline .day .dwx .wxp.nof .wxnt,#pane-timeline .day .dwx .wxp.nof .wxnw{margin:0;padding:0;max-width:100%;text-align:left;line-height:1.35}
+#pane-timeline .day .dwx .wxp.nof .wxnw{margin-top:4px;font-size:10px}

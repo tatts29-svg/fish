@@ -1,0 +1,67 @@
+/* Author: Andrew Fisher. Scoped fencing controls in the existing map. */
+#fenceMode{white-space:nowrap;min-height:44px;border:1px solid #75604b;background:#211b16;color:#ffba7a;border-radius:8px;padding:7px 10px;font-weight:800}
+#fenceMode[aria-pressed=true]{background:#ff6a13;color:#160d06;border-color:#ff9c5a}
+#fencePanel{display:none}
+body.fencing-map #fencePanel{display:block}
+body.fencing-map #side>:not(#fencePanel):not(.xnav){display:none!important}
+#fencePanel h2{margin:0;font-size:18px;color:#fff}
+#fencePanel .fm-kicker{font-size:10px;color:#ffb375;letter-spacing:.14em;font-weight:800;margin:0 0 6px}
+#fencePanel p{margin:8px 0;line-height:1.5;color:#c7c4c0}
+#fencePanel label{display:block;font-size:11px;font-weight:700;color:#b6b0a9;margin:12px 0 5px}
+#fencePanel input[type=search],#fencePanel select{width:100%;min-height:44px;color:#fff;background:#211d1a;border:1px solid #50463d;border-radius:7px;padding:8px;box-sizing:border-box;font:inherit}
+#fencePanel .fm-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+#fencePanel .fm-types{display:flex;flex-wrap:wrap;gap:5px;margin:10px 0}
+#fencePanel .fm-types button{min-height:36px;padding:5px 8px;border:1px solid #615348;background:#201b17;color:#d3cdc7;border-radius:18px;font-size:11px}
+#fencePanel .fm-types button[aria-pressed=true]{color:#fff;border-color:var(--fence-type);box-shadow:inset 0 -2px var(--fence-type)}
+#fencePanel .fm-legend{display:flex;gap:12px;flex-wrap:wrap;margin:10px 0;font-size:11px;color:#c6c3be}
+#fencePanel .fm-legend span:before{content:'';display:inline-block;width:16px;margin-right:5px;vertical-align:middle;border-top:3px dashed #ffad64}
+#fencePanel .fm-legend span:last-child:before{border-top:3px solid #40db9a}
+#fmSummary{font-size:12px;line-height:1.5;margin:12px 0;color:#e2d9cf}
+#fmAlert{border-left:3px solid #efae55;padding:8px 10px;background:#30251a;margin:10px 0;font-size:12px}
+#fmList{display:grid;gap:6px;margin-top:12px}
+#fmList button{padding:10px;text-align:left;border:1px solid #473e35;border-radius:8px;background:#1b1917;color:#f1efeb;min-height:54px;cursor:pointer}
+#fmList button[aria-current=true]{border-color:#ff8736;background:#322319;box-shadow:inset 3px 0 #ff8736}
+#fmList b,#fmList small{display:block}
+#fmList small{font-size:11px;color:#b8b0a8;margin-top:4px;line-height:1.4}
+#fmList .fm-dot{display:inline-block;width:7px;height:7px;border-radius:50%;margin-right:6px;background:var(--fence-state,#ffad64)}
+#fmDetails{border:1px solid #886143;border-radius:9px;padding:12px;background:#24201b;margin-top:12px;overflow-wrap:anywhere}
+#fmDetails h3{font-size:16px;margin:0;color:#fff;text-transform:none;letter-spacing:0}
+#fmDetails .fm-status{display:inline-block;font-size:11px;margin:9px 0 3px;color:#ffcb9b;font-weight:700}
+#fmDetails dl{margin:10px 0;font-size:12px}
+#fmDetails dt{color:#b9b1a9;font-size:11px;margin-top:8px}
+#fmDetails dd{margin:3px 0 0;color:#f3ede8}
+#fmDetails ul{padding-left:18px;font-size:12px;line-height:1.5;color:#ded5cc}
+#fmDetails .fm-note{border-left:2px solid #ac7849;padding-left:8px;font-size:12px}
+#fmDetails .fm-actions{display:flex;gap:6px;flex-wrap:wrap;margin-top:12px}
+#fmDetails button,#fmRegister{min-height:44px;font:inherit;font-size:12px;padding:7px 10px;border:1px solid #73563e;border-radius:7px;background:#34281e;color:#ffd1a9}
+#fmFooter{font-size:10px;line-height:1.4;color:#a69c92;margin-top:14px}
+body.fencing-map #display{filter:saturate(.58)}
+#fenceOverlay{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:2}
+#fenceMapBadge{display:none;position:absolute;left:14px;bottom:42px;z-index:5;background:#171b1eef;border:1px solid #6b5b4d;border-radius:8px;padding:8px 10px;color:#e8dfd6;font-size:11px;max-width:calc(100% - 28px);pointer-events:none}
+body.fencing-map #fenceMapBadge{display:block}
+body.fencing-map .pulse{display:none!important}
+body.fencing-map .mini{display:none}
+@media(max-width:900px){#fenceMode{padding:7px;font-size:11px}body.fencing-map header .modes{display:none}body.fencing-map #navBtn{width:auto!important}#fencePanel .fm-types button{min-height:44px}#fenceMapBadge{bottom:48px;left:8px;font-size:10px}#fencePanel .fm-grid{gap:6px}}
+@media(prefers-reduced-motion:reduce){#fencePanel *{scroll-behavior:auto;transition:none}}
+body.fencing-map #marks,body.fencing-map .d782{display:none!important}
+#fmAreas p{padding:7px 0;border-bottom:1px solid #3c352f}
+#fmOverviewHelp{font-size:11px}
+#fencePanel .fm-legend .fm-complete:before{border-top:3px solid #40db9a}
+#fencePanel .fm-legend .fm-area:before{border:0;border-radius:50%;width:8px;height:8px;background:#40db9a}
+
+#fmCoverage{margin:12px 0;font-size:11px;color:#c7b8a8;line-height:1.5}#fmCoverage button{min-height:44px;background:#24201b;border:1px solid #73563e;color:#ffd1a9;border-radius:7px;padding:7px 10px}
+
+@media(max-width:900px){#fenceMapBadge{bottom:66px;max-width:calc(100% - 142px);box-sizing:border-box;white-space:normal;line-height:1.35;padding:6px 8px}}
+
+/* Author: Andrew Fisher. Scoped additions within existing map details. */
+#fmDetails .fm-trace837{margin-top:14px;padding-top:12px;border-top:1px solid #73563e}
+#fmDetails .fm-trace837 h4{font-size:13px;color:#fff;margin:12px 0 6px}
+#fmDetails .fm-trace-row837,#fmDetails .fm-trace-order837{padding:8px 0;border-bottom:1px solid #473e35}
+#fmDetails .fm-trace837 a{display:inline-flex;align-items:center;min-height:44px;color:#ffd1a9;font-size:12px;padding:4px 6px}
+#fmList .fm-unmapped837,#fmList .fm-trace-areas837{font-size:12px;line-height:1.5}
+#fmList .fm-unmapped837 button,#fmList .fm-trace-areas837 button{display:block;width:100%;margin-top:6px;overflow-wrap:anywhere}
+#fencePanel .fm-legend .fm-recorded-work:before{border:0;border-radius:50%;width:8px;height:8px;background:#ffad64}
+#fmDetails .fm-trace837 details{margin:8px 0;font-size:12px;line-height:1.45}
+#fmDetails .fm-trace837 summary{cursor:pointer;min-height:32px;display:list-item;align-content:center;color:#ffd1a9}
+#fmDetails .fm-trace-allocation837{margin:10px 0;padding:6px 0}
+#fmDetails .fm-trace-allocation837 small{display:block;margin-top:4px;color:#c7b8a8}

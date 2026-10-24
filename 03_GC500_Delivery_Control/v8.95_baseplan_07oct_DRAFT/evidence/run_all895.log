@@ -1,0 +1,58 @@
+candidate 82e092760262ff3f 11266188 bytes; base 88a3584e919d8acd
+data886 (live -> v8.84..v8.88) exit 0 data886: PASS - DATA identical to live except the 20 plan rows and their references' span fields
+identity889 (v8.88all -> chain through v8.94) exit 0 PASS only the master picture, its register entry, the media list and the 11 listed pins changed (+11/-9 media)
+ep886_laptop exit 0 1440 px: 31/31
+transport888_laptop exit 0 1440 px: 29/29
+costs865_laptop exit 0 pass 33 fail 0 
+explorer887_laptop exit 0 laptop: 23/23 pass
+ep886_phone exit 0 phone: 31/31
+transport888_phone exit 0 phone: 29/29
+costs865_phone exit 0 pass 33 fail 0 
+explorer887_phone exit 0 phone: 24/24 pass
+transport888_2560 exit 0 2560 px: 29/29
+identity895 exit 0 identity895: PASS - DATA identical to the base except DATA.rental_on_hire, and there only the 7 Oct export's 25 changed and 2 added lines with what v8.71 derives from them
+contracts895_laptop exit 0 desktop: 23/23 pass
+contracts895_phone exit 0 phone: 23/23 pass
+master889_laptop exit 0 desktop: 16/16 (media served locally: 2)
+master889_phone exit 0 phone: 16/16 (media served locally: 2)
+where885_2560 exit 0 2560 px: 24/24
+where885_1600 exit 0 1600 px: 24/24
+where885_1440 exit 0 1440 px: 24/24
+where885_phone exit 0 phone: 24/24
+wide884_2560 exit 0 2560 px: 21/21
+wide884_1600 exit 0 1600 px: 21/21
+wide884_1440 exit 0 1440 px: 21/21
+wide884_phone exit 0 phone: 21/21
+layout876_laptop exit 0 pass 18 fail 0 18/18
+crew883_laptop exit 0 pass 0 fail 0 
+  crew883 laptop: 34 / 34
+vms874_laptop exit 0 pass 18 fail 0 18/18
+finance866_laptop exit 0 pass 24 fail 0 
+asset873_laptop exit 0 pass 40 fail 0 40/40
+loading872_laptop exit 0 pass 26 fail 0 26/26
+unloading881_laptop exit 0 pass 34 fail 0 34/34
+paired881_laptop exit 0 pass 18 fail 0 
+handling875_laptop exit 0 pass 22 fail 6 22/28
+paired879_laptop exit 0 pass 17 fail 1 
+sweep_laptop exit 0 pass 0 fail 0 
+  sweep laptop: shown 15 errors 0 blocked 0
+layout876_phone exit 0 pass 18 fail 0 18/18
+crew883_phone exit 0 pass 0 fail 0 
+  crew883 phone: 34 / 34
+vms874_phone exit 0 pass 18 fail 0 18/18
+finance866_phone exit 0 pass 24 fail 0 
+asset873_phone exit 0 pass 40 fail 0 40/40
+loading872_phone exit 0 pass 26 fail 0 26/26
+unloading881_phone exit 0 pass 34 fail 0 34/34
+paired881_phone exit 0 pass 18 fail 0 
+handling875_phone exit 0 pass 22 fail 6 22/28
+paired879_phone exit 0 pass 17 fail 1 
+sweep_phone exit 0 pass 0 fail 0 
+  sweep phone: shown 15 errors 0 blocked 0
+test_v871 exit 0 pass 11 fail 1 
+test_supplier870 exit 0 pass 17 fail 0 
+test_kinp869 exit 0 pass 17 fail 0 
+  redacted dollar figures in test_v871.log
+  redacted dollar figures in costs865_phone.log
+  redacted dollar figures in costs865_laptop.log
+DONE

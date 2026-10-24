@@ -1,0 +1,10 @@
+const {open} = require('/home/user/fish/03_GC500_Delivery_Control/toolchain/harness/open_page');
+(async () => { const s = await open({pageFile: process.env.PAGE, W: 1440, H: 900}); const p = s.page;
+  await p.waitForFunction(() => typeof go === 'function' && typeof TABS !== 'undefined', null, {timeout: 150000}); await p.waitForTimeout(3000);
+  await p.evaluate(() => go('costs')); await p.waitForFunction(() => { try { return moneySummary().charge.labour >= 0; } catch (e) { return false; } }, null, {timeout: 30000});
+  const r = await p.evaluate(() => holdAssets(() => { const r2 = v => Math.round(v * 100) / 100; const rows = fin745Rows(todayIso()); const days = new Set(EVENT_DAYS);
+    const agg = list => { const o = {shifts: 0, paid: 0, priced: 0, pricedHours: 0, unpricedHours: 0, people: new Set(), types: {}}; list.forEach(r => { o.shifts++; o.paid += Number(r.paid) || 0; const cost = r.status === 'confirmed' && r.actualCost != null ? r.actualCost : r.calculatedCost; if (cost == null) o.unpricedHours += Number(r.paid) || 0; else { o.priced += cost; o.pricedHours += Number(r.paid) || 0; } o.people.add(r.person); o.types[r.type] = (o.types[r.type] || 0) + (Number(r.paid) || 0); }); o.priced = r2(o.priced); o.people = [...o.people]; return o; };
+    const race = rows.filter(r => days.has(r.date)), rest = rows.filter(r => !days.has(r.date));
+    const M = moneySummary(); const E = eventStaffingModel833();
+    return {eventDays: [...days], race: agg(race), rest: agg(rest), all: agg(rows), raceCharge: M.charge.race, staff833: {paidHours: E.paidHours, expectedHours: E.expectedHours, knownCost: E.knownCost, unpricedHours: E.unpricedHours, people: E.expectedPeople, dates: E.dates, rows: E.rows.map(x => [x.name, x.role, x.paidHours, x.knownCost, x.unpricedHours])}, sample: race.slice(0, 3).map(r => ({person: r.person, type: r.type, date: r.date, paid: r.paid, cost: r.calculatedCost, status: r.status}))}; }));
+  console.log(JSON.stringify(r, null, 1)); await s.browser.close(); })().catch(e => { console.error('FAIL', e.stack); process.exit(1); });

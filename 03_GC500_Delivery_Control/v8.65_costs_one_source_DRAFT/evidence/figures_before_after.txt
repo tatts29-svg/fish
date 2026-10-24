@@ -1,0 +1,7 @@
+Author: Andrew Fisher. Live v8.64 (before) models, read from the page on 6 Oct 2026 ~06:35 AEST, record 3851.
+charge.labour (ticked)          19825.85 ticks 182
+pl760Ticks total                19825.84
+labourRevenue858 job (all tick) 71318.91 recorded 19825.85 remaining 51493.06
+P&L 1047 Installation now/job   [(56540.81, 108033.87)]
+Revenue now/job                 612654.34 999934.66
+wages                           {'toDate': 8781.76, 'toCome': 40468.07, 'unpricedHours': 1414.5, 'known': 8781.76, 'toCome2': 40468.07, 'allowanceForecast': 14700, 'job': 49249.83}

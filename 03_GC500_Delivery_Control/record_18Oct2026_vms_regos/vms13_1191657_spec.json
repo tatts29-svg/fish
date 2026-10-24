@@ -1,0 +1,8 @@
+{
+ "by": "Andrew Fisher",
+ "basis": "Andrew, 19 Oct 2026: \"It should be 1191657 it a coates machine we need all these cleaned up please\". VMS13 on T0158 carried two numbers: the register's 1191657 (Andrew's) and a 16 Oct unit record typed 1191957 from the contract line. The 1191957 record is set aside, so T0158 holds its nine boards once each.",
+ "ops": [
+  {"op": "unit_archive_wrong", "ref": "T0158", "no": "1191957", "keep": "1191657"},
+  {"op": "note_append", "ref": "T0158", "text": "VMS13 confirmed by Andrew 19 Oct 2026: 1191657, a Coates machine (the contract line's 1191957 is the branch's to correct)."}
+ ]
+}

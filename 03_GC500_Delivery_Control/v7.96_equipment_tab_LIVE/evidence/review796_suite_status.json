@@ -1,0 +1,42 @@
+[
+  {
+    "suite": "results_desktop",
+    "exit": 0
+  },
+  {
+    "suite": "results_phone",
+    "exit": 0
+  },
+  {
+    "suite": "equipment_desktop",
+    "exit": 0
+  },
+  {
+    "suite": "equipment_phone",
+    "exit": 0
+  },
+  {
+    "suite": "packed_desktop",
+    "exit": 0
+  },
+  {
+    "suite": "packed_phone",
+    "exit": 0
+  },
+  {
+    "suite": "rules",
+    "exit": 0
+  },
+  {
+    "suite": "fresh",
+    "exit": 0
+  },
+  {
+    "suite": "sweep_desktop",
+    "exit": 0
+  },
+  {
+    "suite": "sweep_phone",
+    "exit": 0
+  }
+]

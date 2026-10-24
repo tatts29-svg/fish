@@ -1,0 +1,23 @@
+{
+ "by": "Andrew Fisher",
+ "basis": "Andrew, 22 Oct 2026 (AEST), by message: \"VMS 21 is in location Asset No 97T Rego T16922 PremiAir\". VMS21 is plan position 21 (Staghorn Ave / Surfers Paradise Boulevard, eastbound), contract 9961265 line 28, a Premiair sub-hire Senior board (SUB-2631); it was ticked in place and complete at 08:08 today. The board's identity goes on the VMS register the way the register form saves it: the Premiair fleet number 97T and the number plate T16922. The company stays as the contract line names it (Premiair). The delivery it came in on is not named, so that field is left alone. Andrew then sent the board's GPS location: -27.995097971010587, 153.42930565620875; it goes on the VMS plan as the pinned position (the page keeps six decimals), about 11 m north of the planned spot.",
+ "ops": [
+  {
+   "op": "vms_fleet",
+   "key": "VMS21",
+   "fleet": "97T"
+  },
+  {
+   "op": "vms_rego",
+   "key": "VMS21",
+   "rego": "T16922"
+  },
+  {
+   "op": "vms_plan",
+   "pos": "21",
+   "lat": -27.995098,
+   "lon": 153.429306,
+   "how": "GPS location sent by Andrew Fisher on site, 22 Oct 2026"
+  }
+ ]
+}

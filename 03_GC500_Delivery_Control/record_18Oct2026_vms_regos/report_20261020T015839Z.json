@@ -1,0 +1,507 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261020T015839Z",
+ "finished": "2026-10-20T01:58:55.681Z",
+ "mode": "apply",
+ "spec": {
+  "by": "Andrew Fisher",
+  "why": "Andrew, 20 Oct 2026: \"rememeber anything onsiet we want all charges in\", \"delivery and pick up etc all costs need to be in for everything on gc500 that is onsite\". Read-only sweep of 170 on-site references: 868 of 897 priced pieces ticked; 17 were taken off by Andrew and stay off; WC31 block 74 steps stays off (no stairs). These 11 never-ticked pieces go in.",
+  "ops": [
+   {
+    "op": "labour_on",
+    "ref": "GN04",
+    "disc": "Generators",
+    "item": "30kva",
+    "line": "install"
+   },
+   {
+    "op": "labour_on",
+    "ref": "GN10",
+    "disc": "Generators",
+    "item": "20kva",
+    "line": "install"
+   },
+   {
+    "op": "labour_on",
+    "ref": "GN19",
+    "disc": "Generators",
+    "item": "60kva",
+    "line": "install"
+   },
+   {
+    "op": "labour_on",
+    "ref": "GN25",
+    "disc": "Generators",
+    "item": "20kva",
+    "line": "install"
+   },
+   {
+    "op": "labour_on",
+    "ref": "LT05",
+    "disc": "Lighting towers",
+    "item": "Light Tower",
+    "line": "install"
+   },
+   {
+    "op": "labour_on",
+    "ref": "LT05",
+    "disc": "Lighting towers",
+    "item": "Light Tower",
+    "line": "demob"
+   },
+   {
+    "op": "labour_on",
+    "ref": "LT06",
+    "disc": "Lighting towers",
+    "item": "Light Tower",
+    "line": "install"
+   },
+   {
+    "op": "labour_on",
+    "ref": "LT06",
+    "disc": "Lighting towers",
+    "item": "Light Tower",
+    "line": "demob"
+   },
+   {
+    "op": "labour_on",
+    "ref": "WC67",
+    "disc": "Toilets & amenities",
+    "item": "FWF",
+    "line": "demob",
+    "unit": "172824"
+   },
+   {
+    "op": "labour_on",
+    "ref": "WC67",
+    "disc": "Toilets & amenities",
+    "item": "FWF",
+    "line": "demob",
+    "unit": "0714"
+   },
+   {
+    "op": "labour_on",
+    "ref": "T0024",
+    "disc": "Toilets & amenities",
+    "item": "FWF",
+    "line": "demob",
+    "unit": "0164"
+   }
+  ]
+ },
+ "pageSha256": "396ea971e968e55182b054a936de316a82fa3751df6ba6d7cc566973d578bc0b",
+ "version": {
+  "before": 10079,
+  "after": 10112
+ },
+ "updated": {
+  "before": "2026-10-20T01:55:36.743Z",
+  "after": "2026-10-20T01:58:54.853Z"
+ },
+ "stage": [
+  {
+   "op": "labour_on",
+   "ref": "GN04",
+   "disc": "Generators",
+   "item": "30kva",
+   "line": "install",
+   "result": "ticked"
+  },
+  {
+   "op": "labour_on",
+   "ref": "GN10",
+   "disc": "Generators",
+   "item": "20kva",
+   "line": "install",
+   "result": "ticked"
+  },
+  {
+   "op": "labour_on",
+   "ref": "GN19",
+   "disc": "Generators",
+   "item": "60kva",
+   "line": "install",
+   "result": "ticked"
+  },
+  {
+   "op": "labour_on",
+   "ref": "GN25",
+   "disc": "Generators",
+   "item": "20kva",
+   "line": "install",
+   "result": "ticked"
+  },
+  {
+   "op": "labour_on",
+   "ref": "LT05",
+   "disc": "Lighting towers",
+   "item": "Light Tower",
+   "line": "install",
+   "result": "ticked"
+  },
+  {
+   "op": "labour_on",
+   "ref": "LT05",
+   "disc": "Lighting towers",
+   "item": "Light Tower",
+   "line": "demob",
+   "result": "ticked"
+  },
+  {
+   "op": "labour_on",
+   "ref": "LT06",
+   "disc": "Lighting towers",
+   "item": "Light Tower",
+   "line": "install",
+   "result": "ticked"
+  },
+  {
+   "op": "labour_on",
+   "ref": "LT06",
+   "disc": "Lighting towers",
+   "item": "Light Tower",
+   "line": "demob",
+   "result": "ticked"
+  },
+  {
+   "op": "labour_on",
+   "ref": "WC67",
+   "disc": "Toilets & amenities",
+   "item": "FWF",
+   "line": "demob",
+   "unit": "172824",
+   "result": "ticked"
+  },
+  {
+   "op": "labour_on",
+   "ref": "WC67",
+   "disc": "Toilets & amenities",
+   "item": "FWF",
+   "line": "demob",
+   "unit": "0714",
+   "result": "ticked"
+  },
+  {
+   "op": "labour_on",
+   "ref": "T0024",
+   "disc": "Toilets & amenities",
+   "item": "FWF",
+   "line": "demob",
+   "unit": "0164",
+   "result": "ticked"
+  }
+ ],
+ "writes": [
+  {
+   "key": "stamps/labour~2f~GN04~7c~Generators~7c~30kva~7c~install",
+   "status": 200
+  },
+  {
+   "key": "stamps/labour~2f~GN10~7c~Generators~7c~20kva~7c~install",
+   "status": 200
+  },
+  {
+   "key": "stamps/labour~2f~GN19~7c~Generators~7c~60kva~7c~install",
+   "status": 200
+  },
+  {
+   "key": "stamps/labour~2f~GN25~7c~Generators~7c~20kva~7c~install",
+   "status": 200
+  },
+  {
+   "key": "stamps/labour~2f~LT05~7c~Lighting~20~towers~7c~Light~20~Tower~7c~install",
+   "status": 200
+  },
+  {
+   "key": "stamps/labour~2f~LT05~7c~Lighting~20~towers~7c~Light~20~Tower~7c~demob",
+   "status": 200
+  },
+  {
+   "key": "stamps/labour~2f~LT06~7c~Lighting~20~towers~7c~Light~20~Tower~7c~install",
+   "status": 200
+  },
+  {
+   "key": "stamps/labour~2f~LT06~7c~Lighting~20~towers~7c~Light~20~Tower~7c~demob",
+   "status": 200
+  },
+  {
+   "key": "stamps/labour~2f~WC67~2f~u172824~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~demob",
+   "status": 200
+  },
+  {
+   "key": "stamps/labour~2f~WC67~2f~u0714~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~demob",
+   "status": 200
+  },
+  {
+   "key": "stamps/labour~2f~T0024~2f~u0164~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~demob",
+   "status": 200
+  },
+  {
+   "key": "by/labour~2f~GN04~7c~Generators~7c~30kva~7c~install",
+   "status": 200
+  },
+  {
+   "key": "by/labour~2f~GN10~7c~Generators~7c~20kva~7c~install",
+   "status": 200
+  },
+  {
+   "key": "by/labour~2f~GN19~7c~Generators~7c~60kva~7c~install",
+   "status": 200
+  },
+  {
+   "key": "by/labour~2f~GN25~7c~Generators~7c~20kva~7c~install",
+   "status": 200
+  },
+  {
+   "key": "by/labour~2f~LT05~7c~Lighting~20~towers~7c~Light~20~Tower~7c~install",
+   "status": 200
+  },
+  {
+   "key": "by/labour~2f~LT05~7c~Lighting~20~towers~7c~Light~20~Tower~7c~demob",
+   "status": 200
+  },
+  {
+   "key": "by/labour~2f~LT06~7c~Lighting~20~towers~7c~Light~20~Tower~7c~install",
+   "status": 200
+  },
+  {
+   "key": "by/labour~2f~LT06~7c~Lighting~20~towers~7c~Light~20~Tower~7c~demob",
+   "status": 200
+  },
+  {
+   "key": "by/labour~2f~WC67~2f~u172824~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~demob",
+   "status": 200
+  },
+  {
+   "key": "by/labour~2f~WC67~2f~u0714~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~demob",
+   "status": 200
+  },
+  {
+   "key": "by/labour~2f~T0024~2f~u0164~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~demob",
+   "status": 200
+  },
+  {
+   "key": "labour/GN04~7c~Generators~7c~30kva~7c~install",
+   "status": 200
+  },
+  {
+   "key": "labour/GN10~7c~Generators~7c~20kva~7c~install",
+   "status": 200
+  },
+  {
+   "key": "labour/GN19~7c~Generators~7c~60kva~7c~install",
+   "status": 200
+  },
+  {
+   "key": "labour/GN25~7c~Generators~7c~20kva~7c~install",
+   "status": 200
+  },
+  {
+   "key": "labour/LT05~7c~Lighting~20~towers~7c~Light~20~Tower~7c~install",
+   "status": 200
+  },
+  {
+   "key": "labour/LT05~7c~Lighting~20~towers~7c~Light~20~Tower~7c~demob",
+   "status": 200
+  },
+  {
+   "key": "labour/LT06~7c~Lighting~20~towers~7c~Light~20~Tower~7c~install",
+   "status": 200
+  },
+  {
+   "key": "labour/LT06~7c~Lighting~20~towers~7c~Light~20~Tower~7c~demob",
+   "status": 200
+  },
+  {
+   "key": "labour/WC67~2f~u172824~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~demob",
+   "status": 200
+  },
+  {
+   "key": "labour/WC67~2f~u0714~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~demob",
+   "status": 200
+  },
+  {
+   "key": "labour/T0024~2f~u0164~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~demob",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 1,
+ "docs": {
+  "before": {
+   "stamps/labour~2f~GN04~7c~Generators~7c~30kva~7c~install": null,
+   "stamps/labour~2f~GN10~7c~Generators~7c~20kva~7c~install": null,
+   "stamps/labour~2f~GN19~7c~Generators~7c~60kva~7c~install": null,
+   "stamps/labour~2f~GN25~7c~Generators~7c~20kva~7c~install": null,
+   "stamps/labour~2f~LT05~7c~Lighting~20~towers~7c~Light~20~Tower~7c~install": null,
+   "stamps/labour~2f~LT05~7c~Lighting~20~towers~7c~Light~20~Tower~7c~demob": null,
+   "stamps/labour~2f~LT06~7c~Lighting~20~towers~7c~Light~20~Tower~7c~install": null,
+   "stamps/labour~2f~LT06~7c~Lighting~20~towers~7c~Light~20~Tower~7c~demob": null,
+   "stamps/labour~2f~WC67~2f~u172824~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~demob": null,
+   "stamps/labour~2f~WC67~2f~u0714~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~demob": null,
+   "stamps/labour~2f~T0024~2f~u0164~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~demob": null,
+   "by/labour~2f~GN04~7c~Generators~7c~30kva~7c~install": null,
+   "by/labour~2f~GN10~7c~Generators~7c~20kva~7c~install": null,
+   "by/labour~2f~GN19~7c~Generators~7c~60kva~7c~install": null,
+   "by/labour~2f~GN25~7c~Generators~7c~20kva~7c~install": null,
+   "by/labour~2f~LT05~7c~Lighting~20~towers~7c~Light~20~Tower~7c~install": null,
+   "by/labour~2f~LT05~7c~Lighting~20~towers~7c~Light~20~Tower~7c~demob": null,
+   "by/labour~2f~LT06~7c~Lighting~20~towers~7c~Light~20~Tower~7c~install": null,
+   "by/labour~2f~LT06~7c~Lighting~20~towers~7c~Light~20~Tower~7c~demob": null,
+   "by/labour~2f~WC67~2f~u172824~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~demob": null,
+   "by/labour~2f~WC67~2f~u0714~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~demob": null,
+   "by/labour~2f~T0024~2f~u0164~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~demob": null,
+   "labour/GN04~7c~Generators~7c~30kva~7c~install": null,
+   "labour/GN10~7c~Generators~7c~20kva~7c~install": null,
+   "labour/GN19~7c~Generators~7c~60kva~7c~install": null,
+   "labour/GN25~7c~Generators~7c~20kva~7c~install": null,
+   "labour/LT05~7c~Lighting~20~towers~7c~Light~20~Tower~7c~install": null,
+   "labour/LT05~7c~Lighting~20~towers~7c~Light~20~Tower~7c~demob": null,
+   "labour/LT06~7c~Lighting~20~towers~7c~Light~20~Tower~7c~install": null,
+   "labour/LT06~7c~Lighting~20~towers~7c~Light~20~Tower~7c~demob": null,
+   "labour/WC67~2f~u172824~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~demob": null,
+   "labour/WC67~2f~u0714~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~demob": null,
+   "labour/T0024~2f~u0164~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~demob": null
+  },
+  "after": {
+   "stamps/labour~2f~GN04~7c~Generators~7c~30kva~7c~install": {
+    "_k": "labour/GN04|Generators|30kva|install",
+    "v": "2026-10-20T01:58:45.883Z"
+   },
+   "stamps/labour~2f~GN10~7c~Generators~7c~20kva~7c~install": {
+    "_k": "labour/GN10|Generators|20kva|install",
+    "v": "2026-10-20T01:58:46.451Z"
+   },
+   "stamps/labour~2f~GN19~7c~Generators~7c~60kva~7c~install": {
+    "_k": "labour/GN19|Generators|60kva|install",
+    "v": "2026-10-20T01:58:46.918Z"
+   },
+   "stamps/labour~2f~GN25~7c~Generators~7c~20kva~7c~install": {
+    "_k": "labour/GN25|Generators|20kva|install",
+    "v": "2026-10-20T01:58:47.379Z"
+   },
+   "stamps/labour~2f~LT05~7c~Lighting~20~towers~7c~Light~20~Tower~7c~install": {
+    "_k": "labour/LT05|Lighting towers|Light Tower|install",
+    "v": "2026-10-20T01:58:47.854Z"
+   },
+   "stamps/labour~2f~LT05~7c~Lighting~20~towers~7c~Light~20~Tower~7c~demob": {
+    "_k": "labour/LT05|Lighting towers|Light Tower|demob",
+    "v": "2026-10-20T01:58:48.300Z"
+   },
+   "stamps/labour~2f~LT06~7c~Lighting~20~towers~7c~Light~20~Tower~7c~install": {
+    "_k": "labour/LT06|Lighting towers|Light Tower|install",
+    "v": "2026-10-20T01:58:48.726Z"
+   },
+   "stamps/labour~2f~LT06~7c~Lighting~20~towers~7c~Light~20~Tower~7c~demob": {
+    "_k": "labour/LT06|Lighting towers|Light Tower|demob",
+    "v": "2026-10-20T01:58:49.150Z"
+   },
+   "stamps/labour~2f~WC67~2f~u172824~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~demob": {
+    "_k": "labour/WC67/u172824|Toilets & amenities|FWF|demob",
+    "v": "2026-10-20T01:58:49.585Z"
+   },
+   "stamps/labour~2f~WC67~2f~u0714~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~demob": {
+    "_k": "labour/WC67/u0714|Toilets & amenities|FWF|demob",
+    "v": "2026-10-20T01:58:50.038Z"
+   },
+   "stamps/labour~2f~T0024~2f~u0164~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~demob": {
+    "_k": "labour/T0024/u0164|Toilets & amenities|FWF|demob",
+    "v": "2026-10-20T01:58:50.520Z"
+   },
+   "by/labour~2f~GN04~7c~Generators~7c~30kva~7c~install": {
+    "_k": "labour/GN04|Generators|30kva|install",
+    "v": "Andrew Fisher"
+   },
+   "by/labour~2f~GN10~7c~Generators~7c~20kva~7c~install": {
+    "_k": "labour/GN10|Generators|20kva|install",
+    "v": "Andrew Fisher"
+   },
+   "by/labour~2f~GN19~7c~Generators~7c~60kva~7c~install": {
+    "_k": "labour/GN19|Generators|60kva|install",
+    "v": "Andrew Fisher"
+   },
+   "by/labour~2f~GN25~7c~Generators~7c~20kva~7c~install": {
+    "_k": "labour/GN25|Generators|20kva|install",
+    "v": "Andrew Fisher"
+   },
+   "by/labour~2f~LT05~7c~Lighting~20~towers~7c~Light~20~Tower~7c~install": {
+    "_k": "labour/LT05|Lighting towers|Light Tower|install",
+    "v": "Andrew Fisher"
+   },
+   "by/labour~2f~LT05~7c~Lighting~20~towers~7c~Light~20~Tower~7c~demob": {
+    "_k": "labour/LT05|Lighting towers|Light Tower|demob",
+    "v": "Andrew Fisher"
+   },
+   "by/labour~2f~LT06~7c~Lighting~20~towers~7c~Light~20~Tower~7c~install": {
+    "_k": "labour/LT06|Lighting towers|Light Tower|install",
+    "v": "Andrew Fisher"
+   },
+   "by/labour~2f~LT06~7c~Lighting~20~towers~7c~Light~20~Tower~7c~demob": {
+    "_k": "labour/LT06|Lighting towers|Light Tower|demob",
+    "v": "Andrew Fisher"
+   },
+   "by/labour~2f~WC67~2f~u172824~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~demob": {
+    "_k": "labour/WC67/u172824|Toilets & amenities|FWF|demob",
+    "v": "Andrew Fisher"
+   },
+   "by/labour~2f~WC67~2f~u0714~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~demob": {
+    "_k": "labour/WC67/u0714|Toilets & amenities|FWF|demob",
+    "v": "Andrew Fisher"
+   },
+   "by/labour~2f~T0024~2f~u0164~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~demob": {
+    "_k": "labour/T0024/u0164|Toilets & amenities|FWF|demob",
+    "v": "Andrew Fisher"
+   },
+   "labour/GN04~7c~Generators~7c~30kva~7c~install": {
+    "_k": "GN04|Generators|30kva|install",
+    "v": true
+   },
+   "labour/GN10~7c~Generators~7c~20kva~7c~install": {
+    "_k": "GN10|Generators|20kva|install",
+    "v": true
+   },
+   "labour/GN19~7c~Generators~7c~60kva~7c~install": {
+    "_k": "GN19|Generators|60kva|install",
+    "v": true
+   },
+   "labour/GN25~7c~Generators~7c~20kva~7c~install": {
+    "_k": "GN25|Generators|20kva|install",
+    "v": true
+   },
+   "labour/LT05~7c~Lighting~20~towers~7c~Light~20~Tower~7c~install": {
+    "_k": "LT05|Lighting towers|Light Tower|install",
+    "v": true
+   },
+   "labour/LT05~7c~Lighting~20~towers~7c~Light~20~Tower~7c~demob": {
+    "_k": "LT05|Lighting towers|Light Tower|demob",
+    "v": true
+   },
+   "labour/LT06~7c~Lighting~20~towers~7c~Light~20~Tower~7c~install": {
+    "_k": "LT06|Lighting towers|Light Tower|install",
+    "v": true
+   },
+   "labour/LT06~7c~Lighting~20~towers~7c~Light~20~Tower~7c~demob": {
+    "_k": "LT06|Lighting towers|Light Tower|demob",
+    "v": true
+   },
+   "labour/WC67~2f~u172824~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~demob": {
+    "_k": "WC67/u172824|Toilets & amenities|FWF|demob",
+    "v": true
+   },
+   "labour/WC67~2f~u0714~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~demob": {
+    "_k": "WC67/u0714|Toilets & amenities|FWF|demob",
+    "v": true
+   },
+   "labour/T0024~2f~u0164~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~demob": {
+    "_k": "T0024/u0164|Toilets & amenities|FWF|demob",
+    "v": true
+   }
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}

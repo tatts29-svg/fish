@@ -1,0 +1,249 @@
+{
+ "shots": {
+  "day_chase": {
+   "clock": 14.000000000000275,
+   "view": "chase",
+   "shot": "chase",
+   "kmh": 135,
+   "gear": 3,
+   "lap": 0,
+   "s_m": 503,
+   "look": "day",
+   "built": true,
+   "quality": "balanced",
+   "frames": 0
+  },
+  "day_wide": {
+   "clock": 22.000000000000032,
+   "view": "wide",
+   "shot": "wide",
+   "kmh": 73,
+   "gear": 2,
+   "lap": 0,
+   "s_m": 769,
+   "look": "day",
+   "built": true,
+   "quality": "balanced",
+   "frames": 0
+  },
+  "day_heli": {
+   "clock": 30.016666666666243,
+   "view": "heli",
+   "shot": "heli",
+   "kmh": 104,
+   "gear": 3,
+   "lap": 0,
+   "s_m": 928,
+   "look": "day",
+   "built": true,
+   "quality": "balanced",
+   "frames": 0
+  },
+  "day_top": {
+   "clock": 8.016666666666644,
+   "view": "top",
+   "shot": "top",
+   "kmh": 126,
+   "gear": 3,
+   "lap": 0,
+   "s_m": 275,
+   "look": "day",
+   "built": true,
+   "quality": "balanced",
+   "frames": 0
+  },
+  "day_onboard": {
+   "clock": 18.00000000000026,
+   "view": "onboard",
+   "shot": "onboard",
+   "kmh": 125,
+   "gear": 3,
+   "lap": 0,
+   "s_m": 664,
+   "look": "day",
+   "built": true,
+   "quality": "balanced",
+   "frames": 0
+  },
+  "day_detail": {
+   "clock": 12.000000000000176,
+   "view": "detail",
+   "shot": "detail",
+   "kmh": 136,
+   "gear": 3,
+   "lap": 0,
+   "s_m": 428,
+   "look": "day",
+   "built": true,
+   "quality": "balanced",
+   "frames": 0
+  },
+  "day_frontdetail": {
+   "clock": 9.000000000000027,
+   "view": "frontdetail",
+   "shot": "frontdetail",
+   "kmh": 140,
+   "gear": 3,
+   "lap": 0,
+   "s_m": 312,
+   "look": "day",
+   "built": true,
+   "quality": "balanced",
+   "frames": 0
+  },
+  "dusk_chase": {
+   "clock": 16.000000000000373,
+   "view": "chase",
+   "shot": "chase",
+   "kmh": 158,
+   "gear": 4,
+   "lap": 0,
+   "s_m": 585,
+   "look": "dusk",
+   "built": true,
+   "quality": "balanced",
+   "frames": 0
+  },
+  "dusk_wide": {
+   "clock": 24.016666666666584,
+   "view": "wide",
+   "shot": "wide",
+   "kmh": 69,
+   "gear": 2,
+   "lap": 0,
+   "s_m": 807,
+   "look": "dusk",
+   "built": true,
+   "quality": "balanced",
+   "frames": 0
+  },
+  "dark_chase": {
+   "clock": 40.01666666666568,
+   "view": "chase",
+   "shot": "chase",
+   "kmh": 53,
+   "gear": 2,
+   "lap": 0,
+   "s_m": 1240,
+   "look": "dark",
+   "built": true,
+   "quality": "balanced",
+   "frames": 0
+  },
+  "dark_heli": {
+   "clock": 26.01666666666647,
+   "view": "heli",
+   "shot": "heli",
+   "kmh": 69,
+   "gear": 2,
+   "lap": 0,
+   "s_m": 846,
+   "look": "day",
+   "built": true,
+   "quality": "balanced",
+   "frames": 0
+  },
+  "dark_onboard": {
+   "clock": 20.000000000000146,
+   "view": "onboard",
+   "shot": "onboard",
+   "kmh": 93,
+   "gear": 2,
+   "lap": 0,
+   "s_m": 724,
+   "look": "day",
+   "built": true,
+   "quality": "balanced",
+   "frames": 0
+  }
+ },
+ "engine": {
+  "ver": "2.0-three",
+  "views": [
+   "hero",
+   "auto",
+   "onboard",
+   "chase",
+   "heli",
+   "top",
+   "wide",
+   "detail",
+   "frontdetail"
+  ],
+  "plant": [
+   "forklift",
+   "boom",
+   "scissor",
+   "tractor"
+  ]
+ },
+ "console": [
+  "Allow attribute will take precedence over 'allowfullscreen'.",
+  "Scripts \"build/three.js\" and \"build/three.min.js\" are deprecated with r150+, and will be removed with r160. Please use ES Modules or alternatives: https://threejs.org/docs/index.html#manual/en/introdu"
+ ],
+ "built": true,
+ "failed": null,
+ "mount": {
+  "look": "day",
+  "quality": "balanced",
+  "corners": 18,
+  "L": 2957,
+  "n": 1618,
+  "hwMin": "5.2",
+  "hwMax": "13.4",
+  "vMin": 51,
+  "vMax": 219,
+  "gantries": 6,
+  "floods": 8,
+  "lamps": 66,
+  "meshes": 50
+ },
+ "hudLive": {
+  "hidden": false,
+  "text": "26 COATES Industrial Solutions 0 km/h N LAP – 0:00.0 last – LIGHTS · 3 FOLLOW CAM 21 DAYS TO RACE DAY · 23–25 OCT",
+  "report": {
+   "clock": 0.9666666666666657,
+   "view": "hero",
+   "shot": "chase",
+   "kmh": 53,
+   "gear": 2,
+   "lap": 0,
+   "s_m": 186,
+   "look": "day",
+   "built": true,
+   "quality": "balanced",
+   "frames": 20
+  }
+ },
+ "hud": "26 COATES Industrial Solutions 0 km/h N LAP – 0:00.0 last – LIGHTS · 3 FOLLOW CAM 21 DAYS TO RACE DAY · 23–25 OCT",
+ "lap": {
+  "clock": 140.03333333332796,
+  "view": "hero",
+  "shot": "chase",
+  "kmh": 67,
+  "gear": 2,
+  "lap": 1,
+  "s_m": 1217,
+  "look": "day",
+  "built": true,
+  "quality": "balanced",
+  "frames": 0
+ },
+ "report": {
+  "version": "2.0-three",
+  "engine": "three.js r152",
+  "quality": "balanced",
+  "shadowMap": 0,
+  "resolution": [
+   1600,
+   587
+  ],
+  "steppedDownTo": null,
+  "fps": 2,
+  "look": "day",
+  "view": "hero",
+  "shot": "chase",
+  "built": true
+ },
+ "errors": []
+}

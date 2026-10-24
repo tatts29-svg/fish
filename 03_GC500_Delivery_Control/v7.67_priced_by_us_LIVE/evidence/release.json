@@ -1,0 +1,31 @@
+{
+  "author": "Andrew Fisher",
+  "version": "v7.67",
+  "live_aest": "1 Oct 2026 15:04 AEST",
+  "bytes": 8626587,
+  "sha256": "0368fc08ee159f7c12903b53299ba16dec97b846143708ce187e39783b11a853",
+  "base_bytes": 8572884,
+  "base_sha256": "e723a1fbe2ba001812d91e98d15d0c8761639bb4578d552e2e471e433b5a7fa3",
+  "fresh_checks": {
+    "build": "pass",
+    "review_regressions": 6,
+    "phone_rehire_checks": 18
+  },
+  "reviewed_handover_evidence": {
+    "v764_desktop_and_phone": 22,
+    "v765_desktop_and_phone": 22,
+    "v766_desktop_and_phone": 18,
+    "v767_desktop_and_phone": 12,
+    "sweeps": {
+      "desktop_tabs": 21,
+      "phone_tabs": 21,
+      "links_each": 7,
+      "page_errors": 0,
+      "console_errors": 0
+    }
+  },
+  "page_upload_verified_byte_for_byte": true,
+  "record_version_before": 3406,
+  "record_version_read_after": 3406,
+  "record_changes_by_page_release": false
+}

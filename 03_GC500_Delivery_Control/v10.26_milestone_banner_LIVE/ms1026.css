@@ -1,0 +1,17 @@
+/* Author: Andrew Fisher. Milestone banner (v10.26): the strip at the top of the Today tab and the screen burst. */
+.ms1026{background:var(--paper);border:1px solid var(--rule);border-top:4px solid #ff6a13;border-radius:12px;padding:10px 14px;margin:8px 0 10px;box-shadow:var(--lift);position:relative}
+.ms1026.ms1025-glow{animation:ms1025glow 1.2s ease-in-out 2}
+.ms1026-head{display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-size:1.08em;margin:0 0 6px}
+.ms1026-head .w{font-weight:400;color:var(--mute);font-size:.9em}
+.ms1026-flag{font-size:1.3em;line-height:1}
+.ms1026-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px}
+.ms1026-list li{display:flex;align-items:center;gap:12px;flex-wrap:wrap;padding:6px 0;border-top:1px solid var(--rule)}
+.ms1026-pct{background:#ff6a13;color:#fff;font-weight:800;font-size:1.1em;line-height:1;padding:7px 10px;border-radius:8px;box-shadow:0 1px 3px rgba(0,0,0,.25)}
+.ms1026-txt{display:flex;flex-direction:column;gap:2px;flex:1 1 220px;min-width:0}
+.ms1026-txt b{font-size:1.05em}
+.ms1026-txt .w{color:var(--mute);font-size:.9em}
+.ms1026-acts{display:flex;gap:6px;flex-wrap:wrap}
+.ms1026 .btn.sm{font-size:.85em;padding:4px 10px}
+canvas.ms1026-screen{position:fixed;inset:0;width:100vw;height:100vh;pointer-events:none;z-index:2147483000}
+@media (max-width:640px){.ms1026{padding:8px 10px}.ms1026-list li{gap:8px}.ms1026-acts{width:100%}}
+@media print{.ms1026{display:none}}

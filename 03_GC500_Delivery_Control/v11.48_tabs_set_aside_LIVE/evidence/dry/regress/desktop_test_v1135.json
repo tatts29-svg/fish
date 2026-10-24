@@ -1,0 +1,75 @@
+{
+ "at": "2026-10-23T00:43:36.220Z",
+ "live": false,
+ "results": [
+  {
+   "name": "footer says the expected release",
+   "ok": true
+  },
+  {
+   "name": "a print button goes straight to the print view: no twin-steer tick dialog; the red banner stays",
+   "ok": false,
+   "detail": {
+    "noButton": true,
+    "banner": true
+   }
+  },
+  {
+   "name": "the Build tab stops at 22 Oct 2026 while the calendar itself runs on",
+   "ok": true,
+   "detail": {
+    "n": 47,
+    "max": "2026-10-22",
+    "calMax": "2026-11-13",
+    "calHasLater": true,
+    "has22": true,
+    "has21": true
+   }
+  },
+  {
+   "name": "Coates on time carries the 22 Oct export: 126 units, nothing of the 16 Oct export left",
+   "ok": true,
+   "detail": {
+    "exportAt": "22 Oct 2026 04:57",
+    "exportDay": "2026-10-22",
+    "units": 126,
+    "old16": false
+   }
+  },
+  {
+   "name": "Monday 19, Tuesday 20 and Wednesday 21 Oct show their COATES ON TIME row with a percentage",
+   "ok": true,
+   "detail": {
+    "2026-10-19": "COATES ON TIME · 5 OF 7 2 late WB13 Fence bracing behind S15 · 21 min late one of GN04 Generator or GN10 Generator or GN19 Generator or GN24 Generator or GN25 Generator · 1 h 9 min late 71%",
+    "2026-10-20": "COATES ON TIME · 2 OF 3 1 late one of T0268 Item or LT05 Light Towers or LT06 Light Towers · 29 min late 67%",
+    "2026-10-21": "COATES ON TIME · 3 OF 7 3 late, 1 failed one of T0169 VMS board or T0170 VMS board · not delivered Item · 1 h 21 min late Item · 34 min late Item · 4 min late 43%"
+   }
+  },
+  {
+   "name": "More info says the texts are loaded to 22 Oct 2026",
+   "ok": true,
+   "detail": {
+    "loaded": "Coates texts loaded to 22 Oct 2026 04:57",
+    "late": 3
+   }
+  },
+  {
+   "name": "record unchanged by the run",
+   "ok": true
+  },
+  {
+   "name": "no page errors",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "name": "no writes attempted",
+   "ok": true,
+   "detail": {
+    "page": 1,
+    "live": 69,
+    "blocked": 0
+   }
+  }
+ ]
+}

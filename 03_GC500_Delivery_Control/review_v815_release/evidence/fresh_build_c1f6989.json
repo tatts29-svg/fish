@@ -1,0 +1,11 @@
+{
+  "author": "Andrew Fisher",
+  "sourceCommit": "c1f69890736fae4c004e4643ff4139bb19cebeeb",
+  "baseSha256": "6365fd0965e1ae1fcf75fdd6aad076b2662697443addfae49a3d6016a39f9fce",
+  "candidateSha256": "665f53fef3bd685260771c2d8e2867531263f3af7e9c84d870c316797f4c15fb",
+  "candidateBytes": 9116658,
+  "matchesIndependentlyTestedProposal": true,
+  "buildFromFreshPublicRead": true,
+  "checkPage": "PASS; seven inline scripts; no edit key or new service keys",
+  "publicationState": "Not uploaded; owner final handover and combined release gates pending."
+}

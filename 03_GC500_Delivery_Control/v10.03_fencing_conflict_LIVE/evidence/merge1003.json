@@ -1,0 +1,371 @@
+{
+  "author": "Andrew Fisher",
+  "page": "GC500_Delivery_Control_hosted.html",
+  "sha256": "3056702a2a5664050eb9b8cf8592bc2f700ea5faf705829d97f471b83f38e412",
+  "checks": 90,
+  "passed": 90,
+  "failed": 0,
+  "failures": [],
+  "results": [
+    {
+      "name": "known historical pair becomes one corrected base docket",
+      "pass": true
+    },
+    {
+      "name": "stale original base is corrected from source",
+      "pass": true
+    },
+    {
+      "name": "corrected base remains one record",
+      "pass": true
+    },
+    {
+      "name": "corrected variant becomes the stable base record",
+      "pass": true
+    },
+    {
+      "name": "normalisation is idempotent",
+      "pass": true
+    },
+    {
+      "name": "reversed source order normalises identically",
+      "pass": true
+    },
+    {
+      "name": "reordered nested JSON keys are the same source record",
+      "pass": true
+    },
+    {
+      "name": "source helper leaves input unchanged",
+      "pass": true
+    },
+    {
+      "name": "current copies merge to exactly one corrected docket",
+      "pass": true
+    },
+    {
+      "name": "current copies do not raise the recurring popup",
+      "pass": true
+    },
+    {
+      "name": "refresh/replay stays corrected",
+      "pass": true
+    },
+    {
+      "name": "refresh/replay stays quiet",
+      "pass": true
+    },
+    {
+      "name": "old base offline copy cannot recreate duplicate",
+      "pass": true
+    },
+    {
+      "name": "old base reverse merge cannot recreate duplicate",
+      "pass": true
+    },
+    {
+      "name": "old base merge is commutative",
+      "pass": true
+    },
+    {
+      "name": "old base replay has no false conflict",
+      "pass": true
+    },
+    {
+      "name": "old variant offline copy cannot recreate duplicate",
+      "pass": true
+    },
+    {
+      "name": "old variant reverse merge cannot recreate duplicate",
+      "pass": true
+    },
+    {
+      "name": "old variant merge is commutative",
+      "pass": true
+    },
+    {
+      "name": "old variant replay has no false conflict",
+      "pass": true
+    },
+    {
+      "name": "corrected variant offline copy cannot recreate duplicate",
+      "pass": true
+    },
+    {
+      "name": "corrected variant reverse merge cannot recreate duplicate",
+      "pass": true
+    },
+    {
+      "name": "corrected variant merge is commutative",
+      "pass": true
+    },
+    {
+      "name": "corrected variant replay has no false conflict",
+      "pass": true
+    },
+    {
+      "name": "merge leaves first input unchanged",
+      "pass": true
+    },
+    {
+      "name": "merge leaves second input unchanged",
+      "pass": true
+    },
+    {
+      "name": "changed measured metres is not silently source-corrected",
+      "pass": true
+    },
+    {
+      "name": "changed measured metres keeps both genuinely different records",
+      "pass": true
+    },
+    {
+      "name": "changed measured metres reports a genuine new conflict",
+      "pass": true
+    },
+    {
+      "name": "changed measured metres content is retained",
+      "pass": true
+    },
+    {
+      "name": "changed measured metres merged content is commutative",
+      "pass": true
+    },
+    {
+      "name": "explicit zero gates is not silently source-corrected",
+      "pass": true
+    },
+    {
+      "name": "explicit zero gates keeps both genuinely different records",
+      "pass": true
+    },
+    {
+      "name": "explicit zero gates reports a genuine new conflict",
+      "pass": true
+    },
+    {
+      "name": "explicit zero gates content is retained",
+      "pass": true
+    },
+    {
+      "name": "explicit zero gates merged content is commutative",
+      "pass": true
+    },
+    {
+      "name": "unknown gate count is not silently source-corrected",
+      "pass": true
+    },
+    {
+      "name": "unknown gate count keeps both genuinely different records",
+      "pass": true
+    },
+    {
+      "name": "unknown gate count reports a genuine new conflict",
+      "pass": true
+    },
+    {
+      "name": "unknown gate count content is retained",
+      "pass": true
+    },
+    {
+      "name": "unknown gate count merged content is commutative",
+      "pass": true
+    },
+    {
+      "name": "new site note is not silently source-corrected",
+      "pass": true
+    },
+    {
+      "name": "new site note keeps both genuinely different records",
+      "pass": true
+    },
+    {
+      "name": "new site note reports a genuine new conflict",
+      "pass": true
+    },
+    {
+      "name": "new site note content is retained",
+      "pass": true
+    },
+    {
+      "name": "new site note merged content is commutative",
+      "pass": true
+    },
+    {
+      "name": "different location is not silently source-corrected",
+      "pass": true
+    },
+    {
+      "name": "different location keeps both genuinely different records",
+      "pass": true
+    },
+    {
+      "name": "different location reports a genuine new conflict",
+      "pass": true
+    },
+    {
+      "name": "different location content is retained",
+      "pass": true
+    },
+    {
+      "name": "different location merged content is commutative",
+      "pass": true
+    },
+    {
+      "name": "different docket number is not silently source-corrected",
+      "pass": true
+    },
+    {
+      "name": "different docket number keeps both genuinely different records",
+      "pass": true
+    },
+    {
+      "name": "different docket number reports a genuine new conflict",
+      "pass": true
+    },
+    {
+      "name": "different docket number content is retained",
+      "pass": true
+    },
+    {
+      "name": "different docket number merged content is commutative",
+      "pass": true
+    },
+    {
+      "name": "new metadata is not silently source-corrected",
+      "pass": true
+    },
+    {
+      "name": "new metadata keeps both genuinely different records",
+      "pass": true
+    },
+    {
+      "name": "new metadata reports a genuine new conflict",
+      "pass": true
+    },
+    {
+      "name": "new metadata content is retained",
+      "pass": true
+    },
+    {
+      "name": "new metadata merged content is commutative",
+      "pass": true
+    },
+    {
+      "name": "new recorder is not silently source-corrected",
+      "pass": true
+    },
+    {
+      "name": "new recorder keeps both genuinely different records",
+      "pass": true
+    },
+    {
+      "name": "new recorder reports a genuine new conflict",
+      "pass": true
+    },
+    {
+      "name": "new recorder content is retained",
+      "pass": true
+    },
+    {
+      "name": "new recorder merged content is commutative",
+      "pass": true
+    },
+    {
+      "name": "unrelated conflicting docket remains two records",
+      "pass": true
+    },
+    {
+      "name": "unrelated new conflict remains visible",
+      "pass": true
+    },
+    {
+      "name": "already-held conflict does not alert again on refresh",
+      "pass": true
+    },
+    {
+      "name": "already-held unresolved evidence remains available",
+      "pass": true
+    },
+    {
+      "name": "pre-existing variant hashes survive a key-order-only import",
+      "pass": true
+    },
+    {
+      "name": "reordered import of already-held variants stays quiet",
+      "pass": true
+    },
+    {
+      "name": "pre-existing variant hashes survive reversed merge order",
+      "pass": true
+    },
+    {
+      "name": "edited content cannot impersonate its former variant hash",
+      "pass": true
+    },
+    {
+      "name": "edited content with former variant hash remains a new conflict",
+      "pass": true
+    },
+    {
+      "name": "a new third variant raises a fresh conflict",
+      "pass": true
+    },
+    {
+      "name": "all three genuine variants remain",
+      "pass": true
+    },
+    {
+      "name": "key order alone does not duplicate unrelated docket",
+      "pass": true
+    },
+    {
+      "name": "key order alone is not a conflict",
+      "pass": true
+    },
+    {
+      "name": "base tombstone suppresses every known variant",
+      "pass": true
+    },
+    {
+      "name": "base tombstone also suppresses stale offline base",
+      "pass": true
+    },
+    {
+      "name": "later undo restores exactly one source-correct record",
+      "pass": true
+    },
+    {
+      "name": "deletion wins an equal-time undo",
+      "pass": true
+    },
+    {
+      "name": "dropping obsolete variant retains the source-correct docket",
+      "pass": true
+    },
+    {
+      "name": "corrected variant tombstone prevents source correction resurrection",
+      "pass": true
+    },
+    {
+      "name": "direct helper honours corrected-variant removal",
+      "pass": true
+    },
+    {
+      "name": "direct helper honours obsolete-variant removal",
+      "pass": true
+    },
+    {
+      "name": "later corrected-variant undo allows reviewed normalisation",
+      "pass": true
+    },
+    {
+      "name": "unrelated variant tombstone removes only that variant",
+      "pass": true
+    },
+    {
+      "name": "unrelated removed variant does not survive",
+      "pass": true
+    }
+  ]
+}

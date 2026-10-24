@@ -1,0 +1,34 @@
+{
+  "author": "Andrew Fisher",
+  "baseSha256": "b5d99de88886d9f03aad7af2177b68b1239919542f6c27e2d80be7ec9a89bdfb",
+  "candidateSha256": "1cdd454f842bf2467fbb928179f2570a6d16f8f88d7dfa49674b3d34fcac0910",
+  "baseScripts": 95,
+  "candidateScripts": 96,
+  "unchangedExistingScripts": 91,
+  "changedScriptScopes": [
+    "legacy UI rendering and version label",
+    "Truck flow table scroll wrapper",
+    "Map completion badge rendering",
+    "Availability save acknowledgement"
+  ],
+  "dataIdentical": true,
+  "physicalFinancialSettersIdentical": [
+    "setDone",
+    "setLevelled",
+    "setSteps",
+    "setLight",
+    "setDeliveryNote",
+    "lightSet",
+    "setFenceAreaDone",
+    "unitsSet",
+    "setLabour",
+    "setLabourAll",
+    "setLight815"
+  ],
+  "staffRecordMutationPrefixIdentical": true,
+  "financialCalculationChanges": false,
+  "recordWrites": false,
+  "financialRuntimeRetestRequired": false,
+  "basis": "All existing code outside independently reviewed rendering and staff acknowledgement hunks is identical; 56 isolated Save checks supplement this source proof.",
+  "pass": true
+}

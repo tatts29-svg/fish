@@ -1,0 +1,18 @@
+/* v7.23 - Questions: what it is, why it matters, what we need */
+.qcard h3{display:flex;align-items:center;gap:8px;margin:0 0 10px}
+.qgroup + .qgroup{margin-top:14px}
+.qgroup h4{margin:0 0 8px;font-size:14px;display:flex;align-items:center;gap:8px}
+.qneed{display:block;margin-top:4px;font-size:13px;color:var(--ink);background:rgba(255,106,19,.08);border-left:3px solid #ff6a13;padding:4px 8px;border-radius:0 6px 6px 0}
+.qwhy em,.qneed em{font-style:normal;font-weight:700}
+.qrows{margin:4px 0 2px;padding-left:18px;font-size:13px}
+.qrows li{margin:0 0 2px}
+.qorig{margin-top:4px;font-size:12px;color:var(--mute)}
+.qorig summary{cursor:pointer}
+.qorig p{margin:4px 0 0}
+.qfail{margin:8px 0;padding:6px 10px;border-radius:6px;background:rgba(200,40,30,.1);color:#9b1c12;font-size:13px}
+.qfold > summary{list-style:none;cursor:pointer}
+.qfold > summary::-webkit-details-marker{display:none}
+.qfold > summary h3::after{content:'\25BE';font-size:12px;color:var(--mute);margin-left:4px}
+.qfold[open] > summary h3{margin-bottom:10px}
+.qdone li b{color:var(--ink2)}
+@media (prefers-reduced-motion:reduce){.qfold{transition:none}}

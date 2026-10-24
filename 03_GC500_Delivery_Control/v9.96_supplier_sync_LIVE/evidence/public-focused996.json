@@ -1,0 +1,47 @@
+{
+  "author": "Andrew Fisher",
+  "sha256": "dc648c02fa4d083a78a7068c08526f31e8ad3adfaf3a6beffce4ba326a71a551",
+  "reports": {
+    "demob-phone": {
+      "checks": 23,
+      "errors": 0,
+      "recordWrites": 0,
+      "localHtmlSubstitutions": 0
+    },
+    "supplier-phone": {
+      "checks": 21,
+      "errors": 0,
+      "recordWrites": 0,
+      "localHtmlSubstitutions": 0
+    },
+    "packing-phone": {
+      "checks": 17,
+      "errors": 0,
+      "recordWrites": 0,
+      "localHtmlSubstitutions": 0
+    },
+    "finance-phone": {
+      "checks": 22,
+      "errors": 0,
+      "recordWrites": 0,
+      "localHtmlSubstitutions": 0
+    },
+    "fencing-phone": {
+      "checks": 25,
+      "errors": 0,
+      "recordWrites": 0,
+      "localHtmlSubstitutions": 0
+    },
+    "maps-phone": {
+      "checks": 16,
+      "errors": 0,
+      "recordWrites": 0,
+      "localHtmlSubstitutions": 0,
+      "parentReferences": 178,
+      "missingReferences": []
+    }
+  },
+  "mapStatus": "Fresh isolated-cache public rerun passes; initial harness reused stale index despite no-cache. Actual iframe URL and versioned scripts verified against current public bytes. Explicit tile/session fixtures mean this does not certify map imagery.",
+  "checks": 124,
+  "publicPhoneScreenshotInspected": true
+}

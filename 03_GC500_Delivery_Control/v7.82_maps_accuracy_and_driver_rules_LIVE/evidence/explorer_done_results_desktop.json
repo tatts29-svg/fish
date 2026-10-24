@@ -1,0 +1,78 @@
+{
+ "tests": [
+  {
+   "name": "X1 the Done chip is there, on by default, with the count",
+   "pass": true,
+   "detail": "{\"chip\":true,\"pressed\":\"true\",\"count\":\"21\",\"rings\":21,\"anim\":\"d782beat\",\"list\":21}"
+  },
+  {
+   "name": "X2 every finished unit in view has a ring with its own double beat",
+   "pass": true,
+   "detail": "{\"chip\":true,\"pressed\":\"true\",\"count\":\"21\",\"rings\":21,\"anim\":\"d782beat\",\"list\":21}"
+  },
+  {
+   "name": "X3 the chip hides the layer (and remembers it on this device)",
+   "pass": true,
+   "detail": "{\"pressed\":\"false\",\"list\":0} rings 0"
+  },
+  {
+   "name": "X4 a change in the finished list shows without a reload (read every 4 s)",
+   "pass": true,
+   "detail": "{\"count\":20,\"list\":20}"
+  },
+  {
+   "name": "X5 a category still works with the layer on (Find chips unchanged)",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "X6 picking a category leaves the Done chip as it was, and its layer showing",
+   "pass": true,
+   "detail": "{\"pressed\":\"true\",\"on\":true,\"list\":20}"
+  },
+  {
+   "name": "X7 Escape clears the category chips but not the Done chip",
+   "pass": true,
+   "detail": "{\"pressed\":\"true\",\"on\":true,\"list\":20,\"cats\":0}"
+  },
+  {
+   "name": "X8 the dashboard's Motion Off holds the rings still; turning motion back on brings the beat back",
+   "pass": true,
+   "detail": "{\"off\":{\"still\":true,\"rings\":21,\"anim\":\"none\"},\"on\":{\"still\":false,\"anim\":\"d782beat\"}}"
+  },
+  {
+   "name": "E1 no page errors",
+   "pass": true,
+   "detail": "[\"console: Failed to load resource: net::ERR_FAILED\"]"
+  }
+ ],
+ "errors": [
+  "console: Failed to load resource: net::ERR_FAILED"
+ ],
+ "keys": {
+  "n": 183,
+  "keys": [
+   "GN20",
+   "GN21",
+   "P01",
+   "P03",
+   "P04",
+   "P05",
+   "WC01",
+   "WC02",
+   "WC04",
+   "WC05",
+   "WC06",
+   "WC07",
+   "WC09",
+   "WC50",
+   "WC51",
+   "WC53",
+   "WC54",
+   "WC55",
+   "WC56",
+   "WC57",
+   "WC59"
+  ]
+ }
+}

@@ -1,0 +1,169 @@
+{
+  "author": "Andrew Fisher",
+  "errors": [],
+  "requests": [],
+  "frames": {
+    "before-shadow": {
+      "rgba_sha256": "c472051594a09fa8cef1484e6ccc7eb4eaf153fffa0fa849f82664e8503b3a13",
+      "gl": 0,
+      "camera": {
+        "eye": [
+          -8.311933992053945,
+          0.2071560674770934,
+          -4.14528948697261
+        ],
+        "tgt": [
+          -7.480478009878684,
+          0.04715747877527329,
+          -4.0118364470072265
+        ],
+        "fov": 55
+      },
+      "triangles": 22036
+    },
+    "before-unshadowed": {
+      "rgba_sha256": "d865f519e942b2418a43ae685d7e70b1db4460a1502225cec2039a44e730ae3e",
+      "gl": 0,
+      "camera": {
+        "eye": [
+          -8.311933992053945,
+          0.2071560674770934,
+          -4.14528948697261
+        ],
+        "tgt": [
+          -7.480478009878684,
+          0.04715747877527329,
+          -4.0118364470072265
+        ],
+        "fov": 55
+      },
+      "triangles": 22036
+    },
+    "before-off": {
+      "rgba_sha256": "b2608499cf189dbb8d212d02e66f38293fa9ac89f5979175001e71bc1bdfa2c2",
+      "gl": 0,
+      "camera": {
+        "eye": [
+          -8.311933992053945,
+          0.2071560674770934,
+          -4.14528948697261
+        ],
+        "tgt": [
+          -7.480478009878684,
+          0.04715747877527329,
+          -4.0118364470072265
+        ],
+        "fov": 55
+      },
+      "triangles": null
+    },
+    "after-shadow": {
+      "rgba_sha256": "9875948ef607e2c333884aa12c4c601319cf51a8aaf5f84e6cca259d332d5f5a",
+      "gl": 0,
+      "camera": {
+        "eye": [
+          -8.311933992053945,
+          0.2071560674770934,
+          -4.14528948697261
+        ],
+        "tgt": [
+          -7.480478009878684,
+          0.04715747877527329,
+          -4.0118364470072265
+        ],
+        "fov": 55
+      },
+      "triangles": 22036
+    },
+    "after-unshadowed": {
+      "rgba_sha256": "d865f519e942b2418a43ae685d7e70b1db4460a1502225cec2039a44e730ae3e",
+      "gl": 0,
+      "camera": {
+        "eye": [
+          -8.311933992053945,
+          0.2071560674770934,
+          -4.14528948697261
+        ],
+        "tgt": [
+          -7.480478009878684,
+          0.04715747877527329,
+          -4.0118364470072265
+        ],
+        "fov": 55
+      },
+      "triangles": 22036
+    },
+    "after-off": {
+      "rgba_sha256": "b2608499cf189dbb8d212d02e66f38293fa9ac89f5979175001e71bc1bdfa2c2",
+      "gl": 0,
+      "camera": {
+        "eye": [
+          -8.311933992053945,
+          0.2071560674770934,
+          -4.14528948697261
+        ],
+        "tgt": [
+          -7.480478009878684,
+          0.04715747877527329,
+          -4.0118364470072265
+        ],
+        "fov": 55
+      },
+      "triangles": null
+    }
+  },
+  "checks": [
+    {
+      "name": "before shadow framebuffer has no GL error",
+      "pass": true
+    },
+    {
+      "name": "before unshadowed framebuffer has no GL error",
+      "pass": true
+    },
+    {
+      "name": "before off framebuffer has no GL error",
+      "pass": true
+    },
+    {
+      "name": "after shadow framebuffer has no GL error",
+      "pass": true
+    },
+    {
+      "name": "after unshadowed framebuffer has no GL error",
+      "pass": true
+    },
+    {
+      "name": "after off framebuffer has no GL error",
+      "pass": true
+    },
+    {
+      "name": "unshadowed pixels identical: geometry normals and material unchanged",
+      "pass": true
+    },
+    {
+      "name": "default-off pixels byte-identical",
+      "pass": true
+    },
+    {
+      "name": "shadowed image changed",
+      "pass": true
+    },
+    {
+      "name": "no page or console errors",
+      "pass": true
+    },
+    {
+      "name": "no external requests",
+      "pass": true
+    }
+  ],
+  "files": {
+    "before": {
+      "sha256": "8908db45cee553841abc33c5c5bf87195d8486d2d6edfd058180d716bf702a5e"
+    },
+    "after": {
+      "sha256": "4dc875c0f425f389bf8c5fe0fd4f0c96dba2d4a9d225ed081b4c8bc3969e06cf"
+    }
+  }
+}

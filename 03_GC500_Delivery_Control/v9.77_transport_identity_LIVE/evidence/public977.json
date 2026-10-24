@@ -1,0 +1,124 @@
+{
+  "author": "Andrew Fisher",
+  "pass": true,
+  "sha256": "f4d3e6aa147b2012d9347dc844bc46b11e361b414c0716a6623215e98618e7d7",
+  "actualPublic": true,
+  "pageSubstitutions": 0,
+  "checks": [
+    "Exact actual-public bytes",
+    "35 actual remaining deliveries",
+    "Friday only in history",
+    "One Coates and one PremiAir VMS",
+    "Current work before folded equipment",
+    "Only three specific VMS associations remain",
+    "Default audio remains off",
+    "Fresh remaining-only Tuesday PDF",
+    "Arrived charges on actual view link",
+    "Six quantity-only pee panels retained",
+    "FWF does not gain cleaning fee",
+    "Fencing figures visible on actual route",
+    "P&L figures visible on actual route",
+    "Current P36 delivery and pickup priced",
+    "No operational write attempts or page errors"
+  ],
+  "observations": {
+    "remaining": 35,
+    "friday": 0,
+    "vms": [
+      "coates",
+      "prem-air-hire"
+    ],
+    "refs": [
+      "T0159",
+      "T0169",
+      "T0170"
+    ],
+    "destinations": {
+      "T0268": {
+        "main": "Coates compound",
+        "also": "",
+        "w": {
+          "key": "T0268",
+          "description": "100KVA TRAILER · SPARE",
+          "raw": "Coates compound",
+          "text": "Coates compound",
+          "also": "",
+          "known": true,
+          "quoted": false,
+          "quote": "",
+          "reads_as": null,
+          "confidence": "recorded",
+          "fallback": "Destination not recorded — confirm before dispatch.",
+          "source": "typed on site",
+          "moved": {
+            "to": "Coates compound",
+            "from": "SPARE",
+            "at": "2026-10-09T16:59:48.704Z",
+            "by": "Andrew Fisher via Codex"
+          }
+        }
+      },
+      "WC85": {
+        "main": "Coates compound",
+        "also": "",
+        "w": {
+          "key": "WC85",
+          "description": "Toilets",
+          "raw": "Coates compound",
+          "text": "Coates compound",
+          "also": "",
+          "known": true,
+          "quoted": false,
+          "quote": "",
+          "reads_as": null,
+          "confidence": "recorded",
+          "fallback": "Destination not recorded — confirm before dispatch.",
+          "source": "typed on site",
+          "moved": {
+            "to": "Coates compound",
+            "from": "WC85 - Toilets",
+            "at": "2026-10-09T16:59:48.796Z",
+            "by": "Andrew Fisher via Codex"
+          }
+        }
+      }
+    },
+    "foldClosed": true,
+    "currentFirst": true,
+    "charges": [
+      {
+        "item": "FWF",
+        "quantity": 4,
+        "keys": [
+          "install",
+          "demob"
+        ]
+      },
+      {
+        "item": "Pee Panel",
+        "quantity": 6,
+        "keys": [
+          "install",
+          "steps",
+          "levelling",
+          "cleaning",
+          "demob"
+        ]
+      },
+      {
+        "item": "Toilet Block 6m",
+        "quantity": 2,
+        "keys": [
+          "install",
+          "steps",
+          "levelling",
+          "cleaning",
+          "demob"
+        ]
+      }
+    ],
+    "soundOff": true
+  },
+  "errors": [],
+  "operationalWrites": 0
+}

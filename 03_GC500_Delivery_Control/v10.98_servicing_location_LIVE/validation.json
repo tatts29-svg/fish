@@ -1,0 +1,54 @@
+{
+  "author": "Andrew Fisher",
+  "state": "VERIFIED LIVE",
+  "source_commit": "954087a8668b904d34e122a5c7532b4e0d945e34",
+  "base_sha256": "d584e292ec8647532ef7e93e3873dd41a48efd5890a4a9e32435318e7871b1dc",
+  "candidate_sha256": "6a1d77fe216ab6a1088a89e75ebd4602bb24e084342881a5aa963448adc34e64",
+  "bytes": 18637777,
+  "static_scripts": 149,
+  "sweeps": {
+    "desktop": "25 routes, 7 links, Back; no errors/writes",
+    "phone": "25 routes, 7 links, Back; no errors/writes"
+  },
+  "native_captures": "All bounded document scopes validated; full live state unchanged",
+  "independent_source_review": "Passed; identified completion scope and arrival history issues fixed",
+  "other_agent_review": "No Claude review claimed",
+  "limitations": [
+    "Physical paper scans remain unverified",
+    "No missing delivery association or associated charges invented",
+    "Refreshed private PDF pending; physical paper scans remain unverified"
+  ],
+  "published_at": "2026-10-21T00:34:17.108Z",
+  "published_at_aest": "21 Oct 2026 10:34 AEST",
+  "public_readback": {
+    "exact": true,
+    "verified_at": "2026-10-21T00:35:26.734549+00:00",
+    "sha256": "6a1d77fe216ab6a1088a89e75ebd4602bb24e084342881a5aa963448adc34e64",
+    "bytes": 18637777
+  },
+  "native_actions": {
+    "state": "VERIFIED",
+    "scope": "Only the authorised bounded native changes; private backup and exact independent read-back retained privately",
+    "published_page_sha256": "6a1d77fe216ab6a1088a89e75ebd4602bb24e084342881a5aa963448adc34e64"
+  },
+  "live_ui_readback": {
+    "verified": true,
+    "at": "2026-10-21T00:36:58.214Z",
+    "page_errors": 0,
+    "writes": 0
+  },
+  "tracker_alignment": {
+    "state": "VERIFIED LIVE",
+    "updated_at": "2026-10-21T00:44:54.830Z",
+    "native_update_posts": 1,
+    "unexpected_write_attempts": 0,
+    "job_record_writes": 0,
+    "same_key_preserved": true,
+    "all_prior_signatures_preserved": true,
+    "all_prior_completions_preserved": true,
+    "exact_served_crew_card_verified": true,
+    "source_projection_and_tracker_contract_match": true,
+    "independent_read_only_recovery_at": "2026-10-21T00:45:34.510258+00:00",
+    "full_job_record_and_version_unchanged": true
+  }
+}

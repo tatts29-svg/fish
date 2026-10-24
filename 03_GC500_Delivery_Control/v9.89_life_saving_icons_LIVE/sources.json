@@ -1,0 +1,168 @@
+{
+  "author": "Andrew Fisher",
+  "sourcePage": "https://careers.coates.com.au/content/Safety/?locale=en_GB",
+  "originalsUnchanged": true,
+  "rendering": "SVG colour filter removes the uniform coloured disc, preserves white linework and ring, and colours only this linework. No raster source is edited.",
+  "icons": [
+    {
+      "key": "fit-for-work",
+      "title": "Fit for work",
+      "url": "https://rmkcdn.successfactors.com/9160fdd8/367f56f7-3c0f-43af-917f-d.png",
+      "file": "assets/fit-for-work-mobile.png",
+      "sha256": "1a07f0820dba2fab0f50bd4a2ca098a84433c23a36d8655161f395ea8050c637",
+      "width": 104,
+      "height": 104,
+      "backgroundRgb": [
+        255,
+        97,
+        5
+      ],
+      "channel": 2,
+      "threshold": 17
+    },
+    {
+      "key": "competency",
+      "title": "Competency",
+      "url": "https://rmkcdn.successfactors.com/9160fdd8/e3f0788f-a9c4-4ce3-81cc-6.png",
+      "file": "assets/competency-mobile.png",
+      "sha256": "0d59c86449cf2c52b18b908e954e81465082727da3b9583685072c1b3d844597",
+      "width": 104,
+      "height": 104,
+      "backgroundRgb": [
+        80,
+        80,
+        80
+      ],
+      "channel": 2,
+      "threshold": 92
+    },
+    {
+      "key": "leadership",
+      "title": "Leadership",
+      "url": "https://rmkcdn.successfactors.com/9160fdd8/d298a690-3cbe-4330-979f-4.png",
+      "file": "assets/leadership-mobile.png",
+      "sha256": "677f23c9d079d5f007b53cb7541baab529d52d2e1d3d1b7bfa52dc866ff2ab72",
+      "width": 104,
+      "height": 104,
+      "backgroundRgb": [
+        26,
+        54,
+        95
+      ],
+      "channel": 2,
+      "threshold": 107
+    },
+    {
+      "key": "assess-risk",
+      "title": "Assess risk",
+      "url": "https://rmkcdn.successfactors.com/9160fdd8/b564f006-69f6-4808-b1c0-8.png",
+      "file": "assets/assess-risk-mobile.png",
+      "sha256": "c94574229ee8c3b9172e63f23a5003bcc8f392ec4d24ac385299fabe3c1da6a2",
+      "width": 104,
+      "height": 105,
+      "backgroundRgb": [
+        134,
+        123,
+        77
+      ],
+      "channel": 2,
+      "threshold": 89
+    },
+    {
+      "key": "vehicles",
+      "title": "Vehicles",
+      "url": "https://rmkcdn.successfactors.com/9160fdd8/fd035d01-4dc0-411d-bcc9-4.png",
+      "file": "assets/vehicles-mobile.png",
+      "sha256": "6d1ff8b1d5750080945cfa15f3f65e524fe88353eb848aba338b61ed337508c3",
+      "width": 104,
+      "height": 104,
+      "backgroundRgb": [
+        255,
+        97,
+        5
+      ],
+      "channel": 2,
+      "threshold": 17
+    },
+    {
+      "key": "load-unload",
+      "title": "Load/Unload",
+      "url": "https://rmkcdn.successfactors.com/9160fdd8/8e512282-35d5-4582-99c9-6.png",
+      "file": "assets/load-unload-mobile.png",
+      "sha256": "40221497d1bf814d2ed1c357cab33b2cf01788cdd6f299b34963c9ddaed3c8d1",
+      "width": 104,
+      "height": 104,
+      "backgroundRgb": [
+        80,
+        80,
+        80
+      ],
+      "channel": 2,
+      "threshold": 92
+    },
+    {
+      "key": "load-restraint",
+      "title": "Load/Restraint",
+      "url": "https://rmkcdn.successfactors.com/9160fdd8/16732068-9d1e-4054-b3d9-0.png",
+      "file": "assets/load-restraint-mobile.png",
+      "sha256": "a13a42909a749f6de934ced8c067958df53b883ffad316d12f50e706163afaad",
+      "width": 104,
+      "height": 105,
+      "backgroundRgb": [
+        26,
+        54,
+        95
+      ],
+      "channel": 2,
+      "threshold": 107
+    },
+    {
+      "key": "isolation",
+      "title": "Isolation",
+      "url": "https://rmkcdn.successfactors.com/9160fdd8/7badb679-6bd9-410b-89b8-c.png",
+      "file": "assets/isolation-mobile.png",
+      "sha256": "f230f53eff3eab6b2aa463abec74c420c9bcbce112e0c0190d957fe42e1fe9ba",
+      "width": 104,
+      "height": 104,
+      "backgroundRgb": [
+        134,
+        123,
+        77
+      ],
+      "channel": 2,
+      "threshold": 89
+    },
+    {
+      "key": "manual-handling",
+      "title": "Manual handling",
+      "url": "https://rmkcdn.successfactors.com/9160fdd8/1bf4733c-2bc6-4a5b-9cc0-e.png",
+      "file": "assets/manual-handling-mobile.png",
+      "sha256": "49060dd3c214af45e9821d46c83de84b31b24254494db0a7bb0d2f3f0c814340",
+      "width": 104,
+      "height": 104,
+      "backgroundRgb": [
+        103,
+        128,
+        59
+      ],
+      "channel": 2,
+      "threshold": 71
+    },
+    {
+      "key": "working-at-height",
+      "title": "Working at height",
+      "url": "https://rmkcdn.successfactors.com/9160fdd8/e3b50830-03d9-405a-9d8d-b.png",
+      "file": "assets/working-at-height-mobile.png",
+      "sha256": "1473380c5dfaf9412f7e474ca16a95e98a9402ac35c1a6b0230adee1efea0ebd",
+      "width": 104,
+      "height": 104,
+      "backgroundRgb": [
+        103,
+        128,
+        59
+      ],
+      "channel": 2,
+      "threshold": 71
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+/* Author: Andrew Fisher. Scoped paper compaction; photographs retain useful physical dimensions. */
+#dayprint .dp-page .loading872-sheet{font-size:max(8pt,calc(9pt * var(--k)));padding:calc(2mm * var(--k));margin:calc(1mm * var(--k)) 0}
+#dayprint .dp-page .loading872-sheet div{margin-top:calc(.6mm * var(--k))}
+#dayprint .dp-page .dp-win{min-height:36mm}
+#dayprint .dp-page .dp-hero{min-height:47mm}
+#dayprint .dp-compact899{gap:calc(1.25mm * var(--k))}
+#dayprint .dp-compact899 .dp-hd{min-height:18mm}
+#dayprint .dp-pages899{display:block;font-size:7pt;line-height:1.2;font-weight:700;white-space:nowrap;margin-top:1mm}
+#dayprint .dp-page .paired879{font-size:8pt}
+#dayprint .dp-page .paired879 th,#dayprint .dp-page .paired879 td{font-size:8pt;padding:1mm}

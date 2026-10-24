@@ -1,0 +1,597 @@
+{
+ "days": [
+  {
+   "id": "2026-10-20",
+   "plan": "night"
+  },
+  {
+   "id": "2026-10-21",
+   "plan": "night"
+  },
+  {
+   "id": "2026-10-22",
+   "plan": "night"
+  },
+  {
+   "id": "2026-10-23",
+   "plan": "night"
+  },
+  {
+   "id": "2026-10-24",
+   "plan": "night"
+  },
+  {
+   "id": "2026-10-25",
+   "plan": "final"
+  }
+ ],
+ "lines": [
+  {
+   "id": "PG01-FWF",
+   "ref": "PG01",
+   "kind": "fwf",
+   "qty": 1
+  },
+  {
+   "id": "PG03-FWF",
+   "ref": "PG03",
+   "kind": "fwf",
+   "qty": 1
+  },
+  {
+   "id": "PG05-FWF",
+   "ref": "PG05",
+   "kind": "fwf",
+   "qty": 1
+  },
+  {
+   "id": "PG29-FWF",
+   "ref": "PG29",
+   "kind": "fwf",
+   "qty": 1
+  },
+  {
+   "id": "WC12-FWF",
+   "ref": "WC12",
+   "kind": "fwf",
+   "qty": 4
+  },
+  {
+   "id": "WC16-TOILETBL",
+   "ref": "WC16",
+   "kind": "sewer",
+   "qty": 2
+  },
+  {
+   "id": "BJR01-FWF",
+   "ref": "BJR01",
+   "kind": "fwf",
+   "qty": 1
+  },
+  {
+   "id": "T0162-FWF",
+   "ref": "T0162",
+   "kind": "fwf",
+   "qty": 1
+  },
+  {
+   "id": "T0176-FWF",
+   "ref": "T0176",
+   "kind": "fwf",
+   "qty": 2
+  },
+  {
+   "id": "SVP01-FWF",
+   "ref": "SVP01",
+   "kind": "fwf",
+   "qty": 1
+  },
+  {
+   "id": "WC15-TOILETBL",
+   "ref": "WC15",
+   "kind": "sewer",
+   "qty": 2
+  },
+  {
+   "id": "WC17-TOILETBL",
+   "ref": "WC17",
+   "kind": "sewer",
+   "qty": 2
+  },
+  {
+   "id": "WC43-FWF",
+   "ref": "WC43",
+   "kind": "fwf",
+   "qty": 10
+  },
+  {
+   "id": "WC73-FWF",
+   "ref": "WC73",
+   "kind": "fwf",
+   "qty": 2
+  },
+  {
+   "id": "T0243-TOILETBL",
+   "ref": "T0243",
+   "kind": "sewer",
+   "qty": 1
+  },
+  {
+   "id": "WC19-FWF",
+   "ref": "WC19",
+   "kind": "fwf",
+   "qty": 1
+  },
+  {
+   "id": "WC20-TOILETBL",
+   "ref": "WC20",
+   "kind": "block",
+   "qty": 2
+  },
+  {
+   "id": "WC20-WASTETAN",
+   "ref": "WC20",
+   "kind": "tank",
+   "qty": 2
+  },
+  {
+   "id": "WC86-ACCESSIB",
+   "ref": "WC86",
+   "kind": "access",
+   "qty": 1
+  },
+  {
+   "id": "WC21-FWF",
+   "ref": "WC21",
+   "kind": "fwf",
+   "qty": 6
+  },
+  {
+   "id": "WC44-FWF",
+   "ref": "WC44",
+   "kind": "fwf",
+   "qty": 2
+  },
+  {
+   "id": "T0024-FWF",
+   "ref": "T0024",
+   "kind": "fwf",
+   "qty": 1
+  },
+  {
+   "id": "T0024-COA",
+   "ref": "T0024",
+   "kind": "fwf",
+   "qty": 1
+  },
+  {
+   "id": "WC05-TOILETBL",
+   "ref": "WC05",
+   "kind": "block",
+   "qty": 1
+  },
+  {
+   "id": "WC05-WASTETAN",
+   "ref": "WC05",
+   "kind": "tank",
+   "qty": 1
+  },
+  {
+   "id": "WC04-FWF",
+   "ref": "WC04",
+   "kind": "fwf",
+   "qty": 1
+  },
+  {
+   "id": "WC06-FWF",
+   "ref": "WC06",
+   "kind": "fwf",
+   "qty": 2
+  },
+  {
+   "id": "WC07-FWF",
+   "ref": "WC07",
+   "kind": "fwf",
+   "qty": 20
+  },
+  {
+   "id": "WC11-FWF",
+   "ref": "WC11",
+   "kind": "fwf",
+   "qty": 2
+  },
+  {
+   "id": "WC41-FWF",
+   "ref": "WC41",
+   "kind": "fwf",
+   "qty": 10
+  },
+  {
+   "id": "WC01-FWF",
+   "ref": "WC01",
+   "kind": "fwf",
+   "qty": 2
+  },
+  {
+   "id": "WC01-ACCESSIB",
+   "ref": "WC01",
+   "kind": "access",
+   "qty": 1
+  },
+  {
+   "id": "WC02-FWF",
+   "ref": "WC02",
+   "kind": "fwf",
+   "qty": 1
+  },
+  {
+   "id": "WC38-FWF",
+   "ref": "WC38",
+   "kind": "fwf",
+   "qty": 1
+  },
+  {
+   "id": "WC39-FWF",
+   "ref": "WC39",
+   "kind": "fwf",
+   "qty": 2
+  },
+  {
+   "id": "WC40-FWF",
+   "ref": "WC40",
+   "kind": "fwf",
+   "qty": 5
+  },
+  {
+   "id": "WC42-FWF",
+   "ref": "WC42",
+   "kind": "fwf",
+   "qty": 1
+  },
+  {
+   "id": "WC31-ACCESSIB",
+   "ref": "WC31",
+   "kind": "access",
+   "qty": 1
+  },
+  {
+   "id": "WC31-16PANBLO",
+   "ref": "WC31",
+   "kind": "pan16",
+   "qty": 2
+  },
+  {
+   "id": "WC34-FWF",
+   "ref": "WC34",
+   "kind": "fwf",
+   "qty": 1
+  },
+  {
+   "id": "WC65-FWF",
+   "ref": "WC65",
+   "kind": "fwf",
+   "qty": 1
+  },
+  {
+   "id": "WC09-FWF",
+   "ref": "WC09",
+   "kind": "fwf",
+   "qty": 10
+  },
+  {
+   "id": "WC09-TOILETBL",
+   "ref": "WC09",
+   "kind": "sewer",
+   "qty": 2
+  },
+  {
+   "id": "WC10-FWF",
+   "ref": "WC10",
+   "kind": "fwf",
+   "qty": 3
+  },
+  {
+   "id": "WC28-FWF",
+   "ref": "WC28",
+   "kind": "fwf",
+   "qty": 1
+  },
+  {
+   "id": "WC29-FWF",
+   "ref": "WC29",
+   "kind": "fwf",
+   "qty": 7
+  },
+  {
+   "id": "WC27-TOILETBL",
+   "ref": "WC27",
+   "kind": "block",
+   "qty": 1
+  },
+  {
+   "id": "WC27-WASTETAN",
+   "ref": "WC27",
+   "kind": "tank",
+   "qty": 1
+  },
+  {
+   "id": "WC33-FWF",
+   "ref": "WC33",
+   "kind": "fwf",
+   "qty": 17
+  },
+  {
+   "id": "WC60-TOILETBL",
+   "ref": "WC60",
+   "kind": "block",
+   "qty": 2
+  },
+  {
+   "id": "WC60-WASTETAN",
+   "ref": "WC60",
+   "kind": "tank",
+   "qty": 2
+  },
+  {
+   "id": "WC61-FWF",
+   "ref": "WC61",
+   "kind": "fwf",
+   "qty": 8
+  },
+  {
+   "id": "WC57-FWF",
+   "ref": "WC57",
+   "kind": "fwf",
+   "qty": 2
+  },
+  {
+   "id": "WC59-FWF",
+   "ref": "WC59",
+   "kind": "fwf",
+   "qty": 7
+  },
+  {
+   "id": "WC23-FWF",
+   "ref": "WC23",
+   "kind": "fwf",
+   "qty": 5
+  },
+  {
+   "id": "WC26-FWF",
+   "ref": "WC26",
+   "kind": "fwf",
+   "qty": 1
+  },
+  {
+   "id": "WC50-FWF",
+   "ref": "WC50",
+   "kind": "fwf",
+   "qty": 1
+  },
+  {
+   "id": "WC56-FWF",
+   "ref": "WC56",
+   "kind": "fwf",
+   "qty": 12
+  },
+  {
+   "id": "WC25-FWF",
+   "ref": "WC25",
+   "kind": "fwf",
+   "qty": 1
+  },
+  {
+   "id": "WC45-FWF",
+   "ref": "WC45",
+   "kind": "fwf",
+   "qty": 8
+  },
+  {
+   "id": "WC47-FWF",
+   "ref": "WC47",
+   "kind": "fwf",
+   "qty": 1
+  },
+  {
+   "id": "WC13-FWF",
+   "ref": "WC13",
+   "kind": "fwf",
+   "qty": 2
+  },
+  {
+   "id": "WC24-FWF",
+   "ref": "WC24",
+   "kind": "fwf",
+   "qty": 1
+  },
+  {
+   "id": "WC54-FWF",
+   "ref": "WC54",
+   "kind": "fwf",
+   "qty": 6
+  },
+  {
+   "id": "WC55-FWF",
+   "ref": "WC55",
+   "kind": "fwf",
+   "qty": 1
+  },
+  {
+   "id": "SPASHDOWN-1",
+   "ref": "SPASHDOWN",
+   "kind": "pump_only",
+   "qty": 1
+  },
+  {
+   "id": "WC46-FWF",
+   "ref": "WC46",
+   "kind": "fwf",
+   "qty": 1
+  },
+  {
+   "id": "WC48-FWF",
+   "ref": "WC48",
+   "kind": "fwf",
+   "qty": 4
+  },
+  {
+   "id": "WC49-FWF",
+   "ref": "WC49",
+   "kind": "fwf",
+   "qty": 3
+  },
+  {
+   "id": "WC51-FWF",
+   "ref": "WC51",
+   "kind": "fwf",
+   "qty": 6
+  },
+  {
+   "id": "WC51-ACCESSIB",
+   "ref": "WC51",
+   "kind": "access",
+   "qty": 1
+  },
+  {
+   "id": "WC53-FWF",
+   "ref": "WC53",
+   "kind": "fwf",
+   "qty": 3
+  },
+  {
+   "id": "WC30-FWF",
+   "ref": "WC30",
+   "kind": "fwf",
+   "qty": 8
+  },
+  {
+   "id": "WC35-FWF",
+   "ref": "WC35",
+   "kind": "fwf",
+   "qty": 1
+  },
+  {
+   "id": "WC62-FWF",
+   "ref": "WC62",
+   "kind": "fwf",
+   "qty": 2
+  },
+  {
+   "id": "WC67-FWF",
+   "ref": "WC67",
+   "kind": "fwf",
+   "qty": 4
+  },
+  {
+   "id": "WC68-FWF",
+   "ref": "WC68",
+   "kind": "fwf",
+   "qty": 1
+  },
+  {
+   "id": "WC69-FWF",
+   "ref": "WC69",
+   "kind": "fwf",
+   "qty": 12
+  },
+  {
+   "id": "WC70-FWF",
+   "ref": "WC70",
+   "kind": "fwf",
+   "qty": 1
+  },
+  {
+   "id": "WC71-FWF",
+   "ref": "WC71",
+   "kind": "fwf",
+   "qty": 8
+  },
+  {
+   "id": "WC72-FWF",
+   "ref": "WC72",
+   "kind": "fwf",
+   "qty": 1
+  },
+  {
+   "id": "WC81-FWF",
+   "ref": "WC81",
+   "kind": "fwf",
+   "qty": 1
+  },
+  {
+   "id": "WC85-FWF",
+   "ref": "WC85",
+   "kind": "fwf",
+   "qty": 1
+  },
+  {
+   "id": "WC100-FWFTRAIL",
+   "ref": "WC100",
+   "kind": "fwf",
+   "qty": 2
+  }
+ ],
+ "plans": {
+  "fwf": {
+   "night": [
+    "pump",
+    "clean",
+    "refill"
+   ],
+   "final": [
+    "lockup"
+   ]
+  },
+  "access": {
+   "night": [
+    "pump",
+    "clean",
+    "refill"
+   ],
+   "final": [
+    "lockup"
+   ]
+  },
+  "pan16": {
+   "night": [
+    "pump",
+    "clean"
+   ],
+   "final": [
+    "lockup"
+   ]
+  },
+  "block": {
+   "night": [
+    "clean"
+   ],
+   "final": [
+    "clean"
+   ]
+  },
+  "sewer": {
+   "night": [
+    "clean"
+   ],
+   "final": [
+    "clean"
+   ]
+  },
+  "tank": {
+   "night": [
+    "pump"
+   ],
+   "final": [
+    "pump"
+   ]
+  },
+  "pump_only": {
+   "night": [
+    "pump"
+   ],
+   "final": [
+    "pump"
+   ]
+  }
+ }
+}

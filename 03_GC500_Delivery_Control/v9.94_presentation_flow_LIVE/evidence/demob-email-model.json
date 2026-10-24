@@ -1,0 +1,15 @@
+{
+  "author": "Andrew Fisher",
+  "checks": 6,
+  "pass": true,
+  "scope": "native mail renderer; mixed-branch fixture",
+  "sha256": "382311bc1faf33ca1333d1431368a442dbdf651a6d23874b56ef65bae7ed8dd8",
+  "assertions": [
+    "Matching mixed-branch load remains complete",
+    "Matching Coates load is retained",
+    "Unrelated branch load is excluded",
+    "All-branches view retains every load",
+    "Empty selected trucks does not invent a toilet run",
+    "Physical load fixtures are unchanged"
+  ]
+}

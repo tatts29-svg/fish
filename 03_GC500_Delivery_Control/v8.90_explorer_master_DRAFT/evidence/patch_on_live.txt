@@ -1,0 +1,22 @@
+input: the live v8.64 explorer files (set b469a99c), fetched read-only from /w/Coates-GC500-2026/explorer/ on 7 Oct 2026 and verified against the retained manifest
+c37afd30491161c7d2d50e792b8d96c022050a513abe93d5f4ef0c9f24303024  explorer-fix864.css
+2b0cfadb0b2b68b9516408e1458f22def3cb2100612579a63ad40a2206ad09f2  explorer-fix864.js
+261238402f3c4bf3dc94a661b3dc8378bb789b01cdfd77b4cfc9810d1236b67c  explorer-merge.js
+65749fbe601b1ae6cd2e99fc2c317e6cdcb985f10dac8c1b0b3ba98ff223a61c  explorer.js
+0c26c3b7777f99573326123e264d4fb4e53196ee0a1882aaa6dd6aa7ea5393ff  fencing-map-core.js
+31418b528009e4ec5e8eb23884f27fcf40b2114673f1b1bef297a1d7eeda3e53  fencing-map-explorer.js
+a4f3e8688702c8dd80fc9522d039aab0c4ea4938f97b3384a8ae8134f18ced46  fencing-map.css
+f75f8f4ff9b11cc7af0d373dc0484cdfb4874d0bca72ed6d85367ececb04a158  index.html
+ec58b3bcb4f3b8594f3ab1304cf4d564dd581bf974f708cdea56203026e9bbae  scene-worker.js
+
+python3 tools/patch_explorer890.py code_live_in out890/assets code_live_out
+scene token 5c6a6ae30507 · explorer.js token 2b30f3bbd18c
+explorer-fix864.css              1793 c37afd304911
+explorer-fix864.js               7167 2b0cfadb0b2b
+explorer-merge.js               25146 261238402f3c
+explorer.js                    135470 2b30f3bbd18c
+fencing-map-core.js             10357 0c26c3b7777f
+fencing-map-explorer.js         46100 31418b528009
+fencing-map.css                  6118 a4f3e8688702
+index.html                      28012 559a79d7c918
+scene-worker.js                  7210 ec58b3bcb4f3

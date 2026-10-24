@@ -1,0 +1,230 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261017T033025Z",
+ "finished": "2026-10-17T03:30:41.903Z",
+ "mode": "apply",
+ "spec": {
+  "by": "Andrew Fisher",
+  "ops": [
+   {
+    "op": "arrived",
+    "ref": "P26",
+    "iso": "2026-10-14",
+    "why": "Due 14 Oct and came that day (Andrew, 17 Oct 2026: \"So did the fridges\"; \"Have it as those dates\")"
+   },
+   {
+    "op": "arrived",
+    "ref": "P28",
+    "iso": "2026-10-14",
+    "why": "Due 14 Oct and came that day (Andrew, 17 Oct 2026: \"So did the fridges\"; \"Have it as those dates\")"
+   },
+   {
+    "op": "arrived",
+    "ref": "P34",
+    "iso": "2026-10-14",
+    "why": "Due 14 Oct and came that day (Andrew, 17 Oct 2026: \"the swivel chairs turned up on the correct day\")"
+   }
+  ]
+ },
+ "pageSha256": "2b06724918d04bdea06fb7068611b1d5912ade143bd1ab3a9aa2d6c5a17f0a1f",
+ "version": {
+  "before": 9698,
+  "after": 9701
+ },
+ "updated": {
+  "before": "2026-10-17T03:22:28.472Z",
+  "after": "2026-10-17T03:30:41.035Z"
+ },
+ "stage": [
+  {
+   "op": "arrived",
+   "ref": "P26",
+   "iso": "2026-10-14",
+   "why": "Due 14 Oct and came that day (Andrew, 17 Oct 2026: \"So did the fridges\"; \"Have it as those dates\")",
+   "result": "on site by 2026-10-14 (time not recorded), entry 2026-10-13T14:00:00.000Z"
+  },
+  {
+   "op": "arrived",
+   "ref": "P28",
+   "iso": "2026-10-14",
+   "why": "Due 14 Oct and came that day (Andrew, 17 Oct 2026: \"So did the fridges\"; \"Have it as those dates\")",
+   "result": "on site by 2026-10-14 (time not recorded), entry 2026-10-13T14:00:00.000Z"
+  },
+  {
+   "op": "arrived",
+   "ref": "P34",
+   "iso": "2026-10-14",
+   "why": "Due 14 Oct and came that day (Andrew, 17 Oct 2026: \"the swivel chairs turned up on the correct day\")",
+   "result": "on site by 2026-10-14 (time not recorded), entry 2026-10-13T14:00:00.000Z"
+  }
+ ],
+ "writes": [
+  {
+   "key": "delivery/P26",
+   "status": 200
+  },
+  {
+   "key": "delivery/P28",
+   "status": 200
+  },
+  {
+   "key": "delivery/P34",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 1,
+ "docs": {
+  "before": {
+   "delivery/P26": {
+    "state": "on site",
+    "set_at": "2026-10-17T02:13:36.418Z",
+    "by": "Andrew Fisher",
+    "note": "Fridge 1311992 for the Police, in the 2-storey building. It came on 14 Oct 2026, the day it was due, with T0265's four fridges; it was put on P46 (QPS Command Post) on 15 Oct and moved here 17 Oct. Andrew, 17 Oct 2026: \"1311992 - These were for the Police\" ... \"The ones for police can go in 2 story building are P26 & P28\" ... \"So did the fridges\" (turned up on the correct day). Recorded on site 17 Oct; on site since 14 Oct.",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:19.034Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-17T02:13:36.418Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "_k": "P26"
+   },
+   "delivery/P28": {
+    "state": "on site",
+    "set_at": "2026-10-17T02:13:38.184Z",
+    "by": "Andrew Fisher",
+    "note": "Fridge 1283996 for the Police, in the 2-storey building. It came on 14 Oct 2026, the day it was due, with T0265's four fridges; it was put on P46 (QPS Command Post) on 15 Oct and moved here 17 Oct. Andrew, 17 Oct 2026: \"1283996 - These were for the Police\" ... \"The ones for police can go in 2 story building are P26 & P28\" ... \"So did the fridges\" (turned up on the correct day). Recorded on site 17 Oct; on site since 14 Oct.",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:19.191Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-17T02:13:38.184Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "_k": "P28"
+   },
+   "delivery/P34": {
+    "state": "on site",
+    "set_at": "2026-10-17T02:13:39.869Z",
+    "by": "Andrew Fisher",
+    "note": "The chairs came on 14 Oct 2026, the day they were due. Andrew, 17 Oct 2026: \"the swivel chairs turned up on the correct day\". The schedule calls them Pad Chair x 2. Recorded on site 17 Oct; on site since 14 Oct.",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:19.351Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-17T02:13:39.869Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "_k": "P34"
+   }
+  },
+  "after": {
+   "delivery/P26": {
+    "state": "on site",
+    "set_at": "2026-10-17T02:13:36.418Z",
+    "by": "Andrew Fisher",
+    "note": "Fridge 1311992 for the Police, in the 2-storey building. It came on 14 Oct 2026, the day it was due, with T0265's four fridges; it was put on P46 (QPS Command Post) on 15 Oct and moved here 17 Oct. Andrew, 17 Oct 2026: \"1311992 - These were for the Police\" ... \"The ones for police can go in 2 story building are P26 & P28\" ... \"So did the fridges\" (turned up on the correct day). Recorded on site 17 Oct; on site since 14 Oct.",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:19.034Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-17T02:13:36.418Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-13T14:00:00.000Z",
+      "by": "Andrew Fisher",
+      "recorded_at": "2026-10-17T03:30:36.558Z",
+      "date_only": true,
+      "effective_date": "2026-10-14",
+      "note": "Due 14 Oct and came that day (Andrew, 17 Oct 2026: \"So did the fridges\"; \"Have it as those dates\")"
+     }
+    ],
+    "_k": "P26"
+   },
+   "delivery/P28": {
+    "state": "on site",
+    "set_at": "2026-10-17T02:13:38.184Z",
+    "by": "Andrew Fisher",
+    "note": "Fridge 1283996 for the Police, in the 2-storey building. It came on 14 Oct 2026, the day it was due, with T0265's four fridges; it was put on P46 (QPS Command Post) on 15 Oct and moved here 17 Oct. Andrew, 17 Oct 2026: \"1283996 - These were for the Police\" ... \"The ones for police can go in 2 story building are P26 & P28\" ... \"So did the fridges\" (turned up on the correct day). Recorded on site 17 Oct; on site since 14 Oct.",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:19.191Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-17T02:13:38.184Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-13T14:00:00.000Z",
+      "by": "Andrew Fisher",
+      "recorded_at": "2026-10-17T03:30:37.279Z",
+      "date_only": true,
+      "effective_date": "2026-10-14",
+      "note": "Due 14 Oct and came that day (Andrew, 17 Oct 2026: \"So did the fridges\"; \"Have it as those dates\")"
+     }
+    ],
+    "_k": "P28"
+   },
+   "delivery/P34": {
+    "state": "on site",
+    "set_at": "2026-10-17T02:13:39.869Z",
+    "by": "Andrew Fisher",
+    "note": "The chairs came on 14 Oct 2026, the day they were due. Andrew, 17 Oct 2026: \"the swivel chairs turned up on the correct day\". The schedule calls them Pad Chair x 2. Recorded on site 17 Oct; on site since 14 Oct.",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:19.351Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-17T02:13:39.869Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-13T14:00:00.000Z",
+      "by": "Andrew Fisher",
+      "recorded_at": "2026-10-17T03:30:37.949Z",
+      "date_only": true,
+      "effective_date": "2026-10-14",
+      "note": "Due 14 Oct and came that day (Andrew, 17 Oct 2026: \"the swivel chairs turned up on the correct day\")"
+     }
+    ],
+    "_k": "P34"
+   }
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}

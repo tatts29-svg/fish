@@ -1,0 +1,77 @@
+[
+  {
+    "name": "public v11.84 with truck load and clarity code",
+    "ok": true
+  },
+  {
+    "name": "whole truck and load fit the phone frame",
+    "ok": true
+  },
+  {
+    "name": "public loaded branded truck",
+    "ok": true,
+    "detail": {
+      "kind": "Advanced Temporary Fencing truck",
+      "quality": "high",
+      "triangles": 19319,
+      "parts": 28,
+      "newTextures": 0,
+      "geometryBuiltOnce": true,
+      "illustrative": true,
+      "brandVersion": 1180,
+      "loadVersion": 1182,
+      "stockLoaded": true,
+      "loadType": "separate dense panel stacks and central palletised base blocks",
+      "logoTriangles": 3417,
+      "logoCopies": 3
+    }
+  },
+  {
+    "name": "native public clarity resolution and independent edge smoothing",
+    "ok": true,
+    "detail": {
+      "version": "1.8",
+      "quality": "crisp",
+      "samples": 4,
+      "shadowMap": 2048,
+      "resolution": [
+        2160,
+        3267
+      ],
+      "facades": "recessed glass and concrete",
+      "ambientContact": false,
+      "carStyle": "solid",
+      "steppedDownTo": null,
+      "bloom": false,
+      "reflections": false,
+      "shadowOn": true,
+      "drawnAt": "4K clarity",
+      "resolutionLocked": true,
+      "antiAliasing": 4
+    }
+  },
+  {
+    "name": "clarity option accessible on phone",
+    "ok": true
+  },
+  {
+    "name": "clean Close",
+    "ok": true
+  },
+  {
+    "name": "shared record unchanged",
+    "ok": true
+  },
+  {
+    "name": "zero page errors and attempted writes",
+    "ok": true,
+    "detail": {
+      "errors": [],
+      "counts": {
+        "page": 0,
+        "live": 109,
+        "blocked": 0
+      }
+    }
+  }
+]

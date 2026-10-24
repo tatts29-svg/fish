@@ -1,0 +1,98 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261020T021919Z",
+ "finished": "2026-10-20T02:19:29.375Z",
+ "mode": "apply",
+ "spec": {
+  "by": "Andrew Fisher",
+  "basis": "Andrew, 20 Oct 2026, in chat (map screenshot of the concert generators GN? 1316182, 1316183 beside WC10): \"remove and delete the 350A generator GN20 not needed and the picture took its place\". GN20 is the 350 kVA, unit 1276701 (set on site and complete 30 Sep under Andrew's name; install ticked via Codex). A read-only in-memory deleteAsset('GN20') moves revenue -$166.56 and known costs -$570.00.",
+  "refs": [
+   "GN20"
+  ],
+  "ops": [
+   {
+    "op": "asset_delete",
+    "ref": "GN20",
+    "why": "Removed on Andrew's word 20 Oct 2026 - the 350 kVA (1276701) is not needed; the concert generators took its place."
+   }
+  ]
+ },
+ "pageSha256": "396ea971e968e55182b054a936de316a82fa3751df6ba6d7cc566973d578bc0b",
+ "version": {
+  "before": 10112,
+  "after": 10117
+ },
+ "updated": {
+  "before": "2026-10-20T01:58:54.853Z",
+  "after": "2026-10-20T02:19:28.604Z"
+ },
+ "stage": [
+  {
+   "op": "asset_delete",
+   "ref": "GN20",
+   "why": "Removed on Andrew's word 20 Oct 2026 - the 350 kVA (1276701) is not needed; the concert generators took its place.",
+   "result": "deleted for good - Removed on Andrew's word 20 Oct 2026 - the 350 kVA (1276701) is not needed; the concert generators took its place."
+  }
+ ],
+ "writes": [
+  {
+   "key": "stamps/notes~2f~asset~2f~GN20",
+   "status": 200
+  },
+  {
+   "key": "notes/asset~2f~GN20",
+   "status": 200
+  },
+  {
+   "key": "deleted/asset~2f~GN20",
+   "status": 200
+  },
+  {
+   "key": "by/deleted~2f~asset~2f~GN20",
+   "status": 200
+  },
+  {
+   "key": "by/notes~2f~asset~2f~GN20",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 1,
+ "docs": {
+  "before": {
+   "stamps/notes~2f~asset~2f~GN20": null,
+   "notes/asset~2f~GN20": null,
+   "deleted/asset~2f~GN20": null,
+   "by/deleted~2f~asset~2f~GN20": null,
+   "by/notes~2f~asset~2f~GN20": null
+  },
+  "after": {
+   "stamps/notes~2f~asset~2f~GN20": {
+    "_k": "notes/asset/GN20",
+    "v": "2026-10-20T02:19:25.625Z"
+   },
+   "notes/asset~2f~GN20": {
+    "_k": "asset/GN20",
+    "v": "Deleted 20 Oct 12:19 by Andrew Fisher — Removed on Andrew's word 20 Oct 2026 - the 350 kVA (1276701) is not needed; the concert generators took its place."
+   },
+   "deleted/asset~2f~GN20": {
+    "_k": "asset/GN20",
+    "v": "2026-10-20T02:19:25.625Z"
+   },
+   "by/deleted~2f~asset~2f~GN20": {
+    "_k": "deleted/asset/GN20",
+    "v": "Andrew Fisher"
+   },
+   "by/notes~2f~asset~2f~GN20": {
+    "_k": "notes/asset/GN20",
+    "v": "Andrew Fisher"
+   }
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}

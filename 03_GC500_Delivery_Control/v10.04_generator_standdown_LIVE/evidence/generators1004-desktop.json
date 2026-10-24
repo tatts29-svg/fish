@@ -1,0 +1,1563 @@
+{
+  "author": "Andrew Fisher",
+  "fixtureVersion": 5443,
+  "diagnostics": {
+    "receiptRemainingDelta": -707.67,
+    "receiptPLDelta": -175.4,
+    "receiptHireDelta": 424.6,
+    "expectedDelta": 424.6,
+    "receiptBranchChecks": {
+      "revenue": true,
+      "revenueJob": true,
+      "cost": true,
+      "costJob": true
+    }
+  },
+  "checks": [
+    {
+      "name": "Actual hire matches independent decimal oracle",
+      "pass": true
+    },
+    {
+      "name": "Remaining forecast matches independent decimal oracle",
+      "pass": true
+    },
+    {
+      "name": "Standdown separately reconciles to independent calculation",
+      "pass": true
+    },
+    {
+      "name": "Total hire equals actual plus remaining forecast",
+      "pass": true
+    },
+    {
+      "name": "18 active generators across 17 references/contracts",
+      "pass": true
+    },
+    {
+      "name": "Nine confirmed arrivals and nine future units",
+      "pass": true
+    },
+    {
+      "name": "Independent amount/date/quantity ref:GN01",
+      "pass": true
+    },
+    {
+      "name": "Independent amount/date/quantity ref:GN03",
+      "pass": true
+    },
+    {
+      "name": "Independent amount/date/quantity ref:GN04",
+      "pass": true
+    },
+    {
+      "name": "Independent amount/date/quantity ref:GN06",
+      "pass": true
+    },
+    {
+      "name": "Independent amount/date/quantity ref:GN10",
+      "pass": true
+    },
+    {
+      "name": "Independent amount/date/quantity ref:GN13",
+      "pass": true
+    },
+    {
+      "name": "Independent amount/date/quantity ref:GN18",
+      "pass": true
+    },
+    {
+      "name": "Independent amount/date/quantity ref:GN19",
+      "pass": true
+    },
+    {
+      "name": "Independent amount/date/quantity ref:GN20",
+      "pass": true
+    },
+    {
+      "name": "Independent amount/date/quantity ref:GN21",
+      "pass": true
+    },
+    {
+      "name": "Independent amount/date/quantity ref:GN23",
+      "pass": true
+    },
+    {
+      "name": "Independent amount/date/quantity ref:GN24",
+      "pass": true
+    },
+    {
+      "name": "Independent amount/date/quantity ref:GN25",
+      "pass": true
+    },
+    {
+      "name": "Independent amount/date/quantity ref:GN?",
+      "pass": true
+    },
+    {
+      "name": "Independent amount/date/quantity ref:T0268",
+      "pass": true
+    },
+    {
+      "name": "Independent amount/date/quantity contract:9961976:32",
+      "pass": true
+    },
+    {
+      "name": "Independent amount/date/quantity contract:9961976:39",
+      "pass": true
+    },
+    {
+      "name": "All known generator records priced",
+      "pass": true
+    },
+    {
+      "name": "Corrected GN13 confirmed asset number only",
+      "pass": true
+    },
+    {
+      "name": "Unconfirmed Concert and GN18 asset numbers omitted",
+      "pass": true
+    },
+    {
+      "name": "GN23 distribution board excluded from generator identity",
+      "pass": true
+    },
+    {
+      "name": "All off hire dates Sunday 25 October",
+      "pass": true
+    },
+    {
+      "name": "Recorded Revenue replaces old generator charges once",
+      "pass": true
+    },
+    {
+      "name": "Whole-job Revenue adds complete generator total once",
+      "pass": true
+    },
+    {
+      "name": "All Direct costs unchanged",
+      "pass": true
+    },
+    {
+      "name": "P&L actual and forecast reconcile to shared totals",
+      "pass": true
+    },
+    {
+      "name": "Branch totals reconcile",
+      "pass": true
+    },
+    {
+      "name": "Finance handover reconciles",
+      "pass": true
+    },
+    {
+      "name": "Entire generator charge allocated to October invoice period",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9961265:1",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9961265:3",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9961265:4",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9961265:5",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9961265:6",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9961265:7",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9961265:8",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9961265:9",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9961265:12",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9961265:13",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9961265:15",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9961265:16",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9961265:18",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9961265:19",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9961265:21",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9961265:22",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9961265:23",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9961265:24",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9961265:25",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9961265:26",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9961265:28",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9961265:29",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9961265:30",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9961976:1",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9961976:2",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9961976:3",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9961976:4",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9961976:5",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9961976:19",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9961976:20",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9961976:21",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9961976:25",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9961976:26",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9961976:27",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9961976:29",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9961976:30",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9961976:31",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9961976:34",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9961976:35",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9961976:37",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9961976:41",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968726:1",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968726:2",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968726:3",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968726:4",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968726:5",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968726:6",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968726:7",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968726:8",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968726:9",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968862:1",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968862:3",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968862:4",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968862:6",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968862:7",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968862:9",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968862:10",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968862:12",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968862:13",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968862:14",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968862:15",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968862:16",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968862:17",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968862:19",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968862:20",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968862:21",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968862:22",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968862:23",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968862:24",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968862:26",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968862:27",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968862:28",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968862:30",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968862:31",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968862:32",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968862:33",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968862:34",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968862:36",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968862:38",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968862:44",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968862:46",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968862:48",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968862:50",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968862:51",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968862:53",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968862:55",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968862:57",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968862:59",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968862:61",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968862:63",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968862:64",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968862:66",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968862:67",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968862:68",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968862:69",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968862:70",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968862:72",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968862:73",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968862:75",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968862:76",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968862:78",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968862:79",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968862:81",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968862:82",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968862:84",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968862:85",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968862:87",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968862:89",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968862:90",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968862:91",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968862:92",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968862:93",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968862:94",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968862:96",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968862:97",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968862:98",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968862:100",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968862:102",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968862:103",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968862:105",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968862:107",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968862:108",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968862:110",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968862:112",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968862:113",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968862:115",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968862:116",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968862:118",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968862:120",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968862:121",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968862:123",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968862:124",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968862:125",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968862:126",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968862:127",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968862:128",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968929:1",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968929:3",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968929:5",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968929:7",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968955:1",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968955:3",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968955:4",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968955:5",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968955:6",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968955:7",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968955:8",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968955:9",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968955:10",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968955:11",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968955:12",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968955:13",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968955:14",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968955:15",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968955:16",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968955:17",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968955:18",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968955:19",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968955:20",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968955:21",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968955:22",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968955:23",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968955:24",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968955:25",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968955:26",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968955:27",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968955:28",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968955:29",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968955:30",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968955:31",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968955:32",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968955:33",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968955:34",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968955:35",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968955:36",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968955:37",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968955:38",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968955:39",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968955:40",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968955:41",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968955:42",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968955:43",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968955:44",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968955:45",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968955:46",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968955:47",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968955:48",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968955:49",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968955:50",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968955:51",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968955:52",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968955:54",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968955:55",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968955:56",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968955:57",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968955:58",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968955:59",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968955:60",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968955:61",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968955:62",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968955:63",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968955:64",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968955:65",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968955:66",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968955:67",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968955:68",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968955:69",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968955:70",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968955:71",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968955:72",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968955:73",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968955:74",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968955:75",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968955:76",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968955:77",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968955:78",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968955:79",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968955:80",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968955:81",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968955:82",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968955:83",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968955:84",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968955:85",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968955:86",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968955:87",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968955:88",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968955:89",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968955:90",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968955:91",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968955:93",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968955:94",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968955:95",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968955:96",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968955:97",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968955:98",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968955:99",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968955:100",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968955:101",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968955:102",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968955:103",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968955:105",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968955:106",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968955:107",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968955:108",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968955:109",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968955:110",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968955:111",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968955:112",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968955:113",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968955:114",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968955:115",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968955:116",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968955:117",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968955:118",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968955:119",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968955:120",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968955:121",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968955:122",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968955:123",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968955:124",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968955:125",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968955:126",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968955:127",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968955:128",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968955:129",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968955:130",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968955:131",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968955:132",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968955:133",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968955:134",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968955:135",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968955:136",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968955:137",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968955:138",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968955:139",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9968955:140",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9972648:1",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9972648:2",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9972648:3",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9972648:4",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9972648:5",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9972648:6",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9972648:7",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9972648:8",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9972648:9",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9972648:10",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9972648:11",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9972648:12",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9972648:13",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9972648:14",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9972648:15",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9973079:1",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9973079:2",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9973977:1",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9974042:1",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9974042:2",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9974042:3",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9974042:4",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9987005:1",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9987005:2",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9987005:3",
+      "pass": true
+    },
+    {
+      "name": "Unrelated contract charge unchanged 9987005:6",
+      "pass": true
+    },
+    {
+      "name": "Physical pickup and accessory/labour/transport unchanged GN01",
+      "pass": true
+    },
+    {
+      "name": "Physical pickup and accessory/labour/transport unchanged GN03",
+      "pass": true
+    },
+    {
+      "name": "Physical pickup and accessory/labour/transport unchanged GN04",
+      "pass": true
+    },
+    {
+      "name": "Physical pickup and accessory/labour/transport unchanged GN06",
+      "pass": true
+    },
+    {
+      "name": "Physical pickup and accessory/labour/transport unchanged GN10",
+      "pass": true
+    },
+    {
+      "name": "Physical pickup and accessory/labour/transport unchanged GN13",
+      "pass": true
+    },
+    {
+      "name": "Physical pickup and accessory/labour/transport unchanged GN18",
+      "pass": true
+    },
+    {
+      "name": "Physical pickup and accessory/labour/transport unchanged GN19",
+      "pass": true
+    },
+    {
+      "name": "Physical pickup and accessory/labour/transport unchanged GN20",
+      "pass": true
+    },
+    {
+      "name": "Physical pickup and accessory/labour/transport unchanged GN21",
+      "pass": true
+    },
+    {
+      "name": "Physical pickup and accessory/labour/transport unchanged GN23",
+      "pass": true
+    },
+    {
+      "name": "Physical pickup and accessory/labour/transport unchanged GN24",
+      "pass": true
+    },
+    {
+      "name": "Physical pickup and accessory/labour/transport unchanged GN25",
+      "pass": true
+    },
+    {
+      "name": "Physical pickup and accessory/labour/transport unchanged GN?",
+      "pass": true
+    },
+    {
+      "name": "Physical pickup and accessory/labour/transport unchanged T0019",
+      "pass": true
+    },
+    {
+      "name": "Physical pickup and accessory/labour/transport unchanged T0268",
+      "pass": true
+    },
+    {
+      "name": "Reference hire equals generator total GN01",
+      "pass": true
+    },
+    {
+      "name": "Reference hire equals generator total GN03",
+      "pass": true
+    },
+    {
+      "name": "Reference hire equals generator total GN04",
+      "pass": true
+    },
+    {
+      "name": "Reference hire equals generator total GN06",
+      "pass": true
+    },
+    {
+      "name": "Reference hire equals generator total GN10",
+      "pass": true
+    },
+    {
+      "name": "Reference hire equals generator total GN13",
+      "pass": true
+    },
+    {
+      "name": "Reference hire equals generator total GN18",
+      "pass": true
+    },
+    {
+      "name": "Reference hire equals generator total GN19",
+      "pass": true
+    },
+    {
+      "name": "Reference hire equals generator total GN20",
+      "pass": true
+    },
+    {
+      "name": "Reference hire equals generator total GN21",
+      "pass": true
+    },
+    {
+      "name": "Reference hire equals generator total GN23",
+      "pass": true
+    },
+    {
+      "name": "Reference hire equals generator total GN24",
+      "pass": true
+    },
+    {
+      "name": "Reference hire equals generator total GN25",
+      "pass": true
+    },
+    {
+      "name": "Reference hire equals generator total GN?",
+      "pass": true
+    },
+    {
+      "name": "Reference hire equals generator total T0268",
+      "pass": true
+    },
+    {
+      "name": "Delivery correction changes generator and recorded Revenue together",
+      "pass": true
+    },
+    {
+      "name": "Delivery correction changes Costs/P&L/branch forecast together",
+      "pass": true
+    },
+    {
+      "name": "Receipt moves forecast to actual using actual delivery date",
+      "pass": true
+    },
+    {
+      "name": "Receipt adjusts remaining forecast in every view",
+      "pass": true
+    },
+    {
+      "name": "Legacy 3-day rate override becomes daily 200 without changing its unit",
+      "pass": true
+    },
+    {
+      "name": "Rate edit propagates to P&L and reference charge",
+      "pass": true
+    },
+    {
+      "name": "Reference branch change moves actual Revenue to chosen branch",
+      "pass": true
+    },
+    {
+      "name": "Concert exact supplied coordinate drives navigation",
+      "pass": true
+    },
+    {
+      "name": "Concert location links to Costs and master map",
+      "pass": true
+    },
+    {
+      "name": "Later native Concert pin updates navigation and master",
+      "pass": true
+    },
+    {
+      "name": "Financial fixtures restore exactly",
+      "pass": true
+    },
+    {
+      "name": "Native state unchanged by all read-only models",
+      "pass": true
+    },
+    {
+      "name": "Generator subtab is selected",
+      "pass": true
+    },
+    {
+      "name": "Total charge visible per reference",
+      "pass": true
+    },
+    {
+      "name": "No horizontal page clipping",
+      "pass": true
+    }
+  ],
+  "totals": {
+    "actual": 28196.4,
+    "remaining": 9333.73,
+    "total": 37530.13,
+    "oldGenerator": 12512.85
+  },
+  "errors": [],
+  "counts": {
+    "page": 1,
+    "live": 48,
+    "blocked": 0
+  },
+  "candidateSha256": "0030d7d3d6838fcad67773cdb19927ea0388591aa33cbc163e53d0d02d182443"
+}

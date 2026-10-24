@@ -1,0 +1,155 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261018T144916Z",
+ "finished": "2026-10-18T14:49:27.911Z",
+ "mode": "apply",
+ "spec": {
+  "by": "Andrew Fisher",
+  "basis": "Andrew, 18 Oct 2026, in chat: \"Remove TO169 AND TO170\", after he was told the VMS total of 24 included T0169 (VMS x 2) and T0170 (VMS x 1), neither on site. The 16 on site are VMS1-4, 6-17.",
+  "refs": [
+   "T0169",
+   "T0170"
+  ],
+  "ops": [
+   {
+    "op": "asset_delete",
+    "ref": "T0169",
+    "why": "Removed on Andrew's word 18 Oct 2026 - VMS x 2 not coming; the 16 on site are VMS1-4, 6-17."
+   },
+   {
+    "op": "asset_delete",
+    "ref": "T0170",
+    "why": "Removed on Andrew's word 18 Oct 2026 - VMS x 1 not coming; the 16 on site are VMS1-4, 6-17."
+   }
+  ]
+ },
+ "pageSha256": "ad9d7c0cdb4a63a55072712ea89c31fd88437bfd1b930b76a2feaa831894e587",
+ "version": {
+  "before": 9749,
+  "after": 9759
+ },
+ "updated": {
+  "before": "2026-10-18T11:26:15.300Z",
+  "after": "2026-10-18T14:49:26.994Z"
+ },
+ "stage": [
+  {
+   "op": "asset_delete",
+   "ref": "T0169",
+   "why": "Removed on Andrew's word 18 Oct 2026 - VMS x 2 not coming; the 16 on site are VMS1-4, 6-17.",
+   "result": "deleted for good - Removed on Andrew's word 18 Oct 2026 - VMS x 2 not coming; the 16 on site are VMS1-4, 6-17."
+  },
+  {
+   "op": "asset_delete",
+   "ref": "T0170",
+   "why": "Removed on Andrew's word 18 Oct 2026 - VMS x 1 not coming; the 16 on site are VMS1-4, 6-17.",
+   "result": "deleted for good - Removed on Andrew's word 18 Oct 2026 - VMS x 1 not coming; the 16 on site are VMS1-4, 6-17."
+  }
+ ],
+ "writes": [
+  {
+   "key": "stamps/notes~2f~asset~2f~T0169",
+   "status": 200
+  },
+  {
+   "key": "stamps/notes~2f~asset~2f~T0170",
+   "status": 200
+  },
+  {
+   "key": "notes/asset~2f~T0169",
+   "status": 200
+  },
+  {
+   "key": "notes/asset~2f~T0170",
+   "status": 200
+  },
+  {
+   "key": "deleted/asset~2f~T0169",
+   "status": 200
+  },
+  {
+   "key": "deleted/asset~2f~T0170",
+   "status": 200
+  },
+  {
+   "key": "by/deleted~2f~asset~2f~T0169",
+   "status": 200
+  },
+  {
+   "key": "by/notes~2f~asset~2f~T0169",
+   "status": 200
+  },
+  {
+   "key": "by/deleted~2f~asset~2f~T0170",
+   "status": 200
+  },
+  {
+   "key": "by/notes~2f~asset~2f~T0170",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 1,
+ "docs": {
+  "before": {
+   "stamps/notes~2f~asset~2f~T0169": null,
+   "stamps/notes~2f~asset~2f~T0170": null,
+   "notes/asset~2f~T0169": null,
+   "notes/asset~2f~T0170": null,
+   "deleted/asset~2f~T0169": null,
+   "deleted/asset~2f~T0170": null,
+   "by/deleted~2f~asset~2f~T0169": null,
+   "by/notes~2f~asset~2f~T0169": null,
+   "by/deleted~2f~asset~2f~T0170": null,
+   "by/notes~2f~asset~2f~T0170": null
+  },
+  "after": {
+   "stamps/notes~2f~asset~2f~T0169": {
+    "_k": "notes/asset/T0169",
+    "v": "2026-10-18T14:49:23.570Z"
+   },
+   "stamps/notes~2f~asset~2f~T0170": {
+    "_k": "notes/asset/T0170",
+    "v": "2026-10-18T14:49:24.096Z"
+   },
+   "notes/asset~2f~T0169": {
+    "_k": "asset/T0169",
+    "v": "Deleted 19 Oct 00:49 by Andrew Fisher — Removed on Andrew's word 18 Oct 2026 - VMS x 2 not coming; the 16 on site are VMS1-4, 6-17."
+   },
+   "notes/asset~2f~T0170": {
+    "_k": "asset/T0170",
+    "v": "Deleted 19 Oct 00:49 by Andrew Fisher — Removed on Andrew's word 18 Oct 2026 - VMS x 1 not coming; the 16 on site are VMS1-4, 6-17."
+   },
+   "deleted/asset~2f~T0169": {
+    "_k": "asset/T0169",
+    "v": "2026-10-18T14:49:23.570Z"
+   },
+   "deleted/asset~2f~T0170": {
+    "_k": "asset/T0170",
+    "v": "2026-10-18T14:49:24.096Z"
+   },
+   "by/deleted~2f~asset~2f~T0169": {
+    "_k": "deleted/asset/T0169",
+    "v": "Andrew Fisher"
+   },
+   "by/notes~2f~asset~2f~T0169": {
+    "_k": "notes/asset/T0169",
+    "v": "Andrew Fisher"
+   },
+   "by/deleted~2f~asset~2f~T0170": {
+    "_k": "deleted/asset/T0170",
+    "v": "Andrew Fisher"
+   },
+   "by/notes~2f~asset~2f~T0170": {
+    "_k": "notes/asset/T0170",
+    "v": "Andrew Fisher"
+   }
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}

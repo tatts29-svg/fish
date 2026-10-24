@@ -1,0 +1,15 @@
+{
+ "device": "phone",
+ "pass": true,
+ "fails": [],
+ "strip": "Rehire on site · all equipment: Event Portables 200 on site (199 at locations, 1 spare) Premiair Hire 6 on site (6 at locations) United Rentals Royal Wolf 1 on site (1 at locations)",
+ "vmsRow": "VMS 20 Premiair Hire 6 0 20 14 0 0 20",
+ "drawers": {
+  "T0001": "1211370 1211354 1182999 1191877 1211359 1211383 1271129",
+  "T0103": "1211404 120T",
+  "T0128": "467T 1211646",
+  "T0158": "472T 487T 475T 453T 1191657 1201864 1211348 1211376 1211364"
+ },
+ "foot": "Coates Industrial Solutions · GC500 · Author: Andrew Fisher · built 2026-09-25 · assets-1.0.0 · Today v8.20 · v10.75",
+ "base": null
+}

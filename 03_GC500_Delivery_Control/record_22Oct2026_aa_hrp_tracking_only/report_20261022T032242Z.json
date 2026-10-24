@@ -1,0 +1,830 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261022T032242Z",
+ "finished": "2026-10-22T03:23:14.151Z",
+ "mode": "apply",
+ "spec": {
+  "by": "Andrew Fisher",
+  "basis": "Andrew, 22 Oct 2026: \"can we not charge for these two units we will keep a record of these 2 but no labour charges or steps or transport or pick up or dmob for these 2 just purely tracking please. AA and HRP pay for there separate are on HS# 9968926 & 9974238.\" The drawer's own record of both buildings stays as it is (on site, levelled, steps fitted, complete, photos, place). What comes off is the Costs tab's charge ticks on each: install, steps, levelling, cleaning, the delivery and pickup legs and demob, through the page's own labour control as an editor unticking them; and a note on each building says why. The fire extinguisher quantity on each stays - it is a thing in the building.",
+  "ops": [
+   {
+    "op": "labour_off",
+    "ref": "AA",
+    "disc": "Portable buildings",
+    "item": "Building 6m",
+    "line": "install"
+   },
+   {
+    "op": "labour_off",
+    "ref": "AA",
+    "disc": "Portable buildings",
+    "item": "Building 6m",
+    "line": "steps"
+   },
+   {
+    "op": "labour_off",
+    "ref": "AA",
+    "disc": "Portable buildings",
+    "item": "Building 6m",
+    "line": "levelling"
+   },
+   {
+    "op": "labour_off",
+    "ref": "AA",
+    "disc": "Portable buildings",
+    "item": "Building 6m",
+    "line": "cleaning"
+   },
+   {
+    "op": "labour_off",
+    "ref": "AA",
+    "disc": "Portable buildings",
+    "item": "Building 6m",
+    "line": "delivery"
+   },
+   {
+    "op": "labour_off",
+    "ref": "AA",
+    "disc": "Portable buildings",
+    "item": "Building 6m",
+    "line": "pickup"
+   },
+   {
+    "op": "labour_off",
+    "ref": "AA",
+    "disc": "Portable buildings",
+    "item": "Building 6m",
+    "line": "demob"
+   },
+   {
+    "op": "labour_off",
+    "ref": "HRP",
+    "disc": "Portable buildings",
+    "item": "Building 6m",
+    "line": "install"
+   },
+   {
+    "op": "labour_off",
+    "ref": "HRP",
+    "disc": "Portable buildings",
+    "item": "Building 6m",
+    "line": "steps"
+   },
+   {
+    "op": "labour_off",
+    "ref": "HRP",
+    "disc": "Portable buildings",
+    "item": "Building 6m",
+    "line": "levelling"
+   },
+   {
+    "op": "labour_off",
+    "ref": "HRP",
+    "disc": "Portable buildings",
+    "item": "Building 6m",
+    "line": "cleaning"
+   },
+   {
+    "op": "labour_off",
+    "ref": "HRP",
+    "disc": "Portable buildings",
+    "item": "Building 6m",
+    "line": "delivery"
+   },
+   {
+    "op": "labour_off",
+    "ref": "HRP",
+    "disc": "Portable buildings",
+    "item": "Building 6m",
+    "line": "pickup"
+   },
+   {
+    "op": "labour_off",
+    "ref": "HRP",
+    "disc": "Portable buildings",
+    "item": "Building 6m",
+    "line": "demob"
+   },
+   {
+    "op": "note_append",
+    "ref": "AA",
+    "text": "Tracked only, not charged on this job: Active Air pays for this building on its own contract HS 9968926. No labour, steps, transport, pickup or demob is charged here (Andrew Fisher, 22 Oct 2026)."
+   },
+   {
+    "op": "note_append",
+    "ref": "HRP",
+    "text": "Tracked only, not charged on this job: Hire Republic pays for this building on its own contract HS 9974238. No labour, steps, transport, pickup or demob is charged here (Andrew Fisher, 22 Oct 2026)."
+   }
+  ],
+  "allowRemove": [
+   "labour/AA~7c~Portable~20~buildings~7c~Building~20~6m~7c~install",
+   "labour/AA~7c~Portable~20~buildings~7c~Building~20~6m~7c~steps",
+   "labour/AA~7c~Portable~20~buildings~7c~Building~20~6m~7c~levelling",
+   "labour/AA~7c~Portable~20~buildings~7c~Building~20~6m~7c~cleaning",
+   "labour/AA~7c~Portable~20~buildings~7c~Building~20~6m~7c~delivery",
+   "labour/AA~7c~Portable~20~buildings~7c~Building~20~6m~7c~pickup",
+   "labour/AA~7c~Portable~20~buildings~7c~Building~20~6m~7c~demob",
+   "labour/HRP~7c~Portable~20~buildings~7c~Building~20~6m~7c~install",
+   "labour/HRP~7c~Portable~20~buildings~7c~Building~20~6m~7c~steps",
+   "labour/HRP~7c~Portable~20~buildings~7c~Building~20~6m~7c~levelling",
+   "labour/HRP~7c~Portable~20~buildings~7c~Building~20~6m~7c~cleaning",
+   "labour/HRP~7c~Portable~20~buildings~7c~Building~20~6m~7c~delivery",
+   "labour/HRP~7c~Portable~20~buildings~7c~Building~20~6m~7c~pickup",
+   "labour/HRP~7c~Portable~20~buildings~7c~Building~20~6m~7c~demob"
+  ],
+  "allowRemoveWhy": "a labour tick taken off is a document removed, exactly as the Costs tab does when an editor unticks it; these fourteen are the charge ticks on AA and HRP, which Andrew asked not to charge on this job"
+ },
+ "pageSha256": "619716842cd86081bd68ce6d5c8d60e4cb7425cacf81e4ee212c52f1925a4aa5",
+ "version": {
+  "before": 10509,
+  "after": 10543
+ },
+ "updated": {
+  "before": "2026-10-22T02:08:50.467Z",
+  "after": "2026-10-22T03:23:13.244Z"
+ },
+ "stage": [
+  {
+   "op": "labour_off",
+   "ref": "AA",
+   "disc": "Portable buildings",
+   "item": "Building 6m",
+   "line": "install",
+   "result": "taken off"
+  },
+  {
+   "op": "labour_off",
+   "ref": "AA",
+   "disc": "Portable buildings",
+   "item": "Building 6m",
+   "line": "steps",
+   "result": "taken off"
+  },
+  {
+   "op": "labour_off",
+   "ref": "AA",
+   "disc": "Portable buildings",
+   "item": "Building 6m",
+   "line": "levelling",
+   "result": "taken off"
+  },
+  {
+   "op": "labour_off",
+   "ref": "AA",
+   "disc": "Portable buildings",
+   "item": "Building 6m",
+   "line": "cleaning",
+   "result": "taken off"
+  },
+  {
+   "op": "labour_off",
+   "ref": "AA",
+   "disc": "Portable buildings",
+   "item": "Building 6m",
+   "line": "delivery",
+   "result": "taken off"
+  },
+  {
+   "op": "labour_off",
+   "ref": "AA",
+   "disc": "Portable buildings",
+   "item": "Building 6m",
+   "line": "pickup",
+   "result": "taken off"
+  },
+  {
+   "op": "labour_off",
+   "ref": "AA",
+   "disc": "Portable buildings",
+   "item": "Building 6m",
+   "line": "demob",
+   "result": "taken off"
+  },
+  {
+   "op": "labour_off",
+   "ref": "HRP",
+   "disc": "Portable buildings",
+   "item": "Building 6m",
+   "line": "install",
+   "result": "taken off"
+  },
+  {
+   "op": "labour_off",
+   "ref": "HRP",
+   "disc": "Portable buildings",
+   "item": "Building 6m",
+   "line": "steps",
+   "result": "taken off"
+  },
+  {
+   "op": "labour_off",
+   "ref": "HRP",
+   "disc": "Portable buildings",
+   "item": "Building 6m",
+   "line": "levelling",
+   "result": "taken off"
+  },
+  {
+   "op": "labour_off",
+   "ref": "HRP",
+   "disc": "Portable buildings",
+   "item": "Building 6m",
+   "line": "cleaning",
+   "result": "taken off"
+  },
+  {
+   "op": "labour_off",
+   "ref": "HRP",
+   "disc": "Portable buildings",
+   "item": "Building 6m",
+   "line": "delivery",
+   "result": "taken off"
+  },
+  {
+   "op": "labour_off",
+   "ref": "HRP",
+   "disc": "Portable buildings",
+   "item": "Building 6m",
+   "line": "pickup",
+   "result": "taken off"
+  },
+  {
+   "op": "labour_off",
+   "ref": "HRP",
+   "disc": "Portable buildings",
+   "item": "Building 6m",
+   "line": "demob",
+   "result": "taken off"
+  },
+  {
+   "op": "note_append",
+   "ref": "AA",
+   "result": "note added to"
+  },
+  {
+   "op": "note_append",
+   "ref": "HRP",
+   "result": "note added to"
+  }
+ ],
+ "writes": [
+  {
+   "key": "delivery/AA",
+   "status": 200
+  },
+  {
+   "key": "delivery/HRP",
+   "status": 200
+  },
+  {
+   "key": "stamps/labour~2f~HRP~7c~Portable~20~buildings~7c~Building~20~6m~7c~install",
+   "status": 200
+  },
+  {
+   "key": "stamps/labour~2f~HRP~7c~Portable~20~buildings~7c~Building~20~6m~7c~steps",
+   "status": 200
+  },
+  {
+   "key": "stamps/labour~2f~HRP~7c~Portable~20~buildings~7c~Building~20~6m~7c~levelling",
+   "status": 200
+  },
+  {
+   "key": "stamps/labour~2f~AA~7c~Portable~20~buildings~7c~Building~20~6m~7c~install",
+   "status": 200
+  },
+  {
+   "key": "stamps/labour~2f~AA~7c~Portable~20~buildings~7c~Building~20~6m~7c~steps",
+   "status": 200
+  },
+  {
+   "key": "stamps/labour~2f~AA~7c~Portable~20~buildings~7c~Building~20~6m~7c~levelling",
+   "status": 200
+  },
+  {
+   "key": "stamps/labour~2f~AA~7c~Portable~20~buildings~7c~Building~20~6m~7c~cleaning",
+   "status": 200
+  },
+  {
+   "key": "stamps/labour~2f~AA~7c~Portable~20~buildings~7c~Building~20~6m~7c~delivery",
+   "status": 200
+  },
+  {
+   "key": "stamps/labour~2f~HRP~7c~Portable~20~buildings~7c~Building~20~6m~7c~cleaning",
+   "status": 200
+  },
+  {
+   "key": "stamps/labour~2f~HRP~7c~Portable~20~buildings~7c~Building~20~6m~7c~delivery",
+   "status": 200
+  },
+  {
+   "key": "stamps/labour~2f~AA~7c~Portable~20~buildings~7c~Building~20~6m~7c~demob",
+   "status": 200
+  },
+  {
+   "key": "stamps/labour~2f~AA~7c~Portable~20~buildings~7c~Building~20~6m~7c~pickup",
+   "status": 200
+  },
+  {
+   "key": "stamps/labour~2f~HRP~7c~Portable~20~buildings~7c~Building~20~6m~7c~demob",
+   "status": 200
+  },
+  {
+   "key": "stamps/labour~2f~HRP~7c~Portable~20~buildings~7c~Building~20~6m~7c~pickup",
+   "status": 200
+  },
+  {
+   "key": "stamps/dnote~2f~AA",
+   "status": 200
+  },
+  {
+   "key": "stamps/dnote~2f~HRP",
+   "status": 200
+  },
+  {
+   "key": "by/dnote~2f~AA",
+   "status": 200
+  },
+  {
+   "key": "by/dnote~2f~HRP",
+   "status": 200
+  },
+  {
+   "key": "labour/HRP~7c~Portable~20~buildings~7c~Building~20~6m~7c~install",
+   "status": 200
+  },
+  {
+   "key": "labour/HRP~7c~Portable~20~buildings~7c~Building~20~6m~7c~steps",
+   "status": 200
+  },
+  {
+   "key": "labour/HRP~7c~Portable~20~buildings~7c~Building~20~6m~7c~levelling",
+   "status": 200
+  },
+  {
+   "key": "labour/AA~7c~Portable~20~buildings~7c~Building~20~6m~7c~install",
+   "status": 200
+  },
+  {
+   "key": "labour/AA~7c~Portable~20~buildings~7c~Building~20~6m~7c~steps",
+   "status": 200
+  },
+  {
+   "key": "labour/AA~7c~Portable~20~buildings~7c~Building~20~6m~7c~levelling",
+   "status": 200
+  },
+  {
+   "key": "labour/AA~7c~Portable~20~buildings~7c~Building~20~6m~7c~cleaning",
+   "status": 200
+  },
+  {
+   "key": "labour/AA~7c~Portable~20~buildings~7c~Building~20~6m~7c~delivery",
+   "status": 200
+  },
+  {
+   "key": "labour/HRP~7c~Portable~20~buildings~7c~Building~20~6m~7c~delivery",
+   "status": 200
+  },
+  {
+   "key": "labour/HRP~7c~Portable~20~buildings~7c~Building~20~6m~7c~cleaning",
+   "status": 200
+  },
+  {
+   "key": "labour/AA~7c~Portable~20~buildings~7c~Building~20~6m~7c~demob",
+   "status": 200
+  },
+  {
+   "key": "labour/AA~7c~Portable~20~buildings~7c~Building~20~6m~7c~pickup",
+   "status": 200
+  },
+  {
+   "key": "labour/HRP~7c~Portable~20~buildings~7c~Building~20~6m~7c~pickup",
+   "status": 200
+  },
+  {
+   "key": "labour/HRP~7c~Portable~20~buildings~7c~Building~20~6m~7c~demob",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 1,
+ "docs": {
+  "before": {
+   "delivery/AA": {
+    "state": "on site",
+    "set_at": "2026-09-17T04:19:50.758Z",
+    "by": "Andrew Fisher",
+    "levelled": true,
+    "levelled_by": "Andrew Fisher",
+    "levelled_at": "2026-09-17T21:32:00.523Z",
+    "steps": true,
+    "steps_by": "Andrew Fisher",
+    "steps_at": "2026-09-17T21:32:06.448Z",
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-09-17T04:33:45.072Z",
+    "eta": "11:00",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-09-17T04:19:50.758Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-09-17T04:33:45.072Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "levelled_history": [
+     {
+      "levelled": true,
+      "at": "2026-09-17T21:32:00.523Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "steps_history": [
+     {
+      "steps": true,
+      "at": "2026-09-17T21:32:06.448Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "handling875": {
+     "method": "tilt-tray",
+     "by": "Andrew Fisher",
+     "at": "2026-10-10T07:58:47.521Z"
+    },
+    "loading872": {
+     "u142514": {
+      "side": "passenger",
+      "by": "Andrew Fisher",
+      "at": "2026-10-10T07:55:27.318Z"
+     }
+    },
+    "_k": "AA"
+   },
+   "delivery/HRP": {
+    "levelled": true,
+    "levelled_by": "Andrew Fisher",
+    "levelled_at": "2026-09-17T21:31:58.865Z",
+    "steps": true,
+    "steps_by": "Andrew Fisher",
+    "steps_at": "2026-09-17T21:32:04.881Z",
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-09-17T04:33:48.042Z",
+    "eta": "07:00",
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-09-17T04:33:48.042Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "levelled_history": [
+     {
+      "levelled": true,
+      "at": "2026-09-17T21:31:58.865Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "steps_history": [
+     {
+      "steps": true,
+      "at": "2026-09-17T21:32:04.881Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "handling875": {
+     "method": "tilt-tray",
+     "by": "Andrew Fisher",
+     "at": "2026-10-10T07:57:44.980Z"
+    },
+    "loading872": {
+     "u1189410": {
+      "side": "passenger",
+      "by": "Andrew Fisher",
+      "at": "2026-10-10T07:53:46.439Z"
+     }
+    },
+    "_k": "HRP"
+   },
+   "stamps/labour~2f~HRP~7c~Portable~20~buildings~7c~Building~20~6m~7c~install": {
+    "_k": "labour/HRP|Portable buildings|Building 6m|install",
+    "v": "2026-09-17T23:44:49.583Z"
+   },
+   "stamps/labour~2f~HRP~7c~Portable~20~buildings~7c~Building~20~6m~7c~steps": {
+    "_k": "labour/HRP|Portable buildings|Building 6m|steps",
+    "v": "2026-09-17T23:44:50.380Z"
+   },
+   "stamps/labour~2f~HRP~7c~Portable~20~buildings~7c~Building~20~6m~7c~levelling": {
+    "_k": "labour/HRP|Portable buildings|Building 6m|levelling",
+    "v": "2026-09-17T23:44:51.268Z"
+   },
+   "stamps/labour~2f~AA~7c~Portable~20~buildings~7c~Building~20~6m~7c~install": {
+    "_k": "labour/AA|Portable buildings|Building 6m|install",
+    "v": "2026-09-17T23:54:48.415Z"
+   },
+   "stamps/labour~2f~AA~7c~Portable~20~buildings~7c~Building~20~6m~7c~steps": {
+    "_k": "labour/AA|Portable buildings|Building 6m|steps",
+    "v": "2026-09-17T23:54:49.470Z"
+   },
+   "stamps/labour~2f~AA~7c~Portable~20~buildings~7c~Building~20~6m~7c~levelling": {
+    "_k": "labour/AA|Portable buildings|Building 6m|levelling",
+    "v": "2026-09-17T23:54:50.380Z"
+   },
+   "stamps/labour~2f~AA~7c~Portable~20~buildings~7c~Building~20~6m~7c~cleaning": {
+    "_k": "labour/AA|Portable buildings|Building 6m|cleaning",
+    "v": "2026-10-16T03:43:55.349Z"
+   },
+   "stamps/labour~2f~AA~7c~Portable~20~buildings~7c~Building~20~6m~7c~delivery": {
+    "_k": "labour/AA|Portable buildings|Building 6m|delivery",
+    "v": "2026-10-16T03:43:55.567Z"
+   },
+   "stamps/labour~2f~HRP~7c~Portable~20~buildings~7c~Building~20~6m~7c~cleaning": {
+    "_k": "labour/HRP|Portable buildings|Building 6m|cleaning",
+    "v": "2026-10-16T03:43:57.164Z"
+   },
+   "stamps/labour~2f~HRP~7c~Portable~20~buildings~7c~Building~20~6m~7c~delivery": {
+    "_k": "labour/HRP|Portable buildings|Building 6m|delivery",
+    "v": "2026-10-16T03:43:57.295Z"
+   },
+   "stamps/labour~2f~AA~7c~Portable~20~buildings~7c~Building~20~6m~7c~demob": {
+    "_k": "labour/AA|Portable buildings|Building 6m|demob",
+    "v": "2026-10-16T09:17:27.577Z"
+   },
+   "stamps/labour~2f~AA~7c~Portable~20~buildings~7c~Building~20~6m~7c~pickup": {
+    "_k": "labour/AA|Portable buildings|Building 6m|pickup",
+    "v": "2026-10-16T09:17:27.954Z"
+   },
+   "stamps/labour~2f~HRP~7c~Portable~20~buildings~7c~Building~20~6m~7c~demob": {
+    "_k": "labour/HRP|Portable buildings|Building 6m|demob",
+    "v": "2026-10-16T09:17:30.134Z"
+   },
+   "stamps/labour~2f~HRP~7c~Portable~20~buildings~7c~Building~20~6m~7c~pickup": {
+    "_k": "labour/HRP|Portable buildings|Building 6m|pickup",
+    "v": "2026-10-16T09:17:30.294Z"
+   },
+   "stamps/dnote~2f~AA": null,
+   "stamps/dnote~2f~HRP": null,
+   "by/dnote~2f~AA": null,
+   "by/dnote~2f~HRP": null,
+   "labour/HRP~7c~Portable~20~buildings~7c~Building~20~6m~7c~install": {
+    "_k": "HRP|Portable buildings|Building 6m|install",
+    "v": true
+   },
+   "labour/HRP~7c~Portable~20~buildings~7c~Building~20~6m~7c~steps": {
+    "_k": "HRP|Portable buildings|Building 6m|steps",
+    "v": true
+   },
+   "labour/HRP~7c~Portable~20~buildings~7c~Building~20~6m~7c~levelling": {
+    "_k": "HRP|Portable buildings|Building 6m|levelling",
+    "v": true
+   },
+   "labour/AA~7c~Portable~20~buildings~7c~Building~20~6m~7c~install": {
+    "_k": "AA|Portable buildings|Building 6m|install",
+    "v": true
+   },
+   "labour/AA~7c~Portable~20~buildings~7c~Building~20~6m~7c~steps": {
+    "_k": "AA|Portable buildings|Building 6m|steps",
+    "v": true
+   },
+   "labour/AA~7c~Portable~20~buildings~7c~Building~20~6m~7c~levelling": {
+    "_k": "AA|Portable buildings|Building 6m|levelling",
+    "v": true
+   },
+   "labour/AA~7c~Portable~20~buildings~7c~Building~20~6m~7c~cleaning": {
+    "_k": "AA|Portable buildings|Building 6m|cleaning",
+    "v": true
+   },
+   "labour/AA~7c~Portable~20~buildings~7c~Building~20~6m~7c~delivery": {
+    "_k": "AA|Portable buildings|Building 6m|delivery",
+    "v": true
+   },
+   "labour/HRP~7c~Portable~20~buildings~7c~Building~20~6m~7c~delivery": {
+    "_k": "HRP|Portable buildings|Building 6m|delivery",
+    "v": true
+   },
+   "labour/HRP~7c~Portable~20~buildings~7c~Building~20~6m~7c~cleaning": {
+    "_k": "HRP|Portable buildings|Building 6m|cleaning",
+    "v": true
+   },
+   "labour/AA~7c~Portable~20~buildings~7c~Building~20~6m~7c~demob": {
+    "_k": "AA|Portable buildings|Building 6m|demob",
+    "v": true
+   },
+   "labour/AA~7c~Portable~20~buildings~7c~Building~20~6m~7c~pickup": {
+    "_k": "AA|Portable buildings|Building 6m|pickup",
+    "v": true
+   },
+   "labour/HRP~7c~Portable~20~buildings~7c~Building~20~6m~7c~pickup": {
+    "_k": "HRP|Portable buildings|Building 6m|pickup",
+    "v": true
+   },
+   "labour/HRP~7c~Portable~20~buildings~7c~Building~20~6m~7c~demob": {
+    "_k": "HRP|Portable buildings|Building 6m|demob",
+    "v": true
+   }
+  },
+  "after": {
+   "delivery/AA": {
+    "state": "on site",
+    "set_at": "2026-09-17T04:19:50.758Z",
+    "by": "Andrew Fisher",
+    "levelled": true,
+    "levelled_by": "Andrew Fisher",
+    "levelled_at": "2026-09-17T21:32:00.523Z",
+    "steps": true,
+    "steps_by": "Andrew Fisher",
+    "steps_at": "2026-09-17T21:32:06.448Z",
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-09-17T04:33:45.072Z",
+    "eta": "11:00",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-09-17T04:19:50.758Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-09-17T04:33:45.072Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "levelled_history": [
+     {
+      "levelled": true,
+      "at": "2026-09-17T21:32:00.523Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "steps_history": [
+     {
+      "steps": true,
+      "at": "2026-09-17T21:32:06.448Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "handling875": {
+     "method": "tilt-tray",
+     "by": "Andrew Fisher",
+     "at": "2026-10-10T07:58:47.521Z"
+    },
+    "loading872": {
+     "u142514": {
+      "side": "passenger",
+      "by": "Andrew Fisher",
+      "at": "2026-10-10T07:55:27.318Z"
+     }
+    },
+    "note": "Tracked only, not charged on this job: Active Air pays for this building on its own contract HS 9968926. No labour, steps, transport, pickup or demob is charged here (Andrew Fisher, 22 Oct 2026).",
+    "_k": "AA"
+   },
+   "delivery/HRP": {
+    "levelled": true,
+    "levelled_by": "Andrew Fisher",
+    "levelled_at": "2026-09-17T21:31:58.865Z",
+    "steps": true,
+    "steps_by": "Andrew Fisher",
+    "steps_at": "2026-09-17T21:32:04.881Z",
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-09-17T04:33:48.042Z",
+    "eta": "07:00",
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-09-17T04:33:48.042Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "levelled_history": [
+     {
+      "levelled": true,
+      "at": "2026-09-17T21:31:58.865Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "steps_history": [
+     {
+      "steps": true,
+      "at": "2026-09-17T21:32:04.881Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "handling875": {
+     "method": "tilt-tray",
+     "by": "Andrew Fisher",
+     "at": "2026-10-10T07:57:44.980Z"
+    },
+    "loading872": {
+     "u1189410": {
+      "side": "passenger",
+      "by": "Andrew Fisher",
+      "at": "2026-10-10T07:53:46.439Z"
+     }
+    },
+    "note": "On site 07:00 · Reported by the project manager from site, 17 Sep 2026 12:04 (his message, typed in by hand) — turned up, with the arrival time he gave. Not ticked complete or levelled: the arrival is all that was reported. Tracked only, not charged on this job: Hire Republic pays for this building on its own contract HS 9974238. No labour, steps, transport, pickup or demob is charged here (Andrew Fisher, 22 Oct 2026).",
+    "_k": "HRP"
+   },
+   "stamps/labour~2f~HRP~7c~Portable~20~buildings~7c~Building~20~6m~7c~install": {
+    "_k": "labour/HRP|Portable buildings|Building 6m|install",
+    "v": "2026-10-22T03:22:54.813Z"
+   },
+   "stamps/labour~2f~HRP~7c~Portable~20~buildings~7c~Building~20~6m~7c~steps": {
+    "_k": "labour/HRP|Portable buildings|Building 6m|steps",
+    "v": "2026-10-22T03:22:55.479Z"
+   },
+   "stamps/labour~2f~HRP~7c~Portable~20~buildings~7c~Building~20~6m~7c~levelling": {
+    "_k": "labour/HRP|Portable buildings|Building 6m|levelling",
+    "v": "2026-10-22T03:22:56.121Z"
+   },
+   "stamps/labour~2f~AA~7c~Portable~20~buildings~7c~Building~20~6m~7c~install": {
+    "_k": "labour/AA|Portable buildings|Building 6m|install",
+    "v": "2026-10-22T03:22:50.050Z"
+   },
+   "stamps/labour~2f~AA~7c~Portable~20~buildings~7c~Building~20~6m~7c~steps": {
+    "_k": "labour/AA|Portable buildings|Building 6m|steps",
+    "v": "2026-10-22T03:22:50.832Z"
+   },
+   "stamps/labour~2f~AA~7c~Portable~20~buildings~7c~Building~20~6m~7c~levelling": {
+    "_k": "labour/AA|Portable buildings|Building 6m|levelling",
+    "v": "2026-10-22T03:22:51.513Z"
+   },
+   "stamps/labour~2f~AA~7c~Portable~20~buildings~7c~Building~20~6m~7c~cleaning": {
+    "_k": "labour/AA|Portable buildings|Building 6m|cleaning",
+    "v": "2026-10-22T03:22:52.134Z"
+   },
+   "stamps/labour~2f~AA~7c~Portable~20~buildings~7c~Building~20~6m~7c~delivery": {
+    "_k": "labour/AA|Portable buildings|Building 6m|delivery",
+    "v": "2026-10-22T03:22:52.829Z"
+   },
+   "stamps/labour~2f~HRP~7c~Portable~20~buildings~7c~Building~20~6m~7c~cleaning": {
+    "_k": "labour/HRP|Portable buildings|Building 6m|cleaning",
+    "v": "2026-10-22T03:22:56.801Z"
+   },
+   "stamps/labour~2f~HRP~7c~Portable~20~buildings~7c~Building~20~6m~7c~delivery": {
+    "_k": "labour/HRP|Portable buildings|Building 6m|delivery",
+    "v": "2026-10-22T03:22:57.605Z"
+   },
+   "stamps/labour~2f~AA~7c~Portable~20~buildings~7c~Building~20~6m~7c~demob": {
+    "_k": "labour/AA|Portable buildings|Building 6m|demob",
+    "v": "2026-10-22T03:22:54.160Z"
+   },
+   "stamps/labour~2f~AA~7c~Portable~20~buildings~7c~Building~20~6m~7c~pickup": {
+    "_k": "labour/AA|Portable buildings|Building 6m|pickup",
+    "v": "2026-10-22T03:22:53.530Z"
+   },
+   "stamps/labour~2f~HRP~7c~Portable~20~buildings~7c~Building~20~6m~7c~demob": {
+    "_k": "labour/HRP|Portable buildings|Building 6m|demob",
+    "v": "2026-10-22T03:22:58.948Z"
+   },
+   "stamps/labour~2f~HRP~7c~Portable~20~buildings~7c~Building~20~6m~7c~pickup": {
+    "_k": "labour/HRP|Portable buildings|Building 6m|pickup",
+    "v": "2026-10-22T03:22:58.322Z"
+   },
+   "stamps/dnote~2f~AA": {
+    "_k": "dnote/AA",
+    "v": "2026-10-22T03:22:59.562Z"
+   },
+   "stamps/dnote~2f~HRP": {
+    "_k": "dnote/HRP",
+    "v": "2026-10-22T03:23:00.012Z"
+   },
+   "by/dnote~2f~AA": {
+    "_k": "dnote/AA",
+    "v": "Andrew Fisher"
+   },
+   "by/dnote~2f~HRP": {
+    "_k": "dnote/HRP",
+    "v": "Andrew Fisher"
+   },
+   "labour/HRP~7c~Portable~20~buildings~7c~Building~20~6m~7c~install": null,
+   "labour/HRP~7c~Portable~20~buildings~7c~Building~20~6m~7c~steps": null,
+   "labour/HRP~7c~Portable~20~buildings~7c~Building~20~6m~7c~levelling": null,
+   "labour/AA~7c~Portable~20~buildings~7c~Building~20~6m~7c~install": null,
+   "labour/AA~7c~Portable~20~buildings~7c~Building~20~6m~7c~steps": null,
+   "labour/AA~7c~Portable~20~buildings~7c~Building~20~6m~7c~levelling": null,
+   "labour/AA~7c~Portable~20~buildings~7c~Building~20~6m~7c~cleaning": null,
+   "labour/AA~7c~Portable~20~buildings~7c~Building~20~6m~7c~delivery": null,
+   "labour/HRP~7c~Portable~20~buildings~7c~Building~20~6m~7c~delivery": null,
+   "labour/HRP~7c~Portable~20~buildings~7c~Building~20~6m~7c~cleaning": null,
+   "labour/AA~7c~Portable~20~buildings~7c~Building~20~6m~7c~demob": null,
+   "labour/AA~7c~Portable~20~buildings~7c~Building~20~6m~7c~pickup": null,
+   "labour/HRP~7c~Portable~20~buildings~7c~Building~20~6m~7c~pickup": null,
+   "labour/HRP~7c~Portable~20~buildings~7c~Building~20~6m~7c~demob": null
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}

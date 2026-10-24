@@ -1,0 +1,12 @@
+/* Author: Andrew Fisher. v11.94 Costs: the P&L all in - the fencing column, the nil dash, the margin percentage, the one line
+   that names what is not in it yet, and the phone cards. */
+#pl770 .pl1194-tbl td.pl1194-fence, #pl770 .pl1194-tbl th:last-child { border-left: 1px solid var(--line, #dde3e6); }
+#pl770 .pl1194-tbl th.num, #pl770 .pl1194-tbl td.num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+#pl770 .pl1194-nil { color: var(--mute, #6b7a80); }
+#pl770 .pl1194-pct { display: inline-block; margin-left: 4px; padding: 1px 6px; border-radius: 6px; background: var(--chip, #eef2f4); color: inherit; font-size: 11px; font-weight: 700; vertical-align: 1px; }
+#pl770 .pl1194-not { margin: 10px 0 2px; font-size: 13px; line-height: 1.5; color: var(--mute, #536c75); overflow-wrap: anywhere; }
+#pl770 .pl1194-not b { color: var(--ink, #14181d); }
+#pl770 .pl1194-card { min-width: 0; margin: 8px 0; padding: 12px; }
+#pl770 .pl1194-card .acc761-w { margin: 6px 0 0; }
+#pl770 .pl1194-fig { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 6px 12px; margin: 10px 0 0; }
+#pl770 .pl1194-fig > :nth-child(even) { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }

@@ -1,0 +1,6 @@
+{
+ "by": "Andrew Fisher",
+ "basis": "Andrew, 20 Oct 2026, in chat: \"can we remove and delete the T0268 gN24 is the Spare generator\". T0268 is the schedule row \"100KVA TRAILER · SPARE\" (Event Week, 20 Oct; asset 1197215 scheduled, Coates compound): not on site, no tick, no note. GN24 (80 kVA, unit 1277089, on site and complete) is the spare generator. A read-only in-memory run of deleteAsset('T0268') left Costs unchanged.",
+ "refs": ["T0268"],
+ "ops": [{"op": "asset_delete", "ref": "T0268", "why": "Removed on Andrew's word 20 Oct 2026 - GN24 is the spare generator; T0268 (100 kVA trailer spare, 1197215) is not coming."}]
+}

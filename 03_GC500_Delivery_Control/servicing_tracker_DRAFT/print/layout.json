@@ -1,0 +1,37 @@
+{
+  "_about": "Author: Andrew Fisher. Map boxes on the printed servicing sheets (millimetres). render_maps.cjs crops each map to these shapes; make_sheets.py draws them at these sizes. Change both together by changing this file only.",
+  "ref_map": {
+    "w": 100,
+    "h": 54,
+    "ground_units": 160,
+    "px": 1150
+  },
+  "area_map_full": {
+    "w": 192,
+    "h": 132,
+    "px": 2000
+  },
+  "area_map_split": {
+    "w": 192,
+    "h": 92,
+    "px": 2000
+  },
+  "area_map_far": {
+    "w": 62,
+    "h": 44,
+    "px": 800,
+    "ground_units": 150
+  },
+  "master_map": {
+    "w": 279,
+    "h": 150,
+    "px": 3000
+  },
+  "cluster_gap_units": 300,
+  "area_margin_units": 45,
+  "area_min_units": [
+    170,
+    110
+  ],
+  "master_margin_units": 110
+}

@@ -1,0 +1,187 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261020T013005Z",
+ "finished": "2026-10-20T01:30:17.211Z",
+ "mode": "apply",
+ "spec": {
+  "by": "Andrew Fisher",
+  "why": "Andrew, 20 Oct 2026, Event Portables inventory screenshot: \"please make sure we update this\" - WC31's 16-pan blocks 12 and 74 showed 0 on site / 0 received because Coates unit 1317645 (the Accessible Toilet: its unit label and WC31's supplied counts, 2 x 16Pan Block + 1 x Accessible Toilet) was counted as a 16Pan Block, making the 16-pan line three units with mixed ownership. Andrew, 20 Oct 2026, answered: WC31 \"Apply it\"; T0024 \"Set T0024 to 2 FWF\" (Coates 1211968 + Event Portables 0164 both at T0024, EVL toilet symbol).",
+  "ops": [
+   {
+    "op": "number_item",
+    "ref": "WC31",
+    "no": "1317645",
+    "item": "Accessible Toilet"
+   },
+   {
+    "op": "set_qty",
+    "ref": "T0024",
+    "qty": 2
+   }
+  ]
+ },
+ "pageSha256": "fe480d5168ad44040dd5cd79a525bcebb444db4ccbcb91d9d0621071d7f7d4fe",
+ "version": {
+  "before": 10051,
+  "after": 10057
+ },
+ "updated": {
+  "before": "2026-10-20T00:55:45.176Z",
+  "after": "2026-10-20T01:30:16.432Z"
+ },
+ "stage": [
+  {
+   "op": "number_item",
+   "ref": "WC31",
+   "no": "1317645",
+   "item": "Accessible Toilet",
+   "result": "counts as Accessible Toilet"
+  },
+  {
+   "op": "set_qty",
+   "ref": "T0024",
+   "qty": 2,
+   "result": "quantity undefined -> 2"
+  }
+ ],
+ "writes": [
+  {
+   "key": "stamps/supplied~2f~WC31~2f~Accessible~20~Toilet",
+   "status": 200
+  },
+  {
+   "key": "stamps/qtys~2f~T0024",
+   "status": 200
+  },
+  {
+   "key": "supplied/WC31",
+   "status": 200
+  },
+  {
+   "key": "by/supplied~2f~WC31~2f~Accessible~20~Toilet",
+   "status": 200
+  },
+  {
+   "key": "by/qtys~2f~T0024",
+   "status": 200
+  },
+  {
+   "key": "qtys/T0024",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 1,
+ "docs": {
+  "before": {
+   "stamps/supplied~2f~WC31~2f~Accessible~20~Toilet": {
+    "_k": "supplied/WC31/Accessible Toilet",
+    "v": "2026-10-09T06:48:45.391Z"
+   },
+   "stamps/qtys~2f~T0024": null,
+   "supplied/WC31": {
+    "items": [
+     {
+      "asked": "16Pan Block",
+      "qty_supplied": 2
+     },
+     {
+      "asked": "Accessible Toilet",
+      "qty_supplied": 1
+     }
+    ],
+    "_k": "WC31"
+   },
+   "by/supplied~2f~WC31~2f~Accessible~20~Toilet": {
+    "_k": "supplied/WC31/Accessible Toilet",
+    "v": "Andrew Fisher via Codex"
+   },
+   "by/qtys~2f~T0024": null,
+   "qtys/T0024": null
+  },
+  "after": {
+   "stamps/supplied~2f~WC31~2f~Accessible~20~Toilet": {
+    "_k": "supplied/WC31/Accessible Toilet",
+    "v": "2026-10-20T01:30:12.568Z"
+   },
+   "stamps/qtys~2f~T0024": {
+    "_k": "qtys/T0024",
+    "v": "2026-10-20T01:30:13.918Z"
+   },
+   "supplied/WC31": {
+    "items": [
+     {
+      "asked": "16Pan Block",
+      "qty_supplied": 2
+     },
+     {
+      "asked": "Accessible Toilet",
+      "qty_supplied": 1,
+      "nums": [
+       "1317645"
+      ]
+     }
+    ],
+    "_k": "WC31"
+   },
+   "by/supplied~2f~WC31~2f~Accessible~20~Toilet": {
+    "_k": "supplied/WC31/Accessible Toilet",
+    "v": "Andrew Fisher"
+   },
+   "by/qtys~2f~T0024": {
+    "_k": "qtys/T0024",
+    "v": "Andrew Fisher"
+   },
+   "qtys/T0024": {
+    "_k": "T0024",
+    "v": 2,
+    "scope1017": {
+     "kind": "quantityScope1017",
+     "ref": "T0024",
+     "firstQuantity": 1,
+     "items": [
+      {
+       "item": "FWF",
+       "quantity": 1,
+       "received": 1,
+       "installed": 1,
+       "receipts": [
+        {
+         "at": "2026-09-26T00:00:00+10:00",
+         "quantity": 1
+        }
+       ],
+       "receiptAt": "2026-09-26T00:00:00+10:00",
+       "supplied": null,
+       "suppliedAt": "",
+       "on": true,
+       "onAt": "2026-09-26T00:00:00+10:00",
+       "done": true,
+       "doneAt": "2026-09-29T05:46:41.858Z",
+       "install": true,
+       "installAt": "2026-10-09T02:16:01.453Z",
+       "rest": 0,
+       "unitWork": {},
+       "financial1017": {
+        "contract": "9968929|7",
+        "owner": "coates",
+        "rehire": false,
+        "identified": 2,
+        "steps": 0
+       }
+      }
+     ],
+     "typed": 2,
+     "at": "2026-10-20T01:30:13.918Z",
+     "by": "Andrew Fisher"
+    }
+   }
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}

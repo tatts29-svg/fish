@@ -1,0 +1,46 @@
+{
+ "day": "2026-10-16",
+ "by": "Andrew Fisher",
+ "owner": "event-portables",
+ "item": "FWF",
+ "partial": false,
+ "rows": [
+  {
+   "ref": "WC19",
+   "numbers": [
+    "0435"
+   ]
+  },
+  {
+   "ref": "WC09",
+   "numbers": [
+    "0428",
+    "0440",
+    "0024",
+    "0419",
+    "0993",
+    "0584",
+    "0089",
+    "0553",
+    "0081",
+    "0140"
+   ],
+   "moved_from": "WC30",
+   "topup": true,
+   "over": true,
+   "note": "FWF: fourteen units recorded against the schedule's ten. 0085, 0551, 0450 and 0585 were on the record before 16 Oct; 0428, 0440, 0024, 0419, 0993, 0584, 0089, 0553, 0081 and 0140 were installed 16 Oct (Andrew: first given against WC30 in error, they are WC09's). The schedule quantity or the earlier four are to be checked."
+  },
+  {
+   "ref": "PG03",
+   "numbers": [
+    "0100"
+   ]
+  }
+ ],
+ "revert_from": {
+  "ref": "WC30",
+  "supplied": 4,
+  "why": "Andrew, 16 Oct: the ten units given for WC30 today were WC09's; WC30 goes back to its 15 Oct state, four of eight on, nothing ticked",
+  "note": ""
+ }
+}

@@ -1,0 +1,49 @@
+{
+  "author": "Andrew Fisher",
+  "complete": true,
+  "userConfirmation": "6 pee panels are installed",
+  "beforeVersion": 5161,
+  "afterVersion": 5164,
+  "ref": "WC09",
+  "item": "Pee Panel",
+  "received": 6,
+  "installed": 6,
+  "quantityOnly": true,
+  "changes": [
+    {
+      "collection": "stamps",
+      "key": "labour/WC09|Toilets & amenities|Pee Panel|install"
+    },
+    {
+      "collection": "by",
+      "key": "labour/WC09|Toilets & amenities|Pee Panel|install"
+    },
+    {
+      "collection": "labour",
+      "key": "WC09|Toilets & amenities|Pee Panel|install"
+    }
+  ],
+  "unrelatedDocumentsUnchanged": true,
+  "sharedToilets": {
+    "planned": 254,
+    "received": 138,
+    "installed": 138,
+    "left": 116,
+    "pct": 54.33,
+    "review": 0
+  },
+  "wc09": {
+    "received": 8,
+    "installed": 8,
+    "complete": false,
+    "mapComplete": false,
+    "fwfReceived": 0,
+    "fwfInstalled": 0,
+    "blocksInstalled": 2
+  },
+  "errors": [],
+  "installationChargeExGST": 874.44,
+  "cardRatePerPanel": 145.74,
+  "sourceHeadingYear": 2025,
+  "supplierOwnershipFollowup": "User confirms sub-hired; item-level quantity ownership projection claimed as v9.64."
+}

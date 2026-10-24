@@ -1,0 +1,139 @@
+{
+  "author": "Andrew Fisher",
+  "sha256": "d165f3f39f2d5506198384dfe74e361814bb576cabb97935c3187315b03a200c",
+  "nativeVersion": 6052,
+  "pass": true,
+  "checks": [
+    {
+      "name": "full card precision retained",
+      "pass": true
+    },
+    {
+      "name": "container work rate gap remains explicit",
+      "pass": true
+    },
+    {
+      "name": "branch reconciles",
+      "pass": true
+    },
+    {
+      "name": "branch retains Direct costs",
+      "pass": true
+    },
+    {
+      "name": "branch moves full supplement once",
+      "pass": true
+    },
+    {
+      "name": "branch leaves total unchanged",
+      "pass": true
+    },
+    {
+      "name": "October branch follows",
+      "pass": true
+    },
+    {
+      "name": "rate reconciles",
+      "pass": true
+    },
+    {
+      "name": "rate retains Direct costs",
+      "pass": true
+    },
+    {
+      "name": "typed rate updates Costs and P&L once",
+      "pass": true
+    },
+    {
+      "name": "typed rate updates item and onsite",
+      "pass": true
+    },
+    {
+      "name": "partial reconciles",
+      "pass": true
+    },
+    {
+      "name": "partial retains Direct costs",
+      "pass": true
+    },
+    {
+      "name": "two receipts only actual subset",
+      "pass": true
+    },
+    {
+      "name": "forecast scope retained",
+      "pass": true
+    },
+    {
+      "name": "oneFutureContract reconciles",
+      "pass": true
+    },
+    {
+      "name": "oneFutureContract retains Direct costs",
+      "pass": true
+    },
+    {
+      "name": "one future contract absorbs one card unit",
+      "pass": true
+    },
+    {
+      "name": "one future source charge reconciles once",
+      "pass": true
+    },
+    {
+      "name": "fullFutureContract reconciles",
+      "pass": true
+    },
+    {
+      "name": "fullFutureContract retains Direct costs",
+      "pass": true
+    },
+    {
+      "name": "future four fridge line fully absorbs supplement",
+      "pass": true
+    },
+    {
+      "name": "full future source charge replaces once",
+      "pass": true
+    },
+    {
+      "name": "ambiguousContract reconciles",
+      "pass": true
+    },
+    {
+      "name": "ambiguousContract retains Direct costs",
+      "pass": true
+    },
+    {
+      "name": "unknown aggregate coverage blocks new supplement",
+      "pass": true
+    },
+    {
+      "name": "collected reconciles",
+      "pass": true
+    },
+    {
+      "name": "collected retains Direct costs",
+      "pass": true
+    },
+    {
+      "name": "collection preserves charged full hire",
+      "pass": true
+    },
+    {
+      "name": "collection preserves building and container reconciliation",
+      "pass": true
+    },
+    {
+      "name": "next read resets rates and branches",
+      "pass": true
+    },
+    {
+      "name": "original state and effective source restored",
+      "pass": true
+    }
+  ],
+  "errors": [],
+  "writes": 0,
+  "runtimeSHA256": "e8c0ef1e6812fea570da4a42f417f3a88810d45726c5b52ead96de43d1002898"
+}

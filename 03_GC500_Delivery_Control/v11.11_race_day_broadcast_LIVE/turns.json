@@ -1,0 +1,206 @@
+{
+ "schema": "gc500-broadcast-v2",
+ "voice": "GC500 Race Caller",
+ "voice_id": "DJgcuhDNrdWm8i2kZYZN",
+ "model": "eleven_v3",
+ "turns": [
+  {
+   "slot": 1,
+   "scene": "countdown",
+   "text": "[shouting over the engine roar] AND WE ARE LIVE at the Gold Coast! [fast, breathless] The Boost Mobile Gold Coast 500, the Surfers Paradise street circuit, and the Coates twenty-six is out there FLYING! [building] But before a single Supercar turned a wheel — this place had to be BUILT. [punchy] This is the story of the team that built it!",
+   "loop": false
+  },
+  {
+   "slot": 2,
+   "scene": "countdown",
+   "text": "[rapid] Six weeks! From the first truck through the gate on the seventh of September — to the chequered flag this weekend! [fast] Buildings, toilets, generators, lights, water barriers, fencing — thousands of pieces, hundreds of loads, one crew! [shouting] And they got it DONE!",
+   "loop": false
+  },
+  {
+   "slot": 3,
+   "scene": "lead",
+   "text": "[race-caller, warm] Leading the Coates effort on site — the project manager, Andrew Fisher! [fast] Thirty-six days on the ground by race day, three hundred and eighty-five hours — the plan from the branch, the trucks on the road, the people on the tools, all of it running through him!",
+   "loop": false
+  },
+  {
+   "slot": 4,
+   "scene": "crew",
+   "text": "[race-caller, naming them like the grid] The install team! Aaron Zelvis! Alfie Harris! Kyle Gover! Daniel Gough! Jayden Paul! Wayne Crimmin! [punchy] And on the race weekend — Ludwig Chee on the tools and Frank Devilles on the power! [shouting] THAT is the crew!",
+   "loop": false
+  },
+  {
+   "slot": 5,
+   "scene": "crew",
+   "text": "[fast, proud] Aaron — thirty-five days, three hundred and ninety-six hours! Alfie — twenty-seven days! Daniel — twenty! Kyle — twenty-one! [building] Nearly two thousand hours of Coates hands on this circuit by Sunday night — [shouting] and every one of them counts!",
+   "loop": false
+  },
+  {
+   "slot": 6,
+   "scene": "install_buildings1090",
+   "text": "[driving, over the engine] FIFTY-TWO buildings! [rapid] Twenty-three six-metre offices, fourteen four-point-eights, six twelve-metre buildings, three nine-point-sixes, ticket boxes, containers, a cool room! [fast] First one on the ground the thirteenth of September — the last one in place the fourteenth of October!",
+   "loop": false
+  },
+  {
+   "slot": 7,
+   "scene": "install_buildings1090",
+   "text": "[rapid-fire, naming them] Team offices for every garage in pit lane — Triple Eight! DJR! Walkinshaw! Grove! Erebus! Brad Jones! Matt Stone! PremiAir! Blanchard! Team Eighteen! [fast] The Event Control Centre, race medical, the police command post, ambulance, fire, first aid, security, accreditation, the ticket boxes at the gates — [shouting] all of it Coates!",
+   "loop": false
+  },
+  {
+   "slot": 8,
+   "scene": "install_checks1090",
+   "text": "[fast, pointing] And not one of them just dropped and left! [punchy] Fifty-two buildings positioned and LEVELLED! Forty-five sets of stairs set, checked, ticked! [building] Thirty-one days start to finish — [shouting] every building closed off on the record!",
+   "loop": false
+  },
+  {
+   "slot": 9,
+   "scene": "install_toilets1090",
+   "text": "[excited] Now the big number! TWO HUNDRED AND SIXTY-FIVE toilets! [rapid] Two hundred and thirty-six fresh-water-flush units! Fifteen six-metre blocks! Two sixteen-pan blocks! Accessible units! Two trailers! [fast] Across seventy-four locations from the pit paddock to the far end of Main Beach!",
+   "loop": false
+  },
+  {
+   "slot": 10,
+   "scene": "install_toilets1090",
+   "text": "[driving] First ones in on the fourteenth of September — the last one signed off on the twentieth of October! [fast] And on every race night, every single one of them pumped, cleaned, restocked and signed off with its own QR code — [shouting] two hundred and sixty-six units, fifteen areas, three nights straight!",
+   "loop": false
+  },
+  {
+   "slot": 11,
+   "scene": "install_vms1090",
+   "text": "[rapid] Twenty-four variable message boards, in position around the circuit, every rego and fleet number on the record! [fast] Fourteen generators — two two-hundred-kVA sets with cables, a one-fifty, four sixties, fifties, forty-fives, thirties, twenties — [shouting] the power behind the whole precinct, all in by the nineteenth!",
+   "loop": false
+  },
+  {
+   "slot": 12,
+   "scene": "install_vms1090",
+   "text": "[fast] Seven light towers! Thirty trakmats! Forklifts — two-and-a-half tonne, three-and-a-half, five tonne rough terrain! [punchy] A forty-three-foot scissor lift, a sixty-foot straight boom, a sixty-one-foot knuckle boom — [shouting] every machine that put this place together, ON SITE!",
+   "loop": false
+  },
+  {
+   "slot": 13,
+   "scene": "install_water1090",
+   "text": "[serious, driving] And the ones that keep people SAFE! [rapid] More than three hundred crash-rated, water-filled Armorzone barriers! [fast] The Gold Coast Highway — Tedder Avenue, Turn Two, the Macintosh Park turning lane — a hundred and fifty-four of them along the grandstands alone! Main Beach Parade! Admiralty Drive! Helen Park! Commodore Park! The Turn Eleven run-off!",
+   "loop": false
+  },
+  {
+   "slot": 14,
+   "scene": "install_water1090",
+   "text": "[fast] Three hundred and eleven barriers — more than six hundred metres of them, two metres at a time — [building] first ones placed the fourteenth of September, the last on the twenty-first of October, three days out! [shouting] Hostile-vehicle protection, grandstand protection, racing kerbs — DONE!",
+   "loop": false
+  },
+  {
+   "slot": 15,
+   "scene": "delivery_context1090",
+   "text": "[rapid, commentating] And the trucks! Thirty delivery days! [fast] The biggest, the sixteenth of October — twenty-five references through the gate in ONE DAY! [building] Every load tracked, every arrival timed, every late one named and explained — [shouting] that is a record you can stand on!",
+   "loop": false
+  },
+  {
+   "slot": 16,
+   "scene": "fencing",
+   "text": "[driving, over the engine] And now the one that stretches the WHOLE LAP! [race-caller, naming them] Wayne Woods leads the Advanced Temporary Fencing crew — Owen Cowell McPaul! Daniel Macleod! Cody Woods! Chase Hireni! Tahi Peni! Daniel Smith! Scott Hildebrand! Hayden McAvoy! [shouting] Give them a ROAR!",
+   "loop": false
+  },
+  {
+   "slot": 17,
+   "scene": "fence",
+   "text": "[fast, building] ELEVEN POINT SIX KILOMETRES of temporary fence standing! [punchy] Eleven thousand five hundred and seventy-seven metres — [fast] against a twelve-and-a-half kilometre programme, from the ninth of September to the sixteenth of October! [shouting] Twenty-six working days! A hundred and twenty-three dockets!",
+   "loop": false
+  },
+  {
+   "slot": 18,
+   "scene": "fence_panels1090",
+   "text": "[rapid-fire] Four thousand five hundred and forty-eight panels! [fast] Six thousand seven hundred and eighty-nine feet! Two hundred and sixteen concrete blocks! [building] Every panel carried, stood, clamped and checked by hand — [shouting] foot by foot, around the whole circuit!",
+   "loop": false
+  },
+  {
+   "slot": 19,
+   "scene": "fence_fixings1090",
+   "text": "[fast] Six thousand five hundred and thirty-three clamps! A thousand and twenty-three braces! [punchy] A hundred and eleven vehicle gates! Twenty-two pedestrian gates! [fast] Two hundred and thirty-three gate wheels — [shouting] the small pieces, the BIG effort!",
+   "loop": false
+  },
+  {
+   "slot": 20,
+   "scene": "fence_ccb1090",
+   "text": "[driving] Then the crowd control! [rapid] Two thousand three hundred and twenty barrier units! [fast] One thousand two hundred and sixty-seven metres on the event lines — four thousand five hundred and thirty-two metres of demarcation — [building] call it five point eight kilometres of crowd-control barrier, [shouting] plus the flat-feet runs where the ground said so!",
+   "loop": false
+  },
+  {
+   "slot": 21,
+   "scene": "fence_repeat1090",
+   "text": "[fast] And the work you do TWICE! [rapid] One thousand seven hundred and twenty-five metres of scrim fitted on the new fence — four hundred and twenty-seven more on existing lines! [fast] Four hundred and thirty-five metres relocated when the plan moved! Two hundred and twenty-seven metres taken down and stacked! [shouting] Fence that MOVES with the event!",
+   "loop": false
+  },
+  {
+   "slot": 22,
+   "scene": "fence_areas1090",
+   "text": "[punchy] Corporate! Pit lane! The paddock! Main Beach! The Esplanade! The compounds! [fast] Every docket linked to the area it went in — [building] so when the record says a run is standing, [shouting] it is standing exactly where the drawings say!",
+   "loop": false
+  },
+  {
+   "slot": 23,
+   "scene": "fenceprog",
+   "text": "[fast, summing up] Put the fence and the crowd control together — seventeen and a half kilometres of work recorded against a twenty-kilometre programme — [building] and the last runs go in with the event itself! [shouting] Wayne's crew — flat out to the flag!",
+   "loop": false
+  },
+  {
+   "slot": 24,
+   "scene": "effort",
+   "text": "[sincere, fast] Pre-starts every morning! Loads walked round, spotters called, clearances checked! [rapid] Ground that shifts, levels, stairs, access — forklift, hands and judgement! [building] Nearly two thousand hours of Coates labour by race weekend — [shouting] every pre-start signed, every load spotted, every lift called!",
+   "loop": false
+  },
+  {
+   "slot": 25,
+   "scene": "work_dates1090",
+   "text": "[fast] Thirty days with trucks through the gate! Twenty-six days of fencing dockets! [punchy] Every date on the record — the thirteenth of September, the sixteenth of October, the twentieth, the twenty-first — [shouting] it all happened, and it is all written down!",
+   "loop": false
+  },
+  {
+   "slot": 26,
+   "scene": "weather_context1090",
+   "text": "[laughing, lighter] And the weather tried its best! [fast] Thirty-three days on the Bureau's archive from the seventh of September — eight wet mornings, nearly twenty millimetres of rain! [rapid] Fog on the twelfth of September, fog again on the sixth of October — [building] a sixty-three-kilometre-an-hour gust on the seventh!",
+   "loop": false
+  },
+  {
+   "slot": 27,
+   "scene": "weather_context1090",
+   "text": "[fast, warm] Coolest morning twelve-point-nine degrees on the twenty-seventh of September — warmest day twenty-eight-point-six on the twenty-first! [punchy] And they built through all of it — [shouting] rain, fog, wind, sun, and showers forecast for race week!",
+   "loop": false
+  },
+  {
+   "slot": 28,
+   "scene": "site",
+   "text": "[proud, over the roar] Buildings — one hundred per cent! Toilets — one hundred per cent! Generators, lights, machines — one hundred per cent! [fast] Water barriers in, boards in, fence standing round the lap — [shouting] the GC five hundred precinct, BUILT, by Coates!",
+   "loop": false
+  },
+  {
+   "slot": 29,
+   "scene": "crews_finish1090",
+   "text": "[punchy, one at a time] Care Deeply! Customer Focused! Be Our Best! One Team! Competitive Spirit! [driving] Those are the Coates values — [fast] and for six weeks on this circuit you could SEE them — in a careful move, a clear call, a mate with a hand out!",
+   "loop": false
+  },
+  {
+   "slot": 30,
+   "scene": "crews_finish1090",
+   "text": "[race-caller, naming them] Andrew Fisher! Aaron Zelvis! Alfie Harris! Kyle Gover! Daniel Gough! Jayden Paul! Wayne Crimmin! Ludwig Chee! Frank Devilles! [fast] Wayne Woods and the whole Advanced fencing crew! [building] The branch behind them — [shouting] THIS is the team that made it happen!",
+   "loop": false
+  },
+  {
+   "slot": 31,
+   "scene": "crews_finish1090",
+   "text": "[the roar dropping away, sincere, slow and quiet] And every one of them... deserves... to be recognised.",
+   "loop": false
+  },
+  {
+   "slot": 32,
+   "scene": "countdown",
+   "text": "[lifting again, into the engine, fast] Stay with us! [shouting] Another lap with the Coates twenty-six — and another look at the people who built the GC five hundred!",
+   "loop": false
+  },
+  {
+   "slot": 33,
+   "scene": "countdown",
+   "text": "[energetic, shouting over the engine] Back LIVE with the Coates twenty-six on the Gold Coast! [fast] Just joining us — this is the crew that built the GC five hundred, from the first truck to the chequered flag! [shouting] Here is how they did it!",
+   "loop": true
+  }
+ ]
+}

@@ -1,0 +1,139 @@
+{
+  "author": "Andrew Fisher",
+  "status": "Source-backed forecast adapter implemented and pure-tested; exact integrated candidate browser verification pending",
+  "sources": [
+    {
+      "name": "2-GC500-26-Schedule-7-.xlsx",
+      "sha256": "485f5d885b88d836b63e85ad4062474a95a484022386efec7be62429f958edac",
+      "read_original": true
+    },
+    {
+      "name": "3-Baseplan-SuperCars.xlsx",
+      "sha256": "eb4a224fadbe1350d031adf8a1b12760d3dd748a2f0643119ea103d1df9b5b21",
+      "read_original": true
+    }
+  ],
+  "rate_card": {
+    "name": "Rate Card 2026 (1).xlsx",
+    "sha256": "60a62f37d9d91634ca617f3b2840809e64ebc1f000303857f1abb5e00691d7d6",
+    "read_original": true,
+    "hire": {
+      "sheet": "Street Rate Card 2026",
+      "cell": "D34",
+      "rate": 90.06732000000001,
+      "heading": "Hire Rate 2026",
+      "basis": "Whole event"
+    },
+    "install": {
+      "sheet": "Street Rate Card 2026",
+      "cell": "E34",
+      "rate": 36.435,
+      "heading": "Labour (Install) 2025"
+    },
+    "demob": {
+      "sheet": "Street Rate Card 2026",
+      "cell": "J34",
+      "rate": 36.435,
+      "heading": "Labour (Demob) 2024"
+    },
+    "transport": {
+      "sheet": "Transport ",
+      "cell": "M23",
+      "rate": 47.5,
+      "basis": "Each way; existing approved application rule"
+    },
+    "zero_charges": [
+      "Steps",
+      "Levelling",
+      "Cleaning",
+      "Fire extinguisher"
+    ]
+  },
+  "schedule_requests": [
+    {
+      "id": "EP-S7-EW49",
+      "sheet": "Event Week",
+      "row": 49,
+      "date": "2026-10-22",
+      "name_as_written": "Brad lones",
+      "name": "Brad Jones Racing",
+      "item": "FWF",
+      "quantity": 1,
+      "activity": "event p"
+    },
+    {
+      "id": "EP-S7-EW50",
+      "sheet": "Event Week",
+      "row": 50,
+      "date": "2026-10-22",
+      "name_as_written": "Shell V power",
+      "name": "Shell V-Power",
+      "item": "FWF",
+      "quantity": 1,
+      "activity": "event p"
+    }
+  ],
+  "contract_coverage": {
+    "client_contract": "9968955",
+    "client_branch": "KINP",
+    "client_fwf_quantity": 222,
+    "nonserial_quantity": 182,
+    "all_nonserial_rows_name_wc": true,
+    "generic_client_rows": [
+      {
+        "line": 22,
+        "asset_number": "1211974",
+        "quantity": 1
+      },
+      {
+        "line": 24,
+        "asset_number": "1002566",
+        "quantity": 1
+      },
+      {
+        "line": 39,
+        "asset_number": "1317641",
+        "quantity": 1
+      }
+    ],
+    "explicit_bjr_shell_fwf_lines": 0,
+    "coates_own_use_excluded": {
+      "contract": "9968929",
+      "line": 7,
+      "asset_number": "1211968",
+      "quantity": 1
+    },
+    "aggregate_suitable_for_these_requests": false
+  },
+  "native_paths": {
+    "hire": "moneySummary_ -> branchRollup -> ONHIRE_ROWS. No BJR/Shell contract row or generic nonserial FWF aggregate. Card hire comparison is not charge.total.",
+    "installation": "labourRevenue858 and labourPlan iterate allAssets()/chargeLines; these source requests are absent.",
+    "transport": "otherTransportInput831 iterates allAssets()/chargeLines; these source requests are absent.",
+    "supplier_cost": "moneySummary_.cost.rehire includes all four approved quotes, including original Q6845 FWF246 scope. No additional supplier cost justified."
+  },
+  "recommended_forecast": {
+    "per_request": {
+      "hire": 90.07,
+      "install": 36.44,
+      "demob": 36.44,
+      "delivery": 47.5,
+      "pickup": 47.5,
+      "total": 257.95
+    },
+    "total": {
+      "rehire_revenue": 180.14,
+      "installation_revenue": 145.76,
+      "transport_revenue": 190,
+      "total": 515.9
+    },
+    "supplier_cost_additional": 0,
+    "state": "Forecast only, not received/installed/billed",
+    "deduplication": "Use the shared source-request resolver. Cancelled, ambiguous and shared-native-reference quantity claims are held. Exact hire contract coverage replaces the source hire estimate; native labour and transport coverage rules remain authoritative. No inference from unrelated aggregate counts."
+  },
+  "limits": [
+    "Other WC contract/current-item quantity differences remain outside this narrow audit; do not offset them silently against these requests.",
+    "Source-row aliases are not precise toilet coordinates.",
+    "An earlier candidate browser snapshot preserved native current Revenue and supplier Direct costs and added the intended 515.90 forecast. Final integrated candidate verification is pending."
+  ],
+  "operational_writes": 0
+}

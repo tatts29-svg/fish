@@ -1,0 +1,117 @@
+{
+  "author": "Andrew Fisher",
+  "purpose": "Business terminology and statement hierarchy only",
+  "originals": [
+    {
+      "name": "IS P&L Reporting Feb 26.xlsx",
+      "sha256": "d087a218642da38c4996858bdb7f1bee14cc62ae999252acb1cf170f5a2a2337",
+      "reviewed": [
+        "Group summary labels and hierarchy",
+        "IS-Total detailed ledger labels"
+      ]
+    },
+    {
+      "name": "IS P&L Feb 2026.pdf",
+      "sha256": "3532e7c53404de8589e0855d92485f3256f9db63ddb7ddd62c63b59cf5598500",
+      "reviewed": [
+        "All five summary pages text",
+        "Page 1 visual layout"
+      ]
+    }
+  ],
+  "references": {
+    "Revenue": "Group C12:C16; IS-Total D10:D65",
+    "Direct costs": "Group C17:C22; IS-Total D66:D218",
+    "Gross Margin": "Group C23; IS-Total D219:D220",
+    "Direct Staff": "IS-Total D232:D258, including wages and temporary staff",
+    "Installation costs": "IS-Total D179:D181: external contractors 2142 and internal labour 2143",
+    "Travel and accommodation": "IS-Total D301:D305",
+    "Printing": "IS-Total D313; Branch Admin",
+    "Recovery": "Group C45:C48; percentage of Revenue divided by matching cost"
+  },
+  "mapping": {
+    "Hire Revenue": [
+      "1005"
+    ],
+    "Rehire Revenue": [
+      "1010"
+    ],
+    "Transport Revenue": [
+      "1030",
+      "1031",
+      "1032"
+    ],
+    "Other Revenue": [
+      "1020",
+      "1047",
+      "1025",
+      "1015"
+    ],
+    "Total Repairs & Maintenance": [
+      "2357"
+    ],
+    "Transport": [
+      "2120",
+      "2140",
+      "3325"
+    ],
+    "Rehire": [
+      "2126"
+    ],
+    "Other Direct Costs": [
+      "2144",
+      "2142"
+    ]
+  },
+  "constraints": [
+    "No example branch, amount, rate, reporting date, budget or previous-year comparison enters GC500.",
+    "Unmapped Revenue or Direct costs retain a separate allocation-pending row; they are never silently dropped.",
+    "Unknown rates remain unpriced and priced totals remain partial.",
+    "Onsite complete charges and whole-job recorded Revenue are different scopes.",
+    "Gross Margin uses the existing Revenue-less-direct-costs model and is labelled known costs.",
+    "Difference so far uses the existing reconciled branch total including overheads and priced wages.",
+    "No unsupported final EBITDA, EBIT or depreciation amount is created.",
+    "Accommodation and meals remain separate from labour; the confirmed salary allowance remains in priced wages.",
+    "Whole-job additional forecast is job forecast minus current record. The onsite equipment subtotal is not an additional amount to add to the whole-job forecast."
+  ],
+  "customer": {
+    "name": "V8 Supercars Aust Pty",
+    "code": "V8SU0845",
+    "site": "QLD_GOLD COAST 600",
+    "source": "Andrew confirms these exact values in this chat."
+  },
+  "email_controls": {
+    "source": "Management emails pasted by Andrew in this chat as context; email year not supplied.",
+    "october_scope": "Andrew confirms full expected costs, including demob, must be captured now for October billing. Onsite and forecast remain distinct.",
+    "cost_categories": [
+      "Internal labour and overtime",
+      "Consumables",
+      "Other installation costs",
+      "External contractors",
+      "Rehire and equipment",
+      "Fencing and crowd control",
+      "Transport",
+      "Branch costs",
+      "Other event costs"
+    ],
+    "handover_fields": [
+      "Person",
+      "Hours",
+      "Home branch",
+      "Purchase order",
+      "Costed branch",
+      "Receipt status",
+      "Demob forecast by branch",
+      "Invoice or accrual balance by branch"
+    ],
+    "accounting_basis": "Estimates and commitments belong in the forecast. They do not establish receipt or a posted accounting actual. Future physical demob remains future while its known cost is included now.",
+    "deadline_scope": "Do not infer a new year or schedule an email from the pasted 1 October 09:00 instruction. No messages sent.",
+    "source_limits": [
+      "Unconfirmed PO receipts or values must remain unconfirmed.",
+      "Unpriced labour and transport remain visible.",
+      "No journal posting can be claimed without a journal record.",
+      "Invoice status reflects the supplied contract export, not a live accounting ledger.",
+      "September monthly person-hours export lacks home branch; whole-job Finance includes home branch."
+    ]
+  }
+}

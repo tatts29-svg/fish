@@ -1,0 +1,11 @@
+all-costs DRY RUN - everything on site: every priced card line incl. fire extinguisher and demob, delivery and pick-up legs, complete - by Andrew Fisher
+before: record version 9515 updated 2026-10-16T09:20:53.660Z
+dry run page: the live page fetched now (18096269 bytes, sha256 43c1c13be6fa5abc4ea66900d2202422972da11328fe7e41a088e9e1fdfd1204)
+page loaded
+page record matches the before snapshot, document for document
+stage: 0 ticks on 0 references · {} · at the card $0 {} · complete ticked on 0 · stamps cleared 0 · left off as a person set: 2 ticks, complete off on 0 · e.g. 
+references: 0
+documents changed on the page: 0 ()
+writes the page tried: 0 new aborted non-GET request(s) after the stage (aborted total 0); page errors: 0
+plan --apply would send (0): 
+STOP: the page did not attempt a write after the stage - the dry run cannot confirm the write path

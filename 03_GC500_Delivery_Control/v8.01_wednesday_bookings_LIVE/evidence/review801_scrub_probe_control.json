@@ -1,0 +1,59 @@
+{
+  "author": "Andrew Fisher",
+  "candidateSha256": "bfbcd9b855a55b6b46c71c7a76c45d44b9c906a381a43e64aaddc7bbc4ade32a",
+  "passed": 13,
+  "results": [
+    {
+      "name": "print font API absent preserves image verdicts",
+      "pass": true
+    },
+    {
+      "name": "print font API no-ready preserves image verdicts",
+      "pass": true
+    },
+    {
+      "name": "print font API resolved preserves image verdicts",
+      "pass": true
+    },
+    {
+      "name": "print font API rejected preserves image verdicts",
+      "pass": true
+    },
+    {
+      "name": "print waits for available pending fonts",
+      "pass": true
+    },
+    {
+      "name": "print retains verdicts after fonts settle",
+      "pass": true
+    },
+    {
+      "name": "unchanged live status does not mutate badge",
+      "pass": true
+    },
+    {
+      "name": "read-only outage is shown without a send promise",
+      "pass": true
+    },
+    {
+      "name": "repeat outage does not mutate badge",
+      "pass": true
+    },
+    {
+      "name": "recovery updates the same badge",
+      "pass": true
+    },
+    {
+      "name": "capability change updates label",
+      "pass": true
+    },
+    {
+      "name": "editing outage retains existing sending wording",
+      "pass": true
+    },
+    {
+      "name": "closed drawer is untouched",
+      "pass": true
+    }
+  ]
+}

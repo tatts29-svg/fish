@@ -1,0 +1,23 @@
+{
+  "author": "Andrew Fisher",
+  "sourceCommit": "f4fb3b6d",
+  "readyCommit": "b83c48cf",
+  "baseSha256": "40dc8f6c66079d8910ef5eaa3dd6e98a80b778960f70659d5c2447676d1c6175",
+  "sha256": "4773efd9433b7bf50b824f1c4f3966bfa4e009b99bbd2231ffa0a2c1f35612bf",
+  "bytes": 14721174,
+  "inlineScripts": 75,
+  "uploadedUtc": "2026-10-10T20:22:13.292Z",
+  "uploadedAest": "11 Oct 2026 06:22 AEST",
+  "unchangedBaseGuard": true,
+  "publicByteForByteReadback": true,
+  "operationalWrites": false,
+  "actualPublicUiChecks": {
+    "desktop": 48,
+    "phone": 48,
+    "pass": true,
+    "htmlSubstitution": false,
+    "errors": 0,
+    "writes": 0,
+    "verifiedAest": "11 Oct 2026 06:24 AEST"
+  }
+}

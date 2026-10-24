@@ -1,0 +1,37 @@
+{
+  "author": "Andrew Fisher",
+  "baseManifestSha256": "1348bf1bbcf69400aab0e510e7239d68dac567d40d103898323bf9abdef7bf6f",
+  "candidateManifestSha256": "8256bce609ce48d30fd319ac56bce74729cfe8a980ad051228379d09b06a15e6",
+  "changedFiles": {
+    "explorer/explorer-merge.js": "7c276bb181541e506e983356fb746cd4233c77c6c973c178c7da27d458ad66c4",
+    "explorer/explorer.js": "e175ec073b2d30c89c075f5bfe6ab823385c8f23cd50d07fa13ef10b5e2e6b5a",
+    "explorer/index.html": "91e0ae84b59235c963eeb93ff79e9263844b333565b6b7c3726a62a918fd6d20"
+  },
+  "addedFiles": {},
+  "stagedBlobs": 3,
+  "otherFilesPreserved": 233,
+  "totalFiles": 236,
+  "published": true,
+  "recordWrites": 0,
+  "serverPreflightPassed": true,
+  "publicAssetsExact": true,
+  "reviewedServerBuild": "v5.89",
+  "inventoryStableBeforeRegistration": true,
+  "protectedBlobsFromHandover": [
+    "264363128b6c4bc1fd86b2fd6712400dd4c367b45a6ca195b7fb2ee1c8f21a14",
+    "76afbd997a9fcfd6e796eea4ead641a5249a1bad23114417c861fd1559057684",
+    "b8d38b8f889baeffce25401a285f25286bbb4a6ae67f2c0f6e8a81eb214991dd",
+    "cb32d00e0d4beb90870685978981b1e14541a701c7b37cb1f180d848c134019c",
+    "d5a0d777da4871af1bf88804b4ef223354a29c2560213ab56f7897445b398fdc",
+    "f5b9a3f7efdf880b5f10d0ee339761d35adf9b9ff5bdd3a528505215be6b6fe9"
+  ],
+  "postRegistrationInventoryExact": true,
+  "sourceCommit": "f6143b0c6f14bac3690ae81f21287f06997e99a9",
+  "implementationSource": "ba3bd4d1d3ff0a1dab39d0baf3d75abe99aaa0a7",
+  "pageSha256": "c62adee5817153a56d538e1db015b0ef66a8a6e75609bc4d6e09a47bedfafbd8",
+  "pageBytes": 18302611,
+  "pagePublishedUtc": "2026-10-17T22:00:24.480Z",
+  "pageReadBackExact": true,
+  "machineReceiptUtc": "2026-10-17T22:00:44Z",
+  "independentPublicGetReadBack": true
+}

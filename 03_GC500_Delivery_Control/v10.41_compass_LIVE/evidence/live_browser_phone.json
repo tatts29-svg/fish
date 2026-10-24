@@ -1,0 +1,600 @@
+{
+  "author": "Andrew Fisher",
+  "mobile": true,
+  "mode": "actual-public",
+  "checks": [
+    {
+      "name": "Gate 6 renders all five recorded equipment groups",
+      "pass": true,
+      "detail": [
+        {
+          "ref": "P63",
+          "quantity": 1,
+          "kind": "group",
+          "ready": true,
+          "failed": false
+        },
+        {
+          "ref": "WC49",
+          "quantity": 3,
+          "kind": "group",
+          "ready": true,
+          "failed": false
+        },
+        {
+          "ref": "GN06",
+          "quantity": 1,
+          "kind": "group",
+          "ready": true,
+          "failed": false
+        },
+        {
+          "ref": "P62",
+          "quantity": 1,
+          "kind": "group",
+          "ready": true,
+          "failed": false
+        },
+        {
+          "ref": "P60",
+          "quantity": 1,
+          "kind": "group",
+          "ready": true,
+          "failed": false
+        }
+      ]
+    },
+    {
+      "name": "WC49 quantity and explicit completion match the native record",
+      "pass": true,
+      "detail": {
+        "expected": {
+          "nativeStatus": "complete",
+          "nativeQuantity": 3,
+          "ref": "WC49",
+          "quantity": 3,
+          "complete": true,
+          "status": "complete",
+          "quantityLabel": "WC49 (3)",
+          "completionLabel": "COMPLETE · 3/3",
+          "items": [
+            {
+              "description": "FWF",
+              "kind": "toilet",
+              "quantity": 3
+            }
+          ]
+        },
+        "actual": {
+          "ref": "WC49",
+          "visible": true,
+          "heading": "WC49 (3)",
+          "status": "COMPLETE · 3/3",
+          "pending": false
+        }
+      }
+    },
+    {
+      "name": "WC49 has exactly its three recorded toilets in the model",
+      "pass": true,
+      "detail": [
+        {
+          "ref": "WC49",
+          "quantity": 3,
+          "kind": "group",
+          "ready": true,
+          "failed": false
+        }
+      ]
+    },
+    {
+      "name": "Rendered WC49 uses the exporter Y-up and X-forward axes",
+      "pass": true,
+      "detail": {
+        "upAxis": 1,
+        "forwardAxis": 0,
+        "expectedUp": 1,
+        "expectedForward": 0,
+        "axisCorrectionMatrix": [
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          -1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1
+        ]
+      }
+    },
+    {
+      "name": "wc49-selected phone model remains above its information card",
+      "pass": true,
+      "detail": {
+        "ref": "WC49",
+        "x": 183.92016648874795,
+        "y": 151.4093158375146,
+        "cardTop": 213.453125,
+        "width": 368
+      }
+    },
+    {
+      "name": "wc49-selected phone card replaces the duplicate selected map label",
+      "pass": true,
+      "detail": [
+        {
+          "ref": "WC49",
+          "shown": false
+        }
+      ]
+    },
+    {
+      "name": "Refresh and identical pins preserve More info, selection and focus",
+      "pass": true,
+      "detail": {
+        "before": {
+          "scrollTop": 63,
+          "maxScroll": 170,
+          "open": true,
+          "focused": true
+        },
+        "after": {
+          "active": "WC49",
+          "visible": true,
+          "scrollTop": 63,
+          "open": true,
+          "focused": true
+        }
+      }
+    },
+    {
+      "name": "Refresh and identical pins preserve the card scroll position",
+      "pass": true,
+      "detail": {
+        "before": 63,
+        "after": 63,
+        "maxScroll": 170
+      }
+    },
+    {
+      "name": "Phone exercises a genuinely scrolled More info card",
+      "pass": true,
+      "detail": {
+        "maxScroll": 170,
+        "scrollTop": 63
+      }
+    },
+    {
+      "name": "Refresh and identical pins preserve the exact camera",
+      "pass": true
+    },
+    {
+      "name": "A closed card stays closed across polling and pin refresh",
+      "pass": true,
+      "detail": {
+        "active": null,
+        "hidden": true,
+        "selected": null,
+        "parentCardSuppressed": false
+      }
+    },
+    {
+      "name": "Equipment toggle hides the models and reports its state",
+      "pass": true,
+      "detail": {
+        "enabled": false,
+        "pressed": "false",
+        "visible": 0
+      }
+    },
+    {
+      "name": "Equipment toggle restores the models",
+      "pass": true,
+      "detail": {
+        "enabled": true,
+        "pressed": "true",
+        "visible": 13
+      }
+    },
+    {
+      "name": "WC51 quantity and explicit completion match the native record",
+      "pass": true,
+      "detail": {
+        "expected": {
+          "nativeStatus": "complete",
+          "nativeQuantity": 7,
+          "ref": "WC51",
+          "quantity": 7,
+          "complete": true,
+          "status": "complete",
+          "quantityLabel": "WC51 (7)",
+          "completionLabel": "COMPLETE · 7/7",
+          "items": [
+            {
+              "description": "Accessible Toilet",
+              "kind": "other",
+              "quantity": 1
+            },
+            {
+              "description": "FWF",
+              "kind": "toilet",
+              "quantity": 6
+            }
+          ]
+        },
+        "actual": {
+          "ref": "WC51",
+          "visible": true,
+          "heading": "WC51 (7)",
+          "status": "COMPLETE · 7/7",
+          "pending": false
+        }
+      }
+    },
+    {
+      "name": "WC51 keeps six FWF and one accessible toilet as distinct equipment",
+      "pass": true,
+      "detail": {
+        "items": [
+          {
+            "description": "Accessible Toilet",
+            "kind": "other",
+            "quantity": 1
+          },
+          {
+            "description": "FWF",
+            "kind": "toilet",
+            "quantity": 6
+          }
+        ],
+        "modelQuantity": 7,
+        "kinds": {
+          "accessible_toilet": 1,
+          "toilet": 6
+        }
+      }
+    },
+    {
+      "name": "WC51 discloses doorway positions adapted to the illustrative body",
+      "pass": true,
+      "detail": {
+        "adaptedParts": 1,
+        "note": "Door side from the master plan; doorway position adapted to the illustrative model. Open position shown for clarity; not a live door-open status."
+      }
+    },
+    {
+      "name": "wc51-mixed-equipment phone model remains above its information card",
+      "pass": true,
+      "detail": {
+        "ref": "WC51",
+        "x": 180.1463563670629,
+        "y": 155.98099099419005,
+        "cardTop": 213.453125,
+        "width": 368
+      }
+    },
+    {
+      "name": "wc51-mixed-equipment phone card replaces the duplicate selected map label",
+      "pass": true,
+      "detail": [
+        {
+          "ref": "WC51",
+          "shown": false
+        }
+      ]
+    },
+    {
+      "name": "Details opens the native WC51 drawer (Close)",
+      "pass": true,
+      "detail": {
+        "title": "WC51"
+      }
+    },
+    {
+      "name": "Native drawer Close retains the selected 3D equipment and camera",
+      "pass": true,
+      "detail": {
+        "active": "WC51",
+        "hidden": false
+      }
+    },
+    {
+      "name": "Details opens the native WC51 drawer (Back)",
+      "pass": true,
+      "detail": {
+        "title": "WC51"
+      }
+    },
+    {
+      "name": "Native drawer Back retains the selected 3D equipment and camera",
+      "pass": true,
+      "detail": {
+        "active": "WC51",
+        "hidden": false
+      }
+    },
+    {
+      "name": "2D to 3D reentry retains selected equipment and adjusted camera",
+      "pass": true,
+      "detail": {
+        "active": "WC51",
+        "hidden": false
+      }
+    },
+    {
+      "name": "Selected equipment card stays within the 3D viewport",
+      "pass": true,
+      "detail": {
+        "width": 368,
+        "height": 468,
+        "card": {
+          "left": 10,
+          "right": 358,
+          "top": 213.453125,
+          "bottom": 410
+        },
+        "overflow": 0,
+        "controls": [
+          {
+            "label": "×",
+            "height": 44
+          },
+          {
+            "label": "Details",
+            "height": 44
+          },
+          {
+            "label": "Gate 6",
+            "height": 44
+          },
+          {
+            "label": "3D equipment",
+            "height": 44
+          },
+          {
+            "label": "+",
+            "height": 44
+          },
+          {
+            "label": "−",
+            "height": 44
+          }
+        ]
+      }
+    },
+    {
+      "name": "Equipment buttons keep a 44 px touch target",
+      "pass": true,
+      "detail": [
+        {
+          "label": "×",
+          "height": 44
+        },
+        {
+          "label": "Details",
+          "height": 44
+        },
+        {
+          "label": "Gate 6",
+          "height": 44
+        },
+        {
+          "label": "3D equipment",
+          "height": 44
+        },
+        {
+          "label": "+",
+          "height": 44
+        },
+        {
+          "label": "−",
+          "height": 44
+        }
+      ]
+    },
+    {
+      "name": "No equipment GLB load fails",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "P63 quantity and explicit completion match the native record",
+      "pass": true,
+      "detail": {
+        "expected": {
+          "nativeStatus": "complete",
+          "nativeQuantity": 1,
+          "ref": "P63",
+          "quantity": 1,
+          "complete": true,
+          "status": "complete",
+          "quantityLabel": "P63 (1)",
+          "completionLabel": "COMPLETE · 1/1",
+          "items": [
+            {
+              "description": "Building 6m",
+              "kind": "building",
+              "quantity": 1
+            }
+          ]
+        },
+        "actual": {
+          "ref": "P63",
+          "visible": true,
+          "heading": "P63 (1)",
+          "status": "COMPLETE · 1/1",
+          "pending": false
+        }
+      }
+    },
+    {
+      "name": "P63 represents every sourced doorway with illustrative open leaves",
+      "pass": true,
+      "detail": {
+        "sourceDoors": 1,
+        "renderedDoors": 1,
+        "parts": [
+          {
+            "kind": "building",
+            "doorSide": "right",
+            "doorCount": 1,
+            "doorConfirmed": true,
+            "doorOpen": true
+          }
+        ]
+      }
+    },
+    {
+      "name": "Open-door explanation distinguishes entry direction from live door state",
+      "pass": true,
+      "detail": "Doorway positions and sides from the master plan. Open position shown for clarity; not a live door-open status."
+    },
+    {
+      "name": "p63-door-open phone model remains above its information card",
+      "pass": true,
+      "detail": {
+        "ref": "P63",
+        "x": 185.39913580657114,
+        "y": 150.99123330014413,
+        "cardTop": 213.453125,
+        "width": 368
+      }
+    },
+    {
+      "name": "p63-door-open phone card replaces the duplicate selected map label",
+      "pass": true,
+      "detail": [
+        {
+          "ref": "P63",
+          "shown": false
+        }
+      ]
+    },
+    {
+      "name": "No operational write attempts",
+      "pass": true,
+      "detail": {
+        "page": 0,
+        "live": 499,
+        "blocked": 0,
+        "blockedMapSessions": 1
+      }
+    },
+    {
+      "name": "No browser JavaScript errors",
+      "pass": true,
+      "detail": []
+    }
+  ],
+  "measurements": {
+    "gate6-overview": {
+      "tilesSettled": true,
+      "heightSampling": false,
+      "modelCount": 13,
+      "sampledPins": 43
+    },
+    "wc49Axes": {
+      "upAxis": 1,
+      "forwardAxis": 0,
+      "expectedUp": 1,
+      "expectedForward": 0,
+      "axisCorrectionMatrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        -1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1
+      ]
+    },
+    "wc49-selected": {
+      "tilesSettled": true,
+      "heightSampling": false,
+      "modelCount": 13,
+      "sampledPins": 29
+    },
+    "moreInfo": {
+      "maxScroll": 170,
+      "testedScrollTop": 63
+    },
+    "wc51-mixed-equipment": {
+      "tilesSettled": true,
+      "heightSampling": false,
+      "modelCount": 13,
+      "sampledPins": 43
+    },
+    "layout": {
+      "width": 368,
+      "height": 468,
+      "card": {
+        "left": 10,
+        "right": 358,
+        "top": 213.453125,
+        "bottom": 410
+      },
+      "overflow": 0,
+      "controls": [
+        {
+          "label": "×",
+          "height": 44
+        },
+        {
+          "label": "Details",
+          "height": 44
+        },
+        {
+          "label": "Gate 6",
+          "height": 44
+        },
+        {
+          "label": "3D equipment",
+          "height": 44
+        },
+        {
+          "label": "+",
+          "height": 44
+        },
+        {
+          "label": "−",
+          "height": 44
+        }
+      ]
+    },
+    "scene": {
+      "models": 13,
+      "records": 14,
+      "failed": []
+    },
+    "p63-door-open": {
+      "tilesSettled": true,
+      "heightSampling": false,
+      "modelCount": 13,
+      "sampledPins": 43
+    }
+  },
+  "counts": {
+    "page": 0,
+    "live": 499,
+    "blocked": 0,
+    "blockedMapSessions": 1
+  },
+  "errors": []
+}

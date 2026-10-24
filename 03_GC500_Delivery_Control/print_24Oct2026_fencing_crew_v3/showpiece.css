@@ -1,0 +1,134 @@
+/* Author: Andrew Fisher. "What you built" showpiece - full bleed, dark, A4. */
+@page { size: 210mm 297mm; margin: 0; }
+:root { --bg:#07090B; --ink:#F3EEE7; --mute:#939CA3; --dim:#5E676E; --line:rgba(243,238,231,.13); --o:#FF6B1A; --o2:#FF8A3D; --o3:#FFB27A; }
+* { box-sizing:border-box; }
+html, body { margin:0; padding:0; background:var(--bg); -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+body { font-family:'Inter Print', Arial, sans-serif; color:var(--ink); }
+.pg { width:210mm; height:297mm; position:relative; overflow:hidden; background:var(--bg); page-break-after:always; break-after:page; }
+.pg:last-child { page-break-after:auto; break-after:auto; }
+em { font-style:inherit; color:var(--o); }
+.kick { margin:0; font:700 7pt/1 'Inter Print'; letter-spacing:.36em; text-transform:uppercase; color:var(--o); }
+.kick span { color:rgba(243,238,231,.5); margin:0 .6em; }
+
+/* page chrome */
+.hd { position:absolute; left:16mm; right:16mm; top:14mm; display:flex; justify-content:space-between; align-items:baseline; z-index:6;
+      font:700 6.4pt/1 'Inter Print'; letter-spacing:.34em; text-transform:uppercase; color:var(--mute); }
+.hd b { font:800 italic 15pt/1 'Barlow Condensed'; letter-spacing:.02em; color:var(--o); margin-right:3.4mm; vertical-align:-1.5pt; }
+.ft { position:absolute; left:16mm; right:16mm; bottom:12mm; display:flex; justify-content:space-between; align-items:center; z-index:6;
+      font:700 5.8pt/1 'Inter Print'; letter-spacing:.32em; text-transform:uppercase; color:var(--dim); }
+.prog { display:flex; gap:1.3mm; align-items:center; }
+.prog i { display:block; width:6.5mm; height:.7mm; border-radius:.4mm; background:rgba(243,238,231,.16); }
+.prog i.on { background:var(--o); }
+.prog span { margin-left:2.6mm; color:var(--mute); letter-spacing:.2em; }
+.glow { position:absolute; border-radius:50%; pointer-events:none; }
+.t1 { position:absolute; left:16mm; top:30mm; margin:0; font:900 italic 70pt/.84 'Barlow Condensed'; text-transform:uppercase; letter-spacing:-.005em; z-index:3; }
+
+/* ---------- 1 cover ---------- */
+.cvimg, .cvsvg { position:absolute; inset:0; width:100%; height:100%; display:block; object-fit:cover; }
+.cvsvg text.cvpl { font:600 40px 'Inter Print'; letter-spacing:20px; fill:#BFE3EE; fill-opacity:.45; }
+.cvtop { position:absolute; left:0; right:0; top:0; height:150mm; background:linear-gradient(to bottom, rgba(4,7,9,.97) 0%, rgba(4,7,9,.86) 30%, rgba(4,7,9,.42) 66%, rgba(4,7,9,0) 100%); }
+.cvbot { position:absolute; left:0; right:0; bottom:0; height:96mm; background:linear-gradient(to top, rgba(4,7,9,.98) 0%, rgba(4,7,9,.82) 40%, rgba(4,7,9,0) 100%); }
+.cvleft { position:absolute; left:0; top:0; bottom:0; width:70mm; background:linear-gradient(to right, rgba(4,7,9,.55), rgba(4,7,9,0)); }
+.cvhead { position:absolute; left:16mm; top:18mm; right:16mm; z-index:3; }
+.cvhead h1 { margin:7mm 0 0; font:900 italic 112pt/.8 'Barlow Condensed'; text-transform:uppercase; letter-spacing:-.012em; color:var(--ink); }
+.cvhead h1 em { color:var(--o); }
+.cvfoot { position:absolute; left:16mm; right:16mm; bottom:19mm; display:flex; justify-content:space-between; align-items:flex-end; z-index:3; }
+.who b { display:block; font:800 italic 21pt/1 'Barlow Condensed'; letter-spacing:.06em; text-transform:uppercase; }
+.who span { display:block; margin-top:2.2mm; font:500 8.4pt/1.3 'Inter Print'; letter-spacing:.06em; color:rgba(243,238,231,.72); }
+.hall { text-align:right; }
+.hall b { display:block; font:900 italic 64pt/.8 'Barlow Condensed'; color:var(--o); letter-spacing:-.01em; }
+.hall b small { font-size:34pt; margin-left:1mm; }
+.hall span { display:block; margin-top:2mm; font:700 6.6pt/1 'Inter Print'; letter-spacing:.34em; text-transform:uppercase; color:rgba(243,238,231,.8); }
+.cvcredit { position:absolute; left:16mm; right:16mm; bottom:9mm; margin:0; font:400 5pt/1 'Inter Print'; letter-spacing:.05em; color:rgba(243,238,231,.36); z-index:3; }
+
+/* ---------- 2 distance ---------- */
+.g1 { left:-30mm; top:5mm; width:220mm; height:170mm; background:radial-gradient(closest-side, rgba(255,107,26,.30), rgba(255,107,26,.09) 55%, rgba(255,107,26,0)); }
+.mega { position:absolute; left:14mm; top:22mm; z-index:2; white-space:nowrap; }
+.mega b { font:900 italic 236pt/.8 'Barlow Condensed'; letter-spacing:-.03em; color:var(--ink); }
+.mega span { font:900 italic 74pt/1 'Barlow Condensed'; color:var(--o); text-transform:uppercase; margin-left:2mm; }
+.tag { position:absolute; left:16mm; top:101mm; margin:0; font:300 14pt/1.32 'Inter Print'; letter-spacing:.01em; color:rgba(243,238,231,.88); }
+.laps { position:absolute; left:16mm; right:16mm; top:124mm; padding-top:5mm; border-top:.3mm solid var(--line); }
+.laps .lt { margin:0 0 5mm; font:800 italic 19pt/1 'Barlow Condensed'; letter-spacing:.04em; text-transform:uppercase; }
+.lrow { display:grid; grid-template-columns:repeat(8, 1fr); gap:3mm; }
+.lap { width:100%; height:33mm; overflow:visible; }
+.lap path { fill:none; stroke-linejoin:round; stroke-linecap:round; vector-effect:non-scaling-stroke; }
+.lg { stroke:rgba(243,238,231,.14); stroke-width:7; } .lc { stroke:var(--ink); stroke-width:1.9; }
+.lghost { stroke:rgba(243,238,231,.28); stroke-width:1; stroke-dasharray:2 3; }
+.lpg { stroke:rgba(255,107,26,.32); stroke-width:9; } .lpc { stroke:var(--o2); stroke-width:2.6; }
+.three { position:absolute; left:16mm; right:16mm; top:176mm; display:grid; grid-template-columns:repeat(3, 1fr); gap:6mm; z-index:3; }
+.three div { border-top:.6mm solid var(--o); padding-top:4mm; }
+.three b { display:block; font:900 italic 46pt/.85 'Barlow Condensed'; letter-spacing:-.01em; }
+.three b small { font-size:18pt; color:var(--o); margin-left:1.2mm; text-transform:uppercase; }
+.three span { display:block; margin-top:3mm; font:700 7pt/1.2 'Inter Print'; letter-spacing:.24em; text-transform:uppercase; }
+.three i { display:block; margin-top:1.6mm; font:300 8.4pt/1.35 'Inter Print'; font-style:normal; color:var(--mute); }
+
+.band { position:absolute; left:0; right:0; bottom:0; height:88mm; overflow:hidden; }
+.band img, .bdsvg { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block; }
+.bandfade { position:absolute; inset:0; background:linear-gradient(to bottom, #07090B 0%, rgba(7,9,11,.6) 20%, rgba(7,9,11,.06) 44%, rgba(7,9,11,.12) 64%, rgba(7,9,11,.8) 82%, rgba(7,9,11,.97) 94%); }
+.dist .ft { z-index:7; }
+
+/* ---------- 3 gear ---------- */
+.g2 { right:-60mm; top:-40mm; width:200mm; height:200mm; background:radial-gradient(closest-side, rgba(255,107,26,.22), rgba(255,107,26,0)); }
+.ggrid { position:absolute; left:16mm; right:16mm; top:92mm; bottom:28mm; display:grid; grid-template-columns:1fr 1fr; grid-template-rows:repeat(3, 1fr); gap:0 10mm; }
+.gi { display:flex; gap:6mm; align-items:center; border-top:.3mm solid var(--line); }
+.gico { width:27mm; height:27mm; flex:none; fill:none; stroke:var(--o2); stroke-width:1.6; stroke-linecap:round; stroke-linejoin:round; padding:3mm; border-radius:50%; background:radial-gradient(closest-side, rgba(255,107,26,.16), rgba(255,107,26,0)); overflow:visible; }
+.gi b { display:block; font:900 italic 56pt/.85 'Barlow Condensed'; letter-spacing:-.01em; }
+.gi span { display:block; margin-top:2.4mm; font:700 7.2pt/1.2 'Inter Print'; letter-spacing:.24em; text-transform:uppercase; }
+.gi i { display:block; margin-top:1.4mm; font:300 8.6pt/1.3 'Inter Print'; font-style:normal; color:var(--mute); }
+
+/* ---------- 4 weeks ---------- */
+.g3 { left:40mm; top:50mm; width:220mm; height:170mm; background:radial-gradient(closest-side, rgba(255,107,26,.16), rgba(255,107,26,0)); }
+.weeks .sub { position:absolute; left:16mm; top:58mm; margin:0; font:300 12pt/1.3 'Inter Print'; color:rgba(243,238,231,.85); }
+.weeks .sub b { font:800 italic 15pt 'Barlow Condensed'; color:var(--o2); letter-spacing:.02em; }
+.chartwrap { position:absolute; left:16mm; right:16mm; top:74mm; }
+.chart { width:100%; height:auto; display:block; overflow:visible; }
+.chart .gl { stroke:rgba(243,238,231,.08); stroke-width:1.2; } .chart .base { stroke:rgba(243,238,231,.3); stroke-width:1.6; }
+.chart .gt { font:600 13px 'Inter Print'; fill:#5E676E; letter-spacing:.06em; }
+.chart .bv { font:800 italic 27px 'Barlow Condensed'; fill:#F3EEE7; } .chart .bv.hot { fill:#FFB27A; font-size:33px; }
+.chart .bt { font:700 12px 'Inter Print'; letter-spacing:.3em; fill:#FF8A3D; }
+.chart .bw { font:800 italic 20px 'Barlow Condensed'; fill:#F3EEE7; letter-spacing:.05em; } .chart .bd { font:500 12.5px 'Inter Print'; fill:#7E878E; letter-spacing:.06em; }
+.recs { position:absolute; left:16mm; right:16mm; top:190mm; display:grid; grid-template-columns:repeat(3, 1fr); gap:6mm; }
+.recs div { border-top:.6mm solid var(--o); padding-top:3.6mm; }
+.recs b { display:block; font:900 italic 38pt/.85 'Barlow Condensed'; }
+.recs b small { font-size:16pt; color:var(--o); margin-left:1mm; text-transform:uppercase; }
+.recs span { display:block; margin-top:2.6mm; font:700 6.6pt/1.2 'Inter Print'; letter-spacing:.22em; text-transform:uppercase; }
+.recs i { display:block; margin-top:1.4mm; font:300 7.8pt/1.35 'Inter Print'; font-style:normal; color:var(--mute); }
+.wx { position:absolute; left:0; right:0; top:238mm; height:36mm; padding:0 16mm; display:grid; grid-template-columns:32mm repeat(4, 1fr); align-items:center; gap:4mm;
+      background:linear-gradient(90deg, rgba(31,52,64,.9), rgba(13,22,28,.55) 70%, rgba(7,9,11,0)); border-top:.3mm solid rgba(143,197,214,.2); border-bottom:.3mm solid rgba(143,197,214,.2); }
+.wx p { margin:0; font:800 italic 16pt/1 'Barlow Condensed'; text-transform:uppercase; letter-spacing:.04em; color:#BFE3EE; }
+.wx b { display:block; font:900 italic 28pt/.9 'Barlow Condensed'; }
+.wx b small { font-size:12pt; color:#8FC5D6; margin-left:.8mm; text-transform:uppercase; }
+.wx span { display:block; margin-top:1.4mm; font:500 6.8pt/1.25 'Inter Print'; color:rgba(243,238,231,.7); }
+
+/* ---------- 5 crew ---------- */
+.circ { position:absolute; left:118mm; top:86mm; width:78mm; z-index:2; }
+.bigtrack { display:block; width:78mm; height:156mm; overflow:visible; }
+.bigtrack path { fill:none; stroke-linejoin:round; vector-effect:non-scaling-stroke; }
+.bt1 { stroke:rgba(255,107,26,.11); stroke-width:26; } .bt2 { stroke:rgba(255,107,26,.26); stroke-width:10; } .bt3 { stroke:#FF8A3D; stroke-width:2.4; }
+.circ p { margin:5mm 0 0; text-align:center; font:700 6.2pt/1 'Inter Print'; letter-spacing:.34em; text-transform:uppercase; color:var(--mute); }
+.g4 { right:-50mm; top:80mm; width:180mm; height:200mm; background:radial-gradient(closest-side, rgba(255,107,26,.18), rgba(255,107,26,0)); }
+.sup { position:absolute; left:16mm; top:76mm; z-index:3; }
+.sup span { display:block; font:700 7pt/1 'Inter Print'; letter-spacing:.36em; text-transform:uppercase; color:var(--o); }
+.sup b { display:block; margin-top:3mm; font:900 italic 50pt/.86 'Barlow Condensed'; text-transform:uppercase; }
+.names { position:absolute; left:16mm; top:110mm; width:96mm; margin:0; padding:0; list-style:none; z-index:3; }
+.names li { display:flex; align-items:center; gap:4mm; padding:3.6mm 0; border-top:.3mm solid var(--line); font:800 italic 22pt/1 'Barlow Condensed'; text-transform:uppercase; letter-spacing:.02em; }
+.names li:last-child { border-bottom:.3mm solid var(--line); }
+.names li i { display:block; width:4mm; height:.8mm; background:var(--o); border-radius:.4mm; flex:none; }
+
+/* ---------- 6 thanks ---------- */
+.g5 { left:-50mm; top:-20mm; width:220mm; height:180mm; background:radial-gradient(closest-side, rgba(255,107,26,.24), rgba(255,107,26,0)); }
+.ty { position:absolute; left:16mm; top:28mm; margin:0; font:900 italic 112pt/.8 'Barlow Condensed'; text-transform:uppercase; letter-spacing:-.012em; z-index:3; }
+.letter { position:absolute; left:16mm; top:104mm; width:150mm; z-index:3; }
+.letter p { margin:0 0 4.2mm; font:300 11.6pt/1.62 'Inter Print'; color:rgba(243,238,231,.92); }
+.letter .dear { font:800 italic 22pt/1 'Barlow Condensed'; color:var(--ink); letter-spacing:.02em; margin-bottom:5mm; }
+.sig { position:absolute; left:16mm; top:184mm; width:80mm; z-index:3; }
+.sig .ln { height:14mm; border-bottom:.35mm solid rgba(243,238,231,.6); }
+.sig b { display:block; margin-top:2.4mm; font:800 italic 17pt/1 'Barlow Condensed'; text-transform:uppercase; letter-spacing:.03em; }
+.sig span { display:block; margin-top:1.2mm; font:500 7.4pt/1 'Inter Print'; letter-spacing:.12em; color:var(--mute); }
+.flagzone { position:absolute; left:0; right:0; bottom:0; height:86mm; }
+.flag { position:absolute; inset:0; width:100%; height:100%; display:block; }
+.done { position:absolute; left:50%; top:41mm; transform:translate(-50%, -50%); text-align:center; white-space:nowrap; background:var(--o); padding:3.4mm 10mm 3.1mm; border-radius:1.6mm; box-shadow:0 2.4mm 9mm rgba(0,0,0,.6); }
+.done b { display:block; font:900 italic 25pt/1 'Barlow Condensed'; text-transform:uppercase; letter-spacing:.03em; color:#fff; }
+.done span { display:block; margin-top:1mm; font:800 6.4pt/1.2 'Inter Print'; letter-spacing:.26em; text-transform:uppercase; color:#fff; }
+.src { position:absolute; left:16mm; right:16mm; bottom:5.5mm; margin:0; font:400 5pt/1.3 'Inter Print'; color:rgba(243,238,231,.45); z-index:4; text-align:center; }
+.thanks .ft { display:none; }

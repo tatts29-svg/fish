@@ -1,0 +1,781 @@
+{
+  "author": "Andrew Fisher",
+  "rendering": "960 x 640 desktop and 390 x 844 phone emulation, DPR 1, software Chromium; not a physical-device performance benchmark",
+  "checks": [
+    {
+      "name": "frozen candidate SHA matches",
+      "pass": true
+    },
+    {
+      "name": "default-off-baseline: preview is off",
+      "pass": true
+    },
+    {
+      "name": "default-off-baseline: valid deterministic canvas",
+      "pass": true,
+      "detail": {
+        "width": 960,
+        "height": 385,
+        "glError": 0
+      }
+    },
+    {
+      "name": "baseline: harness blocked-write count",
+      "pass": true,
+      "detail": 0
+    },
+    {
+      "name": "foliage lifecycle hooks execute before opening Showcase",
+      "pass": true
+    },
+    {
+      "name": "default-off-candidate: preview is off",
+      "pass": true
+    },
+    {
+      "name": "default-off-candidate: valid deterministic canvas",
+      "pass": true,
+      "detail": {
+        "width": 960,
+        "height": 385,
+        "glError": 0
+      }
+    },
+    {
+      "name": "default-off camera and clock match baseline",
+      "pass": true
+    },
+    {
+      "name": "default-off canvas has exact pixel equality with baseline",
+      "pass": true,
+      "detail": {
+        "sameSize": true,
+        "differentPixels": 0,
+        "maxChannelDifference": 0,
+        "pngBytesIdentical": true
+      }
+    },
+    {
+      "name": "preview control initially inactive",
+      "pass": true
+    },
+    {
+      "name": "paused lifecycle setup agrees with Showcase controls",
+      "pass": true,
+      "detail": {
+        "open": true,
+        "playing": false,
+        "stored": "circuit3d_day",
+        "preference": "circuit3d_day",
+        "backdrop": "circuit3d_day",
+        "selection": "circuit3d_day",
+        "enabled": false,
+        "detail": false,
+        "scene": true,
+        "paused": true,
+        "loop": false,
+        "clock": 8.016666666666644,
+        "view": "hero",
+        "button": "false"
+      }
+    },
+    {
+      "name": "enter preview keeps Showcase paused and enables section",
+      "pass": true,
+      "detail": {
+        "open": true,
+        "playing": false,
+        "stored": "circuit3d_day",
+        "preference": "circuit3d_day",
+        "backdrop": "circuit3d_day",
+        "selection": "circuit3d_day",
+        "enabled": true,
+        "detail": true,
+        "scene": true,
+        "paused": true,
+        "loop": true,
+        "clock": 3.5,
+        "view": "chase",
+        "button": "true"
+      }
+    },
+    {
+      "name": "released Track detail labels and four supported cameras are visible",
+      "pass": true,
+      "detail": {
+        "before": "Track detail",
+        "after": "Leave track detail",
+        "value": "chase",
+        "offered": [
+          "hero",
+          "onboard",
+          "chase",
+          "heli"
+        ]
+      }
+    },
+    {
+      "name": "real View control selects four distinct tour camera positions",
+      "pass": true,
+      "detail": [
+        {
+          "expected": "hero",
+          "selected": "hero",
+          "active": "hero",
+          "view": "hero",
+          "stored": "hero",
+          "eye": [
+            -34.94429935403769,
+            0.333470742768004,
+            13.84349136664501
+          ],
+          "target": [
+            -37.13496976607165,
+            0.1397882406552744,
+            13.9952765510406
+          ],
+          "paused": true
+        },
+        {
+          "expected": "onboard",
+          "selected": "onboard",
+          "active": "onboard",
+          "view": "onboard",
+          "stored": "hero",
+          "eye": [
+            -36.97237062554267,
+            0.2745238942989124,
+            13.875245986951736
+          ],
+          "target": [
+            -25.482031361495338,
+            0.31662878606254924,
+            5.393086124671971
+          ],
+          "paused": true
+        },
+        {
+          "expected": "chase",
+          "selected": "chase",
+          "active": "chase",
+          "view": "chase",
+          "stored": "hero",
+          "eye": [
+            -38.36993203972421,
+            0.5187322665280062,
+            15.158130392310111
+          ],
+          "target": [
+            -34.28948480681464,
+            0.25768193759345764,
+            11.89474167948547
+          ],
+          "paused": true
+        },
+        {
+          "expected": "heli",
+          "selected": "heli",
+          "active": "heli",
+          "view": "heli",
+          "stored": "hero",
+          "eye": [
+            -38.709201457039825,
+            5.419741667815337,
+            17.250753320189055
+          ],
+          "target": [
+            -32.663493401524924,
+            0.030315522069818544,
+            10.694436038596825
+          ],
+          "paused": true
+        }
+      ]
+    },
+    {
+      "name": "tour camera changes leave the saved Showcase camera untouched",
+      "pass": true,
+      "detail": {
+        "before": "hero",
+        "after": [
+          {
+            "camera": "hero",
+            "stored": "hero"
+          },
+          {
+            "camera": "onboard",
+            "stored": "hero"
+          },
+          {
+            "camera": "chase",
+            "stored": "hero"
+          },
+          {
+            "camera": "heli",
+            "stored": "hero"
+          }
+        ]
+      }
+    },
+    {
+      "name": "disable releases added GPU resources",
+      "pass": true,
+      "detail": {
+        "allocated": 14,
+        "remaining": [],
+        "fieldsCleared": true,
+        "foliageRestored": true,
+        "shadowMeshes": 0,
+        "disabled": true
+      }
+    },
+    {
+      "name": "leave preview restores paused scene and original preference",
+      "pass": true,
+      "detail": {
+        "before": {
+          "open": true,
+          "playing": false,
+          "stored": "circuit3d_day",
+          "preference": "circuit3d_day",
+          "backdrop": "circuit3d_day",
+          "selection": "circuit3d_day",
+          "enabled": false,
+          "detail": false,
+          "scene": true,
+          "paused": true,
+          "loop": false,
+          "clock": 8.016666666666644,
+          "view": "hero",
+          "button": "false"
+        },
+        "after": {
+          "open": true,
+          "playing": false,
+          "stored": "circuit3d_day",
+          "preference": "circuit3d_day",
+          "backdrop": "circuit3d_day",
+          "selection": "circuit3d_day",
+          "enabled": false,
+          "detail": false,
+          "scene": true,
+          "paused": true,
+          "loop": false,
+          "clock": 0,
+          "view": "hero",
+          "button": "false"
+        }
+      }
+    },
+    {
+      "name": "leaving detail restores the original View options, selection and label",
+      "pass": true,
+      "detail": {
+        "before": {
+          "stored": "hero",
+          "value": "hero",
+          "label": "Camera \u2014 which view of the circuit",
+          "options": [
+            {
+              "value": "hero",
+              "hidden": false,
+              "disabled": false
+            },
+            {
+              "value": "auto",
+              "hidden": false,
+              "disabled": false
+            },
+            {
+              "value": "onboard",
+              "hidden": false,
+              "disabled": false
+            },
+            {
+              "value": "chase",
+              "hidden": false,
+              "disabled": false
+            },
+            {
+              "value": "heli",
+              "hidden": false,
+              "disabled": false
+            },
+            {
+              "value": "top",
+              "hidden": false,
+              "disabled": false
+            },
+            {
+              "value": "wide",
+              "hidden": false,
+              "disabled": false
+            },
+            {
+              "value": "detail",
+              "hidden": false,
+              "disabled": false
+            },
+            {
+              "value": "frontdetail",
+              "hidden": false,
+              "disabled": false
+            }
+          ],
+          "button": "Track detail"
+        },
+        "after": {
+          "stored": "hero",
+          "value": "hero",
+          "label": "Camera \u2014 which view of the circuit",
+          "options": [
+            {
+              "value": "hero",
+              "hidden": false,
+              "disabled": false
+            },
+            {
+              "value": "auto",
+              "hidden": false,
+              "disabled": false
+            },
+            {
+              "value": "onboard",
+              "hidden": false,
+              "disabled": false
+            },
+            {
+              "value": "chase",
+              "hidden": false,
+              "disabled": false
+            },
+            {
+              "value": "heli",
+              "hidden": false,
+              "disabled": false
+            },
+            {
+              "value": "top",
+              "hidden": false,
+              "disabled": false
+            },
+            {
+              "value": "wide",
+              "hidden": false,
+              "disabled": false
+            },
+            {
+              "value": "detail",
+              "hidden": false,
+              "disabled": false
+            },
+            {
+              "value": "frontdetail",
+              "hidden": false,
+              "disabled": false
+            }
+          ],
+          "button": "Track detail"
+        }
+      }
+    },
+    {
+      "name": "normal Showcase resumes",
+      "pass": true
+    },
+    {
+      "name": "leave running preview resets normal scene and resumes",
+      "pass": true,
+      "detail": {
+        "open": true,
+        "playing": true,
+        "stored": "circuit3d_day",
+        "preference": "circuit3d_day",
+        "backdrop": "circuit3d_day",
+        "selection": "circuit3d_day",
+        "enabled": false,
+        "detail": false,
+        "scene": true,
+        "paused": false,
+        "loop": false,
+        "clock": 0.049999999999999996,
+        "view": "hero",
+        "button": "false"
+      }
+    },
+    {
+      "name": "restored normal scene advances",
+      "pass": true
+    },
+    {
+      "name": "legacy raw preference restored after leaving",
+      "pass": true,
+      "detail": {
+        "open": true,
+        "playing": false,
+        "stored": "circuit3d_orange",
+        "preference": "circuit3d",
+        "backdrop": "circuit3d",
+        "selection": "circuit3d",
+        "enabled": false,
+        "detail": false,
+        "scene": true,
+        "paused": true,
+        "loop": false,
+        "clock": 0,
+        "view": "hero",
+        "button": "false"
+      }
+    },
+    {
+      "name": "close preview restores absent preference and disables scene",
+      "pass": true,
+      "detail": {
+        "open": false,
+        "playing": false,
+        "stored": null,
+        "preference": "circuit3d",
+        "backdrop": "circuit3d_day",
+        "selection": "circuit3d_day",
+        "enabled": false,
+        "detail": false,
+        "scene": false,
+        "paused": null,
+        "loop": false,
+        "clock": null,
+        "view": null,
+        "button": "false"
+      }
+    },
+    {
+      "name": "reopening uses original default backdrop without preview",
+      "pass": true,
+      "detail": {
+        "open": true,
+        "playing": false,
+        "stored": null,
+        "preference": "circuit3d",
+        "backdrop": "circuit3d",
+        "selection": "circuit3d",
+        "enabled": false,
+        "detail": false,
+        "scene": true,
+        "paused": true,
+        "loop": false,
+        "clock": 0,
+        "view": "hero",
+        "button": "false"
+      }
+    },
+    {
+      "name": "manual backdrop choice exits preview and keeps new preference",
+      "pass": true,
+      "detail": {
+        "open": true,
+        "playing": false,
+        "stored": "black",
+        "preference": "black",
+        "backdrop": "black",
+        "selection": "black",
+        "enabled": false,
+        "detail": false,
+        "scene": false,
+        "paused": null,
+        "loop": false,
+        "clock": null,
+        "view": null,
+        "button": "false"
+      }
+    },
+    {
+      "name": "close does not overwrite manually chosen backdrop",
+      "pass": true,
+      "detail": {
+        "open": false,
+        "playing": false,
+        "stored": "black",
+        "preference": "black",
+        "backdrop": "black",
+        "selection": "black",
+        "enabled": false,
+        "detail": false,
+        "scene": false,
+        "paused": null,
+        "loop": false,
+        "clock": null,
+        "view": null,
+        "button": "false"
+      }
+    },
+    {
+      "name": "candidate: harness blocked-write count",
+      "pass": true,
+      "detail": 0
+    },
+    {
+      "name": "phone Track detail entry is visible and reachable",
+      "pass": true,
+      "detail": {
+        "visible": true,
+        "reachable": true,
+        "text": "Track detail"
+      }
+    },
+    {
+      "name": "phone View control selects the overhead Drone camera without changing saved preference",
+      "pass": true,
+      "detail": {
+        "camera": "heli",
+        "view": "heli",
+        "selected": "heli",
+        "enabled": true,
+        "loop": true,
+        "paused": true,
+        "eye": [
+          -38.709201457039825,
+          5.419741667815337,
+          17.250753320189055
+        ],
+        "stored": "hero",
+        "glError": 0,
+        "controlVisible": true,
+        "controlReachable": true,
+        "viewportWidth": 390,
+        "documentWidth": 390,
+        "showcaseWidth": 390,
+        "showcaseScrollWidth": 390
+      }
+    },
+    {
+      "name": "phone camera control is reachable without horizontal overflow",
+      "pass": true,
+      "detail": {
+        "camera": "heli",
+        "view": "heli",
+        "selected": "heli",
+        "enabled": true,
+        "loop": true,
+        "paused": true,
+        "eye": [
+          -38.709201457039825,
+          5.419741667815337,
+          17.250753320189055
+        ],
+        "stored": "hero",
+        "glError": 0,
+        "controlVisible": true,
+        "controlReachable": true,
+        "viewportWidth": 390,
+        "documentWidth": 390,
+        "showcaseWidth": 390,
+        "showcaseScrollWidth": 390
+      }
+    },
+    {
+      "name": "phone exit restores the original camera control",
+      "pass": true,
+      "detail": {
+        "before": {
+          "stored": "hero",
+          "value": "hero",
+          "label": "Camera \u2014 which view of the circuit",
+          "options": [
+            {
+              "value": "hero",
+              "hidden": false,
+              "disabled": false
+            },
+            {
+              "value": "auto",
+              "hidden": false,
+              "disabled": false
+            },
+            {
+              "value": "onboard",
+              "hidden": false,
+              "disabled": false
+            },
+            {
+              "value": "chase",
+              "hidden": false,
+              "disabled": false
+            },
+            {
+              "value": "heli",
+              "hidden": false,
+              "disabled": false
+            },
+            {
+              "value": "top",
+              "hidden": false,
+              "disabled": false
+            },
+            {
+              "value": "wide",
+              "hidden": false,
+              "disabled": false
+            },
+            {
+              "value": "detail",
+              "hidden": false,
+              "disabled": false
+            },
+            {
+              "value": "frontdetail",
+              "hidden": false,
+              "disabled": false
+            }
+          ],
+          "button": "Track detail"
+        },
+        "after": {
+          "stored": "hero",
+          "value": "hero",
+          "label": "Camera \u2014 which view of the circuit",
+          "options": [
+            {
+              "value": "hero",
+              "hidden": false,
+              "disabled": false
+            },
+            {
+              "value": "auto",
+              "hidden": false,
+              "disabled": false
+            },
+            {
+              "value": "onboard",
+              "hidden": false,
+              "disabled": false
+            },
+            {
+              "value": "chase",
+              "hidden": false,
+              "disabled": false
+            },
+            {
+              "value": "heli",
+              "hidden": false,
+              "disabled": false
+            },
+            {
+              "value": "top",
+              "hidden": false,
+              "disabled": false
+            },
+            {
+              "value": "wide",
+              "hidden": false,
+              "disabled": false
+            },
+            {
+              "value": "detail",
+              "hidden": false,
+              "disabled": false
+            },
+            {
+              "value": "frontdetail",
+              "hidden": false,
+              "disabled": false
+            }
+          ],
+          "button": "Track detail"
+        }
+      }
+    },
+    {
+      "name": "candidate-phone: harness blocked-write count",
+      "pass": true,
+      "detail": 0
+    },
+    {
+      "name": "no service writes attempted",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "no page, shader or console errors",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "candidate remained frozen",
+      "pass": true
+    }
+  ],
+  "errors": [],
+  "serviceWriteAttempts": [],
+  "captures": [
+    {
+      "width": 960,
+      "height": 385,
+      "clock": 8.016666666666644,
+      "view": "hero",
+      "eye": [
+        -2.515244138991324,
+        0.4926961264126806,
+        -6.407151677285407
+      ],
+      "target": [
+        -4.439838534930271,
+        0.14148506595264923,
+        -6.83629448993503
+      ],
+      "quality": "balanced",
+      "enabled": false,
+      "loop": false,
+      "glError": 0,
+      "name": "default-off-baseline",
+      "png_sha256": "6157cab632fe909b7c94f87256a910928e2dd8294d76c46f9c8b1a3931a03d7c",
+      "rgba_sha256": "bfbb71196bd412be7fa99a523ca9168a330f9e66cb2c75ad1cfeee58d8937041",
+      "file": "default-off-baseline.png"
+    },
+    {
+      "width": 960,
+      "height": 385,
+      "clock": 8.016666666666644,
+      "view": "hero",
+      "eye": [
+        -2.515244138991324,
+        0.4926961264126806,
+        -6.407151677285407
+      ],
+      "target": [
+        -4.439838534930271,
+        0.14148506595264923,
+        -6.83629448993503
+      ],
+      "quality": "balanced",
+      "enabled": false,
+      "loop": false,
+      "glError": 0,
+      "name": "default-off-candidate",
+      "png_sha256": "6157cab632fe909b7c94f87256a910928e2dd8294d76c46f9c8b1a3931a03d7c",
+      "rgba_sha256": "bfbb71196bd412be7fa99a523ca9168a330f9e66cb2c75ad1cfeee58d8937041",
+      "file": "default-off-candidate.png"
+    },
+    {
+      "name": "phone track detail controls",
+      "file": "release-phone.png",
+      "png_sha256": "6659eee10a64be1f9aae11ef5cf131a454f2f45a1dfd0bd3081696d2456c434c",
+      "viewport": {
+        "width": 390,
+        "height": 844,
+        "dpr": 1
+      },
+      "camera": "heli",
+      "private": false
+    }
+  ],
+  "baseline": {
+    "file": "base_live.html",
+    "sha256": "c9958a42085aef90aab8f7e81fdafddf6e49859669bf2b15fecff5818139a725"
+  },
+  "candidate": {
+    "file": "GC500_Delivery_Control_hosted.html",
+    "sha256": "2e73ac04d3c8f8105db6ff801998bbd8016a0e60b70374acfe9e4dad3e09c297"
+  },
+  "capturesCommitted": [
+    "release-phone.png"
+  ]
+}

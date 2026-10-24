@@ -1,0 +1,204 @@
+{
+  "author": "Andrew Fisher",
+  "version": "v7.44",
+  "verified_at_utc": "2026-09-30T11:55:27.660Z",
+  "served_sha256": "66dc8be2b0536471feafb65b1716ceb2f52a201d0076ba4c1ff02d0c26f50435",
+  "served_bytes": 8329776,
+  "served_tested_build": true,
+  "runs": [
+    {
+      "mobile": false,
+      "checks": [
+        {
+          "name": "WC31 shows all recorded supplier numbers",
+          "pass": true
+        },
+        {
+          "name": "WC31 no false missing-number message",
+          "pass": true
+        },
+        {
+          "name": "WC31 entry action present and protected on view link",
+          "pass": true
+        },
+        {
+          "name": "WC41 shows all recorded supplier numbers",
+          "pass": true
+        },
+        {
+          "name": "WC41 no false missing-number message",
+          "pass": true
+        },
+        {
+          "name": "WC41 entry action present and protected on view link",
+          "pass": true
+        },
+        {
+          "name": "WC42 shows all recorded supplier numbers",
+          "pass": true
+        },
+        {
+          "name": "WC42 no false missing-number message",
+          "pass": true
+        },
+        {
+          "name": "WC42 entry action present and protected on view link",
+          "pass": true
+        },
+        {
+          "name": "WC43 shows all recorded supplier numbers",
+          "pass": true
+        },
+        {
+          "name": "WC43 no false missing-number message",
+          "pass": true
+        },
+        {
+          "name": "WC43 entry action present and protected on view link",
+          "pass": true
+        },
+        {
+          "name": "WC81 shows all recorded supplier numbers",
+          "pass": true
+        },
+        {
+          "name": "WC81 no false missing-number message",
+          "pass": true
+        },
+        {
+          "name": "WC81 entry action present and protected on view link",
+          "pass": true
+        },
+        {
+          "name": "Sub-hire register entry action present",
+          "pass": true
+        },
+        {
+          "name": "View link remains read-only",
+          "pass": true
+        },
+        {
+          "name": "Rendering left shared record unchanged",
+          "pass": true
+        },
+        {
+          "name": "Drawer fits viewport",
+          "pass": true
+        },
+        {
+          "name": "No page or console errors",
+          "pass": true
+        },
+        {
+          "name": "No record-write attempts",
+          "pass": true
+        }
+      ],
+      "supplierNumbers": 23,
+      "errors": [],
+      "consoleErrors": [],
+      "counts": {
+        "page": 0,
+        "live": 39,
+        "blocked": 0
+      }
+    },
+    {
+      "mobile": true,
+      "checks": [
+        {
+          "name": "WC31 shows all recorded supplier numbers",
+          "pass": true
+        },
+        {
+          "name": "WC31 no false missing-number message",
+          "pass": true
+        },
+        {
+          "name": "WC31 entry action present and protected on view link",
+          "pass": true
+        },
+        {
+          "name": "WC41 shows all recorded supplier numbers",
+          "pass": true
+        },
+        {
+          "name": "WC41 no false missing-number message",
+          "pass": true
+        },
+        {
+          "name": "WC41 entry action present and protected on view link",
+          "pass": true
+        },
+        {
+          "name": "WC42 shows all recorded supplier numbers",
+          "pass": true
+        },
+        {
+          "name": "WC42 no false missing-number message",
+          "pass": true
+        },
+        {
+          "name": "WC42 entry action present and protected on view link",
+          "pass": true
+        },
+        {
+          "name": "WC43 shows all recorded supplier numbers",
+          "pass": true
+        },
+        {
+          "name": "WC43 no false missing-number message",
+          "pass": true
+        },
+        {
+          "name": "WC43 entry action present and protected on view link",
+          "pass": true
+        },
+        {
+          "name": "WC81 shows all recorded supplier numbers",
+          "pass": true
+        },
+        {
+          "name": "WC81 no false missing-number message",
+          "pass": true
+        },
+        {
+          "name": "WC81 entry action present and protected on view link",
+          "pass": true
+        },
+        {
+          "name": "Sub-hire register entry action present",
+          "pass": true
+        },
+        {
+          "name": "View link remains read-only",
+          "pass": true
+        },
+        {
+          "name": "Rendering left shared record unchanged",
+          "pass": true
+        },
+        {
+          "name": "Drawer fits viewport",
+          "pass": true
+        },
+        {
+          "name": "No page or console errors",
+          "pass": true
+        },
+        {
+          "name": "No record-write attempts",
+          "pass": true
+        }
+      ],
+      "supplierNumbers": 23,
+      "errors": [],
+      "consoleErrors": [],
+      "counts": {
+        "page": 0,
+        "live": 38,
+        "blocked": 0
+      }
+    }
+  ]
+}

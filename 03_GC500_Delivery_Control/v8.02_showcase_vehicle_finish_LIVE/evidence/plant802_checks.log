@@ -1,0 +1,94 @@
+{
+  "passed": 154,
+  "failed": 0,
+  "sourceSha256": "0d4f961085ae1d2ae16570d3c03e8cbadd5edb0acd33c28470f88541e9159841",
+  "candidatePageSha256": "173bd884f5dda37fcd442ff7de5a8c908f198eb204982cec4875b442a8f542a2",
+  "failures": [],
+  "models": [
+    {
+      "kind": "forklift",
+      "quality": "balanced",
+      "triangles": 17704,
+      "draws": 18,
+      "buildMs": 184
+    },
+    {
+      "kind": "boom",
+      "quality": "balanced",
+      "triangles": 17164,
+      "draws": 22,
+      "buildMs": 151
+    },
+    {
+      "kind": "scissor",
+      "quality": "balanced",
+      "triangles": 17692,
+      "draws": 18,
+      "buildMs": 142
+    },
+    {
+      "kind": "tractor",
+      "quality": "balanced",
+      "triangles": 17372,
+      "draws": 19,
+      "buildMs": 126
+    },
+    {
+      "kind": "vms",
+      "quality": "balanced",
+      "triangles": 14618,
+      "draws": 17,
+      "buildMs": 92
+    },
+    {
+      "kind": "loo",
+      "quality": "balanced",
+      "triangles": 16962,
+      "draws": 25,
+      "buildMs": 115
+    },
+    {
+      "kind": "forklift",
+      "quality": "high",
+      "triangles": 24668,
+      "draws": 18,
+      "buildMs": 180
+    },
+    {
+      "kind": "boom",
+      "quality": "high",
+      "triangles": 23692,
+      "draws": 22,
+      "buildMs": 166
+    },
+    {
+      "kind": "scissor",
+      "quality": "high",
+      "triangles": 23340,
+      "draws": 18,
+      "buildMs": 164
+    },
+    {
+      "kind": "tractor",
+      "quality": "high",
+      "triangles": 24488,
+      "draws": 19,
+      "buildMs": 180
+    },
+    {
+      "kind": "vms",
+      "quality": "high",
+      "triangles": 20106,
+      "draws": 17,
+      "buildMs": 130
+    },
+    {
+      "kind": "loo",
+      "quality": "high",
+      "triangles": 22710,
+      "draws": 25,
+      "buildMs": 165
+    }
+  ],
+  "output": "/workspace/gc500-showcase-full-lap/03_GC500_Delivery_Control/v8.02_showcase_vehicle_finish_DRAFT/evidence/plant802_checks.json"
+}

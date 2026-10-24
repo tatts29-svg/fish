@@ -1,0 +1,237 @@
+{
+  "author": "Andrew Fisher",
+  "candidateSha256": "33d61cd71fa409b34f23ba0c7badbbdf7c4ae61ed5a4b8f080bea63e5d492cc0",
+  "passed": 44,
+  "total": 44,
+  "checks": [
+    {
+      "name": "Expected official812 hash and size",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "Exact original807 build base",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "Frozen source v8.05_links_that_go_DRAFT/patch_v805.py",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "Frozen source v8.08_delivery_sheet_remaining_DRAFT/patch_v808.py",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "Frozen source v8.08_delivery_sheet_remaining_DRAFT/sheet_remaining808_src.js",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "Frozen source v8.10_navigation_finish_DRAFT/patch_v810.py",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "Frozen source v8.10_navigation_finish_DRAFT/navigation810_src.js",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "Frozen source v8.11_camera_restore_DRAFT/patch_v811.py",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "Independent component application v8.05_links_that_go_DRAFT/patch_v805.py",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "Independent component application v8.08_delivery_sheet_remaining_DRAFT/patch_v808.py",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "Independent component application v8.10_navigation_finish_DRAFT/patch_v810.py",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "Independent component application v8.11_camera_restore_DRAFT/patch_v811.py",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "805 source reproduced exact reviewed candidate",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "Single pre-release marker",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "Official attribution scrub completes",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "Independent replay equals official candidate byte for byte",
+      "pass": true,
+      "detail": "33d61cd71fa409b34f23ba0c7badbbdf7c4ae61ed5a4b8f080bea63e5d492cc0"
+    },
+    {
+      "name": "Camera-only result equals original focused811 reviewed hash",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "Combined candidate retains expected seven scripts",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "Exact811 rendering/library binding: QR code",
+      "pass": true,
+      "detail": "3fb4ed58ff85c0445d942ad860a50cf20a4db7ff67f0442d48cab4175dc270ca"
+    },
+    {
+      "name": "Exact811 rendering/library binding: main renderer/vehicle materials/physics",
+      "pass": true,
+      "detail": "a3a67abe68104680d9dc5a02b0364e17b107ccd0d9a95703e8584c3d7a6b3f58"
+    },
+    {
+      "name": "Exact811 rendering/library binding: compression",
+      "pass": true,
+      "detail": "a90b42909d80964269ef6d5f3d1e4a5a7e2a4c263a5d2a76a9e7151901343262"
+    },
+    {
+      "name": "Exact811 rendering/library binding: PDF library",
+      "pass": true,
+      "detail": "e6551fcdc32f09d6853b2c5126d18d01d9447e0da618a41a11ebeee0f6c20d54"
+    },
+    {
+      "name": "Exact811 rendering/library binding: architecture and vegetation",
+      "pass": true,
+      "detail": "14243ffd22488bc5bac892dde2c5d1519adfd89663fb4e6db72d16fd363fc7af"
+    },
+    {
+      "name": "Exact811 rendering/library binding: track/pit/kerb/corridor/playback/AA",
+      "pass": true,
+      "detail": "ce5cb50accac8a6970c1ab529d3c25179c0b06a0cd123dead2951b6a02ccc534"
+    },
+    {
+      "name": "Final810 full route and helper exactly match focused source",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "Final805 Map explorer render source retained",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "Final808 receipt helper embedded exactly once",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "Exact808 print function dpTruckBefore801",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "Exact808 print function sheet808What",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "Exact808 print function sheet808Sub",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "Entire embedded business DATA byte preserved from807",
+      "pass": true,
+      "detail": "9db4404c370f7ab084ab04476e2175743d6f801f49a5cb584b979dafcd17f356"
+    },
+    {
+      "name": "Protected business/record source deliveryOf",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "Protected business/record source unitsOf",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "Protected business/record source itemRows",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "Protected business/record source programmeDays",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "Protected business/record source bookingGroups801",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "Protected business/record source bookingRows801",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "Protected business/record source bookingBrief801",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "Protected business/record source dpDeliveryNotes798",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "Protected business/record source toDocs",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "Protected business/record source fromDocs",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "Protected business/record source syncSend",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "Protected business/record source applyRemote",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "No saved-controls804 component accidentally included",
+      "pass": true,
+      "detail": null
+    }
+  ],
+  "stageHashes": {
+    "v8.05": "36d27b553b9d2ee8c221b155d49d760d02fd225645653eaaec9f3637fd3789ad",
+    "v8.08": "d2d59692d98d8a314bddd6d6dd61ef9aca4fded9896b488d671ba94c889072c9",
+    "v8.10": "3352ec92668bea78bfccfbaed5f38ef8608825624738b6bb8232da4a6cbce996",
+    "v8.11": "3811c4357becf03575e73983b5c9d38280a63fd528516109ca9a51f5e48ac02a"
+  },
+  "operationalWrites": 0,
+  "productEdits": 0,
+  "scope": "Offline replay of frozen component chain plus exact renderer, routing, print and business preservation. No browser performance or live-service claim."
+}

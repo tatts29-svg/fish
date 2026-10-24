@@ -1,0 +1,16 @@
+{
+  "author": "Andrew Fisher",
+  "completed_at": "2026-10-01T17:03:14+10:00",
+  "release": "v7.69",
+  "status": "complete",
+  "record_version_before": 3503,
+  "record_version_after": 3520,
+  "created_documents": 17,
+  "updated_documents": 0,
+  "deleted_documents": 0,
+  "fresh_read_verified": true,
+  "existing_charges_preserved": true,
+  "idempotence_passed": true,
+  "page_errors": 0,
+  "backup": "retained privately"
+}

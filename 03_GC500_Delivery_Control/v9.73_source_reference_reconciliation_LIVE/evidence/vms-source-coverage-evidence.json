@@ -1,0 +1,660 @@
+{
+  "author": "Andrew Fisher",
+  "review_date": "2026-10-09",
+  "native_version": 5168,
+  "scope": "Read-only audit of source destination coverage versus confirmed load-to-board assignment. No position, allocation, receipt, quantity or cost change.",
+  "sources": {
+    "schedule7": {
+      "filename": "GC500 26' Schedule (7).xlsx",
+      "sha256": "485f5d885b88d836b63e85ad4062474a95a484022386efec7be62429f958edac"
+    },
+    "baseplan": {
+      "filename": "Baseplan SuperCars.xlsx",
+      "sha256": "eb4a224fadbe1350d031adf8a1b12760d3dd748a2f0643119ea103d1df9b5b21",
+      "sheet": "9961265-STPS"
+    },
+    "VMS001": {
+      "filename": "VMS001-26003-01_GC500_COATES_VMS_LOCATIONS.pdf",
+      "sha256": "9ef1527d1fd9c6c7ea70dd3db3ced96784b0c1b32eba0df2aa3fb5ecd61be382",
+      "pages": 17,
+      "registry_id": "VMS001-26003-01_GC500_COATES_VMS_LOCATIONS.pdf",
+      "registry_before_upload_linked": false,
+      "registry_currently_linked": true,
+      "upload_verified_utc": "2026-10-09T10:40:36.773Z"
+    },
+    "D025": {
+      "filename": "D025-26003-02-VMS.pdf",
+      "sha256": "49df16456567a92adf9373c0aedc9908f6e50c8b4e525d5e889691f16ebb760d",
+      "pages": 1,
+      "registry_id": "D025-26003-02-VMS.pdf",
+      "map_key": "D025",
+      "revision": "02",
+      "registry_currently_linked": true
+    }
+  },
+  "schedule_rows": [
+    {
+      "ref": "T0128",
+      "sheet": "Week 1",
+      "row": 32,
+      "cells": {
+        "A32": "2026-10-16 00:00:00",
+        "B32": "VMS",
+        "C32": "VMS",
+        "D32": "2",
+        "H32": "scars"
+      },
+      "plan_coverage": "Supplied plans contain numbered VMS destinations. This source row does not name board numbers or destination callouts.",
+      "status": "board_allocation_not_recorded",
+      "note": "No confirmed board-to-load assignment in the checked schedule versions or native record."
+    },
+    {
+      "ref": "T0158",
+      "sheet": "Event Week",
+      "row": 28,
+      "cells": {
+        "A28": "2026-10-19 00:00:00",
+        "B28": "VMS",
+        "C28": "VMS",
+        "D28": "9",
+        "H28": "scars"
+      },
+      "plan_coverage": "Supplied plans contain numbered VMS destinations. This source row does not name board numbers or destination callouts.",
+      "status": "board_allocation_not_recorded",
+      "note": "No confirmed board-to-load assignment in the checked schedule versions or native record."
+    },
+    {
+      "ref": "T0159",
+      "sheet": "Event Week",
+      "row": 29,
+      "cells": {
+        "A29": "2026-10-19 00:00:00",
+        "B29": "VMS",
+        "C29": "VMS",
+        "D29": "5",
+        "E29": "Relocate",
+        "F29": "Relocate",
+        "G29": "Relocate",
+        "H29": "scars"
+      },
+      "plan_coverage": "Supplied plans contain numbered VMS destinations. This source row does not name board numbers or destination callouts.",
+      "status": "board_allocation_not_recorded",
+      "note": "Five scheduled relocations versus four explicitly described on VMS001 pages9\u201310."
+    },
+    {
+      "ref": "T0169",
+      "sheet": "Event Week",
+      "row": 40,
+      "cells": {
+        "A40": "2026-10-21 00:00:00",
+        "B40": "VMS",
+        "C40": "VMS",
+        "D40": "2",
+        "H40": "scars"
+      },
+      "plan_coverage": "Supplied plans contain numbered VMS destinations. This source row does not name board numbers or destination callouts.",
+      "status": "board_allocation_not_recorded",
+      "note": "No confirmed board-to-load assignment in the checked schedule versions or native record."
+    },
+    {
+      "ref": "T0170",
+      "sheet": "Event Week",
+      "row": 41,
+      "cells": {
+        "A41": "2026-10-21 00:00:00",
+        "B41": "VMS",
+        "C41": "VMS",
+        "D41": "1",
+        "H41": "scars"
+      },
+      "plan_coverage": "Supplied plans contain numbered VMS destinations. This source row does not name board numbers or destination callouts.",
+      "status": "board_allocation_not_recorded",
+      "note": "No confirmed board-to-load assignment in the checked schedule versions or native record."
+    }
+  ],
+  "known_destinations": [
+    {
+      "board": "01",
+      "source": "VMS001",
+      "page": 2,
+      "description": "Gold Coast Highway median, south of Queen Street intersection",
+      "assigned_to_future_load": false
+    },
+    {
+      "board": "02",
+      "source": "VMS001",
+      "page": 3,
+      "description": "Waterways Drive northbound",
+      "assigned_to_future_load": false
+    },
+    {
+      "board": "03",
+      "source": "VMS001",
+      "page": 3,
+      "description": "Gold Coast Highway southbound, north of Breaker Street intersection",
+      "assigned_to_future_load": false
+    },
+    {
+      "board": "04",
+      "source": "VMS001",
+      "page": 4,
+      "description": "Admiralty Drive eastbound at Gold Coast Highway intersection",
+      "assigned_to_future_load": false
+    },
+    {
+      "board": "05",
+      "source": "VMS001",
+      "page": 4,
+      "description": "Gold Coast Highway southbound, pit exit chevron",
+      "assigned_to_future_load": false
+    },
+    {
+      "board": "06",
+      "source": "VMS001",
+      "page": 5,
+      "description": "Gold Coast Highway northbound at Birt Avenue median (The Marriott)",
+      "assigned_to_future_load": false
+    },
+    {
+      "board": "07",
+      "source": "VMS001",
+      "page": 6,
+      "description": "Main Beach Parade southbound",
+      "assigned_to_future_load": false
+    },
+    {
+      "board": "08",
+      "source": "VMS001",
+      "page": 6,
+      "description": "Gold Coast Highway northbound, south of Staghorn intersection",
+      "assigned_to_future_load": false
+    },
+    {
+      "board": "22",
+      "source": "VMS001",
+      "page": 7,
+      "description": "South of Sundale Bridge for northbound traffic, traffic-switch lane at Tedder Avenue intersection",
+      "assigned_to_future_load": false
+    },
+    {
+      "board": "23",
+      "source": "VMS001",
+      "page": 7,
+      "description": "Gold Coast Highway north of Sundale Bridge, eastern side for southbound traffic",
+      "assigned_to_future_load": false
+    },
+    {
+      "board": "02a",
+      "source": "VMS001",
+      "page": 9,
+      "description": "Relocate02 to Gold Coast Highway southbound, top of path nearS10",
+      "assigned_to_future_load": false
+    },
+    {
+      "board": "03a",
+      "source": "VMS001",
+      "page": 9,
+      "description": "Relocate03 to Gold Coast Highway southbound, outside Gate1",
+      "assigned_to_future_load": false
+    },
+    {
+      "board": "05a",
+      "source": "VMS001",
+      "page": 10,
+      "description": "Relocate05 to Gold Coast Highway southbound, PB3",
+      "assigned_to_future_load": false
+    },
+    {
+      "board": "07a",
+      "source": "VMS001",
+      "page": 10,
+      "description": "Relocate07 to eastern end of Macintosh Island Park Bridge",
+      "assigned_to_future_load": false
+    },
+    {
+      "board": "09",
+      "source": "VMS001",
+      "page": 11,
+      "description": "Gold Coast Highway northbound, north of T E Peters Drive intersection, southern end of Convention Centre",
+      "assigned_to_future_load": false
+    },
+    {
+      "board": "10",
+      "source": "VMS001",
+      "page": 11,
+      "description": "Old Burleigh Road northbound, south of Queensland Avenue intersection",
+      "assigned_to_future_load": false
+    },
+    {
+      "board": "11",
+      "source": "VMS001",
+      "page": 12,
+      "description": "Macintosh Island Park, co-located with WC16",
+      "assigned_to_future_load": false
+    },
+    {
+      "board": "12",
+      "source": "VMS001",
+      "page": 12,
+      "description": "Macintosh Island Park, western end of Macintosh Island Park Bridge",
+      "assigned_to_future_load": false
+    },
+    {
+      "board": "13",
+      "source": "VMS001",
+      "page": 13,
+      "description": "T14 DL after track activity Fri/Sat/Sun; stored Altus compound, Cypress Avenue",
+      "assigned_to_future_load": false
+    },
+    {
+      "board": "14",
+      "source": "VMS001",
+      "page": 13,
+      "description": "Gold Coast Highway southbound after track activity Fri/Sat/Sun; stored Altus compound, Cypress Avenue",
+      "assigned_to_future_load": false
+    },
+    {
+      "board": "15",
+      "source": "VMS001",
+      "page": 14,
+      "description": "T4 runoff after track activity Fri/Sat/Sun; stored T2 runoff",
+      "assigned_to_future_load": false
+    },
+    {
+      "board": "16",
+      "source": "VMS001",
+      "page": 14,
+      "description": "T11 after track activity Fri/Sat/Sun; stored T11 runoff",
+      "assigned_to_future_load": false
+    },
+    {
+      "board": "17",
+      "source": "VMS001",
+      "page": 15,
+      "description": "T12 runoff after track activity Fri/Sat/Sun; caption says stored T10 runoff, inset appears T11",
+      "assigned_to_future_load": false
+    },
+    {
+      "board": "18",
+      "source": "VMS001",
+      "page": 15,
+      "description": "Ocean Avenue westbound at Surfers Paradise Boulevard; Roadtek to remove/install Fri/Sat/Sun",
+      "assigned_to_future_load": false
+    },
+    {
+      "board": "19",
+      "source": "VMS001",
+      "page": 16,
+      "description": "Concert egress within Palm Bar BOH compound",
+      "assigned_to_future_load": false
+    },
+    {
+      "board": "20",
+      "source": "VMS001",
+      "page": 16,
+      "description": "The Esplanade southbound, next toP60",
+      "assigned_to_future_load": false
+    },
+    {
+      "board": "21",
+      "source": "VMS001",
+      "page": 17,
+      "description": "Caption says Staghorn Avenue/Surfers Paradise Boulevard eastbound; inset/photo depicts Ocean Avenue",
+      "assigned_to_future_load": false
+    },
+    {
+      "board": "24",
+      "source": "VMS001",
+      "page": 17,
+      "description": "The Esplanade before Staghorn Avenue intersection, northbound",
+      "assigned_to_future_load": false
+    }
+  ],
+  "conflicts": [
+    {
+      "kind": "drawing_relocation_id",
+      "sources": [
+        "D025 page1",
+        "VMS001 page9"
+      ],
+      "detail": "D025 identifies04A; VMS001 explicitly relocates03 to03a. Never combine these into a fifth move without evidence."
+    },
+    {
+      "kind": "relocation_count",
+      "sources": [
+        "Schedule7 Event Week!C29",
+        "VMS001 pages9\u201310"
+      ],
+      "detail": "Schedule five; source explicitly describes four:02,03,05,07."
+    },
+    {
+      "kind": "physical_scope",
+      "sources": [
+        "Schedule7 build rows and BOQ!C96",
+        "D025 page1",
+        "VMS001 pages2\u201317"
+      ],
+      "detail": "Schedule build total24; BOQ23; D02520 primary plus4 move positions; VMS00124 primary plus4 move positions. Prior user confirmed22; unchanged distinct bases."
+    },
+    {
+      "kind": "VMS21_location",
+      "sources": [
+        "VMS001 page17"
+      ],
+      "detail": "Caption says Staghorn; inset/photo depicts Ocean Avenue."
+    },
+    {
+      "kind": "VMS17_storage",
+      "sources": [
+        "VMS001 page15"
+      ],
+      "detail": "Caption says T10 runoff; inset appears T11."
+    },
+    {
+      "kind": "21Oct_quantity_date",
+      "sources": [
+        "Schedule7 Event Week!C40:C41",
+        "Baseplan9961265-STPS!AT22:AT23"
+      ],
+      "detail": "Three scheduled on21Oct versus one contract row21Oct and one22Oct. No safe allocation."
+    }
+  ],
+  "native_findings": {
+    "version": 5168,
+    "future_loads": [
+      "T0128",
+      "T0158",
+      "T0159",
+      "T0169",
+      "T0170"
+    ],
+    "confirmed_unit_or_pin_allocations": 0,
+    "T0103_settled": {
+      "quantity": 2,
+      "boards": [
+        {
+          "board": "VMS09",
+          "owner": "Coates",
+          "asset": "1211404",
+          "transfer_from": "T0001"
+        },
+        {
+          "board": "VMS10",
+          "owner": "PremAir Hire",
+          "fleet": "120T",
+          "rego": "V14221"
+        }
+      ],
+      "note": "Do not create a third board or use the contract stock code as its fleet number."
+    },
+    "T0001_source_scope": "Eight native D025 callout assignments01\u201308 recorded14Sep; later user transfer of1211404 takes precedence for current location."
+  },
+  "recommended_projection": {
+    "shared_label": "Numbered VMS destinations supplied",
+    "load_detail": "Numbered VMS destinations are shown on the supplied plans. The board numbers assigned to this load are not recorded.",
+    "relocation_detail": "Four relocations are described on VMS001 pages9\u201310; this load schedules five. D025 identifies04A where VMS001 identifies03a. The batch-to-board allocation and fifth move remain unresolved.",
+    "links": [
+      {
+        "doc": "D025",
+        "action": "Open active numbered destination map",
+        "map_key": "D025"
+      },
+      {
+        "doc": "VMS001",
+        "action": "Open supplied detailed location plan after source is uploaded and registered",
+        "must_check_actual_registry_link": true
+      }
+    ],
+    "must_not": [
+      "Do not label these as no map or no supplied destinations.",
+      "Do not assign the candidate contract date groups as confirmed board allocations.",
+      "Do not move pins, change hire or quantities, or mark future deliveries received.",
+      "Do not create a PDF href while VMS001 remains name-only in the registry."
+    ]
+  },
+  "contract_reference_rows": [
+    {
+      "row": 10,
+      "cells": {
+        "A": "12",
+        "D": "1211404",
+        "F": "VMS09 Variable Message Board Senior",
+        "G": "1",
+        "X": "",
+        "AT": "2026-10-08 00:00:00",
+        "AU": "2026-10-27 00:00:00",
+        "AQ": ""
+      }
+    },
+    {
+      "row": 11,
+      "cells": {
+        "A": "13",
+        "D": "sub-17093",
+        "F": "VMS10 Variable Message Board Senior Premiair",
+        "G": "1",
+        "X": "PRE808",
+        "AT": "2026-10-08 00:00:00",
+        "AU": "2026-10-27 00:00:00",
+        "AQ": "26115373"
+      }
+    },
+    {
+      "row": 12,
+      "cells": {
+        "A": "15",
+        "D": "SUB-17093",
+        "F": "VMS11 Variable Message Board - Premiair",
+        "G": "1",
+        "X": "PRE808",
+        "AT": "2026-10-16 00:00:00",
+        "AU": "2026-10-26 00:00:00",
+        "AQ": ""
+      }
+    },
+    {
+      "row": 13,
+      "cells": {
+        "A": "16",
+        "D": "1211646",
+        "F": "VMS12 Variable Message Board Junior",
+        "G": "1",
+        "X": "",
+        "AT": "2026-10-16 00:00:00",
+        "AU": "2026-10-26 00:00:00",
+        "AQ": ""
+      }
+    },
+    {
+      "row": 14,
+      "cells": {
+        "A": "18",
+        "D": "sub-17093",
+        "F": "VMS13 Variable Message Board Senior RPM",
+        "G": "1",
+        "X": "RPM006",
+        "AT": "2026-10-19 00:00:00",
+        "AU": "2026-10-26 00:00:00",
+        "AQ": ""
+      }
+    },
+    {
+      "row": 15,
+      "cells": {
+        "A": "19",
+        "D": "sub-17093",
+        "F": "VMS14 Variable Message Board Senior RPM",
+        "G": "1",
+        "X": "RPM006",
+        "AT": "2026-10-19 00:00:00",
+        "AU": "2026-10-26 00:00:00",
+        "AQ": ""
+      }
+    },
+    {
+      "row": 16,
+      "cells": {
+        "A": "21",
+        "D": "sub-17093",
+        "F": "VMS15 Variable Message Board Senior RPM",
+        "G": "1",
+        "X": "RPM006",
+        "AT": "2026-10-19 00:00:00",
+        "AU": "2026-10-26 00:00:00",
+        "AQ": ""
+      }
+    },
+    {
+      "row": 17,
+      "cells": {
+        "A": "22",
+        "D": "sub-17093",
+        "F": "VMS16 Variable Message Board Senior RPM",
+        "G": "1",
+        "X": "RPM006",
+        "AT": "2026-10-19 00:00:00",
+        "AU": "2026-10-26 00:00:00",
+        "AQ": ""
+      }
+    },
+    {
+      "row": 18,
+      "cells": {
+        "A": "23",
+        "D": "sub-17093",
+        "F": "VMS17 Variable Message Board RPM",
+        "G": "1",
+        "X": "RPM006",
+        "AT": "2026-10-19 00:00:00",
+        "AU": "2026-10-26 00:00:00",
+        "AQ": ""
+      }
+    },
+    {
+      "row": 19,
+      "cells": {
+        "A": "24",
+        "D": "SUB-2631",
+        "F": "VMS18 Variable Message Board Senior Premiair",
+        "G": "1",
+        "X": "PRE808",
+        "AT": "2026-10-19 00:00:00",
+        "AU": "2026-10-26 00:00:00",
+        "AQ": ""
+      }
+    },
+    {
+      "row": 20,
+      "cells": {
+        "A": "25",
+        "D": "SUB-2631",
+        "F": "VMS19 Variable Message Board Senior Premiair",
+        "G": "1",
+        "X": "PRE808",
+        "AT": "2026-10-19 00:00:00",
+        "AU": "2026-10-26 00:00:00",
+        "AQ": ""
+      }
+    },
+    {
+      "row": 21,
+      "cells": {
+        "A": "26",
+        "D": "SUB-2631",
+        "F": "VMS20 Variable Message Board Senior Premiair",
+        "G": "1",
+        "X": "PRE808",
+        "AT": "2026-10-19 00:00:00",
+        "AU": "2026-10-26 00:00:00",
+        "AQ": ""
+      }
+    },
+    {
+      "row": 22,
+      "cells": {
+        "A": "28",
+        "D": "SUB-2631",
+        "F": "VMS21 Variable Message Board Senior Premiair",
+        "G": "1",
+        "X": "PRE808",
+        "AT": "2026-10-22 00:00:00",
+        "AU": "2026-10-26 00:00:00",
+        "AQ": ""
+      }
+    },
+    {
+      "row": 23,
+      "cells": {
+        "A": "29",
+        "D": "SUB-2631",
+        "F": "VMS22 Variable Message Board Senior Premiair",
+        "G": "1",
+        "X": "PRE808",
+        "AT": "2026-10-21 00:00:00",
+        "AU": "2026-10-28 00:00:00",
+        "AQ": ""
+      }
+    },
+    {
+      "row": 24,
+      "cells": {
+        "A": "30",
+        "D": "SUB-2631",
+        "F": "VMS23 Variable Message Board Senior Premiair",
+        "G": "1",
+        "X": "PRE808",
+        "AT": "2026-10-19 00:00:00",
+        "AU": "2026-10-26 00:00:00",
+        "AQ": ""
+      }
+    }
+  ],
+  "candidate_groups_not_allocations": [
+    {
+      "load": "T0128",
+      "basis": "Two 16 Oct booked-delivery contract rows; matches schedule date and quantity only.",
+      "source": "9961265-STPS!A12:AU13",
+      "description_labels": [
+        "VMS11",
+        "VMS12"
+      ],
+      "assignment_confirmed": false,
+      "destination_catalogue_pages": [
+        12
+      ]
+    },
+    {
+      "load": "T0158",
+      "basis": "Nine 19 Oct booked-delivery contract rows; matches schedule date and quantity only.",
+      "source": "9961265-STPS!A14:AU21 and A24:AU24",
+      "description_labels": [
+        "VMS13",
+        "VMS14",
+        "VMS15",
+        "VMS16",
+        "VMS17",
+        "VMS18",
+        "VMS19",
+        "VMS20",
+        "VMS23"
+      ],
+      "assignment_confirmed": false,
+      "destination_catalogue_pages": [
+        7,
+        13,
+        14,
+        15,
+        16
+      ]
+    },
+    {
+      "loads": [
+        "T0169",
+        "T0170"
+      ],
+      "basis": "Schedule has three deliveries on21Oct. Contracts have one VMS22 on21Oct and one VMS21 on22Oct; no VMS24 contract description. Quantity/date do not reconcile.",
+      "source": "9961265-STPS!A22:AU23",
+      "assignment_confirmed": false
+    }
+  ]
+}

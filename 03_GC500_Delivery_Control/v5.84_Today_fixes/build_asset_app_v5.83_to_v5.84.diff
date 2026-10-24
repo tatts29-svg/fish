@@ -1,0 +1,234 @@
+--- /tmp/claude-0/-home-user-fish/710a1764-23a1-5338-9fe8-299f94961e8a/scratchpad/gc500/print/build_asset_app.py.v583	2026-09-25 10:38:10.344245636 +0000
++++ /tmp/claude-0/-home-user-fish/710a1764-23a1-5338-9fe8-299f94961e8a/scratchpad/gc500/print/build_asset_app.py	2026-09-25 10:50:47.676223780 +0000
+@@ -2078,17 +2078,21 @@
+ .hublist li{display:flex;align-items:center;gap:7px;padding:3px 0;border-bottom:1px solid var(--rule2);min-width:0}
+ .hublist li .w{flex:1 1 auto;min-width:0;overflow-wrap:anywhere}
+ .hublist li:last-child{border-bottom:0}
+-.hublist .tm{font-weight:700;font-variant-numeric:tabular-nums;min-width:3.2em}
++.hublist .tm{font-weight:700;font-variant-numeric:tabular-nums;min-width:3.2em;white-space:nowrap}
+ .hublist.compact li{padding:2px 0}
+ .hublist .more{color:var(--mute);font-style:italic}
+ .hublist .hubrow{padding:5px 0;flex-wrap:wrap}
++/* v5.84 — a clash row is a sentence, not a table: on a 340 px card the flex columns squeezed to one character each */
++.clashcard .hublist li{display:block;line-height:1.5}
++.clashcard .hublist li .tm{display:inline;margin-right:4px}
++.clashcard .hublist li .w{display:inline}
+ .hublist .hubrow .anos{display:block;font-size:11px;margin-top:1px}
+ .hublist .hubrow .anos small{font:600 9px/1 "Segoe UI",system-ui,sans-serif;letter-spacing:.06em;text-transform:uppercase;color:var(--mute)}
+ .hubgo{margin-top:auto;font-size:12px;font-weight:700;color:var(--orange-ink);letter-spacing:.02em}
+ @media (prefers-color-scheme:dark){.hubgo{color:var(--orange)}}
+-.hublights{display:grid;grid-template-columns:1fr 1fr;gap:6px}
++.hublights{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}
+ .hublights .hl{display:flex;align-items:center;gap:7px;padding:8px 10px;border:1px solid var(--rule);border-radius:10px;background:var(--tint2);
+-  cursor:pointer;font-size:12px;text-align:left;white-space:nowrap;transition:border-color .15s, box-shadow .15s}
++  cursor:pointer;font-size:12px;text-align:left;white-space:normal;line-height:1.15;min-width:0;transition:border-color .15s, box-shadow .15s}
+ .hublights .hl b{font-size:16px}
+ .hublights .hl:hover{border-color:var(--orange);box-shadow:0 0 0 3px var(--glow-wide)}
+ .hubsheets{display:flex;flex-wrap:wrap;gap:6px}
+@@ -2160,7 +2164,7 @@
+ .tsq .tsqface b{font-family:'Barlow Condensed','Arial Narrow',var(--sans,system-ui,sans-serif);font-style:italic;
+   font-weight:700;font-size:27px;line-height:.9;letter-spacing:-.01em;font-variant-numeric:tabular-nums}
+ .tsq .tsqface span{font-size:12px;font-weight:800;letter-spacing:-.005em;margin-top:2px}
+-.tsq .tsqface em{font-style:normal;font-size:10.5px;color:var(--mute);font-weight:600}
++.tsq .tsqface em{font-style:normal;font-size:10.5px;color:var(--ink2);font-weight:600}
+ /* the two groups that need chasing wear the page's unresolved tint — the same amber every unresolved fact wears,
+    never the orange, which on this page means "where you are looking" and never "something is wrong" */
+ .tsq.gap{--face:var(--sem-gap-bg); --edge:var(--sem-gap-edge)}
+@@ -2694,7 +2698,7 @@
+ .dbt > .face{padding:12px 14px 13px;display:flex;flex-direction:column;gap:1px;background:var(--face)}
+ .dbtl{font-size:12px;font-weight:700;color:var(--ink2)}
+ .dbt b.racenum{font-size:40px;color:var(--ink);margin:5px 0 2px}
+-.dbts{font-size:10.5px;color:var(--mute)}
++.dbts{font-size:10.5px;color:var(--ink2)}
+ .dbt.in{--edge:var(--orange-lt); --face:var(--orange-soft)} .dbt.in .dbtl{color:var(--orange-ink)}
+ .dbt.out{--edge:var(--sem-change-edge); --face:var(--sem-change-bg)} .dbt.out .dbtl{color:var(--sem-change-ink)}
+ .dbt.load{--edge:var(--sem-plan-edge); --face:var(--sem-plan-bg)} .dbt.load .dbtl{color:var(--sem-plan-ink)}
+@@ -3055,6 +3059,10 @@
+ .bhero.film{cursor:pointer}
+ .bhero.playing{cursor:default}
+ @media (max-width:620px){ .bhero .bplay{right:10px;bottom:10px;padding:8px 14px 8px 11px;font-size:12px} }
++/* v5.84 — the board's words, said under the picture on a phone, where the lamps are a hundred pixels wide */
++/* a <p>, not a <span>: the weather refresh rewrites the caption's second span and must keep finding the weather line */
++.bhero .bsay{display:none;margin:0}
++@media (max-width:640px){ .bhero .bsay{display:block;flex:1 1 100%;font-weight:800;font-size:13px;letter-spacing:.02em;color:var(--ink)} }
+ /* the board face — placed by the fractions measured off the picture itself, so it holds at any size */
+ /* Everything on the face is sized off the face's own width (cqw), so it reads the same on a laptop, on a phone
+    and on paper without a line of script — the printed report is the one that used to come out clipped. The fit
+@@ -3171,7 +3179,7 @@
+ .giscope .gsc{flex:1;min-width:0;font:inherit;font-size:12px;font-weight:700;padding:9px 10px;border-radius:2px;
+   border:1px solid #464d4e;background:transparent;color:#d4d9d3;cursor:pointer;min-height:40px}
+ .giscope .gsc.on{background:#343734;color:#fff;border-bottom:2px solid var(--gi-fill)}
+-.giface{position:relative;max-width:520px;margin:2px auto 0}
++.giface{position:relative;width:100%;max-width:520px;margin:2px auto 0;container-type:inline-size}
+ .giface svg{display:block;width:100%;height:auto}
+ .girim{fill:var(--gi-rim)} .gibez{fill:var(--gi-bez)} .gidisc{fill:var(--gi-disc)}
+ .gitrack{stroke:var(--gi-track)} .gifill{stroke:var(--gi-fill)}
+@@ -3189,10 +3197,10 @@
+ @media (prefers-reduced-motion:reduce){.gineedle{transition:none}}
+ .gidig{position:absolute;top:58%;left:0;right:0;text-align:center;pointer-events:none}
+ .gidig b{font-family:'Barlow Condensed','Arial Narrow',var(--sans,system-ui,sans-serif);font-style:italic;
+-  font-weight:700;font-size:clamp(34px,10vw,58px);letter-spacing:-.04em;line-height:1;color:#fff;
++  font-weight:700;font-size:clamp(22px,11.2cqw,58px);letter-spacing:-.04em;line-height:1;color:#fff;
+   font-variant-numeric:tabular-nums}
+ .gidig b i{font-style:normal;font-size:.38em;letter-spacing:-.02em;margin-left:2px;font-weight:400}
+-.gidig p{margin:5px 0 0;font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:#b6c0bb}
++.gidig p{margin:calc(.6cqw + 2px) 0 0;font-size:clamp(7px,1.9cqw,10px);letter-spacing:.15em;text-transform:uppercase;color:#b6c0bb}
+ .ginote{text-align:center;border-top:1px solid #3b4240;padding-top:11px;margin:10px 0 0;font-size:12px;color:#d2d8d2}
+ .ginote b{color:#fff}
+ .cgauge.gi .cgnote{color:#b6c0bb;border:0;margin-top:8px}
+@@ -5109,6 +5117,20 @@
+ .empty{padding:30px;text-align:center;color:var(--mute);font-size:13px}
+ footer.foot{padding:10px 16px;border-top:1px solid var(--rule);background:var(--paper);font-size:11px;
+   color:var(--mute);display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;flex:0 0 auto}
++/* v5.84 — WHAT A VIEW LINK DOES NOT SHOW. Hiding a control was already a courtesy and refusing the change the
++   rule (mayWrite); but the day's own screen still carried "Put your name in Recording as", Your records with
++   Export and Import, the Edit card and the day view's Add an asset, on a link that cannot change anything. A
++   thing that only writes carries .editonly and goes with the body's viewonly class, so a link the service
++   turns read-only after the render loses them too. The Tools menu's name field goes the same way. */
++body.viewonly .editonly{display:none!important}
++body.viewonly #moreMenu .who, body.viewonly #moreMenu .mmsec:first-child{display:none}
++/* v5.84 — the phone: two lines of footer, not four; the tab's dot off the glyph; a thumb-sized button */
++@media(max-width:640px){
++  footer.foot{font-size:10px;padding:5px 12px;gap:1px 8px;line-height:1.3}
++  footer.foot span{flex:1 1 100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
++  nav.tabs .dot{top:2px;right:calc(50% - 19px)}
++  #pane-today .btn, .hubsheets .btn{min-height:40px}
++}
+ /* ---------------- BREAKPOINT OVERRIDES START HERE
+    V11 audit: the 641-900px block below used to sit ABOVE the base rules it was meant to beat, so the base
+    `.search{flex:1 1 260px;min-width:0}` — same specificity, later in the file — quietly won. The search still
+@@ -9612,8 +9634,8 @@
+   </div>
+   <div class="hubhead">
+     <div><h2>${esc(fmtDate(today))}</h2>
+-      <div class="sub">${wk ? esc(wk.sheet) + ' · ' + esc(wk.phase) : 'outside every week on the 2026 schedule'} · ${esc(DATA.event.name)} · ${esc(DATA.event.race_dates_as_supplied)}</div></div>
+-    <div class="hubwho">${S.operator ? `Recording as <b>${esc(S.operator)}</b>` : '<button class="linkish" data-focus="who">Put your name in “Recording as” before you record anything</button>'}</div>
++      <div class="sub">${wk ? esc(weekWords(wk)) : 'outside every week on the 2026 schedule'} · ${esc(DATA.event.name)} · ${esc(DATA.event.race_dates_as_supplied)}</div></div>
++    <div class="hubwho editonly">${!canEdit() ? '' : S.operator ? `Recording as <b>${esc(S.operator)}</b>` : '<button class="linkish" data-focus="who">Put your name in “Recording as” before you record anything</button>'}</div>
+   </div>
+   <div class="hub">
+     ${progCard(today)}
+@@ -9680,7 +9702,7 @@
+       <div class="hubtitle"><h3>Fencing</h3>${fenceQuote() ? (over.length ? `<span class="chip crit">${over.length} line${over.length > 1 ? 's' : ''} over the quote</span>` : '<span class="chip ok">within quote</span>') : '<span class="chip">no quote entered</span>'}</div>
+       <div class="hubbig"><b>${usable.length}</b> docket${usable.length === 1 ? '' : 's'} <span class="w">·</span> <b>${esc(money(fcost) || '$0.00')}</b> charged</div>
+       ${fw ? `<ul class="hublist compact">${fw.lines.filter(l => ['clean', 'scrim', 'ccb_event', 'ccb_demarc', 'v_gates'].includes(l.column) && (l.planned || l.done)).map(l =>
+-        `<li><span class="tm">${esc(fmtQty(l.done, l.unit))}</span>${esc(l.name)} done this week${l.remaining != null ? ` <span class="w" style="color:var(--mute)">· ${l.remaining < 0 ? esc(fmtQty(-l.remaining, l.unit)) + ' over the plan' : esc(fmtQty(l.remaining, l.unit)) + ' still to do'}</span>` : ''}</li>`).join('')}</ul>` : ''}
++        `<li><span class="tm">${esc(fmtQty(l.done, l.unit))}</span>${esc(l.name)} done this week${!l.planned ? ' <span class="w" style="color:var(--mute)">· nothing planned this week</span>' : l.remaining != null ? ` <span class="w" style="color:var(--mute)">· ${l.remaining < 0 ? esc(fmtQty(-l.remaining, l.unit)) + ' over the plan' : esc(fmtQty(l.remaining, l.unit)) + ' still to do'}</span>` : ''}</li>`).join('')}</ul>` : ''}
+       <div class="hubgo">Open fencing →</div>
+     </div>
+     <div class="card hubcard${un ? ' alert' : ''}" data-go="variances">
+@@ -9709,7 +9731,7 @@
+         ${top.map(s => `<li><span class="w">${esc(s.name)}${s.cost_known ? ` <span style="color:var(--mute)">· Coates pays ${esc(money0(s.cost0))}</span>` : ''}</span><span class="tm">${esc(money0(s.charge0))}</span></li>`).join('')}</ul>
+       <div class="hubgo">Open costs &amp; charges →</div>
+     </div>`; })()}
+-    <div class="card hubcard${att.export ? ' alert' : ''}">
++    <div class="card hubcard editonly${att.export ? ' alert' : ''}">
+       <div class="hubtitle"><h3>Your records</h3>${att.export ? `<span class="chip crit">${att.export} change${att.export > 1 ? 's' : ''} since export</span>` : anyLocal && S.lastExport ? '<span class="chip ok">export recorded</span>' : anyLocal ? '<span class="chip">no export recorded</span>' : ''}</div>
+       ${anyLocal ? `<ul class="hublist compact">${[['lights', 'traffic lights set'], ['supplied', 'supplied records'], ['variances', 'variances'], ['dockets', 'fencing dockets'], ['notes', 'notes'], ['added', 'assets added'], ['quote', 'fencing quote']]
+         .concat([['breakdowns', 'breakdowns'], ['contracts', 'rental contracts'], ['rental', 'assets put on a Rental ID'], ['costs', 'cost lines']]).filter(([k]) => lc[k]).map(([k, w]) => `<li><span class="tm">${lc[k]}</span>${esc(w)}</li>`).join('')}</ul>
+@@ -9735,9 +9757,9 @@
+            right and they looked like a contradiction, because this one never said which of the two it was.
+            It says so now. The uploaded count is only shown when the library has ALREADY been read for some
+            other reason: Today is not going to fetch the whole document library to put a number in a chip. */
+-        return `<div class="hubtitle"><h3>Documents</h3><span class="chip ref" title="The catalogue this build carries. Files people have uploaded since are counted on the Documents tab.">${fmtNum(C.items.length)} in the catalogue</span>${(() => {
++        return `<div class="hubtitle"><h3>Documents</h3><span class="chip ref" title="${DOCS.files ? 'The build catalogue and every file uploaded since, as last read by this page.' : 'The catalogue this build carries. Files uploaded since are added once the Documents tab has been read.'}">${fmtNum(C.items.length)} ${DOCS.files ? 'listed' : 'in this build'}</span>${(() => {
+           const up = DOCS.files ? Object.keys(DOCS.files).length : null;
+-          return up ? `<span class="chip cand" title="Uploaded to the service since the build, as last read by this page.">${fmtNum(up)} uploaded</span>` : '';
++          return up ? `<span class="chip cand" title="Uploaded to the service since the build, as last read by this page.">${fmtNum(up)} uploaded since the build</span>` : '';
+         })()}</div>
+       <div class="hubbig">${safetyWords(C.items).words.split(' · ').map(w => w.replace(/^(\S+) /, '<b>$1</b> ')).join(' <span class="w">·</span> ')} <span class="w">·</span> <b>${C.countOf('transport')}</b> transport <span class="w">·</span> <b>${C.countOf('map')}</b> maps and plates <span class="w">·</span> <b>${C.countOf('pack')}</b> packs${
+         C.photos ? ` <span class="w">·</span> <b>${C.photos}</b> photo${C.photos === 1 ? '' : 's'}` : ''}</div>
+@@ -9782,7 +9804,7 @@
+         g.guide.map(k => who(n, k, g)).join(' <span class="w">and</span> ')}</li>`).join('')}${
+         stale.length > 4 ? `<li class="more">and ${stale.length - 4} more</li>` : ''}</ul>` : ''}
+     </div>`; })()}
+-    <div class="card hubcard" data-go="edit">
++    <div class="card hubcard editonly" data-go="edit">
+       ${(() => { /* Andrew Fisher, 16 Sep 2026: editing has to be really easy.
+                     A page nobody can find is not easy, so the day's own screen carries it and says what has
+                     already been changed there. */
+@@ -19486,6 +19508,13 @@
+      is no service, so the page says so and shows nothing in its place. */
+ let REPORTS = {tried: false, at: null, by_key: {}, by_load: {}, total: 0, error: null};
+ async function loadReports(){
++  /* v5.84 — a view link may not read the card reports; the service says 403 and this page said so on every
++     load in the console. The refusal is a fact the link already knows, so it is recorded here and never asked. */
++  if (SYNC.claims === 'view') {
++    REPORTS = {tried: true, at: null, by_key: {}, by_load: {}, total: 0, forbidden: true,
++               error: 'this link can view the record but not the card reports'};
++    return REPORTS;
++  }
+   if (!SYNC.backend || !SYNC.backend.reports) {
+     REPORTS = {tried: true, at: null, by_key: {}, by_load: {}, total: 0,
+                error: 'this file has no service behind it, so no card reports can be read'};
+@@ -22237,6 +22266,17 @@
+    carrier says is coming and what D007 says the circuit is doing that day. Three sources, kept apart: the
+    schedule row, the carrier's list and the access sheet are each labelled as their own. */
+ function weekOf(iso){ return (DATA.weeks || []).find(w => w.start <= iso && iso <= w.end) || null; }
++/* v5.84 — THE WEEK SHEETS COUNT DOWN. "Week 4" on the programme is the fourth week before event week (Week 6 →
++   Week 1 → Event Week), and a reader outside the job took it for the fourth week since the start — which, on
++   25 Sep, would be week three. So the label says which way it counts. The sheet's own name is never changed. */
++function weekWords(wk){
++  if (!wk) return '';
++  const m = /^Week (\d+)$/.exec(String(wk.sheet || ''));
++  if (m && String(wk.phase || '') === 'Build') { const n = +m[1]; return `${wk.sheet} · Build · ${n} week${n === 1 ? '' : 's'} to event week`; }
++  return `${wk.sheet}${wk.phase ? ' · ' + wk.phase : ''}`;
++}
++/* v5.84 — the weather's reading time in the page's own date form, not the service's ISO */
++function wxReadingWords(s){ const m = /^(\d{4}-\d{2}-\d{2})[ T](\d{2}:\d{2})/.exec(String(s || '')); return m ? fmtDate(m[1]) + ' ' + m[2] : String(s || ''); }
+ /* Schedule rows that carry no GC500 reference — batch work the register cannot hold as an asset (eight VMS on a
+    day, five light towers to Molendinar, a forklift for Phillip Park). They are shown on the day they are
+    scheduled, as the schedule's words: not a delivery confirmed, not a place on the map, no light. "Give it a
+@@ -22687,7 +22727,7 @@
+       </span></div>
+       <div class="dbtitle"><p class="dbk">The daily brief</p>
+         <h3>${head.map(w => `<span>${esc(w)}</span>`).join('')}</h3>
+-        <p class="dbsub">${esc(d.sheet ? d.sheet + ' · ' + (d.phase || '') + ' programme' : 'outside every programme week')}</p></div>
++        <p class="dbsub">${esc(d.sheet ? weekWords({sheet: d.sheet, phase: d.phase}) : 'outside every programme week')}</p></div>
+       <div class="dbacts"><button type="button" class="btn" data-handover="${esc(iso)}" title="One page for the shift change: the four counts, the records still to resolve and the two checks — the same figures as this brief">Print the handover</button></div>
+     </div>
+     ${sect('01', 'Scheduled today')}
+@@ -22705,7 +22745,7 @@
+           <span class="dbdn"><b>${esc(a.name || a.product || (a.item_types || []).join(', ') || a.key)}</b>
+             <span>${esc((a.item_types || []).join(', ') || a.product || '—')}${dd.eta ? ' · planned ' + esc(dd.eta) : ''} · ${assetNosLine(a)}</span></span>
+           ${dstat(a, {size: 'sm', ctl: true})}
+-          <span class="dbda">${doneChip(a)}${navBtn(a, {small: true, quiet: true})}<button type="button" class="btn${dd.recorded ? '' : ' amber'}" data-k="${esc(a.key)}">${dd.recorded ? 'Open' : 'Confirm outcome'}</button></span>
++          <span class="dbda">${doneChip(a)}${navBtn(a, {small: true, quiet: true})}<button type="button" class="btn${dd.recorded || !canEdit() ? '' : ' amber'}" data-k="${esc(a.key)}">${dd.recorded || !canEdit() ? 'Open' : 'Confirm outcome'}</button></span>
+           <span class="slash" aria-hidden="true">//</span>
+         </span></div>`; }).join('')}${d.deliveries.length > 14 ? `<p class="norate">and ${fmtNum(d.deliveries.length - 14)} more on the day view.</p>` : ''}</div>`
+       : '<p class="norate">Nothing is due in on this day.</p>'}
+@@ -22717,7 +22757,7 @@
+         'Resolve the identifiers against the source schedule — nothing on the map or the drawings can be matched to them until somebody does.') : ''}
+     ${!reds.length && !refs.length ? '<p class="norate">Nothing is being carried forward from this day.</p>' : ''}
+     ${R.sentence ? `<p class="dbnote">${R.sentence}</p>` : ''}
+-    ${sect('04', 'Tomorrow')}
++    ${sect('04', next && next.iso === addDays(iso, 1) ? 'Tomorrow' : 'Next programme day')}
+     ${next ? `<details class="dbnext"><summary><span>Look ahead · ${esc(fmtDate(next.iso))}</span>
+         <span class="dbnx"><b>${fmtNum(next.deliveries.length)}</b> in · <b>${fmtNum(next.removals.length)}</b> out${
+           next.loads.length ? ' · <b>' + fmtNum(next.loads.length) + '</b> loads' : ''}</span></summary>
+@@ -22864,7 +22904,7 @@
+         <div class="sub">${esc(sheetNote)} · <b>${d.deliveries.length}</b> due in · <b>${d.removals.length}</b> due out${d.unref.length ? ` · <b>${d.unref.length}</b> row${d.unref.length === 1 ? '' : 's'} with no reference` : ''} ·
+           <span class="tl green"><i></i>${t.green}</span> <span class="tl amber"><i></i>${t.amber}</span>
+           <span class="tl red"><i></i>${t.red}</span>${t.done ? ` <span class="tick sm" title="ticked complete">✓ ${t.done}</span>` : ''} <span class="w" style="color:var(--mute)">(${t.none} with no record)</span></div></div>
+-      ${full ? (() => { const got = arrivalsOn(d.iso).length; return `<div class="daynav"><button class="btn primary" data-add-day="${esc(d.iso)}" title="Bring an asset forward or back to this day">Add an asset to this day</button>
++      ${full ? (() => { const got = arrivalsOn(d.iso).length; return `<div class="daynav"><button class="btn primary editonly" data-add-day="${esc(d.iso)}" title="Bring an asset forward or back to this day">Add an asset to this day</button>
+         <button class="btn" data-advice="${esc(d.iso)}" title="One page: what was recorded on site on this day, with times, branch codes and who recorded each one">Delivery advice${got ? ' (' + got + ')' : ''}</button>
+         <a class="btn" href="${adviceMailto(d.iso)}" data-advice-mail="${esc(d.iso)}" title="Opens your mail app with the day's recorded arrivals written out">Email the advice</a>
+         <a class="btn" href="${dayMailto(d)}" id="emailDay" title="Opens your mail app with the day's list written out">Email this day</a>
+@@ -27205,7 +27245,7 @@
+   if (WX.state === 'loading' && !WX.d) return {cls: '', t: 'Fetching the weather…'};
+   const w = wxLine();
+   if (w) { const d = w.d;
+-    return {cls: '', t: `Weather from weatherapi.com for ${d.place || 'Surfers Paradise'}${d.reading_at ? `, their reading of ${esc(d.reading_at)}` : ''}${
++    return {cls: '', t: `Weather from weatherapi.com for ${d.place || 'Surfers Paradise'}${d.reading_at ? `, their reading of ${esc(wxReadingWords(d.reading_at))}` : ''}${
+       wxWhen() ? ` · fetched ${wxWhen()}` : ''}${d.humidity != null ? ` · humidity ${d.humidity}%` : ''}${
+       d.precip_mm ? ` · rain ${d.precip_mm} mm` : ''}${d.feels_c != null ? ` · feels like ${Math.round(d.feels_c)}°C` : ''}.`}; }
+   const why = WX.why || 'the weather has not been fetched';
+@@ -27405,6 +27445,7 @@
+     ${film ? `<button type="button" class="bplay" aria-label="Play the clip with sound"><i></i><span>Play with sound</span></button>` : ''}
+     </div>
+     <figcaption class="bcap">
++      ${pages.length ? `<p class="bsay" aria-hidden="true">${esc(pages[0].lines.map(l => l.t).join(' · '))}</p>` : ''}
+       <span><b>${esc(DATA.event.name)}</b> — the board reads this record as at ${esc(fmtDate(asOf))}.</span>
+       <span class="${note.cls}">${note.t}</span>
+       ${note.offer ? `<button type="button" id="wxKeyBtn">Use my weatherapi.com key on this browser</button>` : ''}

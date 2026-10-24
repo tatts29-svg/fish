@@ -1,0 +1,56 @@
+{
+ "by": "Andrew Fisher",
+ "basis": "Andrew, 17 Oct 2026, in chat, as typed: \"Po6 door to driver  p08 door to driver p09 door to driver  p38 door to driver  p39 door to driver p42 door to driver\". Each building has one unit; none had a door side recorded.",
+ "refs": [
+  "P06",
+  "P08",
+  "P09",
+  "P38",
+  "P39",
+  "P42"
+ ],
+ "ops": [
+  {
+   "op": "door",
+   "ref": "P06",
+   "id": "u1097453",
+   "side": "driver",
+   "why": "Andrew, 17 Oct 2026: P06 door to driver"
+  },
+  {
+   "op": "door",
+   "ref": "P08",
+   "id": "u421138",
+   "side": "driver",
+   "why": "Andrew, 17 Oct 2026: P08 door to driver"
+  },
+  {
+   "op": "door",
+   "ref": "P09",
+   "id": "u1268824",
+   "side": "driver",
+   "why": "Andrew, 17 Oct 2026: P09 door to driver"
+  },
+  {
+   "op": "door",
+   "ref": "P38",
+   "id": "u1327218",
+   "side": "driver",
+   "why": "Andrew, 17 Oct 2026: P38 door to driver"
+  },
+  {
+   "op": "door",
+   "ref": "P39",
+   "id": "u1327216",
+   "side": "driver",
+   "why": "Andrew, 17 Oct 2026: P39 door to driver"
+  },
+  {
+   "op": "door",
+   "ref": "P42",
+   "id": "u1327221",
+   "side": "driver",
+   "why": "Andrew, 17 Oct 2026: P42 door to driver"
+  }
+ ]
+}

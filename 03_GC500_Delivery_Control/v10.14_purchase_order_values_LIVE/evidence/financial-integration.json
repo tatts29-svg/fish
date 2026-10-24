@@ -1,0 +1,189 @@
+{
+  "author": "Andrew Fisher",
+  "candidateSha256": "b1bd7bc843632a5ccb99bcead3dfd47a31f2d9810ac1459b4218d1d13d91df7a",
+  "pass": true,
+  "checks": [
+    {
+      "name": "scoped supplier source validates",
+      "pass": true
+    },
+    {
+      "name": "approved source amount matches PO",
+      "pass": true
+    },
+    {
+      "name": "source red green extras independently reconcile",
+      "pass": true
+    },
+    {
+      "name": "every source record remains singular",
+      "pass": true
+    },
+    {
+      "name": "daily extras remain singular",
+      "pass": true
+    },
+    {
+      "name": "source rates do not rewrite physical work",
+      "pass": true
+    },
+    {
+      "name": "original customer cost lines unchanged",
+      "pass": true
+    },
+    {
+      "name": "customer Revenue unchanged",
+      "pass": true
+    },
+    {
+      "name": "remaining physical forecast unchanged",
+      "pass": true
+    },
+    {
+      "name": "supplier total changes only by source net delta",
+      "pass": true
+    },
+    {
+      "name": "Rehire changes by source gear delta",
+      "pass": true
+    },
+    {
+      "name": "Installation changes by dated extras once",
+      "pass": true
+    },
+    {
+      "name": "supplier allocation closes to the cent",
+      "pass": true
+    },
+    {
+      "name": "P&L2126 Rehire carries the same change",
+      "pass": true
+    },
+    {
+      "name": "P&L2142 Installation carries the same change",
+      "pass": true
+    },
+    {
+      "name": "Costs and P&L Direct costs share net delta",
+      "pass": true
+    },
+    {
+      "name": "Finance cost branch carries whole net delta",
+      "pass": true
+    },
+    {
+      "name": "Finance totals reconcile",
+      "pass": true
+    },
+    {
+      "name": "other cost branches unchanged",
+      "pass": true
+    },
+    {
+      "name": "dated Finance 2026-10 carries source net delta",
+      "pass": true
+    },
+    {
+      "name": "monthly customer Revenue 2026-10 unchanged",
+      "pass": true
+    },
+    {
+      "name": "Finance has one source per dated extra 2026-10",
+      "pass": true
+    },
+    {
+      "name": "Finance extras use dated source and branch 2026-10",
+      "pass": true
+    },
+    {
+      "name": "PO approval does not create an invoice 2026-10",
+      "pass": true
+    },
+    {
+      "name": "supplier red amount reaches allDockets",
+      "pass": true
+    },
+    {
+      "name": "supplier green amount reaches all notes",
+      "pass": true
+    },
+    {
+      "name": "unrelated docket supplier costs unchanged",
+      "pass": true
+    },
+    {
+      "name": "unrelated green supplier costs unchanged",
+      "pass": true
+    },
+    {
+      "name": "map trace accepts approved supplier states",
+      "pass": true
+    },
+    {
+      "name": "supplier-only upgrade shows Direct cost",
+      "pass": true
+    },
+    {
+      "name": "source credit shown as a separate billed quantity",
+      "pass": true
+    },
+    {
+      "name": "P/O value change shows variance without repricing",
+      "pass": true
+    },
+    {
+      "name": "P/O amount edit preserves Direct costs",
+      "pass": true
+    },
+    {
+      "name": "shared P/O update accepted",
+      "pass": true
+    },
+    {
+      "name": "shared update invalidates pricing cache before redraw",
+      "pass": true
+    },
+    {
+      "name": "shared update keeps known supplier charges stable",
+      "pass": true
+    },
+    {
+      "name": "generic supplier rates preserve approved source red charges",
+      "pass": true
+    },
+    {
+      "name": "generic supplier rates preserve approved source green charges",
+      "pass": true
+    },
+    {
+      "name": "generic supplier rates still reach unrelated costs",
+      "pass": true
+    },
+    {
+      "name": "mixed green rates retain the whole priced subtotal",
+      "pass": true
+    },
+    {
+      "name": "mixed green rates are not displayed as a single hourly rate",
+      "pass": true
+    },
+    {
+      "name": "editable customer rates change customer charges only",
+      "pass": true
+    },
+    {
+      "name": "receipt state preserved",
+      "pass": true
+    },
+    {
+      "name": "repeated reads do not duplicate daily costs",
+      "pass": true
+    },
+    {
+      "name": "test restores the whole operational record",
+      "pass": true
+    }
+  ],
+  "pageErrors": [],
+  "attemptedNativeWrites": 0
+}

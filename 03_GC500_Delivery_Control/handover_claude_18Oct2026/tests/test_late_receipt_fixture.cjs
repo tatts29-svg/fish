@@ -1,0 +1,21 @@
+/* Author: Andrew Fisher. The fixture may remove only its three exact date-only entries. */
+'use strict';
+const assert=require('node:assert/strict'),vm=require('node:vm');
+const {prepareLateReceiptFixture}=require('./late_receipt_fixture.cjs');
+const entry={state:'on site',date_only:true,effective_date:'2026-10-14',at:'2026-10-13T14:00:00.000Z'};
+const other={state:'on site',date_only:true,effective_date:'2026-10-13',at:'2026-10-12T14:00:00.000Z'};
+const light={state:'on site',at:'2026-10-17T02:13:00.000Z'};
+const delivery=Object.fromEntries(['P26','P28','P34','UNRELATED'].map(key=>[key,{state:'on site',set_at:light.at,note:'Keep original',quantity:2,history:[entry,other,light]}]));
+const S={delivery,unrelated:{status:'unchanged'}},committed=JSON.parse(JSON.stringify(delivery)),CROW=new Map(Object.entries(committed).map(([key,d])=>[key,{key,delivery:d}]));
+const before=JSON.stringify(S),committedBefore=JSON.stringify(committed),calls=[];
+const c=vm.createContext({S,CROW,syncStop:()=>calls.push('stop'),sharedCache975:()=>calls.push('invalidate'),Idle1006:{redraw:()=>calls.push('redraw')}});
+const out=vm.runInContext('('+prepareLateReceiptFixture.toString()+')()',c);
+assert.equal(out.removed.local,3);assert.equal(out.removed.committed,3);
+const expected=JSON.parse(before);for(const key of ['P26','P28','P34'])expected.delivery[key].history=[other,light];
+assert.equal(JSON.stringify(S),JSON.stringify(expected));assert.equal(JSON.stringify(committed),committedBefore);
+assert.deepEqual(calls,['stop','invalidate','redraw']);
+for(const key of ['P26','P28','P34'])assert.equal(JSON.stringify(CROW.get(key).delivery.history),JSON.stringify([other,light]));
+assert.equal(JSON.stringify(CROW.get('UNRELATED').delivery),JSON.stringify(committed.UNRELATED));
+const second=vm.runInContext('('+prepareLateReceiptFixture.toString()+')()',c);
+assert.equal(second.removed.local,0);assert.equal(second.removed.committed,0);assert.equal(JSON.stringify(S),JSON.stringify(expected));
+console.log('12/12 isolated fixture contract checks passed');

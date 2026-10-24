@@ -1,0 +1,356 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261014T181047Z",
+ "finished": "2026-10-14T18:10:58.100Z",
+ "mode": "apply",
+ "spec": {
+  "numbers": [
+   "4647508",
+   "4647509",
+   "4647515",
+   "4647517"
+  ],
+  "by": "Andrew Fisher",
+  "at": "2026-10-14T14:31:00.000Z",
+  "note": "Andrew Fisher, 15 Oct 2026: every purchase order was checked the same way as 4647519"
+ },
+ "pageSha256": "06d6e6b0956c793299c99b5e48a7ee1c3fe16616f20a60ff0696d410f111848d",
+ "version": {
+  "before": 6078,
+  "after": 6086
+ },
+ "updated": {
+  "before": "2026-10-14T09:03:49.633Z",
+  "after": "2026-10-14T18:10:57.064Z"
+ },
+ "writes": [
+  {
+   "key": "stamps/po~2f~4647508",
+   "status": 200
+  },
+  {
+   "key": "stamps/po~2f~4647509",
+   "status": 200
+  },
+  {
+   "key": "stamps/po~2f~4647515",
+   "status": 200
+  },
+  {
+   "key": "stamps/po~2f~4647517",
+   "status": 200
+  },
+  {
+   "key": "purchaseOrders/4647508",
+   "status": 200
+  },
+  {
+   "key": "purchaseOrders/4647509",
+   "status": 200
+  },
+  {
+   "key": "purchaseOrders/4647515",
+   "status": 200
+  },
+  {
+   "key": "purchaseOrders/4647517",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 1,
+ "auditDocs": [
+  {
+   "number": "4647508",
+   "stamp": "stamps/po~2f~4647508",
+   "by": "by/po~2f~4647508"
+  },
+  {
+   "number": "4647509",
+   "stamp": "stamps/po~2f~4647509",
+   "by": "by/po~2f~4647509"
+  },
+  {
+   "number": "4647515",
+   "stamp": "stamps/po~2f~4647515",
+   "by": "by/po~2f~4647515"
+  },
+  {
+   "number": "4647517",
+   "stamp": "stamps/po~2f~4647517",
+   "by": "by/po~2f~4647517"
+  }
+ ],
+ "docs": {
+  "before": {
+   "purchaseOrders/4647508": {
+    "number": "4647508",
+    "by": "Andrew Fisher",
+    "at": "2026-09-24T05:41:42.374Z",
+    "period": "Construction week 6",
+    "programme_sheet": "CON WK6",
+    "invoice_no": "4918492",
+    "amount": 8992,
+    "confirmed": true,
+    "supplier_code": "ZINC001",
+    "supplier_name": "Advanced Temporary Fencing",
+    "branch": "STPS",
+    "updated_at": "2026-10-09T01:41:35.140Z",
+    "updated_by": "Andrew Fisher",
+    "note": "GC500 Week 6",
+    "stream": "fencing",
+    "what": "Construction week 6",
+    "revenue_branch": null,
+    "receipted": "full",
+    "receipted_amount": null,
+    "_k": "4647508"
+   },
+   "stamps/po~2f~4647508": {
+    "_k": "po/4647508",
+    "v": "2026-10-09T01:41:35.140Z"
+   },
+   "by/po~2f~4647508": {
+    "_k": "po/4647508",
+    "v": "Andrew Fisher"
+   },
+   "purchaseOrders/4647509": {
+    "number": "4647509",
+    "by": "Andrew Fisher",
+    "at": "2026-09-28T23:37:07.796Z",
+    "period": "Construction week 5",
+    "programme_sheet": "CON WK5",
+    "invoice_no": "4922398",
+    "amount": 33670,
+    "confirmed": true,
+    "supplier_code": "ZINC001",
+    "supplier_name": "Advanced Temporary Fencing",
+    "branch": "STPS",
+    "updated_at": "2026-10-09T01:41:39.339Z",
+    "updated_by": "Andrew Fisher",
+    "note": "GC500 Week 5",
+    "stream": "fencing",
+    "what": "Construction week 5",
+    "revenue_branch": null,
+    "receipted": "full",
+    "receipted_amount": null,
+    "_k": "4647509"
+   },
+   "stamps/po~2f~4647509": {
+    "_k": "po/4647509",
+    "v": "2026-10-09T01:41:39.339Z"
+   },
+   "by/po~2f~4647509": {
+    "_k": "po/4647509",
+    "v": "Andrew Fisher"
+   },
+   "purchaseOrders/4647515": {
+    "number": "4647515",
+    "by": "Andrew Fisher",
+    "at": "2026-10-07T04:15:21.015Z",
+    "period": "Construction week 3",
+    "programme_sheet": "CON WK3",
+    "invoice_no": null,
+    "amount": 50154,
+    "note": "GC500 Week 3",
+    "confirmed": true,
+    "supplier_code": "ZINC001",
+    "supplier_name": "Advanced Temporary Fencing",
+    "branch": "STPS",
+    "updated_at": "2026-10-09T01:40:41.439Z",
+    "updated_by": "Andrew Fisher",
+    "stream": "fencing",
+    "what": "Construction week 3",
+    "revenue_branch": null,
+    "receipted": null,
+    "receipted_amount": null,
+    "_k": "4647515"
+   },
+   "stamps/po~2f~4647515": {
+    "_k": "po/4647515",
+    "v": "2026-10-09T01:40:41.439Z"
+   },
+   "by/po~2f~4647515": {
+    "_k": "po/4647515",
+    "v": "Andrew Fisher"
+   },
+   "purchaseOrders/4647517": {
+    "number": "4647517",
+    "by": "Andrew Fisher",
+    "at": "2026-10-07T04:17:55.855Z",
+    "period": "Construction week 4",
+    "programme_sheet": "CON WK4",
+    "invoice_no": "4926209",
+    "amount": 26695,
+    "note": "GC500 Week 4",
+    "confirmed": true,
+    "supplier_code": "ZINC001",
+    "supplier_name": "Advanced Temporary Fencing",
+    "branch": "STPS",
+    "updated_at": "2026-10-09T01:41:43.345Z",
+    "updated_by": "Andrew Fisher",
+    "stream": "fencing",
+    "what": "Construction week 4",
+    "revenue_branch": null,
+    "receipted": "full",
+    "receipted_amount": null,
+    "_k": "4647517"
+   },
+   "stamps/po~2f~4647517": {
+    "_k": "po/4647517",
+    "v": "2026-10-09T01:41:43.345Z"
+   },
+   "by/po~2f~4647517": {
+    "_k": "po/4647517",
+    "v": "Andrew Fisher"
+   }
+  },
+  "after": {
+   "purchaseOrders/4647508": {
+    "number": "4647508",
+    "by": "Andrew Fisher",
+    "at": "2026-09-24T05:41:42.374Z",
+    "period": "Construction week 6",
+    "programme_sheet": "CON WK6",
+    "invoice_no": "4918492",
+    "amount": 8992,
+    "confirmed": true,
+    "supplier_code": "ZINC001",
+    "supplier_name": "Advanced Temporary Fencing",
+    "branch": "STPS",
+    "updated_at": "2026-10-14T18:10:54.656Z",
+    "updated_by": "Andrew Fisher",
+    "note": "GC500 Week 6",
+    "stream": "fencing",
+    "what": "Construction week 6",
+    "revenue_branch": null,
+    "receipted": "full",
+    "receipted_amount": null,
+    "checked": {
+     "by": "Andrew Fisher",
+     "at": "2026-10-14T14:31:00.000Z",
+     "basis": "{\"amount\":8992,\"period\":\"Construction week 6\",\"programme_sheet\":\"CON WK6\",\"invoice_no\":\"4918492\",\"supplier_code\":\"ZINC001\",\"supplier_name\":\"Advanced Temporary Fencing\",\"branch\":\"STPS\",\"stream\":\"fencing\",\"revenue_branch\":null,\"confirmed\":true,\"what\":\"Construction week 6\",\"note\":\"GC500 Week 6\",\"supplier_pricing\":null}"
+    },
+    "_k": "4647508"
+   },
+   "stamps/po~2f~4647508": {
+    "_k": "po/4647508",
+    "v": "2026-10-14T18:10:54.656Z"
+   },
+   "by/po~2f~4647508": {
+    "_k": "po/4647508",
+    "v": "Andrew Fisher"
+   },
+   "purchaseOrders/4647509": {
+    "number": "4647509",
+    "by": "Andrew Fisher",
+    "at": "2026-09-28T23:37:07.796Z",
+    "period": "Construction week 5",
+    "programme_sheet": "CON WK5",
+    "invoice_no": "4922398",
+    "amount": 33670,
+    "confirmed": true,
+    "supplier_code": "ZINC001",
+    "supplier_name": "Advanced Temporary Fencing",
+    "branch": "STPS",
+    "updated_at": "2026-10-14T18:10:54.747Z",
+    "updated_by": "Andrew Fisher",
+    "note": "GC500 Week 5",
+    "stream": "fencing",
+    "what": "Construction week 5",
+    "revenue_branch": null,
+    "receipted": "full",
+    "receipted_amount": null,
+    "checked": {
+     "by": "Andrew Fisher",
+     "at": "2026-10-14T14:31:00.000Z",
+     "basis": "{\"amount\":33670,\"period\":\"Construction week 5\",\"programme_sheet\":\"CON WK5\",\"invoice_no\":\"4922398\",\"supplier_code\":\"ZINC001\",\"supplier_name\":\"Advanced Temporary Fencing\",\"branch\":\"STPS\",\"stream\":\"fencing\",\"revenue_branch\":null,\"confirmed\":true,\"what\":\"Construction week 5\",\"note\":\"GC500 Week 5\",\"supplier_pricing\":null}"
+    },
+    "_k": "4647509"
+   },
+   "stamps/po~2f~4647509": {
+    "_k": "po/4647509",
+    "v": "2026-10-14T18:10:54.747Z"
+   },
+   "by/po~2f~4647509": {
+    "_k": "po/4647509",
+    "v": "Andrew Fisher"
+   },
+   "purchaseOrders/4647515": {
+    "number": "4647515",
+    "by": "Andrew Fisher",
+    "at": "2026-10-07T04:15:21.015Z",
+    "period": "Construction week 3",
+    "programme_sheet": "CON WK3",
+    "invoice_no": null,
+    "amount": 50154,
+    "note": "GC500 Week 3",
+    "confirmed": true,
+    "supplier_code": "ZINC001",
+    "supplier_name": "Advanced Temporary Fencing",
+    "branch": "STPS",
+    "updated_at": "2026-10-14T18:10:54.872Z",
+    "updated_by": "Andrew Fisher",
+    "stream": "fencing",
+    "what": "Construction week 3",
+    "revenue_branch": null,
+    "receipted": null,
+    "receipted_amount": null,
+    "checked": {
+     "by": "Andrew Fisher",
+     "at": "2026-10-14T14:31:00.000Z",
+     "basis": "{\"amount\":50154,\"period\":\"Construction week 3\",\"programme_sheet\":\"CON WK3\",\"invoice_no\":null,\"supplier_code\":\"ZINC001\",\"supplier_name\":\"Advanced Temporary Fencing\",\"branch\":\"STPS\",\"stream\":\"fencing\",\"revenue_branch\":null,\"confirmed\":true,\"what\":\"Construction week 3\",\"note\":\"GC500 Week 3\",\"supplier_pricing\":null}"
+    },
+    "_k": "4647515"
+   },
+   "stamps/po~2f~4647515": {
+    "_k": "po/4647515",
+    "v": "2026-10-14T18:10:54.872Z"
+   },
+   "by/po~2f~4647515": {
+    "_k": "po/4647515",
+    "v": "Andrew Fisher"
+   },
+   "purchaseOrders/4647517": {
+    "number": "4647517",
+    "by": "Andrew Fisher",
+    "at": "2026-10-07T04:17:55.855Z",
+    "period": "Construction week 4",
+    "programme_sheet": "CON WK4",
+    "invoice_no": "4926209",
+    "amount": 26695,
+    "note": "GC500 Week 4",
+    "confirmed": true,
+    "supplier_code": "ZINC001",
+    "supplier_name": "Advanced Temporary Fencing",
+    "branch": "STPS",
+    "updated_at": "2026-10-14T18:10:54.949Z",
+    "updated_by": "Andrew Fisher",
+    "stream": "fencing",
+    "what": "Construction week 4",
+    "revenue_branch": null,
+    "receipted": "full",
+    "receipted_amount": null,
+    "checked": {
+     "by": "Andrew Fisher",
+     "at": "2026-10-14T14:31:00.000Z",
+     "basis": "{\"amount\":26695,\"period\":\"Construction week 4\",\"programme_sheet\":\"CON WK4\",\"invoice_no\":\"4926209\",\"supplier_code\":\"ZINC001\",\"supplier_name\":\"Advanced Temporary Fencing\",\"branch\":\"STPS\",\"stream\":\"fencing\",\"revenue_branch\":null,\"confirmed\":true,\"what\":\"Construction week 4\",\"note\":\"GC500 Week 4\",\"supplier_pricing\":null}"
+    },
+    "_k": "4647517"
+   },
+   "stamps/po~2f~4647517": {
+    "_k": "po/4647517",
+    "v": "2026-10-14T18:10:54.949Z"
+   },
+   "by/po~2f~4647517": {
+    "_k": "po/4647517",
+    "v": "Andrew Fisher"
+   }
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}

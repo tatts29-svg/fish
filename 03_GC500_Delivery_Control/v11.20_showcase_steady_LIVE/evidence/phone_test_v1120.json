@@ -1,0 +1,245 @@
+{
+ "at": "2026-10-22T07:30:13.072Z",
+ "live": false,
+ "mobile": true,
+ "results": [
+  {
+   "name": "footer says the expected release",
+   "ok": true
+  },
+  {
+   "name": "module present; warm loop text paces 400 ms and 1500 ms",
+   "ok": true,
+   "detail": {
+    "module": true,
+    "def": "circuit3d",
+    "warmText": "setTimeout(warm,400) setTimeout(warm,1500)"
+   }
+  },
+  {
+   "name": "phone never chose: the default is the 3D circuit at night, as Andrew wants",
+   "ok": true,
+   "detail": {
+    "module": true,
+    "def": "circuit3d",
+    "warmText": "setTimeout(warm,400) setTimeout(warm,1500)"
+   }
+  },
+  {
+   "name": "chosen 3D day is kept as the preference (circuit3d_day)",
+   "ok": true,
+   "detail": {
+    "pref": "circuit3d_day",
+    "openMs": 406,
+    "hiddenAfter": false,
+    "bodyChars": 224,
+    "mountedAtOpen": false,
+    "steady": {
+     "pending": true,
+     "deferred": 1,
+     "mountMs": null,
+     "detail": null,
+     "budgetMs": 1500,
+     "delayMs": 150
+    },
+    "back": "circuit3d_day"
+   }
+  },
+  {
+   "name": "showOpen() returns before the 3D is built: under 2 s, dialog shown with a scene, no scene mounted yet, mount deferred",
+   "ok": true,
+   "detail": {
+    "pref": "circuit3d_day",
+    "openMs": 406,
+    "hiddenAfter": false,
+    "bodyChars": 224,
+    "mountedAtOpen": false,
+    "steady": {
+     "pending": true,
+     "deferred": 1,
+     "mountMs": null,
+     "detail": null,
+     "budgetMs": 1500,
+     "delayMs": 150
+    },
+    "back": "circuit3d_day"
+   }
+  },
+  {
+   "name": "the 3D scene mounts after the dialog (or says why not)",
+   "ok": true,
+   "detail": {
+    "mounted": true,
+    "failed": null,
+    "steady": {
+     "pending": false,
+     "deferred": 1,
+     "mountMs": 2197,
+     "detail": "skipped",
+     "budgetMs": 1500,
+     "delayMs": 150
+    },
+    "report": {
+     "author": "the project manager",
+     "version": "v8.02",
+     "enabled": false,
+     "scope": "Existing complete circuit; visual refinement only",
+     "limitedByDevice": true,
+     "detailError": "detail skipped: the base circuit took 2.2 s to build on this device (budget 1.5 s)",
+     "lapMetres": 2910.1086655413205,
+     "track": null,
+     "architecture": null,
+     "vegetation": null,
+     "graphics": {
+      "version": "1.8",
+      "quality": "balanced",
+      "samples": 4,
+      "shadowMap": 1024,
+      "resolution": [
+       585,
+       600
+      ],
+      "facades": "recessed glass and concrete",
+      "ambientContact": false,
+      "carStyle": "solid",
+      "steppedDownTo": "reflections off",
+      "bloom": true,
+      "reflections": false,
+      "shadowOn": true,
+      "drawnAt": "100%"
+     },
+     "simulationOverride": false,
+     "cameraOverride": false,
+     "shortSectionReset": false,
+     "fullCircuitSourcesPreserved": true,
+     "sourceRoutePreserved": true,
+     "renderCorridor": {
+      "enabled": false,
+      "failure": null
+     }
+    }
+   }
+  },
+  {
+   "name": "the base mount was timed",
+   "ok": true,
+   "detail": {
+    "pending": false,
+    "deferred": 1,
+    "mountMs": 2197,
+    "detail": "skipped",
+    "budgetMs": 1500,
+    "delayMs": 150
+   }
+  },
+  {
+   "name": "over budget here: static detail skipped and the report says so",
+   "ok": true,
+   "detail": {
+    "steady": {
+     "pending": false,
+     "deferred": 1,
+     "mountMs": 2197,
+     "detail": "skipped",
+     "budgetMs": 1500,
+     "delayMs": 150
+    },
+    "report": {
+     "author": "the project manager",
+     "version": "v8.02",
+     "enabled": false,
+     "scope": "Existing complete circuit; visual refinement only",
+     "limitedByDevice": true,
+     "detailError": "detail skipped: the base circuit took 2.2 s to build on this device (budget 1.5 s)",
+     "lapMetres": 2910.1086655413205,
+     "track": null,
+     "architecture": null,
+     "vegetation": null,
+     "graphics": {
+      "version": "1.8",
+      "quality": "balanced",
+      "samples": 4,
+      "shadowMap": 1024,
+      "resolution": [
+       585,
+       600
+      ],
+      "facades": "recessed glass and concrete",
+      "ambientContact": false,
+      "carStyle": "solid",
+      "steppedDownTo": "reflections off",
+      "bloom": true,
+      "reflections": false,
+      "shadowOn": true,
+      "drawnAt": "100%"
+     },
+     "simulationOverride": false,
+     "cameraOverride": false,
+     "shortSectionReset": false,
+     "fullCircuitSourcesPreserved": true,
+     "sourceRoutePreserved": true,
+     "renderCorridor": {
+      "enabled": false,
+      "failure": null
+     }
+    }
+   }
+  },
+  {
+   "name": "no static detail installer ran on the over-budget device",
+   "ok": true,
+   "detail": {
+    "veg": 0,
+    "arch": 0,
+    "track": 0
+   }
+  },
+  {
+   "name": "warm loop paced: every fill at least 350 ms after the one before, or the deck is already warm",
+   "ok": true,
+   "detail": {
+    "fills": 1,
+    "gaps": [],
+    "size": 7,
+    "total": 25
+   }
+  },
+  {
+   "name": "the deck is on screen: a chapter title and a scene with words",
+   "ok": true,
+   "detail": {
+    "scene": 3,
+    "open": true,
+    "chapter": "Countdown to race day",
+    "body": 215
+   }
+  },
+  {
+   "name": "close clears the deferred mount and hides the dialog",
+   "ok": true,
+   "detail": {
+    "open": false,
+    "hidden": true,
+    "pending": false
+   }
+  },
+  {
+   "name": "record unchanged by the run",
+   "ok": true
+  },
+  {
+   "name": "no page errors",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "name": "no writes attempted",
+   "ok": true,
+   "detail": {
+    "page": 1,
+    "live": 105,
+    "blocked": 0
+   }
+  }
+ ]
+}

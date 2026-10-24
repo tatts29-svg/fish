@@ -1,0 +1,235 @@
+{
+ "author": "Andrew Fisher",
+ "title": "GC500 2026 - meet and entry points for all gear and equipment",
+ "rule": "Andrew, 3 Oct 2026: every delivery or pick-up of gear and equipment goes to the meet/entry point for its area; Coates meets the truck there and places the gear. 'If we unsure they refer back to entry pitlane.' (default below).",
+ "method": "Each point was marked by Andrew on a Map explorer screenshot. Claude georeferenced each screenshot with an affine fit through the page's own WC pins visible in it (residuals and leave-one-out shift shown). The pit-lane default is the page's own pit-lane entry point.",
+ "default": {
+  "id": "PITLANE",
+  "name": "Pit lane entry (default when unsure)",
+  "ll": [
+   -27.98488,
+   153.42664
+  ],
+  "way_in": "Gold Coast Hwy, north-west end of the pit lane, race direction",
+  "source": "page pit-lane point (as used on the 3 Oct toilet sheets)"
+ },
+ "points": [
+  {
+   "id": "COMMODORE",
+   "name": "Commodore Park drop point",
+   "covers": "Gate 2 / Commodore Park area (WC38, WC39, WC40 ...)",
+   "ll": [
+    -27.983681,
+    153.42399
+   ],
+   "way_in": "Gate 2, in via Commodore Dr, GC Hwy underpass",
+   "fit": "5 pins (WC39, WC38, WC40, WC42, WC01), residuals < 1 m",
+   "andrew": "Anything at commodore park drop location is the red dot"
+  },
+  {
+   "id": "HILL_A47",
+   "name": "The Hill - entry point A47",
+   "covers": "The Hill / Hill Pde (WC31, WC34)",
+   "ll": [
+    -27.982187,
+    153.425508
+   ],
+   "way_in": "Entry point A47, off Hill Pde",
+   "fit": "A47 label on iEDM D001 converted with the explorer's own drawing-to-map transform; WC31/WC34 labels land within 0.1 m",
+   "andrew": "Anything that goes to the hill entry point is a47 ... wc31 and wc34"
+  },
+  {
+   "id": "HELEN_PARK",
+   "name": "Helen Park drop point",
+   "covers": "Gate 1 / Tedder Ave / Helen Park (WC67, WC68, WC69, WC70, WC71 ...)",
+   "ll": [
+    -27.981233,
+    153.424118
+   ],
+   "way_in": "Tedder Ave access point (G10, heavy vehicle entry, D007) at the Tedder Ave / Breaker St junction",
+   "fit": "5 pins (WC71, WC67, WC69, WC70, WC68), residuals 0.0-0.9 m",
+   "andrew": "Anything helen park drop off location will be at red dot"
+  },
+  {
+   "id": "MAIN_BEACH",
+   "name": "Main Beach drop point (seaside, by the supply compound)",
+   "covers": "Main Beach Pde seaside by the SUPPLY / equipment compound (WC57, WC59, T0024 ...)",
+   "ll": [
+    -27.988275,
+    153.430012
+   ],
+   "way_in": "Seaside - in at the Seaworld Dr roundabout, drive south",
+   "fit": "5 pins (WC57, WC59, T0024, WC56, WC50), residuals 0.1-0.7 m",
+   "andrew": "This one drop off locations is here"
+  },
+  {
+   "id": "MEDIAN_PITSTOP",
+   "name": "Median strip meet-up - at the pit stop, by FOAM",
+   "covers": "Gold Coast Hwy median strip (S11-S13 strip)",
+   "ll": [
+    -27.985114,
+    153.426748
+   ],
+   "way_in": "Gold Coast Hwy, north-west end of the pit lane, race direction",
+   "fit": "4 pins (WC06, WC11, WC41, WC12), residuals 0.1-0.3 m, leave-one-out < 1 m",
+   "andrew": "Anything on median strip meet up location is at pitstop"
+  },
+  {
+   "id": "ISLAND_NORTH",
+   "name": "Macintosh Island north - entry and meet point, by FREIGHT / WC73",
+   "covers": "Island north precinct: S02-S04, teams, TV overflow (WC17, WC73, WC20, WC86 ...)",
+   "ll": [
+    -27.987123,
+    153.428055
+   ],
+   "way_in": "to confirm from the page's island wording",
+   "fit": "5 pins (WC17, WC73, WC20, WC86, WC19), residuals 0.1-0.2 m, leave-one-out < 1.5 m",
+   "andrew": "Anything here entry location and meet point is here ... This goes for all gear and equipment ... If we unsure they refer back to entry pitlane"
+  },
+  {
+   "id": "MBP_LANDSIDE",
+   "name": "Main Beach Pde land side - meet point by T8 / A19",
+   "covers": "Main Beach Pde land (river) side: S07, S08, GA viewing mound, WC27, WC33 ...",
+   "ll": [
+    -27.98565,
+    153.429787
+   ],
+   "way_in": "to confirm from the page's land-side wording",
+   "fit": "4 pins (WC60, WC27, WC33, WC59), residuals 0.1-0.2 m, leave-one-out < 1 m",
+   "andrew": "Anything here meet point is here (screenshot of S07 / S08 / WC27 / WC33 / GA viewing mound, 3 Oct 2026)"
+  },
+  {
+   "id": "SEASIDE_NORTH",
+   "name": "Main Beach Pde seaside north - meet point between S21 and S22",
+   "covers": "Seaside north: S21, S22, WC60, WC61 ...",
+   "ll": [
+    -27.984831,
+    153.429945
+   ],
+   "way_in": "to confirm from the page's seaside wording",
+   "fit": "2 pins only (WC60, WC61) - similarity fit, scale 0.227 m/px, map facing east; no residual check possible, allow a few metres",
+   "andrew": "Anything here is here (screenshot of S21 / S22 / WC60 / WC61, 3 Oct 2026)"
+  },
+  {
+   "id": "ISLAND_WEST_PARK",
+   "name": "Macintosh Island west parkland - entry and meet point (red dot, by the merch strip)",
+   "covers": "Everything inside Andrew's yellow outline: island west parkland incl. WC02, WC04, WC05, OPS/COA compound, STUNTZ, merch, LOCK/FOR/GRM",
+   "area_polygon": [
+    [
+     -27.983186,
+     153.426706
+    ],
+    [
+     -27.983085,
+     153.426539
+    ],
+    [
+     -27.983,
+     153.42629
+    ],
+    [
+     -27.982978,
+     153.426025
+    ],
+    [
+     -27.983025,
+     153.425781
+    ],
+    [
+     -27.98311,
+     153.425595
+    ],
+    [
+     -27.98321,
+     153.425483
+    ],
+    [
+     -27.983335,
+     153.425451
+    ],
+    [
+     -27.983489,
+     153.425518
+    ],
+    [
+     -27.98371,
+     153.425713
+    ],
+    [
+     -27.983897,
+     153.425974
+    ],
+    [
+     -27.984062,
+     153.426174
+    ],
+    [
+     -27.984194,
+     153.426333
+    ],
+    [
+     -27.984326,
+     153.426493
+    ],
+    [
+     -27.984438,
+     153.426669
+    ],
+    [
+     -27.984073,
+     153.427361
+    ]
+   ],
+   "area_polygon_note": "traced from Andrew's yellow outline; the outline runs off the screenshot to the north-east, so that side is closed along the screen edge - treat the north-east boundary as approximate",
+   "ll": [
+    -27.983873,
+    153.425702
+   ],
+   "way_in": "to confirm from the page's island wording",
+   "fit": "3 pins (WC05, WC04, WC02) exact affine; checked against WC01 (3.7 m) and WC42 (9.6 m, partly off-screen) - allow ~5 m",
+   "safety": [
+    "No vehicle enters the park - trucks stop at the entry/meet point",
+    "Spotters required for every movement",
+    "Escort required - vehicles are escorted in and out",
+    "Wildlife in the area",
+    "Extremely low branches",
+    "Very limited room to manoeuvre"
+   ],
+   "andrew": "Anything inside here inside the yellow. is entry point is meet point will be entry in red. Remember no one enter park. Ensure spotters. Wild life. Extemly low branches. There is not much room hense sptters and excort is a must. A reminder this now should be info for everything now."
+  }
+ ],
+ "not_yet": "Not built into the live page. Which items belong to which point (area boundaries) is to be shown to Andrew on a map before any build.",
+ "area_rules": [
+  {
+   "area": "Pit lane precinct: pit garages PG01-PG29, S01 garage block, WC12, WC16, podium",
+   "goes_to": "PITLANE",
+   "andrew": "Anything here is pitlane (screenshot of S01 / PG29 / WC12 / WC16 / Podium, 3 Oct 2026)"
+  }
+ ],
+ "standing_rules": [
+  {
+   "rule": "Meet/entry points and their safety notes apply to ALL gear and equipment (deliveries, pick-ups, demob), not only toilets.",
+   "andrew": "A reminder this now should be info for everything now.",
+   "date": "2026-10-03"
+  },
+  {
+   "rule": "Coates decides where every sub-hire unit goes. Extras and unplaced units are allocated by Coates to areas that still need fulfilling; the supplier is told where. Not left to the supplier or parked without a location.",
+   "andrew": "We decide where they go we allocate to areas. That need to be fulfilled",
+   "date": "2026-10-03"
+  },
+  {
+   "rule": "Plan Event Portables quantities to quote Q6845 as it stands (246 FWF). The load plan carries only what the areas need (5 loads of 24). Quote spares (55 FWF, 4 accessibles, 3 VIP combo blocks) are kept separate from the load plan - Coates advises if and where they are needed.",
+   "andrew": "We go by whats on the quote at the moment",
+   "date": "2026-10-03",
+   "updated": {
+    "andrew": "So take off the spares keelp.the spares seperate.",
+    "date": "2026-10-03"
+   }
+  },
+  {
+   "rule": "Early deliveries are fine: an area can take its units before its planned day. If the area is not ready, Coates stores them in the pit lane until it is.",
+   "andrew": "They can take early we can store in pit regardless",
+   "date": "2026-10-03"
+  }
+ ]
+}

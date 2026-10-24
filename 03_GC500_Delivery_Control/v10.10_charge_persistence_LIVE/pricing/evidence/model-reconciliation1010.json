@@ -1,0 +1,152 @@
+{
+  "author": "Andrew Fisher",
+  "reconciliation": {
+    "author": "Andrew Fisher",
+    "baselineSha256": "60533337c67a77211e660f0737ca5c693d52c2108a18d79fb0fd8a9d48c46a8b",
+    "candidateSha256": "8cdd8e1ac7421e020a69333c4d82c1cb7f90ee6ee220209901aa0ec8325e6461",
+    "nativeVersion": 5806,
+    "checks": 2119,
+    "pass_": true,
+    "failures": [],
+    "effects": {
+      "currentHire": -1966.49,
+      "jobHire": 885.65,
+      "onsiteRehirePeriod": 3522.6,
+      "verifiedRaceRevenue": 0,
+      "verifiedWorkforceForecastCost": 8949.74,
+      "verifiedWorkforceCurrentCost": 0,
+      "verifiedRehireClassification": 9817.63
+    },
+    "totals": {
+      "currentRevenue": {
+        "before": 791874.85,
+        "after": 789908.36
+      },
+      "jobRevenue": {
+        "before": 1065973.96,
+        "after": 1066859.61
+      },
+      "onsitePackage": {
+        "before": 380578.98,
+        "after": 384101.58
+      },
+      "onsiteHolds": {
+        "before": 48,
+        "after": 53
+      }
+    }
+  },
+  "sourceAudit": {
+    "author": "Andrew Fisher",
+    "sha256": "8cdd8e1ac7421e020a69333c4d82c1cb7f90ee6ee220209901aa0ec8325e6461",
+    "nativeVersion": 5806,
+    "cardSha256": "60a62f37d9d91634ca617f3b2840809e64ebc1f000303857f1abb5e00691d7d6",
+    "itemGroups": 185,
+    "arrivedGroups": 117,
+    "checks": 989,
+    "failures": [],
+    "workSourceComparisons": 81,
+    "overallocated": [],
+    "repeatedSerialReview": [
+      {
+        "asset": "1211404",
+        "contracts": [
+          {
+            "contract": "9961265",
+            "line": 1,
+            "status": "Delivered",
+            "start": "2026-09-07",
+            "end": "2026-11-13"
+          },
+          {
+            "contract": "9961265",
+            "line": 12,
+            "status": "Pending",
+            "start": "2026-10-08",
+            "end": "2026-10-27"
+          }
+        ]
+      },
+      {
+        "asset": "1247787",
+        "contracts": [
+          {
+            "contract": "9961976",
+            "line": 25,
+            "status": "Returned",
+            "start": "2026-09-14",
+            "end": "2026-09-17"
+          },
+          {
+            "contract": "9961976",
+            "line": 35,
+            "status": "Pending",
+            "start": "2026-10-09",
+            "end": "2026-10-28"
+          }
+        ]
+      },
+      {
+        "asset": "1262224",
+        "contracts": [
+          {
+            "contract": "9961976",
+            "line": 29,
+            "status": "Pending",
+            "start": "2026-10-05",
+            "end": "2026-10-26"
+          },
+          {
+            "contract": "9987005",
+            "line": 2,
+            "status": "Del Req",
+            "start": "2026-10-05",
+            "end": "2026-10-28"
+          }
+        ]
+      },
+      {
+        "asset": "1189412",
+        "contracts": [
+          {
+            "contract": "9968862",
+            "line": 63,
+            "status": "Delivered",
+            "start": "2026-09-23",
+            "end": "2026-11-13"
+          },
+          {
+            "contract": "9968862",
+            "line": 110,
+            "status": "Pending",
+            "start": "2026-09-14",
+            "end": "2026-11-13"
+          }
+        ]
+      },
+      {
+        "asset": "1189410",
+        "contracts": [
+          {
+            "contract": "9968862",
+            "line": 93,
+            "status": "Delivered",
+            "start": "2026-09-14",
+            "end": "2026-11-13"
+          },
+          {
+            "contract": "9968862",
+            "line": 108,
+            "status": "Pending",
+            "start": "2026-09-14",
+            "end": "2026-11-13"
+          }
+        ]
+      }
+    ],
+    "arrivedTransportHolds": 32,
+    "arrivedTransportReferences": 17,
+    "unresolvedPackageHolds": 53,
+    "rateArithmetic": "Source arithmetic verified for mapped work and generator rates; unresolved scope, duplicate allocations and missing inputs are not certified complete."
+  }
+}

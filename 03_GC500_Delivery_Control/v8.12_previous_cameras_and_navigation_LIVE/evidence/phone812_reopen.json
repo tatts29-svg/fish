@@ -1,0 +1,36 @@
+{
+  "author": "Andrew Fisher",
+  "candidateSha256": "cd3159be30b7ec931d5ffa907b90b585e6851a2210a2e7230d3fde74b0b46bee",
+  "successfulOpens": 3,
+  "successfulReopens": 2,
+  "pageErrors": [],
+  "attachedStates": [
+    {
+      "label": "open0 attached",
+      "canvas": true,
+      "pose": true,
+      "failed": null,
+      "lost": false,
+      "view": "hero"
+    },
+    {
+      "label": "open1 attached",
+      "canvas": true,
+      "pose": true,
+      "failed": null,
+      "lost": false,
+      "view": "chase"
+    },
+    {
+      "label": "open2 attached",
+      "canvas": true,
+      "pose": true,
+      "failed": null,
+      "lost": false,
+      "view": "chase"
+    }
+  ],
+  "priorTimeout": "Earlier33d61 phone test timed out without failure-state diagnostics. Not reproduced in final instrumented cycles; no proven renderer cause and no speculative renderer change.",
+  "probeSha256": "4280e1dff4747687a530639d4f89a1ec88cbb1b8bf43caec8bb2770c234c3ee9",
+  "softwareRenderingOnly": true
+}

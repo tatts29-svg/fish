@@ -1,0 +1,10 @@
+{
+ "what": "The fifteen turns the master plan D001-26003-03 labels on the track (T1 to T15), read at the centre of each label on the drawing as the page holds it (MAP_TILES level 0, 5200 x 3673 px; the same frame as the D001 sheet markers and MASTER_LAYERS). Read by eye on 2x crops with a 20 px grid, about +/- 3 px (about 1 m). Each label sits on the carriageway at its corner.",
+ "frame_px": [5200, 3673],
+ "read_by": "Andrew Fisher's release, 24 Oct 2026",
+ "turns": {
+  "T1": [3232, 1197], "T2": [3341, 1178], "T3": [3421, 1159], "T4": [3893, 911], "T5": [3678, 813],
+  "T6": [1945, 751], "T7": [1888, 729], "T8": [1797, 771], "T9": [1675, 768], "T10": [1537, 810],
+  "T11": [464, 1018], "T12": [425, 1605], "T13": [660, 1719], "T14": [428, 2415], "T15": [580, 2506]
+ }
+}

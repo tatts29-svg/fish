@@ -1,0 +1,457 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261019T231541Z",
+ "finished": "2026-10-19T23:15:55.203Z",
+ "mode": "apply",
+ "spec": {
+  "by": "Andrew Fisher",
+  "basis": "Andrew, 19 Oct 2026: \"We shouldn't have any spare now\" / \"Allocate it to eventco. Allocate it in here please\" (screenshot: Map explorer on the Event Operations Compound - EVL, ABD, OPS) / \"Wc85 goes here https://maps.app.goo.gl/a5Ccvr1aXqedGv2K6\" / \"Add to this pinned locaction https://maps.google.com/?q=-27.986807,153.428013 ... pg05 pg29 pg01 pg03\". The record's only spare is Event Portables FWF 0164 (parked at Pit Lane, added 30 Sep); it goes onto WC05, the Event Operations Compound toilet. The WC85 link resolves to -27.9386358, 153.4264769.",
+  "allowRemove": [
+   "spares/SP-munkjwps3tm6"
+  ],
+  "allowRemoveWhy": "spareUse takes the spare out of spares as it puts it on WC05 - the page's own move, Andrew's word",
+  "ops": [
+   {
+    "op": "spare_use",
+    "id": "SP-munkjwps3tm6",
+    "no": "0164",
+    "ref": "WC05"
+   },
+   {
+    "op": "place",
+    "ref": "PG01",
+    "lat": -27.986807,
+    "lon": 153.428013,
+    "how": "Andrew Fisher's pinned location (Google Maps), 19 Oct 2026",
+    "source": "https://maps.google.com/?q=-27.986807,153.428013"
+   },
+   {
+    "op": "place",
+    "ref": "PG03",
+    "lat": -27.986807,
+    "lon": 153.428013,
+    "how": "Andrew Fisher's pinned location (Google Maps), 19 Oct 2026",
+    "source": "https://maps.google.com/?q=-27.986807,153.428013"
+   },
+   {
+    "op": "place",
+    "ref": "PG05",
+    "lat": -27.986807,
+    "lon": 153.428013,
+    "how": "Andrew Fisher's pinned location (Google Maps), 19 Oct 2026",
+    "source": "https://maps.google.com/?q=-27.986807,153.428013"
+   },
+   {
+    "op": "place",
+    "ref": "PG29",
+    "lat": -27.986807,
+    "lon": 153.428013,
+    "how": "Andrew Fisher's pinned location (Google Maps), 19 Oct 2026",
+    "source": "https://maps.google.com/?q=-27.986807,153.428013"
+   },
+   {
+    "op": "place",
+    "ref": "WC85",
+    "lat": -27.938636,
+    "lon": 153.426477,
+    "how": "Andrew Fisher's Google Maps pin, 19 Oct 2026",
+    "source": "https://maps.app.goo.gl/a5Ccvr1aXqedGv2K6"
+   }
+  ]
+ },
+ "pageSha256": "f6123867aed2d9ae091348e889c1136ec37f8153b7cb2ee7dec084241146a90a",
+ "version": {
+  "before": 9941,
+  "after": 9963
+ },
+ "updated": {
+  "before": "2026-10-19T06:19:04.497Z",
+  "after": "2026-10-19T23:15:54.012Z"
+ },
+ "stage": [
+  {
+   "op": "spare_use",
+   "id": "SP-munkjwps3tm6",
+   "no": "0164",
+   "ref": "WC05",
+   "result": "0164 (Event Portables) out of spares and onto WC05"
+  },
+  {
+   "op": "place",
+   "ref": "PG01",
+   "lat": -27.986807,
+   "lon": 153.428013,
+   "how": "Andrew Fisher's pinned location (Google Maps), 19 Oct 2026",
+   "source": "https://maps.google.com/?q=-27.986807,153.428013",
+   "result": "PG01 placed at -27.986807, 153.428013"
+  },
+  {
+   "op": "place",
+   "ref": "PG03",
+   "lat": -27.986807,
+   "lon": 153.428013,
+   "how": "Andrew Fisher's pinned location (Google Maps), 19 Oct 2026",
+   "source": "https://maps.google.com/?q=-27.986807,153.428013",
+   "result": "PG03 placed at -27.986807, 153.428013"
+  },
+  {
+   "op": "place",
+   "ref": "PG05",
+   "lat": -27.986807,
+   "lon": 153.428013,
+   "how": "Andrew Fisher's pinned location (Google Maps), 19 Oct 2026",
+   "source": "https://maps.google.com/?q=-27.986807,153.428013",
+   "result": "PG05 placed at -27.986807, 153.428013"
+  },
+  {
+   "op": "place",
+   "ref": "PG29",
+   "lat": -27.986807,
+   "lon": 153.428013,
+   "how": "Andrew Fisher's pinned location (Google Maps), 19 Oct 2026",
+   "source": "https://maps.google.com/?q=-27.986807,153.428013",
+   "result": "PG29 placed at -27.986807, 153.428013"
+  },
+  {
+   "op": "place",
+   "ref": "WC85",
+   "lat": -27.938636,
+   "lon": 153.426477,
+   "how": "Andrew Fisher's Google Maps pin, 19 Oct 2026",
+   "source": "https://maps.app.goo.gl/a5Ccvr1aXqedGv2K6",
+   "result": "WC85 placed at -27.938636, 153.426477 (outside the area the drawings cover, 5491 m from the drawings)"
+  }
+ ],
+ "writes": [
+  {
+   "key": "stamps/units~2f~WC05",
+   "status": 200
+  },
+  {
+   "key": "stamps/spares~2f~SP-munkjwps3tm6",
+   "status": 200
+  },
+  {
+   "key": "stamps/places~2f~PG01",
+   "status": 200
+  },
+  {
+   "key": "stamps/places~2f~PG03",
+   "status": 200
+  },
+  {
+   "key": "stamps/places~2f~PG05",
+   "status": 200
+  },
+  {
+   "key": "stamps/places~2f~PG29",
+   "status": 200
+  },
+  {
+   "key": "stamps/places~2f~WC85",
+   "status": 200
+  },
+  {
+   "key": "units/WC05",
+   "status": 200
+  },
+  {
+   "key": "deleted/back~2f~unit~2f~WC05~2f~0164",
+   "status": 200
+  },
+  {
+   "key": "by/deleted~2f~back~2f~unit~2f~WC05~2f~0164",
+   "status": 200
+  },
+  {
+   "key": "by/units~2f~WC05",
+   "status": 200
+  },
+  {
+   "key": "by/places~2f~PG01",
+   "status": 200
+  },
+  {
+   "key": "by/places~2f~PG03",
+   "status": 200
+  },
+  {
+   "key": "by/places~2f~PG05",
+   "status": 200
+  },
+  {
+   "key": "by/places~2f~PG29",
+   "status": 200
+  },
+  {
+   "key": "by/places~2f~WC85",
+   "status": 200
+  },
+  {
+   "key": "places/PG01",
+   "status": 200
+  },
+  {
+   "key": "places/PG03",
+   "status": 200
+  },
+  {
+   "key": "places/PG05",
+   "status": 200
+  },
+  {
+   "key": "places/PG29",
+   "status": 200
+  },
+  {
+   "key": "places/WC85",
+   "status": 200
+  },
+  {
+   "key": "spares/SP-munkjwps3tm6",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 1,
+ "docs": {
+  "before": {
+   "stamps/units~2f~WC05": {
+    "_k": "units/WC05",
+    "v": "2026-09-14T06:37:31Z"
+   },
+   "stamps/spares~2f~SP-munkjwps3tm6": {
+    "_k": "spares/SP-munkjwps3tm6",
+    "v": "2026-09-30T03:52:03.424Z"
+   },
+   "stamps/places~2f~PG01": null,
+   "stamps/places~2f~PG03": null,
+   "stamps/places~2f~PG05": null,
+   "stamps/places~2f~PG29": null,
+   "stamps/places~2f~WC85": null,
+   "units/WC05": {
+    "units": [
+     {
+      "label": "Waste tank",
+      "asset_no": "1328978",
+      "by": "Andrew Fisher",
+      "at": "2026-09-14T06:37:31Z"
+     },
+     {
+      "label": "Toilet block",
+      "asset_no": "1097377",
+      "by": "Andrew Fisher",
+      "at": "2026-09-14T06:37:31Z"
+     }
+    ],
+    "_k": "WC05"
+   },
+   "deleted/back~2f~unit~2f~WC05~2f~0164": null,
+   "by/deleted~2f~back~2f~unit~2f~WC05~2f~0164": null,
+   "by/units~2f~WC05": null,
+   "by/places~2f~PG01": null,
+   "by/places~2f~PG03": null,
+   "by/places~2f~PG05": null,
+   "by/places~2f~PG29": null,
+   "by/places~2f~WC85": null,
+   "places/PG01": null,
+   "places/PG03": null,
+   "places/PG05": null,
+   "places/PG29": null,
+   "places/WC85": null,
+   "spares/SP-munkjwps3tm6": {
+    "type": "Toilets & amenities|FWF",
+    "co": "Event Portables",
+    "no": "0164",
+    "note": "Pit Lane",
+    "by": "Andrew Fisher",
+    "at": "2026-09-30T03:52:03.424Z",
+    "_k": "SP-munkjwps3tm6"
+   }
+  },
+  "after": {
+   "stamps/units~2f~WC05": {
+    "_k": "units/WC05",
+    "v": "2026-10-19T23:15:48.123Z"
+   },
+   "stamps/spares~2f~SP-munkjwps3tm6": {
+    "_k": "spares/SP-munkjwps3tm6",
+    "v": "2026-10-19T23:15:48.607Z"
+   },
+   "stamps/places~2f~PG01": {
+    "_k": "places/PG01",
+    "v": "2026-10-19T23:15:49.018Z"
+   },
+   "stamps/places~2f~PG03": {
+    "_k": "places/PG03",
+    "v": "2026-10-19T23:15:49.385Z"
+   },
+   "stamps/places~2f~PG05": {
+    "_k": "places/PG05",
+    "v": "2026-10-19T23:15:49.765Z"
+   },
+   "stamps/places~2f~PG29": {
+    "_k": "places/PG29",
+    "v": "2026-10-19T23:15:50.147Z"
+   },
+   "stamps/places~2f~WC85": {
+    "_k": "places/WC85",
+    "v": "2026-10-19T23:15:50.529Z"
+   },
+   "units/WC05": {
+    "units": [
+     {
+      "label": "Waste tank",
+      "asset_no": "1328978",
+      "by": "Andrew Fisher",
+      "at": "2026-09-14T06:37:31Z"
+     },
+     {
+      "label": "Toilet block",
+      "asset_no": "1097377",
+      "by": "Andrew Fisher",
+      "at": "2026-09-14T06:37:31Z"
+     },
+     {
+      "label": "Sub-hire: Event Portables",
+      "asset_no": "0164",
+      "sheet": null,
+      "callout": null,
+      "by": "Andrew Fisher",
+      "at": "2026-10-19T23:15:48.123Z"
+     }
+    ],
+    "_k": "WC05"
+   },
+   "deleted/back~2f~unit~2f~WC05~2f~0164": {
+    "_k": "back/unit/WC05/0164",
+    "v": "2026-10-19T23:15:48.123Z"
+   },
+   "by/deleted~2f~back~2f~unit~2f~WC05~2f~0164": {
+    "_k": "deleted/back/unit/WC05/0164",
+    "v": "Andrew Fisher"
+   },
+   "by/units~2f~WC05": {
+    "_k": "units/WC05",
+    "v": "Andrew Fisher"
+   },
+   "by/places~2f~PG01": {
+    "_k": "places/PG01",
+    "v": "Andrew Fisher"
+   },
+   "by/places~2f~PG03": {
+    "_k": "places/PG03",
+    "v": "Andrew Fisher"
+   },
+   "by/places~2f~PG05": {
+    "_k": "places/PG05",
+    "v": "Andrew Fisher"
+   },
+   "by/places~2f~PG29": {
+    "_k": "places/PG29",
+    "v": "Andrew Fisher"
+   },
+   "by/places~2f~WC85": {
+    "_k": "places/WC85",
+    "v": "Andrew Fisher"
+   },
+   "places/PG01": {
+    "_k": "PG01",
+    "v": {
+     "lat": -27.986807,
+     "lon": 153.428013,
+     "at": "2026-10-19T23:15:49.018Z",
+     "by": "Andrew Fisher",
+     "how": "Andrew Fisher's pinned location (Google Maps), 19 Oct 2026",
+     "source": "https://maps.google.com/?q=-27.986807,153.428013",
+     "note": null,
+     "ax": 0.41728652091896173,
+     "ay": 0.3974967329079638,
+     "outside": null,
+     "away_m": null,
+     "ref": "PG01",
+     "unit": null
+    }
+   },
+   "places/PG03": {
+    "_k": "PG03",
+    "v": {
+     "lat": -27.986807,
+     "lon": 153.428013,
+     "at": "2026-10-19T23:15:49.385Z",
+     "by": "Andrew Fisher",
+     "how": "Andrew Fisher's pinned location (Google Maps), 19 Oct 2026",
+     "source": "https://maps.google.com/?q=-27.986807,153.428013",
+     "note": null,
+     "ax": 0.41728652091896173,
+     "ay": 0.3974967329079638,
+     "outside": null,
+     "away_m": null,
+     "ref": "PG03",
+     "unit": null
+    }
+   },
+   "places/PG05": {
+    "_k": "PG05",
+    "v": {
+     "lat": -27.986807,
+     "lon": 153.428013,
+     "at": "2026-10-19T23:15:49.765Z",
+     "by": "Andrew Fisher",
+     "how": "Andrew Fisher's pinned location (Google Maps), 19 Oct 2026",
+     "source": "https://maps.google.com/?q=-27.986807,153.428013",
+     "note": null,
+     "ax": 0.41728652091896173,
+     "ay": 0.3974967329079638,
+     "outside": null,
+     "away_m": null,
+     "ref": "PG05",
+     "unit": null
+    }
+   },
+   "places/PG29": {
+    "_k": "PG29",
+    "v": {
+     "lat": -27.986807,
+     "lon": 153.428013,
+     "at": "2026-10-19T23:15:50.147Z",
+     "by": "Andrew Fisher",
+     "how": "Andrew Fisher's pinned location (Google Maps), 19 Oct 2026",
+     "source": "https://maps.google.com/?q=-27.986807,153.428013",
+     "note": null,
+     "ax": 0.41728652091896173,
+     "ay": 0.3974967329079638,
+     "outside": null,
+     "away_m": null,
+     "ref": "PG29",
+     "unit": null
+    }
+   },
+   "places/WC85": {
+    "_k": "WC85",
+    "v": {
+     "lat": -27.938636,
+     "lon": 153.426477,
+     "at": "2026-10-19T23:15:50.529Z",
+     "by": "Andrew Fisher",
+     "how": "Andrew Fisher's Google Maps pin, 19 Oct 2026",
+     "source": "https://maps.app.goo.gl/a5Ccvr1aXqedGv2K6",
+     "note": null,
+     "ax": null,
+     "ay": null,
+     "outside": "outside the area the drawings cover",
+     "away_m": 5491,
+     "ref": "WC85",
+     "unit": null
+    }
+   },
+   "spares/SP-munkjwps3tm6": null
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}

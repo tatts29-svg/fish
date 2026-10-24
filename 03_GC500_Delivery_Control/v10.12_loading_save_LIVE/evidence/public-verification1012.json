@@ -1,0 +1,195 @@
+{
+  "nativeVersion": 5814,
+  "checks": [
+    {
+      "name": "Explicit loading Save module installed",
+      "pass": true
+    },
+    {
+      "name": "Native selection Save module installed",
+      "pass": true
+    },
+    {
+      "name": "Readable controls stylesheet installed",
+      "pass": true
+    },
+    {
+      "name": "Quantity and percentage modules installed",
+      "pass": true
+    },
+    {
+      "name": "Described item defaults to one",
+      "pass": true
+    },
+    {
+      "name": "Explicit description quantity is used",
+      "pass": true
+    },
+    {
+      "name": "Recorded quantity overrides description",
+      "pass": true
+    },
+    {
+      "name": "Dimensions and asset numbers do not become counts",
+      "pass": true
+    },
+    {
+      "name": "Generator size is not a quantity",
+      "pass": true
+    },
+    {
+      "name": "Explicit multiplied panel quantity is used",
+      "pass": true
+    },
+    {
+      "name": "Explicit zero remains zero",
+      "pass": true
+    },
+    {
+      "name": "Invalid recorded quantity remains unknown",
+      "pass": true
+    },
+    {
+      "name": "Missing description does not invent an item",
+      "pass": true
+    },
+    {
+      "name": "89.9 percent retains its precision",
+      "pass": true
+    },
+    {
+      "name": "Almost complete never displays 100 percent",
+      "pass": true
+    },
+    {
+      "name": "Exact completion displays 100 percent",
+      "pass": true
+    },
+    {
+      "name": "Unknown and zero scope remain unavailable",
+      "pass": true
+    },
+    {
+      "name": "Averaging cannot promote incomplete scope",
+      "pass": true
+    },
+    {
+      "name": "Conservative percentage preserves exact hundredths",
+      "pass": true
+    },
+    {
+      "name": "WC70 inventory uses its confirmed Event Portables units",
+      "pass": true
+    },
+    {
+      "name": "WC72 inventory uses its confirmed Event Portables units",
+      "pass": true
+    },
+    {
+      "name": "Pure checks leave shared record unchanged",
+      "pass": true
+    },
+    {
+      "name": "Pure checks leave original contracts unchanged",
+      "pass": true
+    },
+    {
+      "name": "Pure checks leave native version unchanged",
+      "pass": true
+    },
+    {
+      "name": "Standalone read starts outside render hold",
+      "pass": true
+    },
+    {
+      "name": "Bounded financial scope remains installed",
+      "pass": true
+    },
+    {
+      "name": "Standalone hold clears on return",
+      "pass": true
+    },
+    {
+      "name": "Standalone financial values equal held read",
+      "pass": true
+    },
+    {
+      "name": "Standalone call builds one asset snapshot",
+      "pass": true
+    },
+    {
+      "name": "Each ownership and reference index builds once",
+      "pass": true
+    },
+    {
+      "name": "Standalone financial call completes within 15 seconds",
+      "pass": true
+    },
+    {
+      "name": "Public financial reconciliation controls pass",
+      "pass": true
+    },
+    {
+      "name": "Financial read leaves shared record unchanged",
+      "pass": true
+    },
+    {
+      "name": "Financial read leaves source contracts unchanged",
+      "pass": true
+    },
+    {
+      "name": "Financial read leaves native version unchanged",
+      "pass": true
+    },
+    {
+      "name": "Final asset scope is empty",
+      "pass": true
+    },
+    {
+      "name": "Same native record throughout checks",
+      "pass": true
+    },
+    {
+      "name": "No local page substitution",
+      "pass": true
+    },
+    {
+      "name": "No non-GET requests reached network",
+      "pass": true
+    },
+    {
+      "name": "No browser errors or operational write attempts",
+      "pass": true
+    }
+  ],
+  "financial": {
+    "milliseconds": 1598,
+    "assetBuilds": 1,
+    "indexes": {
+      "contractReferenceBranches1010": 1,
+      "currentFwfOwners1010": 1
+    }
+  },
+  "author": "Andrew Fisher",
+  "at": "2026-10-13T20:07:04.772Z",
+  "sha256": "cde0aae30d5e528e85c2b16189bf0c0828397b87a7b3d10c1695362b19a58105",
+  "expectedSha256": "cde0aae30d5e528e85c2b16189bf0c0828397b87a7b3d10c1695362b19a58105",
+  "bytes": 15164541,
+  "navigationResponses": [
+    {
+      "url": "https://gc500-production.up.railway.app/v/Coates-GC500-2026/",
+      "status": 200,
+      "bytes": 15164541,
+      "sha256": "cde0aae30d5e528e85c2b16189bf0c0828397b87a7b3d10c1695362b19a58105"
+    }
+  ],
+  "errors": [],
+  "requests": {
+    "page": 0,
+    "live": 33,
+    "blocked": 0
+  },
+  "rejectedMethods": [],
+  "actualPublic": true,
+  "screenshot": "public-costs-phone-viewport.png"
+}

@@ -1,0 +1,153 @@
+{
+ "at": "2026-10-22T09:53:09.261Z",
+ "live": true,
+ "results": [
+  {
+   "name": "footer says the expected release",
+   "ok": true
+  },
+  {
+   "name": "the old tanker icon is nowhere on the page",
+   "ok": true
+  },
+  {
+   "name": "panel: the icons are the tank (pump out), the spray bottle (clean & restock) and the tap (water), stroked",
+   "ok": true,
+   "detail": {
+    "pump": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.2\" stroke-linecap=\"round\" stroke-linejoin=\"ro"
+   }
+  },
+  {
+   "name": "panel: each chip icon is drawn in its job colour on the stroke (hi-vis, mint, blue), not filled; each ring icon too",
+   "ok": true,
+   "detail": {
+    "chip": {
+     "pump": {
+      "color": "rgb(255, 179, 71)",
+      "pathStroke": "rgb(255, 179, 71)",
+      "pathFill": "none"
+     },
+     "clean": {
+      "color": "rgb(94, 242, 200)",
+      "pathStroke": "rgb(94, 242, 200)",
+      "pathFill": "none"
+     },
+     "refill": {
+      "color": "rgb(143, 208, 255)",
+      "pathStroke": "rgb(143, 208, 255)",
+      "pathFill": "none"
+     }
+    },
+    "ring": {
+     "pump": "rgb(255, 179, 71)",
+     "clean": "rgb(94, 242, 200)",
+     "refill": "rgb(95, 180, 255)"
+    },
+    "chips": 45
+   }
+  },
+  {
+   "name": "card template publishes with the four icons and no old one; its style colours the stroke, not a fill",
+   "ok": true,
+   "detail": {
+    "len": 116817
+   }
+  },
+  {
+   "name": "crew card: area chips, header cells and big rings carry the icons in their job colours on the stroke (12 / 13 / 18 px)",
+   "ok": true,
+   "detail": {
+    "chips": {
+     "pump": {
+      "color": "rgb(255, 179, 71)",
+      "fill": "none",
+      "pathStroke": "rgb(255, 179, 71)",
+      "pathFill": "none",
+      "w": 12
+     },
+     "clean": {
+      "color": "rgb(94, 242, 200)",
+      "fill": "none",
+      "pathStroke": "rgb(94, 242, 200)",
+      "pathFill": "none",
+      "w": 12
+     },
+     "refill": {
+      "color": "rgb(95, 180, 255)",
+      "fill": "none",
+      "pathStroke": "rgb(95, 180, 255)",
+      "pathFill": "none",
+      "w": 12
+     }
+    },
+    "cells": {
+     "pump": {
+      "color": "rgb(255, 179, 71)",
+      "fill": "none",
+      "pathStroke": "rgb(255, 179, 71)",
+      "pathFill": "none",
+      "w": 13
+     },
+     "clean": {
+      "color": "rgb(94, 242, 200)",
+      "fill": "none",
+      "pathStroke": "rgb(94, 242, 200)",
+      "pathFill": "none",
+      "w": 13
+     },
+     "refill": {
+      "color": "rgb(95, 180, 255)",
+      "fill": "none",
+      "pathStroke": "rgb(95, 180, 255)",
+      "pathFill": "none",
+      "w": 13
+     }
+    },
+    "rings": {
+     "pump": {
+      "color": "rgb(255, 179, 71)",
+      "fill": "none",
+      "pathStroke": "rgb(255, 179, 71)",
+      "pathFill": "none",
+      "w": 18
+     },
+     "clean": {
+      "color": "rgb(94, 242, 200)",
+      "fill": "none",
+      "pathStroke": "rgb(94, 242, 200)",
+      "pathFill": "none",
+      "w": 18
+     },
+     "refill": {
+      "color": "rgb(95, 180, 255)",
+      "fill": "none",
+      "pathStroke": "rgb(95, 180, 255)",
+      "pathFill": "none",
+      "w": 18
+     }
+    },
+    "nChips": 15,
+    "nRings": 3,
+    "fits": true
+   }
+  },
+  {
+   "name": "record unchanged by the run",
+   "ok": true
+  },
+  {
+   "name": "no page errors",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "name": "no writes attempted",
+   "ok": true,
+   "detail": {
+    "page": 0,
+    "live": 69,
+    "blocked": 0
+   }
+  }
+ ]
+}

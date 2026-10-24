@@ -1,0 +1,68 @@
+{
+  "author": "Andrew Fisher",
+  "state": "VERIFIED LIVE",
+  "base_sha256": "312c5a31536a4af0e01cf5850828994b1076d6d3c123d4098158030146af986e",
+  "candidate_sha256": "198242a69a69e675dc733f0945bc1e092d2813d1090af20d1f5fcefb0b348eab",
+  "candidate_bytes": 21022969,
+  "inline_scripts_parsed": 150,
+  "source_checks": 52,
+  "qualified_progress_native_checks": 39,
+  "phone_fencing_range_checks": 24,
+  "servicing_visual_checks": 32,
+  "servicing_controller_checks": 190,
+  "visual_review": "independent review of exact final screenshots passed; completion examples are synthetic fixtures",
+  "data_boundaries": "servicing state, tracker configuration, permanent codes and map data/images unchanged; no operational or financial writes",
+  "source_sha256": {
+    "patch_fencing_progress_v1104.py": "e7337cba9e1154b9ea4072a3d703bb3078326caef8b6c3b1395f6b1274b3d237",
+    "patch_v1104.py": "c0244013d5249e92e9c197ab133ace6c4e736b88a4d15695e853af6581ee8f27",
+    "servicingRace1104_src.css": "b30f72267d5ed7bf5304aff067aa0b8303e2f1ead087ab623c367ad41f0def1b",
+    "patch_servicing_style_v1104.py": "0a1a6029f6b4ed396aea7eaefdfce7db34e047fac29a5ca2c45a264d1dc2e48d",
+    "fencingProgress1104.css": "2f628c82e9c0a53161bfee3e3fbc090165dc2331fdf3e773f49ad667e1e92afe",
+    "servicingRace1104_src.js": "62ea7bd41061d57c1f53d1c3b3263df3c978099f8c624f71f4be0ca18eb137a5",
+    "test_fencing_progress1104.cjs": "4788668f3a2fe0bbc86cb009555c9b53f31b2feaf1dc011f97d9d1f1dd85fdc3",
+    "fencingProgress1104_src.js": "30f5429c722186bab117a70d85e4de6e46c767ea28d6e276cd57692140e18406",
+    "test_servicingRace1104.cjs": "3e70e6407405880658af6cffe7f4bd1093f48318265b7a83c9fb1ffe952aef4f"
+  },
+  "scope_notes": "Final candidate was independently read back live. Synthetic completion screenshots do not represent event completion. Map centring after a large viewport resize is under separate follow-on investigation.",
+  "navigation_sweeps": {
+    "desktop": {
+      "sections": 25,
+      "links": 7,
+      "back": {
+        "hash": "#plant",
+        "pane": "pane-plant"
+      },
+      "script_errors": 0,
+      "console_errors": 0
+    },
+    "phone": {
+      "sections": 25,
+      "links": 7,
+      "back": {
+        "hash": "#plant",
+        "pane": "pane-plant"
+      },
+      "script_errors": 0,
+      "console_errors": 0
+    }
+  },
+  "upload_dry_run": "PASS: exact live base unchanged; edit access verified; no upload performed",
+  "release_source_commit": "d852f5466b870b9512db4790103c863ad5fabcd1",
+  "published_utc": "2026-10-21T05:21:14.352Z",
+  "published_aest": "21 Oct 2026 15:21 AEST",
+  "live_sha256": "198242a69a69e675dc733f0945bc1e092d2813d1090af20d1f5fcefb0b348eab",
+  "independent_live_verification": {
+    "checks": 2544,
+    "at": "2026-10-21T05:22:44.960Z",
+    "exact_candidate": true,
+    "whole_job_tracker_codes_ticks_cards_unchanged": true,
+    "mutations": 0,
+    "errors": 0
+  },
+  "root_readback": {
+    "at": "2026-10-21T05:21:42.243930Z",
+    "exact_public_bytes": true,
+    "whole_native_documents_unchanged": true,
+    "writes": 0
+  }
+}

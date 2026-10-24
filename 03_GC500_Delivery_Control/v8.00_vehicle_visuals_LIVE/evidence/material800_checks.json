@@ -1,0 +1,103 @@
+{
+  "author": "Andrew Fisher",
+  "scope": "Actual vehicle draw/atlas CPU contract checks with deliberately unsorted synthetic parts; production race/plant sync already sorts glass last, trailer uploads do not. GPU compile and matched visual captures remain required",
+  "baseline": {
+    "path": "/workspace/private-v800-build-stages/05_plant800.html",
+    "sha256": "3e8bd7ab65bee0e77cb635194184609e1f2de6f3db356f717f8c7b11b7c8c172"
+  },
+  "candidate": {
+    "path": "/tmp/material800-tuned-cpu.html",
+    "sha256": "b1b176e6da40f08ebb75cc557a8d452463d43e3a2a0d3c2a8a06ddc2fc73ffcd"
+  },
+  "shaderSha256": "04cb5813193bd7c4ca0bf072663b8e444c883f1e7d515805a9bc8680e2207765",
+  "checks": [
+    {
+      "name": "candidate includes the exact current vehicle shader",
+      "pass": true
+    },
+    {
+      "name": "all code outside vehicle renderer and existing livery atlas remains identical",
+      "pass": true
+    },
+    {
+      "name": "every existing vehicle material and mesh part still draws exactly once",
+      "pass": true
+    },
+    {
+      "name": "existing transforms, steering, brake, livery, colours and quality uniforms are unchanged",
+      "pass": true
+    },
+    {
+      "name": "surface semantic is set independently for every draw without leaking from earlier parts",
+      "pass": true
+    },
+    {
+      "name": "all opaque vehicle parts draw before glass and glass follows the opaque cockpit",
+      "pass": true
+    },
+    {
+      "name": "glass preserves premultiplied blending without writing depth",
+      "pass": true
+    },
+    {
+      "name": "decals and emissive panels follow glazing without losing alpha or source colour",
+      "pass": true
+    },
+    {
+      "name": "opaque paint and tyres retain depth writes and disabled blending",
+      "pass": true
+    },
+    {
+      "name": "existing high-speed spoke fade still suppresses the same draw",
+      "pass": true
+    },
+    {
+      "name": "night and baseline detail paths bind their own unchanged look uniforms",
+      "pass": true
+    },
+    {
+      "name": "trailer keeps all four draws while placing shell and tyre before glazing",
+      "pass": true
+    },
+    {
+      "name": "trailer hitch/wheel matrices and brake values remain unchanged",
+      "pass": true
+    },
+    {
+      "name": "original livery pixels and atlas dimensions remain exactly identical",
+      "pass": true
+    },
+    {
+      "name": "atlas minification uses the generated mip chain while magnification stays linear",
+      "pass": true
+    },
+    {
+      "name": "same-context atlas reuse allocates and generates only once",
+      "pass": true
+    },
+    {
+      "name": "a fresh restored/mounted context generates its own texture and mip chain",
+      "pass": true
+    },
+    {
+      "name": "single-channel mip overhead fits the stated 174763-byte budget",
+      "pass": true,
+      "detail": {
+        "additionalBytes": 174763,
+        "newTextures": 0
+      }
+    },
+    {
+      "name": "shader retains one existing atlas sampler and one bounded environment lookup",
+      "pass": true
+    },
+    {
+      "name": "normal derivatives and roughness filtering precede divergent material branches",
+      "pass": true
+    },
+    {
+      "name": "shader keeps livery masks and glyph sampling without adding vehicle vertex attributes",
+      "pass": true
+    }
+  ]
+}

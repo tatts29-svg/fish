@@ -1,0 +1,234 @@
+{
+  "author": "Andrew Fisher",
+  "checks": [
+    {
+      "name": "6 actual total unchanged",
+      "pass": true
+    },
+    {
+      "name": "6 current contract hire only received quantity",
+      "pass": true
+    },
+    {
+      "name": "6 supplier baseline atomically retained",
+      "pass": true
+    },
+    {
+      "name": "6 supplier ownership retained",
+      "pass": true
+    },
+    {
+      "name": "6 current Hire and Rehire ledgers unchanged",
+      "pass": true
+    },
+    {
+      "name": "6 future hire stays in Rehire ledger",
+      "pass": true
+    },
+    {
+      "name": "6 drawer hire displays received quantity and matching rate",
+      "pass": true
+    },
+    {
+      "name": "6 exact source rate and forecast amount",
+      "pass": true
+    },
+    {
+      "name": "6 supplier forecast agrees once",
+      "pass": true
+    },
+    {
+      "name": "6 no added supplier cost",
+      "pass": true
+    },
+    {
+      "name": "6 central P&L and branch sums reconcile",
+      "pass": true
+    },
+    {
+      "name": "6 mixed item received charges unchanged",
+      "pass": true
+    },
+    {
+      "name": "6 branch forecast allocated to existing branch",
+      "pass": true
+    },
+    {
+      "name": "6 explicit receipt moves only hire from forecast to actual",
+      "pass": true
+    },
+    {
+      "name": "6 drawer follows subsequent received quantity",
+      "pass": true
+    },
+    {
+      "name": "6 explicit receipt retains supplier ledger",
+      "pass": true
+    },
+    {
+      "name": "6 explicit receipt keeps existing job hire total",
+      "pass": true
+    },
+    {
+      "name": "6 explicit receipt does not mark extra work complete",
+      "pass": true
+    },
+    {
+      "name": "10 actual total unchanged",
+      "pass": true
+    },
+    {
+      "name": "10 current contract hire only received quantity",
+      "pass": true
+    },
+    {
+      "name": "10 supplier baseline atomically retained",
+      "pass": true
+    },
+    {
+      "name": "10 supplier ownership retained",
+      "pass": true
+    },
+    {
+      "name": "10 current Hire and Rehire ledgers unchanged",
+      "pass": true
+    },
+    {
+      "name": "10 future hire stays in Rehire ledger",
+      "pass": true
+    },
+    {
+      "name": "10 drawer hire displays received quantity and matching rate",
+      "pass": true
+    },
+    {
+      "name": "10 exact source rate and forecast amount",
+      "pass": true
+    },
+    {
+      "name": "10 supplier forecast agrees once",
+      "pass": true
+    },
+    {
+      "name": "10 no added supplier cost",
+      "pass": true
+    },
+    {
+      "name": "10 central P&L and branch sums reconcile",
+      "pass": true
+    },
+    {
+      "name": "10 mixed item received charges unchanged",
+      "pass": true
+    },
+    {
+      "name": "10 branch forecast allocated to existing branch",
+      "pass": true
+    },
+    {
+      "name": "10 explicit receipt moves only hire from forecast to actual",
+      "pass": true
+    },
+    {
+      "name": "10 drawer follows subsequent received quantity",
+      "pass": true
+    },
+    {
+      "name": "10 explicit receipt retains supplier ledger",
+      "pass": true
+    },
+    {
+      "name": "10 explicit receipt keeps existing job hire total",
+      "pass": true
+    },
+    {
+      "name": "10 explicit receipt does not mark extra work complete",
+      "pass": true
+    },
+    {
+      "name": "no-receipt planning edit creates no actual hire",
+      "pass": true
+    },
+    {
+      "name": "repeated planned edits keep actual charge and owner",
+      "pass": true
+    },
+    {
+      "name": "repeated planned edits keep remaining hire once",
+      "pass": true
+    },
+    {
+      "name": "building planned unit does not increase actual",
+      "pass": true
+    },
+    {
+      "name": "building remaining whole-event hire is forecast once",
+      "pass": true
+    },
+    {
+      "name": "building retains Coates ledger and balanced branch totals",
+      "pass": true
+    },
+    {
+      "name": "building drawer hire follows actual quantity and rate",
+      "pass": true
+    },
+    {
+      "name": "building later receipt moves existing whole-event price to actual",
+      "pass": true
+    },
+    {
+      "name": "repeated planning preserves manually selected stairs after new receipts",
+      "pass": true
+    },
+    {
+      "name": "planned revenue follows edited branch",
+      "pass": true
+    },
+    {
+      "name": "fractional source rate rounds extended totals once",
+      "pass": true
+    },
+    {
+      "name": "rate changes propagate without changing quantities",
+      "pass": true
+    },
+    {
+      "name": "date-sensitive generator excluded from whole-event extension",
+      "pass": true
+    },
+    {
+      "name": "generator actual hire does not grow with planned scope",
+      "pass": true
+    },
+    {
+      "name": "extra generator scope has explicit allocation hold",
+      "pass": true
+    },
+    {
+      "name": "native record restored exactly",
+      "pass": true
+    },
+    {
+      "name": "all source contracts and rates restored",
+      "pass": true
+    },
+    {
+      "name": "service version unchanged",
+      "pass": true
+    },
+    {
+      "name": "zero errors or operational write attempts",
+      "pass": true
+    }
+  ],
+  "version": 6075,
+  "errors": [],
+  "requests": {
+    "page": 1,
+    "live": 31,
+    "blocked": 0,
+    "blockedMapSessions": 0
+  },
+  "candidateSha": "5c0925948ce16c940fe56874da22a8b2980d0f87f005e382e67cb583542dac9f"
+}

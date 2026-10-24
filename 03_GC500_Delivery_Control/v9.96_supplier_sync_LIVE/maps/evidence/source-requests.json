@@ -1,0 +1,40 @@
+{
+  "author": "Andrew Fisher",
+  "checks": [
+    {
+      "name": "Missing BJR and Shell requests are named once with date quantity and supplier",
+      "pass": true
+    },
+    {
+      "name": "Source requests have no invented number arrival state or coordinate",
+      "pass": true
+    },
+    {
+      "name": "Projection is idempotent and does not change native model or operational inputs",
+      "pass": true
+    },
+    {
+      "name": "A future unique native FWF reference replaces the earlier fallback",
+      "pass": true
+    },
+    {
+      "name": "Cancelled matching request stays held without source recreation",
+      "pass": true
+    },
+    {
+      "name": "Ambiguous matches do not add a duplicate source request",
+      "pass": true
+    },
+    {
+      "name": "Matching building name never lends its pin to the FWF request",
+      "pass": true
+    },
+    {
+      "name": "An already represented key cannot create another map row",
+      "pass": true
+    }
+  ],
+  "passed": 8,
+  "operationalWrites": 0,
+  "browser": false
+}

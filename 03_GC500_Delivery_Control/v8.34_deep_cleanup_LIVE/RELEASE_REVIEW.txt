@@ -1,0 +1,23 @@
+Author: Andrew Fisher
+v8.34 — VERIFIED LIVE 4 Oct2026 08:46AEST; historical review checkpoints retained below.
+
+Source checkpoint cc5f5073; interaction test-only correction 135bd283.
+Base v8.32 c3e610a5a1def55fc3eac0f87b3f2e4d14cfdefd7ba926bcb548487d6cdfc95b.
+Frozen candidate 0b3942f0f45757c017797c6b1d8f5fc6bf033d6053068c8f4ad1fa44258bb03e, 10,169,185 bytes.
+Standard page parsing, secret/author guards and exact component composition pass.
+Portable cleanup suite: 69 passed, one documented skipped fixture.
+Final staffing/financial verification: 590 passed, explicit stable-ID and scalar change classification; current records and actual financial authority retained.
+Final Pricing/drawer tests: every action, row position, disclosure state, native capture and preservation assertion passes on desktop and phone. End scroll correctly clamps when the table contracts; genuine middle position remains exact. Earlier strict console gates failed on external Google tile/createSession HTTP503 responses; failed runs are retained. Final clean desktop53/53 and phone53/53 pass with no browser/resource errors or operational writes.
+Map/source/landscape and both22-tab/seven-link/Back sweeps pass. Real touch and state preservation pass; phone wages/notes and map screenshots inspected. Direct Google recovery and controlled real Mapbox fallback verified. External imagery availability and survey-accuracy limits remain explicit. No faultless claim. Guarded publication and actual-public verification pending.
+Original sources, operational inputs and private reconciliation are excluded from this review.
+Claude remains intentionally paused. Codex implements, reviews and owns guarded publication.
+
+Final phone visual review found the staffing table pinned first column obscures wage cells after horizontal scroll. Root stopped before publication; earlier test passes do not establish this newly found presentation requirement. Scoped correction and new final checks pending.
+
+Corrected candidate review, 4 Oct 2026:
+Exact final e63a8b0bafc0c2741ab2048a0864a4db2bf213d274502cf1606eae86f70613eb, 10,169,498 bytes. Late table issue fixed with one wrapper class and max640px first-column positioning only. Root independently inspected the phone wage image. Staff runtime43/43; final desktop and phone each22 tabs/seven deep links/Back, zero page/console errors or attempted native writes. Prior financial/source evidence retained through exact inverse byte proof; these earlier checks were not falsely relabelled as rerun. Original failed and superseded checks remain historical evidence. Guarded upload/public verification pending.
+
+Independent review accepts prior590 financial checks as carried unchanged-source evidence, not newly executed final-candidate checks. Unique298-byte stylesheet plus15-byte wrapper-class addition inverse to exact prior candidate. New43 runtime and both final sweeps bind final bytes; public full-model comparison remains required after upload.
+
+Final release result:
+Source/READY8908090a. Guarded publication at08:46AEST and exact public e63a8b0bafc0c2741ab2048a0864a4db2bf213d274502cf1606eae86f70613eb (10,169,498 bytes) pass. Actual-public desktop/phone79/79 pass with exact raw/CDP identity (explicit UTF-8-BOM decoding only), no HTML substitution, full approved financial/staffing model parity, wage visibility and Today MP4 playback/stop. Zero page/console errors and attempted writes. Root inspected the published phone image. All33 operational collections and record3739 unchanged. Server healthy v5.87, no backend deployment. Claude remains paused. The separate v8.35 draft must integrate from this exact new live base.

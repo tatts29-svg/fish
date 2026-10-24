@@ -1,0 +1,217 @@
+{
+  "author": "Andrew Fisher",
+  "sourceCommit": "e540cbc31bef88500f9b781688c53f8693932514",
+  "sourceFiles": {
+    "docs815_src.js": "99b24b0ffe9abebf893004e51c074dfdde572bb4a61e5c2555f38597e9c42e10",
+    "patch_v815.py": "2d0a8457f22049123ecf437c6ef05fcf9bdd781e98c8e3508783e1744ea2c161",
+    "v815.css": "81c2bf72a6438adf8aaa8c6dd4072629671f01b8be4b1d4a8f34952798cd4e21"
+  },
+  "baselineSha256": "f07e92cc79ad416e75f0db2b6cfa1c302d1789cf7c93ff0da8142afc6dc8a7ec",
+  "baselineExcerptSha256": "6ff6b78ac55daf080952bd3792d1e192158db60a9dbffa2207e62cd7056c76f7",
+  "patchReplacementsExecuted": [
+    "twins in docCollection",
+    "finder doc ids",
+    "finder docday ids",
+    "finder pick lands on the item"
+  ],
+  "currentBaseSha256": "6365fd0965e1ae1fcf75fdd6aad076b2662697443addfae49a3d6016a39f9fce",
+  "currentBaseExcerptSha256": "842a878f0108ac4bd0a3639d5e2bd66377115f6e5592c2a4045954c414ab3278",
+  "originalPositiveChecks": {
+    "passed": 28,
+    "total": 28
+  },
+  "cacheAndRedrawChecks": {
+    "passed": 13,
+    "total": 14
+  },
+  "method": "NEW positive checks of corrected source and literal replacements parsed from the actual Python patch; synthetic data and DOM/helper doubles only.",
+  "limits": "No browser/PDF/visual/performance validation. Print assertions concern generated full-list markup and source CSS. Classified photo summary is the implementation's documented print format.",
+  "passed": 41,
+  "total": 42,
+  "failures": [
+    {
+      "name": "Partial redraw after incoming book change uses current record classification",
+      "pass": false,
+      "detail": {
+        "cachedCategory": "Photographs",
+        "freshCategory": "Fencing dockets",
+        "fullRedrawDeferred": true
+      }
+    }
+  ],
+  "checks": [
+    {
+      "name": "Five intended twins still merge once",
+      "pass": true
+    },
+    {
+      "name": "All catalogue notes and per-day pages survive merging",
+      "pass": true
+    },
+    {
+      "name": "Uploaded file identity and title alias are retained",
+      "pass": true
+    },
+    {
+      "name": "Retained note and uploaded title remain searchable",
+      "pass": true
+    },
+    {
+      "name": "Retained note has a Details control and reachable note span",
+      "pass": true
+    },
+    {
+      "name": "map retains recorded reference TEST42 and its open action",
+      "pass": true
+    },
+    {
+      "name": "map retains recorded reference UNKNOWN99 and its open action",
+      "pass": true
+    },
+    {
+      "name": "invoice retains recorded reference TEST42 and its open action",
+      "pass": true
+    },
+    {
+      "name": "invoice retains recorded reference UNKNOWN99 and its open action",
+      "pass": true
+    },
+    {
+      "name": "Reference handler calls existing drawer action",
+      "pass": true
+    },
+    {
+      "name": "Details handler reveals the note and updates semantics",
+      "pass": true
+    },
+    {
+      "name": "Details handler closes the note again",
+      "pass": true
+    },
+    {
+      "name": "Existing fencing plan route selects Drawings",
+      "pass": true
+    },
+    {
+      "name": "Existing fencing plan route lands on plan subgroup",
+      "pass": true
+    },
+    {
+      "name": "Signed docket route remains separate",
+      "pass": true
+    },
+    {
+      "name": "Header twin result opens the uploaded file",
+      "pass": true
+    },
+    {
+      "name": "Header file opens with existing safe new-window options",
+      "pass": true
+    },
+    {
+      "name": "Header per-day result preserves the uploaded file and page anchor",
+      "pass": true
+    },
+    {
+      "name": "Missing header result clears unrelated category and selects its title",
+      "pass": true
+    },
+    {
+      "name": "Missing header result is rendered in the destination",
+      "pass": true
+    },
+    {
+      "name": "Missing selected row receives current/focus/scroll treatment",
+      "pass": true
+    },
+    {
+      "name": "Full print list is present on initial render without a button",
+      "pass": true
+    },
+    {
+      "name": "Print list includes every nonphoto exactly once",
+      "pass": true
+    },
+    {
+      "name": "Print list represents photos by reference and has no collapsed details",
+      "pass": true
+    },
+    {
+      "name": "Screen query/category does not restrict the complete print list",
+      "pass": true
+    },
+    {
+      "name": "Native print CSS exposes the persistent list and hides screen results",
+      "pass": true
+    },
+    {
+      "name": "Print button calls native printing without mutating screen state",
+      "pass": true
+    },
+    {
+      "name": "Print failure leaves screen category/query/folds unchanged",
+      "pass": true
+    },
+    {
+      "name": "Full render seeds the exact collection and file registry snapshot",
+      "pass": true
+    },
+    {
+      "name": "Unchanged partial redraws reuse the seeded collection",
+      "pass": true
+    },
+    {
+      "name": "Each partial redraw uses one current-base asset hold",
+      "pass": true
+    },
+    {
+      "name": "Partial redraw invalidates cache for changed file registry identity",
+      "pass": true
+    },
+    {
+      "name": "Partial redraw invalidates cache for changed file registry length",
+      "pass": true
+    },
+    {
+      "name": "Partial redraw invalidates cache for changed registry timestamp",
+      "pass": true
+    },
+    {
+      "name": "Partial redraw invalidates cache for changed registry loading state",
+      "pass": true
+    },
+    {
+      "name": "Current-base docsRedraw performs a full draw and reseeds cache",
+      "pass": true
+    },
+    {
+      "name": "Current-base source routes file refresh and Documents full render through the required redraw chain",
+      "pass": true
+    },
+    {
+      "name": "Synthetic numbered picture begins as a photo before its book record exists",
+      "pass": true
+    },
+    {
+      "name": "Actual remote-record handler updates the record but defers full draw while Documents search has focus",
+      "pass": true
+    },
+    {
+      "name": "Fresh collection recognises the new synthetic docket record",
+      "pass": true
+    },
+    {
+      "name": "Partial redraw after incoming book change uses current record classification",
+      "pass": false,
+      "detail": {
+        "cachedCategory": "Photographs",
+        "freshCategory": "Fencing dockets",
+        "fullRedrawDeferred": true
+      }
+    },
+    {
+      "name": "Blur and pending full redraw repair the stale classification",
+      "pass": true
+    }
+  ]
+}

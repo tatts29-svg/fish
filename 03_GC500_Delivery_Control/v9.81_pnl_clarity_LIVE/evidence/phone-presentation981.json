@@ -1,0 +1,13 @@
+{
+  "author": "Andrew Fisher",
+  "sha256": "824192c81c4c719590d82bd5497cb8c6e5e0f93590d61035ce642e7490919b34",
+  "pass": true,
+  "checks": 38,
+  "mobile": true,
+  "actualPublic": false,
+  "injectedPreview": false,
+  "modelEquality": true,
+  "nativeEquality": true,
+  "errors": 0,
+  "writes": 0
+}

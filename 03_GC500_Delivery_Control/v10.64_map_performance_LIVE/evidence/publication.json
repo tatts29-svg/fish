@@ -1,0 +1,42 @@
+{
+  "author": "Andrew Fisher",
+  "readbackUTC": "2026-10-17T21:33:49.413491+00:00",
+  "page": {
+    "bytes": 18301601,
+    "sha256": "34ac94742f81bfce7e784589a502df515d76dffbee418c048fc3e07a238f2067",
+    "publicBytesExact": true
+  },
+  "machine": {
+    "author": "Andrew Fisher",
+    "baseManifestSha256": "43c59fc5ea41cfabe9941d72cead4d4a61b6c2e86ec883e5b0f2b067f2962f7c",
+    "candidateManifestSha256": "1348bf1bbcf69400aab0e510e7239d68dac567d40d103898323bf9abdef7bf6f",
+    "changedFiles": {
+      "explorer/explorer.js": "c096837cb410bce216876ab8b49a9bf10c54ba4e4749bbb337979b71fb367f9d",
+      "explorer/index.html": "b5f7c16560f12ebcea6a84bfa7697e603ee46580c3950414e79bc31308d02843"
+    },
+    "addedFiles": {},
+    "stagedBlobs": 2,
+    "otherFilesPreserved": 234,
+    "totalFiles": 236,
+    "published": true,
+    "recordWrites": 0,
+    "publicAssetsExact": true
+  },
+  "sourceCommit": "ab1cc0a6b758e206334b4a2bb91a0ac64770deaf",
+  "liveBrowser": {
+    "desktop": {
+      "checks": 11,
+      "pageErrors": 0,
+      "recordWrites": 0,
+      "newTileRecoveryLoaded": true,
+      "shapeLayerAttached": true
+    },
+    "phone": {
+      "checks": 11,
+      "pageErrors": 0,
+      "recordWrites": 0,
+      "newTileRecoveryLoaded": true,
+      "shapeLayerAttached": true
+    }
+  }
+}

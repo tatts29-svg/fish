@@ -1,0 +1,640 @@
+{
+  "author": "Andrew Fisher",
+  "candidateSha256": "cd3159be30b7ec931d5ffa907b90b585e6851a2210a2e7230d3fde74b0b46bee",
+  "checks": [
+    {
+      "name": "desktop Tools keyboard opens native modal with expected return target",
+      "pass": true,
+      "detail": {
+        "ret": "moreBtn",
+        "active": "showBack",
+        "open": true,
+        "dialogHidden": false,
+        "viewChoice": "",
+        "viewPreference": "hero",
+        "menuHidden": true,
+        "inside": true,
+        "inertCount": 7,
+        "keys": true,
+        "vis": true,
+        "motion": true,
+        "tracked": [
+          [
+            "keydown",
+            1
+          ],
+          [
+            "visibilitychange",
+            1
+          ],
+          [
+            "gc500motionchange",
+            1
+          ]
+        ],
+        "back": "black",
+        "gl": false
+      }
+    },
+    {
+      "name": "desktop Tools Escape returns focus to visible moreBtn",
+      "pass": true,
+      "detail": {
+        "focus": "moreBtn",
+        "visible": true,
+        "open": false,
+        "showing": false,
+        "ret": null,
+        "inertClean": true,
+        "listeners": false,
+        "tracked": [
+          [
+            "keydown",
+            0
+          ],
+          [
+            "visibilitychange",
+            0
+          ],
+          [
+            "gc500motionchange",
+            0
+          ]
+        ],
+        "timer": null,
+        "clock": null,
+        "launchTimer": null
+      }
+    },
+    {
+      "name": "desktop Tools Escape clears modal inert and registered listeners",
+      "pass": true,
+      "detail": {
+        "focus": "moreBtn",
+        "visible": true,
+        "open": false,
+        "showing": false,
+        "ret": null,
+        "inertClean": true,
+        "listeners": false,
+        "tracked": [
+          [
+            "keydown",
+            0
+          ],
+          [
+            "visibilitychange",
+            0
+          ],
+          [
+            "gc500motionchange",
+            0
+          ]
+        ],
+        "timer": null,
+        "clock": null,
+        "launchTimer": null
+      }
+    },
+    {
+      "name": "desktop Tools reopened opens native modal with expected return target",
+      "pass": true,
+      "detail": {
+        "ret": "moreBtn",
+        "active": "showBack",
+        "open": true,
+        "dialogHidden": false,
+        "viewChoice": "",
+        "viewPreference": "hero",
+        "menuHidden": true,
+        "inside": true,
+        "inertCount": 8,
+        "keys": true,
+        "vis": true,
+        "motion": true,
+        "tracked": [
+          [
+            "keydown",
+            1
+          ],
+          [
+            "visibilitychange",
+            1
+          ],
+          [
+            "gc500motionchange",
+            1
+          ]
+        ],
+        "back": "black",
+        "gl": false
+      }
+    },
+    {
+      "name": "desktop Tools browser Back returns focus to visible moreBtn",
+      "pass": true,
+      "detail": {
+        "focus": "moreBtn",
+        "visible": true,
+        "open": false,
+        "showing": false,
+        "ret": null,
+        "inertClean": true,
+        "listeners": false,
+        "tracked": [
+          [
+            "keydown",
+            0
+          ],
+          [
+            "visibilitychange",
+            0
+          ],
+          [
+            "gc500motionchange",
+            0
+          ]
+        ],
+        "timer": null,
+        "clock": null,
+        "launchTimer": null
+      }
+    },
+    {
+      "name": "desktop Tools browser Back clears modal inert and registered listeners",
+      "pass": true,
+      "detail": {
+        "focus": "moreBtn",
+        "visible": true,
+        "open": false,
+        "showing": false,
+        "ret": null,
+        "inertClean": true,
+        "listeners": false,
+        "tracked": [
+          [
+            "keydown",
+            0
+          ],
+          [
+            "visibilitychange",
+            0
+          ],
+          [
+            "gc500motionchange",
+            0
+          ]
+        ],
+        "timer": null,
+        "clock": null,
+        "launchTimer": null
+      }
+    },
+    {
+      "name": "desktop original Start showcase entry remains visible",
+      "pass": true,
+      "detail": {
+        "matches": 1
+      }
+    },
+    {
+      "name": "desktop original Start keyboard opens native modal with expected return target",
+      "pass": true,
+      "detail": {
+        "ret": "showStart",
+        "active": "showBack",
+        "open": true,
+        "dialogHidden": false,
+        "viewChoice": "",
+        "viewPreference": "hero",
+        "menuHidden": true,
+        "inside": true,
+        "inertCount": 8,
+        "keys": true,
+        "vis": true,
+        "motion": true,
+        "tracked": [
+          [
+            "keydown",
+            1
+          ],
+          [
+            "visibilitychange",
+            1
+          ],
+          [
+            "gc500motionchange",
+            1
+          ]
+        ],
+        "back": "black",
+        "gl": false
+      }
+    },
+    {
+      "name": "desktop original Start Escape returns focus to visible showStart",
+      "pass": true,
+      "detail": {
+        "focus": "showStart",
+        "visible": true,
+        "open": false,
+        "showing": false,
+        "ret": null,
+        "inertClean": true,
+        "listeners": false,
+        "tracked": [
+          [
+            "keydown",
+            0
+          ],
+          [
+            "visibilitychange",
+            0
+          ],
+          [
+            "gc500motionchange",
+            0
+          ]
+        ],
+        "timer": null,
+        "clock": null,
+        "launchTimer": null
+      }
+    },
+    {
+      "name": "desktop original Start Escape clears modal inert and registered listeners",
+      "pass": true,
+      "detail": {
+        "focus": "showStart",
+        "visible": true,
+        "open": false,
+        "showing": false,
+        "ret": null,
+        "inertClean": true,
+        "listeners": false,
+        "tracked": [
+          [
+            "keydown",
+            0
+          ],
+          [
+            "visibilitychange",
+            0
+          ],
+          [
+            "gc500motionchange",
+            0
+          ]
+        ],
+        "timer": null,
+        "clock": null,
+        "launchTimer": null
+      }
+    },
+    {
+      "name": "desktop normal keyboard navigation works after all closures",
+      "pass": true,
+      "detail": {
+        "active": "BUTTON",
+        "inside": false
+      }
+    },
+    {
+      "name": "desktop no page exceptions or operational writes",
+      "pass": true,
+      "detail": {
+        "errors": [],
+        "counts": {
+          "page": 1,
+          "live": 42,
+          "blocked": 0
+        }
+      }
+    },
+    {
+      "name": "phone Tools keyboard opens native modal with expected return target",
+      "pass": true,
+      "detail": {
+        "ret": "moreBtn",
+        "active": "showBack",
+        "open": true,
+        "dialogHidden": false,
+        "viewChoice": "",
+        "viewPreference": "hero",
+        "menuHidden": true,
+        "inside": true,
+        "inertCount": 7,
+        "keys": true,
+        "vis": true,
+        "motion": true,
+        "tracked": [
+          [
+            "keydown",
+            1
+          ],
+          [
+            "visibilitychange",
+            1
+          ],
+          [
+            "gc500motionchange",
+            1
+          ]
+        ],
+        "back": "black",
+        "gl": false
+      }
+    },
+    {
+      "name": "phone Tools Escape returns focus to visible moreBtn",
+      "pass": true,
+      "detail": {
+        "focus": "moreBtn",
+        "visible": true,
+        "open": false,
+        "showing": false,
+        "ret": null,
+        "inertClean": true,
+        "listeners": false,
+        "tracked": [
+          [
+            "keydown",
+            0
+          ],
+          [
+            "visibilitychange",
+            0
+          ],
+          [
+            "gc500motionchange",
+            0
+          ]
+        ],
+        "timer": null,
+        "clock": null,
+        "launchTimer": null
+      }
+    },
+    {
+      "name": "phone Tools Escape clears modal inert and registered listeners",
+      "pass": true,
+      "detail": {
+        "focus": "moreBtn",
+        "visible": true,
+        "open": false,
+        "showing": false,
+        "ret": null,
+        "inertClean": true,
+        "listeners": false,
+        "tracked": [
+          [
+            "keydown",
+            0
+          ],
+          [
+            "visibilitychange",
+            0
+          ],
+          [
+            "gc500motionchange",
+            0
+          ]
+        ],
+        "timer": null,
+        "clock": null,
+        "launchTimer": null
+      }
+    },
+    {
+      "name": "phone Tools reopened opens native modal with expected return target",
+      "pass": true,
+      "detail": {
+        "ret": "moreBtn",
+        "active": "showBack",
+        "open": true,
+        "dialogHidden": false,
+        "viewChoice": "",
+        "viewPreference": "hero",
+        "menuHidden": true,
+        "inside": true,
+        "inertCount": 7,
+        "keys": true,
+        "vis": true,
+        "motion": true,
+        "tracked": [
+          [
+            "keydown",
+            1
+          ],
+          [
+            "visibilitychange",
+            1
+          ],
+          [
+            "gc500motionchange",
+            1
+          ]
+        ],
+        "back": "black",
+        "gl": false
+      }
+    },
+    {
+      "name": "phone Tools browser Back returns focus to visible moreBtn",
+      "pass": true,
+      "detail": {
+        "focus": "moreBtn",
+        "visible": true,
+        "open": false,
+        "showing": false,
+        "ret": null,
+        "inertClean": true,
+        "listeners": false,
+        "tracked": [
+          [
+            "keydown",
+            0
+          ],
+          [
+            "visibilitychange",
+            0
+          ],
+          [
+            "gc500motionchange",
+            0
+          ]
+        ],
+        "timer": null,
+        "clock": null,
+        "launchTimer": null
+      }
+    },
+    {
+      "name": "phone Tools browser Back clears modal inert and registered listeners",
+      "pass": true,
+      "detail": {
+        "focus": "moreBtn",
+        "visible": true,
+        "open": false,
+        "showing": false,
+        "ret": null,
+        "inertClean": true,
+        "listeners": false,
+        "tracked": [
+          [
+            "keydown",
+            0
+          ],
+          [
+            "visibilitychange",
+            0
+          ],
+          [
+            "gc500motionchange",
+            0
+          ]
+        ],
+        "timer": null,
+        "clock": null,
+        "launchTimer": null
+      }
+    },
+    {
+      "name": "phone original Start showcase entry remains visible",
+      "pass": true,
+      "detail": {
+        "matches": 1
+      }
+    },
+    {
+      "name": "phone original Start keyboard opens native modal with expected return target",
+      "pass": true,
+      "detail": {
+        "ret": "showStart",
+        "active": "showBack",
+        "open": true,
+        "dialogHidden": false,
+        "viewChoice": "",
+        "viewPreference": "hero",
+        "menuHidden": true,
+        "inside": true,
+        "inertCount": 7,
+        "keys": true,
+        "vis": true,
+        "motion": true,
+        "tracked": [
+          [
+            "keydown",
+            1
+          ],
+          [
+            "visibilitychange",
+            1
+          ],
+          [
+            "gc500motionchange",
+            1
+          ]
+        ],
+        "back": "black",
+        "gl": false
+      }
+    },
+    {
+      "name": "phone original Start Escape returns focus to visible showStart",
+      "pass": true,
+      "detail": {
+        "focus": "showStart",
+        "visible": true,
+        "open": false,
+        "showing": false,
+        "ret": null,
+        "inertClean": true,
+        "listeners": false,
+        "tracked": [
+          [
+            "keydown",
+            0
+          ],
+          [
+            "visibilitychange",
+            0
+          ],
+          [
+            "gc500motionchange",
+            0
+          ]
+        ],
+        "timer": null,
+        "clock": null,
+        "launchTimer": null
+      }
+    },
+    {
+      "name": "phone original Start Escape clears modal inert and registered listeners",
+      "pass": true,
+      "detail": {
+        "focus": "showStart",
+        "visible": true,
+        "open": false,
+        "showing": false,
+        "ret": null,
+        "inertClean": true,
+        "listeners": false,
+        "tracked": [
+          [
+            "keydown",
+            0
+          ],
+          [
+            "visibilitychange",
+            0
+          ],
+          [
+            "gc500motionchange",
+            0
+          ]
+        ],
+        "timer": null,
+        "clock": null,
+        "launchTimer": null
+      }
+    },
+    {
+      "name": "phone normal keyboard navigation works after all closures",
+      "pass": true,
+      "detail": {
+        "active": "BUTTON",
+        "inside": false
+      }
+    },
+    {
+      "name": "phone no page exceptions or operational writes",
+      "pass": true,
+      "detail": {
+        "errors": [],
+        "counts": {
+          "page": 1,
+          "live": 10,
+          "blocked": 0
+        }
+      }
+    },
+    {
+      "name": "Final candidate remained immutable during checks",
+      "pass": true
+    }
+  ],
+  "errors": [],
+  "blocked": [],
+  "operationalWrites": 0,
+  "scope": "Real desktop/phone keyboard Tools and visible Start showcase entries; native showOpen/showClose, Escape and browser Back. Existing Black backdrop chosen to isolate focus and avoid GL contention.",
+  "fixtureRecovery": {
+    "priorFailure": "locator.scrollIntoViewIfNeeded: Element is not attached to the DOM\nCall log:\n\u001b[2m  - attempting scroll into view action\u001b[22m\n\u001b[2m    - waiting for element to be stable\u001b[22m\n\u001b[2m    - element is not stable\u001b[22m\n\u001b[2m  - retrying scroll into view action\u001b[22m\n\u001b[2m    - waiting for element to be stable\u001b[22m\n\n    at /workspace/private-v810-independent/focus812_browser.cjs:48:34",
+    "action": "Fresh phone context for original Start case only; passed Tools/desktop cases retained."
+  },
+  "passed": 25,
+  "failed": 0,
+  "complete": true,
+  "finalFileSha256": "cd3159be30b7ec931d5ffa907b90b585e6851a2210a2e7230d3fde74b0b46bee"
+}

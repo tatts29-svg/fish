@@ -1,0 +1,228 @@
+{
+ "page": "GC500_Delivery_Control_hosted.html",
+ "checks": [
+  {
+   "name": "1 #vms opens the VMS boards pane with 28 cards (10 + 13 + 5)",
+   "ok": true,
+   "detail": {
+    "cards": 28,
+    "c": 10,
+    "e": 13,
+    "s": 5
+   }
+  },
+  {
+   "name": "1 every card has a QR, a navigate link and the plan crop",
+   "ok": true,
+   "detail": {
+    "qrs": 28,
+    "navs": 28,
+    "plans": 28
+   }
+  },
+  {
+   "name": "1 the service gave the map key and four satellite views loaded on every card (112)",
+   "ok": true,
+   "detail": {
+    "key": true,
+    "loaded": 112,
+    "failed": 0
+   }
+  },
+  {
+   "name": "1 view link: every field disabled, nothing pre-ticked",
+   "ok": true,
+   "detail": {
+    "fields": 140,
+    "disabled": 140
+   }
+  },
+  {
+   "name": "1 VMS 20 shows its two messages",
+   "ok": true,
+   "detail": {
+    "msgs": 2,
+    "text": "TICKETS →  ·  GATE 6 ←"
+   }
+  },
+  {
+   "name": "1 asset numbers come from the record (vms1 → 1211354) and the register (VMS09 → 1211404)",
+   "ok": true,
+   "detail": {
+    "a01": "1211354",
+    "a09": "1211404"
+   }
+  },
+  {
+   "name": "1 VMS 13 carries Brenden’s go-out-early note; VMS 20 its pin",
+   "ok": true,
+   "detail": {
+    "latlon20": "-27.993560, 153.430250"
+   }
+  },
+  {
+   "name": "1 footer v10.24, no page errors, no writes",
+   "ok": true,
+   "detail": {
+    "footer": "v10.24",
+    "errors": [],
+    "blocked": 0
+   }
+  },
+  {
+   "name": "2 writes accepted; a non-Gold-Coast position and an unknown position refused",
+   "ok": true,
+   "detail": {
+    "badPos": false,
+    "wrong": false
+   }
+  },
+  {
+   "name": "2 record shape: kind, pos, asset, rego, notes, lat/lon with how/by, inPlace, by, at",
+   "ok": true,
+   "detail": {
+    "asset": "1211383",
+    "kind": "vms1024",
+    "pos": "20",
+    "by": "Practice Operator 1024",
+    "at": "2026-10-14T20:29:16.743Z",
+    "rego": "ABC123",
+    "notes": "practice note",
+    "lat": -27.99351,
+    "lon": 153.43108,
+    "posHow": "typed on the page",
+    "posBy": "Practice Operator 1024",
+    "posAt": "2026-10-14T20:29:16.330Z",
+    "acc": null,
+    "inPlace": true
+   }
+  },
+  {
+   "name": "2 one document for the position, stamped and named",
+   "ok": true,
+   "detail": {
+    "keys": [
+     "vms1024/20"
+    ],
+    "by": "Practice Operator 1024"
+   }
+  },
+  {
+   "name": "2 the card shows the saved values and the in-place state",
+   "ok": true,
+   "detail": {
+    "asset": "1211383",
+    "rego": "ABC123",
+    "latlon": "-27.993510, 153.431080",
+    "inplace": true,
+    "done": true
+   }
+  },
+  {
+   "name": "2 the page tried exactly the planned PUTs (loads, stamps, by), all aborted by the harness",
+   "ok": true,
+   "detail": {
+    "tried": [
+     "stamps/loads~2f~vms1024~2f~20",
+     "by/loads~2f~vms1024~2f~20",
+     "loads/vms1024~2f~20"
+    ],
+    "missing": [],
+    "extra": []
+   }
+  },
+  {
+   "name": "2 no page errors in edit practice",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "name": "3 #print/vms/20 lands on the VMS tab with the bar ready and one sheet",
+   "ok": true,
+   "detail": {
+    "bar": "VMS board sheet · VMS 20 · 1 page",
+    "sheets": 1
+   }
+  },
+  {
+   "name": "3 the VMS 20 sheet: two messages, QR, four satellite views loaded, the plan picture, four identity boxes, fits one page",
+   "ok": true,
+   "detail": {
+    "msgs": 2,
+    "qr": true,
+    "air": true,
+    "plan": true,
+    "zoom": "1"
+   }
+  },
+  {
+   "name": "3 issued line names the author and 15 Oct 2026",
+   "ok": true,
+   "detail": "Issued: Andrew Fisher, Shutdown Manager · 15 Oct 2026 · positions from iEDM’s VMS001-26003-01 and th"
+  },
+  {
+   "name": "3 #print/vms/all: 28 sheets, a page break before each after the first, every one fitted",
+   "ok": true,
+   "detail": {
+    "sheets": 28,
+    "brk": 27,
+    "minZoom": 1,
+    "bar": "VMS board sheet · 28 pages"
+   }
+  },
+  {
+   "name": "3 Close puts the page back; no page errors on the print path",
+   "ok": true,
+   "detail": {
+    "closed": {
+     "bar": false,
+     "printing": false
+    },
+    "errors": []
+   }
+  },
+  {
+   "name": "4 #today still routes",
+   "ok": true,
+   "detail": {
+    "tab": "today",
+    "on": true,
+    "register": null
+   }
+  },
+  {
+   "name": "4 #plant still routes and the VMS register fold is there",
+   "ok": true,
+   "detail": {
+    "tab": "plant",
+    "on": true,
+    "register": true
+   }
+  },
+  {
+   "name": "4 #nights still routes",
+   "ok": true,
+   "detail": {
+    "tab": "nights",
+    "on": true,
+    "register": null
+   }
+  },
+  {
+   "name": "4 #map still routes",
+   "ok": true,
+   "detail": {
+    "tab": "map",
+    "on": true,
+    "register": null
+   }
+  },
+  {
+   "name": "4 no page errors after routing through the other tabs",
+   "ok": true,
+   "detail": []
+  }
+ ],
+ "fails": [],
+ "result": "PASS"
+}

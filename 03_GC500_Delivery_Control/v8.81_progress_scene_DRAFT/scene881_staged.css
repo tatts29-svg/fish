@@ -1,0 +1,41 @@
+/* Author: Andrew Fisher. Scoped new scene prototype; native layout handover pending. */
+.scene881-hero{position:relative;isolation:isolate;overflow:hidden;border:1px solid #637c80;border-top:3px solid #ff6c18;border-radius:22px;background:#10282f;color:#f4fbfa;margin:0 0 24px;min-height:560px;box-shadow:0 12px 32px #12262b19}
+.scene881-content{position:relative;z-index:3;padding:24px 32px;text-align:center}
+.scene881-topline{display:flex;justify-content:space-between;align-items:center;gap:14px;color:#c3d5d6;font-size:14px}
+.scene881-pause{border:1px solid #759092;background:#172e35;color:#f6fffe;border-radius:8px;padding:9px 13px;font:600 13px/1.2 Inter,Arial,sans-serif;cursor:pointer}
+.scene881-content h2{font:800 clamp(30px,3.7vw,64px)/1.05 Inter,"Segoe UI",Arial,sans-serif;letter-spacing:.035em;margin:20px 0 8px;color:#f4fbfa}
+.scene881-subtitle{margin:0 0 24px;color:#b4c8ca;font-size:18px}
+.scene881-atlas{position:absolute;inset:0;background-image:var(--scene881-atlas);background-size:400% 200%;background-position:100% 100%;opacity:.17;z-index:-1;pointer-events:none}
+.scene881-hero>.scene881-atlas{z-index:0;inset:10% 0 5%;background-size:400% 200%;mask-image:linear-gradient(transparent,#000 25%,#000 75%,transparent)}
+.scene881-lights{display:flex;justify-content:center;gap:clamp(12px,4vw,65px);max-width:960px;margin:0 auto 18px;padding:20px 24px;border:1px solid #45616b;border-radius:15px;background:linear-gradient(#08161dee,#0b1e25ed);box-shadow:0 5px 0 #07141a,0 10px 28px #0004}
+.scene881-lights .tl841-unit{display:flex;flex-direction:column;align-items:center;gap:8px;min-width:0;flex:1;max-width:132px}
+.scene881-lights svg{width:100%;height:auto;max-width:132px;overflow:visible}
+.scene881-lights small{font:700 17px/1.2 Inter,Arial,sans-serif;color:#bfd1d2}
+.scene881-percent{display:flex;align-items:baseline;justify-content:center;gap:8px;color:#ffb2a7;font:800 clamp(48px,6vw,96px)/1.1 Inter,"Segoe UI",Arial,sans-serif;letter-spacing:-.03em;margin:18px 0 0;font-variant-numeric:tabular-nums}
+.scene881-percent small{font-size:.45em}
+.scene881-index{color:#d1e2e0;margin:8px 0 24px;font-size:16px;font-weight:600}
+.scene881-group-strip{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:8px;max-width:1300px;margin:0 auto 22px}
+.scene881-group-strip button{display:flex;flex-direction:column;gap:8px;border:1px solid #506b70;border-radius:10px;background:#122b33e8;color:#eefafa;padding:13px 8px;cursor:pointer;font:600 14px/1.2 Inter,Arial,sans-serif}
+.scene881-group-strip b{font-size:22px;color:#b4f0d4;font-variant-numeric:tabular-nums;overflow-wrap:anywhere}.scene881-group-strip small{font-size:12px}
+.scene881-weather-label{display:flex;flex-direction:column;gap:6px;color:#d0e0e1;margin:12px auto 18px}.scene881-weather-label strong{font-size:20px;color:#fff8e8}.scene881-weather-label span{font-size:13px}
+.scene881-basis{text-align:left;background:#0b2028cf;border:1px solid #567177;border-radius:9px;margin:0 auto;max-width:1000px;font-size:14px}.scene881-basis summary{cursor:pointer;padding:12px 16px;font-weight:600}.scene881-basis p{padding:0 16px;line-height:1.5;color:#ccdddf}
+.scene881-weather{position:absolute;inset:0;z-index:1;overflow:hidden;pointer-events:none}.scene881-weather *{animation-play-state:paused!important}.scene881-playing .scene881-weather *{animation-play-state:running!important}
+.scene881-sun{position:absolute;width:200%;height:200%;left:-50%;top:-50%;background:linear-gradient(125deg,transparent 40%,#ffd08218 49%,transparent 60%);display:none;animation:scene881Sun 18s ease-in-out infinite alternate}
+.scene881-hero[data-weather=sun] .scene881-sun,.scene881-hero[data-weather=part] .scene881-sun{display:block}
+.scene881-hero[data-weather=cloud],.scene881-hero[data-weather=rain],.scene881-hero[data-weather=pour]{background-color:#142831}.scene881-hero[data-weather=storm]{background-color:#101e2b}
+.scene881-clouds{position:absolute;inset:-30%;background:radial-gradient(ellipse at 35% 20%,#d4e8ec14,transparent 45%),radial-gradient(ellipse at 70% 50%,#09151f66,transparent 40%);opacity:0;animation:scene881Cloud 24s ease-in-out infinite alternate}
+.scene881-hero:is([data-weather=part],[data-weather=cloud],[data-weather=rain],[data-weather=pour],[data-weather=storm]) .scene881-clouds{opacity:1}
+.scene881-mist{position:absolute;inset:-40%;background:radial-gradient(ellipse at 45% 60%,#d7ece329,transparent 55%);display:none;animation:scene881Cloud 28s ease-in-out infinite alternate}.scene881-hero[data-weather=fog] .scene881-mist{display:block}
+.scene881-rain{position:absolute;inset:0}.scene881-rain i{position:absolute;left:var(--x);top:-45px;width:1px;height:30px;background:linear-gradient(transparent,#d4edfc);opacity:var(--alpha);transform:rotate(12deg);animation:scene881Rain var(--speed) var(--delay) linear infinite}
+.scene881-bolt{position:absolute;top:0;right:10%;height:60%;width:180px;opacity:0;filter:drop-shadow(0 0 6px #98d8fc);animation:scene881Bolt 13s 4s linear infinite}
+.scene881-snow{position:absolute;inset:0}.scene881-snow i{position:absolute;left:var(--x);top:-10px;width:4px;height:4px;border-radius:50%;background:#d8edf2;opacity:.4;animation:scene881Rain 7s var(--delay) linear infinite}
+@keyframes scene881Rain{to{top:110%;transform:translateX(-70px) rotate(12deg)}}
+@keyframes scene881Sun{to{transform:translateX(15%) rotate(8deg)}}
+@keyframes scene881Cloud{to{transform:translateX(14%) translateY(4%)}}
+@keyframes scene881Bolt{0%,30%,36%,100%{opacity:0}32%,33%{opacity:.65}34%{opacity:.18}}
+.scene881-playing .race-lights .tl841-unit.reached svg{animation:scene881Glow 3s ease-in-out infinite alternate}.scene881-playing .race-lights .tl841-unit:nth-child(2) svg{animation-delay:.25s}.scene881-playing .race-lights .tl841-unit:nth-child(3) svg{animation-delay:.5s}.scene881-playing .race-lights .tl841-unit:nth-child(4) svg{animation-delay:.75s}.scene881-playing .race-lights .tl841-unit:nth-child(5) svg{animation-delay:1s}
+@keyframes scene881Glow{from{filter:drop-shadow(0 0 3px #ff847649)}to{filter:drop-shadow(0 0 11px #ff847683)}}
+.scene881-showcase{margin:24px 0;border:1px solid #c9d5d4;border-radius:12px;background:#fff;color:#203339;overflow:hidden}.scene881-showcase>summary{padding:15px 18px;font:700 18px Inter,Arial,sans-serif;cursor:pointer}.scene881-showcase .dsnband{margin:0!important;padding:0 16px 16px!important}
+@media(max-width:720px){.scene881-content{padding:18px 14px}.scene881-hero{border-radius:14px;min-height:0}.scene881-topline{font-size:12px}.scene881-pause{padding:8px;font-size:11px}.scene881-lights{padding:12px 8px;gap:8px}.scene881-lights small{font-size:11px}.scene881-group-strip{grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}.scene881-group-strip button:last-child{grid-column:1/-1}.scene881-group-strip b{font-size:20px}.scene881-percent{font-size:clamp(40px,12vw,70px)}.scene881-subtitle{font-size:16px;margin-bottom:16px}.scene881-index{font-size:13px}.scene881-weather-label span{font-size:12px}.scene881-content h2{margin-top:22px}}
+@media(prefers-reduced-motion:reduce){.scene881-hero *,.scene881-card *{animation:none!important;transition:none!important}}
+@media print{.scene881-weather,.scene881-pause,.scene881-atlas,.scene881-showcase{display:none!important}.scene881-hero{background:white;color:black;break-inside:avoid}.scene881-content h2,.scene881-percent,.scene881-index,.scene881-weather-label{color:black}}

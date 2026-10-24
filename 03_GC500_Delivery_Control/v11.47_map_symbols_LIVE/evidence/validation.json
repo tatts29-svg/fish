@@ -1,0 +1,60 @@
+{
+  "author": "Andrew Fisher",
+  "version": "v11.47",
+  "state": "READY TO UPLOAD",
+  "source_code_commit": "0420da0b8ee8b2a9b6afed4260b5dacac5b18cdb",
+  "base_sha256": "9763bea1f82b5a0a355d4ae2deeaa608a0db20bf9cf6b037303838a547b163e9",
+  "candidate_sha256": "beb194ddf20a232a595f9b547d1b2ae2c1f10ef0c06e517df7de9a54965226d9",
+  "bytes": 21396852,
+  "checked_at": "2026-10-23T00:14:06.652061+00:00",
+  "build_checks": "PASS; 165 inline scripts parse; bounded byte restoration equals base",
+  "phone_visual_inspection": true,
+  "tests": {
+    "desktop": {
+      "passed": 19,
+      "errors": 0,
+      "write_attempts": 0,
+      "selected_area_paint_ms": 0.1799999999968956
+    },
+    "sweep-desktop": {
+      "tabs": 27,
+      "deep_links": 7,
+      "errors": 0,
+      "console_errors": 0,
+      "write_attempts": 0,
+      "back": {
+        "hash": "#plant",
+        "pane": "pane-plant"
+      }
+    },
+    "phone": {
+      "passed": 19,
+      "errors": 0,
+      "write_attempts": 0,
+      "selected_area_paint_ms": 0.2633333333302289
+    },
+    "sweep-phone": {
+      "tabs": 27,
+      "deep_links": 7,
+      "errors": 0,
+      "console_errors": 0,
+      "write_attempts": 0,
+      "back": {
+        "hash": "#plant",
+        "pane": "pane-plant"
+      }
+    },
+    "satellite-regression": {
+      "passed": 11,
+      "total": 11
+    },
+    "crew-card-desktop": {
+      "passed": 11,
+      "total": 11
+    },
+    "crew-card-phone": {
+      "passed": 11,
+      "total": 11
+    }
+  }
+}

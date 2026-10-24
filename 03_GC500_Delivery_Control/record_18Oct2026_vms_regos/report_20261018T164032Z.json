@@ -1,0 +1,216 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261018T164032Z",
+ "finished": "2026-10-18T16:40:43.765Z",
+ "mode": "apply",
+ "spec": {
+  "by": "Andrew Fisher",
+  "ops": [
+   {
+    "op": "set_qty",
+    "ref": "T0001",
+    "qty": 7
+   },
+   {
+    "op": "set_qty",
+    "ref": "T0158",
+    "qty": 5
+   }
+  ]
+ },
+ "pageSha256": "ad9d7c0cdb4a63a55072712ea89c31fd88437bfd1b930b76a2feaa831894e587",
+ "version": {
+  "before": 9759,
+  "after": 9765
+ },
+ "updated": {
+  "before": "2026-10-18T14:49:26.994Z",
+  "after": "2026-10-18T16:40:42.958Z"
+ },
+ "stage": [
+  {
+   "op": "set_qty",
+   "ref": "T0001",
+   "qty": 7,
+   "result": "quantity undefined -> 7"
+  },
+  {
+   "op": "set_qty",
+   "ref": "T0158",
+   "qty": 5,
+   "result": "quantity undefined -> 5"
+  }
+ ],
+ "writes": [
+  {
+   "key": "stamps/qtys~2f~T0001",
+   "status": 200
+  },
+  {
+   "key": "stamps/qtys~2f~T0158",
+   "status": 200
+  },
+  {
+   "key": "by/qtys~2f~T0001",
+   "status": 200
+  },
+  {
+   "key": "by/qtys~2f~T0158",
+   "status": 200
+  },
+  {
+   "key": "qtys/T0001",
+   "status": 200
+  },
+  {
+   "key": "qtys/T0158",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 1,
+ "docs": {
+  "before": {
+   "stamps/qtys~2f~T0001": null,
+   "stamps/qtys~2f~T0158": null,
+   "by/qtys~2f~T0001": null,
+   "by/qtys~2f~T0158": null,
+   "qtys/T0001": null,
+   "qtys/T0158": null
+  },
+  "after": {
+   "stamps/qtys~2f~T0001": {
+    "_k": "qtys/T0001",
+    "v": "2026-10-18T16:40:38.852Z"
+   },
+   "stamps/qtys~2f~T0158": {
+    "_k": "qtys/T0158",
+    "v": "2026-10-18T16:40:40.006Z"
+   },
+   "by/qtys~2f~T0001": {
+    "_k": "qtys/T0001",
+    "v": "Andrew Fisher"
+   },
+   "by/qtys~2f~T0158": {
+    "_k": "qtys/T0158",
+    "v": "Andrew Fisher"
+   },
+   "qtys/T0001": {
+    "_k": "T0001",
+    "v": 7,
+    "scope1017": {
+     "kind": "quantityScope1017",
+     "ref": "T0001",
+     "firstQuantity": 8,
+     "items": [
+      {
+       "item": "VMS",
+       "quantity": 8,
+       "received": 7,
+       "installed": 7,
+       "receipts": [
+        {
+         "at": "2026-10-18T10:52:51.512Z",
+         "quantity": 7
+        }
+       ],
+       "receiptAt": "2026-10-18T10:52:51.512Z",
+       "supplied": 7,
+       "suppliedAt": "2026-10-18T10:52:51.512Z",
+       "on": true,
+       "onAt": "2026-09-06T21:00:00Z",
+       "done": true,
+       "doneAt": "2026-09-14T03:56:21Z",
+       "install": false,
+       "installAt": "2026-09-14T03:56:21Z",
+       "rest": 0,
+       "unitWork": {
+        "T0001/u1182999|Variable message signs|VMS|install": {
+         "on": true,
+         "at": "2026-10-18T09:59:50.507Z"
+        },
+        "T0001/u1191877|Variable message signs|VMS|install": {
+         "on": true,
+         "at": "2026-10-16T19:28:50.699Z"
+        },
+        "T0001/u1211354|Variable message signs|VMS|install": {
+         "on": true,
+         "at": "2026-10-16T19:28:50.699Z"
+        },
+        "T0001/u1211359|Variable message signs|VMS|install": {
+         "on": true,
+         "at": "2026-10-16T19:28:50.699Z"
+        },
+        "T0001/u1211370|Variable message signs|VMS|install": {
+         "on": true,
+         "at": "2026-10-16T19:28:50.699Z"
+        },
+        "T0001/u1211383|Variable message signs|VMS|install": {
+         "on": true,
+         "at": "2026-10-16T19:28:50.699Z"
+        },
+        "T0001/u1271129|Variable message signs|VMS|install": {
+         "on": true,
+         "at": "2026-10-16T19:28:50.699Z"
+        }
+       }
+      }
+     ],
+     "typed": 7,
+     "at": "2026-10-18T16:40:38.852Z",
+     "by": "Andrew Fisher"
+    }
+   },
+   "qtys/T0158": {
+    "_k": "T0158",
+    "v": 5,
+    "scope1017": {
+     "kind": "quantityScope1017",
+     "ref": "T0158",
+     "firstQuantity": 9,
+     "items": [
+      {
+       "item": "VMS",
+       "quantity": 9,
+       "received": 5,
+       "installed": 5,
+       "receipts": [
+        {
+         "at": "2026-10-16T00:39:42.197Z",
+         "quantity": 5
+        }
+       ],
+       "receiptAt": "2026-10-16T00:39:42.197Z",
+       "supplied": 5,
+       "suppliedAt": "2026-10-16T00:39:42.197Z",
+       "on": true,
+       "onAt": "2026-10-16T02:09:00.000Z",
+       "done": true,
+       "doneAt": "2026-10-18T10:21:26.898Z",
+       "install": true,
+       "installAt": "2026-10-18T10:21:26.898Z",
+       "rest": 0,
+       "unitWork": {},
+       "financial1017": {
+        "contract": "9961265|32",
+        "owner": "coates",
+        "rehire": false,
+        "identified": 2,
+        "steps": 0
+       }
+      }
+     ],
+     "typed": 5,
+     "at": "2026-10-18T16:40:40.006Z",
+     "by": "Andrew Fisher"
+    }
+   }
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}

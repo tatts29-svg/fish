@@ -1,0 +1,18 @@
+PASS saved confirmation is valid and labelled supplier scope
+PASS plan reads the saved total
+PASS WC allocation is retained, gap recalculated
+PASS recorded site quantities and remaining supply reconcile
+PASS supplier inventory reads the same scope
+PASS inventory planning gap uses confirmed total
+PASS Timeline shows confirmed supply without obsolete gap note
+PASS all run sheets show supplier confirmation without changing load sizes
+PASS Today supplier scope detail reads the same total
+PASS future confirmation changes propagate without mutating original quote
+PASS inventory, arrivals, reference quantities and money remain unchanged
+PASS labour and P&L remain reconciled
+PASS Timeline confirmation is visible
+PASS Equipment confirmation is visible
+PASS Costs supplier scope reads the same confirmation
+PASS no runtime errors
+PASS no operational writes attempted
+phone: 17/17 pass

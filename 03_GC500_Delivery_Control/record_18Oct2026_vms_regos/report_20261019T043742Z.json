@@ -1,0 +1,225 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261019T043742Z",
+ "finished": "2026-10-19T04:37:53.155Z",
+ "mode": "apply",
+ "spec": {
+  "by": "Andrew Fisher",
+  "basis": "Andrew, 19 Oct 2026: \"It should be 1191657 it a coates machine we need all these cleaned up please\". VMS13 on T0158 carried two numbers: the register's 1191657 (Andrew's) and a 16 Oct unit record typed 1191957 from the contract line. The 1191957 record is set aside, so T0158 holds its nine boards once each.",
+  "ops": [
+   {
+    "op": "unit_archive_wrong",
+    "ref": "T0158",
+    "no": "1191957",
+    "keep": "1191657"
+   },
+   {
+    "op": "note_append",
+    "ref": "T0158",
+    "text": "VMS13 confirmed by Andrew 19 Oct 2026: 1191657, a Coates machine (the contract line's 1191957 is the branch's to correct)."
+   }
+  ]
+ },
+ "pageSha256": "079eb9d8434d29be559ec99a6e16435b683161e91ca3f0bd588cb23dd5bb0669",
+ "version": {
+  "before": 9858,
+  "after": 9862
+ },
+ "updated": {
+  "before": "2026-10-19T04:31:46.870Z",
+  "after": "2026-10-19T04:37:52.301Z"
+ },
+ "stage": [
+  {
+   "op": "unit_archive_wrong",
+   "ref": "T0158",
+   "no": "1191957",
+   "keep": "1191657",
+   "result": "1191957 set aside; 1191657 stays"
+  },
+  {
+   "op": "note_append",
+   "ref": "T0158",
+   "result": "note added to"
+  }
+ ],
+ "writes": [
+  {
+   "key": "delivery/T0158",
+   "status": 200
+  },
+  {
+   "key": "stamps/loads~2f~unit925~2f~37c3e3c8-1619-448b-8670-480e937a12b8",
+   "status": 200
+  },
+  {
+   "key": "stamps/dnote~2f~T0158",
+   "status": 200
+  },
+  {
+   "key": "loads/unit925~2f~37c3e3c8-1619-448b-8670-480e937a12b8",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 1,
+ "docs": {
+  "before": {
+   "delivery/T0158": {
+    "state": "on site",
+    "set_at": "2026-10-16T02:09:00.000Z",
+    "by": "Andrew Fisher",
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-19T04:29:22.688Z",
+    "note": "Came in 16 Oct 2026 for Monday 19 Oct: VMS13 Senior 1191957 rego EN3803 (Andrew wrote 1191657; the contract line reads 1191957, one digit apart, to be checked on the plate); VMS14 Junior 1201864 rego TD98VJ; VMS15 Senior 1211348 rego ER9217; VMS16 Senior 1211376 rego ES3211; VMS17 Senior 1211364 rego ER9410. Contract 9961265 lines 32, 34, 35, 37, 39. Regos as Andrew read them off the boards, 16 Oct. VMS19 arrived 19 Oct 2026: Premiair Hire sub-hire, fleet 487T, rego TE02H0 (contract 9961265 line 25). VMS18 arrived 19 Oct 2026: Premiair Hire sub-hire, fleet 472T, rego TE58GZ (contract 9961265 line 24). VMS20 arrived and completed 19 Oct 2026: Premiair Hire sub-hire, fleet 475T, rego TE88HN (contract 9961265 line 26). VMS23 arrived 19 Oct 2026: Premiair Hire sub-hire, fleet 453T, rego TF54CQ (contract 9961265 line 30).",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:22.919Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-16T02:09:00.000Z",
+      "by": "Andrew Fisher",
+      "note": "Andrew, 18 Oct: \"They are here already onsite. They turned up friday\". Dated by the regos he read off these five boards on site, Fri 16 Oct 12:09 AEST."
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-18T10:21:26.898Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "done": true,
+      "at": "2026-10-19T01:56:23.752Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "done": true,
+      "at": "2026-10-19T02:33:08.774Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "done": true,
+      "at": "2026-10-19T04:29:22.688Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "_k": "T0158"
+   },
+   "stamps/loads~2f~unit925~2f~37c3e3c8-1619-448b-8670-480e937a12b8": {
+    "_k": "loads/unit925/37c3e3c8-1619-448b-8670-480e937a12b8",
+    "v": "2026-10-16T00:39:39.873Z"
+   },
+   "stamps/dnote~2f~T0158": {
+    "_k": "dnote/T0158",
+    "v": "2026-10-19T02:38:51.145Z"
+   },
+   "loads/unit925~2f~37c3e3c8-1619-448b-8670-480e937a12b8": {
+    "ref": "T0158",
+    "owner": "coates",
+    "assetNo": "1191957",
+    "item": "VMS",
+    "label": "VMS13",
+    "branch": "",
+    "note": "Arrival recorded by Andrew Fisher, 16 Oct 2026. Rego EN3803.",
+    "kind": "unit925-record",
+    "uuid": "37c3e3c8-1619-448b-8670-480e937a12b8",
+    "nativeId": "slot:37c3e3c8-1619-448b-8670-480e937a12b8",
+    "transportId": "[\"T0158\",\"coates\",\"native\",\"slot:37c3e3c8-1619-448b-8670-480e937a12b8\"]",
+    "sourceKey": "",
+    "sourceSnapshot": "",
+    "active": true,
+    "by": "Andrew Fisher",
+    "at": "2026-10-16T00:39:39.873Z",
+    "_k": "unit925/37c3e3c8-1619-448b-8670-480e937a12b8"
+   }
+  },
+  "after": {
+   "delivery/T0158": {
+    "state": "on site",
+    "set_at": "2026-10-16T02:09:00.000Z",
+    "by": "Andrew Fisher",
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-19T04:29:22.688Z",
+    "note": "Came in 16 Oct 2026 for Monday 19 Oct: VMS13 Senior 1191957 rego EN3803 (Andrew wrote 1191657; the contract line reads 1191957, one digit apart, to be checked on the plate); VMS14 Junior 1201864 rego TD98VJ; VMS15 Senior 1211348 rego ER9217; VMS16 Senior 1211376 rego ES3211; VMS17 Senior 1211364 rego ER9410. Contract 9961265 lines 32, 34, 35, 37, 39. Regos as Andrew read them off the boards, 16 Oct. VMS19 arrived 19 Oct 2026: Premiair Hire sub-hire, fleet 487T, rego TE02H0 (contract 9961265 line 25). VMS18 arrived 19 Oct 2026: Premiair Hire sub-hire, fleet 472T, rego TE58GZ (contract 9961265 line 24). VMS20 arrived and completed 19 Oct 2026: Premiair Hire sub-hire, fleet 475T, rego TE88HN (contract 9961265 line 26). VMS23 arrived 19 Oct 2026: Premiair Hire sub-hire, fleet 453T, rego TF54CQ (contract 9961265 line 30). VMS13 confirmed by Andrew 19 Oct 2026: 1191657, a Coates machine (the contract line's 1191957 is the branch's to correct).",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:22.919Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-16T02:09:00.000Z",
+      "by": "Andrew Fisher",
+      "note": "Andrew, 18 Oct: \"They are here already onsite. They turned up friday\". Dated by the regos he read off these five boards on site, Fri 16 Oct 12:09 AEST."
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-18T10:21:26.898Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "done": true,
+      "at": "2026-10-19T01:56:23.752Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "done": true,
+      "at": "2026-10-19T02:33:08.774Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "done": true,
+      "at": "2026-10-19T04:29:22.688Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "_k": "T0158"
+   },
+   "stamps/loads~2f~unit925~2f~37c3e3c8-1619-448b-8670-480e937a12b8": {
+    "_k": "loads/unit925/37c3e3c8-1619-448b-8670-480e937a12b8",
+    "v": "2026-10-19T04:37:49.344Z"
+   },
+   "stamps/dnote~2f~T0158": {
+    "_k": "dnote/T0158",
+    "v": "2026-10-19T04:37:49.921Z"
+   },
+   "loads/unit925~2f~37c3e3c8-1619-448b-8670-480e937a12b8": {
+    "ref": "T0158",
+    "owner": "coates",
+    "assetNo": "1191957",
+    "item": "VMS",
+    "label": "VMS13",
+    "branch": "",
+    "note": "Arrival recorded by Andrew Fisher, 16 Oct 2026. Rego EN3803.",
+    "kind": "unit925-record",
+    "uuid": "37c3e3c8-1619-448b-8670-480e937a12b8",
+    "nativeId": "slot:37c3e3c8-1619-448b-8670-480e937a12b8",
+    "transportId": "[\"T0158\",\"coates\",\"native\",\"slot:37c3e3c8-1619-448b-8670-480e937a12b8\"]",
+    "sourceKey": "",
+    "sourceSnapshot": "",
+    "active": false,
+    "by": "Andrew Fisher",
+    "at": "2026-10-19T04:37:49.344Z",
+    "suppressNative1006": false,
+    "removedBy": "Andrew Fisher",
+    "removedAt": "2026-10-19T04:37:49.344Z",
+    "_k": "unit925/37c3e3c8-1619-448b-8670-480e937a12b8"
+   }
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}

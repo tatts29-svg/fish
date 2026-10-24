@@ -1,0 +1,100 @@
+[
+  {
+    "name": "whole load fits exterior cameras across five viewport shapes and circuit positions",
+    "ok": true,
+    "detail": {
+      "samples": 550,
+      "failures": []
+    }
+  },
+  {
+    "name": "framing does not move a clear camera into scenery",
+    "ok": true,
+    "detail": {
+      "failures": []
+    }
+  },
+  {
+    "name": "moving truck stays framed through steering and body movement",
+    "ok": true,
+    "detail": {
+      "lost": 0,
+      "maxFovStep": 2.362926742351469,
+      "s": 251.10123903410934,
+      "finite": true,
+      "distance": 153.0773907276781
+    }
+  },
+  {
+    "name": "driver view keeps its cab perspective",
+    "ok": true
+  },
+  {
+    "name": "vehicle-neutral camera choices use existing controls",
+    "ok": true
+  },
+  {
+    "name": "phone-detail render is valid",
+    "ok": true
+  },
+  {
+    "name": "phone-front render is valid",
+    "ok": true
+  },
+  {
+    "name": "desktop-detail render is valid",
+    "ok": true
+  },
+  {
+    "name": "phone-clarity render is valid",
+    "ok": true
+  },
+  {
+    "name": "4K clarity retains native resolution and four-sample smoothing",
+    "ok": true,
+    "detail": {
+      "version": "1.8",
+      "quality": "crisp",
+      "samples": 4,
+      "shadowMap": 0,
+      "resolution": [
+        2160,
+        3267
+      ],
+      "facades": "recessed glass and concrete",
+      "ambientContact": false,
+      "carStyle": "solid",
+      "steppedDownTo": null,
+      "bloom": false,
+      "reflections": false,
+      "shadowOn": false,
+      "drawnAt": "4K clarity",
+      "resolutionLocked": true,
+      "antiAliasing": 4
+    }
+  },
+  {
+    "name": "existing towing option clears truck-only fit",
+    "ok": true
+  },
+  {
+    "name": "clean Close",
+    "ok": true
+  },
+  {
+    "name": "shared record unchanged",
+    "ok": true
+  },
+  {
+    "name": "zero page errors and writes",
+    "ok": true,
+    "detail": {
+      "errors": [],
+      "counts": {
+        "page": 1,
+        "live": 112,
+        "blocked": 0
+      }
+    }
+  }
+]

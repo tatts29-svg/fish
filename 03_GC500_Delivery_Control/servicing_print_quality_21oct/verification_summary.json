@@ -1,0 +1,13 @@
+{
+  "author": "Andrew Fisher",
+  "status": "Digital checks passed; private SCAN CHECK PDF delivered",
+  "source_commit": "c0c168c39b3de60433d73d7f2c77f1d34b72386c",
+  "pdf_page_layout": "All final A4 pages reviewed",
+  "qr_decode": "Every occurrence decoded at both 150 and 300 dpi; exact existing payloads retained",
+  "phone_routes": "Every task link opened on iPhone and Android emulation; reference and role verified",
+  "registration": "All original PDF crop transforms verified",
+  "data_and_readiness_guards": "Unchanged protected functions verified",
+  "live_verification": "GET-only; zero writes or errors; full job record, tracker configuration, permanent codes and saved events unchanged",
+  "physical_paper_scans": "Not performed; existing readiness guard and SCAN CHECK labelling retained",
+  "private_evidence": "Generated pack, detailed receipts, source drawings and signed links remain outside the repository"
+}

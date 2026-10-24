@@ -1,0 +1,7 @@
+/* Author: Andrew Fisher. The original evidence remains readable at phone width. */
+.note947-text{white-space:pre-wrap;overflow-wrap:anywhere}
+.note947-original{margin:8px 0;border:1px solid var(--rule,#d7dbde);border-radius:7px;padding:0 10px;color:var(--ink,#15181a)}
+.note947-original>summary{cursor:pointer;min-height:44px;display:flex;align-items:center;gap:8px;font-weight:600}
+.note947-original>summary::before{content:'\25B8';font-size:12px}
+.note947-original[open]>summary::before{content:'\25BE'}
+.note947-original>pre{max-width:100%;white-space:pre-wrap;overflow-wrap:anywhere;font:12px/1.5 ui-monospace,monospace;margin:0 0 10px}

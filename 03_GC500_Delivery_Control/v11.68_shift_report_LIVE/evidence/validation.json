@@ -1,0 +1,89 @@
+{
+  "author": "Andrew Fisher",
+  "state": "LIVE",
+  "version": "v11.68",
+  "implementationSource": "33f2f8f3d7309606ea6a8d5f6b6a0c634f946fee",
+  "baseVersion": "v11.67",
+  "baseSha256": "2a8671b792492953eb560a4123b2234dc036c144970e778276f40b3b5dc27683",
+  "candidateSha256": "f98be3c630965d0e7ff65af3ff9151cbceb6812df320c3596d179ed020221d61",
+  "candidateBytes": 21725009,
+  "toolchain": {
+    "pass": true,
+    "inlineScripts": 173
+  },
+  "rules": {
+    "checks": 28,
+    "sharedStateUnchanged": true,
+    "broadcastDataUnchanged": true,
+    "crewBundleUnchanged": true
+  },
+  "native": {
+    "desktop": {
+      "checks": 22,
+      "mobile": false,
+      "livePage": false,
+      "renderMs": 14,
+      "errors": [],
+      "blockedWrites": 0
+    },
+    "phone": {
+      "checks": 22,
+      "mobile": true,
+      "livePage": false,
+      "renderMs": 20,
+      "errors": [],
+      "blockedWrites": 0
+    }
+  },
+  "sweeps": {
+    "desktop": {
+      "tabs": 27,
+      "shown": 19,
+      "hashes": 7,
+      "back": {
+        "hash": "#plant",
+        "pane": "pane-plant"
+      },
+      "pageErrors": 0,
+      "consoleErrors": 0,
+      "blockedWrites": 0
+    },
+    "phone": {
+      "tabs": 27,
+      "shown": 19,
+      "hashes": 7,
+      "back": {
+        "hash": "#plant",
+        "pane": "pane-plant"
+      },
+      "pageErrors": 0,
+      "consoleErrors": 0,
+      "blockedWrites": 0
+    }
+  },
+  "inspection": {
+    "phoneSummaryFits": true,
+    "fullPDFLedger": true,
+    "allReferencesInExports": true,
+    "csvAuthorRetained": true
+  },
+  "privacy": "Operational rows, screenshots, PDFs and CSVs are held privately and are not committed.",
+  "review": "Independently implemented and tested; no second-agent review claimed.",
+  "live": {
+    "time": "24 Oct 2026 05:41 AEST",
+    "readySource": "182960c32c44ac136d1f498a9101cef13fa48c44",
+    "mergeSource": "9ccf792cf7345a14cb58fc1b5ab119af29052f13",
+    "guardedBaseUnchanged": true,
+    "uploadedSha256": "f98be3c630965d0e7ff65af3ff9151cbceb6812df320c3596d179ed020221d61",
+    "publicReadbackExact": true,
+    "footer": "v11.68",
+    "liveNativePhone": {
+      "checks": 22,
+      "renderMs": 17,
+      "pageErrors": 0,
+      "blockedWrites": 0
+    },
+    "liveScreenshotInspected": true,
+    "completeLivePDFAndCSVChecked": true
+  }
+}

@@ -1,0 +1,20 @@
+{
+ "by": "Andrew Fisher",
+ "basis": "Andrew, 22 Oct 2026: \"never came to site 1276701\"; \"remove the 1276701 350A\". GN20 (S01, the 365 kVA set 1276701 on Baseplan 9961976 line 6, to be delivered as a 350 kVA) never arrived. The record had GN20 on site and complete since 29-30 Sep. Through the page's own controls, as an editor would: Complete off, the light to not on site, and a note saying why. Nothing else changes.",
+ "ops": [
+  {
+   "op": "complete_off",
+   "ref": "GN20"
+  },
+  {
+   "op": "light",
+   "ref": "GN20",
+   "state": "not on site"
+  },
+  {
+   "op": "note_append",
+   "ref": "GN20",
+   "text": "Never came to site: the 365 kVA set 1276701 on contract 9961976 line 6 was not delivered (Andrew Fisher, 22 Oct 2026). Nothing to charge on GN20."
+  }
+ ]
+}

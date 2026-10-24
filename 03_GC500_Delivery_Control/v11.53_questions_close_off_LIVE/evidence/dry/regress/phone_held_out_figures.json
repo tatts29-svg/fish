@@ -1,0 +1,17 @@
+{
+ "at": "2026-10-23T02:29:16.917Z",
+ "live": false,
+ "held": {
+  "labour": 582.96,
+  "servicing": 1311.66,
+  "transport": 760,
+  "hire": 720.54
+ },
+ "summary": {
+  "labour": 72542.48,
+  "servicing": 84935.79,
+  "transportArrived": 117213.3,
+  "total": 892686.56,
+  "cardHire": 221071.41
+ }
+}

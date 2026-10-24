@@ -1,0 +1,342 @@
+{
+ "at": "2026-10-22T10:06:42.757Z",
+ "live": false,
+ "results": [
+  {
+   "name": "footer says the expected release",
+   "ok": true
+  },
+  {
+   "name": "panel: the detailed icons sit inside the three rings at 40 px, glowing, stroked in the job colour, with the percentage beside",
+   "ok": true,
+   "detail": {
+    "rings": {
+     "pump": {
+      "color": "rgb(255, 179, 71)",
+      "pathStroke": "rgb(255, 179, 71)",
+      "pathFill": "none",
+      "w": 40,
+      "h": 40,
+      "glow": "drop-shadow(rgb(255, 179, 71) 0px 0px 2px) drop-shadow(color(srgb 1 0.701961 0.278431 / 0.6) 0px 0px 6px)",
+      "html": "<svg viewBox=\"0 0 48 48\" fill=\"none\" stroke=\"currentColor\" s"
+     },
+     "clean": {
+      "color": "rgb(94, 242, 200)",
+      "pathStroke": "rgb(94, 242, 200)",
+      "pathFill": "none",
+      "w": 40,
+      "h": 40,
+      "glow": "drop-shadow(rgb(94, 242, 200) 0px 0px 2px) drop-shadow(color(srgb 0.368627 0.94902 0.784314 / 0.6) 0px 0px 6px)",
+      "html": "<svg viewBox=\"0 0 48 48\" fill=\"none\" stroke=\"currentColor\" s"
+     },
+     "refill": {
+      "color": "rgb(95, 180, 255)",
+      "pathStroke": "rgb(95, 180, 255)",
+      "pathFill": "none",
+      "w": 40,
+      "h": 40,
+      "glow": "drop-shadow(rgb(95, 180, 255) 0px 0px 2px) drop-shadow(color(srgb 0.372549 0.705882 1 / 0.6) 0px 0px 6px)",
+      "html": "<svg viewBox=\"0 0 48 48\" fill=\"none\" stroke=\"currentColor\" s"
+     }
+    },
+    "pct": {
+     "pump": "0%",
+     "clean": "0%",
+     "refill": "0%"
+    },
+    "jobsText": [
+     "0%Pump out1 of 251 · 250 to go · last 21:58",
+     "0%Clean & restock1 of 259 · 258 to go · last 22:00",
+     "0%Water checked / refilled1 of 242 · 241 to go · last 22:02"
+    ]
+   }
+  },
+  {
+   "name": "panel: the area chips carry the small set (12 px tank, spray bottle, drop) in the job colours",
+   "ok": true,
+   "detail": {
+    "chips": {
+     "pump": {
+      "color": "rgb(255, 179, 71)",
+      "pathStroke": "rgb(255, 179, 71)",
+      "pathFill": "none",
+      "w": 12,
+      "h": 12,
+      "glow": "none",
+      "html": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" s"
+     },
+     "clean": {
+      "color": "rgb(94, 242, 200)",
+      "pathStroke": "rgb(94, 242, 200)",
+      "pathFill": "none",
+      "w": 12,
+      "h": 12,
+      "glow": "none",
+      "html": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" s"
+     },
+     "refill": {
+      "color": "rgb(143, 208, 255)",
+      "pathStroke": "rgb(143, 208, 255)",
+      "pathFill": "none",
+      "w": 12,
+      "h": 12,
+      "glow": "none",
+      "html": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" s"
+     }
+    },
+    "nChips": 45
+   }
+  },
+  {
+   "name": "card template carries both icon sets, ringIcon, the button rule after the tick-box rules, one script",
+   "ok": true,
+   "detail": {
+    "len": 120828
+   }
+  },
+  {
+   "name": "the template source yields the tick and the four small icons for the button check",
+   "ok": true,
+   "detail": {
+    "tick": "<svg viewBox=\"0 0 32 32\" aria-hidden=\"tr",
+    "ld": {
+     "pump": "<svg viewBox=\"0 0 24 24\" fill=",
+     "clean": "<svg viewBox=\"0 0 24 24\" fill=",
+     "refill": "<svg viewBox=\"0 0 24 24\" fill=",
+     "lockup": "<svg viewBox=\"0 0 24 24\" fill="
+    }
+   }
+  },
+  {
+   "name": "crew card job cards: the detailed icon glows inside each 66 px ring at 42 px in the job colour, the percentage big beside it, name then count",
+   "ok": true,
+   "detail": {
+    "j3": {
+     "pump": {
+      "color": "rgb(255, 179, 71)",
+      "pathStroke": "rgb(255, 179, 71)",
+      "pathFill": "none",
+      "w": 42,
+      "h": 42,
+      "glow": "drop-shadow(rgb(255, 179, 71) 0px 0px 2px) drop-shadow(rgba(255, 179, 71, 0.6) 0px 0px 6px)",
+      "pct": "0%",
+      "pctColor": "rgb(255, 179, 71)",
+      "ring": 66,
+      "ringB": 0
+     },
+     "clean": {
+      "color": "rgb(94, 242, 200)",
+      "pathStroke": "rgb(94, 242, 200)",
+      "pathFill": "none",
+      "w": 42,
+      "h": 42,
+      "glow": "drop-shadow(rgb(94, 242, 200) 0px 0px 2px) drop-shadow(rgba(94, 242, 200, 0.6) 0px 0px 6px)",
+      "pct": "0%",
+      "pctColor": "rgb(94, 242, 200)",
+      "ring": 66,
+      "ringB": 0
+     },
+     "refill": {
+      "color": "rgb(95, 180, 255)",
+      "pathStroke": "rgb(95, 180, 255)",
+      "pathFill": "none",
+      "w": 42,
+      "h": 42,
+      "glow": "drop-shadow(rgb(95, 180, 255) 0px 0px 2px) drop-shadow(rgba(95, 180, 255, 0.65) 0px 0px 6px)",
+      "pct": "0%",
+      "pctColor": "rgb(143, 208, 255)",
+      "ring": 66,
+      "ringB": 0
+     }
+    },
+    "j3Text": [
+     "0%Pump out0 of 251 · 251 to go",
+     "0%Clean & restock0 of 259 · 259 to go",
+     "0%Water checked / refilled0 of 242 · 242 to go"
+    ]
+   }
+  },
+  {
+   "name": "crew card header: three rings with the icon inside at 26 px, the percentage and the to-go count beside, fitting the screen",
+   "ok": true,
+   "detail": {
+    "cell": {
+     "pump": {
+      "color": "rgb(255, 179, 71)",
+      "pathStroke": "rgb(255, 179, 71)",
+      "pathFill": "none",
+      "w": 26,
+      "h": 26,
+      "glow": "drop-shadow(rgb(255, 179, 71) 0px 0px 2px) drop-shadow(rgba(255, 179, 71, 0.6) 0px 0px 6px)",
+      "pct": "0%",
+      "n": "251"
+     },
+     "clean": {
+      "color": "rgb(94, 242, 200)",
+      "pathStroke": "rgb(94, 242, 200)",
+      "pathFill": "none",
+      "w": 26,
+      "h": 26,
+      "glow": "drop-shadow(rgb(94, 242, 200) 0px 0px 2px) drop-shadow(rgba(94, 242, 200, 0.6) 0px 0px 6px)",
+      "pct": "0%",
+      "n": "259"
+     },
+     "refill": {
+      "color": "rgb(95, 180, 255)",
+      "pathStroke": "rgb(95, 180, 255)",
+      "pathFill": "none",
+      "w": 26,
+      "h": 26,
+      "glow": "drop-shadow(rgb(95, 180, 255) 0px 0px 2px) drop-shadow(rgba(95, 180, 255, 0.65) 0px 0px 6px)",
+      "pct": "0%",
+      "n": "242"
+     }
+    },
+    "fits": true,
+    "vw": 1440,
+    "lastRight": 1084
+   }
+  },
+  {
+   "name": "crew card area chips carry the small set at 12 px in the job colours on every area",
+   "ok": true,
+   "detail": {
+    "chip": {
+     "pump": {
+      "color": "rgb(255, 179, 71)",
+      "pathStroke": "rgb(255, 179, 71)",
+      "pathFill": "none",
+      "w": 12,
+      "h": 12,
+      "glow": "none"
+     },
+     "clean": {
+      "color": "rgb(94, 242, 200)",
+      "pathStroke": "rgb(94, 242, 200)",
+      "pathFill": "none",
+      "w": 12,
+      "h": 12,
+      "glow": "none"
+     },
+     "refill": {
+      "color": "rgb(95, 180, 255)",
+      "pathStroke": "rgb(95, 180, 255)",
+      "pathFill": "none",
+      "w": 12,
+      "h": 12,
+      "glow": "none"
+     }
+    },
+    "nChips": 15
+   }
+  },
+  {
+   "name": "each job button draws its label icon: stroke in the job colour, width 2.2, no fill, 15 px, no dash, no animation; the tick box keeps its 40 dash and transparent stroke until done",
+   "ok": true,
+   "detail": [
+    {
+     "cls": "job t-pump",
+     "stroke": "rgb(255, 179, 71)",
+     "sw": "2.2px",
+     "fill": "none",
+     "w": 15,
+     "dash": "none",
+     "off": "0px",
+     "anim": "none",
+     "tickDash": "40px",
+     "tickOff": "40px",
+     "tickStroke": "rgba(0, 0, 0, 0)"
+    },
+    {
+     "cls": "job t-clean",
+     "stroke": "rgb(94, 242, 200)",
+     "sw": "2.2px",
+     "fill": "none",
+     "w": 15,
+     "dash": "none",
+     "off": "0px",
+     "anim": "none",
+     "tickDash": "40px",
+     "tickOff": "40px",
+     "tickStroke": "rgba(0, 0, 0, 0)"
+    },
+    {
+     "cls": "job t-refill",
+     "stroke": "rgb(95, 180, 255)",
+     "sw": "2.2px",
+     "fill": "none",
+     "w": 15,
+     "dash": "none",
+     "off": "0px",
+     "anim": "none",
+     "tickDash": "40px",
+     "tickOff": "40px",
+     "tickStroke": "rgba(0, 0, 0, 0)"
+    },
+    {
+     "cls": "job t-lockup",
+     "stroke": "rgb(156, 176, 194)",
+     "sw": "2.2px",
+     "fill": "none",
+     "w": 15,
+     "dash": "none",
+     "off": "0px",
+     "anim": "none",
+     "tickDash": "40px",
+     "tickOff": "40px",
+     "tickStroke": "rgba(0, 0, 0, 0)"
+    }
+   ]
+  },
+  {
+   "name": "a done button draws its icon in the done green and its tick box in the done ink; a pending one keeps its icon stroke",
+   "ok": true,
+   "detail": {
+    "done": {
+     "cls": "job t-refill done",
+     "stroke": "rgb(125, 255, 208)",
+     "sw": "2.2px",
+     "fill": "none",
+     "w": 15,
+     "dash": "none",
+     "off": "0px",
+     "anim": "none",
+     "tickDash": "40px",
+     "tickOff": "40px",
+     "tickStroke": "rgb(4, 21, 13)"
+    },
+    "pending": {
+     "cls": "job t-clean pending",
+     "stroke": "rgb(94, 242, 200)",
+     "sw": "2.2px",
+     "fill": "none",
+     "w": 15,
+     "dash": "none",
+     "off": "0px",
+     "anim": "none",
+     "tickDash": "40px",
+     "tickOff": "0px",
+     "tickStroke": "rgb(31, 23, 3)"
+    }
+   }
+  },
+  {
+   "name": "record unchanged by the run",
+   "ok": true
+  },
+  {
+   "name": "no page errors",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "name": "no writes attempted",
+   "ok": true,
+   "detail": {
+    "page": 1,
+    "live": 65,
+    "blocked": 0
+   }
+  }
+ ]
+}

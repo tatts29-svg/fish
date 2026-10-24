@@ -1,0 +1,90 @@
+{
+  "author": "Andrew Fisher",
+  "poc_sha256": "7edf7b5ac55c1cf5f60f35b72d577d8e257854e2e482b1b93796e498edcf5ac4",
+  "checks": [
+    {
+      "name": "phone DPR1 auto still density/detail bounded",
+      "pass": true
+    },
+    {
+      "name": "phone DPR1 auto moving density/detail bounded",
+      "pass": true
+    },
+    {
+      "name": "phone DPR1 crisp still density/detail bounded",
+      "pass": true
+    },
+    {
+      "name": "phone DPR1 crisp moving density/detail bounded",
+      "pass": true
+    },
+    {
+      "name": "phone DPR1 light still density/detail bounded",
+      "pass": true
+    },
+    {
+      "name": "phone DPR1 light moving density/detail bounded",
+      "pass": true
+    },
+    {
+      "name": "phone DPR2 auto still density/detail bounded",
+      "pass": true
+    },
+    {
+      "name": "phone DPR2 auto moving density/detail bounded",
+      "pass": true
+    },
+    {
+      "name": "phone DPR2 crisp still density/detail bounded",
+      "pass": true
+    },
+    {
+      "name": "phone DPR2 crisp moving density/detail bounded",
+      "pass": true
+    },
+    {
+      "name": "phone DPR2 light still density/detail bounded",
+      "pass": true
+    },
+    {
+      "name": "phone DPR2 light moving density/detail bounded",
+      "pass": true
+    },
+    {
+      "name": "phone DPR3 auto still density/detail bounded",
+      "pass": true
+    },
+    {
+      "name": "phone DPR3 auto moving density/detail bounded",
+      "pass": true
+    },
+    {
+      "name": "phone DPR3 crisp still density/detail bounded",
+      "pass": true
+    },
+    {
+      "name": "phone DPR3 crisp moving density/detail bounded",
+      "pass": true
+    },
+    {
+      "name": "phone DPR3 light still density/detail bounded",
+      "pass": true
+    },
+    {
+      "name": "phone DPR3 light moving density/detail bounded",
+      "pass": true
+    },
+    {
+      "name": "non-success map access is rejected and deadline cleaned",
+      "pass": true
+    },
+    {
+      "name": "map access has20second deadline",
+      "pass": true
+    },
+    {
+      "name": "hung map access aborts without automatic retry",
+      "pass": true
+    }
+  ]
+}

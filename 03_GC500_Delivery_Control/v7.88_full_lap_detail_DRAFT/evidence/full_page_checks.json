@@ -1,0 +1,1133 @@
+{
+  "author": "Andrew Fisher",
+  "candidate": "121d183a400d95d997bfbf4db07b5cb5872b57a8e3ec80d163adc4eaec1dd91e",
+  "checks": [
+    {
+      "name": "desktop: obsolete short scene absent and original cameras offered",
+      "pass": true,
+      "detail": {
+        "button": false,
+        "old": "undefined",
+        "views": [],
+        "day": true
+      }
+    },
+    {
+      "name": "desktop: full-page original day scene receives full-circuit detail",
+      "pass": true,
+      "detail": {
+        "author": "the project manager",
+        "version": "v7.88",
+        "enabled": true,
+        "scope": "Existing complete circuit; visual refinement only",
+        "limitedByDevice": false,
+        "detailError": null,
+        "lapMetres": 2910.1086655413205,
+        "track": {
+          "author": "the project manager",
+          "source": "Full existing circuit boundaries and original kerb footprints; original paint and signs retained, additive fittings only",
+          "scope": "complete existing circuit",
+          "lapLengthM": 2910.1086655413205,
+          "boundaryLengthM": 5927.4931548513305,
+          "coveredLengthM": 5927.493154851339,
+          "sourceSegments": 498,
+          "coveredSegments": 498,
+          "barrierSkins": 0,
+          "detailedModules": 1822,
+          "jointCovers": 1822,
+          "fixings": 912,
+          "mountingPlates": 0,
+          "kerbProfiles": 260,
+          "gantriesAdded": 0,
+          "bridgesAdded": 0,
+          "streetlights": 0,
+          "sponsorPanels": 0,
+          "catchFenceMeshesAdded": 0,
+          "originalFacesPreserved": true,
+          "sourcePaintChanged": false,
+          "sourceTrackChanged": false,
+          "sourceKerbChanged": false,
+          "sourceBuildingChanged": false,
+          "drivingChanged": false,
+          "camerasChanged": false,
+          "panelMetres": 4,
+          "moduleLimit": 2400,
+          "kerbSourceRule": "Original outer lips retained; visual width 0.85 m; original source arrays and physics unchanged",
+          "boundaries": [
+            {
+              "name": "outer",
+              "sourceSegments": 260,
+              "coveredSegments": 260,
+              "lengthM": 3105.441830170978,
+              "coveredLengthM": 3105.441830170978,
+              "modules": 949,
+              "sectors": [
+                67,
+                73,
+                82,
+                94,
+                76,
+                77,
+                79,
+                87,
+                81,
+                73,
+                85,
+                75
+              ]
+            },
+            {
+              "name": "inner",
+              "sourceSegments": 238,
+              "coveredSegments": 238,
+              "lengthM": 2822.051324680353,
+              "coveredLengthM": 2822.051324680353,
+              "modules": 873,
+              "sectors": [
+                79,
+                74,
+                75,
+                56,
+                79,
+                75,
+                77,
+                68,
+                71,
+                77,
+                67,
+                75
+              ]
+            }
+          ],
+          "sectors": [
+            {
+              "sector": 1,
+              "modules": 146,
+              "boundaryLengthM": 486.61409590650754
+            },
+            {
+              "sector": 2,
+              "modules": 147,
+              "boundaryLengthM": 488.5060250320499
+            },
+            {
+              "sector": 3,
+              "modules": 157,
+              "boundaryLengthM": 498.274764581804
+            },
+            {
+              "sector": 4,
+              "modules": 150,
+              "boundaryLengthM": 494.2738694439948
+            },
+            {
+              "sector": 5,
+              "modules": 155,
+              "boundaryLengthM": 487.50566555120014
+            },
+            {
+              "sector": 6,
+              "modules": 152,
+              "boundaryLengthM": 485.63182628902547
+            },
+            {
+              "sector": 7,
+              "modules": 156,
+              "boundaryLengthM": 503.16840648752054
+            },
+            {
+              "sector": 8,
+              "modules": 155,
+              "boundaryLengthM": 492.21268570525314
+            },
+            {
+              "sector": 9,
+              "modules": 152,
+              "boundaryLengthM": 513.101312417373
+            },
+            {
+              "sector": 10,
+              "modules": 150,
+              "boundaryLengthM": 501.10629340124393
+            },
+            {
+              "sector": 11,
+              "modules": 152,
+              "boundaryLengthM": 493.76229817521806
+            },
+            {
+              "sector": 12,
+              "modules": 150,
+              "boundaryLengthM": 483.3359118601429
+            }
+          ],
+          "triangles": 57648,
+          "kerbSourceQuads": 260,
+          "kerbFootprints": 260,
+          "kerbPaintBlocks": 2640,
+          "kerbWidthM": 0.85,
+          "kerbHeightM": 0.07,
+          "kerbMaxStripeM": 0.9997885421258389,
+          "retainedPaintVertices": 3856,
+          "retainedPaintTriangles": 1928,
+          "originalKerbPaintHiddenOnly": true,
+          "coverageFraction": 1,
+          "coverageBins": 12,
+          "coverageBinMeaning": "12 equal-distance diagnostic bins on the existing lap, not official race sectors",
+          "geometryLimit": {
+            "maxDetailedModules": 2400,
+            "maxBoltPairs": 480,
+            "wholeBoundaryAlwaysCovered": true
+          },
+          "vertices": 112432,
+          "gpuBytes": 6250468
+        },
+        "architecture": {
+          "garageModules": 0,
+          "garageDoors": 0,
+          "hospitalityBays": 0,
+          "towerParts": 80,
+          "roofParapets": 354,
+          "facadeFins": 0,
+          "facadeElevations": 354,
+          "balconySlabs": 2059,
+          "balconyRails": 4118,
+          "balconyPosts": 118,
+          "balconyDividers": 0,
+          "recessedGlazingBays": 354,
+          "verticalCores": 94,
+          "podiumBays": 0,
+          "duplicateFacadesSkipped": 0,
+          "hiddenFacadeSpansSkipped": 147,
+          "maxBalconyDepthM": 1.472,
+          "facadeProfiles": {
+            "sea glass balconies": 17,
+            "sandstone terraces": 20,
+            "ivory balconies": 22,
+            "white coastal wings": 21
+          },
+          "sourceShellsChanged": 0,
+          "sourceTopHeightsChanged": 0,
+          "sourceFootprintsUnchanged": true,
+          "sourceHeightsUnchanged": true,
+          "sourceRowsUnchanged": true,
+          "garagesPreserved": true,
+          "omittedNominalGarages": 0,
+          "triangles": 82244,
+          "triangleBudget": 150000,
+          "drawCalls": 1,
+          "fullCircuitSelection": true,
+          "circuitLengthM": 2910.1086655413205,
+          "refinementDistanceM": 215,
+          "eligibleTowerParts": 80,
+          "eligibleFacades": 354,
+          "coverageSectors": 10,
+          "budgetSkips": 0,
+          "sectors": [
+            {
+              "sector": 1,
+              "eligibleParts": 12,
+              "eligibleFacades": 36,
+              "towerParts": 12,
+              "facades": 36,
+              "triangles": 7020
+            },
+            {
+              "sector": 2,
+              "eligibleParts": 2,
+              "eligibleFacades": 14,
+              "towerParts": 2,
+              "facades": 14,
+              "triangles": 8990
+            },
+            {
+              "sector": 3,
+              "eligibleParts": 7,
+              "eligibleFacades": 30,
+              "towerParts": 7,
+              "facades": 30,
+              "triangles": 6900
+            },
+            {
+              "sector": 4,
+              "eligibleParts": 8,
+              "eligibleFacades": 50,
+              "towerParts": 8,
+              "facades": 50,
+              "triangles": 8992
+            },
+            {
+              "sector": 5,
+              "eligibleParts": 5,
+              "eligibleFacades": 36,
+              "towerParts": 5,
+              "facades": 36,
+              "triangles": 8580
+            },
+            {
+              "sector": 6,
+              "eligibleParts": 0,
+              "eligibleFacades": 0,
+              "towerParts": 0,
+              "facades": 0,
+              "triangles": 0
+            },
+            {
+              "sector": 7,
+              "eligibleParts": 3,
+              "eligibleFacades": 12,
+              "towerParts": 3,
+              "facades": 12,
+              "triangles": 7048
+            },
+            {
+              "sector": 8,
+              "eligibleParts": 11,
+              "eligibleFacades": 53,
+              "towerParts": 11,
+              "facades": 53,
+              "triangles": 9922
+            },
+            {
+              "sector": 9,
+              "eligibleParts": 24,
+              "eligibleFacades": 76,
+              "towerParts": 24,
+              "facades": 76,
+              "triangles": 7616
+            },
+            {
+              "sector": 10,
+              "eligibleParts": 6,
+              "eligibleFacades": 33,
+              "towerParts": 6,
+              "facades": 33,
+              "triangles": 9246
+            },
+            {
+              "sector": 11,
+              "eligibleParts": 0,
+              "eligibleFacades": 0,
+              "towerParts": 0,
+              "facades": 0,
+              "triangles": 0
+            },
+            {
+              "sector": 12,
+              "eligibleParts": 2,
+              "eligibleFacades": 14,
+              "towerParts": 2,
+              "facades": 14,
+              "triangles": 7930
+            }
+          ],
+          "source": "Unchanged OSM footprints and roof heights; full-circuit road-facing generic coastal facades, not surveyed building or event details",
+          "eligibleSectors": 10,
+          "fullEligibleCoverage": true,
+          "gpuBytes": 7566448
+        },
+        "vegetation": {
+          "trees": 1392,
+          "sourceTrees": 1392,
+          "palms": 348,
+          "broadleaf": 1044,
+          "detailedTrees": 337,
+          "refinedTrees": 337,
+          "distantTrees": 1055,
+          "crownLobes": 1028,
+          "leafSprays": 9304,
+          "palmFronds": 838,
+          "palmLeaflets": 14328,
+          "originalTriangles": 327318,
+          "triangles": 377340,
+          "vertices": 444050,
+          "addedTriangles": 50022,
+          "drawCalls": 1,
+          "additionalDrawCalls": 0,
+          "gpuBytes": 20513880,
+          "sourcePositionsUnchanged": true,
+          "relocatedTrees": 0,
+          "refinementRadiusWorld": null,
+          "fullCircuitSelection": true,
+          "gridRadiusRestriction": false,
+          "addedTriangleBudget": 100000,
+          "premiumTrees": 337,
+          "normalShadedTrees": 337,
+          "sourceDimensionsUnchanged": true,
+          "sourceRangesUnchanged": true,
+          "sourceCrownCentresUnchanged": true,
+          "sourceRowsUnchanged": true,
+          "sectors": [
+            {
+              "sector": 1,
+              "sourceTrees": 61,
+              "eligibleTrees": 61,
+              "refinedTrees": 61,
+              "premiumTrees": 61,
+              "triangles": 34966,
+              "addedTriangles": 9208
+            },
+            {
+              "sector": 2,
+              "sourceTrees": 23,
+              "eligibleTrees": 23,
+              "refinedTrees": 23,
+              "premiumTrees": 23,
+              "triangles": 12482,
+              "addedTriangles": 3784
+            },
+            {
+              "sector": 3,
+              "sourceTrees": 103,
+              "eligibleTrees": 10,
+              "refinedTrees": 10,
+              "premiumTrees": 10,
+              "triangles": 23164,
+              "addedTriangles": 1840
+            },
+            {
+              "sector": 4,
+              "sourceTrees": 509,
+              "eligibleTrees": 31,
+              "refinedTrees": 31,
+              "premiumTrees": 31,
+              "triangles": 103012,
+              "addedTriangles": 3512
+            },
+            {
+              "sector": 5,
+              "sourceTrees": 10,
+              "eligibleTrees": 10,
+              "refinedTrees": 10,
+              "premiumTrees": 10,
+              "triangles": 5932,
+              "addedTriangles": 1840
+            },
+            {
+              "sector": 6,
+              "sourceTrees": 14,
+              "eligibleTrees": 14,
+              "refinedTrees": 14,
+              "premiumTrees": 14,
+              "triangles": 8504,
+              "addedTriangles": 2432
+            },
+            {
+              "sector": 7,
+              "sourceTrees": 23,
+              "eligibleTrees": 23,
+              "refinedTrees": 23,
+              "premiumTrees": 23,
+              "triangles": 11814,
+              "addedTriangles": 3156
+            },
+            {
+              "sector": 8,
+              "sourceTrees": 78,
+              "eligibleTrees": 24,
+              "refinedTrees": 24,
+              "premiumTrees": 24,
+              "triangles": 21634,
+              "addedTriangles": 3330
+            },
+            {
+              "sector": 9,
+              "sourceTrees": 107,
+              "eligibleTrees": 3,
+              "refinedTrees": 3,
+              "premiumTrees": 3,
+              "triangles": 20642,
+              "addedTriangles": 310
+            },
+            {
+              "sector": 10,
+              "sourceTrees": 225,
+              "eligibleTrees": 21,
+              "refinedTrees": 21,
+              "premiumTrees": 21,
+              "triangles": 51092,
+              "addedTriangles": 3648
+            },
+            {
+              "sector": 11,
+              "sourceTrees": 157,
+              "eligibleTrees": 46,
+              "refinedTrees": 46,
+              "premiumTrees": 46,
+              "triangles": 42798,
+              "addedTriangles": 5998
+            },
+            {
+              "sector": 12,
+              "sourceTrees": 82,
+              "eligibleTrees": 71,
+              "refinedTrees": 71,
+              "premiumTrees": 71,
+              "triangles": 41300,
+              "addedTriangles": 10964
+            }
+          ],
+          "placementRngCalls": 0,
+          "source": "Existing accepted tree positions and dimensions; foliage geometry only, no new planting",
+          "projectedAddedTriangles": 50022,
+          "coverageSectors": 12,
+          "eligibleSectors": 12,
+          "fullEligibleCoverage": true
+        },
+        "graphics": {
+          "version": "1.8",
+          "quality": "balanced",
+          "samples": 1,
+          "shadowMap": 1024,
+          "resolution": [
+            1280,
+            407
+          ],
+          "facades": "recessed glass and concrete",
+          "ambientContact": false,
+          "carStyle": "solid",
+          "steppedDownTo": null,
+          "bloom": true,
+          "reflections": true,
+          "shadowOn": true,
+          "drawnAt": "100%"
+        },
+        "simulationOverride": false,
+        "cameraOverride": false,
+        "shortSectionReset": false,
+        "fullCircuitSourcesPreserved": true
+      }
+    },
+    {
+      "name": "desktop: original camera selection and pause retained",
+      "pass": true
+    },
+    {
+      "name": "desktop: full-page render has no GL error",
+      "pass": true
+    },
+    {
+      "name": "desktop: moving sunlight reuses its framebuffer and texture",
+      "pass": true,
+      "detail": {
+        "advanced": 130.27325350889373,
+        "textureReused": true,
+        "fbReused": true,
+        "shadowComplete": true,
+        "gl": 0
+      }
+    },
+    {
+      "name": "desktop: shadow fallback stays off while moving and can be restored",
+      "pass": true,
+      "detail": {
+        "off": true,
+        "recovered": true,
+        "gl": 0,
+        "moved": true
+      }
+    },
+    {
+      "name": "desktop: original day/night remount disposes the old enhancement resources",
+      "pass": true,
+      "detail": {
+        "newScene": true,
+        "oldDisposed": true,
+        "selected": "circuit3d"
+      }
+    },
+    {
+      "name": "desktop: original night backdrop remains selectable",
+      "pass": true,
+      "detail": {
+        "look": "showcase",
+        "day": 0,
+        "detail": true,
+        "gl": 0
+      }
+    },
+    {
+      "name": "desktop: switching away disposes added resources",
+      "pass": true
+    },
+    {
+      "name": "desktop: day remount restores all full-lap resources",
+      "pass": true
+    },
+    {
+      "name": "desktop: closing Showcase releases added detail",
+      "pass": true,
+      "detail": {
+        "hidden": true,
+        "disposed": true
+      }
+    },
+    {
+      "name": "phone: obsolete short scene absent and original cameras offered",
+      "pass": true,
+      "detail": {
+        "button": false,
+        "old": "undefined",
+        "views": [],
+        "day": true
+      }
+    },
+    {
+      "name": "phone: full-page original day scene receives full-circuit detail",
+      "pass": true,
+      "detail": {
+        "author": "the project manager",
+        "version": "v7.88",
+        "enabled": true,
+        "scope": "Existing complete circuit; visual refinement only",
+        "limitedByDevice": false,
+        "detailError": null,
+        "lapMetres": 2910.1086655413205,
+        "track": {
+          "author": "the project manager",
+          "source": "Full existing circuit boundaries and original kerb footprints; original paint and signs retained, additive fittings only",
+          "scope": "complete existing circuit",
+          "lapLengthM": 2910.1086655413205,
+          "boundaryLengthM": 5927.4931548513305,
+          "coveredLengthM": 5927.493154851339,
+          "sourceSegments": 498,
+          "coveredSegments": 498,
+          "barrierSkins": 0,
+          "detailedModules": 1822,
+          "jointCovers": 1822,
+          "fixings": 912,
+          "mountingPlates": 0,
+          "kerbProfiles": 260,
+          "gantriesAdded": 0,
+          "bridgesAdded": 0,
+          "streetlights": 0,
+          "sponsorPanels": 0,
+          "catchFenceMeshesAdded": 0,
+          "originalFacesPreserved": true,
+          "sourcePaintChanged": false,
+          "sourceTrackChanged": false,
+          "sourceKerbChanged": false,
+          "sourceBuildingChanged": false,
+          "drivingChanged": false,
+          "camerasChanged": false,
+          "panelMetres": 4,
+          "moduleLimit": 2400,
+          "kerbSourceRule": "Original outer lips retained; visual width 0.85 m; original source arrays and physics unchanged",
+          "boundaries": [
+            {
+              "name": "outer",
+              "sourceSegments": 260,
+              "coveredSegments": 260,
+              "lengthM": 3105.441830170978,
+              "coveredLengthM": 3105.441830170978,
+              "modules": 949,
+              "sectors": [
+                67,
+                73,
+                82,
+                94,
+                76,
+                77,
+                79,
+                87,
+                81,
+                73,
+                85,
+                75
+              ]
+            },
+            {
+              "name": "inner",
+              "sourceSegments": 238,
+              "coveredSegments": 238,
+              "lengthM": 2822.051324680353,
+              "coveredLengthM": 2822.051324680353,
+              "modules": 873,
+              "sectors": [
+                79,
+                74,
+                75,
+                56,
+                79,
+                75,
+                77,
+                68,
+                71,
+                77,
+                67,
+                75
+              ]
+            }
+          ],
+          "sectors": [
+            {
+              "sector": 1,
+              "modules": 146,
+              "boundaryLengthM": 486.61409590650754
+            },
+            {
+              "sector": 2,
+              "modules": 147,
+              "boundaryLengthM": 488.5060250320499
+            },
+            {
+              "sector": 3,
+              "modules": 157,
+              "boundaryLengthM": 498.274764581804
+            },
+            {
+              "sector": 4,
+              "modules": 150,
+              "boundaryLengthM": 494.2738694439948
+            },
+            {
+              "sector": 5,
+              "modules": 155,
+              "boundaryLengthM": 487.50566555120014
+            },
+            {
+              "sector": 6,
+              "modules": 152,
+              "boundaryLengthM": 485.63182628902547
+            },
+            {
+              "sector": 7,
+              "modules": 156,
+              "boundaryLengthM": 503.16840648752054
+            },
+            {
+              "sector": 8,
+              "modules": 155,
+              "boundaryLengthM": 492.21268570525314
+            },
+            {
+              "sector": 9,
+              "modules": 152,
+              "boundaryLengthM": 513.101312417373
+            },
+            {
+              "sector": 10,
+              "modules": 150,
+              "boundaryLengthM": 501.10629340124393
+            },
+            {
+              "sector": 11,
+              "modules": 152,
+              "boundaryLengthM": 493.76229817521806
+            },
+            {
+              "sector": 12,
+              "modules": 150,
+              "boundaryLengthM": 483.3359118601429
+            }
+          ],
+          "triangles": 57648,
+          "kerbSourceQuads": 260,
+          "kerbFootprints": 260,
+          "kerbPaintBlocks": 2640,
+          "kerbWidthM": 0.85,
+          "kerbHeightM": 0.07,
+          "kerbMaxStripeM": 0.9997885421258389,
+          "retainedPaintVertices": 3856,
+          "retainedPaintTriangles": 1928,
+          "originalKerbPaintHiddenOnly": true,
+          "coverageFraction": 1,
+          "coverageBins": 12,
+          "coverageBinMeaning": "12 equal-distance diagnostic bins on the existing lap, not official race sectors",
+          "geometryLimit": {
+            "maxDetailedModules": 2400,
+            "maxBoltPairs": 480,
+            "wholeBoundaryAlwaysCovered": true
+          },
+          "vertices": 112432,
+          "gpuBytes": 6250468
+        },
+        "architecture": {
+          "garageModules": 0,
+          "garageDoors": 0,
+          "hospitalityBays": 0,
+          "towerParts": 80,
+          "roofParapets": 354,
+          "facadeFins": 0,
+          "facadeElevations": 354,
+          "balconySlabs": 2059,
+          "balconyRails": 4118,
+          "balconyPosts": 118,
+          "balconyDividers": 0,
+          "recessedGlazingBays": 354,
+          "verticalCores": 94,
+          "podiumBays": 0,
+          "duplicateFacadesSkipped": 0,
+          "hiddenFacadeSpansSkipped": 147,
+          "maxBalconyDepthM": 1.472,
+          "facadeProfiles": {
+            "sea glass balconies": 17,
+            "sandstone terraces": 20,
+            "ivory balconies": 22,
+            "white coastal wings": 21
+          },
+          "sourceShellsChanged": 0,
+          "sourceTopHeightsChanged": 0,
+          "sourceFootprintsUnchanged": true,
+          "sourceHeightsUnchanged": true,
+          "sourceRowsUnchanged": true,
+          "garagesPreserved": true,
+          "omittedNominalGarages": 0,
+          "triangles": 82244,
+          "triangleBudget": 150000,
+          "drawCalls": 1,
+          "fullCircuitSelection": true,
+          "circuitLengthM": 2910.1086655413205,
+          "refinementDistanceM": 215,
+          "eligibleTowerParts": 80,
+          "eligibleFacades": 354,
+          "coverageSectors": 10,
+          "budgetSkips": 0,
+          "sectors": [
+            {
+              "sector": 1,
+              "eligibleParts": 12,
+              "eligibleFacades": 36,
+              "towerParts": 12,
+              "facades": 36,
+              "triangles": 7020
+            },
+            {
+              "sector": 2,
+              "eligibleParts": 2,
+              "eligibleFacades": 14,
+              "towerParts": 2,
+              "facades": 14,
+              "triangles": 8990
+            },
+            {
+              "sector": 3,
+              "eligibleParts": 7,
+              "eligibleFacades": 30,
+              "towerParts": 7,
+              "facades": 30,
+              "triangles": 6900
+            },
+            {
+              "sector": 4,
+              "eligibleParts": 8,
+              "eligibleFacades": 50,
+              "towerParts": 8,
+              "facades": 50,
+              "triangles": 8992
+            },
+            {
+              "sector": 5,
+              "eligibleParts": 5,
+              "eligibleFacades": 36,
+              "towerParts": 5,
+              "facades": 36,
+              "triangles": 8580
+            },
+            {
+              "sector": 6,
+              "eligibleParts": 0,
+              "eligibleFacades": 0,
+              "towerParts": 0,
+              "facades": 0,
+              "triangles": 0
+            },
+            {
+              "sector": 7,
+              "eligibleParts": 3,
+              "eligibleFacades": 12,
+              "towerParts": 3,
+              "facades": 12,
+              "triangles": 7048
+            },
+            {
+              "sector": 8,
+              "eligibleParts": 11,
+              "eligibleFacades": 53,
+              "towerParts": 11,
+              "facades": 53,
+              "triangles": 9922
+            },
+            {
+              "sector": 9,
+              "eligibleParts": 24,
+              "eligibleFacades": 76,
+              "towerParts": 24,
+              "facades": 76,
+              "triangles": 7616
+            },
+            {
+              "sector": 10,
+              "eligibleParts": 6,
+              "eligibleFacades": 33,
+              "towerParts": 6,
+              "facades": 33,
+              "triangles": 9246
+            },
+            {
+              "sector": 11,
+              "eligibleParts": 0,
+              "eligibleFacades": 0,
+              "towerParts": 0,
+              "facades": 0,
+              "triangles": 0
+            },
+            {
+              "sector": 12,
+              "eligibleParts": 2,
+              "eligibleFacades": 14,
+              "towerParts": 2,
+              "facades": 14,
+              "triangles": 7930
+            }
+          ],
+          "source": "Unchanged OSM footprints and roof heights; full-circuit road-facing generic coastal facades, not surveyed building or event details",
+          "eligibleSectors": 10,
+          "fullEligibleCoverage": true,
+          "gpuBytes": 7566448
+        },
+        "vegetation": {
+          "trees": 1392,
+          "sourceTrees": 1392,
+          "palms": 348,
+          "broadleaf": 1044,
+          "detailedTrees": 337,
+          "refinedTrees": 337,
+          "distantTrees": 1055,
+          "crownLobes": 1028,
+          "leafSprays": 9304,
+          "palmFronds": 838,
+          "palmLeaflets": 14328,
+          "originalTriangles": 327318,
+          "triangles": 377340,
+          "vertices": 444050,
+          "addedTriangles": 50022,
+          "drawCalls": 1,
+          "additionalDrawCalls": 0,
+          "gpuBytes": 20513880,
+          "sourcePositionsUnchanged": true,
+          "relocatedTrees": 0,
+          "refinementRadiusWorld": null,
+          "fullCircuitSelection": true,
+          "gridRadiusRestriction": false,
+          "addedTriangleBudget": 100000,
+          "premiumTrees": 337,
+          "normalShadedTrees": 337,
+          "sourceDimensionsUnchanged": true,
+          "sourceRangesUnchanged": true,
+          "sourceCrownCentresUnchanged": true,
+          "sourceRowsUnchanged": true,
+          "sectors": [
+            {
+              "sector": 1,
+              "sourceTrees": 61,
+              "eligibleTrees": 61,
+              "refinedTrees": 61,
+              "premiumTrees": 61,
+              "triangles": 34966,
+              "addedTriangles": 9208
+            },
+            {
+              "sector": 2,
+              "sourceTrees": 23,
+              "eligibleTrees": 23,
+              "refinedTrees": 23,
+              "premiumTrees": 23,
+              "triangles": 12482,
+              "addedTriangles": 3784
+            },
+            {
+              "sector": 3,
+              "sourceTrees": 103,
+              "eligibleTrees": 10,
+              "refinedTrees": 10,
+              "premiumTrees": 10,
+              "triangles": 23164,
+              "addedTriangles": 1840
+            },
+            {
+              "sector": 4,
+              "sourceTrees": 509,
+              "eligibleTrees": 31,
+              "refinedTrees": 31,
+              "premiumTrees": 31,
+              "triangles": 103012,
+              "addedTriangles": 3512
+            },
+            {
+              "sector": 5,
+              "sourceTrees": 10,
+              "eligibleTrees": 10,
+              "refinedTrees": 10,
+              "premiumTrees": 10,
+              "triangles": 5932,
+              "addedTriangles": 1840
+            },
+            {
+              "sector": 6,
+              "sourceTrees": 14,
+              "eligibleTrees": 14,
+              "refinedTrees": 14,
+              "premiumTrees": 14,
+              "triangles": 8504,
+              "addedTriangles": 2432
+            },
+            {
+              "sector": 7,
+              "sourceTrees": 23,
+              "eligibleTrees": 23,
+              "refinedTrees": 23,
+              "premiumTrees": 23,
+              "triangles": 11814,
+              "addedTriangles": 3156
+            },
+            {
+              "sector": 8,
+              "sourceTrees": 78,
+              "eligibleTrees": 24,
+              "refinedTrees": 24,
+              "premiumTrees": 24,
+              "triangles": 21634,
+              "addedTriangles": 3330
+            },
+            {
+              "sector": 9,
+              "sourceTrees": 107,
+              "eligibleTrees": 3,
+              "refinedTrees": 3,
+              "premiumTrees": 3,
+              "triangles": 20642,
+              "addedTriangles": 310
+            },
+            {
+              "sector": 10,
+              "sourceTrees": 225,
+              "eligibleTrees": 21,
+              "refinedTrees": 21,
+              "premiumTrees": 21,
+              "triangles": 51092,
+              "addedTriangles": 3648
+            },
+            {
+              "sector": 11,
+              "sourceTrees": 157,
+              "eligibleTrees": 46,
+              "refinedTrees": 46,
+              "premiumTrees": 46,
+              "triangles": 42798,
+              "addedTriangles": 5998
+            },
+            {
+              "sector": 12,
+              "sourceTrees": 82,
+              "eligibleTrees": 71,
+              "refinedTrees": 71,
+              "premiumTrees": 71,
+              "triangles": 41300,
+              "addedTriangles": 10964
+            }
+          ],
+          "placementRngCalls": 0,
+          "source": "Existing accepted tree positions and dimensions; foliage geometry only, no new planting",
+          "projectedAddedTriangles": 50022,
+          "coverageSectors": 12,
+          "eligibleSectors": 12,
+          "fullEligibleCoverage": true
+        },
+        "graphics": {
+          "version": "1.8",
+          "quality": "balanced",
+          "samples": 1,
+          "shadowMap": 1024,
+          "resolution": [
+            390,
+            373
+          ],
+          "facades": "recessed glass and concrete",
+          "ambientContact": false,
+          "carStyle": "solid",
+          "steppedDownTo": null,
+          "bloom": true,
+          "reflections": true,
+          "shadowOn": true,
+          "drawnAt": "100%"
+        },
+        "simulationOverride": false,
+        "cameraOverride": false,
+        "shortSectionReset": false,
+        "fullCircuitSourcesPreserved": true
+      }
+    },
+    {
+      "name": "phone: original camera selection and pause retained",
+      "pass": true
+    },
+    {
+      "name": "phone: full-page render has no GL error",
+      "pass": true
+    },
+    {
+      "name": "phone: moving sunlight reuses its framebuffer and texture",
+      "pass": true,
+      "detail": {
+        "advanced": 130.27325350889373,
+        "textureReused": true,
+        "fbReused": true,
+        "shadowComplete": true,
+        "gl": 0
+      }
+    },
+    {
+      "name": "phone: shadow fallback stays off while moving and can be restored",
+      "pass": true,
+      "detail": {
+        "off": true,
+        "recovered": true,
+        "gl": 0,
+        "moved": true
+      }
+    },
+    {
+      "name": "phone: original day/night remount disposes the old enhancement resources",
+      "pass": true,
+      "detail": {
+        "newScene": true,
+        "oldDisposed": true,
+        "selected": "circuit3d"
+      }
+    },
+    {
+      "name": "phone: original night backdrop remains selectable",
+      "pass": true,
+      "detail": {
+        "look": "showcase",
+        "day": 0,
+        "detail": true,
+        "gl": 0
+      }
+    },
+    {
+      "name": "phone: switching away disposes added resources",
+      "pass": true
+    },
+    {
+      "name": "phone: day remount restores all full-lap resources",
+      "pass": true
+    },
+    {
+      "name": "phone: closing Showcase releases added detail",
+      "pass": true,
+      "detail": {
+        "hidden": true,
+        "disposed": true
+      }
+    },
+    {
+      "name": "no page errors or writes",
+      "pass": true
+    }
+  ],
+  "errors": [],
+  "blockedWrites": 0,
+  "complete": true
+}

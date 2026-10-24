@@ -1,0 +1,614 @@
+{
+  "author": "Andrew Fisher",
+  "status": "Independent CPU and source review passed; final browser, visual and release acceptance are separate",
+  "candidateSha256": "5270f18bee891aabbd64173f0250e0e68d8061c8c2d935bddd74df3ec5e67ce5",
+  "sourceSha256": "53733b3f84cf74b68f033123ab4d7b50ab39cad5f0c36a6898717e35374e8efa",
+  "patchSha256": "0a19f0c00e8254864a42d3d73ae011a0f6d8c24077c6ab64d85ba393ba7f018d",
+  "reviewScope": [
+    "Read the complete corridor source and its guarded renderer hooks",
+    "Read integrated installation, full-lap rendering, pit-shell synchronisation, shadow drawing and teardown wrappers",
+    "Independently reran the actual-source 48-check regression on an immutable copy of the integrated candidate",
+    "Compared protected source and embedded helper bodies against the current source files"
+  ],
+  "resolvedFindings": [
+    {
+      "finding": "A second failure during buffer rollback could otherwise leave mixed payloads available to draw.",
+      "resolution": "Fatal rollback records a diagnostic, marks the scene lost, tears down to the original flat circuit and clears scene ownership; persistent JS and GL error cases pass."
+    },
+    {
+      "finding": "The inherited full-lap wrapper retains the prior scene while ensuring detail and may call the legacy renderer after fatal teardown.",
+      "resolution": "The outer guard suppresses only a fresh diagnosed fatal teardown within that render call; the equivalent null-scene legacy path and unrelated-error propagation both pass."
+    }
+  ],
+  "sourceReview": [
+    "Corrected boundaries derive from the existing measured-width centreline; source contour and centreline arrays remain intact.",
+    "Deck, skirt, legacy barrier, both edge lines, four physical fence batches and owned banner vertices switch through the ten existing buffer families.",
+    "Enhanced surface geometry stages on the same corrected loops with zero schematic front offset; source default emitters retain their previous output.",
+    "Only tagged existing banner vertices and label transforms move. Enhanced sign meshes receive temporary corrected metadata, then original scene references are restored.",
+    "Original buffer handles are retained; corrected index and instance counts apply through the same draw functions used by the shadow pass. Shadow caches invalidate on both transitions.",
+    "Detail-off restores exact original payloads. Teardown returns draw ownership to the original batches; no added GPU objects require separate deletion.",
+    "The architecture layout includes its two-value local-facade attribute; the final integrated body matches the reviewed module.",
+    "Final pit and corridor wrappers compose around the existing enhanced installer and disposer; source anchors and nominal pit envelopes are retained."
+  ],
+  "limits": [
+    "This review ran no GPU browser and establishes no rendering quality or device frame-rate claim.",
+    "The 48-check camera matrix covers settled road-camera poses; transition trajectories are audited separately.",
+    "Existing tyre stacks, tyre belts and braking boards retain original source anchors outside the narrowed corridor. Their final appearance requires the integrated visual review.",
+    "Widths come from the existing 2022 aerial-derived carriageway profile. The corrected barriers are illustrative, not surveyed race-barrier alignment.",
+    "Photograph-informed facades and pit structures retain nominal source envelopes; they do not establish surveyed heights or landmark identity.",
+    "The separate 30-image visual794_detail_review.json describes the earlier pre-corridor candidate and is not final-corridor visual acceptance."
+  ],
+  "protectedSource": {
+    "author": "Andrew Fisher",
+    "candidateSha256": "5270f18bee891aabbd64173f0250e0e68d8061c8c2d935bddd74df3ec5e67ce5",
+    "baselineSha256": "476f0dcca3d97de07d55c8eb7c85618a8672abf99f2c00f2892c11690b7bc265",
+    "checks": [
+      {
+        "name": "car geometry byte-preserved",
+        "pass": true,
+        "sha256": "203d1e8e48095bfe21f67e1b190fccf30c1df60ca69a7ed259fd8b508f032c6f"
+      },
+      {
+        "name": "simulation and particle generation byte-preserved",
+        "pass": true,
+        "sha256": "fd4413c62c21614b4eb3dc4b167476b52ab8d4782bad69cf382a3e0ebdecc659"
+      },
+      {
+        "name": "fixed-step frame loop byte-preserved",
+        "pass": true,
+        "sha256": "e06b2c66f8ff81a589033e979c8f176bf06cd151b40d0d79572796b16a29df96"
+      },
+      {
+        "name": "complete embedded source DATA byte-preserved",
+        "pass": true,
+        "sha256": "f9892e3ff48452f3f81b936cba4db11bc93ffa09c07e86d0054de2ad35d0fb43"
+      }
+    ],
+    "modules": {
+      "architecture794_src.js": {
+        "sha256": "2134722c2ce418842311d422ef30dd0905624aa8a0da61f6f0d28dea31cef02b",
+        "presentExactlyOnceAfterOfficialWhitespaceScrub": true
+      },
+      "camera794_src.js": {
+        "sha256": "a41dc01d0281caa0e5813f93d789c804a5e3accec0ca090d23fa945ca6589c85",
+        "presentExactlyOnceAfterOfficialWhitespaceScrub": true
+      },
+      "pit794_src.js": {
+        "sha256": "935ab0155eeb5ccc7e97c1e51e6d97fb9e3832036ccfe504e6ccc2b863a04292",
+        "presentExactlyOnceAfterOfficialWhitespaceScrub": true
+      },
+      "corridor794_src.js": {
+        "sha256": "53733b3f84cf74b68f033123ab4d7b50ab39cad5f0c36a6898717e35374e8efa",
+        "presentExactlyOnceAfterOfficialWhitespaceScrub": true
+      }
+    }
+  },
+  "cpuRegression": {
+    "author": "Andrew Fisher",
+    "scope": "Actual-source CPU geometry, real mesh emitters and enhanced detail lifecycle with byte-recording fake GL; no browser/GPU/network or live record writes",
+    "candidate": {
+      "path": "/tmp/794-final-independent-candidate.html",
+      "sha256": "5270f18bee891aabbd64173f0250e0e68d8061c8c2d935bddd74df3ec5e67ce5"
+    },
+    "baseline": {
+      "path": "/workspace/gc500-showcase-full-lap/03_GC500_Delivery_Control/build/GC500_v7.92/GC500_Delivery_Control_hosted.html",
+      "sha256": "476f0dcca3d97de07d55c8eb7c85618a8672abf99f2c00f2892c11690b7bc265"
+    },
+    "sourceSha256": "53733b3f84cf74b68f033123ab4d7b50ab39cad5f0c36a6898717e35374e8efa",
+    "elapsedMs": 121399.14,
+    "cameraSha256": "a41dc01d0281caa0e5813f93d789c804a5e3accec0ca090d23fa945ca6589c85",
+    "stats": {
+      "stations": 546,
+      "banners": 103,
+      "topology": {
+        "outerSelf": 0,
+        "innerSelf": 0,
+        "between": 0
+      },
+      "maxWidthErrorM": 8.701449707625507e-14,
+      "correctedBufferWrites": 18,
+      "drivingCases": [
+        {
+          "samples": 8111,
+          "lapM": 2910.5134059933143,
+          "dimensionsM": [
+            4.909827272727273,
+            1.3206751177172498,
+            2.1006545454545456
+          ],
+          "minimumClearanceM": 3.489928224305732,
+          "hullFenceCrossings": 0
+        }
+      ],
+      "cameraCases": [
+        {
+          "width": 390,
+          "height": 650,
+          "mode": "tour",
+          "samples": 8111,
+          "roadSamples": 5628,
+          "minimumLensPlanClearanceM": 3.1375953494989344,
+          "rayCrossings": 0
+        },
+        {
+          "width": 390,
+          "height": 650,
+          "mode": "chase",
+          "samples": 8111,
+          "roadSamples": 8111,
+          "minimumLensPlanClearanceM": 4.502982594551884,
+          "rayCrossings": 0
+        },
+        {
+          "width": 390,
+          "height": 650,
+          "mode": "hero",
+          "samples": 8111,
+          "roadSamples": 8111,
+          "minimumLensPlanClearanceM": 2.526066384057871,
+          "rayCrossings": 0
+        },
+        {
+          "width": 390,
+          "height": 650,
+          "mode": "onboard",
+          "samples": 8111,
+          "roadSamples": 8111,
+          "minimumLensPlanClearanceM": 5.337086233667472,
+          "rayCrossings": 0
+        },
+        {
+          "width": 1280,
+          "height": 517,
+          "mode": "tour",
+          "samples": 8111,
+          "roadSamples": 5628,
+          "minimumLensPlanClearanceM": 3.1375953494989344,
+          "rayCrossings": 0
+        },
+        {
+          "width": 1280,
+          "height": 517,
+          "mode": "chase",
+          "samples": 8111,
+          "roadSamples": 8111,
+          "minimumLensPlanClearanceM": 4.502982594551884,
+          "rayCrossings": 0
+        },
+        {
+          "width": 1280,
+          "height": 517,
+          "mode": "hero",
+          "samples": 8111,
+          "roadSamples": 8111,
+          "minimumLensPlanClearanceM": 2.526066384057871,
+          "rayCrossings": 0
+        },
+        {
+          "width": 1280,
+          "height": 517,
+          "mode": "onboard",
+          "samples": 8111,
+          "roadSamples": 8111,
+          "minimumLensPlanClearanceM": 5.337086233667472,
+          "rayCrossings": 0
+        }
+      ]
+    },
+    "checks": [
+      {
+        "name": "metadata patch preserves exact output of all original source emitters",
+        "pass": true
+      },
+      {
+        "name": "candidate includes current corridor helper",
+        "pass": true
+      },
+      {
+        "name": "every actually emitted banner has one ownership tag",
+        "pass": true,
+        "detail": {
+          "tags": 103,
+          "banners": 103
+        }
+      },
+      {
+        "name": "actual banner tags have exact label ranges and source-space frames",
+        "pass": true,
+        "detail": {
+          "ownedVertices": 30824
+        }
+      },
+      {
+        "name": "derived corridor retains one immutable-width station per actual route point",
+        "pass": true,
+        "detail": {
+          "stations": 546
+        }
+      },
+      {
+        "name": "every rendered road cross-section has exactly the measured source width and centre",
+        "pass": true,
+        "detail": {
+          "maxWidthErrorM": 8.701449707625507e-14,
+          "maxCentreErrorM": 4.218884706727519e-14
+        }
+      },
+      {
+        "name": "both boundaries are independently simple disjoint nested closed loops",
+        "pass": true,
+        "detail": {
+          "outerSelf": 0,
+          "innerSelf": 0,
+          "between": 0
+        }
+      },
+      {
+        "name": "all actual route stations remain inside the corrected road band",
+        "pass": true
+      },
+      {
+        "name": "every road zipper triangle has consistent nonzero winding",
+        "pass": true
+      },
+      {
+        "name": "unmeasured width rejects correction before any source mutation",
+        "pass": true
+      },
+      {
+        "name": "nonpositive width rejects correction before any source mutation",
+        "pass": true
+      },
+      {
+        "name": "non-finite width rejects correction before any source mutation",
+        "pass": true
+      },
+      {
+        "name": "degenerate tangent rejects correction before any source mutation",
+        "pass": true
+      },
+      {
+        "name": "crossing width profile rejects correction before any source mutation",
+        "pass": true
+      },
+      {
+        "name": "all ten boundary families have complete prepared variants",
+        "pass": true,
+        "detail": null
+      },
+      {
+        "name": "corridor preparation allocates and uploads no GPU resources",
+        "pass": true
+      },
+      {
+        "name": "derive and preparation retain all protected source arrays and references",
+        "pass": true
+      },
+      {
+        "name": "only owned banner positions move and all artwork dimensions stay exact",
+        "pass": true,
+        "detail": {
+          "unrelatedVertices": 95620,
+          "movedVertices": 30824,
+          "maxBannerSizeErrorM": 3.0191393682518806e-13
+        }
+      },
+      {
+        "name": "every banner centre sits at the measured boundary plus original physical cap setback",
+        "pass": true,
+        "detail": {
+          "maxBannerBoundaryErrorM": 3.9943529554498225e-14
+        }
+      },
+      {
+        "name": "missing banner ownership refuses all boundary substitution atomically",
+        "pass": true
+      },
+      {
+        "name": "overlapping banner ownership refuses all boundary substitution atomically",
+        "pass": true
+      },
+      {
+        "name": "successful install activates corrected corridor with enhanced detail",
+        "pass": true
+      },
+      {
+        "name": "successful install keeps original CPU geometry and metadata byte-identical",
+        "pass": true
+      },
+      {
+        "name": "corrected variants replace existing GPU payloads",
+        "pass": true,
+        "detail": {
+          "changedBuffers": [
+            "deck.v",
+            "deck.i",
+            "walls.v",
+            "walls.i",
+            "barrier.v",
+            "barrier.i",
+            "edgeGlow.line",
+            "edgeCore.line",
+            "trackConcrete.v",
+            "trackConcrete.i",
+            "trackFencePosts.v",
+            "trackFencePosts.i",
+            "trackFenceWire.v",
+            "trackFenceWire.i",
+            "trackScuffs.v",
+            "trackScuffs.i",
+            "standDecor.v"
+          ]
+        }
+      },
+      {
+        "name": "every corrected draw uses the uploaded variant count and retained original handles",
+        "pass": true
+      },
+      {
+        "name": "enhanced material detail stages on the same measured boundaries as all original buffers",
+        "pass": true,
+        "detail": {
+          "maximumSkinBoundaryErrorM": 0
+        }
+      },
+      {
+        "name": "retained joined kerb profiles stay inside corrected fences at corners and along every lip",
+        "pass": true,
+        "detail": {
+          "samples": 1040,
+          "minClearanceM": 0.5711288207171393,
+          "crossings": 0
+        }
+      },
+      {
+        "name": "repeated enable and draws neither allocate nor reupload",
+        "pass": true
+      },
+      {
+        "name": "detail off restores every original GPU byte and draw count",
+        "pass": true
+      },
+      {
+        "name": "disposal leaves all original CPU buffers unchanged",
+        "pass": true
+      },
+      {
+        "name": "repeated disposal has no extra uploads",
+        "pass": true
+      },
+      {
+        "name": "three repeated enable/disable cycles restore exact payloads and counts",
+        "pass": true
+      },
+      {
+        "name": "enhanced build failure restores source and falls back to original enhanced renderer",
+        "pass": true
+      },
+      {
+        "name": "failed correction remains cached without retrying source uploads",
+        "pass": true
+      },
+      {
+        "name": "new scene ownership can enable correction after build failure",
+        "pass": true
+      },
+      {
+        "name": "all corrected uploads remain on original retained buffer handles",
+        "pass": true,
+        "detail": {
+          "writes": 18
+        }
+      },
+      {
+        "name": "each injected original-buffer upload failure atomically restores source rendering",
+        "pass": true,
+        "detail": [
+          {
+            "offset": 7,
+            "pass": true
+          },
+          {
+            "offset": 8,
+            "pass": true
+          },
+          {
+            "offset": 9,
+            "pass": true
+          },
+          {
+            "offset": 10,
+            "pass": true
+          },
+          {
+            "offset": 11,
+            "pass": true
+          },
+          {
+            "offset": 12,
+            "pass": true
+          },
+          {
+            "offset": 13,
+            "pass": true
+          },
+          {
+            "offset": 14,
+            "pass": true
+          },
+          {
+            "offset": 15,
+            "pass": true
+          },
+          {
+            "offset": 16,
+            "pass": true
+          },
+          {
+            "offset": 17,
+            "pass": true
+          },
+          {
+            "offset": 18,
+            "pass": true
+          },
+          {
+            "offset": 19,
+            "pass": true
+          },
+          {
+            "offset": 20,
+            "pass": true
+          },
+          {
+            "offset": 21,
+            "pass": true
+          },
+          {
+            "offset": 22,
+            "pass": true
+          },
+          {
+            "offset": 23,
+            "pass": true
+          },
+          {
+            "offset": 24,
+            "pass": true
+          }
+        ]
+      },
+      {
+        "name": "GL error reported after upload rolls back the entire transaction",
+        "pass": true
+      },
+      {
+        "name": "successful install and disposal recover after every upload failure",
+        "pass": true
+      },
+      {
+        "name": "context loss disables corrected draws without uploading into a lost context",
+        "pass": true
+      },
+      {
+        "name": "lost-context unmount releases corrected CPU ownership and restores original draw functions",
+        "pass": true
+      },
+      {
+        "name": "rollback JS exception stops and unmounts unsafe scene before any subsequent draw",
+        "pass": true
+      },
+      {
+        "name": "persistent GL error stops and unmounts unsafe scene before any subsequent draw",
+        "pass": true
+      },
+      {
+        "name": "detail-off GL error stops and unmounts unsafe scene before any subsequent draw",
+        "pass": true
+      },
+      {
+        "name": "legacy render after fatal rollback stops and unmounts unsafe scene before any subsequent draw",
+        "pass": true
+      },
+      {
+        "name": "render fallback wrapper does not suppress unrelated failures",
+        "pass": true
+      },
+      {
+        "name": "actual full-lap high-detail car bounding hull clears both corrected boundaries",
+        "pass": true,
+        "detail": [
+          {
+            "samples": 8111,
+            "lapM": 2910.5134059933143,
+            "dimensionsM": [
+              4.909827272727273,
+              1.3206751177172498,
+              2.1006545454545456
+            ],
+            "minimumClearanceM": 3.489928224305732,
+            "hullFenceCrossings": 0
+          }
+        ]
+      },
+      {
+        "name": "actual road cameras and sightlines clear nearer fences for phone and desktop full laps",
+        "pass": true,
+        "detail": [
+          {
+            "width": 390,
+            "height": 650,
+            "mode": "tour",
+            "samples": 8111,
+            "roadSamples": 5628,
+            "minimumLensPlanClearanceM": 3.1375953494989344,
+            "rayCrossings": 0
+          },
+          {
+            "width": 390,
+            "height": 650,
+            "mode": "chase",
+            "samples": 8111,
+            "roadSamples": 8111,
+            "minimumLensPlanClearanceM": 4.502982594551884,
+            "rayCrossings": 0
+          },
+          {
+            "width": 390,
+            "height": 650,
+            "mode": "hero",
+            "samples": 8111,
+            "roadSamples": 8111,
+            "minimumLensPlanClearanceM": 2.526066384057871,
+            "rayCrossings": 0
+          },
+          {
+            "width": 390,
+            "height": 650,
+            "mode": "onboard",
+            "samples": 8111,
+            "roadSamples": 8111,
+            "minimumLensPlanClearanceM": 5.337086233667472,
+            "rayCrossings": 0
+          },
+          {
+            "width": 1280,
+            "height": 517,
+            "mode": "tour",
+            "samples": 8111,
+            "roadSamples": 5628,
+            "minimumLensPlanClearanceM": 3.1375953494989344,
+            "rayCrossings": 0
+          },
+          {
+            "width": 1280,
+            "height": 517,
+            "mode": "chase",
+            "samples": 8111,
+            "roadSamples": 8111,
+            "minimumLensPlanClearanceM": 4.502982594551884,
+            "rayCrossings": 0
+          },
+          {
+            "width": 1280,
+            "height": 517,
+            "mode": "hero",
+            "samples": 8111,
+            "roadSamples": 8111,
+            "minimumLensPlanClearanceM": 2.526066384057871,
+            "rayCrossings": 0
+          },
+          {
+            "width": 1280,
+            "height": 517,
+            "mode": "onboard",
+            "samples": 8111,
+            "roadSamples": 8111,
+            "minimumLensPlanClearanceM": 5.337086233667472,
+            "rayCrossings": 0
+          }
+        ]
+      }
+    ]
+  }
+}

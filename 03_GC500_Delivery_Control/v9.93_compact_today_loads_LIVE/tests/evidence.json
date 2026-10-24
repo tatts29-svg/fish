@@ -1,0 +1,44 @@
+{
+  "author": "Andrew Fisher",
+  "previewOnly": true,
+  "ready": false,
+  "published": false,
+  "candidateSha256": "a93c369b91dec0deafb2d677fbbb8a263563c93271f5e57962bd4a330d646308",
+  "results": {
+    "desktop": {
+      "pass": true,
+      "checks": 22,
+      "viewport": {
+        "width": 1440,
+        "height": 960
+      },
+      "browserErrors": 0,
+      "attemptedOperationalWrites": 0,
+      "sharedRecordsAndPnLUnchanged": true,
+      "dailyStaffUnchanged": true,
+      "originalNumericFactsAndQualificationsUnchanged": true,
+      "cardFitAndNativeControlsVerified": true,
+      "motionOffReducedAndOffscreenGatesVerified": true,
+      "numericFontPx": 19,
+      "numericOpacity": 1
+    },
+    "phone": {
+      "pass": true,
+      "checks": 22,
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "browserErrors": 0,
+      "attemptedOperationalWrites": 0,
+      "sharedRecordsAndPnLUnchanged": true,
+      "dailyStaffUnchanged": true,
+      "originalNumericFactsAndQualificationsUnchanged": true,
+      "cardFitAndNativeControlsVerified": true,
+      "motionOffReducedAndOffscreenGatesVerified": true,
+      "numericFontPx": 18,
+      "numericOpacity": 1
+    }
+  },
+  "privateMediaRoot": "/workspace/private-gc500-v993-preview"
+}

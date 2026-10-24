@@ -1,0 +1,482 @@
+{
+  "author": "Andrew Fisher",
+  "status": "Verified final candidate; publication owned by release integrator",
+  "page_sha256": "2d09fa44794596c52c54d41aed6f98d16fbb6f5ff1ccf608f9d275874559785d",
+  "native_version": 6078,
+  "map_code_sha256": {
+    "index.html": "2d61f060ad3ad44696b86be829a2bc93af90502521fa02c3a641a3c507c3264f",
+    "explorer.js": "eac70fa5b2e6d682f5e8af271f2d47f5ca286f6eb197658d32dc193a8c551cce",
+    "explorer-merge.js": "1747edf7c9a1417c757ff9dceed8e017f26550608a561e6212a34d7b4922daf3"
+  },
+  "phone": {
+    "checks": 102,
+    "passed": 102,
+    "application_errors": 0,
+    "operational_write_attempts": 0,
+    "blocked_google_map_sessions": 1,
+    "unexpected_console_errors": 0
+  },
+  "desktop_and_4k": {
+    "checks": 102,
+    "passed": 102,
+    "application_errors": 0,
+    "operational_write_attempts": 0,
+    "blocked_google_map_sessions": 1,
+    "unexpected_console_errors": 0
+  },
+  "save_lifecycle": {
+    "checks": 9,
+    "passed": 9,
+    "application_errors": 0,
+    "operational_write_attempts": 0,
+    "blocked_google_map_sessions": 1
+  },
+  "unit_projection": {
+    "checks": 16,
+    "passed": 16,
+    "application_errors": 0,
+    "operational_write_attempts": 0,
+    "blocked_google_map_sessions": 0
+  },
+  "route_viewport_samples": 66,
+  "phone_deep_links": 7,
+  "desktop_deep_links": 7,
+  "unit_reference_coverage": 182,
+  "unit_projection_variants_per_reference": 2,
+  "contrast_method": "Rendered direct text over a fully opaque solid background. Gradient/composited text was visually inspected, not mathematically certified.",
+  "visual_review": [
+    "Phone Build arrival-plan link and open disclosure",
+    "Phone Equipment disclosure and reference layout",
+    "Desktop 3840x2160 Today panels",
+    "Phone native Save acknowledgement"
+  ],
+  "network_note": "The strict GET-only harness deliberately blocks Google createSession POST. These expected external network errors are counted separately from application exceptions.",
+  "route_timings": [
+    {
+      "requested": "today",
+      "width": 390,
+      "height": 844,
+      "goMs": 903
+    },
+    {
+      "requested": "progress",
+      "width": 390,
+      "height": 844,
+      "goMs": 905
+    },
+    {
+      "requested": "map",
+      "width": 390,
+      "height": 844,
+      "goMs": 234
+    },
+    {
+      "requested": "docs",
+      "width": 390,
+      "height": 844,
+      "goMs": 388
+    },
+    {
+      "requested": "register",
+      "width": 390,
+      "height": 844,
+      "goMs": 426
+    },
+    {
+      "requested": "plant",
+      "width": 390,
+      "height": 844,
+      "goMs": 423
+    },
+    {
+      "requested": "demob",
+      "width": 390,
+      "height": 844,
+      "goMs": 380
+    },
+    {
+      "requested": "fencing",
+      "width": 390,
+      "height": 844,
+      "goMs": 538
+    },
+    {
+      "requested": "prestarts",
+      "width": 390,
+      "height": 844,
+      "goMs": 167
+    },
+    {
+      "requested": "coatesway",
+      "width": 390,
+      "height": 844,
+      "goMs": 578
+    },
+    {
+      "requested": "journal",
+      "width": 390,
+      "height": 844,
+      "goMs": 844
+    },
+    {
+      "requested": "breakdowns",
+      "width": 390,
+      "height": 844,
+      "goMs": 791
+    },
+    {
+      "requested": "variances",
+      "width": 390,
+      "height": 844,
+      "goMs": 764
+    },
+    {
+      "requested": "costs",
+      "width": 390,
+      "height": 844,
+      "goMs": 2292
+    },
+    {
+      "requested": "edit",
+      "width": 390,
+      "height": 844,
+      "goMs": 928
+    },
+    {
+      "requested": "change",
+      "width": 390,
+      "height": 844,
+      "goMs": 224
+    },
+    {
+      "requested": "add",
+      "width": 390,
+      "height": 844,
+      "goMs": 828
+    },
+    {
+      "requested": "pricing",
+      "width": 390,
+      "height": 844,
+      "goMs": 902
+    },
+    {
+      "requested": "timeline",
+      "width": 390,
+      "height": 844,
+      "goMs": 1433
+    },
+    {
+      "requested": "subhired",
+      "width": 390,
+      "height": 844,
+      "goMs": 244
+    },
+    {
+      "requested": "questions",
+      "width": 390,
+      "height": 844,
+      "goMs": 717
+    },
+    {
+      "requested": "about",
+      "width": 390,
+      "height": 844,
+      "goMs": 135
+    },
+    {
+      "requested": "today",
+      "width": 1440,
+      "height": 1000,
+      "goMs": 900
+    },
+    {
+      "requested": "progress",
+      "width": 1440,
+      "height": 1000,
+      "goMs": 898
+    },
+    {
+      "requested": "map",
+      "width": 1440,
+      "height": 1000,
+      "goMs": 218
+    },
+    {
+      "requested": "docs",
+      "width": 1440,
+      "height": 1000,
+      "goMs": 371
+    },
+    {
+      "requested": "register",
+      "width": 1440,
+      "height": 1000,
+      "goMs": 352
+    },
+    {
+      "requested": "plant",
+      "width": 1440,
+      "height": 1000,
+      "goMs": 446
+    },
+    {
+      "requested": "demob",
+      "width": 1440,
+      "height": 1000,
+      "goMs": 283
+    },
+    {
+      "requested": "fencing",
+      "width": 1440,
+      "height": 1000,
+      "goMs": 512
+    },
+    {
+      "requested": "prestarts",
+      "width": 1440,
+      "height": 1000,
+      "goMs": 176
+    },
+    {
+      "requested": "coatesway",
+      "width": 1440,
+      "height": 1000,
+      "goMs": 564
+    },
+    {
+      "requested": "journal",
+      "width": 1440,
+      "height": 1000,
+      "goMs": 834
+    },
+    {
+      "requested": "breakdowns",
+      "width": 1440,
+      "height": 1000,
+      "goMs": 765
+    },
+    {
+      "requested": "variances",
+      "width": 1440,
+      "height": 1000,
+      "goMs": 714
+    },
+    {
+      "requested": "costs",
+      "width": 1440,
+      "height": 1000,
+      "goMs": 2190
+    },
+    {
+      "requested": "edit",
+      "width": 1440,
+      "height": 1000,
+      "goMs": 889
+    },
+    {
+      "requested": "change",
+      "width": 1440,
+      "height": 1000,
+      "goMs": 198
+    },
+    {
+      "requested": "add",
+      "width": 1440,
+      "height": 1000,
+      "goMs": 896
+    },
+    {
+      "requested": "pricing",
+      "width": 1440,
+      "height": 1000,
+      "goMs": 960
+    },
+    {
+      "requested": "timeline",
+      "width": 1440,
+      "height": 1000,
+      "goMs": 1436
+    },
+    {
+      "requested": "subhired",
+      "width": 1440,
+      "height": 1000,
+      "goMs": 271
+    },
+    {
+      "requested": "questions",
+      "width": 1440,
+      "height": 1000,
+      "goMs": 895
+    },
+    {
+      "requested": "about",
+      "width": 1440,
+      "height": 1000,
+      "goMs": 130
+    },
+    {
+      "requested": "today",
+      "width": 3840,
+      "height": 2160,
+      "goMs": 871
+    },
+    {
+      "requested": "progress",
+      "width": 3840,
+      "height": 2160,
+      "goMs": 763
+    },
+    {
+      "requested": "map",
+      "width": 3840,
+      "height": 2160,
+      "goMs": 294
+    },
+    {
+      "requested": "docs",
+      "width": 3840,
+      "height": 2160,
+      "goMs": 429
+    },
+    {
+      "requested": "register",
+      "width": 3840,
+      "height": 2160,
+      "goMs": 617
+    },
+    {
+      "requested": "plant",
+      "width": 3840,
+      "height": 2160,
+      "goMs": 446
+    },
+    {
+      "requested": "demob",
+      "width": 3840,
+      "height": 2160,
+      "goMs": 413
+    },
+    {
+      "requested": "fencing",
+      "width": 3840,
+      "height": 2160,
+      "goMs": 749
+    },
+    {
+      "requested": "prestarts",
+      "width": 3840,
+      "height": 2160,
+      "goMs": 224
+    },
+    {
+      "requested": "coatesway",
+      "width": 3840,
+      "height": 2160,
+      "goMs": 607
+    },
+    {
+      "requested": "journal",
+      "width": 3840,
+      "height": 2160,
+      "goMs": 885
+    },
+    {
+      "requested": "breakdowns",
+      "width": 3840,
+      "height": 2160,
+      "goMs": 881
+    },
+    {
+      "requested": "variances",
+      "width": 3840,
+      "height": 2160,
+      "goMs": 841
+    },
+    {
+      "requested": "costs",
+      "width": 3840,
+      "height": 2160,
+      "goMs": 2003
+    },
+    {
+      "requested": "edit",
+      "width": 3840,
+      "height": 2160,
+      "goMs": 917
+    },
+    {
+      "requested": "change",
+      "width": 3840,
+      "height": 2160,
+      "goMs": 257
+    },
+    {
+      "requested": "add",
+      "width": 3840,
+      "height": 2160,
+      "goMs": 790
+    },
+    {
+      "requested": "pricing",
+      "width": 3840,
+      "height": 2160,
+      "goMs": 974
+    },
+    {
+      "requested": "timeline",
+      "width": 3840,
+      "height": 2160,
+      "goMs": 1340
+    },
+    {
+      "requested": "subhired",
+      "width": 3840,
+      "height": 2160,
+      "goMs": 225
+    },
+    {
+      "requested": "questions",
+      "width": 3840,
+      "height": 2160,
+      "goMs": 740
+    },
+    {
+      "requested": "about",
+      "width": 3840,
+      "height": 2160,
+      "goMs": 143
+    }
+  ],
+  "prescribed_shared_sweeps": {
+    "desktop": {
+      "entry": "toolchain/harness/sweep.js",
+      "entry_sha256": "258eb0cdc7dbab558c260f04ebebc649c82394ff366162127f642a31c169e86e",
+      "routes": 22,
+      "deep_links": 7,
+      "browser_back_to_equipment": true,
+      "application_errors": 0,
+      "unexpected_console_errors": 0,
+      "expected_blocked_map_session_console_entries": 1,
+      "operational_write_attempts": 0,
+      "native_unchanged": true,
+      "inputs_unchanged": true,
+      "passed": true
+    },
+    "phone": {
+      "entry": "toolchain/harness/sweep.js",
+      "entry_sha256": "258eb0cdc7dbab558c260f04ebebc649c82394ff366162127f642a31c169e86e",
+      "routes": 22,
+      "deep_links": 7,
+      "browser_back_to_equipment": true,
+      "application_errors": 0,
+      "unexpected_console_errors": 0,
+      "expected_blocked_map_session_console_entries": 1,
+      "operational_write_attempts": 0,
+      "native_unchanged": true,
+      "inputs_unchanged": true,
+      "passed": true
+    }
+  }
+}

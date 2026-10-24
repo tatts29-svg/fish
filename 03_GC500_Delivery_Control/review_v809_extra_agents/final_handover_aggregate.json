@@ -1,0 +1,361 @@
+{
+  "author": "Andrew Fisher",
+  "sourceCommit": "dfec015586208531bbe31fe507d44cc9cc49955e",
+  "readyBoardCommit": "d5b1e7c4c4d1b5b44ac1f0a552eb843a183034ae",
+  "auditedImplementationCommit": "c1f6fb5587c43472bf0db1cde053bbf0fd21a707",
+  "implementationFilesUnchanged": 63,
+  "baseDigest": "65c47180502d9052ca3661e5aedd06683e8168c1e9be9297bcbcb7c2e4d9fe86",
+  "baseFiles": 219,
+  "baseBytes": 172184133,
+  "candidateDigest": "7d2ff39f645696c212197f1bf0c7dfe8e4a01c232c4e3ca1dbea359b53500a1e",
+  "candidateFiles": 226,
+  "candidateBytes": 172348506,
+  "manifestFileSha256": "b6cedf5839d005d3597608b58037d64700d586086de067d70ec87f140760a59f",
+  "changed": 17,
+  "new": 7,
+  "preserved": 202,
+  "removed": 0,
+  "localPayloads": [
+    {
+      "bytes": 150573,
+      "path": "car-app.js",
+      "sha256": "d2964c3138eb1b2429a542cfb598adb507ae345b6b92858c78231fdbe49ff3c8",
+      "type": "text/javascript; charset=utf-8"
+    },
+    {
+      "bytes": 88819,
+      "path": "car-cockpit.js",
+      "sha256": "bd0a198cb5a21100166ede6803d5443f4471dd695cfc8fa36c97b4090375fc29",
+      "type": "text/javascript; charset=utf-8"
+    },
+    {
+      "bytes": 25308,
+      "path": "car-driver.js",
+      "sha256": "3f0cb7e314377ffbd506672610a4b0c83af2873dabaf0e6145730234d3736c8d",
+      "type": "text/javascript; charset=utf-8"
+    },
+    {
+      "bytes": 6207,
+      "path": "car-fit.js",
+      "sha256": "7a9348f5c3333c39aebf02a87a4fcfeac9e227d8c17255c5b955a9f0d64514fb",
+      "type": "text/javascript; charset=utf-8"
+    },
+    {
+      "bytes": 23111,
+      "path": "car-gc500.js",
+      "sha256": "e61e3d002b4174f230e8483c9bdb43b49aeeb7c665230b5033ea9f512c0b795e",
+      "type": "text/javascript; charset=utf-8"
+    },
+    {
+      "bytes": 47148,
+      "path": "car-powertrain.js",
+      "sha256": "fa842cc90f10974464210b913dabeb19ced14b9292eb9b9310a5aaa32ce7209d",
+      "type": "text/javascript; charset=utf-8"
+    },
+    {
+      "bytes": 5821,
+      "path": "car-scene.js",
+      "sha256": "8fbaed2ee75320d49e2844198fbf9e51bb510dbab83ea66d7221adeeec6ed92d",
+      "type": "text/javascript; charset=utf-8"
+    },
+    {
+      "bytes": 28212,
+      "path": "car.css",
+      "sha256": "ac558e79e7182bb88731a864d83c6e6dbbfe616e13ce316755047a5f01b3260f",
+      "type": "text/css; charset=utf-8"
+    },
+    {
+      "bytes": 11616,
+      "path": "cockpit-surfaces.js",
+      "sha256": "9d09692404126eab990b402ae2e85949c3609fdf5f0ee95dc7ffcf6ae3ac07b1",
+      "type": "text/javascript; charset=utf-8"
+    },
+    {
+      "bytes": 152822,
+      "path": "crew.js",
+      "sha256": "fc0a9314450e9eabf145b6d4f1b3682ccb89168cd8be2a2facd1bfa55d44eb8d",
+      "type": "text/javascript; charset=utf-8"
+    },
+    {
+      "bytes": 11468,
+      "path": "index.html",
+      "sha256": "fb07e7b09dd5574f3869f5e35ac61f22d950f42efbf13d7a2a2ddaa90d571148",
+      "type": "text/html; charset=utf-8"
+    },
+    {
+      "bytes": 12572,
+      "path": "part-connections.js",
+      "sha256": "63dc3e5a3d4118f9557e96e943c0544ad9a4289494f235fbb244bf10b130bdd7",
+      "type": "text/javascript; charset=utf-8"
+    },
+    {
+      "bytes": 103331,
+      "path": "pit-garage.js",
+      "sha256": "e543b48a02c68ab5955c652c96fd8186241fa87d9616b580576cb3e2b4eec72d",
+      "type": "text/javascript; charset=utf-8"
+    },
+    {
+      "bytes": 21985,
+      "path": "style.css",
+      "sha256": "b01c5c0ce0ac04929267b15e5f8b625b55f8f74c87cc9745afc17bf3eeafa389",
+      "type": "text/css; charset=utf-8"
+    },
+    {
+      "bytes": 7191,
+      "path": "timing-drive.js",
+      "sha256": "857e720ae0d365d6ddbde8c6d4f1abaa24994b68f7a797c10c4de18c242b8d04",
+      "type": "text/javascript; charset=utf-8"
+    },
+    {
+      "bytes": 16645,
+      "path": "vendor/addons/postprocessing/GTAOPass.js",
+      "sha256": "33e0c4074eff4f2cd6116fef1df4ae900ef33229ac91c6793c5af5d6dab4fcb2",
+      "type": "text/javascript; charset=utf-8"
+    },
+    {
+      "bytes": 13784,
+      "path": "view-fx.js",
+      "sha256": "39c6bd70fbf478a977a5cd849a18ac6920a84fe7aaa8ccb368df388c59e9820d",
+      "type": "text/javascript; charset=utf-8"
+    },
+    {
+      "bytes": 18834,
+      "path": "fx-quality.js",
+      "sha256": "3bde119ed7da19feaf01b8f7778b9836a0053431b324f74437bffc750760b31d",
+      "type": "text/javascript; charset=utf-8"
+    },
+    {
+      "bytes": 18254,
+      "path": "mech-brakes.js",
+      "sha256": "e98ed2ee1c48e4306f5b1d1e5537803a6fc740ffc919b997b11906090e8471ce",
+      "type": "text/javascript; charset=utf-8"
+    },
+    {
+      "bytes": 13295,
+      "path": "mech-driveline.js",
+      "sha256": "5f8361b93380a7b6309eeca8580349c1cbb7eb3fb63196c1a137c3b1fa01da23",
+      "type": "text/javascript; charset=utf-8"
+    },
+    {
+      "bytes": 4013,
+      "path": "mech-oil.js",
+      "sha256": "6ed2710b80e94615556517b98d951a316c047a8042a561e8d9785b2edbb56a4d",
+      "type": "text/javascript; charset=utf-8"
+    },
+    {
+      "bytes": 8085,
+      "path": "mech-register.js",
+      "sha256": "3ca9272996b77f3fa6f6924da36dda403c568c5c6ef896c4cebfd83aed5a6411",
+      "type": "text/javascript; charset=utf-8"
+    },
+    {
+      "bytes": 14528,
+      "path": "people-atlas.js",
+      "sha256": "ca348d901d0a1deb36454617f347c2324f68c15405a04f2ac4616b775d3ad100",
+      "type": "text/javascript; charset=utf-8"
+    },
+    {
+      "bytes": 24068,
+      "path": "people-figure.js",
+      "sha256": "16fab5c0bb809edb77e30280d4a1921299d84778e76fb3f53604b8b8f4c92203",
+      "type": "text/javascript; charset=utf-8"
+    }
+  ],
+  "mapDescriptorsUnchanged": {
+    "explorer/explorer.js": {
+      "bytes": 133534,
+      "path": "explorer/explorer.js",
+      "sha256": "366897925de96b5f881485bec60c6a3a7263fd20d9b04d48231ac82d356020d0",
+      "type": "text/javascript; charset=utf-8"
+    },
+    "explorer/explorer-merge.js": {
+      "bytes": 25146,
+      "path": "explorer/explorer-merge.js",
+      "sha256": "261238402f3c4bf3dc94a661b3dc8378bb789b01cdfd77b4cfc9810d1236b67c",
+      "type": "text/javascript; charset=utf-8"
+    },
+    "explorer/index.html": {
+      "bytes": 27591,
+      "path": "explorer/index.html",
+      "sha256": "e2f0f9bfbfc9b5f707a2ead734b99cb0569c11f68bf15e0303d7021eac9e0572",
+      "type": "text/html; charset=utf-8"
+    },
+    "poc3d/index.html": {
+      "bytes": 44565,
+      "path": "poc3d/index.html",
+      "sha256": "7edf7b5ac55c1cf5f60f35b72d577d8e257854e2e482b1b93796e498edcf5ac4",
+      "type": "text/html; charset=utf-8"
+    }
+  },
+  "baseLocalFilesVerified": 56,
+  "workLocalFilesVerified": 63,
+  "serviceToolDryRunMatchesManifest": true,
+  "closure": {
+    "references": 100,
+    "resolved": 97,
+    "missing": [],
+    "namedOnlyInComments": [
+      {
+        "from": "car-cockpit.js",
+        "spec": "tests/engine.test.mjs"
+      },
+      {
+        "from": "car-fit.js",
+        "spec": "tests/gc500-source.test.mjs"
+      },
+      {
+        "from": "car-gc500.js",
+        "spec": "tests/gc500-source.test.mjs"
+      }
+    ],
+    "audioClips": 34,
+    "audioClipsMissing": [],
+    "moduleGraphMissing": []
+  },
+  "moduleGraphFiles": 61,
+  "runtimeProvenance": {
+    "sessions": 19,
+    "workSessions": 17,
+    "distinctWorkFilesVerified": 63,
+    "distinctLiveFilesVerified": 40,
+    "baseComparisonMismatches": [
+      "cockpit-surfaces.js",
+      "style.css"
+    ],
+    "externalGetHosts": {
+      "fonts.googleapis.com": 4,
+      "fonts.gstatic.com": 20
+    },
+    "unexpectedFiles": []
+  },
+  "runtimeSuites": [
+    {
+      "suite": "driver_desk",
+      "passed": 43,
+      "total": 43,
+      "exit": 0
+    },
+    {
+      "suite": "driver_phone",
+      "passed": 43,
+      "total": 43,
+      "exit": 0
+    },
+    {
+      "suite": "ui_phone",
+      "passed": 137,
+      "total": 137,
+      "exit": 0
+    },
+    {
+      "suite": "ui_desktop",
+      "passed": 141,
+      "total": 141,
+      "exit": 0
+    },
+    {
+      "suite": "ui_tablet",
+      "passed": 137,
+      "total": 137,
+      "exit": 0
+    },
+    {
+      "suite": "ui_4k_r2",
+      "passed": 134,
+      "total": 134,
+      "exit": 0
+    },
+    {
+      "suite": "mech_desk",
+      "passed": 27,
+      "total": 27,
+      "exit": 0
+    },
+    {
+      "suite": "mech_phone",
+      "passed": 27,
+      "total": 27,
+      "exit": 0
+    },
+    {
+      "suite": "fx_desktop",
+      "passed": 27,
+      "total": 27,
+      "exit": 0
+    },
+    {
+      "suite": "fx_phone",
+      "passed": 22,
+      "total": 22,
+      "exit": 0
+    },
+    {
+      "suite": "fx_hidden",
+      "passed": 2,
+      "total": 2,
+      "exit": 0
+    },
+    {
+      "suite": "legacy_work_desk",
+      "passed": 21,
+      "total": 21,
+      "exit": 0
+    },
+    {
+      "suite": "legacy_work_phone",
+      "passed": 21,
+      "total": 21,
+      "exit": 0
+    }
+  ],
+  "runtimeChecksPassed": 782,
+  "people": [
+    {
+      "device": "desk",
+      "samples": 2193,
+      "failures": 0,
+      "errors": 0,
+      "exit": 0
+    },
+    {
+      "device": "phone",
+      "samples": 2193,
+      "failures": 0,
+      "errors": 0,
+      "exit": 0
+    }
+  ],
+  "historicalFailure": {
+    "ui4k": [
+      "quiet status: \"Ready to run\" still read by a screen reader (visually hidden, not display:none)"
+    ],
+    "corrected4kPassed": 134,
+    "additionalPhoneQuickPassed": 107,
+    "additionalPhoneQuickIncludedIn782": false
+  },
+  "ownerRecordedLiveBaseRead": {
+    "filesCompared": 60,
+    "allMatched": true,
+    "freshReadByAuditor": false
+  },
+  "reviewMode": "Source, hashes, recorded evidence and CPU-only union/closure/dry-run; no browser, GPU or network.",
+  "productFilesEdited": false,
+  "releaseState": "frozen handover verified; publication and fresh live checks remain",
+  "documentationNotes": [
+    "Frozen README source row is a placeholder; exact source is supplied by READY board d5b1e7c.",
+    "README says all three host entries are unchanged; index.html is actually one of the17 changed files. Explorer and poc3d entries are unchanged."
+  ],
+  "publisherReview": {
+    "sha256": "09c038ca8d3ded7589f32c62267b6b6a4422b3787ba89be49a1a2be745e91851",
+    "frozenInputFileHashesVerified": 3,
+    "verifyUnionPassed": true,
+    "mainExecuted": false,
+    "networkRequests": 0,
+    "sourceBlockers": []
+  },
+  "liveSmokePreparation": {
+    "sha256": "af8d96f4a1bce7af8d54c99a8c2b4130964015c04e39af5185c07af2f2722a87",
+    "syntaxPassed": true,
+    "executed": false
+  }
+}

@@ -1,0 +1,18 @@
+{
+ "voiced": [
+  33
+ ],
+ "declined_at_approval": [
+  28,
+  29,
+  30,
+  31,
+  32
+ ],
+ "not_started": [
+  35,
+  42,
+  43
+ ],
+ "note": "24 Oct 2026: five speech calls were declined at the approval prompt; none is re-run without Andrew saying so."
+}

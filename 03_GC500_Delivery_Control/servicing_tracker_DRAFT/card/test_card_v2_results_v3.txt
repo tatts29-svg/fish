@@ -1,0 +1,63 @@
+
+== 1. the v2 rules in the data
+PASS three service days: Fri 23, Sat 24, Sun 25 (no Thursday)
+PASS practice days Tue 20 - Thu 22 come before the event, labelled Practice, full night jobs
+PASS FWF and accessible: Pump out + Clean & restock + Refilled; Sunday one Pump out, clean & lock
+PASS 16-pan: Pump out + Clean & restock; Sunday Pump out, clean & lock
+PASS waste tank: Pump out every night
+PASS toilet block (own tank) and sewer-connected: Clean & restock only
+PASS every tanked block has its waste tank at the same reference
+PASS sewer-connected are T0243, WC09, WC15, WC16, WC17 (9 blocks; the other 6 have waste tanks)
+PASS accessible toilets are their own kind; 16-pan its own kind
+PASS Refilled is an extra; the two QR groups cover every task
+PASS the builder refuses data with a task on no QR (refill dropped from the Clean code)
+PASS shared rule: Refilled alone counts 0; Pump out + Clean & restock is 100% (Refilled not needed)
+PASS shared rule: job totals leave Refilled out
+
+== 2. mock service takes the v2 tracker
+PASS tracker card made, one signed link per reference (75)
+PASS the service refuses Pump out, clean & lock on Friday
+PASS the service refuses a Pump out on a sewer-connected block
+
+== 3. the phone: one code, its own jobs
+PASS day buttons: three practice, then Fri, Sat, Sun
+PASS Pump out code: the tag says so, and the only job is Pump out
+PASS the button says "Tap to complete"
+PASS Complete logs the time ("Completed hh:mm")
+PASS the area % moved
+PASS the tick went to the service as WC07 pump on Friday
+PASS Save & close: "Saved", the area % and "close this page"
+PASS Clean & restock code: Clean & restock, then Refilled (marked not in %)
+PASS Refilled is ticked with its time but the area % does not move
+PASS Clean & restock moves the area %
+PASS WC20 Pump out code: only the waste tank
+PASS WC20 Clean & restock code: only the toilet block
+PASS sewer-connected WC15 Pump out code: no jobs, a plain message, no Save button
+PASS WC31 Pump out code: the 16-pan and the accessible toilet each have their own Pump out
+PASS a code with no group shows every job at the reference
+
+== 4. no signal: Save & close keeps the taps on the phone
+PASS offline Save & close says "Kept on this phone" and that it sends with signal
+PASS back online: it sends, and the screen turns to "Saved"
+
+== 5. the manager: overall %, ready to audit, completions with times
+PASS the view card has the audit list
+PASS a finished area is listed as ready to audit with its time (Area 13)
+PASS completions are listed newest first with times
+PASS Refilled shows in the list as not in %
+PASS no names anywhere: no name box, nothing asks who you are
+
+== 6. Sunday: one Pump out, clean & lock for FWF, accessible and 16-pan
+PASS WC07 Pump out code on Sunday: one job, "Pump out, clean & lock"
+PASS WC07 Clean & restock code on Sunday: the same one job (either code completes it), no Refilled
+PASS the Sunday lock-up is saved once and counts
+PASS WC31 on Sunday: 16-pan and accessible each one lock-up
+PASS WC20 on Sunday: the waste tank is still a Pump out
+
+== 7. phone width
+PASS no sideways scroll at 360 px: #r=WC31.-lA_FOgKIApcleb3~pump
+PASS no sideways scroll at 360 px: 
+PASS no page errors
+
+46 passed, 0 failed
+exit 0

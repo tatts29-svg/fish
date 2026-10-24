@@ -1,0 +1,29 @@
+/* Author: Andrew Fisher. Circuit orientation stays outside the driving view. */
+.shlap794{position:absolute;right:14px;top:14px;z-index:4;width:146px;padding:8px 10px 10px;background:rgba(13,23,29,.82);border:1px solid #ffffff30;border-radius:8px;pointer-events:none;color:#fff;box-sizing:border-box}
+.shlap794[hidden]{display:none}
+.shlap794 svg{display:block;width:100%;height:84px}
+.shlap794 path{fill:none;stroke-linejoin:round;stroke-linecap:round;stroke-width:2.8}
+.shlapRoute794{stroke:#c6d2d570}.shlapDone794{stroke:#ff812d;stroke-dasharray:0 1}.shlapStart794{fill:#fff}.shlapCar794{fill:#ff812d;stroke:white;stroke-width:1.8}
+.shlap794 b,.shlapDistance794{display:block;text-align:center;font-size:10px;line-height:1.6}.shlapDistance794{color:#d9e1e2;font-variant-numeric:tabular-nums}
+.shlapProgress794{display:block;height:2px;margin-top:7px;background:linear-gradient(90deg,#ff812d var(--lap,0%),#ffffff25 var(--lap,0%))}
+#showOptions794{display:none}
+.show.car-focus #showPrev,.show.car-focus #showNext,.show.car-focus #showBar,.show.car-focus .shchap{display:none}
+@media(max-width:699px),(max-height:560px){
+ .show.car-focus .shMore794{display:none!important}
+ .show.car-focus.camera-options794 .shMore794:not([hidden]){display:inline-flex!important}
+ .show.car-focus #showOptions794{display:inline-flex;align-items:center;justify-content:center;order:3}
+ .show.car-focus #showPause{order:0}
+ .show.car-focus #showViewL{order:1;margin-left:0;gap:6px;font-size:11px}
+ .show.car-focus .shctlg{gap:7px;padding-top:10px}
+ .show.car-focus .shMore794{order:4;margin-left:0}
+ .show.car-focus .shbtn{font-size:12px;padding:7px 9px;min-height:40px}
+ .show.car-focus #showView{max-width:170px}
+ .show.car-focus .shchap,.show.car-focus .shlamps{display:none}
+ .show.car-focus .shtop{padding:10px 12px;gap:8px}
+ .show.car-focus .shbrand{font-size:9px;max-width:150px}
+ .show.car-focus .shtopr{gap:6px}
+ .show.car-focus .shfoot{padding:0 12px 10px;max-height:33dvh}
+ .show.car-focus .shstate{font-size:11px;margin-top:5px}
+ .shlap794{top:10px;right:10px;width:104px;padding:5px 7px 7px;background:rgba(13,23,29,.72)}
+ .shlap794 svg{height:58px}.shlap794 b,.shlapDistance794{font-size:9px}
+}

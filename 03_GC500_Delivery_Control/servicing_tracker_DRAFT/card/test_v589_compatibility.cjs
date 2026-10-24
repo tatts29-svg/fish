@@ -1,0 +1,51 @@
+/* Author: Andrew Fisher. Final crew card on unchanged v5.89, localhost synthetic data only. */
+'use strict';
+const fs=require('node:fs'),path=require('node:path'),os=require('node:os'),http=require('node:http'),crypto=require('node:crypto');
+const {spawn}=require('node:child_process'),{chromium}=require('playwright');
+const {buildCardHtml,trackerConfig,cardScriptHash}=require('./build_card');
+const SERVER=path.resolve(__dirname,'../../server_v5.89_servicing_tracker_DRAFT/server.js');
+const CLOCK=path.resolve(__dirname,'../../server_v5.89_servicing_tracker_DRAFT/fake_clock.js');
+const EXPECT_SERVER='cb32d00e0d4beb90870685978981b1e14541a701c7b37cb1f180d848c134019c';
+const EDIT='synthetic-legacy-edit',DAY='2026-10-23';
+const DATA={version:'synthetic-legacy',tasks:{pump:'Pumped out',water:'Fresh water refilled'},plans:{fwf:{night:['pump','water']}},days:[{id:DAY,label:'Fri 23',to:'Sat 24',plan:'night'}],areas:[{n:1,name:'Synthetic',refs:[{ref:'QA01',title:'Synthetic',lines:[{id:'QA01-FWF',kind:'fwf',type:'FWF',label:'1 × Synthetic FWF',qty:1,nos:[]}]}]}]};
+const sha=b=>crypto.createHash('sha256').update(b).digest('hex');
+let checks=0;const check=(name,ok)=>{if(!ok)throw Error(name);checks++;console.log('PASS '+name);};
+const wait=ms=>new Promise(r=>setTimeout(r,ms));
+const freePort=()=>new Promise(resolve=>{const s=http.createServer();s.listen(0,'127.0.0.1',()=>{const p=s.address().port;s.close(()=>resolve(p));});});
+(async()=>{
+ const bytes=fs.readFileSync(SERVER);check('unchanged exact v5.89 server',sha(bytes)===EXPECT_SERVER);
+ const dir=fs.mkdtempSync(path.join(os.tmpdir(),'gc500-card-legacy-')),p=await freePort(),base='http://127.0.0.1:'+p;
+ const out=fs.openSync(path.join(dir,'server.log'),'a');const record=path.join(dir,'records.json');
+ fs.writeFileSync(record,JSON.stringify({version:1,updated:'2026-10-23T12:00:00Z',docs:{}}));
+ const proc=spawn(process.execPath,['-r',CLOCK,SERVER],{env:{PATH:process.env.PATH,PORT:String(p),DATA_DIR:dir,VIEW_TOKEN:'synthetic-legacy-view',EDIT_TOKEN:EDIT,PUBLIC_BASE:base,FAKE_NOW:'2026-10-23T22:00:00+10:00'},stdio:['ignore',out,out]});
+ let browser,exited=false;proc.on('exit',()=>{exited=true;});
+ const req=async(method,route,body,edit=false)=>{const r=await fetch(base+route,{method,headers:{'content-type':'application/json',...(edit?{'x-gc500-token':EDIT}:{})},body:body===undefined?undefined:JSON.stringify(body)});const text=await r.text();let json;try{json=JSON.parse(text);}catch(_){}return{status:r.status,text,json,headers:r.headers};};
+ try{
+  let healthy=false;for(let i=0;i<100&&!exited;i++){try{healthy=(await req('GET','/health')).json?.build==='v5.89';}catch(_){}if(healthy)break;await wait(100);}check('v5.89 starts',healthy);
+  const before=sha(fs.readFileSync(record)),html=buildCardHtml(DATA),body={load:'synthetic-legacy',title:'Synthetic compatibility tracker',run_date:DAY,expires:'2026-10-26',keys:[],targets:[],html,tracker:trackerConfig(DATA)};
+  const made=await req('POST','/api/cards',body,true);check('v5.89 accepts final generated card',made.status===200);
+  const token=made.json.token,cardPath='/d/'+token,url=base+cardPath+'#r=QA01.'+made.json.tracker.links.QA01;
+  const served=await req('GET',cardPath);check('legacy server serves exact card and correct script CSP',served.text===html&&served.headers.get('content-security-policy').includes(cardScriptHash(html)));
+  const meta=await req('GET',cardPath+'/ticks');check('legacy reply lacks new script identity',meta.status===200&&!Object.hasOwn(meta.json,'card_script_hash'));
+  const worker=await req('GET',cardPath+'/sw.js');check('v5.89 has no tracker worker route or worker CSP',worker.status===404&&!served.headers.get('content-security-policy').includes('worker-src'));
+  browser=await chromium.launch({executablePath:process.env.CHROMIUM_PATH||undefined});
+  const ctx=await browser.newContext({viewport:{width:360,height:640},isMobile:true,hasTouch:true});const errors=[],outside=[],writes=[];
+  await ctx.route('**/*',route=>{const u=new URL(route.request().url());if(u.origin!==base){outside.push(u.origin);return route.abort();}if(route.request().method()!=='GET')writes.push(u.pathname);return route.continue();});
+  const page=await ctx.newPage();page.on('pageerror',e=>errors.push(e.message));await page.goto(url);
+  await page.waitForFunction(()=>window.svc1067&&document.querySelector('[data-job]:not([disabled])'));
+  await page.waitForFunction(()=>/Offline scans not ready/.test(document.querySelector('#readiness').textContent));
+  check('online card honestly reports offline scans not ready',await page.locator('#readiness').innerText()==='Offline scans not ready · keep this tab open with signal');
+  await page.locator('[data-job="QA01-FWF|pump"]').click();await page.waitForFunction(()=>svc1067.outbox().length===0);
+  let ticks=await req('GET',cardPath+'/ticks');check('online signed tick saves on v5.89',ticks.json.ticks.length===1&&ticks.json.ticks[0].task==='pump');
+  await ctx.setOffline(true);await page.locator('[data-job="QA01-FWF|water"]').click();await page.waitForFunction(()=>svc1067.outbox().length===1);
+  check('already-open card retains an offline tick',await page.evaluate(()=>svc1067.outbox()[0].task==='water'));
+  const fresh=await ctx.newPage();let offlineFailed=false;try{await fresh.goto(url,{timeout:10000});}catch(_){offlineFailed=true;}check('fresh offline scan is unavailable on v5.89',offlineFailed);await fresh.close();
+  await ctx.setOffline(false);await page.evaluate(()=>window.dispatchEvent(new Event('online')));await page.waitForFunction(()=>svc1067.outbox().length===0);
+  ticks=await req('GET',cardPath+'/ticks');check('waiting tick sends after reconnect without loss',ticks.json.ticks.length===2&&ticks.json.ticks.some(t=>t.task==='water'));
+  check('card only writes separate tracker ticks',writes.every(x=>x===cardPath+'/ticks'));
+  check('no external requests or script errors',outside.length===0&&errors.length===0);
+  check('job record remains unchanged',sha(fs.readFileSync(record))===before);
+  fs.writeFileSync(path.join(__dirname,'evidence','card_v589_compatibility.json'),JSON.stringify({author:'Andrew Fisher',serverSha256:EXPECT_SERVER,productionCardSha256:sha(fs.readFileSync(path.join(__dirname,'card.html'))),checks,onlineTicking:true,openTabOfflineQueue:true,freshOfflineScan:false,sameDayScriptIdentity:false,recordUnchanged:true,limitation:'Legacy CSP intentionally rejects worker setup; the card reports offline scans not ready. v5.90 must go first for new-phone offline scans and exact stale-card detection.'},null,2)+'\n');
+  await ctx.close();console.log(checks+' passed, 0 failed');
+ }finally{if(browser)await browser.close();if(!exited){proc.kill('SIGTERM');for(let i=0;i<50&&!exited;i++)await wait(100);}fs.closeSync(out);}
+})().catch(e=>{console.error(e);process.exitCode=1;});

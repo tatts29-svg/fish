@@ -1,0 +1,169 @@
+{
+ "author": "Andrew Fisher",
+ "utc": "20261014T193450Z",
+ "mode": "apply",
+ "manifest": "v10.22_event_nights_DRAFT/manifest.json",
+ "options": {
+  "only": null,
+  "crew": null,
+  "no_remove": false
+ },
+ "plan": {
+  "uploads": [
+   {
+    "entry": 1,
+    "file": "/home/user/fish/03_GC500_Delivery_Control/v10.22_event_nights_DRAFT/pdfs/GC500_EventNights_RunSheet_2026-10-23_Issued.pdf",
+    "name": "GC500_EventNights_RunSheet_2026-10-23_Issued.pdf",
+    "title": "Event nights run sheet · Friday night · 2026-10-23 · Issued and signed",
+    "note": "Run sheet for the friday night of 23 Oct 2026 (service night: maps, service order, spot checks, relocation requests); issued and signed by Andrew Fisher, Shutdown Manager, 15 Oct 2026; the night is recorded on the page's Event nights tab",
+    "kind": "pack",
+    "day": "2026-10-23",
+    "crew": "nights",
+    "replaces": [],
+    "bytes": 92651,
+    "sha256": "b1911c0c93ab1f9261d11b67bde7eaccb85a4e1128cb7c7588ddf9ca39a28a82",
+    "ok": true
+   },
+   {
+    "entry": 2,
+    "file": "/home/user/fish/03_GC500_Delivery_Control/v10.22_event_nights_DRAFT/pdfs/GC500_EventNights_RunSheet_2026-10-24_Issued.pdf",
+    "name": "GC500_EventNights_RunSheet_2026-10-24_Issued.pdf",
+    "title": "Event nights run sheet · Saturday night · 2026-10-24 · Issued and signed",
+    "note": "Run sheet for the saturday night of 24 Oct 2026 (service night: maps, service order, spot checks, relocation requests); issued and signed by Andrew Fisher, Shutdown Manager, 15 Oct 2026; the night is recorded on the page's Event nights tab",
+    "kind": "pack",
+    "day": "2026-10-24",
+    "crew": "nights",
+    "replaces": [],
+    "bytes": 92862,
+    "sha256": "12219163ae043204a15a54565d03195aa78d4bbd164bc4a7d55a6cc9282c1dc6",
+    "ok": true
+   },
+   {
+    "entry": 3,
+    "file": "/home/user/fish/03_GC500_Delivery_Control/v10.22_event_nights_DRAFT/pdfs/GC500_EventNights_RunSheet_2026-10-25_Issued.pdf",
+    "name": "GC500_EventNights_RunSheet_2026-10-25_Issued.pdf",
+    "title": "Event nights run sheet · Sunday night · 2026-10-25 · Issued and signed",
+    "note": "Run sheet for the sunday night of 25 Oct 2026 (final night: no pump-out missed, equipment off the roadways, relocations to the collection points); issued and signed by Andrew Fisher, Shutdown Manager, 15 Oct 2026; the night is recorded on the page's Event nights tab",
+    "kind": "pack",
+    "day": "2026-10-25",
+    "crew": "nights",
+    "replaces": [],
+    "bytes": 99324,
+    "sha256": "3f3a26dd192eb5906f9abe2e18ccb4e81adf4302bb263767e7ff5165fed3d2a9",
+    "ok": true
+   }
+  ],
+  "removals": []
+ },
+ "key_check": {
+  "http": 200,
+  "level": "edit"
+ },
+ "attempted": true,
+ "uploads": [
+  {
+   "name": "GC500_EventNights_RunSheet_2026-10-23_Issued.pdf",
+   "title": "Event nights run sheet · Friday night · 2026-10-23 · Issued and signed",
+   "sha256": "b1911c0c93ab1f9261d11b67bde7eaccb85a4e1128cb7c7588ddf9ca39a28a82",
+   "bytes": 92651,
+   "http": 200,
+   "id": "GC500_EventNights_RunSheet_2026-10-23_Issued.pdf",
+   "answer": {
+    "id": "GC500_EventNights_RunSheet_2026-10-23_Issued.pdf",
+    "name": "GC500_EventNights_RunSheet_2026-10-23_Issued.pdf",
+    "kind": "pack",
+    "ref": null,
+    "branch": null,
+    "invoice_no": null,
+    "title": "Event nights run sheet · Friday night · 2026-10-23 · Issued and signed",
+    "note": "Run sheet for the friday night of 23 Oct 2026 (service night: maps, service order, spot checks, relocation requests); issued and signed by Andrew Fisher, Shutdown Manager, 15 Oct 2026; the night is recorded on the page's Event nights tab",
+    "bytes": 92651,
+    "sha256": "b1911c0c93ab1f9261d11b67bde7eaccb85a4e1128cb7c7588ddf9ca39a28a82",
+    "type": "application/pdf",
+    "uploaded": "2026-10-14T19:34:51.317Z",
+    "by": "Andrew Fisher"
+   }
+  },
+  {
+   "name": "GC500_EventNights_RunSheet_2026-10-24_Issued.pdf",
+   "title": "Event nights run sheet · Saturday night · 2026-10-24 · Issued and signed",
+   "sha256": "12219163ae043204a15a54565d03195aa78d4bbd164bc4a7d55a6cc9282c1dc6",
+   "bytes": 92862,
+   "http": 200,
+   "id": "GC500_EventNights_RunSheet_2026-10-24_Issued.pdf",
+   "answer": {
+    "id": "GC500_EventNights_RunSheet_2026-10-24_Issued.pdf",
+    "name": "GC500_EventNights_RunSheet_2026-10-24_Issued.pdf",
+    "kind": "pack",
+    "ref": null,
+    "branch": null,
+    "invoice_no": null,
+    "title": "Event nights run sheet · Saturday night · 2026-10-24 · Issued and signed",
+    "note": "Run sheet for the saturday night of 24 Oct 2026 (service night: maps, service order, spot checks, relocation requests); issued and signed by Andrew Fisher, Shutdown Manager, 15 Oct 2026; the night is recorded on the page's Event nights tab",
+    "bytes": 92862,
+    "sha256": "12219163ae043204a15a54565d03195aa78d4bbd164bc4a7d55a6cc9282c1dc6",
+    "type": "application/pdf",
+    "uploaded": "2026-10-14T19:34:52.215Z",
+    "by": "Andrew Fisher"
+   }
+  },
+  {
+   "name": "GC500_EventNights_RunSheet_2026-10-25_Issued.pdf",
+   "title": "Event nights run sheet · Sunday night · 2026-10-25 · Issued and signed",
+   "sha256": "3f3a26dd192eb5906f9abe2e18ccb4e81adf4302bb263767e7ff5165fed3d2a9",
+   "bytes": 99324,
+   "http": 200,
+   "id": "GC500_EventNights_RunSheet_2026-10-25_Issued.pdf",
+   "answer": {
+    "id": "GC500_EventNights_RunSheet_2026-10-25_Issued.pdf",
+    "name": "GC500_EventNights_RunSheet_2026-10-25_Issued.pdf",
+    "kind": "pack",
+    "ref": null,
+    "branch": null,
+    "invoice_no": null,
+    "title": "Event nights run sheet · Sunday night · 2026-10-25 · Issued and signed",
+    "note": "Run sheet for the sunday night of 25 Oct 2026 (final night: no pump-out missed, equipment off the roadways, relocations to the collection points); issued and signed by Andrew Fisher, Shutdown Manager, 15 Oct 2026; the night is recorded on the page's Event nights tab",
+    "bytes": 99324,
+    "sha256": "3f3a26dd192eb5906f9abe2e18ccb4e81adf4302bb263767e7ff5165fed3d2a9",
+    "type": "application/pdf",
+    "uploaded": "2026-10-14T19:34:52.689Z",
+    "by": "Andrew Fisher"
+   }
+  }
+ ],
+ "removals": [],
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "files": [
+   {
+    "id": "GC500_EventNights_RunSheet_2026-10-23_Issued.pdf",
+    "title": "Event nights run sheet · Friday night · 2026-10-23 · Issued and signed",
+    "by": "Andrew Fisher",
+    "kind": "pack",
+    "bytes": 92651,
+    "sha256": "b1911c0c93ab1f9261d11b67bde7eaccb85a4e1128cb7c7588ddf9ca39a28a82",
+    "uploaded": "2026-10-14T19:34:51.317Z"
+   },
+   {
+    "id": "GC500_EventNights_RunSheet_2026-10-24_Issued.pdf",
+    "title": "Event nights run sheet · Saturday night · 2026-10-24 · Issued and signed",
+    "by": "Andrew Fisher",
+    "kind": "pack",
+    "bytes": 92862,
+    "sha256": "12219163ae043204a15a54565d03195aa78d4bbd164bc4a7d55a6cc9282c1dc6",
+    "uploaded": "2026-10-14T19:34:52.215Z"
+   },
+   {
+    "id": "GC500_EventNights_RunSheet_2026-10-25_Issued.pdf",
+    "title": "Event nights run sheet · Sunday night · 2026-10-25 · Issued and signed",
+    "by": "Andrew Fisher",
+    "kind": "pack",
+    "bytes": 99324,
+    "sha256": "3f3a26dd192eb5906f9abe2e18ccb4e81adf4302bb263767e7ff5165fed3d2a9",
+    "uploaded": "2026-10-14T19:34:52.689Z"
+   }
+  ]
+ },
+ "result": "VERIFIED"
+}

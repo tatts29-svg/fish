@@ -1,0 +1,83 @@
+Author: Andrew Fisher
+GC500 v8.40 Today work progress — release review
+
+Base: v8.38, 400bb272d392322ad5a615fa23b83d724d38bc15811b0cde242377b0c5777929
+Candidate: 573df8e5440f7cd9c48452a52632114bdc4cedbdf3254db007dc6bff35e48929
+Candidate bytes: 10,482,441
+Implementation: 28e1368b; refresh/navigation corrections: 1e393519.
+Public READY checkpoint: a9a3a73d.
+Owner: Codex. Claude remains intentionally paused at dacf75dd.
+Separate v8.39 film remains held and is excluded.
+
+The category dashboard uses the existing completion records and quantities.
+Reference-level complete ticks are not new per-unit physical inspections. On-site
+and rental status do not establish completion. Unknown quantities and conflicting
+short-delivery/completion evidence stay explicit. The current quantity/supply
+record remains the basis when historic completion ticks are replayed.
+
+Clean fencing compares recorded Build work with the quantified Build programme.
+It is not a unique-length or geometric completion measure. Other fence work and
+unplaced/undated evidence remain available through the existing native views.
+
+Verified before publication:
+- Standard build: all 11 inline scripts parse; no new credentials or map tokens.
+- 16 synthetic model checks, including unknown scope, short quantities, product
+  classification, cancellation, hydration, history and fencing phase/scope.
+- 26 source preservation checks: reproducible candidate, wrong/repeated-base
+  refusal, identical native DATA, Timeline/cost/fence/equipment/media functions,
+  existing styles, header shell and supporting scripts.
+- Independent final browser suite: 205/205 on this exact candidate at desktop,
+  390px phone/DPR2 and native 3840px. All six category totals and row membership
+  match native inputs; no operational write attempted.
+- Header comparison retains exact structure except independently changing native
+  attention dots. Existing video descriptors match, actual MP4 playback works,
+  and replaced media is stopped/cleaned up by its existing lifecycle.
+- First entry, category navigation, direct and full redraw, polling, all details,
+  reference identity, keyboard return, reduced motion, Motion Off and programme
+  exclusion passed. Phone probe additionally retained exact scroll and focus
+  through eight redraws and a polling window.
+- Dark-mode heading contrast 14.72:1 and secondary/basis text 8.68:1. Root and
+  independent visual review inspected phone, desktop and 4K captures.
+
+Initial evidence is retained. Earlier candidates revealed decorative programme
+motion behind the work dialog and native post-render/entry-animation scroll
+movement. Both were corrected and the entire final suite passed. Early test
+assumptions about changing attention dots and queued native dialog close events
+were corrected after targeted observation; those earlier runs are not presented
+as passes. The strict dashboard test blocked the external map-session POST as
+well as all operational writes; the separate native navigation sweep uses the
+standard map behaviour. No map implementation was changed.
+
+Navigation sweeps: desktop and phone each passed 22 native tab routes, seven
+deep links and Back navigation, with no runtime or console errors. Existing
+view-only/legacy route redirects are preserved. Map sessions used the standard
+external provider flow; operational writes remained blocked by the harness.
+Publication: VERIFIED LIVE, 4 October 2026 at 20:48 AEST.
+The guarded uploader verified unchanged v8.38 before publication, confirmed edit
+access and uploaded the candidate. The public response is the exact candidate
+SHA256 and 10,482,441 bytes. Upload response: 2026-10-04T10:48:54.508Z.
+No backend or media deployment was performed.
+
+Actual-public verification: 58/58 checks passed across desktop, phone and native
+4K using the public page, with zero local page substitutions. All three network
+captures match the exact candidate. The browser document in each run matches
+the same content with only its leading UTF-8 BOM removed: 10,482,438 bytes,
+SHA256 709c727a0f7c0d70a6d5d87969d91f48e45f19c375acd212ce1cb6ed005f04d9.
+All six category calculations, first-entry interaction and responsive/dark
+presentation passed. No page runtime errors or operational write attempts.
+Two expected external map-session POSTs were blocked by this strict harness;
+their corresponding console entries are not product failures. Standard native
+navigation sweeps above ran with the usual map behaviour and zero console errors.
+Root inspected fresh live imagery; independent visual review passed.
+
+The first two actual-public attempts hit inspector-cache eviction while reading
+the 10.48 MB document. Their raw network captures already matched the candidate.
+Increasing the capture buffer and reading through the same CDP session completed
+the third run. Published HTML did not change, and earlier evidence is retained.
+
+Before integration, before publication, after publication and after public tests,
+all 33 shared-record collections are identical. No source, completion, financial
+or other operational records were changed by this release.
+
+Detailed browser records, source snapshots and images are held privately.
+Public source/review files contain no copied operational or financial records.

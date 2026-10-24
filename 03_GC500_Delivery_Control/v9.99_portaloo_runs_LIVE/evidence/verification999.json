@@ -1,0 +1,157 @@
+{
+  "author": "Andrew Fisher",
+  "candidateSha256": "bfb7767a4036d7103940ed932365d687fe15a76921c6670d1ea78c6732b93dc8",
+  "modelChecks": 9,
+  "focused": {
+    "desktop": {
+      "checks": 24,
+      "recordVersion": 5321,
+      "groups": [
+        {
+          "date": "2026-10-13",
+          "units": [
+            24,
+            3
+          ],
+          "nativeUnits": [
+            24,
+            3
+          ]
+        },
+        {
+          "date": "2026-10-15",
+          "units": [
+            24
+          ],
+          "nativeUnits": [
+            24
+          ]
+        },
+        {
+          "date": "2026-10-19",
+          "units": [
+            24,
+            20
+          ],
+          "nativeUnits": [
+            24,
+            20
+          ]
+        },
+        {
+          "date": "2026-10-22",
+          "units": [
+            4
+          ],
+          "nativeUnits": [
+            4
+          ]
+        }
+      ],
+      "writes": 0
+    },
+    "phone": {
+      "checks": 24,
+      "recordVersion": 5321,
+      "groups": [
+        {
+          "date": "2026-10-13",
+          "units": [
+            24,
+            3
+          ],
+          "nativeUnits": [
+            24,
+            3
+          ]
+        },
+        {
+          "date": "2026-10-15",
+          "units": [
+            24
+          ],
+          "nativeUnits": [
+            24
+          ]
+        },
+        {
+          "date": "2026-10-19",
+          "units": [
+            24,
+            20
+          ],
+          "nativeUnits": [
+            24,
+            20
+          ]
+        },
+        {
+          "date": "2026-10-22",
+          "units": [
+            4
+          ],
+          "nativeUnits": [
+            4
+          ]
+        }
+      ],
+      "writes": 0
+    }
+  },
+  "sweeps": {
+    "desktop": {
+      "routes": 22,
+      "deepLinks": 7,
+      "back": true,
+      "errors": 0,
+      "consoleErrors": 0
+    },
+    "phone": {
+      "routes": 22,
+      "deepLinks": 7,
+      "back": true,
+      "errors": 0,
+      "consoleErrors": 0
+    }
+  },
+  "actualPublic": {
+    "desktop": {
+      "checks": 24,
+      "recordVersion": 5321,
+      "localHtmlSubstitutions": 0,
+      "operationalWrites": 0
+    },
+    "phone": {
+      "checks": 24,
+      "recordVersion": 5321,
+      "localHtmlSubstitutions": 0,
+      "operationalWrites": 0
+    }
+  },
+  "exports": {
+    "checks": 29,
+    "recordVersion": 5321,
+    "visualInspection": "Actual-public phone view and remaining-delivery PDF first page inspected. Unchanged inventory and demob PDF text matches prior visually verified exports exactly.",
+    "files": [
+      {
+        "kind": "inventory",
+        "pages": 4,
+        "bytes": 76258,
+        "sha256": "f216ccb208d0e854099aa427604757458b8481b0f9c10d51063369ae6eea5e6f"
+      },
+      {
+        "kind": "remaining",
+        "pages": 11,
+        "bytes": 169664,
+        "sha256": "156cd4b0ad32f971470bc0c6b101da650b467521c4a3ab4d1df65d55b87093dd"
+      },
+      {
+        "kind": "demob",
+        "pages": 8,
+        "bytes": 101778,
+        "sha256": "420aec169eb88d31dff02d90e83b8a4f1a409d69fe730afd272da8466a30ac6c"
+      }
+    ]
+  },
+  "liveAest": "12 Oct 2026 07:08 AEST"
+}

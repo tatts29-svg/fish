@@ -1,0 +1,172 @@
+/* Author: Andrew Fisher. "What you built" v2 - print styles, A4, millimetres and points throughout. */
+@page { size: 210mm 297mm; margin: 0; }
+:root { --ink:#14181B; --char:#232A30; --orange:#FF6B1A; --orange2:#FF8A3D; --mute:#69737B; --line:#E6E0D8; --warm:#F5F1EB; --ic:3.86mm; }
+* { box-sizing:border-box; }
+html, body { margin:0; padding:0; background:#fff; color:var(--ink); -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+body { font-family:'Inter Print', Arial, sans-serif; font-size:8.6pt; line-height:1.4; }
+.page { width:210mm; height:297mm; position:relative; overflow:hidden; page-break-after:always; break-after:page; background:#fff; }
+.page:last-child { page-break-after:auto; break-after:auto; }
+.kick { margin:0; font:700 7pt/1.2 'Inter Print'; letter-spacing:.3em; text-transform:uppercase; color:var(--orange); }
+h1, h2, h3, b.big { font-family:'Barlow Condensed'; }
+em { font-style:inherit; color:var(--orange); }
+
+/* ---------- cover ---------- */
+.cover .frame { position:absolute; inset:7mm; background:#081016; overflow:hidden; }
+.mapimg, .mapsvg { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:50% 0; display:block; }
+.mapsvg text.gate { font:800 30px 'Inter Print'; fill:#fff; }
+.mapsvg text.pl { font:700 40px 'Inter Print'; letter-spacing:13px; fill:#fff; fill-opacity:.78; paint-order:stroke; stroke:#081016; stroke-opacity:.55; stroke-width:7px; }
+.mapsvg text.pl.water { font-style:normal; fill:#9fd0e0; fill-opacity:.7; letter-spacing:18px; }
+.mapsvg text.north { font:800 64px 'Barlow Condensed'; fill:#fff; }
+.mapsvg text.scale { font:700 34px 'Inter Print'; fill:#fff; }
+.shade { position:absolute; left:0; right:0; pointer-events:none; }
+.shade.top { top:0; height:118mm; background:linear-gradient(to bottom, rgba(6,11,15,.96) 0%, rgba(6,11,15,.82) 38%, rgba(6,11,15,.35) 72%, rgba(6,11,15,0) 100%); }
+.shade.bottom { bottom:0; height:92mm; background:linear-gradient(to top, rgba(6,11,15,.97) 0%, rgba(6,11,15,.86) 42%, rgba(6,11,15,.3) 78%, rgba(6,11,15,0) 100%); }
+.shade.left { top:0; bottom:0; width:96mm; background:linear-gradient(to right, rgba(6,11,15,.72), rgba(6,11,15,0)); }
+.ctitle { position:absolute; left:11mm; top:12mm; width:130mm; color:#fff; }
+.ctitle h1 { margin:4mm 0 0; font:900 italic 76pt/.84 'Barlow Condensed'; letter-spacing:-.01em; text-transform:uppercase; }
+.ctitle h1 em { color:var(--orange); }
+.ctitle .who { margin:5mm 0 0; font:600 9pt/1.45 'Inter Print'; color:rgba(255,255,255,.88); }
+.ctitle .who:first-line { font-weight:800; color:#fff; }
+.hero { position:absolute; left:11mm; top:113mm; width:82mm; color:#fff; }
+.hero b { font:900 italic 112pt/.8 'Barlow Condensed'; letter-spacing:-.02em; text-shadow:0 2mm 8mm rgba(0,0,0,.45); }
+.hero span { font:900 italic 34pt/1 'Barlow Condensed'; color:var(--orange); margin-left:2mm; text-transform:uppercase; }
+.hero p { margin:3mm 0 0; font:500 8.2pt/1.45 'Inter Print'; color:rgba(255,255,255,.86); max-width:70mm; text-shadow:0 .5mm 2mm rgba(0,0,0,.6); }
+.badge { position:absolute; right:11mm; top:12mm; width:34mm; height:34mm; }
+.badge svg { position:absolute; inset:0; width:100%; height:100%; filter:drop-shadow(0 1mm 3mm rgba(0,0,0,.5)); }
+.badge div { position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; color:#fff; }
+.badge b { font:900 italic 25pt/.9 'Barlow Condensed'; }
+.badge span { font:800 5.6pt/1.2 'Inter Print'; letter-spacing:.18em; text-transform:uppercase; margin-top:1mm; }
+.cfoot { position:absolute; left:11mm; right:11mm; bottom:8mm; color:#fff; }
+.cstats { display:grid; grid-template-columns:repeat(4, 1fr); gap:0; border-top:.35mm solid rgba(255,255,255,.28); padding-top:4mm; }
+.cstats div { padding-right:3mm; }
+.cstats div + div { border-left:.35mm solid rgba(255,255,255,.18); padding-left:4mm; }
+.cstats b { display:block; font:900 italic 30pt/.9 'Barlow Condensed'; }
+.cstats b small { font-size:14pt; color:var(--orange); margin-left:1mm; text-transform:uppercase; }
+.cstats span { display:block; margin-top:1.4mm; font:700 6.2pt/1.2 'Inter Print'; letter-spacing:.14em; text-transform:uppercase; color:rgba(255,255,255,.75); }
+.legend { display:flex; gap:7mm; margin-top:5mm; font:600 6.6pt 'Inter Print'; color:rgba(255,255,255,.85); align-items:center; }
+.legend span { display:flex; align-items:center; gap:2mm; }
+.lg { display:inline-block; }
+.lg.fence { width:9mm; height:1.3mm; background:var(--orange2); box-shadow:0 0 1.6mm .4mm rgba(255,107,26,.7); border-radius:1mm; }
+.lg.track { width:9mm; height:.9mm; background:#fff; box-shadow:0 0 1.4mm .3mm rgba(255,255,255,.45); border-radius:1mm; }
+.lg.gate { width:3.6mm; height:3.6mm; border-radius:50%; border:.45mm solid var(--orange2); background:#081016; font:800 5.4pt/3mm 'Inter Print'; text-align:center; color:#fff; font-style:normal; }
+.credit { margin:3.2mm 0 0; font:400 5pt/1.4 'Inter Print'; color:rgba(255,255,255,.52); }
+
+/* ---------- inner pages ---------- */
+.inner { padding:13mm 14mm 0; }
+.ph { position:relative; padding-bottom:4mm; margin-bottom:6mm; border-bottom:.5mm solid var(--ink); }
+.ph h2 { margin:2mm 0 0; font:900 italic 40pt/.92 'Barlow Condensed'; text-transform:uppercase; letter-spacing:-.005em; }
+.ph .pnum { position:absolute; right:0; top:-2mm; font:900 italic 58pt/1 'Barlow Condensed'; color:#EEE8E0; }
+.dk { margin:0; font:800 6.4pt/1.2 'Inter Print'; letter-spacing:.18em; text-transform:uppercase; color:var(--mute); }
+.pf { position:absolute; left:14mm; right:14mm; bottom:8mm; padding-top:2mm; border-top:.3mm solid var(--line); font:500 5.8pt/1.3 'Inter Print'; color:var(--mute); }
+
+/* page 2 */
+.dist { display:grid; grid-template-columns:repeat(3, 1fr); }
+.dist > div { padding:0 5mm 0 0; }
+.dist > div + div { padding-left:5mm; border-left:.3mm solid var(--line); }
+.dist b { display:block; margin:2mm 0 2mm; font:900 italic 54pt/.88 'Barlow Condensed'; letter-spacing:-.01em; }
+.dist b small { font-size:20pt; color:var(--orange); margin-left:1.2mm; text-transform:uppercase; }
+.dist p { margin:0; font-size:8pt; line-height:1.42; color:#3A4248; }
+.dist p.dk { color:var(--mute); }
+.dist strong { color:var(--ink); }
+.laps { margin:6mm 0 5mm; background:var(--ink); color:#fff; border-radius:2.5mm; padding:5.5mm 7mm; display:grid; grid-template-columns:70mm 1fr; gap:5mm; align-items:center; }
+.laps h3 { margin:2mm 0 2mm; font:800 italic 19pt/1 'Barlow Condensed'; text-transform:uppercase; }
+.laps p:not(.kick) { margin:0; font-size:6.8pt; color:rgba(255,255,255,.66); line-height:1.4; }
+.lapicons { display:grid; grid-template-columns:repeat(8, 1fr); gap:1.6mm; }
+.lap { width:100%; height:30mm; overflow:visible; }
+.lap path { fill:none; stroke-linejoin:round; }
+.lap path { vector-effect:non-scaling-stroke; }
+.lapfull { stroke:#fff; stroke-width:1.5; }
+.lapghost { stroke:rgba(255,255,255,.38); stroke-width:1; stroke-dasharray:1.6 2.4; }
+.lappart { stroke:var(--orange); stroke-width:2.6; stroke-linecap:round; }
+.lapn { font:900 italic 9px 'Barlow Condensed'; fill:rgba(255,255,255,.5); text-anchor:middle; }
+.lapn.part { fill:var(--orange); }
+.isohead { display:flex; justify-content:space-between; align-items:flex-end; margin:0 0 3mm; }
+.isohead h3 { margin:0; font:800 13pt/1 'Barlow Condensed'; text-transform:uppercase; letter-spacing:.02em; }
+.isohead p { margin:0; display:flex; align-items:center; gap:1.6mm; font:600 7pt 'Inter Print'; color:var(--mute); }
+.isohead .key .ic { width:4.2mm; height:4.2mm; color:var(--orange); }
+.iso { display:grid; grid-template-columns:47mm 1fr; gap:4mm; padding:3.3mm 0; border-top:.3mm solid var(--line); align-items:center; }
+.isolab b { display:block; font:900 italic 24pt/.9 'Barlow Condensed'; }
+.isolab span { display:block; margin-top:.8mm; font:800 7pt/1.2 'Inter Print'; letter-spacing:.12em; text-transform:uppercase; }
+.isolab i { display:block; margin-top:.6mm; font:400 6.3pt/1.3 'Inter Print'; color:var(--mute); font-style:normal; }
+.isoicons { display:grid; grid-template-columns:repeat(30, var(--ic)); gap:.6mm .5mm; color:var(--char); line-height:0; }
+.iso-feet .isoicons { color:var(--orange); }
+.ic { width:var(--ic); height:var(--ic); display:block; }
+.icpart { display:block; overflow:hidden; height:var(--ic); }
+.icpart .ic { width:var(--ic); }
+.rest { display:grid; grid-template-columns:repeat(5, 1fr); margin-top:1mm; border-top:.3mm solid var(--line); padding-top:4mm; }
+.rest b { display:block; font:900 italic 20pt/.9 'Barlow Condensed'; }
+.rest span { display:block; margin-top:.8mm; font:700 6.2pt/1.2 'Inter Print'; letter-spacing:.1em; text-transform:uppercase; color:var(--mute); }
+.note { margin:4mm 0 0; font-size:6.8pt; line-height:1.45; color:var(--mute); max-width:170mm; }
+
+/* page 3 */
+.chartbox { margin:0 0 3mm; }
+.ckey { display:flex; gap:6mm; font:600 6.6pt 'Inter Print'; color:var(--mute); margin-bottom:1mm; }
+.ckey span { display:flex; align-items:center; gap:1.6mm; }
+.sw { display:inline-block; width:3.4mm; height:3.4mm; border-radius:.5mm; }
+.sw.f { background:var(--orange); } .sw.c { background:var(--char); } .sw.d { border-radius:50%; border:.45mm solid var(--char); background:#fff; width:3.6mm; height:3.6mm; }
+.chart { width:100%; height:auto; display:block; }
+.chart .grid { stroke:#ECE6DE; stroke-width:1; }
+.chart .ax { font:500 12px 'Inter Print'; fill:#8A939A; }
+.chart .ax.cum { fill:var(--ink); font-weight:700; }
+.chart .bf { fill:var(--orange); } .chart .bc { fill:var(--char); }
+.chart .val { font:800 italic 19px 'Barlow Condensed'; fill:var(--ink); }
+.chart .val.big { fill:var(--orange); font-size:23px; }
+.chart .dkc { fill:#fff; stroke:var(--char); stroke-width:2.2; } .chart .dkc.ev { fill:#fff; stroke:#fff; }
+.chart .dkn { font:800 14px 'Inter Print'; fill:var(--ink); } .chart .dkn.ev { fill:var(--orange); }
+.chart .tag { font:800 12px 'Inter Print'; letter-spacing:.16em; fill:var(--orange); } .chart .tag.dark { fill:var(--ink); }
+.chart .wk { font:800 italic 17px 'Barlow Condensed'; fill:var(--ink); letter-spacing:.04em; }
+.chart .wkd { font:500 12px 'Inter Print'; fill:#7A848B; }
+.runbox { display:grid; grid-template-columns:44mm 1fr; gap:4mm; align-items:center; margin:0 0 6mm; padding:3.4mm 0; border-top:.3mm solid var(--line); border-bottom:.3mm solid var(--line); }
+.runt p:not(.kick) { margin:1.4mm 0 0; font:600 7.4pt/1.35 'Inter Print'; color:#3A4248; }
+.runt b { font:900 italic 12pt 'Barlow Condensed'; color:var(--ink); }
+.strip { width:100%; height:auto; display:block; }
+.strip .seg.s0 { fill:var(--orange); } .strip .seg.s1 { fill:#FFA86E; }
+.strip .segw { font:800 italic 18px 'Barlow Condensed'; fill:var(--ink); letter-spacing:.04em; }
+.strip .segk { font:800 16px 'Inter Print'; fill:var(--ink); } .strip .tick { stroke:var(--ink); stroke-width:1.6; }
+.records { display:grid; grid-template-columns:repeat(4, 1fr); gap:4mm; margin-bottom:7mm; }
+.rec { border-top:1mm solid var(--ink); padding-top:2.4mm; }
+.rec.hot { border-top-color:var(--orange); }
+.rec b { display:block; margin:1.4mm 0 1.2mm; font:900 italic 27pt/.9 'Barlow Condensed'; }
+.rec b small { font-size:12pt; color:var(--orange); margin-left:1mm; text-transform:uppercase; }
+.rec p:not(.dk) { margin:0; font-size:7pt; line-height:1.4; color:#3A4248; }
+.split { display:grid; grid-template-columns:1fr 1fr; gap:5mm; }
+.weather { background:var(--ink); color:#fff; border-radius:2.5mm; padding:5.5mm 6mm; }
+.wx { display:grid; grid-template-columns:1fr 1fr; gap:4mm 4mm; margin-top:4mm; }
+.wx b { display:block; font:900 italic 24pt/.9 'Barlow Condensed'; }
+.wx b small { font-size:11pt; color:var(--orange); margin:0 1mm; text-transform:uppercase; }
+.wx span { display:block; margin-top:1mm; font:600 6.4pt/1.3 'Inter Print'; color:rgba(255,255,255,.72); }
+.weather .src { margin:4mm 0 0; font-size:5.6pt; color:rgba(255,255,255,.45); }
+.twice { background:var(--warm); border-radius:2.5mm; padding:5.5mm 6mm; display:flex; flex-direction:column; }
+.twice ul { list-style:none; margin:3mm 0 0; padding:0; }
+.twice li { display:grid; grid-template-columns:24mm 1fr; align-items:baseline; padding:1.8mm 0; border-bottom:.3mm solid #E3DCD2; }
+.twice li b { font:900 italic 15pt/1 'Barlow Condensed'; }
+.twice li span { font-size:7pt; color:#3A4248; }
+.papers { margin-top:auto; padding-top:4mm; display:flex; gap:3.5mm; align-items:center; }
+.papers > b { font:900 italic 46pt/.85 'Barlow Condensed'; color:var(--orange); }
+.papers strong { display:block; font:800 7pt/1.2 'Inter Print'; letter-spacing:.14em; text-transform:uppercase; }
+.papers span { display:block; margin-top:1mm; font-size:6.6pt; line-height:1.4; color:#3A4248; }
+
+/* page 4 */
+.sup { position:relative; overflow:hidden; display:flex; gap:6mm; align-items:center; background:var(--ink); color:#fff; border-radius:2.5mm; padding:6mm 7mm; }
+.supmono { width:24mm; height:24mm; border-radius:50%; background:var(--orange); display:flex; align-items:center; justify-content:center; font:900 italic 30pt 'Barlow Condensed'; flex:none; }
+.sup .dk { color:var(--orange); }
+.sup h3 { margin:1mm 0 .6mm; font:900 italic 36pt/.95 'Barlow Condensed'; text-transform:uppercase; }
+.sup p:not(.dk) { margin:0; font:600 8pt 'Inter Print'; color:rgba(255,255,255,.75); }
+.supflag { position:absolute; right:-4mm; top:-2mm; width:40mm; height:27mm; opacity:.16; transform:rotate(-8deg); }
+.crew { list-style:none; margin:5mm 0 0; padding:0; display:grid; grid-template-columns:repeat(3, 1fr); gap:3.4mm 4mm; }
+.crew li { display:flex; align-items:center; gap:3mm; padding:3.6mm 3.4mm; border:.35mm solid var(--line); border-radius:2mm; }
+.crew .mono { width:10mm; height:10mm; border-radius:50%; border:.5mm solid var(--orange); display:flex; align-items:center; justify-content:center; font:800 italic 12pt 'Barlow Condensed'; color:var(--orange); flex:none; }
+.crew b { font:800 italic 15.5pt/1.02 'Barlow Condensed'; text-transform:uppercase; }
+.letter { margin:7mm 0 0; padding:8mm 10mm 7mm; background:var(--warm); border-radius:2.5mm; border-left:1.6mm solid var(--orange); }
+.letter p { margin:0 0 3.6mm; font-size:10.2pt; line-height:1.6; color:#262D32; }
+.letter .dear { font:900 italic 22pt/1 'Barlow Condensed'; color:var(--ink); margin-bottom:3.5mm; }
+.sign { display:flex; align-items:flex-end; gap:6mm; margin-top:6mm; }
+.sign .line { width:62mm; border-bottom:.35mm solid var(--ink); height:12mm; }
+.sign p { margin:0; }
+.sign b { display:block; font:900 italic 16pt/1 'Barlow Condensed'; text-transform:uppercase; }
+.sign span { display:block; margin-top:.8mm; font:600 7pt 'Inter Print'; color:var(--mute); }
+.finish { position:relative; margin-top:7mm; height:19mm; border-radius:2.5mm; overflow:hidden; }
+.finish .flag { position:absolute; inset:0; width:100%; height:100%; }
+.fin { position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); background:var(--orange); color:#fff; padding:2mm 7mm; border-radius:1.6mm; text-align:center; box-shadow:0 1mm 4mm rgba(0,0,0,.35); }
+.fin b { display:block; font:900 italic 17pt/1 'Barlow Condensed'; text-transform:uppercase; letter-spacing:.02em; }
+.fin span { display:block; font:800 6.4pt/1.3 'Inter Print'; letter-spacing:.2em; text-transform:uppercase; }

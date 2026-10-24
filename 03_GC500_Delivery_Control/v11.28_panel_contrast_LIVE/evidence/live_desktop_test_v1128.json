@@ -1,0 +1,163 @@
+{
+ "at": "2026-10-22T15:29:52.227Z",
+ "live": true,
+ "results": [
+  {
+   "name": "footer says the expected release",
+   "ok": true
+  },
+  {
+   "name": "the v11.28 style is the last style block on the page, after every skin",
+   "ok": true
+  },
+  {
+   "name": "panel table: the table, its rows and cells are one dark surface; the heading row the skin's navy",
+   "ok": true,
+   "detail": {
+    "rowBg": "rgb(22, 27, 30)",
+    "thBg": "rgb(22, 27, 30)",
+    "tdBg": "rgb(22, 27, 30)",
+    "tblBg": "rgb(22, 27, 30)",
+    "th": "rgb(230, 241, 246)",
+    "b": "rgb(255, 255, 255)",
+    "span": "rgb(201, 218, 227)",
+    "head": {
+     "color": "rgb(246, 252, 255)",
+     "bg": "rgb(32, 60, 72)"
+    },
+    "no": {
+     "color": "rgb(255, 201, 122)",
+     "bg": "rgb(46, 36, 16)",
+     "weight": "800",
+     "text": "not yet"
+    },
+    "na": {
+     "color": "rgb(142, 163, 176)",
+     "text": "–"
+    },
+    "ok": {
+     "color": "rgb(140, 245, 192)",
+     "text": "21:58"
+    },
+    "done": {
+     "bg": "rgb(19, 48, 42)",
+     "thBg": "rgb(19, 48, 42)",
+     "ref": "PG01",
+     "fin": "rgb(140, 245, 192)"
+    },
+    "rows": 14
+   }
+  },
+  {
+   "name": "panel table: reference names white, unit lines light grey on the dark",
+   "ok": true,
+   "detail": {
+    "rowBg": "rgb(22, 27, 30)",
+    "thBg": "rgb(22, 27, 30)",
+    "tdBg": "rgb(22, 27, 30)",
+    "tblBg": "rgb(22, 27, 30)",
+    "th": "rgb(230, 241, 246)",
+    "b": "rgb(255, 255, 255)",
+    "span": "rgb(201, 218, 227)",
+    "head": {
+     "color": "rgb(246, 252, 255)",
+     "bg": "rgb(32, 60, 72)"
+    },
+    "no": {
+     "color": "rgb(255, 201, 122)",
+     "bg": "rgb(46, 36, 16)",
+     "weight": "800",
+     "text": "not yet"
+    },
+    "na": {
+     "color": "rgb(142, 163, 176)",
+     "text": "–"
+    },
+    "ok": {
+     "color": "rgb(140, 245, 192)",
+     "text": "21:58"
+    },
+    "done": {
+     "bg": "rgb(19, 48, 42)",
+     "thBg": "rgb(19, 48, 42)",
+     "ref": "PG01",
+     "fin": "rgb(140, 245, 192)"
+    },
+    "rows": 14
+   }
+  },
+  {
+   "name": "panel table: \"not yet\" is bold amber on a dark amber tint; a dash is quiet grey; a done time is bright green",
+   "ok": true,
+   "detail": {
+    "rowBg": "rgb(22, 27, 30)",
+    "thBg": "rgb(22, 27, 30)",
+    "tdBg": "rgb(22, 27, 30)",
+    "tblBg": "rgb(22, 27, 30)",
+    "th": "rgb(230, 241, 246)",
+    "b": "rgb(255, 255, 255)",
+    "span": "rgb(201, 218, 227)",
+    "head": {
+     "color": "rgb(246, 252, 255)",
+     "bg": "rgb(32, 60, 72)"
+    },
+    "no": {
+     "color": "rgb(255, 201, 122)",
+     "bg": "rgb(46, 36, 16)",
+     "weight": "800",
+     "text": "not yet"
+    },
+    "na": {
+     "color": "rgb(142, 163, 176)",
+     "text": "–"
+    },
+    "ok": {
+     "color": "rgb(140, 245, 192)",
+     "text": "21:58"
+    },
+    "done": {
+     "bg": "rgb(19, 48, 42)",
+     "thBg": "rgb(19, 48, 42)",
+     "ref": "PG01",
+     "fin": "rgb(140, 245, 192)"
+    },
+    "rows": 14
+   }
+  },
+  {
+   "name": "panel table: a done row (PG01) sits on the dark green with its done time in bright green",
+   "ok": true,
+   "detail": {
+    "bg": "rgb(19, 48, 42)",
+    "thBg": "rgb(19, 48, 42)",
+    "ref": "PG01",
+    "fin": "rgb(140, 245, 192)"
+   }
+  },
+  {
+   "name": "crew card template unchanged in substance: v11.27 status page present, no v11.28 style inside it",
+   "ok": true,
+   "detail": {
+    "len": 134321
+   }
+  },
+  {
+   "name": "record unchanged by the run",
+   "ok": true
+  },
+  {
+   "name": "no page errors",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "name": "no writes attempted",
+   "ok": true,
+   "detail": {
+    "page": 0,
+    "live": 33,
+    "blocked": 0
+   }
+  }
+ ]
+}

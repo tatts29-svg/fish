@@ -1,0 +1,81 @@
+{
+  "author": "Andrew Fisher",
+  "at": "2026-10-13T11:35:04.725Z",
+  "sha256": "b5d99de88886d9f03aad7af2177b68b1239919542f6c27e2d80be7ec9a89bdfb",
+  "nativeVersion": 5796,
+  "items": 185,
+  "arrivedItemGroups": 117,
+  "checks": [
+    {
+      "name": "No model mutation of shared record",
+      "pass": true
+    },
+    {
+      "name": "All arrived applicable automatic service quantities included",
+      "pass": true
+    },
+    {
+      "name": "Stairs remain manual",
+      "pass": true
+    },
+    {
+      "name": "Costs labour equals charged plan and tick total",
+      "pass": true
+    },
+    {
+      "name": "Labour slots have unique reference item charge state",
+      "pass": true
+    },
+    {
+      "name": "Costs actual and P&L actual agree",
+      "pass": true
+    },
+    {
+      "name": "Costs job and P&L forecast agree",
+      "pass": true
+    },
+    {
+      "name": "P&L model controls reconcile",
+      "pass": true
+    },
+    {
+      "name": "Branch financial controls reconcile",
+      "pass": true
+    },
+    {
+      "name": "P&L reconciliation controls pass",
+      "pass": true
+    },
+    {
+      "name": "Arrived package branch sum matches priced subtotal",
+      "pass": true
+    },
+    {
+      "name": "Transport actual and remaining reconcile once",
+      "pass": true
+    },
+    {
+      "name": "Transport contract plus arrived allowance equals Costs",
+      "pass": true
+    },
+    {
+      "name": "Transport invoice and revenue controls pass",
+      "pass": true
+    },
+    {
+      "name": "Generator actual plus remaining equals total",
+      "pass": true
+    },
+    {
+      "name": "Generator branch amounts tie once",
+      "pass": true
+    },
+    {
+      "name": "No browser errors or live writes",
+      "pass": true
+    }
+  ],
+  "modelErrors": [],
+  "browserErrors": [],
+  "liveWrites": 0
+}

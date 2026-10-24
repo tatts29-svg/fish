@@ -1,0 +1,19 @@
+PASS all seven groups present
+PASS all groups initially open
+PASS supporting details initially folded
+PASS bounded Today rail
+PASS balanced responsive progress grid
+PASS contacts use available space
+PASS contact card fills content rail
+PASS native Today controls retained
+PASS no duplicate identifiers
+PASS manual collapse works
+PASS manual collapse survives redraw
+PASS other groups remain open
+PASS native automatic instrument animation
+PASS redraw retains scroll position
+PASS redraw does not change data or money
+PASS no page-wide horizontal overflow
+PASS no runtime errors
+PASS no attempted live writes
+phone: 18/18

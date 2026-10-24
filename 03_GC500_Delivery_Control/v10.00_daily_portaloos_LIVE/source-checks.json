@@ -1,0 +1,15 @@
+{
+  "author": "Andrew Fisher",
+  "candidateSha256": "b899e56b8d76776ed361940a0fd2e968628edee562e274b9b33aa8e10679cdc4",
+  "exactBuildReproduction": true,
+  "repeatAndWrongBaseGuards": true,
+  "embeddedDataAndCommittedUnchanged": true,
+  "sourceHashes": {
+    "daily1000_model.cjs": "cf37f4c807ce4b1f875a2c793f9da90cafa12ff7df058acc34c03c4071140817",
+    "plan1000.js": "eab06dc2d987c48b52daf63f0f92e7b15e2a5a34dcd2e1ef7dc8a3070c2e26f0",
+    "browser1000.cjs": "d88ae0daa7b162cbbca5bd5dd56c3d3d7c816b90053ab91fa0781dce43b6923d",
+    "daily1000.js": "771ef774fb35eff7cba56483f7414a5e6c043b27e3b98811feb1674902a4763d",
+    "patch_v1000.py": "6039146675ce24f386f28c96766042976834cef0e217333b928e42c9c46cd8d1",
+    "portrait1000.js": "b27902342258bd48f092ff5ffcbf6ee528d312c5827e33a8cc5cc8770aa6390d"
+  }
+}

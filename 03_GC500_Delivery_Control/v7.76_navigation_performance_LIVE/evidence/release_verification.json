@@ -1,0 +1,62 @@
+{
+  "author": "Andrew Fisher",
+  "release": "v7.76",
+  "base": "v7.74",
+  "live_at": "2026-10-01T18:59:47+10:00",
+  "bytes": 8674101,
+  "sha256": "449f9d0c292d64388c7cb804bcab13307bac3d7cd48118160f147742a9a9e1d1",
+  "public_view_matches": true,
+  "record_version_before": 3521,
+  "record_version_after": 3521,
+  "record_writes": 0,
+  "ledger_posts": 0,
+  "checks": {
+    "build": "PASS",
+    "synthetic": {
+      "passed": 21,
+      "of": 21
+    },
+    "paired_desktop": {
+      "passed": 36,
+      "of": 36
+    },
+    "paired_phone": {
+      "passed": 36,
+      "of": 36
+    },
+    "dry_run": "PASS",
+    "phone_visual": "inspected; no presentation change or page overflow",
+    "sweep_desktop": {
+      "tabs": 21,
+      "deep_links": 7,
+      "page_errors": 0,
+      "console_errors": 0,
+      "redirected_tabs": [
+        "register",
+        "journal",
+        "breakdowns",
+        "variances",
+        "edit",
+        "add"
+      ],
+      "redirect_note": "Register alias and editor-only tabs redirect as on the view-only baseline."
+    },
+    "sweep_phone": {
+      "tabs": 21,
+      "deep_links": 7,
+      "page_errors": 0,
+      "console_errors": 0,
+      "redirected_tabs": [
+        "register",
+        "journal",
+        "breakdowns",
+        "variances",
+        "edit",
+        "add"
+      ],
+      "redirect_note": "Register alias and editor-only tabs redirect as on the view-only baseline."
+    }
+  },
+  "benchmark": "benchmark_summary.json",
+  "additional_cross_review": "Claude is running an additional source/live check; completion pending at release."
+}

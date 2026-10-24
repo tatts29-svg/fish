@@ -1,0 +1,86 @@
+{
+  "author": "Andrew Fisher",
+  "state": "verified_live",
+  "base_sha256": "87b47dc52dc52dc9d078e8f77f79ed3c9e835244e5855e075a075aab1b338b47",
+  "candidate_sha256": "d584e292ec8647532ef7e93e3873dd41a48efd5890a4a9e32435318e7871b1dc",
+  "candidate_bytes": 18622270,
+  "patch_tests": {
+    "passed": 10,
+    "failed": 0
+  },
+  "local_server_rehearsal": {
+    "passed": 39,
+    "failed": 0,
+    "server_sha256": "c1b8bf9c999d4e548384b682592409507dbaf8bb7c4c62c590b62127b69c89b7",
+    "network": "localhost_only"
+  },
+  "sweeps": {
+    "desktop": {
+      "routes": 25,
+      "aliases_correct": true,
+      "deep_links": 7,
+      "back_correct": true,
+      "page_errors": 0,
+      "console_errors": 0,
+      "attempted_writes": 0
+    },
+    "phone": {
+      "routes": 25,
+      "aliases_correct": true,
+      "deep_links": 7,
+      "back_correct": true,
+      "page_errors": 0,
+      "console_errors": 0,
+      "attempted_writes": 0
+    }
+  },
+  "native_dry_run": {
+    "passed": true,
+    "captured_posts": 1,
+    "sent_posts": 0,
+    "template_preserved": true,
+    "existing_codes_and_completions_preserved": true,
+    "job_record_unchanged": true
+  },
+  "independent_source_review": "passed",
+  "guarded_upload_access": "passed_dry_run_only",
+  "physical_phone_paper_scans": "not_verified",
+  "private_inputs_and_artifacts": "retained_outside_repository",
+  "print_symbols_layout": {
+    "passed": 12,
+    "failed": 0
+  },
+  "print_readiness_guard": {
+    "passed": 10,
+    "failed": 0
+  },
+  "print_regression": {
+    "passed": 49,
+    "failed": 0
+  },
+  "synthetic_private_preview": {
+    "passed": 100,
+    "failed": 0
+  },
+  "source_commit": "928ebdc6174aed02571107781223da2ea8fe10ea",
+  "guarded_upload": "passed",
+  "independent_public_byte_readback": "passed",
+  "native_tracker_update": {
+    "posts": 1,
+    "existing_token_and_key_retained": true,
+    "exact_html_and_config_readback": true,
+    "existing_signatures_and_completions_preserved": true,
+    "complete_job_record_and_version_unchanged": true
+  },
+  "live_phone_readback": {
+    "iphone_emulation": "passed",
+    "android_emulation": "passed",
+    "writes": 0,
+    "script_errors": 0
+  },
+  "final_private_pdf_audit": {
+    "passed": 107,
+    "failed": 0,
+    "all_previous_codes_retained": true
+  }
+}
