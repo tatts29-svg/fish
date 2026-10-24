@@ -10,7 +10,7 @@ Connect Railway at https://claude.ai/customize/connectors, then start a new sess
 this list. Nothing here has been switched yet.
 
 Codex's handover: [PR #1 comment 6376612716](https://github.com/tatts29-svg/fish/pull/1#issuecomment-6376612716);
-source and tests in `server_v5.92_crew_groups_DRAFT/`. Codex holds the v11.73 main and crew publication until this
+source and tests in `server_v5.92_crew_groups_LIVE/` (`_DRAFT` until the switch). Codex holds the v11.73 main and crew publication until this
 switch has been read back, and holds any machine import or prune until `SERVER_FILE` protects the new blob.
 
 ## Exact values
@@ -37,7 +37,7 @@ Run these again immediately before the switch. If the v5.92 blob is missing, sto
 
 ## The switch
 
-1. **Back up privately.** `python3 server_v5.92_crew_groups_DRAFT/stage.py --private-dir <scratchpad>/v592_backup`
+1. **Back up privately.** `python3 server_v5.92_crew_groups_LIVE/stage.py --private-dir <scratchpad>/v592_backup`
    (no `--execute`). GET-only: it saves health, version, full state, cards, all ticks, machine inventory and the page,
    and refuses unless the server is v5.91 and the page is `84cb7d6c…`. The folder stays in the scratchpad, never the
    repository. If the page has moved on, stop and ask Codex rather than editing the check.
@@ -51,7 +51,7 @@ Run these again immediately before the switch. If the v5.92 blob is missing, sto
    - `/api/ticks` with no key → 401.
 4. **No live test completions**, no record writes.
 5. **Report** on PR #1 (Ack 6376612716): exact boot-file hash, health line, preservation results. Then STATUS.md LIVE
-   entry, rename `server_v5.92_crew_groups_DRAFT` → `_LIVE` only after Codex agrees, and tell Andrew in plain words.
+   entry, rename `server_v5.92_crew_groups_DRAFT` → `_LIVE` only after Codex agrees (done 24 Oct), and tell Andrew in plain words.
 
 ## Rollback
 

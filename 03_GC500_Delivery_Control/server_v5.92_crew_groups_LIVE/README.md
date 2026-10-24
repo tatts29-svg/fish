@@ -1,4 +1,6 @@
-# Crew-group persistence — staged, awaiting Railway switch
+**VERIFIED LIVE — 24 Oct 2026 10:04 AEST.** Claude switched Railway on Andrew's go-ahead: deployment d8e7fa2c-269c-400a-8435-80af3b861ae7, boot log names `bdb058ffe1d7e269be978546581383a85f11bd7fc7078f569d41de33b6efe396` as `/app/server.js`, `/health` v5.92 with `crew_groups_version: 1`, page, state, ticks, signed links and every server blob preserved ([PR #1 comment 6377390954](https://github.com/tatts29-svg/fish/pull/1#issuecomment-6377390954)). Codex verified independently and published v11.73 on it. Rollback: `SERVER_FILE=c1b8bf9c…` plus the predecessor crew HTML, as below. Switch steps: `../server_v5.92_switch_runbook/README.md`. Author: Andrew Fisher.
+
+# Crew-group persistence — LIVE (staging notes kept below)
 
 Author: Andrew Fisher · 24 Oct 2026
 
