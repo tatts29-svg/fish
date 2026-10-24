@@ -2,13 +2,18 @@
 
 Author: Andrew Fisher
 
-READY TO UPLOAD — all final candidate checks passed; not published yet. Source is
-this commit on `ccr-061f77e8-ivjhrv`, starting from
+LIVE — 25 Oct 2026 06:27:49 AEST through the normal guarded upload.
+READY source `3e2305a6220c4109b3833e0c1e522cb09d1f7483` on
+`ccr-061f77e8-ivjhrv`, starting from
 `db79a2bdcb843f8303054de2e07c15c9392d9e25`.
+Separate public GET at 06:28:08 AEST matched the exact bytes and footer. Actual
+public UI checks passed 9/9, including the saved explorer link, Original plan,
+height choice, zoom, full screen, embedded Escape, phone sizing and header restore.
+Live wide and phone screenshots inspected. This release is complete.
 
 Base live v12.00:
 `2261fdc8c1043bad0ed582fac9240366ef112e1275e4962ced62068089c2de51`.
-Candidate v12.03:
+Verified live v12.03:
 `682fcc85862c2ba91c2d201b4406901d8d881f4d9e64bdc8e3ef30d00c1c0e69`
 (15,180,045 bytes; 192 inline scripts).
 
@@ -55,11 +60,11 @@ Run from `03_GC500_Delivery_Control`, with the existing browser environment and
 private OUT directory configured. Browser checks use `/tmp/gc500-browser.lock`.
 
 ```sh
-bash toolchain/build.sh v12.03 v12.03_map_viewport_DRAFT/patch_v1203.py
+bash toolchain/build.sh v12.03 v12.03_map_viewport_LIVE/patch_v1203.py
 export PAGE=build/GC500_v12.03/GC500_Delivery_Control_hosted.html
-python v12.03_map_viewport_DRAFT/tests/test_preservation1203.py build/GC500_v12.03/base_live.html "$PAGE"
-flock /tmp/gc500-browser.lock node v12.03_map_viewport_DRAFT/tests/test_native1203.cjs
-flock /tmp/gc500-browser.lock node v12.03_map_viewport_DRAFT/tests/test_live1203.cjs
+python v12.03_map_viewport_LIVE/tests/test_preservation1203.py build/GC500_v12.03/base_live.html "$PAGE"
+flock /tmp/gc500-browser.lock node v12.03_map_viewport_LIVE/tests/test_native1203.cjs
+flock /tmp/gc500-browser.lock node v12.03_map_viewport_LIVE/tests/test_live1203.cjs
 flock /tmp/gc500-browser.lock node toolchain/harness/sweep.js
 MOB=1 flock /tmp/gc500-browser.lock node toolchain/harness/sweep.js
 ```

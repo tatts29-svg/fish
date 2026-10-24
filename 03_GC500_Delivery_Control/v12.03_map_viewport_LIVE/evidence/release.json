@@ -17,5 +17,13 @@
   "limits": [
     "Chromium viewport tests; no claim of physical-monitor or Samsung Internet testing",
     "Map sizing only; no map image or operational record changes"
+  ],
+  "state": "VERIFIED LIVE",
+  "ready_source": "3e2305a6220c4109b3833e0c1e522cb09d1f7483",
+  "live_time_aest": "25 Oct 2026 06:27:49 AEST",
+  "public_ui_checks": 9,
+  "live_screenshots_inspected": [
+    "wide Original plan",
+    "phone Original plan"
   ]
 }
