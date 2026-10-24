@@ -1,0 +1,14 @@
+{
+  "url": "https://gc500-production.up.railway.app/v/Coates-GC500-2026",
+  "checked_at": "2026-10-24T23:00:00.655830+00:00",
+  "sha256": "00056a857827a22519fe0ac095cf19ae94d2dbb7a06c2843c740f208adb3365c",
+  "bytes": 15271939,
+  "exact_candidate_match": true,
+  "footer": "v12.10",
+  "search_module_present": true,
+  "uploaded_at": "2026-10-24T22:59:46.013Z",
+  "ready_source": "ce7431734c69a29b9051998651f5157398279f07",
+  "public_native_checks": "39/39",
+  "public_phone_image_inspected": true,
+  "independent_second_agent_review": false
+}
