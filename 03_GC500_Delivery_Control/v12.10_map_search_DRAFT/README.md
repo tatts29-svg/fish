@@ -1,9 +1,15 @@
-# v12.10 · Map searches show all verified locations — DRAFT
+# v12.10 · Map searches show all verified locations
 
 Author: Andrew Fisher.
 
-Renumbers the unpublished v12.08 work under the v12.10 claim in 9a22e4a96e3a958c3cd789e254a2c5fe64fbf38c. Rebased on the exact public v12.09.1 bytes, SHA-256 06b9435ca8451fc638b40d65f8ce9450d9c61f7c6a93e9fe168c3f0890f7f09d. Its Servicing changes are preserved. NOT READY and NOT LIVE.
+READY TO UPLOAD, 25 Oct 2026 08:58 AEST. Independently implemented and tested; no second-agent review claimed.
 
-Existing searches now list and fit every mapped match, with unplaced references kept explicit. Nine source-guarded legend categories add 110 inspected occurrences from the existing public drawing; legend examples and ambiguous marks are excluded. Categories with no verified placement receive no invented coordinates. Current VMS locations and removal spots come from the existing finder, and repeated gate occurrences remain searchable. Individual asset details load when selected rather than rebuilding the register for every result. No operational record or position is changed.
+Andrew asked map searches to show all matching locations, including the plan legend. The parent ten-result and native twenty-result caps are removed. Find and Show all fit every mapped match together; the result list folds so the map regains screen space. Individual results still open their map location and details. Current VMS and removal-spot names, warnings and coordinates are retained exactly. Unplaced references stay explicit without invented equipment pins. Asset details load when selected instead of rebuilding the register for every result.
 
-Final native desktop/phone, map-area regressions, preservation and navigation sweeps are in progress. Raw source crops, records and browser output remain private. Independently implemented and tested; not second-agent reviewed. Claude retains Servicing and Samsung.
+Nine additional legend categories index 110 reviewed symbol/label occurrences from the existing public drawing. The source drawing and registration frame must match their pinned identities. Legend examples, unrelated green circles and ambiguous abbreviations are excluded. Categories without verified placements receive no invented locations. Landmark labels do not carry equipment placeholders. No operational record is changed.
+
+This supersedes the unpublished v12.08 draft. Base: verified v12.09.1 `06b9435ca8451fc638b40d65f8ce9450d9c61f7c6a93e9fe168c3f0890f7f09d`. Candidate: `00056a857827a22519fe0ac095cf19ae94d2dbb7a06c2843c740f208adb3365c`, 15,271,939 bytes, 195 inline scripts. The Servicing report/hook, Showcase and all bytes outside the map modules and footer are preserved exactly.
+
+Checks: toolchain PASS; preservation/guards 8/8; native desktop and phone 39/39 each; both full sweeps 27 routes / 19 direct panes / 7 deep links / Back, zero errors or attempted writes. Phone image inspected; guarded dry run passed. Earlier area-sharing regressions passed 29/29 desktop and 27/27 phone before the final landmark-label-only adjustment and Servicing rebase; area model/geometry remain unchanged. Source extraction is reproducible from the existing public drawing; raw crops, browser output and records stay private.
+
+Next: publish through the unchanged-base guard, compare a separate public GET byte for byte, test the public map, then archive LIVE. Samsung remains with its existing owner.
