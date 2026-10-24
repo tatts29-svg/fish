@@ -8,7 +8,7 @@ function req(method,url,body){return new Promise((resolve,reject)=>{const data=b
 (async()=>{try{
 port=await new Promise(r=>{const s=http.createServer();s.listen(0,'127.0.0.1',()=>{const p=s.address().port;s.close(()=>r(p));});});
 const fd=fs.openSync(path.join(work,'server.log'),'a');
-child=spawn(process.execPath,['-r',root+'/server_v5.90_servicing_tracker_DRAFT/fake_clock.js',root+'/server_v5.92_crew_groups_DRAFT/server.js'],{env:{PATH:process.env.PATH,PORT:String(port),DATA_DIR:work,EDIT_TOKEN:'local-crew-editor',VIEW_TOKEN:'local-crew-viewer',FAKE_NOW:'2026-10-24T05:00:00+10:00'},stdio:['ignore',fd,fd]});
+child=spawn(process.execPath,['-r',root+'/server_v5.90_servicing_tracker_DRAFT/fake_clock.js',['server_v5.92_crew_groups_LIVE','server_v5.92_crew_groups_DRAFT'].map(d=>path.join(root,d,'server.js')).find(f=>fs.existsSync(f))],{env:{PATH:process.env.PATH,PORT:String(port),DATA_DIR:work,EDIT_TOKEN:'local-crew-editor',VIEW_TOKEN:'local-crew-viewer',FAKE_NOW:'2026-10-24T05:00:00+10:00'},stdio:['ignore',fd,fd]});
 for(let i=0;i<100;i++){try{if((await req('GET','/health')).status===200)break;}catch{}await sleep(50);}
 const source=fs.readFileSync(process.env.PAGE,'utf8'),bundle=JSON.parse(source.split('\n').find(x=>x.startsWith('var SVC1067_CARD=')).slice(17,-1));
 const D={...bundle.data,contact:{name:'Synthetic contact',phone:'0000000000'},crewGroups:['cleaners','pump1','pump2','pump3','water'].map((id,i)=>({id,label:'Test group '+(i+1)})),areas:[{n:1,name:'Test area',refs:['AAA','BBB'].map(ref=>({ref,title:ref,where:'Synthetic test location',lines:[{id:ref+'-FWF',kind:'fwf',type:'FWF',label:'1 × FWF',qty:1,nos:[]}]}))}]};
