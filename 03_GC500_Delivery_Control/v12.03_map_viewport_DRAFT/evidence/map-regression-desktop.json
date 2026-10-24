@@ -1,0 +1,8 @@
+{
+  "author": "Andrew Fisher",
+  "suite": "v11.96_phone_map_LIVE/tests/test_regression1188.cjs",
+  "checks": 21,
+  "mobile": false,
+  "errors": 0,
+  "attempted_writes": 0
+}
