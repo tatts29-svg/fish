@@ -23,7 +23,7 @@ try{
  await p.locator('#sePanel [data-v="fencing_truck"]').click();await p.locator('#sePanel .se-x').click();
  check('truck selected and retained',await p.evaluate(()=>GC3D.S.vehicle==='fencing_truck'&&showVehicleGet()==='fencing_truck'));
  async function frame(view){
-  await p.evaluate(view=>{const G=GC3D,Q=G.S;Q.sim.s=380;Q.sim.lat=0;Q.sim.latV=0;Q.sim.slip=0;Q.sim.air=0;Q.sim.v=0;Q.sim.pitch=0;Q.sim.roll=0;Q.sim.squash=0;Q.clock=30;Q.camBase=null;Q.camYaw=null;Q.camAnchor=null;Q.camDebug=null;if(Q.fw)Q.fw.cam=false;G.pose();Q.shadowOff=true;Q.reflOff=true;Q.bloom=false;Q.o.ss=1;G.setView(view);G.camStep(0);G.render();window.brandFence1180=Q.gl.fenceSync(Q.gl.SYNC_GPU_COMMANDS_COMPLETE,0);Q.gl.flush();},view);
+  await p.evaluate(view=>{const G=GC3D,Q=G.S;Q.sim.s=380;Q.sim.lat=0;Q.sim.latV=0;Q.sim.slip=0;Q.sim.air=0;Q.sim.v=0;Q.sim.pitch=0;Q.sim.roll=0;Q.sim.squash=0;Q.clock=30;Q.camBase=null;Q.camYaw=null;Q.camAnchor=null;Q.camDebug=null;if(Q.fw)Q.fw.cam=false;G.pose();Q.shadowOff=true;Q.reflOff=true;Q.bloom=false;Q.o.ss=1;G.setView(view);if(view==='quarter')Q.forceShot='quarter';G.camStep(0);G.render();window.brandFence1180=Q.gl.fenceSync(Q.gl.SYNC_GPU_COMMANDS_COMPLETE,0);Q.gl.flush();},view);
   await p.waitForFunction(()=>GC3D.S.gl.clientWaitSync(brandFence1180,0,0)!==GC3D.S.gl.TIMEOUT_EXPIRED,null,{timeout:180000,polling:200});
   check(view+' render has no graphics error',await p.evaluate(()=>{const gl=GC3D.S.gl;gl.deleteSync(brandFence1180);return gl.getError()===0}));
  }
@@ -42,10 +42,10 @@ try{
  if(!mobile){
   await p.setViewportSize({width:3840,height:2400});
   for(let i=0;i<3;i++){const h=await p.evaluate(()=>GC3D.S.cv.clientHeight);if(h===2160)break;const v=p.viewportSize();await p.setViewportSize({width:3840,height:v.height+2160-h});}
-  await frame('quarter');
+  await frame('hero');
   const uhd=await p.evaluate(()=>({css:[GC3D.S.cv.clientWidth,GC3D.S.cv.clientHeight],buffer:[GC3D.S.cv.width,GC3D.S.cv.height],samples:GC3D.S.rt.samples}));
   check('actual 3840 by 2160 UHD frame with 4x MSAA',JSON.stringify(uhd.css)==='[3840,2160]'&&JSON.stringify(uhd.buffer)==='[3840,2160]'&&uhd.samples===4,uhd);
-  await p.locator('canvas.gc3d').screenshot({path:path.join(out,'truck-4k.png'),timeout:180000});
+  const box=await p.locator('canvas.gc3d').boundingBox();await p.screenshot({path:path.join(out,'truck-4k.png'),clip:{x:Math.ceil(box.x),y:Math.ceil(box.y),width:3840,height:2160},timeout:180000});
  }
  check('Day and scenery retained',await p.evaluate(()=>GC3D.S.look.day===1&&GC3D.S.scenery1179.panels>250&&document.getElementById('showcase').dataset.back==='circuit3d_day'));
  check('truck advances on the existing circuit',await p.evaluate(()=>{const G=GC3D,Q=G.S,s=Q.sim.s;for(let i=0;i<120;i++)G.step(1/60);return Number.isFinite(Q.sim.s)&&Q.sim.s!==s;}));

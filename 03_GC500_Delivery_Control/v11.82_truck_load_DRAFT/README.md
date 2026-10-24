@@ -9,6 +9,6 @@ The Detail control adds **4K clarity**. It fits the visible aspect ratio inside 
 Only the truck receives revised hero/grid, chase, quarter and onboard camera positions; other vehicle/towing camera results remain identical. Dense straight stock sections use flat faces rather than hidden rounded-box subdivision. Models contain 17,463 / 19,319 triangles, 28 parts and no new textures.
 
 Build: `bash toolchain/build.sh v11.82 v11.82_truck_load_DRAFT/patch_v1182.py`.
-Base: exact public v11.81 `6ca9da442988bbe4c9e86aa7d43200f9aa2517102bda1f59fa5a8b3a2c28a2e0`, preserving the intervening fencing/broadcast release. The v11.80 source folder is required by the guarded patch. Wrong-base and duplicate applications are refused.
+Base: exact public v11.81.1 `1c355e7d80e4703e01c4daa942d4298dfa451780b63db9c9e08dae60f6c816df`, preserving the intervening fencing/broadcast release. The v11.80 source folder is required by the guarded patch. Wrong-base and duplicate applications are refused.
 
-Current state: all 176 scripts parse; CPU/model/camera/data preservation checks pass 33/33. Native desktop/phone, actual UHD frame, GPU/lifecycle regression and full-page sweeps remain in progress. Not ready to upload and not live. Codex owns this scope and publication; Claude retains fencing/broadcast ownership. No second-agent review is claimed.
+Current state: all 177 scripts parse; CPU/model/camera/data preservation checks pass 33/33. Native desktop/phone, actual UHD frame, GPU/lifecycle regression and full-page sweeps remain in progress. Not ready to upload and not live. Codex owns this scope and publication; Claude retains fencing/broadcast ownership. No second-agent review is claimed.

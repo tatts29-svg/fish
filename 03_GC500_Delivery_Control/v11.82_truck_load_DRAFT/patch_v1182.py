@@ -4,7 +4,7 @@ from pathlib import Path
 HERE=Path(__file__).resolve().parent
 sys.path.insert(0,str(HERE.parent/'toolchain'))
 from rep import rep
-BASE='6ca9da442988bbe4c9e86aa7d43200f9aa2517102bda1f59fa5a8b3a2c28a2e0'
+BASE='1c355e7d80e4703e01c4daa942d4298dfa451780b63db9c9e08dae60f6c816df'
 def patch(html):
     if 'G.fencingLoad1182' in html:raise ValueError('v11.82 already applied')
     if hashlib.sha256(html.encode()).hexdigest()!=BASE:raise ValueError('Wrong live base for v11.82')
@@ -26,6 +26,6 @@ def patch(html):
     html=rep(html,oldget,newget,'clarity default and explicit choices','page')
     html=rep(html,'<option value="auto">Auto</option><option value="balanced">Balanced</option><option value="high">High</option><option value="ultra">Ultra</option>', '<option value="crisp">4K clarity</option><option value="auto">Auto</option><option value="balanced">Balanced</option><option value="high">High</option><option value="ultra">Ultra</option>','clarity choice','page')
     html=rep(html,'\n</body>\n</html>','\n<script>\n'+(HERE/'clarity1182_src.js').read_text()+'\n</script>\n</body>\n</html>','clarity engine','page')
-    return rep(html,"+' · v11.81'; /* v8.19 release922","+' · v11.82'; /* v8.19 release922",'footer','page')
+    return rep(html,"+' · v11.81.1'; /* v8.19 release922","+' · v11.82'; /* v8.19 release922",'footer','page')
 if __name__=='__main__':
     p=Path(sys.argv[1]);p.write_text(patch(p.read_text()));print('v11.82 full truck load applied')
