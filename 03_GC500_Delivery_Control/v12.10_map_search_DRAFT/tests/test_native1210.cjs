@@ -11,6 +11,7 @@ try{
  check('actual parent search shows all first-aid locations',await p.locator('[data-f1176-hit]').count()===6&&await f.evaluate(()=>GC500Search1210.state.marked===6));
  await p.locator('#f1176find form button[type=submit]').click();await p.waitForTimeout(750);
  check('Find fits every match instead of opening the first drawer',await p.locator('.drawer.find1176').count()===0&&await f.evaluate(()=>GC500Search1210.state.marked===6));
+ check('Find hides the results so the map regains screen space',await p.locator('#f1176list').isHidden());
  check('all six first-aid markers fit the current map',await f.evaluate(()=>{const M=sheetToDevice(currentView().scale,sw,sh);return marks.length===6&&marks.every(m=>m.it.places.every(b=>{const p=toGeo((b[0]+b[2])/2,(b[1]+b[3])/2),v=applyM(M,p.x,p.y);return v.x>=-2&&v.x<=sw+2&&v.y>=-2&&v.y<=sh+2;}));}));
  await p.screenshot({path:path.join(out,'parent-search.png'),fullPage:false});
  const categories=[['information',3],['police',1],['photographer',12],['broadcast camera',20],['cameras',32],['MP',25],['YFR',1],['emergency egress',24],['FH',18]];
@@ -20,6 +21,7 @@ try{
  check('unplaced references never become pit-lane equipment pins',toilets.noFalsePins);
  for(const [q,count]of [['stand 5',1],['turn 2',1],['stand 26',0],['turn 16',0]])check(q+' keeps exact reference semantics',await f.evaluate(({q,count})=>GC500Search1210.search(q).rows.length===count,{q,count}));
  for(const q of ['gate 6','VMS 10','WC 41']){const r=await f.evaluate(q=>{const r=GC500Search1210.search(q);return {count:r.rows.length,ids:r.rows.map(x=>x.code1210)};},q);check(q+' retains spaced reference matching',r.count>0,r);}
+ const vms=await p.evaluate(()=>{const expected=finderIndex().filter(x=>['vms','spot'].includes(x.kind)).map(x=>Find1176.locate(x)).filter(Boolean);const rows=MapSearch1210.search('vms').rows;return {expected:expected.length,actual:rows.length,all:expected.every(e=>rows.some(r=>r.label===e.label&&(e.none?!!r.none:Math.abs(r.lat-e.lat)<1e-6&&Math.abs(r.lon-e.lon)<1e-6)))};});check('every current VMS and removal spot retains its exact existing coordinates',vms.all&&vms.actual>=vms.expected,vms);
  const armco=await f.evaluate(()=>{const r=GC500Search1210.search('armco');return {n:r.placed,clear:marks.every(m=>m.it.places.every(b=>b[1]<1466))};});check('all Armco positions exclude the legend sample',armco.n>20&&armco.clear,armco);
  await p.locator('#expFull').click();await p.waitForTimeout(200);
  await f.evaluate(()=>panel813(true));await f.locator('#q').fill('first aid');await p.waitForTimeout(600);

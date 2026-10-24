@@ -45,7 +45,7 @@ function searchFrame1210(){
    const cat=existing||{id:kind+'live1210',name:kind==='vms'?'VMS board positions':'VMS removal spots',c:'#b98cf5',source1210:true,aliases:'vms board position removal spot'};
    if(!existing)CATS_NOW.push(cat);else{ITEMS=ITEMS.filter(i=>i.cat!==existing);cat.count=String(entries.length);cat.why='existing VMS record and plan positions';}
    for(const e of entries){const L=parent.Find1176.locate(e);if(!L)continue;const placed=!L.none&&Number.isFinite(L.lat)&&Number.isFinite(L.lon),xy=placed?ap(inv(GEO.main.sheet_to_z18px),...parent.MapArea1206.core.merc(L)):null;
-    ITEMS.push({code:norm(kind==='spot'?'REMOVAL · '+L.label:L.label),searchRef1210:e.label,places:xy?[[xy[0]-1,xy[1]-1,xy[0]+1,xy[1]+1]]:[],reg:{name:L.what||L.label},cat,names:[],source1210:true,location1210:L});}
+    ITEMS.push({code:norm(kind==='spot'?'REMOVAL · '+L.label:L.label),searchRef1210:e.label,places:xy?[[xy[0]-1,xy[1]-1,xy[0]+1,xy[1]+1]]:[],reg:{name:L.what||L.label},cat,names:[],source1210:true,sourceLabel1210:L.label,location1210:L});}
    let b=document.querySelector('[data-cat="'+cat.id+'"]');if(!b){b=document.createElement('button');b.type='button';b.className='chip';b.dataset.cat=cat.id;b.setAttribute('aria-pressed','false');b.style.setProperty('--c',cat.c);$('chips').appendChild(b);}b.innerHTML='<i></i>'+esc(cat.name)+' <small>'+entries.length+'</small>';
   }
   const turnCat={id:'turn1210',name:'Track turns',c:'#ff6a13',source1210:true,aliases:'turn corner'};
@@ -84,9 +84,9 @@ function searchFrame1210(){
   const items=matches(q),rows=[];
   for(const it of items){
    const assetKey1210=it.cat?.host==='trade'?it.code:null;
-   if(!it.places.length){rows.push({kind:'map1210',id:it.code,label:it.code,what:it.reg?.name||it.cat.name,none:'No exact position on the master plan yet',assetKey1210,code1210:it.code});continue;}
+   if(!it.places.length){rows.push(Object.assign({kind:'map1210',id:it.code,label:it.code,what:it.reg?.name||it.cat.name,none:'No exact position on the master plan yet'},it.location1210||{},{assetKey1210,code1210:it.code}));continue;}
    it.places.forEach((b,i)=>{const ll=sheetToLL((b[0]+b[2])/2,(b[1]+b[3])/2);if(!ll)return;
-    rows.push({kind:'map1210',id:it.code+':'+i,label:it.sourceLabel1210||it.code,what:it.cat.name+(it.reg?.name&&it.reg.name!==it.cat.name?' · '+it.reg.name:''),lat:ll.lat,lon:ll.lon,tag:it.sourceLabel1210||it.code,how:it.location1210?.how||'Position shown on the master plan; not a surveyed position',assetKey1210,code1210:it.code,place1210:i});});
+    rows.push(Object.assign({kind:'map1210',id:it.code+':'+i,label:it.sourceLabel1210||it.code,what:it.cat.name+(it.reg?.name&&it.reg.name!==it.cat.name?' · '+it.reg.name:''),lat:ll.lat,lon:ll.lon,tag:it.sourceLabel1210||it.code,how:it.location1210?.how||'Position shown on the master plan; not a surveyed position'},it.location1210||{},{assetKey1210,code1210:it.code,place1210:i}));});
   }
   return {items,rows,placed:rows.filter(r=>!r.none).length,unplaced:rows.filter(r=>r.none).length,note:sourceOK()?'':'The plan has changed. Extra symbol locations need checking before they can be shown.'};
  }
