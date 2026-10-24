@@ -4,6 +4,18 @@ Author: Andrew Fisher
 
 Claimed as v12.09.2, a point release on v12.09.1. Renumbered to v12.10.1 because Codex's v12.10 (map searches) went live first at 08:59 (the footer never goes backwards).
 
+LIVE 25 Oct 2026 09:33 AEST.
+- **The page:** the guarded upload passed. A separate public GET at 09:33:43 matched the build byte for byte (`4e53b9dc3e08ea8cdbe60fdaba053093890562445625ea4541cf61a95d67c95d`, 15,272,023 bytes, footer v12.10.1).
+- **The event tracker:** updated at 09:34 through the page's own fold.
+  - Backup snapshot first, kept privately outside the repository.
+  - One request sent; 76/76 checks.
+  - The service holds the new tracker exactly.
+  - Every QR signature, all completion history and the job record (version 10804) are unchanged.
+  - The crew card reads back byte for byte (`9fbb4f33…`, was `bf53b806…`).
+- **Checks after:**
+  - the live crew card, read only on desktop and phone: PG01 pump code Pump out; clean code Clean & restock, Locked;
+  - the page test on the live bytes with the updated tracker: 11/11.
+
 Andrew, 25 Oct 2026, in this chat: "Also with tonights one. Shoud be Confirm emtpy and pump out. Confirmb clean and Lock no rewater needed so can remove the fill for tonight. They can still use same qr codes." ... "So lets do. Pump out confirmed / Cleaned / Locked. Locked is from the clean qr code".
 
 ## What was wrong
@@ -72,7 +84,11 @@ Tonight, on the FWF, accessible and 16-pan units:
   - Saturday unchanged: 98% Exceptional; Pump out 247/250, Clean & restock 252/259, Water 237/242.
   - The Night report still offers "Previous night · Sat 24 → Sun 25 · 98% · Exceptional".
   - Lock-up is the cleaners'. No page errors, zero writes.
-- `tests/update_tracker12101.cjs`: the guarded tracker update (above). By default it captures and checks the fold's request and sends nothing. `--execute` needs `GC500_NATIVE_TRACKER_EXECUTE=1` and the reviewed page live.
+- `tests/update_tracker12101.cjs`: the guarded tracker update (above). By default it captures and checks the fold's request and sends nothing. `--execute` needs `GC500_NATIVE_TRACKER_EXECUTE=1` and the reviewed page live. Rehearsed 76/76 at 09:32, nothing sent; executed 76/76 at 09:34, one request.
+- `tests/test_live_card12101.cjs`: read only, 8 checks. The live crew card after the update, opened the way a crew's phone opens it from a printed code, at pump and clean codes for tonight.
+  - Only GETs reach the service, and no job is tapped.
+  - A dummy completion code is used. The card checks only its shape; the service checks the code itself on a tick. No real QR link is read or shown.
+  - Evidence: `evidence/*-live-card-*` (desktop and phone; the contact footer is blurred).
 
 ## Where it's up to
 
@@ -80,3 +96,7 @@ Tonight, on the FWF, accessible and 16-pan units:
 - Candidate `4e53b9dc3e08ea8cdbe60fdaba053093890562445625ea4541cf61a95d67c95d`, 15,272,023 bytes, 195 inline scripts. Toolchain check PASS.
 - Tests on desktop and phone: card 8/8, native 11/11.
 - Sweeps: 27 tabs, 19 shown, 7 routes, Back, zero errors and zero writes.
+- LIVE 09:33 AEST; public GET 09:33:43 identical to the build.
+- Event tracker updated 09:34 (76/76).
+- Live crew card 8/8 and native 11/11 on the live bytes, desktop and phone.
+- Don't publish the event tracker from a page older than v12.10.1: its fold would put the old final night back.

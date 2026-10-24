@@ -39,7 +39,8 @@ const VER = JSON.parse(require('node:child_process').execFileSync('curl', ['-sS'
     const posted = {days: d.card.days.map(x => ({id: x.id, plan: x.plan})), lines, plans: d.card.plans}, verdict = serverCheck(posted), live = snap.meta.tracker;
     check(!verdict.error, 'the service\'s own trackerConfig accepts it' + (verdict.error ? ': ' + verdict.error : ''));
     const expect = JSON.parse(JSON.stringify(live)); ['fwf', 'access', 'pan16'].forEach(k => { expect.plans[k].final = FINAL; });
-    check(JSON.stringify(verdict.tracker) === JSON.stringify(expect), 'it equals the live event tracker (' + live.lines.length + ' lines, ' + live.days.length + ' days) except the three final plans');
+    const already = JSON.stringify(live) === JSON.stringify(expect);
+    check(JSON.stringify(verdict.tracker) === JSON.stringify(expect), 'it equals the live event tracker (' + live.lines.length + ' lines, ' + live.days.length + ' days) except the three final plans' + (already ? ' (the live tracker already carries them: updated)' : ''));
     /* the edit link, the tracker from the morning snapshot (Sun 25, nothing ticked yet tonight) as it will be once the event tracker is
        updated: the panel reads percentages only when the page's tracker data and the published tracker agree */
     const meta = Object.assign({}, snap.meta, {tracker: expect});
