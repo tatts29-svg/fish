@@ -70,4 +70,4 @@ Fonts: the page hands its own font files (already in its cache) to the report wi
 - Native 14/14 on desktop and on phone, on the candidate and again on the live bytes; with v12.04's suites and both sweeps clean.
 - LIVE 07:01:54 AEST; public GET 07:02:06 identical to the build.
 - `evidence/`: the report's two pages and the Night report button from the live page, desktop and phone, crew names blurred (the on-screen Print bar hidden in the shots; it never prints).
-- Open for Andrew: WC85 (Coates Compound) and WC100 (2 trailers, no location yet) are on the servicing list and weren't serviced on either night. If they shouldn't be, they can come off the totals (as SPASHDOWN does, no QR change), and Saturday would read 99%.
+- Decided by Andrew, 25 Oct 2026 07:4x AEST, on whether WC85 (Coates Compound) and WC100 (2 trailers, no location yet) should come off the totals: "Leave on". They stay on the servicing list and in every figure; neither was serviced on Fri or Sat night, so they show under "Left at close" and Saturday reads 98% (five stars, Exceptional). No change to the page.
