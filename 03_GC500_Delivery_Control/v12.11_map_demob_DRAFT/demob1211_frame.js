@@ -5,7 +5,7 @@ function demobFrame1211(){
  const e=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
  const when=d=>new Date(d).toLocaleString('en-AU',{timeZone:'Australia/Brisbane',hour12:false})+' AEST';
  const directions=ll=>'https://www.google.com/maps/dir/?api=1&destination='+ll.lat.toFixed(6)+','+ll.lon.toFixed(6);
- let area=null,panel=null,refs=[],generation=0,ready=null,running=false,opener=null;
+ let area=null,panel=null,refs=[],generation=0,ready=null,running=false,opener=null,expanded=false;
  const css=document.createElement('style');css.textContent=`
  #demob1211{position:fixed;inset:12px;z-index:140;background:#fff;color:#172c3b;border:2px solid #ff6a13;border-radius:12px;box-shadow:0 12px 45px #0008;max-width:760px;margin:auto;padding:16px;overflow:auto;overscroll-behavior:contain;font:14px/1.45 Inter,sans-serif;text-align:left}
  #demob1211[hidden]{display:none!important}#demob1211 h2{margin:0;font-size:21px}#demob1211 .dm-head{display:flex;align-items:center;justify-content:space-between;gap:10px}#demob1211 button{min-height:42px;padding:8px 13px;border:1px solid #b6c2ca;border-radius:7px;background:#f3f6f8;color:#132b3b;font:inherit;cursor:pointer}#demob1211 button:disabled{opacity:.55;cursor:default}#demob1211 .dm-primary{background:#e95700;color:white;border-color:#e95700}#demob1211 fieldset{border:1px solid #bac8d0;border-radius:8px;margin:14px 0;padding:12px;min-width:0}#demob1211 legend{font-weight:800;padding:0 5px}#demob1211 label{display:flex;gap:9px;align-items:flex-start;margin:9px 0;cursor:pointer}#demob1211 input[type=checkbox]{width:20px;height:20px;flex-shrink:0;accent-color:#e95700}#demob1211 input[type=number]{width:74px;padding:6px;font:inherit}#demob1211 small{display:block;color:#425c6d}#demob1211 .dm-hold{background:#fff1d6;color:#713f00;padding:9px;border-radius:6px}#demob1211 .dm-actions{display:flex;gap:8px;flex-wrap:wrap}#demob1211 [data-status]{min-height:24px;padding:9px 0;font-weight:600}#demob1211 a{color:#005aad}#demob1211 .dm-preview{width:100%;max-height:260px;object-fit:contain;background:#e6ebee}#demob1211 .dm-icon{font:20px GC500MapUnits1147,sans-serif}#spot1117 .sp-btns{flex-wrap:wrap}
@@ -14,11 +14,11 @@ function demobFrame1211(){
  function dispose(){if(ready)for(const u of ready.urls||[])URL.revokeObjectURL(u);ready=null;}
  function status(text){if(panel)panel.querySelector('[data-status]').textContent=text;}
  function invalidate(){generation++;dispose();if(panel){panel.querySelector('[data-ready]').replaceChildren();panel.querySelectorAll('[data-share],[data-save],[data-mail]').forEach(b=>b.disabled=true);}}
- function close(){invalidate();if(panel)panel.hidden=true;opener?.focus();}
+ function close(){invalidate();if(panel)panel.hidden=true;if(expanded){expanded=false;parent.expFullToggle(false);}opener?.focus();}
  function selected(){return refs.map((r,i)=>({key:r.key,token:r.token,items:r.items.map((it,j)=>({type:it.type,ids:[...panel.querySelectorAll('[data-unit="'+i+':'+j+'"]:checked')].map(b=>it.units[Number(b.value)].id),unidentified:Number(panel.querySelector('[data-qty="'+i+':'+j+'"]')?.value||0)}))})).filter(r=>r.items.some(i=>i.ids.length||i.unidentified));}
  function consent(){if(!panel.querySelector('[data-no-twin]').checked)throw new Error('Tick that no twin-steer truck will be used for this pickup.');}
  function open(s,button){
-  close();opener=button;area=s;refs=s.rows.map(row=>{const r=H.reference(row.code);return r?{...r,map:row}:null;}).filter(Boolean);
+  close();opener=button;if(!parent.document.body.classList.contains('expfull-on')){parent.expFullToggle(true);expanded=true;}area=s;refs=s.rows.map(row=>{const r=H.reference(row.code);return r?{...r,map:row}:null;}).filter(Boolean);
   if(!panel){panel=document.createElement('section');panel.id='demob1211';panel.role='dialog';panel.setAttribute('aria-modal','true');panel.setAttribute('aria-label','Demob pickup selection');document.body.appendChild(panel);
    panel.addEventListener('keydown',ev=>{if(ev.key==='Escape'){ev.preventDefault();close();}if(ev.key==='Tab'){const a=[...panel.querySelectorAll('button:not(:disabled),input,a[href]')].filter(el=>el.offsetParent!==null),first=a[0],last=a.at(-1);if(ev.shiftKey&&document.activeElement===first){ev.preventDefault();last?.focus();}else if(!ev.shiftKey&&document.activeElement===last){ev.preventDefault();first?.focus();}}});
    panel.addEventListener('input',()=>{invalidate();status('Selection changed. Prepare a new pickup pack.');});
@@ -45,7 +45,7 @@ function demobFrame1211(){
  async function send(mail){
   try{assertFresh();const r=ready,files=mail?[r.pdf]:[r.pdf,r.png,r.txt];
    if(navigator.share&&navigator.canShare?.({files})){try{await navigator.share({title:'GC500 Demob pickup pack',text:mail?'Pickup map and details attached.':r.text,files});status('Returned from the share sheet. Delivery is not confirmed here.');return;}catch(err){if(err.name==='AbortError'){status('Sharing cancelled. Nothing was downloaded.');return;}status('File sharing is unavailable. Save the PDF and attach it manually.');return;}}
-   if(mail){download(r.pdf);const a=document.createElement('a');a.href='mailto:?subject='+encodeURIComponent('GC500 Demob pickup pack')+'&body='+encodeURIComponent('Please attach the downloaded '+r.pdf.name+'.\n\n'+r.text);a.click();status('PDF downloaded and email draft requested. Attach the PDF before sending.');}
+   if(mail){download(r.pdf);const a=document.createElement('a');a.href='mailto:?subject='+encodeURIComponent('GC500 Demob pickup pack')+'&body='+encodeURIComponent('Please attach the downloaded '+r.pdf.name+'.\n\nGC500 Demob pickup request. Map, selected equipment, recorded doors, outstanding holds and access details are in the PDF.\n'+directions(area.pin.ll)+'\nNo twin-steer truck will be used. Confirm all holds before collection.\nAuthor: Andrew Fisher');a.click();status('PDF downloaded and email draft requested. Attach the PDF before sending.');}
    else{download(r.pdf);download(r.png);download(r.txt);status('Pickup pack downloaded: PDF, map picture and full details. Attach these in your message.');}
   }catch(err){invalidate();status(err.message);}
  }

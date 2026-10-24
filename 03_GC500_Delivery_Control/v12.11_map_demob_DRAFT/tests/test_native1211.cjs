@@ -1,0 +1,47 @@
+/* Author: Andrew Fisher. Native map pickup flow, share cancellation, stale guards and read-only checks. */
+const fs=require('fs'),path=require('path'),assert=require('assert'),{open}=require('../../toolchain/harness/open_page');
+(async()=>{const mobile=process.env.MOB==='1',out=process.env.OUT,checks=[],h=await open({pageFile:process.env.PAGE,hash:'#sheet/__explorer',W:mobile?390:1440,H:mobile?844:1000,dpr:mobile?2:1,mobile}),p=h.page;fs.mkdirSync(out,{recursive:true});const consoles=[];p.on('console',m=>{if(m.type()==='error')consoles.push(m.text());});
+function check(name,ok){checks.push({name,ok:!!ok});fs.writeFileSync(path.join(out,'checks.json'),JSON.stringify(checks,null,2));console.log((ok?'PASS ':'FAIL ')+name);assert(ok,name);}
+try{
+ await p.waitForFunction(()=>document.querySelector('#expFrame')?.contentWindow?.GC500Demob1211&&SYNC.status==='live',null,{timeout:180000});const f=p.frames().find(x=>x.url().includes('/explorer/index.html')),before=await p.evaluate(()=>JSON.stringify(S));
+ await p.waitForSelector('#coatesfwf1211');await p.locator('#coatesfwf1211').click();await p.waitForTimeout(650);
+ check('parent quick filter fills the search',await p.locator('#f1176q').inputValue()==='Coates FWF');
+ check('finder only includes physical Coates FWF identities',await p.evaluate(()=>{const xs=MapDemob1211.coatesFWF();return xs.length>0&&xs.every(r=>r.units.every(u=>u.owner==='coates'&&/^fwf\b/i.test(u.item)));}));
+ check('all recorded Coates reference locations appear, with unplaced entries explicit',await f.evaluate(()=>{const r=GC500Search1210.search('Coates FWF'),refs=parent.MapDemob1211.coatesFWF();return refs.every(x=>r.rows.some(y=>y.code1210===x.key))&&r.rows.filter(x=>x.none).every(x=>!Number.isFinite(x.lat)&&!Number.isFinite(x.lon))&&r.placed===GC500Search1210.state.marked;}));
+ check('Coates FWF result lists preserve every recorded asset number',await f.evaluate(()=>{const r=GC500Search1210.search('Coates FWF');return parent.MapDemob1211.coatesFWF().every(x=>x.units.every(u=>!u.number||r.rows.some(y=>y.code1210===x.key&&y.what.includes(u.number))));}));
+ await p.locator('[data-showall1210]').click();check('Show all closes the results list',await p.locator('#f1176list').isHidden());
+ await f.evaluate(()=>{const r=GC500Search1210.search('Coates FWF').rows.find(x=>!x.none);GC500Search1210.select(r.code1210,r.place1210);const it=ITEMS.find(x=>x.code===r.code1210),b=it.places[0],g=toGeo((b[0]+b[2])/2,(b[1]+b[3])/2),v=applyM(sheetToDevice(currentView().scale,sw,sh),g.x,g.y);GC500Spot1117.drop(v.x,v.y);});
+ await f.waitForSelector('[data-demob1211]');check('Demob action is attached to actual pinned area card',await f.locator('[data-demob1211]').isVisible());
+ await f.locator('[data-demob1211]').click();await p.waitForTimeout(200);
+ check('pickup dialog expands the map to fill the screen',await p.evaluate(()=>document.body.classList.contains('expfull-on')));
+ check('all mapped registered references are represented',await f.evaluate(()=>{const s=GC500Area1206.state;return s.rows.filter(r=>parent.MapDemob1211.reference(r.code)).length===GC500Demob1211.state.refs;}));
+ check('unit selection is available in the native dialog',await f.locator('[data-unit]').count()>0);
+ await f.locator('[data-unit]').first().check();await f.locator('[data-prepare]').click();check('new pack requires its own no-twin-steer checkbox',/Tick that no twin-steer/.test(await f.locator('[data-status]').innerText()));
+ check('global print confirmation remains disabled',await p.evaluate(()=>ts1053.armed()));
+ await f.locator('[data-no-twin]').check();await f.locator('[data-prepare]').click();await p.waitForFunction(()=>document.querySelector('#expFrame').contentWindow.GC500Demob1211.state.ready,null,{timeout:180000});
+ check('native PDF and map prepared successfully',await f.evaluate(()=>GC500Demob1211.state.ready));
+ check('outstanding native pickup holds are presented',await f.evaluate(()=>{const r=GC500Area1206.state.rows.map(x=>parent.MapDemob1211.reference(x.code)).filter(Boolean);return r.flatMap(x=>x.hold).every(h=>document.getElementById('demob1211').textContent.includes(h));}));
+ check('phone dialog fits within viewport without horizontal overflow',await f.evaluate(()=>{const d=document.querySelector('#demob1211'),b=d.getBoundingClientRect();return b.left>=0&&b.right<=innerWidth&&b.height<=innerHeight&&d.scrollWidth<=d.clientWidth+1;}));
+ const download=p.waitForEvent('download');await f.locator('[data-save]').click();const d=await download;await d.saveAs(path.join(out,'pickup.pdf'));check('PDF download is a real attachable PDF',fs.readFileSync(path.join(out,'pickup.pdf')).subarray(0,5).toString()==='%PDF-');
+ await f.evaluate(()=>{window.__shareCalls1211=[];Object.defineProperty(navigator,'canShare',{configurable:true,value:()=>true});Object.defineProperty(navigator,'share',{configurable:true,value:async x=>{window.__shareCalls1211.push(x);throw new DOMException('Cancelled','AbortError');}});});let downloaded=0;const onDownload=()=>downloaded++;p.on('download',onDownload);
+ await f.locator('[data-share]').click();await p.waitForTimeout(150);
+ check('message sharing includes PDF, map picture and complete text file',await f.evaluate(()=>{const s=__shareCalls1211[0];return s.files.length===3&&s.files.some(x=>x.type==='application/pdf')&&s.files.some(x=>x.type==='image/png')&&s.files.some(x=>x.type==='text/plain');}));
+ check('share cancellation does not download or claim delivery',downloaded===0&&/cancelled/.test(await f.locator('[data-status]').innerText()));
+ await f.locator('[data-mail]').click();check('email share sheet attaches PDF rather than linking to it',await f.evaluate(()=>__shareCalls1211.at(-1).files.length===1&&__shareCalls1211.at(-1).files[0].type==='application/pdf'));
+ check('shared picture retains the full sharp map size',await f.evaluate(async()=>{const file=__shareCalls1211[0].files.find(x=>x.type==='image/png'),b=await createImageBitmap(file),ok=b.width===3840&&b.height===4160;b.close();return ok;}));
+ check('pickup text includes selected assets, holds, door facts and navigation',await f.evaluate(async()=>{const s=__shareCalls1211[0],t=await s.files.find(x=>x.type==='text/plain').text();return /Asset /.test(t)&&/door/.test(t)&&/maps\/dir/.test(t)&&/No twin-steer/.test(t)&&/Author: Andrew Fisher/.test(t);}));
+ await f.evaluate(()=>{Object.defineProperty(navigator,'canShare',{configurable:true,value:()=>false});window.__mail1211='';const original=HTMLAnchorElement.prototype.click;window.__anchor1211=original;HTMLAnchorElement.prototype.click=function(){if(this.href.startsWith('mailto:')){window.__mail1211=this.href;return;}return original.call(this);};});
+ const fallback=p.waitForEvent('download');await f.locator('[data-mail]').click();const fd=await fallback;
+ check('email fallback downloads a PDF and opens only a draft',fd.suggestedFilename().endsWith('.pdf')&&await f.evaluate(()=>__mail1211.startsWith('mailto:?subject=')&&__mail1211.length<2000&&decodeURIComponent(__mail1211).includes('Please attach the downloaded')));
+ await f.evaluate(()=>{HTMLAnchorElement.prototype.click=window.__anchor1211;delete window.__anchor1211;});
+ await f.evaluate(()=>{const d=document.querySelector('#demob1211');d.scrollTop=0;});await p.screenshot({path:path.join(out,'pickup-dialog.png')});
+ await f.evaluate(()=>{parent.__snapshot1211=parent.DemobCollection996.snapshot;parent.DemobCollection996.snapshot=function(k){const r=parent.__snapshot1211(k);return r?{...r,token:r.token+'changed-test'}:r;};});
+ await f.locator('[data-save]').click();check('source change invalidates old PDF instead of exporting stale selection',await f.evaluate(()=>!GC500Demob1211.state.ready)&&/record changed/.test(await f.locator('[data-status]').innerText()));await f.evaluate(()=>{parent.DemobCollection996.snapshot=parent.__snapshot1211;delete parent.__snapshot1211;});
+ await f.locator('[data-close]').click();check('closing restores the original map size',!await p.evaluate(()=>document.body.classList.contains('expfull-on')));
+ await f.locator('[data-demob1211]').click();check('reopening requires a fresh selection and confirmation',await f.locator('[data-unit]:checked').count()===0&&!await f.locator('[data-no-twin]').isChecked());
+ await f.evaluate(()=>GC500Spot1117.clear());check('clearing pin closes pickup panel and invalidates exports',await f.evaluate(()=>!GC500Demob1211.state.open&&!GC500Demob1211.state.ready));
+ check('no duplicate quick filter after repeated native refresh',await p.evaluate(()=>{MapDemob1211.mount();MapDemob1211.mount();return document.querySelectorAll('#coatesfwf1211').length===1;}));
+ check('shared record unchanged throughout selection/export',before===await p.evaluate(()=>JSON.stringify(S)));
+ check('no page errors, console errors or record-write attempts',!h.errors.length&&!consoles.length&&!h.counts.blocked);
+}catch(e){console.error('Page errors',h.errors);throw e;}finally{await h.browser.close();}console.log(checks.length+'/'+checks.length);
+})().catch(e=>{console.error(e);process.exit(1)});
