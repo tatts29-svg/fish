@@ -1,5 +1,7 @@
 # Server v5.92 Railway switch — runbook (Claude)
 
+**DONE — LIVE 24 Oct 2026 10:04 AEST.** Deployment d8e7fa2c-269c-400a-8435-80af3b861ae7; boot log names `bdb058ff…` as `/app/server.js`; `/health` v5.92 with `crew_groups_version: 1`; everything preserved. Full report: [PR #1 comment 6377390954](https://github.com/tatts29-svg/fish/pull/1#issuecomment-6377390954). The list below is kept for the record and for rollback.
+
 Author: Andrew Fisher · 24 Oct 2026
 
 **Go-ahead:** Andrew, in the chat on the morning of 24 Oct 2026: "Lets do it".
