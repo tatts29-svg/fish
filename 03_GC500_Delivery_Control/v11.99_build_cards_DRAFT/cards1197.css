@@ -9,8 +9,9 @@
 :is(#pane-timeline,#pane-demob) .cat-pl{--gear:#f27aa8;--gear2:#ffb3cf}
 :is(#pane-timeline,#pane-demob) .cat-oth{--gear:#8fa4b0;--gear2:#c3d2da}
 
-/* the card lifted: the closed-day stamp steps back so the figures read; whole build as a segmented rev bar; on time as a ring */
-:is(#pane-timeline,#pane-demob) .day .bc984-card>.bc984-stamp{opacity:.1!important}
+/* the card lifted: the closed-day stamp moves into the gap beside the date; whole build as a segmented rev bar; on time as a ring */
+:is(#pane-timeline,#pane-demob) .day .bc984-card>.bc984-stamp{left:calc(50% + 48px);inset-inline-start:calc(50% + 48px);top:115px;width:142px;opacity:.88!important;z-index:3} /* Andrew: "Does the stamp go in the gap", "Needs to look centred in that gap more" - the seal sits centred between the date and the card's edge, under CLOSED and above the weather */
+@media(max-width:360px){:is(#pane-timeline,#pane-demob) .day .bc984-card>.bc984-stamp{left:calc(50% + 43px);inset-inline-start:calc(50% + 43px);width:124px}}
 :is(#pane-timeline,#pane-demob) .bc984-progress .bc984-rail{height:9px;margin-top:10px;border-radius:2px;background:repeating-linear-gradient(90deg,#ffffff17 0 7px,transparent 7px 9px);overflow:hidden}
 :is(#pane-timeline,#pane-demob) .bc984-progress .bc984-rail i{height:100%;border-radius:0;background:linear-gradient(90deg,#b8551a,#ff8a3d 55%,#ffd27a);-webkit-mask:repeating-linear-gradient(90deg,#000 0 7px,transparent 7px 9px);mask:repeating-linear-gradient(90deg,#000 0 7px,transparent 7px 9px);filter:drop-shadow(0 0 6px #ff8a3daa)}
 :is(#pane-timeline,#pane-demob) .bc984-load-count.bw1197-ring{position:relative;display:flex;justify-content:center;align-items:baseline;flex:none;width:64px;height:64px;font-size:22px;line-height:64px;border-radius:50%;background:radial-gradient(closest-side,#0b1b2399 70%,transparent 72%)}

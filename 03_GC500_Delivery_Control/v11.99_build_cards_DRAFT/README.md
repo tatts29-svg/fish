@@ -45,7 +45,7 @@ Footer reads v11.99. No record, rate, servicing, crew card, QR code, map positio
   - There's no chip where a text could be one of several references, or where one text served a set of references. The page can't tell which unit it was.
 - **Coates on time** draws its own percentage as a ring, green, amber or red by its existing tone.
 - **Whole build** draws its own percentage as a segmented rev bar.
-- **The closed-day stamp** steps back to a faint watermark (opacity 0.1) so the figures read.
+- **The closed-day stamp** moves into the gap beside the date, at Andrew's asking: "Does the stamp go in the gap" and "Needs to look centred in that gap more". It's a crisp seal centred between the digits and the card's edge, under CLOSED and above the weather. Measured on all 46 closed cards: within 8 px of centre and 10 px clear of each.
 
 ## Files
 
@@ -59,7 +59,7 @@ Footer reads v11.99. No record, rate, servicing, crew card, QR code, map positio
 ## Base and candidate
 
 - Base: live v11.98 (Claude) `6e92bd7e5fb09b86d2d184638a9cea3d41d02509c4fdd4243b8ce5ab273c7dc7`, 21,999,244 bytes.
-- Candidate: `ec3db53854506c10a1c9e4f59ff5d32e44a490274ee649f5a340367a05a2a083`, 22,044,860 bytes, 190 inline scripts. `check_page` passes.
+- Candidate: `2c653073230aa8533fd2121cf87f3459c6fbde66a0aac22df564dc55161e671e`, 22,045,297 bytes, 190 inline scripts. `check_page` passes.
 
 ## Checks
 

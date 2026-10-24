@@ -62,8 +62,17 @@ const {open} = require('../../toolchain/harness/open_page');
     check(ring && ring.p === '31' && ring.text === '31%', 'Coates on time ring on 14 Sep: ' + JSON.stringify(ring));
     const cats = await p.evaluate(() => [...document.querySelectorAll('#pane-timeline .bc984-day[data-day="2026-09-14"] .bw1197-cat')].map(c => c.textContent.replace(/\s+/g, ' ').trim()));
     check(JSON.stringify(cats) === JSON.stringify(['Buildings 7', 'Toilets 7']), '14 Sep key: ' + cats.join(', '));
-    const stamp = await p.evaluate(() => { const s = document.querySelector('#pane-timeline .bc984-day.past984 .bc984-stamp'); return s ? +getComputedStyle(s).opacity : null; });
-    check(stamp !== null && stamp <= 0.1, 'the closed-day stamp steps back: opacity ' + stamp);
+    /* the seal centred in the gap: between the date's digits and the card's right edge, under CLOSED and above the weather */
+    const stamp = await p.evaluate(() => [...document.querySelectorAll('#pane-timeline .bc984-day.past984')].map(c => {
+      const s = c.querySelector('.bc984-stamp'), n = c.querySelector('.bc984-date-number'), w = c.querySelector('.bc984-weather-reading'), cap = c.querySelector('.bc984-cap');
+      if (!s || !n || !w || !cap) return null; const rg = document.createRange(); rg.selectNodeContents(n);
+      const cb = c.getBoundingClientRect(), r = s.getBoundingClientRect(), digits = rg.getBoundingClientRect(), rw = w.getBoundingClientRect(), rcap = cap.getBoundingClientRect();
+      const cx = (r.left + r.right) / 2 - cb.left, cy = (r.top + r.bottom) / 2 - cb.top, rad = s.offsetWidth / 2 * 1.014;
+      const gx = (digits.right - cb.left + (rw.right - cb.left)) / 2, gy = (rcap.bottom - cb.top + (rw.top - cb.top)) / 2;
+      return {day: c.dataset.day, op: +getComputedStyle(s).opacity, dx: Math.round(cx - gx), dy: Math.round(cy - gy), clearLeft: Math.round(cx - rad - (digits.right - cb.left)), clearRight: Math.round((rw.right - cb.left) - (cx + rad)), clearTop: Math.round(cy - rad - (rcap.bottom - cb.top)), clearBottom: Math.round((rw.top - cb.top) - (cy + rad))};
+    }).filter(Boolean));
+    const worst = stamp.reduce((a, x) => ({dx: Math.max(a.dx, Math.abs(x.dx)), dy: Math.max(a.dy, Math.abs(x.dy)), clear: Math.min(a.clear, x.clearLeft, x.clearRight, x.clearTop, x.clearBottom), op: Math.min(a.op, x.op)}), {dx: 0, dy: 0, clear: 1e9, op: 1});
+    check(stamp.length >= 40 && worst.op >= 0.8 && worst.dx <= 22 && worst.dy <= 8 && worst.clear >= 0, 'the closed-day seal is centred in the gap beside the date on all ' + stamp.length + ' closed cards (worst: ' + JSON.stringify(worst) + ')');
 
     await day('2026-10-08');
     const ep = await p.evaluate(() => [...document.querySelectorAll('#pane-timeline .ld.lc991')].map(c => ({carrier: ((c.querySelector('.ld-t em') || {}).textContent || '').trim(), refs: [...c.querySelectorAll('.tl841-ref')].map(r => r.dataset.tl841Ref).join('/'), band: !!c.querySelector('.bw1197-band')})));
