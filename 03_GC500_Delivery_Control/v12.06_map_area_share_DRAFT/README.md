@@ -1,4 +1,4 @@
-# v12.06 · Share a 50 metre map area — DRAFT
+# v12.06 · Share a 50 metre map area — READY TO UPLOAD
 
 Author: Andrew Fisher.
 
@@ -8,6 +8,8 @@ The existing press-and-hold/right-click spot dialog now prepares a fresh 3840 ×
 
 Native file sharing sends the image and text to the user's chosen share target. Devices without file sharing save the picture separately and copy/share the text. Tests capture these calls without sending anything. This adds no operational-record writes and changes no positions, business calculations, machine files or another release's scope.
 
-Current state: implemented, browser verification in progress; NOT READY and NOT LIVE. Rebased on verified v12.05, pinned in BASE_SHA256. The patch also binds the existing spot module's exact hash. Rebuild and retest if live changes. The shared toolchain performs the final guarded release.
+Status: READY TO UPLOAD, independently implemented and tested. Base v12.05 is pinned at `68a8da20f7576dc58357757efdb54471967c67deb49df68265ee4bf1ed1dc895`; candidate `8e371c70200d6b6566d59e7c078f70e5f4737654470a3d812b7fda9159166933`, 15,247,411 bytes, 194 inline scripts. The exact existing spot module is also pinned. All other page bytes, including the new Build and Servicing modules, are identical to the base except the release footer.
 
-Checks so far: geometry 18/18, whole-page preservation 8/8, initial desktop export verified crisp at 3840 × 4160 with all ten recorded toilet door edges. Desktop 29/29, phone 27/27 and viewport regression 9/9 passed on the earlier base. Final checks are being rerun on v12.05, including the new Build regression suite. Raw screenshots and operational excerpts stay in private evidence storage.
+Final candidate: geometry 18/18, preservation 8/8, desktop 29/29, phone 27/27, viewport regression 9/9; replacement Build suite 28/28 on both sizes. Both navigation sweeps passed 27 routes, 19 direct panes, seven deep links and Back, with no page/console errors or attempted writes. Desktop, phone and the 3840 × 4160 export were inspected. Native sharing, cancellation, text-only and download/copy fallback were captured locally; tests did not contact recipients. Physical handset delivery was not tested.
+
+Use the shared `toolchain/build.sh` and `upload_page.py --credential-proxy`, with the unchanged-live-base guard; never force an upload. This candidate was built in `build/GC500_v12.06-r2/`. Upload dry run passed. Publication and actual public UI read-back are next; this is not yet a LIVE claim. Raw pages, screenshots and operational excerpts remain in private evidence storage.

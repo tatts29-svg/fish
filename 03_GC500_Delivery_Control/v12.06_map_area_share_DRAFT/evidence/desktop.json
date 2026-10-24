@@ -1,0 +1,127 @@
+{
+  "author": "Andrew Fisher",
+  "mobile": false,
+  "actual_public_page": false,
+  "checks": [
+    {
+      "name": "quick tap does not drop a share pin",
+      "ok": true
+    },
+    {
+      "name": "drag does not become a share pin",
+      "ok": true
+    },
+    {
+      "name": "right-click makes area and picture",
+      "ok": true
+    },
+    {
+      "name": "chevron-marked toilet doors retained",
+      "ok": true
+    },
+    {
+      "name": "square visible on map",
+      "ok": true
+    },
+    {
+      "name": "share button enabled when picture is ready",
+      "ok": true
+    },
+    {
+      "name": "all mapped entries appear in share text",
+      "ok": true
+    },
+    {
+      "name": "capture time and quantity limitations explicit",
+      "ok": true
+    },
+    {
+      "name": "icons loaded and unknown direction explicit",
+      "ok": true
+    },
+    {
+      "name": "contents independent of visible category filters",
+      "ok": true
+    },
+    {
+      "name": "square spans 50 ground metres",
+      "ok": true
+    },
+    {
+      "name": "crossing footprint included with reference marker outside",
+      "ok": true
+    },
+    {
+      "name": "references deduplicated",
+      "ok": true
+    },
+    {
+      "name": "export does not change camera or zoom",
+      "ok": true
+    },
+    {
+      "name": "Copy returns complete area text",
+      "ok": true
+    },
+    {
+      "name": "native file sharing used",
+      "ok": true
+    },
+    {
+      "name": "shared PNG is 3840 by 4160 with full contents",
+      "ok": true
+    },
+    {
+      "name": "cancelled native share never reports delivery",
+      "ok": true
+    },
+    {
+      "name": "text-only native share saves picture separately",
+      "ok": true
+    },
+    {
+      "name": "desktop fallback saves picture and copies full list",
+      "ok": true
+    },
+    {
+      "name": "phone/desktop dialog and share controls fit window",
+      "ok": true
+    },
+    {
+      "name": "recorded building doors appear with compass directions",
+      "ok": true
+    },
+    {
+      "name": "manually moved pin cannot inherit old plan doors",
+      "ok": true
+    },
+    {
+      "name": "registered inset fixture available",
+      "ok": true
+    },
+    {
+      "name": "registered inset exports without error",
+      "ok": true
+    },
+    {
+      "name": "render error leaves Copy available and disables picture share",
+      "ok": true
+    },
+    {
+      "name": "repinning recovers from rendering failure",
+      "ok": true
+    },
+    {
+      "name": "clear cancels queued area and cannot revive stale share",
+      "ok": true
+    },
+    {
+      "name": "no page or console errors or attempted writes",
+      "ok": true
+    }
+  ],
+  "passed": 29,
+  "errors": [],
+  "consoleErrors": [],
+  "attempted_writes": 0
+}
