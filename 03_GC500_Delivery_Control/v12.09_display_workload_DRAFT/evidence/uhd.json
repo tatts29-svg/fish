@@ -1,0 +1,25 @@
+{
+  "author": "Andrew Fisher",
+  "checks": [
+    {
+      "name": "native 3840 by 2160 target and four-sample smoothing",
+      "ok": true
+    },
+    {
+      "name": "third-lap scene renders with two wordmarks and no GL error",
+      "ok": true
+    },
+    {
+      "name": "saved preview is genuinely 3840 by 2160",
+      "ok": true
+    },
+    {
+      "name": "Close frees the scene and shared record stays unchanged",
+      "ok": true
+    },
+    {
+      "name": "zero page errors or writes",
+      "ok": true
+    }
+  ]
+}

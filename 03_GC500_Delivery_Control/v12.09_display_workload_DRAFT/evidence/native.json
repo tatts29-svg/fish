@@ -1,0 +1,41 @@
+{
+  "author": "Andrew Fisher",
+  "checks": [
+    {
+      "name": "Close cancels preparation immediately",
+      "ok": true
+    },
+    {
+      "name": "preparation reports actual scene phases",
+      "ok": true
+    },
+    {
+      "name": "phone targets native display pixels without forced UHD",
+      "ok": true
+    },
+    {
+      "name": "actual target retains four-sample smoothing",
+      "ok": true
+    },
+    {
+      "name": "frame completes with no GL errors",
+      "ok": true
+    },
+    {
+      "name": "Options and quality choice remain usable",
+      "ok": true
+    },
+    {
+      "name": "third-lap scene and detailed stock truck remain present",
+      "ok": true
+    },
+    {
+      "name": "Close releases scene without changing shared record",
+      "ok": true
+    },
+    {
+      "name": "zero page errors and attempted writes",
+      "ok": true
+    }
+  ]
+}
