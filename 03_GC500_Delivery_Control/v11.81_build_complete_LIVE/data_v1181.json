@@ -1,0 +1,161 @@
+{
+ "schema": 1,
+ "author": "Andrew Fisher",
+ "read_on": "2026-10-24",
+ "ccb": {
+  "rows": [
+   {
+    "record_id": "F-AF-0070",
+    "docket_no": "36766",
+    "expected": {
+     "date": "2026-10-23",
+     "location": "Smoking Zone - Breaker St",
+     "quantities": {
+      "ccb_event": 10
+     },
+     "components": {
+      "cc_barrier": 4
+     },
+     "note": "CC barrier 10 m (4 barriers), installed 23 Oct 2026 at the Smoking Zone - Breaker St. The printed number reads like 36765 at phone size; at full size the last figure is a 6 (36765 is the Gate 5 paper). Event: the paper does not say; smoking zones have been Event since Andrew accepted it on 2 Oct (programme CON WK3 smoking rows and EVENT WEEK row 11 are Event), and Andrew was told Event would be recorded unless he said otherwise. Owner/site supervisor signature present, name not written; contact Brendan. Prices blank. Both signatures dated 23/10/26."
+    },
+    "source_ids": [
+     "36766.jpg",
+     "GC500_2026_Coates_Fencing_Programme_Reviewed_09Oct2026.xlsx"
+    ],
+    "decision": {
+     "state": "confirmed",
+     "type": "ccb_event",
+     "basis": "Our dockets and what has been invoiced are the truth (the project manager's rule, 22 Oct 2026); the build is complete at the numbers we hold (his ruling of 24 Oct 2026: \"we work off number we have for completion of build\"). Docket 36766 stands as recorded: CC barrier 10 m (4 barriers) at the Smoking Zone, Breaker St, 23 Oct 2026, is Event. The paper does not name the category; smoking zones have been Event since the project manager accepted it on 2 Oct (programme CON WK3 smoking rows and EVENT WEEK row 11 are Event), he was told Event would be recorded unless he said otherwise, and he has not. Advanced's sheet decides its supplier line when it comes; a change to the docket makes this review stale until it is read again."
+    }
+   },
+   {
+    "record_id": "F-AF-0072",
+    "docket_no": "36768",
+    "expected": {
+     "date": "2026-10-23",
+     "location": "Club 500 - B.O.H.",
+     "quantities": {
+      "ccb_event": 50
+     },
+     "components": {
+      "cc_barrier": 20
+     },
+     "note": "CC barrier 50 m (20 barriers), installed 23 Oct 2026 at Club 500 - B.O.H. Event: the paper does not say and there is no programme row for it; the Club 500 CCB on the programme (creek protection, CON WK2 row 14) is Event, as Monster Energy's was read, and Andrew was told Event would be recorded unless he said otherwise. Owner/site supervisor signature present, name not written; contact Brendan. Prices blank. Both signatures dated 23/10/26."
+    },
+    "source_ids": [
+     "36768.jpg",
+     "GC500_2026_Coates_Fencing_Programme_Reviewed_09Oct2026.xlsx"
+    ],
+    "decision": {
+     "state": "confirmed",
+     "type": "ccb_event",
+     "basis": "Our dockets and what has been invoiced are the truth (the project manager's rule, 22 Oct 2026); the build is complete at the numbers we hold (his ruling of 24 Oct 2026: \"we work off number we have for completion of build\"). Docket 36768 stands as recorded: CC barrier 50 m (20 barriers) at Club 500 back of house, 23 Oct 2026, is Event. The paper does not name the category and no programme row asks for it; the Club 500 crowd control on the programme (creek protection, CON WK2 row 14) and on the record (36643, 36647) is Event, he was told Event would be recorded unless he said otherwise, and he has not. Advanced's sheet decides its supplier line when it comes; a change to the docket makes this review stale until it is read again."
+    }
+   }
+  ],
+  "sources": [
+   {
+    "id": "36766.jpg",
+    "sha256": "32a6e55eb7ca9d65199fdff5f13ae19170180699e38fa3e573d9fa4ef4ba3f21",
+    "title": "Signed hire agreement 36766"
+   },
+   {
+    "id": "36768.jpg",
+    "sha256": "0fc1b49cce5c7f2a8737935c2f1c5b33003414adf4ae02ed345dece9c0fc00dc",
+    "title": "Signed hire agreement 36768"
+   }
+  ]
+ },
+ "evidence": {
+  "operations": [
+   {
+    "id": "physical-relocation-24492",
+    "type": "relocation",
+    "quantity": 30,
+    "unit": "m",
+    "source_ids": [
+     "24492.jpg"
+    ],
+    "source_refs": [
+     {
+      "id": "24492.jpg",
+      "page": 1
+     }
+    ],
+    "records": [
+     {
+      "book": "green",
+      "record_id": "N-AF-0018",
+      "number": "24492",
+      "expected": {
+       "id": "N-AF-0018",
+       "note_no": "24492",
+       "date": "2026-10-22",
+       "week": "Event Week",
+       "usable": true,
+       "location": "Transporter Compound (The Spit)",
+       "note": "Labour '15 mins x 2 men', quantity 1/2 HR; notes 'Relocated 30 m.' at the Transporter Compound (The Spit) on 22 Oct 2026, the day after hire agreement 36757 there. Company Coates V8s, contact Brendan. Owner/site supervisor and installer signatures dated 22/10/26. Prices blank.",
+       "crew_note": "15 mins x 2 men",
+       "labour_hours": 0.5,
+       "metres": 30
+      }
+     }
+    ],
+    "red_overlap": [
+     {
+      "id": "F010",
+      "docket_no": "36510",
+      "date": "2026-09-14",
+      "week": "Week 5",
+      "scope": "programme",
+      "usable": true,
+      "quantities": {
+       "relocation": 50
+      },
+      "components": {},
+      "location": "Sea World Drive, Main Beach",
+      "note": "Relocated fence line on Sea World Drive, Main Beach — half an hour of relocation work, now with a length on it. 50 m of mesh fence on 36510, confirmed as mesh panel. 50 m, charged at the 2026 card’s Relocation of Fencing rate, which is what this docket’s open question was: the rate was settled and the metres were not. Advanced bill relocation by the hour and the card prices it by the metre, so the length is the thing that had to come off the paper."
+     },
+     {
+      "id": "F025",
+      "docket_no": "36525",
+      "date": "2026-09-17",
+      "week": "Week 5",
+      "scope": "programme",
+      "usable": true,
+      "quantities": {
+       "relocation": 60
+      },
+      "components": {},
+      "location": "S.O.5 C.2",
+      "note": "Written on the docket: relocated fence line, 60 m, half an hour, two men. THE METRES ARE ON THIS ONE — which is what was missing from docket 36510, where the relocation was given in hours alone and Coates charge relocation by the metre. This one costs."
+     },
+     {
+      "id": "F027",
+      "docket_no": "36528",
+      "date": "2026-09-17",
+      "week": "Week 5",
+      "scope": "programme",
+      "usable": true,
+      "quantities": {
+       "relocation": 27.5
+      },
+      "components": {
+       "wheels": 2
+      },
+      "location": "S.O.8 exclusion zone",
+      "note": "Written on the docket: relocated panels from the existing fence line, 27.5 m, two men, 15 minutes; added two wheels for a gate. The metres are on this one, so the relocation costs."
+     }
+    ],
+    "basis": "Signed service note 24492 records 'Relocated 30 m.' at the Transporter Compound (The Spit), 22 Oct 2026, the day after hire agreement 36757 put 70 m of fence there. Existing fence moved; no new mesh length; the half hour stays counted once on the note."
+   }
+  ],
+  "sources": [
+   {
+    "id": "24492.jpg",
+    "sha256": "d54eb522575a404985d2dcd516889159101aef5d124dd4bccf6a215f24eb029a",
+    "title": "Signed service note 24492"
+   }
+  ]
+ }
+}
