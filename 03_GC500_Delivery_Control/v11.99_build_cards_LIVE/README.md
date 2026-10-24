@@ -2,9 +2,9 @@
 
 Author: Andrew Fisher
 
-DRAFT, 25 Oct 2026. It was claimed as v11.97 and renumbered v11.99 because v11.98 published first, so the footer never goes backwards. The first mock-up went to Andrew at 02:03 AEST.
+LIVE 25 Oct 2026 04:39 AEST: guarded upload at 04:39:00, and a separate public GET at 04:39:05 matched every byte (`2c653073…`, 22,045,297 bytes). Native 26/26 desktop and phone on the live bytes; the live screenshots are `evidence/live-*`. It was claimed as v11.97 and renumbered v11.99 because v11.98 published first, so the footer never goes backwards. The first mock-up went to Andrew at 02:03 AEST.
 
-Andrew then wrote: "What happned to add the delivering window are we upgrdaing pushing the limits with the build cards. Make these look 10000% better". The upgraded mock-up went to him before 04:16 AEST. It isn't uploaded until he says yes.
+Andrew then wrote: "What happned to add the delivering window are we upgrdaing pushing the limits with the build cards. Make these look 10000% better". The upgraded mock-up went to him before 04:16 AEST. His yes: "Both parts, as shown". Then, at his asking, the stamp moved into the gap beside the date.
 
 Andrew, 25 Oct 2026: "Lets push our limits and do improvement with the build cards. Also we shouldc have a delivery window can we mention this Delivery booked betweem this time and this time".
 
