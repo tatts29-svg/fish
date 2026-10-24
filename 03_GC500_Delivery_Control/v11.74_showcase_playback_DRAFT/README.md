@@ -2,7 +2,7 @@
 
 Author: Andrew Fisher
 
-DRAFT — Codex owns implementation, checks and guarded publication. Not live and not independently reviewed by Claude. Claimed source `723aba5acced7e3b467516c3cd9ef4dfa1389f09` on `ccr-061f77e8-ivjhrv`.
+READY TO UPLOAD — Codex owns implementation, completed checks and guarded publication. Not live yet; no independent Claude review. Claimed source `723aba5acced7e3b467516c3cd9ef4dfa1389f09` on `ccr-061f77e8-ivjhrv`.
 
 Andrew reports slow motion and freezing and requests urgent attention. v11.57 gated the whole fixed-step simulation behind GPU completion. With 60 animation callbacks per second and 200 ms GPU frames, its 50 ms elapsed-time cap advanced only 0.5 seconds in two wall seconds. The same unchanged clock now advances 2.0 seconds: only drawing waits for the pending GPU frame. A paused redraw remains dirty until it can be submitted. Context loss and hidden intervals cannot advance playback.
 
@@ -10,7 +10,7 @@ The GPU guard also discarded every frame over ten seconds, leaving the worst ren
 
 Base main v11.73 SHA-256 `0a02e5fdba577f678a3494ffdccca474a126bc7be13dac2015a09d3a1c88dd9f`. Candidate SHA-256 `98a4d37322b8cd216b93922d365ef8fac1fa3617821909548dd5974577abeb46`, 21,756,603 bytes. Only the GPU scheduling module, existing slow-device fallback module and footer change. The preservation test reverses those edits and proves exact equality of everything else, including all geometry, content, reports and crew code. No record writes or private photos are part of this release.
 
-Completed: all 173 scripts parse; secret/author checks; actual-clock delayed-GPU regression, paused redraw, hidden/resume exclusion, severe/moderate quality guard, manual opt-out, context loss, deferred cleanup and full-page preservation checks. Final-candidate desktop/phone lifecycle checks, full sweeps, visual inspection and real WebGL playback are in progress. Previous-candidate lifecycle checks passed 18/18 on both layouts and software WebGL correctly handed back to the flat circuit; those results are being repeated on the final bytes. Software WebGL measurements are not physical-device FPS claims.
+Completed on the exact candidate: all 173 scripts parse; secret/author checks; actual-clock delayed-GPU regression; actual completed-frame target and sustained minimum-detail fallback; paused redraw; hidden/resume exclusion; severe/moderate quality guard; manual opt-out; context loss; deferred cleanup; full-page preservation. Desktop and phone lifecycle checks each passed 18/18. Both full sweeps passed 27 tabs (19 shown), seven deep links and Back, with zero page/console errors or attempted writes. Final phone screenshot inspected. Actual SwiftShader WebGL exercised automatic fallback, context retirement and continued slide navigation without errors. The cold software GPU run had a 17.3-second maximum heartbeat gap before recovery; this is not a claim of stutter-free physical-device playback. Software WebGL measurements are not physical-device FPS claims. See EVIDENCE.json for exact metrics. Tests only read the live service; no operational records were written.
 
 Build and checks:
 

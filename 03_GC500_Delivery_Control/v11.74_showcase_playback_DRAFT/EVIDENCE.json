@@ -1,6 +1,6 @@
 {
   "author": "Andrew Fisher",
-  "status": "DRAFT; final-candidate browser checks and sweeps pending",
+  "status": "READY TO UPLOAD; publication and live smoke pending",
   "base_sha256": "0a02e5fdba577f678a3494ffdccca474a126bc7be13dac2015a09d3a1c88dd9f",
   "candidate_sha256": "98a4d37322b8cd216b93922d365ef8fac1fa3617821909548dd5974577abeb46",
   "deterministic_clock": {
@@ -17,13 +17,46 @@
     "fallbacks": 1,
     "quality_reductions": 7,
     "old_contexts_pending_disposal": 0,
-    "slide_changes": 7,
-    "open_call_ms": 114.8,
-    "close_call_ms": 269.6,
+    "slide_changes": 8,
+    "open_call_ms": 93.7,
+    "close_call_ms": 261.2,
     "page_errors": 0,
     "attempted_record_writes": 0,
-    "tested_candidate": "2ffc7a7c9e4ef9102df0294e51a33a13a89cf7c222bf8318aff69d5f7179f382"
+    "tested_candidate": "98a4d37322b8cd216b93922d365ef8fac1fa3617821909548dd5974577abeb46",
+    "max_heartbeat_gap_ms": 17263.5,
+    "limitation": "Cold software GPU rendering still produced a long stall before automatic recovery; this is not evidence of stutter-free physical-device playback."
   },
   "preservation": "Exact base equality after reversing the footer and two scheduling/fallback modules; no geometry, content, servicing, crew, report or other page code changed.",
-  "independent_second_agent_review": false
+  "independent_second_agent_review": false,
+  "browser_checks": {
+    "desktop": 18,
+    "phone": 18
+  },
+  "full_sweeps": {
+    "desktop": {
+      "tabs": 27,
+      "shown": 19,
+      "deep_links": 7,
+      "back": {
+        "hash": "#plant",
+        "pane": "pane-plant"
+      },
+      "page_errors": 0,
+      "console_errors": 0,
+      "attempted_writes": 0
+    },
+    "phone": {
+      "tabs": 27,
+      "shown": 19,
+      "deep_links": 7,
+      "back": {
+        "hash": "#plant",
+        "pane": "pane-plant"
+      },
+      "page_errors": 0,
+      "console_errors": 0,
+      "attempted_writes": 0
+    }
+  },
+  "phone_visual_inspection": "Passed on final candidate: readable controls, retry visible, no horizontal clipping"
 }
