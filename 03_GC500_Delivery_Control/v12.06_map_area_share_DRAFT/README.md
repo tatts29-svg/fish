@@ -8,6 +8,6 @@ The existing press-and-hold/right-click spot dialog now prepares a fresh 3840 ×
 
 Native file sharing sends the image and text to the user's chosen share target. Devices without file sharing save the picture separately and copy/share the text. Tests capture these calls without sending anything. This adds no operational-record writes and changes no positions, business calculations, machine files or another release's scope.
 
-Current state: implemented, browser verification in progress; NOT READY and NOT LIVE. Based on verified v12.03, pinned in BASE_SHA256. The patch also binds the existing spot module's exact hash. Rebuild and retest if live changes. The shared toolchain performs the final guarded release.
+Current state: implemented, browser verification in progress; NOT READY and NOT LIVE. Rebased on verified v12.05, pinned in BASE_SHA256. The patch also binds the existing spot module's exact hash. Rebuild and retest if live changes. The shared toolchain performs the final guarded release.
 
-Checks so far: geometry 18/18, whole-page preservation 8/8, initial desktop export verified crisp at 3840 × 4160 with all ten recorded toilet door edges. Final phone, full share/failure cases, map regressions and navigation sweeps still pending. Raw screenshots and operational excerpts stay in private evidence storage.
+Checks so far: geometry 18/18, whole-page preservation 8/8, initial desktop export verified crisp at 3840 × 4160 with all ten recorded toilet door edges. Desktop 29/29, phone 27/27 and viewport regression 9/9 passed on the earlier base. Final checks are being rerun on v12.05, including the new Build regression suite. Raw screenshots and operational excerpts stay in private evidence storage.

@@ -2,23 +2,29 @@
 const fs=require('fs'),path=require('path'),assert=require('assert'),{open}=require('../../toolchain/harness/open_page');
 (async()=>{
  const mobile=process.env.MOB==='1',out=process.env.OUT,checks=[],h=await open({pageFile:process.env.PAGE,hash:'#sheet/__explorer',W:mobile?390:1440,H:mobile?844:1000,dpr:mobile?2:1,mobile}),p=h.page;
- const check=(name,ok)=>{checks.push({name,ok:!!ok});assert(ok,name);};if(out)fs.mkdirSync(out,{recursive:true});
+ const consoleErrors=[];p.on('console',m=>{if(m.type()==='error')consoleErrors.push(m.text());});
+ const check=(name,ok)=>{checks.push({name,ok:!!ok});if(out)fs.writeFileSync(path.join(out,'progress.json'),JSON.stringify({checks,errors:h.errors,consoleErrors}));assert(ok,name);};if(out)fs.mkdirSync(out,{recursive:true});
  try{
  await p.waitForFunction(()=>document.querySelector('#pane-map.on #expFrame')?.contentWindow?.GC500Area1206&&SYNC.status==='live',null,{timeout:180000});
  await p.locator('#expFull').click();const f=p.frames().find(f=>f.url().includes('/explorer/index.html'));
  await f.waitForFunction(()=>ITEMS.some(i=>i.code==='WC41'),null,{timeout:180000});
  await f.evaluate(()=>{window.test1206={downloads:0,shares:[],copies:[],mode:'files'};Object.defineProperty(navigator,'canShare',{configurable:true,value:()=>test1206.mode!=='text'});Object.defineProperty(navigator,'share',{configurable:true,value:async d=>{if(test1206.mode==='abort')throw new DOMException('Cancelled','AbortError');test1206.shares.push(d);}});Object.defineProperty(navigator,'clipboard',{configurable:true,value:{writeText:async t=>{test1206.copies.push(t);}}});const click=HTMLAnchorElement.prototype.click;HTMLAnchorElement.prototype.click=function(){if(this.download){test1206.downloads++;return;}return click.call(this);};});
- const focus=async code=>{await f.evaluate(code=>{GC500Spot1117.clear();const it=ITEMS.find(i=>i.code===code),b=it.places[0],q=toGeo((b[0]+b[2])/2,(b[1]+b[3])/2);gotoRect([q.x-45,q.y-45,q.x+45,q.y+45],'Area sharing check');},code);await p.waitForTimeout(950);return await f.evaluate(code=>{const b=ITEMS.find(i=>i.code===code).places[0],q=toGeo((b[0]+b[2])/2,(b[1]+b[3])/2),z=applyM(sheetToDevice(currentView().scale,sw,sh),q.x,q.y),r=stage.getBoundingClientRect();return {x:z.x,y:z.y,cx:z.x+r.left,cy:z.y+r.top};},code);};
+ const focus=async code=>{await f.evaluate(code=>{GC500Spot1117.clear();clearSelection813();const it=ITEMS.find(i=>i.code===code),b=it.places[0],q=toGeo((b[0]+b[2])/2,(b[1]+b[3])/2);gotoRect([q.x-45,q.y-45,q.x+45,q.y+45],'Area sharing check');},code);await p.waitForTimeout(950);return await f.evaluate(code=>{const b=ITEMS.find(i=>i.code===code).places[0],q=toGeo((b[0]+b[2])/2,(b[1]+b[3])/2),z=applyM(sheetToDevice(currentView().scale,sw,sh),q.x,q.y),r=stage.getBoundingClientRect();return {x:z.x,y:z.y,cx:z.x+r.left,cy:z.y+r.top};},code);};
  const pin=async code=>{const q=await focus(code);await f.evaluate(q=>GC500Spot1117.drop(q.x,q.y),q);await ready();};
  const ready=()=>f.waitForFunction(()=>GC500Area1206.state.ready||GC500Area1206.state.error,null,{timeout:180000});
- const q=await focus('WC41');
- // Real DOM gesture path; synthetic pointer events avoid the runner's OS context menu.
- await f.evaluate(q=>{stage.dispatchEvent(new PointerEvent('pointerdown',{bubbles:true,isPrimary:true,pointerId:17,button:0,clientX:q.cx,clientY:q.cy}));stage.dispatchEvent(new PointerEvent('pointerup',{bubbles:true,isPrimary:true,pointerId:17,button:0}));},q);await p.waitForTimeout(650);
+ let q=await focus('WC41');
+ const cdp=mobile?await p.context().newCDPSession(p):null;
+ const position=async q=>{const r=await p.locator('#expFrame').boundingBox();return {x:q.cx+r.x,y:q.cy+r.y};};
+ const down=async q=>{const z=await position(q);if(mobile)await cdp.send('Input.dispatchTouchEvent',{type:'touchStart',touchPoints:[z]});else{await p.mouse.move(z.x,z.y);await p.mouse.down();}};
+ const move=async q=>{const z=await position(q);if(mobile)await cdp.send('Input.dispatchTouchEvent',{type:'touchMove',touchPoints:[z]});else await p.mouse.move(z.x,z.y);};
+ const up=async()=>{if(mobile)await cdp.send('Input.dispatchTouchEvent',{type:'touchEnd',touchPoints:[]});else await p.mouse.up();};
+ await down(q);await up();await p.waitForTimeout(650);
  check('quick tap does not drop a share pin',await f.evaluate(()=>!GC500Spot1117.state.pin));
- await f.evaluate(q=>{stage.dispatchEvent(new PointerEvent('pointerdown',{bubbles:true,isPrimary:true,pointerId:18,button:0,clientX:q.cx,clientY:q.cy}));stage.dispatchEvent(new PointerEvent('pointermove',{bubbles:true,isPrimary:true,pointerId:18,clientX:q.cx+20,clientY:q.cy}));},q);await p.waitForTimeout(650);await f.evaluate(()=>stage.dispatchEvent(new PointerEvent('pointerup',{bubbles:true,isPrimary:true,pointerId:18})));
+ q=await focus('WC41');await down(q);await move({...q,cx:q.cx+25});await p.waitForTimeout(650);await up();
  check('drag does not become a share pin',await f.evaluate(()=>!GC500Spot1117.state.pin));
- if(mobile){await f.evaluate(q=>stage.dispatchEvent(new PointerEvent('pointerdown',{bubbles:true,isPrimary:true,pointerId:19,button:0,clientX:q.cx,clientY:q.cy})),q);await p.waitForTimeout(650);await f.evaluate(()=>stage.dispatchEvent(new PointerEvent('pointerup',{bubbles:true,isPrimary:true,pointerId:19})));}
- else await f.evaluate(q=>stage.dispatchEvent(new MouseEvent('contextmenu',{bubbles:true,cancelable:true,clientX:q.cx,clientY:q.cy,button:2})),q);
+ q=await focus('WC41');
+ if(mobile){await down(q);await p.waitForTimeout(650);await up();}
+ else {const z=await position(q);await p.mouse.click(z.x,z.y,{button:'right'});}
  await ready();let state=await f.evaluate(()=>GC500Area1206.state);
  check(mobile?'long press makes area and picture':'right-click makes area and picture',state.ready&&!state.error);
  check('chevron-marked toilet doors retained',state.rows.find(r=>r.code==='WC41')?.parts.flatMap(x=>x.doors).length===10);
@@ -47,7 +53,10 @@ const fs=require('fs'),path=require('path'),assert=require('assert'),{open}=requ
  await pin('P33');state=await f.evaluate(()=>GC500Area1206.state);check('recorded building doors appear with compass directions',state.rows.some(r=>r.code==='P33'&&r.parts.some(p=>p.doors.some(d=>d.faces==='north-west'))));
  const moved=await f.evaluate(()=>{const it=ITEMS.find(i=>i.code==='P33'),old=it.placedHow,p=GC500Spot1117.state.pin;try{it.placedHow="Andrew's pin";return GC500Area1206.snapshot({ll:{lat:p.lat,lon:p.lon}}).rows.find(r=>r.code==='P33')?.parts.every(p=>!p.doors.length);}finally{it.placedHow=old;}});check('manually moved pin cannot inherit old plan doors',moved);
  if(!mobile){
- const inset=await f.evaluate(()=>ITEMS.find(it=>it.places.some(b=>{const x=(b[0]+b[2])/2,y=(b[1]+b[3])/2,r=GEO.inset.sheet_region_pts;return x>r[0]+2&&x<r[2]-2&&y>r[1]+2&&y<r[3]-2;}))?.code);check('registered inset fixture available',!!inset);await pin(inset);check('registered inset exports without error',(await f.evaluate(()=>GC500Area1206.state)).ready);
+ const inset=await f.evaluate(()=>{for(const it of ITEMS){const b=it.places.find(b=>{const x=(b[0]+b[2])/2,y=(b[1]+b[3])/2,r=GEO.inset.sheet_region_pts;return x>r[0]+2&&x<r[2]-2&&y>r[1]+2&&y<r[3]-2;});if(b)return b;}return null;});check('registered inset fixture available',!!inset);
+ await f.evaluate(b=>{GC500Spot1117.clear();const q=toGeo((b[0]+b[2])/2,(b[1]+b[3])/2);gotoRect([q.x-45,q.y-45,q.x+45,q.y+45],'Inset export check');},inset);await p.waitForTimeout(950);
+ await f.evaluate(b=>{const q=toGeo((b[0]+b[2])/2,(b[1]+b[3])/2),z=applyM(sheetToDevice(currentView().scale,sw,sh),q.x,q.y);GC500Spot1117.drop(z.x,z.y);},inset);await ready();check('registered inset exports without error',(await f.evaluate(()=>GC500Area1206.state)).ready);
+
  }
  // Rendering failure must leave useful text and recover on the next selection.
  await f.evaluate(()=>{window.svg1206original=svgFromWorker;svgFromWorker=()=>Promise.reject(new Error('Simulated drawing unavailable'));});const qFail=await focus('WC41');await f.evaluate(q=>GC500Spot1117.drop(q.x,q.y),qFail);await ready();
@@ -55,7 +64,8 @@ const fs=require('fs'),path=require('path'),assert=require('assert'),{open}=requ
  await f.evaluate(()=>svgFromWorker=window.svg1206original);await pin('WC41');check('repinning recovers from rendering failure',(await f.evaluate(()=>GC500Area1206.state)).ready);
  await f.evaluate(()=>{svgFromWorker=async(...a)=>{await new Promise(r=>setTimeout(r,250));return svg1206original(...a);};const c=document.querySelector('#spot1117'),p=GC500Spot1117.state.pin;GC500Area1206.update({ll:{lat:p.lat,lon:p.lon}},c);GC500Area1206.update({ll:{lat:p.lat+.0001,lon:p.lon}},c);GC500Spot1117.clear();});await p.waitForTimeout(1500);
  check('clear cancels queued area and cannot revive stale share',await f.evaluate(()=>!GC500Spot1117.state.pin&&!GC500Area1206.state.ready&&!GC500Area1206.state.entries&&!document.querySelector('#area1206-boundary polygon')));
- check('no page errors or attempted writes',!h.errors.length&&!h.counts.blocked);
- console.log(JSON.stringify({author:'Andrew Fisher',mobile,actual_public_page:!process.env.PAGE,checks,passed:checks.length,errors:h.errors,attempted_writes:h.counts.blocked}));
+ if(h.errors.length||consoleErrors.length||h.counts.blocked)console.error(JSON.stringify({errors:h.errors,consoleErrors,writes:h.counts.blocked}));
+ check('no page or console errors or attempted writes',!h.errors.length&&!consoleErrors.length&&!h.counts.blocked);
+ console.log(JSON.stringify({author:'Andrew Fisher',mobile,actual_public_page:!process.env.PAGE,checks,passed:checks.length,errors:h.errors,consoleErrors,attempted_writes:h.counts.blocked}));
  }finally{await h.browser.close();}
 })().catch(e=>{console.error(e);process.exit(1)});
