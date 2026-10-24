@@ -1,8 +1,10 @@
 # v11.93 Today, part 2: Milestones off, the name put right, staff and contacts fold
 
-**READY 25 Oct 2026.**
-- Built on live v11.92 `1ca10ac4c8498f4e07a47aa5de4d4f59ef9c17a218961340fe275480eb90e2a3` (Codex's Showcase release).
-- Build `e49bca1a…` (21,966,625 bytes).
+**LIVE 25 Oct 2026 01:06 AEST.**
+- Page `e49bca1a706ee7297f9f05ac04d0e91cbbbfcffdc216e8e1e8d1fb1326ff6ea3` (21,966,625 bytes), built on Codex's v11.92 `1ca10ac4…`.
+- Guarded upload. The view link serves the build byte for byte; a separate public download at 01:06:29 matched every byte.
+- On the live page, `tests/test_native1193.cjs` passed 23/23 on phone and 23/23 on desktop. Screenshots are in `evidence/live/`,
+  with staff names and Who to call blurred.
 
 Author: Andrew Fisher · 25 Oct 2026
 
@@ -75,9 +77,9 @@ On a phone it was 15,390 px before the clean-up started.
   are blurred.
 
 ```
-toolchain/build.sh v11.93 v11.93_today_tidy_DRAFT/patch_v1193.py
-PAGE=build/GC500_v11.93/GC500_Delivery_Control_hosted.html BASE=build/GC500_v11.93/base_live.html node v11.93_today_tidy_DRAFT/tests/test_rules1193.cjs
-PAGE=build/GC500_v11.93/GC500_Delivery_Control_hosted.html [MOB=1] [EVIDENCE=dir] node v11.93_today_tidy_DRAFT/tests/test_native1193.cjs
+toolchain/build.sh v11.93 v11.93_today_tidy_LIVE/patch_v1193.py
+PAGE=build/GC500_v11.93/GC500_Delivery_Control_hosted.html BASE=build/GC500_v11.93/base_live.html node v11.93_today_tidy_LIVE/tests/test_rules1193.cjs
+PAGE=build/GC500_v11.93/GC500_Delivery_Control_hosted.html [MOB=1] [EVIDENCE=dir] node v11.93_today_tidy_LIVE/tests/test_native1193.cjs
 ```
 
 Implemented and tested by Claude, for Andrew; not reviewed by Codex.
