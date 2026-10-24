@@ -10,4 +10,4 @@ Claimed at `2f70ad3f3e3ff144f5625f3ba6e5ae0749b6f430` on `ccr-061f77e8-ivjhrv`. 
 
 DRAFT: implementation and verification in progress. NOT READY and NOT LIVE. Check recurrence/reset, person geometry/placement and animated arms, resource lifecycle, readable branding and actual 3840 × 2160 rendering, desktop/phone controls, reduced motion, record preservation and full navigation sweeps before guarded publication. Raw frames stay private; archive sanitised evidence only.
 
-Initial candidate: `49758dcd7591e21a6a0e13223eb7a3b76a9cf76504e253316e24b5e7e9721085`. Rules/model/scope preservation 34/34; native scene rendering and 4K checks are running. Not ready for publication.
+Current candidate: `dc2d5eff8a345f0f090135fa6bd90013bdc1f7786f0193588a46e965ac3ee894`, 15,251,289 bytes, 194 inline scripts. The smoke rise is bounded to keep the plume in the scene camera; the large roof effect is a rounded fireball. Revised preview inspected privately, with readable lettering and the waving person. Rules/model/scope preservation 34/34; final native rendering, 4K and full navigation checks are running. Not ready for publication.

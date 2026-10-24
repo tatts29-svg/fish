@@ -144,7 +144,7 @@ layout(location=0) in vec3 aPos;layout(location=1) in vec2 aUV;layout(location=2
 uniform mat4 uVP;uniform mat4 uModel;uniform vec3 uRight;uniform vec3 uUp;uniform float uScale;uniform float uTime;
 out vec2 vUV;out float vSeed;out float vSmoke;out float vAge;
 void main(){vUV=aUV;vSeed=aSeed.x;vSmoke=aSeed.z;float age=fract(uTime*.16+aSeed.x*.173);vAge=age;
-vec3 local=aPos;float sz=aSeed.y;if(vSmoke>.5){local.y+=age*3.8;local.x-=age*.95;sz*=.85+age*1.6;}
+vec3 local=aPos;float sz=aSeed.y;if(vSmoke>.5&&vSmoke<1.5){local.y+=age*1.65;local.x-=age*.65;sz*=.80+age*1.2;}
 vec3 p=(uModel*vec4(local,1.)).xyz+uRight*(aUV.x-.5)*sz*uScale+uUp*(aUV.y-.5)*sz*uScale*(vSmoke>.5?1.:1.9);
 gl_Position=uVP*vec4(p,1.);}`;
 const FS=`#version 300 es
@@ -153,7 +153,8 @@ float hash(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453);}
 float noise(vec2 p){vec2 i=floor(p),f=fract(p);f=f*f*(3.-2.*f);return mix(mix(hash(i),hash(i+vec2(1,0)),f.x),mix(hash(i+vec2(0,1)),hash(i+vec2(1)),f.x),f.y);}
 float fbm(vec2 p){return noise(p)*.57+noise(p*2.03+4.3)*.28+noise(p*4.07+1.2)*.15;}
 void main(){vec2 q=vUV;float n=fbm(vec2(q.x*4.+vSeed,q.y*4.-uTime*1.15));
-if(vSmoke>.5){float r=length((q-.5)*2.);float a=(1.-smoothstep(.35,1.,r+n*.16))*sin(vAge*3.14159)*.38;vec3 c=mix(vec3(.065,.07,.075),vec3(.23,.24,.25),n);o=vec4(c*a,a);return;}
+if(vSmoke>.5&&vSmoke<1.5){float r=length((q-.5)*2.);float a=(1.-smoothstep(.30,1.,r+n*.16))*sin(vAge*3.14159)*.72;vec3 c=mix(vec3(.018,.021,.024),vec3(.13,.14,.15),n);o=vec4(c*a,a);return;}
+if(vSmoke>1.5){float r=length((q-.5)*vec2(2.,2.15));float a=(1.-smoothstep(.46,.99,r+(n-.5)*.26))*.66;float heat=clamp(1.-r+n*.34,0.,1.);vec3 c=mix(vec3(2.5,.12,.004),vec3(4.1,1.9,.16),smoothstep(.22,.82,heat));o=vec4(c*a,a);return;}
 float sway=sin(q.y*7.-uTime*2.1+vSeed)*(.035+q.y*.07)+(n-.5)*.20;float edge=abs(q.x-.5+sway)*2.;float width=pow(max(0.,1.-q.y),.72)*.75;
 float a=(1.-smoothstep(width-.20,width+.06,edge))*smoothstep(0.,.12,q.y)*(1.-smoothstep(.70,1.,q.y))*.82;
 float heat=clamp((1.-edge)*.65+(1.-q.y)*.45+(n-.5)*.35,0.,1.);vec3 c=mix(vec3(2.4,.13,.006),vec3(4.2,2.2,.22),smoothstep(.45,.98,heat));o=vec4(c*a,a);}`;
@@ -165,9 +166,9 @@ function resources(S,q){if(q.resources)return q.resources;const gl=S.gl,r=q.reso
   const sprite=(pos,size,seed,smoke)=>{const o=r.fx.nv;for(const uv of [[0,0],[1,0],[1,1],[0,1]])r.fx.vert(...pos,...uv,seed,size,smoke);r.fx.tri(o,o+1,o+2);r.fx.tri(o,o+2,o+3);};
   // A broad fireball above the roof, flames at both ends and a taller rolling
   // smoke plume. The near-side door sits below the large flames, keeping the logo legible.
-  for(let i=0;i<24;i++)sprite([Math.sin(i*2.4)*.68,1.30,Math.cos(i*3.7)*.20],1.08,i+30,1);
+  for(let i=0;i<24;i++)sprite([Math.sin(i*2.4)*.68,1.35,Math.cos(i*3.7)*.20],1.08,i+30,1);
   for(let i=0;i<20;i++){const xx=i%2?.76:-.84,z=(i%5-2)*.11;sprite([xx,.46,z],.41+(i%4)*.055,i+1,0);}
-  for(let i=0;i<12;i++){const x=-.65+(i%4)/3*1.30,z=q.place.side*.18+(Math.floor(i/4)-1)*.12;sprite([x,1.17+(i%3)*.13,z],.75+(i%3)*.065,i+61,0);}
+  for(let i=0;i<12;i++){const x=-.65+(i%4)/3*1.30,z=q.place.side*.18+(Math.floor(i/4)-1)*.12;sprite([x,1.17+(i%3)*.13,z],1.05+(i%3)*.065,i+61,2);}
   r.fx.upload();r.fx.v=[];r.fx.i=[];return r;
  }catch(e){dispose(S);throw e;}
 }
