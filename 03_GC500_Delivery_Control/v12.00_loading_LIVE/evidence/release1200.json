@@ -18,7 +18,7 @@
   "record_writes": 0,
   "second_agent_review": false,
   "physical_device_frame_rate_verified": false,
-  "publication_state": "READY TO UPLOAD",
+  "publication_state": "VERIFIED LIVE",
   "uhd_screenshot_inspected": true,
   "checks": {
     "preservation": 18,
@@ -29,5 +29,16 @@
     "uhd": 5,
     "sweeps": "27 routes/19 direct panes/7 deep links/Back on desktop and phone; zero page/console errors and attempted writes"
   },
-  "upload_dry_run": "PASS; edit access and unchanged live v11.99 base"
+  "upload_dry_run": "PASS; edit access and unchanged live v11.99 base",
+  "source_commit": "a5431b396a327077983ca5a654f54a0f968b780d",
+  "live_time_aest": "25 Oct 2026 05:14:31 AEST",
+  "public_byte_check": true,
+  "public_ui_checks_passed": 7,
+  "public_phone_screenshot_inspected": true,
+  "public_wire": {
+    "encoding": "br",
+    "bytes": 2740385,
+    "previous_br_bytes": 7844902,
+    "reduction_percent": 65.07
+  }
 }

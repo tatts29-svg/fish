@@ -1,0 +1,36 @@
+{
+  "author": "Andrew Fisher",
+  "checks": [
+    {
+      "name": "live v12.00 and retained Build/Showcase modules",
+      "ok": true
+    },
+    {
+      "name": "no explorer downloaded behind Today",
+      "ok": true
+    },
+    {
+      "name": "all requested search destinations remain findable",
+      "ok": true
+    },
+    {
+      "name": "Documents opens on actual public page",
+      "ok": true
+    },
+    {
+      "name": "Build wrapper retained",
+      "ok": true
+    },
+    {
+      "name": "page fonts loaded",
+      "ok": true
+    },
+    {
+      "name": "no page errors or attempted writes",
+      "ok": true
+    }
+  ],
+  "errors": [],
+  "attemptedWrites": 0,
+  "screenshot_inspected": true
+}

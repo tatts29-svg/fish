@@ -2,9 +2,13 @@
 
 Author: Andrew Fisher
 
-READY TO UPLOAD — independently implemented and tested by Codex. No second-agent
-review claimed. No page publication yet. Source is this READY commit; the exact
-commit is recorded in PR #1 before upload.
+VERIFIED LIVE — 25 Oct 2026 05:14:31 AEST. Independently implemented, tested and
+published by Codex; no second-agent review claimed. READY source:
+`a5431b396a327077983ca5a654f54a0f968b780d` on `ccr-061f77e8-ivjhrv`.
+The guarded upload passed. A separate public GET at 05:14:46 AEST matched every
+byte and the v12.00 footer. Actual public UI 7/7, no page errors or writes;
+phone screenshot inspected. A further Brotli download at 05:15:54 AEST matched
+the exact candidate and measured 2,740,385 bytes, down from 7,844,902 (65.07%).
 
 Andrew requested faster loading, responsive updates, clear high-resolution
 rendering and animation, fewer freezes/errors, and easier finding. This release
@@ -22,7 +26,7 @@ calculation rules, operational record, current Build cards and Showcase animatio
 - Media manifest:
   `41f15c79280eb20cd91a8b14990773facc955b46cff5d71bfe274a819c048fae`
   (1,986 entries). All 56 extracted files have been staged and publicly read back
-  with their exact source bytes. This is additive media staging, not page release.
+  with their exact source bytes. The page subsequently published with this exact manifest.
 
 ## Change
 
@@ -72,17 +76,17 @@ Set `NODE_PATH` and `CHROMIUM_PATH` for the execution environment. Keep raw page
 profiles, operational values and screenshots in private storage outside Git.
 
 ```sh
-bash toolchain/build.sh v12.00 v12.00_loading_DRAFT/patch_v1200.py
-python v12.00_loading_DRAFT/tests/test_preservation1200.py build/GC500_v12.00/base_live.html build/GC500_v12.00/GC500_Delivery_Control_hosted.html
+bash toolchain/build.sh v12.00 v12.00_loading_LIVE/patch_v1200.py
+python v12.00_loading_LIVE/tests/test_preservation1200.py build/GC500_v12.00/base_live.html build/GC500_v12.00/GC500_Delivery_Control_hosted.html
 export PAGE=build/GC500_v12.00/GC500_Delivery_Control_hosted.html
-flock /tmp/gc500-browser.lock node v12.00_loading_DRAFT/tests/test_native1200.cjs
-MOB=1 flock /tmp/gc500-browser.lock node v12.00_loading_DRAFT/tests/test_native1200.cjs
+flock /tmp/gc500-browser.lock node v12.00_loading_LIVE/tests/test_native1200.cjs
+MOB=1 flock /tmp/gc500-browser.lock node v12.00_loading_LIVE/tests/test_native1200.cjs
 flock /tmp/gc500-browser.lock node v11.99_build_cards_LIVE/tests/test_native1197.cjs
 MOB=1 flock /tmp/gc500-browser.lock node v11.99_build_cards_LIVE/tests/test_native1197.cjs
 flock /tmp/gc500-browser.lock node toolchain/harness/sweep.js
 MOB=1 flock /tmp/gc500-browser.lock node toolchain/harness/sweep.js
 # OUT must name a private directory for the actual 3840 × 2160 truck frame.
-flock /tmp/gc500-browser.lock node v12.00_loading_DRAFT/tests/test_uhd1200.cjs
+flock /tmp/gc500-browser.lock node v12.00_loading_LIVE/tests/test_uhd1200.cjs
 ```
 
 `stage_media1200.py` uses the existing credential-safe uploader helpers. Its
@@ -105,3 +109,14 @@ writes. Actual UHD test 5/5, 3840 × 2160 framebuffer and PNG, four samples, loa
 truck with two grounded wheels and no GL error. Phone and UHD screenshots were
 inspected privately. Sanitised receipts are in `evidence/`. The upload dry run
 confirmed edit access and the exact unchanged v11.99 base.
+
+The measured wire reduction is for the main HTML, with Brotli on both releases.
+Extracted images/fonts download separately when used and retain their original
+bytes; 65.07% is not a claim that all full-session traffic falls by that amount.
+All figures in the timing table remain the pre-publication paired measurements.
+
+Next ownership: Claude rebuilds v12.01 Build and v12.02 servicing-report drafts
+on the verified v12.00 hash after their mock-up holds are cleared. His Samsung
+Internet investigation remains separate. The remaining performance target is
+Today/Costs redraw cost, especially under CPU stress; no fix for that is claimed
+beyond the bounded improvements measured above.
