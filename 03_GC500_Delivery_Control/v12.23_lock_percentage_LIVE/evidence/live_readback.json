@@ -1,0 +1,15 @@
+{
+  "author": "Andrew Fisher",
+  "status": "LIVE",
+  "version": "v12.23",
+  "ready_source": "54b50ed53e5e36b5204ecea252df4e1d8fac5f14",
+  "sha256": "8112a63d10c5b6c88206a539af5a59dc1037176e414a95f20d253b16f844e257",
+  "bytes": 15387611,
+  "uploaded_at": "2026-10-25T08:58:55.115Z",
+  "independent_readback_at": "2026-10-25T08:59:37.828898+00:00",
+  "exact_candidate_bytes": true,
+  "lock_list_background_layout_footer_verified": true,
+  "native_phone_checks_after_publication": 13,
+  "native_ticks": "intercepted synthetic fixture; no record writes",
+  "phone_screenshot_inspected": true
+}
