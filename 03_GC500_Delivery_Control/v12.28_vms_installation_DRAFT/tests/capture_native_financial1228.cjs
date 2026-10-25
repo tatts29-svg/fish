@@ -45,12 +45,13 @@ const digest=x=>crypto.createHash('sha256').update(typeof x==='string'||Buffer.i
       const prefix=out.replace(/\.json$/,'');
       data.screenshots=[];
       for(const [name,selector] of [['charge-summary','#charge1224'],['installation','tr']]){
-        const locator=name==='installation'?s.page.locator(selector).filter({hasText:/Labour.*Install|Installation.*1047/}).first():s.page.locator(selector);
-        if(await locator.count()){
+        const candidates=name==='installation'?s.page.locator(selector).filter({hasText:/Labour.*Install|Installation.*1047|1047.*Installation/}):s.page.locator(selector);
+        for(const locator of await candidates.all()){
           await locator.evaluate(el=>{for(let p=el;p;p=p.parentElement)if(p.tagName==='DETAILS')p.open=true;});
+          if(!await locator.isVisible())continue;
           await locator.scrollIntoViewIfNeeded();
           const target=prefix+'-'+name+'.png';
-          await s.page.screenshot({path:target});data.screenshots.push(target);
+          await s.page.screenshot({path:target});data.screenshots.push(target);break;
         }
       }
     }

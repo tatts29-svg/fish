@@ -1,4 +1,4 @@
-# VMS installation coverage — v12.28 DRAFT
+# VMS installation coverage — v12.28 READY TO UPLOAD
 
 Author: Andrew Fisher
 
@@ -21,4 +21,8 @@ PAGE=build/GC500_v12.28/GC500_Delivery_Control_hosted.html node v12.28_vms_insta
 BASE=build/GC500_v12.28/base_live.html PAGE=build/GC500_v12.28/GC500_Delivery_Control_hosted.html python3 v12.28_vms_installation_DRAFT/tests/test_preservation1228.py
 ```
 
-Final native comparisons and full desktop/phone sweeps are in progress. Codex owns implementation, independent sub-agent reviews, testing and guarded publication; Claude has not reviewed this candidate. No operational record write is part of the patch or its tests. Private source records, attachment findings, screenshots and full financial snapshots remain outside this repository. This draft is not ready to publish.
+Final native comparisons pass 300/300 on desktop and 300/300 on phone. All 39 captured models match across viewports, the native state is identical, and seven deliberate negative controls are rejected. The independent audit reproduces the existing branch allocation rule in decimal arithmetic and distinguishes exact currency from whole-dollar display balancing. The desktop sweep passes 27 tabs, 19 visible panes, seven deep links and back navigation, with zero page errors, console errors or record writes. Phone screenshots have been inspected.
+
+To reproduce the native audit, create a private output directory outside the checkout. Run `tests/capture_native_financial1228.cjs` with `PAGE` and private `OUT` for the base and candidate, then with `MOB=1` for the candidate. Run `tests/compare_native_financial1228.py BEFORE AFTER --out PRIVATE_JSON` for each candidate snapshot. Run `tests/test_native_audit_negative1228.py BEFORE AFTER --out PRIVATE_JSON` for the negative controls. These tests reject changed native state rather than attributing concurrent record edits to the release. Use the shared browser lock for every browser process. `SCREENSHOTS=1` writes optional screenshots beside the private snapshot.
+
+Both full navigation sweeps now pass the same 27 tabs, 19 visible panes, seven deep links and back navigation, with zero page errors, console errors or record writes. Codex owns implementation, independent sub-agent reviews, testing and guarded publication; Claude has not reviewed this candidate. No operational record write is part of the patch or its tests. Private source records, attachment findings, screenshots and full financial snapshots remain outside this repository. The exact candidate above is READY TO UPLOAD through the unchanged-live-base guard. The independent live read-back remains required before calling it live.
