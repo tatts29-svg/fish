@@ -2,7 +2,7 @@
 
 Author: Andrew Fisher
 
-**READY TO UPLOAD — all required checks passed. Codex owns guarded publication.**
+**LIVE — 25 Oct 2026, 22:14:13 AEST. Guarded publication and independent public read-back verified.**
 
 Andrew asked for the charges to reconcile to the cent before finalising the bill. Costs now has a compact charge-check card with the recorded charge, priced job-end subtotal excluding fencing demob, forecast bridge, Revenue by branch and actionable source/coverage reviews. Arithmetic reconciliation does not certify a bill.
 
@@ -18,7 +18,9 @@ Five priced contract-service rows already documented in the repository's review 
 - Strict source/script preservation: 27/27, retaining all 299 prior runtime rows and permitting exactly five source additions.
 - Final GET-only native checks: desktop 22/22, phone 23/23, zero errors or write attempts. Current FWF install/demob separation, preserved figures-first controls, corrected summaries and source explanations verified; phone presentation inspected.
 - Final full sweeps passed on desktop and phone: 27 tabs, 19 accessible panes, seven deep links and Back navigation; zero page errors, console errors or write attempts.
-- Guarded uploader dry run passed: live base unchanged and execution access verified. No operational record write or invoice issuance.
+- READY source: `bd6dea63b497c0db1c63a53aeebcfb24e207e95e`. Guarded publication at 22:14:13 AEST; independent public GET at 22:14:28 matched every byte, exact source rows/functions and footer.
+- Fresh public-page phone check: 23/23, zero errors or record-write attempts; financial/FWF read-back matches the candidate, and the phone presentation was inspected.
+- No operational record write or invoice issuance.
 - All earlier v12.24 candidates are superseded and must not be uploaded.
 
 The compact contract summary now describes mixed contract charges accurately, identifies its source-only Transport and separate Installation/service components, and avoids attributing every remaining rehire forecast to fencing. These are presentation changes only. Existing FWF install and demob remain separate; no historical bill values or rate changes are introduced.
@@ -27,10 +29,10 @@ Implementation and testing: Codex, with independent arithmetic, scope-coverage a
 
 ## Reproduce
 
-Build with the shared toolchain:
+The archived patch requires its exact recorded v12.23 base. The current live page already includes it and rejects repeated application. Original release build command:
 
 ```sh
-bash 03_GC500_Delivery_Control/toolchain/build.sh v12.24 03_GC500_Delivery_Control/v12.24_charge_assurance_DRAFT/patch_v1224.py
+bash 03_GC500_Delivery_Control/toolchain/build.sh v12.24 03_GC500_Delivery_Control/v12.24_charge_assurance_LIVE/patch_v1224.py
 ```
 
 Run `node --test` on `tests/test_checks1224.cjs`, `tests/test_assurance1224.cjs`, `tests/test_scope1224.cjs`, `tests/test_source1224.cjs`, `tests/test_superseded1224.cjs`, `tests/test_generator_identity1224.cjs` and `tests/test_bulk1224.cjs`. Tests that inspect a candidate take `PAGE`; the bulk test also takes `BASE_PAGE`. Preservation takes `PAGE` and `BASE`.

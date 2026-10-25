@@ -1,6 +1,6 @@
 {
   "author": "Andrew Fisher",
-  "state": "READY",
+  "state": "LIVE",
   "version": "v12.24",
   "base_sha256": "8112a63d10c5b6c88206a539af5a59dc1037176e414a95f20d253b16f844e257",
   "candidate_sha256": "0dbb968dd75f92d159f41e2d29849a1d9c283ba950d3f572a31db4e32c14f340",
@@ -44,5 +44,17 @@
     "full_sweeps_verified": true
   },
   "phone_presentation_inspected": true,
-  "operational_record_writes": 0
+  "operational_record_writes": 0,
+  "ready_source": "bd6dea63b497c0db1c63a53aeebcfb24e207e95e",
+  "uploaded_at": "2026-10-25T12:14:13.724Z",
+  "independent_public_readback_at": "2026-10-25T12:14:28.013011+00:00",
+  "live_sha256": "0dbb968dd75f92d159f41e2d29849a1d9c283ba950d3f572a31db4e32c14f340",
+  "exact_bytes_and_source_verified": true,
+  "post_live_phone": {
+    "checks": 23,
+    "errors": 0,
+    "record_write_attempts": 0,
+    "financial_and_fwf_readback": "matches candidate",
+    "phone_presentation_inspected": true
+  }
 }
