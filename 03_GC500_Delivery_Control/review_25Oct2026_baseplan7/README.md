@@ -27,7 +27,6 @@ Deliverable: **`GC500_Baseplan7_vs_Site_25Oct2026.xlsx`**. Its sheets:
 | Branch tie-out | What each branch's Baseplan has to move by to reach the P&L, split between fixes and decisions. |
 | Start dates | Every start against the day the item turned up. |
 | Since 22 Oct | What changed between (6) and (7). |
-| Arrivals vs dockets | Our record's arrival days and numbers against Coates' own delivery dockets: what to correct, what to confirm. |
 
 How the comparison works:
 - The site record and the P&L are read from the live page's own models, read only: `financeScopes1013`, `deliveryOf` (first on-site stamp), the VMS model, `ONHIRE_ROWS` with `contractCharge`, `servicing748`, `scopeFigures` and the fencing dockets.
@@ -36,7 +35,7 @@ How the comparison works:
   - `to_json.py` and `diff67.py` read the export;
   - `build_review7.py` builds the workbook;
   - `dump_fence_detail.cjs` and `fencing_source.py` trace where the 9990776 quantities come from;
-  - `arrivals_check.py` checks our record against Coates' delivery dockets. Run it before `build_review7.py`.
+  - `arrivals_check.py` checks our record against Coates' delivery dockets. It's parked on Andrew's word and not used by the workbook.
 - `evidence/summary.json` has the counts.
 
 ## What changed since 22 Oct
@@ -74,7 +73,7 @@ How the comparison works:
 | Branch | P&L, job total | Baseplan to move (fixes) | Waiting on a decision |
 |---|---|---|---|
 | KINP | $414,788.80 | +$14,696.33 | −$8,598.40 (accommodation) |
-| NVAC | $85,964.01 | −$3,175.12 | +$28,671.82 (Coates forklifts) · −$600 (transport legs, ask) |
+| NVAC | $85,964.01 | −$3,175.12 | +$28,671.82 (Coates forklifts) |
 | STPS | $503,580.90 | +$115,865.98 | — |
 | MEAD | $18,628.72 | $0 (plant start dates to confirm) | — |
 
@@ -144,7 +143,7 @@ How the comparison works:
 - PG29 (9968955 line 154). It's on Tickford's own hire schedule.
 - One of the two large-set labour lines (9961976 line 52), for GN20.
 
-**Numbers:** WC07 line 38 carries 1317643 and our record has 1317743. Coates' delivery docket 26081411 also says 1317643, so ours is the likelier slip. Check the unit and correct our record, not the line (corrected 25 Oct; the first workbook had it the other way round).
+**Numbers:** WC07 line 38 carries 1317643; our record has 1317743. Our record stands, so the line changes.
 
 **Start dates that change a charge:**
 - **VMS:**
@@ -160,59 +159,19 @@ How the comparison works:
 
 **For our own P&L:** the two 16-pan blocks at WC31 are pumped out every night. Baseplan line 142 charges them as tank pump-outs; the P&L counts them as sewer-connect cleans. That's +$2,186.10 to the P&L.
 
-## Our record against Coates' own delivery dockets (Andrew, 25 Oct)
+## Coates' delivery dockets: parked (Andrew, 25 Oct)
 
-Andrew: "what else needs to be fixed we just want to make sure what we have is right as we are truth when things turned
-up". `arrivals_check.py` → `evidence/arrivals_check.json` and the **Arrivals vs dockets** sheet. The site record stays
-the truth. Where a Coates docket disagrees, it's raised as a question; nothing on the record changes without Andrew's word.
-
-**Agrees:**
-- 38 references turned up on the day their docket says.
-- On 51 more, our date is earlier than the docket. The branch closes dockets a day or more after the truck has been: a batch is dated Mon 12 Oct for things on site 6–8 Oct, and Tue 15 Sep for 14 Sep.
-- 13 of the 14 barrier dockets match the day a barrier reference went in.
-- 22 VMS boards agree, or their docket is later.
-
-**Numbers to correct on our record.** Coates' docket (and Baseplan where it has a line) agree with each other, and ours is out by a digit or a label:
-- WC07: 1317743 should be 1317643 (docket 26081411; Baseplan line 38).
-- P66 fridge: 131190 should be 1311990 (docket 26126001).
-- P33 fridge: 1238952 should be 1328952 (docket 26064103). Both fridges were flagged on 15 Oct and are still on the record.
-- P05's 1127574 is labelled Aircon; the docket says it's the boiling-water unit.
-
-**One number on two references:**
-- 1189908 is an air conditioner on both P41 and P62.
-- 1197839 is a forklift on both FL02 and T0004.
-- 1211404 is the VMS board on T0001 (as vms5) and on VMS09.
-- P46 still lists three fridges recorded elsewhere: 1328957 (moved to P54, 14 Oct), 1311992 (P26) and 1283996 (P28).
-
-**Arrival days to confirm, where the docket is earlier and the day changes a charge:**
-
-| Item | Docket | Ours | Note |
-|---|---|---|---|
-| FL02 (1197839) and FL01 | out 11 Sep | 25 Sep | Only matters if the Coates forklifts are charged (decision 1). |
-| EQ0005 fork extension | 13 Oct | 23 Oct | Baseplan 5 Oct. |
-| EQ0001 scissor lift | 19 Oct | 22 Oct | Baseplan 19 Oct. EQ0001–3 were stamped within 4 seconds at 04:26 on 22 Oct. |
-| EQ0002, EQ0003 | 21 Oct | 22 Oct | |
-| WB03 barriers | 18 Sep, names WB03 | 23 Sep | Baseplan 18 Sep. |
-| VMS13 | 16 Oct (with VMS14/15) | 19 Oct | |
-| VMS09 (1211404) | out 7 Sep with the first boards; in and out again 12 Oct as VMS09 | 8 Oct | Our record has it as vms5 on T0001 first. Check it's charged once, from 7 Sep. |
-| T0085, T0109 | 6 Oct, 13 Oct (their current machines) | 28 Sep | Same days as Baseplan. Our stamps went in 20 seconds apart at 03:45 on 28 Sep. If earlier machines were on those references, they need their own lines (decision 5). |
-
-**Settled:** GN20 1276701, the 365 kVA. Coates' docket 26102821 has it out on 30 Sep, but Andrew confirmed on 25 Oct that it never came to site, so the docket is wrong and the branch reverses it. A photo on our record is filed under GN20's number at 14:14 that day. Worth relabelling it so it doesn't raise the question again.
-
-**Record-only days (charged over the event):** T0243, the WC-TV block, has no arrival on our record; the docket says 23 Sep. WC06's docket is 15 Sep against our 23 Sep.
-
-**On Coates' dockets, not on our record:**
-- P05 microwave 1320150, CP1 fridge 1116687 and urn 119810, P09 boiling-water unit 1254390.
-- The laserplane 1065384 on 9987005 (16 Oct).
-- WC21's 1083399. Baseplan has taken it off too, so that one agrees with us.
-- Two pairs of fridges are on opposite buildings to the docket: P38/P39 (and 1272737 is called an aircon on P39) and P46/P51. Numbers only; the count is the same.
+Andrew: "im not to worried about doeckets remember our is truth im only really woried about baseplan baseplan is what
+is being charged". Our record is the truth, and this review only asks what Baseplan must change to match it.
+- The cross-check of our record against the dockets is kept in the folder but not in the workbook: `arrivals_check.py` and `evidence/arrivals_check.json`.
+- One thing came out of it on his word ("yes onsite please add"): the P05 microwave, the CP1 fridge and urn, the P09 boiling-water unit and the laserplane (EQ0006) are now on our record. See `../record_25Oct2026_accessories_laserplane/`.
 
 ## Decisions for Andrew
 
 1. **Coates forklifts** (9961976 lines 21, 25, 26, 27, 31, 34, 35) are at $0 on Baseplan. The P&L charges $28,671.82 for them from the card. Are they Coates' own (no charge, so the P&L comes down) or charged to the V8s?
 2. **Accommodation and meals:** Baseplan has 2 × $13,850 = $27,700. The C004 scope (row 68) has $19,101.60. Which stands?
 3. **Premiair VMS and the refrigerated container:** recode to the branch the P&L uses (STPS, KINP), or keep the sub-hire branch codes and move the P&L?
-4. **Generator transport, line 53:** 10 legs at $300. The four sets up to 30 kVA need 8. Was there a swap?
-5. **Plant start days:** the Supply forklifts and 2.4 m fork extension (9987005) and the broadcast scissor lift (9992300 line 4).
+4. **Generator transport, line 53 (settled from our record):** 10 legs at $300 is right. Four sets up to 30 kVA need 8 legs, and GN10's set was swapped on our record (1197355 off, 1283681 on), which adds 2. Only worth a word if that swap was on us.
+5. **Plant start days:** the Supply forklifts and fork extension (9987005), and the broadcast scissor lift (9992300 line 4). Our days for EQ0001 (22 Oct) and EQ0005 (23 Oct) are the days they were ticked on the page, in the catch-ups of 22 and 23 Oct. Baseplan has 19 Oct and 5 Oct. T0085 and T0109 had machines changed on the same reference.
 
 Once these are settled, Baseplan (7) can come onto the page so the P&L reads the same lines, with the site record kept, and the branch split matches line for line. The page still charges from Baseplan (4), 15 Oct.
