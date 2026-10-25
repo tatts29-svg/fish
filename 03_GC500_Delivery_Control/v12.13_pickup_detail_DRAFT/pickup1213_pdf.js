@@ -110,12 +110,17 @@
   function photoDetails(r){
    label('EQUIPMENT & LOCATION PHOTOS');
    if(!r.pictures?.length){paragraph(r.photoState==='ready'?'No matching equipment or location photograph available for this selection.':'Photo availability could not be confirmed. No photograph is substituted.',{colour:grey});return;}
-   for(const p of r.pictures){
-    if(p.unavailable){paragraph(p.caption+' | Photo could not be loaded; open the location record to view it.',{colour:grey});continue;}
-    const width=WID-8,height=Math.min(112,width*p.height/p.width),actualWidth=height*p.width/p.height,caption=wrap(p.caption,WID-8,9),total=height+caption.length*4.3+9;
-    need(total);rect(L,y-3,WID,height+4,pale);doc.addImage(p.data,'JPEG',L+(WID-actualWidth)/2,y-1,actualWidth,height,undefined,'FAST');y+=height+5;
-    paragraph(p.caption,{size:9,colour:grey});
+   const good=r.pictures.filter(p=>!p.unavailable);
+   for(const p of r.pictures.filter(p=>p.unavailable))paragraph(p.caption+' | Photo could not be loaded; open the location record to view it.',{colour:grey});
+   for(let i=0;i<good.length;i+=2){
+    const pair=good.slice(i,i+2),col=87,gap=8,heights=pair.map(p=>Math.min(108,col*p.height/p.width)),captions=pair.map(p=>wrap(p.caption,col,9)),imageHeight=Math.max(...heights),lines=Math.max(...captions.map(c=>c.length)),height=imageHeight+lines*4.3+11;
+    if(height>175){
+     for(const p of pair){need(118);const ht=Math.min(108,174*p.height/p.width),wd=ht*p.width/p.height;doc.addImage(p.data,'JPEG',L+(WID-wd)/2,y,wd,ht,undefined,'FAST');y+=ht+5;paragraph(p.caption,{size:9,colour:grey});}
+    }else{
+     need(height);pair.forEach((p,j)=>{const x=L+j*(col+gap),ht=heights[j],wd=ht*p.width/p.height;rect(x,y-2,col,imageHeight+3,pale);doc.addImage(p.data,'JPEG',x+(col-wd)/2,y,wd,ht,undefined,'FAST');block(p.caption,x,y+imageHeight+6,col,9,false,grey,4.3);});y+=height;
+    }
    }
+
   }
 
   try{
@@ -127,7 +132,7 @@
    for(const r of rows){
     section='PICKUP DETAILS';location=r.key+' | '+r.name;header();
     y=block(r.key,L,y,WID,25,true,ink,10)+2;y=block(r.name,L,y,WID,10,false,grey,4.5)+5;
-    await mapAndNavigation(r);inventory(r.items);locationDetails(r);transportDetails(r);contentsDetails(r);photoDetails(r);
+    await mapAndNavigation(r);if(r.target?.basis)paragraph(r.target.basis,{size:8,colour:grey});inventory(r.items);locationDetails(r);transportDetails(r);contentsDetails(r);photoDetails(r);
    }
    location='';section='ACCESS & HANDOVER';label('SITE ACCESS & HANDOVER');
    paragraph('Roads are open and travel is permitted in either direction. Navigate to the marked location on its pickup sheet and follow current signs and site traffic control.');

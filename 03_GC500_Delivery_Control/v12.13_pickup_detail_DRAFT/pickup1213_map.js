@@ -26,7 +26,7 @@
   }
   if(!focus){trace(square,true);g.setLineDash([22,16]);g.lineWidth=10;g.strokeStyle='#e45300';g.stroke();g.setLineDash([]);}
   for(const r of (focus?[focus]:s.rows)){const t=pickupTarget1213(s,r),p=at(t.point);g.beginPath();g.arc(p[0],p[1],32,0,Math.PI*2);g.fillStyle='#e45300';g.strokeStyle='#fff';g.lineWidth=8;g.fill();g.stroke();
-   const label=r.code+' '+r.symbols.map(x=>x.glyph||'').join(' ');g.font='800 125px GC500MapUnits1147,Inter,sans-serif';const w=g.measureText(label).width+70,x=Math.max(16,Math.min(EDGE-w-16,p[0]+55)),y=Math.max(100,Math.min(EDGE-110,p[1]-55));g.fillStyle='#132c3e';g.fillRect(x,y-120,w,160);g.fillStyle='#fff';g.fillText(label,x+35,y);
+   const label=r.code+' '+r.symbols.map(x=>x.glyph||'').join(' ');g.font='800 125px GC500MapUnits1147,Inter,sans-serif';const w=g.measureText(label).width+70,x=Math.max(16,Math.min(EDGE-w-16,p[0]+55)),y=Math.max(140,Math.min(EDGE-110,p[1]-55));g.fillStyle='#132c3e';g.fillRect(x,y-120,w,160);g.fillStyle='#fff';g.fillText(label,x+35,y);
   }
   g.restore();
   // Actual north direction in the upright drawing, never falsely labelled north-up.
