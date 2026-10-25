@@ -1,4 +1,4 @@
-# Servicing door-lock declaration — crew card LIVE, report page DRAFT
+# Servicing door-lock declaration — crew card LIVE, report page READY
 
 Author: Andrew Fisher
 
@@ -26,13 +26,17 @@ Server v5.93 was activated by Claude at 17:45 AEST. Independent GET read-back at
 - Exact preservation: 5/5; only the servicing script, night-report script and release footer change. All other scripts and page markup unchanged; wrong-base/double application refused.
 - Synthetic A4 pagination/phone layout: 5/5, 120 entries over 26 numbered pages, no clipping; final page visually inspected. The pager now budgets for all report blocks rather than stopping after 20 pages.
 - Final native card-first dry capture: 76/76 (including receipt safety), zero live writes; exact crew HTML SHA-256 `54957ef5bb042313fe74b277fa0344395ecf6d543ede5e19b3abd1940ce74798`. Actor: Andrew Fisher via Codex.
-- Final desktop full sweep: 27 routes, 19 direct panes, seven deep links and Back; zero page errors, console errors or writes. Phone full sweep remains pending. Initial desktop attempts timed out; neither counted as passing and no checks were relaxed.
-- Phone prompt and report final page visually inspected. The crew card is LIVE from 25 Oct 2026 17:52:56 AEST; the main report page remains DRAFT until its phone sweep passes.
+- Final desktop full sweep: 27 routes, 19 direct panes, seven deep links and Back; zero page errors, console errors or writes. Phone full sweep also passed: 27 routes, 19 direct panes, seven deep links and Back, zero errors/console errors/writes. Initial desktop attempts timed out; neither counted as passing and no checks were relaxed.
+- Phone prompt and report final page visually inspected. The crew card is LIVE from 25 Oct 2026 17:52:56 AEST; the main report page is READY for guarded upload.
 
 Operational snapshots, crew links/names, page captures and native publish payloads stay outside the public repository. Browser tests use the shared browser lock. Synthetic screenshots contain test names only.
 
 ## Native crew-card publication
 
-READY source `4f7ce94e497b5f589253b949d47ae343b5ec08cc`. One native update, 76 preservation checks passed; crew HTML `54957ef5bb042313fe74b277fa0344395ecf6d543ede5e19b3abd1940ce74798` reads back exactly. Tracker configuration, signatures, history, contacts, job record and version unchanged. Actual live phone and desktop GET-only checks 10/10 each; no job tapped. Existing open cards need a refresh after current ticks are saved. Main page remains v12.19 until the separate report-page gate passes.
+READY source `4f7ce94e497b5f589253b949d47ae343b5ec08cc`. One native update, 76 preservation checks passed; crew HTML `54957ef5bb042313fe74b277fa0344395ecf6d543ede5e19b3abd1940ce74798` reads back exactly. Tracker configuration, signatures, history, contacts, job record and version unchanged. Actual live phone and desktop GET-only checks 10/10 each; no job tapped. Existing open cards need a refresh after current ticks are saved. Main page is READY to upload after both required full sweeps passed.
 
 The first live-read test incorrectly looked for a closure-local capability variable on window. The test was corrected to inspect the served declaration code and the actual GET capability response; both viewport reruns passed. No product change was needed.
+
+## Report-page READY
+
+Final candidate `f06ddbdfca7b13394e1477d32f54813f7866b5e371160dd876aa94639712bab7`, 15,378,131 bytes, on unchanged live v12.19. Shared checker 199 scripts; model 19/19, preservation 5/5, print layout 5/5 (120 declarations, 26 numbered pages, zero clipping), both full sweeps clean, upload dry-run passed. Codex publishes through the shared unchanged-base guard. This changes the main page only; the independently verified live crew card is retained.

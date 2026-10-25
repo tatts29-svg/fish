@@ -1,6 +1,6 @@
 {
   "author": "Andrew Fisher",
-  "status": "Crew card LIVE; main page DRAFT",
+  "status": "Crew card LIVE; main page READY",
   "base_sha256": "6ccc030d201729e50015d77aa2f140ba63660fe32e0a5fc44c958d47b6636a16",
   "candidate_sha256": "f06ddbdfca7b13394e1477d32f54813f7866b5e371160dd876aa94639712bab7",
   "bytes": 15378131,
@@ -20,7 +20,6 @@
     "live_crew_desktop": 10
   },
   "pending": [
-    "main-page phone full sweep",
     "guarded main-page publication and public exact-byte check"
   ],
   "desktop_sweep": {
@@ -62,5 +61,19 @@
     "live_posts": 1,
     "unexpected_writes": 0,
     "errors": 0
-  }
+  },
+  "phone_sweep": {
+    "tabs": 27,
+    "shown": 19,
+    "hashes": 7,
+    "errors": [],
+    "console_errors": [],
+    "blocked_writes": 0,
+    "go_errors": [],
+    "back": {
+      "hash": "#plant",
+      "pane": "pane-plant"
+    }
+  },
+  "upload_dry_run": true
 }
