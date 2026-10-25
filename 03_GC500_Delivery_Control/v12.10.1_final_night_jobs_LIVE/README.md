@@ -5,6 +5,9 @@ Author: Andrew Fisher
 Claimed as v12.09.2, a point release on v12.09.1. Renumbered to v12.10.1 because Codex's v12.10 (map searches) went live first at 08:59 (the footer never goes backwards).
 
 LIVE 25 Oct 2026 09:33 AEST.
+
+**Confirmed by Andrew, 25 Oct 2026, after seeing the live crew card (rechecked read only at 10:07):** "this is correct Pump QR: Pump out / Clean QR: Clean & restock, then Locked". The button names stand as built.
+
 - **The page:** the guarded upload passed. A separate public GET at 09:33:43 matched the build byte for byte (`4e53b9dc3e08ea8cdbe60fdaba053093890562445625ea4541cf61a95d67c95d`, 15,272,023 bytes, footer v12.10.1).
 - **The event tracker:** updated at 09:34 through the page's own fold.
   - Backup snapshot first, kept privately outside the repository.
