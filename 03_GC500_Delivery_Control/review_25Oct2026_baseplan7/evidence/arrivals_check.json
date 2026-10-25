@@ -68,8 +68,8 @@
    "GN20-S01-Generator 365kVA Diesel",
    null,
    null,
-   "not on our record",
-   "Andrew",
+   "never came to site (Andrew, 22 and 25 Oct): the docket is wrong; the branch reverses it and closes line 6",
+   "Baseplan",
    "no"
   ],
   [
@@ -658,9 +658,9 @@
    "direction": "Out",
    "number": "1276701",
    "description": "GN20-S01-Generator 365kVA Diesel",
-   "finding": "not on our record",
+   "finding": "never came to site (Andrew, 22 and 25 Oct): the docket is wrong; the branch reverses it and closes line 6",
    "ours": "GN20",
-   "who": "Andrew"
+   "who": "Baseplan"
   },
   {
    "docket": 26121298,

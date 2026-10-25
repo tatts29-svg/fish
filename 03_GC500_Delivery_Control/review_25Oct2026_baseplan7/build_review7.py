@@ -114,9 +114,9 @@ def site_nums(ref): return sorted({str(u['assetNo']) for x in SC.get(ref, []) fo
 ITEM_REF = {}   # an unlabelled line named for what it is: the one reference on site with that item
 for ref, xs in SC.items():
     for x in xs: ITEM_REF.setdefault(x['item'].lower(), set()).add(ref)
-NEVER_CAME = {'1276701': "GN20's 365 kVA: Andrew, 22 Oct 2026, \"never came to site 1276701\" (record_22Oct2026_gn20_never_came). "
-              "But Coates' docket 26102821 has it out on 30 Sep, the line is Delivered on that docket, and our record holds a photo "
-              "filed under GN20/1276701 at 14:14 that day: settle with Andrew before the branch closes the line"}
+NEVER_CAME = {'1276701': "GN20's 365 kVA never came to site (Andrew, 22 Oct 2026, and again 25 Oct: \"this never came to site 1276701 "
+              "Generator 365kVA Diesel\"). Coates' docket 26102821 (out 30 Sep) and the line's Delivered status are wrong: the branch "
+              "reverses the docket"}
 DOCKET_NO = {str(d['Fleet item']).strip(): d['Delivery Docket'] for d in bp.get('Delivery Dockets', [])}   # number -> Coates delivery docket
 def one_slip(a, b):   # a digit changed, dropped, or two swapped
     if len(a) == len(b): return sum(x != y for x, y in zip(a, b)) == 1 or (sorted(a) == sorted(b) and sum(x != y for x, y in zip(a, b)) == 2)
@@ -162,7 +162,7 @@ for c in CONTRACTS:
         ref = None; how = None
         if n and n in NEVER_CAME:
             row['check'].append(NEVER_CAME[n]); row['pl_branch'] = cb
-            fix(c, l['Line'], 'Remove', f'{desc[:50]} ({n}) {status} at {money(l.get("Rate 1"))}', NEVER_CAME[n], 'Close the line (no charge) if it never came; if it came, an In docket and standby to the day it left', cents(-(l.get('Rate 1') or 0)), 'Ask Andrew')
+            fix(c, l['Line'], 'Remove', f'{desc[:50]} ({n}) {status} at {money(l.get("Rate 1"))}', NEVER_CAME[n], 'Reverse docket 26102821 and close the line (no charge)', cents(-(l.get('Rate 1') or 0)))
             ROWS.append(row); continue
         if n and n in NUM: ref, how = NUM[n][0], 'asset number on the record'
         elif label == 'LT05/06': ref, how = ('LT05' if n == '1224783' else 'LT06'), 'label'
@@ -351,15 +351,15 @@ for g in gens:
 small = sorted(g for g in nvac_sets if SIZE.get(g, 0) <= 30); mid = sorted(g for g in nvac_sets if 30 < SIZE.get(g, 0) <= 60); large = sorted(g for g in nvac_sets if SIZE.get(g, 0) > 60)
 CH[:] = [x for x in CH if not (x[0] == '9961976' and x[1] in ('51', '53'))]
 chk('9961976', 51, 'Generator labour (up to 60 kVA)', len(small) + len(mid), f'{len(small) + len(mid)} sets up to 60 kVA on site: {", ".join(small + mid)}')
-chk('9961976', 52, 'Generator labour (large)', len(large), f'{len(large)} large set on site: {", ".join(large)} (GN20: Andrew said never came; docket 26102821 says 30 Sep)')
+chk('9961976', 52, 'Generator labour (large)', len(large), f'{len(large)} large set on site: {", ".join(large)} (GN20 never came to site; Andrew, 22 and 25 Oct)')
 chk('9961976', 53, 'Generator transport $300', len(small) * 2, f'{len(small)} sets up to 30 kVA ({", ".join(small)}) x 2 legs', None)
 chk('9961976', 54, 'Generator transport $450', len(mid) * 2, f'{len(mid)} sets 45-60 kVA ({", ".join(mid)}) x 2 legs')
 chk('9961976', 55, 'Generator transport $600', len(large) * 2, f'{len(large)} large set x 2 legs')
 for c, n, ours in (('9961976', 52, len(large)), ('9961976', 53, len(small) * 2)):
     l = P(c, n)
     if l.get('Quantity') != ours:
-        fix(c, n, 'Quantity', f'{l.get("Description")}: {l.get("Quantity")} x {money(l.get("Price"))}', f'{ours} on site ({", ".join(large) if n == 52 else ", ".join(small)}){"; the second is GN20, which Andrew said never came (docket 26102821 says 30 Sep)" if n == 52 else ""}',
-            f'Quantity {ours}', cents((ours - l.get('Quantity')) * l.get('Price')), 'Ask Andrew')
+        fix(c, n, 'Quantity', f'{l.get("Description")}: {l.get("Quantity")} x {money(l.get("Price"))}', f'{ours} on site ({", ".join(large) if n == 52 else ", ".join(small)}){"; the second was GN20, which never came to site (Andrew, 22 and 25 Oct)" if n == 52 else ""}',
+            f'Quantity {ours}', cents((ours - l.get('Quantity')) * l.get('Price')), 'Baseplan' if n == 52 else 'Ask Andrew')
 vms_boards = [k for k in b913]
 chk('9961265', 40, 'VMS labour', len(vms_boards), f'{len(vms_boards)} boards')
 chk('9961265', 41, 'VMS transport', len(vms_boards) * 2, f'{len(vms_boards)} boards x 2 legs ($150 a leg is the branch figure; the card says POA)')

@@ -74,7 +74,7 @@ How the comparison works:
 | Branch | P&L, job total | Baseplan to move (fixes) | Waiting on a decision |
 |---|---|---|---|
 | KINP | $414,788.80 | +$14,696.33 | −$8,598.40 (accommodation) |
-| NVAC | $85,964.01 | +$3,418.40 | +$28,671.82 (Coates forklifts) · −$600 (transport legs, ask) · −$6,593.52 (GN20's line and labour, ask) |
+| NVAC | $85,964.01 | −$3,175.12 | +$28,671.82 (Coates forklifts) · −$600 (transport legs, ask) |
 | STPS | $503,580.90 | +$115,865.98 | — |
 | MEAD | $18,628.72 | $0 (plant start dates to confirm) | — |
 
@@ -140,8 +140,9 @@ How the comparison works:
 - **Generators:** the standby rate from the day they turned up, then the daily rate for 23–25 Oct. Net +$6,040.92 over 14 sets; per set on the Generators sheet.
 
 **Remove:**
+- GN20's 365 kVA (9961976 line 6, $6,260.40). It never came to site: Andrew said so on 22 Oct and again on 25 Oct, "this never came to site 1276701 Generator 365kVA Diesel". Coates' docket 26102821 (out 30 Sep) and the line's Delivered status are wrong, so the branch reverses the docket.
 - PG29 (9968955 line 154). It's on Tickford's own hire schedule.
-- **Ask Andrew first:** GN20's 365 kVA (9961976 line 6, $6,260.40) and one of the two large-set labour lines (line 52). On 22 Oct Andrew said it never came to site, but Coates' docket 26102821 has it out on 30 Sep (see the arrivals check below).
+- One of the two large-set labour lines (9961976 line 52), for GN20.
 
 **Numbers:** WC07 line 38 carries 1317643 and our record has 1317743. Coates' delivery docket 26081411 also says 1317643, so ours is the likelier slip. Check the unit and correct our record, not the line (corrected 25 Oct; the first workbook had it the other way round).
 
@@ -187,7 +188,6 @@ the truth. Where a Coates docket disagrees, it's raised as a question; nothing o
 
 | Item | Docket | Ours | Note |
 |---|---|---|---|
-| GN20 1276701 (365 kVA) | 26102821, out 30 Sep | taken off 20 Oct | Andrew, 22 Oct: "never came to site". Baseplan has the line Delivered on that docket, and our record holds a photo filed under GN20/1276701 at 14:14 on 30 Sep. Line 6 ($6,260.40) and its labour (line 52) are now Ask Andrew, not Remove. |
 | FL02 (1197839) and FL01 | out 11 Sep | 25 Sep | Only matters if the Coates forklifts are charged (decision 1). |
 | EQ0005 fork extension | 13 Oct | 23 Oct | Baseplan 5 Oct. |
 | EQ0001 scissor lift | 19 Oct | 22 Oct | Baseplan 19 Oct. EQ0001–3 were stamped within 4 seconds at 04:26 on 22 Oct. |
@@ -196,6 +196,8 @@ the truth. Where a Coates docket disagrees, it's raised as a question; nothing o
 | VMS13 | 16 Oct (with VMS14/15) | 19 Oct | |
 | VMS09 (1211404) | out 7 Sep with the first boards; in and out again 12 Oct as VMS09 | 8 Oct | Our record has it as vms5 on T0001 first. Check it's charged once, from 7 Sep. |
 | T0085, T0109 | 6 Oct, 13 Oct (their current machines) | 28 Sep | Same days as Baseplan. Our stamps went in 20 seconds apart at 03:45 on 28 Sep. If earlier machines were on those references, they need their own lines (decision 5). |
+
+**Settled:** GN20 1276701, the 365 kVA. Coates' docket 26102821 has it out on 30 Sep, but Andrew confirmed on 25 Oct that it never came to site, so the docket is wrong and the branch reverses it. A photo on our record is filed under GN20's number at 14:14 that day. Worth relabelling it so it doesn't raise the question again.
 
 **Record-only days (charged over the event):** T0243, the WC-TV block, has no arrival on our record; the docket says 23 Sep. WC06's docket is 15 Sep against our 23 Sep.
 

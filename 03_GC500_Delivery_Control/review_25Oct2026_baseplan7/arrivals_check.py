@@ -79,6 +79,8 @@ for d in DOCKETS:
     slips = sorted({(n, r) for n, refs in held.items() for r, t in refs if (r == dr or not dr) and near(n, fi) and (kind(t) in (None, kind(desc))) and n not in DOCKETED})
     if slips:
         numbers.append(dict(row, finding='keying slip: our record has ' + ', '.join(f'{n} on {r}' for n, r in slips), ours=', '.join(sorted({r for _, r in slips})), who='Our record'))
+    elif fi == '1276701':   # Andrew, 22 and 25 Oct 2026: "this never came to site 1276701 Generator 365kVA Diesel"
+        numbers.append(dict(row, finding='never came to site (Andrew, 22 and 25 Oct): the docket is wrong; the branch reverses it and closes line 6', ours='GN20', who='Baseplan'))
     elif dr in deleted:
         numbers.append(dict(row, finding=f'{dr} was taken off our record: ' + deleted[dr][:200], ours=dr, who='Andrew'))
     else:
