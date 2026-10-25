@@ -1,6 +1,6 @@
 # v12.22 — figures first on the Costs cards
 
-Author: Andrew Fisher. 25 Oct 2026. **READY TO UPLOAD on live v12.21.**
+Author: Andrew Fisher. 25 Oct 2026. **LIVE 18:34 AEST**: the view link serves `d286f3a53f56574a016cb8505d8164b7631b70ec9cc038f9ebe8cb3591afa7e4` byte for byte (15,387,177 bytes). Checked by the guarded upload, then a separate public GET at 18:34:34. `tests/test_v1222.cjs` passed 13/13 against the live page on desktop and on phone (`evidence/test_live*.txt`).
 
 - Built and tested as v12.20 on live v12.19.
 - Renumbered v12.22 at Codex's request (PR #1 6395053671), so the footer never goes backwards: servicing's v12.21 goes first.
