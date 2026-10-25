@@ -56,10 +56,12 @@
   }
   drawGate6Revision1021(g,EX,EDGE/900);
   if(window.GC500FencingMap)window.GC500FencingMap.exportLayer(g,{width:EDGE,height:EDGE,dpr:EDGE/900,project:(p,r)=>{const q=geoOn()&&r==='inset'?ap(TIN,...p):p,d=applyM(EX,...q);return [d.x,d.y];}});
-  // Reuse the Explorer's existing symbol/label painter. Its temporary print scale never changes the camera or live canvases.
-  const oldDpr=dpr,oldBounds=labelBounds1010;try{dpr=EDGE/900;labelBounds1010=[];g.setTransform(1,0,0,1,0,0);
-   for(const m of marks)for(const b of m.it.places){const p=toGeo((b[0]+b[2])/2,(b[1]+b[3])/2),q=applyM(EX,p.x,p.y);if(q.x<0||q.y<0||q.x>EDGE||q.y>EDGE)continue;label1009(g,m.it,q,14*dpr,selected===m.it,m.c);}
-  }finally{dpr=oldDpr;labelBounds1010=oldBounds;}
+  // Read the same reference and equipment symbols as Explorer; fit labels to the print canvas, never the live canvas.
+  await document.fonts.ready;g.setTransform(1,0,0,1,0,0);g.font='800 76px GC500MapUnits1147,Inter,sans-serif';g.textAlign='left';g.textBaseline='middle';
+  for(const m of marks)for(const b of m.it.places){const p=toGeo((b[0]+b[2])/2,(b[1]+b[3])/2),q=applyM(EX,p.x,p.y);if(q.x<0||q.y<0||q.x>EDGE||q.y>EDGE)continue;
+   const label=fitReference1010(m.it,mapStatus1009(m.it),1200,t=>g.measureText(t).width),w=Math.min(1250,g.measureText(label).width+50),x=Math.max(12,Math.min(EDGE-w-12,q.x+40)),y=Math.max(70,Math.min(EDGE-170,q.y-90));g.fillStyle='#101c23';g.strokeStyle=m.c;g.lineWidth=5;g.beginPath();g.roundRect(x,y-55,w,110,16);g.fill();g.stroke();g.fillStyle='#fff';g.fillText(label,x+25,y);
+  }
+  g.textBaseline='alphabetic';
   fresh();return {...F,canvas:cv,credit:F.view.mode==='original'?'Drawing © iEDM D001 rev 03':(SOURCE==='google'?'Google · '+gCopy:'© Mapbox © OpenStreetMap © Maxar')+(F.view.mode==='hybrid'?' · Drawing © iEDM D001 rev 03':'')};
  }
  async function pickupPicture1213(s,focus=null){

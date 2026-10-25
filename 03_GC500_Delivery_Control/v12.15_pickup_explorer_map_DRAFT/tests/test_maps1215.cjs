@@ -8,10 +8,12 @@ try{
  await f.waitForFunction(()=>!zAnim&&!gotoAnim887&&!interacting,{},{timeout:30000});
  const hashes=[];
  for(const mode of ['original','hybrid','satellite']){
+  console.log('START '+mode);const started=Date.now();
   await f.evaluate(m=>setMode(m),mode);if(mode!=='original')await f.waitForFunction(()=>satCanFetch(),null,{timeout:45000});
   const r=await f.evaluate(async()=>{const it=__map1215item,b=it.places[0],ll=__map1215ll(b),area=GC500Area1206.snapshot({ll}),focus=area.rows.find(x=>x.code===it.code),before=JSON.stringify([camera,dpr,canvas.width,canvas.height,mcanvas.width,mcanvas.height,mode,opacity,bright,insetOn,legendOn]);
-   const result=await GC500Area1206.pickupPicture1213(area,focus),im=await createImageBitmap(result.blob),answer={view:result.view,dimensions:[im.width,im.height],target:result.target,unchanged:before===JSON.stringify([camera,dpr,canvas.width,canvas.height,mcanvas.width,mcanvas.height,mode,opacity,bright,insetOn,legendOn]),bytes:Array.from(new Uint8Array(await result.blob.arrayBuffer()))};im.close();return answer;});
-  fs.writeFileSync(path.join(out,mode+'.png'),Buffer.from(r.bytes));hashes.push(crypto.createHash('sha256').update(Buffer.from(r.bytes)).digest('hex'));
+   const result=await GC500Area1206.pickupPicture1213(area,focus),im=await createImageBitmap(result.blob),answer={view:result.view,dimensions:[im.width,im.height],target:result.target,unchanged:before===JSON.stringify([camera,dpr,canvas.width,canvas.height,mcanvas.width,mcanvas.height,mode,opacity,bright,insetOn,legendOn]),png:await new Promise((resolve,reject)=>{const rd=new FileReader();rd.onload=()=>resolve(rd.result);rd.onerror=reject;rd.readAsDataURL(result.blob);})};im.close();return answer;});
+  fs.writeFileSync(path.join(out,mode+'.png'),Buffer.from(r.png.split(',')[1],'base64'));hashes.push(crypto.createHash('sha256').update(Buffer.from(r.png.split(',')[1],'base64')).digest('hex'));
+  console.log('RENDER '+mode+' '+(Date.now()-started)+'ms');
   check(mode+' map uses the active Explorer mode',r.view.mode===mode);check(mode+' map retains 3840-pixel detail',r.dimensions[0]===3840&&r.dimensions[1]===4160);check(mode+' export leaves viewer camera and canvases unchanged',r.unchanged);
  }
  check('all three actual Explorer map layers produce distinct exports',new Set(hashes).size===3);
