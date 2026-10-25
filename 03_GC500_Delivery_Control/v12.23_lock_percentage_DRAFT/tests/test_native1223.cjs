@@ -38,10 +38,18 @@ let checks=0;const check=(v,m)=>{assert(v,m);checks++;console.log('PASS '+m);};
   check(lock.label==='Locked (doors locked)'&&r.small.includes(lock.label+' '+g.d+' of '+g.w),'large and existing small lock totals agree with explicit door-lock label');
   check(r.cards.map(c=>c.task).join()==='pump,clean,lockup'&&r.areaLocks>0,'final night has pump, clean and lock rings plus area lock chips');
   check(!r.overflow,'main servicing has no horizontal overflow');
+  const face=()=>p.evaluate(()=>{const el=document.querySelector('#svc1067-host'),host=getComputedStyle(el),after=getComputedStyle(el,'::after');return {host:host.background,face:after.background};});
+  let colors=await face();check(colors.face===colors.host&&colors.host.includes('linear-gradient'),'servicing pseudo-face inherits its dark gradient, keeping pale text legible');
   check(r.footer,'candidate footer identifies v12.23');
   if(process.env.EVIDENCE){fs.mkdirSync(process.env.EVIDENCE,{recursive:true});await p.locator('.svc1123-jobs[data-svc1123="overall"]').screenshot({path:path.join(process.env.EVIDENCE,'native-rings-'+(mobile?'phone':'desktop')+'.png')});
    await p.screenshot({path:path.join(process.env.EVIDENCE,'native-screen-'+(mobile?'phone':'desktop')+'.png')});
    fs.writeFileSync(path.join(process.env.EVIDENCE,'native-styles-'+(mobile?'phone':'desktop')+'.json'),JSON.stringify(await p.evaluate(()=>{let x=document.querySelector('.svc1123-job.lockup .pct'),a=[];while(x){const s=getComputedStyle(x);a.push({tag:x.tagName,id:x.id,cl:x.className,color:s.color,background:s.background,opacity:s.opacity});x=x.parentElement;}return a;}),null,2));
+  }
+  if(!mobile){
+   await p.setViewportSize({width:768,height:1024});colors=await face();
+   check(colors.face===colors.host&&!(await inspect()).overflow,'tablet retains dark face and fits the progress indicators');
+   if(process.env.EVIDENCE)await p.locator('.svc1123-jobs[data-svc1123="overall"]').screenshot({path:path.join(process.env.EVIDENCE,'native-rings-tablet.png')});
+   await p.setViewportSize({width:1440,height:1000});
   }
   const prior=meta.tracker.days.filter(d=>d.id<final&&d.plan==='night').at(-1).id;
   await p.evaluate(day=>{const b=document.querySelector('[data-svc-day="'+day+'"]');const d=b.closest('details');if(d)d.open=true;b.click();},prior);

@@ -6,7 +6,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent / 'toolchain'))
 from rep import rep
 
-BASES = {'f06ddbdfca7b13394e1477d32f54813f7866b5e371160dd876aa94639712bab7': 'v12.21'}
+BASES = {'d286f3a53f56574a016cb8505d8164b7631b70ec9cc038f9ebe8cb3591afa7e4': 'v12.22'}
 
 def patch(text):
     assert '/* v12.23 lock percentage */' not in text, 'Already applied'
@@ -15,6 +15,9 @@ def patch(text):
     text = rep(text, "var JOBS1123 = ['pump', 'clean', 'refill'];",
                "var JOBS1123 = ['pump', 'clean', 'refill', 'lockup']; /* v12.23 lock percentage */",
                'include existing lock counts in rings and area chips', 'page')
+    text = rep(text, '<style id="svc1102-style">',
+               '<style id="svc1102-style">\n/* v12.23 preserve the dark servicing face, including its cut corner. */\n@media screen{#pane-servicing #svc1067-host::after{background:inherit}}\n',
+               'make servicing text legible on its existing dark surface', 'page')
     return rep(text, "+' · " + version + "'; /* v8.19 release922",
                "+' · v12.23'; /* v8.19 release922", 'release footer', 'page')
 
