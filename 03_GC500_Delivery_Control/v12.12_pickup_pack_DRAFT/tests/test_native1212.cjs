@@ -22,7 +22,7 @@ try{
  await f.evaluate(()=>{const r=GC500Area1206.state.rows.find(x=>parent.MapDemob1211.reference(x.code)?.items.some(i=>i.units.length)),it=ITEMS.find(x=>x.code===r.code);window.__moved1211={it,places:it.places};it.places=it.places.map(b=>b.map(x=>x+.05));});
  await f.locator('[data-prepare]').click();check('changed map position blocks preparation against an old pin snapshot',/mapped location or door details changed/.test(await f.locator('[data-status]').innerText()));
  await f.evaluate(()=>{__moved1211.it.places=__moved1211.places;delete window.__moved1211;});
- await p.evaluate(()=>{const old=MapDemobPdf1211;window.MapDemobPdf1211={...old,make:async args=>{window.__pack1212={...args,blob:undefined};return old.make(args);}};});
+ await p.evaluate(()=>{const old=MapDemobPdf1211;window.MapDemobPdf1211={...old,make:async args=>{window.__pack1212??={...args,blob:undefined};return old.make(args);}};});
  await f.locator('[data-prepare]').click();await p.waitForFunction(()=>document.querySelector('#expFrame').contentWindow.GC500Demob1211.state.ready,null,{timeout:180000});
  check('native PDF and map prepared successfully',await f.evaluate(()=>GC500Demob1211.state.ready));
  check('outstanding native pickup holds are presented',await f.evaluate(()=>{const r=GC500Area1206.state.rows.map(x=>parent.MapDemob1211.reference(x.code)).filter(Boolean);return r.flatMap(x=>x.hold).every(h=>document.getElementById('demob1211').textContent.includes(h));}));
@@ -43,6 +43,10 @@ try{
  check('email fallback downloads a PDF and opens only a draft',fd.suggestedFilename().endsWith('.pdf')&&await f.evaluate(()=>__mail1211.startsWith('mailto:?subject=')&&__mail1211.length<2000&&decodeURIComponent(__mail1211).includes('Please attach the downloaded')));
  await f.evaluate(()=>{HTMLAnchorElement.prototype.click=window.__anchor1211;delete window.__anchor1211;});
  await f.evaluate(()=>{const d=document.querySelector('#demob1211');d.scrollTop=0;});await p.screenshot({path:path.join(out,'pickup-dialog.png')});
+ check('share text includes the same selected transport facts as the PDF',await f.evaluate(async()=>{const text=await __shareCalls1211[0].files.find(x=>x.type==='text/plain').text();return text.includes('Weights & dimensions')&&parent.__pack1212.rows.every(r=>r.items.every(i=>i.specs.every(s=>s.lines.every(l=>text.includes(l)))));}));
+ await p.evaluate(()=>{window.__oldSpecs1212=MapPickupSpecs1212;window.MapPickupSpecs1212={...__oldSpecs1212,read:rows=>__oldSpecs1212.read(rows).map(r=>({...r,items:r.items.map(i=>({...i,specs:[...i.specs,{labels:['changed evidence'],lines:['changed weight']}]}))}))};});
+ await f.locator('[data-save]').click();check('changed transport evidence invalidates an already prepared pack',await f.evaluate(()=>!GC500Demob1211.state.ready)&&/Weights or dimensions changed/.test(await f.locator('[data-status]').innerText()));
+ await p.evaluate(()=>{window.MapPickupSpecs1212=__oldSpecs1212;delete window.__oldSpecs1212;});await f.locator('[data-prepare]').click();await p.waitForFunction(()=>document.querySelector('#expFrame').contentWindow.GC500Demob1211.state.ready,null,{timeout:180000});
  await f.evaluate(()=>{parent.__snapshot1211=parent.DemobCollection996.snapshot;parent.DemobCollection996.snapshot=function(k){const r=parent.__snapshot1211(k);return r?{...r,token:r.token+'changed-test'}:r;};});
  await f.locator('[data-save]').click();check('source change invalidates old PDF instead of exporting stale selection',await f.evaluate(()=>!GC500Demob1211.state.ready)&&/record changed/.test(await f.locator('[data-status]').innerText()));await f.evaluate(()=>{parent.DemobCollection996.snapshot=parent.__snapshot1211;delete parent.__snapshot1211;});
  await f.locator('[data-close]').click();check('closing restores the original map size',!await p.evaluate(()=>document.body.classList.contains('expfull-on')));

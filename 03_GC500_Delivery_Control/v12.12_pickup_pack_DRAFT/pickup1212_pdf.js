@@ -93,6 +93,12 @@
    }
    y+=4;
   }
+  function transportDetails(r){
+   label('WEIGHTS & DIMENSIONS');
+   for(const it of r.items){const specs=it.specs?.length?it.specs:[{labels:['Selected '+it.n+' items'],lines:W.MapPickupSpecs1212.describe(null)}];
+    for(const spec of specs){need(20);paragraph(it.type+' | '+spec.labels.join(', '),{bold:true});for(const line of spec.lines)paragraph(line,{size:9,colour:grey,gap:1});y+=3;}
+   }
+  }
   function locationDetails(r){
    if(r.hold.length)for(const h of r.hold)note('HOLD / CLEAR BEFORE COLLECTION',h,amber);
    const doorText=r.doors||'Plan door position/direction not recorded.',loading=(r.pickupLoading||[]).map(l=>'Truck loading | '+(l.asset?l.asset+' | ':'')+l.item+': '+({driver:'door to driver side',passenger:'door to passenger side',na:'door side not applicable'}[l.side]||'door side not recorded'));
@@ -116,7 +122,7 @@
    for(const r of rows){
     section='PICKUP DETAILS';location=r.key+' | '+r.name;header();
     y=block(r.key,L,y,WID,25,true,ink,10)+2;y=block(r.name,L,y,WID,10,false,grey,4.5)+5;
-    mapAndNavigation(r.map,rows.length===1);inventory(r.items);locationDetails(r);
+    mapAndNavigation(r.map,rows.length===1);inventory(r.items);locationDetails(r);transportDetails(r);
    }
    location='';section='ACCESS & HANDOVER';label('SITE ACCESS & HANDOVER');
    paragraph('Macintosh Island Park: enter from Gold Coast Highway into the north-west end of pit lane and follow race direction.');

@@ -9,7 +9,7 @@ def patch(html):
  if "version:'v12.12',make,reference" in html: raise ValueError('v12.12 already applied')
  if hashlib.sha256(html.encode()).hexdigest()!=BASE: raise ValueError('Live base changed; rebuild and retest')
  old=(HERE.parent/'v12.11_map_demob_LIVE/demob1211_pdf.js').read_text().replace("author:'Andrew Fisher'","author:'the project manager'")
- html=rep(html,old,(HERE/'pickup1212_pdf.js').read_text(),'designed pickup PDF','page')
+ html=rep(html,old,(HERE/'pickup1212_specs.js').read_text()+'\n'+(HERE/'pickup1212_pdf.js').read_text(),'designed pickup PDF','page')
  def change(a,b,label):
   nonlocal html
   html=rep(html,a,b,label,'pickup export')
@@ -24,6 +24,12 @@ def patch(html):
  change("status('Pickup pack ready. '+rows.reduce", "status('Pickup pack '+packRef+' ready. '+rows.reduce",'visible reference')
  change('+(r.items.length&&parent.capability()===\'edit\'?\'<button type="button" data-record-departure="\'+i+\'">Record selected items left site…</button>\':\'\')','', 'remove departure action from driver selection')
  change("panel.querySelectorAll('[data-record-departure]').forEach(b=>b.onclick=()=>{try{const r=refs[Number(b.dataset.recordDeparture)],p=selected().find(x=>x.key===r.key);if(!p)throw new Error('Select the items that actually left this location.');H.validate([p]);mapFresh([r]);if(!parent.mayWrite('a pick-up'))return;close();parent.Departure1211.open(r.key,p);}catch(err){status(err.message);}});",'', 'remove departure shortcut handler')
+ change("rows=H.validate(selected());mapFresh(rows);", "rows=parent.MapPickupSpecs1212.read(H.validate(selected()));mapFresh(rows);",'read selected transport facts')
+ change("selection=selected(),preparedAt=new Date()", "selection=selected(),specToken=parent.MapPickupSpecs1212.fingerprint(rows),preparedAt=new Date()",'capture transport snapshot')
+ change("function assertFresh(){consent();mapFresh(H.validate(selected()));if(!ready)throw new Error('Prepare the pickup pack first.');}", "function assertFresh(){consent();const rows=H.validate(selected());mapFresh(rows);if(!ready)throw new Error('Prepare the pickup pack first.');if(parent.MapPickupSpecs1212.fingerprint(parent.MapPickupSpecs1212.read(rows))!==ready.specToken)throw new Error('Weights or dimensions changed. Prepare a new pickup pack.');}", 'transport evidence stale guard')
+ change("if(serial!==generation)return;mapFresh(H.validate(selection));consent();", "if(serial!==generation)return;const fresh=H.validate(selection);mapFresh(fresh);consent();if(parent.MapPickupSpecs1212.fingerprint(parent.MapPickupSpecs1212.read(fresh))!==specToken)throw new Error('Weights or dimensions changed. Prepare a new pickup pack.');", 'check transport facts after asynchronous render')
+ change("ready={text,packRef,pdf:new File", "ready={text,packRef,specToken,pdf:new File",'store export snapshot')
+ change("   const selectedNumbers=new Set(r.items.flatMap", "   out.push('Weights & dimensions');for(const it of r.items)for(const spec of it.specs||[])out.push(it.type+' | '+spec.labels.join(', '),...spec.lines);\n   const selectedNumbers=new Set(r.items.flatMap", 'transport facts in share text')
  f=re.search(r"\+' · v(\d+(?:\.\d+)+)'; /\* v8.19 release922",html)
  return rep(html,f[0],"+' · v12.12'; /* v8.19 release922",'version','page')
 if __name__=='__main__':

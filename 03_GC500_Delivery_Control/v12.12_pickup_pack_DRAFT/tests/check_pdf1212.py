@@ -12,6 +12,7 @@ checks['brand_and_identity']=all(s in text for s in ['coates','INDUSTRIAL SOLUTI
 checks['metadata_author']=doc.metadata['author']=='Andrew Fisher'
 checks['prepared_snapshot']=all(expected['packRef'] in p.get_text() for p in doc)
 checks['all_selected_equipment']=all(norm(r['key']) in flat and norm(r['name']) in flat and all(norm(str(it['n'])+' x '+it['type']) in flat and all(norm(u['number']) in flat and norm(u['company']) in flat for u in it['units']) for it in r['items']) for r in expected['rows'])
+checks['weights_and_dimensions']= 'WEIGHTS & DIMENSIONS' in text and all(all(all(norm(line) in flat for line in spec['lines']) for spec in it.get('specs',[])) for r in expected['rows'] for it in r['items'])
 checks['holds_and_doors']=all(all(norm(h) in flat for h in r['hold']) and (not r.get('doors') or norm(r['doors']) in flat) for r in expected['rows'])
 checks['loading_and_unidentified']=all(all(norm(l['item']) in flat and (not l.get('asset') or norm(l['asset']) in flat) for l in r.get('pickupLoading',[])) and all(not it['unidentified'] or norm(str(it['unidentified'])+' without individual asset IDs') in flat for it in r['items']) for r in expected['rows'])
 checks['access_and_record_boundary']=all(norm(s) in flat for s in ['NO TWIN-STEER','Follow site traffic control','not an approved truck route','Gold Coast Highway','07:00-09:00','not surveyed','NOT A DEPARTURE RECORD','Record the actual departure separately'])
