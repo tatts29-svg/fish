@@ -1,9 +1,10 @@
-# v12.27: the Advanced race crew is a fencing cost on the P&L, not wages (DRAFT)
+# v12.27: the Advanced race crew is a fencing cost on the P&L, not wages (LIVE)
 
 Author: Andrew Fisher.
 
+- **LIVE:** 26 Oct 2026 06:08 AEST, `2db3457f12692ccd660de48b6c134d964827e27c3a4be976b482f12edbccc9b2`, 15,450,051 bytes. Guarded upload, then a separate public GET at 06:08:07 matching byte for byte.
 - **Base:** live v12.26 `82589211d0b07c43b71f5859e1fbb6fe43dabf338e2509e750ea815cef5fa26e`
-- **Candidate:** `2db3457f12692ccd660de48b6c134d964827e27c3a4be976b482f12edbccc9b2`, 15,450,051 bytes
+- **After upload:** `tests/test_v1227.cjs` 25/25 against the live page on desktop and phone (`evidence/test_live.txt`, `evidence/test_live_phone.txt`).
 
 Andrew, 25 Oct 2026, on the race-day crew in the wages: "For advanced / We pay advanced". Then: "Check again".
 
