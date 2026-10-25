@@ -1,0 +1,348 @@
+{
+  "author": "Andrew Fisher",
+  "version": "v12.15",
+  "state": "READY TO UPLOAD",
+  "base_sha256": "91f9006070d1269eb6e9ae807076e9146e7e52e6fbfc68a01d840f5666559a11",
+  "candidate_sha256": "786142f3208a03ac732286e5421e981f8c3b8b9dd77fbd8558f3ec88d760c427",
+  "bytes": 15343444,
+  "toolchain_scripts": 196,
+  "preservation": {
+    "exact_live_base": true,
+    "only_pickup_rendering_freshness_and_footer_changed": true,
+    "navigation_target_unchanged": true,
+    "no_export_only_door_arrows": true,
+    "second_application_refused": true,
+    "wrong_base_refused": true
+  },
+  "maps": [
+    {
+      "name": "original map uses the active Explorer mode",
+      "ok": true
+    },
+    {
+      "name": "original map retains 3840-pixel detail",
+      "ok": true
+    },
+    {
+      "name": "original export leaves viewer camera and canvases unchanged",
+      "ok": true
+    },
+    {
+      "name": "hybrid map uses the active Explorer mode",
+      "ok": true
+    },
+    {
+      "name": "hybrid map retains 3840-pixel detail",
+      "ok": true
+    },
+    {
+      "name": "hybrid export leaves viewer camera and canvases unchanged",
+      "ok": true
+    },
+    {
+      "name": "satellite map uses the active Explorer mode",
+      "ok": true
+    },
+    {
+      "name": "satellite map retains 3840-pixel detail",
+      "ok": true
+    },
+    {
+      "name": "satellite export leaves viewer camera and canvases unchanged",
+      "ok": true
+    },
+    {
+      "name": "all three actual Explorer map layers produce distinct exports",
+      "ok": true
+    },
+    {
+      "name": "selected Explorer rotation is retained without rotating the viewer",
+      "ok": true
+    },
+    {
+      "name": "no page errors or record-write attempts",
+      "ok": true
+    }
+  ],
+  "boundaries": [
+    {
+      "name": "original inset pickup point uses the inset registration",
+      "ok": true
+    },
+    {
+      "name": "inset pickup marker is centred on the physical destination",
+      "ok": true
+    },
+    {
+      "name": "cached picture refuses a changed Explorer style",
+      "ok": true
+    },
+    {
+      "name": "satellite export keeps the same physical inset destination",
+      "ok": true
+    },
+    {
+      "name": "missing satellite coverage fails explicitly without plan substitution",
+      "ok": true
+    },
+    {
+      "name": "no page errors or record-write attempts",
+      "ok": true
+    }
+  ],
+  "native_details": [
+    {
+      "name": "PDF receives the active Explorer map style for every location",
+      "ok": true
+    },
+    {
+      "name": "checked restriction prepares a native building pack",
+      "ok": true
+    },
+    {
+      "name": "folded contents and separate fire-extinguisher record are included",
+      "ok": true
+    },
+    {
+      "name": "contents remain separate from selected pickup inventory",
+      "ok": true
+    },
+    {
+      "name": "available photos loaded from original records",
+      "ok": true
+    },
+    {
+      "name": "per-location target is a plotted point rather than the selected area centre",
+      "ok": true
+    },
+    {
+      "name": "changing restriction invalidates prepared PDF",
+      "ok": true
+    },
+    {
+      "name": "unticked restriction also prepares a complete PDF",
+      "ok": true
+    },
+    {
+      "name": "changing Explorer orientation invalidates the prepared pack",
+      "ok": true
+    },
+    {
+      "name": "changed contents invalidates export without altering records",
+      "ok": true
+    },
+    {
+      "name": "pinned record remained byte-for-byte unchanged",
+      "ok": true
+    },
+    {
+      "name": "no page errors or record-write attempts",
+      "ok": true
+    }
+  ],
+  "pdf_cases": {
+    "checked": {
+      "pdf": {
+        "pages": 3,
+        "checks": {
+          "brand_and_identity": true,
+          "metadata_author": true,
+          "prepared_snapshot": true,
+          "all_selected_equipment": true,
+          "weights_and_dimensions": true,
+          "holds_and_doors": true,
+          "loading_and_unidentified": true,
+          "access_and_record_boundary": true,
+          "local_truck_selection": true,
+          "contents_and_ids": true,
+          "photo_captions": true,
+          "every_page_numbered": true,
+          "only_expected_navigation_links": true,
+          "qr_page_1_scans": true,
+          "qr_destination_readback": true,
+          "no_text_outside_paper": true,
+          "map_not_covered_by_heading": true,
+          "native_text": true,
+          "photo_heading_stays_with_images": true,
+          "no_orphan_pages": true
+        },
+        "passed": 20,
+        "total": 20,
+        "qr_pages": 1
+      },
+      "print": {
+        "pages": 3,
+        "photos": 5,
+        "checks": {
+          "every_photo_embedded": true,
+          "photo_numbers": true,
+          "images_inside_content": true,
+          "photo_captions_readable": true,
+          "five_photos_in_at_most_four_pages": true
+        },
+        "passed": 5,
+        "total": 5
+      }
+    },
+    "unchecked": {
+      "pdf": {
+        "pages": 3,
+        "checks": {
+          "brand_and_identity": true,
+          "metadata_author": true,
+          "prepared_snapshot": true,
+          "all_selected_equipment": true,
+          "weights_and_dimensions": true,
+          "holds_and_doors": true,
+          "loading_and_unidentified": true,
+          "access_and_record_boundary": true,
+          "local_truck_selection": true,
+          "contents_and_ids": true,
+          "photo_captions": true,
+          "every_page_numbered": true,
+          "only_expected_navigation_links": true,
+          "qr_page_1_scans": true,
+          "qr_destination_readback": true,
+          "no_text_outside_paper": true,
+          "map_not_covered_by_heading": true,
+          "native_text": true,
+          "photo_heading_stays_with_images": true,
+          "no_orphan_pages": true
+        },
+        "passed": 20,
+        "total": 20,
+        "qr_pages": 1
+      },
+      "print": {
+        "pages": 3,
+        "photos": 5,
+        "checks": {
+          "every_photo_embedded": true,
+          "photo_numbers": true,
+          "images_inside_content": true,
+          "photo_captions_readable": true,
+          "five_photos_in_at_most_four_pages": true
+        },
+        "passed": 5,
+        "total": 5
+      }
+    },
+    "layout/single": {
+      "pdf": {
+        "pages": 3,
+        "checks": {
+          "brand_and_identity": true,
+          "metadata_author": true,
+          "prepared_snapshot": true,
+          "all_selected_equipment": true,
+          "weights_and_dimensions": true,
+          "holds_and_doors": true,
+          "loading_and_unidentified": true,
+          "access_and_record_boundary": true,
+          "local_truck_selection": true,
+          "contents_and_ids": true,
+          "photo_captions": true,
+          "every_page_numbered": true,
+          "only_expected_navigation_links": true,
+          "qr_page_1_scans": true,
+          "qr_destination_readback": true,
+          "no_text_outside_paper": true,
+          "map_not_covered_by_heading": true,
+          "native_text": true,
+          "photo_heading_stays_with_images": true,
+          "no_orphan_pages": true
+        },
+        "passed": 20,
+        "total": 20,
+        "qr_pages": 1
+      },
+      "print": {
+        "pages": 3,
+        "photos": 5,
+        "checks": {
+          "every_photo_embedded": true,
+          "photo_numbers": true,
+          "images_inside_content": true,
+          "photo_captions_readable": true,
+          "five_photos_in_at_most_four_pages": true
+        },
+        "passed": 5,
+        "total": 5
+      }
+    },
+    "layout/multiple-long": {
+      "pdf": {
+        "pages": 8,
+        "checks": {
+          "brand_and_identity": true,
+          "metadata_author": true,
+          "prepared_snapshot": true,
+          "all_selected_equipment": true,
+          "weights_and_dimensions": true,
+          "holds_and_doors": true,
+          "loading_and_unidentified": true,
+          "access_and_record_boundary": true,
+          "local_truck_selection": true,
+          "contents_and_ids": true,
+          "photo_captions": true,
+          "every_page_numbered": true,
+          "only_expected_navigation_links": true,
+          "qr_page_2_scans": true,
+          "qr_page_6_scans": true,
+          "qr_destination_readback": true,
+          "no_text_outside_paper": true,
+          "map_not_covered_by_heading": true,
+          "native_text": true,
+          "photo_heading_stays_with_images": true,
+          "no_orphan_pages": true
+        },
+        "passed": 21,
+        "total": 21,
+        "qr_pages": 2
+      },
+      "print": {
+        "pages": 8,
+        "photos": 2,
+        "checks": {
+          "every_photo_embedded": true,
+          "photo_numbers": true,
+          "images_inside_content": true,
+          "photo_captions_readable": true
+        },
+        "passed": 4,
+        "total": 4
+      }
+    }
+  },
+  "source_explorer_js_sha256": "e175ec073b2d30c89c075f5bfe6ab823385c8f23cd50d07fa13ef10b5e2e6b5a",
+  "phone_and_pdf_images_inspected": true,
+  "second_agent_review": false,
+  "record_writes": 0,
+  "sweeps": {
+    "desktop": {
+      "routes": 27,
+      "direct_panes": 19,
+      "deep_links": 7,
+      "errors": 0,
+      "console_errors": 0,
+      "attempted_writes": 0,
+      "back": {
+        "hash": "#plant",
+        "pane": "pane-plant"
+      }
+    },
+    "phone": {
+      "routes": 27,
+      "direct_panes": 19,
+      "deep_links": 7,
+      "errors": 0,
+      "console_errors": 0,
+      "attempted_writes": 0,
+      "back": {
+        "hash": "#plant",
+        "pane": "pane-plant"
+      }
+    }
+  },
+  "upload_dry_run_passed": true
+}
