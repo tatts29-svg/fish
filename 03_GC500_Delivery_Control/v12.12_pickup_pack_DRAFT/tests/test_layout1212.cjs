@@ -1,0 +1,21 @@
+/* Author: Andrew Fisher. Synthetic PDF overflow and multiple-location examples; no operational writes. */
+const fs=require('fs'),path=require('path'),assert=require('assert'),{open}=require('../../toolchain/harness/open_page');
+(async()=>{const h=await open({pageFile:process.env.PAGE,hash:'#today'}),p=h.page,out=process.env.OUT;fs.mkdirSync(out,{recursive:true});const cons=[];p.on('console',m=>{if(m.type()==='error')cons.push(m.text());});
+try{
+ await p.waitForFunction(()=>window.MapDemobPdf1211&&SYNC.status==='live',null,{timeout:180000});
+ const results=await p.evaluate(async()=>{
+  const before=JSON.stringify(S),cv=document.createElement('canvas');cv.width=3840;cv.height=4160;const ctx=cv.getContext('2d');ctx.fillStyle='#f4f5f6';ctx.fillRect(0,0,3840,4160);ctx.strokeStyle='#ccd3d8';ctx.lineWidth=3;
+  for(let x=0;x<=3840;x+=384){ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,3840);ctx.stroke();ctx.beginPath();ctx.moveTo(0,x);ctx.lineTo(3840,x);ctx.stroke();}
+  ctx.fillStyle='#dbe2e8';ctx.fillRect(0,1500,3840,600);ctx.fillStyle='#fff';ctx.fillRect(600,500,900,700);ctx.strokeStyle='#ff6a13';ctx.lineWidth=18;ctx.strokeRect(600,500,900,700);ctx.fillStyle='#242629';ctx.font='bold 100px sans-serif';ctx.fillText('SAMPLE A',700,870);ctx.font='70px sans-serif';ctx.fillText('EXAMPLE ONLY',1600,320);ctx.fillStyle='#2986c6';ctx.fillRect(1000,1200,20,160);ctx.beginPath();ctx.moveTo(960,1320);ctx.lineTo(1010,1380);ctx.lineTo(1060,1320);ctx.fill();
+  ctx.fillStyle='#fff';ctx.fillRect(2300,2450,850,700);ctx.strokeStyle='#ff6a13';ctx.strokeRect(2300,2450,850,700);ctx.fillStyle='#242629';ctx.fillText('SAMPLE B',2420,2800);
+  const blob=await new Promise(r=>cv.toBlob(r,'image/png')),centre={lat:-28,lon:153.43},made=new Date('2026-10-25T01:00:00Z'),row=(key,name,n)=>({key,name,items:[{n,type:'Temporary building and selected contents',units:Array.from({length:n},(_,i)=>({id:key+'-'+i,number:key+'-'+String(i+1).padStart(3,'0'),company:'Example supplier / training data only'})),unidentified:0}],hold:['EXAMPLE HOLD: verify the dispatch release before collection.'],doors:'Plan doors face south; recorded swing opens outwards.',pickupLoading:[{asset:key+'-001',item:'Temporary building',side:'passenger'}],map:{points:[[-10,-12]],parts:[{poly:[[-17,-18],[-5,-18],[-5,-8],[-17,-8]]}]}});
+  const cases=[{name:'single',rows:[row('SAMPLE-A','Example pickup location - demonstration only',2)]},{name:'multiple-long',rows:[row('SAMPLE-A','Example north compound / selected portable buildings, stores and associated equipment - demonstration text for long location names',70),row('SAMPLE-B','Example south compound',3)]}];
+  cases[1].rows[1].items.push({type:'Example unidentified ancillary items',n:2,units:[],unidentified:2});cases[1].rows[1].map={points:[[10,12]],parts:[{poly:[[6,7],[16,7],[16,17],[6,17]]}]};
+  const result=[];const refs=new Set(Array.from({length:100},()=>MapDemobPdf1211.reference(made)));if(refs.size!==100)throw new Error('Pack references collided');
+  for(const c of cases){const args={blob,rows:c.rows,centre,packRef:MapDemobPdf1211.reference(made),preparedAt:made.toISOString()},pdf=await MapDemobPdf1211.make(args);result.push({name:c.name,expected:{...args,blob:undefined},bytes:Array.from(new Uint8Array(await pdf.arrayBuffer()))});}
+  if(JSON.stringify(S)!==before)throw new Error('PDF generation changed the record');return result;
+ });
+ for(const r of results){const dir=path.join(out,r.name);fs.mkdirSync(dir,{recursive:true});fs.writeFileSync(path.join(dir,'pickup.pdf'),Buffer.from(r.bytes));fs.writeFileSync(path.join(dir,'expected.json'),JSON.stringify(r.expected,null,2));}
+ assert(!h.errors.length&&!cons.length&&!h.counts.blocked);console.log('PASS synthetic single, multiple, long inventory and 100 unique references; no page errors or record writes');
+}finally{await h.browser.close();}
+})().catch(e=>{console.error(e);process.exit(1)});
