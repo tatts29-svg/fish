@@ -9,6 +9,8 @@ assert(process.env.OUT&&!out.startsWith(repo+path.sep),'OUT must be private and 
   let checks=0;const check=(name,fn)=>{fn();checks++;console.log('PASS '+name);};
   try{
     await s.page.waitForFunction(()=>typeof SYNC!=='undefined'&&SYNC.status==='live'&&document.querySelector('#charge1224')&&ChargeAssurance1224.model().sourceAvailable,null,{timeout:180000});
+    await s.page.evaluate(()=>go('costs'));
+    await s.page.locator('#charge1224').waitFor({state:'visible'});
     const data=await s.page.evaluate(()=>{
       const result={version:SYNC.version,at:new Date().toISOString(),footer:document.getElementById('footL').textContent,models:{},functions:{},failures:{}};
       const models={pnl:()=>pl770Model(),money:()=>moneySummary(),closeout:()=>cj764Model(),branches:()=>pl752Rows(),branchFinancial:()=>branchFinancial978(pl752Rows(),moneySummary()),
@@ -55,7 +57,7 @@ assert(process.env.OUT&&!out.startsWith(repo+path.sep),'OUT must be private and 
     assert.equal(await card.count(),1);
     const view=await card.evaluate(el=>({text:el.innerText,width:el.getBoundingClientRect().width,scroll:el.scrollWidth,client:el.clientWidth,details:[...el.querySelectorAll('details')].every(d=>!d.open)}));
     check('figures-first readable initial presentation',()=>{assert(view.details);assert(view.text.includes('excluding fencing demob'));assert(view.text.includes('source review required'));assert(!view.text.includes('undefined'));assert(!view.text.includes('NaN'));assert(view.scroll<=view.client+1);});
-    if(process.env.EVIDENCE){fs.mkdirSync(process.env.EVIDENCE,{recursive:true});await card.screenshot({path:path.join(process.env.EVIDENCE,'charge-checks-'+(mobile?'phone':'desktop')+'.png')});if(mobile){const y=await card.evaluate(el=>el.getBoundingClientRect().top+window.scrollY);await s.page.evaluate(y=>window.scrollTo(0,Math.max(0,y-320)),y);await s.page.waitForTimeout(500);await s.page.screenshot({path:path.join(process.env.EVIDENCE,'charge-checks-phone-top.png')});}}
+    if(process.env.EVIDENCE){fs.mkdirSync(process.env.EVIDENCE,{recursive:true});await card.screenshot({path:path.join(process.env.EVIDENCE,'charge-checks-'+(mobile?'phone':'desktop')+'.png')});if(mobile){await card.evaluate(el=>{const main=el.closest('main');main.scrollTop+=el.getBoundingClientRect().top-main.getBoundingClientRect().top-12;});await s.page.waitForTimeout(500);const framed=await card.evaluate(el=>({title:el.querySelector('h3').getBoundingClientRect().top,main:el.closest('main').getBoundingClientRect().top}));check('phone card title is below the fixed navigation',()=>assert(framed.title>=framed.main));await s.page.screenshot({path:path.join(process.env.EVIDENCE,'charge-checks-phone-top.png')});}}
     await card.locator('[data-charge1224-detail="checks"] summary').click();
     await s.page.waitForTimeout(120);
     await s.page.evaluate(()=>renderCosts());
@@ -66,6 +68,11 @@ assert(process.env.OUT&&!out.startsWith(repo+path.sep),'OUT must be private and 
     await button.click();await s.page.waitForTimeout(250);
     assert.equal(await s.page.locator('#drawer').getAttribute('aria-hidden'),'false');
     check('review reference opens its existing evidence drawer',()=>assert(ref));
+    await s.page.evaluate(()=>openAsset('P41'));await s.page.waitForTimeout(250);
+    const correction=s.page.locator('#drawer .contract-card1224').first();
+    check('corrected charge visibly explains the retained source rate',()=>{});
+    assert(await correction.count()>0);assert((await correction.innerText()).includes('charge reconciled to the published card full hire'));
+    if(process.env.EVIDENCE){await correction.scrollIntoViewIfNeeded();await s.page.screenshot({path:path.join(process.env.EVIDENCE,'source-rate-'+(mobile?'phone':'desktop')+'.png')});}
     check('no page errors or record-write attempts',()=>{assert.equal(s.errors.length,0);assert.equal(s.counts.blocked,0);});
     data.testResult={checks,mobile,errors:s.errors,blocked:s.counts.blocked};
 

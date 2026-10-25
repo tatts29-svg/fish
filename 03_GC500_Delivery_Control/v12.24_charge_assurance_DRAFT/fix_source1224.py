@@ -31,4 +31,24 @@ function contractCardCorrection1224(r){
                " approved_by: treatment.approved_by, approved_on: treatment.approved_on});\n if (r.charge_line)",
                " approved_by: treatment.approved_by, approved_on: treatment.approved_on});\n r=contractCardCorrection1224(r);if(r.cardCorrection1224)out.cardCorrection1224=r.cardCorrection1224;\n if (r.charge_line)",
                'Use the shared calculation copy after existing treatments', 'GC500 page')
+    basis_end = """ out.basis = `${money(r.rate_1)}${q !== 1 ? ' × ' + q : ''}, once — the rate is the whole-event bill`;
+ }
+ return out;
+}"""
+    html = rep(html, basis_end, basis_end.replace(
+        ' return out;',
+        " if(out.cardCorrection1224)out.basis += '. Source Rate 1 '+money(out.cardCorrection1224.sourceRate)+'; charge reconciled to the published card full hire '+money(out.cardCorrection1224.rate)+'.';\n return out;"),
+        'Explain the retained source rate in the shared charge basis', 'GC500 page')
+    html = rep(html,
+               " if (typeof r.billed_amount === 'number') bits.push('billed ' + esc(money(r.billed_amount)));",
+               " if(ch.cardCorrection1224)bits.push('<span class=\"contract-card1224\">'+esc(ch.basis)+'</span>');\n if (typeof r.billed_amount === 'number') bits.push('billed ' + esc(money(r.billed_amount)));",
+               'Show the existing reconciliation basis in contract details', 'GC500 page')
+    html = rep(html,
+               ' const cf = contractFigures(rowsC);\n const units = rowsC.reduce',
+               ' const cf = contractFigures(rowsC);\n const reconciled = rowsC.map(r=>({r,ch:contractCharge(r)})).filter(x=>x.ch.cardCorrection1224);\n const units = rowsC.reduce',
+               'Read shared charge explanations for grouped contract rates', 'GC500 page')
+    cell_end = """${sub ? ` ·<span class="chip cand">${sub} sub-hired</span>` : ''}</div>`; };"""
+    html = rep(html, cell_end, cell_end.replace('</div>`; };',
+               '</div>${reconciled.map(x=>`<div class="w contract-card1224" style="font-size:11px;color:var(--mute)">${esc(x.r.match?.key||String(x.r.rental_contract)+\' line \'+x.r.line)}: ${esc(x.ch.basis)}</div>`).join(\'\')}`; };'),
+               'Show the same charge basis beside grouped source rates', 'GC500 page')
     return html

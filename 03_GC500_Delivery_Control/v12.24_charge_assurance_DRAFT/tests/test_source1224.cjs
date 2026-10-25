@@ -12,12 +12,13 @@ const ctx=vm.createContext({console,Number,S:{rates:{}},CONTRACT_DAILY_KINDS:new
 vm.runInContext(html.slice(start,end),ctx);
 const row=Object.freeze({rental_contract:'9968862',line:63,branch_code:'KINP',kind:'building',register_type:'Building 6m',quantity:1,charge_line:false,subhired:false,asset_no:'1189412',match:Object.freeze({key:'P41'}),rate_type:'W',rate_1:1426.17});
 const read=r=>ctx.contractCharge_747(r),copy=r=>ctx.contractCardCorrection1224(r),cents=n=>Math.round(n*100);
+const reconciledBasis='$1426.07, once — the rate is the whole-event bill. Source Rate 1 $1426.17; charge reconciled to the published card full hire $1426.07.';
 let checks=0;const check=(name,fn)=>{fn();checks++;console.log('PASS '+name);};
 check('published full hire corrects exactly ten cents through the existing reader',()=>{
  const before=JSON.stringify(row),result=read(row);
  assert.equal(result.amount,1426.07);assert.equal(result.how,'whole event');assert.equal(result.daily,false);
  assert.equal(cents(row.rate_1)-cents(result.amount),10);assert.equal(result.cardCorrection1224.sourceRate,1426.17);
- assert.equal(result.cardCorrection1224.rate,1426.07);assert.equal(result.basis,'$1426.07, once — the rate is the whole-event bill');
+ assert.equal(result.cardCorrection1224.rate,1426.07);assert.equal(result.basis,reconciledBasis);
  assert.equal(JSON.stringify(row),before);assert.equal(copy(row).branch_code,'KINP');
 });
 check('calculation copy changes no identity, allocation, quantity or category',()=>{
@@ -54,5 +55,38 @@ check('unrelated whole-event charges retain the previous arithmetic and shape',(
 });
 check('source correction is idempotent for calculation copies',()=>{
  const once=copy(row);assert.equal(copy(once),once);assert.equal(read(once).amount,1426.07);
+});
+ctx.contractCharge=read;
+ctx.esc=value=>String(value).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+const wordsStart=html.indexOf('function contractMoneyWords(r){'),wordsEnd=html.indexOf('/* the block that hangs under a schedule row',wordsStart);
+assert(wordsStart>=0&&wordsEnd>wordsStart,'Contract detail renderer was not found');
+vm.runInContext(html.slice(wordsStart,wordsEnd),ctx);
+const visible=markup=>markup.replace(/<[^>]*>/g,'');
+check('contract details visibly explain both the retained rate and corrected charge',()=>{
+ const before=JSON.stringify(row),markup=ctx.contractMoneyWords(row),text=visible(markup);
+ assert.match(text,/On the contract: Rate 1 \$1426\.17 W/);
+ assert.match(text,/charges \$1426\.07/);assert(text.includes(read(row).basis));
+ assert.match(markup,/class="contract-card1224"/);assert.equal(JSON.stringify(row),before);
+});
+let groupRows=[row];
+ctx.contractRowsFor=()=>groupRows;
+ctx.contractFigures=rows=>({charge:rows.reduce((sum,r)=>sum+read(r).amount,0),daily:{lines:0}});
+ctx.fmtNum=String;
+const cellStart=html.indexOf(' const contractCell = name => {'),cellEnd=html.indexOf(' const rows = groupList.map',cellStart);
+assert(cellStart>=0&&cellEnd>cellStart,'Grouped contract rate renderer was not found');
+vm.runInContext(html.slice(cellStart,cellEnd)+'\nglobalThis.contractCellTest1224=contractCell;',ctx);
+check('grouped contract source rates show the same reconciliation basis and reference',()=>{
+ const markup=ctx.contractCellTest1224('Building 6m'),text=visible(markup);
+ assert.match(text,/\$1426\.17/);assert.match(text,/charges \$1426\.07/);
+ assert(text.includes('P41: '+read(row).basis));assert.match(markup,/class="w contract-card1224"/);
+});
+check('unrelated rows and explicit rates never show a misleading reconciliation note',()=>{
+ for(const input of [{...row,line:64},row]){
+  typed=input.line===63?1500:null;groupRows=[input];
+  for(const markup of [ctx.contractMoneyWords(input),ctx.contractCellTest1224('Building 6m')]){
+   assert(!markup.includes('contract-card1224'));assert(!visible(markup).includes('reconciled'));
+  }
+ }
+ typed=null;
 });
 console.log(JSON.stringify({passed:checks,failed:0,record_writes:0,network:false}));
