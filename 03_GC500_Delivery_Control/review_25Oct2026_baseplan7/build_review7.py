@@ -114,10 +114,10 @@ def site_nums(ref): return sorted({str(u['assetNo']) for x in SC.get(ref, []) fo
 ITEM_REF = {}   # an unlabelled line named for what it is: the one reference on site with that item
 for ref, xs in SC.items():
     for x in xs: ITEM_REF.setdefault(x['item'].lower(), set()).add(ref)
-# GN20's 365 kVA is on site (Andrew, 25 Oct 2026: "i made a error the gn20 is here sorry"). Our record still holds its delivery
-# (on site 30 Sep, complete, install labour ticked), but the reference was deleted on 20 Oct and the page stopped charging the
-# line on 22 Oct (v11.18): it counts here as on site from 30 Sep, and our record and P&L are to follow
-GN20_BACK = {'1276701': ('GN20', '2026-09-30', 365)}
+# GN20's 365 kVA is on site (Andrew, 25 Oct 2026: "i made a error the gn20 is here sorry"). Since the record run of 25 Oct
+# (10848 -> 10870) and v12.16 (live 14:18) it is GN20-A on our record and the P&L, number 1276701, on site 30 Sep: the line
+# matches it by its number like any other set, so nothing is special-cased any more
+GN20_BACK = {}
 DATE_FIX = []   # start dates: (contract, line, what, Baseplan start, turned up, days, charged from when it goes in?, basis)
 
 # --- hire lines, one by one
@@ -426,7 +426,11 @@ for c in ('9961976', '9994954'):
             fix(c, l['Line'], 'Rate', f'{d[:40]}: {money(l.get("Rate 1"))}', f'the P&L charges {money(ours)} ({g["source"]}, from the day it turned up {fmt(arrived(ref))})', f'Rate {money(ours)}', cents(ours - (l.get('Rate 1') or 0)))
 
 # --- fencing (9990776): the signed dockets are the truth for work done (Andrew, 22 Oct 2026); the P&L charges them at the card
-FQ, FR = fence['quantities'], fence['rates']
+FQ, FR = dict(fence['quantities']), fence['rates']
+# Andrew, 25 Oct 2026: "we charge once". The papers write the whole fence run as clean, scrimmed sections included, and the
+# scrim rate is the fence with the shade cloth on it; since v12.16 the page charges the fence under the scrim once, in the
+# scrim. So the clean that Baseplan's line 3 (and line 5) should carry is the papers' clean less the scrim
+FQ_PAPER_CLEAN = FQ.get('clean', 0); FQ['clean'] = round(FQ_PAPER_CLEAN - FQ.get('scrim', 0), 2)
 FENCE_MAP = [   # docket category -> the 9990776 lines that carry it
     ('clean', 'Fence, no scrim (m): line 3 at $16.16 + hoarding line 5 at $23.59', [3, 5]), ('scrim', 'Fence with scrim (m): fence line 6 + shade cloth line 10', [6, 10]),
     ('ccb_event', 'Crowd control barrier (m)', [7]), ('flat_feet', 'CCB flat feet', [8]), ('ccb_demarc', 'Demarcation CCB (m)', [9]),
@@ -454,7 +458,7 @@ for key, what, lines in FENCE_MAP:
     if br is not None and rate is not None and abs(br - rate) > 0.02 and key not in ('clean',):
         fix('9990776', lines[0], 'Rate', f'{P("9990776", lines[0]).get("Description")}: {money(br)}', f'the card rate the P&L charges is {money(rate)}', f'Rate {money(rate)}', cents(site_q * (rate - br)))
 cl3, cl5 = P('9990776', 3), P('9990776', 5)
-fix('9990776', '3, 5', 'Quantity', f'1.8 m security fence {cl3.get("Quantity"):g} m + with hoarding {cl5.get("Quantity"):g} m', f'{FQ.get("clean", 0):g} m of fence with no scrim on the signed dockets', f'Quantity {FQ.get("clean", 0) - (cl5.get("Quantity") or 0):g} m on line 3 (keep the {cl5.get("Quantity"):g} m with hoarding on line 5 if it is in the dockets\' clean metres)',
+fix('9990776', '3, 5', 'Quantity', f'1.8 m security fence {cl3.get("Quantity"):g} m + with hoarding {cl5.get("Quantity"):g} m', f'{FQ.get("clean", 0):g} m of fence with no scrim on the signed dockets (their {FQ_PAPER_CLEAN:g} m of clean less the {FQ.get("scrim", 0):g} m under the scrim, charged once)', f'Quantity {FQ.get("clean", 0) - (cl5.get("Quantity") or 0):g} m on line 3 (keep the {cl5.get("Quantity"):g} m with hoarding on line 5 if it is in the dockets\' clean metres)',
     cents((FQ.get('clean', 0) - (cl3.get('Quantity') or 0) - (cl5.get('Quantity') or 0)) * (cl3.get('Rate 1') or 0)))
 
 # ------------------------------------------------------------------------------------------------- branch tie-out

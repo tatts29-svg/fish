@@ -1,16 +1,16 @@
 {
  "dockets": 167,
- "charged": 405150.96,
- "paid_dockets": 240961.7,
+ "charged": 340871.73,
+ "paid_dockets": 234136.7,
  "team_leader": 9200.0,
  "materials": 3364.0,
- "invoice_adjustment": -3252.5,
- "fencing_cost": 250273.2,
+ "invoice_adjustment": -2527.5,
+ "fencing_cost": 244173.2,
  "labour_notes": 10850.0,
- "paid_all_in": 261123.2,
+ "paid_all_in": 255023.2,
  "other_advanced_invoices": 195.0,
- "paid_everything": 261318.2,
- "margin": 143832.76,
+ "paid_everything": 255218.2,
+ "margin": 85653.53,
  "orders": [
   {
    "week": "Week 6",
@@ -18,7 +18,7 @@
    "sheet": null,
    "order_amount": 8992,
    "receipt": "4918492",
-   "match": "invoiced; no sheet to check line by line; the order stands; our 6 dockets at their rates come to $10,869.00, so the invoice is $1,877.00 less",
+   "match": "invoiced; no sheet to check line by line; the order stands; our 6 dockets at their rates come to $10,144.00, so the invoice is $1,152.00 less",
    "carried": 8992.0
   },
   {
@@ -73,7 +73,7 @@
    "order_amount": null,
    "receipt": null,
    "match": "nothing billed yet; 45 dockets and 11 labour notes on our record, at their rates",
-   "carried": 47043.7
+   "carried": 40943.7
   },
   {
    "week": "Demob",
@@ -96,14 +96,14 @@
  ],
  "items": {
   "clean": {
-   "charge_qty": 13270.0,
+   "charge_qty": 9292.5,
    "charge_rate": 16.1607,
-   "charge": 214452.46,
-   "pay_qty": 9718.0,
+   "charge": 150173.23,
+   "pay_qty": 9035.5,
    "pay_rates": [
     10
    ],
-   "pay": 97180.0
+   "pay": 90355.0
   },
   "scrim": {
    "charge_qty": 3977.5,
@@ -204,31 +204,32 @@
    "pay": 300.0
   }
  },
- "scrim_check": {
+ "scrim_once": {
   "invoiced_dockets": 115,
   "clean_is_paper_less_scrim_and_gates": 109,
   "scrim_m": 3977.5,
-  "charged_twice": 64279.18,
-  "charged_if_once": 340871.78,
-  "baseplan_short_if_once": 31764.95,
-  "margin_if_once": 79553.58
+  "paper_clean_m": 13270.0,
+  "taken_off_the_charge": 64279.23,
+  "charge_before": 405150.96,
+  "baseplan": 309106.83,
+  "baseplan_short": 31764.9
  },
  "by_week": {
   "Week 6": {
    "dockets": 6,
    "approved": 0,
-   "charge": 16148.09,
-   "pay": 10869.0,
+   "charge": 14976.44,
+   "pay": 10144.0,
    "extras": 0.0,
    "notes": 0.0,
-   "adj": -1877.0,
+   "adj": -1152.0,
    "from": "2026-09-09",
    "to": "2026-09-12"
   },
   "Week 5": {
    "dockets": 29,
    "approved": 28,
-   "charge": 52939.53,
+   "charge": 44899.57,
    "pay": 32620.5,
    "extras": 2000.0,
    "notes": 425.0,
@@ -239,7 +240,7 @@
   "Week 4": {
    "dockets": 23,
    "approved": 23,
-   "charge": 47656.3,
+   "charge": 44989.78,
    "pay": 24570.0,
    "extras": 1600.0,
    "notes": 525.0,
@@ -250,7 +251,7 @@
   "Week 3": {
    "dockets": 14,
    "approved": 14,
-   "charge": 83881.22,
+   "charge": 63518.73,
    "pay": 47504.0,
    "extras": 2000.0,
    "notes": 650.0,
@@ -261,7 +262,7 @@
   "Week 2": {
    "dockets": 23,
    "approved": 23,
-   "charge": 40810.39,
+   "charge": 33295.65,
    "pay": 25396.5,
    "extras": 1600.0,
    "notes": 1250.0,
@@ -272,7 +273,7 @@
   "Week 1": {
    "dockets": 27,
    "approved": 27,
-   "charge": 105705.12,
+   "charge": 91039.28,
    "pay": 59658.0,
    "extras": 5364.0,
    "notes": 1300.0,
@@ -283,8 +284,8 @@
   "Event Week": {
    "dockets": 45,
    "approved": 0,
-   "charge": 58010.31,
-   "pay": 40343.7,
+   "charge": 48152.28,
+   "pay": 34243.7,
    "extras": 0.0,
    "notes": 6700.0,
    "adj": 0.0,

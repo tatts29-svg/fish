@@ -5,7 +5,9 @@
 # GC500_Fencing_Charge_and_Cost_25Oct2026.xlsx and evidence/fence_pay_charge.json (no names, no links). Then, Andrew: "just want
 # to make sure what ever we have receievd for from their invoices have matched correctly ... what we charge the v8s but also
 # know via break down of what we pay advance based off everything we have" - so every Advanced order and invoice is set
-# against the dockets and notes on our record, with what is not on any of their sheets named.
+# against the dockets and notes on our record, with what is not on any of their sheets named. Then, Andrew: "we charge once" -
+# live v12.16 (14:18) takes the fence under the scrim off the clean charge, docket by docket - and "show me it like this item
+# the total then rate we pay advnanced then the rate we charge v8s then the total": section 1 is in that order.
 #   python3 fence_pay_charge.py <fence_pay_charge.json> <fence_split.json> <fence_invoices.json>
 import collections, json, sys
 from pathlib import Path
@@ -19,7 +21,7 @@ d = lambda c: c / 100
 COLS = {c['key']: c for c in D['columns']}
 use = [x for x in D['dockets'] if x['usable']]
 ITEMS = ['clean', 'scrim', 'ccb_demarc', 'ccb_event', 'flat_feet', 'labour', 'relocation', 'ped_gates', 'fence_blocks', 'v_gates', 'bases']
-NAME = {'clean': 'Clean fence 1.8 m', 'scrim': 'Scrim fence (braced, shade cloth on)', 'ccb_demarc': 'CCB demarcation', 'ccb_event': 'CCB event',
+NAME = {'clean': 'Clean fence (not scrimmed)', 'scrim': 'Scrim fence (braced, shade cloth on)', 'ccb_demarc': 'CCB demarcation', 'ccb_event': 'CCB event',
         'flat_feet': 'CCB flat feet', 'labour': 'Labour (docket 36511)', 'relocation': 'Relocation', 'ped_gates': 'Pedestrian gates',
         'fence_blocks': 'Fence blocks', 'v_gates': 'Vehicle gates', 'bases': 'Bases'}
 PAYWHY = {'clean': "Advanced's rate sheet", 'scrim': "Advanced's rate sheet (braced for scrim)", 'ccb_demarc': "Advanced's rate sheet", 'ccb_event': "Advanced's rate sheet",
@@ -47,7 +49,7 @@ for x in use:
         r = l['rate'] if x['supplier'] else l['paid_rate']
         if r is not None: p['rates'].add(r)
 TC = sum(a['c'] for a in charge.values()); TP = sum(p['c'] for p in pay.values())
-assert TC == cents(sum(x['cost_total'] for x in use)) == 40515096, TC
+assert TC == cents(sum(x['cost_total'] for x in use)), TC
 assert TP == cents(sum(x['paid_total'] for x in use)), TP
 
 S = SPLIT['split']; O = SPLIT['orders']
@@ -61,14 +63,18 @@ ALL_IN = FENCE_COST + GREEN
 
 # --- the scrim check: Advanced's invoiced clean = the paper's clean less their scrim and 2.5 m a vehicle gate
 q = lambda lines, col: sum(l['qty'] for l in lines if l['column'] == col)
+qp = lambda lines, col: sum(l['qty'] for l in lines if l['column'] == col and l['qty'] > 0)   # what the paper says, without the v12.16 line
+under = lambda lines: -sum(l['qty'] for l in lines if l['column'] == 'clean' and l['qty'] < 0)
 check = []
 for x in use:
     if not x['supplier']: continue
-    oc, ac, as_, av = q(x['lines'], 'clean'), q(x['supplier']['lines'], 'clean'), q(x['supplier']['lines'], 'scrim'), q(x['supplier']['lines'], 'v_gates')
+    oc, ac, as_, av = qp(x['lines'], 'clean'), q(x['supplier']['lines'], 'clean'), q(x['supplier']['lines'], 'scrim'), q(x['supplier']['lines'], 'v_gates')
     check.append(round(oc - as_ - 2.5 * av - ac, 2))
 exact = sum(1 for r in check if r == 0)
 SCRIM_M = charge['scrim']['qty']; CLEAN_RATE = charge['clean']['rate']
-TWICE = cents(SCRIM_M * CLEAN_RATE)
+ONCE = -sum(cents(l['cost']) for x in use for l in x['lines'] if l['column'] == 'clean' and l['qty'] < 0)   # what v12.16 took off the charge
+PAPER_CLEAN = sum(qp(x['lines'], 'clean') for x in use)
+assert round(sum(under(x['lines']) for x in use), 2) == SCRIM_M, 'every scrim metre has its line'
 BASEPLAN = 30910683
 
 # --- by week
@@ -137,22 +143,22 @@ def put(s, row, vals, font=None, fill=None, fmt=None):
         if fmt and j in fmt: c.number_format = fmt[j]
     return r
 
-s = wb.create_sheet('Summary'); widths(s, [34, 12, 7, 13, 44, 15, 14, 44])
+s = wb.create_sheet('Summary'); widths(s, [34, 12, 7, 15, 15, 15, 44, 44])
 put(s, 0, ['GC500 fencing (9990776): what we charge the V8s and what we pay Advanced - signed dockets 9 Sep to 23 Oct 2026, ex GST'], BIG)
-put(s, 0, ['From the live record on 25 Oct 2026 (page v12.15), priced by the page itself: 167 signed red-book dockets. Our rates are the 2026 street card or your named rates. '
+put(s, 0, ['From the live record on 25 Oct 2026 (page v12.16), priced by the page itself: 167 signed red-book dockets, the fence under the scrim charged once. Our rates are the 2026 street card or your named rates. '
            "Advanced's costs are their approved pricing on the purchase orders for weeks 1-5 (115 dockets), and their rate sheet for week 6 and the event week (52 dockets) until their invoices land."])
 put(s, 0, [])
-put(s, 0, ['1. What we charge - how the $405,150.96 is built'], H, BLU)
-put(s, 0, ['Item', 'Qty (our dockets)', 'Unit', 'We charge / unit', 'Our rate comes from', 'We charge', 'We pay / unit', "Advanced's rate comes from"], H)
+put(s, 0, ['1. What we charge the V8s, item by item'], H, BLU)
+put(s, 0, ['Item', 'Total', 'Unit', 'Rate we pay Advanced', 'Rate we charge V8s', 'Total we charge', 'Our rate comes from', "Advanced's rate comes from"], H)
 for k in ITEMS:
     a = charge[k]
     if not a['qty'] and k != 'bases': continue
     if k == 'bases': continue
     pr = sorted(pay[k]['rates']); unit = COLS.get(k, {}).get('unit') or ''
-    put(s, 0, [NAME[k], a['qty'], unit, a['rate'], charge_from(k), d(a['c']), pr[0] if len(pr) == 1 and k != 'relocation' else None, PAYWHY[k]],   # relocation: their rate is per hour, not per metre
-        fmt={1: Q, 3: '$#,##0.00##', 5: M, 6: '$#,##0.00'})
+    put(s, 0, [NAME[k], a['qty'], unit, pr[0] if len(pr) == 1 and k != 'relocation' else None, a['rate'], d(a['c']), charge_from(k), PAYWHY[k]],   # relocation: their rate is per hour, not per metre
+        fmt={1: Q, 3: '$#,##0.00', 4: '$#,##0.00##', 5: M})
 put(s, 0, ['Total we charge', None, None, None, None, d(TC)], H, GRN, fmt={5: M})
-put(s, 0, ['Each docket line is rounded to the cent, as the page and the build price it. Multiplying the totals above straight through gives 13 cents less ($405,150.83).'])
+put(s, 0, ["Clean fence is the papers' %s m less the %s m of fence under the scrim, which is charged once, in the scrim (v12.16). Each docket line is rounded to the cent, as the page prices it." % (format(PAPER_CLEAN, ',.1f'), format(SCRIM_M, ',.1f'))])
 put(s, 0, [])
 put(s, 0, ['2. What we pay Advanced for the same work'], H, BLU)
 put(s, 0, ['Item', "Qty Advanced bill", 'Unit', 'Their rate', 'Note', 'We pay'], H)
@@ -185,20 +191,16 @@ put(s, 0, ['We charge the V8s', None, None, None, None, d(TC)], fmt={5: M})
 put(s, 0, ['We pay Advanced', None, None, None, None, d(EVERYTHING)], fmt={5: M})
 put(s, 0, ['Margin', None, None, None, '%.1f%% of what we charge' % (100 * (TC - EVERYTHING) / TC), d(TC - EVERYTHING)], H, fmt={5: M})
 put(s, 0, [])
-put(s, 0, ['5. Needs your call - scrim fence charged twice?'], H, AMB)
+put(s, 0, ['5. The scrim fence is charged once (Andrew, 25 Oct 2026: "we charge once")'], H, GRN)
 for line in [
     "The scrim rate ($25.53 a metre, set 24 Sep) is the fence with shade cloth on it: card fence $16.16 + card shade cloth $9.37. "
-    "Advanced bill braced-for-scrim the same way, all in ($24.40, not $10 + $24.40).",
+    "Advanced bill braced-for-scrim the same way, all in ($24.40).",
     "The crews' papers write the whole fence run as clean, scrimmed sections included. On %d of the %d dockets Advanced have invoiced, their clean metres are "
     "exactly the paper's clean less the scrim and 2.5 m for each vehicle gate. Docket 36532: paper 150 m clean and 132.5 m scrim; Advanced bill 12.5 m clean, "
     "132.5 m scrim and 2 vehicle gates." % (exact, len(check)),
-    "Our record charges the paper's clean metres at $16.16 and the scrim metres again at $25.53, so the fence under the scrim is charged twice: "
-    "%s m x $16.1607 = $%s." % (format(SCRIM_M, ',.1f'), format(d(TWICE), ',.2f')),
-    "Baseplan keys them as separate metres (line 3 clean, line 6 fence with scrim + line 10 shade cloth), as the 2026 programme does, and 2025 billed "
-    "\"1.8 m fence with scrim\" as its own all-in metre ($26.75, mesh $17.65).",
-    "If that is right: we charge $%s, not $405,150.96; Baseplan is short $%s, not $96,044.13; the margin is $%s (%.1f%%)." % (
-        format(d(TC - TWICE), ',.2f'), format(d(TC - TWICE - BASEPLAN), ',.2f'), format(d(TC - TWICE - EVERYTHING), ',.2f'), 100 * (TC - TWICE - EVERYTHING) / (TC - TWICE)),
-    "Nothing on the record or the page has been changed: it is your rate ruling."]:
+    "Since v12.16 (live 25 Oct 14:18) each docket with scrim carries one more line: its scrim metres off the clean at $16.1607. That took $%s off the charge "
+    "(was $%s); on the paid side it took the event week's estimate down $6,100, the way Advanced bill it." % (format(d(ONCE), ',.2f'), format(d(TC + ONCE), ',.2f')),
+    "Against Baseplan's $309,106.83 for 9990776, our signed dockets come to $%s: Baseplan is short $%s." % (format(d(TC), ',.2f'), format(d(TC - BASEPLAN), ',.2f'))]:
     put(s, 0, [line])
 put(s, 0, [])
 put(s, 0, ['6. Also worth knowing'], H, BLU)
@@ -225,20 +227,20 @@ s.freeze_panes = 'A2'
 
 s = wb.create_sheet('Dockets'); widths(s, [9, 11, 11, 30, 9, 9, 9, 9, 9, 8, 8, 9, 8, 8, 12, 12, 30, 10, 10, 9, 12, 16])
 head = ['Docket', 'Date', 'Week', 'Location', 'Clean m', 'Scrim m', 'CCB demarc m', 'CCB event m', 'Flat feet m', 'Ped gates', 'V gates', 'Relocation m', 'Blocks', 'Labour h',
-        'We charge', 'We pay', 'Paid at', 'Advanced clean m', 'Advanced scrim m', 'Advanced V gates', 'Scrim also in clean (m)', "On an Advanced sheet"]
+        'We charge', 'We pay', 'Paid at', 'Advanced clean m', 'Advanced scrim m', 'Advanced V gates', 'Fence under the scrim, off the clean (m)', "On an Advanced sheet"]
 put(s, 0, head, H)
 for x in sorted(use, key=lambda x: (x['date'] or '', str(x['no'] or ''))):
-    qq = lambda col: q(x['lines'], col) or None
+    qq = lambda col: qp(x['lines'], col) or None
     sl = x['supplier']['lines'] if x['supplier'] else None
     adv = (q(sl, 'clean'), q(sl, 'scrim'), q(sl, 'v_gates')) if sl else (None, None, None)
-    twice = q(x['lines'], 'scrim') or None
+    twice = under(x['lines']) or None
     r = put(s, 0, [x['no'] or 'tracker row', x['date'], x['week'], x['location'], qq('clean'), qq('scrim'), qq('ccb_demarc'), qq('ccb_event'), qq('flat_feet'), qq('ped_gates'), qq('v_gates'),
                    qq('relocation'), qq('fence_blocks'), qq('labour'), x['cost_total'], x['paid_total'],
                    ("Advanced's invoice pricing, order " + x['supplier']['po']) if x['supplier'] else "Advanced's rate sheet", adv[0], adv[1], adv[2], twice,
                    'yes' if ('red', x['id']) in ON_SHEET else ('event week: not billed yet' if x['week'] == 'Event Week' else 'week 6: no sheet' if x['week'] == 'Week 6' else 'NO')], fmt={14: M, 15: M})
     if twice:
         for c in s[r]: c.fill = AMB
-put(s, 0, ['Total', None, None, None, charge['clean']['qty'], charge['scrim']['qty'], charge['ccb_demarc']['qty'], charge['ccb_event']['qty'], charge['flat_feet']['qty'], charge['ped_gates']['qty'],
+put(s, 0, ['Total', None, None, None, PAPER_CLEAN, charge['scrim']['qty'], charge['ccb_demarc']['qty'], charge['ccb_event']['qty'], charge['flat_feet']['qty'], charge['ped_gates']['qty'],
            charge['v_gates']['qty'], charge['relocation']['qty'], charge['fence_blocks']['qty'], charge['labour']['qty'], d(TC), d(TP)], H, GRN, fmt={14: M, 15: M})
 s.freeze_panes = 'E2'
 
@@ -262,12 +264,12 @@ summary = {'dockets': len(use), 'charged': d(TC), 'paid_dockets': d(TP), 'team_l
            'labour_notes': d(GREEN), 'paid_all_in': d(ALL_IN), 'other_advanced_invoices': d(OTHER_C), 'paid_everything': d(EVERYTHING), 'margin': d(TC - EVERYTHING),
            'orders': [dict(zip(['week', 'order', 'sheet', 'order_amount', 'receipt', 'match', 'carried'], r)) for r in ORDERS],
            'items': {k: {'charge_qty': charge[k]['qty'], 'charge_rate': charge[k]['rate'], 'charge': d(charge[k]['c']), 'pay_qty': pay[k]['qty'], 'pay_rates': sorted(pay[k]['rates']), 'pay': d(pay[k]['c'])} for k in ITEMS},
-           'scrim_check': {'invoiced_dockets': len(check), 'clean_is_paper_less_scrim_and_gates': exact, 'scrim_m': SCRIM_M, 'charged_twice': d(TWICE),
-                           'charged_if_once': d(TC - TWICE), 'baseplan_short_if_once': d(TC - TWICE - BASEPLAN), 'margin_if_once': d(TC - TWICE - EVERYTHING)},
+           'scrim_once': {'invoiced_dockets': len(check), 'clean_is_paper_less_scrim_and_gates': exact, 'scrim_m': SCRIM_M, 'paper_clean_m': PAPER_CLEAN,
+                          'taken_off_the_charge': d(ONCE), 'charge_before': d(TC + ONCE), 'baseplan': d(BASEPLAN), 'baseplan_short': d(TC - BASEPLAN)},
            'by_week': {k: {kk: (d(v) if kk in ('charge', 'pay', 'extras', 'notes', 'adj') else v) for kk, v in w.items()} for k, w in W.items()}}
 (HERE / 'evidence' / 'fence_pay_charge.json').write_text(json.dumps(summary, indent=1))
 print(json.dumps({k: summary[k] for k in ('dockets', 'charged', 'paid_dockets', 'team_leader', 'materials', 'invoice_adjustment', 'fencing_cost', 'labour_notes', 'paid_all_in', 'other_advanced_invoices', 'paid_everything', 'margin')}))
 for r in ORDERS: print(r)
-print(json.dumps(summary['scrim_check']))
+print(json.dumps(summary['scrim_once']))
 for k, v in summary['items'].items(): print(k, v)
 for k, v in summary['by_week'].items(): print(k, v)
