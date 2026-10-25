@@ -1,0 +1,18 @@
+{
+  "author": "Andrew Fisher",
+  "server_sha256": "8764451d3768fcfbfc493da48fb9901503dcd6af0f8df247478aa53fb9428f46",
+  "bytes": 294310,
+  "execute": true,
+  "source_base_sha256": "bdb058ffe1d7e269be978546581383a85f11bd7fc7078f569d41de33b6efe396",
+  "started": "2026-10-25T07:21:41.790957+00:00",
+  "blob_readback": true,
+  "state_cards_page_history_signatures_unchanged": true,
+  "live_server_still": "v5.92",
+  "finished": "2026-10-25T07:21:46.527598+00:00",
+  "focused_http_checks": 50,
+  "retained_http_checks": 205,
+  "crew_phone_checks": 26,
+  "crew_desktop_checks": 26,
+  "live_test_ticks": 0,
+  "running_server_changed": false
+}
