@@ -74,8 +74,10 @@ const read = () => {
   check(!invented.length && !lost.length && !broken.length,
     `the short lines keep their figures (lost ${JSON.stringify(lost)}, new ${JSON.stringify(invented)}) and no character is cut (${broken.length})`);
   const r = (a, b) => Math.round(100 * a / b);
-  check(N.before.pl.vis < 0.6 * B.before.pl.vis && N.before.rh.vis < 0.6 * B.before.rh.vis && N.before.tr.vis < B.before.tr.vis,
-    `visible text: P&L ${r(N.before.pl.vis, B.before.pl.vis)}%, rehire ${r(N.before.rh.vis, B.before.rh.vis)}%, transport ${r(N.before.tr.vis, B.before.tr.vis)}% of before`);
+  /* v12.26: the base already folds the workings (v12.22), so the P&L card only gets shorter by the folded provisional lines
+     and the other two cards stay as they are */
+  check(N.before.pl.vis < B.before.pl.vis && N.before.rh.vis === B.before.rh.vis && N.before.tr.vis === B.before.tr.vis,
+    `visible text: P&L ${r(N.before.pl.vis, B.before.pl.vis)}% of the live card (folded further), rehire ${r(N.before.rh.vis, B.before.rh.vis)}%, transport ${r(N.before.tr.vis, B.before.tr.vis)}% (unchanged)`);
   check(N.after.pl.vis >= 0.97 * B.before.pl.vis && N.after.rh.vis >= 0.97 * B.before.rh.vis && N.after.tr.vis >= 0.97 * B.before.tr.vis, 'with the workings shown, the text is all there again');
   check(/ · v12\.26$/.test(N.footer.trim()), 'footer ' + N.footer.trim().slice(-12));
   check(errs.build === 0 && blocked.build === 0, `build: ${errs.build} page errors, ${blocked.build} record writes`);

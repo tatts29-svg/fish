@@ -1,0 +1,24 @@
+{
+ "desktop": {
+  "tabs": 27,
+  "deep_links": 7,
+  "errors": 0,
+  "console": 0,
+  "counts": {
+   "page": 1,
+   "live": 543,
+   "blocked": 0
+  }
+ },
+ "phone": {
+  "tabs": 27,
+  "deep_links": 7,
+  "errors": 0,
+  "console": 0,
+  "counts": {
+   "page": 1,
+   "live": 468,
+   "blocked": 0
+  }
+ }
+}
