@@ -1,6 +1,6 @@
 # v12.26 — "Not in it yet": repeated provisional notes fold into one line
 
-Author: Andrew Fisher. 26 Oct 2026. **READY TO UPLOAD on live v12.25.**
+Author: Andrew Fisher. 26 Oct 2026. **LIVE 26 Oct 2026 04:39 AEST**: the view link serves `82589211d0b07c43b71f5859e1fbb6fe43dabf338e2509e750ea815cef5fa26e` byte for byte (15,440,561 bytes). Checked by the guarded upload, then a separate public GET at 04:39:02. `tests/test_v1226.cjs` passed 13/13 against the live page on desktop and phone (`evidence/test_live*.txt`).
 
 - **Why:** Andrew, 25 Oct: "i want this the amount of info shortened no one is going to read all this we just want Figures".
   - v12.24 and v12.25 moved the 13 water-barrier notes into the Provisional lines ("WBxx · TL2: Contract 9994996 line 1 includes the combined installation / removal charge in Revenue …").
