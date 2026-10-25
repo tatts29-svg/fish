@@ -1,4 +1,4 @@
-# Servicing door-lock declaration — draft, not live
+# Servicing door-lock declaration — crew card READY, report page DRAFT
 
 Author: Andrew Fisher
 
@@ -16,6 +16,8 @@ Built on verified v12.19 `6ccc030d201729e50015d77aa2f140ba63660fe32e0a5fc44c958d
 
 Use the shared build/check/upload toolchain, then `tests/update_tracker1221.cjs` for the existing event tracker through the native publisher. The updater defaults to dry capture. `--card-first --execute` can publish the independently tested crew card while the main page remains on the exact v12.19 base; it does not upload the main page. This requires the same activated v5.93 capability and every native preservation guard. The report page remains DRAFT until its full sweeps pass. `--execute` without `--card-first` additionally requires `GC500_NATIVE_TRACKER_EXECUTE=1`, exact reviewed live page and server capability. Its private snapshot proves unchanged tracker configuration, signatures, history, contact details and job record. No live test tick or crew message is permitted.
 
+Server v5.93 was activated by Claude at 17:45 AEST. Independent GET read-back at 17:47:48 verified declaration capability, all 426 earlier events, tracker configuration, signatures, cards and inventory. The exact boot hash is supported by Claude’s deployment evidence.
+
 ## Checks so far
 
 - Shared page checker: 199 inline scripts parsed, no new keys.
@@ -23,6 +25,8 @@ Use the shared build/check/upload toolchain, then `tests/update_tracker1221.cjs`
 - Declaration/report model: 19/19, including all existing report fields/totals preserved, old ticks, undo/void, pending, different nights, duplicate reads and escaped names.
 - Exact preservation: 5/5; only the servicing script, night-report script and release footer change. All other scripts and page markup unchanged; wrong-base/double application refused.
 - Synthetic A4 pagination/phone layout: 5/5, 120 entries over 26 numbered pages, no clipping; final page visually inspected. The pager now budgets for all report blocks rather than stopping after 20 pages.
-- Native publication dry capture: 76/76 on the initial candidate; final-candidate rerun and full-page desktop/phone sweeps in progress. The first desktop sweep was stopped after stalling; the instrumented retry reached Costs but exceeded its five-minute test timeout. Neither is counted as a pass. This is not READY for page publication.
+- Final native card-first dry capture: 76/76 (including receipt safety), zero live writes; exact crew HTML SHA-256 `54957ef5bb042313fe74b277fa0344395ecf6d543ede5e19b3abd1940ce74798`. Actor: Andrew Fisher via Codex.
+- Final desktop full sweep: 27 routes, 19 direct panes, seven deep links and Back; zero page errors, console errors or writes. Phone full sweep remains pending. Initial desktop attempts timed out; neither counted as passing and no checks were relaxed.
+- Phone prompt and report final page visually inspected. The independently tested crew card is READY for native publication; the main report page remains DRAFT until its phone sweep passes.
 
 Operational snapshots, crew links/names, page captures and native publish payloads stay outside the public repository. Browser tests use the shared browser lock. Synthetic screenshots contain test names only.

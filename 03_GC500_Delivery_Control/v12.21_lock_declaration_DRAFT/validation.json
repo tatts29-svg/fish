@@ -1,6 +1,6 @@
 {
   "author": "Andrew Fisher",
-  "status": "DRAFT, not live",
+  "status": "Crew card READY; main page DRAFT",
   "base_sha256": "6ccc030d201729e50015d77aa2f140ba63660fe32e0a5fc44c958d47b6636a16",
   "candidate_sha256": "f06ddbdfca7b13394e1477d32f54813f7866b5e371160dd876aa94639712bab7",
   "bytes": 15378131,
@@ -14,12 +14,41 @@
     "synthetic_declarations": 120,
     "synthetic_pages": 26,
     "clipped": 0,
-    "initial_native_dry": 76
+    "initial_native_dry": 76,
+    "final_native_card_first_dry": 76
   },
   "pending": [
-    "final-candidate desktop and phone full sweeps",
-    "final-candidate native dry capture",
-    "server activation and independent preservation read-back",
-    "guarded page and native-card publication"
-  ]
+    "native crew-card publication and live GET checks",
+    "main-page phone full sweep",
+    "guarded main-page publication and public exact-byte check"
+  ],
+  "desktop_sweep": {
+    "tabs": 27,
+    "shown": 19,
+    "hashes": 7,
+    "errors": [],
+    "console_errors": [],
+    "blocked_writes": 0,
+    "go_errors": [],
+    "back": {
+      "hash": "#plant",
+      "pane": "pane-plant"
+    }
+  },
+  "crew_sha256": "54957ef5bb042313fe74b277fa0344395ecf6d543ede5e19b3abd1940ce74798",
+  "server_readback": {
+    "author": "Andrew Fisher",
+    "at": "2026-10-25T07:47:48.514453+00:00",
+    "health_build": "v5.93",
+    "lock_declarations_version": 1,
+    "retained_history_entries": 426,
+    "concurrent_history_additions": 0,
+    "tracker_configuration_and_signatures_unchanged": true,
+    "cards_unchanged": true,
+    "page_unchanged": true,
+    "inventory_preserved": true,
+    "boot_hash_verification": "Deployment-owner evidence required; health does not expose the boot hash",
+    "record_note": "Captured, not asserted unchanged across concurrent authorised work",
+    "live_writes": 0
+  }
 }

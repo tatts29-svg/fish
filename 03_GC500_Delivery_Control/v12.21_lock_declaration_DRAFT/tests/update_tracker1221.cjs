@@ -3,7 +3,7 @@
 'use strict';
 const fs=require('node:fs'),path=require('node:path'),cp=require('node:child_process'),crypto=require('node:crypto'),assert=require('node:assert/strict');
 const {chromium}=require('playwright');
-const HOST='https://gc500-production.up.railway.app',LOAD='servicing-tracker:GC500-2026',WHO='Andrew Fisher';
+const HOST='https://gc500-production.up.railway.app',LOAD='servicing-tracker:GC500-2026',WHO='Andrew Fisher via Codex';
 const BASE='6ccc030d201729e50015d77aa2f140ba63660fe32e0a5fc44c958d47b6636a16';       // live v12.19
 const CANDIDATE='f06ddbdfca7b13394e1477d32f54813f7866b5e371160dd876aa94639712bab7';  // v12.21, reviewed
 const FINAL=['pump','clean','lockup'],KINDS=['fwf','access','pan16'];
@@ -78,7 +78,7 @@ function expectTracker(t){const x=copy(t);KINDS.forEach(k=>{x.plans[k].final=FIN
    if(r.method()!=='POST'||u.pathname!=='/api/cards'||postCount){unexpected++;return route.abort();}
    postCount++;stage='validate native request';
    try{
-    guard(r.headers()['x-gc500-who']===WHO,'recorded as Andrew Fisher');payload=JSON.parse(r.postData());
+    guard(r.headers()['x-gc500-who']===WHO,'recorded as Andrew Fisher via Codex');payload=JSON.parse(r.postData());
     guard(eq(Object.keys(payload).sort(),['load','title','run_date','expires','keys','contact','tracker','token','html'].sort()),'exact payload fields');
     guard(payload.token===token&&payload.load===LOAD&&!payload.rekey&&eq(payload.keys,[]),'same token, no re-key');
     guard(eq(payload.contact,before.card.contact)&&['title','run_date','expires'].every(k=>payload[k]===before.card[k]),'contact, title and dates unchanged');
