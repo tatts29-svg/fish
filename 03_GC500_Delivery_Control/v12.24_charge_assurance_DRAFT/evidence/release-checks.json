@@ -1,0 +1,48 @@
+{
+  "author": "Andrew Fisher",
+  "state": "READY",
+  "version": "v12.24",
+  "base_sha256": "8112a63d10c5b6c88206a539af5a59dc1037176e414a95f20d253b16f844e257",
+  "candidate_sha256": "0dbb968dd75f92d159f41e2d29849a1d9c283ba950d3f572a31db4e32c14f340",
+  "bytes": 15425617,
+  "inline_scripts": 202,
+  "focused_checks": 128,
+  "preservation_checks": 27,
+  "native": {
+    "desktop": 22,
+    "phone": 23,
+    "errors": 0,
+    "record_write_attempts": 0
+  },
+  "sweeps": {
+    "candidate_sha256": "0dbb968dd75f92d159f41e2d29849a1d9c283ba950d3f572a31db4e32c14f340",
+    "checked_at": "2026-10-25T12:13:18.333509+00:00",
+    "desktop": {
+      "tabs": 27,
+      "shown": 19,
+      "deep_links": 7,
+      "back": {
+        "hash": "#plant",
+        "pane": "pane-plant"
+      },
+      "errors": 0,
+      "console_errors": 0,
+      "record_write_attempts": 0
+    },
+    "phone": {
+      "tabs": 27,
+      "shown": 19,
+      "deep_links": 7,
+      "back": {
+        "hash": "#plant",
+        "pane": "pane-plant"
+      },
+      "errors": 0,
+      "console_errors": 0,
+      "record_write_attempts": 0
+    },
+    "full_sweeps_verified": true
+  },
+  "phone_presentation_inspected": true,
+  "operational_record_writes": 0
+}

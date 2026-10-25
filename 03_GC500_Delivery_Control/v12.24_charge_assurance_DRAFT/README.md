@@ -2,7 +2,7 @@
 
 Author: Andrew Fisher
 
-**DRAFT — final native and release checks in progress. Codex owns publication.**
+**READY TO UPLOAD — all required checks passed. Codex owns guarded publication.**
 
 Andrew asked for the charges to reconcile to the cent before finalising the bill. Costs now has a compact charge-check card with the recorded charge, priced job-end subtotal excluding fencing demob, forecast bridge, Revenue by branch and actionable source/coverage reviews. Arithmetic reconciliation does not certify a bill.
 
@@ -17,13 +17,13 @@ Five priced contract-service rows already documented in the repository's review 
 - Focused checks: 128 passing cases across decimal cents, treatment/projection, adapter, rate reconciliation, reservation transitions, restored identity and contract-service coverage.
 - Strict source/script preservation: 27/27, retaining all 299 prior runtime rows and permitting exactly five source additions.
 - Final GET-only native checks: desktop 22/22, phone 23/23, zero errors or write attempts. Current FWF install/demob separation, preserved figures-first controls, corrected summaries and source explanations verified; phone presentation inspected.
-- Earlier financial candidate passed both full sweeps. Both full sweeps are running again on the final presentation candidate; not READY until complete.
-- Both complete navigation sweeps are running on this exact candidate. Current state is DRAFT, not READY.
+- Final full sweeps passed on desktop and phone: 27 tabs, 19 accessible panes, seven deep links and Back navigation; zero page errors, console errors or write attempts.
+- Guarded uploader dry run passed: live base unchanged and execution access verified. No operational record write or invoice issuance.
 - All earlier v12.24 candidates are superseded and must not be uploaded.
 
 The compact contract summary now describes mixed contract charges accurately, identifies its source-only Transport and separate Installation/service components, and avoids attributing every remaining rehire forecast to fencing. These are presentation changes only. Existing FWF install and demob remain separate; no historical bill values or rate changes are introduced.
 
-Implementation and testing: Codex, with independent arithmetic, scope-coverage and source review. Claude independently reproduced and compared the preceding financial candidate `26aa75e2b2bbbebd104bd1662562614da8b40151001cdf835e1dcb3fdfaaee61` in PR comment 6397093587. Final presentation changes are being verified by Codex; no Claude review of the final hash is claimed. Detailed evidence stays in authorised private storage.
+Implementation and testing: Codex, with independent arithmetic, scope-coverage and source review. Claude independently reproduced and compared the preceding financial candidate `26aa75e2b2bbbebd104bd1662562614da8b40151001cdf835e1dcb3fdfaaee61` in PR comment 6397093587. Final presentation changes are verified by Codex; no Claude review of the final hash is claimed. Detailed evidence stays in authorised private storage.
 
 ## Reproduce
 
