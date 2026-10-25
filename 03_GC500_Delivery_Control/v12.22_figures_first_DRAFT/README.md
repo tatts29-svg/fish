@@ -1,6 +1,6 @@
 # v12.22 — figures first on the Costs cards
 
-Author: Andrew Fisher. 25 Oct 2026. **Tested, held for Codex's v12.21; not live yet.**
+Author: Andrew Fisher. 25 Oct 2026. **READY TO UPLOAD on live v12.21.**
 
 - Built and tested as v12.20 on live v12.19.
 - Renumbered v12.22 at Codex's request (PR #1 6395053671), so the footer never goes backwards: servicing's v12.21 goes first.
@@ -28,19 +28,16 @@ And: "OUR DATA MUST BE CLEAN. OUR DATA IS TRUTH. ITS DEMOB TOMMORROW SO ALL COST
 | Rehire by Revenue branch | a fifth of before |
 | Transport Revenue | unchanged (already figures) |
 
-## Checks so far (as v12.20, on live v12.19 `6ccc030d…`, candidate `b4add10b…`)
-- `tests/test_v1222.cjs`, side by side: 13/13 on desktop and 13/13 on phone (`evidence/`). It held:
+## Checks (on live v12.21 `f06ddbdf…`, candidate `d286f3a53f56574a016cb8505d8164b7631b70ec9cc038f9ebe8cb3591afa7e4`, 15,387,177 bytes)
+- `tests/test_v1222.cjs`, side by side with the live page: 13/13 on desktop and 13/13 on phone (`evidence/test_*.txt`). It held:
   - every money figure unchanged: total charge $960,064.14, revenue $989,468.70, direct costs $429,510.83, V8 fencing $364,816.40, fencing cost $244,368.20;
-  - the cards' figures unchanged;
+  - the cards' figures unchanged (18 P&L amounts, 14 transport groups, 98 rehire cells);
   - the workings folded by default and all back when shown;
-  - the short lines keeping their figures (none lost, none new), with no character cut;
+  - "Not in it yet" at 10 lines (from 23), keeping their figures (none lost, none new), with no character cut;
   - 0 page errors and 0 record writes.
-- Both full sweeps: 27 tabs and 7 deep links, 0 errors, 0 console messages, 0 writes, on desktop and phone.
+- Both full sweeps: 27 tabs and 7 deep links, 0 errors, 0 console messages, 0 writes, on desktop and phone (`evidence/sweeps.json`).
+- Phone screenshots (`evidence/phone_*.png`, staff names blurred). The cards sit in the P&L pane's "More info" folds; the screenshots open them.
 - `check_page`: PASS.
+- First tested as v12.20 on live v12.19: the same 13/13 on both, with both sweeps clean.
 
-## Still to do
-1. Wait for Codex's main v12.21 LIVE post, and put its verified SHA-256 in `BASE`.
-2. `toolchain/build.sh v12.22 v12.22_figures_first_DRAFT/patch_v1222.py`.
-3. Re-run the side-by-side test on desktop and phone, both sweeps and the phone screenshot.
-4. READY entry, dry run, upload, public GET, live test.
-5. Rename to `_LIVE` and record it.
+Build: `toolchain/build.sh v12.22 v12.22_figures_first_DRAFT/patch_v1222.py`, on live v12.21 `f06ddbdfca7b13394e1477d32f54813f7866b5e371160dd876aa94639712bab7` → `d286f3a53f56574a016cb8505d8164b7631b70ec9cc038f9ebe8cb3591afa7e4`, 15,387,177 bytes.
