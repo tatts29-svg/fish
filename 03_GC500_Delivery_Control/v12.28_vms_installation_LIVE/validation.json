@@ -1,6 +1,6 @@
 {
   "author": "Andrew Fisher",
-  "state": "READY TO UPLOAD",
+  "state": "LIVE",
   "base_sha256": "2db3457f12692ccd660de48b6c134d964827e27c3a4be976b482f12edbccc9b2",
   "candidate_sha256": "c8057284f1b0f42f7eef336a4def584574e7baea8146239c5273fbcee0c497d3",
   "candidate_bytes": 15455776,
@@ -40,5 +40,17 @@
     }
   },
   "review": "Codex implementation and independent sub-agent reviews; no Claude review claimed",
-  "private_evidence": "Native snapshots, financial details and screenshots are retained privately, outside this repository."
+  "private_evidence": "Native snapshots, financial details and screenshots are retained privately, outside this repository.",
+  "ready_source": "bfa85727ce6c48e68101412c4e015a0ef95d0043",
+  "published_utc": "2026-10-25T20:56:38.617Z",
+  "independent_live_readback": {
+    "at": "2026-10-25T20:57:16.454643Z",
+    "http_status": 200,
+    "footer": "v12.28",
+    "byte_for_byte_match": true,
+    "sha256": "c8057284f1b0f42f7eef336a4def584574e7baea8146239c5273fbcee0c497d3",
+    "bytes": 15455776,
+    "browser_tests_repeated": false
+  },
+  "native_version_unchanged_after_publication": true
 }

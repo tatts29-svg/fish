@@ -1,4 +1,4 @@
-# VMS installation coverage — v12.28 READY TO UPLOAD
+# VMS installation coverage — v12.28 LIVE
 
 Author: Andrew Fisher
 
@@ -15,14 +15,14 @@ One projection feeds labour slots, customer labour revenue, installation branch 
 Candidate: `c8057284f1b0f42f7eef336a4def584574e7baea8146239c5273fbcee0c497d3`, 15,455,776 bytes. Completed checks: 204 inline scripts pass the shared checker; 36 native-engine synthetic checks; 29 independent lifecycle/adapter checks; 12 independent source-preservation/refusal checks. The latter reconstructs the complete original page after removing the one new script and reversing the six reviewed integration changes. The guarded uploader's read-only dry run passed.
 
 ```sh
-toolchain/build.sh v12.28 v12.28_vms_installation_DRAFT/patch_v1228.py
-PAGE=build/GC500_v12.28/GC500_Delivery_Control_hosted.html node v12.28_vms_installation_DRAFT/tests/test_vms_installation1228.cjs
-PAGE=build/GC500_v12.28/GC500_Delivery_Control_hosted.html node v12.28_vms_installation_DRAFT/tests/test_vms_installation1228_lifecycle.cjs
-BASE=build/GC500_v12.28/base_live.html PAGE=build/GC500_v12.28/GC500_Delivery_Control_hosted.html python3 v12.28_vms_installation_DRAFT/tests/test_preservation1228.py
+toolchain/build.sh v12.28 v12.28_vms_installation_LIVE/patch_v1228.py
+PAGE=build/GC500_v12.28/GC500_Delivery_Control_hosted.html node v12.28_vms_installation_LIVE/tests/test_vms_installation1228.cjs
+PAGE=build/GC500_v12.28/GC500_Delivery_Control_hosted.html node v12.28_vms_installation_LIVE/tests/test_vms_installation1228_lifecycle.cjs
+BASE=build/GC500_v12.28/base_live.html PAGE=build/GC500_v12.28/GC500_Delivery_Control_hosted.html python3 v12.28_vms_installation_LIVE/tests/test_preservation1228.py
 ```
 
 Final native comparisons pass 300/300 on desktop and 300/300 on phone. All 39 captured models match across viewports, the native state is identical, and seven deliberate negative controls are rejected. The independent audit reproduces the existing branch allocation rule in decimal arithmetic and distinguishes exact currency from whole-dollar display balancing. The desktop sweep passes 27 tabs, 19 visible panes, seven deep links and back navigation, with zero page errors, console errors or record writes. Phone screenshots have been inspected.
 
 To reproduce the native audit, create a private output directory outside the checkout. Run `tests/capture_native_financial1228.cjs` with `PAGE` and private `OUT` for the base and candidate, then with `MOB=1` for the candidate. Run `tests/compare_native_financial1228.py BEFORE AFTER --out PRIVATE_JSON` for each candidate snapshot. Run `tests/test_native_audit_negative1228.py BEFORE AFTER --out PRIVATE_JSON` for the negative controls. These tests reject changed native state rather than attributing concurrent record edits to the release. Use the shared browser lock for every browser process. `SCREENSHOTS=1` writes optional screenshots beside the private snapshot.
 
-Both full navigation sweeps now pass the same 27 tabs, 19 visible panes, seven deep links and back navigation, with zero page errors, console errors or record writes. Codex owns implementation, independent sub-agent reviews, testing and guarded publication; Claude has not reviewed this candidate. No operational record write is part of the patch or its tests. Private source records, attachment findings, screenshots and full financial snapshots remain outside this repository. The exact candidate above is READY TO UPLOAD through the unchanged-live-base guard. The independent live read-back remains required before calling it live.
+Both full navigation sweeps now pass the same 27 tabs, 19 visible panes, seven deep links and back navigation, with zero page errors, console errors or record writes. Codex owns implementation, independent sub-agent reviews, testing and guarded publication; Claude has not reviewed this candidate. No operational record write is part of the patch or its tests. Private source records, attachment findings, screenshots and full financial snapshots remain outside this repository. Published through the unchanged-live-base guard at **26 Oct 2026 06:56:38 AEST** from READY source `bfa85727ce6c48e68101412c4e015a0ef95d0043`. The uploader verified the public page byte for byte. A separate cache-bypassed public GET at **06:57:16 AEST** independently matched all 15,455,776 bytes, the full release SHA-256 above and the v12.28 footer. A fresh authenticated version read confirmed the native record version is unchanged. The next page patch must start from this verified live hash. This read-back verifies deployed content; it does not claim a second browser test run or Claude acknowledgement.
