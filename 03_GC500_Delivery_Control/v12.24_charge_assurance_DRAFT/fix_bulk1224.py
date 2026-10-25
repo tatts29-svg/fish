@@ -179,6 +179,13 @@ def apply(html):
     html = rep(html, 'ticks) + the race weekend people ${esc(money(ppl))}',
         'ticks) + source-priced contract installation ${esc(money(sourceInstall1224))} + the race weekend people ${esc(money(ppl))}',
         'Explain at-a-glance source installation', path)
+    html = rep(html,
+        "${line('Hire on the contracts, by the rate', `${pl(c.contracts_lines - cardLines, 'line')} carrying a rate${c.subhire ? ` · including Rehire Revenue ${esc(money0(c.subhire))}` : ''}${c.delivery ? ` and Transport Revenue ${esc(money0(c.delivery))}` : ''}`, m0(onContracts), CONTRACT)}",
+        "${line('Charges priced on contracts', `${pl(c.contracts_lines - cardLines, 'line')} carrying a rate${c.subhire ? ` · including Rehire Revenue ${esc(money0(c.subhire))}` : ''}${c.delivery - (c.transportArrived1006 || 0) ? ` and Transport Revenue ${esc(money0(c.delivery - (c.transportArrived1006 || 0)))}` : ''}${c.contractInstallation1224 ? ` · Installation ${esc(money0(c.contractInstallation1224))}` : ''}${c.contractServices1224 ? ` · Contract services ${esc(money0(c.contractServices1224))} (ledger allocation pending)` : ''}`, m0(onContracts), CONTRACT)}",
+        'Describe mixed source contract charges accurately', path)
+    html = rep(html, '${esc(money0(T.revToCome))} still to come (the fencing programme)',
+        '${esc(money0(T.revToCome))} still to come (remaining rehire forecast)',
+        'Describe the whole remaining rehire forecast', path)
     html = rep(html, " if (r.charge_line) {\n const pickup = /pick[ -]?up|collect|return|demob/i.test(what);",
         """ if (r.charge_line) {
  if(r.sourceAddition1224){

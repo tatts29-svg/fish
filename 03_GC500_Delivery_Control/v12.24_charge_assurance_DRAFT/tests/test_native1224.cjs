@@ -23,6 +23,13 @@ assert(process.env.OUT&&!out.startsWith(repo+path.sep),'OUT must be private and 
         transportGapBasis:()=>{const t=transport953Build(),all=t.rows.concat(t.planned);return all.filter(r=>r.forecast&&['held','nonload'].includes(r.forecast.kind)).map(r=>({id:r.id,ref:r.key,task:r.task,item:r.item,leg:r.leg,qty:r.qty,forecast:r.forecast,lines:r.a?assetTotal(r.a).lines:[],demand:r.a?transport956NativeDemand(r,all.filter(x=>x.key===r.key&&transport953Leg(x)===transport953Leg(r))):null}));},
         assurance:()=>ChargeAssurance1224.model(), reconciliation:()=>recon888Model(), contractFigures:()=>contractFigures(ONHIRE_ROWS), sourceCharges:()=>ONHIRE_ROWS.filter(r=>r.sourceAddition1224).map(r=>({contract:r.rental_contract,line:r.line,category:contractChargeCategory1224(r),stream:contractChargeStream1224(r),charge:contractCharge(r),source:r.sourceAddition1224})), onsiteComplete:()=>onsiteComplete979(), pricingHolds:()=>pricingReviewHolds1010(), workPricing:()=>workPricing1007(), labourRevenue:()=>labourRevenue858(), dataKeys:()=>Object.keys(DATA),stateKeys:()=>Object.keys(S)};
       holdAssets(()=>{for(const [key,fn]of Object.entries(models)){try{result.models[key]=JSON.parse(JSON.stringify(fn()));}catch(e){result.failures[key]=String(e);}}});
+      result.fwf=holdAssets(()=>{
+        const pick=r=>({key:r.key,name:r.name,rate:r.rate,qty:r.qty,recordedQty:r.recordedQty,value:r.value,forecastQty:r.forecastQty,forecastValue:r.forecastValue,automatic:r.automatic,takenOff1052:r.takenOff1052});
+        const a=FinanceRequest996.assets().find(a=>a.key==='PG01'),l=a&&chargeLines(a).find(l=>l.item==='FWF'),p=l?charge1006(a,l):null;
+        const slots=labourPlan().slots.filter(s=>s.item==='FWF'&&['install','demob'].includes(s.key));
+        return {pg01:p?{arrived:p.arrived,ordered:p.ordered,total:p.total,rows:p.rows.filter(r=>['install','demob'].includes(r.key)).map(pick)}:null,
+          allFWF:['install','demob'].map(key=>{const xs=slots.filter(s=>s.key===key);return {key,rates:[...new Set(xs.map(s=>s.rate))],slots:xs.length,refs:new Set(xs.map(s=>s.ref)).size,quantity:xs.reduce((n,s)=>n+(s.qty||0),0),charged:OnsiteCharges1006.cents(xs.filter(s=>s.state==='charged'&&s.value!=null).reduce((n,s)=>n+s.value,0)),forecast:OnsiteCharges1006.cents(xs.filter(s=>s.state!=='charged'&&s.value!=null).reduce((n,s)=>n+s.value,0)),unpriced:xs.filter(s=>s.value==null).length};})};
+      });
       const names=['pl770Model','moneySummary_','cj764Model','pl752Rows','labourWholeJob865','labourAllowance858','labourRevenue858','transport888ViewBuild','transport953Build','transport888DemobPlan','ourCosts','branchFinancial978','scopeBranchAllocation978','supplierService1068','supplierCostQuotes1068','acc761Labour','contractCharge','finance928ContractOwner','generatorBranch1004'];
       for(const name of names){try{result.functions[name]=eval(name).toString();}catch(e){result.failures[name]=String(e);}}
       return result;
@@ -34,6 +41,7 @@ assert(process.env.OUT&&!out.startsWith(repo+path.sep),'OUT must be private and 
     check('excluded references do not reappear as charge reviews',()=>{const refs=new Set((data.models.money.excluded1152?.refs||[]).map(r=>r.ref));assert(a.issues.every(r=>!refs.has(r.ref)));});
     check('fencing demob is separate from priced job-end total',()=>{assert.equal(a.priced,a.job-a.fence);assert.equal(a.remainingOther,a.priced-a.actual);});
     check('difference model retains current cents',()=>assert.equal(cc.cents(data.models.pnl.diff.now),cc.cents(data.models.money.difference)));
+    check('FWF install and demob remain separate current-job charge lines',()=>{assert(data.fwf.pg01);assert.deepEqual(data.fwf.pg01.rows.map(r=>r.key).sort(),['demob','install']);assert(data.fwf.pg01.rows.every(r=>Number.isFinite(r.rate)&&r.rate>0));assert.deepEqual(data.fwf.allFWF.map(r=>r.key).sort(),['demob','install']);});
     if(process.env.BASE_MODELS){
       const base=JSON.parse(fs.readFileSync(process.env.BASE_MODELS,'utf8')).models;
       const now=data.models.closeout.revenue,was=base.closeout.revenue;
@@ -54,6 +62,27 @@ assert(process.env.OUT&&!out.startsWith(repo+path.sep),'OUT must be private and 
       check('source categories stay separate and the existing installation tie reconciles',()=>{const m=data.models.money.charge,p=data.models.pnl;assert.equal(cc.cents(m.contractInstallation1224),770000);assert.equal(cc.cents(m.contractServices1224),50000);const misc=p.rev.filter(r=>r.key==='contract_services1224');assert.equal(misc.length,1);assert.equal(misc[0].code,'—');assert.equal(cc.cents(misc[0].now),50000);const tie=data.models.reconciliation.ties.find(t=>/Labour we charge/.test(t.what));assert(tie&&tie.ok);});
     }
     const card=s.page.locator('#charge1224');
+    const contractSummary=s.page.locator('#pl752 .pl-ln').filter({hasText:'Charges priced on contracts'});
+    check('contract summary distinguishes mixed source services from hire',()=>{});
+    assert.equal(await contractSummary.count(),1);
+    const workings=s.page.locator('#pl752 [data-work1220]').first();
+    assert.equal(await workings.getAttribute('aria-expanded'),'false');
+    await workings.click();
+    const sourceWords=await contractSummary.innerText();
+    assert(sourceWords.includes('Installation'));
+    assert(sourceWords.includes('ledger allocation pending'));
+    assert(!sourceWords.includes('Hire on the contracts, by the rate'));
+    if(process.env.EVIDENCE){
+      fs.mkdirSync(process.env.EVIDENCE,{recursive:true});
+      await contractSummary.evaluate(el=>{for(let p=el.parentElement;p;p=p.parentElement)if(p.tagName==='DETAILS')p.open=true;});
+      await contractSummary.screenshot({path:path.join(process.env.EVIDENCE,'contract-summary-'+(mobile?'phone':'desktop')+'.png')});
+    }
+    await workings.click();
+    assert.equal(await workings.getAttribute('aria-expanded'),'false');
+    check('rehire forecast caption does not attribute other source forecasts to fencing',()=>{});
+    const rehireWords=await s.page.evaluate(()=>rh766Card());
+    assert(rehireWords.includes('remaining rehire forecast'));
+    assert(!rehireWords.includes('still to come (the fencing programme)'));
     await card.scrollIntoViewIfNeeded();await s.page.waitForTimeout(500);
     check('one assurance card',()=>assert.equal(data.models.assurance.state,'pass'));
     assert.equal(await card.count(),1);

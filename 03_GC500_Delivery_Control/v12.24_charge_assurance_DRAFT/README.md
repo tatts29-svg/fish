@@ -12,15 +12,17 @@ Five priced contract-service rows already documented in the repository's review 
 
 - Branch: `ccr-061f77e8-ivjhrv`; original claim `a50f193f7f9c4611af2d93d2ecf95ba14fb30236`.
 - Base: verified v12.23 `8112a63d10c5b6c88206a539af5a59dc1037176e414a95f20d253b16f844e257`.
-- Final batch candidate: `26aa75e2b2bbbebd104bd1662562614da8b40151001cdf835e1dcb3fdfaaee61`, 15,425,337 bytes.
+- Final batch candidate: `0dbb968dd75f92d159f41e2d29849a1d9c283ba950d3f572a31db4e32c14f340`, 15,425,617 bytes.
 - Shared checker: 202 inline scripts, passed.
-- Focused checks: 126 passing cases across decimal cents, treatment/projection, adapter, rate reconciliation, reservation transitions, restored identity and contract-service coverage.
+- Focused checks: 128 passing cases across decimal cents, treatment/projection, adapter, rate reconciliation, reservation transitions, restored identity and contract-service coverage.
 - Strict source/script preservation: 27/27, retaining all 299 prior runtime rows and permitting exactly five source additions.
-- GET-only native checks: desktop 19/19, phone 20/20, no errors or write attempts. Source-category and installation tie checks passed; phone card and restricted editor explanation inspected.
+- Previous financial candidate passed GET-only desktop 19/19, phone 20/20 and both complete sweeps. It is superseded by the narrow presentation correction below; final native checks and sweeps are running again.
 - Both complete navigation sweeps are running on this exact candidate. Current state is DRAFT, not READY.
 - All earlier v12.24 candidates are superseded and must not be uploaded.
 
-Implementation and testing: Codex, with independent arithmetic, scope-coverage and source review. No Claude review of this release claimed. Detailed evidence stays in authorised private storage.
+The compact contract summary now describes mixed contract charges accurately, identifies its source-only Transport and separate Installation/service components, and avoids attributing every remaining rehire forecast to fencing. These are presentation changes only. Existing FWF install and demob remain separate; no historical bill values or rate changes are introduced.
+
+Implementation and testing: Codex, with independent arithmetic, scope-coverage and source review. Claude independently reproduced and compared the preceding financial candidate `26aa75e2b2bbbebd104bd1662562614da8b40151001cdf835e1dcb3fdfaaee61` in PR comment 6397093587. Final presentation changes are being verified by Codex; no Claude review of the final hash is claimed. Detailed evidence stays in authorised private storage.
 
 ## Reproduce
 

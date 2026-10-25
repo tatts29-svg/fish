@@ -82,6 +82,28 @@ check('branch source details disclose installation and miscellaneous service sep
  assert.match(text,/Contract installation:/);assert.match(text,/Contract services — ledger allocation pending:/);assert.match(text,/Transport &amp; delivery:/);
  assert(text.includes('FIXTURE line 1 41.23'));assert(text.includes('FIXTURE line 5 7.55'));assert(text.includes('FIXTURE line 2 39.75'));
 });
+check('legacy contract summary labels every priced source category without changing its figure',()=>{
+ const at=html.indexOf("${line('Charges priced on contracts',");assert(at>=0);
+ const expression=html.slice(at+2,html.indexOf('\n',at)).trim().slice(0,-1);
+ const c={contracts_lines:6,subhire:27.15,delivery:64.75,transportArrived1006:20,contractInstallation1224:41.23,contractServices1224:7.55};
+ const env=vm.createContext({c,cardLines:1,onContracts:220.68,CONTRACT:'source-tag',esc:String,money0:n=>'$'+n.toFixed(2),m0:n=>'$'+n.toFixed(2),pl:(n,w)=>n+' '+w+(n===1?'':'s'),line:(label,sub,amount,tag)=>({label,sub,amount,tag})});
+ const before=JSON.stringify(c),result=vm.runInContext(expression,env);
+ assert.equal(result.label,'Charges priced on contracts');assert.equal(result.amount,'$220.68');assert.equal(result.tag,'source-tag');
+ for(const words of ['5 lines','Rehire Revenue $27.15','Transport Revenue $44.75','Installation $41.23','Contract services $7.55 (ledger allocation pending)'])assert(result.sub.includes(words),words);
+ assert(!result.sub.includes('Transport Revenue $64.75'));
+ assert.equal(JSON.stringify(c),before);
+ c.contractInstallation1224=0;c.contractServices1224=0;const noServices=vm.runInContext(expression,env);
+ assert(!noServices.sub.includes('Installation'));assert(!noServices.sub.includes('ledger allocation pending'));assert.equal(noServices.amount,'$220.68');
+ c.delivery=c.transportArrived1006;const noContractTransport=vm.runInContext(expression,env);
+ assert(!noContractTransport.sub.includes('Transport Revenue'));assert.equal(noContractTransport.amount,'$220.68');
+});
+check('remaining rehire caption keeps the amount and covers non-fencing forecasts',()=>{
+ const at=html.indexOf("${fin745Card('Rehire Revenue — to job end',");assert(at>=0);
+ const expression=html.slice(at+2,html.indexOf('\n',at)).trim().slice(0,-1);
+ const env=vm.createContext({T:{revJob:823.50,revToCome:123.50,share:0.4},R:{revenueJob:2058.75},esc:String,money0:n=>'$'+n.toFixed(2),pc:n=>(n*100)+'%',fin745Card:(title,value,caption)=>({title,value,caption})});
+ const result=vm.runInContext(expression,env);
+ assert.equal(result.value,'$823.50');assert(result.caption.includes('$123.50 still to come (remaining rehire forecast)'));assert(!result.caption.includes('fencing programme'));assert(result.caption.includes('40% of the $2058.75'));
+});
 check('bulk coverage exposes source proof without allocating money to a reference',()=>{
  const m=ctx.contractBulkCoverage1224('fixture-scope','installation');assert.equal(m.covered,true);assert.equal(m.items.length,1);
  assert.equal(m.items[0].amount,41.23);assert.equal(m.items[0].contract,'FIXTURE');assert.equal(m.items[0].line,1);
