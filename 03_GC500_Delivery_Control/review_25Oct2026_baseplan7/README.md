@@ -211,6 +211,25 @@ Workbook: `GC500_Fencing_Charge_and_Cost_25Oct2026.xlsx` (Summary, By week, Dock
   - Pedestrian gates are paid at $61 and charged at the card's $36.18 (22 gates, $546.04 under).
   - Advanced bill 219 vehicle gates at $50 ($10,950); the V8s pay none on their own, as settled.
 
+### Andrew's rule: what Advanced invoice is what we charge the V8s (25 Oct)
+
+After asking why the two tables' quantities differed, Andrew said "we charge v8 based off what we pay advance", "dont change numbers", "should be same qty", "dont over complicate what we are being invoiced for is what we will charge V8s for simple", "talk to codex to please" and "i dont want a story i want what we pay and then what we charge simple".
+
+`GC500_Fencing_We_Pay_We_Charge_25Oct2026.xlsx` is now one table ("Pay and charge": item, qty, we pay rate and amount, we charge rate and amount) plus an "Invoices" tab. Built by `fence_we_pay_we_charge.py` from the same three v12.16 dumps.
+- **Quantities:** what Advanced invoice us for. That is their approved sheets for weeks 1–5. Week 6 (invoiced with no breakdown) and the event week (not invoiced yet) use our dockets at their rates.
+- **CCB:** their sheets carry all CCB as one line at $5.40, so the metres take our dockets' types. Where their sheet has less, it's the type they left off: 36556 −25 m demarcation, 36591 −42 m flat feet.
+- **We pay Advanced $255,218.20,** unchanged and equal to the page to the cent.
+- **We charge the V8s $364,816.28 on this basis** (margin $109,598.08, 30.0%). The page still charges $340,871.73 from our dockets.
+- **What moves against the page:**
+  - The labour notes are charged at $142 an hour ($15,407).
+  - Team leader, weed mat, shade cloth and the $195 collection are charged at cost; the card has no line for them.
+  - Vehicle gates are charged at $40.40 each, the 2.5 m of fence a gate takes the place of.
+  - Bases are charged at the card's block rate, $3.02. The 216 blocks on 36566 are not on their sheet, so they're not charged.
+  - Relocation is charged as their 2 hours at $142.
+  - Docket 36609 is charged as their sheet bills it: 285 m clean, 125 m scrim and 4 gates. Our docket has all 420 m scrimmed.
+  - 12 m of fence and 67 m of CCB that aren't on their sheets are not charged.
+- **The page is unchanged.** Andrew said "dont change numbers". Putting this basis on the page and P&L waits for his go.
+
 ## Decisions for Andrew
 
 1. **Coates forklifts** (9961976 lines 21, 25, 26, 27, 31, 34, 35) are at $0 on Baseplan. The P&L charges $28,671.82 for them from the card. Are they Coates' own (no charge, so the P&L comes down) or charged to the V8s?
