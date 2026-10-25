@@ -36,6 +36,7 @@ function cardData(text) { const start = text.indexOf('var D = ') + 8; assert(sta
       await p.waitForFunction(() => document.querySelectorAll('.job .jtxt b').length > 0, null, {timeout: 60000});
       await p.waitForTimeout(1500);
       const r = await p.evaluate(() => ({jobs: [...document.querySelectorAll('.job .jtxt b')].map(b => b.textContent.replace(/\s+/g, ' ').trim()),
+        changedNotice: /This card has been changed on the service/.test(document.body.innerText),
         day: (document.body.innerText.match(/(Sun|Sat|Fri|Mon) \d{1,2} 08:00 → (Sun|Sat|Fri|Mon) \d{1,2} 08:00/) || [''])[0],
         script: ([...document.scripts].find(x => x.textContent.includes('var D = ')) || {textContent: ''}).textContent}));
       const D = cardData(r.script); delete r.script;
@@ -64,6 +65,7 @@ function cardData(text) { const start = text.indexOf('var D = ') + 8; assert(sta
       if(dir)await p.screenshot({path:path.join(dir,tag+'-directions-private.png'),fullPage:true});
       await p.close();
     }
+    if (!process.env.HTML_FILE) check([pp,pc,ap,ac,bc,tp].every(r=>!r.changedNotice),'live cards match the service revision; no reload warning');
     const errs = [pp, pc, ap, ac, bc, tp].flatMap(r => r.errors);
     check(errs.length === 0, 'no card errors' + (errs.length ? ': ' + errs.join(' | ') : ''));
     check(stopped.length === 0, 'GET only: nothing else was even attempted' + (stopped.length ? ' (' + stopped.join(', ') + ')' : ''));
