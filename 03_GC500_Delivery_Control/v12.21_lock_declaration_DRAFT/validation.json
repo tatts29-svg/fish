@@ -1,0 +1,25 @@
+{
+  "author": "Andrew Fisher",
+  "status": "DRAFT, not live",
+  "base_sha256": "6ccc030d201729e50015d77aa2f140ba63660fe32e0a5fc44c958d47b6636a16",
+  "candidate_sha256": "f06ddbdfca7b13394e1477d32f54813f7866b5e371160dd876aa94639712bab7",
+  "bytes": 15378131,
+  "checks": {
+    "scripts": 199,
+    "model": 19,
+    "preservation": 5,
+    "card_localhost_phone": 26,
+    "card_localhost_desktop": 26,
+    "report_layout": 5,
+    "synthetic_declarations": 120,
+    "synthetic_pages": 26,
+    "clipped": 0,
+    "initial_native_dry": 76
+  },
+  "pending": [
+    "final-candidate desktop and phone full sweeps",
+    "final-candidate native dry capture",
+    "server activation and independent preservation read-back",
+    "guarded page and native-card publication"
+  ]
+}

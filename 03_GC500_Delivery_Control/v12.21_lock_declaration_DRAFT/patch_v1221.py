@@ -30,6 +30,7 @@ def patch(text):
  text=r(text,'\nvar SvcState =','\n'+helper+'\nvar SvcState =','main declaration helper')
  text=r(text,'tasks, areas, crews: [...crews.values()]', 'lockDeclarations: SvcLock1221.report(I,day), tasks, areas, crews: [...crews.values()]','night report evidence model')
  text=r(text,"areas + leftBlocks + how + '</div>'", "areas + leftBlocks + how + SvcLock1221.html(R) + '</div>'",'print declaration evidence')
+ text=r(text,'guard=0;while(s&&guard++<20)', "guard=0,budget=document.querySelectorAll('.sheet.flow .body > *').length+20;while(s&&guard++<budget)",'paginate all declaration history')
  text=r(text,"+' · "+version+"'; /* v8.19 release922", "+' · v12.21'; /* v8.19 release922",'footer')
  return text
 if __name__=='__main__':

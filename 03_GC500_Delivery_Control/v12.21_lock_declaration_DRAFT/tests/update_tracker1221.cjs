@@ -5,7 +5,7 @@ const fs=require('node:fs'),path=require('node:path'),cp=require('node:child_pro
 const {chromium}=require('playwright');
 const HOST='https://gc500-production.up.railway.app',LOAD='servicing-tracker:GC500-2026',WHO='Andrew Fisher';
 const BASE='6ccc030d201729e50015d77aa2f140ba63660fe32e0a5fc44c958d47b6636a16';       // live v12.19
-const CANDIDATE='21246829d86ada22699b1b9a7c0d80bf3fe684a2213dfbf13280f4506bd513fa';  // v12.21, reviewed
+const CANDIDATE='f06ddbdfca7b13394e1477d32f54813f7866b5e371160dd876aa94639712bab7';  // v12.21, reviewed
 const FINAL=['pump','clean','lockup'],KINDS=['fwf','access','pan16'];
 const EDIT=process.env.GC500_EDIT_TOKEN||'',EXECUTE=process.argv.includes('--execute');
 const PAGE=process.env.PAGE,ROOT=process.env.EVIDENCE,REPO=path.resolve(__dirname,'../../..');

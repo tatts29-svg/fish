@@ -40,6 +40,6 @@ r=R.model(I([tick('other',{day:'2026-10-24',lock_declaration:declaration})]));ch
 const e=tick('duplicate',{lock_declaration:declaration});r=R.model(I([e,e]));check(r.lockDeclarations.rows.length===1,'duplicate transport reads do not duplicate evidence');
 const escaped=R.model(I([tick('escaped',{lock_declaration:{...declaration,by:'A & B',crew:'Team "Two"'}})]));check(R.html(escaped).includes('A &amp; B')&&R.html(escaped).includes('Team &quot;Two&quot;'),'names safely escaped');
 check(!L.valid({...declaration,by:'<script>'})&&!L.valid({...declaration,by:' '}),'invalid names excluded');
-const many=R.model(I(Array.from({length:80},(_,n)=>tick('many'+n,{lock_declaration:{...declaration,by:'Tester '+n}}))));
+const many=R.model(I(Array.from({length:120},(_,n)=>tick('many'+n,{lock_declaration:{...declaration,by:'Tester '+n}}))));
 if(process.env.EVIDENCE){fs.mkdirSync(process.env.EVIDENCE,{recursive:true});fs.writeFileSync(path.join(process.env.EVIDENCE,'report-synthetic.html'),R.html(many));}
 console.log(JSON.stringify({checks,synthetic:true,existingTotalsPreserved:true}));

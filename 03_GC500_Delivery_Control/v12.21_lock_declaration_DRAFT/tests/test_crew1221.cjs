@@ -35,6 +35,7 @@ await lock.click();await p.locator('#lock1221-agree').check();await p.locator('#
 check(await p.locator('#lock1221-dialog').count()===1&&(await req('GET','/api/ticks?token='+token)).j.ticks.length===0,'name required');
 await p.locator('#lock1221-name').fill('Test Person');await p.locator('#lock1221-agree').uncheck();await p.locator('#lock1221-dialog button[type=submit]').click();
 check((await req('GET','/api/ticks?token='+token)).j.ticks.length===0,'explicit declaration checkbox required');
+await p.locator('#lock1221-name').focus();
 if(process.env.EVIDENCE){fs.mkdirSync(process.env.EVIDENCE,{recursive:true});await p.screenshot({path:process.env.EVIDENCE+'/declaration-'+(process.env.MOB?'phone':'desktop')+'.png'});}
 await p.locator('#lock1221-agree').check();await p.locator('#lock1221-dialog button[type=submit]').click();
 await p.waitForFunction(()=>svc1067.outbox().length===0&&document.querySelector('[data-job="AAA-FWF|lockup"]').classList.contains('done'));
