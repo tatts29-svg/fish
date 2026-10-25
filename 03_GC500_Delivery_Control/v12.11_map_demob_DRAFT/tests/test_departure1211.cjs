@@ -34,5 +34,6 @@ test('VMS uses the selected physical identity rather than the whole reference',(
  ctx.vms913Boards=()=>[{key:'BOARD1'},{key:'BOARD2'}];ctx.vms913Of=b=>({co:'coates',fleet:b.key==='BOARD1'?'EXAMPLE-1':'EXAMPLE-2'});
  append(req([{type:'VMS',n:1,unitIds:['v1']}]));const result=H.vms({boards:[{key:'BOARD1',delivery:'TEST',on:true,done:true,installed:true},{key:'BOARD2',delivery:'TEST',on:true,done:true,installed:true}]},day);
  assert.equal(result.on,1);assert(result.boards[0].departure1211);assert(!result.boards[0].on);assert(result.boards[1].on);assert(!result.boards[1].departure1211);
+ ctx.VmsEquipment1103={model:()=>({boards:result.boards.map(b=>({...b,positions:[{pos:b.key}]}))})};ctx.VMS1024={board:pos=>({pos}),label:b=>'VMS '+b.pos};assert(H.mapStates().some(r=>r.key==='VMS BOARD1'&&r.complete));assert(!H.mapStates().some(r=>r.key==='VMS BOARD2'));
 });
 console.log(n+'/'+n);

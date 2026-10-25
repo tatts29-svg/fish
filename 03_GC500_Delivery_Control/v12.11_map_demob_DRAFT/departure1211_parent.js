@@ -19,6 +19,10 @@
  function unit(key,id,day,item){const r=read(key,day);if(!r||r.issues.length)return null;const typed=item&&r.required.find(x=>normal(x.type)===normal(item)),gone=typed&&r.remaining.find(x=>normal(x.type)===normal(item))?.n===0;return r.events.find(c=>c.items.some(i=>list(i.unitIds).includes(id)))||(gone?r.events.find(c=>c.items.some(i=>normal(i.type)===normal(item))):null)||(r.complete?r.events.at(-1):null);}
  function remainingModel(a,model,day){const r=read(a.key,day);if(!r?.recorded||r.issues.length)return model;return {...model,rows:model.rows.filter(u=>!u.physical||!unit(a.key,u.id,day,u.item))};}
  function all(){return holdAssets(()=>demob816().refs.map(r=>({key:r.key,...status(r.key)})));}
+ function mapStates(){return holdAssets(()=>{const base=all();if(!base.some(r=>r.collected&&r.items.some(i=>normal(i.type)==='vms')))return base;
+  for(const b of W.VmsEquipment1103.model().boards){if(!b.departure1211)continue;for(const p of b.positions){const plan=W.VMS1024.board(p.pos);if(plan)base.push({key:W.VMS1024.label(plan),collected:1,remaining:0,complete:true,unknown:false,issues:[],items:[{type:'VMS',n:0}],label:'Left site',last:b.departure1211.at});}}
+  return base;
+ });}
  function unitHtml(key,id,item){const c=unit(key,id,undefined,item);return c?'<p class="departure1211-unit" style="padding:8px;border:1px solid #168958;border-radius:6px;color:#08643f;background:#e4f7ec"><b>↗ LEFT SITE</b> · '+escape(stamp(c))+'</p>':'';}
  function vms(model,day){
   if(!model?.boards)return model;
@@ -32,5 +36,5 @@
  }
  function historyHtml(key){const r=read(key);return !r?.events.length?'':'<details><summary>Departure history · '+r.events.length+'</summary>'+r.events.map(c=>'<p><b>'+escape(c.items.map(i=>i.n+' × '+i.type).join(', '))+'</b><br>Left '+escape(stamp(c))+'<br><small>Recorded '+escape(new Date(c.at).toLocaleString('en-AU',{timeZone:'Australia/Brisbane',hour12:false}))+' AEST · '+escape(c.by)+'</small></p>').join('')+'</details>';}
  function open(key,preset){return W.DemobCollection996.open(key,preset);}
- W.Departure1211=Object.freeze({read,status,project,stamp,unit,unitHtml,remainingModel,all,vms,open,historyHtml});
+ W.Departure1211=Object.freeze({read,status,project,stamp,unit,unitHtml,remainingModel,all,mapStates,vms,open,historyHtml});
 })(window);

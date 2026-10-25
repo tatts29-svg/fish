@@ -49,7 +49,7 @@
   const form=document.querySelector('#f1176find form');if(!form||document.getElementById('coatesfwf1211'))return;
   const b=document.createElement('button');b.type='button';b.id='coatesfwf1211';b.className='btn';b.textContent='Coates FWF';b.title='Show recorded Coates FWF locations and asset numbers';
   b.onclick=()=>{const q=document.getElementById('f1176q');if(q){q.value='Coates FWF';q.dispatchEvent(new Event('input',{bubbles:true}));}};form.after(b);
-  for(const [label,query] of [['Still to leave','Demob remaining'],['Left site','Demob departed']]){const action=document.createElement('button');action.type='button';action.className='btn';action.textContent=label;action.onclick=()=>{const q=document.getElementById('f1176q');q.value=query;q.dispatchEvent(new Event('input',{bubbles:true}));};b.after(action);}
+  for(const [label,query] of [['Still to leave','Demob remaining'],['Left site','Demob departed'],['VMS boards','VMS boards']]){const action=document.createElement('button');action.type='button';action.className='btn';action.textContent=label;action.onclick=()=>{const q=document.getElementById('f1176q');q.value=query;q.dispatchEvent(new Event('input',{bubbles:true}));};b.after(action);}
  }
  W.MapDemob1211=Object.freeze({version:'v12.11',reference:key=>holdAssets(()=>reference(key)),coatesFWF:()=>holdAssets(coatesFWF),validate:rows=>holdAssets(()=>validate(rows)),company,mount});
  const old=W.renderMap;if(typeof old==='function')W.renderMap=function(){const r=old.apply(this,arguments);mount();setTimeout(mount,120);setTimeout(mount,900);return r;};
