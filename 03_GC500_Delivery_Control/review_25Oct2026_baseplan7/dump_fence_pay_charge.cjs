@@ -1,4 +1,4 @@
-// Author: Andrew Fisher. 25 Oct 2026 - the fencing behind the P&L's $405,150.96, both sides, from the page's own pricing:
+// Author: Andrew Fisher. 25 Oct 2026 - the fencing behind the P&L, both sides, from the page's own pricing (v12.19: the charge lines are Advanced's quantities):
 // each red-book docket line at what Coates charges (fenceRateFor) and at what Advanced bill (fenceCostFor), the green
 // book (labour notes, a cost only) and the purchase orders. Read only (the harness aborts every write).
 //   PAGE=<live page file> OUT=<private json> node dump_fence_pay_charge.cjs
@@ -17,7 +17,7 @@ const {open} = require('../toolchain/harness/open_page');
         {charge: pick(fenceRateFor(c.key), ['value', 'source', 'by', 'at']), pay: pick(fenceCostFor(c.key), ['value', 'source', 'hourly', 'by', 'at'])}));
       const dockets = allDockets().map(d => ({no: d.docket_no, id: d.id, date: d.date, week: d.week, usable: d.usable !== false, origin: d.origin, book: d.book || 'red',
         location: d.location || null, cost_total: d.cost_total, paid_total: d.paid_total, margin: d.margin, unpriced: d.unpriced, paid_unpriced: d.paid_unpriced,
-        lines: (d.lines || []).map(l => pick(l, ['column', 'qty', 'rate', 'rate_source', 'cost', 'paid_rate', 'paid_rate_source', 'paid', 'margin'])),
+        lines: (d.lines || []).map(l => pick(l, ['column', 'name', 'unit', 'qty', 'rate', 'rate_source', 'cost', 'paid_rate', 'paid_rate_source', 'paid', 'margin'])), invoiced: d.invoiced1219 || null,
         /* where a purchase order carries Advanced's approved pricing for this docket, the page pays it at that, not the tracker */
         supplier: d.supplier_pricing_basis ? {basis: d.supplier_pricing_basis, po: d.supplier_po || null, branch: d.supplier_branch || null, lines: (d.supplier_lines || []).map(l => Object.assign({}, l))} : null}));
       let green = null, notes = [];
@@ -28,7 +28,8 @@ const {open} = require('../toolchain/harness/open_page');
       try { notes = serviceNoteRows().map(n => Object.assign(pick(n, ['note_no', 'date', 'labour_hours', 'cost', 'cost_rate', 'cost_rate_source', 'usable', 'supplier_po']), {supplier_lines: (n.supplier_lines || []).map(l => Object.assign({}, l))})); } catch (e) {}
       let pos = [];
       try { pos = poAll().map(o => pick(o, ['number', 'period', 'programme_sheet', 'amount', 'invoice_no', 'confirmed', 'supplier_name', 'kind'])); } catch (e) { pos = [{error: String(e).slice(0, 120)}]; }
-      return {version: SYNC.version || null, columns, dockets, green, notes, pos, derived, extras, contractor: (DATA.fence_contractor || {}).name || null};
+      let billed = null; try { billed = typeof FenceInvoiced1219 !== 'undefined' ? FenceInvoiced1219.billed() : null; } catch (e) { billed = {error: String(e).slice(0, 120)}; }
+      return {version: SYNC.version || null, columns, dockets, green, notes, pos, derived, extras, billed, contractor: (DATA.fence_contractor || {}).name || null};
     });
     fs.writeFileSync(process.env.OUT, JSON.stringify(out));
     const use = out.dockets.filter(d => d.usable);

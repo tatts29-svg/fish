@@ -4,7 +4,8 @@
 # qty"). Each line is what Advanced invoice us for (their approved sheets for weeks 1 to 5; week 6 and the event week are our
 # dockets at their rates until their breakdown comes); the V8s are charged the same quantity at the 2026 card or Andrew's named
 # rates. Reads the read-only dumps of the live page (dump_fence_pay_charge.cjs, dump_fence_split.cjs, dump_fence_invoices.cjs);
-# writes GC500_Fencing_We_Pay_We_Charge_25Oct2026.xlsx. Values only; what we pay is checked against the page to the cent.
+# writes GC500_Fencing_We_Pay_We_Charge_25Oct2026.xlsx. Values only; both totals are checked against the page to the cent (v12.19:
+# the page charges Advanced's quantities, so the charge column is the page's own lines).
 #   python3 fence_we_pay_we_charge.py <fence_pay_charge.json> <fence_split.json> <fence_invoices.json>
 import collections, json, sys
 from decimal import Decimal, ROUND_HALF_UP
@@ -44,10 +45,11 @@ assert sum(P.values()) == cents(sum(x['paid_total'] for x in use)), (sum(P.value
 S, O, EX = SPLIT['split'], SPLIT['orders'], SPLIT['extras']
 tl = [x for x in EX if x['column'] == 'team_leader']; mats = [x for x in EX if x['column'] != 'team_leader']
 ADJ, GREEN = cents(O['adjustment']), cents(S['green'])
-assert sum(P.values()) + sum(x['cents'] for x in EX) + ADJ == cents(S['paid'])
+OUT_IN = cents(S.get('outside_orders1218') or 0)   # v12.18: the orders outside the programme weeks are inside the page's fencing cost
+assert sum(P.values()) + sum(x['cents'] for x in EX) + ADJ + OUT_IN == cents(S['paid'])
 ADV = [o for o in INV['pos'] if o['po'].get('supplier_name') == 'Advanced Temporary Fencing']
 OTHER = [o for o in ADV if not o['weeks']]
-PAID = cents(S['paid']) + GREEN + sum(cents(o['po']['amount']) for o in OTHER)
+PAID = cents(S['paid']) + GREEN + sum(cents(o['po']['amount']) for o in OTHER) - OUT_IN
 one = lambda k: (lambda r: (assert_one(k, r), r.pop())[1])(set(PR[k]))
 def assert_one(k, r): assert len(r) == 1, (k, r)
 assert not Q['fence_blocks'] and Q['relocation'] == 2 and not Q['removal']   # the blocks are not on their invoice; relocation is their hours
@@ -58,15 +60,26 @@ LINES = [('Clean fence', 'clean', 'm', RATE['clean']), ('Scrim fence', 'scrim', 
          ('CCB event', 'ccb_event', 'm', RATE['ccb_event']), ('CCB flat feet', 'flat_feet', 'm', RATE['flat_feet']), ('Labour', 'labour', 'h', RATE['labour']),
          ('Relocation', 'relocation', 'h', RATE['labour']), ('Pedestrian gates', 'ped_gates', 'each', round(RATE['ped_gates'], 4)), ('Vehicle gates', 'v_gates', 'each', GATE),
          ('Bases', 'bases', 'each', RATE['fence_blocks'])]
-ROWS = [[name, Q[k], unit, one(k), P[k], rate, cents(Q[k] * rate)] for name, k, unit, rate in LINES]
-for r in ROWS: assert r[4] == cents(r[1] * r[3]), r
-ROWS.append(['Team leader', sum(x['qty'] for x in tl), 'days', 200, sum(x['cents'] for x in tl), 200, sum(x['cents'] for x in tl)])
-for x in mats: ROWS.append([x['name'].split(' supply')[0], x['qty'], x['unit'], x['rate'], x['cents'], x['rate'], x['cents']])
-ROWS.append(['Labour notes', S['green_hours'], 'h', S['green_rate'], GREEN, RATE['labour'], cents(S['green_hours'] * RATE['labour'])])
-for o in OTHER: ROWS.append(['Partial collection', 1, 'each', o['po']['amount'], cents(o['po']['amount']), o['po']['amount'], cents(o['po']['amount'])])
+# what we charge: the page's own charge lines (v12.19 charges Advanced's quantities), docket by docket, to the cent
+row_of = lambda l: ('relocation' if l.get('name') == 'Relocation labour' else 'labour') if l['column'] == 'labour' else ('bases' if l['column'] == 'fence_blocks' and l.get('name') == 'Bases' else l['column'])
+CH = collections.defaultdict(int); CQ = collections.defaultdict(float)
+for x in use:
+    for l in x['lines']:
+        if l.get('cost') is None: continue
+        CH[row_of(l)] += cents(l['cost']); CQ[row_of(l)] += l['qty']
+ROWS = [[name, Q[k], unit, one(k), P[k], rate, CH[k]] for name, k, unit, rate in LINES]
+for r, (name, k, unit, rate) in zip(ROWS, LINES): assert r[4] == cents(r[1] * r[3]) and round(CQ[k], 2) == round(Q[k], 2), (r, CQ[k])
+assert set(k for k in CH if CH[k]) <= set(k for _, k, _, _ in LINES), dict(CH)
+B = {l['id']: cents(l['amount']) for l in (D.get('billed') or {}).get('lines', [])}
+ROWS.append(['Team leader', sum(x['qty'] for x in tl), 'days', 200, sum(x['cents'] for x in tl), 200, B['TEAM-LEADER']])
+for x in mats: ROWS.append([x['name'].split(' supply')[0], x['qty'], x['unit'], x['rate'], x['cents'], x['rate'], B[x['name'].split(' supply')[0].upper().replace(' ', '-')]])
+ROWS.append(['Labour notes', S['green_hours'], 'h', S['green_rate'], GREEN, RATE['labour'], B['LABOUR-NOTES']])
+for o in OTHER: ROWS.append(['Partial collection', 1, 'each', o['po']['amount'], cents(o['po']['amount']), o['po']['amount'], B['ORDER-' + o['po']['number']]])
 ROWS.append(['Invoice adjustment, weeks 5 and 6', None, None, None, ADJ, None, None])
+assert B['TEAM-LEADER'] == ROWS[len(LINES)][4] and B['LABOUR-NOTES'] == cents(S['green_hours'] * RATE['labour']), B
 PAY, CHARGE = sum(r[4] for r in ROWS), sum(r[6] or 0 for r in ROWS)
 assert PAY == PAID, (PAY, PAID)
+assert CHARGE == cents(D['derived']['charged']), (CHARGE, D['derived']['charged'])   # the Fencing tab's figure, to the cent
 
 # --- by invoice (what we pay only)
 WEEK_OF_SHEET = {'CON WK6': 'Week 6', 'CON WK5': 'Week 5', 'CON WK4': 'Week 4', 'CON WK3': 'Week 3', 'CON WK2': 'Week 2', 'CON WK1': 'Week 1', 'EVENT WEEK': 'Event Week'}
@@ -115,7 +128,7 @@ def put(s, vals, font=None, fill=None, fmt=None):
     return r
 
 s = sheet('Pay and charge', [32, 11, 7, 14, 16, 14, 16])
-put(s, ['GC500 fencing: what we pay Advanced and what we charge the V8s'], BIG); put(s, ['AUD ex GST · 25 Oct 2026']); put(s, [])
+put(s, ['GC500 fencing: what we pay Advanced and what we charge the V8s'], BIG); put(s, ['AUD ex GST · 25 Oct 2026 · the same quantity both sides; the totals are the page\'s own, to the cent']); put(s, [])
 put(s, ['Item', 'Qty', 'Unit', 'We pay (rate)', 'We pay', 'We charge (rate)', 'We charge'], H, BLU)
 for name, qty, unit, pr, pc, cr, cc in ROWS:
     put(s, [name, qty, unit, pr, d(pc), cr, None if cc is None else d(cc)], fmt={1: QF, 3: R4, 4: M, 5: R4, 6: M})
