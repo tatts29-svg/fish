@@ -39,11 +39,15 @@ assert(process.env.OUT&&!out.startsWith(repo+path.sep),'OUT must be private and 
       const sourceDelta=was.sourceHire996.rows.filter(r=>excluded.has(r.ref)).reduce((n,r)=>n+cc.cents(r.amount),0);
       const ids=new Set(now.generators1004.rows.filter(r=>r.treatment).flatMap(r=>r.contractIds||[]));
       const generatorDelta=was.generators1004.rows.filter(r=>(r.contractIds||[]).some(id=>ids.has(id))).reduce((n,r)=>n+cc.cents(r.forecast),0);
+      const reconciledRow=r=>String(r.rental_contract)==='9968862'&&Number(r.line)===63;
+      const previousRow=base.contractRows.find(reconciledRow),currentRow=data.models.contractRows.find(reconciledRow);
+      assert(previousRow&&currentRow,'the bounded rate reconciliation must be exercised');
+      const rateDelta=cc.cents(previousRow.computed_charge.amount)-cc.cents(currentRow.computed_charge.amount);
       check('existing source exclusions and generator decisions are exercised',()=>{assert(excluded.size>0);assert(ids.size>0);assert(sourceDelta>0);assert(generatorDelta>0);});
-      check('only proven excluded forecasts change job-end Revenue',()=>assert.equal(cc.cents(base.pnl.revJob)-cc.cents(data.models.pnl.revJob),sourceDelta+generatorDelta));
-      check('recorded customer charges preserved',()=>assert.equal(cc.cents(base.money.charge.total),a.actual));
+      check('only bounded reconciliations change job-end Revenue',()=>assert.equal(cc.cents(base.pnl.revJob)-cc.cents(data.models.pnl.revJob),sourceDelta+generatorDelta+rateDelta));
+      check('recorded customer charges change only by the exact rate reconciliation',()=>{assert.equal(rateDelta,10);assert.equal(cc.cents(base.money.charge.total)-a.actual,rateDelta);});
       check('Direct costs and overhead preserved',()=>{for(const k of ['direct','directJob','over','overJob','costNow','costJob'])assert.equal(cc.cents(base.pnl[k]),cc.cents(data.models.pnl[k]),k);});
-      check('recorded contract charges preserved individually',()=>{assert.equal(base.contractRows.length,data.models.contractRows.length);for(let i=0;i<base.contractRows.length;i++)assert.equal(cc.cents(base.contractRows[i].computed_charge.amount),cc.cents(data.models.contractRows[i].computed_charge.amount),'contract row '+i);});
+      check('all other recorded contract charges and source fields preserved individually',()=>{assert.equal(base.contractRows.length,data.models.contractRows.length);for(let i=0;i<base.contractRows.length;i++){const was=base.contractRows[i],now=data.models.contractRows[i];assert.equal(cc.cents(was.computed_charge.amount)-cc.cents(now.computed_charge.amount),reconciledRow(was)?rateDelta:0,'contract row '+i);const source=r=>{const {computed_charge,...rest}=r;return rest;};assert.deepEqual(source(was),source(now),'source row '+i);}});
     }
     const card=s.page.locator('#charge1224');
     await card.scrollIntoViewIfNeeded();await s.page.waitForTimeout(500);
