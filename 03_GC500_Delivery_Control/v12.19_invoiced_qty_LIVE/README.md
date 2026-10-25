@@ -1,6 +1,6 @@
 # v12.19 — the V8s charged on Advanced's quantities
 
-Author: Andrew Fisher. 25 Oct 2026.
+Author: Andrew Fisher. 25 Oct 2026. **LIVE 16:57 AEST**: the view link serves `6ccc030d201729e50015d77aa2f140ba63660fe32e0a5fc44c958d47b6636a16` byte for byte (15,366,122 bytes); `tests/test_v1219.cjs` 15/15 against the live page (`evidence/test_live.txt`).
 
 Andrew (Claude's chat): "we work off the advanced fencing qty we have the cost we pay advanced - same qty we have the charge we chARGE V8". Before that: "what we are being invoiced for is what we will charge V8s for simple", and the Pay and charge table (`review_25Oct2026_baseplan7/`, commit 744dd539).
 
@@ -31,4 +31,4 @@ Andrew (Claude's chat): "we work off the advanced fencing qty we have the cost w
 - Both full sweeps: 27 tabs and 7 deep links, 0 errors, 0 console messages, 0 writes.
 - Phone screenshots: `evidence/`.
 
-Build: `toolchain/build.sh v12.19 v12.19_invoiced_qty_DRAFT/patch_v1219.py`, on live v12.18 `677b41fce24fafdc1795259a272b4770c5d719e1dd2b3be245909ee484d0b4d4` → `6ccc030d201729e50015d77aa2f140ba63660fe32e0a5fc44c958d47b6636a16`, 15,366,122 bytes.
+Build: `toolchain/build.sh v12.19 v12.19_invoiced_qty_LIVE/patch_v1219.py`, on live v12.18 `677b41fce24fafdc1795259a272b4770c5d719e1dd2b3be245909ee484d0b4d4` → `6ccc030d201729e50015d77aa2f140ba63660fe32e0a5fc44c958d47b6636a16`, 15,366,122 bytes.
