@@ -128,12 +128,12 @@
    paragraph('Macintosh Island Park: enter from Gold Coast Highway into the north-west end of pit lane and follow race direction.');
    paragraph('Buildings: on site before 07:00; truck leaves the pickup point before the 07:00-09:00 travel restriction.');
    note('PICKUP REQUEST / NOT A DEPARTURE RECORD','Clear every outstanding hold before collection. This pack does not mark equipment as collected. Record the actual departure separately after the selected equipment leaves site.');
-   paragraph('Mapped references are registered to the master plan, not surveyed. A reference may contain several units. Exact per-unit positions are not established by this pack.',{size:8,colour:grey});
    const pages=doc.getNumberOfPages();
    for(let n=1;n<=pages;n++){
     doc.setPage(n);doc.setDrawColor(...orange);doc.setLineWidth(.65);doc.line(L,274,R,274);
     write('Author: Andrew Fisher',L,280,8,true);write('PICKUP REQUEST  /  '+n+' OF '+pages,152,280,8,true);
     write(packRef,L,285,7,false,grey);
+    block('Mapped references are registered to the master plan, not surveyed. A reference may contain several units. Exact per-unit positions are not established by this pack.',L,290,WID,7,false,grey,3);
    }
    return doc.output('blob');
   }finally{bitmap.close();}

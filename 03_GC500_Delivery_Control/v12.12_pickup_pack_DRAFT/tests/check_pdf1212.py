@@ -39,6 +39,6 @@ checks['qr_destination_readback']=qr_pages>0 and set(decoded)=={url}
 checks['no_text_outside_paper']=not outside
 checks['map_not_covered_by_heading']=not covered
 checks['native_text']=len(text)>600 and bool(doc[0].get_images())
-checks['compact_pack']=len(doc)<=3 if len(expected['rows'])==1 and sum(len(i['units']) for i in expected['rows'][0]['items'])<4 else True
+checks['compact_pack']=len(doc)<=2 if len(expected['rows'])==1 and sum(len(i['units']) for i in expected['rows'][0]['items'])<4 else True
 result={'pages':len(doc),'checks':checks,'passed':sum(checks.values()),'total':len(checks),'qr_pages':qr_pages}
 (root/'pdf-checks.json').write_text(json.dumps(result,indent=2)+'\n');print(json.dumps(result,indent=2));assert all(checks.values())
