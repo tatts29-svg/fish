@@ -14,7 +14,8 @@ The patch applies existing charge treatments consistently in the shared source-r
 - Shared checker: 202 inline scripts; no new credentials.
 - Pure checks: 97 passing cases: 9 decimal-cent, 13 treatment/projection, 14 assurance-adapter, 12 card-reconciliation and 49 reservation-transition cases.
 - Exact preservation: 209 checks; existing styles, source data and all unrelated scripts retained.
-- GET-only native checks and both full release sweeps: running on this revised candidate. Recorded charges change only by the bounded card reconciliation; all other recorded contract amounts, source fields and Direct costs must remain unchanged.
+- GET-only native checks passed: 17 desktop and 18 phone, zero page errors or record-write attempts. Recorded charges change only by the bounded card reconciliation; all other recorded contract amounts, source fields and Direct costs remain unchanged. Phone card framing and the editor-only reconciliation explanation inspected. Existing viewer restriction is explicitly tested.
+- Both full release sweeps are running on this candidate; not READY until they pass.
 - Earlier candidate `f3cb938456281fef3e9ea7a1ac912be52576c09e7101a2bb8d8faa8034432430` passed both full sweeps but is superseded; do not upload it. The adapter also applies the existing exclusion authority to review flags.
 
 Implementation and testing: Codex, with independent arithmetic, scope-coverage and source review. No Claude review of this release claimed. Source reconciliation and arithmetic checks remain distinct from invoice approval. Detailed evidence stays in authorised private storage.

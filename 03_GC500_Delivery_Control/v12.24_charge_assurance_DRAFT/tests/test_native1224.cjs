@@ -72,7 +72,14 @@ assert(process.env.OUT&&!out.startsWith(repo+path.sep),'OUT must be private and 
     const correction=s.page.locator('#drawer .contract-card1224').first();
     check('corrected charge visibly explains the retained source rate',()=>{});
     assert(await correction.count()>0);assert((await correction.innerText()).includes('charge reconciled to the published card full hire'));
-    if(process.env.EVIDENCE){await correction.scrollIntoViewIfNeeded();await s.page.screenshot({path:path.join(process.env.EVIDENCE,'source-rate-'+(mobile?'phone':'desktop')+'.png')});}
+    check('contract details retain the existing viewer restriction',()=>{});
+    assert.equal(await correction.isVisible(),false);
+    // Simulate only the editor presentation; capability and write guards remain read-only.
+    await s.page.evaluate(()=>document.body.classList.remove('viewonly'));
+    await correction.evaluate(el=>{for(let p=el.parentElement;p;p=p.parentElement)if(p.tagName==='DETAILS')p.open=true;el.scrollIntoView({block:'center'});});
+    assert(await correction.isVisible(),'reconciliation must be visible in opened contract details');
+    if(process.env.EVIDENCE){await s.page.screenshot({path:path.join(process.env.EVIDENCE,'source-rate-'+(mobile?'phone':'desktop')+'.png')});}
+    await s.page.evaluate(()=>document.body.classList.add('viewonly'));
     check('no page errors or record-write attempts',()=>{assert.equal(s.errors.length,0);assert.equal(s.counts.blocked,0);});
     data.testResult={checks,mobile,errors:s.errors,blocked:s.counts.blocked};
 
