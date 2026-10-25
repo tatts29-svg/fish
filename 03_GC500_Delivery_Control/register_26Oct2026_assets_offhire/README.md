@@ -6,7 +6,7 @@ Andrew, 26 Oct 2026: "I need full detailed list grouped. All assets. Map locatio
 Buildings will have more info and in that will include assets inside. Group these too please. Include subhire. As things go
 I'll let you know and update it to make it better."
 
-**`GC500_Asset_Offhire_Register_26Oct2026.xlsx`**, from the live site record (version 10993, read 07:55 AEST on page v12.28; the same data as the first read on v12.27):
+**`GC500_Asset_Offhire_Register_26Oct2026.xlsx`**, from the live site record (version 10993, read 07:46 AEST on page v12.28; the same data as the first read on v12.27):
 
 | Sheet | What it holds |
 |---|---|
