@@ -24,7 +24,7 @@ function vmsIcons1211(){
  const sign='<svg viewBox="0 0 44 40" aria-hidden="true"><path d="M13 28v7M31 28v7M8 36h28" fill="none" stroke="#fff" stroke-width="4"/><rect x="2" y="2" width="40" height="27" rx="4" fill="#131820" stroke="#fff" stroke-width="4"/><rect x="3" y="3" width="38" height="25" rx="3" fill="#131820" stroke="#ffbd37" stroke-width="2"/><path d="M9 10h16M9 15h23M9 20h16M25 9l7 6-7 6" fill="none" stroke="#ffca47" stroke-width="2.5" stroke-linecap="round" stroke-dasharray="1 4"/></svg>';
  function cluster(points){
   const pinned=points.filter(p=>p.selected),fixed=points.filter(p=>pinned.some(q=>Math.hypot(q.x-p.x,q.y-p.y)<.5)),todo=points.filter(p=>!fixed.includes(p)),groups=[];
-  while(todo.length){const group=[todo.shift()];for(let i=0;i<group.length;i++)for(let j=todo.length-1;j>=0;j--)if(Math.hypot(group[i].x-todo[j].x,group[i].y-todo[j].y)<70)group.push(todo.splice(j,1)[0]);groups.push(group);}
+  while(todo.length){const group=[todo.shift()];for(let j=todo.length-1;j>=0;j--)if(Math.hypot(group[0].x-todo[j].x,group[0].y-todo[j].y)<70)group.push(todo.splice(j,1)[0]);groups.push(group);}
   return fixed.concat(groups.flatMap(g=>g.length<3||g.every(p=>Math.hypot(p.x-g[0].x,p.y-g[0].y)<.5)?g:[{code:'group:'+g.map(p=>p.code).sort().join('|'),label:'VMS × '+g.length,place:0,x:g.reduce((a,p)=>a+p.x,0)/g.length,y:g.reduce((a,p)=>a+p.y,0)/g.length,selected:false,departed:g.every(p=>p.departed),members:g}]));
  }
  function zoomGroup(p){const boxes=p.members.flatMap(m=>ITEMS.find(it=>it.code===m.code)?.places.map(b=>geoRect(b))||[]);if(!boxes.length)return;
