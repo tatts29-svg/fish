@@ -67,6 +67,7 @@ assert(process.env.OUT&&!out.startsWith(repo+path.sep),'OUT must be private and 
     assert.equal(await contractSummary.count(),1);
     const workings=s.page.locator('#pl752 [data-work1220]').first();
     assert.equal(await workings.getAttribute('aria-expanded'),'false');
+    await workings.evaluate(el=>{for(let p=el.parentElement;p;p=p.parentElement)if(p.tagName==='DETAILS')p.open=true;el.scrollIntoView({block:'center'});});
     await workings.click();
     const sourceWords=await contractSummary.innerText();
     assert(sourceWords.includes('Installation'));

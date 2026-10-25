@@ -16,7 +16,8 @@ Five priced contract-service rows already documented in the repository's review 
 - Shared checker: 202 inline scripts, passed.
 - Focused checks: 128 passing cases across decimal cents, treatment/projection, adapter, rate reconciliation, reservation transitions, restored identity and contract-service coverage.
 - Strict source/script preservation: 27/27, retaining all 299 prior runtime rows and permitting exactly five source additions.
-- Previous financial candidate passed GET-only desktop 19/19, phone 20/20 and both complete sweeps. It is superseded by the narrow presentation correction below; final native checks and sweeps are running again.
+- Final GET-only native checks: desktop 22/22, phone 23/23, zero errors or write attempts. Current FWF install/demob separation, preserved figures-first controls, corrected summaries and source explanations verified; phone presentation inspected.
+- Earlier financial candidate passed both full sweeps. Both full sweeps are running again on the final presentation candidate; not READY until complete.
 - Both complete navigation sweeps are running on this exact candidate. Current state is DRAFT, not READY.
 - All earlier v12.24 candidates are superseded and must not be uploaded.
 
