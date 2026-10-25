@@ -1,6 +1,8 @@
-# Map Demob, remaining equipment and numbered VMS signs — READY TO UPLOAD
+# Map Demob, remaining equipment and numbered VMS signs — LIVE
 
 Author: Andrew Fisher
+
+LIVE 25 Oct 2026 10:39:41 AEST. READY source `919fb745d4d9b984bef8bd2e9c7fe1dafd314e21`. Guarded upload and separate public GET matched every byte. The actual public phone passed VMS icons/grouping 18/18 and pickup/export 29/29, with zero runtime errors or attempted record writes. Public phone images inspected.
 
 Andrew requested a Demob action from the map area: select what can be picked up, flag no twin-steer access, and share the location, map pictures, details and navigation in a PDF attachment. He also requested an easy Coates FWF finder, a Left site marker with the departure time, prevention of repeated pickup selection, and visible VMS icons.
 
@@ -16,4 +18,4 @@ Base: v12.10.1, `4e53b9dc3e08ea8cdbe60fdaba053093890562445625ea4541cf61a95d67c95
 
 Final checks: toolchain PASS; departure boundaries 17/17 and pickup model 14/14; preservation 8/8; native departures 28/28, pickup/export 29/29 and map search 39/39 on desktop and phone. Numbered VMS signs/grouping pass on desktop, phone and a 3840 × 2160 viewport. Both complete navigation sweeps pass 27 routes, 19 direct panes, seven deep links and Back with zero errors or attempted record writes. PDF content, close-ups and navigation pass on both sizes. Phone images inspected. Exact counts are in `evidence/ready.json`. Implemented and tested independently; no second-agent review is claimed.
 
-Build with `bash 03_GC500_Delivery_Control/toolchain/build.sh v12.11 03_GC500_Delivery_Control/v12.11_map_demob_DRAFT/patch_v1211.py`. The patch is pinned to its exact live base and refuses reuse. Publication must use the unchanged-base guard, followed by exact public byte and UI checks. Private source records, generated PDFs and screenshots stay outside this repository. No real departures were entered by tests.
+Build with `bash 03_GC500_Delivery_Control/toolchain/build.sh v12.11 03_GC500_Delivery_Control/v12.11_map_demob_LIVE/patch_v1211.py`. The patch is pinned to its exact live base and refuses reuse. Publication used the unchanged-base guard and passed exact public byte and UI checks. Private source records, generated PDFs and screenshots stay outside this repository. No real departures were entered by tests.
