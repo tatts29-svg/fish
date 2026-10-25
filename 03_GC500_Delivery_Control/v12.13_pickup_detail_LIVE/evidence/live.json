@@ -1,0 +1,35 @@
+{
+  "author": "Andrew Fisher",
+  "version": "v12.13",
+  "sha256": "8b524dbcb293d487c04465734d03df5182a74ef75a8214c03559bf674a2066cf",
+  "bytes": 15337257,
+  "checked_at": "2026-10-25T02:19:44.956107+00:00",
+  "exact_bytes": true,
+  "footer": true,
+  "content": true,
+  "ready_source": "77065ed8c24c116507a5df646e0397f702cefdf4",
+  "uploaded_at": "2026-10-25T02:19:30.659Z",
+  "actual_public_phone": {
+    "details": {
+      "passed": 10,
+      "total": 10
+    },
+    "pdf": {
+      "checked": {
+        "passed": 20,
+        "total": 20,
+        "pages": 5,
+        "qr_pages": 1
+      },
+      "unchecked": {
+        "passed": 20,
+        "total": 20,
+        "pages": 5,
+        "qr_pages": 1
+      }
+    },
+    "images_inspected": true
+  },
+  "second_agent_review": false,
+  "record_writes": 0
+}

@@ -1,4 +1,4 @@
-# Pickup pack detail and navigation — draft
+# Pickup pack detail and navigation — live
 
 Author: Andrew Fisher
 
@@ -10,4 +10,4 @@ Location diagrams align with the equipment, retain correct north, scale and door
 
 Optional truck restriction is printed from this pack's checkbox; it no longer gates creation. The generic PDF side stamp is suppressed only on this pickup document so it cannot contradict the local choice. All other print and operational rules remain unchanged. Current collection windows and site traffic control still apply. No operational record, tracker, rate or quantity writes.
 
-READY TO UPLOAD — all final checks passed, including both full navigation sweeps. Not yet live. See `evidence/checks.json` for sanitised counts. Phone and rendered PDFs inspected; QR codes decoded at 150 dpi. Base v12.12 SHA-256 `d01878c99c7d8972beb8c6b76e16775d7c53f20551c4c3d41f422404d1616a67`. Build with the shared toolchain and `patch_v1213.py`. Test exports, screenshots and record evidence stay private; only sanitised pass counts/hashes are committed.
+LIVE — 25 Oct 2026 12:19:30 AEST. Guarded publication from READY source `77065ed8c24c116507a5df646e0397f702cefdf4`; live SHA-256 `8b524dbcb293d487c04465734d03df5182a74ef75a8214c03559bf674a2066cf` (15,337,257 bytes). Separate public read-back at 12:19:44 matched exactly. Fresh actual public phone checks passed 10/10; checked and unticked PDFs passed 20/20 each, including decoded QR destinations. Live phone/PDF images inspected. All final checks passed, including both full navigation sweeps. See `evidence/checks.json` for sanitised counts. Phone and rendered PDFs inspected; QR codes decoded at 150 dpi. Base v12.12 SHA-256 `d01878c99c7d8972beb8c6b76e16775d7c53f20551c4c3d41f422404d1616a67`. Build with the shared toolchain and `patch_v1213.py`. Test exports, screenshots and record evidence stay private; only sanitised pass counts/hashes are committed.
