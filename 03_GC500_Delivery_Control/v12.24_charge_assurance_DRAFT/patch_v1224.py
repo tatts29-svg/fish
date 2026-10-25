@@ -9,6 +9,8 @@ from rep import rep
 from fix_scope1224 import apply as fix_scope
 from fix_source1224 import apply as fix_source
 from fix_superseded1224 import apply as fix_superseded
+from fix_bulk1224 import apply as fix_bulk
+from fix_generator_identity1224 import apply as fix_generator_identity
 
 # Exact verified v12.23; this patch must never land on another publisher's page.
 BASE = '8112a63d10c5b6c88206a539af5a59dc1037176e414a95f20d253b16f844e257'
@@ -21,6 +23,8 @@ def apply(text):
     text = fix_scope(text)
     text = fix_superseded(text)
     text = fix_source(text)
+    text = fix_bulk(text)
+    text = fix_generator_identity(text)
     text = rep(text,
         'const diff = {now: M.difference0 != null ? r2(M.difference0) : r2(revNow - costNow), job: r2(revJob - costJob - n(W.job))};',
         'const diff = {now: Number.isFinite(M.difference) ? r2(M.difference) : r2(revNow - costNow), job: r2(revJob - costJob - n(W.job))};',
