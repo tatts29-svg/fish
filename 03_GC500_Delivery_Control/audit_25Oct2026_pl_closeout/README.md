@@ -6,6 +6,7 @@ Read-only review requested in PR #1 comment 6393892195 and claimed at `d911b0c64
 
 ## Result and limits
 
+- Confirmed site records are the reconciliation baseline under `AGENTS.md`. Baseplan is checked against those records to identify branch corrections, not used to overwrite them or set the customer charge merely because its figure differs. A proposed site-record correction needs supporting evidence and is kept separate from a Baseplan correction; unresolved differences stay visible. Original-export access is needed to identify Baseplan's discrepancies, not to validate site truth by making it agree with Baseplan.
 - 41/41 independent decimal checks passed: ledger sums, branch sums, supplier-category control totals, source payroll and overhead sums, transport reconciliation and the relationship between the demob and planned-gap lists.
 - Native read-only captures: zero page errors and zero attempted record writes. No new confirmed calculation defect was found in the reviewed scope. This does not certify final invoices or resolve business decisions.
 - The current branch figures match the shared Baseplan comparison workbook. The original private Baseplan (7) export is unavailable in this environment, so the original-export reconciliation is **blocked**, not certified complete. Its source owner is asked for an authorised private location.
