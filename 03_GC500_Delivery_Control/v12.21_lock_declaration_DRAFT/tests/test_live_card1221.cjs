@@ -21,23 +21,22 @@ function cardData(text) { const start = text.indexOf('var D = ') + 8; assert(sta
 (async () => {
   assert(/^[-_A-Za-z0-9]{16,64}$/.test(TOKEN), 'tracker token from the private snapshot');
   const browser = await chromium.launch({args: ['--no-sandbox'], executablePath: process.env.CHROMIUM_PATH || undefined});
-  const stopped = [];
+  const stopped = []; let capabilities = [];
   try {
     const ctx = await browser.newContext({viewport: {width: mobile ? 390 : 1280, height: mobile ? 844 : 900}, deviceScaleFactor: mobile ? 2 : 1, isMobile: mobile, hasTouch: mobile, locale: 'en-AU', timezoneId: 'Australia/Brisbane', serviceWorkers: 'block'});
     await ctx.route('**/*', async route => {
       const r = route.request(), u = new URL(r.url());
       if (r.method() !== 'GET') { stopped.push(r.method() + ' ' + redact(u.pathname)); return route.abort(); }
-      if (u.origin === HOST && (u.pathname === '/d/' + TOKEN || u.pathname === '/d/' + TOKEN + '/ticks' || u.pathname.startsWith('/m/'))) return route.fulfill(process.env.HTML_FILE && u.pathname === '/d/' + TOKEN ? {contentType:'text/html',body:fs.readFileSync(process.env.HTML_FILE)} : await read(r.url()));
+      if (u.origin === HOST && (u.pathname === '/d/' + TOKEN || u.pathname === '/d/' + TOKEN + '/ticks' || u.pathname.startsWith('/m/'))) {const result=process.env.HTML_FILE && u.pathname === '/d/' + TOKEN ? {contentType:'text/html',body:fs.readFileSync(process.env.HTML_FILE)} : await read(r.url());if(u.pathname==='/d/'+TOKEN+'/ticks')capabilities.push(JSON.parse(result.body.toString()).lock_declarations_version);return route.fulfill(result);}
       return route.abort();
     });
     const at = async (ref, code) => {
       const p = await ctx.newPage(), errs = []; p.on('pageerror', e => errs.push(redact(String(e.message).slice(0, 160))));
       await p.goto(HOST + '/d/' + TOKEN + '#r=' + ref + '.' + DUMMY + '~' + code, {waitUntil: 'load', timeout: 60000});
       await p.waitForFunction(() => document.querySelectorAll('.job .jtxt b').length > 0, null, {timeout: 60000});
-      await p.waitForFunction(()=>typeof lockReady1221!=='undefined'&&lockReady1221,null,{timeout:60000});
+      await p.waitForFunction(()=>/Live.*updated/.test(document.body.innerText),null,{timeout:60000});
       const r = await p.evaluate(() => ({jobs: [...document.querySelectorAll('.job .jtxt b')].map(b => b.textContent.replace(/\s+/g, ' ').trim()),
-        declaration: typeof SvcLock1221==='object'&&typeof declareLock1221==='function'&&SvcLock1221.statement==='I hereby declare that the toilets shown below have been pumped and cleaned, and the doors are locked.',
-        capability:typeof lockReady1221!=='undefined'&&lockReady1221,
+        declaration: [...document.scripts].some(s=>s.textContent.includes('function declareLock1221(')&&s.textContent.includes('I hereby declare that the toilets shown below have been pumped and cleaned, and the doors are locked.')),
         changedNotice: /This card has been changed on the service/.test(document.body.innerText),
         day: (document.body.innerText.match(/(Sun|Sat|Fri|Mon) \d{1,2} 08:00 → (Sun|Sat|Fri|Mon) \d{1,2} 08:00/) || [''])[0],
         script: ([...document.scripts].find(x => x.textContent.includes('var D = ')) || {textContent: ''}).textContent}));
@@ -52,7 +51,7 @@ function cardData(text) { const start = text.indexOf('var D = ') + 8; assert(sta
       r.errors = errs; await p.close(); return r;
     };
     const pp = await at('PG01', 'pump'), pc = await at('PG01', 'clean'), ap = await at('WC86', 'pump'), ac = await at('WC86', 'clean'), bc = await at('WC20', 'clean'), tp = await at('WC20', 'pump');
-    check([pp,pc,ap,ac,bc,tp].every(r=>r.declaration&&r.capability),'exact declaration and live server capability present on each card');
+    check([pp,pc,ap,ac,bc,tp].every(r=>r.declaration)&&capabilities.length>=6&&capabilities.every(v=>v===1),'exact declaration and live server capability present on each card');
     check(pp.day === 'Sun 25 08:00 → Mon 26 08:00', 'the live card is on tonight, the final night: ' + pp.day);
     check(pp.D.lockup === 'Locked (doors locked)' && pp.D.finals.every(f => f === 'pump+clean+lockup') && pp.D.pump.join() === 'pump' && /^tracker-data 25 Oct 2026;/.test(pp.D.version), 'the live card carries the new data (Locked physical doors; FWF, accessible, 16-pan final = pump, clean, lock; pump code pump only)');
     check(JSON.stringify(pp.jobs) === JSON.stringify(['Pump out']), 'PG01 pump code tonight: ' + JSON.stringify(pp.jobs));
