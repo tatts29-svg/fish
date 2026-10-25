@@ -1,0 +1,28 @@
+PASS page loads with no errors and the departure helper
+PASS the departure record reads GN10 left site in full, 26 Oct 07:40
+PASS every departure it reads is the page's own (Departure1211)
+PASS satellite map: GN10 wears the ↗ departed icon, faded
+PASS satellite map: GN10 reads "GN10 · LEFT SITE", its title the time
+PASS satellite map: the icon is on what has left and nothing else
+PASS satellite map: one line names what has left
+PASS satellite map list: GN10's row says ↗ Left site · 26 Oct 07:40
+PASS satellite map: zoom and pan redraw keep the icon, and stay quick
+PASS VMS tab board map: its pins carry the icon only where a board has left
+PASS GN10 has a drawing sheet to show it on
+PASS drawing sheet: the GN10 pill wears the ↗ icon and is dashed
+PASS drawing sheet: its title and name say left site with the time
+PASS drawing sheet: the icon is on the departed pills and no others
+PASS Map explorer: GN10's card shows what left (Qty 1), not the 0 still to leave
+PASS Map explorer: GN10's card says left site with the time, not "still to come: on site"
+PASS Map explorer: the map still marks GN10 LEFT SITE
+PASS a numbered multi-unit reference on a drawing is there to rehearse a part pick-up
+PASS the Record departure form opens
+PASS a part pick-up reads "1 LEFT", not left site
+PASS drawing sheet: a part pick-up wears the icon but is not dashed
+PASS a VMS delivery reference is there to rehearse a board pick-up
+PASS the VMS reference reads left site, and its board's plan positions too
+PASS satellite map: the departed board wears the ↗ icon and LEFT SITE
+PASS VMS tab board map: the departed board wears the icon there too
+PASS the rehearsals were captured in the page; nothing reached the network
+PASS no runtime errors through the maps and the rehearsals
+27/27
