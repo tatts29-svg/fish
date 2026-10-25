@@ -1,6 +1,6 @@
 {
   "author": "Andrew Fisher",
-  "status": "Crew card LIVE; main page READY",
+  "status": "LIVE",
   "base_sha256": "6ccc030d201729e50015d77aa2f140ba63660fe32e0a5fc44c958d47b6636a16",
   "candidate_sha256": "f06ddbdfca7b13394e1477d32f54813f7866b5e371160dd876aa94639712bab7",
   "bytes": 15378131,
@@ -17,11 +17,10 @@
     "initial_native_dry": 76,
     "final_native_card_first_dry": 76,
     "live_crew_phone": 10,
-    "live_crew_desktop": 10
+    "live_crew_desktop": 10,
+    "public_phone_smoke": 7
   },
-  "pending": [
-    "guarded main-page publication and public exact-byte check"
-  ],
+  "pending": [],
   "desktop_sweep": {
     "tabs": 27,
     "shown": 19,
@@ -75,5 +74,20 @@
       "pane": "pane-plant"
     }
   },
-  "upload_dry_run": true
+  "upload_dry_run": true,
+  "main_ready_source": "6eeb5744fc6a8df6d47230b1d4bad4a66d74d9b8",
+  "main_live_at": "2026-10-25T08:11:14.224Z",
+  "final_readback": {
+    "author": "Andrew Fisher",
+    "at": "2026-10-25T08:12:11.231460+00:00",
+    "page_sha256": "f06ddbdfca7b13394e1477d32f54813f7866b5e371160dd876aa94639712bab7",
+    "bytes": 15378131,
+    "crew_sha256": "54957ef5bb042313fe74b277fa0344395ecf6d543ede5e19b3abd1940ce74798",
+    "server_build": "v5.93",
+    "lock_declarations_version": 1,
+    "job_record_unchanged": true,
+    "earlier_tick_history_retained": true,
+    "tracker_configuration_and_signatures_unchanged": true,
+    "live_writes": 0
+  }
 }

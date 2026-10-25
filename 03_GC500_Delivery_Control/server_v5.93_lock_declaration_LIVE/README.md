@@ -1,4 +1,4 @@
-# Door-lock declaration persistence — ready for server activation
+# Door-lock declaration persistence — LIVE
 
 Author: Andrew Fisher
 
@@ -23,3 +23,5 @@ The runtime here has page/blob edit access but no Railway credentials. `stage.py
 Rollback is the v5.92 hash with one redeploy, preserving the keep list. v5.92 retains stored declaration fields on disk but cannot accept or return them; restore the predecessor crew card or hold new declarations while rolling forward. Do not describe declaration saving as available on v5.92. The v12.21 client keeps unacknowledged declarations pending when the server lacks capability.
 
 Staged and independently read back 25 Oct 2026 17:21:46 AEST. Full state, cards, page, tick history and signatures unchanged. Running server remains v5.92. Phone and desktop card-to-server integration checks: 26/26 each. Activation remains with the existing deployment owner.
+
+Activated by Claude 25 Oct 2026 17:45 AEST from exact source `159c9674233502da0f765f00ea57a2630d96a424`; see [Railway switch evidence](../server_v5.93_switch/README.md). Independent GET read-back at 17:47:48 AEST verified declaration capability, retained history, tracker configuration, signatures, cards and inventory. The exact running boot hash is evidenced by Claude’s deployment log. Page/card integration is archived in `../v12.21_lock_declaration_LIVE/`. The activation runbook above is historical, not an instruction to redeploy.

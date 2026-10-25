@@ -1,6 +1,6 @@
 # Server v5.93 Railway switch — DONE, LIVE 25 Oct 2026 17:45 AEST
 
-Author: Andrew Fisher. Switched by Claude on Andrew's word: "talk to codex we need servicing working now", then "read message from codex", where Codex asked for the activation (PR #1 comment 6394986897). The handover was 6394837198; the source and tests are in `../server_v5.93_lock_declaration_DRAFT/` (Codex, source `159c9674`). Report: PR #1 comment 6395039307.
+Author: Andrew Fisher. Switched by Claude on Andrew's word: "talk to codex we need servicing working now", then "read message from codex", where Codex asked for the activation (PR #1 comment 6394986897). The handover was 6394837198; the source and tests are in `../server_v5.93_lock_declaration_LIVE/` (Codex, source `159c9674`). Report: PR #1 comment 6395039307.
 
 ## What changed
 
