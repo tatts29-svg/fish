@@ -7,7 +7,7 @@ const HOST='https://gc500-production.up.railway.app',LOAD='servicing-tracker:GC5
 const BASE='6ccc030d201729e50015d77aa2f140ba63660fe32e0a5fc44c958d47b6636a16';       // live v12.19
 const CANDIDATE='f06ddbdfca7b13394e1477d32f54813f7866b5e371160dd876aa94639712bab7';  // v12.21, reviewed
 const FINAL=['pump','clean','lockup'],KINDS=['fwf','access','pan16'];
-const EDIT=process.env.GC500_EDIT_TOKEN||'',EXECUTE=process.argv.includes('--execute');
+const EDIT=process.env.GC500_EDIT_TOKEN||'',EXECUTE=process.argv.includes('--execute'),CARD_FIRST=process.argv.includes('--card-first');
 const PAGE=process.env.PAGE,ROOT=process.env.EVIDENCE,REPO=path.resolve(__dirname,'../../..');
 const BRIDGE=path.resolve(__dirname,'../../v11.73_crew_groups_LIVE/tests/native_bridge1173.py');
 const sha=v=>crypto.createHash('sha256').update(v).digest('hex');
@@ -61,7 +61,7 @@ function expectTracker(t){const x=copy(t);KINDS.forEach(k=>{x.plans[k].final=FIN
  const candidate=fs.readFileSync(PAGE),candidateHash=sha(candidate);
  guard(candidateHash===CANDIDATE&&candidate.includes("+' · v12.21';"),'the reviewed v12.21 candidate');
  const liveHash=sha(await get('/v/Coates-GC500-2026',false));
- guard(EXECUTE?liveHash===candidateHash:[BASE,candidateHash].includes(liveHash),'live page matches the phase ('+(EXECUTE?'v12.21 live':'v12.19 or v12.21 live')+')');
+ guard(EXECUTE&&!CARD_FIRST?liveHash===candidateHash:[BASE,candidateHash].includes(liveHash),'live page matches reviewed phase; card-first may retain v12.19');
  const health=JSON.parse(await get('/health',false));guard(health.crew_groups_version===1&&(!EXECUTE||health.build==='v5.93'&&health.lock_declarations_version===1),'server declaration capability required before publication');
  const before=await snapshot('before'),oldHtml=fs.readFileSync(path.join(runDir,'before.html'),'utf8'),old=blob(oldHtml);
  guard(oldFinal(before.meta.tracker)&&old.data.tasks.lockup==='Locked'&&KINDS.every(k=>eq(old.data.plans[k].final,FINAL)),'current final-night rules retained');
@@ -122,7 +122,7 @@ function expectTracker(t){const x=copy(t);KINDS.forEach(k=>{x.plans[k].final=FIN
  guard(eq(after.state,before.state)&&eq(after.version,before.version),'job record and version unchanged');
  guard(after.html_sha256===(EXECUTE?sha(payload.html):before.html_sha256),'crew card reads back exactly');
  guard(errors===0,'no page errors');
- const receipt={author:'Author: Andrew Fisher',status:'passed',mode:EXECUTE?'native publication':'dry capture',at:new Date().toISOString(),candidate_sha256:candidateHash,live_sha256:liveHash,
+ const receipt={author:'Author: Andrew Fisher',status:'passed',mode:EXECUTE?'native publication':'dry capture',card_first:CARD_FIRST,at:new Date().toISOString(),candidate_sha256:candidateHash,live_sha256:liveHash,
   crew_before_sha256:before.html_sha256,crew_sha256:sha(payload.html),captured_posts:postCount,live_posts:livePosts,unexpected_writes:unexpected,errors,checks};
  save('receipt.json',receipt);console.log(JSON.stringify({status:'passed',mode:receipt.mode,run:path.basename(runDir),livePosts,checks:checks.length,crew_before:before.html_sha256.slice(0,12),crew_after:sha(payload.html).slice(0,12)}));
 })().catch(e=>{const m=String(e&&e.message||e);console.error(JSON.stringify({status:'blocked',stage:EDIT&&stage.includes(EDIT)?'redacted':stage,reason:EDIT&&m.includes(EDIT)?'redacted':(token&&m.includes(token)?'redacted':m.slice(0,300)),captured_posts:postCount,live_posts:livePosts,unexpected_writes:unexpected}));process.exitCode=1;}).finally(async()=>{if(browser)await browser.close();});

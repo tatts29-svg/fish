@@ -14,7 +14,7 @@ Requires activated server v5.93 `8764451d3768fcfbfc493da48fb9901503dcd6af0f8df24
 
 Built on verified v12.19 `6ccc030d201729e50015d77aa2f140ba63660fe32e0a5fc44c958d47b6636a16`. Current draft `f06ddbdfca7b13394e1477d32f54813f7866b5e371160dd876aa94639712bab7`, 15,378,131 bytes. If v12.20 publishes first, rebuild the patch on its exact live bytes and repeat affected gates before publication. Footer must never move backwards.
 
-Use the shared build/check/upload toolchain, then `tests/update_tracker1221.cjs` for the existing event tracker through the native publisher. The updater defaults to dry capture. `--execute` additionally requires `GC500_NATIVE_TRACKER_EXECUTE=1`, exact reviewed live page and server capability. Its private snapshot proves unchanged tracker configuration, signatures, history, contact details and job record. No live test tick or crew message is permitted.
+Use the shared build/check/upload toolchain, then `tests/update_tracker1221.cjs` for the existing event tracker through the native publisher. The updater defaults to dry capture. `--card-first --execute` can publish the independently tested crew card while the main page remains on the exact v12.19 base; it does not upload the main page. This requires the same activated v5.93 capability and every native preservation guard. The report page remains DRAFT until its full sweeps pass. `--execute` without `--card-first` additionally requires `GC500_NATIVE_TRACKER_EXECUTE=1`, exact reviewed live page and server capability. Its private snapshot proves unchanged tracker configuration, signatures, history, contact details and job record. No live test tick or crew message is permitted.
 
 ## Checks so far
 
