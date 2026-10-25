@@ -99,7 +99,7 @@
   function locationDetails(r){
    if(r.hold.length)for(const h of r.hold)note('HOLD / CLEAR BEFORE COLLECTION',h,amber);
    const doorText=r.doors||'Plan door position/direction not recorded.',loading=(r.pickupLoading||[]).map(l=>'Truck loading | '+(l.asset?l.asset+' | ':'')+l.item+': '+({driver:'door to driver side',passenger:'door to passenger side',na:'door side not applicable'}[l.side]||'door side not recorded'));
-   label('DOORS & LOADING');for(const t of [doorText,...loading])paragraph(t);
+   const doorLines=[doorText,...loading];need(Math.min(100,13+doorLines.reduce((n,t)=>n+wrap(t,WID-8,9).length*4.3+2,0)));label('DOORS & LOADING');for(const t of doorLines)paragraph(t);
   }
   function contentsDetails(r){
    if(!r.contents?.length)return;
@@ -108,6 +108,7 @@
    for(const c of r.contents){need(15);paragraph((c.quantity??'?')+' x '+c.type+' | Asset '+(c.asset||'number not recorded'),{bold:true});}
   }
   function photoDetails(r){
+   if(r.pictures?.some(p=>!p.unavailable))need(145);else need(28);
    label('EQUIPMENT & LOCATION PHOTOS');
    if(!r.pictures?.length){paragraph(r.photoState==='ready'?'No matching equipment or location photograph available for this selection.':'Photo availability could not be confirmed. No photograph is substituted.',{colour:grey});return;}
    const good=r.pictures.filter(p=>!p.unavailable);
