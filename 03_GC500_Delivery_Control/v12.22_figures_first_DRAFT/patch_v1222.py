@@ -16,7 +16,7 @@ from pathlib import Path
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE.parent / 'toolchain'))
 from rep import rep
-BASE = 'PENDING: the verified live v12.21 SHA-256, filled in when Codex posts it LIVE'
+BASE = 'f06ddbdfca7b13394e1477d32f54813f7866b5e371160dd876aa94639712bab7'  # live v12.21, Codex's READY candidate, public GET 18:15 AEST
 FOOTER = re.compile(r"\+' · (v12\.\d+(?:\.\d+)?)'; /\* v8\.19 release922")
 
 
