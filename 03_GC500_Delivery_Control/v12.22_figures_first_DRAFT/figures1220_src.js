@@ -1,5 +1,5 @@
 <style id="figures1220-style">
-/* Author: Andrew Fisher. v12.20 - figures first on the Costs cards: the workings fold away under each card's button */
+/* Author: Andrew Fisher. v12.22 - figures first on the Costs cards: the workings fold away under each card's button */
 .figures1220:not(.work1220) .pl-lb > small,.figures1220:not(.work1220) .pl-note,.figures1220:not(.work1220) .pl-missing-full1220,
 .figures1220:not(.work1220) .fin745-basis,.figures1220:not(.work1220) .work1220-only,.figures1220:not(.work1220) .fin745-blockhead p,
 .figures1220:not(.work1220) .fin745-heading p:not(.fin745-eyebrow),.figures1220:not(.work1220) .fin745-metric small,
@@ -10,7 +10,7 @@
 .pl-missing-short1220 li{margin:3px 0}
 </style>
 <script id="figures1220-script">
-/* Author: Andrew Fisher. v12.20 - figures first. Andrew, 25 Oct 2026 (this chat): "i want this the amount of info shortened no
+/* Author: Andrew Fisher. v12.22 - figures first. Andrew, 25 Oct 2026 (this chat): "i want this the amount of info shortened no
    one is going to read all this we just want Figures", on the Forecast P&L's Revenue and Direct costs, "Not in it yet", Transport
    Revenue and Rehire by Revenue branch; and "OUR DATA MUST BE CLEAN ... ITS DEMOB TOMMORROW SO ALL COST NEED TO BE VERY CLEAR".
    Each of the four cards shows its figures; the explanations fold away under a "Show the workings" button on the card, remembered
@@ -130,6 +130,6 @@ document.addEventListener('click', function (e) {
   card.classList.toggle('work1220', on); remember(id, on);
   b.textContent = label(on); b.setAttribute('aria-expanded', String(on));
 });
-W.Figures1220 = Object.freeze({version: 'v12.20', short: short, group: group});
+W.Figures1220 = Object.freeze({version: 'v12.22', short: short, group: group});
 })(window);
 </script>

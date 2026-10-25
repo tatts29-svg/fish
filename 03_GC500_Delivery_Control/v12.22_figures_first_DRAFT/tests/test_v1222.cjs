@@ -1,8 +1,8 @@
-// Author: Andrew Fisher. v12.20 - figures first on the Costs cards. Opens the live page (base) and the build side by side on the
+// Author: Andrew Fisher. v12.22 (built as v12.20) - figures first on the Costs cards. Opens the live page (base) and the build side by side on the
 // Costs tab, reading the live record (read only), and holds the build to: every figure unchanged; on the Forecast P&L, Transport
 // Revenue and Rehire by branch the explanations hidden until "Show the workings", and all back after it; "Not in it yet" grouped
 // and short with the full list kept; the visible text much shorter.
-//   BASE=<live page> BUILD=<build> [MOB=1] node test_v1220.cjs
+//   BASE=<live page> BUILD=<build> [MOB=1] node test_v1222.cjs
 'use strict';
 const path = require('path');
 const {open} = require(path.join(__dirname, '..', '..', 'toolchain', 'harness', 'open_page'));
@@ -77,7 +77,7 @@ const read = () => {
   check(N.before.pl.vis < 0.6 * B.before.pl.vis && N.before.rh.vis < 0.6 * B.before.rh.vis && N.before.tr.vis < B.before.tr.vis,
     `visible text: P&L ${r(N.before.pl.vis, B.before.pl.vis)}%, rehire ${r(N.before.rh.vis, B.before.rh.vis)}%, transport ${r(N.before.tr.vis, B.before.tr.vis)}% of before`);
   check(N.after.pl.vis >= 0.97 * B.before.pl.vis && N.after.rh.vis >= 0.97 * B.before.rh.vis && N.after.tr.vis >= 0.97 * B.before.tr.vis, 'with the workings shown, the text is all there again');
-  check(/ · v12\.20$/.test(N.footer.trim()), 'footer ' + N.footer.trim().slice(-12));
+  check(/ · v12\.22$/.test(N.footer.trim()), 'footer ' + N.footer.trim().slice(-12));
   check(errs.build === 0 && blocked.build === 0, `build: ${errs.build} page errors, ${blocked.build} record writes`);
   console.log('short list:', JSON.stringify(N.lists.short));
   console.log(`${pass}/${pass + fail} ${MOB ? 'phone' : 'desktop'}`);
