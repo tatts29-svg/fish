@@ -18,8 +18,9 @@ for _,old,new in changed:
   ns=new.index('function demobFrame1211()');ne=new.index('  demobFrame1211();',ns)
   checks['all_other_map_behaviour_exact']=old[:start]==new[:ns] and old[end:]==new[ne:]
   old=old[start:end];new=new[ns:ne]
+  checks['driver_only_no_departure_shortcut']='data-record-departure' not in new and 'parent.Departure1211.open' not in new
   # These core operational and stale/selection controls must remain byte-exact.
-  for first,last in [('function selected(){','function lines('),('function selectedSnapshot','async function send(')]:
+  for first,last in [('function selected(){','function open('),('function selectedSnapshot','async function send(')]:
    checks[first.split('(')[0]]=old[old.index(first):old.index(last)].rstrip()==new[new.index(first):new.index(last)].rstrip()
 spec=importlib.util.spec_from_file_location('patch',here/'patch_v1212.py');mod=importlib.util.module_from_spec(spec);spec.loader.exec_module(mod)
 for key,value in [('second_application_refused',page),('wrong_base_refused',base+'\n')]:

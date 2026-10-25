@@ -47,9 +47,11 @@ try{
  await f.locator('[data-save]').click();check('source change invalidates old PDF instead of exporting stale selection',await f.evaluate(()=>!GC500Demob1211.state.ready)&&/record changed/.test(await f.locator('[data-status]').innerText()));await f.evaluate(()=>{parent.DemobCollection996.snapshot=parent.__snapshot1211;delete parent.__snapshot1211;});
  await f.locator('[data-close]').click();check('closing restores the original map size',!await p.evaluate(()=>document.body.classList.contains('expfull-on')));
  await f.locator('[data-demob1211]').click();check('reopening requires a fresh selection and confirmation',await f.locator('[data-unit]:checked').count()===0&&!await f.locator('[data-no-twin]').isChecked());
+ check('edit users cannot record departures from the driver pickup selector',await f.evaluate(()=>{const old=parent.capability;try{parent.capability=()=> 'edit';document.querySelector('[data-demob1211]').click();return !document.querySelector('[data-record-departure]')&&!document.getElementById('demob1211').textContent.includes('Record selected items left site');}finally{parent.capability=old;GC500Demob1211.reset();}}));
  await f.evaluate(()=>GC500Spot1117.clear());check('clearing pin closes pickup panel and invalidates exports',await f.evaluate(()=>!GC500Demob1211.state.open&&!GC500Demob1211.state.ready));
  check('no duplicate quick filter after repeated native refresh',await p.evaluate(()=>{MapDemob1211.mount();MapDemob1211.mount();return document.querySelectorAll('#coatesfwf1211').length===1;}));
  check('email draft subject includes the same pack reference',await f.evaluate(()=>decodeURIComponent(__mail1211).includes(parent.__pack1212.packRef)));
+
  check('shared record unchanged throughout selection/export',before===await p.evaluate(()=>JSON.stringify(S)));
  check('no page errors, console errors or record-write attempts',!h.errors.length&&!consoles.length&&!h.counts.blocked);
 }catch(e){console.error('Page errors',h.errors);throw e;}finally{await h.browser.close();}console.log(checks.length+'/'+checks.length);

@@ -61,7 +61,7 @@
   }
   function mapAndNavigation(map,full){
    need(117);const top=y;
-   rect(L,top,104,104,pale);doc.addImage(crop(map,full),'PNG',L,top,104,104,undefined,'FAST');
+   rect(L,top,104,104,pale);doc.addImage(crop(map,full),'PNG',L+3,top+6,98,98,undefined,'FAST');
    rect(L,top,104,6,ink);write(full?'PICKUP AREA / 50 m x 50 m':'LOCATION DETAIL / NORTH UP',L+3,top+4.3,7.2,true,[255,255,255]);
    const nx=124;write('SCAN TO NAVIGATE',nx,top+2,9,true);qr(nx,top+6,33);
    block('Camera on phone\nopens Google Maps',160,top+13,35,8.2,false,grey,4);
@@ -86,7 +86,7 @@
      if(y+9>BOTTOM){header(true);label('SELECTED FOR PICKUP / CONTINUED');tableHeader();}
      const count=Math.min(len-pos,Math.floor((BOTTOM-y-4)/4.4)),height=count*4.4+4;
      if(stripe%2===0)rect(L,y-3,WID,height,pale);
-     for(let j=0;j<count;j++){if(a[pos+j])write(a[pos+j],L+4,y+1+j*4.4,9.2,true);if(b[pos+j])write(b[pos+j],104,y+1+j*4.4,9.2);}
+     for(let j=0;j<count;j++){const left=pos>=a.length?a[j]:a[pos+j];if(left)write(left,L+4,y+1+j*4.4,9.2,true);if(b[pos+j])write(b[pos+j],104,y+1+j*4.4,9.2);}
      doc.setDrawColor(218,223,226);doc.line(L,y+height-3,R,y+height-3);y+=height;pos+=count;
     }
     stripe++;
@@ -98,7 +98,7 @@
    const doorText=r.doors||'Plan door position/direction not recorded.',loading=(r.pickupLoading||[]).map(l=>'Truck loading | '+(l.asset?l.asset+' | ':'')+l.item+': '+({driver:'door to driver side',passenger:'door to passenger side',na:'door side not applicable'}[l.side]||'door side not recorded'));
    const lines=[doorText,...loading],height=16+lines.reduce((n,t)=>n+wrap(t,WID-8,9).length*4.3+2,0);
    if(rows.length===1&&y+height>BOTTOM){
-    header(true);const top=y;doc.addImage(crop(r.map),'PNG',L,top,92,92,undefined,'FAST');rect(L,top,92,6,ink);write('LOCATION DETAIL / NORTH UP',L+3,top+4.3,7.5,true,[255,255,255]);
+    header(true);const top=y;doc.addImage(crop(r.map),'PNG',L+3,top+6,86,86,undefined,'FAST');rect(L,top,92,6,ink);write('LOCATION DETAIL / NORTH UP',L+3,top+4.3,7.5,true,[255,255,255]);
     write('DOORS & LOADING',114,top+4,10,true);let at=top+13;
     for(const t of lines){const h=wrap(t,82,9).length*4.3;if(at+h>top+90)break;at=block(t,114,at,82,9,false,ink,4.3)+3;}
     y=top+100;

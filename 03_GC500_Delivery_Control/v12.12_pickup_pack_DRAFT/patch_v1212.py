@@ -22,6 +22,8 @@ def patch(html):
  change("title:'GC500 Demob pickup pack',text:mail?", "title:'GC500 pickup pack '+r.packRef,text:mail?",'share title')
  change("encodeURIComponent('GC500 Demob pickup pack')", "encodeURIComponent('GC500 pickup pack '+r.packRef)",'email subject')
  change("status('Pickup pack ready. '+rows.reduce", "status('Pickup pack '+packRef+' ready. '+rows.reduce",'visible reference')
+ change('+(r.items.length&&parent.capability()===\'edit\'?\'<button type="button" data-record-departure="\'+i+\'">Record selected items left site…</button>\':\'\')','', 'remove departure action from driver selection')
+ change("panel.querySelectorAll('[data-record-departure]').forEach(b=>b.onclick=()=>{try{const r=refs[Number(b.dataset.recordDeparture)],p=selected().find(x=>x.key===r.key);if(!p)throw new Error('Select the items that actually left this location.');H.validate([p]);mapFresh([r]);if(!parent.mayWrite('a pick-up'))return;close();parent.Departure1211.open(r.key,p);}catch(err){status(err.message);}});",'', 'remove departure shortcut handler')
  f=re.search(r"\+' · v(\d+(?:\.\d+)+)'; /\* v8.19 release922",html)
  return rep(html,f[0],"+' · v12.12'; /* v8.19 release922",'version','page')
 if __name__=='__main__':
