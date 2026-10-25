@@ -59,7 +59,7 @@ function cardData(text) { const start = text.indexOf('var D = ') + 8; assert(sta
       const expected=JSON.parse(fs.readFileSync(process.env.EXPECT_DIRECTIONS,'utf8'));
       const p=await ctx.newPage();
       await p.goto(HOST+'/d/'+TOKEN+'#r='+expected.ref+'.'+DUMMY+'~clean',{waitUntil:'load',timeout:60000});
-      await p.waitForFunction(t=>document.body.innerText.includes(t),expected.where,{timeout:30000});
+      await p.waitForFunction(t=>document.body.innerText.includes(t) && /Live.*updated/.test(document.body.innerText),expected.where,{timeout:60000});
       check(await p.locator('.where').filter({hasText:expected.where}).count()>0,'recorded directions visible in crew reference screen');
       if(dir)await p.screenshot({path:path.join(dir,tag+'-directions-private.png'),fullPage:true});
       await p.close();
