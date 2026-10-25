@@ -39,15 +39,20 @@ let checks=0;const check=(v,m)=>{assert(v,m);checks++;console.log('PASS '+m);};
   check(r.cards.map(c=>c.task).join()==='pump,clean,lockup'&&r.areaLocks>0,'final night has pump, clean and lock rings plus area lock chips');
   check(!r.overflow,'main servicing has no horizontal overflow');
   const face=()=>p.evaluate(()=>{const el=document.querySelector('#svc1067-host'),host=getComputedStyle(el),after=getComputedStyle(el,'::after');return {host:host.background,face:after.background};});
+  const layout=()=>p.evaluate(()=>[...document.querySelectorAll('.svc1123-job')].map(e=>{const r=e.getBoundingClientRect(),t=e.querySelector('.svc1123-t').getBoundingClientRect();return {x:r.x,y:r.y,w:r.width,text:t.width,area:getComputedStyle(e).gridArea,order:getComputedStyle(e).order};}));
   let colors=await face();check(colors.face===colors.host&&colors.host.includes('linear-gradient'),'servicing pseudo-face inherits its dark gradient, keeping pale text legible');
+  let boxes=await layout();check(boxes.every(b=>b.text>=100)&&Math.max(...boxes.map(b=>b.w))-Math.min(...boxes.map(b=>b.w))<2&&Math.max(...boxes.map(b=>mobile?b.x:b.y))-Math.min(...boxes.map(b=>mobile?b.x:b.y))<2,'all job indicators have equal widths, usable text space and aligned rows or columns');
+  const searchVisible=await p.evaluate(()=>{document.body.classList.add('search-open');try{return [...document.querySelectorAll('.svc1123-job.lockup,.svc1123-chip.lockup')].every(e=>getComputedStyle(e).display!=='none');}finally{document.body.classList.remove('search-open');}});
+  check(searchVisible,'header search does not hide lock indicators');
   check(r.footer,'candidate footer identifies v12.23');
-  if(process.env.EVIDENCE){fs.mkdirSync(process.env.EVIDENCE,{recursive:true});await p.locator('.svc1123-jobs[data-svc1123="overall"]').screenshot({path:path.join(process.env.EVIDENCE,'native-rings-'+(mobile?'phone':'desktop')+'.png')});
+  if(process.env.EVIDENCE){fs.mkdirSync(process.env.EVIDENCE,{recursive:true});await p.locator('.svc1123-jobs[data-svc1123="overall"]').scrollIntoViewIfNeeded();await p.waitForTimeout(600);await p.locator('.svc1123-jobs[data-svc1123="overall"]').screenshot({path:path.join(process.env.EVIDENCE,'native-rings-'+(mobile?'phone':'desktop')+'.png')});
    await p.screenshot({path:path.join(process.env.EVIDENCE,'native-screen-'+(mobile?'phone':'desktop')+'.png')});
    fs.writeFileSync(path.join(process.env.EVIDENCE,'native-styles-'+(mobile?'phone':'desktop')+'.json'),JSON.stringify(await p.evaluate(()=>{let x=document.querySelector('.svc1123-job.lockup .pct'),a=[];while(x){const s=getComputedStyle(x);a.push({tag:x.tagName,id:x.id,cl:x.className,color:s.color,background:s.background,opacity:s.opacity});x=x.parentElement;}return a;}),null,2));
   }
   if(!mobile){
    await p.setViewportSize({width:768,height:1024});colors=await face();
    check(colors.face===colors.host&&!(await inspect()).overflow,'tablet retains dark face and fits the progress indicators');
+   boxes=await layout();check(boxes.every(b=>b.text>=100)&&Math.max(...boxes.map(b=>b.y))-Math.min(...boxes.map(b=>b.y))<2&&Math.max(...boxes.map(b=>b.w))-Math.min(...boxes.map(b=>b.w))<2,'tablet lock stays in the same equal-width row; no header grid placement leaks');
    if(process.env.EVIDENCE)await p.locator('.svc1123-jobs[data-svc1123="overall"]').screenshot({path:path.join(process.env.EVIDENCE,'native-rings-tablet.png')});
    await p.setViewportSize({width:1440,height:1000});
   }

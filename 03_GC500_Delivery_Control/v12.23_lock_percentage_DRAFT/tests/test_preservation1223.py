@@ -57,12 +57,16 @@ expected = replace_once(base, "var JOBS1123 = ['pump', 'clean', 'refill'];",
                         'Main servicing job list')
 expected = replace_once(expected, '<style id="svc1102-style">',
                         '<style id="svc1102-style">\n'
-                        '/* v12.23 preserve the dark servicing face, including its cut corner. */\n'
-                        '@media screen{#pane-servicing #svc1067-host::after{background:inherit}}\n',
-                        'Scoped screen-only servicing face')
+                        '/* v12.23 preserve the dark servicing face and isolate lock indicators from header branding. */\n'
+                        '@media screen{#pane-servicing #svc1067-host::after{background:inherit}'
+                        '#svc1067 .svc1123-job.lockup,#svc1067 .svc1123-chip.lockup'
+                        '{grid-area:auto;order:0;flex-direction:row;align-self:auto;overflow:visible}'
+                        '#svc1067 .svc1123-job.lockup{display:flex}'
+                        '#svc1067 .svc1123-chip.lockup{display:inline-flex}}\n',
+                        'Scoped screen-only servicing display styles')
 expected = replace_once(expected, "+' · " + version + "'; /* v8.19 release922",
                         "+' · v12.23'; /* v8.19 release922", 'Release footer')
-check('only the job list, scoped screen face and footer changed; every remaining byte is identical', page == expected)
+check('only the job list, scoped screen styles and footer changed; every remaining byte is identical', page == expected)
 check('actual release patch reproduces the candidate exactly',
       patch_module.patch(base.decode('utf-8')).encode('utf-8') == page)
 check('native crew card and bundled tracker data are byte-for-byte unchanged',
@@ -79,5 +83,5 @@ report = rb'<script\b(?=[^>]*\bid="report1202-script")[^>]*>.*?</script\s*>'
 check('servicing night report is byte-for-byte unchanged', matched(base, report) == matched(page, report))
 check('wrong baseline is rejected by the hash guard', rejects(base + b'\n', 'Wrong verified live base'))
 check('applying the patch twice is rejected', rejects(page, 'Already applied'))
-print(json.dumps({'checks': checks, 'allowed_changes': ['main servicing job list', 'scoped screen-only servicing face', 'release footer'],
+print(json.dumps({'checks': checks, 'allowed_changes': ['main servicing job list', 'scoped screen-only servicing display styles', 'release footer'],
                   'all_other_bytes_unchanged': True, 'network_requests': 0, 'operational_writes': 0}))
