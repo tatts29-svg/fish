@@ -114,9 +114,10 @@ def site_nums(ref): return sorted({str(u['assetNo']) for x in SC.get(ref, []) fo
 ITEM_REF = {}   # an unlabelled line named for what it is: the one reference on site with that item
 for ref, xs in SC.items():
     for x in xs: ITEM_REF.setdefault(x['item'].lower(), set()).add(ref)
-NEVER_CAME = {'1276701': "GN20's 365 kVA never came to site (Andrew, 22 Oct 2026, and again 25 Oct: \"this never came to site 1276701 "
-              "Generator 365kVA Diesel\"). Coates' docket 26102821 (out 30 Sep) and the line's Delivered status are wrong: the branch "
-              "reverses the docket"}
+# GN20's 365 kVA is on site (Andrew, 25 Oct 2026: "i made a error the gn20 is here sorry"). Our record still holds its delivery
+# (on site 30 Sep, complete, install labour ticked), but the reference was deleted on 20 Oct and the page stopped charging the
+# line on 22 Oct (v11.18): it counts here as on site from 30 Sep, and our record and P&L are to follow
+GN20_BACK = {'1276701': ('GN20', '2026-09-30', 365)}
 DATE_FIX = []   # start dates: (contract, line, what, Baseplan start, turned up, days, charged from when it goes in?, basis)
 
 # --- hire lines, one by one
@@ -155,9 +156,12 @@ for c in CONTRACTS:
             ROWS.append(row); continue
         # every other hire line: by the number on the record, else the label, else what the line is
         ref = None; how = None
-        if n and n in NEVER_CAME:
-            row['check'].append(NEVER_CAME[n]); row['pl_branch'] = cb
-            fix(c, l['Line'], 'Remove', f'{desc[:50]} ({n}) {status} at {money(l.get("Rate 1"))}', NEVER_CAME[n], 'Reverse docket 26102821 and close the line (no charge)', cents(-(l.get('Rate 1') or 0)))
+        if n and n in GN20_BACK:
+            g20, g20_on, _ = GN20_BACK[n]
+            row.update(ref=g20, site_on=g20_on); row['pl_branch'] = 'NVAC'
+            row['check'].append(f'{g20} on site from {fmt(g20_on)} (Andrew, 25 Oct: "the gn20 is here"); the line stands. Our record deleted the reference on 20 Oct and the P&L dropped it on 22 Oct: both to be put back')
+            fix('our record', g20, 'Not on site', f'{g20} 365 kVA ({n}) is Delivered from {fmt(g20_on)} on Baseplan, as it should be',
+                'our record deleted GN20 on 20 Oct and the P&L stopped charging it on 22 Oct (v11.18)', 'Put it back on our record and the P&L (the page will not re-use a deleted reference)', None, 'Our record')
             ROWS.append(row); continue
         if n and n in NUM: ref, how = NUM[n][0], 'asset number on the record'
         elif label == 'LT05/06': ref, how = ('LT05' if n == '1224783' else 'LT06'), 'label'
@@ -332,6 +336,8 @@ chk('9968862', 134, 'Transport up to 6 m', (len(main_bld) - len(big)) * 2, f'{le
 chk('9968862', 135, 'Transport 9.6 / 12 m', len(big) * 2, f'{len(big)} large buildings ({", ".join(big)}) x 2 legs')
 # generators and VMS
 gens = [g['ref'] for g in sv['gens']]
+for g20, g20_on, g20_kva in GN20_BACK.values():
+    if g20 not in gens: gens.append(g20)
 nvac_sets = [g for g in gens if g != 'GN?']
 chk('9961976', 51, 'Generator labour', None, f'{len(nvac_sets)} sets on the NVAC contract (GN26/27 on 9994954)', 'install and pick-up per set: check the split of 11 + 2 against the sets')
 chk('9961976', 53, 'Generator transport (small)', None, '', 'see line 54/55: 26 legs for the NVAC sets')
@@ -340,20 +346,22 @@ for g in gens:
     for x in SC.get(g, []):
         m = re.match(r'(\d+)\s*kva', x['item'], re.I)
         if m: SIZE[g] = int(m.group(1))
+for g20, g20_on, g20_kva in GN20_BACK.values(): SIZE.setdefault(g20, g20_kva)
 small = sorted(g for g in nvac_sets if SIZE.get(g, 0) <= 30); mid = sorted(g for g in nvac_sets if 30 < SIZE.get(g, 0) <= 60); large = sorted(g for g in nvac_sets if SIZE.get(g, 0) > 60)
 CH[:] = [x for x in CH if not (x[0] == '9961976' and x[1] in ('51', '53'))]
 chk('9961976', 51, 'Generator labour (up to 60 kVA)', len(small) + len(mid), f'{len(small) + len(mid)} sets up to 60 kVA on site: {", ".join(small + mid)}')
-chk('9961976', 52, 'Generator labour (large)', len(large), f'{len(large)} large set on site: {", ".join(large)} (GN20 never came to site; Andrew, 22 and 25 Oct)')
+chk('9961976', 52, 'Generator labour (large)', len(large), f'{len(large)} large sets on site: {", ".join(large)}')
 swapped = sorted(g for g in small if any(not live_unit(u) for x in SC.get(g, []) for u in x['units']))   # GN10: 1197355 off, 1283681 on
 legs = len(small) * 2 + len(swapped) * 2
 chk('9961976', 53, 'Generator transport $300', legs, f'{len(small)} sets up to 30 kVA ({", ".join(small)}) x 2 legs' + (f' + 2 for each swap on our record ({", ".join(swapped)})' if swapped else ''), None)
 chk('9961976', 54, 'Generator transport $450', len(mid) * 2, f'{len(mid)} sets 45-60 kVA ({", ".join(mid)}) x 2 legs')
-chk('9961976', 55, 'Generator transport $600', len(large) * 2, f'{len(large)} large set x 2 legs')
-for c, n, ours in (('9961976', 52, len(large)), ('9961976', 53, legs)):
+chk('9961976', 55, 'Generator transport $600', len(large) * 2, f'{len(large)} large sets ({", ".join(large)}) x 2 legs')
+for c, n, ours in (('9961976', 52, len(large)), ('9961976', 53, legs), ('9961976', 54, len(mid) * 2), ('9961976', 55, len(large) * 2)):
     l = P(c, n)
     if l.get('Quantity') != ours:
-        fix(c, n, 'Quantity', f'{l.get("Description")}: {l.get("Quantity")} x {money(l.get("Price"))}', f'{ours} on site ({", ".join(large) if n == 52 else ", ".join(small)}){"; the second was GN20, which never came to site (Andrew, 22 and 25 Oct)" if n == 52 else ""}',
-            f'Quantity {ours}', cents((ours - l.get('Quantity')) * l.get('Price')), 'Baseplan' if n == 52 else 'Ask Andrew')
+        sets = {52: large, 53: small, 54: mid, 55: large}[n]
+        fix(c, n, 'Quantity', f'{l.get("Description")}: {l.get("Quantity")} x {money(l.get("Price"))}', f'{ours} on site ({", ".join(sets)}{" x 2 legs" if n != 52 else ""})',
+            f'Quantity {ours}', cents((ours - l.get('Quantity')) * l.get('Price')))
 vms_boards = [k for k in b913]
 chk('9961265', 40, 'VMS labour', len(vms_boards), f'{len(vms_boards)} boards')
 chk('9961265', 41, 'VMS transport', len(vms_boards) * 2, f'{len(vms_boards)} boards x 2 legs ($150 a leg is the branch figure; the card says POA)')
@@ -409,10 +417,11 @@ for c in ('9961976', '9994954'):
         d = str(l.get('Description') or ''); n = num(l)
         if not hire(l) or 'Generator' not in d: continue
         ref = NUM.get(n, (None,))[0] if n else None
+        if n in GN20_BACK: ref = GN20_BACK[n][0]
         g = gen_pl.get(ref)
         share = 2 if ref == 'GN?' else 1
         ours = cents(g['forecast'] / share) if g else None
-        GEN.append((c, l.get('Line'), d[:50], n, ref, arrived(ref) or '-', day(l.get('Start Date')), l.get('Rate 1'), ours, g and g['source'], l.get('Sales Analysis Code')))
+        GEN.append((c, l.get('Line'), d[:50], n, ref, arrived(ref) or (GN20_BACK[n][1] if n in GN20_BACK else '-'), day(l.get('Start Date')), l.get('Rate 1'), ours, (g and g['source']) or ('off the P&L since 22 Oct: to be put back' if n in GN20_BACK else None), l.get('Sales Analysis Code')))
         if ours is not None and abs((l.get('Rate 1') or 0) - ours) > 1:
             fix(c, l['Line'], 'Rate', f'{d[:40]}: {money(l.get("Rate 1"))}', f'the P&L charges {money(ours)} ({g["source"]}, from the day it turned up {fmt(arrived(ref))})', f'Rate {money(ours)}', cents(ours - (l.get('Rate 1') or 0)))
 

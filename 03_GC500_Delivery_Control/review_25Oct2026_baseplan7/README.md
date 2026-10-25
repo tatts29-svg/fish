@@ -73,7 +73,7 @@ How the comparison works:
 | Branch | P&L, job total | Baseplan to move (fixes) | Waiting on a decision |
 |---|---|---|---|
 | KINP | $414,788.80 | +$14,696.33 | −$8,598.40 (accommodation) |
-| NVAC | $85,964.01 | −$3,175.12 | +$28,671.82 (Coates forklifts) |
+| NVAC | $85,964.01 | +$4,618.40 | +$28,671.82 (Coates forklifts) |
 | STPS | $503,580.90 | +$115,865.98 | — |
 | MEAD | $18,628.72 | $0 (plant start dates to confirm) | — |
 
@@ -138,10 +138,14 @@ How the comparison works:
 - **Light towers:** three event days at the card ($192.99); Baseplan has $643.30 and $385.98.
 - **Generators:** the standby rate from the day they turned up, then the daily rate for 23–25 Oct. Net +$6,040.92 over 14 sets; per set on the Generators sheet.
 
+**GN20, the 365 kVA (1276701), is on site.** Andrew, 25 Oct: "i made a error the gn20 is here sorry". That corrects his "never came to site" of 22 Oct.
+- Baseplan is right to have it: 9961976 line 6, Delivered from 30 Sep, $6,260.40. Its labour line 52 (two large sets, GN20 and GN23) is right too.
+- Large-set transport, line 55, needs 4 legs at $600, not 2 (+$1,200).
+- Our record still holds GN20's delivery (on site 30 Sep, complete, install labour ticked), but the reference was deleted on 20 Oct. The page won't re-use a deleted reference, so GN20 goes back on as a new one.
+- The P&L stopped charging line 6 on 22 Oct (v11.18), so it needs a page update before NVAC's P&L total includes it.
+
 **Remove:**
-- GN20's 365 kVA (9961976 line 6, $6,260.40). It never came to site: Andrew said so on 22 Oct and again on 25 Oct, "this never came to site 1276701 Generator 365kVA Diesel". Coates' docket 26102821 (out 30 Sep) and the line's Delivered status are wrong, so the branch reverses the docket.
 - PG29 (9968955 line 154). It's on Tickford's own hire schedule.
-- One of the two large-set labour lines (9961976 line 52), for GN20.
 
 **Numbers:** WC07 line 38 carries 1317643; our record has 1317743. Our record stands, so the line changes.
 
