@@ -33,7 +33,8 @@ How the comparison works:
 - Scripts:
   - `dump_site.cjs`, `dump_lines.cjs`, `dump_service.cjs`, `dump_vms.cjs`, `dump_fence.cjs` read the page;
   - `to_json.py` and `diff67.py` read the export;
-  - `build_review7.py` builds the workbook.
+  - `build_review7.py` builds the workbook;
+  - `dump_fence_detail.cjs` and `fencing_source.py` trace where the 9990776 quantities come from.
 - `evidence/summary.json` has the counts.
 
 ## What changed since 22 Oct
@@ -103,8 +104,27 @@ How the comparison works:
 | Relocation | 137.5 m so far | 1,520 m |
 
 - The categories tie to the P&L's $405,150.96 to the cent.
-- Baseplan, at its own rates, is $308,289.53.
+- Baseplan, at its own rates, is $309,106.83. Corrected 25 Oct: the first workbook priced the 110 m with hoarding at $16.16 instead of its own $23.59 and showed $308,289.53. The fix list and the branch tie-out were already right.
 - Demob weeks are still to come.
+
+**Where Baseplan's fencing numbers come from.** Andrew, 25 Oct: "where is baseplan getting numbers from have not seen the new dockets is that why". `fencing_source.py` → `evidence/fencing_source.json`.
+- **Not from the dockets, old or new.**
+  - 9990776 is one block of Pending lines keyed for the event week (19–26 Oct, weekly rate).
+  - The fence quantities are the same in (4) 15 Oct, (5) 16 Oct, (6) 22 Oct and (7). No one has changed them since the contract first appeared.
+- **No docket date gives them.** Baseplan has more crowd control barrier and more ped gates than every signed docket to date: 2,350 m against 2,195 m, and 32 against 22. It has less fence, scrim and demarcation.
+- **The early dockets alone are more than the contract.**
+  - The 116 dockets worked to 15 Oct come to $332,558.49 at the card. That's more than the whole contract.
+  - The 51 dockets since (16–23 Oct) add $72,592.34.
+- **Not the 2026 fencing programme (9 Oct) either.** It's close, but no category matches. Build and event weeks:
+  - clean 8,458.5 m, scrim 3,554.5 m, demarcation 5,168 m;
+  - CCB 2,375 m, flat feet 256, ped gates 33, hoarding 137 m.
+
+  The lines read as an estimate keyed in once.
+- **The export's Delivery Dockets sheet is Coates' own truck dockets**, not Advanced's fencing dockets.
+  - It's unchanged since 22 Oct: 258 rows, last 22 Oct.
+  - Its one row on 9990776 is delivery 26138423 (19 Oct, out): the ten WB13 water barriers on line 1.
+- **Same rates as the P&L's card, except flat feet** ($7.51 against $9.65). Scrim is split $16.16 fence + $9.37 shade cloth = $25.53, which is the P&L's scrim rate. So the gap is quantities.
+- **To fix:** the branch (STPS) re-keys 9990776 from the signed docket totals on the Fencing sheet. Demob relocation follows.
 
 **Hours keyed as hours:minutes:** 27.15 h is 27 h 15 min (27.25 h) and 15.22 is 15 h 22 min (scope 15.375 h). VMS event labour is 65 h against the scope's 65.33 h.
 

@@ -413,7 +413,7 @@ for c in ('9961976', '9994954'):
 # --- fencing (9990776): the signed dockets are the truth for work done (Andrew, 22 Oct 2026); the P&L charges them at the card
 FQ, FR = fence['quantities'], fence['rates']
 FENCE_MAP = [   # docket category -> the 9990776 lines that carry it
-    ('clean', 'Fence, no scrim (m)', [3, 5]), ('scrim', 'Fence with scrim (m): fence line 6 + shade cloth line 10', [6, 10]),
+    ('clean', 'Fence, no scrim (m): line 3 at $16.16 + hoarding line 5 at $23.59', [3, 5]), ('scrim', 'Fence with scrim (m): fence line 6 + shade cloth line 10', [6, 10]),
     ('ccb_event', 'Crowd control barrier (m)', [7]), ('flat_feet', 'CCB flat feet', [8]), ('ccb_demarc', 'Demarcation CCB (m)', [9]),
     ('ped_gates', 'Pedestrian gates', [2]), ('relocation', 'Fence relocation (m)', [4]), ('fence_blocks', 'Fence blocks', []), ('labour', 'Fencing labour (h)', [])]
 FEN = []
@@ -424,7 +424,9 @@ for key, what, lines in FENCE_MAP:
         bq = P('9990776', 6).get('Quantity') or 0; br = cents(bl(6) + bl(10))
     else:
         bq = sum(P('9990776', n).get('Quantity') or 0 for n in lines); br = bl(lines[0]) if lines else None
-    FEN.append((what, site_q, rate, cents(site_q * rate) if rate is not None else None, ' + '.join(map(str, lines)) or 'no line', bq, br, cents(bq * br) if br is not None else None))
+    # each line at its own rate: the 110 m with hoarding (line 5) is $23.59, not line 3's $16.16
+    bd = cents(bq * br) if key == 'scrim' else cents(sum((P('9990776', n).get('Quantity') or 0) * bl(n) for n in lines)) if lines else None
+    FEN.append((what, site_q, rate, cents(site_q * rate) if rate is not None else None, ' + '.join(map(str, lines)) or 'no line', bq, br, bd))
     if not lines and site_q:
         fix('9990776', 'new', 'Missing line', f'no line for {what.lower()}', f'{site_q:g} on the signed dockets at {money(rate)}', f'Add {site_q:g} at {money(rate)}', cents(site_q * rate))
     elif lines and abs(site_q - bq) > 0.01 and key == 'scrim':
