@@ -170,6 +170,41 @@ is being charged". Our record is the truth, and this review only asks what Basep
 - The cross-check of our record against the dockets is kept in the folder but not in the workbook: `arrivals_check.py` and `evidence/arrivals_check.json`.
 - One thing came out of it on his word ("yes onsite please add"): the P05 microwave, the CP1 fridge and urn, the P09 boiling-water unit and the laserplane (EQ0006) are now on our record. See `../record_25Oct2026_accessories_laserplane/`.
 
+## Fencing: what we charge the V8s, what we pay Advanced, and their invoices (25 Oct)
+
+Andrew asked:
+- "what we pay and then what we charge so i can show gow we got this figure $405,150.96";
+- then "just want to make sure what ever we have receievd for from their invoices have matched correctly i just want us to work out what we charge the v8s but also know via break down of what we pay advance based off everything we have".
+
+Workbook: `GC500_Fencing_Charge_and_Cost_25Oct2026.xlsx` (Summary, By week, Dockets, Labour notes and extras). Built by `fence_pay_charge.py` from three read-only dumps of the live page (v12.15): `dump_fence_pay_charge.cjs`, `dump_fence_split.cjs` and `dump_fence_invoices.cjs`. Summary figures: `evidence/fence_pay_charge.json`. Every figure is the page's own pricing and ties to it to the cent.
+
+- **We charge the V8s $405,150.96:** 167 signed red-book dockets, 9 Sep to 23 Oct, at the 2026 street card or Andrew's named rates.
+- **We pay Advanced $261,318.20:**
+  - the dockets at Advanced's approved sheets (weeks 1–5) or their rate sheet (week 6, event week): $240,961.70;
+  - plus team leader days and materials on the orders: $12,564.00;
+  - less two receipted invoices that came in under the sheet rates: −$3,252.50 (the order stands, the project manager, 23 Oct);
+  - so $250,273.20, the fencing cost on the page;
+  - plus the labour notes: $10,850.00;
+  - plus invoice 93920, a partial collection on order 4658850: $195.00. It is in no docket and not in the page's fencing cost.
+- **Margin:** $143,832.76 (35.5%).
+- **Advanced's invoices and sheets against our record:**
+  - Weeks 1–4: their approved sheets equal the orders to the cent. Week 4 is receipted (4926209).
+  - Week 5: the sheet is 50 cents over the receipted order; the order stands. Docket 36524 (17 Sep, $1,375 at their rates) is on our record, charged to the V8s, and on none of their sheets.
+  - Week 6: invoiced at $8,992 with no sheet, so it can't be checked line by line. Our 6 dockets come to $10,869 at their rates; the order stands.
+  - Week 1: labour note 24479 ($50) is not on the sheet.
+  - Week 3: their sheet prints the order as "464517". The page pairs it with week 3's 4647515, not week 4's 4647517.
+  - Event week and demob: nothing billed yet. The event week is about $47,043.70 at their rates.
+- **Needs Andrew: the scrim fence looks charged twice.**
+  - The crews' papers write the whole fence run as clean, scrimmed sections included. On 109 of the 115 dockets Advanced have invoiced, their clean metres are exactly the paper's clean less the scrim and 2.5 m a vehicle gate.
+  - Our record charges the paper's clean at $16.16 and the scrim again at $25.53, which is the fence plus the shade cloth.
+  - So 3,977.5 m of fence is charged twice: $64,279.18.
+  - If so, the charge is $340,871.78, Baseplan is short $31,764.95 (not $96,044.13), and the margin is $79,553.58 (23.3%).
+  - Baseplan keys clean and scrim fence as separate metres, as the programme does; 2025 billed fence with scrim as its own all-in metre.
+  - Nothing on the record or the page has changed: it is Andrew's rate ruling.
+- **Also:**
+  - Pedestrian gates are paid at $61 and charged at the card's $36.18 (22 gates, $546.04 under).
+  - Advanced bill 219 vehicle gates at $50 ($10,950); the V8s pay none on their own, as settled.
+
 ## Decisions for Andrew
 
 1. **Coates forklifts** (9961976 lines 21, 25, 26, 27, 31, 34, 35) are at $0 on Baseplan. The P&L charges $28,671.82 for them from the card. Are they Coates' own (no charge, so the P&L comes down) or charged to the V8s?

@@ -1,0 +1,295 @@
+{
+ "dockets": 167,
+ "charged": 405150.96,
+ "paid_dockets": 240961.7,
+ "team_leader": 9200.0,
+ "materials": 3364.0,
+ "invoice_adjustment": -3252.5,
+ "fencing_cost": 250273.2,
+ "labour_notes": 10850.0,
+ "paid_all_in": 261123.2,
+ "other_advanced_invoices": 195.0,
+ "paid_everything": 261318.2,
+ "margin": 143832.76,
+ "orders": [
+  {
+   "week": "Week 6",
+   "order": "4647508",
+   "sheet": null,
+   "order_amount": 8992,
+   "receipt": "4918492",
+   "match": "invoiced; no sheet to check line by line; the order stands; our 6 dockets at their rates come to $10,869.00, so the invoice is $1,877.00 less",
+   "carried": 8992.0
+  },
+  {
+   "week": "Week 5",
+   "order": "4647509",
+   "sheet": 33670.5,
+   "order_amount": 33670,
+   "receipt": "4922398",
+   "match": "sheet $33,670.50, 50 cents over the order; the order stands; not on their sheet: docket 36524 ($1,375.00 at their rates)",
+   "carried": 33670.0
+  },
+  {
+   "week": "Week 4",
+   "order": "4647517",
+   "sheet": 26695,
+   "order_amount": 26695,
+   "receipt": "4926209",
+   "match": "Advanced's approved sheet = the order, to the cent",
+   "carried": 26695.0
+  },
+  {
+   "week": "Week 3",
+   "order": "4647515",
+   "sheet": 50154,
+   "order_amount": 50154,
+   "receipt": null,
+   "match": "Advanced's approved sheet = the order, to the cent; their sheet prints the order as 464517",
+   "carried": 50154.0
+  },
+  {
+   "week": "Week 2",
+   "order": "4647519",
+   "sheet": 28246.5,
+   "order_amount": 28246.5,
+   "receipt": null,
+   "match": "Advanced's approved sheet = the order, to the cent",
+   "carried": 28246.5
+  },
+  {
+   "week": "Week 1",
+   "order": "4647520",
+   "sheet": 66272,
+   "order_amount": 66272,
+   "receipt": null,
+   "match": "Advanced's approved sheet = the order, to the cent; not on their sheet: labour note 24479 ($50.00)",
+   "carried": 66322.0
+  },
+  {
+   "week": "Event Week",
+   "order": "4647522",
+   "sheet": null,
+   "order_amount": null,
+   "receipt": null,
+   "match": "nothing billed yet; 45 dockets and 11 labour notes on our record, at their rates",
+   "carried": 47043.7
+  },
+  {
+   "week": "Demob",
+   "order": "4647523",
+   "sheet": null,
+   "order_amount": null,
+   "receipt": null,
+   "match": "nothing billed yet; no papers yet",
+   "carried": null
+  },
+  {
+   "week": "Other",
+   "order": "4658850",
+   "sheet": null,
+   "order_amount": 195,
+   "receipt": "4922343",
+   "match": "INV 93920 - partial Collection; tied to no docket (the collection forms carry counts, no money); not in the page's fencing cost",
+   "carried": 195
+  }
+ ],
+ "items": {
+  "clean": {
+   "charge_qty": 13270.0,
+   "charge_rate": 16.1607,
+   "charge": 214452.46,
+   "pay_qty": 9718.0,
+   "pay_rates": [
+    10
+   ],
+   "pay": 97180.0
+  },
+  "scrim": {
+   "charge_qty": 3977.5,
+   "charge_rate": 25.53,
+   "charge": 101545.7,
+   "pay_qty": 3682.5,
+   "pay_rates": [
+    24.4
+   ],
+   "pay": 89853.0
+  },
+  "ccb_demarc": {
+   "charge_qty": 5062.5,
+   "charge_rate": 13.08,
+   "charge": 66217.5,
+   "pay_qty": 6410.0,
+   "pay_rates": [
+    5.4
+   ],
+   "pay": 34614.0
+  },
+  "ccb_event": {
+   "charge_qty": 2195.0,
+   "charge_rate": 7.51,
+   "charge": 16484.48,
+   "pay_qty": 927.5,
+   "pay_rates": [
+    5.4
+   ],
+   "pay": 5008.5
+  },
+  "flat_feet": {
+   "charge_qty": 270,
+   "charge_rate": 9.6511,
+   "charge": 2605.81,
+   "pay_qty": 123,
+   "pay_rates": [
+    5.4
+   ],
+   "pay": 664.2
+  },
+  "labour": {
+   "charge_qty": 8.5,
+   "charge_rate": 142,
+   "charge": 1207.0,
+   "pay_qty": 8.5,
+   "pay_rates": [
+    100
+   ],
+   "pay": 850.0
+  },
+  "relocation": {
+   "charge_qty": 137.5,
+   "charge_rate": 8.652000000000001,
+   "charge": 1189.65,
+   "pay_qty": 2.0,
+   "pay_rates": [
+    100
+   ],
+   "pay": 200.0
+  },
+  "ped_gates": {
+   "charge_qty": 22,
+   "charge_rate": 36.1839,
+   "charge": 796.04,
+   "pay_qty": 22,
+   "pay_rates": [
+    61
+   ],
+   "pay": 1342.0
+  },
+  "fence_blocks": {
+   "charge_qty": 216,
+   "charge_rate": 3.02,
+   "charge": 652.32,
+   "pay_qty": 0,
+   "pay_rates": [],
+   "pay": 0.0
+  },
+  "v_gates": {
+   "charge_qty": 3,
+   "charge_rate": 0,
+   "charge": 0.0,
+   "pay_qty": 219,
+   "pay_rates": [
+    50
+   ],
+   "pay": 10950.0
+  },
+  "bases": {
+   "charge_qty": 0,
+   "charge_rate": null,
+   "charge": 0.0,
+   "pay_qty": 300,
+   "pay_rates": [
+    1
+   ],
+   "pay": 300.0
+  }
+ },
+ "scrim_check": {
+  "invoiced_dockets": 115,
+  "clean_is_paper_less_scrim_and_gates": 109,
+  "scrim_m": 3977.5,
+  "charged_twice": 64279.18,
+  "charged_if_once": 340871.78,
+  "baseplan_short_if_once": 31764.95,
+  "margin_if_once": 79553.58
+ },
+ "by_week": {
+  "Week 6": {
+   "dockets": 6,
+   "approved": 0,
+   "charge": 16148.09,
+   "pay": 10869.0,
+   "extras": 0.0,
+   "notes": 0.0,
+   "adj": -1877.0,
+   "from": "2026-09-09",
+   "to": "2026-09-12"
+  },
+  "Week 5": {
+   "dockets": 29,
+   "approved": 28,
+   "charge": 52939.53,
+   "pay": 32620.5,
+   "extras": 2000.0,
+   "notes": 425.0,
+   "adj": -1375.5,
+   "from": "2026-09-14",
+   "to": "2026-09-18"
+  },
+  "Week 4": {
+   "dockets": 23,
+   "approved": 23,
+   "charge": 47656.3,
+   "pay": 24570.0,
+   "extras": 1600.0,
+   "notes": 525.0,
+   "adj": 0.0,
+   "from": "2026-09-21",
+   "to": "2026-09-25"
+  },
+  "Week 3": {
+   "dockets": 14,
+   "approved": 14,
+   "charge": 83881.22,
+   "pay": 47504.0,
+   "extras": 2000.0,
+   "notes": 650.0,
+   "adj": 0.0,
+   "from": "2026-09-28",
+   "to": "2026-10-02"
+  },
+  "Week 2": {
+   "dockets": 23,
+   "approved": 23,
+   "charge": 40810.39,
+   "pay": 25396.5,
+   "extras": 1600.0,
+   "notes": 1250.0,
+   "adj": 0.0,
+   "from": "2026-10-06",
+   "to": "2026-10-09"
+  },
+  "Week 1": {
+   "dockets": 27,
+   "approved": 27,
+   "charge": 105705.12,
+   "pay": 59658.0,
+   "extras": 5364.0,
+   "notes": 1300.0,
+   "adj": 0.0,
+   "from": "2026-10-12",
+   "to": "2026-10-16"
+  },
+  "Event Week": {
+   "dockets": 45,
+   "approved": 0,
+   "charge": 58010.31,
+   "pay": 40343.7,
+   "extras": 0.0,
+   "notes": 6700.0,
+   "adj": 0.0,
+   "from": "2026-10-19",
+   "to": "2026-10-23"
+  }
+ }
+}
