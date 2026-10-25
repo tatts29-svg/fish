@@ -1,0 +1,223 @@
+{
+  "author": "Andrew Fisher",
+  "version": "v12.14",
+  "base_sha256": "8b524dbcb293d487c04465734d03df5182a74ef75a8214c03559bf674a2066cf",
+  "candidate_sha256": "91f9006070d1269eb6e9ae807076e9146e7e52e6fbfc68a01d840f5666559a11",
+  "bytes": 15338612,
+  "toolchain_scripts": 196,
+  "preservation": {
+    "exact_live_base": true,
+    "only_pdf_and_version_changed": true,
+    "exact_one_renderer": true,
+    "second_application_refused": true,
+    "wrong_base_refused": true
+  },
+  "native_details": {
+    "passed": 10,
+    "total": 10
+  },
+  "pdf_cases": {
+    "details/checked": {
+      "pdf": {
+        "pages": 3,
+        "checks": {
+          "brand_and_identity": true,
+          "metadata_author": true,
+          "prepared_snapshot": true,
+          "all_selected_equipment": true,
+          "weights_and_dimensions": true,
+          "holds_and_doors": true,
+          "loading_and_unidentified": true,
+          "access_and_record_boundary": true,
+          "local_truck_selection": true,
+          "contents_and_ids": true,
+          "photo_captions": true,
+          "every_page_numbered": true,
+          "only_expected_navigation_links": true,
+          "qr_page_1_scans": true,
+          "qr_destination_readback": true,
+          "no_text_outside_paper": true,
+          "map_not_covered_by_heading": true,
+          "native_text": true,
+          "photo_heading_stays_with_images": true,
+          "no_orphan_pages": true
+        },
+        "passed": 20,
+        "total": 20,
+        "qr_pages": 1
+      },
+      "print": {
+        "pages": 3,
+        "photos": 5,
+        "checks": {
+          "every_photo_embedded": true,
+          "photo_numbers": true,
+          "images_inside_content": true,
+          "photo_captions_readable": true,
+          "five_photos_in_at_most_four_pages": true
+        },
+        "passed": 5,
+        "total": 5
+      }
+    },
+    "details/unchecked": {
+      "pdf": {
+        "pages": 3,
+        "checks": {
+          "brand_and_identity": true,
+          "metadata_author": true,
+          "prepared_snapshot": true,
+          "all_selected_equipment": true,
+          "weights_and_dimensions": true,
+          "holds_and_doors": true,
+          "loading_and_unidentified": true,
+          "access_and_record_boundary": true,
+          "local_truck_selection": true,
+          "contents_and_ids": true,
+          "photo_captions": true,
+          "every_page_numbered": true,
+          "only_expected_navigation_links": true,
+          "qr_page_1_scans": true,
+          "qr_destination_readback": true,
+          "no_text_outside_paper": true,
+          "map_not_covered_by_heading": true,
+          "native_text": true,
+          "photo_heading_stays_with_images": true,
+          "no_orphan_pages": true
+        },
+        "passed": 20,
+        "total": 20,
+        "qr_pages": 1
+      },
+      "print": {
+        "pages": 3,
+        "photos": 5,
+        "checks": {
+          "every_photo_embedded": true,
+          "photo_numbers": true,
+          "images_inside_content": true,
+          "photo_captions_readable": true,
+          "five_photos_in_at_most_four_pages": true
+        },
+        "passed": 5,
+        "total": 5
+      }
+    },
+    "layout/single": {
+      "pdf": {
+        "pages": 3,
+        "checks": {
+          "brand_and_identity": true,
+          "metadata_author": true,
+          "prepared_snapshot": true,
+          "all_selected_equipment": true,
+          "weights_and_dimensions": true,
+          "holds_and_doors": true,
+          "loading_and_unidentified": true,
+          "access_and_record_boundary": true,
+          "local_truck_selection": true,
+          "contents_and_ids": true,
+          "photo_captions": true,
+          "every_page_numbered": true,
+          "only_expected_navigation_links": true,
+          "qr_page_1_scans": true,
+          "qr_destination_readback": true,
+          "no_text_outside_paper": true,
+          "map_not_covered_by_heading": true,
+          "native_text": true,
+          "photo_heading_stays_with_images": true,
+          "no_orphan_pages": true
+        },
+        "passed": 20,
+        "total": 20,
+        "qr_pages": 1
+      },
+      "print": {
+        "pages": 3,
+        "photos": 5,
+        "checks": {
+          "every_photo_embedded": true,
+          "photo_numbers": true,
+          "images_inside_content": true,
+          "photo_captions_readable": true,
+          "five_photos_in_at_most_four_pages": true
+        },
+        "passed": 5,
+        "total": 5
+      }
+    },
+    "layout/multiple-long": {
+      "pdf": {
+        "pages": 8,
+        "checks": {
+          "brand_and_identity": true,
+          "metadata_author": true,
+          "prepared_snapshot": true,
+          "all_selected_equipment": true,
+          "weights_and_dimensions": true,
+          "holds_and_doors": true,
+          "loading_and_unidentified": true,
+          "access_and_record_boundary": true,
+          "local_truck_selection": true,
+          "contents_and_ids": true,
+          "photo_captions": true,
+          "every_page_numbered": true,
+          "only_expected_navigation_links": true,
+          "qr_page_2_scans": true,
+          "qr_page_6_scans": true,
+          "qr_destination_readback": true,
+          "no_text_outside_paper": true,
+          "map_not_covered_by_heading": true,
+          "native_text": true,
+          "photo_heading_stays_with_images": true,
+          "no_orphan_pages": true
+        },
+        "passed": 21,
+        "total": 21,
+        "qr_pages": 2
+      },
+      "print": {
+        "pages": 8,
+        "photos": 2,
+        "checks": {
+          "every_photo_embedded": true,
+          "photo_numbers": true,
+          "images_inside_content": true,
+          "photo_captions_readable": true
+        },
+        "passed": 4,
+        "total": 4
+      }
+    }
+  },
+  "sweeps": {
+    "desktop": {
+      "routes": 27,
+      "direct_panes": 19,
+      "deep_links": 7,
+      "errors": 0,
+      "console_errors": 0,
+      "attempted_writes": 0,
+      "back": {
+        "hash": "#plant",
+        "pane": "pane-plant"
+      }
+    },
+    "phone": {
+      "routes": 27,
+      "direct_panes": 19,
+      "deep_links": 7,
+      "errors": 0,
+      "console_errors": 0,
+      "attempted_writes": 0,
+      "back": {
+        "hash": "#plant",
+        "pane": "pane-plant"
+      }
+    }
+  },
+  "phone_and_pdf_images_inspected": true,
+  "record_writes": 0,
+  "second_agent_review": false,
+  "initial_unpinned_comparison": "Record changed during a live-polling test. Inconclusive local-mutation comparison; superseded by a fresh pinned service snapshot with all original assertions retained."
+}
