@@ -356,6 +356,47 @@
   "Temporary Fence (m) \u2014 Removal": 1108.0,
   "Vehicle Gates": 131.0
  },
+ "our_record_then": [
+  {
+   "record": 6128,
+   "dockets": 37,
+   "quantities": {
+    "ccb_demarc": 1220.0,
+    "ccb_event": 342.5,
+    "clean": 3765.0,
+    "fence_blocks": 216.0,
+    "flat_feet": 42.0,
+    "ped_gates": 4.0,
+    "scrim": 1142.5
+   }
+  },
+  {
+   "record": 6348,
+   "dockets": 38,
+   "quantities": {
+    "ccb_demarc": 1220.0,
+    "ccb_event": 342.5,
+    "clean": 3897.5,
+    "fence_blocks": 216.0,
+    "flat_feet": 42.0,
+    "ped_gates": 4.0,
+    "scrim": 1142.5
+   }
+  },
+  {
+   "record": 7185,
+   "dockets": 53,
+   "quantities": {
+    "ccb_demarc": 2355.0,
+    "ccb_event": 472.5,
+    "clean": 6207.5,
+    "fence_blocks": 216.0,
+    "flat_feet": 135.0,
+    "ped_gates": 13.0,
+    "scrim": 1212.5
+   }
+  }
+ ],
  "export_delivery_dockets": {
   "rows": 258,
   "first": "2026-09-07",

@@ -2,7 +2,8 @@
 # getting numbers from have not seen the new dockets is that why". Compares the 9990776 lines in each export with the
 # signed fencing dockets (split at 15 Oct, when the contract first appeared), the 2026 fencing programme and the export's
 # own Delivery Dockets sheet. Reads private files only; writes evidence/fencing_source.json (no names, no links).
-#   python3 fencing_source.py <private dir> [<Baseplan (5) xlsx>]
+#   python3 fencing_source.py <private dir> [<Baseplan (5) xlsx> [<record snapshot json> ...]]
+# record snapshots (private): what our record held when 9990776 was keyed, to test "did they copy our total"
 # private dir: bp7.json, bp6.json (to_json.py), page_DATA.json (the live page's DATA), fence_detail.json
 # (dump_fence_detail.cjs), fence.json (dump_fence.cjs)
 import collections, json, sys
@@ -48,6 +49,16 @@ for w in D['fencing']['week_sheets']:
     if w['phase'] != 'Deconstruction':
         for k, v in (w.get('programme_totals') or {}).items(): prog[k] += v or 0
 
+# our own record when the contract was keyed: the signed fencing dockets in by then (service notes are not red-book charges)
+then = []
+for snap in sys.argv[3:]:
+    S = json.load(open(snap)); t = collections.defaultdict(float); n = 0
+    for v in (S.get('docs', {}).get('fenceDockets') or {}).values():
+        if not isinstance(v, dict) or v.get('record_type') == 'service-work': continue
+        n += 1
+        for k, q in (v.get('quantities') or {}).items(): t[k] += float(q or 0)
+    then.append({'record': S.get('version'), 'dockets': n, 'quantities': {k: round(q, 2) for k, q in sorted(t.items())}})
+
 # the export's own Delivery Dockets sheet: Coates' trucks, not Advanced's fencing dockets
 dd = [r for r in bp7['Delivery Dockets'] if str(r.get('Hire Agreement')) == C]
 dates = sorted(str(r.get('Date Delivery'))[:10] for r in bp7['Delivery Dockets'] if r.get('Date Delivery'))
@@ -56,7 +67,7 @@ bp_total = round(sum((l['Quantity'] or 0) * (l.get('Rate 1') or l.get('Price') o
 out = {'contract': C, 'baseplan_lines_unchanged_since_15_Oct': same, 'exports': exports,
        'baseplan_fencing_total': bp_total, 'dockets': split, 'dockets_to_date': {k: round(v, 2) for k, v in sorted(ever.items())},
        'more_on_baseplan_than_every_docket': {k: [b, ever.get(d, 0)] for k, b, d in (('crowd control barrier m', fence_q(exports['(7) 25 Oct'])[7], 'ccb_event'), ('ped gates', fence_q(exports['(7) 25 Oct'])[2], 'ped_gates')) if b > ever.get(d, 0)},
-       'programme_2026_build_and_event': {k: round(v, 2) for k, v in sorted(prog.items())},
+       'programme_2026_build_and_event': {k: round(v, 2) for k, v in sorted(prog.items())}, 'our_record_then': then,
        'export_delivery_dockets': {'rows': len(bp7['Delivery Dockets']), 'first': dates[0], 'last': dates[-1], 'same_as_22_Oct': bp7['Delivery Dockets'] == bp6.get('Delivery Dockets'),
                                    'on_9990776': [{'docket': r.get('Delivery Docket'), 'date': str(r.get('Date Delivery'))[:16], 'direction': r.get('Direction')} for r in dd]}}
 (HERE / 'evidence' / 'fencing_source.json').write_text(json.dumps(out, indent=1, default=str))

@@ -120,6 +120,11 @@ How the comparison works:
   - CCB 2,375 m, flat feet 256, ped gates 33, hoarding 137 m.
 
   The lines read as an estimate keyed in once.
+- **Not copied from our page.** On 16 Oct, the day after (4), our page had:
+  - 10,335 m clean, 1,427.5 m scrim, 4,315 m demarcation;
+  - 885 m CCB, 135 flat feet, 17 ped gates, 137.5 m relocation.
+
+  That's the page's 58 embedded dockets plus the 53 on record 7185, none counted twice. Baseplan's 2,350 m CCB, 32 gates, 1,520 m relocation and 110 m hoarding appear nowhere in our data.
 - **The export's Delivery Dockets sheet is Coates' own truck dockets**, not Advanced's fencing dockets.
   - It's unchanged since 22 Oct: 258 rows, last 22 Oct.
   - Its one row on 9990776 is delivery 26138423 (19 Oct, out): the ten WB13 water barriers on line 1.
