@@ -6,7 +6,12 @@ Andrew, 26 Oct 2026: "I need full detailed list grouped. All assets. Map locatio
 Buildings will have more info and in that will include assets inside. Group these too please. Include subhire. As things go
 I'll let you know and update it to make it better."
 
-**`GC500_Asset_Offhire_Register_26Oct2026.xlsx`**, from the live site record (version 10993, read 07:46 AEST on page v12.28; the same data as the first read on v12.27):
+**`GC500_Asset_Offhire_Register_26Oct2026.xlsx`**, from the live site record (version 10994, read 08:01 AEST on page v12.28):
+
+| Version | Read | What changed |
+|---|---|---|
+| 1 | 07:46 AEST, record 10993 | First issue (same data as the first read on v12.27) |
+| 2 | 08:01 AEST, record 10994 | GN10 generator 1283681 left site 26 Oct 07:40 (`../record_26Oct2026_departures/`). Status on site reads "Left site · 26 Oct 2026 07:40" |
 
 | Sheet | What it holds |
 |---|---|

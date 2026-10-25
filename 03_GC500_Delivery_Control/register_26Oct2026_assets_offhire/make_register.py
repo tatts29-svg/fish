@@ -122,11 +122,22 @@ def where(r):
             'basis': basis, 'url': maps(lat, lon)}
 
 
+def left_at(last):
+    """The page's departure stamp '26/10/2026, 07:40:00 AEST' as '26 Oct 2026 07:40'; anything else as written."""
+    m = re.match(r'(\d{1,2})/(\d{1,2})/(\d{4}),?\s*(\d{2}):(\d{2})', str(last or ''))
+    if not m: return str(last or '')
+    d, mo, y, hh, mm = m.groups()
+    return f'{int(d)} {MONTHS[int(mo) - 1]} {y} {hh}:{mm}'
+
+
+MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+
+
 def status(r):
     dv, dep = r.get('delivery') or {}, r.get('departure') or {}
     if dv.get('state') == 'not on site': return 'Not on site'
-    if dep.get('complete'): return f'Left site · {dep.get("last") or ""}'.strip(' ·')
-    if dep.get('collected'): return f'{dep["collected"]} left, {dep.get("remaining")} still to leave · {dep.get("last") or ""}'
+    if dep.get('complete'): return f'Left site · {left_at(dep.get("last"))}'.strip(' ·')
+    if dep.get('collected'): return f'{dep["collected"]} left, {dep.get("remaining")} still to leave · {left_at(dep.get("last"))}'
     return 'Still to leave'
 
 
