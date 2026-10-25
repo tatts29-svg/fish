@@ -1,0 +1,17 @@
+PASS fencing charge 405150.96 -> 340871.73, the scrim metres off at $16.1607 docket by docket (want 340871.73)
+PASS every docket: scrim off the clean on the charge; paid only where at Advanced's rate sheet (53 dockets carry the line)
+PASS the papers' quantities are unchanged on every docket
+PASS Costs fencing category 405150.96 -> 340871.73, equal to the Fencing tab's charge
+PASS fencing cost 250273.2 -> 244173.2 (-6100 on unbilled rate-sheet dockets; paid split ties)
+PASS Today's groups unchanged: {"buildings":"52/52","toilets":"265/265","fencing":"null/null","barriers":"311/311","generators":"15/15","lighting":"6/6","vms":"24/24","equipment":"12/12"}
+PASS area clean metres unchanged (13037.5 m), no area below zero
+PASS GN20-A carries 9961976 line 6 from 30 Sep, on NVAC: {"from":"2026-09-30","off":"2026-10-26","lines":["9961976/6"],"branches":["NVAC"]}
+PASS NVAC 57104.36 -> 63945.19 (+6840.83), one more contract line
+PASS the P&L model's checks all hold and the card renders its 14 rows
+PASS the job difference moves by exactly GN20's hire, the fence charge and the fence cost: 572438.34 -> 521099.94
+PASS the register's GN20 entry says where the set went
+PASS footer .20 · v12.16
+PASS build: 0 page errors, 0 record writes
+P&L card, base : [["Hire Revenue","$223,277.89","—"],["Rehire Revenue","$462,981.91","$26,522.40"],["Transport Revenue","$205,616.13","—"],["Other Revenue","$111,984.90","—"],["Revenue · allocation pending","$19,101.60","—"],["Total Revenue","$1,022,962.43","$26,522.40"],["Transport","$108,182.65","—"],["Rehire","$301,283.18","$10,350.00"],["Other Direct Costs","$25,950.00","—"],["Total Direct Costs","$435,415.83","$10,350.00"],["Gross Margin · all in 57.4%","$587,546.60","$16,172.40"],["Labour hire and salary allowance","$82,964.27","—"],["Travel, accommodation, meals and printing","$29,273.55","—"],["Difference · all in, not a margin yet","$475,308.78","$16,172.40"]]
+P&L card, build: [["Hire Revenue","$230,118.72","—"],["Rehire Revenue","$398,702.68","$26,522.40"],["Transport Revenue","$205,616.13","—"],["Other Revenue","$111,984.90","—"],["Revenue · allocation pending","$19,101.60","—"],["Total Revenue","$965,524.03","$26,522.40"],["Transport","$108,182.65","—"],["Rehire","$295,183.18","$10,350.00"],["Other Direct Costs","$25,950.00","—"],["Total Direct Costs","$429,315.83","$10,350.00"],["Gross Margin · all in 55.5%","$536,208.20","$16,172.40"],["Labour hire and salary allowance","$82,964.27","—"],["Travel, accommodation, meals and printing","$29,273.55","—"],["Difference · all in, not a margin yet","$423,970.38","$16,172.40"]]
+14/14 phone
