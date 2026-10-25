@@ -11,6 +11,7 @@ def patch(html):
  if not m or hashlib.sha256(m[1].encode()).hexdigest()!=(HERE/'SPOT_SHA256').read_text().strip():raise ValueError('Spot source changed')
  code=m[1]
  code=rep(code,'  searchFrame1210();','  searchFrame1210();\n'+(HERE/'demob1211_frame.js').read_text()+'\n  demobFrame1211();\n'+(HERE/'departure1211_frame.js').read_text()+'\n  departureFrame1211();\n'+(HERE/'vmsicons1211_frame.js').read_text()+'\n  vmsIcons1211();','pickup frame','spot')
+ code=rep(code,'gotoRect([x0-margin,y0-margin,x1+margin,y1+margin],label);','window.fitSearch1211([x0-margin,y0-margin,x1+margin,y1+margin],label);','fit all known search positions once in geographic space','spot')
  code=rep(code,"button.disabled=!prepared||running;","button.disabled=!prepared||running;\n  window.GC500Demob1211?.attach(card,current);",'pickup button','spot')
  code=rep(code,"serial++;current=snapshot(pin);prepared=null;", "window.GC500Demob1211?.reset();serial++;current=snapshot(pin);prepared=null;",'invalidate pickup on new area','spot')
  hook="""

@@ -5,16 +5,21 @@ try{
  await p.waitForFunction(()=>document.querySelector('#expFrame')?.contentWindow?.GC500VmsIcons1211&&SYNC.status==='live',null,{timeout:180000});const f=p.frames().find(x=>x.url().includes('/explorer/index.html')),before=await p.evaluate(()=>JSON.stringify(S));
  const button=p.getByRole('button',{name:'VMS boards',exact:true});check('VMS quick finder is directly available',await button.count()===1);await button.click();await p.waitForTimeout(650);await p.evaluate(()=>expFullToggle(true));await p.waitForTimeout(400);
  check('VMS quick finder fills correct query',await p.locator('#f1176q').inputValue()==='VMS boards');
- const results=await f.evaluate(()=>{const r=GC500Search1210.search('VMS boards');return r.rows.filter(x=>x.kind==='vms'&&!x.none).length;});await p.waitForTimeout(500);
- check('all placed VMS search results have visible numbered icons',results>0&&await f.evaluate(n=>GC500VmsIcons1211.state.length===n,results));
+ const results=await f.evaluate(()=>{const r=GC500Search1210.search('VMS boards');return r.rows.filter(x=>x.kind==='vms'&&!x.none).length;});await p.waitForTimeout(900);
+ check('all placed VMS search results have visible numbered icons',results>0&&await f.evaluate(n=>{window.__vmsCount1211={results:n,icons:GC500VmsIcons1211.state.length,sw,sh,width:canvas.width,height:canvas.height,dpr,marks:marks.length,candidates:marks.filter(m=>m.it.location1210?.kind==='vms').length};return GC500VmsIcons1211.state.length===n;},results));
  check('markers use vector sign graphics and readable labels',await f.evaluate(()=>[...document.querySelectorAll('#vmsicons1211 button')].every(b=>b.querySelector('svg path')&&/^VMS /.test(b.textContent)&&b.getAttribute('aria-label').includes('show board location'))));
  check('shared-coordinate synthetic labels separate without moving anchors',await f.evaluate(()=>{const r=GC500VmsIcons1211.layout([{code:'EXAMPLE-A',x:120,y:180},{code:'EXAMPLE-B',x:120,y:180}],390,500);return r.every(x=>x.x===120&&x.y===180)&&!(r[0].left<r[1].left+76&&r[0].left+76>r[1].left&&r[0].top<r[1].top+64&&r[0].top+64>r[1].top);}));
  check('visible icon labels remain inside map viewport',await f.evaluate(()=>GC500VmsIcons1211.state.every(p=>p.left>=0&&p.top>=0&&p.left+76<=sw&&p.top+64<=sh)));
+ check('real shared pin boards have separate labels at unchanged anchors',await f.evaluate(()=>{const points=GC500VmsIcons1211.state;return points.every((a,i)=>points.slice(i+1).every(b=>Math.hypot(a.x-b.x,a.y-b.y)>.01||!(a.left<b.left+76&&a.left+76>b.left&&a.top<b.top+64&&a.top+64>b.top)));}));
+ for(const mode of ['original','satellite']){await f.evaluate(m=>{setMode(m);GC500Search1210.search('VMS boards');},mode);await p.waitForTimeout(900);check(mode+' view includes every known VMS board',await f.evaluate(n=>GC500VmsIcons1211.state.length===n,results));}
+ await f.evaluate(()=>{window.__iconNode1211=document.querySelector('#vmsicons1211 button');camera.cx+=3;changeView();});await p.waitForTimeout(150);
+ check('panning reuses sign nodes instead of rebuilding the overlay',await f.evaluate(()=>window.__iconNode1211===document.querySelector('#vmsicons1211 button')));
  await p.screenshot({path:path.join(out,'vms-all.png')});
- await f.locator('#vmsicons1211 button').first().click();await p.waitForTimeout(300);check('clicking a numbered icon selects that native board',await f.evaluate(()=>GC500VmsIcons1211.state.some(p=>p.selected&&selected?.code===p.code)));
- for(const query of ['VMS 2a','VMS 5','VMS 11']){await f.evaluate(q=>GC500Search1210.search(q),query);await p.waitForTimeout(300);check(query+' finds its labelled sign',await f.evaluate(()=>GC500VmsIcons1211.state.length>0&&GC500VmsIcons1211.state.every(p=>document.querySelector('[data-vms1211="'+p.code+'"]'))));}
+ await f.locator('#vmsicons1211 button').first().click();await p.waitForTimeout(800);check('clicking a numbered icon selects that native board',await f.evaluate(()=>GC500VmsIcons1211.state.some(p=>p.selected&&selected?.code===p.code)));
+ const queries=await f.evaluate(()=>GC500VmsIcons1211.state.slice(0,3).map(p=>p.label));
+ for(const query of queries){await f.evaluate(q=>GC500Search1210.search(q),query);await p.waitForTimeout(800);check('numbered VMS search finds its labelled sign',await f.evaluate(()=>GC500VmsIcons1211.state.length>0&&GC500VmsIcons1211.state.every(p=>document.querySelector('[data-vms1211="'+p.code+'"]'))));}
  await p.screenshot({path:path.join(out,'vms-single.png')});
- await f.evaluate(()=>GC500Search1210.search('first aid'));await p.waitForTimeout(300);check('unrelated search clears VMS overlays',await f.locator('#vmsicons1211 button').count()===0);
+ await f.evaluate(()=>GC500Search1210.search('first aid'));await p.waitForTimeout(800);check('unrelated search clears VMS overlays',await f.locator('#vmsicons1211 button').count()===0);
  check('no record mutation or runtime errors',before===await p.evaluate(()=>JSON.stringify(S))&&!h.errors.length&&!h.counts.blocked);
-}finally{await h.browser.close();}console.log(checks.length+'/'+checks.length);
+}catch(e){fs.writeFileSync(path.join(out,'failure-private.json'),JSON.stringify(await p.evaluate(()=>({errors:[],details:document.querySelector('#expFrame')?.contentWindow?.GC500VmsIcons1211?.state,count:document.querySelector('#expFrame')?.contentWindow?.__vmsCount1211})),null,2));await p.screenshot({path:path.join(out,'failure.png')});throw e;}finally{await h.browser.close();}console.log(checks.length+'/'+checks.length);
 })().catch(e=>{console.error(e);process.exit(1)});
