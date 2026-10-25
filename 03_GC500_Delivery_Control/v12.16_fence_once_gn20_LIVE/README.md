@@ -1,8 +1,9 @@
 # v12.16 The fence under the scrim charged once, and GN20 back on the P&L
 
-**READY TO UPLOAD**, 25 Oct 2026.
-- Built on live v12.15 `786142f3…`.
-- Candidate `4ab22e6b…`, 15,347,262 bytes.
+**LIVE 25 Oct 2026 14:18 AEST.**
+- Page `4ab22e6bf6a9af93c255fd3732ae8ba57f047dccfb1d3be770b4b1ac7d8d0382` (15,347,262 bytes), built on v12.15 `786142f3…`.
+- Guarded upload. The view link serves the build byte for byte; a separate public download at 14:19:00 matched every byte.
+- On the live page, `tests/test_v1216.cjs` passed 14/14 (`evidence/test_v1216_live.txt`).
 
 Author: Andrew Fisher · 25 Oct 2026
 
