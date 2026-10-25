@@ -1,0 +1,25 @@
+PASS final night starts at zero and shows lock instead of water
+PASS grouped quantity uses units and rounds down
+PASS one grouped completion is twenty of twenty-four, not one of three
+PASS duplicate transport IDs count once
+PASS different IDs and crew groups on one line count once
+PASS undo removes the last completion
+PASS undo keeps another active completion
+PASS out-of-order undo still removes its completion
+PASS void list removes completion
+PASS voided completion is excluded
+PASS wrong-line and wrong-night undo cannot cancel a job
+PASS legacy saved lock tick remains complete without a declaration
+PASS declaration retains ordinary lock counting
+PASS lock declaration invents no pump or cleaning completion
+PASS ticks from a different night do not count
+PASS previous night retains water with no lock card or chip
+PASS all lock units complete gives exactly one hundred percent
+PASS fully locked does not imply all servicing is complete
+PASS all final-night servicing retains existing completion output
+PASS areas with no lock jobs have no lock indicator
+PASS empty servicing scope has no lock indicator
+PASS zero-quantity targets never display a lock percentage
+PASS fractional percentage uses the shared floor rule
+PASS ninety-nine point nine percent never displays one hundred
+{"checks":24,"synthetic":true,"networkRequests":0,"operationalWrites":0,"fixtures":["model1223-partial.html","model1223-complete.html","model1223-previous.html","model1223-zero.html"]}

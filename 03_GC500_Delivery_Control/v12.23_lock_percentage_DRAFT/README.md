@@ -1,4 +1,4 @@
-# Main servicing lock percentage — DRAFT, not live
+# Main servicing lock percentage — READY TO UPLOAD, not live
 
 Author: Andrew Fisher
 
@@ -10,4 +10,4 @@ Only the main job list, scoped screen CSS and release footer change. Crew card, 
 
 Final base: independently fetched v12.22 `d286f3a53f56574a016cb8505d8164b7631b70ec9cc038f9ebe8cb3591afa7e4` (15,387,177 bytes), archive source `883cd964`. Candidate: `8112a63d10c5b6c88206a539af5a59dc1037176e414a95f20d253b16f844e257` (15,387,611 bytes).
 
-Shared checker passes (200 scripts), final synthetic model 24/24 and exact preservation 13/13 pass. Final native controller checks pass: phone 13/13 and desktop/tablet 15/15. All three viewport screenshots were inspected independently by Codex and a Codex review agent; lock placement, readable text and header-search visibility pass. Both required full sweeps are running. Not READY TO UPLOAD. Browser ticks are intercepted synthetic events; all live calls are read-only. Private snapshots/screenshots stay outside the repo. Codex implements/tests/publishes; a Codex review agent independently checked the model and pseudo-face fix. No Claude review of this patch claimed.
+Shared checker passes (200 scripts), final synthetic model 24/24 and exact preservation 13/13 pass. Final native controller checks pass: phone 13/13 and desktop/tablet 15/15. All three viewport screenshots were inspected independently by Codex and a Codex review agent; lock placement, readable text and header-search visibility pass. Both required full sweeps pass: 27 tabs, 19 direct panes, seven deep links and Back; zero page/console errors and zero record-write attempts. Guarded upload dry run passed against unchanged live base. READY TO UPLOAD; Codex is the publisher. Browser ticks are intercepted synthetic events; all live calls are read-only. Private snapshots/screenshots stay outside the repo. Codex implements/tests/publishes; a Codex review agent independently checked the model and pseudo-face fix. No Claude review of this patch claimed.
