@@ -114,7 +114,14 @@ def site_nums(ref): return sorted({str(u['assetNo']) for x in SC.get(ref, []) fo
 ITEM_REF = {}   # an unlabelled line named for what it is: the one reference on site with that item
 for ref, xs in SC.items():
     for x in xs: ITEM_REF.setdefault(x['item'].lower(), set()).add(ref)
-NEVER_CAME = {'1276701': "GN20's 365 kVA never came (Andrew, 22 Oct 2026: GN20 off the list; record_22Oct2026_gn20_never_came)"}
+NEVER_CAME = {'1276701': "GN20's 365 kVA: Andrew, 22 Oct 2026, \"never came to site 1276701\" (record_22Oct2026_gn20_never_came). "
+              "But Coates' docket 26102821 has it out on 30 Sep, the line is Delivered on that docket, and our record holds a photo "
+              "filed under GN20/1276701 at 14:14 that day: settle with Andrew before the branch closes the line"}
+DOCKET_NO = {str(d['Fleet item']).strip(): d['Delivery Docket'] for d in bp.get('Delivery Dockets', [])}   # number -> Coates delivery docket
+def one_slip(a, b):   # a digit changed, dropped, or two swapped
+    if len(a) == len(b): return sum(x != y for x, y in zip(a, b)) == 1 or (sorted(a) == sorted(b) and sum(x != y for x, y in zip(a, b)) == 2)
+    s, t = sorted((a, b), key=len)
+    return len(t) - len(s) == 1 and any(t[:i] + t[i + 1:] == s for i in range(len(t)))
 DATE_FIX = []   # start dates: (contract, line, what, Baseplan start, turned up, days, charged from when it goes in?, basis)
 
 # --- hire lines, one by one
@@ -155,7 +162,7 @@ for c in CONTRACTS:
         ref = None; how = None
         if n and n in NEVER_CAME:
             row['check'].append(NEVER_CAME[n]); row['pl_branch'] = cb
-            fix(c, l['Line'], 'Remove', f'{desc[:50]} ({n}) {status} at {money(l.get("Rate 1"))}', NEVER_CAME[n], 'Close the line (no charge)', cents(-(l.get('Rate 1') or 0)))
+            fix(c, l['Line'], 'Remove', f'{desc[:50]} ({n}) {status} at {money(l.get("Rate 1"))}', NEVER_CAME[n], 'Close the line (no charge) if it never came; if it came, an In docket and standby to the day it left', cents(-(l.get('Rate 1') or 0)), 'Ask Andrew')
             ROWS.append(row); continue
         if n and n in NUM: ref, how = NUM[n][0], 'asset number on the record'
         elif label == 'LT05/06': ref, how = ('LT05' if n == '1224783' else 'LT06'), 'label'
@@ -197,7 +204,12 @@ for c in CONTRACTS:
         if n and site_nums(ref) and n not in site_nums(ref) and not FITOUT.search(desc) and not re.search(r'Holding Tank|Distribution|Cable', desc, re.I) or (how == 'label' and n and not site_nums(ref) and not FITOUT.search(desc) and not re.search(r'Holding Tank|Distribution|Cable', desc, re.I)):
             sn = site_nums(ref)
             row['check'].append(f'{n} is not on {ref}; {ref} carries {", ".join(sn) or "no number"}')
-            if sn:
+            slip = [s for s in sn if s not in DOCKET_NO and one_slip(s, n)] if n in DOCKET_NO else []
+            if slip:   # Coates' own delivery docket carries the line's number: ours is the likelier slip
+                asset_fixed[ref].update(sn)
+                fix(c, l['Line'], 'Asset number', f'{ref} asset {n}', f'our record has {slip[0]}; Coates docket {DOCKET_NO[n]} has {n}, the same as this line',
+                    f'Check the unit: our {slip[0]} is probably a keying slip for {n} (correct our record, not the line)', who='Our record')
+            elif sn:
                 asset_fixed[ref].update(sn)
                 fix(c, l['Line'], 'Asset number', f'{ref} asset {n}', f'{ref} on site carries {", ".join(sn)}', 'Correct the number on the line (the site number stands)')
             else:
@@ -339,15 +351,15 @@ for g in gens:
 small = sorted(g for g in nvac_sets if SIZE.get(g, 0) <= 30); mid = sorted(g for g in nvac_sets if 30 < SIZE.get(g, 0) <= 60); large = sorted(g for g in nvac_sets if SIZE.get(g, 0) > 60)
 CH[:] = [x for x in CH if not (x[0] == '9961976' and x[1] in ('51', '53'))]
 chk('9961976', 51, 'Generator labour (up to 60 kVA)', len(small) + len(mid), f'{len(small) + len(mid)} sets up to 60 kVA on site: {", ".join(small + mid)}')
-chk('9961976', 52, 'Generator labour (large)', len(large), f'{len(large)} large set on site: {", ".join(large)} (GN20 never came)')
+chk('9961976', 52, 'Generator labour (large)', len(large), f'{len(large)} large set on site: {", ".join(large)} (GN20: Andrew said never came; docket 26102821 says 30 Sep)')
 chk('9961976', 53, 'Generator transport $300', len(small) * 2, f'{len(small)} sets up to 30 kVA ({", ".join(small)}) x 2 legs', None)
 chk('9961976', 54, 'Generator transport $450', len(mid) * 2, f'{len(mid)} sets 45-60 kVA ({", ".join(mid)}) x 2 legs')
 chk('9961976', 55, 'Generator transport $600', len(large) * 2, f'{len(large)} large set x 2 legs')
 for c, n, ours in (('9961976', 52, len(large)), ('9961976', 53, len(small) * 2)):
     l = P(c, n)
     if l.get('Quantity') != ours:
-        fix(c, n, 'Quantity', f'{l.get("Description")}: {l.get("Quantity")} x {money(l.get("Price"))}', f'{ours} on site ({", ".join(large) if n == 52 else ", ".join(small)}){"; GN20 never came" if n == 52 else ""}',
-            f'Quantity {ours}', cents((ours - l.get('Quantity')) * l.get('Price')), 'Baseplan' if n == 52 else 'Ask Andrew')
+        fix(c, n, 'Quantity', f'{l.get("Description")}: {l.get("Quantity")} x {money(l.get("Price"))}', f'{ours} on site ({", ".join(large) if n == 52 else ", ".join(small)}){"; the second is GN20, which Andrew said never came (docket 26102821 says 30 Sep)" if n == 52 else ""}',
+            f'Quantity {ours}', cents((ours - l.get('Quantity')) * l.get('Price')), 'Ask Andrew')
 vms_boards = [k for k in b913]
 chk('9961265', 40, 'VMS labour', len(vms_boards), f'{len(vms_boards)} boards')
 chk('9961265', 41, 'VMS transport', len(vms_boards) * 2, f'{len(vms_boards)} boards x 2 legs ($150 a leg is the branch figure; the card says POA)')
@@ -483,6 +495,11 @@ sheet('Charge lines', ['Contract', 'Line', 'Baseplan line', 'Baseplan qty', 'Pri
       [9, 5, 34, 9, 8, 11, 9, 11, 60, 40, 10, 9], lambda r: GRN if r[9].value == 'agrees' else AMB)
 sheet('Event labour', ['Role (C004 scope)', 'Scope hours', 'Rate', 'Scope $ (P&L)', 'P&L branch', 'Baseplan hours', 'Baseplan $', 'Baseplan lines'], EV, [30, 10, 8, 12, 9, 12, 12, 50])
 sheet('Fencing (9990776)', ['Category', 'Signed dockets (to 25 Oct)', 'Card rate', 'P&L $', 'Baseplan lines', 'Baseplan qty', 'Baseplan rate', 'Baseplan $'], FEN + [('Total', None, None, fence['charged'], '', None, None, cents(sum(f[7] or 0 for f in FEN)))], [34, 14, 10, 13, 12, 12, 12, 13])
+AC = HERE / 'evidence' / 'arrivals_check.json'   # arrivals_check.py: our record against Coates' delivery dockets
+if AC.exists():
+    A = json.load(open(AC))
+    sheet('Arrivals vs dockets', ['Check', 'Our reference', 'Coates docket', 'Docket date', 'Number', 'What', 'Ours (turned up)', 'Days ours later', 'Finding', 'Who', 'Changes a charge?'],
+          A['sheet'], [16, 16, 11, 11, 12, 34, 12, 9, 70, 10, 14], lambda r: GRN if str(r[9].value) == 'nobody' else AMB if str(r[9].value) == 'Andrew' else BLU)
 sheet('Generators', ['Contract', 'Line', 'Baseplan line', 'Asset', 'Reference', 'Turned up', 'Baseplan start', 'Baseplan rate', 'P&L charge', 'P&L basis', 'Sales code'], GEN, [9, 5, 40, 9, 8, 11, 11, 11, 11, 50, 10])
 sheet('On site, no line', ['Reference', 'Item', 'Asset no', 'Turned up', 'P&L branch'], MISS, [10, 24, 10, 12, 10])
 # what each branch's Baseplan has to move by to match the P&L: the fix list's dollar effects, on the branch the P&L charges

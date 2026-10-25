@@ -1,0 +1,2488 @@
+{
+ "source": "Baseplan (7) Delivery Dockets, 258 rows; live record 10816",
+ "agree": {
+  "same day": 38,
+  "docket closed after ours": 51,
+  "barriers matched by day": 13,
+  "vms agree or docket later": 22
+ },
+ "sheet": [
+  [
+   "Number",
+   "T0002",
+   26056582,
+   "2026-09-11",
+   "1264929",
+   "LT01 MOLENDINAR Lighting Tower LED Metro",
+   null,
+   null,
+   "name only: the towers sit on T0002 on our record (Molendinar council yard, 11 Sep)",
+   "nobody",
+   "no"
+  ],
+  [
+   "Number",
+   "T0002",
+   26056582,
+   "2026-09-11",
+   "1314284",
+   "LT02 MOLENDINAR Lighting Tower LED Metro",
+   null,
+   null,
+   "name only: as LT01",
+   "nobody",
+   "no"
+  ],
+  [
+   "Number",
+   "T0002",
+   26056582,
+   "2026-09-11",
+   "1264899",
+   "LT03 MOLENDINAR Lighting Tower LED 76500lm Hybrid",
+   null,
+   null,
+   "name only: as LT01",
+   "nobody",
+   "no"
+  ],
+  [
+   "Number",
+   "T0002",
+   26056623,
+   "2026-09-11",
+   "1188888",
+   "LT04 MOLENDINAR Lighting Tower LED Metro",
+   null,
+   null,
+   "name only: as LT01",
+   "nobody",
+   "no"
+  ],
+  [
+   "Number",
+   "GN20",
+   26102821,
+   "2026-09-30",
+   "1276701",
+   "GN20-S01-Generator 365kVA Diesel",
+   null,
+   null,
+   "not on our record",
+   "Andrew",
+   "no"
+  ],
+  [
+   "Number",
+   "GN?",
+   26121298,
+   "2026-10-12",
+   "1316182",
+   "GN26 CONCERT Generator - 200kVA (Diesel)",
+   null,
+   null,
+   "name only: the concert sets sit under their own references on our record",
+   "nobody",
+   "no"
+  ],
+  [
+   "Number",
+   "GN?",
+   26121310,
+   "2026-10-12",
+   "1316183",
+   "GN27 CONCERT-Generator - 200kVA (Diesel)",
+   null,
+   null,
+   "name only: as GN26",
+   "nobody",
+   "no"
+  ],
+  [
+   "Number",
+   "LT06",
+   26139060,
+   "2026-10-20",
+   "1224791",
+   "LT05/06-Lighting Tower POD Metro",
+   null,
+   null,
+   "name only: the tower pod sits under another reference on our record",
+   "nobody",
+   "no"
+  ],
+  [
+   "Number",
+   "P05",
+   26064095,
+   "2026-09-15",
+   "1320150",
+   "P05 Microwave Oven",
+   null,
+   null,
+   "not on our record",
+   "Andrew",
+   "no"
+  ],
+  [
+   "Number",
+   "P05",
+   26064095,
+   "2026-09-15",
+   "1127574",
+   "P05 Auto Boil",
+   null,
+   null,
+   "our record calls it Aircon; the docket says boiler",
+   "Our record",
+   "no"
+  ],
+  [
+   "Number",
+   "CP1",
+   26064099,
+   "2026-09-15",
+   "1116687",
+   "CP1 Refrigerator - Large",
+   null,
+   null,
+   "not on our record",
+   "Andrew",
+   "no"
+  ],
+  [
+   "Number",
+   "CP1",
+   26064099,
+   "2026-09-15",
+   "119810",
+   "CP1 Urn",
+   null,
+   null,
+   "not on our record",
+   "Andrew",
+   "no"
+  ],
+  [
+   "Number",
+   "P33",
+   26064103,
+   "2026-09-15",
+   "1328952",
+   "P33 Refrigerator - Large",
+   null,
+   null,
+   "keying slip: our record has 1238952 on P33",
+   "Our record",
+   "no"
+  ],
+  [
+   "Number",
+   "P09",
+   26076665,
+   "2026-09-24",
+   "1254390",
+   "P09 Auto Boil",
+   null,
+   null,
+   "not on our record",
+   "Andrew",
+   "no"
+  ],
+  [
+   "Number",
+   "HRP",
+   26085104,
+   "2026-09-17",
+   "1189410",
+   "P36 Portable Building Shell 6.0M x 3.0M - Cyclonic Rated",
+   null,
+   null,
+   "name only: our record has this shell as HRP (22 Oct review: line 93 is HRP, not P36)",
+   "nobody",
+   "no"
+  ],
+  [
+   "Number",
+   "P58",
+   26088630,
+   "2026-09-23",
+   "1273656",
+   "P44 Portable Building Shell 6.0M x 3.0M - Cyclonic Rated",
+   null,
+   null,
+   "name only: our record has this shell as P58 (22 Oct review: line 59 is P58, not P44)",
+   "nobody",
+   "no"
+  ],
+  [
+   "Number",
+   "P39",
+   26094129,
+   "2026-09-30",
+   "1272737",
+   "P38 Refrigerator - Large",
+   null,
+   null,
+   "on our record under another reference",
+   "Andrew",
+   "no"
+  ],
+  [
+   "Number",
+   "P38",
+   26094136,
+   "2026-09-30",
+   "1272755",
+   "P39 Refrigerator - Large",
+   null,
+   null,
+   "on our record under another reference",
+   "Andrew",
+   "no"
+  ],
+  [
+   "Number",
+   "P66",
+   26126001,
+   "2026-10-15",
+   "1311990",
+   "P66 Refrigerator - Large",
+   null,
+   null,
+   "keying slip: our record has 131190 on P66",
+   "Our record",
+   "no"
+  ],
+  [
+   "Number",
+   "P51",
+   26126190,
+   "2026-10-12",
+   "1328959",
+   "P46 Refrigerator - Large",
+   null,
+   null,
+   "on our record under another reference",
+   "Andrew",
+   "no"
+  ],
+  [
+   "Number",
+   "P46, P54",
+   26126190,
+   "2026-10-12",
+   "1328957",
+   "P51 Refrigerator - Large",
+   null,
+   null,
+   "on our record under another reference",
+   "Andrew",
+   "no"
+  ],
+  [
+   "Number",
+   "WC21",
+   26064136,
+   "2026-09-15",
+   "1083399",
+   "WC21 Toilet Portable - Fresh Water Flush",
+   null,
+   null,
+   "not on our record",
+   "Andrew",
+   "no"
+  ],
+  [
+   "Number",
+   "WC07",
+   26081411,
+   "2026-10-06",
+   "1317643",
+   "WC07 Toilet Portable - Fresh Water Flush",
+   null,
+   null,
+   "keying slip: our record has 1317743 on WC07",
+   "Our record",
+   "no"
+  ],
+  [
+   "Number",
+   "WC67",
+   26107560,
+   "2026-09-30",
+   "172824",
+   "WC01 Toilet Portable - Fresh Water Flush",
+   null,
+   null,
+   "placed at WC67 on our record; the docket names WC01 (where it was meant to go)",
+   "nobody",
+   "no"
+  ],
+  [
+   "Number",
+   "",
+   26135873,
+   "2026-10-16",
+   "1065384",
+   "Laserplane",
+   null,
+   null,
+   "not on our record",
+   "Andrew",
+   "no"
+  ],
+  [
+   "Number on two references",
+   "P26, P46",
+   null,
+   null,
+   "1311992",
+   "Fridge / Fridge Lge / Furniture",
+   null,
+   null,
+   "one number, two references on our record: keep the one it is on",
+   "Our record",
+   "no"
+  ],
+  [
+   "Number on two references",
+   "P28, P46",
+   null,
+   null,
+   "1283996",
+   "Fridge / Fridge Lge / Furniture",
+   null,
+   null,
+   "one number, two references on our record: keep the one it is on",
+   "Our record",
+   "no"
+  ],
+  [
+   "Number on two references",
+   "FL02, T0004",
+   null,
+   null,
+   "1197839",
+   "Access & plant / Forklift 2.5T / Other",
+   null,
+   null,
+   "one number, two references on our record: keep the one it is on",
+   "Our record",
+   "no"
+  ],
+  [
+   "Number on two references",
+   "T0001, T0103",
+   null,
+   null,
+   "1211404",
+   "VMS / vms5",
+   null,
+   null,
+   "one number, two references on our record: keep the one it is on",
+   "Our record",
+   "no"
+  ],
+  [
+   "Number on two references",
+   "P41, P62",
+   null,
+   null,
+   "1189908",
+   "Air conditioner",
+   null,
+   null,
+   "one number, two references on our record: keep the one it is on",
+   "Our record",
+   "no"
+  ],
+  [
+   "Number on two references",
+   "P46, P54",
+   null,
+   null,
+   "1328957",
+   "Fridge",
+   null,
+   null,
+   "one number, two references on our record: keep the one it is on",
+   "Our record",
+   "no"
+  ],
+  [
+   "Arrival",
+   "T0002",
+   26056582,
+   "2026-09-11",
+   "1264899",
+   "Lighting towers",
+   null,
+   null,
+   "known: the towers went to the Molendinar council yard on 11 Sep, not to site (15 Oct review)",
+   "nobody",
+   "no (charged over the event)"
+  ],
+  [
+   "Arrival",
+   "T0004",
+   26056701,
+   "2026-09-11",
+   "1197839",
+   "Access & plant",
+   null,
+   null,
+   "no arrival on our record",
+   "Andrew",
+   "yes"
+  ],
+  [
+   "Arrival",
+   "T0243",
+   26091446,
+   "2026-09-23",
+   "1311144",
+   "Toilets & amenities",
+   null,
+   null,
+   "no arrival on our record",
+   "Andrew",
+   "no (charged over the event)"
+  ],
+  [
+   "Arrival",
+   "FL02",
+   26056701,
+   "2026-09-11",
+   "1197839",
+   "Other",
+   "2026-09-25",
+   14,
+   "docket 14 day(s) before ours",
+   "Andrew",
+   "yes"
+  ],
+  [
+   "Arrival",
+   "EQ0005",
+   26122181,
+   "2026-10-13",
+   "1262224",
+   "Access & plant",
+   "2026-10-23",
+   10,
+   "docket 10 day(s) before ours",
+   "Andrew",
+   "yes"
+  ],
+  [
+   "Arrival",
+   "WC06",
+   26064136,
+   "2026-09-15",
+   "1195658",
+   "Toilets & amenities",
+   "2026-09-23",
+   8,
+   "docket 8 day(s) before ours",
+   "Our record",
+   "no (charged over the event)"
+  ],
+  [
+   "Arrival",
+   "EQ0001",
+   26133817,
+   "2026-10-19",
+   "1220903",
+   "Access & plant",
+   "2026-10-22",
+   3,
+   "docket 3 day(s) before ours",
+   "Andrew",
+   "yes"
+  ],
+  [
+   "Arrival",
+   "T0024",
+   26064235,
+   "2026-09-24",
+   "1211968",
+   "Toilets & amenities",
+   "2026-09-26",
+   2,
+   "a team reference on its own hire schedule (held out of every charge)",
+   "nobody",
+   "no (charged over the event)"
+  ],
+  [
+   "Arrival",
+   "EQ0002",
+   26141428,
+   "2026-10-21",
+   "1300290",
+   "Access & plant",
+   "2026-10-22",
+   1,
+   "docket 1 day(s) before ours",
+   "Andrew",
+   "yes"
+  ],
+  [
+   "Arrival",
+   "EQ0003",
+   26141448,
+   "2026-10-21",
+   "1286482",
+   "Access & plant",
+   "2026-10-22",
+   1,
+   "docket 1 day(s) before ours",
+   "Andrew",
+   "yes"
+  ],
+  [
+   "Arrival",
+   "P44",
+   26088639,
+   "2026-09-23",
+   "198481",
+   "Portable buildings",
+   "2026-09-24",
+   1,
+   "docket 1 day(s) before ours",
+   "Our record",
+   "no (charged over the event)"
+  ],
+  [
+   "Arrival",
+   "WC67",
+   26107560,
+   "2026-09-30",
+   "172824",
+   "Toilets & amenities",
+   "2026-10-01",
+   1,
+   "docket 1 day(s) before ours",
+   "Our record",
+   "no (charged over the event)"
+  ],
+  [
+   "Barrier arrival",
+   "no barrier reference went in that day",
+   26079322,
+   "2026-09-18",
+   "ARMORZONMASHTL2",
+   "WB03 Barrier - Crash Rated Water filled - Armorzone MASH TL2",
+   null,
+   null,
+   "a barrier docket with no matching day on our record (WB03 went in 23 Sep on ours; Baseplan has 18 Sep)",
+   "Andrew",
+   "yes"
+  ],
+  [
+   "VMS arrival",
+   "VMS09",
+   null,
+   "2026-09-07",
+   "1211404",
+   "Variable message board",
+   "2026-10-08",
+   31,
+   "docket out 2026-09-07, 2026-10-12; in 2026-10-12",
+   "Andrew",
+   "yes"
+  ],
+  [
+   "VMS arrival",
+   "VMS13",
+   null,
+   "2026-10-16",
+   "1191957",
+   "Variable message board",
+   "2026-10-19",
+   3,
+   "docket out 2026-10-16",
+   "Andrew",
+   "yes"
+  ]
+ ],
+ "numbers": [
+  {
+   "docket": 26056582,
+   "contract": 9961976,
+   "date": "2026-09-11",
+   "direction": "Out",
+   "number": "1264929",
+   "description": "LT01 MOLENDINAR Lighting Tower LED Metro",
+   "finding": "name only: the towers sit on T0002 on our record (Molendinar council yard, 11 Sep)",
+   "ours": "T0002",
+   "who": "nobody"
+  },
+  {
+   "docket": 26056582,
+   "contract": 9961976,
+   "date": "2026-09-11",
+   "direction": "Out",
+   "number": "1314284",
+   "description": "LT02 MOLENDINAR Lighting Tower LED Metro",
+   "finding": "name only: as LT01",
+   "ours": "T0002",
+   "who": "nobody"
+  },
+  {
+   "docket": 26056582,
+   "contract": 9961976,
+   "date": "2026-09-11",
+   "direction": "Out",
+   "number": "1264899",
+   "description": "LT03 MOLENDINAR Lighting Tower LED 76500lm Hybrid",
+   "finding": "name only: as LT01",
+   "ours": "T0002",
+   "who": "nobody"
+  },
+  {
+   "docket": 26056623,
+   "contract": 9961976,
+   "date": "2026-09-11",
+   "direction": "Out",
+   "number": "1188888",
+   "description": "LT04 MOLENDINAR Lighting Tower LED Metro",
+   "finding": "name only: as LT01",
+   "ours": "T0002",
+   "who": "nobody"
+  },
+  {
+   "docket": 26102821,
+   "contract": 9961976,
+   "date": "2026-09-30",
+   "direction": "Out",
+   "number": "1276701",
+   "description": "GN20-S01-Generator 365kVA Diesel",
+   "finding": "not on our record",
+   "ours": "GN20",
+   "who": "Andrew"
+  },
+  {
+   "docket": 26121298,
+   "contract": 9961976,
+   "date": "2026-10-12",
+   "direction": "Out",
+   "number": "1316182",
+   "description": "GN26 CONCERT Generator - 200kVA (Diesel)",
+   "finding": "name only: the concert sets sit under their own references on our record",
+   "ours": "GN?",
+   "who": "nobody"
+  },
+  {
+   "docket": 26121310,
+   "contract": 9961976,
+   "date": "2026-10-12",
+   "direction": "Out",
+   "number": "1316183",
+   "description": "GN27 CONCERT-Generator - 200kVA (Diesel)",
+   "finding": "name only: as GN26",
+   "ours": "GN?",
+   "who": "nobody"
+  },
+  {
+   "docket": 26139060,
+   "contract": 9961976,
+   "date": "2026-10-20",
+   "direction": "Out",
+   "number": "1224791",
+   "description": "LT05/06-Lighting Tower POD Metro",
+   "finding": "name only: the tower pod sits under another reference on our record",
+   "ours": "LT06",
+   "who": "nobody"
+  },
+  {
+   "docket": 26064095,
+   "contract": 9968862,
+   "date": "2026-09-15",
+   "direction": "Out",
+   "number": "1320150",
+   "description": "P05 Microwave Oven",
+   "finding": "not on our record",
+   "ours": "P05",
+   "who": "Andrew"
+  },
+  {
+   "docket": 26064095,
+   "contract": 9968862,
+   "date": "2026-09-15",
+   "direction": "Out",
+   "number": "1127574",
+   "description": "P05 Auto Boil",
+   "finding": "our record calls it Aircon; the docket says boiler",
+   "ours": "P05",
+   "who": "Our record"
+  },
+  {
+   "docket": 26064099,
+   "contract": 9968862,
+   "date": "2026-09-15",
+   "direction": "Out",
+   "number": "1116687",
+   "description": "CP1 Refrigerator - Large",
+   "finding": "not on our record",
+   "ours": "CP1",
+   "who": "Andrew"
+  },
+  {
+   "docket": 26064099,
+   "contract": 9968862,
+   "date": "2026-09-15",
+   "direction": "Out",
+   "number": "119810",
+   "description": "CP1 Urn",
+   "finding": "not on our record",
+   "ours": "CP1",
+   "who": "Andrew"
+  },
+  {
+   "docket": 26064103,
+   "contract": 9968862,
+   "date": "2026-09-15",
+   "direction": "Out",
+   "number": "1328952",
+   "description": "P33 Refrigerator - Large",
+   "finding": "keying slip: our record has 1238952 on P33",
+   "ours": "P33",
+   "who": "Our record"
+  },
+  {
+   "docket": 26076665,
+   "contract": 9968862,
+   "date": "2026-09-24",
+   "direction": "Out",
+   "number": "1254390",
+   "description": "P09 Auto Boil",
+   "finding": "not on our record",
+   "ours": "P09",
+   "who": "Andrew"
+  },
+  {
+   "docket": 26085104,
+   "contract": 9968862,
+   "date": "2026-09-17",
+   "direction": "Out",
+   "number": "1189410",
+   "description": "P36 Portable Building Shell 6.0M x 3.0M - Cyclonic Rated",
+   "finding": "name only: our record has this shell as HRP (22 Oct review: line 93 is HRP, not P36)",
+   "ours": "HRP",
+   "who": "nobody"
+  },
+  {
+   "docket": 26088630,
+   "contract": 9968862,
+   "date": "2026-09-23",
+   "direction": "Out",
+   "number": "1273656",
+   "description": "P44 Portable Building Shell 6.0M x 3.0M - Cyclonic Rated",
+   "finding": "name only: our record has this shell as P58 (22 Oct review: line 59 is P58, not P44)",
+   "ours": "P58",
+   "who": "nobody"
+  },
+  {
+   "docket": 26094129,
+   "contract": 9968862,
+   "date": "2026-09-30",
+   "direction": "Out",
+   "number": "1272737",
+   "description": "P38 Refrigerator - Large",
+   "finding": "on our record under another reference",
+   "ours": "P39",
+   "who": "Andrew"
+  },
+  {
+   "docket": 26094136,
+   "contract": 9968862,
+   "date": "2026-09-30",
+   "direction": "Out",
+   "number": "1272755",
+   "description": "P39 Refrigerator - Large",
+   "finding": "on our record under another reference",
+   "ours": "P38",
+   "who": "Andrew"
+  },
+  {
+   "docket": 26126001,
+   "contract": 9968862,
+   "date": "2026-10-15",
+   "direction": "Out",
+   "number": "1311990",
+   "description": "P66 Refrigerator - Large",
+   "finding": "keying slip: our record has 131190 on P66",
+   "ours": "P66",
+   "who": "Our record"
+  },
+  {
+   "docket": 26126190,
+   "contract": 9968862,
+   "date": "2026-10-12",
+   "direction": "Out",
+   "number": "1328959",
+   "description": "P46 Refrigerator - Large",
+   "finding": "on our record under another reference",
+   "ours": "P51",
+   "who": "Andrew"
+  },
+  {
+   "docket": 26126190,
+   "contract": 9968862,
+   "date": "2026-10-12",
+   "direction": "Out",
+   "number": "1328957",
+   "description": "P51 Refrigerator - Large",
+   "finding": "on our record under another reference",
+   "ours": "P46, P54",
+   "who": "Andrew"
+  },
+  {
+   "docket": 26064136,
+   "contract": 9968955,
+   "date": "2026-09-15",
+   "direction": "Out",
+   "number": "1083399",
+   "description": "WC21 Toilet Portable - Fresh Water Flush",
+   "finding": "not on our record",
+   "ours": "WC21",
+   "who": "Andrew"
+  },
+  {
+   "docket": 26081411,
+   "contract": 9968955,
+   "date": "2026-10-06",
+   "direction": "Out",
+   "number": "1317643",
+   "description": "WC07 Toilet Portable - Fresh Water Flush",
+   "finding": "keying slip: our record has 1317743 on WC07",
+   "ours": "WC07",
+   "who": "Our record"
+  },
+  {
+   "docket": 26107560,
+   "contract": 9968955,
+   "date": "2026-09-30",
+   "direction": "Out",
+   "number": "172824",
+   "description": "WC01 Toilet Portable - Fresh Water Flush",
+   "finding": "placed at WC67 on our record; the docket names WC01 (where it was meant to go)",
+   "ours": "WC67",
+   "who": "nobody"
+  },
+  {
+   "docket": 26135873,
+   "contract": 9987005,
+   "date": "2026-10-16",
+   "direction": "Out",
+   "number": "1065384",
+   "description": "Laserplane",
+   "finding": "not on our record",
+   "ours": "",
+   "who": "Andrew"
+  }
+ ],
+ "on_two_references": [
+  {
+   "number": "1311992",
+   "references": [
+    "P26",
+    "P46"
+   ],
+   "what": [
+    "Fridge",
+    "Fridge Lge",
+    "Furniture"
+   ]
+  },
+  {
+   "number": "1283996",
+   "references": [
+    "P28",
+    "P46"
+   ],
+   "what": [
+    "Fridge",
+    "Fridge Lge",
+    "Furniture"
+   ]
+  },
+  {
+   "number": "1197839",
+   "references": [
+    "FL02",
+    "T0004"
+   ],
+   "what": [
+    "Access & plant",
+    "Forklift 2.5T",
+    "Other"
+   ]
+  },
+  {
+   "number": "1211404",
+   "references": [
+    "T0001",
+    "T0103"
+   ],
+   "what": [
+    "VMS",
+    "vms5"
+   ]
+  },
+  {
+   "number": "1189908",
+   "references": [
+    "P41",
+    "P62"
+   ],
+   "what": [
+    "Air conditioner"
+   ]
+  },
+  {
+   "number": "1328957",
+   "references": [
+    "P46",
+    "P54"
+   ],
+   "what": [
+    "Fridge"
+   ]
+  }
+ ],
+ "arrivals": [
+  {
+   "reference": "CP1",
+   "discipline": "Portable buildings",
+   "ours": "2026-09-14",
+   "docket_date": "2026-09-15",
+   "docket": 26064099,
+   "number": "1105057",
+   "days_ours_minus_docket": -1,
+   "verdict": "docket closed 1 day(s) after ours",
+   "charged_from_arrival": false
+  },
+  {
+   "reference": "EQ0001",
+   "discipline": "Access & plant",
+   "ours": "2026-10-22",
+   "docket_date": "2026-10-19",
+   "docket": 26133817,
+   "number": "1220903",
+   "days_ours_minus_docket": 3,
+   "verdict": "docket 3 day(s) before ours",
+   "charged_from_arrival": true
+  },
+  {
+   "reference": "EQ0002",
+   "discipline": "Access & plant",
+   "ours": "2026-10-22",
+   "docket_date": "2026-10-21",
+   "docket": 26141428,
+   "number": "1300290",
+   "days_ours_minus_docket": 1,
+   "verdict": "docket 1 day(s) before ours",
+   "charged_from_arrival": true
+  },
+  {
+   "reference": "EQ0003",
+   "discipline": "Access & plant",
+   "ours": "2026-10-22",
+   "docket_date": "2026-10-21",
+   "docket": 26141448,
+   "number": "1286482",
+   "days_ours_minus_docket": 1,
+   "verdict": "docket 1 day(s) before ours",
+   "charged_from_arrival": true
+  },
+  {
+   "reference": "EQ0005",
+   "discipline": "Access & plant",
+   "ours": "2026-10-23",
+   "docket_date": "2026-10-13",
+   "docket": 26122181,
+   "number": "1262224",
+   "days_ours_minus_docket": 10,
+   "verdict": "docket 10 day(s) before ours",
+   "charged_from_arrival": true
+  },
+  {
+   "reference": "FL02",
+   "discipline": "Other",
+   "ours": "2026-09-25",
+   "docket_date": "2026-09-11",
+   "docket": 26056701,
+   "number": "1197839",
+   "days_ours_minus_docket": 14,
+   "verdict": "docket 14 day(s) before ours",
+   "charged_from_arrival": true
+  },
+  {
+   "reference": "FL03",
+   "discipline": "Other",
+   "ours": "2026-10-16",
+   "docket_date": "2026-10-16",
+   "docket": 26133345,
+   "number": "1321364",
+   "days_ours_minus_docket": 0,
+   "verdict": "same day",
+   "charged_from_arrival": true
+  },
+  {
+   "reference": "FL04",
+   "discipline": "Other",
+   "ours": "2026-10-16",
+   "docket_date": "2026-10-16",
+   "docket": 26133373,
+   "number": "1298390",
+   "days_ours_minus_docket": 0,
+   "verdict": "same day",
+   "charged_from_arrival": true
+  },
+  {
+   "reference": "GN01",
+   "discipline": "Generators",
+   "ours": "2026-09-28",
+   "docket_date": "2026-09-28",
+   "docket": 26098710,
+   "number": "1276507",
+   "days_ours_minus_docket": 0,
+   "verdict": "same day",
+   "charged_from_arrival": true
+  },
+  {
+   "reference": "GN03",
+   "discipline": "Generators",
+   "ours": "2026-10-01",
+   "docket_date": "2026-10-01",
+   "docket": 26102891,
+   "number": "1320829",
+   "days_ours_minus_docket": 0,
+   "verdict": "same day",
+   "charged_from_arrival": true
+  },
+  {
+   "reference": "GN04",
+   "discipline": "Generators",
+   "ours": "2026-10-19",
+   "docket_date": "2026-10-19",
+   "docket": 26133589,
+   "number": "1277400",
+   "days_ours_minus_docket": 0,
+   "verdict": "same day",
+   "charged_from_arrival": true
+  },
+  {
+   "reference": "GN06",
+   "discipline": "Generators",
+   "ours": "2026-10-15",
+   "docket_date": "2026-10-16",
+   "docket": 26130091,
+   "number": "1320828",
+   "days_ours_minus_docket": -1,
+   "verdict": "docket closed 1 day(s) after ours",
+   "charged_from_arrival": true
+  },
+  {
+   "reference": "GN10",
+   "discipline": "Generators",
+   "ours": "2026-10-19",
+   "docket_date": "2026-10-19",
+   "docket": 26138802,
+   "number": "1283681",
+   "days_ours_minus_docket": 0,
+   "verdict": "same day",
+   "charged_from_arrival": true
+  },
+  {
+   "reference": "GN13",
+   "discipline": "Generators",
+   "ours": "2026-10-12",
+   "docket_date": "2026-10-12",
+   "docket": 26123259,
+   "number": "1276503",
+   "days_ours_minus_docket": 0,
+   "verdict": "same day",
+   "charged_from_arrival": true
+  },
+  {
+   "reference": "GN18",
+   "discipline": "Generators",
+   "ours": "2026-10-07",
+   "docket_date": "2026-10-09",
+   "docket": 26112495,
+   "number": "1261273",
+   "days_ours_minus_docket": -2,
+   "verdict": "docket closed 2 day(s) after ours",
+   "charged_from_arrival": true
+  },
+  {
+   "reference": "GN19",
+   "discipline": "Generators",
+   "ours": "2026-10-19",
+   "docket_date": "2026-10-19",
+   "docket": 26133589,
+   "number": "1276416",
+   "days_ours_minus_docket": 0,
+   "verdict": "same day",
+   "charged_from_arrival": true
+  },
+  {
+   "reference": "GN21",
+   "discipline": "Generators",
+   "ours": "2026-09-30",
+   "docket_date": "2026-09-30",
+   "docket": 26102852,
+   "number": "1261284",
+   "days_ours_minus_docket": 0,
+   "verdict": "same day",
+   "charged_from_arrival": true
+  },
+  {
+   "reference": "GN23",
+   "discipline": "Generators",
+   "ours": "2026-09-30",
+   "docket_date": "2026-09-30",
+   "docket": 26103394,
+   "number": "1189078",
+   "days_ours_minus_docket": 0,
+   "verdict": "same day",
+   "charged_from_arrival": true
+  },
+  {
+   "reference": "GN24",
+   "discipline": "Generators",
+   "ours": "2026-10-19",
+   "docket_date": "2026-10-19",
+   "docket": 26134440,
+   "number": "1277089",
+   "days_ours_minus_docket": 0,
+   "verdict": "same day",
+   "charged_from_arrival": true
+  },
+  {
+   "reference": "GN25",
+   "discipline": "Generators",
+   "ours": "2026-10-19",
+   "docket_date": "2026-10-19",
+   "docket": 26134523,
+   "number": "1244536",
+   "days_ours_minus_docket": 0,
+   "verdict": "same day",
+   "charged_from_arrival": true
+  },
+  {
+   "reference": "GN?",
+   "discipline": "Generators",
+   "ours": "2026-10-12",
+   "docket_date": "2026-10-12",
+   "docket": 26121298,
+   "number": "1316182",
+   "days_ours_minus_docket": 0,
+   "verdict": "same day",
+   "charged_from_arrival": true
+  },
+  {
+   "reference": "HRP",
+   "discipline": "Portable buildings",
+   "ours": "2026-09-17",
+   "docket_date": "2026-09-17",
+   "docket": 26085104,
+   "number": "1189410",
+   "days_ours_minus_docket": 0,
+   "verdict": "same day",
+   "charged_from_arrival": false
+  },
+  {
+   "reference": "LT05",
+   "discipline": "Lighting towers",
+   "ours": "2026-10-20",
+   "docket_date": "2026-10-20",
+   "docket": 26139060,
+   "number": "1224783",
+   "days_ours_minus_docket": 0,
+   "verdict": "same day",
+   "charged_from_arrival": false
+  },
+  {
+   "reference": "LT06",
+   "discipline": "Lighting towers",
+   "ours": "2026-10-20",
+   "docket_date": "2026-10-20",
+   "docket": 26139060,
+   "number": "1224791",
+   "days_ours_minus_docket": 0,
+   "verdict": "same day",
+   "charged_from_arrival": false
+  },
+  {
+   "reference": "P01",
+   "discipline": "Portable buildings",
+   "ours": "2026-09-14",
+   "docket_date": "2026-09-15",
+   "docket": 26064071,
+   "number": "1322583",
+   "days_ours_minus_docket": -1,
+   "verdict": "docket closed 1 day(s) after ours",
+   "charged_from_arrival": false
+  },
+  {
+   "reference": "P03",
+   "discipline": "Portable buildings",
+   "ours": "2026-09-14",
+   "docket_date": "2026-09-15",
+   "docket": 26064081,
+   "number": "1328955",
+   "days_ours_minus_docket": -1,
+   "verdict": "docket closed 1 day(s) after ours",
+   "charged_from_arrival": false
+  },
+  {
+   "reference": "P04",
+   "discipline": "Portable buildings",
+   "ours": "2026-09-14",
+   "docket_date": "2026-09-15",
+   "docket": 26064087,
+   "number": "1327213",
+   "days_ours_minus_docket": -1,
+   "verdict": "docket closed 1 day(s) after ours",
+   "charged_from_arrival": false
+  },
+  {
+   "reference": "P05",
+   "discipline": "Portable buildings",
+   "ours": "2026-09-14",
+   "docket_date": "2026-09-15",
+   "docket": 26064095,
+   "number": "1127574",
+   "days_ours_minus_docket": -1,
+   "verdict": "docket closed 1 day(s) after ours",
+   "charged_from_arrival": false
+  },
+  {
+   "reference": "P06",
+   "discipline": "Portable buildings",
+   "ours": "2026-09-28",
+   "docket_date": "2026-09-30",
+   "docket": 26094121,
+   "number": "1087453",
+   "days_ours_minus_docket": -2,
+   "verdict": "docket closed 2 day(s) after ours",
+   "charged_from_arrival": false
+  },
+  {
+   "reference": "P08",
+   "discipline": "Portable buildings",
+   "ours": "2026-10-06",
+   "docket_date": "2026-10-12",
+   "docket": 26106201,
+   "number": "1114312",
+   "days_ours_minus_docket": -6,
+   "verdict": "docket closed 6 day(s) after ours",
+   "charged_from_arrival": false
+  },
+  {
+   "reference": "P09",
+   "discipline": "Portable buildings",
+   "ours": "2026-09-16",
+   "docket_date": "2026-09-24",
+   "docket": 26076665,
+   "number": "1268824",
+   "days_ours_minus_docket": -8,
+   "verdict": "docket closed 8 day(s) after ours",
+   "charged_from_arrival": false
+  },
+  {
+   "reference": "P10",
+   "discipline": "Portable buildings",
+   "ours": "2026-09-17",
+   "docket_date": "2026-09-18",
+   "docket": 26077073,
+   "number": "105626",
+   "days_ours_minus_docket": -1,
+   "verdict": "docket closed 1 day(s) after ours",
+   "charged_from_arrival": false
+  },
+  {
+   "reference": "P11",
+   "discipline": "Portable buildings",
+   "ours": "2026-09-17",
+   "docket_date": "2026-09-18",
+   "docket": 26077081,
+   "number": "415576",
+   "days_ours_minus_docket": -1,
+   "verdict": "docket closed 1 day(s) after ours",
+   "charged_from_arrival": false
+  },
+  {
+   "reference": "P12",
+   "discipline": "Portable buildings",
+   "ours": "2026-09-17",
+   "docket_date": "2026-09-18",
+   "docket": 26077088,
+   "number": "418665",
+   "days_ours_minus_docket": -1,
+   "verdict": "docket closed 1 day(s) after ours",
+   "charged_from_arrival": false
+  },
+  {
+   "reference": "P13",
+   "discipline": "Portable buildings",
+   "ours": "2026-09-21",
+   "docket_date": "2026-09-23",
+   "docket": 26081372,
+   "number": "1097346",
+   "days_ours_minus_docket": -2,
+   "verdict": "docket closed 2 day(s) after ours",
+   "charged_from_arrival": false
+  },
+  {
+   "reference": "P14",
+   "discipline": "Portable buildings",
+   "ours": "2026-09-21",
+   "docket_date": "2026-09-23",
+   "docket": 26081383,
+   "number": "960599",
+   "days_ours_minus_docket": -2,
+   "verdict": "docket closed 2 day(s) after ours",
+   "charged_from_arrival": false
+  },
+  {
+   "reference": "P15",
+   "discipline": "Portable buildings",
+   "ours": "2026-09-21",
+   "docket_date": "2026-09-23",
+   "docket": 26081392,
+   "number": "1097345",
+   "days_ours_minus_docket": -2,
+   "verdict": "docket closed 2 day(s) after ours",
+   "charged_from_arrival": false
+  },
+  {
+   "reference": "P16",
+   "discipline": "Portable buildings",
+   "ours": "2026-09-21",
+   "docket_date": "2026-09-23",
+   "docket": 26081396,
+   "number": "415575",
+   "days_ours_minus_docket": -2,
+   "verdict": "docket closed 2 day(s) after ours",
+   "charged_from_arrival": false
+  },
+  {
+   "reference": "P17",
+   "discipline": "Portable buildings",
+   "ours": "2026-09-16",
+   "docket_date": "2026-09-16",
+   "docket": 26076826,
+   "number": "1268887",
+   "days_ours_minus_docket": 0,
+   "verdict": "same day",
+   "charged_from_arrival": false
+  },
+  {
+   "reference": "P18",
+   "discipline": "Portable buildings",
+   "ours": "2026-09-16",
+   "docket_date": "2026-09-16",
+   "docket": 26076747,
+   "number": "1097343",
+   "days_ours_minus_docket": 0,
+   "verdict": "same day",
+   "charged_from_arrival": false
+  },
+  {
+   "reference": "P19",
+   "discipline": "Portable buildings",
+   "ours": "2026-09-16",
+   "docket_date": "2026-09-16",
+   "docket": 26076816,
+   "number": "1110619",
+   "days_ours_minus_docket": 0,
+   "verdict": "same day",
+   "charged_from_arrival": false
+  },
+  {
+   "reference": "P20",
+   "discipline": "Portable buildings",
+   "ours": "2026-09-16",
+   "docket_date": "2026-09-17",
+   "docket": 26076698,
+   "number": "1097339",
+   "days_ours_minus_docket": -1,
+   "verdict": "docket closed 1 day(s) after ours",
+   "charged_from_arrival": false
+  },
+  {
+   "reference": "P21",
+   "discipline": "Portable buildings",
+   "ours": "2026-09-16",
+   "docket_date": "2026-09-17",
+   "docket": 26076820,
+   "number": "1327220",
+   "days_ours_minus_docket": -1,
+   "verdict": "docket closed 1 day(s) after ours",
+   "charged_from_arrival": false
+  },
+  {
+   "reference": "P25",
+   "discipline": "Portable buildings",
+   "ours": "2026-10-14",
+   "docket_date": "2026-10-15",
+   "docket": 26125993,
+   "number": "1189408",
+   "days_ours_minus_docket": -1,
+   "verdict": "docket closed 1 day(s) after ours",
+   "charged_from_arrival": false
+  },
+  {
+   "reference": "P26",
+   "discipline": "Furniture",
+   "ours": "2026-10-14",
+   "docket_date": "2026-10-20",
+   "docket": 26141713,
+   "number": "1311992",
+   "days_ours_minus_docket": -6,
+   "verdict": "docket closed 6 day(s) after ours",
+   "charged_from_arrival": false
+  },
+  {
+   "reference": "P28",
+   "discipline": "Furniture",
+   "ours": "2026-10-14",
+   "docket_date": "2026-10-20",
+   "docket": 26141713,
+   "number": "1283996",
+   "days_ours_minus_docket": -6,
+   "verdict": "docket closed 6 day(s) after ours",
+   "charged_from_arrival": false
+  },
+  {
+   "reference": "P33",
+   "discipline": "Portable buildings",
+   "ours": "2026-09-14",
+   "docket_date": "2026-09-15",
+   "docket": 26064103,
+   "number": "453375",
+   "days_ours_minus_docket": -1,
+   "verdict": "docket closed 1 day(s) after ours",
+   "charged_from_arrival": false
+  },
+  {
+   "reference": "P37",
+   "discipline": "Portable buildings",
+   "ours": "2026-09-17",
+   "docket_date": "2026-09-17",
+   "docket": 26077069,
+   "number": "1105053",
+   "days_ours_minus_docket": 0,
+   "verdict": "same day",
+   "charged_from_arrival": false
+  },
+  {
+   "reference": "P38",
+   "discipline": "Portable buildings",
+   "ours": "2026-09-28",
+   "docket_date": "2026-09-30",
+   "docket": 26094129,
+   "number": "1327218",
+   "days_ours_minus_docket": -2,
+   "verdict": "docket closed 2 day(s) after ours",
+   "charged_from_arrival": false
+  },
+  {
+   "reference": "P39",
+   "discipline": "Portable buildings",
+   "ours": "2026-09-28",
+   "docket_date": "2026-09-30",
+   "docket": 26094129,
+   "number": "1272737",
+   "days_ours_minus_docket": -2,
+   "verdict": "docket closed 2 day(s) after ours",
+   "charged_from_arrival": false
+  },
+  {
+   "reference": "P41",
+   "discipline": "Portable buildings",
+   "ours": "2026-09-22",
+   "docket_date": "2026-09-24",
+   "docket": 26088652,
+   "number": "1189412",
+   "days_ours_minus_docket": -2,
+   "verdict": "docket closed 2 day(s) after ours",
+   "charged_from_arrival": false
+  },
+  {
+   "reference": "P42",
+   "discipline": "Portable buildings",
+   "ours": "2026-09-28",
+   "docket_date": "2026-09-30",
+   "docket": 26094139,
+   "number": "1272746",
+   "days_ours_minus_docket": -2,
+   "verdict": "docket closed 2 day(s) after ours",
+   "charged_from_arrival": false
+  },
+  {
+   "reference": "P44",
+   "discipline": "Portable buildings",
+   "ours": "2026-09-24",
+   "docket_date": "2026-09-23",
+   "docket": 26088639,
+   "number": "198481",
+   "days_ours_minus_docket": 1,
+   "verdict": "docket 1 day(s) before ours",
+   "charged_from_arrival": false
+  },
+  {
+   "reference": "P45",
+   "discipline": "Portable buildings",
+   "ours": "2026-10-12",
+   "docket_date": "2026-10-12",
+   "docket": 26122823,
+   "number": "107135",
+   "days_ours_minus_docket": 0,
+   "verdict": "same day",
+   "charged_from_arrival": false
+  },
+  {
+   "reference": "P46",
+   "discipline": "Portable buildings",
+   "ours": "2026-10-06",
+   "docket_date": "2026-10-06",
+   "docket": 26106178,
+   "number": "1327215",
+   "days_ours_minus_docket": 0,
+   "verdict": "same day",
+   "charged_from_arrival": false
+  },
+  {
+   "reference": "P51",
+   "discipline": "Portable buildings",
+   "ours": "2026-10-06",
+   "docket_date": "2026-10-12",
+   "docket": 26106162,
+   "number": "1322579",
+   "days_ours_minus_docket": -6,
+   "verdict": "docket closed 6 day(s) after ours",
+   "charged_from_arrival": false
+  },
+  {
+   "reference": "P52",
+   "discipline": "Portable buildings",
+   "ours": "2026-10-07",
+   "docket_date": "2026-10-12",
+   "docket": 26112762,
+   "number": "1327211",
+   "days_ours_minus_docket": -5,
+   "verdict": "docket closed 5 day(s) after ours",
+   "charged_from_arrival": false
+  },
+  {
+   "reference": "P54",
+   "discipline": "Portable buildings",
+   "ours": "2026-10-07",
+   "docket_date": "2026-10-12",
+   "docket": 26112733,
+   "number": "1327219",
+   "days_ours_minus_docket": -5,
+   "verdict": "docket closed 5 day(s) after ours",
+   "charged_from_arrival": false
+  },
+  {
+   "reference": "P55",
+   "discipline": "Portable buildings",
+   "ours": "2026-10-07",
+   "docket_date": "2026-10-12",
+   "docket": 26112709,
+   "number": "172114",
+   "days_ours_minus_docket": -5,
+   "verdict": "docket closed 5 day(s) after ours",
+   "charged_from_arrival": false
+  },
+  {
+   "reference": "P56",
+   "discipline": "Portable buildings",
+   "ours": "2026-10-07",
+   "docket_date": "2026-10-07",
+   "docket": 26112730,
+   "number": "1268865",
+   "days_ours_minus_docket": 0,
+   "verdict": "same day",
+   "charged_from_arrival": false
+  },
+  {
+   "reference": "P57",
+   "discipline": "Portable buildings",
+   "ours": "2026-10-07",
+   "docket_date": "2026-10-12",
+   "docket": 26112756,
+   "number": "1268888",
+   "days_ours_minus_docket": -5,
+   "verdict": "docket closed 5 day(s) after ours",
+   "charged_from_arrival": false
+  },
+  {
+   "reference": "P58",
+   "discipline": "Portable buildings",
+   "ours": "2026-09-23",
+   "docket_date": "2026-09-23",
+   "docket": 26088630,
+   "number": "1273656",
+   "days_ours_minus_docket": 0,
+   "verdict": "same day",
+   "charged_from_arrival": false
+  },
+  {
+   "reference": "P60",
+   "discipline": "Portable buildings",
+   "ours": "2026-10-15",
+   "docket_date": "2026-10-15",
+   "docket": 26129333,
+   "number": "1015699",
+   "days_ours_minus_docket": 0,
+   "verdict": "same day",
+   "charged_from_arrival": false
+  },
+  {
+   "reference": "P62",
+   "discipline": "Portable buildings",
+   "ours": "2026-10-15",
+   "docket_date": "2026-10-15",
+   "docket": 26129321,
+   "number": "1189409",
+   "days_ours_minus_docket": 0,
+   "verdict": "same day",
+   "charged_from_arrival": false
+  },
+  {
+   "reference": "P63",
+   "discipline": "Portable buildings",
+   "ours": "2026-10-15",
+   "docket_date": "2026-10-15",
+   "docket": 26129310,
+   "number": "960719",
+   "days_ours_minus_docket": 0,
+   "verdict": "same day",
+   "charged_from_arrival": false
+  },
+  {
+   "reference": "P65",
+   "discipline": "Portable buildings",
+   "ours": "2026-10-14",
+   "docket_date": "2026-10-15",
+   "docket": 26126006,
+   "number": "1283982",
+   "days_ours_minus_docket": -1,
+   "verdict": "docket closed 1 day(s) after ours",
+   "charged_from_arrival": false
+  },
+  {
+   "reference": "P66",
+   "discipline": "Portable buildings",
+   "ours": "2026-10-14",
+   "docket_date": "2026-10-15",
+   "docket": 26126001,
+   "number": "1327222",
+   "days_ours_minus_docket": -1,
+   "verdict": "docket closed 1 day(s) after ours",
+   "charged_from_arrival": false
+  },
+  {
+   "reference": "P67",
+   "discipline": "Portable buildings",
+   "ours": "2026-10-14",
+   "docket_date": "2026-10-15",
+   "docket": 26126016,
+   "number": "421107",
+   "days_ours_minus_docket": -1,
+   "verdict": "docket closed 1 day(s) after ours",
+   "charged_from_arrival": false
+  },
+  {
+   "reference": "P69",
+   "discipline": "Portable buildings",
+   "ours": "2026-10-12",
+   "docket_date": "2026-10-12",
+   "docket": 26120550,
+   "number": "107247",
+   "days_ours_minus_docket": 0,
+   "verdict": "same day",
+   "charged_from_arrival": false
+  },
+  {
+   "reference": "T0002",
+   "discipline": "Lighting towers",
+   "ours": null,
+   "docket_date": "2026-09-11",
+   "docket": 26056582,
+   "number": "1264899",
+   "days_ours_minus_docket": null,
+   "verdict": "known: the towers went to the Molendinar council yard on 11 Sep, not to site (15 Oct review)",
+   "charged_from_arrival": false,
+   "known": true
+  },
+  {
+   "reference": "T0004",
+   "discipline": "Access & plant",
+   "ours": null,
+   "docket_date": "2026-09-11",
+   "docket": 26056701,
+   "number": "1197839",
+   "days_ours_minus_docket": null,
+   "verdict": "no arrival on our record",
+   "charged_from_arrival": true
+  },
+  {
+   "reference": "T0005",
+   "discipline": "Access & plant",
+   "ours": "2026-09-14",
+   "docket_date": "2026-09-14",
+   "docket": 26058104,
+   "number": "1247787",
+   "days_ours_minus_docket": 0,
+   "verdict": "same day",
+   "charged_from_arrival": true
+  },
+  {
+   "reference": "T0021",
+   "discipline": "Portable buildings",
+   "ours": "2026-09-16",
+   "docket_date": "2026-09-24",
+   "docket": 26064235,
+   "number": "960639",
+   "days_ours_minus_docket": -8,
+   "verdict": "docket closed 8 day(s) after ours",
+   "charged_from_arrival": false
+  },
+  {
+   "reference": "T0022",
+   "discipline": "Portable buildings",
+   "ours": "2026-09-15",
+   "docket_date": "2026-09-15",
+   "docket": 26064243,
+   "number": "960634",
+   "days_ours_minus_docket": 0,
+   "verdict": "same day",
+   "charged_from_arrival": false
+  },
+  {
+   "reference": "T0024",
+   "discipline": "Toilets & amenities",
+   "ours": "2026-09-26",
+   "docket_date": "2026-09-24",
+   "docket": 26064235,
+   "number": "1211968",
+   "days_ours_minus_docket": 2,
+   "verdict": "a team reference on its own hire schedule (held out of every charge)",
+   "charged_from_arrival": false,
+   "known": true
+  },
+  {
+   "reference": "T0085",
+   "discipline": "Access & plant",
+   "ours": "2026-09-28",
+   "docket_date": "2026-10-06",
+   "docket": 26116726,
+   "number": "1272166",
+   "days_ours_minus_docket": -8,
+   "verdict": "docket closed 8 day(s) after ours",
+   "charged_from_arrival": true
+  },
+  {
+   "reference": "T0109",
+   "discipline": "Access & plant",
+   "ours": "2026-09-28",
+   "docket_date": "2026-10-13",
+   "docket": 26127228,
+   "number": "1281615",
+   "days_ours_minus_docket": -15,
+   "verdict": "docket closed 15 day(s) after ours",
+   "charged_from_arrival": true
+  },
+  {
+   "reference": "T0243",
+   "discipline": "Toilets & amenities",
+   "ours": null,
+   "docket_date": "2026-09-23",
+   "docket": 26091446,
+   "number": "1311144",
+   "days_ours_minus_docket": null,
+   "verdict": "no arrival on our record",
+   "charged_from_arrival": false
+  },
+  {
+   "reference": "T0258",
+   "discipline": "Portable buildings",
+   "ours": "2026-10-07",
+   "docket_date": "2026-10-12",
+   "docket": 26112749,
+   "number": "1134386",
+   "days_ours_minus_docket": -5,
+   "verdict": "docket closed 5 day(s) after ours",
+   "charged_from_arrival": false
+  },
+  {
+   "reference": "WC01",
+   "discipline": "Toilets & amenities",
+   "ours": "2026-09-28",
+   "docket_date": "2026-09-30",
+   "docket": 26088657,
+   "number": "1211958",
+   "days_ours_minus_docket": -2,
+   "verdict": "docket closed 2 day(s) after ours",
+   "charged_from_arrival": false
+  },
+  {
+   "reference": "WC02",
+   "discipline": "Toilets & amenities",
+   "ours": "2026-09-22",
+   "docket_date": "2026-09-23",
+   "docket": 26081426,
+   "number": "1058086",
+   "days_ours_minus_docket": -1,
+   "verdict": "docket closed 1 day(s) after ours",
+   "charged_from_arrival": false
+  },
+  {
+   "reference": "WC04",
+   "discipline": "Toilets & amenities",
+   "ours": "2026-09-22",
+   "docket_date": "2026-09-23",
+   "docket": 26081422,
+   "number": "1212502",
+   "days_ours_minus_docket": -1,
+   "verdict": "docket closed 1 day(s) after ours",
+   "charged_from_arrival": false
+  },
+  {
+   "reference": "WC05",
+   "discipline": "Toilets & amenities",
+   "ours": "2026-09-14",
+   "docket_date": "2026-09-14",
+   "docket": 26067317,
+   "number": "1097377",
+   "days_ours_minus_docket": 0,
+   "verdict": "same day",
+   "charged_from_arrival": false
+  },
+  {
+   "reference": "WC06",
+   "discipline": "Toilets & amenities",
+   "ours": "2026-09-23",
+   "docket_date": "2026-09-15",
+   "docket": 26064136,
+   "number": "1195658",
+   "days_ours_minus_docket": 8,
+   "verdict": "docket 8 day(s) before ours",
+   "charged_from_arrival": false
+  },
+  {
+   "reference": "WC07",
+   "discipline": "Toilets & amenities",
+   "ours": "2026-09-22",
+   "docket_date": "2026-10-06",
+   "docket": 26081411,
+   "number": "1002538",
+   "days_ours_minus_docket": -14,
+   "verdict": "docket closed 14 day(s) after ours",
+   "charged_from_arrival": false
+  },
+  {
+   "reference": "WC09",
+   "discipline": "Toilets & amenities",
+   "ours": "2026-10-08",
+   "docket_date": "2026-10-12",
+   "docket": 26115312,
+   "number": "1268858",
+   "days_ours_minus_docket": -4,
+   "verdict": "docket closed 4 day(s) after ours",
+   "charged_from_arrival": false
+  },
+  {
+   "reference": "WC100",
+   "discipline": "Toilets & amenities",
+   "ours": "2026-09-14",
+   "docket_date": "2026-09-15",
+   "docket": 26064139,
+   "number": "1248439",
+   "days_ours_minus_docket": -1,
+   "verdict": "docket closed 1 day(s) after ours",
+   "charged_from_arrival": false
+  },
+  {
+   "reference": "WC11",
+   "discipline": "Toilets & amenities",
+   "ours": "2026-09-14",
+   "docket_date": "2026-09-15",
+   "docket": 26064136,
+   "number": "1211969",
+   "days_ours_minus_docket": -1,
+   "verdict": "docket closed 1 day(s) after ours",
+   "charged_from_arrival": false
+  },
+  {
+   "reference": "WC12",
+   "discipline": "Toilets & amenities",
+   "ours": "2026-09-14",
+   "docket_date": "2026-09-15",
+   "docket": 26064136,
+   "number": "1002565",
+   "days_ours_minus_docket": -1,
+   "verdict": "docket closed 1 day(s) after ours",
+   "charged_from_arrival": false
+  },
+  {
+   "reference": "WC15",
+   "discipline": "Toilets & amenities",
+   "ours": "2026-09-25",
+   "docket_date": "2026-09-25",
+   "docket": 26091474,
+   "number": "1327226",
+   "days_ours_minus_docket": 0,
+   "verdict": "same day",
+   "charged_from_arrival": false
+  },
+  {
+   "reference": "WC16",
+   "discipline": "Toilets & amenities",
+   "ours": "2026-09-14",
+   "docket_date": "2026-09-14",
+   "docket": 26064128,
+   "number": "1322587",
+   "days_ours_minus_docket": 0,
+   "verdict": "same day",
+   "charged_from_arrival": false
+  },
+  {
+   "reference": "WC17",
+   "discipline": "Toilets & amenities",
+   "ours": "2026-09-15",
+   "docket_date": "2026-09-15",
+   "docket": 26064268,
+   "number": "1327224",
+   "days_ours_minus_docket": 0,
+   "verdict": "same day",
+   "charged_from_arrival": false
+  },
+  {
+   "reference": "WC20",
+   "discipline": "Toilets & amenities",
+   "ours": "2026-10-07",
+   "docket_date": "2026-10-12",
+   "docket": 26112769,
+   "number": "1311341",
+   "days_ours_minus_docket": -5,
+   "verdict": "docket closed 5 day(s) after ours",
+   "charged_from_arrival": false
+  },
+  {
+   "reference": "WC21",
+   "discipline": "Toilets & amenities",
+   "ours": "2026-09-14",
+   "docket_date": "2026-09-15",
+   "docket": 26064136,
+   "number": "1002747",
+   "days_ours_minus_docket": -1,
+   "verdict": "docket closed 1 day(s) after ours",
+   "charged_from_arrival": false
+  },
+  {
+   "reference": "WC27",
+   "discipline": "Toilets & amenities",
+   "ours": "2026-09-25",
+   "docket_date": "2026-09-25",
+   "docket": 26091469,
+   "number": "1119484",
+   "days_ours_minus_docket": 0,
+   "verdict": "same day",
+   "charged_from_arrival": false
+  },
+  {
+   "reference": "WC31",
+   "discipline": "Toilets & amenities",
+   "ours": "2026-09-25",
+   "docket_date": "2026-10-12",
+   "docket": 26115307,
+   "number": "1317645",
+   "days_ours_minus_docket": -17,
+   "verdict": "docket closed 17 day(s) after ours",
+   "charged_from_arrival": false
+  },
+  {
+   "reference": "WC50",
+   "discipline": "Toilets & amenities",
+   "ours": "2026-09-23",
+   "docket_date": "2026-09-23",
+   "docket": 26081402,
+   "number": "1211974",
+   "days_ours_minus_docket": 0,
+   "verdict": "same day",
+   "charged_from_arrival": false
+  },
+  {
+   "reference": "WC51",
+   "discipline": "Toilets & amenities",
+   "ours": "2026-10-15",
+   "docket_date": "2026-10-15",
+   "docket": 26129341,
+   "number": "1197174",
+   "days_ours_minus_docket": 0,
+   "verdict": "same day",
+   "charged_from_arrival": false
+  },
+  {
+   "reference": "WC60",
+   "discipline": "Toilets & amenities",
+   "ours": "2026-10-01",
+   "docket_date": "2026-10-01",
+   "docket": 26104410,
+   "number": "1087500",
+   "days_ours_minus_docket": 0,
+   "verdict": "same day",
+   "charged_from_arrival": false
+  },
+  {
+   "reference": "WC67",
+   "discipline": "Toilets & amenities",
+   "ours": "2026-10-01",
+   "docket_date": "2026-09-30",
+   "docket": 26107560,
+   "number": "172824",
+   "days_ours_minus_docket": 1,
+   "verdict": "docket 1 day(s) before ours",
+   "charged_from_arrival": false
+  },
+  {
+   "reference": "WC86",
+   "discipline": "Toilets & amenities",
+   "ours": "2026-10-07",
+   "docket_date": "2026-10-12",
+   "docket": 26112797,
+   "number": "1296899",
+   "days_ours_minus_docket": -5,
+   "verdict": "docket closed 5 day(s) after ours",
+   "charged_from_arrival": false
+  }
+ ],
+ "barriers": [
+  {
+   "docket": 26071354,
+   "contract": 9972648,
+   "date": "2026-09-14",
+   "direction": "Out",
+   "number": "ARMORZONMASHTL2",
+   "description": "WB01 Barrier - Crash Rated Water filled - Armorzone MASH TL2",
+   "ours_same_day": [
+    "WB01"
+   ]
+  },
+  {
+   "docket": 26079322,
+   "contract": 9972648,
+   "date": "2026-09-18",
+   "direction": "Out",
+   "number": "ARMORZONMASHTL2",
+   "description": "WB03 Barrier - Crash Rated Water filled - Armorzone MASH TL2",
+   "ours_same_day": []
+  },
+  {
+   "docket": 26081435,
+   "contract": 9972648,
+   "date": "2026-09-21",
+   "direction": "Out",
+   "number": "ARMORZONMASHTL2",
+   "description": "WB02 Barrier - Crash Rated Water filled - Armorzone MASH TL2",
+   "ours_same_day": [
+    "WB02"
+   ]
+  },
+  {
+   "docket": 26126575,
+   "contract": 9972648,
+   "date": "2026-10-15",
+   "direction": "Out",
+   "number": "ARMORZONMASHTL2",
+   "description": "WB06 Barrier - Crash Rated Water filled - Armorzone MASH TL2",
+   "ours_same_day": [
+    "WB06"
+   ]
+  },
+  {
+   "docket": 26126597,
+   "contract": 9972648,
+   "date": "2026-10-15",
+   "direction": "Out",
+   "number": "ARMORZONMASHTL2",
+   "description": "WB06 Barrier - Crash Rated Water filled - Armorzone MASH TL2",
+   "ours_same_day": [
+    "WB06"
+   ]
+  },
+  {
+   "docket": 26126606,
+   "contract": 9972648,
+   "date": "2026-10-15",
+   "direction": "Out",
+   "number": "ARMORZONMASHTL2",
+   "description": "WB06 Barrier - Crash Rated Water filled - Armorzone MASH TL2",
+   "ours_same_day": [
+    "WB06"
+   ]
+  },
+  {
+   "docket": 26129840,
+   "contract": 9972648,
+   "date": "2026-10-16",
+   "direction": "Out",
+   "number": "ARMORZONMASHTL2",
+   "description": "WB05 Barrier - Crash Rated Water filled - Armorzone MASH TL2",
+   "ours_same_day": [
+    "WB04",
+    "WB05"
+   ]
+  },
+  {
+   "docket": 26129861,
+   "contract": 9972648,
+   "date": "2026-10-16",
+   "direction": "Out",
+   "number": "ARMORZONMASHTL2",
+   "description": "WB04 Barrier - Crash Rated Water filled - Armorzone MASH TL2",
+   "ours_same_day": [
+    "WB04",
+    "WB05"
+   ]
+  },
+  {
+   "docket": 26141397,
+   "contract": 9972648,
+   "date": "2026-10-21",
+   "direction": "Out",
+   "number": "ARMORZONMASHTL2",
+   "description": "WB14 Barrier - Crash Rated Water filled - Armorzone MASH TL2",
+   "ours_same_day": [
+    "WB07",
+    "WB14",
+    "WB15",
+    "WB16"
+   ]
+  },
+  {
+   "docket": 26141397,
+   "contract": 9972648,
+   "date": "2026-10-21",
+   "direction": "Out",
+   "number": "ARMORZONMASHTL2",
+   "description": "WB15 Barrier - Crash Rated Water filled - Armorzone MASH TL2",
+   "ours_same_day": [
+    "WB07",
+    "WB14",
+    "WB15",
+    "WB16"
+   ]
+  },
+  {
+   "docket": 26141411,
+   "contract": 9972648,
+   "date": "2026-10-21",
+   "direction": "Out",
+   "number": "ARMORZONMASHTL2",
+   "description": "WB16 Barrier - Crash Rated Water filled - Armorzone MASH TL2",
+   "ours_same_day": [
+    "WB07",
+    "WB14",
+    "WB15",
+    "WB16"
+   ]
+  },
+  {
+   "docket": 26141598,
+   "contract": 9972648,
+   "date": "2026-10-22",
+   "direction": "Out",
+   "number": "ARMORZONMASHTL2",
+   "description": "WB17 Barrier - Crash Rated Water filled - Armorzone MASH TL2",
+   "ours_same_day": [
+    "WB17",
+    "WB18"
+   ]
+  },
+  {
+   "docket": 26141598,
+   "contract": 9972648,
+   "date": "2026-10-22",
+   "direction": "Out",
+   "number": "ARMORZONMASHTL2",
+   "description": "WB18 Barrier - Crash Rated Water filled - Armorzone MASH TL2",
+   "ours_same_day": [
+    "WB17",
+    "WB18"
+   ]
+  },
+  {
+   "docket": 26138423,
+   "contract": 9990776,
+   "date": "2026-10-19",
+   "direction": "Out",
+   "number": "ARMORZONMASHTL2",
+   "description": "WB13 Barrier - Crash Rated Water filled - Armorzone MASH TL2",
+   "ours_same_day": [
+    "WB13"
+   ]
+  }
+ ],
+ "vms": [
+  {
+   "board": "VMS02",
+   "number": "1211370",
+   "ours": null,
+   "dockets_out": [
+    "2026-09-07"
+   ],
+   "dockets_in": [],
+   "days_ours_minus_first_out": null
+  },
+  {
+   "board": "VMS01",
+   "number": "1211354",
+   "ours": null,
+   "dockets_out": [
+    "2026-09-07"
+   ],
+   "dockets_in": [],
+   "days_ours_minus_first_out": null
+  },
+  {
+   "board": "VMS07",
+   "number": "1182999",
+   "ours": null,
+   "dockets_out": [
+    "2026-09-07"
+   ],
+   "dockets_in": [],
+   "days_ours_minus_first_out": null
+  },
+  {
+   "board": "VMS04",
+   "number": "1191877",
+   "ours": null,
+   "dockets_out": [
+    "2026-09-07"
+   ],
+   "dockets_in": [],
+   "days_ours_minus_first_out": null
+  },
+  {
+   "board": "VMS06",
+   "number": "1211359",
+   "ours": null,
+   "dockets_out": [
+    "2026-09-07",
+    "2026-09-07"
+   ],
+   "dockets_in": [],
+   "days_ours_minus_first_out": null
+  },
+  {
+   "board": "VMS08",
+   "number": "1211383",
+   "ours": null,
+   "dockets_out": [
+    "2026-09-07",
+    "2026-09-07"
+   ],
+   "dockets_in": [],
+   "days_ours_minus_first_out": null
+  },
+  {
+   "board": "VMS03",
+   "number": "1271129",
+   "ours": null,
+   "dockets_out": [
+    "2026-09-07",
+    "2026-09-07"
+   ],
+   "dockets_in": [],
+   "days_ours_minus_first_out": null
+  },
+  {
+   "board": "VMS09",
+   "number": "1211404",
+   "ours": "2026-10-08",
+   "dockets_out": [
+    "2026-09-07",
+    "2026-10-12"
+   ],
+   "dockets_in": [
+    "2026-10-12"
+   ],
+   "days_ours_minus_first_out": 31
+  },
+  {
+   "board": "VMS10",
+   "number": null,
+   "ours": "2026-10-08",
+   "dockets_out": [
+    "2026-10-08"
+   ],
+   "dockets_in": [],
+   "days_ours_minus_first_out": 0
+  },
+  {
+   "board": "VMS11",
+   "number": null,
+   "ours": "2026-10-16",
+   "dockets_out": [
+    "2026-10-16"
+   ],
+   "dockets_in": [],
+   "days_ours_minus_first_out": 0
+  },
+  {
+   "board": "VMS12",
+   "number": "1211646",
+   "ours": "2026-10-16",
+   "dockets_out": [
+    "2026-10-19"
+   ],
+   "dockets_in": [],
+   "days_ours_minus_first_out": -3
+  },
+  {
+   "board": "VMS18",
+   "number": null,
+   "ours": "2026-10-19",
+   "dockets_out": [
+    "2026-10-19"
+   ],
+   "dockets_in": [],
+   "days_ours_minus_first_out": 0
+  },
+  {
+   "board": "VMS19",
+   "number": null,
+   "ours": "2026-10-19",
+   "dockets_out": [
+    "2026-10-19"
+   ],
+   "dockets_in": [],
+   "days_ours_minus_first_out": 0
+  },
+  {
+   "board": "VMS20",
+   "number": null,
+   "ours": "2026-10-19",
+   "dockets_out": [
+    "2026-10-19"
+   ],
+   "dockets_in": [],
+   "days_ours_minus_first_out": 0
+  },
+  {
+   "board": "VMS21",
+   "number": null,
+   "ours": "2026-10-22",
+   "dockets_out": [
+    "2026-10-22",
+    "2026-10-22"
+   ],
+   "dockets_in": [],
+   "days_ours_minus_first_out": 0
+  },
+  {
+   "board": "VMS22",
+   "number": null,
+   "ours": "2026-10-21",
+   "dockets_out": [
+    "2026-10-22",
+    "2026-10-22"
+   ],
+   "dockets_in": [],
+   "days_ours_minus_first_out": -1
+  },
+  {
+   "board": "VMS23",
+   "number": null,
+   "ours": "2026-10-19",
+   "dockets_out": [
+    "2026-10-19"
+   ],
+   "dockets_in": [],
+   "days_ours_minus_first_out": 0
+  },
+  {
+   "board": "VMS24",
+   "number": null,
+   "ours": "2026-10-21",
+   "dockets_out": [
+    "2026-10-22",
+    "2026-10-22"
+   ],
+   "dockets_in": [],
+   "days_ours_minus_first_out": -1
+  },
+  {
+   "board": "VMS13",
+   "number": "1191957",
+   "ours": "2026-10-19",
+   "dockets_out": [
+    "2026-10-16"
+   ],
+   "dockets_in": [],
+   "days_ours_minus_first_out": 3
+  },
+  {
+   "board": "VMS14",
+   "number": "1201864",
+   "ours": "2026-10-16",
+   "dockets_out": [
+    "2026-10-16"
+   ],
+   "dockets_in": [],
+   "days_ours_minus_first_out": 0
+  },
+  {
+   "board": "VMS15",
+   "number": "1211348",
+   "ours": "2026-10-16",
+   "dockets_out": [
+    "2026-10-16"
+   ],
+   "dockets_in": [],
+   "days_ours_minus_first_out": 0
+  },
+  {
+   "board": "VMS16",
+   "number": "1211376",
+   "ours": "2026-10-16",
+   "dockets_out": [
+    "2026-10-19"
+   ],
+   "dockets_in": [],
+   "days_ours_minus_first_out": -3
+  },
+  {
+   "board": "VMS17",
+   "number": "1211364",
+   "ours": "2026-10-16",
+   "dockets_out": [
+    "2026-10-19"
+   ],
+   "dockets_in": [],
+   "days_ours_minus_first_out": -3
+  },
+  {
+   "board": "VMS05",
+   "number": "1211356",
+   "ours": "2026-10-20",
+   "dockets_out": [
+    "2026-10-20"
+   ],
+   "dockets_in": [],
+   "days_ours_minus_first_out": 0
+  }
+ ]
+}

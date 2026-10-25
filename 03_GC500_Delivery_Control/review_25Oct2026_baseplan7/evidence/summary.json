@@ -13,9 +13,9 @@
  },
  "who": {
   "Decision": 12,
-  "Baseplan": 66,
-  "Our record": 3,
-  "Ask Andrew": 5
+  "Baseplan": 63,
+  "Our record": 4,
+  "Ask Andrew": 7
  },
  "tie": [
   [
@@ -30,9 +30,9 @@
    "NVAC",
    83261.99,
    85964.01,
-   -3175.12,
-   28071.82,
-   "Ask Andrew \u00b7 Quantity: $-600.00; Baseplan \u00b7 Hours: $15.01; Baseplan \u00b7 Quantity: $-333.12; Baseplan \u00b7 Rate: $3,403.39; Baseplan \u00b7 Remove: $-6,260.40; Decision \u00b7 Rate: $28,671.82"
+   3418.4,
+   21478.3,
+   "Ask Andrew \u00b7 Quantity: $-933.12; Ask Andrew \u00b7 Remove: $-6,260.40; Baseplan \u00b7 Hours: $15.01; Baseplan \u00b7 Rate: $3,403.39; Decision \u00b7 Rate: $28,671.82"
   ],
   [
    "STPS",
@@ -54,8 +54,8 @@
    "All",
    993557.87,
    1022962.43,
-   127387.19,
-   19473.42,
+   133980.71,
+   12879.9,
    ""
   ]
  ],
