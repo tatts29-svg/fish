@@ -1,4 +1,6 @@
-# v12.29 — a departed icon on the main maps
+# v12.29 — a departed icon on the main maps — LIVE
+
+LIVE 26 Oct 2026 08:50 AEST: `a4d611111a0ab0dd89f7effa753a52502fae661d39afc3bded2d98beeddc4276`, 15,465,834 bytes. Guarded upload, then a separate public GET matching byte for byte. `test_v1229` 27/27 against the live page on desktop and phone (`evidence/test_live_*.txt`).
 
 Author: Andrew Fisher
 
