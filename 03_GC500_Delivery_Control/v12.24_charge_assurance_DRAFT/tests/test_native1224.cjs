@@ -29,6 +29,7 @@ assert(process.env.OUT&&!out.startsWith(repo+path.sep),'OUT must be private and 
     const cc=require('../charge_checks1224_src.js'),a=data.models.assurance;
     check('all exact-cent checks pass',()=>{assert.equal(a.state,'pass');assert(a.checks.length>=10);assert(a.checks.every(c=>c.variance===0));});
     check('missing sources never become bill readiness',()=>{assert.equal(a.sourceAvailable,true);assert(a.issues.length>0);});
+    check('excluded references do not reappear as charge reviews',()=>{const refs=new Set((data.models.money.excluded1152?.refs||[]).map(r=>r.ref));assert(a.issues.every(r=>!refs.has(r.ref)));});
     check('fencing demob is separate from priced job-end total',()=>{assert.equal(a.priced,a.job-a.fence);assert.equal(a.remainingOther,a.priced-a.actual);});
     check('difference model retains current cents',()=>assert.equal(cc.cents(data.models.pnl.diff.now),cc.cents(data.models.money.difference)));
     if(process.env.BASE_MODELS){
@@ -50,7 +51,7 @@ assert(process.env.OUT&&!out.startsWith(repo+path.sep),'OUT must be private and 
     assert.equal(await card.count(),1);
     const view=await card.evaluate(el=>({text:el.innerText,width:el.getBoundingClientRect().width,scroll:el.scrollWidth,client:el.clientWidth,details:[...el.querySelectorAll('details')].every(d=>!d.open)}));
     check('figures-first readable initial presentation',()=>{assert(view.details);assert(view.text.includes('excluding fencing demob'));assert(view.text.includes('source review required'));assert(!view.text.includes('undefined'));assert(!view.text.includes('NaN'));assert(view.scroll<=view.client+1);});
-    if(process.env.EVIDENCE){fs.mkdirSync(process.env.EVIDENCE,{recursive:true});await card.screenshot({path:path.join(process.env.EVIDENCE,'charge-checks-'+(mobile?'phone':'desktop')+'.png')});}
+    if(process.env.EVIDENCE){fs.mkdirSync(process.env.EVIDENCE,{recursive:true});await card.screenshot({path:path.join(process.env.EVIDENCE,'charge-checks-'+(mobile?'phone':'desktop')+'.png')});if(mobile){const y=await card.evaluate(el=>el.getBoundingClientRect().top+window.scrollY);await s.page.evaluate(y=>window.scrollTo(0,Math.max(0,y-320)),y);await s.page.waitForTimeout(500);await s.page.screenshot({path:path.join(process.env.EVIDENCE,'charge-checks-phone-top.png')});}}
     await card.locator('[data-charge1224-detail="checks"] summary').click();
     await s.page.waitForTimeout(120);
     await s.page.evaluate(()=>renderCosts());

@@ -10,12 +10,12 @@ The patch applies existing charge treatments consistently in the shared source-r
 
 - Branch: `ccr-061f77e8-ivjhrv`; claim `a50f193f7f9c4611af2d93d2ecf95ba14fb30236`.
 - Base: verified v12.23 `8112a63d10c5b6c88206a539af5a59dc1037176e414a95f20d253b16f844e257`.
-- Candidate: `bcbf5679e4cc311e64a430cfb729b1f971b2f73a60ad5f866dafedbd59c444c5`, 15,405,580 bytes.
+- Candidate: `f3cb938456281fef3e9ea7a1ac912be52576c09e7101a2bb8d8faa8034432430`, 15,405,682 bytes.
 - Shared checker: 202 inline scripts; no new credentials.
-- Pure checks: 9 decimal-cent cases, 13 treatment/projection cases, 13 assurance-adapter cases.
+- Pure checks: 9 decimal-cent cases, 13 treatment/projection cases, 14 assurance-adapter cases.
 - Exact preservation: 209 checks; existing styles, source data and all unrelated scripts retained.
-- GET-only native checks: 14 each on phone and desktop. Existing recorded charges, per-contract recorded amounts and Direct costs preserved. Reference links and retained workings tested; visuals inspected.
-- Both full release sweeps: pending. Not ready for upload yet.
+- GET-only native checks: 15 each on phone and desktop. Existing recorded charges, per-contract recorded amounts and Direct costs preserved. Reference links and retained workings tested; visuals inspected.
+- Both full release sweeps: final candidate running, not ready for upload yet. An earlier phone run reached the final navigation checks but hit a 15-minute outer test limit. Final runs retain every shared sweep check with a 25-minute outer allowance. The earlier candidate also showed a derived review for a whole-reference exclusion; the final adapter now applies the existing exclusion authority to review flags and the new regression covers this.
 
 Implementation and testing: Codex, with three Codex agents independently reviewing arithmetic, scope coverage and source evidence. No Claude review claimed. Original Baseplan (7) source access remains a separate unresolved source check; a derived comparison does not certify that original.
 

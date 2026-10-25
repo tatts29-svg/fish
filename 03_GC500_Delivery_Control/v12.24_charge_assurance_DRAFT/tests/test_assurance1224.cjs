@@ -208,3 +208,16 @@ test('unallocated ledger amounts remain included and are listed for review exact
   assert.equal(result.actual, 17000);
   assert.equal(result.state, 'pass');
 });
+
+test('existing whole-reference exclusions also exclude derived review flags', () => {
+  const m = fixture();
+  m.money.excluded1152 = {refs: [{ref: 'OUTSIDE'}]};
+  m.onsiteComplete.holds = [{ref: 'OUTSIDE', item: 'Accessory', charge: 'Hire'}, {ref: 'ACTIVE', item: 'Equipment', charge: 'Hire'}];
+  m.pricingHolds = [{ref: 'OUTSIDE', item: 'Accessory', charge: 'Hire', reason: 'Existing source question'}];
+  m.closeout.buildingTransport.rows = [{ref: 'OUTSIDE', item: 'Accessory', leg: 'delivery', state: 'held', reasons: ['Coverage']}];
+  const result = project(m);
+  assert.deepEqual(result.issues.map(r => r.ref), ['ACTIVE']);
+  assert.equal(result.actual, 17000);
+  assert.equal(result.job, 20000);
+  assert.equal(result.state, 'pass');
+});

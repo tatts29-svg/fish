@@ -21,8 +21,9 @@ function project(m){
  const actual=C.cents(c.total),job=C.cents(p.revJob),fence=C.cents(x.fenceToCome);
  const difference=(a,b)=>a!==null&&b!==null&&Number.isSafeInteger(a-b)?a-b:null;
  const priced=difference(job,fence),remainingOther=difference(priced,actual);
+ const excluded=new Set(array(money.excluded1152?.refs).map(r=>r.ref));
  const issues=new Map(), key=r=>[r.ref||'Job',r.item||'',r.charge||'Scope'].join('|');
- const include=r=>{const k=key(r),old=issues.get(k);issues.set(k,{...old,...r,reason:r.reason||old?.reason||'Confirm the applicable scope, quantity, rate or existing coverage before finalising.'});};
+ const include=r=>{if(excluded.has(r.ref))return;const k=key(r),old=issues.get(k);issues.set(k,{...old,...r,reason:r.reason||old?.reason||'Confirm the applicable scope, quantity, rate or existing coverage before finalising.'});};
  for(const h of array(m.onsiteComplete?.holds))include(h);
  for(const h of array(m.pricingHolds))include(h);
  for(const h of array(m.workPricing))if(h.state==='unpriced')include({ref:h.ref,item:h.item,charge:h.name,reason:h.why});
