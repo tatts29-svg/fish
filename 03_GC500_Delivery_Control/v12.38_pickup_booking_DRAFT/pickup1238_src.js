@@ -13,6 +13,8 @@
 body:not([data-cap="edit"]) #pane-demob button.bb1238,body:not([data-cap="edit"]) #pane-demob .bk1238.bare{display:none!important}
 /* v12.36's size and weight pills: the source tag ("guide") stays in one piece on a phone */
 #pane-demob .pp1236 em{white-space:nowrap}
+/* v12.36's group headers run the full width of the desktop card grid (v12.31's 92 px first column caught their cell) */
+#pane-demob .sec1231 table.dm1231 tr.zr1231 th{width:auto!important}
 /* the booked pick-ups, by day */
 #pane-demob .bp1238{margin:0 0 14px;padding:14px 16px 14px;border:1px solid #ffffff14;border-radius:18px;background:linear-gradient(180deg,#14262d,#0f1d22);color:#eef6f8}
 #pane-demob .bp1238 header{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 12px}

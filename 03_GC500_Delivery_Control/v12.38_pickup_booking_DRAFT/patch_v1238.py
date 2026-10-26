@@ -21,7 +21,7 @@ Every edit must find its text exactly once on the verified live v12.36 page. Foo
 import hashlib, sys
 from pathlib import Path
 HERE = Path(__file__).resolve().parent
-BASE = '206d514f8496ebef054058357efab28f73349faa624f3d1dd009739f690da2aa'
+BASE = 'd7bd77da6e982c0ac3af19a8e5b183c09bc05e9bf78f267d5e1bea1f8ede689f'
 FOOT_OLD, FOOT_NEW = "+' · v12.36'; /* v8.19 release922", "+' · v12.38'; /* v8.19 release922"
 TAIL = '</body>\n</html>\n'
 sha = lambda s: hashlib.sha256(s.encode('utf-8')).hexdigest()
@@ -37,22 +37,26 @@ RH_NEW = RH_OLD + "\n const PKH1238 = hist(a.pickup1238_history, b.pickup1238_hi
 SPOT_OLD = """  if (DM816.view === ALLV) { const pk = tr.querySelector('td.pk1231'); if (pk && !pk.querySelector('.bk1236')) pk.insertAdjacentHTML('afterbegin', ps === 'gone' ? '<span class="bk1236"><b>Left site</b></span>' : '<span class="bk1236">Pick-up time: <b>to be booked</b></span>'); }"""
 SPOT_NEW = """  { const pk = tr.querySelector('td.pk1231'), ev1238 = DM816.view === ALLV, bk1238 = W.Pickup1238 ? W.Pickup1238.html(r, ps, ev1238) : !ev1238 ? '' : ps === 'gone' ? '<span class="bk1236"><b>Left site</b></span>' : '<span class="bk1236">Pick-up time: <b>to be booked</b></span>'; if (pk && bk1238 && !pk.querySelector('.bk1236')) pk.insertAdjacentHTML('afterbegin', bk1238); } /* v12.38 - the booked pick-up, or the spot to book it */"""
 
+WATCH_OLD = "mo = new MutationObserver(ms => { if (ms.every(m => m.target && m.target.closest && m.target.closest('.ov1236,.mpf1236'))) return; soon(); });"
+WATCH_NEW = "mo = new MutationObserver(ms => { if (ms.every(m => m.target && m.target.closest && m.target.closest('.ov1236,.mpf1236,.pz1238,.bp1238'))) return; soon(); }); /* v12.38 - the card pictures and the booked pick-ups look after themselves */"
+
 EDITS = [
  ('the booking merges on its own clock', READY_MERGE, BOOK_MERGE),
  ('its history merges', RH_OLD, RH_NEW),
  ('a record holding only a booking is kept', "typeof d.ready1231 !== 'boolean' && !d.date_off_at", "typeof d.ready1231 !== 'boolean' && typeof d.pickup1238_at !== 'string' && !d.date_off_at"),
  ('the spot on each card', SPOT_OLD, SPOT_NEW),
+ ('v12.36 leaves the new rows to themselves', WATCH_OLD, WATCH_NEW),
 ]
 
 
 def patch(text):
     if sha(text) != BASE: raise ValueError('Live base is not the verified v12.36; rebuild and retest')
-    if 'pickup1238-script' in text: raise ValueError('v12.38 is already on the page')
+    if 'pickup1238-script' in text or 'cardpics1238-script' in text: raise ValueError('v12.38 is already on the page')
     for label, old, new in EDITS:
         if text.count(old) != 1: raise ValueError(f'{label}: expected text found {text.count(old)} times, not once')
         text = text.replace(old, new)
     if not text.endswith(TAIL): raise ValueError('the page does not end with </body></html>')
-    text = text[:-len(TAIL)] + (HERE / 'pickup1238_src.js').read_text(encoding='utf-8').rstrip() + '\n' + TAIL
+    text = text[:-len(TAIL)] + ''.join((HERE / f).read_text(encoding='utf-8').rstrip() + '\n' for f in ('pickup1238_src.js', 'cardpics1238_src.js')) + TAIL
     if text.count(FOOT_OLD) != 1: raise ValueError('release footer v12.36 not found once')
     return text.replace(FOOT_OLD, FOOT_NEW)
 
@@ -60,4 +64,4 @@ def patch(text):
 if __name__ == '__main__':
     p = Path(sys.argv[1]); t = p.read_text(encoding='utf-8')
     p.write_text(patch(t), encoding='utf-8')
-    print(f'patch_v1238 applied: {len(EDITS)} edits + pickup1238; every Demob card can book its pick-up date and time, kept on the record; footer v12.36 -> v12.38')
+    print(f'patch_v1238 applied: {len(EDITS)} edits + pickup1238 + cardpics1238; every Demob card can book its pick-up and shows three pictures with Navigate, Text, Email and Send; footer v12.36 -> v12.38')
