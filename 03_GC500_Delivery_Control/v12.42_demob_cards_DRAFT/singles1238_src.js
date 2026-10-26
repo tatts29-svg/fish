@@ -268,7 +268,20 @@ dialog.bkd1238 footer button[disabled]{opacity:.4;cursor:default;box-shadow:none
 @media (prefers-reduced-motion:reduce){
  #pane-demob .sg1238::after,#pane-demob .sg1238 .ic1238::after,#pane-demob .sg1238 .pf1238 .pu1238::before,#pane-demob .sg1238 .pf1238 .pu1238::after,#pane-demob .lm1238 .lp1238.amber.on i,#pane-demob .sg1238 .pf1238 .w1238{animation:none!important}
 }
-#pane-demob .sg1238.st-gone{contain-intrinsic-size:auto 250px}
+#pane-demob .sg1238.st-gone{contain-intrinsic-size:auto 340px}
+#pane-demob .stw1238{display:grid;place-items:center;padding:16px 4px 12px}
+#pane-demob .stp1238{position:relative;display:grid;justify-items:center;gap:3px;min-width:min(260px,86%);padding:14px 22px 12px;transform:rotate(-7deg);border:4px solid #3dff9e;border-radius:16px;outline:2px dashed #3dff9e99;outline-offset:5px;color:#9dffcf;text-align:center;background:radial-gradient(120% 140% at 50% 50%,#19d27a2e,#0b1a15 75%);box-shadow:0 0 16px #19d27a99,inset 0 0 16px #19d27a55;isolation:isolate}
+#pane-demob .stp1238::before{content:"";position:absolute;inset:-10px;z-index:-1;border-radius:22px;box-shadow:0 0 34px 6px #3dff9ebb,0 0 70px 14px #19d27a66;opacity:.35;animation:stg1238 2.4s ease-in-out infinite}
+#pane-demob .stp1238::after{content:"";position:absolute;inset:-4px;z-index:-1;border:3px solid #3dff9e;border-radius:18px;opacity:0;animation:str1238 2.4s ease-out infinite}
+#pane-demob .stp1238 b{font:900 italic 36px/1 var(--bc984-race,Inter),Inter,Arial,sans-serif;letter-spacing:.07em;text-transform:uppercase;color:#eafff4;text-shadow:0 0 8px #3dff9e,0 0 22px #19d27a,0 0 40px #19d27a88}
+#pane-demob .stp1238 span{font:900 14px/1.25 Inter,Arial,sans-serif;letter-spacing:.06em;color:#c9ffe4;text-shadow:0 0 8px #19d27a}
+#pane-demob .stp1238 small{font:600 11px/1.2 Inter,Arial,sans-serif;color:#9fd9bd}
+#pane-demob .stp1238 .stc1238{display:grid;place-items:center;width:38px;height:38px;border-radius:50%;background:#3dff9e;color:#05301c;box-shadow:0 0 18px #3dff9e,0 0 4px #fff}
+#pane-demob .stp1238 .stc1238 svg{width:24px;height:24px;stroke-width:3}
+@keyframes stg1238{0%,100%{opacity:.3;transform:scale(.98)}50%{opacity:1;transform:scale(1.03)}}
+@keyframes str1238{0%{opacity:.85;transform:scale(1)}100%{opacity:0;transform:scale(1.18)}}
+@media (prefers-reduced-motion:reduce){#pane-demob .stp1238::before,#pane-demob .stp1238::after{animation:none}#pane-demob .stp1238::before{opacity:.7}}
+@media print{#pane-demob .stp1238::before,#pane-demob .stp1238::after{display:none}}
 @media print{#pane-demob .tb1238,#pane-demob .sg1238 .ph1238,#pane-demob .sg1238 .ac1238{display:none!important}#pane-demob .sg1238{content-visibility:visible;break-inside:avoid}}
 </style>
 <script id="singles1238-script">
@@ -590,16 +603,16 @@ function pickOf(map, c, stamp) {
 function stateOf(c, ctx) {
  if (c.gone) return {s: 'gone', at: c.gone.at || null, day: c.gone.day || null, by: c.gone.by || ''};
  if (c.group && !c.r.noPlan1236) { let st = null; try { st = Ready1231.state(c.r); } catch (x) { st = null; }
-  if (st && st.s === 'ready') { const m = st.m && st.m.on ? st.m : st.e && st.e.on ? st.e : {}; return {s: 'ready', at: m.at || null, by: m.by || '', why: '', part: c.part}; }
-  const m = st && st.m && !st.m.on ? st.m : null; return {s: 'not', at: m ? m.at : null, by: m ? m.by : '', why: m ? m.why || '' : st && st.pump ? 'pump it out first, then tick it' : 'not ticked yet', part: c.part}; }
+  if (st && st.m && st.m.on) return {s: 'ready', at: st.m.at || null, by: st.m.by || '', why: '', src: 'ref', part: c.part}; /* only a Ready tick makes it Ready */
+  const m = st && st.m && !st.m.on ? st.m : null; return {s: 'not', at: m ? m.at : null, by: m ? m.by : '', why: m ? m.why || '' : st && st.e && st.e.on ? 'emptied · not ticked Ready yet' : st && st.pump ? 'pump it out first, then tick it' : 'not ticked yet', part: c.part}; }
  const valid = x => x && ok(x.at) && (!ctx.on || Date.parse(x.at) >= Date.parse(ctx.on)), t = pickOf(ctx.ticks, c, 'at'), list = [];
  if (valid(t)) list.push({on: !!t.on, at: t.at, by: String(t.by || ''), why: String(t.why || ''), src: 'unit'});
  if (ctx.mark && ok(ctx.mark.at)) list.push({on: !!ctx.mark.on, at: ctx.mark.at, by: String(ctx.mark.by || ''), why: String(ctx.mark.why || ''), src: 'ref'});
- /* Emptied (pumped out) is one tick for the whole reference. It reads as Ready only for a unit with no tick of its own, and only
-    where every unit has the same owner: at WC09 or WC31 it never turns the other owner's units Ready */
- if (c.r.empty && ctx.emp && ok(ctx.emp.at) && !valid(t) && ctx.oneOwner) list.push({on: !!ctx.emp.on, at: ctx.emp.at, by: String(ctx.emp.by || ''), why: '', src: 'emptied'});
- const pumped = c.r.empty && ctx.emp && ctx.emp.on && !ctx.oneOwner;
- if (!list.length) return {s: 'not', why: c.r.empty ? (pumped ? 'not ticked yet · ' + c.key + ' is emptied; tick each unit Ready' : 'not ticked yet · pump it out, then tick it') : 'not ticked yet', part: c.part};
+ /* Andrew: "everything ticked not ready. Unless i have done so or if its been collected already". Emptied (pumped out) is the
+    gate a toilet passes before it can be loaded, never a Ready tick: a unit reads Ready only once it is ticked Ready (its own
+    tick, or its reference's), whoever owns the units beside it */
+ const pumped = c.r.empty && ctx.emp && ctx.emp.on;
+ if (!list.length) return {s: 'not', why: c.r.empty ? (pumped ? 'not ticked yet · ' + c.key + ' is emptied; tick it Ready when it can go' : 'not ticked yet · pump it out, then tick it') : 'not ticked yet', part: c.part};
  list.sort((x, y) => String(y.at).localeCompare(String(x.at)) || (Number(x.on) - Number(y.on)));
  const p = list[0]; return {s: p.on ? 'ready' : 'not', at: p.at, by: p.by, why: p.why, src: p.src, part: c.part};
 }
@@ -771,6 +784,11 @@ function whereHtml(c) {
  let w = null; try { w = DemobMap1236.words(c.key, DemobMap1236.spot(c.key), c.r.zone); } catch (x) { w = null; }
  return w ? '<div class="wh1238"><b>' + e(w[0]) + '</b>' + (w[1] ? ' · ' + e(w[1]) : '') + '</div>' : '';
 }
+/* the collection stamp: big, glowing and pulsing, with the day and time it left and who recorded it */
+function stampHtml(c) {
+ const st = c.st, t = st.at ? dayW(qDay(st.at)) + ' · ' + hhmm(st.at) : st.day ? dayW(st.day) : 'time not recorded';
+ return '<div class="stw1238"><div class="stp1238" role="img" aria-label="' + e(c.key + ' ' + (c.no || '') + ' picked up ' + t) + '"><i class="stc1238">' + SVG('<path d="m4.5 12.5 5 5 10-11"/>') + '</i><b>Picked up</b><span>' + e(t) + '</span>' + (st.by ? '<small>recorded by ' + e(st.by) + '</small>' : '') + '</div></div>';
+}
 function cardHtml(c) {
  const k = e(c.key), u = e(c.uid), sw = statusWords(c), own = coName(c.owner), sub = [];
  sub.push(c.board ? 'VMS plan board' : 'GC500 ID <u>' + k + '</u>');
@@ -788,7 +806,7 @@ function cardHtml(c) {
   + '<div class="id1238">' + ids.join('') + '</div>'
   + whereHtml(c) + pillsHtml(c)
   + (c.inside.length ? '<div class="in1238"><i>Inside the building</i>' + e(c.inside.join(' · ')) + '</div>' : '')
-  + (c.st.s === 'gone' ? '' : picsHtml(c) + '<div class="ac1238"><button type="button" class="nv1238" data-nv1238="' + k + '" data-u1238="' + u + '">' + UI.nav + '<span>Navigate</span></button><button type="button" data-sm1238="' + k + '" data-u1238="' + u + '">' + UI.text + '<span>Text</span></button><button type="button" data-em1238="' + k + '" data-u1238="' + u + '">' + UI.mail + '<span>Email</span></button><button type="button" data-sd1238="' + k + '" data-u1238="' + u + '">' + UI.send + '<span>Send</span></button></div>')
+  + (c.st.s === 'gone' ? stampHtml(c) : picsHtml(c) + '<div class="ac1238"><button type="button" class="nv1238" data-nv1238="' + k + '" data-u1238="' + u + '">' + UI.nav + '<span>Navigate</span></button><button type="button" data-sm1238="' + k + '" data-u1238="' + u + '">' + UI.text + '<span>Text</span></button><button type="button" data-em1238="' + k + '" data-u1238="' + u + '">' + UI.mail + '<span>Email</span></button><button type="button" data-sd1238="' + k + '" data-u1238="' + u + '">' + UI.send + '<span>Send</span></button></div>')
   + '<div class="ft1238"><div class="lr1238">' + lampsHtml(c) + '<div class="sw1238"><b>' + e(sw[0]) + '</b><small>' + e(sw[1]) + '</small></div></div>' + bookHtml(c) + '</div></article>';
 }
 

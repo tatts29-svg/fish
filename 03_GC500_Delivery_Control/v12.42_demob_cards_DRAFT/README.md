@@ -37,9 +37,11 @@ So WC09 is 2 Coates toilet blocks in our list and 16 Event Portables units (10 F
 - Navigate, Text, Email and Send (the two pictures and the words to the phone's share menu);
 - its Ready light (Not ready · Ready · Picked up) and its booked pick-up.
 
-**Not ready until ticked.** A unit reads Not ready until someone ticks it Ready, or it has left. A unit's own tick and the reference's tick are compared by time, and the newest stands. **Emptied** (pumped out) is one tick for the whole reference: it reads as Ready only for a unit with no tick of its own, and only where every unit at the reference has the same owner. At a mixed reference (WC09, WC31, WC51, WC67, T0024) Emptied turns nobody Ready; each unit is ticked on its own. Nothing reads "Not checked yet".
+**Not ready until ticked** (Andrew, 18:30: "everything ticked not ready. Unless i have done so or if its been collected already"). A unit reads Not ready until it is ticked Ready (its own tick on its card, or a Ready tick on its whole reference), or it has left. Its own tick and the reference's are compared by time, and the newest stands. **Emptied** (pumped out) is the gate a toilet passes before it can be loaded, never a Ready tick: on its own it makes nothing Ready, at a mixed reference or anywhere else; the card says "emptied; tick it Ready when it can go". Nothing reads "Not checked yet".
 
 **Picked up** opens the page's own Record departure form with that unit (and its waste tank) already ticked. A toilet is loaded only once pumped out, so if the reference has no Emptied tick the question says plainly that Emptied covers the whole reference.
+
+**The collection stamp.** A unit that has left carries a big **Picked up** stamp in place of its pictures: neon green, tilted like an ink stamp, glowing and pulsing (a slow glow and a ring that ripples out; still for anyone who has reduced motion set, and plain on paper), with the day and time it left and who recorded it.
 
 **When it left.** Each unit takes its own departure (by its unit id or asset number); then a type with none remaining has all gone; a departure counted without numbers goes to units the record has not identified, never to a numbered unit (the card says "N left without an asset number: which one is still to confirm"); a reference that has left in full gives any unit still unmatched its last departure. A toilet block whose tank has left (or the other way round) says so.
 
