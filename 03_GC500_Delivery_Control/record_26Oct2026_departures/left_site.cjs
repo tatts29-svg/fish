@@ -205,7 +205,10 @@ function alignStartupQueue(serverDocs) {
 }
 function applyOps(spec) {
   const dry = !!spec.dry; /* a read-only run: the harness aborts every write, so the page is told it may edit */
-  if (dry) { capability = () => 'edit'; mayWrite = () => true; SYNC.readonly = false; SYNC.level = 'edit'; }
+  /* 26 Oct 2026 19:00: the page's poll re-reads the link's level every few seconds and, on the view link the dry run uses, sets it
+     back to view; if the record moved meanwhile, the store's copy then folds over what the stage did. The dry run pins edit for
+     its own page only (the --apply run is on the edit link and needs nothing pinned). */
+  if (dry) { capability = () => 'edit'; mayWrite = () => true; try { Object.defineProperty(SYNC, 'readonly', {configurable: true, get: () => false, set: () => {}}); Object.defineProperty(SYNC, 'level', {configurable: true, get: () => 'edit', set: () => {}}); } catch (e) { SYNC.readonly = false; SYNC.level = 'edit'; } }
   S.operator = spec.by;
   const who = whoAmI(); if (who !== spec.by) throw new Error('whoAmI() did not return ' + spec.by);
   if (!mayWrite('an asset number')) throw new Error('mayWrite() is false - this is not an edit link');
