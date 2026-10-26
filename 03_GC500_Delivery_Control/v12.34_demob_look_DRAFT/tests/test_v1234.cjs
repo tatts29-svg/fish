@@ -31,11 +31,11 @@ const {open} = require('../../toolchain/harness/open_page');
     const every = await p.evaluate(() => { const rs = [...document.querySelectorAll('#pane-demob .dmday816 tr[data-row816]')]; return {rows: rs.length, pk: rs.filter(r => r.querySelector('td.pk1231 .pd1231 b')).length, st: rs.filter(r => r.querySelector('td.st1231 .lamps1231, td.st1231 .w')).length, cells: [...new Set(rs.map(r => r.children.length))]}; });
     check('every reference on the day shows a pick-up day and one status, six cells a row', every.rows >= 20 && every.pk === every.rows && every.st === every.rows && JSON.stringify(every.cells) === '[6]', every);
     const gn19 = await cellText('GN19', 'pk1231');
-    check('GN19: picked up Mon 26 Oct 07:00 on the NVAC load 6 of 9 (the plan\'s stop time)', /^Mon 26 Oct 07:00 NVAC · load 6\/9/.test(gn19 || ''), gn19);
+    check('GN19: picked up Mon 26 Oct 07:00 on an NVAC load (the plan\'s stop time; the load numbers shift as things leave)', /^Mon 26 Oct 07:00 NVAC · load \d+\/\d+/.test(gn19 || ''), gn19);
     const wc29 = await cellText('WC29', 'pk1231');
     check('WC29: the supplier collects Mon 26 Oct in site hours, their own transport', /^Mon 26 Oct 07:00–17:00 Event Portables collect · own transport/.test(wc29 || ''), wc29);
     const wc45 = await cellText('WC45', 'pk1231');
-    check('WC45: Mon 26 Oct 07:00 on the Coates toilet run, load 2 of 9', /^Mon 26 Oct 07:00 Coates toilet run · load 2\/9/.test(wc45 || ''), wc45);
+    check('WC45: Mon 26 Oct 07:00 on the Coates toilet run', /^Mon 26 Oct 07:00 Coates toilet run · load \d+\/\d+/.test(wc45 || ''), wc45);
     const plans = await p.evaluate(() => { const M = demob816(), bad = []; [...document.querySelectorAll('#pane-demob .dmday816 tr[data-row816]')].forEach(tr => { const r = M.refs.find(x => x.key === tr.dataset.row816), want = Ready1231.pickups(r), have = [...tr.querySelectorAll('td.pk1231 .pd1231')].length; if (!want.length || want.length !== have) bad.push({k: tr.dataset.row816, want: want.length, have}); }); return bad; });
     check('every row\'s pick-up lines are the plan\'s own stops (trucks816), none made up', !plans.length, plans);
     const sec = await p.evaluate(() => { const M = demob816(), out = {coates: [], sub: {}, bad: []};
@@ -123,7 +123,7 @@ const {open} = require('../../toolchain/harness/open_page');
     if (mobile) {
       check('v12.34 on a phone: every line is one compact card (a grid, no stacked labels), typically about 200 px and none over 360 px (was about 490 px)', look.grid === 'grid' && look.label === 'none' && look.medH <= 240 && look.maxH <= 360 && look.rows >= 20, {grid: look.grid, label: look.label, medH: look.medH, maxH: look.maxH, rows: look.rows});
     } else {
-      check('v12.34 on a wider screen: the same table, each line its own band, none taller than 160 px', look.grid !== 'grid' && look.maxH <= 160 && look.rows >= 20, {grid: look.grid, maxH: look.maxH});
+      check('v12.34 on a wider screen: the same table, each line its own band, none taller than 200 px (a departed line wears its stamp)', look.grid !== 'grid' && look.maxH <= 200 && look.rows >= 20, {grid: look.grid, maxH: look.maxH});
     }
     check('v12.34: each line wears its status as a coloured edge, red while not ready', /229, 70, 59/.test(look.byState.not || ''), look.byState);
     check('v12.34: nothing runs off the side of the screen', look.overflow <= 1 && look.mainOverflow <= 1, {doc: look.overflow, main: look.mainOverflow});
@@ -145,10 +145,11 @@ const {open} = require('../../toolchain/harness/open_page');
     await p.waitForTimeout(700);
     const r1 = await p.evaluate(() => ({d: (({ready1231, ready1231_by, ready1231_why}) => ({ready1231, ready1231_by, ready1231_why}))(S.delivery.GN19 || {}), hist: (S.delivery.GN19.ready1231_history || []).length})); const r1s = await stat('GN19');
     check('amber light: GN19 reads Ready for collection with the recorder and time', r1.d.ready1231 === true && r1.d.ready1231_by === 'Example test recorder' && r1.hist === 1 && r1s.lit === 'amber' && r1s.word === 'Ready for collection' && /^Example test recorder · \w{3} \d+ \w{3} \d\d:\d\d$/.test(r1s.note), {r1, r1s});
-    await p.locator('#pane-demob [data-k1231="GN04"][data-lamp1231="not"]').first().click();
+    const RED = await p.evaluate(() => { const b = [...document.querySelectorAll('#pane-demob button[data-lamp1231="not"]')].map(x => x.dataset.k1231).find(k => k !== 'GN19' && !needsEmpty816(k)); return b || null; });
+    await p.locator('#pane-demob [data-k1231="' + RED + '"][data-lamp1231="not"]').first().click();
     await p.waitForTimeout(700);
-    const r2 = await p.evaluate(() => ({d: S.delivery.GN04.ready1231, why: S.delivery.GN04.ready1231_why})); const r2s = await stat('GN04');
-    check('red light: GN04 reads Not ready for collection with the reason, who and when', r2.d === false && r2.why === 'still powering the pit lane' && r2s.lit === 'red' && /^still powering the pit lane · Example test recorder · /.test(r2s.note), {r2, r2s});
+    const r2 = await p.evaluate(k => ({d: S.delivery[k].ready1231, why: S.delivery[k].ready1231_why}), RED); const r2s = await stat(RED);
+    check('red light: ' + RED + ' reads Not ready for collection with the reason, who and when', r2.d === false && r2.why === 'still powering the pit lane' && r2s.lit === 'red' && /^still powering the pit lane · Example test recorder · /.test(r2s.note), {r2, r2s});
     await p.locator('#pane-demob [data-k1231="WC45"][data-lamp1231="ready"]').first().click();
     await p.waitForTimeout(900);
     const r3 = await p.evaluate(() => ({e: emptiedOf816('WC45').on, by: emptiedOf816('WC45').by, d: S.delivery.WC45.ready1231})); const r3s = await stat('WC45');
@@ -178,7 +179,7 @@ const {open} = require('../../toolchain/harness/open_page');
     check('picked up now: today\'s card counts one more with the last time, and the tally names GN19 with its time', new RegExp('Picked up ' + (n0 + 1) + ' · last \\d\\d:\\d\\d').test(after.card || '') && /GN19 \d\d:\d\d/.test(after.bar || ''), {n0, card: (after.card || '').match(/Picked up.*?Not ready \d+/), bar: after.bar});
     const sent = await p.evaluate(() => __captured1231.map(c => ({name: c.name, ready: c.value && c.value.ready1231, emptied: c.value && c.value.emptied})));
     const gnSent = sent.filter(c => /delivery\/GN19$/.test(c.name)), wcSent = sent.filter(c => /delivery\/WC45$/.test(c.name));
-    check('the ticks travel to the shared record on the delivery document (captured here, never sent)', gnSent.some(c => c.ready === true) && wcSent.some(c => c.emptied === true) && sent.some(c => /delivery\/GN04$/.test(c.name) && c.ready === false), sent.slice(-8));
+    check('the ticks travel to the shared record on the delivery document (captured here, never sent)', gnSent.some(c => c.ready === true) && wcSent.some(c => c.emptied === true) && sent.some(c => c.name.endsWith('delivery/' + RED) && c.ready === false), sent.slice(-8));
     /* the merge keeps the tick: the later stamp wins; the same moment with two answers keeps not ready; history is the union */
     const mg = await p.evaluate(() => { const t0 = '2026-10-26T00:10:00.000Z', t1 = '2026-10-26T00:20:00.000Z';
       const A = {delivery: {X1: {state: 'on site', set_at: t0, by: 'a', ready1231: true, ready1231_by: 'Ann', ready1231_at: t1, ready1231_why: '', ready1231_history: [{ready: true, at: t1, by: 'Ann', why: ''}]}}};
