@@ -71,6 +71,18 @@ function figures() {
  days.forEach((d, i) => { if (d > today) return; run += byDay.get(d) || 0; pts.push([i, Math.min(100, run / req * 100)]); });
  return {w, req, col, pct, days, today, ti, N, pace, need, pts};
 }
+/* the same figures, day by day, for the day cards: how complete the demob was by the end of each day, and what that day moved.
+   Units off site before the first demob day count from the start. A day still to come has no figure of its own. */
+function daily() {
+ const F = figures(); if (!F) return null;
+ const byDay = new Map(), n = a => (a || []).reduce((t, u) => t + (Number(u.n) || 0), 0);
+ F.w.readings.forEach(x => (x.events || []).forEach(ev => { const d = String(ev.date || '').slice(0, 10); if (d) byDay.set(d, (byDay.get(d) || 0) + n(ev.items)); }));
+ let run = 0; [...byDay.keys()].filter(d => d < F.days[0]).forEach(d => { run += byDay.get(d); });
+ const out = new Map();
+ F.days.forEach(d => { if (d > F.today) { out.set(d, {d, ahead: true, cum: Math.min(100, F.col / F.req * 100), add: 0, units: 0}); return; }
+  const was = run; run += byDay.get(d) || 0; out.set(d, {d, ahead: false, today: d === F.today, was: Math.min(100, was / F.req * 100), cum: Math.min(100, run / F.req * 100), add: Math.min(100, run / F.req * 100) - Math.min(100, was / F.req * 100), units: byDay.get(d) || 0, off: run}); });
+ return {req: F.req, col: F.col, pct: F.pct, today: F.today, days: out};
+}
 const fmtEnd = d => { const f = new Date(d + 'T12:00:00Z'); return DOW[f.getUTCDay()] + ' ' + f.getUTCDate() + ' ' + MON[f.getUTCMonth()]; };
 function starsHtml(pct) {
  const out = []; let next = -1;
@@ -125,7 +137,7 @@ function progress() {
  if (sec !== card.firstElementChild) card.insertBefore(sec, card.firstElementChild);
 }
 if (typeof renderDemob816 === 'function') { const before = renderDemob816; renderDemob816 = function () { const v = before.apply(this, arguments); try { progress(); } catch (x) {} return v; }; Object.assign(renderDemob816, before); }
-W.Glow1238 = Object.freeze({figures, progress, starsHtml, release: 'v12.38'});
+W.Glow1238 = Object.freeze({figures, daily, progress, starsHtml, release: 'v12.42'});
 try { const p = D.getElementById('pane-demob'); if (p && !p.hidden && p.querySelector('.dmday816')) progress(); } catch (x) {}
 })(window);
 </script>

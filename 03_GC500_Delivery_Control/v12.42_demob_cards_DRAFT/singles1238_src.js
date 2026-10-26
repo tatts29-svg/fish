@@ -179,6 +179,25 @@ body:not([data-cap="edit"]) #pane-demob .sg1238 .bk1238 button,body:not([data-ca
 #pane-demob .em1238 b{display:block;margin-bottom:4px;color:#fff;font:900 17px/1.2 Inter,Arial,sans-serif}
 /* the day cards: booked and picked up, with each reference and its asset numbers */
 #pane-demob[data-sg1238] .dc996-day .bc984-progress{display:none}
+#pane-demob .dc996-day .dp1238{display:block;margin:12px 22px 0;padding:11px 12px 10px;border-radius:14px;background:linear-gradient(160deg,#ff8a3a1f,#0b171c 70%);box-shadow:inset 0 0 0 1px #ff8a3a40,0 0 18px #ff6a1322;text-align:left}
+#pane-demob .dc996-day .dp1238.ahead{background:linear-gradient(160deg,#18e8ff14,#0b171c 70%);box-shadow:inset 0 0 0 1px #18e8ff33}
+#pane-demob .dc996-day .dph1238{display:flex;align-items:baseline;justify-content:space-between;gap:10px}
+#pane-demob .dc996-day .dph1238 i{font:800 normal 10.5px/1.2 Inter,Arial,sans-serif;letter-spacing:.12em;color:#ffb37a;text-transform:uppercase}
+#pane-demob .dc996-day .dp1238.ahead .dph1238 i{color:#9ff6ff}
+#pane-demob .dc996-day .dph1238 b{font:700 italic 38px/1 var(--bc984-race,Inter),Inter,Arial,sans-serif;font-variant-numeric:tabular-nums;color:#fff;text-shadow:0 0 12px #ff8a3a99,0 1px 4px #000c}
+#pane-demob .dc996-day .dp1238.ahead .dph1238 b{font-size:30px;color:#e8fbff;text-shadow:0 0 10px #18e8ff66}
+#pane-demob .dc996-day .dph1238 b small{font-size:.5em;margin-left:2px;color:#ffd9bf}
+#pane-demob .dc996-day .dpb1238{position:relative;display:block;height:9px;margin:9px 0 7px;border-radius:9px;background:#ffffff14;overflow:hidden}
+#pane-demob .dc996-day .dpb1238 i{position:absolute;top:0;bottom:0;border-radius:9px}
+#pane-demob .dc996-day .dpb1238 .was{left:0;background:linear-gradient(90deg,#ff6a13aa,#ffb37aaa)}
+#pane-demob .dc996-day .dpb1238 .add{background:linear-gradient(90deg,#ffd24a,#fff3b0);box-shadow:0 0 10px #ffd24a,0 0 3px #fff}
+#pane-demob .dc996-day .dp1238.today .dpb1238 .add{animation:dpl1238 1.8s ease-in-out infinite}
+#pane-demob .dc996-day .dp1238.ahead .dpb1238 .was{background:linear-gradient(90deg,#18e8ff66,#9ff6ff66)}
+#pane-demob .dc996-day .dp1238.ahead .dpb1238 .add{background:repeating-linear-gradient(135deg,#ffd24a 0 6px,#ffd24a88 6px 12px);box-shadow:0 0 8px #ffd24a88}
+#pane-demob .dc996-day .dps1238{display:block;font:600 11.5px/1.35 Inter,Arial,sans-serif;color:#d6e4e9}
+#pane-demob .dc996-day .dps1238 em{font-style:normal;font-weight:900;color:#ffd24a}
+@keyframes dpl1238{0%,100%{opacity:1}50%{opacity:.55}}
+@media (prefers-reduced-motion:reduce){#pane-demob .dc996-day .dp1238.today .dpb1238 .add{animation:none}}
 #pane-demob .dc996-day .dl1238{display:grid;gap:3px;max-height:132px;overflow:auto;margin-top:4px;padding-right:2px;scrollbar-width:thin}
 #pane-demob .dc996-day .dl1238 span{display:grid;grid-template-columns:auto 1fr auto;gap:6px;align-items:baseline;padding:3px 6px;border-radius:7px;background:#ffffff10;font:700 10.5px/1.25 Inter,Arial,sans-serif;text-align:left;white-space:normal}
 #pane-demob .dc996-day .dl1238 span b{font-weight:900}
@@ -1095,12 +1114,31 @@ function dayRows(iso) {
  return [{label: 'Booked', value: L.booked.length}, {label: 'Ready of booked', value: ready + ' of ' + L.booked.length}, {label: 'Picked up', value: units + (units === 1 ? ' unit' : ' units') + (last ? ' · last ' + hhmm(last) : '')}];
 }
 try { const R0 = W.Ready1231; if (R0 && !R0.singles1238) W.Ready1231 = Object.freeze(Object.assign({}, R0, {singles1238: true, dayRows: iso => dayRows(iso)})); } catch (x) {}
+/* each day card's demob completion (Andrew: "a perentage daily on the cards so we know the completion of where we are at daily"):
+   the progress card's own figures, units off site against the demob's units. A day gone: complete by its end, and what it moved.
+   Today: complete now, and what today has moved. A day ahead: complete now, and where its bookings take it if every booking goes. */
+const pctW = v => v < 10 ? v.toFixed(1) : v >= 99 && v < 100 ? (Math.floor(v * 10) / 10).toFixed(1) : String(Math.round(v));
+const unitsOf = c => c.group ? (Number(c.n) || 1) : c.tank ? 2 : 1;
+function dayPct(iso, P) {
+ const x = P && P.days.get(iso); if (!x) return '';
+ const bar = (was, add) => '<span class="dpb1238"><i class="was" style="width:' + Math.max(0, Math.min(100, was)).toFixed(2) + '%"></i>' + (add > 0 ? '<i class="add" style="left:' + Math.max(0, Math.min(100, was)).toFixed(2) + '%;width:' + Math.max(0.6, Math.min(100 - was, add)).toFixed(2) + '%"></i>' : '') + '</span>';
+ if (!x.ahead) return '<span class="dp1238' + (x.today ? ' today' : '') + '" data-dp1238="' + x.cum.toFixed(2) + '"><span class="dph1238"><i>Demob complete · ' + (x.today ? 'now' : 'end of day') + '</i><b>' + pctW(x.cum) + '<small>%</small></b></span>' + bar(x.was, x.add)
+  + '<span class="dps1238"><em>+' + x.add.toFixed(1) + '%</em> ' + (x.today ? 'so far today' : 'this day') + ' · ' + x.units + ' unit' + (x.units === 1 ? '' : 's') + ' off site · ' + x.off + ' of ' + P.req + (x.today ? ' off site now' : ' by the end of the day') + '</span></span>';
+ const m = model(), bk = m.cards.filter(c => c.book && c.st.s !== 'gone'), day = bk.filter(c => qDay(c.book.at) === iso).reduce((t, c) => t + unitsOf(c), 0), upto = bk.filter(c => qDay(c.book.at) <= iso).reduce((t, c) => t + unitsOf(c), 0);
+ const now = x.cum, then = Math.min(100, (P.col + upto) / P.req * 100);
+ if (!day) return '<span class="dp1238 ahead" data-dp1238="' + now.toFixed(2) + '"><span class="dph1238"><i>Demob complete · now</i><b>' + pctW(now) + '<small>%</small></b></span>' + bar(now, 0) + '<span class="dps1238">Nothing booked for this day yet' + (upto ? ' · ' + pctW(then) + '% by then if every earlier booking goes' : '') + '</span></span>';
+ return '<span class="dp1238 ahead" data-dp1238="' + then.toFixed(2) + '"><span class="dph1238"><i>If every booking goes</i><b>' + pctW(then) + '<small>%</small></b></span>' + bar(now, then - now)
+  + '<span class="dps1238"><em>+' + (day / P.req * 100).toFixed(1) + '%</em> booked for this day (' + day + ' unit' + (day === 1 ? '' : 's') + ') · ' + pctW(now) + '% complete now</span></span>';
+}
 function decorateDays() {
  const pane = D.getElementById('pane-demob'); if (!pane) return;
+ let P = null; try { P = W.Glow1238 && typeof Glow1238.daily === 'function' ? Glow1238.daily() : null; } catch (x) { P = null; }
  pane.querySelectorAll('.dc996-day[data-dday816]').forEach(card => {
-  const iso = card.dataset.dday816, L = dayLists(iso);
-  const sig = JSON.stringify([L.booked.map(c => c.key + c.uid + c.book.at), L.left.map(x => x.key + x.at + x.nos.join())]);
+  const iso = card.dataset.dday816, L = dayLists(iso), pc = dayPct(iso, P);
+  const sig = JSON.stringify([L.booked.map(c => c.key + c.uid + c.book.at), L.left.map(x => x.key + x.at + x.nos.join()), pc]);
   if (card.dataset.dl1238 === sig) return; card.dataset.dl1238 = sig;
+  const old = card.querySelector('.dp1238'), zone = card.querySelector('.bc984-date-zone');
+  if (old) { if (pc) old.outerHTML = pc; else old.remove(); } else if (pc && zone) zone.insertAdjacentHTML('afterend', pc);
   card.querySelectorAll('.bc984-label, .bc984-at-close').forEach(n => { if (/PLANNED PICK-UPS|COLLECTION RECORD/.test(n.textContent) && n.childNodes[0] && n.childNodes[0].nodeType === 3) n.childNodes[0].nodeValue = 'BOOKED AND PICKED UP'; });
   [...card.querySelectorAll('*')].forEach(n => { if (n.children.length === 0 && /^(PLANNED PICK-UPS|COLLECTION RECORD)$/.test(n.textContent.trim())) n.textContent = 'BOOKED AND PICKED UP'; });
   const row = card.querySelector('.bc984-load-row'); if (!row) return;

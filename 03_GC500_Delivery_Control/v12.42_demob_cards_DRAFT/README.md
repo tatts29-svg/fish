@@ -60,6 +60,12 @@ Save, Clear booking (this unit only, whatever the "Book all" box says) and Cance
 
 **The days: only what was booked or picked up.** A day card counts **Booked**, **Ready of booked** and **Picked up** (in units). It lists each line with its reference, what left (the item's own word: "FWF portable toilet", "Pee Panel"), its asset numbers ("+k without numbers" when a count runs past them) and the time, e.g. "GN10 · 20kva generator · 1283681 · 07:40". A day's list holds the units picked up on it (by the day they left, whatever day they were booked for), the units booked for it, and any run part-collected that day; its heading counts units, the same as its day card. The schedule's own plan (toilet runs, trucks, run sheets, "confirm the proposed", planned counts) is put away, and the day-list button says "booked and picked up", never the old plan's count.
 
+**How complete, day by day** (Andrew: "a perentage daily on the cards so we know the completion of where we are at daily with demob"). Each demob day card carries the demob's completion, from the progress card's own figures (units off site against the demob's units), so the two always agree:
+
+- a day gone: **complete by the end of the day**, its bar showing what that day moved ("+3.9% this day · 31 units off site · 67 of 800 by the end of the day");
+- today: **complete now**, today's part glowing ("+3.9% so far today");
+- a day ahead: complete now, and, once pick-ups are booked for it, **where its bookings would take the demob if every booking up to that day goes** ("+1.2% booked for this day (9 units)"), shown striped. Nothing is projected from the old plan.
+
 **The progress lit up.** The same figures as before (units off site, references fully gone, the demob days, the even pace), now with:
 
 - a glowing ring and line, and today's point pulsing;
