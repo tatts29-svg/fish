@@ -21,7 +21,7 @@
      emptied     - 26 Oct 2026: the Emptied (pumped out) tick on a toilet or waste tank, through the page's own setEmptied816,
                    as a person ticking it in the reference's drawer. The page's emptied gate keeps a toilet's departure form
                    shut until it is ticked; it is only ever ticked here on Andrew's word that the units were pumped out.
-     unit_ready  - 26 Oct 2026 (v12.38): a unit's own Ready tick on the Demob tab, through the page's own Singles1238.setUnitReady,
+     unit_ready  - 26 Oct 2026 (v12.42, built as v12.38): a unit's own Ready tick on the Demob tab, through the page's own Singles1238.setUnitReady,
                    as a person pressing Ready on that unit's card; units named owner|asset number. Only on Andrew's word.
 
      node left_site.cjs                    DRY RUN (default): the page is opened read-only through the harness, every
@@ -205,7 +205,10 @@ function alignStartupQueue(serverDocs) {
 }
 function applyOps(spec) {
   const dry = !!spec.dry; /* a read-only run: the harness aborts every write, so the page is told it may edit */
-  if (dry) { capability = () => 'edit'; mayWrite = () => true; SYNC.readonly = false; SYNC.level = 'edit'; }
+  /* 26 Oct 2026 19:00: the page's poll re-reads the link's level every few seconds and, on the view link the dry run uses, sets it
+     back to view; if the record moved meanwhile, the store's copy then folds over what the stage did. The dry run pins edit for
+     its own page only (the --apply run is on the edit link and needs nothing pinned). */
+  if (dry) { capability = () => 'edit'; mayWrite = () => true; try { Object.defineProperty(SYNC, 'readonly', {configurable: true, get: () => false, set: () => {}}); Object.defineProperty(SYNC, 'level', {configurable: true, get: () => 'edit', set: () => {}}); } catch (e) { SYNC.readonly = false; SYNC.level = 'edit'; } }
   S.operator = spec.by;
   const who = whoAmI(); if (who !== spec.by) throw new Error('whoAmI() did not return ' + spec.by);
   if (!mayWrite('an asset number')) throw new Error('mayWrite() is false - this is not an edit link');
@@ -490,9 +493,9 @@ function applyOps(spec) {
         if (was.on) r.result = 'already emptied, by ' + was.by + ' at ' + was.at;
         else { if (setEmptied816(op.ref, true) !== true) throw new Error('setEmptied816 refused ' + op.ref); const now = emptiedOf816(op.ref); if (!now.on || now.by !== who) throw new Error(op.ref + ' is not emptied by ' + who + ' after the tick'); r.result = 'emptied (pumped out), recorded by ' + now.by + ' at ' + now.at; }
       } else if (op.op === 'unit_ready') {
-        /* v12.38: a unit's own Ready tick through the page's own Singles1238.setUnitReady, as a person pressing Ready on that unit's
+        /* v12.42 (built as v12.38): a unit's own Ready tick through the page's own Singles1238.setUnitReady, as a person pressing Ready on that unit's
            card on the Demob tab. Only on Andrew's word. Every unit named must be on site on that reference. */
-        const SG = window.Singles1238; if (!SG || typeof SG.setUnitReady !== 'function') throw new Error('the per-unit Ready tick is not on this page (v12.38)');
+        const SG = window.Singles1238; if (!SG || typeof SG.setUnitReady !== 'function') throw new Error('the per-unit Ready tick is not on this page (v12.42 Demob cards)');
         const cards = op.units.map(u => SG.cardOf(op.ref, u));
         cards.forEach((c, i) => { if (!c) throw new Error(op.ref + ' has no unit ' + op.units[i]); if (c.st.s === 'gone') throw new Error(op.ref + ' ' + op.units[i] + ' has left'); });
         const todo = op.units.filter((u, i) => cards[i].st.s !== 'ready');
