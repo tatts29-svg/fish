@@ -9,6 +9,8 @@ function env(){return{notes:[],days:['2030-02-01','2030-02-02','2030-02-03'],sco
 function note(e,id='FIXTURE-NOTE-A',number='980001',day='2030-02-02',hours=17.25){const n={id,note_no:number,date:day,labour_hours:hours,recorded_by:'Fixture recorder',usable:true};n.event_allocation=api.makeAllocation(n,e,{by:'Fixture recorder',on:'2030-02-04',text:'Confirmed same existing crew for the whole event day.'});return n;}
 function one(change){const e=env(),n=note(e);if(change)change(n,e);e.notes.push(n);return api.resolve(e);}
 function held(r){assert.equal(r.days.length,0);assert.equal(r.hours,0);assert.equal(r.amount,0);assert(r.issues.length>0,'Rejected linkage must remain visible for review');}
+test('aggregate hours display preserves source quarter-hours and hundredths',()=>{assert.equal(api.hoursText(17.25),'17.25');assert.equal(api.hoursText(0.01),'0.01');assert.equal(api.hoursText(109.75),'109.75');});
+test('aggregate hours display keeps half-hours and whole hours natural',()=>{assert.equal(api.hoursText(17.5),'17.5');assert.equal(api.hoursText(17),'17');assert.equal(api.hoursText(0),'0');});
 test('empty evidence leaves no coverage',()=>assert.deepEqual(api.resolve(env()),{byId:{},byDate:{},days:[],issues:[],hours:0,amount:0}));
 test('unlinked same-day text never establishes coverage',()=>{const e=env(),n=note(e);delete n.event_allocation;n.location='Event crew';n.crew_note='Same crew';e.notes=[n];assert.equal(api.resolve(e).days.length,0);});
 test('valid whole-day note keeps aggregate hours and rounds supplier cents once',()=>{const r=one();assert.equal(r.days.length,1);assert.equal(r.hours,17.25);assert.equal(r.amount,2074.31);assert.equal(r.days[0].rate,120.25);assert.equal(r.days[0].status,'valid');});

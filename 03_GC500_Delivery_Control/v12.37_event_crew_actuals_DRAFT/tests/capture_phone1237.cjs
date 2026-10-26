@@ -49,11 +49,12 @@ const {openCandidate}=require('./browser_harness.cjs');
   // Keep the native horizontally scrollable table; capture its aggregate row without changing layout.
   const scope=s.page.locator('[data-event-scope1237]').first();
   await scope.evaluate(el=>{for(let p=el.parentElement;p;p=p.parentElement)if(p.tagName==='DETAILS')p.open=true;});
-  assert.match(await scope.innerText(),/Crew totals; no individual actual-hour split/);
+  const scopeWords=await scope.innerText();assert.match(scopeWords,/Crew totals; no individual actual-hour split/);assert.match(scopeWords,/17\.25 h/,'Customer aggregate display preserves source quarter-hour precision');
   await shot('[data-event-scope1237]','phone-customer-aggregate-row');
   await scope.evaluate(el=>{const box=el.closest('.tblwrap');if(box)box.scrollLeft=box.scrollWidth-box.clientWidth;});
   await shot('[data-event-scope1237]','phone-customer-aggregate-totals');
   await s.page.evaluate(({date})=>{state.runDay=date;go('runsheet');},ids[0]);
+  assert.match(await s.page.locator('[data-event-day1237="'+ids[0].date+'"]').innerText(),/17\.25 total person-hours/,'Running-sheet aggregate preserves source quarter-hour precision');
   await shot('[data-event-day1237="'+ids[0].date+'"]','phone-running-sheet-aggregate');
   assert.equal(s.errors.length,0,'No page runtime errors');assert.equal(s.counts.blocked,0,'No HTTP write attempts');
   console.log('PASS '+checks.length+' native phone captures; zero runtime errors and HTTP write attempts');

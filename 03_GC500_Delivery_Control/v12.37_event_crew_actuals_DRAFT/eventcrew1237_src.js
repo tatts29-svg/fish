@@ -25,6 +25,8 @@ function exactText(a) {
 const sumDecimal = values => values.map(decimal).reduce(plus, {n:0n,d:1n});
 const round = n => rounded(decimal(n));
 const product = (hours, rate) => rounded(times([hours, rate]));
+/* Keep the signed source hours visible; the general page formatter rounds to one decimal. */
+const hoursText = value => Number(value).toLocaleString('en-AU', {maximumFractionDigits: 2});
 const plain = x => !!x && typeof x === 'object' && !Array.isArray(x);
 const text = x => typeof x === 'string' && x.trim().length > 0;
 const date = x => typeof x === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(x) && Number.isFinite(Date.parse(x + 'T00:00:00Z')) && new Date(x + 'T00:00:00Z').toISOString().slice(0, 10) === x;
@@ -80,7 +82,7 @@ function resolve(env) {
   const days = Object.values(byDate).sort((a,b) => a.date.localeCompare(b.date));
   return {byId, byDate, days, issues, hours: rounded(sumDecimal(days.map(x=>x.hours))), amount: rounded(sumDecimal(days.map(x=>x.amount)))};
 }
-const api = {version: 'v12.37', round, product, sourceOf, makeAllocation, resolve};
+const api = {version: 'v12.37', round, product, hoursText, sourceOf, makeAllocation, resolve};
 root.EventCrew1237 = api;
 if (typeof module !== 'undefined' && module.exports) module.exports = api;
 if (typeof document === 'undefined') return;
@@ -172,10 +174,10 @@ function dayHtml(day) {
   const warning = errors.length ? '<p class="norate" data-event-review1237>Event allocation needs review: '+errors.map(r=>esc(r.note_no+': '+r.errors.join(' '))).join(' · ')+'</p>' : '';
   if (!d) return warning;
   const original = ourCosts().filter(r=>d.shiftIds.includes(r.id));
-  return warning + '<div class="fin745-block" data-event-day1237="'+esc(day)+'"><h3>Event crew · signed service note '+esc(d.note_no)+'</h3><p><b>'+esc(fmtNum(d.hours))+' total person-hours · '+esc(money(d.amount))+'</b> at the linked supplier rate. Customer Revenue is in the event scope. Invoice/payment unverified.</p><details class="sfold"><summary>Original roster · replaced by this crew total</summary><div class="sfoldbody"><p>No individual actual hours have been allocated.</p><div class="tblwrap"><table class="progtbl"><thead><tr><th>Original source</th><th>Planned start</th><th>Planned finish</th><th>Planned hours</th></tr></thead><tbody>'+original.map(r=>'<tr><td>'+esc(r.person)+'</td><td>'+esc(r.start||'—')+'</td><td>'+esc(r.finish||'—')+'</td><td>'+esc(runWorked(r)==null?'—':fmtNum(runWorked(r)))+'</td></tr>').join('')+'</tbody></table></div></div></details></div>';
+  return warning + '<div class="fin745-block" data-event-day1237="'+esc(day)+'"><h3>Event crew · signed service note '+esc(d.note_no)+'</h3><p><b>'+esc(hoursText(d.hours))+' total person-hours · '+esc(money(d.amount))+'</b> at the linked supplier rate. Customer Revenue is in the event scope. Invoice/payment unverified.</p><details class="sfold"><summary>Original roster · replaced by this crew total</summary><div class="sfoldbody"><p>No individual actual hours have been allocated.</p><div class="tblwrap"><table class="progtbl"><thead><tr><th>Original source</th><th>Planned start</th><th>Planned finish</th><th>Planned hours</th></tr></thead><tbody>'+original.map(r=>'<tr><td>'+esc(r.person)+'</td><td>'+esc(r.start||'—')+'</td><td>'+esc(r.finish||'—')+'</td><td>'+esc(runWorked(r)==null?'—':fmtNum(runWorked(r)))+'</td></tr>').join('')+'</tbody></table></div></div></details></div>';
 }
 function scopeHtml(line, ro) {
-  return '<tr data-scope-line="fence" data-event-scope1237><td><b>'+esc(line.role)+'</b><br><span class="w">Crew totals; no individual actual-hour split</span></td><td>'+esc(money(line.rate))+(ro?'':'<br><input class="rate scopein" inputmode="decimal" data-scope="rate|fence|" value="'+(line.rate_typed?esc(String(line.rate)):'')+'" placeholder="'+esc(String(line.rate))+'" aria-label="Customer event crew rate per person-hour">')+'</td>'+line.days.map(d=>'<td class="num"><b>'+esc(fmtNum(d.hours))+' h</b><br><span class="w">'+(d.aggregate1237?'Recorded crew total · note '+esc(d.event_note1237.note_no):'Scope plan · '+esc(String(d.people))+' people')+'</span>'+(!ro&&!d.aggregate1237?'<br><input class="rate scopein hrs" inputmode="decimal" data-scope="hours|fence|'+esc(d.day)+'" value="'+(d.per_typed?esc(String(d.per)):'')+'" placeholder="'+esc(String(d.per))+'" aria-label="Planned customer hours per person on '+esc(d.day)+'"> h each':'')+'</td>').join('')+'<td class="num"><b>'+esc(fmtNum(line.hours))+' h</b><br>'+esc(money(line.amount))+'</td></tr>';
+  return '<tr data-scope-line="fence" data-event-scope1237><td><b>'+esc(line.role)+'</b><br><span class="w">Crew totals; no individual actual-hour split</span></td><td>'+esc(money(line.rate))+(ro?'':'<br><input class="rate scopein" inputmode="decimal" data-scope="rate|fence|" value="'+(line.rate_typed?esc(String(line.rate)):'')+'" placeholder="'+esc(String(line.rate))+'" aria-label="Customer event crew rate per person-hour">')+'</td>'+line.days.map(d=>'<td class="num"><b>'+esc(hoursText(d.hours))+' h</b><br><span class="w">'+(d.aggregate1237?'Recorded crew total · note '+esc(d.event_note1237.note_no):'Scope plan · '+esc(String(d.people))+' people')+'</span>'+(!ro&&!d.aggregate1237?'<br><input class="rate scopein hrs" inputmode="decimal" data-scope="hours|fence|'+esc(d.day)+'" value="'+(d.per_typed?esc(String(d.per)):'')+'" placeholder="'+esc(String(d.per))+'" aria-label="Planned customer hours per person on '+esc(d.day)+'"> h each':'')+'</td>').join('')+'<td class="num"><b>'+esc(hoursText(line.hours))+' h</b><br>'+esc(money(line.amount))+'</td></tr>';
 }
 Object.assign(api, {environment, model, status, covered, active, price, cost, capture, applyScope, noteWords, rowWords, dayHtml, scopeHtml, noteSources});
 })(typeof window !== 'undefined' ? window : globalThis);
