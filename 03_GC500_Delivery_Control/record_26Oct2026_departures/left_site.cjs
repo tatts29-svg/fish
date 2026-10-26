@@ -23,13 +23,25 @@
                    shut until it is ticked; it is only ever ticked here on Andrew's word that the units were pumped out.
      unit_ready  - 26 Oct 2026 (v12.42, built as v12.38): a unit's own Ready tick on the Demob tab, through the page's own Singles1238.setUnitReady,
                    as a person pressing Ready on that unit's card; units named owner|asset number. Only on Andrew's word.
+     vms_arrival - 27 Oct 2026: a VMS board's arrival day on the VMS plan corrected through the plan's own writer (VMS1024.write,
+                   checked by VMSArrival1098.prepare), as a person correcting it would: the entry on the wrong day (was) is
+                   withdrawn ("not confirmed" on that day, the page's own correction, as VMS21's 21 Oct entry was), the board goes
+                   on site and in place on the day it came (day), the reason goes in the board's notes, and a board that was
+                   complete is ticked complete again (a withdrawal takes the complete tick off, as the page does). The entry
+                   on the wrong day stays in the history. Andrew, 27 Oct 2026: "22 oct" (VMS22, VMS24: Premiair docket 26143911).
+     add_ref, 27 Oct 2026: a sub-hired VMS board's reference carries no number (its fleet number goes on its unit), and
+                   may carry its in and out days (from, to: the Add form's own fields).
 
      node left_site.cjs                    DRY RUN (default): the page is opened read-only through the harness, every
                                            write it tries is ABORTED, and the script prints what --apply would send.
      node left_site.cjs --apply            needs GC500_EDIT_TOKEN and GC500_EXPECTED_PAGE_SHA in the environment.
      options: --spec <file> (default left_site_spec.json beside this script)
               --page <file> or PAGE=<file>: the page to serve in the dry run (default: the live page, fetched now)
+              --check-spec: check the spec and stop - no page, no service (27 Oct 2026)
               GC500_PRIVATE_DIR=<dir>: where the whole-record backup goes (default beside this script; keep it private)
+     spec.expect (27 Oct 2026, optional): {"chargeDelta": 0, "costDelta": 0} - after the stage, what is charged to the V8s and
+              the known costs must move by exactly these, to the cent, and no branch total may move; otherwise nothing is
+              sent, in the dry run as in --apply.
 
    v10.x VMS (18 Oct 2026): vms_rego - a VMS board's rego through the register's own writer vms913Save(key, ..., {rego:true}),
    exactly as an editor typing the rego into the VMS boards form and pressing Save. Andrew, 18 Oct: "Please add rego. For all
@@ -63,20 +75,37 @@ const log = (...a) => console.log(...a.map(redact));
 const fail = m => { throw new Error(redact(m)); };
 
 // ---------------------------------------------------------------------------------------------- the spec
-const spec = JSON.parse(fs.readFileSync(specPath, 'utf8'));
+const REFRE = /^[A-Z][A-Z0-9]{0,7}(-[A-Z0-9]{1,4})?$/, NORE = /^\d{4,12}$/;
+const TYPES = ['Air conditioner', 'Fridge', 'Zip boiler', 'Sink with tap', 'Microwave', 'Hydration station', 'Urn', 'Whiteboard', 'Folding table', 'Swivel chair', 'Stackable chair', 'Chair', 'Desk', 'Heater', 'Water cooler', 'Other'];
+/* 27 Oct 2026: one rule for the free text a run leaves on the record (a note, a reason): it names the person, never a system */
+const SYS = /\b(codex|claude|gpt|model|agent)\b/i;
+const ISO_UTC = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(\.\d{1,3})?Z$/;
+const realDay = d => typeof d === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(d) && Number.isFinite(Date.parse(d + 'T00:00:00Z')) && new Date(d + 'T00:00:00Z').toISOString().slice(0, 10) === d;
+const aestDay = t => new Date(Date.parse(t) + 36e6).toISOString().slice(0, 10); /* the day in AEST (Brisbane, UTC+10, no daylight saving) */
+/* a name the page would read as a quantity (descriptionQuantity1012 reads "qty 2", "VMS x 2", "2 x VMS") */
+const QTYNAME = /\b(qty|quantity)\b|[x×]\s*\d+\s*$|^\s*\d+\s*[x×]/i;
+const TEXT200 = s => typeof s === 'string' && !!s.trim() && s.length <= 200 && !SYS.test(s);
+/* the spec's own checks, before any page opens; `now` only so a test can fix today */
+function validateSpec(spec, now = Date.now()) {
+const today = aestDay(new Date(now).toISOString());
+if (!spec || typeof spec !== 'object') fail('the spec is not an object');
 if (typeof spec.by !== 'string' || !spec.by.trim()) fail('spec.by must be a name');
 if (/\bvia\b/i.test(spec.by)) fail('spec.by must be the person, with no agent suffix');
 if (!Array.isArray(spec.ops) || !spec.ops.length) fail('spec.ops must be a list');
-const REFRE = /^[A-Z][A-Z0-9]{0,7}(-[A-Z0-9]{1,4})?$/, NORE = /^\d{4,12}$/;
-const TYPES = ['Air conditioner', 'Fridge', 'Zip boiler', 'Sink with tap', 'Microwave', 'Hydration station', 'Urn', 'Whiteboard', 'Folding table', 'Swivel chair', 'Stackable chair', 'Chair', 'Desk', 'Heater', 'Water cooler', 'Other'];
 spec.ops.forEach((o, i) => {
   const at = 'ops[' + i + '] ';
   if (o.op === 'number_on' || o.op === 'number_off') { if (!REFRE.test(o.ref || '')) fail(at + 'needs a reference'); if (!NORE.test(o.no || '')) fail(at + 'needs a 4-12 digit number'); }
-  else if (o.op === 'light') { if (!REFRE.test(o.ref || '')) fail(at + 'needs a reference'); if (!['on site', 'not on site', 'in transit', 'collected'].includes(o.state)) fail(at + 'needs a light state'); }
+  else if (o.op === 'light') { if (!REFRE.test(o.ref || '')) fail(at + 'needs a reference'); if (!['on site', 'not on site', 'in transit', 'collected'].includes(o.state)) fail(at + 'needs a light state');
+    /* 27 Oct 2026: a back-dated light is an arrival: on site, an exact UTC time that has passed, and why, in words the record keeps */
+    if (o.at != null) { if (o.state !== 'on site') fail(at + 'only an on-site light is dated back (at)'); if (typeof o.at !== 'string' || !ISO_UTC.test(o.at) || !Number.isFinite(Date.parse(o.at))) fail(at + 'at must be a UTC time, e.g. 2026-10-21T14:00:00.000Z'); if (Date.parse(o.at) > now) fail(at + 'at is in the future'); if (!TEXT200(o.why)) fail(at + 'a dated light needs why, under 200 characters, naming no system'); } }
   else if (o.op === 'acc_add') { if (!REFRE.test(o.ref || '')) fail(at + 'needs a reference'); if (!TYPES.includes(o.type)) fail(at + 'type must be one the picker has'); if (!NORE.test(o.no || '')) fail(at + 'needs a number'); if (o.qty != null && !(Number.isInteger(o.qty) && o.qty >= 1)) fail(at + 'qty'); }
   else if (o.op === 'acc_fix') { if (!REFRE.test(o.ref || '')) fail(at + 'needs a reference'); if (!TYPES.includes(o.type)) fail(at + 'type'); if (!/^\d{4,12}$/.test(o.from || '') || !NORE.test(o.to || '')) fail(at + 'from/to numbers'); }
   else if (o.op === 'answer') { if (typeof o.id !== 'string' || !/^[a-z0-9][a-z0-9_-]{1,80}$/i.test(o.id)) fail(at + 'needs a question id'); if (typeof o.text !== 'string' || !o.text.trim() || o.text.length > 600) fail(at + 'needs text under 600 characters'); if (/\b(codex|claude|gpt|model|agent)\b/i.test(o.text)) fail(at + 'text names a system'); }
-  else if (o.op === 'unit_reidentify') { if (!REFRE.test(o.ref || '')) fail(at + 'needs a reference'); if (!/^[0-9A-Z]{3,12}$/.test(o.no || '')) fail(at + 'needs a number'); if (typeof o.item !== 'string' || !o.item.trim()) fail(at + 'needs an item type'); if (!['coates', 'event-portables', 'prem-air-hire'].includes(o.owner || 'coates')) fail(at + 'owner'); }
+  else if (o.op === 'unit_reidentify') { if (!REFRE.test(o.ref || '')) fail(at + 'needs a reference'); if (!/^[0-9A-Z]{3,12}$/.test(o.no || '')) fail(at + 'needs a number'); if (typeof o.item !== 'string' || !o.item.trim()) fail(at + 'needs an item type'); if (!['coates', 'event-portables', 'prem-air-hire'].includes(o.owner || 'coates')) fail(at + 'owner');
+    /* 27 Oct 2026: the label is what the Demob cards read; a Premiair VMS board's label is its register name (VMSnn), which places it on the VMS plan */
+    if (o.label != null && !(typeof o.label === 'string' && /^[A-Za-z0-9][A-Za-z0-9 -]{0,23}$/.test(o.label))) fail(at + 'label: letters, digits, spaces and dashes, up to 24');
+    if ((o.owner || 'coates') === 'prem-air-hire' && o.item === 'VMS' && !/^VMS\d{2}$/.test(o.label || '')) fail(at + 'a Premiair VMS board is labelled by its register name (VMSnn, e.g. VMS21)');
+    if (o.note != null && (typeof o.note !== 'string' || o.note.length > 200 || SYS.test(o.note))) fail(at + 'note under 200 characters, naming no system'); }
   else if (o.op === 'number_item') { if (!REFRE.test(o.ref || '')) fail(at + 'needs a reference'); if (!NORE.test(o.no || '')) fail(at + 'needs a number'); if (typeof o.item !== 'string' || !o.item.trim()) fail(at + 'needs an item'); }
   else if (o.op === 'complete') { if (!REFRE.test(o.ref || '')) fail(at + 'needs a reference'); }
   else if (o.op === 'note_replace') { if (!REFRE.test(o.ref || '')) fail(at + 'needs a reference'); for (const f of ['old', 'new']) if (typeof o[f] !== 'string' || !o[f].trim() || o[f].length > 600) fail(at + 'needs ' + f + ' text under 600 characters'); if (/\b(codex|claude|gpt|model|agent)\b/i.test(o.new)) fail(at + 'text names a system'); }
@@ -100,7 +129,9 @@ spec.ops.forEach((o, i) => {
   else if (o.op === 'place') { if (!REFRE.test(o.ref || '')) fail(at + 'needs a reference'); if (!(o.lat <= -27 && o.lat >= -29 && o.lon >= 153 && o.lon <= 154)) fail(at + 'not a Gold Coast position'); if (typeof o.how !== 'string' || !o.how.trim() || o.how.length > 200) fail(at + 'needs how it was arrived at'); if (/\b(codex|claude|gpt|model|agent)\b/i.test(o.how + ' ' + (o.source || ''))) fail(at + 'text names a system'); }
   else if (o.op === 'fire_ext') { if (!REFRE.test(o.ref || '')) fail(at + 'needs a reference'); if (!(Number.isInteger(o.qty) && o.qty >= 1 && o.qty <= 99)) fail(at + 'needs a fire extinguisher count 1-99'); }
   else if (o.op === 'item_type') { if (!REFRE.test(o.ref || '')) fail(at + 'needs a reference'); if (typeof o.item !== 'string' || !o.item.trim() || o.item.length > 80) fail(at + 'needs the item type'); }
-  else if (o.op === 'add_ref') { if (!REFRE.test(o.ref || '')) fail(at + 'needs a reference'); if (!['Access & plant', 'Other', 'Generators'].includes(o.disc)) fail(at + 'trade must be Access & plant, Other or Generators'); if ((o.sheet != null || o.callout != null) && !(/^[A-Z0-9-]{4,20}$/.test(o.sheet || '') && /^[0-9A-Z]{1,6}$/.test(o.callout || ''))) fail(at + 'sheet and callout'); for (const f of ['name', 'type']) if (typeof o[f] !== 'string' || !o[f].trim() || o[f].length > 80) fail(at + 'needs ' + f); if (!NORE.test(o.no || '')) fail(at + 'needs a number'); if (typeof o.note !== 'string' || !o.note.trim() || o.note.length > 200 || /\b(codex|claude|gpt|model|agent)\b/i.test(o.note)) fail(at + 'needs a note under 200 characters naming no system'); if (!['MEAD', 'KINP', 'NVAC', 'STPS'].includes(o.branch)) fail(at + 'branch'); }
+  else if (o.op === 'add_ref') { if (!REFRE.test(o.ref || '')) fail(at + 'needs a reference'); if (!['Access & plant', 'Other', 'Generators', 'Variable message signs'].includes(o.disc)) fail(at + 'trade must be Access & plant, Other, Generators or Variable message signs'); if (o.disc === 'Variable message signs' && o.type !== 'VMS') fail(at + 'a VMS board reference has the item type VMS'); if ((o.sheet != null || o.callout != null) && !(/^[A-Z0-9-]{4,20}$/.test(o.sheet || '') && /^[0-9A-Z]{1,6}$/.test(o.callout || ''))) fail(at + 'sheet and callout'); for (const f of ['name', 'type']) if (typeof o[f] !== 'string' || !o[f].trim() || o[f].length > 80) fail(at + 'needs ' + f); if (QTYNAME.test(o.name)) fail(at + 'the name reads as a quantity on the page (qty, x 2, 2 x)'); if (!(o.no === '' && o.disc === 'Variable message signs') && !NORE.test(o.no || '')) fail(at + 'needs a number (blank only for a sub-hired VMS board; its fleet number goes on its unit)'); if (typeof o.note !== 'string' || !o.note.trim() || o.note.length > 200 || SYS.test(o.note)) fail(at + 'needs a note under 200 characters naming no system'); if (!['MEAD', 'KINP', 'NVAC', 'STPS'].includes(o.branch)) fail(at + 'branch');
+    /* 27 Oct 2026: the Add form's in and out days, as the form checks them, and no in day after today */
+    if (o.from != null && !realDay(o.from)) fail(at + 'from must be a real day, e.g. 2026-10-22'); if (o.to != null && !realDay(o.to)) fail(at + 'to must be a real day'); if (o.from != null && o.from > today) fail(at + 'from is after today (AEST)'); if (o.from != null && o.to != null && o.to < o.from) fail(at + 'to is before from'); }
   else if (o.op === 'date_back') { if (!REFRE.test(o.ref || '')) fail(at + 'needs a reference'); for (const f of ['done_at', 'supplied_at', 'install_at']) if (o[f] != null && !/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(\.\d{1,3})?Z$/.test(o[f])) fail(at + f + ' must be an ISO time'); for (const f of ['item', 'disc']) if (typeof o[f] !== 'string' || !o[f]) fail(at + 'needs ' + f); if (typeof o.why !== 'string' || !o.why.trim() || o.why.length > 300 || /\b(codex|claude|gpt|model|agent)\b/i.test(o.why)) fail(at + 'needs why, naming no system'); }
   else if (o.op === 'set_qty') { if (!REFRE.test(o.ref || '')) fail(at + 'needs a reference'); if (!(o.qty === '' || (Number.isInteger(o.qty) && o.qty >= 0))) fail(at + 'qty must be a whole number or "" for the schedule\'s own'); }
   else if (o.op === 'depart') { if (!REFRE.test(o.ref || '')) fail(at + 'needs a reference'); if (!/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\+10:00$/.test(o.at || '') || !Number.isFinite(Date.parse(o.at))) fail(at + 'needs the actual departure time in AEST, e.g. 2026-10-26T07:40:00+10:00'); if (Date.parse(o.at) > Date.now()) fail(at + 'departure time is in the future');
@@ -109,16 +140,39 @@ spec.ops.forEach((o, i) => {
     if (!o.nos.length && !(o.unnumbered || []).length) fail(at + 'needs at least one unit that left'); if (o.complete != null && typeof o.complete !== 'boolean') fail(at + 'complete must be true or false'); if (o.readback != null && o.readback !== 'history') fail(at + 'readback can only be history'); }
   else if (o.op === 'emptied') { if (!REFRE.test(o.ref || '')) fail(at + 'needs a reference'); if (o.on !== true) fail(at + 'emptied only ticks on (on: true), on Andrew\'s word that the units were pumped out'); }
   else if (o.op === 'unit_ready') { if (!REFRE.test(o.ref || '')) fail(at + 'needs a reference'); if (!Array.isArray(o.units) || !o.units.length || o.units.some(u => !/^[a-z-]+\|[0-9A-Za-z]{2,12}$/.test(u))) fail(at + 'needs the units, each owner|asset number'); }
+  else if (o.op === 'vms_arrival') { if (!/^\d{2}[a-z]?$/.test(o.pos || '')) fail(at + 'needs a VMS plan position'); if (!/^VMS\d{2}$/.test(o.board || '')) fail(at + 'needs the board name (VMSnn) that position carries');
+    if (!realDay(o.was) || !realDay(o.day)) fail(at + 'needs the arrival day on the plan now (was) and the day it came (day), each a real day'); if (!(o.day > o.was)) fail(at + 'the day it came must be after the day recorded (only a later arrival is corrected this way)'); if (o.day > today) fail(at + 'the day it came is after today (AEST)');
+    if (!TEXT200(o.why)) fail(at + 'needs why, under 200 characters, naming no system'); }
   else fail(at + 'unknown op ' + o.op);
 });
+/* 27 Oct 2026: one day everywhere. An added reference is in from the AEST day its light is dated; a VMS board whose plan
+   arrival is corrected arrives that same day on the reference its unit is on; a reference is added once, a position corrected once */
+const adds = spec.ops.filter(o => o.op === 'add_ref');
+adds.forEach((o, i) => { if (adds.findIndex(x => x.ref === o.ref) !== i) fail(o.ref + ' is added twice'); });
+adds.filter(o => o.from).forEach(o => { const l = spec.ops.find(x => x.op === 'light' && x.ref === o.ref && x.at); if (l && aestDay(l.at) !== o.from) fail(o.ref + ': from ' + o.from + ' is not the AEST day of its arrival ' + l.at + ' (' + aestDay(l.at) + ')'); });
+const arrivals = spec.ops.filter(o => o.op === 'vms_arrival');
+arrivals.forEach((o, i) => { if (arrivals.findIndex(x => x.pos === o.pos) !== i) fail('VMS plan position ' + o.pos + ' is corrected twice');
+  const u = spec.ops.find(x => x.op === 'unit_reidentify' && x.label === o.board), ad = u && adds.find(x => x.ref === u.ref);
+  if (ad && ad.from !== o.day) fail(o.board + ': the VMS plan arrival ' + o.day + ' is not ' + ad.ref + '\'s in day ' + ad.from); });
+if (spec.expect != null) { const e = spec.expect; if (!e || typeof e !== 'object' || Array.isArray(e) || !Number.isFinite(e.chargeDelta) || !Number.isFinite(e.costDelta) || Object.keys(e).some(k => !['chargeDelta', 'costDelta'].includes(k))) fail('spec.expect must be {"chargeDelta": dollars, "costDelta": dollars}'); }
+return true;
+}
+/* the references a spec names (a sub_move names two, from and to); an add_ref's from and to are its in and out days, not references */
+function refsOf(spec) { return [...new Set(spec.ops.flatMap(o => o.op === 'add_ref' ? [o.ref] : [o.ref, o.from, o.to]).filter(Boolean))]; }
+if (require.main !== module) { module.exports = {validateSpec, refsOf, SYS, aestDay, realDay}; return; } /* required by a test: the spec's checks only - no page, no service */
+const spec = JSON.parse(fs.readFileSync(specPath, 'utf8'));
+validateSpec(spec);
 const VKEYS = [...new Set(spec.ops.filter(o => o.op === 'vms_rego' || o.op === 'vms_fleet' || o.op === 'vms_board').map(o => o.key))];
-const REFS = [...new Set(spec.ops.flatMap(o => [o.ref, o.from, o.to]).filter(Boolean))], QIDS = [...new Set(spec.ops.filter(o => o.op === 'answer').map(o => o.id))];
+const REFS = refsOf(spec), QIDS = [...new Set(spec.ops.filter(o => o.op === 'answer').map(o => o.id))];
 /* the documents this operation may touch: the references' own delivery, assetNumbers and accessories documents, the
    answers documents named, and the audit documents the page keeps beside them (stamps, by, deleted, notes, spares) */
 const ALLOWED_COLLS = new Set(['delivery', 'assetNumbers', 'accessories', 'answers', 'stamps', 'by', 'deleted', 'notes', 'spares', 'loads', 'qtys', 'units', 'labour', 'supplied', 'vmsboard', 'places', 'items', 'added', 'branch']);
 const NEW_REFS = new Set(spec.ops.filter(o => o.op === 'add_ref').map(o => o.ref)); /* references this run creates: absent before, present after */
 const PROBE_REFS = [...new Set([...NEW_REFS, ...spec.ops.filter(o => o.op === 'date_back').map(o => o.ref)])]; /* read back on Today after the stage */
-const VPOS = new Set(spec.ops.filter(o => o.op === 'vms_plan' || o.op === 'vms_inplace' || o.op === 'vms_complete').map(o => o.pos)); /* VMS plan positions (vms1024/<pos> on loads) the spec names */
+const VPOS = new Set(spec.ops.filter(o => o.op === 'vms_plan' || o.op === 'vms_inplace' || o.op === 'vms_complete' || o.op === 'vms_arrival').map(o => o.pos)); /* VMS plan positions (vms1024/<pos> on loads) the spec names */
+/* 27 Oct 2026, read only: the VMS plan boards the spec touches (a Premiair board's unit label, a corrected arrival), and the days to read them on */
+const VBOARDS = [...new Set(spec.ops.filter(o => (o.op === 'unit_reidentify' && o.item === 'VMS' && /^VMS\d{2}$/.test(o.label || '')) || o.op === 'vms_arrival').map(o => o.label || o.board))];
+const VDAYS = [...new Set(spec.ops.flatMap(o => o.op === 'vms_arrival' ? [o.was, o.day] : o.op === 'add_ref' && o.from ? [o.from] : []))].sort();
 const SPARE_IDS = new Set(spec.ops.filter(o => o.op === 'spare_use').map(o => o.id)); /* a spare is named by its own id; only the ones the spec names */
 const docIdDecode = id => String(id).replace(/~2f~/g, '/').replace(/~7c~/g, '|').replace(/~20~/g, ' ').replace(/~26~/g, '&');
 const allowed = (k, body, docs) => { const c = k.slice(0, k.indexOf('/')), id = k.slice(k.indexOf('/') + 1); if (!ALLOWED_COLLS.has(c)) return false; const d = docIdDecode(id), parts = d.split('/');
@@ -133,6 +187,7 @@ const allowed = (k, body, docs) => { const c = k.slice(0, k.indexOf('/')), id = 
   if (c === 'labour' || (c === 'stamps' || c === 'by') && d.startsWith('labour/')) { const lk = d.replace(/^labour\//, ''); return REFS.includes(lk.split(/[\/|]/)[0]); } /* a labour tick is named ref|disc|item|line or ref/unit|...; its ref leads */
   return parts.some(p => REFS.includes(p) || QIDS.includes(p)); };
 const NOTE_IDS = new Set();
+if (args.includes('--check-spec')) { log(`spec ${path.basename(specPath)}: ${spec.ops.length} op(s) pass the checks - references ${REFS.join(', ') || 'none'}${VPOS.size ? ' · VMS plan positions ' + [...VPOS].join(', ') : ''}${spec.expect ? ' · expect ' + JSON.stringify(spec.expect) : ''}. No page opened, nothing read or sent.`); process.exit(0); }
 
 // ---------------------------------------------------------------------------------------------- curl with headers on stdin
 let seq = 0;
@@ -178,6 +233,33 @@ function pageSnapshot(spec) {
     queue: Object.fromEntries(Object.entries(SYNC.queue || {}).filter(([, q]) => Object.keys(q).length)),
     inflight: Object.keys(SYNC.inflight || {}), waiting: syncWaiting(), status: SYNC.status, level: SYNC.level, readonly: SYNC.readonly}));
 }
+/* 27 Oct 2026, read only: each VMS plan position carrying the named boards - its stand-alone card on the Demob tab (key from the
+   plan's own label, 'VMS 21' -> VMS21#vms:21) and its arrival on the plan, today and on each day named */
+function pageVmsBoards(q) {
+  const out = {}, V = window.VMS1024, A = window.VMSArrival1098, SG = window.Singles1238; if (!V || typeof V.boards !== 'function') return {error: 'no VMS plan on this page'};
+  for (const name of q.boards) for (const b of V.boards().filter(x => (x.board || x.default_board) === name)) {
+    const key = V.label(b).replace(/\*$/, '').replace(/\s+/g, ''), uid = 'vms:' + b.pos, o = {card: key + '#' + uid};
+    try { const c = SG && typeof SG.cardOf === 'function' ? SG.cardOf(key, uid) : undefined; o.demobCard = c === undefined ? 'no Demob cards on this page' : c ? {owner: c.owner, no: c.no, label: c.label, st: c.st && c.st.s} : null; } catch (e) { o.demobCard = 'not read: ' + String(e).slice(0, 80); }
+    try { const r = V.rec(b.pos), ev = d => { const e = A && A.evidence(r, d); return e ? (e.on ? 'on site from ' + e.effectiveDate : e.state + ' (' + e.effectiveDate + ')') + (e.installed ? ', in place' : '') + ' · ' + e.by : 'no arrival'; };
+      const s = A && A.status(name); o.plan = Object.assign({today: ev(todayIso())}, ...q.days.map(d => ({[d]: ev(d)})), {complete: !!(s && s.done), entries: ((r && r.events1098) || []).length, notes: String((r && r.notes) || '')}); } catch (e) { o.plan = 'not read: ' + String(e).slice(0, 80); }
+    out[name + ' @ ' + b.pos] = o;
+  }
+  return JSON.parse(JSON.stringify(out));
+}
+/* 27 Oct 2026, read only: what the page makes of each new reference - its units, charge span, last arrival, departure reading,
+   its unit cards on the Demob tab and any Questions entry that names it */
+function pageNewRefProbe(refs) {
+  let QL = null; const ql = () => QL || (QL = typeof questionsList === 'function' ? questionsList() : []);
+  return JSON.parse(JSON.stringify(refs.filter(k => assetOf(k)).map(k => { const a = assetOf(k), o = {key: k}; let us = [];
+    try { us = gcUnits925(a, {loading: false}); o.units = us.map(u => [u.owner, u.assetNo, u.label, u.item, u.source, u.registration || '-'].join('/')); } catch (e) { o.units = 'not read: ' + String(e).slice(0, 80); }
+    try { const s = chargeSpanOf(a); o.span = s ? {days: s.days, from: s.from, to: s.to, why: s.why} : null; } catch (e) { o.span = 'not read: ' + String(e).slice(0, 80); }
+    try { o.lastOnSite = lastOnSite816(k); } catch (e) { o.lastOnSite = 'not read: ' + String(e).slice(0, 80); }
+    try { const d = DemobCollection996.read(k); o.departure = d ? {arrival: d.arrival && d.arrival.at, remaining: d.remaining, unknown: d.unknown, issues: d.issues} : null; } catch (e) { o.departure = 'not read: ' + String(e).slice(0, 80); }
+    try { const SG = window.Singles1238; if (SG && typeof SG.cardOf === 'function') o.cards = us.map(u => { const uid = (String(u.owner || 'unknown') + '|' + String(u.assetNo || u.nativeId || u.id || '')).replace(/[^\w:.|-]+/g, '_').slice(0, 120), c = SG.cardOf(k, uid);
+      return c ? {uid, owner: c.owner, no: c.no, label: c.label, cat: c.cat, vms: c.vms ? c.vms.label + ' at ' + c.vms.at : null, st: c.st && c.st.s} : {uid, card: null}; }); } catch (e) { o.cards = 'not read: ' + String(e).slice(0, 80); }
+    try { const re = new RegExp('\\b' + k.replace(/[-]/g, '\\-') + '\\b'); o.questions = ql().filter(x => re.test(JSON.stringify(x))).map(x => x.id + ' [' + x.st + '] ' + String(x.q || '').slice(0, 100)); } catch (e) { o.questions = 'not read: ' + String(e).slice(0, 80); }
+    return o; })));
+}
 function holdSender() {
   if (typeof syncSend !== 'function') throw new Error('syncSend missing');
   if (!window.__heldSend) { window.__heldSend = syncSend; syncSend = function () { clearTimeout(SYNC.timer); SYNC.timer = null; syncStage(); }; }
@@ -219,11 +301,14 @@ function applyOps(spec) {
     try {
       if (op.op === 'add_ref') {
         if (isRef(op.ref)) throw new Error(op.ref + ' already exists - not added again');
-        const k = addReference({key: op.ref, disc: op.disc, name: op.name, type: op.type, no: op.no, note: op.note, branch: op.branch, sheet: op.sheet || null, callout: op.callout || null});
+        const k = addReference({key: op.ref, disc: op.disc, name: op.name, type: op.type, no: op.no, note: op.note, branch: op.branch, sheet: op.sheet || null, callout: op.callout || null, from: op.from || null, to: op.to || null});
         if (op.sheet && !((assetOf(op.ref).drawing_links || []).some(x => x.sheet === op.sheet && x.label === op.callout))) throw new Error(op.ref + ' is not at callout ' + op.callout + ' on ' + op.sheet + ' after the add');
         if (k !== op.ref || !isRef(op.ref)) throw new Error('addReference refused ' + op.ref);
-        const a = assetOf(op.ref); if (!assetNumbersOf(a).includes(op.no)) throw new Error(op.ref + ' does not carry ' + op.no + ' after the add');
-        r.result = 'added ' + op.ref + ' (' + op.disc + ', ' + op.name + ', ' + op.no + ', branch ' + op.branch + ')';
+        /* 27 Oct 2026: a sub-hired VMS board's reference carries no number (its fleet number is on its unit) */
+        const nums = assetNumbersOf(assetOf(op.ref)); if (op.no ? !nums.includes(op.no) : nums.length) throw new Error(op.ref + (op.no ? ' does not carry ' + op.no : ' carries ' + nums.join(', ') + ' (expected no number)') + ' after the add');
+        const ad = (S.added || []).filter(x => x && x.key === op.ref).pop();
+        if (!ad || JSON.stringify(ad.item_types) !== JSON.stringify([op.type]) || (ad.first_date || null) !== (op.from || null) || (ad.last_date || null) !== (op.to || null)) throw new Error(op.ref + ' is not added as ' + op.type + ' in ' + (op.from || '-') + ' out ' + (op.to || '-') + ' (added: ' + JSON.stringify(ad ? {item_types: ad.item_types, first_date: ad.first_date, last_date: ad.last_date} : null) + ')');
+        r.result = 'added ' + op.ref + ' (' + op.disc + ', ' + op.name + ', ' + (op.no || 'no number') + (op.from ? ', in ' + op.from : '') + (op.to ? ', out ' + op.to : '') + ', branch ' + op.branch + ')';
         out.push(r); continue;
       }
       if (op.ref && !isRef(op.ref)) throw new Error(op.ref + ' is not a reference on the page');
@@ -271,10 +356,17 @@ function applyOps(spec) {
         if (have.some(x => x.physical && x.item === op.item && x.owner === owner)) { r.result = 'already identified as ' + op.item; }
         else {
           if (typeof UnitIdentity1006 !== 'object') throw new Error('UnitIdentity1006 missing');
+          /* 27 Oct 2026: a Premiair VMS board is named by its register name, and the register must give that board this very fleet number */
+          if (owner === 'prem-air-hire' && op.item === 'VMS') {
+            if (typeof vms913Boards !== 'function' || typeof vms913Of !== 'function') throw new Error('the VMS register is not on this page');
+            const b = vms913Boards().find(x => x.key === op.label); if (!b) throw new Error('no VMS board ' + op.label + ' on the register - not identified');
+            const fl = String(vms913Of(b).fleet || '').toUpperCase(); if (fl !== op.no) throw new Error('the register has ' + op.label + ' as fleet ' + (fl || 'none') + ', not ' + op.no + ' - not identified');
+          }
           have.forEach(x => { if (!x.id || x.kind !== 'unit925-record') return; const k = UnitIdentity1006.remove(op.ref, x.id, UnitIdentity1006.token(x)); if (!k || !k.ok) throw new Error(op.ref + ' take off ' + op.no + ' refused: ' + (k && k.reason)); });
           const saved = unit925Save(op.ref, {item: op.item, owner, assetNo: op.no, label: op.label || op.item, branch: '', note: op.note || '', sourceKey: ''}, '', 'null', '');
           const now = rows().find(x => String(x.assetNo) === op.no && x.item === op.item && x.owner === owner);
           if (!now) throw new Error(op.no + ' is not on ' + op.ref + ' as ' + op.item + ' after the save (' + JSON.stringify(saved).slice(0, 120) + ')');
+          if (op.item === 'VMS' && !now.physical) throw new Error(op.no + ' on ' + op.ref + ' is not a physical VMS unit after the save (' + (now.identityReview || 'no reason given') + ') - its Demob card would be a placeholder');
           r.result = 'identified as ' + op.item + (now.physical ? '' : ' (not yet physical: ' + (now.identityReview || '') + ')');
         }
       } else if (op.op === 'unit_archive') {
@@ -503,6 +595,33 @@ function applyOps(spec) {
         const after = op.units.map(u => SG.cardOf(op.ref, u));
         if (after.some(c => !c || c.st.s !== 'ready')) throw new Error(op.ref + ' units are not all Ready after the tick');
         r.result = todo.length + ' unit(s) ticked Ready by ' + who + (op.units.length - todo.length ? '; ' + (op.units.length - todo.length) + ' already ready' : '') + ': ' + op.units.join(', ');
+      } else if (op.op === 'vms_arrival') {
+        /* 27 Oct 2026: a board's arrival day on the VMS plan corrected through the plan's own writer, VMS1024.write (whose
+           VMSArrival1098.prepare checks every arrival: a real day not after today, recorded now, in this person's name), as a
+           person correcting it would. 1. the entry on the wrong day is withdrawn: "not confirmed" on that day, out of place
+           (the page's own correction, as VMS21's 21 Oct entry was); a withdrawal takes the complete tick off, as the page
+           does. 2. on site and in place on the day it came. 3. the reason in the board's notes (the plan's Notes box). 4. a
+           board that was complete is ticked complete again. Every earlier entry stays in the history. */
+        if (typeof VMS1024 !== 'object' || typeof VMS1024.write !== 'function' || typeof VMSArrival1098 !== 'object' || typeof VMSArrival1098.evidence !== 'function' || typeof VMSArrival1098.setComplete !== 'function') throw new Error('the VMS plan is not on this page');
+        const bd = VMS1024.board(op.pos); if (!bd) throw new Error('no VMS plan position ' + op.pos);
+        if ((bd.board || bd.default_board) !== op.board) throw new Error('position ' + op.pos + ' carries ' + (bd.board || bd.default_board) + ', not ' + op.board);
+        if (bd.canonicalIdentityConflict1103) throw new Error(op.board + ' has an identity conflict - not written');
+        const ev = d => VMSArrival1098.evidence(VMS1024.rec(op.pos), d) || {}, w0 = ev(op.was), d0 = ev(op.day);
+        if (w0.on === false && w0.state === 'not confirmed' && d0.on === true && d0.effectiveDate === op.day) r.result = 'already on site from ' + op.day + ' (the ' + op.was + ' entry withdrawn)';
+        else {
+          if (!(w0.on === true && w0.effectiveDate === op.was)) throw new Error('VMS plan ' + op.pos + ' is not on site from ' + op.was + ' (reads ' + JSON.stringify(w0) + ') - nothing to correct');
+          if (d0.effectiveDate !== op.was) throw new Error('VMS plan ' + op.pos + ' already has an entry after ' + op.was + ' (' + JSON.stringify(d0) + ') - read its history first');
+          const wasDone = !!(VMSArrival1098.status(op.board) || {}).done; r.wasDone = wasDone;
+          if (!VMS1024.write(op.pos, {arrival1098: {state: 'not confirmed', effective_date: op.was, recorded_at: new Date().toISOString(), by: who}, inPlace: false}, 'the board arrival day')) throw new Error('VMS1024.write refused withdrawing the ' + op.was + ' entry on ' + op.pos);
+          if (!VMS1024.write(op.pos, {arrival1098: {state: 'on site', effective_date: op.day, recorded_at: new Date().toISOString(), by: who}, inPlace: true}, 'the board arrival day')) throw new Error('VMS1024.write refused the arrival on ' + op.day + ' for ' + op.pos);
+          const n0 = String(VMS1024.notes(VMS1024.board(op.pos)) || '').trim();
+          if (!n0.includes(op.why) && !VMS1024.write(op.pos, {notes: (n0 ? n0 + ' ' : '') + op.why}, 'the board’s notes')) throw new Error('VMS1024.write refused the notes on ' + op.pos);
+          if (wasDone && !(VMSArrival1098.status(op.board) || {}).done && !VMSArrival1098.setComplete(op.pos, true)) throw new Error('setComplete refused ' + op.pos + ' after the correction');
+          const w1 = ev(op.was), d1 = ev(op.day), t1 = ev(todayIso()), done1 = !!(VMSArrival1098.status(op.board) || {}).done;
+          if (w1.on !== false || !(d1.on === true && d1.installed === true && d1.effectiveDate === op.day) || !(t1.on === true && t1.effectiveDate === op.day) || done1 !== wasDone)
+            throw new Error(op.board + ' does not read the ' + op.was + ' entry withdrawn and on site from ' + op.day + ' (' + JSON.stringify({was: w1, day: d1, today: t1, complete: done1}) + ')');
+          r.result = 'VMS plan ' + op.pos + ' (' + op.board + '): the ' + op.was + ' entry withdrawn, on site and in place from ' + op.day + (wasDone ? ', complete ticked again' : '') + ', by ' + who + '; note: ' + op.why;
+        }
       } else throw new Error('unknown op ' + op.op);
     } catch (e) { r.result = 'ERROR: ' + e.message; r.error = true; }
     out.push(r);
@@ -598,14 +717,19 @@ function applyOps(spec) {
       if (pageBefore.waiting) log(`note: the page had ${pageBefore.waiting} document(s) waiting at startup (serialisation no-ops in a read-only run): ${Object.keys(pageBefore.queue).join(', ')}`);
     }
 
-    const money = () => page.evaluate(() => { try { const m = moneySummary(); const b = {}; try { pl752Rows().forEach(x => b[x.code] = Math.round(x.total * 100) / 100); } catch (e) {} return {charge: Math.round(m.charge * 100) / 100, cost: Math.round(m.cost * 100) / 100, branches: b}; } catch (e) { return {error: String(e).slice(0, 120)}; } });
+    /* 27 Oct 2026: moneySummary's charge and cost are objects (their totals are charge.total and cost.known); rounding the objects
+       gave NaN, logged as null, so only the branch totals were really compared before */
+    const money = () => page.evaluate(() => { try { const m = moneySummary(), c = x => Math.round(x * 100) / 100; const b = {}; try { pl752Rows().forEach(x => b[x.code] = Math.round(x.total * 100) / 100); } catch (e) {}
+      let vms = null; try { vms = typeof VmsInstallation1228 === 'object' && VmsInstallation1228 ? VmsInstallation1228.model().rows.map(r => r.ref + ' ' + (r.charge ? r.charge.value : null)) : null; } catch (e) { vms = ['not read: ' + String(e).slice(0, 80)]; }
+      return {charge: c(m.charge.total), labour: c(m.charge.labour), labour_ticks: m.charge.labour_ticks, card_hire: c(m.charge.card_hire), cost: c(m.cost.known), difference: c(m.difference), branches: b, vmsStandalone: vms}; } catch (e) { return {error: String(e).slice(0, 120)}; } });
     const moneyBefore = await money(); log('P&L before the stage: ' + JSON.stringify(moneyBefore));
+    let vmsBefore = null; if (VBOARDS.length) { try { vmsBefore = await page.evaluate(pageVmsBoards, {boards: VBOARDS, days: VDAYS}); log('VMS plan boards before the stage: ' + JSON.stringify(vmsBefore)); } catch (e) { log('VMS plan boards before the stage: not read (' + e.message + ')'); } }
     try { const eq0 = await page.evaluate(() => { const s = todayWorkSummary848(todayIso()); const out = {}; for (const id in s.byId) { const a = s.byId[id]; if (id !== 'fencing') out[id] = a.done + '/' + a.total + ' ' + (a.pct == null ? '?' : Math.round(a.pct * 100) / 100) + '%'; } return out; });
       log('Today groups before the stage: ' + JSON.stringify(eq0)); } catch (e) { log('Today groups before the stage: not read (' + e.message + ')'); }
     const blockedBefore = harness ? harness.counts.blocked : counts.blocked;
     const results = await page.evaluate(applyOps, {ops: spec.ops, by: spec.by, dry: !applying}).catch(e => fail('stage: ' + e.message));
     results.forEach(r => { if (r.noteId) NOTE_IDS.add(r.noteId); });
-    results.forEach(r => log(`stage: ${r.op} ${r.ref || r.id} ${r.no || (r.from ? r.from + '->' + r.to : '') || r.state || r.type || ''} - ${r.result}`));
+    results.forEach(r => log(`stage: ${r.op} ${r.ref || r.id || (r.pos ? 'VMS plan ' + r.pos : '')} ${r.no || (r.from ? r.from + '->' + r.to : '') || r.state || r.type || ''} - ${r.result}`));
     /* 21 Oct: the derived Today figure the ops are meant to move, read from the page's own summary after the stage */
     try { const eq = await page.evaluate(() => { try { if (typeof bump === 'function') bump(); } catch (e) {} const s = todayWorkSummary848(todayIso()); const out = {}; for (const id in s.byId) { const a = s.byId[id]; if (id !== 'fencing') out[id] = a.done + '/' + a.total + ' ' + (a.pct == null ? '?' : Math.round(a.pct * 100) / 100) + '%'; } return out; });
       log('Today groups after the stage: ' + JSON.stringify(eq)); } catch (e) { log('Today groups after the stage: not read (' + e.message + ')'); }
@@ -621,6 +745,22 @@ function applyOps(spec) {
     const moneyAfter = await money(); log('P&L after the stage: ' + JSON.stringify(moneyAfter));
     try { const ln = await page.evaluate(refs => refs.map(k => { const r = rentalOf(k); return k + ': ' + (r ? r.lines.map(x => x.rental_contract + '/' + x.line + ' ' + x.description + ' ' + (x.asset_no || '')).join('; ') : 'no contract line'); }), [...NEW_REFS]); if (ln.length) log('contract lines joined to the new references: ' + ln.join(' | ')); } catch (e) { log('contract lines: not read (' + e.message + ')'); }
     try { const g = await page.evaluate(refs => refs.map(k => { const a = assetOf(k); let issues = []; try { issues = (inventory().quantityIssues1012 || []).filter(x => x.ref === k).map(x => x.item); } catch (e) { issues = ['not read: ' + String(e).slice(0, 60)]; } let owners = []; try { owners = (assetNumbersOf(a) || []).map(n => n + ' on ' + (numberOwners(n, '') || []).map(o => o.key + ' (' + o.how + ')').join(', ')); } catch (e) { owners = ['not read: ' + String(e).slice(0, 60)]; } return k + ': group ' + EquipmentGroups1103.group(a) + ', quantity issues ' + JSON.stringify(issues) + ', drawing ' + JSON.stringify(a.drawing_links || []) + ', numbers ' + JSON.stringify(owners); }), [...NEW_REFS]); if (g.length) log('new references on the page: ' + g.join(' | ')); } catch (e) { log('new references: not read (' + e.message + ')'); }
+    /* 27 Oct 2026, read only: what the page makes of each new reference, and the VMS plan boards before and after */
+    let probeNew = null, vmsAfter = null;
+    if (NEW_REFS.size) { try { probeNew = await page.evaluate(pageNewRefProbe, [...NEW_REFS]); probeNew.forEach(p => log('probe ' + p.key + ': ' + JSON.stringify(p))); } catch (e) { log('probe: not read (' + e.message + ')'); } }
+    if (VBOARDS.length) { try { vmsAfter = await page.evaluate(pageVmsBoards, {boards: VBOARDS, days: VDAYS}); log('VMS plan boards after the stage: ' + JSON.stringify(vmsAfter)); } catch (e) { log('VMS plan boards after the stage: not read (' + e.message + ')'); } }
+    /* 27 Oct 2026: the P&L gate. With spec.expect, what is charged to the V8s and the known costs move by exactly what the spec
+       says, to the cent, and no branch total moves; otherwise nothing is sent (dry run or apply) */
+    if (spec.expect) { const dl = (a, b) => Math.round((a - b) * 100) / 100, bad = [], bb = moneyBefore.branches || {}, ba = moneyAfter.branches || {};
+      if (moneyBefore.error || moneyAfter.error) bad.push('the P&L was not read (' + (moneyBefore.error || moneyAfter.error) + ')');
+      else {
+        if (!Number.isFinite(moneyBefore.charge) || !Number.isFinite(moneyAfter.charge) || dl(moneyAfter.charge, moneyBefore.charge) !== spec.expect.chargeDelta) bad.push('charged to the V8s ' + moneyBefore.charge + ' -> ' + moneyAfter.charge + ' (moved ' + dl(moneyAfter.charge, moneyBefore.charge) + ', expected ' + spec.expect.chargeDelta + ')');
+        if (!Number.isFinite(moneyBefore.cost) || !Number.isFinite(moneyAfter.cost) || dl(moneyAfter.cost, moneyBefore.cost) !== spec.expect.costDelta) bad.push('known costs ' + moneyBefore.cost + ' -> ' + moneyAfter.cost + ' (moved ' + dl(moneyAfter.cost, moneyBefore.cost) + ', expected ' + spec.expect.costDelta + ')');
+        if (!Object.keys(bb).length) bad.push('no branch totals read');
+        for (const code of new Set([...Object.keys(bb), ...Object.keys(ba)])) if (bb[code] !== ba[code]) bad.push('branch ' + code + ' ' + bb[code] + ' -> ' + ba[code]);
+      }
+      if (bad.length) fail('P&L gate: ' + bad.join('; ') + ' - nothing sent');
+      log('P&L gate passed: charged to the V8s moved ' + dl(moneyAfter.charge, moneyBefore.charge) + ', known costs moved ' + dl(moneyAfter.cost, moneyBefore.cost) + ', every branch total unchanged (' + Object.keys(bb).length + ' branches)'); }
     const pageAfter = await page.evaluate(pageSnapshot, {refs: REFS, qids: QIDS});
     const pageDocsAfter = await page.evaluate(pageDocs);
     const changed = [];
@@ -637,10 +777,11 @@ function applyOps(spec) {
         if (op.op === 'number_off' && numsOf(op.ref).includes(op.no)) problems.push(op.ref + ' still carries ' + op.no + ' ' + where);
         if (op.op === 'light' && op.at && (((docs.delivery || {})[op.ref] || {}).set_at) !== op.at) problems.push(op.ref + ' light not dated ' + op.at + ' ' + where);
         if (op.op === 'light' && (((docs.delivery || {})[op.ref] || {}).state) !== op.state) problems.push(op.ref + ' light is not ' + op.state + ' ' + where);
+        if (op.op === 'light' && op.at) { const hs = ((((docs.delivery || {})[op.ref] || {}).history) || []).filter(h => h && h.state === op.state), h = hs[hs.length - 1]; if (!h || h.at !== op.at || (op.why && h.note !== op.why)) problems.push(op.ref + ' light history entry is not dated ' + op.at + (op.why ? ' with its reason' : '') + ' ' + where); } /* 27 Oct 2026 */
         if (op.op === 'acc_add' && !((((docs.accessories || {})[op.ref] || {}).v) || []).some(x => String(x.asset_no || '') === op.no && x.type === op.type)) problems.push(op.ref + ' has no ' + op.type + ' ' + op.no + ' ' + where);
         if (op.op === 'acc_fix') { const v = (((docs.accessories || {})[op.ref] || {}).v) || []; if (!v.some(x => String(x.asset_no || '') === op.to && x.type === op.type) || v.some(x => String(x.asset_no || '') === op.from)) problems.push(op.ref + ' ' + op.type + ' is not ' + op.to + ' ' + where); }
         if (op.op === 'answer') { const nid = (results.find(x => x.op === 'answer' && x.id === op.id) || {}).noteId || op.id; if ((((docs.answers || {})[nid] || {}).v) !== op.text) problems.push('note ' + nid + ' is not held ' + where); }
-        if (op.op === 'unit_reidentify' && !Object.values(docs.loads || {}).some(u => u && u.kind === 'unit925-record' && u.ref === op.ref && String(u.assetNo) === op.no && u.item === op.item && u.active !== false && !u.removedBy)) problems.push(op.ref + ' has no active ' + op.item + ' unit ' + op.no + ' ' + where);
+        if (op.op === 'unit_reidentify' && !Object.values(docs.loads || {}).some(u => u && u.kind === 'unit925-record' && u.ref === op.ref && String(u.assetNo) === op.no && u.item === op.item && u.active !== false && !u.removedBy && (u.owner || 'coates') === (op.owner || 'coates') && (op.label == null || u.label === op.label))) problems.push(op.ref + ' has no active ' + op.item + ' unit ' + op.no + ' (owner ' + (op.owner || 'coates') + (op.label != null ? ', label ' + op.label : '') + ') ' + where);
         if (op.op === 'unit_archive' && Object.values(docs.loads || {}).some(u => u && u.kind === 'unit925-record' && u.ref === op.ref && String(u.assetNo) === op.no && u.active !== false && !u.removedBy)) problems.push(op.ref + ' still has an active unit record for ' + op.no + ' ' + where);
         if (op.op === 'labour_off' && (docs.labour || {})[((op.unit ? op.ref + '/u' + op.unit.replace(/^u/, '') : op.ref) + '|' + op.disc + '|' + op.item + '|' + op.line).replace(/\//g, '~2f~').replace(/\|/g, '~7c~').replace(/ /g, '~20~').replace(/&/g, '~26~')]) problems.push(op.ref + ' ' + op.unit + ' ' + op.line + ' still ticked ' + where);
         if (op.op === 'note_replace') { const n = String(((docs.delivery || {})[op.ref] || {}).note || ''); if (n.includes(op.old) || !n.includes(op.new)) problems.push(op.ref + ' note not corrected ' + where); }
@@ -659,12 +800,21 @@ function applyOps(spec) {
         if (op.op === 'vms_complete') { const L = (docs.loads || {})['vms1024~2f~' + op.pos] || {}; const ce = (L.completionEvents1101 || []).slice(-1)[0] || L.completion1101; if (!(ce && ce.done === true)) problems.push(op.board + ' is not complete ' + where); }
         if (op.op === 'vms_plan') { const L = (docs.loads || {})['vms1024~2f~' + op.pos] || {}; if (L.lat !== op.lat || L.lon !== op.lon) problems.push('VMS plan ' + op.pos + ' is not at ' + op.lat + ', ' + op.lon + ' ' + where); }
         if (op.op === 'vms_board') { const vb = (((docs.vmsboard || {})[op.key]) || {}); if (![op.fleet, null, undefined].includes(vb.fleet) || vb.rego !== op.rego || vb.on !== op.on) problems.push(op.key + ' is not ' + op.fleet + '/' + op.rego + ' on ' + op.on + ' ' + where); }
+        if (op.op === 'vms_arrival') { /* 27 Oct 2026: the withdrawal and the arrival in this person's name, the earlier entry kept, the reason in the notes, complete again if it was */
+          const L = (docs.loads || {})['vms1024~2f~' + op.pos] || {}, evs = Array.isArray(L.events1098) ? L.events1098 : [], wasDone = ((results.find(x => x.op === 'vms_arrival' && x.pos === op.pos)) || {}).wasDone, ce = (Array.isArray(L.completionEvents1101) ? L.completionEvents1101 : []).slice(-1)[0] || L.completion1101;
+          if (!evs.some(e => e && e.state === 'not confirmed' && e.effective_date === op.was && e.by === spec.by && e.inPlace === false)) problems.push('VMS plan ' + op.pos + ' has no withdrawal of the ' + op.was + ' entry by ' + spec.by + ' ' + where);
+          if (!evs.some(e => e && e.state === 'on site' && e.effective_date === op.day && e.by === spec.by && e.inPlace === true) || !(L.arrival1098 && L.arrival1098.state === 'on site' && L.arrival1098.effective_date === op.day) || L.inPlace !== true) problems.push('VMS plan ' + op.pos + ' is not on site and in place from ' + op.day + ' by ' + spec.by + ' ' + where);
+          if (!evs.some(e => e && e.state === 'on site' && e.effective_date === op.was)) problems.push('VMS plan ' + op.pos + ' lost its ' + op.was + ' entry from the history ' + where);
+          if (!String(L.notes || '').includes(op.why)) problems.push('VMS plan ' + op.pos + ' notes do not hold the reason ' + where);
+          if (wasDone === true && !(ce && ce.done === true)) problems.push(op.board + ' is not complete again ' + where); }
         if (op.op === 'note_append' && !String(((docs.delivery || {})[op.ref] || {}).note || '').includes(op.text)) problems.push(op.ref + ' note lacks the added text ' + where);
         if (op.op === 'spare_use' && (docs.spares || {})[op.id]) problems.push(op.no + ' still in spares ' + where);
         if (op.op === 'sub_move') { const has = r => (((docs.units || {})[r] || {}).units || []).some(u => String(u.asset_no || '') === op.no); if (has(op.from) || !has(op.to)) problems.push(op.no + ' is not moved from ' + op.from + ' to ' + op.to + ' ' + where); }
         if (op.op === 'place') { const D = (docs.places || {})[op.ref] || {}, P = D.v || D; /* a value-kind collection: the document holds {v} */ if (P.lat !== op.lat || P.lon !== op.lon) problems.push(op.ref + ' is not placed at ' + op.lat + ', ' + op.lon + ' ' + where); }
         if (op.op === 'add_ref') { const ad = (docs.added || {})[op.ref], nt = (docs.notes || {})[op.ref], br = (docs.branch || {})[op.ref];
-          if (!ad || ad.discipline !== op.disc || ad.name !== op.name || !(ad.asset_numbers || []).includes(op.no)) problems.push(op.ref + ' is not added as ' + op.name + ' ' + op.no + ' ' + where);
+          if (!ad || ad.discipline !== op.disc || ad.name !== op.name || (op.no && !(ad.asset_numbers || []).includes(op.no))) problems.push(op.ref + ' is not added as ' + op.name + ' ' + (op.no || '(no number)') + ' ' + where);
+          /* 27 Oct 2026: its item type, its number or none, its in and out days */
+          if (ad && (JSON.stringify(ad.item_types) !== JSON.stringify([op.type]) || (op.no ? !(ad.asset_numbers || []).includes(op.no) : (ad.asset_numbers || []).length !== 0) || (ad.first_date ?? null) !== (op.from ?? null) || (ad.last_date ?? null) !== (op.to ?? null))) problems.push(op.ref + ' is not added as ' + op.type + ', ' + (op.no || 'no number') + ', in ' + (op.from || '-') + ', out ' + (op.to || '-') + ' ' + where);
           if (((nt && typeof nt === 'object') ? nt.v : nt) !== op.note) problems.push(op.ref + ' note is not the contract line ' + where);
           if (((br && typeof br === 'object') ? br.v : br) !== op.branch) problems.push(op.ref + ' branch is not ' + op.branch + ' ' + where); }
         if (op.op === 'date_back') { const enc = x => x.replace(/\//g, '~2f~').replace(/\|/g, '~7c~').replace(/ /g, '~20~').replace(/&/g, '~26~'); const sv = k => { const v = (docs.stamps || {})[enc(k)]; return v && typeof v === 'object' ? v.v : v; };
@@ -728,7 +878,7 @@ function applyOps(spec) {
     verify.ok = !verify.problems.length;
     const report = {author: 'Andrew Fisher', started, finished: new Date().toISOString(), mode: 'apply', spec, pageSha256: expectedSha,
       version: {before: before.version, after: after.version}, updated: {before: before.updated, after: after.updated},
-      money: {before: moneyBefore, after: moneyAfter}, stage: results, writes: [...expected.keys()].map(k => ({key: k, status: acks.get(k) ?? null})), refused, mapSessionsBlocked: counts.mapSessions,
+      money: {before: moneyBefore, after: moneyAfter}, probe: {newRefs: probeNew, vmsBoards: {before: vmsBefore, after: vmsAfter}}, stage: results, writes: [...expected.keys()].map(k => ({key: k, status: acks.get(k) ?? null})), refused, mapSessionsBlocked: counts.mapSessions,
       docs: {before: pick(before.docs), after: pick(after.docs)}, verification: verify};
     const out = path.join(HERE, 'report_' + started + '.json');
     fs.writeFileSync(out, redact(JSON.stringify(report, null, 1)) + '\n', {mode: 0o600});

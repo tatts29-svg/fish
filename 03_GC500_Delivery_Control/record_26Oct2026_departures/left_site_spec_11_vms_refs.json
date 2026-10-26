@@ -1,0 +1,39 @@
+{
+ "by": "Andrew Fisher",
+ "basis": "Andrew, 26 Oct 2026: \"Im happy with new referenwces referencws should be vms-01   vms-02  etc  simple\". Asked whether VMS22 and VMS24 came on 21 Oct (the VMS plan) or 22 Oct (Premiair docket 26143911), Andrew, 27 Oct 2026: \"22 oct\". The Premiair boards VMS21 (97T), VMS22 (445T) and VMS24 (450T) are on the VMS plan and the register but on no delivery reference (contract 9961265 lines 28, 29 and 31, STPS). This run: (1) the VMS plan's own arrival for positions 22 and 24 corrected from 21 Oct to 22 Oct through the plan's own writer, in Andrew Fisher's name, the reason naming docket 26143911 in each board's notes, the 21 Oct entries kept in the history (a withdrawal takes the complete tick off, so both are ticked complete again); (2) VMS-01, VMS-02 and VMS-03 added through the Add form, each with its one Premiair unit, in from 22 Oct (VMS21 at its own plan time, 22 Oct 08:08 AEST; VMS22 and VMS24 at 00:00 AEST 22 Oct, no time recorded), received, complete, install ticked as on T0103/T0128/T0158, quantity 1 (2 then 1 at the end, as GN20-A). MAPPING TO SHOW ANDREW WITH THE DRY RUN, NOT YET CONFIRMED BY HIM: VMS-01 = VMS21, fleet 97T, rego T16922, contract 9961265 line 28; VMS-02 = VMS22, fleet 445T, rego TE99CL, line 29; VMS-03 = VMS24, fleet 450T, rego TE94CL, line 31. Charged to the V8s and known costs expected unchanged (each board's install charge moves from the stand-alone board to its reference); no branch total moves. Nothing else changes.",
+ "expect": {"chargeDelta": 0, "costDelta": 0},
+ "ops": [
+  {"op": "vms_arrival", "pos": "22", "board": "VMS22", "was": "2026-10-21", "day": "2026-10-22", "why": "Arrived 22 Oct 2026 by Premiair docket 26143911 (Andrew, 27 Oct 2026: \"22 oct\"); the 21 Oct arrival entry is withdrawn."},
+  {"op": "vms_arrival", "pos": "24", "board": "VMS24", "was": "2026-10-21", "day": "2026-10-22", "why": "Arrived 22 Oct 2026 by Premiair docket 26143911 (Andrew, 27 Oct 2026: \"22 oct\"); the 21 Oct arrival entry is withdrawn."},
+
+  {"op": "add_ref", "ref": "VMS-01", "disc": "Variable message signs", "name": "VMS21 Premiair Hire 97T", "type": "VMS", "no": "", "from": "2026-10-22", "note": "VMS21, Premiair Hire sub-hire, fleet 97T, rego T16922. Contract 9961265 line 28. VMS plan position 21, Staghorn Ave / Surfers Paradise Blvd.", "branch": "STPS"},
+  {"op": "unit_reidentify", "ref": "VMS-01", "no": "97T", "item": "VMS", "owner": "prem-air-hire", "label": "VMS21", "note": "Premiair Hire sub-hire VMS21, fleet 97T, rego T16922, contract 9961265 line 28. On site 22 Oct 2026 by the VMS plan."},
+  {"op": "set_qty", "ref": "VMS-01", "qty": 1},
+  {"op": "light", "ref": "VMS-01", "state": "on site", "at": "2026-10-21T22:08:24.160Z", "why": "VMS21's own arrival on the VMS plan (in place 22 Oct 08:08), carried to its delivery reference."},
+  {"op": "supplied", "ref": "VMS-01", "item": "VMS", "qty": 1},
+  {"op": "complete", "ref": "VMS-01"},
+  {"op": "labour_on", "ref": "VMS-01", "disc": "Variable message signs", "item": "VMS", "line": "install"},
+  {"op": "set_qty", "ref": "VMS-01", "qty": 2},
+  {"op": "set_qty", "ref": "VMS-01", "qty": 1},
+
+  {"op": "add_ref", "ref": "VMS-02", "disc": "Variable message signs", "name": "VMS22 Premiair Hire 445T", "type": "VMS", "no": "", "from": "2026-10-22", "note": "VMS22, Premiair Hire sub-hire, fleet 445T, rego TE99CL. Contract 9961265 line 29. VMS plan position 22, south of Sundale Bridge. On site 22 Oct (docket 26143911).", "branch": "STPS"},
+  {"op": "unit_reidentify", "ref": "VMS-02", "no": "445T", "item": "VMS", "owner": "prem-air-hire", "label": "VMS22", "note": "Premiair Hire sub-hire VMS22, fleet 445T, rego TE99CL, contract 9961265 line 29. On site 22 Oct 2026 by Premiair docket 26143911."},
+  {"op": "set_qty", "ref": "VMS-02", "qty": 1},
+  {"op": "light", "ref": "VMS-02", "state": "on site", "at": "2026-10-21T14:00:00.000Z", "why": "VMS22 came 22 Oct 2026 by Premiair docket 26143911 (Andrew, 27 Oct: \"22 oct\"); no time recorded, so 00:00 AEST that day."},
+  {"op": "supplied", "ref": "VMS-02", "item": "VMS", "qty": 1},
+  {"op": "complete", "ref": "VMS-02"},
+  {"op": "labour_on", "ref": "VMS-02", "disc": "Variable message signs", "item": "VMS", "line": "install"},
+  {"op": "set_qty", "ref": "VMS-02", "qty": 2},
+  {"op": "set_qty", "ref": "VMS-02", "qty": 1},
+
+  {"op": "add_ref", "ref": "VMS-03", "disc": "Variable message signs", "name": "VMS24 Premiair Hire 450T", "type": "VMS", "no": "", "from": "2026-10-22", "note": "VMS24, Premiair Hire sub-hire, fleet 450T, rego TE94CL. Contract 9961265 line 31. VMS plan position 24, The Esplanade before Staghorn Ave. On site 22 Oct (docket 26143911).", "branch": "STPS"},
+  {"op": "unit_reidentify", "ref": "VMS-03", "no": "450T", "item": "VMS", "owner": "prem-air-hire", "label": "VMS24", "note": "Premiair Hire sub-hire VMS24, fleet 450T, rego TE94CL, contract 9961265 line 31. On site 22 Oct 2026 by Premiair docket 26143911."},
+  {"op": "set_qty", "ref": "VMS-03", "qty": 1},
+  {"op": "light", "ref": "VMS-03", "state": "on site", "at": "2026-10-21T14:00:00.000Z", "why": "VMS24 came 22 Oct 2026 by Premiair docket 26143911 (Andrew, 27 Oct: \"22 oct\"); no time recorded, so 00:00 AEST that day."},
+  {"op": "supplied", "ref": "VMS-03", "item": "VMS", "qty": 1},
+  {"op": "complete", "ref": "VMS-03"},
+  {"op": "labour_on", "ref": "VMS-03", "disc": "Variable message signs", "item": "VMS", "line": "install"},
+  {"op": "set_qty", "ref": "VMS-03", "qty": 2},
+  {"op": "set_qty", "ref": "VMS-03", "qty": 1}
+ ]
+}

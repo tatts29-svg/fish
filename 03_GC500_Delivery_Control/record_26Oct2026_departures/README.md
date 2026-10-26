@@ -147,3 +147,56 @@ Andrew, 26 Oct 2026, with Event Portables' trucks collecting:
 - **Record:** version 11319 → 11373. 54 documents acknowledged 200, every op verified on the service; every other document unchanged in value. Backup kept private. Report `report_20261026T181818Z.json`.
 - **Read back fresh:** 180 units Ready on the Demob tab; WC31's 16 Pans and the other Coates units Not ready.
 - **Not in this run:** what a laptop wrote between 21:56 and 22:13 on 26 Oct to T0001, T0002, T0128, T0158, P25, P45, P60, P62, P63, P65, P66, P67, P69, WC51 and WC60. No copy is held here; on Andrew's word it is to be read from the service's 03:00 snapshot (server v5.94, read-only) and put back on his word.
+
+## Eleventh run (planned): VMS-01, VMS-02, VMS-03, and the VMS plan's arrival for VMS22 and VMS24 — NOT RUN
+
+- **State:** spec `left_site_spec_11_vms_refs.json` written and checked offline (`test_left_site_spec.cjs` 83/83; `--check-spec` passes). No dry run yet. No `--apply` until Andrew has seen the dry run and confirmed the mapping below.
+- **Andrew:**
+  - 26 Oct: "Im happy with new referenwces referencws should be vms-01   vms-02  etc  simple".
+  - 27 Oct, asked whether VMS22 and VMS24 came on 21 Oct (the VMS plan) or 22 Oct (Premiair docket 26143911): "22 oct".
+- **The mapping to show Andrew with the dry run (not yet confirmed by him):**
+
+  | Reference | Board | Fleet | Rego | Contract 9961265 | In from |
+  |---|---|---|---|---|---|
+  | VMS-01 | VMS21 | 97T | T16922 | line 28 | 22 Oct 08:08 AEST (its VMS plan time) |
+  | VMS-02 | VMS22 | 445T | TE99CL | line 29 | 22 Oct (docket 26143911; no time, so 00:00 AEST) |
+  | VMS-03 | VMS24 | 450T | TE94CL | line 31 | 22 Oct (docket 26143911; no time, so 00:00 AEST) |
+
+- **What the run does,** through the page's own functions, in Andrew Fisher's name:
+  1. **The VMS plan, positions 22 and 24** (new op `vms_arrival`, through the plan's own writer `VMS1024.write`):
+     - the 21 Oct arrival entry is withdrawn ("not confirmed" on 21 Oct, as VMS21's own 21 Oct entry was);
+     - the board goes on site and in place from 22 Oct;
+     - the reason, naming docket 26143911, goes in the board's Notes;
+     - the board is ticked complete again, because the page takes the complete tick off with a withdrawal.
+     - The 21 Oct entries stay in the history.
+  2. **VMS-01, VMS-02 and VMS-03** through the Add form:
+     - trade Variable message signs, item type VMS, no number, in from 22 Oct, branch STPS, the contract line as the note;
+     - each with its one Premiair unit, labelled by its register name (VMS21, VMS22, VMS24);
+     - on site from the time in the table, received, complete, install ticked;
+     - quantity 1 (set 2 then 1 at the end, as GN20-A).
+  3. **`expect`:** charged to the V8s and known costs unchanged to the cent, and no branch total moves. Otherwise nothing is sent.
+- **Runner changes (27 Oct):**
+  - stricter checks before any page opens: a dated light, a sub-hired VMS board's add_ref (no number, in and out days), unit labels and notes, the new op, and `expect`;
+  - one day everywhere: a reference's in day is the AEST day of its light, and a corrected plan arrival is that same day;
+  - the register must give the board the fleet number being identified, and the unit must come out physical;
+  - the P&L reading is fixed (it read null before; only branch totals were compared), with the `expect` gate;
+  - a read-only probe of each new reference (units, charge span, arrival, departure reading, Demob cards, Questions) and of the VMS plan boards before and after;
+  - `--check-spec` checks a spec and stops, with no page and no service.
+  - Every earlier spec passes unchanged and names the same references.
+- **What the dry run should show** (any difference: stop and look):
+  - 60 documents planned: 18 per reference and 3 per VMS plan position;
+  - the P&L gate passed (charge, cost and branches unchanged), with VMS21, VMS22 and VMS24 gone from the stand-alone VMS installs;
+  - each VMS-0n unit card reads Premiair, its fleet number, its board label, Not ready; each stand-alone plan card (VMS21#vms:21, VMS22#vms:22, VMS24#vms:24) is gone after the stage;
+  - VMS plan 22 and 24: 21 Oct reads "not confirmed", 22 Oct onwards on site, in place and complete;
+  - Today unchanged; page errors 0.
+- **Known effects to tell Andrew:**
+  - The VMS tab shows VMS 22 and VMS 24 "In place" and "Complete" by Andrew Fisher, entered 27 Oct.
+  - 21 Oct readings show two boards fewer on site.
+  - The references' complete ticks are dated today.
+  - The register's "On delivery" stays empty for the three boards.
+
+```
+node record_26Oct2026_departures/test_left_site_spec.cjs
+node record_26Oct2026_departures/left_site.cjs --spec record_26Oct2026_departures/left_site_spec_11_vms_refs.json --check-spec
+node record_26Oct2026_departures/left_site.cjs --spec record_26Oct2026_departures/left_site_spec_11_vms_refs.json   # dry run
+```
