@@ -39,7 +39,7 @@ const MAX_FILE = 160 * 1024 * 1024;    // one document (the A3 laminate set is ~
 const MAX_THUMB = 200 * 1024;         // a browser-made, static WebP preview
 const KEEP_SNAPSHOTS = 96;             // hourly, four days
 const TOKEN_RE = /^[A-Za-z0-9_-]{16,128}$/;
-const BUILD = 'server v5.94 — THE DELIVERY FIELD GUARD (a delivery write that leaves out a Ready tick, booking, Emptied, timeline, loading or handling field keeps the stored one and the two unit maps merge by the page\'s own later-stamp rule, because a page opened before those fields existed wrote 68 documents back without them at 03:59 on 27 Oct; the edit key can list and read the hourly record snapshots; Andrew Fisher, 27 Oct 2026) + v5.93 — THE SERVICING TRACKER (a drop card that takes ticks from the crews at /d/<token>/ticks: each reference completed only with its own signed QR, the jobs each kind has on each day, 08:00 to 08:00 service days,optional validated crew-group IDs, an append-only store of its own, never the record, a delivery state or a charge; GET /api/ticks and the void behind the edit link; card tokens looked up as own properties; Andrew Fisher, 18 Oct 2026) + v5.87 — PICTURES FROM A SENDER THAT CAN SEND THEM (MMS_FROM=shared: the ClickSend shared number; texts still from SMS_FROM; Andrew Fisher, 1 Oct 2026) + v5.86 — MESSAGE DELIVERY STATUS (accepted separately from delivered; read-only receipt lookup, own messages only; Andrew Fisher, 1 Oct 2026) + v5.85 MAP PICTURE MMS + v5.84 — HARDENED (the page and the machine files sent brotli-compressed, worked out once per version; a record write is on the disk before it is answered, and SIGTERM flushes; a record that will not read is recovered from its newest snapshot, never started empty; a snapshot at every start, with the file index; __proto__/constructor/prototype refused as ids; upload disk errors answered 507 instead of a crash; security headers on the page; a wrong-token limiter; the server blob kept off the public machine set; 26 Sep 2026; nothing the view link can read changed) + v5.83 THE FORECAST (GET /api/weather/forecast: weatherapi.com forecast.json trimmed to one row a day, held an hour, behind the link token; Andrew Fisher, 26 Sep 2026; nothing else changed) + THE MACHINE SET MAY CARRY THE SATELLITE PLAN EXPLORER AND THE 3D PROOF (its html pages may reach Mapbox tiles, Google 3D tiles and CesiumJS on jsDelivr, and send their origin as referrer; Andrew Fisher, 25 Sep 2026; nothing else changed) + THE GOOGLE KEY FROM THE SERVICE (GOOGLE_MAPS_KEY, a browser key, handed to the page beside the Mapbox token at /api/map-key; Andrew Fisher, 25 Sep 2026; nothing else changed) + everything v5.40 did (the record, the document library, drop photographs, units, stamps, contracts, costs, purchase orders, driver drop cards, texting, the weather, filing, the record moved between references, labour ticked per piece) + THE DROP CARD ANSWERS BACK (v5.56: a card reports on its own link at /d/<token>/report — delivered, in position, installed, levelled, stairs, a note, photographs and the spot somebody stood on — stored as that person\'s word and never as a Coates record, readable at /api/reports behind the edit link only) + A WRITE THAT FAILED IS NEVER ANSWERED 200 (v5.58: cards and reports write-then-rename, 507 on failure; a failed record write refuses every further write with the reason and /health says so; a card\'s day is a Queensland day; a blank position is not a pin at 0,0; the 401st card no longer deletes a live driver link) + THE EXPORT CARRIES BOTH FENCING SIDES (v5.60: fenceRates, what the customer is charged, and fenceCosts, what the fencing crew bill — two fields, never one column) + THE COATES WAY MACHINE (v5.77: the V8 Connected page, its modules, the original cog artwork and its sound, imported on the admin page from the build\'s print/out/machine folder and served at /w/<token>/ to the view link and the edit link, inside the page\'s own Coates Way tab; content-addressed blobs, a set that goes live whole in one write, nothing of the record touched)';   // printed at start so the deploy log says which code runs
+const BUILD = 'server v5.94 — THE DELIVERY FIELD GUARD (a delivery write that leaves out a Ready tick, booking, Emptied, timeline, loading or handling field keeps the stored one, and the two unit maps and their histories merge by the page\'s own rules, because a page opened before those fields existed wrote 68 documents back without them at 03:59 on 27 Oct; the edit key can list and read the hourly record snapshots; Andrew Fisher, 27 Oct 2026) + v5.93 — THE SERVICING TRACKER (a drop card that takes ticks from the crews at /d/<token>/ticks: each reference completed only with its own signed QR, the jobs each kind has on each day, 08:00 to 08:00 service days,optional validated crew-group IDs, an append-only store of its own, never the record, a delivery state or a charge; GET /api/ticks and the void behind the edit link; card tokens looked up as own properties; Andrew Fisher, 18 Oct 2026) + v5.87 — PICTURES FROM A SENDER THAT CAN SEND THEM (MMS_FROM=shared: the ClickSend shared number; texts still from SMS_FROM; Andrew Fisher, 1 Oct 2026) + v5.86 — MESSAGE DELIVERY STATUS (accepted separately from delivered; read-only receipt lookup, own messages only; Andrew Fisher, 1 Oct 2026) + v5.85 MAP PICTURE MMS + v5.84 — HARDENED (the page and the machine files sent brotli-compressed, worked out once per version; a record write is on the disk before it is answered, and SIGTERM flushes; a record that will not read is recovered from its newest snapshot, never started empty; a snapshot at every start, with the file index; __proto__/constructor/prototype refused as ids; upload disk errors answered 507 instead of a crash; security headers on the page; a wrong-token limiter; the server blob kept off the public machine set; 26 Sep 2026; nothing the view link can read changed) + v5.83 THE FORECAST (GET /api/weather/forecast: weatherapi.com forecast.json trimmed to one row a day, held an hour, behind the link token; Andrew Fisher, 26 Sep 2026; nothing else changed) + THE MACHINE SET MAY CARRY THE SATELLITE PLAN EXPLORER AND THE 3D PROOF (its html pages may reach Mapbox tiles, Google 3D tiles and CesiumJS on jsDelivr, and send their origin as referrer; Andrew Fisher, 25 Sep 2026; nothing else changed) + THE GOOGLE KEY FROM THE SERVICE (GOOGLE_MAPS_KEY, a browser key, handed to the page beside the Mapbox token at /api/map-key; Andrew Fisher, 25 Sep 2026; nothing else changed) + everything v5.40 did (the record, the document library, drop photographs, units, stamps, contracts, costs, purchase orders, driver drop cards, texting, the weather, filing, the record moved between references, labour ticked per piece) + THE DROP CARD ANSWERS BACK (v5.56: a card reports on its own link at /d/<token>/report — delivered, in position, installed, levelled, stairs, a note, photographs and the spot somebody stood on — stored as that person\'s word and never as a Coates record, readable at /api/reports behind the edit link only) + A WRITE THAT FAILED IS NEVER ANSWERED 200 (v5.58: cards and reports write-then-rename, 507 on failure; a failed record write refuses every further write with the reason and /health says so; a card\'s day is a Queensland day; a blank position is not a pin at 0,0; the 401st card no longer deletes a live driver link) + THE EXPORT CARRIES BOTH FENCING SIDES (v5.60: fenceRates, what the customer is charged, and fenceCosts, what the fencing crew bill — two fields, never one column) + THE COATES WAY MACHINE (v5.77: the V8 Connected page, its modules, the original cog artwork and its sound, imported on the admin page from the build\'s print/out/machine folder and served at /w/<token>/ to the view link and the edit link, inside the page\'s own Coates Way tab; content-addressed blobs, a set that goes live whole in one write, nothing of the record touched)';   // printed at start so the deploy log says which code runs
 /* the weather reading, held for ten minutes so a room full of phones is one call upstream */
 const WEATHER_TTL = 10 * 60 * 1000;
 let weatherCache = { at: 0, body: null };
@@ -1240,7 +1240,13 @@ function protoKey(k) { return PROTO_KEYS.has(String(k).toLowerCase()); }
        with any value and null included, is the sender's word and stands: null clears.
      · when both copies carry ready1238_units, or both carry pickup1238_units, as plain objects, the two maps are merged
        unit by unit by the page's own rule (mergeUnits594, below). No unit on either side is dropped.
-     · histories are never merged: sent, they stand as sent; left out, the stored one stays.
+     · when both copies carry ready1238_history, or both carry pickup1238_history, as lists, each stored line the
+       incoming list has not got is added by the page's own rule (mergeHistory594, below), so a unit tick or booking the
+       merge keeps never loses its history line. Every other history stands as sent, or stays as stored when left out.
+     · when a field is added that the body did not carry, the body's _k is moved back to the end, where every page puts
+       it (toDocs: Object.assign({}, r, {_k: k})). The stored text then reads back through the page's fromDocs and
+       toDocs unchanged, so a current page does not take the completed document for a change of its own and send its
+       older copy back up over another phone's work (the review of 27 Oct).
    Every other field is stored exactly as sent. Current writers delete eta, note, the date and out-date groups and the
    dated-complete trio on purpose, so this is a named list and never "keep whatever is missing": those clears still clear.
    Why each field is on the list: each was added to the page after its first release, so a tab opened before that
@@ -1284,6 +1290,28 @@ function mergeUnits594(sent, held, t) {
   });
   return { map: o, kept };
 }
+/* the key each history line is known by, word for word from Singles1238's keepUnits in the live page v12.42.1 (hr, hp) */
+const DELIVERY_HISTORY_KEY = new Map([
+  ['ready1238_history', h => (h.unit || '') + '|' + h.ready + '|' + h.at],
+  ['pickup1238_history', h => (h.unit || '') + '|' + (h.pickup || '') + '|' + h.at],
+]);
+/* a history line the join can read without throwing: a plain object whose unit, word and stamp are not objects */
+const line594 = h => plainObject(h) && ['unit', 'ready', 'pickup', 'at'].every(f => h[f] === null || typeof h[f] !== 'object');
+/* The page's own history join, word for word from Singles1238's keepUnits in the live page v12.42.1:
+     const hj = (x, y, k) => { const a = Array.isArray(x) ? x : [], seen = new Set(a.map(k)), add = (Array.isArray(y) ? y : []).filter(h => h && !seen.has(k(h))); return add.length ? a.concat(add).sort((p, q) => String(p.at || '').localeCompare(String(q.at || '')) || k(p).localeCompare(k(q))).slice(-400) : null; };
+   Here x is the incoming list and y the stored one: each stored line the incoming list has not got (the same unit, word
+   and stamp) is added, and only then is the whole list put in the page's one order (stamp, then key) and cut to the
+   newest 400, as setUnitReady and setBooking cut it. A list with nothing to add is left exactly as sent. So that the
+   server never throws on a list the page never writes, an incoming list holding any line line594 cannot read is left
+   exactly as sent, and only stored lines line594 can read are added. Returns the joined list, or null when the list
+   would be stored as sent. */
+function mergeHistory594(sent, held, k) {
+  if (!sent.every(line594)) return null;
+  const seen = new Set(sent.map(k)), add = held.filter(h => line594(h) && !seen.has(k(h)));
+  if (!add.length) return null;
+  const list = sent.concat(add).sort((p, q) => String(p.at || '').localeCompare(String(q.at || '')) || k(p).localeCompare(k(q))).slice(-400);
+  return J594(list) === J594(sent) ? null : list;
+}
 /* completes an incoming delivery body from the stored document; returns null when nothing was kept, else the names of
    the fields kept (list order) and how many unit entries came from the stored copy (a map copied whole counts all of
    its units). Never a value: the write log gets names and counts only. */
@@ -1291,18 +1319,24 @@ function keepDeliveryFields(id, body) {
   if (!own594(state.docs, 'delivery') || !plainObject(state.docs.delivery) || !own594(state.docs.delivery, id)) return null;
   const held = state.docs.delivery[id];
   if (!plainObject(held)) return null;
-  const kept = []; let unitsKept = 0;
+  const kept = []; let unitsKept = 0, added = false;
   for (const k of DELIVERY_KEEP) {
     if (!own594(held, k)) continue;
-    const t = DELIVERY_UNIT_STAMP.get(k);
+    const t = DELIVERY_UNIT_STAMP.get(k), hk = DELIVERY_HISTORY_KEY.get(k);
     if (!own594(body, k)) {
-      body[k] = held[k]; kept.push(k);
+      body[k] = held[k]; kept.push(k); added = true;
       if (t && plainObject(held[k])) unitsKept += Object.keys(held[k]).length;
     } else if (t && plainObject(body[k]) && plainObject(held[k])) {
       const r = mergeUnits594(body[k], held[k], t);
       if (r.kept) { body[k] = r.map; kept.push(k); unitsKept += r.kept; }
+    } else if (hk && Array.isArray(body[k]) && Array.isArray(held[k])) {
+      const list = mergeHistory594(body[k], held[k], hk);
+      if (list) { body[k] = list; kept.push(k); }
     }
   }
+  /* a field added above lands after the body's _k; the page writes _k last, so it goes back to the end (a field merged
+     in place keeps its place, and with nothing added the body keeps the order it was sent in) */
+  if (added && own594(body, '_k')) { const key = body._k; delete body._k; put594(body, '_k', key); }
   return kept.length ? { kept, unitsKept } : null;
 }
 function setDoc(coll, id, body, who) {

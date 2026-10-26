@@ -218,3 +218,11 @@ node record_26Oct2026_departures/test_left_site_spec.cjs
 node record_26Oct2026_departures/left_site.cjs --spec record_26Oct2026_departures/left_site_spec_11_vms_refs.json --check-spec
 node record_26Oct2026_departures/left_site.cjs --spec record_26Oct2026_departures/left_site_spec_11_vms_refs.json   # dry run
 ```
+
+## Twelfth run: Andrew's 26 laptop Ready ticks put back from the service's own copy, 27 Oct 2026 — APPLIED, VERIFIED
+
+- **What:** the stale page at 03:59:55 also took the Ready ticks Andrew made on his laptop between 21:56 and 22:13 on 26 Oct, which no file here held. With server v5.94 live, the edit key read the service's hourly copy `records-2026102617.json` (03:45:33 AEST, record 11251, 14 minutes before the wipe; the same as every hourly copy back to 22:45). It held exactly 26 unit ticks, all Andrew's: T0001 three VMS boards, T0002 five light towers, T0128 two boards, T0158 four boards, buildings P25, P45, P60, P62, P63, P65, P66, P67, P69, WC51's Coates accessible toilet 1197174 and WC60's two Coates toilet blocks.
+- **Applied:** 27 Oct 2026 06:16 AEST on Andrew's word ("Yes, put them back"), dry run first (passed, nothing sent): `left_site.cjs --spec left_site_spec_12_restore_laptop_ready.json`, through the page's own per-unit Ready, in Andrew's name; their first ticks were 21:56-22:13 on 26 Oct.
+- **Record:** version 11491 → 11506. 15 documents acknowledged 200, every op verified on the service; every other document unchanged in value; P&L and branch totals unchanged. Backup kept private. Report `report_20261026T201603Z.json`.
+- **Read back fresh:** 206 units ticked Ready on the record, the same count the page showed at 23:01 on 26 Oct before the wipe.
+

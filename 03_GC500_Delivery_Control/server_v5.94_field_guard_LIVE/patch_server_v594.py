@@ -23,8 +23,8 @@ def change(a, b, label):
 # C. the banner: a v5.94 line in front, the rest as v5.93 had it
 change("const BUILD = 'server v5.93 — THE SERVICING TRACKER (",
        "const BUILD = 'server v5.94 — THE DELIVERY FIELD GUARD (a delivery write that leaves out a Ready tick, booking, "
-       "Emptied, timeline, loading or handling field keeps the stored one and the two unit maps merge by the page\\'s own "
-       "later-stamp rule, because a page opened before those fields existed wrote 68 documents back without them at 03:59 "
+       "Emptied, timeline, loading or handling field keeps the stored one, and the two unit maps and their histories merge "
+       "by the page\\'s own rules, because a page opened before those fields existed wrote 68 documents back without them at 03:59 "
        "on 27 Oct; the edit key can list and read the hourly record snapshots; Andrew Fisher, 27 Oct 2026) "
        "+ v5.93 — THE SERVICING TRACKER (", 'banner')
 

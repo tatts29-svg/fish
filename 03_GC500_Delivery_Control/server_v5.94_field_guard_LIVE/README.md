@@ -1,21 +1,31 @@
 # Server v5.94 — the delivery field guard and the snapshot read — DRAFT, not live
 
-Author: Andrew Fisher · built 27 Oct 2026 04:55 AEST · nothing here has been deployed
+Author: Andrew Fisher · built 27 Oct 2026 04:55 AEST, rebuilt 05:55 AEST after review · nothing here has been
+deployed
 
 **In short:** a page that doesn't know a delivery field can no longer wipe it. When a delivery document is
 written without one of 16 named fields that the stored copy holds, the server keeps the stored value. If both
-copies carry a unit map, the server merges it unit by unit using the page's own rule. Separately, the edit key can
-now list and read the server's own record snapshots. That is how the laptop's lost 21:56–22:13 changes can be read
-back.
+copies carry a unit map, the server merges it unit by unit using the page's own rule, and joins the two unit
+histories the same way, so a kept tick or booking keeps its history line. When the server adds a field, it puts
+`_k` back at the end, where every page puts it, so a current page never mistakes a completed document for a
+change of its own. Separately, the edit key can now list and read the server's own record snapshots. That is how
+the laptop's lost 21:56–22:13 changes can be read back.
 
-All 65 focused checks and all 255 retained checks pass on throw-away local servers (127.0.0.1 only). A replay of the
+**What the review changed (rebuilt 05:55).** The first build (`6057f04e…`) added the kept fields after `_k`. A
+current page builds every document with `_k` last, so once it had read a completed document it took it for a change
+of its own, and its next save sent its own older copy back up, undoing other phones' work on that reference. The
+kept fields now go in front of `_k` (checks 10a–10b, 16a–16e). The review also found that the unit maps were merged
+but their histories were not, which could leave a Ready tick or booking with no history line; the two unit histories
+are now joined by the page's own rule (checks 20a–20i).
+
+All 81 focused checks and all 255 retained checks pass on throw-away local servers (127.0.0.1 only). A replay of the
 incident on a private copy of the record keeps every wiped Ready field. Nothing was sent to the live service or to
 Railway.
 
 | | |
 |---|---|
 | Base (live, running since 25 Oct 2026 17:45 AEST) | v5.93 `8764451d3768fcfbfc493da48fb9901503dcd6af0f8df247478aa53fb9428f46`, 294,310 bytes |
-| This build | v5.94 `6057f04e01ba919b8b2b3872fdac6edf2f1577cb86efe84e5ce4a42ec4a97f02`, 304,701 bytes |
+| This build | v5.94 `9857a9786c875e6f2ffe75bc0f09e0c05500712188222fcb86b9fccc4a6d4b98`, 307,975 bytes |
 | Made by | `python3 patch_server_v594.py server.js` on a copy of the v5.93 file (it checks the base hash and refuses to run twice) |
 
 ## What happened
@@ -47,10 +57,15 @@ write. When the write lands on a stored document, these rules apply before it is
 2. **A sent field stands.** If a field is sent, any value and `null` included, it is the sender's word. `null` clears.
 3. **Unit maps are merged.** If both copies carry `ready1238_units`, or both carry `pickup1238_units` (as plain
    objects), they are merged unit by unit using the page's own rule (below). No unit on either side is ever dropped.
-4. **Histories are never merged.** A history that is sent stands as sent. A history that is left out keeps the
-   stored one.
+4. **The two unit histories are joined; no other history is.** If both copies carry `ready1238_history`, or both
+   carry `pickup1238_history`, as lists, each stored line the incoming list lacks is added, using the page's own
+   rule (below). Any other history that is sent stands as sent. A history that is left out keeps the stored one.
 5. **Everything else is stored exactly as sent.**
 6. **A brand-new document is stored as sent**, because there is no stored copy to keep from.
+7. **`_k` stays last.** When the guard adds a field the body left out, it moves the body's `_k` back to the end,
+   after the added fields. Every page builds a document as `Object.assign({}, r, {_k: k})`, so the stored text
+   then reads back through the page's `fromDocs` and `toDocs` unchanged. A field merged in place keeps its place,
+   and a body with nothing added keeps the order it was sent in.
 
 The guard reads the stored document and completes the body in the same synchronous step that stores it, so no other
 write can land in between. Each write still moves the record on by exactly one version, gets one log line and one
@@ -61,7 +76,7 @@ When the guard keeps anything, it writes one extra line to `writes.log`, beside 
 version. The line holds field names and a count, never a value:
 `{"at":…,"v":…,"what":"delivery fields kept","coll":"delivery","id":"GN25","kept":["ready1231",…],"unitsKept":0}`.
 `unitsKept` counts the unit entries taken from the stored copy: every unit in a map copied whole, plus each stored
-unit that won the merge.
+unit that won the merge. A unit history named in `kept` had at least one stored line added to it.
 
 The capability `delivery_field_guard_version: 1` appears everywhere `lock_declarations_version` is reported:
 `/health`, the crew tracker read and the tick save acknowledgement.
@@ -156,6 +171,30 @@ Here `J = v => JSON.stringify(v === undefined ? null : v)`.
 The merge also closes the two-phone race: a phone that has not yet folded in another phone's unit can no longer write
 over it.
 
+## The unit-history join
+
+The page never merges a unit map without its history: `keepUnits` (Singles1238) and `mergeRecords` both join
+`ready1238_history` and `pickup1238_history` whenever they merge the maps, and no writer in the live page ever
+shortens them except to keep the newest 400 lines. The first build merged the maps and stored the sender's history
+as sent. When two phones ticked different units of one reference inside one poll, phone A's unit stayed Ready in the
+map with no history line for it, which no page merge produces. The server now joins them with the page's own
+`keepUnits` rule, word for word:
+
+```js
+const hj = (x, y, k) => { const a = Array.isArray(x) ? x : [], seen = new Set(a.map(k)), add = (Array.isArray(y) ? y : []).filter(h => h && !seen.has(k(h))); return add.length ? a.concat(add).sort((p, q) => String(p.at || '').localeCompare(String(q.at || '')) || k(p).localeCompare(k(q))).slice(-400) : null; };
+```
+
+- **The line key.** A Ready line is known by `unit|ready|at` and a booking line by `unit|pickup|at`, as the page
+  keys them.
+- **What is added.** Each stored line the incoming list has not got. The whole list is then put in the page's one
+  order (stamp, then key) and cut to the newest 400. A list with nothing to add, or one that comes to exactly what
+  was sent, is stored as sent.
+- **Lines the page never writes.** An incoming list that holds anything other than a plain object (or a line whose
+  unit, word or stamp is itself an object) is stored as sent, and such stored lines are never added. The join cannot
+  throw.
+- **Only these two.** `ready1231_history` and `emptied_history` stand as sent, because their scalar fields
+  (`ready1231`, `emptied`) are last writer wins: joining their histories would make a history disagree with its tick.
+
 ## Known limits
 
 - **Only the delivery collection is guarded.** Every other collection (`supplied`, `assetNumbers`, `photoLinks`,
@@ -170,7 +209,16 @@ over it.
   today's behaviour.
 - **A field the sender does know is last writer wins, as before.** Example: a v12.31–v12.41 tab knows `ready1231`, so
   its `ready1231` stands as sent, while its missing 1238 fields are kept. Scalars are not compared by stamp, and
-  histories are not merged.
+  histories other than the two unit histories are not merged.
+- **Kept fields sit just before `_k`.** A completed document holds the kept fields after the fields that were sent,
+  not where they sat before the stale write. The content is the same and the page reads it back unchanged. In the
+  replay below, the 3 completed documents match the backup field for field but not in key order.
+- **A hand-made stamp that is an object stops later writes of that document.** If a delivery document is stored with
+  a unit entry whose stamp (`at` or `set`) is a JSON object, every later write of that document carrying the same map
+  is answered 500 and nothing is stored, until a write sends that map as `null` or the document is deleted. The page
+  never writes such an entry; only someone hand-writing a body with the edit key could. The history join skips such
+  lines, but the unit merge quotes the page's rule word for word and does not. This was seen during the review fixes
+  and has not been changed here.
 - **A new page field must be added to `DELIVERY_KEEP` in the same change set.** Today's v12.42.1 tabs will strip any
   delivery field a later release adds, because `mergeRecords` still works from a field list.
 - **Some deliberate removals of these fields no longer work.** Import "replace", and a move onto a reference that
@@ -219,7 +267,7 @@ process had an explicit environment (`GC500_EDIT_TOKEN` is never read). Logs wer
 
 | Suite | Result | What it covers |
 |---|---|---|
-| `test_field_guard.cjs` (new) | 65/65 | the guard (stale write keeps every field byte for byte and still applies the sent fields; 68 stale documents in a row; null clears; sent fields and histories stand as sent; unit-map union, the later stamp both ways, the equal-stamp tie both ways, `set` not `at` for bookings, cleared booking wins; current-page writes and deliberate clears unchanged; new documents and other collections stored as sent; one version per write; the log line; `__proto__` as a unit; restart) · the snapshot read (list and byte-for-byte read of the server's own boot snapshot and of placed files; 26 bad names and 5 dot-segment addresses refused; ticks and files snapshots never served; 401/403; nothing written) · rollback to v5.93 on v5.94's data and forward again |
+| `test_field_guard.cjs` (new) | 81/81, twice | the guard (stale write keeps every field byte for byte and still applies the sent fields; the stored key order is the page's, `_k` last, and the stored text reads back through the page's own `fromDocs`/`toDocs` unchanged; the review's two-page case, modelled on the page's own fold, stage and settle; 68 stale documents in a row; null clears; sent scalars and the other histories stand as sent; the two unit histories joined as the page's `keepUnits` joins them (two phones, a line already sent, the cut to 400, lines the page never writes); unit-map union, the later stamp both ways, the equal-stamp tie both ways, `set` not `at` for bookings, cleared booking wins; current-page writes and deliberate clears unchanged; new documents and other collections stored as sent; one version per write; the log line; `__proto__` as a unit; restart) · the snapshot read (list and byte-for-byte read of the server's own boot snapshot and of placed files; 26 bad names and 5 dot-segment addresses refused; ticks and files snapshots never served; 401/403; nothing written) · rollback to v5.93 on v5.94's data and forward again |
 | `run_legacy.py`: the five retained v5.90 suites | 205/205 (tracker 84, tracker590 25, delivery 45, mms_sender 14, mms 37) | unchanged assertions, original fixture, the v5.87 rollback file |
 | `run_legacy.py`: v5.93's focused `test_declarations.cjs` | 50/50 | including its rollback to v5.92 |
 
@@ -233,8 +281,9 @@ process had an explicit environment (`GC500_EDIT_TOKEN` is never read). Logs wer
   sits in front.
 - `test_declarations.cjs` first check: `health.build==='v5.93'` becomes `'v5.94'`.
 
-**Mutation check.** The new suite was also run against eight deliberately broken copies of this server, and each one
-failed at the check meant to catch it:
+**Mutation check.** The new suite was also run against fourteen deliberately broken copies of the rebuilt server (the
+first build's eight, made again on the new file, and six for the review fixes), and each one failed at the check meant
+to catch it:
 
 | Broken copy | Caught at |
 |---|---|
@@ -246,39 +295,50 @@ failed at the check meant to catch it:
 | name decoded before matching | check 52 |
 | view link allowed | check 55 |
 | log line off | check 12 |
+| `_k` left where it was (the first build) | check 10a; run on past failures, also 10b, 16a, 16b, 16c and 16d |
+| `_k` moved even when nothing was added | check 16e |
+| unit histories not joined (the first build) | check 20a; also 20b, 20c, 20g and 20i |
+| joined history not cut to 400 | check 20f |
+| joined history not put in the page's order | check 20a |
+| lines the page never writes not screened | check 20h |
 
 **Incident replay (private, counts only, not in the repo).** A throw-away server was seeded with the 20:25 backup
 (v11123). All 214 delivery documents from the 04:14 post-wipe copy were then written back the way the stale page
 wrote them.
 
-| | v5.93 | v5.94 |
-|---|---|---|
-| Documents still equal to the backup | 211 of 214 | 214 of 214 |
-| Documents that lost the `ready1231` family | 3 | 0 |
-| "fields kept" log lines | none | 3, each naming exactly the five `ready1231` fields |
-| Other 44 collections | unchanged | unchanged |
+| | v5.93 | v5.94 first build (`6057f04e…`) | v5.94 rebuilt (`9857a978…`) |
+|---|---|---|---|
+| Documents equal to the backup, field for field | 211 of 214 | 214 of 214 | 214 of 214 |
+| ...and in key order too | 211 of 214 | 211 of 214 | 211 of 214 |
+| Documents that lost the `ready1231` family | 3 | 0 | 0 |
+| Documents whose stored text reads back through the page's `fromDocs`/`toDocs` unchanged | 214 of 214 | 211 of 214 | 214 of 214 |
+| "fields kept" log lines | none | 3, each naming exactly the five `ready1231` fields | the same 3 |
+| Other 44 collections | unchanged | unchanged | unchanged |
 
-The temporary copies were deleted.
+The first build's "214 of 214" compared fields with the keys sorted. Compared in key order, its 3 completed documents
+had `_k` in the middle and would not read back through the page unchanged, which is the review finding. In the
+rebuilt server the 3 completed documents read back unchanged; they differ from the backup only in where the five
+kept fields sit (just before `_k`). All 214 backup documents have `_k` last. The temporary copies were deleted.
 
 ## Deploy (when Andrew says go), mirroring `../server_v5.93_switch/README.md`
 
 1. **Pre-flight, GET only.**
    - `/health` reads v5.93, `ok`, no `record_recovered`, no `tracker_refusing`.
    - Take a private backup of health, version, full state, cards, the full tick history, the machine inventory and the
-     page, with v5.93's `stage.py` pattern. Change its two hashes (OLD = v5.93 `8764451d…`, NEW = v5.94 `6057f04e…`)
+     page, with v5.93's `stage.py` pattern. Change its two hashes (OLD = v5.93 `8764451d…`, NEW = v5.94 `9857a978…`)
      and its build check (`v5.93`). Keep the backup outside the repository.
-2. **Stage the blob.** `PUT /api/admin/machine/blob/6057f04e01ba919b8b2b3872fdac6edf2f1577cb86efe84e5ce4a42ec4a97f02`
-   with this `server.js` (what `stage.py --execute` does). Read it back in `/api/admin/machine` at 304,701 bytes.
+2. **Stage the blob.** `PUT /api/admin/machine/blob/9857a9786c875e6f2ffe75bc0f09e0c05500712188222fcb86b9fccc4a6d4b98`
+   with this `server.js` (what `stage.py --execute` does). Read it back in `/api/admin/machine` at 307,975 bytes.
    Check that state, cards, page and tick history are unchanged and the running server is still v5.93. Never prune
    the staged blob while it waits.
 3. **One Railway change on service `gc500`, production:**
-   - `SERVER_FILE` = `6057f04e01ba919b8b2b3872fdac6edf2f1577cb86efe84e5ce4a42ec4a97f02`
+   - `SERVER_FILE` = `9857a9786c875e6f2ffe75bc0f09e0c05500712188222fcb86b9fccc4a6d4b98`
    - `SERVER_FILE_KEEP` = `8764451d3768fcfbfc493da48fb9901503dcd6af0f8df247478aa53fb9428f46` (v5.93) in front of the
      list in force since the v5.93 switch, giving these ten entries:
      `8764451d3768fcfbfc493da48fb9901503dcd6af0f8df247478aa53fb9428f46,bdb058ffe1d7e269be978546581383a85f11bd7fc7078f569d41de33b6efe396,c1b8bf9c999d4e548384b682592409507dbaf8bb7c4c62c590b62127b69c89b7,55a19453304406e9fcf0891ae6151e8516357e83e22987fc334e2bf9428ad0ec,cb32d00e0d4beb90870685978981b1e14541a701c7b37cb1f180d848c134019c,d5a0d777da4871af1bf88804b4ef223354a29c2560213ab56f7897445b398fdc,f5b9a3f7efdf880b5f10d0ee339761d35adf9b9ff5bdd3a528505215be6b6fe9,76afbd997a9fcfd6e796eea4ead641a5249a1bad23114417c861fd1559057684,264363128b6c4bc1fd86b2fd6712400dd4c367b45a6ca195b7fb2ee1c8f21a14,b8d38b8f889baeffce25401a285f25286bbb4a6ae67f2c0f6e8a81eb214991dd`
    - Change nothing else and read no variable. Then do **one redeploy**.
 4. **Read back, GET only.**
-   - The boot log names `6057f04e…` as the volume blob and `/app/server.js`, and the banner starts
+   - The boot log names `9857a978…` as the volume blob and `/app/server.js`, and the banner starts
      "server v5.94 — THE DELIVERY FIELD GUARD".
    - `/health` shows `build: v5.94`, `delivery_field_guard_version: 1`, `lock_declarations_version: 1`,
      `crew_groups_version: 1`, `record_recovered: null` and `tracker_refusing: null`, with the version, files and cards
@@ -300,11 +360,11 @@ stops guarding, and the snapshot read goes away.
 
 | File | What it is |
 |---|---|
-| `server.js` | v5.94, `6057f04e…` |
+| `server.js` | v5.94, `9857a978…` |
 | `patch_server_v594.py` | the patch, run on the exact v5.93 bytes |
 | `guard594.js` | the guard source |
 | `snap594.js` | the snapshot read source |
-| `test_field_guard.cjs` | the 65 focused checks |
+| `test_field_guard.cjs` | the 81 focused checks |
 | `run_legacy.py` | the 205 retained checks plus v5.93's 50 |
 | `validation.json` | hashes and results |
 

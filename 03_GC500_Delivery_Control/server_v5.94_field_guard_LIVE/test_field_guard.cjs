@@ -58,9 +58,10 @@ const T1 = '2026-10-26T10:00:00.000Z', T2 = '2026-10-26T11:00:00.000Z', T3 = '20
 const PROTECTED = ['ready1231', 'ready1231_at', 'ready1231_by', 'ready1231_why', 'ready1231_history',
   'ready1238_units', 'ready1238_history', 'pickup1238_units', 'pickup1238_history',
   'emptied', 'emptied_at', 'emptied_by', 'emptied_history', 'timeline841', 'loading872', 'handling875'];
-/* a delivery document as the current page (v12.42.1) writes one: every family present */
-const full = k => ({
-  _k: k, state: 'on site', set_at: T1, by: 'Test Operator', history: [{ state: 'on site', at: T1, by: 'Test Operator' }],
+/* a delivery document as the current page (v12.42.1) writes one: every family present, and _k last, because the page's
+   toDocs builds each document as Object.assign({}, r, {_k: k}) */
+const full = k => Object.assign({}, {
+  state: 'on site', set_at: T1, by: 'Test Operator', history: [{ state: 'on site', at: T1, by: 'Test Operator' }],
   done: true, done_at: T1, done_by: 'Test Operator', done_history: [{ done: true, at: T1, by: 'Test Operator' }],
   eta: '07:30', note: 'gate 3',
   ready1231: true, ready1231_at: T2, ready1231_by: 'Test Ready', ready1231_why: '', ready1231_history: [{ ready: true, at: T2, by: 'Test Ready', why: '' }],
@@ -71,9 +72,35 @@ const full = k => ({
   emptied: true, emptied_at: T1, emptied_by: 'Test Pump', emptied_history: [{ emptied: true, at: T1, by: 'Test Pump' }],
   timeline841: { stage: 3, at: T1, by: 'Test Operator' }, loading872: { L1: { side: 'driver', by: 'Test Operator', at: T1 } },
   handling875: { method: 'forklift', by: 'Test Operator', at: T1 },
-});
+}, { _k: k });
 /* the same document as a page from before those fields existed writes it: the protected families gone */
 const stale = d => { const o = {}; Object.keys(d).forEach(k => { if (!PROTECTED.includes(k)) o[k] = d[k]; }); return o; };
+/* The page's own fold and rebuild of one stored document (live v12.42.1): fromDocs strips _k
+   (strip = d => { const o = Object.assign({}, d); delete o._k; return o; }) and toDocs puts it back last
+   (Object.assign({}, r, {_k: k})). syncStageLive queues any document whose rebuilt text is not the text it folded. */
+const strip = d => { const o = Object.assign({}, d); delete o._k; return o; };
+const rebuilt = d => Object.assign({}, strip(d), { _k: d._k });
+const roundTrips = d => J(rebuilt(d)) === J(d);
+/* The page's live sync for delivery documents, cut down to what decides which documents a page sends (live v12.42.1):
+     syncFold      SYNC.last[id] = JSON.stringify(stored document); the record becomes fromDocs(stored)
+     syncStageLive a document is queued when JSON.stringify(toDocs()[id]) !== SYNC.last[id]
+     syncSettled   after a 200, SYNC.last[id] = the text that was sent
+   A page that has folded a document and then saves anything sends every queued document, its own older copy included. */
+function page() {
+  let S = {}, last = {};
+  const toDocs = () => { const out = {}; Object.entries(S).forEach(([k, r]) => { if (r && typeof r === 'object') out[k] = Object.assign({}, r, { _k: k }); }); return out; };
+  const fromDocs = docs => { const o = {}; Object.values(docs).forEach(d => { if (d && d._k != null) o[d._k] = strip(d); }); return o; };
+  const staged = () => { const d = toDocs(); return Object.keys(d).filter(id => JSON.stringify(d[id]) !== last[id]); };
+  return {
+    async fold() { const docs = (await request('GET', '/api/state')).j.docs.delivery || {}; last = {}; Object.entries(docs).forEach(([id, b]) => { last[id] = JSON.stringify(b); }); S = fromDocs(docs); },
+    staged,
+    edit(fn) { fn(S); },
+    async save() { const d = toDocs(), sent = []; for (const id of staged()) { const r = await putDoc('delivery', id, d[id]); if (r.status === 200) { last[id] = JSON.stringify(d[id]); sent.push(id); } } return sent; },
+  };
+}
+/* The page's own history join, word for word from Singles1238's keepUnits (live v12.42.1), with its two line keys */
+const hj = (x, y, k) => { const a = Array.isArray(x) ? x : [], seen = new Set(a.map(k)), add = (Array.isArray(y) ? y : []).filter(h => h && !seen.has(k(h))); return add.length ? a.concat(add).sort((p, q) => String(p.at || '').localeCompare(String(q.at || '')) || k(p).localeCompare(k(q))).slice(-400) : null; };
+const hr = h => (h.unit || '') + '|' + h.ready + '|' + h.at, hp = h => (h.unit || '') + '|' + (h.pickup || '') + '|' + h.at;
 
 (async () => {
   try {
@@ -108,6 +135,11 @@ const stale = d => { const o = {}; Object.keys(d).forEach(k => { if (!PROTECTED.
     check('9. ...and the fields it did send are stored as sent (state, set_at, history, eta)', got.state === 'in transit' && got.set_at === T3 && J(got.history) === J(s1.history) && got.eta === '08:15', got);
     check('10. ...and nothing else is added or lost: the stored fields are the sent ones plus the kept ones',
       J(Object.keys(got).sort()) === J([...new Set(Object.keys(s1).concat(PROTECTED))].sort()), Object.keys(got));
+    check('10a. ...in the order the page writes a document: the sent fields, then the kept ones (list order), then _k last',
+      J(Object.keys(got)) === J(Object.keys(s1).filter(k => k !== '_k').concat(PROTECTED, ['_k'])), Object.keys(got));
+    const served = (await request('GET', '/api/state')).j.docs.delivery.TST01;
+    check('10b. ...so the stored text reads back through the page\'s own fromDocs and toDocs unchanged (on the disk and as served)',
+      roundTrips(got) && roundTrips(served) && J(served) === J(got));
     check('11. ...and the change is on the disk before it is answered (records.json version matches)', disk().version === r.j.version);
     let line = await keptLine(r.j.version);
     check('12. the write log says which fields were kept, for which document, and how many units',
@@ -128,6 +160,38 @@ const stale = d => { const o = {}; Object.keys(d).forEach(k => { if (!PROTECTED.
     check('15. 68 stale documents in a row: 68 versions, every protected field on every one kept, the new note on every one',
       version === v68 + 68 && ids68.every(id => PROTECTED.every(k => J(dk[id][k]) === J(full(id)[k])) && dk[id].note === 'rewritten by an old tab'));
     check('16. ...and 68 "fields kept" log lines, one per document, 3 units each', lines68.length === 68 && new Set(lines68.map(l => l.id)).size === 68 && lines68.every(l => l.unitsKept === 3 && l.kept.length === 16), lines68.length);
+    check('16a. ...and every one of the 68 has _k last and reads back through the page\'s fromDocs and toDocs unchanged',
+      ids68.every(id => Object.keys(dk[id]).pop() === '_k' && roundTrips(dk[id])), ids68.filter(id => !roundTrips(dk[id])).length);
+
+    /* the review's two-page case: after a stale write, phones P and Q both fold the record; Q marks a reference picked
+       up and Not ready; P, still holding its earlier copy, saves an unrelated change before its next poll */
+    const P = page(), Q = page();
+    await P.fold(); await Q.fold();
+    check('16b. after the stale writes, a current page that folds the record has nothing of its own to send (no guarded document looks changed)',
+      P.staged().length === 0 && Q.staged().length === 0, P.staged().length);
+    Q.edit(S => { const x = S.BULK01; x.state = 'picked up'; x.set_at = T3; x.by = 'Phone Q'; x.history = x.history.concat([{ state: 'picked up', at: T3, by: 'Phone Q' }]);
+      x.ready1231 = false; x.ready1231_at = T3; x.ready1231_by = 'Phone Q'; x.ready1231_why = 'gone'; x.ready1231_history = x.ready1231_history.concat([{ ready: false, at: T3, by: 'Phone Q', why: 'gone' }]); });
+    const qSent = await Q.save();
+    P.edit(S => { S.BULK02.note = 'phone P only'; });
+    const pSent = await P.save();
+    got = disk().docs.delivery.BULK01;
+    check('16c. ...Q sends only its reference, and P\'s unrelated save sends only P\'s: Q\'s picked up and Not ready survive',
+      J(qSent) === J(['BULK01']) && J(pSent) === J(['BULK02']) && got.state === 'picked up' && got.ready1231 === false && got.ready1231_history.length === 2
+      && disk().docs.delivery.BULK02.note === 'phone P only', { qSent, pSent, state: got.state });
+
+    /* _k goes back to the end only when a field is added: a body from another writer with _k first */
+    const kFirst = d => Object.assign({ _k: d._k }, strip(d));
+    await putDoc('delivery', 'TSK01', kFirst(full('TSK01')));
+    r = await putDoc('delivery', 'TSK01', kFirst(stale(full('TSK01'))));
+    got = disk().docs.delivery.TSK01;
+    check('16d. a body sent with _k first that has fields added gets _k moved to the end, the other fields in the order sent',
+      r.status === 200 && J(Object.keys(got)) === J(Object.keys(stale(full('TSK01'))).filter(k => k !== '_k').concat(PROTECTED, ['_k'])), Object.keys(got));
+    await putDoc('delivery', 'TSK02', kFirst(Object.assign(full('TSK02'), { ready1238_units: { A: { on: true, at: T2, by: 'Test Ready', why: '' } } })));
+    const merged = kFirst(Object.assign(full('TSK02'), { ready1238_units: { B: { on: true, at: T3, by: 'Test Ready', why: '' } } }));
+    r = await putDoc('delivery', 'TSK02', merged);
+    got = disk().docs.delivery.TSK02;
+    check('16e. ...while a write where a unit map is only merged in place keeps exactly the order it was sent in (_k still first)',
+      r.status === 200 && J(Object.keys(got)) === J(Object.keys(merged)) && J(Object.keys(got.ready1238_units)) === J(['B', 'A']), Object.keys(got));
 
     /* an explicit null is the sender's word */
     await putDoc('delivery', 'TST02', full('TST02'));
@@ -140,14 +204,74 @@ const stale = d => { const o = {}; Object.keys(d).forEach(k => { if (!PROTECTED.
     check('19. ...and the log names only the fields kept (12), not the nulled ones; units kept = the 1 booking map copied whole',
       line && line.kept.length === 12 && !line.kept.includes('ready1231') && !line.kept.includes('ready1238_units') && line.unitsKept === 1, line);
 
-    /* a sent value stands as sent: no clock merge on the scalars, no merge of histories */
+    /* a sent value stands as sent: no clock merge on the scalars, and no merge of the histories beside them */
     await putDoc('delivery', 'TST03', full('TST03'));
     const s3 = Object.assign(full('TST03'), { ready1231: false, ready1231_at: T1, ready1231_why: 'older word', ready1231_history: [{ ready: false, at: T1, by: 'Test Ready', why: 'older word' }],
-      ready1238_history: [{ unit: 'U1', ready: true, at: T2, by: 'Test Ready', why: '' }], emptied_history: [] });
+      emptied_history: [] });
     r = await putDoc('delivery', 'TST03', s3);
-    check('20. sent fields stand as sent: an older ready1231 stamp, a shorter history and an empty history are stored exactly (byte for byte)', r.status === 200 && J(await stored('delivery', 'TST03')) === J(s3));
+    check('20. sent fields stand as sent: an older ready1231 stamp, a shorter ready1231 history and an empty Emptied history are stored exactly (byte for byte)', r.status === 200 && J(await stored('delivery', 'TST03')) === J(s3));
     await settleLog();
     check('21. ...and nothing kept, so no "fields kept" line', !logLines().some(l => l.what === 'delivery fields kept' && l.v === r.j.version));
+
+    /* the two unit histories join the way the page's keepUnits joins them, so a unit entry the map merge keeps keeps its line */
+    const rl = (unit, ready, at, by = 'Test Ready', why = '') => ({ unit, ready, at, by, why });
+    const pl = (unit, pickup, at, by = 'Test Booker') => ({ unit, pickup, note: '', by, at });
+    const phoneA = Object.assign(full('TSH01'), {
+      ready1238_units: Object.assign({}, full('TSH01').ready1238_units, { U3: { on: true, at: T3, by: 'Phone A', why: '' } }),
+      ready1238_history: full('TSH01').ready1238_history.concat([rl('U3', true, T3, 'Phone A')]),
+      pickup1238_units: Object.assign({}, full('TSH01').pickup1238_units, { U3: { at: '2026-10-29T07:00:00+10:00', note: '', by: 'Phone A', set: T3 } }),
+      pickup1238_history: full('TSH01').pickup1238_history.concat([pl('U3', '2026-10-29T07:00:00+10:00', T3, 'Phone A')]) });
+    await putDoc('delivery', 'TSH01', phoneA);
+    const phoneB = Object.assign(full('TSH01'), {   /* phone B has not read phone A's tick or booking yet */
+      ready1238_units: Object.assign({}, full('TSH01').ready1238_units, { U4: { on: true, at: T3, by: 'Phone B', why: '' } }),
+      ready1238_history: full('TSH01').ready1238_history.concat([rl('U4', true, T3, 'Phone B')]),
+      pickup1238_units: Object.assign({}, full('TSH01').pickup1238_units, { U4: { at: '2026-10-29T08:00:00+10:00', note: '', by: 'Phone B', set: T3 } }),
+      pickup1238_history: full('TSH01').pickup1238_history.concat([pl('U4', '2026-10-29T08:00:00+10:00', T3, 'Phone B')]) });
+    r = await putDoc('delivery', 'TSH01', phoneB);
+    got = disk().docs.delivery.TSH01;
+    const lineFor = (list, u, e, word) => list.some(h => h.unit === u && h.at === (word === 'ready' ? e.at : e.set) && (word === 'ready' ? h.ready === e.on : (h.pickup || '') === e.at));
+    check('20a. two phones on one reference: both units kept in each map, and each history holds both phones\' lines, joined and ordered exactly as the page\'s keepUnits would',
+      r.status === 200 && J(Object.keys(got.ready1238_units).sort()) === J(['U1', 'U2', 'U3', 'U4']) && J(Object.keys(got.pickup1238_units).sort()) === J(['U1', 'U3', 'U4'])
+      && J(got.ready1238_history) === J(hj(phoneB.ready1238_history, phoneA.ready1238_history, hr)) && J(got.pickup1238_history) === J(hj(phoneB.pickup1238_history, phoneA.pickup1238_history, hp)), got.ready1238_history);
+    check('20b. ...so no unit stands Ready or booked in a map without its history line',
+      Object.entries(got.ready1238_units).every(([u, e]) => lineFor(got.ready1238_history, u, e, 'ready')) && Object.entries(got.pickup1238_units).every(([u, e]) => lineFor(got.pickup1238_history, u, e, 'pickup')));
+    line = await keptLine(r.j.version);
+    check('20c. ...and the log names the two maps and the two histories, with the 2 unit entries kept (A\'s tick and booking)',
+      line && J(line.kept) === J(['ready1238_units', 'ready1238_history', 'pickup1238_units', 'pickup1238_history']) && line.unitsKept === 2 && roundTrips(got), line);
+
+    /* a history line already sent (same unit, word and stamp) is not added twice, and the sent copy stands */
+    await putDoc('delivery', 'TSH02', full('TSH02'));
+    const sameKey = Object.assign(full('TSH02'), { ready1238_history: [rl('U1', true, T2, 'Other Name'), rl('U2', false, T2, 'Test Ready', 'still in use')] });
+    r = await putDoc('delivery', 'TSH02', sameKey);
+    check('20d. a stored line whose unit, word and stamp the sent list already has is not added: the sent list is stored exactly as sent',
+      r.status === 200 && J(disk().docs.delivery.TSH02) === J(sameKey));
+    await settleLog();
+    check('20e. ...with no "fields kept" line', !logLines().some(l => l.what === 'delivery fields kept' && l.v === r.j.version));
+
+    /* the page's cut to the newest 400 lines */
+    const minute = i => new Date(Date.parse('2026-10-26T00:00:00.000Z') + i * 60e3).toISOString();
+    const long = Array.from({ length: 400 }, (_, i) => rl('U' + (i % 7), i % 2 === 0, minute(i)));
+    await putDoc('delivery', 'TSH03', Object.assign(full('TSH03'), { ready1238_history: long }));
+    const cut = Object.assign(full('TSH03'), { ready1238_history: long.slice(1).concat([rl('U9', true, minute(400))]) });   /* a page that ticked once more and cut its list to 400 */
+    r = await putDoc('delivery', 'TSH03', cut);
+    check('20f. a page that ticked once more and cut its list to the newest 400 is stored exactly as sent (the join comes to the same 400 lines)',
+      r.status === 200 && J(disk().docs.delivery.TSH03) === J(cut));
+    const gap = Object.assign(full('TSH03'), { ready1238_history: long.slice(1).filter((_, i) => i !== 199).concat([rl('U9', true, minute(400)), rl('U8', true, minute(401))]) });
+    r = await putDoc('delivery', 'TSH03', gap);
+    got = disk().docs.delivery.TSH03.ready1238_history;
+    check('20g. ...and a list missing a line from the middle gets it back, still cut to the newest 400 in the page\'s order',
+      r.status === 200 && got.length === 400 && J(got) === J(hj(gap.ready1238_history, cut.ready1238_history, hr)) && got.some(h => h.at === minute(200)) && got[0].at === minute(2), got.length);
+
+    /* lists the page never writes are left as sent and never stop the write */
+    await putDoc('delivery', 'TSH04', full('TSH04'));
+    const oddSent = Object.assign(full('TSH04'), { ready1238_history: [null, rl('U7', true, T3)], pickup1238_history: { not: 'a list' } });
+    r = await putDoc('delivery', 'TSH04', oddSent);
+    check('20h. a sent history holding a null line, or one that is not a list, is stored exactly as sent (200)', r.status === 200 && J(disk().docs.delivery.TSH04) === J(oddSent));
+    await putDoc('delivery', 'TSH05', null, { raw: J(full('TSH05')).replace('"ready1238_history":[', '"ready1238_history":[null,{"unit":"U5","ready":true,"at":{"toString":1,"valueOf":1}},') });
+    r = await putDoc('delivery', 'TSH05', Object.assign(full('TSH05'), { ready1238_history: [rl('U7', true, T3)] }));
+    got = disk().docs.delivery.TSH05.ready1238_history;
+    check('20i. stored lines the join cannot read (null, an object for a stamp) are left out of the join and never stop the write; the readable ones are added',
+      r.status === 200 && got.length === 3 && J(got) === J([full('TSH05').ready1238_history[0], full('TSH05').ready1238_history[1], rl('U7', true, T3)]), got);
 
     /* the unit maps merge by the page's own rule */
     const ru = (on, at, why = '') => ({ on, at, by: 'Test Ready', why });
