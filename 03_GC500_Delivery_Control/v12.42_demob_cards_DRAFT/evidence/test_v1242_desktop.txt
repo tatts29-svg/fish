@@ -9,7 +9,9 @@ PASS v12.42: water barriers stay one card a run; what is inside a building is on
 PASS v12.42: a building is one card with what is inside it listed on it (P01: its fridge and two air conditioners), never cards of their own
 PASS v12.42: size and weight are each unit's own on a mixed reference (WC09: the FWF guide 117 kg on the FWF, not on the Coates toilet block)
 PASS v12.42: a reference of five light towers is five cards, each its own asset number
-PASS v12.42: nothing reads "Not checked yet": a unit is Not ready until it is ticked Ready (or Emptied) or picked up
+PASS v12.42: nothing reads "Not checked yet": a unit is Not ready until it is ticked Ready or picked up
+PASS v12.42: only a Ready tick makes a unit Ready (its own or its reference's); an Emptied (pumped out) tick alone never does (Andrew: "everything ticked not ready. Unless i have done so")
+PASS v12.42: every unit that has left carries the collection stamp: big, glowing and pulsing, with the day and time it left
 PASS v12.42: each card carries the icon of what it is (generator, toilet, pee panel, toilet block, lighting tower, building, scissor lift, forklift, message board)
 PASS v12.42: after the final removal morning the session boards 13-17 are in their store (VMS 15 at T2 runoff, VMS 16 behind 2 Breaker St on their store pins; 13, 14, 17 say their store has no pin yet)
 PASS v12.42: every VMS board, 24, each with its asset number, rego and where it stands now (VMS 02 at its 02a pin)
@@ -21,12 +23,13 @@ PASS v12.42: Send hands the two pictures and the words to the phone's share menu
 PASS v12.42: find by asset no., GC500 ID, VMS or rego (1211370 finds VMS 02 alone); the filter shows only what it says (picked up)
 PASS v12.42: the progress card is lit up: a glowing ring and line, today's point pulsing, five stars; v12.36's card and master-plan overview give way
 PASS v12.42: today's day card lists what was picked up with each reference, what it is, its asset numbers and the time (GN10 · 20kva generator · 1283681 · 07:40; WC23 · FWF portable toilet · 0968 0960 0107)
+PASS v12.42: every demob day card shows how complete the demob is: by the end of a day gone, now for today (the progress ring's own figure), and for a day ahead where its bookings would take it
 PASS v12.42: a day ahead shows only what is booked for it (nothing yet), not the schedule's plan
 PASS v12.42: in Everything on site the day-list button counts what was booked and picked up that day, not the old plan
-PASS v12.42: a day's list holds only what left that day (by the day it left) or is booked for it; its heading counts units, as the day card does; a "booked" filter from Everything is not carried in; the schedule's runs, trucks, print and confirm are put away
+PASS v12.42: a day's list holds only what left that day (by the day it left, and a run part-collected that day even once the rest has gone) or is booked for it; its heading counts units, as the day card does; a "booked" filter from Everything is not carried in; the schedule's runs, trucks, print and confirm are put away
 PASS v12.42: a day with nothing booked says so and lists nothing from the schedule
 PASS v12.42: the cards lay out three or more to a row on a desktop
-PASS v12.42: the tab settles: no redraw loop while nothing changes (1 changes in 3 s)
+PASS v12.42: the tab settles: no redraw loop while nothing changes (0 changes in 3 s)
 PASS v12.42: on the edit link every card still on site has its Book pick-up button and its Ready light to press
 PASS v12.42: Ready on one Event Portables unit at WC09 marks that unit only, on its own clock; the Coates toilet block beside it stays Not ready; the reference's own tick is untouched
 PASS v12.42: Book pick-up opens a sheet with a calendar (no day picked, past days shut) and a clock (24 hours), naming the asset; Save waits for a day and a time
@@ -34,15 +37,19 @@ PASS v12.42: a day on the calendar, the hour and the minutes on the clock: 07:30
 PASS v12.42: the booking travels on GN18's delivery document for that unit: Queensland time, the note, who and when; the card shows it
 PASS v12.42: the booked pick-ups list shows it by day and time
 PASS v12.42: tomorrow's day card now carries the booking (GN18 1261273 07:30)
+PASS v12.42: a booking moves the day ahead: tomorrow's card says where its bookings take the demob if every one goes
 PASS v12.42: a typed time (730 -> 07:30, 1415 -> 14:15) and "Book all the Event Portables units at WC09" books every one of them at once, not the Coates blocks
 PASS v12.42: Clear booking clears this unit only, even with "Book all" ticked (WC09 0085 cleared; the other 15 Event Portables bookings stand)
 PASS v12.42: Change opens the booking as it stands; Clear is a dated change too, and the card is back to "to be booked"
 PASS v12.42: Picked up on one unit opens the page's own departure form for WC09 with that unit ticked (Emptied asked for the whole reference first)
 PASS v12.42: at a mixed reference Emptied turns nobody Ready: the Coates blocks and the untouched Event Portables units stay Not ready; the unit ticked Ready stays Ready
+PASS v12.42: a Ready tick on a reference with two owners (WC09: Coates blocks and Event Portables units) turns none of its units Ready; on a one-owner reference it still does
+PASS v12.42: when the page leaves a reference's pick-ups out for review (quantities changed after one), its cards say so and point to Picked up
 PASS v12.42: on the live sync a store copy without this phone's unit ticks and bookings loses none of them: they are kept here and sent back up, and nothing else is written
 PASS v12.42: a tick or booking made before a unit's owner or number was filled in, or on its reference's one card before its units were recorded, still finds the unit; its own entry comes first
+PASS v12.42: with a send of this phone's own still waiting for a reference, a unit another phone ticked there is not lost: both ticks are kept and go up together, and nothing else is written
 PASS v12.42: on any copy the later tick wins unit by unit, other units are kept, the histories join, and a record holding only these is kept
 PASS v12.42: only WC09's and GN18's delivery documents were written, all captured in the page; nothing reached the network
 PASS no page errors through the whole run
 
-46/46 passed
+53/53 passed
