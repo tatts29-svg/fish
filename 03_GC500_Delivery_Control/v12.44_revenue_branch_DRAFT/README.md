@@ -18,9 +18,15 @@ Controls sit on the existing Costs contract line and customer event-scope row. N
 
 ```sh
 node v12.44_revenue_branch_DRAFT/tests/test_revenue1240.cjs
+node v12.44_revenue_branch_DRAFT/tests/test_transfer_oracle.cjs
+node v12.44_revenue_branch_DRAFT/tests/test_native_document_shape.cjs
 toolchain/build.sh v12.44 v12.44_revenue_branch_DRAFT/patch_v1244.py
 ```
 
-Synthetic resolver/native API checks pass 61/61 and cover exact identity, stale source and overrides, permission/name gates, history, concurrency, remaining customer Revenue, role preservation and unrelated physical/source records. Browser acceptance must also prove whole-job and category totals, every supplier cost and cost branch, Finance allocation and the underlying record are unchanged. Both final navigation sweeps and a phone inspection are required before READY.
+Synthetic resolver/native API checks pass 61/61 and cover exact identity, stale source and overrides, permission/name gates, history, concurrency, remaining customer Revenue, role preservation and unrelated physical/source records. A separate test-only transfer oracle passes 43/43 synthetic checks. It derives expected current/job branch movement from frozen contract contributions, remaining forecast rows and the agreed scope's grouped cent allocation. Missing, duplicate, misdirected or residual-hidden transfers and incorrect Finance invoice rows fail independently of the new branch reader.
+
+Browser gates are prepared but have not run on the final release or preceding applied customer record. The harness requires an explicit frozen record, verifies its native documents/version and empty queue, and rejects all HTTP writes. Only absent versus empty top-level collection maps are equivalent; every logical document and nested value remains exact. The shape boundary passes 39/39 offline checks, including refusal of missing, moved or changed documents and malformed collections. Version, inflight and queue checks remain exact. This test-only normalization never applies to an operational write plan.
+
+The inactive-release comparison preserves all financial, category, branch, source and physical projections; native staged decisions must match the independent transfer oracle. Its source branches come from the pre-set ordinary reader, with an additional check that the module's retained source agrees. Both final navigation sweeps and a phone inspection remain required before READY.
 
 The patch requires the coordinated v12.43 source and refuses another base or repeat application. Final publication starts from current verified live bytes through the shared build and unchanged-base uploader. No private record change or publication has been performed by this draft.

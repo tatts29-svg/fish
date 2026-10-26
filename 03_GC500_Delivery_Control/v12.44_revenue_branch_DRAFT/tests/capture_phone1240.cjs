@@ -7,7 +7,7 @@ const {openCandidate}=require('./browser_harness.cjs');
  const s=await openCandidate();
  try{
   const key=await s.page.evaluate(()=>{
-   const A=RevenueBranch1240;syncSend=()=>{clearTimeout(SYNC.timer);SYNC.timer=null;};mayWrite=()=>true;capability=()=> 'edit';SYNC.readonly=false;SYNC.level='edit';S.operator='Synthetic reviewer';const who=document.querySelector('#who');if(who)who.value=S.operator;
+   const A=RevenueBranch1240;syncSend=()=>{clearTimeout(SYNC.timer);SYNC.timer=null;};folderWrite=()=>false;mayWrite=()=>true;capability=()=> 'edit';SYNC.readonly=false;SYNC.level='edit';S.operator='Synthetic reviewer';const who=document.querySelector('#who');if(who)who.value=S.operator;
    const row=ONHIRE_ROWS.find(r=>r.subhired&&A.current('c|'+r.rental_contract+'|'+r.line)?.eligible&&A.status('c|'+r.rental_contract+'|'+r.line).state==='none');if(!row)throw Error('Eligible fixture source missing');
    const key='c|'+row.rental_contract+'|'+row.line,t=A.current(key),branch=t.allowedBranches.find(b=>b!==t.branch);
    if(!A.set(key,A.make(key,{branch,reason:'Synthetic branch allocation shown for layout review',evidence:'Synthetic test only; no operational save',confirmed_by:'Synthetic reviewer',confirmed_on:todayIso()})))throw Error('Fixture refused');
@@ -23,7 +23,7 @@ const {openCandidate}=require('./browser_harness.cjs');
   await s.page.evaluate(key=>{document.querySelector('[data-close1240]').click();const d=S.answers[RevenueBranch1240.PREFIX+key];d.source.ordinaryBranch='STALE';RENDER_MEMO.clear();HELD_MEMO.clear();go('costs');RevenueBranch1240.dialog(key);},key);
   assert.match(await s.page.getByRole('dialog',{name:'Customer Revenue branch'}).innerText(),/needs review/);
   await s.page.screenshot({path:path.join(process.env.OUT,'phone-stale-revenue-review.png')});
-  assert.equal(s.errors.length,0,'Zero runtime errors');assert.equal(s.counts.blocked,0,'Zero HTTP write attempts');
+  assert.equal(s.errors.length,0,'Zero runtime errors');assert.equal(s.consoleErrors.length,0,'Zero console errors');assert.equal(s.counts.blocked,0,'Zero HTTP write attempts');
   console.log('Phone contract, role and stale-source captures complete; no HTTP writes.');
  }finally{await s.browser.close();}
 })().catch(e=>{console.error('FAIL '+e.message);process.exitCode=1;});
