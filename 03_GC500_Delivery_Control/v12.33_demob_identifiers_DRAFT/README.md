@@ -2,7 +2,7 @@
 
 Author: Andrew Fisher.
 
-**DRAFT — final navigation checks in progress.** Implemented and reviewed by Codex; Claude has not reviewed this candidate.
+**READY TO UPLOAD — final candidate checks complete.**
 
 The Demob specification line in v12.32 labelled recorded bulk product codes as “Asset no.”. The existing unnumbered-item rule says that this equipment is counted by quantity. This presentation fix retains the recorded values under “Recorded code”. Unnumbered equipment with no recorded identifier says “Not numbered”, with the existing size warning when required.
 
@@ -26,7 +26,7 @@ Only `Ready1231`'s `specs` and `specHtml` functions and the release footer chang
 - Independent offline review: 15 renderer cases and 8 preservation/guard checks passed.
 - Native desktop and phone: 812/812 each across all native Demob references. Ordinary specification rendering is unchanged, recorded identifiers and facts are preserved, and rendering does not change the record. Zero page errors, console errors or blocked writes.
 - Desktop and phone screenshots inspected. Raw record-derived evidence and screenshots stay in private storage.
-- Full desktop and phone navigation sweeps: pending.
+- Full desktop and phone navigation sweeps: 27 tabs, 19 visible panes, seven direct links and Back passed on each; zero page errors, console errors or blocked writes. The shared sweep had diagnostic progress logging only; an independent comparison verified that no test step changed or was skipped. Earlier bounded attempts did not complete and are not counted as passes.
 - Upload dry run: verified unchanged live base and edit access; no upload performed.
 
 ## Reproduce
@@ -34,4 +34,4 @@ Only `Ready1231`'s `specs` and `specHtml` functions and the release footer chang
 Build with the shared `toolchain/build.sh v12.33 v12.33_demob_identifiers_DRAFT/patch_v1233.py`.
 Run the focused tests with `BASE` pointing to the verified v12.32 source and `PAGE` to the candidate. Native tests also need `OUT` outside the repository; set `MOB=1` for phone. Run all browser checks under the shared browser lock, then both `toolchain/harness/sweep.js` viewports. Use the guarded uploader only after the final candidate passes and READY is recorded.
 
-Claude retains the pending departure record operation. The servicing night report remains on hold; this release does not alter that scope.
+The pending departure record operation remains separately owned. The servicing night report remains on hold. The separately claimed v12.34 Demob styling update must retain these identifier labels and rebuild from the latest live page.
