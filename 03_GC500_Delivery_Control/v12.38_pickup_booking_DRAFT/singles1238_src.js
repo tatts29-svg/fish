@@ -64,7 +64,7 @@
 #pane-demob .gh1238 em .no{background:#ff4d5e22;color:#ff9aa4}#pane-demob .gh1238 em .ok{background:#ffb02022;color:#ffd27a}#pane-demob .gh1238 em .gn{background:#19d27a22;color:#7ff0b4}
 #pane-demob .gg1238{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:12px}
 /* the card: the data plate for one asset */
-#pane-demob .sg1238{--sc:var(--r1238);position:relative;display:grid;gap:9px;padding:13px 13px 12px;border:1px solid var(--edge1238);border-radius:18px;background:linear-gradient(165deg,#173039 0%,#10212a 45%,#0c191f 100%);box-shadow:0 10px 26px #0007,inset 0 1px 0 #ffffff12;content-visibility:auto;contain-intrinsic-size:auto 620px;isolation:isolate;overflow:hidden}
+#pane-demob .sg1238{--sc:var(--r1238);position:relative;display:grid;gap:9px;padding:13px 13px 12px;border:1px solid var(--edge1238);border-radius:18px;background:linear-gradient(165deg,#173039 0%,#10212a 45%,#0c191f 100%);box-shadow:0 10px 26px #0007,inset 0 1px 0 #ffffff12;content-visibility:auto;contain-intrinsic-size:auto 560px;isolation:isolate;overflow:hidden}
 #pane-demob .sg1238::before{content:"";position:absolute;inset:0 auto 0 0;width:4px;background:var(--sc);box-shadow:0 0 14px var(--sc),0 0 3px var(--sc);z-index:1}
 #pane-demob .sg1238::after{content:"";position:absolute;inset:-1px;border-radius:inherit;pointer-events:none;box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--sc) 55%,transparent),0 0 22px color-mix(in srgb,var(--sc) 45%,transparent);opacity:.35;z-index:-1}
 #pane-demob .sg1238.st-ready{--sc:var(--a1238)}
@@ -249,6 +249,7 @@ dialog.bkd1238 footer button[disabled]{opacity:.4;cursor:default;box-shadow:none
 @media (prefers-reduced-motion:reduce){
  #pane-demob .sg1238::after,#pane-demob .sg1238 .ic1238::after,#pane-demob .sg1238 .pf1238 .pu1238::before,#pane-demob .sg1238 .pf1238 .pu1238::after,#pane-demob .lm1238 .lp1238.amber.on i,#pane-demob .sg1238 .pf1238 .w1238{animation:none!important}
 }
+#pane-demob .sg1238.st-gone{contain-intrinsic-size:auto 250px}
 @media print{#pane-demob .tb1238,#pane-demob .sg1238 .ph1238,#pane-demob .sg1238 .ac1238{display:none!important}#pane-demob .sg1238{content-visibility:visible;break-inside:avoid}}
 </style>
 <script id="singles1238-script">
@@ -385,28 +386,49 @@ const ownCls = o => o === 'coates' ? 'co' : o === 'unknown' ? 'un' : /event/.tes
 const uk = u => (String(u.owner || 'unknown') + '|' + String(u.assetNo || u.nativeId || u.id || '')).replace(/[^\w:.|-]+/g, '_').slice(0, 120);
 function descOf(r) { try { return DemobScope1017.description(r, demobDescription988); } catch (x) { const a = r.a || {}; return String((a.item_types || [])[0] || a.name || a.product || r.key); } }
 function specsOf(r) { try { return W.Ready1231 ? Ready1231.specs(r) || {} : {}; } catch (x) { return {}; } }
+/* the day it arrived: the page's own arrival, the latest time it was set on site (a unit set on site again starts a new use);
+   the delivery's planned or moved day is not an arrival */
 function arrivalOf(key) {
- let d = null; try { d = deliveryOf(key); } catch (x) { d = null; } if (!d) return null;
- const ts = (d.history || []).filter(h => h && !h.collection996 && h.state === 'on site' && ok(h.at)).map(h => h.at).sort();
- const day = typeof d.date === 'string' && /^\d{4}-\d{2}-\d{2}/.test(d.date) ? d.date.slice(0, 10) : ts.length ? qDay(ts[0]) : ok(d.set_at) && d.state === 'on site' ? qDay(d.set_at) : null;
- return day ? {day, by: d.date_by || ''} : null;
+ let at = null; try { at = lastOnSite816(key); } catch (x) { at = null; }
+ return ok(at) ? {day: qDay(at)} : null;
 }
 
 /* ---- what has left: the departure record, unit by unit ---- */
+const later = (x, y) => !y || String(x.at || x.day || '') > String(y.at || y.day || '');
 function depOf(key) {
  let st = null; try { st = W.Departure1211 ? Departure1211.status(key) : null; } catch (x) { st = null; }
- const out = {complete: !!(st && st.complete), collected: Number(st && st.collected) || 0, remaining: Number(st && st.remaining) || 0, ids: new Map(), nos: new Map(), counts: [], last: null, events: []};
+ let rd = null; try { rd = W.Departure1211 && Departure1211.read ? Departure1211.read(key) : null; } catch (x) { rd = null; }
+ const out = {complete: !!(st && st.complete), collected: Number(st && st.collected) || 0, remaining: Number(st && st.remaining) || 0, ids: new Map(), nos: new Map(), counts: [], last: null, events: [], byType: new Map(), left: new Map()};
+ /* a type with none remaining has all gone (Departure1211.unit's rule) */
+ ((rd && !(rd.issues || []).length && Array.isArray(rd.remaining)) ? rd.remaining : []).forEach(x => out.left.set(norm(x.type), Number(x.n) || 0));
  ((st && Array.isArray(st.events)) ? st.events : []).forEach(ev => {
   const at = ok(ev.departedAt1211) ? ev.departedAt1211 : null, info = {at, day: at ? qDay(at) : (ev.date || null), by: String(ev.by || '')};
-  if (!out.last || String(info.at || info.day || '') > String(out.last.at || out.last.day || '')) out.last = info;
-  const ev1 = {info, nos: [], n: 0, types: []};
-  (ev.items || []).forEach(it => { const ids = Array.isArray(it.unitIds) ? it.unitIds : [], nos = Array.isArray(it.numbers) ? it.numbers : [];
-   ids.forEach(id => out.ids.set(String(id), info)); nos.forEach(n => { out.nos.set(String(n), info); ev1.nos.push(String(n)); });
-   ev1.n += Number(it.n) || 0; if (it.type && ev1.types.indexOf(String(it.type)) < 0) ev1.types.push(String(it.type));
-   const rest = (Number(it.n) || 0) - Math.max(ids.length, nos.length); if (rest > 0) out.counts.push({type: norm(it.type), n: rest, info}); });
+  if (later(info, out.last)) out.last = info;
+  const ev1 = {info, nos: [], n: 0, types: [], byType: []};
+  (ev.items || []).forEach(it => { const ids = Array.isArray(it.unitIds) ? it.unitIds : [], nos = Array.isArray(it.numbers) ? it.numbers : [], t = String(it.type || ''), n = Math.max(Number(it.n) || 0, ids.length, nos.length);
+   ids.forEach(id => out.ids.set(String(id), info)); nos.forEach(x => { out.nos.set(String(x), info); ev1.nos.push(String(x)); });
+   ev1.n += n; if (t && ev1.types.indexOf(t) < 0) ev1.types.push(t); ev1.byType.push({type: t, n, nos: nos.map(String)});
+   if (t && later(info, out.byType.get(norm(t)))) out.byType.set(norm(t), info);
+   const rest = n - Math.max(ids.length, nos.length); if (rest > 0) out.counts.push({type: norm(t), n: rest, info}); });
   out.events.push(ev1);
  });
  return out;
+}
+/* the reference's own words pairing a toilet block with its waste tank, e.g. WC60's "Toilet block 1119489 with waste tank 1328980" */
+function notePairs(key, a) {
+ const out = new Map(), text = docs(key).map(d => String((d && d.note) || '')).concat((a && a.asset_notes) || [], (a && a._note) || '').map(x => typeof x === 'string' ? x : JSON.stringify(x || '')).join(' \n ');
+ let m; const R1 = /(\d{4,8})\s+with\s+(?:its\s+|a\s+|the\s+)?waste\s+tank\s+(\d{4,8})/gi, R2 = /waste\s+tank\s+(\d{4,8})\s+(?:with|for|on|to)\s+(?:the\s+)?(?:toilet\s+)?(?:block\s+)?(\d{4,8})/gi;
+ while ((m = R1.exec(text))) if (!out.has(m[2])) out.set(m[2], m[1]);
+ while ((m = R2.exec(text))) if (!out.has(m[1])) out.set(m[1], m[2]);
+ return out;
+}
+/* size, weight and rating for one unit: a reference of one kind of item keeps the reference's figures; on a mixed reference
+   each unit takes its own product's figures (WC09's FWF guide is not the toilet block's), or "to confirm" */
+const RP = new Map();
+function productFacts(key, a, u) {
+ let hit = RP.get(key); if (!hit || Date.now() - hit.t > 60000) { let list = []; try { list = W.Loading931 && Loading931.referenceProducts931 ? Loading931.referenceProducts931(a) || [] : []; } catch (x) { list = []; } hit = {t: Date.now(), list}; RP.set(key, hit); }
+ const p = hit.list.find(x => (x.units || []).some(v => v && v.id === u.id)) || hit.list.find(x => norm(x.item) === norm(u.item) && x.owner === u.owner) || hit.list.find(x => norm(x.item) === norm(u.item));
+ return p ? (p.facts || []).map(f => ({k: String(f.label || ''), v: (f.values || []).join(' · '), guide: /guide/i.test(String(f.label || ''))})) : [];
 }
 
 /* ---- the ticks and bookings on the record, unit by unit (this device's copy and the shared one, the later stamp winning) ---- */
@@ -426,7 +448,8 @@ function vmsIndex() {
  if (!V || typeof V.boards !== 'function') return {V: null, byPos, byAsset, off};
  try { (V.boards() || []).forEach(b => { if (!b || !b.pos) return; byPos.set(String(b.pos).toLowerCase(), b); let id = {}; try { id = V.identity(b) || {}; } catch (x) { id = {}; } if (id.asset && !byAsset.has(String(id.asset))) byAsset.set(String(id.asset), b); }); } catch (x) {}
  try { (W.VmsOff1132 && VmsOff1132.boards ? VmsOff1132.boards() : []).forEach(b => off.set(String(b.pos).toLowerCase(), b)); } catch (x) {}
- return {V, byPos, byAsset, off};
+ let fin = null; try { fin = ((W.VmsOff1132 && VmsOff1132.MORNINGS) || []).find(m => m && m.final) || null; } catch (x) { fin = null; }
+ return {V, byPos, byAsset, off, fin};
 }
 function boardOf(c, X) {
  if (!X.V) return null;
@@ -434,11 +457,28 @@ function boardOf(c, X) {
  let home = m ? (X.byPos.get(pad(+m[1])) || X.byPos.get(String(+m[1]))) : null;
  if (!home && c.no) home = X.byAsset.get(c.no);
  if (!home) return null;
- const to = home.moves_to && X.byPos.get(String(home.moves_to).toLowerCase()), b = to || home;
- let p = {}; try { p = X.V.position(b) || {}; } catch (x) { p = {lat: b.lat, lon: b.lon}; }
+ const posOf = x => { try { return X.V.position(x) || {}; } catch (y) { return {lat: x.lat, lon: x.lon}; } };
+ /* the event position (02a) while its pin is the newer one; a newer pin back at the home position (02) wins */
+ const t0 = home.moves_to && X.byPos.get(String(home.moves_to).toLowerCase()), hp = posOf(home), tp = t0 ? posOf(t0) : null;
+ const hAt = hp.by ? String(hp.at || '') : '', tAt = tp && tp.by ? String(tp.at || '') : '', to = t0 && !(hAt && hAt > tAt) ? t0 : null, b = to || home, p = to ? tp : hp;
  const lab = x => { try { return X.V.label(x); } catch (y) { return 'VMS ' + x.pos; } };
  const off = X.off.get(String(home.pos).toLowerCase());
- return {label: lab(home).replace(/\*$/, ''), at: lab(b).replace(/\*$/, ''), moved: !!to, where: tidyWhere(b.title), lat: +p.lat, lon: +p.lon, how: String(p.how || ''), pinned: !!p.by, store: off ? String(off.store || '') : '', from: off ? String(off.from || '') : ''};
+ const out = {label: lab(home).replace(/\*$/, ''), at: lab(b).replace(/\*$/, ''), moved: !!to, where: tidyWhere(b.title), lat: +p.lat, lon: +p.lon, how: String(p.how || ''), pinned: !!p.by, store: off ? String(off.store || '') : '', from: off ? String(off.from || '') : '', stored: null};
+ /* a session board (13-17) goes to its store after the final removal morning, or once its off-the-track tick is in */
+ if (off && off.store && X.fin) { let st = {}; try { st = VmsOff1132.state(X.fin.iso, home.pos) || {}; } catch (x) { st = {}; }
+  const done = !!(st.off && st.off.done), due = Date.now() >= Date.parse(X.fin.iso + 'T' + (/^\d{2}:\d{2}$/.test(off.from) ? off.from : '06:00') + ':00+10:00');
+  if (done || due) { const pinned = Number.isFinite(+off.storeLat) && Number.isFinite(+off.storeLon) && off.storeLat != null && off.storeLon != null;
+   out.stored = {done, at: done ? String(st.off.at || '') : '', by: done ? String(st.off.by || '') : '', day: X.fin.iso, pinned, track: out.at + ' · ' + out.where};
+   out.where = String(off.store); if (pinned) { out.lat = +off.storeLat; out.lon = +off.storeLon; out.how = 'its store, ' + (off.storeBy || 'on the removals sheet'); } } }
+ return out;
+}
+/* a board the VMS plan holds and no delivery reference does: off site once the VMS tab records it so */
+function boardGone(b, X) {
+ let r = null; try { r = X.V.rec ? X.V.rec(b.pos) : null; } catch (x) { r = null; } if (!r) return null;
+ const evs = (Array.isArray(r.events1098) ? r.events1098 : []).slice().sort((x, y) => String(x.recorded_at || '').localeCompare(String(y.recorded_at || '')));
+ const last = evs[evs.length - 1], was = evs.some(x => /^on site$/i.test(String(x.state || '')));
+ if (!last || !was || !/off site|not on site|in transit|collected|removed/i.test(String(last.state || ''))) return null;
+ return {at: null, day: String(last.effective_date || '') || (ok(last.recorded_at) ? qDay(last.recorded_at) : null), by: String(last.by || '')};
 }
 function furnFold(rows) {
  const bld = new Map(); rows.forEach(r => { if (catOf(r.key) === 'bld') { const n = norm((r.a && r.a.name) || ''); if (n) bld.set(n, r.key); } });
@@ -453,45 +493,93 @@ function insideOf(r, fold) {
  (fold.into.get(r.key) || []).forEach(f => { const sp = specsOf(f), n = (sp.assetNos || []).join(' '); out.push(descOf(f).split(' · ')[0] + ' (' + f.key + ')' + (n ? ' ' + n : '')); });
  return out;
 }
+/* who owns a run the record holds no units for: the page's own reading of the reference (its sub-hire company, or owner unknown) */
+function groupOwner(r) {
+ const co = String(r.subCo || '').trim(); if (co) return /event\s*portables/i.test(co) ? 'event-portables' : /prem/i.test(co) ? 'prem-air-hire' : 'other:' + norm(co).replace(/\s+/g, '-');
+ return r.ownerUnk ? 'unknown' : 'coates';
+}
+const BLD = /build|office|cabin|container|hut|kiosk|room|amenit|lunch|crib|first aid|store|ticket|booth|marquee/i;
 function cardsOf(r, X, fold) {
  const key = r.key, cat = catOf(key);
  let a = r.a; if (!a) { try { a = assetOf(key); } catch (x) { a = null; } } a = a || {};
  let us = []; try { us = (gcUnits925(a, {loading: false}) || []).filter(u => u && u.physical !== false); } catch (x) { us = []; }
  const G = depOf(key), what = descOf(r), sp = specsOf(r), arr = arrivalOf(key);
- const base = {key, r, cat, what, sp, arr, G, inside: cat === 'bld' ? insideOf(r, fold) : []};
+ let inside = cat === 'bld' ? insideOf(r, fold) : [];
+ /* a building is its own card; the units the record keeps inside it (air conditioners, a fridge) are listed on that card */
+ if (cat === 'bld' && us.length > 1) {
+  const types = new Set((r.units || []).map(x => norm(x.type))); let own = us.filter(u => types.has(norm(u.item)));
+  if (!own.length) own = us.filter(u => BLD.test(String(u.item || '') + ' ' + String(u.label || '')));
+  if (own.length && own.length < us.length) { const said = inside.join(' ');
+   us.filter(u => own.indexOf(u) < 0).forEach(u => { if (!u.assetNo || said.indexOf(String(u.assetNo)) < 0) inside.push(String(u.item || u.label || 'item') + (u.assetNo ? ' ' + u.assetNo : '')); });
+   us = own; }
+ }
+ const base = {key, r, cat, what, sp, arr, G, inside};
  if (cat === 'wb' || cat === 'ground' || r.kind === 'barrier' || !us.length) {
   const n = (r.units || []).reduce((s, u) => s + (Number(u.n) || 0), 0) || us.length || 0, own = new Map(); us.forEach(u => own.set(u.owner, (own.get(u.owner) || 0) + 1));
-  const owner = [...own].sort((x, y) => y[1] - x[1])[0]; const item = String((a.item_types || [])[0] || a.product || what);
-  return [Object.assign({}, base, {uid: '*', group: true, n, owner: owner ? String(owner[0] || 'unknown') : 'coates', item, no: '', nos: (sp.assetNos || []).slice(), icon: iconKey(item + ' ' + what, cat),
+  const top = [...own].sort((x, y) => y[1] - x[1])[0]; const item = String((a.item_types || [])[0] || a.product || what);
+  return [Object.assign({}, base, {uid: '*', group: true, n, owner: top ? String(top[0] || 'unknown') : groupOwner(r), item, no: '', nos: (sp.assetNos || []).slice(), icon: iconKey(item + ' ' + what, cat), facts: sp.facts || [],
    gone: G.complete ? (G.last || {}) : null, part: !G.complete && G.collected > 0 ? {collected: G.collected, remaining: G.remaining} : null})];
  }
- const tanks = us.filter(u => /waste tank/i.test(String(u.item || '') || String(u.label || ''))), rest = us.filter(u => tanks.indexOf(u) < 0), pairs = new Map(), used = new Set();
+ /* a unit the record has not identified yet still has a card ("asset no. to confirm"), so the count never drops one */
+ const want = (r.units || []).reduce((s, x) => s + (Number(x.n) || 0), 0); let short = cat === 'vms' ? 0 : want - us.length;
+ if (short > 0) (r.units || []).forEach(x => { if (short <= 0) return; const t = String(x.type || ''), have = us.filter(u => norm(u.item) === norm(t)), miss = Math.min(short, (Number(x.n) || 0) - have.length); if (!t || miss <= 0) return;
+  const owners = [...new Set(have.map(u => u.owner))], owner = owners.length === 1 ? owners[0] : 'unknown';
+  for (let i = 1; i <= miss; i++) us.push({id: 'ph|' + key + '|' + norm(t) + '|' + i, owner, assetNo: '', nativeId: 'ph' + norm(t).replace(/\W+/g, '') + i, label: t, item: t, physical: true, placeholder: true, registration: '', branch: ''});
+  short -= miss; });
+ /* a waste tank goes on its toilet's card only on the record's word: its label names the toilet or the set, or the reference's
+    note pairs them; or, once those are paired, one tank and one toilet block of that owner are left */
+ const tanks = us.filter(u => /waste tank/i.test(String(u.item || '') || String(u.label || ''))), rest = us.filter(u => tanks.indexOf(u) < 0), pairs = new Map(), used = new Set(), np = notePairs(key, a);
  tanks.forEach(tk => { const lb = String(tk.label || '');
   let to = null; const m = lb.match(/toilet\s+(\w+)/i); if (m) to = rest.find(u => u.assetNo === m[1] && !pairs.has(u));
+  if (!to && tk.assetNo && np.has(String(tk.assetNo))) to = rest.find(u => u.assetNo === np.get(String(tk.assetNo)) && !pairs.has(u));
   if (!to) { const s = lb.match(/set\s*(\d+)/i); if (s) to = rest.find(u => new RegExp('set\\s*' + s[1] + '\\b', 'i').test(String(u.label || '')) && !pairs.has(u)); }
-  if (!to) to = rest.find(u => /block|toilet/i.test(String(u.item || '')) && !pairs.has(u) && u.owner === tk.owner);
   if (to) { pairs.set(to, tk); used.add(tk); } });
- const list = rest.concat(tanks.filter(t => !used.has(t))).sort((x, y) => (x.owner === y.owner ? 0 : x.owner === 'coates' ? -1 : y.owner === 'coates' ? 1 : nat(x.owner, y.owner)) || nat(x.label || '', y.label || '') || nat(x.assetNo || '', y.assetNo || ''));
- const goneU = u => G.complete ? (G.last || {}) : (G.ids.get(String(u.id)) || (u.assetNo && G.nos.get(String(u.assetNo))) || null);
+ [...new Set(tanks.map(t => t.owner))].forEach(o => { const ft = tanks.filter(t => t.owner === o && !used.has(t)), fb = rest.filter(u => u.owner === o && /block/i.test(String(u.item || '')) && !pairs.has(u));
+  if (ft.length === 1 && fb.length === 1) { pairs.set(fb[0], ft[0]); used.add(ft[0]); } });
+ const list = rest.concat(tanks.filter(t => !used.has(t))).sort((x, y) => (x.owner === y.owner ? 0 : x.owner === 'coates' ? -1 : y.owner === 'coates' ? 1 : nat(x.owner, y.owner)) || (x.placeholder ? 1 : 0) - (y.placeholder ? 1 : 0) || nat(x.label || '', y.label || '') || nat(x.assetNo || '', y.assetNo || ''));
+ const mixed = new Set(us.filter(u => !/waste tank/i.test(String(u.item || ''))).map(u => norm(u.item))).size > 1; /* a block and its tank are one kind of thing */
+ /* when it left: the unit's own departure first (its unit id or asset number); then a type with none remaining (all of that type
+    has gone); a departure counted without numbers goes to the units the record has not identified, never to a numbered unit; once
+    the reference has left in full, any unit still unmatched takes the last departure (Departure1211.unit's order) */
+ const goneU = u => G.ids.get(String(u.id)) || (u.assetNo && G.nos.get(String(u.assetNo))) || (G.left.get(norm(u.item)) === 0 && G.byType.get(norm(u.item))) || null;
  const cards = list.map((u, i) => { const tk = pairs.get(u) || null, text = String(u.item || u.label || '');
   const c = Object.assign({}, base, {uid: uk(u), u, tank: tk, owner: String(u.owner || 'unknown'), item: String(u.item || u.label || what), label: String(u.label || ''), no: String(u.assetNo || ''), tankNo: tk ? String(tk.assetNo || '') : '',
-   rego: String(u.registration || ''), branch: String(u.branch || r.branch || ''), idx: i + 1, of: list.length, icon: iconKey(text + (tk ? ' block' : ''), cat)});
-  const g1 = goneU(u), g2 = tk ? goneU(tk) : g1; c.gone = g1 && g2 ? (String(g2.at || g2.day || '') > String(g1.at || g1.day || '') ? g2 : g1) : null; c.part = !c.gone && (g1 || g2) ? {collected: 1, remaining: 1} : null;
+   rego: String(u.registration || ''), branch: String(u.branch || r.branch || ''), idx: i + 1, of: list.length, icon: iconKey(text + (tk ? ' block' : ''), cat), facts: mixed ? productFacts(key, a, u) : sp.facts || [], ph: !!u.placeholder});
+  const g1 = goneU(u), g2 = tk ? goneU(tk) : g1; c.gone = g1 && g2 ? (later(g2, g1) ? g2 : g1) : null; c.half = !c.gone && tk && (g1 || g2) ? (g1 ? 'block' : 'tank') : null; c.part = null;
   if (cat === 'vms') c.vms = boardOf(c, X);
   return c; });
- G.counts.forEach(x => { let n = x.n; cards.forEach(c => { if (n <= 0 || c.gone || norm(c.u.item) !== x.type) return; c.gone = x.info; c.part = null; n--; }); });
+ G.counts.forEach(x => { let n = x.n; cards.forEach(c => { if (n <= 0 || c.gone || c.no || norm(c.u.item) !== x.type) return; c.gone = x.info; n--; });
+  if (n > 0) cards.forEach(c => { if (!c.gone && norm(c.u.item) === x.type) c.unk = (c.unk || 0) + n; }); });
+ if (G.complete) cards.forEach(c => { if (!c.gone) { c.gone = G.last || {}; c.half = null; c.unk = 0; } });
  return cards;
+}
+/* a unit's entry on the record: under its own key; failing that, under a key it had before its asset number or owner was filled
+   in (the same unit record, owner to confirm, or the one card its reference had before its units were recorded) */
+function altKeys(c) {
+ const u = c.u || {}, o = String(u.owner || 'unknown'), out = [], add = k => { k = k === '*' ? k : String(k).replace(/[^\w:.|-]+/g, '_').slice(0, 120); if (k && k !== c.uid && out.indexOf(k) < 0) out.push(k); };
+ if (u.nativeId) add(o + '|' + u.nativeId); if (u.id) add(o + '|' + u.id);
+ if (o !== 'unknown') { if (u.assetNo) add('unknown|' + u.assetNo); if (u.nativeId) add('unknown|' + u.nativeId); }
+ if (!c.group) add('*');
+ return out;
+}
+function pickOf(map, c, stamp) {
+ if (map[c.uid]) return map[c.uid];
+ const doc = c.u && c.u.docKey ? String(c.u.docKey) : '', byDoc = doc ? Object.keys(map).map(k => map[k]).filter(v => v && v.doc === doc) : [];
+ return byDoc.concat(altKeys(c).map(k => map[k]).filter(Boolean)).sort((x, y) => String(y[stamp] || '').localeCompare(String(x[stamp] || '')))[0] || null;
 }
 function stateOf(c, ctx) {
  if (c.gone) return {s: 'gone', at: c.gone.at || null, day: c.gone.day || null, by: c.gone.by || ''};
- if (c.group) { let st = null; try { st = Ready1231.state(c.r); } catch (x) { st = null; }
+ if (c.group && !c.r.noPlan1236) { let st = null; try { st = Ready1231.state(c.r); } catch (x) { st = null; }
   if (st && st.s === 'ready') { const m = st.m && st.m.on ? st.m : st.e && st.e.on ? st.e : {}; return {s: 'ready', at: m.at || null, by: m.by || '', why: '', part: c.part}; }
   const m = st && st.m && !st.m.on ? st.m : null; return {s: 'not', at: m ? m.at : null, by: m ? m.by : '', why: m ? m.why || '' : st && st.pump ? 'pump it out first, then tick it' : 'not ticked yet', part: c.part}; }
- const valid = x => x && ok(x.at) && (!ctx.on || Date.parse(x.at) >= Date.parse(ctx.on)), t = ctx.ticks[c.uid], list = [];
+ const valid = x => x && ok(x.at) && (!ctx.on || Date.parse(x.at) >= Date.parse(ctx.on)), t = pickOf(ctx.ticks, c, 'at'), list = [];
  if (valid(t)) list.push({on: !!t.on, at: t.at, by: String(t.by || ''), why: String(t.why || ''), src: 'unit'});
  if (ctx.mark && ok(ctx.mark.at)) list.push({on: !!ctx.mark.on, at: ctx.mark.at, by: String(ctx.mark.by || ''), why: String(ctx.mark.why || ''), src: 'ref'});
- if (c.r.empty && ctx.emp && ok(ctx.emp.at)) list.push({on: !!ctx.emp.on, at: ctx.emp.at, by: String(ctx.emp.by || ''), why: '', src: 'emptied'});
- if (!list.length) return {s: 'not', why: c.r.empty ? 'not ticked yet · pump it out, then tick it' : 'not ticked yet', part: c.part};
+ /* Emptied (pumped out) is one tick for the whole reference. It reads as Ready only for a unit with no tick of its own, and only
+    where every unit has the same owner: at WC09 or WC31 it never turns the other owner's units Ready */
+ if (c.r.empty && ctx.emp && ok(ctx.emp.at) && !valid(t) && ctx.oneOwner) list.push({on: !!ctx.emp.on, at: ctx.emp.at, by: String(ctx.emp.by || ''), why: '', src: 'emptied'});
+ const pumped = c.r.empty && ctx.emp && ctx.emp.on && !ctx.oneOwner;
+ if (!list.length) return {s: 'not', why: c.r.empty ? (pumped ? 'not ticked yet · ' + c.key + ' is emptied; tick each unit Ready' : 'not ticked yet · pump it out, then tick it') : 'not ticked yet', part: c.part};
  list.sort((x, y) => String(y.at).localeCompare(String(x.at)) || (Number(x.on) - Number(y.on)));
  const p = list[0]; return {s: p.on ? 'ready' : 'not', at: p.at, by: p.by, why: p.why, src: p.src, part: c.part};
 }
@@ -501,16 +589,16 @@ function boardCards(X, cards) {
  if (!X.V) return;
  const have = new Set(cards.filter(c => c.cat === 'vms' && c.no).map(c => c.no)), targets = new Set();
  X.byPos.forEach(b => { if (b.moves_to) targets.add(String(b.moves_to).toLowerCase()); });
- const facts = (cards.find(c => c.cat === 'vms' && (c.sp.facts || []).length) || {sp: {facts: []}}).sp.facts;
+ const facts = []; /* another board's guide figures are not this board's (a Premiair trailer is not a Coates Senior board) */
  X.byPos.forEach((b, pos) => {
   if (targets.has(pos)) return;
   let id = {}; try { id = X.V.identity(b) || {}; } catch (x) { id = {}; }
   const asset = String(id.asset || '').trim(); if (!asset || have.has(asset)) return; have.add(asset);
   const lab = (() => { try { return X.V.label(b); } catch (x) { return 'VMS ' + b.pos; } })().replace(/\*$/, ''), key = lab.replace(/\s+/g, '');
-  const owner = /prem/i.test(String(id.co || '')) ? 'prem-air-hire' : /coates/i.test(String(id.co || '')) ? 'coates' : 'other:' + norm(id.co || 'unknown').replace(/\s+/g, '-');
-  const c = {key, r: {key, empty: false, zone: '', branch: ''}, cat: 'vms', what: 'VMS · message board', sp: {facts}, arr: null, G: null, inside: [], uid: 'vms:' + b.pos, board: true, owner, item: 'VMS', label: lab, no: asset, tankNo: '', rego: String(id.rego || ''), branch: '', idx: 1, of: 1, icon: 'vms', gone: null, part: null};
-  c.vms = boardOf(Object.assign({}, c, {label: 'VMS' + b.pos}), X) || {label: lab, at: lab, moved: false, where: tidyWhere(b.title), lat: +b.lat, lon: +b.lon, how: '', pinned: false, store: '', from: ''};
-  c.st = {s: 'not', why: 'on the VMS plan · not on a delivery reference yet'}; c.book = null;
+  const co = String(id.co || '').trim(), owner = /prem/i.test(co) ? 'prem-air-hire' : /coates/i.test(co) ? 'coates' : co ? 'other:' + norm(co).replace(/\s+/g, '-') : 'unknown';
+  const c = {key, r: {key, empty: false, zone: '', branch: ''}, cat: 'vms', what: 'VMS · message board', sp: {facts}, facts, arr: null, G: null, inside: [], uid: 'vms:' + b.pos, board: true, owner, item: 'VMS', label: lab, no: asset, tankNo: '', rego: String(id.rego || ''), branch: '', idx: 1, of: 1, icon: 'vms', gone: boardGone(b, X), part: null};
+  c.vms = boardOf(Object.assign({}, c, {label: 'VMS' + b.pos}), X) || {label: lab, at: lab, moved: false, where: tidyWhere(b.title), lat: +b.lat, lon: +b.lon, how: '', pinned: false, store: '', from: '', stored: null};
+  c.st = c.gone ? {s: 'gone', at: null, day: c.gone.day, by: c.gone.by} : {s: 'not', why: 'on the VMS plan · not on a delivery reference yet'}; c.book = null;
   cards.push(c); });
 }
 
@@ -522,11 +610,14 @@ function model() {
  if (MEMO.model && MEMO.M === M && MEMO.v === VER && now - MEMO.at < 4000) return MEMO.model;
  const rows = everyRows('all'), X = vmsIndex(), fold = furnFold(rows), cards = [];
  rows.forEach(r => { if (fold.skip.has(r.key)) return;
+  /* a run the record holds as not on site, with nothing collected, is not on site (WB19, WB20) */
+  let lit = ''; try { lit = deliveryOf(r.key).state; } catch (x) { lit = ''; }
+  if (lit === 'not on site') { let ev = 0; try { ev = ((Departure1211.status(r.key) || {}).events || []).length; } catch (x) { ev = 0; } if (!ev) return; }
   let list = []; try { list = cardsOf(r, X, fold); } catch (x) { list = []; }
   if (!list.length) return;
   let mark = null, emp = null, on = null; try { mark = Ready1231.mark(r.key); } catch (x) { mark = null; } try { emp = r.empty ? emptiedOf816(r.key) : null; } catch (x) { emp = null; } try { on = lastOnSite816(r.key); } catch (x) { on = null; }
-  const ctx = {mark, emp, on, ticks: umap(r.key, 'ready1238_units', 'at')}, books = umap(r.key, 'pickup1238_units', 'set');
-  list.forEach(c => { c.st = stateOf(c, ctx); const b = books[c.uid]; c.book = b && ok(b.at) ? b : null; cards.push(c); }); });
+  const ctx = {mark, emp, on, oneOwner: new Set(list.map(c => c.owner)).size === 1, ticks: umap(r.key, 'ready1238_units', 'at')}, books = umap(r.key, 'pickup1238_units', 'set');
+  list.forEach(c => { c.st = stateOf(c, ctx); const b = pickOf(books, c, 'set'); c.book = b && ok(b.at) ? b : null; cards.push(c); }); });
  try { boardCards(X, cards); } catch (x) {}
  const m = {cards, byKey: new Map(), byId: new Map()};
  cards.forEach(c => { if (!m.byKey.has(c.key)) m.byKey.set(c.key, []); m.byKey.get(c.key).push(c); m.byId.set(c.key + '#' + c.uid, c); });
@@ -535,15 +626,15 @@ function model() {
 }
 
 /* ---- the two map pictures: the page's own "on the map" pictures, with the icon and a pulsing ring on the spot ---- */
+/* the spot is looked up again every 30 s (Find1176 reads the pins live), so a moved pin moves the pictures, Navigate and the words */
 const LOC = new Map();
 function locOf(c) {
- if (c.vms) { const k = 'v|' + c.vms.at; if (LOC.has(k)) return LOC.get(k);
-  let L = null; if (Number.isFinite(c.vms.lat) && Number.isFinite(c.vms.lon)) { try { L = Find1176.locate({kind: 'vms', label: c.vms.at, where: c.vms.where, lat: c.vms.lat, lon: c.vms.lon}); } catch (x) { L = null; } if (!L) L = {kind: 'vms', label: c.vms.at, tag: c.vms.at, what: 'VMS board', lat: c.vms.lat, lon: c.vms.lon, how: c.vms.how}; }
-  LOC.set(k, L); return L; }
- if (LOC.has(c.key)) return LOC.get(c.key);
- let L = null; try { L = W.Find1176 ? Find1176.locate({kind: 'asset', key: c.key}) : null; } catch (x) { L = null; }
- if (L && !(Number.isFinite(L.lat) && Number.isFinite(L.lon))) L = null;
- LOC.set(c.key, L); return L;
+ const k = c.vms ? 'v|' + c.vms.at + '|' + c.vms.lat + ',' + c.vms.lon : 'a|' + c.key, hit = LOC.get(k);
+ if (hit && Date.now() - hit.t < 30000) return hit.L;
+ let L = null;
+ if (c.vms) { if (Number.isFinite(c.vms.lat) && Number.isFinite(c.vms.lon)) { const lab = c.vms.stored ? c.vms.label : c.vms.at; try { L = Find1176.locate({kind: 'vms', label: lab, where: c.vms.where, lat: c.vms.lat, lon: c.vms.lon}); } catch (x) { L = null; } if (!L) L = {kind: 'vms', label: lab, tag: lab, what: 'VMS board', lat: c.vms.lat, lon: c.vms.lon, how: c.vms.how}; } }
+ else { try { L = W.Find1176 ? Find1176.locate({kind: 'asset', key: c.key}) : null; } catch (x) { L = null; } if (L && !(Number.isFinite(L.lat) && Number.isFinite(L.lon))) L = null; }
+ LOC.set(k, {L, t: Date.now()}); return L;
 }
 const navOf = L => 'https://www.google.com/maps/dir/?api=1&destination=' + L.lat.toFixed(6) + ',' + L.lon.toFixed(6) + '&travelmode=driving';
 const VIEWW = {close: 'Close up · 190 m', wide: 'Wider area · 840 m'};
@@ -554,8 +645,9 @@ function spotOf(L, v) {
   return {x: (fr.ax * FX - x0) / fw, y: (fr.ay * FY - y0) / fh * 720 / 824}; } } catch (x) {}
  return {x: 0.5, y: 360 / 824};
 }
-const PIC = new Map(), PFAIL = new Map(), PQ = []; let pbusy = 0;
-const picId = (c, v) => (c.vms ? 'v|' + c.vms.at : 'a|' + c.key) + '|' + v;
+const PIC = new Map(), PFAIL = new Map(), PQ = [], FLY = new Set(); let pbusy = 0;
+/* a picture is kept by its place: a moved pin draws a new one */
+const picId = (c, v, L) => (c.vms ? 'v|' + c.vms.label : 'a|' + c.key) + '|' + L.lat.toFixed(6) + ',' + L.lon.toFixed(6) + '|' + v;
 const LBY = new Map();
 const loadImg = src => new Promise((res, rej) => { const im = new Image(); im.decoding = 'async'; im.onload = () => res(im); im.onerror = () => rej(new Error('picture')); im.src = src; });
 async function drawPic(id) {
@@ -578,12 +670,12 @@ function failed(id) {
 }
 function pump() {
  while (pbusy < 3 && PQ.length) {
-  const id = PQ.pop(); /* the newest wanted first: the cards on screen now */ if (PIC.has(id)) { show(id); continue; }
-  pbusy++;
-  drawPic(id).then(u => { if (u) { PIC.set(id, u); show(id); } else { PFAIL.set(id, Date.now()); failed(id); } }).catch(() => { PFAIL.set(id, Date.now()); failed(id); }).then(() => { pbusy--; pump(); });
+  const id = PQ.pop(); /* the newest wanted first: the cards on screen now */ if (PIC.has(id)) { show(id); continue; } if (FLY.has(id)) continue;
+  pbusy++; FLY.add(id);
+  drawPic(id).then(u => { if (u) { const old = PIC.get(id); if (old && old !== u) { try { URL.revokeObjectURL(old); } catch (x) {} } PIC.set(id, u); show(id); } else { PFAIL.set(id, Date.now()); failed(id); } }).catch(() => { PFAIL.set(id, Date.now()); failed(id); }).then(() => { FLY.delete(id); pbusy--; pump(); });
  }
 }
-function want(id) { if (PIC.has(id)) { show(id); return; } if (PFAIL.has(id) && Date.now() - PFAIL.get(id) < 60000) { failed(id); return; } if (PQ.indexOf(id) < 0) PQ.push(id); pump(); }
+function want(id) { if (PIC.has(id)) { show(id); return; } if (FLY.has(id)) return; if (PFAIL.has(id) && Date.now() - PFAIL.get(id) < 60000) { failed(id); return; } if (PQ.indexOf(id) < 0) PQ.push(id); pump(); }
 let io = null, ioRoot;
 function scroller() { const pane = D.getElementById('pane-demob'); let sc = pane && pane.parentElement; while (sc && sc !== D.body) { const cs = getComputedStyle(sc); if (/(auto|scroll)/.test(cs.overflowY)) return sc; sc = sc.parentElement; } return null; }
 function arm() {
@@ -598,7 +690,7 @@ function picsState() { return {on: D.querySelectorAll('#pane-demob img[data-pi12
 function picsHtml(c) {
  const L = locOf(c), ic = SVG(ICONS[c.icon] || ICONS.other), k = e(c.key), u = e(c.uid);
  if (!L) return '<div class="ph1238"><button type="button" class="pf1238" data-pic1238="' + k + '" data-u1238="' + u + '" aria-label="' + k + ': no place on the record yet"><span class="nm1238">No place on the record yet · ' + (c.vms ? 'the board’s pin is still to come' : 'the driver reports at the pit lane') + '</span><span class="pb1238">' + ic + '</span></button><button type="button" class="pf1238" data-pic1238="' + k + '" data-u1238="' + u + '" aria-label="' + k + ': details"><span class="nm1238">Tap for its details</span></button></div>';
- const fr = v => { const id = picId(c, v), s = spotOf(L, v); LBY.set(id, L); const url = PIC.get(id);
+ const fr = v => { const id = picId(c, v, L), s = spotOf(L, v); LBY.set(id, L); const url = PIC.get(id);
   return '<button type="button" class="pf1238" data-pic1238="' + k + '" data-u1238="' + u + '" aria-label="' + e(c.key + ': ' + VIEWW[v].toLowerCase() + ' on the map - open the full pictures, Navigate and Send') + '">' + (url ? '' : '<span class="w1238"></span>')
    + '<img alt="" decoding="async" draggable="false" data-pi1238="' + e(id) + '"' + (url ? ' src="' + e(url) + '" class="on"' : '') + '><i class="pu1238" style="left:' + (s.x * 100).toFixed(2) + '%;top:' + (s.y * 100).toFixed(2) + '%"></i><span class="pb1238">' + ic + '</span><span class="vw1238">' + VIEWW[v] + '</span></button>'; };
  return '<div class="ph1238">' + fr('close') + fr('wide') + '</div>';
@@ -622,7 +714,9 @@ function lampsHtml(c) {
 function statusWords(c) {
  const st = c.st;
  if (st.s === 'gone') return ['Picked up', (st.at ? when(st.at) : st.day ? dayW(st.day) + ' · time not recorded' : 'time not recorded') + (st.by ? ' · ' + st.by : '')];
- const part = c.group && c.part ? ' · ' + c.part.collected + ' picked up, ' + c.part.remaining + ' to go' : '';
+ const part = (c.group && c.part ? ' · ' + c.part.collected + ' picked up, ' + c.part.remaining + ' to go' : '')
+  + (c.half === 'block' ? ' · the toilet block has left; waste tank ' + (c.tankNo || '') + ' is still here' : c.half === 'tank' ? ' · waste tank ' + (c.tankNo || '') + ' has left; the toilet block is still here' : '')
+  + (c.unk ? ' · ' + c.unk + ' ' + (c.item || 'unit') + (c.unk === 1 ? ' has' : 's have') + ' left without an asset number: which one is still to confirm' : '');
  if (st.s === 'ready') return ['Ready for collection', (st.src === 'emptied' ? 'emptied · ' : '') + [st.by, st.at ? when(st.at) : ''].filter(Boolean).join(' · ') + part];
  return ['Not ready', (st.at ? [st.why, st.by, when(st.at)].filter(Boolean).join(' · ') : st.why || 'not ticked yet') + part];
 }
@@ -637,7 +731,7 @@ function bookHtml(c) {
 function pillsHtml(c) {
  const out = [];
  if (c.arr) out.push('<span class="ar"><i>Arrived</i>' + e(dayW(c.arr.day)) + '</span>');
- const facts = (c.sp.facts || []).slice(0, 3), seen = {};
+ const facts = (c.facts || []).slice(0, 3), seen = {};
  facts.forEach(f => { const v = String(f.v || ''), src = f.guide ? 'guide' : /contract/i.test(f.k) ? 'contract' : /^actual/i.test(f.k) ? 'actual' : '';
   const mm = v.match(/(\d[\d\s×x–-]*×[\d\s×x–-]*\d)\s*mm/), kg = v.match(/([\d–-]+)\s*kg/i), kva = /kva/i.test(v) && !mm ? v : '';
   if (mm && !seen.size) { seen.size = 1; out.push('<span><i>Size</i>' + e(mm[1].replace(/\s+/g, ' ').trim()) + ' mm' + (src ? '<em>' + src + '</em>' : '') + '</span>'); }
@@ -650,6 +744,9 @@ function pillsHtml(c) {
  return '<div class="mt1238">' + out.join('') + '</div>';
 }
 function whereHtml(c) {
+ const sv = c.vms && c.vms.stored;
+ if (sv) return '<div class="wh1238"><b>In storage · ' + e(c.vms.where) + '</b><small>' + (sv.done ? 'Taken off the track' + (ok(sv.at) ? ' ' + e(when(sv.at)) : '') + (sv.by ? ' · ' + e(sv.by) : '') : 'Off the track from ' + e(c.vms.from || '06:00') + ' ' + e(dayW(sv.day)) + ', the removals plan') + '</small><small>Was at ' + e(sv.track) + '</small>'
+  + (sv.pinned ? '' : '<small>Its store is not pinned yet: the pictures and Navigate show its last pin on the track</small>') + '</div>';
  if (c.vms) return '<div class="wh1238"><b>' + e(c.vms.moved ? 'Now at ' + c.vms.at : c.vms.at) + '</b> · ' + e(c.vms.where || 'place on the VMS plan') + (c.vms.pinned ? '<small>Pinned on site' + ((c.vms.how.match(/\d{1,2} [A-Z][a-z]{2} \d{4}/) || [])[0] ? ' · ' + e(c.vms.how.match(/\d{1,2} [A-Z][a-z]{2} \d{4}/)[0]) : '') + '</small>' : '') + (c.vms.store ? '<small>After the race it goes to ' + e(c.vms.store) + (c.vms.from ? ' (off the track from ' + e(c.vms.from) + ')' : '') + '</small>' : '') + '</div>';
  let w = null; try { w = DemobMap1236.words(c.key, DemobMap1236.spot(c.key), c.r.zone); } catch (x) { w = null; }
  return w ? '<div class="wh1238"><b>' + e(w[0]) + '</b>' + (w[1] ? ' · ' + e(w[1]) : '') + '</div>' : '';
@@ -678,6 +775,8 @@ function cardHtml(c) {
 /* ---- the lists: Coates first (our list), then each supplier; inside, the groups ---- */
 const cnt = list => { const n = {not: 0, ready: 0, gone: 0}; list.forEach(c => { n[c.st.s] = (n[c.st.s] || 0) + 1; }); return n; };
 const units = n => n + (n === 1 ? ' asset' : ' assets');
+/* "on site" counts only what is still there; what has left is said beside it */
+const onSite = list => { const g = list.filter(c => c.st.s === 'gone').length; return units(list.length - g) + ' on site' + (g ? ' · ' + g + ' picked up' : ''); };
 function groupsHtml(list) {
  const sink = c => c.st.s === 'gone' ? 1 : 0;
  return ORDER.map(k => { const cs = list.filter(c => (CAT[c.cat] ? c.cat : 'other') === k); if (!cs.length) return '';
@@ -691,12 +790,12 @@ function headHtml(kind, title, sub, list) {
   + '<div class="bar1238" role="img" aria-label="' + e(n.gone + ' picked up, ' + n.ready + ' ready, ' + n.not + ' not ready, of ' + list.length) + '"><i class="g" style="width:' + w('gone') + '"></i><i class="r" style="width:' + w('ready') + '"></i><i class="n" style="width:' + w('not') + '"></i></div></div>';
 }
 const initials = c => String(c).split(/[\s/&]+/).filter(Boolean).slice(0, 2).map(w => w[0]).join('').toUpperCase();
-function sectionsHtml(list) {
- const ours = list.filter(c => c.owner === 'coates' || c.owner === 'unknown'), subs = list.filter(c => ours.indexOf(c) < 0), sup = new Map();
+function sectionsHtml(list, day) {
+ const word = l => day ? units(l.length) : onSite(l), ours = list.filter(c => c.owner === 'coates' || c.owner === 'unknown'), subs = list.filter(c => ours.indexOf(c) < 0), sup = new Map();
  subs.forEach(c => { const k = coName(c.owner); if (!sup.has(k)) sup.set(k, []); sup.get(k).push(c); });
  let h = '';
- if (ours.length) h += '<section class="sx1238 coates" data-sx1238="coates">' + headHtml('coates', 'Coates · our list', 'Our fleet · ' + units(ours.length) + ' on site', ours) + groupsHtml(ours) + '</section>';
- if (sup.size) h += '<section class="sx1238 sub" data-sx1238="sub">' + headHtml('sub', 'Sub-hired', 'From our suppliers · ' + units(subs.length) + ' · ' + sup.size + (sup.size === 1 ? ' supplier' : ' suppliers'), subs)
+ if (ours.length) h += '<section class="sx1238 coates" data-sx1238="coates">' + headHtml('coates', 'Coates · our list', 'Our fleet · ' + word(ours), ours) + groupsHtml(ours) + '</section>';
+ if (sup.size) h += '<section class="sx1238 sub" data-sx1238="sub">' + headHtml('sub', 'Sub-hired', 'From our suppliers · ' + word(subs) + ' · ' + sup.size + (sup.size === 1 ? ' supplier' : ' suppliers'), subs)
   + [...sup.keys()].sort().map(k => '<div class="sp1238" data-sup1238="' + e(k) + '"><h4><span class="mn1238">' + e(initials(k)) + '</span>' + e(k) + ' <small>' + units(sup.get(k).length) + '</small></h4>' + groupsHtml(sup.get(k)) + '</div>').join('') + '</section>';
  return h;
 }
@@ -704,7 +803,7 @@ function barHtml(list, day) {
  const n = cnt(list), booked = list.filter(c => c.book && c.st.s !== 'gone').length, cats = new Map();
  list.forEach(c => { const k = CAT[c.cat] ? c.cat : 'other'; cats.set(k, (cats.get(k) || 0) + 1); });
  const f = (k, word, v) => '<button type="button" class="f1238 ' + k + '" data-f1238="' + k + '" aria-pressed="' + (FILTER === k) + '"><i></i><b>' + v + '</b> ' + word + '</button>';
- return '<div class="tb1238"><div class="th1238"><b>' + (day ? e(dayW(day)) + ' · booked and picked up' : 'Everything on site') + '</b><span>' + units(list.length) + ' · one card each · tap a picture for the full map</span></div>'
+ return '<div class="tb1238"><div class="th1238"><b>' + (day ? e(dayW(day)) + ' · booked and picked up' : 'Everything on site') + '</b><span>' + (day ? units(list.length) : onSite(list)) + ' · one card each · tap a picture for the full map</span></div>'
   + '<div class="fr1238">' + f('all', 'all', list.length) + f('not', 'not ready', n.not) + f('ready', 'ready', n.ready) + f('gone', 'picked up', n.gone) + (day ? '' : f('booked', 'booked', booked))
   + '<label class="fd1238">' + UI.find + '<input type="search" data-fd1238 data-ro placeholder="Find an asset no., GC500 ID, VMS or rego" value="' + e(FIND) + '" aria-label="Find an asset"></label></div>'
   + (day ? '' : '<nav class="cn1238" aria-label="Go to a group">' + ORDER.filter(k => cats.has(k)).map(k => '<button type="button" data-catgo1238="' + k + '" style="--cc:' + CAT[k].c + '"><i>' + SVG(ICONS[CAT[k].icon]) + '</i>' + e(CAT[k].label) + ' <b>' + cats.get(k) + '</b></button>').join('') + '</nav>') + '</div>';
@@ -719,13 +818,16 @@ function bookedHtml(list) {
  return '<section class="bp1238" aria-label="Booked pick-ups"><header><i>' + UI.truck + '</i><b>Booked pick-ups</b><span>' + bs.length + ' booked · ' + toBook + ' still to book · only what has been booked</span></header>' + body + '</section>';
 }
 let FILTER = 'all', FIND = '';
+const goneDay = c => c.st.at ? qDay(c.st.at) : c.st.day, evDay = ev => ev.info.at ? qDay(ev.info.at) : ev.info.day;
 function selDay() { try { const M = demob816(); return demobSel816(M) || DM816.sel || todayQ(); } catch (x) { return (typeof DM816 === 'object' && DM816 && DM816.sel) || todayQ(); } }
 function viewHtml(day) {
  const m = model();
  if (!day) { const br = (typeof DM816 === 'object' && DM816 && DM816.branch) || 'all', all = br === 'all' ? m.cards : m.cards.filter(c => c.r.branch === br);
   return '<div class="sgv1238" data-sgv1238="all">' + barHtml(all, null) + bookedHtml(all) + '<div class="sgl1238">' + sectionsHtml(all) + '</div></div>'; }
- const list = m.cards.filter(c => (c.book && qDay(c.book.at) === day) || (c.st.s === 'gone' && (c.st.at ? qDay(c.st.at) : c.st.day) === day));
- return '<div class="sgv1238" data-sgv1238="day">' + barHtml(list, day) + '<div class="sgl1238">' + (list.length ? sectionsHtml(list) : '<div class="em1238"><b>Nothing booked or picked up on ' + e(dayW(day)) + '</b>A day shows only what has been booked for it, or what left on it. Book a pick-up on any card in Everything on site and it comes here.</div>') + '</div></div>';
+ /* a unit that has left belongs to the day it left, whatever day it was booked for; a run part-collected that day shows too */
+ if (FILTER === 'booked') FILTER = 'all';
+ const list = m.cards.filter(c => c.st.s === 'gone' ? goneDay(c) === day : (c.book && qDay(c.book.at) === day) || (c.group && c.G && c.G.events.some(ev => evDay(ev) === day)));
+ return '<div class="sgv1238" data-sgv1238="day">' + barHtml(list, day) + '<div class="sgl1238">' + (list.length ? sectionsHtml(list, day) : '<div class="em1238"><b>Nothing booked or picked up on ' + e(dayW(day)) + '</b>A day shows only what has been booked for it, or what left on it. Book a pick-up on any card in Everything on site and it comes here.</div>') + '</div></div>';
 }
 function applyFilter() {
  const pane = D.getElementById('pane-demob'); if (!pane) return;
@@ -739,6 +841,8 @@ function applyFilter() {
 /* ---- writing a unit's Ready tick and its booking ---- */
 function cardOf(key, uid) { return model().byId.get(key + '#' + uid) || null; }
 function stamp(prev) { let now = new Date().toISOString(); if (prev && String(prev) >= now) now = new Date(Date.parse(prev) + 1).toISOString(); return now; }
+/* the unit's own record, written beside the tick, so the tick finds its unit again if its asset number is corrected */
+function docOf(key, uid) { const c = cardOf(key, uid), dk = c && c.u && c.u.docKey ? String(c.u.docKey) : ''; return dk ? {doc: dk} : {}; }
 function setUnitReady(key, uids, on, why) {
  if (typeof mayWrite === 'function' && !mayWrite('the ready for collection tick')) return false;
  if (typeof isRef === 'function' && !isRef(key)) { try { flash(String(key || '') + ' is not a reference in this file - nothing recorded.'); } catch (x) {} return false; }
@@ -746,7 +850,7 @@ function setUnitReady(key, uids, on, why) {
  const list = (Array.isArray(uids) ? uids : [uids]).map(String).filter(Boolean); if (!list.length) return false;
  S.delivery = S.delivery || {}; const d = S.delivery[key] || (S.delivery[key] = {});
  const cur = umap(key, 'ready1238_units', 'at'), latest = list.map(u => cur[u] && cur[u].at).filter(Boolean).sort().pop(), now = stamp(latest), w = on ? '' : String(why || '').trim().slice(0, 140);
- list.forEach(u => { cur[u] = {on: !!on, at: now, by: who, why: w}; });
+ list.forEach(u => { cur[u] = Object.assign({on: !!on, at: now, by: who, why: w}, docOf(key, u)); });
  d.ready1238_units = cur;
  d.ready1238_history = (Array.isArray(d.ready1238_history) ? d.ready1238_history : []).concat(list.map(u => ({unit: u, ready: !!on, at: now, by: who, why: w}))).slice(-400);
  VER++; bump(); try { buzz(on ? 50 : 20); } catch (x) {}
@@ -761,18 +865,31 @@ function setBooking(key, uids, at, note) {
  const v = at ? String(at) : ''; if (v && !(ok(v) && /T\d{2}:\d{2}:00\+10:00$/.test(v))) return false;
  S.delivery = S.delivery || {}; const d = S.delivery[key] || (S.delivery[key] = {});
  const cur = umap(key, 'pickup1238_units', 'set'), latest = list.map(u => cur[u] && cur[u].set).filter(Boolean).sort().pop(), now = stamp(latest), n = String(note || '').trim().slice(0, 80);
- list.forEach(u => { cur[u] = {at: v, note: v ? n : '', by: who, set: now}; });
+ list.forEach(u => { cur[u] = Object.assign({at: v, note: v ? n : '', by: who, set: now}, docOf(key, u)); });
  d.pickup1238_units = cur;
  d.pickup1238_history = (Array.isArray(d.pickup1238_history) ? d.pickup1238_history : []).concat(list.map(u => ({unit: u, pickup: v, note: v ? n : '', by: who, at: now}))).slice(-400);
  VER++; bump(); try { buzz(30); } catch (x) {}
  try { flash(v ? key + (list.length > 1 ? ' · ' + list.length + ' units' : '') + ' pick-up booked for ' + when(v) + ' - recorded by ' + who + '.' : key + ' booking cleared - recorded by ' + who + '.'); } catch (x) {}
  return true;
 }
+/* Picked up opens the page's own departure form with this unit (and its waste tank) ticked. A toilet is loaded only once pumped
+   out; Emptied is one tick for the whole reference, and the question says so */
+function pickUp(c) {
+ const key = c.key;
+ if (c.r.empty) { let em = null; try { em = emptiedOf816(key); } catch (x) { em = null; }
+  if (!(em && em.on)) { const n = (model().byKey.get(key) || []).filter(x => x.st.s !== 'gone').reduce((s, x) => s + (x.group ? x.n || 1 : x.tank ? 2 : 1), 0);
+   if (!W.confirm(key + ' has no Emptied (pumped out) tick, and no toilet or waste tank is loaded until it is pumped out.\n\nEmptied is one tick for the whole of ' + key + ' (' + n + ' unit' + (n === 1 ? '' : 's') + ' still on site).\n\nOK records ' + key + ' as pumped out, in your name, now, then opens the pick-up form.\nCancel leaves it as it is.')) return false;
+   try { if (!setEmptied816(key, true)) return false; } catch (x) { return false; } } }
+ const pick = u => ({type: String(u.item || u.label || ''), ids: [String(u.id)]});
+ const preset = c.group || !c.u || c.ph ? null : {items: [pick(c.u)].concat(c.tank ? [pick(c.tank)] : [])};
+ try { if (W.DemobCollection996 && typeof DemobCollection996.open === 'function') return DemobCollection996.open(key, preset); } catch (x) {}
+ try { return collect816(key); } catch (x) { try { flash(key + ': the pick-up form did not open.'); } catch (y) {} return false; }
+}
 function lamp(key, uid, s) {
  const c = cardOf(key, uid); if (!c) return false;
  if (c.board) { try { flash(c.vms.label + ' is on the VMS plan but on no delivery reference yet, so its Ready tick waits until it is.'); } catch (x) {} return false; }
- if (c.group) { try { return s === 'ready' ? Ready1231.ready(key) : s === 'not' ? Ready1231.notReady(key) : Ready1231.pickedUp(key); } catch (x) { return false; } }
- if (s === 'gone') { try { return Ready1231.pickedUp(key); } catch (x) { return false; } }
+ if (s === 'gone') return pickUp(c);
+ if (c.group && !c.r.noPlan1236) { try { return s === 'ready' ? Ready1231.ready(key) : Ready1231.notReady(key); } catch (x) { return false; } }
  if (s === 'ready') {
   if (c.st.s === 'ready') { try { flash(key + ' ' + (c.no || '') + ' is already ready for collection.'); } catch (x) {} return false; }
   if (c.r.empty) { let em = null; try { em = emptiedOf816(key); } catch (x) { em = null; } if (!(em && em.on) && !W.confirm(key + ' ' + (c.no || '') + ' has no Emptied (pumped out) tick.\n\nOK records it as ready for collection in your name, now: only when it has been pumped out.\nCancel leaves it as it is.')) return false; }
@@ -796,9 +913,10 @@ function sheet() {
   + '<p class="fy1238"></p>'
   + '<footer><button type="button" class="cl1238" data-bk1238="clear">Clear booking</button><button type="button" data-bk1238="cancel">Cancel</button><button type="button" class="sv1238" data-bk1238="save" disabled>Save booking</button></footer></form>';
  D.body.appendChild(dlg); SHEET = dlg;
+ let downOn = null; dlg.addEventListener('pointerdown', ev => { downOn = ev.target; }, true);
  dlg.addEventListener('click', ev => {
   const t = ev.target && ev.target.closest ? ev.target : null; if (!t) return;
-  if (t === dlg) { close(); return; }
+  if (t === dlg) { if (downOn === dlg) close(); return; } /* only a tap that starts and ends on the backdrop closes it, never a drag out of a field */
   const cm = t.closest('[data-cm1238]'); if (cm) { const m = SEL.month; SEL.month = new Date(Date.UTC(m.getUTCFullYear(), m.getUTCMonth() + Number(cm.dataset.cm1238), 1)); calendar(); return; }
   const dd = t.closest('[data-day1238]'); if (dd && !dd.disabled) { SEL.day = dd.dataset.day1238; calendar(); summary(); return; }
   const hb = t.closest('[data-h1238]'); if (hb) { SEL.h = Number(hb.dataset.h1238); const mm = SEL.time ? SEL.time.slice(3) : '00'; SEL.time = pad(SEL.h) + ':' + mm; SEL.mode = 'm'; clock(); summary(); return; }
@@ -807,7 +925,7 @@ function sheet() {
   const b = t.closest('[data-bk1238]'); if (!b) return;
   const act = b.dataset.bk1238;
   if (act === 'cancel') { close(); return; }
-  if (act === 'clear') { if (!W.confirm('Clear the booked pick-up for ' + SEL.key + '?')) return; if (setBooking(SEL.key, uidsNow(), '', '')) close(); return; }
+  if (act === 'clear') { const c = cardOf(SEL.key, SEL.uid); if (!W.confirm('Clear the booked pick-up for ' + SEL.key + (c && c.no ? ' ' + c.no : '') + ' (this unit only)?')) return; if (setBooking(SEL.key, [SEL.uid], '', '')) close(); return; } /* Clear is for this unit alone, whatever the "Book all" box says */
   if (act === 'save') save();
  });
  dlg.querySelector('input[name="t1238"]').addEventListener('input', ev => { const v = parseTime(ev.target.value); SEL.time = v || ''; if (v) SEL.h = Number(v.slice(0, 2)); clock(true); summary(); });
@@ -815,7 +933,7 @@ function sheet() {
  return dlg;
 }
 function parseTime(s) {
- const t = String(s || '').trim().replace(/[.\s]/g, ':'); let m = t.match(/^(\d{1,2}):(\d{2})$/) || t.match(/^(\d{2})(\d{2})$/);
+ const t = String(s || '').trim().replace(/[.\s]/g, ':'); let m = t.match(/^(\d{1,2}):(\d{2})$/) || t.match(/^(\d{2})(\d{2})$/) || t.match(/^(\d)(\d{2})$/); /* 07:30, 0730, 730, 7 */
  if (!m && /^\d{1,2}$/.test(t)) m = [t, t, '00'];
  if (!m) return null; const h = Number(m[1]), mi = Number(m[2]); if (!(h >= 0 && h <= 23 && mi >= 0 && mi <= 59)) return null;
  return pad(h) + ':' + pad(mi);
@@ -889,7 +1007,7 @@ function save() {
 function wordsOf(c) {
  const L = locOf(c), st = statusWords(c), lines = ['Coates GC500 demob · ' + (c.vms ? c.vms.label + ' · ' : '') + c.key + ' · ' + titleOf(c),
   (c.no ? 'Asset no. ' + c.no : c.group ? c.n + ' × ' + c.item : 'Asset no. to confirm') + (c.tankNo ? ' · waste tank ' + c.tankNo : '') + (c.rego ? ' · Rego ' + c.rego : '') + ' · ' + coName(c.owner)];
- if (c.vms) lines.push('Where: ' + (c.vms.moved ? c.vms.at + ' · ' : '') + c.vms.where);
+ if (c.vms) lines.push('Where: ' + (c.vms.stored ? 'in storage · ' + c.vms.where + (c.vms.stored.pinned ? '' : ' (its store is not pinned yet; Navigate goes to its last pin on the track, ' + c.vms.stored.track + ')') : (c.vms.moved ? c.vms.at + ' · ' : '') + c.vms.where));
  else { let w = null; try { w = DemobMap1236.words(c.key, DemobMap1236.spot(c.key), c.r.zone); } catch (x) { w = null; } if (w) lines.push('Where: ' + w.filter(Boolean).join(' · ')); }
  if (c.arr) lines.push('Arrived ' + dayW(c.arr.day));
  lines.push('Now: ' + st[0] + (st[1] ? ' · ' + st[1] : ''));
@@ -921,13 +1039,15 @@ function goCard(key, uid) {
  const pane = D.getElementById('pane-demob'); if (!pane) return false;
  const a = pane.querySelector('article.sg1238[data-sg1238="' + cssq(key) + '"]' + (uid ? '[data-u1238="' + cssq(uid) + '"]' : '')); if (!a) return false;
  if (a.hidden) { FILTER = 'all'; FIND = ''; const inp = pane.querySelector('[data-fd1238]'); if (inp) inp.value = ''; applyFilter(); }
- try { a.scrollIntoView({behavior: 'smooth', block: 'center'}); } catch (x) { a.scrollIntoView(); }
+ /* the cards between here and there draw at their own height as they come into view, so land, let them draw, and land again */
+ const land = () => { try { a.scrollIntoView({block: 'center'}); } catch (x) { a.scrollIntoView(); } };
+ land(); setTimeout(land, 90); setTimeout(land, 320);
  a.classList.remove('fl1238'); void a.offsetWidth; a.classList.add('fl1238'); setTimeout(() => a.classList.remove('fl1238'), 1800);
  return true;
 }
 function goCat(k) {
  const g = D.querySelector('#pane-demob .sgv1238 .gp1238[data-cat1238="' + cssq(k) + '"]:not([hidden])'); if (!g) return false;
- try { g.scrollIntoView({behavior: 'smooth', block: 'start'}); } catch (x) { g.scrollIntoView(); } return true;
+ const land = () => { try { g.scrollIntoView({block: 'start'}); } catch (x) { g.scrollIntoView(); } }; land(); setTimeout(land, 90); setTimeout(land, 320); return true;
 }
 
 /* ---- taps ---- */
@@ -955,16 +1075,22 @@ D.addEventListener('input', ev => { const t = ev.target; if (!t || !t.matches ||
 /* ---- the days: only what was booked for the day, or left on it, with each reference and its asset numbers ---- */
 function dayLists(iso) {
  const m = model(), booked = m.cards.filter(c => c.book && qDay(c.book.at) === iso && c.st.s !== 'gone');
- const left = []; m.byKey.forEach(cs => { const G = cs[0].G; if (!G) return; G.events.forEach(ev => { const d = ev.info.at ? qDay(ev.info.at) : ev.info.day; if (d !== iso) return; left.push({key: cs[0].key, at: ev.info.at, nos: ev.nos.slice(), n: ev.n, part: !G.complete, desc: descLine(cs[0], ev.types)}); }); });
+ /* one line per kind of item in each departure, with its numbers; a count beyond the numbers is said as "+k without numbers" */
+ const left = []; m.byKey.forEach(cs => { const G = cs[0].G; if (!G) return; G.events.forEach(ev => { if (evDay(ev) !== iso) return;
+  (ev.byType.length ? ev.byType : [{type: '', n: ev.n, nos: ev.nos}]).forEach(t => left.push({key: cs[0].key, at: ev.info.at, nos: t.nos.slice(), n: Math.max(t.n, t.nos.length), part: !G.complete, desc: descLine(cs[0], t.type ? [t.type] : null)})); }); });
  left.sort((a, b) => String(a.at || '').localeCompare(String(b.at || '')) || nat(a.key, b.key));
  return {booked: booked.sort((a, b) => String(a.book.at).localeCompare(String(b.book.at))), left};
 }
+/* "FWF portable toilet", "Pee Panel pee panel" is said once: the word comes from the item that left, not the reference's first card */
 function descLine(c, types) {
- const w = WORD[c.icon] || '', t = (types && types.length ? types.join(', ') : c.item || c.what.split(' · ')[0]), last = w.split(' ').pop().replace(/s$/, '');
+ const word = t => { const w = WORD[iconKey(t, c.cat)] || '', last = w.split(' ').pop().replace(/s$/, ''); return t + (last && !new RegExp(last, 'i').test(t) ? ' ' + w : ''); };
+ if (types && types.length) return types.map(word).join(', ');
+ const w = WORD[c.icon] || '', t = c.item || c.what.split(' · ')[0], last = w.split(' ').pop().replace(/s$/, '');
  return t + (last && !new RegExp(last, 'i').test(t) ? ' ' + w : '');
 }
+const leftUnits = L => L.left.reduce((s, x) => s + (x.n || 0), 0);
 function dayRows(iso) {
- const L = dayLists(iso), ready = L.booked.filter(c => c.st.s === 'ready').length, last = L.left.reduce((x, y) => y.at && y.at > x ? y.at : x, ''), units = L.left.reduce((s, x) => s + (x.nos.length || x.n || 0), 0);
+ const L = dayLists(iso), ready = L.booked.filter(c => c.st.s === 'ready').length, last = L.left.reduce((x, y) => y.at && y.at > x ? y.at : x, ''), units = leftUnits(L);
  return [{label: 'Booked', value: L.booked.length}, {label: 'Ready of booked', value: ready + ' of ' + L.booked.length}, {label: 'Picked up', value: units + (units === 1 ? ' unit' : ' units') + (last ? ' · last ' + hhmm(last) : '')}];
 }
 try { const R0 = W.Ready1231; if (R0 && !R0.singles1238) W.Ready1231 = Object.freeze(Object.assign({}, R0, {singles1238: true, dayRows: iso => dayRows(iso)})); } catch (x) {}
@@ -977,7 +1103,7 @@ function decorateDays() {
   card.querySelectorAll('.bc984-label, .bc984-at-close').forEach(n => { if (/PLANNED PICK-UPS|COLLECTION RECORD/.test(n.textContent) && n.childNodes[0] && n.childNodes[0].nodeType === 3) n.childNodes[0].nodeValue = 'BOOKED AND PICKED UP'; });
   [...card.querySelectorAll('*')].forEach(n => { if (n.children.length === 0 && /^(PLANNED PICK-UPS|COLLECTION RECORD)$/.test(n.textContent.trim())) n.textContent = 'BOOKED AND PICKED UP'; });
   const row = card.querySelector('.bc984-load-row'); if (!row) return;
-  const lines = L.left.map(x => '<span><b>' + e(x.key) + '</b><s><em>' + e(x.desc) + '</em> ' + e(x.nos.length ? x.nos.join(' ') : (x.n ? x.n + ' unit' + (x.n === 1 ? '' : 's') : '')) + (x.part ? ' · part' : '') + '</s><time>' + e(x.at ? hhmm(x.at) : '–') + '</time></span>')
+  const extra = x => x.n - x.nos.length, lines = L.left.map(x => '<span><b>' + e(x.key) + '</b><s><em>' + e(x.desc) + '</em> ' + e(x.nos.length ? x.nos.join(' ') + (extra(x) > 0 ? ' +' + extra(x) + ' without numbers' : '') : (x.n ? x.n + ' unit' + (x.n === 1 ? '' : 's') : '')) + (x.part ? ' · part' : '') + '</s><time>' + e(x.at ? hhmm(x.at) : '–') + '</time></span>')
    .concat(L.booked.map(c => '<span><b>' + e(c.vms ? c.vms.label : c.key) + '</b><s><em>' + e(descLine(c)) + '</em> ' + e(c.no || '') + ' <em>booked</em></s><time>' + e(hhmm(c.book.at)) + '</time></span>'));
   row.innerHTML = '<span class="bc984-label">PICKED UP · BOOKED<span class="bc984-at-close">REF · ASSET NO. · TIME</span></span>' + (lines.length ? '<span class="dl1238">' + lines.join('') + '</span>' : '<span class="bc984-load-count long">Nothing yet</span>');
  });
@@ -986,11 +1112,10 @@ function decorate() {
  const pane = D.getElementById('pane-demob'); if (!pane || typeof DM816 !== 'object') return;
  const mode = DM816.view === ALLV ? 'all' : 'day'; if (pane.dataset.sg1238 !== mode) pane.dataset.sg1238 = mode;
  pane.querySelectorAll('p.note816').forEach(p => { if (/^Dated outside the demob days/.test(p.textContent.trim()) && !p.classList.contains('pl1238')) p.classList.add('pl1238'); });
- if (mode === 'day') {
-  const iso = selDay(), L = dayLists(iso), h = pane.querySelector('.dmsh816 h3'), tx = dayW(iso) + ' · ' + L.booked.length + ' booked · ' + L.left.length + ' picked up';
-  if (h && h.textContent !== tx) h.textContent = tx;
-  const s = pane.querySelector('.segs816 [data-view816="list"]'), st = 'Booked and picked up · ' + (L.booked.length + L.left.length); if (s && s.textContent !== st) s.textContent = st;
- }
+ /* the day's figures in units, the same as its day card; the list button says the same in both views (never the old plan's count) */
+ const iso = selDay(), L = dayLists(iso), gone = leftUnits(L);
+ if (mode === 'day') { const h = pane.querySelector('.dmsh816 h3'), tx = dayW(iso) + ' · ' + L.booked.length + ' booked · ' + gone + ' picked up'; if (h && h.textContent !== tx) h.textContent = tx; }
+ const s = pane.querySelector('.segs816 [data-view816="list"]'), st = (mode === 'day' ? 'Booked and picked up · ' : dayW(iso) + ' · booked and picked up · ') + (L.booked.length + gone); if (s && s.textContent !== st) s.textContent = st;
  try { decorateDays(); } catch (x) {}
  try { applyFilter(); } catch (x) {}
  try { arm(); } catch (x) {}
@@ -1013,13 +1138,33 @@ if (typeof renderDemob816 === 'function') {
  };
  Object.assign(renderDemob816, before);
 }
-function count() { try { return model().cards.length; } catch (x) { return 0; } }
+/* the tab's "Everything on site · N assets": still on site, in the branch the chips have chosen */
+function count() { try { const br = (typeof DM816 === 'object' && DM816 && DM816.branch) || 'all'; return model().cards.filter(c => c.st.s !== 'gone' && (br === 'all' || c.r.branch === br)).length; } catch (x) { return 0; } }
+/* Live sync keeps whole delivery documents, the last one written winning. Two phones ticking or booking different units of one
+   reference a few seconds apart would lose one phone's work, so as each document arrives from the store, any unit tick, booking
+   or history line this browser holds that the store's copy has not got (or holds older) is kept, and the result goes back up.
+   A cleared booking is a dated entry too, so a clear is never undone. */
+const um = (x, y, t) => { const o = Object.assign({}, x && typeof x === 'object' ? x : {}); let ch = false;
+ Object.keys(y && typeof y === 'object' ? y : {}).forEach(u => { const p = o[u], q = y[u]; if (!q || typeof q !== 'object') return; const s1 = String(q[t] || ''), s0 = p ? String(p[t] || '') : '';
+  if (!p || s1 > s0) { o[u] = q; ch = true; } }); return ch ? o : null; };
+const hj = (x, y, k) => { const a = Array.isArray(x) ? x : [], seen = new Set(a.map(k)), add = (Array.isArray(y) ? y : []).filter(h => h && !seen.has(k(h))); return add.length ? a.concat(add).sort((p, q) => String(p.at || '').localeCompare(String(q.at || ''))).slice(-400) : null; };
+function keepUnits(next, cur) {
+ let changed = false;
+ Object.keys(next || {}).forEach(k => { const n = next[k], c = cur && cur[k]; if (!n || !c || typeof c !== 'object') return;
+  const r = um(n.ready1238_units, c.ready1238_units, 'at'), p = um(n.pickup1238_units, c.pickup1238_units, 'set');
+  const rh = hj(n.ready1238_history, c.ready1238_history, h => (h.unit || '') + '|' + h.ready + '|' + h.at), ph = hj(n.pickup1238_history, c.pickup1238_history, h => (h.unit || '') + '|' + (h.pickup || '') + '|' + h.at);
+  if (!r && !p && !rh && !ph) return;
+  const o = Object.assign({}, n); if (r) o.ready1238_units = r; if (p) o.pickup1238_units = p; if (rh) o.ready1238_history = rh; if (ph) o.pickup1238_history = ph;
+  next[k] = o; changed = true; });
+ if (changed) VER++;
+ return changed;
+}
 let raf = 0;
 function watch() {
  const pane = D.getElementById('pane-demob'); if (!pane || pane.__sg1238) return; pane.__sg1238 = true;
  new MutationObserver(ms => { if (raf || ms.every(m => m.target && m.target.closest && m.target.closest('.sgv1238,.pg1238,.dl1238'))) return; raf = (W.requestAnimationFrame || setTimeout)(() => { raf = 0; try { decorate(); } catch (x) {} }); }).observe(pane, {childList: true, subtree: true});
 }
-W.Singles1238 = Object.freeze({model, picsState, cardOf, stateOf, cardsOf, setUnitReady, setBooking, lamp, open, save, close, wordsOf, send, files, locOf, navOf, goCard, goCat, dayRows, dayLists, iconKey, iconPaths, ICONS, WORD, count, owns: () => true, release: REL});
+W.Singles1238 = Object.freeze({model, picsState, cardOf, stateOf, cardsOf, setUnitReady, setBooking, lamp, pickUp, open, save, close, wordsOf, send, files, locOf, navOf, goCard, goCat, dayRows, dayLists, iconKey, iconPaths, ICONS, WORD, count, keepUnits, pickOf, parseTime, notePairs, owns: () => true, release: REL});
 try { if (typeof RENDER_MEMO !== 'undefined' && RENDER_MEMO instanceof Map) RENDER_MEMO.delete('demob816'); } catch (x) {}
 watch();
 try { const p = D.getElementById('pane-demob'); if (p && !p.hidden && p.querySelector('.dmday816')) renderDemob816(); } catch (x) {}

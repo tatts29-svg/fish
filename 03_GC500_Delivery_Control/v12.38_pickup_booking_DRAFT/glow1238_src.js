@@ -81,7 +81,7 @@ function starsHtml(pct) {
   + out.join('') + '<span class="sw1238">' + (lit >= 5 ? 'Five stars · the demob is complete' : lit + ' of 5 stars') + '<small>' + (lit >= 5 ? 'Every unit off site' : 'Next star at ' + nextAt + '% off site · ' + (nextAt - pct).toFixed(1) + '% to go') + '</small></span></div>';
 }
 function html(F) {
- const {w, req, col, pct, days, today, ti, N, pace, need, pts} = F, shown = pct < 10 ? pct.toFixed(1) : Math.round(pct).toString();
+ const {w, req, col, pct, days, today, ti, N, pace, need, pts} = F, shown = pct < 10 ? pct.toFixed(1) : pct >= 99 && pct < 100 ? (Math.floor(pct * 10) / 10).toFixed(1) : Math.round(pct).toString(); /* never 100% while a unit is still on site */
  const W0 = 680, H0 = 250, L = 42, R = 18, T = 16, B = 34, X = i => L + (i + 1) / N * (W0 - L - R), Y = v => T + (1 - v / 100) * (H0 - T - B), X0 = L;
  const grid = [0, 25, 50, 75, 100].map(v => '<line x1="' + L + '" x2="' + (W0 - R) + '" y1="' + Y(v).toFixed(1) + '" y2="' + Y(v).toFixed(1) + '" stroke="#ffffff14"/><text x="' + (L - 7) + '" y="' + (Y(v) + 3.5).toFixed(1) + '" fill="#8fa8b2" font-size="10.5" font-weight="700" text-anchor="end">' + v + '%</text>').join('');
  const labs = days.map((d, i) => { const f = new Date(d + 'T12:00:00Z'), lab = DOW[f.getUTCDay()].slice(0, 1) + ' ' + f.getUTCDate(), on = d === today;

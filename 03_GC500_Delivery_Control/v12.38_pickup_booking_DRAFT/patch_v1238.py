@@ -14,9 +14,12 @@ stars (glow1238_src.js). Two new fields on the reference's delivery record, each
     ready1238_units    {unit: {on, at, by, why}}       the unit's own Ready / Not ready tick
     pickup1238_units   {unit: {at, note, by, set}}     the unit's booked pick-up ("" at once cleared); set is its clock
 with their histories (ready1238_history, pickup1238_history, 400 at most). mergeRecords keeps, unit by unit, the later stamp;
-the histories join; a record holding only these is kept (deliveryEmpty). v12.36's master-plan overview and progress card give
-way to the new ones; its count names assets; its watcher leaves the new parts alone. No departure, Emptied, charge, QR or
-tracker change. Every edit must find its text exactly once on the verified live v12.37 page (Codex's supplier crew actuals on v12.36). Footer -> v12.38.
+the histories join; a record holding only these is kept (deliveryEmpty). The live sync keeps whole documents, the last written
+winning, so syncFold keeps any unit tick, booking or history line this browser holds that an arriving delivery document lacks
+(or holds older) and sends the result back up. v12.36's master-plan overview and progress card give way to the new ones; its
+count names assets on site; its watcher leaves the new parts alone. No departure, charge, QR or tracker change is written by
+the release itself (Picked up opens the page's own departure form). Every edit must find its text exactly once on the verified
+live v12.37 page (Codex's supplier crew actuals on v12.36). Footer -> v12.38.
     python3 patch_v1238.py page.html      (in place, on the live v12.37 page)
 """
 import hashlib, sys
@@ -46,6 +49,9 @@ BT_OLD = " const bt = 'Everything on site · ' + mine.length;"
 BT_NEW = " const bt = 'Everything on site · ' + (W.Singles1238 ? Singles1238.count() + ' assets' : mine.length); /* v12.38 */"
 H3_OLD = "h.textContent = 'Everything on site · ' + mine.length + (mine.length === 1 ? ' reference' : ' references');"
 H3_NEW = "h.textContent = 'Everything on site · ' + (W.Singles1238 ? Singles1238.count() + ' assets' : mine.length + (mine.length === 1 ? ' reference' : ' references'));"
+SYNC_OLD = " const next = fromDocs(name, shown);"
+SYNC_NEW = SYNC_OLD + """
+ if (name === 'delivery' && !SYNC.readonly && window.Singles1238 && typeof Singles1238.keepUnits === 'function') { try { if (Singles1238.keepUnits(next, c.get())) setTimeout(() => { try { syncPush(); } catch (e) {} }, 0); } catch (e) {} } /* v12.38 - a delivery document from the store keeps the unit ticks and bookings this browser holds that it lacks, and the result goes back up: two phones on one reference never lose each other's work */"""
 WATCH_OLD = "mo = new MutationObserver(ms => { if (ms.every(m => m.target && m.target.closest && m.target.closest('.ov1236,.mpf1236'))) return; soon(); });"
 WATCH_NEW = "mo = new MutationObserver(ms => { if (ms.every(m => m.target && m.target.closest && m.target.closest('.ov1236,.mpf1236,.sgv1238,.pg1238,.dl1238'))) return; soon(); }); /* v12.38 - the new cards, progress and day lists look after themselves */"
 
@@ -58,6 +64,7 @@ EDITS = [
  ('the everything button counts assets', BT_OLD, BT_NEW),
  ('the everything heading counts assets', H3_OLD, H3_NEW),
  ('v12.36 leaves the new parts to themselves', WATCH_OLD, WATCH_NEW),
+ ('live sync keeps the unit ticks and bookings', SYNC_OLD, SYNC_NEW),
 ]
 
 
