@@ -116,9 +116,9 @@ const {open} = require('../../toolchain/harness/open_page');
     await scrollTo('#pane-demob .pg1238'); await shot('progress', '#pane-demob .pg1238');
     await shot('everything_top', '#pane-demob .tb1238');
     /* v12.42.1 - Andrew: no "booked" wording that reads as nothing done */
-    const NB = await p.evaluate(() => { const pane = document.getElementById('pane-demob'), bks = [...pane.querySelectorAll('.sgv1238 article.sg1238 .bk1238')], booked = Singles1238.model().cards.filter(c => c.book && c.st.s !== 'gone').length;
+    const NB = await p.evaluate(() => { const pane = document.getElementById('pane-demob'), bks = [...pane.querySelectorAll('.sgv1238 article.sg1238:not([data-u1238^="vms:"]) .bk1238')], booked = Singles1238.model().cards.filter(c => c.book && c.st.s !== 'gone').length;
       return {booked, panel: !!pane.querySelector('.bp1238'), chip: !!pane.querySelector('[data-f1238="booked"]'), cards: bks.length, toBe: bks.filter(b => /to be booked/i.test(b.textContent)).length, label: bks.filter(b => /^\s*Pick-up/.test((b.querySelector('span') || {}).textContent || '')).length}; });
-    check('v12.42.1: with nothing booked there is no Booked pick-ups panel and no "booked" filter, and no card says "to be booked"; on the view link (no Book button) an unbooked card shows no pick-up line at all', NB.booked > 0 || (!NB.panel && !NB.chip && NB.cards === 0 && NB.toBe === 0), NB);
+    check('v12.42.1: with nothing booked there is no Booked pick-ups panel and no "booked" filter, and no card says "to be booked"; on the view link (no Book button) an unbooked card shows no pick-up line at all (a VMS board on the plan only keeps its note that booking opens once it is on a delivery reference)', NB.booked > 0 || (!NB.panel && !NB.chip && NB.cards === 0 && NB.toBe === 0), NB);
     /* v12.42.2 - truck loads from what is Ready (Andrew: 24 Event Portables portaloos a truck, or 6 pee panels and 18 toilets; a 16 Pan block on its
        own; buildings one a truck; the Coates accessible toilet rides with other Coates gear; other gear one a truck for now; nearest first) */
     const LA = await p.evaluate(() => { const pane = document.getElementById('pane-demob'), sec = pane.querySelector('.ld1238'), P = Singles1238.loads(), m = Singles1238.model(), ready = m.cards.filter(c => c.st.s === 'ready' && !c.board);
