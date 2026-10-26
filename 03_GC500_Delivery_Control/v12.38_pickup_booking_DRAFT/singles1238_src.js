@@ -7,8 +7,9 @@
 #pane-demob[data-sg1238] .segs816 [data-view816="toilets"],#pane-demob[data-sg1238] .segs816 [data-view816="pump"],#pane-demob[data-sg1238] .segs816 [data-view816="trucks"],
 #pane-demob[data-sg1238] .ovn816,#pane-demob[data-sg1238="day"] .br816,#pane-demob[data-sg1238] .sum1231{display:none!important}
 #pane-demob .sgv1238{display:grid;gap:16px;margin:10px 0 0;color:var(--ink1238);font-family:Inter,Arial,sans-serif}
+#pane-demob .sgv1238 [hidden],dialog.bkd1238 [hidden]{display:none!important}
 /* the bar: counts, filter and find */
-#pane-demob .tb1238{position:sticky;top:0;z-index:4;display:grid;gap:10px;padding:12px 14px;border:1px solid #18e8ff33;border-radius:16px;background:linear-gradient(135deg,#0d1c22f2,#142b33f2);box-shadow:0 0 0 1px #18e8ff12,0 10px 30px #0008,0 0 26px #18e8ff1c;backdrop-filter:blur(6px)}
+#pane-demob .tb1238{position:relative;z-index:4;display:grid;gap:10px;padding:12px 14px;border:1px solid #18e8ff33;border-radius:16px;background:linear-gradient(135deg,#0d1c22f2,#142b33f2);box-shadow:0 0 0 1px #18e8ff12,0 10px 30px #0008,0 0 26px #18e8ff1c;backdrop-filter:blur(6px)}
 #pane-demob .tb1238 .th1238{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 12px}
 #pane-demob .tb1238 .th1238 b{font:900 17px/1.1 Inter,Arial,sans-serif;letter-spacing:.01em;background:linear-gradient(90deg,#fff,#9ff6ff);-webkit-background-clip:text;background-clip:text;color:transparent}
 #pane-demob .tb1238 .th1238 span{color:var(--mut1238);font:700 12px/1.2 Inter,Arial,sans-serif}
@@ -177,12 +178,14 @@ body:not([data-cap="edit"]) #pane-demob .sg1238 .bk1238 button,body:not([data-ca
 #pane-demob .em1238{padding:26px 16px;border:1px dashed #18e8ff44;border-radius:18px;background:#0b171c;color:#cfe0e6;text-align:center;font:600 14px/1.45 Inter,Arial,sans-serif}
 #pane-demob .em1238 b{display:block;margin-bottom:4px;color:#fff;font:900 17px/1.2 Inter,Arial,sans-serif}
 /* the day cards: booked and picked up, with each reference and its asset numbers */
+#pane-demob[data-sg1238] .dc996-day .bc984-progress{display:none}
 #pane-demob .dc996-day .dl1238{display:grid;gap:3px;max-height:132px;overflow:auto;margin-top:4px;padding-right:2px;scrollbar-width:thin}
 #pane-demob .dc996-day .dl1238 span{display:grid;grid-template-columns:auto 1fr auto;gap:6px;align-items:baseline;padding:3px 6px;border-radius:7px;background:#ffffff10;font:700 10.5px/1.25 Inter,Arial,sans-serif;text-align:left;white-space:normal}
 #pane-demob .dc996-day .dl1238 span b{font-weight:900}
 #pane-demob .dc996-day .dl1238 span s{text-decoration:none;font:700 10px/1.25 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;opacity:.9;word-break:break-word}
 #pane-demob .dc996-day .dl1238 span time{font-weight:900}
-#pane-demob .dc996-day .dl1238 em{font-style:normal;opacity:.75;font-size:10.5px}
+#pane-demob .dc996-day .dl1238 em{font-style:normal;opacity:.8;font:700 10px/1.25 Inter,Arial,sans-serif}
+#pane-demob .dc996-day .dl1238 s em:first-child{display:block;opacity:.95;font-size:10.5px}
 /* the sheet: a calendar and a clock */
 dialog.bkd1238{width:min(560px,calc(100vw - 20px));max-height:calc(100vh - 20px);padding:0;border:1px solid #18e8ff55;border-radius:22px;background:linear-gradient(160deg,#143039,#0b171c 60%);color:#eef6f8;box-shadow:0 30px 80px #000c,0 0 40px #18e8ff33;font-family:Inter,Arial,sans-serif;overflow:auto}
 dialog.bkd1238::backdrop{background:#020a0dcc;backdrop-filter:blur(3px)}
@@ -233,6 +236,7 @@ dialog.bkd1238 footer button{padding:11px 16px;border-radius:999px;background:#f
 dialog.bkd1238 footer button.cl1238{margin-right:auto;color:#ff9aa4}
 dialog.bkd1238 footer button.sv1238{background:linear-gradient(135deg,#ff6a13,#ffb020);color:#1a0b00;box-shadow:0 0 16px #ff6a1388}
 dialog.bkd1238 footer button[disabled]{opacity:.4;cursor:default;box-shadow:none}
+@media (min-width:900px){#pane-demob .tb1238{position:sticky;top:0}}
 @media (max-width:720px){
  #pane-demob .gg1238{grid-template-columns:1fr}
  #pane-demob .sx1238{padding:10px;border-radius:16px}
@@ -395,10 +399,10 @@ function depOf(key) {
  ((st && Array.isArray(st.events)) ? st.events : []).forEach(ev => {
   const at = ok(ev.departedAt1211) ? ev.departedAt1211 : null, info = {at, day: at ? qDay(at) : (ev.date || null), by: String(ev.by || '')};
   if (!out.last || String(info.at || info.day || '') > String(out.last.at || out.last.day || '')) out.last = info;
-  const ev1 = {info, nos: [], n: 0};
+  const ev1 = {info, nos: [], n: 0, types: []};
   (ev.items || []).forEach(it => { const ids = Array.isArray(it.unitIds) ? it.unitIds : [], nos = Array.isArray(it.numbers) ? it.numbers : [];
    ids.forEach(id => out.ids.set(String(id), info)); nos.forEach(n => { out.nos.set(String(n), info); ev1.nos.push(String(n)); });
-   ev1.n += Number(it.n) || 0;
+   ev1.n += Number(it.n) || 0; if (it.type && ev1.types.indexOf(String(it.type)) < 0) ev1.types.push(String(it.type));
    const rest = (Number(it.n) || 0) - Math.max(ids.length, nos.length); if (rest > 0) out.counts.push({type: norm(it.type), n: rest, info}); });
   out.events.push(ev1);
  });
@@ -461,7 +465,7 @@ function cardsOf(r, X, fold) {
   return [Object.assign({}, base, {uid: '*', group: true, n, owner: owner ? String(owner[0] || 'unknown') : 'coates', item, no: '', nos: (sp.assetNos || []).slice(), icon: iconKey(item + ' ' + what, cat),
    gone: G.complete ? (G.last || {}) : null, part: !G.complete && G.collected > 0 ? {collected: G.collected, remaining: G.remaining} : null})];
  }
- const tanks = us.filter(u => /waste tank/i.test(String(u.item || '') + ' ' + String(u.label || ''))), rest = us.filter(u => tanks.indexOf(u) < 0), pairs = new Map(), used = new Set();
+ const tanks = us.filter(u => /waste tank/i.test(String(u.item || '') || String(u.label || ''))), rest = us.filter(u => tanks.indexOf(u) < 0), pairs = new Map(), used = new Set();
  tanks.forEach(tk => { const lb = String(tk.label || '');
   let to = null; const m = lb.match(/toilet\s+(\w+)/i); if (m) to = rest.find(u => u.assetNo === m[1] && !pairs.has(u));
   if (!to) { const s = lb.match(/set\s*(\d+)/i); if (s) to = rest.find(u => new RegExp('set\\s*' + s[1] + '\\b', 'i').test(String(u.label || '')) && !pairs.has(u)); }
@@ -469,7 +473,7 @@ function cardsOf(r, X, fold) {
   if (to) { pairs.set(to, tk); used.add(tk); } });
  const list = rest.concat(tanks.filter(t => !used.has(t))).sort((x, y) => (x.owner === y.owner ? 0 : x.owner === 'coates' ? -1 : y.owner === 'coates' ? 1 : nat(x.owner, y.owner)) || nat(x.label || '', y.label || '') || nat(x.assetNo || '', y.assetNo || ''));
  const goneU = u => G.complete ? (G.last || {}) : (G.ids.get(String(u.id)) || (u.assetNo && G.nos.get(String(u.assetNo))) || null);
- const cards = list.map((u, i) => { const tk = pairs.get(u) || null, text = String(u.item || '') + ' ' + String(u.label || '');
+ const cards = list.map((u, i) => { const tk = pairs.get(u) || null, text = String(u.item || u.label || '');
   const c = Object.assign({}, base, {uid: uk(u), u, tank: tk, owner: String(u.owner || 'unknown'), item: String(u.item || u.label || what), label: String(u.label || ''), no: String(u.assetNo || ''), tankNo: tk ? String(tk.assetNo || '') : '',
    rego: String(u.registration || ''), branch: String(u.branch || r.branch || ''), idx: i + 1, of: list.length, icon: iconKey(text + (tk ? ' block' : ''), cat)});
   const g1 = goneU(u), g2 = tk ? goneU(tk) : g1; c.gone = g1 && g2 ? (String(g2.at || g2.day || '') > String(g1.at || g1.day || '') ? g2 : g1) : null; c.part = !c.gone && (g1 || g2) ? {collected: 1, remaining: 1} : null;
@@ -492,6 +496,24 @@ function stateOf(c, ctx) {
  const p = list[0]; return {s: p.on ? 'ready' : 'not', at: p.at, by: p.by, why: p.why, src: p.src, part: c.part};
 }
 
+/* ---- a VMS board on the VMS plan that no delivery reference holds as a unit (Andrew: "ensure we add all VMS boards") ---- */
+function boardCards(X, cards) {
+ if (!X.V) return;
+ const have = new Set(cards.filter(c => c.cat === 'vms' && c.no).map(c => c.no)), targets = new Set();
+ X.byPos.forEach(b => { if (b.moves_to) targets.add(String(b.moves_to).toLowerCase()); });
+ const facts = (cards.find(c => c.cat === 'vms' && (c.sp.facts || []).length) || {sp: {facts: []}}).sp.facts;
+ X.byPos.forEach((b, pos) => {
+  if (targets.has(pos)) return;
+  let id = {}; try { id = X.V.identity(b) || {}; } catch (x) { id = {}; }
+  const asset = String(id.asset || '').trim(); if (!asset || have.has(asset)) return; have.add(asset);
+  const lab = (() => { try { return X.V.label(b); } catch (x) { return 'VMS ' + b.pos; } })().replace(/\*$/, ''), key = lab.replace(/\s+/g, '');
+  const owner = /prem/i.test(String(id.co || '')) ? 'prem-air-hire' : /coates/i.test(String(id.co || '')) ? 'coates' : 'other:' + norm(id.co || 'unknown').replace(/\s+/g, '-');
+  const c = {key, r: {key, empty: false, zone: '', branch: ''}, cat: 'vms', what: 'VMS · message board', sp: {facts}, arr: null, G: null, inside: [], uid: 'vms:' + b.pos, board: true, owner, item: 'VMS', label: lab, no: asset, tankNo: '', rego: String(id.rego || ''), branch: '', idx: 1, of: 1, icon: 'vms', gone: null, part: null};
+  c.vms = boardOf(Object.assign({}, c, {label: 'VMS' + b.pos}), X) || {label: lab, at: lab, moved: false, where: tidyWhere(b.title), lat: +b.lat, lon: +b.lon, how: '', pinned: false, store: '', from: ''};
+  c.st = {s: 'not', why: 'on the VMS plan · not on a delivery reference yet'}; c.book = null;
+  cards.push(c); });
+}
+
 /* ---- the model, worked out once per drawing ---- */
 let MEMO = {M: null, at: 0, v: -1, model: null}, VER = 0;
 function model() {
@@ -505,6 +527,7 @@ function model() {
   let mark = null, emp = null, on = null; try { mark = Ready1231.mark(r.key); } catch (x) { mark = null; } try { emp = r.empty ? emptiedOf816(r.key) : null; } catch (x) { emp = null; } try { on = lastOnSite816(r.key); } catch (x) { on = null; }
   const ctx = {mark, emp, on, ticks: umap(r.key, 'ready1238_units', 'at')}, books = umap(r.key, 'pickup1238_units', 'set');
   list.forEach(c => { c.st = stateOf(c, ctx); const b = books[c.uid]; c.book = b && ok(b.at) ? b : null; cards.push(c); }); });
+ try { boardCards(X, cards); } catch (x) {}
  const m = {cards, byKey: new Map(), byId: new Map()};
  cards.forEach(c => { if (!m.byKey.has(c.key)) m.byKey.set(c.key, []); m.byKey.get(c.key).push(c); m.byId.set(c.key + '#' + c.uid, c); });
  MEMO = {M, at: now, v: VER, model: m};
@@ -554,8 +577,8 @@ function failed(id) {
   if (!f.querySelector('.nm1238')) f.insertAdjacentHTML('beforeend', '<span class="nm1238">The picture did not load · tap for the map</span>'); });
 }
 function pump() {
- while (pbusy < 2 && PQ.length) {
-  const id = PQ.shift(); if (PIC.has(id)) { show(id); continue; }
+ while (pbusy < 3 && PQ.length) {
+  const id = PQ.pop(); /* the newest wanted first: the cards on screen now */ if (PIC.has(id)) { show(id); continue; }
   pbusy++;
   drawPic(id).then(u => { if (u) { PIC.set(id, u); show(id); } else { PFAIL.set(id, Date.now()); failed(id); } }).catch(() => { PFAIL.set(id, Date.now()); failed(id); }).then(() => { pbusy--; pump(); });
  }
@@ -564,12 +587,14 @@ function want(id) { if (PIC.has(id)) { show(id); return; } if (PFAIL.has(id) && 
 let io = null, ioRoot;
 function scroller() { const pane = D.getElementById('pane-demob'); let sc = pane && pane.parentElement; while (sc && sc !== D.body) { const cs = getComputedStyle(sc); if (/(auto|scroll)/.test(cs.overflowY)) return sc; sc = sc.parentElement; } return null; }
 function arm() {
- const imgs = D.querySelectorAll('#pane-demob img[data-pi1238]:not(.on)'); if (!imgs.length) return;
- if (!('IntersectionObserver' in W)) { imgs.forEach(im => want(im.getAttribute('data-pi1238'))); return; }
+ const cards = [...D.querySelectorAll('#pane-demob article.sg1238')].filter(a => a.querySelector('img[data-pi1238]:not(.on)')); if (!cards.length) return;
+ const wantAll = a => a.querySelectorAll('img[data-pi1238]:not(.on)').forEach(im => want(im.getAttribute('data-pi1238')));
+ if (!('IntersectionObserver' in W)) { cards.forEach(wantAll); return; }
  const root = scroller();
- if (!io || ioRoot !== root) { if (io) io.disconnect(); ioRoot = root; io = new IntersectionObserver(es => es.forEach(en => { if (en.isIntersecting) { io.unobserve(en.target); want(en.target.getAttribute('data-pi1238')); } }), {root, rootMargin: '700px 0px'}); }
- imgs.forEach(im => io.observe(im));
+ if (!io || ioRoot !== root) { if (io) io.disconnect(); ioRoot = root; io = new IntersectionObserver(es => es.forEach(en => { if (en.isIntersecting) { io.unobserve(en.target); wantAll(en.target); } }), {root, rootMargin: '500px 0px'}); }
+ cards.forEach(a => io.observe(a));
 }
+function picsState() { return {on: D.querySelectorAll('#pane-demob img[data-pi1238].on').length, all: D.querySelectorAll('#pane-demob img[data-pi1238]').length, drawn: PIC.size, failed: PFAIL.size, queued: PQ.length, busy: pbusy}; }
 function picsHtml(c) {
  const L = locOf(c), ic = SVG(ICONS[c.icon] || ICONS.other), k = e(c.key), u = e(c.uid);
  if (!L) return '<div class="ph1238"><button type="button" class="pf1238" data-pic1238="' + k + '" data-u1238="' + u + '" aria-label="' + k + ': no place on the record yet"><span class="nm1238">No place on the record yet · ' + (c.vms ? 'the board’s pin is still to come' : 'the driver reports at the pit lane') + '</span><span class="pb1238">' + ic + '</span></button><button type="button" class="pf1238" data-pic1238="' + k + '" data-u1238="' + u + '" aria-label="' + k + ': details"><span class="nm1238">Tap for its details</span></button></div>';
@@ -590,7 +615,7 @@ function titleOf(c) {
  return t + (c.tank ? ' + waste tank' : '');
 }
 function lampsHtml(c) {
- const s = c.st.s, ed = canEd() && s !== 'gone', k = e(c.key), u = e(c.uid);
+ const s = c.st.s, ed = canEd() && s !== 'gone' && !c.board, k = e(c.key), u = e(c.uid);
  const lamp = (v, cls, word, g, lit) => (ed ? '<button type="button" class="lp1238 ' + cls + (lit ? ' on' : '') + '" data-lamp1238="' + v + '" data-k1238="' + k + '" data-u1238="' + u + '"' + (lit ? ' aria-current="true"' : '') + ' title="' + word + '">' : '<span class="lp1238 ' + cls + (lit ? ' on' : '') + '" title="' + word + '">') + '<i>' + g + '</i>' + word + (ed ? '</button>' : '</span>');
  return '<div class="lm1238" role="group" aria-label="' + e(c.key + ' ' + (c.no || '') + ': ' + (s === 'gone' ? 'picked up' : s === 'ready' ? 'ready for collection' : 'not ready for collection')) + '">' + lamp('not', 'red', 'Not ready', '✕', s === 'not') + lamp('ready', 'amber', 'Ready', '●', s === 'ready') + lamp('gone', 'green', 'Picked up', '✓', s === 'gone') + '</div>';
 }
@@ -603,6 +628,7 @@ function statusWords(c) {
 }
 function bookHtml(c) {
  if (c.st.s === 'gone') return '';
+ if (c.board) return '<div class="bk1238">' + UI.cal + '<span>Pick-up: <b>to be booked</b><small>On the VMS plan only: booking opens once the board is on a delivery reference</small></span></div>';
  const k = e(c.key), u = e(c.uid), b = c.book, btn = '<button type="button" data-book1238="' + k + '" data-u1238="' + u + '">' + (b ? 'Change' : 'Book pick-up') + '</button>';
  if (!b) return '<div class="bk1238">' + UI.cal + '<span>Pick-up: <b>to be booked</b></span>' + btn + '</div>';
  const past = Date.parse(b.at) < Date.now();
@@ -630,7 +656,7 @@ function whereHtml(c) {
 }
 function cardHtml(c) {
  const k = e(c.key), u = e(c.uid), sw = statusWords(c), own = coName(c.owner), sub = [];
- sub.push('GC500 ID <u>' + k + '</u>');
+ sub.push(c.board ? 'VMS plan board' : 'GC500 ID <u>' + k + '</u>');
  if (c.of > 1) sub.push(c.idx + ' of ' + c.of);
  if (c.group) sub.push(c.n + ' × ' + e(c.item));
  if (c.branch) sub.push(e(c.branch));
@@ -680,7 +706,7 @@ function barHtml(list, day) {
  const f = (k, word, v) => '<button type="button" class="f1238 ' + k + '" data-f1238="' + k + '" aria-pressed="' + (FILTER === k) + '"><i></i><b>' + v + '</b> ' + word + '</button>';
  return '<div class="tb1238"><div class="th1238"><b>' + (day ? e(dayW(day)) + ' · booked and picked up' : 'Everything on site') + '</b><span>' + units(list.length) + ' · one card each · tap a picture for the full map</span></div>'
   + '<div class="fr1238">' + f('all', 'all', list.length) + f('not', 'not ready', n.not) + f('ready', 'ready', n.ready) + f('gone', 'picked up', n.gone) + (day ? '' : f('booked', 'booked', booked))
-  + '<label class="fd1238">' + UI.find + '<input type="search" data-fd1238 placeholder="Find an asset no., GC500 ID, VMS or rego" value="' + e(FIND) + '" aria-label="Find an asset"></label></div>'
+  + '<label class="fd1238">' + UI.find + '<input type="search" data-fd1238 data-ro placeholder="Find an asset no., GC500 ID, VMS or rego" value="' + e(FIND) + '" aria-label="Find an asset"></label></div>'
   + (day ? '' : '<nav class="cn1238" aria-label="Go to a group">' + ORDER.filter(k => cats.has(k)).map(k => '<button type="button" data-catgo1238="' + k + '" style="--cc:' + CAT[k].c + '"><i>' + SVG(ICONS[CAT[k].icon]) + '</i>' + e(CAT[k].label) + ' <b>' + cats.get(k) + '</b></button>').join('') + '</nav>') + '</div>';
 }
 function bookedHtml(list) {
@@ -744,6 +770,7 @@ function setBooking(key, uids, at, note) {
 }
 function lamp(key, uid, s) {
  const c = cardOf(key, uid); if (!c) return false;
+ if (c.board) { try { flash(c.vms.label + ' is on the VMS plan but on no delivery reference yet, so its Ready tick waits until it is.'); } catch (x) {} return false; }
  if (c.group) { try { return s === 'ready' ? Ready1231.ready(key) : s === 'not' ? Ready1231.notReady(key) : Ready1231.pickedUp(key); } catch (x) { return false; } }
  if (s === 'gone') { try { return Ready1231.pickedUp(key); } catch (x) { return false; } }
  if (s === 'ready') {
@@ -834,7 +861,7 @@ function summary() {
 }
 function open(key, uid) {
  if (!canEd()) { try { flash('Booking a pick-up needs the edit link.'); } catch (x) {} return false; }
- const c = cardOf(key, uid); if (!c) return false;
+ const c = cardOf(key, uid); if (!c || c.board) return false;
  const dlg = sheet(), b = c.book, td = todayQ();
  SEL = {key, uid, day: b ? qDay(b.at) : '', time: b ? hhmm(b.at) : '', month: null, mode: 'h', h: b ? Number(hhmm(b.at).slice(0, 2)) : null};
  const base = SEL.day || td; SEL.month = new Date(Date.UTC(Number(base.slice(0, 4)), Number(base.slice(5, 7)) - 1, 1));
@@ -928,9 +955,13 @@ D.addEventListener('input', ev => { const t = ev.target; if (!t || !t.matches ||
 /* ---- the days: only what was booked for the day, or left on it, with each reference and its asset numbers ---- */
 function dayLists(iso) {
  const m = model(), booked = m.cards.filter(c => c.book && qDay(c.book.at) === iso && c.st.s !== 'gone');
- const left = []; m.byKey.forEach(cs => { const G = cs[0].G; G.events.forEach(ev => { const d = ev.info.at ? qDay(ev.info.at) : ev.info.day; if (d !== iso) return; left.push({key: cs[0].key, at: ev.info.at, nos: ev.nos.slice(), n: ev.n, part: !G.complete}); }); });
+ const left = []; m.byKey.forEach(cs => { const G = cs[0].G; if (!G) return; G.events.forEach(ev => { const d = ev.info.at ? qDay(ev.info.at) : ev.info.day; if (d !== iso) return; left.push({key: cs[0].key, at: ev.info.at, nos: ev.nos.slice(), n: ev.n, part: !G.complete, desc: descLine(cs[0], ev.types)}); }); });
  left.sort((a, b) => String(a.at || '').localeCompare(String(b.at || '')) || nat(a.key, b.key));
  return {booked: booked.sort((a, b) => String(a.book.at).localeCompare(String(b.book.at))), left};
+}
+function descLine(c, types) {
+ const w = WORD[c.icon] || '', t = (types && types.length ? types.join(', ') : c.item || c.what.split(' · ')[0]), last = w.split(' ').pop().replace(/s$/, '');
+ return t + (last && !new RegExp(last, 'i').test(t) ? ' ' + w : '');
 }
 function dayRows(iso) {
  const L = dayLists(iso), ready = L.booked.filter(c => c.st.s === 'ready').length, last = L.left.reduce((x, y) => y.at && y.at > x ? y.at : x, ''), units = L.left.reduce((s, x) => s + (x.nos.length || x.n || 0), 0);
@@ -946,8 +977,8 @@ function decorateDays() {
   card.querySelectorAll('.bc984-label, .bc984-at-close').forEach(n => { if (/PLANNED PICK-UPS|COLLECTION RECORD/.test(n.textContent) && n.childNodes[0] && n.childNodes[0].nodeType === 3) n.childNodes[0].nodeValue = 'BOOKED AND PICKED UP'; });
   [...card.querySelectorAll('*')].forEach(n => { if (n.children.length === 0 && /^(PLANNED PICK-UPS|COLLECTION RECORD)$/.test(n.textContent.trim())) n.textContent = 'BOOKED AND PICKED UP'; });
   const row = card.querySelector('.bc984-load-row'); if (!row) return;
-  const lines = L.left.map(x => '<span><b>' + e(x.key) + '</b><s>' + e(x.nos.length ? x.nos.join(' ') : (x.n ? x.n + ' unit' + (x.n === 1 ? '' : 's') : '')) + (x.part ? ' · part' : '') + '</s><time>' + e(x.at ? hhmm(x.at) : '–') + '</time></span>')
-   .concat(L.booked.map(c => '<span><b>' + e(c.vms ? c.vms.label : c.key) + '</b><s>' + e(c.no || titleOf(c)) + ' <em>booked</em></s><time>' + e(hhmm(c.book.at)) + '</time></span>'));
+  const lines = L.left.map(x => '<span><b>' + e(x.key) + '</b><s><em>' + e(x.desc) + '</em> ' + e(x.nos.length ? x.nos.join(' ') : (x.n ? x.n + ' unit' + (x.n === 1 ? '' : 's') : '')) + (x.part ? ' · part' : '') + '</s><time>' + e(x.at ? hhmm(x.at) : '–') + '</time></span>')
+   .concat(L.booked.map(c => '<span><b>' + e(c.vms ? c.vms.label : c.key) + '</b><s><em>' + e(descLine(c)) + '</em> ' + e(c.no || '') + ' <em>booked</em></s><time>' + e(hhmm(c.book.at)) + '</time></span>'));
   row.innerHTML = '<span class="bc984-label">PICKED UP · BOOKED<span class="bc984-at-close">REF · ASSET NO. · TIME</span></span>' + (lines.length ? '<span class="dl1238">' + lines.join('') + '</span>' : '<span class="bc984-load-count long">Nothing yet</span>');
  });
 }
@@ -988,7 +1019,7 @@ function watch() {
  const pane = D.getElementById('pane-demob'); if (!pane || pane.__sg1238) return; pane.__sg1238 = true;
  new MutationObserver(ms => { if (raf || ms.every(m => m.target && m.target.closest && m.target.closest('.sgv1238,.pg1238,.dl1238'))) return; raf = (W.requestAnimationFrame || setTimeout)(() => { raf = 0; try { decorate(); } catch (x) {} }); }).observe(pane, {childList: true, subtree: true});
 }
-W.Singles1238 = Object.freeze({model, cardOf, stateOf, cardsOf, setUnitReady, setBooking, lamp, open, save, close, wordsOf, send, files, locOf, navOf, goCard, goCat, dayRows, dayLists, iconKey, iconPaths, ICONS, WORD, count, owns: () => true, release: REL});
+W.Singles1238 = Object.freeze({model, picsState, cardOf, stateOf, cardsOf, setUnitReady, setBooking, lamp, open, save, close, wordsOf, send, files, locOf, navOf, goCard, goCat, dayRows, dayLists, iconKey, iconPaths, ICONS, WORD, count, owns: () => true, release: REL});
 try { if (typeof RENDER_MEMO !== 'undefined' && RENDER_MEMO instanceof Map) RENDER_MEMO.delete('demob816'); } catch (x) {}
 watch();
 try { const p = D.getElementById('pane-demob'); if (p && !p.hidden && p.querySelector('.dmday816')) renderDemob816(); } catch (x) {}

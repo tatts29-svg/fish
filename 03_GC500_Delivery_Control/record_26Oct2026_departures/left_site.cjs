@@ -21,6 +21,8 @@
      emptied     - 26 Oct 2026: the Emptied (pumped out) tick on a toilet or waste tank, through the page's own setEmptied816,
                    as a person ticking it in the reference's drawer. The page's emptied gate keeps a toilet's departure form
                    shut until it is ticked; it is only ever ticked here on Andrew's word that the units were pumped out.
+     unit_ready  - 26 Oct 2026 (v12.38): a unit's own Ready tick on the Demob tab, through the page's own Singles1238.setUnitReady,
+                   as a person pressing Ready on that unit's card; units named owner|asset number. Only on Andrew's word.
 
      node left_site.cjs                    DRY RUN (default): the page is opened read-only through the harness, every
                                            write it tries is ABORTED, and the script prints what --apply would send.
@@ -106,6 +108,7 @@ spec.ops.forEach((o, i) => {
     if (o.unnumbered != null && !(Array.isArray(o.unnumbered) && o.unnumbered.every(u => u && typeof u.type === 'string' && u.type.trim() && Number.isInteger(u.n) && u.n > 0))) fail(at + 'unnumbered must be a list of {type, n}');
     if (!o.nos.length && !(o.unnumbered || []).length) fail(at + 'needs at least one unit that left'); if (o.complete != null && typeof o.complete !== 'boolean') fail(at + 'complete must be true or false'); if (o.readback != null && o.readback !== 'history') fail(at + 'readback can only be history'); }
   else if (o.op === 'emptied') { if (!REFRE.test(o.ref || '')) fail(at + 'needs a reference'); if (o.on !== true) fail(at + 'emptied only ticks on (on: true), on Andrew\'s word that the units were pumped out'); }
+  else if (o.op === 'unit_ready') { if (!REFRE.test(o.ref || '')) fail(at + 'needs a reference'); if (!Array.isArray(o.units) || !o.units.length || o.units.some(u => !/^[a-z-]+\|[0-9A-Za-z]{2,12}$/.test(u))) fail(at + 'needs the units, each owner|asset number'); }
   else fail(at + 'unknown op ' + o.op);
 });
 const VKEYS = [...new Set(spec.ops.filter(o => o.op === 'vms_rego' || o.op === 'vms_fleet' || o.op === 'vms_board').map(o => o.key))];
@@ -486,6 +489,17 @@ function applyOps(spec) {
         const was = emptiedOf816(op.ref);
         if (was.on) r.result = 'already emptied, by ' + was.by + ' at ' + was.at;
         else { if (setEmptied816(op.ref, true) !== true) throw new Error('setEmptied816 refused ' + op.ref); const now = emptiedOf816(op.ref); if (!now.on || now.by !== who) throw new Error(op.ref + ' is not emptied by ' + who + ' after the tick'); r.result = 'emptied (pumped out), recorded by ' + now.by + ' at ' + now.at; }
+      } else if (op.op === 'unit_ready') {
+        /* v12.38: a unit's own Ready tick through the page's own Singles1238.setUnitReady, as a person pressing Ready on that unit's
+           card on the Demob tab. Only on Andrew's word. Every unit named must be on site on that reference. */
+        const SG = window.Singles1238; if (!SG || typeof SG.setUnitReady !== 'function') throw new Error('the per-unit Ready tick is not on this page (v12.38)');
+        const cards = op.units.map(u => SG.cardOf(op.ref, u));
+        cards.forEach((c, i) => { if (!c) throw new Error(op.ref + ' has no unit ' + op.units[i]); if (c.st.s === 'gone') throw new Error(op.ref + ' ' + op.units[i] + ' has left'); });
+        const todo = op.units.filter((u, i) => cards[i].st.s !== 'ready');
+        if (todo.length && SG.setUnitReady(op.ref, todo, true) !== true) throw new Error('setUnitReady refused ' + op.ref);
+        const after = op.units.map(u => SG.cardOf(op.ref, u));
+        if (after.some(c => !c || c.st.s !== 'ready')) throw new Error(op.ref + ' units are not all Ready after the tick');
+        r.result = todo.length + ' unit(s) ticked Ready by ' + who + (op.units.length - todo.length ? '; ' + (op.units.length - todo.length) + ' already ready' : '') + ': ' + op.units.join(', ');
       } else throw new Error('unknown op ' + op.op);
     } catch (e) { r.result = 'ERROR: ' + e.message; r.error = true; }
     out.push(r);
@@ -655,6 +669,7 @@ function applyOps(spec) {
           if (op.supplied_at && sv('supplied/' + op.ref + '/' + op.item) !== op.supplied_at) problems.push(op.ref + ' receipt is not dated ' + op.supplied_at + ' ' + where);
           if (op.install_at && sv('labour/' + op.ref + '|' + op.disc + '|' + op.item + '|install') !== op.install_at) problems.push(op.ref + ' install is not dated ' + op.install_at + ' ' + where); }
         if (op.op === 'set_qty' && op.qty !== '' && op === spec.ops.filter(o => o.op === 'set_qty' && o.ref === op.ref).slice(-1)[0] && ((((docs.qtys || {})[op.ref] || {}).v)) !== op.qty) problems.push(op.ref + ' quantity is not ' + op.qty + ' ' + where); /* only the last quantity set on a reference must hold */
+        if (op.op === 'unit_ready') { const um = (((docs.delivery || {})[op.ref] || {}).ready1238_units) || {}, miss = op.units.filter(u => !(um[u] && um[u].on === true && um[u].by === spec.by)); if (miss.length) problems.push(op.ref + ' units not Ready by ' + spec.by + ' on the record: ' + miss.join(', ') + ' ' + where); }
         if (op.op === 'emptied') { const dd = (docs.delivery || {})[op.ref] || {}, had = /^already emptied/.test(((results.find(x => x.op === 'emptied' && x.ref === op.ref)) || {}).result || ''); if (dd.emptied !== true || !dd.emptied_at || (!had && dd.emptied_by !== spec.by)) problems.push(op.ref + ' is not emptied (pumped out) by ' + spec.by + ' ' + where); }
         if (op.op === 'depart') { const dd = (docs.delivery || {})[op.ref] || {}, hits = (dd.history || []).filter(h => h && h.collection996 && h.collection996.kind === 'collection' && h.collection996.departedAt1211 === op.at && h.collection996.date === op.at.slice(0, 10) && h.by === spec.by && op.nos.every(no => (h.collection996.items || []).some(i => (i.numbers || []).map(String).includes(no))));
           if (hits.length !== 1) problems.push(op.ref + ' has ' + hits.length + ' departure entries at ' + op.at + ' for ' + op.nos.join(', ') + ', not 1 ' + where);

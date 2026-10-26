@@ -1,5 +1,7 @@
-/* Author: Andrew Fisher. v12.38 - the Demob cards: book the pick-up date and time, three pictures on every card, and its
-   directions to send by text or email. Part A reads the live record through the view link. Part B rehearses the booking with the
+/* Author: Andrew Fisher. v12.38 - the Demob tab, one card per asset. Part A reads the live record through the view link: the
+   cards, their owners, the waste tanks with their toilets, the barriers, the building contents, every VMS board, the default Not
+   ready, the icons, the two map pictures, arrival, the directions, find and filter, the day cards and a day's list, the progress
+   lit up. Part B rehearses a unit's Ready tick and its booking (calendar, clock, typed time, all units at once, clear) with the
    sync held in the page: every write is captured in the page and none reaches the network; the merge is proven on copies.
      PAGE=<build> OUT=<dir> [MOB=1] node test_v1238.cjs */
 'use strict';
@@ -9,161 +11,184 @@ const {open} = require('../../toolchain/harness/open_page');
   const mobile = process.env.MOB === '1', out = process.env.OUT, checks = [];
   fs.mkdirSync(out, {recursive: true});
   const h = await open({pageFile: process.env.PAGE, hash: '#demob', W: mobile ? 390 : 1440, H: mobile ? 844 : 1000, dpr: mobile ? 2 : 1, mobile}), p = h.page;
-  const check = (name, ok, detail) => { checks.push({name, ok: !!ok, detail: detail === undefined ? null : detail}); fs.writeFileSync(path.join(out, 'checks.json'), JSON.stringify(checks, null, 1)); console.log((ok ? 'PASS ' : 'FAIL ') + name + (ok || detail === undefined ? '' : ' · ' + JSON.stringify(detail).slice(0, 700))); };
-  const shot = (name, el) => (el ? p.locator(el).first().screenshot({path: path.join(out, name + (mobile ? '_phone' : '_desktop') + '.png')}) : p.screenshot({path: path.join(out, name + (mobile ? '_phone' : '_desktop') + '.png')}));
-  const row = k => '#pane-demob .dmday816 tr[data-row816="' + k + '"]';
+  const check = (name, ok, detail) => { checks.push({name, ok: !!ok, detail: detail === undefined ? null : detail}); fs.writeFileSync(path.join(out, 'checks.json'), JSON.stringify(checks, null, 1)); console.log((ok ? 'PASS ' : 'FAIL ') + name + (ok || detail === undefined ? '' : ' · ' + JSON.stringify(detail).slice(0, 900))); };
+  const shot = (name, el) => (el ? p.locator(el).first().screenshot({path: path.join(out, name + (mobile ? '_phone' : '_desktop') + '.png')}) : p.screenshot({path: path.join(out, name + (mobile ? '_phone' : '_desktop') + '.png')})).catch(e => console.log('shot ' + name + ': ' + e.message.slice(0, 120)));
+  const card = (k, u) => '#pane-demob article.sg1238[data-sg1238="' + k + '"]' + (u ? '[data-u1238="' + u + '"]' : '');
   const scrollTo = sel => p.evaluate(sel => { const el = document.querySelector(sel); if (!el) return false; el.scrollIntoView({block: 'center'}); return true; }, sel);
+  const blurNames = () => p.addStyleTag({content: '.bc984-names,.bc984-names *{filter:blur(7px)!important}'});
   try {
-    await p.waitForFunction(() => typeof SYNC !== 'undefined' && SYNC.status === 'live' && window.Ready1231 && window.DemobMap1236 && window.Pickup1238 && window.CardPics1238 && typeof demob816 === 'function', null, {timeout: 180000});
+    await p.waitForFunction(() => typeof SYNC !== 'undefined' && SYNC.status === 'live' && window.Singles1238 && window.Glow1238 && typeof demob816 === 'function', null, {timeout: 180000});
     await p.evaluate(() => { try { go('demob'); } catch (e) {} });
-    await p.waitForFunction(() => document.querySelector('#pane-demob .dmday816 tr[data-row816]'), null, {timeout: 60000});
-    await p.waitForTimeout(1500);
+    await p.waitForFunction(() => document.querySelector('#pane-demob article.sg1238'), null, {timeout: 90000});
+    await p.waitForTimeout(2500);
     const foot = await p.evaluate(() => document.body.innerText.match(/v12\.\d+/g) || []);
-    check('page loads with no errors, the v12.38 helpers and footer', !h.errors.length && foot.includes('v12.38') && !foot.includes('v12.36 ·'), {errors: h.errors, foot: [...new Set(foot)]});
+    check('page loads with no errors, the v12.38 helpers and footer', !h.errors.length && foot.includes('v12.38') && !foot.includes('v12.37 ·'), {errors: h.errors, foot: [...new Set(foot)]});
 
     /* ---------------- Part A: the live record, view link ---------------- */
     const A = await p.evaluate(() => {
-      const rows = [...document.querySelectorAll('#pane-demob .dmday816 tr[data-row816]')], out = {rows: rows.length, spot: 0, gone: 0, goneLeft: 0, booked: 0, toBook: 0, buttonsShown: 0, bad: []};
-      rows.forEach(tr => { const k = tr.dataset.row816, ps = tr.dataset.ps1236, bk = tr.querySelector('td.pk1231 .bk1238');
-        if (!bk) { out.bad.push(k + ':no spot'); return; } out.spot++;
-        if (ps === 'gone') { out.gone++; if (/Left site/.test(bk.textContent)) out.goneLeft++; return; }
-        if (bk.classList.contains('on')) out.booked++; else if (/Pick-up time: to be booked/.test(bk.textContent)) out.toBook++; else out.bad.push(k + ':' + bk.textContent.slice(0, 40));
-        const b = bk.querySelector('button.bb1238'); if (b && b.offsetParent) out.buttonsShown++; });
-      out.cap = document.body.getAttribute('data-cap'); return out; });
-    check('v12.38: every card in everything on site has its pick-up spot: Left site, the booked day and time, or "to be booked" - nothing pre-dated', A.rows > 150 && A.spot === A.rows && A.gone === A.goneLeft && A.booked + A.toBook + A.gone === A.rows && !A.bad.length, A);
-    check('v12.38: on the view link the spot shows and cannot be changed (no Book button)', A.cap !== 'edit' && A.buttonsShown === 0, {cap: A.cap, shown: A.buttonsShown});
-    const P = await p.evaluate(() => { const card = document.querySelector('#pane-demob .dmday816'), bp = card && card.querySelector('.bp1238'), sum = card && card.querySelector('.sum1231'), pg = card && card.querySelector('.pg1236');
-      const order = bp && sum ? !!(bp.compareDocumentPosition(sum) & Node.DOCUMENT_POSITION_FOLLOWING) : false, afterPg = bp && pg ? !!(pg.compareDocumentPosition(bp) & Node.DOCUMENT_POSITION_FOLLOWING) : false;
-      return {has: !!bp, head: bp && bp.querySelector('header').innerText.replace(/\s+/g, ' '), empty: bp && (bp.querySelector('.be1238') || {}).innerText, lines: bp ? bp.querySelectorAll('[data-bpgo1238]').length : 0, order, afterPg, booked: Pickup1238.list().length}; });
-    check('v12.38: the booked pick-ups sit under the demob percentage, above the tally, built only from bookings', P.has && P.order && P.afterPg && /^Booked pick-ups \d+ booked · \d+ still to book$/i.test(P.head || '') && (P.lines > 0 || /No pick-ups booked yet/.test(P.empty || '')), P);
-
-    /* three pictures on every card that has a place, and its directions */
-    const C = await p.evaluate(() => { const rows = [...document.querySelectorAll('#pane-demob .dmday816 tr[data-row816]')], out = {withRow: 0, located: 0, frames: 0, actions: 0, plan: 0, goneWithRow: [], missing: []};
-      rows.forEach(tr => { const k = tr.dataset.row816, pz = tr.querySelector('.pz1238'), L = CardPics1238.locOf(k);
-        if (tr.dataset.ps1236 === 'gone') { if (pz) out.goneWithRow.push(k); return; }
-        if (L) { out.located++; if (!pz) out.missing.push(k); }
-        if (!pz) return; out.withRow++; out.frames += pz.querySelectorAll('.pf1238').length; out.actions += pz.querySelectorAll('.ac1238 button').length; if (tr.querySelector('.mp1236')) out.plan++; });
+      const m = Singles1238.model(), arts = [...document.querySelectorAll('#pane-demob .sgv1238 article.sg1238')];
+      const by = k => (m.byKey.get(k) || []).map(c => ({uid: c.uid, owner: c.owner, item: c.item, no: c.no, tank: c.tankNo, s: c.st.s, group: !!c.group, icon: c.icon, inside: c.inside}));
+      const secC = document.querySelector('#pane-demob .sx1238.coates'), secS = document.querySelector('#pane-demob .sx1238.sub');
+      return {cards: m.cards.length, arts: arts.length, uniq: new Set(arts.map(a => a.dataset.sg1238 + '#' + a.dataset.u1238)).size,
+        coatesIn: secC ? secC.querySelectorAll('article.sg1238').length : 0, subIn: secS ? secS.querySelectorAll('article.sg1238').length : 0,
+        coatesOwn: m.cards.filter(c => c.owner === 'coates' || c.owner === 'unknown').length, sups: secS ? [...secS.querySelectorAll('.sp1238 > h4')].map(x => x.textContent) : [],
+        WC09: by('WC09'), WC31: by('WC31'), WC67: by('WC67'), T0024: by('T0024'), WC20: by('WC20'), WC05: by('WC05'), WB01: by('WB01'), P46: by('P46'), T0002: by('T0002'), GN18: by('GN18'),
+        wbRefs: [...new Set(m.cards.filter(c => c.cat === 'wb').map(c => c.key))].length, wbCards: m.cards.filter(c => c.cat === 'wb').length, wbGroups: m.cards.filter(c => c.cat === 'wb' && c.group).length,
+        btn: (document.querySelector('[data-view816="everything"]') || {}).textContent, notChecked: /Not checked yet/i.test(document.getElementById('pane-demob').innerText)};
+    });
+    check('v12.38: everything on site is one card per asset, each drawn once (' + A.cards + ' cards)', A.cards > 380 && A.arts === A.cards && A.uniq === A.cards && /Everything on site · \d+ assets/.test(A.btn || ''), {cards: A.cards, arts: A.arts, uniq: A.uniq, btn: A.btn});
+    check('v12.38: Coates\' own units are in our list, sub-hired units under their supplier', A.coatesIn === A.coatesOwn && A.subIn === A.cards - A.coatesOwn && A.sups.some(s => /Event Portables/.test(s)) && A.sups.some(s => /Premiair/.test(s)), {coatesIn: A.coatesIn, coatesOwn: A.coatesOwn, subIn: A.subIn, sups: A.sups});
+    const split = (list, co, ep) => list.filter(c => c.owner === 'coates').length === co && list.filter(c => c.owner === 'event-portables').length === ep;
+    check('v12.38: the mixed toilet references split by owner: WC09 2 Coates + 16 Event Portables, WC31 1 + 2 (the 16 Pan blocks), WC67 1 + 3, T0024 1 + 1', split(A.WC09, 2, 16) && split(A.WC31, 1, 2) && split(A.WC67, 1, 3) && split(A.T0024, 1, 1) && A.WC31.filter(c => /16\s*Pan/i.test(c.item)).length === 2, {WC09: A.WC09.length, WC31: A.WC31, WC67: A.WC67.length, T0024: A.T0024});
+    check('v12.38: a waste tank stays on its toilet\'s card (WC20 two sets, WC05 one)', A.WC20.length === 2 && A.WC20.every(c => /Toilet Block/i.test(c.item) && c.tank) && A.WC05.length === 1 && !!A.WC05[0].tank, {WC20: A.WC20, WC05: A.WC05});
+    check('v12.38: water barriers stay one card a run; what is inside a building is on the building\'s card (P46 with its fridges and air conditioners)', A.wbCards === A.wbRefs && A.wbGroups === A.wbCards && A.P46.length === 1 && A.P46[0].inside.some(x => /Fridge 1318501/.test(x)) && A.P46[0].inside.some(x => /Air conditioner/.test(x)), {wb: [A.wbRefs, A.wbCards, A.wbGroups], P46: A.P46});
+    check('v12.38: a reference of five light towers is five cards, each its own asset number', A.T0002.length === 5 && new Set(A.T0002.map(c => c.no)).size === 5 && A.T0002.every(c => /^\d{7}$/.test(c.no)), A.T0002);
+    check('v12.38: nothing reads "Not checked yet": a unit is Not ready until it is ticked Ready (or Emptied) or picked up', !A.notChecked, A.notChecked);
+    const I = await p.evaluate(() => { const m = Singles1238.model(), ic = k => [...new Set((m.byKey.get(k) || []).map(c => c.icon))];
+      const arts = [...document.querySelectorAll('#pane-demob article.sg1238')]; return {GN18: ic('GN18'), WC09: ic('WC09'), T0002: ic('T0002'), P46: ic('P46'), WC20: ic('WC20'), EQ0001: ic('EQ0001'), T0109: ic('T0109'), vms: [...new Set(m.cards.filter(c => c.cat === 'vms').map(c => c.icon))], withIcon: arts.filter(a => a.querySelector('.hd1238 .ic1238 svg')).length, all: arts.length}; });
+    check('v12.38: each card carries the icon of what it is (generator, toilet, pee panel, toilet block, lighting tower, building, scissor lift, forklift, message board)', I.withIcon === I.all && I.GN18.join() === 'gen' && ['fwf', 'urinal', 'block'].every(x => I.WC09.includes(x)) && I.T0002.join() === 'tower' && I.P46.join() === 'bld' && I.WC20.join() === 'block' && I.EQ0001.join() === 'scissor' && I.T0109.join() === 'forklift' && I.vms.join() === 'vms', I);
+    const V = await p.evaluate(() => { const m = Singles1238.model(), vs = m.cards.filter(c => c.cat === 'vms');
+      return {n: vs.length, labels: vs.map(c => c.vms && c.vms.label).sort(), withNo: vs.filter(c => c.no).length, withRego: vs.filter(c => c.rego).length, located: vs.filter(c => c.vms && Number.isFinite(c.vms.lat) && Number.isFinite(c.vms.lon)).length, withWhere: vs.filter(c => c.vms && c.vms.where.length > 1).length,
+        v02: (vs.find(c => c.no === '1211370') || {}).vms, text02: (document.querySelector('#pane-demob article.sg1238[data-u1238="coates|1211370"] .wh1238') || {}).textContent}; });
+    check('v12.38: every VMS board, 24, each with its asset number, rego and where it stands now (VMS 02 at its 02a pin)', V.n === 24 && new Set(V.labels).size === 24 && V.withNo === 24 && V.withRego === 24 && V.located === 24 && V.withWhere === 24 && V.v02 && V.v02.at === 'VMS 02a' && /Now at VMS 02a/.test(V.text02 || ''), V);
+    const R = await p.evaluate(() => { const arts = [...document.querySelectorAll('#pane-demob article.sg1238')], out = {onSite: 0, two: 0, pulse: 0, actions: 0, gonePics: 0, arrived: 0, notBoard: 0, located: 0, missing: []};
+      arts.forEach(a => { const c = Singles1238.cardOf(a.dataset.sg1238, a.dataset.u1238); if (!c) return; if (!c.board) { out.notBoard++; if (a.querySelector('.mt1238 .ar')) out.arrived++; }
+        if (c.st.s === 'gone') { if (a.querySelector('.ph1238')) out.gonePics++; return; } out.onSite++;
+        const L = Singles1238.locOf(c), imgs = a.querySelectorAll('.ph1238 img[data-pi1238]'); if (L) { out.located++; if (imgs.length === 2) out.two++; else out.missing.push(c.key); }
+        out.pulse += a.querySelectorAll('.ph1238 .pu1238').length; if (a.querySelectorAll('.ac1238 button').length === 4) out.actions++; });
       return out; });
-    check('v12.38: every card with a place carries three pictures (the master plan and two aerials) and Navigate, Text, Email and Send; gone ones none', C.withRow > 100 && !C.missing.length && C.frames === C.withRow * 2 && C.actions === C.withRow * 4 && C.plan === C.withRow && !C.goneWithRow.length, C);
-    await p.evaluate(async () => { const pane = document.getElementById('pane-demob'); let sc = pane.parentElement; while (sc && sc !== document.body) { const cs = getComputedStyle(sc); if (/(auto|scroll)/.test(cs.overflowY) && sc.scrollHeight > sc.clientHeight + 10) break; sc = sc.parentElement; } if (!sc || sc === document.body) sc = document.scrollingElement; for (let i = 0; i < 300; i++) { const b = sc.scrollTop; sc.scrollTop += 900; await new Promise(r => setTimeout(r, 110)); if (sc.scrollTop === b) break; } });
-    await p.waitForFunction(() => { const im = [...document.querySelectorAll('#pane-demob img[data-ai1238]')]; return im.length && im.filter(x => x.classList.contains('on')).length >= im.length * 0.97; }, null, {timeout: 180000}).catch(() => {});
-    const AE = await p.evaluate(() => { const im = [...document.querySelectorAll('#pane-demob img[data-ai1238]')]; return {imgs: im.length, drawn: im.filter(x => x.classList.contains('on') && x.naturalWidth === 396 && x.naturalHeight === 276).length, notes: document.querySelectorAll('#pane-demob .pz1238 .nm1238').length}; });
-    check('v12.38: the aerial pictures are drawn on every card from the page\'s own site aerial (396 × 276), or say why not', AE.imgs > 100 && AE.drawn >= AE.imgs * 0.97, AE);
-    const ring = await p.evaluate(async () => { const cv = await CardPics1238.aerialCanvas('GN19', 'close', 1); if (!cv) return null; const L = CardPics1238.locOf('GN19'), g = DATA.georef, fr = frameOf(L.lat, L.lon), FX = g.frame_px[0], FY = g.frame_px[1], pxPerM = 1 / g.m_per_frame_px_ground;
-      let fw = 2 * 95 * pxPerM, fh = fw * 276 / 396; let x0 = Math.max(0, Math.min(FX - fw, fr.ax * FX - fw / 2)), y0 = Math.max(0, Math.min(FY - fh, fr.ay * FY - fh / 2)); const X = (fr.ax * FX - x0) / fw * 396, Y = (fr.ay * FY - y0) / fh * 276, R = 396 * 0.118;
-      const c = cv.getContext('2d'), px = c.getImageData(Math.round(X + R), Math.round(Y), 1, 1).data; return {X: Math.round(X), Y: Math.round(Y), px: [px[0], px[1], px[2]]}; });
-    check('v12.38: on the aerial close up the equipment\'s icon sits on its spot in the same neon ring', ring && ring.px[0] < 140 && ring.px[1] > 170 && ring.px[2] > 200, ring);
-    /* Navigate, Text and Email open on this phone; nothing is sent from the page */
-    await p.evaluate(() => { window.__opened1238 = []; document.addEventListener('click', ev => { const a = ev.target && ev.target.closest && ev.target.closest('a[href]'); if (a && /^(sms:|mailto:|https:\/\/www\.google\.com\/maps)/.test(a.getAttribute('href'))) { window.__opened1238.push(a.getAttribute('href')); ev.preventDefault(); } }, true); });
-    await scrollTo(row('GN19')); await p.waitForTimeout(400);
-    for (const d of ['data-nv1238', 'data-sm1238', 'data-em1238']) await p.click(row('GN19') + ' [' + d + '="GN19"]');
+    check('v12.38: every card still on site with a place has two map pictures (close up and wider area) with a pulsing ring, and Navigate, Text, Email and Send; picked-up cards none', R.located > 300 && R.two === R.located && R.pulse >= R.two * 2 && R.actions === R.onSite && R.gonePics === 0, R);
+    check('v12.38: the arrival date is on the cards (' + R.arrived + ' of ' + R.notBoard + ')', R.arrived >= R.notBoard * 0.9, {arrived: R.arrived, of: R.notBoard});
+    await scrollTo(card('GN18')); await p.waitForTimeout(400);
+    await p.waitForFunction(() => { const a = document.querySelector('#pane-demob article.sg1238[data-sg1238="GN18"]'); return a && a.querySelectorAll('img[data-pi1238].on').length === 2; }, null, {timeout: 90000}).catch(() => {});
+    const PIC = await p.evaluate(() => { const a = document.querySelector('#pane-demob article.sg1238[data-sg1238="GN18"]'); const im = [...a.querySelectorAll('img[data-pi1238]')];
+      return {on: im.filter(x => x.classList.contains('on') && x.naturalWidth === 560).length, words: [...a.querySelectorAll('.vw1238')].map(x => x.textContent), badge: a.querySelectorAll('.pf1238 .pb1238 svg').length, state: Singles1238.picsState()}; });
+    check('v12.38: the pictures are the page\'s own "on the map" pictures (close up 190 m, wider area 840 m), drawn and with the icon on them', PIC.on === 2 && PIC.words.join('|') === 'Close up · 190 m|Wider area · 840 m' && PIC.badge === 2, PIC);
+    await shot('card_generator', card('GN18'));
+    /* the directions: Navigate, Text, Email and Send */
+    await p.evaluate(() => { window.__opened1238 = []; document.addEventListener('click', ev => { const a = ev.target && ev.target.closest && ev.target.closest('a[href]'); if (a && /^(sms:|mailto:|https:\/\/www\.google\.com\/maps)/.test(a.getAttribute('href'))) { window.__opened1238.push(a.getAttribute('href')); ev.preventDefault(); } }, true);
+      window.__shared1238 = null; navigator.canShare = () => true; navigator.share = async d => { window.__shared1238 = {title: d.title, text: d.text, files: (d.files || []).map(f => f.name + ':' + f.size)}; }; });
+    for (const d of ['data-nv1238', 'data-sm1238', 'data-em1238']) await p.click(card('GN18') + ' [' + d + '="GN18"]');
     const opened = await p.evaluate(() => window.__opened1238.slice());
-    const nav = opened.find(u => u.startsWith('https://www.google.com/maps/dir/')), sms = decodeURIComponent((opened.find(u => u.startsWith('sms:')) || '').replace(/^sms:\?&body=/, '')), mail = opened.find(u => u.startsWith('mailto:')) || '';
-    const mailBody = decodeURIComponent((mail.split('&body=')[1] || '')), mailSubj = decodeURIComponent(((mail.split('subject=')[1] || '').split('&body=')[0]));
-    const nos19 = await p.evaluate(() => Ready1231.specs(demob816().refs.find(r => r.key === 'GN19')).assetNos[0]);
-    check('v12.38: Navigate opens driving directions to the spot', /^https:\/\/www\.google\.com\/maps\/dir\/\?api=1&destination=-2[78]\.\d{6},153\.\d{6}&travelmode=driving$/.test(nav || ''), nav);
-    check('v12.38: Text opens a new message with what it is, its asset number, where, its size and weight and the directions', /Coates GC500 demob · GN19/.test(sms) && sms.includes('Asset no. ' + nos19) && /Where: /.test(sms) && /Size 2562 × 1031 × 1307 mm \(guide\) · Weight 1662 kg \(guide\)/.test(sms) && sms.includes('Navigate: ' + nav), sms);
-    check('v12.38: Email opens a new email with the same, its subject naming the reference', /^GC500 demob · GN19/.test(mailSubj) && mailBody === sms, {mailSubj, same: mailBody === sms});
-    await p.evaluate(() => { window.__shared1238 = null; navigator.canShare = () => true; navigator.share = async d => { window.__shared1238 = {title: d.title, text: d.text, files: (d.files || []).map(f => ({name: f.name, type: f.type, size: f.size}))}; }; });
-    await p.click(row('GN19') + ' [data-sd1238="GN19"]');
-    await p.waitForFunction(() => window.__shared1238, null, {timeout: 60000}).catch(() => {});
+    const nav = opened.find(u => /^https:\/\/www\.google\.com\/maps\/dir\//.test(u)), sms = opened.find(u => u.startsWith('sms:')), mail = opened.find(u => u.startsWith('mailto:'));
+    const smsBody = sms ? decodeURIComponent(sms.split('body=')[1] || '') : '';
+    check('v12.38: Navigate gives driving directions; Text and Email open a new message with what it is, its asset number, where, arrival, how it stands and the directions', !!nav && !!mail && /GN18/.test(smsBody) && /Asset no\. 1261273/.test(smsBody) && /Arrived /.test(smsBody) && /Now: /.test(smsBody) && /Navigate: https:\/\/www\.google\.com\/maps/.test(smsBody), {opened, smsBody});
+    await p.click(card('GN18') + ' [data-sd1238="GN18"]');
+    await p.waitForFunction(() => window.__shared1238, null, {timeout: 30000}).catch(() => {});
     const shared = await p.evaluate(() => window.__shared1238);
-    check('v12.38: Send hands the three pictures (master plan, close up, wider area) and the words to the phone\'s share menu', shared && shared.files.length === 3 && shared.files.every(f => f.type === 'image/jpeg' && f.size > 15000) && /master-plan/.test(shared.files[0].name) && /close-up/.test(shared.files[1].name) && /wider-area/.test(shared.files[2].name) && shared.text === sms, shared);
-    await p.evaluate(() => document.querySelector('#pane-demob tr[data-row816="GN19"] .pz1238 .pf1238').click());
-    await p.waitForSelector('.drawer.find1176', {timeout: 15000}).catch(() => {});
-    const drawer = await p.evaluate(() => { const d = document.querySelector('.drawer.find1176'); return d ? (d.querySelector('#f1176h') || {}).textContent === 'GN19 · on the map' : false; });
-    check('v12.38: tapping an aerial opens the page\'s own "on the map" card for GN19 (full pictures, Navigate, Send)', drawer, drawer);
-    await p.keyboard.press('Escape'); await p.evaluate(() => { const d = document.querySelector('.drawer.find1176'); if (!d) return; const x = [...d.querySelectorAll('button')].find(b => /^(×|✕|x)$/i.test(b.textContent.trim()) || /close/i.test(b.getAttribute('aria-label') || '')); if (x) x.click(); }); await p.waitForTimeout(600);
-    await scrollTo(row('GN19')); await p.waitForTimeout(600);
-    await shot('demob_card_pictures', row('GN19'));
-    const look = await p.evaluate(() => { const rows = [...document.querySelectorAll('#pane-demob .dmday816 tr[data-row816]')].filter(r => r.offsetParent), hs = rows.map(r => r.offsetHeight).sort((a, b) => a - b);
-      return {med: hs[Math.floor(hs.length / 2)], max: hs[hs.length - 1], overflow: document.documentElement.scrollWidth - document.documentElement.clientWidth}; });
-    check('v12.38: the cards stay tidy with the pictures row (no sideways scroll; tall enough for three pictures, no taller)', look.overflow <= 1 && look.med <= (mobile ? 640 : 700) && look.max <= 980, look);
-    const idle = await p.evaluate(async () => { const pane = document.getElementById('pane-demob'); let n = 0; const mo = new MutationObserver(ms => ms.forEach(m => { if (!(m.target.closest && m.target.closest('.mpf1236,.pz1238'))) n++; })); mo.observe(pane, {childList: true, subtree: true, characterData: true}); await new Promise(r => setTimeout(r, 3000)); mo.disconnect(); return n; });
-    check('v12.38: the tab sits still once drawn (no redraw loop)', idle <= 3, idle);
+    check('v12.38: Send hands the two pictures and the words to the phone\'s share menu', shared && shared.files.length === 2 && shared.files.every(f => /GN18-1261273-(close|wide)\.jpg:\d{4,}/.test(f)) && /1261273/.test(shared.text), shared);
+    /* find and filter */
+    await scrollTo('#pane-demob [data-fd1238]'); await p.fill('#pane-demob [data-fd1238]', '1211370'); await p.waitForTimeout(400);
+    const F1 = await p.evaluate(() => [...document.querySelectorAll('#pane-demob article.sg1238')].filter(a => !a.hidden && getComputedStyle(a).display !== 'none').map(a => a.dataset.u1238));
+    const F1v = await p.evaluate(() => [...document.querySelectorAll('#pane-demob article.sg1238')].filter(a => a.getBoundingClientRect().height > 0).length);
+    await p.fill('#pane-demob [data-fd1238]', ''); await p.click('#pane-demob [data-f1238="gone"]'); await p.waitForTimeout(400);
+    const F2 = await p.evaluate(() => { const vis = [...document.querySelectorAll('#pane-demob article.sg1238')].filter(a => !a.hidden); return {n: vis.length, allGone: vis.every(a => a.dataset.s1238 === 'gone'), want: Singles1238.model().cards.filter(c => c.st.s === 'gone').length}; });
+    await p.click('#pane-demob [data-f1238="all"]'); await p.waitForTimeout(300);
+    check('v12.38: find by asset no., GC500 ID, VMS or rego (1211370 finds VMS 02 alone); the filter shows only what it says (picked up)', F1.length === 1 && F1[0] === 'coates|1211370' && F1v === 1 && F2.n === F2.want && F2.allGone && F2.n > 0, {F1, F1v, F2});
+    /* the progress lit up */
+    const G = await p.evaluate(() => { const pg = document.querySelectorAll('#pane-demob .pg1238'); return {n: pg.length, old: document.querySelectorAll('#pane-demob .pg1236').length, ov: document.querySelectorAll('#pane-demob .ov1236').length, stars: pg[0] ? pg[0].querySelectorAll('.sr1238 .s1238').length : 0, line: pg[0] ? !!pg[0].querySelector('.ch1238 path.ln') : false, ring: pg[0] ? (pg[0].querySelector('.rg1238 b') || {}).textContent : '', first: pg[0] ? pg[0] === document.querySelector('#pane-demob .dmday816').firstElementChild : false, text: pg[0] ? pg[0].innerText.replace(/\s+/g, ' ').slice(0, 300) : ''}; });
+    check('v12.38: the progress card is lit up: a glowing ring and line, today\'s point pulsing, five stars; v12.36\'s card and master-plan overview give way', G.n === 1 && G.old === 0 && G.ov === 0 && G.stars === 5 && G.line && /^\d+(\.\d)?%$/.test(G.ring) && G.first && /units off site/.test(G.text) && /of 5 stars/.test(G.text), G);
+    await scrollTo('#pane-demob .pg1238'); await shot('progress', '#pane-demob .pg1238');
+    await shot('everything_top', '#pane-demob .tb1238');
+    await shot('booked_pickups_empty', '#pane-demob .bp1238');
+    await scrollTo(card('WC09', 'event-portables|0085')); await p.waitForTimeout(2500); await shot('card_wc09_event_portables', card('WC09', 'event-portables|0085'));
+    await scrollTo(card('WC09', 'coates|1268858')); await p.waitForTimeout(2500); await shot('card_wc09_coates_block', card('WC09', 'coates|1268858'));
+    await scrollTo('#pane-demob .gp1238[data-cat1238="vms"]'); await p.waitForTimeout(3500); await shot('vms_boards', '#pane-demob .gp1238[data-cat1238="vms"] .gg1238 article.sg1238');
+    await scrollTo(card('P46')); await p.waitForTimeout(2500); await shot('card_building_contents', card('P46'));
+    await scrollTo(card('WC20')); await p.waitForTimeout(2500); await shot('card_toilet_with_tank', card('WC20'));
+    /* the day cards: only what was booked for the day or left on it */
+    const today = await p.evaluate(() => todayIso()), later = await p.evaluate(() => { const ds = demob816().days || []; return ds.find(d => d > todayIso()) || null; });
+    const DC = await p.evaluate(({today, later}) => { const c = iso => document.querySelector('#pane-demob .dc996-day[data-dday816="' + iso + '"]'), t = c(today), l = later && c(later);
+      return {today: t ? t.innerText.replace(/\s+/g, ' ') : null, later: l ? l.innerText.replace(/\s+/g, ' ') : null, planned: /PLANNED PICK-UPS|planned/i.test([...document.querySelectorAll('#pane-demob .dc996-day')].map(x => x.innerText).join(' ')), rows: Ready1231.dayRows(later), lines: t ? t.querySelectorAll('.dl1238 span').length : 0}; }, {today, later});
+    check('v12.38: today\'s day card lists what was picked up with each reference, its asset numbers and the time (GN10 · 20kva generator · 1283681 · 07:40)', DC.today && /GN10 20kva generator 1283681 07:40/i.test(DC.today) && /GN24 60kva generator 1277089 08:10/i.test(DC.today) && DC.lines >= 10, {today: (DC.today || '').slice(0, 600), lines: DC.lines});
+    check('v12.38: a day ahead shows only what is booked for it (nothing yet), not the schedule\'s plan', DC.later && /Nothing yet/.test(DC.later) && !DC.planned && DC.rows && DC.rows.map(r => r.label).join('|') === 'Booked|Ready of booked|Picked up' && DC.rows[0].value === 0, {later: (DC.later || '').slice(0, 500), planned: DC.planned, rows: DC.rows});
+    await scrollTo('#pane-demob .strip816'); await blurNames(); await p.waitForTimeout(300); await shot('day_cards', '#pane-demob .strip816');
+    await p.click('#pane-demob .dc996-day[data-dday816="' + today + '"]'); await p.waitForTimeout(2500);
+    const DV = await p.evaluate(today => { const pane = document.getElementById('pane-demob'), arts = [...pane.querySelectorAll('.sgv1238 article.sg1238')], m = Singles1238.model(), qd = v => new Date(Date.parse(v) + 36e6).toISOString().slice(0, 10);
+      const want = m.cards.filter(c => (c.st.s === 'gone' && (c.st.at ? qd(c.st.at) : c.st.day) === today) || (c.book && c.st.s !== 'gone' && qd(c.book.at) === today)).length;
+      const vis = s => { const b = pane.querySelector(s); return !!(b && b.offsetParent); };
+      return {mode: pane.dataset.sg1238, n: arts.length, want, allToday: arts.every(a => a.dataset.s1238 === 'gone' || a.dataset.b1238 === today), h3: (pane.querySelector('.dmsh816 h3') || {}).textContent, toilets: vis('.segs816 [data-view816="toilets"]'), trucks: vis('.segs816 [data-view816="trucks"]'), print: vis('[data-print816]'), conf: vis('[data-conf816]')}; }, today);
+    check('v12.38: a day\'s list holds only what left that day or is booked for it; the schedule\'s runs, trucks, print and confirm are put away', DV.mode === 'day' && DV.n === DV.want && DV.n > 0 && DV.allToday && /booked · \d+ picked up/.test(DV.h3 || '') && !DV.toilets && !DV.trucks && !DV.print && !DV.conf, DV);
+    await shot('day_list', '#pane-demob .sgv1238 .tb1238');
+    if (later) { await p.click('#pane-demob .dc996-day[data-dday816="' + later + '"]'); await p.waitForTimeout(1500);
+      const DL = await p.evaluate(() => ({n: document.querySelectorAll('#pane-demob .sgv1238 article.sg1238').length, empty: (document.querySelector('#pane-demob .em1238') || {}).textContent || ''}));
+      check('v12.38: a day with nothing booked says so and lists nothing from the schedule', DL.n === 0 && /Nothing booked or picked up/.test(DL.empty), DL); }
+    await p.click('#pane-demob [data-view816="everything"]'); await p.waitForTimeout(2000);
+    /* layout and quiet */
+    const LAY = await p.evaluate(() => { const arts = [...document.querySelectorAll('#pane-demob article.sg1238')].slice(0, 12).map(a => a.getBoundingClientRect()); const top = arts.length ? arts[0].top : 0;
+      return {perRow: arts.filter(r => Math.abs(r.top - top) < 4).length, w: arts.length ? Math.round(arts[0].width) : 0, over: document.scrollingElement.scrollWidth - innerWidth}; });
+    check('v12.38: the cards lay out ' + (mobile ? 'one to a row on a phone, no sideways scroll' : 'three or more to a row on a desktop'), mobile ? LAY.perRow === 1 && LAY.over <= 1 : LAY.perRow >= 3 && LAY.over <= 1, LAY);
+    const idle = await p.evaluate(() => new Promise(res => { const pane = document.getElementById('pane-demob'); let n = 0; const mo = new MutationObserver(ms => { n += ms.length; }); mo.observe(pane, {childList: true, subtree: true}); setTimeout(() => { mo.disconnect(); res(n); }, 3000); }));
+    check('v12.38: the tab settles: no redraw loop while nothing changes (' + idle + ' changes in 3 s)', idle <= 60, idle);
 
-    /* every VMS board on site, with its asset number, rego and where it stands */
-    const V = await p.evaluate(() => { const want = CardPics1238.vmsBoards(), tr = document.querySelector('#pane-demob tr.vb1238'), head = document.querySelector('#pane-demob .sec1231 tr.zr1231[data-cat1236="vms"]');
-      if (!tr) return {want: want.length, has: false, head: !!head};
-      const cards = [...tr.querySelectorAll('.vc1238')], inGroup = (() => { for (let x = head && head.nextElementSibling; x && !x.classList.contains('zr1231'); x = x.nextElementSibling) if (x === tr) return true; return false; })();
-      return {want: want.length, has: true, inGroup, cards: cards.length, withAsset: cards.filter(c => /Asset no\./i.test(c.innerText)).length, withRego: cards.filter(c => /Rego/i.test(c.innerText)).length, withWhere: cards.filter(c => ((c.querySelector('.vw1238') || {}).textContent || '').trim().length > 3).length, shortWhere: cards.filter(c => ((c.querySelector('.vw1238') || {}).textContent || '').trim().length <= 3).map(c => c.dataset.vms1238 + ':' + (c.querySelector('.vw1238') || {}).textContent),
-        assetsKnown: want.filter(b => b.asset).length, regosKnown: want.filter(b => b.rego).length, sample: cards[0] && cards[0].innerText.replace(/\s+/g, ' ').slice(0, 200), head: (tr.querySelector('.vh1238') || {}).innerText}; });
-    check('v12.38: every VMS board on the VMS plan is listed under the VMS boards group, each with where it stands, its asset number and its rego (or says to confirm)', V.has && V.inGroup && V.cards === V.want && V.want >= 10 && V.withAsset === V.cards && V.withRego === V.cards && V.withWhere === V.cards && V.assetsKnown > 0, V);
-    const vpos = await p.evaluate(() => { const b = CardPics1238.vmsBoards().find(x => x.asset && x.rego) || CardPics1238.vmsBoards()[0]; return b && b.pos; });
-    if (vpos) { await scrollTo('#pane-demob .vc1238[data-vms1238="' + vpos + '"]'); await p.evaluate(() => { window.__opened1238 = []; }); await p.click('#pane-demob [data-vsm1238="' + vpos + '"]'); }
-    const vsms = await p.evaluate(() => decodeURIComponent(((window.__opened1238 || []).find(u => u.startsWith('sms:')) || '').replace(/^sms:\?&body=/, '')));
-    const vb = await p.evaluate(pos => CardPics1238.vmsBoards().find(x => x.pos === pos), vpos);
-    check('v12.38: a VMS board\'s Text names it, its asset number, rego, where it stands and the directions', vb && vsms.includes(vb.label) && vsms.includes('Asset no. ' + (vb.asset || 'to confirm')) && vsms.includes('Rego ' + (vb.rego || 'to confirm')) && /Navigate: https:\/\/www\.google\.com\/maps\/dir\//.test(vsms), {vb, vsms});
-    await shot('vms_boards', '#pane-demob tr.vb1238');
-    if (!mobile) { const hw = await p.evaluate(() => { const th = document.querySelector('#pane-demob .sec1231 tr.zr1231[data-cat1236] th'), tb = th && th.closest('table'); return th ? {th: Math.round(th.getBoundingClientRect().width), table: Math.round(tb.getBoundingClientRect().width)} : null; });
-      check('v12.38: on a desktop the group headers run the full width of the cards', hw && hw.th >= hw.table * 0.9, hw); }
-
-    /* ---------------- Part B: the booking, rehearsed with the sync held in the page ---------------- */
+    /* ---------------- Part B: a unit's Ready tick and its booking, with the sync held in the page ---------------- */
     await p.evaluate(() => { window.__captured1238 = []; SYNC.claims = 'edit'; Object.defineProperty(SYNC, 'level', {configurable: true, get: () => 'edit', set: () => {}}); Object.defineProperty(SYNC, 'readonly', {configurable: true, get: () => false, set: () => {}});
       SYNC.db.doc = name => ({set: async value => { __captured1238.push({name, value: JSON.parse(JSON.stringify(value || null))}); return {}; }, delete: async () => { throw Error('Deletion disallowed'); }}); S.operator = 'Example test recorder'; const who = document.getElementById('who'); if (who) who.value = S.operator;
-      window.confirm = () => true; applyCapability(); renderDemob816(); });
+      window.confirm = () => true; window.prompt = () => 'test'; applyCapability(); renderDemob816(); });
+    await p.waitForTimeout(1500);
+    const EP = 'event-portables|0085', CO = 'coates|1268858', G18 = await p.evaluate(() => (Singles1238.model().byKey.get('GN18') || [])[0].uid);
+    const shown = await p.evaluate(sel => { const b = document.querySelector(sel + ' .bk1238 button[data-book1238]'); const l = document.querySelector(sel + ' button[data-lamp1238="ready"]'); return {book: b ? b.textContent : null, lamp: !!l}; }, card('GN18', G18));
+    check('v12.38: on the edit link every card still on site has its Book pick-up button and its Ready light to press', shown.book === 'Book pick-up' && shown.lamp, shown);
+    await scrollTo(card('WC09', EP)); await p.click(card('WC09', EP) + ' button[data-lamp1238="ready"]');
+    await p.waitForFunction(() => __captured1238.some(c => /delivery\/WC09$/.test(c.name) && c.value && c.value.ready1238_units), null, {timeout: 30000}).catch(() => {});
     await p.waitForTimeout(900);
-    const shown = await p.evaluate(() => { const b = document.querySelector('#pane-demob tr[data-row816="GN19"] button.bb1238'); return b && b.offsetParent ? b.textContent : null; });
-    check('v12.38: on the edit link every card still on site has its Book pick-up button', shown === 'Book pick-up', shown);
+    const RD = await p.evaluate(({EP, CO}) => { const c = __captured1238.filter(x => /delivery\/WC09$/.test(x.name)).pop(), v = c && c.value || {}, u = (v.ready1238_units || {})[EP] || null;
+      const st = uid => (document.querySelector('#pane-demob article.sg1238[data-sg1238="WC09"][data-u1238="' + uid + '"]') || {}).dataset; return {u, ref: v.ready1231, hist: (v.ready1238_history || []).length, ep: (st(EP) || {}).s1238, co: (st(CO) || {}).s1238}; }, {EP, CO});
+    check('v12.38: Ready on one Event Portables unit at WC09 marks that unit only, on its own clock; the Coates toilet block beside it stays Not ready; the reference\'s own tick is untouched', RD.u && RD.u.on === true && RD.u.by === 'Example test recorder' && RD.hist === 1 && RD.ep === 'ready' && RD.co === 'not' && RD.ref === undefined, RD);
+    await shot('card_ready_rehearsal', card('WC09', EP));
+    /* the booking: a calendar and a clock */
     const tomorrow = await p.evaluate(() => { const d = new Date(Date.parse(todayIso() + 'T12:00:00Z') + 864e5); return d.toISOString().slice(0, 10); });
-    await scrollTo(row('GN19')); await p.click(row('GN19') + ' button.bb1238');
+    await scrollTo(card('GN18', G18)); await p.click(card('GN18', G18) + ' button[data-book1238]');
     await p.waitForSelector('dialog.bkd1238[open]', {timeout: 10000});
-    const dlg = await p.evaluate(() => { const d = document.querySelector('dialog.bkd1238'); return {title: d.querySelector('h3').textContent, sub: d.querySelector('.ws1238').textContent, date: d.querySelector('[name=d1238]').value, time: d.querySelector('[name=t1238]').value, clear: !d.querySelector('.cl1238').hidden}; });
-    check('v12.38: Book pick-up opens a sheet naming the reference, what it is and its asset number, today\'s date ready and the time to pick', dlg.title === 'Book the pick-up' && dlg.sub.startsWith('GN19 · ') && dlg.sub.includes('Asset no. ' + nos19) && /^\d{4}-\d{2}-\d{2}$/.test(dlg.date) && dlg.time === '' && !dlg.clear, dlg);
-    await shot('booking_sheet');
-    await p.click('dialog.bkd1238 .sv1238');
-    const noTime = await p.evaluate(() => ({err: document.querySelector('dialog.bkd1238 .er1238').textContent, open: document.querySelector('dialog.bkd1238').open, sent: __captured1238.length}));
-    check('v12.38: saving without a time is refused in words, nothing recorded', /Pick the time/.test(noTime.err) && noTime.open && noTime.sent === 0, noTime);
-    await p.fill('dialog.bkd1238 [name=d1238]', tomorrow); await p.fill('dialog.bkd1238 [name=t1238]', '07:00'); await p.fill('dialog.bkd1238 [name=n1238]', 'Coates truck');
-    await p.click('dialog.bkd1238 .sv1238');
-    await p.waitForFunction(() => __captured1238.some(c => /delivery\/GN19$/.test(c.name) && c.value && c.value.pickup1238_at), null, {timeout: 30000}).catch(() => {});
-    const b1 = await p.evaluate(() => { const c = __captured1238.filter(x => /delivery\/GN19$/.test(x.name)).pop(); const v = c && c.value || {}; return {at: v.pickup1238_at, note: v.pickup1238_note, by: v.pickup1238_by, set: v.pickup1238_set, hist: (v.pickup1238_history || []).length, ready: v.ready1231, state: v.state}; });
-    check('v12.38: the booking travels to the shared record on GN19\'s delivery document: the moment in Queensland time, the note, who and when (captured, never sent)', b1.at === tomorrow + 'T07:00:00+10:00' && b1.note === 'Coates truck' && b1.by === 'Example test recorder' && /^\d{4}-\d{2}-\d{2}T/.test(b1.set || '') && b1.hist === 1, b1);
-    await p.waitForTimeout(700);
-    const card1 = await p.evaluate(() => { const bk = document.querySelector('#pane-demob tr[data-row816="GN19"] .bk1238'); return bk ? {on: bk.classList.contains('on'), text: bk.innerText.replace(/\s+/g, ' '), btn: (bk.querySelector('button') || {}).textContent} : null; });
-    const dayWord = await p.evaluate(t => Pickup1238.when(t + 'T07:00:00+10:00'), tomorrow);
-    check('v12.38: the card says when it is booked, with the note and who booked it; the button now says Change', card1 && card1.on && card1.text.includes('Pick-up booked: ' + dayWord) && /Coates truck · booked by Example test recorder/.test(card1.text) && card1.btn === 'Change', {card1, dayWord});
-    const panel1 = await p.evaluate(() => { const bp = document.querySelector('#pane-demob .bp1238'); return {head: bp.querySelector('header').innerText.replace(/\s+/g, ' '), days: [...bp.querySelectorAll('h4')].map(h => h.innerText.replace(/\s+/g, ' ')), lines: [...bp.querySelectorAll('[data-bpgo1238]')].map(b => b.innerText.replace(/\s+/g, ' '))}; });
-    check('v12.38: the booked pick-ups list it by day and time with its state', /^Booked pick-ups 1 booked · \d+ still to book$/i.test(panel1.head) && panel1.days.length === 1 && panel1.lines.length === 1 && /^07:00 GN19 · /.test(panel1.lines[0]), panel1);
-    await p.click('#pane-demob .bp1238 [data-bpgo1238="GN19"]'); await p.waitForTimeout(400);
-    const glow = await p.evaluate(() => document.querySelector('#pane-demob tr[data-row816="GN19"]').classList.contains('fl1236'));
-    check('v12.38: tapping a booked pick-up goes to its card', glow, glow);
+    const D0 = await p.evaluate(() => { const d = document.querySelector('dialog.bkd1238'), shown = el => !!el && el.getBoundingClientRect().height > 0; return {title: d.querySelector('h3').textContent, sub: d.querySelector('.bs1238').textContent, save: d.querySelector('[data-bk1238="save"]').disabled, days: d.querySelectorAll('.cg1238 button[data-day1238]').length, past: d.querySelectorAll('.cg1238 button[disabled]').length, hours: d.querySelectorAll('.ck1238 button[data-h1238]').length, time: d.querySelector('[name=t1238]').value, clear: shown(d.querySelector('[data-bk1238="clear"]')), all: shown(d.querySelector('label.al1238')), icon: !!d.querySelector('.bi1238 svg')}; });
+    check('v12.38: Book pick-up opens a sheet with a calendar (no day picked, past days shut) and a clock (24 hours), naming the asset; Save waits for a day and a time', D0.title === 'Book the pick-up' && /GN18/.test(D0.sub) && /1261273/.test(D0.sub) && D0.save && D0.days >= 28 && D0.hours === 24 && D0.time === '' && !D0.clear && !D0.all && D0.icon, D0);
+    await p.click('dialog.bkd1238 [data-day1238="' + tomorrow + '"]'); await p.click('dialog.bkd1238 [data-h1238="7"]'); await p.click('dialog.bkd1238 [data-m1238="30"]');
+    const D1 = await p.evaluate(() => { const d = document.querySelector('dialog.bkd1238'); return {time: d.querySelector('[name=t1238]').value, sum: d.querySelector('.sm1238').textContent, save: d.querySelector('[data-bk1238="save"]').disabled, hand: !!d.querySelector('.ck1238 .hn1238')}; });
+    check('v12.38: a day on the calendar, the hour and the minutes on the clock: 07:30, and Save opens', D1.time === '07:30' && /Pick-up .* at 07:30/.test(D1.sum) && !D1.save && D1.hand, D1);
+    await p.fill('dialog.bkd1238 [name=n1238]', 'Coates truck'); await shot('booking_sheet', 'dialog.bkd1238');
+    await p.click('dialog.bkd1238 [data-bk1238="save"]');
+    await p.waitForFunction(() => __captured1238.some(c => /delivery\/GN18$/.test(c.name) && c.value && c.value.pickup1238_units), null, {timeout: 30000}).catch(() => {});
+    await p.waitForTimeout(900);
+    const B1 = await p.evaluate(G18 => { const c = __captured1238.filter(x => /delivery\/GN18$/.test(x.name)).pop(), v = c && c.value || {}, b = (v.pickup1238_units || {})[G18] || null; const bk = document.querySelector('#pane-demob article.sg1238[data-sg1238="GN18"] .bk1238');
+      return {b, hist: (v.pickup1238_history || []).length, card: bk ? bk.innerText.replace(/\s+/g, ' ') : '', on: bk ? bk.classList.contains('on') : false, open: document.querySelector('dialog.bkd1238').open}; }, G18);
+    check('v12.38: the booking travels on GN18\'s delivery document for that unit: Queensland time, the note, who and when; the card shows it', B1.b && B1.b.at === tomorrow + 'T07:30:00+10:00' && B1.b.note === 'Coates truck' && B1.b.by === 'Example test recorder' && /^\d{4}-\d{2}-\d{2}T/.test(B1.b.set) && B1.hist === 1 && B1.on && /Pick-up booked .* 07:30/.test(B1.card) && /Coates truck · booked by Example test recorder/.test(B1.card) && !B1.open, B1);
+    const BL = await p.evaluate(() => { const bp = document.querySelector('#pane-demob .bp1238'); return {head: bp.querySelector('header').innerText.replace(/\s+/g, ' '), lines: [...bp.querySelectorAll('button.bl1238')].map(b => b.innerText.replace(/\s+/g, ' '))}; });
+    check('v12.38: the booked pick-ups list shows it by day and time', /1 booked/.test(BL.head) && BL.lines.length === 1 && /^07:30 GN18 /.test(BL.lines[0]) && /1261273/.test(BL.lines[0]), BL);
     await shot('booked_pickups', '#pane-demob .bp1238');
-    /* change it, book another, clear the first */
-    await scrollTo(row('GN19')); await p.click(row('GN19') + ' button.bb1238'); await p.waitForSelector('dialog.bkd1238[open]');
-    const pre = await p.evaluate(() => { const d = document.querySelector('dialog.bkd1238'); return {title: d.querySelector('h3').textContent, time: d.querySelector('[name=t1238]').value, note: d.querySelector('[name=n1238]').value, clear: !d.querySelector('.cl1238').hidden}; });
-    check('v12.38: Change opens the sheet with the booking as it stands and a Clear button', pre.title === 'Change the pick-up' && pre.time === '07:00' && pre.note === 'Coates truck' && pre.clear, pre);
-    await p.fill('dialog.bkd1238 [name=t1238]', '09:30'); await p.click('dialog.bkd1238 .sv1238'); await p.waitForTimeout(900);
-    await scrollTo(row('WC33')); await p.click(row('WC33') + ' button.bb1238'); await p.waitForSelector('dialog.bkd1238[open]');
-    await p.fill('dialog.bkd1238 [name=d1238]', tomorrow); await p.fill('dialog.bkd1238 [name=t1238]', '08:00'); await p.fill('dialog.bkd1238 [name=n1238]', 'Event Portables'); await p.click('dialog.bkd1238 .sv1238'); await p.waitForTimeout(900);
-    const panel2 = await p.evaluate(() => [...document.querySelectorAll('#pane-demob .bp1238 [data-bpgo1238]')].map(b => b.getAttribute('data-bpgo1238') + ' ' + b.querySelector('b').textContent));
-    const h2 = await p.evaluate(() => (S.delivery.GN19.pickup1238_history || []).map(x => x.pickup.slice(11, 16)));
-    check('v12.38: a change is kept in its history, and the list runs in time order across references', JSON.stringify(panel2) === JSON.stringify(['WC33 08:00', 'GN19 09:30']) && JSON.stringify(h2) === JSON.stringify(['07:00', '09:30']), {panel2, h2});
-    await scrollTo(row('GN19')); await p.click(row('GN19') + ' button.bb1238'); await p.waitForSelector('dialog.bkd1238[open]'); await p.click('dialog.bkd1238 .cl1238'); await p.waitForTimeout(900);
-    const cleared = await p.evaluate(() => { const c = __captured1238.filter(x => /delivery\/GN19$/.test(x.name)).pop(), bk = document.querySelector('#pane-demob tr[data-row816="GN19"] .bk1238'); return {at: c && c.value.pickup1238_at, hist: c && (c.value.pickup1238_history || []).length, card: bk && bk.innerText.replace(/\s+/g, ' '), list: [...document.querySelectorAll('#pane-demob .bp1238 [data-bpgo1238]')].map(b => b.getAttribute('data-bpgo1238'))}; });
-    check('v12.38: Clear takes the booking off on the record as a dated change; the card says to be booked again and the list drops it', cleared.at === '' && cleared.hist === 3 && /Pick-up time: to be booked/.test(cleared.card || '') && JSON.stringify(cleared.list) === '["WC33"]', cleared);
-    const gone = await p.evaluate(() => { const tr = document.querySelector('#pane-demob tr[data-row816][data-ps1236="gone"]'); return tr ? {k: tr.dataset.row816, text: (tr.querySelector('.bk1238') || {}).innerText, btn: !!tr.querySelector('button.bb1238')} : null; });
-    check('v12.38: a reference that has left in full says Left site and offers no booking', gone && /Left site/.test(gone.text || '') && !gone.btn, gone);
-    const sms2 = await p.evaluate(() => CardPics1238.wordsOf('WC33').lines.join('\n'));
-    check('v12.38: Text and Email carry the booked pick-up once there is one', /Pick-up booked: /.test(sms2), sms2);
-    /* the merge, on copies: the later booking wins whichever copy is named first; a clearing is a dated change; histories join */
-    const M = await p.evaluate(() => {
-      const bk = (at, set, note, by) => ({pickup1238_at: at, pickup1238_note: note || '', pickup1238_by: by || 'A', pickup1238_set: set, pickup1238_history: [{pickup: at, note: note || '', by: by || 'A', at: set}]});
-      const m = (a, b) => mergeRecords({delivery: {GN19: a}}, {delivery: {GN19: b}}).merged.delivery.GN19 || null;
-      const early = bk('2026-10-27T07:00:00+10:00', '2026-10-26T05:00:00.000Z', 'first', 'A'), late = bk('2026-10-27T09:30:00+10:00', '2026-10-26T06:00:00.000Z', 'second', 'B'), clearLate = bk('', '2026-10-26T07:00:00.000Z', '', 'C');
-      const r1 = m(early, late), r2 = m(late, early), r3 = m(early, clearLate), r4 = m(clearLate, bk('2026-10-28T07:00:00+10:00', '2026-10-26T08:00:00.000Z', 'later again', 'D'));
-      const onlyBooking = mergeRecords({delivery: {WC10: early}}, {delivery: {}}).merged.delivery.WC10, onlyClear = mergeRecords({delivery: {}}, {delivery: {WC10: clearLate}}).merged.delivery.WC10;
-      const mixed = m({ready1231: true, ready1231_by: 'A', ready1231_at: '2026-10-26T04:00:00.000Z', ready1231_why: '', emptied: true, emptied_by: 'A', emptied_at: '2026-10-26T03:00:00.000Z'}, late);
-      return {r1: r1 && r1.pickup1238_at, r2: r2 && r2.pickup1238_at, r1note: r1 && r1.pickup1238_note, hist: r1 && (r1.pickup1238_history || []).map(h => h.at), r3: r3 && r3.pickup1238_at, r3by: r3 && r3.pickup1238_by, r4: r4 && r4.pickup1238_at,
-        onlyBooking: !!(onlyBooking && onlyBooking.pickup1238_at), onlyClear: !!(onlyClear && onlyClear.pickup1238_at === ''), mixed: mixed && {ready: mixed.ready1231, emptied: mixed.emptied, at: mixed.pickup1238_at}};
-    });
-    check('v12.38: merge - the later booking wins whichever copy is named first, the note and who travel with it, and both histories are kept', M.r1 === '2026-10-27T09:30:00+10:00' && M.r2 === M.r1 && M.r1note === 'second' && JSON.stringify(M.hist) === JSON.stringify(['2026-10-26T05:00:00.000Z', '2026-10-26T06:00:00.000Z']), M);
-    check('v12.38: merge - a later clearing beats an older booking, and a later booking beats an older clearing', M.r3 === '' && M.r3by === 'C' && M.r4 === '2026-10-28T07:00:00+10:00', M);
-    check('v12.38: merge - a record holding only a booking, or only its clearing, is kept; Ready and Emptied are untouched beside it', M.onlyBooking && M.onlyClear && M.mixed && M.mixed.ready === true && M.mixed.emptied === true && M.mixed.at === '2026-10-27T09:30:00+10:00', M);
+    const DT = await p.evaluate(t => { const c = document.querySelector('#pane-demob .dc996-day[data-dday816="' + t + '"]'); return c ? c.innerText.replace(/\s+/g, ' ') : null; }, tomorrow);
+    check('v12.38: tomorrow\'s day card now carries the booking (GN18 1261273 07:30)', DT && /GN18 50kva generator 1261273 booked 07:30/i.test(DT) && /Booked 1/.test(DT), (DT || '').slice(0, 500));
+    /* typed time, and all of one supplier's units at a reference at once */
+    await scrollTo(card('WC09', EP)); await p.click(card('WC09', EP) + ' button[data-book1238]'); await p.waitForSelector('dialog.bkd1238[open]');
+    const AL = await p.evaluate(() => { const l = document.querySelector('dialog.bkd1238 label.al1238'); return {hidden: l.hidden, text: l.textContent}; });
+    await p.click('dialog.bkd1238 [data-day1238="' + tomorrow + '"]'); await p.fill('dialog.bkd1238 [name=t1238]', '1415'); await p.check('dialog.bkd1238 [name=a1238]');
+    const TY = await p.evaluate(() => ({sum: document.querySelector('dialog.bkd1238 .sm1238').textContent, save: document.querySelector('dialog.bkd1238 [data-bk1238="save"]').disabled}));
+    await p.click('dialog.bkd1238 [data-bk1238="save"]'); await p.waitForTimeout(1200);
+    const B2 = await p.evaluate(() => { const c = __captured1238.filter(x => /delivery\/WC09$/.test(x.name)).pop(), v = c && c.value || {}, m = v.pickup1238_units || {}; const ks = Object.keys(m);
+      return {n: ks.length, allEP: ks.every(k => /^event-portables\|/.test(k)), at: [...new Set(ks.map(k => m[k].at))], coates: ks.filter(k => /^coates/.test(k)).length, want: (Singles1238.model().byKey.get('WC09') || []).filter(c => c.owner === 'event-portables' && c.st.s !== 'gone').length}; });
+    check('v12.38: a typed time (1415 -> 14:15) and "Book all the Event Portables units at WC09" books every one of them at once, not the Coates blocks', !AL.hidden && /Book all 16 Event Portables units at WC09/.test(AL.text) && /at 14:15/.test(TY.sum) && !TY.save && B2.n === B2.want && B2.n === 16 && B2.allEP && B2.at.length === 1 && B2.at[0] === tomorrow + 'T14:15:00+10:00' && B2.coates === 0, {AL, TY, B2});
+    /* clear */
+    await scrollTo(card('GN18', G18)); await p.click(card('GN18', G18) + ' button[data-book1238]'); await p.waitForSelector('dialog.bkd1238[open]');
+    const pre = await p.evaluate(() => { const d = document.querySelector('dialog.bkd1238'); return {time: d.querySelector('[name=t1238]').value, note: d.querySelector('[name=n1238]').value, clear: !d.querySelector('[data-bk1238="clear"]').hidden, day: (d.querySelector('.cg1238 button[aria-pressed="true"]') || {}).dataset}; });
+    await p.click('dialog.bkd1238 [data-bk1238="clear"]'); await p.waitForTimeout(1000);
+    const B3 = await p.evaluate(G18 => { const c = __captured1238.filter(x => /delivery\/GN18$/.test(x.name)).pop(), v = c && c.value || {}, b = (v.pickup1238_units || {})[G18]; const bk = document.querySelector('#pane-demob article.sg1238[data-sg1238="GN18"] .bk1238');
+      return {at: b && b.at, hist: (v.pickup1238_history || []).length, card: bk ? bk.innerText.replace(/\s+/g, ' ') : ''}; }, G18);
+    check('v12.38: Change opens the booking as it stands; Clear is a dated change too, and the card is back to "to be booked"', pre.time === '07:30' && pre.note === 'Coates truck' && pre.clear && pre.day && pre.day.day1238 === tomorrow && B3.at === '' && B3.hist === 2 && /Pick-up: to be booked/.test(B3.card), {pre, B3});
+    /* the merge, on copies */
+    const MG = await p.evaluate(() => {
+      const m = (a, b) => mergeRecords({delivery: {WC09: a}}, {delivery: {WC09: b}}).merged.delivery.WC09 || null;
+      const A1 = {ready1238_units: {'event-portables|0085': {on: true, at: '2026-10-26T06:00:00.000Z', by: 'A', why: ''}, 'event-portables|0551': {on: false, at: '2026-10-26T06:05:00.000Z', by: 'A', why: 'x'}}, ready1238_history: [{unit: 'event-portables|0085', ready: true, at: '2026-10-26T06:00:00.000Z', by: 'A'}]};
+      const B1 = {ready1238_units: {'event-portables|0085': {on: false, at: '2026-10-26T07:00:00.000Z', by: 'B', why: 'y'}, 'coates|1268858': {on: true, at: '2026-10-26T05:00:00.000Z', by: 'B', why: ''}}, ready1238_history: [{unit: 'event-portables|0085', ready: false, at: '2026-10-26T07:00:00.000Z', by: 'B'}],
+        pickup1238_units: {'event-portables|0085': {at: '2026-10-27T07:00:00+10:00', note: '', by: 'B', set: '2026-10-26T07:00:00.000Z'}}};
+      const ab = m(A1, B1), ba = m(B1, A1), onlyUnits = mergeRecords({delivery: {WC10: {pickup1238_units: {'x|1': {at: '', note: '', by: 'A', set: '2026-10-26T06:00:00.000Z'}}}}}, {delivery: {}}).merged.delivery.WC10;
+      return {ab: ab.ready1238_units, same: JSON.stringify(Object.keys(ab.ready1238_units).sort().map(k => [k, ab.ready1238_units[k]])) === JSON.stringify(Object.keys(ba.ready1238_units).sort().map(k => [k, ba.ready1238_units[k]])), hist: (ab.ready1238_history || []).length, pk: ab.pickup1238_units, kept: !!onlyUnits}; });
+    check('v12.38: on any copy the later tick wins unit by unit, other units are kept, the histories join, and a record holding only these is kept', MG.ab['event-portables|0085'].on === false && MG.ab['event-portables|0085'].by === 'B' && MG.ab['event-portables|0551'].why === 'x' && MG.ab['coates|1268858'].on === true && MG.same && MG.hist === 2 && MG.pk && MG.pk['event-portables|0085'].at === '2026-10-27T07:00:00+10:00' && MG.kept, MG);
     const sent = await p.evaluate(() => __captured1238.map(c => c.name));
-    check('v12.38: only the booked references\' delivery documents were written, all captured in the page; nothing reached the network', sent.length > 0 && sent.every(n => /delivery\/(GN19|WC33)$/.test(n)) && !h.counts.blocked, {sent: [...new Set(sent)], counts: h.counts});
-    check('no runtime errors through the Demob tab and the rehearsals', !h.errors.length, h.errors);
-  } catch (e) { check('the test ran to the end', false, String(e && e.stack || e).slice(0, 800)); }
-  const pass = checks.filter(c => c.ok).length; console.log(pass + '/' + checks.length);
-  await h.browser.close();
+    check('v12.38: only WC09\'s and GN18\'s delivery documents were written, all captured in the page; nothing reached the network', sent.length > 0 && sent.every(n => /delivery\/(WC09|GN18)$/.test(n)) && !h.counts.blocked, {sent: [...new Set(sent)], counts: h.counts});
+    check('no page errors through the whole run', !h.errors.length, h.errors);
+  } catch (e) { check('the test ran to the end', false, String(e && e.stack || e).slice(0, 1500)); await shot('error'); }
+  finally {
+    const passed = checks.filter(c => c.ok).length; console.log('\n' + passed + '/' + checks.length + ' passed');
+    fs.writeFileSync(path.join(out, 'summary.json'), JSON.stringify({passed, total: checks.length, mobile, counts: h.counts, errors: h.errors}, null, 1));
+    await h.browser.close();
+  }
 })();

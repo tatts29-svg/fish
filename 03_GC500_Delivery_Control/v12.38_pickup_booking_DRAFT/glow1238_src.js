@@ -11,20 +11,21 @@
 #pane-demob .pg1238 .rg1238 .tr{stroke:#ffffff14}
 #pane-demob .pg1238 .rg1238 .ar{filter:drop-shadow(0 0 6px #ff8a3a) drop-shadow(0 0 14px #ff8a3a88);animation:rd1238 1.6s cubic-bezier(.2,.8,.2,1) both}
 @keyframes rd1238{from{stroke-dashoffset:var(--c)}}
-#pane-demob .pg1238 .rg1238 b{position:absolute;inset:0;display:grid;place-items:center;font:900 30px/1 Inter,Arial,sans-serif;text-shadow:0 0 16px #ff8a3aaa}
+#pane-demob .pg1238 .rg1238 b{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;gap:1px;font:900 30px/1 Inter,Arial,sans-serif;text-shadow:0 0 16px #ff8a3aaa}
 #pane-demob .pg1238 .rg1238 b small{font-size:14px;color:#ffb37a}
 #pane-demob .pg1238 h3{margin:0 0 4px;color:#ffb37a;font:900 12px/1 Inter,Arial,sans-serif;letter-spacing:.14em;text-transform:uppercase}
 #pane-demob .pg1238 .st1238 p{margin:3px 0;color:#d6e3e8;font:600 13px/1.3 Inter,Arial,sans-serif}
 #pane-demob .pg1238 .st1238 p b{color:#fff;font-weight:900}
-#pane-demob .pg1238 .sr1238{display:flex;align-items:center;gap:6px;flex-wrap:wrap;padding:10px 12px;border-radius:16px;background:#0a1216cc;box-shadow:inset 0 0 0 1px #ffd76a2e}
+#pane-demob .pg1238 .sr1238{display:flex;align-items:center;gap:7px;flex-wrap:nowrap;padding:10px 12px;border-radius:16px;background:#0a1216cc;box-shadow:inset 0 0 0 1px #ffd76a2e}
 #pane-demob .pg1238 .sr1238 svg{width:30px;height:30px;overflow:visible}
 #pane-demob .pg1238 .sr1238 .s1238 .bg{fill:#26343a}
 #pane-demob .pg1238 .sr1238 .s1238 .fg{fill:url(#sg1238)}
 #pane-demob .pg1238 .sr1238 .s1238.lit svg{filter:drop-shadow(0 0 6px #ffd24a) drop-shadow(0 0 14px #ffb020aa)}
 #pane-demob .pg1238 .sr1238 .s1238.next svg{animation:st1238 1.8s ease-in-out infinite}
 @keyframes st1238{0%,100%{filter:drop-shadow(0 0 2px #ffd24a66)}50%{filter:drop-shadow(0 0 10px #ffd24a)}}
-#pane-demob .pg1238 .sr1238 span{flex:1 1 120px;color:#ffe7a8;font:800 12px/1.3 Inter,Arial,sans-serif}
-#pane-demob .pg1238 .sr1238 span small{display:block;color:#a9b9bf;font-weight:600}
+#pane-demob .pg1238 .sr1238 .s1238{flex:none;display:inline-grid}
+#pane-demob .pg1238 .sr1238 .sw1238{flex:1 1 140px;color:#ffe7a8;font:800 12.5px/1.3 Inter,Arial,sans-serif}
+#pane-demob .pg1238 .sr1238 .sw1238 small{display:block;color:#a9b9bf;font-weight:600}
 #pane-demob .pg1238 .vd1238{display:inline-block;padding:7px 11px;border-radius:999px;font:900 12px/1 Inter,Arial,sans-serif}
 #pane-demob .pg1238 .vd1238.ok{background:#19d27a22;color:#7ff0b4;box-shadow:0 0 14px #19d27a44}
 #pane-demob .pg1238 .vd1238.no{background:#ff4d5e1f;color:#ffb0b8;box-shadow:0 0 14px #ff4d5e33}
@@ -77,7 +78,7 @@ function starsHtml(pct) {
   out.push('<span class="s1238' + (fill >= 1 ? ' lit' : '') + (i === next ? ' next' : '') + '" title="' + (lo + 20) + '% off site"><svg viewBox="0 0 24 24" aria-hidden="true"><defs><clipPath id="sc1238_' + i + '"><rect x="0" y="0" width="' + (24 * fill).toFixed(2) + '" height="24"/></clipPath></defs><path class="bg" d="' + STAR + '"/><path class="fg" d="' + STAR + '" clip-path="url(#sc1238_' + i + ')"/></svg></span>'); }
  const lit = Math.floor(pct / 20), nextAt = Math.min(100, (lit + 1) * 20);
  return '<div class="sr1238" role="img" aria-label="' + lit + ' of 5 stars: one for every 20 percent of the demob off site"><svg width="0" height="0" style="position:absolute"><defs><linearGradient id="sg1238" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff2b0"/><stop offset=".5" stop-color="#ffd24a"/><stop offset="1" stop-color="#ff9b00"/></linearGradient></defs></svg>'
-  + out.join('') + '<span>' + (lit >= 5 ? 'Five stars · the demob is complete' : lit + ' of 5 stars') + '<small>' + (lit >= 5 ? 'Every unit off site' : 'Next star at ' + nextAt + '% off site · ' + (nextAt - pct).toFixed(1) + '% to go') + '</small></span></div>';
+  + out.join('') + '<span class="sw1238">' + (lit >= 5 ? 'Five stars · the demob is complete' : lit + ' of 5 stars') + '<small>' + (lit >= 5 ? 'Every unit off site' : 'Next star at ' + nextAt + '% off site · ' + (nextAt - pct).toFixed(1) + '% to go') + '</small></span></div>';
 }
 function html(F) {
  const {w, req, col, pct, days, today, ti, N, pace, need, pts} = F, shown = pct < 10 ? pct.toFixed(1) : Math.round(pct).toString();
