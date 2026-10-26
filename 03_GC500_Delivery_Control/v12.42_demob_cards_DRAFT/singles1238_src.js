@@ -179,7 +179,7 @@ body:not([data-cap="edit"]) #pane-demob .sg1238 .bk1238 button,body:not([data-ca
 #pane-demob .em1238 b{display:block;margin-bottom:4px;color:#fff;font:900 17px/1.2 Inter,Arial,sans-serif}
 /* the day cards: booked and picked up, with each reference and its asset numbers */
 #pane-demob[data-sg1238] .dc996-day .bc984-progress{display:none}
-#pane-demob .dc996-day .dp1238{display:block;margin:12px 22px 0;padding:11px 12px 10px;border-radius:14px;background:linear-gradient(160deg,#ff8a3a1f,#0b171c 70%);box-shadow:inset 0 0 0 1px #ff8a3a40,0 0 18px #ff6a1322;text-align:left}
+#pane-demob .dc996-day .dp1238{position:relative;z-index:3;display:block;margin:12px 22px 0;padding:11px 12px 10px;border-radius:14px;background:linear-gradient(160deg,#ff8a3a1f,#0b171c 70%);box-shadow:inset 0 0 0 1px #ff8a3a40,0 0 18px #ff6a1322;text-align:left}
 #pane-demob .dc996-day .dp1238.ahead{background:linear-gradient(160deg,#18e8ff14,#0b171c 70%);box-shadow:inset 0 0 0 1px #18e8ff33}
 #pane-demob .dc996-day .dph1238{display:flex;align-items:baseline;justify-content:space-between;gap:10px}
 #pane-demob .dc996-day .dph1238 i{font:800 normal 10.5px/1.2 Inter,Arial,sans-serif;letter-spacing:.12em;color:#ffb37a;text-transform:uppercase}
