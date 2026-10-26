@@ -1,30 +1,46 @@
 [
  {
-  "name": "page loads with no errors, the v12.38 helpers and footer",
+  "name": "page loads with no errors, the Demob card helpers on v12.41's render boundary, and the footer v12.42",
   "ok": true,
   "detail": {
    "errors": [],
    "foot": [
-    "v12.38"
+    "v12.42"
    ]
   }
  },
  {
-  "name": "v12.38: everything on site is one card per asset, each drawn once (431 cards)",
+  "name": "v12.42: everything on site is one card per asset, each drawn once (401 cards)",
   "ok": true,
   "detail": {
-   "cards": 431,
-   "arts": 431,
-   "uniq": 431,
-   "btn": "Everything on site · 431 assets"
+   "cards": 401,
+   "arts": 401,
+   "uniq": 401,
+   "btn": "Everything on site · 370 assets"
   }
  },
  {
-  "name": "v12.38: Coates' own units are in our list, sub-hired units under their supplier",
+  "name": "v12.42: \"on site\" counts only what is still there (370 on site, 31 picked up), on the tab button and the bar",
   "ok": true,
   "detail": {
-   "coatesIn": 218,
-   "coatesOwn": 218,
+   "count": 370,
+   "onSite": 370,
+   "gone": 31,
+   "btn": "Everything on site · 370 assets",
+   "bar": "370 assets on site · 31 picked up · one card each · tap a picture for the full map"
+  }
+ },
+ {
+  "name": "v12.42: a run the record holds as not on site, with nothing collected, is not on the list (WB19, WB20)",
+  "ok": true,
+  "detail": 0
+ },
+ {
+  "name": "v12.42: Coates' own units are in our list, sub-hired units under their supplier",
+  "ok": true,
+  "detail": {
+   "coatesIn": 188,
+   "coatesOwn": 188,
    "subIn": 213,
    "sups": [
     "EPEvent Portables 203 assets",
@@ -34,7 +50,7 @@
   }
  },
  {
-  "name": "v12.38: the mixed toilet references split by owner: WC09 2 Coates + 16 Event Portables, WC31 1 + 2 (the 16 Pan blocks), WC67 1 + 3, T0024 1 + 1",
+  "name": "v12.42: the mixed toilet references split by owner: WC09 2 Coates + 16 Event Portables, WC31 1 + 2 (the 16 Pan blocks), WC67 1 + 3, T0024 1 + 1",
   "ok": true,
   "detail": {
    "WC09": 18,
@@ -101,7 +117,7 @@
   }
  },
  {
-  "name": "v12.38: a waste tank stays on its toilet's card (WC20 two sets, WC05 one)",
+  "name": "v12.42: a waste tank stays on its toilet's card, paired on the record's word (WC20 by set, WC60 by its note: 1119489 with 1328980, 1087500 with 1328981; WC05 one of each)",
   "ok": true,
   "detail": {
    "WC20": [
@@ -128,6 +144,30 @@
      "inside": []
     }
    ],
+   "WC60": [
+    {
+     "uid": "coates|1087500",
+     "owner": "coates",
+     "item": "Toilet Block 6m",
+     "no": "1087500",
+     "tank": "1328981",
+     "s": "not",
+     "group": false,
+     "icon": "block",
+     "inside": []
+    },
+    {
+     "uid": "coates|1119489",
+     "owner": "coates",
+     "item": "Toilet Block 6m",
+     "no": "1119489",
+     "tank": "1328980",
+     "s": "not",
+     "group": false,
+     "icon": "block",
+     "inside": []
+    }
+   ],
    "WC05": [
     {
      "uid": "coates|1097377",
@@ -144,13 +184,13 @@
   }
  },
  {
-  "name": "v12.38: water barriers stay one card a run; what is inside a building is on the building's card (P46 with its fridges and air conditioners)",
+  "name": "v12.42: water barriers stay one card a run; what is inside a building is on the building's card (P46 with its fridges and air conditioners)",
   "ok": true,
   "detail": {
    "wb": [
-    15,
-    15,
-    15
+    13,
+    13,
+    13
    ],
    "P46": [
     {
@@ -173,7 +213,53 @@
   }
  },
  {
-  "name": "v12.38: a reference of five light towers is five cards, each its own asset number",
+  "name": "v12.42: a building is one card with what is inside it listed on it (P01: its fridge and two air conditioners), never cards of their own",
+  "ok": true,
+  "detail": {
+   "P01": [
+    {
+     "uid": "coates|1322583",
+     "owner": "coates",
+     "item": "Building 12m",
+     "no": "1322583",
+     "tank": "",
+     "s": "not",
+     "group": false,
+     "icon": "bld",
+     "inside": [
+      "Fridge 1328956",
+      "Air conditioner 1322610",
+      "Air conditioner 1322609"
+     ]
+    }
+   ],
+   "contentsCards": []
+  }
+ },
+ {
+  "name": "v12.42: size and weight are each unit's own on a mixed reference (WC09: the FWF guide 117 kg on the FWF, not on the Coates toilet block)",
+  "ok": true,
+  "detail": [
+   [
+    "Toilet Block 6m",
+    "6000 × 3000 mm"
+   ],
+   [
+    "Toilet Block 6m",
+    "6000 × 3000 mm"
+   ],
+   [
+    "FWF",
+    "1220 × 1200 × 2220 mm · 117 kg"
+   ],
+   [
+    "FWF",
+    "1220 × 1200 × 2220 mm · 117 kg"
+   ]
+  ]
+ },
+ {
+  "name": "v12.42: a reference of five light towers is five cards, each its own asset number",
   "ok": true,
   "detail": [
    {
@@ -234,12 +320,12 @@
   ]
  },
  {
-  "name": "v12.38: nothing reads \"Not checked yet\": a unit is Not ready until it is ticked Ready (or Emptied) or picked up",
+  "name": "v12.42: nothing reads \"Not checked yet\": a unit is Not ready until it is ticked Ready (or Emptied) or picked up",
   "ok": true,
   "detail": false
  },
  {
-  "name": "v12.38: each card carries the icon of what it is (generator, toilet, pee panel, toilet block, lighting tower, building, scissor lift, forklift, message board)",
+  "name": "v12.42: each card carries the icon of what it is (generator, toilet, pee panel, toilet block, lighting tower, building, scissor lift, forklift, message board)",
   "ok": true,
   "detail": {
    "GN18": [
@@ -268,12 +354,93 @@
    "vms": [
     "vms"
    ],
-   "withIcon": 431,
-   "all": 431
+   "withIcon": 401,
+   "all": 401
   }
  },
  {
-  "name": "v12.38: every VMS board, 24, each with its asset number, rego and where it stands now (VMS 02 at its 02a pin)",
+  "name": "v12.42: after the final removal morning the session boards 13-17 are in their store (VMS 15 at T2 runoff, VMS 16 behind 2 Breaker St on their store pins; 13, 14, 17 say their store has no pin yet)",
+  "ok": true,
+  "detail": [
+   {
+    "n": "13",
+    "stored": {
+     "done": false,
+     "at": "",
+     "by": "",
+     "day": "2026-10-26",
+     "pinned": false,
+     "track": "VMS 13 · T14 DL"
+    },
+    "where": "Altus compound, Cypress Ave",
+    "lat": -27.981783,
+    "lon": 153.424452,
+    "text": "In storage · Altus compound, Cypress AveOff the track from 06:00 Mon 26 Oct, the removals planWas at VMS 13 · T14 DLIts store is not pinned yet: the pictures and Navigate show its last pin on the track"
+   },
+   {
+    "n": "14",
+    "stored": {
+     "done": false,
+     "at": "",
+     "by": "",
+     "day": "2026-10-26",
+     "pinned": false,
+     "track": "VMS 14 · Gold Coast Highway southbound"
+    },
+    "where": "Altus compound, Cypress Ave",
+    "lat": -27.982576,
+    "lon": 153.424393,
+    "text": "In storage · Altus compound, Cypress AveOff the track from 03:00 Mon 26 Oct, the removals planWas at VMS 14 · Gold Coast Highway southboundIts store is not pinned yet: the pictures and Navigate show its last pin on the track"
+   },
+   {
+    "n": "15",
+    "stored": {
+     "done": false,
+     "at": "",
+     "by": "",
+     "day": "2026-10-26",
+     "pinned": true,
+     "track": "VMS 15 · T4 runoff"
+    },
+    "where": "T2 runoff",
+    "lat": -27.990144,
+    "lon": 153.428562,
+    "text": "In storage · T2 runoffOff the track from 06:00 Mon 26 Oct, the removals planWas at VMS 15 · T4 runoff"
+   },
+   {
+    "n": "16",
+    "stored": {
+     "done": false,
+     "at": "",
+     "by": "",
+     "day": "2026-10-26",
+     "pinned": true,
+     "track": "VMS 16 · T11"
+    },
+    "where": "behind 2 Breaker St, Main Beach",
+    "lat": -27.9817267,
+    "lon": 153.42943,
+    "text": "In storage · behind 2 Breaker St, Main BeachOff the track from 03:00 Mon 26 Oct, the removals planWas at VMS 16 · T11"
+   },
+   {
+    "n": "17",
+    "stored": {
+     "done": false,
+     "at": "",
+     "by": "",
+     "day": "2026-10-26",
+     "pinned": false,
+     "track": "VMS 17 · T12 runoff"
+    },
+    "where": "T10 runoff",
+    "lat": -27.981594,
+    "lon": 153.427038,
+    "text": "In storage · T10 runoffOff the track from 03:00 Mon 26 Oct, the removals planWas at VMS 17 · T12 runoffIts store is not pinned yet: the pictures and Navigate show its last pin on the track"
+   }
+  ]
+ },
+ {
+  "name": "v12.42: every VMS board, 24, each with its asset number, rego and where it stands now (VMS 02 at its 02a pin)",
   "ok": true,
   "detail": {
    "n": 24,
@@ -317,36 +484,37 @@
     "how": "Andrew Fisher's confirmed VMS 2A Maps pin, 25 Oct 2026",
     "pinned": true,
     "store": "",
-    "from": ""
+    "from": "",
+    "stored": null
    },
    "text02": "Now at VMS 02a · Gold Coast Highway (southbound), top of path near S10Pinned on site · 25 Oct 2026"
   }
  },
  {
-  "name": "v12.38: every card still on site with a place has two map pictures (close up and wider area) with a pulsing ring, and Navigate, Text, Email and Send; picked-up cards none",
+  "name": "v12.42: every card still on site with a place has two map pictures (close up and wider area) with a pulsing ring, and Navigate, Text, Email and Send; picked-up cards none",
   "ok": true,
   "detail": {
-   "onSite": 400,
-   "two": 397,
-   "pulse": 794,
-   "actions": 400,
+   "onSite": 370,
+   "two": 369,
+   "pulse": 738,
+   "actions": 370,
    "gonePics": 0,
-   "arrived": 426,
-   "notBoard": 428,
-   "located": 397,
+   "arrived": 398,
+   "notBoard": 398,
+   "located": 369,
    "missing": []
   }
  },
  {
-  "name": "v12.38: the arrival date is on the cards (426 of 428)",
+  "name": "v12.42: the arrival date is on the cards (398 of 398)",
   "ok": true,
   "detail": {
-   "arrived": 426,
-   "of": 428
+   "arrived": 398,
+   "of": 398
   }
  },
  {
-  "name": "v12.38: the pictures are the page's own \"on the map\" pictures (close up 190 m, wider area 840 m), drawn and with the icon on them",
+  "name": "v12.42: the pictures are the page's own \"on the map\" pictures (close up 190 m, wider area 840 m), drawn and with the icon on them",
   "ok": true,
   "detail": {
    "on": 2,
@@ -356,17 +524,17 @@
    ],
    "badge": 2,
    "state": {
-    "on": 16,
-    "all": 794,
-    "drawn": 12,
+    "on": 17,
+    "all": 738,
+    "drawn": 13,
     "failed": 0,
-    "queued": 3,
+    "queued": 0,
     "busy": 3
    }
   }
  },
  {
-  "name": "v12.38: Navigate gives driving directions; Text and Email open a new message with what it is, its asset number, where, arrival, how it stands and the directions",
+  "name": "v12.42: Navigate gives driving directions; Text and Email open a new message with what it is, its asset number, where, arrival, how it stands and the directions",
   "ok": true,
   "detail": {
    "opened": [
@@ -378,7 +546,7 @@
   }
  },
  {
-  "name": "v12.38: Send hands the two pictures and the words to the phone's share menu",
+  "name": "v12.42: Send hands the two pictures and the words to the phone's share menu",
   "ok": true,
   "detail": {
    "title": "GC500 demob · GN18 · 1261273",
@@ -390,7 +558,7 @@
   }
  },
  {
-  "name": "v12.38: find by asset no., GC500 ID, VMS or rego (1211370 finds VMS 02 alone); the filter shows only what it says (picked up)",
+  "name": "v12.42: find by asset no., GC500 ID, VMS or rego (1211370 finds VMS 02 alone); the filter shows only what it says (picked up)",
   "ok": true,
   "detail": {
    "F1": [
@@ -405,7 +573,7 @@
   }
  },
  {
-  "name": "v12.38: the progress card is lit up: a glowing ring and line, today's point pulsing, five stars; v12.36's card and master-plan overview give way",
+  "name": "v12.42: the progress card is lit up: a glowing ring and line, today's point pulsing, five stars; v12.36's card and master-plan overview give way",
   "ok": true,
   "detail": {
    "n": 1,
@@ -419,7 +587,7 @@
   }
  },
  {
-  "name": "v12.38: today's day card lists what was picked up with each reference, its asset numbers and the time (GN10 · 20kva generator · 1283681 · 07:40)",
+  "name": "v12.42: today's day card lists what was picked up with each reference, what it is, its asset numbers and the time (GN10 · 20kva generator · 1283681 · 07:40; WC23 · FWF portable toilet · 0968 0960 0107)",
   "ok": true,
   "detail": {
    "today": "DEMOB · WEEK 1 TODAY MONDAY 26 OCTOBER 2026 WEATHER FORECAST Forecast unavailable PICKED UP · BOOKED REF · ASSET NO. · TIME GN10 20kva generator 1283681 07:40 GN24 60kva generator 1277089 08:10 WC23 FWF portable toilet 0968 0960 0107 · part 11:04 WC24 FWF portable toilet 0489 11:04 WC46 FWF portable toilet 0525 11:04 WC55 FWF portable toilet 0650 11:04 WC56 FWF portable toilet 0974 0004 0003 0445 0442 0009 · part 11:04 WC56 FWF portable toilet 0088 · part 11:04 WC59 FWF portable toilet 0935 0497 0633 0066 0533 · part 11:04 WC33 FWF portable toilet 0634 0582 0548 0782 0657 0912 · part 11:58 GN0",
@@ -427,7 +595,7 @@
   }
  },
  {
-  "name": "v12.38: a day ahead shows only what is booked for it (nothing yet), not the schedule's plan",
+  "name": "v12.42: a day ahead shows only what is booked for it (nothing yet), not the schedule's plan",
   "ok": true,
   "detail": {
    "later": "DEMOB · WEEK 1 UPCOMING TUESDAY 27 OCTOBER 2026 WEATHER FORECAST Forecast unavailable PICKED UP · BOOKED REF · ASSET NO. · TIME Nothing yet BOOKED AND PICKED UP Booked 0 Ready of booked 0 of 0 Picked up 0 units AVAILABLE STAFF 5 staff [name] [name] Andrew Fisher [name] [name] LIFE SAVING RULE REMINDER Training and Competency Open pick-up plan",
@@ -449,14 +617,21 @@
   }
  },
  {
-  "name": "v12.38: a day's list holds only what left that day or is booked for it; the schedule's runs, trucks, print and confirm are put away",
+  "name": "v12.42: in Everything on site the day-list button counts what was booked and picked up that day, not the old plan",
+  "ok": true,
+  "detail": "Mon 26 Oct · booked and picked up · 31"
+ },
+ {
+  "name": "v12.42: a day's list holds only what left that day (by the day it left) or is booked for it; its heading counts units, as the day card does; a \"booked\" filter from Everything is not carried in; the schedule's runs, trucks, print and confirm are put away",
   "ok": true,
   "detail": {
    "mode": "day",
    "n": 31,
    "want": 31,
+   "units": 31,
+   "hidden": 0,
    "allToday": true,
-   "h3": "Mon 26 Oct · 0 booked · 15 picked up",
+   "h3": "Mon 26 Oct · 0 booked · 31 picked up",
    "toilets": false,
    "trucks": false,
    "print": false,
@@ -464,7 +639,7 @@
   }
  },
  {
-  "name": "v12.38: a day with nothing booked says so and lists nothing from the schedule",
+  "name": "v12.42: a day with nothing booked says so and lists nothing from the schedule",
   "ok": true,
   "detail": {
    "n": 0,
@@ -472,7 +647,7 @@
   }
  },
  {
-  "name": "v12.38: the cards lay out three or more to a row on a desktop",
+  "name": "v12.42: the cards lay out three or more to a row on a desktop",
   "ok": true,
   "detail": {
    "perRow": 3,
@@ -481,12 +656,12 @@
   }
  },
  {
-  "name": "v12.38: the tab settles: no redraw loop while nothing changes (5 changes in 3 s)",
+  "name": "v12.42: the tab settles: no redraw loop while nothing changes (1 changes in 3 s)",
   "ok": true,
-  "detail": 5
+  "detail": 1
  },
  {
-  "name": "v12.38: on the edit link every card still on site has its Book pick-up button and its Ready light to press",
+  "name": "v12.42: on the edit link every card still on site has its Book pick-up button and its Ready light to press",
   "ok": true,
   "detail": {
    "book": "Book pick-up",
@@ -494,14 +669,15 @@
   }
  },
  {
-  "name": "v12.38: Ready on one Event Portables unit at WC09 marks that unit only, on its own clock; the Coates toilet block beside it stays Not ready; the reference's own tick is untouched",
+  "name": "v12.42: Ready on one Event Portables unit at WC09 marks that unit only, on its own clock; the Coates toilet block beside it stays Not ready; the reference's own tick is untouched",
   "ok": true,
   "detail": {
    "u": {
     "on": true,
-    "at": "2026-10-26T07:03:01.664Z",
+    "at": "2026-10-26T08:24:31.054Z",
     "by": "Example test recorder",
-    "why": ""
+    "why": "",
+    "doc": "unit925/bd4f0c95-5102-4c7d-af5b-c0bc6632006d"
    },
    "hist": 1,
    "ep": "ready",
@@ -509,7 +685,7 @@
   }
  },
  {
-  "name": "v12.38: Book pick-up opens a sheet with a calendar (no day picked, past days shut) and a clock (24 hours), naming the asset; Save waits for a day and a time",
+  "name": "v12.42: Book pick-up opens a sheet with a calendar (no day picked, past days shut) and a clock (24 hours), naming the asset; Save waits for a day and a time",
   "ok": true,
   "detail": {
    "title": "Book the pick-up",
@@ -525,7 +701,7 @@
   }
  },
  {
-  "name": "v12.38: a day on the calendar, the hour and the minutes on the clock: 07:30, and Save opens",
+  "name": "v12.42: a day on the calendar, the hour and the minutes on the clock: 07:30, and Save opens",
   "ok": true,
   "detail": {
    "time": "07:30",
@@ -535,14 +711,14 @@
   }
  },
  {
-  "name": "v12.38: the booking travels on GN18's delivery document for that unit: Queensland time, the note, who and when; the card shows it",
+  "name": "v12.42: the booking travels on GN18's delivery document for that unit: Queensland time, the note, who and when; the card shows it",
   "ok": true,
   "detail": {
    "b": {
     "at": "2026-10-27T07:30:00+10:00",
     "note": "Coates truck",
     "by": "Example test recorder",
-    "set": "2026-10-26T07:03:24.838Z"
+    "set": "2026-10-26T08:24:44.495Z"
    },
    "hist": 1,
    "card": "Pick-up booked Tue 27 Oct · 07:30 Coates truck · booked by Example test recorder Change",
@@ -551,24 +727,25 @@
   }
  },
  {
-  "name": "v12.38: the booked pick-ups list shows it by day and time",
+  "name": "v12.42: the booked pick-ups list shows it by day and time",
   "ok": true,
   "detail": {
-   "head": "Booked pick-ups 1 booked · 399 still to book · only what has been booked",
+   "head": "Booked pick-ups 1 booked · 369 still to book · only what has been booked",
    "lines": [
     "07:30 GN18 · 50kva · Generator · 1261273 · Coates · Coates truck Not ready"
    ]
   }
  },
  {
-  "name": "v12.38: tomorrow's day card now carries the booking (GN18 1261273 07:30)",
+  "name": "v12.42: tomorrow's day card now carries the booking (GN18 1261273 07:30)",
   "ok": true,
   "detail": "DEMOB · WEEK 1 UPCOMING TUESDAY 27 OCTOBER 2026 WEATHER FORECAST Forecast unavailable PICKED UP · BOOKED REF · ASSET NO. · TIME GN18 50kva generator 1261273 booked 07:30 BOOKED AND PICKED UP Booked 1 Ready of booked 0 of 1 Picked up 0 units AVAILABLE STAFF 5 staff [name] [name] Andrew Fisher [name] [name] LIFE SAVING RULE REMINDER Training and Competency Selected · Open pick-up plan"
  },
  {
-  "name": "v12.38: a typed time (1415 -> 14:15) and \"Book all the Event Portables units at WC09\" books every one of them at once, not the Coates blocks",
+  "name": "v12.42: a typed time (730 -> 07:30, 1415 -> 14:15) and \"Book all the Event Portables units at WC09\" books every one of them at once, not the Coates blocks",
   "ok": true,
   "detail": {
+   "T7": "Pick-up Tue 27 Oct at 07:30",
    "AL": {
     "hidden": false,
     "text": "Book all 16 Event Portables units at WC09 still on site, for the same day and time"
@@ -589,7 +766,16 @@
   }
  },
  {
-  "name": "v12.38: Change opens the booking as it stands; Clear is a dated change too, and the card is back to \"to be booked\"",
+  "name": "v12.42: Clear booking clears this unit only, even with \"Book all\" ticked (WC09 0085 cleared; the other 15 Event Portables bookings stand)",
+  "ok": true,
+  "detail": {
+   "me": "",
+   "others": 15,
+   "open": false
+  }
+ },
+ {
+  "name": "v12.42: Change opens the booking as it stands; Clear is a dated change too, and the card is back to \"to be booked\"",
   "ok": true,
   "detail": {
    "pre": {
@@ -608,7 +794,58 @@
   }
  },
  {
-  "name": "v12.38: on any copy the later tick wins unit by unit, other units are kept, the histories join, and a record holding only these is kept",
+  "name": "v12.42: Picked up on one unit opens the page's own departure form for WC09 with that unit ticked (Emptied asked for the whole reference first)",
+  "ok": true,
+  "detail": {
+   "title": "Record departure · WC09",
+   "checked": [
+    "[\"WC09\",\"event-portables\",\"asset\",\"0551\"]"
+   ],
+   "n": 18,
+   "emptied": true
+  }
+ },
+ {
+  "name": "v12.42: at a mixed reference Emptied turns nobody Ready: the Coates blocks and the untouched Event Portables units stay Not ready; the unit ticked Ready stays Ready",
+  "ok": true,
+  "detail": {
+   "co": [
+    "not",
+    "not"
+   ],
+   "epOther": [
+    "not"
+   ],
+   "ep": "ready",
+   "why": "not ticked yet · WC09 is emptied; tick each unit Ready",
+   "form": false
+  }
+ },
+ {
+  "name": "v12.42: on the live sync a store copy without this phone's unit ticks and bookings loses none of them: they are kept here and sent back up, and nothing else is written",
+  "ok": true,
+  "detail": {
+   "id": true,
+   "kept": true,
+   "ready": true,
+   "hist": 17,
+   "sent": true,
+   "others": 0
+  }
+ },
+ {
+  "name": "v12.42: a tick or booking made before a unit's owner or number was filled in, or on its reference's one card before its units were recorded, still finds the unit; its own entry comes first",
+  "ok": true,
+  "detail": {
+   "unknown": true,
+   "star": true,
+   "doc": true,
+   "own": true,
+   "none": true
+  }
+ },
+ {
+  "name": "v12.42: on any copy the later tick wins unit by unit, other units are kept, the histories join, and a record holding only these is kept",
   "ok": true,
   "detail": {
    "ab": {
@@ -645,7 +882,7 @@
   }
  },
  {
-  "name": "v12.38: only WC09's and GN18's delivery documents were written, all captured in the page; nothing reached the network",
+  "name": "v12.42: only WC09's and GN18's delivery documents were written, all captured in the page; nothing reached the network",
   "ok": true,
   "detail": {
    "sent": [
@@ -654,7 +891,7 @@
    ],
    "counts": {
     "page": 1,
-    "live": 2596,
+    "live": 2375,
     "blocked": 0
    }
   }

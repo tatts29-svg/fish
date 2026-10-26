@@ -98,7 +98,8 @@ The earlier drafts of this release (`pickup1238_src.js`, `cardpics1238_src.js`: 
 
 ## Checks
 
-- Built on verified live v12.37 `d0c7d444…` with `toolchain/build.sh v12.38 v12.38_pickup_booking_DRAFT/patch_v1238.py`: candidate `0281a6f31b16b5a57282c98667f3cbdfd4c1eeea662cc0cace89cb722a9ffd79`, 212 inline scripts, page check PASS.
-- `tests/test_v1238.cjs`: **35/35 desktop, 35/35 phone** (`evidence/test_v1238_desktop.txt`, `evidence/test_v1238_phone.txt`). It reads the live record on the view link, and rehearses the Ready tick and the booking with the sync held in the page: only WC09's and GN18's delivery documents were written, captured in the page, nothing reached the network.
-- Shared sweeps: desktop and phone each cover 27 tabs and back navigation, with 0 page errors, 0 console errors and 0 blocked record writes.
+- Built on verified live v12.41 `e106502b…` with `toolchain/build.sh v12.42 v12.42_demob_cards_DRAFT/patch_v1242.py`: candidate `cc9359b726b5d08820b34014c13b934ae23cd6fbba20ee6e9f9114a675029daa`, 214 inline scripts, page check PASS.
+- `tests/test_v1242.cjs`: **46/46 desktop, 46/46 phone** (`evidence/test_v1242_desktop.txt`, `evidence/test_v1242_phone.txt`). It reads the live record on the view link, and rehearses the Ready tick, the booking, Clear on one unit, Picked up opening the departure form, Emptied at a mixed reference and a store copy arriving on the live sync, with the sync held in the page: only WC09's and GN18's delivery documents were written, captured in the page, nothing reached the network.
+- Shared sweeps: __SWEEPS__
+- An independent review of these fixes (four lenses, each finding verified): __REVIEW__
 - Screenshots in `evidence/`; staff names on the day cards are blurred, and redacted in the logs.
