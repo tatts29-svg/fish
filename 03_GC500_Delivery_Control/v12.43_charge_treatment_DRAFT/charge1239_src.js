@@ -3,7 +3,8 @@
 'use strict';
 const PREFIX='charge-treatment1239|';
 const HIRE_TYPES=['own_use_hire','included_elsewhere_hire'];
-const TYPES={own_use_hire:'Coates own use — no customer hire charge',included_elsewhere_hire:'Included in another customer charge — no separate hire charge',included_in_pumpouts:'Included in pump-out charges — no separate customer charge'};
+const SCOPE_KEY='scope|fence', SCOPE_TYPE='approved_event_crew_hours';
+const TYPES={approved_event_crew_hours:'Use explicitly approved event-crew total hours for customer labour',own_use_hire:'Coates own use — no customer hire charge',included_elsewhere_hire:'Included in another customer charge — no separate hire charge',included_in_pumpouts:'Included in pump-out charges — no separate customer charge'};
 const plain=v=>!!v&&typeof v==='object'&&!Array.isArray(v);
 const text=v=>typeof v==='string'&&v.trim().length>0;
 const date=v=>typeof v==='string'&&/^\d{4}-\d{2}-\d{2}$/.test(v)&&Number.isFinite(Date.parse(v+'T00:00:00Z'))&&new Date(v+'T00:00:00Z').toISOString().slice(0,10)===v;
@@ -24,7 +25,7 @@ function validate(record,target,today){
   return Number.isFinite(at)&&new Date(at).toISOString()===h.recorded_at&&(!today||h.recorded_at.slice(0,10)<=today);
  };
  if(Array.isArray(record.history)&&(record.history.some((h,i)=>!historyValid(h,i))||record.revision!==record.history.length+1))errors.push('Decision revision and retained history do not agree.');
- if(typeof record.key!=='string'||!/^c\|[^|]+\|[^|]+$|^service\|.+$/.test(record.key)||(target&&target.key!==record.key))errors.push('Unknown or mismatched customer-charge identity.');
+ if(typeof record.key!=='string'||!/^c\|[^|]+\|[^|]+$|^service\|.+$|^scope\|fence$/.test(record.key)||(target&&target.key!==record.key))errors.push('Unknown or mismatched customer-charge identity.');
  if(!text(record.reason)||record.reason.length>1000||!text(record.evidence)||record.evidence.length>1000)errors.push('A reason and source evidence are required.');
  if(!text(record.confirmed_by)||!date(record.confirmed_on)||(today&&record.confirmed_on>today))errors.push('Named, dated confirmation is required.');
  const stamp=record.recorded_at,stampTime=typeof stamp==='string'?Date.parse(stamp):NaN;
@@ -61,15 +62,63 @@ function asset(model,covered,treatments){
  const removed=model.lines.reduce((s,l,i)=>s+(covered[i]===true&&finite(l.total)?l.total:0),0);
  return {...model,lines,base,known:finite(model.known)?model.known-removed:model.known,total:base!=null&&model.accessories!=null&&model.labour!=null?base+model.accessories+model.labour:null};
 }
-const API={PREFIX,TYPES,HIRE_TYPES,canonical,validate,resolve,contract,service,asset};
+// Money is rounded once at each line/total boundary, using the decimal source values.
+function decimalTerms(terms){
+ const fraction=value=>{const m=/^([+-]?)(\d+)(?:\.(\d*))?(?:e([+-]?\d+))?$/i.exec(String(value));if(!m||!finite(value))throw new TypeError('Finite customer amounts required.');
+  const places=(m[3]||'').length-Number(m[4]||0);return {n:BigInt(m[2]+(m[3]||''))*(m[1]==='-'?-1n:1n)*(places<0?10n**BigInt(-places):1n),d:places>0?10n**BigInt(places):1n};};
+ return terms.map(factors=>factors.map(fraction).reduce((a,b)=>({n:a.n*b.n,d:a.d*b.d}),{n:1n,d:1n})).reduce((a,b)=>{const d=a.d>b.d?a.d:b.d;return {n:a.n*(d/a.d)+b.n*(d/b.d),d};},{n:0n,d:1n});
+}
+function moneyTerms(terms){const a=decimalTerms(terms),sign=a.n<0n?-1n:1n,v=(a.n<0n?-a.n:a.n)*100n;return Number(sign*((2n*v+a.d)/(2n*a.d)))/100;}
+// Aggregate hours are a separate customer decision, never an automatic supplier-to-customer link.
+function scope(base,result){
+ if(result?.state!=='active'||result.record?.treatment!==SCOPE_TYPE||!base?.lines)return base;
+ const source=result.record.source, index=base.lines.findIndex(l=>l.key===source.scope_key);
+ if(index<0)return base;
+ const original=base.lines[index], byDate=new Map(source.days.map(d=>[d.date,d]));
+ if(original.days.length!==byDate.size||original.days.some(d=>!byDate.has(d.date)))return base;
+ const days=original.days.map(day=>({...day,per:null,people:null,start:null,finish:null,per_typed:false,people_typed:false,
+  hours:byDate.get(day.date).hours,amount:byDate.get(day.date).hours*original.rate,aggregate1239:true}));
+ const hoursSum=decimalTerms(days.map(d=>[d.hours])), hours=Number(hoursSum.n)/Number(hoursSum.d), amountExact=hours*original.rate;
+ const line={...original,days,hours,amount_exact:amountExact,amount:moneyTerms([[hours,original.rate]]),
+  chargeTreatment1239:result.record,sourceLine1239:original,aggregate1239:true};
+ const lines=base.lines.map((l,i)=>i===index?line:l), terms=lines.map((l,i)=>i===index?[hours,original.rate]:[l.amount_exact]);
+ return {...base,lines,people:moneyTerms(terms),hours:Math.round(lines.reduce((n,l)=>n+l.hours,0)*100)/100,
+  total:moneyTerms(terms.concat([[base.at]])),edits:base.edits+1,chargeTreatment1239:result.record};
+}
+const API={PREFIX,TYPES,HIRE_TYPES,SCOPE_KEY,SCOPE_TYPE,canonical,validate,resolve,contract,service,asset,scope};
 root.ChargeTreatment1239=API;
 if(typeof module!=='undefined'&&module.exports)module.exports=API;
 if(typeof document==='undefined')return;
 const rawRecord=key=>(S.answers||{})[PREFIX+key];
 const ordinaryCharge=contractCharge;
+const ordinaryScope=typeof scopeFigures==='function'?scopeFigures:null;
 const fields=['rental_contract','line','description','what','item','asset_no','asset_no_is_plant_number','quantity','kind','family','rate_1','rate_type','price','subhired','supplier_sub_rental','start_date','term_date','expected_term_date','booked_delivery_date','booked_pickup_date','minimum_days','location','status_as_written','sales_analysis_code','branch_code','match'];
+function scopeTarget(base){
+ const W=root.Workforce1010, E=root.EventCrew1237;
+ if(!ordinaryScope||!W||!E||typeof SCOPE==='undefined'||!SCOPE)return null;
+ const figure=base||ordinaryScope(), matches=(figure?.lines||[]).filter(l=>l.key==='fence'), raw=(SCOPE.lines||[]).filter(l=>l.key==='fence');
+ const target={key:SCOPE_KEY,eligible:false,treatment:SCOPE_TYPE,label:'Event customer labour · confirmed whole-crew hours',source:null};
+ if(matches.length!==1||raw.length!==1||!Array.isArray(W.DATES)||W.DATES.length!==3||new Set(W.DATES).size!==3)return target;
+ const line=matches[0], notes=[...(FCOM.service_notes||[]),...(S.serviceNotes||[])];
+ const env={notes,days:W.DATES.slice(),scopeKey:'fence',scopeDocument:SCOPE.document,group:W.GROUP_ID,quote:W.QUOTE,
+  today:todayIso(),deleted:tombedHere,sourceNotes:(FCOM.service_notes||[]).map(n=>n.id),supplierRate:W.QUOTE.rate};
+ // Pure membership validation deliberately avoids supplier/Finance models and their recursion.
+ const membership=E.resolve(env), active=notes.filter(n=>n&&!tombedHere(n.id)&&Object.prototype.hasOwnProperty.call(n,'event_allocation'));
+ const linked=active.filter(n=>n.event_allocation?.scope_key==='fence'||n.event_allocation?.roster_group===W.GROUP_ID||W.DATES.includes(n.date));
+ const days=W.DATES.map(day=>{
+  const found=linked.filter(n=>n.date===day);if(found.length!==1)return null;
+  const n=found[0], m=membership.byId[String(n.id||'')];if(!m?.customerScopeConfirmed)return null;
+  return {date:day,hours:m.hours,id:m.id,note_no:m.note_no,allocation:copy(n.event_allocation),recorded_by:n.recorded_by||null};
+ });
+ if(linked.length!==3||days.some(d=>!d)||!finite(line.rate)||line.rate<0||line.days.length!==3||new Set(line.days.map(d=>d.date)).size!==3||line.days.some(d=>!W.DATES.includes(d.date)))return target;
+ const keys=new Set(line.days.flatMap(d=>[d.hkey,d.pkey]));
+ const source={kind:'event-crew-customer-hours',scope_key:'fence',scope_document:SCOPE.document,scope_line:copy(raw[0]),
+  customer_line:copy(line),overrides:{hours:Object.entries(S.eventHours||{}).filter(([k])=>keys.has(k)).sort(([a],[b])=>a.localeCompare(b)),rate:copy((S.rates||{})[line.rate_key])},days};
+ return {...target,eligible:true,source,row:line};
+}
 function current(key){
  if(typeof key!=='string')return null;
+ if(key===SCOPE_KEY)return scopeTarget();
  if(key.startsWith('c|')){
   const rows=ONHIRE_ROWS.filter(r=>'c|'+r.rental_contract+'|'+r.line===key);
   if(rows.length!==1)return null;
@@ -90,7 +139,9 @@ function current(key){
  }
  return null;
 }
-function status(key){const record=rawRecord(key);return record==null?{state:'none',record:null,errors:[]}:resolve(record,current(key),todayIso());}
+function status(key,base){const record=rawRecord(key);if(record==null)return {state:'none',record:null,errors:[]};
+ const target=key===SCOPE_KEY?(typeof heldMemo==='function'?heldMemo('customer-scope-target1239',()=>scopeTarget(base)):scopeTarget(base)):current(key);
+ return resolve(record,target,todayIso());}
 function make(key,input){
  const target=current(key),old=rawRecord(key),f=input||{};
  return {schema:1,key,treatment:f.treatment,source:copy(target?.source),reason:f.reason,evidence:f.evidence,confirmed_by:f.confirmed_by,confirmed_on:f.confirmed_on,
@@ -109,9 +160,22 @@ function set(key,input){
  const record={schema:1,kind:'customer-charge-treatment',key,revision:revision+1,treatment:f.treatment,source:copy(f.source),reason:f.reason,evidence:f.evidence,
   confirmed_by:f.confirmed_by,confirmed_on:f.confirmed_on,recorded_by:who,recorded_at:new Date().toISOString(),history};
  const errors=validate(record,current(key),todayIso());
- if(!/^c\|[^|]+\|[^|]+$|^service\|.+$/.test(key))errors.push('Unknown customer-charge target.');
+ if(!/^c\|[^|]+\|[^|]+$|^service\|.+$|^scope\|fence$/.test(key))errors.push('Unknown customer-charge target.');
  if(errors.length){flash(errors[0]);return false;}
  S.answers=S.answers||{};S.answers[PREFIX+key]=record;stampIt('answers',PREFIX+key,who);bump();return true;
+}
+if(ordinaryScope){
+ scopeFigures=function(){const base=ordinaryScope.apply(this,arguments);return rawRecord(SCOPE_KEY)==null?base:scope(base,status(SCOPE_KEY,base));};
+ root.scopeFigures=scopeFigures;
+}
+if(root.Workforce1010?.scopeRows){
+ const previousScopeRows=Workforce1010.scopeRows;
+ Workforce1010.scopeRows=function(line,ro){
+  const controls='<tr><td colspan="'+(line.days.length+3)+'">'+control(SCOPE_KEY)+details(SCOPE_KEY)+'</td></tr>';
+  if(!line.aggregate1239)return previousScopeRows.apply(this,arguments)+controls;
+  return '<tr data-scope-aggregate1239><td><b>Confirmed whole-crew customer hours</b><br><span class="hint">An explicit customer decision; no individual actual hours assigned.</span></td><td class="num">'+esc(money(line.rate))+'</td>'+line.days.map(d=>'<td class="num">'+esc(String(d.hours))+' h</td>').join('')+'<td class="num"><b>'+esc(String(line.hours))+' h</b><br>'+esc(money(line.amount))+'</td></tr>'+controls+
+   '<tr><td colspan="'+(line.days.length+3)+'"><details data-scope-source1239><summary>Original agreed plan — source only</summary><p class="hint">Retained planned people and hours. The confirmed whole-crew total above is the customer charge; these rows are not charged again.</p><div class="tblwrap"><table class="progtbl"><thead><tr><th>Original planned person</th><th>Rate / hr</th>'+line.days.map(d=>'<th>'+esc(d.day||d.date)+'</th>').join('')+'<th>Original total</th></tr></thead><tbody>'+previousScopeRows.call(this,line.sourceLine1239,true)+'</tbody></table></div></details></td></tr>';
+ };
 }
 function water(row){return service(row,status(row.key));}
 contractCharge=function(row){
@@ -165,6 +229,7 @@ function dialog(key){
  const d=document.createElement('div');d.className='drawer on';d.style.zIndex=30;d.setAttribute('role','dialog');d.setAttribute('aria-modal','true');d.setAttribute('aria-label','Customer-charge treatment');
  d.innerHTML='<div class="dh"><div><h2>Customer-charge treatment</h2><p>'+esc(t?.label||key)+'</p></div><button class="close" data-close1239 aria-label="Close">&times;</button></div><div class="db"><div class="form">'+
   '<p class="hint">This records an explicit customer-charge decision for this source line. Supplier Direct costs, source rates and site records remain separate.</p>'+
+  (t?.source?.kind==='event-crew-customer-hours'?'<p class="hint">Whole-crew customer hours: '+t.source.days.map(day=>esc(day.date+' · '+day.hours+' h')).join('; ')+'. Rate: '+esc(money(t.source.customer_line.rate))+' per hour. The original individual plan remains source only; this does not allocate actual hours to individuals.</p>':'')+
   '<div class="f"><label>Treatment<select data-field1239="treatment"><option value="standard">Use standard charge</option>'+(t?.eligible?(t.treatments||[t.treatment]).map(type=>'<option value="'+type+'">'+esc(TYPES[type])+'</option>').join(''):'')+'</select></label></div>'+
   [['reason','Reason'],['evidence','Source document / message and exact scope'],['confirmed_by','Confirmed by'],['confirmed_on','Confirmation date']].map(([k,l])=>'<div class="f"><label>'+l+'<input data-field1239="'+k+'" '+(k==='confirmed_on'?'type="date"':'maxlength="1000"')+' value="'+esc(draft[k]||'')+'"></label></div>').join('')+
   details(key)+'</div></div><div class="df"><button class="btn primary" data-save1239>Save treatment</button><button class="btn" data-close1239>Cancel</button></div>';

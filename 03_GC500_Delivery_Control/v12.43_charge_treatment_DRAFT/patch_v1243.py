@@ -1,5 +1,6 @@
 """Author: Andrew Fisher. Explicit, source-bound customer-charge treatments."""
 import os
+import hashlib
 import re
 import sys
 from pathlib import Path
@@ -8,14 +9,21 @@ sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), '..'
 from rep import rep
 
 
-def patch(text, path):
+def patch(text, path, expected_base_sha=None):
     if 'id="charge1239-script"' in text:
-        raise ValueError('v12.39 is already applied')
+        raise ValueError('v12.43 is already applied')
     if 'id="eventcrew1237-script"' not in text:
-        raise ValueError('v12.39 requires the event-crew reconciliation release')
-    versions = re.findall(r"\+' · v(12\.(?:37|38))';", text)
+        raise ValueError('v12.43 requires the event-crew reconciliation release')
+    expected = expected_base_sha or os.environ.get('GC500_V1243_BASE_SHA256', '')
+    if not re.fullmatch(r'[a-f0-9]{64}', expected):
+        raise ValueError('v12.43 requires an explicit reviewed base SHA-256')
+    if hashlib.sha256(text.encode()).hexdigest() != expected:
+        raise ValueError('v12.43 base SHA-256 changed; rebuild from the reviewed live source')
+    if 'id="performance1241-script"' not in text:
+        raise ValueError('v12.43 requires the performance release')
+    versions = re.findall(r"\+' · v(12\.(?:41|42))';", text)
     if len(versions) != 1:
-        raise ValueError('Expected exactly one v12.37 or v12.38 footer')
+        raise ValueError('Expected exactly one v12.41 or v12.42 footer')
 
     def change(old, new, what):
         nonlocal text
@@ -64,17 +72,23 @@ def patch(text, path):
     old="if (water753.length) { const sv769 = servicing748(); caveats.push(`the water services (${water753.map(l => l.description).join(', ')}) are charged on at what Event Portables charge us, ${money0(sv769 ? sv769.at_cost_total : 0)} — the project manager, 1 Oct: “what we charge should cover what we get charged” — until the branch puts a rate on`); caveats_short.push('water charged on at cost'); }"
     new="if (water753.length) { const sv769 = servicing748(),included1239=sv769?.at_cost?.some(l=>l.chargeTreatment1239); caveats.push(included1239?ChargeTreatment1239.waterWords(sv769):`Separate water services are charged at the supplier figure or an eligible customer override, ${money0(sv769 ? sv769.at_cost_total : 0)} ex GST.`); caveats_short.push(included1239?'water inclusion recorded':'water charged on at cost'); }"
     change(old,new,'financial caveat follows explicit inclusion')
+    change('<h4 class="subhd">The staff <span>— people × hours a person, each day, at the rate an hour</span></h4>',
+           '<h4 class="subhd">The staff <span>— ${F.chargeTreatment1239?"confirmed whole-crew customer hours where recorded; other lines retain their agreed people and hours":"people × hours a person, each day, at the rate an hour"}</span></h4>',
+           'event customer aggregate is visibly separate from the individual source plan')
+    change('<h4 class="subhd">The access plan <span>— the times every line is worked out from</span></h4>',
+           '<h4 class="subhd">The access plan <span>— ${F.chargeTreatment1239?"original planned times; an explicitly confirmed crew total is shown separately below":"the times every line is worked out from"}</span></h4>',
+           'access-plan wording distinguishes an approved customer aggregate')
     src=Path(__file__).with_name('charge1239_src.js').read_text()
     end=text.rfind('\n</body>')
     if end<0 or text[end:].strip()!='</body>\n</html>':
         raise ValueError('Expected the final page body boundary')
     tail=text[end:]
     text=text[:end]+rep(tail,tail,'\n<script id="charge1239-script">\n'+src+'\n</script>'+tail,'native customer-charge treatment module',path)
-    change("+' · v"+versions[0]+"';","+' · v12.39';",'release footer')
+    change("+' · v"+versions[0]+"';","+' · v12.43';",'release footer')
     return text
 
 
 if __name__ == '__main__':
     target = Path(sys.argv[1])
     target.write_text(patch(target.read_text(), str(target)))
-    print('v12.39 source-bound customer-charge treatments applied')
+    print('v12.43 source-bound customer-charge treatments applied')
