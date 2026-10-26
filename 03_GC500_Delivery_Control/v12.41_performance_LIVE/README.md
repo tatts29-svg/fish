@@ -21,15 +21,15 @@ When the later Demob release rebuilds, retain both actual-pane startup guards an
 
 ## Verification
 
-READY TO UPLOAD. All final gates passed on the exact candidate below; publication and public read-back are still pending.
+LIVE — guarded publication at 08:10:52.147 UTC / 18:10:52.147 AEST on 26 October 2026. READY source `5d36b6e1c6b9c88c7b83b46ce26d4e621cafc437`. Independent public GET at 08:12:36.185959 UTC matched every byte, both performance modules, the Finance index and footer. An actual-public phone check passed 8/8 with no local page substitution, runtime/console errors or write attempts; the release owner inspected the phone capture.
 
 - Implementation source: `1e8d7ad1597f60e79c3d63571da3da5f40a69957`; the final native test adds branch-freshness assertions in this commit.
 - Base: live v12.37, SHA-256 `d0c7d444d9b9c1aef434478a283bb4fc5b0cbafeb70a329cc1a561f982bb986a`.
 - Candidate: SHA-256 `e106502b347cb51519f6aaed1eec5b6ba20a301b06490df04e3d29569d55b422`, 15,620,153 bytes. Earlier candidates are superseded.
 - Shared checker: 212 scripts. Offline behavior: 108/108. Financial/map/people preservation: 26/26. Native phone interactions: 42/42. Photo equality and invalidation: 18/18.
 - Both full shared sweeps passed: each 27 tabs, 19 visible panes, 7 deep links and Back. Zero runtime/console errors or record-write attempts. Final phone screenshots inspected by implementer/tester and release owner.
-- Guarded upload dry run passed against unchanged live bytes. No operational record is changed by this release. Independent release checks were performed within this session; no external agent review or receipt is claimed.
+- Guarded upload and exact public read-back passed against unchanged predecessor bytes. No operational record is changed by this release. Independent release checks were performed within this session; no external agent review or receipt is claimed.
 
-The matched phone comparison of the preceding candidate against the same baseline reduced startup from50.9s to16.6s, Costs synchronous work from19.9s to7.1s, Demob from15.3s to5.3s and Today from8.0s to3.3s. The final additional Finance index was checked in the same browser with alternating exact original/final functions: median494.7ms to299.35ms, identical outputs and source state. Whole-page timings varied: settled final Costs runs were6.8–8.4s. A35.15s immediate, no-idle Costs run is retained in private evidence; its individual cause remains unproven. These results support the bounded corrections, not a claim that all loading latency has been eliminated. Detailed records, all timing runs and phone captures remain private.
+The matched phone comparison of the preceding candidate against the same baseline reduced startup from 50.9s to 16.6s, Costs synchronous work from 19.9s to 7.1s, Demob from 15.3s to 5.3s and Today from 8.0s to 3.3s. The final additional Finance index was checked in the same browser with alternating exact original/final functions: median 494.7ms to 299.35ms, identical outputs and source state. Whole-page timings varied: settled final Costs runs were 6.8–8.4s. A 35.15s immediate, no-idle Costs run is retained in private evidence; its individual cause remains unproven. These results support the bounded corrections, not a claim that all loading latency has been eliminated. Detailed records, all timing runs and phone captures remain private.
 
-Later Demob work must retain these corrections and repeat its timing checks. Rebuild if the live predecessor changes. Publication uses the shared guarded uploader, then exact public read-back.
+Later Demob work must retain these corrections and repeat its timing checks. Rebuild if the live predecessor changes. This release used the shared guarded uploader and exact public read-back. Codex owns the following customer-treatment and financial-branch releases; the Demob owner rebuilds and renumbers its remaining drafts as required.
