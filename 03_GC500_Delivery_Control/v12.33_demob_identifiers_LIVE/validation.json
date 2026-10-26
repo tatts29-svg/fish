@@ -1,7 +1,7 @@
 {
   "author": "Andrew Fisher",
   "version": "v12.33",
-  "state": "READY TO UPLOAD",
+  "state": "VERIFIED LIVE",
   "implementation_source": "69115cdb9e33b227554163e6a432010767bf845b",
   "base_sha256": "6987269676b8d9089742978032208ffc930ebc4165471d13296285f9c745cd6f",
   "candidate_sha256": "c6b8141c32728a7f59914aa53c0032cb8770131e142407bc0d0e7f84a4a0cf45",
@@ -46,5 +46,24 @@
   },
   "phone_screenshot": "inspected",
   "navigation_runner": "Shared sweep with diagnostic progress logging only; no steps changed or skipped. Earlier bounded attempts did not complete and were not counted as passes.",
-  "raw_evidence": "Private; no record-derived details or screenshots published."
+  "raw_evidence": "Private; no record-derived details or screenshots published.",
+  "ready_source": "2dd95862fc964f8ac94d00043d78adc4e6440ccc",
+  "uploaded_at_utc": "2026-10-26T02:11:07.575Z",
+  "independent_get_at_utc": "2026-10-26T02:11:55.682782Z",
+  "independent_readback": {
+    "http": 200,
+    "bytes_match": true,
+    "full_sha256_match": true,
+    "footer": "v12.33",
+    "identifier_functions_match": true
+  },
+  "post_publication_phone": {
+    "checks": 812,
+    "passed": 812,
+    "page_errors": 0,
+    "console_errors": 0,
+    "blocked_writes": 0,
+    "screenshot": "inspected",
+    "source_sha256": "c6b8141c32728a7f59914aa53c0032cb8770131e142407bc0d0e7f84a4a0cf45"
+  }
 }
