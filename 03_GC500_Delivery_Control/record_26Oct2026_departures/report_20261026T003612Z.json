@@ -1,0 +1,186 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261026T003612Z",
+ "finished": "2026-10-26T00:37:21.957Z",
+ "mode": "apply",
+ "spec": {
+  "by": "Andrew Fisher",
+  "basis": "Andrew, 26 Oct 2026: \"Asset no 1277089 left 60kva trailer left 810AM\". Asset 1277089 is the only unit on GN24 (60 kVA generator, Coates), so GN24 left site in full on 26 Oct 2026 at 08:10 AEST. Recorded through the page's own Record departure form.",
+  "ops": [
+   {
+    "op": "depart",
+    "ref": "GN24",
+    "at": "2026-10-26T08:10:00+10:00",
+    "nos": [
+     "1277089"
+    ],
+    "complete": true
+   }
+  ]
+ },
+ "pageSha256": "ab553fe31de9fd4a3e857db17b83dfd2b6943a26ef47fb1bf1ec3ba969564315",
+ "version": {
+  "before": 10994,
+  "after": 10995
+ },
+ "updated": {
+  "before": "2026-10-25T21:59:28.435Z",
+  "after": "2026-10-26T00:37:21.011Z"
+ },
+ "money": {
+  "before": {
+   "charge": null,
+   "cost": null,
+   "branches": {
+    "KINP": 242338.66,
+    "NVAC": 81995.19,
+    "STPS": 73942.65,
+    "MEAD": 17859.02
+   }
+  },
+  "after": {
+   "charge": null,
+   "cost": null,
+   "branches": {
+    "KINP": 242338.66,
+    "NVAC": 81995.19,
+    "STPS": 73942.65,
+    "MEAD": 17859.02
+   }
+  }
+ },
+ "stage": [
+  {
+   "op": "depart",
+   "ref": "GN24",
+   "at": "2026-10-26T08:10:00+10:00",
+   "nos": [
+    "1277089"
+   ],
+   "complete": true,
+   "result": "left site 2026-10-26T08:10:00+10:00, recorded by Andrew Fisher: 1 x 60kva 1277089 - GN24 has left in full, light in transit"
+  }
+ ],
+ "writes": [
+  {
+   "key": "delivery/GN24",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 0,
+ "docs": {
+  "before": {
+   "delivery/GN24": {
+    "state": "on site",
+    "set_at": "2026-10-19T04:24:00.690Z",
+    "by": "Andrew Fisher",
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-19T04:24:00.690Z",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:15.199Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-19T04:24:00.690Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-19T04:24:00.690Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "_k": "GN24"
+   }
+  },
+  "after": {
+   "delivery/GN24": {
+    "state": "in transit",
+    "set_at": "2026-10-26T00:36:41.421Z",
+    "by": "Andrew Fisher",
+    "done": false,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-26T00:36:41.421Z",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:15.199Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-19T04:24:00.690Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "state": "in transit",
+      "at": "2026-10-26T00:36:41.421Z",
+      "by": "Andrew Fisher",
+      "collection996": {
+       "version": 1,
+       "kind": "collection",
+       "id": "1fa0ed7c-d27d-4408-b682-c5e1f9040ada",
+       "date": "2026-10-26",
+       "departedAt1211": "2026-10-26T08:10:00+10:00",
+       "programmeDate": "2026-11-13",
+       "portionId": null,
+       "portionKey": null,
+       "arrivalAt": "2026-10-19T04:24:00.690Z",
+       "requiredKey": "[[\"60kva\",1]]",
+       "scope": "reference",
+       "items": [
+        {
+         "type": "60kva",
+         "n": 1,
+         "unitIds": [
+          "[\"GN24\",\"coates\",\"native\",\"slot:83679959-81a7-4f36-8927-e46539bd9243\"]"
+         ],
+         "numbers": [
+          "1277089"
+         ],
+         "physicalUnits": [
+          {
+           "id": "[\"GN24\",\"coates\",\"native\",\"slot:83679959-81a7-4f36-8927-e46539bd9243\"]",
+           "number": "1277089",
+           "owner": "coates",
+           "item": "60kva"
+          }
+         ]
+        }
+       ],
+       "source": "collect816",
+       "complete": true
+      }
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-19T04:24:00.690Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "done": false,
+      "at": "2026-10-26T00:36:41.421Z",
+      "by": "Andrew Fisher",
+      "because": "in transit"
+     }
+    ],
+    "_k": "GN24"
+   }
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}

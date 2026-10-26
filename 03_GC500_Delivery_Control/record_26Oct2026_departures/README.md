@@ -36,3 +36,23 @@ node record_26Oct2026_departures/left_site.cjs            # dry run (from 03_GC5
 node record_26Oct2026_departures/left_site.cjs --apply    # GC500_EDIT_TOKEN, GC500_EXPECTED_PAGE_SHA, GC500_PRIVATE_DIR
 PAGE=<live page> REFS=GN10 node record_26Oct2026_departures/check_after.cjs
 ```
+
+## Second run: GN24 generator 1277089 left site, 26 Oct 2026 08:10 — APPLIED, VERIFIED
+
+- **Applied:** 26 Oct 2026 10:36 AEST, on the live v12.31 page (`ab553fe3…`).
+- **Made by:** Andrew Fisher via Claude, through the page's own Record departure form (`left_site.cjs --spec left_site_spec_2_gn24.json`).
+- **Record:** version 10994 → 10995. One document (`delivery/GN24`) acknowledged 200. Every other document unchanged in value.
+- **Backup:** the whole record before the run, kept private outside the repo (scratchpad `record_26Oct2026_departures/backup_state_20261026T003612Z.json`).
+- **Report:** `report_20261026T003612Z.json`.
+
+Andrew, 26 Oct 2026: "Asset no 1277089 left 60kva trailer left 810AM".
+
+| Reference | What left | Left site | After |
+|---|---|---|---|
+| GN24 Generator | 1 × 60 kVA, 1277089 (Coates) — its only unit | 26 Oct 2026 08:10 AEST | Left site in full; light in transit; nothing still to leave |
+
+- **Dry run first,** on the live page: every write aborted, 1 document planned.
+- **P&L by branch unchanged:** KINP $242,338.66, NVAC $81,995.19, STPS $73,942.65, MEAD $17,859.02.
+- **Today unchanged:** Generators 15/15.
+- **The demob plan** had GN24 for 13 Nov (proposed).
+- **Read back** (`check_after.cjs`, fresh load of the live page): GN24 Left site 26/10/2026 08:10:00 AEST, 1 × 60kva 1277089, recorded by Andrew Fisher, 0 still to leave; 2 of 182 demob references left in full; errors 0, writes 0.
