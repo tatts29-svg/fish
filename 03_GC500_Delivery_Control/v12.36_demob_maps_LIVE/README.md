@@ -77,6 +77,9 @@ Presentation only: nothing is written to the record, and no record, P&L, Today, 
 
 ## Checks
 
+- **LIVE 26 Oct 2026 15:53 AEST.** The view link serves the build byte for byte: 15,595,263 bytes, sha256 `d7bd77da…`. A separate public fetch at 15:53 is identical.
+- **On the live bytes:** desktop 75/75 and phone 75/75 (`evidence/test_live_desktop.txt`, `evidence/test_live_phone.txt`).
+
 - **Candidate:** `d7bd77da6e982c0ac3af19a8e5b183c09bc05e9bf78f267d5e1bea1f8ede689f`, 15,595,263 bytes, built on the verified live v12.35 (`10a21fc0…`, unchanged at 15:46); check_page PASS.
 - **Tests:** `tests/test_v1236.cjs` passed desktop 75/75 and phone 75/75 (`evidence/test_v1236_desktop.txt`, `evidence/test_v1236_phone.txt`). The tests read the live record after record run 7 (15:28). The pump-out checks pick any toilet on the day that still has no Emptied tick, since WC45 is now ticked. Every rehearsal was captured in the page; nothing reached the network.
 - **Sweeps:** desktop and phone, 27 tabs, 19 panes shown, 7 deep links, 0 errors, 0 console messages, 0 writes (`evidence/sweeps.json`).
