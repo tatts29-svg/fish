@@ -34,8 +34,8 @@ sha = lambda s: hashlib.sha256(s.encode('utf-8')).hexdigest()
 
 READY_MERGE = "if (rw1231) Object.assign(m, rw1231);"
 UNIT_MERGE = READY_MERGE + """
- /* v12.38 - each unit's Ready tick and booked pick-up merge on their own clocks, unit by unit: the later stamp wins, a tie goes to the larger record */
- const um1238 = (x, y, t) => { const o = Object.assign({}, x && typeof x === 'object' ? x : {}); Object.keys(y && typeof y === 'object' ? y : {}).forEach(u => { const p = o[u], q = y[u]; if (!q || typeof q !== 'object') return; const s1 = String(q[t] || ''), s0 = p ? String(p[t] || '') : ''; if (!p || s1 > s0 || (s1 === s0 && J(q) > J(p))) o[u] = q; }); return o; };
+ /* v12.38 - each unit's Ready tick and booked pick-up merge on their own clocks, unit by unit: the later stamp wins, a tie goes to the smaller record (Not ready over Ready, a cleared booking over a booking), as on the live sync */
+ const um1238 = (x, y, t) => { const o = Object.assign({}, x && typeof x === 'object' ? x : {}); Object.keys(y && typeof y === 'object' ? y : {}).forEach(u => { const p = o[u], q = y[u]; if (!q || typeof q !== 'object') return; const s1 = String(q[t] || ''), s0 = p ? String(p[t] || '') : ''; if (!p || s1 > s0 || (s1 === s0 && J(q) < J(p))) o[u] = q; }); return o; };
  if (a.ready1238_units || b.ready1238_units) m.ready1238_units = um1238(a.ready1238_units, b.ready1238_units, 'at');
  if (a.pickup1238_units || b.pickup1238_units) m.pickup1238_units = um1238(a.pickup1238_units, b.pickup1238_units, 'set');"""
 RH_OLD = "const RH1231 = hist(a.ready1231_history, b.ready1231_history, h => h.ready + '|' + h.at); if (RH1231.length) m.ready1231_history = RH1231; /* v12.31 */"
@@ -52,7 +52,7 @@ H3_OLD = "h.textContent = 'Everything on site · ' + mine.length + (mine.length 
 H3_NEW = "h.textContent = 'Everything on site · ' + (W.Singles1238 ? Singles1238.count() + ' assets' : mine.length + (mine.length === 1 ? ' reference' : ' references'));"
 SYNC_OLD = " const next = fromDocs(name, shown);"
 SYNC_NEW = SYNC_OLD + """
- if (name === 'delivery' && !SYNC.readonly && window.Singles1238 && typeof Singles1238.keepUnits === 'function') { try { if (Singles1238.keepUnits(next, c.get(), Object.keys(SYNC.queue[name] || {}).length ? fromDocs(name, docs) : null)) setTimeout(() => { try { syncPush(); } catch (e) {} }, 0); } catch (e) {} } /* v12.38 - a delivery document from the store keeps the unit ticks and bookings this browser holds that it lacks, and the result goes back up: two phones on one reference never lose each other's work */"""
+ if (name === 'delivery' && !SYNC.readonly && window.Singles1238 && typeof Singles1238.keepUnits === 'function') { try { if (Singles1238.keepUnits(next, c.get(), Object.keys(SYNC.queue[name] || {}).length ? fromDocs(name, docs) : null) && !SYNC.unkept && !(typeof DAMAGED !== 'undefined' && DAMAGED)) setTimeout(() => { try { syncPush(); } catch (e) {} }, 0); } catch (e) {} } /* v12.38 - a delivery document from the store keeps the unit ticks and bookings this browser holds that it lacks, and the result goes back up: two phones on one reference never lose each other's work */"""
 WATCH_OLD = "mo = new MutationObserver(ms => { if (ms.every(m => m.target && m.target.closest && m.target.closest('.ov1236,.mpf1236'))) return; soon(); });"
 WATCH_NEW = "mo = new MutationObserver(ms => { if (ms.every(m => m.target && m.target.closest && m.target.closest('.ov1236,.mpf1236,.sgv1238,.pg1238,.dl1238'))) return; soon(); }); /* v12.38 - the new cards, progress and day lists look after themselves */"
 

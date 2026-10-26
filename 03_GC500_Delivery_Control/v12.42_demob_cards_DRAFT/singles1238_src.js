@@ -471,7 +471,7 @@ function umap(key, field, stamp) {
  const out = {};
  docs(key).forEach(d => { const m = d && d[field]; if (!m || typeof m !== 'object') return;
   Object.keys(m).forEach(u => { const v = m[u]; if (!v || typeof v !== 'object') return; const p = out[u], a = String(v[stamp] || ''), b = p ? String(p[stamp] || '') : '';
-   if (!p || a > b || (a === b && JSON.stringify(v) > JSON.stringify(p))) out[u] = v; }); });
+   if (!p || a > b || (a === b && JSON.stringify(v) < JSON.stringify(p))) out[u] = v; }); });
  return out;
 }
 
@@ -895,7 +895,8 @@ function setUnitReady(key, uids, on, why) {
  list.forEach(u => { cur[u] = Object.assign({on: !!on, at: now, by: who, why: w}, docOf(key, u)); });
  d.ready1238_units = cur;
  d.ready1238_history = (Array.isArray(d.ready1238_history) ? d.ready1238_history : []).concat(list.map(u => ({unit: u, ready: !!on, at: now, by: who, why: w}))).slice(-400);
- VER++; bump(); try { buzz(on ? 50 : 20); } catch (x) {}
+ VER++; bump(); if (bump.kept === false) { try { flash('Not saved · keep this page open.'); } catch (x) {} return false; } /* a refusal is said out loud, as on every writer in the page */
+ try { buzz(on ? 50 : 20); } catch (x) {}
  try { flash(key + (list.length > 1 ? ' · ' + list.length + ' units' : '') + (on ? ' ready for collection' : ' not ready for collection' + (w ? ' (' + w + ')' : '')) + ' - recorded by ' + who + '.'); } catch (x) {}
  return true;
 }
@@ -910,7 +911,8 @@ function setBooking(key, uids, at, note) {
  list.forEach(u => { cur[u] = Object.assign({at: v, note: v ? n : '', by: who, set: now}, docOf(key, u)); });
  d.pickup1238_units = cur;
  d.pickup1238_history = (Array.isArray(d.pickup1238_history) ? d.pickup1238_history : []).concat(list.map(u => ({unit: u, pickup: v, note: v ? n : '', by: who, at: now}))).slice(-400);
- VER++; bump(); try { buzz(30); } catch (x) {}
+ VER++; bump(); if (bump.kept === false) { try { flash('Not saved · keep this page open.'); } catch (x) {} return false; } /* the sheet stays open */
+ try { buzz(30); } catch (x) {}
  try { flash(v ? key + (list.length > 1 ? ' · ' + list.length + ' units' : '') + ' pick-up booked for ' + when(v) + ' - recorded by ' + who + '.' : key + ' booking cleared - recorded by ' + who + '.'); } catch (x) {}
  return true;
 }
@@ -1210,7 +1212,7 @@ function count() { try { const br = (typeof DM816 === 'object' && DM816 && DM816
    A cleared booking is a dated entry too, so a clear is never undone. */
 const um = (x, y, t) => { const o = Object.assign({}, x && typeof x === 'object' ? x : {}); let ch = false;
  Object.keys(y && typeof y === 'object' ? y : {}).forEach(u => { const p = o[u], q = y[u]; if (!q || typeof q !== 'object') return; const s1 = String(q[t] || ''), s0 = p ? String(p[t] || '') : '';
-  if (!p || s1 > s0 || (s1 === s0 && JSON.stringify(q) > JSON.stringify(p))) { o[u] = q; ch = true; } }); return ch ? o : null; }; /* the later stamp wins; on the same stamp the same entry wins on every phone, whichever copy arrives first */
+  if (!p || s1 > s0 || (s1 === s0 && JSON.stringify(q) < JSON.stringify(p))) { o[u] = q; ch = true; } }); return ch ? o : null; }; /* the later stamp wins; on the same stamp the smaller entry wins on every phone, whichever copy arrives first: Not ready over Ready, a cleared booking over a booking */
 const hj = (x, y, k) => { const a = Array.isArray(x) ? x : [], seen = new Set(a.map(k)), add = (Array.isArray(y) ? y : []).filter(h => h && !seen.has(k(h))); return add.length ? a.concat(add).sort((p, q) => String(p.at || '').localeCompare(String(q.at || '')) || k(p).localeCompare(k(q))).slice(-400) : null; }; /* one order on every phone */
 /* theirs: the store's own copy when this browser has a change of its own waiting to go up for that reference. The waiting
    copy stands in for the store's in `next`, so a unit another phone ticked there is read from the store's copy here, or the

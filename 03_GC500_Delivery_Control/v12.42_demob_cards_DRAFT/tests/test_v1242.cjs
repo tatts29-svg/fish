@@ -244,6 +244,23 @@ const {open} = require('../../toolchain/harness/open_page');
     });
     check('v12.42: a Ready tick on a reference with two owners (WC09: Coates blocks and Event Portables units) turns none of its units Ready; on a one-owner reference it still does', RM.co.length === 2 && RM.co.every(s => s === 'not') && RM.epRef === 0 && RM.gn.length > 0 && RM.gn.every(x => x === 'ready:ref'), RM);
     check('v12.42: when the page leaves a reference\'s pick-ups out for review (quantities changed after one), its cards say so and point to Picked up, a card ticked Ready too', /departure record needs review/.test(RM.why) && /Picked up/.test(RM.why) && RM.gn.every(x => x === 'ready:ref') && RM.dom !== false && !/needs review/.test(RM.back), RM);
+    /* a run part-collected on a day stays in that day's list once the rest has gone on a later day (staged: the page's departure
+       reading swapped for one run, then put back); the expected list is read from the departure reading itself, not the view's filter */
+    const PD = await p.evaluate(async ({today, tomorrow}) => {
+      const D0 = window.Departure1211, m0 = Singles1238.model(), g = m0.cards.find(c => c.group && !c.board && c.st.s !== 'gone' && (c.r.units || []).some(u => Number(u.n) > 1));
+      if (!g) return {none: true}; const K = g.key, t = String((g.r.units.find(u => Number(u.n) > 1) || {}).type || 'unit'), n = g.r.units.reduce((s, u) => s + (Number(u.n) || 0), 0);
+      const evs = [{departedAt1211: today + 'T09:00:00+10:00', date: today, by: 'test', items: [{type: t, n: 1}]}, {departedAt1211: tomorrow + 'T09:00:00+10:00', date: tomorrow, by: 'test', items: [{type: t, n: n - 1}]}];
+      window.Departure1211 = Object.assign({}, D0, {status: (k, d) => k === K ? {complete: true, collected: n, remaining: 0, events: evs} : D0.status(k, d)});
+      await new Promise(r => setTimeout(r, 4300)); let out = {K};
+      try { const c = Singles1238.cardOf(K, '*'); out.state = c && c.st.s; out.goneDay = c && (c.st.at || '').slice(0, 10);
+        try { RENDER_MEMO.delete('demob816'); } catch (e) {} const b = document.querySelector('#pane-demob .dc996-day[data-dday816="' + today + '"]'); if (b) b.click(); await new Promise(r => setTimeout(r, 2500));
+        const art = document.querySelector('#pane-demob .sgv1238[data-sgv1238="day"] article.sg1238[data-sg1238="' + K + '"]'); out.inToday = !!art; out.s = art && art.dataset.s1238;
+        out.evToday = (window.Departure1211.status(K).events || []).some(ev => String(ev.departedAt1211 || ev.date).slice(0, 10) === today); }
+      finally { window.Departure1211 = D0; }
+      await new Promise(r => setTimeout(r, 4300)); try { RENDER_MEMO.delete('demob816'); renderDemob816(); } catch (e) {} await new Promise(r => setTimeout(r, 900));
+      const c2 = Singles1238.cardOf(K, '*'); out.back = c2 && c2.st.s; return out;
+    }, {today, tomorrow});
+    check('v12.42: a run part-collected today whose last load goes on a later day is still in today\'s list, as picked up (staged on this page only, then put back)', PD.none || (PD.state === 'gone' && PD.evToday && PD.inToday && PD.s === 'gone' && PD.back !== 'gone'), PD);
     /* the live sync: a store copy of WC09 without this phone's ticks and bookings (another phone wrote over it) */
     const KS = await p.evaluate(async () => {
       const docs = JSON.parse(JSON.stringify(toDocs('delivery'))), id = Object.keys(docs).find(k => docs[k]._k === 'WC09'), before = JSON.stringify(S.delivery.WC09.pickup1238_units), n0 = __captured1238.length;
@@ -269,6 +286,30 @@ const {open} = require('../../toolchain/harness/open_page');
       return {id: !!id, local: !!u['test|LOCAL1'], remote: !!u['test|REMOTE1'], sent: !!sent, sentBoth: !!(su['test|LOCAL1'] && su['test|REMOTE1']), others: __captured1238.slice(n0).filter(x => !/delivery\/WC09$/.test(x.name)).length};
     });
     check('v12.42: with a send of this phone\'s own still waiting for a reference, a unit another phone ticked there is not lost: both ticks are kept and go up together, and nothing else is written', KQ.id && KQ.local && KQ.remote && KQ.sent && KQ.sentBoth && KQ.others === 0, KQ);
+    /* nothing goes up while this browser cannot save (a send then would carry its last saved copy, older than the store's) */
+    const KU = await p.evaluate(async () => {
+      const docs = JSON.parse(JSON.stringify(toDocs('delivery'))), id = Object.keys(docs).find(k => docs[k]._k === 'WC09');
+      ['ready1238_units', 'pickup1238_units', 'ready1238_history', 'pickup1238_history'].forEach(f => delete docs[id][f]);
+      const n0 = __captured1238.length, u0 = SYNC.unkept; SYNC.unkept = true; let kept = false;
+      try { syncFold('delivery', docs); kept = !!Object.keys((S.delivery.WC09 || {}).ready1238_units || {}).length; await new Promise(r => setTimeout(r, 1800)); } finally { SYNC.unkept = u0; }
+      return {id: !!id, kept, sent: __captured1238.length - n0};
+    });
+    check('v12.42: while this browser cannot save, a store copy lacking its unit ticks keeps them on screen but sends nothing up', KU.id && KU.kept && KU.sent === 0, KU);
+    const KR = await p.evaluate(async () => {
+      const set0 = Storage.prototype.setItem, n0 = __captured1238.length; let r = null, msg = '';
+      Storage.prototype.setItem = function () { throw new Error('QuotaExceededError (test)'); };
+      try { r = Singles1238.setUnitReady('WC09', ['event-portables|0089'], true); msg = (document.getElementById('flash') || {}).textContent || ''; }
+      finally { Storage.prototype.setItem = set0; }
+      try { persist(); } catch (e) {} await new Promise(res => setTimeout(res, 300));
+      return {r, msg, unkeptAfter: SYNC.unkept, sent: __captured1238.slice(n0).filter(x => !/delivery\/WC09$/.test(x.name)).length};
+    });
+    check('v12.42: a Ready tick this browser could not save says "Not saved · keep this page open" (as every writer on the page does), not "recorded"', KR.r === false && /Not saved/.test(KR.msg) && !/recorded by/.test(KR.msg) && KR.unkeptAfter === false && KR.sent === 0, KR);
+    const TB = await p.evaluate(() => { const T = '2026-10-26T08:00:00.000Z', on = {on: true, at: T, by: 'A', why: ''}, off = {on: false, at: T, by: 'B', why: ''}, bk = {at: '2026-10-27T07:00:00+10:00', note: '', by: 'A', set: T}, cl = {at: '', note: '', by: 'B', set: T};
+      const k = (a, b) => { const n = {X: {ready1238_units: {u: a.r}, pickup1238_units: {u: a.p}}}; Singles1238.keepUnits(n, {X: {ready1238_units: {u: b.r}, pickup1238_units: {u: b.p}}}, null); return n.X; };
+      const x1 = k({r: on, p: bk}, {r: off, p: cl}), x2 = k({r: off, p: cl}, {r: on, p: bk});
+      const m = (a, b) => mergeRecords({delivery: {X: {ready1238_units: {u: a}}}}, {delivery: {X: {ready1238_units: {u: b}}}}).merged.delivery.X.ready1238_units.u;
+      return {live: [x1.ready1238_units.u.on, x2.ready1238_units.u.on], clear: [x1.pickup1238_units.u.at, x2.pickup1238_units.u.at], merge: [m(on, off).on, m(off, on).on]}; });
+    check('v12.42: on the very same stamp Not ready beats Ready and a cleared booking beats a booking, both on the live sync and on opening, whichever copy comes first', TB.live.every(v => v === false) && TB.clear.every(v => v === '') && TB.merge.every(v => v === false), TB);
     /* the merge, on copies */
     const MG = await p.evaluate(() => {
       const m = (a, b) => mergeRecords({delivery: {WC09: a}}, {delivery: {WC09: b}}).merged.delivery.WC09 || null;
