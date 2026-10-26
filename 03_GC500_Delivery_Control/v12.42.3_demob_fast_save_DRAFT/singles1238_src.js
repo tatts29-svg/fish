@@ -675,9 +675,13 @@ let MEMO = {M: null, at: 0, v: -1, model: null}, VER = 0;
    inside the page's own asset hold, so the asset list is built once for the whole model and not once per lookup (outside a hold a
    model took 7.6 s on a 4x-throttled phone, inside 0.55 s) */
 const planHeld = () => { try { return typeof RENDER_MEMO !== 'undefined' && RENDER_MEMO instanceof Map && RENDER_MEMO.has('demob816'); } catch (x) { return false; } };
+/* the model was found good, or built, during the script now running (a tap and the save it makes run as one piece of script, so nothing
+   from outside can change the record in between); the mark goes as soon as that script ends */
+let CHECKED = false;
+const checked = () => { if (CHECKED) return; CHECKED = true; const off = () => { CHECKED = false; }; try { queueMicrotask(off); } catch (x) { Promise.resolve().then(off); } };
 function model() {
- if (MEMO.model && MEMO.v === VER && Date.now() - MEMO.at < 4000 && planHeld()) { let M = null; try { M = demob816(); } catch (x) { M = null; } if (MEMO.M === M) return MEMO.model; }
- return hold(buildModel);
+ if (MEMO.model && MEMO.v === VER && Date.now() - MEMO.at < 4000 && planHeld()) { let M = null; try { M = demob816(); } catch (x) { M = null; } if (MEMO.M === M) { checked(); return MEMO.model; } }
+ const m = hold(buildModel); checked(); return m;
 }
 function buildModel() {
  let M = null; try { M = demob816(); } catch (x) { M = null; }
@@ -1484,11 +1488,11 @@ function morph(a, b) {
  x.forEach((n, i) => morph(n, y[i]));
 }
 /* a quick save wrote only these references' unit ticks or bookings: their cards' light and booking are read again from the record, in
-   the model as it was drawn, when nothing else was saved since it was built and it is under 4 s old (model()'s own window); otherwise
-   the model is built again */
+   the model as it was drawn, when nothing else was saved since it was built and it still stands by model()'s own rule (under 4 s old),
+   or it was found good earlier in this same tap; otherwise the model is built again */
 function refreshed(keys) {
  const m = MEMO.model;
- if (!m || MEMO.v !== VER - 1 || Date.now() - MEMO.at >= 4000) return model();
+ if (!m || MEMO.v !== VER - 1 || (Date.now() - MEMO.at >= 4000 && !CHECKED)) return model();
  for (const key of keys) { const list = m.byKey.get(key); if (!list || !list.length || list[0].board) continue; const r = list[0].r;
   let mark = null, emp = null, on = null; try { mark = Ready1231.mark(key); } catch (x) { mark = null; } try { emp = r.empty ? emptiedOf816(key) : null; } catch (x) { emp = null; } try { on = lastOnSite816(key); } catch (x) { on = null; }
   const ctx = {mark, emp, on, oneOwner: new Set(list.map(c => c.owner)).size === 1, ticks: umap(key, 'ready1238_units', 'at')}, books = umap(key, 'pickup1238_units', 'set');
