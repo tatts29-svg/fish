@@ -54,6 +54,11 @@ v12.33 (Demob identifier labels) went live at 12:11 AEST, while this release was
 
 ## Checks
 
+- **LIVE 26 Oct 2026 12:46 AEST.** The view link serves the build byte for byte: 15,525,286 bytes, sha256 `3625dd96…`. A separate public fetch is identical.
+- **On the live bytes:** desktop 52/53 and phone 52/53 (`evidence/test_live_desktop.txt`, `evidence/test_live_phone.txt`).
+  - The test was brought into line with the record first, because pick-ups kept being recorded while it ran: the load numbers shift as things leave, a departed line wears its stamp, and the red-light rehearsal picks an on-site reference now that GN04 has gone.
+  - **The one miss** is EQ0002's line reading "Nothing to collect" instead of picked up. It reads the same on v12.33: an added reference loses its Demob quantity when its departure takes the complete tick off. v12.35 fixes it.
+
 - Candidate `3625dd96…`, 15,525,286 bytes, on live v12.33 `c6b8141c…`; check_page PASS.
 - Desktop 53/53 and phone 53/53 (`evidence/test_v1234_desktop.txt`, `evidence/test_v1234_phone.txt`). Every rehearsal was captured in the page; nothing reached the network.
 - Both sweeps: 27 tabs, 19 panes shown, 7 deep links; 0 errors, 0 console messages and 0 writes (`evidence/sweeps.json`).
