@@ -65,8 +65,9 @@ Departed everywhere, and today's card counts three.
 
 ## Checks
 
-- Desktop 48/48 and phone 48/48 on the candidate (`evidence/test_v1232_desktop.txt`, `evidence/test_v1232_phone.txt`).
+- Desktop 48/48 and phone 48/48 on candidate `69872696` (`evidence/test_v1232_desktop.txt`, `evidence/test_v1232_phone.txt`).
 - Every rehearsal was captured in the page, and nothing reached the network.
+- Both sweeps: 27 tabs, 19 panes shown, 7 deep links; 0 errors, 0 console messages and 0 writes (`evidence/sweeps.json`).
 - Pictures are in `evidence/`.
 
 ## On the record, shown as it stands
