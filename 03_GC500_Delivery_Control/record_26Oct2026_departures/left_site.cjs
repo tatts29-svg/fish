@@ -26,9 +26,13 @@
      vms_arrival - 27 Oct 2026: a VMS board's arrival day on the VMS plan corrected through the plan's own writer (VMS1024.write,
                    checked by VMSArrival1098.prepare), as a person correcting it would: the entry on the wrong day (was) is
                    withdrawn ("not confirmed" on that day, the page's own correction, as VMS21's 21 Oct entry was), the board goes
-                   on site and in place on the day it came (day), the reason goes in the board's notes, and a board that was
-                   complete is ticked complete again (a withdrawal takes the complete tick off, as the page does). The entry
-                   on the wrong day stays in the history. Andrew, 27 Oct 2026: "22 oct" (VMS22, VMS24: Premiair docket 26143911).
+                   on site and in place on the day it came (day), and a board that was complete is ticked complete again (a
+                   withdrawal takes the complete tick off, as the page does). The entry on the wrong day stays in the history.
+                   The reason (why) goes in the board's notes only with notes_ok, Andrew's own words allowing it: that box is
+                   the plan's "Notes · special instructions" ("anything the crew placing it must know") and the VMS board sheet
+                   prints it under NOTES · SPECIAL INSTRUCTIONS. Without notes_ok the plan's notes are left as they are, and the
+                   reason stays in the run's report (and, here, in each new reference's light history). Andrew, 27 Oct 2026:
+                   "22 oct" (VMS22, VMS24: Premiair docket 26143911).
      add_ref, 27 Oct 2026: a sub-hired VMS board's reference carries no number (its fleet number goes on its unit), and
                    may carry its in and out days (from, to: the Add form's own fields).
 
@@ -85,6 +89,8 @@ const aestDay = t => new Date(Date.parse(t) + 36e6).toISOString().slice(0, 10); 
 /* a name the page would read as a quantity (descriptionQuantity1012 reads "qty 2", "VMS x 2", "2 x VMS") */
 const QTYNAME = /\b(qty|quantity)\b|[x×]\s*\d+\s*$|^\s*\d+\s*[x×]/i;
 const TEXT200 = s => typeof s === 'string' && !!s.trim() && s.length <= 200 && !SYS.test(s);
+/* 27 Oct 2026: Andrew's words, quoted with the day he said them (Andrew, 27 Oct 2026: "yes") */
+const NOTES_OK = /^Andrew, \d{1,2} [A-Z][a-z]{2} 20\d\d\b[^"]*: ".*\S.*"$/;
 /* the spec's own checks, before any page opens; `now` only so a test can fix today */
 function validateSpec(spec, now = Date.now()) {
 const today = aestDay(new Date(now).toISOString());
@@ -142,7 +148,10 @@ spec.ops.forEach((o, i) => {
   else if (o.op === 'unit_ready') { if (!REFRE.test(o.ref || '')) fail(at + 'needs a reference'); if (!Array.isArray(o.units) || !o.units.length || o.units.some(u => !/^[a-z-]+\|[0-9A-Za-z]{2,12}$/.test(u))) fail(at + 'needs the units, each owner|asset number'); }
   else if (o.op === 'vms_arrival') { if (!/^\d{2}[a-z]?$/.test(o.pos || '')) fail(at + 'needs a VMS plan position'); if (!/^VMS\d{2}$/.test(o.board || '')) fail(at + 'needs the board name (VMSnn) that position carries');
     if (!realDay(o.was) || !realDay(o.day)) fail(at + 'needs the arrival day on the plan now (was) and the day it came (day), each a real day'); if (!(o.day > o.was)) fail(at + 'the day it came must be after the day recorded (only a later arrival is corrected this way)'); if (o.day > today) fail(at + 'the day it came is after today (AEST)');
-    if (!TEXT200(o.why)) fail(at + 'needs why, under 200 characters, naming no system'); }
+    if (!TEXT200(o.why)) fail(at + 'needs why, under 200 characters, naming no system');
+    /* the reason prints on the VMS board sheet as a special instruction for the crew, so it goes in the plan's notes only on
+       Andrew's own words allowing it, quoted with the day he said them */
+    if (o.notes_ok != null && !(TEXT200(o.notes_ok) && NOTES_OK.test(o.notes_ok))) fail(at + 'notes_ok must be Andrew\'s own words allowing the reason to print as a special instruction, quoted with the day: Andrew, 27 Oct 2026: "..." (under 200 characters, naming no system)'); }
   else fail(at + 'unknown op ' + o.op);
 });
 /* 27 Oct 2026: one day everywhere. An added reference is in from the AEST day its light is dated; a VMS board whose plan
@@ -187,7 +196,7 @@ const allowed = (k, body, docs) => { const c = k.slice(0, k.indexOf('/')), id = 
   if (c === 'labour' || (c === 'stamps' || c === 'by') && d.startsWith('labour/')) { const lk = d.replace(/^labour\//, ''); return REFS.includes(lk.split(/[\/|]/)[0]); } /* a labour tick is named ref|disc|item|line or ref/unit|...; its ref leads */
   return parts.some(p => REFS.includes(p) || QIDS.includes(p)); };
 const NOTE_IDS = new Set();
-if (args.includes('--check-spec')) { log(`spec ${path.basename(specPath)}: ${spec.ops.length} op(s) pass the checks - references ${REFS.join(', ') || 'none'}${VPOS.size ? ' · VMS plan positions ' + [...VPOS].join(', ') : ''}${spec.expect ? ' · expect ' + JSON.stringify(spec.expect) : ''}. No page opened, nothing read or sent.`); process.exit(0); }
+if (args.includes('--check-spec')) { log(`spec ${path.basename(specPath)}: ${spec.ops.length} op(s) pass the checks - references ${REFS.join(', ') || 'none'}${VPOS.size ? ' · VMS plan positions ' + [...VPOS].join(', ') : ''}${spec.ops.some(o => o.op === 'vms_arrival') ? ' · the correction reason ' + spec.ops.filter(o => o.op === 'vms_arrival').map(o => (o.notes_ok ? 'in' : 'kept out of') + ' VMS plan ' + o.pos + '\'s notes').join(', ') + ' (they print on the board sheet as special instructions)' : ''}${spec.expect ? ' · expect ' + JSON.stringify(spec.expect) : ''}. No page opened, nothing read or sent.`); process.exit(0); }
 
 // ---------------------------------------------------------------------------------------------- curl with headers on stdin
 let seq = 0;
@@ -241,7 +250,7 @@ function pageVmsBoards(q) {
     const key = V.label(b).replace(/\*$/, '').replace(/\s+/g, ''), uid = 'vms:' + b.pos, o = {card: key + '#' + uid};
     try { const c = SG && typeof SG.cardOf === 'function' ? SG.cardOf(key, uid) : undefined; o.demobCard = c === undefined ? 'no Demob cards on this page' : c ? {owner: c.owner, no: c.no, label: c.label, st: c.st && c.st.s} : null; } catch (e) { o.demobCard = 'not read: ' + String(e).slice(0, 80); }
     try { const r = V.rec(b.pos), ev = d => { const e = A && A.evidence(r, d); return e ? (e.on ? 'on site from ' + e.effectiveDate : e.state + ' (' + e.effectiveDate + ')') + (e.installed ? ', in place' : '') + ' · ' + e.by : 'no arrival'; };
-      const s = A && A.status(name); o.plan = Object.assign({today: ev(todayIso())}, ...q.days.map(d => ({[d]: ev(d)})), {complete: !!(s && s.done), entries: ((r && r.events1098) || []).length, notes: String((r && r.notes) || '')}); } catch (e) { o.plan = 'not read: ' + String(e).slice(0, 80); }
+      const s = A && A.status(name); o.plan = Object.assign({today: ev(todayIso())}, ...q.days.map(d => ({[d]: ev(d)})), {complete: !!(s && s.done), entries: ((r && r.events1098) || []).length, notes: String((r && r.notes) || ''), sheetPrints: typeof V.notes === 'function' ? String(V.notes(b) || '') : 'not read'}); } /* sheetPrints: what the board sheet prints under NOTES · SPECIAL INSTRUCTIONS */ catch (e) { o.plan = 'not read: ' + String(e).slice(0, 80); }
     out[name + ' @ ' + b.pos] = o;
   }
   return JSON.parse(JSON.stringify(out));
@@ -600,27 +609,36 @@ function applyOps(spec) {
            VMSArrival1098.prepare checks every arrival: a real day not after today, recorded now, in this person's name), as a
            person correcting it would. 1. the entry on the wrong day is withdrawn: "not confirmed" on that day, out of place
            (the page's own correction, as VMS21's 21 Oct entry was); a withdrawal takes the complete tick off, as the page
-           does. 2. on site and in place on the day it came. 3. the reason in the board's notes (the plan's Notes box). 4. a
-           board that was complete is ticked complete again. Every earlier entry stays in the history. */
+           does. 2. on site and in place on the day it came. 3. the reason in the board's notes only with notes_ok (Andrew's
+           words): the plan's Notes box is its "Notes · special instructions", printed on the VMS board sheet for the crew;
+           without notes_ok the notes are left as they are, and the stage says what the sheet prints now and what it would
+           print with his OK. 4. a board that was complete is ticked complete again. Every earlier entry stays in the history. */
         if (typeof VMS1024 !== 'object' || typeof VMS1024.write !== 'function' || typeof VMSArrival1098 !== 'object' || typeof VMSArrival1098.evidence !== 'function' || typeof VMSArrival1098.setComplete !== 'function') throw new Error('the VMS plan is not on this page');
         const bd = VMS1024.board(op.pos); if (!bd) throw new Error('no VMS plan position ' + op.pos);
         if ((bd.board || bd.default_board) !== op.board) throw new Error('position ' + op.pos + ' carries ' + (bd.board || bd.default_board) + ', not ' + op.board);
         if (bd.canonicalIdentityConflict1103) throw new Error(op.board + ' has an identity conflict - not written');
         const ev = d => VMSArrival1098.evidence(VMS1024.rec(op.pos), d) || {}, w0 = ev(op.was), d0 = ev(op.day);
-        if (w0.on === false && w0.state === 'not confirmed' && d0.on === true && d0.effectiveDate === op.day) r.result = 'already on site from ' + op.day + ' (the ' + op.was + ' entry withdrawn)';
+        const notesNow = () => String(VMS1024.notes(VMS1024.board(op.pos)) || '').trim();
+        const putNotes = () => { /* what the board sheet prints under NOTES · SPECIAL INSTRUCTIONS: before, after, and with Andrew's OK */
+          const n0 = notesNow(), n1 = n0.includes(op.why) ? n0 : (n0 ? n0 + ' ' : '') + op.why;
+          if (op.notes_ok && n1 !== n0 && !VMS1024.write(op.pos, {notes: n1}, 'the board’s notes')) throw new Error('VMS1024.write refused the notes on ' + op.pos);
+          const n2 = notesNow(); if (n2 !== (op.notes_ok ? n1 : n0)) throw new Error('VMS plan ' + op.pos + ' notes read ' + JSON.stringify(n2) + ', not ' + JSON.stringify(op.notes_ok ? n1 : n0));
+          r.sheetNotes = {before: n0, after: n2, withOk: n1};
+          return op.notes_ok ? '; the reason put in its notes (' + op.notes_ok + '): its board sheet prints under NOTES · SPECIAL INSTRUCTIONS ' + JSON.stringify(n2)
+            : '; the reason kept out of its notes (no notes_ok): its board sheet prints under NOTES · SPECIAL INSTRUCTIONS ' + (n2 ? JSON.stringify(n2) : 'nothing') + ', as before; with Andrew\'s OK (notes_ok) it would print ' + JSON.stringify(n1); };
+        if (w0.on === false && w0.state === 'not confirmed' && d0.on === true && d0.effectiveDate === op.day) r.result = 'already on site from ' + op.day + ' (the ' + op.was + ' entry withdrawn)' + putNotes();
         else {
           if (!(w0.on === true && w0.effectiveDate === op.was)) throw new Error('VMS plan ' + op.pos + ' is not on site from ' + op.was + ' (reads ' + JSON.stringify(w0) + ') - nothing to correct');
           if (d0.effectiveDate !== op.was) throw new Error('VMS plan ' + op.pos + ' already has an entry after ' + op.was + ' (' + JSON.stringify(d0) + ') - read its history first');
           const wasDone = !!(VMSArrival1098.status(op.board) || {}).done; r.wasDone = wasDone;
           if (!VMS1024.write(op.pos, {arrival1098: {state: 'not confirmed', effective_date: op.was, recorded_at: new Date().toISOString(), by: who}, inPlace: false}, 'the board arrival day')) throw new Error('VMS1024.write refused withdrawing the ' + op.was + ' entry on ' + op.pos);
           if (!VMS1024.write(op.pos, {arrival1098: {state: 'on site', effective_date: op.day, recorded_at: new Date().toISOString(), by: who}, inPlace: true}, 'the board arrival day')) throw new Error('VMS1024.write refused the arrival on ' + op.day + ' for ' + op.pos);
-          const n0 = String(VMS1024.notes(VMS1024.board(op.pos)) || '').trim();
-          if (!n0.includes(op.why) && !VMS1024.write(op.pos, {notes: (n0 ? n0 + ' ' : '') + op.why}, 'the board’s notes')) throw new Error('VMS1024.write refused the notes on ' + op.pos);
+          const said = putNotes();
           if (wasDone && !(VMSArrival1098.status(op.board) || {}).done && !VMSArrival1098.setComplete(op.pos, true)) throw new Error('setComplete refused ' + op.pos + ' after the correction');
           const w1 = ev(op.was), d1 = ev(op.day), t1 = ev(todayIso()), done1 = !!(VMSArrival1098.status(op.board) || {}).done;
           if (w1.on !== false || !(d1.on === true && d1.installed === true && d1.effectiveDate === op.day) || !(t1.on === true && t1.effectiveDate === op.day) || done1 !== wasDone)
             throw new Error(op.board + ' does not read the ' + op.was + ' entry withdrawn and on site from ' + op.day + ' (' + JSON.stringify({was: w1, day: d1, today: t1, complete: done1}) + ')');
-          r.result = 'VMS plan ' + op.pos + ' (' + op.board + '): the ' + op.was + ' entry withdrawn, on site and in place from ' + op.day + (wasDone ? ', complete ticked again' : '') + ', by ' + who + '; note: ' + op.why;
+          r.result = 'VMS plan ' + op.pos + ' (' + op.board + '): the ' + op.was + ' entry withdrawn, on site and in place from ' + op.day + (wasDone ? ', complete ticked again' : '') + ', by ' + who + said;
         }
       } else throw new Error('unknown op ' + op.op);
     } catch (e) { r.result = 'ERROR: ' + e.message; r.error = true; }
@@ -800,12 +818,14 @@ function applyOps(spec) {
         if (op.op === 'vms_complete') { const L = (docs.loads || {})['vms1024~2f~' + op.pos] || {}; const ce = (L.completionEvents1101 || []).slice(-1)[0] || L.completion1101; if (!(ce && ce.done === true)) problems.push(op.board + ' is not complete ' + where); }
         if (op.op === 'vms_plan') { const L = (docs.loads || {})['vms1024~2f~' + op.pos] || {}; if (L.lat !== op.lat || L.lon !== op.lon) problems.push('VMS plan ' + op.pos + ' is not at ' + op.lat + ', ' + op.lon + ' ' + where); }
         if (op.op === 'vms_board') { const vb = (((docs.vmsboard || {})[op.key]) || {}); if (![op.fleet, null, undefined].includes(vb.fleet) || vb.rego !== op.rego || vb.on !== op.on) problems.push(op.key + ' is not ' + op.fleet + '/' + op.rego + ' on ' + op.on + ' ' + where); }
-        if (op.op === 'vms_arrival') { /* 27 Oct 2026: the withdrawal and the arrival in this person's name, the earlier entry kept, the reason in the notes, complete again if it was */
+        if (op.op === 'vms_arrival') { /* 27 Oct 2026: the withdrawal and the arrival in this person's name, the earlier entry kept, the reason in the notes only with notes_ok, complete again if it was */
           const L = (docs.loads || {})['vms1024~2f~' + op.pos] || {}, evs = Array.isArray(L.events1098) ? L.events1098 : [], wasDone = ((results.find(x => x.op === 'vms_arrival' && x.pos === op.pos)) || {}).wasDone, ce = (Array.isArray(L.completionEvents1101) ? L.completionEvents1101 : []).slice(-1)[0] || L.completion1101;
           if (!evs.some(e => e && e.state === 'not confirmed' && e.effective_date === op.was && e.by === spec.by && e.inPlace === false)) problems.push('VMS plan ' + op.pos + ' has no withdrawal of the ' + op.was + ' entry by ' + spec.by + ' ' + where);
           if (!evs.some(e => e && e.state === 'on site' && e.effective_date === op.day && e.by === spec.by && e.inPlace === true) || !(L.arrival1098 && L.arrival1098.state === 'on site' && L.arrival1098.effective_date === op.day) || L.inPlace !== true) problems.push('VMS plan ' + op.pos + ' is not on site and in place from ' + op.day + ' by ' + spec.by + ' ' + where);
           if (!evs.some(e => e && e.state === 'on site' && e.effective_date === op.was)) problems.push('VMS plan ' + op.pos + ' lost its ' + op.was + ' entry from the history ' + where);
-          if (!String(L.notes || '').includes(op.why)) problems.push('VMS plan ' + op.pos + ' notes do not hold the reason ' + where);
+          /* the notes print on the board sheet as special instructions: the reason there only with notes_ok, otherwise the notes untouched */
+          if (op.notes_ok) { if (!String(L.notes || '').includes(op.why)) problems.push('VMS plan ' + op.pos + ' notes do not hold the reason ' + where); }
+          else if (!same(L.notes ?? null, ((((before.docs || {}).loads || {})['vms1024~2f~' + op.pos]) || {}).notes ?? null)) problems.push('VMS plan ' + op.pos + ' notes changed without notes_ok (they print on the board sheet as special instructions) ' + where);
           if (wasDone === true && !(ce && ce.done === true)) problems.push(op.board + ' is not complete again ' + where); }
         if (op.op === 'note_append' && !String(((docs.delivery || {})[op.ref] || {}).note || '').includes(op.text)) problems.push(op.ref + ' note lacks the added text ' + where);
         if (op.op === 'spare_use' && (docs.spares || {})[op.id]) problems.push(op.no + ' still in spares ' + where);

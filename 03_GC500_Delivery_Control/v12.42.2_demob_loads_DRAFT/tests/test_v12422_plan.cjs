@@ -3,6 +3,9 @@
    It proves the review fixes: a unit is classed by its own item (WC09's FWF are not pee panels, WC01's FWF are not accessible toilets); VMS
    boards are a stop each, measured and directed from their own pins; a toilet block with its waste tank is one line with both numbers;
    units booked for the same moment stay together, whatever they are, and booked trucks come first; a truck is named by number and first stop.
+   Second review: the units one save books carry one mark and keep their own truck whatever else is booked for that moment; the sheet says
+   what a booking would do to a truck already booked, and asks first when that truck would change; Book this load writes one mark for the
+   whole truck, and a save the browser could not keep says so.
      node test_v12422_plan.cjs */
 'use strict';
 const fs = require('fs'), path = require('path'), vm = require('vm');
@@ -17,15 +20,20 @@ function planner() {
   const js = (fs.readFileSync(MODULE, 'utf8').match(/<script[^>]*>([\s\S]*?)<\/script>/) || [])[1]; if (!js) throw new Error('no script in the module');
   const grab = re => { const m = js.match(re); if (!m) throw new Error('not in the module: ' + re); return m[0]; };
   const helpers = [/^const e = .*$/m, /^const DOW = .*$/m, /^const ok = .*$/m, /^const pad = .*$/m, /^const qd = .*$/m, /^const qDay = .*$/m, /^const hhmm = .*$/m, /^const dayW = .*$/m, /^const when = .*$/m,
-    /^const NATC = .*$/m, /^const navOf = .*$/m, /^const readyUnits = .*$/m, /^const coName = .*\n.*\n/m].map(grab).join('\n');
+    /^const NATC = .*$/m, /^const navOf = .*$/m, /^const readyUnits = .*$/m, /^const coName = .*\n.*\n/m, /^function stamp\(prev\) .*$/m].map(grab).join('\n');
   const a = js.indexOf('const LOADCAP'), b = js.indexOf('\nfunction bookedHtml(list) {'); if (a < 0 || b < a) throw new Error('the planner block is not in the module');
+  /* the booking writer for a whole truck (putBooking, bookLoad), run on a record held in the VM */
+  const w0 = js.indexOf('/* one save\'s stamp'), w1 = js.indexOf('\nfunction setBooking('); if (w0 < 0 || w1 < w0) throw new Error('the booking writer is not in the module');
   const stubs = `const W = {};
 function locOf(c) { if (c.vms) return {lat: c.vms.lat, lon: c.vms.lon}; const p = __POS[c.key]; return p ? {lat: p[0], lon: p[1]} : null; }
 function titleOf(c) { return c.vms ? c.vms.label : String(c.item || c.key); }
 const DemobMap1236 = {words: k => ['at ' + k], spot: () => null}, UI = {truck: '<svg></svg>'};
-let __ed = false; const canEd = () => __ed, flash = () => {};`;
+let __ed = false; const canEd = () => __ed, FL = [], flash = m => FL.push(m), buzz = () => {};
+let S = {delivery: {}}, VER = 0, __kept = true, __may = true; function bump() { bump.kept = __kept; } const mayWrite = () => __may, isRef = k => /^[A-Z]/.test(k), whoAmI = () => 'Test recorder', docOf = () => ({});
+function umap(key, field) { return Object.assign({}, (S.delivery[key] || {})[field] || {}); }`;
   const ctx = vm.createContext({__POS: POS, Intl, Math, Date, String, Number, Array, Map, Set, WeakMap, Object, JSON, RegExp, encodeURIComponent});
-  vm.runInContext(helpers + '\n' + stubs + '\n' + js.slice(a, b) + '\nglobalThis.api = {planLoads, loadKind, loadWords, loadUnits, stopsOf, mixWords, loadNote, truckName, loadsHtml, setEd: v => { __ed = v; }};', ctx, {filename: 'singles1238 planner'});
+  vm.runInContext(helpers + '\n' + stubs + '\n' + js.slice(a, b) + '\n' + js.slice(w0, w1) + '\nglobalThis.api = {planLoads, loadKind, loadWords, loadUnits, stopsOf, mixWords, loadNote, truckName, loadsHtml, clashOf, bookLoad, setEd: v => { __ed = v; },'
+    + ' rec: () => S, reset: (kept, may) => { S = {delivery: {}}; FL.length = 0; __kept = kept; __may = may; }, flashes: () => FL.slice()};', ctx, {filename: 'singles1238 planner'});
   return ctx.api;
 }
 const unit = (key, owner, item, no, extra) => Object.assign({key, uid: owner + '|' + no, owner, item, label: '', no, u: {item, label: ''}, what: DESC[key] || item, cat: /^T0/.test(key) ? 'vms' : /^GN/.test(key) ? 'gen' : 'wc', group: false, st: {s: 'ready'}, r: {key, zone: ''}, book: null, tank: null, tankNo: '', half: null}, extra || {});
@@ -82,6 +90,35 @@ check('a truck whose units carry different bookings lists each time and how many
 S.setEd(true); const html = S.loadsHtml(vb.concat(eb)); S.setEd(false);
 check('the panel (edit link): booked trucks say "Pick-up booked" and offer Change booking, the rest Book this load; each truck carries its own id; each VMS board is its own stop line', (html.match(/<article class="lt1238/g) || []).length === PB.length && (html.match(/>Change booking</g) || []).length === 2 && (html.match(/>Book this load</g) || []).length === PB.length - 2 && new Set((html.match(/data-lid1238="[^"]+"/g) || [])).size === PB.length && (html.match(/<b>VMS \d+<\/b><span>1 VMS board · T0\d+<\/span>/g) || []).length === 6, {n: PB.length});
 check('no unit is planned twice and only Ready units are planned', (() => { const all = vb.concat(eb).concat([unit('WC69', 'event-portables', 'FWF', 'NR', {st: {s: 'not'}})]), P = S.planLoads(all), ids2 = P.flatMap(t => t.items.map(c => c.uid)); return ids2.length === new Set(ids2).size && ids2.length === all.length - 1 && ids2.indexOf('event-portables|NR') < 0; })());
+
+/* second review: a save's units carry one mark (the booking's "set"); a card's own booking a mark of its own */
+const id = c => c.key + '#' + c.uid, sameAs = (t, ids) => !!t && t.items.length === ids.length && ids.every(x => t.items.some(c => id(c) === x));
+let MK = 0; const book = (cs, ids, at) => { const m = '2026-10-27T05:00:' + String(10 + MK++).padStart(2, '0') + '.000Z', w = new Set(ids); cs.forEach(c => { if (w.has(id(c))) c.book = {at, note: '', by: 'test', set: m}; }); };
+const fresh = () => w9.concat(others).map(c => Object.assign({}, c, {book: null}));
+/* WC09, WC69, WC41 and 14 FWF at WC20: Truck 2 (from WC20) is full; booked whole, then a WC09 FWF booked on its own card for the same time.
+   Planned as one set (the first draft), the WC09 unit took a place on the WC20 truck and pushed a WC69 unit off it */
+{ const cs = fresh().concat(range(14, i => unit('WC20', 'event-portables', 'FWF', 'C' + i))), L0 = S.planLoads(cs), A = L0[1].items.map(id), x = L0[0].items[0]; book(cs, A, AT);
+  const cx = S.clashOf(AT, 'event-portables', new Set([id(x)]), cs); book(cs, [id(x)], AT);
+  const L = S.planLoads(cs), hold = L.filter(t => t.items.some(c => A.includes(id(c))));
+  check('a whole booked truck (' + A.length + ' units, one save) plus one unit booked on its own card for the same time: the truck keeps exactly the units it was booked with, and the single goes on a truck of its own', hold.length === 1 && sameAs(hold[0], A) && hold[0].at === AT && L.some(t => t.at === AT && sameAs(t, [id(x)])), L.map(t => [t.n, t.at, t.items.length]));
+  check('... and the sheet for that single said "' + (cx && cx.words) + '", with no question', A.length === 24 && L0[1].items[0].key === 'WC20' && x.key === 'WC09' && cx && !cx.changed.length && cx.keeps.length === 1 && /^Truck 1 \(from WC20\) is already booked for \w{3} 28 Oct · 06:00 and keeps its own units$/.test(cx.words) && cx.ask === '', cx && {words: cx.words, ask: cx.ask}); }
+{ const cs = fresh(), L0 = S.planLoads(cs), A = L0[0].items.map(id), B = L0[1].items.map(id); book(cs, A, AT); const cx = S.clashOf(AT, 'event-portables', new Set(B), cs); book(cs, B, AT);
+  const L = S.planLoads(cs);
+  check('two whole trucks of one owner booked for the same time keep their own units; the second truck\'s sheet named the first ("' + (cx && cx.words) + '") and asked nothing', L.filter(t => t.at === AT).length === 2 && L.some(t => sameAs(t, A)) && L.some(t => sameAs(t, B)) && cx && !cx.changed.length && /^Truck 1 \(from WC09\) is already booked for /.test(cx.words), L.map(t => [t.n, t.at, t.items.length])); }
+{ const cs = fresh(), A = S.planLoads(cs)[0].items.map(id); book(cs, A, AT); const cx = S.clashOf(AT, 'event-portables', new Set([A[5]]), cs);
+  check('a unit of a booked truck booked again on its own card, same time: the sheet says it comes off that truck and asks first ("' + (cx && cx.words) + '")', cx && cx.changed.length === 1 && cx.changed[0].how === 'loses' && cx.words === 'Truck 1 (from WC09) is booked for ' + cx.words.split(' is booked for ')[1] && / this unit comes off it$/.test(cx.words) && /^Truck 1 \(from WC09\) is booked for .*: this unit comes off it\.\n\nA driver who already has that list will need the new one: text it again after saving\.\n\nOK saves the booking\. Cancel leaves everything as it is\.$/.test(cx.ask), cx && {words: cx.words, ask: cx.ask});
+  const cs2 = fresh(); book(cs2, [id(cs2.find(c => c.key === 'WC69'))], AT); const y = cs2.filter(c => c.key === 'WC69')[1], cy = S.clashOf(AT, 'event-portables', new Set([id(y)]), cs2);
+  check('one unit booked on its own card for a time another single booking of that owner holds: the sheet says it goes on that truck too and asks first', cy && cy.changed.length === 1 && cy.changed[0].how === 'joins' && / is booked for \w{3} 28 Oct · 06:00: this unit goes on it too$/.test(cy.words), cy && cy.words);
+  check('a booking with no truck of that owner booked at that time, or holding its units: nothing is said', S.clashOf(AT2, 'event-portables', new Set([id(y)]), fresh()) === null && S.clashOf(AT, 'coates', new Set(['GN25#coates|1244536']), cs) === null); }
+/* Book this load: one mark for the whole truck at every reference, later than any booking those units had; a refused save says so */
+{ S.reset(true, true); S.rec().delivery.WC69 = {pickup1238_units: {'event-portables|A1': {at: AT2, note: '', by: 'A', set: '2099-01-01T00:00:00.000Z'}}};
+  const who = S.bookLoad([{key: 'WC69', uids: ['event-portables|A1', 'event-portables|A2']}, {key: 'WC41', uids: ['event-portables|B0']}, {key: 'WC09', uids: ['event-portables|0081']}], AT, 'truck 2'), d = S.rec().delivery;
+  const m = [d.WC69.pickup1238_units['event-portables|A1'], d.WC69.pickup1238_units['event-portables|A2'], d.WC41.pickup1238_units['event-portables|B0'], d.WC09.pickup1238_units['event-portables|0081']];
+  check('Book this load writes one mark on every unit at every reference (three references here), later than any booking they carried', who === 'Test recorder' && m.every(x => x && x.at === AT && x.note === 'truck 2' && x.set === m[0].set) && m[0].set > '2099-01-01T00:00:00.000Z', m);
+  S.reset(false, true); const r2 = S.bookLoad([{key: 'WC69', uids: ['event-portables|A1']}, {key: 'WC41', uids: ['event-portables|B0']}], AT, '');
+  check('a truck save the browser could not keep returns no recorder and says "Not saved · keep this page open" (never "recorded by")', r2 === false && S.flashes().join() === 'Not saved · keep this page open.', {r2, f: S.flashes()});
+  S.reset(true, false); const r3 = S.bookLoad([{key: 'WC69', uids: ['event-portables|A1']}], AT, '');
+  check('on a link that may not write, a truck save writes nothing', r3 === false && !Object.keys(S.rec().delivery).length); }
 
 const passed = checks.filter(x => x.ok).length; console.log('\n' + passed + '/' + checks.length + ' passed');
 process.exitCode = passed === checks.length ? 0 : 1;

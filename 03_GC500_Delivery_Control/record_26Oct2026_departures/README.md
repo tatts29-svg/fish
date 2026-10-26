@@ -150,7 +150,10 @@ Andrew, 26 Oct 2026, with Event Portables' trucks collecting:
 
 ## Eleventh run (planned): VMS-01, VMS-02, VMS-03, and the VMS plan's arrival for VMS22 and VMS24 — NOT RUN
 
-- **State:** spec `left_site_spec_11_vms_refs.json` written and checked offline (`test_left_site_spec.cjs` 83/83; `--check-spec` passes). No dry run yet. No `--apply` until Andrew has seen the dry run and confirmed the mapping below.
+- **State:** spec `left_site_spec_11_vms_refs.json` written and checked offline (`test_left_site_spec.cjs` 93/93; `--check-spec` passes). No dry run yet. No `--apply` until Andrew has seen the dry run and answered the two questions below.
+- **To ask Andrew with the dry run:**
+  1. Is the mapping below right?
+  2. May the reason for the 22 Oct correction print on the VMS board sheets for VMS 22 and VMS 24, in the NOTES · SPECIAL INSTRUCTIONS box? That box is for the crew placing the board. If he says yes, add his words to both `vms_arrival` ops as `notes_ok` and dry run again. If he says no, the spec stays as it is.
 - **Andrew:**
   - 26 Oct: "Im happy with new referenwces referencws should be vms-01   vms-02  etc  simple".
   - 27 Oct, asked whether VMS22 and VMS24 came on 21 Oct (the VMS plan) or 22 Oct (Premiair docket 26143911): "22 oct".
@@ -166,9 +169,12 @@ Andrew, 26 Oct 2026, with Event Portables' trucks collecting:
   1. **The VMS plan, positions 22 and 24** (new op `vms_arrival`, through the plan's own writer `VMS1024.write`):
      - the 21 Oct arrival entry is withdrawn ("not confirmed" on 21 Oct, as VMS21's own 21 Oct entry was);
      - the board goes on site and in place from 22 Oct;
-     - the reason, naming docket 26143911, goes in the board's Notes;
      - the board is ticked complete again, because the page takes the complete tick off with a withdrawal.
      - The 21 Oct entries stay in the history.
+     - **The reason stays out of the board's Notes for now.** The reason is "Arrived 22 Oct 2026 by Premiair docket 26143911 (Andrew, 27 Oct 2026: "22 oct"); the 21 Oct arrival entry is withdrawn."
+       - On the VMS tab that box is "Notes · special instructions" ("anything the crew placing it must know"), and the board sheet prints it under NOTES · SPECIAL INSTRUCTIONS.
+       - So the reason goes there only with Andrew's OK (`notes_ok`). Until then the reason is kept in this run's report and in VMS-02's and VMS-03's light history.
+       - Positions 22 and 24 have no notes on the record now (backup 27 Oct 04:18), so the box prints empty. With his OK it would print the reason alone.
   2. **VMS-01, VMS-02 and VMS-03** through the Add form:
      - trade Variable message signs, item type VMS, no number, in from 22 Oct, branch STPS, the contract line as the note;
      - each with its one Premiair unit, labelled by its register name (VMS21, VMS22, VMS24);
@@ -182,18 +188,23 @@ Andrew, 26 Oct 2026, with Event Portables' trucks collecting:
   - the P&L reading is fixed (it read null before; only branch totals were compared), with the `expect` gate;
   - a read-only probe of each new reference (units, charge span, arrival, departure reading, Demob cards, Questions) and of the VMS plan boards before and after;
   - `--check-spec` checks a spec and stops, with no page and no service.
+  - `vms_arrival` writes the plan's notes only with `notes_ok`, which must be Andrew's words quoted with the day he said them (`Andrew, 27 Oct 2026: "..."`). Without it the notes are left as they were, and the checks after the stage and on the service fail if they changed. Either way the stage line says what the board sheet prints, and what it would print with his OK.
   - Every earlier spec passes unchanged and names the same references.
 - **What the dry run should show** (any difference: stop and look):
   - 60 documents planned: 18 per reference and 3 per VMS plan position;
   - the P&L gate passed (charge, cost and branches unchanged), with VMS21, VMS22 and VMS24 gone from the stand-alone VMS installs;
   - each VMS-0n unit card reads Premiair, its fleet number, its board label, Not ready; each stand-alone plan card (VMS21#vms:21, VMS22#vms:22, VMS24#vms:24) is gone after the stage;
   - VMS plan 22 and 24: 21 Oct reads "not confirmed", 22 Oct onwards on site, in place and complete;
+  - VMS plan 22 and 24 notes unchanged: `sheetPrints` reads "" before and after the stage, and the stage line reads "the reason kept out of its notes (no notes_ok) ... with Andrew's OK (notes_ok) it would print" followed by the reason;
   - Today unchanged; page errors 0.
 - **Known effects to tell Andrew:**
   - The VMS tab shows VMS 22 and VMS 24 "In place" and "Complete" by Andrew Fisher, entered 27 Oct.
   - 21 Oct readings show two boards fewer on site.
   - The references' complete ticks are dated today.
   - The register's "On delivery" stays empty for the three boards.
+  - **Only with Andrew's OK (`notes_ok`):** the board sheets for VMS 22 and VMS 24 print the correction reason under NOTES · SPECIAL INSTRUCTIONS, the box for the crew placing the board. It would read "Arrived 22 Oct 2026 by Premiair docket 26143911 (Andrew, 27 Oct 2026: "22 oct"); the 21 Oct arrival entry is withdrawn." Without his OK the box stays as it is (empty now).
+  - **The closed 22 Oct Build day card gains VMS-01, VMS-02 and VMS-03.** An added reference's in day (22 Oct) goes on that day's work as a placement, so a day card already closed shows three more.
+  - **Three "Hire" holds on Costs.** The "Actual onsite equipment" card (`onsiteComplete979`) gets one per reference until an off day is recorded, and Pricing's card-hire line reads "no day to charge to". What is charged to the V8s does not move. This is the design's reading of the page code; the dry run has not shown it yet.
 
 ```
 node record_26Oct2026_departures/test_left_site_spec.cjs

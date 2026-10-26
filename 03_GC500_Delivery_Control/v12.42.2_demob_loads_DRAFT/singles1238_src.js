@@ -310,6 +310,7 @@ dialog.bkd1238 footer button[disabled]{opacity:.4;cursor:default;box-shadow:none
 #pane-demob .ld1238 .lt1238 footer button.pri{background:#ffb020;color:#1b1203}
 #pane-demob .ld1238 .lt1238 footer button:focus-visible{outline:2px solid #ffcf6a;outline-offset:2px}
 @media print{#pane-demob .ld1238 .lt1238 footer{display:none}}
+dialog.bkd1238 .sm1238.cx{background:#ffb0201f;color:#ffe2a6;box-shadow:inset 0 0 0 1px #ffb02066}
 </style>
 <script id="singles1238-script">
 /* Author: Andrew Fisher. v12.38 - the Demob tab, one card per asset.
@@ -937,12 +938,18 @@ function cutLoads(pool, at, co) {
   if (host) host.items.push(c); else out.push({owner: c.owner, kind: 'access', items: [c], at: at || null}); });
  return out;
 }
-/* units booked for the same moment (one owner) are cut into their own trucks and never mixed with other units; booked trucks come first,
-   by their time and first unit, so a booked truck keeps its place when the others change */
+/* booked units are cut into their own trucks and never mixed with unbooked ones. The units one save booked together (Book this load, or
+   "Book all" at a reference) carry the same mark, the booking's own "set" stamp, and are cut on their own: a truck already booked is never
+   cut up again by another booking for the same moment. Units booked one at a time for one moment by one owner (a card's own Book pick-up)
+   are planned together. Booked trucks come first, by their time and first unit, so a booked truck keeps its place when the others change */
 function planLoads(list) {
- const ready = (list || []).filter(c => c.st && c.st.s === 'ready' && !c.board), CO = new Map(), co = o => { if (!CO.has(o)) CO.set(o, coName(o)); return CO.get(o); };
+ const all = list || [], ready = all.filter(c => c.st && c.st.s === 'ready' && !c.board), CO = new Map(), co = o => { if (!CO.has(o)) CO.set(o, coName(o)); return CO.get(o); };
+ const atOf = c => c.book && ok(c.book.at) ? String(c.book.at) : '', markOf = c => c.book && c.book.set ? String(c.book.set) : '', saveOf = c => atOf(c) + '|' + c.owner + '|' + markOf(c);
+ /* how many units each save booked, counted over every card (Ready or not), so a save stays one save when one of its units is unticked */
+ const size = new Map(); all.forEach(c => { if (c.board || !atOf(c) || !markOf(c)) return; const k = saveOf(c); size.set(k, (size.get(k) || 0) + 1); });
  const sets = new Map(), free = [];
- ready.forEach(c => { const at = c.book && ok(c.book.at) ? String(c.book.at) : ''; if (!at) { free.push(c); return; } const k = at + '|' + c.owner; if (!sets.has(k)) sets.set(k, {at, cs: []}); sets.get(k).cs.push(c); });
+ ready.forEach(c => { const at = atOf(c); if (!at) { free.push(c); return; } const s = saveOf(c), k = markOf(c) && size.get(s) > 1 ? s : at + '|' + c.owner + '|';
+  if (!sets.has(k)) sets.set(k, {at, cs: []}); sets.get(k).cs.push(c); });
  const booked = [].concat(...[...sets.values()].map(x => cutLoads(x.cs, x.at, co))).sort((x, y) => Date.parse(x.at) - Date.parse(y.at) || unitCmp(x.items[0], y.items[0]));
  const out = booked.concat(cutLoads(free, null, co));
  out.forEach((t, i) => { const f = t.items[0]; t.n = i + 1; t.id = (t.at || '') + '|' + f.key + '#' + f.uid; });
@@ -990,7 +997,7 @@ function loadsHtml(list) {
    + '<ol>' + st.map(s => '<li><button type="button" data-go1238="' + e(s.key) + '" data-u1238="' + e(s.cards[0].uid) + '"><b>' + e(s.label) + '</b><span>' + e(s.words + (s.label !== s.key ? ' · ' + s.key : '')) + '</span>' + (s.nos.length ? '<s>' + e(s.nos.join(' ')) + '</s>' : '') + (s.where ? '<em>' + e(s.where) + '</em>' : '') + '</button></li>').join('') + '</ol>'
    + '<footer>' + (ed ? '<button type="button" class="pri" data-ldbook1238="' + i + '">' + (bn && bn.at ? 'Change booking' : bn ? 'Book this load and move ' + bn.moves + ' booked unit' + (bn.moves === 1 ? '' : 's') : 'Book this load') + '</button>' : '') + '<button type="button" data-ldsm1238="' + i + '">Text</button><button type="button" data-ldsd1238="' + i + '">Send</button></footer></article>'; };
  return '<section class="ld1238" aria-label="Truck loads"><header><i>' + UI.truck + '</i><b>Truck loads from what is Ready</b><span>' + P.length + ' truck' + (P.length === 1 ? '' : 's') + ' · ' + total + ' unit' + (total === 1 ? '' : 's') + ' ready · nearest first</span></header>'
-  + '<p class="lr1238">Event Portables: 24 a truck, 6 pee panels at most; a 16 Pan block on its own. VMS boards 3 a truck: load 2, tow 1 (most trucks tow one). Buildings one a truck. The Coates accessible toilet rides with one other piece of Coates gear. Other gear one a truck for now. Units booked for the same time stay together on their own trucks, listed first.</p>'
+  + '<p class="lr1238">Event Portables: 24 a truck, 6 pee panels at most; a 16 Pan block on its own. VMS boards 3 a truck: load 2, tow 1 (most trucks tow one). Buildings one a truck. The Coates accessible toilet rides with one other piece of Coates gear. Other gear one a truck for now. A truck booked whole keeps its units; units booked one at a time for the same time ride together. Booked trucks come first.</p>'
   + '<div class="lg1238">' + P.map(card).join('') + '</div></section>';
 }
 /* the list for the driver: each stop with what is there, its numbers and its place, and directions to that stop */
@@ -1010,12 +1017,33 @@ async function sendLoad(t) {
 }
 /* the cards the Everything view shows (the branch chosen on the Demob tab), for the view and for finding a truck again after a booking */
 function allCards(m) { m = m || model(); const br = (typeof DM816 === 'object' && DM816 && DM816.branch) || 'all'; return br === 'all' ? m.cards : m.cards.filter(c => c.r.branch === br); }
+/* before a booking is saved: what it does to the trucks one owner already has booked. The loads are worked out as they stand, and again
+   with the booking in; each booked truck holding other units is compared. It keeps its own units, takes this booking on as well, loses
+   units this booking moves, or is planned again with it so units can move between trucks. mine: key#uid of every unit the save books */
+function clashOf(at, owner, mine, list) {
+ list = list || allCards(); const id = c => c.key + '#' + c.uid, my = c => mine.has(id(c));
+ const held = planLoads(list).filter(t => t.at && t.owner === owner && t.items.some(c => !my(c)) && (t.at === at || t.items.some(my)));
+ if (!held.length) return null;
+ const after = planLoads(list.map(c => my(c) ? Object.assign({}, c, {book: {at, note: '', by: '', set: '~new'}}) : c)); /* a save mark no stored booking carries */
+ const res = held.map(t => { const others = new Set(t.items.filter(c => !my(c)).map(id)), had = t.items.filter(my).length, hosts = after.filter(x => x.items.some(c => others.has(id(c))));
+  if (hosts.length !== 1 || hosts[0].items.filter(c => !my(c)).length !== others.size) return {t, how: 'moves', n: 0};
+  const now = hosts[0].items.filter(my).length; return {t, how: now > had ? 'joins' : now < had ? 'loses' : 'keeps', n: Math.abs(now - had)}; });
+ const changed = res.filter(x => x.how !== 'keeps'), keeps = res.filter(x => x.how === 'keeps' && x.t.at === at);
+ if (!changed.length && !keeps.length) return null;
+ const say = x => truckName(x.t) + (x.how === 'keeps' ? ' is already booked for ' + when(x.t.at) + ' and keeps its own units' : ' is booked for ' + when(x.t.at) + ': '
+  + (x.how === 'joins' ? (x.n === 1 ? 'this unit goes' : 'these ' + x.n + ' units go') + ' on it too' : x.how === 'loses' ? (x.n === 1 ? 'this unit comes' : x.n + ' of these units come') + ' off it'
+   : 'saving plans it again with this booking, and units can move between trucks'));
+ const words = changed.length ? say(changed[0]) + (changed.length > 1 ? ' (and ' + (changed.length - 1) + ' more booked truck' + (changed.length > 2 ? 's' : '') + ')' : '')
+  : keeps.length === 1 ? say(keeps[0]) : truckName(keeps[0].t) + ' and ' + (keeps.length - 1) + ' more truck' + (keeps.length > 2 ? 's' : '') + ' are already booked for ' + when(at) + ' and keep their own units';
+ const ask = changed.length ? changed.map(x => say(x) + '.').join('\n') + '\n\nA driver who already has that list will need the new one: text it again after saving.\n\nOK saves the booking. Cancel leaves everything as it is.' : '';
+ return {at, held: res, changed, keeps, words, ask};
+}
 function openLoad(i) {
  if (!canEd()) { try { flash('Booking a pick-up needs the edit link.'); } catch (x) {} return false; }
  const t = i && typeof i === 'object' ? i : LOADS[Number(i)]; if (!t || !t.items.length) return false;
  const dlg = sheet(), td = todayQ(), bn = loadNote(t), at = bn && bn.at ? bn.at : '', first = t.items[0], groups = [], u = loadUnits(t);
  t.items.forEach(c => { let g = groups.find(x => x.key === c.key); if (!g) groups.push(g = {key: c.key, uids: []}); g.uids.push(c.uid); });
- SEL = {key: first.key, uid: first.uid, day: at ? qDay(at) : '', time: at ? hhmm(at) : '', month: null, mode: 'h', h: at ? Number(hhmm(at).slice(0, 2)) : null, load: groups, units: u, first: {key: first.key, uid: first.uid}};
+ SEL = {key: first.key, uid: first.uid, day: at ? qDay(at) : '', time: at ? hhmm(at) : '', month: null, mode: 'h', h: at ? Number(hhmm(at).slice(0, 2)) : null, load: groups, owner: t.owner, units: u, first: {key: first.key, uid: first.uid}};
  const base = SEL.day || td; SEL.month = new Date(Date.UTC(Number(base.slice(0, 4)), Number(base.slice(5, 7)) - 1, 1));
  dlg.querySelector('#bkh1238').textContent = 'Book ' + truckName(t).replace(/^Truck/, 'truck');
  dlg.querySelector('.bi1238').innerHTML = UI.truck;
@@ -1081,9 +1109,10 @@ function setUnitReady(key, uids, on, why) {
  try { flash(key + (list.length > 1 ? ' · ' + list.length + ' units' : '') + (on ? ' ready for collection' : ' not ready for collection' + (w ? ' (' + w + ')' : '')) + ' - recorded by ' + who + '.'); } catch (x) {}
  return true;
 }
-function putBooking(key, list, v, n, who) {
+/* one save's stamp (set) is the booking's clock on the shared record and its mark on the truck loads: every unit one save books carries the same one */
+function putBooking(key, list, v, n, who, mark) {
  S.delivery = S.delivery || {}; const d = S.delivery[key] || (S.delivery[key] = {});
- const cur = umap(key, 'pickup1238_units', 'set'), latest = list.map(u => cur[u] && cur[u].set).filter(Boolean).sort().pop(), now = stamp(latest);
+ const cur = umap(key, 'pickup1238_units', 'set'), latest = list.map(u => cur[u] && cur[u].set).filter(Boolean).sort().pop(), now = mark || stamp(latest);
  list.forEach(u => { cur[u] = Object.assign({at: v, note: v ? n : '', by: who, set: now}, docOf(key, u)); });
  d.pickup1238_units = cur;
  d.pickup1238_history = (Array.isArray(d.pickup1238_history) ? d.pickup1238_history : []).concat(list.map(u => ({unit: u, pickup: v, note: v ? n : '', by: who, at: now}))).slice(-400);
@@ -1095,7 +1124,9 @@ function bookLoad(groups, at, note) {
  if (typeof isRef === 'function') { const bad = gs.find(g => !isRef(g.key)); if (bad) { try { flash(bad.key + ' is not a reference in this file - nothing recorded.'); } catch (x) {} return false; } }
  const who = whoAmI(); if (!who) return false;
  const v = String(at || ''); if (!(ok(v) && /T\d{2}:\d{2}:00\+10:00$/.test(v))) return false;
- const n = String(note || '').trim().slice(0, 80); gs.forEach(g => putBooking(g.key, g.uids, v, n, who));
+ /* one stamp for the whole save, later than any booking these units carry, so every unit on the truck (at every reference) carries the same mark */
+ const latest = [].concat(...gs.map(g => { const cur = umap(g.key, 'pickup1238_units', 'set'); return g.uids.map(u => cur[u] && cur[u].set); })).filter(Boolean).sort().pop(), mark = stamp(latest);
+ const n = String(note || '').trim().slice(0, 80); gs.forEach(g => putBooking(g.key, g.uids, v, n, who, mark));
  VER++; bump(); if (bump.kept === false) { try { flash('Not saved · keep this page open.'); } catch (x) {} return false; }
  try { buzz(30); } catch (x) {}
  return who;
@@ -1169,6 +1200,7 @@ function sheet() {
   if (act === 'save') save();
  });
  dlg.querySelector('input[name="t1238"]').addEventListener('input', ev => { const v = parseTime(ev.target.value); SEL.time = v || ''; if (v) SEL.h = Number(v.slice(0, 2)); clock(true); summary(); });
+ dlg.querySelector('input[name="a1238"]').addEventListener('change', () => summary()); /* Book all changes which units are booked, so the summary looks again */
  dlg.addEventListener('close', () => { SEL.key = ''; });
  return dlg;
 }
@@ -1215,7 +1247,17 @@ function summary() {
  const dlg = sheet(), ok2 = !!(SEL.day && SEL.time), p = dlg.querySelector('.sm1238');
  p.textContent = ok2 ? 'Pick-up ' + dayW(SEL.day) + ' at ' + SEL.time : SEL.day ? dayW(SEL.day) + ' · now pick a time' : SEL.time ? SEL.time + ' · now pick a day' : 'Pick a day on the calendar and a time on the clock (or type it)';
  p.classList.toggle('no', !ok2);
+ let cx = null; if (ok2 && SEL.key) { try { cx = sheetClash(SEL.day + 'T' + SEL.time + ':00+10:00'); } catch (x) { cx = null; } }
+ if (cx) p.textContent += ' · ' + cx.words;
+ p.classList.toggle('cx', !!(cx && cx.changed.length));
  dlg.querySelector('[data-bk1238="save"]').disabled = !ok2;
+}
+/* the units this sheet books (a whole truck, one unit, or every unit at the reference) and their owner, against the trucks already booked */
+function sheetClash(at) {
+ const mine = new Set(); let owner = '';
+ if (SEL.load) { SEL.load.forEach(g => g.uids.forEach(u => mine.add(g.key + '#' + u))); owner = SEL.owner || ''; }
+ else { const c = cardOf(SEL.key, SEL.uid); if (!c) return null; owner = c.owner; uidsNow().forEach(u => mine.add(SEL.key + '#' + u)); }
+ return mine.size ? clashOf(at, owner, mine) : null;
 }
 function open(key, uid) {
  if (!canEd()) { try { flash('Booking a pick-up needs the edit link.'); } catch (x) {} return false; }
@@ -1239,9 +1281,12 @@ function close() { const dlg = SHEET; if (!dlg) return; try { dlg.close(); } cat
 function save() {
  if (!SEL.day || !SEL.time) return false;
  const at = SEL.day + 'T' + SEL.time + ':00+10:00', note = sheet().querySelector('input[name="n1238"]').value;
- if (SEL.load) { const gs = SEL.load, u = SEL.units, f = SEL.first, who = bookLoad(gs, at, note); if (!who) return false;
-  let t = null; try { t = planLoads(allCards()).find(x => x.at === at && x.items.some(c => c.key === f.key && c.uid === f.uid)) || null; } catch (x) { t = null; }
-  try { flash((t ? truckName(t) : 'The truck') + ' booked for ' + when(at) + ': ' + u + ' unit' + (u === 1 ? '' : 's') + ' at ' + gs.length + ' reference' + (gs.length === 1 ? '' : 's') + ' - recorded by ' + who + '.'); } catch (x) {} close(); return true; }
+ let cx = null; try { cx = sheetClash(at); } catch (x) { cx = null; }
+ if (cx && cx.changed.length && !W.confirm(cx.ask)) return false; /* the sheet stays open to pick another time */
+ if (SEL.load) { const gs = SEL.load, u = SEL.units, ids = new Set([].concat(...gs.map(g => g.uids.map(x => g.key + '#' + x)))), who = bookLoad(gs, at, note); if (!who) return false;
+  let t = null; try { t = planLoads(allCards()).filter(x => x.at === at).map(x => ({x, n: x.items.filter(c => ids.has(c.key + '#' + c.uid)).length})).filter(y => y.n).sort((a, b) => b.n - a.n)[0] || null; t = t ? t.x : null; } catch (x) { t = null; }
+  const tu = t ? loadUnits(t) : u, tr = t ? new Set(t.items.map(c => c.key)).size : gs.length;
+  try { flash((t ? truckName(t) : 'The truck') + ' booked for ' + when(at) + ': ' + tu + ' unit' + (tu === 1 ? '' : 's') + ' at ' + tr + ' reference' + (tr === 1 ? '' : 's') + (tu !== u ? ' (' + u + ' booked)' : '') + ' - recorded by ' + who + '.'); } catch (x) {} close(); return true; }
  if (setBooking(SEL.key, uidsNow(), at, note)) { close(); return true; }
  return false;
 }
@@ -1443,7 +1488,7 @@ function watch() {
  const pane = D.getElementById('pane-demob'); if (!pane || pane.__sg1238) return; pane.__sg1238 = true;
  new MutationObserver(ms => { if (raf || ms.every(m => m.target && m.target.closest && m.target.closest('.sgv1238,.pg1238,.dl1238'))) return; raf = (W.requestAnimationFrame || setTimeout)(() => { raf = 0; try { hold(decorate); } catch (x) {} }); }).observe(pane, {childList: true, subtree: true}); /* observer decorations enter the same asset hold */
 }
-W.Singles1238 = Object.freeze({model, picsState, cardOf, stateOf, cardsOf, setUnitReady, setBooking, lamp, pickUp, open, save, close, wordsOf, send, files, locOf, navOf, goCard, goCat, dayRows, dayLists, iconKey, iconPaths, ICONS, WORD, count, keepUnits, pickOf, parseTime, notePairs, planLoads, loadKind, loadWords, loadUnits, stopsOf, loadNote, truckName, bookLoad, openLoad, loads: () => LOADS, owns: () => true, release: REL});
+W.Singles1238 = Object.freeze({model, picsState, cardOf, stateOf, cardsOf, setUnitReady, setBooking, lamp, pickUp, open, save, close, wordsOf, send, files, locOf, navOf, goCard, goCat, dayRows, dayLists, iconKey, iconPaths, ICONS, WORD, count, keepUnits, pickOf, parseTime, notePairs, planLoads, loadKind, loadWords, loadUnits, stopsOf, loadNote, truckName, bookLoad, openLoad, clashOf, loads: () => LOADS, owns: () => true, release: REL});
 try { if (typeof RENDER_MEMO !== 'undefined' && RENDER_MEMO instanceof Map) RENDER_MEMO.delete('demob816'); } catch (x) {}
 watch();
 try { const p = D.getElementById('pane-demob'), on = W.Performance1241 && typeof Performance1241.paneActive === 'function' ? Performance1241.paneActive(p, 'demob') : !!(p && !p.hidden); if (on && p.querySelector('.dmday816')) renderDemob816(); } catch (x) {} /* only the pane actually showing (v12.41's startup guard) */

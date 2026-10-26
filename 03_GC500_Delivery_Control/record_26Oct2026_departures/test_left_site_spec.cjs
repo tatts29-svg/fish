@@ -95,6 +95,17 @@ refuses('a plan correction whose reason names a system', s => { find(s, 'vms_arr
 refuses('a plan correction to a day other than its reference\'s in day', s => { find(s, 'vms_arrival', '22').day = '2026-10-23'; }, /is not VMS-02's in day 2026-10-22/);
 refuses('a position corrected twice', s => { s.ops.push(clone(find(s, 'vms_arrival', '24'))); }, /corrected twice/);
 passes('a plan correction on its own (no reference in the spec)', s => { s.ops = s.ops.filter(o => o.op === 'vms_arrival'); });
+/* the plan's notes are its "Notes · special instructions", printed on the VMS board sheet for the crew: the reason goes there only on Andrew's words */
+t('spec 11 keeps the reason out of the plan\'s notes until Andrew OKs it (no notes_ok)', () => S11.ops.filter(o => o.op === 'vms_arrival').forEach(o => assert.ok(!('notes_ok' in o), o.pos)));
+refuses('notes_ok as a plain yes', s => { find(s, 'vms_arrival', '22').notes_ok = 'yes'; }, /notes_ok must be Andrew's own words/);
+refuses('notes_ok as true', s => { find(s, 'vms_arrival', '22').notes_ok = true; }, /notes_ok must be Andrew's own words/);
+refuses('notes_ok with no day', s => { find(s, 'vms_arrival', '22').notes_ok = 'Andrew: "yes"'; }, /notes_ok must be Andrew's own words/);
+refuses('notes_ok with no quoted words', s => { find(s, 'vms_arrival', '22').notes_ok = 'Andrew, 27 Oct 2026: yes'; }, /notes_ok must be Andrew's own words/);
+refuses('notes_ok with empty quoted words', s => { find(s, 'vms_arrival', '22').notes_ok = 'Andrew, 27 Oct 2026: " "'; }, /notes_ok must be Andrew's own words/);
+refuses('notes_ok naming a system', s => { find(s, 'vms_arrival', '22').notes_ok = 'Andrew, 27 Oct 2026: "let the agent put it in"'; }, /notes_ok must be Andrew's own words/);
+refuses('notes_ok over 200 characters', s => { find(s, 'vms_arrival', '22').notes_ok = 'Andrew, 27 Oct 2026: "' + 'y'.repeat(200) + '"'; }, /notes_ok must be Andrew's own words/);
+passes('notes_ok with Andrew\'s quoted words and the day', s => { find(s, 'vms_arrival', '22').notes_ok = 'Andrew, 27 Oct 2026: "yes put it on the sheet"'; });
+passes('notes_ok with the question named before his words', s => { find(s, 'vms_arrival', '24').notes_ok = 'Andrew, 27 Oct 2026, asked whether the reason may print on the board sheet: "yes"'; });
 
 // ---------------------------------------------------------------------------------------------- spec.expect (change 9)
 refuses('expect that is not an object', s => { s.expect = 'none'; }, /spec\.expect must be/);
@@ -108,6 +119,7 @@ refuses('a person named with a suffix', s => { s.by = 'Andrew Fisher via the off
 t('--check-spec passes spec 11 and stops before any page or service', () => {
   const r = spawnSync(process.execPath, [RUNNER, '--spec', path.join(HERE, 'left_site_spec_11_vms_refs.json'), '--check-spec'], {encoding: 'utf8', timeout: 20000, env: Object.assign({}, process.env, {GC500_EDIT_TOKEN: ''})});
   assert.strictEqual(r.status, 0, r.stderr); assert.match(r.stdout, /29 op\(s\) pass the checks - references VMS-01, VMS-02, VMS-03 · VMS plan positions 22, 24/); assert.match(r.stdout, /No page opened/);
+  assert.match(r.stdout, /the correction reason kept out of VMS plan 22's notes, kept out of VMS plan 24's notes \(they print on the board sheet as special instructions\)/);
 });
 t('--check-spec refuses a faulty spec with its reason', () => {
   const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'left-site-spec-')), f = path.join(dir, 'bad.json'), s = clone(S11); find(s, 'add_ref', 'VMS-02').from = '2026-10-21'; fs.writeFileSync(f, JSON.stringify(s));
