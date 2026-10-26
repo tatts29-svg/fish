@@ -12,6 +12,7 @@ from navigation1243_patch import patch as patch_navigation1243
 from identity_index1243_patch import patch as patch_identity1243
 from local_reads1243_patch import patch as patch_local_reads1243
 from event_window1243_patch import patch as patch_event_window1243
+from ticks1243_patch import patch as patch_ticks1243
 
 
 def patch(text, path, expected_base_sha=None):
@@ -87,6 +88,7 @@ def patch(text, path, expected_base_sha=None):
     text=patch_identity1243(text,path)
     text=patch_local_reads1243(text,path)
     text=patch_event_window1243(text,path)
+    text=patch_ticks1243(text,path)
     src=Path(__file__).with_name('charge1239_src.js').read_text()
     end=text.rfind('\n</body>')
     if end<0 or text[end:].strip()!='</body>\n</html>':

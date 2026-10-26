@@ -210,6 +210,7 @@ pricingForecast1010=function(){
 };
 root.pricingForecast1010=pricingForecast1010;
 function control(key){
+ if(rawRecord(key)==null&&capability()!=='edit')return ''; // No control or retained decision is shown; avoid resolving its source.
  const t=current(key),s=status(key);if(!t?.eligible&&s.state==='none')return '';
  const review=s.state==='review'?'<span class="chip cand" data-charge1239-review>Customer-charge decision needs review: '+esc(s.errors.join(' '))+'</span>':'';
  return review+(capability()==='edit'?'<button type="button" class="linkish" data-charge1239="'+esc(key)+'">'+(s.state==='active'?'Review charge treatment':'Customer-charge treatment')+'</button>':'');
