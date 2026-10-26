@@ -51,3 +51,10 @@ The pick-up list in the servicing tracker's dark style, the look Andrew liked.
 ## Built on v12.33
 
 v12.33 (Demob identifier labels) went live at 12:11 AEST, while this release was being built. v12.34 was rebuilt on it, and keeps its wording: "Recorded code" for bulk product codes and "Not numbered" where nothing is numbered. v12.33 changed only the identifier wording (`specs` and `specHtml`); this release changes only styling, on the same classes.
+
+## Checks
+
+- Candidate `3625dd96…`, 15,525,286 bytes, on live v12.33 `c6b8141c…`; check_page PASS.
+- Desktop 53/53 and phone 53/53 (`evidence/test_v1234_desktop.txt`, `evidence/test_v1234_phone.txt`). Every rehearsal was captured in the page; nothing reached the network.
+- Both sweeps: 27 tabs, 19 panes shown, 7 deep links; 0 errors, 0 console messages and 0 writes (`evidence/sweeps.json`).
+- Pictures in `evidence/`: the before and after on a phone, the Coates and Sub-hired cards, a departed card, and the desktop table.
