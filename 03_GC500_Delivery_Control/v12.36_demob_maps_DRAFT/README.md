@@ -10,6 +10,7 @@ Author: Andrew Fisher · 26 Oct 2026
 - "the demob list should be everything onsite your missing 90% of it" and "i dont want the fencing in the bracing in the demob"
 - "cards are not updated with what was picked up ... we are creating this so we know what can be picked up. not work to a schedule that does not work" and "lets not pre date anything"
 - "a nice big completion Percentage of Demob too please. days vs Percentage to get this done"
+- "I want a icon of the equipment. Neon circle around it. A good maplike we nbeen using.  Size. Weight"
 
 ## What the tab shows now
 
@@ -37,9 +38,9 @@ Each group has a header with a picture, its name, how many it holds, and its lig
 
 For a part pick-up, the asset numbers still on site come first and the ones picked up are struck through.
 
-**Your master plan beside every card.** Each card carries a piece of master plan D001-26003-03, drawn from the page's own plan tiles and ringed in red where the reference is:
+**Your master plan beside every card.** Each card carries a piece of master plan D001-26003-03, drawn from the page's own plan tiles, with the equipment's own icon on the spot in a neon ring:
 
-- **Ring:** solid where the plan places the unit, dashed where it only names the area.
+- **Icon and ring:** the group's picture (a generator's bolt, a toilet, a building and so on) in white on a dark disc, ringed in glowing neon cyan. The ring is solid where the plan places the unit, dashed where it only names the area.
 - **Label:** the reference and its asset number.
 - **Place in words:** the servicing area for a toilet; otherwise what the plan says it is next to or near, and the area of the site.
 - **Positions:** the ones the page already holds (Andrew's own pins first). One off the plan offers the satellite map; one with no position says so.
@@ -73,3 +74,14 @@ Presentation only: nothing is written to the record, and no record, P&L, Today, 
 | `demobmap1236_src.js` | One stylesheet and one script, inserted before `</body>`. It wraps `rowHtml816` (the map in the first cell), `listHtml816` (everything on site, grouped by discipline, using the page's own Coates and Sub-hired sections) and `renderDemob816` (the steps after each draw). |
 | `patch_v1236.py` | Inserts the module on the verified live v12.35 page (BASE `10a21fc0…`) and moves the footer from v12.35 to v12.36. |
 | `tests/test_v1236.cjs` | v12.35's checks, run in the day's pick-up list, plus the checks for everything on site. |
+
+## Checks
+
+- **Candidate:** `d7bd77da6e982c0ac3af19a8e5b183c09bc05e9bf78f267d5e1bea1f8ede689f`, 15,595,263 bytes, built on the verified live v12.35 (`10a21fc0…`, unchanged at 15:46); check_page PASS.
+- **Tests:** `tests/test_v1236.cjs` passed desktop 75/75 and phone 75/75 (`evidence/test_v1236_desktop.txt`, `evidence/test_v1236_phone.txt`). The tests read the live record after record run 7 (15:28). The pump-out checks pick any toilet on the day that still has no Emptied tick, since WC45 is now ticked. Every rehearsal was captured in the page; nothing reached the network.
+- **Sweeps:** desktop and phone, 27 tabs, 19 panes shown, 7 deep links, 0 errors, 0 console messages, 0 writes (`evidence/sweeps.json`).
+- **Redraw loop, found and fixed before release:**
+  - The first candidate (`206d514f…`, `evidence/first_candidate_206d514f/`) redrew the tab every frame: three label writes rewrote their text on each pass and woke the tab's watcher.
+  - Measured over 3 s on the tab: 91 changes, 3.3 s blocking, 14 frames. After the fix: 1 change, 0.2 s, 56 frames.
+  - The watcher is now paused while its own steps run, the labels are written only when they change, and a test checks that the tab sits still.
+- **Known, fixed in v12.38:** on a desktop the group headers sit in a narrow column. A v12.31 rule gives the first column 92 px and catches their cell. Phones are not affected.

@@ -363,6 +363,23 @@ function tile(L, tx, ty) {
   const im = new Image(); im.decoding = 'async'; im.onload = () => res(im); im.onerror = () => { TILE.delete(k); res(null); }; im.src = src; }));
  return TILE.get(k);
 }
+/* the group's icon as drawing paths (the same pictures as the group headers), drawn straight onto the map: no image to load */
+const NEON = '#18e8ff', ICONP = new Map();
+function iconPaths(k) {
+ if (ICONP.has(k)) return ICONP.get(k);
+ const c = CAT.get(k) || CAT.get('other'), out = [], num = (t, n) => { const m = t.match(new RegExp('\\b' + n + '="([-\\d.]+)"')); return m ? +m[1] : 0; };
+ try {
+  (String(c.icon).match(/<(path|rect|circle)\b[^>]*>/g) || []).forEach(t => {
+   if (t.startsWith('<path')) { const d = (t.match(/\bd="([^"]+)"/) || [])[1]; if (d) out.push(new Path2D(d)); return; }
+   const p = new Path2D();
+   if (t.startsWith('<rect')) { const x = num(t, 'x'), y = num(t, 'y'), w = num(t, 'width'), h = num(t, 'height'), r = Math.min(num(t, 'rx'), w / 2, h / 2);
+    p.moveTo(x + r, y); p.lineTo(x + w - r, y); p.arcTo(x + w, y, x + w, y + r, r); p.lineTo(x + w, y + h - r); p.arcTo(x + w, y + h, x + w - r, y + h, r);
+    p.lineTo(x + r, y + h); p.arcTo(x, y + h, x, y + h - r, r); p.lineTo(x, y + r); p.arcTo(x, y, x + r, y, r); p.closePath(); }
+   else p.arc(num(t, 'cx'), num(t, 'cy'), num(t, 'r'), 0, Math.PI * 2);
+   out.push(p); });
+ } catch (e) { out.length = 0; }
+ ICONP.set(k, out); return out;
+}
 async function draw(id) {
  const pos = id.slice(id.lastIndexOf('|') + 1).split(','), fx = +pos[0], fy = +pos[1], approx = pos[2] === 'a';
  if (!Number.isFinite(fx) || !Number.isFinite(fy)) return null;
@@ -377,11 +394,18 @@ async function draw(id) {
  const sc = OUT.w / vw;
  c.fillStyle = '#efece6'; c.fillRect(0, 0, OUT.w, OUT.h); c.imageSmoothingEnabled = true; try { c.imageSmoothingQuality = 'high'; } catch (e) {}
  got.forEach(g => c.drawImage(g.im, (g.tx * T - x0) * sc, (g.ty * T - y0) * sc, g.im.naturalWidth * sc, g.im.naturalHeight * sc));
- /* the ring, red as the master-plan pictures draw it, on a white halo so it reads on any colour of the drawing */
- const X = OUT.w / 2, Y = OUT.h / 2, R = OUT.w * 0.118;
- c.save(); if (approx) c.setLineDash([OUT.w * 0.052, OUT.w * 0.03]);
- c.lineWidth = OUT.w * 0.038; c.strokeStyle = 'rgba(255,255,255,.88)'; c.beginPath(); c.arc(X, Y, R, 0, Math.PI * 2); c.stroke();
- c.lineWidth = OUT.w * 0.021; c.strokeStyle = '#d7261e'; c.beginPath(); c.arc(X, Y, R, 0, Math.PI * 2); c.stroke(); c.restore();
+ /* the equipment's own icon on the spot in a neon ring (Andrew, 26 Oct 2026: "I want a icon of the equipment. Neon circle around it"):
+    a dark disc with the group's picture in white, ringed in neon that glows over the drawing; dashed where the plan only names the area */
+ const X = OUT.w / 2, Y = OUT.h / 2, R = OUT.w * 0.118, cat = CAT.get(catOf(id.slice(0, id.lastIndexOf('|')))) || CAT.get('other');
+ c.save(); if (approx) c.setLineDash([OUT.w * 0.05, OUT.w * 0.028]);
+ c.lineWidth = OUT.w * 0.027; c.strokeStyle = 'rgba(15,27,33,.6)'; c.beginPath(); c.arc(X, Y, R, 0, Math.PI * 2); c.stroke();
+ c.shadowColor = NEON; c.shadowBlur = OUT.w * 0.06; c.lineWidth = OUT.w * 0.017; c.strokeStyle = NEON;
+ for (let i = 0; i < 2; i++) { c.beginPath(); c.arc(X, Y, R, 0, Math.PI * 2); c.stroke(); }
+ c.restore();
+ c.save(); c.shadowColor = 'rgba(0,0,0,.45)'; c.shadowBlur = OUT.w * 0.02; c.fillStyle = '#0f1b21'; c.beginPath(); c.arc(X, Y, R * 0.66, 0, Math.PI * 2); c.fill(); c.restore();
+ c.save(); c.lineWidth = OUT.w * 0.006; c.strokeStyle = NEON; c.beginPath(); c.arc(X, Y, R * 0.66, 0, Math.PI * 2); c.stroke(); c.restore();
+ const paths = iconPaths(cat.k), s = R * 0.9;
+ if (paths.length) { c.save(); c.translate(X - s / 2, Y - s / 2); c.scale(s / 24, s / 24); c.lineWidth = 2; c.lineCap = 'round'; c.lineJoin = 'round'; c.strokeStyle = '#ffffff'; paths.forEach(p => c.stroke(p)); c.restore(); }
  /* a soft edge so the paper meets the dark card gently */
  const g = c.createRadialGradient(X, Y, OUT.h * 0.42, X, Y, OUT.w * 0.74); g.addColorStop(0, 'rgba(15,27,33,0)'); g.addColorStop(1, 'rgba(15,27,33,.30)');
  c.fillStyle = g; c.fillRect(0, 0, OUT.w, OUT.h);
@@ -685,7 +709,7 @@ D.addEventListener('click', ev => {
  if (DM816.view === ALLV && t.closest('#pane-demob [data-dday816]')) DM816.view = 'list';
 }, true);
 
-W.DemobMap1236 = Object.freeze({spot, words, draw, openMap, goLine, goCat, catOf, CATS: CATS.map(c => ({k: c.k, label: c.label})), release: 'v12.36'});
+W.DemobMap1236 = Object.freeze({spot, words, draw, openMap, goLine, goCat, catOf, iconPaths, NEON, CATS: CATS.map(c => ({k: c.k, label: c.label})), release: 'v12.36'});
 try { if (typeof RENDER_MEMO !== 'undefined' && RENDER_MEMO instanceof Map) RENDER_MEMO.delete('demob816'); } catch (e) {}
 if (!DM816.view || DM816.view === 'list') DM816.view = ALLV;
 watch();
