@@ -104,7 +104,7 @@ spec.ops.forEach((o, i) => {
   else if (o.op === 'depart') { if (!REFRE.test(o.ref || '')) fail(at + 'needs a reference'); if (!/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\+10:00$/.test(o.at || '') || !Number.isFinite(Date.parse(o.at))) fail(at + 'needs the actual departure time in AEST, e.g. 2026-10-26T07:40:00+10:00'); if (Date.parse(o.at) > Date.now()) fail(at + 'departure time is in the future');
     if (!Array.isArray(o.nos) || !o.nos.every(n => /^[0-9A-Z]{3,12}$/.test(n)) || new Set(o.nos).size !== o.nos.length) fail(at + 'needs the asset numbers that left (a list, each once)');
     if (o.unnumbered != null && !(Array.isArray(o.unnumbered) && o.unnumbered.every(u => u && typeof u.type === 'string' && u.type.trim() && Number.isInteger(u.n) && u.n > 0))) fail(at + 'unnumbered must be a list of {type, n}');
-    if (!o.nos.length && !(o.unnumbered || []).length) fail(at + 'needs at least one unit that left'); if (o.complete != null && typeof o.complete !== 'boolean') fail(at + 'complete must be true or false'); }
+    if (!o.nos.length && !(o.unnumbered || []).length) fail(at + 'needs at least one unit that left'); if (o.complete != null && typeof o.complete !== 'boolean') fail(at + 'complete must be true or false'); if (o.readback != null && o.readback !== 'history') fail(at + 'readback can only be history'); }
   else if (o.op === 'emptied') { if (!REFRE.test(o.ref || '')) fail(at + 'needs a reference'); if (o.on !== true) fail(at + 'emptied only ticks on (on: true), on Andrew\'s word that the units were pumped out'); }
   else fail(at + 'unknown op ' + o.op);
 });
@@ -465,13 +465,18 @@ function applyOps(spec) {
           box.querySelector('[name=collection-time]').value = op.at.slice(11, 19);
           box.querySelector('button[type=submit]').click();
           if (document.getElementById('collection996')) { const said = ((box.querySelector('[data-collection996-result]') || {}).textContent || '').trim(); box.remove(); throw new Error('the form did not save ' + op.ref + ': ' + (said || 'no message (a field failed the form\'s own check)')); }
-          const after = DemobCollection996.read(op.ref), ev = after.events.find(c => !before.events.some(b => b.id === c.id));
+          const after = DemobCollection996.read(op.ref);
+          /* readback 'history': an added reference whose quantity the page counts from its complete tick (which the departure
+             takes off) no longer shows the event in the departure reading; the entry is read from the delivery history instead,
+             exactly as the service check below reads it. Only when the spec asks for it. */
+          const ev = op.readback === 'history' ? (() => { const h = (deliveryOf(op.ref).history || []).filter(x => x && x.collection996 && x.collection996.kind === 'collection' && !before.events.some(b => b.id === x.collection996.id)).slice(-1)[0]; return h ? Object.assign({}, h.collection996, {by: h.by}) : null; })() : after.events.find(c => !before.events.some(b => b.id === c.id));
           if (!ev || ev.departedAt1211 !== op.at || ev.by !== who) throw new Error(op.ref + ' has no new departure at ' + op.at + ' recorded by ' + who);
           const nums = ev.items.flatMap(i => i.numbers || []), count = ev.items.reduce((n, i) => n + i.n, 0), want = op.nos.length + (op.unnumbered || []).reduce((n, u) => n + u.n, 0);
           if (op.nos.some(no => !nums.includes(no)) || nums.length !== op.nos.length || count !== want) throw new Error(op.ref + ' departure holds ' + count + ' (' + nums.join(', ') + '), not the ' + want + ' asked');
-          if (op.complete === true && !after.complete) throw new Error(op.ref + ' still has ' + after.remaining.filter(u => u.n > 0).map(u => u.n + ' x ' + u.type).join(', ') + ' to leave - expected it to leave in full');
+          if (op.complete === true && op.readback !== 'history' && !after.complete) throw new Error(op.ref + ' still has ' + after.remaining.filter(u => u.n > 0).map(u => u.n + ' x ' + u.type).join(', ') + ' to leave - expected it to leave in full');
+          if (op.complete === true && op.readback === 'history' && ev.complete !== true) throw new Error(op.ref + ' departure is not recorded as the whole reference');
           if (op.complete === false && after.complete) throw new Error(op.ref + ' left in full - expected units to stay');
-          r.result = 'left site ' + op.at + ', recorded by ' + ev.by + ': ' + ev.items.map(i => i.n + ' x ' + i.type + (i.numbers.length ? ' ' + i.numbers.join(', ') : '')).join(', ') + (after.complete ? ' - ' + op.ref + ' has left in full, light ' + deliveryOf(op.ref).state : ' - still to leave: ' + after.remaining.filter(u => u.n > 0).map(u => u.n + ' x ' + u.type).join(', '));
+          r.result = 'left site ' + op.at + ', recorded by ' + ev.by + ': ' + ev.items.map(i => i.n + ' x ' + i.type + (i.numbers.length ? ' ' + i.numbers.join(', ') : '')).join(', ') + (op.readback === 'history' ? ' - read from the history; light ' + deliveryOf(op.ref).state + '; departure reading: ' + (after.issues.join('; ') || (after.complete ? 'left in full' : 'not complete')) : after.complete ? ' - ' + op.ref + ' has left in full, light ' + deliveryOf(op.ref).state : ' - still to leave: ' + after.remaining.filter(u => u.n > 0).map(u => u.n + ' x ' + u.type).join(', '));
         }
       } else if (op.op === 'emptied') {
         /* 26 Oct 2026: the Emptied (pumped out) tick through the page's own setEmptied816, as a person ticking it in the
