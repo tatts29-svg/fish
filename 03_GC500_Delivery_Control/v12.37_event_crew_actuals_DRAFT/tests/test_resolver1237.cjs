@@ -32,6 +32,22 @@ test('invalid supplier claim takes precedence over an approved pricing fallback'
 test('unrelated invalid supplier claim does not hold the linked event day',()=>{const r=one((n,e)=>e.invalidSupplierClaims=[{id:'UNRELATED',book:'green',number:'980099',po:'PO-FIXTURE',errors:['Fixture unrelated issue']}]);assert.equal(r.days.length,1);assert.equal(r.issues.length,0);});
 test('other book paper number does not masquerade as a green-note claim',()=>{const r=one((n,e)=>e.invalidSupplierClaims=[{id:'UNRELATED',book:'red',number:n.note_no,po:'PO-FIXTURE',errors:['Fixture other book issue']}]);assert.equal(r.days.length,1);assert.equal(r.issues.length,0);});
 test('ordinary unlinked notes retain their existing treatment despite supplier claims',()=>{const e=env(),n=note(e);delete n.event_allocation;e.notes=[n];e.invalidSupplierClaims=[{id:n.id,book:'green',number:n.note_no,po:'PO-FIXTURE',errors:['Fixture ordinary issue']}];const r=api.resolve(e);assert.equal(r.days.length,0);assert.equal(r.issues.length,0);assert.deepEqual(r.byId,{});});
+test('valid existing-crew source independently confirms customer scope',()=>assert.equal(one().days[0].customerScopeConfirmed,true));
+for(const [name,change]of[
+ ['supplier rate conflict',(n,e)=>e.rateConflicts[n.date]=['Synthetic conflicting supplier rate']],
+ ['Finance conflict',(n,e)=>e.financeConflicts[n.date]=['Synthetic prior supplier coverage']],
+ ['invalid supplier rate',(n,e)=>e.supplierRate=-1],
+ ['changed supplier quote',n=>n.event_allocation.quote='OLD-SUPPLIER-QUOTE'],
+ ['invalid supplier P/O',(n,e)=>e.invalidSupplierClaims=[{id:n.id,book:'green',number:n.note_no,po:'SYNTHETIC-PO',errors:['Synthetic supplier conflict']}]],
+ ['approved supplier quantity mismatch',(n,e)=>e.approvedPrices={[n.id]:{date:n.date,hours:99,amount:1870,rate:null}}]
+])test(name+' holds supplier coverage without adding another customer charge',()=>{const r=one(change);held(r);assert.equal(r.byId['FIXTURE-NOTE-A'].customerScopeConfirmed,true);});
+for(const [name,change]of[
+ ['changed source hours',n=>n.labour_hours=18],
+ ['wrong customer scope',n=>n.event_allocation.scope_key='other'],
+ ['wrong source document',n=>n.event_allocation.scope_document='OTHER'],
+ ['wrong roster group',n=>n.event_allocation.roster_group='OTHER'],
+ ['missing confirmation',n=>n.event_allocation.confirmation='']
+])test(name+' cannot claim customer scope coverage',()=>{const r=one(change);held(r);assert.equal(r.byId['FIXTURE-NOTE-A'].customerScopeConfirmed,false);});
 test('approved quantity mismatch is visibly held',()=>held(one((n,e)=>e.approvedPrices={[n.id]:{date:n.date,hours:99,amount:1870,rate:null}})));
 test('approved date mismatch is visibly held',()=>held(one((n,e)=>e.approvedPrices={[n.id]:{date:'2030-02-01',hours:n.labour_hours,amount:1870,rate:null}})));
 for(const [name,change] of [
