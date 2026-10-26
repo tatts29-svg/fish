@@ -2,7 +2,9 @@
 
 Author: Andrew Fisher.
 
-**DRAFT — native financial checks and release integration pending. Not ready to upload.**
+**DRAFT — release v12.44, renamed from the reserved v12.40 scope. Native financial checks and release integration pending. Not ready to upload.**
+
+The stable `RevenueBranch1240` API, script marker, decision keys and history schema remain unchanged. The release rename follows the urgent performance work and preserves the separately owned Demob releases. Earlier v12.40 previews are superseded; no v12.44 candidate has been verified live.
 
 A confirmed customer charge sometimes belongs to a different financial branch while its source sales code, supplier cost and physical equipment record must remain intact. The existing whole-reference branch setter cannot express that distinction for a mixed reference.
 
@@ -15,10 +17,10 @@ Controls sit on the existing Costs contract line and customer event-scope row. N
 ## Checks and release
 
 ```sh
-node v12.40_revenue_branch_DRAFT/tests/test_revenue1240.cjs
-toolchain/build.sh v12.40 v12.40_revenue_branch_DRAFT/patch_v1240.py
+node v12.44_revenue_branch_DRAFT/tests/test_revenue1240.cjs
+toolchain/build.sh v12.44 v12.44_revenue_branch_DRAFT/patch_v1244.py
 ```
 
 Synthetic resolver/native API checks pass 61/61 and cover exact identity, stale source and overrides, permission/name gates, history, concurrency, remaining customer Revenue, role preservation and unrelated physical/source records. Browser acceptance must also prove whole-job and category totals, every supplier cost and cost branch, Finance allocation and the underlying record are unchanged. Both final navigation sweeps and a phone inspection are required before READY.
 
-The patch requires the coordinated v12.39 source and refuses another base or repeat application. Final publication starts from current verified live bytes through the shared build and unchanged-base uploader. No private record change or publication has been performed by this draft.
+The patch requires the coordinated v12.43 source and refuses another base or repeat application. Final publication starts from current verified live bytes through the shared build and unchanged-base uploader. No private record change or publication has been performed by this draft.

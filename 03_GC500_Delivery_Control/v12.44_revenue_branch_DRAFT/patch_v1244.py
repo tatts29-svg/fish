@@ -9,11 +9,11 @@ HERE = Path(__file__).resolve().parent
 
 def patch(text, path='page.html'):
     if 'id="revenuebranch1240-script"' in text:
-        raise ValueError('v12.40 is already present')
+        raise ValueError('v12.44 is already present')
     if 'id="charge1239-script"' not in text or 'id="eventcrew1237-script"' not in text:
         raise ValueError('The coordinated customer-treatment and supplier-actuals source is required')
-    if text.count("+' · v12.39'; /* v8.19 release922") != 1:
-        raise ValueError('Expected the coordinated v12.39 base footer once')
+    if text.count("+' · v12.43'; /* v8.19 release922") != 1:
+        raise ValueError('Expected the coordinated v12.43 base footer once')
     def change(old, new, why):
         nonlocal text
         if text.count(old) != 1:
@@ -44,10 +44,10 @@ def patch(text, path='page.html'):
         raise ValueError('Expected the final page body boundary')
     tail=text[end:]
     text=text[:end]+rep(tail,tail,'\n<script id="revenuebranch1240-script">\n'+(HERE/'revenuebranch1240_src.js').read_text()+'\n</script>'+tail,'native exact Revenue branch decisions',path)
-    change("+' · v12.39'; /* v8.19 release922", "+' · v12.40'; /* v8.19 release922", 'release footer')
+    change("+' · v12.43'; /* v8.19 release922", "+' · v12.44'; /* v8.19 release922", 'release footer')
     return text
 
 if __name__ == '__main__':
     target=Path(sys.argv[1])
     target.write_text(patch(target.read_text(),str(target)))
-    print('v12.40 exact customer Revenue branch decisions applied')
+    print('v12.44 exact customer Revenue branch decisions applied')
