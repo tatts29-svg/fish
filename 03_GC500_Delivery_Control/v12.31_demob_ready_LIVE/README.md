@@ -116,6 +116,8 @@ A record holding only the tick is kept (`deliveryEmpty`). A tick from before the
 
 ## Checks
 
+- **LIVE 26 Oct 2026 10:29 AEST.** The view link serves the build byte for byte: 15,506,518 bytes, sha256 `ab553fe3…`. A public fetch is identical. On the live bytes: desktop 42/42 and phone 42/42 (`evidence/test_live_desktop.txt`, `evidence/test_live_phone.txt`).
+
 - Desktop 42/42 and phone 42/42 on candidate `ab553fe3` (`evidence/test_v1231_desktop.txt`, `evidence/test_v1231_phone.txt`).
 - Every test's rehearsals were captured in the page, and nothing reached the network.
 - Both sweeps: 27 tabs, 19 panes shown, 7 deep links; 0 errors and 0 console messages (`evidence/sweeps.json`).
