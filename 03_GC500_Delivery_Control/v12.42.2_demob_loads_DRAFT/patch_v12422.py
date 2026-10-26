@@ -6,7 +6,7 @@ singles1238_src.js (made from it by make_src_from_v12421.py), and the footer rea
 import hashlib, sys
 from pathlib import Path
 HERE = Path(__file__).resolve().parent
-BASE = '74e05c9a0cffa5671a58fbd982db283cb42428e1edc1dc077ad0adc7f7ac08ff'
+BASE = '85826c9bf9fcfc5a1bf10d5464971f4bab751e89fdcdb9152bf74b67a55b0f34'
 OLD_SRC = HERE.parent / 'v12.42.1_demob_daycards_DRAFT' / 'singles1238_src.js'
 NEW_SRC = HERE / 'singles1238_src.js'
 FOOT_OLD, FOOT_NEW = "+' · v12.42.1'; /* v8.19 release922", "+' · v12.42.2'; /* v8.19 release922"

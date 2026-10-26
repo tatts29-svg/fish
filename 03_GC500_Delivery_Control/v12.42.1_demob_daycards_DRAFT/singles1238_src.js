@@ -761,7 +761,7 @@ function bookHtml(c) {
  if (c.st.s === 'gone') return '';
  if (c.board) return '<div class="bk1238">' + UI.cal + '<span>Pick-up<small>On the VMS plan only: booking opens once the board is on a delivery reference</small></span></div>';
  const k = e(c.key), u = e(c.uid), b = c.book, btn = '<button type="button" data-book1238="' + k + '" data-u1238="' + u + '">' + (b ? 'Change' : 'Book pick-up') + '</button>';
- if (!b) return '<div class="bk1238">' + UI.cal + '<span>Pick-up</span>' + btn + '</div>'; /* v12.42.1 - Andrew: no "booked" wording that reads as nothing done; the button is enough */
+ if (!b) return canEd() ? '<div class="bk1238">' + UI.cal + '<span>Pick-up</span>' + btn + '</div>' : ''; /* v12.42.1 - Andrew: no "booked" wording that reads as nothing done; the button is enough, and the view link (no button) shows a pick-up only once it is booked */
  const past = Date.parse(b.at) < Date.now();
  return '<div class="bk1238 on' + (past ? ' past' : '') + '">' + UI.truck + '<span>Pick-up booked <b>' + e(when(b.at)) + '</b>' + (past ? ' · time passed' : '') + '<small>' + e([b.note, b.by ? 'booked by ' + b.by : ''].filter(Boolean).join(' · ')) + '</small></span>' + btn + '</div>';
 }
@@ -842,7 +842,8 @@ function sectionsHtml(list, day) {
  return h;
 }
 function barHtml(list, day) {
- const n = cnt(list), booked = list.filter(c => c.book && c.st.s !== 'gone').length, cats = new Map();
+ const n = cnt(list), booked = list.filter(c => c.book && c.st.s !== 'gone' && (!day || qDay(c.book.at) === day)).length, cats = new Map();
+ if (!day && !booked && FILTER === 'booked') FILTER = 'all'; /* the booked filter has no chip once nothing is booked, so it goes off */
  list.forEach(c => { const k = CAT[c.cat] ? c.cat : 'other'; cats.set(k, (cats.get(k) || 0) + 1); });
  const f = (k, word, v) => '<button type="button" class="f1238 ' + k + '" data-f1238="' + k + '" aria-pressed="' + (FILTER === k) + '"><i></i><b>' + v + '</b> ' + word + '</button>';
  return '<div class="tb1238"><div class="th1238"><b>' + (day ? e(dayW(day)) + ' · picked up' + (booked ? ' and booked' : '') : 'Everything on site') + '</b><span>' + (day ? units(list.length) : onSite(list)) + ' · one card each · tap a picture for the full map</span></div>'
@@ -1136,7 +1137,7 @@ function descLine(c, types) {
 const leftUnits = L => L.left.reduce((s, x) => s + (x.n || 0), 0);
 /* v12.42.1 - Andrew: "I don't like the booked. And ready for booked as it looks like nothing had been booked". The day card's box says
    what was picked up; today's also says how many units are Ready for collection now. Bookings show as lines when there are any. */
-const readyUnits = c => c.group ? (c.part ? Number(c.part.remaining) || 0 : Number(c.n) || 1) : c.tank ? 2 : 1;
+const readyUnits = c => c.group ? (c.part ? Number(c.part.remaining) || 0 : Number(c.n) || 1) : c.tank && !c.half ? 2 : 1;
 function dayRows(iso) {
  const L = dayLists(iso), last = L.left.reduce((x, y) => y.at && y.at > x ? y.at : x, ''), units = leftUnits(L), t = todayQ();
  const rows = [{label: 'Picked up', value: iso > t ? 'to come' : units + (units === 1 ? ' unit' : ' units') + (last ? ' · last ' + hhmm(last) : '')}];
@@ -1184,9 +1185,9 @@ function decorate() {
  pane.querySelectorAll('p.note816').forEach(p => { if (/^Dated outside the demob days/.test(p.textContent.trim()) && !p.classList.contains('pl1238')) p.classList.add('pl1238'); });
  /* the day's figures in units, the same as its day card; the list button says the same in both views (never the old plan's count) */
  const iso = selDay(), L = dayLists(iso), gone = leftUnits(L);
- const bk = L.booked.length;
- if (mode === 'day') { const h = pane.querySelector('.dmsh816 h3'), tx = dayW(iso) + ' · ' + gone + ' picked up' + (bk ? ' · ' + bk + ' booked' : ''); if (h && h.textContent !== tx) h.textContent = tx; }
- const s = pane.querySelector('.segs816 [data-view816="list"]'), st = (mode === 'day' ? (bk ? 'Picked up and booked · ' : 'Picked up · ') : dayW(iso) + (bk ? ' · picked up and booked · ' : ' · picked up · ')) + (bk + gone); if (s && s.textContent !== st) s.textContent = st;
+ const bk = L.booked.length, ahead = iso > todayQ();
+ if (mode === 'day') { const h = pane.querySelector('.dmsh816 h3'), tx = dayW(iso) + (ahead ? ' · pick-ups to come' : ' · ' + gone + ' picked up') + (bk ? ' · ' + bk + ' booked' : ''); if (h && h.textContent !== tx) h.textContent = tx; }
+ const s = pane.querySelector('.segs816 [data-view816="list"]'), st = ahead ? (mode === 'day' ? '' : dayW(iso) + ' · ') + (bk ? (mode === 'day' ? 'Booked · ' : 'booked · ') + bk : (mode === 'day' ? 'To come' : 'to come')) : (mode === 'day' ? (bk ? 'Picked up and booked · ' : 'Picked up · ') : dayW(iso) + (bk ? ' · picked up and booked · ' : ' · picked up · ')) + (bk + gone); if (s && s.textContent !== st) s.textContent = st;
  try { decorateDays(); } catch (x) {}
  try { applyFilter(); } catch (x) {}
  try { arm(); } catch (x) {}
