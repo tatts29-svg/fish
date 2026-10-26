@@ -139,11 +139,11 @@ const {open} = require('../../toolchain/harness/open_page');
     await p.click('#pane-demob .dc996-day[data-dday816="' + today + '"]'); await p.waitForTimeout(2500);
     const DV = await p.evaluate(today => { const pane = document.getElementById('pane-demob'), arts = [...pane.querySelectorAll('.sgv1238 article.sg1238')], m = Singles1238.model(), qd = v => new Date(Date.parse(v) + 36e6).toISOString().slice(0, 10);
       const evd = ev => ev.info.at ? qd(ev.info.at) : ev.info.day;
-      const want = m.cards.filter(c => c.st.s === 'gone' ? (c.st.at ? qd(c.st.at) : c.st.day) === today : (c.book && qd(c.book.at) === today) || (c.group && c.G && c.G.events.some(ev => evd(ev) === today))).length;
+      const want = m.cards.filter(c => (c.st.s === 'gone' ? (c.st.at ? qd(c.st.at) : c.st.day) === today : !!(c.book && qd(c.book.at) === today)) || !!(c.group && c.G && c.G.events.some(ev => evd(ev) === today))).length;
       const units = Number((String((Ready1231.dayRows(today)[2] || {}).value || '').match(/^\d+/) || [0])[0]), hidden = arts.filter(a => a.hidden).length;
       const vis = s => { const b = pane.querySelector(s); return !!(b && b.offsetParent); };
       return {mode: pane.dataset.sg1238, n: arts.length, want, units, hidden, allToday: arts.every(a => a.dataset.s1238 === 'gone' || a.dataset.b1238 === today || a.classList.contains('grp')), h3: (pane.querySelector('.dmsh816 h3') || {}).textContent, toilets: vis('.segs816 [data-view816="toilets"]'), trucks: vis('.segs816 [data-view816="trucks"]'), print: vis('[data-print816]'), conf: vis('[data-conf816]')}; }, today);
-    check('v12.42: a day\'s list holds only what left that day (by the day it left) or is booked for it; its heading counts units, as the day card does; a "booked" filter from Everything is not carried in; the schedule\'s runs, trucks, print and confirm are put away', DV.mode === 'day' && DV.n === DV.want && DV.n > 0 && DV.hidden === 0 && DV.allToday && new RegExp('booked · ' + DV.units + ' picked up$').test(DV.h3 || '') && DV.units >= DV.n && !DV.toilets && !DV.trucks && !DV.print && !DV.conf, DV);
+    check('v12.42: a day\'s list holds only what left that day (by the day it left, and a run part-collected that day even once the rest has gone) or is booked for it; its heading counts units, as the day card does; a "booked" filter from Everything is not carried in; the schedule\'s runs, trucks, print and confirm are put away', DV.mode === 'day' && DV.n === DV.want && DV.n > 0 && DV.hidden === 0 && DV.allToday && new RegExp('booked · ' + DV.units + ' picked up$').test(DV.h3 || '') && DV.units >= DV.n && !DV.toilets && !DV.trucks && !DV.print && !DV.conf, DV);
     await shot('day_list', '#pane-demob .sgv1238 .tb1238');
     if (later) { await p.click('#pane-demob .dc996-day[data-dday816="' + later + '"]'); await p.waitForTimeout(1500);
       const DL = await p.evaluate(() => ({n: document.querySelectorAll('#pane-demob .sgv1238 article.sg1238').length, empty: (document.querySelector('#pane-demob .em1238') || {}).textContent || ''}));
@@ -228,6 +228,21 @@ const {open} = require('../../toolchain/harness/open_page');
     const EM = await p.evaluate(EP => { const cs = Singles1238.model().byKey.get('WC09') || []; return {co: cs.filter(c => c.owner === 'coates').map(c => c.st.s), epOther: [...new Set(cs.filter(c => c.owner === 'event-portables' && c.uid !== EP).map(c => c.st.s))], ep: (cs.find(c => c.uid === EP) || {st: {}}).st.s, why: (cs.find(c => c.owner === 'coates') || {st: {}}).st.why, form: !!document.getElementById('collection996')}; }, EP);
     check('v12.42: Picked up on one unit opens the page\'s own departure form for WC09 with that unit ticked (Emptied asked for the whole reference first)', PF && /WC09/.test(PF.title || '') && PF.checked.length === 1 && /0551/.test(PF.checked[0]) && PF.emptied === true && !EM.form, PF);
     check('v12.42: at a mixed reference Emptied turns nobody Ready: the Coates blocks and the untouched Event Portables units stay Not ready; the unit ticked Ready stays Ready', EM.co.length === 2 && EM.co.every(s => s === 'not') && EM.epOther.join() === 'not' && EM.ep === 'ready' && /is emptied; tick it Ready/.test(EM.why || ''), EM);
+    /* a reference's own Ready tick counts for its units only where one owner holds them all; a departure record the page
+       leaves out for review is named on the card (both staged on this page only: the page's own objects swapped, then put back) */
+    const RM = await p.evaluate(async () => {
+      const R0 = window.Ready1231, D0 = window.Departure1211, at = new Date().toISOString(), why = 'Item quantities changed after a collection record; review the collection scope.';
+      const m0 = Singles1238.model(), K = [...m0.byKey.keys()].find(k => { const cs = m0.byKey.get(k); return k !== 'WC09' && cs.length > 0 && cs.every(c => !c.group && !c.board && c.st.s === 'not') && new Set(cs.map(c => c.owner)).size === 1; }) || 'GN25';
+      window.Ready1231 = Object.assign({}, R0, {mark: k => (k === 'WC09' || k === K) ? {on: true, at, by: 'test'} : R0.mark(k)});
+      window.Departure1211 = Object.assign({}, D0, {read: k => { const v = D0.read(k); return k === K ? Object.assign({}, v, {issues: [why]}) : v; }});
+      await new Promise(r => setTimeout(r, 4300)); let out = null;
+      try { const m = Singles1238.model(), w = m.byKey.get('WC09') || [], g = m.byKey.get(K) || [];
+        out = {K, co: w.filter(c => c.owner === 'coates').map(c => c.st.s), epRef: w.filter(c => c.st.src === 'ref').length, gn: g.map(c => c.st.s + ':' + (c.st.src || '')), why: g.length ? g[0].st.why || '' : ''}; }
+      finally { window.Ready1231 = R0; window.Departure1211 = D0; }
+      await new Promise(r => setTimeout(r, 4300)); const back = (Singles1238.model().byKey.get(K) || [{st: {}}])[0].st.why || ''; return Object.assign(out || {}, {back});
+    });
+    check('v12.42: a Ready tick on a reference with two owners (WC09: Coates blocks and Event Portables units) turns none of its units Ready; on a one-owner reference it still does', RM.co.length === 2 && RM.co.every(s => s === 'not') && RM.epRef === 0 && RM.gn.length > 0 && RM.gn.every(x => x === 'ready:ref'), RM);
+    check('v12.42: when the page leaves a reference\'s pick-ups out for review (quantities changed after one), its cards say so and point to Picked up', /departure record needs review/.test(RM.why) && /Picked up/.test(RM.why) && !/needs review/.test(RM.back), RM);
     /* the live sync: a store copy of WC09 without this phone's ticks and bookings (another phone wrote over it) */
     const KS = await p.evaluate(async () => {
       const docs = JSON.parse(JSON.stringify(toDocs('delivery'))), id = Object.keys(docs).find(k => docs[k]._k === 'WC09'), before = JSON.stringify(S.delivery.WC09.pickup1238_units), n0 = __captured1238.length;

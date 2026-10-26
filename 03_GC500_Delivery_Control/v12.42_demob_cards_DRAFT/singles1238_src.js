@@ -431,7 +431,8 @@ const later = (x, y) => !y || String(x.at || x.day || '') > String(y.at || y.day
 function depOf(key) {
  let st = null; try { st = W.Departure1211 ? Departure1211.status(key) : null; } catch (x) { st = null; }
  let rd = null; try { rd = W.Departure1211 && Departure1211.read ? Departure1211.read(key) : null; } catch (x) { rd = null; }
- const out = {complete: !!(st && st.complete), collected: Number(st && st.collected) || 0, remaining: Number(st && st.remaining) || 0, ids: new Map(), nos: new Map(), counts: [], last: null, events: [], byType: new Map(), left: new Map()};
+ const out = {complete: !!(st && st.complete), collected: Number(st && st.collected) || 0, remaining: Number(st && st.remaining) || 0, ids: new Map(), nos: new Map(), counts: [], last: null, events: [], byType: new Map(), left: new Map(),
+  review: !!(rd && (rd.issues || []).some(x => /quantities changed after a collection/i.test(String((x && x.text) || x || ''))))}; /* the page leaves such pick-ups out until someone checks them */
  /* a type with none remaining has all gone (Departure1211.unit's rule) */
  ((rd && !(rd.issues || []).length && Array.isArray(rd.remaining)) ? rd.remaining : []).forEach(x => out.left.set(norm(x.type), Number(x.n) || 0));
  ((st && Array.isArray(st.events)) ? st.events : []).forEach(ev => {
@@ -602,19 +603,21 @@ function pickOf(map, c, stamp) {
 }
 function stateOf(c, ctx) {
  if (c.gone) return {s: 'gone', at: c.gone.at || null, day: c.gone.day || null, by: c.gone.by || ''};
+ const rv = c.G && c.G.review ? c.key + '’s departure record needs review (quantities changed after a pick-up); check it on Picked up' : '', also = w => [w, rv].filter(Boolean).join(' · ');
  if (c.group && !c.r.noPlan1236) { let st = null; try { st = Ready1231.state(c.r); } catch (x) { st = null; }
   if (st && st.m && st.m.on) return {s: 'ready', at: st.m.at || null, by: st.m.by || '', why: '', src: 'ref', part: c.part}; /* only a Ready tick makes it Ready */
-  const m = st && st.m && !st.m.on ? st.m : null; return {s: 'not', at: m ? m.at : null, by: m ? m.by : '', why: m ? m.why || '' : st && st.e && st.e.on ? 'emptied · not ticked Ready yet' : st && st.pump ? 'pump it out first, then tick it' : 'not ticked yet', part: c.part}; }
+  const m = st && st.m && !st.m.on ? st.m : null; return {s: 'not', at: m ? m.at : null, by: m ? m.by : '', why: also(m ? m.why || '' : st && st.e && st.e.on ? 'emptied · not ticked Ready yet' : st && st.pump ? 'pump it out first, then tick it' : 'not ticked yet'), part: c.part}; }
  const valid = x => x && ok(x.at) && (!ctx.on || Date.parse(x.at) >= Date.parse(ctx.on)), t = pickOf(ctx.ticks, c, 'at'), list = [];
  if (valid(t)) list.push({on: !!t.on, at: t.at, by: String(t.by || ''), why: String(t.why || ''), src: 'unit'});
- if (ctx.mark && ok(ctx.mark.at)) list.push({on: !!ctx.mark.on, at: ctx.mark.at, by: String(ctx.mark.by || ''), why: String(ctx.mark.why || ''), src: 'ref'});
+ if (ctx.mark && ok(ctx.mark.at) && ctx.oneOwner) list.push({on: !!ctx.mark.on, at: ctx.mark.at, by: String(ctx.mark.by || ''), why: String(ctx.mark.why || ''), src: 'ref'});
  /* Andrew: "everything ticked not ready. Unless i have done so or if its been collected already". Emptied (pumped out) is the
     gate a toilet passes before it can be loaded, never a Ready tick: a unit reads Ready only once it is ticked Ready (its own
-    tick, or its reference's), whoever owns the units beside it */
+    tick, or its reference's when one owner holds every unit there; at WC31 a tick for the reference is not a tick for the
+    Coates block or Event Portables' 16 Pans beside it) */
  const pumped = c.r.empty && ctx.emp && ctx.emp.on;
- if (!list.length) return {s: 'not', why: c.r.empty ? (pumped ? 'not ticked yet · ' + c.key + ' is emptied; tick it Ready when it can go' : 'not ticked yet · pump it out, then tick it') : 'not ticked yet', part: c.part};
+ if (!list.length) return {s: 'not', why: also(c.r.empty ? (pumped ? 'not ticked yet · ' + c.key + ' is emptied; tick it Ready when it can go' : 'not ticked yet · pump it out, then tick it') : 'not ticked yet'), part: c.part};
  list.sort((x, y) => String(y.at).localeCompare(String(x.at)) || (Number(x.on) - Number(y.on)));
- const p = list[0]; return {s: p.on ? 'ready' : 'not', at: p.at, by: p.by, why: p.why, src: p.src, part: c.part};
+ const p = list[0]; return {s: p.on ? 'ready' : 'not', at: p.at, by: p.by, why: also(p.why), src: p.src, part: c.part};
 }
 
 /* ---- a VMS board on the VMS plan that no delivery reference holds as a unit (Andrew: "ensure we add all VMS boards") ---- */
@@ -864,7 +867,7 @@ function viewHtml(day) {
   return '<div class="sgv1238" data-sgv1238="all">' + barHtml(all, null) + bookedHtml(all) + '<div class="sgl1238">' + sectionsHtml(all) + '</div></div>'; }
  /* a unit that has left belongs to the day it left, whatever day it was booked for; a run part-collected that day shows too */
  if (FILTER === 'booked') FILTER = 'all';
- const list = m.cards.filter(c => c.st.s === 'gone' ? goneDay(c) === day : (c.book && qDay(c.book.at) === day) || (c.group && c.G && c.G.events.some(ev => evDay(ev) === day)));
+ const list = m.cards.filter(c => (c.st.s === 'gone' ? goneDay(c) === day : !!(c.book && qDay(c.book.at) === day)) || !!(c.group && c.G && c.G.events.some(ev => evDay(ev) === day)));
  return '<div class="sgv1238" data-sgv1238="day">' + barHtml(list, day) + '<div class="sgl1238">' + (list.length ? sectionsHtml(list, day) : '<div class="em1238"><b>Nothing booked or picked up on ' + e(dayW(day)) + '</b>A day shows only what has been booked for it, or what left on it. Book a pick-up on any card in Everything on site and it comes here.</div>') + '</div></div>';
 }
 function applyFilter() {
