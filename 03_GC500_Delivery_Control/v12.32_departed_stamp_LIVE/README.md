@@ -65,6 +65,8 @@ Departed everywhere, and today's card counts three.
 
 ## Checks
 
+- **LIVE 26 Oct 2026 11:09 AEST.** The view link serves the build byte for byte: 15,513,431 bytes, sha256 `69872696…`. A separate public fetch is identical. On the live bytes: desktop 48/48 and phone 48/48 (`evidence/test_live_desktop.txt`, `evidence/test_live_phone.txt`).
+
 - Desktop 48/48 and phone 48/48 on candidate `69872696` (`evidence/test_v1232_desktop.txt`, `evidence/test_v1232_phone.txt`).
 - Every rehearsal was captured in the page, and nothing reached the network.
 - Both sweeps: 27 tabs, 19 panes shown, 7 deep links; 0 errors, 0 console messages and 0 writes (`evidence/sweeps.json`).
