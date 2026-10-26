@@ -18,6 +18,9 @@
                    DemobCollection996.validate checks it and setLight(ref, 'in transit', request) saves it: units left
                    behind keep the reference on site; the last units turn its light to in transit. Andrew, 26 Oct 2026:
                    "1283681 generatpr and 5 water barriers picked up left at 7:40AM".
+     emptied     - 26 Oct 2026: the Emptied (pumped out) tick on a toilet or waste tank, through the page's own setEmptied816,
+                   as a person ticking it in the reference's drawer. The page's emptied gate keeps a toilet's departure form
+                   shut until it is ticked; it is only ever ticked here on Andrew's word that the units were pumped out.
 
      node left_site.cjs                    DRY RUN (default): the page is opened read-only through the harness, every
                                            write it tries is ABORTED, and the script prints what --apply would send.
@@ -102,6 +105,7 @@ spec.ops.forEach((o, i) => {
     if (!Array.isArray(o.nos) || !o.nos.every(n => /^[0-9A-Z]{3,12}$/.test(n)) || new Set(o.nos).size !== o.nos.length) fail(at + 'needs the asset numbers that left (a list, each once)');
     if (o.unnumbered != null && !(Array.isArray(o.unnumbered) && o.unnumbered.every(u => u && typeof u.type === 'string' && u.type.trim() && Number.isInteger(u.n) && u.n > 0))) fail(at + 'unnumbered must be a list of {type, n}');
     if (!o.nos.length && !(o.unnumbered || []).length) fail(at + 'needs at least one unit that left'); if (o.complete != null && typeof o.complete !== 'boolean') fail(at + 'complete must be true or false'); }
+  else if (o.op === 'emptied') { if (!REFRE.test(o.ref || '')) fail(at + 'needs a reference'); if (o.on !== true) fail(at + 'emptied only ticks on (on: true), on Andrew\'s word that the units were pumped out'); }
   else fail(at + 'unknown op ' + o.op);
 });
 const VKEYS = [...new Set(spec.ops.filter(o => o.op === 'vms_rego' || o.op === 'vms_fleet' || o.op === 'vms_board').map(o => o.key))];
@@ -469,6 +473,14 @@ function applyOps(spec) {
           if (op.complete === false && after.complete) throw new Error(op.ref + ' left in full - expected units to stay');
           r.result = 'left site ' + op.at + ', recorded by ' + ev.by + ': ' + ev.items.map(i => i.n + ' x ' + i.type + (i.numbers.length ? ' ' + i.numbers.join(', ') : '')).join(', ') + (after.complete ? ' - ' + op.ref + ' has left in full, light ' + deliveryOf(op.ref).state : ' - still to leave: ' + after.remaining.filter(u => u.n > 0).map(u => u.n + ' x ' + u.type).join(', '));
         }
+      } else if (op.op === 'emptied') {
+        /* 26 Oct 2026: the Emptied (pumped out) tick through the page's own setEmptied816, as a person ticking it in the
+           reference's drawer; the page's emptied gate then lets its departure form open. Only on Andrew's word. */
+        if (typeof setEmptied816 !== 'function' || typeof emptiedOf816 !== 'function') throw new Error('the Emptied tick is not on this page');
+        if (!needsEmpty816(op.ref)) throw new Error(op.ref + ' is not a toilet or a waste tank');
+        const was = emptiedOf816(op.ref);
+        if (was.on) r.result = 'already emptied, by ' + was.by + ' at ' + was.at;
+        else { if (setEmptied816(op.ref, true) !== true) throw new Error('setEmptied816 refused ' + op.ref); const now = emptiedOf816(op.ref); if (!now.on || now.by !== who) throw new Error(op.ref + ' is not emptied by ' + who + ' after the tick'); r.result = 'emptied (pumped out), recorded by ' + now.by + ' at ' + now.at; }
       } else throw new Error('unknown op ' + op.op);
     } catch (e) { r.result = 'ERROR: ' + e.message; r.error = true; }
     out.push(r);
@@ -638,6 +650,7 @@ function applyOps(spec) {
           if (op.supplied_at && sv('supplied/' + op.ref + '/' + op.item) !== op.supplied_at) problems.push(op.ref + ' receipt is not dated ' + op.supplied_at + ' ' + where);
           if (op.install_at && sv('labour/' + op.ref + '|' + op.disc + '|' + op.item + '|install') !== op.install_at) problems.push(op.ref + ' install is not dated ' + op.install_at + ' ' + where); }
         if (op.op === 'set_qty' && op.qty !== '' && op === spec.ops.filter(o => o.op === 'set_qty' && o.ref === op.ref).slice(-1)[0] && ((((docs.qtys || {})[op.ref] || {}).v)) !== op.qty) problems.push(op.ref + ' quantity is not ' + op.qty + ' ' + where); /* only the last quantity set on a reference must hold */
+        if (op.op === 'emptied') { const dd = (docs.delivery || {})[op.ref] || {}, had = /^already emptied/.test(((results.find(x => x.op === 'emptied' && x.ref === op.ref)) || {}).result || ''); if (dd.emptied !== true || !dd.emptied_at || (!had && dd.emptied_by !== spec.by)) problems.push(op.ref + ' is not emptied (pumped out) by ' + spec.by + ' ' + where); }
         if (op.op === 'depart') { const dd = (docs.delivery || {})[op.ref] || {}, hits = (dd.history || []).filter(h => h && h.collection996 && h.collection996.kind === 'collection' && h.collection996.departedAt1211 === op.at && h.collection996.date === op.at.slice(0, 10) && h.by === spec.by && op.nos.every(no => (h.collection996.items || []).some(i => (i.numbers || []).map(String).includes(no))));
           if (hits.length !== 1) problems.push(op.ref + ' has ' + hits.length + ' departure entries at ' + op.at + ' for ' + op.nos.join(', ') + ', not 1 ' + where);
           if (op.complete === true && (dd.state !== 'in transit' || !(hits[0] && hits[0].collection996.complete === true))) problems.push(op.ref + ' has not left in full (light ' + dd.state + ') ' + where);
