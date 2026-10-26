@@ -56,3 +56,47 @@ Andrew, 26 Oct 2026: "Asset no 1277089 left 60kva trailer left 810AM".
 - **Today unchanged:** Generators 15/15.
 - **The demob plan** had GN24 for 13 Nov (proposed).
 - **Read back** (`check_after.cjs`, fresh load of the live page): GN24 Left site 26/10/2026 08:10:00 AEST, 1 × 60kva 1277089, recorded by Andrew Fisher, 0 still to leave; 2 of 182 demob references left in full; errors 0, writes 0.
+
+## Third run: 23 Event Portables toilets and GN06, 26 Oct 2026 — APPLIED, VERIFIED
+
+- **Applied:** 26 Oct 2026 12:20 AEST, on the live v12.33 page (`c6b8141c…`). The first attempt at 12:12 stopped untouched when v12.33 went live mid-run (the page guard); the dry run was repeated on v12.33 before the apply.
+- **Made by:** Andrew Fisher via Claude, through the page's own Emptied tick (`setEmptied816`, a new `emptied` op in `left_site.cjs`) and Record departure form (`left_site.cjs --spec left_site_spec_3_toilets.json`).
+- **Record:** version 10995 → 11003. Eight documents (`delivery/` WC55, WC46, WC24, WC23, WC59, WC56, WC33, GN06) acknowledged 200. Every other document unchanged in value.
+- **Backup:** the whole record before the run, kept private outside the repo (scratchpad `record_26Oct2026_departures/backup_state_20261026T021703Z.json`).
+- **Report:** `report_20261026T021703Z.json`.
+
+Andrew, 26 Oct 2026, with Event Portables' trucks collecting:
+- 11:04 "Picking up now 0650 0525 0489 0968 0960 0107 / Here is more 0935 0497 0442 0988 0445 0004 0009 0533 0974 0066 0633 0003"
+- 11:58 "Things are being picked up. Eeek. Next lot 0634 0582 0548 0782 0657 0912"
+- 12:06 "Gn06 left site demob 12pm"
+
+| Reference | What left | Left site | Still on site |
+|---|---|---|---|
+| WC55 | 1 × FWF 0650 (its only unit) | 11:04 | none, left in full |
+| WC46 | 1 × FWF 0525 (its only unit) | 11:04 | none, left in full |
+| WC24 | 1 × FWF 0489 (its only unit) | 11:04 | none, left in full |
+| WC23 | 3 × FWF 0968, 0960, 0107 | 11:04 | 2 (0992, 0969) |
+| WC59 | 5 × FWF 0935, 0497, 0633, 0066, 0533 | 11:04 | 2 (0492, 0064) |
+| WC56 | 6 × FWF 0974, 0004, 0003, 0445, 0442, 0009 | 11:04 | 6 (0721, 0491, 0190, 0294, 0970, 0088) |
+| WC33 | 6 × FWF 0634, 0582, 0548, 0782, 0657, 0912 | 11:58 | 11 |
+| GN06 | 1 × 50 kVA generator 1320828 (Coates, its only unit) | 12:00 | none, left in full |
+
+- **The pick-up times** are when Andrew sent each lot.
+- **0988 is not on the record**, so it is not recorded. It waits for Andrew to say which unit it is.
+- **Emptied (pumped out).** The page keeps a toilet's departure form shut until it is ticked. The servicing tracker holds the final night's pump-out, clean and lock-up at all seven toilet locations, each done and not undone, on service night 25 Oct after the last race day:
+
+  | Location | Final pump-out |
+  |---|---|
+  | WC56 | 20:00 |
+  | WC23 | 20:20 |
+  | WC46 | 20:39 |
+  | WC59 | 21:10 |
+  | WC24 | 21:30 |
+  | WC55 | 22:05 |
+  | WC33 | 01:39 on 26 Oct |
+
+  Each was ticked Emptied on that record before its departure. The read-back is `probe_final_pumpouts.cjs`, read only on the edit link, kept private.
+- **Dry runs first,** on the live page: every write aborted, 8 documents planned.
+- **P&L by branch unchanged:** KINP $242,338.66, NVAC $81,995.19, STPS $73,942.65, MEAD $17,859.02.
+- **Today unchanged.**
+- **Read back** (`check_after.cjs`, fresh load of the live page): every departure above as recorded, by Andrew Fisher. WC55, WC46, WC24 and GN06 are in transit; WC23, WC59, WC56 and WC33 are on site with what is still to leave. 6 of 182 demob references have left in full. Errors 0, writes 0.
