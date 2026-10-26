@@ -1,4 +1,4 @@
-# v12.42.1: the Demob cards without the "booked" zeros
+# v12.42.1: the Demob cards without the "booked" zeros — LIVE 27 Oct 2026 03:59 AEST
 
 Author: Andrew Fisher · 26 Oct 2026 · a point release on live v12.42 (`4737996a…`), so it sorts before Codex's v12.43.
 
@@ -30,3 +30,8 @@ Nothing else changes: the Ready rule, the stamp, the sync, the pictures and ever
 - Shared sweeps (`toolchain/harness/sweep.js`), desktop and phone: 27 tabs, 19 shown, 0 tab errors, 0 page errors, 0 blocked writes, 7 hashes with 0 errors, back button returns to #plant (`evidence/sweep_desk.json`, `evidence/sweep_phone.json`).
 - Independent review of the first candidate. Fixed: the booked filter is cleared when nothing is booked (no blank list); the view link shows a card's pick-up line only once it is booked; a day's list counts only that day's bookings; a day ahead never says "0 picked up"; a toilet block with its tank counts the half still here.
 - Screenshots in `evidence/`; staff names on the day cards are blurred, and redacted in the logs.
+
+## Live
+
+- Uploaded 27 Oct 2026 03:59 AEST: the view link serves `85826c9b…` byte for byte (15,773,016 bytes), confirmed by a separate fetch and cmp.
+- Live tests on the live bytes, finished 04:33: **60/60 desktop, 60/60 phone** (`evidence/test_v12421_live_desktop.txt`, `evidence/test_v12421_live_phone.txt`). The first live run (04:00) gave 56/60: three checks were written for 26 Oct (today's card listed 26 Oct's pick-ups) and the fourth found no Ready ticks on the record, because a stale page had wiped them at 03:59:55 (see `../record_26Oct2026_departures/README.md`, tenth run). The day-card checks now read 26 Oct's card and a day with pick-ups, so they hold on any later day.
