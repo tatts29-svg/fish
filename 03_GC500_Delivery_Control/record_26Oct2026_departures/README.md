@@ -232,3 +232,10 @@ node record_26Oct2026_departures/left_site.cjs --spec record_26Oct2026_departure
 - **Applied:** 27 Oct 2026 08:59 AEST on Andrew's word, dry run first (passed, nothing sent): `left_site.cjs --spec left_site_spec_13_wc54_0850_pickups.json`, through the page's own Record departure form, in Andrew's name. All eight references left in full; lights in transit.
 - **Record:** version 11530 → 11538. 8 documents acknowledged 200, every op verified on the service; every other document unchanged in value; P&L and branch totals unchanged ($996,131.92 charged, $448,019.57 cost). Backup kept private. Report `report_20261026T225902Z.json`.
 - **Read back fresh:** the eight references in transit with departures at 08:30 (WC54) and 08:50 (the rest), 20 units; 201 units ticked Ready on the record before and after (the 206 of the twelfth run less T0002's five light towers, which Andrew set Not ready by hand at 06:20-06:21 AEST).
+
+## Fourteenth run: P60 Gate 5 Ticket Box 1015699 picked up 09:00, 27 Oct 2026 — APPLIED, VERIFIED
+
+- **What:** Andrew, 27 Oct 2026: "Picked up 900AM   asset no 1015699". 1015699 is P60's only unit (Gate 5 Ticket Box 4.8m, Coates portable building, ticked Ready by Andrew) and the only place the number is on the record (read 09:07 AEST, not already left), so P60 left in full at 09:00 AEST. Its departure form offers the building alone; the air conditioner 1267597 and four swivel chairs stay listed on P60 as gear that goes with it.
+- **Applied:** 27 Oct 2026 09:08 AEST on Andrew's word, dry run first (passed, nothing sent): `left_site.cjs --spec left_site_spec_14_p60_1015699.json`, through the page's own Record departure form, in Andrew's name. Light in transit.
+- **Record:** version 11538 → 11539. 1 document acknowledged 200, verified on the service; every other document unchanged in value; P&L and branch totals unchanged. Backup kept private. Report `report_20261026T230818Z.json`.
+- **Read back fresh:** P60 in transit, one departure at 09:00 holding 1 x Ticket Box 4.8m 1015699 (the whole reference); 201 units ticked Ready before and after.
