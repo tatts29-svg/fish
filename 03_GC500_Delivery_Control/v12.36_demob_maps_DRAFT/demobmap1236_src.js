@@ -502,7 +502,9 @@ function headers() {
 }
 function goCat(k) {
  const z = D.querySelector('#pane-demob .sec1231 tr.zr1231[data-cat1236="' + k + '"]:not([hidden])'); if (!z) return false;
- try { z.scrollIntoView({behavior: 'smooth', block: 'start'}); } catch (e) { z.scrollIntoView(); }
+ const sc = scroller(), r = z.getBoundingClientRect();
+ if (sc && sc !== D.body) { const top = sc.scrollTop + r.top - sc.getBoundingClientRect().top - 10; try { sc.scrollTo({top, behavior: 'smooth'}); } catch (e) { sc.scrollTop = top; } }
+ else { const top = (W.scrollY || 0) + r.top - 10; try { W.scrollTo({top, behavior: 'smooth'}); } catch (e) { W.scrollTo(0, top); } }
  return true;
 }
 
@@ -612,24 +614,30 @@ function nosLine(tr, by, gone) {
   '<span class="gn1236">Picked up: ' + left.slice(0, 6).map(n => '<s>' + esc(n) + '</s>').join(' ') + (left.length > 6 ? ' +' + (left.length - 6) : '') + '</span>';
 }
 const PILL = t => /\bkg\b/i.test(t) ? 'Weight' : /\bmm\b/i.test(t) ? 'Size' : /\bkva\b/i.test(t) ? 'Rating' : '';
+function factPills(f) {
+ const src = f.guide ? 'guide' : /contract/i.test(f.k) ? 'contract' : /^actual/i.test(f.k) ? 'actual' : /description/i.test(f.k) ? 'description' : /delivered/i.test(f.k) ? 'delivered' : '';
+ const d = {}, other = [], out = [];
+ String(f.v || '').split(' · ').map(x => x.trim()).filter(Boolean).forEach(t => {
+  const m = t.match(/^(Length|Width|Height)\s+(.+?)\s*mm$/i); if (m) { d[m[1].toLowerCase()] = m[2]; return; }
+  const w = t.match(/^Mass\s+(.+)$/i); if (w) { d.mass = w[1]; return; }
+  other.push(t); });
+ if (d.length || d.width || d.height) out.push({k: 'Size', v: d.length && d.width && d.height ? d.length + ' × ' + d.width + ' × ' + d.height + ' mm' : [d.length && 'long ' + d.length, d.width && 'wide ' + d.width, d.height && 'high ' + d.height].filter(Boolean).join(' · ') + ' mm', src});
+ if (d.mass) out.push({k: 'Weight', v: d.mass, src});
+ other.forEach(t => out.push({k: PILL(t), v: t, src}));
+ return out;
+}
 function pills() {
  const by = rowsByKey(), gone = departedNos();
  D.querySelectorAll('#pane-demob tr[data-part1236]').forEach(tr => { try { nosLine(tr, by, gone); } catch (e) {} });
- D.querySelectorAll('#pane-demob .sp1231:not([data-p1236])').forEach(sp => {
+ D.querySelectorAll('#pane-demob tr[data-row816] .sp1231:not([data-p1236])').forEach(sp => {
   sp.dataset.p1236 = '1';
-  const fx = sp.querySelector('.fx1231'); const txt = fx && !fx.classList.contains('none') ? fx.textContent : '';
-  let parts = txt.split(' · ').map(x => x.trim()).filter(Boolean);
-  const dim = {}; let g0 = false;
-  parts = parts.filter(t => { const m = t.match(/^(guide(?: range)?\s+)?(Length|Width|Height)\s+(.+?)\s*mm\b/i); if (!m) return true; if (m[1]) g0 = true; dim[m[2].toLowerCase()] = m[3]; return false; });
-  if (dim.length || dim.width || dim.height) parts.unshift((g0 ? 'guide ' : '') + [dim.length || '?', dim.width || '?', dim.height || '?'].join(' × ') + ' mm');
-  parts = parts.map(t => t.replace(/^(guide(?: range)?\s+)?Mass\s+/i, '$1'));
-  const have = {Size: false, Weight: false};
-  const html = parts.map(t => { const k = PILL(t), g = /^guide\b/i.test(t), v = t.replace(/^guide( range)?\s+/i, '').replace(/\s*\((description|delivered|contract)\)\s*$/i, '');
-   if (k) have[k] = true;
-   return '<span class="pp1236' + (k ? ' ' + k.toLowerCase() : '') + '">' + (k ? '<i>' + k + '</i>' : '') + esc(v) + (g ? '<em>guide</em>' : /\((description|contract)\)/i.test(t) ? '<em>' + esc(t.match(/\((description|contract)\)/i)[1]) + '</em>' : '') + '</span>'; }).join('')
+  const tr = sp.closest('tr[data-row816]'), r = tr && by.get(tr.getAttribute('data-row816'));
+  let facts = []; try { facts = r && W.Ready1231 ? (Ready1231.specs(r).facts || []).slice(0, 3) : []; } catch (e) { facts = []; }
+  const list = [].concat(...facts.map(factPills)), have = {Size: list.some(x => x.k === 'Size'), Weight: list.some(x => x.k === 'Weight')};
+  const html = list.map(x => '<span class="pp1236' + (x.k ? ' ' + x.k.toLowerCase() : '') + '">' + (x.k ? '<i>' + x.k + '</i>' : '') + esc(x.v) + (x.src && x.src !== 'delivered' ? '<em>' + esc(x.src) + '</em>' : '') + '</span>').join('')
    + (have.Size ? '' : '<span class="pp1236 size none"><i>Size</i>to confirm</span>') + (have.Weight ? '' : '<span class="pp1236 weight none"><i>Weight</i>to confirm</span>');
   const box = D.createElement('div'); box.className = 'ps1236'; box.innerHTML = html;
-  if (fx) fx.replaceWith(box); else sp.appendChild(box);
+  const fx = sp.querySelector('.fx1231'); if (fx) fx.replaceWith(box); else sp.appendChild(box);
  });
 }
 function after() { try { titles(); } catch (e) {} try { statuses(); } catch (e) {} try { tally(); } catch (e) {} try { pills(); } catch (e) {} try { arm(); } catch (e) {} try { headers(); } catch (e) {} try { overview(); } catch (e) {} try { progress(); } catch (e) {} }
