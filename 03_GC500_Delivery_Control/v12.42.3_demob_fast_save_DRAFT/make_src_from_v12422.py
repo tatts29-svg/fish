@@ -30,10 +30,17 @@ const viewSig = day => (day ? 'day:' + day : 'all') + '|' + ((typeof DM816 === '
 /* what the cards were drawn from: the view and each card's light and booking */
 function seen(list, day) { DRAWN = {sig: viewSig(day), cards: new Map(list.map(c => [c.key + '#' + c.uid, cardSig(c)]))}; }
 /* the page's own save, inside the asset hold, with the references it writes named for the redraw */
-function saveQuick(keys) { QUICK = {keys: new Set(keys)}; try { hold(() => bump()); } finally { QUICK = null; } }
+function saveQuick(keys, book) { QUICK = {keys: new Set(keys), book: !!book}; try { hold(() => bump()); } finally { QUICK = null; } }
 const tpl = html => { const t = D.createElement('template'); t.innerHTML = html; return t.content; };
-/* the shape of a list: its sections, suppliers, groups and cards, in page order */
-const shape = (root, card, idOf) => [...root.querySelectorAll('section.sx1238,div.sp1238,div.gp1238,' + card)].map(el => el.matches(card) ? 'c' + idOf(el) : el.matches('section') ? 's' + el.dataset.sx1238 : el.matches('.sp1238') ? 'p' + el.dataset.sup1238 : 'g' + el.dataset.cat1238).join('\n');
+/* a list read in one pass: its shape (sections, suppliers, groups and cards, in page order), its heads and its cards by unit */
+function scan(root, card, idOf) {
+ const shape = [], heads = {sh: [], gh: [], sp: []}, cards = new Map();
+ for (const el of root.querySelectorAll('section.sx1238,div.sp1238,div.gp1238,.sh1238,.gh1238,.sp1238 > h4,' + card)) {
+  if (el.matches(card)) { const id = idOf(el); shape.push('c' + id); cards.set(id, el); }
+  else if (el.matches('section.sx1238')) shape.push('s' + el.dataset.sx1238); else if (el.matches('div.sp1238')) shape.push('p' + el.dataset.sup1238); else if (el.matches('div.gp1238')) shape.push('g' + el.dataset.cat1238);
+  else if (el.matches('.sh1238')) heads.sh.push(el); else if (el.matches('.gh1238')) heads.gh.push(el); else heads.sp.push(el); }
+ return {shape: shape.join('\n'), heads, cards};
+}
 /* a card as drawn, less what changes on its own after drawing (its two pictures loading, the filter hiding it) */
 const plain = html => html.replace(/<div class="ph1238">[\s\S]*?<\/div>/, '').replace(/^(<article\b[^>]*?) hidden=""/, '$1');
 /* make a drawn element read as a fresh one, keeping its nodes where the two have the same shape: the button just pressed keeps its place
@@ -74,9 +81,9 @@ function quickDraw() {
  for (const c of list) { const was = DRAWN.cards.get(id(c)); if (was === undefined || (!Q.keys.has(c.key) && was !== cardSig(c))) return false; }
  /* everything new is worked out before anything on screen changes: the lists with each card as a marker, the bar, the trucks, the
     booked pick-ups and the written references' cards */
- const sk = tpl(sectionsHtml(list, day, c => '<i data-ph1238="' + e(id(c)) + '"></i>'));
- if (shape(lst, 'article.sg1238', a => a.dataset.sg1238 + '#' + a.dataset.u1238) !== shape(sk, 'i[data-ph1238]', x => x.dataset.ph1238)) return false;
- const heads = ['.sh1238', '.gh1238', '.sp1238 > h4'].map(sel => [[...lst.querySelectorAll(sel)], [...sk.querySelectorAll(sel)]]);
+ const was = scan(lst, 'article.sg1238', a => a.dataset.sg1238 + '#' + a.dataset.u1238), now = scan(tpl(sectionsHtml(list, day, c => '<i data-ph1238="' + e(id(c)) + '"></i>')), 'i[data-ph1238]', x => x.dataset.ph1238);
+ if (was.shape !== now.shape) return false;
+ const heads = ['sh', 'gh', 'sp'].map(k => [was.heads[k], now.heads[k]]);
  if (heads.some(([a, b]) => a.length !== b.length)) return false;
  const nb = tpl(barHtml(list, day)).firstElementChild, fr = bar.querySelector(':scope > .fr1238'), lab = fr && fr.querySelector(':scope > label.fd1238'), nfr = nb && nb.querySelector(':scope > .fr1238');
  const cn = bar.querySelector(':scope > .cn1238'), ncn = nb && nb.querySelector(':scope > .cn1238'), th = bar.querySelector(':scope > .th1238'), nth = nb && nb.querySelector(':scope > .th1238');
@@ -91,15 +98,19 @@ function quickDraw() {
  if (fa.map(x => x.outerHTML).join('') !== fb.map(x => x.outerHTML).join('')) { fa.forEach(x => x.remove()); fb.forEach(x => fr.insertBefore(x, lab)); } /* the find box stays as it is, with what is typed in it */
  swap(cn, ncn);
  if (!day) { put(view, 'ld1238', lh, bar); put(view, 'bp1238', bh, view.querySelector(':scope > .ld1238') || bar); }
- fresh.forEach(({c, n}) => { const a = lst.querySelector('article.sg1238[data-sg1238="' + cssq(c.key) + '"][data-u1238="' + cssq(c.uid) + '"]'); if (a && n && plain(a.outerHTML) !== plain(n.outerHTML)) morph(a, n); DRAWN.cards.set(id(c), cardSig(c)); });
- try { decorate(); } catch (x) {}
- try { todayRows(); } catch (x) {}
+ fresh.forEach(({c, n}) => { const a = was.cards.get(id(c)); if (a && n && plain(a.outerHTML) !== plain(n.outerHTML)) morph(a, n); DRAWN.cards.set(id(c), cardSig(c)); });
+ /* what is worked out after drawing: a booking changes the day cards' lists and figures and the headings, so decorate() runs as after
+    any drawing; a Ready tick changes none of those (they count bookings and departures), only today's Ready figure and what a filter
+    shows. The cards keep their nodes, so their pictures stay watched as they were */
+ if (Q.book) { try { decorate(); } catch (x) {} }
+ else { try { todayRows(); } catch (x) {} if (FILTER !== 'all' || FIND.trim()) { try { applyFilter(); } catch (x) {} } }
  return true;
 }
-/* the day cards' figures read from the cards (today's "Ready for collection N units now"), put right in place after a quick save */
+/* today's day card counts the units Ready for collection now (dayRows; the other days' figures count departures only): put right in
+   place after a Ready tick */
 function todayRows() {
  const pane = D.getElementById('pane-demob'); if (!pane) return;
- pane.querySelectorAll('.dc996-day[data-dday816]').forEach(card => { const rows = dayRows(card.dataset.dday816);
+ pane.querySelectorAll('.dc996-day[data-dday816="' + cssq(todayQ()) + '"]').forEach(card => { const rows = dayRows(card.dataset.dday816);
   card.querySelectorAll('.bc986-work-row').forEach((row, i) => { const r = rows[i], l = row.querySelector('.bc986-work-label'), v = row.querySelector('.bc986-work-value');
    if (r && l && v && l.textContent === r.label && v.textContent !== String(r.value)) v.textContent = String(r.value); }); });
 }
@@ -158,9 +169,9 @@ function viewHtml(day) {
  (" VER++; bump(); if (bump.kept === false) { try { flash('Not saved · keep this page open.'); } catch (x) {} return false; } /* a refusal is said out loud, as on every writer in the page */",
   " VER++; saveQuick([key]); if (bump.kept === false) { try { flash('Not saved · keep this page open.'); } catch (x) {} return false; } /* a refusal is said out loud, as on every writer in the page */"),
  (" const n = String(note || '').trim().slice(0, 80); gs.forEach(g => putBooking(g.key, g.uids, v, n, who, mark));\n VER++; bump(); if (bump.kept === false) { try { flash('Not saved · keep this page open.'); } catch (x) {} return false; }",
-  " const n = String(note || '').trim().slice(0, 80); gs.forEach(g => putBooking(g.key, g.uids, v, n, who, mark));\n VER++; saveQuick(gs.map(g => g.key)); if (bump.kept === false) { try { flash('Not saved · keep this page open.'); } catch (x) {} return false; }"),
+  " const n = String(note || '').trim().slice(0, 80); gs.forEach(g => putBooking(g.key, g.uids, v, n, who, mark));\n VER++; saveQuick(gs.map(g => g.key), true); if (bump.kept === false) { try { flash('Not saved · keep this page open.'); } catch (x) {} return false; }"),
  (" VER++; bump(); if (bump.kept === false) { try { flash('Not saved · keep this page open.'); } catch (x) {} return false; } /* the sheet stays open */",
-  " VER++; saveQuick([key]); if (bump.kept === false) { try { flash('Not saved · keep this page open.'); } catch (x) {} return false; } /* the sheet stays open */"),
+  " VER++; saveQuick([key], true); if (bump.kept === false) { try { flash('Not saved · keep this page open.'); } catch (x) {} return false; } /* the sheet stays open */"),
  # 3. the taps that read the model run in the asset hold
  (" if ((b = pick('[data-lamp1238]'))) { ev.preventDefault(); ev.stopPropagation(); lamp(b.dataset.k1238, b.dataset.u1238, b.dataset.lamp1238); return; }\n if ((b = pick('[data-book1238]'))) { ev.preventDefault(); ev.stopPropagation(); open(b.dataset.book1238, b.dataset.u1238); return; }",
   " if ((b = pick('[data-lamp1238]'))) { ev.preventDefault(); ev.stopPropagation(); const k = b.dataset.k1238, u = b.dataset.u1238, s = b.dataset.lamp1238; hold(() => lamp(k, u, s)); return; } /* v12.42.3: in the asset hold */\n if ((b = pick('[data-book1238]'))) { ev.preventDefault(); ev.stopPropagation(); const k = b.dataset.book1238, u = b.dataset.u1238; hold(() => open(k, u)); return; }"),

@@ -52,7 +52,8 @@ The test checks the new list against reading every element, with the day strip, 
   - the day cards and today's "Ready for collection" figure.
 
   It works all of that out from the model before it changes anything on screen. A card changes node by node, so the button just pressed keeps its place and focus and the card's two pictures stay as they are.
-- **The model as drawn is brought up to date for a quick save.** Only that save's references are read again, for their cards' lights and bookings. This applies only when nothing else was saved since and the model is under 4 s old; otherwise it is built again.
+- **What is redone after a quick save, and why that is enough.** A booking reruns the day cards' lists and figures and the headings, as after any drawing. A Ready tick changes none of those, because they count bookings and departures. So after a Ready tick only today's "Ready for collection" figure is put right, and the filter is applied again if one is on.
+- **The model as drawn is brought up to date for a quick save.** Only that save's references are read again, for their cards' lights and bookings. This is used only when nothing else was saved since, and the model still stands by `model()`'s own rule or was found good earlier in the same tap. The tap and its save run as one piece of script, so nothing from outside can change the record in between. Otherwise the model is built again.
 - **When a quick save is not used.** The whole tab is drawn exactly as before if any of these holds:
   - the tab is not showing the cards as last drawn (another view, day, branch or link);
   - the cards on screen are not the same cards in the same places;
@@ -74,7 +75,16 @@ RESULTS_TABLE
 
 ## Still slow, and why it was left
 
-STILL_SLOW
+What is left in a quick save on the phone is mostly the page's shared save and draw path, which this release does not change. Desktop figures are from the profile of a Ready press; on the 4x phone each is about four to five times as long.
+
+- **`save()`, about 0.23 s on a desktop and 1.0 s on the phone.** That covers `renderTabs`, the `syncFooter` wrappers (staff988's `mountDemob` builds the day's plan again, now inside the hold) and `syncStage`/`syncPush`. `persist()` itself is only 0.02 s (desktop) and 0.1 s (phone).
+- **The page's `render()` wrappers above the Demob tab, about 0.2 s on a desktop and 0.8 s on the phone.** These are other modules' wrappers (Drops911, SelectionSave1012, DayRefresh1103, v8.92), plus `renderPass`'s own extras (hzTodayPod, financeOperational857, applyCapability and the fold passes).
+- **After the change is on screen, v12.36's `after()` runs again on the next frame.** Its watcher sees today's day card figure change. Its `titles()` asks `Singles1238.count()`, which builds the model again whenever the page has emptied its drawing memo in between: 0.25 s on a desktop and about 1 s on the phone. This lengthens the time until the page is idle, not the time until the change shows.
+- **Saves that still draw the whole tab** only get the keep-your-place and hold savings. These are Emptied (Picked up that first records Emptied), the departure form, a reference's own Ready tick (the group cards) and remote changes arriving on the sync. Picked up with Emptied: desktop 5.2 s to 2.0 s, phone 23.3 s to about 9 s.
+- **The page's background on the phone:** the sync poll every 4 s (`pull()` with the `syncFooter` wrappers and `applyCapability`), about 0.85 s of long tasks every 4 s. It can hold a tap back by up to about 0.4 s before the save starts.
+- **Positions are looked up again every 30 s** (`locOf`, so a moved pin moves the pictures). The first truck plan after that relocates every Ready card.
+
+Taking the next second off the phone needs changes in the shared path: `renderTabs`, the `syncFooter` wrappers, and the render wrappers that run whatever tab is showing. That needs Codex. Those are the next things to measure.
 
 ## Checks
 
