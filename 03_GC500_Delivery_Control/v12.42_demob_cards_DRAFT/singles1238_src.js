@@ -1209,16 +1209,20 @@ function count() { try { const br = (typeof DM816 === 'object' && DM816 && DM816
    A cleared booking is a dated entry too, so a clear is never undone. */
 const um = (x, y, t) => { const o = Object.assign({}, x && typeof x === 'object' ? x : {}); let ch = false;
  Object.keys(y && typeof y === 'object' ? y : {}).forEach(u => { const p = o[u], q = y[u]; if (!q || typeof q !== 'object') return; const s1 = String(q[t] || ''), s0 = p ? String(p[t] || '') : '';
-  if (!p || s1 > s0) { o[u] = q; ch = true; } }); return ch ? o : null; };
-const hj = (x, y, k) => { const a = Array.isArray(x) ? x : [], seen = new Set(a.map(k)), add = (Array.isArray(y) ? y : []).filter(h => h && !seen.has(k(h))); return add.length ? a.concat(add).sort((p, q) => String(p.at || '').localeCompare(String(q.at || ''))).slice(-400) : null; };
-function keepUnits(next, cur) {
+  if (!p || s1 > s0 || (s1 === s0 && JSON.stringify(q) > JSON.stringify(p))) { o[u] = q; ch = true; } }); return ch ? o : null; }; /* the later stamp wins; on the same stamp the same entry wins on every phone, whichever copy arrives first */
+const hj = (x, y, k) => { const a = Array.isArray(x) ? x : [], seen = new Set(a.map(k)), add = (Array.isArray(y) ? y : []).filter(h => h && !seen.has(k(h))); return add.length ? a.concat(add).sort((p, q) => String(p.at || '').localeCompare(String(q.at || '')) || k(p).localeCompare(k(q))).slice(-400) : null; }; /* one order on every phone */
+/* theirs: the store's own copy when this browser has a change of its own waiting to go up for that reference. The waiting
+   copy stands in for the store's in `next`, so a unit another phone ticked there is read from the store's copy here, or the
+   waiting send would write over it (Codex's review, 26 Oct 19:05) */
+function keepUnits(next, cur, theirs) {
  let changed = false;
- Object.keys(next || {}).forEach(k => { const n = next[k], c = cur && cur[k]; if (!n || !c || typeof c !== 'object') return;
-  const r = um(n.ready1238_units, c.ready1238_units, 'at'), p = um(n.pickup1238_units, c.pickup1238_units, 'set');
-  const rh = hj(n.ready1238_history, c.ready1238_history, h => (h.unit || '') + '|' + h.ready + '|' + h.at), ph = hj(n.pickup1238_history, c.pickup1238_history, h => (h.unit || '') + '|' + (h.pickup || '') + '|' + h.at);
-  if (!r && !p && !rh && !ph) return;
-  const o = Object.assign({}, n); if (r) o.ready1238_units = r; if (p) o.pickup1238_units = p; if (rh) o.ready1238_history = rh; if (ph) o.pickup1238_history = ph;
-  next[k] = o; changed = true; });
+ const hr = h => (h.unit || '') + '|' + h.ready + '|' + h.at, hp = h => (h.unit || '') + '|' + (h.pickup || '') + '|' + h.at;
+ Object.keys(next || {}).forEach(k => { let n = next[k], any = false; if (!n || typeof n !== 'object') return;
+  [cur && cur[k], theirs && theirs[k]].forEach(c => { if (!c || typeof c !== 'object' || c === n) return;
+   const r = um(n.ready1238_units, c.ready1238_units, 'at'), p = um(n.pickup1238_units, c.pickup1238_units, 'set'), rh = hj(n.ready1238_history, c.ready1238_history, hr), ph = hj(n.pickup1238_history, c.pickup1238_history, hp);
+   if (!r && !p && !rh && !ph) return;
+   n = Object.assign({}, n); if (r) n.ready1238_units = r; if (p) n.pickup1238_units = p; if (rh) n.ready1238_history = rh; if (ph) n.pickup1238_history = ph; any = true; });
+  if (any) { next[k] = n; changed = true; } });
  if (changed) VER++;
  return changed;
 }

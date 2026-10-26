@@ -256,6 +256,18 @@ const {open} = require('../../toolchain/harness/open_page');
       return {unknown: !!Singles1238.pickOf({'unknown|0089': t}, c, 'at'), star: !!Singles1238.pickOf({'*': t}, c, 'at'), doc: !c.u.docKey || !!Singles1238.pickOf({'event-portables|9999': Object.assign({doc: c.u.docKey}, t)}, c, 'at'),
         own: Singles1238.pickOf({'event-portables|0089': {at: '2026-10-25T00:00:00.000Z', on: false}, 'unknown|0089': t}, c, 'at').on === false, none: Singles1238.pickOf({'coates|1268858': t}, c, 'at') === null}; });
     check('v12.42: a tick or booking made before a unit\'s owner or number was filled in, or on its reference\'s one card before its units were recorded, still finds the unit; its own entry comes first', PK.unknown && PK.star && PK.doc && PK.own && PK.none, PK);
+    /* the live sync with a send of this phone's own still waiting for WC09: a unit another phone ticked there (in the store's
+       copy only) is kept, and this phone's waiting tick is kept too; both go up together (Codex's review, 26 Oct 19:05) */
+    const KQ = await p.evaluate(async () => {
+      const docs = JSON.parse(JSON.stringify(toDocs('delivery'))), id = Object.keys(docs).find(k => docs[k]._k === 'WC09'), t1 = new Date(Date.now() - 60000).toISOString(), t2 = new Date(Date.now() - 30000).toISOString();
+      const mine = JSON.parse(JSON.stringify(docs[id])); mine.ready1238_units = Object.assign({}, mine.ready1238_units, {'test|LOCAL1': {on: true, at: t1, by: 'Phone A', why: ''}});
+      docs[id].ready1238_units = Object.assign({}, docs[id].ready1238_units, {'test|REMOTE1': {on: true, at: t2, by: 'Phone B', why: ''}});
+      const q0 = SYNC.queue.delivery; SYNC.queue.delivery = Object.assign({}, q0 || {}, {[id]: mine}); const n0 = __captured1238.length;
+      syncFold('delivery', docs); await new Promise(r => setTimeout(r, 1800));
+      const u = (S.delivery.WC09 || {}).ready1238_units || {}, sent = __captured1238.slice(n0).filter(x => /delivery\/WC09$/.test(x.name)).pop(), su = (sent && sent.value && sent.value.ready1238_units) || {};
+      return {id: !!id, local: !!u['test|LOCAL1'], remote: !!u['test|REMOTE1'], sent: !!sent, sentBoth: !!(su['test|LOCAL1'] && su['test|REMOTE1']), others: __captured1238.slice(n0).filter(x => !/delivery\/WC09$/.test(x.name)).length};
+    });
+    check('v12.42: with a send of this phone\'s own still waiting for a reference, a unit another phone ticked there is not lost: both ticks are kept and go up together, and nothing else is written', KQ.id && KQ.local && KQ.remote && KQ.sent && KQ.sentBoth && KQ.others === 0, KQ);
     /* the merge, on copies */
     const MG = await p.evaluate(() => {
       const m = (a, b) => mergeRecords({delivery: {WC09: a}}, {delivery: {WC09: b}}).merged.delivery.WC09 || null;

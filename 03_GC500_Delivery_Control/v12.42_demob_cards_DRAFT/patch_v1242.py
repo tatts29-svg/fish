@@ -52,7 +52,7 @@ H3_OLD = "h.textContent = 'Everything on site · ' + mine.length + (mine.length 
 H3_NEW = "h.textContent = 'Everything on site · ' + (W.Singles1238 ? Singles1238.count() + ' assets' : mine.length + (mine.length === 1 ? ' reference' : ' references'));"
 SYNC_OLD = " const next = fromDocs(name, shown);"
 SYNC_NEW = SYNC_OLD + """
- if (name === 'delivery' && !SYNC.readonly && window.Singles1238 && typeof Singles1238.keepUnits === 'function') { try { if (Singles1238.keepUnits(next, c.get())) setTimeout(() => { try { syncPush(); } catch (e) {} }, 0); } catch (e) {} } /* v12.38 - a delivery document from the store keeps the unit ticks and bookings this browser holds that it lacks, and the result goes back up: two phones on one reference never lose each other's work */"""
+ if (name === 'delivery' && !SYNC.readonly && window.Singles1238 && typeof Singles1238.keepUnits === 'function') { try { if (Singles1238.keepUnits(next, c.get(), Object.keys(SYNC.queue[name] || {}).length ? fromDocs(name, docs) : null)) setTimeout(() => { try { syncPush(); } catch (e) {} }, 0); } catch (e) {} } /* v12.38 - a delivery document from the store keeps the unit ticks and bookings this browser holds that it lacks, and the result goes back up: two phones on one reference never lose each other's work */"""
 WATCH_OLD = "mo = new MutationObserver(ms => { if (ms.every(m => m.target && m.target.closest && m.target.closest('.ov1236,.mpf1236'))) return; soon(); });"
 WATCH_NEW = "mo = new MutationObserver(ms => { if (ms.every(m => m.target && m.target.closest && m.target.closest('.ov1236,.mpf1236,.sgv1238,.pg1238,.dl1238'))) return; soon(); }); /* v12.38 - the new cards, progress and day lists look after themselves */"
 
