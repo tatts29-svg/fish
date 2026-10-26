@@ -592,11 +592,11 @@ function titles() {
  const all = everyRows('all'), mine = everyRows(), on = DM816.view === ALLV;
  let b = segs.querySelector('[data-view816="' + ALLV + '"]');
  if (!b) { segs.insertAdjacentHTML('afterbegin', '<button type="button" class="btn sm ev1236" data-view816="' + ALLV + '"></button>'); b = segs.querySelector('[data-view816="' + ALLV + '"]'); }
- b.textContent = 'Everything on site · ' + mine.length; b.setAttribute('aria-pressed', String(on));
+ const bt = 'Everything on site · ' + mine.length; if (b.textContent !== bt) b.textContent = bt; if (b.getAttribute('aria-pressed') !== String(on)) b.setAttribute('aria-pressed', String(on));
  if (!on) return;
  const h = pane.querySelector('.dmsh816 h3'); if (h && !h.dataset.ev1236) { h.dataset.ev1236 = '1'; h.textContent = 'Everything on site · ' + mine.length + (mine.length === 1 ? ' reference' : ' references'); }
- const t = pane.querySelector('.sum1231 .h1231'); if (t) t.textContent = 'Everything on site · ' + mine.length;
- pane.querySelectorAll('[data-br816]').forEach(x => { const k = x.dataset.br816; if (k !== 'all') x.textContent = k + ' ' + all.filter(r => r.branch === k).length; });
+ const t = pane.querySelector('.sum1231 .h1231'), tt = 'Everything on site · ' + mine.length; if (t && t.textContent !== tt) t.textContent = tt;
+ pane.querySelectorAll('[data-br816]').forEach(x => { const k = x.dataset.br816; if (k === 'all') return; const bs = k + ' ' + all.filter(r => r.branch === k).length; if (x.textContent !== bs) x.textContent = bs; });
  pane.querySelectorAll('.dday816.on').forEach(x => { x.classList.remove('on'); x.setAttribute('aria-pressed', 'false'); });
 }
 function departedNos() {
@@ -640,7 +640,15 @@ function pills() {
   const fx = sp.querySelector('.fx1231'); if (fx) fx.replaceWith(box); else sp.appendChild(box);
  });
 }
-function after() { try { titles(); } catch (e) {} try { statuses(); } catch (e) {} try { tally(); } catch (e) {} try { pills(); } catch (e) {} try { arm(); } catch (e) {} try { headers(); } catch (e) {} try { overview(); } catch (e) {} try { progress(); } catch (e) {} }
+/* the steps after each drawing. The watcher below is paused while they run, so their own changes never wake it again: it wakes only
+   for a change someone else makes in the tab (the page's own partial redraws), and then the steps run once on the next frame. */
+let mo = null;
+const MO = {childList: true, subtree: true};
+function after() {
+ const pane = D.getElementById('pane-demob'); if (mo) mo.disconnect();
+ try { try { titles(); } catch (e) {} try { statuses(); } catch (e) {} try { tally(); } catch (e) {} try { pills(); } catch (e) {} try { arm(); } catch (e) {} try { headers(); } catch (e) {} try { overview(); } catch (e) {} try { progress(); } catch (e) {} }
+ finally { if (mo && pane && pane.isConnected) mo.observe(pane, MO); }
+}
 const renderBefore = renderDemob816;
 renderDemob816 = function () { let v; rendering++; try { v = renderBefore.apply(this, arguments); } finally { rendering--; } after(); return v; };
 Object.assign(renderDemob816, renderBefore);
@@ -648,7 +656,8 @@ let raf = 0;
 function soon() { if (raf) return; raf = (W.requestAnimationFrame || setTimeout)(() => { raf = 0; after(); }); }
 function watch() {
  const pane = D.getElementById('pane-demob'); if (!pane || pane.__map1236) return; pane.__map1236 = true;
- new MutationObserver(ms => { if (ms.every(m => m.target && m.target.closest && m.target.closest('.ov1236,.mpf1236'))) return; soon(); }).observe(pane, {childList: true, subtree: true});
+ mo = new MutationObserver(ms => { if (ms.every(m => m.target && m.target.closest && m.target.closest('.ov1236,.mpf1236'))) return; soon(); });
+ mo.observe(pane, MO);
 }
 
 /* ---- taps ---- */
