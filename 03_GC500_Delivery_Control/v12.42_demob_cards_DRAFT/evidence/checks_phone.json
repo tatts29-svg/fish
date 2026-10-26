@@ -693,9 +693,9 @@
   }
  },
  {
-  "name": "v12.42: the tab settles: no redraw loop while nothing changes (1 changes in 3 s)",
+  "name": "v12.42: the tab settles: no redraw loop while nothing changes (0 changes in 3 s)",
   "ok": true,
-  "detail": 1
+  "detail": 0
  },
  {
   "name": "v12.42: on the edit link every card still on site has its Book pick-up button and its Ready light to press",
@@ -711,7 +711,7 @@
   "detail": {
    "u": {
     "on": true,
-    "at": "2026-10-26T09:32:49.656Z",
+    "at": "2026-10-26T10:16:41.997Z",
     "by": "Example test recorder",
     "why": "",
     "doc": "unit925/bd4f0c95-5102-4c7d-af5b-c0bc6632006d"
@@ -755,7 +755,7 @@
     "at": "2026-10-27T07:30:00+10:00",
     "note": "Coates truck",
     "by": "Example test recorder",
-    "set": "2026-10-26T09:32:59.739Z"
+    "set": "2026-10-26T10:16:53.367Z"
    },
    "hist": 1,
    "card": "Pick-up booked Tue 27 Oct · 07:30 Coates truck · booked by Example test recorder Change",
@@ -881,11 +881,12 @@
     "ready:ref"
    ],
    "why": "AA’s departure record needs review (quantities changed after a pick-up); check it on Picked up",
-   "back": "not ticked yet"
+   "dom": true,
+   "back": ""
   }
  },
  {
-  "name": "v12.42: when the page leaves a reference's pick-ups out for review (quantities changed after one), its cards say so and point to Picked up",
+  "name": "v12.42: when the page leaves a reference's pick-ups out for review (quantities changed after one), its cards say so and point to Picked up, a card ticked Ready too",
   "ok": true,
   "detail": {
    "K": "AA",
@@ -898,7 +899,21 @@
     "ready:ref"
    ],
    "why": "AA’s departure record needs review (quantities changed after a pick-up); check it on Picked up",
-   "back": "not ticked yet"
+   "dom": true,
+   "back": ""
+  }
+ },
+ {
+  "name": "v12.42: a run part-collected today whose last load goes on a later day is still in today's list, as picked up (staged on this page only, then put back)",
+  "ok": true,
+  "detail": {
+   "K": "P34",
+   "state": "gone",
+   "goneDay": "2026-10-27",
+   "inToday": true,
+   "s": "gone",
+   "evToday": true,
+   "back": "not"
   }
  },
  {
@@ -934,6 +949,43 @@
    "sent": true,
    "sentBoth": true,
    "others": 0
+  }
+ },
+ {
+  "name": "v12.42: while this browser cannot save, a store copy lacking its unit ticks keeps them on screen but sends nothing up",
+  "ok": true,
+  "detail": {
+   "id": true,
+   "kept": true,
+   "sent": 0
+  }
+ },
+ {
+  "name": "v12.42: a Ready tick this browser could not save says \"Not saved · keep this page open\" (as every writer on the page does), not \"recorded\"",
+  "ok": true,
+  "detail": {
+   "r": false,
+   "msg": "Not saved · keep this page open.",
+   "unkeptAfter": false,
+   "sent": 0
+  }
+ },
+ {
+  "name": "v12.42: on the very same stamp Not ready beats Ready and a cleared booking beats a booking, both on the live sync and on opening, whichever copy comes first",
+  "ok": true,
+  "detail": {
+   "live": [
+    false,
+    false
+   ],
+   "clear": [
+    "",
+    ""
+   ],
+   "merge": [
+    false,
+    false
+   ]
   }
  },
  {
@@ -983,7 +1035,7 @@
    ],
    "counts": {
     "page": 1,
-    "live": 877,
+    "live": 888,
     "blocked": 0
    }
   }

@@ -29,7 +29,7 @@ PASS v12.42: in Everything on site the day-list button counts what was booked an
 PASS v12.42: a day's list holds only what left that day (by the day it left, and a run part-collected that day even once the rest has gone) or is booked for it; its heading counts units, as the day card does; a "booked" filter from Everything is not carried in; the schedule's runs, trucks, print and confirm are put away
 PASS v12.42: a day with nothing booked says so and lists nothing from the schedule
 PASS v12.42: the cards lay out three or more to a row on a desktop
-PASS v12.42: the tab settles: no redraw loop while nothing changes (0 changes in 3 s)
+PASS v12.42: the tab settles: no redraw loop while nothing changes (1 changes in 3 s)
 PASS v12.42: on the edit link every card still on site has its Book pick-up button and its Ready light to press
 PASS v12.42: Ready on one Event Portables unit at WC09 marks that unit only, on its own clock; the Coates toilet block beside it stays Not ready; the reference's own tick is untouched
 PASS v12.42: Book pick-up opens a sheet with a calendar (no day picked, past days shut) and a clock (24 hours), naming the asset; Save waits for a day and a time
@@ -44,12 +44,16 @@ PASS v12.42: Change opens the booking as it stands; Clear is a dated change too,
 PASS v12.42: Picked up on one unit opens the page's own departure form for WC09 with that unit ticked (Emptied asked for the whole reference first)
 PASS v12.42: at a mixed reference Emptied turns nobody Ready: the Coates blocks and the untouched Event Portables units stay Not ready; the unit ticked Ready stays Ready
 PASS v12.42: a Ready tick on a reference with two owners (WC09: Coates blocks and Event Portables units) turns none of its units Ready; on a one-owner reference it still does
-PASS v12.42: when the page leaves a reference's pick-ups out for review (quantities changed after one), its cards say so and point to Picked up
+PASS v12.42: when the page leaves a reference's pick-ups out for review (quantities changed after one), its cards say so and point to Picked up, a card ticked Ready too
+PASS v12.42: a run part-collected today whose last load goes on a later day is still in today's list, as picked up (staged on this page only, then put back)
 PASS v12.42: on the live sync a store copy without this phone's unit ticks and bookings loses none of them: they are kept here and sent back up, and nothing else is written
 PASS v12.42: a tick or booking made before a unit's owner or number was filled in, or on its reference's one card before its units were recorded, still finds the unit; its own entry comes first
 PASS v12.42: with a send of this phone's own still waiting for a reference, a unit another phone ticked there is not lost: both ticks are kept and go up together, and nothing else is written
+PASS v12.42: while this browser cannot save, a store copy lacking its unit ticks keeps them on screen but sends nothing up
+PASS v12.42: a Ready tick this browser could not save says "Not saved · keep this page open" (as every writer on the page does), not "recorded"
+PASS v12.42: on the very same stamp Not ready beats Ready and a cleared booking beats a booking, both on the live sync and on opening, whichever copy comes first
 PASS v12.42: on any copy the later tick wins unit by unit, other units are kept, the histories join, and a record holding only these is kept
 PASS v12.42: only WC09's and GN18's delivery documents were written, all captured in the page; nothing reached the network
 PASS no page errors through the whole run
 
-53/53 passed
+57/57 passed
