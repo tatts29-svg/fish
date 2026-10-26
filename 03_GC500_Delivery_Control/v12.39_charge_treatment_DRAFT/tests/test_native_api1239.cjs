@@ -362,6 +362,58 @@ test('historical malformed treatment renders a safe review instead of throwing',
   assert.equal(json(f.ctx.S), before);
 });
 
+test('eligible hire control offers a distinct covered-hire decision', () => {
+  const f = fixture();
+  assert.deepEqual(clone(f.api.current(CKEY).treatments), ['own_use_hire', 'included_elsewhere_hire']);
+  f.api.dialog(CKEY);const html=f.effects.drawers[0].html;
+  assert.match(html, /value="included_elsewhere_hire"/); assert.match(html, /another customer charge/);
+});
+test('native covered-hire save retains source audit and ordinary supplier basis', () => {
+  const f = fixture(), before = clone(f.ctx.S), sourceBefore = json(f.ctx.ONHIRE_ROWS);
+  assert.equal(f.save(CKEY, {treatment:'included_elsewhere_hire'}), true);
+  const r=f.api.record(CKEY), charge=f.ctx.contractCharge(f.row);
+  assert.equal(r.treatment,'included_elsewhere_hire'); assert.equal(r.revision,1);
+  assert.equal(charge.amount,0); assert.strictEqual(charge.ordinary1239,f.ordinary);
+  assert.equal(charge.supplierCost,f.ordinary.supplierCost);
+  assert.equal(charge.treatment,'included_elsewhere_hire');assert.doesNotMatch(charge.how,/own use/i);
+  const after=clone(f.ctx.S);delete after.answers[PREFIX+CKEY];assert.deepEqual(after,before);
+  assert.equal(json(f.ctx.ONHIRE_ROWS),sourceBefore);
+  assert.deepEqual(f.effects.stamps,[['answers',PREFIX+CKEY,'Synthetic Operator']]);
+});
+test('covered hire never becomes own-use or alters another projected line', () => {
+  const f=fixture();f.save(CKEY,{treatment:'included_elsewhere_hire'});
+  const m=f.ctx.ItemCharges979.project();
+  assert.equal(m.lines[0].ownUse,undefined);assert.equal(m.lines[0].included,true);assert.equal(m.lines[0].chargeTreatment1239,'included_elsewhere_hire');
+  assert.equal(m.lines[1].ownUse,undefined);assert.equal(m.lines[1].chargeTreatment1239,undefined);
+  assert.equal(f.ctx.contractCharge(f.row).treatment==='own_use_hire',false);
+});
+test('covered hire retains asset non-hire amounts and separate classification', () => {
+  const f=fixture();f.save(CKEY,{treatment:'included_elsewhere_hire'});const a=f.ctx.assetTotal({key:'SYNTHETIC-REF'});
+  assert.equal(a.base,50);assert.equal(a.total,105);assert.equal(a.labour,40);assert.equal(a.accessories,15);assert.equal(a.transport,59);
+  assert.equal(a.lines[0].chargeTreatment1239,'included_elsewhere_hire');assert.equal(a.lines[0].transport_cost,19);assert.equal(a.lines[0].transport_charge,24);
+  assert.strictEqual(a.lines[1],f.asset.lines[1]);
+});
+test('covered-hire forecast carries inclusion rather than own-use classification', () => {
+  const f=fixture();f.save(CKEY,{treatment:'included_elsewhere_hire'});const m=f.ctx.pricingForecast1010();
+  assert.equal(m.rows[0].amount,0);assert.equal(m.rows[0].chargeTreatment1239,'included_elsewhere_hire');
+  assert.equal(m.total,92);assert.strictEqual(m.rows[1],f.forecast.rows[1]);assert.equal(m.rehireTotal,22);
+});
+test('stale covered-hire source restores ordinary pricing and visible review', () => {
+  const f=fixture();f.save(CKEY,{treatment:'included_elsewhere_hire'});f.row.quantity++;
+  assert.equal(f.api.status(CKEY).state,'review');assert.strictEqual(f.ctx.contractCharge(f.row),f.ordinary);
+  assert.match(f.api.control(CKEY),/needs review/);assert.equal(f.ctx.ItemCharges979.project().lines[0].ownUse,undefined);
+});
+test('covered-hire type cannot be placed on quoted services', () => {
+  const f=fixture(),before=json(f.ctx.S);
+  assert.equal(f.save(WKEY,{treatment:'included_elsewhere_hire'}),false);assert.equal(json(f.ctx.S),before);
+});
+test('covered-hire type cannot bypass generator charge or allocation exclusions', () => {
+  for(const mutate of [f=>{f.row.kind='generator';},f=>{f.row.syntheticAllocated=true;},f=>{f.row.charge_line=true;}]){
+    const f=fixture();mutate(f);const before=json(f.ctx.S);
+    assert.equal(f.save(CKEY,{treatment:'included_elsewhere_hire'}),false);assert.equal(json(f.ctx.S),before);
+  }
+});
+
 const failures = checks.filter(c => !c.pass);
 for (const failure of failures) console.error('FAIL ' + failure.name + '\n  ' + failure.error.slice(0, 900));
 console.log(JSON.stringify({author: 'Andrew Fisher', suite: 'charge1239 synthetic native API', sourceSha256,

@@ -31,13 +31,19 @@ def patch(text, path):
            "function setQAnswer(id, v){\n if(String(id).startsWith('charge-treatment1239|')){flash('Use the customer-charge treatment control for this decision.');return false;}",
            'financial decisions cannot be overwritten by a question note')
     change("function calculate(row,e,charge,actuals){\n  if(!e||!charge||charge.treatment||!['per day','whole event'].includes(charge.how))return null;",
-           "function calculate(row,e,charge,actuals){\n  if(charge?.treatment==='own_use_hire'&&charge.ordinary1239)charge=charge.ordinary1239;\n  if(!e||!charge||charge.treatment||!['per day','whole event'].includes(charge.how))return null;",
+           "function calculate(row,e,charge,actuals){\n  if(['own_use_hire','included_elsewhere_hire'].includes(charge?.treatment)&&charge.ordinary1239)charge=charge.ordinary1239;\n  if(!e||!charge||charge.treatment||!['per day','whole event'].includes(charge.how))return null;",
            'supplier period estimate retains its ordinary source basis')
     old="return Object.assign({}, l, {key: k, card_line: null, card_rate: null, their_amount: theirAmount, their_rate: floor, period: ql && ql.period ? ql.period : null, rate, from: typed != null && !under ? 'typed' : 'at cost', typed_under: under ? typed : null, amount: cents(qty * rate), covered: true}); });"
     new="const customer1239=Object.assign({}, l, {key: k, card_line: null, card_rate: null, their_amount: theirAmount, their_rate: floor, period: ql && ql.period ? ql.period : null, rate, from: typed != null && !under ? 'typed' : 'at cost', typed_under: under ? typed : null, amount: cents(qty * rate), covered: true}); return window.ChargeTreatment1239?ChargeTreatment1239.water(customer1239):customer1239; });"
     change(old,new,'only the separate customer service charge is treated')
     change("ownUse = rows.filter(r => ch.get(r).treatment === 'own_use');", "ownUse = rows.filter(r => ['own_use','own_use_hire'].includes(ch.get(r).treatment));", 'hire-only own-use classification')
     change("own_use: plant.filter(r => ch.get(r).treatment === 'own_use').length", "own_use: plant.filter(r => ['own_use','own_use_hire'].includes(ch.get(r).treatment)).length", 'plant reporting recognises hire-only treatment')
+    change("const included = rows.filter(r => ch.get(r).treatment === 'included'), ownUse =", "const included = rows.filter(r => ch.get(r).treatment === 'included'), coveredHire1239 = rows.filter(r => ch.get(r).treatment === 'included_elsewhere_hire'), ownUse =", 'separate covered-hire reporting group')
+    change("classified: included.length + ownUse.length, included:", "classified: included.length + ownUse.length + coveredHire1239.length, covered_hire: {lines: coveredHire1239.length, items: coveredHire1239.map(one)}, included:", 'covered hire stays visible and separately classified')
+    change("included: plant.filter(r => ch.get(r).treatment === 'included').length, own_use:", "covered_hire: plant.filter(r => ch.get(r).treatment === 'included_elsewhere_hire').length, included: plant.filter(r => ch.get(r).treatment === 'included').length, own_use:", 'plant reporting keeps covered hire separate from own use')
+    change("if (figures && figures.included && figures.included.lines) words.push", "if (figures && figures.covered_hire && figures.covered_hire.lines) words.push(figures.covered_hire.lines + ' hire lines included in another customer charge');\n if (figures && figures.included && figures.included.lines) words.push", 'covered-hire summary does not imply toilet-block or own-use treatment')
+    change("' \\u2014 no separate customer hire charge. Confirmed by the project manager, 1 Oct 2026.</span>'", "' \\u2014 no separate customer hire charge. '+(figures?.covered_hire?.lines||figures?.own_use?.items?.some(x=>x.treatment==='own_use_hire')?'Confirmation and source are retained on each treated line.':'Confirmed by the project manager, 1 Oct 2026.')+'</span>'", 'current decisions never inherit a historical confirmation date')
+    change("${c.included && c.included.lines ? `<span class=\"contract-coverage747\">Included in toilet-block hire", "${c.covered_hire && c.covered_hire.lines ? `<span class=\"contract-coverage747\">Hire included in another customer charge</span><b>${c.covered_hire.lines} lines</b>` : ''}\n${c.included && c.included.lines ? `<span class=\"contract-coverage747\">Included in toilet-block hire", 'existing contract plate shows the distinct covered-hire group')
     change("const box = (k, v, ph) => ro ? '' : `<input class=\"rate\" data-lr748=\"${esc(k)}\" inputmode=\"decimal\" value=\"${v != null ? esc(String(v)) : ''}\" placeholder=\"${esc(ph)}\" aria-label=\"Rate\">`;",
            "const box = (k, v, ph) => (ro ? '' : `<input class=\"rate\" data-lr748=\"${esc(k)}\" inputmode=\"decimal\" value=\"${v != null ? esc(String(v)) : ''}\" placeholder=\"${esc(ph)}\" aria-label=\"Rate\">`) + (window.ChargeTreatment1239?ChargeTreatment1239.control(k)+ChargeTreatment1239.details(k):'');", 'reuse each existing rate-row control')
     change("<h4>Toilet servicing and water — priced by us at our pump-out rates, the water at what we are charged</h4>", "<h4>${sv.at_cost.some(l=>l.chargeTreatment1239)?'Toilet servicing and water — confirmed customer-charge coverage':'Toilet servicing and water — priced by us at our pump-out rates, the water at what we are charged'}</h4>", 'servicing heading follows explicit coverage')
@@ -66,3 +72,9 @@ def patch(text, path):
     text=text[:end]+rep(tail,tail,'\n<script id="charge1239-script">\n'+src+'\n</script>'+tail,'native customer-charge treatment module',path)
     change("+' · v"+versions[0]+"';","+' · v12.39';",'release footer')
     return text
+
+
+if __name__ == '__main__':
+    target = Path(sys.argv[1])
+    target.write_text(patch(target.read_text(), str(target)))
+    print('v12.39 source-bound customer-charge treatments applied')

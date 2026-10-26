@@ -340,6 +340,44 @@ test('an unknown known-subtotal cannot become a negative fictional amount', () =
   assert.equal(API.asset(base, [true, false]).known, null);
 });
 
+
+const includedTarget = freeze({...clone(contractTarget), treatments: ['own_use_hire', 'included_elsewhere_hire']});
+const includedDecision = () => decision(includedTarget, {treatment: 'included_elsewhere_hire', reason: 'Synthetic hire covered by another customer charge.'});
+test('confirmed hire inclusion is a separate permitted contract decision', () => {
+  const result = API.resolve(includedDecision(), includedTarget, TODAY);
+  assert.equal(result.state, 'active');
+  const out = API.contract(contractBase, result);
+  assert.equal(out.treatment, 'included_elsewhere_hire'); assert.equal(out.amount, 0);
+  assert.strictEqual(out.ordinary1239, contractBase);
+  assert.match(out.how, /another customer charge/); assert.doesNotMatch(out.how, /own use/i);
+});
+test('hire inclusion retains every supplier, source, category and non-hire value', () => {
+  const out = API.contract(contractBase, API.resolve(includedDecision(), includedTarget, TODAY));
+  for (const key of ['supplierCost', 'source', 'ledger', 'branch', 'rate', 'quantity', 'days']) assert.deepEqual(out[key], contractBase[key]);
+  const projected = API.asset(assetBase, [true, false], ['included_elsewhere_hire', null]);
+  assert.equal(projected.lines[0].chargeTreatment1239, 'included_elsewhere_hire');
+  for (const key of ['labour', 'accessories', 'transport', 'transport_known']) assert.deepEqual(projected[key], assetBase[key]);
+  assert.equal(projected.lines[0].transport_cost, assetBase.lines[0].transport_cost);
+});
+test('hire inclusion does not apply to quoted water or a mismatched target kind', () => {
+  assert.equal(API.resolve({...includedDecision(), key: waterTarget.key, source: clone(waterTarget.source)}, waterTarget, TODAY).state, 'review');
+  assert.strictEqual(API.service(serviceBase, API.resolve(includedDecision(), includedTarget, TODAY)), serviceBase);
+});
+for (const [name, mutate] of [['quantity', s => {s.row.quantity++;}], ['hire identity', s => {s.row.line++;}], ['rate override', s => {s.override = 91;}]]) {
+  test('hire inclusion becomes review when ' + name + ' changes', () => {
+    const target = clone(includedTarget); mutate(target.source);
+    const result = API.resolve(includedDecision(), target, TODAY);
+    assert.equal(result.state, 'review'); assert.strictEqual(API.contract(contractBase, result), contractBase);
+  });
+}
+test('clearing covered hire retains its distinct history and restores ordinary pricing', () => {
+  const old = includedDecision(); delete old.history;
+  const cleared = {...includedDecision(), treatment: 'standard', revision: 2, history: [old]};
+  const result = API.resolve(cleared, includedTarget, TODAY);
+  assert.equal(result.state, 'cleared'); assert.strictEqual(API.contract(contractBase, result), contractBase);
+  assert.equal(result.record.history[0].treatment, 'included_elsewhere_hire');
+});
+
 const failures = checks.filter(check => !check.pass);
 for (const failure of failures) console.error('FAIL ' + failure.name + '\n  ' + failure.error);
 console.log(JSON.stringify({author: 'Andrew Fisher', suite: 'charge1239 synthetic pure',

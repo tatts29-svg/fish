@@ -2,7 +2,8 @@
 (function(root){
 'use strict';
 const PREFIX='charge-treatment1239|';
-const TYPES={own_use_hire:'Coates own use — no customer hire charge',included_in_pumpouts:'Included in pump-out charges — no separate customer charge'};
+const HIRE_TYPES=['own_use_hire','included_elsewhere_hire'];
+const TYPES={own_use_hire:'Coates own use — no customer hire charge',included_elsewhere_hire:'Included in another customer charge — no separate hire charge',included_in_pumpouts:'Included in pump-out charges — no separate customer charge'};
 const plain=v=>!!v&&typeof v==='object'&&!Array.isArray(v);
 const text=v=>typeof v==='string'&&v.trim().length>0;
 const date=v=>typeof v==='string'&&/^\d{4}-\d{2}-\d{2}$/.test(v)&&Number.isFinite(Date.parse(v+'T00:00:00Z'))&&new Date(v+'T00:00:00Z').toISOString().slice(0,10)===v;
@@ -32,7 +33,7 @@ function validate(record,target,today){
  if(typeof record.treatment!=='string'||!Object.prototype.hasOwnProperty.call(TYPES,record.treatment))errors.push('Unknown customer-charge treatment.');
  if(!target||!target.eligible||target.key!==record.key)errors.push('The exact source line is unavailable or unsupported.');
  else {
-  if(record.treatment!==target.treatment)errors.push('This treatment does not match the source line.');
+  if(!(target.treatments||[target.treatment]).includes(record.treatment))errors.push('This treatment does not match the source line.');
   if(canonical(record.source)!==canonical(target.source))errors.push('Source evidence or its customer-rate override changed; review the decision.');
  }
  return errors;
@@ -43,24 +44,24 @@ function resolve(record,target,today){
  return {state:errors.length?'review':record.treatment==='standard'?'cleared':'active',record,errors,label:typeof record.treatment==='string'&&Object.prototype.hasOwnProperty.call(TYPES,record.treatment)?TYPES[record.treatment]:'Customer-charge decision'};
 }
 function contract(base,result){
- if(result?.state!=='active'||result.record?.treatment!=='own_use_hire')return base;
+ if(result?.state!=='active'||!HIRE_TYPES.includes(result.record?.treatment))return base;
  const d=result.record;
  const out={...base,amount:0,how:result.label,basis:result.label+'. '+d.reason+' Source: '+d.evidence+'. Confirmed by '+d.confirmed_by+', '+d.confirmed_on+'.',
-  treatment:'own_use_hire',approved_by:d.confirmed_by,approved_on:d.confirmed_on,chargeTreatment1239:d,ordinary1239:base};
+  treatment:d.treatment,approved_by:d.confirmed_by,approved_on:d.confirmed_on,chargeTreatment1239:d,ordinary1239:base};
  for(const k of ['actual','remaining','forecast'])if(Object.prototype.hasOwnProperty.call(base,k))out[k]=0;
  return out;
 }
 function service(base,result){
  return result?.state==='active'&&result.record?.treatment==='included_in_pumpouts'?{...base,amount:0,chargeTreatment1239:result.record,treatmentLabel1239:result.label,ordinaryAmount1239:base.amount}:base;
 }
-function asset(model,covered){
+function asset(model,covered,treatments){
  if(!model||!Array.isArray(model.lines)||!Array.isArray(covered)||!covered.some(v=>v===true))return model;
- const lines=model.lines.map((l,i)=>covered[i]===true?{...l,total:0,provisional:null,ordinaryTotal1239:l.total,chargeTreatment1239:'own_use_hire'}:l);
+ const lines=model.lines.map((l,i)=>covered[i]===true?{...l,total:0,provisional:null,ordinaryTotal1239:l.total,chargeTreatment1239:treatments?.[i]||'own_use_hire'}:l);
  const base=lines.length&&lines.every(l=>l.total!=null)?lines.reduce((s,l)=>s+l.total,0):null;
  const removed=model.lines.reduce((s,l,i)=>s+(covered[i]===true&&finite(l.total)?l.total:0),0);
  return {...model,lines,base,known:finite(model.known)?model.known-removed:model.known,total:base!=null&&model.accessories!=null&&model.labour!=null?base+model.accessories+model.labour:null};
 }
-const API={PREFIX,TYPES,canonical,validate,resolve,contract,service,asset};
+const API={PREFIX,TYPES,HIRE_TYPES,canonical,validate,resolve,contract,service,asset};
 root.ChargeTreatment1239=API;
 if(typeof module!=='undefined'&&module.exports)module.exports=API;
 if(typeof document==='undefined')return;
@@ -76,7 +77,7 @@ function current(key){
   const basic=!row.charge_line&&!row.subhired&&row.kind!=='generator'&&row.family!=='generator'&&finite(row.quantity)&&row.quantity>0;
   // Separate allocation models must be reconciled in their own native flow.
   const allocated=typeof contractAllocation1010==='function'&&contractAllocation1010(row),existing=typeof contractTreatment747==='function'&&contractTreatment747(row);
-  return {key,eligible:basic&&!allocated&&!existing,treatment:'own_use_hire',source,row,label:'Contract '+row.rental_contract+' · line '+row.line+' · '+(row.description||row.what||'')};
+  return {key,eligible:basic&&!allocated&&!existing,treatment:'own_use_hire',treatments:HIRE_TYPES.slice(),source,row,label:'Contract '+row.rental_contract+' · line '+row.line+' · '+(row.description||row.what||'')};
  }
  if(key.startsWith('service|')){
   const rows=((DATA.toilet_servicing||{}).not_on_the_card||[]).filter(l=>'service|'+l.description===key);
@@ -122,20 +123,21 @@ root.contractCharge=contractCharge;
 const oldAssetTotal=assetTotal;
 assetTotal=function(a){
  const original=oldAssetTotal.apply(this,arguments);
- if(!a||!original?.lines?.length||!Object.entries(S.answers||{}).some(([k,d])=>k.startsWith(PREFIX)&&d?.treatment==='own_use_hire'))return original;
- const covered=original.lines.map(l=>{
+ if(!a||!original?.lines?.length||!Object.entries(S.answers||{}).some(([k,d])=>k.startsWith(PREFIX)&&HIRE_TYPES.includes(d?.treatment)))return original;
+ const treatments=original.lines.map(l=>{
   const rows=ItemIdentity979.select(a.key,l.item,ONHIRE_ROWS,gcModel925(a).rows);
-  return rows.length>0&&rows.every(r=>contractCharge(r).treatment==='own_use_hire');
+  const types=rows.map(r=>contractCharge(r).treatment);
+  return types.length>0&&types.every(t=>HIRE_TYPES.includes(t))?(types.every(t=>t===types[0])?types[0]:'confirmed_hire_coverage'):null;
  });
- return asset(original,covered);
+ return asset(original,treatments.map(Boolean),treatments);
 };
 root.assetTotal=assetTotal;
 const oldProjection=ItemCharges979.project;
-ItemCharges979.project=function(){const m=oldProjection.apply(this,arguments);return {...m,lines:m.lines.map(l=>status('c|'+l.contract+'|'+l.line).state==='active'?{...l,ownUse:true}:l)};};
+ItemCharges979.project=function(){const m=oldProjection.apply(this,arguments);return {...m,lines:m.lines.map(l=>{const d=status('c|'+l.contract+'|'+l.line);return d.state!=='active'?l:d.record.treatment==='own_use_hire'?{...l,ownUse:true}:{...l,included:true,chargeTreatment1239:d.record.treatment};})};};
 const oldForecast=pricingForecast1010;
 pricingForecast1010=function(){
  const m=oldForecast.apply(this,arguments);if(!m?.rows?.some(r=>status('c|'+r.contract+'|'+r.line).state==='active'))return m;
- const rows=m.rows.map(r=>status('c|'+r.contract+'|'+r.line).state==='active'?{...r,amount:0,chargeTreatment1239:'own_use_hire'}:r);
+ const rows=m.rows.map(r=>status('c|'+r.contract+'|'+r.line).state==='active'?{...r,amount:0,chargeTreatment1239:status('c|'+r.contract+'|'+r.line).record.treatment}:r);
  const total=rs=>Math.round(rs.reduce((s,r)=>s+(r.amount||0),0)*100)/100;
  const out={...m,rows,total:total(rows)};
  if('rehireTotal'in m)out.rehireTotal=total(rows.filter(r=>r.ledger==='1010'));
@@ -163,7 +165,7 @@ function dialog(key){
  const d=document.createElement('div');d.className='drawer on';d.style.zIndex=30;d.setAttribute('role','dialog');d.setAttribute('aria-modal','true');d.setAttribute('aria-label','Customer-charge treatment');
  d.innerHTML='<div class="dh"><div><h2>Customer-charge treatment</h2><p>'+esc(t?.label||key)+'</p></div><button class="close" data-close1239 aria-label="Close">&times;</button></div><div class="db"><div class="form">'+
   '<p class="hint">This records an explicit customer-charge decision for this source line. Supplier Direct costs, source rates and site records remain separate.</p>'+
-  '<div class="f"><label>Treatment<select data-field1239="treatment"><option value="standard">Use standard charge</option>'+(t?.eligible?'<option value="'+t.treatment+'">'+esc(TYPES[t.treatment])+'</option>':'')+'</select></label></div>'+
+  '<div class="f"><label>Treatment<select data-field1239="treatment"><option value="standard">Use standard charge</option>'+(t?.eligible?(t.treatments||[t.treatment]).map(type=>'<option value="'+type+'">'+esc(TYPES[type])+'</option>').join(''):'')+'</select></label></div>'+
   [['reason','Reason'],['evidence','Source document / message and exact scope'],['confirmed_by','Confirmed by'],['confirmed_on','Confirmation date']].map(([k,l])=>'<div class="f"><label>'+l+'<input data-field1239="'+k+'" '+(k==='confirmed_on'?'type="date"':'maxlength="1000"')+' value="'+esc(draft[k]||'')+'"></label></div>').join('')+
   details(key)+'</div></div><div class="df"><button class="btn primary" data-save1239>Save treatment</button><button class="btn" data-close1239>Cancel</button></div>';
  document.body.appendChild(d);mounted(d);d.querySelector('[data-field1239="treatment"]').value=draft.treatment||'standard';
