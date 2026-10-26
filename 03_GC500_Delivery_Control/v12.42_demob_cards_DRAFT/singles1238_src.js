@@ -603,10 +603,10 @@ function pickOf(map, c, stamp) {
 }
 function stateOf(c, ctx) {
  if (c.gone) return {s: 'gone', at: c.gone.at || null, day: c.gone.day || null, by: c.gone.by || ''};
- const rv = c.G && c.G.review ? c.key + '’s departure record needs review (quantities changed after a pick-up); check it on Picked up' : '', also = w => [w, rv].filter(Boolean).join(' · ');
+ const rv = c.G && c.G.review ? c.key + '’s departure record needs review (quantities changed after a pick-up); check it on Picked up' : ''; /* shown after who and when, whatever the light */
  if (c.group && !c.r.noPlan1236) { let st = null; try { st = Ready1231.state(c.r); } catch (x) { st = null; }
-  if (st && st.m && st.m.on) return {s: 'ready', at: st.m.at || null, by: st.m.by || '', why: '', src: 'ref', part: c.part}; /* only a Ready tick makes it Ready */
-  const m = st && st.m && !st.m.on ? st.m : null; return {s: 'not', at: m ? m.at : null, by: m ? m.by : '', why: also(m ? m.why || '' : st && st.e && st.e.on ? 'emptied · not ticked Ready yet' : st && st.pump ? 'pump it out first, then tick it' : 'not ticked yet'), part: c.part}; }
+  if (st && st.m && st.m.on) return {s: 'ready', at: st.m.at || null, by: st.m.by || '', why: '', src: 'ref', part: c.part, rv}; /* only a Ready tick makes it Ready */
+  const m = st && st.m && !st.m.on ? st.m : null; return {s: 'not', at: m ? m.at : null, by: m ? m.by : '', why: m ? m.why || '' : st && st.e && st.e.on ? 'emptied · not ticked Ready yet' : st && st.pump ? 'pump it out first, then tick it' : 'not ticked yet', rv, part: c.part}; }
  const valid = x => x && ok(x.at) && (!ctx.on || Date.parse(x.at) >= Date.parse(ctx.on)), t = pickOf(ctx.ticks, c, 'at'), list = [];
  if (valid(t)) list.push({on: !!t.on, at: t.at, by: String(t.by || ''), why: String(t.why || ''), src: 'unit'});
  if (ctx.mark && ok(ctx.mark.at) && ctx.oneOwner) list.push({on: !!ctx.mark.on, at: ctx.mark.at, by: String(ctx.mark.by || ''), why: String(ctx.mark.why || ''), src: 'ref'});
@@ -615,9 +615,9 @@ function stateOf(c, ctx) {
     tick, or its reference's when one owner holds every unit there; at WC31 a tick for the reference is not a tick for the
     Coates block or Event Portables' 16 Pans beside it) */
  const pumped = c.r.empty && ctx.emp && ctx.emp.on;
- if (!list.length) return {s: 'not', why: also(c.r.empty ? (pumped ? 'not ticked yet · ' + c.key + ' is emptied; tick it Ready when it can go' : 'not ticked yet · pump it out, then tick it') : 'not ticked yet'), part: c.part};
+ if (!list.length) return {s: 'not', why: c.r.empty ? (pumped ? 'not ticked yet · ' + c.key + ' is emptied; tick it Ready when it can go' : 'not ticked yet · pump it out, then tick it') : 'not ticked yet', part: c.part, rv};
  list.sort((x, y) => String(y.at).localeCompare(String(x.at)) || (Number(x.on) - Number(y.on)));
- const p = list[0]; return {s: p.on ? 'ready' : 'not', at: p.at, by: p.by, why: also(p.why), src: p.src, part: c.part};
+ const p = list[0]; return {s: p.on ? 'ready' : 'not', at: p.at, by: p.by, why: p.why, src: p.src, part: c.part, rv};
 }
 
 /* ---- a VMS board on the VMS plan that no delivery reference holds as a unit (Andrew: "ensure we add all VMS boards") ---- */
@@ -753,8 +753,9 @@ function statusWords(c) {
  const part = (c.group && c.part ? ' · ' + c.part.collected + ' picked up, ' + c.part.remaining + ' to go' : '')
   + (c.half === 'block' ? ' · the toilet block has left; waste tank ' + (c.tankNo || '') + ' is still here' : c.half === 'tank' ? ' · waste tank ' + (c.tankNo || '') + ' has left; the toilet block is still here' : '')
   + (c.unk ? ' · ' + c.unk + ' ' + (c.item || 'unit') + (c.unk === 1 ? ' has' : 's have') + ' left without an asset number: which one is still to confirm' : '');
- if (st.s === 'ready') return ['Ready for collection', (st.src === 'emptied' ? 'emptied · ' : '') + [st.by, st.at ? when(st.at) : ''].filter(Boolean).join(' · ') + part];
- return ['Not ready', (st.at ? [st.why, st.by, when(st.at)].filter(Boolean).join(' · ') : st.why || 'not ticked yet') + part];
+ const rv = st.rv ? ' · ' + st.rv : '';
+ if (st.s === 'ready') return ['Ready for collection', (st.src === 'emptied' ? 'emptied · ' : '') + [st.by, st.at ? when(st.at) : ''].filter(Boolean).join(' · ') + part + rv];
+ return ['Not ready', (st.at ? [st.why, st.by, when(st.at)].filter(Boolean).join(' · ') : st.why || 'not ticked yet') + part + rv];
 }
 function bookHtml(c) {
  if (c.st.s === 'gone') return '';
