@@ -77,3 +77,10 @@ Two new fields on a reference's delivery record, each unit on its own clock, onl
 | `tests/test_v1238.cjs` | Part A: the live record on the view link. Part B: a unit's Ready tick and its booking rehearsed with the sync held in the page, and the merge proven on copies. |
 
 The earlier drafts of this release (`pickup1238_src.js`, `cardpics1238_src.js`: per-reference booking and three pictures) are superseded and removed.
+
+## Checks
+
+- Built on verified live v12.37 `d0c7d444…` with `toolchain/build.sh v12.38 v12.38_pickup_booking_DRAFT/patch_v1238.py`: candidate `0281a6f31b16b5a57282c98667f3cbdfd4c1eeea662cc0cace89cb722a9ffd79`, 212 inline scripts, page check PASS.
+- `tests/test_v1238.cjs`: **35/35 desktop, 35/35 phone** (`evidence/test_v1238_desktop.txt`, `evidence/test_v1238_phone.txt`). It reads the live record on the view link, and rehearses the Ready tick and the booking with the sync held in the page: only WC09's and GN18's delivery documents were written, captured in the page, nothing reached the network.
+- Shared sweeps: desktop and phone each cover 27 tabs and back navigation, with 0 page errors, 0 console errors and 0 blocked record writes.
+- Screenshots in `evidence/`; staff names on the day cards are blurred, and redacted in the logs.
