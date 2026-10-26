@@ -238,9 +238,9 @@ const {open} = require('../../toolchain/harness/open_page');
       await new Promise(r => setTimeout(r, 4300)); let out = null;
       try { const m = Singles1238.model(), w = m.byKey.get('WC09') || [], g = m.byKey.get(K) || [];
         out = {K, co: w.filter(c => c.owner === 'coates').map(c => c.st.s), epRef: w.filter(c => c.st.src === 'ref').length, gn: g.map(c => c.st.s + ':' + (c.st.src || '')), why: g.length ? g[0].st.rv || '' : ''};
-        try { renderDemob816(); } catch (e) {} await new Promise(r => setTimeout(r, 900)); const art = document.querySelector('#pane-demob article.sg1238[data-sg1238="' + K + '"]'); out.dom = art ? /departure record needs review/.test(art.innerText) : null; }
+        try { RENDER_MEMO.delete('demob816'); renderDemob816(); } catch (e) {} await new Promise(r => setTimeout(r, 900)); const art = document.querySelector('#pane-demob article.sg1238[data-sg1238="' + K + '"]'); out.dom = art ? /departure record needs review/.test(art.innerText) : null; }
       finally { window.Ready1231 = R0; window.Departure1211 = D0; }
-      await new Promise(r => setTimeout(r, 4300)); const back = (Singles1238.model().byKey.get(K) || [{st: {}}])[0].st.rv || ''; try { renderDemob816(); } catch (e) {} await new Promise(r => setTimeout(r, 900)); return Object.assign(out || {}, {back});
+      await new Promise(r => setTimeout(r, 4300)); const back = (Singles1238.model().byKey.get(K) || [{st: {}}])[0].st.rv || ''; try { RENDER_MEMO.delete('demob816'); renderDemob816(); } catch (e) {} await new Promise(r => setTimeout(r, 900)); return Object.assign(out || {}, {back});
     });
     check('v12.42: a Ready tick on a reference with two owners (WC09: Coates blocks and Event Portables units) turns none of its units Ready; on a one-owner reference it still does', RM.co.length === 2 && RM.co.every(s => s === 'not') && RM.epRef === 0 && RM.gn.length > 0 && RM.gn.every(x => x === 'ready:ref'), RM);
     check('v12.42: when the page leaves a reference\'s pick-ups out for review (quantities changed after one), its cards say so and point to Picked up, a card ticked Ready too', /departure record needs review/.test(RM.why) && /Picked up/.test(RM.why) && RM.gn.every(x => x === 'ready:ref') && RM.dom !== false && !/needs review/.test(RM.back), RM);
