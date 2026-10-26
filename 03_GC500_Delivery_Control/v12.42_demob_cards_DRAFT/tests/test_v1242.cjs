@@ -238,7 +238,7 @@ const {open} = require('../../toolchain/harness/open_page');
       await new Promise(r => setTimeout(r, 4300)); let out = null;
       try { const m = Singles1238.model(), w = m.byKey.get('WC09') || [], g = m.byKey.get(K) || [];
         out = {K, co: w.filter(c => c.owner === 'coates').map(c => c.st.s), epRef: w.filter(c => c.st.src === 'ref').length, gn: g.map(c => c.st.s + ':' + (c.st.src || '')), why: g.length ? g[0].st.rv || '' : ''};
-        try { RENDER_MEMO.delete('demob816'); renderDemob816(); } catch (e) {} await new Promise(r => setTimeout(r, 900)); const art = document.querySelector('#pane-demob article.sg1238[data-sg1238="' + K + '"]'); out.dom = art ? /departure record needs review/.test(art.innerText) : null; }
+        try { RENDER_MEMO.delete('demob816'); renderDemob816(); } catch (e) {} await new Promise(r => setTimeout(r, 900)); const art = document.querySelector('#pane-demob article.sg1238[data-sg1238="' + K + '"] .sw1238 small'); out.dom = art ? /departure record needs review/.test(art.textContent) : null; } /* textContent: off-screen cards are not drawn (content-visibility), so their innerText is not read */
       finally { window.Ready1231 = R0; window.Departure1211 = D0; }
       await new Promise(r => setTimeout(r, 4300)); const back = (Singles1238.model().byKey.get(K) || [{st: {}}])[0].st.rv || ''; try { RENDER_MEMO.delete('demob816'); renderDemob816(); } catch (e) {} await new Promise(r => setTimeout(r, 900)); return Object.assign(out || {}, {back});
     });
