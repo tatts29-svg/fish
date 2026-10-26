@@ -57,6 +57,22 @@ function photoLinkPut(id,next,who) {
 const nativeCosts = `function allCosts(docketPricer1018){
  return syntheticCostsRead.apply(this, arguments);
 }`;
+const nativePeople = `function personBranch868(name){ const n = String(name || '').trim().toLowerCase(); const P = ourCosts().find(c => c.kind === 'person' && String(c.person || '').trim().toLowerCase() === n); return P ? (normBranch(P.branch || '') || null) : null; }
+function fh868People(labW){
+ const today = todayIso(), r2 = n => Math.round((n + Number.EPSILON) * 100) / 100, by = new Map();
+ const get = n => { if (!by.has(n)) by.set(n, {person: n, home: personBranch868(n), paid: 0, unpriced: 0, toDate: 0, toCome: 0}); return by.get(n); };
+ try { fin745Rows(today).forEach(r => { if (typeof RaceCrew1227 !== 'undefined' && RaceCrew1227.isCrew(r)) return; /* v12.27 - a fencing cost, not wages */ const g = get(r.person), cost = r.status === 'confirmed' && r.actualCost != null ? r.actualCost : r.calculatedCost, past = r.date && r.date <= today && r.status !== 'forecast';
+ g.paid += Number(r.paid) || 0; if (cost == null) g.unpriced += Number(r.paid) || 0; else if (past) g.toDate += cost; else g.toCome += cost; }); } catch (e) {}
+ const allow = typeof labourAllowance858 === 'function' ? labourAllowance858() : 0;
+ if (allow) { const who = [...by.keys()].find(n => typeof rosterAllowance859 === 'function' && rosterAllowance859(n)); const g = who ? by.get(who) : get('Salary allowance'); g.allowance = allow; g.toCome += allow; }
+ const rows = [...by.values()].map(g => Object.assign(g, {paid: r2(g.paid), unpriced: r2(g.unpriced), toDate: r2(g.toDate), toCome: r2(g.toCome), job: r2(g.toDate + g.toCome)})).filter(g => g.paid || g.job).sort((a, b) => b.job - a.job || a.person.localeCompare(b.person));
+ const homes = [...new Set(rows.map(g => g.home || '—'))].sort((a, b) => a === '—' ? 1 : b === '—' ? -1 : a.localeCompare(b));
+ const byHome = {}; rows.forEach(g => { const k = g.home || '—'; byHome[k] = r2((byHome[k] || 0) + g.job); });
+ const move = {}; rows.forEach(g => { const k = g.home || '—';const sp = fh866Split(g.job, {KINP: 1}); move[k] = move[k] || {}; Object.entries(sp).forEach(([b, v]) => { move[k][b] = r2((move[k][b] || 0) + v); }); });
+ const revCols = [...new Set(Object.values(move).flatMap(o => Object.keys(o)))].sort((a, b) => a === '—' ? 1 : b === '—' ? -1 : a.localeCompare(b));
+ const total = r2(rows.reduce((s, g) => s + g.job, 0)), set = rows.filter(g => g.home).length;
+ return {rows, homes, byHome, move, revCols, total, set, toDate: r2(rows.reduce((s, g) => s + g.toDate, 0)), toCome: r2(rows.reduce((s, g) => s + g.toCome, 0))};
+}`;
 const gate = '<script>/* Author: Andrew Fisher. The data gate exists before any record is drawn. */';
 const footer = "+' · v12.37'; /* v8.19 release922";
 const fixture = `<script id="eventcrew1237-script"></script><script id="demobmap1236-script"></script>
@@ -67,6 +83,7 @@ ${gate}</script>
 <script id="synthetic-layout">${nativeLayout}</script>
 <script id="synthetic-photos">${nativePhotos}</script>
 <script id="synthetic-costs">${nativeCosts}</script>
+<script id="synthetic-people">${nativePeople}</script>
 <script>const syntheticFooter = 'Synthetic fixture'${footer} */</script>
 </body>
 </html>`;
@@ -86,6 +103,8 @@ const cases = [
   ['duplicate native photo projection', fixture + nativePhoto],
   ['missing native cost reader', fixture.replace('function allCosts(docketPricer1018){', 'function syntheticChangedCosts(docketPricer1018){')],
   ['duplicate native cost reader', fixture + nativeCosts],
+  ['changed home-branch lookup span', fixture.replace('home: personBranch868(n)', 'home: syntheticChangedBranch(n)')],
+  ['duplicate home-branch lookup span', fixture + nativePeople],
   ['missing terminal runtime anchor', fixture.replace('</body>\n</html>', '</body></html>')]
 ];
 const python = `import json,sys
@@ -336,6 +355,7 @@ if (!patchResult) {
   };
   let runtimeScript = script('synthetic-runtime');
   let costsScript = script('synthetic-costs');
+  let peopleScript = script('synthetic-people');
   const candidatePath = process.env.PAGE || path.join(root, '..', 'build', 'GC500_v12.41', 'GC500_Delivery_Control_hosted.html');
   const candidateSource = (process.env.PAGE || fs.existsSync(candidatePath)) ? fs.readFileSync(candidatePath, 'utf8') : null;
   let candidateSha256 = null;
@@ -378,6 +398,117 @@ if (!patchResult) {
       return text.slice(start, end);
     };
     assert.equal(extract(candidateSource), extract(base));
+  });
+  if (candidateSource) test('built home-branch lookup matches and supplies the exercised implementation', () => {
+    const start = candidateSource.indexOf('function personBranch868(');
+    const end = candidateSource.indexOf('\nfunction fh866Branches(', start);
+    assert.ok(start >= 0 && end > start);
+    const actual = candidateSource.slice(start, end);
+    assert.equal(actual, peopleScript); peopleScript = actual;
+    const endOriginal = nativePeople.indexOf('\nfunction fh868People(');
+    assert.equal(actual.slice(0, actual.indexOf('\nfunction fh868People(')), nativePeople.slice(0, endOriginal));
+  });
+  function peopleContext(original = false) {
+    const effects = {costReads: 0, financeDates: [], normalisedBranches: []};
+    const ctx = {costs: [], financeRows: [], allowance: 0, allowanceOwner: null,
+      todayIso: () => '2030-04-10',
+      ourCosts: () => {effects.costReads++; return ctx.costs;},
+      fin745Rows: day => {effects.financeDates.push(day); return ctx.financeRows;},
+      normBranch: value => {effects.normalisedBranches.push(value); return String(value || '').trim().toUpperCase();},
+      RaceCrew1227: {isCrew: row => row.syntheticEventCrew === true},
+      labourAllowance858: () => ctx.allowance,
+      rosterAllowance859: name => name === ctx.allowanceOwner,
+      fh866Split: amount => amount ? {KINP: amount} : {}
+    };
+    vm.createContext(ctx); vm.runInContext(original ? nativePeople : peopleScript, ctx);
+    return {ctx, effects};
+  }
+  const peopleRow = (person, extra = {}) => ({person, date: '2030-04-09', status: 'review', paid: 2, calculatedCost: 7, ...extra});
+  const sourcePerson = (person, branch, extra = {}) => ({kind: 'person', person, branch, ...extra});
+  function expectedPeople(costs, rows, settings = {}) {
+    const {ctx} = peopleContext(true); Object.assign(ctx, settings, {costs: clone(costs), financeRows: clone(rows)});
+    return clone(ctx.fh868People({SYNTHETIC: 1}));
+  }
+  test('home branches remain lazy when there are no output people or only excluded event crew', () => {
+    const {ctx, effects} = peopleContext(); ctx.fh868People({});
+    ctx.financeRows = [peopleRow('Synthetic event crew', {syntheticEventCrew: true})];
+    assert.equal(ctx.fh868People({}).rows.length, 0); assert.equal(effects.costReads, 0);
+  });
+  test('home branches read the final people list once for all names in one handover', () => {
+    const {ctx, effects} = peopleContext();
+    ctx.costs = Array.from({length: 5}, (_, i) => sourcePerson('Synthetic person ' + i, 'B' + i));
+    ctx.financeRows = Array.from({length: 15}, (_, i) => peopleRow('Synthetic person ' + i % 5));
+    assert.equal(ctx.fh868People({}).rows.length, 5); assert.equal(effects.costReads, 1);
+    assert.deepEqual(effects.financeDates, ['2030-04-10']);
+  });
+  test('home branches retain first matching person despite preceding non-person rows and duplicate empty branches', () => {
+    const {ctx, effects} = peopleContext();
+    ctx.costs = [sourcePerson('Synthetic person', 'IGNORED', {kind: 'labour'}),
+      sourcePerson('  SYNTHETIC PERSON  ', ''), sourcePerson('Synthetic person', 'LATER'),
+      sourcePerson('Synthetic other', ' alpha ')];
+    ctx.financeRows = [peopleRow('Synthetic person'), peopleRow('Synthetic other')];
+    const out = ctx.fh868People({}); assert.equal(out.rows.find(r => r.person === 'Synthetic person').home, null);
+    assert.equal(out.rows.find(r => r.person === 'Synthetic other').home, 'ALPHA');
+    assert.deepEqual(clone(out), expectedPeople(ctx.costs, ctx.financeRows));
+    assert.deepEqual(effects.normalisedBranches, ['', ' alpha ']); assert.equal(effects.costReads, 1);
+  });
+  test('normalised source lookup preserves separate exact display-name groups', () => {
+    const {ctx} = peopleContext(); ctx.costs = [sourcePerson(' Synthetic Person ', ' b1 ')];
+    ctx.financeRows = ['Synthetic Person', 'synthetic person', ' Synthetic Person '].map(name => peopleRow(name));
+    const out = ctx.fh868People({}); assert.equal(out.rows.length, 3); assert.ok(out.rows.every(r => r.home === 'B1'));
+    assert.deepEqual(clone(out), expectedPeople(ctx.costs, ctx.financeRows));
+  });
+  test('missing source people and blank source names keep native null and first-match behaviour', () => {
+    const {ctx} = peopleContext(); ctx.costs = [sourcePerson(null, 'B0'), sourcePerson('', 'B1')];
+    ctx.financeRows = [peopleRow('Synthetic missing'), peopleRow('')];
+    const out = ctx.fh868People({}); assert.equal(out.rows.find(r => r.person === 'Synthetic missing').home, null);
+    assert.equal(out.rows.find(r => r.person === '').home, 'B0');
+    assert.deepEqual(clone(out), expectedPeople(ctx.costs, ctx.financeRows));
+  });
+  test('salary allowance for an existing person reuses its resolved home', () => {
+    const {ctx, effects} = peopleContext(); ctx.costs = [sourcePerson('Synthetic person', 'B1')];
+    ctx.financeRows = [peopleRow('Synthetic person')]; ctx.allowance = 4; ctx.allowanceOwner = 'Synthetic person';
+    const out = ctx.fh868People({}); assert.equal(out.rows[0].allowance, 4); assert.equal(out.rows[0].home, 'B1');
+    assert.equal(effects.costReads, 1);
+    assert.deepEqual(clone(out), expectedPeople(ctx.costs, ctx.financeRows, {allowance: 4, allowanceOwner: 'Synthetic person'}));
+  });
+  test('salary allowance fallback creates one lazy lookup and retains its native label and allocation', () => {
+    const {ctx, effects} = peopleContext(); ctx.costs = [sourcePerson(' salary ALLOWANCE ', 'B2')]; ctx.allowance = 4;
+    const out = ctx.fh868People({}); assert.equal(out.rows[0].person, 'Salary allowance'); assert.equal(out.rows[0].home, 'B2');
+    assert.equal(out.rows[0].toCome, 4); assert.equal(effects.costReads, 1);
+    assert.deepEqual(clone(out), expectedPeople(ctx.costs, [], {allowance: 4}));
+  });
+  test('handover lookup refreshes on every invocation after source mutation or replacement', () => {
+    const {ctx, effects} = peopleContext(); ctx.costs = [sourcePerson('Synthetic person', 'B1')];
+    ctx.financeRows = [peopleRow('Synthetic person')]; assert.equal(ctx.fh868People({}).rows[0].home, 'B1');
+    ctx.costs[0].branch = 'B2'; assert.equal(ctx.fh868People({}).rows[0].home, 'B2');
+    ctx.costs = [sourcePerson('SYNTHETIC PERSON', 'B3')]; assert.equal(ctx.fh868People({}).rows[0].home, 'B3');
+    assert.equal(effects.costReads, 3);
+  });
+  test('handover output preserves actual and forecast costs, rounding, unpriced hours, exclusions and source rows', () => {
+    const {ctx, effects} = peopleContext();
+    ctx.costs = [sourcePerson('Synthetic A', ' b1 '), sourcePerson('Synthetic B', 'B2')];
+    ctx.financeRows = [peopleRow('Synthetic A', {paid: 2.125, calculatedCost: 7.123}),
+      peopleRow('Synthetic A', {status: 'confirmed', actualCost: 11.456}),
+      peopleRow('Synthetic B', {status: 'forecast', calculatedCost: 5.789}),
+      peopleRow('Synthetic B', {date: '2030-04-12', calculatedCost: 2}),
+      peopleRow('Synthetic unknown', {calculatedCost: null, paid: 1.234}),
+      peopleRow('Synthetic event crew', {syntheticEventCrew: true, calculatedCost: 99})];
+    const before = clone({costs: ctx.costs, rows: ctx.financeRows}), expected = expectedPeople(ctx.costs, ctx.financeRows);
+    assert.deepEqual(clone(ctx.fh868People({OTHER: 8})), expected); assert.equal(effects.costReads, 1);
+    assert.deepEqual(clone({costs: ctx.costs, rows: ctx.financeRows}), before);
+  });
+  test('handover keeps the original Finance-read catch boundary and allowance fallback', () => {
+    const {ctx, effects} = peopleContext(); ctx.fin745Rows = () => {throw new Error('synthetic Finance failure');};
+    ctx.allowance = 3; const out = ctx.fh868People({});
+    assert.equal(out.rows.length, 1); assert.equal(out.rows[0].person, 'Salary allowance'); assert.equal(out.total, 3);
+    assert.equal(effects.costReads, 1);
+  });
+  test('failed initial people read does not cache failure before salary-allowance fallback retries', () => {
+    const {ctx, effects} = peopleContext(); ctx.financeRows = [peopleRow('Synthetic A')]; ctx.allowance = 3;
+    ctx.ourCosts = () => {effects.costReads++; if (effects.costReads === 1) throw new Error('synthetic source failure'); return [];};
+    const out = ctx.fh868People({}); assert.equal(effects.costReads, 2); assert.equal(out.rows.length, 1);
+    assert.equal(out.rows[0].person, 'Salary allowance'); assert.equal(out.rows[0].home, null);
   });
   test('runtime render wrapper preserves receiver, arguments, result and enumerable metadata', () => {
     const {ctx, api} = photoContext(), receiver = {synthetic: true}, value = {result: 'synthetic'}, calls = [], order = [];

@@ -60,6 +60,15 @@ const fs=require('fs');
     check(!same(nextRow,baseRow),'next Finance invocation sees the local source change');
     check(same(scopeFigures(),originalFinancial.scope),'supplier-side fixture changes never alter agreed customer scope');
     reset();SYNC.readonly=false;SYNC.level='edit';S.operator='Synthetic performance reviewer';if(who)who.value=S.operator;
+    const homesBefore=clone(fh868People()),peopleBefore=ourCosts();
+    const worker=homesBefore.rows.find(r=>peopleBefore.some(p=>p.kind==='person'&&p.person===r.person&&ourRawOf('W-P-'+ourSlug(r.person))));
+    need(worker,'a native employee home-branch record exists');
+    const newHome=BRANCHES.branches.map(b=>b.code).find(code=>normBranch(code)!==worker.home);
+    need(newHome&&setOurPerson(worker.person,{branch:newHome}),'native employee branch setter accepts disposable fixture');
+    const homesAfter=fh868People(),changedHome=homesAfter.rows.find(r=>r.person===worker.person);
+    check(changedHome&&changedHome.home===normBranch(newHome),'next people-summary invocation immediately sees the changed home branch');
+    check(homesAfter.total===homesBefore.total&&homesAfter.toDate===homesBefore.toDate&&homesAfter.toCome===homesBefore.toCome,'home-branch lookup reuse never changes employee costs');
+    reset();SYNC.readonly=false;SYNC.level='edit';S.operator='Synthetic performance reviewer';if(who)who.value=S.operator;
     holdAssets(()=>{
      const first=clone(allCosts()),returned=allCosts();returned.pop();if(returned[0]){returned[0].description='MUTATED-COST-ROW';if(Array.isArray(returned[0].problems))returned[0].problems.push('MUTATED-PROBLEM');}
      check(same(allCosts(),first),'reused cost output isolates array, row and problems mutations');

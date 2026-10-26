@@ -11,6 +11,8 @@ This draft addresses measured sources of repeated work. It does not change the r
 - Ordinary zero-argument cost-ledger reads reuse one snapshot inside the native hold, returning a fresh array, row objects and problems arrays each time. Nested source references retain their original identity. Explicit pricer arguments, including an explicit `undefined`, use the original uncached path.
 - The event-workforce Finance wrapper builds one local person lookup, lazily, instead of rebuilding the full cost list for each crew row. The lookup retains the first matching raw ID, matching `ourCostOf`'s strict comparison with `String(id)`. Each invocation creates a fresh lookup; ordinary rows do not create one.
 
+- The Finance people rollup also uses one lazy, invocation-local first-person index with the native case/whitespace normalization. Duplicate names retain the first source row; the global branch reader and source rows stay unchanged.
+
 The helpers live in `performance1241_src.js`; `performance1241_runtime.js` installs the final synchronous rendering boundary. `patch_v1241.py` applies exact, single-match replacements through the shared toolchain. It refuses a repeated application or an uncoordinated predecessor. The source contains no private record inputs or financial figures.
 
 ## Integration with the Demob draft
@@ -22,8 +24,8 @@ When the later Demob release rebuilds, retain both actual-pane startup guards an
 DRAFT only; final performance, financial preservation, native interaction and navigation checks are pending. No speed improvement or release readiness is claimed.
 
 - Base: live v12.37, SHA-256 `d0c7d444d9b9c1aef434478a283bb4fc5b0cbafeb70a329cc1a561f982bb986a`.
-- Candidate: `build/GC500_v12.41/GC500_Delivery_Control_hosted.html`, SHA-256 `98dfd52b99849b454a32c5d64f5d2a7540525a0caa3ff972cedfc33de1d91fcc`, 15,619,732 bytes. Earlier candidates `602fe2de…` and `38595574…` are superseded.
-- Shared build/checker: PASS, 212 inline scripts.
+- Candidate: `build/GC500_v12.41/GC500_Delivery_Control_hosted.html`, SHA-256 `e106502b347cb51519f6aaed1eec5b6ba20a301b06490df04e3d29569d55b422`, 15,620,153 bytes. Earlier candidates `602fe2de…`, `38595574…` and `98dfd52b…` are superseded.
+- Shared build/checker: PASS, 212 inline scripts; offline behavior checks 108/108. Final native, financial and navigation gates remain in progress.
 - Earlier candidate checks passed, including native photo/source preservation. Affected tests and timing comparisons must be repeated on the current candidate before release. The final timing comparison also runs without CPU profiling instrumentation.
 - The phone comparison uses the same frozen private record for baseline and candidate. Detailed records and timing artifacts remain private.
 

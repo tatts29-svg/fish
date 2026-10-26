@@ -18,7 +18,7 @@ const read=()=>holdAssets(()=>{
   mapChoices:allAssets().slice(0,12).map(a=>[a.key,Find1176.locate({kind:'asset',key:a.key})]),
   supplierPricing:(()=>{const p=supplierPricing1014();return {orders:p.orders,records:[...p.records],extras:p.extras,issues:p.issues};})(),
   finance:nums(F),financeRows:F.rows.map(x=>[x.id,x.status,x.paid,x.worked,x.calculatedCost,x.actualCost,x.allocation]),
-  accrual:nums(A.all),crew:nums(RaceCrew1227.model()),
+  accrual:nums(A.all),crew:nums(RaceCrew1227.model()),peopleHomes:fh868People(),
   reconciliation:{ok:R.ok,bad:R.bad,count:R.count,failing:R.ties.filter(t=>!t.ok).map(t=>t.what)}
  });
 });
