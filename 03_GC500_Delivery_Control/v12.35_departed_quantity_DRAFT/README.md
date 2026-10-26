@@ -46,3 +46,10 @@ EQ0002 now reads:
 - on the plan it keeps the quantity its departure recorded and reads picked up, "Departed 26 Oct 12:47";
 - no reference on site, and no generator, takes a departure quantity;
 - its line wears the green light and the stamp at 12:47, not "Nothing to collect".
+
+## Checks
+
+- Candidate `10a21fc0…`, 15,528,033 bytes, on live v12.34 `3625dd96…`; check_page PASS.
+- Desktop 57/57 and phone 57/57 (`evidence/test_v1235_desktop.txt`, `evidence/test_v1235_phone.txt`): v12.34's 53 checks and the four above. Every rehearsal was captured in the page; nothing reached the network.
+- Both sweeps: 27 tabs, 19 panes shown, 7 deep links; 0 errors, 0 console messages and 0 writes (`evidence/sweeps.json`).
+- GN13 (1276503) was recorded as left site at 13:02 between the tests and the sweeps, through the page's own form on live v12.34. It is a generator, counted from its own line, so this fix does not touch it; the tests follow the record and pass with it.
