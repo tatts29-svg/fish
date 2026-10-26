@@ -148,7 +148,14 @@ Andrew, 26 Oct 2026, with Event Portables' trucks collecting:
 - **Read back fresh:** 180 units Ready on the Demob tab; WC31's 16 Pans and the other Coates units Not ready.
 - **Not in this run:** what a laptop wrote between 21:56 and 22:13 on 26 Oct to T0001, T0002, T0128, T0158, P25, P45, P60, P62, P63, P65, P66, P67, P69, WC51 and WC60. No copy is held here; on Andrew's word it is to be read from the service's 03:00 snapshot (server v5.94, read-only) and put back on his word.
 
-## Eleventh run (planned): VMS-01, VMS-02, VMS-03, and the VMS plan's arrival for VMS22 and VMS24 — NOT RUN
+## Eleventh run: VMS-01, VMS-02, VMS-03, and the VMS plan's arrival for VMS22 and VMS24 — APPLIED, VERIFIED
+
+- **Applied:** 27 Oct 2026 05:18 AEST on the live v12.42.1 page (`85826c9b…`), after the dry run (passed, nothing sent) and Andrew's answers to both questions with it: the mapping "Yes, apply it"; the board-sheet note "No, keep sheets clean" (so no `notes_ok`; the reason stays in this report and in VMS-02's and VMS-03's light history).
+- **Record:** version 11428 → 11488. 60 documents acknowledged 200, every op verified on the service; every other document unchanged in value. P&L gate passed: charged to the V8s $996,131.92 and known costs $448,019.57 unchanged, labour $72,974.51 unchanged, every branch total unchanged; the stand-alone VMS installs list lost VMS21, VMS22 and VMS24 (their $88.49 installs now sit on their references). Backup kept private. Report `report_20261026T191839Z.json`.
+- **Read back fresh:** the Demob tab shows VMS-01 (Premiair 97T, label VMS21), VMS-02 (445T, VMS22) and VMS-03 (450T, VMS24) as unit cards, Not ready; the three plan-only board cards are gone; 180 units Ready as before.
+- **The plan below is kept as written before the run.**
+
+### As planned
 
 - **State:** spec `left_site_spec_11_vms_refs.json` written and checked offline (`test_left_site_spec.cjs` 93/93; `--check-spec` passes). No dry run yet. No `--apply` until Andrew has seen the dry run and answered the two questions below.
 - **To ask Andrew with the dry run:**
