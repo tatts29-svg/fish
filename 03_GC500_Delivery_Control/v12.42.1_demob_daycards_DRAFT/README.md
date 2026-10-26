@@ -24,6 +24,9 @@ Nothing else changes: the Ready rule, the stamp, the sync, the pictures and ever
 
 ## Checks
 
-- Built with `toolchain/build.sh v12.42.1 v12.42.1_demob_daycards_DRAFT/patch_v12421.py`: candidate `74e05c9a0cffa5671a58fbd982db283cb42428e1edc1dc077ad0adc7f7ac08ff`, page check PASS.
-- Codex's `candidate_sync_matrix.cjs`: 19/19 (run on a copy whose footer reads v12.42, because the matrix reads two-part version numbers only; the module itself is the candidate's).
-- Tests and sweeps: to follow.
+- Built on verified live v12.42 `4737996a…` (still live at 27 Oct 03:56) with `toolchain/build.sh v12.42.1 v12.42.1_demob_daycards_DRAFT/patch_v12421.py`: candidate `85826c9bf9fcfc5a1bf10d5464971f4bab751e89fdcdb9152bf74b67a55b0f34`, page check PASS. (An earlier candidate, `74e05c9a…`, was replaced after the independent review below.)
+- `tests/test_v12421.cjs`: **60/60 desktop, 60/60 phone** (`evidence/test_v12421_desktop.txt`, `evidence/test_v12421_phone.txt`). It reads the live record on the view link and keeps every v12.42 rehearsal (Ready tick, booking, Clear, Picked up, the live-sync cases, a refused save, the same-stamp rule) with the sync held in the page. Only WC09's, WC31's and GN18's delivery documents were written, captured in the page, and nothing reached the network. New checks: no "Booked 0", "Ready of booked" or "to be booked" anywhere, the day box headed Picked up (with "and booked" only when that day has bookings), a day ahead says "To come", the booked filter goes off when nothing is booked, and the view link shows no bare "Pick-up".
+- Codex's `candidate_sync_matrix.cjs`: **19/19** on this module (`evidence/candidate_sync_matrix.json`; run on a copy whose footer reads v12.42, because the matrix reads two-part version numbers only).
+- Shared sweeps (`toolchain/harness/sweep.js`), desktop and phone: 27 tabs, 19 shown, 0 tab errors, 0 page errors, 0 blocked writes, 7 hashes with 0 errors, back button returns to #plant (`evidence/sweep_desk.json`, `evidence/sweep_phone.json`).
+- Independent review of the first candidate. Fixed: the booked filter is cleared when nothing is booked (no blank list); the view link shows a card's pick-up line only once it is booked; a day's list counts only that day's bookings; a day ahead never says "0 picked up"; a toilet block with its tank counts the half still here.
+- Screenshots in `evidence/`; staff names on the day cards are blurred, and redacted in the logs.
