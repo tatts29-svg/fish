@@ -57,7 +57,7 @@ const {open} = require('../../toolchain/harness/open_page');
     const lights = await p.evaluate(() => { const rs = [...document.querySelectorAll('#pane-demob .dmday816 tr[data-row816]')]; return {rows: rs.length, three: rs.filter(r => r.querySelectorAll('td.st1231 .lp1231').length === 3).length, oneLit: rs.filter(r => r.querySelectorAll('td.st1231 .lp1231.on').length === 1).length, match: rs.filter(r => { const on = r.querySelector('td.st1231 .lp1231.on'); const s = r.dataset.st1231; return on && ((s === 'not' && on.classList.contains('red')) || (s === 'ready' && on.classList.contains('amber')) || (s === 'gone' && on.classList.contains('green'))); }).length}; });
     check('every row has its three lights, red amber green, with exactly one lit, the one its status says', lights.rows > 0 && lights.three === lights.rows && lights.oneLit === lights.rows && lights.match === lights.rows, lights);
     const sp = await p.evaluate(() => { const M = demob816(), bad = [], shown = []; [...document.querySelectorAll('#pane-demob .dmday816 tr[data-row816]')].forEach(tr => { const r = M.refs.find(x => x.key === tr.dataset.row816), s = Ready1231.specs(r), box = tr.querySelector('.sp1231'), txt = box ? box.innerText.replace(/\s+/g, ' ') : '';
-        const wantNos = s.nos.slice(0, 6), wantFx = s.facts.slice(0, 3); if (wantNos.some(n => !txt.includes(n)) || wantFx.some(f => !txt.includes(f.v))) bad.push(tr.dataset.row816);  if (!box) bad.push(tr.dataset.row816 + ':no box'); if (box && !s.facts.length && !/not on record/.test(txt)) bad.push(tr.dataset.row816 + ':says nothing'); if (box && !s.nos.length && !s.facts.length && txt !== 'Asset no. and size not on record') bad.push(tr.dataset.row816 + ':extra'); if (txt) shown.push(tr.dataset.row816 + ' — ' + txt); }); return {bad, shown}; });
+        const wantNos = s.nos.slice(0, 6), wantFx = s.facts.slice(0, 3); if (wantNos.some(n => !txt.includes(n)) || wantFx.some(f => !txt.includes(f.v))) bad.push(tr.dataset.row816);  if (!box) bad.push(tr.dataset.row816 + ':no box'); if (box && !s.facts.length && !/not on record/.test(txt)) bad.push(tr.dataset.row816 + ':says nothing'); if (box && !s.nos.length && !s.facts.length && !/^(Asset no\. and size not on record|Not numbered( Size not on record)?)$/.test(txt)) bad.push(tr.dataset.row816 + ':extra'); if (txt) shown.push(tr.dataset.row816 + ' — ' + txt); }); return {bad, shown}; });
     check('every row shows its asset numbers and size from the page\'s own record (Loading931), or says not on record; none made up', !sp.bad.length && sp.shown.length > 0, sp);
     const g10 = await p.evaluate(() => { const r = demob816().refs.find(x => x.key === 'GN10'); const x = r && Ready1231.state(r); return x ? {s: x.s, at: x.g && x.g.at, when: x.g && Ready1231.when(x.g.at), iso: r.iso} : null; });
     check('GN10 reads Picked up, Mon 26 Oct 07:40, from the departure record', g10 && g10.s === 'gone' && g10.when === 'Mon 26 Oct 07:40', g10);
@@ -79,7 +79,8 @@ const {open} = require('../../toolchain/harness/open_page');
       const hh = last ? Ready1231.when(last).slice(-5) : ''; const n = {ready: still.filter(r => Ready1231.state(r).s === 'ready').length, not: still.filter(r => Ready1231.state(r).s === 'not').length};
       return {iso, text: b ? b.innerText.replace(/\s+/g, ' ') : null, want: 'Picked up ' + ev.length + (hh ? ' · last ' + hh : '') + ' Ready for collection ' + n.ready + ' of ' + still.length + ' Not ready ' + n.not}; }); });
     check('each day card, as per what we have: picked up that day with the last time, ready and not ready of what is still to go', cards.every(c => c.text && c.text.includes(c.want) && !/more · More info/.test(c.text)), cards.map(c => ({iso: c.iso, want: c.want, has: (c.text || '').match(/Picked up.*?Not ready \d+/)})));
-    check('today\'s card counts GN10 (07:40) and GN24 (08:10), which left this morning though planned for later days', (cards[0].text || '').includes('Picked up 2 · last 08:10'), cards[0].want);
+    const dep26 = await p.evaluate(() => Ready1231.departuresOn('2026-10-26').map(x => x.key + ' ' + (x.at ? Ready1231.when(x.at).slice(-5) : '?')));
+    check('today\'s card counts what left today by the record (GN10 07:40, GN24 08:10, the Event Portables toilets 11:04 and 11:58, GN06 12:00), with the last time', ['GN10 07:40', 'GN24 08:10', 'WC55 11:04', 'WC33 11:58', 'GN06 12:00'].every(x => dep26.includes(x)) && (cards[0].text || '').includes('Picked up ' + dep26.length + ' · last ' + String(dep26[dep26.length - 1]).slice(-5)), {dep26, want: cards[0].want});
     await shot('demob_day_list', '#pane-demob .dmday816');
     await shot('demob_sub_hired', '#pane-demob .sec1231.sub');
     await shot('demob_day_cards', '#pane-demob .dc996-calendar');
@@ -113,13 +114,14 @@ const {open} = require('../../toolchain/harness/open_page');
       const edge = r => getComputedStyle(innerWidth <= 900 ? r : r.firstElementChild).boxShadow;
       const byState = {}; rows.forEach(r => { const s = r.dataset.st1231; if (!byState[s]) byState[s] = edge(r); });
       const label = rows[0] ? getComputedStyle(rows[0].querySelector('td.pk1231'), '::before').display : null;
-      return {secLum: lum(bg), sbDark: /gradient/.test(img), rows: rows.length, maxH: Math.max(...rows.map(r => r.offsetHeight)), grid: rows[0] ? getComputedStyle(rows[0]).display : null,
+      const hs = rows.map(r => r.offsetHeight).sort((a, b) => a - b);
+      return {secLum: lum(bg), sbDark: /gradient/.test(img), rows: rows.length, maxH: hs[hs.length - 1], medH: hs[Math.floor(hs.length / 2)], grid: rows[0] ? getComputedStyle(rows[0]).display : null,
         byState, label, overflow: document.documentElement.scrollWidth - innerWidth, mainOverflow: (document.querySelector('main') || {}).scrollWidth - (document.querySelector('main') || {}).clientWidth,
         ink: rows[0] ? lum(getComputedStyle(rows[0].querySelector('td[data-label="What"]')).color) : null};
     });
     check('v12.34: the Coates and Sub-hired sections are dark, like the servicing tracker, with light writing', look.secLum < 0.15 && look.sbDark && look.ink > 0.8, look);
     if (mobile) {
-      check('v12.34 on a phone: every line is one compact card (a grid, no stacked labels), none taller than 300 px', look.grid === 'grid' && look.label === 'none' && look.maxH <= 300 && look.rows >= 20, {grid: look.grid, label: look.label, maxH: look.maxH, rows: look.rows});
+      check('v12.34 on a phone: every line is one compact card (a grid, no stacked labels), typically about 200 px and none over 360 px (was about 490 px)', look.grid === 'grid' && look.label === 'none' && look.medH <= 240 && look.maxH <= 360 && look.rows >= 20, {grid: look.grid, label: look.label, medH: look.medH, maxH: look.maxH, rows: look.rows});
     } else {
       check('v12.34 on a wider screen: the same table, each line its own band, none taller than 160 px', look.grid !== 'grid' && look.maxH <= 160 && look.rows >= 20, {grid: look.grid, maxH: look.maxH});
     }
@@ -172,7 +174,8 @@ const {open} = require('../../toolchain/harness/open_page');
     check('green light, complete: GN19 wears the DEPARTED stamp with today\'s date and the time it left, and its lights are no longer buttons', r5.s === 'gone' && /^Mon 26 Oct \d\d:\d\d$/.test(r5.when || '') && r5s && r5s.lit === 'green' && /^departed$/i.test(r5s.word) && /^mon 26 oct · \d\d:\d\d$/i.test(r5s.note) && !r5.btn, {r5, r5s});
     check('and everywhere the state is worded, GN19 now reads Departed with that time', await p.evaluate(() => /^Departed 26 Oct \d\d:\d\d$/.test(deliveryView('GN19').short)));
     const after = await p.evaluate(() => ({card: (document.querySelector('#pane-demob [data-dday816="2026-10-26"].dc996-day') || {}).innerText.replace(/\s+/g, ' '), bar: (document.querySelector('#pane-demob .sum1231') || {}).innerText.replace(/\s+/g, ' ')}));
-    check('picked up now: today\'s card counts three with the last time, and the tally names GN19 with its time', /Picked up 3 · last \d\d:\d\d/.test(after.card || '') && /GN19 \d\d:\d\d/.test(after.bar || ''), {card: (after.card || '').match(/Picked up.*?Not ready \d+/), bar: after.bar});
+    const n0 = Number(((cards[0].want || '').match(/Picked up (\d+)/) || [])[1]);
+    check('picked up now: today\'s card counts one more with the last time, and the tally names GN19 with its time', new RegExp('Picked up ' + (n0 + 1) + ' · last \\d\\d:\\d\\d').test(after.card || '') && /GN19 \d\d:\d\d/.test(after.bar || ''), {n0, card: (after.card || '').match(/Picked up.*?Not ready \d+/), bar: after.bar});
     const sent = await p.evaluate(() => __captured1231.map(c => ({name: c.name, ready: c.value && c.value.ready1231, emptied: c.value && c.value.emptied})));
     const gnSent = sent.filter(c => /delivery\/GN19$/.test(c.name)), wcSent = sent.filter(c => /delivery\/WC45$/.test(c.name));
     check('the ticks travel to the shared record on the delivery document (captured here, never sent)', gnSent.some(c => c.ready === true) && wcSent.some(c => c.emptied === true) && sent.some(c => /delivery\/GN04$/.test(c.name) && c.ready === false), sent.slice(-8));

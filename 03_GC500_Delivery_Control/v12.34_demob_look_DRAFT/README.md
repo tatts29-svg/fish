@@ -37,17 +37,17 @@ The pick-up list in the servicing tracker's dark style, the look Andrew liked.
 | File | What it does |
 |---|---|
 | `demob1234_src.js` | One stylesheet (`demob1234-style`), inserted before `</body>`, screen only. Every rule is scoped to the Demob tab's Coates and Sub-hired sections. |
-| `patch_v1234.py` | Inserts the stylesheet on the verified live v12.32 page (BASE `69872696…`) and moves the footer from v12.32 to v12.34. |
-| `tests/test_v1234.cjs` | v12.32's 48 checks, unchanged, prove every word, light and button is still there. The new checks below cover the look. |
+| `patch_v1234.py` | Inserts the stylesheet on the verified live v12.33 page (BASE `c6b8141c…`) and moves the footer from v12.33 to v12.34. |
+| `tests/test_v1234.cjs` | v12.32's 48 checks prove every word, light and button is still there; the new checks below cover the look. Three of the 48 now follow the record instead of fixed numbers, because Andrew's pick-ups kept arriving while this was built: today's card counts what the departure record says left today, and the rehearsal pick-up adds one. One follows v12.33's wording, where an unnumbered item says "Not numbered". |
 
 **The new checks:**
 - the sections are dark with light writing;
-- on a phone every line is one grid card with no stacked labels, none taller than 300 px;
+- on a phone every line is one grid card with no stacked labels, typically about 200 px and none over 360 px (the longest is a toilet line with eight unit numbers and a guide size);
 - on a wider screen it is the same table, no line taller than 160 px;
 - the red status edge shows while not ready;
 - nothing runs off the side of the screen;
 - printing keeps the light table.
 
-## Order with v12.33
+## Built on v12.33
 
-v12.33 (Demob identifier labels) was claimed first, so this release is numbered v12.34. v12.33 changes only the identifier wording (`specs` and `specHtml`); this release changes only styling, on the same classes. Whichever goes live second rebuilds on the other.
+v12.33 (Demob identifier labels) went live at 12:11 AEST, while this release was being built. v12.34 was rebuilt on it, and keeps its wording: "Recorded code" for bulk product codes and "Not numbered" where nothing is numbered. v12.33 changed only the identifier wording (`specs` and `specHtml`); this release changes only styling, on the same classes.
