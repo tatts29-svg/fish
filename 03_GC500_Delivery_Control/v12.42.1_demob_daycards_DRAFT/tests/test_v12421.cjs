@@ -28,7 +28,7 @@ const {open} = require('../../toolchain/harness/open_page');
     await p.evaluate(() => { try { go('demob'); } catch (e) {} });
     await p.waitForFunction(() => document.querySelector('#pane-demob article.sg1238'), null, {timeout: 90000});
     await p.waitForTimeout(2500);
-    const foot = await p.evaluate(() => document.body.innerText.match(/v12\.\d+/g) || []);
+    const foot = await p.evaluate(() => document.body.innerText.match(/v12\.\d+(?:\.\d+)?/g) || []);
     check('page loads with no errors, the Demob card helpers on v12.41\'s render boundary, and the footer v12.42.1', !h.errors.length && foot.includes('v12.42.1') && !foot.includes('v12.41 ·') && await p.evaluate(() => Singles1238.release === 'v12.42.1' && !!window.Performance1241), {errors: h.errors, foot: [...new Set(foot)]});
 
     /* ---------------- Part A: the live record, view link ---------------- */
@@ -117,7 +117,7 @@ const {open} = require('../../toolchain/harness/open_page');
     await shot('everything_top', '#pane-demob .tb1238');
     /* v12.42.1 - Andrew: no "booked" wording that reads as nothing done */
     const NB = await p.evaluate(() => { const pane = document.getElementById('pane-demob'), bks = [...pane.querySelectorAll('.sgv1238 article.sg1238 .bk1238')], booked = Singles1238.model().cards.filter(c => c.book && c.st.s !== 'gone').length;
-      return {booked, panel: !!pane.querySelector('.bp1238'), chip: !!pane.querySelector('[data-f1238="booked"]'), cards: bks.length, toBe: bks.filter(b => /to be booked/i.test(b.textContent)).length, label: bks.filter(b => /^\s*Pick-up\b/.test((b.querySelector('span') || {}).textContent || '')).length}; });
+      return {booked, panel: !!pane.querySelector('.bp1238'), chip: !!pane.querySelector('[data-f1238="booked"]'), cards: bks.length, toBe: bks.filter(b => /to be booked/i.test(b.textContent)).length, label: bks.filter(b => /^\s*Pick-up/.test((b.querySelector('span') || {}).textContent || '')).length}; });
     check('v12.42.1: with nothing booked there is no Booked pick-ups panel and no "booked" filter, and no card says "to be booked" (each says Pick-up beside its button)', NB.booked > 0 || (!NB.panel && !NB.chip && NB.cards > 300 && NB.toBe === 0 && NB.label === NB.cards), NB);
     await scrollTo(card('WC09', 'event-portables|0085')); await p.waitForTimeout(2500); await shot('card_wc09_event_portables', card('WC09', 'event-portables|0085'));
     await scrollTo(card('WC09', 'coates|1268858')); await p.waitForTimeout(2500); await shot('card_wc09_coates_block', card('WC09', 'coates|1268858'));
@@ -168,13 +168,16 @@ const {open} = require('../../toolchain/harness/open_page');
     const EP = 'event-portables|0085', CO = 'coates|1268858', G18 = await p.evaluate(() => (Singles1238.model().byKey.get('GN18') || [])[0].uid);
     const shown = await p.evaluate(sel => { const b = document.querySelector(sel + ' .bk1238 button[data-book1238]'); const l = document.querySelector(sel + ' button[data-lamp1238="ready"]'); return {book: b ? b.textContent : null, lamp: !!l}; }, card('GN18', G18));
     check('v12.42: on the edit link every card still on site has its Book pick-up button and its Ready light to press', shown.book === 'Book pick-up' && shown.lamp, shown);
-    await scrollTo(card('WC09', EP)); await p.click(card('WC09', EP) + ' button[data-lamp1238="ready"]');
-    await p.waitForFunction(() => __captured1238.some(c => /delivery\/WC09$/.test(c.name) && c.value && c.value.ready1238_units), null, {timeout: 30000}).catch(() => {});
+    /* every Event Portables unit at WC09 has been Ready on the record since run 9 (26 Oct 20:25), so the Ready press is rehearsed at WC31, the other
+       mixed reference: one 16 Pan block ticked Ready (on this page only); the other 16 Pan and the Coates accessible toilet stay Not ready */
+    const P16 = 'event-portables|74', O16 = 'event-portables|12', ACC = 'coates|1317645';
+    await scrollTo(card('WC31', P16)); await p.click(card('WC31', P16) + ' button[data-lamp1238="ready"]');
+    await p.waitForFunction(() => __captured1238.some(c => /delivery\/WC31$/.test(c.name) && c.value && c.value.ready1238_units), null, {timeout: 30000}).catch(() => {});
     await p.waitForTimeout(900);
-    const RD = await p.evaluate(({EP, CO}) => { const c = __captured1238.filter(x => /delivery\/WC09$/.test(x.name)).pop(), v = c && c.value || {}, u = (v.ready1238_units || {})[EP] || null;
-      const st = uid => (document.querySelector('#pane-demob article.sg1238[data-sg1238="WC09"][data-u1238="' + uid + '"]') || {}).dataset; return {u, ref: v.ready1231, hist: (v.ready1238_history || []).length, ep: (st(EP) || {}).s1238, co: (st(CO) || {}).s1238}; }, {EP, CO});
-    check('v12.42: Ready on one Event Portables unit at WC09 marks that unit only, on its own clock; the Coates toilet block beside it stays Not ready; the reference\'s own tick is untouched', RD.u && RD.u.on === true && RD.u.by === 'Example test recorder' && RD.hist === 1 && RD.ep === 'ready' && RD.co === 'not' && RD.ref === undefined, RD);
-    await shot('card_ready_rehearsal', card('WC09', EP));
+    const RD = await p.evaluate(({P16, O16, ACC}) => { const c = __captured1238.filter(x => /delivery\/WC31$/.test(x.name)).pop(), v = c && c.value || {}, u = (v.ready1238_units || {})[P16] || null, h = v.ready1238_history || [];
+      const st = uid => (document.querySelector('#pane-demob article.sg1238[data-sg1238="WC31"][data-u1238="' + uid + '"]') || {}).dataset; return {u, ref: v.ready1231, hist: h.length, last: h.length ? h[h.length - 1].unit : null, p16: (st(P16) || {}).s1238, o16: (st(O16) || {}).s1238, acc: (st(ACC) || {}).s1238}; }, {P16, O16, ACC});
+    check('v12.42: Ready on one unit at a mixed reference (WC31 16 Pan block 74) marks that unit only, on its own clock; the other 16 Pan and the Coates accessible toilet beside it stay Not ready; the reference\'s own tick is untouched', RD.u && RD.u.on === true && RD.u.by === 'Example test recorder' && RD.hist >= 1 && RD.last === P16 && RD.p16 === 'ready' && RD.o16 === 'not' && RD.acc === 'not' && RD.ref === undefined, RD);
+    await shot('card_ready_rehearsal', card('WC31', P16));
     /* the booking: a calendar and a clock */
     const tomorrow = await p.evaluate(() => { const d = new Date(Date.parse(todayIso() + 'T12:00:00Z') + 864e5); return d.toISOString().slice(0, 10); });
     await scrollTo(card('GN18', G18)); await p.click(card('GN18', G18) + ' button[data-book1238]');
@@ -222,16 +225,16 @@ const {open} = require('../../toolchain/harness/open_page');
       return {at: b && b.at, hist: (v.pickup1238_history || []).length, card: bk ? bk.innerText.replace(/\s+/g, ' ') : ''}; }, G18);
     check('v12.42: Change opens the booking as it stands; Clear is a dated change too, and the card is back to its Book pick-up button', pre.time === '07:30' && pre.note === 'Coates truck' && pre.clear && pre.day && pre.day.day1238 === tomorrow && B3.at === '' && B3.hist === 2 && /Book pick-up/.test(B3.card) && !/to be booked/.test(B3.card), {pre, B3});
     /* Picked up: the page's own departure form with this unit ticked; Emptied at a mixed reference turns nobody else Ready */
-    const PU = 'event-portables|0551';
+    const PU = 'event-portables|0551', EM0 = await p.evaluate(() => Object.fromEntries((Singles1238.model().byKey.get('WC09') || []).map(c => [c.uid, c.st.s])));
     await scrollTo(card('WC09', PU)); await p.click(card('WC09', PU) + ' button[data-lamp1238="gone"]');
     await p.waitForSelector('#collection996', {timeout: 15000}).catch(() => {});
     const PF = await p.evaluate(() => { const f = document.getElementById('collection996'); if (!f) return null; const ch = [...f.querySelectorAll('input[type=checkbox]')]; return {title: (f.querySelector('#collection996-title') || {}).textContent, checked: ch.filter(x => x.checked).map(x => x.value), n: ch.length, emptied: !!(emptiedOf816('WC09') || {}).on}; });
     await shot('pickup_form_one_unit', '#collection996');
     await p.evaluate(() => { const b = document.querySelector('#collection996 [data-collection996-close]'); if (b) b.click(); });
     await p.waitForTimeout(4500); await p.evaluate(() => { try { renderDemob816(); } catch (e) {} }); await p.waitForTimeout(900);
-    const EM = await p.evaluate(EP => { const cs = Singles1238.model().byKey.get('WC09') || []; return {co: cs.filter(c => c.owner === 'coates').map(c => c.st.s), epOther: [...new Set(cs.filter(c => c.owner === 'event-portables' && c.uid !== EP).map(c => c.st.s))], ep: (cs.find(c => c.uid === EP) || {st: {}}).st.s, why: (cs.find(c => c.owner === 'coates') || {st: {}}).st.why, form: !!document.getElementById('collection996')}; }, EP);
+    const EM = await p.evaluate(({EP, EM0}) => { const cs = Singles1238.model().byKey.get('WC09') || []; return {same: cs.length > 0 && cs.every(c => EM0[c.uid] === c.st.s), co: cs.filter(c => c.owner === 'coates').map(c => c.st.s), epOther: [...new Set(cs.filter(c => c.owner === 'event-portables' && c.uid !== EP).map(c => c.st.s))], ep: (cs.find(c => c.uid === EP) || {st: {}}).st.s, why: (cs.find(c => c.owner === 'coates') || {st: {}}).st.why, form: !!document.getElementById('collection996')}; }, {EP, EM0});
     check('v12.42: Picked up on one unit opens the page\'s own departure form for WC09 with that unit ticked (Emptied asked for the whole reference first)', PF && /WC09/.test(PF.title || '') && PF.checked.length === 1 && /0551/.test(PF.checked[0]) && PF.emptied === true && !EM.form, PF);
-    check('v12.42: at a mixed reference Emptied turns nobody Ready: the Coates blocks and the untouched Event Portables units stay Not ready; the unit ticked Ready stays Ready', EM.co.length === 2 && EM.co.every(s => s === 'not') && EM.epOther.join() === 'not' && EM.ep === 'ready' && /is emptied; tick it Ready/.test(EM.why || ''), EM);
+    check('v12.42: at a mixed reference Emptied turns nobody Ready: the Coates blocks stay Not ready and no unit\'s light changes (the Event Portables units are Ready from their own ticks)', EM.co.length === 2 && EM.co.every(s => s === 'not') && EM.same && /is emptied; tick it Ready/.test(EM.why || ''), EM);
     /* a reference's own Ready tick counts for its units only where one owner holds them all; a departure record the page
        leaves out for review is named on the card (both staged on this page only: the page's own objects swapped, then put back) */
     const RM = await p.evaluate(async () => {
@@ -324,7 +327,7 @@ const {open} = require('../../toolchain/harness/open_page');
       return {ab: ab.ready1238_units, same: JSON.stringify(Object.keys(ab.ready1238_units).sort().map(k => [k, ab.ready1238_units[k]])) === JSON.stringify(Object.keys(ba.ready1238_units).sort().map(k => [k, ba.ready1238_units[k]])), hist: (ab.ready1238_history || []).length, pk: ab.pickup1238_units, kept: !!onlyUnits}; });
     check('v12.42: on any copy the later tick wins unit by unit, other units are kept, the histories join, and a record holding only these is kept', MG.ab['event-portables|0085'].on === false && MG.ab['event-portables|0085'].by === 'B' && MG.ab['event-portables|0551'].why === 'x' && MG.ab['coates|1268858'].on === true && MG.same && MG.hist === 2 && MG.pk && MG.pk['event-portables|0085'].at === '2026-10-27T07:00:00+10:00' && MG.kept, MG);
     const sent = await p.evaluate(() => __captured1238.map(c => c.name));
-    check('v12.42: only WC09\'s and GN18\'s delivery documents were written, all captured in the page; nothing reached the network', sent.length > 0 && sent.every(n => /delivery\/(WC09|GN18)$/.test(n)) && !h.counts.blocked, {sent: [...new Set(sent)], counts: h.counts});
+    check('v12.42: only WC09\'s, WC31\'s and GN18\'s delivery documents were written, all captured in the page; nothing reached the network', sent.length > 0 && sent.every(n => /delivery\/(WC09|WC31|GN18)$/.test(n)) && !h.counts.blocked, {sent: [...new Set(sent)], counts: h.counts});
     check('no page errors through the whole run', !h.errors.length, h.errors);
   } catch (e) { check('the test ran to the end', false, String(e && e.stack || e).slice(0, 1500)); await shot('error'); }
   finally {
