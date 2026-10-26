@@ -248,6 +248,12 @@ reps = [
   " if ((b = pick('[data-ldbook1238]'))) { ev.preventDefault(); ev.stopPropagation(); openLoad(loadOf(b) || Number(b.dataset.ldbook1238)); return; }\n if ((b = pick('[data-ldsm1238]'))) { ev.preventDefault(); ev.stopPropagation(); const t = loadOf(b) || LOADS[Number(b.dataset.ldsm1238)]; if (t) openUrl('sms:?&body=' + encodeURIComponent(loadWords(t).lines.join('\\n'))); return; }\n if ((b = pick('[data-ldsd1238]'))) { ev.preventDefault(); ev.stopPropagation(); const t = loadOf(b) || LOADS[Number(b.dataset.ldsd1238)]; if (t) sendLoad(t); return; }\n if ((b = pick('[data-go1238]'))) {"),
  # exports
  ("keepUnits, pickOf, parseTime, notePairs,", "keepUnits, pickOf, parseTime, notePairs, planLoads, loadKind, loadWords, loadUnits, stopsOf, loadNote, truckName, bookLoad, openLoad, clashOf, loads: () => LOADS,"),
+
+ # a VMS board on a delivery reference shows the rego the VMS register holds for it (VMS-01..03 since record run 11)
+ (" const out = {label: lab(home).replace(/\\*$/, ''), at: lab(b).replace(/\\*$/, ''), moved: !!to,",
+  " let rg = ''; try { rg = String((X.V.identity(home) || {}).rego || ''); } catch (y) { rg = ''; }\n const out = {label: lab(home).replace(/\\*$/, ''), rego: rg, at: lab(b).replace(/\\*$/, ''), moved: !!to,"),
+ ("  if (cat === 'vms') c.vms = boardOf(c, X);\n  return c; });",
+  "  if (cat === 'vms') { c.vms = boardOf(c, X); if (c.vms && !c.rego && c.vms.rego) c.rego = c.vms.rego; } /* v12.42.2: a sub-hired board on a delivery reference keeps the rego the VMS register holds for it */\n  return c; });"),
 ]
 for o, n in reps:
     c = s.count(o)

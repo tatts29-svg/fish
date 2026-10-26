@@ -525,7 +525,8 @@ function boardOf(c, X) {
  const hAt = hp.by ? String(hp.at || '') : '', tAt = tp && tp.by ? String(tp.at || '') : '', to = t0 && !(hAt && hAt > tAt) ? t0 : null, b = to || home, p = to ? tp : hp;
  const lab = x => { try { return X.V.label(x); } catch (y) { return 'VMS ' + x.pos; } };
  const off = X.off.get(String(home.pos).toLowerCase());
- const out = {label: lab(home).replace(/\*$/, ''), at: lab(b).replace(/\*$/, ''), moved: !!to, where: tidyWhere(b.title), lat: +p.lat, lon: +p.lon, how: String(p.how || ''), pinned: !!p.by, store: off ? String(off.store || '') : '', from: off ? String(off.from || '') : '', stored: null};
+ let rg = ''; try { rg = String((X.V.identity(home) || {}).rego || ''); } catch (y) { rg = ''; }
+ const out = {label: lab(home).replace(/\*$/, ''), rego: rg, at: lab(b).replace(/\*$/, ''), moved: !!to, where: tidyWhere(b.title), lat: +p.lat, lon: +p.lon, how: String(p.how || ''), pinned: !!p.by, store: off ? String(off.store || '') : '', from: off ? String(off.from || '') : '', stored: null};
  /* a session board (13-17) goes to its store after the final removal morning, or once its off-the-track tick is in */
  if (off && off.store && X.fin) { let st = {}; try { st = VmsOff1132.state(X.fin.iso, home.pos) || {}; } catch (x) { st = {}; }
   const done = !!(st.off && st.off.done), due = Date.now() >= Date.parse(X.fin.iso + 'T' + (/^\d{2}:\d{2}$/.test(off.from) ? off.from : '06:00') + ':00+10:00');
@@ -608,7 +609,7 @@ function cardsOf(r, X, fold) {
   const c = Object.assign({}, base, {uid: uk(u), u, tank: tk, owner: String(u.owner || 'unknown'), item: String(u.item || u.label || what), label: String(u.label || ''), no: String(u.assetNo || ''), tankNo: tk ? String(tk.assetNo || '') : '',
    rego: String(u.registration || ''), branch: String(u.branch || r.branch || ''), idx: i + 1, of: list.length, icon: iconKey(text + (tk ? ' block' : ''), cat), facts: mixed ? productFacts(key, a, u) : sp.facts || [], ph: !!u.placeholder});
   const g1 = goneU(u), g2 = tk ? goneU(tk) : g1; c.gone = g1 && g2 ? (later(g2, g1) ? g2 : g1) : null; c.half = !c.gone && tk && (g1 || g2) ? (g1 ? 'block' : 'tank') : null; c.part = null;
-  if (cat === 'vms') c.vms = boardOf(c, X);
+  if (cat === 'vms') { c.vms = boardOf(c, X); if (c.vms && !c.rego && c.vms.rego) c.rego = c.vms.rego; } /* v12.42.2: a sub-hired board on a delivery reference keeps the rego the VMS register holds for it */
   return c; });
  G.counts.forEach(x => { let n = x.n; cards.forEach(c => { if (n <= 0 || c.gone || c.no || norm(c.u.item) !== x.type) return; c.gone = x.info; n--; });
   if (n > 0) cards.forEach(c => { if (!c.gone && norm(c.u.item) === x.type) c.unk = (c.unk || 0) + n; }); });
