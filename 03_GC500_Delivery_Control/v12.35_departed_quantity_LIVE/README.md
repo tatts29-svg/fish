@@ -49,6 +49,9 @@ EQ0002 now reads:
 
 ## Checks
 
+- **LIVE 26 Oct 2026 13:27 AEST.** The view link serves the build byte for byte: 15,528,033 bytes, sha256 `10a21fc0…`. A separate public fetch at 13:28 is identical.
+- **On the live bytes:** desktop 57/57 and phone 57/57 (`evidence/test_live_desktop.txt`, `evidence/test_live_phone.txt`), EQ0002's four checks among them.
+
 - Candidate `10a21fc0…`, 15,528,033 bytes, on live v12.34 `3625dd96…`; check_page PASS.
 - Desktop 57/57 and phone 57/57 (`evidence/test_v1235_desktop.txt`, `evidence/test_v1235_phone.txt`): v12.34's 53 checks and the four above. Every rehearsal was captured in the page; nothing reached the network.
 - Both sweeps: 27 tabs, 19 panes shown, 7 deep links; 0 errors, 0 console messages and 0 writes (`evidence/sweeps.json`).
