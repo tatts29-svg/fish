@@ -1,5 +1,7 @@
 # v12.42: the Demob tab, one card per asset
 
+**LIVE 26 Oct 2026 20:19 AEST**, sha256 `4737996a98c4577e455e28a0e87dc91db794a7a271a6fdf986618e34314529cc` (the view link serves the build byte for byte; a fresh fetch matched with cmp). On the live page: 57/57 desktop, 57/57 phone. Record run 9 applied straight after (version 11123 to 11174): every Event Portables unit Ready except WC31's two 16 Pans.
+
 Author: Andrew Fisher · 26 Oct 2026 · built on live v12.41 (`e106502b…`, Codex's performance corrections on v12.37). Built and claimed as v12.38; v12.41 went live first, so it is rebuilt on those bytes and numbered forward (Codex holds 43 and 44; the Demob map is v12.45). The source files keep their 1238 names, and so do the record fields.
 
 **Inside v12.41's boundaries.** The cards' render and decorations enter v12.41's one asset hold (`holdAssets`) and its Demob drawing pass, so the selected date's reveal still comes last; decorations the watcher makes enter the same hold; the start-up render runs only for the pane actually showing (`Performance1241.paneActive`).
@@ -112,7 +114,7 @@ The earlier drafts of this release (`pickup1238_src.js`, `cardpics1238_src.js`: 
 
 ## Checks
 
-- Built on verified live v12.41 `e106502b…` with `toolchain/build.sh v12.42 v12.42_demob_cards_DRAFT/patch_v1242.py`: candidate `4737996a98c4577e455e28a0e87dc91db794a7a271a6fdf986618e34314529cc`, 214 inline scripts, page check PASS.
+- Built on verified live v12.41 `e106502b…` with `toolchain/build.sh v12.42 v12.42_demob_cards_LIVE/patch_v1242.py`: candidate `4737996a98c4577e455e28a0e87dc91db794a7a271a6fdf986618e34314529cc`, 214 inline scripts, page check PASS.
 - `tests/test_v1242.cjs`: **57/57 desktop, 57/57 phone** (`evidence/test_v1242_desktop.txt`, `evidence/test_v1242_phone.txt`). It reads the live record on the view link, and rehearses the Ready tick, the booking, Clear on one unit, Picked up opening the departure form, Emptied at a mixed reference, a whole-reference tick at a two-owner reference, the review note, a run part-collected over two days, a store copy arriving on the live sync (with and without a send of this phone's own waiting), nothing sent while the browser cannot save, a refused save, and the same-stamp rule, with the sync held in the page: only WC09's and GN18's delivery documents were written, captured in the page, nothing reached the network.
 - Codex's `review_26Oct2026_v1242_sync/candidate_sync_matrix.cjs`: 19/19 on the candidate (13/19 on the earlier e3dfc916, which had the queued-sync fault).
 - Shared sweeps (`toolchain/harness/sweep.js`), desktop and phone: 27 tabs, 19 shown, 0 tab errors, 0 page errors, 0 blocked writes, 7 hashes with 0 errors, back button returns to #plant.
