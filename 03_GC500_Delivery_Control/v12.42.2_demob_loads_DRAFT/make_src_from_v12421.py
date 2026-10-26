@@ -38,21 +38,25 @@ PLAN = r"""
 /* ---- v12.42.2 - truck loads from what is Ready (Andrew, 26 Oct 2026: "the equipment that is ready we can work out what can go on what
    load. With event portaloos they can get 24 per truck. Or 6 pee panels and 18 toilets on a truck. Or qty 1 16 pan toilet. Buildings are
    generally 1 per truck.. accessible toilet can go on with other". His answers: the accessible toilet rides on a Coates truck with other
-   Coates gear; other gear one a truck for now; a truck starts from the biggest Ready group and fills from the nearest Ready units.)
+   Coates gear; other gear one a truck for now; a truck starts from the biggest Ready group and fills from the nearest Ready units. Then:
+   "Vms most trucks could tow one or a truck can load 2 and tow 1": VMS boards 3 a truck, 2 on it and 1 towed.)
    Units booked together for the same moment stay on their truck. Only what is ticked Ready is planned. ---- */
-const LOADCAP = {ep: 24, panels: 6}, EPO = 'event-portables';
+const LOADCAP = {ep: 24, panels: 6, vms: 3}, EPO = 'event-portables';
 function loadKind(c) {
  const t = String(c.item || '') + ' ' + String(c.what || '') + ' ' + String(c.label || '');
  if (c.owner === EPO) { if (/16\s*-?\s*pan/i.test(t)) return 'pan16'; if (/pee|urinal/i.test(t)) return 'panel'; if (!c.group && /fwf|toilet|portaloo|\bloo\b|flush/i.test(t)) return 'toilet'; return 'other'; }
  if (c.cat === 'bld') return 'building';
+ if (c.cat === 'vms' || c.vms) return 'vms';
  if (!c.group && /accessib|disab|ambulant|\bdda\b|\bpwd\b|wheelchair/i.test(t)) return 'access';
  return 'other';
 }
 const epLoad = c => { const k = loadKind(c); return k === 'toilet' || k === 'panel'; };
 function ptOf(c) { const L = locOf(c); return L ? {lat: L.lat, lon: L.lon} : null; }
 const metres = (a, b) => { if (!a || !b) return 1e9; const k = Math.cos((a.lat + b.lat) / 2 * Math.PI / 180); return Math.hypot((b.lat - a.lat) * 110540, (b.lon - a.lon) * 111320 * k); };
-/* the biggest Ready group first, then the nearest Ready units until the truck is full: 24, of them 6 pee panels at most */
-function fillEP(pool, out, at) {
+/* the biggest Ready group first, then the nearest Ready units until the truck is full (Event Portables: 24, of them 6 pee panels at most;
+   VMS boards: 3, 2 on the truck and 1 towed) */
+function fillEP(pool, out, at) { fillNear(pool, out, at, {owner: EPO, kind: 'ep', cap: LOADCAP.ep, sub: c => loadKind(c) === 'panel', subMax: LOADCAP.panels}); }
+function fillNear(pool, out, at, o) {
  pool = pool.slice();
  while (pool.length) {
   const by = new Map(); pool.forEach(c => by.set(c.key, (by.get(c.key) || 0) + 1));
@@ -60,10 +64,10 @@ function fillEP(pool, out, at) {
   const dist = new Map(); pool.forEach(c => { if (!dist.has(c.key)) dist.set(c.key, c.key === seedKey ? -1 : metres(seed, ptOf(c))); });
   const order = pool.slice().sort((a, b) => dist.get(a.key) - dist.get(b.key) || nat(a.key, b.key) || nat(a.no || '', b.no || ''));
   const items = []; let panels = 0;
-  for (const c of order) { if (items.length >= LOADCAP.ep) break; const p = loadKind(c) === 'panel'; if (p && panels >= LOADCAP.panels) continue; items.push(c); if (p) panels++; }
+  for (const c of order) { if (items.length >= o.cap) break; const p = !!(o.sub && o.sub(c)); if (p && panels >= o.subMax) continue; items.push(c); if (p) panels++; }
   if (!items.length) break;
   pool = pool.filter(c => items.indexOf(c) < 0);
-  out.push({owner: EPO, kind: 'ep', items, at: at || null});
+  out.push({owner: o.owner, kind: o.kind, items, at: at || null});
  }
 }
 function planLoads(list) {
@@ -73,7 +77,9 @@ function planLoads(list) {
  [...together.keys()].sort().forEach(at => { const cs = together.get(at); fillEP(cs, out, at); cs.forEach(c => used.add(c)); });
  fillEP(ep.filter(c => epLoad(c) && !used.has(c)), out, null);
  ep.filter(c => !epLoad(c)).sort((a, b) => nat(a.key, b.key) || nat(a.no || '', b.no || '')).forEach(c => out.push({owner: EPO, kind: loadKind(c), items: [c], at: null}));
- rest.filter(c => loadKind(c) !== 'access').sort((a, b) => (a.owner === 'coates' ? 0 : 1) - (b.owner === 'coates' ? 0 : 1) || nat(coName(a.owner), coName(b.owner)) || (loadKind(a) === 'building' ? 0 : 1) - (loadKind(b) === 'building' ? 0 : 1) || nat(a.key, b.key) || nat(a.no || '', b.no || ''))
+ const vmsOwners = [...new Set(rest.filter(c => loadKind(c) === 'vms').map(c => c.owner))].sort((a, b) => (a === 'coates' ? 0 : 1) - (b === 'coates' ? 0 : 1) || nat(coName(a), coName(b)));
+ vmsOwners.forEach(ow => fillNear(rest.filter(c => c.owner === ow && loadKind(c) === 'vms'), out, null, {owner: ow, kind: 'vms', cap: LOADCAP.vms}));
+ rest.filter(c => loadKind(c) !== 'access' && loadKind(c) !== 'vms').sort((a, b) => (a.owner === 'coates' ? 0 : 1) - (b.owner === 'coates' ? 0 : 1) || nat(coName(a.owner), coName(b.owner)) || (loadKind(a) === 'building' ? 0 : 1) - (loadKind(b) === 'building' ? 0 : 1) || nat(a.key, b.key) || nat(a.no || '', b.no || ''))
   .forEach(c => out.push({owner: c.owner, kind: loadKind(c), items: [c], at: null}));
  /* the accessible toilet rides on the nearest truck of the same owner carrying other gear (never a building's), one to a truck */
  rest.filter(c => loadKind(c) === 'access').forEach(c => { const p = ptOf(c), hosts = out.filter(t => t.owner === c.owner && t.kind === 'other' && !t.items.some(x => loadKind(x) === 'access')).sort((x, y) => metres(p, ptOf(x.items[0])) - metres(p, ptOf(y.items[0])));
@@ -82,9 +88,10 @@ function planLoads(list) {
  return out;
 }
 const loadUnits = t => t.items.reduce((n, c) => n + readyUnits(c), 0);
-function loadWordOf(c) { const k = loadKind(c); return k === 'panel' ? 'pee panel' : k === 'toilet' ? String(c.item || 'toilet') : String(c.item || titleOf(c)); }
+function loadWordOf(c) { const k = loadKind(c); return k === 'panel' ? 'pee panel' : k === 'vms' ? 'VMS board' : k === 'toilet' ? String(c.item || 'toilet') : String(c.item || titleOf(c)); }
 function mixWords(cs) { const m = new Map(); cs.forEach(c => { const w = loadWordOf(c); m.set(w, (m.get(w) || 0) + readyUnits(c)); });
- return [...m].map(([w, n]) => n + ' ' + w + (n > 1 && w === 'pee panel' ? 's' : '')).join(' · '); }
+ return [...m].map(([w, n]) => n + ' ' + w + (n > 1 && (w === 'pee panel' || w === 'VMS board') ? 's' : '')).join(' · '); }
+const rideOf = t => { if (t.kind !== 'vms') return ''; const n = t.items.length; return n >= 3 ? 'load 2, tow 1' : n === 2 ? 'load 1, tow 1' : 'tow 1'; };
 function stopsOf(t) {
  const st = []; t.items.forEach(c => { let s = st.find(x => x.key === c.key); if (!s) st.push(s = {key: c.key, cards: []}); s.cards.push(c); });
  st.forEach(s => { const c = s.cards[0]; s.words = mixWords(s.cards); s.nos = s.cards.map(x => x.no).filter(Boolean); let w = null; try { w = DemobMap1236.words(c.key, DemobMap1236.spot(c.key), c.r.zone); } catch (x) { w = null; } s.where = w ? String(w.filter(Boolean)[0] || '') : ''; });
@@ -96,17 +103,17 @@ function loadsHtml(list) {
  const P = planLoads(list); LOADS = P; if (!P.length) return '';
  const total = P.reduce((n, t) => n + loadUnits(t), 0), ed = canEd();
  const card = t => { const st = stopsOf(t), u = loadUnits(t), at = sameAt(t), i = t.n - 1;
-  return '<article class="lt1238' + (at ? ' bk' : '') + '" data-lt1238="' + i + '"><h4><b>Truck ' + t.n + '</b>' + e(coName(t.owner)) + ' · ' + u + ' unit' + (u === 1 ? '' : 's') + '<small>' + e(mixWords(t.items)) + '</small></h4>'
+  return '<article class="lt1238' + (at ? ' bk' : '') + '" data-lt1238="' + i + '"><h4><b>Truck ' + t.n + '</b>' + e(coName(t.owner)) + ' · ' + u + ' unit' + (u === 1 ? '' : 's') + '<small>' + e(mixWords(t.items) + (rideOf(t) ? ' · ' + rideOf(t) : '')) + '</small></h4>'
    + (at ? '<p class="lb1238">Pick-up booked ' + e(when(at)) + '</p>' : '')
    + '<ol>' + st.map(s => '<li><button type="button" data-go1238="' + e(s.key) + '" data-u1238="' + e(s.cards[0].uid) + '"><b>' + e(s.key) + '</b><span>' + e(s.words) + '</span>' + (s.nos.length ? '<s>' + e(s.nos.join(' ')) + '</s>' : '') + (s.where ? '<em>' + e(s.where) + '</em>' : '') + '</button></li>').join('') + '</ol>'
    + '<footer>' + (ed ? '<button type="button" class="pri" data-ldbook1238="' + i + '">' + (at ? 'Change booking' : 'Book this load') + '</button>' : '') + '<button type="button" data-ldsm1238="' + i + '">Text</button><button type="button" data-ldsd1238="' + i + '">Send</button></footer></article>'; };
  return '<section class="ld1238" aria-label="Truck loads"><header><i>' + UI.truck + '</i><b>Truck loads from what is Ready</b><span>' + P.length + ' truck' + (P.length === 1 ? '' : 's') + ' · ' + total + ' unit' + (total === 1 ? '' : 's') + ' ready · nearest first</span></header>'
-  + '<p class="lr1238">Event Portables: 24 a truck, 6 pee panels at most; a 16 Pan block on its own. Buildings one a truck. The Coates accessible toilet rides with other Coates gear. Other gear one a truck for now.</p>'
+  + '<p class="lr1238">Event Portables: 24 a truck, 6 pee panels at most; a 16 Pan block on its own. VMS boards 3 a truck: load 2, tow 1 (most trucks tow one). Buildings one a truck. The Coates accessible toilet rides with other Coates gear. Other gear one a truck for now.</p>'
   + '<div class="lg1238">' + P.map(card).join('') + '</div></section>';
 }
 function loadWords(t) {
  const st = stopsOf(t), u = loadUnits(t), at = sameAt(t), L0 = st.length ? locOf(st[0].cards[0]) : null;
- const lines = ['Coates GC500 demob · Truck ' + t.n + ' · ' + coName(t.owner) + ' · ' + u + ' unit' + (u === 1 ? '' : 's') + ' (' + mixWords(t.items) + ')'];
+ const lines = ['Coates GC500 demob · Truck ' + t.n + ' · ' + coName(t.owner) + ' · ' + u + ' unit' + (u === 1 ? '' : 's') + ' (' + mixWords(t.items) + (rideOf(t) ? ', ' + rideOf(t) : '') + ')'];
  if (at) lines.push('Pick-up booked: ' + when(at));
  st.forEach((s, i) => lines.push((i + 1) + '. ' + s.key + ' · ' + s.words + (s.nos.length ? ': ' + s.nos.join(' ') : '') + (s.where ? ' · ' + s.where : '')));
  if (L0) lines.push('First stop, navigate: ' + navOf(L0));
