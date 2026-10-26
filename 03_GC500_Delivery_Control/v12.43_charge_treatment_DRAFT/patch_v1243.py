@@ -5,8 +5,13 @@ import re
 import sys
 from pathlib import Path
 
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'toolchain'))
 from rep import rep
+from navigation1243_patch import patch as patch_navigation1243
+from identity_index1243_patch import patch as patch_identity1243
+from local_reads1243_patch import patch as patch_local_reads1243
+from event_window1243_patch import patch as patch_event_window1243
 
 
 def patch(text, path, expected_base_sha=None):
@@ -78,6 +83,10 @@ def patch(text, path, expected_base_sha=None):
     change('<h4 class="subhd">The access plan <span>— the times every line is worked out from</span></h4>',
            '<h4 class="subhd">The access plan <span>— ${F.chargeTreatment1239?"original planned times; an explicitly confirmed crew total is shown separately below":"the times every line is worked out from"}</span></h4>',
            'access-plan wording distinguishes an approved customer aggregate')
+    text=patch_navigation1243(text,path)
+    text=patch_identity1243(text,path)
+    text=patch_local_reads1243(text,path)
+    text=patch_event_window1243(text,path)
     src=Path(__file__).with_name('charge1239_src.js').read_text()
     end=text.rfind('\n</body>')
     if end<0 or text[end:].strip()!='</body>\n</html>':

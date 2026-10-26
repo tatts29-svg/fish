@@ -1,4 +1,4 @@
-# v12.43 confirmed customer-charge treatments — DRAFT
+# v12.43 responsiveness and confirmed customer-charge treatments — DRAFT
 
 Author: Andrew Fisher
 
@@ -10,15 +10,17 @@ Each decision binds the current source and relevant overrides. Changed evidence,
 
 No private approval, operational quantity or financial amount is embedded in this source. Publication alone changes no record or charge. Separately authorised record updates require native functions, a reviewed dry run, backup and exact read-back.
 
+The release also removes measured repeated work in navigation and native calculations. [RESPONSIVENESS.md](RESPONSIVENESS.md) records the bounded changes, evidence and remaining performance limits. The existing record and financial preservation gates apply to the combined candidate.
+
 ## Status and source
 
 The aggregate customer-hours extension has passed its narrow source review and the current draft has passed native desktop financial checks. This is **not READY TO UPLOAD**. The newer v12.42 handover asks this release to wait; final publication checks must use a rebuild on the verified v12.42 page and a fresh record. All earlier v12.39 and moving-base builds are superseded.
 
 - `charge1239_src.js`: SHA-256 `f87092bc21613af356677890f18300a2f9c366b8c19b65e911e62e09b9cdf7e0`.
-- `patch_v1243.py`: SHA-256 `61c06e5e21570a68fe663a1a5d0fcce9c62a325a0be15b90a54f2cbff425c563`.
+- `patch_v1243.py`: SHA-256 `41dc66465e5078cc9b1eff85ca34b9d8f040f18c71bd808f23bffa51730ce98a`.
 - The patch requires the event-crew and performance modules, exactly one v12.41 or v12.42 footer, and an explicit matching base SHA-256 through `GC500_V1243_BASE_SHA256` (or the Python `expected_base_sha` argument). It refuses old bases, changed bytes and repeated application.
 - Release-only rename from v12.39 follows claim `f70e3cc061f9b9dee3ea984548cd958b28e652e1`. The `ChargeTreatment1239` API, `charge-treatment1239|` keys, module marker and decision history remain unchanged.
-- Verified v12.41 base: `e106502b347cb51519f6aaed1eec5b6ba20a301b06490df04e3d29569d55b422`. The formal shared build produced candidate `3a87e830f88f96fdebc3880b322ef28c8e1e6538f1061d2151591961645bc5d4` (15,647,033 bytes; 213 inline scripts checked). This is retained draft evidence, not the final v12.42-based release candidate.
+- Verified v12.41 base: `e106502b347cb51519f6aaed1eec5b6ba20a301b06490df04e3d29569d55b422`. The earlier customer-treatment-only formal build produced candidate `3a87e830f88f96fdebc3880b322ef28c8e1e6538f1061d2151591961645bc5d4` (15,647,033 bytes; 213 inline scripts checked). This is retained draft evidence, not the final v12.42-based release candidate.
 
 ## Checks and next action
 
