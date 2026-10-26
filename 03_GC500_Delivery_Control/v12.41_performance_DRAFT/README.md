@@ -19,14 +19,17 @@ The helpers live in `performance1241_src.js`; `performance1241_runtime.js` insta
 
 When the later Demob release rebuilds, retain both actual-pane startup guards and the native `holdAssets` boundary around the complete Demob render plus decoration. Observer-only decoration must also enter that boundary. Retain the full-render geometry boundary too: standalone mounts preserve scroll, the final date reveal remains the centring owner, and map observation follows decoration. These changes patch the current live page; they do not edit the separate Demob draft's source files. If that draft replaces these functions, preserve the same visibility and synchronous invalidation semantics, then rerun the performance and preservation checks.
 
-## Current verification
+## Verification
 
-DRAFT only; final performance, financial preservation, native interaction and navigation checks are pending. No speed improvement or release readiness is claimed.
+READY TO UPLOAD. All final gates passed on the exact candidate below; publication and public read-back are still pending.
 
+- Implementation source: `1e8d7ad1597f60e79c3d63571da3da5f40a69957`; the final native test adds branch-freshness assertions in this commit.
 - Base: live v12.37, SHA-256 `d0c7d444d9b9c1aef434478a283bb4fc5b0cbafeb70a329cc1a561f982bb986a`.
-- Candidate: `build/GC500_v12.41/GC500_Delivery_Control_hosted.html`, SHA-256 `e106502b347cb51519f6aaed1eec5b6ba20a301b06490df04e3d29569d55b422`, 15,620,153 bytes. Earlier candidates `602fe2de…`, `38595574…` and `98dfd52b…` are superseded.
-- Shared build/checker: PASS, 212 inline scripts; offline behavior checks 108/108. Final native, financial and navigation gates remain in progress.
-- Earlier candidate checks passed, including native photo/source preservation. Affected tests and timing comparisons must be repeated on the current candidate before release. The final timing comparison also runs without CPU profiling instrumentation.
-- The phone comparison uses the same frozen private record for baseline and candidate. Detailed records and timing artifacts remain private.
+- Candidate: SHA-256 `e106502b347cb51519f6aaed1eec5b6ba20a301b06490df04e3d29569d55b422`, 15,620,153 bytes. Earlier candidates are superseded.
+- Shared checker: 212 scripts. Offline behavior: 108/108. Financial/map/people preservation: 26/26. Native phone interactions: 42/42. Photo equality and invalidation: 18/18.
+- Both full shared sweeps passed: each 27 tabs, 19 visible panes, 7 deep links and Back. Zero runtime/console errors or record-write attempts. Final phone screenshots inspected by implementer/tester and release owner.
+- Guarded upload dry run passed against unchanged live bytes. No operational record is changed by this release. Independent release checks were performed within this session; no external agent review or receipt is claimed.
 
-Before release, verify the initial Today view, direct Demob links, ordinary tab navigation, local saves and received-record invalidation, alongside unchanged financial results. Both standard sweeps and an inspected phone view are required. Rebuild if the live predecessor changes.
+The matched phone comparison of the preceding candidate against the same baseline reduced startup from50.9s to16.6s, Costs synchronous work from19.9s to7.1s, Demob from15.3s to5.3s and Today from8.0s to3.3s. The final additional Finance index was checked in the same browser with alternating exact original/final functions: median494.7ms to299.35ms, identical outputs and source state. Whole-page timings varied: settled final Costs runs were6.8–8.4s. A35.15s immediate, no-idle Costs run is retained in private evidence; its individual cause remains unproven. These results support the bounded corrections, not a claim that all loading latency has been eliminated. Detailed records, all timing runs and phone captures remain private.
+
+Later Demob work must retain these corrections and repeat its timing checks. Rebuild if the live predecessor changes. Publication uses the shared guarded uploader, then exact public read-back.

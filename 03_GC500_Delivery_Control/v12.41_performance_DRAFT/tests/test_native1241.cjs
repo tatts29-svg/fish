@@ -68,6 +68,9 @@ const fs=require('fs');
     const homesAfter=fh868People(),changedHome=homesAfter.rows.find(r=>r.person===worker.person);
     check(changedHome&&changedHome.home===normBranch(newHome),'next people-summary invocation immediately sees the changed home branch');
     check(homesAfter.total===homesBefore.total&&homesAfter.toDate===homesBefore.toDate&&homesAfter.toCome===homesBefore.toCome,'home-branch lookup reuse never changes employee costs');
+    SYNC.readonly=true;SYNC.queue={};const homeDocs=clone(toDocs('costs')),homeDoc=Object.values(homeDocs).find(p=>p.kind==='person'&&p.person===worker.person);need(homeDoc,'native person update has a sync document');homeDoc.branch=worker.home||'';
+    check(syncFold('costs',homeDocs)&&fh868People().rows.find(r=>r.person===worker.person)?.home===(worker.home||null),'remote person fold refreshes the next home-branch summary');
+
     reset();SYNC.readonly=false;SYNC.level='edit';S.operator='Synthetic performance reviewer';if(who)who.value=S.operator;
     holdAssets(()=>{
      const first=clone(allCosts()),returned=allCosts();returned.pop();if(returned[0]){returned[0].description='MUTATED-COST-ROW';if(Array.isArray(returned[0].problems))returned[0].problems.push('MUTATED-PROBLEM');}
