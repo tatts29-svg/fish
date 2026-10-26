@@ -10,6 +10,7 @@ const {spawnSync} = require('node:child_process');
 const root = path.resolve(__dirname, '..');
 const filename = path.join(root, 'performance1241_src.js');
 const source = fs.readFileSync(filename, 'utf8');
+const runtimeSource = fs.readFileSync(path.join(root, 'performance1241_runtime.js'), 'utf8');
 const API = require(filename);
 const sha = text => crypto.createHash('sha256').update(text).digest('hex');
 const checks = [];
@@ -29,11 +30,33 @@ const nativeFinance = `fin745Rows=function(){return priorFinance.apply(this,argu
 });};`;
 const nativeAfter = `function after() {
  const pane = D.getElementById('pane-demob'); if (mo) mo.disconnect();
+ try { arm(); } catch (e) {} try { headers(); } catch (e) {} try { overview(); } catch (e) {} try { progress(); } catch (e) {}
  decorationCalls++; decorationDepths.push(holdDepth); if (throwDecoration) throw new Error('synthetic decoration failure');
 }`;
 const nativeRender = "renderDemob816 = function () { let v; rendering++; try { v = renderBefore.apply(this, arguments); } finally { rendering--; } after(); return v; };";
 const readyBoot = "if (p && !p.hidden && typeof renderDemob816 === 'function') renderDemob816();";
 const mapBoot = "if (p && !p.hidden && p.querySelector('.sec1231')) renderDemob816();";
+const legacyCenter = "{ const st = pane.querySelector('.strip816'), on = st && st.querySelector('.dday816.on'); if (st && on) { const l = on.offsetLeft - st.clientWidth / 2 + on.offsetWidth / 2; if (l > 0 && st.scrollWidth > st.clientWidth) st.scrollLeft = l; } }";
+const nativeLayout = `function legacyCenter(pane) { ${legacyCenter} }
+function syntheticMount() {
+ const selected=demobSel816(M),scroll=strip.scrollLeft;readings.clear();
+ strip.classList.add('daystrip');strip.scrollLeft=scroll;pane.querySelector('.leg816')?.remove();
+}
+function syntheticModernRender() {const result='synthetic modern result';mount();WeatherStrip1002.reveal(document.getElementById('pane-demob'));return result;}
+function scroller() {
+ const pane = D.getElementById('pane-demob'); let sc = pane && pane.parentElement;
+ while (sc && sc !== D.body) { const cs = getComputedStyle(sc); if (/(auto|scroll)/.test(cs.overflowY)) return sc; sc = sc.parentElement; }
+ return null;
+}`;
+const nativePhoto = "dropPhotosOf=function(ref){return oldPhotos(ref).filter(p=>{const current=get(p.id);return !isArea(current)||(!current.removed&&linkedRefs(current).includes(String(ref)));}).map(p=>{const current=get(p.id);if(!isArea(current))return p;const projected=projectForRef(current,ref);delete projected.ref;return projected;});};";
+const nativePhotos = `${nativePhoto}
+function photoLinkPut(id,next,who) {
+ S.photoLinks[id] = next;
+ stampIt('photoLinks', id, who);
+}`;
+const nativeCosts = `function allCosts(docketPricer1018){
+ return syntheticCostsRead.apply(this, arguments);
+}`;
 const gate = '<script>/* Author: Andrew Fisher. The data gate exists before any record is drawn. */';
 const footer = "+' · v12.37'; /* v8.19 release922";
 const fixture = `<script id="eventcrew1237-script"></script><script id="demobmap1236-script"></script>
@@ -41,7 +64,12 @@ ${gate}</script>
 <script id="synthetic-ready-boot">${readyBoot}</script>
 <script id="synthetic-map-boot">${mapBoot}</script>
 <script id="synthetic-runtime">${nativeAfter}\n${nativeRender}\n${nativeFinance}</script>
-<script>const syntheticFooter = 'Synthetic fixture'${footer} */</script>`;
+<script id="synthetic-layout">${nativeLayout}</script>
+<script id="synthetic-photos">${nativePhotos}</script>
+<script id="synthetic-costs">${nativeCosts}</script>
+<script>const syntheticFooter = 'Synthetic fixture'${footer} */</script>
+</body>
+</html>`;
 
 const cases = [
   ['missing event crew base marker', fixture.replace('id="eventcrew1237-script"', 'id="synthetic-missing"')],
@@ -53,7 +81,12 @@ const cases = [
   ['changed Finance span', fixture.replace('const person=ourCostOf(personId(row.person))', 'const person=changedSyntheticLookup(row.person)')],
   ['duplicate Finance span', fixture + nativeFinance],
   ['missing native data gate', fixture.replace(gate, '<script>/* changed synthetic gate */')],
-  ['duplicate native data gate', fixture + gate]
+  ['duplicate native data gate', fixture + gate],
+  ['missing native photo invalidation span', fixture.replace("S.photoLinks[id] = next;", '/* synthetic missing photo put */')],
+  ['duplicate native photo projection', fixture + nativePhoto],
+  ['missing native cost reader', fixture.replace('function allCosts(docketPricer1018){', 'function syntheticChangedCosts(docketPricer1018){')],
+  ['duplicate native cost reader', fixture + nativeCosts],
+  ['missing terminal runtime anchor', fixture.replace('</body>\n</html>', '</body></html>')]
 ];
 const python = `import json,sys
 from pathlib import Path
@@ -113,6 +146,174 @@ if (!patchResult) {
     assert.strictEqual(index.get(undefined), missing); assert.strictEqual(index.get(String(undefined)), literal);
     assert.equal(index.get(String(null)), undefined); assert.strictEqual(index.get('__proto__'), special);
   });
+  test('Demob pass returns its value and finishes only after drawing depth is released', () => {
+    const events = [], value = {synthetic: true};
+    assert.equal(API.drawingDemob(), false);
+    const result = API.demobPass(() => {events.push(['read', API.drawingDemob()]); return value;},
+      () => events.push(['finish', API.drawingDemob()]));
+    assert.strictEqual(result, value); assert.deepEqual(events, [['read', true], ['finish', false]]);
+    assert.equal(API.drawingDemob(), false);
+  });
+  test('nested Demob passes finish exactly once at the outer boundary', () => {
+    const events = [];
+    const out = API.demobPass(() => API.demobPass(() => {events.push('nested read'); return 7;}, () => events.push('inner finish')),
+      () => events.push('outer finish'));
+    assert.equal(out, 7); assert.deepEqual(events, ['nested read', 'outer finish']);
+  });
+  test('failed nested Demob read releases all depth and does not finish', () => {
+    let finishes = 0;
+    assert.throws(() => API.demobPass(() => API.demobPass(() => {throw new Error('synthetic read error');}, () => finishes++),
+      () => finishes++), /synthetic read error/);
+    assert.equal(API.drawingDemob(), false); assert.equal(finishes, 0);
+    assert.equal(API.demobPass(() => 9, () => finishes++), 9); assert.equal(finishes, 1);
+  });
+  test('failed Demob finish leaves drawing depth clear for later calls', () => {
+    assert.throws(() => API.demobPass(() => 1, () => {throw new Error('synthetic finish error');}), /synthetic finish error/);
+    assert.equal(API.drawingDemob(), false); assert.equal(API.demobPass(() => 2, () => {}), 2);
+  });
+  test('a caught nested read failure still allows the outer successful finish', () => {
+    let finishes = 0;
+    const out = API.demobPass(() => {
+      assert.throws(() => API.demobPass(() => {throw new Error('synthetic inner failure');}, () => finishes++));
+      assert.equal(API.drawingDemob(), true); return 8;
+    }, () => finishes++);
+    assert.equal(out, 8); assert.equal(finishes, 1); assert.equal(API.drawingDemob(), false);
+  });
+  test('page draw finishes Demob geometry after all later native decorators', () => {
+    const order = [], value = {synthetic: true};
+    const out = API.pageDraw(() => {
+      API.demobPass(() => order.push('demob'), () => order.push('geometry'));
+      order.push('later native decorator'); return value;
+    });
+    assert.strictEqual(out, value); assert.deepEqual(order, ['demob', 'later native decorator', 'geometry']);
+  });
+  test('nested page draws flush only the most recent Demob finish at the outer boundary', () => {
+    const order = [];
+    API.pageDraw(() => {
+      API.demobPass(() => order.push('first'), () => order.push('old geometry'));
+      API.pageDraw(() => API.demobPass(() => order.push('latest'), () => order.push('latest geometry')));
+      order.push('outer complete');
+    });
+    assert.deepEqual(order, ['first', 'latest', 'outer complete', 'latest geometry']);
+  });
+  test('failed outer page draw discards queued geometry and a later page starts clean', () => {
+    const order = [];
+    assert.throws(() => API.pageDraw(() => {
+      API.demobPass(() => {}, () => order.push('stale geometry')); throw new Error('synthetic page failure');
+    }), /synthetic page failure/);
+    assert.equal(API.pageDraw(() => 3), 3); assert.deepEqual(order, []);
+    API.demobPass(() => {}, () => order.push('fresh direct geometry'));
+    assert.deepEqual(order, ['fresh direct geometry']);
+  });
+  test('a geometry finish failure clears pending work and does not poison later page draws', () => {
+    assert.throws(() => API.pageDraw(() => API.demobPass(() => {}, () => {throw new Error('synthetic geometry failure');})), /synthetic geometry failure/);
+    let finishes = 0; API.pageDraw(() => API.demobPass(() => {}, () => finishes++));
+    assert.equal(finishes, 1); assert.equal(API.drawingDemob(), false);
+  });
+
+  function photoContext() {
+    const ctx = {held: false, memo: new Map(), calls: 0};
+    ctx.heldMemo = (key, read) => {
+      if (!ctx.held) return read();
+      if (!ctx.memo.has(key)) ctx.memo.set(key, read());
+      return ctx.memo.get(key);
+    };
+    vm.createContext(ctx); vm.runInContext(source, ctx);
+    const api = ctx.Performance1241;
+    return {ctx, api};
+  }
+  test('photo projection stays fresh on every read outside a native hold', () => {
+    const {ctx, api} = photoContext(); let current = {id: 'synthetic-photo', title: 'first'};
+    const read = () => {ctx.calls++; return [current];};
+    const one = api.photoRows('SYNTHETIC-REF', read); current = {id: 'synthetic-photo', title: 'second'};
+    const two = api.photoRows('SYNTHETIC-REF', read);
+    assert.equal(ctx.calls, 2); assert.equal(one[0].title, 'first'); assert.equal(two[0].title, 'second');
+    assert.equal(ctx.memo.size, 0);
+  });
+  test('photo projection reads once per reference inside a native hold and returns fresh shallow objects', () => {
+    const {ctx, api} = photoContext(); ctx.held = true;
+    const nested = {source: 'synthetic'}, original = Object.freeze({id: 'synthetic-photo', title: 'unchanged', nested});
+    const read = () => {ctx.calls++; return Object.freeze([original]);};
+    const one = api.photoRows('SYNTHETIC-REF', read), two = api.photoRows('SYNTHETIC-REF', read);
+    assert.equal(ctx.calls, 1); assert.notStrictEqual(one, two); assert.notStrictEqual(one[0], two[0]);
+    assert.notStrictEqual(one[0], original); assert.strictEqual(one[0].nested, nested);
+    one[0].title = 'caller-only edit'; one.push({id: 'caller-only-photo'});
+    const three = api.photoRows('SYNTHETIC-REF', read);
+    assert.equal(three.length, 1); assert.equal(three[0].title, 'unchanged');
+  });
+  test('photo projection separates references and uses the native string reference identity', () => {
+    const {ctx, api} = photoContext(); ctx.held = true;
+    const read = () => {ctx.calls++; return [{id: 'synthetic-' + ctx.calls}];};
+    assert.equal(api.photoRows(7, read)[0].id, api.photoRows('7', read)[0].id);
+    assert.notEqual(api.photoRows('SYNTHETIC-OTHER', read)[0].id, api.photoRows('7', read)[0].id);
+    assert.equal(ctx.calls, 2);
+  });
+  test('empty held photo results are reused until explicit invalidation', () => {
+    const {ctx, api} = photoContext(); ctx.held = true; let rows = [];
+    const read = () => {ctx.calls++; return rows;};
+    assert.equal(api.photoRows('SYNTHETIC-REF', read).length, 0); rows = [{id: 'new-synthetic-photo'}];
+    assert.equal(api.photoRows('SYNTHETIC-REF', read).length, 0);
+    api.invalidatePhotos(); assert.equal(api.photoRows('SYNTHETIC-REF', read).length, 1); assert.equal(ctx.calls, 2);
+  });
+  test('photo invalidation refreshes every reference inside the same hold before save', () => {
+    const {ctx, api} = photoContext(); ctx.held = true; let revision = 1;
+    const read = () => {ctx.calls++; return [{id: 'synthetic-photo', revision}];};
+    api.photoRows('A', read); api.photoRows('B', read); revision = 2; api.invalidatePhotos();
+    assert.equal(api.photoRows('A', read)[0].revision, 2); assert.equal(api.photoRows('B', read)[0].revision, 2);
+    assert.equal(ctx.calls, 4);
+  });
+  test('a restored carried memo is invalidated by a photo put outside its hold', () => {
+    const {ctx, api} = photoContext(); ctx.held = true; let revision = 1;
+    const read = () => {ctx.calls++; return [{id: 'synthetic-photo', revision}];};
+    api.photoRows('A', read); const carried = new Map(ctx.memo);
+    ctx.held = false; ctx.memo.clear(); revision = 2; api.invalidatePhotos();
+    ctx.held = true; ctx.memo = new Map(carried);
+    assert.equal(api.photoRows('A', read)[0].revision, 2); assert.equal(ctx.calls, 2);
+  });
+  test('native memo invalidation alone refreshes the photo projection', () => {
+    const {ctx, api} = photoContext(); ctx.held = true; let revision = 1;
+    const read = () => {ctx.calls++; return [{id: 'synthetic-photo', revision}];};
+    api.photoRows('A', read); revision = 2; ctx.memo.clear();
+    assert.equal(api.photoRows('A', read)[0].revision, 2); assert.equal(ctx.calls, 2);
+  });
+  test('failed photo reads do not poison a held reference for later recovery', () => {
+    const {ctx, api} = photoContext(); ctx.held = true;
+    assert.throws(() => api.photoRows('A', () => {throw new Error('synthetic photo failure');}), /synthetic photo failure/);
+    assert.equal(api.photoRows('A', () => [{id: 'recovered-synthetic-photo'}])[0].id, 'recovered-synthetic-photo');
+  });
+  test('cost rows stay fresh outside holds and compute once inside a hold', () => {
+    const {ctx, api} = photoContext(); let amount = 4;
+    const read = () => {ctx.calls++; return [{id: 'synthetic-cost', amount, problems: []}];};
+    assert.equal(api.costRows(read)[0].amount, 4); amount = 5;
+    assert.equal(api.costRows(read)[0].amount, 5); assert.equal(ctx.calls, 2);
+    ctx.held = true; api.costRows(read); api.costRows(read); assert.equal(ctx.calls, 3);
+  });
+  test('cost rows return independent arrays, rows and problem arrays while retaining nested source identity', () => {
+    const {ctx, api} = photoContext(); ctx.held = true;
+    const nested = {id: 'synthetic-source'}, problems = Object.freeze(['synthetic issue']);
+    const sourceRows = Object.freeze([Object.freeze({id: 'synthetic-cost', amount: 4, problems, nested})]);
+    const one = api.costRows(() => sourceRows), two = api.costRows(() => sourceRows);
+    assert.notStrictEqual(one, two); assert.notStrictEqual(one[0], two[0]); assert.notStrictEqual(one[0].problems, two[0].problems);
+    assert.strictEqual(one[0].nested, nested); assert.strictEqual(two[0].nested, nested);
+    one[0].amount = 99; one[0].problems.push('caller only'); one.push({id: 'caller-only'});
+    assert.equal(two.length, 1); assert.equal(two[0].amount, 4); assert.deepEqual(clone(two[0].problems), ['synthetic issue']);
+    assert.deepEqual(clone(api.costRows(() => sourceRows)), clone(sourceRows));
+  });
+  test('cost rows preserve absent or non-array problems without inventing a new shape', () => {
+    const {api} = photoContext();
+    const out = api.costRows(() => [{id: 'A'}, {id: 'B', problems: null}, {id: 'C', problems: 'synthetic legacy text'}]);
+    assert.equal(Object.hasOwn(out[0], 'problems'), false); assert.equal(out[1].problems, null); assert.equal(out[2].problems, 'synthetic legacy text');
+  });
+  test('empty cost snapshots are cached and native memo clearing restores fresh computation', () => {
+    const {ctx, api} = photoContext(); ctx.held = true; let rows = [];
+    const read = () => {ctx.calls++; return rows;}; api.costRows(read); rows = [{id: 'new-synthetic-cost'}];
+    assert.equal(api.costRows(read).length, 0); ctx.memo.clear(); assert.equal(api.costRows(read).length, 1); assert.equal(ctx.calls, 2);
+  });
+  test('cost computation failures are propagated and do not cache a failed result', () => {
+    const {ctx, api} = photoContext(); ctx.held = true;
+    assert.throws(() => api.costRows(() => {throw new Error('synthetic costs failure');}), /synthetic costs failure/);
+    assert.equal(api.costRows(() => [{id: 'recovered-cost'}])[0].id, 'recovered-cost');
+  });
 
   function pane(tab = 'demob', on = true, hidden = false, section = true) {
     return {id: 'pane-' + tab, hidden, classList: {contains: name => name === 'on' && on},
@@ -134,7 +335,9 @@ if (!patchResult) {
     return patchResult.patched.slice(start + marker.length, patchResult.patched.indexOf('</script>', start));
   };
   let runtimeScript = script('synthetic-runtime');
+  let costsScript = script('synthetic-costs');
   const candidatePath = process.env.PAGE || path.join(root, '..', 'build', 'GC500_v12.41', 'GC500_Delivery_Control_hosted.html');
+  const candidateSource = (process.env.PAGE || fs.existsSync(candidatePath)) ? fs.readFileSync(candidatePath, 'utf8') : null;
   let candidateSha256 = null;
   if (process.env.PAGE || fs.existsSync(candidatePath)) test('real built Finance wrapper matches and supplies the exercised implementation', () => {
     const candidate = fs.readFileSync(candidatePath, 'utf8');
@@ -147,6 +350,123 @@ if (!patchResult) {
     assert.equal(actual, runtimeScript.slice(fixtureStart));
     runtimeScript = runtimeScript.slice(0, fixtureStart) + actual;
     candidateSha256 = sha(candidate);
+  });
+  if (process.env.PAGE || fs.existsSync(candidatePath)) test('built performance helper matches the helper under test', () => {
+    const candidate = fs.readFileSync(candidatePath, 'utf8'), marker = '<script id="performance1241-script">';
+    const start = candidate.indexOf(marker); assert.ok(start >= 0);
+    assert.equal(candidate.slice(start + marker.length, candidate.indexOf('</script>', start)).trim(), source.trim());
+  });
+  if (candidateSource) test('built terminal runtime matches the wrapper under test', () => {
+    const marker = '<script id="performance1241-runtime">', start = candidateSource.indexOf(marker); assert.ok(start >= 0);
+    assert.equal(candidateSource.slice(start + marker.length, candidateSource.indexOf('</script>', start)).trim(), runtimeSource.trim());
+    assert.equal(script('performance1241-runtime').trim(), runtimeSource.trim());
+  });
+  if (candidateSource) test('real allCosts wrapper matches and supplies the explicit-argument regression tests', () => {
+    const start = candidateSource.indexOf('function allCosts(docketPricer1018){');
+    const end = candidateSource.indexOf('function allCosts1241Uncached(docketPricer1018){', start);
+    assert.ok(start >= 0 && end > start);
+    const actual = candidateSource.slice(start, end);
+    const fixtureEnd = costsScript.indexOf('function allCosts1241Uncached(docketPricer1018){');
+    assert.equal(actual, costsScript.slice(0, fixtureEnd));
+    costsScript = actual + costsScript.slice(fixtureEnd);
+  });
+  if (candidateSource && process.env.BASE_PAGE) test('final docket-cost billing wrapper is byte-identical to the supplied base', () => {
+    const base = fs.readFileSync(process.env.BASE_PAGE, 'utf8');
+    const extract = text => {
+      const marker = 'var baseLines = docketCostLines;\ndocketCostLines = function () {', start = text.indexOf(marker);
+      assert.ok(start >= 0); const end = text.indexOf("if (typeof costFromWords === 'function')", start); assert.ok(end > start);
+      return text.slice(start, end);
+    };
+    assert.equal(extract(candidateSource), extract(base));
+  });
+  test('runtime render wrapper preserves receiver, arguments, result and enumerable metadata', () => {
+    const {ctx, api} = photoContext(), receiver = {synthetic: true}, value = {result: 'synthetic'}, calls = [], order = [];
+    const before = function (...args) {
+      calls.push({receiver: this, args}); api.demobPass(() => order.push('demob'), () => order.push('geometry'));
+      order.push('last native decorator'); return value;
+    };
+    before.syntheticMetadata = {original: true}; ctx.render = before; ctx.window = ctx;
+    vm.runInContext(script('performance1241-runtime'), ctx);
+    assert.notStrictEqual(ctx.render, before); assert.strictEqual(ctx.render.syntheticMetadata, before.syntheticMetadata);
+    assert.strictEqual(ctx.render.call(receiver, 'arg', 9), value);
+    assert.strictEqual(calls[0].receiver, receiver); assert.deepEqual(calls[0].args, ['arg', 9]);
+    assert.deepEqual(order, ['demob', 'last native decorator', 'geometry']);
+  });
+  test('runtime nested render calls flush the latest geometry after the outer render returns', () => {
+    const {ctx, api} = photoContext(), order = []; ctx.window = ctx;
+    ctx.render = function (level) {
+      api.demobPass(() => order.push('read ' + level), () => order.push('geometry ' + level));
+      if (level === 'outer') ctx.render('inner'); order.push('done ' + level); return level;
+    };
+    vm.runInContext(script('performance1241-runtime'), ctx);
+    assert.equal(ctx.render('outer'), 'outer');
+    assert.deepEqual(order, ['read outer', 'read inner', 'done inner', 'done outer', 'geometry inner']);
+  });
+  test('runtime native failure discards pending geometry and preserves future renders', () => {
+    const {ctx, api} = photoContext(); let fail = true, finishes = 0; ctx.window = ctx;
+    ctx.render = () => {api.demobPass(() => {}, () => finishes++); if (fail) throw new Error('synthetic native-render failure'); return 4;};
+    vm.runInContext(script('performance1241-runtime'), ctx);
+    assert.throws(() => ctx.render(), /synthetic native-render failure/); assert.equal(finishes, 0);
+    fail = false; assert.equal(ctx.render(), 4); assert.equal(finishes, 1);
+  });
+  test('runtime refuses a missing native render or missing performance helper', () => {
+    for (const ctx of [{Performance1241: API}, {render() {}}]) {
+      ctx.window = ctx; assert.throws(() => vm.runInNewContext(script('performance1241-runtime'), ctx), /Native rendering is required/);
+    }
+  });
+  function costsContext() {
+    const {ctx, api} = photoContext(), calls = []; ctx.held = true;
+    const rows = [{id: 'synthetic-cost', amount: 13, problems: ['synthetic issue'], source: {id: 'synthetic-source'}}];
+    ctx.syntheticCostsRead = function (...args) {calls.push({receiver: this, args}); return rows;};
+    vm.runInContext(costsScript, ctx);
+    return {ctx, api, calls, rows};
+  }
+  test('native no-argument allCosts reuses a held read and returns fresh copies', () => {
+    const {ctx, calls, rows} = costsContext(), receiver = {synthetic: true};
+    const first = ctx.allCosts.call(receiver), second = ctx.allCosts.call(receiver);
+    assert.equal(calls.length, 1); assert.strictEqual(calls[0].receiver, receiver); assert.deepEqual(calls[0].args, []);
+    assert.notStrictEqual(first, second); assert.notStrictEqual(first[0], rows[0]); assert.notStrictEqual(first[0].problems, second[0].problems);
+    assert.strictEqual(first[0].source, rows[0].source);
+  });
+  test('explicit undefined and custom pricers always bypass the ordinary held cost cache', () => {
+    const {ctx, calls, rows} = costsContext(), receiver = {synthetic: true}, custom = () => 4;
+    for (const args of [[undefined], [undefined], [custom], [custom, 'extra'], [null]]) {
+      const before = calls.length; assert.strictEqual(ctx.allCosts.apply(receiver, args), rows);
+      assert.equal(calls.length, before + 1); assert.strictEqual(calls.at(-1).receiver, receiver); assert.deepEqual(calls.at(-1).args, args);
+    }
+    assert.equal(ctx.memo.size, 0);
+  });
+  test('an explicit-pricer read cannot poison or consume the ordinary cached cost result', () => {
+    const {ctx, calls} = costsContext(); ctx.allCosts();
+    ctx.allCosts(() => 7); ctx.allCosts(undefined); ctx.allCosts(); assert.equal(calls.length, 3);
+  });
+  test('native allCosts remains fresh outside holds without a persistent cache', () => {
+    const {ctx, calls, rows} = costsContext(); ctx.held = false;
+    assert.equal(ctx.allCosts()[0].amount, 13); rows[0].amount = 21;
+    assert.equal(ctx.allCosts()[0].amount, 21); assert.equal(calls.length, 2);
+  });
+  if (candidateSource) test('native save and shared-record invalidation refresh held cost rows before any redraw', () => {
+    const extract = name => {
+      const start = candidateSource.indexOf('function ' + name + '('); assert.ok(start >= 0, name);
+      const brace = candidateSource.indexOf('{', start); let depth = 0;
+      for (let i = brace; i < candidateSource.length; i++) {
+        if (candidateSource[i] === '{') depth++;
+        if (candidateSource[i] === '}' && --depth === 0) return candidateSource.slice(start, i + 1);
+      }
+      throw new Error('Missing native function end: ' + name);
+    };
+    const ctx = {REC_EPOCH1066: 0, RENDER_MEMO: new Map(), HELD_MEMO: new Map(), ASSETS_HELD: null, HELD_STALE775: false,
+      buildAllAssets: () => [], save775Inner: () => true};
+    ctx.window = ctx; vm.createContext(ctx);
+    vm.runInContext(source + '\n' + ['heldFresh775', 'heldMemo', 'holdAssets', 'save', 'sharedCache975'].map(extract).join('\n'), ctx);
+    const api = ctx.Performance1241; let amount = 3, reads = 0;
+    const read = () => {reads++; return [{id: 'synthetic-cost', amount, problems: []}];};
+    ctx.holdAssets(() => {
+      assert.equal(api.costRows(read)[0].amount, 3); assert.equal(api.costRows(read)[0].amount, 3);
+      amount = 4; ctx.save(); assert.equal(api.costRows(read)[0].amount, 4);
+      amount = 5; ctx.sharedCache975(); assert.equal(api.costRows(read)[0].amount, 5);
+    });
+    assert.equal(reads, 3); assert.equal(ctx.REC_EPOCH1066, 2); assert.equal(ctx.HELD_MEMO.size, 0); assert.equal(ctx.ASSETS_HELD, null);
   });
   for (const [id, needsSection] of [['synthetic-ready-boot', false], ['synthetic-map-boot', true]]) {
     for (const [name, p, tab, want] of [
@@ -161,6 +481,78 @@ if (!patchResult) {
       assert.equal(ctx.calls, want);
     });
   }
+  test('final area photo projection preserves associations and invalidates immediately on native photo put', () => {
+    const {ctx, api} = photoContext(); ctx.held = true;
+    ctx.S = {photoLinks: {area: {id: 'area', kind: 'area', refs: ['A'], title: 'first'}}};
+    const ordinary = {id: 'ordinary', title: 'ordinary source'};
+    ctx.oldPhotos = () => {ctx.calls++; return [ordinary, {id: 'area', title: 'old source'}];};
+    ctx.get = id => ctx.S.photoLinks[id]; ctx.isArea = p => p?.kind === 'area'; ctx.linkedRefs = p => p.refs;
+    ctx.projectForRef = (p, ref) => ({...p, ref});
+    const stamps = []; ctx.stampIt = (...args) => stamps.push(args);
+    vm.runInContext(script('synthetic-photos'), ctx);
+    assert.deepEqual(clone(ctx.dropPhotosOf('A').map(p => p.id)), ['ordinary', 'area']);
+    assert.deepEqual(clone(ctx.dropPhotosOf('B').map(p => p.id)), ['ordinary']);
+    const one = ctx.dropPhotosOf('A'); one[0].title = 'caller-only';
+    assert.equal(ctx.dropPhotosOf('A')[0].title, 'ordinary source');
+    assert.equal(Object.hasOwn(ctx.dropPhotosOf('A')[1], 'ref'), false);
+    assert.equal(ctx.calls, 2);
+    ctx.photoLinkPut('area', {id: 'area', kind: 'area', refs: ['B'], title: 'second'}, 'Synthetic recorder');
+    assert.deepEqual(clone(ctx.dropPhotosOf('A').map(p => p.id)), ['ordinary']);
+    assert.equal(ctx.dropPhotosOf('B')[1].title, 'second'); assert.equal(ctx.calls, 4);
+    ctx.photoLinkPut('area', {id: 'area', kind: 'area', refs: ['B'], removed: true}, 'Synthetic recorder');
+    assert.deepEqual(clone(ctx.dropPhotosOf('B').map(p => p.id)), ['ordinary']);
+    assert.deepEqual(stamps, [['photoLinks', 'area', 'Synthetic recorder'], ['photoLinks', 'area', 'Synthetic recorder']]);
+    assert.equal(ordinary.title, 'ordinary source'); assert.equal(typeof api.invalidatePhotos, 'function');
+  });
+
+  function layoutContext() {
+    const counts = {scrollReads: 0, scrollWrites: 0, geometry: 0, styles: 0, reveal: 0, mount: 0};
+    let scroll = 31;
+    const button = {get offsetLeft() {counts.geometry++; return 200;}, get offsetWidth() {counts.geometry++; return 50;}};
+    const strip = {classList: {add() {}}, querySelector: () => button,
+      get clientWidth() {counts.geometry++; return 100;}, get scrollWidth() {counts.geometry++; return 500;},
+      get scrollLeft() {counts.scrollReads++; return scroll;}, set scrollLeft(value) {counts.scrollWrites++; scroll = value;}};
+    const body = {}, main = {tagName: 'MAIN', parentElement: body, overflowY: 'auto'};
+    const pane = {parentElement: main, querySelector: selector => selector === '.strip816' ? strip : null};
+    const ctx = {Performance1241: API, strip, pane, M: {}, rendering: false, printing: false, readings: {clear() {}},
+      demobSel816: () => '2030-04-10', D: {body, getElementById: () => pane},
+      document: {getElementById: () => pane}, WeatherStrip1002: {reveal() {counts.reveal++;}},
+      mount: () => counts.mount++, getComputedStyle: element => {counts.styles++; return {overflowY: element.overflowY || 'visible'};},
+      matchMedia: () => ({matches: ctx.printing})};
+    ctx.W = ctx; ctx.window = ctx; vm.createContext(ctx); vm.runInContext(script('synthetic-layout'), ctx);
+    return {ctx, counts, main, body};
+  }
+  test('legacy date centring remains available without modern cards but avoids their obsolete geometry', () => {
+    const {ctx, counts} = layoutContext(); ctx.legacyCenter(ctx.pane);
+    assert.ok(counts.geometry > 0); assert.equal(counts.scrollWrites, 1);
+    counts.geometry = 0; counts.scrollWrites = 0; ctx.DemobCards996 = {};
+    ctx.legacyCenter(ctx.pane); assert.equal(counts.geometry, 0); assert.equal(counts.scrollWrites, 0);
+  });
+  test('standalone mount preserves its prior scroll while a full render skips intermediate reads and writes', () => {
+    const {ctx, counts} = layoutContext(); ctx.syntheticMount();
+    assert.equal(counts.scrollReads, 1); assert.equal(counts.scrollWrites, 1);
+    ctx.rendering = true; counts.scrollReads = counts.scrollWrites = 0; ctx.syntheticMount();
+    assert.equal(counts.scrollReads, 0); assert.equal(counts.scrollWrites, 0);
+  });
+  test('modern render reveals immediately outside an outer pass and defers to its single finish inside one', () => {
+    const {ctx, counts} = layoutContext(); assert.equal(ctx.syntheticModernRender(), 'synthetic modern result');
+    assert.equal(counts.reveal, 1);
+    API.demobPass(() => {ctx.syntheticModernRender(); ctx.syntheticModernRender(); assert.equal(counts.reveal, 1);},
+      () => ctx.WeatherStrip1002.reveal(ctx.pane));
+    assert.equal(counts.reveal, 2); assert.equal(counts.mount, 3);
+  });
+  test('native scrolling main avoids computed styles on screen', () => {
+    const {ctx, counts, main} = layoutContext(); assert.strictEqual(ctx.scroller(), main); assert.equal(counts.styles, 0);
+  });
+  test('print keeps native computed-style scroll-root fallback', () => {
+    const {ctx, counts, main} = layoutContext(); ctx.printing = true; main.overflowY = 'visible';
+    assert.equal(ctx.scroller(), null); assert.equal(counts.styles, 1);
+  });
+  test('non-native ancestor structure keeps computed-style scroll-root discovery', () => {
+    const {ctx, counts, body} = layoutContext(); const scroller = {tagName: 'DIV', overflowY: 'scroll', parentElement: body};
+    ctx.pane.parentElement = scroller;
+    assert.strictEqual(ctx.scroller(), scroller); assert.equal(counts.styles, 1);
+  });
 
   function context() {
     const effects = {costReads: 0, oldFinds: 0, priorCalls: [], renderCalls: [], overrides: []};
@@ -174,6 +566,10 @@ if (!patchResult) {
       ourCostOf: id => {effects.oldFinds++; return ctx.costs.find(c => c.id === String(id)) || null;},
       fin745Latest: (kind, person) => {effects.overrides.push([kind, person]); return ctx.overrideByPerson[person] || null;},
       D: {getElementById: () => pane()}, mo: {disconnect() {}}, rendering: 0,
+      WeatherStrip1002: {reveal() {ctx.revealCalls++; ctx.revealDuringDrawing.push(API.drawingDemob());}},
+      revealCalls: 0, revealDuringDrawing: [], decorationOrder: [],
+      arm: () => ctx.decorationOrder.push('arm'), headers: () => ctx.decorationOrder.push('headers'),
+      overview: () => ctx.decorationOrder.push('overview'), progress: () => ctx.decorationOrder.push('progress'),
       decorationCalls: 0, decorationDepths: [], throwDecoration: false, throwRender: false,
       holdDepth: 0, holdEntries: 0, outerHolds: 0,
       holdAssets: function (fn) {ctx.holdEntries++; if (!ctx.holdDepth) ctx.outerHolds++; ctx.holdDepth++; try {return fn();} finally {ctx.holdDepth--; }},
@@ -248,6 +644,8 @@ if (!patchResult) {
     assert.strictEqual(effects.renderCalls[0].receiver, receiver);
     assert.deepEqual(effects.renderCalls[0].args, ['synthetic argument']);
     assert.ok(ctx.decorationDepths.every(n => n > 0));
+    assert.equal(ctx.revealCalls, 1); assert.deepEqual(ctx.revealDuringDrawing, [false]);
+    assert.deepEqual(ctx.decorationOrder, ['headers', 'overview', 'progress', 'arm']);
   });
   test('deferred decorations start their own bounded asset hold', () => {
     const {ctx} = context(); ctx.after(); ctx.after();
@@ -257,11 +655,13 @@ if (!patchResult) {
     const {ctx} = context(); ctx.throwRender = true;
     assert.throws(() => ctx.renderDemob816(), /synthetic render failure/);
     assert.equal(ctx.holdDepth, 0); assert.equal(ctx.rendering, 0); assert.equal(ctx.decorationCalls, 0);
+    assert.equal(ctx.revealCalls, 0); assert.equal(API.drawingDemob(), false);
   });
   test('failed Demob decoration releases nested holds and rendering flag', () => {
     const {ctx} = context(); ctx.throwDecoration = true;
     assert.throws(() => ctx.renderDemob816(), /synthetic decoration failure/);
     assert.equal(ctx.holdDepth, 0); assert.equal(ctx.rendering, 0);
+    assert.equal(ctx.revealCalls, 0); assert.equal(API.drawingDemob(), false);
   });
   if (candidateSha256) console.log(JSON.stringify({builtCandidateSha256: candidateSha256, realFinanceWrapperExercised: true}));
 }
@@ -269,7 +669,7 @@ if (!patchResult) {
 const failures = checks.filter(check => !check.pass);
 for (const failure of failures) console.error('FAIL ' + failure.name + '\n  ' + failure.error.slice(0, 1000));
 console.log(JSON.stringify({author: 'Andrew Fisher', suite: 'performance1241 offline synthetic',
-  sourceSha256: sha(source), patchSha256: sha(fs.readFileSync(path.join(root, 'patch_v1241.py'))),
+  sourceSha256: sha(source), runtimeSha256: sha(runtimeSource), patchSha256: sha(fs.readFileSync(path.join(root, 'patch_v1241.py'))),
   passed: checks.length - failures.length, failed: failures.length, checks: checks.length,
   failedChecks: failures.map(f => f.name)}));
 process.exitCode = failures.length ? 1 : 0;

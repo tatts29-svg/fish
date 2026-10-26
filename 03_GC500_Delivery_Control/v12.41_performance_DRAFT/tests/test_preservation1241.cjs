@@ -15,6 +15,7 @@ const read=()=>holdAssets(()=>{
   costToJobEnd:nums(C),costRows:C.rows.map(x=>[x.stream,x.toDate,x.toCome,x.job]),
   scope:nums(SCOPE_NOW),scopeLines:SCOPE_NOW.lines.map(x=>({key:x.key,hours:x.hours,rate:x.rate,amount:x.amount,amount_exact:x.amount_exact,days:x.days})),
   green:greenBookTotals(),billed:FenceInvoiced1219.billed(),branch:branchFinancial978(pl752Rows(),M),
+  mapChoices:allAssets().slice(0,12).map(a=>[a.key,Find1176.locate({kind:'asset',key:a.key})]),
   supplierPricing:(()=>{const p=supplierPricing1014();return {orders:p.orders,records:[...p.records],extras:p.extras,issues:p.issues};})(),
   finance:nums(F),financeRows:F.rows.map(x=>[x.id,x.status,x.paid,x.worked,x.calculatedCost,x.actualCost,x.allocation]),
   accrual:nums(A.all),crew:nums(RaceCrew1227.model()),
