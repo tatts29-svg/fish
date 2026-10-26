@@ -1,4 +1,4 @@
-"""Author: Andrew Fisher. v12.38 - the Demob tab, one card per asset, with its Ready light and its booked pick-up.
+"""Author: Andrew Fisher. v12.42 (built as v12.38) - the Demob tab, one card per asset, with its Ready light and its booked pick-up.
 
 Andrew, 26 Oct 2026: "i want a spot someon can add the date and time when it will be picked up"; "lets not pre date anything";
 "i dont like this have singles each asset is a single item ... exception will be barriers and what is inside a building";
@@ -19,14 +19,15 @@ winning, so syncFold keeps any unit tick, booking or history line this browser h
 (or holds older) and sends the result back up. v12.36's master-plan overview and progress card give way to the new ones; its
 count names assets on site; its watcher leaves the new parts alone. No departure, charge, QR or tracker change is written by
 the release itself (Picked up opens the page's own departure form). Every edit must find its text exactly once on the verified
-live v12.37 page (Codex's supplier crew actuals on v12.36). Footer -> v12.38.
-    python3 patch_v1238.py page.html      (in place, on the live v12.37 page)
+live v12.41 page (Codex's performance corrections on v12.37). Footer v12.41 -> v12.42; the module enters v12.41's asset hold and
+drawing boundary for its decorations.
+    python3 patch_v1242.py page.html      (in place, on the live v12.41 page)
 """
 import hashlib, sys
 from pathlib import Path
 HERE = Path(__file__).resolve().parent
-BASE = 'd0c7d444d9b9c1aef434478a283bb4fc5b0cbafeb70a329cc1a561f982bb986a'
-FOOT_OLD, FOOT_NEW = "+' · v12.37'; /* v8.19 release922", "+' · v12.38'; /* v8.19 release922"
+BASE = 'e106502b347cb51519f6aaed1eec5b6ba20a301b06490df04e3d29569d55b422'
+FOOT_OLD, FOOT_NEW = "+' · v12.41'; /* v8.19 release922", "+' · v12.42'; /* v8.19 release922"
 TAIL = '</body>\n</html>\n'
 SRC = ('singles1238_src.js', 'glow1238_src.js')
 sha = lambda s: hashlib.sha256(s.encode('utf-8')).hexdigest()
@@ -69,19 +70,19 @@ EDITS = [
 
 
 def patch(text):
-    if sha(text) != BASE: raise ValueError('Live base is not the verified v12.37; rebuild and retest')
-    if 'singles1238-script' in text or 'glow1238-script' in text: raise ValueError('v12.38 is already on the page')
+    if sha(text) != BASE: raise ValueError('Live base is not the verified v12.41; rebuild and retest')
+    if 'singles1238-script' in text or 'glow1238-script' in text: raise ValueError('the Demob cards are already on the page')
     for label, old, new in EDITS:
         if text.count(old) != 1: raise ValueError(f'{label}: expected text found {text.count(old)} times, not once')
         text = text.replace(old, new)
     if not text.endswith(TAIL): raise ValueError('the page does not end with </body></html>')
     text = text[:-len(TAIL)] + ''.join((HERE / f).read_text(encoding='utf-8').rstrip() + '\n' for f in SRC) + TAIL
-    if text.count(FOOT_OLD) != 1: raise ValueError('release footer v12.37 not found once')
+    if text.count(FOOT_OLD) != 1: raise ValueError('release footer v12.41 not found once')
     return text.replace(FOOT_OLD, FOOT_NEW)
 
 
 if __name__ == '__main__':
     p = Path(sys.argv[1]); t = p.read_text(encoding='utf-8')
     p.write_text(patch(t), encoding='utf-8')
-    print(f'patch_v1238 applied: {len(EDITS)} edits + singles1238 + glow1238; one card per asset with its Ready light, booked pick-up, '
-          'two map pictures and arrival; days from bookings and departures; the progress card lit up; footer v12.37 -> v12.38')
+    print(f'patch_v1242 applied: {len(EDITS)} edits + singles1238 + glow1238; one card per asset with its Ready light, booked pick-up, '
+          'two map pictures and arrival; days from bookings and departures; the progress card lit up; footer v12.41 -> v12.42')

@@ -1,6 +1,8 @@
-# v12.38: the Demob tab, one card per asset
+# v12.42: the Demob tab, one card per asset
 
-Author: Andrew Fisher · 26 Oct 2026 · built on live v12.37 (`d0c7d444…`, Codex's supplier crew actuals; v12.38 touches none of it)
+Author: Andrew Fisher · 26 Oct 2026 · built on live v12.41 (`e106502b…`, Codex's performance corrections on v12.37). Built and claimed as v12.38; v12.41 went live first, so it is rebuilt on those bytes and numbered forward (Codex holds 43 and 44; the Demob map is v12.45). The source files keep their 1238 names, and so do the record fields.
+
+**Inside v12.41's boundaries.** The cards' render and decorations enter v12.41's one asset hold (`holdAssets`) and its Demob drawing pass, so the selected date's reveal still comes last; decorations the watcher makes enter the same hold; the start-up render runs only for the pane actually showing (`Performance1241.paneActive`).
 
 ## What Andrew asked for (26 Oct 2026)
 
@@ -89,8 +91,8 @@ The release writes no departure, charge, QR or tracker change itself. The Picked
 |---|---|
 | `singles1238_src.js` | The cards, the owners, the Ready light and the booking (calendar and clock), the pictures, find and filter, booked pick-ups, the day cards and a day's list. |
 | `glow1238_src.js` | The progress card lit up, with the five stars. |
-| `patch_v1238.py` | On the verified live v12.37 page, 9 edits: the unit merge and histories in `mergeRecords`; `deliveryEmpty`; the live sync keeps the unit ticks and bookings (`syncFold`); v12.36's overview and progress give way; v12.36's count names assets on site; v12.36's watcher leaves the new parts alone. It inserts both modules and changes the footer v12.37 → v12.38. |
-| `tests/test_v1238.cjs` | Part A: the live record on the view link. Part B: a unit's Ready tick, its booking, Clear on one unit, Picked up opening the departure form, Emptied at a mixed reference, and a store copy without this phone's ticks arriving on the live sync, rehearsed with the sync held in the page; the merge proven on copies. |
+| `patch_v1242.py` | On the verified live v12.41 page, 9 edits: the unit merge and histories in `mergeRecords`; `deliveryEmpty`; the live sync keeps the unit ticks and bookings (`syncFold`); v12.36's overview and progress give way; v12.36's count names assets on site; v12.36's watcher leaves the new parts alone. It inserts both modules and changes the footer v12.41 → v12.42. |
+| `tests/test_v1242.cjs` | Part A: the live record on the view link. Part B: a unit's Ready tick, its booking, Clear on one unit, Picked up opening the departure form, Emptied at a mixed reference, and a store copy without this phone's ticks arriving on the live sync, rehearsed with the sync held in the page; the merge proven on copies. |
 
 The earlier drafts of this release (`pickup1238_src.js`, `cardpics1238_src.js`: per-reference booking and three pictures) are superseded and removed.
 

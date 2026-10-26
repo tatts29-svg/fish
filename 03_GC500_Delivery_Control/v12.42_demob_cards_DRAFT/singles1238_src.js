@@ -275,11 +275,12 @@ dialog.bkd1238 footer button[disabled]{opacity:.4;cursor:default;box-shadow:none
    A day shows only what is booked for that day or left that day; the schedule's own plan is not shown. */
 (function (W) {
 'use strict';
-const D = W.document, ALLV = 'everything', FENCE = /fenc|brac/i, REL = 'v12.38';
+const D = W.document, ALLV = 'everything', FENCE = /fenc|brac/i, REL = 'v12.42';
 const e = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'}[c]));
 const DOW = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'], MON = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 const MONTH = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 const ok = v => typeof v === 'string' && v !== '' && Number.isFinite(Date.parse(v));
+const hold = fn => (typeof holdAssets === 'function' ? holdAssets(fn) : fn()); /* v12.41's nested-safe asset hold */
 const pad = n => String(n).padStart(2, '0');
 const qd = v => new Date(Date.parse(v) + 10 * 3600e3);
 const qDay = v => qd(v).toISOString().slice(0, 10);
@@ -1134,7 +1135,10 @@ if (typeof renderDemob816 === 'function') {
  const before = renderDemob816;
  renderDemob816 = function () {
   try { if (typeof DM816 === 'object' && DM816 && ['toilets', 'pump', 'trucks'].indexOf(DM816.view) >= 0) DM816.view = 'list'; } catch (x) {}
-  const v = before.apply(this, arguments); try { decorate(); } catch (x) {} return v;
+  /* the render and these decorations share v12.41's one asset hold and drawing pass; the selected date's reveal stays last */
+  const self = this, args = arguments, run = () => { const v = before.apply(self, args); try { decorate(); } catch (x) {} return v; };
+  const pass = () => W.Performance1241 && typeof Performance1241.demobPass === 'function' ? Performance1241.demobPass(run, () => { try { if (W.WeatherStrip1002) WeatherStrip1002.reveal(D.getElementById('pane-demob')); } catch (x) {} }) : run();
+  return hold(pass);
  };
  Object.assign(renderDemob816, before);
 }
@@ -1162,11 +1166,11 @@ function keepUnits(next, cur) {
 let raf = 0;
 function watch() {
  const pane = D.getElementById('pane-demob'); if (!pane || pane.__sg1238) return; pane.__sg1238 = true;
- new MutationObserver(ms => { if (raf || ms.every(m => m.target && m.target.closest && m.target.closest('.sgv1238,.pg1238,.dl1238'))) return; raf = (W.requestAnimationFrame || setTimeout)(() => { raf = 0; try { decorate(); } catch (x) {} }); }).observe(pane, {childList: true, subtree: true});
+ new MutationObserver(ms => { if (raf || ms.every(m => m.target && m.target.closest && m.target.closest('.sgv1238,.pg1238,.dl1238'))) return; raf = (W.requestAnimationFrame || setTimeout)(() => { raf = 0; try { hold(decorate); } catch (x) {} }); }).observe(pane, {childList: true, subtree: true}); /* observer decorations enter the same asset hold */
 }
 W.Singles1238 = Object.freeze({model, picsState, cardOf, stateOf, cardsOf, setUnitReady, setBooking, lamp, pickUp, open, save, close, wordsOf, send, files, locOf, navOf, goCard, goCat, dayRows, dayLists, iconKey, iconPaths, ICONS, WORD, count, keepUnits, pickOf, parseTime, notePairs, owns: () => true, release: REL});
 try { if (typeof RENDER_MEMO !== 'undefined' && RENDER_MEMO instanceof Map) RENDER_MEMO.delete('demob816'); } catch (x) {}
 watch();
-try { const p = D.getElementById('pane-demob'); if (p && !p.hidden && p.querySelector('.dmday816')) renderDemob816(); } catch (x) {}
+try { const p = D.getElementById('pane-demob'), on = W.Performance1241 && typeof Performance1241.paneActive === 'function' ? Performance1241.paneActive(p, 'demob') : !!(p && !p.hidden); if (on && p.querySelector('.dmday816')) renderDemob816(); } catch (x) {} /* only the pane actually showing (v12.41's startup guard) */
 })(window);
 </script>
