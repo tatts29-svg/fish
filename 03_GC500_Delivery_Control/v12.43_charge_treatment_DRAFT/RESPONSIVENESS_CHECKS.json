@@ -1,0 +1,58 @@
+{
+  "author": "Andrew Fisher",
+  "implementation_commit": "43261bbb4b2940ec80690ba8a0bc93261e58476b",
+  "candidate_sha256": "13cfeb20458d097ffbb148ec5f9c0b2ba3f61c02cd2a99f9e5b95d3c4e002fa3",
+  "base_sha256": "e106502b347cb51519f6aaed1eec5b6ba20a301b06490df04e3d29569d55b422",
+  "candidate_bytes": 15649400,
+  "state": "DRAFT; first-load latency unresolved, final verified v12.42 base required",
+  "checks": {
+    "inline_scripts": 213,
+    "whole_page_preservation": {
+      "passed": 34,
+      "failed": 0,
+      "ok": true
+    },
+    "native_phone": {
+      "passed": 10,
+      "failed": 0
+    },
+    "native_edit_rehearsal": {
+      "passed": 36,
+      "failed": 0,
+      "exact_state_restored": true
+    },
+    "release_cli": {
+      "passed": 8,
+      "failed": 0
+    }
+  },
+  "production_record_changes": false,
+  "runtime_errors": 0,
+  "console_errors": 0,
+  "http_write_attempts": 0,
+  "phone_screenshots": "Inspected privately; current layout/focus/scroll preserved",
+  "limitations": [
+    "Verified against the frozen read-only record and isolated local native setters; no production setter was sent.",
+    "Full final sweeps and guarded upload remain pending on the verified v12.42 successor.",
+    "Navigation timings improved in the latest sample but startup included a46second outlier; overall speed not signed off."
+  ],
+  "startup_diagnostic": {
+    "default": {
+      "startup_ms": 12755,
+      "script_seconds": 5.352975,
+      "layout_seconds": 0.386099,
+      "style_seconds": 0.555982
+    },
+    "reduced_motion": {
+      "startup_ms": 15672,
+      "script_seconds": 6.786262,
+      "layout_seconds": 0.377339,
+      "style_seconds": 0.824512
+    },
+    "notes": [
+      "Instrumented single runs; neither reproduced the46second outlier.",
+      "Reduced motion did not establish a solution; current visual behavior remains unchanged.",
+      "Default five-second idle showed low script work, not an established continuous background loop."
+    ]
+  }
+}
