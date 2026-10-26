@@ -1,67 +1,80 @@
-"""Author: Andrew Fisher. v12.38 - book the pick-up date and time on every Demob card.
+"""Author: Andrew Fisher. v12.38 - the Demob tab, one card per asset, with its Ready light and its booked pick-up.
 
-Andrew, 26 Oct 2026: "i want a spot someon can add the date and time when it will be picked up"; "lets not pre date anything
-the pick up data is buil;t from this".
+Andrew, 26 Oct 2026: "i want a spot someon can add the date and time when it will be picked up"; "lets not pre date anything";
+"i dont like this have singles each asset is a single item ... exception will be barriers and what is inside a building";
+"excpetion is waste tank and toilet"; "take out our coates toilest blocks and aset and put in our list"; "i want everything showing
+no ready unless i have ticked it or stated it has been picked up"; "i want the icons to be what the equipment is"; "2 pic for each";
+"lets mention date or arrival"; "date selction should bring up a calendar . time selction should be manual entry or with ease use a
+clock"; "nothing should be on the Demob card unless we have put that date on i or its been departed on that date"; "ensure we add
+all VMS boards"; "the grapgh i want light of even the 5 stars"; "we want colour and glow and pulsate in this demob area".
 
-On the edit link every card on the Demob tab has a Book pick-up button: a date, a time and an optional note (who is collecting).
-It is saved on the reference's delivery record as its own field, with who set it, when, and a history:
-    pickup1238_at    the booked moment, Queensland time ("2026-10-27T07:00:00+10:00"); "" once cleared
-    pickup1238_note  who is collecting, or a note (80 characters at most)
-    pickup1238_by    who booked it ("Recording as")
-    pickup1238_set   when it was booked or cleared: the clock it merges on
-    pickup1238_history  every booking and clearing, kept like the other histories (400 at most)
-It merges on its own clock the way the Ready tick does (mergeRecords): the later booking wins on any copy, and a clearing is a
-dated event too, so it beats an older booking; the histories join; a record holding only a booking is kept (deliveryEmpty).
-The view link shows the booking and cannot change it. Nothing is pre-dated: a card with no booking says "to be booked", and the
-"Booked pick-ups" list above the groups is built only from what people have booked, by day and time. In a day's list the plan's
-own day stays as it was, with the booking (or the button) above it. No departure, Ready, Emptied, charge, QR or tracker change.
-Every edit must find its text exactly once on the verified live v12.36 page. Footer -> v12.38.
-    python3 patch_v1238.py page.html      (in place, on the live v12.36 page)
+Everything on site shows one card per unit (singles1238_src.js); a day shows only what was booked for it or left on it; the
+day cards count only bookings and departures, with each reference and its asset numbers; the progress card glows, with five
+stars (glow1238_src.js). Two new fields on the reference's delivery record, each unit on its own clock:
+    ready1238_units    {unit: {on, at, by, why}}       the unit's own Ready / Not ready tick
+    pickup1238_units   {unit: {at, note, by, set}}     the unit's booked pick-up ("" at once cleared); set is its clock
+with their histories (ready1238_history, pickup1238_history, 400 at most). mergeRecords keeps, unit by unit, the later stamp;
+the histories join; a record holding only these is kept (deliveryEmpty). v12.36's master-plan overview and progress card give
+way to the new ones; its count names assets; its watcher leaves the new parts alone. No departure, Emptied, charge, QR or
+tracker change. Every edit must find its text exactly once on the verified live v12.37 page (Codex's supplier crew actuals on v12.36). Footer -> v12.38.
+    python3 patch_v1238.py page.html      (in place, on the live v12.37 page)
 """
 import hashlib, sys
 from pathlib import Path
 HERE = Path(__file__).resolve().parent
-BASE = 'd7bd77da6e982c0ac3af19a8e5b183c09bc05e9bf78f267d5e1bea1f8ede689f'
-FOOT_OLD, FOOT_NEW = "+' · v12.36'; /* v8.19 release922", "+' · v12.38'; /* v8.19 release922"
+BASE = 'd0c7d444d9b9c1aef434478a283bb4fc5b0cbafeb70a329cc1a561f982bb986a'
+FOOT_OLD, FOOT_NEW = "+' · v12.37'; /* v8.19 release922", "+' · v12.38'; /* v8.19 release922"
 TAIL = '</body>\n</html>\n'
+SRC = ('singles1238_src.js', 'glow1238_src.js')
 sha = lambda s: hashlib.sha256(s.encode('utf-8')).hexdigest()
 
 READY_MERGE = "if (rw1231) Object.assign(m, rw1231);"
-BOOK_MERGE = READY_MERGE + """
- /* v12.38 - the booked pick-up merges on its own clock (when it was booked or cleared): the moment, the note, who and when together; a clearing is a dated event too */
- const pka1238 = typeof a.pickup1238_at === 'string' ? {pickup1238_at: a.pickup1238_at, pickup1238_note: a.pickup1238_note || '', pickup1238_by: a.pickup1238_by || '', pickup1238_set: a.pickup1238_set || ''} : null, pkb1238 = typeof b.pickup1238_at === 'string' ? {pickup1238_at: b.pickup1238_at, pickup1238_note: b.pickup1238_note || '', pickup1238_by: b.pickup1238_by || '', pickup1238_set: b.pickup1238_set || ''} : null;
- const pkw1238 = !pka1238 ? pkb1238 : !pkb1238 ? pka1238 : String(pkb1238.pickup1238_set) !== String(pka1238.pickup1238_set) ? (String(pkb1238.pickup1238_set) > String(pka1238.pickup1238_set) ? pkb1238 : pka1238) : (J(pkb1238) > J(pka1238) ? pkb1238 : pka1238);
- if (pkw1238) Object.assign(m, pkw1238);"""
+UNIT_MERGE = READY_MERGE + """
+ /* v12.38 - each unit's Ready tick and booked pick-up merge on their own clocks, unit by unit: the later stamp wins, a tie goes to the larger record */
+ const um1238 = (x, y, t) => { const o = Object.assign({}, x && typeof x === 'object' ? x : {}); Object.keys(y && typeof y === 'object' ? y : {}).forEach(u => { const p = o[u], q = y[u]; if (!q || typeof q !== 'object') return; const s1 = String(q[t] || ''), s0 = p ? String(p[t] || '') : ''; if (!p || s1 > s0 || (s1 === s0 && J(q) > J(p))) o[u] = q; }); return o; };
+ if (a.ready1238_units || b.ready1238_units) m.ready1238_units = um1238(a.ready1238_units, b.ready1238_units, 'at');
+ if (a.pickup1238_units || b.pickup1238_units) m.pickup1238_units = um1238(a.pickup1238_units, b.pickup1238_units, 'set');"""
 RH_OLD = "const RH1231 = hist(a.ready1231_history, b.ready1231_history, h => h.ready + '|' + h.at); if (RH1231.length) m.ready1231_history = RH1231; /* v12.31 */"
-RH_NEW = RH_OLD + "\n const PKH1238 = hist(a.pickup1238_history, b.pickup1238_history, h => (h.pickup || '') + '|' + h.at); if (PKH1238.length) m.pickup1238_history = PKH1238; /* v12.38 */"
-SPOT_OLD = """  if (DM816.view === ALLV) { const pk = tr.querySelector('td.pk1231'); if (pk && !pk.querySelector('.bk1236')) pk.insertAdjacentHTML('afterbegin', ps === 'gone' ? '<span class="bk1236"><b>Left site</b></span>' : '<span class="bk1236">Pick-up time: <b>to be booked</b></span>'); }"""
-SPOT_NEW = """  { const pk = tr.querySelector('td.pk1231'), ev1238 = DM816.view === ALLV, bk1238 = W.Pickup1238 ? W.Pickup1238.html(r, ps, ev1238) : !ev1238 ? '' : ps === 'gone' ? '<span class="bk1236"><b>Left site</b></span>' : '<span class="bk1236">Pick-up time: <b>to be booked</b></span>'; if (pk && bk1238 && !pk.querySelector('.bk1236')) pk.insertAdjacentHTML('afterbegin', bk1238); } /* v12.38 - the booked pick-up, or the spot to book it */"""
-
+RH_NEW = RH_OLD + """
+ const RUH1238 = hist(a.ready1238_history, b.ready1238_history, h => (h.unit || '') + '|' + h.ready + '|' + h.at); if (RUH1238.length) m.ready1238_history = RUH1238; /* v12.38 */
+ const PKH1238 = hist(a.pickup1238_history, b.pickup1238_history, h => (h.unit || '') + '|' + (h.pickup || '') + '|' + h.at); if (PKH1238.length) m.pickup1238_history = PKH1238; /* v12.38 */"""
+OV_OLD = "function overview() {\n const pane = D.getElementById('pane-demob'); if (!pane) return;\n const old = pane.querySelector('.ov1236')"
+OV_NEW = "function overview() {\n const pane = D.getElementById('pane-demob'); if (!pane) return;\n if (W.Singles1238) { const o = pane.querySelector('.ov1236'); if (o) o.remove(); return; } /* v12.38 - the cards carry their own map pictures */\n const old = pane.querySelector('.ov1236')"
+PG_OLD = "function progress() {\n const pane = D.getElementById('pane-demob'); if (!pane) return;\n const card = pane.querySelector('.dmday816'); if (!card) return;"
+PG_NEW = PG_OLD + "\n if (W.Glow1238) { const o = card.querySelector('.pg1236'); if (o) o.remove(); return; } /* v12.38 - the progress card lit up draws it */"
+BT_OLD = " const bt = 'Everything on site · ' + mine.length;"
+BT_NEW = " const bt = 'Everything on site · ' + (W.Singles1238 ? Singles1238.count() + ' assets' : mine.length); /* v12.38 */"
+H3_OLD = "h.textContent = 'Everything on site · ' + mine.length + (mine.length === 1 ? ' reference' : ' references');"
+H3_NEW = "h.textContent = 'Everything on site · ' + (W.Singles1238 ? Singles1238.count() + ' assets' : mine.length + (mine.length === 1 ? ' reference' : ' references'));"
 WATCH_OLD = "mo = new MutationObserver(ms => { if (ms.every(m => m.target && m.target.closest && m.target.closest('.ov1236,.mpf1236'))) return; soon(); });"
-WATCH_NEW = "mo = new MutationObserver(ms => { if (ms.every(m => m.target && m.target.closest && m.target.closest('.ov1236,.mpf1236,.pz1238,.bp1238'))) return; soon(); }); /* v12.38 - the card pictures and the booked pick-ups look after themselves */"
+WATCH_NEW = "mo = new MutationObserver(ms => { if (ms.every(m => m.target && m.target.closest && m.target.closest('.ov1236,.mpf1236,.sgv1238,.pg1238,.dl1238'))) return; soon(); }); /* v12.38 - the new cards, progress and day lists look after themselves */"
 
 EDITS = [
- ('the booking merges on its own clock', READY_MERGE, BOOK_MERGE),
- ('its history merges', RH_OLD, RH_NEW),
- ('a record holding only a booking is kept', "typeof d.ready1231 !== 'boolean' && !d.date_off_at", "typeof d.ready1231 !== 'boolean' && typeof d.pickup1238_at !== 'string' && !d.date_off_at"),
- ('the spot on each card', SPOT_OLD, SPOT_NEW),
- ('v12.36 leaves the new rows to themselves', WATCH_OLD, WATCH_NEW),
+ ('the unit ticks and bookings merge unit by unit', READY_MERGE, UNIT_MERGE),
+ ('their histories merge', RH_OLD, RH_NEW),
+ ('a record holding only these is kept', "typeof d.ready1231 !== 'boolean' && !d.date_off_at", "typeof d.ready1231 !== 'boolean' && !d.ready1238_units && !d.pickup1238_units && !d.date_off_at"),
+ ('v12.36 overview gives way', OV_OLD, OV_NEW),
+ ('v12.36 progress gives way', PG_OLD, PG_NEW),
+ ('the everything button counts assets', BT_OLD, BT_NEW),
+ ('the everything heading counts assets', H3_OLD, H3_NEW),
+ ('v12.36 leaves the new parts to themselves', WATCH_OLD, WATCH_NEW),
 ]
 
 
 def patch(text):
-    if sha(text) != BASE: raise ValueError('Live base is not the verified v12.36; rebuild and retest')
-    if 'pickup1238-script' in text or 'cardpics1238-script' in text: raise ValueError('v12.38 is already on the page')
+    if sha(text) != BASE: raise ValueError('Live base is not the verified v12.37; rebuild and retest')
+    if 'singles1238-script' in text or 'glow1238-script' in text: raise ValueError('v12.38 is already on the page')
     for label, old, new in EDITS:
         if text.count(old) != 1: raise ValueError(f'{label}: expected text found {text.count(old)} times, not once')
         text = text.replace(old, new)
     if not text.endswith(TAIL): raise ValueError('the page does not end with </body></html>')
-    text = text[:-len(TAIL)] + ''.join((HERE / f).read_text(encoding='utf-8').rstrip() + '\n' for f in ('pickup1238_src.js', 'cardpics1238_src.js')) + TAIL
-    if text.count(FOOT_OLD) != 1: raise ValueError('release footer v12.36 not found once')
+    text = text[:-len(TAIL)] + ''.join((HERE / f).read_text(encoding='utf-8').rstrip() + '\n' for f in SRC) + TAIL
+    if text.count(FOOT_OLD) != 1: raise ValueError('release footer v12.37 not found once')
     return text.replace(FOOT_OLD, FOOT_NEW)
 
 
 if __name__ == '__main__':
     p = Path(sys.argv[1]); t = p.read_text(encoding='utf-8')
     p.write_text(patch(t), encoding='utf-8')
-    print(f'patch_v1238 applied: {len(EDITS)} edits + pickup1238 + cardpics1238; every Demob card can book its pick-up and shows three pictures with Navigate, Text, Email and Send; footer v12.36 -> v12.38')
+    print(f'patch_v1238 applied: {len(EDITS)} edits + singles1238 + glow1238; one card per asset with its Ready light, booked pick-up, '
+          'two map pictures and arrival; days from bookings and departures; the progress card lit up; footer v12.37 -> v12.38')

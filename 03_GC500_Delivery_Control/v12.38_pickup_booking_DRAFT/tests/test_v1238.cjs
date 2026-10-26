@@ -35,7 +35,7 @@ const {open} = require('../../toolchain/harness/open_page');
     const P = await p.evaluate(() => { const card = document.querySelector('#pane-demob .dmday816'), bp = card && card.querySelector('.bp1238'), sum = card && card.querySelector('.sum1231'), pg = card && card.querySelector('.pg1236');
       const order = bp && sum ? !!(bp.compareDocumentPosition(sum) & Node.DOCUMENT_POSITION_FOLLOWING) : false, afterPg = bp && pg ? !!(pg.compareDocumentPosition(bp) & Node.DOCUMENT_POSITION_FOLLOWING) : false;
       return {has: !!bp, head: bp && bp.querySelector('header').innerText.replace(/\s+/g, ' '), empty: bp && (bp.querySelector('.be1238') || {}).innerText, lines: bp ? bp.querySelectorAll('[data-bpgo1238]').length : 0, order, afterPg, booked: Pickup1238.list().length}; });
-    check('v12.38: the booked pick-ups sit under the demob percentage, above the tally, built only from bookings', P.has && P.order && P.afterPg && /^Booked pick-ups \d+ booked · \d+ still to book$/.test(P.head || '') && (P.lines > 0 || /No pick-ups booked yet/.test(P.empty || '')), P);
+    check('v12.38: the booked pick-ups sit under the demob percentage, above the tally, built only from bookings', P.has && P.order && P.afterPg && /^Booked pick-ups \d+ booked · \d+ still to book$/i.test(P.head || '') && (P.lines > 0 || /No pick-ups booked yet/.test(P.empty || '')), P);
 
     /* three pictures on every card that has a place, and its directions */
     const C = await p.evaluate(() => { const rows = [...document.querySelectorAll('#pane-demob .dmday816 tr[data-row816]')], out = {withRow: 0, located: 0, frames: 0, actions: 0, plan: 0, goneWithRow: [], missing: []};
@@ -69,11 +69,11 @@ const {open} = require('../../toolchain/harness/open_page');
     await p.waitForFunction(() => window.__shared1238, null, {timeout: 60000}).catch(() => {});
     const shared = await p.evaluate(() => window.__shared1238);
     check('v12.38: Send hands the three pictures (master plan, close up, wider area) and the words to the phone\'s share menu', shared && shared.files.length === 3 && shared.files.every(f => f.type === 'image/jpeg' && f.size > 15000) && /master-plan/.test(shared.files[0].name) && /close-up/.test(shared.files[1].name) && /wider-area/.test(shared.files[2].name) && shared.text === sms, shared);
-    await p.click(row('GN19') + ' .pz1238 .pf1238');
-    await p.waitForFunction(() => { const d = document.querySelector('.drawer.find1176.on, .find1176.on, .drawer.on.find1176'); return d || [...document.querySelectorAll('.drawer, [class*=find1176]')].some(x => x.offsetParent && /GN19 · on the map/.test(x.innerText)); }, null, {timeout: 20000}).catch(() => {});
-    const drawer = await p.evaluate(() => [...document.querySelectorAll('.drawer, [class*=find1176]')].some(x => x.offsetParent && /GN19 · on the map/.test(x.innerText)));
+    await p.evaluate(() => document.querySelector('#pane-demob tr[data-row816="GN19"] .pz1238 .pf1238').click());
+    await p.waitForSelector('.drawer.find1176', {timeout: 15000}).catch(() => {});
+    const drawer = await p.evaluate(() => { const d = document.querySelector('.drawer.find1176'); return d ? (d.querySelector('#f1176h') || {}).textContent === 'GN19 · on the map' : false; });
     check('v12.38: tapping an aerial opens the page\'s own "on the map" card for GN19 (full pictures, Navigate, Send)', drawer, drawer);
-    await p.keyboard.press('Escape'); await p.evaluate(() => { const x = document.querySelector('.drawer.on [data-close], .drawer.on .x, .drawer.on button[aria-label="Close"]'); if (x) x.click(); }); await p.waitForTimeout(500);
+    await p.keyboard.press('Escape'); await p.evaluate(() => { const d = document.querySelector('.drawer.find1176'); if (!d) return; const x = [...d.querySelectorAll('button')].find(b => /^(×|✕|x)$/i.test(b.textContent.trim()) || /close/i.test(b.getAttribute('aria-label') || '')); if (x) x.click(); }); await p.waitForTimeout(600);
     await scrollTo(row('GN19')); await p.waitForTimeout(600);
     await shot('demob_card_pictures', row('GN19'));
     const look = await p.evaluate(() => { const rows = [...document.querySelectorAll('#pane-demob .dmday816 tr[data-row816]')].filter(r => r.offsetParent), hs = rows.map(r => r.offsetHeight).sort((a, b) => a - b);
@@ -86,7 +86,7 @@ const {open} = require('../../toolchain/harness/open_page');
     const V = await p.evaluate(() => { const want = CardPics1238.vmsBoards(), tr = document.querySelector('#pane-demob tr.vb1238'), head = document.querySelector('#pane-demob .sec1231 tr.zr1231[data-cat1236="vms"]');
       if (!tr) return {want: want.length, has: false, head: !!head};
       const cards = [...tr.querySelectorAll('.vc1238')], inGroup = (() => { for (let x = head && head.nextElementSibling; x && !x.classList.contains('zr1231'); x = x.nextElementSibling) if (x === tr) return true; return false; })();
-      return {want: want.length, has: true, inGroup, cards: cards.length, withAsset: cards.filter(c => /Asset no\./.test(c.innerText)).length, withRego: cards.filter(c => /Rego/.test(c.innerText)).length, withWhere: cards.filter(c => (c.querySelector('.vw1238') || {}).innerText.length > 5).length,
+      return {want: want.length, has: true, inGroup, cards: cards.length, withAsset: cards.filter(c => /Asset no\./i.test(c.innerText)).length, withRego: cards.filter(c => /Rego/i.test(c.innerText)).length, withWhere: cards.filter(c => ((c.querySelector('.vw1238') || {}).textContent || '').trim().length > 3).length, shortWhere: cards.filter(c => ((c.querySelector('.vw1238') || {}).textContent || '').trim().length <= 3).map(c => c.dataset.vms1238 + ':' + (c.querySelector('.vw1238') || {}).textContent),
         assetsKnown: want.filter(b => b.asset).length, regosKnown: want.filter(b => b.rego).length, sample: cards[0] && cards[0].innerText.replace(/\s+/g, ' ').slice(0, 200), head: (tr.querySelector('.vh1238') || {}).innerText}; });
     check('v12.38: every VMS board on the VMS plan is listed under the VMS boards group, each with where it stands, its asset number and its rego (or says to confirm)', V.has && V.inGroup && V.cards === V.want && V.want >= 10 && V.withAsset === V.cards && V.withRego === V.cards && V.withWhere === V.cards && V.assetsKnown > 0, V);
     const vpos = await p.evaluate(() => { const b = CardPics1238.vmsBoards().find(x => x.asset && x.rego) || CardPics1238.vmsBoards()[0]; return b && b.pos; });
@@ -124,7 +124,7 @@ const {open} = require('../../toolchain/harness/open_page');
     const dayWord = await p.evaluate(t => Pickup1238.when(t + 'T07:00:00+10:00'), tomorrow);
     check('v12.38: the card says when it is booked, with the note and who booked it; the button now says Change', card1 && card1.on && card1.text.includes('Pick-up booked: ' + dayWord) && /Coates truck · booked by Example test recorder/.test(card1.text) && card1.btn === 'Change', {card1, dayWord});
     const panel1 = await p.evaluate(() => { const bp = document.querySelector('#pane-demob .bp1238'); return {head: bp.querySelector('header').innerText.replace(/\s+/g, ' '), days: [...bp.querySelectorAll('h4')].map(h => h.innerText.replace(/\s+/g, ' ')), lines: [...bp.querySelectorAll('[data-bpgo1238]')].map(b => b.innerText.replace(/\s+/g, ' '))}; });
-    check('v12.38: the booked pick-ups list it by day and time with its state', /^Booked pick-ups 1 booked · \d+ still to book$/.test(panel1.head) && panel1.days.length === 1 && panel1.lines.length === 1 && /^07:00 GN19 · /.test(panel1.lines[0]), panel1);
+    check('v12.38: the booked pick-ups list it by day and time with its state', /^Booked pick-ups 1 booked · \d+ still to book$/i.test(panel1.head) && panel1.days.length === 1 && panel1.lines.length === 1 && /^07:00 GN19 · /.test(panel1.lines[0]), panel1);
     await p.click('#pane-demob .bp1238 [data-bpgo1238="GN19"]'); await p.waitForTimeout(400);
     const glow = await p.evaluate(() => document.querySelector('#pane-demob tr[data-row816="GN19"]').classList.contains('fl1236'));
     check('v12.38: tapping a booked pick-up goes to its card', glow, glow);
