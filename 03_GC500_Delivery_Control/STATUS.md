@@ -1,5 +1,7 @@
 APPLIED — record runs 35 and 36 (Claude, for Andrew), 27 Oct 2026 22:57 AEST: T0085 and T0109 on MEAD; the concert generators GN? on KINP (Andrew: "happy to leave KINP"). Record 11612 → 11621, verified; charge unchanged; NVAC $49,323.37 → $39,725.89, KINP → $250,936.14, MEAD → $18,859.02. Still to do: WB03 18 Sep start and WB07 into WB06 (page release), Premiair VMS and the reefer container onto their sub-hire branches, Baseplan (8) contracts onto the page.
 
+LIVE — v12.42.11 consumables on their own P&L line 1020, $8,073.68 (Claude, for Andrew), 28 Oct 2026. sha256 ae6c2597…, byte for byte. Built on v12.42.10 df3569d2…. Totals unchanged. Folder v12.42.11_consumables_line_LIVE. **Codex: v12.43 rebuilds on ae6c2597…**
+
 LIVE — v12.42.10 60 ft boom 9992300/12 on Baseplan dates 21–27 Oct, $2,176.65 (Claude, for Andrew), 28 Oct 2026. sha256 df3569d2…, byte for byte. Built on v12.42.9 05c37ba1…. Charge $1,019,650.91, MEAD $25,701.50. Folder v12.42.10_boom_baseplan_dates_LIVE. **Codex: v12.43 rebuilds on df3569d2…**
 
 LIVE — v12.42.9 day-rate lines by the day + consumables charged at Baseplan (8)'s figures (Claude, for Andrew), 28 Oct 2026 04:47 AEST. sha256 05c37ba1…, 16,016,049 bytes, byte for byte. Built on v12.42.8 435ee86f…. +$16,607.40 day rates, +$8,073.68 toilet paper/hand towel/shade cloth (contractCharge BP12429). Charge $1,018,407.11. Folder v12.42.9_day_rates_consumables_LIVE. **Codex: v12.43 rebuilds on 05c37ba1…**
