@@ -45,3 +45,22 @@ checked against the live record (first on-site stamp, Record departure entries, 
 | 9 | P45, P69, GN03, GN25, LT05, LT06 | Off Rent 25–28 Oct | on site, booked out 28 Oct | Off-hire called ahead; matches |
 | 10 | 10000484 / 10000475 scrim | STPS-CON on KINP sheets | — | Baseplan: branch, sign to STPS sheet |
 | 11 | WFB labour $7,700, transport $17,900; fence event labour 213 h $19,412.82 | new | P&L check pending | Next pass |
+
+## Full tie-out, 27 Oct 2026 (same tools as the (7) review, on (8) and the live page at record 11598)
+
+`build_review8.py` (the (7) build, pointed at (8)) with fresh reads of the live page (`dump_site.cjs`, `dump_lines.cjs`,
+`dump_service.cjs`, `dump_vms.cjs`, `dump_fence.cjs`). Deliverable: **`GC500_Baseplan8_vs_Site_27Oct2026.xlsx`**
+(fix list of 126 rows, every line, branch tie-out, start dates, since 25 Oct).
+
+Read with these corrections (the build was written before the demob):
+- the 41 "Not on site" rows are references that have **left** (recorded departures, demob) — not errors;
+- "Missing line: Fence team 213 h $19,412.82" is **done**: (8) added it as 9990776/14 — take it off STPS;
+- the scrim and shade cloth "code KINP" rows: fencing is STPS on the P&L; the fix is the opposite — the STPS-coded
+  scrim on the KINP sheets 10000484/10000475 moves to an STPS contract; 9997710 (STPS sheet, STPS code) stands.
+
+| Branch | P&L revenue (job total) | Baseplan still to move (fixes) | Waiting on a decision |
+|---|---|---|---|
+| KINP | $415,919.18 | +$14,696.33 (water $13,950, T0243 clean $780.75, hours, PG29 line off) | −$8,598.40 accommodation |
+| NVAC | $90,269.38 | +$5,196.57 (generator rates and transport legs) | +$28,671.82 Coates forklifts |
+| STPS | $496,837.04 | about +$32,488 (fence quantities to the signed dockets, flat feet rate, VMS starts) | — |
+| MEAD | $19,628.72 | $0 (plant start dates to confirm) | — |
