@@ -323,3 +323,10 @@ node record_26Oct2026_departures/left_site.cjs --spec record_26Oct2026_departure
 - **Applied:** 14:02 AEST on Andrew's word, dry run first again (passed, nothing sent): `left_site.cjs --spec left_site_spec_23_p65_1327217.json`, through the page's own Record departure form, in Andrew's name. Light in transit.
 - **Record:** version 11561 → 11562. 1 document acknowledged 200, verified on the service; every other document unchanged in value; P&L and branch totals unchanged. Backup kept private. Report `report_20261027T040231Z.json`.
 - **Read back fresh:** P65 in transit, one departure at 14:00 holding Building 6m 1327217 (the whole reference); 201 units ticked Ready. The Demob tab reads 69 units off site today, 100 of 794 off site.
+
+## Twenty-eighth run: WC53's three FWF left 13:30 on the 18 truck, 27 Oct 2026 — APPLIED, VERIFIED
+
+- **What:** Andrew, 27 Oct 2026: "Ilve done 2 x trucks so far of 24. And another truck of 18". The record held 24 (08:30–09:27), 24 (10:00–11:30) and 15 (13:30–13:40: WC51 6, WC49 3, WC48 4, WC13 2), so the third truck was 3 FWF short. "We are missing 3 fwf what else is in that same area of fwf": the only FWF still on site in servicing area 10 (Main Beach Seaside — South, with WC48, WC49 and WC51) were WC53's three, 0952, 0951 and 0074, 43 m from WC51 (Emptied, all Ready). Asked to record them at 13:30 on the 18 truck: "Rhey are the ones". So WC53 left in full at 13:30 AEST.
+- **Applied:** 14:12 AEST on Andrew's word, dry run first (passed, nothing sent): `left_site.cjs --spec left_site_spec_28_wc53_1330.json`, through the page's own Record departure form (live v12.42.4), in Andrew's name. Light in transit.
+- **Record:** version 11569 → 11570. 1 document acknowledged 200, verified on the service; every other document unchanged in value; P&L and branch totals unchanged. Backup kept private. Report `report_20261027T041142Z.json`.
+- **Read back fresh:** WC53 in transit, one departure at 13:30 holding 0952, 0951 and 0074 (the whole reference). Today: 66 FWF picked up (24 + 24 + 18, Andrew's three trucks), 72 units in all.

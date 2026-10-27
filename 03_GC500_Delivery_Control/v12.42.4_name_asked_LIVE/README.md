@@ -1,7 +1,7 @@
-# v12.42.4: a new person is asked for their name — READY
+# v12.42.4: a new person is asked for their name — LIVE
 
 Author: Andrew Fisher · 27 Oct 2026 · a point release on live v12.42.3 (Demob saves quicker, `81cacbcf…`).
-**READY: built and tested locally. Not uploaded yet (after P65 is recorded at 14:00).**
+**LIVE 27 Oct 2026 14:06 AEST**, sha256 `20c0978543b3bc16c6663a68a3bae3cc699ca7498219bda3f390e6a7094174e9`, 15,819,642 bytes. Pages opened before 14:06 keep the old behaviour until refreshed.
 
 Andrew, 27 Oct 2026, on site: "Im getting reports others cant change dates or add times why", then "Works on my phone....and laptop. I sent a edit link and they cant add times".
 
@@ -56,3 +56,11 @@ Review, 27 Oct 2026: the first way of showing the message (moving the page's mes
 - `tests/test_v12424.cjs`: `PAGE=<build> OUT=<dir> [MOB=1] node test_v12424.cjs`.
 - `tests/test_v12424_regress.cjs`: `PAGE=<build> OUT=<dir> [MOB=1] [TIMING=0] node test_v12424_regress.cjs`.
 - `evidence/`: each run's checks and summary.
+
+## Live
+
+- Uploaded 14:06 AEST after record run 23 (P65) was in; `upload_page.py` proved the view link serves the build byte for byte, and a fresh `fetch_live.sh` matched it with `cmp`.
+- `tests/test_v12424.cjs` on the live page: desktop 13/13, phone 13/13, no page errors, 0 blocked (`evidence/live_*`).
+- The record runner on the live page: a dry run of P67 (nothing sent) passed at 14:06, then record run 28 (WC53) was applied through the live v12.42.4 page at 14:12 and verified.
+- The long regression (`tests/test_v12424_regress.cjs`) was started on the live page and stopped part way so a record run could have the browser; it is not counted here. Before upload it was 90/93 on desktop and phone, the same 3 failing on live v12.42.3.
+

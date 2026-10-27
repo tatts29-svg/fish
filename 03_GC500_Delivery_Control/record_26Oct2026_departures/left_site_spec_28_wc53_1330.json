@@ -1,0 +1,7 @@
+{
+  "by": "Andrew Fisher",
+  "basis": "Andrew, 27 Oct 2026 (14:0x AEST): \"Ilve done 2 x trucks so far of 24. And another truck of 18\" — the record held 24, 24 and 15 for the three trucks, so the third truck (13:30–13:40: WC51's six, WC49's three, WC48's four, WC13's two) was 3 FWF short; \"We are missing 3 fwf what else is in that same area of fwf\" — the only FWF still on site in servicing area 10 (Main Beach Seaside — South, with WC48, WC49 and WC51) are WC53's three, 0952, 0951 and 0074, 43 m from WC51; asked to record them at 13:30 on the 18 truck, \"Rhey are the ones\". All three are Event Portables FWF on WC53 only, all of WC53 (read 14:10 AEST: Emptied, every one Ready, none already left, no booking), so WC53 left in full at 13:30 AEST, the same time as WC51 beside it.",
+  "ops": [
+    {"op": "depart", "ref": "WC53", "at": "2026-10-27T13:30:00+10:00", "nos": ["0952", "0951", "0074"], "complete": true}
+  ]
+}
