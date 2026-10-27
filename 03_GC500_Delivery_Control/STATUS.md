@@ -1,5 +1,7 @@
 APPLIED — record runs 35 and 36 (Claude, for Andrew), 27 Oct 2026 22:57 AEST: T0085 and T0109 on MEAD; the concert generators GN? on KINP (Andrew: "happy to leave KINP"). Record 11612 → 11621, verified; charge unchanged; NVAC $49,323.37 → $39,725.89, KINP → $250,936.14, MEAD → $18,859.02. Still to do: WB03 18 Sep start and WB07 into WB06 (page release), Premiair VMS and the reefer container onto their sub-hire branches, Baseplan (8) contracts onto the page.
 
+LIVE — v12.42.14 AA HS 9968926 and HRP HS 9974238, paid separately, not on the V8 contract (Claude, for Andrew), 28 Oct 2026. sha256 1abc349a…, byte for byte. Built on v12.42.13 ff5eed20…. Wording only; charge $1,019,852.96. Folder v12.42.14_aa_hrp_hs_LIVE. **Codex: v12.43 rebuilds on 1abc349a…**
+
 LIVE — v12.42.13 AA and HRP held out, their own contracts (Claude, for Andrew), 28 Oct 2026 07:08 AEST. sha256 ff5eed20…, byte for byte. Built on v12.42.12 c06ed289…. −$104.10 (their fire-extinguisher ticks). APPLIED — record run 38 (11631 → 11633): WC60 block 1087500 cleaning ticked, toilet blocks now match Baseplan $10,618.20. Charge $1,019,852.96. Folder v12.42.13_aa_hrp_held_LIVE. **Codex: v12.43 rebuilds on ff5eed20…**
 
 LIVE — v12.42.12 T0085 9987005/1 on Baseplan dates 5–28 Oct, $3,600 (Claude, for Andrew), 28 Oct 2026. sha256 c06ed289…, byte for byte. Built on v12.42.11 ae6c2597…. 9987005 matches Baseplan to the cent. Charge $1,019,800.91. Folder v12.42.12_t0085_baseplan_LIVE. **Codex: v12.43 rebuilds on c06ed289…**
