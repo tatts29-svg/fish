@@ -337,3 +337,10 @@ node record_26Oct2026_departures/left_site.cjs --spec record_26Oct2026_departure
 - **Applied:** after 14:30 AEST on Andrew's word (a departure is only recorded once its time has come). Rehearsed first on the live v12.42.4 page with a past time (dry run, nothing sent, 14:06); at 14:30:20 the live page sha was checked, then a dry run (passed, nothing sent) and `left_site.cjs --spec left_site_spec_27_p67_421107.json --apply`, through the page's own Record departure form, in Andrew's name. Light in transit.
 - **Record:** version 11570 → 11571. 1 document acknowledged 200, verified on the service; every other document unchanged in value; P&L and branch totals unchanged. Backup kept private. Report `report_20261027T043108Z.json`.
 - **Read back fresh:** P67 in transit, one departure at 14:30 holding Building 6m 421107 (the whole reference). Today: 66 FWF and 7 buildings and the ticket box, 73 units.
+
+## Twenty-ninth run: WC62 0103, WC35 0284 and WC34 0526 picked up 14:30, 27 Oct 2026 — APPLIED, VERIFIED
+
+- **What:** Andrew, 27 Oct 2026: "0103 and 0284 is next"; asked the time, "230pm and 0526". All three are Event Portables FWF (read 14:32 AEST: Emptied, every one Ready, none already left, no booking): 0103 is WC62's last unit (0976 left at 11:30), 0284 is WC35's only unit, 0526 is WC34's only unit. So all three left at 14:30 AEST and WC62, WC35 and WC34 are each off site in full.
+- **Applied:** 14:34 AEST on Andrew's word, dry run first (passed, nothing sent): `left_site.cjs --spec left_site_spec_29_wc62_wc35_wc34_1430.json`, through the page's own Record departure form (live v12.42.4), in Andrew's name. Lights in transit.
+- **Record:** version 11571 → 11574. 3 documents acknowledged 200, verified on the service; every other document unchanged in value; P&L and branch totals unchanged. Backup kept private. Report `report_20261027T043344Z.json`.
+- **Read back fresh:** WC62 in transit (0976 at 11:30, 0103 at 14:30), WC35 in transit (0284 at 14:30), WC34 in transit (0526 at 14:30). Today: 69 FWF, 76 units.
