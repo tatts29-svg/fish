@@ -1,0 +1,26 @@
+{
+  "by": "Andrew Fisher",
+  "basis": "Andrew, 27 Oct 2026, on his red-ink Baseplan (8) answers: \"Premiair VMS/container: move the P&L, don't recode\" (\"Moving P&L will be easier changing will make dockets a mess\") and \"WB03 installed 18/09 night shift\"; then \"Do 1. 2 3\". The Premiair boards on references of their own go to the branch that sub-hires them: VMS-01 (VMS21) and VMS-02 (VMS22) to KINP, VMS-03 (VMS24) to NVAC; container T0266 to STPS. References, units and numbers are not changed. WB03 needs no record change: its contract line already starts 18 Sep 2026, the night it went in (\"WB03 installed 18/09 night shift\").",
+  "ops": [
+    {
+      "op": "branch",
+      "ref": "VMS-01",
+      "code": "KINP"
+    },
+    {
+      "op": "branch",
+      "ref": "VMS-02",
+      "code": "KINP"
+    },
+    {
+      "op": "branch",
+      "ref": "VMS-03",
+      "code": "NVAC"
+    },
+    {
+      "op": "branch",
+      "ref": "T0266",
+      "code": "STPS"
+    }
+  ]
+}

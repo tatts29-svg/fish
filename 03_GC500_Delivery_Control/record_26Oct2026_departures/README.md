@@ -388,3 +388,7 @@ node record_26Oct2026_departures/left_site.cjs --spec record_26Oct2026_departure
 - **What:** Andrew, on concert contract 9994954 (GN26/GN27, cable, sync labour, transport, gen tech): "I spoke with Chris about this one happy to leave KINP". Our reference GN? (1316182, 1316183) goes on branch KINP.
 - **Runner:** the `branch` op takes GN?; documents named with "?" (~3f~) are read back.
 - **Record:** 11618 → 11621, 3 documents acknowledged 200, verified. P&L charge unchanged; $8,597.48 moves NVAC → KINP (NVAC $48,323.37 → $39,725.89, KINP $242,338.66 → $250,936.14). Report `report_20261027T125729Z.json`.
+
+## Thirty-seventh run: Premiair boards and the container on their sub-hire branches, 27 Oct 2026 — APPLIED, VERIFIED
+
+Spec `left_site_spec_37_pl_branches.json`. Andrew: "move the P&L, don't recode", then "Do 1. 2 3". Through the page's setBranch: VMS-01 and VMS-02 to KINP, VMS-03 to NVAC, T0266 to STPS. Record 11621 → 11630, 9 documents, every op held on the service. The runner also gained a `hire_start` op (setHireStart); it was not needed, because WB03's contract line already starts 18 Sep 2026. The VMS lines on the shared references move in the P&L by v12.42.6.

@@ -139,6 +139,7 @@ spec.ops.forEach((o, i) => {
     /* 27 Oct 2026: the Add form's in and out days, as the form checks them, and no in day after today */
     if (o.from != null && !realDay(o.from)) fail(at + 'from must be a real day, e.g. 2026-10-22'); if (o.to != null && !realDay(o.to)) fail(at + 'to must be a real day'); if (o.from != null && o.from > today) fail(at + 'from is after today (AEST)'); if (o.from != null && o.to != null && o.to < o.from) fail(at + 'to is before from'); }
   else if (o.op === 'date_back') { if (!REFRE.test(o.ref || '')) fail(at + 'needs a reference'); for (const f of ['done_at', 'supplied_at', 'install_at']) if (o[f] != null && !/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(\.\d{1,3})?Z$/.test(o[f])) fail(at + f + ' must be an ISO time'); for (const f of ['item', 'disc']) if (typeof o[f] !== 'string' || !o[f]) fail(at + 'needs ' + f); if (typeof o.why !== 'string' || !o.why.trim() || o.why.length > 300 || /\b(codex|claude|gpt|model|agent)\b/i.test(o.why)) fail(at + 'needs why, naming no system'); }
+  else if (o.op === 'hire_start') { if (!REFRE.test(o.ref || '')) fail(at + 'needs a reference'); if (!/^\d{4}-\d{2}-\d{2}$/.test(o.iso || '')) fail(at + 'needs a day, YYYY-MM-DD'); } /* 27 Oct 2026: a reference's hire start through the page's own setHireStart */
   else if (o.op === 'branch') { if (!REFRE.test(o.ref || '') && o.ref !== 'GN?') fail(at + 'needs a reference'); if (!['KINP', 'NVAC', 'STPS', 'MEAD'].includes(o.code)) fail(at + 'code must be KINP, NVAC, STPS or MEAD'); } /* 27 Oct 2026: a reference's branch through the page's own setBranch */
   else if (o.op === 'set_qty') { if (!REFRE.test(o.ref || '')) fail(at + 'needs a reference'); if (!(o.qty === '' || (Number.isInteger(o.qty) && o.qty >= 0))) fail(at + 'qty must be a whole number or "" for the schedule\'s own'); }
   else if (o.op === 'depart') { if (!REFRE.test(o.ref || '')) fail(at + 'needs a reference'); if (!/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\+10:00$/.test(o.at || '') || !Number.isFinite(Date.parse(o.at))) fail(at + 'needs the actual departure time in AEST, e.g. 2026-10-26T07:40:00+10:00'); if (Date.parse(o.at) > Date.now()) fail(at + 'departure time is in the future');
@@ -176,7 +177,7 @@ const VKEYS = [...new Set(spec.ops.filter(o => o.op === 'vms_rego' || o.op === '
 const REFS = refsOf(spec), QIDS = [...new Set(spec.ops.filter(o => o.op === 'answer').map(o => o.id))];
 /* the documents this operation may touch: the references' own delivery, assetNumbers and accessories documents, the
    answers documents named, and the audit documents the page keeps beside them (stamps, by, deleted, notes, spares) */
-const ALLOWED_COLLS = new Set(['delivery', 'assetNumbers', 'accessories', 'answers', 'stamps', 'by', 'deleted', 'notes', 'spares', 'loads', 'qtys', 'units', 'labour', 'supplied', 'vmsboard', 'places', 'items', 'added', 'branch']);
+const ALLOWED_COLLS = new Set(['delivery', 'assetNumbers', 'accessories', 'answers', 'stamps', 'by', 'deleted', 'notes', 'spares', 'loads', 'qtys', 'units', 'labour', 'supplied', 'vmsboard', 'places', 'items', 'added', 'branch', 'hireStart']);
 const NEW_REFS = new Set(spec.ops.filter(o => o.op === 'add_ref').map(o => o.ref)); /* references this run creates: absent before, present after */
 const PROBE_REFS = [...new Set([...NEW_REFS, ...spec.ops.filter(o => o.op === 'date_back').map(o => o.ref)])]; /* read back on Today after the stage */
 const VPOS = new Set(spec.ops.filter(o => o.op === 'vms_plan' || o.op === 'vms_inplace' || o.op === 'vms_complete' || o.op === 'vms_arrival').map(o => o.pos)); /* VMS plan positions (vms1024/<pos> on loads) the spec names */
@@ -483,6 +484,9 @@ function applyOps(spec) {
         const r4 = (S.vmsboard || {})[op.key], shownFleet = vms913Of(vms913Boards().find(b => b.key === op.key)).fleet; /* a fleet equal to the board's own number is not stored - the page shows it from the board */
         if (!r4 || !(r4.fleet === op.fleet || (r4.fleet == null && shownFleet === op.fleet)) || r4.rego !== op.rego || r4.on !== op.on) throw new Error(op.key + ' did not take: ' + JSON.stringify(r4));
         Object.assign(r, {result: 'board saved', doc: JSON.parse(JSON.stringify(r4))});
+      } else if (op.op === 'hire_start') {
+        if (((S.hireStart || {})[op.ref]) === op.iso) r.result = 'hire start already ' + op.iso;
+        else { if (setHireStart(op.ref, op.iso) === false) throw new Error('setHireStart refused ' + op.ref); if (((S.hireStart || {})[op.ref]) !== op.iso) throw new Error(op.ref + ' hire start did not take'); r.result = 'hire start ' + op.iso; }
       } else if (op.op === 'branch') {
         if (setBranch([op.ref], op.code, true) === false) throw new Error('setBranch refused ' + op.ref); if (((S.branch || {})[op.ref]) !== op.code) throw new Error(op.ref + ' branch did not take'); r.result = 'branch ' + op.code;
       } else if (op.op === 'note_append') {
@@ -847,6 +851,7 @@ function applyOps(spec) {
           if (op.notes_ok) { if (!String(L.notes || '').includes(op.why)) problems.push('VMS plan ' + op.pos + ' notes do not hold the reason ' + where); }
           else if (!same(L.notes ?? null, ((((before.docs || {}).loads || {})['vms1024~2f~' + op.pos]) || {}).notes ?? null)) problems.push('VMS plan ' + op.pos + ' notes changed without notes_ok (they print on the board sheet as special instructions) ' + where);
           if (wasDone === true && !(ce && ce.done === true)) problems.push(op.board + ' is not complete again ' + where); }
+        if (op.op === 'hire_start') { const h = (docs.hireStart || {})[op.ref]; if (!h || (h.v !== undefined ? h.v : h) !== op.iso) problems.push(op.ref + ' hire start is not ' + op.iso + ' ' + where); }
         if (op.op === 'branch') { const b = (docs.branch || {})[op.ref] || (docs.branch || {})[String(op.ref).replace(/\?/g, '~3f~')]; if (!b || (b.v !== undefined ? b.v : b) !== op.code) problems.push(op.ref + ' branch is not ' + op.code + ' ' + where); }
         if (op.op === 'note_append' && !String(((docs.delivery || {})[op.ref] || {}).note || '').includes(op.text)) problems.push(op.ref + ' note lacks the added text ' + where);
         if (op.op === 'spare_use' && (docs.spares || {})[op.id]) problems.push(op.no + ' still in spares ' + where);

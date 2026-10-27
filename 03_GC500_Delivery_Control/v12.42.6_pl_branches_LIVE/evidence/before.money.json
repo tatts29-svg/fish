@@ -1,0 +1,120 @@
+{
+ "pl": {
+  "rev": [
+   [
+    "1005",
+    "Hire Revenue",
+    198834.84,
+    198834.84
+   ],
+   [
+    "1010",
+    "Rehire Revenue",
+    397190.6,
+    423713
+   ],
+   [
+    "1030 · 1031",
+    "Transport Revenue",
+    147130.34,
+    147130.34
+   ],
+   [
+    "1032",
+    "Toilet Pumpouts",
+    70985.79,
+    70985.79
+   ],
+   [
+    "1020",
+    "Consumables",
+    0,
+    0
+   ],
+   [
+    "1047",
+    "Installation",
+    107438.93,
+    107438.93
+   ],
+   [
+    "—",
+    "Contract services — ledger allocation pending",
+    500,
+    500
+   ],
+   [
+    "—",
+    "Event accommodation and travel — allocation pending",
+    27700,
+    27700
+   ],
+   [
+    "1025",
+    "Cleaning",
+    8328,
+    8328
+   ],
+   [
+    "1015",
+    "Damage Waiver",
+    0,
+    0
+   ]
+  ],
+  "keys": [
+   "asAt",
+   "rev",
+   "cost",
+   "over",
+   "overJob",
+   "revNow",
+   "revJob",
+   "direct",
+   "directJob",
+   "costNow",
+   "costJob",
+   "gm",
+   "diff",
+   "rec",
+   "wages",
+   "qk",
+   "qWords",
+   "qClean",
+   "rehireTotal",
+   "rhCover",
+   "checks"
+  ]
+ },
+ "charge": 972058.5,
+ "cost": 448019.57,
+ "diff": 524038.93,
+ "branches": {
+  "KINP": {
+   "total": 250936.14
+  },
+  "STPS": {
+   "total": 73942.65
+  },
+  "NVAC": {
+   "total": 39725.89
+  },
+  "MEAD": {
+   "total": 18859.02
+  }
+ },
+ "refs": {
+  "T0003": 0,
+  "T0004": 0,
+  "T0005": 0,
+  "FL01": 0,
+  "FL02": 0,
+  "EQ0004": 0,
+  "EQ0007": 0,
+  "T0085": 2589.44,
+  "T0109": 1849.6
+ },
+ "foot": "v12.42.5",
+ "errors": 0,
+ "pageErrors": 0
+}
