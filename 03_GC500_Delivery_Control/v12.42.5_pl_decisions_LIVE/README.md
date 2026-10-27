@@ -1,7 +1,7 @@
-# v12.42.5: the P&L on Andrew's Baseplan (8) answers — DRAFT
+# v12.42.5: the P&L on Andrew's Baseplan (8) answers — LIVE
 
 Author: Andrew Fisher · 27 Oct 2026 · on live v12.42.4 (`20c09785…`). Candidate sha256 `318de672389be59015d1b3f6fb99de6a0837628fca49b384410aeca69ae022b6`, check_page PASS.
-**DRAFT: built and measured on the live record (read only). Not uploaded.**
+**LIVE 27 Oct 2026 22:46 AEST** (sha256 318de672…, 15,821,895 bytes; upload proved byte for byte, fresh fetch matched with cmp). The live page reads the same P&L lines as the candidate (`evidence/pl_live_v12425.json`), no page errors.
 
 Andrew's answers, 27 Oct 2026: "Coates own use equipment no charge"; water "Is part of the pump out charges"; accommodation
 "$27,700 is this years cost. They haven't updated".
