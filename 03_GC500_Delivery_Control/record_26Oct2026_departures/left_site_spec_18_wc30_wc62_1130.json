@@ -1,0 +1,8 @@
+{
+  "by": "Andrew Fisher",
+  "basis": "Andrew, 27 Oct 2026 (sent before 10:31 AEST): \"1130AM 0976 0024 0419 0440 0428 0963 0545 0043 0681\". All nine are Event Portables FWF, each on one reference only (read 10:31 AEST: every one Ready, its location Emptied, none already left). 0024, 0419, 0440, 0428, 0963, 0545, 0043 and 0681 are all eight of WC30's units, so WC30 leaves in full; 0976 is one of WC62's two, so WC62 stays on site with 0103. They left at 11:30 AEST. Recorded after 11:30, as a departure is only recorded once its time has come.",
+  "ops": [
+    {"op": "depart", "ref": "WC30", "at": "2026-10-27T11:30:00+10:00", "nos": ["0024", "0419", "0440", "0428", "0963", "0545", "0043", "0681"], "complete": true},
+    {"op": "depart", "ref": "WC62", "at": "2026-10-27T11:30:00+10:00", "nos": ["0976"], "complete": false}
+  ]
+}
