@@ -360,3 +360,8 @@ node record_26Oct2026_departures/left_site.cjs --spec record_26Oct2026_departure
 - **Applied:** 16:13 AEST on Andrew's word, dry run first (passed, nothing sent): `left_site.cjs --spec left_site_spec_31_helen_park_1530.json`, through the page's own Emptied tick and Record departure form (live v12.42.4), in Andrew's name.
 - **Record:** version 11582 → 11588. 6 documents acknowledged 200 (WC67, WC70, WC71, WC69 and the two labour removals), verified on the service; every other document unchanged in value; P&L and branch totals unchanged. Backup kept private. Report `report_20261027T061256Z.json`.
 - **Read back fresh:** WC70 in transit (0423); WC67 Emptied, 2 of 4 gone; WC71 4 of 8 gone; WC69 2 of 12 gone, all at 15:30. Kyle's 27 and 28 Oct labour lines are off the service. Today: 79 FWF (24 + 24 + 22 + 9), 86 units.
+
+## Thirty-second run: fourteen FWF picked up 16:30, 27 Oct 2026 — APPLIED, VERIFIED
+
+- **What:** Andrew, 27 Oct 2026: "Picked up 430PM" with the crew's list, 0765 0573 0941 0647 0438 0994 0990 0632 0562 0554 0947 0549 0673 0542 0086. All Emptied and Ready: WC73 0765 (0192 stays); PG29 0573, BJR01 0941, PG05 0438, T0162 0990 (each in full); WC69 0647 (nine stay); T0176 0994 (0576 stays); WC45 0632 0562 0947 0549 0673 0542 0086 (0544 stays). 0554 left at 10:00 on WC33 (Andrew's 10am list; WC33 off site in full) and is held for Andrew.
+- **Applied:** 16:38 AEST on Andrew's word, dry run first: `left_site.cjs --spec left_site_spec_32_1630.json`, in Andrew's name. Record 11589 → 11597, 8 documents acknowledged 200, verified; P&L unchanged. Report `report_20261027T063821Z.json`.
