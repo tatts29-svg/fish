@@ -12,8 +12,9 @@ On the live v12.42.3 page:
      shows above any open sheet or form, keeps it in Recording as and on this device as before, and the press carries on. Cancelled,
      it says where the box is (Tools · Recording as) and returns no name, as before; one press never asks twice. A name already set
      is used exactly as before, with no question;
-  2. flash(): while a sheet or form is open as a modal dialog, the message is shown inside it, where it can be seen; otherwise on the
-     page as before;
+  2. flash(): the message stays on the page exactly as before (so "booked ... recorded by" still shows once the sheet closes); while a
+     sheet or form sits above the page (a modal dialog, or the pick-up form), the same words are also shown at the top of it, letting
+     taps through to its buttons, and go when it closes (review, 27 Oct 2026);
   3. the footer reads v12.42.4.
 Nothing else on the page is touched. Author: Andrew Fisher.
 """
@@ -50,7 +51,7 @@ function whoAmI(){
   let typed = null; try { typed = window.prompt('Your name, please. It goes on everything you record here, with the time. (Change it later under Tools · Recording as.)', ''); } catch (e) { typed = null; }
   whoAsked12424 = Date.now();
   typed = String(typed == null ? '' : typed).replace(/\\s+/g, ' ').trim().slice(0, 60);
-  if (typed && named(typed)) { if (box) box.value = typed; S.operator = typed; save(); return typed; }
+  if (typed && named(typed)) { if (box) { box.value = typed; box.classList.remove('need'); } S.operator = typed; save(); return typed; }
  }
  if (box) { box.classList.remove('need'); void box.offsetWidth; box.classList.add('need'); box.focus(); }
  flash('Put your name in Tools · Recording as first — every record carries the name of whoever made it.');
@@ -58,20 +59,42 @@ function whoAmI(){
 }
 """
 
-# 2. flash(): shown inside an open modal sheet or form, where it can be seen
-FLASH_OLD = """ if (!el) { el = document.createElement('div'); el.id = 'flash'; el.setAttribute('role', 'status'); el.setAttribute('aria-live', 'polite'); document.body.appendChild(el); }
+# 2. flash(): unchanged on the page; the same words also at the top of an open sheet or form, letting taps through
+FLASH_OLD = """ clearTimeout(flashTimer); flashTimer = setTimeout(() => { el.style.display = 'none'; }, 3600);
+}
 """
-FLASH_NEW = """ if (!el) { el = document.createElement('div'); el.id = 'flash'; el.setAttribute('role', 'status'); el.setAttribute('aria-live', 'polite'); document.body.appendChild(el); }
- /* v12.42.4: an open sheet or form (a modal dialog) is drawn above the whole page, so while one is open the message goes inside it */
- let host = document.body; try { host = document.querySelector('dialog:modal') || document.body; } catch (e) { host = document.body; }
- if (el.parentNode !== host) host.appendChild(el);
+FLASH_NEW = """ clearTimeout(flashTimer); flashTimer = setTimeout(() => { el.style.display = 'none'; }, 3600);
+ try { flashOnTop12424(msg); } catch (e) {} /* v12.42.4 */
+}
+/* v12.42.4: an open sheet or form (a modal dialog, or the pick-up form) is drawn above the page and over the message above, so while one
+   is open the same words are also shown at the top of it. They let taps through to its buttons, and go when it closes or after the same
+   3.6 s; the message on the page is left exactly as it was, so it still shows once the sheet has closed. */
+let flashTop12424 = null, flashTopTimer12424 = 0;
+function flashOnTop12424(msg){
+ let modal = []; try { modal = [...document.querySelectorAll('dialog:modal')]; } catch (e) { modal = [...document.querySelectorAll('dialog[open]')]; }
+ /* an open modal dialog is above everything else; otherwise a form panel marked modal that is showing something (the Demob pick-up
+    panel stays on the page, empty, after it closes) */
+ const showing = x => { const r = x.getBoundingClientRect(); return r.width > 0 && r.height > 0 && getComputedStyle(x).visibility !== 'hidden' && !!x.querySelector(':scope > :not(.flash12424)'); };
+ const forms = [...document.querySelectorAll('[role="dialog"][aria-modal="true"]')].filter(x => x.tagName !== 'DIALOG' && !x.hidden && showing(x));
+ const host = modal.length ? modal[modal.length - 1] : forms.pop();
+ if (flashTop12424 && (!host || flashTop12424.parentNode !== host)) { flashTop12424.remove(); flashTop12424 = null; }
+ if (!host) return;
+ if (!flashTop12424) {
+  const t = document.createElement('div'); t.className = 'flash12424'; t.setAttribute('role', 'status'); t.setAttribute('aria-live', 'polite');
+  t.style.cssText = 'position:fixed;left:50%;top:12px;transform:translateX(-50%);background:var(--ink);color:var(--paper);padding:10px 16px;border-radius:8px;' +
+   'z-index:2147483000;font-size:13px;max-width:90vw;box-shadow:var(--shadow);pointer-events:none;text-align:center';
+  host.appendChild(t); flashTop12424 = t;
+ }
+ flashTop12424.textContent = msg; flashTop12424.style.display = 'block';
+ clearTimeout(flashTopTimer12424); flashTopTimer12424 = setTimeout(() => { if (flashTop12424) { flashTop12424.remove(); flashTop12424 = null; } }, 3600);
+}
 """
 
 
 def patch(text, path='page'):
     if sha(text) != BASE: raise ValueError('Live base is not the verified v12.42.3; rebuild and retest')
     if 'whoAsked12424' in text: raise ValueError('v12.42.4 is already on this page')
-    for a, b, what in ((WHO_OLD, WHO_NEW, 'whoAmI: a person with no name is asked for it'), (FLASH_OLD, FLASH_NEW, 'flash: inside an open modal sheet')):
+    for a, b, what in ((WHO_OLD, WHO_NEW, 'whoAmI: a person with no name is asked for it'), (FLASH_OLD, FLASH_NEW, 'flash: the same words at the top of an open sheet or form')):
         if text.count(a) != 1: raise ValueError(what + ': not found once')
         text = rep(text, a, b, what, path)
     if text.count(FOOT_OLD) != 1: raise ValueError('release footer v12.42.3 not found once')
@@ -81,4 +104,4 @@ def patch(text, path='page'):
 if __name__ == '__main__':
     p = Path(sys.argv[1]); t = p.read_text(encoding='utf-8')
     p.write_text(patch(t, str(p)), encoding='utf-8')
-    print('patch_v12424 applied: a person with no name is asked for it (above any open sheet), messages show inside an open sheet; footer v12.42.3 -> v12.42.4')
+    print('patch_v12424 applied: a person with no name is asked for it (above any open sheet or form), messages also shown at the top of an open sheet or form; footer v12.42.3 -> v12.42.4')

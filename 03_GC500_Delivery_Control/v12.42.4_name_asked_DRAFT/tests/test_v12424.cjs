@@ -48,6 +48,8 @@ const {open} = require('../../toolchain/harness/open_page');
     const B1 = await gn18(), S1 = await p.evaluate(() => ({open: document.querySelector('dialog.bkd1238').open, asked: __asked.length}));
     check('v12.42.4: with no name, Book pick-up asks for the name once (the browser\'s own box, above the sheet) and keeps it in Tools · Recording as', O1.asked === 1 && /Your name/.test(O1.msg) && O1.who === 'Pat Example' && O1.op === 'Pat Example' && /as Pat Example/.test(O1.fy), O1);
     check('v12.42.4: Save booking then books it in that name, the sheet closes, nothing more is asked', B1.b && B1.b.by === 'Pat Example' && /T07:30:00\+10:00$/.test(B1.b.at) && !S1.open && S1.asked === 1, {B1, S1});
+    const M1 = await p.evaluate(() => { const f = document.getElementById('flash'); if (!f || f.style.display === 'none') return {shown: false}; const b = f.getBoundingClientRect(), el = document.elementFromPoint(b.left + b.width / 2, b.top + b.height / 2); return {shown: true, text: f.textContent, inBody: f.parentNode === document.body, onTop: !!el && (el === f || f.contains(el))}; });
+    check('v12.42.4: once the sheet closes, the "booked ... recorded by" message shows on the page, readable (review: it must not leave with the sheet)', M1.shown && /booked/.test(M1.text) && /Pat Example/.test(M1.text) && M1.inBody && M1.onTop, M1);
     await shot('booking_named');
 
     /* 2. the name now set: changing the booking asks nothing */
@@ -62,16 +64,17 @@ const {open} = require('../../toolchain/harness/open_page');
     await scrollTo(card('GN18', G18)); await p.click(card('GN18', G18) + ' button[data-book1238]'); await p.waitForSelector('dialog.bkd1238[open]', {timeout: 10000});
     await p.waitForTimeout(1700); /* a later press, not the same one */
     await pick(10, 0); await p.click('dialog.bkd1238 [data-bk1238="save"]'); await p.waitForTimeout(900);
-    const C3 = await p.evaluate(a3 => { const d = document.querySelector('dialog.bkd1238'), f = document.getElementById('flash'); let top = null, inF = false;
-      if (f && f.style.display !== 'none') { const b = f.getBoundingClientRect(), el = document.elementFromPoint(b.left + b.width / 2, b.top + b.height / 2); inF = !!el && (el === f || f.contains(el)); top = el ? el.tagName : null; }
-      return {open: d.open, asked: __asked.length - a3, flash: f ? f.textContent : '', inDialog: !!f && d.contains(f), onTop: inF, top, who: document.getElementById('who').value}; }, a3);
+    const C3 = await p.evaluate(a3 => { const d = document.querySelector('dialog.bkd1238'), m = d.querySelector('.flash12424'), sv = d.querySelector('[data-bk1238="save"]');
+      let mr = null; if (m && m.style.display !== 'none') { const b = m.getBoundingClientRect(); mr = {top: Math.round(b.top), bottom: Math.round(b.bottom), w: Math.round(b.width), inView: b.top >= 0 && b.bottom <= innerHeight && b.width > 0}; }
+      sv.scrollIntoView({block: 'nearest'}); const s = sv.getBoundingClientRect(), hit = document.elementFromPoint(s.left + s.width / 2, s.top + s.height / 2);
+      return {open: d.open, asked: __asked.length - a3, mirror: m ? m.textContent : '', mr, saveTappable: !!hit && (hit === sv || sv.contains(hit)), hitIs: hit ? hit.tagName + '.' + (hit.className || '') : null, who: document.getElementById('who').value}; }, a3);
     const N3 = (await gn18()).n;
     await shot('booking_no_name_message');
     check('v12.42.4: the name question cancelled (asked when the sheet opened and again at Save), Save books nothing and the sheet stays open to try again', C3.open && N3 === n3 && C3.who === '' && C3.asked === 2, {C3, n3, N3});
-    check('v12.42.4: and the message saying where the name goes shows inside the sheet, on top where it can be read', /Tools · Recording as/.test(C3.flash) && C3.inDialog && C3.onTop, C3);
+    check('v12.42.4: and the message saying where the name goes shows at the top of the sheet, in view, while taps still reach Save booking (review: it must not cover the buttons)', /Tools · Recording as/.test(C3.mirror) && C3.mr && C3.mr.inView && C3.saveTappable, C3);
     await p.click('dialog.bkd1238 [data-bk1238="cancel"]'); await p.waitForTimeout(300);
-    const F3 = await p.evaluate(() => { flash('A message with no sheet open'); const f = document.getElementById('flash'), b = f.getBoundingClientRect(), el = document.elementFromPoint(b.left + b.width / 2, b.top + b.height / 2); return {inBody: f.parentNode === document.body, onTop: !!el && (el === f || f.contains(el)), text: f.textContent}; });
-    check('v12.42.4: with the sheet closed, a message is back on the page as before', F3.inBody && F3.onTop, F3);
+    const F3 = await p.evaluate(() => { flash('A message with no sheet open'); const f = document.getElementById('flash'), b = f.getBoundingClientRect(), el = document.elementFromPoint(b.left + b.width / 2, b.top + b.height / 2); return {inBody: f.parentNode === document.body, onTop: !!el && (el === f || f.contains(el)), text: f.textContent, mirrors: [...document.querySelectorAll('.flash12424')].filter(x => x.getClientRects().length).length}; });
+    check('v12.42.4: with the sheet closed, a message shows on the page as before, and no copy is left showing', F3.inBody && F3.onTop && F3.mirrors === 0, F3);
 
     /* 4. one press never asks twice */
     await p.waitForTimeout(1700);
@@ -98,11 +101,18 @@ const {open} = require('../../toolchain/harness/open_page');
       await scrollTo(card(PU.k, PU.u)); await p.click(card(PU.k, PU.u) + ' button[data-lamp1238="gone"]');
       await p.waitForSelector('#collection996', {timeout: 15000}).catch(() => {});
       P6.form = await p.evaluate(() => { const f = document.getElementById('collection996'); if (!f) return null; let modal = false; try { modal = f.matches(':modal') || !!f.closest('dialog:modal'); } catch (e) {} return {modal, checked: [...f.querySelectorAll('input[type=checkbox]')].filter(x => x.checked).length}; });
+      await answers([null]);
+      const n0 = await p.evaluate(k => __cap.filter(x => x.name === 'delivery/' + k).length, PU.k);
+      await p.evaluate(() => { const f = document.getElementById('collection996'); f.querySelector('[name=collection-date]').value = todayIso(); f.querySelector('[name=collection-time]').value = '00:05:00'; f.querySelector('button[type=submit]').click(); });
+      await p.waitForTimeout(900);
+      P6.cancel = await p.evaluate(({k, n0}) => { const f = document.getElementById('collection996'), m = f && f.querySelector('.flash12424'); let inView = false; if (m) { const b = m.getBoundingClientRect(); inView = b.top >= 0 && b.bottom <= innerHeight && b.width > 0; } return {form: !!f, saved: __cap.filter(x => x.name === 'delivery/' + k).length - n0, mirror: m ? m.textContent : '', inView}; }, {k: PU.k, n0});
+      await p.waitForTimeout(1700); await answers(['Lee Example']);
       const a0 = await asked();
       await p.evaluate(() => { const f = document.getElementById('collection996'); f.querySelector('[name=collection-date]').value = todayIso(); f.querySelector('[name=collection-time]').value = '00:05:00'; f.querySelector('button[type=submit]').click(); });
       await p.waitForTimeout(1500);
       P6 = Object.assign(P6, await p.evaluate(k => { const c = __cap.filter(x => x.name === 'delivery/' + k).pop(), v = c && c.value || {}, h = (v.history || []).filter(x => x && x.collection996).pop(); return {by: h ? h.by : null, at: h ? h.collection996.departedAt1211 : null, form: !!document.getElementById('collection996'), flash: (document.getElementById('flash') || {}).textContent || ''}; }, PU.k), {asked: (await asked()) - a0});
     }
+    check('v12.42.4: Picked up with no name and the name question cancelled: the pick-up form stays open, nothing is recorded, and the message shows at the top of the form, in view', P6.cancel && P6.cancel.form && P6.cancel.saved === 0 && /Tools · Recording as/.test(P6.cancel.mirror) && P6.cancel.inView, P6.cancel || P6);
     check('v12.42.4: Picked up with no name: the departure form asks for the name on Confirm and records the pick-up in it', P6.pu && P6.by === 'Lee Example' && P6.asked === 1 && !P6.form, P6);
 
     const sent = await p.evaluate(() => __cap.map(c => c.name));
