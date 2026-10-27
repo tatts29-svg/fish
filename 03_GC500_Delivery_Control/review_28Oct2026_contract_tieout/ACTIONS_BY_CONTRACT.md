@@ -5,7 +5,7 @@ Labour, install, pump-out, cleaning and accommodation are charged on the page fr
 not line by line on the contract, so those lines show $0 on the page here; the totals are compared at the bottom.
 
 ## Match to the cent, nothing to do
-10000506 KINP (toilet paper, hand towel) · 9974042 KINP · 9997710 STPS (fence, shade cloth) · 9997711 KINP (FR01/FR02) · 9968929 KINP ($0, team buildings)
+9987005 MEAD (v12.42.12) · 9973977 KINP (T0243: block $2,476.85; install, steps, levelling, cleaning, demob ticked $707.88 = line 2; transport $1,000) · 10000506 KINP (toilet paper, hand towel) · 9974042 KINP · 9997710 STPS (fence, shade cloth) · 9997711 KINP (FR01/FR02) · 9968929 KINP ($0, team buildings)
 
 ## Branch to fix in Baseplan
 | Contract | Line(s) | Fix | Money on Baseplan |
