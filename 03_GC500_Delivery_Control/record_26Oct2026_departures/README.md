@@ -315,3 +315,11 @@ node record_26Oct2026_departures/left_site.cjs --spec record_26Oct2026_departure
 - **Applied:** 13:43 AEST on Andrew's word, dry run first (passed, nothing sent): `left_site.cjs --spec left_site_spec_26_wc13_1340.json`, through the page's own Record departure form, in Andrew's name. Light in transit.
 - **Record:** version 11556 → 11557. 1 document acknowledged 200, verified on the service; every other document unchanged in value; P&L and branch totals unchanged. Backup kept private. Report `report_20261027T034351Z.json`.
 - **Read back fresh:** WC13 in transit, one departure at 13:40 holding 0036 and 0444 (the whole reference); 201 units ticked Ready before and after.
+
+## Twenty-third run: P65 Support Categories Race Secretary 1327217 left 14:00, 27 Oct 2026 — APPLIED, VERIFIED
+
+- **What:** Andrew, 27 Oct 2026: "1327217 leaving at 2pm". 1327217 is P65's only unit (Building 6m, Coates; ticked Ready; booked earlier for pick-up 28 Oct 09:00; not already left), so P65 left in full at 14:00 AEST, the day before that booking. Its air conditioner 1327935, fire extinguisher and fridge 1283982 stay listed on P65 as gear that goes with it.
+- **First try, 14:00:57 AEST:** dry run passed; the apply staged the departure on the page, then stopped before sending because the record changed under it (another person's booking saved at 14:01, record 11560 → 11561). Nothing was sent: "STOP: the record changed before release - nothing sent".
+- **Applied:** 14:02 AEST on Andrew's word, dry run first again (passed, nothing sent): `left_site.cjs --spec left_site_spec_23_p65_1327217.json`, through the page's own Record departure form, in Andrew's name. Light in transit.
+- **Record:** version 11561 → 11562. 1 document acknowledged 200, verified on the service; every other document unchanged in value; P&L and branch totals unchanged. Backup kept private. Report `report_20261027T040231Z.json`.
+- **Read back fresh:** P65 in transit, one departure at 14:00 holding Building 6m 1327217 (the whole reference); 201 units ticked Ready. The Demob tab reads 69 units off site today, 100 of 794 off site.
