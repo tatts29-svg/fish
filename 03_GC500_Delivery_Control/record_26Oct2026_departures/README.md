@@ -382,3 +382,9 @@ node record_26Oct2026_departures/left_site.cjs --spec record_26Oct2026_departure
 - **What:** Andrew, answering the Baseplan (8) review: "Forklifts will be under MEAD" (T0085, T0109: Supply forklifts on 9987005). Both go on branch MEAD through the page's own setBranch (new runner op `branch`).
 - **WB03 (installed 18 Sep night shift) is not changed here:** the record will not back-date a light that is already on site (the dry run stopped on it, nothing sent); it goes with the page release.
 - **Record:** 11612 → 11618, 6 documents acknowledged 200, verified. P&L charge unchanged; $1,000.00 moves from NVAC to MEAD. Report `report_20261027T125402Z.json`.
+
+## Thirty-sixth run: the concert generators (GN?) on KINP, 27 Oct 2026 — APPLIED, VERIFIED
+
+- **What:** Andrew, on concert contract 9994954 (GN26/GN27, cable, sync labour, transport, gen tech): "I spoke with Chris about this one happy to leave KINP". Our reference GN? (1316182, 1316183) goes on branch KINP.
+- **Runner:** the `branch` op takes GN?; documents named with "?" (~3f~) are read back.
+- **Record:** 11618 → 11621, 3 documents acknowledged 200, verified. P&L charge unchanged; $8,597.48 moves NVAC → KINP (NVAC $48,323.37 → $39,725.89, KINP $242,338.66 → $250,936.14). Report `report_20261027T125729Z.json`.
