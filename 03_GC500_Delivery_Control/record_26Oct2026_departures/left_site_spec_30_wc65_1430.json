@@ -1,0 +1,7 @@
+{
+  "by": "Andrew Fisher",
+  "basis": "Andrew, 27 Oct 2026 (14:3x AEST), after \"230pm and 0526\": \"And 0032\". No FWF numbered 0032 is on the record (all 236 FWF carry numbers); the nearest match still on site is 0033, WC65's only unit (11 Hill Parade, Main Beach; servicing area 4 with WC34, 105 m from WC34; read 14:39 AEST: Emptied, Ready, not already left, no booking). Asked which unit went at 14:30, Andrew chose \"0033 at WC65\". So WC65 left in full at 14:30 AEST with WC62, WC35 and WC34.",
+  "ops": [
+    {"op": "depart", "ref": "WC65", "at": "2026-10-27T14:30:00+10:00", "nos": ["0033"], "complete": true}
+  ]
+}

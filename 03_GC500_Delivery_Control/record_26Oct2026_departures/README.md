@@ -344,3 +344,10 @@ node record_26Oct2026_departures/left_site.cjs --spec record_26Oct2026_departure
 - **Applied:** 14:34 AEST on Andrew's word, dry run first (passed, nothing sent): `left_site.cjs --spec left_site_spec_29_wc62_wc35_wc34_1430.json`, through the page's own Record departure form (live v12.42.4), in Andrew's name. Lights in transit.
 - **Record:** version 11571 → 11574. 3 documents acknowledged 200, verified on the service; every other document unchanged in value; P&L and branch totals unchanged. Backup kept private. Report `report_20261027T043344Z.json`.
 - **Read back fresh:** WC62 in transit (0976 at 11:30, 0103 at 14:30), WC35 in transit (0284 at 14:30), WC34 in transit (0526 at 14:30). Today: 69 FWF, 76 units.
+
+## Thirtieth run: WC65 0033 picked up 14:30 (Andrew wrote "0032"), 27 Oct 2026 — APPLIED, VERIFIED
+
+- **What:** Andrew, 27 Oct 2026, after "230pm and 0526": "And 0032". No FWF numbered 0032 is on the record (all 236 FWF carry numbers). The nearest match still on site was 0033, WC65's only unit (11 Hill Parade, Main Beach; servicing area 4 with WC34, 105 m from WC34; Emptied, Ready, not already left, no booking). Asked which unit went at 14:30 (0033 at WC65, 0037 at WC44, 0038 at WC61, or check the sticker first), Andrew chose "0033 at WC65". So WC65 left in full at 14:30 AEST.
+- **Applied:** 14:42 AEST on Andrew's word, dry run first (passed, nothing sent): `left_site.cjs --spec left_site_spec_30_wc65_1430.json`, through the page's own Record departure form (live v12.42.4), in Andrew's name. Light in transit.
+- **Record:** version 11574 → 11575. 1 document acknowledged 200, verified on the service; every other document unchanged in value; P&L and branch totals unchanged. Backup kept private. Report `report_20261027T044221Z.json`.
+- **Read back fresh:** WC65 in transit, one departure at 14:30 holding 0033 (the whole reference). Today: 70 FWF, 77 units.
