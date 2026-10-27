@@ -295,3 +295,16 @@ node record_26Oct2026_departures/left_site.cjs --spec record_26Oct2026_departure
 - **Applied:** rehearsed at 11:39 as a dry run (passed, nothing sent); after 12:00 a fresh dry run with 12:00 (passed), then applied 12:01 AEST: `left_site.cjs --spec left_site_spec_22_p66_1327222.json`, through the page's own Record departure form, in Andrew's name. Light in transit.
 - **Record:** version 11548 → 11549. 1 document acknowledged 200, verified on the service; every other document unchanged in value; P&L and branch totals unchanged. Backup kept private. Report `report_20261027T020058Z.json`.
 - **Read back fresh:** P66 in transit, one departure at 12:00 holding 1 x Building 6m 1327222 (the whole reference); 201 units ticked Ready before and after.
+
+## Twenty-fourth run: WC51 Emptied and its six FWF, and WC49's three, left 13:30, 27 Oct 2026 — APPLIED, VERIFIED
+
+- **What:** Andrew, 27 Oct 2026: "Wc51 left leaves at 130pm"; asked whether all seven at WC51 were pumped out: "Only the 6 Event Portables"; then "Only the fwf though / Yes pumpee out you know this / You gave me document qll.was done / Leaving at 130pm 0919 0084 0907" (the document: the Servicing night report for 25 into 26 October, final night, pump out 250 of 250 units, all 74 locations, finished 01:39); asked which left at 13:30: "Both: WC51's 6 FWF and WC49's 3". WC51 was left without an Emptied tick in the seventh run because it holds Event Portables and Coates units together (asked of Andrew); this is that answer.
+- **Applied:** rehearsed at 13:28 as a dry run (passed, nothing sent); after 13:30 a fresh dry run with 13:30 (passed), then applied 13:31 AEST: `left_site.cjs --spec left_site_spec_24_wc51_wc49_1330.json`, through the page's own Emptied tick and Record departure form, in Andrew's name. WC51 Emptied; WC51's six Event Portables FWF (0028, 0136, 0167, 0453, 0653, 0991) left 13:30, its Coates accessible toilet 1197174 stays on site; WC49's three Event Portables FWF (0919, 0084, 0907, all of WC49) left 13:30, light in transit.
+- **Record:** version 11552 → 11554. 2 documents acknowledged 200, every op verified on the service; every other document unchanged in value; P&L and branch totals unchanged. Backup kept private. Report `report_20261027T033102Z.json`.
+
+## Twenty-fifth run: WC48's four FWF left 13:30, 27 Oct 2026 — APPLIED, VERIFIED
+
+- **What:** Andrew, 27 Oct 2026: "Here is some more 0050 0471. 0486 0289"; asked the time: "13:30, same truck". All four are Event Portables FWF on WC48 only, all of WC48 (read 13:29 AEST: Emptied, every one Ready, none already left).
+- **Applied:** dry run (passed, nothing sent), then applied 13:32 AEST straight after the twenty-fourth run: `left_site.cjs --spec left_site_spec_25_wc48_1330.json`, through the page's own Record departure form, in Andrew's name. WC48 left in full at 13:30, light in transit.
+- **Record:** version 11554 → 11555. 1 document acknowledged 200, verified on the service; every other document unchanged in value; P&L and branch totals unchanged. Report `report_20261027T033239Z.json`.
+- **Read back fresh (both runs):** WC51 on site, Emptied by Andrew Fisher, one departure at 13:30 holding the six FWF (not the whole reference); WC49 and WC48 in transit, each one departure at 13:30 holding the whole reference; 201 units ticked Ready before and after.
