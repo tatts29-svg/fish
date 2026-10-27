@@ -1,7 +1,7 @@
-# v12.42.4: a new person is asked for their name — DRAFT
+# v12.42.4: a new person is asked for their name — READY
 
 Author: Andrew Fisher · 27 Oct 2026 · a point release on live v12.42.3 (Demob saves quicker, `81cacbcf…`).
-**DRAFT: built and tested locally. Not uploaded.**
+**READY: built and tested locally. Not uploaded yet (after P65 is recorded at 14:00).**
 
 Andrew, 27 Oct 2026, on site: "Im getting reports others cant change dates or add times why", then "Works on my phone....and laptop. I sent a edit link and they cant add times".
 
@@ -20,18 +20,35 @@ The server rejected nothing: from 12:29 to 13:00 the only real-device save (a bo
 ## What changed
 
 1. **`whoAmI()`** (core): with no name, or a "name" with no letter in it (such as "0"), it asks for the name in the browser's own box, which shows above any open sheet or form. The answer is kept in Tools · Recording as and on this device as before, and the press carries on (the booking is saved, the pick-up recorded, the Ready tick made). Cancelled, it says where the box is ("Tools · Recording as") and returns no name, as before. One press never asks twice (a second ask within 1.5 s of the last does not ask). A name already set is used exactly as before, with no question.
-2. **`flash()`** (core): while a sheet or form is open as a modal dialog, the message is shown inside it, where it can be seen; otherwise on the page as before.
+2. **`flash()`** (core): the message stays on the page exactly as before, so "booked … recorded by" still shows once the sheet closes. While a sheet or form sits above the page (an open modal dialog, or the pick-up form while it shows something), the same words are also shown at the top of it. That copy lets taps through to the sheet's buttons (Save stays tappable on a phone), and it goes when the sheet closes or after the same 3.6 s.
 3. The footer reads v12.42.4.
 
 Every `whoAmI()` caller in the page (148) was checked: each runs from a press or a change in a field, none while drawing, on a timer or on the sync.
 
 ## Checks
 
-The candidate is built by `toolchain/build.sh v12.42.4 v12.42.4_name_asked_DRAFT/patch_v12424.py` on the live v12.42.3 (`81cacbcf…`, fetched 13:27): sha256 `07c8d5f17efb3e2e9cafad652ed3a1162ef4937e38a492b7b4814f491cb93000`, 15,817,792 bytes, `check_page.py` PASS (214 inline scripts). The patch refuses any other base and refuses to run twice.
+The candidate is built by `toolchain/build.sh v12.42.4 v12.42.4_name_asked_DRAFT/patch_v12424.py` on the live v12.42.3 (`81cacbcf…`, still live at 13:50): sha256 `20c0978543b3bc16c6663a68a3bae3cc699ca7498219bda3f390e6a7094174e9`, 15,819,642 bytes, `check_page.py` PASS (214 inline scripts, no keys). The patch refuses any other base and refuses to run twice.
 
-- `tests/test_v12424.cjs` (new): desktop 11/11 (results below as they finish).
-- `tests/test_v12424_regress.cjs`: the v12.42.3 tests kept whole, only the footer they expect changed to v12.42.4.
-- Both shared sweeps.
+| Check | Desktop | Phone |
+|---|---|---|
+| `tests/test_v12424.cjs` (new) | 13/13 | 13/13 |
+| `tests/test_v12424_regress.cjs` (the v12.42.3 tests, footer v12.42.4) | 90/93 | 90/93 |
+| The v12.42.3 tests on the live v12.42.3 page, for comparison | 90/93 | — |
+| Shared sweep (`toolchain/harness/sweep.js`), 27 tabs | no errors, 0 blocked | no errors, 0 blocked |
+| `tests/test_v12424.cjs` on the live v12.42.3 page (shows the fault) | 0/4: no name asked, nothing booked | — |
+
+The new test, in edit mode with the sync held (writes captured, nothing sent):
+
+- With no name, Book pick-up asks once, in the browser's own box, and keeps the answer in Tools · Recording as. Save booking then books in that name, the sheet closes, nothing more is asked, and "booked … recorded by" shows on the page.
+- A name already set asks nothing.
+- Cancel the question: nothing is saved, the sheet stays open, the message shows at the top of the sheet in view, and Save booking can still be tapped through it. The copy goes once the sheet closes.
+- One press asks once. A "name" of "0" is asked again on a Ready tick.
+- The pick-up form: cancel leaves the form open with nothing saved and the message at the top of the form; given a name, the pick-up is recorded in it.
+- No page errors.
+
+The three regression failures are the same three on the live v12.42.3 page (`evidence/sweeps_and_regression.json`). They test a day ahead with nothing booked, and tomorrow (28 Oct) now has real bookings. They come from the data, not from this change.
+
+Review, 27 Oct 2026: the first way of showing the message (moving the page's message into the sheet) hid "booked … recorded by" once the sheet closed, and on a phone covered Save. It was replaced with the copy on top that lets taps through. A second finding: the copy was attaching to the Demob pick-up panel, which stays on the page empty after it closes. It now prefers an open modal dialog and only uses a panel that is showing something. Both are covered by the new test.
 
 ## Files
 
