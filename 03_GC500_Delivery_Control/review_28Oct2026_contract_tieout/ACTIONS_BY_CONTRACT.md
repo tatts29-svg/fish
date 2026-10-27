@@ -24,7 +24,7 @@ not line by line on the contract, so those lines show $0 on the page here; the t
 | 9961265 STPS | 1, 16, 31 | Baseplan one day longer than our record | ours −$160.83 |
 | 9961976 NVAC | generators + light towers | Baseplan's prebill is one billing week at the keyed rate; our page uses the card rate over the hire (agreed) — rates to agree with NVAC | see below |
 | 9994954 KINP | 10–11 GN26/27 | Prebill is one week; our page charges 12–26 Oct at this contract's rate | ours +$8,354.50 |
-| 9994954 KINP | 19–20 pee panels | Already charged on WC09 (toilet contract) — take these off or take WC09's off, not both | −$7,343.40 |
+| 9994954 KINP | 19–20 pee panels | Andrew 28 Oct: pee panels go on 9994954. Keep them here; page charges them once (WC09) | none |
 | 9992300 MEAD | 12 boom 1286482 | Done: page bills Baseplan dates 21–27 Oct, $2,176.65 (v12.42.10) | matches |
 | 9987005 MEAD | 1 forklift 5.0t | Done: page set to Baseplan 5–28 Oct, $3,600 (v12.42.12); contract matches | matches |
 | 10000523 KINP | 2 water $450.34 | Water is part of the pump-outs (Andrew) — remove | −$450.34 |
