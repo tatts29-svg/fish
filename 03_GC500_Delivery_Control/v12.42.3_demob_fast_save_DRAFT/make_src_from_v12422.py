@@ -7,8 +7,12 @@ What changes (Andrew, 27 Oct 2026, on site: "Delay when saving in demob can we m
      a model under 4 s old is reused only when nothing was saved since and the day's plan is the very one it was built from, as before
   2. a unit's Ready tick and a booking save through the page's own bump() inside that hold, and the Demob redraw bump() asks for
      puts right, in place, what that save changed (the cards of the references it wrote, and everything counted from them), instead
-     of drawing all 401 cards again; any other redraw, and any save while the tab is not as last drawn, draws the whole tab as before
-  3. the taps that read the model (the lights, Book pick-up, Book this load, the booking sheet's day, time and Save) run in that hold
+     of drawing all 401 cards again; any other redraw, and any save while the tab is not as last drawn (another view, another card's
+     light, booking or "time passed" changed, or the record changed since the drawing, e.g. another phone's record arriving while the
+     page held its own redraw back), draws the whole tab as before
+  3. the hold is taken for what saves or plans (a run's own Ready tick, the Emptied tick before Picked up, the booking sheet's clash
+     check and Save); a tap that saves nothing builds no asset list it does not need
+  4. Singles1238.quick() counts the quick saves put right in place and those drawn whole, with the reason, for the tests and sweeps
 
 Author: Andrew Fisher.
 """
@@ -25,12 +29,20 @@ QUICK = r"""
    while the tab shows the cards exactly as last drawn (the same view, day, branch and link, the same cards in the same places) and
    every other card's light and booking are as drawn; otherwise the whole tab is drawn as before. ---- */
 let QUICK = null, DRAWN = null;
-const cardSig = c => [c.st && c.st.s, c.st && c.st.at, c.st && c.st.by, c.st && c.st.why, c.book ? [c.book.at, c.book.set, c.book.note, c.book.by].join('^') : '', c.half || '', c.unk || 0].join('~');
+/* how many quick saves were put right in place and how many drew the whole tab, and why the last one did (for the tests and the sweeps) */
+const QSTAT = {quick: 0, whole: 0, why: ''};
+/* the record's own change count (REC_EPOCH1066 goes up on every save, every record received from the shared store and an event dates
+   change). A drawing notes it, and a quick save goes ahead only when nothing but that save has changed the record since the tab was
+   drawn: a record from another phone that arrived while the page held its own redraw back is drawn whole, with the save */
+const epochNow = () => { try { return typeof REC_EPOCH1066 === 'number' ? REC_EPOCH1066 : NaN; } catch (x) { return NaN; } };
+/* a card's light, its booking, and whether that booking's time has passed (the card says "time passed" once it has) */
+const cardSig = c => [c.st && c.st.s, c.st && c.st.at, c.st && c.st.by, c.st && c.st.why, c.book ? [c.book.at, c.book.set, c.book.note, c.book.by].join('^') : '', c.book && Date.parse(c.book.at) < Date.now() ? 'past' : '', c.half || '', c.unk || 0].join('~');
 const viewSig = day => (day ? 'day:' + day : 'all') + '|' + ((typeof DM816 === 'object' && DM816 && DM816.branch) || 'all') + '|' + (canEd() ? 'edit' : 'view');
-/* what the cards were drawn from: the view and each card's light and booking */
-function seen(list, day) { DRAWN = {sig: viewSig(day), cards: new Map(list.map(c => [c.key + '#' + c.uid, cardSig(c)]))}; }
-/* the page's own save, inside the asset hold, with the references it writes named for the redraw */
-function saveQuick(keys, book) { QUICK = {keys: new Set(keys), book: !!book}; try { hold(() => bump()); } finally { QUICK = null; } }
+/* what the cards were drawn from: the view, the record's change count and each card's light and booking */
+function seen(list, day) { DRAWN = {sig: viewSig(day), epoch: epochNow(), cards: new Map(list.map(c => [c.key + '#' + c.uid, cardSig(c)]))}; }
+/* the page's own save, inside the asset hold, with the references it writes named for the redraw; clean: nothing else changed the
+   record since the tab was drawn (read before the save, which counts as one change itself) */
+function saveQuick(keys, book) { QUICK = {keys: new Set(keys), book: !!book, clean: !!DRAWN && DRAWN.epoch === epochNow()}; try { hold(() => bump()); } finally { QUICK = null; } }
 const tpl = html => { const t = D.createElement('template'); t.innerHTML = html; return t.content; };
 /* a list read in one pass: its shape (sections, suppliers, groups and cards, in page order), its heads and its cards by unit */
 function scan(root, card, idOf) {
@@ -72,22 +84,23 @@ function refreshed(keys) {
 }
 function put(view, cls, html, after) { const old = view.querySelector(':scope > .' + cls); if (!html) { if (old) old.remove(); return; } const n = tpl(html).firstElementChild; if (old) { if (old.outerHTML !== n.outerHTML) old.replaceWith(n); } else after.after(n); }
 function quickDraw() {
- const Q = QUICK, pane = D.getElementById('pane-demob'), view = pane && pane.querySelector('.sgv1238'), lst = view && view.querySelector(':scope > .sgl1238'), bar = view && view.querySelector(':scope > .tb1238');
- if (!Q || !lst || !bar || !DRAWN || typeof DM816 !== 'object' || !DM816) return false;
+ const Q = QUICK, no = why => { QSTAT.why = why; return false; }, pane = D.getElementById('pane-demob'), view = pane && pane.querySelector('.sgv1238'), lst = view && view.querySelector(':scope > .sgl1238'), bar = view && view.querySelector(':scope > .tb1238');
+ if (!Q || !lst || !bar || !DRAWN || typeof DM816 !== 'object' || !DM816) return no('not drawn');
+ if (!Q.clean) return no('record changed'); /* a record from the shared store (or another save) since the drawing: drawn whole, so it shows */
  const day = DM816.view === ALLV ? null : selDay();
- if (view.dataset.sgv1238 !== (day ? 'day' : 'all') || DRAWN.sig !== viewSig(day)) return false;
+ if (view.dataset.sgv1238 !== (day ? 'day' : 'all') || DRAWN.sig !== viewSig(day)) return no('view');
  const m = refreshed(Q.keys), list = day ? dayList(m, day) : allCards(m), id = c => c.key + '#' + c.uid;
- if (!list.length || list.length !== DRAWN.cards.size) return false;
- for (const c of list) { const was = DRAWN.cards.get(id(c)); if (was === undefined || (!Q.keys.has(c.key) && was !== cardSig(c))) return false; }
+ if (!list.length || list.length !== DRAWN.cards.size) return no('cards');
+ for (const c of list) { const was = DRAWN.cards.get(id(c)); if (was === undefined || (!Q.keys.has(c.key) && was !== cardSig(c))) return no('card'); }
  /* everything new is worked out before anything on screen changes: the lists with each card as a marker, the bar, the trucks, the
     booked pick-ups and the written references' cards */
  const was = scan(lst, 'article.sg1238', a => a.dataset.sg1238 + '#' + a.dataset.u1238), now = scan(tpl(sectionsHtml(list, day, c => '<i data-ph1238="' + e(id(c)) + '"></i>')), 'i[data-ph1238]', x => x.dataset.ph1238);
- if (was.shape !== now.shape) return false;
+ if (was.shape !== now.shape) return no('list');
  const heads = ['sh', 'gh', 'sp'].map(k => [was.heads[k], now.heads[k]]);
- if (heads.some(([a, b]) => a.length !== b.length)) return false;
+ if (heads.some(([a, b]) => a.length !== b.length)) return no('heads');
  const nb = tpl(barHtml(list, day)).firstElementChild, fr = bar.querySelector(':scope > .fr1238'), lab = fr && fr.querySelector(':scope > label.fd1238'), nfr = nb && nb.querySelector(':scope > .fr1238');
  const cn = bar.querySelector(':scope > .cn1238'), ncn = nb && nb.querySelector(':scope > .cn1238'), th = bar.querySelector(':scope > .th1238'), nth = nb && nb.querySelector(':scope > .th1238');
- if (!nb || !fr || !lab || !nfr || !th || !nth || !!cn !== !!ncn) return false;
+ if (!nb || !fr || !lab || !nfr || !th || !nth || !!cn !== !!ncn) return no('bar');
  const lh = day ? '' : loadsHtml(list), bh = day ? '' : bookedHtml(list);
  const fresh = list.filter(c => Q.keys.has(c.key)).map(c => ({c, n: tpl(cardHtml(c)).firstElementChild}));
  /* then only what changed is put right */
@@ -104,6 +117,8 @@ function quickDraw() {
     shows. The cards keep their nodes, so their pictures stay watched as they were */
  if (Q.book) { try { decorate(); } catch (x) {} }
  else { try { todayRows(); } catch (x) {} if (FILTER !== 'all' || FIND.trim()) { try { applyFilter(); } catch (x) {} } }
+ DRAWN.epoch = epochNow(); /* the tab now shows the record as this save left it */
+ QSTAT.why = '';
  return true;
 }
 /* today's day card counts the units Ready for collection now (dayRows; the other days' figures count departures only): put right in
@@ -173,20 +188,23 @@ function viewHtml(day) {
   " const n = String(note || '').trim().slice(0, 80); gs.forEach(g => putBooking(g.key, g.uids, v, n, who, mark));\n VER++; saveQuick(gs.map(g => g.key), true); if (bump.kept === false) { try { flash('Not saved · keep this page open.'); } catch (x) {} return false; }"),
  (" VER++; bump(); if (bump.kept === false) { try { flash('Not saved · keep this page open.'); } catch (x) {} return false; } /* the sheet stays open */",
   " VER++; saveQuick([key], true); if (bump.kept === false) { try { flash('Not saved · keep this page open.'); } catch (x) {} return false; } /* the sheet stays open */"),
- # 3. the taps that read the model run in the asset hold
- (" if ((b = pick('[data-lamp1238]'))) { ev.preventDefault(); ev.stopPropagation(); lamp(b.dataset.k1238, b.dataset.u1238, b.dataset.lamp1238); return; }\n if ((b = pick('[data-book1238]'))) { ev.preventDefault(); ev.stopPropagation(); open(b.dataset.book1238, b.dataset.u1238); return; }",
-  " if ((b = pick('[data-lamp1238]'))) { ev.preventDefault(); ev.stopPropagation(); const k = b.dataset.k1238, u = b.dataset.u1238, s = b.dataset.lamp1238; hold(() => lamp(k, u, s)); return; } /* v12.42.3: in the asset hold */\n if ((b = pick('[data-book1238]'))) { ev.preventDefault(); ev.stopPropagation(); const k = b.dataset.book1238, u = b.dataset.u1238; hold(() => open(k, u)); return; }"),
- (" if ((b = pick('[data-ldbook1238]'))) { ev.preventDefault(); ev.stopPropagation(); openLoad(loadOf(b) || Number(b.dataset.ldbook1238)); return; }",
-  " if ((b = pick('[data-ldbook1238]'))) { ev.preventDefault(); ev.stopPropagation(); const t = loadOf(b) || Number(b.dataset.ldbook1238); hold(() => openLoad(t)); return; }"),
+ # 3. the asset hold is taken for what saves or plans: a run's own Ready tick and the Emptied tick before Picked up (each saves and
+ #    draws the whole tab), and the booking sheet's clash check and Save. A unit's Ready tick and a booking hold through saveQuick, and
+ #    the model holds its own build. A tap that saves nothing (a unit already Ready, a VMS plan board, a Not ready question cancelled,
+ #    the pick-up form for a reference already Emptied, opening the sheet) builds no asset list it does not need
+ (" if (c.group && !c.r.noPlan1236) { try { return s === 'ready' ? Ready1231.ready(key) : Ready1231.notReady(key); } catch (x) { return false; } }",
+  " if (c.group && !c.r.noPlan1236) { try { return hold(() => s === 'ready' ? Ready1231.ready(key) : Ready1231.notReady(key)); } catch (x) { return false; } } /* v12.42.3: a run's own tick saves and draws the whole tab, in the asset hold */"),
+ ("   try { if (!setEmptied816(key, true)) return false; } catch (x) { return false; } } }",
+  "   try { if (!hold(() => setEmptied816(key, true))) return false; } catch (x) { return false; } } } /* v12.42.3: the Emptied save in the asset hold; the form opens outside it */"),
  ("  if (act === 'save') save();\n", "  if (act === 'save') hold(save); /* v12.42.3: the clash check, the save and the truck found again, in the asset hold */\n"),
  (" let cx = null; if (ok2 && SEL.key) { try { cx = sheetClash(SEL.day + 'T' + SEL.time + ':00+10:00'); } catch (x) { cx = null; } }",
   " let cx = null; if (ok2 && SEL.key) { try { cx = hold(() => sheetClash(SEL.day + 'T' + SEL.time + ':00+10:00')); } catch (x) { cx = null; } }"),
  # the Demob redraw during a quick save is done in place when it can be; any other redraw draws the whole tab as before
  ("  try { if (typeof DM816 === 'object' && DM816 && ['toilets', 'pump', 'trucks'].indexOf(DM816.view) >= 0) DM816.view = 'list'; } catch (x) {}\n",
   "  try { if (typeof DM816 === 'object' && DM816 && ['toilets', 'pump', 'trucks'].indexOf(DM816.view) >= 0) DM816.view = 'list'; } catch (x) {}\n"
-  "  if (QUICK) { let done = false; try { done = hold(quickDraw); } catch (x) { done = false; try { console.error('v12.42.3 quick redraw', x); } catch (y) {} } if (done) return; } /* v12.42.3: anything it cannot put right in place is drawn whole below */\n"),
- # exports for the tests
- ("keepUnits, pickOf, parseTime, notePairs,", "keepUnits, pickOf, parseTime, notePairs, quick: () => DRAWN ? {sig: DRAWN.sig, cards: DRAWN.cards.size} : null,"),
+  "  if (QUICK) { let done = false; try { done = hold(quickDraw); } catch (x) { done = false; QSTAT.why = 'error'; try { console.error('v12.42.3 quick redraw', x); } catch (y) {} } if (done) { QSTAT.quick++; return; } QSTAT.whole++; } /* v12.42.3: anything it cannot put right in place is drawn whole below */\n"),
+ # exports for the tests and the sweeps: what was drawn, and how many quick saves were put right in place or drawn whole (and why)
+ ("keepUnits, pickOf, parseTime, notePairs,", "keepUnits, pickOf, parseTime, notePairs, quick: () => ({sig: DRAWN ? DRAWN.sig : null, cards: DRAWN ? DRAWN.cards.size : 0, epoch: DRAWN ? DRAWN.epoch : null, now: epochNow(), quick: QSTAT.quick, whole: QSTAT.whole, why: QSTAT.why}),"),
 ]
 for o, n in reps:
     c = s.count(o)

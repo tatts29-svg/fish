@@ -1168,7 +1168,7 @@ function pickUp(c) {
  if (c.r.empty) { let em = null; try { em = emptiedOf816(key); } catch (x) { em = null; }
   if (!(em && em.on)) { const n = (model().byKey.get(key) || []).filter(x => x.st.s !== 'gone').reduce((s, x) => s + (x.group ? x.n || 1 : x.tank ? 2 : 1), 0);
    if (!W.confirm(key + ' has no Emptied (pumped out) tick, and no toilet or waste tank is loaded until it is pumped out.\n\nEmptied is one tick for the whole of ' + key + ' (' + n + ' unit' + (n === 1 ? '' : 's') + ' still on site).\n\nOK records ' + key + ' as pumped out, in your name, now, then opens the pick-up form.\nCancel leaves it as it is.')) return false;
-   try { if (!setEmptied816(key, true)) return false; } catch (x) { return false; } } }
+   try { if (!hold(() => setEmptied816(key, true))) return false; } catch (x) { return false; } } } /* v12.42.3: the Emptied save in the asset hold; the form opens outside it */
  const pick = u => ({type: String(u.item || u.label || ''), ids: [String(u.id)]});
  const preset = c.group || !c.u || c.ph ? null : {items: [pick(c.u)].concat(c.tank ? [pick(c.tank)] : [])};
  try { if (W.DemobCollection996 && typeof DemobCollection996.open === 'function') return DemobCollection996.open(key, preset); } catch (x) {}
@@ -1178,7 +1178,7 @@ function lamp(key, uid, s) {
  const c = cardOf(key, uid); if (!c) return false;
  if (c.board) { try { flash(c.vms.label + ' is on the VMS plan but on no delivery reference yet, so its Ready tick waits until it is.'); } catch (x) {} return false; }
  if (s === 'gone') return pickUp(c);
- if (c.group && !c.r.noPlan1236) { try { return s === 'ready' ? Ready1231.ready(key) : Ready1231.notReady(key); } catch (x) { return false; } }
+ if (c.group && !c.r.noPlan1236) { try { return hold(() => s === 'ready' ? Ready1231.ready(key) : Ready1231.notReady(key)); } catch (x) { return false; } } /* v12.42.3: a run's own tick saves and draws the whole tab, in the asset hold */
  if (s === 'ready') {
   if (c.st.s === 'ready') { try { flash(key + ' ' + (c.no || '') + ' is already ready for collection.'); } catch (x) {} return false; }
   if (c.r.empty) { let em = null; try { em = emptiedOf816(key); } catch (x) { em = null; } if (!(em && em.on) && !W.confirm(key + ' ' + (c.no || '') + ' has no Emptied (pumped out) tick.\n\nOK records it as ready for collection in your name, now: only when it has been pumped out.\nCancel leaves it as it is.')) return false; }
@@ -1361,11 +1361,11 @@ D.addEventListener('click', ev => {
  const t = ev.target && ev.target.closest ? ev.target : null; if (!t || !t.closest('#pane-demob')) return;
  const pick = sel => t.closest('#pane-demob ' + sel);
  let b;
- if ((b = pick('[data-lamp1238]'))) { ev.preventDefault(); ev.stopPropagation(); const k = b.dataset.k1238, u = b.dataset.u1238, s = b.dataset.lamp1238; hold(() => lamp(k, u, s)); return; } /* v12.42.3: in the asset hold */
- if ((b = pick('[data-book1238]'))) { ev.preventDefault(); ev.stopPropagation(); const k = b.dataset.book1238, u = b.dataset.u1238; hold(() => open(k, u)); return; }
+ if ((b = pick('[data-lamp1238]'))) { ev.preventDefault(); ev.stopPropagation(); lamp(b.dataset.k1238, b.dataset.u1238, b.dataset.lamp1238); return; }
+ if ((b = pick('[data-book1238]'))) { ev.preventDefault(); ev.stopPropagation(); open(b.dataset.book1238, b.dataset.u1238); return; }
  if ((b = pick('[data-f1238]'))) { ev.preventDefault(); ev.stopPropagation(); FILTER = b.dataset.f1238; applyFilter(); return; }
  if ((b = pick('[data-catgo1238]'))) { ev.preventDefault(); ev.stopPropagation(); goCat(b.dataset.catgo1238); return; }
- if ((b = pick('[data-ldbook1238]'))) { ev.preventDefault(); ev.stopPropagation(); const t = loadOf(b) || Number(b.dataset.ldbook1238); hold(() => openLoad(t)); return; }
+ if ((b = pick('[data-ldbook1238]'))) { ev.preventDefault(); ev.stopPropagation(); openLoad(loadOf(b) || Number(b.dataset.ldbook1238)); return; }
  if ((b = pick('[data-ldsm1238]'))) { ev.preventDefault(); ev.stopPropagation(); const t = loadOf(b) || LOADS[Number(b.dataset.ldsm1238)]; if (t) openUrl('sms:?&body=' + encodeURIComponent(loadWords(t).lines.join('\n'))); return; }
  if ((b = pick('[data-ldsd1238]'))) { ev.preventDefault(); ev.stopPropagation(); const t = loadOf(b) || LOADS[Number(b.dataset.ldsd1238)]; if (t) sendLoad(t); return; }
  if ((b = pick('[data-go1238]'))) { ev.preventDefault(); ev.stopPropagation(); goCard(b.dataset.go1238, b.dataset.u1238); return; }
@@ -1464,12 +1464,20 @@ function decorate() {
    while the tab shows the cards exactly as last drawn (the same view, day, branch and link, the same cards in the same places) and
    every other card's light and booking are as drawn; otherwise the whole tab is drawn as before. ---- */
 let QUICK = null, DRAWN = null;
-const cardSig = c => [c.st && c.st.s, c.st && c.st.at, c.st && c.st.by, c.st && c.st.why, c.book ? [c.book.at, c.book.set, c.book.note, c.book.by].join('^') : '', c.half || '', c.unk || 0].join('~');
+/* how many quick saves were put right in place and how many drew the whole tab, and why the last one did (for the tests and the sweeps) */
+const QSTAT = {quick: 0, whole: 0, why: ''};
+/* the record's own change count (REC_EPOCH1066 goes up on every save, every record received from the shared store and an event dates
+   change). A drawing notes it, and a quick save goes ahead only when nothing but that save has changed the record since the tab was
+   drawn: a record from another phone that arrived while the page held its own redraw back is drawn whole, with the save */
+const epochNow = () => { try { return typeof REC_EPOCH1066 === 'number' ? REC_EPOCH1066 : NaN; } catch (x) { return NaN; } };
+/* a card's light, its booking, and whether that booking's time has passed (the card says "time passed" once it has) */
+const cardSig = c => [c.st && c.st.s, c.st && c.st.at, c.st && c.st.by, c.st && c.st.why, c.book ? [c.book.at, c.book.set, c.book.note, c.book.by].join('^') : '', c.book && Date.parse(c.book.at) < Date.now() ? 'past' : '', c.half || '', c.unk || 0].join('~');
 const viewSig = day => (day ? 'day:' + day : 'all') + '|' + ((typeof DM816 === 'object' && DM816 && DM816.branch) || 'all') + '|' + (canEd() ? 'edit' : 'view');
-/* what the cards were drawn from: the view and each card's light and booking */
-function seen(list, day) { DRAWN = {sig: viewSig(day), cards: new Map(list.map(c => [c.key + '#' + c.uid, cardSig(c)]))}; }
-/* the page's own save, inside the asset hold, with the references it writes named for the redraw */
-function saveQuick(keys, book) { QUICK = {keys: new Set(keys), book: !!book}; try { hold(() => bump()); } finally { QUICK = null; } }
+/* what the cards were drawn from: the view, the record's change count and each card's light and booking */
+function seen(list, day) { DRAWN = {sig: viewSig(day), epoch: epochNow(), cards: new Map(list.map(c => [c.key + '#' + c.uid, cardSig(c)]))}; }
+/* the page's own save, inside the asset hold, with the references it writes named for the redraw; clean: nothing else changed the
+   record since the tab was drawn (read before the save, which counts as one change itself) */
+function saveQuick(keys, book) { QUICK = {keys: new Set(keys), book: !!book, clean: !!DRAWN && DRAWN.epoch === epochNow()}; try { hold(() => bump()); } finally { QUICK = null; } }
 const tpl = html => { const t = D.createElement('template'); t.innerHTML = html; return t.content; };
 /* a list read in one pass: its shape (sections, suppliers, groups and cards, in page order), its heads and its cards by unit */
 function scan(root, card, idOf) {
@@ -1511,22 +1519,23 @@ function refreshed(keys) {
 }
 function put(view, cls, html, after) { const old = view.querySelector(':scope > .' + cls); if (!html) { if (old) old.remove(); return; } const n = tpl(html).firstElementChild; if (old) { if (old.outerHTML !== n.outerHTML) old.replaceWith(n); } else after.after(n); }
 function quickDraw() {
- const Q = QUICK, pane = D.getElementById('pane-demob'), view = pane && pane.querySelector('.sgv1238'), lst = view && view.querySelector(':scope > .sgl1238'), bar = view && view.querySelector(':scope > .tb1238');
- if (!Q || !lst || !bar || !DRAWN || typeof DM816 !== 'object' || !DM816) return false;
+ const Q = QUICK, no = why => { QSTAT.why = why; return false; }, pane = D.getElementById('pane-demob'), view = pane && pane.querySelector('.sgv1238'), lst = view && view.querySelector(':scope > .sgl1238'), bar = view && view.querySelector(':scope > .tb1238');
+ if (!Q || !lst || !bar || !DRAWN || typeof DM816 !== 'object' || !DM816) return no('not drawn');
+ if (!Q.clean) return no('record changed'); /* a record from the shared store (or another save) since the drawing: drawn whole, so it shows */
  const day = DM816.view === ALLV ? null : selDay();
- if (view.dataset.sgv1238 !== (day ? 'day' : 'all') || DRAWN.sig !== viewSig(day)) return false;
+ if (view.dataset.sgv1238 !== (day ? 'day' : 'all') || DRAWN.sig !== viewSig(day)) return no('view');
  const m = refreshed(Q.keys), list = day ? dayList(m, day) : allCards(m), id = c => c.key + '#' + c.uid;
- if (!list.length || list.length !== DRAWN.cards.size) return false;
- for (const c of list) { const was = DRAWN.cards.get(id(c)); if (was === undefined || (!Q.keys.has(c.key) && was !== cardSig(c))) return false; }
+ if (!list.length || list.length !== DRAWN.cards.size) return no('cards');
+ for (const c of list) { const was = DRAWN.cards.get(id(c)); if (was === undefined || (!Q.keys.has(c.key) && was !== cardSig(c))) return no('card'); }
  /* everything new is worked out before anything on screen changes: the lists with each card as a marker, the bar, the trucks, the
     booked pick-ups and the written references' cards */
  const was = scan(lst, 'article.sg1238', a => a.dataset.sg1238 + '#' + a.dataset.u1238), now = scan(tpl(sectionsHtml(list, day, c => '<i data-ph1238="' + e(id(c)) + '"></i>')), 'i[data-ph1238]', x => x.dataset.ph1238);
- if (was.shape !== now.shape) return false;
+ if (was.shape !== now.shape) return no('list');
  const heads = ['sh', 'gh', 'sp'].map(k => [was.heads[k], now.heads[k]]);
- if (heads.some(([a, b]) => a.length !== b.length)) return false;
+ if (heads.some(([a, b]) => a.length !== b.length)) return no('heads');
  const nb = tpl(barHtml(list, day)).firstElementChild, fr = bar.querySelector(':scope > .fr1238'), lab = fr && fr.querySelector(':scope > label.fd1238'), nfr = nb && nb.querySelector(':scope > .fr1238');
  const cn = bar.querySelector(':scope > .cn1238'), ncn = nb && nb.querySelector(':scope > .cn1238'), th = bar.querySelector(':scope > .th1238'), nth = nb && nb.querySelector(':scope > .th1238');
- if (!nb || !fr || !lab || !nfr || !th || !nth || !!cn !== !!ncn) return false;
+ if (!nb || !fr || !lab || !nfr || !th || !nth || !!cn !== !!ncn) return no('bar');
  const lh = day ? '' : loadsHtml(list), bh = day ? '' : bookedHtml(list);
  const fresh = list.filter(c => Q.keys.has(c.key)).map(c => ({c, n: tpl(cardHtml(c)).firstElementChild}));
  /* then only what changed is put right */
@@ -1543,6 +1552,8 @@ function quickDraw() {
     shows. The cards keep their nodes, so their pictures stay watched as they were */
  if (Q.book) { try { decorate(); } catch (x) {} }
  else { try { todayRows(); } catch (x) {} if (FILTER !== 'all' || FIND.trim()) { try { applyFilter(); } catch (x) {} } }
+ DRAWN.epoch = epochNow(); /* the tab now shows the record as this save left it */
+ QSTAT.why = '';
  return true;
 }
 /* today's day card counts the units Ready for collection now (dayRows; the other days' figures count departures only): put right in
@@ -1567,7 +1578,7 @@ if (typeof renderDemob816 === 'function') {
  const before = renderDemob816;
  renderDemob816 = function () {
   try { if (typeof DM816 === 'object' && DM816 && ['toilets', 'pump', 'trucks'].indexOf(DM816.view) >= 0) DM816.view = 'list'; } catch (x) {}
-  if (QUICK) { let done = false; try { done = hold(quickDraw); } catch (x) { done = false; try { console.error('v12.42.3 quick redraw', x); } catch (y) {} } if (done) return; } /* v12.42.3: anything it cannot put right in place is drawn whole below */
+  if (QUICK) { let done = false; try { done = hold(quickDraw); } catch (x) { done = false; QSTAT.why = 'error'; try { console.error('v12.42.3 quick redraw', x); } catch (y) {} } if (done) { QSTAT.quick++; return; } QSTAT.whole++; } /* v12.42.3: anything it cannot put right in place is drawn whole below */
   /* the render and these decorations share v12.41's one asset hold and drawing pass; the selected date's reveal stays last */
   const self = this, args = arguments, run = () => { const v = before.apply(self, args); try { decorate(); } catch (x) {} return v; };
   const pass = () => W.Performance1241 && typeof Performance1241.demobPass === 'function' ? Performance1241.demobPass(run, () => { try { if (W.WeatherStrip1002) WeatherStrip1002.reveal(D.getElementById('pane-demob')); } catch (x) {} }) : run();
@@ -1605,7 +1616,7 @@ function watch() {
  const pane = D.getElementById('pane-demob'); if (!pane || pane.__sg1238) return; pane.__sg1238 = true;
  new MutationObserver(ms => { if (raf || ms.every(m => m.target && m.target.closest && m.target.closest('.sgv1238,.pg1238,.dl1238'))) return; raf = (W.requestAnimationFrame || setTimeout)(() => { raf = 0; try { hold(decorate); } catch (x) {} }); }).observe(pane, {childList: true, subtree: true}); /* observer decorations enter the same asset hold */
 }
-W.Singles1238 = Object.freeze({model, picsState, cardOf, stateOf, cardsOf, setUnitReady, setBooking, lamp, pickUp, open, save, close, wordsOf, send, files, locOf, navOf, goCard, goCat, dayRows, dayLists, iconKey, iconPaths, ICONS, WORD, count, keepUnits, pickOf, parseTime, notePairs, quick: () => DRAWN ? {sig: DRAWN.sig, cards: DRAWN.cards.size} : null, planLoads, loadKind, loadWords, loadUnits, stopsOf, loadNote, truckName, bookLoad, openLoad, clashOf, loads: () => LOADS, owns: () => true, release: REL});
+W.Singles1238 = Object.freeze({model, picsState, cardOf, stateOf, cardsOf, setUnitReady, setBooking, lamp, pickUp, open, save, close, wordsOf, send, files, locOf, navOf, goCard, goCat, dayRows, dayLists, iconKey, iconPaths, ICONS, WORD, count, keepUnits, pickOf, parseTime, notePairs, quick: () => ({sig: DRAWN ? DRAWN.sig : null, cards: DRAWN ? DRAWN.cards.size : 0, epoch: DRAWN ? DRAWN.epoch : null, now: epochNow(), quick: QSTAT.quick, whole: QSTAT.whole, why: QSTAT.why}), planLoads, loadKind, loadWords, loadUnits, stopsOf, loadNote, truckName, bookLoad, openLoad, clashOf, loads: () => LOADS, owns: () => true, release: REL});
 try { if (typeof RENDER_MEMO !== 'undefined' && RENDER_MEMO instanceof Map) RENDER_MEMO.delete('demob816'); } catch (x) {}
 watch();
 try { const p = D.getElementById('pane-demob'), on = W.Performance1241 && typeof Performance1241.paneActive === 'function' ? Performance1241.paneActive(p, 'demob') : !!(p && !p.hidden); if (on && p.querySelector('.dmday816')) renderDemob816(); } catch (x) {} /* only the pane actually showing (v12.41's startup guard) */

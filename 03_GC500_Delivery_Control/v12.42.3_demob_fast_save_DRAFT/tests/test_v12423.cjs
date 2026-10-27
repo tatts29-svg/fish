@@ -6,9 +6,12 @@
    departure form for that unit, Emptied at a mixed reference, and a store copy without this browser's ticks arriving on the live sync,
    with the sync held in the page: every write is captured in the page and none reaches the network; the merge is proven on copies.
    Part C (v12.42.3): each quick save (Not ready, Ready, a booking, a clear, Book this load, a day's list, a save that could not be kept)
-   against the whole tab drawn again straight after; keep-your-place against reading every element; the model built once in the
+   against the whole tab drawn again straight after; after the review, also a save between a record arriving from the store and its
+   redraw, a booking whose time passed since the drawing, and the Emptied tick and a run's own tick when the save is not kept;
+   keep-your-place against reading every element (timed before that read) and Persistence1010.noted(el); the model built once in the
    asset hold. Part D (v12.42.3): in a fresh page (on a phone run the CPU slowed 4x), each save timed from the press to the change on
-   screen, against bars set from the v12.42.2 measurements.
+   screen, against bars below the cost of a whole-tab redraw, with every quick press shown to be put right in place (no whole-tab
+   redraw on the pane, the module's own count); a press the live record can no longer give is reported as skipped with the reason.
      PAGE=<build> OUT=<dir> [MOB=1] node test_v12423.cjs */
 'use strict';
 const fs = require('fs'), path = require('path');
@@ -470,16 +473,35 @@ const {open} = require('../../toolchain/harness/open_page');
       window.__same1238 = (a, b) => { const d = []; if (a.view !== b.view) { let i = 0; while (i < a.view.length && a.view[i] === b.view[i]) i++; d.push('cards view differs at ' + i + ': ' + a.view.slice(Math.max(0, i - 120), i + 160) + ' || ' + b.view.slice(Math.max(0, i - 120), i + 160)); }
         a.days.forEach((x, i) => { if (x !== b.days[i]) d.push('day card ' + x + ' || ' + b.days[i]); }); ['h3', 'list', 'all'].forEach(k => { if (a[k] !== b[k]) d.push(k + ': ' + a[k] + ' || ' + b[k]); }); return d; };
       /* one save, watched: was the tab drawn whole again, what did it flash and write; then the tab as it stands against the whole tab drawn again */
-      window.__quick1238 = async fn => { const pane = document.getElementById('pane-demob'), n0 = __captured1238.length; let rebuilt = 0;
+      /* dq / dw: quick saves put right in place / drawn whole during it, by the module's own count (Singles1238.quick), and why */
+      window.__quick1238 = async fn => { const pane = document.getElementById('pane-demob'), n0 = __captured1238.length, q0 = Singles1238.quick(); let rebuilt = 0;
         const mo = new MutationObserver(ms => ms.forEach(m => { if (m.target === pane && m.removedNodes.length > 2) rebuilt++; })); mo.observe(pane, {childList: true});
         const f = document.getElementById('flash'); if (f) f.textContent = ''; const t = performance.now(); let r; try { r = fn(); } catch (e) { r = 'ERR ' + e.message; } const ms = Math.round(performance.now() - t);
-        await new Promise(res => setTimeout(res, 0)); mo.disconnect(); const flash = (document.getElementById('flash') || {}).textContent || '', quick = __snap1238();
+        await new Promise(res => setTimeout(res, 0)); mo.disconnect(); const q1 = Singles1238.quick(), flash = (document.getElementById('flash') || {}).textContent || '', quick = __snap1238();
         await new Promise(res => setTimeout(res, 200)); RENDER_MEMO.delete('demob816'); renderDemob816(); await new Promise(res => setTimeout(res, 300));
-        return {r: String(r), ms, rebuilt, flash, docs: __captured1238.slice(n0).map(x => x.name.split('/').pop()), diff: __same1238(quick, __snap1238()).slice(0, 3)}; };
+        return {r: String(r), ms, rebuilt, dq: q1.quick - q0.quick, dw: q1.whole - q0.whole, why: q1.why, flash, docs: __captured1238.slice(n0).map(x => x.name.split('/').pop()), diff: __same1238(quick, __snap1238()).slice(0, 3)}; };
     });
     const QN = await p.evaluate(P16 => __quick1238(() => Singles1238.lamp('WC31', P16, 'not')), P16);
     const QR = await p.evaluate(P16 => __quick1238(() => Singles1238.lamp('WC31', P16, 'ready')), P16);
-    check('v12.42.3: Not ready and Ready on one unit (WC31 16 Pan 74) save without drawing the tab again (' + QN.ms + ' ms, ' + QR.ms + ' ms), say they are recorded, write WC31 only, and the tab then reads exactly as the whole tab drawn again', QN.r === 'true' && QR.r === 'true' && QN.rebuilt === 0 && QR.rebuilt === 0 && !QN.diff.length && !QR.diff.length && /^WC31 not ready for collection \(test\) - recorded by Example test recorder\.$/.test(QN.flash) && /^WC31 ready for collection - recorded by/.test(QR.flash) && QN.docs.join() === 'WC31' && QR.docs.join() === 'WC31', {QN, QR});
+    check('v12.42.3: Not ready and Ready on one unit (WC31 16 Pan 74) save without drawing the tab again (' + QN.ms + ' ms, ' + QR.ms + ' ms; the module counts each as put right in place), say they are recorded, write WC31 only, and the tab then reads exactly as the whole tab drawn again', QN.r === 'true' && QR.r === 'true' && QN.rebuilt === 0 && QR.rebuilt === 0 && QN.dq === 1 && QN.dw === 0 && QR.dq === 1 && QR.dw === 0 && !QN.diff.length && !QR.diff.length && /^WC31 not ready for collection \(test\) - recorded by Example test recorder\.$/.test(QN.flash) && /^WC31 ready for collection - recorded by/.test(QR.flash) && QN.docs.join() === 'WC31' && QR.docs.join() === 'WC31', {QN, QR});
+    /* review: a record from the shared store that arrives while the page holds its own redraw back (sharedCache975 is what a received
+       record runs; the redraw comes 250 ms later, or later still while a text box has the focus): a save in between draws the tab whole,
+       so whatever that record changed shows with the save; the next save is quick again */
+    const QE = await p.evaluate(P16 => { try { sharedCache975(); } catch (e) {} return __quick1238(() => Singles1238.lamp('WC31', P16, 'not')); }, P16);
+    const QE2 = await p.evaluate(P16 => __quick1238(() => Singles1238.lamp('WC31', P16, 'ready')), P16);
+    check('v12.42.3: a save made after a record arrived from the shared store but before the page drew it draws the whole tab (' + QE.why + '), reading as the whole tab drawn again; the save after that is quick again', QE.r === 'true' && QE.rebuilt >= 1 && QE.dw === 1 && QE.dq === 0 && QE.why === 'record changed' && !QE.diff.length && QE2.r === 'true' && QE2.rebuilt === 0 && QE2.dq === 1 && !QE2.diff.length, {QE, QE2});
+    /* review: a booking whose time passes after the tab was drawn reads "time passed" on its card; a quick save on another unit then draws
+       the whole tab so that card says so (the clock is moved on two hours inside one piece of script; nothing else runs meanwhile) */
+    const QT = await p.evaluate(async ({G18, P16}) => { const aest = ms => new Date(ms + 10 * 3600e3).toISOString().slice(0, 16) + ':00+10:00', at = aest(Date.now() + 3600e3);
+      const set = await __quick1238(() => Singles1238.setBooking('GN18', [G18], at, '')), sel = '#pane-demob article.sg1238[data-sg1238="GN18"][data-u1238="' + G18 + '"] .bk1238';
+      const before = ((document.querySelector(sel) || {}).textContent || '').includes('time passed');
+      const now0 = Date.now, q0 = Singles1238.quick(); let r, q1, quick, whole, after;
+      try { Date.now = () => now0.call(Date) + 2 * 3600e3; r = Singles1238.lamp('WC31', P16, 'not'); q1 = Singles1238.quick(); quick = __snap1238(); after = ((document.querySelector(sel) || {}).textContent || '').includes('time passed');
+        RENDER_MEMO.delete('demob816'); renderDemob816(); whole = __snap1238(); } finally { Date.now = now0; }
+      RENDER_MEMO.delete('demob816'); renderDemob816(); await new Promise(res => setTimeout(res, 300));
+      const back = await __quick1238(() => Singles1238.lamp('WC31', P16, 'ready')), clear = await __quick1238(() => Singles1238.setBooking('GN18', [G18], '', ''));
+      return {at, set: {r: set.r, dq: set.dq, diff: set.diff}, before, r: String(r), dw: q1.whole - q0.whole, dq: q1.quick - q0.quick, why: q1.why, after, diff: __same1238(quick, whole).slice(0, 3), back: {r: back.r, diff: back.diff}, clear: {r: clear.r, diff: clear.diff}}; }, {G18, P16});
+    check('v12.42.3: a booking whose time passes after the tab was drawn: the next quick save elsewhere draws the whole tab (' + QT.why + '), so its card reads "time passed", the same as the whole tab drawn again', QT.set.r === 'true' && !QT.before && QT.r === 'true' && QT.dw === 1 && QT.dq === 0 && QT.why === 'card' && QT.after && !QT.diff.length && QT.back.r === 'true' && !QT.back.diff.length && QT.clear.r === 'true' && !QT.clear.diff.length, QT);
     const booked = () => p.evaluate(() => ({n: document.querySelectorAll('#pane-demob .bp1238 button.bl1238').length, panel: !!document.querySelector('#pane-demob .bp1238'), chip: !!document.querySelector('#pane-demob [data-f1238="booked"]'), gn: [...document.querySelectorAll('#pane-demob .bp1238 button.bl1238')].filter(b => /^08:15 GN18 /.test(b.innerText.replace(/\s+/g, ' '))).length}));
     const QA0 = await booked();
     const QB = await p.evaluate(({G18, at}) => __quick1238(() => Singles1238.setBooking('GN18', [G18], at, 'Coates truck')), {G18, at: tomorrow + 'T08:15:00+10:00'});
@@ -511,6 +533,27 @@ const {open} = require('../../toolchain/harness/open_page');
       r.unkept = SYNC.unkept; r.sent = __captured1238.slice(n0).length; if (keep === null) delete S.delivery.GN18; else S.delivery.GN18 = JSON.parse(keep); try { persist(); } catch (e) {} r.unkeptAfter = SYNC.unkept;
       try { RENDER_MEMO.delete('demob816'); renderDemob816(); } catch (e) {} await new Promise(res => setTimeout(res, 300)); return r; }, {G18, at: tomorrow + 'T10:00:00+10:00'});
     check('v12.42.3: a booking this browser could not keep (its storage throws) still says "Not saved · keep this page open", never "recorded by"; nothing goes up, and the tab shows what the whole tab drawn again shows', QK.r === 'false' && /Not saved · keep this page open/.test(QK.flash) && !/recorded by/.test(QK.flash) && QK.sent === 0 && QK.unkept === true && QK.unkeptAfter === false && !QK.diff.length, QK);
+    /* review: the two writers already live on the tab that said "recorded" whatever the save answered. Picked up on a toilet with no
+       Emptied tick records Emptied first (setEmptied816); a run's own Not ready tick goes through Ready1231's setReady. With this
+       browser's storage throwing, each says "Not saved · keep this page open", never "recorded" or "may now be loaded", the pick-up form
+       does not open, and nothing goes up. The Emptied tick is taken off in this page only first, where the live record has it */
+    const notKept = (fn, arg) => p.evaluate(async ({fn, arg}) => { const m = Singles1238.model(), emp = k => { try { return !!(emptiedOf816(k) || {}).on; } catch (e) { return null; } }, single = c => !c.group && !c.board && c.st.s !== 'gone';
+      const c = fn === 'emptied' ? (m.cards.find(x => x.r.empty && single(x) && !emp(x.key)) || m.cards.find(x => x.r.empty && single(x))) : m.cards.find(x => x.group && !x.r.noPlan1236 && x.st.s !== 'gone' && !x.board);
+      if (!c) return {none: true};
+      const key = c.key, keep = S.delivery && S.delivery[key] ? JSON.stringify(S.delivery[key]) : null, set0 = Storage.prototype.setItem, n0 = __captured1238.length, staged = fn === 'emptied' && emp(key);
+      if (staged) { const d = S.delivery[key] || (S.delivery[key] = {}); d.emptied = false; d.emptied_by = 'Example test recorder'; d.emptied_at = new Date().toISOString(); RENDER_MEMO.delete('demob816'); renderDemob816(); }
+      const f = document.getElementById('flash'); if (f) f.textContent = ''; const form0 = (() => { const x = document.getElementById('collection996'); return !!x && x.getBoundingClientRect().height > 0; })();
+      let r = null; Storage.prototype.setItem = function () { throw new Error('QuotaExceededError (test)'); };
+      try { r = Singles1238.lamp(key, c.uid, fn === 'emptied' ? 'gone' : 'not'); } catch (e) { r = 'ERR ' + e.message; } finally { Storage.prototype.setItem = set0; }
+      await new Promise(res => setTimeout(res, 400));
+      const flash = (document.getElementById('flash') || {}).textContent || '', form = (() => { const x = document.getElementById('collection996'); return !!x && x.getBoundingClientRect().height > 0; })(), unkept = SYNC.unkept, sent = __captured1238.slice(n0).length;
+      try { const b = document.querySelector('#collection996 [data-collection996-close]'); if (b && form) b.click(); } catch (e) {}
+      if (keep === null) delete S.delivery[key]; else S.delivery[key] = JSON.parse(keep); try { persist(); } catch (e) {} const unkeptAfter = SYNC.unkept;
+      try { RENDER_MEMO.delete('demob816'); renderDemob816(); } catch (e) {} await new Promise(res => setTimeout(res, 300));
+      return {key, uid: c.uid, staged, r: String(r), flash, form0, form, unkept, sent, unkeptAfter}; }, {fn, arg});
+    const NE = await notKept('emptied'), NG = await notKept('group');
+    check('v12.42.3: Picked up on a toilet with no Emptied tick, when this browser cannot keep the Emptied save: "Not saved · keep this page open", never "recorded" or "may now be loaded"; the pick-up form does not open and nothing goes up' + (NE.none ? ' (SKIPPED: no toilet or waste tank still on site on the live record)' : ' (' + NE.key + ')'), NE.none || (NE.r === 'false' && /Not saved · keep this page open/.test(NE.flash) && !/recorded by|may now be loaded/.test(NE.flash) && !NE.form0 && !NE.form && NE.sent === 0 && NE.unkept === true && NE.unkeptAfter === false), NE);
+    check('v12.42.3: a run\'s own Not ready tick (a group card, Ready1231) that this browser cannot keep says "Not saved · keep this page open", never "recorded", and nothing goes up' + (NG.none ? ' (SKIPPED: no run or group card still on site on the live record)' : ' (' + NG.key + ')'), NG.none || (NG.r === 'false' && /Not saved · keep this page open/.test(NG.flash) && !/recorded by/.test(NG.flash) && NG.sent === 0 && NG.unkept === true && NG.unkeptAfter === false), NG);
     /* keep-your-place: the day strip, a day card's list and the group chips scrolled; the elements noted as they scrolled are the very ones
        reading every element finds, with the same keys; a save that draws the tab whole puts each back, so do two saves in one moment */
     const KP = await p.evaluate(async () => {
@@ -520,8 +563,11 @@ const {open} = require('../../toolchain/harness/open_page');
       const dlDay = dl.closest('[data-dday816]').dataset.dday816, cnOn = !!(cn && cn.scrollWidth > cn.clientWidth + 40);
       strip.scrollLeft = 400; dl.scrollTop = 60; if (cnOn) cn.scrollLeft = 40; await wait(400);
       const want = {strip: strip.scrollLeft, dl: dl.scrollTop, cn: cnOn ? cn.scrollLeft : 0};
-      const old = [pane, ...pane.querySelectorAll('*')].filter(el => el.scrollTop || el.scrollLeft).map(el => [K(el, pane), el.scrollTop, el.scrollLeft]);
+      /* keep-your-place is timed first, in a task of its own after a frame, before anything reads every element: that read lays out
+         every card, after which even the old read-everything scan would be quick (review) */
+      await new Promise(r => requestAnimationFrame(() => setTimeout(r, 0)));
       const t0 = performance.now(), held = Persistence1010.capture(pane, false), capMs = Math.round(performance.now() - t0), now = held.scroll.map(s => [s.key, s.top, s.left]);
+      const old = [pane, ...pane.querySelectorAll('*')].filter(el => el.scrollTop || el.scrollLeft).map(el => [K(el, pane), el.scrollTop, el.scrollLeft]);
       const at = () => { const s = pane.querySelector('.strip816'), d = pane.querySelector('.dc996-day[data-dday816="' + dlDay + '"] .dl1238'), c = pane.querySelector('.cn1238'); return {s, d, strip: s ? s.scrollLeft : null, dl: d ? d.scrollTop : null, cn: cnOn && c ? c.scrollLeft : 0}; };
       bump(); await wait(600); const a = at(), fresh = a.s !== strip && a.d !== dl;
       bump(); bump(); await wait(600); const b = at();
@@ -533,6 +579,20 @@ const {open} = require('../../toolchain/harness/open_page');
       const w = {strip: s.scrollLeft, dl: d ? d.scrollTop : 0}; Singles1238.lamp('WC31', P16, 'not'); await wait(500); const a = {strip: pane.querySelector('.strip816').scrollLeft, dl: d && d.isConnected ? d.scrollTop : null, same: pane.querySelector('.strip816') === s};
       Singles1238.lamp('WC31', P16, 'ready'); await wait(500); return {w, a, d: !!d}; }, P16);
     check('v12.42.3: a quick save (a Ready tick) leaves the day strip and the day card\'s list where they were', KQ2.d && KQ2.a.same && KQ2.a.strip === KQ2.w.strip && KQ2.a.dl === KQ2.w.dl, KQ2);
+    /* review: the keep-your-place contract for a script that scrolls an inner scroller and saves in the same moment, before the browser has
+       sent that scroll event: it says so with Persistence1010.noted(el), and the position is kept on a save that draws the tab whole */
+    const KN = await p.evaluate(async () => { const pane = document.getElementById('pane-demob'), wait = ms => new Promise(r => setTimeout(r, ms));
+      const dl0 = [...pane.querySelectorAll('.dc996-day .dl1238')].find(x => x.scrollHeight > x.clientHeight + 30); if (!dl0) return {none: true};
+      const day = dl0.closest('[data-dday816]').dataset.dday816, find = () => pane.querySelector('.dc996-day[data-dday816="' + day + '"] .dl1238');
+      const top = Math.min(45, dl0.scrollHeight - dl0.clientHeight);
+      /* a list never scrolled: back to the top, then the tab drawn whole again without keep-your-place, so its element is a new one */
+      const freshList = async () => { const x = find(); if (x) x.scrollTop = 0; await wait(300); RENDER_MEMO.delete('demob816'); renderDemob816(); await wait(300); return find(); };
+      const d1 = await freshList(); d1.scrollTop = top; Persistence1010.noted(d1); bump(); await wait(500); const a = find();
+      /* for the record only (not checked): the same without noted(), the limit the contract describes */
+      const d2 = await freshList(); d2.scrollTop = top; bump(); await wait(500); const b = find();
+      try { const x = find(); if (x) x.scrollTop = 0; } catch (e) {}
+      return {day, top, after: a ? a.scrollTop : null, fresh: a !== d1, without: b ? b.scrollTop : null, api: typeof Persistence1010.noted === 'function'}; });
+    check('v12.42.3: Persistence1010.noted(el): an inner scroller moved by a script and saved in the same moment keeps its place on a save that draws the tab whole' + (KN.none ? ' (SKIPPED: no day card list long enough to scroll)' : ''), KN.none || (KN.api && KN.fresh && KN.after === KN.top && KN.top > 0), KN);
     /* the model: built outside a drawing (as a light or the sheet asks for it once its 4 s have passed) it builds the asset list once, in the hold; straight after, it is reused */
     const MH = await p.evaluate(async () => { await new Promise(r => setTimeout(r, 4300)); const f = window.buildAllAssets; let n = 0, n2 = 0, ms = 0, same = false; window.buildAllAssets = function () { n++; return f.apply(this, arguments); };
       try { RENDER_MEMO.delete('demob816'); const t = performance.now(), m1 = Singles1238.model(); ms = Math.round(performance.now() - t); const k = n; demob816(); const m2 = Singles1238.model(); n2 = n - k; same = m1 === m2; } finally { window.buildAllAssets = f; } return {n, n2, ms, same}; });
@@ -557,8 +617,12 @@ const {open} = require('../../toolchain/harness/open_page');
     const INIT = `(() => { const M = window.__m = {clicks: []}; addEventListener('click', ev => { M.clicks.push(ev.timeStamp); }, true); })();`;
     const g = await open(Object.assign({pageFile: process.env.PAGE, hash: '#demob', init: INIT}, mobile ? {mobile: true, W: 390, H: 844, dpr: 2, cpu: 4} : {W: 1440, H: 900})), q = g.page;
     q.setDefaultTimeout(mobile ? 240000 : 60000); q.on('dialog', d => d.accept('test').catch(() => {}));
-    const BAR = mobile ? {not_ready: 9000, ready: 9000, book_one_unit: 9000, book_this_load: 9000, picked_up_with_emptied_save: 14000, capture: 400}
-      : {not_ready: 2500, ready: 2500, book_one_unit: 2500, book_this_load: 2500, picked_up_with_emptied_save: 3500, capture: 100};
+    /* the quick saves' bars sit below what a save that draws the whole tab costs (Picked up with Emptied measured 1.56-1.93 s desktop and
+       6.7-7.7 s phone), and each quick press must also be put right in place: no whole-tab redraw seen on the pane and the module's own
+       count says quick (review: a quick path falling back to the whole tab on every save would otherwise still pass) */
+    const BAR = mobile ? {not_ready: 6000, ready: 6000, book_one_unit: 6000, book_this_load: 6000, picked_up_with_emptied_save: 14000, capture: 400}
+      : {not_ready: 1300, ready: 1300, book_one_unit: 1300, book_this_load: 1300, picked_up_with_emptied_save: 3500, capture: 100};
+    const QUICKS = ['not_ready', 'ready', 'book_one_unit', 'book_this_load'], RB = {}, SKIP = {};
     const WAS = mobile ? {not_ready: 28800, ready: 29300, book_one_unit: 20800, book_this_load: 17500, picked_up_with_emptied_save: 23300, capture: 16400}
       : {not_ready: 9130, ready: 7300, book_one_unit: 5620, book_this_load: 4480, picked_up_with_emptied_save: 5200, capture: 4200};
     const med = a => { const x = a.filter(v => typeof v === 'number').sort((p, r) => p - r); return x.length ? x[Math.floor((x.length - 1) / 2)] : null; };
@@ -572,45 +636,70 @@ const {open} = require('../../toolchain/harness/open_page');
         SYNC.db.doc = name => ({set: async value => { __captured1238.push({name, value: JSON.parse(JSON.stringify(value || null))}); return {}; }, delete: async () => { throw Error('Deletion disallowed'); }}); S.operator = 'Example test recorder'; const who = document.getElementById('who'); if (who) who.value = S.operator;
         window.confirm = () => true; window.prompt = () => 'test'; applyCapability(); renderDemob816();
         /* from the press: the card (or the truck, or the form) changed on screen, i.e. the frame after the change was drawn */
-        window.__arm = spec => { const R = window.__r = {vis: null, painted: null}; __m.clicks.length = 0;
+        /* during the press, until the change is painted: whole-tab redraws seen on the pane, and the module's own quick / whole count */
+        window.__arm = spec => { const R = window.__r = {vis: null, painted: null, rebuilt: 0, q0: Singles1238.quick(), q1: null}; __m.clicks.length = 0;
+          const pane = document.getElementById('pane-demob'), po = new MutationObserver(ms => ms.forEach(m => { if (m.target === pane && m.removedNodes.length > 2) R.rebuilt++; })); po.observe(pane, {childList: true});
+          const done = () => { if (R.q1) return; R.q1 = Singles1238.quick(); po.disconnect(); };
           const vis = () => { if (spec.kind === 'card') { const a = document.querySelector(spec.sel); return !!a && a.dataset.s1238 === spec.want; }
             if (spec.kind === 'book') { const b = document.querySelector(spec.sel + ' .bk1238'); return !!b && b.classList.contains('on') && b.textContent.includes(spec.text); }
             if (spec.kind === 'load') return document.querySelectorAll('#pane-demob article.lt1238.bk').length > spec.before;
             if (spec.kind === 'form') { const f = document.getElementById('collection996'); return !!f && f.getBoundingClientRect().height > 0; } return false; };
           if (spec.kind === 'load') spec.before = document.querySelectorAll('#pane-demob article.lt1238.bk').length;
-          const mo = new MutationObserver(() => { if (R.vis == null && vis()) { R.vis = performance.now(); mo.disconnect(); requestAnimationFrame(() => { const ch = new MessageChannel(); ch.port1.onmessage = () => { R.painted = performance.now(); }; ch.port2.postMessage(0); }); } });
-          mo.observe(document.body, {childList: true, subtree: true, characterData: true, attributes: true, attributeFilter: ['class', 'style', 'open', 'hidden', 'data-s1238']}); R.stop = () => mo.disconnect(); };
-        window.__took = () => { const R = window.__r, c = __m.clicks[0]; R.stop(); return R.painted && c != null ? Math.round(R.painted - c) : null; }; });
+          const mo = new MutationObserver(() => { if (R.vis == null && vis()) { R.vis = performance.now(); mo.disconnect(); requestAnimationFrame(() => { const ch = new MessageChannel(); ch.port1.onmessage = () => { R.painted = performance.now(); done(); }; ch.port2.postMessage(0); }); } });
+          mo.observe(document.body, {childList: true, subtree: true, characterData: true, attributes: true, attributeFilter: ['class', 'style', 'open', 'hidden', 'data-s1238']}); R.stop = () => { mo.disconnect(); done(); }; };
+        window.__took = () => { const R = window.__r, c = __m.clicks[0]; R.stop(); return {ms: R.painted && c != null ? Math.round(R.painted - c) : null, rebuilt: R.rebuilt, dq: R.q1.quick - R.q0.quick, dw: R.q1.whole - R.q0.whole, why: R.q1.why}; }; });
       await q.waitForTimeout(2000);
-      const pk = await q.evaluate(() => { const m = Singles1238.model(), emp = k => { try { return !!(emptiedOf816(k) || {}).on; } catch (e) { return null; } };
-        let u = (m.byKey.get('WC69') || []).find(c => c.owner === 'event-portables' && !c.group && c.st.s === 'ready') || m.cards.find(c => c.owner === 'event-portables' && !c.group && !c.board && c.st.s === 'ready');
-        const needE = [...new Set(m.cards.filter(c => c.r.empty && !emp(c.key) && c.st.s !== 'gone' && !c.group && !c.board).map(c => c.key))].slice(0, 3).map(k => { const c = m.cards.find(x => x.key === k && x.st.s !== 'gone' && !x.group && !x.board); return {key: k, uid: c.uid}; });
-        const g = (m.byKey.get('GN18') || [])[0], d1 = new Date(Date.parse(todayIso() + 'T12:00:00Z') + 864e5).toISOString().slice(0, 10), d2 = new Date(Date.parse(todayIso() + 'T12:00:00Z') + 2 * 864e5).toISOString().slice(0, 10);
-        return {k: u && u.key, u: u && u.uid, g: g && g.uid, needE, d1, d2}; });
+      /* what each press needs from the live record, which changes as the demob goes on (review): a unit to tick (an Event Portables unit
+         Ready now, WC69 first as measured; else any single unit Ready now; else any single unit Not ready, pressed Ready first), a unit to
+         book (GN18 as measured, else any single unit on site with no booking), an unbooked truck, and three toilets or waste tanks still on
+         site with no Emptied tick. Where the live record has fewer of those, the Emptied tick is taken off a pumped-out one in this page
+         only, just before its press (never sent; the press records it again). A press the record cannot give at all is reported as
+         skipped, with the reason, not as a failure */
+      const pk = await q.evaluate(() => { const m = Singles1238.model(), emp = k => { try { return !!(emptiedOf816(k) || {}).on; } catch (e) { return null; } }, single = c => !c.group && !c.board && c.st.s !== 'gone';
+        let u = (m.byKey.get('WC69') || []).find(c => c.owner === 'event-portables' && single(c) && c.st.s === 'ready') || m.cards.find(c => c.owner === 'event-portables' && single(c) && c.st.s === 'ready') || m.cards.find(c => single(c) && c.st.s === 'ready'), first = 'not_ready';
+        if (!u) { u = m.cards.find(c => single(c) && c.st.s === 'not'); first = 'ready'; }
+        const g = (m.byKey.get('GN18') || []).find(single) || m.cards.find(c => single(c) && !c.book);
+        const refs = want => [...new Set(m.cards.filter(c => c.r.empty && single(c) && want(c)).map(c => c.key))], unitOf = k => m.cards.find(x => x.key === k && single(x)).uid;
+        const open = refs(c => !emp(c.key)).slice(0, 3), stage = open.length < 3 ? refs(c => emp(c.key)).slice(0, 3 - open.length) : [];
+        const needE = open.map(k => ({key: k, uid: unitOf(k), stage: false})).concat(stage.map(k => ({key: k, uid: unitOf(k), stage: true})));
+        const d1 = new Date(Date.parse(todayIso() + 'T12:00:00Z') + 864e5).toISOString().slice(0, 10), d2 = new Date(Date.parse(todayIso() + 'T12:00:00Z') + 2 * 864e5).toISOString().slice(0, 10);
+        return {k: u && u.key, u: u && u.uid, first, gk: g && g.key, g: g && g.uid, needE, d1, d2, trucks: Singles1238.loads().filter(t => !t.items.some(c => c.book)).length}; });
+      if (!pk.u) { SKIP.not_ready = SKIP.ready = 'no single unit still on site on the live record'; }
+      if (!pk.g) SKIP.book_one_unit = 'no single unit on site without a booking on the live record';
+      if (!pk.trucks) SKIP.book_this_load = 'no unbooked truck on the live record (every truck from what is Ready is booked, or nothing is Ready)';
+      if (!pk.needE.length) SKIP.picked_up_with_emptied_save = 'no toilet or waste tank still on site on the live record';
       const sel = (k, u) => '#pane-demob article.sg1238[data-sg1238="' + k + '"][data-u1238="' + u + '"]';
       const settle = async () => { await q.waitForTimeout(mobile ? 2500 : 1200); await q.evaluate(max => new Promise(r => { const t0 = performance.now(); let ok = 0, last = t0; const step = () => { const now = performance.now(); ok = now - last < 120 ? ok + 1 : 0; last = now; if (ok >= 8 || now - t0 > max) r(); else setTimeout(step, 50); }; setTimeout(step, 50); }), mobile ? 90000 : 20000); }; /* the page quiet again: eight 50 ms ticks on time */
       const press = async (name, spec, target) => { await q.evaluate(s => __arm(s), spec); await q.click(target, {timeout: mobile ? 240000 : 60000}); await q.waitForFunction(() => window.__r && window.__r.painted != null, null, {timeout: mobile ? 240000 : 60000}).catch(() => {});
-        const ms = await q.evaluate(() => __took()); (R[name] = R[name] || []).push(ms); await settle(); return ms; };
+        const res = await q.evaluate(() => __took()); (R[name] = R[name] || []).push(res.ms); (RB[name] = RB[name] || []).push({rebuilt: res.rebuilt, dq: res.dq, dw: res.dw, why: res.why}); await settle(); return res.ms; };
       const view = async s => { await q.evaluate(s => { const el = document.querySelector(s); if (el) el.scrollIntoView({block: 'center'}); }, s); await q.waitForTimeout(500); };
+      const lampPress = async (name, want) => { await view(sel(pk.k, pk.u)); await press(name, {kind: 'card', sel: sel(pk.k, pk.u), want}, sel(pk.k, pk.u) + ' button[data-lamp1238="' + want + '"]'); };
       for (let i = 0; i < 3; i++) {
-        if (pk.u) { await view(sel(pk.k, pk.u)); await press('not_ready', {kind: 'card', sel: sel(pk.k, pk.u), want: 'not'}, sel(pk.k, pk.u) + ' button[data-lamp1238="not"]');
-          await view(sel(pk.k, pk.u)); await press('ready', {kind: 'card', sel: sel(pk.k, pk.u), want: 'ready'}, sel(pk.k, pk.u) + ' button[data-lamp1238="ready"]'); }
-        if (pk.g) { const hh = 7 + i; await view(sel('GN18', pk.g)); await q.click(sel('GN18', pk.g) + ' button[data-book1238]'); await q.waitForSelector('dialog.bkd1238[open]');
+        if (pk.u) { if (pk.first === 'not_ready') { await lampPress('not_ready', 'not'); await lampPress('ready', 'ready'); } else { await lampPress('ready', 'ready'); await lampPress('not_ready', 'not'); } }
+        if (pk.g) { const hh = 7 + i; await view(sel(pk.gk, pk.g)); await q.click(sel(pk.gk, pk.g) + ' button[data-book1238]'); await q.waitForSelector('dialog.bkd1238[open]');
           await q.click('dialog.bkd1238 [data-day1238="' + pk.d1 + '"]'); await q.click('dialog.bkd1238 [data-h1238="' + hh + '"]'); await q.click('dialog.bkd1238 [data-m1238="30"]'); await settle();
-          await press('book_one_unit', {kind: 'book', sel: sel('GN18', pk.g), text: String(hh).padStart(2, '0') + ':30'}, 'dialog.bkd1238 [data-bk1238="save"]'); }
+          await press('book_one_unit', {kind: 'book', sel: sel(pk.gk, pk.g), text: String(hh).padStart(2, '0') + ':30'}, 'dialog.bkd1238 [data-bk1238="save"]'); }
         const tk = await q.evaluate(() => { document.querySelectorAll('[data-probe1238]').forEach(x => x.removeAttribute('data-probe1238')); const b = [...document.querySelectorAll('#pane-demob [data-ldbook1238]')].find(x => x.textContent.trim() === 'Book this load'); if (!b) return false; b.setAttribute('data-probe1238', 'ld'); b.scrollIntoView({block: 'center'}); return true; });
         if (tk) { await q.waitForTimeout(400); await q.click('#pane-demob [data-probe1238="ld"]'); await q.waitForSelector('dialog.bkd1238[open]');
           await q.click('dialog.bkd1238 [data-day1238="' + pk.d2 + '"]'); await q.click('dialog.bkd1238 [data-h1238="' + (9 + i) + '"]'); await q.click('dialog.bkd1238 [data-m1238="30"]'); await settle();
           await press('book_this_load', {kind: 'load'}, 'dialog.bkd1238 [data-bk1238="save"]'); }
-        const x = pk.needE[i]; if (x) { await view(sel(x.key, x.uid)); await press('picked_up_with_emptied_save', {kind: 'form'}, sel(x.key, x.uid) + ' button[data-lamp1238="gone"]');
+        const x = pk.needE[i]; if (x) {
+          /* staged just before its press (a record arriving from the store in between would have put the tick back) */
+          const staged = await q.evaluate(k => { let on = false; try { on = !!(emptiedOf816(k) || {}).on; } catch (e) {} if (!on) return false; const d = S.delivery[k] || (S.delivery[k] = {}); d.emptied = false; d.emptied_by = 'Example test recorder'; d.emptied_at = new Date().toISOString(); RENDER_MEMO.delete('demob816'); renderDemob816(); return true; }, x.key);
+          if (staged) { x.staged = true; await settle(); }
+          await view(sel(x.key, x.uid)); await press('picked_up_with_emptied_save', {kind: 'form'}, sel(x.key, x.uid) + ' button[data-lamp1238="gone"]');
           await q.evaluate(() => { const b = document.querySelector('#collection996 [data-collection996-close]'); if (b) b.click(); }); await settle(); }
       }
       R.capture = [await q.evaluate(async () => { const pane = document.getElementById('pane-demob'), out = []; for (let i = 0; i < 3; i++) { await new Promise(r => setTimeout(r, 800)); const t = performance.now(); Persistence1010.capture(pane, false); out.push(Math.round(performance.now() - t)); } return out.sort((a, b) => a - b)[1]; })];
       const sent = await q.evaluate(() => [...new Set(__captured1238.map(c => c.name))]);
-      for (const k of Object.keys(BAR)) { const m = med(R[k] || []);
-        check('v12.42.3 timing' + (mobile ? ' (phone, CPU 4x)' : ' (desktop)') + ': ' + (k === 'capture' ? 'keep-your-place (capture) on its own, ' + (m == null ? 'not measured' : m + ' ms') : k.replace(/_/g, ' ') + ' ' + (m == null ? 'not measured' : m + ' ms') + ' from the press to the change on screen') + ' (bar ' + BAR[k] + ' ms; v12.42.2 measured ' + WAS[k] + ' ms)', m != null && m < BAR[k], {runs: R[k] || null, median: m, bar: BAR[k], was: WAS[k]}); }
+      for (const k of Object.keys(BAR)) { const m = med(R[k] || []), where = mobile ? ' (phone, CPU 4x)' : ' (desktop)';
+        if (m == null && SKIP[k]) { check('v12.42.3 timing' + where + ': ' + k.replace(/_/g, ' ') + ' SKIPPED: ' + SKIP[k], true, {skipped: SKIP[k]}); continue; }
+        check('v12.42.3 timing' + where + ': ' + (k === 'capture' ? 'keep-your-place (capture) on its own, ' + (m == null ? 'not measured' : m + ' ms') : k.replace(/_/g, ' ') + ' ' + (m == null ? 'not measured' : m + ' ms') + ' from the press to the change on screen') + ' (bar ' + BAR[k] + ' ms; v12.42.2 measured ' + WAS[k] + ' ms)', m != null && m < BAR[k], {runs: R[k] || null, median: m, bar: BAR[k], was: WAS[k], redraws: RB[k] || null}); }
+      for (const k of QUICKS) { if (!RB[k] && SKIP[k]) continue; const rb = RB[k] || [];
+        check('v12.42.3 timing' + (mobile ? ' (phone)' : ' (desktop)') + ': every ' + k.replace(/_/g, ' ') + ' press was put right in place: no whole-tab redraw on the pane, and the module counts it quick (' + rb.map(x => x.rebuilt + '/' + x.dq + '/' + x.dw + (x.why ? ' ' + x.why : '')).join(', ') + ')', rb.length > 0 && rb.every(x => x.rebuilt === 0 && x.dq >= 1 && x.dw === 0), rb); }
+      if (RB.picked_up_with_emptied_save) check('v12.42.3 timing' + (mobile ? ' (phone)' : ' (desktop)') + ': the pane watch sees a whole-tab redraw when there is one (Picked up with Emptied draws the tab whole: ' + RB.picked_up_with_emptied_save.map(x => x.rebuilt).join(', ') + ')' + (pk.needE.some(x => x.staged) ? '; Emptied taken off in this page first for ' + pk.needE.filter(x => x.staged).map(x => x.key).join(', ') : ''), RB.picked_up_with_emptied_save.every(x => x.rebuilt >= 1), {redraws: RB.picked_up_with_emptied_save, needE: pk.needE});
       check('v12.42.3 timing run: every write captured in the page (' + sent.length + ' delivery documents), nothing reached the network, no page errors', sent.every(n => /^delivery\//.test(n)) && !g.counts.blocked && !g.errors.length, {sent, counts: g.counts, errors: g.errors.slice(0, 5)});
-      fs.writeFileSync(path.join(out, 'timings' + (mobile ? '_phone' : '_desktop') + '.json'), JSON.stringify({runs: R, bar: BAR, was: WAS}, null, 1));
+      fs.writeFileSync(path.join(out, 'timings' + (mobile ? '_phone' : '_desktop') + '.json'), JSON.stringify({runs: R, bar: BAR, was: WAS, redraws: RB, skipped: SKIP, picked: pk}, null, 1));
     } catch (e) { check('the timing run ran to the end', false, String(e && e.stack || e).slice(0, 1200)); }
     finally { await g.browser.close(); }
   }
