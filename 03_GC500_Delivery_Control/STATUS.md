@@ -1,5 +1,7 @@
 APPLIED — record runs 35 and 36 (Claude, for Andrew), 27 Oct 2026 22:57 AEST: T0085 and T0109 on MEAD; the concert generators GN? on KINP (Andrew: "happy to leave KINP"). Record 11612 → 11621, verified; charge unchanged; NVAC $49,323.37 → $39,725.89, KINP → $250,936.14, MEAD → $18,859.02. Still to do: WB03 18 Sep start and WB07 into WB06 (page release), Premiair VMS and the reefer container onto their sub-hire branches, Baseplan (8) contracts onto the page.
 
+LIVE — v12.42.20 scrim rolls charged at Baseplan, fencing unchanged (Claude, for Andrew), 28 Oct 2026. sha256 9549a926…, byte for byte. Built on v12.42.19 ca827abd…. +$4,230.40 (STPS); charge $1,027,146.22. 10000484 and 10000475 match. Folder v12.42.20_scrim_rolls_LIVE. **Codex: v12.43 rebuilds on 9549a926…**
+
 LIVE — v12.42.19 pee panel hire at Baseplan $672.17 (Claude, for Andrew), 28 Oct 2026. sha256 ca827abd…, byte for byte. Built on v12.42.18 5e5048d7…. +$0.01; charge $1,022,915.82. Folder v12.42.19_pee_panel_cent_LIVE. **Codex: v12.43 rebuilds on ca827abd…**
 
 LIVE — v12.42.18 10000523 at Baseplan: water $450.34 and second site shift $500 charged (Claude, for Andrew), 28 Oct 2026. sha256 5e5048d7…, byte for byte. Built on v12.42.17 8e5b16a5…. +$950.34; charge $1,022,915.81. Folder v12.42.18_10000523_baseplan_LIVE. **Codex: v12.43 rebuilds on 5e5048d7…**

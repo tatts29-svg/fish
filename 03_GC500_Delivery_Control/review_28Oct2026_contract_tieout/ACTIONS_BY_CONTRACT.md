@@ -5,7 +5,7 @@ Labour, install, pump-out, cleaning and accommodation are charged on the page fr
 not line by line on the contract, so those lines show $0 on the page here; the totals are compared at the bottom.
 
 ## Match to the cent, nothing to do
-9968862 KINP buildings (all 85 lines incl. labour, PM half, accommodation; v12.42.13–15) · 9968955 KINP toilets (hire, pump-outs, tanks, sewer-connect, labour, PM half, event toilets, accommodation; v12.42.13–16, run 38) · 9987005 MEAD (v12.42.12) · 9973977 KINP (T0243: block $2,476.85; install, steps, levelling, cleaning, demob ticked $707.88 = line 2; transport $1,000) · 10000506 KINP (toilet paper, hand towel) · 9974042 KINP · 9997710 STPS (fence, shade cloth) · 9997711 KINP (FR01/FR02) · 9968929 KINP ($0, team buildings) · 10000523 KINP (water and second site shift charged, v12.42.18)
+9968862 KINP buildings (all 85 lines incl. labour, PM half, accommodation; v12.42.13–15) · 9968955 KINP toilets (hire, pump-outs, tanks, sewer-connect, labour, PM half, event toilets, accommodation; v12.42.13–16, run 38) · 9987005 MEAD (v12.42.12) · 9973977 KINP (T0243: block $2,476.85; install, steps, levelling, cleaning, demob ticked $707.88 = line 2; transport $1,000) · 10000506 KINP (toilet paper, hand towel) · 9974042 KINP · 9997710 STPS (fence, shade cloth) · 9997711 KINP (FR01/FR02) · 9968929 KINP ($0, team buildings) · 10000523 KINP (water and second site shift charged, v12.42.18) · 10000484 + 10000475 scrim rolls (v12.42.20) · 9994954/19 pee panels $4,033.02 (v12.42.19)
 
 ## Branch to fix in Baseplan
 | Contract | Line(s) | Fix | Money on Baseplan |
@@ -13,7 +13,6 @@ not line by line on the contract, so those lines show $0 on the page here; the t
 | 9973079 (Cancelled) | all | Zero the prebill; sheet is cancelled (trakmats now on 10000523) | −$8,714.95 |
 | 9994996 (Cancelled) | 1–2 | Zero the prebill; WFB labour $7,700 and transport $17,900 are on 9972648/19–20 | −$25,600.00 |
 | 9994248 STPS | 1–5 | Not delivered on our record: cancel, or tell Andrew it came | −$1,795.30 if cancelled |
-| 10000484 / 10000475 | scrim | Move to an STPS contract (keyed STPS-CON on KINP sheets) | branch only |
 | 9972648 STPS | 3 WB02 | Term 25 Oct 2026, not 25 Sep | +$1,083.24 |
 | 9972648 STPS | 4, 5, 6, 12, 16, 17 | One day more than our record on each (WB04, WB05, WB06 ×3, WB17): check the off-hire day | ours −$219.48 |
 | 9972648 STPS | 18 WB22, 21 WB17 | WB22 Pending on Baseplan but on site on our record; WB17 line 21 has no prebill | ours +$46.02 |
