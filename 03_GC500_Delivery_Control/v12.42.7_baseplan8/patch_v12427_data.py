@@ -19,9 +19,12 @@ HELD_OUT = {
     '9968726': 'TV compound, superseded by 9992300-MEAD (v10.26).',
     '9973079': 'Cancelled (Baseplan (8) sheet "9973079-Cancelled"; Andrew, 27 Oct 2026: "i have canelled a couple").',
     '9994996': 'Cancelled (Baseplan (8) sheet "9994996 Cancelled"; Andrew, 27 Oct 2026).',
+    '9994248': 'Not delivered on Baseplan (8) or our record (fence and barrier Pending, chairs Del Req on docket 26139948, delivery Quoted). Andrew, 28 Oct 2026: "has this been delivered this is probaly seperate" - held out until he confirms it came.',
 }
 QTY_AS_DATE = []
 NEVER = {('9961976', 17): 'GN24 80 kVA 1276412 never came to site (Andrew, 22 Oct 2026; v11.19)',
+         ('9994954', 19): 'Pee panels: already charged on WC09 from the card, 6 at $672.17 (Andrew, 28 Oct 2026: "Pee panels may of been on the toilet contract")',
+         ('9994954', 20): 'Pee panel labour: with the pee panels already charged on WC09 (Andrew, 28 Oct 2026)',
          ('9992300', 12): 'EQ0003 boom 1286482: v11.05 (financialAssociation1105) adds and pins this line itself; importing it again conflicts'}
 
 
