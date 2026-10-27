@@ -330,3 +330,10 @@ node record_26Oct2026_departures/left_site.cjs --spec record_26Oct2026_departure
 - **Applied:** 14:12 AEST on Andrew's word, dry run first (passed, nothing sent): `left_site.cjs --spec left_site_spec_28_wc53_1330.json`, through the page's own Record departure form (live v12.42.4), in Andrew's name. Light in transit.
 - **Record:** version 11569 → 11570. 1 document acknowledged 200, verified on the service; every other document unchanged in value; P&L and branch totals unchanged. Backup kept private. Report `report_20261027T041142Z.json`.
 - **Read back fresh:** WC53 in transit, one departure at 13:30 holding 0952, 0951 and 0074 (the whole reference). Today: 66 FWF picked up (24 + 24 + 18, Andrew's three trucks), 72 units in all.
+
+## Twenty-seventh run: P67 Building 6m 421107 left 14:30, 27 Oct 2026 — APPLIED, VERIFIED
+
+- **What:** Andrew, 27 Oct 2026: "421107 leaving at 230pm". 421107 is P67's only unit (Building 6m, Coates; ticked Ready; read 13:55 AEST, not already left, no booking), so P67 left in full at 14:30 AEST. Its air conditioner 1300541 and fire extinguisher stay listed on P67 as gear that goes with it.
+- **Applied:** after 14:30 AEST on Andrew's word (a departure is only recorded once its time has come). Rehearsed first on the live v12.42.4 page with a past time (dry run, nothing sent, 14:06); at 14:30:20 the live page sha was checked, then a dry run (passed, nothing sent) and `left_site.cjs --spec left_site_spec_27_p67_421107.json --apply`, through the page's own Record departure form, in Andrew's name. Light in transit.
+- **Record:** version 11570 → 11571. 1 document acknowledged 200, verified on the service; every other document unchanged in value; P&L and branch totals unchanged. Backup kept private. Report `report_20261027T043108Z.json`.
+- **Read back fresh:** P67 in transit, one departure at 14:30 holding Building 6m 421107 (the whole reference). Today: 66 FWF and 7 buildings and the ticket box, 73 units.
