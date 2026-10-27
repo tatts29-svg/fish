@@ -246,3 +246,10 @@ node record_26Oct2026_departures/left_site.cjs --spec record_26Oct2026_departure
 - **Applied:** 27 Oct 2026 09:29 AEST on Andrew's word, dry run first (passed, nothing sent): `left_site.cjs --spec left_site_spec_15_wc29_0927.json`, through the page's own Record departure form, in Andrew's name.
 - **Record:** version 11539 → 11540. 1 document acknowledged 200, verified on the service; every other document unchanged in value; P&L and branch totals unchanged. Backup kept private. Report `report_20261026T232944Z.json`.
 - **Read back fresh:** WC29 on site with one departure at 09:27 holding 0079, 0546, 0564, 0441 (not the whole reference); 201 units ticked Ready before and after.
+
+## Sixteenth run: WC33's last eleven Event Portables toilets picked up 10:00, 27 Oct 2026 — APPLIED, VERIFIED
+
+- **What:** Andrew, 27 Oct 2026 (before 09:38 AEST): "Pur these as picked up 10am todau please. 0554 0920 0971 0586 0487 0790 0597 0938 0297 0456 0012". All eleven are Event Portables FWF on WC33 only, every one Ready, the location Emptied, none already left; they are the last eleven of its seventeen (0634, 0582, 0548, 0782, 0657, 0912 left 26 Oct 11:58). They left at 10:00 AEST, so WC33 left in full.
+- **Applied:** rehearsed at 09:38 as a dry run with that time (passed, nothing sent); the 10:00 time is refused until it has come, so the record was read again at 10:01 (still on site, not recorded), dry run with 10:00 (passed), then applied 10:02 AEST: `left_site.cjs --spec left_site_spec_16_wc33_1000.json`, through the page's own Record departure form, in Andrew's name. Light in transit.
+- **Record:** version 11540 → 11541. 1 document acknowledged 200, verified on the service; every other document unchanged in value; P&L and branch totals unchanged. Backup kept private. Report `report_20261027T000201Z.json`.
+- **Read back fresh:** WC33 in transit: 26 Oct 11:58 six units, 27 Oct 10:00 eleven units (the whole reference); 201 units ticked Ready before and after.
