@@ -16,18 +16,18 @@
    "cards": 401,
    "arts": 401,
    "uniq": 401,
-   "btn": "Everything on site · 334 assets"
+   "btn": "Everything on site · 328 assets"
   }
  },
  {
-  "name": "v12.42: \"on site\" counts only what is still there (334 on site, 67 picked up), on the tab button and the bar",
+  "name": "v12.42: \"on site\" counts only what is still there (328 on site, 73 picked up), on the tab button and the bar",
   "ok": true,
   "detail": {
-   "count": 334,
-   "onSite": 334,
-   "gone": 67,
-   "btn": "Everything on site · 334 assets",
-   "bar": "334 assets on site · 67 picked up · one card each · tap a picture for the full map"
+   "count": 328,
+   "onSite": 328,
+   "gone": 73,
+   "btn": "Everything on site · 328 assets",
+   "bar": "328 assets on site · 73 picked up · one card each · tap a picture for the full map"
   }
  },
  {
@@ -328,7 +328,7 @@
   "name": "v12.42: only a Ready tick makes a unit Ready (its own or its reference's); an Emptied (pumped out) tick alone never does (Andrew: \"everything ticked not ready. Unless i have done so\")",
   "ok": true,
   "detail": {
-   "ready": 165,
+   "ready": 159,
    "src": [
     "unit"
    ],
@@ -339,8 +339,8 @@
   "name": "v12.42: every unit that has left carries the collection stamp: big, glowing and pulsing, with the day and time it left",
   "ok": true,
   "detail": {
-   "gone": 67,
-   "stamped": 67,
+   "gone": 73,
+   "stamped": 73,
    "glow": {
     "anim": "stg1238",
     "shadow": true
@@ -518,14 +518,14 @@
   "name": "v12.42: every card still on site with a place has two map pictures (close up and wider area) with a pulsing ring, and Navigate, Text, Email and Send; picked-up cards none",
   "ok": true,
   "detail": {
-   "onSite": 334,
-   "two": 333,
-   "pulse": 666,
-   "actions": 334,
+   "onSite": 328,
+   "two": 327,
+   "pulse": 654,
+   "actions": 328,
    "gonePics": 0,
    "arrived": 401,
    "notBoard": 401,
-   "located": 333,
+   "located": 327,
    "missing": []
   }
  },
@@ -549,7 +549,7 @@
    "badge": 2,
    "state": {
     "on": 8,
-    "all": 666,
+    "all": 654,
     "drawn": 8,
     "failed": 0,
     "queued": 0,
@@ -590,9 +590,9 @@
    ],
    "F1v": 1,
    "F2": {
-    "n": 67,
+    "n": 73,
     "allGone": true,
-    "want": 67
+    "want": 73
    }
   }
  },
@@ -605,39 +605,39 @@
    "ov": 0,
    "stars": 5,
    "line": true,
-   "ring": "8.4%",
+   "ring": "9.2%",
    "first": true,
-   "text": "8.4 % DEMOB COMPLETE 67 of 794 units off site 20 of 185 references fully gone Day 2 of 15 · finishes Fri 13 Nov 6.5% a day from here finishes on time 0 of 5 stars Next star at 20% off site · 11.6% to go Even pace is 13% by tonight 0% 25% 50% 75% 100% 8.4% M 26 T 27 W 28 T 29 F 30 M 2 T 3 W 4 T 5 F 6"
+   "text": "9.2 % DEMOB COMPLETE 73 of 794 units off site 24 of 185 references fully gone Day 2 of 15 · finishes Fri 13 Nov 6.5% a day from here finishes on time 0 of 5 stars Next star at 20% off site · 10.8% to go Even pace is 13% by tonight 0% 25% 50% 75% 100% 9.2% M 26 T 27 W 28 T 29 F 30 M 2 T 3 W 4 T 5 F 6"
   }
  },
  {
   "name": "v12.42.1: with nothing booked there is no Booked pick-ups panel and no \"booked\" filter, and no card says \"to be booked\"; on the view link (no Book button) an unbooked card shows no pick-up line at all (a VMS board on the plan only keeps its note that booking opens once it is on a delivery reference)",
   "ok": true,
   "detail": {
-   "booked": 2,
+   "booked": 1,
    "panel": true,
    "chip": true,
-   "cards": 2,
+   "cards": 1,
    "toBe": 0,
-   "label": 2
+   "label": 1
   }
  },
  {
-  "name": "v12.42.2: the truck loads plan every Ready unit once, and only Ready units (165 ready, 22 trucks), each truck drawn once with its own id",
+  "name": "v12.42.2: the truck loads plan every Ready unit once, and only Ready units (159 ready, 20 trucks), each truck drawn once with its own id",
   "ok": true,
   "detail": {
    "sec": true,
-   "cards": 22,
-   "ids": 22,
-   "trucks": 22,
-   "ready": 165,
-   "planned": 165,
+   "cards": 20,
+   "ids": 20,
+   "trucks": 20,
+   "ready": 159,
+   "planned": 159,
    "once": true,
    "allReady": true,
    "epTrucks": 6,
    "openTrucks": 6,
-   "epUnits": 142,
-   "openUnits": 142,
+   "epUnits": 138,
+   "openUnits": 138,
    "maxEp": 24,
    "maxPanels": 6,
    "full": 5,
@@ -676,27 +676,27 @@
    "pp": 6,
    "w9big": true,
    "book": 0,
-   "text": 22,
-   "send": 22,
-   "head": "Truck loads from what is Ready22 trucks · 167 units ready · nearest first"
+   "text": 20,
+   "send": 20,
+   "head": "Truck loads from what is Ready20 trucks · 161 units ready · nearest first"
   }
  },
  {
-  "name": "v12.42.2: Event Portables trucks take 24 at most, 6 pee panels at most, as few trucks as the unbooked units need (142 units on 6 trucks), starting from the biggest Ready group (WC09); booked trucks first",
+  "name": "v12.42.2: Event Portables trucks take 24 at most, 6 pee panels at most, as few trucks as the unbooked units need (138 units on 6 trucks), starting from the biggest Ready group (WC09); booked trucks first",
   "ok": true,
   "detail": {
    "sec": true,
-   "cards": 22,
-   "ids": 22,
-   "trucks": 22,
-   "ready": 165,
-   "planned": 165,
+   "cards": 20,
+   "ids": 20,
+   "trucks": 20,
+   "ready": 159,
+   "planned": 159,
    "once": true,
    "allReady": true,
    "epTrucks": 6,
    "openTrucks": 6,
-   "epUnits": 142,
-   "openUnits": 142,
+   "epUnits": 138,
+   "openUnits": 138,
    "maxEp": 24,
    "maxPanels": 6,
    "full": 5,
@@ -735,9 +735,9 @@
    "pp": 6,
    "w9big": true,
    "book": 0,
-   "text": 22,
-   "send": 22,
-   "head": "Truck loads from what is Ready22 trucks · 167 units ready · nearest first"
+   "text": 20,
+   "send": 20,
+   "head": "Truck loads from what is Ready20 trucks · 161 units ready · nearest first"
   }
  },
  {
@@ -745,17 +745,17 @@
   "ok": true,
   "detail": {
    "sec": true,
-   "cards": 22,
-   "ids": 22,
-   "trucks": 22,
-   "ready": 165,
-   "planned": 165,
+   "cards": 20,
+   "ids": 20,
+   "trucks": 20,
+   "ready": 159,
+   "planned": 159,
    "once": true,
    "allReady": true,
    "epTrucks": 6,
    "openTrucks": 6,
-   "epUnits": 142,
-   "openUnits": 142,
+   "epUnits": 138,
+   "openUnits": 138,
    "maxEp": 24,
    "maxPanels": 6,
    "full": 5,
@@ -794,9 +794,9 @@
    "pp": 6,
    "w9big": true,
    "book": 0,
-   "text": 22,
-   "send": 22,
-   "head": "Truck loads from what is Ready22 trucks · 167 units ready · nearest first"
+   "text": 20,
+   "send": 20,
+   "head": "Truck loads from what is Ready20 trucks · 161 units ready · nearest first"
   }
  },
  {
@@ -804,17 +804,17 @@
   "ok": true,
   "detail": {
    "sec": true,
-   "cards": 22,
-   "ids": 22,
-   "trucks": 22,
-   "ready": 165,
-   "planned": 165,
+   "cards": 20,
+   "ids": 20,
+   "trucks": 20,
+   "ready": 159,
+   "planned": 159,
    "once": true,
    "allReady": true,
    "epTrucks": 6,
    "openTrucks": 6,
-   "epUnits": 142,
-   "openUnits": 142,
+   "epUnits": 138,
+   "openUnits": 138,
    "maxEp": 24,
    "maxPanels": 6,
    "full": 5,
@@ -853,9 +853,9 @@
    "pp": 6,
    "w9big": true,
    "book": 0,
-   "text": 22,
-   "send": 22,
-   "head": "Truck loads from what is Ready22 trucks · 167 units ready · nearest first"
+   "text": 20,
+   "send": 20,
+   "head": "Truck loads from what is Ready20 trucks · 161 units ready · nearest first"
   }
  },
  {
@@ -1026,18 +1026,18 @@
   "name": "v12.42.1: the day cards say what was picked up, not \"Booked 0\" or \"Ready of booked 0 of 0\": today's box is Picked up and Ready for collection now, headed PICKED UP",
   "ok": true,
   "detail": {
-   "today": "DEMOB · WEEK 1 TODAY TUESDAY 27 OCTOBER 2026 DEMOB COMPLETE · NOW 8.4% +4.5% so far today · 36 units off site · 67 of 794 off site now WEATHER FORECAST Forecast unavailable PICKED UP · BOOKED REF · ASSET NO. · TIME WC54 FWF portable toilet 0186 0619 0071 0295 0007 0087 08:30 WC23 FWF portable toilet 0992 0969 08:50 WC25 FWF portable toilet 0472 08:50 WC26 FWF portable toilet 0075 08:50 WC47 FWF portable toilet 0949 08:50 WC56 FWF portable toilet 0721 0491 0190 0294 0970 08:50 WC57 FWF portable toilet 0915 0008 08:50 WC59 FWF portable toilet 0492 0064 08:50 P60 Ticket Box 4.8m 1015699 09:00 WC29 FWF portable toilet 0079 0546 0564 0441 · part 09:27 WC33 FWF portable toilet 0554 0920 0971 0586 ",
+   "today": "DEMOB · WEEK 1 TODAY TUESDAY 27 OCTOBER 2026 DEMOB COMPLETE · NOW 9.2% +5.3% so far today · 42 units off site · 73 of 794 off site now WEATHER FORECAST Forecast unavailable PICKED UP · BOOKED REF · ASSET NO. · TIME WC54 FWF portable toilet 0186 0619 0071 0295 0007 0087 08:30 WC23 FWF portable toilet 0992 0969 08:50 WC25 FWF portable toilet 0472 08:50 WC26 FWF portable toilet 0075 08:50 WC47 FWF portable toilet 0949 08:50 WC56 FWF portable toilet 0721 0491 0190 0294 0970 08:50 WC57 FWF portable toilet 0915 0008 08:50 WC59 FWF portable toilet 0492 0064 08:50 P60 Ticket Box 4.8m 1015699 09:00 WC29 FWF portable toilet 0079 0546 0564 0441 09:27 WC33 FWF portable toilet 0554 0920 0971 0586 0487 07",
    "trows": [
     {
      "label": "Picked up",
-     "value": "36 units · last 10:00"
+     "value": "42 units · last 11:00"
     },
     {
      "label": "Ready for collection",
-     "value": "167 units now"
+     "value": "161 units now"
     }
    ],
-   "ready": 165
+   "ready": 159
   }
  },
  {
@@ -1054,10 +1054,10 @@
   "detail": {
    "cards": 15,
    "withPct": 15,
-   "today": "DEMOB COMPLETE · NOW 8.4% +4.5% so far today · 36 units off site · 67 of 794 off site now",
-   "todayVal": 8.44,
-   "pct": 8.438287153652393,
-   "later": "DEMOB COMPLETE · NOW 8.4% 67 of 794 units off site now · 8.7% by then if every earlier booking goes",
+   "today": "DEMOB COMPLETE · NOW 9.2% +5.3% so far today · 42 units off site · 73 of 794 off site now",
+   "todayVal": 9.19,
+   "pct": 9.193954659949624,
+   "later": "DEMOB COMPLETE · NOW 9.2% 73 of 794 units off site now · 9.3% by then if every earlier booking goes",
    "laterAhead": true,
    "past": [
     3.9
@@ -1068,7 +1068,7 @@
   "name": "v12.42.1: a day ahead with nothing booked says its pick-ups are to come (no \"Booked 0\", no schedule plan)",
   "ok": true,
   "detail": {
-   "later": "DEMOB · WEEK 1 UPCOMING WEDNESDAY 28 OCTOBER 2026 DEMOB COMPLETE · NOW 8.4% 67 of 794 units off site now · 8.7% by then if every earlier booking goes WEATHER FORECAST Forecast unavailable PICKED UP REF · ASSET NO. · TIME To come PICKED UP Picked up to come AVAILABLE STAFF 5 staff Aaron Zelvis Alfie Harris Andrew Fisher Daniel Gough Kyle Gover LIFE SAVING RULE REMINDER Fit for Work Open pick-up plan",
+   "later": "DEMOB · WEEK 1 UPCOMING WEDNESDAY 28 OCTOBER 2026 DEMOB COMPLETE · NOW 9.2% 73 of 794 units off site now · 9.3% by then if every earlier booking goes WEATHER FORECAST Forecast unavailable PICKED UP REF · ASSET NO. · TIME To come PICKED UP Picked up to come AVAILABLE STAFF 5 staff Aaron Zelvis Alfie Harris Andrew Fisher Daniel Gough Kyle Gover LIFE SAVING RULE REMINDER Fit for Work Open pick-up plan",
    "planned": false,
    "rows": [
     {
@@ -1081,19 +1081,19 @@
  {
   "name": "v12.42.1: in Everything on site the day-list button counts what was picked up that day (\"and booked\" only when there are bookings), not the old plan",
   "ok": true,
-  "detail": "Tue 27 Oct · picked up and booked · 38"
+  "detail": "Tue 27 Oct · picked up and booked · 43"
  },
  {
   "name": "v12.42: a day's list holds only what left that day (by the day it left, and a run part-collected that day even once the rest has gone) or is booked for it; its heading counts units, as the day card does; a \"booked\" filter from Everything is not carried in; the schedule's runs, trucks, print and confirm are put away",
   "ok": true,
   "detail": {
    "mode": "day",
-   "n": 38,
-   "want": 38,
-   "units": 36,
+   "n": 43,
+   "want": 43,
+   "units": 42,
    "hidden": 0,
    "allToday": true,
-   "h3": "Tue 27 Oct · 36 picked up · 2 booked",
+   "h3": "Tue 27 Oct · 42 picked up · 1 booked",
    "toilets": false,
    "trucks": false,
    "print": false,
@@ -1137,7 +1137,7 @@
   "detail": {
    "u": {
     "on": true,
-    "at": "2026-10-27T00:09:59.320Z",
+    "at": "2026-10-27T01:10:31.605Z",
     "by": "Example test recorder",
     "why": "",
     "doc": "unit925/c0426c7a-a8cd-43e4-9646-6ff29860f788"
@@ -1183,7 +1183,7 @@
     "at": "2026-10-28T07:30:00+10:00",
     "note": "Coates truck",
     "by": "Example test recorder",
-    "set": "2026-10-27T00:10:03.756Z"
+    "set": "2026-10-27T01:10:36.798Z"
    },
    "hist": 1,
    "card": "Pick-up booked Wed 28 Oct · 07:30 Coates truck · booked by Example test recorder Change",
@@ -1195,9 +1195,8 @@
   "name": "v12.42: the booked pick-ups list shows it by day and time",
   "ok": true,
   "detail": {
-   "head": "Booked pick-ups 3 booked · by day and time",
+   "head": "Booked pick-ups 2 booked · by day and time",
    "lines": [
-    "09:00 P62 · Building 6m · Gate 5 QFES Office · 1189409 · Coates Ready",
     "10:30 P25 · Building 4.8m · Support Category Stewards · 1189408 · Coates · Coates Ready",
     "07:30 GN18 · 50kva · Generator · 1261273 · Coates · Coates truck Not ready"
    ]
@@ -1206,15 +1205,15 @@
  {
   "name": "v12.42: tomorrow's day card now carries the booking (GN18 1261273 07:30)",
   "ok": true,
-  "detail": "DEMOB · WEEK 1 UPCOMING WEDNESDAY 28 OCTOBER 2026 IF EVERY BOOKING GOES 8.8% +0.1% booked for this day (1 unit) · 8.4% complete now WEATHER FORECAST Forecast unavailable PICKED UP · BOOKED REF · ASSET NO. · TIME GN18 50kva generator 1261273 booked 07:30 PICKED UP AND BOOKED Picked up to come AVAILABLE STAFF 5 staff Aaron Zelvis Alfie Harris Andrew Fisher Daniel Gough Kyle Gover LIFE SAVING RULE REMINDER Fit for Work Selected · Open pick-up plan"
+  "detail": "DEMOB · WEEK 1 UPCOMING WEDNESDAY 28 OCTOBER 2026 IF EVERY BOOKING GOES 9.4% +0.1% booked for this day (1 unit) · 9.2% complete now WEATHER FORECAST Forecast unavailable PICKED UP · BOOKED REF · ASSET NO. · TIME GN18 50kva generator 1261273 booked 07:30 PICKED UP AND BOOKED Picked up to come AVAILABLE STAFF 5 staff Aaron Zelvis Alfie Harris Andrew Fisher Daniel Gough Kyle Gover LIFE SAVING RULE REMINDER Fit for Work Selected · Open pick-up plan"
  },
  {
   "name": "v12.42: a booking moves the day ahead: tomorrow's card says where its bookings take the demob if every one goes",
   "ok": true,
   "detail": {
-   "text": "IF EVERY BOOKING GOES 8.8% +0.1% booked for this day (1 unit) · 8.4% complete now",
-   "val": 8.82,
-   "now": 8.438287153652393
+   "text": "IF EVERY BOOKING GOES 9.4% +0.1% booked for this day (1 unit) · 9.2% complete now",
+   "val": 9.45,
+   "now": 9.193954659949624
   }
  },
  {
@@ -1224,7 +1223,7 @@
    "BF0": true,
    "BF": {
     "mode": "day",
-    "n": 38,
+    "n": 43,
     "hidden": 0,
     "all": true
    }
@@ -1470,14 +1469,14 @@
   }
  },
  {
-  "name": "v12.42.2: on the edit link a truck with no booking and at least two references has its Book this load button (Truck 4 (from WC69), 24 units at 5 references)",
+  "name": "v12.42.2: on the edit link a truck with no booking and at least two references has its Book this load button (Truck 3 (from WC69), 24 units at 5 references)",
   "ok": true,
   "detail": {
    "T0": {
-    "i": 3,
-    "n": 4,
+    "i": 2,
+    "n": 3,
     "id": "|WC69#event-portables|0010",
-    "name": "Truck 4 (from WC69)",
+    "name": "Truck 3 (from WC69)",
     "keys": [
      "WC69",
      "WC67",
@@ -1533,14 +1532,14 @@
   }
  },
  {
-  "name": "v12.42.2: Book this load opens the booking sheet for the whole truck, labelled \"Book truck 4 (from WC69)\" (no \"Book all\", no Clear), and books every unit on it for the same day and time, one document per reference",
+  "name": "v12.42.2: Book this load opens the booking sheet for the whole truck, labelled \"Book truck 3 (from WC69)\" (no \"Book all\", no Clear), and books every unit on it for the same day and time, one document per reference",
   "ok": true,
   "detail": {
    "T0": {
-    "i": 3,
-    "n": 4,
+    "i": 2,
+    "n": 3,
     "id": "|WC69#event-portables|0010",
-    "name": "Truck 4 (from WC69)",
+    "name": "Truck 3 (from WC69)",
     "keys": [
      "WC69",
      "WC67",
@@ -1581,7 +1580,7 @@
     }
    },
    "LH": {
-    "title": "Book truck 4 (from WC69)",
+    "title": "Book truck 3 (from WC69)",
     "sub": "Event Portables · 24 units at 5 references · 24 FWF",
     "fy": "Every unit on the truck is booked for the same day and time, on the shared record as Example test recorder. Each card, its day card and the booked pick-ups show it.",
     "all": true,
@@ -1599,13 +1598,13 @@
     ],
     "docsN": 6,
     "together": true,
-    "n": 3,
+    "n": 2,
     "id": "2026-10-28T06:00:00+10:00|WC69#event-portables|0010",
-    "name": "Truck 3 (from WC69)",
+    "name": "Truck 2 (from WC69)",
     "units": 24,
-    "card": "Truck 3 Event Portables · 24 units 24 FWF Pick-up booked Wed 28 Oct · 06:00 WC69 12 FWF 0010 0070 0078 0123 0152 0432 0592 0622 0647 0679 0692 0958 Area 12 WC67 3 FWF 0714 0769 0793 Area 12 WC70 1 FWF 0423 Area 12 WC68 1 FWF 0426 Area 12 WC71 7 FWF 0116 0279 0280 0293 0490 0531 0552 Area 12 Change booking Text Send",
+    "card": "Truck 2 Event Portables · 24 units 24 FWF Pick-up booked Wed 28 Oct · 06:00 WC69 12 FWF 0010 0070 0078 0123 0152 0432 0592 0622 0647 0679 0692 0958 Area 12 WC67 3 FWF 0714 0769 0793 Area 12 WC70 1 FWF 0423 Area 12 WC68 1 FWF 0426 Area 12 WC71 7 FWF 0116 0279 0280 0293 0490 0531 0552 Area 12 Change booking Text Send",
     "words": [
-     "Coates GC500 demob · Truck 3 (from WC69) · Event Portables · 24 units (24 FWF)",
+     "Coates GC500 demob · Truck 2 (from WC69) · Event Portables · 24 units (24 FWF)",
      "Pick-up booked: Wed 28 Oct · 06:00",
      "1. WC69 · 12 FWF: 0010 0070 0078 0123 0152 0432 0592 0622 0647 0679 0692 0958 · Area 12",
      "   Navigate: https://www.google.com/maps/dir/?api=1&destination=-27.981496,153.424162&travelmode=driving",
@@ -1618,13 +1617,13 @@
      "5. WC71 · 7 FWF: 0116 0279 0280 0293 0490 0531 0552 · Area 12",
      "   Navigate: https://www.google.com/maps/dir/?api=1&destination=-27.981283,153.423484&travelmode=driving"
     ],
-    "flash": "Truck 3 (from WC69) booked for Wed 28 Oct · 06:00: 24 units at 5 references - recorded by Example test recorder.",
-    "day": "DEMOB · WEEK 1 UPCOMING WEDNESDAY 28 OCTOBER 2026 IF EVERY BOOKING GOES 14% +4.9% booked for this day (39 units) · 8.4% complete now WEATHER FORECAST Forecast unavailable PICKED UP · BOOKED REF · ASSET NO. · TIME WC67 FWF portable toilet 0714 booked 06:00 WC67 FWF portable toilet 0769 booked 06:00 WC67 FWF portable toilet 0793 booked 06:00 WC68 FWF portable toilet 0426 booked 06:00 WC69 FWF portab"
+    "flash": "Truck 2 (from WC69) booked for Wed 28 Oct · 06:00: 24 units at 5 references - recorded by Example test recorder.",
+    "day": "DEMOB · WEEK 1 UPCOMING WEDNESDAY 28 OCTOBER 2026 IF EVERY BOOKING GOES 14% +4.9% booked for this day (39 units) · 9.2% complete now WEATHER FORECAST Forecast unavailable PICKED UP · BOOKED REF · ASSET NO. · TIME WC67 FWF portable toilet 0714 booked 06:00 WC67 FWF portable toilet 0769 booked 06:00 WC67 FWF portable toilet 0793 booked 06:00 WC68 FWF portable toilet 0426 booked 06:00 WC69 FWF portab"
    }
   }
  },
  {
-  "name": "v12.42.2: the booked units stay together on one truck under the new time; the flash names it by its new number and first stop (Truck 3 (from WC69)) and counts 24 units as the sheet does",
+  "name": "v12.42.2: the booked units stay together on one truck under the new time; the flash names it by its new number and first stop (Truck 2 (from WC69)) and counts 24 units as the sheet does",
   "ok": true,
   "detail": {
    "LB": {
@@ -1639,13 +1638,13 @@
     ],
     "docsN": 6,
     "together": true,
-    "n": 3,
+    "n": 2,
     "id": "2026-10-28T06:00:00+10:00|WC69#event-portables|0010",
-    "name": "Truck 3 (from WC69)",
+    "name": "Truck 2 (from WC69)",
     "units": 24,
-    "card": "Truck 3 Event Portables · 24 units 24 FWF Pick-up booked Wed 28 Oct · 06:00 WC69 12 FWF 0010 0070 0078 0123 0152 0432 0592 0622 0647 0679 0692 0958 Area 12 WC67 3 FWF 0714 0769 0793 Area 12 WC70 1 FWF 0423 Area 12 WC68 1 FWF 0426 Area 12 WC71 7 FWF 0116 0279 0280 0293 0490 0531 0552 Area 12 Change booking Text Send",
+    "card": "Truck 2 Event Portables · 24 units 24 FWF Pick-up booked Wed 28 Oct · 06:00 WC69 12 FWF 0010 0070 0078 0123 0152 0432 0592 0622 0647 0679 0692 0958 Area 12 WC67 3 FWF 0714 0769 0793 Area 12 WC70 1 FWF 0423 Area 12 WC68 1 FWF 0426 Area 12 WC71 7 FWF 0116 0279 0280 0293 0490 0531 0552 Area 12 Change booking Text Send",
     "words": [
-     "Coates GC500 demob · Truck 3 (from WC69) · Event Portables · 24 units (24 FWF)",
+     "Coates GC500 demob · Truck 2 (from WC69) · Event Portables · 24 units (24 FWF)",
      "Pick-up booked: Wed 28 Oct · 06:00",
      "1. WC69 · 12 FWF: 0010 0070 0078 0123 0152 0432 0592 0622 0647 0679 0692 0958 · Area 12",
      "   Navigate: https://www.google.com/maps/dir/?api=1&destination=-27.981496,153.424162&travelmode=driving",
@@ -1658,8 +1657,8 @@
      "5. WC71 · 7 FWF: 0116 0279 0280 0293 0490 0531 0552 · Area 12",
      "   Navigate: https://www.google.com/maps/dir/?api=1&destination=-27.981283,153.423484&travelmode=driving"
     ],
-    "flash": "Truck 3 (from WC69) booked for Wed 28 Oct · 06:00: 24 units at 5 references - recorded by Example test recorder.",
-    "day": "DEMOB · WEEK 1 UPCOMING WEDNESDAY 28 OCTOBER 2026 IF EVERY BOOKING GOES 14% +4.9% booked for this day (39 units) · 8.4% complete now WEATHER FORECAST Forecast unavailable PICKED UP · BOOKED REF · ASSET NO. · TIME WC67 FWF portable toilet 0714 booked 06:00 WC67 FWF portable toilet 0769 booked 06:00 WC67 FWF portable toilet 0793 booked 06:00 WC68 FWF portable toilet 0426 booked 06:00 WC69 FWF portab"
+    "flash": "Truck 2 (from WC69) booked for Wed 28 Oct · 06:00: 24 units at 5 references - recorded by Example test recorder.",
+    "day": "DEMOB · WEEK 1 UPCOMING WEDNESDAY 28 OCTOBER 2026 IF EVERY BOOKING GOES 14% +4.9% booked for this day (39 units) · 9.2% complete now WEATHER FORECAST Forecast unavailable PICKED UP · BOOKED REF · ASSET NO. · TIME WC67 FWF portable toilet 0714 booked 06:00 WC67 FWF portable toilet 0769 booked 06:00 WC67 FWF portable toilet 0793 booked 06:00 WC68 FWF portable toilet 0426 booked 06:00 WC69 FWF portab"
    }
   }
  },
@@ -1679,13 +1678,13 @@
     ],
     "docsN": 6,
     "together": true,
-    "n": 3,
+    "n": 2,
     "id": "2026-10-28T06:00:00+10:00|WC69#event-portables|0010",
-    "name": "Truck 3 (from WC69)",
+    "name": "Truck 2 (from WC69)",
     "units": 24,
-    "card": "Truck 3 Event Portables · 24 units 24 FWF Pick-up booked Wed 28 Oct · 06:00 WC69 12 FWF 0010 0070 0078 0123 0152 0432 0592 0622 0647 0679 0692 0958 Area 12 WC67 3 FWF 0714 0769 0793 Area 12 WC70 1 FWF 0423 Area 12 WC68 1 FWF 0426 Area 12 WC71 7 FWF 0116 0279 0280 0293 0490 0531 0552 Area 12 Change booking Text Send",
+    "card": "Truck 2 Event Portables · 24 units 24 FWF Pick-up booked Wed 28 Oct · 06:00 WC69 12 FWF 0010 0070 0078 0123 0152 0432 0592 0622 0647 0679 0692 0958 Area 12 WC67 3 FWF 0714 0769 0793 Area 12 WC70 1 FWF 0423 Area 12 WC68 1 FWF 0426 Area 12 WC71 7 FWF 0116 0279 0280 0293 0490 0531 0552 Area 12 Change booking Text Send",
     "words": [
-     "Coates GC500 demob · Truck 3 (from WC69) · Event Portables · 24 units (24 FWF)",
+     "Coates GC500 demob · Truck 2 (from WC69) · Event Portables · 24 units (24 FWF)",
      "Pick-up booked: Wed 28 Oct · 06:00",
      "1. WC69 · 12 FWF: 0010 0070 0078 0123 0152 0432 0592 0622 0647 0679 0692 0958 · Area 12",
      "   Navigate: https://www.google.com/maps/dir/?api=1&destination=-27.981496,153.424162&travelmode=driving",
@@ -1698,8 +1697,8 @@
      "5. WC71 · 7 FWF: 0116 0279 0280 0293 0490 0531 0552 · Area 12",
      "   Navigate: https://www.google.com/maps/dir/?api=1&destination=-27.981283,153.423484&travelmode=driving"
     ],
-    "flash": "Truck 3 (from WC69) booked for Wed 28 Oct · 06:00: 24 units at 5 references - recorded by Example test recorder.",
-    "day": "DEMOB · WEEK 1 UPCOMING WEDNESDAY 28 OCTOBER 2026 IF EVERY BOOKING GOES 14% +4.9% booked for this day (39 units) · 8.4% complete now WEATHER FORECAST Forecast unavailable PICKED UP · BOOKED REF · ASSET NO. · TIME WC67 FWF portable toilet 0714 booked 06:00 WC67 FWF portable toilet 0769 booked 06:00 WC67 FWF portable toilet 0793 booked 06:00 WC68 FWF portable toilet 0426 booked 06:00 WC69 FWF portab"
+    "flash": "Truck 2 (from WC69) booked for Wed 28 Oct · 06:00: 24 units at 5 references - recorded by Example test recorder.",
+    "day": "DEMOB · WEEK 1 UPCOMING WEDNESDAY 28 OCTOBER 2026 IF EVERY BOOKING GOES 14% +4.9% booked for this day (39 units) · 9.2% complete now WEATHER FORECAST Forecast unavailable PICKED UP · BOOKED REF · ASSET NO. · TIME WC67 FWF portable toilet 0714 booked 06:00 WC67 FWF portable toilet 0769 booked 06:00 WC67 FWF portable toilet 0793 booked 06:00 WC68 FWF portable toilet 0426 booked 06:00 WC69 FWF portab"
    }
   }
  },
@@ -1707,7 +1706,7 @@
   "name": "v12.42.2: Text and Send carry the truck list: the truck by number and first stop, the booking, each stop with its units and asset numbers, and directions to each stop",
   "ok": true,
   "detail": [
-   "Coates GC500 demob · Truck 3 (from WC69) · Event Portables · 24 units (24 FWF)",
+   "Coates GC500 demob · Truck 2 (from WC69) · Event Portables · 24 units (24 FWF)",
    "Pick-up booked: Wed 28 Oct · 06:00",
    "1. WC69 · 12 FWF: 0010 0070 0078 0123 0152 0432 0592 0622 0647 0679 0692 0958 · Area 12",
    "   Navigate: https://www.google.com/maps/dir/?api=1&destination=-27.981496,153.424162&travelmode=driving",
@@ -1729,9 +1728,9 @@
    "sub": "WC69 · FWF · portable toilet · Asset no. 0010 · Event Portables",
    "clear": false,
    "fy": "Saved on the shared record as Example test recorder, with the time it was booked. The view link shows it and cannot change it.",
-   "sm": "Pick-up Wed 28 Oct at 06:00 · Truck 3 (from WC69) is booked for Wed 28 Oct · 06:00: this unit comes off it",
+   "sm": "Pick-up Wed 28 Oct at 06:00 · Truck 2 (from WC69) is booked for Wed 28 Oct · 06:00: this unit comes off it",
    "cx": true,
-   "words": "Truck 3 (from WC69) is booked for Wed 28 Oct · 06:00: this unit comes off it",
+   "words": "Truck 2 (from WC69) is booked for Wed 28 Oct · 06:00: this unit comes off it",
    "how": [
     [
      "2026-10-28T06:00:00+10:00|WC69#event-portables|0010",
@@ -1741,7 +1740,7 @@
   }
  },
  {
-  "name": "v12.42.2: that unit's sheet, on the truck's own time, says saving it alone takes it off Truck 3 (from WC69) (\"Truck 3 (from WC69) is booked for Wed 28 Oct · 06:00: this unit comes off it\"), marked as a change",
+  "name": "v12.42.2: that unit's sheet, on the truck's own time, says saving it alone takes it off Truck 2 (from WC69) (\"Truck 2 (from WC69) is booked for Wed 28 Oct · 06:00: this unit comes off it\"), marked as a change",
   "ok": true,
   "detail": {
    "LU": {
@@ -1749,9 +1748,9 @@
     "sub": "WC69 · FWF · portable toilet · Asset no. 0010 · Event Portables",
     "clear": false,
     "fy": "Saved on the shared record as Example test recorder, with the time it was booked. The view link shows it and cannot change it.",
-    "sm": "Pick-up Wed 28 Oct at 06:00 · Truck 3 (from WC69) is booked for Wed 28 Oct · 06:00: this unit comes off it",
+    "sm": "Pick-up Wed 28 Oct at 06:00 · Truck 2 (from WC69) is booked for Wed 28 Oct · 06:00: this unit comes off it",
     "cx": true,
-    "words": "Truck 3 (from WC69) is booked for Wed 28 Oct · 06:00: this unit comes off it",
+    "words": "Truck 2 (from WC69) is booked for Wed 28 Oct · 06:00: this unit comes off it",
     "how": [
      [
       "2026-10-28T06:00:00+10:00|WC69#event-portables|0010",
@@ -1763,13 +1762,16 @@
   }
  },
  {
-  "name": "v12.42.3: Not ready and Ready on one unit (WC31 16 Pan 74) save without drawing the tab again (508 ms, 468 ms), say they are recorded, write WC31 only, and the tab then reads exactly as the whole tab drawn again",
+  "name": "v12.42.3: Not ready and Ready on one unit (WC31 16 Pan 74) save without drawing the tab again (495 ms, 423 ms; the module counts each as put right in place), say they are recorded, write WC31 only, and the tab then reads exactly as the whole tab drawn again",
   "ok": true,
   "detail": {
    "QN": {
     "r": "true",
-    "ms": 508,
+    "ms": 495,
     "rebuilt": 0,
+    "dq": 1,
+    "dw": 0,
+    "why": "",
     "flash": "WC31 not ready for collection (test) - recorded by Example test recorder.",
     "docs": [
      "WC31"
@@ -1778,8 +1780,11 @@
    },
    "QR": {
     "r": "true",
-    "ms": 468,
+    "ms": 423,
     "rebuilt": 0,
+    "dq": 1,
+    "dw": 0,
+    "why": "",
     "flash": "WC31 ready for collection - recorded by Example test recorder.",
     "docs": [
      "WC31"
@@ -1789,19 +1794,81 @@
   }
  },
  {
+  "name": "v12.42.3: a save made after a record arrived from the shared store but before the page drew it draws the whole tab (record changed), reading as the whole tab drawn again; the save after that is quick again",
+  "ok": true,
+  "detail": {
+   "QE": {
+    "r": "true",
+    "ms": 1008,
+    "rebuilt": 1,
+    "dq": 0,
+    "dw": 1,
+    "why": "record changed",
+    "flash": "WC31 not ready for collection (test) - recorded by Example test recorder.",
+    "docs": [
+     "WC31"
+    ],
+    "diff": []
+   },
+   "QE2": {
+    "r": "true",
+    "ms": 422,
+    "rebuilt": 0,
+    "dq": 1,
+    "dw": 0,
+    "why": "",
+    "flash": "WC31 ready for collection - recorded by Example test recorder.",
+    "docs": [
+     "WC31"
+    ],
+    "diff": []
+   }
+  }
+ },
+ {
+  "name": "v12.42.3: a booking whose time passes after the tab was drawn: the next quick save elsewhere draws the whole tab (card), so its card reads \"time passed\", the same as the whole tab drawn again",
+  "ok": true,
+  "detail": {
+   "at": "2026-10-27T12:12:00+10:00",
+   "set": {
+    "r": "true",
+    "dq": 1,
+    "diff": []
+   },
+   "before": false,
+   "r": "true",
+   "dw": 1,
+   "dq": 0,
+   "why": "card",
+   "after": true,
+   "diff": [],
+   "back": {
+    "r": "true",
+    "diff": []
+   },
+   "clear": {
+    "r": "true",
+    "diff": []
+   }
+  }
+ },
+ {
   "name": "v12.42.3: booking one unit (GN18, 08:15 tomorrow) and clearing it save without drawing the tab again; the booked pick-ups panel takes the line and gives it back (the \"booked\" filter there while anything is booked), and the tab reads as the whole tab drawn again",
   "ok": true,
   "detail": {
    "QA0": {
-    "n": 41,
+    "n": 40,
     "panel": true,
     "chip": true,
     "gn": 0
    },
    "QB": {
     "r": "true",
-    "ms": 515,
+    "ms": 490,
     "rebuilt": 0,
+    "dq": 1,
+    "dw": 0,
+    "why": "",
     "flash": "GN18 pick-up booked for Wed 28 Oct · 08:15 - recorded by Example test recorder.",
     "docs": [
      "GN18"
@@ -1809,15 +1876,18 @@
     "diff": []
    },
    "QBp": {
-    "n": 42,
+    "n": 41,
     "panel": true,
     "chip": true,
     "gn": 1
    },
    "QC": {
     "r": "true",
-    "ms": 498,
+    "ms": 479,
     "rebuilt": 0,
+    "dq": 1,
+    "dw": 0,
+    "why": "",
     "flash": "GN18 booking cleared - recorded by Example test recorder.",
     "docs": [
      "GN18"
@@ -1825,7 +1895,7 @@
     "diff": []
    },
    "QCp": {
-    "n": 41,
+    "n": 40,
     "panel": true,
     "chip": true,
     "gn": 0
@@ -1837,8 +1907,11 @@
   "ok": true,
   "detail": {
    "r": "Example test recorder",
-   "ms": 650,
+   "ms": 584,
    "rebuilt": 0,
+   "dq": 1,
+   "dw": 0,
+   "why": "",
    "flash": "",
    "docs": [
     "BJR01",
@@ -1873,8 +1946,11 @@
   "detail": {
    "QD1": {
     "r": "true",
-    "ms": 486,
+    "ms": 469,
     "rebuilt": 1,
+    "dq": 0,
+    "dw": 1,
+    "why": "cards",
     "flash": "GN18 pick-up booked for Wed 28 Oct · 07:00 - recorded by Example test recorder.",
     "docs": [
      "GN18"
@@ -1883,8 +1959,11 @@
    },
    "QD2": {
     "r": "true",
-    "ms": 404,
+    "ms": 367,
     "rebuilt": 0,
+    "dq": 1,
+    "dw": 0,
+    "why": "",
     "flash": "GN18 pick-up booked for Wed 28 Oct · 09:45 - recorded by Example test recorder.",
     "docs": [
      "GN18"
@@ -1893,8 +1972,11 @@
    },
    "QD3": {
     "r": "true",
-    "ms": 477,
+    "ms": 474,
     "rebuilt": 1,
+    "dq": 0,
+    "dw": 1,
+    "why": "cards",
     "flash": "GN18 booking cleared - recorded by Example test recorder.",
     "docs": [
      "GN18"
@@ -1910,8 +1992,11 @@
   "ok": true,
   "detail": {
    "r": "false",
-   "ms": 447,
+   "ms": 446,
    "rebuilt": 0,
+   "dq": 1,
+   "dw": 0,
+   "why": "",
    "flash": "Not saved · keep this page open.",
    "docs": [],
    "diff": [],
@@ -1921,7 +2006,39 @@
   }
  },
  {
-  "name": "v12.42.3: keep-your-place finds the scrolled day strip, day card list and group chips from the elements noted as they scrolled: the same list, keys and positions as reading every element (3 scrolled, 3 ms)",
+  "name": "v12.42.3: Picked up on a toilet with no Emptied tick, when this browser cannot keep the Emptied save: \"Not saved · keep this page open\", never \"recorded\" or \"may now be loaded\"; the pick-up form does not open and nothing goes up (WC01)",
+  "ok": true,
+  "detail": {
+   "key": "WC01",
+   "uid": "coates|1317644",
+   "staged": false,
+   "r": "false",
+   "flash": "Not saved · keep this page open.",
+   "form0": false,
+   "form": false,
+   "unkept": true,
+   "sent": 0,
+   "unkeptAfter": false
+  }
+ },
+ {
+  "name": "v12.42.3: a run's own Not ready tick (a group card, Ready1231) that this browser cannot keep says \"Not saved · keep this page open\", never \"recorded\", and nothing goes up (P34)",
+  "ok": true,
+  "detail": {
+   "key": "P34",
+   "uid": "*",
+   "staged": false,
+   "r": "false",
+   "flash": "Not saved · keep this page open.",
+   "form0": false,
+   "form": false,
+   "unkept": true,
+   "sent": 0,
+   "unkeptAfter": false
+  }
+ },
+ {
+  "name": "v12.42.3: keep-your-place finds the scrolled day strip, day card list and group chips from the elements noted as they scrolled: the same list, keys and positions as reading every element (3 scrolled, 4 ms)",
   "ok": true,
   "detail": {
    "want": {
@@ -1964,7 +2081,7 @@
     ]
    ],
    "same": true,
-   "capMs": 3,
+   "capMs": 4,
    "fresh": true,
    "a": {
     "strip": 394,
@@ -2020,12 +2137,25 @@
   }
  },
  {
-  "name": "v12.42.3: the cards' model built outside a drawing builds the asset list once, in the page's asset hold (1 build, 116 ms), and is reused straight after without building anything",
+  "name": "v12.42.3: Persistence1010.noted(el): an inner scroller moved by a script and saved in the same moment keeps its place on a save that draws the tab whole",
+  "ok": true,
+  "detail": {
+   "day": "2026-10-26",
+   "top": 45,
+   "after": 45,
+   "fresh": true,
+   "later": 0,
+   "without": 0,
+   "api": true
+  }
+ },
+ {
+  "name": "v12.42.3: the cards' model built outside a drawing builds the asset list once, in the page's asset hold (1 build, 126 ms), and is reused straight after without building anything",
   "ok": true,
   "detail": {
    "n": 1,
    "n2": 0,
-   "ms": 116,
+   "ms": 126,
    "same": true
   }
  },
@@ -2065,7 +2195,7 @@
    ],
    "counts": {
     "page": 1,
-    "live": 1279,
+    "live": 1322,
     "blocked": 0
    }
   }
@@ -2076,99 +2206,340 @@
   "detail": []
  },
  {
-  "name": "v12.42.3 timing (phone, CPU 4x): not ready 4202 ms from the press to the change on screen (bar 9000 ms; v12.42.2 measured 28800 ms)",
+  "name": "v12.42.3 timing (phone, CPU 4x): not ready 4260 ms from the press to the change on screen (bar 6000 ms; v12.42.2 measured 28800 ms)",
   "ok": true,
   "detail": {
    "runs": [
-    3940,
-    4509,
-    4202
+    4863,
+    3897,
+    4260
    ],
-   "median": 4202,
-   "bar": 9000,
-   "was": 28800
+   "median": 4260,
+   "bar": 6000,
+   "was": 28800,
+   "redraws": [
+    {
+     "rebuilt": 0,
+     "dq": 1,
+     "dw": 0,
+     "why": ""
+    },
+    {
+     "rebuilt": 0,
+     "dq": 1,
+     "dw": 0,
+     "why": ""
+    },
+    {
+     "rebuilt": 0,
+     "dq": 1,
+     "dw": 0,
+     "why": ""
+    }
+   ]
   }
  },
  {
-  "name": "v12.42.3 timing (phone, CPU 4x): ready 4377 ms from the press to the change on screen (bar 9000 ms; v12.42.2 measured 29300 ms)",
+  "name": "v12.42.3 timing (phone, CPU 4x): ready 3873 ms from the press to the change on screen (bar 6000 ms; v12.42.2 measured 29300 ms)",
   "ok": true,
   "detail": {
    "runs": [
-    3940,
-    4407,
-    4377
+    3873,
+    3808,
+    4422
    ],
-   "median": 4377,
-   "bar": 9000,
-   "was": 29300
+   "median": 3873,
+   "bar": 6000,
+   "was": 29300,
+   "redraws": [
+    {
+     "rebuilt": 0,
+     "dq": 1,
+     "dw": 0,
+     "why": ""
+    },
+    {
+     "rebuilt": 0,
+     "dq": 1,
+     "dw": 0,
+     "why": ""
+    },
+    {
+     "rebuilt": 0,
+     "dq": 1,
+     "dw": 0,
+     "why": ""
+    }
+   ]
   }
  },
  {
-  "name": "v12.42.3 timing (phone, CPU 4x): book one unit 4160 ms from the press to the change on screen (bar 9000 ms; v12.42.2 measured 20800 ms)",
+  "name": "v12.42.3 timing (phone, CPU 4x): book one unit 4336 ms from the press to the change on screen (bar 6000 ms; v12.42.2 measured 20800 ms)",
   "ok": true,
   "detail": {
    "runs": [
-    4117,
-    4160,
-    4251
+    4497,
+    4336,
+    4112
    ],
-   "median": 4160,
-   "bar": 9000,
-   "was": 20800
+   "median": 4336,
+   "bar": 6000,
+   "was": 20800,
+   "redraws": [
+    {
+     "rebuilt": 0,
+     "dq": 1,
+     "dw": 0,
+     "why": ""
+    },
+    {
+     "rebuilt": 0,
+     "dq": 1,
+     "dw": 0,
+     "why": ""
+    },
+    {
+     "rebuilt": 0,
+     "dq": 1,
+     "dw": 0,
+     "why": ""
+    }
+   ]
   }
  },
  {
-  "name": "v12.42.3 timing (phone, CPU 4x): book this load 4164 ms from the press to the change on screen (bar 9000 ms; v12.42.2 measured 17500 ms)",
+  "name": "v12.42.3 timing (phone, CPU 4x): book this load 4102 ms from the press to the change on screen (bar 6000 ms; v12.42.2 measured 17500 ms)",
   "ok": true,
   "detail": {
    "runs": [
-    3662,
-    4164,
-    4356
+    4385,
+    4102,
+    4042
    ],
-   "median": 4164,
-   "bar": 9000,
-   "was": 17500
+   "median": 4102,
+   "bar": 6000,
+   "was": 17500,
+   "redraws": [
+    {
+     "rebuilt": 0,
+     "dq": 1,
+     "dw": 0,
+     "why": ""
+    },
+    {
+     "rebuilt": 0,
+     "dq": 1,
+     "dw": 0,
+     "why": ""
+    },
+    {
+     "rebuilt": 0,
+     "dq": 1,
+     "dw": 0,
+     "why": ""
+    }
+   ]
   }
  },
  {
-  "name": "v12.42.3 timing (phone, CPU 4x): picked up with emptied save 7411 ms from the press to the change on screen (bar 14000 ms; v12.42.2 measured 23300 ms)",
+  "name": "v12.42.3 timing (phone, CPU 4x): picked up with emptied save 8757 ms from the press to the change on screen (bar 14000 ms; v12.42.2 measured 23300 ms)",
   "ok": true,
   "detail": {
    "runs": [
-    7411,
-    6684,
-    7716
+    8757,
+    8898,
+    7467
    ],
-   "median": 7411,
+   "median": 8757,
    "bar": 14000,
-   "was": 23300
+   "was": 23300,
+   "redraws": [
+    {
+     "rebuilt": 1,
+     "dq": 0,
+     "dw": 0,
+     "why": ""
+    },
+    {
+     "rebuilt": 1,
+     "dq": 0,
+     "dw": 0,
+     "why": ""
+    },
+    {
+     "rebuilt": 1,
+     "dq": 0,
+     "dw": 0,
+     "why": ""
+    }
+   ]
   }
  },
  {
-  "name": "v12.42.3 timing (phone, CPU 4x): keep-your-place (capture) on its own, 21 ms (bar 400 ms; v12.42.2 measured 16400 ms)",
+  "name": "v12.42.3 timing (phone, CPU 4x): keep-your-place (capture) on its own, 24 ms (bar 400 ms; v12.42.2 measured 16400 ms)",
   "ok": true,
   "detail": {
    "runs": [
-    21
+    24
    ],
-   "median": 21,
+   "median": 24,
    "bar": 400,
-   "was": 16400
+   "was": 16400,
+   "redraws": null
   }
  },
  {
-  "name": "v12.42.3 timing run: every write captured in the page (18 delivery documents), nothing reached the network, no page errors",
+  "name": "v12.42.3 timing (phone): every not ready press was put right in place: no whole-tab redraw on the pane, and the module counts it quick (0/1/0, 0/1/0, 0/1/0)",
+  "ok": true,
+  "detail": [
+   {
+    "rebuilt": 0,
+    "dq": 1,
+    "dw": 0,
+    "why": ""
+   },
+   {
+    "rebuilt": 0,
+    "dq": 1,
+    "dw": 0,
+    "why": ""
+   },
+   {
+    "rebuilt": 0,
+    "dq": 1,
+    "dw": 0,
+    "why": ""
+   }
+  ]
+ },
+ {
+  "name": "v12.42.3 timing (phone): every ready press was put right in place: no whole-tab redraw on the pane, and the module counts it quick (0/1/0, 0/1/0, 0/1/0)",
+  "ok": true,
+  "detail": [
+   {
+    "rebuilt": 0,
+    "dq": 1,
+    "dw": 0,
+    "why": ""
+   },
+   {
+    "rebuilt": 0,
+    "dq": 1,
+    "dw": 0,
+    "why": ""
+   },
+   {
+    "rebuilt": 0,
+    "dq": 1,
+    "dw": 0,
+    "why": ""
+   }
+  ]
+ },
+ {
+  "name": "v12.42.3 timing (phone): every book one unit press was put right in place: no whole-tab redraw on the pane, and the module counts it quick (0/1/0, 0/1/0, 0/1/0)",
+  "ok": true,
+  "detail": [
+   {
+    "rebuilt": 0,
+    "dq": 1,
+    "dw": 0,
+    "why": ""
+   },
+   {
+    "rebuilt": 0,
+    "dq": 1,
+    "dw": 0,
+    "why": ""
+   },
+   {
+    "rebuilt": 0,
+    "dq": 1,
+    "dw": 0,
+    "why": ""
+   }
+  ]
+ },
+ {
+  "name": "v12.42.3 timing (phone): every book this load press was put right in place: no whole-tab redraw on the pane, and the module counts it quick (0/1/0, 0/1/0, 0/1/0)",
+  "ok": true,
+  "detail": [
+   {
+    "rebuilt": 0,
+    "dq": 1,
+    "dw": 0,
+    "why": ""
+   },
+   {
+    "rebuilt": 0,
+    "dq": 1,
+    "dw": 0,
+    "why": ""
+   },
+   {
+    "rebuilt": 0,
+    "dq": 1,
+    "dw": 0,
+    "why": ""
+   }
+  ]
+ },
+ {
+  "name": "v12.42.3 timing (phone): the pane watch sees a whole-tab redraw when there is one (Picked up with Emptied draws the tab whole: 1, 1, 1)",
+  "ok": true,
+  "detail": {
+   "redraws": [
+    {
+     "rebuilt": 1,
+     "dq": 0,
+     "dw": 0,
+     "why": ""
+    },
+    {
+     "rebuilt": 1,
+     "dq": 0,
+     "dw": 0,
+     "why": ""
+    },
+    {
+     "rebuilt": 1,
+     "dq": 0,
+     "dw": 0,
+     "why": ""
+    }
+   ],
+   "needE": [
+    {
+     "key": "WC01",
+     "uid": "coates|1317644",
+     "stage": false
+    },
+    {
+     "key": "WC02",
+     "uid": "coates|1058086",
+     "stage": false
+    },
+    {
+     "key": "WC04",
+     "uid": "coates|1212502",
+     "stage": false
+    }
+   ]
+  }
+ },
+ {
+  "name": "v12.42.3 timing run: every write captured in the page (19 delivery documents), nothing reached the network, no page errors",
   "ok": true,
   "detail": {
    "sent": [
     "delivery/WC69",
     "delivery/GN18",
     "delivery/BJR01",
+    "delivery/SVP01",
     "delivery/T0162",
     "delivery/WC09",
     "delivery/WC10",
-    "delivery/WC29",
+    "delivery/WC61",
     "delivery/WC01",
     "delivery/WC67",
     "delivery/WC68",
@@ -2183,7 +2554,7 @@
    ],
    "counts": {
     "page": 1,
-    "live": 536,
+    "live": 511,
     "blocked": 0
    },
    "errors": []

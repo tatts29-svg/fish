@@ -1,39 +1,39 @@
 {
  "runs": {
   "not_ready": [
-   3940,
-   4509,
-   4202
+   4863,
+   3897,
+   4260
   ],
   "ready": [
-   3940,
-   4407,
-   4377
+   3873,
+   3808,
+   4422
   ],
   "book_one_unit": [
-   4117,
-   4160,
-   4251
+   4497,
+   4336,
+   4112
   ],
   "book_this_load": [
-   3662,
-   4164,
-   4356
+   4385,
+   4102,
+   4042
   ],
   "picked_up_with_emptied_save": [
-   7411,
-   6684,
-   7716
+   8757,
+   8898,
+   7467
   ],
   "capture": [
-   21
+   24
   ]
  },
  "bar": {
-  "not_ready": 9000,
-  "ready": 9000,
-  "book_one_unit": 9000,
-  "book_this_load": 9000,
+  "not_ready": 6000,
+  "ready": 6000,
+  "book_one_unit": 6000,
+  "book_this_load": 6000,
   "picked_up_with_emptied_save": 14000,
   "capture": 400
  },
@@ -44,5 +44,135 @@
   "book_this_load": 17500,
   "picked_up_with_emptied_save": 23300,
   "capture": 16400
+ },
+ "redraws": {
+  "not_ready": [
+   {
+    "rebuilt": 0,
+    "dq": 1,
+    "dw": 0,
+    "why": ""
+   },
+   {
+    "rebuilt": 0,
+    "dq": 1,
+    "dw": 0,
+    "why": ""
+   },
+   {
+    "rebuilt": 0,
+    "dq": 1,
+    "dw": 0,
+    "why": ""
+   }
+  ],
+  "ready": [
+   {
+    "rebuilt": 0,
+    "dq": 1,
+    "dw": 0,
+    "why": ""
+   },
+   {
+    "rebuilt": 0,
+    "dq": 1,
+    "dw": 0,
+    "why": ""
+   },
+   {
+    "rebuilt": 0,
+    "dq": 1,
+    "dw": 0,
+    "why": ""
+   }
+  ],
+  "book_one_unit": [
+   {
+    "rebuilt": 0,
+    "dq": 1,
+    "dw": 0,
+    "why": ""
+   },
+   {
+    "rebuilt": 0,
+    "dq": 1,
+    "dw": 0,
+    "why": ""
+   },
+   {
+    "rebuilt": 0,
+    "dq": 1,
+    "dw": 0,
+    "why": ""
+   }
+  ],
+  "book_this_load": [
+   {
+    "rebuilt": 0,
+    "dq": 1,
+    "dw": 0,
+    "why": ""
+   },
+   {
+    "rebuilt": 0,
+    "dq": 1,
+    "dw": 0,
+    "why": ""
+   },
+   {
+    "rebuilt": 0,
+    "dq": 1,
+    "dw": 0,
+    "why": ""
+   }
+  ],
+  "picked_up_with_emptied_save": [
+   {
+    "rebuilt": 1,
+    "dq": 0,
+    "dw": 0,
+    "why": ""
+   },
+   {
+    "rebuilt": 1,
+    "dq": 0,
+    "dw": 0,
+    "why": ""
+   },
+   {
+    "rebuilt": 1,
+    "dq": 0,
+    "dw": 0,
+    "why": ""
+   }
+  ]
+ },
+ "skipped": {},
+ "picked": {
+  "k": "WC69",
+  "u": "event-portables|0010",
+  "first": "not_ready",
+  "gk": "GN18",
+  "g": "coates|1261273",
+  "needE": [
+   {
+    "key": "WC01",
+    "uid": "coates|1317644",
+    "stage": false
+   },
+   {
+    "key": "WC02",
+    "uid": "coates|1058086",
+    "stage": false
+   },
+   {
+    "key": "WC04",
+    "uid": "coates|1212502",
+    "stage": false
+   }
+  ],
+  "d1": "2026-10-28",
+  "d2": "2026-10-29",
+  "trucks": 19
  }
 }
