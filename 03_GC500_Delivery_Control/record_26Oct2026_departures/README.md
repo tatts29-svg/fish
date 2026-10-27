@@ -288,3 +288,10 @@ node record_26Oct2026_departures/left_site.cjs --spec record_26Oct2026_departure
 - **Applied:** rehearsed at 11:22 as a dry run (passed, nothing sent); after 11:30, straight after the eighteenth run, a fresh dry run with 11:30 (passed), then applied 11:32 AEST: `left_site.cjs --spec left_site_spec_21_p25_1189408.json`, through the page's own Record departure form, in Andrew's name. Light in transit.
 - **Record:** version 11547 → 11548. 1 document acknowledged 200, verified on the service; every other document unchanged in value; P&L and branch totals unchanged. Backup kept private. Report `report_20261027T013211Z.json`.
 - **Read back fresh:** P25 in transit, one departure at 11:30 holding 1 x Building 4.8m 1189408 (the whole reference); 201 units ticked Ready before and after.
+
+## Twenty-second run: P66 Support Category Scrutineers 1327222 left 12:00, 27 Oct 2026 — APPLIED, VERIFIED
+
+- **What:** Andrew, 27 Oct 2026 (before 11:39 AEST): "1327222 leaving 12PM". 1327222 is P66's only unit (Support Category Scrutineers, Building 6m, Coates; ticked Ready by Andrew; read 11:39 AEST, not already left); the number was taken off P53 and P36 earlier, so P66 is the only reference holding it. P66 left in full at 12:00 AEST. Air conditioner 1372940, the fire extinguisher and fridge 131190 stay listed on P66 as gear that goes with it.
+- **Applied:** rehearsed at 11:39 as a dry run (passed, nothing sent); after 12:00 a fresh dry run with 12:00 (passed), then applied 12:01 AEST: `left_site.cjs --spec left_site_spec_22_p66_1327222.json`, through the page's own Record departure form, in Andrew's name. Light in transit.
+- **Record:** version 11548 → 11549. 1 document acknowledged 200, verified on the service; every other document unchanged in value; P&L and branch totals unchanged. Backup kept private. Report `report_20261027T020058Z.json`.
+- **Read back fresh:** P66 in transit, one departure at 12:00 holding 1 x Building 6m 1327222 (the whole reference); 201 units ticked Ready before and after.
