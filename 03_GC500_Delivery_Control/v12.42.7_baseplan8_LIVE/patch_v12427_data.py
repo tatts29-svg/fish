@@ -74,6 +74,11 @@ def main():
         if o and o.get('rate_held1029'):
             if r.get('rate_1') != o.get('rate_1'):
                 r['rate_1_keyed1029'] = r.get('rate_1'); r['rate_1'] = o.get('rate_1'); kept.append(f'{k[0]}/{k[1]}')
+    # WFB install and removal labour moved from the cancelled 9994996/1 to 9972648/19 at the same $7,700 (Price column);
+    # it charges as the old line did (Andrew, 28 Oct 2026: "If its on the contract lets do it")
+    wfb = [r for r in R['rows'] if str(r['rental_contract']) == '9972648' and int(r['line']) == 19]
+    assert len(wfb) == 1 and wfb[0]['item'] == 'LABOUR' and wfb[0]['price'] == 7700
+    wfb[0].update({'charge_line': True, 'family': 'installation', 'kind': 'installation', 'labour12427': 'WFB install and removal, moved from cancelled 9994996/1 (Baseplan (8))'})
     removed = [x for x in log['removed']]
     hist = R.get('source_history949') or {'rows': []}
     gone = [copy.deepcopy(oldrows[(x['line'].split('/')[0], int(x['line'].split('/')[1]))]) for x in removed]
