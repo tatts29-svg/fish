@@ -1,0 +1,8 @@
+{
+"by": "Andrew Fisher",
+"basis": "Andrew, 28 Oct 2026: \"0116 0692 0123 0426 0699 0622 0679 0293 0280 0070 0279 0592 0432 / Leaving 10am\". Eleven are Event Portables FWF units on the record: WC69 0692, 0123, 0622, 0679, 0070, 0592, 0432 (0152, 0078, 0010, 0958 and 0647 stay); WC71 0116, 0293, 0280, 0279 (0531, 0644, 0552 and 0490 stay). 0426 and 0699 are not on the record and are not recorded. Both locations were ticked Emptied on 26 Oct. Left site 28 Oct 2026 10:00 AEST.",
+"ops": [
+ {"op": "depart", "ref": "WC69", "at": "2026-10-28T10:00:00+10:00", "nos": ["0692", "0123", "0622", "0679", "0070", "0592", "0432"], "complete": false},
+ {"op": "depart", "ref": "WC71", "at": "2026-10-28T10:00:00+10:00", "nos": ["0116", "0293", "0280", "0279"], "complete": false}
+]
+}
