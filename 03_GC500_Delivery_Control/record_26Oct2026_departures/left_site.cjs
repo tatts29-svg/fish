@@ -275,24 +275,31 @@ function holdSender() {
   return true;
 }
 function releaseSender() { if (!window.__heldSend) throw new Error('sender was not held'); syncSend = window.__heldSend; delete window.__heldSend; syncSend(); return true; }
-function alignStartupQueue(serverDocs) {
+function alignStartupQueue({serverDocs, skip, allow}) {
   const canon = x => JSON.stringify((function sort(v) { return Array.isArray(v) ? v.map(sort) : v && typeof v === 'object' ? Object.fromEntries(Object.keys(v).sort().map(k => [k, sort(v[k])])) : v; })(x));
   if (!window.__heldSend || Object.keys(SYNC.inflight || {}).length) throw new Error('the sender is not held, or a write is already in flight');
   syncStage();
-  const restored = [], differing = [];
+  const restored = [], differing = [], dropped = [], kept = [];
   for (const [name, q] of Object.entries(SYNC.queue || {})) {
     if (!Object.keys(q).length) continue;
     const original = serverDocs[name] || {};
-    for (const [id, body] of Object.entries(q)) if (body === null || canon(body) !== canon(original[id])) differing.push(name + '/' + id);
-    if (differing.length) continue;
+    /* 27 Oct 2026: a delete the page queues on load for a document already deleted on the page (tombstone on the service,
+       named in skip) is not part of this run; it is taken out of this page's queue, never sent from here */
+    /* a delete named in the spec's allowRemove (Andrew's word) stays queued and goes with this run */
+    let keptHere = false;
+    for (const [id, body] of Object.entries(q)) {
+      if (body === null && allow.includes(name + '/' + id)) { kept.push(name + '/' + id); keptHere = true; continue; }
+      if (body === null && skip.includes(name + '/' + id)) { delete q[id]; dropped.push(name + '/' + id); continue; }
+      if (body === null || canon(body) !== canon(original[id])) differing.push(name + '/' + id); }
+    if (differing.length || keptHere || !Object.keys(q).length) continue;
     if (canon(toDocs(name)) !== canon(original)) { differing.push(name + ' (collection differs in value)'); continue; }
     SYNC_COLLS[name].set(fromDocs(name, JSON.parse(JSON.stringify(original)))); restored.push(name);
   }
   if (differing.length) throw new Error('startup queue holds real changes, not no-ops: ' + differing.join(', '));
   if (restored.length) { if (!persist() || SYNC.unkept) throw new Error('could not persist the realigned record'); syncStage(); }
-  const left = Object.entries(SYNC.queue || {}).filter(([, q]) => Object.keys(q).length).map(([n]) => n);
+  const left = Object.entries(SYNC.queue || {}).filter(([n, q]) => Object.keys(q).some(id => !kept.includes(n + '/' + id))).map(([n]) => n);
   if (left.length) throw new Error('queue still holds: ' + left.join(', '));
-  return {restored};
+  return {restored, dropped, kept};
 }
 function applyOps(spec) {
   const dry = !!spec.dry; /* a read-only run: the harness aborts every write, so the page is told it may edit */
@@ -719,8 +726,14 @@ function applyOps(spec) {
     log(`page live: level ${controls.level}, readonly ${controls.readonly}`);
     const pageBefore = await page.evaluate(pageSnapshot, {refs: REFS, qids: QIDS});
     const pageDocsBefore = await page.evaluate(pageDocs);
+    /* 27 Oct 2026: a document deleted on the page stays on the service with a tombstone in "deleted", and the page stops listing
+       it (Kyle Gover's 27 and 28 Oct labour lines, deleted 15:52-15:53). That is not somebody editing: such a document is left
+       out of both comparisons, and nothing is sent for it. */
+    const hidden = new Set();
+    for (const c of Object.keys(before.docs)) if (c !== 'deleted') for (const id of Object.keys(before.docs[c] || {})) if (before.docs[c][id] != null && (pageDocsBefore[c] || {})[id] == null && (before.docs.deleted || {})[id] != null) hidden.add(c + '/' + id);
+    if (hidden.size) log('deleted on the page already (tombstone on the service, not listed by the page), left as they are: ' + [...hidden].join(', '));
     const drift = [];
-    for (const c of new Set([...Object.keys(before.docs), ...Object.keys(pageDocsBefore)])) for (const id of new Set([...Object.keys(before.docs[c] || {}), ...Object.keys(pageDocsBefore[c] || {})])) if (!same((before.docs[c] || {})[id] ?? null, (pageDocsBefore[c] || {})[id] ?? null)) drift.push(c + '/' + id);
+    for (const c of new Set([...Object.keys(before.docs), ...Object.keys(pageDocsBefore)])) for (const id of new Set([...Object.keys(before.docs[c] || {}), ...Object.keys(pageDocsBefore[c] || {})])) if (!hidden.has(c + '/' + id) && !same((before.docs[c] || {})[id] ?? null, (pageDocsBefore[c] || {})[id] ?? null)) drift.push(c + '/' + id);
     if (drift.length) fail('the page record differs from the before snapshot (' + drift.length + '): ' + drift.slice(0, 8).join(', ') + ' - somebody is editing; try again');
     log('page record matches the before snapshot, document for document');
     for (const k of NEW_REFS) if (pageBefore.refs[k]) fail(k + ' already exists on the page - nothing applied');
@@ -728,7 +741,10 @@ function applyOps(spec) {
 
     if (applying) {
       if (!controls.level || controls.level !== 'edit' || controls.readonly) fail('the service did not grant edit on this link (level ' + controls.level + ')');
-      const aligned = await page.evaluate(alignStartupQueue, before.docs);
+      const allowGone = [...hidden].filter(k => (spec.allowRemove || []).includes(k));
+      const aligned = await page.evaluate(alignStartupQueue, {serverDocs: before.docs, skip: [...hidden].filter(k => !allowGone.includes(k)), allow: allowGone});
+      if (aligned.dropped.length) log('startup queue: left out of this run, not sent from here (deleted on the page already): ' + aligned.dropped.join(', '));
+      if (aligned.kept.length) log('startup queue: the page\'s own delete kept and sent with this run (named in the spec: ' + (spec.allowRemoveWhy || '') + '): ' + aligned.kept.join(', '));
       log(`startup queue clear${aligned.restored.length ? ' (key order realigned for ' + aligned.restored.join(', ') + ')' : ''}`);
       if (!same((await publicState()).docs, before.docs)) fail('the record changed while the page was loading - try again');
     } else {
@@ -782,8 +798,9 @@ function applyOps(spec) {
     const pageAfter = await page.evaluate(pageSnapshot, {refs: REFS, qids: QIDS});
     const pageDocsAfter = await page.evaluate(pageDocs);
     const changed = [];
-    for (const c of new Set([...Object.keys(before.docs), ...Object.keys(pageDocsAfter)])) for (const id of new Set([...Object.keys(before.docs[c] || {}), ...Object.keys(pageDocsAfter[c] || {})])) if (!same((before.docs[c] || {})[id] ?? null, (pageDocsAfter[c] || {})[id] ?? null)) changed.push(c + '/' + id);
+    for (const c of new Set([...Object.keys(before.docs), ...Object.keys(pageDocsAfter)])) for (const id of new Set([...Object.keys(before.docs[c] || {}), ...Object.keys(pageDocsAfter[c] || {})])) if (!hidden.has(c + '/' + id) && !same((before.docs[c] || {})[id] ?? null, (pageDocsAfter[c] || {})[id] ?? null)) changed.push(c + '/' + id);
     const outside = changed.filter(k => !allowed(k, pageDocsAfter[k.slice(0, k.indexOf('/'))][k.slice(k.indexOf('/') + 1)], pageDocsAfter));
+    for (const k of hidden) if ((spec.allowRemove || []).includes(k)) { expected.set(k, 'null'); log('plan removes ' + k + ' (deleted on the page already; named in the spec: ' + (spec.allowRemoveWhy || '') + ')'); }
     log(`documents changed on the page: ${changed.length} (${changed.join(', ')})`);
     if (outside.length) fail('the stage changed documents outside the plan: ' + outside.join(', ') + ' - nothing sent');
     for (const k of changed) { const c = k.slice(0, k.indexOf('/')), id = k.slice(k.indexOf('/') + 1);
