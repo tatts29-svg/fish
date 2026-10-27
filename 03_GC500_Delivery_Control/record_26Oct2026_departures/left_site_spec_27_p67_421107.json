@@ -1,0 +1,7 @@
+{
+  "by": "Andrew Fisher",
+  "basis": "Andrew, 27 Oct 2026 (13:5x AEST): \"421107 leaving at 230pm\". 421107 is P67's only unit (Building 6m, Coates; ticked Ready by Andrew; read 13:55 AEST, not already left, no booking), so P67 left in full at 14:30 AEST. Its air conditioner 1300541 and fire extinguisher stay listed on P67 as gear that goes with it. Recorded after 14:30, as a departure is only recorded once its time has come.",
+  "ops": [
+    {"op": "depart", "ref": "P67", "at": "2026-10-27T14:30:00+10:00", "nos": ["421107"], "complete": true}
+  ]
+}
