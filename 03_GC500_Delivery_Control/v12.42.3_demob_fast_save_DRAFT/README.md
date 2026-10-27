@@ -1,7 +1,7 @@
-# v12.42.3: Demob saves quicker — DRAFT
+# v12.42.3: Demob saves quicker — READY, UPLOADING
 
 Author: Andrew Fisher · 27 Oct 2026 · a point release on live v12.42.2 (truck loads from what is Ready, `c83f1a27…`).
-**DRAFT: built and tested locally (desktop and 4x phone), measured before and after, review findings fixed (see "The review"). Candidate `81cacbcf…`. Not uploaded.**
+**READY 27 Oct 2026 12:30 AEST: `toolchain/build.sh v12.42.3` on the live v12.42.2 (`c83f1a27…`, fetched 12:27) gives `81cacbcf…`, byte for byte the candidate every check below ran on. Uploading on Andrew's request ("Delay when saving in demob can we make this quicker").**
 
 Andrew, 27 Oct 2026, on site at the Coates GC500 demob: "Delay when saving in demob can we make this quicker".
 
@@ -134,7 +134,7 @@ The candidate is built from a copy of live v12.42.2 (`c83f1a27…`) by `patch_v1
 - A phone screenshot of a Ready press (WC31 16 Pan block 74) shows the lamp lit and the flash "WC31 ready for collection - recorded by Example test recorder."
 - **Two v12.42.2 checks were changed earlier in this draft, because the live record changed under them** (Andrew's own bookings from site). Both assumed GN18's test booking was the only booking on the record; the booked pick-ups list and today's list are checked with those bookings counted. Nothing else in the v12.42.2 tests was changed, apart from the release name.
 
-Not done: no upload. Andrew's go is needed, and the note on the shared-path change (Persistence1010) goes on the board first.
+Build: `toolchain/build.sh v12.42.3 v12.42.3_demob_fast_save_DRAFT/patch_v12423.py` at 12:27 AEST fetched the live page (15,800,103 bytes, `c83f1a27…`), applied the patch, scrubbed and passed `check_page.py` (214 inline scripts, 15,816,306 bytes): sha256 `81cacbcf24551cb5ed5178fa59601b7577da47af0e0a7b29b11bed343fb3e57f`, the tested candidate byte for byte. The note on the shared-path change (Persistence1010) is on STATUS.md for the v12.43 build.
 
 ## The review (27 Oct 2026) and what was done with each finding
 
