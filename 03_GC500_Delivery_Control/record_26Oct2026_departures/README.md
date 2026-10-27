@@ -392,3 +392,7 @@ node record_26Oct2026_departures/left_site.cjs --spec record_26Oct2026_departure
 ## Thirty-seventh run: Premiair boards and the container on their sub-hire branches, 27 Oct 2026 — APPLIED, VERIFIED
 
 Spec `left_site_spec_37_pl_branches.json`. Andrew: "move the P&L, don't recode", then "Do 1. 2 3". Through the page's setBranch: VMS-01 and VMS-02 to KINP, VMS-03 to NVAC, T0266 to STPS. Record 11621 → 11630, 9 documents, every op held on the service. The runner also gained a `hire_start` op (setHireStart); it was not needed, because WB03's contract line already starts 18 Sep 2026. The VMS lines on the shared references move in the P&L by v12.42.6.
+
+## Thirty-eighth run: WC60 block 1087500 cleaning, 28 Oct 2026 — APPLIED, VERIFIED
+
+Spec `left_site_spec_38_wc60_cleaning.json`. Andrew: "can we make our ticks match baseplan" (toilet blocks 15 × $707.88). WC60's block 1087500 had install, steps, levelling and demob but no cleaning; ticked through the page's labour control (unit given as the plain number, 1087500). Record 11631 → 11633, 2 documents, verified. Toilet-block labour now $10,618.20 = Baseplan.
