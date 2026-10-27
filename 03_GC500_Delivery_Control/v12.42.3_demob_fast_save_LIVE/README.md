@@ -1,7 +1,7 @@
-# v12.42.3: Demob saves quicker — READY, UPLOADING
+# v12.42.3: Demob saves quicker — LIVE 27 Oct 2026 12:29 AEST
 
 Author: Andrew Fisher · 27 Oct 2026 · a point release on live v12.42.2 (truck loads from what is Ready, `c83f1a27…`).
-**READY 27 Oct 2026 12:30 AEST: `toolchain/build.sh v12.42.3` on the live v12.42.2 (`c83f1a27…`, fetched 12:27) gives `81cacbcf…`, byte for byte the candidate every check below ran on. Uploading on Andrew's request ("Delay when saving in demob can we make this quicker").**
+**LIVE 27 Oct 2026 12:29 AEST: sha256 `81cacbcf24551cb5ed5178fa59601b7577da47af0e0a7b29b11bed343fb3e57f`, 15,816,306 bytes, built by `toolchain/build.sh` on live v12.42.2 (`c83f1a27…`), byte for byte the candidate every check ran on. Live tests 105/105 desktop and 105/105 phone (see Live).**
 
 Andrew, 27 Oct 2026, on site at the Coates GC500 demob: "Delay when saving in demob can we make this quicker".
 
@@ -135,6 +135,24 @@ The candidate is built from a copy of live v12.42.2 (`c83f1a27…`) by `patch_v1
 - **Two v12.42.2 checks were changed earlier in this draft, because the live record changed under them** (Andrew's own bookings from site). Both assumed GN18's test booking was the only booking on the record; the booked pick-ups list and today's list are checked with those bookings counted. Nothing else in the v12.42.2 tests was changed, apart from the release name.
 
 Build: `toolchain/build.sh v12.42.3 v12.42.3_demob_fast_save_DRAFT/patch_v12423.py` at 12:27 AEST fetched the live page (15,800,103 bytes, `c83f1a27…`), applied the patch, scrubbed and passed `check_page.py` (214 inline scripts, 15,816,306 bytes): sha256 `81cacbcf24551cb5ed5178fa59601b7577da47af0e0a7b29b11bed343fb3e57f`, the tested candidate byte for byte. The note on the shared-path change (Persistence1010) is on STATUS.md for the v12.43 build.
+
+## Live
+
+- **Upload:** `toolchain/upload_page.py` at 12:29 AEST 27 Oct 2026 proved the view link serves the build byte for byte (15,816,306 bytes, sha256 `81cacbcf…`); a fresh `toolchain/fetch_live.sh` matched the build with `cmp`. The dry run before it confirmed the live page had not changed since the build started.
+- **Live tests:** `tests/test_v12423.cjs` on the fetched live page, at the live address, reading the live record, GET only: desktop **105/105**, phone (CPU 4x) **105/105**; every write captured in the page (19 delivery documents), nothing reached the network, no page errors. Every quick press put right in place (12 of 12 on each device).
+- **Timings on the live page** (median of 3, press to the change on screen; before is live v12.42.2):
+
+| Press | Desktop before → live | Phone (CPU 4x) before → live |
+|---|---|---|
+| Not ready | 9.13 s → **0.83 s** | 28.8 s → **4.57 s** |
+| Ready | 7.30 s → **0.78 s** | 29.3 s → **4.10 s** |
+| Book pick-up, one unit | 5.62 s → **1.08 s** | 20.8 s → **4.14 s** |
+| Book this load | 4.48 s → **0.77 s** | 17.5 s → **4.17 s** |
+| Picked up that first records Emptied (draws the whole tab) | 5.20 s → **1.56 s** | 23.3 s → **7.43 s** |
+| Keep-your-place on its own | 4.2 s → **6 ms** | 16.4 s → **24 ms** |
+
+- Evidence: `evidence/test_v12423_live_{desktop,phone}_{checks,summary,timings}.json`. The record was not written by the release; record runs 13-22 (the morning's pick-ups) were applied on Andrew's word through the page's own forms, separately.
+- A page opened before 12:29 keeps the old, slow saves until it is refreshed; the server v5.94 guard keeps its Ready and booking fields safe either way.
 
 ## The review (27 Oct 2026) and what was done with each finding
 
