@@ -5,7 +5,7 @@ Labour, install, pump-out, cleaning and accommodation are charged on the page fr
 not line by line on the contract, so those lines show $0 on the page here; the totals are compared at the bottom.
 
 ## Match to the cent, nothing to do
-9968862 KINP buildings (all 85 lines incl. labour, PM half, accommodation; v12.42.13–15) · 9968955 KINP toilets (hire, pump-outs, tanks, sewer-connect, labour, PM half, event toilets, accommodation; v12.42.13–16, run 38) · 9987005 MEAD (v12.42.12) · 9973977 KINP (T0243: block $2,476.85; install, steps, levelling, cleaning, demob ticked $707.88 = line 2; transport $1,000) · 10000506 KINP (toilet paper, hand towel) · 9974042 KINP · 9997710 STPS (fence, shade cloth) · 9997711 KINP (FR01/FR02) · 9968929 KINP ($0, team buildings) · 10000523 KINP (water and second site shift charged, v12.42.18) · 10000484 + 10000475 scrim rolls (v12.42.20) · 9994954/19 pee panels $4,033.02 (v12.42.19)
+9968862 KINP buildings (all 85 lines incl. labour, PM half, accommodation; v12.42.13–15) · 9968955 KINP toilets (hire, pump-outs, tanks, sewer-connect, labour, PM half, event toilets, accommodation; v12.42.13–16, run 38) · 9987005 MEAD (v12.42.12) · 9973977 KINP (T0243: block $2,476.85; install, steps, levelling, cleaning, demob ticked $707.88 = line 2; transport $1,000) · 10000506 KINP (toilet paper, hand towel) · 9974042 KINP · 9997710 STPS (fence, shade cloth) · 9997711 KINP (FR01/FR02) · 9968929 KINP ($0, team buildings) · 10000523 KINP (water and second site shift charged, v12.42.18) · 10000484 + 10000475 scrim rolls (v12.42.20) · 9994954 KINP all 26 lines (GN26/27 and sync labour v12.42.21, pee panels v12.42.19)
 
 ## Branch to fix in Baseplan
 | Contract | Line(s) | Fix | Money on Baseplan |
@@ -22,7 +22,6 @@ not line by line on the contract, so those lines show $0 on the page here; the t
 | 9961265 STPS | 43 VMS05a | Baseplan bills 2 days; our record 6 | ours +$214.44 |
 | 9961265 STPS | 1, 16, 31 | Baseplan one day longer than our record | ours −$160.83 |
 | 9961976 NVAC | generators + light towers | Baseplan's prebill is one billing week at the keyed rate; our page uses the card rate over the hire (agreed) — rates to agree with NVAC | see below |
-| 9994954 KINP | 10–11 GN26/27 | Prebill is one week; our page charges 12–26 Oct at this contract's rate | ours +$8,354.50 |
 | 9994954 KINP | 19–20 pee panels | Andrew 28 Oct: pee panels go on 9994954. Keep them here; page charges them once (WC09) | none |
 | 9992300 MEAD | 12 boom 1286482 | Done: page bills Baseplan dates 21–27 Oct, $2,176.65 (v12.42.10) | matches |
 | 9987005 MEAD | 1 forklift 5.0t | Done: page set to Baseplan 5–28 Oct, $3,600 (v12.42.12); contract matches | matches |
