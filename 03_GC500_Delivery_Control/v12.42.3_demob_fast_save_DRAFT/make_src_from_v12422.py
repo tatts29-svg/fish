@@ -133,11 +133,12 @@ let MEMO = {M: null, at: 0, v: -1, model: null}, VER = 0;
    model took 7.6 s on a 4x-throttled phone, inside 0.55 s) */
 const planHeld = () => { try { return typeof RENDER_MEMO !== 'undefined' && RENDER_MEMO instanceof Map && RENDER_MEMO.has('demob816'); } catch (x) { return false; } };
 /* the model was found good, or built, during the script now running (a tap and the save it makes run as one piece of script, so nothing
-   from outside can change the record in between); the mark goes as soon as that script ends */
+   from outside can change the record in between: a save inside it bumps VER or empties the drawing memo, and either builds the model
+   again). While the mark stands the model is not built again for its age alone; the mark goes as soon as that script ends */
 let CHECKED = false;
 const checked = () => { if (CHECKED) return; CHECKED = true; const off = () => { CHECKED = false; }; try { queueMicrotask(off); } catch (x) { Promise.resolve().then(off); } };
 function model() {
- if (MEMO.model && MEMO.v === VER && Date.now() - MEMO.at < 4000 && planHeld()) { let M = null; try { M = demob816(); } catch (x) { M = null; } if (MEMO.M === M) { checked(); return MEMO.model; } }
+ if (MEMO.model && MEMO.v === VER && (Date.now() - MEMO.at < 4000 || CHECKED) && planHeld()) { let M = null; try { M = demob816(); } catch (x) { M = null; } if (MEMO.M === M) { checked(); return MEMO.model; } }
  const m = hold(buildModel); checked(); return m;
 }
 function buildModel() {
