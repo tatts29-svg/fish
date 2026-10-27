@@ -587,11 +587,12 @@ const {open} = require('../../toolchain/harness/open_page');
       const top = Math.min(45, dl0.scrollHeight - dl0.clientHeight);
       /* a list never scrolled: back to the top, then the tab drawn whole again without keep-your-place, so its element is a new one */
       const freshList = async () => { const x = find(); if (x) x.scrollTop = 0; await wait(300); RENDER_MEMO.delete('demob816'); renderDemob816(); await wait(300); return find(); };
-      const d1 = await freshList(); d1.scrollTop = top; Persistence1010.noted(d1); bump(); await wait(500); const a = find();
+      /* read straight after the save, in the same piece of script, so a record arriving from the store just then (and its own redraw) cannot muddle it */
+      const d1 = await freshList(); d1.scrollTop = top; Persistence1010.noted(d1); bump(); const a = find(), at = a ? a.scrollTop : null; await wait(500); const later = find();
       /* for the record only (not checked): the same without noted(), the limit the contract describes */
-      const d2 = await freshList(); d2.scrollTop = top; bump(); await wait(500); const b = find();
+      const d2 = await freshList(); d2.scrollTop = top; bump(); const b = find(), bt = b ? b.scrollTop : null; await wait(300);
       try { const x = find(); if (x) x.scrollTop = 0; } catch (e) {}
-      return {day, top, after: a ? a.scrollTop : null, fresh: a !== d1, without: b ? b.scrollTop : null, api: typeof Persistence1010.noted === 'function'}; });
+      return {day, top, after: at, fresh: a !== d1, later: later ? later.scrollTop : null, without: bt, api: typeof Persistence1010.noted === 'function'}; });
     check('v12.42.3: Persistence1010.noted(el): an inner scroller moved by a script and saved in the same moment keeps its place on a save that draws the tab whole' + (KN.none ? ' (SKIPPED: no day card list long enough to scroll)' : ''), KN.none || (KN.api && KN.fresh && KN.after === KN.top && KN.top > 0), KN);
     /* the model: built outside a drawing (as a light or the sheet asks for it once its 4 s have passed) it builds the asset list once, in the hold; straight after, it is reused */
     const MH = await p.evaluate(async () => { await new Promise(r => setTimeout(r, 4300)); const f = window.buildAllAssets; let n = 0, n2 = 0, ms = 0, same = false; window.buildAllAssets = function () { n++; return f.apply(this, arguments); };

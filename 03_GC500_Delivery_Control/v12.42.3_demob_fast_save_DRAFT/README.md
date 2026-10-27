@@ -160,8 +160,8 @@ v12.42.3 changes Persistence1010, which runs on every tab (the `bump()` wrapper,
 
 - `make_src_from_v12422.py`: makes `singles1238_src.js` from `v12.42.2_demob_loads_LIVE/singles1238_src.js` (REL `v12.42.3`).
 - `singles1238_src.js`: the generated module.
-- `patch_v12423.py`: on the verified live v12.42.2 page (`c83f1a27…`), replaces the cards module, makes the Persistence1010 change and sets the footer to v12.42.3. It refuses any other base and refuses to run twice.
-- `tests/test_v12423.cjs`: the v12.42.2 tests kept whole (release name updated), then Part C (quick saves, keep-your-place, the model) and Part D (timings in a fresh page; a phone run slows the CPU 4x).
+- `patch_v12423.py`: on the verified live v12.42.2 page (`c83f1a27…`), replaces the cards module, makes the Persistence1010 change (with `noted(el)`), makes `setEmptied816` and `Ready1231`'s `setReady` read `bump.kept`, and sets the footer to v12.42.3. It refuses any other base and refuses to run twice.
+- `tests/test_v12423.cjs`: the v12.42.2 tests kept whole (release name updated), then Part C (quick saves, keep-your-place, the model, and the review's checks) and Part D (timings in a fresh page, each quick press shown to be put right in place; a phone run slows the CPU 4x).
   - `PAGE=<build> OUT=<dir> [MOB=1] node test_v12423.cjs`
   - `TIMING=0` skips Part D.
 - `tests/profile_saves.cjs`: the measurement script, unchanged from the v12.42.2 measurement. `PAGE=<page> OUT=<result.json> [MOB=1] [REPS=3] node profile_saves.cjs`; one Chromium at a time.
