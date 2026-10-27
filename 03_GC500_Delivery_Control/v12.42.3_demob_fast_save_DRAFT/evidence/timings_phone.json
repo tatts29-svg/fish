@@ -1,0 +1,48 @@
+{
+ "runs": {
+  "not_ready": [
+   3940,
+   4509,
+   4202
+  ],
+  "ready": [
+   3940,
+   4407,
+   4377
+  ],
+  "book_one_unit": [
+   4117,
+   4160,
+   4251
+  ],
+  "book_this_load": [
+   3662,
+   4164,
+   4356
+  ],
+  "picked_up_with_emptied_save": [
+   7411,
+   6684,
+   7716
+  ],
+  "capture": [
+   21
+  ]
+ },
+ "bar": {
+  "not_ready": 9000,
+  "ready": 9000,
+  "book_one_unit": 9000,
+  "book_this_load": 9000,
+  "picked_up_with_emptied_save": 14000,
+  "capture": 400
+ },
+ "was": {
+  "not_ready": 28800,
+  "ready": 29300,
+  "book_one_unit": 20800,
+  "book_this_load": 17500,
+  "picked_up_with_emptied_save": 23300,
+  "capture": 16400
+ }
+}

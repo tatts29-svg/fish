@@ -1,0 +1,523 @@
+{
+ "author": "Andrew Fisher",
+ "before": "live v12.42.2 c83f1a27\u2026",
+ "after": "v12.42.3 candidate",
+ "devices": {
+  "desktop": {
+   "before_sha": "c83f1a27a3995852437afe4890bf4dd43d253aecb3128baa52b12a61d9b704ba",
+   "after_sha": "ab286a242f08acbdac877eb37659340669bde6701815ac52df5a40cc9de3cb8d",
+   "actions": {
+    "not_ready": {
+     "visPainted": [
+      9127.5,
+      1025.4
+     ],
+     "flashPainted": [
+      9127.5,
+      1025.4
+     ],
+     "clickTaskEnd": [
+      9101.6,
+      1008.4
+     ],
+     "idle": [
+      9934.5,
+      2309.6
+     ],
+     "ltMax": [
+      8785,
+      944
+     ],
+     "inputDelay": [
+      119.2,
+      86.5
+     ],
+     "busyMsProfile": [
+      11135.4,
+      3670
+     ],
+     "runsAfter": [
+      765.4,
+      1025.4,
+      1378.4
+     ]
+    },
+    "ready": {
+     "visPainted": [
+      7296.3,
+      887
+     ],
+     "flashPainted": [
+      7296.3,
+      887.1
+     ],
+     "clickTaskEnd": [
+      7268.4,
+      865.3
+     ],
+     "idle": [
+      8278.7,
+      1509.6
+     ],
+     "ltMax": [
+      6995,
+      797
+     ],
+     "inputDelay": [
+      117.1,
+      97.6
+     ],
+     "busyMsProfile": [
+      10081.1,
+      3249
+     ],
+     "runsAfter": [
+      920.1,
+      887,
+      860
+     ]
+    },
+    "book_one_unit": {
+     "visPainted": [
+      5618.4,
+      1175.4
+     ],
+     "flashPainted": [
+      5618.5,
+      1175.5
+     ],
+     "clickTaskEnd": [
+      5587.8,
+      1158.5
+     ],
+     "idle": [
+      6334.5,
+      1635.7
+     ],
+     "ltMax": [
+      5389,
+      945
+     ],
+     "inputDelay": [
+      76.8,
+      77.3
+     ],
+     "busyMsProfile": [
+      7741.6,
+      3714.8
+     ],
+     "runsAfter": [
+      1175.4,
+      1044.5,
+      1806.9
+     ]
+    },
+    "book_this_load": {
+     "visPainted": [
+      4475.3,
+      827.8
+     ],
+     "flashPainted": [
+      4475.3,
+      827.8
+     ],
+     "clickTaskEnd": [
+      4453.2,
+      808.7
+     ],
+     "idle": [
+      5125.8,
+      1056.7
+     ],
+     "ltMax": [
+      4361,
+      734
+     ],
+     "inputDelay": [
+      48.3,
+      46.7
+     ],
+     "busyMsProfile": [
+      5973.8,
+      3232.8
+     ],
+     "runsAfter": [
+      873.6,
+      827.8,
+      787.5
+     ]
+    },
+    "picked_up_form": {
+     "visPainted": [
+      331.1,
+      407.2
+     ],
+     "flashPainted": [
+      null,
+      null
+     ],
+     "clickTaskEnd": [
+      330.7,
+      406.9
+     ],
+     "idle": [
+      621.8,
+      625.1
+     ],
+     "ltMax": [
+      331,
+      367
+     ],
+     "inputDelay": [
+      92.3,
+      132.4
+     ],
+     "busyMsProfile": [
+      3364.1,
+      2181.5
+     ],
+     "runsAfter": [
+      312.6,
+      511.2,
+      407.2
+     ]
+    },
+    "picked_up_with_emptied_save": {
+     "visPainted": [
+      5196.3,
+      1907.5
+     ],
+     "flashPainted": [
+      5196.3,
+      1907.5
+     ],
+     "clickTaskEnd": [
+      5117.6,
+      1879.8
+     ],
+     "idle": [
+      6501.4,
+      2649.5
+     ],
+     "ltMax": [
+      4816,
+      1562
+     ],
+     "inputDelay": [
+      122.1,
+      139.9
+     ],
+     "busyMsProfile": [
+      7373.8,
+      4058.1
+     ],
+     "runsAfter": [
+      1926.9,
+      1759.9,
+      1907.5
+     ]
+    }
+   },
+   "direct": {
+    "bump() alone (save + render + drawer)": [
+     2420.7,
+     965.8
+    ],
+    "render() (the page render, Demob showing)": [
+     510.9,
+     505.8
+    ],
+    "save() (persist + tabs + footer + sync stage)": [
+     496.2,
+     449.4
+    ],
+    "renderDemob816() (the Demob re-render alone)": [
+     293,
+     286
+    ],
+    "Singles1238.model() cold (demob816 fresh), in a hold": [
+     127.6,
+     139.7
+    ]
+   },
+   "writesBlocked": [
+    0,
+    0
+   ],
+   "pageErrors": [
+    [],
+    []
+   ],
+   "baselineLongTasks10s": [
+    354,
+    499
+   ],
+   "buildAllAssetsPerReady": [
+    183,
+    9
+   ],
+   "paneRebuildsPerReady": [
+    1,
+    0
+   ]
+  },
+  "phone": {
+   "before_sha": "c83f1a27a3995852437afe4890bf4dd43d253aecb3128baa52b12a61d9b704ba",
+   "after_sha": "ab286a242f08acbdac877eb37659340669bde6701815ac52df5a40cc9de3cb8d",
+   "actions": {
+    "not_ready": {
+     "visPainted": [
+      28844.2,
+      4225.3
+     ],
+     "flashPainted": [
+      28844.2,
+      4225.6
+     ],
+     "clickTaskEnd": [
+      28760.5,
+      4141.6
+     ],
+     "idle": [
+      31039.2,
+      7210.7
+     ],
+     "ltMax": [
+      27325,
+      3244
+     ],
+     "inputDelay": [
+      417.1,
+      410.7
+     ],
+     "busyMsProfile": [
+      37930.1,
+      13123.2
+     ],
+     "runsAfter": [
+      4313.2,
+      4048.6,
+      4225.3
+     ]
+    },
+    "ready": {
+     "visPainted": [
+      29295.2,
+      4036.9
+     ],
+     "flashPainted": [
+      29295.2,
+      4036.9
+     ],
+     "clickTaskEnd": [
+      29097.2,
+      3956.6
+     ],
+     "idle": [
+      32318.6,
+      6964.2
+     ],
+     "ltMax": [
+      27744,
+      3244
+     ],
+     "inputDelay": [
+      371.6,
+      333.6
+     ],
+     "busyMsProfile": [
+      35455.3,
+      15422.7
+     ],
+     "runsAfter": [
+      4036.9,
+      4226,
+      3649.2
+     ]
+    },
+    "book_one_unit": {
+     "visPainted": [
+      20757,
+      4469.4
+     ],
+     "flashPainted": [
+      20799.8,
+      4469.4
+     ],
+     "clickTaskEnd": [
+      20488.9,
+      4431.7
+     ],
+     "idle": [
+      24017.8,
+      7788.5
+     ],
+     "ltMax": [
+      20104,
+      4353
+     ],
+     "inputDelay": [
+      446.3,
+      289.9
+     ],
+     "busyMsProfile": [
+      32279.5,
+      14579.4
+     ],
+     "runsAfter": [
+      5313,
+      4469.4,
+      4442.5
+     ]
+    },
+    "book_this_load": {
+     "visPainted": [
+      17540.2,
+      4409
+     ],
+     "flashPainted": [
+      17540.2,
+      4409
+     ],
+     "clickTaskEnd": [
+      17443.1,
+      4334.4
+     ],
+     "idle": [
+      19812.3,
+      6972.5
+     ],
+     "ltMax": [
+      16173,
+      4250
+     ],
+     "inputDelay": [
+      261.5,
+      257.2
+     ],
+     "busyMsProfile": [
+      24365.3,
+      10710.4
+     ],
+     "runsAfter": [
+      4349.4,
+      4477.1,
+      4409
+     ]
+    },
+    "picked_up_form": {
+     "visPainted": [
+      1340.1,
+      1152
+     ],
+     "flashPainted": [
+      null,
+      null
+     ],
+     "clickTaskEnd": [
+      1337.3,
+      1151.6
+     ],
+     "idle": [
+      4156,
+      4430
+     ],
+     "ltMax": [
+      1527,
+      1340
+     ],
+     "inputDelay": [
+      380.5,
+      343.9
+     ],
+     "busyMsProfile": [
+      9283.4,
+      8641
+     ],
+     "runsAfter": [
+      1364.4,
+      1120.5,
+      1152
+     ]
+    },
+    "picked_up_with_emptied_save": {
+     "visPainted": [
+      23312,
+      8588.9
+     ],
+     "flashPainted": [
+      23312.4,
+      8588.9
+     ],
+     "clickTaskEnd": [
+      23152.6,
+      8489.5
+     ],
+     "idle": [
+      54861.2,
+      10841.1
+     ],
+     "ltMax": [
+      23088,
+      8309
+     ],
+     "inputDelay": [
+      384.7,
+      386.6
+     ],
+     "busyMsProfile": [
+      54843.8,
+      14787.7
+     ],
+     "runsAfter": [
+      8741.6,
+      8588.9,
+      8509.1
+     ]
+    }
+   },
+   "direct": {
+    "bump() alone (save + render + drawer)": [
+     11418.8,
+     5006.6
+    ],
+    "render() (the page render, Demob showing)": [
+     2563.5,
+     2867.5
+    ],
+    "save() (persist + tabs + footer + sync stage)": [
+     2133.5,
+     2427.3
+    ],
+    "renderDemob816() (the Demob re-render alone)": [
+     1975,
+     1656
+    ],
+    "Singles1238.model() cold (demob816 fresh), in a hold": [
+     613.9,
+     628.7
+    ]
+   },
+   "writesBlocked": [
+    0,
+    0
+   ],
+   "pageErrors": [
+    [],
+    []
+   ],
+   "baselineLongTasks10s": [
+    3564,
+    3190
+   ],
+   "buildAllAssetsPerReady": [
+    47,
+    11
+   ],
+   "paneRebuildsPerReady": [
+    1,
+    0
+   ]
+  }
+ }
+}

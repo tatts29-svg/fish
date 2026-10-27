@@ -1,7 +1,7 @@
 # v12.42.3: Demob saves quicker — DRAFT
 
 Author: Andrew Fisher · 27 Oct 2026 · a point release on live v12.42.2 (truck loads from what is Ready, `c83f1a27…`).
-**DRAFT: build in progress, tested locally only. Not uploaded.**
+**DRAFT: built and tested locally (desktop and 4x phone), measured before and after. Not uploaded.**
 
 Andrew, 27 Oct 2026, on site at the Coates GC500 demob: "Delay when saving in demob can we make this quicker".
 
@@ -25,7 +25,7 @@ Times are medians from the press to the change on screen (401 cards, about 34,40
 
 ## What changed
 
-### 1. Keep-your-place reads only what has scrolled (shared save path: for Codex)
+### 1. Keep-your-place reads only what has scrolled (shared save path: to be reviewed by whoever owns it)
 
 Persistence1010 `capture()` (`patch_v12423.py`, three exact replacements):
 
@@ -71,7 +71,22 @@ The test checks the new list against reading every element, with the day strip, 
 
 ## Before and after (medians, live record, sync held, writes captured in the page)
 
-RESULTS_TABLE
+Measured with the same script as the v12.42.2 measurement (`profile_saves.cjs`), on the same live record, sync held in the page. Before is live v12.42.2 (`c83f1a27…`). After is the v12.42.3 candidate (`ab286a24…`, built from the live v12.42.2 copy by `patch_v12423.py`). Each figure is the median of 3 presses, from the press to the frame after the change was drawn, then to the page idle again. The phone is headless Chromium at 390 x 844 with the CPU slowed 4x (a mid phone), so treat its absolute times as a guide.
+
+| Press | Desktop before → after (on screen / idle) | Phone before → after (on screen / idle) |
+|---|---|---|
+| Not ready (WC69 Event Portables unit 0010) | 9.13 s / 9.93 s → **1.03 s** / 2.31 s | 28.84 s / 31.04 s → **4.23 s** / 7.21 s |
+| Ready (same unit) | 7.30 s / 8.28 s → **0.89 s** / 1.51 s | 29.30 s / 32.32 s → **4.04 s** / 6.96 s |
+| Book pick-up, one unit (GN18), Save | 5.62 s / 6.33 s → **1.18 s** / 1.64 s | 20.76 s / 24.02 s → **4.47 s** / 7.79 s |
+| Book this load (unbooked truck), Save | 4.48 s / 5.13 s → **0.83 s** / 1.06 s | 17.54 s / 19.81 s → **4.41 s** / 6.97 s |
+| Picked up, reference already Emptied: form shown (no save) | 0.33 s / 0.62 s → **0.41 s** / 0.63 s | 1.34 s / 4.16 s → **1.15 s** / 4.43 s |
+| Picked up that first records Emptied (a save) | 5.20 s / 6.50 s → **1.91 s** / 2.65 s | 23.31 s / 54.86 s → **8.59 s** / 10.84 s |
+
+- **The long task behind a press** (the longest stretch the page cannot respond): desktop 7.0 s to 0.8 s on Ready; phone 27.7 s to 3.2 s.
+- **Asset-list builds per Ready press:** desktop 183 to 9; phone 47 to 11.
+- **Whole-tab redraws per quick save:** 1 to 0. Every quick save leaves the tab identical to a whole redraw done straight after (tests, Part C).
+- **Keep-your-place on its own:** desktop 4.2 s to 7 ms; phone 16.4 s to 21 ms.
+- **The time before a tap is handled at all** is unchanged: 0.05 to 0.14 s on a desktop and 0.26 to 0.45 s on the phone. That comes from the page's background work (below).
 
 ## Still slow, and why it was left
 
@@ -79,17 +94,28 @@ What is left in a quick save on the phone is mostly the page's shared save and d
 
 - **`save()`, about 0.23 s on a desktop and 1.0 s on the phone.** That covers `renderTabs`, the `syncFooter` wrappers (staff988's `mountDemob` builds the day's plan again, now inside the hold) and `syncStage`/`syncPush`. `persist()` itself is only 0.02 s (desktop) and 0.1 s (phone).
 - **The page's `render()` wrappers above the Demob tab, about 0.2 s on a desktop and 0.8 s on the phone.** These are other modules' wrappers (Drops911, SelectionSave1012, DayRefresh1103, v8.92), plus `renderPass`'s own extras (hzTodayPod, financeOperational857, applyCapability and the fold passes).
-- **After the change is on screen, v12.36's `after()` runs again on the next frame.** Its watcher sees today's day card figure change. Its `titles()` asks `Singles1238.count()`, which builds the model again whenever the page has emptied its drawing memo in between: 0.25 s on a desktop and about 1 s on the phone. This lengthens the time until the page is idle, not the time until the change shows.
-- **Saves that still draw the whole tab** only get the keep-your-place and hold savings. These are Emptied (Picked up that first records Emptied), the departure form, a reference's own Ready tick (the group cards) and remote changes arriving on the sync. Picked up with Emptied: desktop 5.2 s to 2.0 s, phone 23.3 s to about 9 s.
+- **After the change is on screen, v12.36's `after()` runs again on the next frame.** Its watcher sees today's day card figure change. Its `titles()` asks `Singles1238.count()`, which builds the model again whenever the page has emptied its drawing memo in between: 0.25 s on a desktop and 1 s or more on the phone. This lengthens the time until the page is idle, not the time until the change shows.
+- **Saves that still draw the whole tab** only get the keep-your-place and hold savings. These are Emptied (Picked up that first records Emptied), the departure form, a reference's own Ready tick (the group cards) and remote changes arriving on the sync. Picked up with Emptied: desktop 5.2 s to 1.9 s, phone 23.3 s to 8.6 s.
 - **The page's background on the phone:** the sync poll every 4 s (`pull()` with the `syncFooter` wrappers and `applyCapability`), about 0.85 s of long tasks every 4 s. It can hold a tap back by up to about 0.4 s before the save starts.
 - **A tap more than 4 s after the cards were last worked out builds the cards' model again before saving.** That is `model()`'s own rule, kept as it was, and now done inside the hold: about 0.15 s on a desktop and 0.7 s on the phone (it was 1.6 s and 7.6 s outside the hold). Trusting the model for longer would take that off too. It would change how long the module trusts a model without the page drawing again, so it is left as a question rather than done here.
 - **Positions are looked up again every 30 s** (`locOf`, so a moved pin moves the pictures). The first truck plan after that relocates every Ready card.
 
-Taking the next second off the phone needs changes in the shared path: `renderTabs`, the `syncFooter` wrappers, and the render wrappers that run whatever tab is showing. That needs Codex. Those are the next things to measure.
+Taking the next second off the phone needs changes in the shared path: `renderTabs`, the `syncFooter` wrappers, and the render wrappers that run whatever tab is showing. That needs agreeing with the shared code's owner on the board first. Those are the next things to measure.
 
 ## Checks
 
-CHECKS
+The candidate is built from a copy of live v12.42.2 (`c83f1a27…`) by `patch_v12423.py`, then `scrub_attributions.py`, giving `ab286a242f08acbdac877eb37659340669bde6701815ac52df5a40cc9de3cb8d` (15,813,782 bytes). Building it again from this folder gives the same bytes.
+
+- `check_page.py <candidate> --base <live v12.42.2>`: **PASS**. All 214 inline scripts parse, no new keys, no edit key, author line present.
+- `tests/test_v12423.cjs`: desktop **95/95**, phone **95/95**. Every write was captured in the page; the harness blocked 0 and none reached the network; there were no page errors.
+  - Part D on the phone is timed with the CPU slowed 4x.
+  - Part D desktop medians: Not ready 0.84 s, Ready 0.78 s, Book pick-up 0.92 s, Book this load 0.86 s, Picked up with Emptied 1.67 s, keep-your-place 7 ms.
+  - Part D phone medians: 4.20 s, 4.38 s, 4.16 s, 4.16 s, 7.41 s and 21 ms.
+- **Two v12.42.2 checks were changed, because the live record changed under them.** Andrew is booking pick-ups on site this morning, so the live record now holds his bookings. Both checks assumed GN18's test booking was the only booking on the record; neither failure involved this change. The booked pick-ups list and today's list are now checked with those bookings counted, and the new Part C booking check counts them too. Nothing else in the v12.42.2 tests was changed, apart from the release name.
+- Measurements: `tests/profile_saves.cjs` (the script used for the v12.42.2 measurement, unchanged), run on the candidate on desktop and on the 4x phone, one Chromium at a time. The before and after figures are in `evidence/before_after.json`. Each test run's checks and timings are in `evidence/`.
+- A phone screenshot of a Ready press (WC31 16 Pan block 74) shows the lamp lit and the flash "ready for collection - recorded by".
+
+Not done: no upload. Andrew's go is needed, and a note on the shared-path change (Persistence1010) goes on the board first.
 
 ## Files
 
@@ -99,3 +125,5 @@ CHECKS
 - `tests/test_v12423.cjs`: the v12.42.2 tests kept whole (release name updated), then Part C (quick saves, keep-your-place, the model) and Part D (timings in a fresh page; a phone run slows the CPU 4x).
   - `PAGE=<build> OUT=<dir> [MOB=1] node test_v12423.cjs`
   - `TIMING=0` skips Part D.
+- `tests/profile_saves.cjs`: the measurement script, unchanged from the v12.42.2 measurement. `PAGE=<page> OUT=<result.json> [MOB=1] [REPS=3] node profile_saves.cjs`; one Chromium at a time.
+- `evidence/`: the before and after medians for both devices (`before_after.json`), and each test run's checks, summary and timings.
