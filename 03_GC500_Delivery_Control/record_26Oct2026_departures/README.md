@@ -274,3 +274,17 @@ node record_26Oct2026_departures/left_site.cjs --spec record_26Oct2026_departure
 - **Applied:** rehearsed at 10:28 as a dry run (passed, nothing sent); at 11:02 the record was read again (all four still on site, not recorded), a dry run with 11:00 passed, then applied 11:02 AEST: `left_site.cjs --spec left_site_spec_17_wc28_wc29_1100.json`, through the page's own Record departure form, in Andrew's name. Lights in transit.
 - **Record:** version 11543 → 11545. 2 documents acknowledged 200, verified on the service; every other document unchanged in value; P&L and branch totals unchanged. Backup kept private. Report `report_20261027T010250Z.json`.
 - **Read back fresh:** WC28 in transit (11:00, 0102, the whole reference); WC29 in transit (09:27 four units; 11:00 0707, 0044, 0598, the rest); 201 units ticked Ready before and after.
+
+## Eighteenth run: WC30's eight and WC62 0976 picked up 11:30, 27 Oct 2026 — APPLIED, VERIFIED
+
+- **What:** Andrew, 27 Oct 2026 (before 10:31 AEST): "1130AM 0976 0024 0419 0440 0428 0963 0545 0043 0681". All nine are Event Portables FWF, each on one reference only, every one Ready, its location Emptied, none already left. 0024, 0419, 0440, 0428, 0963, 0545, 0043 and 0681 are all eight of WC30's units, so WC30 left in full; 0976 is one of WC62's two, so WC62 stays on site with 0103. They left at 11:30 AEST.
+- **Applied:** rehearsed at 10:31 as a dry run (passed, nothing sent); after 11:30 a fresh dry run with 11:30 (passed), then applied 11:31 AEST: `left_site.cjs --spec left_site_spec_18_wc30_wc62_1130.json`, through the page's own Record departure form, in Andrew's name.
+- **Record:** version 11545 → 11547. 2 documents acknowledged 200, verified on the service; every other document unchanged in value; P&L and branch totals unchanged. Backup kept private. Report `report_20261027T013100Z.json`.
+- **Read back fresh:** WC30 in transit (11:30, all eight, the whole reference); WC62 on site (11:30 0976 gone, 0103 stays); 201 units ticked Ready before and after.
+
+## Twenty-first run: P25 Support Category Stewards 1189408 left 11:30, 27 Oct 2026 — APPLIED, VERIFIED
+
+- **What:** Andrew, 27 Oct 2026 (before 11:21 AEST): "1189408 leaving 1130AM". 1189408 is P25's only unit (Support Category Stewards, Building 4.8m, Coates; ticked Ready and booked by Andrew for 27 Oct 10:30) and the only place the number is on the record (read 11:21 AEST, not already left), so P25 left in full at 11:30 AEST. Air conditioners 1189951 and 1189950, the fire extinguisher and fridge 1260174 stay listed on P25 as gear that goes with it.
+- **Applied:** rehearsed at 11:22 as a dry run (passed, nothing sent); after 11:30, straight after the eighteenth run, a fresh dry run with 11:30 (passed), then applied 11:32 AEST: `left_site.cjs --spec left_site_spec_21_p25_1189408.json`, through the page's own Record departure form, in Andrew's name. Light in transit.
+- **Record:** version 11547 → 11548. 1 document acknowledged 200, verified on the service; every other document unchanged in value; P&L and branch totals unchanged. Backup kept private. Report `report_20261027T013211Z.json`.
+- **Read back fresh:** P25 in transit, one departure at 11:30 holding 1 x Building 4.8m 1189408 (the whole reference); 201 units ticked Ready before and after.
