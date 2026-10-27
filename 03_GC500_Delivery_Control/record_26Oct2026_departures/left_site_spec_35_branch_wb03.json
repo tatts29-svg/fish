@@ -1,0 +1,16 @@
+{
+  "by": "Andrew Fisher",
+  "basis": "Andrew, 27 Oct 2026, answering the Baseplan (8) review: T0085 and T0109 (Supply forklifts, contract 9987005 lines 1 and 7) \"Forklifts will be under MEAD\"; T0085 and T0109 go on branch MEAD. (WB03's 18 Sep start is left for the page release: the record will not back-date a light that is already on site.)",
+  "ops": [
+    {
+      "op": "branch",
+      "ref": "T0085",
+      "code": "MEAD"
+    },
+    {
+      "op": "branch",
+      "ref": "T0109",
+      "code": "MEAD"
+    }
+  ]
+}

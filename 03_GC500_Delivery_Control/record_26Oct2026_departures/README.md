@@ -376,3 +376,9 @@ node record_26Oct2026_departures/left_site.cjs --spec record_26Oct2026_departure
 - **What:** the branch's dockets on 9961976: 1247787 out 14 Sep, back 18 Sep (26083950), out again 20 Oct to Macintosh Island Park (26142467); AT009 (no fleet number) out 17 Sep (26083924). Andrew: "Add the forklifts as you said. I will need to find out rates". EQ0007 added (Access & plant, NVAC, on site 17 Sep 13:42 back-dated to the docket, complete); a note on T0005 for 1247787's return and second trip.
 - **Runner:** `add_ref` takes `no_none: true` for a unit with no fleet number on its docket.
 - **Record:** 11603 → 11612, 9 documents acknowledged 200, verified. **P&L moved +$1,000.00 on NVAC** (the page charges the new forklift reference); Andrew's later word that Coates forklifts are own use, no charge, takes that out with the rest in the next P&L change. Report `report_20261027T122942Z.json`.
+
+## Thirty-fifth run: T0085 and T0109 on MEAD, 27 Oct 2026 — APPLIED, VERIFIED
+
+- **What:** Andrew, answering the Baseplan (8) review: "Forklifts will be under MEAD" (T0085, T0109: Supply forklifts on 9987005). Both go on branch MEAD through the page's own setBranch (new runner op `branch`).
+- **WB03 (installed 18 Sep night shift) is not changed here:** the record will not back-date a light that is already on site (the dry run stopped on it, nothing sent); it goes with the page release.
+- **Record:** 11612 → 11618, 6 documents acknowledged 200, verified. P&L charge unchanged; $1,000.00 moves from NVAC to MEAD. Report `report_20261027T125402Z.json`.
