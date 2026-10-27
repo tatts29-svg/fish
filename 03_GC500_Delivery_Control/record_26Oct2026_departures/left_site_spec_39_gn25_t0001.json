@@ -1,8 +1,8 @@
 {
 "by": "Andrew Fisher",
-"basis": "Andrew, 28 Oct 2026: \"1244536 1211383 1211370 these 3 left site at 9:30AM\". 1244536 is GN25's only unit (Coates 20 kVA generator, booked for pick-up 28 Oct 07:00 with LT05/06), so GN25 leaves in full. 1211383 (vms8) and 1211370 (vms2) are two of the eight VMS boards on T0001; the other boards stay unless already recorded as gone. Left site 28 Oct 2026 09:30 AEST.",
+"basis": "Andrew, 28 Oct 2026: \"1244536 1211383 1211370 these 3 left site at 9:30AM\", then \"sorry left at 8:30AM\". 1244536 is GN25's only unit (Coates 20 kVA generator, booked for pick-up 28 Oct 07:00 with LT05/06), so GN25 leaves in full. 1211383 (vms8) and 1211370 (vms2) are two of the eight VMS boards on T0001; the other boards stay unless already recorded as gone. Left site 28 Oct 2026 08:30 AEST.",
 "ops": [
- {"op": "depart", "ref": "GN25", "at": "2026-10-28T09:30:00+10:00", "nos": ["1244536"], "complete": true},
- {"op": "depart", "ref": "T0001", "at": "2026-10-28T09:30:00+10:00", "nos": ["1211383", "1211370"], "complete": false}
+ {"op": "depart", "ref": "GN25", "at": "2026-10-28T08:30:00+10:00", "nos": ["1244536"], "complete": true},
+ {"op": "depart", "ref": "T0001", "at": "2026-10-28T08:30:00+10:00", "nos": ["1211383", "1211370"], "complete": false}
 ]
 }

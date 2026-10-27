@@ -396,3 +396,7 @@ Spec `left_site_spec_37_pl_branches.json`. Andrew: "move the P&L, don't recode",
 ## Thirty-eighth run: WC60 block 1087500 cleaning, 28 Oct 2026 — APPLIED, VERIFIED
 
 Spec `left_site_spec_38_wc60_cleaning.json`. Andrew: "can we make our ticks match baseplan" (toilet blocks 15 × $707.88). WC60's block 1087500 had install, steps, levelling and demob but no cleaning; ticked through the page's labour control (unit given as the plain number, 1087500). Record 11631 → 11633, 2 documents, verified. Toilet-block labour now $10,618.20 = Baseplan.
+
+## Run 39 - GN25 and two T0001 VMS boards left site, 28 Oct 2026 08:30 (APPLIED)
+
+Andrew, 28 Oct 2026: "1244536 1211383 1211370 these 3 left site at 9:30AM", then "sorry left at 8:30AM". GN25 (1244536, 20 kVA) left in full; T0001 boards 1211370 and 1211383 left, six boards still on site. Spec `left_site_spec_39_gn25_t0001.json`; dry run passed, applied and VERIFIED: record 11641 -> 11643, 2 documents (delivery/GN25, delivery/T0001), other documents unchanged. Charge unchanged $1,025,473.88. Report `report_20261027T225745Z.json`.
