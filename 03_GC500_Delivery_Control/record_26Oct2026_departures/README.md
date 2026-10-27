@@ -253,3 +253,10 @@ node record_26Oct2026_departures/left_site.cjs --spec record_26Oct2026_departure
 - **Applied:** rehearsed at 09:38 as a dry run with that time (passed, nothing sent); the 10:00 time is refused until it has come, so the record was read again at 10:01 (still on site, not recorded), dry run with 10:00 (passed), then applied 10:02 AEST: `left_site.cjs --spec left_site_spec_16_wc33_1000.json`, through the page's own Record departure form, in Andrew's name. Light in transit.
 - **Record:** version 11540 → 11541. 1 document acknowledged 200, verified on the service; every other document unchanged in value; P&L and branch totals unchanged. Backup kept private. Report `report_20261027T000201Z.json`.
 - **Read back fresh:** WC33 in transit: 26 Oct 11:58 six units, 27 Oct 10:00 eleven units (the whole reference); 201 units ticked Ready before and after.
+
+## Nineteenth run: P62 Gate 5 QFES Office 1189409 left 10:30, 27 Oct 2026 — APPLIED, VERIFIED
+
+- **What:** Andrew, 27 Oct 2026: "1030Am 1189409 has just left". 1189409 is P62's only unit (Gate 5 QFES Office, Building 6m, Coates; ticked Ready and booked by Andrew for 27 Oct 09:00) and the only place the number is on the record (read 10:36 AEST, not already left), so P62 left in full at 10:30 AEST. Its departure form offers the building alone; air conditioners 1189912 and 1189908, the fire extinguisher and fridge 1254221 stay listed on P62 as gear that goes with it.
+- **Applied:** 27 Oct 2026 10:37 AEST on Andrew's word, dry run first (passed, nothing sent): `left_site.cjs --spec left_site_spec_19_p62_1189409.json`, through the page's own Record departure form, in Andrew's name. Light in transit.
+- **Record:** version 11541 → 11542. 1 document acknowledged 200, verified on the service; every other document unchanged in value; P&L and branch totals unchanged. Backup kept private. Report `report_20261027T003752Z.json`.
+- **Read back fresh:** P62 in transit, one departure at 10:30 holding 1 x Building 6m 1189409 (the whole reference); 201 units ticked Ready before and after.
