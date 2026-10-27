@@ -365,3 +365,8 @@ node record_26Oct2026_departures/left_site.cjs --spec record_26Oct2026_departure
 
 - **What:** Andrew, 27 Oct 2026: "Picked up 430PM" with the crew's list, 0765 0573 0941 0647 0438 0994 0990 0632 0562 0554 0947 0549 0673 0542 0086. All Emptied and Ready: WC73 0765 (0192 stays); PG29 0573, BJR01 0941, PG05 0438, T0162 0990 (each in full); WC69 0647 (nine stay); T0176 0994 (0576 stays); WC45 0632 0562 0947 0549 0673 0542 0086 (0544 stays). 0554 left at 10:00 on WC33 (Andrew's 10am list; WC33 off site in full) and is held for Andrew.
 - **Applied:** 16:38 AEST on Andrew's word, dry run first: `left_site.cjs --spec left_site_spec_32_1630.json`, in Andrew's name. Record 11589 → 11597, 8 documents acknowledged 200, verified; P&L unchanged. Report `report_20261027T063821Z.json`.
+
+## Thirty-third run: WC45 0544 picked up 16:30 (the list's "0554"), 27 Oct 2026 — APPLIED, VERIFIED
+
+- **What:** the 16:30 list carried 0554, which left at 10:00 on WC33. 0544 is WC45's only FWF not on the list; asked, Andrew: "ok do that fix for me thank you". WC45 left in full at 16:30.
+- **Applied:** 16:45 AEST, dry run first: `left_site.cjs --spec left_site_spec_33_wc45_0544_1630.json`. Record 11597 → 11598, verified; P&L unchanged. Report `report_20261027T064552Z.json`.
