@@ -370,3 +370,9 @@ node record_26Oct2026_departures/left_site.cjs --spec record_26Oct2026_departure
 
 - **What:** the 16:30 list carried 0554, which left at 10:00 on WC33. 0544 is WC45's only FWF not on the list; asked, Andrew: "ok do that fix for me thank you". WC45 left in full at 16:30.
 - **Applied:** 16:45 AEST, dry run first: `left_site.cjs --spec left_site_spec_33_wc45_0544_1630.json`. Record 11597 → 11598, verified; P&L unchanged. Report `report_20261027T064552Z.json`.
+
+## Thirty-fourth run: AT009 forklift added (EQ0007), T0005's 1247787 return noted, 27 Oct 2026 — APPLIED, VERIFIED
+
+- **What:** the branch's dockets on 9961976: 1247787 out 14 Sep, back 18 Sep (26083950), out again 20 Oct to Macintosh Island Park (26142467); AT009 (no fleet number) out 17 Sep (26083924). Andrew: "Add the forklifts as you said. I will need to find out rates". EQ0007 added (Access & plant, NVAC, on site 17 Sep 13:42 back-dated to the docket, complete); a note on T0005 for 1247787's return and second trip.
+- **Runner:** `add_ref` takes `no_none: true` for a unit with no fleet number on its docket.
+- **Record:** 11603 → 11612, 9 documents acknowledged 200, verified. **P&L moved +$1,000.00 on NVAC** (the page charges the new forklift reference); Andrew's later word that Coates forklifts are own use, no charge, takes that out with the rest in the next P&L change. Report `report_20261027T122942Z.json`.
