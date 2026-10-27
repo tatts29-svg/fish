@@ -15,8 +15,8 @@ Andrew Fisher. Live page v12.42.11 (ae6c2597…). Charge $1,019,650.91. Branches
 | A8 | Forklift and AT009 rates | "I will need to find out rates" | ± |
 | A9 | 10000523/11 site shift of supply container $500 | Did it happen? Not on our page | +$500 if yes |
 | A10 | 9994248 fence / barrier / chairs ($1,795.30) | Did it come? Held out | +$1,795.30 if yes |
-| A11 | Trakmat quantities | Baseplan 77 (20+20+37); our record TM01 10 received | ± |
-| A12 | P68 hydration station | What it is / where on site (now charged $3,721.92 at Baseplan's figure) | — |
+| A11 | Trakmat quantities | ANSWERED 28 Oct: Baseplan's 77 on 10000523 are correct (charged at Baseplan's figures since v12.42.9) | done |
+| A12 | P68 hydration station | ANSWERED 28 Oct: the hydration station is inside P68 ($3,721.92 on 10000523/1) | done |
 | A13 | P46 fridge (9968862/132) | Off Rent 26 Oct on Baseplan; P46 still on site on our record — gone? | ± |
 | A14 | GN26/GN27 delivery day | Baseplan 12 Oct; our photos and install 13 Oct | ± 1 day |
 
