@@ -1,5 +1,7 @@
 APPLIED — record runs 35 and 36 (Claude, for Andrew), 27 Oct 2026 22:57 AEST: T0085 and T0109 on MEAD; the concert generators GN? on KINP (Andrew: "happy to leave KINP"). Record 11612 → 11621, verified; charge unchanged; NVAC $49,323.37 → $39,725.89, KINP → $250,936.14, MEAD → $18,859.02. Still to do: WB03 18 Sep start and WB07 into WB06 (page release), Premiair VMS and the reefer container onto their sub-hire branches, Baseplan (8) contracts onto the page.
 
+LIVE — v12.42.24 9961265 VMS at Baseplan to the cent (hire lines + line 40 labour $4,247.28) (Claude, for Andrew), 28 Oct 2026. sha256 524115a3…, byte for byte. Built on v12.42.23 2e6e00e0…. +$1,995.66; charge $1,025,473.88. **Codex: v12.43 rebuilds on 524115a3…**
+
 LIVE — v12.42.23 Fencing, everything included: one card on Costs (Claude, for Andrew), 28 Oct 2026. sha256 2e6e00e0…, byte for byte. Built on v12.42.22 614921ae…. Display only; charge unchanged. Fencing all in $390,524.21 charge / $274,584.20 cost. **Codex: v12.43 rebuilds on 2e6e00e0…**
 
 LIVE — v12.42.22 9961976 NVAC at Baseplan to the cent: lighting towers, all generators, generator/tower/350 kVA labour (Claude, for Andrew), 28 Oct 2026. sha256 614921ae…, byte for byte. Built on v12.42.21 7db6282b…. +$2,885.18; charge $1,023,478.22. 9972648 patch built and HELD (HELD_9972648_baseplan). **Codex: v12.43 rebuilds on 614921ae…**
