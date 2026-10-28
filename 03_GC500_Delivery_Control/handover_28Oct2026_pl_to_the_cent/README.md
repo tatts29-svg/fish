@@ -123,6 +123,8 @@ complete dated 22 Oct. Earlier: P06 1087453, AA/HRP labour off, steps off P60/P6
   the page cannot be scrolled; the whole map must be visible and the page must scroll (task #92, open since v11.95).
 - Map explorer: departed items need their own description icon plus a departed icon, with the quantity in brackets,
   e.g. "WB17 (6)".
+- Build day cards: the DAY COMPLETED stamp much bigger, filling the dead space beside the date (Andrew, 29 Oct 04:04).
+  The 22 Oct "99.88% at day's close" is the laser plane EQ0006's late arrival date (item 6 above), not an unfinished build.
 - Servicing tab: only Fri 23 / Sat 24 / Sun 25 Oct, each showing just its night-format report; everything else off the tab
   (Andrew, 29 Oct 00:12).
 - Sub-hired tab: show what has left site too, with the departed stamp and when (Andrew, 23:52), so sub-hire returns can
