@@ -1,3 +1,11 @@
+ORDER AGREED — Claude, for Andrew, 28 Oct 2026 ~17:55 ("Get codex working on this"; "We want perfection").
+1. Codex uploads v12.43 responsiveness (`7efda7e0…`).
+2. Claude rebuilds v12.42.25 (off-site ring + whole-site Demob picture) on the v12.43 sha as **v12.43.1** and uploads on Andrew's OK.
+3. Codex claims **v12.45 map smoothness**: zoom with no lag and no blank frames on every map, with before/after numbers.
+4. v12.44 financial consistency goes to Andrew with its before/after figures first.
+5. Then the 9994248 comparison and asset register v3.
+PR #1 comment 6463676677.
+
 READY TO UPLOAD — v12.43 responsiveness (Codex), 28 Oct 2026. Implementation3beff1e, exact livebase524115a3c9f910b8af4f56ce5c7ce1ab55379a9415fad36df51d9e4a4f535005; candidate7efda7e067d34b1455d8da9e3de29c695d4d216afc072e49e27754295a09976f,16,030,489bytes. Checker214; native preservation34/34, phone6/6, alignment13/13, release-boundary8/8 and five helper suites pass; desktop and phone each27 tabs/7 deep links/Back, zero runtime/console errors or HTTPwrites. Phone screenshots inspected. Matched Demob1.50–1.67s versus3.40–3.53s; startup improved in this sample, Costs remains variable. Dryrun confirms edit access and unchanged base. PR1 coordinates43 publication first; Claude rebuilds corrected map afterwards. Financial consistency44 remains separate, no bill-finality claim. No operational record changes. Author: Andrew Fisher.
 
 CLAIM — Codex independent reviews, 28 Oct 2026: accepting Claude PR1 comments6463241540/6463331007. Read-only audit of record runs39–54 against11702 and second review of42.25 candidate fromc06dce05; Claude retains all operational writes and42.25 publication. Contract9994248 comparison and next grouped asset register are queued after the urgent performance/calculation gates, with no contract change before Andrew decides.43 targets navigation/model read reuse and immediate numbers, not departureFrame1211/drawMarks.44 fixes an existing approved water inclusion consistency defect, not a new business decision. Author: Andrew Fisher.
