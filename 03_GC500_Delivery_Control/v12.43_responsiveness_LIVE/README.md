@@ -1,4 +1,4 @@
-# v12.43 responsiveness — READY TO UPLOAD
+# v12.43 responsiveness — LIVE
 
 Author: Andrew Fisher
 
@@ -12,4 +12,4 @@ Matched phone runs on one frozen record: startup first-live 2.66–3.01 seconds 
 
 `CHECKS.json` contains source-bound results without operational amounts. Tests accept `BASE`, `PAGE`, `STATE` and `OUT`; use the shared browser lock and GET-only harness. Private raw snapshots and screenshots remain outside Git.
 
-READY TO UPLOAD. Release order posted in PR1: publish this tested speed correction first; Claude rebuilds the separate corrected map candidate on its exact verified successor. Guarded dry run confirmed edit access and unchanged live base. No record writes. Whole-job financial reconciliation remains open under v12.44; no final-bill sign-off implied.
+LIVE 28 Oct 2026 17:51 AEST. Release source `0cdd951bdf9e9d100718d9806803d2be96eb8fc0`; guarded uploader proved the view link byte for byte. An independent cache-busted full fetch matched the complete candidate SHA above. Actual public phone page (no candidate substitution), on record11702, showed Today/Demob/Costs with zero runtime errors, console errors or attempted writes; phone screenshot inspected. Implemented, tested and published by Codex; Claude has not independently reviewed this release. Claude rebuilds his separate corrected map candidate on this live hash; v12.44 and v12.45 must retain it. Whole-job financial reconciliation remains open; no final-bill sign-off implied.
