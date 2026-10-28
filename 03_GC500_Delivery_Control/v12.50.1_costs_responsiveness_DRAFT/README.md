@@ -2,7 +2,9 @@
 
 Author: Andrew Fisher.
 
-Status: DRAFT CHECKED. Final screenshot review, the frozen implementation/test source commit and an exact shared live-base rebuild precede the coordinated READY handover. Not live. The release owner retains the guarded upload and full public-byte read-back.
+Status: READY TO UPLOAD, not live. Frozen implementation/tests source: `58ed6333706c2ac995e66da2d9349ef34a7fa48b`. Screenshot review and the exact shared live-base rebuild are complete; the rebuilt bytes match the tested candidate below and all 217 scripts pass. A fresh public read-back at 20:15 UTC on 28 Oct 2026 confirms the unchanged live50 predecessor. The affected native 47 comparisons and phone controls were repeated against the newer private record snapshot, which remained exact on the final 20:21 UTC read. The release owner retains the guarded upload and full public-byte read-back.
+
+The separate current-record provenance review is still open with the operational owner. This release preserves the record and does not resolve or certify historical corrections. It does not include the presentation previews; those rebuild on the independently verified successor before any later release.
 
 The patch removes repeated calculations during the existing Costs render. Labour tick totals are reused only within the native asset-hold lifecycle, with a separate deep copy returned to each caller. Standalone reads and calls with extra arguments calculate fresh results; the existing record and event-configuration invalidation remains in charge. The Finance wrapper passes its already-calculated Finance result to a private synchronous branch projection, avoiding its second identical read. Public branch calls still read fresh data in the original order. No Finance result persists between calls.
 
