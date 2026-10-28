@@ -26,3 +26,16 @@ PAGE=/private/candidate.html STATE=/private/state.json OUT=/private/phone-read-b
 ```
 
 The native gate uses the existing read-only candidate harness, the same frozen record for both pages, and private expected-match parameters. It verifies actual native metadata without filling missing fields, compares all reference associations and remaining rows, preserves complete financial/contract/document/reference/board projections, and captures the changed card on a phone viewport. Native evidence and screenshots stay outside this repository.
+
+## Queued successor check, 28 Oct 2026
+
+The unchanged patch also applies to the exact v12.45.1 draft predecessor
+`dd88aa87016c1734f26b346afff07bfffcac5b5820e1eafa2a9b0bb0b73a6355`,
+using explicit predecessor version `12.45.1`. The resulting draft is
+`65d4d652432cd8943fe9d57b790705efe298855f3196d5e9c3f7f5f88ecb7b52`
+(16,061,920 bytes). The 43 identity cases, 19 extracted-native cases, exact whole-page
+patch reversal/refusal checks and shared 214-script checker pass on this base.
+All predecessor changes are retained exactly outside the bounded unit association
+and footer replacements. This is an offline successor preview only: the original
+browser results above do not certify it. Current-record native/UI and full sweep
+gates, plus verified live predecessors, remain required. No READY or live claim.
