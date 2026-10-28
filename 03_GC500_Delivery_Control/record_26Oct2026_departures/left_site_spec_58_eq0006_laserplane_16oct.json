@@ -1,0 +1,21 @@
+{
+ "by": "Andrew Fisher",
+ "basis": "Andrew, 29 Oct 2026, on the laser plane: \"Yes it arrived\" (16 Oct). EQ0006, laser plane asset 1065384, rental 9987005 line 8 (MEAD), contract start 16 Oct 2026, delivery 26135873, booked back 17 Oct; used by our crew for the V8s install. It was entered on the record on 25 Oct with that day as its arrival, so Today's Other card read 4 of 5 at the 23 Oct cut-off and the Thu 22 Oct day card read 99.88% at day's close. Its arrival, receipt and complete are dated (it carries no install stamp) to 16 Oct 2026; no time is known, so 00:00 AEST that day.",
+ "ops": [
+  {
+   "op": "light_redate",
+   "ref": "EQ0006",
+   "at": "2026-10-15T14:00:00.000Z",
+   "why": "Laser plane on hire and on site from 16 Oct 2026 (rental 9987005 line 8, delivery 26135873); entered on 25 Oct (Andrew Fisher, 29 Oct 2026)."
+  },
+  {
+   "op": "date_back",
+   "ref": "EQ0006",
+   "done_at": "2026-10-15T14:00:00.000Z",
+   "supplied_at": "2026-10-15T14:00:00.000Z",
+   "item": "Laserplane",
+   "disc": "Other",
+   "why": "Laser plane on site and in use from 16 Oct 2026 (rental 9987005 line 8, delivery 26135873); Complete was pressed on 25 Oct when it was entered (Andrew Fisher, 29 Oct 2026)."
+  }
+ ]
+}

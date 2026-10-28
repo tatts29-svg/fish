@@ -104,6 +104,8 @@ spec.ops.forEach((o, i) => {
   else if (o.op === 'light') { if (!REFRE.test(o.ref || '')) fail(at + 'needs a reference'); if (!['on site', 'not on site', 'in transit', 'collected'].includes(o.state)) fail(at + 'needs a light state');
     /* 27 Oct 2026: a back-dated light is an arrival: on site, an exact UTC time that has passed, and why, in words the record keeps */
     if (o.at != null) { if (o.state !== 'on site') fail(at + 'only an on-site light is dated back (at)'); if (typeof o.at !== 'string' || !ISO_UTC.test(o.at) || !Number.isFinite(Date.parse(o.at))) fail(at + 'at must be a UTC time, e.g. 2026-10-21T14:00:00.000Z'); if (Date.parse(o.at) > now) fail(at + 'at is in the future'); if (!TEXT200(o.why)) fail(at + 'a dated light needs why, under 200 characters, naming no system'); } }
+  else if (o.op === 'light_redate') { /* 29 Oct 2026: a reference already on site gets its true arrival time (EQ0006 laser plane, on hire 16 Oct, entered 25 Oct) */
+    if (!REFRE.test(o.ref || '')) fail(at + 'needs a reference'); if (typeof o.at !== 'string' || !ISO_UTC.test(o.at) || !Number.isFinite(Date.parse(o.at))) fail(at + 'at must be a UTC time'); if (Date.parse(o.at) > now) fail(at + 'at is in the future'); if (!TEXT200(o.why)) fail(at + 'needs why, under 200 characters, naming no system'); }
   else if (o.op === 'acc_add') { if (!REFRE.test(o.ref || '')) fail(at + 'needs a reference'); if (!TYPES.includes(o.type)) fail(at + 'type must be one the picker has'); if (!NORE.test(o.no || '')) fail(at + 'needs a number'); if (o.qty != null && !(Number.isInteger(o.qty) && o.qty >= 1)) fail(at + 'qty'); }
   else if (o.op === 'acc_fix') { if (!REFRE.test(o.ref || '')) fail(at + 'needs a reference'); if (!TYPES.includes(o.type)) fail(at + 'type'); if (!/^\d{4,12}$/.test(o.from || '') || !NORE.test(o.to || '')) fail(at + 'from/to numbers'); }
   else if (o.op === 'answer') { if (typeof o.id !== 'string' || !/^[a-z0-9][a-z0-9_-]{1,80}$/i.test(o.id)) fail(at + 'needs a question id'); if (typeof o.text !== 'string' || !o.text.trim() || o.text.length > 600) fail(at + 'needs text under 600 characters'); if (/\b(codex|claude|gpt|model|agent)\b/i.test(o.text)) fail(at + 'text names a system'); }
@@ -179,7 +181,7 @@ const REFS = refsOf(spec), QIDS = [...new Set(spec.ops.filter(o => o.op === 'ans
    answers documents named, and the audit documents the page keeps beside them (stamps, by, deleted, notes, spares) */
 const ALLOWED_COLLS = new Set(['delivery', 'assetNumbers', 'accessories', 'answers', 'stamps', 'by', 'deleted', 'notes', 'spares', 'loads', 'qtys', 'units', 'labour', 'supplied', 'vmsboard', 'places', 'items', 'added', 'branch', 'hireStart']);
 const NEW_REFS = new Set(spec.ops.filter(o => o.op === 'add_ref').map(o => o.ref)); /* references this run creates: absent before, present after */
-const PROBE_REFS = [...new Set([...NEW_REFS, ...spec.ops.filter(o => o.op === 'date_back').map(o => o.ref)])]; /* read back on Today after the stage */
+const PROBE_REFS = [...new Set([...NEW_REFS, ...spec.ops.filter(o => o.op === 'date_back' || o.op === 'light_redate').map(o => o.ref)])]; /* read back on Today after the stage */
 const VPOS = new Set(spec.ops.filter(o => o.op === 'vms_plan' || o.op === 'vms_inplace' || o.op === 'vms_complete' || o.op === 'vms_arrival').map(o => o.pos)); /* VMS plan positions (vms1024/<pos> on loads) the spec names */
 /* 27 Oct 2026, read only: the VMS plan boards the spec touches (a Premiair board's unit label, a corrected arrival), and the days to read them on */
 const VBOARDS = [...new Set(spec.ops.filter(o => (o.op === 'unit_reidentify' && o.item === 'VMS' && /^VMS\d{2}$/.test(o.label || '')) || o.op === 'vms_arrival').map(o => o.label || o.board))];
@@ -343,6 +345,12 @@ function applyOps(spec) {
         if (d.state === op.state) r.result = 'already ' + op.state;
         else { const ok = setLight(op.ref, op.state); if (!ok) throw new Error('setLight refused ' + op.ref); if (deliveryOf(op.ref).state !== op.state) throw new Error('light did not move'); r.result = 'set ' + op.state;
           if (op.at) { const dd = S.delivery[op.ref], h = dd.history && dd.history[dd.history.length - 1]; if (!h || h.state !== op.state) throw new Error('no history entry to date'); dd.set_at = op.at; h.at = op.at; if (op.why) h.note = op.why; r.result += ' at ' + op.at; } }
+      } else if (op.op === 'light_redate') {
+        const d = deliveryOf(op.ref); if (d.state !== 'on site') throw new Error(op.ref + ' is not on site - nothing to re-date');
+        const dd = S.delivery[op.ref], hs = (dd.history || []).filter(h => h && h.state === 'on site'), h = hs[hs.length - 1];
+        if (!h) throw new Error(op.ref + ' has no on-site history entry to date'); if (!(Date.parse(op.at) < Date.parse(dd.set_at))) throw new Error(op.ref + ' arrival ' + op.at + ' is not earlier than its recorded ' + dd.set_at);
+        if ((dd.history || []).some(x => x && x.state !== 'on site' && Date.parse(x.at) > Date.parse(op.at))) throw new Error(op.ref + ' light moved after ' + op.at + ' - review its history first');
+        const was = dd.set_at; dd.set_at = op.at; h.at = op.at; h.note = (h.note ? h.note + ' ' : '') + op.why + ' (entered ' + was + ')'; r.result = 'on site dated ' + op.at + ' (was ' + was + ')';
       } else if (op.op === 'acc_add') {
         if (accOf(op.ref, op.no)) { r.result = 'already on'; }
         else {
@@ -820,6 +828,7 @@ function applyOps(spec) {
         if (op.op === 'light' && op.at && (((docs.delivery || {})[op.ref] || {}).set_at) !== op.at) problems.push(op.ref + ' light not dated ' + op.at + ' ' + where);
         if (op.op === 'light' && (((docs.delivery || {})[op.ref] || {}).state) !== op.state) problems.push(op.ref + ' light is not ' + op.state + ' ' + where);
         if (op.op === 'light' && op.at) { const hs = ((((docs.delivery || {})[op.ref] || {}).history) || []).filter(h => h && h.state === op.state), h = hs[hs.length - 1]; if (!h || h.at !== op.at || (op.why && h.note !== op.why)) problems.push(op.ref + ' light history entry is not dated ' + op.at + (op.why ? ' with its reason' : '') + ' ' + where); } /* 27 Oct 2026 */
+        if (op.op === 'light_redate') { const dd = (docs.delivery || {})[op.ref] || {}; const hs = (dd.history || []).filter(h => h && h.state === 'on site'), h = hs[hs.length - 1]; if (dd.state !== 'on site' || dd.set_at !== op.at || !h || h.at !== op.at || !String(h.note || '').includes(op.why)) problems.push(op.ref + ' arrival is not dated ' + op.at + ' with its reason ' + where); }
         if (op.op === 'acc_add' && !((((docs.accessories || {})[op.ref] || {}).v) || []).some(x => String(x.asset_no || '') === op.no && x.type === op.type)) problems.push(op.ref + ' has no ' + op.type + ' ' + op.no + ' ' + where);
         if (op.op === 'acc_fix') { const v = (((docs.accessories || {})[op.ref] || {}).v) || []; if (!v.some(x => String(x.asset_no || '') === op.to && x.type === op.type) || v.some(x => String(x.asset_no || '') === op.from)) problems.push(op.ref + ' ' + op.type + ' is not ' + op.to + ' ' + where); }
         if (op.op === 'answer') { const nid = (results.find(x => x.op === 'answer' && x.id === op.id) || {}).noteId || op.id; if ((((docs.answers || {})[nid] || {}).v) !== op.text) problems.push('note ' + nid + ' is not held ' + where); }
