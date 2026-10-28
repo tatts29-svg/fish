@@ -13,6 +13,13 @@ Andrew, 28 Oct 2026: "the left site is to big it needs to be the shap of the ico
 - Label beside the shape: "WC69 · OFF SITE" (was "LEFT SITE").
 - **When the ring doesn't animate:** it is hidden in 3D and on the Fencing map. The pulse stops when the tab is hidden. With reduced motion set on the device, the ring stays and the pulse is dropped.
 
+**Demob pictures, a third and much wider one** (Andrew, 28 Oct 2026: "i want a picture added that is zoomed out a lot more").
+- Each Demob card now has Close up · 190 m and Wider area · 840 m side by side, with **Whole site** across the full width underneath.
+- The whole-site picture is about 1.4 km across inside the site aerial, and about 3.2 km on satellite outside it.
+- The "Find it on the map" card gets the same third picture, and Send/Email shares all three.
+- Find1176 `VIEWS` gains `{key: 'site', halfM: 1600}`. In singles1238: `VIEWW`, `spotOf` and `picsHtml`, plus a full-width CSS rule.
+- Picture: `evidence/phone_demob_three_pictures.png`.
+
 **How it's built:** `departureFrame1211` (the explorer frame): the status override, the label, and the `drawMarks` wrap. The wrap now collects ring points into `Offsite1225`, its own canvas layer over the marks. Display only: no record, charge, count or hire changes.
 
 **Base:** live v12.42.24 `524115a3…`. **Candidate:** `3b6292c3…` (build with `toolchain/build.sh v12.42.25 v12.42.25_offsite_marker_DRAFT/patch_v124225.py`). check_page PASS.
