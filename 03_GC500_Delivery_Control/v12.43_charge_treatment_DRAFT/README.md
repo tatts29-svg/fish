@@ -1,3 +1,5 @@
+SUPERSEDED — 28 Oct 2026: later v12.42 financial releases implement overlapping decisions. Do not apply this patch or its old record runner. Current responsiveness work is in ../v12.43_responsiveness_DRAFT/; remaining consistency work is separately claimed as v12.44.
+
 # v12.43 responsiveness and confirmed customer-charge treatments — DRAFT
 
 Author: Andrew Fisher
