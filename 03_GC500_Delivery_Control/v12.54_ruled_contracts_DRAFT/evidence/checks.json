@@ -1,0 +1,41 @@
+{
+  "author": "Andrew Fisher",
+  "status": "CHECKED with inherited phone table visibility limitation",
+  "baseSha256": "69bf04e72a45e084f0ba5227b4a26cf95ffe4078429044946af473120d4e7bb2",
+  "candidateSha256": "378d4b6632101ad6a1429f31b2241c567b3670ae0888f70b7df6f75109625a5c",
+  "candidateBytes": 16105875,
+  "sharedBuildExact": true,
+  "pythonChecks": 26,
+  "customerZeroChecks": 12,
+  "nativeChecks": 1055,
+  "parsedInlineScripts": 217,
+  "desktopSweep": {
+    "routes": 27,
+    "links": 7,
+    "back": "PASS",
+    "errors": 0,
+    "consoleErrors": 0,
+    "operationalWrites": 0
+  },
+  "phoneSweep": {
+    "routes": 27,
+    "links": 7,
+    "back": "PASS",
+    "errors": 0,
+    "consoleErrors": 0,
+    "operationalWrites": 0
+  },
+  "phoneFocused": {
+    "status": "PASS WITH EXISTING VISIBILITY LIMITATION",
+    "sourceZeroWordingVisible": true,
+    "sourceTreatmentAndReentryPass": true,
+    "modelsAndDocumentsPreserved": true,
+    "fullNumericTextVisible": false,
+    "baselineReproducesClipping": true,
+    "errors": 0,
+    "consoleErrors": 0,
+    "operationalWrites": 0
+  },
+  "independentReadOnlyCodeReview": "PASS",
+  "publicationPerformed": false
+}

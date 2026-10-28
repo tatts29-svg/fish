@@ -2,7 +2,7 @@
 
 Author: Andrew Fisher
 
-DRAFT CHECKED. Source and native financial gates pass; phone and full navigation checks are running. Not READY or live. The final READY entry on STATUS.md must name the frozen source commit and exact candidate.
+CHECKED for the bounded financial release, with the inherited phone-table limitation below. The READY entry on STATUS.md names the frozen source commit and exact candidate. This file is not a live-release claim.
 
 This smaller release follows the scoped movements in PR1 handovers6481196253 and6481372848. It applies seven named existing source cells, four unmatched source-only additions, the approved sewer-cleaning customer zero, and the release footer. The source cleaning Price/Quantity stay intact; the customer decision is explicit. Zero-rated laser/stillage source lines stop appearing unpriced. PG29 is already charged and is not added again.
 
@@ -31,7 +31,9 @@ bash 03_GC500_Delivery_Control/toolchain/build.sh v12.54 \
 - 217 inline scripts parse; no new keys or edit key; original style blocks are exact.
 - 1,055 native checks pass on identical pinned state11847 and time: independent expected ledger/branch movements, complete source boundaries, Finance/monthly ties, original supplier/Direct costs, record documents and physical projections.
 - Shared live-base rebuild equals the tested candidate. Fresh22:03UTC record is byte-identical to the pinned snapshot.
-- Phone and both standard full navigation sweeps remain pending in this checkpoint.
+- Desktop and phone shared sweeps:27 routes,seven deep links and Back match the predecessor;zero runtime/console errors or operational writes.
+- Actual phone controls and screenshots inspected; focused approved-zero wording/source-treatment/re-entry and complete model/document checks pass with an inherited amount-visibility limitation. The first pinned table column obscures monetary text during horizontal scrolling on both exact50.1 and54. No complete numeric visibility pass is claimed. Separate54.1 owns the scoped mobile repair; this is not caused by the54 financial calculation changes.
+- Independent read-only implementation review found no release-blocking source/calculation or preservation issue.
 
 ```bash
 SOURCE_PAGE=/private/exact50.1.html BASE=/private/exact50.1.html \
@@ -39,7 +41,7 @@ python -m unittest discover -s 03_GC500_Delivery_Control/v12.54_ruled_contracts_
 node 03_GC500_Delivery_Control/v12.54_ruled_contracts_DRAFT/tests/settled_finance.cjs
 ```
 
-`tests/native_contracts.cjs` requires explicit `BASE`, `CANDIDATE`, `CANDIDATE_SHA`, private `STATE`, private `EXPECTED`, and private `OUT`. EXPECTED must be independently reviewed, pin both page hashes and the record hash, and list source edits/additions, line results and ledger/branch deltas. `CAPTURE_ONLY=1` records diagnostics without acceptance. Keep originals, snapshots, expected monetary manifests, native outputs and screenshots private. Run browser tests serially under `/tmp/gc500-browser.lock`.
+`tests/native_contracts.cjs` requires explicit `BASE`, `CANDIDATE`, `CANDIDATE_SHA`, private `STATE`, private `EXPECTED`, and private `OUT`. EXPECTED must be independently reviewed, pin both page hashes and the record hash, and list source edits/additions, line results and ledger/branch deltas. `CAPTURE_ONLY=1` records diagnostics without acceptance. `tests/phone_contracts.cjs` requires exact PAGE/PAGE_SHA, private STATE/OUT and MOB=1. Its inherited-limit path additionally requires private BASELINE_VISIBILITY from exact50.1; it does not waive an unexplained new visibility failure. Keep originals, snapshots, expected monetary manifests, native outputs and screenshots private. Run browser tests serially under `/tmp/gc500-browser.lock`.
 
 ## Publication handover
 
