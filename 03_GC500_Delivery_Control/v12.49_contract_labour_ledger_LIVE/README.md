@@ -46,3 +46,7 @@ bash 03_GC500_Delivery_Control/toolchain/build.sh v12.49 \
 ```
 
 Require the exact frozen source and READY state on STATUS before publication. Require SHA-256 `70fc77540686f3139be01049cf4d2c13e0b8e307d221f062e2177afb8586d19e`, 16,099,353 bytes. Run the agreed same-record money probe: customer totals, supplier costs and branch totals must remain identical, and the reviewed labour moves once from Hire Revenue 1005 to Installation 1047 without duplicate amounts. If the source, live predecessor or current record changes, reconcile it and rerun affected checks before publication. Use the existing guarded uploader, require full public bytes to match, then archive LIVE and hand back the exact read-back. v12.50 remains a separate checked draft and requires this exact49 successor live before its shared build. No changes to contract prices, business dates, operational quantities or source documents are authorised by this release.
+
+## LIVE
+
+LIVE 29 Oct 2026 02:50 AEST. sha256 `70fc77540686f3139be01049cf4d2c13e0b8e307d221f062e2177afb8586d19e`, 16,099,353 bytes, public bytes match the build exactly. Money probe against live v12.48: Hire Revenue (1005) $231,056.47 -> $219,763.25, Installation (1047) $107,918.24 -> $119,211.46 (+$11,293.22 moved); charge $1,011,296.03, cost and branches unchanged.
