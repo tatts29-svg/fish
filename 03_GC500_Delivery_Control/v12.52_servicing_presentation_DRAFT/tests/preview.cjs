@@ -17,6 +17,7 @@ const read=()=>holdAssets(()=>JSON.parse(JSON.stringify({docs:Object.fromEntries
    await s.page.clock.setFixedTime(new Date('2026-10-28T18:10:00.000Z'));
    const viewBefore=await s.page.locator('#pane-servicing').innerText();assert(viewBefore.includes('edit link'),'Native public access notice must remain');
    if(name!=='baseline'){assert.equal(await s.page.locator('#svc1252').count(),0);await s.page.screenshot({path:path.join(out,name+'-public-notice.png')});}
+   assert.equal(await s.page.evaluate(()=>svcNight1202()),null,'Public getter must not expose the tracker');
    const before=await s.page.evaluate(read);s.setFixtureLevel('edit');
    await s.page.evaluate(({listing,pages})=>{
     window.__svc1252Reads=0;window.__svc1252Ticks=pages;window.__svc1252Listing=listing;
@@ -30,6 +31,7 @@ const read=()=>holdAssets(()=>JSON.parse(JSON.stringify({docs:Object.fromEntries
     await s.page.locator('[data-svc-tracker]').selectOption(String(i));
     await s.page.waitForFunction(()=>typeof svcNight1202==='function'&&svcNight1202(),null,{timeout:30000});
    }else await s.page.waitForFunction(()=>ServicingPreview1252.models().length===3,null,{timeout:30000});
+   const getter=await s.page.evaluate(()=>{const x=svcNight1202();if(!x)throw Error('Shared report getter has no verified snapshot');if(!Number.isFinite(x.now)||x.now<x.read)throw Error('Shared report clock invalid');return JSON.parse(JSON.stringify({D:x.D,events:x.events,read:x.read,day:x.day,picked:x.picked,meta:x.meta}));});
    const reports=await s.page.evaluate(days=>{
     const snap=typeof ServicingPreview1252==='object'?null:svcNight1202();
     const models=typeof ServicingPreview1252==='object'?ServicingPreview1252.models():days.map(day=>report1202.model({D:snap.D,S:SvcState,C:SvcCrews1173,crewData:SVC1067_CARD.data,events:snap.events,now:Date.parse(window.__svc1252Ticks[0].now),read:Date.parse(window.__svc1252Ticks[0].now),day,meta:snap.meta}));
@@ -42,10 +44,11 @@ const read=()=>holdAssets(()=>JSON.parse(JSON.stringify({docs:Object.fromEntries
      const popup=await popupPromise;await popup.waitForFunction(()=>document.querySelector('.sheet')&&window.__pg1202);await popup.evaluate(()=>window.__pg1202);
      nativePrints.push({day,pages:await popup.locator('.sheet').count(),title:await popup.title(),text:await popup.locator('body').innerText()});await popup.close();
     }
-    result.sessions.baseline={reports,nativePrints,before,after:await s.page.evaluate(read),baseline:s.baseline};
+    result.sessions.baseline={reports,nativePrints,getter,before,after:await s.page.evaluate(read),baseline:s.baseline};
    }
    else{
     assert.deepEqual(reports,result.sessions.baseline.reports,'Every native report model and exact screen/print HTML must match');
+    assert.deepEqual(getter,result.sessions.baseline.getter,'Legacy getter preserves native verified data, clock source, metadata and automatic night');
     const cards=s.page.locator('#svc1252 > .svc1252-night');assert.equal(await cards.count(),3);
     assert.deepEqual(await cards.evaluateAll(ns=>ns.map(n=>n.dataset.night1252)),DAYS);
     const initiallyLoaded=await s.page.locator('#svc1252 iframe').count();assert.equal(initiallyLoaded,0,'Collapsed night cards must not initialize report frames');
@@ -59,18 +62,31 @@ const read=()=>holdAssets(()=>JSON.parse(JSON.stringify({docs:Object.fromEntries
      await card.screenshot({path:path.join(out,name+'-'+DAYS[i]+'-card.png')});
      const popupPromise=s.page.waitForEvent('popup');await card.locator('button').click();const popup=await popupPromise;await popup.waitForFunction(()=>document.querySelector('.sheet')&&window.__pg1202);await popup.evaluate(()=>window.__pg1202);assert.equal(await popup.locator('.bar button').first().innerText(),'Print or save as PDF');
      const printable=await popup.evaluate(()=>({title:document.title,sheets:document.querySelectorAll('.sheet').length,text:document.body.innerText}));assert(printable.title.includes(DAYS[i].slice(-2)));assert.equal(printable.sheets,result.sessions.baseline.nativePrints[i].pages,'Native printed pagination preserved');await popup.close();
-     captures.push({day:DAYS[i],...dimensions,printSheets:printable.sheets});
+     const selected=await s.page.evaluate(()=>({day:svcNight1202().day,picked:svcNight1202().picked}));assert.deepEqual(selected,{day:DAYS[i],picked:true},'Native shared entry point follows the chosen preview night');
+     const legacyPromise=s.page.waitForEvent('popup');await s.page.evaluate(()=>report1202.open());const legacy=await legacyPromise;await legacy.waitForFunction(()=>document.querySelector('.sheet')&&window.__pg1202);await legacy.evaluate(()=>window.__pg1202);
+     const legacyPrint=await legacy.evaluate(()=>({title:document.title,sheets:document.querySelectorAll('.sheet').length,text:document.body.innerText}));assert.deepEqual(legacyPrint,printable,'Unmodified legacy open renders the same complete native report and pagination');await legacy.close();
+     captures.push({day:DAYS[i],...dimensions,printSheets:printable.sheets,legacyPrintExact:true});
     }
     await cards.evaluateAll(ns=>ns.forEach(n=>n.open=false));await s.page.evaluate(()=>{document.querySelector('#main')?.scrollTo(0,0);document.querySelector('main')?.scrollTo(0,0);window.scrollTo(0,0);});await s.page.screenshot({path:path.join(out,name+'-overview.png')});
     const after=await s.page.evaluate(read);assert.deepEqual(after,before,'Documents and monetary models remain exact');
     const reads=await s.page.evaluate(()=>window.__svc1252Reads);await s.page.evaluate(()=>{for(let i=0;i<30;i++){ServicingPreview1252.wake();renderServicing1084();}});await s.page.waitForTimeout(1000);assert.equal(await s.page.evaluate(()=>window.__svc1252Reads),reads,'Repeated wakes must not repeatedly fetch or loop');
+    // Open several nights, choosing Friday last. A background refresh/render of Sunday must not change that choice.
+    for(const i of [2,1,0]){await cards.nth(i).evaluate(n=>n.open=true);await s.page.waitForFunction(day=>svcNight1202().day===day,DAYS[i]);}
+    const priorRead=getter.read;await s.page.clock.setFixedTime(new Date('2026-10-28T18:11:00.000Z'));
+    // Expiry is a local metadata fixture to force a fresh report render; no events or service records are changed.
+    await s.page.evaluate(at=>{window.__svc1252Ticks.forEach(p=>{p.now=new Date(at).toISOString();p.expired=true;});ServicingPreview1252.wake();},priorRead+60000);
+    await s.page.waitForFunction(at=>svcNight1202()&&svcNight1202().read===at,priorRead+60000);
+    await cards.nth(2).evaluate(n=>n.scrollIntoView({block:'start'}));await s.page.waitForFunction(()=>document.querySelector('[data-night1252="2026-10-25"] iframe'));
+    const refreshed=await s.page.evaluate(()=>({night:svcNight1202().day,picked:svcNight1202().picked,read:svcNight1202().read,models:ServicingPreview1252.models().map(r=>r.read)}));assert.equal(refreshed.night,DAYS[0],'Observer-driven loading must preserve the explicitly chosen night');assert.equal(refreshed.picked,true);assert(refreshed.models.every(v=>v===priorRead+60000),'Getter and all preview reports share the refreshed authorized read');
     s.setFixtureLevel('view');await s.page.evaluate(()=>{window.capability=()=> 'view';window.mayWrite=()=>false;SYNC.readonly=true;SYNC.claims='view';SYNC.level='view';applyCapability();renderServicing1084();});assert.equal(await s.page.locator('#svc1252').count(),0,'Losing edit capability removes private report DOM synchronously');assert.equal(await s.page.locator('#pane-servicing.svc1252-active').count(),0);assert((await s.page.locator('#pane-servicing').innerText()).includes('edit link'));
+    assert.equal(await s.page.evaluate(()=>svcNight1202()),null,'Capability loss synchronously clears shared report data');
+    const deniedOpen=await s.page.evaluate(()=>{const old=window.open;let calls=0;window.open=()=>{calls++;return null;};try{report1202.open();return calls;}finally{window.open=old;}});assert.equal(deniedOpen,0,'Legacy open cannot publish a stale report after capability loss');
     // Deliberately revoke access while an opened report is still paginating.
     s.setFixtureLevel('edit');await s.page.evaluate(()=>{window.capability=()=> 'edit';window.mayWrite=()=>true;SYNC.readonly=false;SYNC.claims='edit';SYNC.level='edit';applyCapability();renderServicing1084();});
     await s.page.waitForFunction(()=>ServicingPreview1252.models().length===3);
     await s.page.evaluate(()=>{const c=document.querySelector('[data-night1252]');c.open=true;c.dispatchEvent(new Event('toggle'));const f=c.querySelector('iframe');if(!f)throw Error('Pending frame missing');window.__pending1252=!!f.contentWindow.__pg1202;window.capability=()=> 'view';window.mayWrite=()=>false;SYNC.readonly=true;SYNC.claims='view';SYNC.level='view';applyCapability();});
     s.setFixtureLevel('view');assert.equal(await s.page.evaluate(()=>window.__pending1252),true);assert.equal(await s.page.locator('#svc1252').count(),0);await s.page.waitForTimeout(1200);
-    result.sessions[name]={captures,initiallyLoaded,before,after,baseline:s.baseline,readCalls:reads,accessBoundaryPreserved:true};
+    result.sessions[name]={captures,initiallyLoaded,getter,refreshed,before,after,baseline:s.baseline,readCalls:reads,legacyGetterAndOpenPreserved:true,accessBoundaryPreserved:true};
    }
    Object.assign(result.sessions[name],{pageErrors:s.errors,consoleErrors:s.consoleErrors,writeAttempts:s.counts.blocked});assert.deepEqual(s.errors,[]);assert.deepEqual(s.consoleErrors,[]);assert.equal(s.counts.blocked,0);
   }finally{await s.browser.close();fs.writeFileSync(path.join(out,'preview-checks.json'),JSON.stringify(result,null,2)+'\n');}
