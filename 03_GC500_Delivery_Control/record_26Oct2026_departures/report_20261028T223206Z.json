@@ -1,0 +1,139 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261028T223206Z",
+ "finished": "2026-10-28T22:32:34.641Z",
+ "mode": "apply",
+ "spec": {
+  "by": "Andrew Fisher",
+  "why": "Andrew Fisher, 29 Oct 2026 10:50 AEST, giving the purchase order number for week ending 18 Oct: \"4667755\" for Eric Lucian, then \"he uses this too 4667755\" for Daniel Gough (one purchase order per person per week; Eric's shift on the record is Wed 14 Oct, 10.5 h; Daniel's hours for that week are not yet on the record)",
+  "ops": [
+   {
+    "op": "po",
+    "number": "4667755",
+    "supplier_name": "Job Connect",
+    "stream": "labour",
+    "what": "Eric Lucian and Daniel Gough - week ending 18 Oct 2026",
+    "period": "w/e 18 Oct 2026",
+    "branch": "KINP",
+    "revenue_branch": "KINP",
+    "confirmed": true
+   }
+  ]
+ },
+ "pageSha256": "69bf04e72a45e084f0ba5227b4a26cf95ffe4078429044946af473120d4e7bb2",
+ "version": {
+  "before": 11934,
+  "after": 11937
+ },
+ "updated": {
+  "before": "2026-10-28T22:20:22.678Z",
+  "after": "2026-10-28T22:32:33.552Z"
+ },
+ "money": {
+  "before": {
+   "charge": 1011296.03,
+   "labour": 73174.28,
+   "labour_ticks": 497,
+   "card_hire": 183491.72,
+   "cost": 448019.57,
+   "difference": 563276.46,
+   "branches": {
+    "KINP": 282011.86,
+    "STPS": 82579.12,
+    "NVAC": 44272.04,
+    "MEAD": 25851.5
+   },
+   "vmsStandalone": []
+  },
+  "after": {
+   "charge": 1011296.03,
+   "labour": 73174.28,
+   "labour_ticks": 497,
+   "card_hire": 183491.72,
+   "cost": 448019.57,
+   "difference": 563276.46,
+   "branches": {
+    "KINP": 282011.86,
+    "STPS": 82579.12,
+    "NVAC": 44272.04,
+    "MEAD": 25851.5
+   },
+   "vmsStandalone": []
+  }
+ },
+ "probe": {
+  "newRefs": null,
+  "vmsBoards": {
+   "before": null,
+   "after": null
+  }
+ },
+ "stage": [
+  {
+   "op": "po",
+   "number": "4667755",
+   "supplier_name": "Job Connect",
+   "stream": "labour",
+   "what": "Eric Lucian and Daniel Gough - week ending 18 Oct 2026",
+   "period": "w/e 18 Oct 2026",
+   "branch": "KINP",
+   "revenue_branch": "KINP",
+   "confirmed": true,
+   "result": "recorded 4667755 Eric Lucian and Daniel Gough - week ending 18 Oct 2026"
+  }
+ ],
+ "writes": [
+  {
+   "key": "stamps/po~2f~4667755",
+   "status": 200
+  },
+  {
+   "key": "by/po~2f~4667755",
+   "status": 200
+  },
+  {
+   "key": "purchaseOrders/4667755",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 0,
+ "docs": {
+  "before": {
+   "stamps/po~2f~4667755": null,
+   "by/po~2f~4667755": null,
+   "purchaseOrders/4667755": null
+  },
+  "after": {
+   "stamps/po~2f~4667755": {
+    "_k": "po/4667755",
+    "v": "2026-10-28T22:32:22.149Z"
+   },
+   "by/po~2f~4667755": {
+    "_k": "po/4667755",
+    "v": "Andrew Fisher"
+   },
+   "purchaseOrders/4667755": {
+    "number": "4667755",
+    "by": "Andrew Fisher",
+    "at": "2026-10-28T22:32:22.149Z",
+    "supplier_name": "Job Connect",
+    "stream": "labour",
+    "what": "Eric Lucian and Daniel Gough - week ending 18 Oct 2026",
+    "period": "w/e 18 Oct 2026",
+    "branch": "KINP",
+    "revenue_branch": "KINP",
+    "confirmed": true,
+    "updated_at": "2026-10-28T22:32:22.149Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "4667755"
+   }
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}

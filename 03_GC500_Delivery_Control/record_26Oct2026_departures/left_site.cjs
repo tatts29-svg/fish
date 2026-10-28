@@ -108,6 +108,13 @@ spec.ops.forEach((o, i) => {
     if (!REFRE.test(o.ref || '')) fail(at + 'needs a reference'); if (typeof o.at !== 'string' || !ISO_UTC.test(o.at) || !Number.isFinite(Date.parse(o.at))) fail(at + 'at must be a UTC time'); if (Date.parse(o.at) > now) fail(at + 'at is in the future'); if (!TEXT200(o.why)) fail(at + 'needs why, under 200 characters, naming no system'); }
   else if (o.op === 'acc_add') { if (!REFRE.test(o.ref || '')) fail(at + 'needs a reference'); if (!TYPES.includes(o.type)) fail(at + 'type must be one the picker has'); if (!NORE.test(o.no || '')) fail(at + 'needs a number'); if (o.qty != null && !(Number.isInteger(o.qty) && o.qty >= 1)) fail(at + 'qty'); }
   else if (o.op === 'acc_fix') { if (!REFRE.test(o.ref || '')) fail(at + 'needs a reference'); if (!TYPES.includes(o.type)) fail(at + 'type'); if (!/^\d{4,12}$/.test(o.from || '') || !NORE.test(o.to || '')) fail(at + 'from/to numbers'); }
+  else if (o.op === 'po') { /* 29 Oct 2026: a purchase order on the page's own setPo, as the Purchase orders card would save it */
+    if (!/^\d{4,12}$/.test(o.number || '')) fail(at + 'needs a 4-12 digit purchase order number');
+    for (const f of ['supplier_name', 'what', 'period', 'branch', 'revenue_branch', 'stream']) if (typeof o[f] !== 'string' || !o[f].trim() || o[f].length > 120) fail(at + 'needs ' + f + ' under 120 characters');
+    if (!/^[A-Z]{4}$/.test(o.branch) || !/^[A-Z]{4}$/.test(o.revenue_branch)) fail(at + 'branch codes are four capitals');
+    if (o.amount != null && !(typeof o.amount === 'number' && Number.isFinite(o.amount) && o.amount >= 0)) fail(at + 'amount is a number or null');
+    if (o.note != null && (typeof o.note !== 'string' || o.note.length > 200 || SYS.test(o.note))) fail(at + 'note under 200 characters, naming no system');
+    if (typeof o.confirmed !== 'boolean') fail(at + 'confirmed must be true or false'); if (SYS.test(o.what)) fail(at + 'what names a system'); }
   else if (o.op === 'answer') { if (typeof o.id !== 'string' || !/^[a-z0-9][a-z0-9_-]{1,80}$/i.test(o.id)) fail(at + 'needs a question id'); if (typeof o.text !== 'string' || !o.text.trim() || o.text.length > 600) fail(at + 'needs text under 600 characters'); if (/\b(codex|claude|gpt|model|agent)\b/i.test(o.text)) fail(at + 'text names a system'); }
   else if (o.op === 'unit_reidentify') { if (!REFRE.test(o.ref || '')) fail(at + 'needs a reference'); if (!/^[0-9A-Z]{3,12}$/.test(o.no || '')) fail(at + 'needs a number'); if (typeof o.item !== 'string' || !o.item.trim()) fail(at + 'needs an item type'); if (!['coates', 'event-portables', 'prem-air-hire'].includes(o.owner || 'coates')) fail(at + 'owner');
     /* 27 Oct 2026: the label is what the Demob cards read; a Premiair VMS board's label is its register name (VMSnn), which places it on the VMS plan */
@@ -179,7 +186,8 @@ const VKEYS = [...new Set(spec.ops.filter(o => o.op === 'vms_rego' || o.op === '
 const REFS = refsOf(spec), QIDS = [...new Set(spec.ops.filter(o => o.op === 'answer').map(o => o.id))];
 /* the documents this operation may touch: the references' own delivery, assetNumbers and accessories documents, the
    answers documents named, and the audit documents the page keeps beside them (stamps, by, deleted, notes, spares) */
-const ALLOWED_COLLS = new Set(['delivery', 'assetNumbers', 'accessories', 'answers', 'stamps', 'by', 'deleted', 'notes', 'spares', 'loads', 'qtys', 'units', 'labour', 'supplied', 'vmsboard', 'places', 'items', 'added', 'branch', 'hireStart']);
+const PO_NOS = [...new Set(spec.ops.filter(o => o.op === 'po').map(o => o.number))]; /* purchase orders the spec names */
+const ALLOWED_COLLS = new Set(['purchaseOrders', 'delivery', 'assetNumbers', 'accessories', 'answers', 'stamps', 'by', 'deleted', 'notes', 'spares', 'loads', 'qtys', 'units', 'labour', 'supplied', 'vmsboard', 'places', 'items', 'added', 'branch', 'hireStart']);
 const NEW_REFS = new Set(spec.ops.filter(o => o.op === 'add_ref').map(o => o.ref)); /* references this run creates: absent before, present after */
 const PROBE_REFS = [...new Set([...NEW_REFS, ...spec.ops.filter(o => o.op === 'date_back' || o.op === 'light_redate').map(o => o.ref)])]; /* read back on Today after the stage */
 const VPOS = new Set(spec.ops.filter(o => o.op === 'vms_plan' || o.op === 'vms_inplace' || o.op === 'vms_complete' || o.op === 'vms_arrival').map(o => o.pos)); /* VMS plan positions (vms1024/<pos> on loads) the spec names */
@@ -190,6 +198,8 @@ const SPARE_IDS = new Set(spec.ops.filter(o => o.op === 'spare_use').map(o => o.
 const docIdDecode = id => String(id).replace(/~3f~/g, '?').replace(/~2f~/g, '/').replace(/~7c~/g, '|').replace(/~20~/g, ' ').replace(/~26~/g, '&');
 const allowed = (k, body, docs) => { const c = k.slice(0, k.indexOf('/')), id = k.slice(k.indexOf('/') + 1); if (!ALLOWED_COLLS.has(c)) return false; const d = docIdDecode(id), parts = d.split('/');
   if (c === 'vmsboard') return VKEYS.includes(d);
+  if (c === 'purchaseOrders') return PO_NOS.includes(d);
+  if ((c === 'stamps' || c === 'by') && d.startsWith('po/')) return PO_NOS.includes(d.slice(3));
   if (c === 'spares' || (c === 'stamps' || c === 'by') && d.startsWith('spares/')) return SPARE_IDS.has(d.replace(/^spares\//, ''));
   if ((c === 'stamps' || c === 'by') && d.startsWith('vmsboard/')) return VKEYS.includes(d.slice('vmsboard/'.length));
   if (c === 'loads' && d.startsWith('vms1024/')) return VPOS.has(d.slice('vms1024/'.length)) && (!body || body.kind === 'vms1024');
@@ -570,6 +580,16 @@ function applyOps(spec) {
         const cur = ((S.qtys || {})[op.ref]);
         const ok = setQty(op.ref, op.qty === '' ? '' : String(op.qty)); if (ok === false) throw new Error('setQty refused ' + op.ref);
         r.result = 'quantity ' + JSON.stringify(cur && cur.v !== undefined ? cur.v : cur) + ' -> ' + (op.qty === '' ? "the schedule's own" : op.qty);
+      } else if (op.op === 'po') {
+        /* 29 Oct 2026: the purchase order through the page's own setPo (the Purchase orders card's save): number, supplier, what, period, branches, amount, note, confirmed */
+        if (typeof setPo !== 'function' || typeof poOf !== 'function') throw new Error('setPo is not on this page');
+        const was = poOf(op.number); const patch = {supplier_name: op.supplier_name, stream: op.stream, what: op.what, period: op.period, branch: op.branch, revenue_branch: op.revenue_branch, confirmed: op.confirmed};
+        if (op.amount !== undefined) patch.amount = op.amount; if (op.note !== undefined) patch.note = op.note;
+        const same = was && Object.keys(patch).every(k => JSON.stringify(was[k] ?? null) === JSON.stringify(patch[k] ?? null));
+        if (same) r.result = 'already recorded';
+        else { const ok = setPo(op.number, patch); if (ok === false) throw new Error('setPo refused ' + op.number); const now = poOf(op.number); if (!now) throw new Error('purchase order ' + op.number + ' not held');
+          for (const k of Object.keys(patch)) if (JSON.stringify(now[k] ?? null) !== JSON.stringify(patch[k] ?? null)) throw new Error('purchase order ' + op.number + ' field ' + k + ' not held');
+          r.result = (was ? 'updated ' : 'recorded ') + op.number + ' ' + op.what; }
       } else if (op.op === 'answer') {
         /* the note lives under the question's note id (its words less the figures), so it survives the counts changing */
         if (!applyOps.QL) applyOps.QL = typeof questionsList === 'function' ? questionsList() : []; /* computed once: it is a heavy read */
@@ -831,6 +851,7 @@ function applyOps(spec) {
         if (op.op === 'light_redate') { const dd = (docs.delivery || {})[op.ref] || {}; const hs = (dd.history || []).filter(h => h && h.state === 'on site'), h = hs[hs.length - 1]; if (dd.state !== 'on site' || dd.set_at !== op.at || !h || h.at !== op.at || !String(h.note || '').includes(op.why)) problems.push(op.ref + ' arrival is not dated ' + op.at + ' with its reason ' + where); }
         if (op.op === 'acc_add' && !((((docs.accessories || {})[op.ref] || {}).v) || []).some(x => String(x.asset_no || '') === op.no && x.type === op.type)) problems.push(op.ref + ' has no ' + op.type + ' ' + op.no + ' ' + where);
         if (op.op === 'acc_fix') { const v = (((docs.accessories || {})[op.ref] || {}).v) || []; if (!v.some(x => String(x.asset_no || '') === op.to && x.type === op.type) || v.some(x => String(x.asset_no || '') === op.from)) problems.push(op.ref + ' ' + op.type + ' is not ' + op.to + ' ' + where); }
+        if (op.op === 'po') { const o = (docs.purchaseOrders || {})[op.number]; if (!o) problems.push('purchase order ' + op.number + ' is not held ' + where); else for (const k of ['supplier_name', 'stream', 'what', 'period', 'branch', 'revenue_branch', 'confirmed']) if (JSON.stringify(o[k] ?? null) !== JSON.stringify(op[k] ?? null)) problems.push('purchase order ' + op.number + ' ' + k + ' differs ' + where); }
         if (op.op === 'answer') { const nid = (results.find(x => x.op === 'answer' && x.id === op.id) || {}).noteId || op.id; if ((((docs.answers || {})[nid] || {}).v) !== op.text) problems.push('note ' + nid + ' is not held ' + where); }
         if (op.op === 'unit_reidentify' && !Object.values(docs.loads || {}).some(u => u && u.kind === 'unit925-record' && u.ref === op.ref && String(u.assetNo) === op.no && u.item === op.item && u.active !== false && !u.removedBy && (u.owner || 'coates') === (op.owner || 'coates') && (op.label == null || u.label === op.label))) problems.push(op.ref + ' has no active ' + op.item + ' unit ' + op.no + ' (owner ' + (op.owner || 'coates') + (op.label != null ? ', label ' + op.label : '') + ') ' + where);
         if (op.op === 'unit_archive' && Object.values(docs.loads || {}).some(u => u && u.kind === 'unit925-record' && u.ref === op.ref && String(u.assetNo) === op.no && u.active !== false && !u.removedBy)) problems.push(op.ref + ' still has an active unit record for ' + op.no + ' ' + where);
