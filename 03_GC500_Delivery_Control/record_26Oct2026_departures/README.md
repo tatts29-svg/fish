@@ -505,3 +505,8 @@ Andrew, 29 Oct 2026: "Kyle week Ending 18/10/2026 P/O 4668970". Spec `spec62_po_
 ## Run 63 — purchase order 4665091, Daniel Gough, Job Connect, week ending 11 Oct 2026 (29 Oct 2026 09:28 AEST, record 11946 → 11949)
 
 Andrew, 29 Oct 2026: "4665091 Daniel Sun 11 Oct 6–9 Oct". Spec `spec63_po_daniel_w11oct.json`, report `report_20261028T232819Z.json`: `po` op through the page's own setPo, KINP, confirmed, no amount until the invoice; three documents written, verified, every other document unchanged in value; P&L unchanged (charge $1,007,518.57, cost $448,019.57). Daniel's week on the page's roster: 6–9 Oct, 42 h. Live page at the run: v12.54.1 `20a81f75…`. Clock note: the AEST times in the run 59–62 headings above were written up to two hours ahead and are corrected here to the report clocks (08:32, 08:34, 08:53).
+
+
+## Run 64 — purchase order 4647509 (Advanced Temporary Fencing, construction week 5) matched to the invoice (29 Oct 2026 09:55 AEST, record 11949 → 11952)
+
+Andrew, 29 Oct 2026: "Match ours to the cent" — Advanced's invoice GC220926 (22 Sep 2026) is $33,670.50 ex GST; the order and receipt 4922398 held $33,670.00. Spec `spec64_po_4647509_invoice.json`, report `report_20261028T235455Z.json`: `po` op through the page's own setPo, amount $33,670.00 → $33,670.50 and the invoice noted on the order; receipt, programme sheet and supplier pricing kept (setPo merges). Three documents written, verified, every other document unchanged in value. P&L: known cost $448,019.57 → $448,020.07 (+$0.50), charge unchanged. Runner: a `po` op may now carry `revenue_branch: null`, as the fencing orders hold it.

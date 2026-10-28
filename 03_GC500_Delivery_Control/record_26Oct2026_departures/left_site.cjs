@@ -110,8 +110,10 @@ spec.ops.forEach((o, i) => {
   else if (o.op === 'acc_fix') { if (!REFRE.test(o.ref || '')) fail(at + 'needs a reference'); if (!TYPES.includes(o.type)) fail(at + 'type'); if (!/^\d{4,12}$/.test(o.from || '') || !NORE.test(o.to || '')) fail(at + 'from/to numbers'); }
   else if (o.op === 'po') { /* 29 Oct 2026: a purchase order on the page's own setPo, as the Purchase orders card would save it */
     if (!/^\d{4,12}$/.test(o.number || '')) fail(at + 'needs a 4-12 digit purchase order number');
-    for (const f of ['supplier_name', 'what', 'period', 'branch', 'revenue_branch', 'stream']) if (typeof o[f] !== 'string' || !o[f].trim() || o[f].length > 120) fail(at + 'needs ' + f + ' under 120 characters');
-    if (!/^[A-Z]{4}$/.test(o.branch) || !/^[A-Z]{4}$/.test(o.revenue_branch)) fail(at + 'branch codes are four capitals');
+    for (const f of ['supplier_name', 'what', 'period', 'branch', 'stream']) if (typeof o[f] !== 'string' || !o[f].trim() || o[f].length > 120) fail(at + 'needs ' + f + ' under 120 characters');
+    if (!/^[A-Z]{4}$/.test(o.branch)) fail(at + 'branch code is four capitals');
+    /* 29 Oct 2026: revenue_branch may be null, as the fencing orders hold it - the page derives a fencing or toilets order's revenue branch itself */
+    if (!(o.revenue_branch === null || /^[A-Z]{4}$/.test(o.revenue_branch))) fail(at + 'revenue_branch is four capitals or null');
     if (o.amount != null && !(typeof o.amount === 'number' && Number.isFinite(o.amount) && o.amount >= 0)) fail(at + 'amount is a number or null');
     if (o.note != null && (typeof o.note !== 'string' || o.note.length > 200 || SYS.test(o.note))) fail(at + 'note under 200 characters, naming no system');
     if (typeof o.confirmed !== 'boolean') fail(at + 'confirmed must be true or false'); if (SYS.test(o.what)) fail(at + 'what names a system'); }
