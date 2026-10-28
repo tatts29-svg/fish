@@ -19,3 +19,13 @@ Andrew, 28 Oct 2026: "A pre-start for every weekday to 14 Nov, Installs and Fenc
 **How they're made:** `generate_prestarts_ahead.cjs` is adapted from `record_15Oct2026_prestarts_signed/generate_prestarts.cjs`. It reads the live page read-only, so nothing is written to the record. `evidence/build.json` lists what each form was built from.
 
 **Not uploaded.** Nothing in this folder has been sent to the record.
+
+## Uploaded, 28 Oct 2026
+
+- **16:13 AEST:** the 23 forms went onto the record, one per crew per day (`report_20261028T061345Z.json`).
+- **16:19 AEST:** Andrew, on the eight old "Retrospective prefill — unsigned" copies for 7–11 Sep: "yes please". Each was replaced with a form in the same layout (`sep/`, `manifest_sep.json`, `report_20261028T061935Z.json`). The old copies were backed up locally, in a git-ignored folder, before removal.
+  - **Coates Installs 7–11 Sep:** the record holds no crew names for those days, so the crew rows are left blank. The work shown is what the programme holds (7 Sep: 1 VMS on; 11 Sep: 1 lighting tower on; 8–10 Sep: nothing).
+  - **Fencing 7, 8 and 10 Sep:** the record holds no work for those days, so no names are printed.
+  - The generator now takes `--days` for any days, and no longer prints crew names on a day with no work on the record.
+
+**Result:** 79 pre-starts on the record. None is titled "unsigned", and none is shown as uploaded by anyone other than Andrew Fisher.

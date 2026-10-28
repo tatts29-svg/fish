@@ -67,6 +67,8 @@ function range(from, to) { const out = []; for (let t = Date.parse(from + 'T00:0
 /* 28 Oct 2026: every weekday from tomorrow to the end of demob (Fri 13 Nov 2026), both crews */
 const WEEKDAYS = range('2026-10-29', '2026-11-13').filter(d => { const w = new Date(d + 'T00:00:00Z').getUTCDay(); return w !== 0 && w !== 6; });
 const SCOPE = {coates: WEEKDAYS, fencing: WEEKDAYS};
+/* the phase of the job on a day: build to Thu 22 Oct, event Fri 23 - Sun 25 Oct, demob from Mon 26 Oct */
+const phaseOf = iso => iso <= '2026-10-22' ? 'Build' : iso <= '2026-10-25' ? 'Event' : 'Demob';
 
 /* ----------------------------------------------------------------------------------------------- read the record */
 async function readRecord(a, days) {
@@ -235,8 +237,11 @@ function coatesPage(snap, iso, a, form, fenceDockets) {
   const cols = [[], [], [], []]; PS7.work.forEach(([k, label, c]) => cols[c].push(`<label class="wk">${box(false)}${esc(label)}</label>`));
   const first = L.length ? L[0] : null, last = L.length ? L[L.length - 1] : null;
   const bits = [];
-  if (D.counts) bits.push(`<li><b>Demob on the programme.</b> ${esc(D.counts)} — loaded out by forklift or crane, stairs and landings off first, services isolated and disconnected before anything moves.</li>`);
-  else bits.push('<li><b>Demob on the programme.</b> No pick-ups are booked for this day — site checks, servicing, and getting the next pick-ups ready (stairs off, units emptied and locked, access clear for the truck).</li>');
+  const ph = phaseOf(iso);
+  if (D.counts && ph === 'Demob') bits.push(`<li><b>Demob on the programme.</b> ${esc(D.counts)} — loaded out by forklift or crane, stairs and landings off first, services isolated and disconnected before anything moves.</li>`);
+  else if (D.counts) bits.push(`<li><b>On the programme.</b> ${esc(D.counts)} — unloaded by forklift or crane, positioned and levelled, exclusion zone up under the hook.</li>`);
+  else if (ph === 'Demob') bits.push('<li><b>Demob on the programme.</b> No pick-ups are booked for this day — site checks, servicing, and getting the next pick-ups ready (stairs off, units emptied and locked, access clear for the truck).</li>');
+  else bits.push('<li><b>On the programme.</b> No deliveries or pick-ups are on the programme for this day.</li>');
   if (false) {
     const early = L.filter(x => x.early).length;
     bits.push(`<li><b>Traffic and the run in.</b> ${plural(L.length, 'load')} off Kingston, first away ${esc(first.time || '—')} and last ${esc(last.time || '—')}${first.eta ? `, due on site ${esc(first.eta)} to ${esc(last.eta)}` : ''}. ${early} of them left before the site opens, so the run in was worked around live traffic on the Gold Coast Highway and the park roads, with the escort ahead.</li>`);
@@ -263,15 +268,15 @@ function coatesPage(snap, iso, a, form, fenceDockets) {
  <div class="psh-m"><span class="kicker">DAILY PRE-START</span><h1>Buildings &amp; toilets — installers</h1></div>
  <div class="psh-r"><b>GC500 · 2026</b><span>SUPERCARS GOLD COAST 500</span><span>SURFERS PARADISE STREET CIRCUIT</span></div></header>
  <p class="lede">${lede}</p>
- ${h2('01', 'THE DAY', 'Demob · as programmed')}
+ ${h2('01', 'THE DAY', phaseOf(iso) + ' · as programmed')}
  <div class="today">
  <div><label>DATE</label><b>${esc(w)}</b></div>
  <div><label>CREW</label><b>Coates Installs</b></div>
- <div><label>CREW ON</label><b>${names.length}</b><span>${esc(names.join(', '))}</span></div>
- <div><label>PICK-UPS</label><b>${esc(D.counts || 'None booked')}</b></div>
- <div><label>PHASE</label><b>Demob</b><span>ends Fri 13 Nov 2026</span></div>
+ <div><label>CREW ON</label><b>${names.length || '—'}</b><span>${esc(names.length ? names.join(', ') : 'names to be written in below')}</span></div>
+ <div><label>${phaseOf(iso) === 'Demob' ? 'PICK-UPS' : 'ON THE PROGRAMME'}</label><b>${esc(D.counts || 'None booked')}</b></div>
+ <div><label>PHASE</label><b>${phaseOf(iso)}</b><span>${phaseOf(iso) === 'Demob' ? 'ends Fri 13 Nov 2026' : 'Supercars Gold Coast 500'}</span></div>
  </div>
- ${h2('02', 'THE DAY’S WORK', 'Demob · traffic · plant · spotting')}
+ ${h2('02', 'THE DAY’S WORK', phaseOf(iso) + ' · traffic · plant · spotting')}
  <ul class="story">${bits.join('')}</ul>
  ${h2('03', 'THE WORK', 'Tick what the crew is doing today')}
  <div class="work">${cols.map(c => '<div>' + c.join('') + '</div>').join('')}</div>
@@ -329,7 +334,8 @@ function fencingPage(snap, iso, a, dockets, programme) {
     bits.push(`<li><b>The line that went in.</b> ${plural(signed.length, 'signed docket')}${notes.length ? ` and ${plural(notes.length, 'service note')}` : ''} — ${esc(qWords(snap, q) || 'components only, no metres written')}. Fronts: ${esc(fronts.join(', '))}.</li>`);
     if (Object.keys(comps).length) bits.push(`<li><b>What it took.</b> ${esc(compWords(comps))}, counted on the dockets.</li>`);
   } else {
-    bits.push(`<li><b>The plan for the day.</b> ${plural(programme.length, 'task')} on ${esc(planWords)} — ${esc(pWords(pq) || 'no quantities written')}. Fronts: ${esc(fronts.join(', '))}.</li>`);
+    if (programme.length) bits.push(`<li><b>The plan for the day.</b> ${plural(programme.length, 'task')} on ${esc(planWords)} — ${esc(pWords(pq) || 'no quantities written')}. Fronts: ${esc(fronts.join(', '))}.</li>`);
+    else bits.push('<li><b>The plan for the day.</b> No fencing task is on the plan for this day.</li>');
   }
   bits.push('<li><b>Working around live traffic.</b> The fence line follows live roads. Traffic control in place before anyone steps off the kerb, nobody in a running lane without a controller, every panel carried inside the closure.</li>');
   bits.push('<li><b>Plant on the same front.</b> Stay out of the swing and the reversing lanes, and catch the operator’s eye before crossing.</li>');
@@ -339,12 +345,15 @@ function fencingPage(snap, iso, a, dockets, programme) {
   let table;
   if (fromDockets) {
     table = `<table class="lds"><thead><tr><th>DOCKET</th><th>WHERE</th><th>QUANTITIES AS SIGNED</th><th>COMPONENTS</th><th>SIGNED BY</th></tr></thead><tbody>${dockets.map(d => `<tr><td><b>${d.docket_no ? esc(d.docket_no) : 'service note ' + esc((d.service_note || {}).note_no || '')}</b></td><td>${esc(d.location || '')}${d.docket_no ? '' : ' <i>(service note, not a hire docket)</i>'}</td><td>${esc(qWords(snap, Object.fromEntries(Object.entries(d.quantities || {}).filter(([, n]) => Number(n) > 0))) || '—')}</td><td>${esc(compWords(Object.fromEntries(Object.entries(d.components || {}).filter(([, n]) => Number(n) > 0))) || '—')}</td><td>${esc(d.signed_by || '—')}</td></tr>`).join('')}</tbody></table>`;
+  } else if (!programme.length) {
+    table = '<p class="none">No fencing task is on the plan for this day.</p>';
   } else {
     table = `<table class="lds"><thead><tr><th>WHERE</th><th>WHAT</th><th>QUANTITIES ON THE PLAN</th><th>NOTE ON THE PLAN</th></tr></thead><tbody>${programme.map(r => `<tr><td>${esc(r.location || '')}</td><td>${esc(r.description || '')}</td><td>${esc(pWords(r.quantities || {}) || '—')}</td><td>${esc([r.note, r.flag].concat(r.notes || []).filter(Boolean).join(' · ') || '')}</td></tr>`).join('')}</tbody></table>`;
   }
   /* who attended: the fencing crew as the record holds it (the ninth name from the day it was added) */
   const crew = snap.team.filter(p => p.group === 'fencing' && (!ADDED_FENCE_NAME_ON[p.name] || iso >= ADDED_FENCE_NAME_ON[p.name]));
-  const rows = crew.map(p => ({name: p.name, role: p.event_role || 'Fencing crew'}));
+  /* no work on the record for the day: no names printed, the rows are left for whoever was on */
+  const rows = (fromDockets || programme.length) ? crew.map(p => ({name: p.name, role: p.event_role || 'Fencing crew'})) : [];
   while (rows.length < 12) rows.push(null);
   const lede = '<b>Advanced Temporary Fencing</b> · temporary fence, crowd control barriers, gates and scrim — the line round the circuit <span class="tag">FIELD OPERATIONS</span>';
   const compiled = dmy(a.signed);
@@ -354,7 +363,7 @@ function fencingPage(snap, iso, a, dockets, programme) {
  <div class="psh-m"><span class="kicker">DAILY PRE-START</span><h1>Fencing — Advanced Temporary Fencing</h1></div>
  <div class="psh-r"><b>GC500 · 2026</b><span>SUPERCARS GOLD COAST 500</span><span>SURFERS PARADISE STREET CIRCUIT</span></div></header>
  <p class="lede">${lede}</p>
- ${h2('01', 'THE DAY', 'Demob · as programmed')}
+ ${h2('01', 'THE DAY', phaseOf(iso) + ' · as programmed')}
  <div class="today">
  <div><label>DATE</label><b>${esc(w)}</b></div>
  <div><label>CREW</label><b>Advanced Temporary Fencing</b></div>
@@ -391,13 +400,13 @@ function plan(snap, a) {
   const docketsOn = iso => snap.dockets.filter(d => d.date === iso && d.crew === FENCE_CREW_NAME);
   for (const crew of Object.keys(CREWS)) {
     if (a.crew && a.crew !== crew) continue;
-    for (const iso of SCOPE[crew]) {
+    for (const iso of (a.days || SCOPE[crew])) {
       if (a.days && !a.days.includes(iso)) continue;
       const D = snap.days[iso];
       if (crew === 'coates') {
         const c = (D && D.crew) || {count: null, names: []};
-        if (!D || !D.in_programme) { skipped.push({crew, day: iso, reason: 'outside the programme', unsigned_left: unsignedFor(crew, iso)}); continue; }
-        if (!(c.count > 0) && !(c.names || []).length) {
+        if (!D) { skipped.push({crew, day: iso, reason: 'not read', unsigned_left: unsignedFor(crew, iso)}); continue; }
+        if (false) {
           const what = Object.entries(D.on || {}).map(([k, n]) => `${n} ${k.toLowerCase()} on`).concat(Object.entries(D.off || {}).map(([k, n]) => `${n} ${k.toLowerCase()} off`)).join(', ');
           skipped.push({crew, day: iso, reason: `no Coates crew recorded for the day (${what ? 'the record holds ' + what + ', loads from Kingston: ' + D.loads.length : 'nothing on the record for the day'})`, unsigned_left: unsignedFor(crew, iso)});
           continue;
@@ -412,7 +421,8 @@ function plan(snap, a) {
         const rows = upd.length ? upd : base;
         if (work.length) { records.push({crew, day: iso, replaces: unsignedFor(crew, iso), confirm: null, dockets: work, programme: []}); continue; }
         if (yard.length) { skipped.push({crew, day: iso, reason: `the only docket that day is a stock transfer to the yard (${yard.map(d => d.docket_no + ' ' + (d.location || '')).join('; ')}), not an installation`, unsigned_left: unsignedFor(crew, iso)}); continue; }
-        if (rows.length) { records.push({crew, day: iso, replaces: [], confirm: null, dockets: [], programme: rows}); continue; }
+        if (rows.length) { records.push({crew, day: iso, replaces: unsignedFor(crew, iso), confirm: null, dockets: [], programme: rows}); continue; }
+        if (a.days) { records.push({crew, day: iso, replaces: unsignedFor(crew, iso), confirm: null, dockets: [], programme: []}); continue; }
         skipped.push({crew, day: iso, reason: 'nothing on the record for the fencing crew that day: no docket dated that day and no installation-plan row dated that day', unsigned_left: unsignedFor(crew, iso)});
       }
     }
@@ -465,7 +475,7 @@ async function renderAll(a, jobs) {
   const a = args();
   const outDir = a.out, pdfDir = path.join(outDir, 'pdfs'), evDir = path.join(outDir, 'evidence');
   fs.mkdirSync(pdfDir, {recursive: true}); fs.mkdirSync(evDir, {recursive: true});
-  const allDays = [...new Set([...SCOPE.coates, ...SCOPE.fencing])].sort();
+  const allDays = a.days ? [...a.days].sort() : [...new Set([...SCOPE.coates, ...SCOPE.fencing])].sort();
   let snap;
   if (a.snapshot) { snap = JSON.parse(fs.readFileSync(a.snapshot, 'utf8')); console.log('snapshot', a.snapshot, 'read at', snap.read_at); }
   else {
@@ -490,7 +500,7 @@ async function renderAll(a, jobs) {
     const job = {pdf: path.join(pdfDir, name), html, name};
     jobs.push(job);
     const entry = {file: 'pdfs/' + name, title: `Pre-start · ${CREWS[r.crew]} · ${r.day}`,
-      note: `Daily pre-start for ${words(snap, r.day)} — to be ticked and signed by the crew at the pre-start`, kind: 'pack', day: r.day, crew: r.crew, replaces: []};
+      note: `Daily pre-start for ${words(snap, r.day)} — to be ticked and signed by the crew at the pre-start`, kind: 'pack', day: r.day, crew: r.crew, replaces: r.replaces};
     if (r.confirm) entry.confirm = r.confirm;
     manifest.push(entry);
     build.push({crew: r.crew, day: r.day, words: words(snap, r.day), file: entry.file, attendees: made.attendees, count: made.count, basis: r.crew === 'coates' ? `${(snap.days[r.day].counts || 'no drops dated this day')} · loads ${snap.days[r.day].loads.length} · fencing dockets that day ${r.dockets.filter(d => d.docket_no).length}` : made.basis, replaces: r.replaces, confirm: r.confirm, job});

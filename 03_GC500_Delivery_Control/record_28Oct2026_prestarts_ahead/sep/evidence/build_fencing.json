@@ -1,0 +1,85 @@
+{
+ "author": "Andrew Fisher",
+ "built": "2026-10-28T06:19:11.835Z",
+ "signed": "2026-10-15",
+ "form": "GC500-PS-INS-01 v1",
+ "page_version": null,
+ "record_read_at": "2026-10-28T06:18:56.274Z",
+ "page_file": {
+  "name": "live2.html",
+  "sha256": "524115a3c9f910b8af4f56ce5c7ce1ab55379a9415fad36df51d9e4a4f535005",
+  "bytes": 16028642
+ },
+ "records": [
+  {
+   "crew": "fencing",
+   "day": "2026-09-07",
+   "words": "Mon 07 Sep 2026",
+   "file": "pdfs/GC500_Prestart_Advanced_Fencing_2026-09-07.pdf",
+   "attendees": [],
+   "count": 0,
+   "basis": "0 installation-plan row(s) ()",
+   "replaces": [
+    "GC500_Prestart_ATF_2026-09-07_Retrospective_Unsigned.pdf"
+   ],
+   "confirm": null,
+   "fit": {
+    "avail": 1070,
+    "height": 873,
+    "zoom": 1,
+    "fonts": [
+     "Carlito, Calibri, \"Segoe UI\", system-ui, sans-serif"
+    ]
+   },
+   "bytes": 155133,
+   "sha256": "53dde89f723ad264b899e1faed89e52803e748b19503c0125ffc54e25cff22c8"
+  },
+  {
+   "crew": "fencing",
+   "day": "2026-09-08",
+   "words": "Tue 08 Sep 2026",
+   "file": "pdfs/GC500_Prestart_Advanced_Fencing_2026-09-08.pdf",
+   "attendees": [],
+   "count": 0,
+   "basis": "0 installation-plan row(s) ()",
+   "replaces": [
+    "GC500_Prestart_ATF_2026-09-08_Retrospective_Unsigned.pdf"
+   ],
+   "confirm": null,
+   "fit": {
+    "avail": 1070,
+    "height": 873,
+    "zoom": 1,
+    "fonts": [
+     "Carlito, Calibri, \"Segoe UI\", system-ui, sans-serif"
+    ]
+   },
+   "bytes": 155153,
+   "sha256": "4ee566e3ef5434b701b2e770fc6a9bae288c48d932ad81f8deae08e0cd102457"
+  },
+  {
+   "crew": "fencing",
+   "day": "2026-09-10",
+   "words": "Thu 10 Sep 2026",
+   "file": "pdfs/GC500_Prestart_Advanced_Fencing_2026-09-10.pdf",
+   "attendees": [],
+   "count": 0,
+   "basis": "0 installation-plan row(s) ()",
+   "replaces": [
+    "GC500_Prestart_ATF_2026-09-10_Retrospective_Unsigned.pdf"
+   ],
+   "confirm": null,
+   "fit": {
+    "avail": 1070,
+    "height": 873,
+    "zoom": 1,
+    "fonts": [
+     "Carlito, Calibri, \"Segoe UI\", system-ui, sans-serif"
+    ]
+   },
+   "bytes": 155128,
+   "sha256": "600c5fd0653ac545e573ba5829f5a02e7748046a42d66c60a4d234ccbf8296f7"
+  }
+ ],
+ "skipped": []
+}
