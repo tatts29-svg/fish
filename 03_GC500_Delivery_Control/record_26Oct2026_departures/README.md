@@ -490,3 +490,8 @@ Andrew, 29 Oct 2026: "Yes it arrived" (the laser plane, 16 Oct). EQ0006 (asset 1
 ## Run 59 — purchase order 4667755, Job Connect, week ending 18 Oct 2026 (29 Oct 2026 10:52 AEST, record 11934 → 11937)
 
 Andrew, 29 Oct 2026: "4667755" for Eric Lucian's week, then "he uses this too 4667755" for Daniel Gough (one purchase order per person per week). New runner op `po`: the purchase order through the page's own `setPo` (what the Purchase orders card saves), number, supplier, what, period, branches, confirmed; no amount until the invoice. Spec `spec59_po_eric.json`, report `report_20261028T223206Z.json`: `purchaseOrders/4667755` = Job Connect, labour, "Eric Lucian and Daniel Gough - week ending 18 Oct 2026", w/e 18 Oct 2026, KINP, confirmed; three documents written, verified, every other document unchanged in value. Open: Daniel's hours for that week are not on the record (only his 30 Sep and 26 Oct shifts are); Kyle's purchase order for the same week (52.5 h) is still to come.
+
+
+## Runs 60 and 61 — purchase orders 4670882 (Daniel Gough) and 4671825 (Kyle Gover), Job Connect, week ending 25 Oct 2026 (29 Oct 2026 11:00 AEST, record 11937 → 11940 → 11943)
+
+Andrew, 29 Oct 2026: "this will be daniel next week 25/10/2026 4670882"; "and this will be Kyle Week Ending 25/10/2026 4671825". Specs `spec60_po_daniel_w25oct.json` and `spec61_po_kyle_w25oct.json`, reports `report_20261028T223401Z.json` and `report_20261028T223506Z.json`: each a `po` op through the page's own setPo, KINP, confirmed, no amount until the invoice; three documents written per run, verified, every other document unchanged in value. Kyle's week on the record: 19–22 Oct days, 23–25 Oct nights, 78.78 h. Daniel's race-week hours are not yet on the record (his accommodation 22–25 Oct is).
