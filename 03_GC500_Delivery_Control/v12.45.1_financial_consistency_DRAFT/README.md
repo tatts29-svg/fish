@@ -1,4 +1,4 @@
-# v12.45.1 financial consistency — DRAFT
+# v12.45.1 financial consistency — READY TO UPLOAD
 
 Author: Andrew Fisher.
 
@@ -20,7 +20,15 @@ No new business decision, contract rate, source quantity, operational record or 
 
 The financial labour plan also applies the same existing held-reference exclusion as the headline and tick models before adding fire-extinguisher slots. This removes already-excluded charges from that detailed financial view while retaining the physical equipment and its recorded ticks. Demob-only detail remains explicitly partial where the approved combined FWF adjustment has no installation/demob split.
 
-The patch requires an explicit matching `GC500_V12451_BASE_SHA256`, exactly one v12.45 footer, and the predecessor implementation markers. The v12.45 predecessor is independently verified LIVE at SHA-256 `63856220d5541f3e1f66b0bc2ea4bc98cdecee6f41d9804baf59401ffbc9ba57`. The shared build reproduces the tested financial candidate exactly at SHA-256 `2af6d293843be7165e0ac6a0b05e7ce1d8263ab968a62ab30c14f009599253d5`. The fresh native financial/document comparison, incomplete-evidence rendering checks and affected phone read-back described in `CHECKS.md` have passed. Final shared desktop/phone sweeps are running; this financial release remains DRAFT and is not READY TO UPLOAD. The earlier v12.44 checks on record 11702 are historical evidence, not current acceptance.
+The patch requires an explicit matching `GC500_V12451_BASE_SHA256`, exactly one v12.45 footer, and the predecessor implementation markers. The v12.45 predecessor is independently verified LIVE at SHA-256 `63856220d5541f3e1f66b0bc2ea4bc98cdecee6f41d9804baf59401ffbc9ba57`. The shared build reproduces the tested financial candidate exactly at SHA-256 `2af6d293843be7165e0ac6a0b05e7ce1d8263ab968a62ab30c14f009599253d5` (16,067,319 bytes). The fresh native financial/document comparison, incomplete-evidence rendering checks and affected phone read-back described in `CHECKS.md` have passed. Both final shared sweeps pass all 27 tabs, seven deep links and Back navigation, with zero runtime errors, console errors or operational write attempts. The current record was fetched again after the sweeps and exactly matched the tested snapshot. The earlier v12.44 checks are historical evidence, not current acceptance.
+
+Frozen implementation/tests source: `2a16030f409d05f5a277bd6c56baf7e454b5362f`. READY TO UPLOAD, not live. Before/after figures have been shown to Andrew in his private conversation; this bounded repair implements his existing instructions and standing fix/go-live authority. It does not ask for a new business decision. Claude owns the guarded publication and must require an exact rebuild, run the expected probes below and prove the public bytes before reporting LIVE.
+
+```sh
+GC500_V12451_BASE_SHA256=63856220d5541f3e1f66b0bc2ea4bc98cdecee6f41d9804baf59401ffbc9ba57 \
+  bash 03_GC500_Delivery_Control/toolchain/build.sh v12.45.1 \
+  03_GC500_Delivery_Control/v12.45.1_financial_consistency_DRAFT/patch_v12451.py
+```
 
 This is a consistency repair for existing approved customer rules. It does not complete the separate review of original Baseplan records or confirm pending approved exceptions, and it is not a final-invoice certification. Codex builds and tests; Claude uploads only the final READY source through the guarded process.
 

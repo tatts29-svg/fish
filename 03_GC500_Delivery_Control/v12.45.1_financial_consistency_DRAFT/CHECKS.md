@@ -1,10 +1,10 @@
-# v12.45.1 financial consistency checks — DRAFT
+# v12.45.1 financial consistency checks — READY TO UPLOAD
 
 Author: Andrew Fisher.
 
 Independently verified LIVE predecessor: v12.45 on v12.43.1, SHA-256 `63856220d5541f3e1f66b0bc2ea4bc98cdecee6f41d9804baf59401ffbc9ba57`. Its release archive is now `v12.45_map_smoothness_LIVE`; the retention test resolves the live archive safely.
 
-The shared financial build reproduces the tested preview byte for byte: SHA-256 `2af6d293843be7165e0ac6a0b05e7ce1d8263ab968a62ab30c14f009599253d5`, 16,067,319 bytes. Financial release remains DRAFT, not READY TO UPLOAD or live.
+The shared financial build reproduces the tested preview byte for byte: SHA-256 `2af6d293843be7165e0ac6a0b05e7ce1d8263ab968a62ab30c14f009599253d5`, 16,067,319 bytes. Frozen implementation/tests source: `2a16030f409d05f5a277bd6c56baf7e454b5362f`. READY TO UPLOAD, not live.
 
 The water/FWF helper files and their integration helper are byte-identical to the checked v12.44 draft. The release wrapper requires the exact reviewed v12.45 SHA and footer, retains the off-site ring/picture-cache/map implementation markers, rejects any pre-existing financial helper and emits v12.45.1. The predecessor also includes the closure-satellite coordinate-origin and matrix correction; both new map source blocks are covered by the retention test.
 
@@ -31,7 +31,7 @@ Completed native checks on this exact preview, using the same fresh frozen recor
 
 The original v12.44 preview `ef9363be5b7ed4b3ed4d258b1e192eeec4fa973e4a2b451a4caca7590112373a` and its historical native checks remain in the original draft folder. Current acceptance above is based on this rebased candidate rather than that historical run.
 
-Remaining before READY: both shared full-page sweeps on the final build are running. If the source or record changes, rerun the affected comparisons against the fresh evidence before publication. A separate Codex source review checked the bounded reader and review-state integration; Codex owns final build checks and handover.
+Both final shared full-page sweeps passed: desktop and phone each cover 27 tabs, seven deep links and Back navigation, with zero runtime errors, console errors or operational write attempts. A fresh record read after the sweeps exactly matched the tested snapshot. The shared build from the independently verified live predecessor matches the final tested candidate byte for byte. If the source or record changes, rerun affected comparisons against fresh evidence before publication. A separate Codex source review checked the bounded reader and review-state integration, and the public files were checked for private evidence leakage. Codex owns these build checks; no Claude independent review is claimed.
 
 The separate original-Baseplan and approved-exception review remains pending; this consistency repair does not certify a final invoice or settle missing business evidence. No timing acceptance claim is made.
 
