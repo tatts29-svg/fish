@@ -424,3 +424,7 @@ Andrew, 28 Oct 2026 (photo of the sent list): "0637 0188 0183 0965 / Leaving 111
 ## Run 44 - LT05 1224783 and LT06 1224791 left 12:00, 28 Oct 2026 (APPLIED)
 
 Andrew, 28 Oct 2026: "1224791 1224783 Leaving 12pm". Both light tower pods left in full; applied at 12:06 from the scheduled check, nothing said to change it. Today groups unchanged (lighting 6/6). Report `report_20261028T020720Z.json`.
+
+## Run 46 - WC41 (10), WC42 (1), WC40 last 4 left 12:15, 28 Oct 2026 (APPLIED)
+
+Andrew, 28 Oct 2026: "Wc42 wc41 all picked up 12:15pm", then "Picked up.1215pm too" with 0626, 0648, 0433, 0541 (WC40). WC41, WC42 and WC40 each left in full. Today groups unchanged. Report `report_20261028T022023Z.json`.
