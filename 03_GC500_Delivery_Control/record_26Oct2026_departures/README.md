@@ -420,3 +420,7 @@ Andrew, 28 Oct 2026: "P69 left 1015am / Make sure you dont mess with the build s
 ## Run 45 - WC39 0637/0188, WC38 0183, WC40 0965 left 11:15, 28 Oct 2026 (APPLIED)
 
 Andrew, 28 Oct 2026 (photo of the sent list): "0637 0188 0183 0965 / Leaving 1115am". WC39 and WC38 left in full; WC40 4 FWF still on site. Today groups unchanged. Record 11655 -> 11658. Report `report_20261028T012135Z.json`.
+
+## Run 44 - LT05 1224783 and LT06 1224791 left 12:00, 28 Oct 2026 (APPLIED)
+
+Andrew, 28 Oct 2026: "1224791 1224783 Leaving 12pm". Both light tower pods left in full; applied at 12:06 from the scheduled check, nothing said to change it. Today groups unchanged (lighting 6/6). Report `report_20261028T020720Z.json`.
