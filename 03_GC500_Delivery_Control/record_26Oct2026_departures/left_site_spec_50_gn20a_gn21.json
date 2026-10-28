@@ -1,0 +1,24 @@
+{
+ "by": "Andrew Fisher",
+ "basis": "Andrew, 28 Oct 2026: \"1276701 and 1261284 leaving at 330pm\". 1276701 is GN20-A (365 kVA, Coates; its only unit) and 1261284 is GN21 (60 kVA, Coates; its only unit), as their departure forms offer them. Both leave in full. Left site 28 Oct 2026 15:30 AEST.",
+ "ops": [
+  {
+   "op": "depart",
+   "ref": "GN20-A",
+   "at": "2026-10-28T15:30:00+10:00",
+   "nos": [
+    "1276701"
+   ],
+   "complete": true
+  },
+  {
+   "op": "depart",
+   "ref": "GN21",
+   "at": "2026-10-28T15:30:00+10:00",
+   "nos": [
+    "1261284"
+   ],
+   "complete": true
+  }
+ ]
+}
