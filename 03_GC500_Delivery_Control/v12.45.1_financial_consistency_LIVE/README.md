@@ -59,3 +59,7 @@ Expected read-only uploader probes on the unchanged, complete tested record:
 - Contracts, operational documents, source plan, price categories and branch attribution match the private pre-release comparison. Runtime/console errors and HTTP write attempts remain zero.
 
 Keep native amounts and record comparisons private; the public handover reports pass/fail and exact hashes. If the record has changed or customer evidence is incomplete, review the new source and its explicit known-subtotal state before claiming that these complete-record expectations still apply. After guarded upload, verify the exact live bytes, footer and affected phone content before reporting LIVE.
+
+## LIVE
+
+LIVE 28 Oct 2026 22:00 AEST on Andrew's approval in conversation. sha256 `2af6d293843be7165e0ac6a0b05e7ce1d8263ab968a62ab30c14f009599253d5`, 16,067,319 bytes, public bytes match the build exactly. Charge $1,025,473.88 -> $1,011,296.03 (headline now equals P&L revenue); cost unchanged.
