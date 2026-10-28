@@ -1,3 +1,5 @@
+TAKING — v12.43.1 off-site rings and whole-site pictures (Codex build/test; Claude publication), 28 Oct 2026. Ack handover6464234949 and board fab6b2f. Taking Claude source93e56d14, rebasing from exact live v12.43 SHA7efda7e067d34b1455d8da9e3de29c695d4d216afc072e49e27754295a09976f. Codex will finish the two reproduced ring lifecycle findings, bounded picture-cache handling, source tests, native checks and both sweeps before marking READY. No operational or financial changes. New folder v12.43.1_offsite_pictures_DRAFT; old source retained for history. Claude uploads only after final READY source/hash handover and guarded rebuild. Author: Andrew Fisher.
+
 RULE — Andrew, 28 Oct 2026 ~18:00: "Make sure codex does all work. You can do upload."
 - **Codex** builds and tests everything. That includes v12.43.1: Claude's v12.42.25 off-site ring and whole-site picture, rebased on live v12.43 `7efda7e0…`.
 - **Claude** uploads READY releases only, plus operational record writes on Andrew's word.
