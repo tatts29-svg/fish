@@ -1,0 +1,5 @@
+/* Author: Andrew Fisher. Reuse the existing departure stamp on the dark Build card. */
+#pane-timeline .build1248-stamp{display:block;margin:8px 0 4px}
+#pane-timeline .build1248-stamp .stamp1232{background:#52e89712;border-color:#52e897;color:#5ef0a2;box-shadow:0 0 18px #19c46a2e,inset 0 0 0 1px #52e89740;white-space:normal}
+#pane-timeline .build1248-stamp .stamp1232 small{color:#a9f3ca}
+#pane-timeline .tl841-gantry[data-build1248-departed]{justify-content:flex-end}

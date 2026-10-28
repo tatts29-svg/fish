@@ -1,0 +1,6 @@
+/* Author: Andrew Fisher. Existing supplier cards and departed stamp, with bounded wrapping. */
+#pane-subhired .sh1248-status{display:block;margin-top:8px;white-space:normal}
+#pane-subhired .sh1248-status>strong{display:block;font-size:11px;line-height:1.35}
+#pane-subhired .sh1248-status .stamp1232{margin:6px 0 3px;max-width:100%;box-sizing:border-box;white-space:normal}
+#pane-subhired .sh1248-status .stamp1232 small{overflow-wrap:anywhere}
+#pane-subhired .sh1248-note{display:block;margin-top:3px;font-size:11px;line-height:1.4}
