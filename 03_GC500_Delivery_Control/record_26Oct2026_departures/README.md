@@ -459,3 +459,7 @@ Andrew, 28 Oct 2026, on Today reading 98.31% (VMS 23/24, Equipment 12/13): "this
 - VMS: board 1211356 (contract 9961265 line 43) was on no delivery, so it read "Still to come". His 20 Oct entry (VMS05, rego ER9244, on T0001) sat under a register key the page does not show. The board's own register entry now carries rego ER9244 on T0001 (`vms_board`, keyed by asset number; the runner's check widened to allow a Coates asset-number key).
 - Equipment: EQ0007 (AT009 rough-terrain forklift 2.5t) has been on site since docket 26083924, 17 Sep 2026 13:42 AEST. Complete was pressed only on 27 Oct, after the progress cut-off of Fri 23 Oct. Its complete is dated to that arrival (`date_back`).
 Today groups after: all seven at 100%. P&L unchanged at $1,025,473.88. Report `report_20261028T060206Z.json`.
+
+## Run 54 - water barriers WB06 (154), WB01 (12), WB05 (13), WB17 (6) left 19:30 Mon 27 Oct 2026 (APPLIED)
+
+Andrew, 28 Oct 2026, on the barriers Baseplan has off rent on 27 Oct: "lets role with this" (those four), then "7:30PM". 185 barriers, each reference left in full. A barrier reference holds one counted code (ARMORZONMASHTL2, type TL2) plus the rest unnumbered, so each op ticks the code and puts the remainder in the unnumbered count. The runner's asset-number check was widened to 16 characters for that code. Today groups and P&L unchanged; record 11698 -> 11702. Report `report_20261028T063156Z.json`.

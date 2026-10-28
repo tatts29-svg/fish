@@ -1,0 +1,66 @@
+{
+ "by": "Andrew Fisher",
+ "basis": "Andrew, 28 Oct 2026, on the water barriers Baseplan has off rent on 27 Oct: \"lets role with this\" - WB06 (154), WB01 (12), WB05 (13), WB17 (6) - and \"7:30PM\". Each left in full; left site Mon 27 Oct 2026 19:30 AEST. Barriers are counted, one TL2 code (ARMORZONMASHTL2) plus the rest unnumbered.",
+ "ops": [
+  {
+   "op": "depart",
+   "ref": "WB06",
+   "at": "2026-10-27T19:30:00+10:00",
+   "nos": [
+    "ARMORZONMASHTL2"
+   ],
+   "unnumbered": [
+    {
+     "type": "TL2",
+     "n": 153
+    }
+   ],
+   "complete": true
+  },
+  {
+   "op": "depart",
+   "ref": "WB01",
+   "at": "2026-10-27T19:30:00+10:00",
+   "nos": [
+    "ARMORZONMASHTL2"
+   ],
+   "unnumbered": [
+    {
+     "type": "TL2",
+     "n": 11
+    }
+   ],
+   "complete": true
+  },
+  {
+   "op": "depart",
+   "ref": "WB05",
+   "at": "2026-10-27T19:30:00+10:00",
+   "nos": [
+    "ARMORZONMASHTL2"
+   ],
+   "unnumbered": [
+    {
+     "type": "TL2",
+     "n": 12
+    }
+   ],
+   "complete": true
+  },
+  {
+   "op": "depart",
+   "ref": "WB17",
+   "at": "2026-10-27T19:30:00+10:00",
+   "nos": [
+    "ARMORZONMASHTL2"
+   ],
+   "unnumbered": [
+    {
+     "type": "TL2",
+     "n": 5
+    }
+   ],
+   "complete": true
+  }
+ ]
+}
