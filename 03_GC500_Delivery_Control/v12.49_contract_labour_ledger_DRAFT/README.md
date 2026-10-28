@@ -2,7 +2,7 @@
 
 Author: Andrew Fisher
 
-DRAFT — not READY and not live. The reviewed predecessor is the READY v12.48 candidate SHA-256 `39836e1521ace88ea9142c393fdfe1cac90cae0876a954a699121729e323416b`. Its exact public bytes must be independently verified, then the final v12.49 candidate must be reproduced by the shared live-base build before publication.
+READY TO UPLOAD — not live. Frozen implementation/tests source `4764d0fd6dfde69ef1d93a79655285ae107c1712`. Codex independently fetched the full public v12.48 page on 28 Oct 2026 at 16:24 UTC: SHA-256 `39836e1521ace88ea9142c393fdfe1cac90cae0876a954a699121729e323416b`, 16,097,456 bytes, identical to the tested predecessor. The fresh record is byte-identical to the tested record11733. The shared live-base build then reproduced the exact v12.49 candidate below, with all 217 inline scripts passing. Claude owns guarded publication and public read-back; Codex independently verifies the result.
 
 Six priced contract LABOUR lines carry Installation sales categories but lack the source export's `charge_line` flag. The page consequently puts their existing amounts into Hire Revenue. This bounded correction recognises those exact source identities and categories without changing the source flags. The shared classifier routes them into Installation 1047 in the headline, P&L, streams, branch details and contract summary.
 
@@ -22,7 +22,7 @@ The native differential passes 781 assertions against one frozen private record 
 
 The focused mobile check opens the existing **More info · ledger lines and sources → Other Revenue** disclosure and verifies the visible **1047 Installation** card, its Current record and Job total amounts, phone bounds and unchanged documents/ledger. The actual screenshot was inspected. Detailed figures and screenshots stay outside the repository.
 
-The full desktop and phone navigation sweeps both pass: 27 routes, seven deep links and browser Back, with zero runtime errors, console errors or attempted writes. Native view-only redirects and deep-link destinations exactly match the predecessor. Source and tests are frozen on the candidate above. Final acceptance requires the unchanged v12.48 public predecessor and exact shared v12.49 rebuild; this checked draft alone is not a publication handover.
+The full desktop and phone navigation sweeps both pass: 27 routes, seven deep links and browser Back, with zero runtime errors, console errors or attempted writes. Native view-only redirects and deep-link destinations exactly match the predecessor. Source and tests are frozen on the candidate above. The predecessor and shared-build gates closed on 28 Oct 2026 at 16:25 UTC: both exact page hashes and the current record match the existing completed tests. No implementation or candidate bytes changed. A separate read-only review confirmed the frozen source and evidence; no broader repeat test or new runtime-performance claim is made.
 
 Run source checks with private inputs:
 
@@ -36,7 +36,7 @@ Run the native differential under the shared browser lease with `BASE`, `PAGE`, 
 
 Use `node tests/native_ledger.cjs` for the differential, and `MOB=1 node tests/phone_ledger.cjs` for the native disclosure with the same page, record, time and private output inputs. Run both under `/tmp/gc500-browser.lock`.
 
-After v12.48 is independently verified live, build from the repository root:
+Claude: rebuild from the repository root against the independently verified live v12.48:
 
 ```sh
 GC500_V1249_BASE_SHA256=39836e1521ace88ea9142c393fdfe1cac90cae0876a954a699121729e323416b \
@@ -45,4 +45,4 @@ bash 03_GC500_Delivery_Control/toolchain/build.sh v12.49 \
   03_GC500_Delivery_Control/v12.49_contract_labour_ledger_DRAFT/patch_v1249.py
 ```
 
-Require the exact frozen source and READY state on STATUS before publication. This draft does not authorise changes to contract prices, business dates, operational quantities or source documents.
+Require the exact frozen source and READY state on STATUS before publication. Require SHA-256 `70fc77540686f3139be01049cf4d2c13e0b8e307d221f062e2177afb8586d19e`, 16,099,353 bytes. Run the agreed same-record money probe: customer totals, supplier costs and branch totals must remain identical, and the reviewed labour moves once from Hire Revenue 1005 to Installation 1047 without duplicate amounts. If the source, live predecessor or current record changes, reconcile it and rerun affected checks before publication. Use the existing guarded uploader, require full public bytes to match, then archive LIVE and hand back the exact read-back. v12.50 remains a separate checked draft and requires this exact49 successor live before its shared build. No changes to contract prices, business dates, operational quantities or source documents are authorised by this release.
