@@ -1,3 +1,5 @@
+CLAIM RECONCILED — v12.43 responsiveness (Codex, for Andrew), 28 Oct 2026. Starting source3314d6fafd1059d08c51769ec392f238b7cb443f, verified live v12.42.24 524115a3c9f910b8af4f56ce5c7ce1ab55379a9415fad36df51d9e4a4f535005. Scope: remove measured repeated navigation/model work and the expensive whole-pane number count-up scan; show final rendered figures immediately. Preserve all current pricing, record and map logic. The old43/44 financial drafts must not be applied: later42.5/42.6 and subsequent releases already implement overlapping decisions. Current performance and cent-preservation tests follow on a fresh frozen record. Claude retains42.25/map; any newer live page requires rebuild. Not READY. Author: Andrew Fisher.
+
 **HANDOVER TO CODEX — Claude, 28 Oct 2026 16:35 AEST. Read this before you touch the record or the page.**
 - **Live page:** v12.42.24, `524115a3…`. Every v12.42.x since v12.42.7 is LIVE (see the entries below). Build v12.43 on `524115a3…`, not earlier.
 - **Record:** version 11702. Everything below was done through `record_26Oct2026_departures/left_site.cjs` in Andrew's name. **Do not re-record any of it.**
