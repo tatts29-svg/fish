@@ -6,6 +6,9 @@ sys.path.insert(0,str(ROOT))
 sys.path.insert(0,str(ROOT.parent/'toolchain'))
 from rep import rep
 from fwf_labour1244_patch import patch as patch_fwf
+from customer_fence_hours12451_patch import patch as patch_fence_hours
+from customer_fence_review12451_patch import patch as patch_fence_review
+from customer_event_reader12451_patch import patch as patch_customer_reader
 CHANGES = [
     (
         ' ${sv.lines.map(l => `<tr><td>${esc(l.description)}',
@@ -118,7 +121,7 @@ def patch(text,path='page',expected_base_sha=None):
     expected=expected_base_sha or os.environ.get('GC500_V12451_BASE_SHA256','')
     if not re.fullmatch(r'[a-f0-9]{64}',expected) or hashlib.sha256(text.encode()).hexdigest()!=expected:
         raise ValueError('v12.45.1 requires the exact reviewed base SHA-256')
-    if 'CustomerWater1244' in text or 'FwfLabour1244' in text: raise ValueError('v12.45.1 already applied')
+    if any(marker in text for marker in ('CustomerWater1244','FwfLabour1244','CustomerFenceHours12451','customerAggregate12451')): raise ValueError('v12.45.1 already applied')
     if text.count("+' · v12.45';")!=1: raise ValueError('v12.45.1 requires verified v12.45')
     for marker in ('const Offsite1225=', 'const PicCache12431 =', 'const finishTiles1245 =', 'function tileImages1245('):
         if marker not in text:
@@ -130,6 +133,9 @@ def patch(text,path='page',expected_base_sha=None):
     for old,new,name in CHANGES:
         text=rep(text,old,new,name,path)
     text=patch_fwf(text,rep,path)
+    text=patch_customer_reader(text,rep,path)
+    text=patch_fence_hours(text,rep,path)
+    text=patch_fence_review(text,rep,path)
     return rep(text,"+' · v12.45';","+' · v12.45.1';",'footer',path)
 
 if __name__=='__main__':

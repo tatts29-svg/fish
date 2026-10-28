@@ -15,7 +15,9 @@ const read=()=>holdAssets(()=>{
   revenue:P.rev.map(r=>({key:r.key,code:r.code,now:r.now,job:r.job})),costs:P.cost,ledger:{now:P.revNow,job:P.revJob,costNow:P.costNow,costJob:P.costJob},
   branch:branchFinancial978(pl752Rows(),M),ticks:pl760Ticks(),labour:labourRevenue858(),demobDetail:acc761Labour().demob,
   plan:{all:LP.all,slots:LP.slots,byBranch:[...LP.byBranch],byLine:[...LP.byLine]},heldReferences:allAssets().filter(a=>NotChargedHere1152.has(a.key)).map(a=>a.key),
-  service:sv,supplier:sv.supplier1068,supplierModel:supplierService1068(),contracts:ONHIRE_ROWS,scope:scopeFigures(),
+  service:sv,supplier:sv.supplier1068,supplierModel:supplierService1068(),contracts:ONHIRE_ROWS,scope:scopeFigures(),sourceScope:SCOPE,
+  eventCrew:EventCrew1237.model(),crew:RaceCrew1227.model(),fenceAll:FenceAllIn12423.model(),scopeAllocation:scopeBranchAllocation978(),eventScopeHtml:eventScopeCard(),
+  documentedCustomerFenceAmount:EventCrew1237.product(EventCrew1237.model().hours,scopeFigures().lines.find(line=>line.key==='fence').rate),
   reconciliation:{ok:R.ok,bad:R.bad,count:R.count,ties:R.ties},docs,
   queue:{inflight:Object.keys(SYNC.inflight||{}).length,queued:Object.values(SYNC.queue||{}).reduce((n,q)=>n+Object.keys(q).length,0)},
   footer:document.getElementById('footL')?.textContent,evaluationMs:performance.now()-started
@@ -60,7 +62,36 @@ async function optionalRegisterCapture(s){
  }
  same('same frozen snapshot',a.baseline.stateSha256,b.baseline.stateSha256);same('same native version',a.baseline.version,b.baseline.version);
  same('source documents byte-equivalent',digest(a.docs),digest(b.docs));same('source contracts byte-equivalent',digest(a.contracts),digest(b.contracts));
- for(const k of ['supplier','supplierModel','direct','categories','costs','scope'])same(k+' unchanged',a[k],b[k]);
+ for(const k of ['supplier','supplierModel','categories','costs','sourceScope'])same(k+' unchanged',a[k],b[k]);
+ const withoutCustomer=({customer,...supplier})=>supplier;
+ same('documented supplier reader fields unchanged',withoutCustomer(a.eventCrew),withoutCustomer(b.eventCrew));
+ same('customer reader confirms complete event coverage',a.eventCrew.customer.complete,true);
+ same('customer reader uses same documented hours',a.eventCrew.customer.hours,b.eventCrew.hours);
+ const originalFence=b.scope.lines.find(line=>line.key==='fence'),actualFence=a.scope.lines.find(line=>line.key==='fence');
+ const crewWithoutCharge=crew=>Object.fromEntries(Object.entries(crew).filter(([key])=>key!=='charge'));
+ same('supplier crew fields unchanged',crewWithoutCharge(a.crew),crewWithoutCharge(b.crew));
+ same('direct costs unchanged apart from embedded customer charge reference',{...a.direct,race_crew1227:crewWithoutCharge(a.direct.race_crew1227)},{...b.direct,race_crew1227:crewWithoutCharge(b.direct.race_crew1227)});
+ const customerFenceExpected=b.documentedCustomerFenceAmount;
+ const customerFenceDelta=(cents(customerFenceExpected)-cents(originalFence.amount))/100;
+ same('customer fencing uses existing documented total',actualFence.hours,b.eventCrew.hours);
+ same('customer fencing rate unchanged',actualFence.rate,originalFence.rate);
+ money('customer fencing line follows documented hours at existing rate',actualFence.amount,customerFenceExpected);
+ same('original fencing day plan unchanged',actualFence.days,originalFence.days);
+ same('original fencing source hours retained',actualFence.scope_hours12451,originalFence.hours);
+ money('original fencing source amount retained',actualFence.scope_amount12451,originalFence.amount);
+ same('other scope lines unchanged',a.scope.lines.filter(line=>line.key!=='fence'),b.scope.lines.filter(line=>line.key!=='fence'));
+ for(const key of Object.keys(b.scope).filter(key=>!['lines','hours','people','total'].includes(key)))same('scope '+key+' unchanged',a.scope[key],b.scope[key]);
+ money('scope people changes only by customer fencing correction',a.scope.people,b.scope.people+customerFenceDelta);
+ money('scope total changes only by customer fencing correction',a.scope.total,b.scope.total+customerFenceDelta);
+ same('shared scope hours change only by documented fencing hours',a.scope.hours,Math.round((b.scope.hours-originalFence.hours+b.eventCrew.hours)*100)/100);
+ same('supplier model customer reference follows shared scope',a.crew.charge,{hours:actualFence.hours,rate:actualFence.rate,amount:actualFence.amount});
+ same('fencing all-in card follows shared scope without changing supplier fields',a.fenceAll,{...b.fenceAll,scope:actualFence.amount,scopeH:actualFence.hours,charge:(cents(b.fenceAll.charge)+cents(customerFenceDelta))/100});
+ for(const [index,allocation]of b.scopeAllocation.entries()){
+  const actual=a.scopeAllocation[index];same('scope branch attribution retained '+index,{...actual,recorded:allocation.recorded,job:allocation.job},allocation);
+  const change=allocation.branch==='STPS'?customerFenceDelta:0;
+  money('scope branch recorded amount '+index,actual.recorded,allocation.recorded+change);money('scope branch job amount '+index,actual.job,allocation.job+change);
+ }
+ check('event scope separates documented total from source plan',()=>assert(a.eventScopeHtml.includes('data-customer-hours12451')&&a.eventScopeHtml.includes('Original scope plan — reference only')));
  const held=new Set(b.heldReferences);
  same('existing financial holds unchanged',a.heldReferences,b.heldReferences);
  same('only already-held financial slots removed',a.plan.slots,b.plan.slots.filter(s=>!held.has(s.ref)));
@@ -68,9 +99,13 @@ async function optionalRegisterCapture(s){
  const includedKeys=new Set(['service|Water Truck','service|Water Truck - Pre fill','service|Water delivery','service|3000 Ltr Free Drinking Water Tank']);
  const water=b.service.at_cost.filter(l=>includedKeys.has(l.key)).reduce((n,l)=>n+cents(l.amount),0)/100;
  money('headline servicing excludes included water once',a.customer.servicing,b.customer.servicing-water);
- money('headline total excludes included water once',a.customer.total,b.customer.total-water);
- for(const key of Object.keys(b.customer).filter(k=>!['servicing','total'].includes(k)))same('customer '+key+' unchanged',a.customer[key],b.customer[key]);
- same('ledger revenue/categories unchanged',a.revenue,b.revenue);same('ledger cent totals unchanged',a.ledger,b.ledger);
+ money('headline total includes only water and customer fencing corrections',a.customer.total,b.customer.total-water+customerFenceDelta);
+ for(const key of Object.keys(b.customer).filter(k=>!['servicing','total','race'].includes(k)))same('customer '+key+' unchanged',a.customer[key],b.customer[key]);
+ for(const key of Object.keys(b.customer.race).filter(k=>!['amount','people_amount','hours'].includes(k)))same('customer race '+key+' unchanged',a.customer.race[key],b.customer.race[key]);
+ money('customer race amount follows shared scope',a.customer.race.amount,a.scope.total);money('customer race people amount follows shared scope',a.customer.race.people_amount,a.scope.people);same('customer race hours follow shared scope',a.customer.race.hours,a.scope.hours);
+ for(const row of b.revenue){const actual=a.revenue.find(x=>x.key===row.key),change=row.key==='install'?customerFenceDelta:0;same('ledger category retained '+row.key,{...actual,now:row.now,job:row.job},row);money('ledger recorded amount '+row.key,actual.now,row.now+change);money('ledger job amount '+row.key,actual.job,row.job+change);}
+ money('ledger total has only customer fencing correction',a.ledger.now,b.ledger.now+customerFenceDelta);money('ledger job total has only customer fencing correction',a.ledger.job,b.ledger.job+customerFenceDelta);
+ money('ledger direct cost unchanged',a.ledger.costNow,b.ledger.costNow);money('ledger job direct cost unchanged',a.ledger.costJob,b.ledger.costJob);
  money('headline equals current ledger',a.customer.total,a.ledger.now);
  const delta=(cents(b.customer.labour)-cents(b.ticks.total))/100;
  money('shared tick total agrees with headline labour',a.ticks.total,a.customer.labour);
@@ -91,6 +126,7 @@ async function optionalRegisterCapture(s){
  for(const row of b.branch.rows){const actual=a.branch.rows.find(r=>r.code===row.code)||(row.code==='Shared job / allocation pending'?{cost:0,costJob:0,revenue:0,revenueJob:0}:null);assert(actual,'Existing branch must remain: '+row.code);
   money(row.code+' cost unchanged',actual.cost,row.cost);money(row.code+' job cost unchanged',actual.costJob,row.costJob);
   if(row.code==='KINP'){money('KINP revenue reflects water and existing labour correction',actual.revenue,row.revenue-water+delta);money('KINP job revenue reflects same correction',actual.revenueJob,row.revenueJob-water+delta);}
+  else if(row.code==='STPS'){money('STPS revenue has only the customer fencing correction',actual.revenue,row.revenue+customerFenceDelta);money('STPS job revenue has only the customer fencing correction',actual.revenueJob,row.revenueJob+customerFenceDelta);}
   else if(row.code!=='Shared job / allocation pending'){money(row.code+' revenue unchanged',actual.revenue,row.revenue);money(row.code+' job revenue unchanged',actual.revenueJob,row.revenueJob);}
  }
  check('all reconciliation ties pass',()=>assert(a.reconciliation.ok,JSON.stringify(a.reconciliation.ties.filter(t=>!t.ok).map(t=>t.what))));

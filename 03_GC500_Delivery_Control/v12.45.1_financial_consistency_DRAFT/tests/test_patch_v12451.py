@@ -30,7 +30,7 @@ class Patch(unittest.TestCase):
     with self.assertRaisesRegex(ValueError,'requires retained predecessor implementation'):
      m.patch(text,expected_base_sha=hashlib.sha256(text.encode()).hexdigest())
  def test_partial_financial_patch_refused(self):
-  for marker in ['CustomerWater1244','FwfLabour1244']:
+  for marker in ['CustomerWater1244','FwfLabour1244','CustomerFenceHours12451','customerAggregate12451']:
    with self.subTest(marker=marker):
     text=self.text+'\n/* '+marker+' */'
     with self.assertRaisesRegex(ValueError,'already applied'):
@@ -40,7 +40,7 @@ class Patch(unittest.TestCase):
    choices=[ROOT.parent/(stem+suffix) for suffix in ['_LIVE','_DRAFT']]
    return next(p for p in choices if p.is_dir())
   map_root=release_dir('v12.45_map_smoothness')
-  for stem in ['drawing_tiles1245','closure_tiles1245','removal_tiles1245','removal_apply1245','satellite_tiles1245','satellite_apply1245','removal_pins_apply1245','satellite_pins_apply1245']:
+  for stem in ['drawing_tiles1245','closure_tiles1245','removal_tiles1245','removal_apply1245','satellite_tiles1245','satellite_apply1245','removal_pins_apply1245','satellite_pins_apply1245','closure_projection1245','closure_matrix1245']:
    with self.subTest(source=stem):
     source=(map_root/(stem+'.js')).read_text().rstrip('\n')
     self.assertEqual(self.text.count(source),1,'Reviewed map source must occur once: '+stem)

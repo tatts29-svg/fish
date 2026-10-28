@@ -35,6 +35,24 @@ const {openCandidate}=require('../../v12.43_responsiveness_LIVE/tests/candidate_
   }));
   assert.equal(evidence.inputs.includedWaterLines,4);assert.equal(evidence.inputs.ineffectiveWaterInputs,0);assert(evidence.inputs.otherServiceInputs>0);assert(evidence.inputs.sourceDocumentsUnchanged);
   assert(evidence.inputs.adjusted.length>0);assert(evidence.inputs.adjusted.every(x=>x.rendered&&/customer charge: .* services \(Baseplan\); site record: .* services/.test(x.label)));
+  await s.page.evaluate(()=>go('pricing'));
+  await s.page.waitForSelector('#pane-pricing [data-customer-hours12451]',{state:'visible'});
+  evidence.fencing=await s.page.evaluate(()=>{
+   const row=document.querySelector('#pane-pricing [data-customer-hours12451]'),line=scopeFigures().lines.find(x=>x.key==='fence');
+   row.scrollIntoView({block:'center',behavior:'instant'});
+   const html=Workforce1010.scopeRows(line,false),template=document.createElement('template');template.innerHTML=html;
+   return {text:row.textContent,reference:row.nextElementSibling?.textContent||'',hours:line.hours,rate:line.rate,amount:line.amount,
+    expectedHours:EventCrew1237.model().hours,rateInputs:template.content.querySelectorAll('[data-scope="rate|fence|"]').length,
+    ineffectiveDailyInputs:template.content.querySelectorAll('[data-scope^="hours|fence|"]').length,
+    showsHours:row.textContent.includes(EventCrew1237.hoursText(line.hours)+' h'),showsAmount:row.textContent.includes(money(line.amount)),
+    labelsSeparated:[...row.querySelectorAll('.ln')].every(node=>node.querySelector('.amt').getBoundingClientRect().left-node.querySelector('.lb').getBoundingClientRect().right>=7),
+    amountsInsidePhone:[...row.querySelectorAll('.amt')].every(node=>{const rect=node.getBoundingClientRect();return rect.left>=0&&rect.right<=innerWidth;})};
+  });
+  await s.page.evaluate(()=>new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve))));
+  await s.page.screenshot({path:path.join(process.env.OUT,'financial45-1-fencing-hours-phone.png')});
+  assert.equal(evidence.fencing.hours,evidence.fencing.expectedHours);assert(evidence.fencing.showsHours&&evidence.fencing.showsAmount&&evidence.fencing.amountsInsidePhone&&evidence.fencing.labelsSeparated);
+  assert(/No daily or individual customer split is supplied/.test(evidence.fencing.text));assert(/Original scope plan — reference only/.test(evidence.fencing.reference));
+  assert.equal(evidence.fencing.rateInputs,1);assert.equal(evidence.fencing.ineffectiveDailyInputs,0);
   if(process.env.MODEL_BASELINE){
    const expected=JSON.parse(fs.readFileSync(process.env.MODEL_BASELINE,'utf8')).candidate;
    const actual=await s.page.evaluate(()=>holdAssets(()=>{RENDER_MEMO.clear();HELD_MEMO.clear();const M=moneySummary(),P=pl770Model();return JSON.parse(JSON.stringify({customer:M.charge,direct:M.cost,ledger:{now:P.revNow,job:P.revJob,costNow:P.costNow,costJob:P.costJob},supplier:servicing748().supplier1068,service:servicing748(),docs:Object.fromEntries(Object.keys(SYNC_COLLS).map(k=>[k,toDocs(k)]))}));}));
@@ -44,6 +62,6 @@ const {openCandidate}=require('../../v12.43_responsiveness_LIVE/tests/candidate_
   assert.deepEqual(s.errors,[]);assert.deepEqual(s.consoleErrors,[]);assert.equal(s.counts.blocked,0);
   evidence.errors=s.errors;evidence.consoleErrors=s.consoleErrors;evidence.writeAttempts=s.counts.blocked;
   fs.writeFileSync(path.join(process.env.OUT,'financial45-1-ui.json'),JSON.stringify(evidence,null,2)+'\n');
-  console.log('PASS changed water, combined-FWF and partial-demob explanations visible on phone; ineffective water inputs absent from edit rendering; source documents unchanged; zero runtime/console errors or writes');
+  console.log('PASS water, combined-FWF, partial-demob and documented customer fencing-hours explanations visible on phone; ineffective inputs absent; source documents unchanged; zero runtime/console errors or writes');
  }finally{await s.browser.close();}
 })().catch(error=>{console.error('FAIL financial UI read-back: '+error.stack);process.exitCode=1;});
