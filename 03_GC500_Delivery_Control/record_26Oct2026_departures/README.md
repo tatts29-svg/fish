@@ -436,3 +436,7 @@ Andrew, 28 Oct 2026: "P45 left 1240pm". Left in full. Today groups unchanged. Re
 ## Run 48 - WC61 all 8 FWF and WC85 0135 left 13:00, 28 Oct 2026 (APPLIED)
 
 Andrew, 28 Oct 2026: "All Wc61 left at 1pm"; "Lets.do wc85.leave same time as othere". WC61 and WC85 each left in full; applied at 13:03 from the scheduled check. Today groups unchanged. Report `report_20261028T030402Z.json`.
+
+## Run 49 - GN03 (Coates 1320829) left 13:30, 28 Oct 2026 (APPLIED)
+
+Andrew, 28 Oct 2026: "Gn03 picked.up 130pm". Left in full; applied at 13:34 from the scheduled check. Today groups unchanged. Report `report_20261028T033437Z.json`.
