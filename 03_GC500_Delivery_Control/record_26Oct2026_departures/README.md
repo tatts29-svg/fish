@@ -448,3 +448,7 @@ Andrew, 28 Oct 2026 (photo with regos F05419, ER9244, 410UFQ): "Left 230pm". Thr
 ## Run 50 - GN20-A (Coates 1276701) and GN21 (Coates 1261284) left 15:30, 28 Oct 2026 (APPLIED)
 
 Andrew, 28 Oct 2026: "1276701 and 1261284 leaving at 330pm". Each left in full; applied at 15:37 from the scheduled check (record 11688 -> 11690). Today groups unchanged (generators 15/15). No distribution board is on either record; the only one on the record is 1189078 at GN23 - awaiting Andrew's word on which board went with these. Report `report_20261028T053758Z.json`.
+
+## Run 52 - GN23 distribution board 1189078 left with the 150 kVA at 09:45, 28 Oct 2026 (APPLIED)
+
+Andrew, 28 Oct 2026: "yes its that one" - the distribution board that went back is 1189078 (Lifeguard 17) on GN23's units, which left with generator 1297157 at 09:45 (run 40). GN23's departure form offers only the generator, so the board's departure is added to GN23's note (`note_append`). Today groups and P&L unchanged. Report `report_20261028T055339Z.json`.
