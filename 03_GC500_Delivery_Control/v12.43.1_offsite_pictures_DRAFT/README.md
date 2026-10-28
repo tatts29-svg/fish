@@ -31,7 +31,7 @@ helper within that anchor, preserving adjacent CSS selector whitespace.
 
 Integrated preview: SHA-256
 `174b7f4c51c46696caa44610eb31b1339c5f3e54dc573fb45c0b652d6f8133ff`,
-16,040,506 bytes. This is a tested local preview, not a live release.
+16,040,506 bytes. This is the exact shared-toolchain candidate, not a live release.
 
 Local checks:
 
@@ -55,8 +55,24 @@ BASE=/path/to/exact-live-v12.43.html python3 tests/test_patch_v12431.py
 node tests/picture_cache12431.test.cjs /path/to/base-or-candidate.html
 ```
 
-This folder is DRAFT. Native financial/record preservation, desktop and phone
-sweeps, screenshots, guarded publication and public-byte
-read-back remain required on the final integrated candidate. No operational
+Native validation completed on the exact candidate:
+
+- Eight ring lifecycle checks: native departure projection, full pulse, steady partial
+  dash, reduced motion, 3D/Fencing CSS visibility, parent intersection/re-entry and
+  clearing an empty departure projection. Diagnostic observability was added only
+  to a private test copy; this does not claim an independent 3D-renderer audit.
+- The unmodified candidate loads all three pictures in Demob and Find-it, with the
+  third spanning the picture grid. A private observable copy demonstrates the
+  96-entry cache budget under synthetic pressure, zero queued off-tab work and
+  all three native pictures restored after eviction and re-entry.
+- 34 native financial and record-preservation checks pass against the exact live
+  base on a fresh, shared frozen record. All customer, supplier, branch, financial
+  and operational outputs compared are unchanged; no HTTP write attempts.
+- Zero runtime or console errors in these focused checks. Phone screenshots of
+  the ring, Demob pictures and Find-it pictures were inspected.
+
+Desktop and phone full navigation sweeps are in progress. This folder remains
+DRAFT until both finish successfully and the exact READY handover is posted.
+Claude owns guarded publication and public-byte read-back. No operational
 record or calculation changes belong in this release. Private records and
 screenshots stay outside the public source folder.

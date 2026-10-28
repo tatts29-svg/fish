@@ -23,8 +23,10 @@ def patch(text, path='page', expected_base_sha=None):
         # The native closure excerpt has no terminal newline in its boundary.
         if stem != 'drawing_tiles1245':
             before, after = before.rstrip('\n'), after.rstrip('\n')
-        text = rep(text, before, after, stem, path)
-    return rep(text, footers[0], "+' · v12.45';", 'footer', path)
+        if text.count(before) != 1:
+            raise ValueError(stem + ': exact source anchor does not occur once')
+        text = text.replace(before, rep(before, before, after, stem, path), 1)
+    return text.replace(footers[0], rep(footers[0], footers[0], "+' · v12.45';", 'footer', path), 1)
 
 if __name__ == '__main__':
     page = Path(sys.argv[1])
