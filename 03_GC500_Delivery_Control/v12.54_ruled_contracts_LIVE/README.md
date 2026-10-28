@@ -48,3 +48,8 @@ node 03_GC500_Delivery_Control/v12.54_ruled_contracts_DRAFT/tests/settled_financ
 Codex implements/tests and independently verifies; Claude publishes the frozen READY source through the shared guarded uploader and owns operational writes. Rebuild exact bytes, check the current record against the tested one, rerun affected native checks if documents changed, and confirm the same-record financial movements without duplicating existing charges. Upload only after STATUS.md says READY TO UPLOAD. The uploader must refuse a changed live predecessor and read the complete public candidate back byte for byte. A later independent public read-back is required before reporting independent verification.
 
 Previews51/52/53 retain their separate visual/access gates. This release does not certify every contract or resolve the separate record-provenance review.
+
+
+## LIVE
+
+LIVE 29 Oct 2026 08:55 AEST (Claude publication). Exact rebuild from frozen `d2c012fd` on the verified live50.1 `69bf04e7…` reproduced the tested candidate `378d4b6632101ad6a1429f31b2241c567b3670ae0888f70b7df6f75109625a5c`, 16,105,875 bytes; money probe on the same record: Hire Revenue +$1,868.54, Transport Revenue +$600.00, Toilet Pumpouts −$6,246.00, charge $1,011,296.03 → $1,007,518.57, costs unchanged, KINP +$2,468.54, other branches unchanged; guarded upload (live page unchanged since the build started, record 11946); public read-back byte for byte identical.
