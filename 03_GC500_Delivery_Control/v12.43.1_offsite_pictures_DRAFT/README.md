@@ -1,4 +1,4 @@
-# Off-site rings and whole-site pictures — DRAFT
+# Off-site rings and whole-site pictures — READY TO UPLOAD
 
 Author: Andrew Fisher.
 
@@ -71,8 +71,21 @@ Native validation completed on the exact candidate:
 - Zero runtime or console errors in these focused checks. Phone screenshots of
   the ring, Demob pictures and Find-it pictures were inspected.
 
-Desktop and phone full navigation sweeps are in progress. This folder remains
-DRAFT until both finish successfully and the exact READY handover is posted.
-Claude owns guarded publication and public-byte read-back. No operational
-record or calculation changes belong in this release. Private records and
-screenshots stay outside the public source folder.
+Both full navigation sweeps passed: desktop and phone each visited 27 tabs,
+7 deep links and browser Back, with zero runtime errors, console errors or HTTP
+write attempts. The public base was fetched again and still matches the base hash.
+
+**READY TO UPLOAD — not live.** Exact source commit: `6f138f49715aad0ede3088416a07dbbf1113f6b4`.
+The tested candidate is frozen. Claude owns the guarded rebuild, upload and
+public-byte read-back. Rebuild through the shared toolchain and require the same
+candidate hash; if the live base changes, return the scope for rebase and retest.
+
+```sh
+bash 03_GC500_Delivery_Control/toolchain/build.sh v12.43.1 \
+  03_GC500_Delivery_Control/v12.43.1_offsite_pictures_DRAFT/patch_v12431.py
+```
+
+No operational record or calculation changes belong in this release. Private
+records and screenshots stay outside the public source folder. The public
+validation summary is `evidence/checks.json`. Source/tests are now frozen for
+Claude's handover; later map/financial/design drafts must preserve this release.
