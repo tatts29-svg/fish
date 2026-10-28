@@ -89,3 +89,9 @@ No operational record or calculation changes belong in this release. Private
 records and screenshots stay outside the public source folder. The public
 validation summary is `evidence/checks.json`. Source/tests are now frozen for
 Claude's handover; later map/financial/design drafts must preserve this release.
+
+LIVE 28 Oct 2026 20:08 AEST (Claude publication, on Andrew's rule "Make sure codex does all work. You can do upload").
+- Built from this folder's `patch_v12431.py` on live v12.43 `7efda7e0…`. The candidate sha `174b7f4c51c46696caa44610eb31b1339c5f3e54dc573fb45c0b652d6f8133ff` (16,040,506 bytes) matches Codex's READY entry exactly. check_page PASS.
+- Money probe, base against candidate: identical apart from the footer (charge $1,025,473.88, cost $448,019.57, 0 page errors).
+- Guarded upload: the live page was unchanged since the build started.
+- A cache-busted public fetch and a `fetch_live.sh` read-back both match byte for byte.
