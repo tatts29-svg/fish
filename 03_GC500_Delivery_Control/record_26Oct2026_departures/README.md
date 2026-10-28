@@ -412,3 +412,7 @@ Andrew, 28 Oct 2026: "And 0958 and 0152" - with the 10:00 load; WC69 left in ful
 ## Run 42 - SVP01 0939, WC73 0192, T0176 0576, PG03 0100 left 09:45, 28 Oct 2026 (APPLIED)
 
 Andrew, 28 Oct 2026: "0939 0192 0576 0100 left 945am". Each location left in full. Spec `left_site_spec_42_four_fwf.json`; dry run passed, applied and VERIFIED. Report `report_20261028T005920Z.json`.
+
+## Run 43 - P69 (Coates 107247) left 10:15, 28 Oct 2026 (APPLIED)
+
+Andrew, 28 Oct 2026: "P69 left 1015am / Make sure you dont mess with the build some areas dropeed from 100%". The departure form offers P69 one unit, Coates 107247; P69 left in full. Dry run and apply: Today groups unchanged (buildings 52/52, toilets 265/265, barriers 311/311, generators 15/15, lighting 6/6 all 100%; VMS 23/24 and equipment 12/13 as before this morning). Build tab re-read after: the only figures under 100% are the event-week day cards 19-22 Oct at day's close (86.1, 91.64, 91.73, 98.19%), unchanged. Record 11654 -> 11655. Report `report_20261028T010728Z.json`.
