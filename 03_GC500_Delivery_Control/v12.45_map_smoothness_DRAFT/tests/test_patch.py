@@ -8,7 +8,7 @@ ROOT=Path(__file__).resolve().parents[1]
 spec=importlib.util.spec_from_file_location('patch45',ROOT/'patch_v1245.py');mod=importlib.util.module_from_spec(spec);spec.loader.exec_module(mod)
 class Boundary(unittest.TestCase):
  def setUp(self):
-  self.base='\n'.join((ROOT/(stem+'_before.js')).read_text() for stem in ('drawing_tiles1245', 'closure_tiles1245', 'removal_tiles1245', 'removal_apply1245', 'satellite_tiles1245', 'satellite_apply1245', 'removal_pins_apply1245', 'satellite_pins_apply1245'))+"\n+' · v12.43';"
+  self.base='\n'.join((ROOT/(stem+'_before.js')).read_text() for stem in ('drawing_tiles1245', 'closure_tiles1245', 'removal_tiles1245', 'removal_apply1245', 'satellite_tiles1245', 'satellite_apply1245', 'removal_pins_apply1245', 'satellite_pins_apply1245', 'closure_projection1245', 'closure_matrix1245'))+"\n+' · v12.43';"
  def runpatch(self,text): return mod.patch(text,expected_base_sha=hashlib.sha256(text.encode()).hexdigest())
  def test_base(self):
   text=self.runpatch(self.base);self.assertIn('finishTiles1245',text);self.assertIn('tileImages1245',text);self.assertIn("+' · v12.45';",text)
@@ -23,7 +23,7 @@ class Boundary(unittest.TestCase):
  def test_successor_footer(self):
   self.assertIn("+' · v12.45';",self.runpatch(self.base.replace('v12.43','v12.43.1')))
  def test_exact_reversal_preserves_adjacent_whitespace(self):
-  stems=('drawing_tiles1245','closure_tiles1245','removal_tiles1245','removal_apply1245','satellite_tiles1245','satellite_apply1245','removal_pins_apply1245','satellite_pins_apply1245')
+  stems=('drawing_tiles1245','closure_tiles1245','removal_tiles1245','removal_apply1245','satellite_tiles1245','satellite_apply1245','removal_pins_apply1245','satellite_pins_apply1245', 'closure_projection1245', 'closure_matrix1245')
   drawing=(ROOT/'drawing_tiles1245_before.js').read_text()
   base=self.base.replace(drawing,drawing+'  /* outside the replacement */\n',1)
   restored=self.runpatch(base).replace("+' · v12.45';","+' · v12.43';")

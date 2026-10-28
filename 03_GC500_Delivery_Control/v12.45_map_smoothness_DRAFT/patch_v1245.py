@@ -17,7 +17,7 @@ def patch(text, path='page', expected_base_sha=None):
     footers = re.findall(r"\+' · v12\.43(?:\.1)?';", text)
     if len(footers) != 1:
         raise ValueError('v12.45 requires reviewed v12.43 or v12.43.1')
-    for stem in ('drawing_tiles1245', 'closure_tiles1245', 'removal_tiles1245', 'removal_apply1245', 'satellite_tiles1245', 'satellite_apply1245', 'removal_pins_apply1245', 'satellite_pins_apply1245'):
+    for stem in ('drawing_tiles1245', 'closure_tiles1245', 'removal_tiles1245', 'removal_apply1245', 'satellite_tiles1245', 'satellite_apply1245', 'removal_pins_apply1245', 'satellite_pins_apply1245', 'closure_projection1245', 'closure_matrix1245'):
         before = (ROOT / (stem + '_before.js')).read_text()
         after = (ROOT / (stem + '.js')).read_text()
         # The native closure excerpt has no terminal newline in its boundary.
