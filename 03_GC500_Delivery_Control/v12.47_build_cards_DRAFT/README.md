@@ -1,50 +1,56 @@
-# v12.47 Build map-strip preview
+# v12.47 — dark Build cards with compact map strips
 
 Author: Andrew Fisher
 
-**PREVIEW ONLY. Not ready for publication.** Andrew reviewed the actual card and chose: “Keep the dark card; add the map strip.” That is the final visual scope. All original card styling, spacing, typography, information, native DOM arrangement and controls stay unchanged. No further style choice is needed.
+Andrew approved go-live for the selected **existing dark card plus compact map strip**. The production candidate has passed its final native, financial and desktop/phone navigation checks. Publication still requires the exact verified live predecessor and shared live-base rebuild. This approval does not expand the change into a dashboard redesign.
 
-This local preview adds only a compact charcoal location strip to an existing Build delivery reference with a recorded coordinate. It uses the existing Find1176 location and picture functions. The reference, destination, equipment, qualified measurements, progress lights, delivery window, warnings, Navigate action, Details action and expanded native workspace remain in their original order. The approved date/weather cards and all other tabs are unchanged. It adds no operational stage and changes no record, rate, quantity, role, save handler or completion state.
+The original reference, destination, equipment, qualified measurements, progress lights, delivery window, warnings, Navigate action, Details action and expanded workspace remain in their original order. Date/weather cards and other tabs are unchanged. No operational stage, record, rate, quantity, role, save handler or completion state is changed.
 
-The strip opens the existing full map at the exact coordinate returned by Find1176. Unknown coordinates do not get a fabricated preview. External satellite imagery is not fetched automatically. A missing image becomes an explicit map action rather than a blank image.
+## Production boundary and ownership
 
-## Bounded lifecycle tested on the local preview
+- Required predecessor: **v12.46**, SHA-256 `4c07b14d578e390b7d39d073b8946ce9d84a21250cb55147d980eadce635cfe1`.
+- Production candidate: **v12.47**, SHA-256 `1437f56498007f24a7e54acfd23542c2ab2daa0e3fd9aca64941c45753bd47ff` — 16,086,631 bytes.
+- `patch_v1247.py` uses shared `rep`, requires the explicit reviewed predecessor SHA/version, checks its single footer, refuses repeat application, and guards the selected CSS plus both native-tested JavaScript source fingerprints.
+- The only page changes are the added strip/lifecycle modules and the release footer. Exact reversal recovers the predecessor bytes; all 149 original stylesheet blocks remain exact.
+- Production derives an in-memory copy of the reviewed adapter without its preview-only notice. Its module label and footer say v12.47. The original preview source files remain intact, and the selected dark-strip CSS is unchanged from commit `6f138f4`.
+- Claude retains publication ownership. Publish only after the preceding 45.1 and 46 releases and exact 46 read-back are verified, then complete the guarded 47 release/read-back process. A successful local gate alone does not prove live publication.
 
-The observer stays attached for entry and exit. Queue admission and dequeue recheck the current scroll viewport; leaving the viewport prunes queued work and removes attached image sources. Both the compressed cache and attached thumbnail count are capped at 16. Reentry restores a retained thumbnail or requests one new draw. Picture generation, decoding and compaction share one draw slot.
+## Location and resource handling
 
-Changed coordinates, removed/replaced cards and hidden panes reject stale results. The adapter checks again before creating a decoder and before canvas work. Hiding the document releases displayed images synchronously because animation frames may be suspended. Temporary decoder handlers/sources and canvas storage are cleared on success, failure or stale completion. Native location pictures and sharing APIs are unchanged.
+The strip uses existing Find1176 locations and pictures, then opens the existing map at the same recorded coordinate. Unknown coordinates do not get invented previews. External satellite imagery is not fetched automatically. A missing image has an explicit map action.
 
-**Offline evidence:** 129 lifecycle checks across 10 synthetic scenarios and 28 DOM/observer/decoder adapter checks across 4 synthetic scenarios pass. They use fabricated targets, no operational records, network or browser.
+Continuous observation and fresh viewport checks prune offscreen queue entries and remove attached image sources. The compressed cache and attached thumbnail count are each capped at 16. Reentry restores a retained thumbnail or requests one draw. Generation, decoding and compaction share a single draw slot. Changed coordinates, removed/replaced cards and hidden panes reject stale results. Eligibility is checked before decoder creation and before canvas work. Hidden-document cleanup runs synchronously, independent of animation frames; temporary decoder and canvas resources are cleared.
 
-**Native preview evidence:** the exact candidate below passed desktop and phone scroll-out/source-removal, cache reentry, Build/Today tab round-trip eviction/reentry, single-draw and bounded-image assertions in the read-only harness. Closed and expanded card DOM identity, original text/controls, source/styles, date-card order and map-coordinate dispatch pass. Candidate documents are compared to the frozen snapshot before baseline reload, then checked again after baseline verification. No record changes, queued/inflight writes, blocked HTTP writes or runtime page errors were observed. These checks establish the local preview behaviour; they do not measure production heap usage or imply a live performance result.
+## Validation
 
-## Exact base and boundary
+- **PASS:** seven production boundary tests, including missing/wrong predecessor, repeat application, mismatched footer, changed selected/tested sources, exact reversal and failed-CLI non-mutation.
+- **PASS:** 129 synthetic lifecycle checks and 28 DOM/observer/decoder adapter checks. No operational fixtures, browser or network are used by those tests.
+- **PASS:** all 215 inline scripts parse; the shared page check finds no new credentials; author attribution remains present.
+- **PASS on the local preview:** exact closed/expanded same-render DOM identity, native text/controls against the untouched base, source/styles, date-card order, map-coordinate dispatch and desktop/phone scroll/tab eviction/reentry. Candidate and baseline documents remained exact, with no queued/inflight writes, blocked writes or runtime page errors.
+- **PASS — production native gate:** the exact candidate above and exact 46 predecessor passed closed/expanded DOM identity, original text/controls, source/styles, date-card order, exact map dispatch and desktop/phone scroll/tab eviction/reentry. No preview notice is present; the runtime module and footer say v12.47. Candidate and baseline records remained unchanged, checked before baseline reload and after baseline verification, with zero runtime page errors or blocked/queued/inflight writes.
+- **PASS — independent review:** exact candidate reproduction/reversal, selected/tested source guards, original styles, privacy and absence of financial/operational mutation.
+- **PASS — final financial preservation:** 34 native comparisons against exact46 preserve all checked customer/supplier totals, categories, branch calculations, ledger/reconciliation and source records, with zero errors or operational writes.
+- **PASS — both shared navigation sweeps:** desktop and phone each cover27 tabs, seven deep links and Back, with zero runtime errors, console errors or operational-write attempts.
+- **Remaining release gates:** verify exact46 live, reproduce the tested47 bytes with the shared build, then hand over READY for Claude’s guarded upload/full read-back. This is a checked draft, not a live claim; Andrew’s design/publication approval is already recorded.
 
-- Tested local lifecycle candidate SHA-256: `a54f693a14d7899843f016ab867ca000e2522a56d7edc393c5b0257d2e7f573e` (16,047,281 bytes). Native read-only preview gate passed; this candidate has not been published.
-- Preview inspection base: verified v12.43 HTML SHA-256 `7efda7e067d34b1455d8da9e3de29c695d4d216afc072e49e27754295a09976f`.
-- `build_preview.py` rejects any other source and adds one style block scoped only to the new strip/preview label and one script block. It proves every original stylesheet block remains exact and removing these additions returns the exact original bytes. A separate hash guard preserves the exact dark-strip styling Andrew selected.
-- Original cards receive no new class, style, wrapper or control-order change. The browser check mounts/removes only `.b1247-location` within one render and compares complete native card DOM, closed and expanded. A separate untouched-base comparison checks native text, controls, labels and identifiers; decorative SVG gradient counters vary across page reloads.
-- Before any possible release, rebase on the tested successor of 43.1/45/44/46, reread current ownership and instructions, complete the native performance gates and rerun relevant checks. This draft has no publish script or release-ready claim.
-- Actual-data screenshots, page HTML, record snapshot and browser report stay outside Git in private working output. No private record fixture is included here.
+Actual-data page files, snapshots, screenshots and native reports remain outside Git. These resource checks do not measure production heap usage or imply a live speed result.
 
-## Validation status — draft only
-
-- **PASS:** all 149 original stylesheet blocks remain exact; removing the two preview additions recovers the exact base bytes.
-- **PASS:** strict source and selected-CSS guards reject unexpected inputs without writing output; selected dark-strip CSS matches commit `6f138f4` exactly; all 215 inline scripts parse and the page check finds no new credentials.
-- **PASS:** 157 offline lifecycle/adapter checks cover visibility, queue pruning, bounded attached images, cache eviction/reentry, observer replacement, single draw, hidden-document cleanup and stale-coordinate/removed-card/decode races.
-- **CAPTURED AND INSPECTED:** current-candidate dark-card phone and desktop previews show the complete original information and action row with only the compact map strip added. Matching untouched-base captures are retained privately. The selected visual scope is unchanged.
-- **PASS:** revised same-render closed/expanded DOM identity; exact native text/controls against the untouched base; original source/styles; date-card order/selection; exact map dispatch; desktop/phone native scroll and tab eviction/reentry; candidate and baseline record integrity. The exact candidate SHA and expected pinned record version were asserted before browser execution.
-- **OPEN BEFORE PUBLICATION:** rebase onto the approved predecessor, rerun the relevant successor/regression checks and follow the guarded release/read-back process. The successful local preview gate is not a READY or live claim.
-
-## Local preview and checks
+## Reproduce
 
 ```sh
-python build_preview.py /private/path/live43-readback.html /private/path/preview47.html
+BASE=/private/path/reviewed46.html python tests/test_patch_v1247.py
 node tests/lifecycle.cjs
 node tests/adapter.cjs
-node --check build_cards1247.js
 ```
 
-`tests/preview_browser.cjs` uses the shared read-only candidate harness. Set private `PAGE`, `BASE`, `STATE`, `OUT`, plus `EXPECTED_PAGE_SHA`, `EXPECTED_STATE_VERSION` and `INITIAL_HASH=#timeline`; use the browser lease lock. It captures the same actual card before/after at desktop and phone widths, proves exact native DOM identity when mounting/removing only the new strip in the same render, compares native text/controls against the untouched base, checks date-card order/selection and exact map-action coordinates, checks real scroll/tab eviction and reentry, and verifies the frozen record remains unchanged before baseline reload and after the baseline run, with no HTTP writes.
+To patch a private copy of the exact reviewed predecessor:
 
-The selected design is not live. Publication remains separate from the visual preview and requires the source rebase and outstanding release checks.
+```sh
+GC500_V1247_BASE_SHA256=4c07b14d578e390b7d39d073b8946ce9d84a21250cb55147d980eadce635cfe1 \
+GC500_V1247_BASE_VERSION=12.46 \
+python patch_v1247.py /private/path/copied46.html
+```
+
+`tests/preview_browser.cjs` uses the shared read-only harness. Set private `PAGE`, `BASE`, `STATE`, `OUT`, expected page/base SHA and state/base version variables, `PRODUCTION=1` and `INITIAL_HASH=#timeline`; coordinate the browser lease. It captures complete desktop/phone cards and checks exact native preservation plus real scroll/tab eviction and reentry.
+
+The historical visual builder `build_preview.py` remains pinned to the original reviewed 43 source for reproducibility. Its preview label and source files are retained; production uses only the guarded 47 patch above.

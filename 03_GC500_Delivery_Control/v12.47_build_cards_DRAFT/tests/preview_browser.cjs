@@ -56,14 +56,27 @@ async function capture(p,label){const card=p.locator('#pane-timeline .ld.tl846.l
  const pageBytes=fs.readFileSync(process.env.PAGE),baseBytes=fs.readFileSync(process.env.BASE),frozen=JSON.parse(fs.readFileSync(process.env.STATE));
  assert.equal(crypto.createHash('sha256').update(pageBytes).digest('hex'),process.env.EXPECTED_PAGE_SHA,'Exact reviewed preview required');
  assert.equal(frozen.version,Number(process.env.EXPECTED_STATE_VERSION),'Exact pinned record version required');
- const stripped=pageBytes.toString().replace(/<style id="buildcards1247-style">[\s\S]*?<\/style>\n/,'').replace(/<script id="buildcards1247-script">[\s\S]*?<\/script>\n/,'');
- assert.equal(stripped,baseBytes.toString(),'Removing preview additions must recover every original source/style byte');
+ let stripped=pageBytes.toString().replace(/<style id="buildcards1247-style">[\s\S]*?<\/style>\n/,'').replace(/<script id="buildcards1247-script">[\s\S]*?<\/script>\n/,'');
+ if(process.env.PRODUCTION==='1'){
+  assert(process.env.EXPECTED_BASE_SHA&&process.env.EXPECTED_BASE_VERSION,'Production base pin required');
+  assert.equal(crypto.createHash('sha256').update(baseBytes).digest('hex'),process.env.EXPECTED_BASE_SHA,'Exact production predecessor required');
+  const footer="+' · v12.47';",previous="+' · v"+process.env.EXPECTED_BASE_VERSION+"';";
+  assert.equal(stripped.split(footer).length-1,1,'Production footer must occur once');stripped=stripped.replace(footer,previous);
+  assert(!pageBytes.toString().includes('Build map-strip preview · not live'),'Production candidate must omit the preview-only notice');
+ }
+ assert.equal(stripped,baseBytes.toString(),'Removing added modules and only the intentional release footer must recover every original source/style byte');
  const s=await openCandidate(),p=s.page;try{
  assert.equal(s.baseline.pageSha256,process.env.EXPECTED_PAGE_SHA);assert.equal(s.baseline.version,Number(process.env.EXPECTED_STATE_VERSION));
+ if(process.env.PRODUCTION==='1'){
+  assert.equal(await p.evaluate(()=>BuildCards1247.release),'v12.47','Production module version');
+  assert.equal(await p.locator('#pane-timeline .b1247-preview-note').count(),0,'No production preview notice');
+  assert((await p.locator('#footL').textContent()).endsWith(' · v12.47'),'Runtime footer is v12.47');
+ }
  console.log('Loaded exact candidate and pinned read-only record');
  await select(p);await p.locator('#pane-timeline .ld.tl846.lc991').first().scrollIntoViewIfNeeded();
  await p.waitForFunction(()=>document.querySelector('.b1247-location img'),null,{timeout:30000});
  assert(await p.evaluate(mountIdentity),'Mounting/removing strips must preserve complete native closed DOM in the same render');
+ if(process.env.PRODUCTION==='1')assert.equal(await p.locator('#pane-timeline .b1247-preview-note').count(),0,'Mount must not create a production preview notice');
  const after=await p.evaluate(native);const dayStrip=await p.locator('#pane-timeline .daystrip [data-day]').evaluateAll(nodes=>nodes.map(n=>({day:n.dataset.day,tag:n.tagName,selected:n.classList.contains('on')})));
  await capture(p,'after');
  console.log('Captured current candidate and passed closed same-render DOM identity');
@@ -86,6 +99,6 @@ async function capture(p,label){const card=p.locator('#pane-timeline .ld.tl846.l
  await p.locator('#pane-timeline .ld.tl846.lc991 .lc991-toggle').first().click();await p.waitForFunction(()=>document.querySelector('#pane-timeline .ld.tl846.lc991 .lc991-detail')?.hidden===false);
  assert.deepEqual(await p.evaluate(native),openAfter,'All native expanded fields and actions must remain exact');
  await recordsUnchanged(p,frozen);assert.equal(s.counts.blocked,0);assert.equal(s.errors.length,0);
- const report={baseline:s.baseline,exactOriginalSourceAndStylesMatch:true,lifecycle,nativeCardsCompared:after.length,closedMountRemoveExactDomIdentity:true,expandedMountRemoveExactDomIdentity:true,closedNativeTextAndControlsMatch:true,expandedNativeTextAndControlsMatch:true,dateWeatherCardOrderSelectionMatch:true,mapActionDispatchMatchesLocation:true,candidateAndBaselineRecordsUnchanged:true,stats,errors:s.errors,blocked:s.counts.blocked};
+ const report={baseline:s.baseline,production:process.env.PRODUCTION==='1',productionPreviewNoticeAbsent:process.env.PRODUCTION==='1'?true:undefined,exactOriginalSourceAndStylesMatch:true,lifecycle,nativeCardsCompared:after.length,closedMountRemoveExactDomIdentity:true,expandedMountRemoveExactDomIdentity:true,closedNativeTextAndControlsMatch:true,expandedNativeTextAndControlsMatch:true,dateWeatherCardOrderSelectionMatch:true,mapActionDispatchMatchesLocation:true,candidateAndBaselineRecordsUnchanged:true,stats,errors:s.errors,blocked:s.counts.blocked};
  fs.writeFileSync(process.env.OUT+'/preview-report.json',JSON.stringify(report,null,2));console.log(JSON.stringify(report));
  }finally{await s.browser.close();}})().catch(e=>{if(process.env.OUT){fs.mkdirSync(process.env.OUT,{recursive:true});fs.writeFileSync(process.env.OUT+'/failure-private.txt',e.stack||String(e));}console.error(String(e.message).split('\n')[0]);process.exit(1)});
