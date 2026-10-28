@@ -8,6 +8,11 @@ from rep import rep
 from fwf_labour1244_patch import patch as patch_fwf
 CHANGES = [
     (
+        ' ${sv.lines.map(l => `<tr><td>${esc(l.description)}',
+        ' ${sv.lines.map(l => `<tr><td>${esc(CustomerWater1244.description(l,fmtNum))}',
+        'describe approved customer service quantity separately from site record',
+    ),
+    (
         ' ${sv ? `<h4>Toilet servicing and water — priced by us at our pump-out rates, the water at what we are charged</h4>',
         ' ${sv ? `<h4>Toilet servicing — water included in pump-out charges</h4>',
         ' ${sv ? `<h4>Toilet servicing and water',

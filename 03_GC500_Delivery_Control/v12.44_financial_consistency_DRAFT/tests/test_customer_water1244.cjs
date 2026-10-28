@@ -1,6 +1,6 @@
 /* Author: Andrew Fisher. Differential customer/supplier boundary checks, fictional amounts. */
 'use strict';
-const assert=require('node:assert/strict'),{project}=require('../customer_water1244');
+const assert=require('node:assert/strict'),{project,description}=require('../customer_water1244');
 let checks=0;const eq=(a,b)=>{assert.deepEqual(a,b);checks++;};
 const card={key:'service|Tank Pump Out & Clean & Restock',amount:123.45,qty:3,rate:41.15};
 const water=['Water Truck','Water Truck - Pre fill','Water delivery','3000 Ltr Free Drinking Water Tank'].map((k,i)=>({key:'service|'+k,amount:(i+1)*17.13,rate:17.13,qty:i+1,their_amount:40+i,their_rate:10+i,from:'typed',typed_under:3,quote:'TEST',period:'test'}));
@@ -15,4 +15,11 @@ eq(r.lines.at(-1),other);eq(r.at_cost.at(-1),other);eq(project(r),r);eq(project(
 const absent={lines:[card],at_cost:[],supplier1068:supplier};eq(project(absent)===absent,true);
 const warnings={...s,under:[water[0],other]},warningsBefore=JSON.stringify(warnings),clear=project(warnings);
 eq(clear.under,[other]);eq(JSON.stringify(warnings),warningsBefore);eq(clear.under[0],other);eq(project(clear),clear);
+const adjusted={description:'Old site-derived quantity and amount',card_line:'Synthetic service',baseplan12416:'Existing approval',qty:7,qty_site12416:4},adjustedBefore=JSON.stringify(adjusted);
+eq(description(adjusted),'Synthetic service · customer charge: 7 services (Baseplan); site record: 4 services');
+eq(description(adjusted,n=>'n='+n),'Synthetic service · customer charge: n=7 services (Baseplan); site record: n=4 services');
+eq(JSON.stringify(adjusted),adjustedBefore);
+eq(description({...adjusted,baseplan12416:null}),adjusted.description);eq(description({...adjusted,qty_site12416:null}),adjusted.description);
+eq(description({...adjusted,qty:null}),adjusted.description);eq(description({...adjusted,card_line:null}),adjusted.description);
+eq(description({description:'Ordinary source description'}),'Ordinary source description');eq(description(null),'');
 console.log('PASS '+checks+' customer water differential checks');

@@ -18,6 +18,11 @@ function project(service){
  if(Array.isArray(service.under))out.under=service.under.filter(value=>!included.has(value.key));
  return out;
 }
-const api={project};root.CustomerWater1244=api;
+function description(line,format=String){
+ if(!line)return '';
+ if(!line.baseplan12416||!line.card_line||typeof line.qty!=='number'||!Number.isFinite(line.qty)||typeof line.qty_site12416!=='number'||!Number.isFinite(line.qty_site12416))return line.description||'';
+ return line.card_line+' · customer charge: '+format(line.qty)+' services (Baseplan); site record: '+format(line.qty_site12416)+' services';
+}
+const api={project,description};root.CustomerWater1244=api;
 if(typeof module!=='undefined'&&module.exports)module.exports=api;
 })(typeof window==='undefined'?globalThis:window);
