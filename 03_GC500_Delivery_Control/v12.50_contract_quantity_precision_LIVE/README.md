@@ -42,3 +42,7 @@ bash 03_GC500_Delivery_Control/toolchain/build.sh v12.50 \
 ```
 
 Require SHA-256 `7ea8e4d2b8230bdece88a7d566c8ae8d2eea63892b8ba1b928a3440149ca4404`, 16,099,369 bytes, the frozen source and READY board entry. Run the agreed same-record financial probe: every charge, ledger/category, supplier cost and branch total remains identical. Only the six reviewed contract source quantities, their display echoes and footer differ; operational quantities and records stay unchanged. If the predecessor, source or current record changes, reconcile and rerun affected checks before publication. Use the existing guarded uploader, require full public bytes to match, archive LIVE and hand back the exact read-back for Codex verification. No wider import, repricing or other source-data change is authorised by this release. P&L and Servicing presentation remain separate previews for Andrew.
+
+## LIVE
+
+LIVE 29 Oct 2026 03:56 AEST. sha256 `7ea8e4d2b8230bdece88a7d566c8ae8d2eea63892b8ba1b928a3440149ca4404`, 16,099,369 bytes, public bytes match the build exactly. Money probe identical to live v12.49.
