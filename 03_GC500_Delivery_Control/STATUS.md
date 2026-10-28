@@ -1,3 +1,16 @@
+**HANDOVER TO CODEX — Claude, 28 Oct 2026 16:35 AEST. Read this before you touch the record or the page.**
+- **Live page:** v12.42.24, `524115a3…`. Every v12.42.x since v12.42.7 is LIVE (see the entries below). Build v12.43 on `524115a3…`, not earlier.
+- **Record:** version 11702. Everything below was done through `record_26Oct2026_departures/left_site.cjs` in Andrew's name. **Do not re-record any of it.**
+  - Departures 28 Oct, runs 39–51 (see that folder's README): T0001 VMS 1211370/1211383 at 08:30, 1271129/1211356/1182999 at 14:30; WC69/WC71/WC67/WC68/WC72 at 10:00; GN23 at 09:45; SVP01, WC73, T0176, PG03 at 09:45; P69 at 10:15; LT05/LT06 at 12:00; WC38/39/40/41/42 at 11:15–12:15; P45 at 12:40; WC61 and WC85 at 13:00; GN03 at 13:30; GN25 and T0001 x2 at 08:30.
+  - Run 50: GN20-A 1276701 and GN21 1261284 left 15:30.
+  - Run 52: GN23's distribution board 1189078 left with the 150 kVA at 09:45 (GN23 note).
+  - Run 53: Build back to 100%. VMS board 1211356 put on T0001 (it read "Still to come"), and EQ0007's complete dated to its 17 Sep arrival (ticked late, after the 23 Oct cut-off). All seven Today groups are 100%.
+  - Run 54: water barriers WB06 (154), WB01 (12), WB05 (13), WB17 (6) left 19:30 Mon 27 Oct. Still open: WB13 (10, probably Mon 26 Oct 14:00), WB02 (34) and WB03 (30), which Baseplan has off. Waiting on Andrew.
+- **Pre-starts** (`record_28Oct2026_prestarts_ahead/`): 23 forms uploaded for every weekday 29 Oct–13 Nov, one per crew per day. Crew names are printed; signatures are left for the crew on the day. The eight old 7–11 Sep "Retrospective prefill — unsigned" copies were replaced with clean forms; no names were printed where the record has none. **79 pre-starts on the record; none says unsigned or "via".** Andrew asked for these signed off; we do not sign for anyone, and he has been told. Please hold the same line.
+- **VMS plan for Thu 29 Oct (Andrew's, not recorded):** locations #1–4 and #6–8 stay until after 15:00 Fri 13 Nov ("GC500 Works – Expect Delays"; #3 "Construction Works – 50km/hr"). Boards will be swapped around. Record nothing until he says which board is where.
+- **Held, not uploaded:** `HELD_9972648_baseplan/` (−$909.78). Andrew still to decide.
+- **CLAIM — Claude: v12.42.25 Map explorer "left site" marker.** The big green "LEFT SITE" badges (`departureFrame1211`, `drawMarks` wrap) become the item's own icon shape with a pulsing "off site" ring, built on `524115a3…`. Codex: if v12.43 touches `departureFrame1211` or the explorer's `drawMarks`, say so on PR #1 first.
+
 APPLIED — record runs 35 and 36 (Claude, for Andrew), 27 Oct 2026 22:57 AEST: T0085 and T0109 on MEAD; the concert generators GN? on KINP (Andrew: "happy to leave KINP"). Record 11612 → 11621, verified; charge unchanged; NVAC $49,323.37 → $39,725.89, KINP → $250,936.14, MEAD → $18,859.02. Still to do: WB03 18 Sep start and WB07 into WB06 (page release), Premiair VMS and the reefer container onto their sub-hire branches, Baseplan (8) contracts onto the page.
 
 LIVE — v12.42.24 9961265 VMS at Baseplan to the cent (hire lines + line 40 labour $4,247.28) (Claude, for Andrew), 28 Oct 2026. sha256 524115a3…, byte for byte. Built on v12.42.23 2e6e00e0…. +$1,995.66; charge $1,025,473.88. **Codex: v12.43 rebuilds on 524115a3…**
