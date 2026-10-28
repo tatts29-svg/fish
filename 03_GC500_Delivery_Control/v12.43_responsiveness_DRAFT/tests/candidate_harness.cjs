@@ -40,7 +40,10 @@ async function openCandidate(){
   try{
     await s.page.waitForFunction(()=>typeof SYNC!=='undefined'&&SYNC.status==='live'&&SYNC.first.size===Object.keys(SYNC_COLLS).length,null,{timeout:180000});
     const observed=await s.page.evaluate(()=>({docs:JSON.parse(JSON.stringify(Object.fromEntries(Object.keys(SYNC_COLLS).map(k=>[k,toDocs(k)])))),version:SYNC.backend.readVersion821(),inflight:Object.keys(SYNC.inflight||{}).length,queuedDocuments:Object.values(SYNC.queue||{}).reduce((n,q)=>n+Object.keys(q).length,0)}));
-    assert.deepEqual(observed.docs,frozen.docs,'Loaded record differs from pinned snapshot');
+    // Native toDocs enumerates empty collections which the service omits.
+    // Compare every populated collection/document exactly; omit only empty maps.
+    const populated=docs=>Object.fromEntries(Object.entries(docs).filter(([,items])=>Object.keys(items||{}).length));
+    assert.deepEqual(populated(observed.docs),populated(frozen.docs),'Loaded record differs from pinned snapshot');
     assert.equal(Number(observed.version),frozen.version,'Loaded native record version must equal the pinned snapshot');
     assert.equal(observed.inflight,0,'Pinned record must have no inflight writes');
     s.baseline={serviceWorkers:'block',version:frozen.version,docsMatch:true,inflight:observed.inflight,queuedDocuments:observed.queuedDocuments,

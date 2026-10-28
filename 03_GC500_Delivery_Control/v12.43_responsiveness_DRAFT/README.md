@@ -1,4 +1,4 @@
-# v12.43 responsiveness — tested draft
+# v12.43 responsiveness — READY TO UPLOAD
 
 Author: Andrew Fisher
 
@@ -12,4 +12,4 @@ Matched phone runs on one frozen record: startup first-live 2.66–3.01 seconds 
 
 `CHECKS.json` contains source-bound results without operational amounts. Tests accept `BASE`, `PAGE`, `STATE` and `OUT`; use the shared browser lock and GET-only harness. Private raw snapshots and screenshots remain outside Git.
 
-Awaiting resolution of Claude's preceding v12.42.25 map candidate. Rebuild from the newest verified live page and rerun affected final checks before publication. Use the guarded uploader; this candidate has not been published. No record writes.
+READY TO UPLOAD. Release order posted in PR1: publish this tested speed correction first; Claude rebuilds the separate corrected map candidate on its exact verified successor. Guarded dry run confirmed edit access and unchanged live base. No record writes. Whole-job financial reconciliation remains open under v12.44; no final-bill sign-off implied.
