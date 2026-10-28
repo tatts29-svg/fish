@@ -36,12 +36,22 @@ const extra=()=>holdAssets(()=>{
  const arrivedDocument=new DOMParser().parseFromString(peeAsset?arrivedChargesHtml975(peeAsset):'','text/html');
  const arrivedPee=[...arrivedDocument.querySelectorAll('section[data-charges952] > details')].find(d=>d.querySelector(':scope > summary')?.textContent.startsWith('Pee Panel ×'));
  const arrivedRows=arrivedPee?[...arrivedPee.querySelectorAll('tbody > tr')].map(row=>[...row.querySelectorAll(':scope > td')].map(td=>td.textContent.trim())):[];
+ const assignments=DATA.rental_on_hire.assignments;
+ const ownUseItems=new Map(LP.slots.filter(s=>String(assignments[s.ref]?.rental_contract)==='9968929'&&['install','steps','levelling','demob','cleaning'].includes(s.key)).map(s=>[JSON.stringify([s.ref,s.item]),{ref:s.ref,item:s.item}]));
+ const ownUseDrawers=[...ownUseItems.values()].map(({ref,item})=>{
+  const asset=assetOf(ref),doc=new DOMParser().parseFromString(asset?arrivedChargesHtml975(asset):'','text/html');
+  const detail=[...doc.querySelectorAll('section[data-charges952] > details')].find(d=>d.querySelector(':scope > summary')?.textContent.startsWith(item+' ×'));
+  return {ref,item,assignment:assignments[ref],summary:detail?.querySelector(':scope > summary')?.textContent||'',
+   rows:detail?[...detail.querySelectorAll('tbody > tr')].map(row=>[...row.querySelectorAll(':scope > td')].map(td=>td.textContent.trim())):[],
+   note:detail?.querySelector('[data-installation-coverage1255]')?.textContent||''};
+ });
  return JSON.parse(JSON.stringify({
   rows:ONHIRE_ROWS.map(row=>({row,charge:contractCharge(row),category:contractChargeCategory1224(row),stream:contractChargeStream1224(row),branch:generatorBranch1004(row),billingQuantity:contractBillingQuantity1010(row),allocation:contractAllocation1010(row),treatment:contractTreatment747(row),owner:finance928ContractOwner(row)})),
   allLabourSlots:LP.slots,labourPlan:{all:LP.all,byLine:[...LP.byLine],byBranch:[...LP.byBranch],fwf:LP.fwf1244},
   ticks:pl760Ticks(),service:servicing748(),supplier:supplierService1068(),scope:scopeFigures(),scopeBranch:scopeBranchAllocation978(),money:M,branch:branchFinancial978(B,M),contractBranch:B,
   pee:peeHireForecast979(),pricingForecast:pricingForecast1010(),
   peeDrawer:{selected:peeSelected,projection:peeProjection,hireRows:peeHireRows,unlinked:!!peeTable.querySelector('[data-item979-unlinked]'),sourceUnchanged:peeSourceBefore===(peeSource?JSON.stringify(peeSource):null),formattedAmount:peeProjection?.amount==null?null:money(peeProjection.amount),arrivedRows,arrivedSummary:arrivedPee?.querySelector(':scope > summary')?.textContent,coverageNote:arrivedPee?.querySelector('[data-installation-coverage1255]')?.textContent||''},
+  ownUseDrawers,
   source949:{model:sourceModel,rows:ONHIRE_ROWS.filter(r=>Source949.evidence(r)).map(r=>({key:r.rental_contract+'|'+r.line,evidence:Source949.evidence(r),value:Source949.forRow(r)})),months:sourceModel.map(f=>({id:f.id,values:['2026-09','2026-10','2026-11'].map(m=>Source949.month(f,m))}))},
   eq0004:eq?{asset:eq,total:assetTotal(eq),arrived:arrivedChargeRows975(eq),service:nightService1040(eq),held:NotChargedHere1152.has('EQ0004')}:null,
   moduleSources:typeof RuledFinance1255==='object'?RuledFinance1255.installation:null
@@ -64,6 +74,8 @@ function validate(result,expected){
  const check=(name,ok)=>{assert(ok,name);checks++;};
  const money=(name,a,b)=>same(name,cents(a),cents(b));
  const B=result.models.base,A=result.models.candidate;
+ const matchesRule=(rule,slot)=>rule.refs.includes(slot.ref)&&rule.items.includes(slot.item)&&rule.keys.includes(slot.key)&&(!rule.states||rule.states.includes(slot.state));
+ const ownUseRules=expected?.ownUseCoverageRules||[];
  for(const [name,x]of Object.entries(result.models)){
   same(name+' explicit fixed instant',x.fixedTime,result.fixedTime);
   same(name+' zero runtime/console errors and writes',[x.errors,x.consoleErrors,x.writes],[[],[],0]);
@@ -102,13 +114,20 @@ function validate(result,expected){
  same('supplier service decoration exact',A.financial.service.supplier1068,B.financial.service.supplier1068);
  same('physical tick count preserved',A.financial.ticks.ticks,B.financial.ticks.ticks);
  for(const key of ['install','cleaning','fire_ext','other'])same('physical '+key+' tick count',A.financial.ticks[key].ticks,B.financial.ticks[key].ticks);
- same('Cleaning financial projection retained pending business ruling',A.financial.ticks.cleaning,B.financial.ticks.cleaning);
+ const ownUseCleaning=B.extra.allLabourSlots.filter((s,i)=>s.key==='cleaning'&&s.state==='charged'&&(expected?ownUseRules.some(r=>matchesRule(r,s)):!!A.extra.allLabourSlots[i]?.ownUse1255));
+ same('Cleaning counts and unknown-rate state preserved',omit(A.financial.ticks.cleaning,['amount']),omit(B.financial.ticks.cleaning,['amount']));
+ same('only independently ruled own-use Cleaning leaves customer charges',cents(A.financial.ticks.cleaning.amount),cents(B.financial.ticks.cleaning.amount)-ownUseCleaning.reduce((n,s)=>n+cents(s.value),0));
+ for(const [branch,b]of Object.entries(B.financial.ticks.byBranch)){
+  const a=A.financial.ticks.byBranch[branch];
+  same('Cleaning branch counts and unknown rates preserved '+branch,omit(a.cleaning,['amount']),omit(b.cleaning,['amount']));
+  same('Cleaning branch amount changes only for approved own use '+branch,cents(a.cleaning.amount),cents(b.cleaning.amount)-ownUseCleaning.filter(s=>s.branch===branch).reduce((n,s)=>n+cents(s.value),0));
+ }
  same('unrelated other tick projection retained',A.financial.ticks.other,B.financial.ticks.other);
  same('labour physical slot count unchanged',A.extra.allLabourSlots.length,B.extra.allLabourSlots.length);
- const slotMoney=['rate','value','sourceRate1255','sourceValue1255','covered1255'];
+ const slotMoney=['rate','value','sourceRate1255','sourceValue1255','covered1255','ownUse1255'];
  for(const [i,b]of B.extra.allLabourSlots.entries()){
   const a=A.extra.allLabourSlots[i];same('physical labour slot '+i,omit(a,slotMoney),omit(b,slotMoney));
-  if(a.covered1255){
+  if(a.covered1255||a.ownUse1255){
    money('covered customer slot zero '+i,a.value,0);money('covered customer rate zero '+i,a.rate,0);
    same('covered slot retains original rate '+i,a.sourceRate1255,b.rate);
    same('covered slot retains exact cost-allocation value '+i,a.sourceValue1255,b.value);
@@ -157,17 +176,49 @@ function validate(result,expected){
  same('expectation candidate pinned',expected.candidateSha256,result.models.candidate.baseline.pageSha256);
  same('expectation pinned record',expected.stateSha256,result.models.candidate.baseline.stateSha256);
  check('independent labour coverage rules supplied',Array.isArray(expected.labourCoverageRules));
+ check('independent own-use coverage rules supplied',Array.isArray(expected.ownUseCoverageRules));
  check('independent scope coverage supplied',expected.scopeCoverage&&typeof expected.scopeCoverage==='object'&&!Array.isArray(expected.scopeCoverage));
  for(const [i,rule]of expected.labourCoverageRules.entries()){
   check('explicit refs/items/keys for coverage rule '+i,['refs','items','keys'].every(k=>Array.isArray(rule[k])&&rule[k].length>0));
   check('explicit coverage source '+i,typeof rule.source==='string'&&rule.source.length>0);
  }
+ for(const [i,rule]of ownUseRules.entries()){
+  check('explicit refs/items/keys for own-use rule '+i,['refs','items','keys'].every(k=>Array.isArray(rule[k])&&rule[k].length>0));
+  same('own-use rule names the separately ruled source contract '+i,rule.contract,'9968929');
+ }
  const coveredSourceRows=new Set();
  for(const [i,b]of B.extra.allLabourSlots.entries()){
-  const a=A.extra.allLabourSlots[i],rules=expected.labourCoverageRules.filter(r=>r.refs.includes(b.ref)&&r.items.includes(b.item)&&r.keys.includes(b.key)&&(!r.states||r.states.includes(b.state)));
+  const a=A.extra.allLabourSlots[i],rules=expected.labourCoverageRules.filter(r=>matchesRule(r,b)),ownRules=ownUseRules.filter(r=>matchesRule(r,b));
   check('one covering contract rule at most for slot '+i,rules.length<=1);
+  check('one own-use rule at most for slot '+i,ownRules.length<=1);
+  check('own use is distinct from Installation source coverage '+i,!(rules.length&&ownRules.length));
   same('only independently approved slot is covered '+i,!!a.covered1255,rules.length===1);
+  same('only independently approved slot is own use '+i,!!a.ownUse1255,ownRules.length===1);
+  if(ownRules.length){
+   same('own-use contract provenance is explicit '+i,a.ownUse1255,{contract:ownRules[0].contract,category:'Coates own use',outcome:'no customer charge'});
+   money('own-use customer value is zero '+i,a.value,0);money('own-use customer rate is zero '+i,a.rate,0);
+   same('own-use original allocation rate is retained '+i,a.sourceRate1255,b.rate);
+   same('own-use original allocation value is retained '+i,a.sourceValue1255,b.value);
+  }
   if(rules.length){same('approved source covers slot '+i,a.covered1255.source,rules[0].source);same('covered slot classification '+i,a.covered1255.category,'Installation');rules[0].source.split(/\s*\+\s*/).forEach(k=>coveredSourceRows.add(k));}
+ }
+ const expectedOwnUseItems=new Map();
+ for(const rule of ownUseRules)for(const ref of rule.refs)for(const item of rule.items)expectedOwnUseItems.set(JSON.stringify([ref,item]),{ref,item,contract:rule.contract,keys:rule.keys});
+ same('only reviewed own-use item readers exist',A.extra.ownUseDrawers.map(r=>JSON.stringify([r.ref,r.item])).sort(),[...expectedOwnUseItems.keys()].sort());
+ same('own-use item reader identities preserved',A.extra.ownUseDrawers.map(r=>[r.ref,r.item]),B.extra.ownUseDrawers.map(r=>[r.ref,r.item]));
+ for(const drawer of A.extra.ownUseDrawers){
+  const key=JSON.stringify([drawer.ref,drawer.item]),rule=expectedOwnUseItems.get(key),prior=B.extra.ownUseDrawers.find(r=>r.ref===drawer.ref&&r.item===drawer.item);
+  same('own-use source assignment retained '+key,drawer.assignment,prior.assignment);
+  same('own-use reader is assigned to the ruled contract '+key,String(drawer.assignment.rental_contract),rule.contract);
+  same('own-use drawer explains no charge without false Installation coverage '+key,drawer.note,'Coates own use on contract '+rule.contract+'; no customer charge. Physical completion is recorded separately.');
+  check('own-use summary explicitly says no customer charge '+key,drawer.summary.includes('Coates own use; no customer charge'));
+  check('own-use summary does not claim contract Installation coverage '+key,!drawer.summary.includes('Installation charged on contract'));
+  for(const part of rule.keys){
+   const slot=B.extra.allLabourSlots.find(s=>s.ref===drawer.ref&&s.item===drawer.item&&s.key===part);check('approved own-use component exists '+key+' '+part,!!slot);
+   const rows=drawer.rows.filter(cells=>cells[0]===slot.line);
+   same('own-use drawer component appears once '+key+' '+part,rows.length,1);
+   same('own-use drawer component has truthful customer treatment '+key+' '+part,[rows[0][1],rows[0][3]],['Coates own use','No customer charge']);
+  }
  }
  for(const b of B.financial.scope.lines){
   const a=A.financial.scope.lines.find(l=>l.key===b.key),source=expected.scopeCoverage[b.key];
