@@ -2,17 +2,17 @@
 
 Author: Andrew Fisher
 
-DRAFT CHECKED. Focused checks pass; independent navigation sweeps remain in progress. This repair is based on the exact reviewed v12.54 candidate. It is not ready or live.
+READY TO UPLOAD. Focused checks and both final navigation sweeps pass. The exact v12.54 predecessor was independently verified live on 29 Oct 2026 at 08:59 AEST. The shared toolchain rebuilt this candidate byte for byte. Frozen implementation/tests source: `e32fe4954ffdbd191e1618bcea85cac19d050cf4`. Claude owns guarded publication; this version is not yet live.
 
 On phones, the existing servicing table's wide sticky description column covers monetary text after a horizontal swipe. A narrow screen-only rule lets the first column scroll with the existing table at widths up to 640 px. The selector uses the servicing table's existing numeric Qty header and excludes the adjacent contract tables, whose identifiers stay pinned. All original styles, data and financial code remain byte-identical; only the appended rule and release footer change. Desktop and print retain their current behaviour.
 
 Exact predecessor SHA256: `378d4b6632101ad6a1429f31b2241c567b3670ae0888f70b7df6f75109625a5c`.
 
-Private candidate SHA256: `20a81f75b8d47ed1c0d32cf3d5b5e5e79fe1bb5420b2fe459f9d4bbf94c771d5`, 16,106,179 bytes. Five exact-boundary tests and the shared 217-script checker pass. No shared live-base build or publication is claimed.
+Shared-build candidate SHA256: `20a81f75b8d47ed1c0d32cf3d5b5e5e79fe1bb5420b2fe459f9d4bbf94c771d5`, 16,106,179 bytes. Five exact-boundary tests and the shared 217-script checker pass. The shared live-base build equals the privately tested candidate; publication is pending.
 
-Focused native checks pass on the same pinned record and time as v12.54: all 11 actual servicing monetary cells are fully visible and unobscured after scrolling at 390, 360 and 640 px, verified with complete text ranges and five hit points per amount. Both adjacent contract tables retain sticky identifiers. The servicing column stays sticky at 641 and 1440 px and in print at phone width. Complete financial models, source contract rows and operational documents remain exact after resizing, scrolling and navigation re-entry. Zero runtime errors, console errors or writes. Actual phone screenshots were inspected privately. Independent final desktop/phone navigation sweeps remain pending.
+Focused native checks pass on the same pinned record and time as v12.54: all 11 actual servicing monetary cells are fully visible and unobscured after scrolling at 390, 360 and 640 px, verified with complete text ranges and five hit points per amount. Both adjacent contract tables retain sticky identifiers. The servicing column stays sticky at 641 and 1440 px and in print at phone width. Complete financial models, source contract rows and operational documents remain exact after resizing, scrolling and navigation re-entry. Zero runtime errors, console errors or writes. Actual phone screenshots were inspected privately. Independent final desktop and phone sweeps each pass all 27 routes, seven deep links and Back navigation, with zero runtime errors, console errors or operational writes.
 
-Build through the shared toolchain only after this exact v12.54 is verified live:
+Rebuild through the shared toolchain from the verified exact v12.54:
 
 ```bash
 GC500_V12541_BASE_SHA256=378d4b6632101ad6a1429f31b2241c567b3670ae0888f70b7df6f75109625a5c \
@@ -34,4 +34,4 @@ flock /tmp/gc500-browser.lock env BASE=/private/exact54.html \
 
 Set `CHROMIUM_PATH` when the environment uses its system browser. The focused test uses the shared read-only candidate harness from the archived v12.43 release and does not depend on the v12.54 draft folder name.
 
-Current tested candidate SHA256: `20a81f75b8d47ed1c0d32cf3d5b5e5e79fe1bb5420b2fe459f9d4bbf94c771d5`,16,106,179 bytes. Five boundary checks,217-script parsing,33 complete money-text visibility checks across390/360/640px, adjacent contract-table preservation, desktop/print checks and full financial/source/document invariance pass. Independent code/byte review passes. Final shared navigation sweeps and the verified-live54/shared-rebuild gate remain; not READY.
+Current tested candidate SHA256: `20a81f75b8d47ed1c0d32cf3d5b5e5e79fe1bb5420b2fe459f9d4bbf94c771d5`,16,106,179 bytes. Five boundary checks,217-script parsing,33 complete money-text visibility checks across390/360/640px, adjacent contract-table preservation, desktop/print checks and full financial/source/document invariance pass. Independent code/byte review, both final shared navigation sweeps, verified-live54 and exact shared-rebuild gates pass. READY TO UPLOAD; not live.
