@@ -2,7 +2,7 @@
 
 Author: Andrew Fisher.
 
-Status: READY TO UPLOAD, not live. Frozen implementation/tests source: `58ed6333706c2ac995e66da2d9349ef34a7fa48b`. Screenshot review and the exact shared live-base rebuild are complete; the rebuilt bytes match the tested candidate below and all 217 scripts pass. A fresh public read-back at 20:15 UTC on 28 Oct 2026 confirms the unchanged live50 predecessor. The affected native 47 comparisons and phone controls were repeated against the newer private record snapshot, which remained exact on the final 20:21 UTC read. The release owner retains the guarded upload and full public-byte read-back.
+Status: LIVE, independently byte-verified on 29 Oct 2026 at 07:16 AEST. The completed prepublication evidence follows. Historical READY handover: Frozen implementation/tests source: `58ed6333706c2ac995e66da2d9349ef34a7fa48b`. Screenshot review and the exact shared live-base rebuild are complete; the rebuilt bytes match the tested candidate below and all 217 scripts pass. A fresh public read-back at 20:15 UTC on 28 Oct 2026 confirms the unchanged live50 predecessor. The affected native 47 comparisons and phone controls were repeated against the newer private record snapshot, which remained exact on the final 20:21 UTC read. The release owner retains the guarded upload and full public-byte read-back.
 
 The separate current-record provenance review is still open with the operational owner. This release preserves the record and does not resolve or certify historical corrections. It does not include the presentation previews; those rebuild on the independently verified successor before any later release.
 
@@ -21,7 +21,7 @@ The patch rejects another predecessor or a second application. Reversing its sco
 
 ```bash
 GC500_V12501_BASE_SHA256=7ea8e4d2b8230bdece88a7d566c8ae8d2eea63892b8ba1b928a3440149ca4404 \
-  toolchain/build.sh v12.50.1 v12.50.1_costs_responsiveness_DRAFT/patch_v12501.py
+  toolchain/build.sh v12.50.1 v12.50.1_costs_responsiveness_LIVE/patch_v12501.py
 ```
 
 ## Validation
@@ -54,3 +54,7 @@ Before publication, the coordinated release owner rebuilds the frozen source, re
 ## LIVE
 
 LIVE 29 Oct 2026 06:30 AEST (Claude publication). Exact rebuild from `58ed6333` on the verified live50 predecessor `7ea8e4d2…` reproduced the tested candidate `69bf04e72a45e084f0ba5227b4a26cf95ffe4078429044946af473120d4e7bb2`, 16,099,841 bytes; the money probe on base and candidate was identical apart from the footer (charge $1,011,296.03, cost $448,019.57, every P&L row and branch total the same); guarded upload (live page unchanged since the build started; record 11766); public read-back byte for byte identical.
+
+## Independent read-back
+
+Codex fetched the complete public page at 21:16 UTC on 28 Oct 2026 (07:16 AEST on 29 Oct). It equals the tested candidate byte for byte: SHA256 `69bf04e72a45e084f0ba5227b4a26cf95ffe4078429044946af473120d4e7bb2`, 16,099,841 bytes, with the v12.50.1 footer. The latest record envelope advanced; every document and access level equals the final tested snapshot. Claude publication archive: `43552c1e4a84406a94b6cd6848a13465535cdf19`. This is publication verification, not a new phone-speed benchmark or a resolution of the separate operational provenance question.
