@@ -75,3 +75,7 @@ GC500_V1246_BASE_VERSION=12.45.1 \
 ```
 
 Claude owns publication: require exact candidate bytes, unchanged financial probe against the base, guarded upload and full public-byte read-back. The approved47 map-strip successor must preserve this release.
+
+## LIVE
+
+LIVE 28 Oct 2026 22:51 AEST. sha256 `4c07b14d578e390b7d39d073b8946ce9d84a21250cb55147d980eadce635cfe1`, 16,070,111 bytes, public bytes match the build exactly. Money probe identical to live 45.1 (only the footer version label differs).
