@@ -440,3 +440,7 @@ Andrew, 28 Oct 2026: "All Wc61 left at 1pm"; "Lets.do wc85.leave same time as ot
 ## Run 49 - GN03 (Coates 1320829) left 13:30, 28 Oct 2026 (APPLIED)
 
 Andrew, 28 Oct 2026: "Gn03 picked.up 130pm". Left in full; applied at 13:34 from the scheduled check. Today groups unchanged. Report `report_20261028T033437Z.json`.
+
+## Run 51 - T0001 VMS 1271129, 1211356, 1182999 left 14:30, 28 Oct 2026 (APPLIED)
+
+Andrew, 28 Oct 2026 (photo with regos F05419, ER9244, 410UFQ): "Left 230pm". Three boards still on T0001. Today groups unchanged. Report `report_20261028T052912Z.json`.
