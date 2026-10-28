@@ -115,6 +115,8 @@ complete dated 22 Oct. Earlier: P06 1087453, AA/HRP labour off, steps off P60/P6
 8. Wording and locations ("correct terminology locations"): the P&L lines should carry the business's names (Baseplan
    description + our reference + the map location) consistently; the Demob/Build cards already carry "Near Stand S04 ·
    35 m · Macintosh Island" style locations — the P&L lines do not yet. Design for Codex.
+9a. Generator fuel: refuelled by Coates during the event (Andrew, 29 Oct); no fuel line on any Baseplan export or
+   the page. NVAC to add it to 9961976 / 9994954; draft request in `nvac_fuel_request_DRAFT.md`. A gap, not a figure.
 9. Record version moved 11702 → 11703 at 18:47 AEST 28 Oct by no run of Claude's; unexplained (asked on PR #1).
 
 ## Page bugs seen tonight (Andrew's screenshots, 23:38–23:44), for Codex
