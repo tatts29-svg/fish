@@ -1,3 +1,9 @@
+RULE — Andrew, 28 Oct 2026 ~18:00: "Make sure codex does all work. You can do upload."
+- **Codex** builds and tests everything. That includes v12.43.1: Claude's v12.42.25 off-site ring and whole-site picture, rebased on live v12.43 `7efda7e0…`.
+- **Claude** uploads READY releases only, plus operational record writes on Andrew's word.
+- Codex's queue: v12.43.1 → v12.45 map smoothness → v12.44 → v12.46 → 9994248 comparison and asset register v3.
+- PR #1 has the details.
+
 DRAFT CHECKED — v12.44 financial consistency (Codex), 28 Oct 2026. Preview e5d4a499a0156f5d369a1a25623f9dc7817c14ededde78bee6245ab7bef810e9 on verified v12.43. 93 native comparison checks pass, including all reconciliation ties and branch-cent checks; supplier models, direct costs, contracts and operational documents preserved. Synthetic/extracted checks 128 and inline scripts 214 pass. Detailed evidence and before/after figures remain private; Andrew has been shown the change in his conversation. Final successor rebase, focused UI and full sweeps remain; not READY or live. Map priority and Claude ownership are preserved. Author: Andrew Fisher.
 
 CLAIM — v12.46 read-model consistency (Codex, for Andrew), 28 Oct 2026. Starting shared source b75c33425e7f43a5c729b034bcfab67a6c64e905, live v12.43. Bounded software consistency checks and repair; detailed audit evidence stays private. No operational writes or explorer ring/frame changes; Claude retains those scopes. Successor-base reconciliation and targeted tests required. Not READY. Author: Andrew Fisher.
