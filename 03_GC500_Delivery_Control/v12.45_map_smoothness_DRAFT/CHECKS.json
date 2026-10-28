@@ -1,0 +1,16 @@
+{
+  "author": "Andrew Fisher",
+  "state": "DRAFT",
+  "base_sha256": "7efda7e067d34b1455d8da9e3de29c695d4d216afc072e49e27754295a09976f",
+  "preview_sha256": "3336caa9b9d9065d9638f9e9bd4b57719c8929d5924e9bd5280febda4b4376cf",
+  "bytes": 16043896,
+  "inline_scripts": 214,
+  "source_fragment_checks": 296,
+  "patch_boundary_tests": 7,
+  "pending": [
+    "native phone and desktop comparisons",
+    "delayed satellite transition before/after check",
+    "final verified successor rebuild",
+    "full sweeps and visual checks"
+  ]
+}
