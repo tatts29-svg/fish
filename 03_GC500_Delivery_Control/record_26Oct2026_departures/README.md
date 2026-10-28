@@ -444,3 +444,7 @@ Andrew, 28 Oct 2026: "Gn03 picked.up 130pm". Left in full; applied at 13:34 from
 ## Run 51 - T0001 VMS 1271129, 1211356, 1182999 left 14:30, 28 Oct 2026 (APPLIED)
 
 Andrew, 28 Oct 2026 (photo with regos F05419, ER9244, 410UFQ): "Left 230pm". Three boards still on T0001. Today groups unchanged. Report `report_20261028T052912Z.json`.
+
+## Run 50 - GN20-A (Coates 1276701) and GN21 (Coates 1261284) left 15:30, 28 Oct 2026 (APPLIED)
+
+Andrew, 28 Oct 2026: "1276701 and 1261284 leaving at 330pm". Each left in full; applied at 15:37 from the scheduled check (record 11688 -> 11690). Today groups unchanged (generators 15/15). No distribution board is on either record; the only one on the record is 1189078 at GN23 - awaiting Andrew's word on which board went with these. Report `report_20261028T053758Z.json`.
