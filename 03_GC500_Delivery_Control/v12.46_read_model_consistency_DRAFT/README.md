@@ -29,13 +29,34 @@ The native gate uses the existing read-only candidate harness, the same frozen r
 
 ## Queued successor check, 28 Oct 2026
 
-The unchanged patch also applies to the exact v12.45.1 draft predecessor
-`dd88aa87016c1734f26b346afff07bfffcac5b5820e1eafa2a9b0bb0b73a6355`,
+The unchanged patch applies to the exact reviewed v12.45.1 draft predecessor
+`2af6d293843be7165e0ac6a0b05e7ce1d8263ab968a62ab30c14f009599253d5`,
 using explicit predecessor version `12.45.1`. The resulting draft is
-`65d4d652432cd8943fe9d57b790705efe298855f3196d5e9c3f7f5f88ecb7b52`
-(16,061,920 bytes). The 43 identity cases, 19 extracted-native cases, exact whole-page
-patch reversal/refusal checks and shared 214-script checker pass on this base.
-All predecessor changes are retained exactly outside the bounded unit association
-and footer replacements. This is an offline successor preview only: the original
-browser results above do not certify it. Current-record native/UI and full sweep
-gates, plus verified live predecessors, remain required. No READY or live claim.
+`4c07b14d578e390b7d39d073b8946ce9d84a21250cb55147d980eadce635cfe1`
+(16,070,111 bytes). The 43 identity cases, 19 extracted-native cases and both
+patch test groups pass, including exact whole-page reversal and refusal of stale,
+repeated or mismatched input. The shared page checker passes all 214 inline
+scripts and its secret checks. No implementation or test source changed for this
+rebuild. All predecessor changes are retained exactly outside the bounded unit
+association and footer replacements.
+
+The original browser results above are historical. Final successor native/UI and
+full sweep results are recorded below. A verified live predecessor and shared
+rebuild still remain required. No READY or live claim.
+
+The final `4c07b14d578e390b7d39d073b8946ce9d84a21250cb55147d980eadce635cfe1`
+candidate also passes 1,403 native comparison checks against that exact predecessor
+on one frozen current record. Only the expected evidence association and remaining
+membership change; financial, contract, document, reference and board projections
+remain exact. The affected phone read-back passes, and its screenshot was inspected:
+the existing departure label is clearly visible below the fixed header. Runtime and
+console errors, HTTP write attempts and queued/inflight writes are zero.
+
+Both final shared desktop and phone navigation sweeps pass all 27 tabs, seven deep
+links and Back navigation. They use the same frozen record, retain the shared
+map-service session exception, and deny operational writes. Runtime errors, console
+errors and operational-write attempts are zero; documents remain exact and the
+queue stays empty. The final candidate hash is unchanged. This remains DRAFT until
+the v12.45.1 predecessor is independently verified live and the shared build
+reproduces this exact candidate. It may then be handed to Claude as READY; guarded
+publication and full public-byte read-back are required before a LIVE claim.
