@@ -1,6 +1,6 @@
 {
  "by": "Andrew Fisher",
- "basis": "Andrew, 28 Oct 2026: \"All Wc61 left at 1pm\". Every FWF still on site at WC61, as its departure form offers them: 0645, 0105, 0945, 0977, 0547, 0290, 0038, 0015. WC61 leaves in full. Left site 28 Oct 2026 13:00 AEST.",
+ "basis": "Andrew, 28 Oct 2026: \"All Wc61 left at 1pm\". Every FWF still on site at WC61, as its departure form offers them: 0645, 0105, 0945, 0977, 0547, 0290, 0038, 0015. WC61 leaves in full. Left site 28 Oct 2026 13:00 AEST. Andrew, same day: \"Lets.do wc85.leave same time as othere\" - WC85 0135 (Event Portables FWF, Coates compound at The Spit; its only unit; ticked Emptied) leaves with WC61 at 13:00.",
  "ops": [
   {
    "op": "depart",
@@ -15,6 +15,15 @@
     "0290",
     "0038",
     "0015"
+   ],
+   "complete": true
+  },
+  {
+   "op": "depart",
+   "ref": "WC85",
+   "at": "2026-10-28T13:00:00+10:00",
+   "nos": [
+    "0135"
    ],
    "complete": true
   }
