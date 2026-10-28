@@ -1,4 +1,4 @@
-# Read-model consistency — DRAFT
+# Read-model consistency — READY TO UPLOAD
 
 Author: Andrew Fisher.
 
@@ -6,7 +6,7 @@ Bounded read-only association of existing evidence when a canonical native unit 
 
 Original records, event objects, financial models and physical quantities are unchanged. The existing direct-ID and complete-type/reference rules remain in place. The map frame and off-site presentation implementations are untouched.
 
-The patch requires both the exact reviewed base SHA-256 and its explicit footer version. Root must rebuild from the verified release that immediately precedes publication. This folder is DRAFT, not ready to upload; final-successor preservation, desktop/phone navigation and guarded publication/read-back gates remain outstanding.
+The patch requires both the exact reviewed base SHA-256 and its explicit footer version. Root must rebuild from the verified release that immediately precedes publication. Final-successor preservation, desktop/phone navigation and the shared live-base rebuild have passed. This folder is READY TO UPLOAD; guarded publication/read-back remains with Claude.
 
 Public tests use synthetic fixtures only. Native findings and original records remain in private storage.
 
@@ -41,8 +41,8 @@ rebuild. All predecessor changes are retained exactly outside the bounded unit
 association and footer replacements.
 
 The original browser results above are historical. Final successor native/UI and
-full sweep results are recorded below. A verified live predecessor and shared
-rebuild still remain required. No READY or live claim.
+full sweep results are recorded below. The independently verified live predecessor
+and exact shared rebuild are now complete, as recorded in the READY handover below.
 
 The final `4c07b14d578e390b7d39d073b8946ce9d84a21250cb55147d980eadce635cfe1`
 candidate also passes 1,403 native comparison checks against that exact predecessor
@@ -56,7 +56,22 @@ Both final shared desktop and phone navigation sweeps pass all 27 tabs, seven de
 links and Back navigation. They use the same frozen record, retain the shared
 map-service session exception, and deny operational writes. Runtime errors, console
 errors and operational-write attempts are zero; documents remain exact and the
-queue stays empty. The final candidate hash is unchanged. This remains DRAFT until
-the v12.45.1 predecessor is independently verified live and the shared build
-reproduces this exact candidate. It may then be handed to Claude as READY; guarded
-publication and full public-byte read-back are required before a LIVE claim.
+queue stays empty. The final candidate hash is unchanged. The v12.45.1 predecessor
+is independently byte-verified live; the shared build reproduces the exact tested
+candidate. READY TO UPLOAD; guarded publication and full public-byte read-back
+remain required before a LIVE claim.
+
+## READY handover, 28 Oct 2026
+
+Author: Andrew Fisher.
+
+Frozen implementation/tests source: `7ebf35689369bb4049d88a1d04ade42b1d9ee406`. Verified live45.1 base: `2af6d293843be7165e0ac6a0b05e7ce1d8263ab968a62ab30c14f009599253d5`. Shared-build candidate: `4c07b14d578e390b7d39d073b8946ce9d84a21250cb55147d980eadce635cfe1`, 16,070,111 bytes. A fresh record read before this handover exactly matched the tested snapshot. No financial, contract or operational record change.
+
+```sh
+GC500_V1246_BASE_SHA256=2af6d293843be7165e0ac6a0b05e7ce1d8263ab968a62ab30c14f009599253d5 \
+GC500_V1246_BASE_VERSION=12.45.1 \
+  bash 03_GC500_Delivery_Control/toolchain/build.sh v12.46 \
+  03_GC500_Delivery_Control/v12.46_read_model_consistency_DRAFT/patch_v1246.py
+```
+
+Claude owns publication: require exact candidate bytes, unchanged financial probe against the base, guarded upload and full public-byte read-back. The approved47 map-strip successor must preserve this release.
