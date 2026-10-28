@@ -35,3 +35,7 @@ flock /tmp/gc500-browser.lock env BASE=/private/exact54.html \
 Set `CHROMIUM_PATH` when the environment uses its system browser. The focused test uses the shared read-only candidate harness from the archived v12.43 release and does not depend on the v12.54 draft folder name.
 
 Current tested candidate SHA256: `20a81f75b8d47ed1c0d32cf3d5b5e5e79fe1bb5420b2fe459f9d4bbf94c771d5`,16,106,179 bytes. Five boundary checks,217-script parsing,33 complete money-text visibility checks across390/360/640px, adjacent contract-table preservation, desktop/print checks and full financial/source/document invariance pass. Independent code/byte review, both final shared navigation sweeps, verified-live54 and exact shared-rebuild gates pass. READY TO UPLOAD; not live.
+
+## LIVE
+
+LIVE 29 Oct 2026 09:18 AEST. Public bytes `20a81f75b8d47ed1c0d32cf3d5b5e5e79fe1bb5420b2fe459f9d4bbf94c771d5`, 16,106,179 bytes, byte for byte the tested candidate, rebuilt from frozen `e32fe495` on the verified live v12.54 `378d4b66…` with the command above. Byte diff against live v12.54: one 302-byte phone-only style rule before `</head>` and the footer `v12.54` → `v12.54.1`; nothing else. Money probe, base against candidate on the same record (11946): charge $1,007,518.57, cost $448,019.57, every P&L row and branch total identical. Guarded upload (live page unchanged since the build started); `cmp` of the public read-back against the candidate identical. Folder renamed `_LIVE`.
