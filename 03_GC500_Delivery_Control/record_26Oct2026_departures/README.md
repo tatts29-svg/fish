@@ -428,3 +428,7 @@ Andrew, 28 Oct 2026: "1224791 1224783 Leaving 12pm". Both light tower pods left 
 ## Run 46 - WC41 (10), WC42 (1), WC40 last 4 left 12:15, 28 Oct 2026 (APPLIED)
 
 Andrew, 28 Oct 2026: "Wc42 wc41 all picked up 12:15pm", then "Picked up.1215pm too" with 0626, 0648, 0433, 0541 (WC40). WC41, WC42 and WC40 each left in full. Today groups unchanged. Report `report_20261028T022023Z.json`.
+
+## Run 47 - P45 (Coates 107135) left 12:40, 28 Oct 2026 (APPLIED)
+
+Andrew, 28 Oct 2026: "P45 left 1240pm". Left in full. Today groups unchanged. Report `report_20261028T024418Z.json`.
