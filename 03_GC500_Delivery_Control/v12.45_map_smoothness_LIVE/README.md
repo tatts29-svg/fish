@@ -54,3 +54,8 @@ Require candidate SHA-256
 public-byte read-back. If the predecessor changes, return for rebase and
 necessary checks. Not live until that succeeds. Financial45.1 and read-model46
 must use the exact verified successor; Build47 remains a separate preview.
+
+LIVE 28 Oct 2026 20:56 AEST (Claude publication).
+- Rebuilt from `patch_v1245.py` with `GC500_V1245_BASE_SHA256` on live v12.43.1 `174b7f4c…`. The candidate `63856220d5541f3e1f66b0bc2ea4bc98cdecee6f41d9804baf59401ffbc9ba57` (16,054,255 bytes) matches READY exactly. check_page PASS.
+- Money probe identical to base (charge $1,025,473.88, cost $448,019.57, 0 page errors).
+- Guarded upload; the public read-back matches byte for byte.
