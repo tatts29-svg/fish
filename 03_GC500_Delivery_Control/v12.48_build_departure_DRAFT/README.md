@@ -2,7 +2,9 @@
 
 Author: Andrew Fisher
 
-DRAFT — not READY and not live. The publication owner is recorded on STATUS; the combined candidate must pass the agreed checks first. Start from verified live v12.47 SHA-256 `1437f56498007f24a7e54acfd23542c2ab2daa0e3fd9aca64941c45753bd47ff`.
+READY TO UPLOAD — all final release checks pass; not live. Frozen implementation/tests: `3aad0e33725d5e2e55f309ed83ece6da2524303e`. Codex implemented/tested; Claude owns guarded publication. Start from verified live v12.47 SHA-256 `1437f56498007f24a7e54acfd23542c2ab2daa0e3fd9aca64941c45753bd47ff`.
+
+The shared live-base build reproduces the tested combined candidate exactly: SHA-256 `39836e1521ace88ea9142c393fdfe1cac90cae0876a954a699121729e323416b`, 16,097,456 bytes. All final focused native checks below use the same frozen record, version 11733, SHA-256 `a0dbf68c109410939d48bc95e68a201fe45fba3aaca21ad599bf839a7e02d99c`. Private fixtures, screenshots and detailed records are kept outside the repository.
 
 ## Build-card correction
 
@@ -23,9 +25,13 @@ Sub-hired unit cards reuse the exact native departure event and existing stamp f
 ## Checks and release boundary
 
 - Build projection: 40 synthetic assertions, including no/unknown/conflicting departure evidence, full/partial outcomes, source non-mutation, native model/formatter reuse and mixed-load booking references.
-- Map projection/sizing and Sub-hired identity/quantity checks use synthetic evidence. The Sub-hired check also exercises the two exact native renderer anchors and reverses them to the unchanged predecessor.
+- Map projection/sizing: 27 synthetic assertions. Sub-hired identity/quantity: 27 synthetic and exact-anchor/reversal assertions.
 - Patch boundary: eight tests covering explicit predecessor, wrong bytes/version, repeat application, source fingerprints, exact anchors, full reversal and failed-CLI non-mutation.
-- Focused actual-page Build verification and final combined regression checks are recorded after completion. Tests are read only; private native fixtures and screenshots remain outside the repository.
+- Shared build/checker: exact predecessor and candidate hashes verified; all 217 inline scripts parse, no new keys and the author line remains.
+- Native Build: full and partial departure cases, native stamp text, Finished indicator, obsolete booking suppression, expanded native controls, map-strip keys, date/weather order and exact record preservation pass. The final phone screenshot was inspected.
+- Native map: 2,309 checks pass against the exact predecessor on the same frozen record. Reference/pin/icon/quantity facts are preserved; phone and tablet viewport sizing, desktop sizing, repeated resizing, trusted touch scrolling, hit-tested native canvas panning, selection, zoom and fullscreen Escape pass. The first gesture test emitted no touch-move events, and a later pan coordinate hit an existing overlay; the corrected test verifies trusted touch events and a visible native canvas target on both baseline and candidate.
+- Native Sub-hired: 233 checks pass. Unit stamps match native departure events; remaining/planned identities stay unstamped; the original company HTML and controls remain exact after removing the added departure detail. The final phone screenshot was inspected.
+- All final focused sessions report zero runtime errors, console errors or attempted operational writes; operational documents remain exact. Financial preservation passes all 34 assertions. Desktop and phone each pass the complete 27-tab, seven-deep-link and Back sweep, with zero runtime/console errors or operational writes. Existing view-only redirects match the verified predecessor. A fresh record read at 14:47 UTC remains byte-identical to the tested snapshot.
 - The guarded patch preserves every original stylesheet and reverses exactly to the reviewed predecessor. All coordinated module sources and exact replacement descriptors are SHA-256 guarded.
 
 Run the focused offline checks from the release folder:
@@ -48,4 +54,4 @@ bash 03_GC500_Delivery_Control/toolchain/build.sh v12.48 \
   03_GC500_Delivery_Control/v12.48_build_departure_DRAFT/patch_v1248.py
 ```
 
-No publication is authorised by this draft label alone. Require the final READY source/candidate in STATUS, exact shared rebuild, unchanged money/records, the focused checks, both navigation sweeps and the guarded upload/public read-back.
+Claude: rebuild from the exact verified v12.47 base using the command above; require the candidate hash and byte count to match this READY record. Recheck current financial/record preservation, use the shared guarded upload and record full public-byte read-back. Codex will independently check the served bytes after publication. If the predecessor or candidate changes, hand the draft back for the affected checks. No operational writes.
