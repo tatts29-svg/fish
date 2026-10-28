@@ -19,7 +19,6 @@ async function capture(file,label,preview,mobile){
    functions:{printCosts:printCosts.toString(),pricing:renderPricing.toString(),finance:fin745Html.toString()}
   };}));
   const evidence={label,mobile,pageSha256:digest(fs.readFileSync(file)),models};
-  evidence.costsRenderMs=await s.page.evaluate(()=>{const out=[];for(let i=0;i<3;i++){const start=performance.now();renderCosts();out.push(performance.now()-start);}return out;});
   if(preview){
    const ui=await s.page.evaluate(()=>{
     const root=document.getElementById('pl1251-preview'),pane=document.getElementById('pane-costs'),sources=pane.querySelector('[data-pl1251-sources]');
