@@ -42,11 +42,25 @@ DRAW_B = """  show(mcanvas,true);marksDrawn=true;const M=sheetToDevice(dpr*v.sca
   document.addEventListener('visibilitychange',()=>{if(!document.hidden)kick();});still.addEventListener?.('change',kick);
   return Object.freeze({set(pts,sc){P=pts;SC=sc||1;kick();},get points(){return P.map(q=>({...q}));},get radius(){return dpr*Math.max(5,Math.min(16,5+4.5*Math.log2(Math.max(1,SC/0.07))));}});})();"""
 
+# Demob and Find-it pictures: a third, much wider picture (Andrew, 28 Oct 2026: "i want a picture added that is zoomed out a lot more")
+VIEWS_A = "const VIEWS = [{key: 'close', halfM: 95, bar: 20, word: 'Close up'}, {key: 'wide', halfM: 420, bar: 100, word: 'Wider area'}];"
+VIEWS_B = "const VIEWS = [{key: 'close', halfM: 95, bar: 20, word: 'Close up'}, {key: 'wide', halfM: 420, bar: 100, word: 'Wider area'}, {key: 'site', halfM: 1600, bar: 500, word: 'Whole site'}]; /* v12.42.25: the whole-site picture */"
+VIEWW_A = "const VIEWW = {close: 'Close up · 190 m', wide: 'Wider area · 840 m'};"
+VIEWW_B = "const VIEWW = {close: 'Close up · 190 m', wide: 'Wider area · 840 m', site: 'Whole site'};"
+HALF_A = "half = v === 'wide' ? 420 : 95;"
+HALF_B = "half = v === 'site' ? 1600 : v === 'wide' ? 420 : 95;"
+STRIP_A = "return '<div class=\"ph1238\">' + fr('close') + fr('wide') + '</div>';"
+STRIP_B = "return '<div class=\"ph1238\">' + fr('close') + fr('wide') + fr('site') + '</div>'; /* v12.42.25: whole site across the full width under the two */"
+CSS_A = ".pf1238 .vw1238{position:absolute;right:7px;top:7px;"
+CSS_B = ".ph1238>.pf1238:nth-child(3),#pane-demob .sg1238 .ph1238>.pf1238:nth-child(3){grid-column:1/-1!important}\n.pf1238 .vw1238{position:absolute;right:7px;top:7px;"
+PICS_A = ".f1176-pics{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:4px 0 10px}"
+PICS_B = ".f1176-pics{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:4px 0 10px}.f1176-pics>figure:nth-child(3){grid-column:1/-1}"
+
 FOOT = ("+' · v12.42.24'; /* v8.19 release922", "+' · v12.42.25'; /* v8.19 release922")
 
 
 def patch(t, path='page'):
-    for a, b, what in ((STATUS_A, STATUS_B, 'departed status keeps its icon'), (LABEL_A, LABEL_B, 'label OFF SITE'), (DRAW_A, DRAW_B, 'off-site ring'), FOOT + ('footer',)):
+    for a, b, what in ((STATUS_A, STATUS_B, 'departed status keeps its icon'), (LABEL_A, LABEL_B, 'label OFF SITE'), (DRAW_A, DRAW_B, 'off-site ring'), (VIEWS_A, VIEWS_B, 'third view'), (VIEWW_A, VIEWW_B, 'demob view words'), (HALF_A, HALF_B, 'demob spot'), (STRIP_A, STRIP_B, 'demob strip'), (CSS_A, CSS_B, 'demob third picture full width'), (PICS_A, PICS_B, 'find-it third picture full width'), FOOT + ('footer',)):
         if t.count(a) != 1: raise ValueError(what + ': not found once (%d)' % t.count(a))
         t = rep(t, a, b, what, path)
     return t
