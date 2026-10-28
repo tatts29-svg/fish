@@ -49,3 +49,8 @@ These are bounded warm-navigation results. Phone ranges overlap and the later pr
 All browser checks hold `/tmp/gc500-browser.lock` and prevent live-record writes. Set the environment's `NODE_PATH` and `CHROMIUM_PATH`; supply `BASE`, `CANDIDATE`, `CANDIDATE_SHA`, `STATE` and a private `OUT` for comparison tests. Freshness uses `PAGE`; phone interactions use `PAGE`, `PAGE_SHA` and `MOB=1`. Detailed records, screenshots and superseded experiments remain private.
 
 Before publication, the coordinated release owner rebuilds the frozen source, requires the exact candidate hash and unchanged live predecessor, verifies the current-record financial probe, then uses the shared guarded uploader and checks the complete public bytes. A changed predecessor or candidate requires reconciliation and affected checks again. No operational writes are part of this release.
+
+
+## LIVE
+
+LIVE 29 Oct 2026 06:30 AEST (Claude publication). Exact rebuild from `58ed6333` on the verified live50 predecessor `7ea8e4d2…` reproduced the tested candidate `69bf04e72a45e084f0ba5227b4a26cf95ffe4078429044946af473120d4e7bb2`, 16,099,841 bytes; the money probe on base and candidate was identical apart from the footer (charge $1,011,296.03, cost $448,019.57, every P&L row and branch total the same); guarded upload (live page unchanged since the build started; record 11766); public read-back byte for byte identical.
