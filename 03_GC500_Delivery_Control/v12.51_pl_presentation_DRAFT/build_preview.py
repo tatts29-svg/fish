@@ -7,7 +7,7 @@ p=argparse.ArgumentParser();p.add_argument('source',type=Path);p.add_argument('o
 raw=a.source.read_bytes();assert hashlib.sha256(raw).hexdigest()==BASE,'Preview requires exact reviewed v12.50'
 s=raw.decode();assert 'id="pl1251-preview-script"' not in s
 root=Path(__file__).parent;ending='</body>\n</html>';assert s.rstrip().endswith(ending)
-addition='<style id="pl1251-preview-style">\n'+(root/'pl1251_preview.css').read_text()+'\n</style>\n<script id="pl1251-preview-script">\n'+(root/'pl1251_preview.js').read_text()+'\n</script>\n'
+addition='<style id="pl1251-preview-style">\n'+(root/'pl1251_preview.css').read_text()+'\n</style>\n<script id="pl1251-preview-script">\n'+(root/'pl1251_branches.js').read_text()+'\n'+(root/'pl1251_preview.js').read_text()+'\n</script>\n'
 offset=s.rfind(ending);out=s[:offset]+addition+s[offset:]
 assert out.replace(addition,'').encode()==raw,'Removing preview must recover every predecessor byte'
 a.output.parent.mkdir(parents=True,exist_ok=True);a.output.write_text(out)
