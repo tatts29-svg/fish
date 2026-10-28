@@ -1,0 +1,46 @@
+# Advanced Temporary Fencing invoices against the purchase orders on the record, 29 Oct 2026
+
+Author: Andrew Fisher · 29 Oct 2026 09:55 AEST · read only (no record change). Live page v12.54.1 (`20a81f75…`), record 11949.
+
+Andrew handed over six Coates AP copies of Advanced Temporary Fencing's tax invoices (one page each; the Coates document
+number is in each file name). They stay private, not committed: they carry the supplier's bank details.
+
+| Coates document | Invoice | Dated | Works | Purchase order | Week | Ex GST | GST | Inc GST | Coates acceptance |
+|---|---|---|---|---|---|---|---|---|---|
+| 13599353 | GC090926 | 15 Sep 2026 | 9–12 Sep | 4647508 | CON week 6 | $8,992.00 | $899.20 | $9,891.20 | 15 Sep |
+| 13539257 | GC220926 | 22 Sep 2026 | not stated | 4647509 | CON week 5 | $33,670.50 | $3,367.05 | $37,037.55 | 23 Sep |
+| 13564370 | GC290926 | 29 Sep 2026 | 21–25 Sep | 4647517 | CON week 4 | $26,695.00 | $2,669.50 | $29,364.50 | 1 Oct |
+| 13574038 | GC071026 | 7 Oct 2026 | 28 Sep – 2 Oct | 4647515 | CON week 3 | $50,154.00 | $5,015.40 | $55,169.40 | 9 Oct |
+| 13599005 | GC141026 | 14 Oct 2026 | 2–9 Oct | 4647519 | CON week 2 | $28,246.50 | $2,824.65 | $31,071.15 | 15 Oct |
+| 13592566 | GC121026 | 22 Oct 2026 | 12–16 Oct | 4647520 | CON week 1 | $66,272.00 | $6,627.20 | $72,899.20 | 21 Oct |
+| | | | | | **Six weeks** | **$214,030.00** | **$21,403.00** | **$235,433.00** | |
+
+Every invoice names the signed work sheet P003-25003-01 for its week and "GC500 temporary fencing", payment due 14 days
+as per contract.
+
+## Against the record (the Purchase orders card, v11.58 rule)
+
+| Purchase order | Order on the record | Invoice ex GST | Page's state | Verdict |
+|---|---|---|---|---|
+| 4647508 week 6 | $8,992.00 · receipt 4918492, full | $8,992.00 | receipted, the order stands (six dockets, no sheet) | to the cent |
+| 4647509 week 5 | $33,670.00 · receipt 4922398, full | $33,670.50 | sheet $33,670.50, 50 cents over the receipted order | **invoice is 50 cents over our receipt** |
+| 4647517 week 4 | $26,695.00 · receipt 4926209, full | $26,695.00 | invoice matched to the cent | to the cent |
+| 4647515 week 3 | $50,154.00 · no receipt ID | $50,154.00 | sheet matched to the cent | to the cent; receipt ID still to come |
+| 4647519 week 2 | $28,246.50 · no receipt ID | $28,246.50 | sheet matched to the cent | to the cent; receipt ID still to come |
+| 4647520 week 1 | $66,272.00 · no receipt ID | $66,272.00 | sheet matched to the cent | to the cent; receipt ID still to come |
+
+Six orders $214,029.50 on the record against $214,030.00 invoiced; the whole difference is the 50 cents on 4647509.
+Nothing invoiced yet for the event week (4647522: 62 dockets so far, about $71,160 at Advanced's sheet rates) or the
+demob weeks (4647523); 4658850 ($195, receipt 4922343) sits outside the programme weeks.
+
+## Worth a word with Advanced
+
+- GC121026 (week 1) is dated 22 Oct 2026 but says "payment due 03-10-2026", a date before the invoice; the number reads as
+  12 Oct. Accounts will query it; the 14-day due date would be 5 Nov.
+- GC220926 (week 5) carries no date of works.
+
+## What the page could carry, on Andrew's word
+
+The record's orders have no field for the supplier's invoice number and date (the page's "receipt ID" box is Coates'
+receipt). They can go in each order's note through the runner's `po` op, or Codex can add an invoice field to the card;
+and the receipt IDs for 4647515, 4647519 and 4647520 are Andrew's to give once Coates receipts them.
