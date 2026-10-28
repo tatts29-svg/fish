@@ -495,3 +495,8 @@ Andrew, 29 Oct 2026: "4667755" for Eric Lucian's week, then "he uses this too 46
 ## Runs 60 and 61 — purchase orders 4670882 (Daniel Gough) and 4671825 (Kyle Gover), Job Connect, week ending 25 Oct 2026 (29 Oct 2026 11:00 AEST, record 11937 → 11940 → 11943)
 
 Andrew, 29 Oct 2026: "this will be daniel next week 25/10/2026 4670882"; "and this will be Kyle Week Ending 25/10/2026 4671825". Specs `spec60_po_daniel_w25oct.json` and `spec61_po_kyle_w25oct.json`, reports `report_20261028T223401Z.json` and `report_20261028T223506Z.json`: each a `po` op through the page's own setPo, KINP, confirmed, no amount until the invoice; three documents written per run, verified, every other document unchanged in value. Kyle's week on the record: 19–22 Oct days, 23–25 Oct nights, 78.78 h. Daniel's race-week hours are not yet on the record (his accommodation 22–25 Oct is).
+
+
+## Run 62 — purchase order 4668970, Kyle Gover, Job Connect, week ending 18 Oct 2026 (29 Oct 2026 11:05 AEST, record 11943 → 11946)
+
+Andrew, 29 Oct 2026: "Kyle week Ending 18/10/2026 P/O 4668970". Spec `spec62_po_kyle_w18oct.json`, report `report_20261028T225339Z.json`: `po` op through setPo, KINP, confirmed, no amount until the invoice; three documents written, verified, every other document unchanged in value. Kyle's week on the record: 12–16 Oct, 52.5 h.
